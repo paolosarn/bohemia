@@ -1,0 +1,110 @@
+{
+ "version": "cook-every-item-10-25",
+ "lane": "cook",
+ "rule": "177(b)(c)",
+ "frames": {
+  "held": "real metres; the origin the middle of the right hand's grip, the haft or barrel along +X, the edge or the striking face toward +Z (COMBAT's guns tool and ANIMATION's place()); hafts drawn 1.35 x their girth; left_x = where a second hand grips, metres along +X",
+  "shield": "real metres; the face out along +X, the width along +Y, up +Z; the forearm runs along Z at x = 0 behind it, its middle at the origin; elbow_z and grip_z = the loop and the grip (ANIMATION's build_shield/place_shield frame)",
+  "worn": "the rig's man's skeleton (CesiumMan's 19 bones, the same rest as every look) in the file, the meshes skinned to its bones by name, in the model's own units (the man about 1.5 tall); bind to a look's armature and call fit() in tools/bohemia_cook_a_model_for_every_item_10_25_26.py to clear his own body by the margin"
+ },
+ "items": {
+  "car_door": {
+   "glb": "item_car_door.glb",
+   "kind": "shield",
+   "name": "a car door",
+   "say": "a sedan's front door cut off at the beltline: the sun-killed teal skin with its crease, a dent filled and gone pale, rust up the bottom seam, four bullet holes punched out bright, the handle, the mirror's black sail with the mirror snapped off, the window channel with three teeth of glass still in it, the hinges torn off the front edge; behind, the bare inner panel with its three holes and a seatbelt looped for the forearm",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "buckler",
+    "wooden_skirmisher_shield",
+    "reinforced_skirmisher_shield",
+    "old_wooden_shield",
+    "ancient_auxiliary_shield",
+    "wooden_shield",
+    "feral_shield",
+    "adarga_shield",
+    "ancient_coffin_shield",
+    "decayed_heater_shield",
+    "heater_shield",
+    "ancient_tower_shield"
+   ],
+   "sha1": "cda4671959e8a2e6a71370be8503e49b50b62812",
+   "w": 0.92,
+   "h": 0.62,
+   "measured": {
+    "size_m": [
+     0.235,
+     0.977,
+     0.787
+    ],
+    "lo": [
+     -0.094,
+     -0.51,
+     -0.317
+    ],
+    "hi": [
+     0.141,
+     0.467,
+     0.47
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_rust 1",
+     "clay_teal 2",
+     "metal_painted 1",
+     "rubber 1"
+    ],
+    "verts": 2990,
+    "parts": 54,
+    "elbow_z": 0.13,
+    "grip_z": -0.15
+   },
+   "elbow_z": 0.13,
+   "grip_z": -0.15
+  },
+  "pistol": {
+   "glb": "gun_pistol_a.glb",
+   "kind": "held",
+   "name": "pistol",
+   "say": "",
+   "made": "COOK 10/18 (the rig's first guns)",
+   "rows": [
+    "knife",
+    "dagger",
+    "notched_blade",
+    "rondel_dagger",
+    "qatal_dagger",
+    "estoc"
+   ],
+   "sha1": "6a0626d3d113d16f3d0299d36d2a10c2133c41c1",
+   "hands": 1
+  },
+  "shotgun": {
+   "glb": "gun_shotgun_a.glb",
+   "kind": "held",
+   "name": "shotgun",
+   "say": "",
+   "made": "COOK 10/18",
+   "rows": [
+    "handgonne"
+   ],
+   "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
+   "hands": 2
+  },
+  "rifle": {
+   "glb": "gun_rifle_a.glb",
+   "kind": "held",
+   "name": "rifle",
+   "say": "",
+   "made": "COOK 10/18",
+   "rows": [
+    "light_crossbow",
+    "crossbow",
+    "heavy_crossbow",
+    "spiked_impaler"
+   ],
+   "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
+   "hands": 2
+  }
+ }
+}

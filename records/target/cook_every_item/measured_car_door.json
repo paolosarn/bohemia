@@ -1,0 +1,28 @@
+{
+ "size_m": [
+  0.235,
+  0.977,
+  0.787
+ ],
+ "lo": [
+  -0.094,
+  -0.51,
+  -0.317
+ ],
+ "hi": [
+  0.141,
+  0.467,
+  0.47
+ ],
+ "materials": [
+  "chrome 1",
+  "clay_rust 1",
+  "clay_teal 2",
+  "metal_painted 1",
+  "rubber 1"
+ ],
+ "verts": 2990,
+ "parts": 54,
+ "elbow_z": 0.13,
+ "grip_z": -0.15
+}

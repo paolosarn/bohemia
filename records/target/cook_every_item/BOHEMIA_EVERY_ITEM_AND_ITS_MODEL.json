@@ -1,0 +1,2613 @@
+{
+ "version": "cook-every-item-10-25",
+ "lane": "cook",
+ "row": "[a model for every item]",
+ "rule": "177(c)",
+ "what": "every row the stash can hold (records/target/bb/weapons.json, armor.json) -> the object a player meets it as -> its model",
+ "rows_total": 310,
+ "objects_total": 27,
+ "objects_with_a_model_before": 3,
+ "objects_with_a_model_now": 4,
+ "objects": {
+  "car_door": {
+   "kind": "shield",
+   "name": "a car door",
+   "rows": 12,
+   "glb": "reference/models/bohemia/item_car_door.glb",
+   "built": true,
+   "checked": true,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "crash_bar": {
+   "kind": "shield",
+   "name": "a crash-bar shield",
+   "rows": 1,
+   "glb": "reference/models/bohemia/item_crash_bar.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "riot_shield": {
+   "kind": "shield",
+   "name": "a riot shield",
+   "rows": 6,
+   "glb": "reference/models/bohemia/item_riot_shield.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "pistol": {
+   "kind": "held",
+   "name": "pistol",
+   "rows": 6,
+   "glb": "reference/models/bohemia/gun_pistol_a.glb",
+   "built": true,
+   "checked": true,
+   "before_this_round": "COOK's gun glb"
+  },
+  "shotgun": {
+   "kind": "held",
+   "name": "shotgun",
+   "rows": 1,
+   "glb": "reference/models/bohemia/gun_shotgun_a.glb",
+   "built": true,
+   "checked": true,
+   "before_this_round": "COOK's gun glb"
+  },
+  "rifle": {
+   "kind": "held",
+   "name": "rifle",
+   "rows": 4,
+   "glb": "reference/models/bohemia/gun_rifle_a.glb",
+   "built": true,
+   "checked": true,
+   "before_this_round": "COOK's gun glb"
+  },
+  "pipe": {
+   "kind": "held",
+   "name": "pipe",
+   "rows": 15,
+   "glb": "reference/models/bohemia/item_pipe.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "sledge": {
+   "kind": "held",
+   "name": "sledge",
+   "rows": 7,
+   "glb": "reference/models/bohemia/item_sledge.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "bottles": {
+   "kind": "held",
+   "name": "bottles",
+   "rows": 16,
+   "glb": "reference/models/bohemia/item_bottles.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "machete": {
+   "kind": "held",
+   "name": "machete",
+   "rows": 16,
+   "glb": "reference/models/bohemia/item_machete.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "fire_axe": {
+   "kind": "held",
+   "name": "fire axe",
+   "rows": 10,
+   "glb": "reference/models/bohemia/item_fire_axe.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "rebar_spear": {
+   "kind": "held",
+   "name": "rebar spear",
+   "rows": 8,
+   "glb": "reference/models/bohemia/item_rebar_spear.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "cleaver": {
+   "kind": "held",
+   "name": "cleaver",
+   "rows": 14,
+   "glb": "reference/models/bohemia/item_cleaver.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "chain": {
+   "kind": "held",
+   "name": "chain",
+   "rows": 7,
+   "glb": "reference/models/bohemia/item_chain.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "pole_hook": {
+   "kind": "held",
+   "name": "pole hook",
+   "rows": 10,
+   "glb": "reference/models/bohemia/item_pole_hook.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "compound_bow": {
+   "kind": "held",
+   "name": "compound bow",
+   "rows": 8,
+   "glb": "reference/models/bohemia/item_compound_bow.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "club": {
+   "kind": "held",
+   "name": "club (the wooden stick)",
+   "rows": 1,
+   "glb": "reference/models/bohemia/item_club.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "bat": {
+   "kind": "held",
+   "name": "nail bat (the morning star)",
+   "rows": 1,
+   "glb": "reference/models/bohemia/item_bat.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "hatchet": {
+   "kind": "held",
+   "name": "hatchet (the hatchet, the handaxe)",
+   "rows": 2,
+   "glb": "reference/models/bohemia/item_hatchet.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
+  },
+  "work_jacket": {
+   "kind": "worn_body",
+   "name": "a work jacket",
+   "rows": 16,
+   "glb": "reference/models/bohemia/item_work_jacket.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "padded_vest": {
+   "kind": "worn_body",
+   "name": "a padded vest",
+   "rows": 20,
+   "glb": "reference/models/bohemia/item_padded_vest.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "plate_carrier": {
+   "kind": "worn_body",
+   "name": "a plate carrier",
+   "rows": 22,
+   "glb": "reference/models/bohemia/item_plate_carrier.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "full_riot_armour": {
+   "kind": "worn_body",
+   "name": "full riot armour",
+   "rows": 20,
+   "glb": "reference/models/bohemia/item_full_riot_armour.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "rag_hood": {
+   "kind": "worn_head",
+   "name": "a rag hood",
+   "rows": 13,
+   "glb": "reference/models/bohemia/item_rag_hood.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "hard_hat": {
+   "kind": "worn_head",
+   "name": "a hard hat",
+   "rows": 21,
+   "glb": "reference/models/bohemia/item_hard_hat.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "riot_helmet": {
+   "kind": "worn_head",
+   "name": "a riot helmet",
+   "rows": 24,
+   "glb": "reference/models/bohemia/item_riot_helmet.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  },
+  "full_riot_helm": {
+   "kind": "worn_head",
+   "name": "a full riot helm",
+   "rows": 29,
+   "glb": "reference/models/bohemia/item_full_riot_helm.glb",
+   "built": true,
+   "checked": false,
+   "before_this_round": "nothing"
+  }
+ },
+ "rows": [
+  {
+   "id": "knife",
+   "kind": "weapon",
+   "bb_name": "Knife",
+   "cls": "dagger",
+   "object": "pistol"
+  },
+  {
+   "id": "dagger",
+   "kind": "weapon",
+   "bb_name": "Dagger",
+   "cls": "dagger",
+   "object": "pistol"
+  },
+  {
+   "id": "notched_blade",
+   "kind": "weapon",
+   "bb_name": "Notched Blade",
+   "cls": "dagger",
+   "object": "pistol"
+  },
+  {
+   "id": "rondel_dagger",
+   "kind": "weapon",
+   "bb_name": "Rondel Dagger",
+   "cls": "dagger",
+   "object": "pistol"
+  },
+  {
+   "id": "qatal_dagger",
+   "kind": "weapon",
+   "bb_name": "Qatal Dagger",
+   "cls": "dagger",
+   "object": "pistol"
+  },
+  {
+   "id": "estoc",
+   "kind": "weapon",
+   "bb_name": "Estoc",
+   "cls": "dagger",
+   "object": "pistol"
+  },
+  {
+   "id": "broken_ancient_sword",
+   "kind": "weapon",
+   "bb_name": "Broken Ancient Sword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "shortsword",
+   "kind": "weapon",
+   "bb_name": "Shortsword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "saif",
+   "kind": "weapon",
+   "bb_name": "Saif",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "falchion",
+   "kind": "weapon",
+   "bb_name": "Falchion",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "cruel_falchion",
+   "kind": "weapon",
+   "bb_name": "Cruel Falchion",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "ancient_sword",
+   "kind": "weapon",
+   "bb_name": "Ancient Sword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "scimitar",
+   "kind": "weapon",
+   "bb_name": "Scimitar",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "arming_sword",
+   "kind": "weapon",
+   "bb_name": "Arming Sword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "shamshir",
+   "kind": "weapon",
+   "bb_name": "Shamshir",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "noble_sword",
+   "kind": "weapon",
+   "bb_name": "Noble Sword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "fencing_sword",
+   "kind": "weapon",
+   "bb_name": "Fencing Sword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "rhomphaia",
+   "kind": "weapon",
+   "bb_name": "Rhomphaia",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "warbrand",
+   "kind": "weapon",
+   "bb_name": "Warbrand",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "longsword",
+   "kind": "weapon",
+   "bb_name": "Longsword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "greatsword",
+   "kind": "weapon",
+   "bb_name": "Greatsword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "executioner_s_sword",
+   "kind": "weapon",
+   "bb_name": "Executioner's Sword",
+   "cls": "sword",
+   "object": "machete"
+  },
+  {
+   "id": "wooden_stick",
+   "kind": "weapon",
+   "bb_name": "Wooden Stick",
+   "cls": "mace",
+   "object": "club"
+  },
+  {
+   "id": "claw_club",
+   "kind": "weapon",
+   "bb_name": "Claw Club",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "bludgeon",
+   "kind": "weapon",
+   "bb_name": "Bludgeon",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "nomad_mace",
+   "kind": "weapon",
+   "bb_name": "Nomad Mace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "light_southern_mace",
+   "kind": "weapon",
+   "bb_name": "Light Southern Mace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "morning_star",
+   "kind": "weapon",
+   "bb_name": "Morning Star",
+   "cls": "mace",
+   "object": "bat"
+  },
+  {
+   "id": "heavy_southern_mace",
+   "kind": "weapon",
+   "bb_name": "Heavy Southern Mace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "winged_mace",
+   "kind": "weapon",
+   "bb_name": "Winged Mace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "gnarly_staff",
+   "kind": "weapon",
+   "bb_name": "Gnarly Staff",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "tree_limb",
+   "kind": "weapon",
+   "bb_name": "Tree Limb",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "cudgel",
+   "kind": "weapon",
+   "bb_name": "Cudgel",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "lute",
+   "kind": "weapon",
+   "bb_name": "Lute",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "two_handed_spiked_mace",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Spiked Mace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "two_handed_mace",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Mace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "two_handed_flanged_mace",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Flanged Mace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "polemace",
+   "kind": "weapon",
+   "bb_name": "Polemace",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "goedendag",
+   "kind": "weapon",
+   "bb_name": "Goedendag",
+   "cls": "mace",
+   "object": "pipe"
+  },
+  {
+   "id": "militia_spear",
+   "kind": "weapon",
+   "bb_name": "Militia Spear",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "ancient_spear",
+   "kind": "weapon",
+   "bb_name": "Ancient Spear",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "goblin_skewer",
+   "kind": "weapon",
+   "bb_name": "Goblin Skewer",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "boar_spear",
+   "kind": "weapon",
+   "bb_name": "Boar Spear",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "fire_lance",
+   "kind": "weapon",
+   "bb_name": "Fire Lance",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "fighting_spear",
+   "kind": "weapon",
+   "bb_name": "Fighting Spear",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "warfork",
+   "kind": "weapon",
+   "bb_name": "Warfork",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "spetum",
+   "kind": "weapon",
+   "bb_name": "Spetum",
+   "cls": "spear",
+   "object": "rebar_spear"
+  },
+  {
+   "id": "hatchet",
+   "kind": "weapon",
+   "bb_name": "Hatchet",
+   "cls": "axe",
+   "object": "hatchet"
+  },
+  {
+   "id": "crude_axe",
+   "kind": "weapon",
+   "bb_name": "Crude Axe",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "handaxe",
+   "kind": "weapon",
+   "bb_name": "Handaxe",
+   "cls": "axe",
+   "object": "hatchet"
+  },
+  {
+   "id": "fighting_axe",
+   "kind": "weapon",
+   "bb_name": "Fighting Axe",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "head_splitter",
+   "kind": "weapon",
+   "bb_name": "Head Splitter",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "axehammer",
+   "kind": "weapon",
+   "bb_name": "Axehammer",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "woodcutter_s_axe",
+   "kind": "weapon",
+   "bb_name": "Woodcutter's Axe",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "heavy_rusty_axe",
+   "kind": "weapon",
+   "bb_name": "Heavy Rusty Axe",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "bardiche",
+   "kind": "weapon",
+   "bb_name": "Bardiche",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "greataxe",
+   "kind": "weapon",
+   "bb_name": "Greataxe",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "man_splitter",
+   "kind": "weapon",
+   "bb_name": "Man Splitter",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "longaxe",
+   "kind": "weapon",
+   "bb_name": "Longaxe",
+   "cls": "axe",
+   "object": "fire_axe"
+  },
+  {
+   "id": "wooden_flail",
+   "kind": "weapon",
+   "bb_name": "Wooden Flail",
+   "cls": "flail",
+   "object": "chain"
+  },
+  {
+   "id": "reinforced_wooden_flail",
+   "kind": "weapon",
+   "bb_name": "Reinforced Wooden Flail",
+   "cls": "flail",
+   "object": "chain"
+  },
+  {
+   "id": "flail",
+   "kind": "weapon",
+   "bb_name": "Flail",
+   "cls": "flail",
+   "object": "chain"
+  },
+  {
+   "id": "three_headed_flail",
+   "kind": "weapon",
+   "bb_name": "Three-Headed Flail",
+   "cls": "flail",
+   "object": "chain"
+  },
+  {
+   "id": "two_handed_wooden_flail",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Wooden Flail",
+   "cls": "flail",
+   "object": "chain"
+  },
+  {
+   "id": "two_handed_flail",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Flail",
+   "cls": "flail",
+   "object": "chain"
+  },
+  {
+   "id": "berserk_chain",
+   "kind": "weapon",
+   "bb_name": "Berserk Chain",
+   "cls": "flail",
+   "object": "chain"
+  },
+  {
+   "id": "antler_cleaver",
+   "kind": "weapon",
+   "bb_name": "Antler Cleaver",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "butcher_s_cleaver",
+   "kind": "weapon",
+   "bb_name": "Butcher's Cleaver",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "falx",
+   "kind": "weapon",
+   "bb_name": "Falx",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "blunt_cleaver",
+   "kind": "weapon",
+   "bb_name": "Blunt Cleaver",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "scramasax",
+   "kind": "weapon",
+   "bb_name": "Scramasax",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "khopesh",
+   "kind": "weapon",
+   "bb_name": "Khopesh",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "military_cleaver",
+   "kind": "weapon",
+   "bb_name": "Military Cleaver",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "head_chopper",
+   "kind": "weapon",
+   "bb_name": "Head Chopper",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "thorned_whip",
+   "kind": "weapon",
+   "bb_name": "Thorned Whip",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "battle_whip",
+   "kind": "weapon",
+   "bb_name": "Battle Whip",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "two_handed_saif",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Saif",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "rusty_warblade",
+   "kind": "weapon",
+   "bb_name": "Rusty Warblade",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "crypt_cleaver",
+   "kind": "weapon",
+   "bb_name": "Crypt Cleaver",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "two_handed_scimitar",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Scimitar",
+   "cls": "cleaver",
+   "object": "cleaver"
+  },
+  {
+   "id": "pickaxe",
+   "kind": "weapon",
+   "bb_name": "Pickaxe",
+   "cls": "hammer",
+   "object": "sledge"
+  },
+  {
+   "id": "military_pick",
+   "kind": "weapon",
+   "bb_name": "Military Pick",
+   "cls": "hammer",
+   "object": "sledge"
+  },
+  {
+   "id": "warhammer",
+   "kind": "weapon",
+   "bb_name": "Warhammer",
+   "cls": "hammer",
+   "object": "sledge"
+  },
+  {
+   "id": "two_handed_mallet",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Mallet",
+   "cls": "hammer",
+   "object": "sledge"
+  },
+  {
+   "id": "two_handed_skull_hammer",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Skull Hammer",
+   "cls": "hammer",
+   "object": "sledge"
+  },
+  {
+   "id": "two_handed_hammer",
+   "kind": "weapon",
+   "bb_name": "Two-Handed Hammer",
+   "cls": "hammer",
+   "object": "sledge"
+  },
+  {
+   "id": "polehammer",
+   "kind": "weapon",
+   "bb_name": "Polehammer",
+   "cls": "hammer",
+   "object": "sledge"
+  },
+  {
+   "id": "pitchfork",
+   "kind": "weapon",
+   "bb_name": "Pitchfork",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "broken_ancient_bladed_pike",
+   "kind": "weapon",
+   "bb_name": "Broken Ancient Bladed Pike",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "hooked_blade",
+   "kind": "weapon",
+   "bb_name": "Hooked Blade",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "jagged_pike",
+   "kind": "weapon",
+   "bb_name": "Jagged Pike",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "ancient_bladed_pike",
+   "kind": "weapon",
+   "bb_name": "Ancient Bladed Pike",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "warscythe",
+   "kind": "weapon",
+   "bb_name": "Warscythe",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "pike",
+   "kind": "weapon",
+   "bb_name": "Pike",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "swordlance",
+   "kind": "weapon",
+   "bb_name": "Swordlance",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "billhook",
+   "kind": "weapon",
+   "bb_name": "Billhook",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "pollaxe",
+   "kind": "weapon",
+   "bb_name": "Pollaxe",
+   "cls": "polearm",
+   "object": "pole_hook"
+  },
+  {
+   "id": "wonky_bow",
+   "kind": "weapon",
+   "bb_name": "Wonky Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "boondock_bow",
+   "kind": "weapon",
+   "bb_name": "Boondock Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "short_bow",
+   "kind": "weapon",
+   "bb_name": "Short Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "reinforced_boondock_bow",
+   "kind": "weapon",
+   "bb_name": "Reinforced Boondock Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "composite_bow",
+   "kind": "weapon",
+   "bb_name": "Composite Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "hunting_bow",
+   "kind": "weapon",
+   "bb_name": "Hunting Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "war_bow",
+   "kind": "weapon",
+   "bb_name": "War Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "masterwork_bow",
+   "kind": "weapon",
+   "bb_name": "Masterwork Bow",
+   "cls": "bow",
+   "object": "compound_bow"
+  },
+  {
+   "id": "light_crossbow",
+   "kind": "weapon",
+   "bb_name": "Light Crossbow",
+   "cls": "crossbow",
+   "object": "rifle"
+  },
+  {
+   "id": "crossbow",
+   "kind": "weapon",
+   "bb_name": "Crossbow",
+   "cls": "crossbow",
+   "object": "rifle"
+  },
+  {
+   "id": "heavy_crossbow",
+   "kind": "weapon",
+   "bb_name": "Heavy Crossbow",
+   "cls": "crossbow",
+   "object": "rifle"
+  },
+  {
+   "id": "spiked_impaler",
+   "kind": "weapon",
+   "bb_name": "Spiked Impaler",
+   "cls": "crossbow",
+   "object": "rifle"
+  },
+  {
+   "id": "handgonne",
+   "kind": "weapon",
+   "bb_name": "Handgonne",
+   "cls": "firearm",
+   "object": "shotgun"
+  },
+  {
+   "id": "bundle_of_spiked_bolas",
+   "kind": "weapon",
+   "bb_name": "Bundle of Spiked Bolas",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "bundle_of_crude_javelins",
+   "kind": "weapon",
+   "bb_name": "Bundle of Crude Javelins",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "bundle_of_javelins",
+   "kind": "weapon",
+   "bb_name": "Bundle of Javelins",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "bundle_of_heavy_javelins",
+   "kind": "weapon",
+   "bb_name": "Bundle of Heavy Javelins",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "bundle_of_throwing_axes",
+   "kind": "weapon",
+   "bb_name": "Bundle of Throwing Axes",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "bundle_of_heavy_throwing_axes",
+   "kind": "weapon",
+   "bb_name": "Bundle of Heavy Throwing Axes",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "throwing_spear",
+   "kind": "weapon",
+   "bb_name": "Throwing Spear",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "staff_sling",
+   "kind": "weapon",
+   "bb_name": "Staff Sling",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "nomad_sling",
+   "kind": "weapon",
+   "bb_name": "Nomad Sling",
+   "cls": "throwing",
+   "object": "bottles"
+  },
+  {
+   "id": "throwing_net",
+   "kind": "weapon",
+   "bb_name": "Throwing Net",
+   "cls": "throwable_item",
+   "object": "bottles"
+  },
+  {
+   "id": "reinforced_throwing_net",
+   "kind": "weapon",
+   "bb_name": "Reinforced Throwing Net",
+   "cls": "throwable_item",
+   "object": "bottles"
+  },
+  {
+   "id": "acid_flask",
+   "kind": "weapon",
+   "bb_name": "Acid Flask",
+   "cls": "throwable_item",
+   "object": "bottles"
+  },
+  {
+   "id": "flask_of_blessed_water",
+   "kind": "weapon",
+   "bb_name": "Flask of Blessed Water",
+   "cls": "throwable_item",
+   "object": "bottles"
+  },
+  {
+   "id": "fire_pot",
+   "kind": "weapon",
+   "bb_name": "Fire Pot",
+   "cls": "throwable_item",
+   "object": "bottles"
+  },
+  {
+   "id": "smoke_pot",
+   "kind": "weapon",
+   "bb_name": "Smoke Pot",
+   "cls": "throwable_item",
+   "object": "bottles"
+  },
+  {
+   "id": "flash_pot",
+   "kind": "weapon",
+   "bb_name": "Flash Pot",
+   "cls": "throwable_item",
+   "object": "bottles"
+  },
+  {
+   "id": "tattered_sackcloth",
+   "kind": "body",
+   "bb_name": "Tattered Sackcloth",
+   "durability": 5,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "sackcloth",
+   "kind": "body",
+   "bb_name": "Sackcloth",
+   "durability": 10,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "linen_tunic",
+   "kind": "body",
+   "bb_name": "Linen Tunic",
+   "durability": 20,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "cloth_sash",
+   "kind": "body",
+   "bb_name": "Cloth Sash",
+   "durability": 20,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "leather_wraps",
+   "kind": "body",
+   "bb_name": "Leather Wraps",
+   "durability": 20,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "monk_s_robe",
+   "kind": "body",
+   "bb_name": "Monk's Robe",
+   "durability": 20,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "noble_tunic",
+   "kind": "body",
+   "bb_name": "Noble Tunic",
+   "durability": 20,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "wizard_s_robe",
+   "kind": "body",
+   "bb_name": "Wizard's Robe",
+   "durability": 20,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "apron",
+   "kind": "body",
+   "bb_name": "Apron",
+   "durability": 25,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "butcher_s_apron",
+   "kind": "body",
+   "bb_name": "Butcher's Apron",
+   "durability": 25,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "undertaker_s_apron",
+   "kind": "body",
+   "bb_name": "Undertaker's Apron",
+   "durability": 30,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "leather_tunic",
+   "kind": "body",
+   "bb_name": "Leather Tunic",
+   "durability": 30,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "thick_furs",
+   "kind": "body",
+   "bb_name": "Thick Furs",
+   "durability": 30,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "nomad_robe",
+   "kind": "body",
+   "bb_name": "Nomad Robe",
+   "durability": 30,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "dark_thick_tunic",
+   "kind": "body",
+   "bb_name": "Dark Thick Tunic",
+   "durability": 35,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "thick_tunic",
+   "kind": "body",
+   "bb_name": "Thick Tunic",
+   "durability": 35,
+   "object": "work_jacket",
+   "market_name": "a work jacket"
+  },
+  {
+   "id": "gladiator_harness",
+   "kind": "body",
+   "bb_name": "Gladiator Harness",
+   "durability": 40,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "animal_hide_armor",
+   "kind": "body",
+   "bb_name": "Animal Hide Armor",
+   "durability": 45,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "padded_surcoat",
+   "kind": "body",
+   "bb_name": "Padded Surcoat",
+   "durability": 50,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "thick_nomad_robe",
+   "kind": "body",
+   "bb_name": "Thick Nomad Robe",
+   "durability": 50,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "rugged_surcoat",
+   "kind": "body",
+   "bb_name": "Rugged Surcoat",
+   "durability": 55,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "dark_rugged_surcoat",
+   "kind": "body",
+   "bb_name": "Dark Rugged Surcoat",
+   "durability": 60,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "padded_vest",
+   "kind": "body",
+   "bb_name": "Padded Vest",
+   "durability": 60,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "wanderer_s_coat",
+   "kind": "body",
+   "bb_name": "Wanderer's Coat",
+   "durability": 65,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "gambeson",
+   "kind": "body",
+   "bb_name": "Gambeson",
+   "durability": 65,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "leather_nomad_robe",
+   "kind": "body",
+   "bb_name": "Leather Nomad Robe",
+   "durability": 65,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "reinforced_animal_hide_armor",
+   "kind": "body",
+   "bb_name": "Reinforced Animal Hide Armor",
+   "durability": 65,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "blotched_gambeson",
+   "kind": "body",
+   "bb_name": "Blotched Gambeson",
+   "durability": 70,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "linothorax",
+   "kind": "body",
+   "bb_name": "Linothorax",
+   "durability": 75,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "scrap_metal_armor",
+   "kind": "body",
+   "bb_name": "Scrap Metal Armor",
+   "durability": 75,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "padded_leather",
+   "kind": "body",
+   "bb_name": "Padded Leather",
+   "durability": 80,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "stitched_nomad_armor",
+   "kind": "body",
+   "bb_name": "Stitched Nomad Armor",
+   "durability": 80,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "cultist_leather_robe",
+   "kind": "body",
+   "bb_name": "Cultist Leather Robe",
+   "durability": 88,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "patched_mail_shirt",
+   "kind": "body",
+   "bb_name": "Patched Mail Shirt",
+   "durability": 90,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "leather_lamellar_armor",
+   "kind": "body",
+   "bb_name": "Leather Lamellar Armor",
+   "durability": 95,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "hide_and_bone_armor",
+   "kind": "body",
+   "bb_name": "Hide and Bone Armor",
+   "durability": 95,
+   "object": "padded_vest",
+   "market_name": "a padded vest"
+  },
+  {
+   "id": "reinforced_leather_armor",
+   "kind": "body",
+   "bb_name": "Reinforced Leather Armor",
+   "durability": 100,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "direwolf_hide_armor",
+   "kind": "body",
+   "bb_name": "Direwolf Hide Armor",
+   "durability": 100,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "ancient_mail",
+   "kind": "body",
+   "bb_name": "Ancient Mail",
+   "durability": 100,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "plated_nomad_mail",
+   "kind": "body",
+   "bb_name": "Plated Nomad Mail",
+   "durability": 105,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "southern_mail_shirt",
+   "kind": "body",
+   "bb_name": "Southern Mail Shirt",
+   "durability": 110,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "worn_mail_shirt",
+   "kind": "body",
+   "bb_name": "Worn Mail Shirt",
+   "durability": 110,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "basic_mail_shirt",
+   "kind": "body",
+   "bb_name": "Basic Mail Shirt",
+   "durability": 115,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "assassin_s_robe",
+   "kind": "body",
+   "bb_name": "Assassin's Robe",
+   "durability": 120,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "ancient_double_layer_mail",
+   "kind": "body",
+   "bb_name": "Ancient Double Layer Mail",
+   "durability": 120,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "ancient_scale_harness",
+   "kind": "body",
+   "bb_name": "Ancient Scale Harness",
+   "durability": 125,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "mail_shirt",
+   "kind": "body",
+   "bb_name": "Mail Shirt",
+   "durability": 130,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "mail_with_lamellar_plating",
+   "kind": "body",
+   "bb_name": "Mail with Lamellar Plating",
+   "durability": 135,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "ancient_breastplate",
+   "kind": "body",
+   "bb_name": "Ancient Breastplate",
+   "durability": 135,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "direwolf_mail_armor",
+   "kind": "body",
+   "bb_name": "Direwolf Mail Armor",
+   "durability": 140,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "leather_scale_armor",
+   "kind": "body",
+   "bb_name": "Leather Scale Armor",
+   "durability": 140,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "rugged_scale_armor",
+   "kind": "body",
+   "bb_name": "Rugged Scale Armor",
+   "durability": 140,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "adorned_mail_shirt",
+   "kind": "body",
+   "bb_name": "Adorned Mail Shirt",
+   "durability": 150,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "mail_hauberk",
+   "kind": "body",
+   "bb_name": "Mail Hauberk",
+   "durability": 150,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "noble_mail",
+   "kind": "body",
+   "bb_name": "Noble Mail",
+   "durability": 160,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "light_scale_armor",
+   "kind": "body",
+   "bb_name": "Light Scale Armor",
+   "durability": 170,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "heavy_iron_armor",
+   "kind": "body",
+   "bb_name": "Heavy Iron Armor",
+   "durability": 170,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "decayed_reinforced_mail_hauberk",
+   "kind": "body",
+   "bb_name": "Decayed Reinforced Mail Hauberk",
+   "durability": 170,
+   "object": "plate_carrier",
+   "market_name": "a plate carrier"
+  },
+  {
+   "id": "ancient_plated_mail_hauberk",
+   "kind": "body",
+   "bb_name": "Ancient Plated Mail Hauberk",
+   "durability": 180,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "footman_s_armor",
+   "kind": "body",
+   "bb_name": "Footman's Armor",
+   "durability": 190,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "ancient_scale_coat",
+   "kind": "body",
+   "bb_name": "Ancient Scale Coat",
+   "durability": 190,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "adorned_warrior_s_armor",
+   "kind": "body",
+   "bb_name": "Adorned Warrior's Armor",
+   "durability": 200,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "southern_long_mail_shirt_with_padding",
+   "kind": "body",
+   "bb_name": "Southern Long Mail Shirt with Padding",
+   "durability": 200,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "ancient_plate_harness",
+   "kind": "body",
+   "bb_name": "Ancient Plate Harness",
+   "durability": 200,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "reinforced_mail_hauberk",
+   "kind": "body",
+   "bb_name": "Reinforced Mail Hauberk",
+   "durability": 210,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "ancient_plated_scale_hauberk",
+   "kind": "body",
+   "bb_name": "Ancient Plated Scale Hauberk",
+   "durability": 210,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "lamellar_harness",
+   "kind": "body",
+   "bb_name": "Lamellar Harness",
+   "durability": 230,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "thick_plated_barbarian_armor",
+   "kind": "body",
+   "bb_name": "Thick Plated Barbarian Armor",
+   "durability": 230,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "scale_armor",
+   "kind": "body",
+   "bb_name": "Scale Armor",
+   "durability": 240,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "decayed_coat_of_scales",
+   "kind": "body",
+   "bb_name": "Decayed Coat of Scales",
+   "durability": 240,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "heraldic_hauberk",
+   "kind": "body",
+   "bb_name": "Heraldic Hauberk",
+   "durability": 250,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "sellsword_s_armor",
+   "kind": "body",
+   "bb_name": "Sellsword's Armor",
+   "durability": 260,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "decayed_coat_of_plates",
+   "kind": "body",
+   "bb_name": "Decayed Coat of Plates",
+   "durability": 260,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "heavy_lamellar_armor",
+   "kind": "body",
+   "bb_name": "Heavy Lamellar Armor",
+   "durability": 285,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "padded_mail_and_lamellar_hauberk",
+   "kind": "body",
+   "bb_name": "Padded Mail and Lamellar Hauberk",
+   "durability": 290,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "adorned_heavy_mail_hauberk",
+   "kind": "body",
+   "bb_name": "Adorned Heavy Mail Hauberk",
+   "durability": 300,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "coat_of_scales",
+   "kind": "body",
+   "bb_name": "Coat of Scales",
+   "durability": 300,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "coat_of_plates",
+   "kind": "body",
+   "bb_name": "Coat of Plates",
+   "durability": 320,
+   "object": "full_riot_armour",
+   "market_name": "full riot armour"
+  },
+  {
+   "id": "mouthpiece",
+   "kind": "head",
+   "bb_name": "Mouthpiece",
+   "durability": 10,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "headscarf",
+   "kind": "head",
+   "bb_name": "Headscarf",
+   "durability": 20,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "hood",
+   "kind": "head",
+   "bb_name": "Hood",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "straw_hat",
+   "kind": "head",
+   "bb_name": "Straw Hat",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "nomad_head_wrap",
+   "kind": "head",
+   "bb_name": "Nomad Head Wrap",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "southern_head_wrap",
+   "kind": "head",
+   "bb_name": "Southern Head Wrap",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "hunter_s_hat",
+   "kind": "head",
+   "bb_name": "Hunter's Hat",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "feathered_hat",
+   "kind": "head",
+   "bb_name": "Feathered Hat",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "leather_headband",
+   "kind": "head",
+   "bb_name": "Leather Headband",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "engineer_s_hat",
+   "kind": "head",
+   "bb_name": "Engineer's Hat",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "gunner_s_hat",
+   "kind": "head",
+   "bb_name": "Gunner's Hat",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "jester_s_hat",
+   "kind": "head",
+   "bb_name": "Jester's Hat",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "cultist_hood",
+   "kind": "head",
+   "bb_name": "Cultist Hood",
+   "durability": 30,
+   "object": "rag_hood",
+   "market_name": "a rag hood"
+  },
+  {
+   "id": "undertaker_s_hat",
+   "kind": "head",
+   "bb_name": "Undertaker's Hat",
+   "durability": 40,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "witchhunter_s_hat",
+   "kind": "head",
+   "bb_name": "Witchhunter's Hat",
+   "durability": 40,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "dark_cowl",
+   "kind": "head",
+   "bb_name": "Dark Cowl",
+   "durability": 40,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "assassin_s_head_wrap",
+   "kind": "head",
+   "bb_name": "Assassin's Head Wrap",
+   "durability": 40,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "aketon_cap",
+   "kind": "head",
+   "bb_name": "Aketon Cap",
+   "durability": 40,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "open_leather_cap",
+   "kind": "head",
+   "bb_name": "Open Leather Cap",
+   "durability": 40,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "leather_head_wrap",
+   "kind": "head",
+   "bb_name": "Leather Head Wrap",
+   "durability": 40,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "desert_stalker_s_head_wrap",
+   "kind": "head",
+   "bb_name": "Desert Stalker's Head Wrap",
+   "durability": 45,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "full_leather_cap",
+   "kind": "head",
+   "bb_name": "Full Leather Cap",
+   "durability": 45,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "full_aketon_cap",
+   "kind": "head",
+   "bb_name": "Full Aketon Cap",
+   "durability": 50,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "nomad_leather_cap",
+   "kind": "head",
+   "bb_name": "Nomad Leather Cap",
+   "durability": 50,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "bear_headpiece",
+   "kind": "head",
+   "bb_name": "Bear Headpiece",
+   "durability": 50,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "blade_dancer_s_head_wrap",
+   "kind": "head",
+   "bb_name": "Blade Dancer's Head Wrap",
+   "durability": 60,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "cultist_leather_hood",
+   "kind": "head",
+   "bb_name": "Cultist Leather Hood",
+   "durability": 60,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "nomad_light_helmet",
+   "kind": "head",
+   "bb_name": "Nomad Light Helmet",
+   "durability": 70,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "physician_s_mask",
+   "kind": "head",
+   "bb_name": "Physician's Mask",
+   "durability": 70,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "duelist_s_hat",
+   "kind": "head",
+   "bb_name": "Duelist's Hat",
+   "durability": 70,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "rusty_mail_coif",
+   "kind": "head",
+   "bb_name": "Rusty Mail Coif",
+   "durability": 70,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "mail_coif",
+   "kind": "head",
+   "bb_name": "Mail Coif",
+   "durability": 80,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "closed_mail_coif",
+   "kind": "head",
+   "bb_name": "Closed Mail Coif",
+   "durability": 90,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "ancient_household_helmet",
+   "kind": "head",
+   "bb_name": "Ancient Household Helmet",
+   "durability": 95,
+   "object": "hard_hat",
+   "market_name": "a hard hat"
+  },
+  {
+   "id": "reinforced_mail_coif",
+   "kind": "head",
+   "bb_name": "Reinforced Mail Coif",
+   "durability": 100,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "nasal_helmet",
+   "kind": "head",
+   "bb_name": "Nasal Helmet",
+   "durability": 105,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "wrapped_southern_helmet",
+   "kind": "head",
+   "bb_name": "Wrapped Southern Helmet",
+   "durability": 105,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "leather_helmet",
+   "kind": "head",
+   "bb_name": "Leather Helmet",
+   "durability": 105,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "heavy_mail_coif",
+   "kind": "head",
+   "bb_name": "Heavy Mail Coif",
+   "durability": 110,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "padded_dented_nasal_helmet",
+   "kind": "head",
+   "bb_name": "Padded Dented Nasal Helmet",
+   "durability": 110,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "kettle_hat",
+   "kind": "head",
+   "bb_name": "Kettle Hat",
+   "durability": 115,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "sallet_helmet",
+   "kind": "head",
+   "bb_name": "Sallet Helmet",
+   "durability": 120,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "masked_kettle_helmet",
+   "kind": "head",
+   "bb_name": "Masked Kettle Helmet",
+   "durability": 120,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "flat_top_helmet",
+   "kind": "head",
+   "bb_name": "Flat Top Helmet",
+   "durability": 125,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "nordic_helmet",
+   "kind": "head",
+   "bb_name": "Nordic Helmet",
+   "durability": 125,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "spiked_skull_cap_with_mail",
+   "kind": "head",
+   "bb_name": "Spiked Skull Cap with Mail",
+   "durability": 125,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "nomad_reinforced_helmet",
+   "kind": "head",
+   "bb_name": "Nomad Reinforced Helmet",
+   "durability": 125,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "padded_nasal_helmet",
+   "kind": "head",
+   "bb_name": "Padded Nasal Helmet",
+   "durability": 130,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "beastmaster_s_headpiece",
+   "kind": "head",
+   "bb_name": "Beastmaster's Headpiece",
+   "durability": 130,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "ancient_legionary_helmet",
+   "kind": "head",
+   "bb_name": "Ancient Legionary Helmet",
+   "durability": 130,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "assassin_s_face_mask",
+   "kind": "head",
+   "bb_name": "Assassin's Face Mask",
+   "durability": 140,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "padded_kettle_hat",
+   "kind": "head",
+   "bb_name": "Padded Kettle Hat",
+   "durability": 140,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "nasal_helmet_with_rusty_mail",
+   "kind": "head",
+   "bb_name": "Nasal Helmet with Rusty Mail",
+   "durability": 140,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "crude_metal_helmet",
+   "kind": "head",
+   "bb_name": "Crude Metal Helmet",
+   "durability": 145,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "padded_flat_top_helmet",
+   "kind": "head",
+   "bb_name": "Padded Flat Top Helmet",
+   "durability": 150,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "zweihander_s_helmet",
+   "kind": "head",
+   "bb_name": "Zweihander's Helmet",
+   "durability": 160,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "crude_faceguard_helmet",
+   "kind": "head",
+   "bb_name": "Crude Faceguard Helmet",
+   "durability": 160,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "closed_flat_top_helmet",
+   "kind": "head",
+   "bb_name": "Closed Flat Top Helmet",
+   "durability": 170,
+   "object": "riot_helmet",
+   "market_name": "a riot helmet"
+  },
+  {
+   "id": "closed_and_padded_flat_top",
+   "kind": "head",
+   "bb_name": "Closed and Padded Flat Top",
+   "durability": 180,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "ancient_honor_guard_helmet",
+   "kind": "head",
+   "bb_name": "Ancient Honor Guard Helmet",
+   "durability": 180,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "barbute_helmet",
+   "kind": "head",
+   "bb_name": "Barbute Helmet",
+   "durability": 190,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "closed_scrap_metal_helmet",
+   "kind": "head",
+   "bb_name": "Closed Scrap Metal Helmet",
+   "durability": 190,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "nasal_helmet_with_mail",
+   "kind": "head",
+   "bb_name": "Nasal Helmet with Mail",
+   "durability": 200,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "steppe_helmet_with_mail",
+   "kind": "head",
+   "bb_name": "Steppe Helmet with Mail",
+   "durability": 200,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "southern_helmet_with_coif",
+   "kind": "head",
+   "bb_name": "Southern Helmet with Coif",
+   "durability": 200,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "bascinet_with_mail",
+   "kind": "head",
+   "bb_name": "Bascinet with Mail",
+   "durability": 210,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "kettle_hat_with_mail",
+   "kind": "head",
+   "bb_name": "Kettle Hat with Mail",
+   "durability": 215,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "gladiator_helmet",
+   "kind": "head",
+   "bb_name": "Gladiator Helmet",
+   "durability": 225,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "flat_top_with_mail",
+   "kind": "head",
+   "bb_name": "Flat Top with Mail",
+   "durability": 230,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "decayed_closed_flat_top_with_mail",
+   "kind": "head",
+   "bb_name": "Decayed Closed Flat Top With Mail",
+   "durability": 230,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "covered_decayed_closed_flat_top_with_mail",
+   "kind": "head",
+   "bb_name": "Covered Decayed Closed Flat Top With Mail",
+   "durability": 230,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "nasal_helmet_with_closed_mail",
+   "kind": "head",
+   "bb_name": "Nasal Helmet with Closed Mail",
+   "durability": 240,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "decayed_full_helm",
+   "kind": "head",
+   "bb_name": "Decayed Full Helm",
+   "durability": 240,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "adorned_closed_flat_top",
+   "kind": "head",
+   "bb_name": "Adorned Closed Flat Top",
+   "durability": 250,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "kettle_hat_with_closed_mail",
+   "kind": "head",
+   "bb_name": "Kettle Hat with Closed Mail",
+   "durability": 250,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "heavy_horned_plate_helmet",
+   "kind": "head",
+   "bb_name": "Heavy Horned Plate Helmet",
+   "durability": 250,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "heavy_lamellar_helmet",
+   "kind": "head",
+   "bb_name": "Heavy Lamellar Helmet",
+   "durability": 255,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "decayed_great_helm",
+   "kind": "head",
+   "bb_name": "Decayed Great Helm",
+   "durability": 255,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "nordic_helmet_with_closed_mail",
+   "kind": "head",
+   "bb_name": "Nordic Helmet with Closed Mail",
+   "durability": 265,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "conic_helmet_with_closed_mail",
+   "kind": "head",
+   "bb_name": "Conic Helmet with Closed Mail",
+   "durability": 265,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "flat_top_with_closed_mail",
+   "kind": "head",
+   "bb_name": "Flat Top with Closed Mail",
+   "durability": 265,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "conic_helmet_with_faceguard",
+   "kind": "head",
+   "bb_name": "Conic Helmet with Faceguard",
+   "durability": 280,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "closed_flat_top_with_mail",
+   "kind": "head",
+   "bb_name": "Closed Flat Top with Mail",
+   "durability": 280,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "turban_helmet",
+   "kind": "head",
+   "bb_name": "Turban Helmet",
+   "durability": 290,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "adorned_full_helm",
+   "kind": "head",
+   "bb_name": "Adorned Full Helm",
+   "durability": 300,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "full_helm",
+   "kind": "head",
+   "bb_name": "Full Helm",
+   "durability": 300,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "decorated_full_helm",
+   "kind": "head",
+   "bb_name": "Decorated Full Helm",
+   "durability": 320,
+   "object": "full_riot_helm",
+   "market_name": "a full riot helm"
+  },
+  {
+   "id": "buckler",
+   "kind": "shield",
+   "bb_name": "Buckler",
+   "durability": 16,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "wooden_skirmisher_shield",
+   "kind": "shield",
+   "bb_name": "Wooden Skirmisher Shield",
+   "durability": 12,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "reinforced_skirmisher_shield",
+   "kind": "shield",
+   "bb_name": "Reinforced Skirmisher Shield",
+   "durability": 16,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "old_wooden_shield",
+   "kind": "shield",
+   "bb_name": "Old Wooden Shield",
+   "durability": 16,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "ancient_auxiliary_shield",
+   "kind": "shield",
+   "bb_name": "Ancient Auxiliary Shield",
+   "durability": 16,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "wooden_shield",
+   "kind": "shield",
+   "bb_name": "Wooden Shield",
+   "durability": 24,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "heavy_metal_shield",
+   "kind": "shield",
+   "bb_name": "Heavy Metal Shield",
+   "durability": 72,
+   "object": "crash_bar",
+   "market_name": "a riot shield"
+  },
+  {
+   "id": "feral_shield",
+   "kind": "shield",
+   "bb_name": "Feral Shield",
+   "durability": 16,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "adarga_shield",
+   "kind": "shield",
+   "bb_name": "Adarga Shield",
+   "durability": 18,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "ancient_coffin_shield",
+   "kind": "shield",
+   "bb_name": "Ancient Coffin Shield",
+   "durability": 20,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "worn_kite_shield",
+   "kind": "shield",
+   "bb_name": "Worn Kite Shield",
+   "durability": 40,
+   "object": "riot_shield",
+   "market_name": "a riot shield"
+  },
+  {
+   "id": "kite_shield",
+   "kind": "shield",
+   "bb_name": "Kite Shield",
+   "durability": 48,
+   "object": "riot_shield",
+   "market_name": "a riot shield"
+  },
+  {
+   "id": "lindwurm_shield",
+   "kind": "shield",
+   "bb_name": "Lindwurm Shield",
+   "durability": 64,
+   "object": "riot_shield",
+   "market_name": "a riot shield"
+  },
+  {
+   "id": "sipar_shield",
+   "kind": "shield",
+   "bb_name": "Sipar Shield",
+   "durability": 60,
+   "object": "riot_shield",
+   "market_name": "a riot shield"
+  },
+  {
+   "id": "decayed_heater_shield",
+   "kind": "shield",
+   "bb_name": "Decayed Heater Shield",
+   "durability": 24,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "heater_shield",
+   "kind": "shield",
+   "bb_name": "Heater Shield",
+   "durability": 32,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "living_tree_shield",
+   "kind": "shield",
+   "bb_name": "Living Tree Shield",
+   "durability": 40,
+   "object": "riot_shield",
+   "market_name": "a riot shield"
+  },
+  {
+   "id": "ancient_tower_shield",
+   "kind": "shield",
+   "bb_name": "Ancient Tower Shield",
+   "durability": 24,
+   "object": "car_door",
+   "market_name": "a car door"
+  },
+  {
+   "id": "kraken_shield",
+   "kind": "shield",
+   "bb_name": "Kraken Shield",
+   "durability": 50,
+   "object": "riot_shield",
+   "market_name": "a riot shield"
+  }
+ ],
+ "naming_note": "heavy_metal_shield is drawn as the Heavy's crash bar in the fight, while the market names every shield of durability 40 or more 'a riot shield'; the model follows the fight (UI and RUN TWO may name it a crash-bar shield)"
+}
