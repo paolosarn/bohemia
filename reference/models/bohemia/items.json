@@ -62,50 +62,6 @@
    "elbow_z": 0.13,
    "grip_z": -0.15
   },
-  "pistol": {
-   "glb": "gun_pistol_a.glb",
-   "kind": "held",
-   "name": "pistol",
-   "say": "",
-   "made": "COOK 10/18 (the rig's first guns)",
-   "rows": [
-    "knife",
-    "dagger",
-    "notched_blade",
-    "rondel_dagger",
-    "qatal_dagger",
-    "estoc"
-   ],
-   "sha1": "6a0626d3d113d16f3d0299d36d2a10c2133c41c1",
-   "hands": 1
-  },
-  "shotgun": {
-   "glb": "gun_shotgun_a.glb",
-   "kind": "held",
-   "name": "shotgun",
-   "say": "",
-   "made": "COOK 10/18",
-   "rows": [
-    "handgonne"
-   ],
-   "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
-   "hands": 2
-  },
-  "rifle": {
-   "glb": "gun_rifle_a.glb",
-   "kind": "held",
-   "name": "rifle",
-   "say": "",
-   "made": "COOK 10/18",
-   "rows": [
-    "light_crossbow",
-    "crossbow",
-    "heavy_crossbow",
-    "spiked_impaler"
-   ],
-   "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
-   "hands": 2
-  },
   "crash_bar": {
    "glb": "item_crash_bar.glb",
    "kind": "shield",
@@ -197,58 +153,49 @@
    "elbow_z": 0.12,
    "grip_z": -0.12
   },
-  "rag_hood": {
-   "glb": "item_rag_hood.glb",
-   "kind": "worn_head",
-   "name": "a rag hood",
+  "pistol": {
+   "glb": "gun_pistol_a.glb",
+   "kind": "held",
+   "name": "pistol",
    "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "made": "COOK 10/18 (the rig's first guns)",
    "rows": [
-    "mouthpiece",
-    "headscarf",
-    "hood",
-    "straw_hat",
-    "nomad_head_wrap",
-    "southern_head_wrap",
-    "hunter_s_hat",
-    "feathered_hat",
-    "leather_headband",
-    "engineer_s_hat",
-    "gunner_s_hat",
-    "jester_s_hat",
-    "cultist_hood"
+    "knife",
+    "dagger",
+    "notched_blade",
+    "rondel_dagger",
+    "qatal_dagger",
+    "estoc"
    ],
-   "sha1": "c93480370f4df32f478eee2f39a5464a3211cc39",
-   "measured": {
-    "size_m": [
-     0.411,
-     0.453,
-     0.435
-    ],
-    "lo": [
-     -0.203,
-     -0.192,
-     1.136
-    ],
-    "hi": [
-     0.207,
-     0.261,
-     1.571
-    ],
-    "materials": [
-     "clay_bone 1",
-     "clay_rust 1",
-     "cloth_black 2"
-    ],
-    "verts": 2684,
-    "parts": 98,
-    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
-    "bones": [
-     "Skeleton_neck_joint_1",
-     "Skeleton_neck_joint_2",
-     "torso_joint_3"
-    ]
-   }
+   "sha1": "6a0626d3d113d16f3d0299d36d2a10c2133c41c1",
+   "hands": 1
+  },
+  "shotgun": {
+   "glb": "gun_shotgun_a.glb",
+   "kind": "held",
+   "name": "shotgun",
+   "say": "",
+   "made": "COOK 10/18",
+   "rows": [
+    "handgonne"
+   ],
+   "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
+   "hands": 2
+  },
+  "rifle": {
+   "glb": "gun_rifle_a.glb",
+   "kind": "held",
+   "name": "rifle",
+   "say": "",
+   "made": "COOK 10/18",
+   "rows": [
+    "light_crossbow",
+    "crossbow",
+    "heavy_crossbow",
+    "spiked_impaler"
+   ],
+   "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
+   "hands": 2
   },
   "pipe": {
    "glb": "item_pipe.glb",
@@ -299,75 +246,6 @@
     ],
     "verts": 422,
     "parts": 18
-   }
-  },
-  "work_jacket": {
-   "glb": "item_work_jacket.glb",
-   "kind": "worn_body",
-   "name": "a work jacket",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "tattered_sackcloth",
-    "sackcloth",
-    "linen_tunic",
-    "cloth_sash",
-    "leather_wraps",
-    "monk_s_robe",
-    "noble_tunic",
-    "wizard_s_robe",
-    "apron",
-    "butcher_s_apron",
-    "undertaker_s_apron",
-    "leather_tunic",
-    "thick_furs",
-    "nomad_robe",
-    "dark_thick_tunic",
-    "thick_tunic"
-   ],
-   "sha1": "e5e9d1fd544895c2ce58b6c89c659be3f7cf666d",
-   "measured": {
-    "size_m": [
-     0.974,
-     0.382,
-     0.605
-    ],
-    "lo": [
-     -0.484,
-     -0.199,
-     0.59
-    ],
-    "hi": [
-     0.49,
-     0.184,
-     1.195
-    ],
-    "materials": [
-     "clay_mustard 1",
-     "cloth_black 1",
-     "rubber 2",
-     "tape_grey 1"
-    ],
-    "verts": 3500,
-    "parts": 38,
-    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
-    "bones": [
-     "Skeleton_arm_joint_L__2_",
-     "Skeleton_arm_joint_L__3_",
-     "Skeleton_arm_joint_L__4_",
-     "Skeleton_arm_joint_R",
-     "Skeleton_arm_joint_R__2_",
-     "Skeleton_arm_joint_R__3_",
-     "Skeleton_neck_joint_1",
-     "Skeleton_neck_joint_2",
-     "Skeleton_torso_joint_1",
-     "Skeleton_torso_joint_2",
-     "leg_joint_L_1",
-     "leg_joint_L_2",
-     "leg_joint_R_1",
-     "leg_joint_R_2",
-     "torso_joint_3"
-    ]
    }
   },
   "sledge": {
@@ -467,63 +345,56 @@
     "parts": 9
    }
   },
-  "hard_hat": {
-   "glb": "item_hard_hat.glb",
-   "kind": "worn_head",
-   "name": "a hard hat",
+  "machete": {
+   "glb": "item_machete.glb",
+   "kind": "held",
+   "name": "machete",
    "say": "",
    "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
    "rows": [
-    "undertaker_s_hat",
-    "witchhunter_s_hat",
-    "dark_cowl",
-    "assassin_s_head_wrap",
-    "aketon_cap",
-    "open_leather_cap",
-    "leather_head_wrap",
-    "desert_stalker_s_head_wrap",
-    "full_leather_cap",
-    "full_aketon_cap",
-    "nomad_leather_cap",
-    "bear_headpiece",
-    "blade_dancer_s_head_wrap",
-    "cultist_leather_hood",
-    "nomad_light_helmet",
-    "physician_s_mask",
-    "duelist_s_hat",
-    "rusty_mail_coif",
-    "mail_coif",
-    "closed_mail_coif",
-    "ancient_household_helmet"
+    "broken_ancient_sword",
+    "shortsword",
+    "saif",
+    "falchion",
+    "cruel_falchion",
+    "ancient_sword",
+    "scimitar",
+    "arming_sword",
+    "shamshir",
+    "noble_sword",
+    "fencing_sword",
+    "rhomphaia",
+    "warbrand",
+    "longsword",
+    "greatsword",
+    "executioner_s_sword"
    ],
-   "sha1": "b9b0d03e974dabac29516fc01291b1f9ed2be917",
+   "sha1": "8be37a7f02b4defde45d768d58af98510e2954bb",
+   "hands": 1,
    "measured": {
     "size_m": [
-     0.406,
-     0.442,
-     0.3
+     0.65,
+     0.042,
+     0.09
     ],
     "lo": [
-     -0.202,
-     -0.218,
-     1.284
+     -0.05,
+     -0.021,
+     -0.022
     ],
     "hi": [
-     0.205,
-     0.224,
-     1.584
+     0.6,
+     0.021,
+     0.068
     ],
     "materials": [
-     "clay_mustard 3",
+     "chrome 1",
+     "clay_rust 1",
      "rubber 1",
-     "tape_masking 3"
+     "tape_grey 1"
     ],
-    "verts": 3016,
-    "parts": 76,
-    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
-    "bones": [
-     "Skeleton_neck_joint_2"
-    ]
+    "verts": 196,
+    "parts": 10
    }
   },
   "fire_axe": {
@@ -573,6 +444,545 @@
     "left_x": 0.4
    },
    "left_x": 0.4
+  },
+  "rebar_spear": {
+   "glb": "item_rebar_spear.glb",
+   "kind": "held",
+   "name": "rebar spear",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "militia_spear",
+    "ancient_spear",
+    "goblin_skewer",
+    "boar_spear",
+    "fire_lance",
+    "fighting_spear",
+    "warfork",
+    "spetum"
+   ],
+   "sha1": "30a23bf05f0d0f73f1f5e6603164a0c06c1b9860",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     2.2,
+     0.042,
+     0.044
+    ],
+    "lo": [
+     -0.55,
+     -0.021,
+     -0.022
+    ],
+    "hi": [
+     1.65,
+     0.021,
+     0.022
+    ],
+    "materials": [
+     "clay_mustard 1",
+     "clay_rust 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 724,
+    "parts": 34,
+    "left_x": 0.49
+   },
+   "left_x": 0.49
+  },
+  "cleaver": {
+   "glb": "item_cleaver.glb",
+   "kind": "held",
+   "name": "cleaver",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "antler_cleaver",
+    "butcher_s_cleaver",
+    "falx",
+    "blunt_cleaver",
+    "scramasax",
+    "khopesh",
+    "military_cleaver",
+    "head_chopper",
+    "thorned_whip",
+    "battle_whip",
+    "two_handed_saif",
+    "rusty_warblade",
+    "crypt_cleaver",
+    "two_handed_scimitar"
+   ],
+   "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.32,
+     0.039,
+     0.117
+    ],
+    "lo": [
+     -0.05,
+     -0.02,
+     -0.026
+    ],
+    "hi": [
+     0.27,
+     0.02,
+     0.091
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "clay_rust 1",
+     "rubber 0",
+     "tape_grey 1"
+    ],
+    "verts": 220,
+    "parts": 13
+   }
+  },
+  "chain": {
+   "glb": "item_chain.glb",
+   "kind": "held",
+   "name": "chain",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "wooden_flail",
+    "reinforced_wooden_flail",
+    "flail",
+    "three_headed_flail",
+    "two_handed_wooden_flail",
+    "two_handed_flail",
+    "berserk_chain"
+   ],
+   "sha1": "0d4035851e31306b66670dadbe484bfcd0c70563",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.823,
+     0.05,
+     0.22
+    ],
+    "lo": [
+     -0.07,
+     -0.025,
+     -0.023
+    ],
+    "hi": [
+     0.753,
+     0.025,
+     0.197
+    ],
+    "materials": [
+     "clay_mustard 2",
+     "clay_rust 1",
+     "metal_painted 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 1248,
+    "parts": 26
+   }
+  },
+  "pole_hook": {
+   "glb": "item_pole_hook.glb",
+   "kind": "held",
+   "name": "pole hook",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "pitchfork",
+    "broken_ancient_bladed_pike",
+    "hooked_blade",
+    "jagged_pike",
+    "ancient_bladed_pike",
+    "warscythe",
+    "pike",
+    "swordlance",
+    "billhook",
+    "pollaxe"
+   ],
+   "sha1": "f836590411cb433825fa7fd3b53c4b5afdf7cc60",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     2.13,
+     0.049,
+     0.129
+    ],
+    "lo": [
+     -0.64,
+     -0.024,
+     -0.026
+    ],
+    "hi": [
+     1.49,
+     0.024,
+     0.103
+    ],
+    "materials": [
+     "clay_mustard 2",
+     "clay_rust 1",
+     "metal_painted 0",
+     "rubber 1"
+    ],
+    "verts": 414,
+    "parts": 20,
+    "left_x": 0.57
+   },
+   "left_x": 0.57
+  },
+  "compound_bow": {
+   "glb": "item_compound_bow.glb",
+   "kind": "held",
+   "name": "compound bow",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "wonky_bow",
+    "boondock_bow",
+    "short_bow",
+    "reinforced_boondock_bow",
+    "composite_bow",
+    "hunting_bow",
+    "war_bow",
+    "masterwork_bow"
+   ],
+   "sha1": "27b9288f678e983c213e1318fcf82dfbecda11a2",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     0.182,
+     0.072,
+     1.122
+    ],
+    "lo": [
+     -0.119,
+     -0.027,
+     -0.561
+    ],
+    "hi": [
+     0.063,
+     0.045,
+     0.561
+    ],
+    "materials": [
+     "chrome 0",
+     "cloth_black 2",
+     "metal_painted 1",
+     "tape_masking 2"
+    ],
+    "verts": 564,
+    "parts": 26
+   }
+  },
+  "club": {
+   "glb": "item_club.glb",
+   "kind": "held",
+   "name": "club (the wooden stick)",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "wooden_stick"
+   ],
+   "sha1": "4aabfda9ec4545e744536501ffcd36bd0625c761",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.56,
+     0.085,
+     0.098
+    ],
+    "lo": [
+     -0.06,
+     -0.048,
+     -0.038
+    ],
+    "hi": [
+     0.5,
+     0.038,
+     0.06
+    ],
+    "materials": [
+     "clay_mustard 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 206,
+    "parts": 9
+   }
+  },
+  "bat": {
+   "glb": "item_bat.glb",
+   "kind": "held",
+   "name": "nail bat (the morning star)",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "morning_star"
+   ],
+   "sha1": "ce57850ce18e48823495d7174f2d96d299641c46",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.85,
+     0.156,
+     0.158
+    ],
+    "lo": [
+     -0.07,
+     -0.076,
+     -0.08
+    ],
+    "hi": [
+     0.78,
+     0.079,
+     0.078
+    ],
+    "materials": [
+     "clay_bone 2",
+     "clay_rust 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 428,
+    "parts": 20
+   }
+  },
+  "hatchet": {
+   "glb": "item_hatchet.glb",
+   "kind": "held",
+   "name": "hatchet (the hatchet, the handaxe)",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "hatchet",
+    "handaxe"
+   ],
+   "sha1": "35cca28f2b7b9867cc7bc3a67c928a55a704541e",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.44,
+     0.049,
+     0.16
+    ],
+    "lo": [
+     -0.05,
+     -0.024,
+     -0.035
+    ],
+    "hi": [
+     0.39,
+     0.024,
+     0.125
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "metal_painted 1",
+     "rubber 1"
+    ],
+    "verts": 176,
+    "parts": 8
+   }
+  },
+  "work_jacket": {
+   "glb": "item_work_jacket.glb",
+   "kind": "worn_body",
+   "name": "a work jacket",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "tattered_sackcloth",
+    "sackcloth",
+    "linen_tunic",
+    "cloth_sash",
+    "leather_wraps",
+    "monk_s_robe",
+    "noble_tunic",
+    "wizard_s_robe",
+    "apron",
+    "butcher_s_apron",
+    "undertaker_s_apron",
+    "leather_tunic",
+    "thick_furs",
+    "nomad_robe",
+    "dark_thick_tunic",
+    "thick_tunic"
+   ],
+   "sha1": "e5e9d1fd544895c2ce58b6c89c659be3f7cf666d",
+   "measured": {
+    "size_m": [
+     0.974,
+     0.382,
+     0.605
+    ],
+    "lo": [
+     -0.484,
+     -0.199,
+     0.59
+    ],
+    "hi": [
+     0.49,
+     0.184,
+     1.195
+    ],
+    "materials": [
+     "clay_mustard 1",
+     "cloth_black 1",
+     "rubber 2",
+     "tape_grey 1"
+    ],
+    "verts": 3500,
+    "parts": 38,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_arm_joint_L__2_",
+     "Skeleton_arm_joint_L__3_",
+     "Skeleton_arm_joint_L__4_",
+     "Skeleton_arm_joint_R",
+     "Skeleton_arm_joint_R__2_",
+     "Skeleton_arm_joint_R__3_",
+     "Skeleton_neck_joint_1",
+     "Skeleton_neck_joint_2",
+     "Skeleton_torso_joint_1",
+     "Skeleton_torso_joint_2",
+     "leg_joint_L_1",
+     "leg_joint_L_2",
+     "leg_joint_R_1",
+     "leg_joint_R_2",
+     "torso_joint_3"
+    ]
+   }
+  },
+  "padded_vest": {
+   "glb": "item_padded_vest.glb",
+   "kind": "worn_body",
+   "name": "a padded vest",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "gladiator_harness",
+    "animal_hide_armor",
+    "padded_surcoat",
+    "thick_nomad_robe",
+    "rugged_surcoat",
+    "dark_rugged_surcoat",
+    "padded_vest",
+    "wanderer_s_coat",
+    "gambeson",
+    "leather_nomad_robe",
+    "reinforced_animal_hide_armor",
+    "blotched_gambeson",
+    "linothorax",
+    "scrap_metal_armor",
+    "padded_leather",
+    "stitched_nomad_armor",
+    "cultist_leather_robe",
+    "patched_mail_shirt",
+    "leather_lamellar_armor",
+    "hide_and_bone_armor"
+   ],
+   "sha1": "e58011c9dacb802f44c441cbad311683f41fabb3",
+   "measured": {
+    "size_m": [
+     0.423,
+     0.417,
+     0.578
+    ],
+    "lo": [
+     -0.211,
+     -0.217,
+     0.608
+    ],
+    "hi": [
+     0.211,
+     0.201,
+     1.186
+    ],
+    "materials": [
+     "clay_bone 3",
+     "metal_painted 2",
+     "rubber 1",
+     "tape_grey 1"
+    ],
+    "verts": 4904,
+    "parts": 169,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_1",
+     "Skeleton_torso_joint_1",
+     "Skeleton_torso_joint_2",
+     "torso_joint_3"
+    ]
+   }
+  },
+  "plate_carrier": {
+   "glb": "item_plate_carrier.glb",
+   "kind": "worn_body",
+   "name": "a plate carrier",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "reinforced_leather_armor",
+    "direwolf_hide_armor",
+    "ancient_mail",
+    "plated_nomad_mail",
+    "southern_mail_shirt",
+    "worn_mail_shirt",
+    "basic_mail_shirt",
+    "assassin_s_robe",
+    "ancient_double_layer_mail",
+    "ancient_scale_harness",
+    "mail_shirt",
+    "mail_with_lamellar_plating",
+    "ancient_breastplate",
+    "direwolf_mail_armor",
+    "leather_scale_armor",
+    "rugged_scale_armor",
+    "adorned_mail_shirt",
+    "mail_hauberk",
+    "noble_mail",
+    "light_scale_armor",
+    "heavy_iron_armor",
+    "decayed_reinforced_mail_hauberk"
+   ],
+   "sha1": "f4ec319026e8cdd04cea75236fe9b9234b2e9d17",
+   "measured": {
+    "size_m": [
+     0.399,
+     0.471,
+     0.431
+    ],
+    "lo": [
+     -0.207,
+     -0.247,
+     0.8
+    ],
+    "hi": [
+     0.192,
+     0.224,
+     1.23
+    ],
+    "materials": [
+     "clay_bone 1",
+     "metal_painted 0",
+     "metal_painted 2",
+     "rubber 1"
+    ],
+    "verts": 1446,
+    "parts": 24,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_1",
+     "Skeleton_torso_joint_1",
+     "Skeleton_torso_joint_2",
+     "torso_joint_3"
+    ]
+   }
   },
   "full_riot_armour": {
    "glb": "item_full_riot_armour.glb",
@@ -644,6 +1054,118 @@
     ]
    }
   },
+  "rag_hood": {
+   "glb": "item_rag_hood.glb",
+   "kind": "worn_head",
+   "name": "a rag hood",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "mouthpiece",
+    "headscarf",
+    "hood",
+    "straw_hat",
+    "nomad_head_wrap",
+    "southern_head_wrap",
+    "hunter_s_hat",
+    "feathered_hat",
+    "leather_headband",
+    "engineer_s_hat",
+    "gunner_s_hat",
+    "jester_s_hat",
+    "cultist_hood"
+   ],
+   "sha1": "c93480370f4df32f478eee2f39a5464a3211cc39",
+   "measured": {
+    "size_m": [
+     0.411,
+     0.453,
+     0.435
+    ],
+    "lo": [
+     -0.203,
+     -0.192,
+     1.136
+    ],
+    "hi": [
+     0.207,
+     0.261,
+     1.571
+    ],
+    "materials": [
+     "clay_bone 1",
+     "clay_rust 1",
+     "cloth_black 2"
+    ],
+    "verts": 2684,
+    "parts": 98,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_1",
+     "Skeleton_neck_joint_2",
+     "torso_joint_3"
+    ]
+   }
+  },
+  "hard_hat": {
+   "glb": "item_hard_hat.glb",
+   "kind": "worn_head",
+   "name": "a hard hat",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "undertaker_s_hat",
+    "witchhunter_s_hat",
+    "dark_cowl",
+    "assassin_s_head_wrap",
+    "aketon_cap",
+    "open_leather_cap",
+    "leather_head_wrap",
+    "desert_stalker_s_head_wrap",
+    "full_leather_cap",
+    "full_aketon_cap",
+    "nomad_leather_cap",
+    "bear_headpiece",
+    "blade_dancer_s_head_wrap",
+    "cultist_leather_hood",
+    "nomad_light_helmet",
+    "physician_s_mask",
+    "duelist_s_hat",
+    "rusty_mail_coif",
+    "mail_coif",
+    "closed_mail_coif",
+    "ancient_household_helmet"
+   ],
+   "sha1": "b9b0d03e974dabac29516fc01291b1f9ed2be917",
+   "measured": {
+    "size_m": [
+     0.406,
+     0.442,
+     0.3
+    ],
+    "lo": [
+     -0.202,
+     -0.218,
+     1.284
+    ],
+    "hi": [
+     0.205,
+     0.224,
+     1.584
+    ],
+    "materials": [
+     "clay_mustard 3",
+     "rubber 1",
+     "tape_masking 3"
+    ],
+    "verts": 3016,
+    "parts": 76,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_2"
+    ]
+   }
+  },
   "riot_helmet": {
    "glb": "item_riot_helmet.glb",
    "kind": "worn_head",
@@ -708,52 +1230,6 @@
      "Skeleton_neck_joint_2"
     ]
    }
-  },
-  "rebar_spear": {
-   "glb": "item_rebar_spear.glb",
-   "kind": "held",
-   "name": "rebar spear",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "militia_spear",
-    "ancient_spear",
-    "goblin_skewer",
-    "boar_spear",
-    "fire_lance",
-    "fighting_spear",
-    "warfork",
-    "spetum"
-   ],
-   "sha1": "30a23bf05f0d0f73f1f5e6603164a0c06c1b9860",
-   "hands": 2,
-   "measured": {
-    "size_m": [
-     2.2,
-     0.042,
-     0.044
-    ],
-    "lo": [
-     -0.55,
-     -0.021,
-     -0.022
-    ],
-    "hi": [
-     1.65,
-     0.021,
-     0.022
-    ],
-    "materials": [
-     "clay_mustard 1",
-     "clay_rust 1",
-     "rubber 1",
-     "tape_grey 2"
-    ],
-    "verts": 724,
-    "parts": 34,
-    "left_x": 0.49
-   },
-   "left_x": 0.49
   },
   "full_riot_helm": {
    "glb": "item_full_riot_helm.glb",
@@ -823,297 +1299,6 @@
      "Skeleton_neck_joint_1",
      "Skeleton_neck_joint_2"
     ]
-   }
-  },
-  "compound_bow": {
-   "glb": "item_compound_bow.glb",
-   "kind": "held",
-   "name": "compound bow",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "wonky_bow",
-    "boondock_bow",
-    "short_bow",
-    "reinforced_boondock_bow",
-    "composite_bow",
-    "hunting_bow",
-    "war_bow",
-    "masterwork_bow"
-   ],
-   "sha1": "27b9288f678e983c213e1318fcf82dfbecda11a2",
-   "hands": 2,
-   "measured": {
-    "size_m": [
-     0.182,
-     0.072,
-     1.122
-    ],
-    "lo": [
-     -0.119,
-     -0.027,
-     -0.561
-    ],
-    "hi": [
-     0.063,
-     0.045,
-     0.561
-    ],
-    "materials": [
-     "chrome 0",
-     "cloth_black 2",
-     "metal_painted 1",
-     "tape_masking 2"
-    ],
-    "verts": 564,
-    "parts": 26
-   }
-  },
-  "cleaver": {
-   "glb": "item_cleaver.glb",
-   "kind": "held",
-   "name": "cleaver",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "antler_cleaver",
-    "butcher_s_cleaver",
-    "falx",
-    "blunt_cleaver",
-    "scramasax",
-    "khopesh",
-    "military_cleaver",
-    "head_chopper",
-    "thorned_whip",
-    "battle_whip",
-    "two_handed_saif",
-    "rusty_warblade",
-    "crypt_cleaver",
-    "two_handed_scimitar"
-   ],
-   "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
-   "hands": 1,
-   "measured": {
-    "size_m": [
-     0.32,
-     0.039,
-     0.117
-    ],
-    "lo": [
-     -0.05,
-     -0.02,
-     -0.026
-    ],
-    "hi": [
-     0.27,
-     0.02,
-     0.091
-    ],
-    "materials": [
-     "chrome 1",
-     "clay_mustard 1",
-     "clay_rust 1",
-     "rubber 0",
-     "tape_grey 1"
-    ],
-    "verts": 220,
-    "parts": 13
-   }
-  },
-  "plate_carrier": {
-   "glb": "item_plate_carrier.glb",
-   "kind": "worn_body",
-   "name": "a plate carrier",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "reinforced_leather_armor",
-    "direwolf_hide_armor",
-    "ancient_mail",
-    "plated_nomad_mail",
-    "southern_mail_shirt",
-    "worn_mail_shirt",
-    "basic_mail_shirt",
-    "assassin_s_robe",
-    "ancient_double_layer_mail",
-    "ancient_scale_harness",
-    "mail_shirt",
-    "mail_with_lamellar_plating",
-    "ancient_breastplate",
-    "direwolf_mail_armor",
-    "leather_scale_armor",
-    "rugged_scale_armor",
-    "adorned_mail_shirt",
-    "mail_hauberk",
-    "noble_mail",
-    "light_scale_armor",
-    "heavy_iron_armor",
-    "decayed_reinforced_mail_hauberk"
-   ],
-   "sha1": "f4ec319026e8cdd04cea75236fe9b9234b2e9d17",
-   "measured": {
-    "size_m": [
-     0.399,
-     0.471,
-     0.431
-    ],
-    "lo": [
-     -0.207,
-     -0.247,
-     0.8
-    ],
-    "hi": [
-     0.192,
-     0.224,
-     1.23
-    ],
-    "materials": [
-     "clay_bone 1",
-     "metal_painted 0",
-     "metal_painted 2",
-     "rubber 1"
-    ],
-    "verts": 1446,
-    "parts": 24,
-    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
-    "bones": [
-     "Skeleton_neck_joint_1",
-     "Skeleton_torso_joint_1",
-     "Skeleton_torso_joint_2",
-     "torso_joint_3"
-    ]
-   }
-  },
-  "machete": {
-   "glb": "item_machete.glb",
-   "kind": "held",
-   "name": "machete",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "broken_ancient_sword",
-    "shortsword",
-    "saif",
-    "falchion",
-    "cruel_falchion",
-    "ancient_sword",
-    "scimitar",
-    "arming_sword",
-    "shamshir",
-    "noble_sword",
-    "fencing_sword",
-    "rhomphaia",
-    "warbrand",
-    "longsword",
-    "greatsword",
-    "executioner_s_sword"
-   ],
-   "sha1": "8be37a7f02b4defde45d768d58af98510e2954bb",
-   "hands": 1,
-   "measured": {
-    "size_m": [
-     0.65,
-     0.042,
-     0.09
-    ],
-    "lo": [
-     -0.05,
-     -0.021,
-     -0.022
-    ],
-    "hi": [
-     0.6,
-     0.021,
-     0.068
-    ],
-    "materials": [
-     "chrome 1",
-     "clay_rust 1",
-     "rubber 1",
-     "tape_grey 1"
-    ],
-    "verts": 196,
-    "parts": 10
-   }
-  },
-  "chain": {
-   "glb": "item_chain.glb",
-   "kind": "held",
-   "name": "chain",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "wooden_flail",
-    "reinforced_wooden_flail",
-    "flail",
-    "three_headed_flail",
-    "two_handed_wooden_flail",
-    "two_handed_flail",
-    "berserk_chain"
-   ],
-   "sha1": "0d4035851e31306b66670dadbe484bfcd0c70563",
-   "hands": 1,
-   "measured": {
-    "size_m": [
-     0.823,
-     0.05,
-     0.22
-    ],
-    "lo": [
-     -0.07,
-     -0.025,
-     -0.023
-    ],
-    "hi": [
-     0.753,
-     0.025,
-     0.197
-    ],
-    "materials": [
-     "clay_mustard 2",
-     "clay_rust 1",
-     "metal_painted 1",
-     "rubber 1",
-     "tape_grey 2"
-    ],
-    "verts": 1248,
-    "parts": 26
-   }
-  },
-  "club": {
-   "glb": "item_club.glb",
-   "kind": "held",
-   "name": "club (the wooden stick)",
-   "say": "",
-   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
-   "rows": [
-    "wooden_stick"
-   ],
-   "sha1": "4aabfda9ec4545e744536501ffcd36bd0625c761",
-   "hands": 1,
-   "measured": {
-    "size_m": [
-     0.56,
-     0.085,
-     0.098
-    ],
-    "lo": [
-     -0.06,
-     -0.048,
-     -0.038
-    ],
-    "hi": [
-     0.5,
-     0.038,
-     0.06
-    ],
-    "materials": [
-     "clay_mustard 1",
-     "rubber 1",
-     "tape_grey 2"
-    ],
-    "verts": 206,
-    "parts": 9
    }
   }
  }

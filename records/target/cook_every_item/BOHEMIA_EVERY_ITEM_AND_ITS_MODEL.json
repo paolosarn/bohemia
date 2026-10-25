@@ -7,7 +7,7 @@
  "rows_total": 310,
  "objects_total": 27,
  "objects_with_a_model_before": 3,
- "objects_with_a_model_now": 23,
+ "objects_with_a_model_now": 27,
  "objects": {
   "car_door": {
    "kind": "shield",
@@ -141,7 +141,7 @@
    "rows": 10,
    "glb": "reference/models/bohemia/item_pole_hook.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "compound_bow": {
@@ -168,7 +168,7 @@
    "rows": 1,
    "glb": "reference/models/bohemia/item_bat.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
   },
   "hatchet": {
@@ -177,7 +177,7 @@
    "rows": 2,
    "glb": "reference/models/bohemia/item_hatchet.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
   },
   "work_jacket": {
@@ -195,7 +195,7 @@
    "rows": 20,
    "glb": "reference/models/bohemia/item_padded_vest.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "plate_carrier": {
