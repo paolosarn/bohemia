@@ -28,7 +28,9 @@ kept (no 'Change gender'): a low man is a low man.
   (no flag) RENDER: per speaker, its OWN voice: re-timed to its letter slot (Praat's PSOLA 'Lengthen', pitch kept), the
             lane's tape and the small room (tools/bohemia_from_a_recording.py, REUSE-FIRST, as the six), the band shut at
             7.2 kHz so the game hears a click as energy where a voice has none, true zero at both ends, one loudness;
-            his own tape colour from the six's ranges (a tilt at 2.5 kHz, the band's top), seeded from his id,
+            his own tape colour (a tilt at 2.5 kHz from the six's range, the band's top at 4.2, 4.7 or 5.2 kHz: darker than the
+            six's, because the browser's resampler folds a real fricative's brightness into a click when it slows one),
+            seeded from his id,
             one sprite slices/voice_heard/squiggle_more.mp3, its takes written into index.json under 'more' (the first
             sprite and his six are untouched, so the first voices load exactly as before and the more come after).
   --check   re-reads the more sprite: every take there, ends on zero, nothing over -1 dBFS, every letter in every family.
@@ -67,7 +69,12 @@ NEAR = {
     'z': ['Z'], 's': ['S'], 'c': ['S', 'T'], 'x': ['S', 'Z'], 'k': ['T', 'TH'], 'q': ['T'], 'g': ['T', 'Z'], 'd': ['T'],
     't': ['T'], 'h': ['TH', 'F'], 'j': ['Z', 'S'], 'l': ['R', 'W'], 'r': ['R'],
 }
-CLUSTER = {'R', 'L', 'W', 'Y'}       # a consonant before one of these still opens the vowel after it ('th r ee')
+CLUSTER = {'R', 'L', 'W', 'Y'}
+# THE TOP OF A REAL VOICE'S BAND, darker than the six's (5.2, 6.2, 7.2 kHz). MEASURED 10/25 by the six's own click ruler:
+# these recordings' consonants are mostly the digits' fricatives (s, z, f, th, v), bright up to the top of the band, and
+# when the game slows a syllable (the sag at a line's end, a calm man's mood: rates near 0.7) the browser's own resampler
+# mirrors that brightness up past 13 kHz: 6 'clicks' in 60 lines at a 7.2 kHz top, 0 at these. A worn radio, in the law.
+REAL_TOP = {'triangle': 4200.0, 'square': 4700.0, 'sawtooth': 5200.0}       # a consonant before one of these still opens the vowel after it ('th r ee')
 
 
 def die(msg):
@@ -247,7 +254,7 @@ def render():
         wet = round(0.14 + 0.13 * fam['gruff'], 3)
         drive = 0.7 + 1.2 * fam['gruff']
         tilt_db = round(6.0 * math.log2(fam['tilt']), 2)
-        top = Q.TOP[fam['wave']]
+        top = REAL_TOP[fam['wave']]
         regs = [r for r in meta['regions'] if r['speaker'] == spk]
         out, f0s = {}, []
         for r in regs:

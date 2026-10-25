@@ -33,6 +33,7 @@ const http = require('http');
 const { execFileSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const LV = require(path.join(ROOT, 'tools/bohemia_squiggle_level.js'));
 let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
 const done = () => { console.log('THE PC PLAYTEST, THE SOUND: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
@@ -161,6 +162,29 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
     leg(V.distinct >= 18 && V.menOk && V.men >= 10 && V.sixSelf,
       'sixty of the valley\'s people speak in at least eighteen voices, a man known to be a man always as one of the men, his six themselves',
       V.distinct + ' voices for 60 people; as known men ' + V.men + ' voices, all men ' + V.menOk + '; his six themselves ' + V.sixSelf);
+
+    /* 4c. the twenty under the same rulers as the six: zero clicks dry (the ruler of THE SQUIGGLE, CREEPIER, proven there on
+       two planted clicks) and the game's level through its own compressor and brickwall (the mark, within 1.5 dB) */
+    await page.addScriptTag({ content: LV.PAGE_LIB });
+    const C = await page.evaluate(async ({ L, mark, hz }) => {
+      window.S = SQUIGGLE;
+      const want = {}, M = SQUIGGLE.idx.more.families.map(f => f.id); const AC = new OfflineAudioContext(1, 44100, 44100);
+      for (let i = 0; i < 4000 && Object.keys(want).length < M.length; i++) { const v = BOH_VOICE.castVoice('face:probe_' + i);
+        const h = SQUIGGLE.say('Hey.', v, AC, AC.destination, 0.05); if (h && h.real && !want[h.family]) want[h.family] = v; }
+      const out = { found: Object.keys(want).length, clicks: 0, worst: -99, levels: [], peaks: [], lines: 0 };
+      for (const id of M) { const v = want[id]; if (!v) continue;
+        for (let k = 0; k < 6; k++) { const text = BOH_VOICE.opener(L[(k * 5 + M.indexOf(id)) % L.length]);
+          const dry = await render('new', text, v, false, 0); if (!dry.h) continue;
+          const c = await clicks(dry.buf, hz); out.clicks += c.count; out.worst = Math.max(out.worst, c.worst);
+          const wet = await render('new', text, v, true, 0); const d = wet.buf.getChannelData(0); let pk = 0; for (let j = 0; j < d.length; j++) pk = Math.max(pk, Math.abs(d[j]));
+          out.levels.push(level(d)); out.peaks.push(20 * Math.log10(pk + 1e-12)); out.lines++; } }
+      return out;
+    }, { L: LV.lines(), mark: LV.MARK, hz: LV.RULER_HZ });
+    const lv = C.levels.reduce((a, b) => a + b, 0) / Math.max(1, C.levels.length);
+    leg(C.found === 20 && C.lines >= 110 && C.clicks === 0, 'THE TWENTY NEVER CLICK (his 8/11 note): every real voice, six lines each, zero clicks by the six\'s own ruler',
+      C.found + ' voices reached, ' + C.lines + ' lines, ' + C.clicks + ' clicks (the worst frame ' + C.worst + ' dB over its neighbours, a click is 20)');
+    leg(Math.abs(lv - LV.MARK) <= 1.5 && Math.max(...C.peaks) <= -1.0, 'the twenty at the game\'s level: through its own compressor and brickwall at the mark, none over -1 dBFS',
+      'mean ' + lv.toFixed(1) + ' dB against ' + LV.MARK + '; loudest peak ' + Math.max(...C.peaks).toFixed(1) + ' dBFS');
   } catch (e) { leg(false, 'the bare page ran', String(e.message).slice(0, 220)); }
   leg(!errs.length, 'nothing threw on the bare page', errs.slice(0, 2).join(' | '));
   await browser.close(); srv.close();
