@@ -15,6 +15,10 @@ first. Last round's last push (33bdb785, the club under a roof, RETREAT) confirm
 | [melee is one tile] + [cover is what is on the tile] (rule 170) | d5327c5a | MELEE IS ONE TILE, COVER IS WHAT IS ON THE TILE |
 | [the PC playtest: the fight's part] (7), rule 164 item 13 | 89064c94 (+ a62d5bce) | NOBODY ON ANYBODY, THE WATER RUNS ON (THE GROUND RUNS ON) |
 | [AUTO never wastes a turn] + rule 180 | e0f39941, CLAIMED (the brain in; four bars still open) | AUTO NEVER WASTES A TURN |
+| [the fight draws what he wears] (rule 177), COMBAT's half | ca994d39 | THE FIGHT DRAWS WHAT HE WEARS (new) |
+| [a gun shoots the man beside him] (rule 185) | 98157e79 | MELEE IS ONE TILE (two legs), GUNS FROM THE FIRST FIGHT, WHAT IS WEAK |
+| [every man has a job each turn] (rule 188) | 46d9b8a4 | EVERY MAN HAS A JOB EACH TURN (new) |
+| [gear never vanishes] (rule 191(b)) | NOT DONE: the fight's side ruled out (section 10) | |
 
 ## 1. NOBODY STANDS ON ANYBODY (his first votes 9/21: 'why are so many people on top of each other... looks like complete dogshit')
 MEASURED FIRST, his phone's open (390 x 844, four of his in one column, EYES' own case): a tile 53 x 37 px on the glass under a
@@ -187,7 +191,22 @@ dances, roofs 42.6%, none stalled). Never struck: 52 -> 18 of 600.
 Gate: EVERY MAN HAS A JOB EACH TURN (new; J1 his crew, J2 never struck, J3 TUNING's crews, J4 wins). THE REBUILT FIGHT PLAYS' 'AUTO
 holds the formation' leg re-aimed to what the formation still governs (the approach, a melee man of theirs coming).
 
+## 10. RULE 191(b): GEAR NEVER VANISHES (NOT DONE, the fight's side ruled out)
+His words: 'in the first fight I had my spear and car-door shield, and in the third fight it disappeared, it was so creepy.'
+Ruled out on the fight's side: every spear row is one-handed in the fight (bothHands) and on the crew screen (handsOf), so no
+two-hands rule moved his door; the fight's end report counts a door on his back as his off hand (spoilsOf, looks[].held);
+nothing in the fight breaks a shield; the crew screen's afterFight never touches gear; and the report's held is read by
+nothing. The gear rides bohemia.company.v1 (written by the crew screen's DONE, engine/bohemia_crew_door.js) into the map's
+company (RUN TWO's code). Next: ten demo fights in a row with a spear-and-car-door man, the saved company read before and after
+each, the first fight where the door is gone named; NOTE RUN TWO with the line if the company or the stash drops it.
+
 ## GATES (rule 13: the ones that read my files, run this round, alone where the box was crowded)
+SECOND HALF OF THE ROUND: THE FIGHT DRAWS WHAT HE WEARS 15/0 (new); EVERY MAN HAS A JOB EACH TURN 5/0 (new); MELEE IS ONE TILE
+8/0; GUNS FROM THE FIRST FIGHT 13/0; THE FIGHT SAYS WHAT IS WEAK 11/0; AUTO NEVER WASTES A TURN 9/0 (100 and 300); THE PC PLAYTEST
+27/0; THE FORMATION IS KEPT 23/0 alone (20/3 with four browsers at once); THE LOSS IS UNDERSTOOD 15/0; GHOSTS 18/0; THE FIRST
+FIGHT TEACHES 10/0; ONE TAP 16/0; EQUIP FROM THE STASH 7/0; WHAT A MAN HOLDS 17/0; WEAPON SHAPES 9/0; THE GUNS ON THE CREW SCREEN
+7/0; THE REBUILT FIGHT PLAYS' guns, zone, card, sweep and formation sections 13/0 and 9/0 (run alone; the whole gate not run).
+FIRST HALF:
 NOBODY ON ANYBODY, THE WATER RUNS ON 14/0 (new); MELEE IS ONE TILE, COVER IS WHAT IS ON THE TILE 7/0 (new); AUTO NEVER WASTES A
 TURN 9/0 (new); THE PC PLAYTEST: THE FIGHT 27/0; THE FORMATION IS KEPT 23/0; ONE TAP 16/0; LOSS 15/0 (alone; 11/4 in a crowd,
 timing); GROUND REMEMBERS 8/0; LITTLE THINGS 7/0; TWO HANDS 9/0; EVERY FLOOR TILE 19/0; PERKS ARE LIVE 47/0; EDGE 7/0; GHOSTS
