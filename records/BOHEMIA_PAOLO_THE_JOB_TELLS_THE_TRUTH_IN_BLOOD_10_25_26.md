@@ -32,6 +32,12 @@ Battle Brothers shows skulls on a contract from its difficulty and the company's
 (c) THE BUTTON BLEEDS: the job's button on the town's board, the offer and the phone's card wears blood in the crashbox look
     (rule 130): clean for an easy job, more and darker blood as the danger rises, one continuous scale (the way the AUTO button's
     colour runs, 144(e)), never only three looks.
+    CRASHBOX, NOT ANYTHING ELSE (Paolo 10/25: 'not Crash Bandicoot, Crashbox'; the coordinator's reply had said the wrong name):
+    CRASHBOX is the HBO Family show (1999 to 2000, Cuppa Coffee Studios), the look's reference (rule 115(d)): stop-motion clay,
+    puppets and cutouts inside a handmade broken game computer of rubber bands, gears and junk; rusty tin. So the blood is HANDMADE
+    the show's way, on UI's tin button (slices/ui_kit, the pressed tin plate with rivets): red clay or paint smeared and dripped
+    on the tin, dried dark at the edges, a thumbprint in it, moving in stop-motion holds; never a glossy red gradient, never a
+    photo filter, never a video-game splat.
 (d) IT CHANGES WHEN HIS CREW CHANGES: hire, lose a man, a man laid up, new gear: the stars and the blood are worked out again
     the next time he looks.
 (e) THE MEET CARD COUNTS TRUE: what the meet card says (how many, what kind) matches what stands on the board; never '4 MEN' for
