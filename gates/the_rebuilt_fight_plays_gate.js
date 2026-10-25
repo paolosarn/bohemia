@@ -18,6 +18,12 @@ const ROOT = path.resolve(__dirname, '..');
 /* THE MAN'S HEIGHT ON THE GLASS is the page's own MAN_IDLE (10/19, COMBAT [the people a little smaller], his YES on the marks:
    'can the characters just be a little smaller'): the legs read it from the fight, never a typed 104 */
 const IDLE = Number(fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8').match(/MAN_DEFAULT = (\d+)/)[1]);
+/* RE-AIMED 10/25 (COMBAT [eyes: men on men], his first votes: 'nobody stands on anybody'; EYES 10/24 and 10/25: at the upright
+   phone's open a 98 px man stood on 37 px rows, each body over the two behind it): the man is his size wherever his ground holds
+   him, and past that never taller than ROWS rows of it, never under half his size, on every glass. SIZE_OK reads the drawn man
+   against the row he stands on: the law, not the page's own arithmetic */
+const ROWS = 1.8;
+const sizeOk = (man, row) => man <= IDLE + 2 && man >= IDLE / 2 - 1 && (ROWS * row >= IDLE ? Math.abs(man - IDLE) <= 2 : man <= Math.max(ROWS * row * 1.06, IDLE / 2) + 1);
 /* PROOF SHOTS GO TO A SCRATCH FOLDER UNLESS ASKED (PLUMBER 10/9, [proof shots churn]): `--shoot` or BOHEMIA_SHOOT=1 writes the VOTE picture */
 const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));
 const BB = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/rules.json'), 'utf8'));
@@ -80,15 +86,21 @@ async function fight(F, first) {
   leg(deal.kinds.length >= 2 && deal.twin === 0 && deal.kinds.indexOf(F.board) >= 0 && (deal.al[F.board] || [F.board]).indexOf(deal.lead) >= 0,
     F.board + ': *** THE BOARD IS DEALT FROM MIXED KINDS (sweep L) ***, led by the kind the loop asked for, no block beside its twin', deal.name);
   const s0 = await ev(() => ({ you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
-    zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, near: FIGHT_UI.near, man: manH(), fitted: allFramed(), w: FIGHT.S.w, h: FIGHT.S.h,
+    zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, near: FIGHT_UI.near, man: manH(), row: FIGHT_UI.th * FIGHT_UI.zoom, fitted: allFramed(), w: FIGHT.S.w, h: FIGHT.S.h,
+    cover: (() => { const on = FIGHT.S.units.filter(FIGHT.onField), h = manH(), b = on.map(v => { const m = manBox(v.x, v.y); return { l: m.x - h * .15, r: m.x + h * .15, t: m.head, b: m.feet }; }); let w = 0;
+      b.forEach(a => b.forEach(c => { if (c.b <= a.b) return; const ox = Math.max(0, Math.min(a.r, c.r) - Math.max(a.l, c.l)), oy = Math.max(0, Math.min(a.b, c.b) - Math.max(a.t, c.t)); w = Math.max(w, ox * oy / ((a.r - a.l) * (a.b - a.t))); })); return w; })(),
     bw: FIGHT_UI.board.width * FIGHT_UI.zoom, bh: FIGHT_UI.board.height * FIGHT_UI.zoom,
     W: innerWidth, avail: innerHeight - document.getElementById('top').offsetHeight - document.getElementById('bot').offsetHeight,
     gap: Math.min.apply(null, FIGHT.alive('you').map(u => Math.min.apply(null, FIGHT.alive('them').map(e => Math.max(Math.abs(u.x - e.x), Math.abs(u.y - e.y)))))),
     ini: FIGHT.S.order.map(id => FIGHT.byId(id).turnIni) }));
   if (first) await p.screenshot(Object.assign({ path: shot('OPEN') }, SHOT));
   leg(s0.you === OURS.field_size.value, F.board + ': twelve of yours on the field (rule 63b)', s0.you + ' v ' + s0.them);
-  leg(s0.fitted && Math.abs(s0.man - IDLE) <= 2 && s0.w === 20 && s0.h === 15,
-    F.board + ': *** IT OPENS WITH BOTH TEAMS ON THE GLASS, NO SWIPE, THE MAN AT 112, ON THE WHOLE BOARD (rule 104a; his eleventh votes: never cut) ***', 'man ' + Math.round(s0.man) + ' px, every man on the glass ' + s0.fitted + ', board ' + s0.w + 'x' + s0.h + ' houses');
+  leg(s0.fitted && sizeOk(s0.man, s0.row) && s0.w === 20 && s0.h === 15,
+    F.board + ': *** IT OPENS WITH BOTH TEAMS ON THE GLASS, NO SWIPE, THE MAN NEVER TALLER THAN 1.8 ROWS NOR UNDER HALF, ON THE WHOLE BOARD (rule 104a; his eleventh votes: never cut) ***', 'man ' + Math.round(s0.man) + ' px on ' + Math.round(s0.row) + ' px rows, every man on the glass ' + s0.fitted + ', board ' + s0.w + 'x' + s0.h + ' houses');
+  /* [eyes: men on men] (his first votes, 'nobody stands on anybody'; EYES 10/24, 10/25): at the open the man is 1.8 rows of his
+     ground at most and the file stands staggered (STAGGER), so the one in front stands beside the one behind, not over him;
+     a body is his box 0.3 of his height across (the rig's man), feet to head */
+  leg(s0.cover <= 0.2, F.board + ': *** NOBODY STANDS ON ANYBODY AT THE OPEN *** (his first votes): no man\'s body covers more than a fifth of another\'s (it was 62% to 100%: a 98 px man on 37 px rows, each over the two behind)', Math.round(100 * s0.cover) + '% the worst');
   leg(s0.gap >= BB.deployment.min_gap_between_lines_hexes.value, F.board + ': the lines start at least five tiles apart (wiki: "at least 5 hexes between parties")', 'nearest ' + s0.gap);
   leg(s0.ini.every((v, i) => i === 0 || s0.ini[i - 1] >= v), F.board + ': the round goes by initiative, highest first', s0.ini.slice(0, 5).map(Math.round).join(' > '));
   /* YOUR FORMATION (COMBAT [your formation]): the fight waits for his line; a real finger moves a man inside his two
@@ -96,9 +108,10 @@ async function fight(F, first) {
   const ready = await until(() => FIGHT.S.deploy && !FIGHT_UI.glide && performance.now() > FIGHT_UI.openUntil, 8000);
   await p.waitForTimeout(600);
   const d0 = await ev(() => ({ acted: FIGHT.S.log.filter(e => e.t === 'step' || e.t === 'attack').length, label: document.getElementById('bend').textContent.trim(),
-    man: allFramed() && manH() >= MAN_IDLE - 4 }));
-  leg(ready && d0.acted === 0 && d0.label === 'FIGHT' && d0.man, F.board + ': *** THE FIGHT WAITS FOR HIS LINE ***: nothing moves before FIGHT, and he sets it seeing both lines, the man at 112 (rules 21, 104a)',
-    d0.acted + ' moves, the button reads ' + d0.label + (d0.man ? ', both lines on the glass, the man at 112' : ', A MAN OFF THE GLASS OR SHRUNK'));
+    all: allFramed(), h: manH(), row: FIGHT_UI.th * FIGHT_UI.zoom }));
+  d0.man = d0.all && sizeOk(d0.h, d0.row);
+  leg(ready && d0.acted === 0 && d0.label === 'FIGHT' && d0.man, F.board + ': *** THE FIGHT WAITS FOR HIS LINE ***: nothing moves before FIGHT, and he sets it seeing both lines, the man never taller than 1.8 rows nor under half (rules 21, 104a, his first votes)',
+    d0.acted + ' moves, the button reads ' + d0.label + (d0.man ? ', both lines on the glass, the man at his size for the rows' : ', A MAN OFF THE GLASS OR THE WRONG SIZE'));
   if (first) {
     const scr = (x, y) => ev((q) => ({ x: (q[0] - FIGHT_UI.cx) * FIGHT_UI.zoom + innerWidth / 2, y: (q[1] - FIGHT_UI.cy) * FIGHT_UI.zoom + TOPH + (innerHeight - TOPH - BOTH) / 2 }), [x, y]);
     const plan = await ev(() => { const S = FIGHT.S, z = FIGHT._t.zoneCols(), u = FIGHT.alive('you')[0]; let t = null, out = null;
@@ -169,8 +182,11 @@ async function fight(F, first) {
      turns is drawn from slices/rig_idles, the same rig model's idle bank, so a frame of the bank is a frame of either folder */
   leg(blits >= bank.visible, F.board + ': the board blits the bank\'s frames (the rig\'s sheets or its idle bank) for every man it shows', blits + ' bank frames in ~18 frames for ' + bank.visible + ' men');
   leg(bank.faceFromBank, F.board + ': the turn strip and the bar carry his face: PORTRAIT\'s fresh portrait of the same model (rule 115(h))');
-  const man = await ev(() => Math.round(manH()));
-  leg(Math.abs(man - IDLE) <= 2 && IDLE >= 80, F.board + ': *** THE MAN READS AS A MAN (rule 66): at the idle stop he stands at his size, the page\'s MAN_IDLE, never under 80 ***', man + ' css px tall, his size ' + IDLE + ' (was 17 before round three)');
+  /* RE-AIMED 10/25 ([eyes: men on men]): pinched in to the near stop he stands at his size; at the fight's camera never taller
+     than 1.8 rows of his ground and never under half (sizeOk) */
+  const man = await ev(() => { const z = FIGHT_UI.zoom, at = { man: Math.round(manH()), row: FIGHT_UI.th * z }; FIGHT_UI.zoom = FIGHT_UI.near; at.near = Math.round(manH()); FIGHT_UI.zoom = z; return at; });
+  leg(Math.abs(man.near - IDLE) <= 2 && IDLE >= 80 && sizeOk(man.man, man.row), F.board + ': *** THE MAN READS AS A MAN (rule 66): at the near stop he stands at his size, the page\'s MAN_IDLE, never under 80; at the fight\'s camera never taller than 1.8 rows nor under half ***',
+    man.near + ' css px tall at the near stop, ' + man.man + ' on ' + Math.round(man.row) + ' px rows at the camera, his size ' + IDLE + ' (was 17 before round three)');
   if (F.taps) {
     /* ONE MAN IS NOT A WALL, TWO ARE (rule 66), on a corridor cut through a column of houses */
     const walls = await ev(() => {
@@ -494,7 +510,7 @@ async function screens() {
     const dd = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: pr, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip"}' });
     await dd.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
     await dd.page.waitForTimeout(2500);
-    const setMan = await dd.page.evaluate(() => FIGHT.S.deploy ? Math.round(manH()) : -1), setAll = await dd.page.evaluate(() => allFramed());
+    const setMan = await dd.page.evaluate(() => FIGHT.S.deploy ? { h: Math.round(manH()), row: FIGHT_UI.th * FIGHT_UI.zoom } : { h: -1, row: 0 }), setAll = await dd.page.evaluate(() => allFramed());
     /* what does not fit is reached by a drag, never by shrinking him: a real finger drags the line up the glass */
     let panned = null;
     if (pr === 'phone_landscape') {
@@ -517,7 +533,7 @@ async function screens() {
       return { cls, W: innerWidth, H: innerHeight, glass: Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight), minTap: Math.round(Math.min.apply(null, taps.map(q => Math.min(q.width, q.height)))),
         oneRow: b.height - (() => { const t = document.getElementById('bmturnrow'); if (!t) return 0; const q = t.getBoundingClientRect(), c = getComputedStyle(t), g = parseFloat(getComputedStyle(t.parentNode).rowGap) || 0; return q.height + parseFloat(c.marginTop) + parseFloat(c.marginBottom) + (c.flexBasis === '100%' ? g : 0); })() <= 90 && Math.abs(r('bend').top - r('skills').top) < 30,   /* UI 10/22: the turn row's own line along the bar's top edge is not a second row of the bar */ barW: Math.round(b.width), centred: Math.abs(b.left - (innerWidth - b.right)) <= 2,
         fits: FIGHT_UI.far <= FIGHT_UI.near, inside,
-        man: Math.round(manH()), all: allFramed() };
+        man: Math.round(manH()), row: FIGHT_UI.th * FIGHT_UI.zoom, all: allFramed() };
     });
     m.pr = pr; m.setMan = setMan; m.setAll = setAll; m.panned = panned; m.err = d.errs[0]; res.push(m); await d.close();
   }
@@ -527,9 +543,11 @@ async function screens() {
   leg(wide.every(x => x.oneRow), 'wide screens get Battle Brothers\' one-row bar: face and bars, the skill squares, WAIT and END TURN in one row', wide.map(x => x.pr + (x.oneRow ? ' one row' : ' TWO ROWS')).join(', '));
   leg(['tablet', 'computer'].every(k => by(k).centred && by(k).barW <= 980), 'on a tablet and a computer the bar is a centred plate no wider than 980 (it ran 1,300 wide on a monitor)', ['tablet', 'computer'].map(k => k + ' ' + by(k).barW + (by(k).centred ? ' centred' : ' OFF CENTRE')).join(', '));
   const big = res.filter(x => x.pr !== 'phone_landscape'), fl2 = by('phone_landscape');
-  leg(res.every(x => x.all && x.setAll) && big.every(x => Math.abs(x.man - IDLE) <= 2 && Math.abs(x.setMan - IDLE) <= 2) && fl2.man >= IDLE / 2,
-    '*** BOTH TEAMS ON EVERY SCREEN, NO SWIPE (rule 104a), THE MAN AT 112 (rule 21) ***: setting his line and fighting, every man of both teams on the glass; upright, tablet and computer at 104; the flipped phone, 262 points between the bars against a nine-deep line, the one place the man gives: never under half his height, 52 (at 104 he stood on 16-px rows, six rows tall)',
-    res.map(x => x.pr + ' ' + x.setMan + '/' + x.man + ' px' + (x.all && x.setAll ? '' : ' A MAN OFF THE GLASS')).join(', '));
+  /* RE-AIMED 10/25 ([eyes: men on men]): every glass by the one law (sizeOk): his size where the ground holds him, never taller
+     than 1.8 rows of it, never under half; the flipped phone against a nine-deep line is where the half floor holds */
+  leg(res.every(x => x.all && x.setAll && sizeOk(x.man, x.row) && sizeOk(x.setMan.h, x.setMan.row)) && fl2.man >= IDLE / 2 - 1,
+    '*** BOTH TEAMS ON EVERY SCREEN, NO SWIPE (rule 104a), THE MAN AT HIS SIZE FOR HIS ROWS (rule 21, his first votes) ***: setting his line and fighting, every man of both teams on the glass; his size where the ground holds him, never taller than 1.8 rows, never under half (the flipped phone against a nine-deep line: at 104 he stood on 16-px rows, six rows tall)',
+    res.map(x => x.pr + ' ' + x.setMan.h + '/' + x.man + ' px on ' + Math.round(x.row) + ' px rows' + (x.all && x.setAll ? '' : ' A MAN OFF THE GLASS')).join(', '));
   leg(res.every(x => x.minTap >= 44 && x.inside && x.fits && !x.err), 'every screen: every tap at least 44 points, nothing off the glass, a far stop to pinch out to, no page error', res.map(x => x.pr + ' ' + x.minTap + 'pt' + (x.inside ? '' : ' OFF') + (x.fits ? '' : ' NOFIT') + (x.err ? ' ' + x.err.slice(0, 50) : '')).join(', '));
 }
 
@@ -767,15 +785,15 @@ async function boardFits() {
   const look = async (extra) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:5,speed:1,kind:"suburb"' + extra + '}' });
     await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
     await d.page.waitForTimeout(1500);
-    const r = await d.page.evaluate(() => { const S = FIGHT.S; return { w: S.w, h: S.h, crop: !!S.crop, man: Math.round(manH()), near: allFramed(),
+    const r = await d.page.evaluate(() => { const S = FIGHT.S; return { w: S.w, h: S.h, crop: !!S.crop, man: Math.round(manH()), row: FIGHT_UI.th * FIGHT_UI.zoom, near: allFramed(),
       gap: Math.min(...FIGHT.alive('you').map(u => Math.min(...FIGHT.alive('them').map(e => Math.max(Math.abs(u.x - e.x), Math.abs(u.y - e.y)))))), joined: FIGHT._t ? true : false,
       onBoard: S.units.every(u => u.x >= 0 && u.y >= 0 && u.x < S.w && u.y < S.h), kinds: S.boardDef.kinds, wide: FIGHT_UI.board.width === Math.round(FIGHT_UI.tw * S.w) }; });
     r.err = d.errs[0]; await d.close(); return r; };
   const one = await look(',party:{faction:"brigands",count:3,days:1,difficulty:1}');
   const three = await look(',party:{faction:"brigands",count:10,days:30,difficulty:1,parties:3}');
   const end = await look(',endgame:true');
-  leg(one.w === 20 && one.h === 15 && !one.crop && one.near && Math.abs(one.man - IDLE) <= 2 && one.gap >= 5 && one.onBoard && one.wide && !one.err,
-    '*** A DAY-1 PARTY OF THREE GETS THE WHOLE BOARD, THE CAMERA ZOOMED TO PURPOSE *** (his eleventh votes: \'the map has to be big but then it\'s just zoomed into our purposes\'; rule 79\'s cut stands down): the lines five apart, everybody on the glass, the man at 112',
+  leg(one.w === 20 && one.h === 15 && !one.crop && one.near && sizeOk(one.man, one.row) && one.gap >= 5 && one.onBoard && one.wide && !one.err,
+    '*** A DAY-1 PARTY OF THREE GETS THE WHOLE BOARD, THE CAMERA ZOOMED TO PURPOSE *** (his eleventh votes: \'the map has to be big but then it\'s just zoomed into our purposes\'; rule 79\'s cut stands down): the lines five apart, everybody on the glass, the man at his size for his rows (sizeOk)',
     one.w + 'x' + one.h + ' houses, man ' + one.man + ' px, gap ' + one.gap + ', ' + one.kinds.join(' + '));
   leg(three.w === 20 && three.h === 15 && end.w === 20 && end.h === 15 && !three.err && !end.err, 'three parties at once, or the endgame, keep the full 20 by 15 (\'12 versus 60\')', three.w + 'x' + three.h + ', ' + end.w + 'x' + end.h);
 }
@@ -922,14 +940,14 @@ async function elevenVotes() {
     const black = () => d.page.evaluate(() => { const c = document.getElementById('cv'), D = c.width / innerWidth, a = c.getContext('2d').getImageData(0, Math.round(TOPH * D), c.width, Math.round((H - TOPH - BOTH) * D)).data;
       let b = 0, n = 0; for (let i = 0; i < a.length; i += 4 * 5) { n++; if (a[i] === 13 && a[i + 1] === 11 && a[i + 2] === 9) b++; } return b / n; });
     const r = await d.page.evaluate(() => { const on = FIGHT.S.units.filter(FIGHT.onField), ty0 = Math.min(...on.map(v => v.y)), ty1 = Math.max(...on.map(v => v.y)), t = FIGHT_UI.th * FIGHT_UI.zoom;
-      return { above: (sy(ty0 * FIGHT_UI.th) - TOPH) / t, below: (H - BOTH - sy((ty1 + 1) * FIGHT_UI.th)) / t, board: FIGHT.S.w + 'x' + FIGHT.S.h, full: !FIGHT.S.crop, all: allFramed(), man: manH() }; });
+      return { above: (sy(ty0 * FIGHT_UI.th) - TOPH) / t, below: (H - BOTH - sy((ty1 + 1) * FIGHT_UI.th)) / t, board: FIGHT.S.w + 'x' + FIGHT.S.h, full: !FIGHT.S.crop, all: allFramed(), man: manH(), row: t }; });
     r.black = await black();
     await d.page.evaluate(() => { FIGHT_UI.glide = null; FIGHT_UI.openUntil = 1e12; FIGHT_UI.pinched = true; FIGHT_UI.zoom = FIGHT_UI.far; clampCam(); });
     await d.page.waitForTimeout(300);
     r.blackFar = await black(); r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
   }
   const up = rows[0], f = v => v.toFixed(1), pc = v => (100 * v).toFixed(2) + '%';
-  leg(up.above >= 3.9 && up.below >= 3.9 && Math.abs(up.man - IDLE) <= 2 && up.all, '*** FOUR TILES NORTH AND SOUTH (his eleventh votes) ***: upright, four tiles of map above the top man and below the bottom man, the man at 112, everybody on the glass',
+  leg(up.above >= 3.9 && up.below >= 3.9 && sizeOk(up.man, up.row) && up.all, '*** FOUR TILES NORTH AND SOUTH (his eleventh votes) ***: upright, four tiles of map above the top man and below the bottom man, the man at his size for his rows (sizeOk), everybody on the glass',
     f(up.above) + ' tiles above, ' + f(up.below) + ' below, man ' + Math.round(up.man) + ' px');
   leg(rows.every(r => r.black < .001 && r.blackFar < .001 && r.full && !r.err), '*** NO BLACK, ONLY MORE MAP *** (his eleventh votes): on every screen, at the open and pinched all the way out, the black behind the board is gone (under a thousandth of the glass, the darkest pixels of the art itself; it was 37 to 74 percent); the board is never cut to the party (a day-1 party of three gets the whole board)',
     rows.map(r => r.profile + ' ' + pc(r.black) + ' / ' + pc(r.blackFar) + ', board ' + r.board + (r.full ? '' : ' CUT') + (r.err ? ' ERR ' + r.err : '')).join('; '));

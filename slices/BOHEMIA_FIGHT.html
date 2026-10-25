@@ -2468,9 +2468,17 @@ const NEAR_TILE = 121, BAR_PT = 3, SIDE_RIM = { you: '#d9a85a', them: '#b8452f' 
 const MAN_DEFAULT = 98;
 let MAN_IDLE = MAN_DEFAULT;
 /* BOTH TEAMS ON ONE SCREEN (rule 104a) with THE GROUND MAY ZOOM, THE PERSON MAY NOT (rule 21): the man is drawn MAN_IDLE css px
-   tall at every zoom; only the ground scales under him */
-function manH() { return rigScale() * DB.rig.ruler.px / DPR; }   /* upright he is always MAN_IDLE (rule 21); only a glass wider than tall caps him at MAN_ROWS rows */
-const MAN_ROWS = 2.8;
+   tall wherever the ground is close enough to hold him; only the ground scales under him */
+/* NOBODY STANDS ON ANYBODY (COMBAT [eyes: men on men], his first votes 9/21: 'why are so many people on top of each other... looks
+   like complete dogshit'; EYES 10/24 and 10/25: at the upright phone's open a tile is 53 x 37 px under a 98 px man, so each body
+   covered the two behind it, DANTE 62% of JAMAL). The man is never taller than MAN_ROWS rows of HIS OWN GROUND, on every glass
+   (it was 2.8 rows on a glass wider than tall and no cap upright): zoomed out to both teams he stands 65 px on his phone (the
+   rig's whole two device pixels a pixel), 1.8 rows, and the file stands staggered (STAGGER, by dx()), so the one in front
+   stands beside the one behind, not over him; pinched in, the ground holds him at MAN_IDLE again. The line itself is never
+   spread (measured 10/25: a line a tile apart left AUTO's men alone in 26% of their fighting turns and took the pike's
+   two-tile strike from behind a friend; Battle Brothers' tight line is the tactics, so the fix is the drawing's). */
+function manH() { return rigScale() * DB.rig.ruler.px / DPR; }
+const MAN_ROWS = 1.8;
 
 function beatMs() { return songBeat() / UI.speed / (UI.hand || 1) / paceNow(); }   /* the song's beat over the hand's speed and the turn's pace (THE FIGHT BY HAND, QUICKER) */
 /* ===== THE SONG IS THE CLOCK (COMBAT 10/24, row [every action on the music's beat], rule 158) =====
@@ -3986,7 +3994,7 @@ function keepAll(ms, more, hold) { if (UI.pinched) return false; const f = fitBo
    strip and the bar (the old test read his tile's middle, 40 pt in, and let the camera stop with his head under the strip
    or his feet under the bar); the camera aims at his box's middle, and walks with him when his step would leave the glass */
 const FOLLOW_M = 0.18, FRAME_PAD = 6;
-function manBox(x, y) { const tall = manH(), feet = sy((y + .9) * UI.th); return { x: sx((x + .5) * UI.tw), head: feet - tall, feet: feet }; }
+function manBox(x, y) { const tall = manH(), feet = sy((y + .9) * UI.th); return { x: sx((x + .5 + stagger(y)) * UI.tw), head: feet - tall, feet: feet }; }
 function framed(x, y) { const b = manBox(x, y); return b.x > W * FOLLOW_M && b.x < W * (1 - FOLLOW_M) && b.head > TOPH + FRAME_PAD && b.feet < H - BOTH - FRAME_PAD; }
 function aimAt(x, y) { return [(x + .5) * UI.tw, (y + .9) * UI.th - manH() / UI.zoom / (1 + 1)]; }
 /* THE CAMERA EASES (rule 121 [smooth]): a glide eases in and out; a new glide asked while one is still moving keeps moving
@@ -4186,7 +4194,7 @@ function draw(now) {
     }
   }
   /* the man acting: GAFFER TAPE on his tile's corners (his side's paint for theirs) */
-  if (u && !S.over && !S.deploy) mkCorners(dx(u), dy(u), u.side === 'you' ? MK.tape : MK.rustLit);
+  if (u && !S.over && !S.deploy) mkCorners(shownAt(u).x, dy(u), u.side === 'you' ? MK.tape : MK.rustLit);   /* the corners mark his tile, not his stagger */
   mkOff();
   /* rule 145: the floor keeps every hit, under the fallen and the standing */
   goreTick(now); drawStains();
@@ -4317,10 +4325,15 @@ function sheetOf(v) {
    WHOLE number of device pixels to the rig's pixel, the one nearest the size asked, so every pixel of the model is the same
    size on the glass and nothing shimmers as he walks */
 function rigScale() {
-  /* upright he is MAN_IDLE, the nearest whole size; a glass wider than tall caps him at MAN_ROWS rows, and a cap is a ceiling:
-     the whole size under it (rounding up stood his head off the glass on the flipped phone, measured 10/19) */
-  const cap = H > W ? Infinity : MAN_ROWS * UI.th * UI.zoom, px = DB.rig.ruler.px;
+  /* he is MAN_IDLE, the nearest whole size, wherever his ground holds him; past that MAN_ROWS rows of it cap him on every glass
+     (NOBODY STANDS ON ANYBODY, above), and a cap is a ceiling: the whole size under it (rounding up stood his head off the
+     glass on the flipped phone, measured 10/19) */
+  /* never under half of him (EYES 10/5 measured him under 45 px on the flipped phone against a nine-deep line) */
+  const cap = Math.max(MAN_ROWS * UI.th * UI.zoom, MAN_IDLE / (1 + 1)), px = DB.rig.ruler.px;
   if (cap >= MAN_IDLE) return Math.max(1, Math.round(MAN_IDLE * DPR / px));
+  /* a whole size a hair over the cap (ART_SNAP) is taken, so a line a row deeper does not drop him off the whole sizes */
+  const up = Math.ceil(cap * DPR / px - 1e-9);
+  if (up * px / DPR <= cap * (1 + ART_SNAP)) return up;
   /* the whole size under the cap, unless that is under half of him (on his phone the sizes are 33, 65 and 98: 33 is a
      speck), and then the cap itself, the one place a rig pixel is not a whole number of device pixels (the flipped phone) */
   const f = Math.floor(cap * DPR / px);
@@ -4342,7 +4355,16 @@ function shownAt(v) {
   const a = walkOf(v); if (a) return walkAt(a, performance.now());
   return v._at || v;
 }
-function dx(v) { return shownAt(v).x; }
+/* THE LINE STANDS STAGGERED (COMBAT [eyes: men on men], his first votes: 'nobody stands on anybody'; rule 164 item 13, 'more
+   organic'): Battle Brothers' hexes set every other row half a hex over, so two men of one file never stand dead behind each
+   other; on our squares a man stands STAGGER of a tile to the left of his tile's middle on an even row and to the right on an
+   odd one, a skirmish line's zig-zag, never out of his own tile; the rules never see it (his tile is his tile), and on a walk
+   he eases across it with the rows (a cosine of his row). Two men in one column stand half a tile apart sideways, a body's
+   width at the open (the rig's man is 0.3 of his height across, 65 px on 21 px of tile), so the one in front is beside the
+   one behind, not over him. */
+const STAGGER = 0.25;
+function stagger(y) { return -STAGGER * Math.cos(Math.PI * y); }
+function dx(v) { const p = shownAt(v); return p.x + (UI.drag && UI.drag.u === v ? 0 : stagger(p.y)); }
 function dy(v) { return shownAt(v).y; }
 /* HE TURNS, HE DOES NOT SNAP: a man asked to face another way turns one facing a twelfth of a beat at a time, the rig's
    turntable played (S to N passes SE, E, NE), the way a held key steps */
@@ -5413,7 +5435,7 @@ function manAt(px, py) {
   const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = manH();
   return S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y && FIGHT.shown(v); })[0] || S.units.filter(function (v) {
     if (!FIGHT.onField(v) || !FIGHT.shown(v)) return false;
-    const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
+    const X = sx((v.x + .5 + stagger(v.y)) * UI.tw), Yf = sy((v.y + .9) * UI.th);
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
   }).sort(function (a, b) { return b.y - a.y; })[0] || null;   /* the man on the tile first (rule 104a), then a body */
 }
@@ -5694,7 +5716,7 @@ function deployTap(px, py) {
   const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = manH();
   const who = S.units.filter(function (v) {
     if (!FIGHT.onField(v) || v.side !== 'you') return false;
-    const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
+    const X = sx((v.x + .5 + stagger(v.y)) * UI.tw), Yf = sy((v.y + .9) * UI.th);
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
   }).sort(function (a, b) { return b.y - a.y; })[0];
   /* the man standing ON the tapped tile comes first (rule 104a: zoomed out to both teams, a man is taller than three rows and
@@ -5731,10 +5753,14 @@ function fitBoth(more) {
   const on = FIGHT.S.units.filter(FIGHT.onField).map(function (v) { return { x: v.x, y: v.y }; }).concat(more || []);
   if (!on.length) return { z: UI.near, cx: UI.cx, cy: UI.cy };
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-  on.forEach(function (v) { x0 = Math.min(x0, v.x + .5); x1 = Math.max(x1, v.x + .5); y0 = Math.min(y0, v.y + .9); y1 = Math.max(y1, v.y + .9); });
+  on.forEach(function (v) { const sx0 = v.x + .5 + stagger(v.y); x0 = Math.min(x0, sx0); x1 = Math.max(x1, sx0); y0 = Math.min(y0, v.y + .9); y1 = Math.max(y1, v.y + .9); });
   const ah = H - TOPH - BOTH, side = FIT_PAD + manH() * FIG_HALF;
   const span = Math.max((y1 - y0) * UI.th, 1), room = ah - FIT_PAD * (1 + 1);
-  let zh = (room - MAN_IDLE) / span; if (zh * UI.th * MAN_ROWS < MAN_IDLE) zh = room / (span + MAN_ROWS * UI.th);
+  /* the head room the man takes at that zoom, by rigScale's own law (his size; else MAN_ROWS rows; never under half), with
+     the hair a whole size may round up (ART_SNAP) */
+  const up = 1 + ART_SNAP, half = MAN_IDLE / (1 + 1);
+  let zh = (room - MAN_IDLE) / span; if (zh * UI.th * MAN_ROWS < MAN_IDLE) zh = room / (span + MAN_ROWS * UI.th * up);
+  if (zh * UI.th * MAN_ROWS < half) zh = (room - half * up) / span;
   /* UPRIGHT (his eleventh votes: 'whatever the biggest troop size is, four tiles south of the bottom person, four tiles north
      of the top person'): the frame holds the longest line the formation has (slots_per_row) and FOUR_ROOM tiles past it */
   if (H > W) {
@@ -5745,7 +5771,7 @@ function fitBoth(more) {
   }
   const z = Math.max(UI.coverFar || UI.far, Math.min(UI.near, (W - (FIT_PAD + MAN_IDLE * FIG_HALF) * (1 + 1)) / Math.max((x1 - x0) * UI.tw, 1), zh));
   if (z < UI.far) UI.far = z;   /* the pinch's far stop never closer than both teams */
-  const m = H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * z);
+  const m = Math.min(MAN_IDLE, Math.max(MAN_ROWS * UI.th * z, half));
   return { z: z, cx: (x0 + x1) / (1 + 1) * UI.tw, cy: (y0 + y1) / (1 + 1) * UI.th - m / z / (1 + 1) };
 }
 function allFramed(more) { return FIGHT.S.units.filter(FIGHT.onField).concat(more || []).every(function (v) { const b = manBox(v.x, v.y); return b.x - manH() * FIG_HALF >= 0 && b.x + manH() * FIG_HALF <= W && b.head >= TOPH && b.feet <= H - BOTH; }); }
@@ -5826,7 +5852,7 @@ function whoAt(px, py, p, u) {
   const S = FIGHT.S, th = UI.th * UI.zoom, hgt = manH();
   const body = S.units.filter(function (v) {
     if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
-    const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
+    const X = sx((v.x + .5 + stagger(v.y)) * UI.tw), Yf = sy((v.y + .9) * UI.th);
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
   }).sort(function (a, b) { return b.y - a.y; })[0], onTile = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
   let who = onTile || (body && body.side === 'them' ? body : null);
