@@ -104,6 +104,16 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .act img.pk{width:34px;height:34px;object-fit:contain;image-rendering:pixelated;margin-right:8px;vertical-align:middle;flex:none}
 .slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .slot em{font-style:normal;color:var(--dim);font-size:9px}
+/* SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18): the price on every piece in your bag reads at a glance, a piece you
+   keep wears KEEP and never goes with the junk, and one button sells the rest */
+.grid.bag .slot{position:relative}
+.grid.bag .slot em{font-size:11px;color:var(--gold);letter-spacing:.5px}
+.grid.bag .slot .kp{position:absolute;left:3px;top:2px;font-size:8px;letter-spacing:.5px;color:#9fc38f;text-shadow:0 1px 0 #000}
+.grid.bag .slot.kept em{color:var(--dim)}
+#selljunk{margin:8px 0 6px;min-height:52px}
+#selljunk span{font-size:13px;letter-spacing:1px}
+#selljunk em{font-size:13px}
+.sold{margin:2px 0 6px;color:var(--gold);font-size:12px}
 /* the hire card: face, name, background, eight stats, the starred one gold, the price */
 .hire{display:grid;grid-template-columns:96px 1fr;gap:4px 8px;padding:6px;border:1px solid var(--line);border-radius:4px;background:#16110c;margin-top:6px}
 .hire .face{width:40px;height:40px;flex:none}
@@ -457,6 +467,10 @@ function shopSheet(k, body, acts, line){
     }, it.price, true));
   });
   var h2 = document.createElement('div'); h2.className = 'gridh'; h2.textContent = 'YOUR BAG  ' + S.stash.length + ' / ' + BAG_SLOTS; acts.appendChild(h2);
+  /* SELL THE JUNK: one tap, its count and its price on the button (rule 164 item 18) */
+  var J = junkSale(), sj = act(J.items.length ? 'SELL THE JUNK, ' + J.items.length + (J.items.length === 1 ? ' PIECE' : ' PIECES') : 'NO JUNK IN YOUR BAG', J.items.length ? '+' + moneyWord(J.got) : 'what you keep says KEEP', function(){ sellJunk(k); }, !J.items.length);
+  sj.id = 'selljunk'; acts.appendChild(sj); dressJunk();
+  if(S.soldNote){ var sn = document.createElement('div'); sn.className = 'sold'; sn.textContent = S.soldNote; acts.appendChild(sn); S.soldNote = null; }
   /* RUN TWO [the bag sorts]: Battle Brothers' sort button, one shared function (engine/bohemia_bag_sort.js) */
   if(window.BohemiaBagSort && S.stash.length > 1){ var sortB = act('Sort the bag', 'by kind', function(){ S.stash = BohemiaBagSort.sort(S.stash); bagSave(); post('sort', {bag:S.stash.map(function(i){ return i.id; })}); openB(k); }); sortB.id = 'sortbag'; acts.appendChild(sortB); }
   var bagG = document.createElement('div'); bagG.className = 'grid bag'; bagG.id = 'baggrid'; acts.appendChild(bagG);
@@ -464,19 +478,53 @@ function shopSheet(k, body, acts, line){
     (function(it){
       /* __THE_SPOILS__: a piece looted worn sells for what is left of it (Battle Brothers: an item is worth its value times its
          condition; the Game Guide's repair table weighs worth against wear) */
-      var worn = it && it.condMax > 0 ? Math.max(0, Math.min(1, it.cond / it.condMax)) : 1;
-      var back = it ? Math.max(1, Math.floor((it.base || it.price) * worn * (SELL_CUT + relPrice().sellAdd) * traitMult().sell)) : 0;
-      bagG.appendChild(iconTile(it, function(){
+      var back = it ? sellBack(it) : 0;
+      var tile = iconTile(it, function(){
         openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
         var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
         sb.appendChild(act('Sell it', '+' + moneyWord(back), function(){
           P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
           S.stash.splice(S.stash.indexOf(it), 1); bagSave(); post('sellArms', {item:it, got:back}); shelf(); openB(k, 'Pleasure. ' + back + ' batteries.');
         }));
-        sb.appendChild(act('Keep it', '', function(){ openB(k); }));
-      }, it ? '+' + back : null, true));
+        /* KEEP it: SELL THE JUNK never takes it; or let it go with the junk (RUN TWO 10/25, rule 164 item 18) */
+        var kept = !isJunk(it);
+        sb.appendChild(act(kept ? 'Let it go with the junk' : 'Keep it', kept ? 'SELL THE JUNK takes it' : 'never sold as junk', function(){
+          it.keep = !kept; bagSave(); post('keep', {item:it.id, keep:it.keep}); openB(k, kept ? 'It goes with the junk next time.' : 'Kept. SELL THE JUNK leaves it alone.'); }));
+      }, it ? '+' + back : null, true);
+      if(it && !isJunk(it)){ tile.className += ' kept'; var kp = document.createElement('b'); kp.className = 'kp'; kp.textContent = 'KEEP'; tile.appendChild(kp); }
+      bagG.appendChild(tile);
     })(S.stash[si] || null);
   }
+}
+/* ---------- SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18; Paolo 10/24 on his PC: 'every time selling shit was so
+   painful, one of the things I hated most about Battle Brothers'; the row: 'selling my dog shit inventory for some batteries'):
+   Battle Brothers sells one piece a click. Here the junk goes in ONE tap, the button says how many pieces and what they
+   bring before he taps it. JUNK is what he did not choose: a piece looted off the dead, unless he marked it KEEP; anything he
+   bought or took off one of his men is kept unless he lets it go. Every piece sells for what the single sale pays (its worth,
+   its wear, the town's cut, the standing, the place's trait), so one tap never pays more or less than tapping them one by one. */
+function sellBack(it){
+  /* __THE_SPOILS__: a piece looted worn sells for what is left of it (Battle Brothers: an item is worth its value times its
+     condition; the Game Guide's repair table weighs worth against wear) */
+  var worn = it && it.condMax > 0 ? Math.max(0, Math.min(1, it.cond / it.condMax)) : 1;
+  return Math.max(1, Math.floor((it.base || it.price) * worn * (SELL_CUT + relPrice().sellAdd) * traitMult().sell));
+}
+/* the button is the kit's amber tin, what you press (UI's rendered piece, laid on through BohemiaMaterials.kit) */
+function dressJunk(){
+  var M = window.BohemiaMaterials; if(!M || !M.kit || document.getElementById('sj-kit')) return;
+  var st = document.createElement('style'); st.id = 'sj-kit';
+  st.textContent = 'html[data-kit] body #sheet #selljunk:not(:disabled){' + M.kit('tin_amber', .75) + 'filter:drop-shadow(2px 1px 0 rgba(10,6,3,.6));color:#1f1710!important;text-shadow:none!important}'
+    + 'html[data-kit] body #sheet #selljunk:not(:disabled) em{color:#3a2410!important;border-color:rgba(31,23,16,.4)!important}html[data-kit] body #sheet #selljunk:active{translate:1px 1px;filter:none}';
+  document.head.appendChild(st);
+}
+function isJunk(it){ return !!it && (it.keep === false || (it.keep !== true && !!it.looted)); }
+function junkSale(){ var items = S.stash.filter(isJunk), got = 0; items.forEach(function(it){ got += sellBack(it); }); return { items: items, got: got }; }
+function sellJunk(k){
+  var J = junkSale(); if(!J.items.length) return 0;
+  J.items.forEach(function(it){ P.credit(S.purse, 'electricity', sellBack(it), 'sell:' + it.id, S.place.name, S.day); S.stash.splice(S.stash.indexOf(it), 1); });
+  bagSave(); post('sellJunk', {items:J.items.map(function(i){ return i.id; }), got:J.got}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf();
+  S.soldNote = 'Sold ' + J.items.length + (J.items.length === 1 ? ' piece' : ' pieces') + ' for ' + moneyWord(J.got) + '. Kept ' + S.stash.length + '.';
+  openB(k, J.got >= 10 ? 'All of it? Bueno. ' + J.got + ' batteries, count them.' : 'Junk for junk money. ' + J.got + '.');
+  return J.got;
 }
 
 /* WHO STANDS IN EACH BUILDING. draft:true: names and lines are attempts (rule 8/11);
@@ -2095,7 +2143,7 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

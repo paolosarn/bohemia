@@ -36,77 +36,118 @@
      shows a sample fight. Gate: gates/the_spoils_gate.js
      ============================================================================ -->
 <style>
-:root{--bg:#120e0a;--plate:#2a2119;--plate2:#1c1611;--ink:#e9dcc4;--dim:#a8977c;--gold:#d9a85a;--line:#3a2f24;--red:#c8553d;--green:#8fb06a}
+/* THE END OF THE FIGHT IN THE KIT (RUN TWO 10/25, rule 164 items 25 and 28; rule 130(b) THE UI GOES CRASHBOX): the bar, the
+   sheets and every man's plate are corrugated board, what you press is tin (amber for LOOT ALL and a level-up), what the game
+   prints is thermal receipt, a slot is a pocket of cracked glass: UI's rendered pieces (slices/ui_kit/), laid on by
+   BohemiaMaterials.kit() below, the same pieces the crew screen wears. The words are the casing face and the ROM face. */
+@font-face{font-family:'BohemiaCasing';src:url(fonts/BohemiaCasing-Regular.woff2) format('woff2');font-display:block}
+@font-face{font-family:'BohemiaROM';src:url(fonts/BohemiaROM-Regular.woff2) format('woff2');font-display:block}
+:root{--bg:#0f0c09;--plate:#2a2119;--plate2:#1c1611;--ink:#efe3c8;--dim:#a8977c;--gold:#e2bd6a;--line:#3a2f24;--red:#d0644a;--green:#9fc38f;--paper:#1f1710;
+  --casing:'BohemiaCasing',ui-sans-serif,sans-serif;--rom:'BohemiaROM',ui-monospace,Menlo,Consolas,monospace}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.35 ui-monospace,Menlo,Consolas,monospace;-webkit-tap-highlight-color:transparent;user-select:none}
-body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
-#bar{position:sticky;top:0;z-index:5;display:flex;align-items:baseline;gap:8px;padding:max(10px,env(safe-area-inset-top)) 12px 8px;background:var(--plate2);border-bottom:1px solid var(--line)}
-#bar .t{flex:1;font-weight:700;letter-spacing:1px;color:var(--gold)}
-#bar .r{color:var(--dim);font-size:11px}
-.h{margin:12px 12px 6px;font-size:11px;letter-spacing:1px;color:var(--dim);display:flex;justify-content:space-between;gap:8px}
-.h b{color:var(--ink);font-weight:700}
-#crew{margin:0 12px}
-.man{display:flex;gap:10px;align-items:flex-start;padding:8px;margin-bottom:6px;background:var(--plate2);border:1px solid var(--line);border-radius:6px}
-.man.up{border-color:var(--gold)}
-.man.dead{opacity:.6}
-.man canvas{width:44px;height:44px;flex:0 0 44px;border:1px solid var(--line);border-radius:4px;background:#0b0907;image-rendering:pixelated}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.4 var(--rom);-webkit-tap-highlight-color:transparent;user-select:none}
+html{animation:in 280ms ease-out}
+@keyframes in{from{opacity:0}to{opacity:1}}
+body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+button{font-family:var(--rom)}
+#bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:max(12px,env(safe-area-inset-top)) 14px 12px;background:var(--plate2);border-bottom:1px solid var(--line)}
+#bar .word{font:30px/1 var(--casing);letter-spacing:3px;color:var(--gold);text-shadow:0 2px 0 #000}
+#bar.lost .word{color:var(--red)}
+#bar .sub{flex:1;min-width:140px;font:13px/1.2 var(--casing);letter-spacing:1.5px;color:var(--ink)}
+#tally{display:flex;gap:14px;align-items:baseline;padding:7px 12px 9px;color:var(--paper);font-size:11px;letter-spacing:.5px}
+#tally b{font:16px/1 var(--casing);letter-spacing:1px}
+.lines{margin:10px 14px 0}
+.lines p{margin:0 0 4px;font:13px/1.35 var(--casing);letter-spacing:1px;color:var(--ink)}
+.quote{display:flex;gap:10px;align-items:center;margin:10px 14px 0;padding:8px 12px 10px;color:var(--paper);font-size:12px}
+.quote canvas{width:36px;height:36px;flex:0 0 36px;border-radius:3px;image-rendering:pixelated;background:#0b0907}
+.quote q{font-style:italic;flex:1}
+.quote b{font:12px var(--casing);letter-spacing:1px}
+.h{margin:16px 14px 8px;font:12px/1 var(--casing);letter-spacing:2px;color:var(--dim);display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.h b{color:var(--ink);font-weight:400}
+.h span:last-child{font:10px var(--rom);letter-spacing:.5px}
+#crew{margin:0 14px}
+.man{display:flex;gap:12px;align-items:flex-start;padding:10px 12px 12px;margin-bottom:8px;background:var(--plate2);border:1px solid var(--line);border-radius:6px}
+.man.up{outline:2px solid var(--gold);outline-offset:-2px}
+.man.dead{opacity:.62}
+.man .face{flex:0 0 56px;width:56px;height:56px;padding:4px;border-radius:4px;background:#0b0907}
+.man canvas{display:block;width:48px;height:48px;border-radius:2px;background:#0b0907;image-rendering:pixelated}
 .man .w{flex:1;min-width:0}
-.man .nm{display:flex;justify-content:space-between;gap:6px;font-weight:700;letter-spacing:1px}
-.man .lv{color:var(--dim);font-weight:400;white-space:nowrap}
-.man.up .lv{color:var(--gold);font-weight:700}
-.xpbar{position:relative;height:8px;margin-top:5px;background:#16110c;border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.xpbar i{position:absolute;top:0;bottom:0;left:0;background:#7a6040}
-.xpbar u{position:absolute;top:0;bottom:0;background:var(--gold);text-decoration:none}
-.xp{margin-top:3px;font-size:11px;color:var(--dim)}
-.xp b{color:var(--gold)}
-.state{margin-top:3px;font-size:11px}
+.man .nm{display:flex;justify-content:space-between;gap:6px;align-items:baseline}
+.man .nm span:first-child{font:15px/1.1 var(--casing);letter-spacing:1.5px}
+.man .lv{color:var(--dim);white-space:nowrap;font-size:11px}
+.man.up .lv{color:var(--gold);font:13px var(--casing);letter-spacing:1px}
+.xpbar{position:relative;height:9px;margin-top:6px;background:#0d0a07;border:1px solid #4a3b2c;border-radius:2px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.8)}
+.xpbar i{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(#8a6c44,#5f4a2e)}
+.xpbar u{position:absolute;top:0;bottom:0;background:linear-gradient(#f0cf83,#c9993f);text-decoration:none}
+.xp{margin-top:4px;font-size:11px;color:var(--dim)}
+.xp b{color:var(--gold);font-weight:400}
+.nums{display:flex;gap:12px;margin-top:5px;font-size:11px;color:var(--dim)}
+.nums b{color:var(--ink);font-weight:400}
+.state{margin-top:4px;font-size:11px}
 .state.hurt{color:var(--red)}
-.state.gone{color:var(--red);font-weight:700}
-.perk{margin-top:6px;min-height:44px;padding:0 14px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:inherit;font-weight:700;letter-spacing:1px}
-#counts{display:flex;flex-wrap:wrap;gap:6px;margin:0 12px 6px}
-.count{min-height:44px;padding:4px 12px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(#2e241a,#1d1610);border:1px solid #4a3b2c;border-radius:6px;color:var(--ink);font:inherit;text-align:left}
-.count b{color:var(--gold);font-size:15px}
-.count span{font-size:9px;color:var(--dim);letter-spacing:1px}
-.count.taken{opacity:.45;border-style:dashed}
-.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:0 12px}
-.slot{position:relative;aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
-.slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c;box-shadow:none;cursor:pointer}
-.slot.new{border-color:var(--gold)}
-.slot i{font-style:normal;font-size:15px;color:var(--gold);line-height:1}
-.slot img.pk{width:auto;height:22px;max-width:90%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
-.slot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.slot em{position:absolute;right:2px;top:1px;font-style:normal;font-size:8px;color:var(--dim)}
-#ground .slot.full{border-color:#6e5a3c}
-#ground.empty{display:block;margin:0 12px;color:var(--dim);font-size:11px}
-#lootall{display:block;width:calc(100% - 24px);margin:8px 12px 0;min-height:52px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:inherit;font-size:15px;font-weight:700;letter-spacing:2px}
-#lootall:disabled{background:var(--plate);color:var(--dim)}
-#said{margin:6px 12px 0;min-height:18px;color:var(--ink);font-size:12px}
-#said.full{color:var(--red);font-weight:700}
-#stash .slot.full{cursor:pointer}
-#foot{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:8px 12px max(8px,env(safe-area-inset-bottom));background:var(--plate2);border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.state.gone{color:var(--red);font:12px var(--casing);letter-spacing:1px}
+.perk{margin-top:8px;min-height:44px;padding:0 16px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font-size:12px;letter-spacing:1px}
+#counts{display:flex;flex-wrap:wrap;gap:8px;margin:0 14px 8px}
+.count{min-height:44px;padding:6px 14px 8px;display:flex;flex-direction:column;justify-content:center;background:#ddd4bd;border:0;border-radius:2px;color:var(--paper);text-align:left}
+.count b{font:16px/1.1 var(--casing);letter-spacing:1px;font-weight:400}
+.count span{font-size:9px;letter-spacing:.5px;opacity:.75}
+.count.taken{opacity:.45}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:0 14px}
+.slot{position:relative;aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);font-size:9px;padding:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;overflow:hidden}
+.slot.full{cursor:pointer}
+.slot.new::after{content:'';position:absolute;inset:2px;border:2px solid var(--gold);border-radius:3px;pointer-events:none}
+.slot i{font-style:normal;font-size:16px;color:var(--gold);line-height:1}
+.slot img.pk{width:auto;height:26px;max-width:88%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
+.slot canvas{max-width:80%;height:auto}
+.slot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 0 #000}
+.slot em{position:absolute;right:4px;top:3px;font-style:normal;font-size:8px;color:var(--gold);text-shadow:0 1px 0 #000}
+#ground.empty{display:block;margin:0 14px;color:var(--dim);font-size:12px}
+#lootall{display:block;width:calc(100% - 28px);margin:10px 14px 0;min-height:54px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:17px/1 var(--casing);letter-spacing:3px}
+#lootall:disabled{color:var(--dim)}
+#said{margin:8px 14px 0;min-height:18px;color:var(--ink);font-size:12px}
+#said.full{color:var(--red)}
+#nothing{margin:0 14px;padding:10px 12px 12px;color:var(--ink);font:13px/1.4 var(--casing);letter-spacing:1px}
+#foot{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:10px 14px max(10px,env(safe-area-inset-bottom));background:var(--plate2);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
 #foot .left{flex:1;font-size:11px;color:var(--dim)}
-#leave{min-width:120px;min-height:52px;background:var(--plate);color:var(--ink);border:1px solid #4a3b2c;border-radius:6px;font:inherit;font-weight:700;letter-spacing:2px}
+#leave{min-width:150px;min-height:54px;background:var(--plate);color:var(--paper);border:0;border-radius:6px;font:16px/1 var(--casing);letter-spacing:3px}
+.lost #loot{display:none}
+.man .xp,.man .nums,.man .lv{color:#c4b190}
+/* a phone: LOOT ALL rides the bottom bar beside LEAVE, one tap without a scroll however long the crew is (mobile first, rule 164 item 16) */
+@media (max-width:699px){
+  #lootall{position:fixed;z-index:7;left:14px;bottom:max(10px,env(safe-area-inset-bottom));width:calc(100% - 28px - 160px);min-height:54px;margin:0;font-size:15px;letter-spacing:2px}
+  #lootall:disabled{display:none}
+  #foot .left{visibility:hidden}
+  body:not(.lost) #loot .h:first-child{margin-top:18px}
+}
 @media (min-width:700px){
-  #cols{display:grid;grid-template-columns:minmax(260px,1fr) minmax(320px,1.3fr);gap:0 8px;align-items:start}
-  .grid{grid-template-columns:repeat(9,minmax(40px,56px));justify-content:start}
+  #ground.grid{grid-template-columns:repeat(6,minmax(64px,80px))}
+  #ground .slot img.pk{height:34px}
+  #cols{display:grid;grid-template-columns:minmax(300px,1fr) minmax(360px,1.2fr);gap:0 10px;align-items:start;max-width:1240px;margin:0 auto}
+  .grid{grid-template-columns:repeat(9,minmax(44px,60px));justify-content:start}
+  #bar{padding-left:max(14px,calc((100vw - 1240px) / 2 + 14px));padding-right:max(14px,calc((100vw - 1240px) / 2 + 14px))}
 }
 </style>
 </head>
 <body>
-<div id="bar"><span class="t" id="head">THE FIGHT IS WON</span><span class="r" id="rounds"></span></div>
+<div id="bar"><span class="word" id="word">YOU WON</span><span class="sub" id="head">THE FIGHT IS WON</span><span id="tally"><span id="rounds"></span></span></div>
+<div id="lines" class="lines"></div>
 <div id="cols">
   <div>
     <div class="h"><span>YOUR CREW</span><span id="crewn"></span></div>
     <div id="crew"></div>
   </div>
   <div>
-    <div class="h"><span>WHAT THEY LEFT</span><span id="fromn"></span></div>
-    <div id="counts"></div>
-    <div id="ground" class="grid"></div>
-    <button id="lootall" type="button">LOOT ALL</button>
-    <div id="said"></div>
-    <div class="h"><span>YOUR STASH <b id="stashn">0 / 36</b></span><span>TAP ONE TO PUT IT BACK</span></div>
-    <div id="stash" class="grid"></div>
+    <div id="callw"></div>
+    <div id="loot">
+      <div class="h"><span>WHAT THEY LEFT</span><span id="fromn"></span></div>
+      <div id="counts"></div>
+      <div id="ground" class="grid"></div>
+      <button id="lootall" type="button">LOOT ALL</button>
+      <div id="said"></div>
+      <div class="h"><span>YOUR STASH <b id="stashn">0 / 36</b></span><span>TAP ONE TO PUT IT BACK</span></div>
+      <div id="stash" class="grid"></div>
+    </div>
+    <div id="nothing" hidden></div>
   </div>
 </div>
 <div id="foot"><span class="left" id="left"></span><button id="leave" type="button">LEAVE</button></div>
@@ -120,7 +161,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 (function(){
 'use strict';
 var C = window.BohemiaRoster, SP = window.BohemiaSpoils, BAGKEY = 'bohemia.bag.v1', CKEY = 'bohemia.climb.v1', AKEY = 'bohemia.fight.after.v1';
-var S = { ready:false, L:null, cap:36, fight:null, ground:[], stash:[], counts:null, countsTaken:false, men:[], looks:{}, seq:0, standalone:(window.parent === window), log:[] };
+var S = { ready:false, L:null, cap:36, fight:null, nums:{}, rc:null, won:true, ground:[], stash:[], counts:null, countsTaken:false, men:[], looks:{}, seq:0, standalone:(window.parent === window), log:[] };
 function post(act, o){ var m = {type:'BOHEMIA_SPOILS', act:act}; for(var k in (o||{})) m[k] = o[k]; S.log.push(m);
   if(!S.standalone) try{ window.parent.postMessage(m, '*'); }catch(e){} }
 function sfx(ev){ S.log.push({type:'BOHEMIA_SFX', ev:ev}); if(!S.standalone) try{ window.parent.postMessage({type:'BOHEMIA_SFX', ev:ev}, '*'); }catch(e){} }
@@ -155,7 +196,7 @@ function drawCrew(){
   var ups = 0;
   S.men.forEach(function(m){
     var d = document.createElement('div'); d.className = 'man' + (m.up ? ' up' : '') + (m.dead ? ' dead' : ''); d.dataset.man = m.name;
-    d.appendChild(faceCanvas(m.name));
+    var fw = document.createElement('div'); fw.className = 'face'; fw.appendChild(faceCanvas(m.name)); d.appendChild(fw);
     var w = document.createElement('div'); w.className = 'w';
     var nm = document.createElement('div'); nm.className = 'nm';
     var a = document.createElement('span'); a.textContent = m.main ? 'YOU' : m.name; nm.appendChild(a);
@@ -169,6 +210,10 @@ function drawCrew(){
       w.appendChild(bar);
       var xp = document.createElement('div'); xp.className = 'xp'; xp.innerHTML = '<b>+' + m.gained + ' XP</b>  ' + (m.xpTo - m.base) + ' of ' + span + ' to level ' + (m.to + 1); w.appendChild(xp);
     }
+    var fn = S.nums[m.name];   /* what he did in it, off the fight's own recap card: kills, blood drawn, blood taken */
+    if(fn){ var nu = document.createElement('div'); nu.className = 'nums';
+      nu.innerHTML = '<span><b>' + fn.kills + '</b> ' + (fn.kills === 1 ? 'KILL' : 'KILLS') + '</span><span><b>' + fn.dealt + '</b> BLOOD DRAWN</span><span><b>' + fn.taken + '</b> TAKEN</span>';
+      w.appendChild(nu); }
     var st = null;
     if(m.dead){ st = document.createElement('div'); st.className = 'state gone'; st.textContent = 'FELL. HE IS DEAD.'; }
     else if(m.down && m.main){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'WENT DOWN. UP AGAIN AFTER.'; }
@@ -210,7 +255,7 @@ function condPct(it){ return it.condMax > 0 ? Math.round(100 * it.cond / it.cond
 function slotFor(it, where, i){
   var b = document.createElement('button'); b.type = 'button'; b.className = 'slot' + (it ? ' full' : '');
   if(!it) return b;
-  b.appendChild(pic(it, 26));
+  b.appendChild(pic(it, where === 'ground' && window.innerWidth >= 700 ? 38 : 28));
   var n = document.createElement('span'); n.textContent = shortName(it); b.appendChild(n);
   if(it.condMax > 0 && condPct(it) < 100){ var e = document.createElement('em'); e.textContent = condPct(it) + '%'; b.appendChild(e); }
   b.setAttribute('aria-label', it.name + (it.from ? ', off ' + it.from : ''));
@@ -279,6 +324,50 @@ function leave(){
   post('leave', {left:S.ground.length, stash:S.stash.length});
 }
 
+/* ---------- THE RESULT: the word, the fight's own head, its numbers, what it said ---------- */
+var WORDS = { won: 'YOU WON', lost: 'YOU LOST', ran: 'YOU PULLED OUT', wipe: 'WIPED OUT',   /* draft:true */
+  nothingLost: 'They kept the field. Nothing off them; what your men carried in is still on them.', nothingRan: 'You got out. Nothing taken off anybody, and no pay.',
+  nothingWipe: 'Nobody was left standing to take anything.' };
+function mmss(t){ t = t | 0; return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); }
+function head(f){
+  var rc = S.rc || {}, kind = f.wipe ? 'wipe' : f.retreat ? 'ran' : f.result === 'won' ? 'won' : 'lost';
+  var bar = document.getElementById('bar'); bar.className = kind === 'won' ? 'won' : 'lost';
+  document.body.className = kind === 'won' ? '' : 'lost';
+  document.getElementById('word').textContent = WORDS[kind];
+  document.getElementById('head').textContent = rc.head || (kind === 'won' ? 'THE FIGHT IS WON' : '');
+  var t = document.getElementById('tally'); t.textContent = '';
+  var bits = [];
+  if(f.rounds) bits.push([f.rounds, f.rounds === 1 ? 'ROUND' : 'ROUNDS']);
+  if(rc.secs) bits.push([mmss(rc.secs), 'OF FIGHTING']);
+  if(rc.theirs) bits.push([rc.down + ' OF ' + rc.theirs, 'OF THEIRS DOWN']);
+  if(rc.ran) bits.push([rc.ran, 'RAN']);
+  bits.forEach(function(b, i){ var sp = document.createElement('span'); if(i === 0) sp.id = 'rounds'; sp.innerHTML = '<b>' + b[0] + '</b> ' + b[1]; t.appendChild(sp); });
+  t.hidden = !bits.length;
+  var ln = document.getElementById('lines'); ln.textContent = '';
+  (rc.lines || []).forEach(function(x){ var p = document.createElement('p'); p.textContent = x; ln.appendChild(p); });
+  var cw = document.getElementById('callw'); cw.textContent = '';
+  if(rc.call && rc.call.line){ var q = document.createElement('div'); q.className = 'quote';
+    if(rc.call.look){ S.looks[rc.call.who] = S.looks[rc.call.who] || rc.call.look; q.appendChild(faceCanvas(rc.call.who)); }
+    var qq = document.createElement('q'); qq.textContent = rc.call.line; q.appendChild(qq);
+    var w = document.createElement('b'); w.textContent = rc.call.who; q.appendChild(w); cw.appendChild(q); }
+  var no = document.getElementById('nothing'); no.hidden = kind === 'won';
+  no.textContent = kind === 'won' ? '' : WORDS[kind === 'wipe' ? 'nothingWipe' : kind === 'ran' ? 'nothingRan' : 'nothingLost'];
+}
+/* the kit (UI's rendered pieces, the crew screen's own): laid on once the materials file is here */
+function dress(){
+  var M = window.BohemiaMaterials; if(!M || !M.kit || document.getElementById('sp-kit')) return false;
+  var pre = 'html[data-kit] body ', R = [['board_plain', 1, ['#bar', '#foot', '.man', '#nothing']], ['tray', 1, ['.man .face']], ['receipt', 1, ['#tally', '.quote', '.count']],
+    ['tin_amber', .75, ['.perk', '#lootall:not(:disabled)']], ['tin_dark', .75, ['#lootall:disabled']], ['tin', .75, ['#leave']], ['well', 1, ['.slot']], ['well_full', 1, ['.slot.full']]];
+  var css = R.map(function(r){ return r[2].map(function(x){ return pre + x; }).join(',') + '{' + M.kit(r[0], r[1]) + (/^tin/.test(r[0]) ? 'filter:drop-shadow(2px 1px 0 rgba(10,6,3,.6));' : '') + '}'; });
+  /* a grid of pockets: every slot's floor is cut from another part of the same glass (the crew screen's own trick) */
+  [[3, 1, [0.37, 0.61]], [3, 2, [0.71, 0.23]], [5, 3, [0.13, 0.47]], [7, 4, [0.55, 0.83]]].forEach(function(v){
+    css.push(pre + '.slot:nth-child(' + v[0] + 'n+' + v[1] + '){' + M.kit('well', 1, v[2]) + '}');
+    css.push(pre + '.slot.full:nth-child(' + v[0] + 'n+' + v[1] + '){' + M.kit('well_full', 1, v[2]) + '}'); });
+  css.push(pre + '#leave:active,' + pre + '#lootall:active,' + pre + '.perk:active{translate:1px 1px;filter:none}');
+  var st = document.createElement('style'); st.id = 'sp-kit'; st.textContent = css.join('\n'); document.head.appendChild(st);
+  return true;
+}
+
 /* ---------- open ---------- */
 function open(o){
   o = o || {};
@@ -288,14 +377,17 @@ function open(o){
   S.stash = (readJ(BAGKEY, []) || []).slice(0, S.cap);
   S.looks = {}; ((f.spoils && f.spoils.looks) || []).forEach(function(l){ if(l && l.name) S.looks[l.name] = l.look; });
   S.men = climbs(Array.isArray(f.crew) ? f.crew : []);
+  S.rc = f.spoils && f.spoils.recap || null; S.nums = {};
+  ((S.rc && S.rc.men) || []).forEach(function(n){ if(n && n.name) S.nums[n.name] = n; });
+  /* ONE END SCREEN FOR EVERY FIGHT (rule 164 item 28): a won fight leaves its dead's gear; a loss, a retreat and a wipe leave nothing */
+  S.won = f.result === 'won' && !f.retreat && !f.wipe;
   var seed = o.seed != null ? o.seed : hash(JSON.stringify((f.spoils && f.spoils.bodies) || []) + ':' + (f.rounds | 0));
-  S.found = SP.found(f.spoils, S.L, dice(seed));
+  S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, scrap: 0 }, from: 0 };
   S.ground = S.found.items.map(itemFor).filter(Boolean);
   S.counts = S.found.counts; S.countsTaken = false;
-  document.getElementById('rounds').textContent = f.rounds ? f.rounds + (f.rounds === 1 ? ' ROUND' : ' ROUNDS') : '';
-  document.getElementById('head').textContent = 'THE FIGHT IS WON';
+  head(f);
   draw();
-  say(S.ground.length ? 'Tap a piece to take it, or LOOT ALL.' : hasCounts() ? 'Take what was in their pockets.' : '');
+  if(S.won) say(S.ground.length ? 'Tap a piece to take it, or LOOT ALL.' : hasCounts() ? 'Take what was in their pockets.' : '');
   S.opened = (S.opened | 0) + 1;
 }
 var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,
@@ -305,15 +397,22 @@ var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,
   spoils:{ faction:'brigands', looks:[{name:'YOU', look:'you'}, {name:'MARCO', look:'cast_longcoat'}, {name:'TERESA', look:'cast_skirt'}],
     bodies:[ {name:'THUG', dead:true, weapon:{id:'knife', cls:'dagger', durability:32, gun:true, ammo:3, ammoMax:5}, body:{id:'padded_surcoat', now:44, max:50}, head:{id:'full_leather_cap', now:38, max:45}},
              {name:'RAIDER', dead:true, weapon:{id:'wooden_stick', cls:'mace', durability:32}, shield:{id:'wooden_shield', durability:24}, body:{id:'leather_tunic', now:6, max:30}},
-             {name:'RUNNER', dead:false, fled:true, weapon:{id:'knife', cls:'dagger', durability:32}} ] } };
-window.BohemiaSpoilsScreen = { open:open, state:S, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE };
+             {name:'RUNNER', dead:false, fled:true, weapon:{id:'knife', cls:'dagger', durability:32}} ],
+    recap:{ head:'THE ROAD CREW RAN', lines:[], secs:74, theirs:3, down:2, ran:1,
+      men:[{name:'YOU', kills:2, dealt:61, taken:12}, {name:'MARCO', kills:0, dealt:14, taken:38}, {name:'TERESA', kills:0, dealt:22, taken:4}],
+      call:{who:'TERESA', line:'That one ran. Let him tell them.', look:'cast_skirt'} } } };
+dress(); document.addEventListener('DOMContentLoaded', dress);
+window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE };
 document.getElementById('lootall').addEventListener('click', lootAll);
 document.getElementById('leave').addEventListener('click', leave);
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SPOILS_OPEN') open(d); });
 Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); })]).then(function(a){
   S.L = a[1]; S.cap = (S.L.stash && S.L.stash.slots) || 36; S.ready = true;
   if(S.pending){ var p = S.pending; S.pending = null; open(p); }
-  else if(S.standalone) open({ fight:SAMPLE, seed:7 });
+  else if(S.standalone){ var smp = JSON.parse(JSON.stringify(SAMPLE)), q = location.search;   /* ?lost, ?ran, ?wipe: the other ends, for a look */
+    if(/lost|ran|wipe/.test(q)){ smp.result = 'lost'; smp.retreat = /ran/.test(q); smp.wipe = /wipe/.test(q); smp.spoils.recap.head = smp.wipe ? 'WIPED OUT' : smp.retreat ? 'YOU PULLED OUT' : 'YOUR CREW IS DOWN'; smp.spoils.recap.call = null;
+      smp.spoils.recap.lines = smp.retreat ? ['2 got out, 1 did not. No pay.', 'Left behind: MARCO (down).'] : smp.wipe ? ['YOUR WHOLE CREW IS DOWN.', 'They took the road. You wake in the nearest town.'] : []; }
+    open({ fight:smp, seed:7 }); }
   else post('ready', {});
 }).catch(function(e){ say('The spoils could not load: ' + e.message, true); post('ready', {failed:String(e && e.message)}); });
 })();

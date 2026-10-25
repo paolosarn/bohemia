@@ -145,7 +145,7 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
       const t0 = Date.now();
       while (Date.now() - t0 < 150000) { if (await cf.evaluate(() => FIGHT.S.over).catch(() => true)) break; await d.page.waitForTimeout(500); }
       res = await cf.evaluate(() => FIGHT.S.result).catch(() => null);
-      if (res === 'won') await spoilsLeave();
+      await spoilsLeave();   /* RUN TWO 10/25 (rule 164 item 28): every fight's end is the one end screen, won or lost, and it waits for LEAVE */
       await waitFor(async () => !(await shell()).fight, 15000);
       await d.page.waitForTimeout(1500);
     }

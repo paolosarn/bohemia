@@ -181,7 +181,8 @@
   function company(crew) { return crew.map(function (m) { var g = m.gear || {}, id = function (it) { return it ? it.id : null; };
     return { name: m.name, background: m.bgId, level: m.level, look: m.look, perks: (m.perks || []).slice(), marks: m.marks || (m.mark ? [m.mark] : []),
              stats: m.stats ? Object.assign({}, m.stats) : undefined, traits: Array.isArray(m.traits) ? m.traits.slice() : undefined,   /* every man fights as his card says: the stats he chose at each level go to the fight (rule 162(e)); a hire his card's and his trait (RUN TWO 10/24) */
-             gear: { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head) } }; }); }
+             gear: { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head),
+                     bag: [id(g.bag1), id(g.bag2)] } }; }); }   /* __TWO_BAG_SLOTS__ (RUN TWO 10/25, rule 164 item 15): what he carries in his two bag slots, for COMBAT's switch */
   /* WHAT HIS ARM DOES IN A FIGHT (RUN TWO [the guns on the crew screen], 10/22; rule 120(a): the company starts with guns; rule
      83: 'melee weapons work on one tile away, all guns 2+ minimum... the pistol is a two-tile gun, or a club at one'): read the
      way the fight reads a weapon (slices/BOHEMIA_FIGHT.html pistolShot, rangeMin, rounds; ours.gun_classes, ours.pistol_shot,

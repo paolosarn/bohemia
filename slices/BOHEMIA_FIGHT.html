@@ -5150,7 +5150,23 @@ function spoilsOf() {
         weapon: row(t.weapon) ? { id: t.weapon.id, cls: row(t.weapon).class, durability: row(t.weapon).durability, gun: !!t.weapon.gun || isGunW(t.weapon), ammo: t.ammo, ammoMax: t.ammoMax } : null,
         shield: t.shield ? { id: t.shield.id, durability: t.shield.durability } : null,
         body: wear(t, 'body', t.armB, t.armBMax), head: wear(t, 'head', t.armH, t.armHMax) }; }),
-    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null }; }) };
+    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null }; }),
+    recap: recapOf() };
+}
+/* THE END SCREEN IS ONE SCREEN (rule 164 item 28, Paolo 10/24: 'it goes away way too quickly, I can't read it'): the recap
+   card's own words and numbers ride home so the shell's end screen can hold them until he closes it; read off the card
+   showOver() has just printed (its head, its lines) and the men themselves, never worked out twice */
+function recapOf() {
+  try {
+    const S = FIGHT.S, oh = document.getElementById('oh'), ob = document.getElementById('ob');
+    const theirs = S.units.filter(function (v) { return v.side === 'them'; });
+    const call = (UI.calls || []).filter(function (c) { return c.moment === 'win'; }).pop();
+    return { head: oh ? oh.textContent : '', lines: ob ? Array.prototype.map.call(ob.querySelectorAll('p.what'), function (p) { return p.textContent; }) : [],
+      secs: Math.round((UI.beats || 0) * 60 / R('ours.beat_bpm')), theirs: theirs.length,
+      down: theirs.filter(function (v) { return v.dead; }).length, ran: theirs.filter(function (v) { return v.fled; }).length,
+      men: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, kills: v.kills | 0, dealt: v.dealt | 0, taken: v.taken | 0 }; }),
+      call: call ? { who: call.who, line: call.line, look: (S.units.filter(function (v) { return v.name === call.who; })[0] || {}).look || null } : null };
+  } catch (_e) { return null; }
 }
 function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; } catch (_e) { return false; } }
 /* ==== end __THE_SPOILS__ ==== */

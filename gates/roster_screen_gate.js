@@ -56,10 +56,10 @@ const srv = http.createServer((rq, rs) => {
     const men = BohemiaRosterScreen.state.crew.filter(m => !m.dead).length;
     return { n: cs.length, men: men, rig: cs.filter(c => c.dataset.face === 'fresh').length, drawn: cs.filter(drawn).length }; });
   ok('  every face on the screen is PORTRAIT\'s fresh portrait and drawn, never a crop of a body; each man\'s face once', rig.n === rig.men && rig.rig === rig.n && rig.drawn === rig.n, rig.rig + ' fresh of ' + rig.n + ' for ' + rig.men + ' men, ' + rig.drawn + ' drawn');
-  const card = await p.evaluate(() => { const c = document.getElementById('card'); return { stats: c.querySelectorAll('.stats > div').length, stars: c.querySelectorAll('.stars').length, gear: c.querySelectorAll('.gslot').length,
+  const card = await p.evaluate(() => { const c = document.getElementById('card'); return { stats: c.querySelectorAll('.stats > div').length, stars: c.querySelectorAll('.stars').length, gear: c.querySelectorAll('.gear:not(.bags) .gslot').length, bags: c.querySelectorAll('#bags .gslot').length,
     pain: (c.querySelector('.pain') || {}).textContent || '', sub: (c.querySelector('.sub') || {}).textContent || '', face: (() => { const f = c.querySelector('canvas.rbody, canvas.face'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, f.width, f.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
-  ok('a man\'s card: his whole body (his face is the one on the line), background, level, wage, eight stats, stars, four gear slots, one pain line',
-     card.face > 400 && card.stats === 8 && card.stars >= 1 && card.gear === 4 && card.pain.length > 10 && /LEVEL 1/.test(card.sub) && /BATT A DAY/.test(card.sub),
+  ok('a man\'s card: his whole body (his face is the one on the line), background, level, wage, eight stats, stars, four gear slots and his two bag slots (rule 164 item 15), one pain line',
+     card.face > 400 && card.stats === 8 && card.stars >= 1 && card.gear === 4 && card.bags === 2 && card.pain.length > 10 && /LEVEL 1/.test(card.sub) && /BATTER(Y|IES) A DAY/.test(card.sub),   /* the money spelled one way (UI [eyes: four spellings], rule 150) */
      card.sub + ' | stars on ' + card.stars + ' | ' + card.pain.slice(0, 40));
   /* drag a man from the front line to an empty back slot */
   const fr = await p.evaluate(() => { const s = BohemiaRosterScreen.state; return { i: s.front.findIndex(x => x != null), j: s.back.findIndex(x => x == null) }; });

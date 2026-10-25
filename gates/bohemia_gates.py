@@ -9555,6 +9555,14 @@ GATES = [
      "hands the fight both hires, the gun and the line; every man on the line stands on the board, the armed hire holds it, the "
      "moved one is in the back; again after a reload (the gun used to vanish); NEW GAME wipes the old hires. The old door read "
      "red 9 of 16 (3 of 5 men in the fight); ONE CREW SCREEN leg (rule 147(b)); W8 AFTER A FIGHT (the dead stay dead, the fallen sit out their days, the crew screen climbs them). green, 21/0, about 1 min", True),
+    ('THE TOWN\'S PART', ['node', 'gates/the_towns_part_gate.js'],
+     "RUN TWO gate, 10/25, row [the PC playtest: the town's part] (rule 164 items 15 and 18, Paolo 10/24 on his PC: 'every time "
+     "selling shit was so painful, one of the things I hated most about Battle Brothers'; 'Battle Brothers has two slots to bring "
+     "shit into combat'): ON THE DEMO: a town, a bag of looted pieces, one bought and one marked KEEP; the smith's SELL THE JUNK "
+     "says its count and price before the tap and that price is the single sales added up; ONE real tap sells the junk, the purse "
+     "rises by exactly that, the bought and the KEEP piece stay and wear KEEP; LET IT GO puts a piece back in the junk; the crew "
+     "screen (the town's CREW) shows two bag slots a man, a tap opens the bag cut to weapons and shields, a second weapon goes in, "
+     "and the game's own door hands the next fight gear.bag for COMBAT's switch. green, 12/0, about 1 min", True),
     ('THE SPOILS', ['node', 'gates/the_spoils_gate.js'],
      "RUN TWO gate, 10/24, row [the end of the fight, the loot, the stash] (rule 156, Paolo 10/24: 'there isn't an end of battle "
      "quick summary of who got experience, who leveled up, and what loot I'm able to take, with a loot button; if my inventory is "

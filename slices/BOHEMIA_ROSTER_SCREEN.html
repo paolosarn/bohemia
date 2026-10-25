@@ -64,6 +64,9 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 .gslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610)}
 .gslot i{display:block;font-style:normal;color:var(--dim);font-size:9px}
 .gslot.over{outline:2px solid var(--gold)}
+.gear.bags{margin-top:4px}
+.gear.bags .gslot{min-height:58px}
+.gear.bags .bagh{grid-column:3 / span 2;align-self:center;font-size:9px;line-height:1.3;color:var(--dim);letter-spacing:.5px;padding:0 4px}
 .hurtbox{margin-top:8px;padding:6px 8px;border:1px solid #6e2a20;border-radius:4px;background:#22130f;font-size:11px}
 .hurtbox b{color:#e07a5f;letter-spacing:1px}
 .hurtbox i{display:block;font-style:normal;color:var(--dim)}
@@ -362,7 +365,12 @@ function draw(){
    a weapon, the materials' icon for the rest, rule 101: placeholders) and his gun's reach. Tap a slot and the bag opens
    inside his page cut to what fits it; tap one and they swap, TAKE OFF puts his back in the bag; or drag from the bag below.
    He says his line with the face on the line (rule 19c). Nothing pops up over the screen (rule 19a). ==== */
-var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD'};
+var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD', bag1:'BAG', bag2:'BAG'};
+/* __TWO_BAG_SLOTS__ (RUN TWO 10/25, rule 164 item 15; Paolo 10/24 on his PC: 'you can't switch weapon... Battle Brothers has two
+   slots to bring shit into combat... it takes up stamina'): Battle Brothers' bag, two slots a man (the wiki's Bags and Belts
+   perk adds two more), each holding a weapon or a shield he carries into the fight; COMBAT's fight switches them (its cost is
+   COMBAT's). The fight is handed them as gear.bag = [id, id] (engine/bohemia_roster.js company()). */
+var BAG_GEAR = ['bag1', 'bag2'];
 var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'w_rifle', firearm:'w_shotgun', throwing:'w_bottles', throwable_item:'w_bottles',
   sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole'};
 function shortName(it){ return it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; }
@@ -376,7 +384,7 @@ function itemPic(it, px){
   try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon){ var ic = BohemiaMaterials.itemIcon(it, px || 22); ic.dataset.id = it.id; return ic; } }catch(e){}
   var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; g.style.fontSize = '15px'; g.style.color = 'var(--gold)'; return g;
 }
-function fits(it, slot){ return !!it && C.slotFor(it) === slot; }
+function fits(it, slot){ if(!it) return false; if(BAG_GEAR.indexOf(slot) >= 0) return it.kind === 'weapon' || it.kind === 'shield'; return C.slotFor(it) === slot; }
 /* he says his line with the face on the line, once each time he is picked */
 function talkOnLine(){
   if(S.talked === S.sel) return; S.talked = S.sel;
@@ -461,12 +469,12 @@ function drawCard(){
     lu.appendChild(go); el.appendChild(lu); }
   var g = document.createElement('div'); g.className = 'gear';
   var both = m.gear.main && C.twoHanded(m.gear.main);   /* __TWO_HANDS__: the off hand is the long gun's too */
-  ['main','off','body','head'].forEach(function(sl){
+  var slotEl = function(sl){
     var it = m.gear[sl], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : '') + (sl === 'off' && both ? ' both' : '') + (S.pick && S.pick.man === S.sel && S.pick.slot === sl ? ' pick' : '');
     d.dataset.drop = 'gear:' + sl; d.dataset.slot = sl; d.setAttribute('role', 'button'); d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': ' + (it ? it.name : 'empty'));
     var lab = document.createElement('i'); lab.textContent = SLOT_NAME[sl]; d.appendChild(lab);
     if(it){ var pic = itemPic(it, 22); pic.classList.add('bm-icon'); pic.dataset.id = it.id; d.appendChild(pic);   /* the kit's own icon mark, so the paint layer never adds a second */
-      var nm = document.createElement('div'); nm.className = 'gn'; nm.textContent = it.name; d.appendChild(nm); var al = sl === 'main' && armLine(it, true);
+      var nm = document.createElement('div'); nm.className = 'gn'; nm.textContent = it.name; d.appendChild(nm); var al = (sl === 'main' || (BAG_GEAR.indexOf(sl) >= 0 && it.kind === 'weapon')) && armLine(it, true);
       var n2 = document.createElement('i'); n2.textContent = String(al ? String(it.nums).replace(/\s+reach \d+/, '') : it.nums).replace(/\s+2 hands/i, ''); d.appendChild(n2); d.dataset.drag = 'gear:' + sl;   /* the reach is his arm's in the fight, below; the row's own number would contradict it */
       if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.dataset.reach = al.reach; ar.textContent = al.reach; d.appendChild(ar);
         if(al.rounds){ var rd = document.createElement('b'); rd.className = 'arm rd'; rd.textContent = al.rounds; d.appendChild(rd); } } }
@@ -475,9 +483,15 @@ function drawCard(){
     else { var e = document.createElement('div'); e.textContent = '—'; d.appendChild(e); }
     if(sl === 'main' && it && C.twoHanded(it)){ var two = document.createElement('i'); two.className = 'hands'; two.textContent = 'TWO HANDS'; d.appendChild(two); }
     d.addEventListener('click', function(){ if(S.dragged) return; togglePick(S.sel, sl); });   /* the bag, cut to what fits, opens here */
-    g.appendChild(d);
-  });
+    return d;
+  };
+  ['main','off','body','head'].forEach(function(sl){ g.appendChild(slotEl(sl)); });
   el.appendChild(g);
+  /* __TWO_BAG_SLOTS__: his two bag slots, under his hands */
+  var gb = document.createElement('div'); gb.className = 'gear bags'; gb.id = 'bags';
+  BAG_GEAR.forEach(function(sl){ gb.appendChild(slotEl(sl)); });
+  var bh = document.createElement('div'); bh.className = 'bagh'; bh.textContent = 'HIS BAG: A SECOND WEAPON OR A SHIELD, CARRIED INTO THE FIGHT'; gb.appendChild(bh);
+  el.appendChild(gb);
   if(S.pick && S.pick.man === S.sel) el.appendChild(pickerFor(m, S.sel, S.pick.slot));
   if(m.mark){ var hb = document.createElement('div'); hb.className = 'hurtbox';
     var h1 = document.createElement('b'); h1.textContent = laid(m) ? 'LAID UP ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
@@ -501,7 +515,7 @@ function drawCard(){
 }
 function drawBag(){
   var sb = document.getElementById('sortbag'); if(sb) sb.style.display = S.bag.length > 1 && window.BohemiaBagSort ? '' : 'none';
-  document.getElementById('bagh').textContent = 'YOUR BAG  ' + S.bag.length + ' / ' + BAG_SLOTS + '   DRAG ONTO A SLOT ABOVE, OR TAP';
+  document.getElementById('bagh').textContent = 'YOUR BAG  ' + S.bag.length + ' / ' + BAG_SLOTS + '   DRAG ONE ONTO A SLOT ABOVE, OR TAP IT AND HE PUTS IT ON';   /* EYES [the bag line], rule 150: the sentence ends */
   var el = document.getElementById('bag'); el.textContent = '';
   for(var i=0;i<BAG_SLOTS;i++){
     var it = S.bag[i], b = document.createElement('div'); b.className = 'slot' + (it ? ' full' : '');
@@ -518,7 +532,7 @@ function drawBag(){
 function equip(bi, slot){
   var m = S.crew[S.sel], it = S.bag[bi]; if(!m || !it) return;
   var s = slot || C.slotFor(it);
-  if(slot && C.slotFor(it) !== slot){ say('That does not go there.'); return; }
+  if(slot && !fits(it, slot)){ say(BAG_GEAR.indexOf(slot) >= 0 ? 'A bag slot holds a weapon or a shield.' : 'That does not go there.'); return; }
   /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): a long gun takes both hands, so the shield goes to the bag; a shield in a
      hand that holds a long gun sends the gun to the bag (Battle Brothers' way). Never past the bag's 36. */
   var freed = null;
@@ -527,6 +541,8 @@ function equip(bi, slot){
   var old = m.gear[s];
   if(S.bag.length - 1 + (old ? 1 : 0) + (freed ? 1 : 0) > BAG_SLOTS){ say('Your bag is full.'); return; }
   var off = freed ? m.gear[freed] : null; if(freed) m.gear[freed] = null;
+  /* a piece a man has worn is one you chose: SELL THE JUNK leaves it alone unless you let it go (RUN TWO 10/25, rule 164 item 18) */
+  [it, old, off].forEach(function(x){ if(x && x.keep == null) x.keep = true; });
   m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old); if(off) S.bag.push(off);
   saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); if(off) post('equip', {who:m.idx, name:m.name, slot:freed, item:null}); sfx('equip');
   say(m.name + ' takes ' + it.name + (off ? (s === 'main' ? ' in both hands; ' : '; ') + off.name + ' goes in the bag.' : '.')); draw();
@@ -541,6 +557,7 @@ function twoHandsKept(){
 function unequip(slot){
   var m = S.crew[S.sel], it = m && m.gear[slot]; if(!it) return;
   if(S.bag.length >= BAG_SLOTS){ say('Your bag is full.'); return; }
+  if(it.keep == null) it.keep = true;   /* worn, so chosen: never sold as junk unless let go */
   m.gear[slot] = null; S.bag.push(it); saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); sfx('equip'); say(m.name + ' puts down ' + it.name + '.'); draw();
 }
 function moveMan(fromRow, fromI, toRow, toI){

@@ -21,6 +21,11 @@
      D6 LEAVE (a real tap): the spoils are gone and he is home on the map
      D7 the game's own door hands the next fight that man holding the looted weapon, and in the next road fight he holds it
      D9 the shop sells from the stash: a town visited BEFORE the fight shows the loot in his bag after it, and buys one
+     E1 *** ONE END SCREEN *** (rule 164 item 28, Paolo 10/24: 'it goes away way too quickly, I can't read it'): the end
+        screen says YOU WON with the fight's own head over it, the rounds, and what each man did (YOUR kills, as the fight
+        counted them), and the fight's card never takes him home on a timer
+     E2 *** A LOST FIGHT WAITS TOO ***: the next road fight lost; the same one screen comes up at once with YOU LOST and no
+        loot, and five beats on he is still on it; LEAVE (a real tap) takes him home
      D8 nothing threw
    node gates/the_spoils_gate.js */
 'use strict';
@@ -114,6 +119,13 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     ok('D2 *** THE SPOILS WAIT FOR HIM *** the screen lies over the fight, and five beats on the game has not gone home', open && still.fight && still.spoils && !still.home, JSON.stringify(still));
     const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
     for (let i = 0; i < 80 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
+    /* ---- E1 one end screen: the result, the fight's own head and numbers ---- */
+    const fh = await f.evaluate(() => ({ head: document.getElementById('oh').textContent, rounds: FIGHT.S.round, kills: (FIGHT.S.units.find(u => u.side === 'you' && u.main) || {}).kills | 0 }));
+    const e1 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, head: document.getElementById('head').textContent, tally: document.getElementById('tally').textContent,
+      you: ((document.querySelector('#crew .man[data-man="YOU"] .nums') || document.querySelector('#crew .man .nums')) || {}).textContent || '', loot: getComputedStyle(document.getElementById('loot')).display }));
+    ok('E1 *** ONE END SCREEN *** YOU WON, the fight\'s own head, its rounds, and what YOU did in it, all on the one screen that waits',
+      e1.word === 'YOU WON' && e1.head === fh.head && fh.head.length > 0 && new RegExp('^' + fh.rounds + ' ROUND').test(e1.tally) && new RegExp('^' + fh.kills + ' KILL').test(e1.you) && e1.loot !== 'none',
+      e1.word + ' / ' + e1.head + ' / ' + e1.tally + ' / YOU: ' + e1.you);
     const s0 = await SF().evaluate(() => { const S = BohemiaSpoilsScreen.state; return { men: S.men.map(m => ({ name: m.name, main: m.main, gained: m.gained, up: m.up, to: m.to })), ground: S.ground.map(i => ({ id: i.id, kind: i.kind, from: i.from })), counts: S.counts, from: S.found.from,
       rows: document.querySelectorAll('#crew .man').length, perk: document.querySelectorAll('#crew button.perk').length, heads: document.querySelectorAll('#crew .man canvas').length }; });
     /* ---- D3 your crew ---- */
@@ -201,6 +213,21 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     const f2 = await roadFight(12);
     const holds = f2 ? await f2.evaluate((n) => { const u = FIGHT.S.units.find(x => x.side === 'you' && x.name === n) || FIGHT.S.units.find(x => x.side === 'you' && x.main); return u && { name: u.name, weapon: u.weapon && u.weapon.id }; }, man) : null;
     ok('    *** AND IN THE NEXT ROAD FIGHT HE HOLDS IT ***', !!holds && holds.weapon === weapon.id, holds && (holds.name + ' holds ' + holds.weapon));
+    /* ---- E2 a lost fight waits on the same one screen ---- */
+    if (f2) {
+      await f2.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'you').forEach(u => { if (!u.main) u.dead = true; }); S.over = true; S.result = 'lost'; showOver('lost'); });
+      let up = false; for (let i = 0; i < 40 && !up; i++) { up = await p.evaluate(() => !!(window.SPOILS && SPOILS.frame)); if (!up) await p.waitForTimeout(100); }
+      for (let i = 0; i < 80 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened && BohemiaSpoilsScreen.state.won === false).catch(() => false)); i++) await p.waitForTimeout(200);
+      await p.waitForTimeout(2500);
+      const e2 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, loot: getComputedStyle(document.getElementById('loot')).display, ground: BohemiaSpoilsScreen.state.ground.length,
+        nothing: document.getElementById('nothing').hidden ? '' : document.getElementById('nothing').textContent })).catch(() => ({}));
+      const st2 = await p.evaluate(() => ({ fight: CITYFIGHT, door: !!document.getElementById('spoilsdoor'), home: !!(NF && NF.homeAt) }));
+      ok('E2 *** A LOST FIGHT WAITS TOO *** the same one screen at once, YOU LOST, no loot, and five beats on he is still on it',
+        up && e2.word === 'YOU LOST' && e2.loot === 'none' && e2.ground === 0 && !!e2.nothing && st2.fight && st2.door && !st2.home, JSON.stringify(e2) + ' ' + JSON.stringify(st2));
+      await SFL.locator('#leave').tap();
+      let home2 = false; for (let i = 0; i < 40 && !home2; i++) { home2 = await p.evaluate(() => !CITYFIGHT && !document.getElementById('spoilsdoor')); if (!home2) await p.waitForTimeout(200); }
+      ok('    LEAVE (a real tap) takes him home from a loss', home2);
+    } else ok('E2 a lost fight waits too', false, 'no second fight');
     ok('D8 nothing threw', errs.length === 0 && serrs.length === 0, errs.concat(serrs).slice(0, 3).join(' | '));
   } catch (e) { ok('the walk ran to the end [' + String(e && e.message).slice(0, 200) + ']', false); }
   try { await d.close(); } catch (_e) {}

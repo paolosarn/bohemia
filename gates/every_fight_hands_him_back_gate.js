@@ -21,11 +21,15 @@
      F2  *** A WHOLE FIGHT PLAYS TO ITS END *** with a real tap on AUTO (the beat run six times
          fast so a gate fits, the way COMBAT's own gate runs it)
      F3  he is back on the MAP, on the block he left, and the fight is gone
-     F3b and the way home takes under 3 s from the fight's own end (its card is up four beats;
-         the frozen fight's way home took 10 to 11 s until 10/1)
+     F3b and the way home takes under 3 s from his tap on LEAVE (the frozen fight's way home took
+         10 to 11 s until 10/1). AMENDED 10/25 (RUN TWO, rule 164 item 28, Paolo 10/24 on his PC:
+         'it goes away way too quickly, I can't read it'): every fight's end is ONE end screen that
+         waits until he closes it, so the clock starts at his finger, never at the fight's end;
+         F3a proves it waits
      F4  the result is written down (won or lost, who fell, the board)
-     F5  a fight he LOSES hands him back too (the fight's own ending, said plainly)
-     F6  a fight he CLEARS hands him back too, and a TAP ON THE CARD takes him home at once
+     F5  a fight he LOSES hands him back too (the fight's own ending, said plainly, on the end
+         screen, and LEAVE)
+     F6  a fight he CLEARS hands him back too, and a TAP ON LEAVE takes him home at once
      F7  and the road can bring the next fight: the one-fight-per-step latch opens on the
          next step
    node gates/every_fight_hands_him_back_gate.js
@@ -71,6 +75,20 @@ const waitHome = async (d, ms, from) => { const t0 = from || Date.now(); let s;
   while (Date.now() - t0 < ms) { s = await shell(d); if (!s.inFight && s.map && !s.fight) return { s, ms: Date.now() - t0, homeWall: await d.page.evaluate(() => NF.homeWall || Date.now()) }; await d.page.waitForTimeout(100); }
   return { s, ms: null }; };
 const HOME_MS = 3000;
+/* THE ONE END SCREEN (RUN TWO, rule 164 item 28): it comes up when the fight is over and stands until a finger is on LEAVE;
+   this waits for it, puts a real finger there and says when */
+const leaveEnd = async (d) => {
+  let sf = null;
+  for (let i = 0; i < 100 && !sf; i++) {
+    sf = d.page.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
+    if (sf && !(await sf.evaluate(() => !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened)).catch(() => false))) sf = null;
+    if (!sf) await d.page.waitForTimeout(150);
+  }
+  if (!sf) return { up: false, at: null };
+  const box = await (await sf.frameElement()).boundingBox(), b = await sf.evaluate(() => { const r = document.getElementById('leave').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+  const at = Date.now(); await d.page.touchscreen.tap(box.x + b[0], box.y + b[1]);
+  return { up: true, at };
+};
 
 (async () => {
   let d;
@@ -100,13 +118,18 @@ const HOME_MS = 3000;
       ok('*** F2 A WHOLE FIGHT PLAYS TO ITS END *** (AUTO by a real tap ' + auto + '; ' + (played ? played.result + ' in ' + played.rounds + ' rounds' : 'no end') + ')', auto && played && played.over);
     } else ok('*** F2 A WHOLE FIGHT PLAYS TO ITS END *** (no fight frame)', false);
 
-    const h0 = await waitHome(d, 15000);
-    tEnd = await d.page.evaluate(() => NF.overWall || null);   /* the shell heard the fight's end then */
+    /* F3a the end screen waits: three seconds after the fight's end he is still on it, and the map is not up */
+    const w0 = await waitHome(d, 3000);
+    const up0 = await d.page.evaluate(() => !!(window.SPOILS && SPOILS.frame));
+    ok('F3a THE END SCREEN WAITS FOR HIM (three seconds on: the end screen ' + (up0 ? 'up' : 'not up') + ', ' + (w0.ms === null ? 'not home' : 'went home on its own') + ')', up0 && w0.ms === null);
+    const lv0 = await leaveEnd(d);
+    const h0 = await waitHome(d, 15000, lv0.at || Date.now());
+    tEnd = lv0.at;   /* the clock starts at his finger on LEAVE */
     const ms = (h0.ms !== null && tEnd) ? Math.max(0, h0.homeWall - tEnd) : null;
     const back = await d.fr.evaluate(() => ({ at: [city.x, city.y], mode: MODE }));
     ok('*** F3 HE IS BACK ON THE MAP, ON THE BLOCK HE LEFT *** (' + JSON.stringify(st.at) + ' -> ' + JSON.stringify(back.at) + ', ' + back.mode + ')',
       back.mode === 'city' && back.at[0] === st.at[0] && back.at[1] === st.at[1] && h0.s && h0.s.map && !h0.s.fight);
-    ok('*** F3b AND THE WAY HOME TAKES UNDER ' + (HOME_MS / 1000) + ' S *** (' + ms + ' ms from the fight\'s end to the map, its card up four beats of that)', ms !== null && ms <= HOME_MS);
+    ok('*** F3b AND THE WAY HOME TAKES UNDER ' + (HOME_MS / 1000) + ' S *** (' + ms + ' ms from his tap on LEAVE to the map)', ms !== null && ms <= HOME_MS);
     const le = h0.s && h0.s.last;
     ok('F4 the result is written down (' + JSON.stringify(le && { result: le.result, fell: le.fellOfYours, dead: le.dead, ran: le.fled, board: le.board }) + ')',
       !!le && le.newFight && le.result === (played && played.result === 'won' ? 'win' : 'loss') && le.board === board);
@@ -123,17 +146,13 @@ const HOME_MS = 3000;
       if (!f) { ok(leg + ' the fight opened', false); continue; }
       const tCall = Date.now();
       await f.evaluate((how) => { FIGHT.S.over = true; FIGHT.S.result = how; showOver(how); }, how);   /* the card and message a finished fight shows */
-      if (leg === 'F6') {   /* a finger on the card goes home at once */
-        await d.page.waitForTimeout(300);
-        const c = await f.evaluate(() => { const r = document.getElementById('over').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height * 0.3]; });
-        await d.page.touchscreen.tap(b2.x + c[0], b2.y + c[1]);
-      }
-      const h = await waitHome(d, 15000, tCall);
+      const lv = await leaveEnd(d);   /* the one end screen, and a finger on LEAVE */
+      const h = await waitHome(d, 15000, lv.at || tCall);
       const at = await d.fr.evaluate(() => [city.x, city.y]);
       const lim = leg === 'F6' ? 1200 : HOME_MS;
       ok(leg + ' a fight he ' + (wantR === 'loss' ? 'LOSES' : 'CLEARS') + ' hands him back to the map too, in under ' + (lim / 1000) + ' s'
-        + (leg === 'F6' ? ' WITH A TAP ON THE CARD' : '') + ' (back in ' + h.ms + ' ms, ' + (h.s && h.s.result) + ')',
-        s0.started && was.inFight && h.ms !== null && h.ms <= lim && h.s.result === wantR && at[0] === s0.at[0] && at[1] === s0.at[1]);
+        + ' OF A TAP ON LEAVE (end screen ' + (lv.up ? 'up' : 'never up') + ', back in ' + h.ms + ' ms, ' + (h.s && h.s.result) + ')',
+        s0.started && was.inFight && lv.up && h.ms !== null && h.ms <= lim && h.s.result === wantR && at[0] === s0.at[0] && at[1] === s0.at[1]);
     }
 
     ok('nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);

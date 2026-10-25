@@ -74,6 +74,9 @@ const done = () => { console.log('THE ZOOM GOES THROUGH CLOUDS: ' + pass + ' pas
     /* C6: the way home */
     const h = await d.page.$('#fightFrame'); const f = await h.contentFrame();
     await f.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });
+    /* RUN TWO 10/25 (rule 164 item 28): every fight's end is the one end screen and it waits for LEAVE, as he would leave it */
+    for (let i = 0; i < 40; i++) { if (await d.page.evaluate(() => !!(window.SPOILS && SPOILS.frame))) break; await d.page.waitForTimeout(100); }
+    await d.page.evaluate(() => { try { spoilsLeave(); } catch (_e) {} });
     let atHome = null, partedAfter = null; const th = Date.now();
     while (Date.now() - th < 8000) {
       const s = await d.page.evaluate(() => ({ home: !CITYFIGHT, state: NFC.state, op: NFC.el ? +getComputedStyle(NFC.el).opacity : 0 }));

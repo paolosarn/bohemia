@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/24t - NO ROUTE LINES, WHERE AM I</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/25a - THE END SCREEN WAITS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12547,11 +12547,14 @@ function nfAfterKeep(d){
    to the loot screen before allowing him to return to the worldmap', the library's dev blog): after a WON fight the card
    stands two beats, then THE SPOILS (slices/BOHEMIA_SPOILS_SCREEN.html) lies over the fight and WAITS: who grew, who is hurt,
    what they left, LOOT ALL into the stash; LEAVE takes him home. A tap on the card opens it at once; nothing goes home past
-   it. The counts it hands back (batteries, rounds and scrap) are credited to the map's purse here, once. A lost fight, a
-   retreat and a wipe go home as before. */
+   it. The counts it hands back (batteries, rounds and scrap) are credited to the map's purse here, once.
+   AMENDED 10/25 (rule 164 item 28, Paolo 10/24 on his PC: 'it goes away way too quickly, I can't read it'): EVERY fight's end is
+   this ONE screen, won, lost, pulled out or wiped: the result, the fight's own numbers (its recap card's head, rounds, time,
+   who killed and bled what), the crew's XP and level-ups, and the loot when there is any; it opens the moment the fight
+   says it is over and stands until he taps LEAVE. Nothing goes home on a timer any more. */
 var SPOILS = { d: null, wrap: null, frame: null, left: false, paid: {} };
 window.SPOILS = SPOILS;
-function spoilsWanted(d){ return !!(d && d.result === 'won' && !d.retreat && !d.wipe); }
+function spoilsWanted(d){ return !!(d && (d.result === 'won' || d.result === 'lost')); }
 function spoilsOpen(){
   if(SPOILS.frame || !SPOILS.d) return false;
   if(NF.spoilsAt){ clearTimeout(NF.spoilsAt); NF.spoilsAt = null; }
@@ -12602,9 +12605,9 @@ function nfOverIn(d, src){
   try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
   G.combatLog.push({ t: Date.now(), outcome: won ? 'encounter-won' : 'encounter-lost', recorded: true, newFight: true });
   if (G.combatLog.length > 40) G.combatLog.shift();
-  /* __THE_SPOILS__ (RUN TWO): a won fight's card stands two beats, then the spoils wait for him; everything else goes home as before */
+  /* __THE_SPOILS__ (RUN TWO): every fight's end is the one end screen, and it waits for him (rule 164 item 28) */
   SPOILS.d = null; SPOILS.left = false; spoilsClose();
-  if (spoilsWanted(d)) { SPOILS.d = d; NF.spoilsAt = setTimeout(spoilsOpen, nfReadMs() / 2); return true; }
+  if (spoilsWanted(d)) { SPOILS.d = d; spoilsOpen(); return true; }   /* rule 164 item 28: at once, and it waits for LEAVE */
   NF.homeAt = setTimeout(nfHome, nfReadMs());
   NF.cloudAt = setTimeout(function(){ try { nfcIn(); } catch (_e) {} }, Math.max(0, nfReadMs() - 60000 / 120));   /* the clouds close over the card in its last beat */
   return true;

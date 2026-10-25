@@ -99,6 +99,9 @@ const ARM = `(function(){
     await hold('fight', 12000);
     const h = await d.page.$('#fightFrame'); const ff = h ? await h.contentFrame() : null;
     if (ff) await ff.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });
+    /* RUN TWO 10/25 (rule 164 item 28): every fight's end is the one end screen and it waits for LEAVE, as he would leave it */
+    for (let i = 0; i < 40; i++) { if (await d.page.evaluate(() => !!(window.SPOILS && SPOILS.frame))) break; await d.page.waitForTimeout(100); }
+    await d.page.evaluate(() => { try { spoilsLeave(); } catch (_e) {} });
     const tOver = Date.now();
     for (let i = 0; i < 40; i++) { const home = await d.page.evaluate(() => !CITYFIGHT); await sample(home ? 'home' : 'card'); if (home) break; await d.page.waitForTimeout(250); }
     await hold('home', 40000);

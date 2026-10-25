@@ -53,7 +53,7 @@ const STASH = [
      cells.length + ' faces on the line for ' + live.length + ' men');
   const pages = [];
   for (const i of live) { await tapMan(i); pages.push(await p.evaluate(i => { const S = BohemiaRosterScreen.state, m = S.crew[i], c = document.getElementById('card');
-    return { sel: S.sel === i, name: (c.querySelector('.nm') || {}).textContent === m.name, slots: c.querySelectorAll('.gslot').length,
+    return { sel: S.sel === i, name: (c.querySelector('.nm') || {}).textContent === m.name, slots: c.querySelectorAll('.gear:not(.bags) .gslot').length,
       filled: ['main', 'off', 'body', 'head'].every(s => { const d = c.querySelector('.gslot[data-slot="' + s + '"]'); return d && !!m.gear[s] === d.classList.contains('full') && (!m.gear[s] || d.textContent.indexOf(m.gear[s].name) >= 0); }),
       tile: !m.gear.main || !!c.querySelector('.gslot[data-slot="main"] img.pk'), face: (() => { const f = document.querySelector('#lines .cell[data-man="' + i + '"] canvas.head'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, f.width, f.height).data; let n = 0; for (let k = 3; k < d.length; k += 4) if (d[k] > 0) n++; return n; })() }; }, i)); }
   ok('  a tap on each face opens his page on the same screen, his name on it', pages.every(x => x.sel && x.name), pages.filter(x => x.sel && x.name).length + ' of ' + pages.length);
