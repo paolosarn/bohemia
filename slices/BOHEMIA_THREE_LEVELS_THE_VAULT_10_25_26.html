@@ -2,6 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="song" content="the_vault">
+<meta name="list" content="vote/songs/three_levels/index.json">
 <title>The Vault, Three Levels</title>
 <!-- SOUNDS lane, 10/25, rules 167, 168 and 181. PAOLO 10/25: 'one intensity on the map or chilling, two when they're
      attacking, three when it's your turn to attack, real combat music'; 'everything at 120 BPM'; and rule 181: 'I still
@@ -14,7 +15,8 @@
      and A FIGHT, the turn changes as a fight plays them (the map, their turn, your turn, their turn, your turn), each
      change on the bar line. The three levels are one timeline: tap a level while another plays and it changes on the
      next bar, the song does not jump. NOTHING HERE IS IN THE GAME (rule 181(d)). The song is this page's <meta name="song">
-     (each card's own copy, written by the tool), or the part after the #, or the first song.
+     (each card's own copy, written by the tool), or the part after the #, or the first song. The list is this page's
+     <meta name="list">: his songs' levels (vote/songs/three_levels/index.json) or the new songs (vote/songs/new_four/).
      Gate: gates/three_levels_vote_gate.js. -->
 <style>
   :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#b9a77e; --hot:#6a1d10; }
@@ -53,7 +55,7 @@
 (function(){
   'use strict';
   var AC=null, OUT=null, BUF={}, IDX=null, S=null, live=null, run=null, clock=null, lvlNow=0, n=document.getElementById('num');
-  var WHAT={ 1:'1. THE MAP: your song as you approved it, with a soft 120 beat under it (your own kick and clock, quiet).',
+  var WHAT0, WHAT={ 1:'1. THE MAP: your song as you approved it, with a soft 120 beat under it (your own kick and clock, quiet).',
              2:'2. THEIR TURN: tension. A heartbeat kick on every beat, the ticking, a low note pushing, toms. No backbeat yet.',
              3:'3. YOUR TURN: combat music. Full drums, the bass driving, a hook in your song\'s own lead.' };
   function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; try{ AC=new C({latencyHint:'playback'}); }catch(e){ AC=new C(); } OUT=AC.createGain(); OUT.gain.value=0.9; OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
@@ -112,7 +114,8 @@
     S.run=['THE MAP','THEIR TURN','YOUR TURN','THEIR TURN','YOUR TURN']; S.run_levels=[1,2,3,2,3];
     document.getElementById('turns').innerHTML='';
     document.getElementById('ttl').textContent=S.name+', AT THREE LEVELS';
-    document.getElementById('sub').textContent='Your song '+S.name+' at the three levels of a fight. Your song stays exactly as it plays in the game until you say a level joins.';
+    document.getElementById('sub').textContent=S.sub||('Your song '+S.name+' at the three levels of a fight. Your song stays exactly as it plays in the game until you say a level joins.');
+    if(S.what) WHAT=S.what;
     document.getElementById('pick').value=S.slug; turns(-1);
   }
   document.getElementById('l1').onclick=function(){ level(1); };
@@ -120,7 +123,8 @@
   document.getElementById('l3').onclick=function(){ level(3); };
   document.getElementById('fight').onclick=fight;
   document.getElementById('stop').onclick=function(){ if(AC) stopAll(); n.textContent='Stopped.'; };
-  fetch('vote/songs/three_levels/index.json').then(function(r){ return r.json(); }).then(function(j){
+  var lm=document.querySelector('meta[name=list]');
+  fetch((lm&&lm.content)||'vote/songs/three_levels/index.json').then(function(r){ return r.json(); }).then(function(j){
     IDX=j; var sel=document.getElementById('pick');
     j.songs.forEach(function(x){ var o=document.createElement('option'); o.value=x.slug; o.textContent=x.name; sel.appendChild(o); });
     sel.onchange=function(){ pickSong(sel.value); };

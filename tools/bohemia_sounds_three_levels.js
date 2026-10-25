@@ -61,7 +61,10 @@ async function level(p, name, lv, outGain, mp, hot) {
        SLOW CREEP play past full scale and are recorded 6 dB down; with the gain after the limiter they hit it 6 dB hot and
        came out squashed, levels 2 and 3 quieter than level 1 on a phone (SLOW BLEED -46.5 / -50.2 / -51.2 dB), measured. */
     let songBus = out0, partBus = out0;
-    if (lv > 1) {
+    /* (not on his two hot songs: their low end at -7 dBFS holds the compressor down and every part under it with it;
+       measured, SLOW BLEED's level 3 came out 2.5 dB under its level 1 on a phone even with the song 6 dB down. On those
+       two the true peak limit below is the only limit.) */
+    if (lv > 1 && !hot) {
       const lim = OAC.createDynamicsCompressor();
       lim.threshold.value = -9; lim.knee.value = 6; lim.ratio.value = 8; lim.attack.value = 0.003; lim.release.value = 0.12;
       out0.connect(lim); lim.connect(OAC.destination);
@@ -247,10 +250,10 @@ function register(which, write) {
     .map(n => ({ name: n, slug: slug(n), dir: 'vote/songs/three_levels/' + slug(n) + '/', id: 'sounds-three-levels-' + slug(n).replace(/_/g, '-') + '-10-25' }));
   let added = 0;
   for (const S of list) {
-    writePage(S);
-    if (reg.items.some(x => x.id === S.id)) { console.log('already a card: ' + S.id); continue; }
+    if (reg.items.some(x => x.id === S.id)) { writePage(S); console.log('already a card (its page written again): ' + S.id); continue; }
     const sha = execFileSync('git', ['log', '-1', '--format=%h', 'origin/main', '--', path.join('slices', S.dir)], { cwd: ROOT, encoding: 'utf8' }).trim();
-    if (!sha) throw new Error(S.name + ': commit the recordings first, the card needs their sha');
+    if (!sha) { console.log(S.name + ': not on main yet, no card (push its recordings first)'); continue; }
+    writePage(S);
     /* the sha must be one he can go look at: on main, not a local commit a rebase will rename (card 1 was registered at a
        pre-rebase 512d6316 and corrected to 0538fe30) */
     const onMain = execFileSync('git', ['branch', '-r', '--contains', sha], { cwd: ROOT, encoding: 'utf8' });
