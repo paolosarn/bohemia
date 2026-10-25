@@ -43987,6 +43987,7 @@ var MAP_TOWN_HIT = [], MAP_PARTY_HIT = [];
 var PHONE_LIT = null, PHONE_LIT_PATH = null, PHONE_LIT_KEY = '';
 var PARTY_SEL = null, PARTY_CHASE = null, PARTY_SIZE = {}, PARTY_FOUGHT = {};
 var HUNT = null, HUNT_T0 = 0, HUNT_N = 0, HUNT_FLEE = null;
+var CHASE_AT = { id: null, t0: 0 };   /* __A_CHASE_ENDS_AND_SAYS_SO__ */
 var HUNT_SIGHT = 5, HUNT_GIVE_UP = 9, HUNT_MAX_STEPS = 40;   /* blocks; Battle Brothers' numbers when Grok ask 20 lands in TUNING's table */
 function mapNorm(v){ return String(v || '').toUpperCase().replace(/[\s_]/g, ''); }
 function mapIn(b, sx, sy, pad){ pad = pad || 0; return !!b && sx >= b.x - pad && sx <= b.x + b.w + pad && sy >= b.y - pad && sy <= b.y + b.h + pad; }
@@ -44205,6 +44206,23 @@ function mapStepWorld(){
       HUNT = null; HUNT_FLEE = null; window.__HUNT_GAVE_UP = (window.__HUNT_GAVE_UP | 0) + 1; return;
     }
     huntFleeRoad();
+  }
+  /* __A_CHASE_ENDS_AND_SAYS_SO__ (RUN 10/25, EYES round 2 new 16, rule 150): MEASURED, a tap on a crew's plate walked him after
+     it from 17:58 to 07:31 and stopped with no word. A chase now ends inside four hours: caught (the meet card), or they reach a
+     town ('they made it into X'), or they are gone ('lost them'); the line is said and the march stops */
+  if(PARTY_CHASE && !(HUNT && PARTY_CHASE === HUNT.id)){
+    var pc = partyById(PARTY_CHASE), mins = (T.day | 0) * 1440 + (T.min | 0);
+    if(CHASE_AT.id !== PARTY_CHASE) CHASE_AT = { id: PARTY_CHASE, t0: mins };
+    var chaseWhy = null;
+    if(pc && pc.arrived && pc.to && pc.to.name) chaseWhy = 'They made it into ' + pc.to.name + '. Not here, not now.';
+    else if(pc && !mapSees(pc.at.x | 0, pc.at.y | 0) && mins - CHASE_AT.t0 > 60) chaseWhy = 'Lost them.';
+    else if(mins - CHASE_AT.t0 > 240) chaseWhy = 'Lost them. Four hours on their heels and nothing.';
+    if(chaseWhy){ try{ travelStop(); travelInterrupt('chase'); }catch(_e){} try{ loopSay(chaseWhy); }catch(_e){}   /* draft:true */
+      try{ var TENc = window.BohemiaMaterials && BohemiaMaterials.ten; if(TENc && TENc.say){ var wc = (function(){ try{ var D2 = CREW_DEFS, i2; for(i2 = 1; i2 < ((D2 && D2.men) || []).length; i2++){ var nm = D2.men[i2].name; if(crewDead().indexOf(nm) < 0 && crewTaken().indexOf(nm) < 0 && D2.looks[i2]) return { name: nm, look: D2.looks[i2] }; } }catch(_e){} return { name: 'YOU', look: 'you' }; })();
+        TENc.say({ id: 'chase:' + PARTY_CHASE + ':' + mins, kind: 'chase', who: wc, line: chaseWhy, prio: 2, ttl: 20 }); } }catch(_e){}
+      window.__CHASE_ENDED = { id: PARTY_CHASE, why: chaseWhy, after: mins - CHASE_AT.t0 };
+      if(PARTY_SEL === PARTY_CHASE) PARTY_SEL = null; PARTY_CHASE = null; CHASE_AT = { id: null, t0: 0 };
+    }
   }
   if(PARTY_CHASE && !(HUNT && PARTY_CHASE === HUNT.id)){
     var p = partyById(PARTY_CHASE);
@@ -44578,8 +44596,19 @@ function crewHired(){ try{ var a = JSON.parse(localStorage.getItem('bohemia.hire
 function crewCount(){
   var co = (LOOP.start && LOOP.start.company) || null;
   var n = co ? co.length : 3;                           /* no picks yet: Battle Brothers' own three */
-  return Math.max(1, n + crewHired() - crewWalked().length - crewTaken().length);   /* the main character never walks; the taken are not here (__THE_WIPE_WAKES_IN_TOWN__) */
+  return Math.max(1, n + crewHired() - crewWalked().length - crewTaken().length - crewDead().length);   /* the main character never walks; the taken are not here (__THE_WIPE_WAKES_IN_TOWN__); the dead are not here */
 }
+/* __THE_DEAD_STILL_COUNT__ (RUN 10/25, EYES round 2 new 13, rule 150): MEASURED, after a fight that killed two the bar read 5/12
+   and the night billed 'the crew ate: 5 men': crewCount() never took the dead off. The dead are the fight's own rows
+   (bohemia.fight.after.v1, RUN TWO's nfAfterKeep) and the crew screen's company (bohemia.company.v1), by name, never YOU;
+   the bar, the bill, the marker, the plate's stars and the fight's size all read crewCount */
+function crewDead(){
+  var out = [], add = function(n){ n = String(n || ''); if (n && out.indexOf(n) < 0) out.push(n); };
+  try{ (JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []).forEach(function(f){ ((f && f.rows) || []).forEach(function(r){ if (r && r.dead && !r.main) add(r.name); }); }); }catch(_e){}
+  try{ (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).forEach(function(m){ if (m && m.dead && !m.main) add(m.name); }); }catch(_e){}
+  return out;
+}
+try{ window.crewDead = crewDead; window.crewTaken = crewTaken; window.crewWalked = window.crewWalked || crewWalked; }catch(_e){}
 /* ==== __THE_WIPE_WAKES_IN_TOWN__ (RUN 10/25, rule 143(e), Paolo 10/24: 'if everyone dies you're still where you were before
    the battle... spawn in the nearest town, a mini side quest, your whole squad got wiped'). MEASURED: a wipe (COMBAT's
    BOHEMIA_CITY_COMBAT_END outcome.wipe, YOU down, never a retreat) ran __DEATH_IS_A_RELOAD__ (8/22), so the game put him back
@@ -46252,6 +46281,7 @@ function mapCrewLooks(){
   var out = [], gone = {}, seen = {};
   try { crewWalked().forEach(function(x){ if (x && x.name) gone['n:' + x.name] = 1; if (x && x.look) gone['l:' + x.look] = 1; }); } catch (_e) {}
   try { crewTaken().forEach(function(n){ gone['n:' + n] = 1; }); } catch (_e) {}   /* __THE_WIPE_WAKES_IN_TOWN__ */
+  try { crewDead().forEach(function(n){ gone['n:' + n] = 1; }); } catch (_e) {}   /* __THE_DEAD_STILL_COUNT__: the dead do not walk beside him */
   var add = function(name, look, dead){
     if (!look || look === 'you' || dead || seen[look] || gone['l:' + look] || (name && gone['n:' + name])) return;
     seen[look] = 1; out.push(look);
@@ -67159,6 +67189,16 @@ function onNightfall(){
      the night's own bill, because the lights you hold are yours to pay for before
      anybody's rent, and the order is the design. */
   try{ blockRent(); }catch(_e){}
+  /* __WHAT_THE_NIGHT_TAKES_IS_SAID__ (RUN 10/25, EYES round 2 new 17, rule 150): MEASURED, a night took 34 batteries of rent
+     on another outfit's ground and not one word (the recap that said it is gone, 164 item 6). Now his second says it at
+     nightfall, one line, whose ground and how much (draft:true) */
+  try{ var rt = (RENT_TONIGHT || []).filter(function(r){ return r && (r.paid | 0) > 0; });
+    if(rt.length){ var tot = rt.reduce(function(a, r){ return a + (r.paid | 0); }, 0), who = rt.map(function(r){ return String(r.faction); }).filter(function(v, i, A){ return A.indexOf(v) === i; });
+      var lineR = who.slice(0, 2).join(' and ') + (who.length > 2 ? ' and the rest' : '') + ' took ' + tot + (tot === 1 ? ' battery' : ' batteries') + ' for the ground we crossed today.';
+      try{ loopSay(lineR); }catch(_e){}
+      var TENr = window.BohemiaMaterials && BohemiaMaterials.ten; if(TENr && TENr.say){ var wr = null; try{ var D3 = CREW_DEFS; for(var i3 = 1; i3 < ((D3 && D3.men) || []).length && !wr; i3++){ var n3 = D3.men[i3].name; if(crewDead().indexOf(n3) < 0 && crewTaken().indexOf(n3) < 0 && D3.looks[i3]) wr = { name: n3, look: D3.looks[i3] }; } }catch(_e){}
+        TENr.say({ id: 'rent:' + loopDay(), kind: 'rent', who: wr || { name: 'YOU', look: 'you' }, line: lineR, prio: 3, ttl: 20 }); }
+      window.__RENT_SAID = { total: tot, who: who, line: lineR }; } }catch(_e){}
   /* __SOMEBODY_LENDS_YOU_BATTERIES__ -- and then what you borrowed. After the
      ground's owner, because rent on where you stand is collected before a
      handshake is. */

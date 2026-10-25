@@ -1940,9 +1940,12 @@
     var D = window.CREW_DEFS, men = (D && D.men) || [], looks = (D && D.looks) || [];
     var n = 3; try { n = (LOOP.start && LOOP.start.company && LOOP.start.company.length) || 3; } catch (e) {}
     var gone = {}; try { (window.crewWalked() || []).forEach(function (w) { gone[String(w.name).toUpperCase()] = 1; }); } catch (e) {}
-    if (not) gone[String(not).toUpperCase()] = 1;
+    /* RUN 10/25 (EYES round 2 new 14, [eyes: the dead speak]): the dead and the taken never speak, and 'not' may be a list (every
+       man the fight killed); with none of his men left, YOU say it */
+    try { (window.crewDead ? window.crewDead() : []).concat(window.crewTaken ? window.crewTaken() : []).forEach(function (n) { gone[String(n).toUpperCase()] = 1; }); } catch (e) {}
+    (Array.isArray(not) ? not : (not ? [not] : [])).forEach(function (n) { gone[String(n).toUpperCase()] = 1; });
     for (var i = 1; i < Math.max(2, n); i++) { var m = men[i]; if (m && looks[i] && !gone[String(m.name).toUpperCase()]) return { name: String(m.name), look: looks[i] }; }
-    return null;
+    return (not && looks[0]) ? { name: 'YOU', look: looks[0] } : null;   /* RUN 10/25: a death is never left unsaid */
   }
   function lookOfMan(name) {
     var D = window.CREW_DEFS, men = (D && D.men) || [], looks = (D && D.looks) || [];
@@ -2051,7 +2054,7 @@
     if (snap) snap.crew.forEach(function (c) {
       if (c.main) return;
       var lk = lookOfMan(c.name);
-      var other = tenSecond(c.name);   /* the one who says it about him is never him */
+      var other = tenSecond(snap.crew.filter(function (x) { return x && x.dead; }).map(function (x) { return x.name; }).concat([c.name]));   /* the one who says it about him is never him, nor any man the fight killed (RUN 10/25) */
       if (c.dead) { var ld = L('dead'); if (ld && other) say({ id: 'dead:' + c.name + ':' + day, kind: 'dead', who: other, line: fill(ld.line, { name: c.name }), tag: 'DEAD', red: true, prio: 1, ttl: 45 }); return; }
       if (c.down && c.days > 0 && lk) {
         var lh = L('hurt'); if (lh) say({ id: 'hurt:' + c.name + ':' + day, kind: 'hurt', who: { name: c.name, look: lk }, line: fill(lh.line, { days: c.days, name: c.name }), tag: 'OUT ' + c.days + ' DAYS', red: true, prio: 2, ttl: 45 });
