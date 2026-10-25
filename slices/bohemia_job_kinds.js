@@ -846,7 +846,7 @@
 
   /* ---------- THE FIVE MOMENTS THE MAP'S LOOP HANDS OVER ---------- */
   /* 1. TAKEN at the board: the kind decides where the job is and what it says; false = it plays as today's crew */
-  function make(job, c, town, tg) {
+  function make(job, c, town, tg, dry) {
     var kind = kindOf(c), k = K(kind), row = (DATA && DATA.offers && DATA.offers[c.id]) || {};
     job.kind = kind; job.verb = k ? k.verb : 'CLEAR'; job.word = k ? k.word : 'CLEAR'; job.plays = 'clear-crew';
     /* the place its words name (rule 164 item 3): the client's town always, and the row's place */
@@ -868,14 +868,118 @@
     if (pl && pl.real && !job.real && !(root.BOH_REGION && root.BOH_REGION.ready)) {
       job.plays = kind; job.made = day(); job.stage = 'wait'; job.waitReal = String(pl.real);
       job.sayTake = 'Contract from ' + town.name + ': ' + job.title + '. ' + job.placeName + ' is out past the valley; the map shows it in a moment.';   /* draft:true */
-      window.__JOB_MADE = (window.__JOB_MADE || []).concat([{ id: job.id, kind: kind, twist: job.twist, wait: job.waitReal }]).slice(-20);
+      if (!dry) window.__JOB_MADE = (window.__JOB_MADE || []).concat([{ id: job.id, kind: kind, twist: job.twist, wait: job.waitReal }]).slice(-20);
       return true;
     }
     var ok = false; try { ok = MAKE[kind](job, k, row, town, R, tg); } catch (e) { ok = false; }
     if (!ok) { job.sayTake = null; return false; }
     job.plays = kind; job.made = day();
-    window.__JOB_MADE = (window.__JOB_MADE || []).concat([{ id: job.id, kind: kind, twist: job.twist }]).slice(-20);
+    if (!dry) window.__JOB_MADE = (window.__JOB_MADE || []).concat([{ id: job.id, kind: kind, twist: job.twist }]).slice(-20);
     return true;
+  }
+
+  /* ---------- A JOB SAYS HOW FAR (WORLD [a job says how far], rule 186(c), Paolo 10/25: 'every time a job is presented it should
+     show how long it's going to take to get there... it sends me to the other side of the map without me knowing'). MEASURED:
+     the board's person said the job and its pay; where it went, how many blocks and how many hours, he learned after the yes
+     (the take line, 'walk three carts under tarps to PRIMM, south-west, about 148 blocks'), and the hours never. Battle Brothers
+     shows the contract's target on the map and the days to it before you sign.
+     NOW the trip is worked out BEFORE the yes, by the same code the yes runs: plan() is make() on a copy (a dry run: the same
+     dice, seeded by the job, the town, the day and the jobs done, the same target the map would give it), and the trip is the
+     map's own road (cityRoute) costed by the map's own clock (cityStepMins), at the job's own pace (the carts walk at 1.6).
+     Where he stands at the town, the trip is that job's exact one; from the phone, the walk to the town is exact and the job's
+     own leg exact for a real place (PRIMM), else the kind's range off the data file, said as a range. A job that pays back home
+     says 'and back'. Nothing walks on a yes: taking a job never starts a journey (his GO is a touch on the map). ---------- */
+  var BACK = { 'find-place': 1, 'find-person': 1, 'hunt-kind': 1, 'recover-return': 1, 'patrol': 1 };
+  function legOf(ax, ay, bx, by, mult) {
+    if (ax === bx && ay === by) return { blocks: 0, mins: 0 };
+    var p = route(ax, ay, bx, by); if (!p) return null;
+    var m = 0, p0 = 1; try { p0 = pace() || 1; } catch (e) {}
+    for (var i = 1; i < p.length; i++) { try { m += cityStepMins(p[i][0], p[i][1]); } catch (e) {} }
+    return { blocks: p.length - 1, mins: m / p0 * (mult || 1) };
+  }
+  /* the job as the yes would make it, here and now, with nothing marked or said */
+  function plan(c, town) {
+    if (!c || !c.id || !town) return null;
+    var job = { id: c.id, title: String(c.title || 'a job'), pay: c.pay | 0, from: town.name, skulls: (c.skulls | 0) || 1, target: null };
+    var tg = null; try { tg = loopTarget(town, c.id); } catch (e) {}
+    job.target = tg;
+    try { make(job, c, town, tg, true); } catch (e) {}
+    return job;
+  }
+  /* where a made job sends him first, as cells in order (a patrol is its posts), and what it is called */
+  function whereTo(job) {
+    var at = function (q, n) { return q && q.x != null ? [{ x: q.x | 0, y: q.y | 0, name: n || null }] : []; };
+    switch (job.plays) {
+      case 'haul-caravan': case 'carry': return at(job.target, job.dest && !job.dest.made ? job.dest.name : (job.dest && job.dest.name));
+      case 'find-place': case 'find-person': return at(job.ring, job.placeName);
+      case 'hunt-kind': return at((job.packs || [])[0], null);
+      case 'clear-camp': return at(job.camp, job.placeName);
+      case 'hold-defend': return at(job.fromAt, job.from);
+      case 'recover-return': return at(job.spot, job.placeName);
+      case 'patrol': return (job.posts || []).map(function (p) { return { x: p.x | 0, y: p.y | 0, name: p.name || null }; });
+    }
+    return at(job.target, job.placeName);
+  }
+  function kindRange(kind) {
+    var k = K(kind) || {};
+    return k.dest_blocks || k.blocks || k.pack_blocks || k.post_blocks || (kind === 'hold-defend' ? [0, 0] : [6, 10]);   /* a crew: the map's own 6 to 10 */
+  }
+  function timeWords(m) {
+    if (m == null) return null;
+    if (m < 50) return 'under an hour';
+    var h = m / 60; if (h < 22) { var r = Math.max(1, Math.round(h)); return 'about ' + r + (r === 1 ? ' hour' : ' hours'); }
+    var d = Math.round(h / 24 * 2) / 2; return 'about ' + d + (d === 1 ? ' day' : ' days');
+  }
+  /* the trip a job offered at a place means: { place, toTown (the walk to the town, from the phone), job: { blocks, mins | lo, hi,
+     name, back, exact }, words } */
+  function trip(c, placeName, opt) {
+    opt = opt || {};
+    var t = realPlace(placeName); if (!c || !t) return null;
+    var town = { name: t.name, x: t.x, y: t.y }, door = gate(town.x, town.y) || [town.x, town.y];
+    var here = cheb(city.x, city.y, town.x, town.y) <= 2, out = { id: c.id, place: t.name, here: here, toTown: null, job: null };
+    if (!here) out.toTown = legOf(city.x, city.y, door[0], door[1], 1);
+    var kind = kindOf(c), k = K(kind) || {}, row = (DATA && DATA.offers && DATA.offers[c.id]) || {}, pl = row.place || null, mult = (kind === 'haul-caravan' && k.pace) ? k.pace : 1;
+    var real = pl && pl.real ? realPlace(pl.real) : null;
+    if (here) {
+      var job = plan(c, town), pts = job ? whereTo(job) : [], sx = city.x, sy = city.y, b = 0, m = 0, ok = pts.length > 0, legs = [];
+      if (job && job.stage === 'wait') ok = false;
+      for (var i = 0; i < pts.length && ok; i++) { var L = legOf(sx, sy, pts[i].x, pts[i].y, i === 0 ? mult : 1); if (!L) { ok = false; break; } b += L.blocks; m += L.mins; legs.push(L); sx = pts[i].x; sy = pts[i].y; }
+      if (ok) out.job = { exact: true, blocks: b, mins: m, name: (pts[0] && pts[0].name) || null, back: !!BACK[job.plays], plays: job.plays, legs: legs, at: pts.map(function (p) { return [p.x, p.y]; }) };
+    }
+    if (!out.job && real) { var g = gate(real.x, real.y) || [real.x, real.y], L2 = legOf(door[0], door[1], g[0], g[1], mult);
+      if (L2) out.job = { exact: true, blocks: L2.blocks, mins: L2.mins, name: real.name, back: !!BACK[kind], plays: kind }; }
+    if (!out.job) { var rg = kindRange(kind), step = 10.75; try { step = cityStepMins(town.x, town.y) / (pace() || 1); } catch (e) {}
+      out.job = { exact: false, lo: rg[0], hi: rg[1], minsLo: rg[0] * step * 0.5 * mult, minsHi: rg[1] * step * mult, name: pl && pl.name ? String(pl.name) : null, back: !!BACK[kind], plays: kind }; }
+    out.words = tripWords(out); out.short = tripShort(out);
+    root.__JOB_TRIPS = root.__JOB_TRIPS || {}; root.__JOB_TRIPS[c.id + '@' + t.name] = out;
+    return out;
+  }
+  /* the phone's few words (rule 148: the phone is not a page): '3 H TO REMNANTS, THEN 1 DAY TO PRIMM' */
+  function shortTime(m) { if (m == null) return '?'; var h = m / 60; if (h < 1) return 'UNDER 1 H'; if (h < 22) return Math.round(h) + ' H'; var d = Math.round(h / 24 * 2) / 2; return d + (d === 1 ? ' DAY' : ' DAYS'); }
+  function tripShort(T) {
+    if (!T) return null;
+    var w = [], J = T.job;
+    if (T.toTown) w.push(shortTime(T.toTown.mins) + ' TO ' + String(T.place).toUpperCase());
+    if (J && J.plays !== 'hold-defend') {
+      var to = J.plays === 'patrol' ? ' ROUND THE POSTS' : J.name ? ' TO ' + String(J.name).toUpperCase() : '';
+      w.push((T.toTown ? 'THEN ' : '') + (J.exact ? shortTime(J.mins) : 'UP TO ' + shortTime(J.minsHi)) + to + (J.back ? ' AND BACK' : ''));
+    }
+    return w.join(', ');   /* draft:true */
+  }
+  /* in plain words, the way a person says it: 'REMNANTS IS 12 BLOCKS, about 1 hour. Then 148 blocks to PRIMM, about 2 days.' */
+  function tripWords(T) {
+    if (!T) return null;
+    var w = [], J = T.job;
+    if (T.toTown) w.push(String(T.place).toUpperCase() + ' is ' + T.toTown.blocks + (T.toTown.blocks === 1 ? ' block' : ' blocks') + ', ' + timeWords(T.toTown.mins) + '.');
+    if (J) {
+      var to = J.name ? ' to ' + String(J.name).toUpperCase() : (J.plays === 'hunt-kind' ? ' to where they roam' : '');
+      var back = J.back ? ', and back' : '';
+      if (J.plays === 'hold-defend') w.push('The job is the town itself: you stay.');
+      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + J.blocks + ' blocks round ' + ((J.legs || []).length || 2) + ' posts, ' + timeWords(J.mins) + back + '.');
+      else if (J.exact) w.push((T.toTown ? 'Then ' : 'The trip: ') + J.blocks + (J.blocks === 1 ? ' block' : ' blocks') + to + ', ' + timeWords(J.mins) + back + '.');
+      else w.push((T.toTown ? 'Then ' : 'The trip: ') + J.lo + ' to ' + J.hi + ' blocks' + to + ', ' + timeWords(J.minsLo).replace('about ', '') + ' to ' + timeWords(J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
+    }
+    return w.join(' ');   /* draft:true */
   }
   /* 2. ARRIVED (a journey ended, or he touched where he stands): true = a fight started, the town stays shut */
   function arrived(x, y) {
@@ -1351,7 +1455,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
   load();
 })(typeof window !== 'undefined' ? window : this);

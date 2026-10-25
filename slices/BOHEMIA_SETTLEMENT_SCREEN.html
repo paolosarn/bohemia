@@ -83,6 +83,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   image-rendering:pixelated}
 .say .nm{color:var(--gold);font-size:12px;letter-spacing:1px}
 .say p{margin:4px 0 0}
+.say .trip{margin:7px 0 0;color:var(--gold);font-size:11px;letter-spacing:.6px;line-height:1.4}   /* WORLD [a job says how far] */
 .acts{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 .act{min-height:48px;text-align:left;background:var(--plate);color:var(--ink);border:1px solid var(--line);
   border-radius:6px;font:inherit;padding:8px 10px;display:flex;justify-content:space-between;gap:8px;align-items:center}
@@ -2122,6 +2123,10 @@ function clientAct(o, full){
   /* RUN 10/25 __THE_JOBS_STARS__ (rule 146(e): one mark, stars, never skulls): the map's stars for the job, the UI's star */
   var stN = Math.max(1, Math.min(3, o.skulls || 1)); try{ if(window.parent && window.parent.loopJobStars) stN = window.parent.loopJobStars(o); }catch(e){}
   var b = act(o.title, moneyWord(payShown(o.pay)), function(){ offerSpeak(o); }, full);
+  /* WORLD [a job says how far]: how long, beside the pay, on the board's list too */
+  try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null, J = TR && TR.job, em0 = b.querySelector('em');
+    if(J && em0 && J.plays !== 'hold-defend'){ var tw = J.exact ? J.mins : J.minsHi, h = tw / 60, sh = h < 1 ? 'UNDER 1 H' : h < 22 ? Math.round(h) + ' H' : (Math.round(h / 24 * 2) / 2) + (h < 36 ? ' DAY' : ' DAYS');
+      em0.appendChild(document.createTextNode('  \u00b7 ' + (J.exact ? '' : 'UP TO ') + sh)); em0.dataset.trip = J.exact ? J.mins : J.minsHi; } }catch(e){}
   try{ var em = b.querySelector('em'), M = window.BohemiaMaterials, se = (M && M.stars) ? M.stars(stN, { gap: 0 }) : null;
     if(em){ if(!se){ se = document.createElement('span'); se.textContent = new Array(stN + 1).join('\u2605'); }
       se.dataset.jobStars = stN; em.insertBefore(document.createTextNode('  '), em.firstChild); em.insertBefore(se, em.firstChild); } }catch(e){}
@@ -2142,6 +2147,10 @@ function offerSpeak(o){
   var sy = document.createElement('div'); sy.className = 'say';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
   var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payShown(o.pay)); sy.appendChild(pp);
+  /* WORLD [a job says how far] (rule 186(c), Paolo 10/25: 'every time a job is presented it should show how long it's going to take
+     to get there'): the trip before the yes, the map's own road and clock on the job the yes would make (BohemiaJobKinds.trip) */
+  try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null;
+    if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.words; sy.appendChild(tp); S.trip = TR; } }catch(e){}
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts';
   acts.appendChild(act('Take it', '', function(){

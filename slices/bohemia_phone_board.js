@@ -124,6 +124,11 @@
       var go = document.createElement('div'); go.className = 'go';
       go.textContent = 'TOUCH ' + placeWord(a.place) + ' ON THE MAP';
       d.appendChild(go);
+      /* WORLD [a job says how far] (rule 186(c), Paolo 10/25: 'it sends me to the other side of the map without me knowing'): the
+         lit card says the trip, the walk to the town and the job's own, from the map's own road and clock (BohemiaJobKinds.trip) */
+      try { var TR = window.BohemiaJobKinds && BohemiaJobKinds.trip ? BohemiaJobKinds.trip(a, a.place) : null;
+        if (TR && TR.short) { var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.short;
+          tp.style.cssText = 'margin-top:5px;font-size:10px;line-height:1.3;letter-spacing:.6px;color:#1f1710'; d.appendChild(tp); d.dataset.trip = TR.short; d.dataset.tripWords = TR.words; } } catch (e) {}
       try { var B = (typeof BEAT === 'number' && BEAT > 0) ? BEAT : 500; d.style.animationDelay = (-(performance.now() % B)) + 'ms'; d.style.animationDuration = B + 'ms'; } catch (e) {}
     }
     d.addEventListener('click', function (ev) {
