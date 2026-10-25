@@ -113,4 +113,32 @@ map's cap), 20, 30 and 40. 100 seeded fights a cell; every rule meets the same f
 stats the fight's unit carries (melee skill 83 handed, 83 in the fight; ranged defence 1 and 1), and the attack event is read where
 the fight writes it (id the striker, shot for a ranged blow). The level rule is the ONLY thing that moves between rows.
 
-PIECE 4's TABLE AND PIECE 5 (the numbers for the one table) FOLLOW WHEN THE GRID FINISHES.
+### 4a. THE FLOOR AND BATTLE BROTHERS' THREE PICKS (level 11, late kit unless named; per fight: won in 100, men struck down, dead in 100 fights)
+
+      the fight                          no level-ups at all          his old plan, three picks      what it buys
+      12 v 13 brigands (the map's cap)   88, 3.15 down, 59 dead       99, 0.38, 6                    the level-ups are the game
+      12 v 20 brigands                   21, 10.4, 188                97, 1.43, 37
+      12 v 30 brigands                    0, all 12 down              67, 6.22, 119
+      12 v 30 brigands, ENDGAME kit       0                           88, 3.08, 67                   the heavy kit pays, if he can carry it
+      12 v 40 brigands, ENDGAME kit       0                           53, 7.26, 123
+      12 v 20 the GUN LINE               45, 8.66, 178               100, 2.13, 46
+      12 v 30 the GUN LINE                0                           77, 5.86, 119
+      12 v 40 the GUN LINE                0                           30, 9.62, 166
+      12 v 40 the kids                   95, 1.69, 28                100, 0.13, 1                   the goblins are easy for everyone
+    Their shots land 24 in 100 on his old plan against the gun line at 20 (ranged defence 5 or 6 on all twelve); their swings 24.
+    Unstoppable it is not: three picks and his old plan lose a man to death in four of every ten hard fights past 20.
+
+### 4b. THE THREE-PICK DILEMMA, MEASURED: ranged defence can only be paid out of fatigue
+
+      the fight                          his old plan (fatigue)      ranged defence for fatigue     who wins the trade
+      12 v 20 the GUN LINE               100, 2.13 down, 46 dead     100, 0.63, 10                  RANGED DEFENCE, by far
+      12 v 30 the GUN LINE               77, 5.86, 119               98, 2.27, 45                   RANGED DEFENCE: 77 -> 98 won
+      12 v 40 the GUN LINE               30, 9.62, 166               59, 7.22, (cell)               ranged defence
+      12 v 30 brigands, late kit         67, 6.22, 119               64, 6.26, 115                  a wash
+      12 v 30 brigands, ENDGAME kit      88, 3.08, 67                33, 9.24, 186                  FATIGUE, by far: 88 -> 33 won
+      12 v 40 brigands, ENDGAME kit      53, 7.26, 123                9, 11.4, 210                  fatigue
+    Ranged defence 39 cuts THEIR SHOTS from 24 to 8 in 100 (the gun line at 20) and from 19 to 7 at 30. But a front left at 98 fatigue
+    in the endgame kit begins half his turns spent (50 to 72 in 100 turns against 9 to 35 on the old plan): he cannot swing.
+    THAT IS HIS SENTENCE IN NUMBERS: against guns the best team needs ranged defence, the heavy armour needs the fatigue, and three
+    picks a level cannot hold both. 'We might just have to give more points' is right; 4c measures how many.
+
