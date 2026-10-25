@@ -1383,6 +1383,17 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-pc-playtest-jobs): 10/25 (i) LATEST -- *** [the PC playtest: the jobs' part] SHIPPED (rule 164 items 3, 8, 26), and EYES round 2's two WORLD rows. ***
+Commits fce1fc7a (the roster), 07826e02 (the places, the drop rule), f0b585f3 (the gate), ece8a07a (the EYES rows), and the round-close commit. Record: records/BOHEMIA_WORLD_THE_PC_PLAYTEST_THE_JOBS_PART_10_25_26.md.
+(3) THE ROSTER SCALES THE ENEMY: the party math read the origin's three men only; BohemiaJobKinds.roster() is every man he has (line, bench, reserve, hires; not dead or walked), one hook in RUN's partyRosterStrength. 3 -> 12 men: a two-skull job 3 -> 10, the crew job's fight 8.
+(1) A PLACE YOU CAN FIND: records/target/BOHEMIA_JOB_KINDS.json 'place' on 31 rows (real: PRIMM, HOOVER DAM, RAILROAD PASS, MT CHARLESTON LODGE, TULE SPRINGS, where the job goes; made: THE PUMP STATION and the rest, a named block); the take line says where, which way, how far; every place a held job names is named on the map, the next one ringed, off the glass its name at the glass's edge pointing ('ESCORT TO PRIMM'), a tap walks there; a real place not on the map yet makes the job wait for it.
+(2) DROP A JOB: BohemiaJobKinds.dropCost(id) / drop(id), Battle Brothers' X on the contract scroll: the client town's bar pays -10 (done +10, part +5, failed -20, every way a job ends), handed to the settlement on the next town opened (open({settled})). THE BUTTON IS UI's row (5), NOT DRAWN YET: NOTE on UI's board with the two calls.
+FOUND AND FIXED: the region never turned on when the land's painting beat bohemia_region.js (3 runs in 5 here; re-asks once); a job taken at a town out in the region did nothing (loopTarget looked in the valley only).
+EYES: [eyes: paid before it lands] (the client's pay line waits for the money and says its number; WORDS' draft client_pay_part), [eyes: a place that is nothing] (region places answer a tap like a town; names after buildings, a job's first; the overlap test was off by ten).
+PROOF: gates/the_jobs_part_gate.js on the demo, his computer's screen: roster 8/0, names 9/0 (the carts reach PRIMM, 135 of 135), drop 7/0, pay 3/0, place 3/0; every_job_kind 37/0 after the changes. Static gates on the touched files: the same 11 red as clean main, plus reachability's file-time census check.
+NOTES LEFT: UI (the drop calls, the pay event), RUN (the hooks, the region fixes), RUN TWO (settled acts feed [the opinion moves]), COMBAT (the roster; road factions dress a full roster's 8 as 5).
+NEXT (for the coordinator): UI's DROP button; the land labels (FRENCHMAN MOUNTAIN) are names on the land, a click walks to the ground under them; QR-AF's other rows as sub-kinds of the built verbs.
+
 WORLD (world-every-job-kind): 10/24 (h) LATEST -- *** [every job kind] SHIPPED (rule 153(b), Paolo 10/24: 'I want more quest types'): NINE KINDS PLAY ON THE MAP, EVERY ONE OF THE EIGHT VERBS, END TO END IN THE DEMO. ***
 Commits c39f9dcf + 67bc6d72 (+ the round-close commit); pages SUCCESS for 67bc6d72. Record: records/BOHEMIA_WORLD_EVERY_JOB_KIND_10_24_26.md.
 MEASURED FIRST: the 39 board people already asked for every verb in their own words and every one played as 'a crew six to ten blocks out, fight, paid'.

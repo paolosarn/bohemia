@@ -2777,6 +2777,17 @@ GATES = [
      'gives him a contract; LEAVE closes it and the JOB is on the map; reaching the JOB opens the real '
      'fight; walking out keeps the job unpaid; a cleared job pays one battery in the purse and on the bar; '
      'no dead end. Mutations: arriving opens nothing; walking out pays; a cleared job pays nothing.', True),
+    ('EVERY JOB KIND', ['node', 'gates/every_job_kind_gate.js'],
+     'WORLD [every job kind], rule 153(b) (PAOLO 10/24: "I want more quest types"). One driver plays every built job kind '
+     'end to end on the demo, the board\'s own Take it to the pay, AUTO in the rebuilt fight: escort (the cargo follows, '
+     'slow, raiders, per crate), find (a ring, directions, back), hunt (the fight\'s own beasts, the count), camp, deliver, '
+     'hold (waves), recover, patrol.', True),
+    ('THE JOBS\' PART', ['node', 'gates/the_jobs_part_gate.js'],
+     'WORLD [the PC playtest: the jobs\' part], rule 164 items 3, 8, 26 (PAOLO 10/24 on his PC: "take three carts to Prim, '
+     'and it\'s really just the blue settlement"; "how to cut a quest off"; "if I fill up my roster, the opponents go up '
+     'too"). On the demo, his computer\'s screen: nine hired at the hall grow every job\'s party; the carts go to the real '
+     'PRIMM, named and marked, its name at the glass\'s edge, and arrive; a dropped job costs the client town\'s bar -10; '
+     'EYES round 2: the client says paid when it lands; a click on a region place\'s name opens it.', True),
     ('EVERY FIGHT HANDS HIM BACK', ['node', 'gates/every_fight_hands_him_back_gate.js'],
      'VAMILY [fight returns], rule 57 (PAOLO 10/1, having played the demo: "combat didn\'t end so I couldn\'t '
      'get back into the overworld"). REPRODUCED: a road fight (the toll crew) ran 60 s of SHOOT and 60 s of '
