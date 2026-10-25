@@ -19,6 +19,11 @@ What share of people who fight for pay or for a crew are women, in the real worl
 - REBELS WITH A CAUSE: FARC 30 to 40 percent women (Colombian government's estimate), the ELN about 20 percent.
 THE READING: people who fight for money run about 2 to 8 percent women; people who fight for a cause run far higher (20 to 40).
 His 1 percent sits under the real floor for a crew that hires for pay; 3 percent is the honest middle for a hiring post.
+- ADDED 10/25, A WAR NOW (Ukraine): women about 8 percent of the whole army (about 68,000 to 70,000), but 13,487 with combat
+  status in March 2024 (Military Media Centre) of about 880,000: about 1.5 percent of the army are women who fight; about 5,000
+  in the combat zones. THE READING CORRECTED: among people who actually fight (paramilitaries 2, a modern army at war about
+  1.5, front-line infantry about 2), about 2 percent; gangs run higher because most of a gang is not fighting. The realistic
+  number for a hiring post is 2 percent; his 1 percent is close to it.
 BATTLE BROTHERS (its department, the company): the base game hires men only; a popular community mod adds women as an option.
 
 ## THE RULING (rule 203)
@@ -42,3 +47,6 @@ BATTLE BROTHERS (its department, the company): the base game hires men only; a p
 - https://www.ngaus.org/about-ngaus/newsroom/army-expects-all-bcts-have-women-year-end (about 2 percent of armor and infantry)
 - https://zipdo.co/women-in-the-military-statistics/ (16.1 percent of the Army 2023; the 9.7 percent infantry claim)
 - https://blog.icoca.ch/women-in-private-security/ (women in private security, mostly unarmed roles)
+- https://euromaidanpress.com/2024/09/28/68000-women-serve-in-ukrainian-military-5000-in-combat-zones/ (68,000 women, about 8 percent, 5,000 in combat zones)
+- https://komersant.ua/en/u-zsu-potroilas-kilkist-viyskovosluzhbovyts-2 (62,000 women, 13,487 with combatant status, March 2024)
+- https://www.nhpr.org/2025-11-11/no-turning-back-more-and-more-ukrainian-women-join-the-army-to-fight-russia (over 70,000, about 8 percent)

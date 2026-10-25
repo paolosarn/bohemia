@@ -1,0 +1,24 @@
+VOTE VERDICTS 10/25: THE THIRTEEN SONG CARDS, ALL UP (Paolo, by his word to the coordinator)
+
+HIS WORDS: "I like the songs I want you to implement them however one thing though... there has to be a pretty big difference
+between the opponents turn and my turn" and "I'm referring to the ones in the [vote] tab like the new ones that are made that
+are in the [vote tab] like give it a thumbs up right now".
+
+UP (records/target/BOHEMIA_VOTE_REGISTRY.json verdicts[], when 10/25):
+sounds-three-levels-the-vault-10-25
+sounds-three-levels-ghost-in-the-grid-10-25
+sounds-three-levels-satellite-prayer-10-25
+sounds-three-levels-the-pit-boss-is-gone-10-25
+sounds-three-levels-the-organ-in-the-drowned-chapel-10-25
+sounds-three-levels-campfire-confession-10-25
+sounds-three-levels-repo-man-10-25
+sounds-three-levels-slow-bleed-10-25
+sounds-three-levels-slow-creep-10-25
+sounds-new-song-the-church-clock-strikes-twelve-10-25
+sounds-new-song-the-soda-machine-still-takes-coins-10-25
+sounds-new-song-the-helicopter-that-never-lands-10-25
+sounds-new-song-the-pawn-counter-at-four-in-the-morning-10-25
+
+WITH ONE NOTE ON ALL THIRTEEN (rule 207(b)): his turn (level 3) must be far bigger than their turn (level 2): at least 6 dB on a
+phone and the only level with the full drums and the lead. The votes consume the cards (they leave the tab); the gap goes
+straight into the game, no new cards to vote on again (NOTES ARE RULINGS).
