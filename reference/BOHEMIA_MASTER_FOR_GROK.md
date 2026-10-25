@@ -701,7 +701,7 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 167. THE FIGHT BOARD'S COLOUR BACK, AND THREE INTENSITIES IN EVERY SONG (PAOLO 10/25, LOCKED: 'the combat map like went completely like almost like black and white... I was like how it was previously... please have a reason'; 'all this music so far is great ambience but it's not great combat music... three intensity is like when it's your turn to attack, two when they're attacking, and one when you're in the world map or chilling... you need to make all songs with three intensities... we have a way we've been doing it'; records/BOHEMIA_PAOLO_THE_FIGHT_BOARD_GOT_ITS_COLOUR_TAKEN_AND_THREE_INTENSITIES_IN_EVERY_SONG_10_25_26.md). (a) The fight board goes back to how it was before COOK 9cae20af (the reason: it read rule 159 as 'take the colour out' and multiplied the fight's colour by 0.3, close to black and white); every other COOK change stands. (b) Rule 159 fenced: faded, dirty, rare colour, never drained toward black and white; a grade that cuts colour by more than half goes to him first. (c) EVERY SONG HAS THREE INTENSITIES: 1 the map, a town, chilling (the ambience; his songs' level 1 stays exactly as it plays); 2 the enemy's turn; 3 YOUR TURN TO ATTACK, real combat music with the drums and the drive. Amends 126's 10/23 line (their turn was the lowest): map 1, their turn 2, his turn 3. Every song he plays and every new song (166) has all three; level 3 is never the ambience louder. (d) Through the system that exists (window.INTENSITY, KILLMUS, MUS.layers at the next bar, BOHEMIA_FIGHT_TURN), on the 120 BPM beat. (e) [AMENDED by 181: new levels go to VOTE first, never straight into the game.] A gate: every playable song renders at 1, 2 and 3; level 3 carries drums and a lead over the bed; the map plays 1, their turn 2, his turn 3. COOK [the fight board's colour back], SOUNDS [three intensities in every song].
 168. EVERYTHING AT 120 BPM, AND YOU CAN HEAR IT (PAOLO 10/25, LOCKED, playing a fight: 'just make sure from now on everything's at 120 BPM... I only hear the sound effects... I'm not hearing any music... it doesn't have tempo, doesn't have BPM, doesn't intensify... that's really important to me'; records/BOHEMIA_PAOLO_EVERYTHING_AT_120_BPM_YOU_CAN_HEAR_10_25_26.md). (a) Every song at every level carries an audible 120 BPM pulse (a kick, a bass on the beat, a hat, a clock); level 1 may be soft, never a beatless hum. (b) The fight never plays without music: a song from the first frame to the end screen, above the effects. (c) It intensifies: map 1, their turn 2, his turn 3, level 3 combat music (167(c)). (d) The gate, in the real fight on the phone and computer profiles: music audible all through, a 120 BPM pulse found at every level, the level changing on every turn at the next bar. (e) First on SOUNDS' board, before the four new songs; [AMENDED by 181: the new pulse and levels go to the VOTE tab first, playing, and join the game when he says]. SOUNDS [the fight's music you can hear].
 169. THE WALK-UP WALKS ON THE GROUND (PAOLO 10/25, LOCKED, corrects RUN TWO cd2582ba: 'you have the player character walking towards the people but you don't understand what the fuck is going on at all... walking on top of buildings and shit... this is obviously not coded in the way that it needs to be'; records/BOHEMIA_PAOLO_THE_WALK_UP_WALKS_ON_TOP_OF_BUILDINGS_10_25_26.md). (a) The lead walks only where a person can walk (street, sidewalk, lot, a door), around every building, wall, fence and prop, on a path found on the town as DRAWN. (b) Drawn in the right order: a building in front hides him; never painted over a roof he is behind. (c) It reads: he leaves, goes the short way on the ground, stops facing the person; a walk that would confuse is not walked. (d) The gate measures the picture: his feet on walkable ground cut from the drawn art every frame, never drawn over a roof, the path never across a footprint; phone and computer, every town. (e) First on RUN TWO's board. (f) AMENDED THE SAME HOUR (Paolo: 'on my phone when my character walks and he's at the bottom of the settlement screen, the settlement screen is shaking'): the town moves at most once per tap, eased, and holds still while he walks; the gate measures its offset every frame, one move, no back and forth. RUN TWO [the walk-up, on the ground].
-170. NO COVER IN THE OPEN STREET, AND MELEE REACHES ONE TILE (PAOLO 10/25, LOCKED, playing a fight: 'if you're in the middle of the street you have no cover unless that street tile has crazy car wreckage... enemies using pipes, melee weapons, but they're able to attack for more than one tile'; records/BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md). (a) Cover only from what is on the tile (a wall, a window, a doorway, a wreck, a barrier, junk big enough to hide behind); an open street or sidewalk gives none and a man there never kneels as if covered; the cover, the kneel and the dial's odds are one fact. (b) Melee reaches the next tile only (rule 83 stands); guns two or more, never at a man beside the shooter. (c) The gate, many rolled fights, every enemy kind: every melee hit from an adjacent tile, every kneel on a cover tile. (d) COMBAT [cover is what is on the tile] and [melee is one tile] first; a NOTE on ANIMATION's board.
+170. NO COVER IN THE OPEN STREET, AND MELEE REACHES ONE TILE (PAOLO 10/25, LOCKED, playing a fight: 'if you're in the middle of the street you have no cover unless that street tile has crazy car wreckage... enemies using pipes, melee weapons, but they're able to attack for more than one tile'; records/BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md). (a) Cover only from what is on the tile (a wall, a window, a doorway, a wreck, a barrier, junk big enough to hide behind); an open street or sidewalk gives none and a man there never kneels as if covered; the cover, the kneel and the dial's odds are one fact. (b) Melee reaches the next tile only (rule 83 stands); guns reach two or more and shoot the man beside them too (rule 185). (c) The gate, many rolled fights, every enemy kind: every melee hit from an adjacent tile, every kneel on a cover tile. (d) COMBAT [cover is what is on the tile] and [melee is one tile] first; a NOTE on ANIMATION's board.
 171. A DISMISS BUTTON ON THE CREW (PAOLO 10/25, LOCKED: 'for the crew there's not a dismiss button, bro, what if I want to dismiss people'; records/BOHEMIA_PAOLO_A_DISMISS_BUTTON_ON_THE_CREW_10_25_26.md). (a) Every man on the crew screen has DISMISS with one confirm; the main character has none. (b) Battle Brothers' way first from the library and Grok's pages (his gear, his pay, whether the company minds, the words), then ours. (c) His gear to the stash, his wage stops, he walks off, the phone's feed says it. (d) A gate on phone and computer. RUN TWO [a dismiss button], after [the walk-up, on the ground].
 172. THE COMPANY SCREEN AS SIMPLE AS BATTLE BROTHERS, THEN BETTER (PAOLO 10/25, LOCKED: 'find screenshots... how Battle Brothers' company menu works, because they really simplify how easy it can look... you're over complicating it, it's really hard to navigate your equipment, the levelling up... and then we need to improve upon that... you're in deficit'; records/BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md, Battle Brothers' screen there from recall until Grok ask 41 verifies it from screenshots). (a) One screen: the roster in a strip; tap a man and the screen is him; his body wearing his gear with the slots around it; his numbers with icons; the stash beside him with filters; ONE TAP equips (the old item back to the stash), the comparison shown first; the two bag slots; the level-up its own short moment (three attributes, then one perk); DISMISS (171). (b) Better on a phone: thumb-sized, nothing behind hover, a swipe between men; the computer keeps Battle Brothers' keys and right-click. (c) Less, not more: the count of things on the screen goes down, measured. (d) The gate: a stranger's path (open the crew, pick the third man, put the best armour on him, level him up, dismiss the fifth) in the fewest taps on one screen. (e) UI [the company screen, Battle Brothers simple] first, carrying [a dismiss button] (moved from RUN TWO: one lane, one screen).
 173. IT NEVER CRASHES BEFORE A FIGHT (PAOLO 10/25, LOCKED: 'the game keeps crashing at random times, usually right before a fight loads up; maybe it's because of the amount of people on the screen'; records/BOHEMIA_PAOLO_IT_CRASHES_RIGHT_BEFORE_A_FIGHT_10_25_26.md). (a) No crash before, during or after a fight, computer or phone. (b) Measure first: memory at the map, the card, the fight's load, the fight, the end screen and back, both profiles, the biggest fights; the cause named in numbers (10/24's cause was a tab crossing about 1.1 GB of pixels; since then 96 men's held sheets, 17 enemies, 121 fight pictures, the region). (c) Fix at the source, never by taking people or art out. (d) The gate: twenty of the biggest fights in a row on both profiles, no crash, a memory ceiling under a phone's line, beside tools/bohemia_run_the_crash_hunt.js. (e) EYES plays ten fights in a row every round. RUN [the crash before the fight].
@@ -709,12 +709,18 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 175. THE SOUND NEVER CHOPS, EVEN ON BLUETOOTH (PAOLO 10/25, LOCKED: 'every time I play the game on my car speakers through Bluetooth it gets all choppy... could you support and fix that'; records/BOHEMIA_PAOLO_THE_SOUND_CHOPS_ON_BLUETOOTH_10_25_26.md). Measured: no microphone; the music synthesized live (783 createOscillator calls); the AudioContext at the smallest default buffer; the fight frame a second AudioContext; a phone near its memory line stalls. (a) No chop on speaker, headphones or Bluetooth. (b) The music plays from audio rendered ahead (each song's three intensities rendered once, the level change a crossfade on the bar, 120 BPM); effects stay instant. (c) One AudioContext for the game, a playback-sized latency, scheduled ahead. (d) The gate: the phone profile with the CPU four times slower through a fight and the map, the output recorded, zero dropouts, the beat on the fight's grid. (e) SOUNDS [the sound never chops] with [the fight's music you can hear].
 176. AUTO NEVER WASTES A TURN, AND THE ODDS ARE TRUE (PAOLO 10/25, LOCKED: 'a guy very low on health, instead of trying to kill the enemy, walks two tiles away and then two tiles back in front of the enemy... if it's melee range, get the fuck [in]... once I start doubting the decisions AUTO takes, I start doubting the calculator'; records/BOHEMIA_PAOLO_AUTO_NEVER_WASTES_A_TURN_AND_THE_ODDS_ARE_TRUE_10_25_26.md). (a) An enemy in reach is struck unless a better act is real and logged; a move ends somewhere better, never where it began. (b) A hurt man decides once (Battle Brothers' way first): finish the enemy, or step back out of reach once and stay back; never off and back. (c) The odds are true: the calculator plays the same brain and is checked against real AUTO fights (80 in 100 wins close to 80 of 100). (d) The gate over many rolled AUTO fights: zero wasted moves, zero dances, the odds within a few points in every band. (e) COMBAT [AUTO never wastes a turn] with rule 170's two rows. (f) AMENDED THE SAME HOUR (Paolo: 'if buildings two or three storeys are supposed to be advantageous for people with guns, why isn't the first thing they do finding the nearest one and firing... big brain research on how to be a better auto combat system and calculator... it's pretty dog shit right now'): AUTO plays the board: a gunman takes the reachable high ground or cover the rules reward, the melee men screen the shooters; what the rules make good, AUTO does. (g) BIG BRAIN RESEARCH FIRST, in parallel: TUNING [a better AUTO brain and a true calculator]: Battle Brothers' AI first (how its men score engage, hold, protect, take height, fall back), then the craft of tactics AI (scored moves, danger and value maps, a turn of lookahead), then the calculator (runs, the same brain, checked against real results); no game he has not named. (h) COMBAT builds the one brain from that page for AUTO, the enemy and the calculator; the gate adds 'a gunman with a reachable roof takes it in most fights'.
 177. WHAT YOU EQUIP IS WHAT YOU SEE IN THE FIGHT (PAOLO 10/25, LOCKED: 'I'm not seeing all the weapons, armour and off-hand items in the actual combat; I gave everyone car door shields and I don't see that'; records/BOHEMIA_PAOLO_WHAT_YOU_EQUIP_IS_WHAT_YOU_SEE_IN_THE_FIGHT_10_25_26.md). Why: every man is drawn from a sheet baked with his gang's guns, never from what he has equipped, and no car door is modelled. (a) His main hand, off hand, armour and head gear as equipped are drawn, both sides, and a bag swap shows at once (Battle Brothers draws from layers for this). (b) Layers through the rig: one body, each item its own layer on the same skeleton, facings and keys, put together when the fight draws him; a shared layer costs less than a baked sheet per man (173 served). (c) Every item the stash can hold has a model (COOK; the car door and crash-bar shields first). (d) The gate: equip each kind, open a fight, find it drawn in every facing and clip; swap mid-fight; enemies the same; nobody holds what he does not have. (e) COOK [a model for every item], ANIMATION [gear as layers on the rig], COMBAT [the fight draws what he wears].
-178. EVERYTHING IS A WORK IN PROGRESS UNTIL THE GAME IS FINAL (PAOLO 10/25: 'we're always going to be tuning the auto combat and the calculator... we haven't even added perks or abilities... I hate when you act like you're going to lock shit down in one turn; most things in the game are a work in progress until the game is final'; records/BOHEMIA_PAOLO_EVERYTHING_IS_A_WORK_IN_PROGRESS_UNTIL_THE_GAME_IS_FINAL_10_25_26.md). (a) A round makes a system better, never finished; AUTO, the calculator, the rules, the music and the screens are tuned again whenever perks, abilities, gear, enemies or acts arrive. (b) To him: 'better now' and what changed, never 'fixed for good' or 'locked down'; a gate is a floor, not a finish line. (c) The brain keeps up: every perk or item entering the fight is taught to AUTO and the calculator the same round (abilities NEVER, rule 180), the odds re-checked; COMBAT [AUTO keeps up], TUNING [the odds keep up], standing. (d) His rulings stay as he said them; how well the game does them stays open.
+178. EVERYTHING IS A WORK IN PROGRESS UNTIL THE GAME IS FINAL (PAOLO 10/25: 'we're always going to be tuning the auto combat and the calculator... we haven't even added perks or abilities... I hate when you act like you're going to lock shit down in one turn; most things in the game are a work in progress until the game is final'; records/BOHEMIA_PAOLO_EVERYTHING_IS_A_WORK_IN_PROGRESS_UNTIL_THE_GAME_IS_FINAL_10_25_26.md). (a) A round makes a system better, never finished; AUTO, the calculator, the rules, the music and the screens are tuned again whenever perks, abilities, gear, enemies or acts arrive. (b) To him: 'better now' and what changed, never 'fixed for good' or 'locked down'; a gate is a floor, not a finish line. (c) The brain keeps up: every perk, item or enemy kind (rule 182) entering the fight is taught to AUTO and the calculator the same round (abilities NEVER, rule 180), the odds re-checked; COMBAT [AUTO keeps up], TUNING [the odds keep up], standing. (d) His rulings stay as he said them; how well the game does them stays open.
 179. DONE MEANS HE CAN SEE IT (PAOLO 10/25, LOCKED: 'I told you about the car door shield yesterday... are you sure every job I requested is getting done'; records/BOHEMIA_PAOLO_ARE_YOU_SURE_EVERY_JOB_IS_GETTING_DONE_10_25_26.md). The honest answer was no: the list marked lines SHIPPED on a lane's commit; line 30 (the car door shield he should see in the combat) and line 31 were marked shipped and nothing is drawn. (a) A line is DONE only when EYES has seen it in the live game, phone and computer, against his words, with a picture; a commit makes it BUILT, NOT YET SEEN. (b) The audit now: EYES walks every line on the live demo, SEEN or NOT SEEN with a row on the owner's board. (c) The 10/25 asks (rules 166 to 178) are on the list (lines 85 to 98). (d) The check-in reads EYES' marks, not commits. (e) EYES [check every ask on the list] first.
 180. AUTO NEVER USES ABILITIES; THEY ARE THE PLAYER'S (PAOLO 10/25, LOCKED: 'I don't want the auto combat to use abilities... it would always be damn near better than the player... tile decisions, who to fire at, who to melee, the best accuracy against certain enemies... abilities are player use only'; records/BOHEMIA_PAOLO_AUTO_NEVER_USES_ABILITIES_10_25_26.md; amends 178(c)). (a) AUTO never uses an ability (an active skill a man chooses). (b) AUTO's job, done well and always improving: where each man moves and stands, who to shoot or hit, the best accuracy on each enemy from each tile (rule 176). (c) Perks that work on their own and gear count for AUTO and the calculator; abilities never (178(c) reads 'every perk and item'). (d) The calculator shows AUTO's chance without abilities; a player using his abilities can beat it. (e) The enemy's skills are not ruled here. (f) The gate: zero abilities used by AUTO across many rolled fights; the same fights played with abilities by a scripted hand win at least as often. (g) AMENDED THE SAME MINUTE (Paolo: 'when I mean abilities, I mean buttons you can press during combat that aren't fire or attack with melee'): an ability is every combat button that is not move, fire or the melee attack; AUTO moves, fires and strikes, nothing else (no special shot, guard, bag swap, used item or perk button). The coordinator's reading, his to correct: reloading the gun a man fires is part of FIRE, so AUTO reloads only to keep firing. (h) SAID AGAIN (Paolo: 'the decisions from what tile our team selects to walk towards to what enemies they target have to be done better'): tiles scored for reach, cover, height, danger and staying beside the men he protects; targets focused (the man the team can kill this turn, the most dangerous in reach, the best hit chance, never spread so nobody falls); COMBAT's gate reports how often AUTO took the best tile and target against an exhaustive search of that turn.
 181. NEW MUSIC GOES TO THE VOTE TAB FIRST (PAOLO 10/25, LOCKED: 'don't forget about the alpha voting system... I still want to hear if it's something I even want... I hope you're not telling it to go immediately into the game without me hearing it'; records/BOHEMIA_PAOLO_NEW_MUSIC_GOES_TO_THE_VOTE_TAB_FIRST_10_25_26.md; amends 167(e) and 168(e), which broke 122(d)). (a) Every new piece of music (a new song, levels 2 and 3 of his songs, a new pulse or drum part under them) goes to the VOTE tab in the alpha first, playing, and joins the game only when he says it joins. (b) The card plays each song at levels 1, 2 and 3 and a short run of turn changes on the beat, as a fight would sound. (c) Not music, straight in as always: the actions on the song's beat (COMBAT), the music's volume against the effects, the Bluetooth fix (175). (d) Until he says, the game plays his approved songs as approved. (e) SOUNDS builds the levels and the pulse into VOTE first.
+182. AUTO KNOWS EVERY ENEMY'S LESSON (PAOLO 10/25, LOCKED: 'if killing the mechanic turns the rest of his robots off, why aren't we aiming at the mechanic every turn we're in range... I can't be explaining each niche auto combat thing to you'; records/BOHEMIA_PAOLO_AUTO_KNOWS_EVERY_ENEMYS_LESSON_10_25_26.md). (a) Every enemy kind's lesson is data the brain reads (the Mechanic: his robots stop when he dies; a leader, a healer, a shield wall, a flanker) as the effect it has. (b) AUTO plays to it: the key man in reach every turn the team can reach him, the tiles chosen to reach him; 176 and 180(h) stand. (c) No enemy ships without its lesson in that data and a gate fight showing AUTO plays to it (178(c) covers enemies); the three of 10/24 first. (d) He never explains a mechanic twice: the fix is always to make the game's rule readable to the brain, never a special case per complaint. (e) The gate per enemy kind: AUTO takes the key man in most turns it can reach him. (f) COMBAT [AUTO knows every enemy's lesson].
+183. THE FIRST FIFTY DAYS REWARD A SMALL STRONG CREW, AND THE LONE WOLF (PAOLO 10/25, LOCKED: 'there definitely isn't incentive for the first 50 days to grow your crew unless it's god-tier recruits... that's why in Battle Brothers I always loved playing Lone Wolf: you start with a mega god who in good equipment is virtually impossible to kill until the game starts getting harder'; records/BOHEMIA_PAOLO_THE_FIRST_FIFTY_DAYS_AND_THE_LONE_WOLF_10_25_26.md; the coordinator's reading, his to correct). (a) Early, growing the crew pays only for an exceptional recruit, rare and priced like it, read as exceptional on meeting. (b) The Lone Wolf (rule 75's origin) plays as he remembers: one near-god main character, close to unkillable in good gear early. (c) The game turns hard later (the days raise the enemy; Battle Brothers' crises around day 80 to 100), and a full crew is needed by then. (d) TUNING measures the Lone Wolf through fifty in-game days on the live game, then the numbers and NOTEs to RUN, RUN TWO, WORLD, COMBAT. (e) EYES plays the Lone Wolf start next round. TUNING [the first fifty days and the lone wolf].
+184. EVERY ORIGIN STARTS LIKE ITSELF, AND THE LONE WOLF IS A GILDED GOD (PAOLO 10/25, LOCKED: 'for all the origins tune up the numbers they get when they start off... in Battle Brothers Lone Wolf you get a gilded god with three stars in the stats that actually matter... I don't even see that on this wolf guy, it's just one regular guy, definitely not a lone wolf'; records/BOHEMIA_PAOLO_EVERY_ORIGIN_STARTS_LIKE_ITSELF_AND_THE_LONE_WOLF_IS_A_GILDED_GOD_10_25_26.md). (a) The Lone Wolf: a real level-4 body, THREE STARS in the stats that matter (rule 162: ranged defence first, his weapon's skill, defence, resolve, fatigue), his own good kit at the door, rolled new each game, reading as a god on the crew screen. (b) All fifteen origins start like their promise (who, levels, stats and stars, gear, money, roster, fielding), Battle Brothers' origins first. (c) TUNING measures each origin's first days on the live game and writes the numbers. (d) RUN TWO builds them (origins.json, the roll, the stars); a NOTE for RUN's door. (e) EYES plays three starts, the Lone Wolf first.
+185. A GUN SHOOTS THE MAN BESIDE HIM (PAOLO 10/25, LOCKED: 'why do you have pistols not able to shoot the tile next to them? All I wanted was that a melee weapon controls one tile around them... if I have a pistol in my hand I should still be shooting... I don't know who told you to implement that'; records/BOHEMIA_PAOLO_A_GUN_SHOOTS_THE_MAN_BESIDE_HIM_10_25_26.md). Honestly: the coordinator misread his 10/10 'all guns 2+ minimum' as a minimum distance; he meant the reach. (a) A gun fires at any tile from the one beside him out to its reach; a pistol shoots the man next to him. (b) Melee reaches only the next tile and controls the tiles around him. (c) Corrects rule 83 and 170(b). (d) AUTO and the calculator the same round. (e) The gate: no gun refused for being too close; melee never past the next tile. (f) COMBAT [a gun shoots the man beside him] first. (g) SAID AGAIN (Paolo: 'melee weapons will have their advantages when attacking a tile right next to people, but I can't believe you put a minimum range... I'm pistol-whipping him; I never told you to do that'): melee keeps its edge on the next tile (a number TUNING sets, Battle Brothers' way first), but a gun is never refused there; no pistol-whip unless he chooses it.
+186. ANY SIDE OF A TOWN IS ITS DOOR; EVERY TOWN LOOKS ITS OWN; A JOB SAYS HOW FAR (PAOLO 10/25, LOCKED: 'any tile next to a settlement... take me to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'; 'every settlement has to look unique... deep in the heart of the city it should give more city vibes'; 'every time a job is presented it should show how long it's going to take to get there... it sends me to the other side of the map without me knowing'; records/BOHEMIA_PAOLO_ANY_SIDE_OF_A_TOWN_UNIQUE_TOWNS_AND_A_JOB_SAYS_HOW_FAR_10_25_26.md). (a) A tap on a town walks to the nearest walkable tile touching it and enters there, never a loop to one entrance tile. (b) No two towns read the same: shared parts allowed within a tier, the look from where it stands (the heart of the city: towers, concrete, signs; the edge: low houses, yards, desert), its faction and trade; a likeness gate. (c) Every job offered shows the travel time and distance to where it sends him before he takes it; no long walk starts without his GO. (d) Gates for each. (e) RUN [any side of a town is its door], COOK [every town looks its own] with RUN TWO, WORLD [a job says how far] with UI.
+187. EVERY WEAPON HAS ITS RANGE BANDS (PAOLO 10/25, LOCKED: 'certain weapons will have their range accuracy; all weapons can shoot the tile next to them, depending on the type: a rifle shooting one tile next to it might be a range debuff; a shotgun, the closer you are, after one or two tiles... you'll have to do research on this'; records/BOHEMIA_PAOLO_EVERY_WEAPON_HAS_ITS_RANGE_BANDS_10_25_26.md). (a) Every weapon fires at the next tile (185) with its own accuracy and damage by distance: a rifle debuffed point-blank, a shotgun deadliest within one or two tiles and falling off, a pistol at home close, a scoped rifle best far. (b) Research first: Battle Brothers' ranged hit by distance and weapon (Grok ask 43), the real effective ranges at our scale (a tile is a house); TUNING's bands in the one table. (c) The tiles and the dial show the band's effect. (d) AUTO and the calculator use the bands the same round. (e) The gate: hits by distance follow each class's bands. (f) TUNING and COMBAT [every weapon's range bands].
 77b. THE MAP'S ROADS (PAOLO 10/10 on the freeway round two: 'BRO ON THE MAP NOT ON THE COMBAT, and even then it's looking like shit'): his 10/9 freeway complaint was the MAP's freeway and streets; one road kit, lanes agreeing, nothing across a road, on the map's far and middle stops; RUN [the far end at two million pixels], WORLD [the roads] and COOK [the far end painted by hand] carry it; the fight's freeway work stands.
-83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; every gun needs at least two tiles to its target and cannot fire at a man beside the shooter; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
+83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; [CORRECTED 10/25 by rule 185: the coordinator misread 'all guns 2+'; it is the REACH, a gun shoots the man beside him too]; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
 84. AN ACT IS A YEAR (PAOLO 10/10: 'most people will only spend a maximum of 300 to 450 days in a single act, so a year passes; this mechanic is ass'): no mechanic needs more than a year inside one act; DYNASTY's old-body trade is RETIRED; aging shows between acts.
 85. THE FLIP UNLOCKS AT THE FIRST CRISIS (PAOLO 10/10: 'you can't even flip until it's unlocked in the first endgame crisis'): the flip opens when the first crisis starts (around day 80 to 100, VIA GROK); DIRECTION's four-beat card is its look; nothing flips before; DYNASTY [the flip unlocks at the crisis].
 86. THE MAP IS FOR LOOKS (PAOLO 10/10: 'the map is mainly for looks, you can't be putting a bunch of micro features the player doesn't understand, Battle Brothers doesn't make it complicated and neither should you'; 'the settlements all look like dogshit and not organic with the map'): what you build lives in the settlement screen of your base and nowhere else; LIFE+CITY [built on the board] and [built on the map] are RETIRED to the graveyard, their code out of the fight's and the map's paths; the settlement pictures sit organically in the map (COOK, RUN, 77b). Also this round: THE ROSTER AND THE POSTS ARE UI'S LOOK FIRST ('THIS UI IS ASS'); THE MODS CHAT ONLY HELPS MODDERS (no laws about size, no mods of ours); A RESPEC IS LEARNED THROUGH DIALOGUE, NOT LISTED; THE RESHUFFLE ARROW DIES ('hell no'); THE SHOT KICKS IN EVERY DIRECTION and NOBODY WALKS ON A WALL OR A ROOF (ANIMATION); STEALING EXISTS (FACTIONS [beef]); more analog horror, no cards with quests, make the pixels, make the sound.
@@ -49204,6 +49210,40 @@ fight's pulse go straight into the game, 'no card, he hears it in his next fight
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_EVERY_ORIGIN_STARTS_LIKE_ITSELF_AND_THE_LONE_WOLF_IS_A_GILDED_GOD_10_25_26.md
+# source: records/BOHEMIA_PAOLO_EVERY_ORIGIN_STARTS_LIKE_ITSELF_AND_THE_LONE_WOLF_IS_A_GILDED_GOD_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: EVERY ORIGIN STARTS LIKE ITSELF, AND THE LONE WOLF IS A GILDED GOD (LOCKED, rule 184)
+
+## HIS WORDS (verbatim, voice to text)
+"Yeah, I need you for all the origins to tune up what happens especially like the numbers they get when they start off for
+example and in a battle Brothers Lonewolf played through like you get a goaded God, bro with three stars in the stats that
+actually matter that we kind of talked about bro I don't even see that on this wolf guy. It's just one regular guy like
+that. Definitely is not a lone wolf"
+('goaded God' reads as 'gilded god'.)
+
+## WHAT IS TRUE TODAY (TUNING 10/25, records/BOHEMIA_TUNING_THE_FIRST_FIFTY_DAYS_AND_THE_LONE_WOLF_10_25_26.md)
+The Lone Wolf at the door is a level-4 label on a level-1 body in the first crew member's rags (90 armour, a pistol, a car
+door), and every Lone Wolf is the same man. He is right: it is one regular guy.
+
+## THE RULING (rule 184)
+(a) THE LONE WOLF IS A GILDED GOD: a real level-4 body (his levels give real stats), THREE STARS (Battle Brothers' talent
+    stars) in the stats that matter for him (rule 162's killer company: ranged defence weighted for guns first, then his
+    weapon's skill, his defence, resolve and fatigue), his own good kit at the door (the hedge knight's way), rolled new each
+    game so no two Lone Wolves are the same man, and he reads as a god on the crew screen (the stars, the numbers).
+(b) EVERY ORIGIN STARTS LIKE ITSELF: all fifteen (THE CREW THAT IS LEFT, A NEW CREW, UP FROM HENDERSON, THE WATER TRUCK, THE
+    BLOCK WATCH, THE SCAVENGERS, THE PROMISE KEEPERS, THE DESERTERS, THE RAIDERS, THE LAB RATS, THE FAITHFUL, THE DEBT
+    COLLECTORS, THE HUNTERS, THE FIGHT PIT, THE LONE WOLF): who starts, their levels, their stats and stars, their gear,
+    the money, the roster and the fielding, each tuned so the first hour plays like that origin's promise; Battle Brothers'
+    origins first (rule 33), then our swag.
+(c) MEASURED, NOT GUESSED: TUNING plays each origin's first days on the live game (many seeds), as it did the Lone Wolf, and
+    writes each origin's numbers in the one table.
+(d) BUILT: RUN TWO builds them (origins.json, the start's roll, the stars) once TUNING's numbers land; a NOTE on RUN's board
+    (the door shows each origin's promise in plain words).
+(e) EYES plays three origins' starts, the Lone Wolf first, in its next round.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_AUTO_NEVER_USES_ABILITIES_10_25_26.md
 # source: records/BOHEMIA_PAOLO_AUTO_NEVER_USES_ABILITIES_10_25_26.md
 ====================================================================================================
@@ -49256,6 +49296,79 @@ Enemies they target you know that has to be done better"
     and the best hit chance, never spreading blows so nobody falls. TUNING's page gives each its weights; COMBAT's gate
     reports, over rolled fights, how often AUTO took the best-scored tile and target against a slow exhaustive search of
     every choice that turn.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_ANY_SIDE_OF_A_TOWN_UNIQUE_TOWNS_AND_A_JOB_SAYS_HOW_FAR_10_25_26.md
+# source: records/BOHEMIA_PAOLO_ANY_SIDE_OF_A_TOWN_UNIQUE_TOWNS_AND_A_JOB_SAYS_HOW_FAR_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: ANY SIDE OF A TOWN IS ITS DOOR; EVERY TOWN LOOKS ITS OWN; A JOB SAYS HOW FAR (LOCKED, rule 186)
+
+## HIS WORDS (verbatim, voice to text)
+"And the map is so awkward like I don't know if you have a settlement entrance to only be one tile but like bro like I know
+that you only have a walk on the street tiles, which is so weird but like any tile next to a settlement I should be able to
+like if I click on the settlement tile. It'll just take me to the nearest tile that would allow me to enter the settlement.
+Does that make sense like I click on the app and like it makes me do a full loopy loop around the block enter a map to send
+a settlement like it's so fucking confusing and on top of that every settlement has to look unique and different a little
+bit. You know if I understand the frontiers of settlements and they can borrow from each other, especially if they're in the
+same tier, but still like they'll look the same they like it doesn't like it doesn't like if there's a settlement that's
+deep in the heart of the city like it should give more like city vibes you know like I'll all the settlements. Just have to
+look a little more unique and they're not really giving that.
+And every time that a job is presented, it should really show you how long it's gonna take to walk to the location you know
+or like get there like I click on a job and then it gets and it sends me to the other side of the fucking map like what sort
+of shit without me knowing right if I consent it that's another thing but come on. I gotta know that you gotta let the
+people know that."
+
+## THE RULING (rule 186)
+(a) ANY SIDE OF A TOWN IS ITS DOOR: a tap on a settlement walks the crew to the NEAREST walkable tile touching it and enters
+    from there; never a loop round the block to one entrance tile. If the street is the only walkable ground, the nearest
+    street tile touching the town is the door.
+(b) EVERY TOWN LOOKS ITS OWN: towns of the same tier may share parts, but no two read the same on the map or in their
+    settlement screen; a town takes its look from where it stands (deep in the city: towers, concrete, signs, the grid; at
+    the edge: low houses, yards, desert), its faction (colour is territory, rule 159's faded palette) and its trade; measured
+    so no two towns' pictures match past a set likeness.
+(c) A JOB SAYS HOW FAR BEFORE HE TAKES IT: every job offered (the board, the phone, a person) shows the travel time to where
+    it sends him (in-game hours or days at his crew's speed, and the distance), and taking a job never starts a long walk
+    without his tap on GO; a job that crosses the map says so.
+(d) THE GATES: (a) every town on the map entered from its nearest touching tile in every rolled game, no detour more than a
+    tile or two; (b) a likeness measure across every pair of towns; (c) every offered job carries its travel time, matching the
+    real trip within a small margin, and no trip starts on the job's own tap.
+(e) LANES: RUN [any side of a town is its door] (the map's travel); COOK [every town looks its own] (the map's town painting,
+    with RUN TWO for the settlement screens); WORLD [a job says how far] (the jobs) with UI for where it shows.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_AUTO_KNOWS_EVERY_ENEMYS_LESSON_10_25_26.md
+# source: records/BOHEMIA_PAOLO_AUTO_KNOWS_EVERY_ENEMYS_LESSON_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: AUTO KNOWS EVERY ENEMY'S LESSON, HE NEVER EXPLAINS ONE (LOCKED, rule 182)
+
+## HIS WORDS (verbatim, voice to text)
+"Like bro, I'm just so confused by the Auto the auto combat shit like OK like if killing the mechanic turns the rest of
+his robots off then why aren't we just aiming at the mechanic at every term that we possibly can that we're in range
+for like it's I can't be explaining each niche auto combat thing to you bro like what the fuck"
+
+## WHAT IT MEANS
+Every new enemy teaches one lesson (the bestiary law and COMBAT's three new enemies: the Mechanic, the Kids and Runners,
+the Heavy). The fight knows the Mechanic's lesson (kill him and his robots stop) but AUTO's brain does not read it, so AUTO
+spreads its shots instead of taking the Mechanic every turn it can reach him. And it is not one bug: any enemy whose rule
+the brain cannot see will be played badly the same way.
+
+## THE RULING (rule 182)
+(a) EVERY ENEMY KIND'S LESSON IS DATA THE BRAIN READS: in the roster data, next to his numbers, what makes him matter
+    (the Mechanic: his robots stop when he dies; a leader whose men break when he falls; a man who heals or buffs; a
+    shield wall; a runner who flanks) written as the effect it has, not as words. AUTO's target and tile scoring read it the
+    same way they read hit chance and danger.
+(b) AUTO PLAYS TO IT: the key man in reach is taken every turn the team can reach him (the Mechanic first while he
+    lives), and the tiles chosen to reach him; the rest of rule 176 and 180(h) stands (the man the team can kill this
+    turn, the most dangerous, the best chance).
+(c) NO ENEMY SHIPS WITHOUT ITS LESSON: a new enemy kind is not finished until its lesson is in that data and a gate fight
+    shows AUTO playing to it (178(c) now covers enemies as well as perks and items). The three of 10/24 are done first.
+(d) HE NEVER EXPLAINS A MECHANIC TWICE: the brain learns from the game's own rules, never from a special case written
+    after each complaint. When AUTO plays something badly, the fix is to make the rule readable to the brain.
+(e) THE GATE: for every enemy kind with a lesson, rolled fights where AUTO could act on it; AUTO takes the key man in most
+    turns it can reach him (the Mechanic: in reach, he is the target), and the fights are won more often than before.
+(f) COMBAT [AUTO knows every enemy's lesson], with the brain TUNING's page gave it.
 
 
 ====================================================================================================
@@ -49393,6 +49506,41 @@ fence it; the lane obeyed it too hard.
     (louder and busier than 1); the map plays 1, their turn 2, his turn 3.
 
 Rows: COOK [the fight board's colour back], SOUNDS [three intensities in every song] beside [every song its own song].
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_FIRST_FIFTY_DAYS_AND_THE_LONE_WOLF_10_25_26.md
+# source: records/BOHEMIA_PAOLO_THE_FIRST_FIFTY_DAYS_AND_THE_LONE_WOLF_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: THE FIRST FIFTY DAYS REWARD A SMALL STRONG CREW, AND THE LONE WOLF (LOCKED, rule 183)
+
+## HIS WORDS (verbatim, voice to text)
+"Yeah, and there definitely isn't incentive for like the first 50 days for sure just to not really grow your crew unless
+it's just like God Bros God tier recruits type shit that's why battle Brothers I always loved playing on Lonewolf cause
+you just get started off with it mega (god) bro who when you get him good equipment is a virtually impossible to kill until
+the game starts getting hard harder on you"
+
+## THE COORDINATOR'S READING (his to correct)
+He is describing the early game he wants, not complaining: for about the first fifty days there should be little reason
+to grow the crew, unless the recruit is exceptional ('god tier'); that is why he loved Battle Brothers' Lone Wolf origin:
+one near-god man who, in good gear, is almost impossible to kill until the game turns hard.
+What exists: rule 75 (10/5) and RUN 89f993e / 72aa4318: fifteen origins in origins.json, the Lone Wolf among them (Grok's
+origin page: Battle Brothers' Lone Wolf is one level-4 hedge knight in great gear, low funds, roster 12, the campaign ends
+if he dies; ours: downed, never dead, the third votes). Whether it plays the way he describes has never been checked.
+
+## THE RULING (rule 183)
+(a) THE FIRST FIFTY DAYS REWARD A SMALL, STRONG CREW: growing it early pays only for an exceptional recruit; an ordinary
+    hire early costs more than he gives (it fits [money teaches], rules 151(b) and 162). Exceptional recruits are rare,
+    priced like it, and read as exceptional when he meets them (the stars, the stats).
+(b) THE LONE WOLF PLAYS LIKE HE REMEMBERS: at the door, one near-god main character; in good gear he is close to
+    unkillable in the early fights; the fights he meets alone are winnable alone.
+(c) THE GAME TURNS HARD LATER: the enemy's strength rises with the days (Battle Brothers' late crises come around day 80 to
+    100, Grok's crisis page), so by then a full, geared crew is needed; when the turn comes, it is felt.
+(d) TUNING measures first on the live game: the Lone Wolf from the door through fifty in-game days (how often he wins, how
+    close he comes to falling, with and without good gear), the ordinary and the exceptional recruit's worth in those days,
+    and when the enemy outgrows one man; then the numbers in the one table, and NOTEs to the lanes that build them (RUN for
+    the door and the start, RUN TWO for the recruits and their prices, WORLD and COMBAT for the enemy's rise).
+(e) EYES plays the Lone Wolf start in its next round.
 
 
 ====================================================================================================
@@ -49672,6 +49820,46 @@ brings his own sheets, and the map may still hold its own while the fight decode
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_A_GUN_SHOOTS_THE_MAN_BESIDE_HIM_10_25_26.md
+# source: records/BOHEMIA_PAOLO_A_GUN_SHOOTS_THE_MAN_BESIDE_HIM_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: A GUN SHOOTS THE MAN BESIDE HIM (LOCKED, rule 185; corrects rule 83's reading, amends 170(b))
+
+## HIS WORDS (verbatim, voice to text)
+"I'm just so confused too like why do you have pistols not able to shoot in the tile next to them? All I wanted was that if
+someone has a Malay weapon they can control one tile you know around them but like I don't know why when someone's next to
+them like it's do you make the range like at a minimum like of two tiles like I don't know why I'm seeing that like if I
+have a pistol in my hand, I shouldn't be pistol. Whipping the tile next to me I should still be shooting you know I don't
+know who told you to implement that bro."
+('Malay' is 'melee'.)
+
+## WHO TOLD US, HONESTLY
+His 10/10 words were 'melee weapons work on one tile away, all guns 2+ minimum'. The coordinator read 'all guns 2+ minimum'
+as 'a gun cannot fire at a man closer than two tiles' and wrote rule 83 that way ('every gun needs at least two tiles to its
+target and cannot fire at a man beside the shooter'); COMBAT built it, and rule 170(b) repeated it this round. What he
+meant: a gun REACHES two tiles or more; a melee weapon reaches only the next tile. Our misreading, not his.
+
+## THE RULING (rule 185)
+(a) A GUN SHOOTS AT ANY TILE FROM THE ONE BESIDE HIM OUT TO ITS REACH: a pistol fires at the man next to him (no pistol-
+    whipping instead of firing); every gun's reach is two tiles or more. 'All guns 2+' is the reach, never a minimum.
+(b) A MELEE WEAPON REACHES ONLY THE NEXT TILE and controls the tiles around the man who holds it (his zone).
+(c) Amends rule 83 (the 'minimum two tiles' clause is gone) and rule 170(b) ('never at a man beside the shooter' is gone).
+(d) AUTO and the calculator use it the same round (rule 178(c)): a gunman with an enemy beside him may shoot him.
+(e) THE GATE: in rolled fights a gun fires at an adjacent enemy whenever that is the chosen attack, and no gun is ever refused
+    for being too close; melee still never reaches past the next tile.
+(f) COMBAT [a gun shoots the man beside him], first when it reopens.
+
+## SAID AGAIN (rule 185(g))
+HIS WORDS: "Like mainly weapons will have a you know their advantages when attacking a tile right next to people, but I can't
+believe you put a minimum of range like someone has to be two tiles out for me to shoot at them and instead I'm just like
+pistol whipping him out I never told you to do that"
+('mainly weapons' is 'melee weapons'.)
+(g) MELEE KEEPS ITS EDGE UP CLOSE: a melee weapon is the stronger choice against the man on the next tile (its advantage there
+    is a number TUNING sets, Battle Brothers' way first), but a gun is never refused there: a man with a pistol shoots the man
+    beside him, he does not pistol-whip unless he chooses to. The minimum range is gone (185(a)).
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md
 # source: records/BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md
 ====================================================================================================
@@ -49732,6 +49920,38 @@ ONE SCREEN DOES IT ALL (opened with I or C on the map, or the company button):
   https://steamcommunity.com/sharedfiles/filedetails/?id=1185230449 (Bags and Belts adds two bag slots)
 - Steam guide 'Battle Brothers Perk Guide': https://steamcommunity.com/sharedfiles/filedetails/?id=898522624
   (the perk tree in tiers that unlock as points go in)
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_EVERY_WEAPON_HAS_ITS_RANGE_BANDS_10_25_26.md
+# source: records/BOHEMIA_PAOLO_EVERY_WEAPON_HAS_ITS_RANGE_BANDS_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: EVERY WEAPON HAS ITS RANGE BANDS (LOCKED, rule 187; builds on 185)
+
+## HIS WORDS (verbatim, voice to text)
+"But you have to keep in mind you know certain weapons will have their range right they will like range accuracy, so well
+all weapon can shoot on the tile next to them directly you know depending on if it's what type of weapon it is like for
+example I cannot. I can see that a rifle shooting one tile next to it. You know it might be a range deep buff or something
+like that and a shotgun you're not even if it has whatever it's maximum ranges you know maybe the closer you are after one
+or two tiles you know like I'm sure you will have to do research on this and just letting you know my research but use all
+this usage until this Wednesday right so I don't know if you're probably gonna have to research it too, but yeah like."
+('range deep buff' reads as 'range debuff'.)
+
+## THE RULING (rule 187)
+(a) EVERY WEAPON CAN FIRE AT THE NEXT TILE (rule 185), BUT EACH HAS ITS OWN ACCURACY (AND DAMAGE) BY DISTANCE: a range
+    band per weapon class, from the next tile to its farthest reach. His examples: a RIFLE beside its target takes a debuff
+    (a long gun is awkward point-blank); a SHOTGUN is deadliest within one or two tiles and falls off past them; a pistol is
+    at home close; a scoped rifle is best far.
+(b) RESEARCH FIRST (rule 33 and his words: 'you will have to do research on this'): Battle Brothers' ranged hit chance by
+    distance and by weapon (the library, the wiki copy, Grok; Grok ask 43), and the real world's effective ranges for each
+    gun class in our scale (a tile is a house), turned into bands; TUNING writes the bands in the one numbers table.
+(c) THE FIGHT SHOWS IT: the hit chance on the tiles and the dial says the band's effect, so he sees why a shotgun wants to be
+    close before he shoots.
+(d) AUTO AND THE CALCULATOR USE THE BANDS the same round (rule 178(c)): a shotgunner closes in, a rifleman keeps his distance.
+(e) THE GATE: in rolled fights each weapon class's hits by distance follow its bands; no weapon refused at the next tile.
+(f) LANES: TUNING [every weapon's range bands] (research, the numbers); COMBAT [every weapon's range bands] (the mechanism in
+    the weapon data and the dial, seeded from Battle Brothers until TUNING's numbers land).
+NOTE: his 'use all this usage until this Wednesday' is read as: keep every lane running through Wednesday.
 
 
 ====================================================================================================
@@ -60392,6 +60612,8 @@ refused by the coordinator.
 # ASK 41 (STILL OPEN 10/25: GROK_ASK_117 described the screen but gave no screenshot links and no phone improvements). BATTLE BROTHERS' COMPANY SCREEN, FROM SCREENSHOTS (rule 172, his words: 'find screenshots... how Battle Brothers' company menu works, because they really simplify how easy it can look... you're over complicating it, it's really hard to navigate your equipment, the levelling up'). Our sandbox cannot reach the wiki or Steam. Look at real screenshots of the inventory / character screen (the Steam store page, the wiki, guides) and describe it exactly: every panel and where it sits (the roster and formation, the paper doll and its slots, the bag slots, the stats and their icons, the stash and its tabs and sort, the perk tree tab), every button and what it does, how an item is equipped (right-click, drag, what returns to the stash), what a hover shows, how a level-up runs step by step (the plus, the three attributes and their rolls, the stars, the perk), how you switch men, and the dismiss button and what it costs. Give each screenshot's link. Then: three things a phone version should do better. Plain full sentences; 'the screenshot does not show' where it does not.
 
 # ASK 42 (STILL OPEN 10/25: not answered in the 10/25 pages). HOW BATTLE BROTHERS' AI DECIDES A MOVE (rule 176, his words: 'if buildings two or three storeys are supposed to be advantageous for people with guns, why isn't the first thing they do finding the nearest one and firing... big brain research on how to be a better auto combat system and calculator'). From the dev blogs, the wiki and the game's script where people have read it: how an AI man in Battle Brothers picks what to do each turn (the behaviours it scores: engage, attack, hold, protect a friend, take height, fall back, retreat when hurt; how a score is made and compared), how it uses height and terrain, when a hurt man retreats and when he keeps fighting, how archers pick a spot, and anything the developers said about making the AI smart but fair. Every claim with its link; 'the source does not say' where it does not. Plain full sentences.
+
+# ASK 43. EVERY WEAPON'S ACCURACY BY DISTANCE (rule 187, his words: 'certain weapons will have their range accuracy; a rifle shooting one tile next to it might be a range debuff; a shotgun, the closer you are...'). In Battle Brothers: how a ranged hit chance changes with distance (per tile), which weapons have their own bonus or penalty by distance or point-blank, whether a ranged weapon can shoot an adjacent enemy and at what cost; and in the real world: the effective and best ranges of a pistol, a shotgun (buckshot), a rifle, a scoped rifle and a submachine gun, in metres, and how accuracy and stopping power fall off. Every number with its link; 'the source does not say' where it does not. Plain full sentences.
 
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems

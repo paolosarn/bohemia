@@ -119,3 +119,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 105 | Any side of a town is its door (no loop round the block) | 186 | RUN | QUEUED (after the crash) |
 | 106 | Every town looks its own (city towns look like the city) | 186 | COOK, RUN TWO | QUEUED (after the item models) |
 | 107 | A job says how far before you take it | 186 | WORLD, UI | RUNNING |
+| 108 | Every weapon has its range bands (a rifle debuffed point-blank, a shotgun deadliest close) | 187 | TUNING, COMBAT | QUEUED (COMBAT after 185; TUNING after the origins) |
