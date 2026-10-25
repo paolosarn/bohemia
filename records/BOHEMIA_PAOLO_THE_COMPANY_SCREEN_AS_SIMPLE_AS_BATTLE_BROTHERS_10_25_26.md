@@ -40,7 +40,7 @@ ONE SCREEN DOES IT ALL (opened with I or C on the map, or the company button):
 (b) THEN BETTER THAN BATTLE BROTHERS, ON A PHONE FIRST: thumb-sized, one hand, nothing hidden behind hover (the comparison
     shows on the first tap, the second tap equips), a swipe between men, and the computer gets Battle Brothers' keys and
     right-click on top.
-(c) LESS, NOT MORE: anything on today's crew screen that is not in (a) leaves it or goes behind one tab. He called it
+(c) LESS, NOT MORE: anything on today's crew screen that is not in (a) goes behind one tab, never deleted [CORRECTED 10/25, rule 205 sweep: 'leaves it' was the coordinator's; nothing he can do is removed]. He called it
     over complicated; the count of things on the screen goes down, measured before and after.
 (d) THE GATE: on the phone and computer profiles, a stranger's path (open the crew, pick the third man, put the best armour
     in the stash on him, level him up, dismiss the fifth man) is done in the fewest taps, every step on one screen, and the
