@@ -1023,6 +1023,22 @@
     + '@keyframes bm-roadbeat{0%{outline-color:#f0b44c}50%{outline-color:transparent}}'
     + 'html body #bmboard .fp.job .go{padding:3px 4px 4px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;line-height:1.2;color:#f2e4c6;background:#1f1710;box-shadow:0 1px 0 #000}'
     + 'html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta,html body #bmboard .fp.job.picked .meta .pay,html body #bmboard .fp.job.picked .meta .at{color:#120c06}'
+    /* YOUR JOBS and DROP (UI [the PC playtest: the UI's part] (5)): the job he holds is a receipt pinned above the offers, its DROP
+       a red tin tag he can see; armed, the cost printed and two answers, DROP IT in red tin, KEEP IT in plain tin, 44 points each */
+    + 'html body #bmheld{flex:0 0 auto;position:relative;z-index:1;padding:6px 5px 0}'
+    + 'html body #bmheld .fp.held{margin:0 0 5px;padding:5px 5px 5px 7px;box-sizing:border-box;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;box-shadow:0 1px 0 #000;pointer-events:auto;border-radius:0}'
+    + 'html body #bmheld .hrow{display:flex;align-items:center;gap:5px}'
+    + 'html body #bmheld .hcol{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px}'
+    + 'html body #cityfeed #bmheld .fp.held .txt{margin:0;font-family:"BohemiaROM",ui-monospace,monospace;font-size:10px;line-height:1.2;color:#1f1710;white-space:normal;overflow:hidden;max-height:2.4em}'
+    + 'html body #bmheld .fp.held>.meta{margin-top:4px}'
+    + 'html body #bmheld .meta{display:flex;align-items:center;gap:5px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;line-height:1;color:#3a2e20;white-space:nowrap}'
+    + 'html body #bmheld .meta .yours{color:#7a3d10} html body #bmheld .meta .pay{display:inline-flex;align-items:center;gap:2px} html body #bmheld .meta .batt{width:10px;height:10px;image-rendering:pixelated;display:block}'
+    + 'html body #bmheld .meta .at{margin-left:auto;overflow:hidden}'
+    + 'html body #bmheld button{flex:0 0 auto;min-width:44px;min-height:44px;padding:0 6px;border:0;border-radius:0;cursor:pointer;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;letter-spacing:.8px;-webkit-tap-highlight-color:transparent}'
+    + 'html body #bmheld button.drop,html body #bmheld button.yes{color:#f6e8d0;background:#9a3324;box-shadow:inset 0 1px 0 #d27a5e,inset 0 -2px 0 #4e1208,0 1px 0 #000}'
+    + 'html body #bmheld button.no{color:#1f1710;background:#b9ad92;box-shadow:inset 0 1px 0 #e6dcc4,inset 0 -2px 0 #6a5c44,0 1px 0 #000}'
+    + 'html body #bmheld .cost{margin:5px 0 4px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.4px;line-height:1.3;color:#4e1006}'
+    + 'html body #bmheld .asks{display:flex;gap:5px} html body #bmheld .asks button{flex:1 1 0}'
     /* WHEN THE PHONE TURNS (UI [landscape], rule 50b, his Pocket City 2 shot 06): the same buttons re-laid to the corners.
        The bar stays across the top, the speed pad keeps the bottom right (the big action's corner), and the phone, which
        carries the family's faces, goes to the LEFT, where Pocket City keeps its face: from under the bar (its box starts at the bar's foot) to the foot of the
@@ -1766,6 +1782,10 @@
     /* THE CREW SCREEN: board, a man's plate is tin, the line's empty places and the bag are pockets */
     ['board_plain', 1, ['html[data-bm-roster] #bar', 'html[data-bm-roster] #card'], ''],
     ['tin', 0.75, ['html[data-bm-roster] #done'], KIT_SHADOW + KIT_INK],
+    /* YOUR JOBS on the phone (UI [the PC playtest: the UI's part] (5)): the held job a receipt, DROP and DROP IT tin in red ink, KEEP IT dark tin */
+    ['receipt', 1, ['#bmheld .fp.held'], ''],
+    ['tin', 0.5, ['#bmheld button.drop', '#bmheld button.yes'], KIT_SHADOW + 'color:#6e140c!important;text-shadow:none!important;' + KIT_FACE],
+    ['tin_dark', 0.5, ['#bmheld button.no'], KIT_SHADOW + KIT_LIGHT + KIT_FACE],
     ['receipt', 1, ['html[data-bm-roster] .plist button'], ''],   /* the perks are printed tags, a whole line of words each */
     ['tin_amber', 0.75, ['html[data-bm-roster] .pick'], KIT_SHADOW],
     ['tray', 1, ['html[data-bm-roster] .cell'], ''],

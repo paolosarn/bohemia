@@ -9688,6 +9688,10 @@ GATES = [
      "UI gate, 10/25, row [the PC playtest: the UI's part] (4) (rule 164 items 7, 16 and 25, PAOLO 10/24 on his PC: the UI never AI slop; the loot screen is slop; the fight's UI better than Battle Brothers'). "
      "The fight's three strips are gauges on a phone and a computer: the stat icon in front (heart, shield, lungs), 16 points, a sunk track and a lit fill drawn in pixels, no gradient, "
      "the man's own numbers printed in them and following the man shown; the end screen's XP bars the same track and tube, no gradient; what they left wears his pack's props; nothing thrown.", True),
+    ('A PLAIN WAY TO DROP A JOB', ['node', 'gates/a_plain_way_to_drop_a_job_gate.js'],
+     "UI gate, 10/25, row [the PC playtest: the UI's part] (5) (rule 164 item 8, PAOLO 10/24 on his PC: 'it's not clear how to cut a quest off... let's say I don't wanna do it anymore'; WORLD's rule 07826e02). "
+     "Real touches on the demo: a job taken shows on the phone above the offers, YOURS, its pay and place and a 44-point DROP; DROP asks once with WORLD's own cost (the place's bar before and after); "
+     "KEEP IT takes it back; in its own fight it cannot be dropped and says so; DROP IT drops it (held gone, card gone, WORLD's drop recorded, the place's bar 10 lower); nothing thrown.", True),
     ('THE TEN CHANGES, THE UIS PART', ['node', 'gates/the_ten_changes_the_uis_part_gate.js'],
      "UI gate, 10/24, rows [the ten changes: the UI's part] and [portrait menu] (rule 133, PAOLO 10/23: 'like Battle Brothers but quicker and funner for normies'; TUNING's changes 2, 3, 5, 6, 8). "
      "THE STRANGER'S WALK (tools/bohemia_ui_the_ten_changes_walk.js, real touches, the committed demo): the bar carries two numbers, the batteries and the nights the map's bill covers, the crew the bill feeds; "

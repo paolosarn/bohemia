@@ -135,9 +135,70 @@
     });
     return d;
   }
+  /* ==== YOUR JOBS, AND A PLAIN WAY TO DROP ONE (UI [the PC playtest: the UI's part] (5), rule 164 item 8, Paolo 10/24 on his PC:
+     'it's not clear how to cut a quest off... let's say I don't wanna do it anymore'). Battle Brothers keeps the contract you
+     hold on the world map's corner as a scroll with an X that cancels it, and asks once (the library: 'You can manually
+     cancel contracts by clicking the X button on the contract scroll'). Ours: the jobs he holds sit on the phone above the
+     two on offer, each its short what, where it came from and its pay, and a DROP he can see. DROP asks once, with the cost
+     printed (WORLD's rule, slices/bohemia_job_kinds.js dropCost: nobody pays and the place that gave it thinks less of him,
+     its bar before and after); DROP IT drops it (BohemiaJobKinds.drop), KEEP IT takes the question back. Not in its own fight
+     (WORLD's rule), and the card says so. The words are draft:true. ==== */
+  var HELD = null, ARM = null, HELD_SIG = '';
+  function heldJobs() { try { return (LOOP.held || []).filter(function (j) { return j && j.id; }); } catch (e) { return []; } }
+  function heldCard(j) {
+    var M = window.BohemiaMaterials, d = document.createElement('div'), armed = ARM && ARM.id === j.id;
+    d.className = 'fp held in' + (armed ? ' armed' : ''); d.dataset.held = j.id; d.setAttribute('role', 'listitem');
+    var x = document.createElement('div'); x.className = 'txt';
+    var w = WHAT && WHAT[j.id]; x.textContent = w ? String(w) : String(j.title || 'a job');
+    var m = document.createElement('div'); m.className = 'meta';
+    var yo = document.createElement('span'); yo.className = 'yours'; yo.textContent = 'YOURS'; m.appendChild(yo);
+    var pay = document.createElement('span'); pay.className = 'pay';
+    var src = ''; try { src = M && M.supplyIcon ? M.supplyIcon('batteries') : ''; } catch (e) {}
+    if (src) { var im = document.createElement('img'); im.className = 'batt'; im.alt = ''; im.src = src; pay.appendChild(im); }
+    pay.appendChild(document.createTextNode(String(j.pay | 0))); m.appendChild(pay);
+    var at = document.createElement('span'); at.className = 'at'; at.textContent = placeWord(j.from || ''); m.appendChild(at);
+    var row = document.createElement('div'); row.className = 'hrow';
+    var col = document.createElement('div'); col.className = 'hcol'; col.appendChild(x); row.appendChild(col);
+    var stop = function (ev) { try { ev.stopPropagation(); } catch (e) {} };
+    if (!armed) {
+      var dr = document.createElement('button'); dr.type = 'button'; dr.className = 'drop'; dr.textContent = 'DROP'; dr.setAttribute('aria-label', 'drop this job: ' + (j.title || ''));
+      dr.addEventListener('click', function (ev) { stop(ev); var c = null; try { c = window.BohemiaJobKinds && BohemiaJobKinds.dropCost ? BohemiaJobKinds.dropCost(j.id) : null; } catch (e) {}
+        ARM = { id: j.id, cost: c, why: null }; HELD_SIG = ''; paint(); });
+      row.appendChild(dr);
+    }
+    d.appendChild(row); d.appendChild(m);   /* the what beside DROP, then whose, the pay and the place across the whole card */
+    if (armed) {
+      var c = ARM.cost, q = document.createElement('div'); q.className = 'cost';
+      q.textContent = ARM.why === 'fighting' ? 'NOT IN ITS OWN FIGHT.' : (c ? 'NOBODY PAYS. ' + placeWord(c.place) + ' THINKS LESS OF YOU: ' + Math.round(c.before) + ' TO ' + Math.round(c.after) + '.' : 'NOBODY PAYS.');
+      var bs = document.createElement('div'); bs.className = 'asks';
+      var yes = document.createElement('button'); yes.type = 'button'; yes.className = 'yes'; yes.textContent = 'DROP IT';
+      var no = document.createElement('button'); no.type = 'button'; no.className = 'no'; no.textContent = 'KEEP IT';
+      yes.addEventListener('click', function (ev) { stop(ev); var r = null; try { r = window.BohemiaJobKinds && BohemiaJobKinds.drop ? BohemiaJobKinds.drop(j.id) : null; } catch (e) {}
+        if (r && r.ok) { ARM = null; window.__HELD_DROPPED = (window.__HELD_DROPPED || []).concat([{ id: j.id, line: r.line }]).slice(-10); }
+        else ARM.why = (r && r.why) || 'none';
+        HELD_SIG = ''; paint(); });
+      no.addEventListener('click', function (ev) { stop(ev); ARM = null; HELD_SIG = ''; paint(); });
+      if (ARM.why !== 'fighting') bs.appendChild(yes);
+      bs.appendChild(no); d.appendChild(q); d.appendChild(bs);
+    }
+    d.addEventListener('click', stop);   /* a tap on his job is not a tap on the phone */
+    return d;
+  }
+  function paintHeld(list) {
+    if (!HELD || !HELD.parentNode) { HELD = document.createElement('div'); HELD.id = 'bmheld'; HELD.setAttribute('role', 'list'); HELD.setAttribute('aria-label', 'the jobs you hold'); list.parentNode.insertBefore(HELD, list); }
+    var js = heldJobs();
+    if (ARM && !js.some(function (j) { return j.id === ARM.id; })) ARM = null;
+    var sig = js.map(function (j) { return j.id + ':' + (j.pay | 0); }).join(';') + '|' + (ARM ? ARM.id + (ARM.why || '') : '') + (WHAT ? 'w' : '');
+    window.__PHONE_HELD = { held: js.map(function (j) { return { id: j.id, title: j.title, from: j.from, pay: j.pay | 0 }; }), armed: ARM ? ARM.id : null };
+    if (sig === HELD_SIG) return; HELD_SIG = sig;
+    HELD.textContent = '';
+    js.forEach(function (j) { HELD.appendChild(heldCard(j)); });
+    HELD.style.display = js.length ? '' : 'none';
+  }
   function paint() {
     var feed = document.getElementById('cityfeed'), list = document.getElementById('cityfeedlist');
     if (!feed || !list || !feed.classList.contains('on')) return;
+    paintHeld(list);
     if (!BOX || !BOX.parentNode) {
       BOX = document.createElement('div'); BOX.id = 'bmboard'; BOX.setAttribute('role', 'list'); BOX.setAttribute('aria-label', 'the two best paid jobs in the valley');
       list.parentNode.insertBefore(BOX, list);
@@ -164,5 +225,5 @@
   }
   load();
   setInterval(paint, 1000);
-  window.BohemiaPhoneBoard = { asks: asks, paint: paint, loaded: function () { return !!OFFERS; }, what: function () { return WHAT; } };
+  window.BohemiaPhoneBoard = { asks: asks, paint: paint, held: heldJobs, loaded: function () { return !!OFFERS; }, what: function () { return WHAT; } };
 })();
