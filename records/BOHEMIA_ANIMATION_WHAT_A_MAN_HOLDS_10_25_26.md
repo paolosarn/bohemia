@@ -81,7 +81,7 @@ the held picture takes the fight's own night sheet. Until a man's pictures are i
 Every man the fight draws, 96: YOU; the twelve cast; the thirteen gangs; the thug and the poacher; RUN TWO's 51 rolled fight
 men (the twelve town men are his own company in every fight, holding YOU's guns; the 39 gang men their gang's guns); and
 CHARACTER's 17 enemies that landed this round (three Mechanics, his pistol in one hand; eight Runners with their slings;
-six Heavies kneeling behind their own crash-bar shields). About 400 KB a man (two sheets, one json), 36 MB in slices/rig_hold.
+six Heavies kneeling behind their own crash-bar shields). About 400 KB a man (two sheets, one json), 40 MB in slices/rig_hold.
 RENDER COST, MEASURED: 51 keys x 8 facings = 408 pictures a man plus his guns (a named look) at the fight's 24 samples; about
 25 minutes a man on one thread, four at a time on this box, about nine hours of the machine in all; the background job cap
 (two hours) killed three long runs, so the work went in bounded batches of four to six men with a lock a man.
