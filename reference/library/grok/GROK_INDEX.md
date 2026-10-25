@@ -157,3 +157,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_103_AMMUNITION_AND_RELOADS_2026_10_24.md | ammunition, reloads, stockpile
 - 2026-10-24 | ASK | GROK_ASK_104_MEDICINE_AND_HEALING_2026_10_24.md | medicine, healing, injuries
 - 2026-10-24 | ASK | GROK_ASK_105_KEYBOARD_CONTRACTS_SCALING_2026_10_24.md | keyboard shortcuts, contract abandon, roster scaling
+- 2026-10-24 | ASK | GROK_ASK_106_MAYOR_REBUILD_CITY_2026_10_24.md | mayor arc, city rebuild, building kinds
