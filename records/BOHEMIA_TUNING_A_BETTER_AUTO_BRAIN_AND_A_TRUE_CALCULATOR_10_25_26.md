@@ -400,15 +400,14 @@ WHAT THIS SAYS:
    the abilities away (180(d)); TUNING [the odds keep up] re-checks it then.
 2. THE FIXES ARE WORTH MORE THAN THE ABILITIES: 383 -> 427, a quarter of the losses gone (202 -> 139), the wasted turn
    gone (325 -> 0), the free swings cut by 64%, twice the gun turns on a roof, the shooters hit in melee a quarter less.
-3. THE DANCE THAT IS LEFT is mostly morale and the kids' kite: 45 off-and-backs with no swing remain, 10 of the 26
+3. THE DANCE THAT IS LEFT is mostly morale and the kids' kite: 45 off-and-backs with no swing remain, 12 of the 26
    leave-and-returns are a man who FLED and rallied (Battle Brothers' own morale, rule 33: kept), the rest a man pushed or
    waiting a turn; F2 alone (stay is a plan) does not stop the TWO-ROUND dance: that is V2's job (the undo rule), not
    tried here.
 4. THE ROOF EXPOSES A RULES HOLE: the standoffs double (18 -> 34) and the fights run 26% longer (11.3 -> 14.2 rounds).
    Replayed, 32 of the 34 are our last men on a roof that no club can reach (melee_max_height_gap 1: a club reaches one
    storey; a one-tile roof two storeys up has no tile beside it at its own level), 25 of them against enemies with no gun
-   left. Under today's brain most of those fights were LOSSES (28 of the 34 ended lost or won today); with the roof they
-   never end. Battle Brothers ends such a fight two ways (part 2): the AI's last few RETREAT when they see no chance, and
+   left. Under today's brain those 34 fights were 24 LOSSES, 4 wins and 6 standoffs; with the roof they never end. Battle Brothers ends such a fight two ways (part 2): the AI's last few RETREAT when they see no chance, and
    a man's position is only worth what he can do from it. So, for COMBAT: (a) HOLD counts only while he can shoot from
    the roof (a man out of rounds and with no club reach has no reason to stay up); (b) the enemy's last men retreat by
    Battle Brothers' count (allies left, allies fallen, his men left; bb_all/1415); (c) the fight's own standoff end
