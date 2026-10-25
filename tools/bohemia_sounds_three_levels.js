@@ -70,10 +70,11 @@ async function level(p, name, lv, outGain, mp, hot) {
       out0.connect(lim); lim.connect(OAC.destination);
     } else out0.connect(OAC.destination);
     /* HIS TWO HOT SONGS (SLOW BLEED, SLOW CREEP: recorded 6 dB down because his engine plays them past full scale) carry
-       their own low end at -7 dBFS, so on levels 2 and 3 the limiter squashed everything under it and level 3 came out no
-       louder than level 1 on a phone (SLOW CREEP -45.2 / -41.6 / -44.9 dB). On those two, levels 2 and 3 carry the song a
-       further 6 dB down under the added parts; level 1 stays exactly as approved. */
-    if (hot && lv > 1) { const t = OAC.createGain(); t.gain.value = 0.5; t.connect(out0); songBus = t; }
+       their own low end at -7 dBFS, so on levels 2 and 3 the compressor squashed everything under it and level 3 came out
+       no louder than level 1 on a phone (SLOW CREEP -45.2 / -41.6 / -44.9 dB): on those two it is skipped (above). */
+    /* (A 6 dB trim on the song was tried first: its tune is what a phone hears of it, so levels 2 and 3 came out 4 dB
+       UNDER level 1 on a phone, SLOW BLEED -46.5 / -50.5 / -49.9. No trim: the song at its own gain, the parts over it,
+       and the true peak limit below catches what passes full scale.) */
     /* REPO MAN PLAYS AS THE MACHINE PARTY (his YES 10/19, rule 122): exactly the game's own wiring (SONGFENCE.machine in
        the alpha): take A's hall and tape, the recorder's trim, the machine answering his kick and hat. The added parts go
        into the same chain (the same room, the same trim); they call his drumV from BEFORE the machine wraps it, so the
