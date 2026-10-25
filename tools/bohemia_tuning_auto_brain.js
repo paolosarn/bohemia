@@ -385,7 +385,8 @@ async function main() {
     /* THE RESUME CACHE: every finished fight is one line (slot, k, the fight's fingerprint); a stopped run starts where it stopped */
     const CF = BANKF.replace(/\.json$/, '') + '.' + slot + '.ndjson', fp = rulesPrint();
     if (fs.existsSync(CF)) fs.readFileSync(CF, 'utf8').split('\n').filter(Boolean).forEach(l => { try { const x = JSON.parse(l); if (x.fp === fp && x.k < N) res[x.k] = x.v; } catch (e) { /* a cut line */ } });
-    const work = all.filter(w => !res[w.k]);
+    /* --from-cache: play nothing, write what the cache holds (a run stopped early still hands the page what it measured) */
+    const work = argv.includes('--from-cache') ? [] : all.filter(w => !res[w.k]);
     process.stderr.write('resume: ' + (N - work.length) + ' of ' + N + ' already played\n');
     let next = 0, running = 0; const t0 = Date.now();
     await new Promise(done => {
