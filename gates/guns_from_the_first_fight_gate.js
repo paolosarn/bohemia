@@ -11,8 +11,9 @@
    2. the PISTOL fires from the tile beside him to four (rule 185, Paolo 10/25: 'if I have a pistol in my hand, I shouldn't be
       pistol-whipping the tile next to me, I should still be shooting'; it clubbed at one from 10/10 to 10/25, rule 83 misread);
       its five rounds are a magazine, a reload refills it, only when it is empty; PISTOL WORK (dagger mastery) fires it at three AP;
-   3. every gun fires at the man beside him (the rifle, the shotgun); the butt (ours.gun_club) only when there is no shot in it
-      or he picks the WHIP; the bow and the bottles are not guns and have no butt;
+   3. every gun fires at the man beside him (the rifle, the shotgun); NO GUN IS EVER A CLUB (rule 195, Paolo 10/25: 'the game
+      still says the pistol is a club at one tile I never asked for that shit'): an empty gun beside a man is refused for its
+      rounds, never swung; the butt, the WHIP and ours.gun_club are gone;
    4. the first week's band is thugs (ours.enemy_tiers 'first'); the lesser raider from day eight;
    5. Battle Brothers' Beginner aim is the default (ours.hit_roll_shift): +5 his, -5 theirs on SEEN IT, nothing on OUTLIVED IT;
    6. THE FIRST FIGHT IS WON BY SHOOTING: A NEW CREW against its first week's band of two and of three (day 1, SEEN IT), AUTO
@@ -46,29 +47,31 @@ leg(!bare.length && !short.length, '*** EVERY ORIGIN\'S FIRST FIGHT HAS GUNS IN 
   bare.length || short.length ? 'no gun: ' + bare.join(', ') + '; short: ' + short.join(', ') : ORIGINS.length + ' origins');
 leg(!eye.length, '  the long gun goes to the best eye (the middle of his background\'s wiki ranged skill)', eye.length ? 'not: ' + eye.join(', ') : 'every rifle');
 
-/* 2 and 3. where each gun fires and clubs */
+/* 2 and 3. where each gun fires (a blow at a tile is the gun's shot, or nothing: rule 195) */
 ctx.setSeed(3); F.setup({ formation: null, flat: true, deploy: false, cap: 1, party: ['brigand_thug'] });
 const u = F.S.units.filter(v => v.side === 'you')[0], t = F.S.units.filter(v => v.side === 'them')[0], W = DB.weapons.rows;
 const reach = {};
 ['dagger', 'crossbow', 'firearm', 'bow', 'throwing', 'mace'].forEach(c => {
   const w0 = W.filter(x => x.class === c)[0], w = T.pistolShot(w0) || w0;
-  u.weapon = w; u.club = T.clubFor(w); u.loaded = true; u.ammo = w.mag || (w.ammo ? Number(String(w.ammo).match(/\d+/)[0]) : null);
+  u.weapon = w; u.loaded = true; u.ammo = w.mag || (w.ammo ? Number(String(w.ammo).match(/\d+/)[0]) : null);
   const fires = [], clubs = [];
-  for (let d = 1; d <= 8; d++) { u.x = 2; u.y = 7; t.x = 2 + d; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (F.canStrike(u, t)) (T.armIn(u, t) === u.weapon ? fires : clubs).push(d); }
+  for (let d = 1; d <= 8; d++) { u.x = 2; u.y = 7; t.x = 2 + d; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (F.canStrike(u, t)) (F.isRanged(u.weapon) || !F.isGun(u.weapon) ? fires : clubs).push(d); }
   reach[c] = { fires: fires.join(','), clubs: clubs.join(',') };
 });
-leg(reach.dagger.fires === '1,2,3,4' && !reach.dagger.clubs, '*** THE PISTOL SHOOTS THE MAN BESIDE HIM (rule 185) ***: from the next tile to four, never the butt while there is a shot', 'fires ' + reach.dagger.fires + ', clubs ' + (reach.dagger.clubs || 'never'));
+leg(reach.dagger.fires === '1,2,3,4' && !reach.dagger.clubs, '*** THE PISTOL SHOOTS THE MAN BESIDE HIM (rule 185) ***: from the next tile to four, every one a shot', 'fires ' + reach.dagger.fires + ', clubs ' + (reach.dagger.clubs || 'never'));
 leg(!reach.crossbow.clubs && !reach.firearm.clubs && reach.crossbow.fires.split(',')[0] === '1' && reach.firearm.fires === '1,2',
   '*** EVERY GUN FIRES FROM THE TILE BESIDE HIM (rule 185: \'all guns 2+\' is the reach, never a minimum) ***: the rifle and the shotgun shoot the man beside them', 'rifle fires ' + reach.crossbow.fires + '; shotgun fires ' + reach.firearm.fires + '; the butt ' + ((reach.crossbow.clubs + reach.firearm.clubs) || 'never'));
-/* the butt: when the shot is not there, or he picks the whip */
-{ const pw0 = T.pistolShot(W.filter(x => x.id === 'dagger')[0]); u.weapon = pw0; u.club = T.clubFor(pw0); u.x = 2; u.y = 7; t.x = 3; t.y = 7; u.ap = u.apTurn; u.fat = 0;
-  u.ammo = 0; const dry = F.canStrike(u, t) && T.armIn(u, t) === u.club; u.ammo = pw0.mag;
-  u.whip = true; const picked = F.canStrike(u, t) && T.armIn(u, t) === u.club, far = (t.x = 4, T.armIn(u, t) === u.weapon); u.whip = false; t.x = 3;
-  leg(dry && picked && far, '  the butt: an empty pistol clubs the man beside him; with the WHIP picked he clubs him though it is loaded; a man two off is shot', 'empty ' + dry + ', whip ' + picked + ', two off shot ' + far); }
+/* NO GUN IS A CLUB (rule 195): an empty gun beside a man is refused for its rounds; the butt's machinery is gone */
+{ const pw0 = T.pistolShot(W.filter(x => x.id === 'dagger')[0]); u.weapon = pw0; u.x = 2; u.y = 7; t.x = 3; t.y = 7; u.ap = u.apTurn; u.fat = 0;
+  u.ammo = 0; const dry = !F.canStrike(u, t) && (F.strikeWhy(u, t) || {}).why === 'ammo'; u.ammo = pw0.mag;
+  const rf = W.filter(x => x.class === 'crossbow')[0]; u.weapon = rf; u.loaded = false; const unl = !F.canStrike(u, t) && (F.strikeWhy(u, t) || {}).why === 'reload'; u.loaded = true; u.weapon = pw0;
+  const gone = !T.clubFor && !T.armIn && !DB.ours.gun_club;
+  leg(dry && unl && gone, '*** NO GUN IS EVER A CLUB (rule 195) ***: an empty pistol and an unloaded rifle beside a man are refused for the round, never swung; no butt, no WHIP, no ours.gun_club',
+    'empty pistol refused for its rounds ' + dry + ', unloaded rifle refused for the reload ' + unl + ', the butt\'s machinery gone ' + gone); }
 leg(!reach.bow.clubs && !reach.throwing.clubs && !reach.mace.clubs, '  the bow, the bottles and the pipe are not guns: none of them clubs as a gun', 'bow ' + reach.bow.fires + ', bottles ' + reach.throwing.fires + ', pipe ' + reach.mace.fires);
 /* the magazine */
 const pw = T.pistolShot(W.filter(x => x.id === 'dagger')[0]);
-u.weapon = pw; u.club = T.clubFor(pw); u.ammo = pw.mag; u.x = 2; u.y = 7; t.x = 4; t.y = 7; t.hp = t.hpMax = 99999; F.S.over = false;
+u.weapon = pw; u.ammo = pw.mag; u.x = 2; u.y = 7; t.x = 4; t.y = 7; t.hp = t.hpMax = 99999; F.S.over = false;
 let shots = 0, beforeEmpty = null;
 for (let i = 0; i < 12; i++) {
   F.S.order = [u.id]; F.S.idx = 0; u.ap = u.apTurn; u.fat = 0;

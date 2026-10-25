@@ -8,8 +8,8 @@
    Legs, headless on the live fight's rules (tools/bohemia_fight_headless.js):
    1. EMPTY IS THE RULES' EMPTY: the pistol is empty after its magazine and not a round before; the rifle and the shotgun after
       their one shot; a reload fills them; a pipe and the bottles are never 'empty' (nothing to reload);
-   2. THE DRY TAP IS A TAP IN THE GUN'S OWN REACH: an empty pistol two to four tiles from a man is a dry tap; beside him it is
-      the club (no dry tap, the club still strikes); loaded, never;
+   2. THE DRY TAP IS A TAP IN THE GUN'S OWN REACH: an empty pistol one to four tiles from a man is a dry tap (rule 185: beside him
+      is in its reach; rule 195: never a club); loaded, never;
    and on his phone's profile (390 x 844 at 3x), the real page, real taps:
    3. LAST ROUND: a finger on a man with one round left: the receipt shows the gun's bullets and says 'Last round.'; the reload
       square is ringed in amber;
@@ -54,8 +54,10 @@ leg(!F.emptyGun(pipe) && (!bottles || !F.emptyGun(bottles)), '  a pipe and the b
 for (let i = 0; i < pmag; i++) fire(pistol, 2);
 pistol.x = t.x - 3; const dry3 = F.dryAt(pistol, t); pistol.x = t.x - 1; const dry1 = F.dryAt(pistol, t), club1 = F.canStrike(pistol, t);
 pistol.ammo = pmag; pistol.x = t.x - 3; const loaded3 = F.dryAt(pistol, t);
-leg(dry3 && !dry1 && club1 && !loaded3, '*** THE DRY TAP IS A TAP IN THE GUN\'S OWN REACH ***: empty at three tiles is a dry tap; beside him the club still strikes; loaded, never',
-  'three tiles ' + dry3 + ', one tile ' + dry1 + ' (club ' + club1 + '), loaded ' + loaded3);
+/* RE-AIMED 10/25 (rule 185: a gun fires at the man beside him; rule 195: no gun is ever a club): beside him is in the gun's reach, so
+   an empty gun there is a dry tap too, and nothing strikes */
+leg(dry3 && dry1 && !club1 && !loaded3, '*** THE DRY TAP IS A TAP IN THE GUN\'S OWN REACH ***: empty at three tiles and beside him is a dry tap, and no club strikes (rule 195); loaded, never',
+  'three tiles ' + dry3 + ', one tile ' + dry1 + ' (a blow ' + club1 + '), loaded ' + loaded3);
 
 (async () => {
   if (process.argv.includes('--no-glass')) { done(); return; }

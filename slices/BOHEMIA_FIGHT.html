@@ -347,6 +347,8 @@ function seedOf(text) {
   for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 16777619); }
   return h >>> 0;
 }
+/* a die of its own from a seed (the same mulberry as rng), so one roll never moves the fight's stream: a man's own numbers */
+function dieOf(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 </script>
 
 <script id="fight-rules">
@@ -554,10 +556,10 @@ const FIGHT = (function () {
   function isRanged(w) { return RANGED.indexOf(w.class) >= 0; }
   /* ZONE OF CONTROL IS MELEE ONLY (rule 103): our PISTOL, SHOTGUN and RIFLE are guns whatever Battle Brothers' row they ride on */
   function isGun(w) { return !!w.gun || R('ours.gun_classes').indexOf(w.class) >= 0; }
-  /* THE PISTOL SHOOTS (rule 120(a), Paolo 10/18: 'the guns were supposed to be the main way this is gonna be solved'; rule 83: 'the
-     pistol is a two-tile gun, or a club at one'): a pistol (Battle Brothers' dagger, the class ours.pistol_shot names) is carried as
-     its SHOT, the javelin row of its own price rank (two to four tiles, its uses its rounds), and its own row is the club at one.
-     The shot keeps the pistol's name, id, weight and price; damage, armour and rounds are the ridden row's. */
+  /* THE PISTOL SHOOTS (rule 120(a), Paolo 10/18: 'the guns were supposed to be the main way this is gonna be solved'): a pistol
+     (Battle Brothers' dagger, the class ours.pistol_shot names) is carried as its SHOT, the javelin row of its own price rank (its
+     uses its rounds), from the tile beside him to four (rule 185). The shot keeps the pistol's name, id, weight and price; damage,
+     armour and rounds are the ridden row's. It is never a club (rule 195): its own dagger row is never struck with. */
   function pistolShot(w) {
     const P = R('ours.pistol_shot');
     if (!w || w.class !== P.class || !P.by_row[w.id]) return null;
@@ -567,21 +569,10 @@ const FIGHT = (function () {
     return Object.assign({}, r, { id: w.id, name: w.name, value: w.value, fatigue: w.fatigue, durability: w.durability, gun: true, of: w, rides: r.name, mag: mag,
       skills: r.skills.concat([rl]) });
   }
-  /* THE GUN'S BUTT (ours.gun_club): every gun can strike a man beside the shooter as the bludgeon, the pipe's own row */
-  function clubFor(w) { return isGun(w) && isRanged(w) ? weaponRow(R('ours.gun_club').row) : null; }
-  /* A GUN SHOOTS THE MAN BESIDE HIM (rule 185, Paolo 10/25: 'if I have a pistol in my hand I shouldn't be pistol-whipping the tile
-     next to me, I should still be shooting'): his gun fires at the man beside him; the butt only when the gun cannot fire now
-     (no round, not loaded, no breath or AP for the shot) or when he picks the whip himself (a.whip, his strike's choice) */
-  function shotReady(a) {
-    const w = a.weapon, s = strikeSkill(w);
-    return a.ap >= skillAP(w, s, a) && a.fat + skillFat(a, s) <= fatMax(a) && !(reloadSkill(w) && !w.mag && !a.loaded) && !(w.ammo && a.ammo !== null && a.ammo <= 0);
-  }
-  /* the arm he uses on a man: the butt on the man beside him when the shot is not there (or he chose it), else what he carries */
-  function armIn(a, t) { return a.club && a.weapon !== a.club && dist(a, t) === 1 && (a.whip || !shotReady(a)) ? a.club : a.weapon; }
-  function wielding(a, t, fn) {
-    const k = a.weapon; a.weapon = armIn(a, t);
-    try { return fn(); } finally { a.weapon = k; }
-  }
+  /* THE PISTOL IS NEVER A CLUB (rule 195, Paolo 10/25: 'the game still says the pistol is a club at one tile I never asked for
+     that shit'; rule 185: 'if I have a pistol in my hand... I should still be shooting'): a gun shoots, from the tile beside him
+     to its reach, and nothing else. A gunman with no shot does what Battle Brothers' does: he reloads, swaps to what rides in his
+     bag (his button, rule 180(g)), or moves. The gun's butt, the WHIP and ours.gun_club were the coordinator's words, struck. */
   function holdsRing(f) { return !(f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)); }
   function strikeSkill(w) { return w.skills.filter(function (s) { return !/^Reload/.test(s.name); })[0]; }
   function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
@@ -646,11 +637,12 @@ const FIGHT = (function () {
     u.weapon = inn; u.bag[i] = out; u.bagState = u.bagState || []; u.bagState[i] = outState;
     if (st) { u.ammo = st.ammo; u.ammoMax = st.ammoMax; u.loaded = st.loaded; }
     else { const am = inn.ammo ? String(inn.ammo).match(/\d+/) : null; u.ammo = inn.mag || (am ? Number(am[0]) : null); u.ammoMax = u.ammo; u.loaded = true; }
-    u.club = clubFor(u.weapon); u.job = jobOfWeapon(u.weapon);
+    u.job = jobOfWeapon(u.weapon);
     /* a two-hander wants both hands: the car door goes on his back until a one-hander comes out */
-    if (bothHands(inn) && u.shield) { u.shieldBack = u.shield; u.shield = null; }
-    else if (!bothHands(inn) && !u.shield && u.shieldBack) { u.shield = u.shieldBack; u.shieldBack = null; }
-    emit({ t: 'swap', id: u.id, slot: i, from: out.name, to: inn.name, ap: c }); afterAction(u); return true;
+    let slung = null;
+    if (bothHands(inn) && u.shield) { u.shieldBack = u.shield; u.shield = null; slung = 'on'; }
+    else if (!bothHands(inn) && !u.shield && u.shieldBack) { u.shield = u.shieldBack; u.shieldBack = null; slung = 'off'; }
+    emit({ t: 'swap', id: u.id, slot: i, from: out.name, to: inn.name, ap: c, slung: slung }); afterAction(u); return true;
   }
   /* what a man carries in his bag: the crew screen's two slots (gear.bag), else the kit by his weapon's job (ours.bag) */
   function bagHanded(c) { return !!((c.gear && Array.isArray(c.gear.bag)) || Array.isArray(c.bag)); }
@@ -677,13 +669,10 @@ const FIGHT = (function () {
     /* NOBODY HOLDS WHAT HE DOES NOT HAVE (rule 177(a)(d)): a two-hander and a shield never share his hands (Battle Brothers will not
        equip them together); handed both, the car door rides on his back as the swap puts it, and only a door on his arm guards him */
     if (u.shield && bothHands(u.weapon)) { u.shieldBack = u.shield; u.shield = null; }
-    u.club = clubFor(u.weapon);
     const ammo = u.weapon.ammo ? String(u.weapon.ammo).match(/\d+/) : null;
     u.ammo = ammo ? Number(ammo[0]) : null; u.ammoMax = u.ammo;
     S.units.push(u); return u;
   }
-  function seedOfRules(t) { let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
-  function mulberryRules(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function crewUnit(c, i) {
     const bg = DB.backgrounds.rows.filter(function (r) { return r.id === c.background; })[0];
     /* HIS OWN NUMBERS EVERY FIGHT (EYES [eyes: hitpoints drift], 10/24: the same men started three fights at 64, 61, 63 health):
@@ -693,7 +682,7 @@ const FIGHT = (function () {
     const st = bg.stats, roll = function (k) { const v = rint(st[k][0], st[k][st[k].length - 1]);   /* drawn either way: the dice stream is the same for everybody after him */
       if (c.stats && typeof c.stats[k] === 'number') return c.stats[k];   /* a man hired at the post fights as his card said, his trait on him (RUN TWO [the trait before you hire], 10/24) */
       if (!c.name && !c.look) return v;   /* a man with no name and no look (a bench's kit) is nobody yet: the fight's die, as before */
-      const lo = st[k][0], hi = st[k][st[k].length - 1], own = mulberryRules(seedOfRules(who + ':' + k))();
+      const lo = st[k][0], hi = st[k][st[k].length - 1], own = dieOf(seedOf(who + ':' + k))();
       return v >= lo ? lo + Math.floor(own * (hi - lo + 1)) : v; };
     const rows = R('ours.weapon_rows');
     let job = c.jobs.filter(function (j) { return j !== 'car_door'; })[0];
@@ -871,7 +860,7 @@ const FIGHT = (function () {
         const x0 = bx * bt * tm, y0 = by * bt * tm, x1 = (bx + 1) * bt * tm, y1 = (by + 1) * bt * tm;
         const T = B.terrain.slice(by * bt, (by + 1) * bt).map(function (r) { return r.slice(bx * bt, (bx + 1) * bt); });
         /* a roof over one storey is its storeys' level (rule 164 item 14; ours.roof_storeys, measured on the block's art) */
-        (R('ours.roof_storeys').blocks[name] || []).forEach(function (q) { if (T[q[1]] && T[q[1]][q[0]] === 'height' && q[2] > 1) T[q[1]][q[0]] = 'height' + q[2]; });
+        (R('ours.roof_storeys').blocks[name] || []).forEach(function (q) { const [x, y, n] = q; if (T[y] && T[y][x] === 'height' && n > 1) T[y][x] = 'height' + n; });
         lib[name] = {
           terrain: T,
           cover: (B.cover || []).filter(function (c) { return c.x_m >= x0 && c.x_m < x1 && c.y_m >= y0 && c.y_m < y1; })
@@ -1413,7 +1402,7 @@ const FIGHT = (function () {
   function beginTurn(u) {
     /* THE UNDO VETO's memory (rule 176(b)): where his last turn began and whether he did anything in it */
     u.lastTurn = u.turnFrom ? { x: u.turnFrom.x, y: u.turnFrom.y, acted: S.log.slice(u.turnLog).some(function (e) { return e.id === u.id && /^(attack|reload|skill)$/.test(e.t); }) } : null;
-    u.turnFrom = { x: u.x, y: u.y }; u.turnLog = S.log.length; u.whip = false;   /* the whip is picked for one blow, in his turn (rule 185(g)) */
+    u.turnFrom = { x: u.x, y: u.y }; u.turnLog = S.log.length;
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
@@ -1547,7 +1536,7 @@ const FIGHT = (function () {
   /* the nearest tile a ranged weapon reaches: a gun from the tile beside him (rule 185: 'all guns 2+' is the reach, never a minimum;
      the pistol's shot rides a javelin row whose own page says two), a bow or a thrown thing from its own row */
   function rangeLo(w) { return isGun(w) ? R('ours.gun_min_range') : Math.max(rangeMin(w), 1); }
-  function hitChance(a, t, skill) { return wielding(a, t, function () { return chanceWith(a, t, skill && a.weapon.skills.indexOf(skill) >= 0 ? skill : strikeSkill(a.weapon)); }); }
+  function hitChance(a, t, skill) { return chanceWith(a, t, skill && a.weapon.skills.indexOf(skill) >= 0 ? skill : strikeSkill(a.weapon)); }
   /* BATTLE BROTHERS' BEGINNER IS OUR DEFAULT (rule 117(a); ours.hit_roll_shift): points on his men's chance, off theirs, by the
      door's fights pick; inside the number on the tile */
   function rollShift(a) { const v = R('ours.hit_roll_shift').by_difficulty, k = v[Math.max(0, Math.min(v.length - 1, S.difficulty || 0))]; return a.side === 'you' ? k : -k; }
@@ -1672,12 +1661,10 @@ const FIGHT = (function () {
      before he commits, what this arm does to this man: the chance, one body blow at the weapon's middle damage (the armour it
      takes, the health it takes), and how many such blows drop him as he stands, his armour wearing down blow by blow */
   function preview(a, t) {
-    return wielding(a, t, function () {
-      const w = a.weapon, mid = (w.damage_min + w.damage_max) / (1 + 1), one = hitDamage(a, t, mid, false, t.armB);
-      let hp = t.hp, arm = t.armB, n = 0;
-      while (hp > 0 && n <= t.hpMax) { const b = hitDamage(a, t, mid, false, arm); if (b.hp < 1 && b.armour < 1) { n = Infinity; break; } hp -= Math.floor(b.hp); arm = Math.max(0, arm - Math.floor(b.armour)); n++; }
-      return { chance: hitChance(a, t).chance, armour: Math.floor(one.armour), hp: Math.floor(one.hp), blows: hp > 0 ? Infinity : n, arm: w, club: w === a.club };
-    });
+    const w = a.weapon, mid = (w.damage_min + w.damage_max) / (1 + 1), one = hitDamage(a, t, mid, false, t.armB);
+    let hp = t.hp, arm = t.armB, n = 0;
+    while (hp > 0 && n <= t.hpMax) { const b = hitDamage(a, t, mid, false, arm); if (b.hp < 1 && b.armour < 1) { n = Infinity; break; } hp -= Math.floor(b.hp); arm = Math.max(0, arm - Math.floor(b.armour)); n++; }
+    return { chance: hitChance(a, t).chance, armour: Math.floor(one.armour), hp: Math.floor(one.hp), blows: hp > 0 ? Infinity : n, arm: w };
   }
   /* what a result does to the two men: armour, hitpoints, fatigue, injury, morale, death */
   function apply(a, t, r, opt) {
@@ -1685,7 +1672,7 @@ const FIGHT = (function () {
     S.firstBlow = S.firstBlow || S.round; S.lastHitBy = S.lastHitBy || {}; if (r.hit) S.lastHitBy[a.side] = S.round;   /* THE STANDOFF ENDS reads these */
     if (!isRanged(a.weapon)) S.contact = true;
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
-      shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, skill: opt.skill || null });   /* the arm that struck: the pistol's shot or its club at one */
+      shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, skill: opt.skill || null });   /* the arm that struck: a gun's is always its shot (rule 195) */
     if (PK(a, 'overwhelm') && S.order.indexOf(t.id) > S.idx) t.overwhelmed++;   /* he has not acted yet this round */
     if (!r.hit) {
       a.missStack++;
@@ -1815,14 +1802,12 @@ const FIGHT = (function () {
   /* ---------------- STRIKING ---------------- */
   function canStrike(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return false;
-    return wielding(a, t, function () {
-      const s = strikeSkill(a.weapon);
-      if (a.ap < skillAP(a.weapon, s, a)) return false;
-      if (a.fat + skillFat(a, s) > fatMax(a)) return false;
-      if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return false;
-      if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return false;   /* the rounds are the shot's; the club at one spends none */
-      return inRange(a, t);
-    });
+    const s = strikeSkill(a.weapon);
+    if (a.ap < skillAP(a.weapon, s, a)) return false;
+    if (a.fat + skillFat(a, s) > fatMax(a)) return false;
+    if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return false;
+    if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return false;   /* no round, no shot: a gun is never a club (rule 195) */
+    return inRange(a, t);
   }
   /* WHY A STRIKE IS REFUSED, the real reason (EYES [eyes: the reason is AP], 10/24: a pistol man three tiles off with 3 AP was told
      'out of reach' when the shot cost more AP than he had): the same tests canStrike makes, in the order a player reads them */
@@ -1830,32 +1815,27 @@ const FIGHT = (function () {
   function strikeCost(a) { const s = strikeSkill(a.weapon); return { ap: skillAP(a.weapon, s, a), shot: isRanged(a.weapon) }; }
   function strikeWhy(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return { why: 'cannot' };
-    return wielding(a, t, function () {
-      const s = strikeSkill(a.weapon), need = skillAP(a.weapon, s, a);
-      if (!inRange(a, t)) return { why: 'range' };
-      if (a.ap < need) return { why: 'ap', need: need, have: a.ap, shot: isRanged(a.weapon) };
-      if (a.fat + skillFat(a, s) > fatMax(a)) return { why: 'fat' };
-      if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return { why: 'reload' };
-      if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return { why: 'ammo' };
-      return null;
-    });
+    const s = strikeSkill(a.weapon), need = skillAP(a.weapon, s, a);
+    if (!inRange(a, t)) return { why: 'range' };
+    if (a.ap < need) return { why: 'ap', need: need, have: a.ap, shot: isRanged(a.weapon) };
+    if (a.fat + skillFat(a, s) > fatMax(a)) return { why: 'fat' };
+    if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return { why: 'reload' };
+    if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return { why: 'ammo' };
+    return null;
   }
   function strike(a, t, forced) {
     if (S.over || current() !== a || !canStrike(a, t)) return null;
-    const r = wielding(a, t, function () {
-      const s = strikeSkill(a.weapon);
-      a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
-      if (reloadSkill(a.weapon) && !a.weapon.mag) a.loaded = false;
-      if (a.weapon.ammo && a.ammo !== null) a.ammo--;
-      if (isRanged(a.weapon)) a.threw = true;   /* THE KIDS: after the throw, the step back */
-      S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
-      const also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });   /* a blow with a shape (the shotgun's blast) */
-      const q = resolveAttack(a, t, s, forced);
-      apply(a, t, q, { skill: shapeOf(s) ? s.name : null });
-      also.forEach(function (o) { if (onField(o)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });
-      return q;
-    });
-    a.whip = false; afterAction(a); return r;
+    const s = strikeSkill(a.weapon);
+    a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
+    if (reloadSkill(a.weapon) && !a.weapon.mag) a.loaded = false;
+    if (a.weapon.ammo && a.ammo !== null) a.ammo--;
+    if (isRanged(a.weapon)) a.threw = true;   /* THE KIDS: after the throw, the step back */
+    S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
+    const also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });   /* a blow with a shape (the shotgun's blast) */
+    const q = resolveAttack(a, t, s, forced);
+    apply(a, t, q, { skill: shapeOf(s) ? s.name : null });
+    also.forEach(function (o) { if (onField(o)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });
+    afterAction(a); return q;
   }
   /* ---------------- WEAPON SHAPES (COMBAT [weapon shapes], rules 33i and 46d, Paolo 9/24: 'some weapons hit multiple tiles at the
      same time, six or three; a machine gun is comparable to a greatsword or a battle axe') ----------------
@@ -1867,8 +1847,8 @@ const FIGHT = (function () {
   /* a weapon's other skills that sweep (the greatsword has two: Split and Swing); a weapon whose own blow sweeps needs none */
   function sweepSkills(w) { const st = strikeSkill(w); return shapeOf(st) ? [] : w.skills.filter(function (s) { return s !== st && shapeOf(s); }); }
   function sweepSkill(w, name) { return sweepSkills(w).filter(function (s) { return !name || s.name === name; })[0] || null; }
-  /* the skill the blow on this man is: the club's at one for a gun, else the weapon's own */
-  function blowSkill(a, t) { return wielding(a, t, function () { return strikeSkill(a.weapon); }); }
+  /* the skill the blow on this man is: the weapon's own (a gun's is its shot at every tile, rule 195) */
+  function blowSkill(a) { return strikeSkill(a.weapon); }
   /* counterclockwise as he sees it on the glass (y runs down the screen) */
   function turnOf(a, q) { return Math.atan2(a.y - q.y, q.x - a.x); }
   function shapeTiles(a, t, s) {
@@ -2107,7 +2087,7 @@ const FIGHT = (function () {
     if (w.ammo && a.ammo !== null) return { left: Math.max(0, a.ammo), of: a.ammoMax };
     return null;
   }
-  /* a man his gun would shoot if it were loaded (its own reach, never the club's one tile): the tap that would fire empty */
+  /* a man his gun would shoot if it were loaded (its own reach, the tile beside him included): the tap that would fire empty */
   function dryAt(a, t) {
     return emptyGun(a) && onField(a) && onField(t) && a.side !== t.side && a.morale !== 'Fleeing' && inRange(a, t);
   }
@@ -2267,11 +2247,9 @@ const FIGHT = (function () {
     return R('ai.archetypes.' + (DB.ai.archetypes[u.arche] ? u.arche : 'line'));
   }
   function expected(a, t) {
-    return wielding(a, t, function () {
-      const hc = hitChance(a, t, strikeSkill(a.weapon)).chance;
-      const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
-      return hc * mean / Math.max(1, t.hp + t.armB);
-    });
+    const hc = hitChance(a, t, strikeSkill(a.weapon)).chance;
+    const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
+    return hc * mean / Math.max(1, t.hp + t.armB);
   }
   /* the start of a turn: rally the breaking, rest when too winded to swing (Recover takes the whole turn) */
   function aiFirst(u) {
@@ -2375,7 +2353,7 @@ const FIGHT = (function () {
   function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0); }
   function climb(u, A) {
     if (u.climbed === S.round) return false;
-    if (u.side === 'you' && u.club && zocOn(u, u.x, u.y).length) return false;   /* AUTO never climbs out of a ring through the free swings: he clubs (measured 10/25) */
+    if (u.side === 'you' && isGun(u.weapon) && zocOn(u, u.x, u.y).length) return false;   /* AUTO never climbs out of a ring through the free swings: his gun shoots the man beside him (rule 185; measured 10/25) */
     u.climbed = S.round;
     const f = reach(u), strikeAP = skillAP(u.weapon, strikeSkill(u.weapon), u), hunt = huntField(u, true);
     const line = A.shield_the_backline ? lineOf(u, hunt) : null;
@@ -2385,6 +2363,10 @@ const FIGHT = (function () {
       /* AUTO's gunman with no shot where he stands takes the roof even with no AP left to fire: he fires from it next turn */
       const later = u.side === 'you' && hasShot(u) && !foes(u).some(function (t3) { return canStrike(u, t3); });
       if (level(x, y) <= level(u.x, u.y) || (u.ap - f.best[k] < strikeAP && !later) || zocOn(u, x, y).length) return;
+      /* THE UNDO VETO ON THE ROOF TOO (rule 176(b): 'never off and back'; measured 10/25: a rifleman stepped off his roof to hunt,
+         found nothing, and the climb put him back the next turn with no shot either way): a turn he did nothing in began on this
+         roof, so he climbs back only with the AP to shoot from it now */
+      if (u.side === 'you' && u.lastTurn && !u.lastTurn.acted && x === u.lastTurn.x && y === u.lastTurn.y && u.ap - f.best[k] < strikeAP) return;
       if (line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) return;
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
       const ok = foes(u).some(function (t2) { return inRange(u, t2) && sideSees(u.side, t2); });
@@ -2402,7 +2384,7 @@ const FIGHT = (function () {
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
     /* THE KIDS (ai.json kid): out of stones, the blade; the net on the man coming; after the throw, the step back */
-    if (A.throws && u.weapon.ammo && u.ammo !== null && u.ammo <= 0 && u.sideArm) { u.weapon = u.sideArm; u.club = clubFor(u.weapon); u.ammo = null; u.ammoMax = null; }
+    if (A.throws && u.weapon.ammo && u.ammo !== null && u.ammo <= 0 && u.sideArm) { u.weapon = u.sideArm; u.ammo = null; u.ammoMax = null; }
     if (A.nets && u.nets > 0) { const nt = netTarget(u); if (nt) return throwNet(u, nt); }
     if (A.kites && u.threw && !u.kited) { u.kited = true; const kg = kiteGround(u); if (kg && moveTo(u, kg.x, kg.y)) return true; }
     /* THE HEAVY (ai.json heavy): once a turn the man beside him goes back a tile, and he walks into the hole */
@@ -2416,12 +2398,12 @@ const FIGHT = (function () {
       const st = screamTarget(u); if (st) return scream(u, st);
       if (!u.drifted) { const g = screamGround(u); if (g) { u.drifted = true; if (moveTo(u, g.x, g.y)) return true; } }
     }
-    if (ranged && !u.club && adj.length && A.step_out_of_melee && u.side !== 'you' && canUse(u, 'footwork')) {   /* rule 180: an ability */
+    if (ranged && !isGun(w) && adj.length && A.step_out_of_melee && u.side !== 'you' && canUse(u, 'footwork')) {   /* rule 180: an ability; a gun shoots the man beside him (rule 185) */
       /* sidestep out of reach without the free swing */
       const out = skillTargets(u, 'footwork').filter(function (q) { return !zocOn(u, q.x, q.y).length; })[0];
       if (out && useSkill(u, 'footwork', out)) return true;
     }
-    if (ranged && !u.club && adj.length && A.step_out_of_melee && !u.steppedOut) {
+    if (ranged && !isGun(w) && adj.length && A.step_out_of_melee && !u.steppedOut) {
       u.steppedOut = true;
       const f = reach(u); let best = null, bs = -Infinity;
       Object.keys(f.best).forEach(function (k) {
@@ -2444,15 +2426,16 @@ const FIGHT = (function () {
     const t = bestTarget(u);
     if (t) { const sw = u.side === 'you' ? null : sweepPick(u); if (sw) {   /* rule 180(g): a special swing is his */ sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); return true; }
     /* CAN I ACT (rule 176(a)(b), TUNING s1b: 93% of the wasted turns were a man who could not strike, walked anyway): AUTO's man
-       who cannot strike this turn (out of breath, nothing to shoot and no club to swing) stands when a foe is within near_tiles
-       (farther off he still closes, so the fight never stalls); a man in a foe's ring who has a club or a blade never walks
-       out through the free swings (s1a: 7.1 free swings a fight) */
-    const sk0 = strikeSkill(w), clubOK = !!u.club && u.fat + skillFat(u, strikeSkill(u.club)) <= fatMax(u);
+       who cannot strike this turn (out of breath, or nothing to shoot) stands when a foe is within near_tiles (farther off he
+       still closes, so the fight never stalls); a man in a foe's ring who holds a gun or a blade never walks out through the free
+       swings (s1a: 7.1 free swings a fight): the gun shoots the man beside him once it is loaded and he has his breath (rule 195:
+       never the butt; the swap to his bag is his button, rule 180(g)) */
+    const sk0 = strikeSkill(w);
     const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));
-    const able = ranged ? (shotOK || clubOK) : u.fat + skillFat(u, sk0) <= fatMax(u);
+    const able = ranged ? shotOK : u.fat + skillFat(u, sk0) <= fatMax(u);
     if (u.side === 'you') {
       const ring = zocOn(u, u.x, u.y).length, near = ring || foes(u).some(function (f3) { return dist(f3, u) <= R('ours.auto_brain').near_tiles; });
-      if ((!able && near) || (ring && (u.club || !ranged))) { endTurn(u); return false; }
+      if ((!able && near) || (ring && (isGun(w) || !ranged))) { endTurn(u); return false; }
     }
     /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
     if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { if (aiLast(u)) return true; endTurn(u); return false; }
@@ -2591,7 +2574,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { bothHands: bothHands, beginTurn: beginTurn, rangeMin: rangeMin, rangeLo: rangeLo, shotReady: shotReady, armIn: armIn, pistolShot: pistolShot, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { bothHands: bothHands, beginTurn: beginTurn, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -3429,7 +3412,7 @@ function say(s, wrap) { s = forPointer(s); const e = document.getElementById('sa
 /* ---------------- THE FIGHT SAYS WHAT IS WEAK (rule 120(b), Paolo 10/18: 'the game doesn't explain to you at all that your
    weapon sucks') ----------------
    A finger on a man he can hit: the chance and what one blow does (the health, the armour), from the rules' own damage math
-   (FIGHT.preview, the function the hit itself reads); a gun too close to fire says it clubs; when the arm needs
+   (FIGHT.preview, the function the hit itself reads); a gun shoots at every tile it reaches, never a club (rule 195); when the arm needs
    ours.weapon_says_weak blows or more to drop him, one plain line says so, in the words of what he wears (CHARACTER's armour
    tiers), and names the man of his who does it in fewer. After the blow, what it did. Rule 117: few numbers, big and clear.
    The words are drafts for WORDS. */
@@ -3440,9 +3423,20 @@ function armourWord(t) {
   Object.keys(T).forEach(function (k) { if (t.armB >= T[k].durability_range[0]) w = ARMOUR_WORD[k] || k.toLowerCase(); });
   return w;
 }
+/* A TWO-HANDER WEARS ITS OWN NAME IN THE FIGHT TOO (rule 194(b), RUN TWO's NOTE [the names in the fight], 18356e3f): in a class
+   that holds both kinds, a two-handed row is a 'two-hand' one, the one rule engine/bohemia_roster.js classWord names the shop,
+   the crew screen and the loot by (a spear and a warfork were both 'the spear': 'swaps the spear for the spear') */
+let MIXED_CLASSES = null;
+function mixedClass(c) {
+  if (!MIXED_CLASSES) { const seen = {}; MIXED_CLASSES = {};
+    DB.weapons.rows.forEach(function (r) { (seen[r.class] = seen[r.class] || {})[FIGHT._t.bothHands(r) ? 'two' : 'one'] = true; });
+    Object.keys(seen).forEach(function (k) { if (seen[k].one && seen[k].two) MIXED_CLASSES[k] = true; }); }
+  return !!MIXED_CLASSES[c];
+}
+function twoHandWord(own) { return FIGHT._t.bothHands(own) && mixedClass(own.class) ? 'two-hand ' : ''; }
 function armName(v, arm) {
-  const own = (arm.of || arm), L = DB.wlines.rows[own.class] || {}, n = (L.name || own.class).toLowerCase();
-  return arm === v.club ? (DB.wlines.rows[(v.weapon.of || v.weapon).class] || {}).name.toLowerCase() + ' butt' : n;
+  const own = (arm.of || arm), L = DB.wlines.rows[own.class] || {};
+  return twoHandWord(own) + (L.name || own.class).toLowerCase();
 }
 /* ---------------- THE BETTER ENEMY READS (COMBAT [the loss is understood], rule 143(b), Paolo 10/24: 'an enemy just kept
    dodging all of my bullets, I don't know how we can make it clear visually that the enemy is superior') ----------------
@@ -3526,7 +3520,6 @@ function aimLines(u, t) {
   const la = FIGHT.level(u.x, u.y), lt = FIGHT.level(t.x, t.y);
   if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('hit_chance.height.higher_attacker_bonus'), reach: FIGHT.isRanged(u.weapon) ? ', reach +' + (la - lt) * R('hit_chance.height.ranged_range_per_level') : '' }));
   if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('hit_chance.height.hit_chance_page_wording').lower_per_level * (lt - la) }));
-  if (p.club) out.push((u.whip ? 'He whips him with his ' : 'No shot in it: he clubs with his ') + armName(u, p.arm) + '.');   /* rule 185: the butt only when the gun cannot fire, or his pick */
   if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
     const aw = armourWord(t), n = isFinite(p.blows) ? p.blows + ' hits to drop him.' : 'It will not drop him.';
     out.push('Your ' + armName(u, p.arm) + (aw ? ' barely dents his ' + aw + '. ' : ' barely hurts him. ') + n);
@@ -3550,9 +3543,9 @@ function aimSay(u, t) {
   e.innerHTML = L.join('<br>'); e.classList.add('aim'); e.style.display = 'block';
 }
 /* THE ROUNDS WHERE HE LOOKS WHILE HE AIMS (rule 124): under the chance, his gun's bullets, a spent one an empty case, and the
-   count; the last one in red; a one-shot gun says it needs a reload after. Not for the club at one: that spends none. */
+   count; the last one in red; a one-shot gun says it needs a reload after. */
 function roundsLine(u, t) {
-  const r = FIGHT.rounds(u); if (!r || FIGHT.preview(u, t).club) return '';
+  const r = FIGHT.rounds(u); if (!r) return '';
   let h = '<span class="rds">';
   for (let i = 0; i < Math.min(r.of, RD_MAX); i++) h += '<i' + (i < r.left ? '' : ' class="out"') + '></i>';
   h += '</span>';
@@ -3861,7 +3854,7 @@ function startAnim(a) {
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
-    const ranged = e.shot === undefined ? FIGHT.isRanged(u.weapon) : e.shot;   /* the pistol's club at one is a swing, not a shot */
+    const ranged = e.shot === undefined ? FIGHT.isRanged(u.weapon) : e.shot;   /* the arm that struck: a gun's is always its shot (rule 195) */
     /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
@@ -5058,8 +5051,8 @@ function blitMan(v, X, feet, now, alpha) {
   if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
-     him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him, in his fist
-     when he clubs with it at one tile (ours.gun_club); only in the fall is it gone */
+     him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him; only in the fall
+     is it gone (a gun is never swung, rule 195) */
   if (gs && !idled) { const gk = DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); }
   /* rule 145(a): a man hit flashes a faint red, his own picture tinted by opacity */
@@ -5522,11 +5515,6 @@ function sweepTap(name) {
   UI.sweep = name; const row = FIGHT.shapeOf(FIGHT.sweepSkill(u.weapon, name));
   say(name.toUpperCase() + ': tap a man of theirs. ' + (SWEEP_SAYS[row.kind] || ''), true); hud();
 }
-function whipTap() {
-  audio(); const u = FIGHT.current(); if (!crewControlled(u) || !u.club) return;
-  UI.pend = null; UI.skillMode = null; UI.sweep = null;
-  u.whip = !u.whip; say(u.whip ? 'WHIP: tap the man beside him. The butt, no round spent.' : 'Put away. He shoots.', true); hud();   /* draft:true for WORDS */
-}
 function sweepSay(u, t, name) {
   const k = FIGHT.sweepSkill(u.weapon, name), n = FIGHT.shapeFoes(u, t, k).length;
   say('', true); const e = document.getElementById('say');
@@ -5543,7 +5531,17 @@ function bagIcon(job, css) {
   return c;
 }
 const BAG_SAYS = { done: '{name} swaps the {from} for the {to} from the bag. {cost}', on: '{name} straps the car door on from the bag. {cost}', free: 'Free: Quick Hands.', ap: 'Not enough AP: a swap costs {need}, {name} has {have}.',
-  twohands: 'The {what} takes both hands: no car door with it.' };   /* draft:true */
+  twohands: 'The {what} takes both hands: no car door with it.',
+  /* GEAR NEVER VANISHES (rule 191(b), Paolo 10/25: 'in the third fight it disappeared, it was so creepy'; rule 194(c): the words
+     blame the weapon, never the shield): the car door going on his back, or back on his arm, is said the moment it happens */
+  slung: 'The {what} takes both hands: {whose} car door rides on {his} back.', unslung: 'The car door is back on {whose} arm.' };   /* draft:true */
+/* whose door it is, said right: 'your car door' for YOU, 'RAUL's car door' for the rest */
+function doorWords(v) { return v.main ? { whose: 'your', his: 'your' } : { whose: v.name + '\'s', his: 'his' }; }
+/* the men of his whose car door rides on their backs, said once at the open: a two-hander in his hands */
+function slungSay() {
+  const m = FIGHT.alive('you').filter(function (v) { return v.shieldBack && !v.shield && FIGHT._t.bothHands(v.weapon); });
+  return m.map(function (v) { return wfill(BAG_SAYS.slung, Object.assign({ what: armName(v, v.weapon) }, doorWords(v))); }).join(' ');
+}
 /* a bag item's name in his words: a weapon by its line ('rifle', 'pipe'), any shield the car door (the fight's word for one) */
 function bagName(u, w) { return !w ? '' : FIGHT.isShield(w) ? 'car door' : armName(u, w); }
 function bagTap(i) {
@@ -5554,9 +5552,11 @@ function bagTap(i) {
     if (sh && FIGHT._t.bothHands(u.weapon)) { say(wfill(BAG_SAYS.twohands, { name: u.name, what: armName(u, u.weapon) }), true); sfx('ui_deny'); return; }
     say(wfill(BAG_SAYS.ap, { need: c, name: u.name, have: u.ap }), true); sfx('ui_deny'); return; }
   const from = sh ? (u.shield ? 'car door' : '') : armName(u, u.weapon); UI.pend = null; UI.sweep = null; UI.skillMode = null; UI.back = null;
+  const back0 = !!u.shieldBack;
   FIGHT.swap(u, i); sfx('swap', { from: from, to: bagName(u, w) });
-  say(sh && !from ? wfill(BAG_SAYS.on, { name: u.name, cost: c + ' AP.' }) :
-    wfill(BAG_SAYS.done, { name: u.name, from: from, to: sh ? 'car door' : armName(u, u.weapon), cost: c ? c + ' AP.' : BAG_SAYS.free }), true);
+  const sl = !back0 && u.shieldBack ? ' ' + wfill(BAG_SAYS.slung, Object.assign({ what: armName(u, u.weapon) }, doorWords(u))) : back0 && !u.shieldBack && u.shield ? ' ' + wfill(BAG_SAYS.unslung, doorWords(u)) : '';
+  say((sh && !from ? wfill(BAG_SAYS.on, { name: u.name, cost: c + ' AP.' }) :
+    wfill(BAG_SAYS.done, { name: u.name, from: from, to: sh ? 'car door' : armName(u, u.weapon), cost: c ? c + ' AP.' : BAG_SAYS.free })) + sl, true);
   take(); hud();
 }
 function iconCanvas(id, css) {
@@ -5628,17 +5628,14 @@ function hud() {
   const want = mine ? FIGHT.ACTIVE.filter(function (id) { return u.perks.indexOf(id) >= 0; }) : [];
   const chance = tgt ? FIGHT.hitChance(u, tgt, UI.pend.sweep ? FIGHT.sweepSkill(u.weapon, UI.pend.sweep) : FIGHT.strikeSkill(u.weapon)).chance : null;
   /* THE EMPTY GUN SHOUTS (rule 124): his gun empty, RELOAD takes the strike square's place, one big button on the beat (the
-     strike stays beside it only for the club at one tile); one round left, the reload square says so in amber */
+     strike square hides while there is nothing to strike); one round left, the reload square says so in amber */
   const dry = mine && FIGHT.emptyGun(u), canR = mine && FIGHT.canReload(u), rd = u && FIGHT.rounds(u);
   const lastRd = mine && !dry && rd && rd.of > 1 && rd.left === 1;
   const sweeps = mine ? FIGHT.sweepSkills(u.weapon) : [];
-  /* THE WHIP (rule 185(g): 'he does not pistol-whip unless he chooses to'): his gun's butt is his pick, a square while a man of
-     theirs stands beside him; a tap arms it for the next blow on that man, a second tap puts it away */
-  const whipOn = mine && !!u.club && FIGHT.S.units.some(function (t) { return FIGHT.onField(t) && t.side !== u.side && Math.max(Math.abs(t.x - u.x), Math.abs(t.y - u.y)) === 1 && FIGHT.sideSees('you', t); });
   const back = mine && backOk(u);
   const bagK = mine && u.bag ? u.bag.map(function (w, i) { return (w ? w.id : '-') + (FIGHT.canSwap(u, i) ? 1 : 0) + FIGHT.swapCostOf(u, i); }).join(',') + (u.shield ? u.shield.id : '') : '';
   const key = (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
-    + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',') + '|' + (whipOn ? 'w' + (u.whip ? 1 : 0) : '');
+    + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',');
   if (sk.dataset.key !== key) {
     sk.dataset.key = key;
     const bs = document.getElementById('bstrike'), br = document.getElementById('breload'), bb = document.getElementById('bback');
@@ -5679,14 +5676,6 @@ function hud() {
       b.onclick = function () { sweepTap(k.name); };
       sk.appendChild(b);
     });
-    if (whipOn) {
-      const b = document.createElement('button'), ap = FIGHT._t.skillAP(u.club, FIGHT.strikeSkill(u.club), u);
-      b.className = 'sq' + (u.whip ? ' on' : ''); b.appendChild(iconCanvas('mace_mastery', 30));
-      const t = document.createElement('b'); t.textContent = 'WHIP ' + ap; b.appendChild(t);
-      b.dataset.whip = 1; b.title = 'WHIP: THE BUTT, NO ROUND SPENT'; b.disabled = u.ap < ap;
-      b.onclick = function () { whipTap(); };
-      sk.appendChild(b);
-    }
     want.forEach(function (id) {
       const b = document.createElement('button'), n = FIGHT._t.PK(u, id);
       b.className = 'sq' + (UI.skillMode === id ? ' on' : ''); b.appendChild(iconCanvas(id, 30));
@@ -5714,8 +5703,8 @@ function hud() {
   placeSpeed();
 }
 /* ONE TAP TO SEE, ONE TAP TO DO (COMBAT [one tap to see, one tap to do]; the plan's part C, his 10/19 'better for the touch'):
-   what the big button will do now, from what the first tap picked: SHOOT (a gun), THROW (the bottles), HIT (a club, a blade,
-   the gun's butt at one tile), WALK (a tile), with the chance or the AP under the word; nothing picked, END TURN */
+   what the big button will do now, from what the first tap picked: SHOOT (a gun, at every tile it reaches), THROW (the bottles),
+   HIT (a club, a blade), WALK (a tile), with the chance or the AP under the word; nothing picked, END TURN */
 function nextAct(u) {
   const p = UI.pend; if (!p || !u) return null;
   if (p.target && p.sweep) {
@@ -5725,7 +5714,7 @@ function nextAct(u) {
   if (p.target) {
     if (!FIGHT.canStrike(u, p.target)) return null;
     const pv = p.pv || FIGHT.preview(u, p.target);
-    const k = pv.club || !FIGHT.isRanged(u.weapon) ? 'hit' : FIGHT.isGun(u.weapon) ? 'shoot' : 'throw';
+    const k = !FIGHT.isRanged(u.weapon) ? 'hit' : FIGHT.isGun(u.weapon) ? 'shoot' : 'throw';
     return { k: k, label: k.toUpperCase(), sub: pv.chance + '%' };
   }
   if (p.tile && p.path) return { k: 'walk', label: 'WALK', sub: p.cost + ' AP' };
@@ -5799,7 +5788,7 @@ function weaponCard(v) {
   const w = v.weapon, own = w.of || w, d = document.getElementById('drawer'), L = (DB.wlines.rows[own.class] || {}), sk = FIGHT.strikeSkill(w), rl = FIGHT.reloadSkill(w);
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   const esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
-  let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(L.name || own.class.toUpperCase()) + ' · ' + esc(v.name) + '</div>'
+  let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(twoHandWord(own).toUpperCase() + (L.name || own.class.toUpperCase())) + ' · ' + esc(v.name) + '</div>'
     + '<div class="wb" style="font-size:9px;opacity:.75;margin-bottom:4px">Battle Brothers: ' + esc(w.name) + (w.name.toLowerCase() === (L.base || own.class).toLowerCase() ? '' : (/^[aeiou]/i.test(L.base || own.class) ? ', an ' : ', a ') + esc((L.base || own.class).toLowerCase()))
     + (w.rides ? '; it shoots as ' + esc(w.rides) : '') + '</div>'
     + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';
@@ -5807,14 +5796,14 @@ function weaponCard(v) {
   if (w.armor_damage_pct !== null) h += r('Against armour', w.armor_damage_pct + '%');
   if (w.armor_ignore_pct) h += r('Straight through armour', w.armor_ignore_pct + '%');
   const gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? FIGHT._t.rangeLo(w) : 1;
-  h += r('Reach', gun ? lo + ' to ' + w.range_max + ' tiles' : !FIGHT.isRanged(w) ? R('ours.melee_reach') + ' tile' : (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile'))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', w.hands === 2 ? 'two' : w.hands === 0 ? 'none, it bites' : 'one');
+  h += r('Reach', gun ? lo + ' to ' + w.range_max + ' tiles' : !FIGHT.isRanged(w) ? R('ours.melee_reach') + ' tile' : (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile'))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
   if (w.mag) h += r('Rounds', w.mag + ', then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
   else if (rl) h += r(esc(rl.name), rl.ap + ' AP');
-  if (v.club) h += r('No shot in it', 'the butt at one tile, ' + v.club.damage_min + ' to ' + v.club.damage_max);
   if (v.shield) { const S2 = DB.wlines.rows.shield || {};
     h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(S2.name || 'SHIELD') + '</div><div class="wl" style="font-weight:700">' + esc(S2.line || '') + '</div>'
       + r('Melee / ranged defence', '+' + (v.shield.melee_defense || 0) + ' / +' + (v.shield.ranged_defense || 0)); }
+  else if (v.shieldBack) h += r('Car door', 'on ' + doorWords(v).his + ' back: the ' + armName(v, w) + ' takes both hands');   /* rule 191(b), draft:true */
   d.innerHTML = h; d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
 }
 /* who stands under a finger on the board (the man drawn there, or the tile's man) */
@@ -6394,7 +6383,8 @@ function start() {
     /* the open's line names whose move it is: a pack of wolves (initiative 150) moves before his men, and 'tap inside the chalk'
        under a wolf's turn tells him to do something he cannot (COMBAT [the fight holds the grid]) */
     const first = FIGHT.current();
-    say(UI.resumed ? 'Back where you left it. Round ' + FIGHT.S.round + '.' : dep ? deploySay() : first && first.side === 'them' && !UI.auto ? theirsSay() : walkSay()); hud();
+    const sls = UI.resumed ? '' : slungSay();   /* rule 191(b): a car door on a man's back is said, never left to be found */
+    say([UI.resumed ? 'Back where you left it. Round ' + FIGHT.S.round + '.' : dep ? deploySay() : first && first.side === 'them' && !UI.auto ? theirsSay() : walkSay(), sls].filter(Boolean).join(' ')); hud();
     if (dep) teachSoon('deploy');
   });
 }

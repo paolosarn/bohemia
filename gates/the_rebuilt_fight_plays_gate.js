@@ -431,8 +431,20 @@ async function sweep() {
      of 87), so a shooter steps up a little more to see a man past the houses: 5% became 6% on the same fights; held at 7% */
   leg(A.shots > 0 && pc(A.breach, A.shots) <= 7, '*** AUTO SHIELDS THE BACKLINE *** (Dev Blog 105: \'better at protecting their vulnerable units\'): a shooter ends past his front melee man in 7% of his turns or fewer',
     A.breach + ' of ' + A.shots + ' = ' + pc(A.breach, A.shots) + '%');
-  leg(A.engaged > 0 && pc(A.alone, A.engaged) <= 20, '*** AUTO DOES NOT FIGHT ALONE ***: a man in a foe\'s reach has a friend beside him in 80% of his turns or more',
-    A.alone + ' of ' + A.engaged + ' = ' + pc(A.alone, A.engaged) + '% alone');
+  /* RE-AIMED 10/25 (COMBAT [the pistol is never a club], rule 195): ten fights are too few for this one: a single fight that runs
+     longer swings it five points (measured: the shotgun no longer clubs with the AP its shot leaves, the cul-de-sac's fight ran 8
+     rounds to 13 and its alone turns 3 to 11; the ten read 17% on main and 22% here, while the same ten kinds at three seeds read
+     16.3% and 17.8%, and TUNING's 150 rolled fights 25.1% and 23.7%). The leg reads the ten page fights AND the same ten kinds at
+     two more seeds each on the same rules, headless (tools/bohemia_fight_headless.js): thirty fights, the bar unchanged */
+  const H = (() => { const { engine } = require(path.join(ROOT, 'tools/bohemia_fight_headless.js')), ctx = engine(), F = ctx.FIGHT, o = { engaged: 0, alone: 0 };
+    const dd = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+    DEMO_KINDS.forEach((k, i) => [100, 200].forEach(sd => { ctx.setSeed(31 + i + sd); F.setup({ seed: 31 + i + sd, auto: true, kind: k }); const S = F.S; let g = 0;
+      while (!S.over && S.round <= 40 && g++ < 300000) { const u = F.current(); if (!u) break; const r = F.aiStep(u);
+        if (r === false && u.side === 'you' && F.onField(u) && u.morale !== 'Fleeing' && F.alive('them').some(f => dd(f, u) === 1)) { o.engaged++; if (!F.alive('you').some(f => f !== u && F.onField(f) && dd(f, u) === 1)) o.alone++; } } }));
+    return o; })();
+  const aloneAll = A.alone + H.alone, engAll = A.engaged + H.engaged;
+  leg(A.engaged > 0 && pc(aloneAll, engAll) <= 20, '*** AUTO DOES NOT FIGHT ALONE ***: a man in a foe\'s reach has a friend beside him in 80% of his turns or more (thirty fights: the ten on the page and the same kinds at two more seeds)',
+    aloneAll + ' of ' + engAll + ' = ' + pc(aloneAll, engAll) + '% alone (the page\'s ten: ' + A.alone + ' of ' + A.engaged + ' = ' + pc(A.alone, A.engaged) + '%)');
   leg(res.every(x => x.ok), '*** EVERY KIND THE DEMO\'S MAP CAN ASK FOR DEALS ITS BOARD AND THE FIGHT ENDS ***, inside 40 rounds, no page error',
     res.map(x => x.k + ' ' + (x.ok ? x.r : 'NO(' + x.r + (x.err ? ' ' + x.err.slice(0, 60) : '') + ')')).join(', '));
 }
@@ -883,25 +895,28 @@ async function turnPace() {
    AMENDED 10/25 (rule 185, Paolo 10/25: 'why do you have pistols not able to shoot the tile next to them... if I have a pistol in
    my hand, I shouldn't be pistol-whipping the tile next to me, I should still be shooting'): 'all guns 2+' was the REACH, never a
    minimum (rule 83 misread). Every gun fires from the tile beside him to its range; the butt (ours.gun_club) only when the shot
-   is not there or he picks the WHIP; a rifleman beside a man still never walks out through the free swing: he shoots him. */
+   is not there or he picks the WHIP; a rifleman beside a man still never walks out through the free swing: he shoots him.
+   AMENDED 10/25 (rule 195, Paolo 10/25: 'the game still says the pistol is a club at one tile I never asked for that shit'): NO GUN
+   IS EVER A CLUB. The butt, the WHIP and ours.gun_club are gone; the legs ask where a gun fires, and that it never strikes as
+   anything but its shot. */
 async function gunsTwo() {
   const open1 = async (party) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,deploy:false,cap:1,auto:true,party:' + JSON.stringify(party) + '}' });
     await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 }); return d; };
   const d = await open1(['brigand_thug']);
   const reach = await d.page.evaluate(() => { window.tick = function () {}; const u = FIGHT.alive('you')[0], t = FIGHT.alive('them')[0], W = DB.weapons.rows, out = {};
     const T = FIGHT._t, club = {};
-    for (const c of ['crossbow', 'firearm', 'bow', 'throwing', 'dagger', 'mace', 'sword']) { const w0 = W.find(x => x.class === c), w = T.pistolShot(w0) || w0; u.weapon = w; u.club = T.clubFor(w); u.loaded = true;
+    for (const c of ['crossbow', 'firearm', 'bow', 'throwing', 'dagger', 'mace', 'sword']) { const w0 = W.find(x => x.class === c), w = T.pistolShot(w0) || w0; u.weapon = w; u.loaded = true;
       u.ammo = w.mag || null; out[c] = []; club[c] = [];
-      for (let dd = 1; dd <= 8; dd++) { u.x = 2; u.y = 7; t.x = 2 + dd; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (FIGHT.canStrike(u, t)) (T.armIn(u, t) === u.weapon ? out : club)[c].push(dd); } }
+      for (let dd = 1; dd <= 8; dd++) { u.x = 2; u.y = 7; t.x = 2 + dd; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (FIGHT.canStrike(u, t)) (FIGHT.isRanged(u.weapon) || !FIGHT.isGun(u.weapon) ? out : club)[c].push(dd); } }
     return { out, club, range: Object.fromEntries(['crossbow', 'firearm', 'bow'].map(c => [c, W.find(x => x.class === c).range])), pistol: (T.pistolShot(W.find(x => x.class === 'dagger')) || {}).range_max }; });
   reach.err = d.errs[0]; await d.close();
   const d2 = await open1(['brigand_marksman']);
   const back = await d2.page.evaluate(() => { window.tick = function () {}; const S = FIGHT.S, u = FIGHT.alive('you')[0], m = FIGHT.alive('them')[0];
-    m.weapon = DB.weapons.rows.find(w => w.class === 'crossbow'); m.club = FIGHT._t.clubFor(m.weapon); m.loaded = true; m.ammo = null; u.x = 5; u.y = 7; m.x = 6; m.y = 7; u.hp = u.hpMax = 999;
+    m.weapon = DB.weapons.rows.find(w => w.class === 'crossbow'); m.loaded = true; m.ammo = null; u.x = 5; u.y = 7; m.x = 6; m.y = 7; u.hp = u.hpMax = 999;
     let g = 0; while (FIGHT.current() !== m && g++ < 50) { const c = FIGHT.current(); if (c === u) FIGHT.endTurn(c); else FIGHT.aiStep(c); }
     m.ap = m.apTurn; const n0 = S.log.length; for (let i = 0; i < 8 && FIGHT.current() === m; i++) FIGHT.aiStep(m);
     const L = S.log.slice(n0).filter(e => e.id === m.id), hits = L.filter(e => e.t === 'attack');
-    return { stepped: L.some(e => e.t === 'step'), shots: hits.filter(e => e.shot).length, clubs: hits.filter(e => !e.shot && e.arm === m.club.id).length, at: Math.max(Math.abs(m.x - u.x), Math.abs(m.y - u.y)) }; });
+    return { stepped: L.some(e => e.t === 'step'), shots: hits.filter(e => e.shot).length, clubs: hits.filter(e => !e.shot).length, at: Math.max(Math.abs(m.x - u.x), Math.abs(m.y - u.y)) }; });
   back.err = d2.errs[0]; await d2.close();
   const o = reach.out, upto = (a, lo, hi) => a.length === hi - lo + 1 && a[0] === lo && a[a.length - 1] === hi;
   const cl = reach.club;
@@ -909,7 +924,7 @@ async function gunsTwo() {
     'rifle ' + o.crossbow.join(',') + '; shotgun ' + o.firearm.join(','));
   leg(upto(o.bow, 1, reach.range.bow) && upto(o.throwing, 2, 4) && !cl.bow.length && !cl.throwing.length, '  the bow fires anywhere inside its reach (it fired at exactly seven), the bottles from the wiki\'s minimum two; neither is a gun, neither clubs', 'bow ' + o.bow.join(',') + '; bottles ' + o.throwing.join(','));
   leg(upto(o.dagger, 1, reach.pistol) && !cl.dagger.length && o.mace.join() === '1' && o.sword.join() === '1', '*** THE PISTOL SHOOTS THE MAN BESIDE HIM (rules 120(a), 185) ***: from the next tile to the javelin row\'s four; melee reaches the next tile', 'pistol fires ' + o.dagger.join(',') + ', clubs ' + (cl.dagger.join(',') || 'never') + '; pipe ' + o.mace.join(',') + ', blade ' + o.sword.join(','));
-  leg(!cl.crossbow.length && !cl.firearm.length, '*** NO GUN CLUBS WHILE IT HAS A SHOT (rule 185(g)) ***: the rifle and the shotgun shoot the man beside them', 'rifle clubs ' + (cl.crossbow.join(',') || 'never') + '; shotgun clubs ' + (cl.firearm.join(',') || 'never'));
+  leg(!cl.crossbow.length && !cl.firearm.length, '*** NO GUN IS EVER A CLUB (rules 185, 195) ***: the rifle and the shotgun shoot the man beside them', 'rifle clubs ' + (cl.crossbow.join(',') || 'never') + '; shotgun clubs ' + (cl.firearm.join(',') || 'never'));
   leg(!back.stepped && back.shots > 0 && back.clubs === 0 && back.at === 1 && !back.err, '  a rifleman beside a man shoots him where he stands, never walks out through the free swing', (back.stepped ? 'STEPPED, ' : 'stood, ') + back.clubs + ' club, ' + back.shots + ' shot at ' + back.at + ' tiles');
 }
 

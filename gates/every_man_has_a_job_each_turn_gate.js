@@ -47,6 +47,9 @@ const BEFORE = { n: 300, won: 178, parked: 742, turns: 2689, never: 52, men: 600
     const close = () => {
       if (!t0) return; const u = t0.u, h1 = T.huntField(u)(u.x, u.y), did = S.log.slice(t0.n).some(e => e.id === u.id && e.t === 'attack' && !e.free);
       tally.turns++; if (did) hit[u.id] = 1;
+      /* a man in a kid's net is rooted by the rules (Battle Brothers' net: he cannot walk until he tears free), like a man in a rout:
+         no walk is open to him (measured 10/25: BOOKIE netted three rounds in bench fight 22 read as parked three times) */
+      else if (S.log.slice(t0.n).some(e => e.id === u.id && e.t === 'stuck') || u.netted) tally.rooted = (tally.rooted || 0) + 1;
       else if (t0.h0 > 1 && isFinite(t0.h0) && h1 >= t0.h0 && t0.ap >= T.stepCost(u, u.x, u.y, u.x, u.y) && t0.breath && !t0.rout && u.morale !== 'Fleeing') { tally.parked++; if (tally.ex.length < 4) tally.ex.push(t0.k + ':' + u.name + '@r' + t0.r + ' ' + t0.h0 + '->' + h1); }
       t0 = null; };
     while (!S.over && S.round <= 60 && guard++ < 200000) {
@@ -71,7 +74,7 @@ const BEFORE = { n: 300, won: 178, parked: 742, turns: 2689, never: 52, men: 600
     his.parked + ' of ' + his.turns + ' turns, ' + pct(his.parked, his.turns) + ' over ' + his.n + ' fights' + (his.ex.length ? ' (' + his.ex.join(', ') + ')' : '') + '; before ' + BEFORE.parked + ' of ' + BEFORE.turns + ', ' + pct(BEFORE.parked, BEFORE.turns));
   leg(his.never < his.men / 20, '  J2 a melee man of his who never strikes in a fight of four rounds or more: under 5 in 100', his.never + ' of ' + his.men + ' (' + pct(his.never, his.men) + '); before ' + BEFORE.never + ' of ' + BEFORE.men);
   leg(theirs.n >= N / 2 - 2 && theirs.parked <= theirs.turns / 100, '  J3 TUNING\'s own crews (3, 6 and 12 men, three gear stages): the same, at most 1 in 100',
-    theirs.parked + ' of ' + theirs.turns + ' turns, ' + pct(theirs.parked, theirs.turns) + ' over ' + theirs.n + ' fights' + (theirs.ex.length ? ' (' + theirs.ex.join(', ') + ')' : ''));
+    theirs.parked + ' of ' + theirs.turns + ' turns, ' + pct(theirs.parked, theirs.turns) + ' over ' + theirs.n + ' fights' + (theirs.ex.length ? ' (' + theirs.ex.join(', ') + ')' : '') + '; ' + (theirs.rooted || 0) + ' turns in a net, rooted');
   leg(his.won >= Math.floor(BEFORE.won * his.n / BEFORE.n), '  J4 and AUTO wins his crew\'s fights at least as often as before', his.won + ' of ' + his.n + ' (before ' + BEFORE.won + ' of ' + BEFORE.n + ')');
   leg(errs.length === 0, 'nothing threw', errs.slice(0, 2).join(' | '));
   done();

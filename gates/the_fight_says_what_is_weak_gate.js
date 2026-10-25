@@ -15,7 +15,7 @@
    4. a finger on a thug in reach: the receipt says the chance and the health and the armour of one blow, inside the glass
       above the bar, the numbers matching the rules';
    5. a finger on a man his arm is bad for: the plain line, in the words of what he wears, and the man of his who does better;
-   6. a gun beside a man says it clubs;
+   6. a gun beside a man shoots him, and nothing on the skill row or in the aim calls a gun a club, a butt or a whip (rule 195);
    7. the second tap: the receipt says what the blow did, within the beat.
    Run: node gates/the_fight_says_what_is_weak_gate.js   (--no-glass skips the phone) */
 'use strict';
@@ -38,11 +38,11 @@ let bad1 = [], bad2 = [], n1 = 0;
       a.x = t.x - d; a.y = t.y;
       const p = F.preview(a, t);
       const keep = { hp: t.hp, armB: t.armB, armH: t.armH };
-      const r = (() => { const w = T.armIn(a, t), k0 = a.weapon; a.weapon = w; try { return F.resolveAttack(a, t, F.strikeSkill(w), { roll: 1, head: false, base: (w.damage_min + w.damage_max) / 2 }); } finally { a.weapon = k0; } })();
+      const r = (() => { const w = a.weapon, k0 = a.weapon; a.weapon = w; try { return F.resolveAttack(a, t, F.strikeSkill(w), { roll: 1, head: false, base: (w.damage_min + w.damage_max) / 2 }); } finally { a.weapon = k0; } })();
       n1++;
       if (r.hp !== p.hp || r.armour !== p.armour) bad1.push(nm + '@' + d + ' v ' + k + ': preview ' + p.hp + '/' + p.armour + ', hit ' + r.hp + '/' + r.armour);
       if (isFinite(p.blows)) {
-        let blows = 0; const w = T.armIn(a, t), k0 = a.weapon;
+        let blows = 0; const w = a.weapon, k0 = a.weapon;
         a.weapon = w;
         try { while (t.hp > 0 && blows < 99) { const q = F.resolveAttack(a, t, F.strikeSkill(w), { roll: 1, head: false, base: (w.damage_min + w.damage_max) / 2 }); t.armB = Math.max(0, t.armB - q.armour); t.hp -= q.hp; blows++; } }
         finally { a.weapon = k0; }
@@ -93,15 +93,11 @@ leg(fresh.every(b => b < WEAK) && pb >= WEAK, '*** THE LINE IS EARNED ***: no ma
       '*** A FINGER ON HIM SAYS WHAT THE BLOW DOES (rule 120(b)) ***: the chance, the health and the armour of one blow, the rules\' own numbers, inside the glass above the bar (390 x 844)', a.text.replace(/\n/g, ' / '));
     leg(!/barely/.test(a.text), '  a pistol on a day-one thug gets no lecture', a.text.split('\n').length + ' lines');
     const b = await aimAt(p, '!!v.weapon.of', [14, 2], 1);
-    leg(/% to hit/.test(b.text) && /left|reload/i.test(b.text) && !/club|Too close/.test(b.text), '*** A GUN BESIDE HIM SHOOTS HIM (rule 185, Paolo 10/25: \'I shouldn\'t be pistol-whipping the tile next to me, I should still be shooting\') ***: the aim says the shot and its rounds, no club', b.text.replace(/\n/g, ' / '));
-    /* the WHIP is his pick (rule 185(g)): its square is up while a man of theirs is beside him; armed, the aim says the butt */
-    const wq = await p.evaluate(() => { const q = document.querySelector('#skills [data-whip]'); if (!q) return null; const r = q.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2, off: q.disabled }; });
-    let wt = '';
-    if (wq && !wq.off) { await p.touchscreen.tap(wq.x, wq.y); await p.waitForTimeout(250);
-      const s2 = await p.evaluate(() => { const t = FIGHT.S.units.filter(v => v.side === 'them')[0]; return { x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th) }; });
-      await p.touchscreen.tap(s2.x, s2.y); await p.waitForTimeout(350); wt = await p.evaluate(() => document.getElementById('say').innerText);
-      await p.evaluate(() => { const u = FIGHT.current(); if (u) u.whip = false; FIGHT_UI.pend = null; }); }
-    leg(!!wq && /whips him/i.test(wt) && !/ left\./.test(wt), '  the WHIP square is up beside him; picked, the aim says he whips him with the butt and no round is counted', wq ? wt.replace(/\n/g, ' / ') : 'no WHIP square');
+    leg(/% to hit/.test(b.text) && /left|reload/i.test(b.text) && !/club|butt|whip|Too close/i.test(b.text), '*** A GUN BESIDE HIM SHOOTS HIM (rule 185, Paolo 10/25: \'I shouldn\'t be pistol-whipping the tile next to me, I should still be shooting\') ***: the aim says the shot and its rounds, no club', b.text.replace(/\n/g, ' / '));
+    /* THE PISTOL IS NEVER A CLUB (rule 195): no WHIP square beside him, the big button says SHOOT, the skill row names no club */
+    const wq = await p.evaluate(() => ({ whip: !!document.querySelector('#skills [data-whip]'), row: [...document.querySelectorAll('#skills button')].map(b => (b.title || '') + ' ' + b.textContent).join(' | '),
+      big: (document.getElementById('bend') || {}).textContent || '' }));
+    leg(!wq.whip && !/whip|butt|club/i.test(wq.row) && /SHOOT/.test(wq.big), '*** NO GUN IS A CLUB ON HIS SCREEN (rule 195) ***: beside the man, no WHIP square, the skill row names no club, the big button says SHOOT', 'row ' + wq.row.slice(0, 120) + '; button ' + wq.big);
     /* the second tap: what it did */
     const a2 = await aimAt(p, '!!v.weapon.of', [14, 2], 2);
     const s = await p.evaluate(() => { const t = FIGHT.S.units.filter(v => v.side === 'them')[0]; return { x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th) }; });

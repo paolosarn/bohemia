@@ -78,7 +78,7 @@ leg(same(split, [P(11, 6), P(12, 6)]) && same(swing, [P(11, 6), P(11, 5), P(10, 
 /* the field for the next legs: one man of each side picked, everybody else off it */
 const S = F.S;
 function field(keep) { S.units.forEach(u => { u.fled = keep.indexOf(u) < 0; u.dead = false; u.down = false; }); S.events = []; S.over = false; }
-function arm(u, id) { const w = Object.assign({}, row(id)); u.weapon = w; u.club = T.clubFor(w); const am = w.ammo ? String(w.ammo).match(/\d+/) : null; u.ammo = am ? Number(am[0]) : null; u.ammoMax = u.ammo; u.loaded = true; }
+function arm(u, id) { const w = Object.assign({}, row(id)); u.weapon = w; const am = w.ammo ? String(w.ammo).match(/\d+/) : null; u.ammo = am ? Number(am[0]) : null; u.ammoMax = u.ammo; u.loaded = true; }
 function turn(u) { S.order = [u.id]; S.idx = 0; u.ap = u.apTurn; u.fat = 0; u.begun = true; u.morale = 'Steady'; }
 const mine = S.units.filter(u => u.side === 'you'), theirs = S.units.filter(u => u.side === 'them');
 const atks = () => S.events.filter(e => e.t === 'attack');
@@ -154,7 +154,7 @@ const atks = () => S.events.filter(e => e.t === 'attack');
           if (ok) c = { x: x, y: y }; }
         S.units.forEach(v => { if (v !== u && v.side === 'you') { v.x = 0; v.y = S.units.indexOf(v) % S.h; } });
         them.forEach((v, i) => { if (i >= spots.length) v.fled = true; else { v.x = c.x + spots[i][0]; v.y = c.y + spots[i][1]; v.hp = v.hpMax = 999; v.fled = false; } });
-        const w = Object.assign({}, FIGHT_DB_ROW(wid)); u.weapon = w; u.club = FIGHT._t.clubFor(w); u.loaded = true; const am = w.ammo ? String(w.ammo).match(/\d+/) : null; u.ammo = am ? Number(am[0]) : null; u.ammoMax = u.ammo;
+        const w = Object.assign({}, FIGHT_DB_ROW(wid)); u.weapon = w; u.loaded = true; const am = w.ammo ? String(w.ammo).match(/\d+/) : null; u.ammo = am ? Number(am[0]) : null; u.ammoMax = u.ammo;
         u.x = c.x; u.y = c.y; u.ap = u.apTurn; u.fat = 0; S.order = [u.id].concat(them.filter(v => !v.fled).map(v => v.id)); S.idx = 0; u.begun = true;
         FIGHT_UI.anim = []; FIGHT_UI.glide = null; FIGHT_UI.pend = null; FIGHT_UI.sweep = null; FIGHT_UI.pinched = false;
         fitNow(); hud(); return { u: u.id, them: them.filter(v => !v.fled).map(v => v.id) };

@@ -115,7 +115,9 @@ const fetches = [];
 const fr = /fetch\(\s*([^)]*)\)/g;
 let fm;
 while ((fm = fr.exec(html))) fetches.push(fm[1]);
-const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\/|fight_rig\/|fight_ghosts\//.test(f) && !/^\s*(u|url|src|p)\s*$/.test(f); });
+/* ANIMATION's rig keys are the character bank's baked people too (rule 115, THE RIG'S LOOK IS THE LOOK; rule 177(b), gear as layers
+   on the rig): rig_hold/ (a pistol in one hand, a man in cover) and rig_melee/ (his own melee, shield and two-hand keys) */
+const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\/|fight_rig\/|fight_ghosts\/|rig_hold\/|rig_melee\//.test(f) && !/^\s*(u|url|src|p)\s*$/.test(f); });
 leg(fetches.length > 0 && strays.length === 0, 'the page loads only the bb data, COMBAT TWO\'s ground and the character bank\'s baked people',
   strays.join(' | '));
 const loader = html.match(/const DATA_FILES\s*=\s*\[([^\]]*)\]/);

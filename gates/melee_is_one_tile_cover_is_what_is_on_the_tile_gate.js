@@ -14,7 +14,7 @@
       act and two seeds, AUTO on both sides: EVERY MELEE BLOW IS STRUCK FROM THE NEXT TILE (a blow's shape, the split's man
       behind, is the shape's, not the reach's); and A GUN SHOOTS THE MAN BESIDE HIM (rule 185, Paolo 10/25: 'why do you have pistols
       not able to shoot the tile next to them?'; the two-tile minimum was rule 83 misread): shots fired at the next tile, and
-      none of a gun's blows there is the butt while a shot was in it (AUTO picks no whip, rule 180);
+      NO GUN EVER STRIKES AS A CLUB (rule 195: every blow a man holding a gun lands is a shot, both sides);
    2. no weapon in weapons.json reaches past the next tile in melee, whatever its range text says; and no gun of the data is
       refused the man beside him (every gun row, loaded, with the breath and the AP: shot, not clubbed, not 'too close');
    3. the rules' cover is what a man hides behind: a tile's cover count is the pieces of the kinds he hides behind on it
@@ -34,12 +34,10 @@ const done = () => { console.log('=== MELEE IS ONE TILE, COVER IS WHAT IS ON THE
 (async () => {
   const { engine, playOut } = require(path.join(ROOT, 'tools/bohemia_fight_headless.js'));
   /* the attack's two tiles, written on the event the fight already emits */
-  const ctx = engine({ patch: r => r.replace("emit({ t: 'attack', id: a.id, to: t.id,", "emit({ t: 'attack', ax: a.x, ay: a.y, tx: t.x, ty: t.y, butt: !!(a.club && a.weapon === a.club && a.whip !== undefined && S.__shotWas), id: a.id, to: t.id,")
-    .replace("    const k = a.weapon; a.weapon = armIn(a, t);", "    const k = a.weapon; if (k !== a.club) S.__shotWas = !!(a.club && dist(a, t) === 1 && shotReady(a)); a.weapon = armIn(a, t);") });
+  const ctx = engine({ patch: r => r.replace("emit({ t: 'attack', id: a.id, to: t.id,", "emit({ t: 'attack', ax: a.x, ay: a.y, tx: t.x, ty: t.y, gunHeld: isGun(a.weapon), id: a.id, to: t.id,") });
   const F = ctx.FIGHT, DB = ctx.DB, R = k => { const p = k.split('.'); let o = DB[p[0]][p[1]]; return o && o.value !== undefined ? o.value : o; };
   const factions = Object.keys(R('ours.enemy_tiers').mix);
   let blows = 0, far = [], shots = 0, close = 0, butt = [], fights = 0, kinds = new Set(), errs = [];
-  const clubId = R('ours.gun_club').row;
   for (const faction of factions) for (const days of [1, 40, 120]) for (const seed of [5, 17]) {
     try {
       ctx.setSeed(seed);
@@ -52,15 +50,15 @@ const done = () => { console.log('=== MELEE IS ONE TILE, COVER IS WHAT IS ON THE
         const d = Math.max(Math.abs(e.ax - at.x), Math.abs(e.ay - at.y)), a = S.units.find(u => u.id === e.id);
         const gunman = /^(pistol|rifle|shotgun|firearm)/.test(String(a && a.job || '')) || (a && F.isGun && F.isGun(a.weapon));
         if (!e.shot) { blows++; if (d !== 1) far.push(faction + ' ' + (a && a.kind || e.id) + ' ' + e.arm + ' at ' + d);
-          if (gunman && e.butt) butt.push(faction + ' ' + (a && a.kind || e.id)); }
+          if (e.gunHeld) butt.push(faction + ' ' + (a && a.kind || e.id) + ' ' + e.arm); }
         else if (gunman) { shots++; if (d === 1) close++; }
       });
     } catch (e) { errs.push(faction + ' ' + days + ': ' + e.message); }
   }
   leg(fights >= factions.length * 6 - 2 && blows > 50 && far.length === 0, '*** EVERY MELEE BLOW IS STRUCK FROM THE NEXT TILE *** (rule 170(b)): every faction at three points of the act, two seeds each, AUTO on both sides',
     fights + ' fights, ' + kinds.size + ' kinds of enemy, ' + blows + ' blows, ' + far.length + ' from further' + (far.length ? ': ' + far.slice(0, 4).join('; ') : ''));
-  leg(close > 0 && butt.length === 0, '*** A GUN SHOOTS THE MAN BESIDE HIM *** (rule 185): shots at the next tile, and no butt struck while a shot was in the gun',
-    shots + ' shots, ' + close + ' at the next tile; ' + butt.length + ' butts with a shot in it' + (butt.length ? ': ' + butt.slice(0, 3).join('; ') : ''));
+  leg(close > 0 && butt.length === 0, '*** A GUN SHOOTS THE MAN BESIDE HIM, AND NO GUN IS A CLUB *** (rules 185, 195): shots at the next tile, and not one blow struck with a gun as a club',
+    shots + ' shots, ' + close + ' at the next tile; ' + butt.length + ' gun blows as a club' + (butt.length ? ': ' + butt.slice(0, 3).join('; ') : ''));
   /* 2: every melee weapon of the data, whatever its range text */
   F.setup({ seed: 3, kind: 'strip', auto: true, formation: null, party: { faction: 'brigands', count: 2, days: 1 } });
   const a = F.S.units.find(u => u.side === 'you'), t = F.S.units.find(u => u.side === 'them');
@@ -77,9 +75,9 @@ const done = () => { console.log('=== MELEE IS ONE TILE, COVER IS WHAT IS ON THE
   /* every gun row of the data, the man beside him: shot, never 'too close' */
   const guns = (DB.weapons.rows || DB.weapons).filter(w => F.isGun(w) && F.isRanged(F._t.pistolShot(w) || w));
   const refused = [];
-  guns.forEach(w0 => { const w = F._t.pistolShot(w0) || w0; a.weapon = w; a.club = F._t.clubFor(w); a.loaded = true; a.ammo = w.mag || (w.ammo ? Number(String(w.ammo).match(/\d+/)[0]) : null);
-    a.ap = 99; a.fat = 0; a.whip = false; t.x = a.x + 1; t.y = a.y;
-    if (!(F.canStrike(a, t) && F._t.armIn(a, t) === a.weapon)) refused.push(w0.id + ' (' + ((F.strikeWhy(a, t) || {}).why || 'clubbed') + ')'); });
+  guns.forEach(w0 => { const w = F._t.pistolShot(w0) || w0; a.weapon = w; a.loaded = true; a.ammo = w.mag || (w.ammo ? Number(String(w.ammo).match(/\d+/)[0]) : null);
+    a.ap = 99; a.fat = 0; t.x = a.x + 1; t.y = a.y;
+    if (!(F.canStrike(a, t) && F.isRanged(a.weapon))) refused.push(w0.id + ' (' + ((F.strikeWhy(a, t) || {}).why || 'not a shot') + ')'); });
   leg(guns.length >= 8 && refused.length === 0, '*** NO GUN IS REFUSED THE MAN BESIDE HIM *** (rule 185(e)): every gun row, loaded, shoots the next tile',
     guns.length + ' guns, ' + refused.length + ' refused' + (refused.length ? ': ' + refused.slice(0, 4).join('; ') : ''));
   /* 3: the rules' cover count on every dealt board */
