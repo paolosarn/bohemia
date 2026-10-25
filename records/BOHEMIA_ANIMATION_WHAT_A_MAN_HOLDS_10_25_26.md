@@ -77,12 +77,25 @@ tile with cover (S.coverCount) or on a roof kneels behind it, rises on the knee 
 man walking or dragged never kneels; his gun is laid in his hands on every key; the hit flash tints the held picture; at night
 the held picture takes the fight's own night sheet. Until a man's pictures are in, the fight draws him exactly as before.
 
+## WHO HAS THEM (shipped in seventeen waves, each on the gate's exit code)
+Every man the fight draws, 96: YOU; the twelve cast; the thirteen gangs; the thug and the poacher; RUN TWO's 51 rolled fight
+men (the twelve town men are his own company in every fight, holding YOU's guns; the 39 gang men their gang's guns); and
+CHARACTER's 17 enemies that landed this round (three Mechanics, his pistol in one hand; eight Runners with their slings;
+six Heavies kneeling behind their own crash-bar shields). About 400 KB a man (two sheets, one json), 36 MB in slices/rig_hold.
+RENDER COST, MEASURED: 51 keys x 8 facings = 408 pictures a man plus his guns (a named look) at the fight's 24 samples; about
+25 minutes a man on one thread, four at a time on this box, about nine hours of the machine in all; the background job cap
+(two hours) killed three long runs, so the work went in bounded batches of four to six men with a lock a man.
+
 ## THE GATE
 gates/what_a_man_holds_gate.py, WHAT A MAN HOLDS: S the source (slots, flicker, the half key), P the pictures (every key and
 facing, the guns, inside the sheet, his own colours), O ONE HAND (the pistol on his right side at rest; fired, out at arm's
 length, a third of his height past his feet), F the feet standing, K COVER LOOKS LIKE COVER (on the ground; his crown a fifth
 of his height lower at rest, a tenth when he rises to fire), W the real fight (the pistol man drawn in the held pistol clip;
-a man stood on a cover tile drawn kneeling; no page error), and four mutations that must bite.
+a man stood on a cover tile drawn kneeling; no page error), and four mutations that must bite. Its bars were set from measurement as the 96 landed, each change with the man that
+measured it in the gate's own comment: cover is 15 percent lower than standing at rest (16 to 33 measured) and 8 rising to
+fire (10 to 21); the ground allows cloth on the floor (a robe +7, baggy trousers +12 in profile, a longcoat's tail +19 turned
+to the glass) but never floating; a man holding his own modelled weapon (the poacher's hatchet, the Runners' sling) is
+checked for floating only; the reload's long gun is tracked by its muzzle (his right arm hides part of it).
 
 ## THE BUGS I MADE AND CAUGHT
 - The first back knee floated 33 cm off the ground (the two-bone pole pointed up, so the knee bent above the hip-to-ankle
