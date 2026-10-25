@@ -60,6 +60,22 @@ THE FIX (__THE_STREETS_READ_AS_STREETS__, marked blocks in vbCityCore and base()
 - The close-in things are painted only at four texels a q and up (the close tiles); the whole painting stays clean and pays
   little: one box, the whole bake 1.35 to 1.5 s before, 1.84 to 1.9 s after; a 96-texel tile 276 to 293 ms, 286 to 311 ms.
 
+## 3. [the PC playtest: the art's part], part two, 9cae20af: THE FIGHT FLOOR IN ACT ONE'S PALETTE
+
+MEASURED (records/target/cook_fight_look/before, the bare fight, seed 31, six kinds): the map is grey now and the fight was
+still the 10/22 tan floor, 72 percent sand family over the 35 present-day blocks (median chroma 12.7), 45 percent over the 51
+cover pieces (the block walls 96). His approved ground pool measures 75 percent sand itself, so the packs give the floor its
+shapes and materials and rule 159 gives act one its colour.
+THE GRADE (tools/bohemia_cook_the_fight_floor_in_act_one_10_25_26.py): the painting's ruin() on a picture, chroma x 0.3 and
+never past 7, value and hue kept, a strong colour (paint, a sign) a faded accent to 16. The blocks and their raided futures
+(70, lossy 80 as they were, 49.71 -> 49.72 MB) and the cover pieces (lossless as they were, 765 -> 604 KB); every block under a
+quarter sand after, most 1 to 9 percent. The reclaimed futures keep act three's colour. records/target/cook_fight_look/after.
+SOUNDS' step table (tools/bohemia_sounds_fight_floors.py) reads asphalt as dark AND unsaturated; on the graded floor shaded
+dirt is unsaturated too, so its test is 0.07 and 0.35 now (was 0.18, 0.42), the pair measured to give back the same table;
+its --check names the same three blocks as on main.
+STILL OPEN IN ITEM 13: the board's edge (COMBAT's ring of dimmed blocks ends on a straight line; NOTE on their board) and
+the board's layout (COMBAT TWO's): rows of the same house read as made by a machine.
+
 ## GATES (rule 13: the pre-push pass, by name)
 THE MAP HAS ITS PEOPLE 19/0, THE MAP STANDS UP 13/0 (the berm mutation still turns U3 red), THE FAR END IS PAINTED 11/0,
 THE LIVING MAP 22/0, NO TWO TEXTS OVERLAP ON THE DEMO 14/0, THE MAP AT THE PHONE'S PIXELS 16/0. FACTION BETWEEN 80/2 and THE
@@ -69,6 +85,6 @@ NEAR END IS THE BLOCK 6/1 are the same reds on main without this (a card's size;
 - The region's twelve places outside the valley (bohemia_region.js) still draw through mapBaseDraw's picture path; the
   region never turns on in the demo today (BOH_REGION.ready false after 60 s), so nothing he sees is a sticker. When RUN
   turns it on, they want the same: the painter run on a small patch of land with the town in it, ground cut away.
-- Item 13, the fight boards more organic and without glitches: COMBAT holds its part (7) open; EYES' [eyes: board seams]
-  is half (the washed strip above a desert board meets it at a straight line). Next for this lane.
+- Item 13: the floor's colour is done (part two); the board's edge is COMBAT's (NOTE on their board) and its layout COMBAT
+  TWO's.
 - The crowd at a town's gate still covers most of a camp at the opening zoom (LIFE+CITY's people at their size, rule 21).
