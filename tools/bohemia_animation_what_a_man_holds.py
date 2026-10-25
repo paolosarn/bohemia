@@ -277,7 +277,22 @@ def men(arg):
     return [l for l in combat().pick(arg) if l[1] != 'beast']
 
 
+def claimed(name):
+    """one worker a man: a lock file with the worker's pid; a lock whose worker is gone is taken over"""
+    os.makedirs(os.path.join(ROOT, RENDERS), exist_ok=True)
+    lk = os.path.join(ROOT, RENDERS, '.%s.lock' % name)
+    for _ in range(2):
+        try:
+            fd = os.open(lk, os.O_CREAT | os.O_EXCL | os.O_WRONLY); os.write(fd, str(os.getpid()).encode()); os.close(fd)
+            import atexit; atexit.register(lambda: os.path.exists(lk) and os.remove(lk)); return True
+        except FileExistsError:
+            try: pid = int(open(lk).read().strip() or 0); os.kill(pid, 0); return False   # his worker is alive: not mine
+            except (ValueError, ProcessLookupError, PermissionError, OSError): os.remove(lk)
+    return False
+
+
 def fight_one(name):
+    if not claimed(name): print('SKIP', name, 'another worker has him', flush=True); return
     CF = combat(); I = idles(); py = sys.executable
     src = os.path.join(ROOT, COMBAT_POSED, name + '.glb')
     if not os.path.exists(src):   # COMBAT's own build of this man, as its tool makes it
@@ -411,6 +426,7 @@ def person_complete(tag):
 
 
 def person_one(tag):
+    if not claimed(tag): print('SKIP', tag, 'another worker has him', flush=True); return
     I = idles(); py = sys.executable
     if person_complete(tag): return
     if tag.startswith('enemy_'):   # CHARACTER's enemy: its own build, its model under the barber's name for a rolled person
@@ -607,6 +623,11 @@ def pack(only=None):
             guns_e = dict(file=look + '_guns.webp', size=list(gim.size), cells=grects, clips=gcells)
         entry = dict(fight=fl['file'], foot=fl['foot'], sheet=dict(file=look + '.webp', size=list(body.size), cells=rects), clips=cells, guns=guns_e)
         if person: entry['ref'] = fl['ref']
+        # what his model holds in a fist (COOK THREE's tiers: the thug's pipe, the poacher's hatchet), read off the render's own
+        # parts as the idles pack reads them: it hangs below his soles, and the gate is told so
+        parts = set(k for c in rj.get('clips', {}).values() for f_ in c.get('motion_px', {}) for key in c['motion_px'][f_] for k in key)
+        held = sorted(p_ for p_ in parts if any(w in p_.lower() for w in ('pipe', 'hatchet', 'club', 'bat', 'knife', 'axe', 'machete', 'spear')))
+        if held: entry['held'] = held
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))
         index['looks'][look] = dict(json=look + '.json')
         print('PACKED', look, body.size, os.path.getsize(os.path.join(ROOT, OUT, look + '.webp')), 'guns', gim.size if gim else 'his gang\'s (%s)' % fl['ref'], flush=True)
@@ -625,6 +646,9 @@ if __name__ == '__main__':
     elif cmd == 'people': people(int(a[0]) if a else 2)
     elif cmd == 'all': all_(int(a[0]) if a else 2)
     elif cmd == 'regun': regun(float(a[0]))
+    elif cmd == 'tail':   # one more worker from the back of the queue (the lock keeps two off one man)
+        for t in reversed([t for t in queue() if not (person_complete(t) if t.startswith(('person_', 'enemy_')) else done(t)) and not t.startswith('enemy_')]):
+            subprocess.call([sys.executable, os.path.abspath(__file__), 'person_one' if t.startswith('person_') else 'fight_one', t], cwd=ROOT)
     elif cmd == 'preview': preview(*a)
     elif cmd == 'pack': pack(a or None)
     else: sys.exit('pose <in> <out> | fight [LOOK|ALL] [workers] | preview <glb> <png> [clips] [facings] | pack [LOOK ...]')

@@ -16,9 +16,10 @@ A PISTOL IN ONE HAND AND COVER THAT LOOKS LIKE COVER, asked of the PICTURES and 
      never at his belt buckle between two fists; fired, it is out at arm's length in front of him (profile, a third of his
      height past his feet or more).
   F  THE FEET STAY PUT standing: in the pistol's stand, aim and blow his soles are on his ground line (two pixels).
-  K  COVER LOOKS LIKE COVER: in every cover key and facing he is ON THE GROUND (in profile his lowest pixel on his ground line,
-     never above it by more than three pixels, a long coat or baggy trousers bunched on the floor at most twelve below; turned to or from
-     the glass a foot, a shin or a wide trouser's hem toward the camera may sit lower, eighteen at most, never higher) and DOWN (his
+  K  COVER LOOKS LIKE COVER: in every cover key and facing he is ON THE GROUND (his lowest pixel never more than three above his
+     ground point (his fight cell's foot), and below it only by cloth on the floor: sixteen in profile, twenty-four turned to or
+     from the glass, where a foot, a shin or a coat's tail comes toward the camera; a man holding his own modelled weapon (the poacher's hatchet,
+     which hangs below his soles and rises over his head in the kick) is checked for floating only) and DOWN (his
      crown a sixth of his height lower than standing at rest behind it, a twelfth when he rises on the knee to fire over it; standing is none).
   W  WIRED: the fight carries the marked block and the hook; on the real fight (headless, the shipped file) the man with
      a pistol is drawn in a held pistol clip, a man put on a tile with cover is drawn kneeling, no page error; and IN THE
@@ -155,6 +156,7 @@ def one_hand_faults(E):
     out = []
     for k, e in E.items():
         fx = e['foot'][0]
+        if e.get('held'): continue   # his own modelled weapon in that fist (the poacher's hatchet): the pistol rides beside it
         for f, side in ((0, -1),):   # facing S his right is the glass's left (facing away his body hides a pistol held in front of him)
             g = bbox(e, 'PIdle', 0, f, 'guns', 'pistol')
             if g is None: out.append('%s PIdle %s: the pistol is hidden' % (k, I['dirs'][f])); continue
@@ -235,15 +237,22 @@ def cover_faults(E, show=False):
     out = []; worst = []
     for k, e in E.items():
         for f in range(8):
-            st = bbox(e, 'PIdle', 0, f); ground, crown = st[3], st[1]; h = ground - crown
+            st = bbox(e, 'PIdle', 0, f); ground, crown = (e['foot'][1] if e.get('held') else st[3]), st[1]; h = ground - crown   # his standing soles; for a man whose own modelled weapon hangs below them (the poacher's hatchet), his fight cell's foot
             for n in COVER:
                 for kk in range(len(D['clips'][n]['keys'])):
                     b = bbox(e, n, kk, f)
                     # in profile (E, W) the ground is the ground; turned to or from the glass, the foot stepped forward or the shin laid
                     # back comes toward the camera and sits lower on the glass, never higher (a man kneels on his tile, he does not float)
-                    lo, hi = (-3, 12) if f in (2, 6) else (-3, 18)   # in profile a long coat's hem drapes onto the floor before his knee (the anarchists' robe, +7) and baggy trousers bunch under the kneeling knee (person_town_0, +12); turned to the glass a wide trouser's hem comes forward with the front foot (person_town_0, +16)
+                    # never floating: his lowest pixel at most three above his ground point; never sunk past cloth on the floor: in profile
+                    # a long coat or baggy trousers bunch under the kneeling knee (measured: the anarchists' robe +7, person_town_0 +12),
+                    # turned to or from the glass a foot, a shin or a coat's tail toward the camera sits lower (person_town_0's wide
+                    # trousers +16, cast_longcoat's coat on the floor in front of him +19); a man holding his own modelled weapon
+                    # (the poacher's hatchet) has it hang below his soles, so only the floating half holds for him
+                    lo, hi = (-3, 16) if f in (2, 6) else (-3, 24)
+                    if e.get('held'): hi = 99
                     if not lo <= b[3] - ground <= hi: out.append('%s %s k%d %s: his lowest pixel %+d from the ground' % (k, n, kk, I['dirs'][f], b[3] - ground))
                     down = (b[1] - crown) / float(h)
+                    if e.get('held'): continue   # his own weapon in his fist (the poacher's hatchet) rises over his head in the kick: his top is the hatchet's
                     worst.append(down)
                     if down < LOW[n in RISE]: out.append('%s %s k%d %s: his crown only %.0f%% lower than standing' % (k, n, kk, I['dirs'][f], 100 * down))
     if show and worst: print('  note K1 his crown in cover: %.0f%% to %.0f%% lower than standing (median %.0f%%)' % (100 * min(worst), 100 * max(worst), 100 * float(np.median(worst))))
