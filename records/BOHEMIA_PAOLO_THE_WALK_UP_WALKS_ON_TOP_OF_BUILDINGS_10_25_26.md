@@ -22,3 +22,12 @@ walks (on top of buildings) and that nobody can tell what is going on.
     town's own art draws it (a mask cut from the drawn pictures, not a grid), his body is never drawn over a roof he
     stands behind, and the path never crosses a building's footprint. Phone and computer profiles, all the towns.
 (e) First on RUN TWO's board, before the camp and the retinue. In the game, no card.
+
+## AMENDED THE SAME HOUR: THE TOWN SHAKES (rule 169(f))
+HIS WORDS: "Also, now when I'm in the settlements and I'm playing on my phone when my character walks somewhere and he's at
+the bottom of the settlement screen the settlement screen is shaking and shit like what's up with that"
+The likely cause, for RUN TWO to confirm: cd2582ba slides the town up so his walk stands above a tall sheet ('the hall:
+169 px on the phone'); a walk near the bottom of the screen and the slide chase each other, so the town jitters.
+(f) THE TOWN NEVER SHAKES: the town moves at most once per tap, eased, and holds still while he walks; a walk never
+    drives the town's position frame by frame. The gate measures the town's offset every frame of every walk-up on the
+    phone profile: one move, no back and forth.
