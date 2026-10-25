@@ -1,0 +1,17 @@
+{
+ "made": "10/25",
+ "tool": "tools/bohemia_sounds_three_levels.js",
+ "songs": [
+  {
+   "name": "THE VAULT",
+   "slug": "the_vault",
+   "dir": "vote/songs/three_levels/the_vault/",
+   "levels_db": [
+    -36.77,
+    -32.43,
+    -30.04
+   ],
+   "id": "sounds-three-levels-the-vault-10-25"
+  }
+ ]
+}

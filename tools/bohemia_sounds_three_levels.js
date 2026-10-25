@@ -76,9 +76,13 @@ async function level(p, name, lv, outGain) {
     const HOOK = [[0, 0], [2, 0], [4, 2], [6, 1], [7, 0], [10, 4], [12, 3], [14, 2]];
     const ANS = [[0, 0], [2, 0], [4, 2], [6, 4], [8, 5], [11, 4], [12, 2], [14, 1]];
     const LIFT = [[0, 5], [2, 4], [4, 5], [6, 7], [8, 5], [10, 4], [12, 2], [14, 4]];
-    const P = lv === 1 ? { pulse: part(0.55), clock: part(0.16) }
-      : lv === 2 ? { kick: part(0.72), tick: part(0.30), pedal: part(0.9), tom: part(0.8), rim: part(0.35) }
-      : { kick: part(0.95), snare: part(0.75), hat: part(0.34), hit: part(0.6), bass: part(0.95), hook: part(1.0) };
+    /* THE LEVELS ON A PHONE, MEASURED (THE VAULT's first take): the parts at 0.55 to 1.0 put level 2 5.3 dB and level 3
+       8.6 dB over level 1 through a phone, their turn as loud as a fight; pulled down so 2 sits about 2 to 3 dB over 1 and
+       3 about 5 to 6, the tension between the map and the fight. The pulse on 1 stays soft; on a phone the clock is what
+       you hear of it (a phone's speaker drops the kick's low end). */
+    const P = lv === 1 ? { pulse: part(0.40), clock: part(0.20) }
+      : lv === 2 ? { kick: part(0.55), tick: part(0.26), pedal: part(0.40), tom: part(0.55), rim: part(0.30) }
+      : { kick: part(0.85), snare: part(0.70), hat: part(0.30), hit: part(0.45), bass: part(0.50), hook: part(1.0) };
     const counts = {};
     const D = (k, node, t) => { counts['d:' + k] = (counts['d:' + k] || 0) + 1; drumV(k, OAC, node, t); };
     const S = (k, node, semi, t, g, dur) => { counts['s:' + k] = (counts['s:' + k] || 0) + 1; synthV(k, OAC, node, hz, dur || sd, semi, t, g); };
@@ -146,7 +150,8 @@ async function record(which) {
   const list = which === 'all' ? SONGS : SONGS.filter(s => s === which || slug(s) === which);
   if (!list.length) throw new Error('no song ' + which);
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'three_levels_'));
-  const { b, p, errs } = await H.openAlpha();
+  /* three alphas, one level each, in parallel (level 3 alone took 215 s on THE VAULT's first take) */
+  const A = await Promise.all([0, 1, 2].map(() => H.openAlpha())), errs = [].concat(...A.map(x => x.errs));
   fs.mkdirSync(OUTD, { recursive: true });
   const IDX = path.join(OUTD, 'index.json');
   const index = fs.existsSync(IDX) ? JSON.parse(fs.readFileSync(IDX, 'utf8')) : { made: '10/25', tool: 'tools/bohemia_sounds_three_levels.js', songs: [] };
@@ -156,12 +161,13 @@ async function record(which) {
     /* his own gain (his_night_songs: a song his engine plays past full scale is recorded 6 dB down until it does not) */
     const og = his[name] ? Math.pow(10, (his[name].gain_db || 0) / 20) : 1;
     const R = {}, pcm = {}, raws = [];
-    for (const lv of [1, 2, 3]) {
+    await Promise.all([1, 2, 3].map(async lv => {
+      const p = A[lv - 1].p;
       let g = og, r;
       for (;;) { const tl = Date.now(); r = await level(p, name, lv, g); console.log("  " + name + " level " + lv + " gain " + g.toFixed(3) + " clipped " + r.clipped + " in " + ((Date.now() - tl) / 1000).toFixed(1) + " s"); if (r.err) throw new Error(name + ' level ' + lv + ': ' + r.err); if (!r.clipped || g < 0.1) break; g /= 2; }
       const raw = path.join(tmp, sl + '_' + lv + '.raw'); fs.writeFileSync(raw, Buffer.from(r.b64, 'base64')); delete r.b64;
-      pcm[lv] = new Int16Array(fs.readFileSync(raw).buffer.slice(0)); R[lv] = Object.assign(r, { gain_db: +(20 * Math.log10(g)).toFixed(2) }); raws.push(raw);
-    }
+      pcm[lv] = new Int16Array(fs.readFileSync(raw).buffer.slice(0)); R[lv] = Object.assign(r, { gain_db: +(20 * Math.log10(g)).toFixed(2) }); raws[lv - 1] = raw;
+    }));
     const run = fightRun(pcm, R[1].sr, R[1].sd), runRaw = path.join(tmp, sl + '_run.raw');
     fs.writeFileSync(runRaw, Buffer.from(run.buffer, run.byteOffset, run.byteLength));
     const files = {};
@@ -181,7 +187,7 @@ async function record(which) {
     fs.writeFileSync(IDX, JSON.stringify(index, null, 1) + '\n');
     console.log(name + ' in ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s; phone rms L1 ' + m[0].phone_rms_db + ' L2 ' + m[1].phone_rms_db + ' L3 ' + m[2].phone_rms_db + ' run ' + m[3].phone_rms_db + '; clipped ' + [1, 2, 3].map(l => R[l].clipped).join('/'));
   }
-  await b.close();
+  await Promise.all(A.map(x => x.b.close()));
   fs.rmSync(tmp, { recursive: true, force: true });
 }
 
