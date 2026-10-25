@@ -25,6 +25,9 @@
      E36 [the sheet opens halfway] a sheet opens at its top after another was read down; E33 [three pistols] every tile
      on a shelf says its card's name; E37 [the phone line] the board says a held job is on the map, never the phone;
      E38 [the last town's line] a town opens with no line carried from the last
+     E8  [crowd taps] every person on the town's glass answers a fair finger: the nearest body wins (was whoever stood in
+         front, three of Church's crowd answered on about 14 x 14 px), no one under a 26 px square on the first tap, and a
+         finger on a man behind another opens a sheet with him under ALSO HERE, one tap on his face (real taps)
      B4 nothing threw
    node gates/the_towns_part_gate.js */
 'use strict';
@@ -43,7 +46,7 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
   const p = d.page, fr = d.fr, errs = [];
   p.on('pageerror', e => errs.push(e.message));
   const town = async () => {
-    const n = await fr.evaluate(() => { const bs = ctBases(), n = Object.keys(bs)[0], t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); return n; });
+    const n = await fr.evaluate(() => { const bs = ctBases(), n = Object.keys(bs).find(k => /church/i.test(k)) || Object.keys(bs)[0], t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); return n; });
     for (let k = 0; k < 60; k++) { await p.waitForTimeout(400);
       for (const x of p.frames().filter(x => /SETTLEMENT_SCREEN/.test(x.url()))) {
         const r = await x.evaluate(() => { try { return BohemiaSettlement.ready() && !!BohemiaSettlement.state.place; } catch (e) { return false; } }).catch(() => false);
@@ -73,6 +76,29 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
       if (await sf.evaluate(() => { const o = BohemiaSettlement.state.open; return !!o && o !== 'smith'; })) { const c = await sf.$('#close'); if (c) { await c.tap(); await p.waitForTimeout(500); } }
       for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'smith')) break;
       const w = await sf.evaluate(() => BohemiaSettlement.where('smith')); if (w) await p.mouse.click(box.x + w.x, box.y + w.y + 30); await p.waitForTimeout(500); } };
+    /* ---- E8 fair taps on the crowd ---- */
+    await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
+    await p.waitForTimeout(400);
+    const e8 = await sf.evaluate(() => { const W = innerWidth, H = innerHeight, F = BohemiaSettlement.folk(), v = BohemiaSettlement._view(), first = new Map(), two = new Map(), spot = new Map();
+      for (let y = 0; y < H; y += 3) for (let x = 0; x < W; x += 3) { const L = BohemiaSettlement.peopleUnder(x, y); if (!L.length) continue;   /* who a finger there gets: over a door only a body under it */ first.set(L[0], (first.get(L[0]) || 0) + 1);
+        L.slice(0, 2).forEach(q => two.set(q, (two.get(q) || 0) + 1)); if (L[1] && !spot.has(L[1]) && BohemiaSettlement.onBody(L[1], x, y)) spot.set(L[1], { x, y }); }
+      const on = F.filter(q => { const sx = q.x * v.s + v.ox, sy = q.y * v.s + v.oy; return sx > 0 && sx < W && sy > 0 && sy < H; });
+      const rows = on.map(q => ({ q, first: Math.sqrt((first.get(q) || 0) * 9), two: Math.sqrt((two.get(q) || 0) * 9) }));
+      const worst = rows.slice().sort((a, b) => a.first - b.first)[0], at = worst && spot.get(worst.q);
+      window.__E8 = worst && worst.q;
+      return { n: on.length, min1: Math.round(Math.min.apply(null, rows.map(r => r.first))), min2: Math.round(Math.min.apply(null, rows.map(r => r.two))), at, worstSlot: worst && (worst.q.slot != null ? 'crowd ' + worst.q.slot : worst.q.k) }; });
+    let e8b = null;
+    const cvr = await sf.evaluate(() => { const r = document.getElementById('cv').getBoundingClientRect(); return { x: r.left, y: r.top }; });   /* the lookup is in the picture's own coordinates, under the town's bar */
+    if (e8.at) { await p.touchscreen.tap(box.x + cvr.x + e8.at.x, box.y + cvr.y + e8.at.y); await p.waitForTimeout(500);
+      /* the sheet now covers the street: the man behind stands in it under ALSO HERE, one tap */
+      const wk = await sf.evaluate(() => { const w = window.__E8; return w ? (w.keeper ? w.k : 'crowd' + w.slot) : null; });
+      if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'also_here.png') });
+      const fb = await sf.$('#also .alsoface[data-who="' + wk + '"]'); if (fb) { await fb.tap(); await p.waitForTimeout(400); }
+      e8b = await sf.evaluate(() => { const S = BohemiaSettlement.state, w = window.__E8; return { open: S.open, him: !!(S.person && w && S.person === w) || (w && w.keeper && S.open === w.k) }; });
+      const c = await sf.$('#close'); if (c && await sf.evaluate(() => !!BohemiaSettlement.state.open)) { await c.tap(); await p.waitForTimeout(400); } }
+    ok('E8 [crowd taps] every person on the glass answers a fair finger: the smallest first-tap target ' + e8.min1 + ' px square (was 13), ' + e8.min2 + ' px counting his face under ALSO HERE; ' + e8.n + ' people',
+      e8.n > 3 && e8.min1 >= 26 && e8.min2 >= 36, 'the hardest: ' + e8.worstSlot);
+    ok('    a finger on a man standing behind another: the sheet that opens shows him under ALSO HERE, and a tap on his face opens him', !!e8.at && !!(e8b && e8b.him), JSON.stringify(e8b));
     /* ---- E30 a swipe moves the town with the finger (a real touch, start, moves, end) ---- */
     await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
     { const cdp = await p.context().newCDPSession(p), cvb = await (await sf.$('#cv')).boundingBox(), y = box.y + Math.min(cvb.height * 0.4, 220), x0 = box.x + 320, x1 = box.x + 40;
