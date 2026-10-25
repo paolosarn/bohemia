@@ -23,3 +23,12 @@ meant: a gun REACHES two tiles or more; a melee weapon reaches only the next til
 (e) THE GATE: in rolled fights a gun fires at an adjacent enemy whenever that is the chosen attack, and no gun is ever refused
     for being too close; melee still never reaches past the next tile.
 (f) COMBAT [a gun shoots the man beside him], first when it reopens.
+
+## SAID AGAIN (rule 185(g))
+HIS WORDS: "Like mainly weapons will have a you know their advantages when attacking a tile right next to people, but I can't
+believe you put a minimum of range like someone has to be two tiles out for me to shoot at them and instead I'm just like
+pistol whipping him out I never told you to do that"
+('mainly weapons' is 'melee weapons'.)
+(g) MELEE KEEPS ITS EDGE UP CLOSE: a melee weapon is the stronger choice against the man on the next tile (its advantage there
+    is a number TUNING sets, Battle Brothers' way first), but a gun is never refused there: a man with a pistol shoots the man
+    beside him, he does not pistol-whip unless he chooses to. The minimum range is gone (185(a)).
