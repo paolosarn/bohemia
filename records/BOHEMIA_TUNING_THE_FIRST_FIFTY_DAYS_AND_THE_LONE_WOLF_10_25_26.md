@@ -108,6 +108,48 @@ Guide in backgrounds.json hiring_and_wage_rules):
 - His wage: a hedge knight's base is 35 a day, the most of any background (the Game Guide: a level-11 hedge knight costs 91 a day).
 - The Recruiter follower (3,000 crowns, unlocked by recruiting 12): 2 to 4 more men at every settlement, 10% off the price.
 
+## 1b. THE LADDER: ONE MAN, AT THE DOOR'S LEVEL 4, AGAINST 1 TO 8 BRIGANDS DRESSED FOR THE DAY (60 seeded fights a cell)
+
+The fight file measured is the one on main at a132d9c6, WITH COMBAT's new AUTO brain (e0f39941 + 9fa7d655, built from this
+lane's last page: one brain, focus, the roof worth holding, the standoff end). A frozen copy of that commit played every fight,
+so nothing moved under the numbers. Brigands are the map's faction; ours.enemy_tiers dresses them by the day (thugs only to
+day 7; thugs and a few raiders from 8; raiders, marksmen, poachers, marauders from 20; the late mix with a leader from 60; their
+skills step up at day 40). Day 60 and day 100 read the same because the dress stops changing at 60.
+
+WON IN 100 (and, after the slash, FELL IN 100; the rest are standoffs):
+
+| who (level 4) | day | vs 1 | vs 2 | vs 3 | vs 4 | vs 5 | vs 6 | vs 8 |
+|---|---|---|---|---|---|---|---|---|
+| TODAY (the live game: rags, the pistol build) | 1 | 92 / 8 | **73 / 27** | 33 / 67 | 12 / 88 | 12 / 88 | 8 / 92 | 5 / 95 |
+| | 20 | 73 / 27 | 52 / 48 | 28 / 72 | 12 / 88 | 8 / 92 | 3 / 97 | 5 / 95 |
+| | 60 | 52 / 48 | 15 / 85 | 12 / 88 | 2 / 98 | 2 / 98 | 2 / 98 | 3 / 97 |
+| BATTLE BROTHERS' LEVELS IN TODAY'S RAGS | 1 | 97 / 3 | 75 / 25 | 38 / 62 | 27 / 73 | 17 / 83 | 15 / 85 | 10 / 90 |
+| TODAY'S MAN IN GOOD GEAR | 1 | 100 / 0 | **98 / 2** | **87 / 13** | 53 / 47 | 23 / 77 | 15 / 85 | 7 / 93 |
+| | 20 | 92 / 8 | 80 / 20 | 60 / 40 | 37 / 63 | 15 / 85 | 5 / 95 | 2 / 98 |
+| | 60 | 58 / 30 | 32 / 68 | 17 / 83 | 2 / 98 | 0 / 100 | 0 / 100 | 0 / 100 |
+| BATTLE BROTHERS' LONE WOLF (levels + good gear) | 1 | 100 / 0 | **100 / 0** | **92 / 8** | 68 / 32 | 43 / 57 | 22 / 78 | 13 / 87 |
+| | 20 | 95 / 5 | 90 / 10 | 70 / 30 | 48 / 52 | 23 / 77 | 13 / 87 | 5 / 95 |
+| | 60 | 62 / 27 | 43 / 57 | 20 / 80 | 10 / 90 | 0 / 100 | 0 / 100 | 0 / 100 |
+| THE SAME WITH THE GREATSWORD | 1 | 100 / 0 | 98 / 2 | 88 / 12 | **72 / 28** | 32 / 68 | 17 / 83 | 12 / 88 |
+| | 20 | 93 / 7 | 80 / 20 | 65 / 35 | 38 / 62 | 22 / 78 | 8 / 92 | 0 / 100 |
+
+HOW CLOSE HE COMES (his lowest health in the fight, average, % of his hitpoints), day 1: TODAY 86 / 65 / 30 against 1 / 2 / 3;
+GOOD 100 / 96 / 84; BATTLE BROTHERS' LONE WOLF 100 / 100 / 90. In good gear two day-one thugs barely scratch him (4 points of
+health lost on average): that IS the near-god he remembers, against two. Against four the good-gear man is spent (out of breath
+on a quarter of his turns: four men swinging twice a turn cost him 2 a miss and 5 a hit, Battle Brothers' own rule, faster than
+his 15 back a turn), and he wins half.
+
+What the ladder says:
+1. **The live Lone Wolf is not a near-god. He is a strong recruit in rags.** One day-one thug puts him down 8 times in 100; the
+   map's day-one pair puts him down 27 in 100 and leaves him at 65% on average when he wins.
+2. **The gear is most of the god.** Good gear takes him from 73 to 98 against two, 33 to 87 against three. Battle Brothers'
+   three door levels alone (in rags) add almost nothing (73 to 75); on top of the gear they add the last step (98 to 100
+   against two, 87 to 92 against three, 53 to 68 against four).
+3. **A god against the map's job, not against a crowd.** Even Battle Brothers' Lone Wolf in great gear wins only 43 in 100
+   against five day-one thugs. That is right by his words ('make sure he doesn't run into any group too big').
+4. **At his door level the late dress (day 60) beats him.** That is the turn arriving, but at level 4 (the campaign below
+   plays it at the level he has really reached by then).
+
 ## 1c. WHAT THE MAP HANDS ONE MAN, DAY BY DAY (party_math.json as the live map sums it; NEW HERE, the door's default)
 
 His level by day is the median the GOOD campaign reached (1d). A job is sized off the roster's strength (10 + 2 a level past 1),
