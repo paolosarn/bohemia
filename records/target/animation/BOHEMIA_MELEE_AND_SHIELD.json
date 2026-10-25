@@ -1417,7 +1417,7 @@
    "two"
   ],
   "T2Swing": [
-   "two_up",
+   "two_wind",
    "two_up",
    "two_up"
   ],
@@ -2239,6 +2239,10 @@
   "why": "a short blade or a hatchet laid back on the shoulder goes behind a collar, a hood or a fur hat (measured: the cleaver hidden in 3 to 5 facings on the blues, the caravans and the church, the hatchet in 5 on the blues): it is held up beside his head instead; the cleaver's tap is the flat lifted off his palm (tapped down into a fur coat's front it is gone in 5 facings, the caravans)",
   "hatchet": {
    "shoulder": "shoulder_up"
+  },
+  "pipe": {
+   "lean_half": "two",
+   "lean": "two"
   },
   "rebar_spear": {
    "rest": "upright",

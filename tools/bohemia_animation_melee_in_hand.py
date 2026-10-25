@@ -383,12 +383,13 @@ def place_fn(mathutils):
             bar = up * 0.9 + fwd * 0.25 - left * 0.08
         elif hold == 'thrust':                 # out along his straight arm, level (the spear's thrust)
             bar = fore.copy() if fore.dot(fwd) > 0.3 else fwd.copy(); bar.z *= 0.3
-        elif hold in ('two', 'two_up', 'lean', 'lean_half'):   # both hands on the haft
+        elif hold in ('two', 'two_up', 'two_wind', 'lean', 'lean_half'):   # both hands on the haft
             if hold == 'two':                  # the long gun's low ready: the rear hand his right, the haft out through his left
                 bar = lw - fist
                 if bar.length < 1e-4 or bar.normalized().dot(fwd) < 0.2: bar = fwd - up * 0.2
-            elif hold == 'two_up':             # the two-handed blow: his left hand at the haft's end, the haft up through his right
+            elif hold in ('two_up', 'two_wind'):   # the two-handed blow: his left hand at the haft's end, the haft up through his right
                 fist = lw + (lw - rw).normalized() * 0.05; bar = rw - lw
+                if hold == 'two_wind': bar = bar.normalized() + up * 0.9   # cocked high: its head over his crown from every side (a short pipe too)
             else:                              # the lean: both hands on the haft's end, its head set down on the ground before him
                 fist = (rw + lw) / 2; h_ = max(0.05, fist.z)
                 if hold == 'lean_half': bar = fwd * 0.6 - up * 0.8
@@ -462,14 +463,14 @@ def props_done(look, layer, prop, any_model=False):
     the new ones are in)"""
     d = os.path.join(ROOT, RENDERS, look, 'props')
     sigs = json.load(open(os.path.join(d, 'models.json'))) if os.path.exists(os.path.join(d, 'models.json')) else {}
-    if not any_model and sigs.get(prop, 'stand-in') != model_sig(prop): return False
+    if not any_model and sig_of(sigs, prop, layer) != model_sig(prop): return False
     return all(os.path.exists(os.path.join(d, fn)) for _, _, _, fn in prop_files(layer, prop))
 
 
-def mark_model(look, prop):
-    d = os.path.join(ROOT, RENDERS, look, 'props'); os.makedirs(d, exist_ok=True); fp = os.path.join(d, 'models.json')
-    sigs = json.load(open(fp)) if os.path.exists(fp) else {}
-    sigs[prop] = model_sig(prop); json.dump(sigs, open(fp, 'w'), indent=0)
+def sig_of(sigs, prop, layer):
+    """the model a thing's pictures on a layer were drawn from (props/models.json: '<thing>@<layer>', written when every picture
+    of it on that layer is in; a bare '<thing>' is the first record's, for every layer)"""
+    return sigs.get('%s@%s' % (prop, layer), sigs.get(prop, 'stand-in'))
 
 
 def render_props(look, props, clips=None, facings=None, layer='m1'):
@@ -484,10 +485,9 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
     for prop in props:
         if not clips and not facings and props_done(look, layer, prop): continue
         out = os.path.join(d, 'props'); os.makedirs(out, exist_ok=True)
-        fp = os.path.join(out, 'models.json'); sigs = json.load(open(fp)) if os.path.exists(fp) else {}
-        if not clips and not facings and sigs.get(prop, 'stand-in') != model_sig(prop):   # its model changed: every picture of it again, on every layer
-            for f_ in [f_ for f_ in os.listdir(out) if f_.startswith(prop + '_') and f_.endswith('.png') and f_[len(prop) + 1].isupper()]: os.remove(os.path.join(out, f_))
-            sigs[prop] = model_sig(prop); json.dump(sigs, open(fp, 'w'), indent=0)
+        fp = os.path.join(out, 'models.json')
+        # a model that landed or changed: every picture of it on this layer drawn again over the old ones, which stand (and are
+        # packed, marked with the model they came from) until the last new one is in; only then is the new model recorded
         bpy.ops.wm.read_factory_settings(use_empty=True)
         sc = bpy.context.scene
         bpy.ops.import_scene.gltf(filepath=os.path.join(ROOT, rj['model']))
@@ -578,6 +578,9 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
                     put(S.get('hold_by_prop', {}).get(prop, {}).get(holds[j], holds[j]))
                     sc.render.filepath = os.path.join(out, '%s_%s_%s_k%02d.png' % (prop, clip, f, j))
                     bpy.ops.render.render(write_still=True); n += 1
+        if not clips and not facings:
+            sigs = json.load(open(fp)) if os.path.exists(fp) else {}
+            sigs['%s@%s' % (prop, layer)] = model_sig(prop); json.dump(sigs, open(fp, 'w'), indent=0)
         print('PROPS', look, prop, n, flush=True)
 
 
@@ -853,16 +856,19 @@ def pack(only=None):
                 pimgs = []
                 for prop in S['layers'][ly]['props']:
                     for clip, j, f, fn in prop_files(ly, prop):
+                        # a clip two layers share (the kneel's hit: m1 and t2 hold the pipe the same way, the same file) is packed
+                        # once, on the first layer's sheet: never a second layer's cell number written into the first's entry
+                        if by.get(prop, {}).get(clip, {}).get('l', ly) != ly: continue
                         a_ = np.asarray(Image.open(os.path.join(d, "props", fn)).convert("RGBA"))   # a full frame
                         r = cut(a_) if (a_[..., 3] > thr).sum() >= SPECK else None   # a speck past his collar or his hat is no prop: hidden behind him
                         ix = None
-                        if r is not None: ix = len(pimgs); pimgs.append((to_pal(r[0], ppal_of(prop, sigs.get(prop, 'stand-in')), 4.0), r[1] - fx0, r[2] - fy0))
+                        if r is not None: ix = len(pimgs); pimgs.append((to_pal(r[0], ppal_of(prop, sig_of(sigs, prop, ly)), 4.0), r[1] - fx0, r[2] - fy0))
                         nk = len(S['hold'][clip])
                         by.setdefault(prop, {}).setdefault(clip, dict(l=ly, k=[[None] * 8 for _ in range(nk)]))['k'][j][FIGHT_DIRS.index(f)] = ix
                 pim, prects = shelf(pimgs, 2048)
                 fn_ = '%s_props_%s.webp' % (look, ly); pim.save(os.path.join(ROOT, OUT, fn_), 'WEBP', lossless=True, quality=100, method=6)
                 psheets[ly] = dict(file=fn_, size=list(pim.size), cells=prects)
-            entry['props'] = dict(sheets=psheets, by=by, models={p_: sigs.get(p_, 'stand-in') for p_ in by})   # what each thing was drawn from
+            entry['props'] = dict(sheets=psheets, by=by, models={'%s@%s' % (p_, l_): sig_of(sigs, p_, l_) for l_ in psheets for p_ in S['layers'][l_]['props']})   # what each thing on each layer was drawn from
 
         entry['layers'] = [ly for ly in ready if all(c_ in cells for c_ in layer_clips(S, ly))]   # the layers whose own keys (and, a named look's, things) are on these sheets
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))

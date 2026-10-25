@@ -276,12 +276,13 @@ def paint_faults(E_, cell_of=None):
         P = e.get('props')
         if not P: continue
         for prop, clips in P['by'].items():
-            own = own_ramps(prop) if P.get('models', {}).get(prop, 'stand-in').startswith('cook:') else None   # drawn from COOK's model
+            own = own_ramps(prop)
             if own is None: continue
             bad = 0
             for clip, pk in clips.items():
                 sh = P['sheets'].get(pk['l'])
-                if not sh: continue
+                md = P.get('models', {}); sg = md.get('%s@%s' % (prop, pk['l']), md.get(prop, 'stand-in'))
+                if not sh or not sg.startswith('cook:'): continue   # drawn from COOK's model on this layer
                 pa = sheet(sh['file'])
                 for row in pk['k']:
                     for ix in row:
@@ -443,7 +444,8 @@ def two_faults(E, only=None):
                 ln = prop(k, p, 'T2Idle', 5, f, e); w = prop(k, p, 'T2Swing', 0, f, e)
                 if ln is None or w is None: out.append('%s %s %s: hidden' % (k, p, nm)); continue
                 lb = ln[2] + np.nonzero(ln[0])[0].max()
-                if abs(lb - fy) > 6: out.append('%s %s lean %s: its head %+d px from his ground' % (k, p, nm, lb - fy))
+                leans = D.get('hold_by_prop', {}).get(p, {}).get('lean', 'lean') == 'lean'   # a thing too short to lean on (COOK's 70 cm pipe) holds across him there
+                if leans and abs(lb - fy) > 6: out.append('%s %s lean %s: its head %+d px from his ground' % (k, p, nm, lb - fy))
                 wt = w[2] + np.nonzero(w[0])[0].min()
                 if wt > crown: out.append('%s %s two-handed wind %s: its top %d px under his crown' % (k, p, nm, wt - crown))
     return out
