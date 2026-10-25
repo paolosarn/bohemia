@@ -183,8 +183,15 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
           const b1 = await bats();
           ok('E6 THE CARGO ARRIVES AND PAYS PER CRATE (' + (paid ? paid.paid + ' of ' + paid.of + ' batteries' : 'not paid') + '; batteries ' + b0 + ' -> ' + b1 + ')',
             !!paid && paid.paid > 0 && b1 - b0 >= paid.paid - 2 * 30);
-          const opened = await waitFor(settleOpen, 15000);
-          ok('E7 and the town he brought it to opens', opened);
+          /* WORLD [the PC playtest: the jobs' part] (rule 164 item 3): the carts go where the words say; a town there opens, a place
+             the words made up ('the wash camp') is where he stands */
+          if (j.dest && j.dest.made) {
+            const at = await fr.evaluate(([x, y]) => Math.max(Math.abs(city.x - x), Math.abs(city.y - y)), [j.target.x, j.target.y]);
+            ok('E7 and he stands where he brought it, ' + j.dest.name + ' (' + at + ' blocks off)', at <= 1);
+          } else {
+            const opened = await waitFor(settleOpen, 15000);
+            ok('E7 and the town he brought it to opens', opened);
+          }
         } else {
           const lostj = (await fr.evaluate(() => window.__JOB_LOST || [])).filter(p => p.id === 'qd-ae09');
           ok('E6 the cargo was all taken and the job is lost, said', lostj.length === 1);

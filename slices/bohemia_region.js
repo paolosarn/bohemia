@@ -54,6 +54,17 @@
     } catch(_e){}
     return out;
   };
+  /* __THE_REGION_NEVER_MISSES_THE_LAND__ (WORLD 10/25, found driving [the PC playtest: the jobs' part]): MEASURED on the demo, the
+     land's painting came back from its worker 3 s after boot, BEFORE this file had wrapped vbLand, and the region then never turned
+     on (BOH_REGION.ready false for the whole sitting: no PRIMM, no HOOVER DAM, no road out; three runs in five on this box). The
+     land is asked once more, quietly, the same picture painted again into the wrapper; nothing is cleared while it comes. */
+  try {
+    if (typeof VB !== 'undefined' && VB.day && !VB.busy && !R.ready && typeof vbInput === 'function') {
+      R.reasked = true;
+      if (VB.worker) { VB.asked = performance.now(); VB.worker.postMessage(vbInput()); }
+      else if (typeof vbCore === 'function') setTimeout(function(){ vbLand(vbCore(vbInput())); }, 0);
+    }
+  } catch(_e){}
 
   /* ---- THE REAL LAND (RUN 10/18, round two; WORLD [the region] c6df0bd + c1aaeb8, engine/BOHEMIA_REGION_LAND.json) ----
      WORLD wrote the real Las Vegas region on this grid (the lake east on every seed, the highways in three classes, the
@@ -316,7 +327,7 @@
   };
   function drawPlaces(){
     var ox = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY);
-    var drawn = 0, named = 0, boxes = [];
+    var drawn = 0, named = 0, boxes = [], jobNamed = 0;
     g.save();
     R.places.forEach(function(p){
       var q = iso(p.x, p.y, ox, oy); if (q.sx < -60 || q.sx > CVW + 60 || q.sy < -60 || q.sy > CVH + 60) return;
@@ -333,14 +344,20 @@
         free = boxes.every(function(b){ return bx + w <= b[0] || bx >= b[0] + b[2] || ty <= b[1] - 10 || ty - 10 >= b[1] + 3; });
         if (!free) ty -= 14; }
       drawn++;
-      if (!free) return;
+      /* __A_JOB_NAMES_ITS_PLACE__ (WORLD, rule 164 item 3): a place a held job names is always named, lit, and the one it sends
+         him to next wears the lit ring (slices/bohemia_job_kinds.js) */
+      var job = null; try { job = (window.BohemiaJobKinds && BohemiaJobKinds.names) ? BohemiaJobKinds.names(p.name) : null; } catch(_e){}
+      if (!free && !job) return;
+      if (job === 'next') { g.save(); g.globalAlpha = 0.55 + 0.35 * ((mapArtBeat() % 2) ? 1 : 0); g.strokeStyle = '#f0b44c'; g.lineWidth = 2;
+        g.beginPath(); g.ellipse(q.sx, foot - 2, 30, 11, 0, 0, 7); g.stroke(); g.restore(); }
       boxes.push([bx, ty - 10, w]);
       g.fillStyle = 'rgba(14,11,8,0.82)'; g.fillRect(bx, ty - 10, Math.round(w), 13);
-      g.fillStyle = '#e8dcc0'; g.fillText(p.name, Math.round(q.sx), ty);
+      g.fillStyle = job ? '#ffd27a' : '#e8dcc0'; g.fillText(p.name, Math.round(q.sx), ty);
+      if (job) jobNamed++;
       named++;
     });
     g.restore();
-    R.drawn = drawn; R.named = named;
+    R.drawn = drawn; R.named = named; R.jobNamed = jobNamed;
   }
 
   /* ---- what the map says out loud while he is out there ---- */

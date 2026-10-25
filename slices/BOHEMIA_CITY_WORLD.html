@@ -44493,6 +44493,9 @@ function loopPostOpen(){
   try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN',
     place: { name: t.name, tier: t.tier, district: dist || 'commercial', block: [t.x, t.y] },
     batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},
+    /* __A_DROPPED_JOB_COSTS_STANDING__ (WORLD, rule 164 item 8): every job settled since the last town (done, part, dropped, failed)
+       moves the bar of the town that gave it, the settlement's own [the opinion moves] (slices/bohemia_job_kinds.js) */
+    settled: (function(){ try{ return (window.BohemiaJobKinds && BohemiaJobKinds.settledTake) ? BohemiaJobKinds.settledTake() : undefined; }catch(_e2){ return undefined; } })(),
     /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */
     traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })(),
     /* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9): whether this place is yours (your outfit's own base, rule 43), and the map's day */
@@ -44525,6 +44528,10 @@ function mapOnGlass(x, y){
     if(pr && gx > pr.left - 20 && gx < pr.right + 20 && gy > pr.top - 30 && gy < pr.bottom + 10) return false;
     return true; }catch(_e){ return true; }
 }
+/* __A_JOB_FROM_A_TOWN_OUT_THERE__ (WORLD 10/25, rule 164 item 3): MEASURED, every board job taken at a place out in the region
+   (PRIMM, RAILROAD PASS: their screens open like any town's) did nothing, because a job's block was looked for inside the valley's
+   grid alone; with the region on, the region's blocks count (cityWalkable and cityRoute already walk them) */
+function __loopRegionOn(){ try{ return !!(window.BOH_REGION && BOH_REGION.ready && BOH_REGION.on); }catch(_e){ return false; } }
 function loopTarget(town, id){
   var h = 0; for(var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
   h = (h + LOOP.done * 7 + LOOP.held.length * 13) >>> 0;
@@ -44533,7 +44540,7 @@ function loopTarget(town, id){
     var d0 = (h + k0) % 8, E = DIRS[d0];
     for(var r0 = 6 + (h % 3); r0 <= 10; r0++){
       var x0 = town.x + E[0] * r0, y0 = town.y + E[1] * r0;
-      if(x0 < 1 || y0 < 1 || x0 >= om.n - 1 || y0 >= om.n - 1) continue;
+      if((x0 < 1 || y0 < 1 || x0 >= om.n - 1 || y0 >= om.n - 1) && !__loopRegionOn()) continue;
       if(!cityWalkable(x0, y0) || loopTownAt(x0, y0, 1) || !mapOnGlass(x0, y0)) continue;
       if(cityRoute(city.x, city.y, x0, y0)) return { x: x0, y: y0 };
     }
@@ -44542,7 +44549,7 @@ function loopTarget(town, id){
     var di = (h + k) % 8, D = DIRS[di];
     for(var r = 6 + (h % 3); r <= 10; r++){
       var x = town.x + D[0] * r, y = town.y + D[1] * r;
-      if(x < 1 || y < 1 || x >= om.n - 1 || y >= om.n - 1) continue;
+      if((x < 1 || y < 1 || x >= om.n - 1 || y >= om.n - 1) && !__loopRegionOn()) continue;
       if(!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue;
       if(cityRoute(city.x, city.y, x, y)) return { x: x, y: y };
     }
@@ -44655,6 +44662,7 @@ window.addEventListener('message', function(ev){
     return;
   }
   var job = LOOP.held.splice(i, 1)[0];
+  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.settleJob) BohemiaJobKinds.settleJob(job, won ? 'civilian_contract_done' : 'fail_civilian_contract'); }catch(_e){}   /* __A_DROPPED_JOB_COSTS_STANDING__ (WORLD, rule 164 item 8): the client's bar, Battle Brothers' +10 / -20 */
   /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, TUNING's change 2e): A FINISHED JOB LEAVES THE PHONE. The phone lists
      what a place offers less what he holds; a job done or lost was neither, so it came back on the phone ('5H AGO').
      Done jobs are kept by id and the phone's board leaves them out the way it leaves out held ones. */
@@ -48432,6 +48440,10 @@ function renderCity(){
         /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23): the building is the town's to a finger, and the town the phone
            lit wears a ring on its ground and its name lit, named at every zoom */
         var __lit = !!(PHONE_LIT && __norm(__n) === __norm(PHONE_LIT.place));
+        /* __A_JOB_NAMES_ITS_PLACE__ (WORLD, rule 164 item 3: 'take three carts to Prim, and it's really just the blue settlement'):
+           a town a held job names is named at every zoom, and the one it sends him to next wears the lit ring (slices/bohemia_job_kinds.js) */
+        var __jobN = null; try{ __jobN = (window.BohemiaJobKinds && BohemiaJobKinds.names) ? BohemiaJobKinds.names(__n) : null; }catch(_e){}
+        if (__jobN === 'next') __lit = true;
         try { var __bw = (__ps.width || 40); MAP_TOWN_HIT.push({ name: __n, x: __b.x | 0, y: __b.y | 0, plate: null,
           bld: __ps.box || { x: __p.sx - __bw / 2, y: __cy + 6 - __ps.height, w: __bw, h: __ps.height + 8 } }); } catch (_e) {}   /* __THE_TOWN_IS_PAINTED_IN__: a painted town is its blocks to a finger */
         if (__lit) {
@@ -48441,7 +48453,7 @@ function renderCity(){
           __col = '#ffd27a';
           try { MAP_DREW.townLit = 1; } catch (_e) {}
         }
-        if(__named || __is || __lit || __norm(__n) === __norm(__near)){
+        if(__named || __is || __lit || __jobN || __norm(__n) === __norm(__near)){
           g.globalAlpha = 1;
           var __t = String(__n).toUpperCase();
           g.font = '700 9px ' + FACE('casing');

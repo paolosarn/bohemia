@@ -16,6 +16,7 @@
          PRIMM where it is; off the glass, its name at the glass's edge on the way to it; the client's town named and marked
      D   DROP A JOB, BATTLE BROTHERS' WAY: the job goes, the client's standing pays for it, the phone says so plainly
 
+   On his computer's screen (he played on his PC), JOBS_PART_PROFILE=phone_portrait for the phone.
    node gates/the_jobs_part_gate.js [roster|names|drop]
    ========================================================================== */
 'use strict';
@@ -31,9 +32,12 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
 
 (async () => {
   let d;
-  try { d = await drive.open({ keepCards: true, profile: process.env.JOBS_PART_PROFILE || 'phone_portrait' }); }
+  try { d = await drive.open({ keepCards: true, profile: process.env.JOBS_PART_PROFILE || 'computer' }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   const fr = d.fr;
+  const TOUCH = (process.env.JOBS_PART_PROFILE || 'computer') !== 'computer';
+  /* a finger on a phone, the mouse on his computer */
+  const tapAt = async (x, y) => { if (TOUCH) return d.tapAt(x, y); const fb = await (await d.page.$('#cityFrame')).boundingBox(); return d.page.mouse.click(fb.x + x, fb.y + y); };   /* in the city frame's own pixels */
   const shot = async (n) => { if (SHOTS) await d.page.screenshot({ path: path.join(SHOTS, n + '.png') }); };
   const shell = () => d.page.evaluate(() => ({ fight: !!CITYFIGHT }));
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn()) return true; await d.page.waitForTimeout(300); } return false; };
@@ -41,7 +45,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
   const goCell = async (x, y) => {
     const p = await fr.evaluate(([x, y]) => { const r = document.getElementById('cv').getBoundingClientRect(); const q = __CITY.isoAt(x, y);
       return { x: r.left + q.sx, y: r.top + q.sy + TH / 2, on: mapOnGlass(x, y) }; }, [x, y]);
-    if (p.on) { await d.tapAt(p.x, p.y); await d.page.waitForTimeout(150);
+    if (p.on) { await tapAt(p.x, p.y); await d.page.waitForTimeout(150);
       const set = await fr.evaluate(([x, y]) => (TRAVEL && TRAVEL.to && Math.max(Math.abs(TRAVEL.to[0] - x), Math.abs(TRAVEL.to[1] - y)) <= 2) || Math.max(Math.abs(city.x - x), Math.abs(city.y - y)) <= 1 || !!LOOP.fighting, [x, y]);
       if (set || (await shell()).fight) return 'touch'; }
     await fr.evaluate(([x, y]) => { travelStop(); travelTo(0, 0, [x, y]); }, [x, y]); return p.on ? 'touch, then travelTo' : 'travelTo';
@@ -49,7 +53,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
   const unpause = async () => {
     const one = await fr.evaluate(() => { const e = [...document.querySelectorAll('button,div')].filter(x => /^1X$/i.test((x.textContent || '').trim()) && x.getBoundingClientRect().width > 10)
       .sort((a, b) => a.getBoundingClientRect().width - b.getBoundingClientRect().width)[0]; if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-    if (one) { const fb = await cityBox(); await d.page.touchscreen.tap(fb.x + one.x, fb.y + one.y).catch(() => {}); await d.page.waitForTimeout(300); }
+    if (one) { await tapAt(one.x, one.y); await d.page.waitForTimeout(300); }
     await fr.evaluate(() => { if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); });
   };
   const fightFrame = async () => { for (let i = 0; i < 120; i++) { const h = await d.page.$('#fightFrame');
@@ -175,6 +179,129 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
           fightN != null && !!dressed && fightN === Math.max(1, Math.round((handed && handed.party ? handed.party.count : j.crew) * dressed.scale)) && handed.party.count === j.crew);
         await shot('R_the_fight');
       }
+    }
+
+    /* ---------------- N: EVERY PLACE A JOB NAMES IS ON THE MAP, NAMED AND MARKED ---------------- */
+    if (!ONLY || ONLY === 'names') {
+      await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; render(); });
+      if (!(await settleOpen())) await toTown(null);
+      const here = await fr.evaluate(() => LOOP.open && LOOP.open.name);
+      const title = await take('qd-ar05'); await leave();
+      let j = await job('qd-ar05');
+      /* the region's real places come with the land's painting, later than the map on a slow box: a job that names one waits for it */
+      if (j && j.stage === 'wait') {
+        const t0 = Date.now(); await waitFor(async () => { const jj = await job('qd-ar05'); return !jj || jj.stage !== 'wait'; }, 300000);
+        j = await job('qd-ar05');
+        ok('N0 PRIMM was not on the map yet when the job was taken: the job waited ' + Math.round((Date.now() - t0) / 1000) + ' s for it, and never went to a made place wearing its name (' + (j ? j.stage : 'gone') + ')', !!j && j.stage === 'haul');
+      }
+      const real = await fr.evaluate(() => { const p = (BOH_REGION.places || []).filter(q => q.name === 'PRIMM')[0]; return p ? { x: p.x, y: p.y } : null; });
+      ok('N1 "' + title + '" taken at ' + here + ': the carts go to ' + (j && j.dest ? j.dest.name + ' at ' + j.dest.x + ',' + j.dest.y : 'nowhere') + ' (the real PRIMM is at ' + (real ? real.x + ',' + real.y : '?') + '), not to a town the dice picked',
+        !!j && !!j.dest && j.dest.name === 'PRIMM' && !!real && j.dest.x === real.x && j.dest.y === real.y && j.plays === 'haul-caravan');
+      const said = await fr.evaluate(() => (LOOP.said || []).slice(-3).join(' | '));
+      ok('N2 the job says the place, which way and how far ("' + said.slice(0, 200) + '")', /PRIMM, (south|north|east|west|south-east|south-west|north-east|north-west), about \d+ blocks/.test(said));
+      await fr.evaluate(() => render());
+      let m = await fr.evaluate(() => (window.__JOB_MARKS || []).filter(x => x.id === 'qd-ar05')[0] || null);
+      ok('N3 PRIMM is off the glass, and its name waits at the glass\'s edge, pointing (' + (m ? '"' + m.label + '" at ' + m.ex + ',' + m.ey + ', on the glass: ' + m.on : 'no mark') + ')',
+        !!m && !m.on && m.label === 'ESCORT TO PRIMM' && m.ex >= 0 && m.ey >= 0);
+      const named = await fr.evaluate((from) => ({ says: BohemiaJobKinds.names(from), plate: (window.__GROUNDLABELS || []).some(b => b.t === String(from).toUpperCase()) }), j.from);
+      ok('N4 the client\'s town, ' + j.from + ', is named on the map while the job is held (' + JSON.stringify(named) + ')', named.says === 'named' && named.plate);
+      await shot('N_edge_primm');
+      /* a finger on the name at the edge walks toward PRIMM */
+      if (m && m.box) {
+        const cv = await fr.evaluate(() => { const r = document.getElementById('cv').getBoundingClientRect(); return { x: r.left, y: r.top }; });
+        const fb = await cityBox();
+        await d.page.mouse.click(fb.x + cv.x + m.box[0] + m.box[2] / 2, fb.y + cv.y + m.box[1] + 5);
+        await d.page.waitForTimeout(400);
+      }
+      const go = await fr.evaluate(() => TRAVEL && TRAVEL.to ? TRAVEL.to.slice() : null);
+      j = await job('qd-ar05');
+      ok('N5 a touch on that name sets out for PRIMM (' + JSON.stringify(go) + ', the gate at ' + (j ? j.target.x + ',' + j.target.y : '?') + ')', !!go && !!j && Math.max(Math.abs(go[0] - j.target.x), Math.abs(go[1] - j.target.y)) <= 1);
+      /* the road to PRIMM, with whoever comes for the carts on it (a fight the gate ends as cleared, said) */
+      let fights = 0, arrived = false;
+      for (let k = 0; k < 12 && !arrived; k++) {
+        const t0 = Date.now();
+        await waitFor(async () => (await shell()).fight || !(await job('qd-ar05')) || await fr.evaluate(() => !TRAVEL), 240000);
+        if ((await shell()).fight) { fights++; await forceWin(); }
+        j = await job('qd-ar05');
+        if (!j) { arrived = true; break; }
+        const near = await fr.evaluate(() => { render(); const mk = (window.__JOB_MARKS || []).filter(x => x.id === 'qd-ar05')[0]; return mk && mk.on; });
+        if (near && !(await fr.evaluate(() => window.__JP_SAW_PRIMM))) {
+          await fr.evaluate(() => { window.__JP_SAW_PRIMM = { jobNamed: BOH_REGION.jobNamed | 0, rings: MAP_DREW.jobRings | 0 }; });
+          await shot('N_primm_on_the_glass');
+        }
+        if (!(await fr.evaluate(() => !!TRAVEL))) await goCell(j.target.x, j.target.y);
+      }
+      const saw = await fr.evaluate(() => window.__JP_SAW_PRIMM || null);
+      ok('N6 on the way, PRIMM comes onto the glass named by its own plate and ringed (' + JSON.stringify(saw) + ')', !!saw && saw.jobNamed >= 1);
+      const paid = (await fr.evaluate(() => window.__JOB_PAID || [])).filter(p => p.id === 'qd-ar05')[0];
+      const lostj = (await fr.evaluate(() => window.__JOB_LOST || [])).filter(p => p.id === 'qd-ar05')[0];
+      const where = await fr.evaluate(() => { const t = loopTownAt(city.x, city.y, 2); return t ? t.name : null; });
+      ok('N7 THE CARTS ARRIVE IN PRIMM (' + (paid ? 'paid ' + paid.paid + ' of ' + paid.of : lostj ? 'lost on the road' : 'not yet') + '; he stands at ' + where + '; ' + fights + ' fights on the road, ended by the gate)',
+        !!paid && where === 'PRIMM');
+      await shot('N_in_primm');
+      if (await settleOpen()) await leave();
+      /* a made place: the pump station, named on the map where the job is */
+      await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; render(); });
+      if (!(await settleOpen())) await toTown(null);
+      await take('qd-ap01'); await leave();
+      const r = await job('qd-ap01');
+      await fr.evaluate(() => render());
+      const rm = await fr.evaluate(() => (window.__JOB_MARKS || []).filter(x => x.id === 'qd-ap01')[0] || null);
+      const plates = await fr.evaluate(() => (BohemiaJobKinds.hits() || []).length);
+      ok('N8 a place the words make up is named where it is: ' + (rm ? '"' + rm.label + '"' + (rm.on ? ' on the glass at ' + rm.sx + ',' + rm.sy : ' at the edge') : 'no mark') + ', the take line "' + (await fr.evaluate(() => (LOOP.said || []).slice(-1)[0] || '')).slice(0, 140) + '"',
+        !!r && !!rm && rm.name === 'THE PUMP STATION' && plates >= 1 && /THE PUMP STATION/.test(await fr.evaluate(() => (LOOP.said || []).join(' '))));
+      await shot('N_pump_station');
+      /* every row that names a real place resolves to it on this map */
+      const reals = await fr.evaluate(() => { const D = BohemiaJobKinds.data(), out = []; for (const id in D.offers) { const p = D.offers[id].place; if (p && p.real) out.push({ id, real: p.real, found: !!BohemiaJobKinds.realPlace(p.real) }); } return out; });
+      ok('N9 every real place a row names is on this map (' + reals.map(x => x.real + (x.found ? '' : ' MISSING')).join(', ') + ')', reals.length >= 5 && reals.every(x => x.found));
+    }
+
+    /* ---------------- D: DROP A JOB, BATTLE BROTHERS' WAY ---------------- */
+    if (!ONLY || ONLY === 'drop') {
+      await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; render(); });
+      if (!(await settleOpen())) await toTown(null);
+      const town = await fr.evaluate(() => LOOP.open && LOOP.open.name);
+      await take('qd-ap01'); await leave();
+      const j = await job('qd-ap01');
+      const cost = await fr.evaluate(() => BohemiaJobKinds.dropCost('qd-ap01'));
+      ok('D1 a job held (' + (j ? j.title : 'none') + ' from ' + town + '), and what dropping it costs, before he does: ' + (cost ? cost.place + ' ' + cost.before + ' to ' + cost.after + ' (' + cost.band + ' to ' + cost.bandAfter + ', Battle Brothers\' cancel_contract ' + cost.delta + ')' : 'nothing'),
+        !!j && !!cost && cost.place === town && cost.delta === -10 && cost.after === Math.max(0, cost.before - 10));
+      const r = await fr.evaluate(() => BohemiaJobKinds.drop('qd-ap01'));
+      await d.page.waitForTimeout(900);
+      const after = await fr.evaluate(() => ({ held: LOOP.held.map(h => h.id), said: (LOOP.said || []).slice(-1)[0] || '', marks: (window.__JOB_MARKS || []).filter(m => m.id === 'qd-ap01').length, q: BohemiaJobKinds.settledPeek(), phone: (window.__PHONE_BOARD && __PHONE_BOARD.shown || []).map(a => a.id) }));
+      ok('D2 DROPPED: the job is gone, nobody pays, and the line says what it cost ("' + after.said + '")', !!r && r.ok && after.held.indexOf('qd-ap01') < 0 && /Dropped/.test(after.said) && after.said.indexOf(String(town).toUpperCase()) >= 0 && /\d+ to \d+/.test(after.said));
+      ok('D3 its marks are off the map, and it does not come back on the phone (' + after.marks + ' marks; phone ' + JSON.stringify(after.phone) + ')', after.marks === 0 && after.phone.indexOf('qd-ap01') < 0);
+      ok('D4 the cost waits for the town\'s bar (' + JSON.stringify(after.q) + ')', after.q.some(c => c.place === town && c.act === 'cancel_contract'));
+      /* the next town he opens takes it: the client's own bar, the settlement's [the opinion moves] */
+      await toTown(town);
+      await d.page.waitForTimeout(1500);
+      const bar = await fr.evaluate((t) => { try { const r = JSON.parse(localStorage.getItem('bohemia.relations.v1') || 'null'); return r && r.bars ? r.bars[t] : null; } catch (e) { return null; } }, town);
+      const q2 = await fr.evaluate(() => BohemiaJobKinds.settledPeek().length);
+      ok('D5 THE TOWN\'S BAR PAYS FOR IT: ' + town + ' at ' + bar + ' (was ' + (cost && cost.before) + '), nothing left waiting (' + q2 + ')', bar != null && cost && Math.abs(bar - cost.after) < 0.01 && q2 === 0);
+      await leave();
+      /* not in the middle of its own fight */
+      await take('qd-s10'); await leave();
+      const cj = await job('qd-s10');
+      let inFight = null;
+      if (cj) {
+        await fr.evaluate(() => { if (window.__JP_WRAP) return; window.__JP_WRAP = 1; const f = cityHandOver;
+          cityHandOver = function (m) { try { window.__JP_HANDED = JSON.parse(JSON.stringify({ why: m && m.why, party: m && m.party })); } catch (e) {} return f.apply(this, arguments); }; });
+        for (let leg = 0; leg < 5 && inFight == null; leg++) {
+          await goCell(cj.target.x, cj.target.y);
+          await waitFor(async () => (await shell()).fight, 90000);
+          await fightFrame();
+          const why = await fr.evaluate(() => (window.__JP_HANDED && window.__JP_HANDED.why) || '');
+          if (!/^contract:qd-s10/.test(why)) { await forceWin(); continue; }
+          inFight = await fr.evaluate(() => BohemiaJobKinds.drop('qd-s10'));
+          await forceWin();
+        }
+      }
+      ok('D6 not in the middle of its own fight (' + JSON.stringify(inFight) + ')', !!inFight && inFight.ok === false && inFight.why === 'fighting');
+      const done = await fr.evaluate(() => (window.__JOB_SETTLED_ACTS || []).filter(a => a.id === 'qd-s10').map(a => a.act + ' ' + a.delta));
+      ok('D7 and a job done moves the bar the other way (Battle Brothers\' civilian contract done +10): ' + JSON.stringify(done), done.some(a => /civilian_contract_done 10/.test(a)));
+      /* the button is UI's (UI [the PC playtest: the UI's part] (5)): said, not judged here */
+      const btn = await fr.evaluate(() => [...document.querySelectorAll('button,[role=button]')].filter(e => /\bdrop\b/i.test(e.textContent || '') || e.dataset.drop != null).length);
+      console.log('  info D8 UI\'s DROP on the phone and the job card: ' + (btn ? btn + ' drawn' : 'not drawn yet (UI\'s row (5))'));
     }
   } catch (e) {
     ok('the drive ran without a throw [' + String(e && e.message || e).slice(0, 200) + ']', false);

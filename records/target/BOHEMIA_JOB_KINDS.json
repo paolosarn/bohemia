@@ -204,42 +204,49 @@
   "offers": {
     "qd-ae09": {
       "kind": "haul-caravan",
+      "place": { "name": "THE WASH CAMP" },
       "cargo": "the water carts",
       "crates": 2,
       "unit": "cart"
     },
     "qd-s03": {
       "kind": "haul-caravan",
+      "place": { "name": "THE LOADING DOCK" },
       "cargo": "two tankers of water",
       "crates": 2,
       "unit": "tanker"
     },
     "qd-s04": {
       "kind": "haul-caravan",
+      "place": { "name": "THE CO-OP" },
       "cargo": "eighty tyres",
       "crates": 4,
       "unit": "stack"
     },
     "qd-ar05": {
       "kind": "haul-caravan",
+      "place": { "name": "PRIMM", "real": "PRIMM" },
       "cargo": "three carts under tarps",
       "crates": 3,
       "unit": "cart"
     },
     "qd-a02": {
       "kind": "haul-caravan",
+      "place": { "name": "THE SALT CAMP" },
       "cargo": "the salt",
       "crates": 3,
       "unit": "sack"
     },
     "qd-ar02": {
       "kind": "haul-caravan",
+      "place": { "name": "HOOVER DAM", "real": "HOOVER DAM" },
       "cargo": "the relief shift",
       "crates": 4,
       "unit": "man"
     },
     "qd-s06": {
       "kind": "haul-caravan",
+      "place": { "name": "THE OLD SCHOOL" },
       "cargo": "the fever camp",
       "crates": 4,
       "unit": "family"
@@ -252,31 +259,37 @@
     },
     "qd-s17": {
       "kind": "find-place",
+      "place": { "name": "THE SOUTH ROAD", "way": "south" },
       "what": "the late caravan",
       "found": "Found it: the trucks on their sides in a wash, the drivers sitting in the shade of them, alive."
     },
     "qd-aq03": {
       "kind": "recover-return",
+      "place": { "name": "THE PARKING STRUCTURE" },
       "item": "the battery bank",
       "where": "level three of the parking structure"
     },
     "qd-ar06": {
       "kind": "find-place",
+      "place": { "name": "MT CHARLESTON LODGE", "real": "MT CHARLESTON LODGE" },
       "what": "the lodge's pharmacy",
       "found": "Found it: the lodge, the pharmacy shelf, eleven sealed bottles behind the counter."
     },
     "qd-aa09": {
       "kind": "find-place",
+      "place": { "name": "TULE SPRINGS", "real": "TULE SPRINGS" },
       "what": "the lab's freezer",
       "found": "Found it: the freezer on its own panels, still humming, still cold."
     },
     "qd-ap11": {
       "kind": "find-place",
+      "place": { "name": "THE CHURCH ON LAMB" },
       "what": "the box of little bulbs",
       "found": "Found it: the church on Lamb, the box of bulbs on the altar, and people who only watch."
     },
     "qd-ar10": {
       "kind": "find-person",
+      "place": { "name": "THE COUSIN'S FARM" },
       "what": "the Salcedos",
       "heads": 5,
       "unit": "Salcedo"
@@ -325,15 +338,18 @@
     },
     "qd-t06": {
       "kind": "clear-camp",
+      "place": { "name": "THE DRY WASH" },
       "what": "their fire in the dry wash",
       "men": 6
     },
     "qd-s01": {
       "kind": "clear-camp",
+      "place": { "name": "HOOVER DAM", "real": "HOOVER DAM" },
       "what": "the crew on the intake deck"
     },
     "qd-ap19": {
       "kind": "clear-camp",
+      "place": { "name": "THE WRECKS" },
       "what": "the dogs in the wrecks",
       "foe": "beasts"
     },
@@ -347,79 +363,93 @@
     },
     "qd-ar08": {
       "kind": "carry",
+      "place": { "name": "RAILROAD PASS", "real": "RAILROAD PASS" },
       "item": "the sealed letter"
     },
     "qd-r01": {
       "kind": "hold-defend",
+      "place": { "name": "THE FARM TOWER" },
       "what": "the farm tower",
       "waves": 2,
       "days": 3
     },
     "qd-ap02": {
       "kind": "hold-defend",
+      "place": { "name": "THE HOLE IN THE WALL" },
       "what": "the hole in the wall",
       "waves": 2,
       "days": 2
     },
     "qd-t02": {
       "kind": "hold-defend",
+      "place": { "name": "THE WALL" },
       "what": "the wall",
       "waves": 2,
       "days": 1
     },
     "qd-s15": {
       "kind": "hold-defend",
+      "place": { "name": "THE COUNTING ROOM" },
       "what": "the counting room",
       "waves": 3,
       "days": 3
     },
     "qd-ar09": {
       "kind": "hold-defend",
+      "place": { "name": "THE GATE" },
       "what": "the gate",
       "waves": 2,
       "days": 2
     },
     "qd-ap01": {
       "kind": "recover-return",
+      "place": { "name": "THE PUMP STATION" },
       "item": "the light regulator",
       "where": "the pump station",
       "guards": 6
     },
     "qd-ap07": {
       "kind": "recover-return",
+      "place": { "name": "THE CANAL BOYS" },
       "item": "the valve",
       "where": "the Canal boys"
     },
     "qd-ap10": {
       "kind": "recover-return",
+      "place": { "name": "THEIR LOOKOUT" },
       "item": "three solar panels",
       "where": "their lookout"
     },
     "qd-ap16": {
       "kind": "recover-return",
+      "place": { "name": "THE DEALER" },
       "item": "the chapel bell",
       "where": "the dealer"
     },
     "qd-ap13": {
       "kind": "recover-return",
+      "place": { "name": "THE NURSERY ON RAINBOW" },
       "item": "the pump",
       "where": "the nursery on Rainbow",
       "foe": "beasts"
     },
     "qd-ap08": {
       "kind": "recover-return",
+      "place": { "name": "THE BASEMENT AT SUNRISE" },
       "item": "two crates",
       "where": "the basement at Sunrise",
       "foe": "beasts"
     },
     "qd-ap09": {
       "kind": "recover-return",
+      "place": { "name": "THE WHITE LIMO ON KOVAL" },
       "item": "six cells",
       "where": "the white limo on Koval",
       "guards": 0
     },
     "qd-ap15": {
       "kind": "recover-return",
+      "place": { "name": "THE ART STORE ON CHARLESTON" },
       "item": "the pigment",
       "where": "the art store on Charleston",
       "foe": "beasts"
@@ -430,6 +460,7 @@
     },
     "qd-s08": {
       "kind": "recover-return",
+      "place": { "name": "BLOCK SEVEN" },
       "item": "the ballot box",
       "where": "block seven",
       "guards": 0
@@ -482,6 +513,7 @@
     }
   ],
   "default": "clear-crew",
+  "place_why": "WORLD [the PC playtest: the jobs' part] (1), rule 164 item 3, Paolo 10/24 on his PC: 'take three carts to Prim, and it's really just the blue settlement.' A row's 'place' is the place its words name. {name, real}: one of the region's real places (engine/BOHEMIA_REGION_LAND.json places, by name) or a valley town (ctBases, by name), and the job goes THERE (the carts to PRIMM, the relief shift and the intake deck to HOOVER DAM, the letter over RAILROAD PASS, the pharmacy at MT CHARLESTON LODGE, the freezer at the fossil beds, TULE SPRINGS); {name}: a place the words make up ('the pump station'), a block the dice pick, carrying that name on the map; 'way': the words' own direction ('the south road'). No place: the words name none ('the pack that drinks here'), and the job's place is the client's own town. The map names every place a held job names and rings the next one; off the glass, its name waits at the glass's edge, pointing. Names are draft:true.",
   "default_why": "a job no row names and no pattern matches is today's job, a crew marked on the map, so a new board row is never broken by this file",
   "board_people": {
     "_about": "WORLD [every job kind]: board people this file adds to the shelf (slices/bohemia_board_shelf.js appends them when both load), for a kind none of QUESTS' 96 act-one designs carries. Shaped exactly like the shelf's rows: two sentences, the pay in the second as {pay}. Names and words are attempts, draft:true; QUESTS or RUN TWO may replace them with a design.",

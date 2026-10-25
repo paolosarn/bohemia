@@ -135,6 +135,7 @@
   }
   function paid(job, n, line) {
     n = Math.max(0, n | 0);
+    settle(job, n >= job.pay ? 'civilian_contract_done' : 'civilian_contract_poor');   /* the client's standing, Battle Brothers' +10 (+5 for part) */
     if (n > 0) { try { BohemiaPurse.credit(purseGet(), 'electricity', n, 'contract: ' + job.title, 'contract:' + job.id + ':' + LOOP.done, day()); } catch (e) {} }
     LOOP.done++;
     finish(job);
@@ -144,6 +145,7 @@
     save('contract:paid');
   }
   function lost(job, line) {
+    settle(job, 'fail_civilian_contract');   /* the client's standing, Battle Brothers' -20 */
     finish(job);
     window.__JOB_LOST = (window.__JOB_LOST || []).concat([{ id: job.id, kind: job.plays }]).slice(-20);
     sayLine(line || ('The job is lost: ' + job.title + '. Nobody pays for that.'));
@@ -155,11 +157,72 @@
   }
   function atClient(job, x, y) { var t = townNear(x, y, 1); return !!(t && t.name === job.from); }
 
+  /* ---------- THE PLACE A JOB NAMES (WORLD [the PC playtest: the jobs' part] (1), rule 164 item 3) ----------
+     PAOLO 10/24 on his PC: 'take three carts to Prim, and it's really just the blue settlement.' MEASURED: the board's words
+     name a place (Primm, the dam, the lodge on the mountain, the pump station) and the job went wherever the dice put it: the
+     carts to the nearest town in range (the Blues), the place on the map called nothing but 'ESCORT TO HERE', and the client's
+     town named only when he stood beside it. NOW every row says the place its words name (BOHEMIA_JOB_KINDS.json 'place'): a
+     REAL one, one of the region's real places or a valley town, is where the job goes; a made one ('the pump station') is a
+     block the dice pick and carries the words' own name. The map names every place a held job names (the client's town, where
+     it goes), rings the NEXT one on its ground, and when that one is off the glass its name waits at the glass's edge, on the
+     line from the middle of the glass to it, pointing; a tap on it walks there. */
+  function realPlace(nm) {
+    if (!nm) return null; var N = String(nm).toUpperCase();
+    try { var bs = ctBases() || {}; for (var k in bs) if (bs[k] && String(k).toUpperCase() === N) return { name: k, x: bs[k].x | 0, y: bs[k].y | 0, town: true }; } catch (e) {}
+    try { var P = (root.BOH_REGION && root.BOH_REGION.places) || []; for (var i = 0; i < P.length; i++) if (String(P[i].name).toUpperCase() === N) return { name: P[i].name, x: P[i].x | 0, y: P[i].y | 0, town: true, region: true }; } catch (e) {}
+    return null;
+  }
+  /* a block he can stand on beside a real place (not its gate), that he can reach */
+  function nearReal(job, R) { var p = job.real; return p ? standNear(p.x + (R() < 0.5 ? 2 : -2), p.y + (R() < 0.5 ? 2 : -2), R, false) : null; }
+  /* the words' own direction ('the south road'), on the map's compass (north is y = 0; a mirrored seed mirrors east) */
+  function wayDir(w) {
+    var C = (root.BOH_REGION && root.BOH_REGION.compass) || { e: 'x1' }, ex = C.e === 'x0' ? -1 : 1;
+    return ({ north: [0, -1], south: [0, 1], east: [ex, 0], west: [-ex, 0] })[String(w || '').toLowerCase()] || null;
+  }
+  function blocksWord(n) { return 'about ' + n + (n === 1 ? ' block' : ' blocks'); }
+  /* where the job sends him NEXT, by kind and stage: { name, act, x, y, town } (a town names itself on the map) */
+  function nextOf(job) {
+    if (job.stage === 'wait') return null;
+    var from = { name: String(job.from || '').toUpperCase(), act: 'GET PAID', x: job.fromAt ? job.fromAt.x : (job.target || {}).x, y: job.fromAt ? job.fromAt.y : (job.target || {}).y, town: true };
+    var tg = job.target || {}, pn = job.placeName;
+    switch (job.plays) {
+      case 'haul-caravan': return job.stage === 'haul' ? { name: String(job.dest.name).toUpperCase(), act: 'ESCORT TO', x: job.dest.made ? tg.x : job.dest.x, y: job.dest.made ? tg.y : job.dest.y, town: !job.dest.made } : null;
+      case 'carry': if (job.stage === 'lair' && job.lair) return { name: 'THEIR LAIR', act: 'GET IT BACK', x: job.lair.x, y: job.lair.y };
+        return job.stage === 'carry' ? { name: String(job.dest.name).toUpperCase(), act: 'CARRY TO', x: job.dest.made ? tg.x : job.dest.x, y: job.dest.made ? tg.y : job.dest.y, town: !job.dest.made } : null;
+      case 'find-place': case 'find-person': if (job.stage === 'look') return { name: pn || String(job.what || '').toUpperCase(), act: 'FIND', x: job.ring.x, y: job.ring.y }; return from;
+      case 'hunt-kind': if (job.stage === 'back') return from;
+        if (!(job.packs || []).length) return null;
+        var pk = job.packs.slice().sort(function (a, b) { return cheb(a.x, a.y, city.x, city.y) - cheb(b.x, b.y, city.x, city.y); })[0];
+        return { name: String(job.what || 'THEM').toUpperCase(), act: 'HUNT', x: pk.x, y: pk.y };
+      case 'clear-camp': return job.stage === 'camp' ? { name: pn || String(job.what || 'THE CAMP').toUpperCase(), act: 'CAMP', x: job.camp.x, y: job.camp.y } : null;
+      case 'hold-defend': return job.stage === 'hold' ? { name: from.name, act: 'HOLD', x: from.x, y: from.y, town: true, sub: pn } : null;
+      case 'recover-return': if (job.stage === 'get') return { name: pn || String(job.where || job.item || '').toUpperCase(), act: 'GET ' + String(job.item || 'IT').toUpperCase(), x: job.spot.x, y: job.spot.y }; return from;
+      case 'patrol': if (job.stage === 'back') return from;
+        var nx = null; (job.posts || []).forEach(function (p, i) { if (!p.done && !nx) nx = { name: p.name ? String(p.name).toUpperCase() : 'POST ' + (i + 1), act: 'PATROL', x: p.x, y: p.y, town: !!p.name }; }); return nx;
+    }
+    /* today's crew job (and every kind not built yet): the crew, where the map marks it */
+    return tg.x != null ? { name: pn || 'THE CREW', act: 'THE JOB', x: tg.x, y: tg.y, town: false } : null;
+  }
+  /* is this town or real place named by a job he holds? 'next' (the place he goes now: ringed) or 'named' (named), else null */
+  function names(nm) {
+    var N = String(nm || '').toUpperCase(), out = null; if (!N) return null;
+    try { (LOOP.held || []).forEach(function (j) {
+      var n = nextOf(j); if (n && n.town && n.name === N) out = 'next';
+      if (!out && (String(j.from || '').toUpperCase() === N || (j.dest && String(j.dest.name).toUpperCase() === N && !j.dest.made))) out = 'named';
+    }); } catch (e) {}
+    return out;
+  }
+
   /* ======================= ESCORT: haul-caravan ======================= */
   var MAKE = {}, ARRIVE = {}, STEP = {}, END = {}, DRAW = {};
   /* another town to take it to: where he can see it first, in the table's range, then near its middle; one he can reach */
   function pickDest(job, k, town, R) {
     var lo = (k.dest_blocks || [8, 30])[0], hi = (k.dest_blocks || [8, 30])[1], dest = null, door = null, path = null;
+    /* THE PLACE THE WORDS NAME (rule 164 item 3): a real place is where it goes, however far; a made one is a block in range */
+    if (job.real) { var d0 = gate(job.real.x, job.real.y), p0 = d0 ? route(city.x, city.y, d0[0], d0[1]) : null;
+      if (p0) { job.dest = { name: job.real.name, x: job.real.x, y: job.real.y, real: true }; job.target = { x: d0[0], y: d0[1] }; return p0; } }
+    if (job.placeName) { var s0 = spotOut(town.x, town.y, lo, hi, R, true), p1 = s0 ? route(city.x, city.y, s0[0], s0[1]) : null;
+      if (p1) { job.dest = { name: job.placeName, x: s0[0], y: s0[1], made: true }; job.target = { x: s0[0], y: s0[1] }; return p1; } }
     var ts = towns().filter(function (t) { return t.name !== town.name; }).map(function (t) { return { t: t, d: cheb(t.x, t.y, town.x, town.y) }; });
     var mid = (lo + hi) / 2;
     /* where he can see it first (a normie sees where the cargo goes, rule 133), in the table's range, then near its middle */
@@ -205,8 +268,8 @@
     for (var a = 0; a < na; a++) job.ambush.push(Math.max(3, Math.round(L * (na === 1 ? 0.45 : 0.3 + 0.4 * a / (na - 1)) + (R() - 0.5) * 3)));
     job.walked = 0; job.trail = [[city.x, city.y]]; job.raid = null;
     job.stage = 'haul';
-    job.sayTake = 'Contract from ' + town.name + ': walk ' + job.cargo.what + ' to ' + dest.name + '. ' + n + ' ' + plural(job.cargo.unit, n) +
-      ', ' + job.perCrate + ' batteries for every one that gets there.';
+    job.sayTake = 'Contract from ' + town.name + ': walk ' + job.cargo.what + ' to ' + String(dest.name).toUpperCase() + ', ' + way(job.target.x - town.x, job.target.y - town.y) + ', ' +
+      blocksWord(cheb(job.target.x, job.target.y, town.x, town.y)) + '. ' + n + ' ' + plural(job.cargo.unit, n) + ', ' + job.perCrate + ' batteries for every one that gets there.';   /* draft:true */
     return true;
   };
   function cargoStep(job) {
@@ -278,7 +341,10 @@
 
   /* ======================= FIND: find-place and find-person ======================= */
   function makeFind(job, k, row, town, R, person) {
-    var b = k.blocks || [9, 18], s = spotOut(town.x, town.y, b[0], b[1], R, true);
+    var b = k.blocks || [9, 18], s = job.real ? nearReal(job, R) : null, wd = wayDir(job.placeWay);
+    /* the words' own direction ('the south road'): out that way from the client, in the kind's range */
+    if (!s && wd) for (var w = 0; w < 6 && !s; w++) { var rr = b[0] + Math.floor(R() * (b[1] - b[0] + 1)); s = standNear(town.x + wd[0] * rr + wd[1] * (w - 2), town.y + wd[1] * rr + wd[0] * (w - 2), R, w < 3); }
+    if (!s) s = spotOut(town.x, town.y, b[0], b[1], R, true);
     if (!s) return false;
     var r = k.ring || 4, off = Math.max(0, r - 1), c = null;
     for (var i = 0; i < 12 && !c; i++) { var cx = s[0] + Math.floor(R() * (2 * off + 1)) - off, cy = s[1] + Math.floor(R() * (2 * off + 1)) - off; if (walk(cx, cy) && route(city.x, city.y, cx, cy)) c = [cx, cy]; }
@@ -288,7 +354,7 @@
     job.what = row.what || 'it';
     job.stage = 'look';
     var dist = cheb(c[0], c[1], town.x, town.y);
-    job.sayTake = 'Contract from ' + town.name + ': find ' + job.what + '. ' + cap(way(c[0] - town.x, c[1] - town.y)) + ', about ' + dist + (dist === 1 ? ' block' : ' blocks') + '. Look inside the ring on the map.';
+    job.sayTake = 'Contract from ' + town.name + ': find ' + job.what + (job.placeName ? ', ' + job.placeName : '') + '. ' + cap(way(c[0] - town.x, c[1] - town.y)) + ', ' + blocksWord(dist) + '. Look inside the ring on the map.';   /* draft:true */
     if (person) {
       var sk = clamp(job.skulls, 1, 3), n = row.heads || (k.heads_by_skulls || [2, 3, 5])[sk - 1];
       job.cargo = { what: job.what, unit: row.unit || 'person', n: n, of: n };
@@ -451,6 +517,7 @@
 
   /* ======================= CAMP: clear-camp ======================= */
   MAKE['clear-camp'] = function (job, k, row, town, R, tg) {
+    if (job.real) { var sr = nearReal(job, R); if (sr) tg = { x: sr[0], y: sr[1] }; }
     if (!tg) return false;
     var base = 3; try { base = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
     var men = row.men || (base + ((k.extra_men | 0) || 0));
@@ -461,7 +528,8 @@
     job.flat = Math.max(1, Math.round(job.pay * (k.flat == null ? 0.6 : k.flat)));
     job.perHead = Math.max(1, Math.round(job.pay * (k.per_head_share == null ? 0.4 : k.per_head_share) / men));
     job.stage = 'camp';
-    job.sayTake = 'Contract from ' + town.name + ': ' + job.what + '. A camp, about ' + men + ' of them. Paid there: ' + job.flat + ' batteries and ' + job.perHead + ' for every one put down.';
+    job.sayTake = 'Contract from ' + town.name + ': ' + job.what + '. A camp' + (job.placeName ? ' at ' + job.placeName : '') + ', ' + way(tg.x - town.x, tg.y - town.y) + ', ' + blocksWord(cheb(tg.x, tg.y, town.x, town.y)) +
+      ', about ' + men + ' of them. Paid there: ' + job.flat + ' batteries and ' + job.perHead + ' for every one put down.';   /* draft:true */
     return true;
   };
   ARRIVE['clear-camp'] = function (job, x, y) {
@@ -491,7 +559,8 @@
     job.item = row.item || 'the package'; job.has = true;
     job.walked = 0; job.thiefAt = (job.twist === 'stolen') ? Math.max(3, Math.round(path.length * 0.5)) : -1;
     job.stage = 'carry';
-    job.sayTake = 'Contract from ' + town.name + ': carry ' + job.item + ' to ' + job.dest.name + '. ' + job.pay + ' batteries when it is signed for there.';
+    job.sayTake = 'Contract from ' + town.name + ': carry ' + job.item + ' to ' + String(job.dest.name).toUpperCase() + ', ' + way(job.target.x - town.x, job.target.y - town.y) + ', ' +
+      blocksWord(cheb(job.target.x, job.target.y, town.x, town.y)) + '. ' + job.pay + ' batteries when it is signed for there.';   /* draft:true */
     return true;
   };
   STEP['carry'] = function (job) {
@@ -602,14 +671,14 @@
      somebody holds it), bring it back to the client to be paid. QR-AF R1's twist as one that plays: they moved it (the place is
      empty, fresh tracks go on two to four blocks) */
   MAKE['recover-return'] = function (job, k, row, town, R) {
-    var b = k.blocks || [6, 14], s = spotOut(town.x, town.y, b[0], b[1], R, true); if (!s) return false;
+    var b = k.blocks || [6, 14], s = (job.real ? nearReal(job, R) : null) || spotOut(town.x, town.y, b[0], b[1], R, true); if (!s) return false;
     job.spot = { x: s[0], y: s[1] }; job.target = { x: s[0], y: s[1] };
     job.item = row.item || 'it'; job.where = row.where || null; job.foe = row.foe || 'brigands'; job.has = false;
     var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
     job.guards = row.guards === 0 ? 0 : (row.guards || n);
     job.stage = 'get';
-    job.sayTake = 'Contract from ' + town.name + ': get ' + job.item + ' back' + (job.where ? ' from ' + job.where : '') + ', ' +
-      way(s[0] - town.x, s[1] - town.y) + ', about ' + cheb(s[0], s[1], town.x, town.y) + ' blocks. ' +
+    job.sayTake = 'Contract from ' + town.name + ': get ' + job.item + ' back' + (job.placeName ? ' from ' + job.placeName : job.where ? ' from ' + job.where : '') + ', ' +
+      way(s[0] - town.x, s[1] - town.y) + ', ' + blocksWord(cheb(s[0], s[1], town.x, town.y)) + '. ' +
       (job.guards ? 'About ' + job.guards + (job.foe === 'beasts' ? ' animals are' : ' are') + ' on it.' : 'Nobody guards it, they say.');
     return true;
   };
@@ -712,11 +781,28 @@
   function make(job, c, town, tg) {
     var kind = kindOf(c), k = K(kind), row = (DATA && DATA.offers && DATA.offers[c.id]) || {};
     job.kind = kind; job.verb = k ? k.verb : 'CLEAR'; job.word = k ? k.word : 'CLEAR'; job.plays = 'clear-crew';
-    if (!built(kind) || kind === 'clear-crew') return false;
-    if (window.__JOB_KINDS_OFF) return false;   /* a measurement of today's crew path alone (THE LOOP PLAYS ON THE MAP's gate) */
-    var R = rng(seedOf(job.id + ':' + town.name + ':' + day() + ':' + (LOOP.done | 0)));
+    /* the place its words name (rule 164 item 3): the client's town always, and the row's place */
     job.from = town.name; job.fromAt = { x: town.x | 0, y: town.y | 0 };
+    var pl = row.place || null;
+    job.placeName = pl && pl.name ? String(pl.name).toUpperCase() : null;
+    job.real = pl && pl.real ? realPlace(pl.real) : null;
+    job.placeWay = pl && pl.way ? String(pl.way) : null;
+    if (!built(kind) || kind === 'clear-crew' || window.__JOB_KINDS_OFF) {
+      /* today's crew job: at the real place when the words name one (a crew he can reach beside it), else where the map put it */
+      if (job.real && !window.__JOB_KINDS_OFF) { var R0 = rng(seedOf(job.id + ':crew')), s0 = nearReal(job, R0); if (s0) { job.target = { x: s0[0], y: s0[1] };
+        job.sayTake = 'Contract from ' + town.name + ': ' + job.title + ', at ' + job.placeName + ', ' + way(s0[0] - town.x, s0[1] - town.y) + ', ' + blocksWord(cheb(s0[0], s0[1], town.x, town.y)) + '. Pays ' + job.pay + ' batteries.'; } }   /* draft:true */
+      return false;
+    }
+    var R = rng(seedOf(job.id + ':' + town.name + ':' + day() + ':' + (LOOP.done | 0)));
     job.twist = (R() < (k.twist_rate || 0)) ? pickOf(k.twists, R) : null;
+    /* A REAL PLACE OUT IN THE REGION THAT IS NOT ON THE MAP YET (the region's real places arrive with the land's painting, a few
+       seconds after the map on a computer, much longer on a slow box): the job WAITS for it, never a made place wearing its name */
+    if (pl && pl.real && !job.real && !(root.BOH_REGION && root.BOH_REGION.ready)) {
+      job.plays = kind; job.made = day(); job.stage = 'wait'; job.waitReal = String(pl.real);
+      job.sayTake = 'Contract from ' + town.name + ': ' + job.title + '. ' + job.placeName + ' is out past the valley; the map shows it in a moment.';   /* draft:true */
+      window.__JOB_MADE = (window.__JOB_MADE || []).concat([{ id: job.id, kind: kind, twist: job.twist, wait: job.waitReal }]).slice(-20);
+      return true;
+    }
     var ok = false; try { ok = MAKE[kind](job, k, row, town, R, tg); } catch (e) { ok = false; }
     if (!ok) { job.sayTake = null; return false; }
     job.plays = kind; job.made = day();
@@ -768,6 +854,7 @@
   }
   function status(job) {
     if (!owns(job)) return null;
+    if (job.stage === 'wait') return 'TO ' + (job.placeName || 'THE PLACE');
     if (job.plays === 'haul-caravan') return job.cargo.n + '/' + job.cargo.of + ' ' + plural(job.cargo.unit, job.cargo.of).toUpperCase() + ' TO ' + String(job.dest.name).toUpperCase();
     if (job.plays === 'hunt-kind') return job.stage === 'back' ? 'HUNT DONE · BACK TO ' + String(job.from).toUpperCase() : 'HUNT ' + (job.got | 0) + '/' + job.need;
     if (job.plays === 'clear-camp') return 'CAMP · ' + job.camp.men;
@@ -821,14 +908,67 @@
     return { x: sx - w / 2 - 3, y: cy - (up || 44), w: w + 6, h: 11 };
   }
   function vis(p) { return !(p.sx < -60 || p.sx > CVW + 60 || p.sy < -80 || p.sy > CVH + 80); }
+  /* the real place came onto the map: the job is made there now, from where the client is */
+  function settleWait(job) {
+    if (job.stage !== 'wait' || !job.waitReal) return false;
+    var rp = realPlace(job.waitReal); if (!rp) return false;
+    var k = K(job.plays), row = (DATA && DATA.offers && DATA.offers[job.id]) || {}, town = { name: job.from, x: job.fromAt.x, y: job.fromAt.y };
+    job.real = rp; job.waitReal = null; job.stage = null;
+    var R = rng(seedOf(job.id + ':' + town.name + ':' + job.made)), ok = false;
+    try { ok = MAKE[job.plays](job, k, row, town, R, null); } catch (e) { ok = false; }
+    if (!ok) { job.real = null; try { ok = MAKE[job.plays](job, k, row, town, R, job.target || null); } catch (e) { ok = false; } }
+    if (!ok) { lost(job, 'Nobody can get to ' + job.placeName + ' from here. The job is off: ' + job.title + '.'); return false; }   /* draft:true */
+    sayLine(job.sayTake); save('contract:place');
+    window.__JOB_SETTLED = (window.__JOB_SETTLED || []).concat([{ id: job.id, place: job.real ? job.real.name : null }]).slice(-20);
+    return true;
+  }
   function draw(ox, oy) {
     HITS = [];
-    var H = held(); if (!H.length) return;
-    var bt = mapArtBeat(), kp = MAP_PEOPLE_K;
+    var H = held(), bt = mapArtBeat(), kp = MAP_PEOPLE_K;
+    H.forEach(function (j) { if (j.stage === 'wait') settleWait(j); });
+    H = held();
     H.forEach(function (j) {
+      if (j.stage === 'wait') return;
       try { (DRAWS[j.plays] || function () {})(j, ox, oy, bt, kp); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); }
     });
     try { MAP_DREW.jobKinds = H.length; } catch (e) {}
+    /* every job he holds, today's crew job too: where it sends him next, named and marked (rule 164 item 3) */
+    var marks = []; try { (LOOP.held || []).forEach(function (j) { try { var m = markNext(j, ox, oy, bt); if (m) marks.push(m); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); } }); } catch (e) {}
+    window.__JOB_MARKS = marks;
+  }
+  /* THE NEXT PLACE, MARKED: on the glass a ring on its ground that breathes on the beat, and a made place's name on the ground
+     under it (a town and a real place name themselves: the map's hooks light their own plates); off the glass, its name at the
+     glass's edge on the line from the middle of the glass, a point toward it, the act first ('ESCORT TO PRIMM'). A tap on
+     either walks there. No flag and no road line (rule 164 item 10). */
+  var EDGE = { l: 14, r: 14, t: 66, b: 124 };
+  function markNext(j, ox, oy, bt) {
+    var n = nextOf(j); if (!n || n.x == null) return null;
+    var p = iso(n.x, n.y, ox, oy), fy = p.sy + TH / 2 + 2, cell = n.town ? (gate(n.x, n.y) || [n.x, n.y]) : [n.x, n.y];
+    var label = n.act === 'HOLD' ? 'HOLD · ' + (n.sub || n.name) : n.act === 'GET PAID' ? 'GET PAID · ' + n.name : n.act === 'THE JOB' ? n.name : n.act + (/ TO$/.test(n.act) ? ' ' : ' · ') + n.name;
+    var on = p.sx > EDGE.l && p.sx < CVW - EDGE.r && fy > EDGE.t && fy < CVH - EDGE.b;
+    if (on) {
+      var rw = n.town ? 30 : 20, pulse = 0.55 + 0.35 * ((bt % 2) ? 1 : 0);
+      g.save(); g.globalAlpha = pulse; g.strokeStyle = '#f0b44c'; g.lineWidth = 2;
+      g.beginPath(); g.ellipse(p.sx, fy + 2, rw, rw * 0.38, 0, 0, 7); g.stroke(); g.restore();
+      if (!n.town) { g.font = '700 9px ' + FACE('casing'); var w = g.measureText(n.name).width;
+        MAP_PLATES.push({ t: n.name, lx: p.sx - w / 2 - 3, ly: fy + 12, w: w, col: '#ffd27a', sx: p.sx, cy: fy + 26, r: 0 });
+        hit(j, { x: p.sx - w / 2 - 3, y: fy + 12, w: w + 6, h: 11 }, cell); }
+      try { MAP_DREW.jobRings = (MAP_DREW.jobRings | 0) + 1; } catch (e) {}
+      return { id: j.id, name: n.name, act: n.act, label: label, on: true, x: n.x, y: n.y, sx: Math.round(p.sx), sy: Math.round(fy) };
+    }
+    /* off the glass: where the line from the middle of the glass to it leaves the glass (inside the bars and the pad) */
+    var cx = CVW / 2, cy = (EDGE.t + CVH - EDGE.b) / 2, dx = p.sx - cx, dy = fy - cy;
+    var tx = dx > 0 ? (CVW - EDGE.r - cx) / dx : dx < 0 ? (EDGE.l - cx) / dx : Infinity, ty = dy > 0 ? (CVH - EDGE.b - cy) / dy : dy < 0 ? (EDGE.t - cy) / dy : Infinity;
+    var t = Math.min(tx, ty), ex = cx + dx * t, ey = cy + dy * t, L = Math.sqrt(dx * dx + dy * dy) || 1, ux = dx / L, uy = dy / L;
+    g.font = '700 9px ' + FACE('casing');
+    var tw = g.measureText(label).width + 6, bx = Math.max(EDGE.l, Math.min(CVW - EDGE.r - tw, ex - ux * 14 - tw / 2)), by = Math.max(EDGE.t, Math.min(CVH - EDGE.b - 11, ey - uy * 14 - 5));
+    /* the point: a small amber wedge at the edge, aimed at the place */
+    g.save(); g.fillStyle = 'rgba(12,10,8,0.82)'; g.strokeStyle = '#f0b44c'; g.lineWidth = 1.5;
+    g.beginPath(); g.moveTo(ex + ux * 6, ey + uy * 6); g.lineTo(ex - ux * 5 - uy * 6, ey - uy * 5 + ux * 6); g.lineTo(ex - ux * 5 + uy * 6, ey - uy * 5 - ux * 6); g.closePath(); g.fill(); g.stroke(); g.restore();
+    MAP_PLATES.push({ t: label, lx: bx, ly: by, w: tw - 6, col: '#f0b44c', sx: bx + tw / 2, cy: by + 14, r: 0 });
+    hit(j, { x: Math.min(bx, ex - 8), y: Math.min(by, ey - 8), w: Math.max(bx + tw, ex + 8) - Math.min(bx, ex - 8), h: Math.max(by + 11, ey + 8) - Math.min(by, ey - 8) }, cell);
+    try { MAP_DREW.jobEdges = (MAP_DREW.jobEdges | 0) + 1; } catch (e) {}
+    return { id: j.id, name: n.name, act: n.act, label: label, on: false, x: n.x, y: n.y, ex: Math.round(ex), ey: Math.round(ey), box: [Math.round(bx), Math.round(by), Math.round(tw), 11] };
   }
   function hit(job, box, cell, pack) { HITS.push({ job: job.id, x: box.x, y: box.y, w: box.w, h: box.h, cell: cell, pack: pack == null ? null : pack }); }
   function cargoDraw(job, ox, oy, kp) {
@@ -857,7 +997,7 @@
     if (j.stage !== 'haul') return;
     cargoDraw(j, ox, oy, kp);
     var d = iso(j.target.x, j.target.y, ox, oy);
-    if (vis(d)) hit(j, plate('ESCORT TO HERE', d.sx, d.sy + TH / 2 + 2, '#f0b44c', 30), [j.target.x, j.target.y]);
+    if (vis(d)) hit(j, plate('ESCORT TO ' + String(j.dest.name).toUpperCase(), d.sx, d.sy + TH / 2 + 2, '#f0b44c', 30), [j.target.x, j.target.y]);
     if (j.raid) { var r = iso(j.raid.x, j.raid.y, ox, oy), fy = r.sy + TH / 2 + 2;
       if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 0);
         hit(j, plate('RAIDERS · ' + j.raid.n, r.sx, fy, '#ff8f7a', hh + 14), [j.raid.x, j.raid.y]);
@@ -957,6 +1097,67 @@
       if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 5); hit(j, plate('CREW · ' + j.band.n, r.sx, fy, '#ff8f7a', hh + 14), [j.band.x, j.band.y]);
         HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.band.x, j.band.y], pack: null }); } }
   };
+
+  /* ======================= DROP A JOB (WORLD [the PC playtest: the jobs' part] (2), rule 164 item 8) =======================
+     PAOLO 10/24 on his PC: 'it's not clear how to cut a quest off... let's say I don't wanna do it anymore.' BATTLE BROTHERS
+     (the library: bb_all/0626_Developer Posts.txt, 'You can manually cancel contracts by clicking the X button on the contract
+     scroll'; bb_all/1670_Relations.txt, 'Canceling a Contract -10'; bb_all/1679_Renown.txt, -100 renown, worse than failing's
+     -75): any held job can be dropped at any time except in its own fight; it is gone, the place that gave it thinks less of
+     him (the town's own bar, records/target/bb/relations.json cancel_contract, -10), and nobody pays. So every way a job ends
+     moves that bar the same way (Battle Brothers' civilian rows): done +10, done in part +5, dropped -10, failed -20. Renown has
+     no Bohemia number (three currencies, none of them renown), so the standing is the whole cost. The bar is the settlement's
+     (RUN TWO's [the opinion moves], bohemia.relations.v1): the map hands it every settled job on the next town it opens
+     (open({settled}), one hook in loopPostOpen); until then the act waits in bohemia.job.settled.v1, so a reload loses none.
+       BohemiaJobKinds.dropCost(id)  what dropping it costs: { place, act, delta, before, after, band, bandAfter }, for the button
+       BohemiaJobKinds.drop(id)      drops it: { ok, cost } or { ok: false, why: 'none' | 'fighting' }; the phone says it
+     The button is UI's (on the phone and the job card, UI [the PC playtest: the UI's part] (5)); this file is the rule. */
+  var REL = null, SETKEY = 'bohemia.job.settled.v1', RELKEY = 'bohemia.relations.v1';
+  try { if (typeof fetch !== 'undefined') fetch('../records/target/bb/relations.json').then(function (r) { return r.json(); }).then(function (j) { REL = j; }).catch(function () {}); } catch (e) {}
+  function relVal(act) { var a = REL && REL.acts && REL.acts[act]; return a ? +a.value : ({ cancel_contract: -10, fail_civilian_contract: -20, civilian_contract_done: 10, civilian_contract_poor: 5 })[act] || 0; }
+  function settledQ() { try { var q = JSON.parse(localStorage.getItem(SETKEY) || '[]'); return Array.isArray(q) ? q : []; } catch (e) { return []; } }
+  function settle(job, act) {
+    if (!job || !job.from || job.from === '?') return;
+    var q = settledQ(); q.push({ place: String(job.from), act: act, id: job.id, day: day() });
+    try { localStorage.setItem(SETKEY, JSON.stringify(q.slice(-40))); } catch (e) {}
+    window.__JOB_SETTLED_ACTS = (window.__JOB_SETTLED_ACTS || []).concat([{ id: job.id, place: job.from, act: act, delta: relVal(act) }]).slice(-20);
+  }
+  /* the acts on their way to the towns' bars, taken by the next town that opens (the map's loopPostOpen) */
+  function settledTake() { var q = settledQ(); if (!q.length) return undefined; try { localStorage.removeItem(SETKEY); } catch (e) {} return q.map(function (c) { return { place: c.place, act: c.act }; }); }
+  /* the place's bar as the town keeps it, with what is still on its way to it */
+  function standing(place) {
+    var start = (REL && REL.start && REL.start.value) || 50, v = start;
+    try { var r = JSON.parse(localStorage.getItem(RELKEY) || 'null'); if (r && r.bars && typeof r.bars[place] === 'number') v = r.bars[place]; } catch (e) {}
+    settledQ().forEach(function (c) { if (c.place === place) v = Math.max(0, Math.min(100, v + relVal(c.act))); });
+    return Math.round(v * 100) / 100;
+  }
+  function bandWord(v) {
+    var B = (REL && REL.bands && REL.bands.value) || [{ id: 'hostile', lo: 0, hi: 9 }, { id: 'threatening', lo: 10, hi: 19 }, { id: 'unfriendly', lo: 20, hi: 29 }, { id: 'cold', lo: 30, hi: 39 },
+      { id: 'neutral', lo: 40, hi: 59 }, { id: 'open', lo: 60, hi: 69 }, { id: 'friendly', lo: 70, hi: 79 }, { id: 'very_friendly', lo: 80, hi: 89 }, { id: 'allied', lo: 90, hi: 100 }];
+    for (var i = 0; i < B.length; i++) if (v >= B[i].lo && v <= B[i].hi + 0.999) return B[i].id.replace(/_/g, ' ');
+    return v < 0 ? B[0].id : B[B.length - 1].id;
+  }
+  function heldJob(id) { var j = null; try { (LOOP.held || []).forEach(function (h) { if (h.id === id) j = h; }); } catch (e) {} return j; }
+  function dropCost(id) {
+    var job = heldJob(id); if (!job) return null;
+    var place = String(job.from || ''), before = standing(place), d = relVal('cancel_contract'), after = Math.max(0, Math.min(100, before + d));
+    return { id: id, title: job.title, place: place, act: 'cancel_contract', delta: d, before: before, after: after, band: bandWord(before), bandAfter: bandWord(after), pay: job.pay };
+  }
+  function drop(id) {
+    var job = heldJob(id); if (!job) return { ok: false, why: 'none' };
+    if (LOOP.fighting === id) return { ok: false, why: 'fighting' };   /* Battle Brothers: not in the middle of its own fight */
+    var c = dropCost(id);
+    settle(job, 'cancel_contract');
+    finish(job);
+    job.result = { dropped: true, at: day() };
+    window.__JOB_DROPPED = (window.__JOB_DROPPED || []).concat([{ id: id, place: c.place, before: c.before, after: c.after }]).slice(-20);
+    var line = 'Dropped: ' + job.title + '. Nobody pays, and ' + String(c.place).toUpperCase() + ' thinks less of you: ' + Math.round(c.before) + ' to ' + Math.round(c.after) +
+      (c.band !== c.bandAfter ? ', ' + c.band + ' to ' + c.bandAfter : ', ' + c.bandAfter) + '.';   /* draft:true */
+    sayLine(line);
+    save('contract:dropped');
+    try { render(); } catch (e) {}
+    try { window.dispatchEvent(new CustomEvent('bohemia-job-dropped', { detail: c })); } catch (e) {}
+    return { ok: true, cost: c, line: line };
+  }
   /* ======================= THE ROSTER THE ENEMY IS SIZED TO (WORLD [the PC playtest: the jobs' part] (3), rule 164 item 26) =======================
      PAOLO 10/24 on his PC: 'Battle Brothers matches you with opponents by the amount of people on your roster... if I fill up
      my roster, the opponents go up too.' THE LIBRARY (GROK_111; bb_all/0828_Game Mechanics.txt:105-111): a contract scales with
@@ -1000,6 +1201,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels };
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace,
+    drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle };
   load();
 })(typeof window !== 'undefined' ? window : this);
