@@ -44323,13 +44323,169 @@ window.addEventListener('message', function(ev){
   /* __THE_START_SCREEN__ (RUN 10/4): AND ONCE PER GAME, NOT PER SITTING. startPaid lives in memory, so every
      CONTINUE posted the picks again and paid the start batteries onto the restored purse. The purse's own
      ledger is what survives a save: a 'start:' credit already in it means this crew was paid. */
-  try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0) return; }catch(_e){}
+  try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0){ try{ fogContinue(); }catch(_e2){} return; } }catch(_e){}
+  try{ freshStart(p); }catch(_e){}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: a new game, a new corner, the map dark past it */
   try{ localStorage.removeItem(CREW_WALKED_KEY); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: a new crew; nobody has walked from it */
   try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
   try{ billPublish(); }catch(_e){}
   try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@' + String(p.name || 'thecrew').toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: p.originName + '. ' + p.start + ' batteries between us. ' + p.combatName + ', ' + p.econName + '.', kind: 'mine', draft: true }); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
 });
+/* ==== __A_FRESH_START_AND_A_FOG_OF_WAR__ (RUN 10/25, rule 155, Paolo 10/24, asked twice: 'I don't wanna start off on the
+   same part of the map every time... in Battle Brothers when you start your campaign most of the map is hidden... you see
+   where you're at, a radius around you, and that's it, but it gives you the option to reveal all settlement locations').
+   MEASURED: every new game stood him on the same block beside the Church (15 origins, 1 cell; TUNING 10/24) and the whole
+   region was lit from the first frame.
+   (a) A NEW START EVERY GAME: the origin names a KIND of corner (TUNING's table, records/BOHEMIA_TUNING_THE_FIRST_MINUTES_THAT_
+       MAKE_YOU_CARE_10_24_26.md change 2, its district kinds), a seed rolled for this game picks WHICH one, and it must pass the
+       start test (a town or a fort within 6 blocks; the Lone Wolf the opposite, nobody within 3) and not be the last game's
+       corner; the first day's two jobs on the phone come from the places near it (change 5). The valley itself is still the
+       one valley (one seed per save is WORLD's generator, change 1).
+   (b) THE FOG OF WAR, Battle Brothers' way: everything past what he has seen is under the dark, a tape-static dark (grain
+       and scanlines baked in, breathing on the beat), never a flat black square; it clears in a soft circle round him as he
+       travels (6 blocks in the city, 9 on open ground, half at night) and stays cleared, kept with the game; a town under the
+       fog has no name and takes no tap; the region's places stand down too.
+   (c) 'REVEAL THE TOWNS' on the new-game screen (off unless he picks it): every settlement shows through the fog from the
+       start, the valley's and the region's, nothing else.
+   (d) The places outside the square map are part of it: they clear and show the same way.
+   A game saved before this has no fog (it was never hidden); NEW GAME clears it with the rest. ==== */
+var FOG = { on: (function(){ try { return localStorage.getItem('bohemia.fog.off') !== '1'; } catch (_e) { return true; } })(), ready: false, all: false, reveal: false, K: 200, N: 96, D: 496, S: 2, cv: null, seen: null, dirty: false, saveT: 0, last: null, key: 'bohemia.fog.v1' };
+function fogDims(){ var R = window.BOH_REGION; FOG.N = (typeof om !== 'undefined' && om.n) || 96; FOG.K = (R && R.ready && R.K) ? R.K : 200; FOG.D = FOG.N + 2 * FOG.K; }
+function fogMake(){
+  fogDims(); var W = FOG.D * FOG.S, c = document.createElement('canvas'); c.width = W; c.height = W;
+  var x = c.getContext('2d'), im = x.createImageData(W, W), d = im.data, r = 1234567;
+  for (var j = 0; j < W; j++) { var scan = (j % 2) ? 0 : 7; for (var i = 0; i < W; i++) { r = (r * 1103515245 + 12345) >>> 0; var n = (r >>> 24) & 31, k = (j * W + i) * 4;
+    d[k] = 9 + n - scan; d[k + 1] = 8 + (n * 0.9 | 0) - scan; d[k + 2] = 7 + (n * 0.8 | 0) - scan; d[k + 3] = 246; } }
+  x.putImageData(im, 0, 0);
+  FOG.cv = c; FOG.seen = new Uint8Array(FOG.D * FOG.D);
+}
+function fogIdx(x, y){ var i = x + FOG.K, j = y + FOG.K; return (i < 0 || j < 0 || i >= FOG.D || j >= FOG.D) ? -1 : j * FOG.D + i; }
+function fogSeen(x, y){ if (!FOG.ready || FOG.all) return true; var k = fogIdx(x | 0, y | 0); return k >= 0 && FOG.seen[k] === 1; }
+function fogHides(x, y){ return FOG.on && FOG.ready && !FOG.all && !fogSeen(x, y); }
+try { window.fogHides = fogHides; } catch (_e) {}
+function fogClear(cx, cy, r, soft){
+  if (!FOG.cv) return; var x = FOG.cv.getContext('2d'), S = FOG.S, px = (cx + FOG.K + 0.5) * S, py = (cy + FOG.K + 0.5) * S, R = r * S;
+  x.save(); x.globalCompositeOperation = 'destination-out';
+  if (soft) { var gr = x.createRadialGradient(px, py, R * 0.55, px, py, R); gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gr; }
+  else x.fillStyle = 'rgba(0,0,0,1)';
+  x.beginPath(); x.arc(px, py, R, 0, 7); x.fill(); x.restore();
+}
+function fogReveal(cx, cy, r){
+  if (!FOG.ready || FOG.all) return;
+  var ri = Math.ceil(r), any = false;
+  for (var dy = -ri; dy <= ri; dy++) for (var dx = -ri; dx <= ri; dx++) { if (dx * dx + dy * dy > (r - 0.5) * (r - 0.5)) continue;
+    var k = fogIdx(cx + dx, cy + dy); if (k >= 0 && !FOG.seen[k]) { FOG.seen[k] = 1; any = true; } }
+  fogClear(cx, cy, r + 0.5, true);
+  if (any) { FOG.dirty = true; fogSaveSoon(); }
+}
+function fogSaveSoon(){ if (FOG.saveT) return; FOG.saveT = setTimeout(function(){ FOG.saveT = 0; fogSave(); }, 2000); }
+function fogSave(){
+  if (!FOG.ready) return;
+  try {
+    if (FOG.all) { localStorage.setItem(FOG.key, JSON.stringify({ v: 1, all: true })); return; }
+    var n = FOG.seen.length, b = new Uint8Array(Math.ceil(n / 8)); for (var i = 0; i < n; i++) if (FOG.seen[i]) b[i >> 3] |= 1 << (i & 7);
+    var s = ''; for (var j = 0; j < b.length; j += 4096) s += String.fromCharCode.apply(null, b.subarray(j, j + 4096));
+    localStorage.setItem(FOG.key, JSON.stringify({ v: 1, D: FOG.D, K: FOG.K, reveal: !!FOG.reveal, bits: btoa(s) }));
+  } catch (_e) {}
+}
+function fogLoad(){
+  var st = null; try { st = JSON.parse(localStorage.getItem(FOG.key) || 'null'); } catch (_e) { st = null; }
+  if (!st) return false;
+  if (st.all) { FOG.all = true; FOG.ready = true; return true; }
+  fogMake(); if (st.D !== FOG.D || st.K !== FOG.K) return false;
+  try { var bin = atob(st.bits); for (var i = 0; i < FOG.seen.length; i++) if (bin.charCodeAt(i >> 3) & (1 << (i & 7))) { FOG.seen[i] = 1; fogClear(i % FOG.D - FOG.K, Math.floor(i / FOG.D) - FOG.K, 0.85, false); } } catch (_e) { return false; }
+  FOG.reveal = !!st.reveal; FOG.ready = true; FOG.all = false; return true;
+}
+/* the towns through the fog (155(c)) */
+function fogShowTowns(){
+  var bs = null; try { bs = ctBases(); } catch (_e) { bs = null; }
+  for (var n in (bs || {})) { var b = bs[n]; if (b) fogReveal(b.x | 0, b.y | 0, 1.6); }
+  try { var R = window.BOH_REGION; if (R && R.ready && R.places) R.places.forEach(function(p){ fogReveal(p.x, p.y, 1.6); }); } catch (_e) {}
+}
+function fogNewGame(reveal){
+  fogMake(); FOG.all = false; FOG.reveal = !!reveal; FOG.ready = true;
+  fogReveal(city.x, city.y, fogRadius());
+  if (FOG.reveal) { fogShowTowns(); FOG.townsShown = true; }
+  fogSave();
+}
+function fogContinue(){ if (!fogLoad()) { FOG.all = true; FOG.ready = true; } }   /* a game from before the fog keeps its map open */
+function fogRadius(){
+  var inCity = city.x >= 0 && city.y >= 0 && city.x < FOG.N && city.y < FOG.N, r = inCity ? 6 : 9;
+  try { if (isNight()) r = Math.max(2, Math.round(r * 0.5)); } catch (_e) {}
+  return r;
+}
+/* each frame: where he stands clears; the region's places once the region is in (reveal-all) */
+function fogTick(){
+  if (!FOG.on || !FOG.ready || FOG.all) return;
+  var k = city.x + ',' + city.y + (isNight() ? 'n' : 'd');
+  if (FOG.last !== k) { FOG.last = k; fogReveal(city.x, city.y, fogRadius()); }
+  if (FOG.reveal && !FOG.regionShown) { try { var R = window.BOH_REGION; if (R && R.ready && R.places && R.places.length) { R.places.forEach(function(p){ fogReveal(p.x, p.y, 1.6); }); FOG.regionShown = true; } } catch (_e) {} }
+}
+function fogDraw(ox, oy){
+  if (!FOG.on || !FOG.ready || FOG.all || !FOG.cv) return;
+  try { fogTick(); } catch (_e) {}
+  var S = FOG.S;
+  g.save();
+  g.imageSmoothingEnabled = true;
+  g.globalAlpha = (mapArtBeat() % 2) ? 0.97 : 0.94;   /* the tape breathes on the beat */
+  /* past the region's own square the land is still drawn (the far fill): the same dark, as one path with the square cut out */
+  try {
+    if (!FOG.tile) { var tc = document.createElement('canvas'); tc.width = tc.height = 64; var tx = tc.getContext('2d'), ti = tx.createImageData(64, 64), td = ti.data, rr = 7654321;
+      for (var q = 0; q < 64 * 64; q++) { rr = (rr * 1103515245 + 12345) >>> 0; var nn = (rr >>> 24) & 31, sc = ((q >> 6) % 2) ? 0 : 7; td[q * 4] = 9 + nn - sc; td[q * 4 + 1] = 8 + (nn * 0.9 | 0) - sc; td[q * 4 + 2] = 7 + (nn * 0.8 | 0) - sc; td[q * 4 + 3] = 246; }
+      tx.putImageData(ti, 0, 0); FOG.tile = g.createPattern(tc, 'repeat'); }
+    var K = FOG.K, N = FOG.N, c1 = iso(-K, -K, ox, oy), c2 = iso(N + K, -K, ox, oy), c3 = iso(N + K, N + K, ox, oy), c4 = iso(-K, N + K, ox, oy);
+    g.beginPath(); g.rect(-4, -4, CVW + 8, CVH + 8); g.moveTo(c1.sx, c1.sy); g.lineTo(c2.sx, c2.sy); g.lineTo(c3.sx, c3.sy); g.lineTo(c4.sx, c4.sy); g.closePath();
+    g.fillStyle = FOG.tile; g.fill('evenodd');
+  } catch (_e) {}
+  g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - FOG.K * TH);
+  g.drawImage(FOG.cv, 0, 0);
+  g.restore();
+  try { MAP_DREW.fog = (MAP_DREW.fog | 0) + 1; } catch (_e) {}
+}
+/* (a) the corner: TUNING's table, the origin's kinds of block (draft:true, WORLD and WORDS own the table) */
+var START_KINDS = {
+  rebuild: ['storage', 'warehouse', 'industrial', 'suburb'], newcrew: ['suburb', 'trailer', 'apartment'], south: ['freeway', 'interchange', 'arterial'],
+  truck: ['truckstop', 'watertreat', 'pumpstation', 'arterial'], watch: ['suburb', 'gated', 'estate'], scav: ['mall', 'swapmeet', 'boneyard', 'commercial'],
+  promise: ['cemetery', 'chapel', 'suburb'], desert: ['arterial', 'suburb'], raid: ['desert', 'wash', 'basin'], lab: ['campus', 'medical', 'school'],
+  faith: ['chapel', 'suburb'], debt: ['downtown', 'courthouse', 'commercial'], hunt: ['wash', 'springs', 'park'], pit: ['casino', 'stadium', 'strip', 'resort'],
+  wolf: ['desert', 'trailer', 'suburb', 'wash'] };
+function startPick(origin, seed){
+  var r = seed >>> 0, rnd = function(){ r = (r * 1664525 + 1013904223) >>> 0; return r / 4294967296; };
+  var kinds = START_KINDS[origin] || START_KINDS.newcrew, N = om.n, bs = null; try { bs = ctBases(); } catch (_e) { bs = null; }
+  var townNear = function(x, y, R){ var best = 99; for (var n in (bs || {})) { var b = bs[n]; if (!b) continue; var t = 'camp'; try { t = mapTierOf(n) || 'camp'; } catch (_e) {}
+    var d = Math.max(Math.abs((b.x | 0) - x), Math.abs((b.y | 0) - y)); if ((R === 'any' || t !== 'camp') && d < best) best = d; } return best; };
+  var last = null; try { last = JSON.parse(localStorage.getItem('bohemia.laststart.v1') || 'null'); } catch (_e) {}
+  var stand = function(x, y){ if (cityWalkable(x, y)) return [x, y]; for (var q = 1; q <= 2; q++) for (var a = -q; a <= q; a++) for (var b = -q; b <= q; b++) if (cityWalkable(x + a, y + b)) return [x + a, y + b]; return null; };
+  var ok = function(c){ if (!c) return false;
+    if (last && Math.max(Math.abs(c[0] - last[0]), Math.abs(c[1] - last[1])) < 10) return false;   /* never the same corner twice */
+    if (origin === 'wolf') return townNear(c[0], c[1], 'any') > 3 && townNear(c[0], c[1]) <= 12;
+    if (origin === 'south' && c[1] < N * 0.6 && c[0] < N * 0.6) return false;                       /* where the 95 comes in: the south side */
+    return townNear(c[0], c[1]) <= 6 || townNear(c[0], c[1], 'any') <= 4; };
+  var cands = [];
+  for (var y = 2; y < N - 2; y++) for (var x = 2; x < N - 2; x++) { var t = null; try { t = om.at(x, y); } catch (_e) {} if (t && kinds.indexOf(t.district) >= 0) cands.push([x, y]); }
+  for (var tries = 0; tries < 400 && cands.length; tries++) { var c0 = cands[Math.floor(rnd() * cands.length)], c = stand(c0[0], c0[1]); if (ok(c)) return { at: c, kind: om.at(c0[0], c0[1]).district, tries: tries + 1 }; }
+  for (var t2 = 0; t2 < 2000; t2++) { var c2 = stand(2 + Math.floor(rnd() * (N - 4)), 2 + Math.floor(rnd() * (N - 4))); if (ok(c2)) return { at: c2, kind: 'anywhere', tries: t2 + 1 }; }
+  return null;
+}
+function freshStart(p, n){
+  n = n | 0;
+  if (!FOG.on) { window.__FRESH_START = { skipped: 'bohemia.fog.off: the bench\'s measured valley, the Church start, nothing hidden' }; return; }
+  var seed = ((Date.now() & 0x7fffffff) ^ Math.floor(Math.random() * 0x7fffffff)) >>> 0, from = [city.x, city.y];
+  var s = null; try { s = (typeof ctBases === 'function' && ctBases()) ? startPick(p.origin || 'newcrew', seed) : null; } catch (_e) { s = null; }
+  if (!s && n < 80) {   /* the places are still being worked out at BEGIN: the map stays dark round him and asks again */
+    if (!n) { try { fogNewGame(!!p.reveal); } catch (_e) {} }
+    setTimeout(function(){ if (TRAVEL || city.x !== from[0] || city.y !== from[1]) return; freshStart(p, n + 1); }, 250);
+    return;
+  }
+  if (s) { city.x = s.at[0]; city.y = s.at[1]; try { localStorage.setItem('bohemia.laststart.v1', JSON.stringify(s.at)); } catch (_e) {} }
+  try { travelStop(); } catch (_e) {}
+  try { camHold(); } catch (_e) {}
+  window.__FRESH_START = { seed: seed, origin: p.origin || null, at: [city.x, city.y], kind: s ? s.kind : null, tries: s ? s.tries : 0, reveal: !!p.reveal, waited: n };
+  try { fogNewGame(!!p.reveal); } catch (_e) {}
+  try { saveNow('fresh start'); } catch (_e) {}
+  try { render(); } catch (_e) {} try { mapStatePost(); } catch (_e) {}
+}
+/* ==== /__A_FRESH_START_AND_A_FOG_OF_WAR__ ==== */
 function loopJobPay(base){ var p = LOOP.start; if(!p) return Math.max(1, base | 0); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1))); }
 /* __A_FEW_NOT_TWELVE__ (RUN 10/5, [a few, not twelve], rule 75b). PAOLO 10/5: 'for demo purposes just one enemy
    attacking... 12 vs 12 is cool but that can't be the flow... a lot of math on the type of enemies, the difficulty, the
@@ -48541,6 +48697,7 @@ function renderCity(){
         var __p = iso(__b.x|0, __b.y|0, ox, oy);
         if(__p.sx < -40 || __p.sx > CVW+40) continue;
         if(__p.sy < -40 || __p.sy > CVH+40) continue;
+        if (fogHides(__b.x | 0, __b.y | 0)) continue;   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: a town under the fog is not on his map yet */
         var __is = !!(__mine && __norm(__n) === __norm(__mine));
         /* YOURS reads differently from theirs, because "that one is mine" is
            the first thing anybody looks for on a map of who holds what. */
@@ -48673,6 +48830,7 @@ function renderCity(){
       if (__q.from && !__q.arrived && Math.max(Math.abs((__q.at.x | 0) - (__q.from.x | 0)), Math.abs((__q.at.y | 0) - (__q.from.y | 0))) < 2) continue;
       /* 10/1: within a block of home they are still IN the town: drawn as people under flags they
          piled onto the base and hid it (photographed). Two blocks out, they are on the road. */
+      if (fogHides(__q.at.x | 0, __q.at.y | 0)) continue;   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: nobody walks where he has not been */
       var __gq = partyGlidePos(__q.id != null ? __q.id : ('i' + __pi2), __q.at.x | 0, __q.at.y | 0, performance.now());   /* __THE_PARTIES_WALK__ */
       if (__gq.u < 1) __partyMoving = true;
       try { (MAP_DREW.partyAt = MAP_DREW.partyAt || {})[__q.id != null ? __q.id : ('i' + __pi2)] = [__gq.x, __gq.y]; } catch (_e) {}   /* where it was DRAWN, for the gate */
@@ -48739,6 +48897,7 @@ function renderCity(){
     }
     g.restore();
   }
+  try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: over the land, the towns and the walkers; under him and the names */
   /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF. The pin that
      stood here (a white-headed marker carrying his face, [white rings] 9/11 and [see me]
      9/22) was found by the eye and still not read as a person: "why do I not see my

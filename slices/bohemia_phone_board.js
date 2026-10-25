@@ -92,6 +92,9 @@
     out.sort(function (a, b) { return b.pay - a.pay || b.stars - a.stars || a.dist - b.dist || (a.key < b.key ? -1 : 1); });
     /* a job the shelf ran short on and two places show is on the phone once, from the nearer (RUN TWO 10/25) */
     var once = {}; out = out.filter(function (a) { if (once[a.id]) return false; once[a.id] = 1; return true; });
+    /* RUN 10/25 __A_FRESH_START_AND_A_FOG_OF_WAR__ (rule 155(a), TUNING's change 5): on the first day the first posts come from
+       the places near his corner (twelve blocks), the best paid of those first; the rest after them */
+    try { if (typeof loopDay === 'function' && loopDay() <= 1) { var nearP = out.filter(function (a) { return a.dist <= 12; }); if (nearP.length >= 2) out = nearP.concat(out.filter(function (a) { return a.dist > 12; })); } } catch (e) {}
     return out;
   }
   function placeWord(name) { return String(name).toUpperCase(); }

@@ -330,6 +330,7 @@
     var drawn = 0, named = 0, boxes = [], jobNamed = 0, names = [];
     g.save();
     R.places.forEach(function(p){
+      if (window.fogHides && window.fogHides(p.x, p.y)) return;   /* RUN 10/25 __A_FRESH_START_AND_A_FOG_OF_WAR__: not on his map yet */
       var q = iso(p.x, p.y, ox, oy); if (q.sx < -60 || q.sx > CVW + 60 || q.sy < -60 || q.sy > CVH + 60) return;
       var foot = q.sy + TH / 2 + 6, ps = null;
       try { ps = mapBaseDraw(p.tier, p.name, q.sx, foot, false, mapArtBeat()); } catch(_e){ ps = null; }

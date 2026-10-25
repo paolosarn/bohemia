@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"95e3da2df9ed2028",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"121995cb28ba51f3",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1568,7 +1568,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/25h - THE JOB'S STARS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/25i - A FRESH START, A FOG OF WAR</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13652,7 +13652,7 @@ var BOH_START = (function(){
      default, SEEN IT + THIN SHELVES, is Battle Brothers' Veteran with medium funds, 46 in 100 of the four first fights won;
      NEW HERE + FULL SHELVES is rule 117's start, 78 in 100. The hard ends stay one tap away (rule 117(a): the sliders go
      up from easy), and a returning player's own pick still wins (bohemia.start below). */
-  var pick = { combat:'new', econ:'full', origin:'newcrew', name:0 };
+  var pick = { combat:'new', econ:'full', origin:'newcrew', name:0, reveal:0 };
   try{ var sv = JSON.parse(localStorage.getItem('bohemia.start') || 'null'); if(sv) for(var k in pick) if(sv[k] != null) pick[k] = sv[k]; }catch(_e){}
   function find(list, id){ for(var i=0;i<list.length;i++) if(list[i].id===id) return list[i]; return list[1] || list[0]; }
   function save(){ try{ localStorage.setItem('bohemia.start', JSON.stringify(pick)); }catch(_e){} }
@@ -13676,6 +13676,8 @@ var BOH_START = (function(){
     ECON.forEach(function(c){ h += '<button data-k="econ" data-v="'+c.id+'"'+(c.id===pick.econ?' class="on"':'')+'>'+c.name+'<small>'+c.sub+'</small></button>'; });
     h += '</div><h4>WHO YOU WERE &middot; SWIPE</h4><div class="strip" id="newcostrip">';
     ORIGINS.forEach(function(o){ h += '<button class="org'+(o.id===pick.origin?' on':'')+'" data-k="origin" data-v="'+o.id+'"><em class="d'+o.d+'">'+D[o.d]+'</em><span>'+card(o)+'</span></button>'; });
+    /* RUN 10/25 __A_FRESH_START_AND_A_FOG_OF_WAR__ (rule 155(c)): the map starts dark past where you stand; this shows the towns through it (off unless picked) */
+    h += '</div><h4>THE MAP</h4><div class="row"><button data-k="reveal" data-v="0"'+(!+pick.reveal?' class="on"':'')+'>THE DARK<small>you find the towns</small></button><button data-k="reveal" data-v="1"'+(+pick.reveal?' class="on"':'')+'>SHOW THE TOWNS<small>the towns through the dark</small></button>';   /* draft:true */
     h += '</div><h4>YOUR CREW\'S NAME</h4><div class="name"><span id="newconame">'+NAMES[pick.name % NAMES.length]+'</span><button data-k="name">ANOTHER</button></div>';
     el.innerHTML = h;
   }
@@ -13695,7 +13697,7 @@ var BOH_START = (function(){
              /* the company and its caps, from the file (null until it loads, and the fight then fields its own twelve) */
              company:o.men ? o.men.map(function(m){ return { background:m.background, level:m.level }; }) : null,
              cap:o.field_cap || null, roster:o.roster_cap || null,
-             name:NAMES[pick.name % NAMES.length], draft:true };
+             name:NAMES[pick.name % NAMES.length], reveal: +pick.reveal === 1, draft:true };
   }
   /* the file, merged over the fallback by id: names, lines and tiers are its, and so is everything a card promises */
   function load(){
@@ -13991,7 +13993,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });

@@ -80,7 +80,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'keepCards',
+const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'keepCards',
                     'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -181,6 +181,15 @@ async function open(opts) {
      walking walks into. A checker that walks into a fight to measure the fight presses ENGAGE, the way a player would, the
      moment the card stands (the same precedent as spoilsLeave after a forced win). Off unless a caller passes it: a driver
      that plays like a stranger meets the card and has to answer it. */
+  /* opts.fog (RUN 10/25, __A_FRESH_START_AND_A_FOG_OF_WAR__, rule 155(b)): a new game's map is dark past what he has seen. A
+     checker that measures the map's own painting (its pixels, its people, its towns) passes fog: false and measures the map
+     with the dark lifted (localStorage bohemia.fog.off); a driver that plays like a stranger meets the dark. */
+  /* AND A CHECKER IN gates/ MEASURES THE BENCH'S VALLEY BY DEFAULT: the 160-odd gates written before rule 155 measure the
+     systems on the one valley from the Church start with nothing hidden, so a gate gets fog: false unless it asks for the
+     stranger's game (fog: true, as gates/a_fresh_start_and_a_fog_of_war_gate.js does); every tool outside gates/ (EYES, the
+     coordinator's five minutes, a lane's look) meets the game a stranger meets. */
+  const FROM_GATE = /[\\/]gates[\\/]/.test((require.main && require.main.filename) || '');
+  if ((opts.fog === false || (opts.fog == null && FROM_GATE)) && !again) await ctx.addInitScript({ content: "try { localStorage.setItem('bohemia.fog.off', '1'); } catch (e) {}" });
   if (opts.engage && !again) await ctx.addInitScript({ content: "setInterval(function(){ try { if (window.MEET && MEET.up && window.MEET_DONE) { window.__MEET_ENGAGED_BY_CHECKER = (window.__MEET_ENGAGED_BY_CHECKER | 0) + 1; MEET_DONE(true); } } catch (e) {} }, 250);" });
   const page = await ctx.newPage();
   const errs = [];
