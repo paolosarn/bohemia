@@ -138,6 +138,55 @@ FINAL, the same 300 fights, old brain -> new: won 202 -> 239, stalled 11 -> 0, w
 off-and-back 96 -> 51, a strike in reach never swung 1.44% -> 0.03%, free swings 7.03 -> 2.18 a fight, roofs 38.5% -> 39.7%,
 rounds 11.6 -> 10.4. AUTO NEVER WASTES A TURN 9/0 on 100 (86 won, the old brain 71).
 
+## 7. RULE 177: THE FIGHT DRAWS WHAT HE WEARS, COMBAT'S HALF (ca994d39)
+His words: 'I gave everyone car door shields and I don't see that.' MEASURED FIRST in the real fight: every man handed a kit and
+a car door, the draw's own counters attributed to the man drawn, frame by frame, both sides.
+- A TWO-HANDER AND A CAR DOOR: the crossbow man and the sledge man fought with the door ON THE ARM, its defence counted while both
+  hands held the two-hander (Battle Brothers will not equip them together; our own swap already slung it). Now makeUnit puts it on
+  his back from the open, both sides; no band of theirs ever paired them (0 of 450 men over 160 bands).
+- A BAG SWAP TO A GUN: a man who swapped a pistol out of his bag stood bare-handed for good (180 of 180 frames): the fight fetched
+  a gun picture only for a man holding a gun at the open. The start now fetches a gun in his bag too, and any gun picture is
+  fetched the first frame he needs it (rigLater): the swap drawn after 1 frame, a gun from nowhere after 4 to 12.
+- THE PICTURES, measured for ANIMATION and COOK (their rows; NOTE on ANIMATION's board): the car door in all eight facings on 5 of
+  96 human looks (YOU and four town men), the sledge in two hands on 0 (its keys are in on five looks, its layer on them is not),
+  a thug's own modelled pipe shown for whatever he holds, armour and head gear as layers on none.
+Gate: THE FIGHT DRAWS WHAT HE WEARS 15/0 (H1 bites with the fix taken out; P4 ratchets the pictures: 5, 5, 0).
+
+## 8. RULE 185: A GUN SHOOTS THE MAN BESIDE HIM (98157e79)
+His words: 'why do you have pistols not able to shoot the tile next to them... I shouldn't be pistol-whipping the tile next to me,
+I should still be shooting.' Rule 83 was built on a misreading of 'all guns 2+ minimum' (the reach, never a minimum).
+- ours.gun_min_range 1 (its source and quote his 10/25 words); rangeLo: a gun no longer takes the javelin row's own two that the
+  pistol's shot rides. Pistol 1 to 4, shotgun 1 to 2, rifle 1 to 6.
+- The gun's butt only when there is no shot in it (no round, not loaded, no breath or AP for the shot), or when he picks the WHIP:
+  a square on the skill row while a man of theirs stands beside him, for one blow; AUTO never picks it (rule 180).
+- The lit reach band, the out-of-reach words and the weapon card read the same floor. AUTO and the calculator read the same rules
+  text (rule 185(d)).
+Measured: 36 rolled fights, every faction, AUTO both sides: 1,208 shots, 70 at the next tile, 0 butts with a shot in the gun; 11 gun
+rows, none refused the man beside him (the old rule put back: 0 at the next tile, 98 butts, 11 refused).
+Gates: MELEE IS ONE TILE 8/0 (two rule 185 legs), GUNS FROM THE FIRST FIGHT 13/0, THE FIGHT SAYS WHAT IS WEAK 11/0 (the WHIP on the
+phone), THE REBUILT FIGHT PLAYS' guns, zone and card sections 13/0.
+
+## 9. RULE 188: EVERY MAN HAS A JOB EACH TURN (his spear man behind a house)
+His words: 'one of my spear and car-door men was behind a house so he couldn't engage, just doing nothing.' MEASURED FIRST on his
+crew (a rifle and two spear-and-car-door men), 300 of TUNING's rolled fights (fightOf): 742 of 2,689 turns of his spear men (27.6%)
+ended with no blow and not one step nearer while a walk to an enemy was open; 52 of 600 never struck all fight; on TUNING's own
+crews (3, 6, 12 men) 15.5% of melee turns. Each cause found on the fight it happened in (a map dump of the man, his friends, the
+foes and the walk field), each fixed as the rule the brain reads (188(c)):
+- THE LINE WAS THE RIFLEMAN: 'keep formation' took the line's middle from every mate, the shooter too; with three men the middle
+  was the rifleman at the back, who may never step ahead of his front man, so both held until the enemy walked in. lineOf's middle
+  is now his melee men's. 742 -> 427.
+- HE WAITED FOR THEM: the crew's 'hold the line' kept a melee man still until a blow landed somewhere; a melee man of his now
+  closes ('never idle while a move brings him closer'). 427 -> 125 with the next.
+- THE WALK WENT THROUGH HIS OWN MAN: the field AUTO walks by ran through his friends' tiles, so the real walk round a house looked
+  no shorter and he stood (a spear man two 'steps' away through his friend's tile, four rounds on a roof). A friend's tile is now
+  reached, never walked through. -> 26.
+- THE LINE IS FOR THE APPROACH: held against men who come to it, before the lines meet; after contact his men close in, and a
+  thrower or gunman left alone is run down. -> 6 of 2,512 (0.24%); TUNING's crews 19 of 2,394 (0.79%).
+His crew won 178 -> 186 of the 300; TUNING's bench crews 239 -> 244 of 300 (AUTO NEVER WASTES A TURN on 300: no wasted turn, 2
+dances, roofs 42.6%, none stalled). Never struck: 52 -> 18 of 600.
+Gate: EVERY MAN HAS A JOB EACH TURN (new; J1 his crew, J2 never struck, J3 TUNING's crews, J4 wins). THE REBUILT FIGHT PLAYS' 'AUTO
+holds the formation' leg re-aimed to what the formation still governs (the approach, a melee man of theirs coming).
+
 ## GATES (rule 13: the ones that read my files, run this round, alone where the box was crowded)
 NOBODY ON ANYBODY, THE WATER RUNS ON 14/0 (new); MELEE IS ONE TILE, COVER IS WHAT IS ON THE TILE 7/0 (new); AUTO NEVER WASTES A
 TURN 9/0 (new); THE PC PLAYTEST: THE FIGHT 27/0; THE FORMATION IS KEPT 23/0; ONE TAP 16/0; LOSS 15/0 (alone; 11/4 in a crowd,

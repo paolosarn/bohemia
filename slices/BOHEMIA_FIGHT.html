@@ -2326,7 +2326,7 @@ const FIGHT = (function () {
     const mates = friends(u).filter(function (f) { return f !== u && onField(f) && f.morale !== 'Fleeing'; });
     const melee = mates.filter(function (f) { return !isRanged(f.weapon); }).map(function (f) { return hunt(f.x, f.y); }).filter(isFinite).sort(function (a, b) { return a - b; });
     const all = mates.map(function (f) { return hunt(f.x, f.y); }).filter(isFinite).sort(function (a, b) { return a - b; });
-    return { mid: all.length ? all[Math.floor(all.length / (1 + 1))] : null, front: melee.length ? melee[0] : null };
+    return { mid: melee.length ? melee[Math.floor(melee.length / (1 + 1))] : null, front: melee.length ? melee[0] : null, all: all };
   }
   function heightGain(x, y, u, ranged) {
     /* the library's bonus for higher ground is flat (+10 however many levels up), so the brain's is too: a three-storey roof is
@@ -2340,13 +2340,19 @@ const FIGHT = (function () {
     if (u.side === 'you' && ranged && level(x, y) >= 1 + 1 && hasShot(u) && roofReach(u, x, y)) return g * (1 + 1) + R('ours.auto_brain').roof_steps * R('hit_chance.cap').max;
     return ranged ? g * (1 + 1) : g;
   }
-  function huntField(u) {
+  function huntField(u, open) {
     /* breadth-first over open ground from every foe, so a man who sees nobody still finds the fight */
     const key = function (x, y) { return y * S.w + x; };
     const d = {}; const q = [];
     /* a club counts a tile as beside a foe only where it can swing from it: the library's melee reach stops at one level of height
        (rule 164 item 14 made roofs two and three storeys up; a thug stood under a two-storey roof for forty rounds, measured) */
     const club = !isRanged(u.weapon), gap = R('hit_chance.height.melee_max_height_gap');
+    /* AROUND HIS OWN MEN (rule 188(a), Paolo 10/25: 'one of my spear and car-door men was behind a house so he couldn't engage,
+       just doing nothing'): a tile a man of his side stands on is reached but never walked through, as his feet cannot; measured
+       10/25, a spear man two 'steps' from the fight through his friend's tile stood four rounds while the walk round the house
+       was open. With open set, the ground alone: where the line stands is its distance from the enemy, and a man's own step must
+       not move it (his body in a lane changed his mates' walks, measured) */
+    const busy = {}; if (!open) S.units.forEach(function (o) { if (o !== u && o.side === u.side && onField(o)) busy[key(o.x, o.y)] = true; });
     foes(u).forEach(function (f) { d[key(f.x, f.y)] = 0; q.push(f); });
     while (q.length) {
       const n = q.shift(), nd = d[key(n.x, n.y)];
@@ -2354,7 +2360,7 @@ const FIGHT = (function () {
         const x = n.x + o[0], y = n.y + o[1];
         if (!passable(x, y) || squeezes(n.x, n.y, x, y) || d[key(x, y)] !== undefined) return;
         if (club && nd === 0 && Math.abs(level(x, y) - level(n.x, n.y)) > gap) return;
-        d[key(x, y)] = nd + 1; q.push({ x: x, y: y });
+        d[key(x, y)] = nd + 1; if (!busy[key(x, y)]) q.push({ x: x, y: y });
       });
     }
     return function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
@@ -2371,7 +2377,7 @@ const FIGHT = (function () {
     if (u.climbed === S.round) return false;
     if (u.side === 'you' && u.club && zocOn(u, u.x, u.y).length) return false;   /* AUTO never climbs out of a ring through the free swings: he clubs (measured 10/25) */
     u.climbed = S.round;
-    const f = reach(u), strikeAP = skillAP(u.weapon, strikeSkill(u.weapon), u), hunt = huntField(u);
+    const f = reach(u), strikeAP = skillAP(u.weapon, strikeSkill(u.weapon), u), hunt = huntField(u, true);
     const line = A.shield_the_backline ? lineOf(u, hunt) : null;
     let best = null, bs = -Infinity;
     Object.keys(f.best).forEach(function (k) {
@@ -2457,11 +2463,11 @@ const FIGHT = (function () {
     const f = reach(u); const strikeAP = skillAP(w, strikeSkill(w), u);
     const struckNow = u.side === 'you' && S.log.slice(u.turnLog || 0).some(function (e) { return e.id === u.id && e.t === 'attack' && !e.free; });
     const coming = foes(u).some(function (fo) { return !isRanged(fo.weapon) && fo.morale !== 'Fleeing'; });
-    const holds = A.hold_line && coming && !S.contact;
+    const holds = A.hold_line && coming && !S.contact && !(u.side === 'you' && !ranged);
     const avoid = R('ai.tactics.avoid_surround');
     let best = null, bs = -Infinity;
-    const hunt = huntField(u);
-    const line = (A.keep_formation || A.shield_the_backline || A.long_weapon_waits || A.stays_back) ? lineOf(u, hunt) : null;
+    const hunt = huntField(u), hl = huntField(u, true);   /* the walk round houses and his own men; the line on the ground alone */
+    const line = (A.keep_formation || A.shield_the_backline || A.long_weapon_waits || A.stays_back) ? lineOf(u, hl) : null;
     const depth = R('ours.formation_depth_lines');
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
@@ -2488,17 +2494,17 @@ const FIGHT = (function () {
       } else {
         sc = holds ? -Infinity : -hunt(x, y) * R('hit_chance.cap').max + left;
         if (ranged && !A.advance && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
-        if (A.keep_formation && line && line.mid !== null && sc > -Infinity) {
-          if (hunt(x, y) < line.mid - (depth - 1)) sc = -Infinity;           /* never run out ahead of the line */
+        if (A.keep_formation && coming && !(u.side === 'you' && S.contact) && line && line.mid !== null && sc > -Infinity) {   /* the line is for the approach, against men who come to it (rule 188): once the lines meet his men close in, and a thrower or a gunman left alone is run down */
+          if (hl(x, y) < line.mid - (depth - 1)) sc = -Infinity;           /* never run out ahead of the line */
           else sc += friends(u).filter(function (fr) { return fr !== u && dist(fr, ghost) === 1; }).length;
         }
       }
       if (A.high_ground && sc > -Infinity) sc += heightGain(x, y, u, ranged);
       /* the raider with a long weapon, nobody in reach: he waits rather than lead his one-tile men */
-      if (A.long_weapon_waits && !canHit && (w.range_max || 1) > 1 && line && line.front !== null && hunt(x, y) < line.front) sc = -Infinity;
+      if (A.long_weapon_waits && !canHit && (w.range_max || 1) > 1 && line && line.front !== null && hl(x, y) < line.front) sc = -Infinity;
       /* the leader: still until the lines meet, then a step behind his own front man unless he can strike from there now */
-      if (A.stays_back && (!S.contact || (!canHit && line && line.front !== null && hunt(x, y) <= line.front))) sc = -Infinity;
-      if (A.shield_the_backline && ranged && line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) sc = -Infinity;
+      if (A.stays_back && (!S.contact || (!canHit && line && line.front !== null && hl(x, y) <= line.front))) sc = -Infinity;
+      if (A.shield_the_backline && ranged && line && line.front !== null && hl(x, y) <= line.front && hl(x, y) < hl(u.x, u.y)) sc = -Infinity;
       if (u.side === 'you' && x === u.x && y === u.y && sc > -Infinity) sc += R('ap.move_cost.flat');   /* the step he saves */
       /* THE UNDO VETO (rule 176(b): 'never off and back'): after a turn in which he did nothing, AUTO never walks back to where
          that turn began unless he can strike from there now */

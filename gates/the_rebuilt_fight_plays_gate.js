@@ -388,13 +388,20 @@ async function sweep() {
       const dd = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
       const from = {};
       FIGHT.aiStep = function (u) {
-        const k = u.id + ':' + S.round; if (!from[k]) from[k] = [u.x, u.y];
+        const k = u.id + ':' + S.round; if (!from[k]) { from[k] = [u.x, u.y]; const h0 = T.huntField(u, true); from[k].h = h0; from[k].L = T.lineOf(u, h0); }   /* the line as it stood when his turn began: the field starts from the men his side sees, and his walk changes who that is */
         const r = orig(u);
         if (r === false && u.side === 'you' && FIGHT.onField(u) && u.morale !== 'Fleeing') {
-          const mates = FIGHT.alive('you').filter(f => f !== u && FIGHT.onField(f)), h = T.huntField(u), L = T.lineOf(u, h);
+          const mates = FIGHT.alive('you').filter(f => f !== u && FIGHT.onField(f)), h = T.huntField(u, true), L = T.lineOf(u, h);   /* the line on the ground alone, as the brain reads it */
           const eng = FIGHT.alive('them').some(f => dd(f, u) === 1);
           if (eng) { m.engaged++; if (!mates.some(f => dd(f, u) === 1)) m.alone++; }
-          else if (from[k][0] !== u.x || from[k][1] !== u.y) { m.walks++; if (L.mid !== null && h(u.x, u.y) < L.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
+          /* AMENDED 10/25 (rule 188, Paolo 10/25: 'if someone is using melee they want to be able to melee, not be fucked up behind a
+             house'): the line is held on the APPROACH, against men who come to it; once the lines meet his men close in, and a
+             thrower or gunman left alone is run down. The leg counts the walks the formation still governs: his melee men's, before
+             contact, a melee man of theirs coming (a shooter stepping up to a tile he shoots from is rule 188's job for him, and
+             AUTO SHIELDS THE BACKLINE below holds him behind his front man). The line's middle is his melee men's (lineOf; with
+             three men it had been the rifleman). The line is the one he walked against, read when his turn began (the field starts
+             from the men his side sees, and a walk changes who that is: a club man's line read 4 as he stepped and 5 after it). */
+          else if ((from[k][0] !== u.x || from[k][1] !== u.y) && !FIGHT.isRanged(u.weapon) && !S.contact && FIGHT.alive('them').some(f => !FIGHT.isRanged(f.weapon) && f.morale !== 'Fleeing')) { m.walks++; const L0 = from[k].L, h0 = from[k].h; if (L0.mid !== null && h0(u.x, u.y) < L0.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
           if (FIGHT.isRanged(u.weapon)) { m.shots++; if (/^height/.test(S.terrain[u.y][u.x])) m.roof++; if (L.front !== null && h(u.x, u.y) < L.front) m.breach++; }
         }
         return r;
