@@ -603,6 +603,11 @@
      "person_cartel_0",
      "person_cartel_1",
      "person_cartel_2"
+    ],
+    "mechanic": [
+     "enemy_mechanic_0",
+     "enemy_mechanic_1",
+     "enemy_mechanic_2"
     ]
    }
   },

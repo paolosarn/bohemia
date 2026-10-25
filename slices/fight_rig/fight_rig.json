@@ -1388,6 +1388,21 @@
    "type": "mechanic",
    "rig": "records/target/combat/rig/enemy_mechanic_1/rig.json"
   },
+  "enemy_mechanic_2": {
+   "file": "enemy_mechanic_2.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.86,
+   "kind": "enemy",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "type": "mechanic",
+   "rig": "records/target/combat/rig/enemy_mechanic_2/rig.json"
+  },
   "enemy_runner_0": {
    "file": "enemy_runner_0.webp",
    "w": 139,
@@ -1432,6 +1447,21 @@
    "guns": "faction_remnants_guns.webp",
    "type": "heavy",
    "rig": "records/target/combat/rig/enemy_heavy_0/rig.json"
+  },
+  "enemy_heavy_1": {
+   "file": "enemy_heavy_1.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.75,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "heavy",
+   "rig": "records/target/combat/rig/enemy_heavy_1/rig.json"
   }
  },
  "faces": {
@@ -1519,9 +1549,11 @@
    "person_town_11",
    "enemy_mechanic_0",
    "enemy_mechanic_1",
+   "enemy_mechanic_2",
    "enemy_runner_0",
    "enemy_runner_1",
-   "enemy_heavy_0"
+   "enemy_heavy_0",
+   "enemy_heavy_1"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"

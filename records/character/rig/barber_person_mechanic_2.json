@@ -1,0 +1,40 @@
+{
+ "cut": "PERSON mechanic_2",
+ "tag": "person_mechanic_2",
+ "bank": {
+  "kind": "person",
+  "gang": "Mechanic"
+ },
+ "worn_by": "Mechanic, rolled",
+ "model": "records/character/rig/barber_person_mechanic_2.glb",
+ "body": "records/character/rig/person_mechanic_2.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  104,
+  61,
+  44
+ ],
+ "model_top_m": 1.6526,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.8599,
+ "pieces": {
+  "barber_deep_taper_fade": 32925,
+  "barber_deep_taper": 151866,
+  "welder_shell": 598,
+  "welder_lens": 8,
+  "welder_band": 320,
+  "welder_knob_1": 24,
+  "welder_knob_0": 24
+ }
+}
