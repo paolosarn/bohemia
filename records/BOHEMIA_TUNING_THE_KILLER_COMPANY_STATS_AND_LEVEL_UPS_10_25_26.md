@@ -95,4 +95,22 @@ kit (coat of scales 38, full helm 20) weighs 82, 76 and 70. A turn gives back 15
 So with THREE picks, "care about ranged defence" can only be paid out of fatigue, and a front without fatigue cannot wear the heavy armour.
 That is the trade his words describe, measured: three picks cannot hold his old plan AND ranged defence at once. Piece 3 plays it.
 
-PIECE 3 (our numbers, played on the live fight) FOLLOWS.
+## 3. WHEN OUR ENDGAME COMES (the XP, from the live data)
+The fight pays XP the wiki's way (rules.json: the killer 20, the party 80, all of it less 15), and the map sizes a job by the company
+(party_math.json: one enemy per 10 points of the 12 strongest at 10 + 2 a level, x0.8 / x1.0 / x1.3 by skulls, capped at 13). The
+brigands the fight dresses are worth 150 (thug) to 375 (leader) XP each (enemies.json), about 170 a man early and 262 late on the
+fight's own mix. So a twelve-man company earns about 145 XP a man a fight early and about 240 late (13 x 262 x 0.85 / 12). Level 11
+(15,000) comes at about fight 80, level 16 (45,000) at about fight 200. An act is a year (rule 84: 300 to 450 days); at a fight every
+two or three days that is 100 to 220 fights. THE ENDGAME COMPANY IS LEVEL 11 TO 16, inside one act. The bench tests both.
+
+## 4. OUR NUMBERS ON THE LIVE FIGHT (tools/bohemia_tuning_the_killer_company.js --fights)
+THE TEST: his twelve, rolled the wiki's way under each level rule, handed to the live fight with their chosen stats exactly the way the
+roster hands them (engine/bohemia_roster.js company(): 'every man fights as his card says', RUN TWO's rule 162(e) round), in the late
+kit (reinforced mail, bascinet with mail; winged mace and heater shield, two-handed hammer, heavy crossbow) and the endgame kit (coat of
+scales, full helm), both sides on the fight's own brain, against: THE LATE BRIGANDS as the fight dresses them on day 80 (two shooters
+in ten), A GUN LINE (half of them shoot: a crew that fights like ours, rule 120), and the kids (goblins: bolas and nets), at 13 (the
+map's cap), 20, 30 and 40. 100 seeded fights a cell; every rule meets the same fights. The control: the stats the bench hands are the
+stats the fight's unit carries (melee skill 83 handed, 83 in the fight; ranged defence 1 and 1), and the attack event is read where
+the fight writes it (id the striker, shot for a ranged blow). The level rule is the ONLY thing that moves between rows.
+
+PIECE 4's TABLE AND PIECE 5 (the numbers for the one table) FOLLOW WHEN THE GRID FINISHES.

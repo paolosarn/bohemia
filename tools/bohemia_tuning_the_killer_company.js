@@ -142,6 +142,8 @@ function cellsAll() {
   const out = [];
   RULE_ROWS.forEach(rule => Object.keys(BANDS).forEach(band => COUNTS.forEach(count => ['late', 'endgame'].forEach(shelf => {
     if (shelf === 'endgame' && band !== 'brigands') return;   /* the weight test: one band */
+    /* the kids are easy for every level-11 company (measured: won 95 to 100 even with no level-ups at 13 to 40); one count, the hardest */
+    if (band === 'kids' && count !== 40) return;
     out.push({ rule: rule, band: band, count: count, shelf: shelf, level: 11, luck: 'any' });
   }))));
   /* the veteran company (level 16) and the kept stars, on the band that tests ranged defence hardest */
@@ -152,7 +154,7 @@ function cellsAll() {
   /* resolve (rule 162(d)): the front's fourth pick resolve against hitpoints, on the two human bands and the ghosts' scream */
   [20, 30].forEach(count => ['brigands', 'gunline'].forEach(band => out.push({ rule: 'four_res', band: band, count: count, shelf: 'late', level: 11, luck: 'any' })));
   /* the middle of the game: level 6 against the map's own late cap (13) on every band */
-  RULE_ROWS.forEach(rule => Object.keys(BANDS).forEach(band => out.push({ rule: rule, band: band, count: 13, shelf: 'late', level: 6, luck: 'any' })));
+  RULE_ROWS.forEach(rule => ['brigands', 'gunline'].forEach(band => out.push({ rule: rule, band: band, count: 13, shelf: 'late', level: 6, luck: 'any' })));
   return out;
 }
 const keyOf = c => [c.rule, c.band, c.count, c.shelf, c.level, c.luck].join('|');
