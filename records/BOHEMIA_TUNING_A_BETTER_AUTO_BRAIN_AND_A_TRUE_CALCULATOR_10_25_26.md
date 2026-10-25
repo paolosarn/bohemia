@@ -415,3 +415,31 @@ WHAT THIS SAYS:
    grid's). And the fights must stay short (2 to 4 minutes routine, 9/29): PROTO2 shows closing from afar is not the cause.
 5. ONE BRAIN STILL: the splices are side-switched only to measure AUTO's share; the gate (rule 176(h)) is the same brain for
    both sides with the two side switches (focus or spread, abilities or not).
+
+### 5c. THE GATE (rule 176(d), 180(f)(h)), what COMBAT's gate counts, with today's number and the bar
+Over at least 300 rolled AUTO fights on districts and cells the map hands, every faction (the bench's fight list,
+tools/bohemia_tuning_auto_brain.js fightOf, is one ready-made set), one brain for both sides:
+
+| leg | today | the prototype | the bar |
+|---|---|---|---|
+| G1 wasted turns (steps, back on his tile, nothing done) | 325 | 0 | 0 |
+| G2 off one round and back the next with no swing in either, not counting a morale flight or the kids' kite | 58 | 45 | 0 (V2) |
+| G3 a man starts with a strike in reach and does not swing, with no better act logged | 1.5% | 0.2% | under 0.5%, each one logged |
+| G4 free swings our men take a fight walking out of rings | 7.1 | 2.7 | no more than theirs (1.1 today) |
+| G5 gunmen who could walk onto a roof and ever stand on one ('a gunman with a reachable roof takes it in most fights') | 39% | 46% | over 60%, counted on roofs he can shoot from within two turns |
+| G6 abilities used by AUTO (rule 180(f)) | the crew brain uses them | 0 | 0 |
+| G7 a hurt man (under half) with a kill in reach takes it | (not split today) | | 95% |
+| G8 no fight runs to the standoff mark (60 rounds here; 20 idle rounds) | 18 in 600 | 34 | 0 (5b point 4) |
+| G9 the calculator's bands (part 4b) | see 4b | | every band of 20 fights or more within 10 points of what happened, the whole within 5 (expected calibration error) |
+| G10 the turn against an exhaustive search (rule 180(h)) | | | reported, rising round on round |
+
+G10, THE EXHAUSTIVE SEARCH OF ONE TURN (rule 180(h): 'how often AUTO took the best tile and target'): sample 50 turns of our
+men from the rolled fights; for each, list every plan (every tile he can reach this turn, the one he stands on included,
+times every act there: each foe he can strike, reload, nothing), pruned to the brain's own top 12 plus staying plus 4 drawn
+at random; play each plan, then the rest of the fight on AUTO, 16 times on COMMON DICE (playout i of every plan uses the
+same seed, Glasserman and Yao 1992), and score it by the run's worth; the best plan is the highest mean; AUTO 'took the
+best' when its plan sits inside the paired 90% interval of the best. Cost, measured here: a playout from mid-fight is about
+0.3 s of one core (24 runs took 6.9 s on average, 13.4 s with 20 men or more), so a turn is about 500 playouts, 2.5 minutes;
+50 turns about 30 minutes on four cores: a standing check each round COMBAT changes the brain, never a pre-push gate. A
+cheaper reading: play each plan only to the end of the next round and score the hitpoints traded (about ten times cheaper,
+3d's one ply).
