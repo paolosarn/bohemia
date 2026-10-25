@@ -79,6 +79,21 @@ from the Game Mechanics and Game Guide pages):
   (strength 10), a new crew of three (30) and a crew of six (60) are all handed THE SAME contracts, at 0.75 of the type's
   base. **The Lone Wolf is not handed fights sized to one man: he is handed a new company's fights, alone.** That is why he
   must be a near-god, and why the great equipment and the three levels are the origin, not a bonus.
+  The multiplier by company (0.94 x (strength/100)^0.89, held to 0.75 .. 5):
+
+  | company | strength | the formula | what the job is sized at |
+  |---|---|---|---|
+  | the Lone Wolf alone (under three men count 10) | 10 | 0.12 | **0.75** |
+  | a new crew of three, level 1 | 30 | 0.32 | **0.75** |
+  | six, level 1 | 60 | 0.60 | **0.75** |
+  | eight, level 1 | 80 | 0.77 | 0.77 |
+  | twelve, level 1 | 120 | 1.11 | 1.11 |
+  | twelve, level 5 | 216 | 1.87 | 1.87 |
+  | twelve, level 11 | 312 | 2.59 | 2.59 |
+
+  Camps and other places on the map do not look at the company at all: they grow with the days to about three times their
+  size by day 267; roaming parties grow with the days and stop growing at day 100 (GROK_60 PASSED FILTER); late days add
+  small buffs to the enemy (5 melee skill, 10% damage).
 - Ours does not do this (measured in 1c below): party_math sizes a job straight off the strength with no floor, so one man's
   job is 2 enemies at every skull for a long time, while a new crew's two-skull job is 3.
 - ROAMING PARTIES AND LOCATIONS scale 'mostly with distance to civilization and time', roaming parties 'slightly' with your
@@ -175,5 +190,52 @@ Battle Brothers' shape for the roads, but NOT for the jobs: Battle Brothers hold
 (section 2), so its Lone Wolf meets a new company's job, three men and more, from day one. A hire changes the job too: the
 wolf and one level-1 man meet a three-skull job of 3 from day 1 and 4 from day 30 (his strength counts in full).
 
+## 1d. THE DAYS, PLAYED: FROM THE DOOR TO DAY 100 (100 seeds a row, a fight every second day)
+
+Each seed plays the Lone Wolf from the door: a fight every second day (the cadence the men-out sums of earlier pages assumed;
+1 and 4 days in 1f), the party the map hands (1c), dressed by the day, on the live fight; the XP the fight counts (one man takes
+it all); his level-ups his choice on his star rolls (four picks, rule 162: melee skill, melee defence, fatigue, ranged
+defence; Battle Brothers' wolf three); perks one a level to 11; the purse from the door's 125 (FULL SHELVES, the door's
+default), the board's 30 a skull (x1.5 on full shelves) for a job won, nothing for a roaming party, two batteries a night.
+A fall is a lost fight (he is downed, never dead; the wipe wakes him in town).
+TAKES: every fight day the map hands him a party and he meets it (a job half the time, one to three skulls alike, one in five
+a camp; a roaming party the other half, 0 to 8 blocks from town). PICKS: he looks first (MEET BEFORE YOU FIGHT, rule 151(e)),
+takes the best-paid job the map sizes at A FEW (2 or 3), and falls back from any roaming party bigger than that (his words:
+'make sure he doesn't run into any group too big').
+
+WON IN 100 / FELL IN 100, by ten days (his median level at the window's end in brackets):
+
+| days | TODAY, takes | TODAY, picks | GOOD GEAR, takes | GOOD GEAR, picks | BATTLE BROTHERS' WOLF, takes |
+|---|---|---|---|---|---|
+| 1-10 | 57 / 43 (4) | 64 / 36 (4) | **90 / 10 (5)** | **96 / 4 (5)** | 95 / 5 (5) |
+| 11-20 | 43 / 57 (5) | 55 / 45 (5) | 89 / 11 (6) | 97 / 3 (6) | 95 / 5 (6) |
+| 21-30 | 32 / 68 (5) | 55 / 45 (5) | 77 / 23 (7) | 86 / 13 (6) | 82 / 19 (7) |
+| 31-40 | 32 / 68 (5) | 53 / 47 (5) | 79 / 21 (8) | 91 / 9 (7) | 82 / 18 (8) |
+| 41-50 | 31 / 69 (6) | 50 / 50 (5) | 73 / 27 (9) | 95 / 5 (7) | 74 / 27 (9) |
+| 51-60 | 31 / 69 (6) | 47 / 53 (5) | 74 / 26 (10) | 93 / 7 (7) | 75 / 26 (10) |
+| **61-70** | 19 / 81 (6) | 32 / 68 (6) | **39 / 60 (10)** | **68 / 30 (8)** | **34 / 66 (10)** |
+| 71-80 | | | 42 / 58 (11) | 72 / 26 (8) | 47 / 54 (11) |
+| 81-90 | 21 / 79 (6) | 30 / 70 (6) | 42 / 58 (11) | 66 / 34 (8) | 42 / 59 (11) |
+| 91-100 | | | 38 / 62 (11) | 67 / 33 (9) | 38 / 62 (11) |
+
+(TODAY's last two rows are days 61-80 and 81-100. The Battle Brothers row is 40 seeds at the time of writing; the bank holds
+the final count.)
+
+THE PURSE, median, GOOD GEAR: 287 batteries by day 10, 1,062 by day 50 (takes); 377 and 1,647 (picks). A winning Lone Wolf is
+rich: no wages, two batteries a night, and the best-paid jobs sized at two men. TODAY's wolf, who loses half his fights, is not.
+
+What the days say:
+1. **The live Lone Wolf loses.** 57 in 100 in his first ten days if he meets what comes, 64 if he picks only the smallest
+   parties; he is level 6 at day 100 because a lost fight teaches little. Against his words, the early fights are NOT
+   winnable alone in the live game.
+2. **In good gear he is the near-god he remembers for sixty days**: 90 to 96 in 100 through day 20, still 73 to 95 to day 60,
+   with a closest call under a quarter of his health in 1 or 2 fights in 100. That is 'virtually impossible to kill'.
+3. **The turn comes at day 60, and it is a cliff, not a ramp**: the good-gear wolf drops from 74 to 39 in 100 in one window
+   (93 to 68 if he picks his fights) the day ours.enemy_tiers switches to its late mix (raiders, marksmen, marauders and a
+   leader, from day 60; their skills stepped up at 40). Battle Brothers' turn is a 50 to 100 day ramp with the crisis
+   foretold at 50 to 70 and landing at 80 to 100.
+4. Between days 20 and 60 the roads grow (four to six men) and the takes wolf loses a fall in four or five; the picks wolf, who
+   turns those away, stays at 86 to 95. **Picking the fight is the skill his words describe, and it pays.**
+
 ---------------------------------------------------------------------------------------------------------------------------
-(sections 1b, 1d to 1g, 3 and 4 land in the next pieces of this round)
+(sections 1e to 1g, 3 and 4 land in the next pieces of this round)
