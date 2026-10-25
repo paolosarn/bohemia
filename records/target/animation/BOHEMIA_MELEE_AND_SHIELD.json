@@ -2308,14 +2308,35 @@
   "bottles"
  ],
  "props_from": {
-  "cast_": "you",
+  "looks": {
+   "cast_apron": "you",
+   "cast_barearms": "you",
+   "cast_bedroll": "you",
+   "cast_cape": "you",
+   "cast_longcoat": "you",
+   "cast_pack": "you",
+   "cast_poncho": "you",
+   "cast_satchel": "you",
+   "cast_shortcoat": "you",
+   "cast_shorts": "you",
+   "cast_skirt": "you",
+   "faction_blues": "you",
+   "faction_cartel": "you",
+   "faction_colorful": "you",
+   "faction_homeless": "you",
+   "faction_mob": "you",
+   "faction_reds": "you",
+   "faction_remnants": "you",
+   "faction_trades": "you",
+   "faction_volunteers": "you"
+  },
   "layers": [
    "m2",
    "s1",
    "s2",
    "t2"
   ],
-  "why": "the crew's twelve cast looks hold YOU's things on every layer after the first (the same skeleton, scale and camera: their hands sit within a pixel of his, measured on the held sheets, the way his town men already hold his guns); each still has his own body keys. Five hours of renders saved, the first layer of things kept their own."
+  "why": "measured 10/25: with the scale his model renders at within 0.006 of YOU's (1.101 to 1.110), a look's things on the held keys differ from YOU's by about one pixel at the edges (17 to 28 px of a thing's 88 differ, the order of a one-pixel shift of a thin haft; his rolled men already hold their gang's things on their own bodies the same way), so these twenty hold YOU's things past the first layer, moved by the difference of their feet. The rest render their own: a hat that makes the man taller makes him smaller in the frame (the wide brim 1.054, the caravans 1.058, 105 and 110 px of 88 off), and the anarchists, the church and the network sit two pixels off (29 to 44); the two tiers are their own build. About five hours of renders saved."
  },
  "cook_models": {
   "dir": "reference/models/bohemia",

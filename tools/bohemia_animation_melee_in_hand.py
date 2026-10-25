@@ -451,9 +451,7 @@ def prop_files(layer, prop, D=None):
 def props_from(look, layer, S=None):
     """the named look whose things this look holds on this layer (itself, or YOU for a cast look past the first layer)"""
     S = S or source(); P = S.get('props_from', {})
-    if layer in P.get('layers', []):
-        for pre, who in P.items():
-            if pre not in ('layers', 'why') and look.startswith(pre): return who
+    if layer in P.get('layers', []): return P.get('looks', {}).get(look, look)
     return look
 
 

@@ -142,9 +142,9 @@ def owner(k, p, src, e=None):
     """the entry whose sheet holds this thing on this clip (his own, else YOU's for a cast look), and the shift of feet"""
     e = e or E[k]
     if p in e.get('props', {}).get('by', {}) and src in e['props']['by'][p]: return e, 0, 0
-    r = e.get('props_ref')
-    if r and r in E and p in E[r]['props']['by'] and src in E[r]['props']['by'][p]:
-        return E[r], e['foot'][0] - E[r]['foot'][0], e['foot'][1] - E[r]['foot'][1]
+    for r in (e.get('props_ref'), E.get(e.get('ref'), {}).get('props_ref') if e.get('ref') else None):   # whose things he holds, then whose his gang holds
+        if r and r in E and p in E[r].get('props', {}).get('by', {}) and src in E[r]['props']['by'][p]:
+            return E[r], e['foot'][0] - E[r]['foot'][0], e['foot'][1] - E[r]['foot'][1]
     raise KeyError('%s %s %s' % (k, p, src))
 
 

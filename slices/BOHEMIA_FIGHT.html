@@ -4784,7 +4784,9 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const M = MELEE.meta, e = meleeLook(L._key) || (M && L.ref && M.looks[L.ref] ? (MELEE.bare[L._key] = MELEE.bare[L._key] || { clips: {}, sheets: {}, ref: L.ref }) : null);
   if (!e) return null;
   /* where each thing comes from: his own sheet of things, else his gang's or his crew's (the cast hold YOU's), each layer on its own */
-  const srcs = [e.props ? e : null, meleeLook(e.ref || e.props_ref)].filter(function (q) { return q && q.props; }); if (!srcs.length) return null;
+  const r1 = meleeLook(e.ref || e.props_ref), r2 = r1 && r1.props_ref ? meleeLook(r1.props_ref) : null;   /* a rolled man: his gang, then whose things his gang holds */
+  const srcs = [e.props ? e : null, r1, r2].filter(function (q) { return q && q.props; }); if (!srcs.length) return null;
+  const keyOf = function (x) { return x === r1 ? (e.ref || e.props_ref) : x === r2 ? r1.props_ref : L._key; };
   const thing = function (q, clip) { for (let i = 0; i < srcs.length; i++) { const by = srcs[i].props.by[q]; if (by && by[clip]) return [srcs[i], by[clip]]; } return null; };
   const has = function (q) { return srcs.some(function (x) { return x.props.by[q]; }); };
   const mp = kind ? null : meleeProp(v), two = mp && mp[1];
@@ -4804,7 +4806,7 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
     if (ix === null || ix === undefined) return;   /* behind him on this facing */
     const im_ = holdImg(ps.file, 'rig_melee/'); if (!im_) { lay.push(false); return; }
     /* a thing off another man's sheet sits from that man's fight cell: moved by the difference of their feet, so it is in this fist */
-    const fo = tg[0] === e ? null : DB.rig.looks[e.ref || e.props_ref];
+    const fo = tg[0] === e ? null : DB.rig.looks[keyOf(tg[0])];
     lay.push([im_, ps.cells[ix], fo ? L.foot[0] - fo.foot[0] : 0, fo ? L.foot[1] - fo.foot[1] : 0]);
   });
   if (lay.indexOf(false) >= 0) return null;   /* never a man without what he holds: as before until it is in */
