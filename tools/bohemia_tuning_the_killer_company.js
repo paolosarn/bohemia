@@ -135,7 +135,9 @@ const BANDS = {
   kids: { name: 'THE KIDS, late (goblin skirmishers and wolfriders: bolas and nets)', party: n => ({ faction: 'kids', count: n, days: 80, difficulty: 0 }) }
 };
 const COUNTS = [13, 20, 30, 40];
-const RULE_ROWS = ['none', 'bb3', 'rd_for_fat', 'bb3_rd_free', 'four', 'four_rd_free', 'five'];
+/* 'four' rolls the same men as 'bb3_rd_free' under his plan (the fourth pick is ranged defence either way) and 'five' the same as
+   'four_rd_free', so they are not played twice: the LINES show them, the fights play one of each pair (measured: identical stats) */
+const RULE_ROWS = ['none', 'bb3', 'rd_for_fat', 'bb3_rd_free', 'four_rd_free'];
 function cellsAll() {
   const out = [];
   RULE_ROWS.forEach(rule => Object.keys(BANDS).forEach(band => COUNTS.forEach(count => ['late', 'endgame'].forEach(shelf => {
@@ -143,7 +145,7 @@ function cellsAll() {
     out.push({ rule: rule, band: band, count: count, shelf: shelf, level: 11, luck: 'any' });
   }))));
   /* the veteran company (level 16) and the kept stars, on the band that tests ranged defence hardest */
-  ['bb3', 'bb3_rd_free', 'four', 'five'].forEach(rule => [20].forEach(count => {
+  ['bb3', 'bb3_rd_free', 'four_rd_free'].forEach(rule => [20].forEach(count => {
     out.push({ rule: rule, band: 'gunline', count: count, shelf: 'late', level: 16, luck: 'any' });
     out.push({ rule: rule, band: 'gunline', count: count, shelf: 'late', level: 11, luck: 'kept' });
   }));
@@ -213,8 +215,12 @@ async function control() {
     handed_ranged_defense: hand.stats.ranged_defense, fight_ranged_defense: u0.rdef };
 }
 
+/* THE STAMP: the fight's fingerprint (the fight file and every data file it reads) and this bench's own logic (the men, the
+   plans, the bands, one cell), never the cell list, so adding a cell keeps every cell already played */
+const BENCH = () => ({ text: [rng, rint, rollRange, starsOf, manTo, companyOf, cell].map(f => f.toString()).join('\n') + JSON.stringify(PLANS) +
+  JSON.stringify(SHELF) + FRONT_BG.join() + BACK_BG.join() + FRONT_KIT.join() + Object.keys(BANDS).map(k => BANDS[k].party.toString()).join() });
 async function runFights(n, jobs) {
-  const cache = G.cellCache(CELLS, n, [path.join('tools', 'bohemia_tuning_the_killer_company.js')]);
+  const cache = G.cellCache(CELLS, n, [BENCH()]);
   const todo = cellsAll().filter(c => !cache.has(keyOf(c)));
   process.stderr.write('cells: ' + cellsAll().length + ', to play: ' + todo.length + ' at ' + n + ' fights\n');
   let i = 0;
@@ -233,7 +239,7 @@ async function runFights(n, jobs) {
     next();
   });
   await Promise.all(Array.from({ length: jobs }, work));
-  const fresh = G.cellCache(CELLS, n, [path.join('tools', 'bohemia_tuning_the_killer_company.js')]);
+  const fresh = G.cellCache(CELLS, n, [BENCH()]);
   const out = {};
   cellsAll().forEach(c => { const v = fresh.has(keyOf(c)); if (v) out[keyOf(c)] = felt(v); });
   return out;
@@ -242,6 +248,7 @@ async function runFights(n, jobs) {
 async function main() {
   const a = process.argv.slice(2), arg = (k, d) => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : d; };
   if (a[0] === '--cell') { const T = await cell(JSON.parse(a[1]), Number(a[2])); process.stdout.write(JSON.stringify(T)); return; }
+  if (a.indexOf('--stamp') >= 0) { console.log(G.fightPrint([BENCH()])); return; }
   if (a.indexOf('--control') >= 0) { console.log(JSON.stringify(await control(), null, 1)); return; }
   const out = { draft: true, about: 'TUNING [the killer company] 10/25: research only (rule 38g); nothing reads this bank', plans: PLANS, bands: Object.fromEntries(Object.keys(BANDS).map(k => [k, BANDS[k].name])),
     men: { front: FRONT_BG, back: BACK_BG, front_kit: FRONT_KIT, shelf: SHELF } };
