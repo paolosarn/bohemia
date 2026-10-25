@@ -526,6 +526,13 @@ def pack(only=None):
         if person and FR['looks'][look].get('ref') not in index['looks']:
             print('SKIP', look, 'his gang\'s guns are not packed yet'); continue
 
+        jp = os.path.join(ROOT, OUT, look + '.json')
+        if only is None and look in index['looks'] and os.path.exists(jp):   # packed after his last render: nothing new to pack
+            newest = max(os.path.getmtime(os.path.join(dd, f)) for dd in (d, d + '_more', os.path.join(d, 'guns'), os.path.join(d + '_more', 'guns'))
+                         if os.path.isdir(dd) for f in os.listdir(dd))
+            ref = FR['looks'][look].get('ref'); rp = os.path.join(ROOT, OUT, (ref or '') + '.json')
+            if ref and os.path.exists(rp): newest = max(newest, os.path.getmtime(rp))   # his gang's guns re-packed: his cells copy theirs
+            if os.path.getmtime(jp) > newest: continue
         rj = json.load(open(os.path.join(d, 'rig.json')))
         fl = FR['looks'][look]
         # the look's own fight cell is the frame of reference: the same model, still and camera (Stand first), so the same
