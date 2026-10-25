@@ -106,3 +106,23 @@ formation, starts the fight); R ends the round (twice, as there is no dialog); 1
 or hides the bars; Shift centres on the man acting; Page Up and Page Down zoom; C or I opens his card; Esc lets go of a pick.
 The shell may hand keys on with BOHEMIA_FIGHT_KEY while its own window has the focus. On a computer the lines say click and
 the first fight's lessons say point to see, click to do. The rest of the look is UI's row ([the PC playtest: the UI's part]).
+
+## AFTER THE FIRST PUSHES (same round)
+- IN THE DEMO'S OWN DOOR the colour was NOT on the tin at the reveal: 3 runs done, 6 by 2.5 s later, though one run of that
+  fight is 23 to 54 ms of work. The cause: the demo keeps the fight frame hidden behind the clouds while it loads, and a
+  hidden frame's timers are held to about one a second; the worker paused between runs on a timer. It now asks for its next
+  run through a MessageChannel (never held); measured through nfOpen: at the reveal 21 runs done, the tin red (0.318). The
+  refining runs after the first twelve still rest on a timer (a third of a core), so a phone with few cores keeps its frames.
+- THE BOARD IS HANDED OVER ONLY ONCE THE COLOUR IS READ (bakeBoard waits on the read, capped at 1.5 s), and a fight started
+  again (AGAIN, the shell's restart with its own options) is dealt behind the loading screen like the first, so the glass
+  never answers a tap on a fight it has not shown (a test that tapped FIGHT in that gap re-opened the formation over it).
+- RUN TWO's slots carry weapons AND shields (its NOTE, 893b766c): a car door in the bag straps on for 4 AP (Quick Hands is
+  never free for a shield), never beside a two-hander ('The sledge takes both hands: no car door with it.'); the arm's old
+  shield goes back into the slot.
+- THE END MESSAGE SAYS WHAT EACH HAND HOLDS: spoils.looks[i].held {main, off, bag} (item ids; a car door on his back counts
+  as the off hand); a kit bag (the stand-in when nothing was handed) is reported as none, never his.
+- PART (6), THE ROSTER SCALES THE ENEMY: WORLD fce1fc7a (the map's party math counts every man he has); the fight fights the
+  party it is handed. PART (7), the glitches and the organic board: open.
+- [what each hand holds shows]: OPEN. No Blender on this box and no shield model in the bank (only stop_sign.glb): NOTE on
+  COOK's board (the car door, the crash-bar shield, the sign as models) and on ANIMATION's (the shield arm through the rig on
+  its one-hand clips, its own offer). The fight already says which: u.shield, u.shieldBack, and the end message's held.off.

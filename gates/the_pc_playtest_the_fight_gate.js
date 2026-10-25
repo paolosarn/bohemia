@@ -28,7 +28,8 @@
       its rounds in the bag; the bag weighs half its weight on his wind (Bags and Belts: only a two-hander's); a two-hander puts
       the car door on his back and a one-hander brings it back; on AUTO an empty gun he cannot reload swaps for a loaded one;
    10. shown: a square a bag item with the swap's AP, a tap swaps it (the strike square and the gun in his hands follow), too
-      few AP says so;
+      few AP says so; a car door in the bag straps on for 4 AP (never beside a two-hander); the end message says what each hand
+      holds when the fight ends;
    11. ITEM 16, BETTER THAN BATTLE BROTHERS ON BOTH ('if Battle Brothers went to mobile... this is one thing that holds them
       back'): on a computer the mouse over a tile shows the walk and its AP (over a man in reach, the aim) and ONE click does it;
       the lines say click, not tap; Battle Brothers' fight keys from the library (Enter starts and ends, Space waits, W A S D
@@ -66,6 +67,20 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
       '*** ITEM 12: THE INSTANT THE BOARD COMES UP, ON THE FORMATION, BEFORE ANY TAP, AUTO ALREADY WEARS ITS COLOUR ***',
       'formation ' + b.deploy + ', tint ' + (b.tint || 'NONE') + ', the read began ' + Math.round(b.at - b.postAt) + ' ms before the board, worker ' + b.worker);
     errs.push.apply(errs, d.errs); await d.close();
+  }
+  /* 1b: THE REAL SURFACE: the demo's own door (nfOpen, the shell's company and party, the fight behind the clouds) */
+  {
+    const d = await open({ profile: 'phone_portrait' });
+    const p = d.page;
+    await p.evaluate(() => nfOpen({ district: 'suburbs', world: { night: false, day: 3 } }));
+    const fr = await (await p.waitForSelector('#fightFrame', { timeout: 30000 })).contentFrame();
+    await fr.evaluate(WATCH.replace('document.addEventListener("DOMContentLoaded", function () {', '(function () {').replace(/\}\);$/, '})();')).catch(() => {});
+    await fr.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && document.getElementById('load').style.display === 'none', null, { timeout: 90000 });
+    const b = await fr.evaluate(() => { const t = document.querySelector('#bauto .tint'); return window.__boardUp || { tint: t ? t.style.backgroundColor : '', deploy: !!FIGHT.S.deploy, shown: ODDS.shown, late: true }; });
+    const now = await fr.evaluate(() => ({ tint: document.querySelector('#bauto .tint').style.backgroundColor, runs: ODDS.runs }));
+    leg((red(b.tint) || green(b.tint)) && b.deploy, '*** ITEM 12 IN THE DEMO: THROUGH THE GAME\'S OWN DOOR, AUTO WEARS ITS COLOUR THE MOMENT THE FIGHT IS SHOWN ***',
+      'at the reveal ' + (b.tint || 'NONE') + (b.late ? ' (read just after it)' : '') + ', formation ' + b.deploy + '; now ' + now.tint + ', ' + now.runs + ' runs');
+    errs.push.apply(errs, (d.errs || []).filter(e => /BOHEMIA_FIGHT/.test(e))); await d.close();
   }
   /* 2, 3: one of his against five thugs (red), then three of his against one thug (green, glowing) */
   {
@@ -237,7 +252,9 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
     const crew = [{ background: 'companion_ranged', name: 'TINA', gear: { main: rows.rifle, off: null, body: null, head: null } },
       { background: 'companion_1hand', name: 'DESI', gear: { main: rows.pistol, off: rows.car_door, body: null, head: null } },
       { background: 'companion_2hand', name: 'RAUL', gear: { main: rows.pipe, off: null, body: null, head: null, bag: [rows.sledge] } },
-      { background: 'companion_2hand', name: 'GRIZ', gear: { main: rows.pipe, off: null, body: null, head: null, bag: [] } }];
+      { background: 'companion_2hand', name: 'GRIZ', gear: { main: rows.pipe, off: null, body: null, head: null, bag: [] } },
+      { background: 'companion_1hand', name: 'NENA', gear: { main: rows.pipe, off: null, body: null, head: null, bag: [rows.car_door, null] } },
+      { background: 'companion_2hand', name: 'CHEWY', gear: { main: rows.sledge, off: null, body: null, head: null, bag: [rows.car_door] } }];
     ctx.setSeed(9); F.setup({ company: crew, cap: 12, deploy: false, formation: null, flat: true, band: ['brigand_thug'] });
     const S = F.S, by = n => S.units.filter(u => u.name === n)[0], T = by('YOU'), D = by('DESI'), Ra = by('RAUL'), G = by('GRIZ');
     const nm = u => (u.bag || []).map(w => F.jobOfWeapon(w)).join(',');
@@ -264,6 +281,12 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
     T.loaded = false; T.ap = T.apTurn; T.fat = F.fatMax(T); const foe = S.units.filter(u => u.side === 'them')[0]; foe.x = T.x + 3; foe.y = T.y;
     const ev0 = S.log.length; F.aiStep(T); const did = S.log.slice(ev0).map(e => e.t);
     leg(did[0] === 'swap' && F.jobOfWeapon(T.weapon) === 'pistol', '  on AUTO an empty gun he cannot reload this turn (out of breath: a swap costs none) swaps for the loaded one in the bag', did.join(' '));
+    /* a shield in the bag: onto a free arm for the library's 4 AP (Quick Hands never makes it free); never beside a two-hander */
+    const N = by('NENA'), C = by('CHEWY');
+    turn(N); N.perks.push('quick_hands'); const n0 = N.ap, sw = F.swap(N, 0), n1 = N.ap, onArm = !!N.shield, left = N.bag[0];
+    turn(C); const cs = F.canSwap(C, 0);
+    leg(sw && n0 - n1 === 4 && onArm && left === null && cs === false, '  a car door in the bag straps on for 4 AP (Quick Hands: never free for a shield); never beside a two-hander',
+      JSON.stringify({ cost: n0 - n1, onArm, slotAfter: left, twoHander: cs }));
   }
   /* 10: shown */
   {
@@ -281,10 +304,12 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
       b = await p.evaluate(() => { const u = FIGHT.current(); const q = document.querySelector('#skills .sq.bag');
         return { job: u.job, ap: u.ap, say: document.getElementById('say').textContent, label: q ? q.innerText.trim() : '', strikeIcon: document.querySelector('#bstrike canvas') ? 1 : 0, gun: gunSheet(u, lookOf(u)) ? gunSheet(u, lookOf(u)).row : null }; }); }
     /* too few AP */
+    const held = await p.evaluate(() => { const u = FIGHT.current(), L = spoilsOf().looks.filter(l => l.name === u.name)[0]; return L && L.held; });
     const c = await p.evaluate(() => { const u = FIGHT.current(); u.ap = 1; hud(); bagTap(0); return document.getElementById('say').textContent; });
     leg(!!a && a.w >= 44 && a.h >= 44 && /4 AP/.test(a.label) && b && b.job !== a.job && a.ap - b.ap === 4 && /swaps the \w+ for the \w+ from the bag\. 4 AP\./.test(b.say) && b.gun !== a.gun && /Not enough AP: a swap costs 4/.test(c),
       '*** ITEM 15, SHOWN: A SQUARE FOR THE BAG WITH THE SWAP\'S AP; A TAP SWAPS (THE GUN IN HIS HANDS FOLLOWS); TOO FEW AP SAYS SO ***',
       JSON.stringify({ square: a && (a.title + ' ' + a.label + ' ' + a.w + 'x' + a.h), before: a && a.job, after: b && b.job, said: b && b.say, gunRow: [a && a.gun, b && b.gun], short: c }));
+    leg(!!held && held.bag === null && typeof held.main === 'string', '  the end message says what each hand holds when it ends (the kit\'s stand-in bag reported as none: never his)', JSON.stringify(held));
     errs.push.apply(errs, d.errs); await d.close();
   }
   /* 11: the computer */

@@ -607,9 +607,16 @@ const FIGHT = (function () {
   /* the swap: the library's 4 AP; Quick Hands makes the first one a turn free */
   function swapCost(u) { const qh = PK(u, 'quick_hands'); return qh && !u.swappedFree ? qh.swap_ap_cost : R('ap.swap_item'); }
   function jobOfWeapon(w) { const b = w.of || w; return ((DB.wlines.rows[b.class] || {}).job) || b.class; }
-  function canSwap(u, i) { return !S.over && !S.deploy && current() === u && !!u.bag && !!u.bag[i] && !u.netted && u.ap >= swapCost(u); }
+  function isShield(r) { return !!r && DB.armor.shields.indexOf(r) >= 0; }
+  function swapCostOf(u, i) { return isShield(u.bag && u.bag[i]) ? R('ap.swap_item') : swapCost(u); }   /* Quick Hands: 'except for shields' */
+  function canSwap(u, i) { const b = u.bag && u.bag[i]; return !S.over && !S.deploy && current() === u && !!b && !u.netted && !(isShield(b) && bothHands(u.weapon)) && u.ap >= swapCostOf(u, i); }
   function swap(u, i) {
     if (!canSwap(u, i)) return false;
+    if (isShield(u.bag[i])) {   /* a shield trades places with what is on his arm (an empty arm leaves the slot empty) */
+      const on = u.shield, inn = u.bag[i], c0 = swapCostOf(u, i);
+      u.ap -= c0; u.shield = inn; u.shieldBack = null; u.bag[i] = on || null;
+      emit({ t: 'swap', id: u.id, slot: i, from: on ? on.name : null, to: inn.name, ap: c0, shield: true }); afterAction(u); return true;
+    }
     const c = swapCost(u), qh = PK(u, 'quick_hands');
     u.ap -= c; if (qh && !u.swappedFree) u.swappedFree = true;
     const out = u.weapon, outState = { ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded }, inn = u.bag[i], st = (u.bagState && u.bagState[i]) || null;
@@ -623,9 +630,10 @@ const FIGHT = (function () {
     emit({ t: 'swap', id: u.id, slot: i, from: out.name, to: inn.name, ap: c }); afterAction(u); return true;
   }
   /* what a man carries in his bag: the crew screen's two slots (gear.bag), else the kit by his weapon's job (ours.bag) */
+  function bagHanded(c) { return !!((c.gear && Array.isArray(c.gear.bag)) || Array.isArray(c.bag)); }
   function bagFor(c, job) {
     const G = c.gear || null, ids = G && Array.isArray(G.bag) ? G.bag : Array.isArray(c.bag) ? c.bag : null;
-    const asW = function (id) { const w = id && weaponRow(id); return w ? (pistolShot(w) || w) : null; };
+    const asW = function (id) { const w = id && weaponRow(id); return w ? (pistolShot(w) || w) : (id && shieldRow(id)) || null; };   /* a weapon or a shield (RUN TWO: 'weapons and shields only') */
     if (ids) return ids.slice(0, R('ap.bag_slots')).map(asW).filter(Boolean);
     const K = R('ours.bag').kit, rows = R('ours.weapon_rows');
     return (K[job] || K.default).map(function (j) { return asW(rows[j]); }).filter(Boolean);
@@ -685,7 +693,7 @@ const FIGHT = (function () {
     return makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
-      apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagState: [],
+      apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagKit: !bagHanded(c), bagState: [],
       armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
   }
   /* GUNS FIRST, IN THE RIGHT HANDS (rule 120(a); ours.guns_first_kit): the kit the crew rows carry, in order, is dealt to the men
@@ -2422,13 +2430,13 @@ const FIGHT = (function () {
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
-    swap: swap, canSwap: canSwap, swapCost: swapCost, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
+    swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { beginTurn: beginTurn, rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { bothHands: bothHands, beginTurn: beginTurn, rangeMin: rangeMin, armIn: armIn, pistolShot: pistolShot, clubFor: clubFor, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -3820,11 +3828,15 @@ function oddsEngine() {
    colour is on the tin when the board comes up, and no frame pays for it. No worker on the phone: the frames' slices, as before. */
 function oddsWorkerMain() {
   var JOB = null;
+  /* the next run is asked for through a message, never a timer: a fight behind the clouds is a hidden frame, and a hidden frame's
+     timers are held to about one a second (measured in the demo: 3 runs at the reveal, 6 by 2.5 s later; 40 ms of work each) */
+  const CH = new MessageChannel(), NEXT = []; CH.port1.onmessage = function () { const f = NEXT.shift(); if (f) f(); };
+  const soon = function (f) { NEXT.push(f); CH.port2.postMessage(0); };
   self.onmessage = function (m) {
     const d = m.data;
     if (d.db) { Object.keys(d.db).forEach(function (k) { DB[k] = d.db[k]; }); return; }
     JOB = { id: d.id, snap: d.snap, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, show: d.show, rest: d.rest, n: 0, sum: 0, won: 0, clean: 0 };
-    const id = d.id; setTimeout(function () { run(id); }, 0);
+    const id = d.id; soon(function () { run(id); });
   };
   function run(id) {
     const J = JOB; if (!J || J.id !== id) return;   /* a newer board asked: this read is dropped */
@@ -3838,7 +3850,7 @@ function oddsWorkerMain() {
     } catch (e) { self.postMessage({ id: id, broke: String(e && e.message || e) }); JOB = null; return; }
     /* the first read as fast as it plays (the colour on the tin); the runs that only refine it rest between, so a phone with few
        cores keeps its frames */
-    if (J.n < J.runs) setTimeout(function () { run(id); }, J.n < J.show ? 0 : Math.max(J.rest, (Date.now() - t0) * J.rest / 8)); else JOB = null;
+    if (J.n < J.runs) { if (J.n < J.show) soon(function () { run(id); }); else setTimeout(function () { run(id); }, Math.max(J.rest, (Date.now() - t0) * J.rest / 8)); } else JOB = null;
   }
 }
 function oddsWorker() {
@@ -4991,15 +5003,21 @@ function bagIcon(job, css) {
   [[17, 4], [18, 4], [19, 4], [20, 4], [21, 4], [22, 3], [22, 4], [22, 5], [23, 4]].forEach(function (q) { g.fillRect(q[0] * u, q[1] * u, u, u); });   /* -> */
   return c;
 }
-const BAG_SAYS = { done: '{name} swaps the {from} for the {to} from the bag. {cost}', free: 'Free: Quick Hands.', ap: 'Not enough AP: a swap costs {need}, {name} has {have}.' };   /* draft:true */
+const BAG_SAYS = { done: '{name} swaps the {from} for the {to} from the bag. {cost}', on: '{name} straps the car door on from the bag. {cost}', free: 'Free: Quick Hands.', ap: 'Not enough AP: a swap costs {need}, {name} has {have}.',
+  twohands: 'The {what} takes both hands: no car door with it.' };   /* draft:true */
+/* a bag item's name in his words: a weapon by its line ('rifle', 'pipe'), any shield the car door (the fight's word for one) */
+function bagName(u, w) { return !w ? '' : FIGHT.isShield(w) ? 'car door' : armName(u, w); }
 function bagTap(i) {
   const u = FIGHT.current(); if (!crewControlled(u) || UI.anim.length || FIGHT.S.over) return;
   const w = u.bag && u.bag[i]; if (!w) return;
-  const c = FIGHT.swapCost(u);
-  if (!FIGHT.canSwap(u, i)) { say(wfill(BAG_SAYS.ap, { need: c, name: u.name, have: u.ap }), true); sfx('ui_deny'); return; }
-  const from = armName(u, u.weapon); UI.pend = null; UI.sweep = null; UI.skillMode = null; UI.back = null;
-  FIGHT.swap(u, i); sfx('swap', { from: from, to: armName(u, w) });
-  say(wfill(BAG_SAYS.done, { name: u.name, from: from, to: armName(u, u.weapon), cost: c ? c + ' AP.' : BAG_SAYS.free }), true);
+  const c = FIGHT.swapCostOf(u, i), sh = FIGHT.isShield(w);
+  if (!FIGHT.canSwap(u, i)) {
+    if (sh && FIGHT._t.bothHands(u.weapon)) { say(wfill(BAG_SAYS.twohands, { name: u.name, what: armName(u, u.weapon) }), true); sfx('ui_deny'); return; }
+    say(wfill(BAG_SAYS.ap, { need: c, name: u.name, have: u.ap }), true); sfx('ui_deny'); return; }
+  const from = sh ? (u.shield ? 'car door' : '') : armName(u, u.weapon); UI.pend = null; UI.sweep = null; UI.skillMode = null; UI.back = null;
+  FIGHT.swap(u, i); sfx('swap', { from: from, to: bagName(u, w) });
+  say(sh && !from ? wfill(BAG_SAYS.on, { name: u.name, cost: c + ' AP.' }) :
+    wfill(BAG_SAYS.done, { name: u.name, from: from, to: sh ? 'car door' : armName(u, u.weapon), cost: c ? c + ' AP.' : BAG_SAYS.free }), true);
   take(); hud();
 }
 function iconCanvas(id, css) {
@@ -5076,7 +5094,7 @@ function hud() {
   const lastRd = mine && !dry && rd && rd.of > 1 && rd.left === 1;
   const sweeps = mine ? FIGHT.sweepSkills(u.weapon) : [];
   const back = mine && backOk(u);
-  const bagK = mine && u.bag ? u.bag.map(function (w, i) { return (w ? w.id : '-') + (FIGHT.canSwap(u, i) ? 1 : 0); }).join(',') + FIGHT.swapCost(u) : '';
+  const bagK = mine && u.bag ? u.bag.map(function (w, i) { return (w ? w.id : '-') + (FIGHT.canSwap(u, i) ? 1 : 0) + FIGHT.swapCostOf(u, i); }).join(',') + (u.shield ? u.shield.id : '') : '';
   const key = (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
     + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',');
   if (sk.dataset.key !== key) {
@@ -5091,10 +5109,10 @@ function hud() {
        on it (FREE with Quick Hands' one a turn); a tap swaps it into his hands */
     (mine && u.bag ? u.bag : []).forEach(function (w, i) {
       if (!w) return;
-      const b = document.createElement('button'), c = FIGHT.swapCost(u);
-      b.className = 'sq bag'; b.appendChild(bagIcon(FIGHT.jobOfWeapon(w), 30));
+      const b = document.createElement('button'), c = FIGHT.swapCostOf(u, i);
+      b.className = 'sq bag'; b.appendChild(bagIcon(FIGHT.isShield(w) ? 'shield' : FIGHT.jobOfWeapon(w), 30));
       const t = document.createElement('b'); t.textContent = c ? c + ' AP' : 'FREE'; b.appendChild(t);
-      b.dataset.bag = i; b.title = 'SWAP: ' + armName(u, w).toUpperCase(); b.disabled = !FIGHT.canSwap(u, i);
+      b.dataset.bag = i; b.title = 'SWAP: ' + bagName(u, w).toUpperCase(); b.disabled = !FIGHT.canSwap(u, i);
       b.onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } bagTap(i); };
       sk.appendChild(b);
     });
@@ -5413,7 +5431,10 @@ function spoilsOf() {
         weapon: row(t.weapon) ? { id: t.weapon.id, cls: row(t.weapon).class, durability: row(t.weapon).durability, gun: !!t.weapon.gun || isGunW(t.weapon), ammo: t.ammo, ammoMax: t.ammoMax } : null,
         shield: t.shield ? { id: t.shield.id, durability: t.shield.durability } : null,
         body: wear(t, 'body', t.armB, t.armBMax), head: wear(t, 'head', t.armH, t.armHMax) }; }),
-    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null }; }),
+    /* WHAT EACH HAND HOLDS WHEN IT ENDS (COMBAT, rule 164 item 15, RUN TWO's note 10/25): a swap in the fight is kept, so the crew
+       screen can put back main, off and the bag as they ended (item ids; the car door on his back counts as the off hand) */
+    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null,
+      held: { main: v.weapon ? v.weapon.id : null, off: (v.shield || v.shieldBack) ? (v.shield || v.shieldBack).id : null, bag: v.bagKit ? null : (v.bag || []).map(function (w) { return w ? w.id : null; }) } }; }),   /* the kit's stand-ins were never his: no bag */
     recap: recapOf() };
 }
 /* THE END SCREEN IS ONE SCREEN (rule 164 item 28, Paolo 10/24: 'it goes away way too quickly, I can't read it'): the recap
