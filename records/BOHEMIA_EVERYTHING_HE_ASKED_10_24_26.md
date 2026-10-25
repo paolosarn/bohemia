@@ -122,3 +122,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 108 | Every weapon has its range bands (a rifle debuffed point-blank, a shotgun deadliest close) | 187 | TUNING, COMBAT | QUEUED (COMBAT after 185; TUNING after the origins) |
 | 109 | Every man has a job each turn (no melee man parked behind a house); AUTO's mistakes found before he finds them | 188 | COMBAT, TUNING, EYES | QUEUED (COMBAT next; TUNING's watch standing) |
 | 110 | The ranged defence icon looks better; no two stat icons alike | 189 | UI, EYES | RUNNING (UI reopened) |
+| 111 | One HUD on the map, in the town and in the fight (the top bar and CREW never move) | 190 | UI, RUN, RUN TWO, COMBAT | RUNNING (UI) |
