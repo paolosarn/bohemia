@@ -30,14 +30,22 @@ ANCHOR = '<!-- /BOHEMIA SQUIGGLE VOICES -->\n'
 GLUE = r"""/* ---- __THE_SQUIGGLE_RECORDED__: the glue (tools/bohemia_squiggle_patch.py) ---- */
 (function () {
   if (!window.BOH_VOICE_RECORDED) return;
+  /* lead: this is the game's one voice, the line said TO HIM; it takes the floor from every other voice in the game
+     (the town's mutters included), one at a time (SOUNDS 10/25, rule 164 item 19) */
   var S = window.SQUIGGLE = BOH_VOICE_RECORDED.make({
-    dir: 'voice_heard/',
+    dir: 'voice_heard/', lead: true,
     clock: function () { try { return { playing: MUS.playing, nextT: MUS.nextT, step: MUS.step }; } catch (_e) { return null; } }
   });
-  /* the recorded voice when its bank is in; until then the voice he passed on 8/11, exactly as it was, never silence */
-  window.squiggleSay = function (text, v, AC, dest, when, mood) {
-    try { if (S.ready()) { var h = S.say(text, v, AC, dest, when, mood); if (h) return h; } else if (!S.loading && AC) S.load(AC); } catch (_e) {}
-    return BOH_VOICE.say(text, v, AC, dest, when, mood);
+  /* the recorded voice when its bank is in; until then the voice he passed on 8/11, exactly as it was, never silence.
+     src: the frame whose person said it (the message's source); a frame he has already left says nothing, and a line from
+     a frame he leaves while it talks fades out the moment it hides (the floor's look) */
+  window.squiggleSay = function (text, v, AC, dest, when, mood, src) {
+    var F = BOH_VOICE_RECORDED.floor;
+    try { if (src && F.frameGone(src)) return null; } catch (_e) {}
+    try { if (S.ready()) { var h = S.say(text, v, AC, dest, when, mood, { src: src || window }); if (h) return h; } else if (!S.loading && AC) S.load(AC); } catch (_e) {}
+    var o = BOH_VOICE.say(text, v, AC, dest, when, mood);
+    try { F.claim(o, AC, { src: src || window, lead: true }); } catch (_e) {}
+    return o;
   };
   /* the bank (737 KB) loads 4 s after the music first runs: the door and its first seconds are long past */
   var since = 0, iv = setInterval(function () {
@@ -59,7 +67,8 @@ EDITS = [
     ("   TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);\n",
      "   /* __THE_SQUIGGLE_RECORDED__ (SOUNDS 10/24, rule 135): said Animalese's way, real syllables per letter, his own pitch\n"
      "      and speed, a little wrong; the 8/11 voice until the bank is in */\n"
-     "   TALKING = window.squiggleSay ? squiggleSay(line, v, MUS.AC, d, null) : BOH_VOICE.say(line, v, MUS.AC, d, null);\n"),
+     "   TALKING = window.squiggleSay ? squiggleSay(line, v, MUS.AC, d, null) : BOH_VOICE.say(line, v, MUS.AC, d, null);\n",
+     "squiggleSay(line, v, MUS.AC, d, null, undefined, src)"),   # done once 2d has moved it on
     # 2c. a face saying it again after it finished is said again
     ("   if(sig===LASTSAID) return null;\n   LASTSAID = sig;\n",
      "   /* __THE_SQUIGGLE_RECORDED__ (SOUNDS 10/24): a FACE calls once per showing, so the same face and line again AFTER the\n"
@@ -69,6 +78,15 @@ EDITS = [
      "   if(sig===LASTSAID && !faceAgain) return null;\n   LASTSAID = sig;\n"),
     ("   var sig = String(speaker)+'|'+line;\n",
      "   var sp0 = String(speaker||''), sig = String(speaker)+'|'+line;\n"),
+    # 2d. (10/25, rule 164 item 19) the line knows the frame that said it, so it stops the moment he leaves that frame
+    (" window.speakLine = function(speaker, text){\n",
+     " /* SOUNDS 10/25 (rule 164 item 19, 'even when I left the city I was still hearing them'): src is the frame whose person\n"
+     "    said it, so the floor fades the line the moment he leaves that frame */\n"
+     " window.speakLine = function(speaker, text, src){\n"),
+    ("   TALKING = window.squiggleSay ? squiggleSay(line, v, MUS.AC, d, null) : BOH_VOICE.say(line, v, MUS.AC, d, null);\n",
+     "   TALKING = window.squiggleSay ? squiggleSay(line, v, MUS.AC, d, null, undefined, src) : BOH_VOICE.say(line, v, MUS.AC, d, null);\n"),
+    ("  window.speakLine(m.speaker, m.text);\n",
+     "  window.speakLine(m.speaker, m.text, e.source);\n"),
 ]
 
 
@@ -86,8 +104,9 @@ def main():
     else:
         if src.count(ANCHOR) != 1: die('the anchor %r is not in the alpha exactly once' % ANCHOR.strip())
         src = src.replace(ANCHOR, ANCHOR + block)
-    for old, new in EDITS:
-        if new in src: continue
+    for e in EDITS:
+        old, new = e[0], e[1]
+        if new in src or (len(e) > 2 and e[2] in src): continue
         if src.count(old) != 1: die('the speakLine line %r is not in the alpha exactly once' % old.strip()[:60])
         src = src.replace(old, new)
     stamp = None

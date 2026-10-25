@@ -30,7 +30,7 @@
   var TAPS = { hall:'hall_who_wants_work', board:'board_nail', stall:'stall_can', barber:'barber_clippers', train:'yard_drill',
                arms:'arms_counter', smith:'smith_saw', armourer:'armourer_rivets', lot:'lot_scavenge', build:'build_hammer_and_saw' };
   var FAR = { day:['far_horn','far_helicopter','far_crow','far_rooster'], night:['far_siren','far_helicopter'] };
-  var AC = null, MASTER = null, AMBG = null, OUT = null, BUF = {}, LOAD = {}, unlocked = false, isNight = false, shown = true;
+  var AC = null, MASTER = null, AMBG = null, OUT = null, HUSH = null, BUF = {}, LOAD = {}, unlocked = false, isNight = false, shown = true;
   var log = (window.__heardLog = []);
 
   function vol(){ try{ var v = parseFloat(localStorage.getItem('bohemia_sfxvol')); if(v >= 0 && v <= 1) return v; }catch(e){} return 1; }
@@ -49,7 +49,8 @@
   function ac(){
     if(!AC){
       var C = window.AudioContext || window.webkitAudioContext; if(!C) return null;
-      AC = new C(); OUT = AC.createGain(); OUT.gain.value = allVol(); OUT.connect(AC.destination);
+      AC = new C(); OUT = AC.createGain(); OUT.gain.value = allVol();
+      HUSH = AC.createGain(); HUSH.gain.value = shown ? 1 : 0; HUSH_TO = shown ? 1 : 0; OUT.connect(HUSH); HUSH.connect(AC.destination);   /* 10/25: zero the moment the frame hides */
       MASTER = AC.createGain(); MASTER.gain.value = vol(); MASTER.connect(OUT);
       AMBG = AC.createGain(); AMBG.gain.value = ambVol(); AMBG.connect(OUT);
     }
@@ -145,14 +146,27 @@
   /* HIDDEN IS SILENT: the map hides this frame on LEAVE (display:none), it never unloads it, so the bed would
      play on over the map. Read the frame's own display once a second (same origin), and the tab's visibility. */
   var gone = false;   /* LEAVE was pressed: silent until the map posts the next visit */
+  /* SOUNDS 10/25 (rule 164 item 19, Paolo on his PC: 'even when I left the city I was still hearing them'): hidden means the
+     frame OR any frame around it (the map's frame holds this one), and it is known THE MOMENT it happens, not a second later:
+     the frame's own style is watched, and everything this screen plays goes to zero in 30 ms (HUSH, after ALL), the walkers'
+     mutters included (they ride this context); the shell's floor is told so a line the shell said for a man here fades too */
   function visible(){
     if(gone || document.hidden) return false;
-    try{ var fe = window.frameElement; if(fe && getComputedStyle(fe).display === 'none') return false; }catch(e){}
+    try{ var x = window, n = 0;
+      while(x && x !== x.parent && n++ < 8){ var fe = x.frameElement; if(!fe) break; if(!fe.isConnected) return false;
+        var cs = fe.ownerDocument.defaultView.getComputedStyle(fe); if(cs.display === 'none' || cs.visibility === 'hidden') return false; x = x.parent; } }catch(e){}
     return true;
   }
-  function watch(){ var v = visible(); if(v !== shown){ shown = v; if(!v) closed(); bedNow(); } }
-  setInterval(watch, 1000);
+  var HUSH_TO = 1;   /* where HUSH is going (an idle node's .value is not recomputed in Chromium, so the state says the target) */
+  function hush(on){
+    HUSH_TO = on ? 0 : 1;
+    if(!AC || !HUSH) return; var t = AC.currentTime;
+    try{ HUSH.gain.cancelScheduledValues(t); HUSH.gain.setValueAtTime(HUSH.gain.value, t); HUSH.gain.linearRampToValueAtTime(on ? 0 : 1, t + (on ? 0.03 : 0.25)); }catch(e){ HUSH.gain.value = on ? 0 : 1; }
+  }
+  function watch(){ var v = visible(); if(v !== shown){ shown = v; hush(!v); if(!v){ closed(); try{ if(window.BOH_VOICE_RECORDED) BOH_VOICE_RECORDED.floor.sweep(); }catch(e){} } bedNow(); } }
+  setInterval(watch, 250);
   document.addEventListener('visibilitychange', watch);
+  try{ var FE = window.frameElement; if(FE && window.MutationObserver) new MutationObserver(watch).observe(FE, { attributes:true, attributeFilter:['style', 'class', 'hidden'] }); }catch(e){}
   function left(){ gone = true; watch(); }
   /* a new visit (the map posts OPEN with a place) brings the bed back once the frame shows again */
   window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SETTLEMENT_OPEN' && d.place){ gone = false; setTimeout(watch, 50); } });
@@ -162,6 +176,6 @@
     /* RUN TWO [the busy town talks] 10/24: the walkers' jobs and mutters play on this one context, through EFFECTS, ALL and MUTE (slices/bohemia_busy_heard.js) */
     sink:function(){ return (unlocked && ac()) ? { AC:AC, fx:MASTER, amb:AMBG } : null; },
     state:function(){ return { unlocked:unlocked, shown:shown, night:isNight, bed:BED.id, murmur:MURMUR.id, open:openK, vol:vol(), amb:ambVol(), all:allVol(),
-      live:AC ? { fx:MASTER.gain.value, amb:AMBG.gain.value, all:OUT.gain.value } : null }; },
+      live:AC ? { fx:MASTER.gain.value, amb:AMBG.gain.value, all:OUT.gain.value, hush:HUSH ? HUSH_TO : null } : null }; },
     dir:DIR, bedLevel:BED_LEVEL };
 })();

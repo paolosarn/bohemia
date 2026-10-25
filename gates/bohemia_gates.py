@@ -9623,6 +9623,13 @@ GATES = [
      "a dropped or doubled syllable, tape wobble inside his one hard law, a breath that should not be there, a sag at a line's end, a room baked in; zero "
      "clicks by a ruler proven on two planted ones; at -22 dB through the game's chain (the old voice -27.7); and in the demo a town's greeter and a tapped "
      "keeper speak through their faces in it", True),
+    ('THE PC PLAYTEST, THE SOUND', ['node', 'gates/the_pc_playtest_the_sound_gate.js'],
+     "SOUNDS gate, 10/25, row [the PC playtest: the sound's part] (rule 164 items 19, 20, 23; Paolo on his PC: 'they just kept running and running and "
+     "overlapping each other, and even when I left the city I was still hearing them'; 'they're getting repetitive, not that different from each other'; "
+     "the song after a battle 'so bad, so terrible'). ONE FLOOR for every voice in every frame: a mutter only into silence, a line for him cuts every "
+     "other voice, every line short (12 letters, a mutter 7), every line from a frame he has left faded within 250 ms and the town's own sound hushed "
+     "the moment its frame hides; twenty real people more (AudioMNIST, MIT: fourteen men, six women), measured apart; after a fight the synth win "
+     "never plays and one of his songs comes in on the bar; in the demo, a town walked and a road fight on AUTO", True),
     ('SETTLEMENT HEARD', ['node', 'gates/settlement_heard_gate.js'],
      "SOUNDS gate, registered by PLUMBER 10/18 [the orphan gates] (it landed on main mid-round without a row, 666abb38). THE SETTLEMENT HEARD GATE, row [the settlement's sounds] round four. green at registration, 21/0, 46 s", True),
     ('WHO YOU WERE', ['node', 'gates/who_you_were_gate.js'],

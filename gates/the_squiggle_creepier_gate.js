@@ -93,7 +93,8 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
     await page.addScriptTag({ url: '/engine/bohemia_voice_recorded.js' });
     await page.addScriptTag({ content: LV.PAGE_LIB });
     const R = await page.evaluate(async ({ L, mark, hz }) => {
-      const S = window.S = BOH_VOICE_RECORDED.make({ dir: '/slices/voice_heard/' });
+      /* lead: the game's one voice, as the shell makes it (10/25: a line for him takes the floor and keeps CAP_LEAD letters) */
+      const S = window.S = BOH_VOICE_RECORDED.make({ dir: '/slices/voice_heard/', lead: true });
       await S.load(new OfflineAudioContext(1, 44100, 44100));
       const out = { ready: S.ready(), err: S.err, gain: S.NUM.GAIN_DB };
       if (!out.ready) return out;
@@ -112,7 +113,8 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
         out.levels.push(level(d)); out.peaks.push(20 * Math.log10(pk + 1e-12)); out.lines++;
         if (pass === 0) { const dry = await render('new', text, v, false, 0); out.clicks += (await clicks(dry.buf, hz)).count; }
         const h = r.h, c = h.creep; lpbs[h.lpb] = 1;
-        const spoken = (BOH_VOICE_RECORDED.letters(text).match(/[a-z]/g) || []).length;
+        /* SHORT (10/25, rule 164 item 19): a line for him is said in its first CAP_LEAD letters, cut at a word */
+        const spoken = (BOH_VOICE_RECORDED.shorten(BOH_VOICE_RECORDED.letters(text), S.NUM.CAP_LEAD).match(/[a-z]/g) || []).length;
         blipsOk.push(h.blips === spoken);
         cr.dropped += c.dropped.length; cr.doubled += c.doubled.length; cr.weird += c.dropped.length + c.doubled.length;
         if (c.breath) { if (c.breath.inside) cr.inside++; else cr.after++; }
@@ -157,7 +159,7 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
     }, { L: LV.lines(), mark: LV.MARK, hz: LV.RULER_HZ });
     if (!R.ready) { leg(false, 'the sprite loads in a browser', R.err); throw new Error('no sprite'); }
     leg(R.self.every(Boolean) && R.blipsOk && R.lpbs.every(n => n >= 4 && n <= 6) && R.lpbs.length >= 2,
-      '*** ANIMALESE ***: one recorded syllable per letter of every line, on the 120 BPM grid, his six are themselves',
+      '*** ANIMALESE ***: one recorded syllable per letter of every line, its first twelve letters (10/25: short), on the 120 BPM grid, his six are themselves',
       'letters a beat ' + R.lpbs.join(',') + '; his six themselves ' + R.self.filter(Boolean).length + '/6; one take a letter ' + R.blipsOk);
     leg(R.same && R.differ, 'ONE VOICE PER PERSON: the same person saying the same words is the same samples every time, another person is not', R.whoA + ' vs ' + R.whoB);
     leg(R.clicks === 0 && R.planted.cut_in.count >= 1 && R.planted.stopped_dead.count >= 1 && R.cut === 0,
@@ -185,7 +187,7 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
   const code = eng.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:'"\\])\/\/[^\n]*/g, '$1 ');
   const alpha = read('slices/BOHEMIA_ALPHA_0_9.html'), demo = read('slices/BOHEMIA_DEMO.html');
   leg(alpha.includes(eng) && demo.includes(eng), 'the alpha and the demo inline engine/bohemia_voice_recorded.js byte for byte');
-  const routed = s => /TALKING = window\.squiggleSay \? squiggleSay\(line, v, MUS\.AC, d, null\)/.test(s) && /\(sp\.indexOf\('city:'\)===0 \|\| sp\.indexOf\('face:'\)===0\) && BOH_VOICE\.castVoice/.test(s) && /dir: 'voice_heard\/'/.test(s);
+  const routed = s => /TALKING = window\.squiggleSay \? squiggleSay\(line, v, MUS\.AC, d, null(, undefined, src)?\)/.test(s) && /\(sp\.indexOf\('city:'\)===0 \|\| sp\.indexOf\('face:'\)===0\) && BOH_VOICE\.castVoice/.test(s) && /dir: 'voice_heard\/'/.test(s);
   leg(routed(alpha) && routed(demo), 'the game\'s one voice says it (speakLine through squiggleSay, the 8/11 voice only until the bank is in), a face cast from his look');
   const faces = read('engine/bohemia_crew_faces.js');
   leg(/function talk\(c, look, line\) \{\n\s+if \(!c \|\| !has\(look\)\) return false;\n\s+heard\(look, line\);/.test(faces) && /type: 'BOHEMIA_VOICE', speaker: 'face:' \+ look/.test(faces),
@@ -232,7 +234,7 @@ print(json.dumps(out))`, path.join(ROOT, 'slices/voice_heard/index.json'), path.
     const greet = first.msgs.find(m => /^face:/.test(m.speaker)), greetSaid = greet && first.said.find(s => s.speaker === greet.speaker && s.text === greet.text);
     const loudDuring = s => S.rms.filter(r => r[0] >= s.t && r[0] <= s.t + s.seconds * 1000 && r[1] > -45).length * 0.05;
     const said0 = greetSaid;
-    leg(!!greet && !!greetSaid && greetSaid.recorded && SIX.includes(greetSaid.family) && loudDuring(greetSaid) >= 0.4,
+    leg(!!greet && !!greetSaid && greetSaid.recorded && (SIX.includes(greetSaid.family) || /^am-\d+$/.test(greetSaid.family)) && loudDuring(greetSaid) >= 0.4,
       '*** HE HEARS IT THE NEXT TIME SOMEBODY TALKS ***: a town opened from the map, the face that greets him speaks, the shell says his words in the recorded squiggle, the effects bus carries it',
       name + ': ' + (greet ? greet.speaker + ' "' + greet.text + '"' : 'no face spoke') + ' -> ' + (greetSaid ? greetSaid.family + ', ' + greetSaid.blips + ' syllables' : 'not said recorded') + '; over -45 dB on the bus for ' + (said0 ? loudDuring(said0).toFixed(2) : 0) + ' s');
     const later = S.msgs.filter(m => /^face:/.test(m.speaker) && (!greet || m.t > greet.t + 1));
