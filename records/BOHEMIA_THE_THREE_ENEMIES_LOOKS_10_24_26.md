@@ -25,9 +25,31 @@ OUTFIT). What it did not have is modelled once, as clay, in the new tool:
 | THE EXO FRAME | the Heavy | a 4 cm bar down the outside of each thigh and shin, a hip disc, a knee disc and a stirrup at the boot, a piston along each thigh; a spine bar, a hip ring with a pivot to each leg, a yoke over both shoulders with a motor drum on each; bars on the backs of the arms with an elbow disc; a car battery strapped to the spine (batteries are the money, 9/4); every strap tan woven leather (the Bottega note) |
 | THE CRASH-BAR SHIELD | the Heavy | a truck's bull bar cut off and strapped to the left forearm, 62 by 48 cm: a bent 3.6 cm tube frame, two uprights and a crossbar, a push bar standing off it, a dented diamond-plate panel rusted at its edges, a dead Nevada plate riveted on; it faces out and forward when the arm hangs |
 
-## 2. The nine
+## 2. The sixteen (round 2, 10/25: nine became sixteen)
 
-(filled below from the roll and the renders)
+MEASURED FIRST, in the demo's own fight (the demo's nfOpen door with a road party, before any pack): a kids' band of 14 deals eight kids, all from one pool (every goblin kind reads ours.people_looks.band.runner), and the fight repeats a face only when the pool is smaller than the board (freeLook). Three Runners for eight kids is twins on every board (121(i)). So the cast is sized to the bands: EIGHT Runners (a kids' band runs to ten at count_scale 0.6), FIVE Heavies (a heavies' band fields up to five at 0.45), THREE Mechanics (one heads each machines party, never two). A type's pool switches only when the whole type is made, so no board ever lost a look while the rest rendered.
+
+Rule 159 on the roll before any render: the pieces whose colour runs blue (a denim vest, the outlaw bandana, a steel work shirt, slate trousers; and the slate cocoon coat, which the rig's cool fill rendered a hot blue at 1:1, sampled (80, 96, 144)) are out; ash, coal, bone, khaki, rust, olive, oxblood are the cloth. Colour is an accent: the oxblood scarf, a rust dust mask, the dulled orange cable.
+
+| id | skin | cut | under | over | legs / feet | kit | head and face |
+|---|---|---|---|---|---|---|---|
+| mechanic_0 | deep 3 | temple taper | work coveralls | wasteland duster | patched work pants / tall moto boots | scav tool belt, soot gloves | welder up |
+| mechanic_1 | light 1 | temple taper | bone henley | soot trench | soot cargos / dust brown boots | soot tool belt, leather gloves, work suspenders | welder up |
+| mechanic_2 | mid 1 | deep taper | rust henley | split-tail coat | dust trousers / field boots | scav tool belt, salvage satchel, soot gloves | welder up |
+| runner_0 | light 3 | spring curls | hood-up coal hoodie | bone cocoon coat | drop rise trouser / grey sneakers | trailing scarf, hand wraps | face ash face wrap |
+| runner_1 | deep 3 | half shave | layered jersey | ash asym coat | grey sweats / white sneakers | salvage satchel, soot hand wraps | face oxblood dust mask |
+| runner_2 | mid 1 | static | coal hoodie | bone vest | black cargos / bone sneakers | oxblood satchel, hand wraps | face face wrap |
+| runner_3 | deep 4 | curtain cut | charcoal turtleneck | leather jacket | bone drop trouser / coal mid boot | charcoal scarf, soot hand wraps | hat oxblood slouch beanie, face charcoal dust mask |
+| runner_4 | deep 3 | heavy fringe | longline jersey | khaki jacket | charcoal crop trouser / ash slouch boot | dust scarf, ruck pack | hat charcoal watch cap, face rust dust mask |
+| runner_5 | light 3 | heavy fringe | faded black longsleeve | hooded dust poncho | black denim / stacked sole boot | hand wraps, hip sash | face olive dust mask |
+| runner_6 | mid 3 | half shave | ash longline tee | comma coat | dust trousers / wrapped boots | bone scarf, soot hand wraps | hat soot head wrap, face face wrap |
+| runner_7 | light 3 | static | tattered tee | - | leather stack pant / grey sneakers | charcoal road cape, dust brown bandolier, hand wraps | hat sand knit cap, face charcoal dust mask |
+| heavy_0 | light 0 | deep taper | work coveralls | quilted vest | slate work pants / field boots | scav kneepads, leather gloves | face rubber gas mask |
+| heavy_1 | light 1 | dry taper | bone button-up | tactical vest | khaki cargos / tall moto boots | soot gloves, soot gorget | hat scrap helm |
+| heavy_2 | mid 3 | dry taper | olive drab tee | leather vest | soot cargos / rust boots | steel shin guards, leather gloves | face shield visor |
+| heavy_3 | light 2 | home clippers | dust plaid shirt | olive vest | bone work pants / charcoal boots | scrap pauldron, soot gloves | face ash shield |
+| heavy_4 | light 0 | dry taper | faded black longsleeve | smith's apron | dust brown trousers / ranch boots | soot chest plate, leather gloves | hat dust work cap |
+
 
 ## 3. Looking at it (the cycles, each from the picture at 1:1 and x4)
 
@@ -43,3 +65,13 @@ OUTFIT). What it did not have is modelled once, as clay, in the new tool:
 * cycle 2, the Heavy: a ray cast down at the shoulder's x found the skull (the 1.2x head is 15 cm wide) and the two motor
   drums stood on his head like ears, the yoke over it: the drum sits on the joint, the yoke's top is measured from under
   the jaw.
+* round 2 (10/25), the Runner 0 at 1:1: one hood-up hoodie and a face wrap read as ONE garment, not streetwear layers
+  (rule 129(b)): the hood stays up and the Balenciaga oversize goes over it. The slate cocoon coat rendered a hot blue
+  under the rig's cool fill (sampled (80, 96, 144) from a (70, 78, 89) source): the bone cocoon coat instead, pale over the
+  black hood, the oxblood scarf over the coat. Every kid now wears a top under a coat, a vest, a jacket, a poncho or a cape.
+* round 2, the Mechanic in the demo's fight: he stands 1.86 m with the mask flipped up (the ruler is 1.72), and the fight
+  draws every man's bars at the ruler's height (Y - manH() - 9), so the bar sits on the top of his mask. The look is true
+  (a welder's hood flipped up stands a hand over the head); the bar is COMBAT's (the NOTE: place it from the look's own
+  height_m, which fight_rig.json carries).
+* round 2, at the fight's pixels: the Mechanic's welding mask, the Runner's hood and wrap and the Heavy's gas mask all read
+  on the face strip at 128 px (the bar and the turn row draw from it).
