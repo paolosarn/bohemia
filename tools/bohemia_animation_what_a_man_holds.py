@@ -392,9 +392,14 @@ PEOPLE_MODELS = 'records/character/rig'
 PEOPLE_ROLL = 'records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json'
 
 
+ENEMY_ROLL = 'records/character/BOHEMIA_THE_THREE_ENEMIES_ROLL.json'   # CHARACTER's three enemies (the Mechanic, the Runners, the Heavy)
+
+
 def fight_people():
+    """the men on COMBAT's board who are their own body in a reference gang's cell, holding that gang's guns: RUN TWO's rolled
+    people (kind 'person') and CHARACTER's three enemies (kind 'enemy', the same build pipe)"""
     F = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
-    return {k: v for k, v in F['looks'].items() if v.get('kind') == 'person'}
+    return {k: v for k, v in F['looks'].items() if v.get('kind') in ('person', 'enemy')}
 
 
 def person_done(tag):
@@ -408,13 +413,20 @@ def person_complete(tag):
 def person_one(tag):
     I = idles(); py = sys.executable
     if person_complete(tag): return
-    pid = next(p['id'] for p in json.load(open(os.path.join(ROOT, PEOPLE_ROLL))) if 'person_' + p['id'].lower() == tag)
-    glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
+    if tag.startswith('enemy_'):   # CHARACTER's enemy: its own build, its model under the barber's name for a rolled person
+        pid = next(p['id'] for p in json.load(open(os.path.join(ROOT, ENEMY_ROLL))) if 'enemy_' + p['id'].lower() == tag)
+        glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_person_%s.glb' % pid.lower())
+        build = [py, 'tools/bohemia_character_the_three_enemies.py', 'build-one', pid]
+    else:
+        pid = next(p['id'] for p in json.load(open(os.path.join(ROOT, PEOPLE_ROLL))) if 'person_' + p['id'].lower() == tag)
+        glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag)
+        build = [py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid]
+    gj = glb.replace('.glb', '.json')
     kept = open(gj).read() if os.path.exists(gj) else None
     if not os.path.exists(glb) or kept is None:
         bj = os.path.join(ROOT, PEOPLE_MODELS, tag + '.json'); bkept = open(bj).read() if os.path.exists(bj) else None
-        I.run([py, 'tools/bohemia_run2_no_two_people_alike.py', 'build-one', pid], glb)
-        for fn_, txt in ((gj, kept), (bj, bkept)):   # RUN TWO's committed records of the build stand as they are
+        I.run(build, glb)
+        for fn_, txt in ((gj, kept), (bj, bkept)):   # the build's committed records stand as they are
             if txt is not None:
                 with open(fn_, 'w') as f: f.write(txt)
     h = json.load(open(gj))['real_height_for_rig']
@@ -449,7 +461,7 @@ def regun(since, clips=('PReload', 'LReload', 'CoverPReload', 'CoverLReload')):
     """the guns of these clips rendered before a change to how they sit (the time, seconds) are rendered again, nothing else"""
     for look in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
         g = os.path.join(ROOT, RENDERS, look, 'guns')
-        if look.startswith('person_') or not os.path.isdir(g): continue
+        if look.startswith(('person_', 'enemy_')) or not os.path.isdir(g): continue
         old = [f for f in os.listdir(g) if f.split('_')[1] in clips and os.path.getmtime(os.path.join(g, f)) < since]
         if not old: continue
         for f in old: os.remove(os.path.join(g, f))
@@ -468,13 +480,13 @@ def queue():
 
 
 def all_(workers=2):
-    todo = [t for t in queue() if not (person_complete(t) if t.startswith('person_') else done(t))]
+    todo = [t for t in queue() if not (person_complete(t) if t.startswith(('person_', 'enemy_')) else done(t))]
     env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // workers)))
     procs = []
     for w in range(workers):
         mine = todo[w::workers]
         if not mine: continue
-        sh = ' ; '.join('%s %s %s %s' % (sys.executable, os.path.abspath(__file__), 'person_one' if x.startswith('person_') else 'fight_one', x) for x in mine)
+        sh = ' ; '.join('%s %s %s %s' % (sys.executable, os.path.abspath(__file__), 'person_one' if x.startswith(('person_', 'enemy_')) else 'fight_one', x) for x in mine)
         procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
     for p in procs: p.wait()
 
@@ -505,11 +517,11 @@ def pack(only=None):
                      'fight-sheet cell origin (so his feet are where they were: the fight sheet\'s foot)', looks={})
     index['clips'] = {n: k for n, k in clip_list(D)}; index['guns'] = {g: v for g, v in D['guns'].items()}
     index['timelines'] = {k: v for k, v in D['timelines'].items() if k != 'why'}   # how a man holds still in a held clip (the fight's block plays them)
-    for look in sorted(os.listdir(os.path.join(ROOT, RENDERS)), key=lambda k: (k.startswith('person_'), k)):   # the gangs first: a rolled man holds his gang's guns
+    for look in sorted(os.listdir(os.path.join(ROOT, RENDERS)), key=lambda k: (k.startswith(('person_', 'enemy_')), k)):   # the gangs first: a rolled man holds his gang's guns
         if only and look not in only: continue
         d = os.path.join(ROOT, RENDERS, look)
         if look not in FR['looks'] or not os.path.exists(os.path.join(d, 'rig.json')): continue
-        person = FR['looks'][look].get('kind') == 'person'
+        person = FR['looks'][look].get('kind') in ('person', 'enemy')   # his own body, his reference gang's guns
         if person and not os.path.exists(os.path.join(d, 'made.txt')): continue
         if person and FR['looks'][look].get('ref') not in index['looks']:
             print('SKIP', look, 'his gang\'s guns are not packed yet'); continue
