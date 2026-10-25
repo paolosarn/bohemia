@@ -9605,6 +9605,26 @@ GATES = [
      "rifle to the bag, a pistol and the door are held together; the hand-over never pairs a long gun and a shield; the fight: "
      "long guns with no shield, YOU with the pistol and the door; a man kept from before is fixed on open; the shop says 2 hands. "
      "The old code throws at T1. green at registration, 9/0, about 1 min", True),
+    ('ONLY THE FINAL LOOK', ['node', 'gates/only_the_final_look_gate.js'],
+     "RUN gate, 10/25, row [only the final look loads] (rule 174, Paolo 10/25: 'I'm still seeing the months-ago 2-D character skins "
+     "underneath everything... you say you're loading, I press go, and it's still loading ghost month-old bullshit'): the demo as "
+     "a stranger on his computer and a phone: no dead file requested title to 12 s after GO (the late tile bank, the baked 2-D "
+     "cast and crowd, the towns' stand-ins), BEGIN held until mapFinalLook, no dead layer drawn after GO (a census of every "
+     "drawImage), the first frame after GO the scene 3 s later, the times written. BUILD 10/25o failed 4 of 5. green at "
+     "registration, 5/0 a profile, about 2 min", True),
+    ('TWENTY FIGHTS, NO CRASH', ['node', 'gates/twenty_fights_no_crash_gate.js'],
+     "RUN gate, 10/25, row [the crash before the fight] (rule 173, Paolo 10/25: 'the game keeps crashing at random times, usually "
+     "right before a fight loads up; maybe it's because of the amount of people on the screen'): twenty of the biggest fights in "
+     "a row (twelve of his against six to thirteen) on his computer and a phone, map to card to fight to end screen to map, no "
+     "crash; after a critical memory notice the tab never past 1,300 MB (a phone's line is about 1.5 GB), canvases and bitmaps "
+     "never past 384 MB (Safari's), the map level over the last five fights, the men from packed sheets. BUILD 10/25o held "
+     "1,509 MB and 785 MB in ONE fight. about 15 min a profile", True),
+    ('THE SHEETS ARE PACKED', ['node', 'gates/the_sheets_are_packed_gate.js'],
+     "RUN gate, 10/25, row [the crash before the fight] (rule 173, Paolo 10/25: 'the game keeps crashing at random times, usually "
+     "right before a fight loads up; maybe it's because of the amount of people on the screen'): every fight look and gun sheet "
+     "has an atlas cut from the bytes on disk (tools/bohemia_run_the_sheets_packed.py repacks), a sampled set re-assembles to the "
+     "sheet pixel for pixel, the atlases weigh at most a quarter decoded (2584 MB -> 419 MB), and the fight holds an atlas only "
+     "through the size check, else the whole sheet. green at registration, 4/0, 20 s", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

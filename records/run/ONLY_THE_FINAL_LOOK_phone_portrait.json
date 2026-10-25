@@ -1,0 +1,329 @@
+{
+ "when": "2026-10-25T19:32:57.012Z",
+ "runs": [
+  {
+   "profile": "phone_portrait",
+   "file": "BOHEMIA_DEMO.html",
+   "goMs": 13026,
+   "titleToGoMs": 13026,
+   "requests": 186,
+   "deadRequests": [],
+   "afterGo": [
+    [
+     2,
+     "/engine/bohemia_travel_steps.js",
+     9466
+    ],
+    [
+     2,
+     "/slices/rig_mix/caravans.json",
+     4768
+    ],
+    [
+     166,
+     "/slices/rig_mix/caravans.png",
+     558474
+    ],
+    [
+     409,
+     "/slices/rig_idles/map_caravans.webp",
+     633570
+    ],
+    [
+     4064,
+     "/engine/bohemia_machine_party.js",
+     9064
+    ],
+    [
+     4074,
+     "/slices/vote/songs/machine_party_kit/press_1.wav",
+     30032
+    ],
+    [
+     4075,
+     "/slices/vote/songs/machine_party_kit/press_2.wav",
+     30032
+    ],
+    [
+     4076,
+     "/slices/vote/songs/machine_party_kit/relay_1.wav",
+     9746
+    ],
+    [
+     4078,
+     "/slices/vote/songs/machine_party_kit/relay_2.wav",
+     9746
+    ],
+    [
+     4080,
+     "/slices/vote/songs/machine_party_kit/clank_2.wav",
+     26504
+    ],
+    [
+     4081,
+     "/slices/vote/songs/machine_party_kit/relay_3.wav",
+     9746
+    ],
+    [
+     4081,
+     "/slices/vote/songs/machine_party_kit/clank_1.wav",
+     26504
+    ],
+    [
+     4085,
+     "/slices/vote/songs/machine_party_kit/bed.wav",
+     369486
+    ],
+    [
+     4086,
+     "/slices/vote/songs/machine_party_kit/hall.wav",
+     176444
+    ],
+    [
+     15362,
+     "/slices/fight_heard/index.json",
+     4117
+    ],
+    [
+     15366,
+     "/slices/vote/guns_heard/guns_pistol_yours_a.mp3",
+     88547
+    ],
+    [
+     15367,
+     "/slices/vote/guns_heard/guns_shotgun_yours_a.mp3",
+     88547
+    ],
+    [
+     15368,
+     "/slices/vote/guns_heard/guns_rifle_yours_a.mp3",
+     88547
+    ],
+    [
+     15385,
+     "/slices/fight_heard/lands.mp3",
+     734816
+    ],
+    [
+     15408,
+     "/slices/vote/guns_heard/guns_pistol_theirs_a.mp3",
+     88547
+    ],
+    [
+     15408,
+     "/slices/vote/guns_heard/guns_shotgun_theirs_a.mp3",
+     88547
+    ],
+    [
+     15408,
+     "/slices/vote/guns_heard/reload_pistol_a.mp3",
+     53438
+    ],
+    [
+     15409,
+     "/slices/vote/guns_heard/reload_shotgun_a.mp3",
+     53438
+    ],
+    [
+     15409,
+     "/slices/vote/guns_heard/guns_rifle_theirs_a.mp3",
+     88547
+    ],
+    [
+     15410,
+     "/slices/vote/guns_heard/reload_rifle_a.mp3",
+     53438
+    ],
+    [
+     34122,
+     "/slices/vote/settlement_heard/far_horn.mp3",
+     20159
+    ],
+    [
+     60111,
+     "/records/target/character/barber/person_town_0/face/rest_128.png",
+     20818
+    ],
+    [
+     60119,
+     "/records/target/character/barber/person_town_0/face/A_128.png",
+     20851
+    ],
+    [
+     60119,
+     "/records/target/character/barber/person_town_0/face/E_128.png",
+     20912
+    ],
+    [
+     60119,
+     "/records/target/character/barber/person_town_0/face/O_128.png",
+     20911
+    ],
+    [
+     60121,
+     "/records/target/character/barber/person_town_0/face/M_128.png",
+     20753
+    ],
+    [
+     60122,
+     "/slices/ui_kit/well/tl.png",
+     876
+    ],
+    [
+     60122,
+     "/slices/ui_kit/well/tr.png",
+     561
+    ],
+    [
+     60122,
+     "/slices/ui_kit/well/bl.png",
+     709
+    ],
+    [
+     60122,
+     "/slices/ui_kit/well/br.png",
+     397
+    ],
+    [
+     60127,
+     "/slices/ui_kit/well/t.png",
+     2993
+    ],
+    [
+     60127,
+     "/slices/ui_kit/well/b.png",
+     2413
+    ],
+    [
+     60131,
+     "/slices/ui_kit/well/l.png",
+     3358
+    ],
+    [
+     60133,
+     "/slices/ui_kit/well/c.png",
+     11900
+    ],
+    [
+     60134,
+     "/slices/ui_kit/well/r.png",
+     1927
+    ],
+    [
+     107424,
+     "/slices/BOHEMIA_DEMO_STAMP.txt",
+     52
+    ]
+   ],
+   "held": {
+    "timedOut": null,
+    "readyAt": 11560,
+    "asks": 16,
+    "now": true,
+    "why": ""
+   },
+   "drawsAfterGo": [
+    [
+     "img slices/rig_idles/map_town_2.webp",
+     56
+    ],
+    [
+     "img slices/rig_idles/map_town_3.webp",
+     40
+    ],
+    [
+     "img slices/rig_idles/map.webp",
+     17
+    ],
+    [
+     "img slices/rig_idles/map_town_4.webp",
+     16
+    ],
+    [
+     "img slices/rig_idles/map_town.webp",
+     14
+    ],
+    [
+     "img slices/rig_mix/town.png",
+     10
+    ],
+    [
+     "canvas  at mapGroundBegin (slices/BOHEMIA_CITY_WORLD.html:46706:29)",
+     8
+    ],
+    [
+     "img data:  at slices/BOHEMIA_CITY_WORLD.html:48350:76",
+     8
+    ],
+    [
+     "canvas  at fogMake (slices/BOHEMIA_CITY_WORLD.html:44422:50)",
+     8
+    ],
+    [
+     "canvas  at outline1 (slices/BOHEMIA_CITY_WORLD.html:70841:22)",
+     8
+    ],
+    [
+     "img slices/rig_mix/caravans.png",
+     8
+    ],
+    [
+     "img slices/rig_idles/map_caravans.webp",
+     8
+    ],
+    [
+     "img records/target/character/barber/person_town_0/face/O_128.png",
+     8
+    ],
+    [
+     "canvas  at cv (slices/BOHEMIA_CITY_WORLD.html:47629:53)",
+     6
+    ],
+    [
+     "img records/target/character/barber/person_town_0/face/rest_128.png",
+     6
+    ],
+    [
+     "img records/target/character/barber/person_town_0/face/E_128.png",
+     6
+    ],
+    [
+     "canvas  at vbViewLand (slices/BOHEMIA_CITY_WORLD.html:47904:34)",
+     3
+    ],
+    [
+     "canvas  at cv (slices/BOHEMIA_CITY_WORLD.html:47691:36)",
+     3
+    ],
+    [
+     "img records/target/character/barber/person_town_0/face/M_128.png",
+     3
+    ],
+    [
+     "canvas  at rigCanvas (slices/BOHEMIA_CITY_WORLD.html:46064:16)",
+     2
+    ],
+    [
+     "img slices/BOHEMIA_RIG_PEOPLE.png",
+     1
+    ],
+    [
+     "img records/target/character/barber/person_town_0/face/A_128.png",
+     1
+    ]
+   ],
+   "deadDraws": [],
+   "oldBlocks": {
+    "paints": 0,
+    "firstAt": null
+   },
+   "firstFrame": {
+    "meanDiff": 1.16,
+    "lum": 29.9,
+    "firstMs": 3,
+    "laterMs": 3189
+   },
+   "errors": []
+  }
+ ]
+}

@@ -80,6 +80,10 @@ const ARM = `(() => {
   window.clearInterval = function (id) { L.iv.delete(id); return ci.call(window, id); };
   const ra = window.requestAnimationFrame;
   window.requestAnimationFrame = function (f) { L.raf++; return ra.call(window, f); };
+  /* RUN 10/25 [the crash before the fight]: a decoded bitmap is pixels too (the fight makes them); counted until closed */
+  L.bmp = [];
+  if (window.createImageBitmap) { const cib = window.createImageBitmap;
+    window.createImageBitmap = function (...a) { const at = site(); return cib.apply(window, a).then((b) => { W(L.bmp, b, { at: at }); return b; }); }; }
   L.snap = () => {
     const alive = (a) => a.map((x) => Object.assign({ o: x.r.deref() }, x)).filter((x) => x.o);
     const nodes = alive(L.nodes), conn = nodes.filter((x) => (L.conn.get(x.o) || 0) > 0);
@@ -102,7 +106,9 @@ const ARM = `(() => {
                 byDir: top((() => { const m = {}, seen = {}; imgs.forEach((x) => { const u = String(x.o.currentSrc || x.o.src || ''); const k = u.startsWith('data:') ? 'data:' + u.slice(5, 20) : u.replace(/^https?:\\/\\/[^/]+\\//, '').replace(/[^/]+$/, ''); if (seen[u]) return; seen[u] = 1; m[k] = (m[k] || 0) + (x.o.naturalWidth || 0) * (x.o.naturalHeight || 0) * 4 / 1048576; }); Object.keys(m).forEach((k) => { m[k] = +m[k].toFixed(1); }); return m; })(), 8),
                 biggest: [...new Map(imgs.map((x) => [x.o.currentSrc || x.o.src, x])).values()].map((x) => [String(x.o.currentSrc || x.o.src || '').replace(/^https?:\\/\\/[^/]+\\//, '').slice(0, 90), x.o.naturalWidth + 'x' + x.o.naturalHeight]).sort((a, b) => { const n = (s) => s[1].split('x').reduce((p, v) => p * v, 1); return n(b) - n(a); }).slice(0, 8),
                 at: top(by(imgs, (x) => x.at.split(' | ')[0]), 5) },
-      timers: { intervals: L.iv.size, intervalsAt: top(by([...L.iv.values()], 'at'), 4), raf: L.raf }
+      timers: { intervals: L.iv.size, intervalsAt: top(by([...L.iv.values()], 'at'), 4), raf: L.raf },
+      bitmaps: (() => { const b = alive(L.bmp).filter((x) => x.o.width > 0); const m = {}; b.forEach((x) => { const k = String(x.o.src || x.at.split(' | ')[0]).replace(/^https?:\\/\\/[^/]+\\//, '').replace(/[^/]+$/, ''); m[k] = +((m[k] || 0) + x.o.width * x.o.height * 4 / 1048576).toFixed(1); });
+        return { alive: b.length, MB: +(b.reduce((s, x) => s + x.o.width * x.o.height * 4, 0) / 1048576).toFixed(1), byDir: top(m, 8) }; })()
     };
     L.raf = 0;
     return r;
@@ -196,4 +202,6 @@ async function main() {
     await d.close();
   }
 }
-main().catch((e) => { console.error(e); process.exit(1); });
+/* RUN 10/25: the fight weight (tools/bohemia_run_the_fight_weight.js) arms the same counters; one instrument, never a fork */
+module.exports = { ARM };
+if (require.main === module) main().catch((e) => { console.error(e); process.exit(1); });

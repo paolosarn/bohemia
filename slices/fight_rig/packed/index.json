@@ -1,0 +1,772 @@
+{
+"about": "RUN 10/25 __THE_SHEETS_ARE_PACKED__ (rule 173): every fight look and gun sheet cut to the box its pixels fill; the fight uses an atlas only when the sheet's bytes on the server equal \"bytes\" here. tools/bohemia_run_the_sheets_packed.py",
+"sheets": {
+"beast_cave_hyena.webp": {
+"bytes": 211878,
+"decodedMB": 7.28,
+"fill": 0.356,
+"packedMB": 3.03
+},
+"beast_dire_wolf.webp": {
+"bytes": 176984,
+"decodedMB": 6.82,
+"fill": 0.352,
+"packedMB": 2.84
+},
+"beast_feral_dog_shepherd.webp": {
+"bytes": 127166,
+"decodedMB": 4.94,
+"fill": 0.342,
+"packedMB": 1.95
+},
+"cast_apron.webp": {
+"bytes": 203058,
+"decodedMB": 17.81,
+"fill": 0.18,
+"packedMB": 3.68
+},
+"cast_apron_guns.webp": {
+"bytes": 71130,
+"decodedMB": 32.06,
+"fill": 0.021,
+"packedMB": 0.88
+},
+"cast_barearms.webp": {
+"bytes": 225030,
+"decodedMB": 17.46,
+"fill": 0.184,
+"packedMB": 3.7
+},
+"cast_barearms_guns.webp": {
+"bytes": 70788,
+"decodedMB": 31.42,
+"fill": 0.022,
+"packedMB": 0.89
+},
+"cast_bedroll.webp": {
+"bytes": 214964,
+"decodedMB": 18.6,
+"fill": 0.177,
+"packedMB": 3.77
+},
+"cast_bedroll_guns.webp": {
+"bytes": 70754,
+"decodedMB": 33.48,
+"fill": 0.02,
+"packedMB": 0.89
+},
+"cast_cape.webp": {
+"bytes": 214620,
+"decodedMB": 17.46,
+"fill": 0.184,
+"packedMB": 3.71
+},
+"cast_cape_guns.webp": {
+"bytes": 70592,
+"decodedMB": 31.42,
+"fill": 0.021,
+"packedMB": 0.88
+},
+"cast_longcoat.webp": {
+"bytes": 253814,
+"decodedMB": 18.17,
+"fill": 0.185,
+"packedMB": 3.93
+},
+"cast_longcoat_guns.webp": {
+"bytes": 63382,
+"decodedMB": 32.7,
+"fill": 0.019,
+"packedMB": 0.83
+},
+"cast_pack.webp": {
+"bytes": 237684,
+"decodedMB": 16.24,
+"fill": 0.206,
+"packedMB": 3.78
+},
+"cast_pack_guns.webp": {
+"bytes": 50980,
+"decodedMB": 29.22,
+"fill": 0.018,
+"packedMB": 0.72
+},
+"cast_poncho.webp": {
+"bytes": 223482,
+"decodedMB": 16.83,
+"fill": 0.196,
+"packedMB": 3.76
+},
+"cast_poncho_guns.webp": {
+"bytes": 50776,
+"decodedMB": 30.29,
+"fill": 0.018,
+"packedMB": 0.74
+},
+"cast_satchel.webp": {
+"bytes": 209088,
+"decodedMB": 17.57,
+"fill": 0.184,
+"packedMB": 3.72
+},
+"cast_satchel_guns.webp": {
+"bytes": 70948,
+"decodedMB": 31.62,
+"fill": 0.021,
+"packedMB": 0.89
+},
+"cast_shortcoat.webp": {
+"bytes": 218198,
+"decodedMB": 17.2,
+"fill": 0.19,
+"packedMB": 3.73
+},
+"cast_shortcoat_guns.webp": {
+"bytes": 63474,
+"decodedMB": 30.95,
+"fill": 0.02,
+"packedMB": 0.83
+},
+"cast_shorts.webp": {
+"bytes": 216514,
+"decodedMB": 17.57,
+"fill": 0.183,
+"packedMB": 3.69
+},
+"cast_shorts_guns.webp": {
+"bytes": 70902,
+"decodedMB": 31.62,
+"fill": 0.021,
+"packedMB": 0.89
+},
+"cast_skirt.webp": {
+"bytes": 208344,
+"decodedMB": 17.57,
+"fill": 0.183,
+"packedMB": 3.69
+},
+"cast_skirt_guns.webp": {
+"bytes": 70860,
+"decodedMB": 31.62,
+"fill": 0.021,
+"packedMB": 0.88
+},
+"cast_widebrim.webp": {
+"bytes": 212518,
+"decodedMB": 17.37,
+"fill": 0.193,
+"packedMB": 3.76
+},
+"cast_widebrim_guns.webp": {
+"bytes": 71782,
+"decodedMB": 31.27,
+"fill": 0.022,
+"packedMB": 0.9
+},
+"enemy_heavy_0.webp": {
+"bytes": 372964,
+"decodedMB": 17.32,
+"fill": 0.262,
+"packedMB": 5.07
+},
+"enemy_heavy_1.webp": {
+"bytes": 393698,
+"decodedMB": 17.32,
+"fill": 0.263,
+"packedMB": 5.06
+},
+"enemy_heavy_2.webp": {
+"bytes": 373884,
+"decodedMB": 17.32,
+"fill": 0.26,
+"packedMB": 5.06
+},
+"enemy_heavy_3.webp": {
+"bytes": 366992,
+"decodedMB": 17.32,
+"fill": 0.257,
+"packedMB": 4.97
+},
+"enemy_heavy_4.webp": {
+"bytes": 386648,
+"decodedMB": 17.32,
+"fill": 0.262,
+"packedMB": 5.08
+},
+"enemy_heavy_5.webp": {
+"bytes": 392652,
+"decodedMB": 17.32,
+"fill": 0.264,
+"packedMB": 5.1
+},
+"enemy_mechanic_0.webp": {
+"bytes": 344436,
+"decodedMB": 18.86,
+"fill": 0.201,
+"packedMB": 4.38
+},
+"enemy_mechanic_1.webp": {
+"bytes": 338282,
+"decodedMB": 18.86,
+"fill": 0.197,
+"packedMB": 4.29
+},
+"enemy_mechanic_2.webp": {
+"bytes": 318906,
+"decodedMB": 18.86,
+"fill": 0.193,
+"packedMB": 4.18
+},
+"enemy_runner_0.webp": {
+"bytes": 315026,
+"decodedMB": 17.07,
+"fill": 0.225,
+"packedMB": 4.43
+},
+"enemy_runner_1.webp": {
+"bytes": 274480,
+"decodedMB": 17.07,
+"fill": 0.222,
+"packedMB": 4.22
+},
+"enemy_runner_2.webp": {
+"bytes": 283792,
+"decodedMB": 17.07,
+"fill": 0.223,
+"packedMB": 4.26
+},
+"enemy_runner_3.webp": {
+"bytes": 299352,
+"decodedMB": 17.07,
+"fill": 0.224,
+"packedMB": 4.45
+},
+"enemy_runner_4.webp": {
+"bytes": 297944,
+"decodedMB": 17.07,
+"fill": 0.23,
+"packedMB": 4.54
+},
+"enemy_runner_5.webp": {
+"bytes": 349716,
+"decodedMB": 17.07,
+"fill": 0.257,
+"packedMB": 4.98
+},
+"enemy_runner_6.webp": {
+"bytes": 315236,
+"decodedMB": 17.07,
+"fill": 0.226,
+"packedMB": 4.49
+},
+"enemy_runner_7.webp": {
+"bytes": 279906,
+"decodedMB": 17.07,
+"fill": 0.222,
+"packedMB": 4.26
+},
+"faction_anarchists.webp": {
+"bytes": 222166,
+"decodedMB": 17.07,
+"fill": 0.19,
+"packedMB": 3.71
+},
+"faction_anarchists_guns.webp": {
+"bytes": 64736,
+"decodedMB": 30.73,
+"fill": 0.021,
+"packedMB": 0.84
+},
+"faction_blues.webp": {
+"bytes": 218122,
+"decodedMB": 16.83,
+"fill": 0.201,
+"packedMB": 3.93
+},
+"faction_blues_guns.webp": {
+"bytes": 60678,
+"decodedMB": 30.29,
+"fill": 0.019,
+"packedMB": 0.77
+},
+"faction_caravans.webp": {
+"bytes": 286714,
+"decodedMB": 18.62,
+"fill": 0.187,
+"packedMB": 4.02
+},
+"faction_caravans_guns.webp": {
+"bytes": 43942,
+"decodedMB": 33.51,
+"fill": 0.014,
+"packedMB": 0.63
+},
+"faction_cartel.webp": {
+"bytes": 227310,
+"decodedMB": 17.57,
+"fill": 0.185,
+"packedMB": 3.73
+},
+"faction_cartel_guns.webp": {
+"bytes": 70258,
+"decodedMB": 31.62,
+"fill": 0.021,
+"packedMB": 0.88
+},
+"faction_church.webp": {
+"bytes": 239182,
+"decodedMB": 16.48,
+"fill": 0.2,
+"packedMB": 3.76
+},
+"faction_church_guns.webp": {
+"bytes": 49504,
+"decodedMB": 29.66,
+"fill": 0.018,
+"packedMB": 0.71
+},
+"faction_colorful.webp": {
+"bytes": 227768,
+"decodedMB": 17.07,
+"fill": 0.193,
+"packedMB": 3.75
+},
+"faction_colorful_guns.webp": {
+"bytes": 63878,
+"decodedMB": 30.73,
+"fill": 0.021,
+"packedMB": 0.84
+},
+"faction_homeless.webp": {
+"bytes": 244236,
+"decodedMB": 16.83,
+"fill": 0.199,
+"packedMB": 3.77
+},
+"faction_homeless_guns.webp": {
+"bytes": 47212,
+"decodedMB": 30.29,
+"fill": 0.017,
+"packedMB": 0.7
+},
+"faction_mob.webp": {
+"bytes": 256676,
+"decodedMB": 17.2,
+"fill": 0.194,
+"packedMB": 3.76
+},
+"faction_mob_guns.webp": {
+"bytes": 50808,
+"decodedMB": 30.95,
+"fill": 0.017,
+"packedMB": 0.72
+},
+"faction_network.webp": {
+"bytes": 227120,
+"decodedMB": 18.88,
+"fill": 0.175,
+"packedMB": 3.73
+},
+"faction_network_guns.webp": {
+"bytes": 58482,
+"decodedMB": 33.99,
+"fill": 0.018,
+"packedMB": 0.81
+},
+"faction_reds.webp": {
+"bytes": 246652,
+"decodedMB": 18.17,
+"fill": 0.185,
+"packedMB": 3.93
+},
+"faction_reds_guns.webp": {
+"bytes": 63290,
+"decodedMB": 32.7,
+"fill": 0.019,
+"packedMB": 0.83
+},
+"faction_remnants.webp": {
+"bytes": 245776,
+"decodedMB": 17.32,
+"fill": 0.196,
+"packedMB": 3.96
+},
+"faction_remnants_guns.webp": {
+"bytes": 62786,
+"decodedMB": 31.18,
+"fill": 0.02,
+"packedMB": 0.82
+},
+"faction_trades.webp": {
+"bytes": 248348,
+"decodedMB": 18.86,
+"fill": 0.18,
+"packedMB": 3.99
+},
+"faction_trades_guns.webp": {
+"bytes": 64968,
+"decodedMB": 33.94,
+"fill": 0.019,
+"packedMB": 0.85
+},
+"faction_volunteers.webp": {
+"bytes": 240490,
+"decodedMB": 18.05,
+"fill": 0.181,
+"packedMB": 3.71
+},
+"faction_volunteers_guns.webp": {
+"bytes": 59978,
+"decodedMB": 32.48,
+"fill": 0.019,
+"packedMB": 0.81
+},
+"person_anarchists_0.webp": {
+"bytes": 278302,
+"decodedMB": 17.07,
+"fill": 0.201,
+"packedMB": 3.99
+},
+"person_anarchists_1.webp": {
+"bytes": 262004,
+"decodedMB": 17.07,
+"fill": 0.192,
+"packedMB": 3.75
+},
+"person_anarchists_2.webp": {
+"bytes": 258924,
+"decodedMB": 17.07,
+"fill": 0.197,
+"packedMB": 3.8
+},
+"person_blues_0.webp": {
+"bytes": 262656,
+"decodedMB": 16.83,
+"fill": 0.203,
+"packedMB": 3.98
+},
+"person_blues_1.webp": {
+"bytes": 249300,
+"decodedMB": 16.83,
+"fill": 0.204,
+"packedMB": 3.98
+},
+"person_blues_2.webp": {
+"bytes": 280352,
+"decodedMB": 16.83,
+"fill": 0.206,
+"packedMB": 3.99
+},
+"person_caravans_0.webp": {
+"bytes": 276380,
+"decodedMB": 18.62,
+"fill": 0.186,
+"packedMB": 4.02
+},
+"person_caravans_1.webp": {
+"bytes": 268738,
+"decodedMB": 18.62,
+"fill": 0.184,
+"packedMB": 3.96
+},
+"person_caravans_2.webp": {
+"bytes": 264438,
+"decodedMB": 18.62,
+"fill": 0.187,
+"packedMB": 4.05
+},
+"person_cartel_0.webp": {
+"bytes": 280728,
+"decodedMB": 17.57,
+"fill": 0.193,
+"packedMB": 3.86
+},
+"person_cartel_1.webp": {
+"bytes": 267788,
+"decodedMB": 17.57,
+"fill": 0.191,
+"packedMB": 3.81
+},
+"person_cartel_2.webp": {
+"bytes": 282588,
+"decodedMB": 17.57,
+"fill": 0.191,
+"packedMB": 3.81
+},
+"person_church_0.webp": {
+"bytes": 276972,
+"decodedMB": 16.48,
+"fill": 0.208,
+"packedMB": 3.99
+},
+"person_church_1.webp": {
+"bytes": 288702,
+"decodedMB": 16.48,
+"fill": 0.208,
+"packedMB": 3.97
+},
+"person_church_2.webp": {
+"bytes": 287600,
+"decodedMB": 16.48,
+"fill": 0.208,
+"packedMB": 4.0
+},
+"person_colorful_0.webp": {
+"bytes": 253576,
+"decodedMB": 17.07,
+"fill": 0.199,
+"packedMB": 3.86
+},
+"person_colorful_1.webp": {
+"bytes": 257004,
+"decodedMB": 17.07,
+"fill": 0.193,
+"packedMB": 3.74
+},
+"person_colorful_2.webp": {
+"bytes": 281092,
+"decodedMB": 17.07,
+"fill": 0.205,
+"packedMB": 4.04
+},
+"person_homeless_0.webp": {
+"bytes": 252054,
+"decodedMB": 16.83,
+"fill": 0.199,
+"packedMB": 3.8
+},
+"person_homeless_1.webp": {
+"bytes": 312522,
+"decodedMB": 16.83,
+"fill": 0.207,
+"packedMB": 4.03
+},
+"person_homeless_2.webp": {
+"bytes": 276646,
+"decodedMB": 16.83,
+"fill": 0.205,
+"packedMB": 3.99
+},
+"person_mob_0.webp": {
+"bytes": 282744,
+"decodedMB": 17.2,
+"fill": 0.198,
+"packedMB": 4.0
+},
+"person_mob_1.webp": {
+"bytes": 283556,
+"decodedMB": 17.2,
+"fill": 0.199,
+"packedMB": 4.0
+},
+"person_mob_2.webp": {
+"bytes": 300434,
+"decodedMB": 17.2,
+"fill": 0.2,
+"packedMB": 4.02
+},
+"person_network_0.webp": {
+"bytes": 270338,
+"decodedMB": 18.88,
+"fill": 0.18,
+"packedMB": 3.97
+},
+"person_network_1.webp": {
+"bytes": 274282,
+"decodedMB": 18.88,
+"fill": 0.178,
+"packedMB": 3.93
+},
+"person_network_2.webp": {
+"bytes": 274450,
+"decodedMB": 18.88,
+"fill": 0.18,
+"packedMB": 3.95
+},
+"person_reds_0.webp": {
+"bytes": 255256,
+"decodedMB": 18.17,
+"fill": 0.193,
+"packedMB": 4.04
+},
+"person_reds_1.webp": {
+"bytes": 265058,
+"decodedMB": 18.17,
+"fill": 0.184,
+"packedMB": 3.74
+},
+"person_reds_2.webp": {
+"bytes": 258388,
+"decodedMB": 18.17,
+"fill": 0.186,
+"packedMB": 3.83
+},
+"person_remnants_0.webp": {
+"bytes": 275426,
+"decodedMB": 17.32,
+"fill": 0.196,
+"packedMB": 3.8
+},
+"person_remnants_1.webp": {
+"bytes": 259536,
+"decodedMB": 17.32,
+"fill": 0.195,
+"packedMB": 3.95
+},
+"person_remnants_2.webp": {
+"bytes": 273880,
+"decodedMB": 17.32,
+"fill": 0.202,
+"packedMB": 4.06
+},
+"person_town_0.webp": {
+"bytes": 307820,
+"decodedMB": 17.69,
+"fill": 0.196,
+"packedMB": 4.03
+},
+"person_town_1.webp": {
+"bytes": 260766,
+"decodedMB": 17.69,
+"fill": 0.191,
+"packedMB": 3.82
+},
+"person_town_10.webp": {
+"bytes": 271260,
+"decodedMB": 17.69,
+"fill": 0.189,
+"packedMB": 3.81
+},
+"person_town_11.webp": {
+"bytes": 269314,
+"decodedMB": 17.69,
+"fill": 0.188,
+"packedMB": 3.76
+},
+"person_town_2.webp": {
+"bytes": 278790,
+"decodedMB": 17.69,
+"fill": 0.195,
+"packedMB": 4.01
+},
+"person_town_3.webp": {
+"bytes": 281548,
+"decodedMB": 17.69,
+"fill": 0.189,
+"packedMB": 3.81
+},
+"person_town_4.webp": {
+"bytes": 274848,
+"decodedMB": 17.69,
+"fill": 0.191,
+"packedMB": 3.84
+},
+"person_town_5.webp": {
+"bytes": 260594,
+"decodedMB": 17.69,
+"fill": 0.186,
+"packedMB": 3.76
+},
+"person_town_6.webp": {
+"bytes": 294952,
+"decodedMB": 17.69,
+"fill": 0.192,
+"packedMB": 3.97
+},
+"person_town_7.webp": {
+"bytes": 266726,
+"decodedMB": 17.69,
+"fill": 0.191,
+"packedMB": 3.94
+},
+"person_town_8.webp": {
+"bytes": 260232,
+"decodedMB": 17.69,
+"fill": 0.19,
+"packedMB": 3.81
+},
+"person_town_9.webp": {
+"bytes": 266064,
+"decodedMB": 17.69,
+"fill": 0.189,
+"packedMB": 3.8
+},
+"person_trades_0.webp": {
+"bytes": 329422,
+"decodedMB": 18.86,
+"fill": 0.214,
+"packedMB": 4.55
+},
+"person_trades_1.webp": {
+"bytes": 266114,
+"decodedMB": 18.86,
+"fill": 0.178,
+"packedMB": 3.93
+},
+"person_trades_2.webp": {
+"bytes": 277212,
+"decodedMB": 18.86,
+"fill": 0.184,
+"packedMB": 4.02
+},
+"person_volunteers_0.webp": {
+"bytes": 269300,
+"decodedMB": 18.05,
+"fill": 0.187,
+"packedMB": 3.83
+},
+"person_volunteers_1.webp": {
+"bytes": 317314,
+"decodedMB": 18.05,
+"fill": 0.197,
+"packedMB": 4.09
+},
+"person_volunteers_2.webp": {
+"bytes": 294122,
+"decodedMB": 18.05,
+"fill": 0.192,
+"packedMB": 4.02
+},
+"tier_poacher.webp": {
+"bytes": 255868,
+"decodedMB": 15.86,
+"fill": 0.283,
+"packedMB": 5.18
+},
+"tier_poacher_guns.webp": {
+"bytes": 61572,
+"decodedMB": 28.55,
+"fill": 0.023,
+"packedMB": 0.88
+},
+"tier_thug.webp": {
+"bytes": 260284,
+"decodedMB": 16.56,
+"fill": 0.278,
+"packedMB": 5.22
+},
+"tier_thug_guns.webp": {
+"bytes": 64768,
+"decodedMB": 29.8,
+"fill": 0.021,
+"packedMB": 0.82
+},
+"you.webp": {
+"bytes": 218742,
+"decodedMB": 17.69,
+"fill": 0.183,
+"packedMB": 3.72
+},
+"you_guns.webp": {
+"bytes": 64670,
+"decodedMB": 31.84,
+"fill": 0.02,
+"packedMB": 0.83
+}
+},
+"totals": {
+"decodedMB": 2584.1,
+"packedMB": 418.9,
+"sheets": 127
+}
+}

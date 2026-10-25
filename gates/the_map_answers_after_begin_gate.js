@@ -59,7 +59,8 @@ const CROWD = () => { const D8 = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'], o
 const SAME = (a, b) => { const same = { looks: 0, walks: 0 }, diff = [];
   ['looks', 'walks'].forEach(k => Object.keys(a[k]).forEach(id => { if (!(id in b[k])) return; if (a[k][id] === b[k][id]) same[k]++; else diff.push(k + ':' + id); }));
   return { same, diff }; };
-const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && CREST && CREST.done && typeof CWALK !== 'undefined' && CWALK && CWALK.done);
+/* RE-AIMED 10/25 (RUN, rule 174, __ONLY_THE_FINAL_LOOK__): the demo bakes no old 2-D body at all, so it is done at once there */
+const bakesDone = () => !!(window.__OLD_2D_SKIPPED || (window.CROWD_HOLD && typeof CREST !== 'undefined' && CREST && CREST.done && typeof CWALK !== 'undefined' && CWALK && CWALK.done));
 
 (async () => {
   let d, CDP = null; const R = {};
@@ -132,19 +133,23 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
     ok('M4 the act faces never build the street (reading three act faces called the street\'s people ' + m4.n + ' times; they read ' + m4.r.join('/') + ')', m4.n === 0 && m4.r.every(x => x === 'either'));
     let ring = null; for (let i = 0; i < 120; i++) { ring = await fr.evaluate(() => ({ rang: window.__OFFER_RANG || 0, warm: window.WAKE_WARM || null })); if (ring.rang && ring.warm && ring.warm.done) break; await page.waitForTimeout(500); }
     ok('M5 the morning still rings (rang ' + ring.rang + '; its distance from the cut ' + !!(ring.warm && ring.warm.baked) + ', else its street a block a task: ' + (ring.warm && ring.warm.built) + ' blocks, done ' + (ring.warm && ring.warm.done) + ')', ring.rang >= 1 && !!ring.warm && ring.warm.done);
-    let spr = null; for (let i = 0; i < 120; i++) { spr = await fr.evaluate(() => { const p = window.__TILES_PUMP ? __TILES_PUMP() : null;
-        const fam = Object.keys(TP_TILES).filter(k => TP_IMG[k] && TP_IMG[k].length === TP_TILES[k].length && TP_IMG[k].every(Boolean)).length;
-        return { p, fam, fams: Object.keys(TP_TILES).length, hero: Object.keys(HERO_SRC).filter(k => HERO_IMG[k]).length, heroes: Object.keys(HERO_SRC).length, door: DOOR_ANIM_IMG.length, doors: DOOR_ANIM.length }; });
-      if (spr.p && !spr.p.queued && spr.fam === spr.fams) break; await page.waitForTimeout(500); }
-    ok('M6 the street sprites are all made (families ' + spr.fam + '/' + spr.fams + ', heroes ' + spr.hero + '/' + spr.heroes + ', door clips ' + spr.door + '/' + spr.doors + ', left in the queue ' + (spr.p && spr.p.left) + ')', !!spr.p && !spr.p.queued && spr.p.left === 0 && spr.fam === spr.fams && spr.fams > 0 && spr.hero === spr.heroes && spr.door === spr.doors);
+    /* RE-AIMED 10/25 (RUN, rule 174: 'just have things that are going to be final visuals load'): the demo's map never draws the old
+       street bank, so it is not pulled and not made; the workshop still makes it all */
+    await page.waitForTimeout(1500);
+    const spr = await fr.evaluate(() => ({ skipped: window.__TILES_SKIPPED | 0, fam: Object.keys(TP_IMG || {}).length, hero: Object.keys(HERO_IMG || {}).filter((k) => HERO_IMG[k]).length,
+      door: (DOOR_ANIM_IMG || []).length, chunks: performance.getEntriesByType('resource').filter((r) => /BOHEMIA_CITY_TILES_0[2-9]|TILES_READY/.test(r.name)).length }));
+    ok('*** M6 THE DEMO MAKES NO OLD STREET SPRITES *** (rule 174: the late bank skipped ' + spr.skipped + ' chunks, fetched ' + spr.chunks + '; families ' + spr.fam + ', heroes ' + spr.hero + ', door clips ' + spr.door + ')',
+      spr.skipped > 0 && spr.chunks === 0 && spr.fam === 0 && spr.hero === 0 && spr.door === 0);
     for (let i = 0; i < 240; i++) { if (await page.evaluate(bakesDone)) break; await page.waitForTimeout(500); }
     await page.waitForTimeout(800);
     R.demo = await fr.evaluate(CROWD);
     const crowdFile = await page.evaluate(() => ({ state: window.DEMO_CROWD && DEMO_CROWD.state, used: window.DEMO_CROWD && DEMO_CROWD.used }));
-    ok('*** M10 THE CROWD COMES BAKED BY THE CUT *** (BOHEMIA_DEMO_CROWD.json ' + crowdFile.state + ', ' + crowdFile.used + ' of 18 taken from it: the six later people and the twelve walks; none baked on the phone)', crowdFile.state === 'ready' && crowdFile.used === 18);
+    /* RE-AIMED 10/25 (RUN, rule 174): the demo's people are the 3-D rig's; the old 2-D crowd is neither fetched nor baked */
+    const old2d = await page.evaluate(() => ({ skipped: window.__OLD_2D_SKIPPED | 0, fetched: performance.getEntriesByType('resource').filter((r) => /BOHEMIA_DEMO_(CROWD|CAST)\.json/.test(r.name)).length }));
+    ok('*** M10 THE DEMO BAKES NO OLD 2-D CROWD *** (rule 174: BOHEMIA_DEMO_CROWD.json ' + crowdFile.state + ', the cast files fetched ' + old2d.fetched + ' times, the old bake skipped ' + old2d.skipped + ' times)', crowdFile.state === 'idle' && old2d.fetched === 0 && old2d.skipped > 0);
     const late = await fr.evaluate(() => ({ ar: window.__AR, loaded: document.readyState, tiles: !!(window.__TILES_LATE && __TILES_LATE.called) }));
     const pw = await page.evaluate(() => ({ gen: PWALK.gen, sent: PWALK.sent }));
-    ok('*** M9 THE LATE LOAD IS NOT A SECOND BOOT *** (the map\'s page finished loading: ' + late.loaded + ', its sprites in ' + late.tiles + '; the save put back after BEGIN ' + late.ar + ' times; his body baked ' + pw.gen + ' time(s), sent ' + pw.sent + ')', late.loaded === 'complete' && late.tiles && late.ar === 0 && pw.gen === 1 && pw.sent === 1);
+    ok('*** M9 THE LATE LOAD IS NOT A SECOND BOOT *** (the map\'s page finished loading: ' + late.loaded + ', its sprites in ' + late.tiles + '; the save put back after BEGIN ' + late.ar + ' times; his body baked ' + pw.gen + ' time(s), sent ' + pw.sent + ')', late.loaded === 'complete' && !late.tiles && late.ar === 0 && pw.gen === 0 && pw.sent === 0);   /* RE-AIMED 10/25 (rule 174): no late bank, his old body never baked */
     ok('M8a nothing threw on the demo (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 120) : '') + ')', d.errs.length === 0);
   } catch (e) { ok('the gate ran without throwing [' + String(e.message).slice(0, 200) + ']', false); }
   await d.close();
@@ -157,8 +162,8 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
     await a.page.waitForTimeout(800);
     const af = await a.fr.evaluate(CROWD), cmp = R.demo ? SAME(R.demo, af) : { same: { looks: 0, walks: 0 }, diff: ['no demo'] };
     const dl = R.demo ? Object.keys(R.demo.looks).length : 0, dw = R.demo ? Object.keys(R.demo.walks).length : 0;
-    ok('*** M7 THE CROWD\'S FRAMES ARE THE SAME AS THE WHOLE-PERSON BAKE *** (the demo: ' + dl + ' later people and ' + dw + ' walks, ' + (R.demo && R.demo.n) + ' frames; against the workshop, person by person: ' + cmp.same.looks + ' people and ' + cmp.same.walks + ' walks the same, ' + cmp.diff.length + ' different' + (cmp.diff.length ? ' (' + cmp.diff.slice(0, 4).join(', ') + ')' : '') + ')',
-      dl === 6 && dw === 12 && cmp.diff.length === 0 && cmp.same.walks === 12 && cmp.same.looks >= 3);
+    ok('*** M7 THE DEMO\'S MAP HOLDS NO OLD 2-D CROWD *** (the demo: ' + dl + ' later people and ' + dw + ' walks, ' + (R.demo && R.demo.n) + ' frames; against the workshop, person by person: ' + cmp.same.looks + ' people and ' + cmp.same.walks + ' walks the same, ' + cmp.diff.length + ' different' + (cmp.diff.length ? ' (' + cmp.diff.slice(0, 4).join(', ') + ')' : '') + ')',
+      dl === 0 && dw === 0 && !!af);   /* RE-AIMED 10/25 (RUN, rule 174): the demo's crowd is the 3-D rig's, no 2-D frame reaches its map; the workshop still bakes */
     ok('M8 nothing threw on the alpha (' + a.errs.length + (a.errs.length ? ': ' + String(a.errs[0]).slice(0, 120) : '') + ')', a.errs.length === 0);
   } catch (e) { ok('M7 the alpha boots [' + String(e.message).slice(0, 160) + ']', false); }
   if (a) await a.close();

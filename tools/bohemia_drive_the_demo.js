@@ -145,7 +145,11 @@ async function open(opts) {
         return fs.createReadStream(f).pipe(zlib.createGzip({ level: 6 })).pipe(res);
       }
     }
+    /* RUN 10/25 (__THE_SHEETS_ARE_PACKED__, rule 173): a file sent whole says its size, as GitHub Pages does; the fight asks a
+       sheet's size with a HEAD before it uses the sheet's atlas, and a server that never says leaves every man on his whole sheet */
+    try { head['Content-Length'] = fs.statSync(f).size; } catch (e) {}
     res.writeHead(200, head);
+    if (req.method === 'HEAD') return res.end();
     fs.createReadStream(f).pipe(res);
   });
   if (!again) await new Promise(r => server.listen(0, '127.0.0.1', r));
@@ -382,9 +386,16 @@ async function open(opts) {
      click() as the belt: neither costs anything and between them every surface opens. */
   const knock = async () => {
     for (const id of ['fronttap', 'front']) {
+      /* RUN 10/25 (__ONLY_THE_FINAL_LOOK__, rule 174): A KNOCK IS NEVER A PICK. The door now waits for the map's final look, so
+         this knocks a few times more while it says WAIT, and the middle of #front is the new company's picks: measured, the knock
+         landed on an origin card and the game began as A NEW CREW (three men) under a gate that had picked THE BLOCK WATCH. While
+         the picks are on the door the finger goes only to BEGIN, and only once it can begin; the scripted click below still goes
+         to both, as before (the door's own handler lets a checker's click through and ignores it until the load is ready). */
       const b = await page.evaluate((i) => {
         const f = document.getElementById(i);
         if (!f || getComputedStyle(f).display === 'none') return null;
+        const nc = document.getElementById('newco');
+        if (nc && nc.offsetHeight > 0 && (i !== 'fronttap' || !window.__LOAD_READY)) return null;
         const r = f.getBoundingClientRect();
         if (r.width < 4 || r.height < 4) return null;
         return { x: r.x + r.width / 2, y: r.y + r.height / 2 };

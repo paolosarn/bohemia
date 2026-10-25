@@ -1,0 +1,23 @@
+POSTMORTEM -- THE DEMO'S BAKED 2-D CAST AND CROWD (RUN, 10/25/26, rule 174, row [only the final look loads])
+
+WHAT IS HERE
+  BOHEMIA_DEMO_CAST.json   557 KB  the six map people's 2-D frames, baked once by the cut (tools/bohemia_bake_the_demo_cast.js,
+                                    RUN 10/13 __THE_MAP_PEOPLE_COME_BAKED__), fetched in the demo's first line
+  BOHEMIA_DEMO_CROWD.json  1.6 MB  the rest of the crowd and their twelve walks, the same way (__THE_CROWD_COMES_BAKED_TOO__),
+                                    fetched after GO
+
+WHY IT DIED
+  Paolo 10/25: "I'm still seeing the months-ago 2-D character skins underneath everything... I'm sure that takes up memory...
+  just have things that are going to be final visuals load... we don't need a whole 2-D world underneath it."
+  Since 10/19 (rule 121(e), __THE_MAP_IS_ALL_RIG__) the demo's map draws every person from the 3-D rig sheets. These 2-D
+  frames only ever stood in for a 3-D sheet still on its way: his old 2-D body for 2.9 s after GO, measured frame by frame
+  (gates/only_the_final_look_gate.js against BUILD 10/25o). Baking them saved boot time for a picture that should never be on
+  his glass at all. The demo now neither fetches nor bakes them; the cut writes neither file and removes any copy left in
+  slices/; the door waits for the 3-D people instead (DEVELOPING THE PICTURE).
+
+WHAT IT TAUGHT
+  A stand-in that is "only for a second" is on his glass every time he opens the game, and he remembers it as the game.
+  The fix for a slow final look is to wait for it honestly on the loading screen, never to show the old one meanwhile.
+
+THE WORKSHOP still bakes its 2-D cast live for the CHARACTER and CLOTHES benches; nothing there changed.
+Record: records/BOHEMIA_RUN_THE_CRASH_AND_ONLY_THE_FINAL_LOOK_10_25_26.md

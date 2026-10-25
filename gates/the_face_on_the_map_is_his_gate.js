@@ -63,7 +63,7 @@ const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 
    person on the map is his, and it is a person, not a disc. */
 ok('A1 the map draws the player from his OWN rig, not a rolled face or a symbol',
    /* RUN 10/19, rule 121(e) ('EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO COMBINE THE TWO'): his 3D body first, his old baked one only before the sheets land */
-   (/__set=PLAYER_CV&&\(PLAYER_CV\[__face\]\|\|PLAYER_CV\.S\)/.test(world) || (/const __src=__rigYou\|\|PLAYER_CV;/.test(world) && /__set=__src&&\(__src\[__face\]\|\|__src\.S\)/.test(world)))
+   (/__set=PLAYER_CV&&\(PLAYER_CV\[__face\]\|\|PLAYER_CV\.S\)/.test(world) || ((/const __src=__rigYou\|\|PLAYER_CV;/.test(world) || /const __src=__rigYou\|\|\(FINAL_ONLY\?null:PLAYER_CV\);/.test(world)) && /__set=__src&&\(__src\[__face\]\|\|__src\.S\)/.test(world)))   /* RUN 10/25, rule 174: on the demo his 3D body only, never the old one */
    && /spriteAt\(__spr,(24|32)\)/.test(world)   /* a FIXED rung, never TW: 24 drew the 56 body raw; since 10/4 (CAST_PX 112) 32 is the 112 box drawn at half, the same 56 on the glass */);
 ok('A2 *** the bridge hands the player his OWN spec and everybody else a rolled one ***',
    /_who==='you'&&typeof buildSpec==='function'\)\?buildSpec\(\):faceFor\(_who\)/.test(alpha));

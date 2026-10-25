@@ -428,7 +428,7 @@ open('slices/' + LOAD, 'w', encoding='utf8').write(
     '    s.onload=next; s.onerror=next;\n'
     '    document.head.appendChild(s);\n'
     '  }\n'
-    '  function go(){ if(going)return; going=true; next(); }\n'
+    '  function go(){ if(going)return; going=true; if(window.FINAL_ONLY){ window.__TILES_SKIPPED=CHUNKS.length; return; } next(); }   /* RUN 10/25 __ONLY_THE_FINAL_LOOK__ (rule 174): the demo\'s map never draws this bank */\n'
     '  var tries=0;\n'
     '  (function poll(){\n'
     '    if(going) return;\n'

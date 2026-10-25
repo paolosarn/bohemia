@@ -142,11 +142,9 @@ function cut(src) {
      file baked from any other workshop is refused and the demo bakes live exactly as before. */
   const castKey = crypto.createHash('sha1').update(src).digest('hex').slice(0, 16);
   notes.castKey = castKey;
-  const castEarly = '<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"' + castKey + '",raw:null,wait:[],at:0};'
-    + 'function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}'
-    + 'D.end=end;setTimeout(function(){end("late");},6000);'
-    + 'try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}'
-    + '})();</script>\n';
+  /* __ONLY_THE_FINAL_LOOK__ (RUN 10/25, rule 174): the demo draws every person from the 3-D rig sheets, so the old 2-D cast is
+     neither baked nor fetched; __DEMO_CAST says so at once, and nothing waits on it (graveyard/old_2d_cast_10_25_26) */
+  const castEarly = '<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"' + castKey + '",raw:null,wait:[],at:0,end:function(){}};</script>\n';
   src = src.replace(HEAD, '<script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>\n' + castEarly + style + HEAD);
 
   /* ---- 2b. AND NO FALLBACK ONTO THE BENCH -------------------------------- */
@@ -619,17 +617,15 @@ fs.writeFileSync(MANIFEST, DEMO_MANIFEST);
 fs.writeFileSync(STAMP_FILE, demoStamp(src));
 /* bake the map's six people from the demo just written (a browser, about 20 s); --no-bake leaves the file out and the
    demo bakes them live. A bake that fails removes the file rather than leave a stale one. */
-let castNote = 'not baked (--no-bake): the demo bakes its six map people live';
-let castHave = null, crowdHave = null; try { castHave = JSON.parse(fs.readFileSync(CAST_FILE, 'utf8')).key; } catch (_e) { }
-try { crowdHave = JSON.parse(fs.readFileSync(CROWD_FILE, 'utf8')).key; } catch (_e) { }
-if (castHave === notes.castKey && crowdHave === notes.castKey && !process.argv.includes('--rebake')) {
-  castNote = 'already baked for this cut (key ' + castHave + '); --rebake bakes again';
-} else if (!process.argv.includes('--no-bake')) {
-  const r = require('child_process').spawnSync('node', [path.join(ROOT, 'tools/bohemia_bake_the_demo_cast.js')], { cwd: ROOT, encoding: 'utf8', timeout: 300000 });
-  if (r.status === 0) castNote = (r.stdout || '').trim().split('\n').pop();
-  else { try { fs.unlinkSync(CAST_FILE); } catch (_e) { } try { fs.unlinkSync(CROWD_FILE); } catch (_e) { }
-    castNote = 'THE BAKE FAILED, the file removed, the demo bakes live: ' + ((r.stderr || r.stdout || '') + '').trim().slice(-300); }
-} else { try { fs.unlinkSync(CAST_FILE); } catch (_e) { } try { fs.unlinkSync(CROWD_FILE); } catch (_e) { } }
+/* __ONLY_THE_FINAL_LOOK__ (RUN 10/25, rule 174): the old 2-D cast and crowd files are not made for the demo any more (their bake
+   lives on for the workshop in tools/bohemia_bake_the_demo_cast.js); a copy left in slices/ is removed so nothing can fetch it */
+try { fs.unlinkSync(CAST_FILE); } catch (_e) { } try { fs.unlinkSync(CROWD_FILE); } catch (_e) { }
+const castNote = 'none: the demo draws its people from the 3-D rig sheets only (rule 174)';
+/* __THE_SHEETS_ARE_PACKED__ (RUN 10/25, rule 173): a fight sheet re-rendered since its last pack is drawn whole (the old weight) until
+   it is packed again; every cut packs what is stale (seconds when nothing is) */
+let packNote = 'not checked';
+try { const pk = require('child_process').spawnSync('python3', [path.join(ROOT, 'tools/bohemia_run_the_sheets_packed.py')], { cwd: ROOT, encoding: 'utf8', timeout: 600000 });
+  packNote = ((pk.stdout || pk.stderr || '') + '').trim().split('\n').pop(); } catch (_e) { packNote = 'the packer did not run: ' + _e.message; }
 console.log('=== CUT THE DEMO ===');
 console.log('  workshop : ' + (alpha.length / 1048576).toFixed(2) + ' MB, ' + (notes.removedTabs.length + notes.keptTabs.length) + ' tabs');
 console.log('  removed  : ' + notes.removedTabs.length + ' dev tab(s) -- ' + notes.removedTabs.join(' '));
@@ -639,4 +635,5 @@ console.log('  emptied  : COMBAT_B64, the frozen fight (' + (notes.frozenFightBy
 console.log('  wrote    : ' + path.relative(ROOT, DEMO) + '  (' + (src.length / 1048576).toFixed(2) + ' MB)');
 console.log('  manifest : ' + path.relative(ROOT, MANIFEST) + '  (start_url is the DEMO, not the workshop)');
 console.log('  map cast : ' + castNote);
+console.log('  packed   : ' + packNote);
 console.log('  the workshop file was not touched.');

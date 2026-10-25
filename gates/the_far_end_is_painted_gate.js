@@ -160,9 +160,10 @@ const r2 = v => Math.round(v * 1000) / 1000;
     /* F12: rule 65 (a), every marker 1:1 from its art -- the people: the baked body against the device
        pixels it is drawn on at the opening zoom (him too, said, not judged: rule 21 sizes him) */
     const ppl = await d.fr.evaluate(() => { setZoomAt(1); MAP_GROUND.key = ''; render();
-      const set = mapCastOf(0), fr = set && (set.S || set[Object.keys(set)[0]]).idle; if (!fr) return null;
+      /* RE-AIMED 10/25 (RUN, rule 174): on the demo the people are the rig's (a frame is the same 112 box), never the old cast */
+      const set = (typeof FINAL_ONLY !== 'undefined' && FINAL_ONLY && mapPeopleOf('crowd', 0)) || mapCastOf(0), fr = set && (set.S || set[Object.keys(set)[0]]).idle; if (!fr) return null;
       const s56 = 56 / Math.max(56, fr.width), cssW = fr.width * s56 * MAP_PERSON_K * MAP_PEOPLE_K;
-      const you = PLAYER_CV && (PLAYER_CV.S || PLAYER_CV[Object.keys(PLAYER_CV)[0]]).idle;
+      const Y = PLAYER_CV || mapPeopleOf('you', 0), you = Y && (Y.S || Y[Object.keys(Y)[0]]).idle;
       return { art: fr.width, dev: cssW * CV_DPR, ratio: (cssW * CV_DPR) / fr.width, youArt: you ? you.width : null, youDev: MAP_DREW.you ? MAP_DREW.you.w * CV_DPR : null }; });
     ok('F12 the people on the map are drawn one art pixel to one device pixel (' + (ppl ? ppl.art + ' px of art on ' + Math.round(ppl.dev) + ' device px, x' + ppl.ratio.toFixed(2)
       + '; he is ' + ppl.youArt + ' px of art on ' + Math.round(ppl.youDev) + ', sized by rule 21' : 'no cast') + ')', !!ppl && Math.abs(ppl.ratio - 1) <= 0.05);

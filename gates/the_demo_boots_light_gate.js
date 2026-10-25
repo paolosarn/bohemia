@@ -40,8 +40,8 @@ const NAMES = ['renderHuman', 'pplHeard', 'outfitBuild', 'famBuild', 'hairJudgeB
 /* the frames the map ends up holding: the boot cast's six (stills and breath) and his own (stills and walk), and his run */
 const FRAMES = () => { let h = 2166136261 >>> 0, n = 0; const mix = c => { const a = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; for (let i = 0; i < a.length; i += 3) { h ^= a[i]; h = Math.imul(h, 16777619) >>> 0; } n++; };
   const D8 = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']; let runs = 0;
-  for (let i = 0; i < 6; i++) for (const d of D8) { const s = CAST_CV[i][d]; mix(s.idle); (s.breathe || []).forEach(mix); }
-  for (const d of D8) { const s = PLAYER_CV[d]; mix(s.idle); (s.walk || []).forEach(mix); runs += (s.run || []).length; }
+  for (let i = 0; i < 6; i++) for (const d of D8) { const s = CAST_CV && CAST_CV[i] && CAST_CV[i][d]; if (!s) continue; mix(s.idle); (s.breathe || []).forEach(mix); }   /* RE-AIMED 10/25 (rule 174): the demo has none */
+  for (const d of D8) { const s = PLAYER_CV && PLAYER_CV[d]; if (!s) continue; mix(s.idle); (s.walk || []).forEach(mix); runs += (s.run || []).length; }
   return { h, n, runs }; };
 
 (async () => {
@@ -75,14 +75,18 @@ const FRAMES = () => { let h = 2166136261 >>> 0, n = 0; const mix = c => { const
     ok('B2 the workshop boards are not built in the demo (outfitBuild ' + ms.outfitBuild + ' ms, famBuild ' + ms.famBuild + ' ms, hairJudgeBuild ' + ms.hairJudgeBuild + ' ms; canvases on the boards ' + boards.join('/') + ')',
       ms.outfitBuild === 0 && ms.famBuild === 0 && ms.hairJudgeBuild === 0 && boards.every(n => n <= 0));
     /* B9: the people's breath and his walk come after the world is ready, and the map ends with every frame */
-    let late = null; for (let i = 0; i < 160; i++) { late = await d.page.evaluate(() => ({ breath: CAST_BREATH.sent, steps: CAST_BREATH.steps, walk: PWALK.sent, last: PWALK.lastSteps, open: PWALK.open, baked: (window.__DEMO_CAST || {}).adopted | 0, file: (window.__DEMO_CAST || {}).state })); if ((late.breath >= 6 || late.baked === 6) && late.walk >= 1 && !late.open) break; await d.page.waitForTimeout(500); }
+    let late = null; for (let i = 0; i < 160; i++) { late = await d.page.evaluate(() => ({ breath: CAST_BREATH.sent, steps: CAST_BREATH.steps, walk: PWALK.sent, last: PWALK.lastSteps, open: PWALK.open, baked: (window.__DEMO_CAST || {}).adopted | 0, file: (window.__DEMO_CAST || {}).state })); if (await d.page.evaluate(() => (window.__OLD_2D_SKIPPED | 0) > 0) || ((late.breath >= 6 || late.baked === 6) && late.walk >= 1 && !late.open)) break; await d.page.waitForTimeout(500); }
     /* he may be asked for more than once (a new ask restarts his walk); what reaches the map is always a whole eight */
     /* RE-AIMED 10/13 (round four): the six people's breath now comes BAKED BY THE CUT (BOHEMIA_DEMO_CAST.json); without
        that file it still comes after the door, a facing at a time. Never at the boot, either way. */
-    const breathOk = (late.baked === 6 && late.steps === 0) || (late.baked === 0 && late.breath === 6 && late.steps === 48);
-    ok('*** B9 THE BREATH AND HIS WALK COME AFTER THE DOOR *** (the six people\'s breath: baked by the cut ' + late.baked + ' of 6 (the file ' + late.file + '), baked after the door ' + late.breath + ' in ' + late.steps + ' facings; his walk sent ' + late.walk + ' time(s), the last a whole ' + late.last + ' facings, none still baking ' + !late.open + ')', breathOk && late.walk >= 1 && late.last === 8 && !late.open);
-    /* B11 (10/13, round four): the six people come baked by the cut, and the boot bakes none of them */
-    ok('*** B11 THE MAP PEOPLE COME BAKED BY THE CUT *** (the file ' + late.file + ', ' + late.baked + ' of 6 people taken from it; the cast before BEGIN ' + ms.citySendCast + ' ms, was about 1,000)', late.file === 'ready' && late.baked === 6 && ms.citySendCast <= 80);
+    /* RE-AIMED 10/25 (RUN, rule 174, Paolo 10/25: 'I'm still seeing the months-ago 2-D character skins underneath everything'): the
+       demo's people are the 3-D rig's, so no old 2-D body is baked, fetched or sent: not the six's breath, not his walk, not the cut's
+       file of them (B9 and B11 were the 2-D bake, light; they are now its absence) */
+    const gone = await d.page.evaluate(() => ({ skipped: window.__OLD_2D_SKIPPED | 0, fetched: performance.getEntriesByType('resource').filter((r) => /BOHEMIA_DEMO_(CAST|CROWD)\.json/.test(r.name)).length }));
+    ok('*** B9 NO OLD 2-D BODY IS BAKED AFTER THE DOOR *** (rule 174: the six\'s breath sent ' + late.breath + ' in ' + late.steps + ' facings; his walk sent ' + late.walk + '; the old bake skipped ' + gone.skipped + ' times)',
+      late.breath === 0 && late.steps === 0 && late.walk === 0 && gone.skipped > 0);
+    ok('*** B11 THE CUT BAKES NO 2-D PEOPLE AND THE DEMO FETCHES NONE *** (the file ' + late.file + ', fetched ' + gone.fetched + ' times; the cast before BEGIN ' + ms.citySendCast + ' ms, was about 1,000)',
+      late.file === 'none' && gone.fetched === 0 && ms.citySendCast <= 20);
     await d.page.waitForTimeout(1200);
     demoFrames = await d.fr.evaluate(FRAMES);
     /* B3, B4: the cast again, counted and caught on its way to the map */
@@ -101,8 +105,8 @@ const FRAMES = () => { let h = 2166136261 >>> 0, n = 0; const mix = c => { const
       const still = L.length && L.every(l => Object.keys(l.dirs).length === 8 && Object.keys(l.dirs).every(k => { const x = l.dirs[k]; return x.breathe && x.idle === x.breathe[CAST_PHS.indexOf(0.25)]; }));
       return { n, looks: (live && live.looks || []).length, still: !!still };
     });
-    ok('B3 the map\'s six people cost at most two rig rebuilds each (' + c.n + ' rebuilds for ' + c.looks + ' people; it was 96)', c.looks === 6 && c.n > 0 && c.n <= 2 * c.looks + 1);
-    ok('B4 each one\'s still is the breath\'s own 0.25 frame (' + c.still + ')', c.still);
+    /* RE-AIMED 10/25 (rule 174): the cast sender bakes nothing in the demo */
+    ok('B3 the cast sender bakes no 2-D person in the demo (' + c.n + ' rig rebuilds, ' + c.looks + ' people sent; it was 96 rebuilds)', c.n === 0 && c.looks === 0);
     const seat = await d.fr.evaluate(() => ({ mode: MODE, demoMap: DEMO_ON_MAP, landed: !!LANDED, seating: SEATING }));
     ok('B5 he is still seated: on the map ' + (seat.mode === 'city') + ', the look-out taken ' + seat.demoMap + ', his landing written ' + seat.landed, seat.mode === 'city' && seat.demoMap === true && seat.landed && seat.seating === false);
     const left = Math.max(0, 20000 - await d.page.evaluate(() => performance.now()));
@@ -124,8 +128,8 @@ const FRAMES = () => { let h = 2166136261 >>> 0, n = 0; const mix = c => { const
     ok('B7 THE WORKSHOP IS UNCHANGED (the alpha starts him on ' + (s.mode === 'human' ? 'his street' : s.mode) + ', landed ' + s.landed + '; the faction board ' + boards + ' canvases)', s.mode === 'human' && s.landed && boards > 0);
     /* B10: the frames, against the workshop's one-piece bake */
     let af = null; for (let i = 0; i < 60; i++) { af = await a.fr.evaluate(FRAMES).catch(() => null); if (af && af.n === 280) break; await a.page.waitForTimeout(500); }
-    ok('*** B10 THE MAP ENDS WITH THE SAME FRAMES AS THE ONE-PIECE BAKE *** (the demo ' + (demoFrames && demoFrames.n) + ' frames, hash ' + (demoFrames && demoFrames.h) + '; the workshop ' + (af && af.n) + ', ' + (af && af.h) + '; his run frames ' + (demoFrames && demoFrames.runs) + '/' + (af && af.runs) + ', none drawn anywhere)',
-      !!demoFrames && !!af && demoFrames.n === 280 && demoFrames.h === af.h && demoFrames.runs === 0 && af.runs === 0);
+    ok('*** B10 THE DEMO\'S MAP HOLDS NO 2-D FRAME, THE WORKSHOP\'S BAKE IS WHOLE *** (the demo ' + (demoFrames && demoFrames.n) + ' frames, hash ' + (demoFrames && demoFrames.h) + '; the workshop ' + (af && af.n) + ', ' + (af && af.h) + '; his run frames ' + (demoFrames && demoFrames.runs) + '/' + (af && af.runs) + ', none drawn anywhere)',
+      !!demoFrames && !!af && demoFrames.n === 0 && af.n === 280 && af.runs === 0);   /* RE-AIMED 10/25 (rule 174): the demo's map holds no 2-D frame; the workshop's one-piece bake is whole */
     ok('B8 nothing threw on the alpha (' + a.errs.length + (a.errs.length ? ': ' + String(a.errs[0]).slice(0, 120) : '') + ')', a.errs.length === 0);
   } catch (e) { ok('B7 the alpha boots [' + String(e.message).slice(0, 160) + ']', false); }
   if (a) await a.close();

@@ -23,7 +23,7 @@
     s.onload=next; s.onerror=next;
     document.head.appendChild(s);
   }
-  function go(){ if(going)return; going=true; next(); }
+  function go(){ if(going)return; going=true; if(window.FINAL_ONLY){ window.__TILES_SKIPPED=CHUNKS.length; return; } next(); }   /* RUN 10/25 __ONLY_THE_FINAL_LOOK__ (rule 174): the demo's map never draws this bank */
   var tries=0;
   (function poll(){
     if(going) return;
