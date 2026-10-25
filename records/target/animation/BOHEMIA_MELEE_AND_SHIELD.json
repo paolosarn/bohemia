@@ -1,0 +1,1453 @@
+{
+ "what": "ANIMATION [the PC playtest: the bodies' part], rule 164 item 31 (Paolo 10/24 on his PC: more and better animations when people hold things), the coordinator's order 10/25: (1) melee weapons held right in the hand, idle, walk, the swing, the hit taken; (2) the shield arm; (3) anything else held in the wrong pose. THE KEPT SOURCE (rule 128) of tools/bohemia_animation_melee_in_hand.py: the new keys on the rig's man (the same step grammar as records/target/animation/BOHEMIA_WHAT_A_MAN_HOLDS.json, whose parts these lists may name), the props, which Battle Brothers row holds which prop, and on which keys of which clip a prop is rendered in his hand.",
+ "parts": {
+  "m_rest": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.15,
+       -0.37,
+       -0.05
+      ],
+      "pole": [
+       -1,
+       0.2,
+       -0.3
+      ]
+     }
+    }
+   }
+  ],
+  "m_tap_half": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      8
+     ],
+     [
+      "H",
+      "L",
+      6
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.2,
+       -0.33,
+       0.04
+      ],
+      "pole": [
+       -1,
+       0,
+       -0.4
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.2,
+       -0.36,
+       0.0
+      ],
+      "pole": [
+       -1,
+       0,
+       0.5
+      ]
+     }
+    }
+   }
+  ],
+  "m_tap_lift": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      12
+     ],
+     [
+      "H",
+      "L",
+      8
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.21,
+       -0.33,
+       0.07
+      ],
+      "pole": [
+       -1,
+       0,
+       -0.4
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.25,
+       -0.32,
+       0.02
+      ],
+      "pole": [
+       -1,
+       0,
+       0.5
+      ]
+     }
+    }
+   }
+  ],
+  "m_tap": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      12
+     ],
+     [
+      "H",
+      "L",
+      8
+     ],
+     [
+      "C",
+      "U",
+      -4
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.2,
+       -0.38,
+       0.06
+      ],
+      "pole": [
+       -1,
+       0,
+       -0.4
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.25,
+       -0.33,
+       0.04
+      ],
+      "pole": [
+       -1,
+       0,
+       0.5
+      ]
+     }
+    }
+   }
+  ],
+  "m_shoulder_half": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.2,
+       -0.27,
+       0.02
+      ],
+      "pole": [
+       -0.6,
+       -0.2,
+       -1
+      ]
+     }
+    }
+   }
+  ],
+  "m_shoulder": [
+   {
+    "ops": [
+     [
+      "C",
+      "U",
+      -6
+     ],
+     [
+      "N",
+      "U",
+      6
+     ],
+     [
+      "H",
+      "L",
+      4
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.16,
+       -0.16,
+       0.05
+      ],
+      "pole": [
+       -0.3,
+       -0.6,
+       -1
+      ]
+     }
+    }
+   }
+  ],
+  "s_carry": [
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.27,
+       -0.3,
+       -0.15
+      ],
+      "pole": [
+       -0.2,
+       -0.4,
+       1
+      ]
+     }
+    }
+   }
+  ],
+  "s_guard": [
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.3,
+       -0.21,
+       -0.15
+      ],
+      "pole": [
+       -0.2,
+       -0.6,
+       1
+      ]
+     }
+    }
+   }
+  ],
+  "s_block": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      8
+     ],
+     [
+      "N",
+      "L",
+      6
+     ],
+     [
+      "H",
+      "L",
+      4
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.3,
+       -0.04,
+       -0.13
+      ],
+      "pole": [
+       -0.1,
+       -1,
+       0.7
+      ]
+     }
+    }
+   }
+  ],
+  "s_block_rock": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      -6
+     ],
+     [
+      "N",
+      "L",
+      -8
+     ],
+     [
+      "H",
+      "L",
+      -6
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.24,
+       -0.06,
+       -0.12
+      ],
+      "pole": [
+       -0.1,
+       -1,
+       0.7
+      ]
+     }
+    }
+   }
+  ],
+  "s_low": [
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.36,
+       -0.42,
+       -0.08
+      ],
+      "pole": [
+       -0.3,
+       0,
+       1
+      ]
+     }
+    }
+   }
+  ],
+  "s_rport": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.17,
+       -0.17,
+       0.07
+      ],
+      "pole": [
+       -0.2,
+       -1,
+       -0.7
+      ]
+     }
+    }
+   }
+  ],
+  "s_rlow": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.12,
+       -0.36,
+       -0.07
+      ],
+      "pole": [
+       -1,
+       0.2,
+       -0.3
+      ]
+     }
+    }
+   }
+  ],
+  "s_crock": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      -12
+     ],
+     [
+      "N",
+      "L",
+      -16
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.1,
+       -0.33,
+       -0.1
+      ],
+      "pole": [
+       -0.8,
+       0,
+       -0.5
+      ]
+     }
+    }
+   }
+  ],
+  "s_wind": [
+   {
+    "ops": [
+     [
+      "RU",
+      "L",
+      -160
+     ],
+     [
+      "RU",
+      "F",
+      -15
+     ],
+     [
+      "RF",
+      "L",
+      -70
+     ],
+     [
+      "S",
+      "U",
+      -25
+     ],
+     [
+      "S",
+      "L",
+      -6
+     ],
+     [
+      "H",
+      "U",
+      20
+     ]
+    ]
+   }
+  ],
+  "s_blow": [
+   {
+    "ops": [
+     [
+      "RU",
+      "L",
+      -40
+     ],
+     [
+      "RF",
+      "L",
+      -10
+     ],
+     [
+      "S",
+      "U",
+      15
+     ],
+     [
+      "S",
+      "L",
+      14
+     ],
+     [
+      "N",
+      "L",
+      6
+     ]
+    ]
+   }
+  ],
+  "s_follow": [
+   {
+    "ops": [
+     [
+      "RU",
+      "L",
+      -5
+     ],
+     [
+      "RU",
+      "U",
+      30
+     ],
+     [
+      "S",
+      "U",
+      25
+     ],
+     [
+      "S",
+      "L",
+      10
+     ]
+    ]
+   }
+  ]
+ },
+ "clips": {
+  "MIdleX": {
+   "under": "still",
+   "keys": [
+    [
+     "m_tap_half",
+     "plant"
+    ],
+    [
+     "m_tap_lift",
+     "plant"
+    ],
+    [
+     "m_tap",
+     "plant"
+    ],
+    [
+     "m_shoulder_half",
+     "plant"
+    ],
+    [
+     "m_shoulder",
+     "breath_in",
+     "plant"
+    ]
+   ],
+   "why": "the melee idle's own keys (the club tapped into the left palm, the club laid on the right shoulder); its rest, breath and looks are the pistol's (PIdle keys 0 to 3, the same right arm at the one-hand low ready), so they are never rendered twice"
+  },
+  "SIdle": {
+   "under": "still",
+   "keys": [
+    [
+     "m_rest",
+     "s_carry",
+     "plant"
+    ],
+    [
+     "breath_in",
+     "m_rest",
+     "s_carry",
+     "plant"
+    ],
+    [
+     "look_l",
+     "m_rest",
+     "s_carry",
+     "plant"
+    ],
+    [
+     "look_r",
+     "m_rest",
+     "s_carry",
+     "plant"
+    ]
+   ],
+   "why": "the shield carried on the left forearm across his front, his right hand at the one-hand low ready (a club or a pistol in it); a breath, a look each way"
+  },
+  "SWalk": {
+   "under": "walk",
+   "keep": "",
+   "keys": [
+    [
+     "m_rest",
+     "s_carry"
+    ],
+    [
+     "m_rest",
+     "s_carry"
+    ],
+    [
+     "m_rest",
+     "s_carry"
+    ],
+    [
+     "m_rest",
+     "s_carry"
+    ],
+    [
+     "m_rest",
+     "s_carry"
+    ],
+    [
+     "m_rest",
+     "s_carry"
+    ]
+   ],
+   "why": "the walk's six keys with the shield held across him and the right hand low: neither arm swings"
+  },
+  "SSwing": {
+   "under": "still",
+   "keys": [
+    [
+     "s_wind",
+     "s_carry",
+     "plant"
+    ],
+    [
+     "s_blow",
+     "s_carry",
+     "plant"
+    ],
+    [
+     "s_follow",
+     "s_carry",
+     "plant"
+    ]
+   ],
+   "why": "COMBAT's own swing (its Swing turns of the right arm and the chest, tools/bohemia_combat_the_fight_poses.py man_keys) with the shield kept up on the left arm"
+  },
+  "SAim": {
+   "under": "still",
+   "keys": [
+    [
+     "aim_r",
+     "s_guard",
+     "plant"
+    ],
+    [
+     "kick_r",
+     "s_guard",
+     "plant"
+    ]
+   ],
+   "why": "the pistol out at the eye in one hand over the shield, the shield up at the guard (never bladed: the shield stays in front)"
+  },
+  "SBlock": {
+   "under": "still",
+   "keys": [
+    [
+     "s_block",
+     "m_rest",
+     "plant"
+    ],
+    [
+     "s_block_rock",
+     "m_rest",
+     "plant"
+    ]
+   ],
+   "why": "THE BLOCK: a blow lands and the shield is up before his face, he leans into it; then he is rocked behind it"
+  },
+  "SCover": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel",
+     "s_low",
+     "s_rport"
+    ],
+    [
+     "kneel",
+     "c_breath",
+     "s_low",
+     "s_rport"
+    ],
+    [
+     "kneel",
+     "peek",
+     "s_low",
+     "s_rport"
+    ]
+   ],
+   "why": "on one knee behind the cover with the shield planted on the ground before him, the thing in his right hand up at his chest; a breath; a peek"
+  },
+  "SCoverHit": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel",
+     "s_low",
+     "s_crock"
+    ]
+   ],
+   "why": "on the knee behind the shield, rocked"
+  }
+ },
+ "composite": {
+  "MIdle": [
+   [
+    "PIdle",
+    0
+   ],
+   [
+    "PIdle",
+    1
+   ],
+   [
+    "PIdle",
+    2
+   ],
+   [
+    "PIdle",
+    3
+   ],
+   [
+    "MIdleX",
+    0
+   ],
+   [
+    "MIdleX",
+    1
+   ],
+   [
+    "MIdleX",
+    2
+   ],
+   [
+    "MIdleX",
+    3
+   ],
+   [
+    "MIdleX",
+    4
+   ]
+  ],
+  "MWalk": [
+   [
+    "PCarryWalk",
+    0
+   ],
+   [
+    "PCarryWalk",
+    1
+   ],
+   [
+    "PCarryWalk",
+    2
+   ],
+   [
+    "PCarryWalk",
+    3
+   ],
+   [
+    "PCarryWalk",
+    4
+   ],
+   [
+    "PCarryWalk",
+    5
+   ]
+  ],
+  "MSwing": [
+   [
+    "Swing",
+    0
+   ],
+   [
+    "Swing",
+    1
+   ],
+   [
+    "Swing",
+    2
+   ]
+  ],
+  "MHit": [
+   [
+    "PHit",
+    0
+   ],
+   [
+    "PHit",
+    1
+   ]
+  ],
+  "MCover": [
+   [
+    "CoverPistol",
+    0
+   ],
+   [
+    "CoverPistol",
+    1
+   ],
+   [
+    "CoverPistol",
+    2
+   ]
+  ],
+  "MCoverHit": [
+   [
+    "CoverHit",
+    0
+   ],
+   [
+    "CoverHit",
+    1
+   ]
+  ],
+  "why": "a melee clip as the fight plays it, key by key, from the clip a key was rendered on: the held sheets' PIdle, PCarryWalk, PHit, CoverPistol, CoverHit (last round's, slices/rig_hold), this source's MIdleX (slices/rig_melee), and COMBAT's own Swing on the fight sheet (slices/fight_rig); the prop is rendered in his hand on every one",
+  "SIdle": [
+   [
+    "SIdle",
+    0
+   ],
+   [
+    "SIdle",
+    1
+   ],
+   [
+    "SIdle",
+    2
+   ],
+   [
+    "SIdle",
+    3
+   ]
+  ],
+  "SWalk": [
+   [
+    "SWalk",
+    0
+   ],
+   [
+    "SWalk",
+    1
+   ],
+   [
+    "SWalk",
+    2
+   ],
+   [
+    "SWalk",
+    3
+   ],
+   [
+    "SWalk",
+    4
+   ],
+   [
+    "SWalk",
+    5
+   ]
+  ],
+  "SSwing": [
+   [
+    "SSwing",
+    0
+   ],
+   [
+    "SSwing",
+    1
+   ],
+   [
+    "SSwing",
+    2
+   ]
+  ],
+  "SAim": [
+   [
+    "SAim",
+    0
+   ],
+   [
+    "SAim",
+    1
+   ],
+   [
+    "SAim",
+    0
+   ]
+  ],
+  "SBlock": [
+   [
+    "SBlock",
+    0
+   ],
+   [
+    "SBlock",
+    1
+   ]
+  ],
+  "SCover": [
+   [
+    "SCover",
+    0
+   ],
+   [
+    "SCover",
+    1
+   ],
+   [
+    "SCover",
+    2
+   ]
+  ],
+  "SCoverHit": [
+   [
+    "SCoverHit",
+    0
+   ],
+   [
+    "SCoverHit",
+    0
+   ]
+  ]
+ },
+ "hold": {
+  "PIdle": [
+   "rest",
+   "rest",
+   "rest",
+   "rest"
+  ],
+  "MIdleX": [
+   "tap_lift",
+   "tap_lift",
+   "tap",
+   "shoulder_half",
+   "shoulder"
+  ],
+  "PCarryWalk": [
+   "rest",
+   "rest",
+   "rest",
+   "rest",
+   "rest",
+   "rest"
+  ],
+  "Swing": [
+   "wind",
+   "blow",
+   "follow"
+  ],
+  "PHit": [
+   "hit",
+   "hit"
+  ],
+  "CoverPistol": [
+   "port",
+   "port",
+   "port"
+  ],
+  "CoverHit": [
+   "hit",
+   "hit"
+  ],
+  "why": "how the prop sits in his right fist on each key: rest, along the forearm at the one-hand low ready, the head up and forward; tap, the head in his left palm; tap_lift, the head lifted a hand off it; shoulder, laid back over his right shoulder; wind, cocked back behind his head; blow and follow, in line with the forearm; hit, kept in the fist as he is rocked; port, up before his chest on one knee",
+  "SIdle": [
+   "rest",
+   "rest",
+   "rest",
+   "rest"
+  ],
+  "SWalk": [
+   "rest",
+   "rest",
+   "rest",
+   "rest",
+   "rest",
+   "rest"
+  ],
+  "SSwing": [
+   "wind",
+   "blow",
+   "follow"
+  ],
+  "SAim": [
+   "aim",
+   "aim"
+  ],
+  "SBlock": [
+   "hit",
+   "hit"
+  ],
+  "SCover": [
+   "port",
+   "port",
+   "port"
+  ],
+  "SCoverHit": [
+   "hit"
+  ]
+ },
+ "props": {
+  "pipe": {
+   "say": "a length of rusted water pipe with a coupling at each end and tape at the grip (the thug's pipe, COOK THREE's tier)",
+   "back": 0.08,
+   "fore": 0.5
+  },
+  "club": {
+   "say": "a table leg turned into a club, faceted, heavier at the far end, the grip wound in tape",
+   "back": 0.06,
+   "fore": 0.5
+  },
+  "bat": {
+   "say": "an ash baseball bat with nails driven through the barrel (Battle Brothers' morning star in the valley's hands)",
+   "back": 0.07,
+   "fore": 0.78
+  },
+  "cleaver": {
+   "say": "a butcher's cleaver: a wooden grip, a deep square blade, the edge ground bright",
+   "back": 0.05,
+   "fore": 0.26
+  },
+  "machete": {
+   "say": "a machete: a black grip, a long flat blade with a belly toward the tip and a rust patch (the market's BLADE)",
+   "back": 0.05,
+   "fore": 0.6
+  },
+  "hatchet": {
+   "say": "the poacher's hatchet: a short wooden haft, a bearded steel head, the edge ground bright",
+   "back": 0.05,
+   "fore": 0.36
+  },
+  "pistol": {
+   "say": "COOK's pistol (reference/models/bohemia/gun_pistol_a.glb), the gun every pistol man holds",
+   "model": "gun_pistol_a"
+  },
+  "car_door": {
+   "say": "a car door cut off below the window: the faded skin, a dent and bullet holes, rust at the seams, the handle, the window channel's two stubs, a strap behind",
+   "shield": true,
+   "w": 0.92,
+   "h": 0.6
+  },
+  "crash_bar": {
+   "say": "the Heavy's crash-bar shield (CHARACTER's): a rounded frame of steel tube, a diamond-plate panel, the bent push bar, a dead plate riveted on",
+   "shield": true,
+   "w": 0.48,
+   "h": 0.62
+  },
+  "sign": {
+   "say": "a stop sign pulled off its post (reference/models/bohemia/stop_sign.glb's face: the octagon, its border, the letters, the shot holes)",
+   "shield": true,
+   "w": 0.76,
+   "h": 0.76
+  }
+ },
+ "by_row": {
+  "bludgeon": "pipe",
+  "wooden_stick": "club",
+  "morning_star": "bat",
+  "butcher_s_cleaver": "cleaver",
+  "shortsword": "machete",
+  "hatchet": "hatchet",
+  "handaxe": "hatchet",
+  "why": "the Battle Brothers rows the fight deals (measured on 16 real fights, seeds 1 to 8, strip and road: bludgeon 50, wooden_stick 12, morning_star 4, the cleaver 6, the shortsword 12, the hatchet 11, the handaxe 2) to the thing in his hand; a row not named here is drawn as before until its prop is in"
+ },
+ "by_class": {
+  "mace": "pipe",
+  "cleaver": "cleaver",
+  "sword": "machete",
+  "axe": "hatchet",
+  "why": "a row this lane never measured falls back on its class, the market icon's own reading (slices/market_icons: w_pipe, w_cleaver, w_machete, w_axe)"
+ },
+ "layers": {
+  "m1": {
+   "props": [
+    "pipe",
+    "club",
+    "bat",
+    "cleaver",
+    "machete",
+    "hatchet"
+   ],
+   "clips": [
+    "PIdle",
+    "MIdleX",
+    "PCarryWalk",
+    "Swing",
+    "PHit",
+    "CoverPistol",
+    "CoverHit"
+   ],
+   "keys": {
+    "PIdle": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  },
+  "s1": {
+   "props": [
+    "pipe",
+    "club",
+    "bat",
+    "cleaver",
+    "machete",
+    "hatchet",
+    "pistol",
+    "car_door",
+    "crash_bar",
+    "sign"
+   ],
+   "clips": [
+    "SIdle",
+    "SWalk",
+    "SSwing",
+    "SAim",
+    "SBlock",
+    "SCover",
+    "SCoverHit"
+   ],
+   "keys": {},
+   "only": {
+    "pistol": [
+     "SIdle",
+     "SWalk",
+     "SAim",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "car_door": "all",
+    "crash_bar": "all",
+    "sign": "all",
+    "pipe": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "club": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "bat": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "cleaver": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "machete": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "hatchet": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ]
+   }
+  }
+ },
+ "timelines": {
+  "MIdle": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     5
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   [
+    [
+     0,
+     3
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     0,
+     4
+    ]
+   ],
+   [
+    [
+     0,
+     4
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     8,
+     14
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     0,
+     4
+    ]
+   ]
+  ],
+  "MCover": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     6
+    ],
+    [
+     2,
+     9
+    ],
+    [
+     0,
+     9
+    ]
+   ]
+  ],
+  "why": "as the held clips: slots of two bars (24 keys); an even slot a breath, an odd slot one of the rest rolled off his own seed: the look each way, THE TAP (the club head lifted off his left palm and brought down into it three times, on the beat's thirds), THE SHOULDER (the club laid on his right shoulder for a bar); every slot starts and ends on key 0 and a big move passes a half key",
+  "SIdle": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     5
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     0,
+     3
+    ]
+   ]
+  ],
+  "SCover": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     6
+    ],
+    [
+     2,
+     9
+    ],
+    [
+     0,
+     9
+    ]
+   ]
+  ]
+ },
+ "shield_hold": {
+  "SIdle": [
+   "carry",
+   "carry",
+   "carry",
+   "carry"
+  ],
+  "SWalk": [
+   "carry",
+   "carry",
+   "carry",
+   "carry",
+   "carry",
+   "carry"
+  ],
+  "SSwing": [
+   "carry",
+   "carry",
+   "carry"
+  ],
+  "SAim": [
+   "guard",
+   "guard"
+  ],
+  "SBlock": [
+   "block",
+   "block"
+  ],
+  "SCover": [
+   "low",
+   "low",
+   "low"
+  ],
+  "SCoverHit": [
+   "low"
+  ],
+  "why": "how the shield sits on his left forearm: carry, across his front turned a little to his left flank; guard, the same a hand higher; block, square before his face; low, planted on the ground before him on one knee"
+ },
+ "shield_by_row": {
+  "wooden_shield": "car_door",
+  "old_wooden_shield": "car_door",
+  "wooden_skirmisher_shield": "car_door",
+  "reinforced_skirmisher_shield": "car_door",
+  "worn_kite_shield": "car_door",
+  "kite_shield": "car_door",
+  "buckler": "sign",
+  "feral_shield": "sign",
+  "adarga_shield": "sign",
+  "heavy_metal_shield": "crash_bar",
+  "heater_shield": "crash_bar",
+  "decayed_heater_shield": "crash_bar",
+  "ancient_tower_shield": "crash_bar",
+  "ancient_auxiliary_shield": "crash_bar",
+  "sipar_shield": "crash_bar",
+  "why": "the armoury's shields (records/target/bb/armor.json) to the three he named (rule 149(b) 'a car door as a shield'; COMBAT's note 10/25: a car door, a crash-bar shield, a sign): the wooden ones are car doors (ours.weapon_rows.car_door is wooden_shield), the small round ones a sign, the metal and the tall ones the crash bar; the measured fights deal wooden_shield and buckler"
+ },
+ "shield_over": {
+  "S": true,
+  "SE": false,
+  "E": false,
+  "NE": false,
+  "N": true,
+  "NW": true,
+  "W": true,
+  "SW": true,
+  "why": "which is drawn last where the thing in his right hand and the shield on his left cross: the shield, but where his right side is toward the glass (SE, E, NE)"
+ },
+ "layers_ready": [
+  "m1"
+ ]
+}

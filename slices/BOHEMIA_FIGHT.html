@@ -4455,9 +4455,10 @@ function holdLook(L) {
   return d.d;
 }
 /* a sheet, decoded once and held as an ImageBitmap (as the rig sheets are) */
-function holdImg(file) {
-  let e = HOLD.ims[file];
-  if (!e) { e = HOLD.ims[file] = { b: null }; load('rig_hold/' + file).then(function (i) { if (!i) return;
+function holdImg(file, dir) {
+  dir = dir || 'rig_hold/';
+  let e = HOLD.ims[dir + file];
+  if (!e) { e = HOLD.ims[dir + file] = { b: null }; load(dir + file).then(function (i) { if (!i) return;
     if (typeof createImageBitmap !== 'function') { e.b = i; return; }
     createImageBitmap(i).then(function (b) { b.src = i.src; e.b = b; }, function () { e.b = i; }); }); }
   return e.b;
@@ -4469,8 +4470,9 @@ function holdCovered(v) {
   return !!(S.coverCount && S.coverCount[y] && S.coverCount[y][x] > 0) || FIGHT.rowAt(x, y) === 'height';
 }
 /* standing still in a held clip: slots of two bars, a breath on the even slots and one of his idles on the odd, his own seed */
-function holdIdle(v, clip, now) {
-  const T = HOLD.meta.timelines && HOLD.meta.timelines[clip]; if (!T || !T.length) return 0;
+function holdIdle(v, clip, now, TL, slots) {
+  let T = (TL || HOLD.meta.timelines || {})[clip]; if (!T || !T.length) return 0;
+  if (slots) T = T.slice(0, slots);   /* a man whose own keys are not in yet: the slots his pictures hold */
   const B = window.BohemiaIdles; if (!B) return 0;
   const hs = B.hash;   /* the idles' own hash: the same man, the same numbers on every screen */
   if (v._holdSince === undefined || v._holdClip !== clip) { v._holdSince = now; v._holdClip = clip; }
@@ -4508,6 +4510,7 @@ function holdClip(v, p, kind, now) {
 function holdDraw(v, p, L, gs, ox, oy, s, now) {
   if (L.kind === 'beast' || v._fallAt !== undefined) return false;   /* a rolled man of the valley too: his own body, his gang's guns */
   const d = holdLook(L); if (!d) return false;
+  if (!gs) { const md = meleeDraw(v, p, L, d, ox, oy, s, now); if (md !== null) return md; }   /* a club, a bat, a pipe, a blade, a hatchet in his fist */
   const kind = gs ? DB.rig.guns.order[gs.row] : null, hc = holdClip(v, p, kind, now);
   if (!hc) { v._holdClip = undefined; return false; }
   const f = v._face || 0, ck = d.clips[hc[0]], ci = ck && ck[hc[1]] && ck[hc[1]][f];
@@ -4522,6 +4525,78 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
   if (gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
   const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
   UI.clipSeen['hold:' + hc[0]] = (UI.clipSeen['hold:' + hc[0]] || 0) + 1;
+  return true;
+}
+/* MELEE IN THE HAND (the next line, rule 164 item 31; the coordinator's order 10/25: 'melee weapons held right in the hand:
+   the club, the bat, the pipe, the knife, the poacher's hatchet: idle, walk, the swing, the hit taken'). Measured: 225 of 360
+   men on sixteen real fights held a melee or thrown weapon and every one was drawn bare-fisted (the fight draws only guns).
+   Now the thing is in his right fist on every key, the same man, camera, sun and stretch as his sheets, his body hiding what
+   it should (slices/rig_melee, tools/bohemia_animation_melee_in_hand.py): standing he holds it at the one-hand low ready and
+   breathes, looks about, TAPS IT INTO HIS LEFT PALM or LAYS IT ON HIS SHOULDER; he walks with it low; the swing is COMBAT's
+   own club over the shoulder, the blow, the follow through, with the thing in his hand; a blow rocks him with it kept; on one
+   knee in cover it is up before his chest. A rolled man's thing is his gang's, laid in his gang's cell (as his guns are);
+   a man whose own model carries his weapon (the thug's pipe, the poacher's hatchet) is drawn without a second one. A row
+   with no prop yet, a two-handed thing, a thrown one: as before. */
+const MELEE = { meta: null, state: 0, looks: {} };
+function meleeMeta() {
+  if (!MELEE.state) {
+    MELEE.state = 1;
+    try { fetch('rig_melee/rig_melee.json').then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) { MELEE.meta = m; MELEE.state = m && m.looks ? 2 : 3; }, function () { MELEE.state = 3; }); } catch (e) { MELEE.state = 3; }
+  }
+  return MELEE.state === 2 ? MELEE.meta : null;
+}
+function meleeLook(key) {
+  const M = meleeMeta(), e = M && key && M.looks[key]; if (!e) return null;
+  let d = MELEE.looks[key];
+  if (!d) { d = MELEE.looks[key] = { d: null }; fetch('rig_melee/' + e.json).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { d.d = j; }, function () {}); }
+  return d.d;
+}
+/* the thing in his right hand, if it is a one-handed melee weapon with a prop: its row, else its class */
+function meleeProp(v) {
+  const M = meleeMeta(), w = v.weapon; if (!M || !w || FIGHT.isGun(w)) return null;
+  const b = w.of || w; if (FIGHT._t.bothHands(w)) return null;
+  return M.by_row[b.id] || M.by_class[b.class] || null;
+}
+/* which melee clip and key for the pose the fight gave him */
+function meleeClip(v, p, L, e, now) {
+  const at = function (c) { return Math.max(0, (L.clips || DB.rig.clips)[c].indexOf(p.col)); }, cover = holdCovered(v), M = MELEE.meta;
+  if (p.clip === 'walk' || p.clip === 'carrywalk') return ['MWalk', at(p.clip)];
+  if (p.clip === 'swing') return ['MSwing', at('swing')];
+  if (p.clip === 'hit') return [cover ? 'MCoverHit' : 'MHit', at('hit')];
+  if (p.clip === 'stand' || p.clip === 'carry') {
+    const c = cover ? 'MCover' : 'MIdle', own = e.clips && e.clips.MIdleX;
+    return [c, holdIdle(v, c, now, M.timelines, c === 'MIdle' && !own ? 2 : 0)];
+  }
+  return null;
+}
+function meleeDraw(v, p, L, d, ox, oy, s, now) {
+  const prop = meleeProp(v); if (!prop) return null;
+  const e = meleeLook(L._key), M = MELEE.meta; if (!e) return null;
+  const pe = e.props ? e : meleeLook(e.ref); if (!pe || !pe.props) return null;
+  const mc = meleeClip(v, p, L, e, now); if (!mc) return null;
+  const f = v._face || 0, src = M.composite[mc[0]] && M.composite[mc[0]][mc[1]]; if (!src) return null;
+  const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
+  const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
+  /* his body on this key: the held sheets, this lane's melee keys, or COMBAT's own swing on his fight sheet */
+  let bimg = null, bc = null;
+  if (src[0] === 'Swing') { bimg = UI.imgs['fight_rig/' + L.file]; bc = [clipCol('swing', src[1], L) * L.w, f * L.h, L.w, L.h, 0, 0]; }
+  else if (src[0] === 'MIdleX') { const ci = e.clips.MIdleX && e.clips.MIdleX[src[1]] && e.clips.MIdleX[src[1]][f]; if (ci === null || ci === undefined) return null; bimg = holdImg(e.sheet.file, 'rig_melee/'); bc = e.sheet.cells[ci]; }
+  else { const ck = d.clips[src[0]], ci = ck && ck[src[1]] && ck[src[1]][f]; if (ci === null || ci === undefined) return null; bimg = holdImg(d.sheet.file); bc = d.sheet.cells[ci]; }
+  if (!bimg) return null;
+  /* the thing in his fist (never a second one on a man whose own model carries his) */
+  let pc = null, pimg = null;
+  if (!e.held) {
+    const by = pe.props.by[prop], pk = by && by[src[0]] && by[src[0]][src[1]];
+    if (!pk) return null;
+    pc = pk[f]; pimg = holdImg(pe.props.file, 'rig_melee/');
+    if (pc !== null && pc !== undefined && !pimg) return null;   /* never a man without his weapon: as before until it is in */
+  }
+  cx.drawImage(im(bimg), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
+  if (pimg && pc !== null && pc !== undefined) { const g = pe.props.cells[pc]; cx.drawImage(im(pimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
+  const fl = hitFlash(v, now); if (fl > 0) tintOver(bimg, bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
+  UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
+  UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;
   return true;
 }
 /* ==== end __WHAT_A_MAN_HOLDS__ ==== */
