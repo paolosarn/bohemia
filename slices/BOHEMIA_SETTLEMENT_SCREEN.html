@@ -129,7 +129,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .hire .hgun{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:11px;color:var(--ink,#e8dcc4)}
 .hire .hgun img,.hire .hgun canvas{width:28px;height:28px;image-rendering:pixelated}
 .hire .hgun .arm{color:var(--gold);letter-spacing:.5px}
-.hire.picked{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}   /* the man you tapped at the post (RUN TWO, change 7) */
+.hire.picked{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.twoh{margin:8px 14px 0;font-size:20px;letter-spacing:4px;color:#f4cf7c;font-weight:bold}   /* rule 194(b): TWO HANDS in big letters on a two-hander's card */   /* the man you tapped at the post (RUN TWO, change 7) */
 .hire.rare,html body #sheet .hire.rare{box-shadow:0 0 0 2px #e0ad3a,0 0 18px rgba(224,173,58,.55),0 2px 0 #000}   /* __THE_RARE_MAN_AT_THE_POST__: he reads as rare the moment he is met (over UI's card skin too) */
 .hire .hrare{margin-top:4px;font-size:11px;letter-spacing:1px;color:#f4cf7c;overflow-wrap:anywhere}
 .hire .hrare b{display:inline-block;margin-right:6px;padding:1px 6px;background:#e0ad3a;color:#1f1710;letter-spacing:2px;border-radius:1px}
@@ -365,7 +366,7 @@ fetch('../records/target/bb/armor.json').then(function(r){ return r.json(); }).t
 var CLASSNAME = {dagger:'pistol', mace:'pipe', hammer:'sledge', crossbow:'rifle', firearm:'shotgun', throwing:'bottles',
   throwable_item:'bottles', sword:'machete', axe:'fire axe', spear:'rebar spear', cleaver:'cleaver', flail:'chain',
   polearm:'pole hook', bow:'compound bow'};
-var PLAIN = {pistol:'A few houses off, a club up close, spends rounds.', pipe:'Next house over, dents plate, spends nothing.',
+var PLAIN = {pistol:'A few houses off or right beside him, spends rounds.',   /* rule 195: a gun is never a club (draft:true) */ pipe:'Next house over, dents plate, spends nothing.',
   sledge:'Breaks armour and doors.', rifle:'One hard shot, then rack it.', shotgun:'A short loud cone, reload eats the turn.',
   bottles:'Thrown, a few houses.', machete:'Cuts fast, bleeds them.', 'fire axe':'Splits shields.', 'rebar spear':'Keeps them a step off.',
   cleaver:'Opens wounds.', chain:'Goes over a shield.', 'pole hook':'Reaches over your own front row.', 'compound bow':'Quiet, far, rounds-free.'};
@@ -378,13 +379,21 @@ function armourName(kind, dur){
   return dur < 40 ? 'a work jacket' : dur < 100 ? 'a padded vest' : dur < 180 ? 'a plate carrier' : 'full riot armour';
 }
 function rng(seed){ var x = seed>>>0 || 1; return function(){ x ^= x<<13; x ^= x>>>17; x ^= x<<5; return ((x>>>0)%100000)/100000; }; }
+/* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (RUN TWO, rule 194, Paolo 10/25: 'I tried to put the spear in the shield and it kept saying
+   this shield was like both hands'): the same rule as engine/bohemia_roster.js classWord/weaponName (the gate holds the two equal):
+   in a class that holds one- and two-handers, a two-hander is a 'two-hand' one, ranked by value among its own kind, so no name is
+   shared across hands; the plain line says both hands first */
+function handsOfRow(x){ return x.hands ? x.hands | 0 : (/^(bow|crossbow|firearm)$/.test(x['class']) ? 2 : 1); }
+var MIXED_CLASSES = null;
+function mixedClass(cls){ if(!MIXED_CLASSES){ var seen = {}; MIXED_CLASSES = {}; BB.weapons.forEach(function(x){ var c = x['class']; seen[c] = seen[c] || {}; seen[c][handsOfRow(x)] = 1; });
+  Object.keys(seen).forEach(function(c){ if(seen[c][1] && seen[c][2]) MIXED_CLASSES[c] = true; }); } return !!MIXED_CLASSES[cls]; }
 function weaponItem(r){
-  var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return x['class'] === r['class']; }).sort(function(a,b){ return a.value-b.value; });
-  var nm = qualityWord(same.indexOf(r), same.length) + ' ' + c;
   /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): the shop says a long gun takes both hands, the wiki's hands column (a bow,
      a crossbow, a firearm carry none and are two-handed); the crew screen holds the rule */
-  var hands = r.hands ? r.hands | 0 : (/^(bow|crossbow|firearm)$/.test(r['class']) ? 2 : 1);
-  return {id:r.id, kind:'weapon', cls:r['class'], name:nm, was:r.name, price:priceOf(r.value), line:PLAIN[c]||'', hands:hands,
+  var hands = handsOfRow(r);
+  var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return x['class'] === r['class'] && handsOfRow(x) === hands; }).sort(function(a,b){ return a.value-b.value; });
+  var nm = qualityWord(same.indexOf(r), same.length) + ' ' + (hands === 2 && mixedClass(r['class']) ? 'two-hand ' : '') + c;
+  return {id:r.id, kind:'weapon', cls:r['class'], name:nm, was:r.name, price:priceOf(r.value), line:(hands === 2 && / two-hand /.test(nm) ? 'Takes both hands, no shield with it. ' : '') + (PLAIN[c]||''), hands:hands,
           nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')+(hands === 2 ? '  2 hands' : '')};
 }
 function armourItem(kind, r){
@@ -480,6 +489,7 @@ function shopSheet(k, body, acts, line){
          screen's own line (BohemiaRoster.armLine), never the wiki row's range */
       var al = it.kind === 'weapon' && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', it.id), true) : null;
       var card = document.createElement('div'); card.className = 'slots'; card.textContent = (al ? String(it.nums).replace(/\s+reach \d+/, '') + '   ' + al.reach + (al.rounds ? '   ' + al.rounds : '') : it.nums); sb.appendChild(card);
+      if(it.kind === 'weapon' && it.hands === 2){ var th = document.createElement('div'); th.className = 'twoh'; th.textContent = 'TWO HANDS'; sb.appendChild(th); }   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194(b)): before he buys it */
       var full = S.stash.length >= BAG_SLOTS;
       sb.appendChild(act(full ? 'Your bag is full' : 'Buy it', moneyWord(it.price), function(){
         if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
@@ -2650,7 +2660,7 @@ window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G &&
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

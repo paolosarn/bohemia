@@ -24,11 +24,13 @@ const J = f => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
   const floor = O.gun_min_range.value, P = O.pistol_shot.value, guns = O.gun_classes.value, bad = [];
   W.rows.forEach(r => {
     const it = C.itemOf('weapon', r.id), a = C.armOf(it); if (!a) { bad.push(r.id + ' none'); return; }
-    if (a.gun && (a.lo < floor || !a.club)) bad.push(r.id + ' gun under ' + floor + ' or no club');
+    /* RE-AIMED 10/25 (RUN TWO, rule 195: 'the pistol is never a club'): a gun's reach starts at the fight's own rangeLo (ours.gun_min_range)
+       and no gun is ever a club */
+    if (a.gun && (a.lo !== floor || a.club)) bad.push(r.id + ' gun not from ' + floor + ' or a club');
     if (a.lo > a.hi) bad.push(r.id + ' lo over hi');
     if (r.class === P.class && P.by_row[r.id]) {
       const s = W.rows.find(x => x.id === P.by_row[r.id]), mag = Number(String(s.ammo).match(/\d+/)[0]);
-      if (!(a.lo === 2 && a.hi === 4 && a.rounds === mag)) bad.push(r.id + ' pistol ' + JSON.stringify(a));
+      if (!(a.lo === floor && a.hi === 4 && a.rounds === mag)) bad.push(r.id + ' pistol ' + JSON.stringify(a));
     } else if (guns.indexOf(r.class) >= 0 && (r.skills || []).some(k => /^Reload/.test(k.name)) && a.rounds !== 1) bad.push(r.id + ' one-shot ' + a.rounds);
     if (['bow', 'crossbow', 'firearm', 'throwing'].indexOf(r.class) < 0 && !(r.class === P.class && P.by_row[r.id]) && a.lo !== 1) bad.push(r.id + ' melee from ' + a.lo);
   });
@@ -74,7 +76,10 @@ const srv = http.createServer((rq, rs) => {
      line (REACH 2 TO 4 TILES, A CLUB AT 1; 5 ROUNDS, THEN RELOAD) */
   ok('every armed man\'s main slot, on his page, shows his reach in tiles', armed.length > 0 && armed.every(x => /^\d+(-\d+)? TILES?$/.test(x.reach || '')), armed.map(x => x.reach).join(' | '));
   ok('and his AMMO slot the rounds his gun holds, when it holds any', armed.every(x => !!x.rounds === x.wantRounds), armed.map(x => x.rounds).join(','));
-  ok('a pistol reads 2-4 TILES and 5 RDS, and a tap says REACH 2 TO 4 TILES, A CLUB AT 1 and 5 ROUNDS, THEN RELOAD', armed.some(x => x.reach === '2-4 TILES' && x.rounds === '5 RDS' && /REACH 2 TO 4 TILES, A CLUB AT 1/.test(x.said || '') && /5 ROUNDS, THEN RELOAD/.test(x.said || '')), armed.map(x => x.said).filter(Boolean)[0]);
+  /* RE-AIMED 10/25 (RUN TWO [the pistol is never a club, the words], rule 195, Paolo 10/25: 'the game still says the pistol is a club at
+     one tile I never asked for that shit'): the reach is the fight's own (a gun shoots from the tile beside him, rule 185), and no
+     gun is ever called a club */
+  ok('a pistol reads 1-4 TILES and 5 RDS, and a tap says REACH 1 TO 4 TILES and 5 ROUNDS, THEN RELOAD, never a club', armed.some(x => x.reach === '1-4 TILES' && x.rounds === '5 RDS' && /REACH 1 TO 4 TILES/.test(x.said || '') && /5 ROUNDS, THEN RELOAD/.test(x.said || '')) && armed.every(x => !/club/i.test((x.said || '') + ' ' + (x.text || ''))), armed.map(x => x.said).filter(Boolean)[0]);
   ok('every line inside its slot on 390 x 844', armed.every(x => x.inside), armed.filter(x => !x.inside).map(x => x.name).join(','));
   ok('his page and the line say it with no second reach', armed.every(x => !/reach \d/.test(x.text) && !/reach \d/.test(x.said || '')), armed.filter(x => /reach \d/.test(x.text + (x.said || ''))).map(x => x.name).join(','));
   ok('nothing threw', !errs.length, errs.slice(0, 2).join(' | '));

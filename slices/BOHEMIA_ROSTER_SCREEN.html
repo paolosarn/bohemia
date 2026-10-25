@@ -513,7 +513,7 @@ function tapSlot(sl){
   if(S.pick && S.pick.man === S.sel && S.pick.slot === sl){ S.pick = null; if(m.gear[sl]){ unequip(sl); return; } draw(); return; }
   S.pick = {man:S.sel, slot:sl}; S.tab = 'all';
   var n = S.bag.filter(function(it){ return fits(it, sl); }).length, it = m.gear[sl];
-  var tw = sl === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' A shield puts the ' + shortName(m.gear.main) + ' in the stash.' : '';   /* __TWO_HANDS__ */
+  var tw = sl === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' The ' + shortName(m.gear.main) + ' takes both hands. Give him a one-hand weapon to carry a shield.' : '';   /* __TWO_HANDS__; RUN TWO rule 194(c): the words blame the weapon, never the shield */
   say((it ? '<b>' + esc(shortName(it).toUpperCase()) + '</b> ' + esc(numsText(it)) + '. ' : esc(m.name + "'s " + SLOT_NAME[sl].toLowerCase() + ' is empty. ')) +
       esc(n ? n + ' in the stash ' + (n === 1 ? 'fits' : 'fit') + '.' : 'Nothing in the stash fits.') + (it ? ' Tap the slot again to take it off.' : '') + esc(tw), true);
   draw();
@@ -643,7 +643,7 @@ function drawBag(){
 function compareLine(it){
   var m = S.crew[S.sel]; if(!m || !it) return;
   var s = slotOf(it), cur = m.gear[s], dv = delta(it, m);
-  var tw = s === 'main' && C.twoHanded(it) && m.gear.off ? ' Both hands: the ' + shortName(m.gear.off) + ' goes to the stash.' : s === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' The ' + shortName(m.gear.main) + ' goes to the stash.' : '';
+  var tw = s === 'main' && C.twoHanded(it) && m.gear.off ? ' The ' + shortName(it) + ' takes both hands: the ' + shortName(m.gear.off) + ' goes to the stash.' : s === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' The ' + shortName(m.gear.main) + ' takes both hands, so it goes to the stash.' : '';   /* RUN TWO rule 194(c): the weapon takes both hands, the shield is one */
   say('<b>' + esc(shortName(it).toUpperCase()) + '</b> ' + esc(numsText(it)) +
       '<br>' + esc(m.name.split(' ')[0]) + "'S " + esc(SLOT_NAME[s]) + ': ' + (cur ? esc(shortName(cur)) + ' ' + esc(numsText(cur)) : 'nothing') +
       ' <b class="' + (dv > 0 ? 'up' : dv < 0 ? 'dn' : '') + '">' + (dv > 0 ? '+' : '') + dv + '</b>' +
@@ -689,7 +689,7 @@ function equip(bi, slot){
   m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old); if(off) S.bag.push(off);
   S.cmp = null; S.hover = null; S.pick = null;
   saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); if(off) post('equip', {who:m.idx, name:m.name, slot:freed, item:null}); sfx('equip');
-  say(doer(m, 'takes') + ' the ' + shortName(it) + (off ? (s === 'main' ? ' in both hands; the ' : '; the ') + shortName(off) + ' goes in the stash.' : old ? '; the ' + shortName(old) + ' goes in the stash.' : '.')); draw();
+  say(doer(m, 'takes') + ' the ' + shortName(it) + (off ? (s === 'main' ? ' in both hands; the ' + shortName(off) + ' goes in the stash.' : '; the ' + shortName(off) + ' takes both hands, so it goes in the stash.') : old ? '; the ' + shortName(old) + ' goes in the stash.' : '.')); draw();   /* RUN TWO rule 194(c): the weapon takes both hands, never the shield */
 }
 /* __TWO_HANDS__: a man kept from before this rule with a long gun and a shield puts the shield in the stash */
 function twoHandsKept(){

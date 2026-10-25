@@ -9801,6 +9801,10 @@ GATES = [
      "MEASURED before: the bar carried the batteries alone; the stall took a battery for water, meds and rounds and added nothing (ECONOMY). NOW bohemia.supplies.v1, seeded at the door: FOOD and WATER the origin's food_days in the wagon (TUNING), "
      "TAPE, ROUNDS, MEDS the origin's Battle Brothers start from the wiki's Starting Funds table. HOLDS: the file; the six on the bar from the first minute (phone and computer); the night eats the wagon before the batteries and the nights left count it; "
      "the stall by real taps adds to its counts; LOOT ALL's rounds into ROUNDS; the fight pit's wage; the wolf's bare start; NEW GAME forgets it. about 4 min", True),
+    ('A TWO-HANDER WEARS ITS OWN NAME', ['node', 'gates/a_two_hander_wears_its_own_name_gate.js'],
+     "RUN TWO gate, 10/25, rows [a two-hander wears its own name] (rule 194, Paolo 10/25: 'I can't make a spear shield wall anymore... it kept saying this shield was like both hands') and [the pistol is never a club, the words] (rule 195). "
+     "MEASURED before: nine classes named one- and two-handers alike (every spear a 'rebar spear', the Warfork too); every pistol 'REACH 2 TO 4 TILES, A CLUB AT 1'. HOLDS: no name shared across hands over all 126 rows through the shop's and the crew screen's naming, UI's icon mirror equal; "
+     "TWO HANDS on a two-hander's card by a real tap; a one-handed spear and a car door on one man by real taps, both in his hands in the fight (the demo, the phone); the words blame the weapon; every gun's reach from the fight's own 1, no club word. about 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

@@ -57,6 +57,29 @@
     melee_nomad: 'dune rider', ranged_nomad: 'dune shooter', oathtaker: 'oath keeper', orc_slayer: 'machine breaker', pimp: 'strip hustler',
     retired_soldier: 'old guard', sellsword: 'gun for hire', servant: 'house help', shepherd: 'goat herder', squire: 'gun bearer',
     swordmaster: 'blade master', vagabond: 'drifter' };
+  /* A TWO-HANDER WEARS ITS OWN NAME (RUN TWO [a two-hander wears its own name], rule 194, Paolo 10/25: 'I can't make a spear shield
+     wall anymore... I tried to put the spear in the shield and it kept saying this shield was like both hands'). MEASURED (the
+     coordinator): nobody made the shield two-handed; the NAME did it. Every spear row was a 'rebar spear', and the class holds the
+     two-handed Warfork and Spetum, so a 'solid rebar spear' was either a one-hander or a two-hander; nine classes mixed hands under
+     one word. Battle Brothers names a two-hander for what it is (Two-Handed Hammer, Two-Handed Mace, Warfork) and its tooltip says
+     Two-Handed before you equip it. NOW, in a class that holds both, a two-handed row is a 'two-hand' one (draft:true, WORDS may
+     better it), and its quality word ranks it among its own kind, so no name is ever shared across hands; a class that is all one
+     kind (the rifle, the shotgun, the bow, the pole hook) keeps its word. One place: the shop, the crew screen, the loot and the
+     hall all name a weapon here. */
+  var MIXED = null;
+  function mixedClasses() {
+    if (MIXED) return MIXED; var seen = {}; MIXED = {};
+    ((D.weapons && D.weapons.rows) || []).forEach(function (r) { var c = r['class']; seen[c] = seen[c] || {}; seen[c][handsOfRow(r)] = 1; });
+    Object.keys(seen).forEach(function (c) { if (seen[c][1] && seen[c][2]) MIXED[c] = true; });
+    return MIXED;
+  }
+  function classWord(cls, hands) { return (hands === 2 && mixedClasses()[cls] ? 'two-hand ' : '') + (CLASSNAME[cls] || cls); }
+  /* the shop's full name: the quality word by the row's rank by value among the rows of its class that take the same hands */
+  function weaponName(r) {
+    var h = handsOfRow(r), same = ((D.weapons && D.weapons.rows) || []).filter(function (x) { return x['class'] === r['class'] && handsOfRow(x) === h; }).sort(function (a, b) { return a.value - b.value; });
+    var q = same.indexOf(r) / Math.max(1, same.length - 1);
+    return (q < .34 ? 'beat-up' : q < .67 ? 'solid' : 'good') + ' ' + classWord(r['class'], h);
+  }
   function bgName(id, fallback) { return BG_NAME[id] || String(fallback || id || '').replace(/\s*\(((1|2)\s*hand|ranged)\)/i, '').replace(/_/g, ' '); }
   function seed(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   function rng(s) { var x = s >>> 0 || 1; return function () { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 100000) / 100000; }; }
@@ -84,7 +107,7 @@
       var rows = (D.weapons && D.weapons.rows) || [], r = null;
       for (var i = 0; i < rows.length; i++) if (rows[i].id === id) r = rows[i];
       if (!r) return null;
-      var c = CLASSNAME[r['class']] || r['class'];
+      var c = classWord(r['class'], handsOfRow(r));   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ */
       return { id: r.id, kind: 'weapon', cls: r['class'], name: c, was: r.name, price: priceOf(r.value), hands: handsOfRow(r),
         nums: 'dmg ' + r.damage_min + '-' + r.damage_max + (r.range_max ? '  reach ' + r.range_max : '') };
     }
@@ -215,7 +238,7 @@
   /* WHAT HIS ARM DOES IN A FIGHT (RUN TWO [the guns on the crew screen], 10/22; rule 120(a): the company starts with guns; rule
      83: 'melee weapons work on one tile away, all guns 2+ minimum... the pistol is a two-tile gun, or a club at one'): read the
      way the fight reads a weapon (slices/BOHEMIA_FIGHT.html pistolShot, rangeMin, rounds; ours.gun_classes, ours.pistol_shot,
-     ours.gun_min_range), never a second table. {lo, hi} in tiles, club: true when a gun strikes a man beside him as the pipe,
+     ours.gun_min_range), never a second table. {lo, hi} in tiles, club: always false (rule 195: no gun is a club),
      rounds: what the gun holds going in (the fight loads every gun full; a one-shot gun's one), null for an arm with none */
   function armOf(it) {
     if (!it || it.kind !== 'weapon' || !D.weapons || !D.ours) return null;
@@ -228,20 +251,23 @@
     var ranged = ['bow', 'crossbow', 'firearm', 'throwing'];
     var r = shot || w, isRanged = ranged.indexOf(r['class']) >= 0, gun = !!shot || (O('gun_classes') || []).indexOf(w['class']) >= 0;
     if (!isRanged) return { lo: 1, hi: num(w.range_max || 1), club: false, rounds: null, gun: false };
-    var floor = gun ? (O('gun_min_range') || 2) : 1, lo = Math.max(lowOf(r), floor), hi = num(r.range_max);
+    /* THE PISTOL IS NEVER A CLUB (RUN TWO [the pistol is never a club, the words], rule 195, Paolo 10/25: 'the game still says the
+       pistol is a club at one tile I never asked for that shit'): the reach is the fight's own rangeLo (a gun from ours.gun_min_range,
+       1 since rule 185: its shot's javelin row starts at 2 and a gun no longer takes that floor), and no gun is ever called a club */
+    var gmin = O('gun_min_range'), lo = gun ? (gmin != null ? gmin : 1) : Math.max(lowOf(r), 1), hi = num(r.range_max);
     var mag = r.ammo ? num(r.ammo) : null, reload = (r.skills || []).some(function (k) { return /^Reload/.test(k.name); });
-    return { lo: lo, hi: Math.max(lo, hi), club: gun, rounds: shot ? mag : reload ? 1 : mag, gun: gun };
+    return { lo: lo, hi: Math.max(lo, hi), club: false, rounds: shot ? mag : reload ? 1 : mag, gun: gun };
   }
   /* the words for it, one place for every screen (the crew screen's row and card, the hall's man: RUN TWO [the hire shows the
-     whole man], 10/24): short '2-4 TILES' over '5 RDS'; long 'REACH 2 TO 4 TILES, A CLUB AT 1' and '5 ROUNDS, THEN RELOAD' */
+     whole man], 10/24): short '1-4 TILES' over '5 RDS'; long 'REACH 1 TO 4 TILES' and '5 ROUNDS, THEN RELOAD' (rule 195) */
   function armLine(it, long) {
     var a = armOf(it); if (!a) return null;
     var reach = a.lo === a.hi ? a.hi + (a.hi === 1 ? ' TILE' : ' TILES') : a.lo + (long ? ' TO ' : '-') + a.hi + ' TILES';
     var shots = a.rounds ? a.rounds + (a.gun ? (a.rounds === 1 ? (long ? ' ROUND' : ' RD') : (long ? ' ROUNDS' : ' RDS')) : (long ? ' THROWS' : ' LEFT')) : null;   /* a bundle of bottles is thrown, not loaded */
     if (!long) return { reach: reach, rounds: shots };
-    return { reach: 'REACH ' + reach + (a.club ? ', A CLUB AT 1' : ''), rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null };
+    return { reach: 'REACH ' + reach, rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null };
   }
   var API = { load: load, armOf: armOf, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
-    PAIN_POOL: PAIN_POOL, bgName: bgName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
+    PAIN_POOL: PAIN_POOL, bgName: bgName, classWord: classWord, weaponName: weaponName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

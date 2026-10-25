@@ -465,9 +465,13 @@
   }
   function itemFromRow(kind, row, all) {
     if (kind === 'weapon') {
-      var c = OBJ_CLASS[row['class']] || 'pipe', same = (all || [row]).filter(function (x) { return x['class'] === row['class']; }).sort(function (a, b) { return a.value - b.value; });
+      /* RUN TWO __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194): mirrors the market's rule, a two-hander in a class that holds both is a
+         'two-hand' one, ranked among its own kind (the object it draws is the same thing, so its icon is unchanged) */
+      var hd = function (x) { return x.hands ? x.hands | 0 : (/^(bow|crossbow|firearm)$/.test(x['class']) ? 2 : 1); }, h = hd(row), rows = all || [row];
+      var mixed = rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 1; }) && rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 2; });
+      var c = OBJ_CLASS[row['class']] || 'pipe', same = rows.filter(function (x) { return x['class'] === row['class'] && hd(x) === h; }).sort(function (a, b) { return a.value - b.value; });
       var q = same.indexOf(row) / Math.max(1, same.length - 1);
-      return { id: row.id, kind: 'weapon', name: (q < .34 ? 'beat-up ' : q < .67 ? 'solid ' : 'good ') + c };
+      return { id: row.id, kind: 'weapon', name: (q < .34 ? 'beat-up ' : q < .67 ? 'solid ' : 'good ') + (h === 2 && mixed ? 'two-hand ' : '') + c };
     }
     var k = kind === 'shields' ? 'shield' : kind;
     return { id: row.id, kind: k, name: armourName(k, row.durability), dur: row.durability || 0 };
