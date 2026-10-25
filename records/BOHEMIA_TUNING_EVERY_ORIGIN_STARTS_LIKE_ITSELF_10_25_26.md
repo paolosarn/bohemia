@@ -13,10 +13,12 @@ THE BENCH: tools/bohemia_tuning_every_origin.js (research instrument, not a gate
 (slices/BOHEMIA_FIGHT.html and exactly the data files its own loadAll() reads, played headless through the whole grid's engine,
 no hooks), both sides on the fight's own brain (AUTO), seeded. The map's sums are the live map's (party_math.json, through the
 lone wolf bench's mapCount). The bill is the live one (2 a man a night, one man walks on a short night, never YOU). BANK
-(draft:true, nothing in the game reads it): banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json. The resume cache is not committed;
-the bench replays the whole Lone Wolf section in about three minutes on four cores.
+(draft:true, nothing in the game reads it): banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json; the fifteen proposed starts in
+origins.json's own shape: banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json. EVERY NUMBER ON THIS PAGE is the live fight
+frozen at 89a4b46d (a copy of that commit played every fight, so nothing moved under the numbers). The resume cache is not
+committed (git-ignored); the bench replays the whole page, seeded, in about 25 minutes on four cores.
 
-## 0. THE ANSWER IN SHORT (the Lone Wolf)
+## 0. THE ANSWER IN SHORT
 - **Today he is one regular guy, and it shows: 52 in 100 of his first fifty days won** (he picks his fights), 35 if he meets what
   comes; 8 lost fights a run; no run in 100 goes fifty days without a loss.
 - **THE GILDED GOD (section 1c) wins 98 in 100 of those days, picking his fights; 92 meeting what comes.** 0.4 lost fights a run,
@@ -27,6 +29,12 @@ the bench replays the whole Lone Wolf section in about three minutes on four cor
 - **The blade in his hand, the pistol in his bag.** A god with the pistol in his hand and the riot shield wins only 83 in 100; the
   blade wins 98. Guns first (rule 120(a)) holds as the pistol in his bag, swapped by his own button (AUTO never swaps for him,
   rule 180(g), so the bag pistol is not on the bench).
+- **The other fourteen walk in today as one crew** (the line's pistol, car door and rifle in 90 armour, a stated level only a
+  label, the same men every game). **The proposal gives each its own start**, and the careful player's first thirty days go:
+  the fight pit 67 -> 96, the raiders 76 -> 96, the hunters 64 -> 90, the promise keepers 50 -> 89, the deserters 54 -> 86, the
+  easy three 64 -> 84, the water truck 41 -> 66 (with a guard its money buys), the block watch 83 -> 91, the scavengers 61 -> 69;
+  the lab rats, the faithful and the debt collectors stay where they are (62, 75, 86): their promise lives in rules the game
+  does not have yet (section 2d). The whole fifteen are in a file RUN TWO can lift.
 - **Three stars on THREE stats is the god; five does not buy more.** Three-star talents on ranged defence, melee skill and melee
   defence (Battle Brothers' three talents, every one maxed): 98. Three stars on all five stats rule 184(a) names: 98. Exactly three
   starred stats stands (the killer company page's rule).
@@ -158,7 +166,6 @@ What the days say:
 - Three picks a level instead of four (rules.json says three today; the killer company page proposes four; the god was built on four).
 - Renown's pay multiplier and the 200 renown at the door.
 
-[bb the Lone Wolf: one hedge knight, level 4, great equipment, low funds; the wiki names no talents, the stars are his memory and the ruling]
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -191,4 +198,335 @@ What that means:
 4. **No stars reach the fight from the door, no renown, no food, no goods** (TUNING 10/10 and 10/19 pages, still open).
 5. **Nothing of each origin's promise is in the first hour** except the head count, the purse and the field cap (rule 75a).
 
-[analog horror: the same man in the same rags at the door of every game was the tell; a new face every time is the fix]
+## 2b. EACH ORIGIN: BATTLE BROTHERS FIRST, THE PROMISE, THE START THAT KEEPS IT (60 seeds a row, the first thirty days)
+
+The same days as the Lone Wolf's: a fight every second day, the party the map hands, dressed by the day, on the live fight.
+THREE PLAYERS: CAREFUL looks first, takes the best-paid job the map sizes at his standing men plus one (at least three), falls
+back from a bigger roaming party, and RESTS in town while fewer than half his company can stand; CAREFUL, HIRES FOR THE HURT does
+the same and buys the best man the post offers (an ordinary militia, 37) when fewer men stand than he started with, keeping a
+week of the bill; CARELESS meets what comes and never rests. A fallen man is laid up the days the fight rolls (30 to 40), 20 in
+100 die (Paolo 9/27, the fight's own roll); YOU never dies. Purse from the door's FULL SHELVES; the bill is the live one.
+
+### THE CREW THAT IS LEFT (Battle Brothers: Rebuilding a Company, easy)
+- **Battle Brothers**: three companions (a two-hander, a one-hander, a shooter), level 1; the tutorial and the Hoggart job; 2,500 / 2,000 / 1,500 crowns; renown 100; 8 days of grain (bb_all/1651).
+- **The promise**: The learning start. Three of you are left, the game walks you through the first jobs, and a debt is paid off.
+- **The start (proposed)**: the three companions at level 1, three talents each (60/30/10, rolled per game); A NEW CREW's kit: YOU a pistol and a car door, the second a pistol and the heater car door, the third a rifle; leather vests (95) on the front two, a padded vest on the shooter, hard hats; 250 batteries and a week of the bill in the wagon (42); roster 20, field 12; renown 100. Its ease over the other two is the guided first job (the tutorial), not its numbers.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 83 | 64 | 83 / 46 / 20 | 2.7 | 5 | 0.4 | 0 |
+| TODAY, careful, hires for the hurt | 84 | 75 | 84 / 68 / 33 | 1.8 | 10 | 1 | 2.1 |
+| TODAY, careless | 73 | 37 | 73 / 27 / 12 | 9.4 | 0 | 0.4 | 0 |
+| **THE PROPOSAL**, careful | **93** | **84** | 93 / 83 / 51 | 1.4 | 18 | 0.3 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 93 | 84 | 93 / 77 / 44 | 1.3 | 18 | 0.9 | 0.7 |
+| **THE PROPOSAL**, careless | 87 | 52 | 87 / 48 / 20 | 7.2 | 0 | 0.4 | 0 |
+| the same at level 2, careful | 94 | 84 | 94 / 82 / 50 | 1.5 | 22 | 0.4 | 0 |
+| the same at level 2, careful, hires for the hurt | 93 | 84 | 93 / 80 / 37 | 1.4 | 20 | 1.1 | 0.9 |
+| the same at level 2, careless | 87 | 51 | 87 / 45 / 19 | 7.4 | 0 | 0.5 | 0 |
+
+### A NEW CREW (Battle Brothers: A New Company, easy)
+- **Battle Brothers**: three companions, 'three experienced mercenaries with whom you've fought side by side in the shieldwall before'; no tutorial; 2,900 / 2,400 / 1,900 crowns; renown 0; 8 days of grain (bb_all/0002).
+- **The promise**: A quick, clean start. Three men who have fought together, nothing owed, nothing special. Go.
+- **The start (proposed)**: the three at LEVEL 2, a real body (one level-up taken, four picks), three talents each; YOU a pistol and a car door, the second a pistol and the heavier car door (the heater shield), the third a rifle; leather vests (95) on the front two, a padded vest on the shooter, hard hats; 290 batteries and a week of the bill (42); roster 20, field 12. Measured: the pistol in the second man's hand is the lever (a pipe there: 80; level 1 with the pipe: 73), the level adds little.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 83 | 64 | 83 / 46 / 20 | 2.7 | 5 | 0.4 | 0 |
+| TODAY, careful, hires for the hurt | 84 | 74 | 84 / 66 / 23 | 1.9 | 10 | 1 | 1.9 |
+| TODAY, careless | 73 | 37 | 73 / 27 / 12 | 9.4 | 0 | 0.4 | 0 |
+| **THE PROPOSAL**, careful | **94** | **84** | 94 / 82 / 50 | 1.5 | 22 | 0.4 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 93 | 84 | 93 / 80 / 34 | 1.4 | 20 | 1.2 | 0.8 |
+| **THE PROPOSAL**, careless | 87 | 51 | 87 / 45 / 19 | 7.4 | 0 | 0.5 | 0 |
+| level 1, a pipe in the second hand, careful | 88 | 73 | 88 / 66 / 35 | 2.3 | 15 | 0.4 | 0 |
+| level 1, a pipe in the second hand, careful, hires for the hurt | 90 | 79 | 90 / 68 / 43 | 1.7 | 8 | 1 | 1 |
+| level 1, a pipe in the second hand, careless | 82 | 49 | 82 / 45 / 20 | 7.7 | 0 | 0.4 | 0 |
+| level 2, a pipe in the second hand, careful | 93 | 80 | 93 / 80 / 34 | 1.8 | 23 | 0.4 | 0 |
+| level 2, a pipe in the second hand, careful, hires for the hurt | 94 | 83 | 94 / 79 / 37 | 1.5 | 12 | 0.9 | 0.7 |
+| level 2, a pipe in the second hand, careless | 88 | 53 | 88 / 50 / 19 | 7.1 | 0 | 0.4 | 0 |
+
+### UP FROM HENDERSON (Battle Brothers: Southern Mercenaries, easy)
+- **Battle Brothers**: the same three companions as A New Company, started in the south; 'a quick start into the southern part of the world, without any particular advantages or disadvantages'; 2,900 / 2,400 / 1,900 crowns; renown 0 (bb_all/1834).
+- **The promise**: Three guns and no friends, up from the south end of the valley. A New Crew's numbers in another place.
+- **The start (proposed)**: A NEW CREW's numbers exactly (level 2, three talents, two pistols with car doors and a rifle: three guns, leather vests and hard hats; 290 batteries and a week); it starts at the valley's south end (WORLD's place). Measured first on the same seeds (the bench's earlier pass): a shotgun in the second man's hands, padded vests, level 1: 58.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 83 | 64 | 83 / 46 / 20 | 2.7 | 5 | 0.4 | 0 |
+| TODAY, careful, hires for the hurt | 84 | 74 | 84 / 66 / 23 | 1.9 | 10 | 1 | 1.9 |
+| TODAY, careless | 73 | 37 | 73 / 27 / 12 | 9.4 | 0 | 0.4 | 0 |
+| **THE PROPOSAL**, careful | **94** | **84** | 94 / 82 / 50 | 1.5 | 22 | 0.4 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 93 | 84 | 93 / 80 / 34 | 1.4 | 20 | 1.2 | 0.8 |
+| **THE PROPOSAL**, careless | 87 | 51 | 87 / 45 / 19 | 7.4 | 0 | 0.5 | 0 |
+
+### THE WATER TRUCK (Battle Brothers: Trading Caravan, easy)
+- **Battle Brothers**: two caravan hands, level 1; 10% better prices both ways; no renown and 66% renown gain; dissatisfied at the start; 1,650 / 1,400 / 1,150 crowns and 171 batteries of goods; 19 days of food (bb_all/2021).
+- **The promise**: Traders first. Two drivers and a tank of water. Better prices, slow fame; you buy your fighters.
+- **The start (proposed, with the guard)**: the two drivers at level 1, three talents each (a pistol and a car door, a rifle, padded vests) AND A GUARD THE TRUCK PAID FOR AT THE DOOR: a militia at level 1 with a pistol and the heater car door in a leather vest, his 37 batteries taken out of the goods; 165 batteries, the rest of the goods (134) and nineteen days of the bill in the tank (114); 10% on prices both ways (RUN TWO's market); roster 20, field 12. Measured: the two drivers alone win 43 in 100 of their first thirty days, careful; it is not an easy start without the man the money buys.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 59 | 41 | 59 / 29 / 24 | 6.8 | 0 | 0.2 | 0 |
+| TODAY, careful, hires for the hurt | 70 | 62 | 70 / 48 / 42 | 2.9 | 0 | 0.8 | 1.6 |
+| TODAY, careless | 55 | 36 | 55 / 29 / 22 | 9.7 | 0 | 0.3 | 0 |
+| **THE PROPOSAL**, careful | **86** | **66** | 86 / 54 / 26 | 2.9 | 15 | 0.5 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 89 | 78 | 89 / 63 / 24 | 1.7 | 12 | 1 | 0.3 |
+| **THE PROPOSAL**, careless | 78 | 41 | 78 / 31 / 15 | 8.8 | 0 | 0.4 | 0 |
+| the two drivers alone, in the kit, careful | 66 | 43 | 66 / 28 / 23 | 6.5 | 0 | 0.3 | 0 |
+| the two drivers alone, in the kit, careful, hires for the hurt | 73 | 63 | 73 / 50 / 19 | 2.8 | 0 | 0.7 | 0 |
+| the two drivers alone, in the kit, careless | 55 | 34 | 55 / 29 / 19 | 9.9 | 0 | 0.3 | 0 |
+
+### THE BLOCK WATCH (Battle Brothers: Peasant Militia, easy)
+- **Battle Brothers**: twelve lowborn (two farmhands, a poacher, two daytalers, a miller, a fisherman, two militia, a minstrel, a vagabond, a butcher), poorly equipped; 16 in a fight, 25 in the roster, lowborn hires only; renown -100, +40 in its village; 4.2 days of grain for twelve (bb_all/1533).
+- **The promise**: Numbers. Twelve neighbours with pipes; nobody brings a small crew against you. Cheap men, lots of them, and a lot of mouths.
+- **The start (proposed)**: the twelve at level 1, three talents each; two rifles to the poacher and a militia, two pistols, pipes and car doors in front, a sledge, a rebar spear, a cleaver; work jackets and rag hoods (the militia a padded vest); 125 batteries AND A WEEK OF THE BILL (168): today the bill (24 a night) walks five men in the first fortnight; roster 25, field 16.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 98 | 83 | 98 / 91 / 40 | 1.6 | 23 | 1.6 | 8.4 |
+| TODAY, careful, hires for the hurt | 98 | 81 | 98 / 92 / 34 | 1.7 | 18 | 1.8 | 9.4 |
+| TODAY, careless | 91 | 49 | 91 / 39 / 16 | 7.7 | 0 | 2 | 7.9 |
+| **THE PROPOSAL**, careful | **99** | **91** | 99 / 95 / 51 | 0.7 | 37 | 1.9 | 5.2 |
+| **THE PROPOSAL**, careful, hires for the hurt | 98 | 90 | 98 / 97 / 50 | 0.8 | 43 | 2 | 8.8 |
+| **THE PROPOSAL**, careless | 88 | 46 | 88 / 42 / 8 | 8.1 | 0 | 2 | 4.3 |
+
+### THE SCAVENGERS (Battle Brothers: Band of Poachers, medium)
+- **Battle Brothers**: a hunter and two poachers, level 1; 'all you know is how to use a bow'; always see what is inside a wild place; faster on the map (111 against 105); 81 inventory slots; renown 100, -20 with the nearest noble house (bb_all/0172).
+- **The promise**: Three shooters who always see what is waiting inside before they go in. They pick their fights.
+- **The start (proposed)**: the hunter with the heavier crossbow rifle (his eye is the best: ranged skill 52 to 59), the two poachers each a pistol and a car door in front; padded vests and rag hoods; 250 batteries and a week of the bill; roster 20, field 12; the party's make-up shown before every fight (the map's MEET BEFORE YOU FIGHT, rule 151(e), already) and a faster party on the map (111 against 105, WORLD). Measured: every extra long gun with no front man LOSES (three rifles 55, two rifles and a front man 58, two bows and a front man 50): that is the fight's guns, COMBAT's (TUNING 10/19), not this start's.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 79 | 61 | 79 / 46 / 21 | 3.1 | 13 | 0.5 | 0 |
+| TODAY, careful, hires for the hurt | 87 | 75 | 87 / 62 / 33 | 1.9 | 8 | 1.1 | 2 |
+| TODAY, careless | 70 | 37 | 70 / 26 / 15 | 9.5 | 0 | 0.5 | 0 |
+| **THE PROPOSAL**, careful | **85** | **69** | 85 / 51 / 21 | 2 | 17 | 0.3 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 83 | 71 | 83 / 58 / 29 | 2 | 8 | 0.9 | 2 |
+| **THE PROPOSAL**, careless | 67 | 34 | 67 / 24 / 10 | 9.9 | 0 | 0.3 | 0 |
+| two bows and a front man, careful | 73 | 50 | 73 / 26 / 9 | 3.5 | 20 | 0.4 | 0 |
+| two bows and a front man, careful, hires for the hurt | 82 | 71 | 82 / 56 / 24 | 2 | 8 | 1 | 2.2 |
+| two bows and a front man, careless | 59 | 26 | 59 / 11 / 7 | 11.2 | 0 | 0.5 | 0 |
+| two rifles and a front man, careful | 78 | 58 | 78 / 28 / 16 | 2.8 | 5 | 0.4 | 0 |
+| two rifles and a front man, careful, hires for the hurt | 83 | 73 | 83 / 55 / 24 | 1.9 | 8 | 1 | 1.7 |
+| two rifles and a front man, careless | 65 | 33 | 65 / 23 / 12 | 10 | 0 | 0.5 | 0 |
+| three rifles, careful | 75 | 55 | 75 / 27 / 20 | 3.2 | 5 | 0.4 | 0 |
+| three rifles, careful, hires for the hurt | 79 | 70 | 79 / 56 / 11 | 2.1 | 3 | 1.1 | 1.8 |
+| three rifles, careless | 60 | 30 | 60 / 18 / 12 | 10.5 | 0 | 0.4 | 0 |
+
+### THE PROMISE KEEPERS (Battle Brothers: Oathtakers, medium)
+- **Battle Brothers**: two oathtakers, one Old at level 3 with Young Anselm's Skull and a Battle Standard, one at level 1, 'each has good equipment'; roster 18; forced to take oaths; 1,500 / 1,000 / 500 crowns; reputation +60 (bb_all/1470).
+- **The promise**: Two men in good kit, sworn to promises that change them. Few, hard to kill, and slow to grow.
+- **The start (proposed)**: the old one a REAL level 3 (two level-ups taken), the young one level 1, three talents each; the old one a pipe (the winged mace) and the riot shield, the young one a pistol and the heater car door; plate carriers (the mail hauberk, 150) on both, a full riot helm on the old, a riot helmet on the young; 150 batteries and a week of the bill; roster 18, field 12.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 71 | 50 | 71 / 43 / 19 | 5.7 | 2 | 0.2 | 0 |
+| TODAY, careful, hires for the hurt | 80 | 69 | 80 / 60 / 35 | 2.5 | 5 | 0.6 | 1 |
+| TODAY, careless | 75 | 45 | 75 / 38 / 21 | 8.3 | 0 | 0.2 | 0 |
+| **THE PROPOSAL**, careful | **99** | **89** | 99 / 91 / 65 | 1.3 | 47 | 0.1 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 99 | 92 | 99 / 94 / 73 | 0.8 | 47 | 0.1 | 0 |
+| **THE PROPOSAL**, careless | 94 | 73 | 94 / 79 / 44 | 4.1 | 8 | 0.2 | 0 |
+
+### THE DESERTERS (Battle Brothers: Deserters, medium)
+- **Battle Brothers**: three deserters, two at level 2; 'decent armour': three mail hauberks, two heater shields, aketon caps, a light crossbow, a shortsword, a hatchet; first to act in the first round; every man hurt at the start; lower funds; a noble house hunting them (-100); renown 150 (bb_all/0571).
+- **The promise**: Soldiers' armour on men who ran. Hurt, hunted, and you always strike first.
+- **The start (proposed)**: the wiki's own kit in our things: three plate carriers (the mail hauberk), two heater car doors, three hard hats (the aketon cap), a rifle, a machete (the shortsword) and a hatchet in a bag; the two at level 2 a real body; three talents each; 125 batteries and a week of the bill; roster 20, field 12. FIRST TO ACT and THE HURT START are rules the fight does not have yet (COMBAT).
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 75 | 54 | 75 / 31 / 20 | 3.1 | 3 | 0.3 | 0.5 |
+| TODAY, careful, hires for the hurt | 78 | 63 | 78 / 45 / 29 | 2.5 | 7 | 0.7 | 2.9 |
+| TODAY, careless | 65 | 31 | 65 / 15 / 11 | 10.4 | 0 | 0.3 | 0.4 |
+| **THE PROPOSAL**, careful | **98** | **86** | 98 / 92 / 41 | 1.4 | 22 | 0.4 | 0.1 |
+| **THE PROPOSAL**, careful, hires for the hurt | 97 | 89 | 97 / 92 / 52 | 1.2 | 32 | 0.8 | 0.6 |
+| **THE PROPOSAL**, careless | 94 | 64 | 94 / 67 / 30 | 5.4 | 5 | 0.4 | 0 |
+
+### THE RAIDERS (Battle Brothers: Northern Raiders, medium)
+- **Battle Brothers**: three barbarians at level 3 and a monk; 'veteran raiders that are well-equipped'; outlaws: two noble houses hostile (-100), renown -50, reputation -30; more loot from the dead; starts at a raided village (bb_all/1459, Dev Blog 114).
+- **The promise**: Three veteran raiders and a monk. Everybody hates you. You keep what you kill.
+- **The start (proposed)**: the three barbarians a REAL level 3, three talents each, in plate carriers and riot helmets: a fire axe and a heater car door, a sledge, a shotgun; the monk level 1 with a pistol and a car door in work clothes; 125 batteries and a week of the bill; roster 20, field 12.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 92 | 76 | 92 / 49 / 24 | 1.6 | 17 | 0.7 | 0.4 |
+| TODAY, careful, hires for the hurt | 93 | 79 | 93 / 72 / 36 | 1.6 | 22 | 1.1 | 3.4 |
+| TODAY, careless | 70 | 36 | 70 / 24 / 14 | 9.6 | 0 | 0.7 | 0.5 |
+| **THE PROPOSAL**, careful | **100** | **96** | 100 / 97 / 77 | 0.5 | 53 | 0.3 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 100 | 93 | 100 / 97 / 69 | 0.8 | 35 | 0.9 | 0.3 |
+| **THE PROPOSAL**, careless | 97 | 65 | 97 / 71 / 27 | 5.3 | 2 | 0.5 | 0 |
+
+### THE LAB RATS (Battle Brothers: Anatomists, medium)
+- **Battle Brothers**: three anatomists, level 1; 'not fighters': never of confident morale; the first kill of each beast kind gives a potion that buffs for good; 3,200 / 2,700 / 2,200 crowns, the richest purse of the medium starts (bb_all/0080).
+- **The promise**: Not fighters, and rich. You study what you kill to make your people stronger.
+- **The start (proposed)**: the three at level 1, three talents each; two pistols with car doors and a rifle; padded vests; 320 batteries and a week of the bill; roster 20, field 12. NEVER CONFIDENT and the potions are rules the fight and the stash do not have yet.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 84 | 65 | 84 / 52 / 19 | 2.8 | 13 | 0.5 | 0 |
+| TODAY, careful, hires for the hurt | 84 | 73 | 84 / 62 / 30 | 2.1 | 8 | 1.2 | 1.5 |
+| TODAY, careless | 75 | 39 | 75 / 30 / 12 | 9.2 | 0 | 0.4 | 0 |
+| **THE PROPOSAL**, careful | **82** | **62** | 82 / 44 / 27 | 3.2 | 15 | 0.5 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 89 | 79 | 89 / 61 / 42 | 1.6 | 10 | 1 | 0.8 |
+| **THE PROPOSAL**, careless | 74 | 40 | 74 / 31 / 16 | 9 | 0 | 0.6 | 0 |
+
+### THE FAITHFUL (Battle Brothers: Davkul Cultists, medium)
+- **Battle Brothers**: four cultists, level 1, 'poor equipment'; new cultists join for free and appear in every settlement; the god demands sacrifices; reputation -10; 3.1 days of grain for four, the thinnest wagon (bb_all/0512, Dev Blog 113).
+- **The promise**: Four in rags who do not break. More come to you for free. The god wants blood.
+- **The start (proposed)**: the four at level 1, three talents each; two pipes and car doors, a pistol, a rifle; work clothes and cult hoods; 290 batteries and a week of the bill; roster 20, field 12. THE FREE JOINERS are the lever Battle Brothers gives them (RUN TWO's post: a cultist at no price).
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 90 | 77 | 90 / 56 / 15 | 1.4 | 28 | 0.6 | 0 |
+| TODAY, careful, hires for the hurt | 90 | 82 | 90 / 81 / 33 | 1.4 | 23 | 1.3 | 2.4 |
+| TODAY, careless | 80 | 41 | 80 / 32 / 12 | 8.8 | 0 | 0.5 | 0 |
+| **THE PROPOSAL**, careful | **82** | **75** | 82 / 61 / 27 | 1.3 | 23 | 0.6 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 84 | 75 | 84 / 68 / 26 | 1.6 | 8 | 1.3 | 3.2 |
+| **THE PROPOSAL**, careless | 67 | 32 | 67 / 18 / 11 | 10.2 | 0 | 0.6 | 0 |
+
+### THE DEBT COLLECTORS (Battle Brothers: Manhunters, hard)
+- **Battle Brothers**: two manhunters and four indebted (one northern, three southern), level 1; 16 in a fight, 25 in the roster; the collectors can whip the indebted (morale back, stats up two rounds); equal or fewer indebted than the rest makes everyone unhappy; non-indebted take 10% less XP; renown 100 (bb_all/1239).
+- **The promise**: Two collectors driving a pack of men who owe. Sixteen in a fight. The debtors must always outnumber you.
+- **The start (proposed)**: the six at level 1, three talents each; the collectors a pistol with a car door and a rifle in padded vests and hard hats; the four in debt in work clothes, two pipes and car doors, a rifle, a sledge; 250 batteries and a week of the bill; roster 25, field 16. THE WHIP is an ability (rule 180: his button, never AUTO's).
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 89 | 86 | 89 / 84 / 22 | 0.7 | 42 | 1.1 | 0.5 |
+| TODAY, careful, hires for the hurt | 92 | 79 | 92 / 82 / 32 | 1.5 | 27 | 1.9 | 5.3 |
+| TODAY, careless | 73 | 35 | 73 / 24 / 9 | 9.7 | 0 | 1.1 | 0.3 |
+| **THE PROPOSAL**, careful | **87** | **86** | 87 / 83 / 50 | 0.6 | 43 | 0.8 | 0.3 |
+| **THE PROPOSAL**, careful, hires for the hurt | 87 | 79 | 87 / 84 / 35 | 1.2 | 28 | 1.5 | 6.1 |
+| **THE PROPOSAL**, careless | 71 | 33 | 71 / 19 / 8 | 10.1 | 0 | 1 | 0.2 |
+
+### THE HUNTERS (Battle Brothers: Beast Slayers, hard)
+- **Battle Brothers**: three beast slayers at level 2, 'decent equipment' and beast trophies; see tracks from farther; 50% more trophies; 10% worse prices both ways; people dislike them; every man starts wounded, one with a brawl injury; renown 200 (bb_all/0220).
+- **The promise**: Three beast experts. They track far and skin twice. Towns charge them more.
+- **The start (proposed)**: the three a REAL level 2, three talents each; a boar spear and the heater car door, two rifles (one the heavier crossbow); leather vests (95) and mail coifs (90); 188 batteries and a week of the bill; 10% worse prices (RUN TWO); roster 20, field 12.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 81 | 64 | 81 / 50 / 22 | 2.6 | 12 | 0.3 | 0 |
+| TODAY, careful, hires for the hurt | 81 | 70 | 81 / 60 / 34 | 2.3 | 7 | 1 | 2 |
+| TODAY, careless | 73 | 37 | 73 / 26 / 11 | 9.5 | 0 | 0.4 | 0 |
+| **THE PROPOSAL**, careful | **98** | **90** | 98 / 93 / 63 | 1.2 | 27 | 0.4 | 0 |
+| **THE PROPOSAL**, careful, hires for the hurt | 99 | 91 | 99 / 93 / 59 | 1 | 22 | 0.6 | 0.2 |
+| **THE PROPOSAL**, careless | 96 | 64 | 96 / 68 / 29 | 5.4 | 2 | 0.4 | 0 |
+
+### THE FIGHT PIT (Battle Brothers: Gladiators, hard)
+- **Battle Brothers**: three gladiators at level 3, 'good equipment, but very high daily wages' (50 base each, against 35); each one a bonus trait (Glorious Endurance, Quickness or Resolve) and five arena wins; roster 12; the campaign ends when all three die (bb_all/0848).
+- **The promise**: Three arena stars. Level 3, top kit, top pay. Lose all three and it is over.
+- **The start (proposed, with the wages)**: the three a REAL level 3, three talents each, in plate carriers and riot helmets: a falchion machete and the riot shield, a fire axe and the heater car door, a shotgun; 95 batteries and a week of the bill; roster 12, field 12; AND BATTLE BROTHERS' VERY HIGH WAGES: a gladiator's base 50 crowns a day (a hedge knight's 35), x1.1 a level past 1, so 6 batteries a night each on top of the bill. The one bill has no wages today, so without this the pit's only hardness ('lose all three and it ends') never bites: they die 0.1 men a run.
+
+| start, player | first ten days won | first thirty won | by ten days | lost fights a run | runs never lost | men dead a run | men walked |
+|---|---|---|---|---|---|---|---|
+| TODAY, careful | 84 | 67 | 84 / 55 / 34 | 2.9 | 8 | 0.5 | 0.2 |
+| TODAY, careful, hires for the hurt | 89 | 75 | 89 / 66 / 43 | 2 | 8 | 0.9 | 2.1 |
+| TODAY, careless | 72 | 41 | 72 / 29 / 21 | 8.9 | 0 | 0.4 | 0.3 |
+| **THE PROPOSAL**, careful | **100** | **96** | 100 / 99 / 81 | 0.6 | 57 | 0.1 | 1.1 |
+| **THE PROPOSAL**, careful, hires for the hurt | 100 | 95 | 100 / 98 / 83 | 0.6 | 53 | 0.4 | 1.3 |
+| **THE PROPOSAL**, careless | 99 | 83 | 99 / 92 / 59 | 2.5 | 15 | 0.3 | 1.1 |
+| the same without the wages, careful | 100 | 97 | 100 / 100 / 83 | 0.4 | 62 | 0.1 | 0 |
+| the same without the wages, careful, hires for the hurt | 100 | 96 | 100 / 100 / 84 | 0.5 | 55 | 0.2 | 0 |
+| the same without the wages, careless | 100 | 86 | 100 / 99 / 59 | 2.1 | 25 | 0.4 | 0 |
+
+## 2c. THE FOURTEEN IN ONE TABLE (careful player unless named; first ten days / first thirty, won in 100)
+
+| origin | label | TODAY, careful: first ten / thirty | **THE PROPOSAL, careful** | the proposal, hires for the hurt | the proposal, careless | men dead a run |
+|---|---|---|---|---|---|---|
+| THE CREW THAT IS LEFT | easy | 83 / 64 | **93 / 84** | 93 / 84 | 87 / 52 | 0.3 |
+| A NEW CREW | easy | 83 / 64 | **94 / 84** | 93 / 84 | 87 / 51 | 0.4 |
+| UP FROM HENDERSON | easy | 83 / 64 | **94 / 84** | 93 / 84 | 87 / 51 | 0.4 |
+| THE WATER TRUCK | easy | 59 / 41 | **86 / 66** | 89 / 78 | 78 / 41 | 0.5 |
+| THE BLOCK WATCH | easy | 98 / 83 | **99 / 91** | 98 / 90 | 88 / 46 | 1.9 |
+| THE SCAVENGERS | medium | 79 / 61 | **85 / 69** | 83 / 71 | 67 / 34 | 0.3 |
+| THE PROMISE KEEPERS | medium | 71 / 50 | **99 / 89** | 99 / 92 | 94 / 73 | 0.1 |
+| THE DESERTERS | medium | 75 / 54 | **98 / 86** | 97 / 89 | 94 / 64 | 0.4 |
+| THE RAIDERS | medium | 92 / 76 | **100 / 96** | 100 / 93 | 97 / 65 | 0.3 |
+| THE LAB RATS | medium | 84 / 65 | **82 / 62** | 89 / 79 | 74 / 40 | 0.5 |
+| THE FAITHFUL | medium | 90 / 77 | **82 / 75** | 84 / 75 | 67 / 32 | 0.6 |
+| THE DEBT COLLECTORS | hard | 89 / 86 | **87 / 86** | 87 / 79 | 71 / 33 | 0.8 |
+| THE HUNTERS | hard | 81 / 64 | **98 / 90** | 99 / 91 | 96 / 64 | 0.4 |
+| THE FIGHT PIT | hard | 84 / 67 | **100 / 96** | 100 / 95 | 99 / 83 | 0.1 |
+
+## 2d. WHAT THE FOURTEEN SAY
+
+1. **Where an origin states a level, a real body is the whole fix.** The fight pit 67 -> 96 in 100 of its first thirty days
+   (careful), the raiders 76 -> 96, the hunters 64 -> 90, the promise keepers 50 -> 89, the deserters 54 -> 86. Nothing else in
+   the game changed: the door taking the levels it already names, three talents a man, and the kit the promise names.
+2. **Where every man is level 1, the kit is the lever, and the pistol with a car door is the strong man.** The easy three go
+   64 -> 84 with a pistol and a car door in each front man's hands and leather vests in front. A pipe in the second man's hand
+   instead costs 4 points at level 2 and 11 at level 1; the level itself adds almost nothing (level 1 and level 2 both 84).
+3. **More long guns with no front line lose.** The scavengers' three rifles win 55, two rifles and a front man 58, two bows and a
+   front man 50, one crossbow and two pistols with car doors 69. That is the fight's guns (TUNING 10/19's draft: reach, the rate),
+   COMBAT's to tune; a start cannot fix it, so the start keeps one long gun and a front.
+4. **The month a hurt man is laid up decides a small crew's first month.** Today's new crew, if it never rests, fields YOU alone
+   in 237 of 300 fights in days 11 to 20 and wins 15 of them: one bad fight puts the other two in bed for 30 to 40 days (Paolo's
+   ruling, 9/27; it stands) and the map still counts them. Today the careful player (who rests) wins 64, the careless one 37;
+   in the proposed kit 84 and 51.
+   That gap (30 to 40 points) is rule 133(b)'s 'hardcore if you're fucking around', measured.
+5. **Two drivers are not an easy start.** The water truck wins 43 careful; a guard bought with its goods at the door makes it 66,
+   and 78 when it keeps buying men. Its promise is 'you buy your fighters', so the first one is bought at the door.
+6. **The block watch wins and starves.** Twelve men at 2 a night is 24 on a 125 purse: today 8.4 men walk in thirty days. A
+   week of the bill in the wagon (168) wins 91 and still walks 5 of 12 by day 30. 'A lot of mouths' is its promise; how fast
+   they walk is ECONOMY's and RUN's bill to tune, not measured further here.
+7. **The fight pit's hardness is its pay.** Without wages its three gladiators die 0.1 men a run and its rule ('lose all three
+   and it ends') never bites. Battle Brothers' very high wages (6 a night each on top of the bill) keep it at 96 and make it walk
+   1.1 men a run: the pit must keep fighting to keep its stars.
+8. **The labels still do not order by the numbers** (TUNING 10/10's finding, still true with the starts fixed): proposed careful
+   thirty-day wins run easy 66 to 91, medium 62 to 96, hard 86 to 96. A hard origin is hard by its RULE (alone; all three die;
+   the debtors must outnumber you; worse prices), and five rules that are each origin's promise are not in the game yet: the
+   deserters strike first and start hurt, the anatomists are never confident, the cultists' free joiners, the manhunters' whip,
+   the beast slayers' prices. Those are where the rest of each promise lives (COMBAT, RUN TWO).
+
+9. **The start buys the first fortnight; the third ten days are the road's.** Even the proposed easy three fall to about 50 in
+   100 in days 21 to 30 (the brigands' middle mix with marksmen from day 20, and the laid-up month): from there the post, the
+   market and the fight's guns decide it, not the door. The leveled origins hold (the fight pit 81, the raiders 77, the promise
+   keepers 65 in days 21 to 30).
+
+## 3. THE NUMBERS (the one table's section J, records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md; proposals, nothing reads them yet)
+
+Each is the smallest change that put the promise on the live game, with what it measured to. Better now, never final (rule 178).
+The whole fifteen in origins.json's own shape, ready to lift: banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json.
+
+THE DOOR, EVERY ORIGIN (RUN TWO builds; RUN's door hands it)
+- **origin.real_level**: a man whose origin states a level takes his level-ups AT THE DOOR (levels 2 to his level, four picks each
+  on his star rolls, his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath,
+  hitpoints, ranged defence). Today a stated level is a label. Measured: the five leveled origins +22 to +39 points.
+- **origin.stars_at_door**: every founding man has exactly three talents at 60/30/10, rolled per game (the killer company's rule);
+  the Lone Wolf's three are fixed at three stars (section 1c).
+- **origin.rolled_per_game**: every founding man rolled new each game inside his background's range (today the same names make the
+  same men every game).
+- **origin.kit**: each man's slots handed by the origin (men[].gear), in COOK's things, never his place in the line's: the cards in
+  2b and the bank. Today every origin walks in with the line's pistol, car door and rifle in 90 armour.
+- **origin.food_days = 7**: a week of the bill in the wagon at the door (Battle Brothers' wagons carry 3 to 19 days; rule 117:
+  never fewer, the easy end a week); the water truck 19 (its own wagon). Measured: the block watch's walked men 8.4 -> 5.2.
+
+THE ORIGINS' OWN NUMBERS
+- **truck.door_guard**: one militia at level 1 (a pistol, the heater car door, a leather vest) bought at the door for 37 out of the
+  goods: 43 -> 66.
+- **pit.wage_per_man = 6** a night on top of the bill (a gladiator's 50 crowns base, x1.1 a level past 1, at ten to one): 97 -> 96,
+  1.1 men walk a run.
+- **wolf.body / wolf.stars / wolf.kit / wolf.perks / wolf.rolled_per_game**: section 1c (52 -> 98).
+- Unchanged and named: every purse (origins.json's), every roster and field cap (rule 75a), renown (the 10/10 table, still not in
+  the file).
+
+## 4. NOTES POSTED (VAMILY.md, on each board)
+RUN TWO [every origin's numbers] (origins.json's new fields, the roll, the stars, the door level-ups, the kit, the wagon, the
+guard, the wages; the bank to lift). RUN [the door's promise words] (each origin's promise in plain words on the door's card).
+EYES plays three starts, the Lone Wolf first (rule 184(e)); this page's 1a and 2a are what it will meet today.
+
+## NOT MEASURED (the fourteen)
+- Hiring past the first month, the free joiners, the market: the 'hires' player buys only ordinary men to stand in for the hurt.
+- The rules the fight does not have (first to act, a hurt start, never confident, the whip, the potions, oaths, prices).
+- Beasts: the map's roads and clear jobs are brigands; the beast slayers' promise is beasts.
+- The block watch's sixteen in the field against the map's biggest parties (the first thirty days never reach them).
+- A human hand: AUTO plays every man on both sides.
+- The seeds: 60 a row, about 8 to 15 fights a run: a row's won-in-100 is good to about 3 points; rows within 4 of each other
+  are the same start.
+
+## ROUTED
+- RUN TWO: section 3, the bank; RUN: the promise words; COMBAT: the guns (point 3), the five missing rules (point 8), the melee
+  perk rows (last round's page); ECONOMY and RUN: the block watch's bill, the fight pit's wages; WORLD: the scavengers' map speed
+  and the south start's place; EYES: three starts.
+
+[bb the origins: a company's start is who, their levels, their kit, the money and one rule; Battle Brothers gives each origin a real body for its stated level and a rule that is its hardness]
+[analog horror: fifteen doors into the same three men in the same rags was the tell; every door is its own room now]
+
