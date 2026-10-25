@@ -104,6 +104,15 @@ def build_prop(bpy, name):
     sc = bpy.context.scene
     before = set(o.name for o in sc.objects)
     S = source()['props'][name]; back, fore = S.get('back', 0), S.get('fore', 0)
+    cook = cook_model(name)
+    if cook:   # COOK's item model (rule 177(c)), built in this tool's frame: imported untouched, nothing turned
+        bpy.ops.import_scene.gltf(filepath=cook)
+        for o in [o for o in sc.objects if o.name not in before and o.type == 'MESH' and o.name.startswith('Icosphere') and len(o.data.vertices) == 42]:
+            bpy.data.objects.remove(o, do_unlink=True)
+        top = [o for o in sc.objects if o.name not in before and o.parent is None]
+        root = bpy.data.objects.new('prop_' + name, None); sc.collection.objects.link(root)
+        for o in top: o.parent = root
+        return root, [o for o in sc.objects if o.name not in before and o.type == 'MESH']
     m = lambda n, role, step: P.mat(bpy, '%s_%s' % (name, n), role, step)
     tape = m('tape', 'rubber', 2)
     if name == 'pipe':   # the thug's pipe (COOK THREE: clay_rust 2, r 2.2 cm, a coupling near each end)
@@ -145,7 +154,7 @@ def build_prop(bpy, name):
         CI.lathe(bpy, 'grip', tape, [(0, -0.04), (rr(0.0175), -0.04), (rr(0.0175), 0.08), (0, 0.08)], n=10)
         CI.loft(bpy, 'head', iron, [(fore - 0.075, -0.03, 0.035, 0.02, 0.016), (fore - 0.06, -0.035, 0.07, 0.022, 0.01), (fore + 0.0, -0.035, 0.1, 0.022, 0.006), (fore + 0.025, -0.03, 0.115, 0.018, 0.004)], axis='z')
         CI.loft(bpy, 'edge', edge, [(fore - 0.07, 0.1, 0.112, 0.006, 0.0015), (fore + 0.03, 0.115, 0.125, 0.004, 0.001)], axis='z')
-    elif name == 'spear':   # a sign post's pipe, a leaf of spring steel lashed on with wire, a rag under it (COOK's market spear, at its real girth)
+    elif name == 'rebar_spear':   # a sign post's pipe, a leaf of spring steel lashed on with wire, a rag under it (COOK's market spear, at its real girth)
         post = m('shaft', 'metal_painted', 2); iron = m('blade', 'metal_painted', 1); edge = m('edge', 'chrome', 1); rag = m('rag', 'clay_rust', 2); steel = m('wire', 'tape_grey', 2)
         r = 0.017 * FAT; b0 = fore - 0.3
         CI.lathe(bpy, 'shaft', post, [(0, -back), (r, -back), (r, b0 + 0.04), (0, b0 + 0.04)], n=10)
@@ -155,7 +164,7 @@ def build_prop(bpy, name):
         CI.loft(bpy, 'edge_b', edge, [(b0 + 0.08, -0.05, -0.04, 0.0015, 0.004), (b0 + 0.2, -0.038, -0.03, 0.001, 0.003), (fore, -0.004, 0.0, 0.0008, 0.0015)], axis='z')
         for k in range(5): CI.lathe(bpy, 'wire_%d' % k, steel, [(0, b0 - 0.01 + k * 0.018), (r * 1.3, b0 - 0.01 + k * 0.018), (r * 1.3, b0 + 0.002 + k * 0.018), (0, b0 + 0.002 + k * 0.018)], n=10)
         CI.loft(bpy, 'rag', rag, [(b0 - 0.02, 0.012, 0.07, 0.01, 0.007), (b0 - 0.1, 0.02, 0.09, 0.009, 0.005), (b0 - 0.2, 0.04, 0.09, 0.007, 0.004)], axis='z')
-    elif name == 'flail':   # a turned handle and a capped head; the chain and the spiked ball are their own piece (they hang)
+    elif name == 'chain':   # a turned handle and a capped head; the chain and the spiked ball are their own piece (they hang)
         wood = m('handle', 'clay_mustard', 1); steel = m('chain', 'tape_grey', 2); ball = m('ball', 'clay_rust', 1)
         rr = lambda x: x * FAT
         CI.lathe(bpy, 'handle', wood, [(0, -back), (rr(0.02), -back), (rr(0.017), 0.05), (rr(0.019), fore - 0.04), (rr(0.024), fore), (0, fore)], n=12)
@@ -169,7 +178,7 @@ def build_prop(bpy, name):
         CI.loft(bpy, 'spike', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (0.12, fore - 0.012, fore + 0.022, 0.012, 0.012), (0.22, fore - 0.05, fore - 0.035, 0.004, 0.004)], axis='x')
         CI.loft(bpy, 'chisel', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (-0.1, fore - 0.022, fore + 0.022, 0.01, 0.01), (-0.15, fore - 0.03, fore + 0.03, 0.003, 0.003)], axis='x')
         CI.loft(bpy, 'point', edge, [(0.2, fore - 0.048, fore - 0.036, 0.005, 0.005), (0.23, fore - 0.055, fore - 0.045, 0.002, 0.002)], axis='x')
-    elif name == 'bottle':   # COOK's Molotov (its own builder, at its real size), the fist round the middle of it
+    elif name == 'bottles':   # COOK's Molotov (its own builder, at its real size), the fist round the middle of it
         CI.build('w_bottles', bpy, P)
         for o in [o for o in sc.objects if o.name not in before]: o.location.z -= 0.12
     elif name == 'sledge':   # a long taped haft, a steel head across its end with bright faces (COOK's market sledge at real size)
@@ -179,7 +188,7 @@ def build_prop(bpy, name):
         CI.lathe(bpy, 'grip', tape, [(0, -back + 0.01), (rr(0.021), -back + 0.01), (rr(0.021), 0.2), (0, 0.2)], n=12)
         P.box(bpy, 'head', iron, (0.32, 0.13, 0.13), (0.0, 0, fore - 0.03), bevel=0.02)
         for s_ in (-1, 1): P.box(bpy, 'face_%d' % s_, face, (0.02, 0.115, 0.115), (s_ * 0.165, 0, fore - 0.03), bevel=0.01)
-    elif name == 'woodaxe':   # a long haft, a bearded felling head, the bit ground bright
+    elif name == 'fire_axe':   # a long haft, a bearded felling head, the bit ground bright
         wood = m('haft', 'clay_mustard', 1); iron = m('head', 'metal_painted', 1); edge = m('edge', 'chrome', 1)
         rr = lambda x: x * FAT
         CI.lathe(bpy, 'haft', wood, [(0, -back), (rr(0.022), -back), (rr(0.018), 0.1), (rr(0.016), 0.55), (rr(0.019), fore + 0.02), (0, fore + 0.03)], n=12)
@@ -193,7 +202,7 @@ def build_prop(bpy, name):
         CI.lathe(bpy, 'grip', tape, [(0, -back + 0.01), (rr(0.021), -back + 0.01), (rr(0.021), 0.25), (0, 0.25)], n=8, smooth=False)
         for z in (fore - 0.17, fore - 0.05): CI.lathe(bpy, 'band_%d' % int(z * 100), iron, [(0, z), (rr(0.039), z), (rr(0.039), z + 0.03), (0, z + 0.03)], n=8, smooth=False)
         bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.013, depth=0.14, location=(0, 0, fore + 0.06)); P.put(bpy, bpy.context.active_object, 'spike', spike, smooth=False)
-    elif name == 'pitchfork':   # a long haft, a crossbar and three rusted tines
+    elif name == 'pole_hook':   # a long haft, a crossbar and three rusted tines
         wood = m('haft', 'clay_mustard', 1); steel = m('fork', 'clay_rust', 1)
         rr = lambda x: x * FAT
         CI.lathe(bpy, 'haft', wood, [(0, -back), (rr(0.018), -back), (rr(0.016), 0.6), (rr(0.017), fore - 0.05), (0, fore - 0.04)], n=10)
@@ -216,7 +225,7 @@ def build_prop(bpy, name):
     parts = [o for o in sc.objects if o.name not in before and o.type == 'MESH']
     root = bpy.data.objects.new('prop_' + name, None); sc.collection.objects.link(root)
     for o in parts: o.parent = root
-    if name == 'flail':   # the chain and the ball: their own piece, hung from the handle's end along +Z of its own empty (put() swings it)
+    if name == 'chain' and 'chain' in S:   # the stand-in's chain and ball: their own piece, hung from the handle's end along +Z of its own empty (put() swings it)
         b4 = set(o.name for o in sc.objects)
         steel = m('chain', 'tape_grey', 2); ball = m('ball', 'clay_rust', 1); L_ = S['chain']; n_ = 6
         for k in range(n_):
@@ -238,6 +247,28 @@ def build_prop(bpy, name):
     for o in parts:
         if o.parent is root: o.matrix_parent_inverse = B
     return root, parts
+
+
+def cook_model(name):
+    """COOK's model of this thing, when it is in the folder (records/target/cook_every_item): its path, else None"""
+    if name == 'pistol': return None   # COOK's gun, imported by its own name
+    C = source().get('cook_models', {}); fn = os.path.join(ROOT, C.get('dir', 'reference/models/bohemia'), C.get('pattern', 'item_%s.glb') % name)
+    return fn if os.path.exists(fn) else None
+
+
+def model_sig(name):
+    """what this thing is rendered from: COOK's model by its bytes, or this tool's stand-in"""
+    import hashlib
+    fn = cook_model(name)
+    return ('cook:' + hashlib.sha1(open(fn, 'rb').read()).hexdigest()[:12]) if fn else 'stand-in'
+
+
+def shield_dims(name):
+    """(half its height below the forearm's middle, its width) in metres: COOK's measured box, else the stand-in's"""
+    m = os.path.join(ROOT, 'records/target/cook_every_item/measured_%s.json' % name)
+    if cook_model(name) and os.path.exists(m):
+        M = json.load(open(m)); return -M['lo'][2], M['size_m'][1]
+    S = source()['props'][name]; return S['h'] / 2, S['w']
 
 
 def build_shield(bpy, name, S, before):
@@ -427,8 +458,18 @@ def props_from(look, layer, S=None):
 
 
 def props_done(look, layer, prop):
+    """every picture of this thing on this layer is rendered, from the model it is made of now (a COOK model that landed or
+    changed since is rendered again)"""
     d = os.path.join(ROOT, RENDERS, look, 'props')
+    sigs = json.load(open(os.path.join(d, 'models.json'))) if os.path.exists(os.path.join(d, 'models.json')) else {}
+    if sigs.get(prop, 'stand-in') != model_sig(prop): return False
     return all(os.path.exists(os.path.join(d, fn)) for _, _, _, fn in prop_files(layer, prop))
+
+
+def mark_model(look, prop):
+    d = os.path.join(ROOT, RENDERS, look, 'props'); os.makedirs(d, exist_ok=True); fp = os.path.join(d, 'models.json')
+    sigs = json.load(open(fp)) if os.path.exists(fp) else {}
+    sigs[prop] = model_sig(prop); json.dump(sigs, open(fp, 'w'), indent=0)
 
 
 def render_props(look, props, clips=None, facings=None, layer='m1'):
@@ -443,6 +484,10 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
     for prop in props:
         if not clips and not facings and props_done(look, layer, prop): continue
         out = os.path.join(d, 'props'); os.makedirs(out, exist_ok=True)
+        fp = os.path.join(out, 'models.json'); sigs = json.load(open(fp)) if os.path.exists(fp) else {}
+        if not clips and not facings and sigs.get(prop, 'stand-in') != model_sig(prop):   # its model changed: every picture of it again, on every layer
+            for f_ in [f_ for f_ in os.listdir(out) if f_.startswith(prop + '_') and f_.endswith('.png') and f_[len(prop) + 1].isupper()]: os.remove(os.path.join(out, f_))
+            sigs[prop] = model_sig(prop); json.dump(sigs, open(fp, 'w'), indent=0)
         bpy.ops.wm.read_factory_settings(use_empty=True)
         sc = bpy.context.scene
         bpy.ops.import_scene.gltf(filepath=os.path.join(ROOT, rj['model']))
@@ -486,7 +531,7 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
             fwd = (root.matrix_world.to_3x3() @ mathutils.Vector((0, -1, 0))); fwd.z = 0; fwd.normalize()
             up = mathutils.Vector((0, 0, 1)); left = up.cross(fwd).normalized()
             if shield:   # its face out, its width level, up up
-                c, x = place_shield(hold, lw, le, fwd, up, left, S['props'][prop]['h'] / 2)
+                c, x = place_shield(hold, lw, le, fwd, up, left, shield_dims(prop)[0])
                 y = up.cross(x).normalized(); z = x.cross(y).normalized()
                 M = mathutils.Matrix((x, y, z)).transposed().to_4x4(); M.translation = c
             else:

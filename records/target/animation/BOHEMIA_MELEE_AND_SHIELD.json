@@ -1474,41 +1474,14 @@
   "car_door": {
    "say": "a car door cut off below the window: the faded skin, a dent and bullet holes, rust at the seams, the handle, the window channel's two stubs, a strap behind",
    "shield": true,
-   "w": 0.86,
-   "h": 0.56
+   "w": 0.977,
+   "h": 0.787
   },
   "crash_bar": {
    "say": "the Heavy's crash-bar shield (CHARACTER's): a rounded frame of steel tube, a diamond-plate panel, the bent push bar, a dead plate riveted on",
    "shield": true,
-   "w": 0.48,
-   "h": 0.62
-  },
-  "sign": {
-   "say": "a stop sign pulled off its post (reference/models/bohemia/stop_sign.glb's face: the octagon, its border, the letters, the shot holes)",
-   "shield": true,
-   "w": 0.76,
-   "h": 0.76
-  },
-  "spear": {
-   "say": "a spear made from a sign post's pipe, a leaf of spring steel lashed to its end with wire, a rag tied under it (the market's SPEAR)",
-   "back": 0.7,
-   "fore": 1.1
-  },
-  "flail": {
-   "say": "a club handle, a length of chain off its end, a spiked iron ball on the chain that hangs and swings (the market's CHAIN)",
-   "back": 0.05,
-   "fore": 0.4,
-   "chain": 0.3
-  },
-  "pick": {
-   "say": "a pickaxe cut down to one hand: a short haft, a curved spike one way and a chisel the other",
-   "back": 0.05,
-   "fore": 0.55
-  },
-  "bottle": {
-   "say": "a Molotov: a brown bottle, its label, tape round the neck, a rag stuffed in and hanging (COOK's market icon's bottle, at its real size)",
-   "back": 0,
-   "fore": 0
+   "w": 0.517,
+   "h": 0.624
   },
   "sledge": {
    "say": "a sledgehammer: a long taped haft, a steel head with bright faces",
@@ -1516,51 +1489,116 @@
    "fore": 0.87,
    "two": true
   },
-  "woodaxe": {
-   "say": "a felling axe: a long haft, a bearded head with a ground edge",
+  "rebar_spear": {
+   "say": "COOK's rebar spear; until it lands, a stand-in: a sign post's pipe and a leaf of spring steel lashed on with wire, a rag under it",
+   "back": 0.7,
+   "fore": 1.1
+  },
+  "chain": {
+   "say": "COOK's chain (the flails); until it lands, a stand-in: a handle, a chain that hangs and trails the swing, a spiked ball",
+   "back": 0.05,
+   "fore": 0.4,
+   "chain": 0.3
+  },
+  "bottles": {
+   "say": "COOK's bottles (the thrown things); until they land, COOK's own Molotov from the market icon at its real size",
+   "back": 0,
+   "fore": 0
+  },
+  "fire_axe": {
+   "say": "COOK's fire axe (the axes); until it lands, a stand-in felling axe",
    "back": 0.06,
    "fore": 0.88,
    "two": true
   },
-  "goedendag": {
-   "say": "a fence post turned club, banded with iron at its end, a rail spike driven out of it (Battle Brothers' goedendag)",
-   "back": 0.1,
-   "fore": 1.0,
-   "two": true
-  },
-  "pitchfork": {
-   "say": "a pitchfork: a long haft, three rusted tines on a crossbar",
+  "pole_hook": {
+   "say": "COOK's pole hook (the polearms, the pitchfork); until it lands, a stand-in pitchfork",
    "back": 0.1,
    "fore": 1.3,
    "two": true
+  },
+  "riot_shield": {
+   "say": "COOK's riot shield (the market's name for every shield of durability 40 or more)",
+   "shield": true,
+   "w": 0.544,
+   "h": 0.924
   }
  },
  "by_row": {
-  "bludgeon": "pipe",
-  "wooden_stick": "club",
-  "morning_star": "bat",
-  "butcher_s_cleaver": "cleaver",
+  "broken_ancient_sword": "machete",
   "shortsword": "machete",
+  "saif": "machete",
+  "falchion": "machete",
+  "cruel_falchion": "machete",
+  "ancient_sword": "machete",
+  "scimitar": "machete",
+  "arming_sword": "machete",
+  "shamshir": "machete",
+  "noble_sword": "machete",
+  "fencing_sword": "machete",
+  "wooden_stick": "club",
+  "claw_club": "pipe",
+  "bludgeon": "pipe",
+  "nomad_mace": "pipe",
+  "light_southern_mace": "pipe",
+  "morning_star": "bat",
+  "heavy_southern_mace": "pipe",
+  "winged_mace": "pipe",
+  "gnarly_staff": "pipe",
+  "tree_limb": "pipe",
+  "cudgel": "pipe",
+  "lute": "pipe",
+  "militia_spear": "rebar_spear",
+  "ancient_spear": "rebar_spear",
+  "goblin_skewer": "rebar_spear",
+  "boar_spear": "rebar_spear",
+  "fire_lance": "rebar_spear",
+  "fighting_spear": "rebar_spear",
   "hatchet": "hatchet",
   "handaxe": "hatchet",
-  "why": "the Battle Brothers rows the fight deals (measured on 16 real fights, seeds 1 to 8, strip and road: bludgeon 50, wooden_stick 12, morning_star 4, the cleaver 6, the shortsword 12, the hatchet 11, the handaxe 2, the flails 21, the throwing axes 16, the pickaxe 12, the spears 10) to the thing in his hand; a row not named here falls back on its class",
-  "militia_spear": "spear",
-  "boar_spear": "spear",
-  "wooden_flail": "flail",
-  "reinforced_wooden_flail": "flail",
-  "flail": "flail",
-  "pickaxe": "pick",
-  "bundle_of_throwing_axes": "bottle"
+  "wooden_flail": "chain",
+  "reinforced_wooden_flail": "chain",
+  "flail": "chain",
+  "three_headed_flail": "chain",
+  "antler_cleaver": "cleaver",
+  "butcher_s_cleaver": "cleaver",
+  "falx": "cleaver",
+  "blunt_cleaver": "cleaver",
+  "scramasax": "cleaver",
+  "khopesh": "cleaver",
+  "military_cleaver": "cleaver",
+  "head_chopper": "cleaver",
+  "thorned_whip": "cleaver",
+  "battle_whip": "cleaver",
+  "pickaxe": "sledge",
+  "military_pick": "sledge",
+  "warhammer": "sledge",
+  "bundle_of_spiked_bolas": "bottles",
+  "bundle_of_crude_javelins": "bottles",
+  "bundle_of_javelins": "bottles",
+  "bundle_of_heavy_javelins": "bottles",
+  "bundle_of_throwing_axes": "bottles",
+  "bundle_of_heavy_throwing_axes": "bottles",
+  "throwing_spear": "bottles",
+  "throwing_net": "bottles",
+  "reinforced_throwing_net": "bottles",
+  "acid_flask": "bottles",
+  "flask_of_blessed_water": "bottles",
+  "fire_pot": "bottles",
+  "smoke_pot": "bottles",
+  "flash_pot": "bottles",
+  "why": "every one-handed row of the armoury to the thing COOK's table makes of it (records/target/cook_every_item/BOHEMIA_EVERY_ITEM_AND_ITS_MODEL.json; rule 177: what you equip is what you see): the market's thing is the fight's"
  },
  "by_class": {
   "mace": "pipe",
   "cleaver": "cleaver",
   "sword": "machete",
   "axe": "hatchet",
-  "why": "a row this lane never measured falls back on its class, the market icon's own reading (slices/market_icons: w_pipe, w_cleaver, w_machete, w_axe)",
-  "spear": "spear",
-  "flail": "flail",
-  "throwing": "bottle"
+  "spear": "rebar_spear",
+  "flail": "chain",
+  "throwing": "bottles",
+  "hammer": "sledge",
+  "why": "a row COOK's table does not name falls back on its class"
  },
  "layers": {
   "m1": {
@@ -1601,7 +1639,7 @@
     "pistol",
     "car_door",
     "crash_bar",
-    "sign"
+    "riot_shield"
    ],
    "clips": [
     "SIdle",
@@ -1624,7 +1662,6 @@
     ],
     "car_door": "all",
     "crash_bar": "all",
-    "sign": "all",
     "pipe": [
      "SIdle",
      "SWalk",
@@ -1672,15 +1709,16 @@
      "SBlock",
      "SCover",
      "SCoverHit"
-    ]
+    ],
+    "riot_shield": "all"
    }
   },
   "m2": {
    "props": [
-    "spear",
-    "flail",
-    "pick",
-    "bottle"
+    "rebar_spear",
+    "chain",
+    "sledge",
+    "bottles"
    ],
    "clips": [
     "PIdle",
@@ -1701,7 +1739,7 @@
     ]
    },
    "only": {
-    "flail": [
+    "chain": [
      "PIdle",
      "MIdleX",
      "PCarryWalk",
@@ -1710,7 +1748,7 @@
      "CoverPistol",
      "CoverHit"
     ],
-    "pick": [
+    "sledge": [
      "PIdle",
      "MIdleX",
      "PCarryWalk",
@@ -1719,7 +1757,7 @@
      "CoverPistol",
      "CoverHit"
     ],
-    "bottle": [
+    "bottles": [
      "PIdle",
      "MIdleX",
      "PCarryWalk",
@@ -1732,9 +1770,9 @@
   },
   "s2": {
    "props": [
-    "spear",
-    "flail",
-    "pick"
+    "rebar_spear",
+    "chain",
+    "sledge"
    ],
    "clips": [
     "SIdle",
@@ -1747,7 +1785,7 @@
    ],
    "keys": {},
    "only": {
-    "spear": [
+    "rebar_spear": [
      "SIdle",
      "SWalk",
      "SAim",
@@ -1755,7 +1793,7 @@
      "SCover",
      "SCoverHit"
     ],
-    "flail": [
+    "chain": [
      "SIdle",
      "SWalk",
      "SSwing",
@@ -1763,7 +1801,7 @@
      "SCover",
      "SCoverHit"
     ],
-    "pick": [
+    "sledge": [
      "SIdle",
      "SWalk",
      "SSwing",
@@ -1776,9 +1814,9 @@
   "t2": {
    "props": [
     "sledge",
-    "woodaxe",
-    "goedendag",
-    "pitchfork"
+    "fire_axe",
+    "pipe",
+    "pole_hook"
    ],
    "clips": [
     "T2Idle",
@@ -1801,7 +1839,7 @@
      "CoverLong",
      "CoverHit"
     ],
-    "woodaxe": [
+    "fire_axe": [
      "T2Idle",
      "Carry",
      "CarryWalk",
@@ -1810,7 +1848,7 @@
      "CoverLong",
      "CoverHit"
     ],
-    "goedendag": [
+    "pipe": [
      "T2Idle",
      "Carry",
      "CarryWalk",
@@ -2154,22 +2192,26 @@
   "why": "how the shield sits on his left forearm: carry, across his front turned a little to his left flank; guard, the same a hand higher; block, square before his face; low, planted on the ground before him on one knee"
  },
  "shield_by_row": {
-  "wooden_shield": "car_door",
-  "old_wooden_shield": "car_door",
+  "buckler": "car_door",
   "wooden_skirmisher_shield": "car_door",
   "reinforced_skirmisher_shield": "car_door",
-  "worn_kite_shield": "car_door",
-  "kite_shield": "car_door",
-  "buckler": "sign",
-  "feral_shield": "sign",
-  "adarga_shield": "sign",
+  "old_wooden_shield": "car_door",
+  "ancient_auxiliary_shield": "car_door",
+  "wooden_shield": "car_door",
   "heavy_metal_shield": "crash_bar",
-  "heater_shield": "crash_bar",
-  "decayed_heater_shield": "crash_bar",
-  "ancient_tower_shield": "crash_bar",
-  "ancient_auxiliary_shield": "crash_bar",
-  "sipar_shield": "crash_bar",
-  "why": "the armoury's shields (records/target/bb/armor.json) to the three he named (rule 149(b) 'a car door as a shield'; COMBAT's note 10/25: a car door, a crash-bar shield, a sign): the wooden ones are car doors (ours.weapon_rows.car_door is wooden_shield), the small round ones a sign, the metal and the tall ones the crash bar; the measured fights deal wooden_shield and buckler"
+  "feral_shield": "car_door",
+  "adarga_shield": "car_door",
+  "ancient_coffin_shield": "car_door",
+  "worn_kite_shield": "riot_shield",
+  "kite_shield": "riot_shield",
+  "lindwurm_shield": "riot_shield",
+  "sipar_shield": "riot_shield",
+  "decayed_heater_shield": "car_door",
+  "heater_shield": "car_door",
+  "living_tree_shield": "riot_shield",
+  "ancient_tower_shield": "car_door",
+  "kraken_shield": "riot_shield",
+  "why": "every shield row to COOK's thing (the wooden and the small ones a car door, the Heavy's metal one the crash bar, the tall metal ones a riot shield)"
  },
  "shield_over": {
   "S": true,
@@ -2198,18 +2240,18 @@
   "hatchet": {
    "shoulder": "shoulder_up"
   },
-  "spear": {
+  "rebar_spear": {
    "rest": "upright",
    "tap": "upright",
    "tap_lift": "upright",
    "shoulder_half": "upright",
    "port": "upright"
   },
-  "flail": {
+  "chain": {
    "tap": "rest",
    "tap_lift": "rest"
   },
-  "bottle": {
+  "bottles": {
    "rest": "bottle",
    "tap": "bottle",
    "tap_lift": "bottle",
@@ -2223,26 +2265,47 @@
   }
  },
  "two_by_row": {
+  "two_handed_spiked_mace": "pipe",
+  "two_handed_mace": "pipe",
+  "two_handed_flanged_mace": "pipe",
+  "polemace": "pipe",
+  "goedendag": "pipe",
+  "woodcutter_s_axe": "fire_axe",
+  "heavy_rusty_axe": "fire_axe",
+  "bardiche": "fire_axe",
+  "greataxe": "fire_axe",
+  "man_splitter": "fire_axe",
+  "longaxe": "fire_axe",
   "two_handed_mallet": "sledge",
-  "woodcutter_s_axe": "woodaxe",
-  "goedendag": "goedendag",
-  "pitchfork": "pitchfork",
-  "why": "the two-handed rows the fight deals (measured: the two-handed mallet 34, the woodcutter's axe 30, the goedendag 14, the pitchfork 10), held in both hands"
+  "two_handed_skull_hammer": "sledge",
+  "two_handed_hammer": "sledge",
+  "polehammer": "sledge",
+  "pitchfork": "pole_hook",
+  "broken_ancient_bladed_pike": "pole_hook",
+  "hooked_blade": "pole_hook",
+  "jagged_pike": "pole_hook",
+  "ancient_bladed_pike": "pole_hook",
+  "warscythe": "pole_hook",
+  "pike": "pole_hook",
+  "swordlance": "pole_hook",
+  "billhook": "pole_hook",
+  "pollaxe": "pole_hook",
+  "why": "every two-handed row to COOK's thing for it, held in both hands"
  },
  "two_by_class": {
   "hammer": "sledge",
-  "axe": "woodaxe",
-  "mace": "goedendag",
-  "polearm": "pitchfork",
-  "spear": "pitchfork",
-  "why": "a two-handed row this lane never measured falls back on its class"
+  "axe": "fire_axe",
+  "mace": "pipe",
+  "polearm": "pole_hook",
+  "spear": "pole_hook",
+  "why": "a two-handed row COOK's table does not name falls back on its class"
  },
  "thrust": [
-  "spear",
-  "pitchfork"
+  "rebar_spear",
+  "pole_hook"
  ],
  "thrown": [
-  "bottle"
+  "bottles"
  ],
  "props_from": {
   "cast_": "you",
@@ -2253,5 +2316,10 @@
    "t2"
   ],
   "why": "the crew's twelve cast looks hold YOU's things on every layer after the first (the same skeleton, scale and camera: their hands sit within a pixel of his, measured on the held sheets, the way his town men already hold his guns); each still has his own body keys. Five hours of renders saved, the first layer of things kept their own."
+ },
+ "cook_models": {
+  "dir": "reference/models/bohemia",
+  "pattern": "item_%s.glb",
+  "why": "a thing whose COOK model is in the folder is rendered from it (COOK builds them in this tool's frame, rule 177(c)); the stand-ins in tools/bohemia_animation_melee_in_hand.py hold only until then, and a man's thing is rendered again the moment its model changes (props/models.json)"
  }
 }
