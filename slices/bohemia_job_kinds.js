@@ -957,8 +957,49 @@
       if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 5); hit(j, plate('CREW · ' + j.band.n, r.sx, fy, '#ff8f7a', hh + 14), [j.band.x, j.band.y]);
         HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.band.x, j.band.y], pack: null }); } }
   };
+  /* ======================= THE ROSTER THE ENEMY IS SIZED TO (WORLD [the PC playtest: the jobs' part] (3), rule 164 item 26) =======================
+     PAOLO 10/24 on his PC: 'Battle Brothers matches you with opponents by the amount of people on your roster... if I fill up
+     my roster, the opponents go up too.' THE LIBRARY (GROK_111; bb_all/0828_Game Mechanics.txt:105-111): a contract scales with
+     the ROSTER, the 12 strongest brothers (14 for the militia and the manhunters), each 10 + 2 a level past 1, gear not counted;
+     roaming parties only slightly; a camp already on the map not at all. The map's party math (__A_FEW_NOT_TWELVE__, RUN 10/5)
+     had those numbers right and read the ORIGIN's men alone (LOOP.start.company): MEASURED, a crew of three that hired nine
+     more still met a job sized for three. NOW the roster is every man he has, the way the fight's door finds them (the alpha's
+     __WHO_YOU_HIRE_FIGHTS__): the crew screen's line (bohemia.company.v1), its bench (the laid-up still count: Battle Brothers
+     counts the whole roster, reserves and wounded too), the men it knows and keeps off the line, and every hire it has not seen
+     yet; less the dead (bohemia.fight.after.v1) and the men who walked when the bill went unpaid. A man with no stated level is
+     a recruit, level 1. */
+  function rosterMen() {
+    var ls = function (k, d) { try { var v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } };
+    var st = {}; try { st = LOOP.start || {}; } catch (e) {}
+    var co = ls('bohemia.company.v1', null), line = ls('bohemia.company.line.v1', null), hired = ls('bohemia.hired.v1', []), walked = ls('bohemia.walked.v1', []);
+    if (!Array.isArray(hired)) hired = []; if (!Array.isArray(walked)) walked = [];
+    var dead = {}; try { (ls('bohemia.fight.after.v1', []) || []).forEach(function (f) { (f && f.rows || []).forEach(function (r) { if (r && r.dead && !r.main && r.name) dead[r.name] = 1; }); }); } catch (e) {}
+    var gone = {}; walked.forEach(function (w) { if (w && w.name) gone[w.name] = 1; });
+    var same = !(line && line.origin && st.origin && line.origin !== st.origin);
+    var men = [], seen = {}, from = 'origin';
+    var add = function (m, why) { if (!m) return; var nm = m.name ? String(m.name) : null;
+      if (nm && (seen[nm] || dead[nm] || gone[nm])) return; if (nm) seen[nm] = 1;
+      men.push({ name: nm, level: Math.max(1, (m.level | 0) || 1), why: why }); };
+    var levelOf = {}; hired.forEach(function (h) { if (h && h.name) levelOf[h.name] = h.level; });
+    if (Array.isArray(co) && co.length && same) {
+      from = 'crew screen';
+      co.forEach(function (m) { add(m, 'line'); });
+      if (line && Array.isArray(line.bench)) line.bench.forEach(function (b) { if (b && b.man) add(b.man, 'bench'); });
+      if (line && Array.isArray(line.known)) line.known.forEach(function (nm) { if (nm && !seen[nm]) add({ name: nm, level: levelOf[nm] }, 'reserve'); });
+    } else {
+      /* no crew screen yet: the origin's men, the walked from the back (the bill's own order: hires first, then the company) */
+      var oc = (st.company || []).slice(), coGone = walked.filter(function (w) { return w && !w.hired; }).length;
+      if (!oc.length) oc = [{}, {}, {}];   /* no picks yet: Battle Brothers' own three */
+      oc.slice(0, Math.max(1, oc.length - coGone)).forEach(function (m) { men.push({ name: m && m.name || null, level: Math.max(1, (m && m.level | 0) || 1), why: 'origin' }); });
+    }
+    hired.forEach(function (h) { if (h && h.name && !seen[h.name]) add(h, 'hired'); });
+    return { men: men, from: from };
+  }
+  function rosterLevels() { var r = rosterMen(); window.__ROSTER = { n: r.men.length, from: r.from, levels: r.men.map(function (m) { return m.level; }) }; return window.__ROSTER.levels; }
+
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
-    here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); } };
+    here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); },
+    roster: rosterMen, rosterLevels: rosterLevels };
   load();
 })(typeof window !== 'undefined' ? window : this);

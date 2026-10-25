@@ -44327,6 +44327,9 @@ function partyV(k){ return PARTY_MATH[k] && PARTY_MATH[k].value; }
 function partyRosterStrength(){
   var R = partyV('roster_strength'), st = LOOP.start || {}, co = st.company || [];
   var lv = co.map(function(m){ return Math.max(1, (m && m.level) | 0 || 1); });
+  /* __THE_ROSTER_SCALES_THE_ENEMY__ (WORLD, rule 164 item 26: 'if I fill up my roster, the opponents go up too'): every man he
+     has (the line, the bench, the reserve, the hires; not the dead, not the walked), slices/bohemia_job_kinds.js */
+  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.rosterLevels){ var __rl = BohemiaJobKinds.rosterLevels(); if(__rl && __rl.length) lv = __rl; } }catch(_e){}
   if(!lv.length) lv = [1, 1, 1];                        /* no picks yet: Battle Brothers' own three */
   lv.sort(function(a, b){ return b - a; });
   var top = (R.wide_origins || []).indexOf(st.origin) >= 0 ? R.strongest_wide : R.strongest;
