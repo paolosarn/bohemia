@@ -666,7 +666,7 @@
       fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0);   /* the flutes face down, toward the map */
       document.documentElement.style.setProperty('--bm-cardedge-up', 'url(' + f.toDataURL('image/png') + ')');
     }
-    style('bm-mapbar', MAPBAR_CSS); return true;
+    style('bm-mapbar', MAPBAR_CSS); style('bm-mode-44', MODE_44_CSS); return true;
   }
   /* ======================================================================================================
      THE TOP BAR, THE DAYS ONCE  (UI [the top bar, the days once], 10/22/26; rules 121(g) and 123: built into the
@@ -799,6 +799,10 @@
     /* the shell's own floating gear steps aside while the bar's gear is on the glass (set from the city frame) */
     + '';
   var TB_SHELL_CSS = 'html.bm-gear-in-bar #gearbtn{display:none!important}';
+  /* EYES [eyes: mode button] (E23's driven crawl, records/BOHEMIA_EYES_E23_ROUND_2_A_DRIVEN_CRAWL_FINDS_THE_MODE_BUTTON_AT_40_9_27_26.md):
+     the round DROP IN button is 44.4% of the pad's box, and the pad at half size made it 40 x 40, four points under the thumb's
+     floor. It keeps its share and never goes under 44 (on the demo's map the pad is off, rule 38b; the workshop still walks) */
+  var MODE_44_CSS = 'html body #nav #mode{min-width:44px!important;min-height:44px!important}';
   /* THE SIX (UI [the PC playtest: the UI's part] (2)): ECONOMY's order, his pack's props, and the one reader of their counts */
   var SIX = ['batteries', 'food', 'water', 'tape', 'meds', 'rounds'];
   function packIcon(k) { return 'supply_icons/' + k + '.png'; }
