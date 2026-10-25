@@ -923,15 +923,19 @@ def head_w(B):
 def b_hard_hat(K, mu):
     """a builder's hard hat gone chalky in the sun: the shell, its three ridges, the peak over the brow and a narrow rim all
     round, a sticker half peeled, the suspension's strap at the nape"""
-    SHELL, RUB, STICK = ('clay_mustard', 2), ('rubber', 1), ('tape_masking', 3)
+    # round 2 of the loop: the first shell (2 cm off the skull, its rim at the brow, a 7.5 cm peak dropping) sat on him like a
+    # mushroom over the whole face from the camera's 45 degrees, and its mustard came out of the sun tan, a pith helmet: the
+    # shell is snug now (it replaces whatever he wore on his head), the rim rides high over the brow, the peak is short and
+    # level, and the plastic is the lighter yellow step so it reads as a builder's hat
+    SHELL, RUB, STICK = ('clay_mustard', 3), ('rubber', 1), ('tape_masking', 3)
     B, C, top, rad = head_frame(K)
-    R0 = max(rad(a, math.radians(e)) for a in (0, 1.57, 3.14, 4.71) for e in (10, 40, 70)) + 0.02
-    R = lambda az, e: R0 * (1.0 + 0.06 * math.cos(az) ** 2) * (1.0 + 0.04 * math.sin(e))
-    rim = lambda az: 14 * math.cos(az) ** 2 - 2 if math.cos(az) > 0 else -2 - 6 * math.cos(az) ** 2
+    R0 = max(rad(a, math.radians(e)) for a in (0, 1.57, 3.14, 4.71) for e in (10, 40, 70)) + 0.006
+    R = lambda az, e: R0 * (1.0 + 0.05 * math.cos(az) ** 2) * (1.0 + 0.03 * math.sin(e))
+    rim = lambda az: 26 * math.cos(az) ** 2 + 6 if math.cos(az) > 0 else 6 - 4 * math.cos(az) ** 2
     parts = [sheet_mesh(K, 'worn_hat_shell', SHELL, dome(C, R, 48, rim, el_n=12), thick=0.012, centre=C)]
     # the peak: out and a little down over the brow; the rim: a narrow lip all round
     rows = []
-    for k, (ext, drop) in enumerate(((0.0, 0.0), (0.04, 0.012), (0.075, 0.03))):
+    for k, (ext, drop) in enumerate(((0.0, 0.0), (0.025, 0.004), (0.045, 0.01))):
         row = []
         for i in range(25):
             az = math.radians(-75 + 150 * i / 24); e = math.radians(rim(az))
@@ -969,9 +973,10 @@ def b_riot_helmet(K, mu):
     hanging at the back, the chin strap"""
     SHELL, VIS, RUB, PIV = ('cloth_black', 2), ('glass_eye', 1), ('rubber', 1), ('metal_painted', 0)
     B, C, top, rad = head_frame(K)
-    R0 = max(rad(a, math.radians(e)) for a in (0, 1.57, 3.14, 4.71) for e in (10, 40, 70)) + 0.022
-    R = lambda az, e: R0 * (1.0 + 0.05 * math.cos(az) ** 2)
-    rim = lambda az: 12 * max(0.0, math.cos(az)) ** 2 - 30 * (1 - max(0.0, math.cos(az))) ** 1.2
+    # round 2: snug (it read as a bucket over the face), the front rim over the brow
+    R0 = max(rad(a, math.radians(e)) for a in (0, 1.57, 3.14, 4.71) for e in (10, 40, 70)) + 0.01
+    R = lambda az, e: R0 * (1.0 + 0.04 * math.cos(az) ** 2)
+    rim = lambda az: 20 * max(0.0, math.cos(az)) ** 2 - 30 * (1 - max(0.0, math.cos(az))) ** 1.2
     parts = [sheet_mesh(K, 'worn_riot_shell', SHELL, dome(C, R, 48, rim, el_n=14), thick=0.014, centre=C)]
     # the visor, flipped up over the brow and the crown's front
     rows = []
@@ -1016,8 +1021,8 @@ def b_full_riot_helm(K, mu):
     chin, a dead headlamp on the left, a curtain hanging to the shoulders"""
     SHELL, VIS, RUB, CAN, RUST = ('metal_painted', 1), ('glass_eye', 1), ('rubber', 1), ('metal_painted', 0), ('clay_rust', 1)
     B, C, top, rad = head_frame(K)
-    R0 = max(rad(a, math.radians(e)) for a in (0, 1.57, 3.14, 4.71) for e in (10, 40, 70)) + 0.024
-    R = lambda az, e: R0 * (1.0 + 0.05 * math.cos(az) ** 2)
+    R0 = max(rad(a, math.radians(e)) for a in (0, 1.57, 3.14, 4.71) for e in (10, 40, 70)) + 0.014
+    R = lambda az, e: R0 * (1.0 + 0.04 * math.cos(az) ** 2)
     rim = lambda az: 14 * max(0.0, math.cos(az)) ** 2 - 34 * (1 - max(0.0, math.cos(az))) ** 1.2
     parts = [sheet_mesh(K, 'worn_full_shell', SHELL, dome(C, R, 48, rim, el_n=14), thick=0.015, centre=C)]
     # the visor down: from the brow to under the chin, round to the ears

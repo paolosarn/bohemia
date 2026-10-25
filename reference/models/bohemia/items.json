@@ -148,6 +148,54 @@
    },
    "elbow_z": 0.12,
    "grip_z": -0.13
+  },
+  "riot_shield": {
+   "glb": "item_riot_shield.glb",
+   "kind": "shield",
+   "name": "a riot shield",
+   "say": "a police ballistic shield gone grey-black in the sun: a curved slab with a thick rim, a scratched viewport, POLICE in white letters half scraped off, gouges down to the bare fibre; behind, the arm cuff and the handle",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "worn_kite_shield",
+    "kite_shield",
+    "lindwurm_shield",
+    "sipar_shield",
+    "living_tree_shield",
+    "kraken_shield"
+   ],
+   "sha1": "0c44186caeacc94458c5de86ed956f006ff715a6",
+   "w": 0.52,
+   "h": 0.9,
+   "measured": {
+    "size_m": [
+     0.181,
+     0.544,
+     0.924
+    ],
+    "lo": [
+     -0.064,
+     -0.272,
+     -0.462
+    ],
+    "hi": [
+     0.117,
+     0.272,
+     0.462
+    ],
+    "materials": [
+     "clay_bone 3",
+     "glass_eye 1",
+     "rubber 1",
+     "rubber 2",
+     "tape_grey 1"
+    ],
+    "verts": 2280,
+    "parts": 63,
+    "elbow_z": 0.12,
+    "grip_z": -0.12
+   },
+   "elbow_z": 0.12,
+   "grip_z": -0.12
   }
  }
 }
