@@ -23,6 +23,17 @@
     -30.35
    ],
    "id": "sounds-three-levels-ghost-in-the-grid-10-25"
+  },
+  {
+   "name": "SATELLITE PRAYER",
+   "slug": "satellite_prayer",
+   "dir": "vote/songs/three_levels/satellite_prayer/",
+   "levels_db": [
+    -41.16,
+    -37.13,
+    -31.38
+   ],
+   "id": "sounds-three-levels-satellite-prayer-10-25"
   }
  ]
 }
