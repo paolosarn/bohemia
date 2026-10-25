@@ -34,6 +34,39 @@
     -31.38
    ],
    "id": "sounds-three-levels-satellite-prayer-10-25"
+  },
+  {
+   "name": "THE PIT BOSS IS GONE",
+   "slug": "the_pit_boss_is_gone",
+   "dir": "vote/songs/three_levels/the_pit_boss_is_gone/",
+   "levels_db": [
+    -37.31,
+    -32.96,
+    -30.81
+   ],
+   "id": "sounds-three-levels-the-pit-boss-is-gone-10-25"
+  },
+  {
+   "name": "THE ORGAN IN THE DROWNED CHAPEL",
+   "slug": "the_organ_in_the_drowned_chapel",
+   "dir": "vote/songs/three_levels/the_organ_in_the_drowned_chapel/",
+   "levels_db": [
+    -36,
+    -31.63,
+    -30.45
+   ],
+   "id": "sounds-three-levels-the-organ-in-the-drowned-chapel-10-25"
+  },
+  {
+   "name": "CAMPFIRE CONFESSION",
+   "slug": "campfire_confession",
+   "dir": "vote/songs/three_levels/campfire_confession/",
+   "levels_db": [
+    -38.67,
+    -33.31,
+    -30.15
+   ],
+   "id": "sounds-three-levels-campfire-confession-10-25"
   }
  ]
 }

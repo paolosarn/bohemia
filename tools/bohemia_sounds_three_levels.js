@@ -48,8 +48,8 @@ const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, 
 const md5 = b => crypto.createHash('md5').update(b).digest('hex');
 
 /* ONE LEVEL, ONE PASS of his engine into an OfflineAudioContext. */
-async function level(p, name, lv, outGain) {
-  return p.evaluate(async ({ name, lv, bars, outGain }) => {
+async function level(p, name, lv, outGain, mp) {
+  return p.evaluate(async ({ name, lv, bars, outGain, mp }) => {
     const SR = 44100, steps = bars * 16, sd = MUS.stepDur(), secs = steps * sd + 2.5;
     const li = MLOOPS.findIndex(x => x.n === name); if (li < 0) return { err: 'no song ' + name };
     MUS.audio();
@@ -66,6 +66,18 @@ async function level(p, name, lv, outGain) {
       lim.threshold.value = -9; lim.knee.value = 6; lim.ratio.value = 8; lim.attack.value = 0.003; lim.release.value = 0.12;
       out0.connect(lim); lim.connect(OAC.destination);
     } else out0.connect(OAC.destination);
+    /* REPO MAN PLAYS AS THE MACHINE PARTY (his YES 10/19, rule 122): exactly the game's own wiring (SONGFENCE.machine in
+       the alpha): take A's hall and tape, the recorder's trim, the machine answering his kick and hat. The added parts go
+       into the same chain (the same room, the same trim); they call his drumV from BEFORE the machine wraps it, so the
+       machine answers his song's kick and never the pulse's. */
+    let X = null, dv0 = drumV;
+    if (mp) {
+      X = window.MACHINEPARTY; await X.loadFrom(OAC, window.__mpBytes);
+      const trim = OAC.createGain(); trim.gain.value = Math.pow(10, mp.trimDb / 20); trim.connect(out0);
+      const ch = X.chain(OAC, trim, { hall: mp.spec.hall, tape: mp.spec.tape });
+      X.attach(mp.spec, { music: ch.input, machine: ch.machine });
+      songBus = ch.input; partBus = ch.input;
+    }
     const part = g => { const n = OAC.createGain(); n.gain.value = g; n.connect(partBus); return n; };
     MUS.AC = OAC; MUS.MAST = songBus; MUS.OUT = songBus; MUS.cur = MFACTIONS.length + li; MUS.curSlot = 1;
     MUS.layers = lv === 1 ? 0 : lv === 2 ? 2 : 4;              /* KILLMUS.LAYERS: level 1, 2, 3 -> arrangement 0, 2, 4 */
@@ -86,7 +98,7 @@ async function level(p, name, lv, outGain) {
       : lv === 2 ? { kick: part(0.55), tick: part(0.26), pedal: part(0.40), tom: part(0.55), rim: part(0.30) }
       : { kick: part(0.85), snare: part(0.70), hat: part(0.30), hit: part(0.45), bass: part(0.50), hook: part(1.0) };
     const counts = {};
-    const D = (k, node, t) => { counts['d:' + k] = (counts['d:' + k] || 0) + 1; drumV(k, OAC, node, t); };
+    const D = (k, node, t) => { counts['d:' + k] = (counts['d:' + k] || 0) + 1; dv0(k, OAC, node, t); };
     const S = (k, node, semi, t, g, dur) => { counts['s:' + k] = (counts['s:' + k] || 0) + 1; synthV(k, OAC, node, hz, dur || sd, semi, t, g); };
     let err = null;
     try {
@@ -115,6 +127,7 @@ async function level(p, name, lv, outGain) {
         }
       }
     } catch (e) { err = e.message; }
+    if (X) { X.detach(); X.log = []; }
     MUS.AC = save.AC; MUS.MAST = save.MAST; MUS.OUT = save.OUT; MUS.cur = save.cur; MUS.curSlot = save.curSlot; MUS.layers = save.layers; MUS.step = save.step; CITYMUS.on = save.on;
     if (err) return { err };
     const buf = await OAC.startRendering(), L = buf.getChannelData(0);
@@ -122,7 +135,7 @@ async function level(p, name, lv, outGain) {
     for (let i = 0; i < L.length; i++) { const v = Math.round(L[i] * 32767); if (Math.abs(v) > 32767) clip++; pcm[i] = Math.max(-32767, Math.min(32767, v)); }
     const u8 = new Uint8Array(pcm.buffer); let bin = ''; for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
     return { b64: btoa(bin), sr: SR, sd, clipped: clip, root: f.root, scale: sc, lead, bass: bassV, kick, klay: f.klay || 'drive', arr: MUS.ARR.slice(0, 8), rt: MUS.RT.slice(0, 8), counts };
-  }, { name, lv, bars: BARS, outGain });
+  }, { name, lv, bars: BARS, outGain, mp: mp || null });
 }
 
 /* the measure his machine's own tool uses: rms, peak, phone rms, per bar */
@@ -154,6 +167,15 @@ async function record(which) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'three_levels_'));
   /* three alphas, one level each, in parallel (level 3 alone took 215 s on THE VAULT's first take) */
   const A = await Promise.all([0, 1, 2].map(() => H.openAlpha())), errs = [].concat(...A.map(x => x.errs));
+  /* REPO MAN's machine, read from the game's own block in the alpha (SONGFENCE.machine.spec and its TRIM_DB) */
+  const MP = list.includes('REPO MAN') ? await (async () => {
+    const MPR = require(path.join(ROOT, 'tools', 'bohemia_sounds_machine_party_record.js'));
+    for (const x of A) await MPR.prepare(x.p);
+    const spec = await A[0].p.evaluate(() => window.SONGFENCE && SONGFENCE.machine && SONGFENCE.machine.spec);
+    const m = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html'), 'utf8').match(/var TRIM_DB=(-?[0-9.]+);\s*\/\* the recorder's measured trim for take A/);
+    if (!spec || !m) throw new Error('REPO MAN: the game\'s machine party spec or trim not found in the alpha');
+    return { spec, trimDb: +m[1] };
+  })() : null;
   fs.mkdirSync(OUTD, { recursive: true });
   const IDX = path.join(OUTD, 'index.json');
   const index = fs.existsSync(IDX) ? JSON.parse(fs.readFileSync(IDX, 'utf8')) : { made: '10/25', tool: 'tools/bohemia_sounds_three_levels.js', songs: [] };
@@ -166,7 +188,7 @@ async function record(which) {
     await Promise.all([1, 2, 3].map(async lv => {
       const p = A[lv - 1].p;
       let g = og, r;
-      for (;;) { const tl = Date.now(); r = await level(p, name, lv, g); console.log("  " + name + " level " + lv + " gain " + g.toFixed(3) + " clipped " + r.clipped + " in " + ((Date.now() - tl) / 1000).toFixed(1) + " s"); if (r.err) throw new Error(name + ' level ' + lv + ': ' + r.err); if (!r.clipped || g < 0.1) break; g /= 2; }
+      for (;;) { const tl = Date.now(); r = await level(p, name, lv, g, name === 'REPO MAN' ? MP : null); console.log("  " + name + " level " + lv + " gain " + g.toFixed(3) + " clipped " + r.clipped + " in " + ((Date.now() - tl) / 1000).toFixed(1) + " s"); if (r.err) throw new Error(name + ' level ' + lv + ': ' + r.err); if (!r.clipped || g < 0.1) break; g /= 2; }
       const raw = path.join(tmp, sl + '_' + lv + '.raw'); fs.writeFileSync(raw, Buffer.from(r.b64, 'base64')); delete r.b64;
       pcm[lv] = new Int16Array(fs.readFileSync(raw).buffer.slice(0)); R[lv] = Object.assign(r, { gain_db: +(20 * Math.log10(g)).toFixed(2) }); raws[lv - 1] = raw;
     }));
@@ -216,7 +238,7 @@ function register(which, write) {
   for (const S of list) {
     writePage(S);
     if (reg.items.some(x => x.id === S.id)) { console.log('already a card: ' + S.id); continue; }
-    const sha = execFileSync('git', ['log', '-1', '--format=%h', '--', path.join('slices', S.dir)], { cwd: ROOT, encoding: 'utf8' }).trim();
+    const sha = execFileSync('git', ['log', '-1', '--format=%h', 'origin/main', '--', path.join('slices', S.dir)], { cwd: ROOT, encoding: 'utf8' }).trim();
     if (!sha) throw new Error(S.name + ': commit the recordings first, the card needs their sha');
     /* the sha must be one he can go look at: on main, not a local commit a rebase will rename (card 1 was registered at a
        pre-rebase 512d6316 and corrected to 0538fe30) */

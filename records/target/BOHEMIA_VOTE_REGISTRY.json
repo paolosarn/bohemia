@@ -15266,6 +15266,60 @@
     "src": "BOHEMIA_THREE_LEVELS_SATELLITE_PRAYER_10_25_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-three-levels-the-pit-boss-is-gone-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "74cbe326",
+   "made": "10/25",
+   "title": "YOUR THE PIT BOSS IS GONE AT THREE LEVELS, FOR THE FIGHT",
+   "why": "Your THE PIT BOSS IS GONE at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
+   "options": [
+    "A, the three levels join the game for THE PIT BOSS IS GONE",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_LEVELS_THE_PIT_BOSS_IS_GONE_10_25_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-three-levels-the-organ-in-the-drowned-chapel-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "74cbe326",
+   "made": "10/25",
+   "title": "YOUR THE ORGAN IN THE DROWNED CHAPEL AT THREE LEVELS, FOR THE FIGHT",
+   "why": "Your THE ORGAN IN THE DROWNED CHAPEL at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
+   "options": [
+    "A, the three levels join the game for THE ORGAN IN THE DROWNED CHAPEL",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_LEVELS_THE_ORGAN_IN_THE_DROWNED_CHAPEL_10_25_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-three-levels-campfire-confession-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "74cbe326",
+   "made": "10/25",
+   "title": "YOUR CAMPFIRE CONFESSION AT THREE LEVELS, FOR THE FIGHT",
+   "why": "Your CAMPFIRE CONFESSION at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
+   "options": [
+    "A, the three levels join the game for CAMPFIRE CONFESSION",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_LEVELS_CAMPFIRE_CONFESSION_10_25_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

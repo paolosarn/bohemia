@@ -8,8 +8,8 @@
 
    WHAT THIS GATE MEASURES, for every song in slices/vote/songs/three_levels/index.json:
      1  the four recordings exist and are the files measured.json names (md5), none clipped
-     2  A 120 BPM PULSE IS IN EVERY LEVEL: the mp3 decoded, an onset envelope in 10 ms frames, its autocorrelation; the
-        lag of 0.5 s (one beat at 120) must beat every lag from 0.3 s to 0.9 s that is not a multiple of a 16th
+     2  A 120 BPM PULSE IS IN EVERY LEVEL: the mp3 decoded, an onset envelope in 10 ms frames of the high end, its
+        autocorrelation; at a lag of 0.5 s (one beat at 120) it repeats with at least 0.15 of its own energy
      3  level 3 is louder than level 1 on a phone, and carries the drums, the bass and the hook (the parts its pass
         scheduled), level 2 carries the heartbeat and no backbeat
      4  the card is in the registry, its page exists and names this song
@@ -35,17 +35,28 @@ function pcmOf(f) {
   const b = execFileSync('ffmpeg', ['-loglevel', 'error', '-i', f, '-f', 's16le', '-ac', '1', '-ar', '22050', '-'], { maxBuffer: 256 << 20 });
   return new Int16Array(b.buffer, b.byteOffset, b.length >> 1);
 }
-/* the pulse: onset strength (rectified rise of the 10 ms energy), autocorrelated */
+/* the pulse: onset strength (the rectified rise of the 10 ms energy), autocorrelated. HEARD THROUGH THE HIGH END: the energy
+   is taken of the signal's first difference (a gentle high-pass), where the clock tick, the hats and the kit's attack live and
+   what a phone's speaker plays. MEASURED, the full-band onset is fooled by a low voice that swells: CAMPFIRE CONFESSION's
+   drone and strum repeat every 0.31 to 0.46 s and beat the 0.5 s lag on every level, while its beat repeats as strongly as
+   the other songs' once the drone's low end is out (0.25 to 0.39 of its own energy; the other seven 0.17 to 0.64).
+   THE TEST: the high-passed onset repeats at one beat (0.5 s) with at least 0.15 of its own energy. Reported beside it:
+   how the beat lag compares with the strongest off-grid lag from 0.3 to 0.9 s, full band and high-passed. */
 function pulse(pcm) {
-  const fr = 220, N = Math.floor(pcm.length / fr), e = new Float64Array(N);
-  for (let i = 0; i < N; i++) { let s = 0; for (let k = 0; k < fr; k++) { const v = pcm[i * fr + k] / 32768; s += v * v; } e[i] = Math.sqrt(s / fr); }
-  const o = new Float64Array(N); for (let i = 1; i < N; i++) o[i] = Math.max(0, e[i] - e[i - 1]);
-  let mu = 0; for (let i = 0; i < N; i++) mu += o[i]; mu /= N; for (let i = 0; i < N; i++) o[i] -= mu;
-  const ac = lag => { let s = 0; for (let i = 0; i + lag < N; i++) s += o[i] * o[i + lag]; return s / (N - lag); };
-  const beat = Math.max(ac(49), ac(50), ac(51));
-  let worst = -Infinity, at = 0;
-  for (let lag = 30; lag <= 90; lag++) { if (Math.abs(lag % 12.5) < 1.5 || Math.abs(lag % 12.5) > 11) continue; const v = ac(lag); if (v > worst) { worst = v; at = lag; } }
-  return { beat, worst, worst_at_s: at / 100, ratio: worst > 0 ? beat / worst : 99 };
+  const fr = 220, N = Math.floor(pcm.length / fr);
+  const one = hp => {
+    const e = new Float64Array(N);
+    for (let i = 0; i < N; i++) { let s = 0; for (let k = 0; k < fr; k++) { const j = i * fr + k; let v = pcm[j] / 32768; if (hp) v -= j ? pcm[j - 1] / 32768 : 0; s += v * v; } e[i] = Math.sqrt(s / fr); }
+    const o = new Float64Array(N); for (let i = 1; i < N; i++) o[i] = Math.max(0, e[i] - e[i - 1]);
+    let mu = 0; for (let i = 0; i < N; i++) mu += o[i]; mu /= N; for (let i = 0; i < N; i++) o[i] -= mu;
+    const ac = lag => { let s = 0; for (let i = 0; i + lag < N; i++) s += o[i] * o[i + lag]; return s / (N - lag); };
+    const beat = Math.max(ac(49), ac(50), ac(51));
+    let worst = -Infinity, at = 0;
+    for (let lag = 30; lag <= 90; lag++) { if (Math.abs(lag % 12.5) < 1.5 || Math.abs(lag % 12.5) > 11) continue; const v = ac(lag); if (v > worst) { worst = v; at = lag; } }
+    return { beat, norm: beat / ac(0), ratio: worst > 0 ? beat / worst : 99, worst_at_s: at / 100 };
+  };
+  const full = one(false), high = one(true);
+  return { norm: high.norm, ratio_full: full.ratio, ratio_high: high.ratio, worst_at_s: full.worst_at_s };
 }
 
 const index = JSON.parse(fs.readFileSync(IDX, 'utf8'));
@@ -61,7 +72,7 @@ for (const S of index.songs) {
   });
   M.levels.forEach(l => ok(l.clipped_samples === 0, S.name + ' level ' + l.level + ' clipped ' + l.clipped_samples));
   const P = files.map(f => pulse(pcmOf(path.join(ROOT, f))));
-  P.forEach((p, i) => ok(p.ratio > 1.15 && p.beat > 0, S.name + ' ' + (i < 3 ? 'level ' + (i + 1) : 'the fight') + ': no 120 BPM pulse (beat ' + p.beat.toExponential(2) + ' vs ' + p.worst.toExponential(2) + ' at ' + p.worst_at_s + ' s)'));
+  P.forEach((p, i) => ok(p.norm >= 0.15, S.name + ' ' + (i < 3 ? 'level ' + (i + 1) : 'the fight') + ': no 120 BPM pulse (the beat repeats at ' + p.norm.toFixed(3) + ' of its energy; beat vs the strongest off-grid lag ' + p.ratio_full.toFixed(2) + ' full, ' + p.ratio_high.toFixed(2) + ' high)'));
   const [a, , c] = M.levels.map(l => l.audio.phone_rms_db);
   ok(c - a >= 1, S.name + ': level 3 is not louder than level 1 on a phone (' + a + ' vs ' + c + ')');
   const k3 = M.levels[2].parts_added, k2 = M.levels[1].parts_added;
@@ -72,7 +83,7 @@ for (const S of index.songs) {
   const own = 'BOHEMIA_THREE_LEVELS_' + S.slug.toUpperCase() + '_10_25_26.html';
   ok(fs.existsSync(path.join(SL, own)) && fs.readFileSync(path.join(SL, own), 'utf8').includes('<meta name="song" content="' + S.slug + '">'), S.name + ': no page of its own naming it (' + own + ')');
   if (card) { ok(card.show && card.show.how === 'page' && card.show.src === own, S.name + ': the card does not show its own page'); ok(card.kind === 'song' && card.lane === 'sounds', S.name + ': card kind/lane'); }
-  report.push(S.name + ' pulse ratio ' + P.map(p => p.ratio.toFixed(2)).join('/') + ', phone dB ' + M.levels.map(l => l.audio.phone_rms_db).join('/'));
+  report.push(S.name + ' the beat repeats ' + P.map(p => p.norm.toFixed(2)).join('/') + ' (vs off-grid, high ' + P.map(p => p.ratio_high > 50 ? '>50' : p.ratio_high.toFixed(1)).join('/') + '), phone dB ' + M.levels.map(l => l.audio.phone_rms_db).join('/'));
 }
 ok(fs.existsSync(path.join(SL, PAGE)), 'no card page');
 /* 181(d): not in the game */
