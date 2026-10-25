@@ -1,0 +1,1008 @@
+{
+ "towns": [
+  {
+   "name": "Anarchists",
+   "region": false,
+   "tier": 2,
+   "n": 3,
+   "opaque": 10499,
+   "edges": 7209,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Blues",
+   "region": false,
+   "tier": 2,
+   "n": 3,
+   "opaque": 10545,
+   "edges": 7075,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Caravans",
+   "region": false,
+   "tier": 1,
+   "n": 4,
+   "opaque": 20012,
+   "edges": 11190,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Cartel",
+   "region": false,
+   "tier": 1,
+   "n": 4,
+   "opaque": 23786,
+   "edges": 16929,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Church",
+   "region": false,
+   "tier": 2,
+   "n": 3,
+   "opaque": 16887,
+   "edges": 11857,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Colorful",
+   "region": false,
+   "tier": 3,
+   "n": 2,
+   "opaque": 8511,
+   "edges": 7527,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Custom",
+   "region": false,
+   "tier": 3,
+   "n": 2,
+   "opaque": 6643,
+   "edges": 5069,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Homeless",
+   "region": false,
+   "tier": 3,
+   "n": 2,
+   "opaque": 6699,
+   "edges": 5052,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Mob",
+   "region": false,
+   "tier": 1,
+   "n": 4,
+   "opaque": 29763,
+   "edges": 19637,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Network",
+   "region": false,
+   "tier": 1,
+   "n": 4,
+   "opaque": 22248,
+   "edges": 15679,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Reds",
+   "region": false,
+   "tier": 2,
+   "n": 3,
+   "opaque": 15236,
+   "edges": 8772,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Remnants",
+   "region": false,
+   "tier": 1,
+   "n": 4,
+   "opaque": 18949,
+   "edges": 14038,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Trades",
+   "region": false,
+   "tier": 3,
+   "n": 2,
+   "opaque": 8439,
+   "edges": 7375,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  },
+  {
+   "name": "Volunteers",
+   "region": false,
+   "tier": 3,
+   "n": 2,
+   "opaque": 6595,
+   "edges": 5052,
+   "kinds": {},
+   "meanH": 0,
+   "lots": 0,
+   "wallShare": 0,
+   "pal": null
+  }
+ ],
+ "pairs": [
+  {
+   "a": "Anarchists",
+   "b": "Blues",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.969,
+   "shape": 0.947,
+   "like": 0.958
+  },
+  {
+   "a": "Custom",
+   "b": "Homeless",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.938,
+   "shape": 0.958,
+   "like": 0.948
+  },
+  {
+   "a": "Custom",
+   "b": "Volunteers",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.936,
+   "shape": 0.959,
+   "like": 0.948
+  },
+  {
+   "a": "Colorful",
+   "b": "Trades",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.929,
+   "shape": 0.962,
+   "like": 0.946
+  },
+  {
+   "a": "Homeless",
+   "b": "Volunteers",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.926,
+   "shape": 0.954,
+   "like": 0.94
+  },
+  {
+   "a": "Colorful",
+   "b": "Homeless",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.915,
+   "shape": 0.934,
+   "like": 0.924
+  },
+  {
+   "a": "Colorful",
+   "b": "Volunteers",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.912,
+   "shape": 0.93,
+   "like": 0.921
+  },
+  {
+   "a": "Colorful",
+   "b": "Custom",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.9,
+   "shape": 0.936,
+   "like": 0.918
+  },
+  {
+   "a": "Custom",
+   "b": "Trades",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.889,
+   "shape": 0.944,
+   "like": 0.916
+  },
+  {
+   "a": "Mob",
+   "b": "Remnants",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.888,
+   "shape": 0.942,
+   "like": 0.915
+  },
+  {
+   "a": "Cartel",
+   "b": "Remnants",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.874,
+   "shape": 0.949,
+   "like": 0.912
+  },
+  {
+   "a": "Network",
+   "b": "Remnants",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.888,
+   "shape": 0.935,
+   "like": 0.912
+  },
+  {
+   "a": "Church",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.932,
+   "shape": 0.887,
+   "like": 0.909
+  },
+  {
+   "a": "Cartel",
+   "b": "Mob",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.887,
+   "shape": 0.929,
+   "like": 0.908
+  },
+  {
+   "a": "Cartel",
+   "b": "Network",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.856,
+   "shape": 0.958,
+   "like": 0.907
+  },
+  {
+   "a": "Anarchists",
+   "b": "Church",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.895,
+   "shape": 0.913,
+   "like": 0.904
+  },
+  {
+   "a": "Mob",
+   "b": "Network",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.87,
+   "shape": 0.937,
+   "like": 0.904
+  },
+  {
+   "a": "Trades",
+   "b": "Volunteers",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.876,
+   "shape": 0.932,
+   "like": 0.904
+  },
+  {
+   "a": "Anarchists",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.934,
+   "shape": 0.868,
+   "like": 0.901
+  },
+  {
+   "a": "Homeless",
+   "b": "Trades",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.861,
+   "shape": 0.932,
+   "like": 0.897
+  },
+  {
+   "a": "Blues",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.929,
+   "shape": 0.858,
+   "like": 0.894
+  },
+  {
+   "a": "Anarchists",
+   "b": "Custom",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.92,
+   "shape": 0.865,
+   "like": 0.892
+  },
+  {
+   "a": "Blues",
+   "b": "Church",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.889,
+   "shape": 0.895,
+   "like": 0.892
+  },
+  {
+   "a": "Church",
+   "b": "Colorful",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.905,
+   "shape": 0.862,
+   "like": 0.883
+  },
+  {
+   "a": "Blues",
+   "b": "Custom",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.915,
+   "shape": 0.85,
+   "like": 0.882
+  },
+  {
+   "a": "Anarchists",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.894,
+   "shape": 0.862,
+   "like": 0.878
+  },
+  {
+   "a": "Anarchists",
+   "b": "Colorful",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.905,
+   "shape": 0.842,
+   "like": 0.874
+  },
+  {
+   "a": "Church",
+   "b": "Custom",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.866,
+   "shape": 0.873,
+   "like": 0.869
+  },
+  {
+   "a": "Church",
+   "b": "Reds",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.836,
+   "shape": 0.898,
+   "like": 0.867
+  },
+  {
+   "a": "Blues",
+   "b": "Colorful",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.906,
+   "shape": 0.826,
+   "like": 0.866
+  },
+  {
+   "a": "Blues",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.885,
+   "shape": 0.847,
+   "like": 0.866
+  },
+  {
+   "a": "Anarchists",
+   "b": "Homeless",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.873,
+   "shape": 0.856,
+   "like": 0.864
+  },
+  {
+   "a": "Blues",
+   "b": "Homeless",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.871,
+   "shape": 0.844,
+   "like": 0.858
+  },
+  {
+   "a": "Anarchists",
+   "b": "Reds",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.845,
+   "shape": 0.869,
+   "like": 0.857
+  },
+  {
+   "a": "Church",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.853,
+   "shape": 0.857,
+   "like": 0.855
+  },
+  {
+   "a": "Church",
+   "b": "Homeless",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.847,
+   "shape": 0.845,
+   "like": 0.846
+  },
+  {
+   "a": "Reds",
+   "b": "Remnants",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.832,
+   "shape": 0.86,
+   "like": 0.846
+  },
+  {
+   "a": "Blues",
+   "b": "Reds",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.833,
+   "shape": 0.85,
+   "like": 0.842
+  },
+  {
+   "a": "Reds",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.882,
+   "shape": 0.802,
+   "like": 0.842
+  },
+  {
+   "a": "Remnants",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.812,
+   "shape": 0.867,
+   "like": 0.84
+  },
+  {
+   "a": "Church",
+   "b": "Remnants",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.789,
+   "shape": 0.873,
+   "like": 0.831
+  },
+  {
+   "a": "Colorful",
+   "b": "Reds",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.882,
+   "shape": 0.78,
+   "like": 0.831
+  },
+  {
+   "a": "Network",
+   "b": "Reds",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.767,
+   "shape": 0.886,
+   "like": 0.827
+  },
+  {
+   "a": "Colorful",
+   "b": "Remnants",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.789,
+   "shape": 0.855,
+   "like": 0.822
+  },
+  {
+   "a": "Mob",
+   "b": "Reds",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.753,
+   "shape": 0.89,
+   "like": 0.822
+  },
+  {
+   "a": "Custom",
+   "b": "Reds",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.82,
+   "shape": 0.806,
+   "like": 0.813
+  },
+  {
+   "a": "Cartel",
+   "b": "Reds",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.745,
+   "shape": 0.87,
+   "like": 0.808
+  },
+  {
+   "a": "Reds",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.825,
+   "shape": 0.788,
+   "like": 0.807
+  },
+  {
+   "a": "Caravans",
+   "b": "Mob",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.835,
+   "shape": 0.774,
+   "like": 0.804
+  },
+  {
+   "a": "Cartel",
+   "b": "Church",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.715,
+   "shape": 0.89,
+   "like": 0.802
+  },
+  {
+   "a": "Church",
+   "b": "Network",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.721,
+   "shape": 0.882,
+   "like": 0.802
+  },
+  {
+   "a": "Cartel",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.741,
+   "shape": 0.861,
+   "like": 0.801
+  },
+  {
+   "a": "Cartel",
+   "b": "Colorful",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.754,
+   "shape": 0.846,
+   "like": 0.8
+  },
+  {
+   "a": "Anarchists",
+   "b": "Remnants",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.731,
+   "shape": 0.859,
+   "like": 0.795
+  },
+  {
+   "a": "Church",
+   "b": "Mob",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.706,
+   "shape": 0.88,
+   "like": 0.793
+  },
+  {
+   "a": "Homeless",
+   "b": "Reds",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.807,
+   "shape": 0.775,
+   "like": 0.791
+  },
+  {
+   "a": "Network",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.736,
+   "shape": 0.842,
+   "like": 0.789
+  },
+  {
+   "a": "Homeless",
+   "b": "Remnants",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.732,
+   "shape": 0.835,
+   "like": 0.783
+  },
+  {
+   "a": "Caravans",
+   "b": "Cartel",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.806,
+   "shape": 0.753,
+   "like": 0.78
+  },
+  {
+   "a": "Mob",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.72,
+   "shape": 0.837,
+   "like": 0.779
+  },
+  {
+   "a": "Caravans",
+   "b": "Network",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.765,
+   "shape": 0.789,
+   "like": 0.777
+  },
+  {
+   "a": "Custom",
+   "b": "Remnants",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.707,
+   "shape": 0.845,
+   "like": 0.776
+  },
+  {
+   "a": "Blues",
+   "b": "Remnants",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.712,
+   "shape": 0.838,
+   "like": 0.775
+  },
+  {
+   "a": "Anarchists",
+   "b": "Cartel",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.675,
+   "shape": 0.872,
+   "like": 0.774
+  },
+  {
+   "a": "Colorful",
+   "b": "Network",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.711,
+   "shape": 0.823,
+   "like": 0.767
+  },
+  {
+   "a": "Remnants",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.704,
+   "shape": 0.83,
+   "like": 0.767
+  },
+  {
+   "a": "Colorful",
+   "b": "Mob",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.715,
+   "shape": 0.818,
+   "like": 0.766
+  },
+  {
+   "a": "Blues",
+   "b": "Cartel",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.668,
+   "shape": 0.861,
+   "like": 0.765
+  },
+  {
+   "a": "Cartel",
+   "b": "Homeless",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.701,
+   "shape": 0.826,
+   "like": 0.764
+  },
+  {
+   "a": "Caravans",
+   "b": "Reds",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.693,
+   "shape": 0.832,
+   "like": 0.762
+  },
+  {
+   "a": "Anarchists",
+   "b": "Network",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.654,
+   "shape": 0.866,
+   "like": 0.76
+  },
+  {
+   "a": "Caravans",
+   "b": "Remnants",
+   "sameTier": true,
+   "region": false,
+   "colour": 0.787,
+   "shape": 0.733,
+   "like": 0.76
+  },
+  {
+   "a": "Cartel",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.674,
+   "shape": 0.829,
+   "like": 0.751
+  },
+  {
+   "a": "Cartel",
+   "b": "Custom",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.656,
+   "shape": 0.84,
+   "like": 0.748
+  },
+  {
+   "a": "Anarchists",
+   "b": "Mob",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.641,
+   "shape": 0.851,
+   "like": 0.746
+  },
+  {
+   "a": "Blues",
+   "b": "Network",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.635,
+   "shape": 0.857,
+   "like": 0.746
+  },
+  {
+   "a": "Blues",
+   "b": "Mob",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.634,
+   "shape": 0.845,
+   "like": 0.739
+  },
+  {
+   "a": "Homeless",
+   "b": "Mob",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.658,
+   "shape": 0.807,
+   "like": 0.732
+  },
+  {
+   "a": "Homeless",
+   "b": "Network",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.654,
+   "shape": 0.806,
+   "like": 0.73
+  },
+  {
+   "a": "Custom",
+   "b": "Mob",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.628,
+   "shape": 0.825,
+   "like": 0.727
+  },
+  {
+   "a": "Custom",
+   "b": "Network",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.628,
+   "shape": 0.822,
+   "like": 0.725
+  },
+  {
+   "a": "Mob",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.628,
+   "shape": 0.809,
+   "like": 0.718
+  },
+  {
+   "a": "Network",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.626,
+   "shape": 0.809,
+   "like": 0.718
+  },
+  {
+   "a": "Caravans",
+   "b": "Church",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.631,
+   "shape": 0.758,
+   "like": 0.694
+  },
+  {
+   "a": "Anarchists",
+   "b": "Caravans",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.576,
+   "shape": 0.762,
+   "like": 0.669
+  },
+  {
+   "a": "Blues",
+   "b": "Caravans",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.57,
+   "shape": 0.752,
+   "like": 0.661
+  },
+  {
+   "a": "Caravans",
+   "b": "Trades",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.652,
+   "shape": 0.67,
+   "like": 0.661
+  },
+  {
+   "a": "Caravans",
+   "b": "Colorful",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.657,
+   "shape": 0.647,
+   "like": 0.652
+  },
+  {
+   "a": "Caravans",
+   "b": "Homeless",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.616,
+   "shape": 0.659,
+   "like": 0.638
+  },
+  {
+   "a": "Caravans",
+   "b": "Volunteers",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.582,
+   "shape": 0.674,
+   "like": 0.628
+  },
+  {
+   "a": "Caravans",
+   "b": "Custom",
+   "sameTier": false,
+   "region": false,
+   "colour": 0.559,
+   "shape": 0.682,
+   "like": 0.62
+  }
+ ],
+ "err": null
+}

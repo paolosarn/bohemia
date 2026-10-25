@@ -9771,6 +9771,13 @@ GATES = [
      "ANIMATION [the PC playtest: the bodies' part], rule 164 items 21, 22, 31 (Paolo 10/24 on his PC: 'if they're using pistols they shouldn't look like they're holding rifles'; 'when they're in a building... they should look like they're in cover'). A pistol in one hand (rest, walk, fire, rocked), a man on a cover tile or a roof down on one knee behind it, the reload on his body; asked of the 96 men's pictures and of the real fight and the demo. Shipped 64c2139c; put in the suite 10/25 by the lane's next line.", True),
     ('THE THING IN HIS HAND', ['python3', 'gates/melee_in_hand_gate.py'],
      "ANIMATION [the PC playtest: the bodies' part], the next line (rule 164 item 31; the coordinator's order 10/25: melee weapons held right in the hand, the club, the bat, the pipe, the knife, the poacher's hatchet; idle, walk, the swing, the hit taken). Measured before: 225 of 360 men on sixteen real fights held a melee weapon and every one was drawn bare-fisted. The source's keys and slots; every prop on every key in eight facings, touching his body wherever it shows, swung up to his head and out in front of him, the tap across his middle; the real fight and the demo draw the melee idle with the thing in his fist. Three mutations caught.", True),
+    ('EVERY TOWN LOOKS ITS OWN', ['node', 'gates/every_town_looks_its_own_gate.js'],
+     "COOK gate, 10/25, row [every town looks its own] (rule 186(b), Paolo 10/25: 'every settlement has to look unique... they can borrow from each other, especially "
+     "in the same tier, but still they look the same... deep in the heart of the city it should give more city vibes') and line 8 of his list (rule 154, the towns "
+     "part of the map, never stickers; EYES 10/25: 'Blues on the map is a flag and a lot'). The demo's map, every home base and region place (48) drawn alone by "
+     "the game's painter and compared pair by pair (colour, what stands, heights, fullness): every pair under 0.85 (the old towns' colours alone reached 0.969); a "
+     "twin built the same way scores over it (the measure bites); every town built with its landmark, its lots on 0.55 of its ground; the heart twice as tall "
+     "as the edge, mostly concrete boxes; no flag over a painted town; no rainbow, never grey. About 2 min", True),
     ('THE NIGHT KEEPS ITS COLOUR', ['node', 'gates/the_night_keeps_its_colour_gate.js'],
      "COOK gate, 10/25, row [eyes: the night board] (rule 179; rule 167(a), Paolo 10/25: 'the combat map like went completely like almost like black and white... "
      "I was like how it was previously'; EYES 10/25: 'both night fights read almost black and white, grey-blue with pools of light blown out to white'). The fight "

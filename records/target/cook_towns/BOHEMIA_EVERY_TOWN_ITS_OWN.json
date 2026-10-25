@@ -1,0 +1,1254 @@
+{
+ "why": "COOK [every town looks its own], rule 186(b); slices/BOHEMIA_CITY_WORLD.html __EVERY_TOWN_ITS_OWN__ draws these on the map",
+ "made": "2026-10-25",
+ "towns": [
+  {
+   "name": "Anarchists",
+   "region": false,
+   "tier": "town",
+   "u": 0.19,
+   "stands": "the edge",
+   "trade": "stage",
+   "landmark": "stage:0",
+   "palette": {
+    "roof": "#6b6157",
+    "tin": "#888074",
+    "house_colour": "#695c4f",
+    "tarp": "#867c6c"
+   },
+   "what_stands": {
+    "stage": 1,
+    "plaza": 1,
+    "gable": 4,
+    "watch": 2,
+    "trailers": 2,
+    "shacks": 8,
+    "cont": 1
+   },
+   "mean_height_T": 1.98,
+   "filled": 0.855
+  },
+  {
+   "name": "Blues",
+   "region": false,
+   "tier": "town",
+   "u": 0.08,
+   "stands": "the edge",
+   "trade": "garden",
+   "landmark": "garden:0",
+   "palette": {
+    "roof": "#575655",
+    "tin": "#71726f",
+    "house_colour": "#566a8d",
+    "tarp": "#727372"
+   },
+   "what_stands": {
+    "garden": 5,
+    "plaza": 1,
+    "shacks": 4,
+    "gable": 4,
+    "cont": 2,
+    "trailers": 2,
+    "tents": 1
+   },
+   "mean_height_T": 1.27,
+   "filled": 0.834
+  },
+  {
+   "name": "Caravans",
+   "region": false,
+   "tier": "fortress",
+   "u": 0.08,
+   "stands": "the edge",
+   "trade": "truckstop",
+   "landmark": "truckstop:0",
+   "palette": {
+    "roof": "#5b5550",
+    "tin": "#74716a",
+    "house_colour": "#72685a",
+    "tarp": "#797267"
+   },
+   "what_stands": {
+    "truckstop": 1,
+    "plaza": 1,
+    "box": 9,
+    "watch": 3,
+    "tents": 1,
+    "cont": 10,
+    "trailers": 5,
+    "shacks": 7,
+    "gable": 3,
+    "lot": 4
+   },
+   "mean_height_T": 2.32,
+   "filled": 0.787
+  },
+  {
+   "name": "Cartel",
+   "region": false,
+   "tier": "fortress",
+   "u": 0.21,
+   "stands": "the edge",
+   "trade": "storage",
+   "landmark": "storage:0",
+   "palette": {
+    "roof": "#5f5d5c",
+    "tin": "#7a7a77",
+    "house_colour": "#605c5a",
+    "tarp": "#797770"
+   },
+   "what_stands": {
+    "storage": 1,
+    "plaza": 1,
+    "box": 17,
+    "yard": 1,
+    "cont": 14,
+    "shacks": 9,
+    "tents": 2,
+    "watch": 1,
+    "gable": 2,
+    "trailers": 2
+   },
+   "mean_height_T": 2.37,
+   "filled": 0.764
+  },
+  {
+   "name": "Church",
+   "region": false,
+   "tier": "town",
+   "u": 1,
+   "stands": "the heart of the city",
+   "trade": "chapel",
+   "landmark": "chapel:0",
+   "palette": {
+    "roof": "#7e7367",
+    "tin": "#9a9081",
+    "house_colour": "#7c7058",
+    "tarp": "#897d6b"
+   },
+   "what_stands": {
+    "chapel": 1,
+    "plaza": 1,
+    "lot": 2,
+    "box": 22,
+    "gable": 2,
+    "cont": 1
+   },
+   "mean_height_T": 5.52,
+   "filled": 0.963
+  },
+  {
+   "name": "Colorful",
+   "region": false,
+   "tier": "camp",
+   "u": 0.27,
+   "stands": "the edge",
+   "trade": "hall",
+   "landmark": "hall:0",
+   "palette": {
+    "roof": "#685f57",
+    "tin": "#837d73",
+    "house_colour": "#6d8855",
+    "tarp": "#827e6b"
+   },
+   "what_stands": {
+    "hall": 1,
+    "tents": 10,
+    "trailers": 3,
+    "shacks": 10,
+    "scrap": 1,
+    "watch": 1,
+    "yard": 1,
+    "cont": 3
+   },
+   "mean_height_T": 1.41,
+   "filled": 0.772
+  },
+  {
+   "name": "Custom",
+   "region": false,
+   "tier": "camp",
+   "u": 0.19,
+   "stands": "the edge",
+   "trade": "yard",
+   "landmark": "yard:0",
+   "palette": {
+    "roof": "#655c54",
+    "tin": "#807a70",
+    "house_colour": "#77736e",
+    "tarp": "#817a6c"
+   },
+   "what_stands": {
+    "yard": 4,
+    "trailers": 1,
+    "shacks": 2,
+    "tents": 2,
+    "cont": 1
+   },
+   "mean_height_T": 0.93,
+   "filled": 0.86
+  },
+  {
+   "name": "Homeless",
+   "region": false,
+   "tier": "camp",
+   "u": 0.19,
+   "stands": "the edge",
+   "trade": "tank",
+   "landmark": "tank:0",
+   "palette": {
+    "roof": "#5c5b5a",
+    "tin": "#777875",
+    "house_colour": "#857e77",
+    "tarp": "#626e7a"
+   },
+   "what_stands": {
+    "tank": 1,
+    "tents": 5,
+    "trailers": 1,
+    "shacks": 2,
+    "cont": 1,
+    "watch": 1
+   },
+   "mean_height_T": 1.61,
+   "filled": 0.86
+  },
+  {
+   "name": "Mob",
+   "region": false,
+   "tier": "fortress",
+   "u": 1,
+   "stands": "the heart of the city",
+   "trade": "casino",
+   "landmark": "casino:0",
+   "palette": {
+    "roof": "#766a5e",
+    "tin": "#908576",
+    "house_colour": "#615d5a",
+    "tarp": "#7d7263"
+   },
+   "what_stands": {
+    "casino": 1,
+    "plaza": 1,
+    "box": 20,
+    "lot": 4,
+    "gable": 2
+   },
+   "mean_height_T": 5.68,
+   "filled": 0.933
+  },
+  {
+   "name": "Network",
+   "region": false,
+   "tier": "fortress",
+   "u": 0.45,
+   "stands": "between",
+   "trade": "mast",
+   "landmark": "mast:0",
+   "palette": {
+    "roof": "#65605b",
+    "tin": "#807c75",
+    "house_colour": "#52887a",
+    "tarp": "#777a6f"
+   },
+   "what_stands": {
+    "mast": 1,
+    "plaza": 1,
+    "cont": 9,
+    "box": 24,
+    "shacks": 2,
+    "yard": 2,
+    "gable": 1
+   },
+   "mean_height_T": 3.74,
+   "filled": 0.822
+  },
+  {
+   "name": "Reds",
+   "region": false,
+   "tier": "town",
+   "u": 0.95,
+   "stands": "the heart of the city",
+   "trade": "bank",
+   "landmark": "bank:0",
+   "palette": {
+    "roof": "#746f6a",
+    "tin": "#908b84",
+    "house_colour": "#77564f",
+    "tarp": "#80776d"
+   },
+   "what_stands": {
+    "bank": 1,
+    "plaza": 1,
+    "box": 19,
+    "cont": 1,
+    "lot": 1
+   },
+   "mean_height_T": 5.55,
+   "filled": 0.929
+  },
+  {
+   "name": "Remnants",
+   "region": false,
+   "tier": "fortress",
+   "u": 0.22,
+   "stands": "the edge",
+   "trade": "prison",
+   "landmark": "prison:0",
+   "palette": {
+    "roof": "#615d5a",
+    "tin": "#7c7b76",
+    "house_colour": "#646456",
+    "tarp": "#7b786e"
+   },
+   "what_stands": {
+    "prison": 1,
+    "plaza": 1,
+    "gable": 12,
+    "watch": 2,
+    "shacks": 12,
+    "box": 8,
+    "cont": 4,
+    "yard": 2,
+    "tents": 1,
+    "trailers": 1
+   },
+   "mean_height_T": 2.23,
+   "filled": 0.764
+  },
+  {
+   "name": "Trades",
+   "region": false,
+   "tier": "camp",
+   "u": 0.27,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:0",
+   "palette": {
+    "roof": "#66605b",
+    "tin": "#827e76",
+    "house_colour": "#706154",
+    "tarp": "#81796d"
+   },
+   "what_stands": {
+    "works": 1,
+    "tents": 11,
+    "shacks": 8,
+    "scrap": 2,
+    "trailers": 3,
+    "watch": 3,
+    "cont": 3,
+    "yard": 1
+   },
+   "mean_height_T": 1.86,
+   "filled": 0.735
+  },
+  {
+   "name": "Volunteers",
+   "region": false,
+   "tier": "camp",
+   "u": 0.39,
+   "stands": "between",
+   "trade": "clinic",
+   "landmark": "clinic:0",
+   "palette": {
+    "roof": "#6e655d",
+    "tin": "#9b9589",
+    "house_colour": "#98948e",
+    "tarp": "#8b8376"
+   },
+   "what_stands": {
+    "clinic": 1,
+    "tents": 2,
+    "trailers": 2,
+    "shacks": 3,
+    "yard": 1,
+    "cont": 1
+   },
+   "mean_height_T": 1.39,
+   "filled": 0.85
+  },
+  {
+   "name": "BOULDER CITY",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "casino",
+   "landmark": "casino:1",
+   "palette": {
+    "roof": "#5e544a",
+    "tin": "#787064",
+    "house_colour": "#726868",
+    "tarp": "#7d7265"
+   },
+   "what_stands": {
+    "casino": 2,
+    "plaza": 1,
+    "box": 21,
+    "shacks": 7,
+    "cont": 3,
+    "gable": 5,
+    "tents": 4,
+    "lot": 3
+   },
+   "mean_height_T": 2.66,
+   "filled": 0.803
+  },
+  {
+   "name": "HOOVER DAM",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:1",
+   "palette": {
+    "roof": "#595149",
+    "tin": "#716c63",
+    "house_colour": "#766c62",
+    "tarp": "#786f63"
+   },
+   "what_stands": {
+    "works": 2,
+    "plaza": 1,
+    "gable": 4,
+    "shacks": 24,
+    "watch": 2,
+    "box": 9,
+    "cont": 13,
+    "scrap": 5,
+    "tents": 2,
+    "trailers": 1
+   },
+   "mean_height_T": 1.75,
+   "filled": 0.81
+  },
+  {
+   "name": "RAILROAD PASS",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "casino",
+   "landmark": "casino:0",
+   "palette": {
+    "roof": "#6d635b",
+    "tin": "#8b847a",
+    "house_colour": "#766c62",
+    "tarp": "#908677"
+   },
+   "what_stands": {
+    "casino": 1,
+    "box": 1,
+    "tents": 2,
+    "shacks": 2,
+    "trailers": 1
+   },
+   "mean_height_T": 1.62,
+   "filled": 0.86
+  },
+  {
+   "name": "LAKE LAS VEGAS",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "lodge",
+   "landmark": "lodge:1",
+   "palette": {
+    "roof": "#615142",
+    "tin": "#7a6c5b",
+    "house_colour": "#797162",
+    "tarp": "#80715c"
+   },
+   "what_stands": {
+    "lodge": 1,
+    "gable": 7,
+    "tents": 1,
+    "watch": 1,
+    "box": 3
+   },
+   "mean_height_T": 2.88,
+   "filled": 0.82
+  },
+  {
+   "name": "BOULDER BEACH",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "marina",
+   "landmark": "marina:0",
+   "palette": {
+    "roof": "#625447",
+    "tin": "#7b7061",
+    "house_colour": "#696c6f",
+    "tarp": "#7f7463"
+   },
+   "what_stands": {
+    "marina": 1,
+    "shacks": 12,
+    "scrap": 2,
+    "cont": 5,
+    "tents": 2,
+    "box": 2
+   },
+   "mean_height_T": 1.62,
+   "filled": 0.837
+  },
+  {
+   "name": "LAS VEGAS BAY",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "marina",
+   "landmark": "marina:0",
+   "palette": {
+    "roof": "#61564c",
+    "tin": "#7b7367",
+    "house_colour": "#6e716c",
+    "tarp": "#807768"
+   },
+   "what_stands": {
+    "marina": 1,
+    "shacks": 11,
+    "box": 2,
+    "tents": 3,
+    "scrap": 2,
+    "trailers": 1,
+    "cont": 1
+   },
+   "mean_height_T": 1.43,
+   "filled": 0.797
+  },
+  {
+   "name": "THE INTAKE",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:2",
+   "palette": {
+    "roof": "#645a52",
+    "tin": "#7f796e",
+    "house_colour": "#7b6e5f",
+    "tarp": "#857c6c"
+   },
+   "what_stands": {
+    "works": 2,
+    "plaza": 1,
+    "shacks": 10,
+    "cont": 14,
+    "box": 4,
+    "trailers": 1,
+    "scrap": 10,
+    "gable": 3,
+    "watch": 1
+   },
+   "mean_height_T": 1.48,
+   "filled": 0.79
+  },
+  {
+   "name": "ELDORADO SOLAR",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "solar",
+   "landmark": "solar:0",
+   "palette": {
+    "roof": "#64564a",
+    "tin": "#7e7465",
+    "house_colour": "#766c62",
+    "tarp": "#847665"
+   },
+   "what_stands": {
+    "solar": 2,
+    "plaza": 1,
+    "gable": 2,
+    "watch": 2,
+    "box": 10,
+    "cont": 24,
+    "shacks": 7,
+    "trailers": 3,
+    "yard": 3,
+    "tents": 2
+   },
+   "mean_height_T": 1.98,
+   "filled": 0.795
+  },
+  {
+   "name": "NELSON",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:2",
+   "palette": {
+    "roof": "#69594a",
+    "tin": "#847766",
+    "house_colour": "#7b6e5f",
+    "tarp": "#8a7a65"
+   },
+   "what_stands": {
+    "works": 1,
+    "trailers": 1,
+    "shacks": 2,
+    "tents": 1,
+    "cont": 1,
+    "scrap": 1
+   },
+   "mean_height_T": 1.29,
+   "filled": 0.82
+  },
+  {
+   "name": "APEX",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:1",
+   "palette": {
+    "roof": "#675a4e",
+    "tin": "#82786a",
+    "house_colour": "#696c6f",
+    "tarp": "#857b6b"
+   },
+   "what_stands": {
+    "works": 1,
+    "box": 2,
+    "shacks": 4,
+    "tents": 3,
+    "cont": 7,
+    "trailers": 1,
+    "scrap": 1
+   },
+   "mean_height_T": 1.52,
+   "filled": 0.813
+  },
+  {
+   "name": "APEX LANDFILL",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "scrap",
+   "landmark": "scrap:0",
+   "palette": {
+    "roof": "#736353",
+    "tin": "#918472",
+    "house_colour": "#726868",
+    "tarp": "#948471"
+   },
+   "what_stands": {
+    "scrap": 11,
+    "tents": 7,
+    "cont": 3,
+    "trailers": 1,
+    "box": 2,
+    "shacks": 5,
+    "watch": 1
+   },
+   "mean_height_T": 1.22,
+   "filled": 0.762
+  },
+  {
+   "name": "SLOAN",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:1",
+   "palette": {
+    "roof": "#6a5848",
+    "tin": "#857664",
+    "house_colour": "#7b6e5f",
+    "tarp": "#8a7963"
+   },
+   "what_stands": {
+    "works": 1,
+    "cont": 2,
+    "scrap": 2,
+    "tents": 3,
+    "yard": 1,
+    "shacks": 1
+   },
+   "mean_height_T": 0.99,
+   "filled": 0.82
+  },
+  {
+   "name": "JEAN",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "marina",
+   "landmark": "marina:2",
+   "palette": {
+    "roof": "#6b5b4c",
+    "tin": "#877a69",
+    "house_colour": "#6e716c",
+    "tarp": "#8a7d69"
+   },
+   "what_stands": {
+    "marina": 1,
+    "cont": 3,
+    "shacks": 2,
+    "trailers": 1,
+    "scrap": 3,
+    "tents": 1
+   },
+   "mean_height_T": 1.07,
+   "filled": 0.82
+  },
+  {
+   "name": "GOODSPRINGS",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:0",
+   "palette": {
+    "roof": "#6a6057",
+    "tin": "#888175",
+    "house_colour": "#7b6e5f",
+    "tarp": "#8d8372"
+   },
+   "what_stands": {
+    "works": 1,
+    "tents": 1,
+    "cont": 2,
+    "shacks": 3
+   },
+   "mean_height_T": 1.52,
+   "filled": 0.82
+  },
+  {
+   "name": "SANDY VALLEY",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "trailers",
+   "landmark": "trailers:1",
+   "palette": {
+    "roof": "#5c5045",
+    "tin": "#746b5e",
+    "house_colour": "#726868",
+    "tarp": "#7a6e5f"
+   },
+   "what_stands": {
+    "trailers": 5,
+    "cont": 1,
+    "shacks": 4,
+    "box": 1
+   },
+   "mean_height_T": 1.67,
+   "filled": 0.85
+  },
+  {
+   "name": "BLUE DIAMOND",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:2",
+   "palette": {
+    "roof": "#675d53",
+    "tin": "#837c70",
+    "house_colour": "#696c6f",
+    "tarp": "#877e70"
+   },
+   "what_stands": {
+    "works": 1,
+    "cont": 1,
+    "shacks": 3,
+    "scrap": 1,
+    "watch": 1,
+    "tents": 1
+   },
+   "mean_height_T": 2.03,
+   "filled": 0.89
+  },
+  {
+   "name": "RED ROCK",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "lodge",
+   "landmark": "lodge:1",
+   "palette": {
+    "roof": "#58514a",
+    "tin": "#716c63",
+    "house_colour": "#696c6f",
+    "tarp": "#766f65"
+   },
+   "what_stands": {
+    "lodge": 1,
+    "shacks": 3,
+    "tents": 2,
+    "box": 1,
+    "gable": 1,
+    "trailers": 1,
+    "cont": 1,
+    "yard": 1
+   },
+   "mean_height_T": 1.52,
+   "filled": 0.86
+  },
+  {
+   "name": "MT CHARLESTON LODGE",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "lodge",
+   "landmark": "lodge:2",
+   "palette": {
+    "roof": "#5d544b",
+    "tin": "#777065",
+    "house_colour": "#766c62",
+    "tarp": "#7d7365"
+   },
+   "what_stands": {
+    "lodge": 1,
+    "shacks": 4,
+    "cont": 1,
+    "tents": 1
+   },
+   "mean_height_T": 1.45,
+   "filled": 0.82
+  },
+  {
+   "name": "CORN CREEK",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "lodge",
+   "landmark": "lodge:0",
+   "palette": {
+    "roof": "#6c5e50",
+    "tin": "#887d6d",
+    "house_colour": "#726868",
+    "tarp": "#8d7e6c"
+   },
+   "what_stands": {
+    "lodge": 1,
+    "gable": 9,
+    "shacks": 6,
+    "cont": 1,
+    "trailers": 3,
+    "tents": 3
+   },
+   "mean_height_T": 1.69,
+   "filled": 0.763
+  },
+  {
+   "name": "TULE SPRINGS",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "lodge",
+   "landmark": "lodge:2",
+   "palette": {
+    "roof": "#605246",
+    "tin": "#796e60",
+    "house_colour": "#6e716c",
+    "tarp": "#7d7362"
+   },
+   "what_stands": {
+    "lodge": 1,
+    "trailers": 5,
+    "shacks": 2,
+    "gable": 13,
+    "tents": 5,
+    "box": 3,
+    "watch": 2,
+    "cont": 1
+   },
+   "mean_height_T": 2.36,
+   "filled": 0.792
+  },
+  {
+   "name": "GYPSUM CAVE",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "bigbox",
+   "landmark": "bigbox:0",
+   "palette": {
+    "roof": "#685d54",
+    "tin": "#847d71",
+    "house_colour": "#726868",
+    "tarp": "#887e70"
+   },
+   "what_stands": {
+    "bigbox": 1,
+    "lot": 11,
+    "box": 8,
+    "trailers": 1,
+    "tents": 6,
+    "cont": 2,
+    "watch": 1,
+    "shacks": 1
+   },
+   "mean_height_T": 1.4,
+   "filled": 0.75
+  },
+  {
+   "name": "INDIAN SPRINGS",
+   "region": true,
+   "tier": "town",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "truckstop",
+   "landmark": "truckstop:2",
+   "palette": {
+    "roof": "#685f58",
+    "tin": "#857f76",
+    "house_colour": "#7b6e5f",
+    "tarp": "#8a8273"
+   },
+   "what_stands": {
+    "truckstop": 1,
+    "plaza": 1,
+    "box": 1,
+    "shacks": 2,
+    "trailers": 2,
+    "cont": 2,
+    "lot": 1
+   },
+   "mean_height_T": 1.28,
+   "filled": 0.911
+  },
+  {
+   "name": "CREECH",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "hangars",
+   "landmark": "hangars:0",
+   "palette": {
+    "roof": "#655c55",
+    "tin": "#817c72",
+    "house_colour": "#726868",
+    "tarp": "#877e71"
+   },
+   "what_stands": {
+    "hangars": 2,
+    "plaza": 1,
+    "box": 29,
+    "tents": 3,
+    "cont": 13,
+    "trailers": 3,
+    "shacks": 11,
+    "gable": 7,
+    "watch": 2
+   },
+   "mean_height_T": 2.78,
+   "filled": 0.778
+  },
+  {
+   "name": "MERCURY",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "prison",
+   "landmark": "prison:1",
+   "palette": {
+    "roof": "#6c5c4e",
+    "tin": "#887c6b",
+    "house_colour": "#7b6e5f",
+    "tarp": "#8e7e69"
+   },
+   "what_stands": {
+    "prison": 2,
+    "plaza": 1,
+    "cont": 18,
+    "box": 18,
+    "yard": 2,
+    "trailers": 1,
+    "shacks": 5,
+    "watch": 1,
+    "gable": 3
+   },
+   "mean_height_T": 2.4,
+   "filled": 0.806
+  },
+  {
+   "name": "PAHRUMP",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "suburbs",
+   "landmark": "suburbs:0",
+   "palette": {
+    "roof": "#675d53",
+    "tin": "#837c70",
+    "house_colour": "#766c62",
+    "tarp": "#897e6e"
+   },
+   "what_stands": {
+    "suburbs": 2,
+    "plaza": 1,
+    "gable": 21,
+    "box": 8,
+    "trailers": 3,
+    "yard": 4,
+    "shacks": 7,
+    "cont": 8,
+    "watch": 1
+   },
+   "mean_height_T": 2.19,
+   "filled": 0.802
+  },
+  {
+   "name": "PRIMM",
+   "region": true,
+   "tier": "town",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "casino",
+   "landmark": "casino:2",
+   "palette": {
+    "roof": "#6f5f51",
+    "tin": "#8c7f6f",
+    "house_colour": "#766c62",
+    "tarp": "#90826d"
+   },
+   "what_stands": {
+    "casino": 1,
+    "plaza": 1,
+    "lot": 4,
+    "box": 6,
+    "cont": 2,
+    "gable": 1,
+    "watch": 2,
+    "shacks": 3,
+    "trailers": 1,
+    "tents": 1
+   },
+   "mean_height_T": 1.83,
+   "filled": 0.833
+  },
+  {
+   "name": "IVANPAH SOLAR",
+   "region": true,
+   "tier": "fortress",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "solar",
+   "landmark": "solar:1",
+   "palette": {
+    "roof": "#685b4f",
+    "tin": "#847a6b",
+    "house_colour": "#696c6f",
+    "tarp": "#877c6c"
+   },
+   "what_stands": {
+    "solar": 2,
+    "plaza": 1,
+    "watch": 3,
+    "shacks": 11,
+    "cont": 13,
+    "trailers": 3,
+    "box": 11,
+    "gable": 2,
+    "yard": 2,
+    "tents": 2
+   },
+   "mean_height_T": 2.27,
+   "filled": 0.806
+  },
+  {
+   "name": "MOAPA",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "trailers",
+   "landmark": "trailers:0",
+   "palette": {
+    "roof": "#5e544c",
+    "tin": "#787166",
+    "house_colour": "#696c6f",
+    "tarp": "#7c7567"
+   },
+   "what_stands": {
+    "trailers": 12,
+    "cont": 3,
+    "tents": 4
+   },
+   "mean_height_T": 1.49,
+   "filled": 0.82
+  },
+  {
+   "name": "SEARCHLIGHT",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "works",
+   "landmark": "works:0",
+   "palette": {
+    "roof": "#5b5149",
+    "tin": "#736c62",
+    "house_colour": "#6e716c",
+    "tarp": "#787163"
+   },
+   "what_stands": {
+    "works": 1,
+    "trailers": 1,
+    "scrap": 4,
+    "yard": 1,
+    "cont": 2,
+    "shacks": 1
+   },
+   "mean_height_T": 0.91,
+   "filled": 0.87
+  },
+  {
+   "name": "VALLEY OF FIRE",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "bigbox",
+   "landmark": "bigbox:1",
+   "palette": {
+    "roof": "#6a5f54",
+    "tin": "#877f72",
+    "house_colour": "#696c6f",
+    "tarp": "#8b8172"
+   },
+   "what_stands": {
+    "bigbox": 1,
+    "shacks": 4,
+    "tents": 2,
+    "box": 1,
+    "lot": 2,
+    "watch": 1,
+    "trailers": 1
+   },
+   "mean_height_T": 1.73,
+   "filled": 0.85
+  },
+  {
+   "name": "ECHO BAY",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "marina",
+   "landmark": "marina:1",
+   "palette": {
+    "roof": "#6e5d4d",
+    "tin": "#8a7c6a",
+    "house_colour": "#7b6e5f",
+    "tarp": "#907e68"
+   },
+   "what_stands": {
+    "marina": 1,
+    "shacks": 10,
+    "yard": 1,
+    "box": 2,
+    "tents": 2,
+    "watch": 1,
+    "scrap": 2,
+    "trailers": 1,
+    "cont": 1
+   },
+   "mean_height_T": 1.67,
+   "filled": 0.773
+  },
+  {
+   "name": "GLENDALE",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "truckstop",
+   "landmark": "truckstop:1",
+   "palette": {
+    "roof": "#685c52",
+    "tin": "#847b6f",
+    "house_colour": "#6e716c",
+    "tarp": "#887f6f"
+   },
+   "what_stands": {
+    "truckstop": 1,
+    "trailers": 2,
+    "watch": 1,
+    "cont": 2,
+    "lot": 1
+   },
+   "mean_height_T": 1.74,
+   "filled": 0.82
+  },
+  {
+   "name": "OVERTON",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "lodge",
+   "landmark": "lodge:0",
+   "palette": {
+    "roof": "#705f4f",
+    "tin": "#8d7f6d",
+    "house_colour": "#797162",
+    "tarp": "#91816b"
+   },
+   "what_stands": {
+    "lodge": 1,
+    "trailers": 2,
+    "gable": 4,
+    "tents": 2,
+    "shacks": 2,
+    "cont": 1
+   },
+   "mean_height_T": 1.86,
+   "filled": 0.82
+  },
+  {
+   "name": "GASS PEAK",
+   "region": true,
+   "tier": "camp",
+   "u": 0,
+   "stands": "the edge",
+   "trade": "hilltown",
+   "landmark": "hilltown:0",
+   "palette": {
+    "roof": "#6f6256",
+    "tin": "#8d8374",
+    "house_colour": "#766c62",
+    "tarp": "#918471"
+   },
+   "what_stands": {
+    "hilltown": 1,
+    "shacks": 3,
+    "trailers": 1,
+    "tents": 1,
+    "cont": 1,
+    "gable": 3
+   },
+   "mean_height_T": 1.68,
+   "filled": 0.87
+  }
+ ]
+}

@@ -46643,6 +46643,211 @@ var VB_TOWNS = { on: true, list: null, key: '', pal: null };
 window.VB_TOWNS = VB_TOWNS;
 /* a colour a painter part (rule 159: concrete, rust, grey tarp, plywood; no hue but the faction's, faded); 0 is the fires' light at night */
 var VB_TOWN_PAL = { 0: '#d0833f', 1: '#8b8984', 2: '#5e6467', 4: '#6b5243', 5: '#6f6858', 6: '#3d3a37', 8: '#36332f', 9: '#7a746c', 10: '#65686a', 13: '#2c2926', 14: '#7f7568', 15: '#6d5d54' };
+/* ==== __EVERY_TOWN_ITS_OWN__ (COOK 10/25/26, rule 186(b) and line 8 of his list (rule 154); Paolo 10/25: 'every settlement has
+   to look unique and different a little bit... they can borrow from each other, especially if they're in the same tier, but
+   still... a settlement that's deep in the heart of the city should give more city vibes'; EYES 10/25: 'Blues on the map is a
+   flag and a lot inside the blocks'). MEASURED on BUILD 10/25 (tools/bohemia_cook_every_town_its_own_10_25_26.js): a town was
+   the city's own suburb houses inside a ring (a fortress's concrete, a town's junk, a camp's wrecks) with a cleared band round
+   it and a flag standing over it; a camp was a cleared lot with a few tents round a fire. Inside the ring Blues, Custom,
+   Trades and Colorful were the same suburb.
+   NOW every home base, and every place on the region's land, is BUILT FROM ITS OWN PLAN, rolled once on its name:
+   - WHERE IT STANDS: u, the city's weight in the nine by nine blocks round it (towers, casinos and the Strip heavy, works and
+     shops middling, a suburb light, the street not counted). The heart (u >= 0.6): concrete boxes four to nine storeys wall to
+     wall on tight lots, plant and tanks and a sign on the roofs, an awning on the street. The edge (u < 0.3): low houses and
+     shacks in their own yards, trailers, tents, the dirt between. Between, the two mixed.
+   - ITS TIER: a fortress dense and walled, a town ringed, a camp loose, its edge running out into the lots round it.
+   - ITS FACTION: its own colour, faded (rule 159), on a share of its tarps, awnings and roofs; never a whole town painted.
+   - ITS TRADE: one landmark it is known by, on its middle block (the Church's steeple, the Network's mast and dishes, the
+     Remnants' cell blocks and guard towers, the Mob's casino tower, the Caravans' semis under a canopy, the Cartel's storage
+     rows behind a wall, the Homeless' tank over the tunnel mouths, the Trades' sawtooth shop and crane, the Volunteers' clinic
+     and its pad, the Reds' bank tower, the Blues' gardens and greenhouses, the Anarchists' stage in a ring of burnt cars, the
+     Colorful's hall, the player's own yard and shop; out on the region, by its kind and what it was).
+   - ITS PALETTE: its own materials from where it stands (the heart's concrete, tar and glass; the edge's stucco, tin and
+     plywood), its own value and a little warm or cool, rolled on its name.
+   The plan is data: VB_TOWNS.list[i].plan {L, g (the town's q-grid, a lot's index or -1), b (the lots)} and .pal; the painter
+   only draws it (twLand in vbCityCore). records/target/cook_towns/BOHEMIA_EVERY_TOWN_ITS_OWN.json carries every town's look
+   for RUN TWO's settlement screens. No flag stands in for a town: its name and its people at the gate say whose it is. ==== */
+var VB_TOWN_V = 'e11';
+var VB_TOWN_TRADE = { REDS: 'bank', BLUES: 'garden', ANARCHISTS: 'stage', CARAVANS: 'truckstop', CARTEL: 'storage', CHURCH: 'chapel', COLORFUL: 'hall',
+  CUSTOM: 'yard', HOMELESS: 'tank', MOB: 'casino', NETWORK: 'mast', REMNANTS: 'prison', TRADES: 'works', VOLUNTEERS: 'clinic' };
+var VB_REGION_TRADE = { freeway: 'truckstop', trailer_park: 'trailers', golf_and_park: 'lodge', lot_and_bigbox: 'bigbox', wash_and_shore: 'marina',
+  hills: 'hilltown', solar_and_pumps: 'solar', industrial: 'works', landfill: 'scrap', airport: 'hangars', suburb_block: 'suburbs' };
+/* the city's weight of a block, for u (a works or a shop block middling, an apartment block heavier than a house) */
+var VB_TOWN_W = { tower: 1, casino: 1, blvd: 0.85, roof: 0.55, shop: 0.5, works: 0.5, apartment: 0.6, houses: 0.18, estate: 0.12, gated: 0.15, trailer: 0.1,
+  green: 0.15, freeway: 0.3, rail: 0.2, water: 0.1, solar: 0.05, lot: 0.3, land: 0, field: 0, mountain: 0, dam: 0 };
+var VB_TOWN_K = { box: 1, gable: 2, shacks: 3, trailers: 4, tents: 5, cont: 6, yard: 7, garden: 8, plaza: 9, lot: 10, scrap: 11, watch: 12, mark: 20 };
+/* a landmark's code (k = 20 + its index) */
+var VB_TOWN_MARKS = ['chapel', 'mast', 'prison', 'casino', 'truckstop', 'storage', 'tank', 'works', 'clinic', 'bank', 'garden', 'stage', 'hall', 'yard',
+  'trailers', 'lodge', 'bigbox', 'marina', 'hilltown', 'solar', 'scrap', 'hangars', 'suburbs'];
+/* rule 159: material, value and wear, never hue. Top (the roof, 0..15 by part) and wall (16 + part). */
+var VB_TOWN_MAT = {
+  heart: { 1: '#736c64', 2: '#8e877d', 4: '#6a5245', 10: '#5a5d5f', 15: '#7f776b', 17: '#837a6f', 18: '#68625a', 20: '#5c4a40', 26: '#4e5153', 31: '#726b61' },   /* Las Vegas concrete: warm, sun-bleached, never the grey of a drained picture (167(b)) */
+  edge:  { 1: '#5f5954', 2: '#7a7770', 4: '#6e5340', 10: '#7a684f', 15: '#827c70', 17: '#8c8170', 18: '#6f6c66', 20: '#5f4838', 26: '#6c5b45', 31: '#746e63' } };
+var VB_TOWN_FIX = { 0: '#d0833f', 5: '#8f8b83', 6: '#3a3734', 8: '#36332f', 9: '#7a746c', 13: '#2c2926', 14: '#8a867e' };
+/* the region's places have no faction: a paint the sun took, one of a few, by name */
+var VB_TOWN_SUNPAINT = ['#7d6a55', '#68706b', '#7a6f5a', '#6e6064', '#76675a', '#5f6870'];
+function vbTownHash(s){ var h = 2166136261; s = String(s); for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function vbTownRng(seed){ var s = (seed >>> 0) || 1; return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+/* where it stands: u (0 the open edge .. 1 the heart) and des (the open ground's share) in the nine by nine blocks round it */
+function vbTownWhere(bx, by){
+  var CN = {}, k; for (k in VB_CLASS) CN[VB_CLASS[k]] = k;
+  var HS = { 1: 'estate', 2: 'gated', 3: 'trailer', 4: 'apartment' }, RS = { 1: 'shop', 2: 'works' }, w = 0, tot = 0, des = 0, all = 0;
+  for (var dy = -4; dy <= 4; dy++) for (var dx = -4; dx <= 4; dx++) {
+    var t = null; try { t = om.at(bx + dx, by + dy); } catch (_e) {} if (!t) continue;
+    var d = t.district, c = CN[vbClassOf(d)], s = vbSubOf(d); all++;
+    if (c === 'land' || c === 'field' || c === 'mountain') des++;
+    if (!c || c === 'road') continue;
+    var key = c === 'houses' && s ? HS[s] || c : c === 'roof' && s ? RS[s] || c : c, wt = VB_TOWN_W[key];
+    tot++; w += wt == null ? 0.18 : wt; }
+  var m = tot ? w / tot : 0;
+  return { u: Math.max(0, Math.min(1, (m - 0.15) / 0.4)), des: all ? des / all : 0 };
+}
+function vbTownPal(u, acc, seed, trade, wide){
+  var R = vbTownRng(seed ^ 0x51ed), pal = [], val = (wide ? 0.88 : 0.93) + (wide ? 0.24 : 0.14) * R(), warm = wide ? 2 + R() * 10 : (R() - 0.5) * 9;   /* out on the land a place runs warm, as the desert lets it, never cold */
+  var cl = function (v){ return Math.max(0, Math.min(255, Math.round(v))); };
+  for (var p = 0; p < 32; p++) {
+    var h = VB_TOWN_MAT.heart[p], e = VB_TOWN_MAT.edge[p], c = null;
+    if (h && e) { var a = vbHex(e), b = vbHex(h); c = [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u]; c = [c[0] * val + warm, c[1] * val, c[2] * val - warm]; }
+    else if (VB_TOWN_FIX[p]) c = vbHex(VB_TOWN_FIX[p]);
+    pal.push(c ? c.map(cl) : null);
+  }
+  pal[3] = acc.slice(); pal[12] = acc.map(function (v){ return cl(v * 1.12 + 8); }); pal[19] = acc.map(function (v){ return cl(v * 0.84); });
+  pal[15] = pal[15].map(function (v, i){ return cl(v * 0.86 + acc[i] * 0.14); });   /* the tarps carry a little of whose they are */
+  pal[28] = [88, 90, 92];   /* a mast's steel */
+  if (trade === 'garden') pal[9] = [92, 90, 70];   /* the beds: dry soil and what still grows in it, dull */
+  if (trade === 'clinic') pal[2] = pal[2].map(function (v){ return cl(v * 1.08 + 6); });   /* a clinic's roof the palest in the valley, never white */
+  if (trade === 'tank') pal[15] = [98, 110, 122];   /* the camp under the tank: the blue tarp every encampment in the valley lives under, sun-faded */
+  for (var q = 1; q < 16; q++) if (!pal[16 + q] && pal[q]) pal[16 + q] = pal[q].map(function (v){ return cl(v * 0.88); });
+  return pal;
+}
+/* THE PLAN: the town's q-grid (12 q a block), its lots and what stands on each. o: { name, n, tier (1 fortress 2 town 3 camp),
+   u, trade, road (n * n: 1 where no lot goes), seed } */
+function vbTownPlan(o){
+  var n = o.n, L = n * 12, g = new Int16Array(L * L).fill(-1), b = [], R = vbTownRng(o.seed), u = o.u, tier = o.tier, tr = o.trade, K = VB_TOWN_K;
+  var IN = tier === 1 ? 5 : tier === 2 ? 4 : 1;   /* in from the town's edge: the wall and the walk behind it (twPaint's w2) */
+  function put(x0, y0, x1, y1, k, ex){
+    x0 = Math.max(IN, x0 | 0); y0 = Math.max(IN, y0 | 0); x1 = Math.min(L - IN, x1 | 0); y1 = Math.min(L - IN, y1 | 0);
+    if (x1 - x0 < 1 || y1 - y0 < 1) return null;
+    for (var y = y0; y < y1; y++) for (var x = x0; x < x1; x++) if (g[y * L + x] >= 0) return null;
+    var q = { x0: x0, y0: y0, x1: x1, y1: y1, k: k, h: 0, m: 1, ax: (x1 - x0) >= (y1 - y0) ? 1 : 0, s: (R() * 1e9) >>> 0, f: R() < 0.5 ? 1 : 0, acc: 0, b: 0 };
+    if (ex) for (var e in ex) q[e] = ex[e];
+    var i = b.length; b.push(q);
+    for (var yy = y0; yy < y1; yy++) for (var xx = x0; xx < x1; xx++) g[yy * L + xx] = i;
+    return q;
+  }
+  var blocks = [];
+  for (var j = 0; j < n; j++) for (var i = 0; i < n; i++) if (!o.road[j * n + i]) {
+    var B = { i: i, j: j, x0: Math.max(IN, i * 12 + 1), y0: Math.max(IN, j * 12 + 1), x1: Math.min(L - IN, i * 12 + 11), y1: Math.min(L - IN, j * 12 + 11) };
+    if (B.x1 - B.x0 >= 2 && B.y1 - B.y0 >= 2) blocks.push(B); }
+  var mid = (n - 1) / 2;
+  blocks.forEach(function (B){ B.d = Math.hypot(B.i - mid, B.j - mid) - (B.x1 - B.x0) * (B.y1 - B.y0) / 1000 + R() * 0.01; });
+  blocks.sort(function (p, q){ return p.d - q.d; });
+  /* the landmark: the trade's own, on the block nearest the middle */
+  var mk = VB_TOWN_MARKS.indexOf(tr), nMark = o.region && tier === 1 ? 2 : 1;   /* a fortress out on the land: its trade on two blocks */
+  for (var mb = 0; mb < Math.min(nMark, blocks.length) && mk >= 0; mb++) { var MB = blocks[mb];
+    if (tier === 3 && blocks.length < 2) {   /* a camp on one block: its landmark takes half, its own lots the other half (one block all landmark: three camps read the same) */
+      var hx = R() < 0.5, mw = MB.x1 - MB.x0, mh = MB.y1 - MB.y0, lo = R() < 0.5;
+      if (hx) put(lo ? MB.x0 : MB.x0 + (mw >> 1), MB.y0, lo ? MB.x0 + (mw >> 1) + 1 : MB.x1, MB.y1, K.mark + mk, { mk: tr, v: o.v | 0 });
+      else put(MB.x0, lo ? MB.y0 : MB.y0 + (mh >> 1), MB.x1, lo ? MB.y0 + (mh >> 1) + 1 : MB.y1, K.mark + mk, { mk: tr, v: o.v | 0 });
+    } else put(MB.x0, MB.y0, MB.x1, MB.y1, K.mark + mk, { mk: tr, v: o.v | 0 }); }
+  /* the lots, the rest: what stands on them from where the town stands, its tier and its trade */
+  /* a town is fuller than the city round it: its lots filled wall to wall with what was built and brought in, a watch post
+     standing up here and there; the suburb keeps its yards (EYES 10/25: a town that is the suburb inside a ring reads as a lot) */
+  var W = tier === 3 ? { tents: 3, shacks: 3, trailers: 1.4, cont: 1, yard: 0.5, scrap: 0.4, watch: 0.4 }
+        : u >= 0.6 ? { box: 7, lot: 0.6, cont: 0.4, gable: 0.3 }
+        : u >= 0.3 ? { box: 3, gable: 1.4, cont: 1.2, shacks: 1.3, yard: 0.4, tents: 0.3, watch: 0.5 }
+        : { gable: 1.8, box: 0.8, shacks: 2.6, trailers: 0.8, cont: 1.2, tents: 0.6, yard: 0.5, watch: 0.6 };
+  var bias = { tank: { tents: 4, shacks: 1 }, truckstop: { cont: 2, trailers: 2, lot: 1 }, storage: { cont: 2.5, box: 1 }, garden: { garden: 3, gable: 0.5 },
+    stage: { shacks: 1, scrap: 1, gable: 0.5 }, works: { scrap: 1.5, shacks: 1, cont: 1 }, prison: { box: 2, cont: 1 }, clinic: { tents: 2, box: 0.5 },
+    chapel: { gable: 1, plaza: 0.3 }, casino: { box: 1, lot: 0.5 }, mast: { box: 1.2 }, hall: { tents: 1.5, gable: 0.5 }, yard: { cont: 1, yard: 1 },
+    trailers: { trailers: 4 }, lodge: { gable: 2 }, bigbox: { lot: 2, box: 1 }, marina: { shacks: 2, scrap: 1 }, hilltown: { gable: 2 }, solar: { cont: 1, yard: 1 },
+    scrap: { scrap: 3 }, hangars: { box: 1.5, cont: 1 }, suburbs: { gable: 2, yard: 1 } }[tr] || {};
+  for (var bk in bias) W[bk] = (W[bk] || 0) + bias[bk];
+  if (tier === 1) W.box = (W.box || 0) + 1.5;   /* a fortress builds solid */
+  if (o.region) { for (var rb in bias) W[rb] = (W[rb] || 0) + 2 * bias[rb];   /* out on the region's land a place is what it does */
+    W.yard = (W.yard || 0) * 0.25; W.scrap = (W.scrap || 0) * 0.5; W.box = (W.box || 0) + 1; W.cont = (W.cont || 0) + 0.8; }   /* and built: a fenced yard or a scrap heap at that distance is bare desert inside a wall */
+  var kinds = Object.keys(W), tot = kinds.reduce(function (s, k){ return s + W[k]; }, 0);
+  var pAcc = tr === 'hall' ? 0.3 : tr === 'garden' || tr === 'mast' ? 0.17 : 0.1, pBurn = tr === 'stage' ? 0.2 : 0.06;
+  var maxLot = tier === 3 ? 3 : u >= 0.6 ? 6 : u >= 0.3 ? 5 : 4, alley = u >= 0.6 ? 0.3 : 0.85;
+  function leaf(x0, y0, x1, y1){
+    var x = R() * tot, k = kinds[kinds.length - 1]; for (var t = 0; t < kinds.length; t++) { x -= W[kinds[t]]; if (x <= 0) { k = kinds[t]; break; } }
+    var w = x1 - x0, h = y1 - y0, ex = { acc: R() < pAcc ? 1 : 0, b: R() < pBurn ? 1 : 0 };
+    if (k === 'box') { ex.h = u >= 0.6 ? 4 + Math.floor(R() * 6) : u >= 0.3 ? 3 + Math.floor(R() * 3) : 2 + R() * 1.4; if (tier === 1) ex.h += 1.5; ex.m = R() < 0.55 ? 1 : 2;
+      if (u >= 0.3 && R() < 0.4) ex.aw = Math.floor(R() * 4); if (u >= 0.6 && R() < 0.3) ex.sg = 1; }
+    else if (k === 'gable') { ex.h = R() < 0.3 ? 3.5 : 2; ex.r = 1.6; ex.m = R() < 0.5 ? 1 : 2;
+      if (u < 0.6 && w >= 3 && h >= 3 && R() < 0.3) { if (R() < 0.5) x0++; else x1--; } }   /* now and then a house kept its yard */
+    else if (k === 'watch') { ex.h = 5 + R() * 1.5; ex.acc = R() < 0.4 ? 1 : 0; }
+    else if (k === 'tents' || k === 'shacks' || k === 'trailers' || k === 'cont' || k === 'scrap') ex.acc = 0;
+    put(x0, y0, x1, y1, K[k], ex);
+  }
+  function lots(x0, y0, x1, y1, dep){
+    var w = x1 - x0, h = y1 - y0; if (w < 1 || h < 1) return;
+    if ((w <= maxLot && h <= maxLot) || dep > 7 || (w < 4 && h < 4)) { leaf(x0, y0, x1, y1); return; }
+    var alongX = w > h || (w === h && R() < 0.5), span = alongX ? w : h, gap = R() < alley ? 1 : 0;
+    if (span < 4 + gap) { leaf(x0, y0, x1, y1); return; }
+    var cut = 2 + Math.floor(R() * (span - 3 - gap));
+    if (alongX) { lots(x0, y0, x0 + cut, y1, dep + 1); lots(x0 + cut + gap, y0, x1, y1, dep + 1); }
+    else { lots(x0, y0, x1, y0 + cut, dep + 1); lots(x0, y0 + cut + gap, x1, y1, dep + 1); }
+  }
+  if (tier !== 3 && blocks.length > nMark) { var B1 = blocks[nMark], pw = Math.min(5, B1.x1 - B1.x0), ph = Math.min(5, B1.y1 - B1.y0), px0 = R() < 0.5 ? B1.x0 : B1.x1 - pw, py0 = R() < 0.5 ? B1.y0 : B1.y1 - ph;
+    put(px0, py0, px0 + pw, py0 + ph, K.plaza); }   /* the market square: a fire in a drum, the stalls round it */
+  blocks.forEach(function (B, bi){ if (bi < nMark && mk >= 0 && !(tier === 3 && blocks.length < 2)) return;
+    /* the lots round what is already set (the market): the block cut in two along the set piece's side */
+    var x0 = B.x0, y0 = B.y0, x1 = B.x1, y1 = B.y1, hit = null;
+    for (var y = y0; y < y1 && !hit; y++) for (var x = x0; x < x1; x++) if (g[y * L + x] >= 0) { hit = b[g[y * L + x]]; break; }
+    if (!hit) { lots(x0, y0, x1, y1, 0); return; }
+    if (hit.x0 > x0) lots(x0, y0, hit.x0, y1, 1); if (hit.x1 < x1) lots(hit.x1, y0, x1, y1, 1);
+    lots(Math.max(x0, hit.x0), y0, Math.min(x1, hit.x1), hit.y0, 1); lots(Math.max(x0, hit.x0), hit.y1, Math.min(x1, hit.x1), y1, 1); });
+  return { L: L, g: g, b: b, road: o.road.slice(), IN: IN };
+}
+/* a landmark's variant, taken IN TURN by every place of the same trade (by name), so two places of one trade never share one
+   (rolled at random, the dam and the intake both drew the powerhouse). Read only from what never changes while the game runs:
+   the home bases' trades (VB_TOWN_TRADE) first, then the region's places of that trade after them, so a town never changes its
+   look because the region loaded later */
+var VB_REGION_VARS = null;
+function vbTownVariant(name, trade, region){
+  var home = Object.keys(VB_TOWN_TRADE).filter(function (k){ return VB_TOWN_TRADE[k] === trade; }).sort();
+  if (!region) { var i = home.indexOf(String(name).toUpperCase()); return i < 0 ? vbTownHash(name) % 3 : i % 3; }
+  if (!VB_REGION_VARS) { var by = {}; try { var R = window.BOH_REGION; if (R && R.ready && R.places && R.places.length) {
+      R.places.forEach(function (p){ var t = vbRegionTrade(p); (by[t] = by[t] || []).push(p.name); });
+      VB_REGION_VARS = {}; for (var t in by) by[t].sort().forEach(function (n, j){ VB_REGION_VARS[t + ':' + n] = j; }); } } catch (_e) {} }
+  var j = VB_REGION_VARS ? VB_REGION_VARS[trade + ':' + name] : null;
+  return j == null ? vbTownHash(name) % 3 : (home.length + j) % 3;
+}
+/* one town's look: its plan and its palette (cached on its own key: the plan never changes while the town stands) */
+var VB_TOWN_LOOKS = {};
+function vbTownLook(name, x0, y0, n, tier, acc, trade, u, road, region){
+  var key = VB_TOWN_V + ':' + name + ':' + x0 + ',' + y0 + ':' + n + ':' + tier + ':' + trade + ':' + u.toFixed(2) + ':' + road.join('') + ':' + acc.join(',') + ':' + (typeof om !== 'undefined' ? om.seed : 0) + ':' + vbTownVariant(name, trade, region);
+  if (VB_TOWN_LOOKS[key]) return VB_TOWN_LOOKS[key];
+  var seed = vbTownHash(name + ':' + (typeof om !== 'undefined' ? om.seed : 0));
+  var plan = vbTownPlan({ name: name, n: n, tier: tier, u: u, trade: trade, road: road, seed: seed, region: !!region, v: vbTownVariant(name, trade, region) });
+  return (VB_TOWN_LOOKS[key] = { plan: plan, pal: vbTownPal(u, acc, seed, trade, !!region), u: u, trade: trade, seed: seed });
+}
+/* a home base's blocks a lot cannot stand on: the streets (they run through the town), and what the painter never gives a town */
+function vbTownRoads(x0, y0, n){
+  var r = [];
+  for (var j = 0; j < n; j++) for (var i = 0; i < n; i++) { var c = -1; try { var t = om.at(x0 + i, y0 + j); c = vbClassOf(t && t.district); } catch (_e) {}
+    r.push(c === VB_CLASS.road || c === VB_CLASS.blvd || c === VB_CLASS.freeway || c === VB_CLASS.water || c === VB_CLASS.mountain || c === VB_CLASS.dam || c === VB_CLASS.rail || c < 0 ? 1 : 0); }
+  return r;
+}
+var VB_REGION_KIND = null;
+function vbRegionTrade(p){
+  var kind = p.kind;
+  if (!kind) { try { if (!VB_REGION_KIND) { VB_REGION_KIND = {}; window.BOH_REGION.land.places().forEach(function (q){ VB_REGION_KIND[q.name] = q.kind; }); } kind = VB_REGION_KIND[p.name]; } catch (_e) {} }   /* the region keeps a place's kind in its land, not on the place */
+  /* what it was first (its name and its line in the land's data), its kind of ground after */
+  var w = (p.name || '') + ' ' + (p.what || '');
+  if (/solar|mirrors|panels/i.test(w)) return 'solar';
+  if (/drone base|hangar/i.test(w)) return 'hangars';
+  if (/test site|proving ground/i.test(w)) return 'prison';
+  if (/landfill/i.test(w)) return 'scrap';
+  if (/powerhouse|intake|pumps|quarry|gold|lead and zinc|gypsum company|industrial park/i.test(w)) return 'works';
+  if (/marina|beach|boats|ramp/i.test(w)) return 'marina';
+  if (/casino/i.test(w) && kind !== 'trailer_park') return 'casino';
+  if (/lodge|refuge|museum|visitor/i.test(w)) return 'lodge';
+  if (/dam builders|company town|wells, lots/i.test(w)) return 'suburbs';
+  return VB_REGION_TRADE[kind] || 'hilltown';
+}
+/* ==== /__EVERY_TOWN_ITS_OWN__ ==== */
 function vbTownsInput(){
   if (!VB_TOWNS.on) return null;
   var B = null; try { B = typeof ctBases === 'function' ? ctBases() : null; } catch (_e) {}
@@ -46652,10 +46857,16 @@ function vbTownsInput(){
     var t = 'camp'; try { t = mapTierOf(k); } catch (_e) {}
     var n = t === 'fortress' ? 4 : t === 'town' ? 3 : 2, c = null; try { c = mapFactionColour(k); } catch (_e) {}   /* a prison or a works took whole (400 m), a neighbourhood walled (300 m), a camp on two lots */
     var a = c ? vbHex(c) : G;
-    out.push({ name: k, bx: b.x | 0, by: b.y | 0, x0: (b.x | 0) - (n >> 1), y0: (b.y | 0) - (n >> 1), n: n, tier: t === 'fortress' ? 1 : t === 'town' ? 2 : 3,
-               acc: [0, 1, 2].map(function (i) { return Math.round(a[i] * 0.45 + G[i] * 0.55); }) }); });
+    var tw = { name: k, bx: b.x | 0, by: b.y | 0, x0: (b.x | 0) - (n >> 1), y0: (b.y | 0) - (n >> 1), n: n, tier: t === 'fortress' ? 1 : t === 'town' ? 2 : 3,
+               acc: [0, 1, 2].map(function (i) { return Math.round(a[i] * 0.45 + G[i] * 0.55); }) };
+    try {   /* __EVERY_TOWN_ITS_OWN__: its plan and its palette */
+      var wh = vbTownWhere(tw.bx, tw.by), tr = VB_TOWN_TRADE[String(k).toUpperCase()] || 'yard';
+      var lk = vbTownLook(k, tw.x0, tw.y0, n, tw.tier, tw.acc, tr, Math.round(wh.u * 100) / 100, vbTownRoads(tw.x0, tw.y0, n));
+      tw.plan = lk.plan; tw.pal = lk.pal; tw.trade = tr; tw.u = lk.u; tw.des = wh.des;
+    } catch (_e) { VB_TOWNS.err = String(_e && _e.message || _e); }
+    out.push(tw); });
   if (!VB_TOWNS.pal) { VB_TOWNS.pal = []; for (var p = 0; p < 16; p++) VB_TOWNS.pal.push(VB_TOWN_PAL[p] ? vbHex(VB_TOWN_PAL[p]) : null); }
-  VB_TOWNS.list = out; VB_TOWNS.key = out.map(function (o) { return o.x0 + ',' + o.y0 + ',' + o.n + ',' + o.tier; }).join(';');
+  VB_TOWNS.list = out; VB_TOWNS.key = VB_TOWN_V + '/' + out.map(function (o) { return o.x0 + ',' + o.y0 + ',' + o.n + ',' + o.tier; }).join(';');
   return out;
 }
 /* THE REGION'S PLACES (bohemia_region.js: Primm, Jean, Boulder City, the Hoover Dam...) stand on the far land, which the
@@ -46672,7 +46883,7 @@ function vbRegionPatchGeom(p){
   var x0 = bx - (n >> 1), y0 = by - (n >> 1);
   return { t: t, n: n, M: M, N: n + 2 * M, bx: bx, by: by, x0: x0, y0: y0, X0: x0 - M, Y0: y0 - M };
 }
-function vbRegionPatchKey(p, S){ return 'rp:' + p.name + ':' + p.x + ',' + p.y + ':' + S + ':' + om.seed + ':' + VB_COOK.v; }
+function vbRegionPatchKey(p, S){ return 'rp:' + p.name + ':' + p.x + ',' + p.y + ':' + S + ':' + om.seed + ':' + VB_COOK.v + ':' + VB_TOWN_V; }
 function vbRegionPatchInput(p, S){
   var G = vbRegionPatchGeom(p), N = G.N, R = window.BOH_REGION, I = VB_COOK.index || {};
   var th = function (k){ var i = I[k]; return i == null ? 255 : i; };
@@ -46685,7 +46896,16 @@ function vbRegionPatchInput(p, S){
   vbTownsInput();   /* the palette */
   return { kind: 'tile', N: N, NF: om.n, S: S, PAD: 0, hashPad: VB_CPAD, org: [G.X0, G.Y0], seed: om.seed, cls: cls, live: live, sub: sub,
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, key: vbRegionPatchKey(p, S), tx: 0, ty: 0, cutout: true,
-           towns: [{ name: p.name, bx: G.bx, by: G.by, x0: G.x0, y0: G.y0, n: G.n, tier: G.t, acc: [119, 115, 110] }], townPal: VB_TOWNS.pal };
+           towns: [vbRegionTown(p, G)], townPal: VB_TOWNS.pal };
+}
+/* __EVERY_TOWN_ITS_OWN__: a region place's own look: no faction, a paint the sun took; its trade from its kind and what it was */
+function vbRegionTown(p, G){
+  var R = window.BOH_REGION, road = [], g0 = [119, 115, 110], h = vbTownHash(p.name), pc = vbHex(VB_TOWN_SUNPAINT[h % VB_TOWN_SUNPAINT.length]);
+  for (var j = 0; j < G.n; j++) for (var i = 0; i < G.n; i++) { var rd = 0; try { rd = R && R.passAt && R.passAt(G.x0 + i, G.y0 + j) === 1 ? 1 : 0; } catch (_e) {} road.push(rd); }
+  var acc = [0, 1, 2].map(function (i) { return Math.round(pc[i] * 0.6 + g0[i] * 0.4); }), tr = vbRegionTrade(p);
+  var tw = { name: p.name, bx: G.bx, by: G.by, x0: G.x0, y0: G.y0, n: G.n, tier: G.t, acc: acc, trade: tr, u: 0 };
+  try { var lk = vbTownLook(p.name, G.x0, G.y0, G.n, G.t, acc, tr, 0, road, 1); tw.plan = lk.plan; tw.pal = lk.pal; } catch (_e) { VB_TOWNS.err = String(_e && _e.message || _e); }
+  return tw;
 }
 function vbRegionPatchDraw(p, sx, footY){
   if (!VB_TOWNS.on || !VB_COOK.themes || typeof VBT === 'undefined') return null;
@@ -46736,7 +46956,7 @@ function mapBaseDraw(tier, faction, sx, footY, mine, beat){
   var __tp = vbTownPainted(faction);   /* __THE_TOWN_IS_PAINTED_IN__: the painting is the town; nothing laid over it */
   if (__tp) {
     var tw0 = Math.max(30, Math.round(MAP_BASE_W * MAP_ART_K / 2) * 2), th0 = tw0 * 0.75, cyc = footY - 6;
-    if (!mapNearYou(sx + tw0 * 0.18, footY - th0 * 0.55)) mapFlagDraw(sx + tw0 * 0.18, footY - th0 * 0.55, th0 * 0.55, mine ? '#e8dcc0' : mapFactionColour(faction), beat, false);   /* __WHERE_AM_I__ */
+    /* __EVERY_TOWN_ITS_OWN__ (line 8 of his list, EYES 10/25: 'Blues on the map is a flag and a lot'): no flag stands in for the town; its name and its people at the gate say whose it is */
     if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.buildings++; MAP_DREW.art.painted = (MAP_DREW.art.painted || 0) + 1; }
     var n = __tp.n, dx0 = __tp.x0 - __tp.bx, dy0 = __tp.y0 - __tp.by, top = cyc - TH / 2 + (dx0 + dy0) * TH / 2, bot = top + n * TH;
     /* the people and the name stand at the gate: the town's near corner, so the town shows behind them */
@@ -46746,7 +46966,6 @@ function mapBaseDraw(tier, faction, sx, footY, mine, beat){
   var __rp = !__tp && vbRegionPlaceOf(faction), __rg = __rp ? vbRegionPatchDraw(__rp, sx, footY) : null;   /* __THE_TOWN_IS_PAINTED_IN__: a region place, painted on the far land */
   if (__rg) {
     var rw0 = Math.max(30, Math.round(MAP_BASE_W * MAP_ART_K / 2) * 2), rh0 = rw0 * 0.75;
-    if (!mapNearYou(sx + rw0 * 0.18, footY - rh0 * 0.55)) mapFlagDraw(sx + rw0 * 0.18, footY - rh0 * 0.55, rh0 * 0.55, mapFactionColour(faction), beat, false);
     if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.buildings++; MAP_DREW.art.painted = (MAP_DREW.art.painted || 0) + 1; }
     return { width: __rg.n * TW * 0.85, height: 6 + __rg.n * TH / 2, painted: 1 };
   }
@@ -46761,7 +46980,7 @@ function mapBaseDraw(tier, faction, sx, footY, mine, beat){
   var q = (typeof CV_DPR === 'number' && CV_DPR) || 1, pad = spr.pad / q;
   g.imageSmoothingEnabled = false;
   g.drawImage(spr.c, mapSnap(sx - w / 2) - pad, mapSnap(footY - h) - pad, spr.c.width / q, spr.c.height / q);
-  if (!mapNearYou(sx + w * 0.18, footY - h * 0.55)) mapFlagDraw(sx + w * 0.18, footY - h * 0.55, h * 0.55, mine ? '#e8dcc0' : mapFactionColour(faction), beat, false);   /* __WHERE_AM_I__ */
+  /* __EVERY_TOWN_ITS_OWN__: no flag here either, in the moment before the painting lands */
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.buildings++;
   return { width: w, height: h };
 }
@@ -47377,17 +47596,19 @@ function vbCityCore(inp){
       for (var twy = tw0.y0; twy < tw0.y0 + tw0.n; twy++) for (var twx = tw0.x0; twx < tw0.x0 + tw0.n; twx++) {
         var tlx = twx - X0, tly = twy - Y0; if (tlx < 0 || tly < 0 || tlx >= N || tly >= N || TWN[tly * N + tlx] >= 0) continue;
         TWN[tly * N + tlx] = twi0; } } }
-  /* one texel of a town: sets TW_L (lift) and TW_P (part); answers 1 when the town owns the texel, 0 when the city's own
-     painting stands there (its lift and part maybe changed: a house in the field of fire is rubble, a yard kept clear) */
+  /* one texel of a town: sets TW_L (lift) and TW_P (part); answers 1 when the town builds the texel, 2 when it is the town's own
+     open ground (the district's dirt under it; cut away on a region patch), 0 when the city's own painting stands there (its
+     lift and part maybe changed: a house in the field of fire is rubble). __EVERY_TOWN_ITS_OWN__: inside its wall a town is
+     its PLAN (tw.plan), never the city's houses; the wall, its field of fire and its gates are narrower than 10/25's */
   function twPaint(tw, cl, gx, gy, tx, ty, lift, part, r, horiz, vert){
     var fu = (gx - tw.x0) * 12 + (tx + 0.5) / Q, fv = (gy - tw.y0) * 12 + (ty + 0.5) / Q, L = tw.n * 12;
     var eu = Math.min(fu, L - fu), ev = Math.min(fv, L - fv), e = Math.min(eu, ev), alongV = eu < ev, along = alongV ? fv : fu;
     var hu = tw.x0 * 12 + Math.floor(fu), hv = tw.y0 * 12 + Math.floor(fv), cu = fu - Math.floor(fu), cv = fv - Math.floor(fv);
     var nz = vbNoise((tw.x0 * 12 + fu) / 2.6, (tw.y0 * 12 + fv) / 2.6, sd + 301);
     TW_E = e; TW_NZ = nz;
-    var road = cl === VB_CLASS.road || cl === VB_CLASS.blvd, tier = tw.tier;
+    var road = cl === VB_CLASS.road || cl === VB_CLASS.blvd, tier = tw.tier, PL = tw.plan || null;
     /* the rings, in q (8 m of ground) in from the town's edge: the field of fire, the wall, the walk behind it */
-    var w0 = tier === 1 ? 3.0 : tier === 2 ? 2.6 : 1.5, w1 = tier === 1 ? 4.3 : tier === 2 ? 3.7 : 2.5, w2 = w1 + (tier === 3 ? 0 : 1.1);
+    var w0 = tier === 1 ? 2.0 : tier === 2 ? 1.2 : 0, w1 = tier === 1 ? 3.3 : tier === 2 ? 2.3 : 0, w2 = tier === 3 ? 0 : w1 + 1.1;
     TW_W0 = w0;
     var across = (horiz && !vert) ? (ty + 0.5) / Q : (vert && !horiz) ? (tx + 0.5) / Q : -1, down = (horiz && !vert) ? fu : fv;
     var crossing = across >= 0 && (alongV ? (horiz && !vert) : (vert && !horiz));   /* the wall crosses this street (a gate), or runs beside it */
@@ -47400,48 +47621,234 @@ function vbCityCore(inp){
       if (r < 0.07) { TW_L = 0.25 * T; TW_P = PART.hole; return 1; }
       return 0;
     }
-    if (tier === 1 && !road && eu < 6.2 && ev < 6.2) {   /* the corner towers, over the houses */
-      TW_L = 9 * T; TW_P = (eu < w0 + 0.45 || ev < w0 + 0.45 || eu > 5.75 || ev > 5.75) ? PART.roof : PART.top; return 1; }
+    if (tier === 1 && !road && eu < w1 + 1.9 && ev < w1 + 1.9) {   /* the corner towers, over the houses */
+      TW_L = 9 * T; TW_P = (eu < w0 + 0.45 || ev < w0 + 0.45 || eu > w1 + 1.45 || ev > w1 + 1.45) ? PART.roof : PART.top; return 1; }
     if (e < w1) {   /* the wall */
       var seg = Math.floor(along), side = alongV ? (fu < L / 2 ? 0 : 1) : (fv < L / 2 ? 2 : 3), sh2 = vbHash(seg + (alongV ? tw.y0 : tw.x0) * 12, side + tw.x0 * 7 + tw.y0 * 13, sd + 307);
       if (road && across < 0) return 0;   /* a crossing of two streets stays open */
       if (road && crossing) {   /* the gate */
-        if ((across >= 3.2 && across < 4.4) || (across >= 7.6 && across < 8.8)) { TW_L = (tier === 1 ? 7 : tier === 2 ? 3.4 : 1.6) * T; TW_P = tier === 1 ? PART.top : PART.side; return 1; }
-        if (across >= 4.4 && across < 7.6) { if (tier !== 3 && Math.abs(e - (w0 + w1) / 2) < 0.35 && ((across > 4.8 && across < 5.9) || (across > 6.2 && across < 7.2))) { TW_L = 0.8 * T; TW_P = PART.roof; return 1; } return 0; }   /* open, a barrier staggered in it */
+        if ((across >= 3.2 && across < 4.4) || (across >= 7.6 && across < 8.8)) { TW_L = (tier === 1 ? 7 : 3.4) * T; TW_P = tier === 1 ? PART.top : PART.side; return 1; }
+        if (across >= 4.4 && across < 7.6) { if (Math.abs(e - (w0 + w1) / 2) < 0.35 && ((across > 4.8 && across < 5.9) || (across > 6.2 && across < 7.2))) { TW_L = 0.8 * T; TW_P = PART.roof; return 1; } return 0; }   /* open, a barrier staggered in it */
       }
       if (tier === 1) {
         TW_L = 5 * T + ((Math.floor(along * 1.5) & 1) && e < w0 + 0.45 ? 0.7 * T : 0);
         TW_P = (seg % 7 === 3 && sh2 < 0.7) ? PART.neon : (seg % 4 === 0 && e > w1 - 0.5) ? PART.window : PART.roof;
         return 1;
       }
-      if (tier === 3 && sh2 > 0.86) return 0;   /* a gap in a camp's ring */
-      if (tier === 2 && eu < 4.8 && ev < 4.8) { TW_L = 5 * T; TW_P = PART.side; return 1; }   /* a lookout of stacked containers at a corner */
-      TW_L = (tier === 3 ? 1.1 + 1.0 * sh2 : 2 + 1.6 * sh2) * T;   /* a town's and a camp's ring: what was to hand, stacked */
-      TW_P = sh2 < 0.3 ? PART.side : sh2 < 0.5 ? PART.tree : sh2 < 0.7 ? PART.lampspot : sh2 < 0.85 ? PART.edge : PART.line;
+      if (eu < w1 + 1.2 && ev < w1 + 1.2) { TW_L = 5 * T; TW_P = PART.side; return 1; }   /* a lookout of stacked containers at a corner */
+      if (sh2 > 0.9) return 0;   /* a gap in the ring */
+      TW_L = (2 + 1.6 * sh2) * T;   /* a town's ring: what was to hand, stacked */
+      TW_P = sh2 < 0.3 ? PART.side : sh2 < 0.5 ? PART.tree : sh2 < 0.62 ? PART.top : sh2 < 0.8 ? PART.edge : PART.line;
       return 1;
     }
-    var hq = vbHash(hu, hv, sd + 311), hq2 = vbHash(hu, hv, sd + 313), ra = hq2 < 0.5 ? cu : cv, rb = hq2 < 0.5 ? cv : cu, dr = Math.abs(ra - 0.5) * 2;
-    if (tier === 3) {   /* a camp: the lot cleared, tents round a fire */
-      var dc = Math.hypot(fu - L / 2, fv - L / 2);
-      if (dc < 0.8) { TW_L = 0.35 * T; TW_P = PART.window; return 1; }
-      if (dc < 1.7) { TW_L = 0; TW_P = PART.burn; return 1; }
-      TW_L = 0; TW_P = PART.ground;
-      if (dc > 2.2 && dc < L / 2 - 1.5 && hq < 0.5 && dr < 0.85 && Math.abs(rb - 0.5) < 0.4) { TW_L = (0.5 + 0.9 * (1 - dr)) * T; TW_P = hq < 0.17 ? PART.roofL : hq < 0.34 ? PART.line : 15; return 1; }
-      if (r < 0.05) { TW_L = 0.25 * T; TW_P = PART.hole; return 1; }
-      return 0;
-    }
-    if (road) {   /* a town's market under tarps along its streets */
+    if (road) {   /* a town's market under tarps along its streets; a fortress's street is its own, clear */
+      if (tier === 3 && across >= 0 && (across < 3.1 || across >= 8.9)) {   /* __EVERY_TOWN_ITS_OWN__: a camp lives on its streets, the way a Las Vegas encampment does: tents and lean-tos the length of both sidewalks and out into the parking lane, the middle lanes kept */
+        var sa2 = across < 6 ? across : 12 - across, dn = down * 1.25, ci2 = Math.floor(dn), cf2 = dn - ci2, hm2 = vbHash(ci2 + tw.x0 * 15, (across < 6 ? 0 : 1) + tw.y0 * 15, sd + 319);
+        if (hm2 < 0.14 || cf2 < 0.12 || cf2 > 0.92 || sa2 < 0.25 || sa2 > 2.95) return 0;
+        var dr4 = Math.abs(sa2 - 1.6) / 1.35; TW_L = (hm2 < 0.3 ? 1.3 : 0.4 + 0.8 * (1 - dr4)) * T; TW_P = hm2 < 0.3 ? PART.roofL : hm2 < 0.55 ? PART.top : hm2 < 0.85 ? 15 : PART.side; return 1; }
       if (tier === 2 && across >= 0 && ((across >= 1 && across < 2.6) || (across >= 9.4 && across < 11)) && (Math.floor(down) % 3) !== 2) {
-        TW_L = 1.2 * T; TW_P = vbHash(Math.floor(down) + tw.x0 * 12, Math.floor(across) + tw.y0 * 12, sd + 317) < 0.5 ? PART.roofL : 15; return 1; }
+        var hm = vbHash(Math.floor(down) + tw.x0 * 12, Math.floor(across) + tw.y0 * 12, sd + 317);
+        TW_L = 1.2 * T; TW_P = hm < 0.3 ? PART.top : hm < 0.6 ? PART.roofL : 15; return 1; }
+      if (tw.trade === 'stage' && across >= 0 && Math.abs(e - w2 - 0.6) < 0.5 && Math.abs(((across + 0.5) % 2.4) - 1.2) < 0.75) { TW_L = 0.6 * T; TW_P = PART.burn; return 1; }   /* the Anarchists' barricade of burnt cars */
       return 0;
     }
-    if (e < w2) { if (lift > 0) { TW_L = 0; TW_P = PART.ground; } return 0; }   /* the walk behind the wall kept clear */
-    if (tier === 2 && gx - tw.x0 === 1 && gy - tw.y0 === 1 && fu >= 20.4 && fu < 22.2 && fv >= 20.4 && fv < 22.2) { TW_L = 11 * T; TW_P = (fu < 20.7 || fv < 20.7 || fu > 21.9 || fv > 21.9) ? PART.edge : PART.side; return 1; }   /* the water tower */
-    if (lift === 0 && (part === PART.ground || part === PART.spot || part === PART.row)) {   /* the yards filled: containers, tents, a fire in a drum */
-      var p1 = tier === 1 ? 0.14 : 0.22;
-      if (hq < p1 * 0.45 && ra > 0.06 && ra < 0.94 && Math.abs(rb - 0.5) < 0.32) { TW_L = 1.4 * T; TW_P = hq < p1 * 0.22 ? PART.side : PART.tree; return 1; }
-      if (hq < p1 && dr < 0.9 && Math.abs(rb - 0.5) < 0.42) { TW_L = (0.5 + 0.8 * (1 - dr)) * T; TW_P = hq2 < 0.33 ? PART.roofL : hq2 < 0.66 ? PART.line : 15; return 1; }
-      if (hq < p1 + 0.03 && Math.hypot(cu - 0.5, cv - 0.5) < 0.22) { TW_L = 0.5 * T; TW_P = PART.window; return 1; }
+    if (e < w2) { TW_L = 0; TW_P = PART.ground; return 2; }   /* the walk behind the wall kept clear */
+    var qx = Math.floor(fu), qy = Math.floor(fv), bi = PL && qx >= 0 && qy >= 0 && qx < PL.L && qy < PL.L ? PL.g[qy * PL.L + qx] : -1;
+    if (bi >= 0 && twLand(PL.b[bi], fu, fv, r)) return 1;
+    /* a camp runs out into the lots round it: at its ragged edge the city's own yards and houses still stand */
+    if (tier === 3 && bi < 0 && e < 2.4 * (0.35 + 0.9 * nz)) return 0;
+    TW_L = 0; TW_P = PART.ground;
+    if (r < 0.035) { TW_L = 0.3 * T; TW_P = PART.side; return 1; }   /* what lies about */
+    return 2;
+  }
+  /* __EVERY_TOWN_ITS_OWN__: what stands on one of a town's lots, at q (fu, fv) of the town. A lot's kind (bk.k: VB_TOWN_K, 20 + a
+     landmark, bk.mk its name), its height in T (bk.h), its roof's part (bk.m: 1 tar, 2 tin or pale concrete, 3 the faction's
+     colour, 10 plywood or steel, 15 a tarp; the walls are the palette's 16 + part), bk.acc its roof in the faction's colour,
+     bk.b burnt out, bk.f mirrored, bk.s its own roll. Answers 1 when something stands there (TW_L, TW_P set), else 0. */
+  function twBx(x, y, x0, y0, x1, y1, H, p, par){ if (x < x0 || x >= x1 || y < y0 || y >= y1) return false; var ed = Math.min(x - x0, x1 - x, y - y0, y1 - y); TW_L = H * T + (par && ed < 0.22 * par ? 0.45 * T : 0); TW_P = p; return true; }
+  function twGb(x, y, x0, y0, x1, y1, H, Rr, p, alX){ if (x < x0 || x >= x1 || y < y0 || y >= y1) return false; var fx = (x - x0) / (x1 - x0), fy = (y - y0) / (y1 - y0), dr = Math.abs((alX ? fy : fx) - 0.5) * 2; TW_L = (H + Rr * (1 - dr)) * T; TW_P = p; return true; }
+  function twRd(x, y, cx, cy, rad, H, dome, p){ var dd = Math.hypot(x - cx, y - cy) / rad; if (dd >= 1) return false; TW_L = (H + dome * Math.sqrt(1 - dd * dd)) * T; TW_P = p; return true; }
+  function twSp(x, y, cx, cy, half, H0, H1, p){ var m = Math.max(Math.abs(x - cx), Math.abs(y - cy)); if (m >= half) return false; TW_L = (H0 + (H1 - H0) * (1 - m / half)) * T; TW_P = p; return true; }
+  /* a cluster's cell: tents, shacks, trailers, containers, cars, each its own roll */
+  function twCell(bk, a, c, sw, sh, sal){ var al = sal ? a : c, ac = sal ? c : a, i = Math.floor(al / sw), j = Math.floor(ac / sh); return { f: al - i * sw, g: ac - j * sh, h: vbHash(bk.s % 9973 + i * 31, j + (bk.s % 7919), sd + 601) }; }
+  function twTents(bk, a, c, pal){
+    var q = twCell(bk, a, c, 1.5, 1.5, 1); if (q.h < 0.16) { if (q.h < 0.05 && Math.hypot(q.f - 0.75, q.g - 0.75) < 0.24) { TW_L = 0.5 * T; TW_P = PART.window; return 1; } return 0; }
+    if (q.f < 0.2 || q.f > 1.3 || q.g < 0.25 || q.g > 1.25) return 0;
+    var dr = Math.abs(q.g - 0.75) / 0.5; TW_L = (0.5 + 1.1 * (1 - dr)) * T; TW_P = q.h < 0.42 ? PART.top : q.h < 0.74 ? 15 : PART.roofL; return 1; }
+  function twLand(bk, fu, fv, r){
+    var w = bk.x1 - bk.x0, d = bk.y1 - bk.y0, a = fu - bk.x0, c = fv - bk.y0, k = bk.k;
+    if (bk.f) a = w - a;
+    var e = Math.min(a, w - a, c, d - c), A = a * 10 / w, C = c * 10 / d, hc, q;   /* a landmark is drawn in its own 10 x 10 frame */
+    var ok = false;
+    switch (k) {
+      case 1: {   /* a box: flat roof, a parapet, plant and tanks on it, an awning on the street, a sign */
+        if (!twBx(a, c, 0, 0, w, d, bk.h, bk.acc ? PART.top : bk.m, 1)) return 0;
+        var ix = Math.floor(a), iy = Math.floor(c); hc = vbHash(bk.s % 9973 + ix, iy, sd + 611);
+        if (e > 0.5 && hc < 0.13 && Math.hypot(a - ix - 0.5, c - iy - 0.5) < 0.3) { TW_L += (hc < 0.05 ? 1.3 : 0.7) * T; TW_P = PART.tree; }
+        if (bk.sg && Math.abs((bk.ax ? c : a) - 0.55) < 0.17 && Math.abs((bk.ax ? a / w : c / d) - 0.5) < 0.3) { TW_L = (bk.h + 1.8) * T; TW_P = PART.neon; }
+        if (bk.aw != null && [a, w - a, c, d - c][bk.aw] < 0.42) { TW_L = Math.min(TW_L, 1.25 * T); TW_P = PART.top; }
+        ok = true; break; }
+      case 2: {   /* a house or a shed: a wall under a gable, its ridge the long way, a chimney */
+        if (!twGb(a, c, 0, 0, w, d, bk.h, bk.r || 1.6, bk.acc ? PART.top : bk.m, bk.ax)) return 0;
+        var dr2 = Math.abs((bk.ax ? c / d : a / w) - 0.5) * 2;
+        if (dr2 < 0.3 && Math.abs((bk.ax ? a / w : c / d) - 0.72) < 0.07) { TW_L += 0.6 * T; TW_P = PART.window; }
+        ok = true; break; }
+      case 3: {   /* shacks: lean-tos of tin, rust and plywood, a lane between */
+        q = twCell(bk, a, c, 2.2, 1.8, bk.ax); if (q.f < 0.15 || q.f > 2.05 || q.g < 0.15 || q.g > 1.65 || q.h < 0.08) return 0;
+        TW_L = (1.7 + 0.7 * (q.g / 1.8) + (q.h > 0.9 ? 1.2 : 0)) * T; TW_P = q.h < 0.2 ? PART.top : q.h < 0.5 ? PART.roofL : q.h < 0.78 ? PART.side : PART.tree;   /* one in ten built up a floor */
+        if (bk.b && q.h > 0.9) TW_P = PART.burn; return 1; }
+      case 4: {   /* trailers in rows, a lane between */
+        q = twCell(bk, a, c, 4.2, 1.9, bk.ax); if (q.f < 0.3 || q.f > 3.9 || q.g < 0.35 || q.g > 1.35 || q.h < 0.1) return 0;
+        TW_L = 1.8 * T; TW_P = q.h < 0.45 ? PART.roofL : q.h < 0.75 ? 15 : PART.tree;
+        if (Math.abs(q.f - 2.1) < 0.25 && Math.abs(q.g - 0.85) < 0.2) { TW_L = 2.2 * T; TW_P = PART.edge; } return 1; }
+      case 5: return twTents(bk, a, c);
+      case 6: {   /* containers, some stacked two high */
+        q = twCell(bk, a, c, 2.9, 1.3, bk.ax); if (q.f < 0.15 || q.f > 2.75 || q.g < 0.15 || q.g > 1.15 || q.h < 0.1) return 0;
+        TW_L = (q.h < 0.42 ? 2.8 : 1.4) * T; TW_P = q.h < 0.3 ? PART.top : q.h < 0.55 ? PART.side : q.h < 0.8 ? PART.tree : PART.roofL; return 1; }
+      case 7: {   /* a yard: a fence, junk, a car */
+        if (e < 0.15) { TW_L = 0.35 * T; TW_P = PART.line; return 1; }
+        var jx = Math.floor(a), jy = Math.floor(c); hc = vbHash(bk.s % 9973 + jx * 3, jy * 5, sd + 613);
+        if (hc < 0.09 && Math.hypot(a - jx - 0.5, c - jy - 0.5) < 0.3) { TW_L = 0.5 * T; TW_P = PART.side; return 1; }
+        if (twBx(a, c, 1, 1, 2.1, 1.6, 0.55, PART.tree)) return 1;
+        return 0; }
+      case 8: {   /* gardens: beds in rows, the paths between */
+        if (e > 0.3 && ((bk.ax ? c : a) % 1.3) < 0.82) { TW_L = 0.18 * T; TW_P = PART.hole; return 1; }
+        return 0; }
+      case 9: {   /* a plaza: a fire in a drum, the stalls round it */
+        var dc = Math.hypot(a - w / 2, c - d / 2);
+        if (dc < 0.35) { TW_L = 0.6 * T; TW_P = PART.window; return 1; }
+        if (dc > 1.5 && dc < 2.3) { hc = vbHash(Math.floor(Math.atan2(c - d / 2, a - w / 2) * 3), bk.s % 997, sd + 617); if (hc < 0.6) { TW_L = 0.9 * T; TW_P = hc < 0.25 ? PART.top : 15; return 1; } }
+        return 0; }
+      case 10: {   /* a lot: parking lines, the cars left in it */
+        q = twCell(bk, a, c, 1.1, 2.2, bk.ax);
+        if (q.f < 0.08 && q.g > 0.2 && q.g < 2) { TW_L = 0; TW_P = PART.line; return 1; }
+        if (q.h < 0.3 && q.f > 0.2 && q.f < 0.9 && q.g > 0.4 && q.g < 1.8) { TW_L = 0.55 * T; TW_P = q.h < 0.06 ? PART.burn : q.h < 0.15 ? PART.tree : q.h < 0.22 ? PART.side : PART.roofL; return 1; }
+        return 0; }
+      case 12: {   /* a watch post at the lot's corner over the shacks round it (its cap in the house colour, now and then) */
+        if (a >= 0.15 && a < 1.05 && c >= 0.15 && c < 1.05) { var ec2 = Math.min(a - 0.15, 1.05 - a, c - 0.15, 1.05 - c); TW_L = (bk.h + (ec2 > 0.18 ? 0 : 0.4)) * T; TW_P = bk.acc && ec2 > 0.18 ? PART.top : PART.side; return 1; }
+        if (a < 1.3 && c < 1.3) return 0;
+        q = twCell(bk, a, c, 2.2, 1.8, bk.ax); if (q.f < 0.15 || q.f > 2.05 || q.g < 0.15 || q.g > 1.65 || q.h < 0.12) return 0;
+        TW_L = (1.7 + 0.7 * (q.g / 1.8)) * T; TW_P = q.h < 0.24 ? PART.top : q.h < 0.55 ? PART.roofL : q.h < 0.8 ? PART.side : PART.tree; return 1; }
+      case 11: {   /* scrap: cars on cars */
+        q = twCell(bk, a, c, 1.0, 0.65, bk.ax); if (q.h < 0.25 || q.f < 0.08 || q.f > 0.92 || q.g < 0.06 || q.g > 0.59) return 0;
+        TW_L = (0.4 + (q.h > 0.75 ? 0.5 : 0) + 0.6 * vbNoise(a / 2.5, c / 2.5, sd + 619)) * T; TW_P = q.h < 0.45 ? PART.side : q.h < 0.65 ? PART.tree : q.h < 0.85 ? PART.burn : PART.roofL; return 1; }
+    }
+    if (ok) { if (bk.b) { TW_L *= r < 0.35 ? 0.25 : 0.6; TW_P = r < 0.35 ? PART.hole : PART.burn; } return 1; }
+    /* the landmarks, in their own 10 x 10 frame (A, C) */
+    switch (bk.mk) {
+      case 'chapel':   /* the nave, its steeple over the doors, the parish hall, the graves, the soup line */
+        if (twSp(A, C, 5, 8.7, 0.75, 6, 11.5, PART.roof) || twGb(A, C, 3.5, 1.4, 6.5, 8, 3, 2.2, PART.roofL, 0) || twGb(A, C, 0.8, 1.5, 2.9, 5.2, 2, 1.4, PART.roof, 0)) return 1;
+        if (A > 7.2 && A < 9.6 && C > 1.6 && C < 6.6 && ((A * 1.25) % 1) < 0.35 && ((C * 1.25) % 1) < 0.3) { TW_L = 0.3 * T; TW_P = PART.line; return 1; }
+        if (A > 6.9 && C > 7.2) return twTents(bk, a, c);
+        return 0;
+      case 'mast':   /* the station, the mast, its anchors, two dishes, the fence */
+        if (twBx(A, C, 7.1, 2.1, 7.9, 2.9, 22, PART.neon) || twBx(A, C, 1, 1, 5.6, 4.6, 3, PART.roofL, 1) || twRd(A, C, 3.2, 7.4, 1.4, 0.8, -0.5, PART.roofL) || twRd(A, C, 7.2, 7, 1.1, 0.8, -0.4, PART.roofL)) return 1;
+        if (twBx(A, C, 5.4, 0.6, 6, 1.1, 0.5, PART.edge) || twBx(A, C, 8.6, 4.4, 9.1, 4.9, 0.5, PART.edge)) return 1;
+        if (e < 0.18) { TW_L = 0.45 * T; TW_P = PART.line; return 1; }
+        return 0;
+      case 'prison':   /* three cell blocks, the guard towers at the corners, the fence, the yard */
+        if (twBx(A, C, 0, 0, 1, 1, 7.5, PART.edge) || twBx(A, C, 9, 9, 10, 10, 7.5, PART.edge) || twBx(A, C, 9, 0, 10, 1, 7.5, PART.edge)) return 1;
+        if (twBx(A, C, 1.2, 1.4, 3, 7.6, 4, PART.roof, 1) || twBx(A, C, 4.1, 1.4, 5.9, 7.6, 4, PART.roof, 1) || twBx(A, C, 7, 1.4, 8.8, 7.6, 4, PART.roof, 1)) return 1;
+        if (e < 0.18) { TW_L = 0.6 * T; TW_P = PART.line; return 1; }
+        if (C > 8.3 && C < 9.6 && A > 1 && A < 9 && ((A % 2.2) < 0.08 || Math.abs(C - 8.95) < 0.05)) { TW_L = 0; TW_P = PART.line; return 1; }
+        return 0;
+      case 'casino':   /* the podium, the tower stepped in, its crown in the house colour, the sign on its pylon, the porch */
+        if (twBx(A, C, 8, 7.4, 8.6, 9.6, 8.5, PART.neon)) return 1;
+        if (A >= 3 && A < 7 && C >= 2.2 && C < 6.2) { var et = Math.min(A - 3, 7 - A, C - 2.2, 6.2 - C); TW_L = (et < 0.55 ? 10.5 : 15.5) * T; TW_P = et < 0.55 ? PART.roof : PART.top; return 1; }
+        if (twBx(A, C, 3.4, 6.9, 6.6, 8.8, 1.6, PART.roofL) || twBx(A, C, 0.8, 0.8, 9.2, 9.2, 2.6, 15, 1)) return 1;
+        return 0;
+      case 'truckstop':   /* the canopy over the pumps, the semis in rows, the fuel tank */
+        if (twBx(A, C, 0.8, 0.8, 5.6, 3.8, 2.2, 15, 1) || twRd(A, C, 8, 2.4, 1.3, 2.2, 0.6, PART.roofL)) return 1;
+        if (C > 4.8 && C < 9.6) { var rw = Math.floor((C - 4.8) / 1.6), rc = (C - 4.8) - rw * 1.6, sg = Math.floor((A + rw * 1.3) / 4.4), sf = (A + rw * 1.3) - sg * 4.4;
+          hc = vbHash(sg, rw + bk.s % 97, sd + 621);
+          if (rc > 0.35 && rc < 1.25 && sf > 0.3 && sf < 4 && hc > 0.15) { TW_L = (sf > 3.4 ? 1.9 : 1.6) * T; TW_P = sf > 3.4 ? PART.edge : hc < 0.4 ? PART.tree : hc < 0.6 ? PART.side : hc < 0.75 ? PART.top : PART.roofL; return 1; } }
+        return 0;
+      case 'storage':   /* the rows of units, their seams, the high wall, the watchtower */
+        if (twBx(A, C, 9, 0, 10, 1, 6.5, PART.side)) return 1;
+        if (e < 0.25 && !(Math.abs(A - 5) < 1 && C > 9)) { TW_L = 2.6 * T; TW_P = PART.edge; return 1; }
+        var ub = [[1, 2.4], [3.4, 4.8], [5.8, 7.2], [8.1, 9.3]];
+        for (var ui = 0; ui < 4; ui++) if (C >= ub[ui][0] && C < ub[ui][1] && A > 0.8 && A < 9.2) { TW_L = 1.6 * T; TW_P = Q >= 4 && (A % 1.2) < 0.1 ? PART.edge : PART.roofL; return 1; }
+        return 0;
+      case 'tank':   /* the tank over the tunnels, its pipes, the tunnel mouths, the tents round it all */
+        if (twRd(A, C, 5, 4.4, 2.6, 4, 0.9, PART.side)) return 1;
+        if ((Math.abs(C - 4.4) < 0.18 && A > 7.4 && A < 9.6) || (Math.abs(A - 5) < 0.18 && C > 6.9 && C < 8)) { TW_L = 1 * T; TW_P = PART.edge; return 1; }
+        if (twBx(A, C, 0.8, 8, 2.2, 8.9, 0, PART.edge) || twBx(A, C, 7.4, 8.6, 8.8, 9.5, 0, PART.edge)) return 1;
+        if (Math.hypot(A - 5, C - 4.4) > 3.1) return twTents(bk, a, c);
+        return 0;
+      case 'works':   /* the sawtooth shop, its glazed teeth, the crane, the scrap; or a powerhouse and its stacks; or a quarry's spoil */
+        if (bk.v === 1) {
+          if (twBx(A, C, 2, 5.4, 2.8, 6.2, 12, PART.side) || twBx(A, C, 3.6, 5.4, 4.4, 6.2, 12, PART.side) || twBx(A, C, 1, 1, 9, 4.6, 5, PART.roofL, 1) || twBx(A, C, 6, 5.6, 9, 9, 1.6, PART.edge)) return 1;
+          return 0; }
+        if (bk.v === 2) {
+          if (Math.abs(C - 2) < 0.2 && A > 1 && A < 8) { TW_L = 2.2 * T; TW_P = PART.edge; return 1; }
+          TW_L = Math.max(0, vbNoise(A / 1.8, C / 1.8, sd + 627) - 0.25) * 5 * T; if (TW_L > 0.15 * T && C > 3) { TW_P = PART.hole; return 1; }
+          if (twBx(A, C, 7.5, 0.6, 9.4, 1.6, 2.4, PART.roofL)) return 1;
+          return 0; }
+        if (twBx(A, C, 8.2, 1.4, 8.9, 2.1, 14, PART.top)) return 1;
+        if (A >= 0.8 && A < 7 && C >= 0.8 && C < 5.4) { var tt = (A - 0.8) / 1.25 - Math.floor((A - 0.8) / 1.25); TW_L = (2.5 + 1.5 * tt) * T; TW_P = tt > 0.82 ? PART.window : PART.roofL; return 1; }
+        if (C > 6.2) { q = twCell(bk, a, c, 1.0, 0.65, 1); if (q.h > 0.3 && q.f > 0.08 && q.f < 0.92 && q.g > 0.06 && q.g < 0.59) { TW_L = (0.45 + (q.h > 0.78 ? 0.45 : 0)) * T; TW_P = q.h < 0.5 ? PART.side : q.h < 0.7 ? PART.tree : q.h < 0.88 ? PART.burn : PART.roofL; return 1; } }
+        return 0;
+      case 'clinic':   /* the clinic, a cross of two wings, its landing pad, the tents of the sick */
+        if (twBx(A, C, 1, 3.8, 9, 6.2, 3, PART.roofL, 1) || twBx(A, C, 3.8, 1, 6.2, 9, 3, PART.roofL, 1)) return 1;
+        var dp = Math.hypot(A - 2, C - 8); if (dp < 1.35) { TW_L = 0.05 * T; TW_P = dp > 1.05 || (Math.abs(A - 2) < 0.12 && Math.abs(C - 8) < 0.6) || (Math.abs(C - 8) < 0.12 && Math.abs(A - 2) < 0.5) ? PART.line : PART.lampspot; return 1; }
+        if ((A > 6.6 && (C < 3.4 || C > 6.6)) || (A < 3.4 && C < 3.4)) return twTents(bk, a, c);
+        return 0;
+      case 'bank':   /* the bank's tower on its podium, its crown in the house colour, an annex */
+        if (A >= 3 && A < 7 && C >= 3 && C < 7) { var eb = Math.min(A - 3, 7 - A, C - 3, 7 - C); TW_L = (eb < 0.45 ? 17 : 19.5) * T; TW_P = eb < 0.45 ? PART.roof : PART.top; return 1; }
+        if (twBx(A, C, 0.5, 7.4, 2.6, 9.6, 6, PART.roofL, 1) || twBx(A, C, 1, 1, 9, 9, 2, 15, 1)) return 1;
+        return 0;
+      case 'garden':   /* the co-op's hall in the house colour, two greenhouses, a turbine's mast, the rain tank, the beds */
+        if (twBx(A, C, 6.4, 8, 6.9, 8.5, 13, PART.line) || twRd(A, C, 8.6, 8.5, 0.8, 2.6, 0.3, PART.top)) return 1;
+        if (twGb(A, C, 0.8, 0.8, 5.6, 4.4, 2.6, 1.8, PART.top, 1)) return 1;
+        if (twGb(A, C, 6.4, 0.8, 9.4, 3.4, 0.7, 1.5, 15, 0) || twGb(A, C, 6.4, 4, 9.4, 6.6, 0.7, 1.5, 15, 0)) return 1;
+        if (A > 0.8 && A < 5.6 && C > 5.2 && C < 9.4 && (C % 1.2) < 0.75) { TW_L = 0.2 * T; TW_P = PART.hole; return 1; }
+        return 0;
+      case 'stage':   /* the stage in the house colour, its truss, the bonfire, the ring of burnt cars, a painted wall */
+        if (twBx(A, C, 2, 0.9, 2.4, 1.3, 5, PART.edge) || twBx(A, C, 7.6, 0.9, 8, 1.3, 5, PART.edge) || twBx(A, C, 2, 1, 8, 3.4, 1.4, PART.top, 1)) return 1;
+        var db = Math.hypot(A - 5, C - 6.8);
+        if (db < 0.45) { TW_L = 0.4 * T; TW_P = PART.window; return 1; }
+        if (db > 2.4 && db < 3.1 && ((Math.atan2(C - 6.8, A - 5) + 3.2) * 2.2 % 1) < 0.62) { TW_L = 0.6 * T; TW_P = PART.burn; return 1; }
+        if (e < 0.25 && C > 3.6) { TW_L = 1.2 * T; TW_P = (Math.floor((A + C) * 0.9) & 1) ? PART.top : PART.edge; return 1; }
+        return 0;
+      case 'hall':   /* the hall, its roof and its painted walls in the house colour, the tents */
+        if (twGb(A, C, 1, 1.4, 9, 6, 2.5, 1.8, PART.top, 1)) return 1;
+        if (C > 7) return twTents(bk, a, c);
+        return 0;
+      case 'yard':   /* the crew's own: a shop, a yard fenced, the containers, a car */
+        if (twBx(A, C, 1, 1, 6, 5, 3, PART.roofL, 1) || twBx(A, C, 2, 6.6, 3.6, 7.4, 0.55, PART.tree) || twBx(A, C, 4.2, 7.2, 5.8, 8, 0.55, PART.side)) return 1;
+        if (A > 7 && A < 9.2 && C > 1 && C < 7) { var cr = Math.floor((C - 1) / 1.5); if (((C - 1) - cr * 1.5) < 1.1) { TW_L = (cr % 2 ? 2.8 : 1.4) * T; TW_P = cr % 3 === 0 ? PART.top : PART.side; return 1; } }
+        if (e < 0.15) { TW_L = 0.35 * T; TW_P = PART.line; return 1; }
+        return 0;
+      case 'trailers': { q = twCell(bk, a, c, 4.2, 1.9, bk.ax); if (q.f < 0.3 || q.f > 3.9 || q.g < 0.35 || q.g > 1.35 || q.h < 0.12) return 0; TW_L = 1.5 * T; TW_P = q.h < 0.4 ? PART.roofL : q.h < 0.6 ? PART.top : q.h < 0.8 ? 15 : PART.tree; return 1; }
+      case 'lodge':
+        if (twGb(A, C, 1.5, 2, 8.5, 6.6, 2.5, 2.4, PART.roof, 1) || twGb(A, C, 0.8, 7.4, 3, 9.4, 1.6, 1.2, PART.roofL, 1) || twGb(A, C, 6.8, 7.4, 9.2, 9.4, 1.6, 1.2, PART.top, 1)) return 1;
+        return 0;
+      case 'bigbox':
+        if (twBx(A, C, 1, 1, 9, 5.8, 3, PART.roofL, 1)) return 1;
+        if (C > 6.4 && C < 9.6) { q = twCell(bk, a, c, 1.1, 1.6, 1); if (q.f < 0.08) { TW_L = 0; TW_P = PART.line; return 1; } if (q.h < 0.25 && q.f > 0.2 && q.f < 0.9 && q.g > 0.3 && q.g < 1.3) { TW_L = 0.55 * T; TW_P = q.h < 0.08 ? PART.burn : PART.tree; return 1; } }
+        return 0;
+      case 'marina':   /* the boats on the mud, a shed, the ramp; or a boathouse */
+        if (bk.v === 1 && twGb(A, C, 0.8, 0.8, 5, 3.8, 2.2, 1.6, PART.roofL, 1)) return 1;
+        if (twBx(A, C, 0.8, 0.8, 4, 3.4, 2, PART.roofL, 1) || twBx(A, C, 6, 0, 7, 4, 0.1, PART.lampspot)) return 1;
+        q = twCell(bk, a, c, 2.1, 1.1, 1); if (C > 4 && q.h > 0.3) { var bx2 = (q.f - 1.05) / 0.85, by2 = (q.g - 0.55) / 0.33; if (bx2 * bx2 + by2 * by2 < 1) { TW_L = 0.8 * T; TW_P = q.h < 0.55 ? 15 : q.h < 0.8 ? PART.roofL : PART.top; return 1; } }
+        return 0;
+      case 'hilltown': case 'suburbs': {
+        q = twCell(bk, a, c, 3.2, 3, bk.ax); if (q.h < 0.15) return 0;
+        if (q.f > 0.4 && q.f < 2.8 && q.g > 0.5 && q.g < 2.4) { var dr3 = Math.abs((q.g - 1.45) / 0.95); TW_L = (2 + 1.4 * (1 - dr3)) * T; TW_P = q.h < 0.3 ? PART.top : q.h < 0.65 ? PART.roof : PART.roofL; return 1; }
+        if (q.f < 0.1 || q.g < 0.1) { TW_L = 0.3 * T; TW_P = PART.line; return 1; }
+        return 0; }
+      case 'solar':   /* the rows of panels, a pump house; or the mirrors in rings round a power tower; or a row of battery boxes */
+        if (bk.v === 1) { if (twBx(A, C, 4.5, 4.5, 5.5, 5.5, 18, PART.neon)) return 1; var dm = Math.hypot(A - 5, C - 5); if (dm > 1.2 && dm < 5.2 && (dm % 0.9) < 0.42) { TW_L = 0.4 * T; TW_P = PART.edge; return 1; } return 0; }
+        if (bk.v === 2 && C > 8.2 && C < 9.5 && (A % 1.8) < 1.4) { TW_L = 1.4 * T; TW_P = (Math.floor(A / 1.8) & 1) ? PART.side : PART.tree; return 1; }
+        if (twBx(A, C, 0.6, 0.6, 2.8, 2.4, 2.4, PART.roofL, 1)) return 1;
+        if (!(A < 3 && C < 2.8) && (C % 1.1) < 0.62 && A > 0.4 && A < 9.6) { TW_L = 0.5 * T; TW_P = PART.edge; return 1; }
+        return 0;
+      case 'scrap':
+        TW_L = Math.max(0, vbNoise(A / 2.2, C / 2.2, sd + 623) - 0.3) * 4 * T; if (TW_L <= 0.1 * T) return 0;
+        TW_P = r < 0.3 ? PART.side : r < 0.55 ? PART.tree : r < 0.75 ? PART.burn : PART.roofL; return 1;
+      case 'hangars':
+        if (A > 0.8 && A < 9.2 && ((C > 1 && C < 4.4) || (C > 5.6 && C < 9))) { var cc = C < 5 ? (C - 1) / 3.4 : (C - 5.6) / 3.4, dh = Math.abs(cc - 0.5) * 2; TW_L = 3.2 * Math.sqrt(Math.max(0, 1 - dh * dh)) * T + 0.3 * T; TW_P = PART.roofL; return 1; }
+        return 0;
     }
     return 0;
   }
@@ -47640,8 +48047,8 @@ function vbCityCore(inp){
       }
       var twOwn = 0;
       if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
-      if (CUT && !twOwn && (cl === VB_CLASS.land || STRT(cl) || (twi >= 0 && lift === 0 && TW_E < TW_W0 * (0.1 + 0.62 * TW_NZ)))) CUTM[o] = 1;   /* the land and the yard past the ragged line, cut away */
-      HS[o] = lift; COLI[o] = twOwn ? idx(TW_K, part) + twi * 1024 : idx(cl, part) + (burned ? 16 * 32 : 0) + sb * 1024;   /* __THE_DISTRICTS_READ_APART__: the sub-kind rides above the burn bit */
+      if (CUT && (twOwn === 2 || (!twOwn && (cl === VB_CLASS.land || STRT(cl) || (twi >= 0 && lift === 0 && TW_E < TW_W0 * (0.1 + 0.62 * TW_NZ)))))) CUTM[o] = 1;   /* __EVERY_TOWN_ITS_OWN__: the town's open ground too */   /* the land and the yard past the ragged line, cut away */
+      HS[o] = lift; COLI[o] = twOwn === 1 ? idx(TW_K, part) + twi * 1024 : idx(cl, part) + (burned ? 16 * 32 : 0) + sb * 1024;   /* __EVERY_TOWN_ITS_OWN__: 2, the town's open ground, is the district's own ground */   /* __THE_DISTRICTS_READ_APART__: the sub-kind rides above the burn bit */
     }
   }
   /* __THE_MAP_STANDS_UP__: THE SUN CASTS. One sweep down the sun's line (it comes from -u and a little -v, the land's north-
@@ -47658,6 +48065,7 @@ function vbCityCore(inp){
     var sb = ci >> 10; ci &= 1023;
     var burned = ci >= 16 * 32; if (burned) ci -= 16 * 32;
     var cl = ci >> 4, part = ci & 15;
+    if (cl === TW_K && TWL && TWL[sb] && TWL[sb].pal) return TWL[sb].pal[part] || TWL[sb].pal[1];   /* __EVERY_TOWN_ITS_OWN__: the town's own palette */
     if (cl === TW_K && TWP) return (part === PART.top || part === PART.neon) && TWL[sb] ? TWL[sb].acc : (TWP[part] || TWP[1]);   /* __THE_TOWN_IS_PAINTED_IN__ */
     if (STRT(cl)) { var fw = cl === VB_CLASS.freeway, st = cl === VB_CLASS.blvd;   /* __THE_STREETS_READ_AS_STREETS__ */
       switch (part) {
@@ -47760,6 +48168,7 @@ function vbCityCore(inp){
       if (ci < 0) continue;
       var Hq = HS[qo], liftk = qu - uu, top = (Hq - liftk) < 1, sh, b = base(ci), cl2 = (ci % (16 * 32)) >> 4, part2 = ci & 15;   /* (ci & 1023 holds the class: 1024 is a multiple of 512) */
       if (CK) { var bk = cookPick(qu, qv, top, Hq, ci, cl2, part2); if (bk) b = bk; }   /* __THE_PAINTING_WEARS_COOK__ */
+      if (cl2 === TW_K && !top) { var twp = TWL && TWL[ci >> 10] && TWL[ci >> 10].pal; if (twp && twp[16 + part2]) b = twp[16 + part2]; }   /* __EVERY_TOWN_ITS_OWN__: its own walls */
       var sxp = qu + 1 < P ? HS[qo + 1] : Hq, sxm = qu > 0 ? HS[qo - 1] : Hq, syp = qv + 1 < P ? HS[qo + P] : Hq;
       if (top) { var sl = (sxp - sxm) * 0.5; sh = 1 + (cl2 === VB_CLASS.mountain ? 0.42 * Math.max(-1, Math.min(1, sl * 0.9)) - 0.12 * Math.max(-1, Math.min(1, (syp - Hq) * 0.5)) : 0);
         if (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) { if (part2 === PART.top) b = cl2 === VB_CLASS.casino ? C.gold : C.towerTop; }
@@ -47768,7 +48177,7 @@ function vbCityCore(inp){
           var gu = (Math.abs(sxp - Hq) < J && Math.abs(sxm - Hq) < J) ? (sxp - sxm) * 0.5 : 0, gv = (Math.abs(syp - Hq) < J && Math.abs(sym - Hq) < J) ? (syp - sym) * 0.5 : 0;
           sh += 0.4 * Math.max(-1, Math.min(1, gu)) + 0.2 * Math.max(-1, Math.min(1, gv)); } }
       else { sh = (sxp < syp) ? 0.56 : 0.76;
-        if ((cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || cl2 === VB_CLASS.roof || (cl2 === VB_CLASS.houses && (ci >> 10) === VB_SUB.apartment)) && liftk > 1 && (liftk % 2) === 1 && Hq - liftk > 1) sh *= cl2 === VB_CLASS.roof ? 0.8 : cl2 === VB_CLASS.houses ? 0.74 : 0.55; }   /* __THE_MAP_STANDS_UP__: a storey a window band, a tower's dark like COOK's */
+        if ((cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || cl2 === VB_CLASS.roof || (cl2 === VB_CLASS.houses && (ci >> 10) === VB_SUB.apartment) || (cl2 === TW_K && Hq > 3.5 * T)) && liftk > 1 && (liftk % 2) === 1 && Hq - liftk > 1) sh *= cl2 === VB_CLASS.roof || cl2 === TW_K ? 0.8 : cl2 === VB_CLASS.houses ? 0.74 : 0.55; }   /* __EVERY_TOWN_ITS_OWN__: a town's box has its storeys */   /* __THE_MAP_STANDS_UP__: a storey a window band, a tower's dark like COOK's */
       sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu + XS, qv + YS, sd + 17));
       if (top && SHD[qo] > 0) sh *= SHD[qo] >= 1 ? 0.62 : 1 - 0.38 * SHD[qo];   /* __THE_MAP_STANDS_UP__: in the shade of what stands nearer the sun */
       if (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof || cl2 === VB_CLASS.freeway) { ST.built++; if (!top) ST.wall++; if (cl2 === VB_CLASS.houses && (ci >> 10) < VB_SUB.trailer && Hq > ST.houseMax) ST.houseMax = Hq;   /* a house, not a trailer or a slab */ if (cl2 === VB_CLASS.freeway && Hq > ST.fwyMax) ST.fwyMax = Hq; }
@@ -47782,12 +48191,12 @@ function vbCityCore(inp){
       if (lv) {
         var lr = vbHash(qu + XS, qv + YS, sd + 19), Lc = null;
         if (part2 === PART.window && top) Lc = C.lit;
-        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) && (((liftk / Q) | 0) % 2 === 1) && lr < 0.45) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;
+        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || (cl2 === TW_K && Hq > 3.5 * T)) && (((liftk / Q) | 0) % 2 === 1) && lr < (cl2 === TW_K ? 0.3 : 0.45)) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;   /* __EVERY_TOWN_ITS_OWN__: a town's lit floors where it has power */
         else if (part2 === PART.lampspot) Lc = C.lamp;
         else if (part2 === PART.neon) Lc = lr < 0.5 ? C.neonN : C.lit;
         if (Lc) { for (var z2 = 0; z2 < 3; z2++) { night[o8 + z2] = Lc[z2]; lights[o8 + z2] = Lc[z2]; } lights[o8 + 3] = 255; }
       }
-      if (cl2 === TW_K && part2 === PART.window && top && TWP[0]) { for (var z3 = 0; z3 < 3; z3++) { night[o8 + z3] = TWP[0][z3]; lights[o8 + z3] = TWP[0][z3]; } lights[o8 + 3] = 255; }   /* __THE_TOWN_IS_PAINTED_IN__: a town's fires burn without the grid, firelight, never the grid's lamp colour */
+      if (cl2 === TW_K && part2 === PART.window && top) { var fire = (TWL && TWL[ci >> 10] && TWL[ci >> 10].pal && TWL[ci >> 10].pal[0]) || (TWP && TWP[0]); if (fire) { for (var z3 = 0; z3 < 3; z3++) { night[o8 + z3] = fire[z3]; lights[o8 + z3] = fire[z3]; } lights[o8 + 3] = 255; } }   /* __THE_TOWN_IS_PAINTED_IN__: a town's fires burn without the grid, firelight, never the grid's lamp colour */
     }
   }
   ST.T = T;
