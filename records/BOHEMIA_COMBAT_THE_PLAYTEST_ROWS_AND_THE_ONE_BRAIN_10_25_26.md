@@ -122,6 +122,22 @@ TUNING's --odds run, [the odds keep up]).
 Re-aimed to rule 180 (newer than the legs): THE PC PLAYTEST's 'AUTO swaps an empty gun from the bag' (now never) and THE REBUILT
 FIGHT PLAYS' 'AUTO spreads its swings' (his side focuses, theirs spreads).
 
+## 6b. THE BRAIN'S SECOND PASS (9fa7d655, 719b2db3, 665c7a32), measured on the same 300 fights after each
+- A ROOF IS WORTH HOLDING (9fa7d655): the leftover dances were a gunman up a roof, off it toward the fight, up again; the roof's
+  worth now holds while a foe stands within his gun's reach from it and a step (roofReach). Off-and-back every kind 96 -> 60.
+- CAN I ACT FROM THERE, THE VETO INSIDE THE TURN, NO CLIMB OUT OF A RING (719b2db3): the move scorer asks the breath, the rounds
+  and a loadable gun before it calls a tile a shooting tile (a winded gunman walked to a tile he 'could shoot from' and back);
+  never back onto the turn's first tile without a blow (a gunman 7,9 -> 6,10 -> 7,9 in one turn, k74); AUTO never climbs out
+  of a ring with a club (most of AUTO's own walk-outs). The gate's G2 and G4 now count from their own play with a man in a
+  morale rout (Battle Brothers' flight, kept) apart: AUTO's own dances 0 in 100, AUTO's own walk-outs 0.17 a fight against
+  theirs 0.85; routs take the rest (1.5 to 2 a fight for his men, 0.3 to 0.4 for theirs: his men break more often).
+- A BLOW SPENT, HE HOLDS (665c7a32): gunmen spent a shot's leftover AP creeping toward the fight and stepped back behind their
+  front man the next turn (115 pairs in 300, shooting each turn); now once he has struck he walks only to strike again or up a
+  roof. Off-and-back every kind 115 -> 51; roofs 43.3% -> 39.7% (the creep had carried some onto roofs).
+FINAL, the same 300 fights, old brain -> new: won 202 -> 239, stalled 11 -> 0, wasted 150 -> 0, no-swing dances 27 -> 8, every
+off-and-back 96 -> 51, a strike in reach never swung 1.44% -> 0.03%, free swings 7.03 -> 2.18 a fight, roofs 38.5% -> 39.7%,
+rounds 11.6 -> 10.4. AUTO NEVER WASTES A TURN 9/0 on 100 (86 won, the old brain 71).
+
 ## GATES (rule 13: the ones that read my files, run this round, alone where the box was crowded)
 NOBODY ON ANYBODY, THE WATER RUNS ON 14/0 (new); MELEE IS ONE TILE, COVER IS WHAT IS ON THE TILE 7/0 (new); AUTO NEVER WASTES A
 TURN 9/0 (new); THE PC PLAYTEST: THE FIGHT 27/0; THE FORMATION IS KEPT 23/0; ONE TAP 16/0; LOSS 15/0 (alone; 11/4 in a crowd,
