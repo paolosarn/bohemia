@@ -739,12 +739,7 @@ def pack(only=None):
                             'tools/bohemia_animation_melee_in_hand.py, rendered by DIRECTION\'s master rig the way COMBAT renders the fight',
                      dirs=FIGHT_DIRS, keys_per_beat=3,
                      cell='[x, y, w, h, dx, dy]: the cell on the sheet and where its top left sits from the look\'s fight-sheet cell origin', looks={})
-    ready_props = set(p_ for ly in S.get('layers_ready', list(S['layers'])) for p_ in S['layers'][ly]['props'])
-    for k in ('composite', 'timelines', 'by_row', 'by_class', 'shield_by_row', 'shield_over', 'two_by_row', 'two_by_class'):
-        # a row maps to a thing only once that thing is in a ready layer (never a man the fight thinks is armed and the sheet is not)
-        index[k] = {a_: b_ for a_, b_ in S.get(k, {}).items() if a_ != 'why' and (k not in ('by_row', 'by_class', 'shield_by_row', 'two_by_row', 'two_by_class') or b_ in ready_props)}
     for k in ('thrust', 'thrown'): index[k] = S.get(k, [])
-    index['layers_ready'] = S.get('layers_ready', list(S['layers']))
     index['props'] = sorted(set(p_ for L in S['layers'].values() for p_ in L['props']))
     index['clips'] = {n: len(c['keys']) for n, c in S['clips'].items()}
 
@@ -852,8 +847,20 @@ def pack(only=None):
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))
         index['looks'][look] = dict(json=look + '.json')
         print('PACKED', look, {g_: s_['size'] for g_, s_ in sheets.items()}, 'things', {l_: s_['size'] for l_, s_ in entry['props']['sheets'].items()} if 'props' in entry else 'his gang\'s (%s)' % entry.get('ref'), flush=True)
+    # a layer is live once a named look's own things for it are packed (the source's layers_ready says what is being rendered;
+    # this says what the fight may draw), and a row maps to a thing only once that thing is in a live layer: never a man the
+    # fight thinks is armed while the sheet is not
+    live = set()
+    for look in index['looks']:
+        if is_person(look) or not os.path.exists(os.path.join(ROOT, OUT, look + '.json')): continue
+        e_ = json.load(open(os.path.join(ROOT, OUT, look + '.json')))
+        live |= set(ly for ly in e_.get('layers', []) if ly in e_.get('props', {}).get('sheets', {}))
+    index['layers_ready'] = [ly for ly in S.get('layers_ready', list(S['layers'])) if ly in live]
+    ready_props = set(p_ for ly in index['layers_ready'] for p_ in S['layers'][ly]['props'])
+    for k in ('composite', 'timelines', 'by_row', 'by_class', 'shield_by_row', 'shield_over', 'two_by_row', 'two_by_class'):
+        index[k] = {a_: b_ for a_, b_ in S.get(k, {}).items() if a_ != 'why' and (k not in ('by_row', 'by_class', 'shield_by_row', 'two_by_row', 'two_by_class') or b_ in ready_props)}
     json.dump(index, open(ip, 'w'), separators=(',', ':'))
-    print('INDEX', ip, len(index['looks']), 'looks')
+    print('INDEX', ip, len(index['looks']), 'looks, live layers', index['layers_ready'])
 
 
 if __name__ == '__main__':
