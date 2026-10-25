@@ -152,6 +152,37 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-every-origin): 10/25 LATEST -- [every origin starts like itself] SHIPPED (rule 184, research only, no card, no game
+code touched; the coordinator opened this chat under rule 112, no check-in, this block is the report; the page committed in pieces).
+RECORD: records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md. BANKS (draft:true, nothing reads them):
+banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json (every track and the ladder) and banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json
+(THE FIFTEEN PROPOSED STARTS IN ORIGINS.JSON'S OWN SHAPE, for RUN TWO to lift). The resume cache banks/*.cells.ndjson is git-ignored.
+BENCH (research instrument, not a gate): tools/bohemia_tuning_every_origin.js (--who, --ladder, --days [--only id], --write, --origins;
+the cache keys a track on its own start's spec, so a new proposal plays only itself; bump LOGIC when days() changes).
+MEASURED ON A FROZEN COPY at 89a4b46d (a scratch worktree): every number on the page is that one fight; re-measure when it moves (rule 178).
+1 THE LONE WOLF: today one regular guy, 52 in 100 of his first fifty days won (careful), 35 careless. THE GILDED GOD: a hedge knight in
+  his range (mdef -2), three door level-ups taken (four picks: rdef, mskill, mdef, breath), exactly three talents each at 3 stars (rdef,
+  mskill, mdef), the hedge knight's kit in COOK's things rolled per game (machete/fire axe, riot shield, full riot armour 210-320, full
+  riot helm 280/300, pistol in the bag): 98 careful, 92 careless, 73 runs in 100 never lose; still turns at day 61 (82 / 51).
+  Five three-star stats measured the same as three; the pistol in his hand instead of the blade 83.
+2 THE FOURTEEN TODAY ARE ONE CREW: the line's pistol, car door and rifle in 90 armour for all; a stated level is a label; the same men
+  every game; rebuild, newcrew and south are the same three men.
+3 THE FOURTEEN PROPOSED (careful, first thirty days): pit 67 -> 96 (with Battle Brothers' wages, 6 a night), raiders 76 -> 96, hunters
+  64 -> 90, promise keepers 50 -> 89, deserters 54 -> 86, the easy three 64 -> 84 (a pistol and a car door in each front hand is the
+  lever, not the level), truck 41 -> 66 (a guard bought from its goods), watch 83 -> 91 (a week of the bill; still walks 5 of 12),
+  scavengers 61 -> 69 (more long guns with no front LOSE: COMBAT's guns), lab 62, faith 75, debt 86 (their promise is rules not built).
+4 THE LAID-UP MONTH: one bad fight puts a small crew in bed 30 to 40 days and the map still counts them; a crew that never rests fields
+  YOU alone in 237 of 300 fights in days 11-20. Resting is the careful play; careful vs careless is 30 to 40 points.
+THE ONE TABLE: section J hand-added at the end of records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md (like F to I).
+NOTES POSTED: RUN TWO [every origin's numbers] (build from the bank: real levels, stars, gear, wagon, guard, wages; the crew screen
+queues the door's level-ups), RUN [the door's promise words] (fifteen promises in plain words; the door hands the bank's men).
+NOT MEASURED: the rules not built (first strike, hurt start, never confident, the whip, free joiners, potions, oaths, prices); beasts;
+the block watch's sixteen against big parties; hiring past ordinary men; a human hand.
+NEXT ON THE BOARD: [the stupid-move watch] (standing, rule 188), [every weapon's range bands] (rule 187), [the odds keep up].
+[bb the origins: a start is who, their levels, their kit, the money and one rule; Battle Brothers gives a stated level a real body]
+[analog horror: fifteen doors into the same three men in the same rags was the tell; every door is its own room now]
+[PENDING Paolo]: none.
+
 TUNING (tuning-lone-wolf): 10/25 LATEST -- [the first fifty days and the lone wolf] SHIPPED (rule 183, research only, no card, no game
 code touched; the coordinator opened this chat under rule 112, no check-in, this block is the report; the page committed in six pieces).
 RECORD: records/BOHEMIA_TUNING_THE_FIRST_FIFTY_DAYS_AND_THE_LONE_WOLF_10_25_26.md. BANK (draft:true, nothing reads it):
