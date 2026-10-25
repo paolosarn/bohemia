@@ -11,6 +11,40 @@ real finger (CDP touch: tap, two-finger pinch, one-finger swipe); towns and peop
 script click. Pictures: records/eyes_the_playtest_10_25/ (q = phone, k = computer), the game's own camera.
 THE PILOT: one live page held open, steps read from files (scratch, as round one). Nothing fixed here.
 
+## THE ROUND IN ONE PAGE (for the coordinator, rule 150(c))
+ROUND ONE'S 30, MARKED ON THEIR BOARDS (each row ends '|| EYES R2 10/25 ...'):
+- FIXED OR CONFIRMED, 17: the dead stand up (both halves), one squeeze to space (the phone), the valley blocks (the near
+  zooms and the camera), the reason is AP, the man up stays, the retreat recap, the blocks between, the gear on top,
+  hitpoints drift (four fights), the empty phone, the bag line (10/25b), the cut name, four spellings, the lot's line,
+  no run saved, twelve in a fight, the plate on the town (the plate stood above CHURCH's name; a tap on the town travelled).
+- BETTER OR HALF, 2: crowd taps (16 of 16 reachable, three on about 14 px), board seams (the canal seam is on the computer).
+- STILL, 8: the BB names, toy town, men on men, the job's real pay, lines under x, one company number, two cards disagree,
+  you the companion.
+- NOT REACHED, 3: the stale line, the broken template, one blocks (no fight on this route shouted a name; no plate counted
+  one block).
+
+THE NEW ROWS, WORST FIRST (19; RUN 8, RUN TWO 6, WORLD 2, COMBAT 1, PEOPLE 1, PORTRAIT 1):
+ 1. [RUN] the door starts itself: on his computer a drag on the origin row or a click on the empty door starts the game.
+ 2. [RUN] the wheel to space: on his computer the fourth notch of the wheel is in space.
+ 3. [RUN TWO] the town will not slide: on a phone a swipe moves the town 17 px; the hall is nine swipes away.
+ 4. [RUN] the dead still count: the bar and the night's bill count the dead.
+ 5. [RUN TWO] the sheet opens halfway: a sheet opens at the last sheet's scroll.
+ 6. [COMBAT] tap again, nothing: the retreat's 'Tap again' outlives its arm.
+ 7. [RUN] the dead speak: the dead tell each other's deaths after a wipe.
+ 8. [RUN] plates on my man: the job's plate and the town's name on the crew's body.
+ 9. [WORLD] paid before it lands: '+45, like we said' mid-job; 30 lands at the end.
+10. [RUN] the silent rent: 34 batteries of rent in a night, not one word.
+11. [RUN] the chase all night: a chase walks 13 hours and ends in silence.
+12. [WORLD] a place that is nothing: Sloan (and about 40 names) is a trip to nothing.
+13. [PEOPLE] the injury is BB's: Battle Brothers' injury names and wiki lines on the screens.
+14. [RUN] names on names: the map's names on top of each other.
+15. [RUN TWO] the phone line: 'They show on your phone'; they do not.
+16. [PORTRAIT] the egg face: the smith's face.
+17. [RUN TWO] three pistols: one word for three guns on a shelf.
+18. [RUN TWO] the last town's line: 'You head back out to the map.' greets every town (Custom, Caravans, Church, Colorful).
+19. [RUN TWO] the end screen's words: 'WIPED OUT  WIPED OUT', 'OFF 3 DEAD'.
+PEOPLE and PORTRAIT are PAUSED (rule 121); their rows wait for the coordinator to open them.
+
 ## PIECE 1 (phone, 06:09 to 06:40): title, door, the map at every zoom, the crew, Church (smith, hall, board), a buy, two
 ## hires, a job (the escort), the road fight by hand then AUTO (won), the end screen, the loot, the pass back, Custom.
 
@@ -189,3 +223,15 @@ A fresh phone game and a fresh computer game on 10/25b, the same steps.
 ### NEW, SMALL
 20. [RUN TWO] THE END SCREEN'S WORDS. The wipe's head reads 'WIPED OUT  WIPED OUT' (the result word and the fight's head line
    the same words, k12); the loot's head reads 'WHAT THEY LEFT · OFF 3 DEAD' (q38), which does not read as English.
+
+### CLOSING READS (07:08 to 07:12, 10/25b)
+- 27 [eyes: the lot's line] CONFIRMED: Church's lot, 'YOU: Everybody's at the market. Nobody's watching the lot.'
+- 21 [eyes: the plate on the town] CONFIRMED (10/24t): a crew's plate '3 ☠ EASY / GOING HOME' stood just above CHURCH's name,
+  not on it; a tap on Church's building travelled (q23 right).
+- [the last town's line] STILL on 10/25b, at Church and at Colorful (the patrol's first post walks into Colorful's screen,
+  q40): four towns of four.
+
+## HOW TO RE-RUN
+The same pilot as round one (one live page, steps from files, a finger by CDP touch or a mouse); round three should turn it
+into tools/bohemia_eyes_the_playtest.js with these steps in order so each round is a diff, and add the shouts (the stale line,
+the template) and a throttled phone, which this round did not reach.
