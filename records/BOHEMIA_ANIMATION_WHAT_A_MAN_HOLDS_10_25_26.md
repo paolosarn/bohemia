@@ -107,5 +107,10 @@ game (Battle Brothers' one-handed weapon held at the side is the study the row n
 - THE SHIELD: rule 149(b) wants YOU's car door in his off hand. The one-hand clips leave his left hand free for it, but no
   car door is modelled and the fight draws no shield; COMBAT's [what each hand holds shows] owns the shield's rules. The
   shield arm through the rig is this lane's next line when COMBAT asks for it.
-- Melee weapons are not drawn in anybody's hands in the fight (only guns are, rule 120(a)); a man with a club in cover
-  ducks bare-handed.
+- MELEE WEAPONS ARE NOT IN ANYBODY'S HANDS, AND IT IS THE BIGGEST GAP LEFT FOR ITEM 31. Measured on the real fight (seed 3):
+  of 21 men, 3 hold guns; the rest hold a mallet, a bludgeon, a pitchfork, hatchets, a woodcutter's axe, a shortsword, a
+  wooden stick, a militia spear, throwing axes, and every one of them is drawn with EMPTY hands (the fight draws only guns,
+  rule 120(a)). The way, the guns' way: the props modelled (the pipe, the sledge, the axe, the machete, the pitchfork, the
+  spear, the bottle), rendered in each look's right hand with his body as a holdout on the fight's own stand, walk, swing
+  and blow and on the held clips, plus a held melee idle so a man with a club still breathes and looks about (rule 130(a));
+  about a thousand small renders a look, its own round. Proposed as this lane's next line, COMBAT's block to draw it.
