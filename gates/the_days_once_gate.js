@@ -22,6 +22,11 @@
      - every word passes 4.5 to 1 on its material, plain and in the sun
      - IN THE FIGHT NOTHING IS ACROSS THE TOP: the strip is gone, the fight measures its top as 0, the round, the
        turn order's faces and AUTO ride the bottom bar, and AUTO still flips the fight
+       RE-AIMED 10/25 (UI [one HUD everywhere], rule 190, Paolo: 'why does the UI at the top of the screen on the city map
+       have to be different than the settlement UI... why is there not something cohesive'): across the top of the fight
+       is THE ONE BAR now, the map's own (gates/one_hud_everywhere_gate.js measures it to the pixel); what this keeps is the
+       10/22 half: the FIGHT'S OWN STRIP is never across the top, the board is measured under the one bar and nothing
+       more (TOPH is the bar's bottom), the round, the faces and AUTO ride the bottom bar, AUTO flips
      - four planted defects are caught by the same checks: '0 DAYS' back on the food, the hour back on the tag, a
        40-point gear, the strip back over the fight
    node gates/the_days_once_gate.js */
@@ -78,8 +83,10 @@ const CHECK = () => {
 };
 const FIGHT = () => {
   const out = [], top = document.getElementById('top'), bot = document.getElementById('bot');
-  out.push(['in the fight nothing is across the top', getComputedStyle(top).display === 'none', getComputedStyle(top).display]);
-  out.push(['  the fight measures its top as 0, the board runs to the top of the glass', TOPH === 0, 'TOPH ' + TOPH]);
+  /* RE-AIMED 10/25 (rule 190): the one bar is the fight's top; the fight's own strip is not across it */
+  const bar = top.querySelector('#bmtb'), own = ['round', 'order', 'bauto', 'speedpad'].filter(id => { const e = document.getElementById(id); return e && top.contains(e); });
+  out.push(['in the fight the fight\'s own strip is not across the top (the one bar is)', !!bar && own.length === 0, (bar ? 'the bar' : 'no bar') + (own.length ? ', ' + own.join(' ') + ' up there' : '')]);
+  out.push(['  the fight measures its top as the one bar\'s bottom, nothing more', !!bar && TOPH === Math.round(top.getBoundingClientRect().bottom) && TOPH <= 110, 'TOPH ' + TOPH]);
   out.push(['  the round, the faces and AUTO ride the bottom bar', !!bot.querySelector('#round') && !!bot.querySelector('#bauto') && bot.querySelectorAll('#order canvas').length > 0,
     bot.querySelectorAll('#order canvas').length + ' faces']);
   const r = document.getElementById('bauto').getBoundingClientRect();
@@ -188,8 +195,8 @@ async function side(profile) {
       const au = await f.evaluate(() => { const b = document.getElementById('bauto'); const was = FIGHT_UI.auto; b.click(); const now = FIGHT_UI.auto; b.click(); return [was, now, FIGHT_UI.auto]; });
       ok('  AUTO still flips the fight', au[0] !== au[1] && au[2] === au[0], au.join(' '));
       if (profile === 'phone_portrait') {
-        const back = await f.evaluate(chk => { const C = eval('(' + chk + ')'), s = document.createElement('style'); s.textContent = 'html body #top{display:flex!important}'; document.head.appendChild(s);
-          const red = C().some(x => !x[1]); s.remove(); return red; }, FIGHT.toString());
+        const back = await f.evaluate(chk => { const C = eval('(' + chk + ')'), r = document.getElementById('round'), was = r.parentNode, nx = r.nextSibling; document.getElementById('top').appendChild(r);
+          const red = C().some(x => !x[1]); was.insertBefore(r, nx); return red; }, FIGHT.toString());
         ok('PLANTED: the strip back over the fight is caught', back);
       }
     }

@@ -9821,6 +9821,19 @@ GATES = [
     ('DROP A JOB RIGHT IN THE TOWN', ['node', 'gates/drop_a_job_in_the_town_gate.js'],
      "RUN TWO gate, 10/25, row [drop a job right in the town] (rule 197, Paolo 10/25: 'to cancel a quest I have to go into the world map, click on the phone, and then go back into the city... this is dog shit'). "
      "MEASURED before: the only drop was the phone on the map. HOLDS on the demo through Church's door by real taps: the jobs he is on at the top of the board with DROP and the phone's cost; the drop in two taps (gone from the map, the standing once, the phone's line, no map screen), phone and computer; the swap in two taps on a full board. about 4 min", True),
+    ('ONE HUD EVERYWHERE', ['node', 'gates/one_hud_everywhere_gate.js'],
+     "UI gate, 10/25, row [one HUD everywhere] (rule 190, the gate rule 24 owed since 9/22; PAOLO 10/25: 'why does the UI at the top of the screen on the city map have to be different than the settlement UI... "
+     "why do things have to change locations... why can't the crew on the map be the same as the crew in the settlement... why is there not something cohesive'). On the demo, a phone and a computer, the map, a town "
+     "(the map's own loopOpenTown) and a road fight (roadContactFight): every piece of the bar (the bar, DAY, the crew, the gear, NOTES, the glass, the place) in the same rectangle within 1.5 points, "
+     "the same picture cut from the glass's screenshots (under 2 percent of a piece's pixels apart; the place's words left out where the place is another place), the same facts (the town's name and purse in a town), "
+     "nothing of the screen's own over the bar; the town's own top row gone, its frame under the bar, the phone where it stands on the map, LEAVE in the bottom-right corner and taking him home; "
+     "the fight's board measured under the bar (TOPH), the phone off the fight's glass; the bar's crew opens the same company screen on all three, the whole glass; in the fight the gear opens the settings "
+     "over it and NOTES opens the notes and saves into the same notes as the map's, counted on both; four plants bite (the fight's gear moved six points, redrawn, the town's own row back, the phone moved); nothing thrown.", True),
+    ('THE STAT ICONS READ AT A GLANCE', ['python3', 'gates/the_stat_icons_read_at_a_glance_gate.py'],
+     "UI gate, 10/25, row [the stat icons read at a glance] (rule 189, PAOLO 10/25: 'the icon for ranged defence has to look so much better... it literally just looks like a shield, and another shield for melee'). "
+     "The eight at the sizes the game shows them (72 and 54 real pixels on his phone, 18 on a computer), nearest and smooth: no pair mistakable (one outline 0.85+, or 0.60+ with colours under 30 delta E apart), "
+     "a stranger's glance (moved, scaled, softened, in the sun) names each from its picture alone, 40 glances each, none mistaken; the two defences' outlines under 0.60; the 10/25 shot-through shield caught (outline 1.00) "
+     "and a twin caught by the glance; the ranged defence in the game is the tool's cover byte for byte. 2 s", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

@@ -764,7 +764,7 @@
     + '#bmtb{display:flex;flex-direction:column;gap:5px;box-sizing:border-box;padding:max(6px,env(safe-area-inset-top)) 8px 13px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
     /* ONE HUD: what the map's page gives the bar by inheritance (its line, its chips' tracking) the bar says itself, so the
        same bar built in the fight's page is the same to the pixel */
-    + '#bmtb{line-height:1.4;-webkit-text-size-adjust:100%;text-size-adjust:100%}'
+    + '#bmtb{line-height:1.4;font-weight:700;font-size:10px;letter-spacing:.4px;color:#e7d8bb;-webkit-text-size-adjust:100%;text-size-adjust:100%}'
     + 'html body .bmhost:not(#menubar) #bmtb #noteplate{letter-spacing:var(--skin-chiptrack,.4px)!important}'
     + '#bmtb .r{display:flex;align-items:center;gap:6px;min-width:0}'
     + '#bmtb .sp{flex:1 1 auto}'
@@ -889,9 +889,17 @@
   function hudLay(root, parts) {
     Object.keys(parts).forEach(function (k) { var e = root.querySelector('[data-tb=' + k + ']'); if (e && e.__was !== parts[k]) { e.innerHTML = parts[k]; e.__was = parts[k]; } });
   }
+  /* NOTES says how many, the same count on every screen: a note written in the fight is counted on the map's NOTES too
+     (the map's own box says it in the same words when it draws; this keeps it true between its draws) */
+  function hudNoteCount() {
+    var n = 0; try { n = (JSON.parse(localStorage.getItem('bohemia.notes.v1') || '[]') || []).length; } catch (_e) {}
+    return n ? 'NOTES ' + n : 'NOTES';
+  }
   function tbPaint() {
     var root = document.getElementById('bmtb'); if (!root || (HUD.screen && HUD.screen !== 'map')) return;   /* the fight paints its copy from the map's parts */
     hudTown();
+    try { var pl = document.getElementById('noteplate'), nt = hudNoteCount(), open_ = window.BohemiaNotes && BohemiaNotes.isOpen && BohemiaNotes.isOpen();
+      if (pl && !open_ && pl.textContent !== nt) { pl.textContent = nt; var nb = document.getElementById('notebtn'); if (nb) nb.classList.toggle('has', nt !== 'NOTES'); } } catch (_e) {}
     hudLay(root, hudParts(hudTownOver()));
     /* the shell's floating gear steps aside for good once the bar carries its own (UI [eyes: the gear on top], rule 150,
        EYES 10/24 item 14: it used to come back whenever a screen covered the bar, and floated over the crew screen's FRONT,
@@ -1005,7 +1013,9 @@
   }
   function hudTownOver() {
     var w = hudTownWin(); if (!w) return null;
-    try { var n = w.document.getElementById('pname'); return { place: n ? String(n.textContent || '').trim().toUpperCase() : null, batteries: typeof w.bats === 'function' ? w.bats() : undefined }; } catch (_e) { return null; }
+    /* the town's own words for both (its name, and the purse it is spending, printed on its own label every time it changes) */
+    try { var d = w.document, n = d.getElementById('pname'), b = d.getElementById('bat'), v = b ? parseInt(String(b.textContent || '').replace(/[^0-9-]/g, ''), 10) : NaN;
+      return { place: n ? String(n.textContent || '').trim().toUpperCase() : null, batteries: isFinite(v) ? v : undefined }; } catch (_e) { return null; }
   }
   /* in the town the bar's crew is the town's own CREW, pressed, so the town re-reads its bag when the company closes */
   function hudTownCrew() {
@@ -1059,7 +1069,7 @@
       var M = hudMapWin(), parts = null;
       try { parts = M ? M.BohemiaMaterials.hudParts() : hudParts(); } catch (_e) { try { parts = hudParts(); } catch (_e2) {} }
       if (parts) hudLay(root, parts);
-      try { var mp = M && M.document.getElementById('noteplate'), t = mp ? mp.textContent : 'NOTES', pl = document.getElementById('noteplate'); if (pl && !HUD.open && pl.textContent !== t) pl.textContent = t; } catch (_e) {}
+      try { var t = hudNoteCount(), pl = document.getElementById('noteplate'); if (pl && !HUD.open && pl.textContent !== t) pl.textContent = t; } catch (_e) {}
     };
     paint(); setInterval(paint, 500);
     try { window.dispatchEvent(new Event('resize')); } catch (_e) {}

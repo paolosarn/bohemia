@@ -14,8 +14,17 @@ grain), outlined in the receipt's ink and dropped on a hard shadow. Never a flat
   initiative      INITIATIVE      a bolt, brass
   melee_skill     MELEE SKILL     a machete, steel, a wood grip
   ranged_skill    RANGED SKILL    a scope's reticle, the dot red
-  melee_defense   MELEE DEFENSE   a shield, steel, a brass boss
-  ranged_defense  RANGED DEFENSE  the same shield with three bullet holes, the drab of a vest
+  melee_defense   MELEE DEFENSE   a shield, steel, a brass boss: the close-in block
+  ranged_defense  RANGED DEFENSE  cover: a sandbag wall, a helmet ducked behind it, two rounds streaking over (10/25, rule 189)
+
+RE-DRAWN 10/25 (UI [the stat icons read at a glance], rule 189, Paolo: 'the icon for ranged defence has to look so much
+better... it literally just looks like a shield, and another shield for melee'). MEASURED: the shot-through shield was the
+melee shield's own outline (the same polygon), so at 24 points the two were one shape in two colours. Battle Brothers draws
+both defences as shields too (its line-of-fire cover is a shield with an arrow), and that is the trap: a second shield is a
+second shield. In a gun world being hard to hit from far is COVER, so ranged defence is a different SHAPE: wide and low
+where every other icon is tall or round. Melee defence keeps the shield, the close-in block (tried as a riot shield, tall and
+narrow: at 18 pixels it read as a dark phone, worse in a game with a phone; dropped). The look-alike gate
+(gates/the_stat_icons_read_at_a_glance_gate.py) holds every pair apart at the phone's size.
 
 Writes slices/stat_icons/<stat>.png at 72 x 72 (24 points at his phone's 3 pixels: one art pixel to one phone pixel) and
 records/target/UI_THE_STAT_ICONS_10_25_26.png, the eight beside their names. Seeded: the same file every run.
@@ -87,6 +96,11 @@ M = {
     'drab':    ((104, 110, 78), 0.35, 0.09),
     'drabdk':  ((70, 74, 52), 0.25, 0.09),
     'hole':    ((22, 16, 12), 0.05, 0.02),
+    # act one's faded palette (rule 159): burlap gone pale in the sun, a drab helmet, a brass round and its streak
+    'burlap':  ((176, 152, 104), 0.12, 0.16),
+    'burlapdk':((140, 118, 78), 0.10, 0.16),
+    'helmet':  ((96, 104, 70), 0.45, 0.08),
+    'streak':  ((232, 220, 186), 0.20, 0.03),
 }
 
 # ---- the eight: parts (shape, material, height, bevel, base) ----
@@ -127,11 +141,31 @@ def shield(face, rim, holes=None):
     parts = [(cut(body, inner), rim, 0.36, 0.1, 0.0), (inner, face, 0.22, 0.24, 0.0)]
     parts.append((circle(0, -0.08, 0.17), 'brass', 0.42, 0.17, 0.0))
     return parts
+def cover():
+    # the wall: three sacks below, two above, each a pillow (a rounded box, its ends pinched by the radius)
+    low = [rbox(x, 0.6, 0.29, 0.19, 0.16) for x in (-0.58, 0.0, 0.58)]
+    high = [rbox(x, 0.24, 0.29, 0.19, 0.16) for x in (-0.29, 0.29)]
+    # the man ducked behind it: only his helmet and its brim show over the sacks
+    dome = cut(ellipse(0.0, -0.02, 0.38, 0.34), rbox(0.0, 0.3, 0.6, 0.3))
+    brim = rbox(0.0, 0.0, 0.46, 0.05, 0.045)
+    # rounds streaking over him from the right: a brass head and a streak that thins behind it (inside the frame: the
+    # outline and the shadow are laid by rolling the picture, so nothing may touch the edge)
+    def round_(y, x0, x1, w):
+        tail = poly([(x0 + 0.08, y - w), (x1, y - w * 0.25), (x1, y + w * 0.25), (x0 + 0.08, y + w)])
+        head = union(rbox(x0 + 0.1, y, 0.09, w * 1.25, 0.02), circle(x0 + 0.01, y, w * 1.25))
+        return [(tail, 'streak', 0.14, 0.05, 0.36), (head, 'brass', 0.2, 0.08, 0.4)]
+    parts = [(p, 'burlapdk', 0.3, 0.16, 0.0) for p in low] + [(p, 'burlap', 0.3, 0.16, 0.18) for p in high]
+    parts += [(dome, 'helmet', 0.34, 0.26, 0.0), (brim, 'helmet', 0.12, 0.04, 0.05)]
+    parts += round_(-0.62, -0.6, 0.86, 0.075) + round_(-0.86, -0.08, 0.86, 0.055)
+    return parts
+# THE 10/25 RANGED DEFENCE, kept as the look-alike gate's planted defect: the melee shield's own outline, shot through
+def shield_shot():
+    return shield('drab', 'drabdk', holes=[(-0.22, -0.3), (0.24, -0.12), (-0.04, 0.24)])
 ICONS = [
     ('hp', 'HITPOINTS', heart), ('fatigue', 'FATIGUE', lungs), ('resolve', 'RESOLVE', fist), ('initiative', 'INITIATIVE', bolt),
     ('melee_skill', 'MELEE SKILL', machete), ('ranged_skill', 'RANGED SKILL', reticle),
     ('melee_defense', 'MELEE DEFENSE', lambda: shield('steel', 'steeldk')),
-    ('ranged_defense', 'RANGED DEFENSE', lambda: shield('drab', 'drabdk', holes=[(-0.22, -0.3), (0.24, -0.12), (-0.04, 0.24)])),
+    ('ranged_defense', 'RANGED DEFENSE', cover),
 ]
 
 def render(parts, seed):
