@@ -927,7 +927,10 @@ var CROWD_LOOPS = KEEPER_LOOPS.concat([['S','SE','SE','S','SW','SW'], ['E','E','
 function turnOf(p, now){ var L = p.loop; return L[Math.floor((now/500 + p.beat)/4) % L.length]; }
 function crowdCount(){
   var n = CROWD_BASE[S.place.tier] || 3, tr = (S.traits||[]).map(function(t){ return t.id; });
-  if(tr.indexOf('market_day') >= 0) n += 6;
+  /* EYES [eyes: crowd taps] (rule 150, the 44-point finger; rule 131(b): the ones you cannot tap are the ones who move): a
+     market day's extra people walk the place (busyCount, +6), one more stands at the stall; eleven standing in one knot left
+     three of them a third of a finger on a phone */
+  if(tr.indexOf('market_day') >= 0) n += 1;
   if(tr.indexOf('raided') >= 0) n = Math.min(n, 1);
   if(tr.indexOf('sickness') >= 0) n = Math.min(n, 1);
   if(view.night) n = Math.ceil(n/2);
@@ -960,7 +963,7 @@ var CROWD_AT = {'town_0.webp': {x:905, y:742}, 'town_1.webp': {x:905, y:742}};
 function folkList(){
   if(S.camp) return campFolk();   /* __THE_CAMP__: your own men round the fire, nobody else */
   if(!VAR || !GANG_LOOKS.length) return [];
-  var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',');
+  var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',') + ':' + Math.round(view.s * 100);
   if(VAR.folkKey === key) return VAR.folk;
   var R = rng(seedOf(S.place.name + ':folk')), hand = dealt(), out = [];
   ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
@@ -968,9 +971,12 @@ function folkList(){
     out.push({k:k, keeper:true, look:hand[i], clip:KEEPER_CLIP[k] || 'wait', face:lp[0], loop:lp, beat:Math.floor(R()*4),
       x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
   var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount(), at = CROWD_AT[VAR.src];
+  /* EYES [eyes: crowd taps] (rule 150, the 44-point finger): on a small screen the knot stands a little looser, a man at least
+     31 points from the next (46 picture px on a computer, about 98 on a phone), still two rows deep, never a line */
+  var step = Math.max(46, 31 / (view.s || 1));
   for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7, lq = CROWD_LOOPS[Math.floor(R()*CROWD_LOOPS.length)];
     R(); out.push({crowd:true, slot:q, look:hand[ORDER.length + q], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:lq[0], loop:lq, beat:Math.floor(R()*4),
-      x:(at ? at.x : (st[0]+st[2])/2) + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, (at ? at.y + R()*8 : st[3] + personH()*.94 + R()*8) + (q % 2) * 24), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall; every other one a step nearer, so a crowd is a knot of people, not a line (rule 130: never a chess row) */
+      x:(at ? at.x : (st[0]+st[2])/2) + (q - (n-1)/2) * step + (R()-.5)*14, y:Math.min(picH()-4, (at ? at.y + R()*8 : st[3] + personH()*.94 + R()*8) + (q % 2) * 24), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall; every other one a step nearer, so a crowd is a knot of people, not a line (rule 130: never a chess row) */
   var hb = VAR.boxes.hall;
   pm.forEach(function(r, i){ var lq = CROWD_LOOPS[(i + 2) % CROWD_LOOPS.length];
     out.push({post:true, k:'hall', rid:r.id, look:r.look, clip:'wait', face:lq[0], loop:lq, beat:(i + 1) % 4,
@@ -1002,7 +1008,7 @@ function busyLanes(){ return (VAR && BUSY_LANES_BY_PIC[VAR.src]) || BUSY_LANES[S
 var WALK_PX_PER_STRIDE = 74, STRIDE_MS = 1000;   /* one stride (the walk's six keys, two beats at 120 BPM) on the rig's man is about 1.3 m at the render's 57 px a metre */
 function busyCount(){
   var n = BUSY_BASE[S.place.tier] || 2, tr = (S.traits||[]).map(function(t){ return t.id; });
-  if(tr.indexOf('market_day') >= 0) n += 2;
+  if(tr.indexOf('market_day') >= 0) n += 6;   /* EYES [eyes: crowd taps]: the market's crowd walks (was +2, and +6 standing) */
   if(tr.indexOf('raided') >= 0 || tr.indexOf('sickness') >= 0) n = Math.min(n, 1);
   if(view.night) n = Math.ceil(n/2);
   return n;
@@ -1125,10 +1131,11 @@ function idlePerson(p, now, k, s, H){   /* his idle picture as a draw, laid in d
    its highest-level man, as his own 3D model off the fight's sheet (slices/fight_rig: the same body, the same eight facings,
    the same six-key walk), breathing on ANIMATION's idles while he stands (rule 130). TAP A PERSON OR A PLACE and the sheet
    opens at once, as it always did; he walks there beside it, one stride every two beats (the fight's pace and the walkers',
-   120 BPM), down the street when a building stands in the straight line (nobody walks over a roof), turning an eighth a key
-   (never a spin), and stops beside the man or at the door, facing him. The people you tap stay on their spot (131(b)). While
-   a sheet covers the street, the town slides up above it so the walk is seen; it slides back when the sheet goes. ==== */
-var LEAD = {look:null, x:null, y:null, path:null, seg:1, walkT:0, face:0, want:0, turnT:0, goal:null, since:0, im:null, file:null, lift:0, last:0, hidden:false};
+   120 BPM), ON THE GROUND (rule 169, below: around every building, wreck, fence and prop as the picture draws them, the short
+   way), turning an eighth a key (never a spin), and stops beside the man or at the door, facing him; a way too long to read
+   is not walked, he is already there. The people you tap stay on their spot (131(b)). While a sheet covers the street, the
+   town slides up above it ONCE a tap so the walk is seen, holds still while he walks, and slides back when the sheet goes. ==== */
+var LEAD = {look:null, x:null, y:null, path:null, seg:1, walkT:0, face:0, want:0, turnT:0, goal:null, since:0, im:null, file:null, lift:0, liftFrom:0, liftTo:0, liftT0:0, last:0, hidden:false};
 var LEAD_DIRS = ['S','SE','E','NE','N','NW','W','SW'];
 function leadRig(){
   if(!HIRE.rig && !LEAD.asked){ LEAD.asked = true; fetch('fight_rig/fight_rig.json').then(function(r){ return r.json(); }).then(function(j){ if(!HIRE.rig) HIRE.rig = j; }).catch(function(){}); }
@@ -1146,42 +1153,112 @@ function leadLook(){
   return best ? best.look : (has('you') ? 'you' : null);
 }
 function leadZ(){ var R = leadRig(); return personH() / ((R && R.ruler && R.ruler.px) || 98); }   /* picture px per sheet px: he is a door tall like everybody */
-/* a building's own body (its picture box less the ground in front of its door): nobody walks there */
-function leadBlocked(x, y){
-  if(!VAR || x < 0 || y < 0 || x > picW() || y > picH()) return true;
-  return Object.keys(VAR.boxes).some(function(k){ if(k === 'lot' || k === 'build') return false; var b = VAR.boxes[k], w = b[2]-b[0], h = b[3]-b[1];
-    return x > b[0] + w*.08 && x < b[2] - w*.08 && y > b[1] + h*.1 && y < b[3] - h*.16; });
+/* ---- ON THE GROUND (RUN TWO [the walk-up, on the ground], rule 169, Paolo 10/25: 'walking on top of buildings and shit... you
+   don't understand what the fuck is going on at all'). MEASURED: the first walk-up kept him off the TAPPABLE buildings' boxes only,
+   so every other house, wreck, fence and prop in the picture was open ground to it, and a straight line or a lane ran him across
+   roofs. NOW the ground is the picture's own: slices/settlement_walk.json holds, per picture, every building, wreck, stall, fence,
+   tent, crate pile, drum, board and lamp as drawn (traced off the art; tools/bohemia_run2_settlement_walk_sheet.py draws them back
+   over it), each grown by half a body sideways and a step at its foot; his feet never stand in one, so he is never behind a roof
+   and never painted over one. His way is found on that ground (a grid of 10 px, around the people standing too, then pulled
+   straight where the ground allows), the short way; a way longer than about five seconds is not walked: he is already beside the
+   man when the talk opens (169(c)). A picture with no blocks in the file is never walked either. ---- */
+var WALK = {data:null, src:null, grid:null, C:10, gx:24, gfoot:6};
+fetch('settlement_walk.json').then(function(r){ return r.json(); }).then(function(j){ WALK.data = j; WALK.grid = null; }).catch(function(){});
+function walkBlocks(){ var d = VAR && WALK.data && WALK.data.pictures && WALK.data.pictures[VAR.src]; return d ? d.blocks : null; }
+/* his feet can stand here: inside the picture, out of every block (grown) */
+function leadBlocked(x, y, pad){
+  var bl = walkBlocks(), m = pad || 0; if(!VAR || !bl) return true;
+  if(x < 12 + m || y < 12 + m || x > picW() - 12 - m || y > picH() - 6 - m) return true;
+  for(var i = 0; i < bl.length; i++){ var b = bl[i]; if(x > b[0] - WALK.gx - m && x < b[2] + WALK.gx + m && y > b[1] - m && y < b[3] + WALK.gfoot + m) return true; }
+  return false;
 }
-function leadClear(a, b){ for(var i = 1; i < 24; i++){ var t = i/24; if(leadBlocked(a.x + (b.x-a.x)*t, a.y + (b.y-a.y)*t)) return false; } return true; }
-function leadPath(a, b){
-  if(Math.hypot(b.x - a.x, b.y - a.y) < personH()*1.9 && leadClear(a, b)) return [a, b];   /* a few steps: straight to him; further: down the street */
-  var best = null;
-  busyLanes().forEach(function(ln){ var cl = function(x){ return Math.max(ln.x0, Math.min(ln.x1, x)); };
-    var p = [a, {x:cl(a.x), y:ln.y}, {x:cl(b.x), y:ln.y}, b].filter(function(q, i, A){ return !i || Math.hypot(q.x - A[i-1].x, q.y - A[i-1].y) > 1; }), len = 0, bad = 0;
-    for(var i = 1; i < p.length; i++){ len += Math.hypot(p[i].x - p[i-1].x, p[i].y - p[i-1].y); if(!leadClear(p[i-1], p[i])) bad++; }
-    if(!best || len + bad*5000 < best.score) best = {score:len + bad*5000, p:p}; });
-  return best ? best.p : [a, b];
+/* a straight stretch he may walk: every 2 px of it clear of the blocks by 3 px more (no corner shaved between two samples) */
+function leadClear(a, b){ var n = Math.max(2, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / 2)); for(var i = 1; i < n; i++){ var t = i/n; if(leadBlocked(a.x + (b.x-a.x)*t, a.y + (b.y-a.y)*t, 3)) return false; } return !leadBlocked(b.x, b.y); }
+/* the grid: 1 where a man may stand; the standing people (keepers, crowd, the post) are kept off too, a body wide */
+function walkGrid(){
+  if(!VAR || !walkBlocks()) return null;
+  var key = VAR.src + ':' + (VAR.folkKey || '');
+  if(WALK.grid && WALK.grid.key === key) return WALK.grid;
+  var C = WALK.C, gw = Math.ceil(picW()/C), gh = Math.ceil(picH()/C), g = new Uint8Array(gw*gh), h = personH();
+  for(var j = 0; j < gh; j++) for(var i = 0; i < gw; i++) g[j*gw + i] = leadBlocked((i + .5)*C, (j + .5)*C) ? 0 : 1;
+  var folk = []; try{ folk = folkList(); }catch(e){}
+  folk.forEach(function(p){ for(var j = Math.floor((p.y - 10)/C); j <= Math.floor((p.y + 8)/C); j++) for(var i = Math.floor((p.x - h*.15)/C); i <= Math.floor((p.x + h*.15)/C); i++)
+    if(i >= 0 && j >= 0 && i < gw && j < gh) g[j*gw + i] = 2; });   /* 2: somebody stands there (walkable only to stop beside him) */
+  return (WALK.grid = {key:key, g:g, gw:gw, gh:gh, C:C});
 }
+function walkCell(G, x, y){ return {i:Math.max(0, Math.min(G.gw - 1, Math.floor(x/G.C))), j:Math.max(0, Math.min(G.gh - 1, Math.floor(y/G.C)))}; }
+/* the nearest cell a man can stand on, from (x, y) */
+function walkNearest(G, x, y, people){
+  var c = walkCell(G, x, y), best = null;
+  for(var r = 0; r < 40 && !best; r++) for(var dj = -r; dj <= r; dj++) for(var di = -r; di <= r; di++){
+    if(Math.max(Math.abs(di), Math.abs(dj)) !== r) continue; var i = c.i + di, j = c.j + dj; if(i < 0 || j < 0 || i >= G.gw || j >= G.gh) continue;
+    var v = G.g[j*G.gw + i]; if(v === 1 || (people && v === 2)){ var px = (i + .5)*G.C, py = (j + .5)*G.C, d = Math.hypot(px - x, py - y); if(!best || d < best.d) best = {i:i, j:j, x:px, y:py, d:d}; } }
+  return best;
+}
+/* A* over the cells, eight ways, then pulled straight wherever the ground between two points is clear */
+function walkFind(G, a, b){
+  var s = walkNearest(G, a.x, a.y, true), t = walkNearest(G, b.x, b.y, false); if(!s || !t) return null;
+  var W = G.gw, N = W*G.gh, gs = new Float32Array(N), from = new Int32Array(N), open = [], closed = new Uint8Array(N), si = s.j*W + s.i, ti = t.j*W + t.i;
+  for(var k = 0; k < N; k++){ gs[k] = Infinity; from[k] = -1; }
+  var hh = function(i){ var x = i % W, y = (i / W) | 0, dx = Math.abs(x - t.i), dy = Math.abs(y - t.j); return Math.max(dx, dy) + .414 * Math.min(dx, dy); };
+  var push = function(i, f){ open.push([f, i]); var c = open.length - 1; while(c > 0){ var pa = (c - 1) >> 1; if(open[pa][0] <= open[c][0]) break; var tmp = open[pa]; open[pa] = open[c]; open[c] = tmp; c = pa; } };
+  var pop = function(){ var top = open[0], last = open.pop(); if(open.length){ open[0] = last; var c = 0; for(;;){ var l = 2*c + 1, r = l + 1, m = c; if(l < open.length && open[l][0] < open[m][0]) m = l; if(r < open.length && open[r][0] < open[m][0]) m = r; if(m === c) break; var tmp = open[m]; open[m] = open[c]; open[c] = tmp; c = m; } } return top; };
+  gs[si] = 0; push(si, hh(si));
+  var D = [[1,0,1],[-1,0,1],[0,1,1],[0,-1,1],[1,1,1.414],[1,-1,1.414],[-1,1,1.414],[-1,-1,1.414]], found = false, steps = 0;
+  while(open.length && steps++ < 60000){
+    var cur = pop()[1]; if(closed[cur]) continue; closed[cur] = 1; if(cur === ti){ found = true; break; }
+    var cx0 = cur % W, cy0 = (cur / W) | 0;
+    for(var d = 0; d < 8; d++){ var nx = cx0 + D[d][0], ny = cy0 + D[d][1]; if(nx < 0 || ny < 0 || nx >= W || ny >= G.gh) continue; var ni = ny*W + nx;
+      if(closed[ni] || (G.g[ni] !== 1 && ni !== ti)) continue;
+      if(D[d][2] > 1 && (G.g[cy0*W + nx] !== 1 || G.g[ny*W + cx0] !== 1)) continue;   /* never cut a corner of a block */
+      var ng = gs[cur] + D[d][2]; if(ng < gs[ni]){ gs[ni] = ng; from[ni] = cur; push(ni, ng + hh(ni)); } } }
+  if(!found) return null;
+  var cells = []; for(var c = ti; c !== -1; c = from[c]) cells.push({x:(c % W + .5)*G.C, y:(((c / W) | 0) + .5)*G.C}); cells.reverse();
+  var pts = [{x:a.x, y:a.y}].concat(cells.slice(1, -1), [{x:t.x, y:t.y}]);
+  if(leadBlocked(a.x, a.y)) pts[0] = {x:s.x, y:s.y};
+  var out = [pts[0]], k0 = 0;
+  while(k0 < pts.length - 1){ var far = k0 + 1; for(var k1 = pts.length - 1; k1 > k0 + 1; k1--) if(leadClear(pts[k0], pts[k1])){ far = k1; break; } out.push(pts[far]); k0 = far; }
+  return out;
+}
+var LEAD_LONG_MS = 8000;   /* a way longer than this (sixteen beats, about eight strides on a phone's view) is not walked: he is already there */
+function leadPath(a, b){ var G = walkGrid(); return G ? walkFind(G, a, b) : null; }
 function leadDirOf(dx, dy){ var o = Math.round(Math.atan2(dy, dx) / (Math.PI/4)); return LEAD_DIRS.indexOf({'0':'E','1':'SE','2':'S','3':'SW','4':'W','-4':'W','-3':'NW','-2':'N','-1':'NE'}[o]); }
-function leadFree(x, y){ return !leadBlocked(x, y) && folkList().every(function(p){ return Math.abs(p.x - x) > personH()*.36 || Math.abs(p.y - y) > personH()*.5; }); }
-/* where he stands on arrival: a step off the main street, under the middle of what you see, clear of everybody's spot */
+
+/* where he stands on arrival: on the ground under the middle of what you see, near the main street, clear of everybody's spot */
 function leadHome(){
-  if(S.camp) return {x:Math.round(CAMP_FIRE.x + Math.cos(CAMP_LEAD_AT) * 150), y:Math.round(CAMP_FIRE.y + Math.sin(CAMP_LEAD_AT) * 70)};   /* __THE_CAMP__: at the fire's right, facing it */
+  var G = walkGrid(); if(!G) return null;
+  if(S.camp){ var c = walkNearest(G, CAMP_FIRE.x + Math.cos(CAMP_LEAD_AT) * 150, CAMP_FIRE.y + Math.sin(CAMP_LEAD_AT) * 70, false); return c ? {x:c.x, y:c.y} : null; }   /* __THE_CAMP__: at the fire's right, facing it */
   var ln = busyLanes().slice().sort(function(a, b){ return Math.abs(a.y - picH()*.6) - Math.abs(b.y - picH()*.6); })[0];
-  var x0 = Math.max(ln.x0 + 60, Math.min(ln.x1 - 60, view.cx == null ? picW()/2 : view.cx)), y = Math.min(picH() - 6, ln.y + 22);
-  for(var i = 0; i < 24; i++){ var x = x0 + (i % 2 ? 1 : -1) * Math.ceil(i/2) * 48; if(leadFree(x, y)) return {x:x, y:y}; }
-  return {x:x0, y:ln.y};
+  var h = walkNearest(G, Math.max(ln.x0 + 60, Math.min(ln.x1 - 60, view.cx == null ? picW()/2 : view.cx)), Math.min(picH() - 6, ln.y + 22), false);
+  return h ? {x:h.x, y:h.y} : null;
 }
-/* where he stops: beside the man, on the side he comes from, facing him; a door with nobody at it, in front of it */
+/* where he stops: beside the man on the side he comes from, else the other, else in front of him; always on the ground */
 function leadSpot(p){
-  var side = (LEAD.x == null ? -1 : (LEAD.x <= p.x ? -1 : 1)), d = personH()*.42;
-  for(var t = 0; t < 2; t++, side = -side){ var x = p.x + side*d, y = Math.min(picH() - 4, p.y + 3); if(!leadBlocked(x, y)) return {x:x, y:y, at:{x:p.x, y:p.y}}; }
-  return {x:p.x, y:Math.min(picH() - 4, p.y + personH()*.3), at:{x:p.x, y:p.y}};
+  var G = walkGrid(), side = (LEAD.x == null ? -1 : (LEAD.x <= p.x ? -1 : 1)), d = personH()*.42, h = personH(),
+      tries = [[side*d, 3], [-side*d, 3], [0, h*.32], [side*d, h*.32], [-side*d, h*.32], [0, h*.5], [side*d*1.4, 3], [-side*d*1.4, 3], [0, h*.7]];   /* a keeper at a stall or a rail stands in its block: the nearest place in front of him */
+  for(var t = 0; t < tries.length; t++){ var x = p.x + tries[t][0], y = Math.min(picH() - 8, p.y + tries[t][1]); if(!leadBlocked(x, y)) return {x:x, y:y, at:{x:p.x, y:p.y}}; }
+  var n = G && walkNearest(G, p.x + side*d, p.y + 3, false);
+  return n ? {x:n.x, y:n.y, at:{x:p.x, y:p.y}} : {x:p.x + side*d, y:p.y + 3, at:{x:p.x, y:p.y}};
 }
 function leadGo(key, b, spot){
   if(LEAD.goal && LEAD.goal.key === key) return;
   LEAD.goal = {key:key, b:b, x:spot.x, y:spot.y, at:spot.at, made:performance.now()};
-  if(LEAD.x != null) { LEAD.path = leadPath({x:LEAD.x, y:LEAD.y}, {x:spot.x, y:spot.y}); LEAD.seg = 1; }
+  LEAD.liftFor = null;   /* the town's one move for this tap is worked out when the sheet is up */
+  if(LEAD.x != null) leadRoute(performance.now());
+}
+/* his way to the goal on the ground; none, or longer than LEAD_LONG_MS, and he is already there (169(c)) */
+function leadRoute(now){
+  var g = LEAD.goal; if(!g || LEAD.x == null) return;
+  var P = leadPath({x:LEAD.x, y:LEAD.y}, {x:g.x, y:g.y}), len = 0;
+  if(P) for(var i = 1; i < P.length; i++) len += Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y);
+  var ms = len / (WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS);
+  if(P && P.length > 1){ g.x = P[P.length - 1].x; g.y = P[P.length - 1].y; }
+  if(!P || ms > LEAD_LONG_MS){
+    LEAD.x = g.x; LEAD.y = g.y; LEAD.path = null; LEAD.since = now || performance.now(); LEAD.placed = (LEAD.placed | 0) + 1;
+    if(g.at){ LEAD.want = LEAD.face = leadDirOf(g.at.x - LEAD.x, (g.at.y - LEAD.y) * 2); }
+    return;
+  }
+  LEAD.path = P; LEAD.seg = 1; LEAD.pathLen = len;
 }
 function leadToPerson(p){
   if(!p || !VAR) return;
@@ -1192,29 +1269,36 @@ function leadToPlace(k){
   if(!VAR || !VAR.boxes[k] || (LEAD.goal && LEAD.goal.b === k)) return;   /* already there or on his way (a sheet drawn again keeps him) */
   var kp = folkList().filter(function(p){ return p.keeper && p.k === k; })[0];
   if(kp){ leadGo('b:' + k, k, leadSpot(kp)); return; }
-  var bx = VAR.boxes[k], x = (bx[0] + bx[2])/2, y = Math.min(picH() - 4, bx[3] + 10);
-  leadGo('b:' + k, k, {x:x, y:y, at:{x:x, y:bx[3] - 40}});
+  var bx = VAR.boxes[k], x = (bx[0] + bx[2])/2, y = Math.min(picH() - 8, bx[3] + 10), G = walkGrid(), n = G && walkNearest(G, x, y, false);
+  leadGo('b:' + k, k, {x:n ? n.x : x, y:n ? n.y : y, at:{x:x, y:bx[3] - 40}});
 }
-function leadReset(){ LEAD.x = null; LEAD.y = null; LEAD.path = null; LEAD.goal = null; LEAD.lift = 0; LEAD.look = null; }
-/* the sheet covers the bottom of the street: how far the town goes up so his feet and where he is going stand above it */
+function leadReset(){ LEAD.x = null; LEAD.y = null; LEAD.path = null; LEAD.goal = null; LEAD.lift = 0; LEAD.liftGoal = 0; LEAD.liftFor = null; LEAD.look = null; }
+/* the sheet covers the bottom of the street: how far the town goes up so his whole walk stands above it. Worked out ONCE a tap,
+   when the sheet is up (rule 169(f), Paolo 10/25: 'when my character walks and he's at the bottom of the settlement screen, the
+   settlement screen is shaking': it was worked out again every frame from where he stood, so a walk near the foot of the screen
+   and the slide chased each other). One move, eased, then the town holds still while he walks; one move back when it closes. */
 function leadLiftWant(){
-  if(!S.open || !LEAD.goal || LEAD.x == null || LEAD.hidden) return 0;
-  var sh = document.getElementById('sheet'); if(!sh || !sh.classList.contains('on')) return 0;
-  var top = view.H - sh.offsetHeight - 10, base = view.oy + LEAD.lift, s = view.s;
-  var feet = base + Math.max(LEAD.goal.y, LEAD.y) * s, head = base + (Math.min(LEAD.goal.y, LEAD.y) - personH()) * s;
-  return Math.max(0, Math.min(feet - top, head - 8));
+  var sh = document.getElementById('sheet');
+  if(!S.open || !LEAD.goal || LEAD.x == null || LEAD.hidden || !sh || !sh.classList.contains('on')){ LEAD.liftFor = null; return (LEAD.liftGoal = 0); }
+  if(LEAD.liftFor === LEAD.goal.key) return LEAD.liftGoal;
+  var top = view.H - sh.offsetHeight - 10, base = view.oy + LEAD.lift, s = view.s, ys = [LEAD.y, LEAD.goal.y].concat((LEAD.path || []).map(function(q){ return q.y; }));
+  var feet = base + Math.max.apply(null, ys) * s, head = base + (Math.min.apply(null, ys) - personH()) * s;
+  LEAD.liftFor = LEAD.goal.key;
+  return (LEAD.liftGoal = Math.round(Math.max(0, Math.min(feet - top, head - 8))));
 }
 function leadTick(now){
   var dt = Math.min(100, now - (LEAD.last || now)); LEAD.last = now;
   if(!VAR || LEAD.hidden) return;
   var look = leadLook(); if(!look) return;
   if(look !== LEAD.look){ LEAD.look = look; LEAD.im = null; LEAD.dusk = null; }
-  if(LEAD.x == null){ var h = leadHome(); LEAD.x = h.x; LEAD.y = h.y; LEAD.face = LEAD.want = S.camp ? 6 : 0; LEAD.since = now;
-    if(LEAD.goal) LEAD.path = leadPath({x:LEAD.x, y:LEAD.y}, {x:LEAD.goal.x, y:LEAD.goal.y}), LEAD.seg = 1; }
+  if(LEAD.x == null){ var h = leadHome(); if(!h) return;   /* no ground traced for this picture: nobody walks (169(c)) */
+    LEAD.x = h.x; LEAD.y = h.y; LEAD.face = LEAD.want = S.camp ? 6 : 0; LEAD.since = now;
+    if(LEAD.goal) leadRoute(now); }
   /* the town slides with the sheet (as quick as the sheet slides, a quarter second) */
-  var lw = leadLiftWant(), ol = LEAD.lift;
-  LEAD.lift = Math.abs(lw - ol) < .5 ? lw : ol + (lw - ol) * Math.min(1, dt / 90);
-  if(LEAD.lift !== ol) panY(view.cy);
+  var lw = leadLiftWant();   /* one move a tap: a quarter-second tween to where it goes, ending exactly there (never a chase) */
+  if(lw !== LEAD.liftTo){ LEAD.liftFrom = LEAD.lift || 0; LEAD.liftTo = lw; LEAD.liftT0 = now; }
+  var u = Math.min(1, (now - (LEAD.liftT0 || 0)) / 250), nl = LEAD.liftFrom + (LEAD.liftTo - LEAD.liftFrom) * (1 - Math.pow(1 - u, 3));
+  if(Math.round(nl) !== Math.round(LEAD.lift || 0)){ LEAD.lift = nl; panY(view.cy); } else LEAD.lift = nl;
   if(view.still) return;   /* held for a measurement: he stands where he is */
   var walking = false;
   if(LEAD.path && LEAD.seg < LEAD.path.length){
@@ -1284,9 +1368,12 @@ var CAMP_LEAD_AT = 0.25 * Math.PI;
 function campRing(i, n){
   var ring = i < 7 ? 0 : 1, m = ring ? Math.max(1, n - 7) : Math.min(7, n), j = ring ? i - 7 : i, rx = ring ? 240 : 150, ry = ring ? 110 : 70;
   var a0 = Math.PI * .7, span = Math.PI * 1.15;   /* from the front's left, round the back, to short of the lead's place */
-  var a = a0 + (m === 1 ? .5 : j / (m - 1)) * span;
-  if(m === 1) a = Math.PI * 1.5;   /* one man: across the fire from you */
-  return {x:Math.round(CAMP_FIRE.x + Math.cos(a) * rx), y:Math.round(CAMP_FIRE.y + Math.sin(a) * ry)};
+  /* rule 169: only spots on the ground (never on the drums or a tent), spread even over what is free of the ring */
+  var at = function(a){ return {x:Math.round(CAMP_FIRE.x + Math.cos(a) * rx), y:Math.round(CAMP_FIRE.y + Math.sin(a) * ry)}; }, free = [];
+  for(var k = 0; k <= 46; k++){ var q = at(a0 + k / 46 * span); if(!walkBlocks() || !leadBlocked(q.x, q.y)) free.push(q); }
+  if(!free.length) free = [at(a0 + .5 * span)];
+  if(m === 1){ var back = at(Math.PI * 1.5); return (!walkBlocks() || !leadBlocked(back.x, back.y)) ? back : free[free.length >> 1]; }   /* one man: across the fire from you */
+  return free[Math.round(j / (m - 1) * (free.length - 1))];
 }
 function campFolk(){
   if(!VAR) return [];
@@ -1502,8 +1589,9 @@ function tapBox(k){
    another is reached with the finger on him. personAt(x, y) is the first; tapPerson(x, y) is what a finger gets. */
 function peopleAt(x, y){
   if(!VAR) return [];
-  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, h = personH(), w = Math.max(h*.17, 22/view.s), out = [];   /* half a 3D body wide (10/19: the old box took a neighbour's tap) */
-  folkList().forEach(function(p){ if(px >= p.x - w && px <= p.x + w && py >= p.y - h && py <= p.y + 4){
+  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, h = personH(), w = Math.max(h*.17, 24/view.s), out = [];   /* a 48-point column at least (EYES [eyes: crowd taps]: the 44-point finger) */   /* half a 3D body wide (10/19: the old box took a neighbour's tap) */
+  folkList().forEach(function(p){ var top = p.crowd ? h * 1.45 : h, foot = p.crowd ? h * .35 : 4;   /* EYES [eyes: crowd taps]: a finger just over a man's head or at his feet in the open is him too (over a door only a body answers, tapPerson) */
+    if(px >= p.x - w && px <= p.x + w && py >= p.y - top && py <= p.y + foot){
     var dx = (px - p.x) / w, dy = (py - (p.y - h * .5)) / (h * .5); out.push({p:p, d:dx*dx + dy*dy*.35, y:p.y}); } });
   out.sort(function(a, b){ return a.d - b.d || b.y - a.y; });
   return out.map(function(o){ return o.p; });
@@ -2471,9 +2559,26 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {camp:function(){ return {camp:!!S.camp, bagSlots:BAG_SLOTS, info:S.campInfo || null}; },   /* __THE_CAMP__ */
+window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G && walkNearest(G, x, y, false); return n ? {x:n.x, y:n.y} : null; },   /* the nearest ground a man can stand on (the gate) */
+  _walkAll:function(){   /* RUN TWO [the walk-up, on the ground]: every way between every place he can be sent, for the gate */
+    var out = {paths:0, bad:0, placed:0, far:0, miss:[]}, G = walkGrid(); if(!G){ out.miss.push('no ground traced'); return out; }
+    var spots = [], h = leadHome(); if(h) spots.push({k:'home', x:h.x, y:h.y});
+    var keep = LEAD.x; LEAD.x = null;
+    ORDER.forEach(function(k){ if(k === 'lot' || k === 'build') return; var kp = folkList().filter(function(p){ return p.keeper && p.k === k; })[0];
+      var sp = kp ? leadSpot(kp) : (function(){ var bx = VAR.boxes[k], n = walkNearest(G, (bx[0]+bx[2])/2, Math.min(picH() - 8, bx[3] + 10), false); return n ? {x:n.x, y:n.y} : null; })(); if(sp) spots.push({k:'b:' + k, x:sp.x, y:sp.y}); });
+    folkList().forEach(function(p, i){ if(p.keeper) return; var sp = leadSpot(p); spots.push({k:'p:' + i, x:sp.x, y:sp.y}); });
+    LEAD.x = keep;
+    var v = WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS;
+    spots.forEach(function(a){ if(leadBlocked(a.x, a.y)) out.miss.push(a.k + ' stands in a block'); });
+    spots.forEach(function(a){ spots.forEach(function(b){ if(a === b) return; var P = leadPath(a, b); if(!P){ out.far++; return; } out.paths++;
+      var len = 0; for(var i = 1; i < P.length; i++){ len += Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y);
+        var n = Math.max(2, Math.ceil(Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y) / 2)); for(var k = 1; k <= n; k++){ if(leadBlocked(P[i-1].x + (P[i].x - P[i-1].x)*k/n, P[i-1].y + (P[i].y - P[i-1].y)*k/n)){ out.bad++; break; } } }
+      if(Math.hypot(P[P.length-1].x - b.x, P[P.length-1].y - b.y) > 40) out.miss.push(a.k + '->' + b.k + ' ends ' + Math.round(Math.hypot(P[P.length-1].x - b.x, P[P.length-1].y - b.y)) + ' px off');
+      if(len / v > LEAD_LONG_MS) out.placed++; }); });
+    out.miss = out.miss.slice(0, 6); return out; },
+  camp:function(){ return {camp:!!S.camp, bagSlots:BAG_SLOTS, info:S.campInfo || null}; },   /* __THE_CAMP__ */
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
-    return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
+    return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
   peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
