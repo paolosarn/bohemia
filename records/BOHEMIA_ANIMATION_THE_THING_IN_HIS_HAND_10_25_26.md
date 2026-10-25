@@ -137,6 +137,20 @@ with a pipe and no shield decodes the melee keys and the pipe's layer and nothin
   drawn again: the old pictures stand now and the new ones replace them; the model is recorded per thing per layer once
   the last picture is in, and the pack packs whatever is drawn, marked with its model.
 
+## WHERE IT STANDS AT THE ROUND'S END (e3200b9a)
+MEASURED on the same sixteen real fights, the shipped file: 128 of 142 shields drawn on the arm (the block on a hit, planted
+on a cover tile), 77 of 88 two-handers in both hands, 148 of 152 one-handed things in the fist; the misses are the thug (his
+model carries his own pipe; his kneeling shield sits 23 to 28 px before his feet where every other man's sits within 25, so
+he keeps his one-hand idle until his own placement is made) and men not on the field when counted. In the demo's road fight
+(the toll crew from the map): YOU and town man 0 down on one knee behind their car doors with their pistols, homeless man 0
+with his thing in his fist or across him in both hands; 0 page errors. Looks in full (their own melee, shield and two-hand
+keys): 34 of 96 (YOU and his twelve town men, seven cast, the homeless, the anarchists, the mob and the reds with their dealt
+rolled men, CHARACTER's two first Heavies); the other 62 hold their things on every pose the pistol has (standing, walking,
+swinging, rocked, kneeling) and gain the shield arm and two hands as their keys render: one command resumes it (the
+handoff). Gates: THE THING IN HIS HAND 28/0 with the real fights, WHAT A MAN HOLDS 17/0, COMBAT's THE FIGHT DRAWS WHAT HE
+WEARS 15/0 (its ratchet: 34 looks with the pistol and a car door in all eight facings, 36 with the pipe and a car door, 29
+with the sledge).
+
 ## WHAT IS STILL HELD WRONG, AND WHY IT WAITS (item (3), measured against COOK's table and the armoury 10/25)
 Every row a man was dealt in the sixteen measured fights now has a thing. Of the armoury's rows none of those fights dealt:
 - the two-handed swords (5: rhomphaia, warbrand, longsword, greatsword, executioner's sword), the two-handed cleavers (4)
