@@ -2427,6 +2427,7 @@ const FIGHT = (function () {
     }
     /* move: to a tile where a foe is in reach (and we still have AP to strike), else toward the fight */
     const f = reach(u); const strikeAP = skillAP(w, strikeSkill(w), u);
+    const struckNow = u.side === 'you' && S.log.slice(u.turnLog || 0).some(function (e) { return e.id === u.id && e.t === 'attack' && !e.free; });
     const coming = foes(u).some(function (fo) { return !isRanged(fo.weapon) && fo.morale !== 'Fleeing'; });
     const holds = A.hold_line && coming && !S.contact;
     const avoid = R('ai.tactics.avoid_surround');
@@ -2476,6 +2477,11 @@ const FIGHT = (function () {
       if (u.side === 'you' && u.lastTurn && !u.lastTurn.acted && x === u.lastTurn.x && y === u.lastTurn.y && !(x === u.x && y === u.y) && !canHit) sc = -Infinity;
       /* and inside one turn (the brain decides again after each step): never back onto the tile the turn began on without a blow from it */
       if (u.side === 'you' && u.turnFrom && x === u.turnFrom.x && y === u.turnFrom.y && !(x === u.x && y === u.y) && !canHit) sc = -Infinity;
+      /* A BLOW SPENT, HE HOLDS (Battle Brothers' shooters do not creep after the shot; measured 10/25: a gunman stepping toward the
+         fight on the AP a shot left him, then back behind his front man the next turn, 115 shifts in 300 fights): once he has struck
+         this turn, AUTO walks only to strike again, or up onto a roof he will shoot from (measured: without it, roofs 43% -> 39.5%) */
+      const upRoof = ranged && level(x, y) >= 1 + 1 && level(x, y) > level(u.x, u.y) && hasShot(u) && roofReach(u, x, y);
+      if (u.side === 'you' && struckNow && !canHit && !upRoof && !(x === u.x && y === u.y)) sc = -Infinity;
       if (sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     const here = hunt(u.x, u.y);
