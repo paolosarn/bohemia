@@ -45861,6 +45861,20 @@ function mapPlatesDraw(){
         [T.plate, T.bld].forEach(function(b){ if (!hitT && b && bx.x < b.x + b.w && bx.x + bx.w > b.x && bx.y < b.y + b.h && bx.y + bx.h > b.y) hitT = b; }); }
       if (!hitT) break;
       Pp.ly = hitT.y - 13; if (Pp.box) Pp.box.y = Pp.ly; try { MAP_DREW.platesLifted = (MAP_DREW.platesLifted | 0) + 1; } catch (_e) {} } } } catch (_e) {}
+  /* __NOTHING_IS_DRAWN_OVER_THE_CREW__ (RUN 10/25, EYES round 2 new 4, rule 150; his 'where am I', 164 item 9): MEASURED at the
+     town zoom after taking a job, the job's '2/3 SACKS' and the town's 'CHURCH' lay across his body, the ring and his head
+     showing. A plate that would cover his crew (him and the two at his shoulders) steps below their feet, under the ring;
+     a town's tap box goes with its name */
+  try { var Y = MAP_DREW && MAP_DREW.you; if (Y && isFinite(Y.x) && isFinite(Y.y)) {
+    var cb = { x: Y.x - 44, y: Y.y - (Y.h || 72) - 8, w: 88, h: (Y.h || 72) + 20 };
+    for (var ci = 0; ci < MAP_PLATES.length; ci++) { var Pc = MAP_PLATES[ci], pb = { x: Pc.lx, y: Pc.ly, w: Pc.w + 6, h: 11 };
+      if (Pc.party && Pc.info) { pb.x = Pc.sx - 40; pb.y = Pc.cy - 38; pb.w = 80; pb.h = 34; }
+      if (pb.x < cb.x + cb.w && pb.x + pb.w > cb.x && pb.y < cb.y + cb.h && pb.y + pb.h > cb.y) {
+        var ny = cb.y + cb.h + 2 + (MAP_DREW.platesUnder | 0) * 12, oy0 = Pc.ly;
+        try { MAP_TOWN_HIT.forEach(function(T){ if (T.plate && Math.abs(T.plate.y - oy0) < 0.5 && Math.abs(T.plate.x - Pc.lx) < 0.5) T.plate.y = ny; }); } catch (_e) {}
+        if (Pc.party && Pc.info) Pc.cy += ny - pb.y; else Pc.ly = ny;
+        if (Pc.box) Pc.box.y = ny;
+        MAP_DREW.platesUnder = (MAP_DREW.platesUnder | 0) + 1; } } } } catch (_e) {}
   for (var i = 0; i < MAP_PLATES.length; i++) {
     var P = MAP_PLATES[i];
     g.globalAlpha = 1;
@@ -64493,6 +64507,11 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     if(MODE==='human'){ e.preventDefault(); if(!transing){ const S=HWALK_STOPS; const i=S.indexOf(HZOOM); const out=(e.deltaY>0); const j=Math.max(0,Math.min(S.length-1,i+(out?-1:1))); setHZoom((out&&j===i)?S[0]*0.5:S[j]); } return; }
     if(SKY){ e.preventDefault(); skyZoom(e.deltaY<0?1:-1); return; }   /* __ONE_ZOOM_TO_THE_MOON__ */
     if(MODE!=='city')return; e.preventDefault();
+    /* __THE_WHEEL_STOPS_AT_THE_FAR_STOP__ (RUN 10/25, EYES round 2 new 12, rule 150): MEASURED on the computer, every notch was a
+       new gesture (they come more than 250 ms apart), so the fourth notch out, starting on the far stop, opened the sky. A spin
+       is ONE gesture while its notches come within 800 ms: it stops at the far stop; the sky takes a second spin after a pause
+       there, the pinch's own rule */
+    { const __wn=performance.now(); if(__wn-(window.__WHEEL_T||0)<800){ ZGEST.t=__wn; } else { ZGEST.fresh=true; } window.__WHEEL_T=__wn; }
     const c=toCv(e);
     setZoomAt(CZOOM*(e.deltaY<0?1.14:0.877), c.x, c.y);
   },{passive:false});
