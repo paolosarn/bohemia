@@ -37,3 +37,13 @@ Malay you know"
     thrown or used item, anything a perk adds as a button) is the player's only.
     The coordinator's reading, his to correct: reloading the gun a man fires counts as part of FIRE (an empty gun cannot
     fire, and a man who never reloads stops fighting); AUTO reloads only to keep firing.
+
+## SAID AGAIN: THE TILE AND THE TARGET ARE THE WHOLE JOB (rule 180(h))
+HIS WORDS: "Just keep in mind like the decisions that are made from what tile our team selects to walk towards to what
+Enemies they target you know that has to be done better"
+(h) The two decisions AUTO makes are where each man walks and who he attacks, so they are measured on their own:
+    TILES: every move scored for reach next turn, cover, height, danger from every enemy that can reach it, and staying
+    beside the men he protects; TARGETS: focus on the man the team can kill this turn, the most dangerous man in reach,
+    and the best hit chance, never spreading blows so nobody falls. TUNING's page gives each its weights; COMBAT's gate
+    reports, over rolled fights, how often AUTO took the best-scored tile and target against a slow exhaustive search of
+    every choice that turn.
