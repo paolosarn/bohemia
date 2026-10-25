@@ -49,6 +49,7 @@ RENDERS = 'records/target/animation/melee'        # the renders (regenerated)
 OUT = 'slices/rig_melee'
 FIGHT_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']   # the master rig's turntable order (45 degrees a step from 180)
+SPECK = 8         # fewer opaque pixels than this in a prop's picture: the thing is behind him and a sliver shows past his outline
 FAT = 1.35        # a haft at its real girth is one pixel at 57 px a metre; a man's own fist is three: drawn 1.35 times as thick
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 
@@ -70,8 +71,21 @@ def merged():
     return D
 
 
-def new_clips():
-    return [(n, len(c['keys'])) for n, c in source()['clips'].items()]
+def layer_clips(S, ly):
+    """this lane's own body clips a layer's melee clips draw"""
+    out = set()
+    for n, ks in S['composite'].items():
+        if n == 'why' or not all(s_ in S['layers'][ly]['clips'] for s_, _ in ks): continue
+        out |= set(s_ for s_, _ in ks if s_ in S['clips'])
+    return out
+
+
+def new_clips(ready_only=True):
+    """the new body clips; by default only those a ready layer draws (a layer still being made renders nothing yet)"""
+    S = source(); ready = S.get('layers_ready', list(S['layers']))
+    used = set(src for n, ks in S['composite'].items() if n != 'why' for src, _ in ks
+               if any(all(s_ in S['layers'][ly]['clips'] for s_, _ in ks) for ly in ready))
+    return [(n, len(c['keys'])) for n, c in S['clips'].items() if not ready_only or n in used]
 
 
 # ------------------------------------------------------------------------------------------------ the props (bpy)
@@ -84,7 +98,7 @@ def build_prop(bpy, name):
     import bohemia_cook_the_icons_through_the_rig_10_20_26 as CI
     sc = bpy.context.scene
     before = set(o.name for o in sc.objects)
-    S = source()['props'][name]; back, fore = S['back'], S['fore']
+    S = source()['props'][name]; back, fore = S.get('back', 0), S.get('fore', 0)
     m = lambda n, role, step: P.mat(bpy, '%s_%s' % (name, n), role, step)
     tape = m('tape', 'rubber', 2)
     if name == 'pipe':   # the thug's pipe (COOK THREE: clay_rust 2, r 2.2 cm, a coupling near each end)
@@ -126,6 +140,62 @@ def build_prop(bpy, name):
         CI.lathe(bpy, 'grip', tape, [(0, -0.04), (rr(0.0175), -0.04), (rr(0.0175), 0.08), (0, 0.08)], n=10)
         CI.loft(bpy, 'head', iron, [(fore - 0.075, -0.03, 0.035, 0.02, 0.016), (fore - 0.06, -0.035, 0.07, 0.022, 0.01), (fore + 0.0, -0.035, 0.1, 0.022, 0.006), (fore + 0.025, -0.03, 0.115, 0.018, 0.004)], axis='z')
         CI.loft(bpy, 'edge', edge, [(fore - 0.07, 0.1, 0.112, 0.006, 0.0015), (fore + 0.03, 0.115, 0.125, 0.004, 0.001)], axis='z')
+    elif name == 'spear':   # a sign post's pipe, a leaf of spring steel lashed on with wire, a rag under it (COOK's market spear, at its real girth)
+        post = m('shaft', 'metal_painted', 2); iron = m('blade', 'metal_painted', 1); edge = m('edge', 'chrome', 1); rag = m('rag', 'clay_rust', 2); steel = m('wire', 'tape_grey', 2)
+        r = 0.017 * FAT; b0 = fore - 0.3
+        CI.lathe(bpy, 'shaft', post, [(0, -back), (r, -back), (r, b0 + 0.04), (0, b0 + 0.04)], n=10)
+        CI.lathe(bpy, 'grip', tape, [(0, -0.12), (r * 1.15, -0.12), (r * 1.15, 0.12), (0, 0.12)], n=10)
+        CI.loft(bpy, 'blade', iron, [(b0, -0.016, 0.016, 0.011, 0.011), (b0 + 0.08, -0.04, 0.04, 0.009, 0.009), (b0 + 0.2, -0.03, 0.03, 0.006, 0.006), (fore, -0.002, 0.002, 0.002, 0.002)], axis='z')
+        CI.loft(bpy, 'edge_a', edge, [(b0 + 0.08, 0.04, 0.05, 0.004, 0.0015), (b0 + 0.2, 0.03, 0.038, 0.003, 0.001), (fore, 0.0, 0.004, 0.0015, 0.0008)], axis='z')
+        CI.loft(bpy, 'edge_b', edge, [(b0 + 0.08, -0.05, -0.04, 0.0015, 0.004), (b0 + 0.2, -0.038, -0.03, 0.001, 0.003), (fore, -0.004, 0.0, 0.0008, 0.0015)], axis='z')
+        for k in range(5): CI.lathe(bpy, 'wire_%d' % k, steel, [(0, b0 - 0.01 + k * 0.018), (r * 1.3, b0 - 0.01 + k * 0.018), (r * 1.3, b0 + 0.002 + k * 0.018), (0, b0 + 0.002 + k * 0.018)], n=10)
+        CI.loft(bpy, 'rag', rag, [(b0 - 0.02, 0.012, 0.07, 0.01, 0.007), (b0 - 0.1, 0.02, 0.09, 0.009, 0.005), (b0 - 0.2, 0.04, 0.09, 0.007, 0.004)], axis='z')
+    elif name == 'flail':   # a turned handle and a capped head; the chain and the spiked ball are their own piece (they hang)
+        wood = m('handle', 'clay_mustard', 1); steel = m('chain', 'tape_grey', 2); ball = m('ball', 'clay_rust', 1)
+        rr = lambda x: x * FAT
+        CI.lathe(bpy, 'handle', wood, [(0, -back), (rr(0.02), -back), (rr(0.017), 0.05), (rr(0.019), fore - 0.04), (rr(0.024), fore), (0, fore)], n=12)
+        CI.lathe(bpy, 'grip', tape, [(0, -0.045), (rr(0.019), -0.045), (rr(0.019), 0.09), (0, 0.09)], n=12)
+        CI.lathe(bpy, 'cap', steel, [(0, fore - 0.01), (rr(0.027), fore - 0.01), (rr(0.027), fore + 0.025), (0, fore + 0.025)], n=12)
+    elif name == 'pick':   # a short haft; at its end a curved spike toward the edge side and a chisel the other way
+        wood = m('haft', 'clay_mustard', 1); iron = m('head', 'metal_painted', 1); edge = m('edge', 'chrome', 1)
+        rr = lambda x: x * FAT
+        CI.lathe(bpy, 'haft', wood, [(0, -back), (rr(0.019), -back), (rr(0.016), 0.0), (rr(0.015), 0.3), (rr(0.018), fore + 0.02), (0, fore + 0.025)], n=10)
+        CI.lathe(bpy, 'grip', tape, [(0, -0.04), (rr(0.0175), -0.04), (rr(0.0175), 0.08), (0, 0.08)], n=10)
+        CI.loft(bpy, 'spike', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (0.12, fore - 0.012, fore + 0.022, 0.012, 0.012), (0.22, fore - 0.05, fore - 0.035, 0.004, 0.004)], axis='x')
+        CI.loft(bpy, 'chisel', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (-0.1, fore - 0.022, fore + 0.022, 0.01, 0.01), (-0.15, fore - 0.03, fore + 0.03, 0.003, 0.003)], axis='x')
+        CI.loft(bpy, 'point', edge, [(0.2, fore - 0.048, fore - 0.036, 0.005, 0.005), (0.23, fore - 0.055, fore - 0.045, 0.002, 0.002)], axis='x')
+    elif name == 'bottle':   # COOK's Molotov (its own builder, at its real size), the fist round the middle of it
+        CI.build('w_bottles', bpy, P)
+        for o in [o for o in sc.objects if o.name not in before]: o.location.z -= 0.12
+    elif name == 'sledge':   # a long taped haft, a steel head across its end with bright faces (COOK's market sledge at real size)
+        wood = m('haft', 'clay_mustard', 1); iron = m('head', 'metal_painted', 1); face = m('face', 'chrome', 1)
+        rr = lambda x: x * FAT
+        CI.lathe(bpy, 'haft', wood, [(0, -back), (rr(0.022), -back), (rr(0.019), 0.1), (rr(0.017), 0.5), (rr(0.02), fore), (0, fore + 0.01)], n=12)
+        CI.lathe(bpy, 'grip', tape, [(0, -back + 0.01), (rr(0.021), -back + 0.01), (rr(0.021), 0.2), (0, 0.2)], n=12)
+        P.box(bpy, 'head', iron, (0.32, 0.13, 0.13), (0.0, 0, fore - 0.03), bevel=0.02)
+        for s_ in (-1, 1): P.box(bpy, 'face_%d' % s_, face, (0.02, 0.115, 0.115), (s_ * 0.165, 0, fore - 0.03), bevel=0.01)
+    elif name == 'woodaxe':   # a long haft, a bearded felling head, the bit ground bright
+        wood = m('haft', 'clay_mustard', 1); iron = m('head', 'metal_painted', 1); edge = m('edge', 'chrome', 1)
+        rr = lambda x: x * FAT
+        CI.lathe(bpy, 'haft', wood, [(0, -back), (rr(0.022), -back), (rr(0.018), 0.1), (rr(0.016), 0.55), (rr(0.019), fore + 0.02), (0, fore + 0.03)], n=12)
+        CI.lathe(bpy, 'grip', tape, [(0, -back + 0.01), (rr(0.02), -back + 0.01), (rr(0.02), 0.16), (0, 0.16)], n=12)
+        CI.loft(bpy, 'head', iron, [(-0.06, fore - 0.05, fore + 0.03, 0.024, 0.024), (0.02, fore - 0.05, fore + 0.03, 0.022, 0.022), (0.12, fore - 0.1, fore + 0.04, 0.01, 0.01), (0.17, fore - 0.13, fore + 0.05, 0.004, 0.004)], axis='x')
+        CI.loft(bpy, 'bit', edge, [(0.17, fore - 0.13, fore + 0.05, 0.004, 0.004), (0.195, fore - 0.14, fore + 0.055, 0.0015, 0.0015)], axis='x')
+    elif name == 'goedendag':   # a fence post turned club: thicker to its end, two iron bands, a rail spike driven out of the end
+        wood = m('post', 'clay_mustard', 1); iron = m('band', 'metal_painted', 1); spike = m('spike', 'clay_rust', 1)
+        rr = lambda x: x * FAT
+        CI.lathe(bpy, 'post', wood, [(0, -back), (rr(0.02), -back), (rr(0.018), 0.15), (rr(0.026), 0.5), (rr(0.036), fore - 0.05), (rr(0.034), fore), (0, fore)], n=8, smooth=False)
+        CI.lathe(bpy, 'grip', tape, [(0, -back + 0.01), (rr(0.021), -back + 0.01), (rr(0.021), 0.25), (0, 0.25)], n=8, smooth=False)
+        for z in (fore - 0.17, fore - 0.05): CI.lathe(bpy, 'band_%d' % int(z * 100), iron, [(0, z), (rr(0.039), z), (rr(0.039), z + 0.03), (0, z + 0.03)], n=8, smooth=False)
+        bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.013, depth=0.14, location=(0, 0, fore + 0.06)); P.put(bpy, bpy.context.active_object, 'spike', spike, smooth=False)
+    elif name == 'pitchfork':   # a long haft, a crossbar and three rusted tines
+        wood = m('haft', 'clay_mustard', 1); steel = m('fork', 'clay_rust', 1)
+        rr = lambda x: x * FAT
+        CI.lathe(bpy, 'haft', wood, [(0, -back), (rr(0.018), -back), (rr(0.016), 0.6), (rr(0.017), fore - 0.05), (0, fore - 0.04)], n=10)
+        P.rod(bpy, 'socket', steel, (0, 0, fore - 0.1), (0, 0, fore - 0.02), rr(0.02), 10)
+        P.rod(bpy, 'bar', steel, (-0.11, 0, fore - 0.02), (0.11, 0, fore - 0.02), rr(0.008), 8)
+        for x_ in (-0.1, 0.0, 0.1):
+            P.rod(bpy, 'tine_%d' % int(x_ * 100), steel, (x_, 0, fore - 0.02), (x_ * 0.95, 0, fore + 0.26), rr(0.0065), 6)
     elif name == 'pistol':   # COOK's pistol, untouched (the barrel along +X, the grip at the origin, as COMBAT's guns tool reads it)
         bpy.ops.import_scene.gltf(filepath=os.path.join(ROOT, 'reference/models/bohemia/%s.glb' % S['model']))
         for o in [o for o in sc.objects if o.name not in before and o.type == 'MESH' and o.name.startswith('Icosphere') and len(o.data.vertices) == 42]:
@@ -141,9 +211,27 @@ def build_prop(bpy, name):
     parts = [o for o in sc.objects if o.name not in before and o.type == 'MESH']
     root = bpy.data.objects.new('prop_' + name, None); sc.collection.objects.link(root)
     for o in parts: o.parent = root
+    if name == 'flail':   # the chain and the ball: their own piece, hung from the handle's end along +Z of its own empty (put() swings it)
+        b4 = set(o.name for o in sc.objects)
+        steel = m('chain', 'tape_grey', 2); ball = m('ball', 'clay_rust', 1); L_ = S['chain']; n_ = 6
+        for k in range(n_):
+            z0 = L_ * (k + 0.5) / n_
+            CI.link(bpy, 'link_%d' % k, steel, (0, 0, z0), (0, 0, 1), k % 2, major=0.022, minor=0.007)
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=14, ring_count=8, radius=0.055, location=(0, 0, L_ + 0.05)); P.put(bpy, bpy.context.active_object, 'ball', ball)
+        import random
+        rnd = random.Random(7)
+        for k in range(10):
+            th, ph = rnd.uniform(0, 2 * math.pi), math.acos(rnd.uniform(-0.9, 0.9)); dd = mathutils.Vector((math.sin(ph) * math.cos(th), math.sin(ph) * math.sin(th), math.cos(ph)))
+            bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.013, depth=0.045, location=tuple(mathutils.Vector((0, 0, L_ + 0.05)) + dd * 0.07))
+            o_ = bpy.context.active_object; o_.rotation_mode = 'QUATERNION'; o_.rotation_quaternion = mathutils.Vector((0, 0, 1)).rotation_difference(dd); P.put(bpy, o_, 'spike_%d' % k, steel, smooth=False)
+        cparts = [o for o in sc.objects if o.name not in b4 and o.type == 'MESH']
+        chain = bpy.data.objects.new('chain_' + name, None); sc.collection.objects.link(chain)
+        for o in cparts: o.parent = chain
+        root['chain'] = chain.name; parts = parts + cparts
     # the built frame (haft +Z, edge +X) turned into the placed frame (haft +X, edge +Z): a fixed basis change on the children
     B = mathutils.Matrix(((0, 0, 1), (0, -1, 0), (1, 0, 0))).to_4x4()   # (x, y, z) built -> (z, -y, x): haft z to x, edge x to z, right-handed
-    for o in parts: o.matrix_parent_inverse = B
+    for o in parts:
+        if o.parent is root: o.matrix_parent_inverse = B
     return root, parts
 
 
@@ -195,7 +283,8 @@ def build_shield(bpy, name, S, before):
         # the letters and the shot holes, turned to face out and stood so its letters run level
         bpy.ops.import_scene.gltf(filepath=os.path.join(ROOT, 'reference/models/bohemia/stop_sign.glb'))
         new = [o for o in sc.objects if o.name not in before]
-        for o in [o for o in new if o.name.split('.')[0] in ('post', 'post_foot') or (o.type == 'MESH' and o.name.startswith('Icosphere'))]:
+        keep = lambda nm: nm.startswith(('octagon', 'letter_', 'shot_'))   # the face only: never the post, its foot, the bent bracket or the street-name blades
+        for o in [o for o in new if o.type == 'MESH' and not keep(o.name.split('.')[0])]:
             new.remove(o); bpy.data.objects.remove(o, do_unlink=True)
         bpy.context.view_layer.update()
         mesh = {o.name.split('.')[0]: o for o in new if o.type == 'MESH'}
@@ -228,7 +317,7 @@ def pose(src, out):
 
 # ------------------------------------------------------------------------------------------------ render the props (bpy)
 def place_fn(mathutils):
-    def place(hold, rw, lw, re, fwd, up, left):
+    def place(hold, rw, lw, re, fwd, up, left, length=0.5):
         """where the prop sits in his right fist on this key, in the unstretched world: (the middle of his grip, the haft's
         line); the edge goes the way the blow goes (left x haft: up when the haft is forward, forward when it is up)"""
         fore = rw - re; fore = fore.normalized() if fore.length > 1e-4 else -up
@@ -244,6 +333,8 @@ def place_fn(mathutils):
             bar = up * 0.8 + fwd * 0.25 - left * 0.1
         elif hold == 'shoulder':               # laid back over the right shoulder
             bar = up * 0.6 - fwd * 0.75 - left * 0.15
+        elif hold == 'shoulder_up':            # a short blade held up beside his head, out to his right
+            bar = up * 0.85 + fwd * 0.2 - left * 0.45
         elif hold == 'wind':                   # cocked back behind his head
             bar = fore * 0.4 + up * 0.5 - fwd * 0.6
         elif hold in ('blow', 'follow'):       # in line with the forearm: the blow lands
@@ -252,6 +343,29 @@ def place_fn(mathutils):
             bar = fore * 0.7 + fwd * 0.45
         elif hold == 'port':                   # up before his chest, on one knee
             bar = up * 0.85 + fwd * 0.45
+        elif hold == 'upright':                # a spear stood up in his fist, its butt toward the ground
+            bar = up * 0.9 + fwd * 0.25 - left * 0.08
+        elif hold == 'thrust':                 # out along his straight arm, level (the spear's thrust)
+            bar = fore.copy() if fore.dot(fwd) > 0.3 else fwd.copy(); bar.z *= 0.3
+        elif hold in ('two', 'two_up', 'lean', 'lean_half'):   # both hands on the haft
+            if hold == 'two':                  # the long gun's low ready: the rear hand his right, the haft out through his left
+                bar = lw - fist
+                if bar.length < 1e-4 or bar.normalized().dot(fwd) < 0.2: bar = fwd - up * 0.2
+            elif hold == 'two_up':             # the two-handed blow: his left hand at the haft's end, the haft up through his right
+                fist = lw + (lw - rw).normalized() * 0.05; bar = rw - lw
+            else:                              # the lean: both hands on the haft's end, its head set down on the ground before him
+                fist = (rw + lw) / 2; h_ = max(0.05, fist.z)
+                if hold == 'lean_half': bar = fwd * 0.6 - up * 0.8
+                else:
+                    reach = math.sqrt(max(0.0, length * length - h_ * h_)); bar = fwd * reach - up * h_ if length > h_ else -up
+        elif hold == 'bottle':                 # a bottle stood upright in his fist
+            bar = up * 0.9 + fwd * 0.2
+        elif hold == 'bottle_up':
+            bar = up * 0.95 + fwd * 0.1
+        elif hold == 'bottle_wind':            # cocked back over his shoulder to throw
+            bar = up * 0.5 - fwd * 0.7
+        elif hold == 'bottle_blow':            # flung forward
+            bar = fwd * 0.8 + up * 0.45
         else:
             raise KeyError(hold)
         return fist, bar.normalized()
@@ -276,10 +390,10 @@ def place_shield(hold, lw, le, fwd, up, left, half_h):
     """the shield on his left forearm (in metres, unstretched): (its middle, its face's way); carry and guard, across his
     front turned a little to his left flank; block, square before him; low, planted on the ground before him"""
     import mathutils
-    if hold in ('carry', 'guard'):
-        face = (fwd * math.cos(math.radians(22)) + left * math.sin(math.radians(22))).normalized(); c = le.lerp(lw, 0.5) + face * 0.05
-    elif hold == 'block':
-        face = fwd.copy(); c = le.lerp(lw, 0.55) + face * 0.06
+    if hold in ('carry', 'guard'):   # on the forearm, its middle a hand toward his left and up at the belly (his right hand and its weapon stay beside it, as a shield man's do)
+        face = (fwd * math.cos(math.radians(22)) + left * math.sin(math.radians(22))).normalized(); c = le.lerp(lw, 0.5) + face * 0.05 + left * 0.1 + up * 0.07
+    elif hold == 'block':   # square before his face, its middle by his raised hand
+        face = fwd.copy(); c = le.lerp(lw, 0.7) + face * 0.06 + up * 0.1
     elif hold == 'low':
         face = (fwd * math.cos(math.radians(12)) + left * math.sin(math.radians(12))).normalized(); c = lw + face * 0.05
         c = mathutils.Vector((c.x, c.y, max(c.z, half_h - 0.01)))
@@ -331,6 +445,7 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
             if o.parent is None and o is not root: o.parent = root; o.location -= centre
         zs = rj['z_stretch']; root.scale = (k, k, k * zs)
         g, parts = build_prop(bpy, prop)
+        chain = bpy.data.objects[g['chain']] if 'chain' in g.keys() else None
         MR.source_pass(parts, float(MR.G['wear']), 1.0, 0)
         for o in body: o.is_holdout = True
         res = rj['res']; ppm = rj['ppm']
@@ -356,12 +471,17 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
                 y = up.cross(x).normalized(); z = x.cross(y).normalized()
                 M = mathutils.Matrix((x, y, z)).transposed().to_4x4(); M.translation = c
             else:
-                fist, x = (place_pistol if pistol else place)(hold, rw, lw, re, fwd, up, left)
+                fist, x = place_pistol(hold, rw, lw, re, fwd, up, left) if pistol else place(hold, rw, lw, re, fwd, up, left, S['props'][prop].get('fore', 0.5))
                 z = left.cross(x)
                 if z.length < 1e-4: z = fwd.copy()
                 z.normalize(); y = z.cross(x).normalized(); z = x.cross(y).normalized()
                 M = mathutils.Matrix((x, y, z)).transposed().to_4x4(); M.translation = fist
             g.matrix_world = mathutils.Matrix.Diagonal((1, 1, zs, 1)) @ M   # stretched as his body is, so it stays in his fist
+            if chain is not None:   # the flail's chain hangs from the handle's end, trails the wind, flies out on the blow
+                tip = fist + x * S['props'][prop]['fore']
+                dd = {'wind': -fwd * 0.7 - up * 0.5, 'blow': fwd * 0.9 - up * 0.3, 'follow': fwd * 0.3 - up * 0.95}.get(hold, -up).normalized()
+                Mc = mathutils.Vector((0, 0, 1)).rotation_difference(dd).to_matrix().to_4x4(); Mc.translation = tip
+                chain.matrix_world = mathutils.Matrix.Diagonal((1, 1, zs, 1)) @ Mc
             # only the prop's own patch of the frame is rendered (the rest is empty film): its box on the camera, padded
             bpy.context.view_layer.update()
             dg = bpy.context.evaluated_depsgraph_get()
@@ -390,7 +510,7 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
                 for j in keys:
                     fr = frames[j]
                     sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
-                    put(holds[j])
+                    put(S.get('hold_by_prop', {}).get(prop, {}).get(holds[j], holds[j]))
                     sc.render.filepath = os.path.join(out, '%s_%s_%s_k%02d.png' % (prop, clip, f, j))
                     bpy.ops.render.render(write_still=True); n += 1
         print('PROPS', look, prop, n, flush=True)
@@ -407,9 +527,27 @@ def idles():
     return I
 
 
+PASSES = ['', '_s', '_t', '_u', '_v', '_w', '_x']   # a man's body passes: the first, then a pass for the clips made after it (the shield's, ...)
+
+
+def clip_dir(name, clip):
+    """the folder of his passes that holds this clip (each pass its own crop of the same full frame: Stand first)"""
+    for sfx in PASSES:
+        d = os.path.join(ROOT, RENDERS, name + sfx)
+        if os.path.exists(os.path.join(d, 'rig.json')) and os.path.exists(os.path.join(d, 'rig_%s_S_k00.png' % clip)): return d
+    return None
+
+
+def missing_clips(name):
+    return [(c, k) for c, k in new_clips() if not clip_dir(name, c)]
+
+
+def next_pass(name):
+    return next(sfx for sfx in PASSES if not os.path.exists(os.path.join(ROOT, RENDERS, name + sfx, 'rig.json')))
+
+
 def body_done(name):
-    d = os.path.join(ROOT, RENDERS, name)
-    return os.path.exists(os.path.join(d, 'rig.json')) and all(os.path.exists(os.path.join(d, 'rig_%s_S_k00.png' % c)) for c, _ in new_clips())
+    return os.path.exists(os.path.join(ROOT, RENDERS, name, 'rig.json')) and not missing_clips(name)
 
 
 def look_one(name):
@@ -421,12 +559,12 @@ def look_one(name):
     src = os.path.join(ROOT, H.COMBAT_POSED, name + '.glb')
     if not os.path.exists(src): I.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
     glb = os.path.join(ROOT, POSED, name + '.glb')
-    if not body_done(name):
+    miss = missing_clips(name)
+    if miss or not os.path.exists(glb):   # every clip laid on him again (the pose is cheap), then only what no pass of his holds
         I.run([py, os.path.abspath(__file__), 'pose', src, glb], glb)
+    if miss:
         CF.POSED, CF.RENDERS = POSED, RENDERS
-        CF.render(name, clips=[('Stand', 1)] + new_clips(), suffix='')
-    elif not os.path.exists(glb):
-        I.run([py, os.path.abspath(__file__), 'pose', src, glb], glb)
+        CF.render(name, clips=[('Stand', 1)] + miss, suffix=next_pass(name))
     S = source()
     for layer, L in S['layers'].items():
         if layer not in S.get('layers_ready', S['layers']): continue
@@ -444,7 +582,8 @@ def person_one(tag):
     his gang's (packed from its cell, the way his guns are)"""
     H = hold_tool()
     if not H.claimed('melee_' + tag): print('SKIP', tag, 'another worker has him', flush=True); return
-    if body_done(tag): return
+    miss = missing_clips(tag)
+    if not miss: return
     I = idles(); py = sys.executable
     if tag.startswith('enemy_'):
         pid = next(p['id'] for p in json.load(open(os.path.join(ROOT, H.ENEMY_ROLL))) if 'enemy_' + p['id'].lower() == tag)
@@ -464,8 +603,8 @@ def person_one(tag):
     h = json.load(open(gj))['real_height_for_rig']
     posed = os.path.join(ROOT, POSED, tag + '.glb')
     I.run([py, os.path.abspath(__file__), 'pose', glb, posed], posed)
-    out = os.path.join(ROOT, RENDERS, tag)
-    I.render_model(posed, out, h, [('Stand', 1)] + new_clips())
+    out = os.path.join(ROOT, RENDERS, tag + next_pass(tag))
+    I.render_model(posed, out, h, [('Stand', 1)] + miss)
     for f in os.listdir(out):
         if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
     print('MELEE person', tag, flush=True)
@@ -523,8 +662,12 @@ def pack(only=None):
                             'tools/bohemia_animation_melee_in_hand.py, rendered by DIRECTION\'s master rig the way COMBAT renders the fight',
                      dirs=FIGHT_DIRS, keys_per_beat=3,
                      cell='[x, y, w, h, dx, dy]: the cell on the sheet and where its top left sits from the look\'s fight-sheet cell origin', looks={})
-    for k in ('composite', 'timelines', 'by_row', 'by_class'):
-        index[k] = {a_: b_ for a_, b_ in S[k].items() if a_ != 'why'}
+    ready_props = set(p_ for ly in S.get('layers_ready', list(S['layers'])) for p_ in S['layers'][ly]['props'])
+    for k in ('composite', 'timelines', 'by_row', 'by_class', 'shield_by_row', 'shield_over', 'two_by_row', 'two_by_class'):
+        # a row maps to a thing only once that thing is in a ready layer (never a man the fight thinks is armed and the sheet is not)
+        index[k] = {a_: b_ for a_, b_ in S.get(k, {}).items() if a_ != 'why' and (k not in ('by_row', 'by_class', 'shield_by_row', 'two_by_row', 'two_by_class') or b_ in ready_props)}
+    for k in ('thrust', 'thrown'): index[k] = S.get(k, [])
+    index['layers_ready'] = S.get('layers_ready', list(S['layers']))
     index['props'] = sorted(set(p_ for L in S['layers'].values() for p_ in L['props']))
     index['clips'] = {n: len(c['keys']) for n, c in S['clips'].items()}
 
@@ -554,33 +697,39 @@ def pack(only=None):
         for i, (a, _, _) in enumerate(items): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
         return im, rects
 
-    looks = sorted(os.listdir(os.path.join(ROOT, RENDERS)), key=lambda k: (is_person(k), k))
+    looks = sorted([k for k in os.listdir(os.path.join(ROOT, RENDERS)) if not any(k.endswith(s_) for s_ in PASSES[1:])], key=lambda k: (is_person(k), k))
     for look in looks:
         if only and look not in only: continue
         d = os.path.join(ROOT, RENDERS, look)
-        if look not in FR['looks'] or not os.path.isdir(d) or not os.path.exists(os.path.join(d, 'rig_MIdleX_S_k00.png')) or not os.path.exists(os.path.join(d, 'rig.json')): continue
+        if look not in FR['looks'] or not os.path.exists(os.path.join(d, 'rig.json')) or not clip_dir(look, 'MIdleX'): continue
         person = is_person(look); fl = FR['looks'][look]
-        ready = [ly for ly in S['layers'] if ly in S.get('layers_ready', S['layers'])]
-        if not person and not all(props_done(look, ly, p_) for ly in ready for p_ in S['layers'][ly]['props']):
+        ready = [ly for ly in S['layers'] if ly in S.get('layers_ready', S['layers']) and (person or all(props_done(look, ly, p_) for p_ in S['layers'][ly]['props']))]
+        if not person and 'm1' not in ready:
             print('SKIP', look, 'not every prop is rendered yet'); continue
         if person and fl.get('ref') not in index['looks']:
             print('SKIP', look, 'his gang\'s props are not packed yet'); continue
-        rj = json.load(open(os.path.join(d, 'rig.json')))
-        cx0, cy0, cx1, cy1 = rj['crop_box_px']
-        fx0 = cx0 + rj['ground_px'][0] - fl['foot'][0]; fy0 = cy0 + rj['ground_px'][1] - fl['foot'][1]
         sp = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', fl['file'])).convert('RGBA'))
         bpal = np.array(sorted(set(map(tuple, sp[sp[..., 3] > 0][:, :3].tolist()))), np.int32)
-        def full(fn):
+        FRAME = {}
+        def frame(dd):   # a pass's crop of the full frame, and where the look's fight cell sits in it (his feet are the one point both know)
+            if dd not in FRAME:
+                rj = json.load(open(os.path.join(dd, 'rig.json'))); cx0, cy0, cx1, cy1 = rj['crop_box_px']
+                FRAME[dd] = (rj, cx0 + rj['ground_px'][0] - fl['foot'][0], cy0 + rj['ground_px'][1] - fl['foot'][1])
+            return FRAME[dd]
+        def full(fn, rj):
             a = np.asarray(Image.open(fn).convert('RGBA')).copy()
             if a.shape[0] != rj['res'] or a.shape[1] != rj['res']:
-                z = np.zeros((rj['res'], rj['res'], 4), np.uint8); z[cy0:cy1, cx0:cx1] = a; a = z
+                cx0, cy0, cx1, cy1 = rj['crop_box_px']; z = np.zeros((rj['res'], rj['res'], 4), np.uint8); z[cy0:cy1, cx0:cx1] = a; a = z
             return a
-        imgs, cells = [], {}
-        for clip, n in new_clips():
-            if not all(os.path.exists(os.path.join(d, 'rig_%s_%s_k%02d.png' % (clip, f, k))) for f in FIGHT_DIRS for k in range(n)): continue   # a clip made after his pass: next pass
+        imgs, cells, own = [], {}, set()
+        for clip, n in new_clips(False):
+            dd = clip_dir(look, clip)
+            if not dd or not all(os.path.exists(os.path.join(dd, 'rig_%s_%s_k%02d.png' % (clip, f, k))) for f in FIGHT_DIRS for k in range(n)): continue   # not rendered yet: the next pass
+            rj, fx0, fy0 = frame(dd)
+            own |= set(k_ for c_ in rj.get('clips', {}).values() for f_ in c_.get('motion_px', {}) for key in c_['motion_px'][f_] for k_ in key)
             for k in range(n):
                 for row, f in enumerate(FIGHT_DIRS):
-                    r = cut(full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (clip, f, k))))
+                    r = cut(full(os.path.join(dd, 'rig_%s_%s_k%02d.png' % (clip, f, k)), rj))
                     ix = None
                     if r is not None: ix = len(imgs); imgs.append((to_pal(r[0], bpal), r[1] - fx0, r[2] - fy0))
                     cells.setdefault(clip, [[None] * 8 for _ in range(n)])[k][row] = ix
@@ -589,6 +738,8 @@ def pack(only=None):
         entry = dict(fight=fl['file'], foot=fl['foot'], sheet=dict(file=look + '.webp', size=list(body.size), cells=rects), clips=cells)
         hp = os.path.join(ROOT, 'slices/rig_hold', look + '.json')
         if os.path.exists(hp) and json.load(open(hp)).get('held'): entry['held'] = json.load(open(hp))['held']   # his own modelled weapon (the thug's pipe, the poacher's hatchet)
+        if any('crashbar' in p_.lower() for p_ in own): entry['own_shield'] = sorted(p_ for p_ in own if 'crashbar' in p_.lower())   # the Heavy's own crash bar on his model: never a second shield
+        rj, fx0, fy0 = frame(d)
         if person:
             entry['ref'] = fl['ref']
         else:
@@ -596,7 +747,8 @@ def pack(only=None):
             for ly in ready:
                 for prop in S['layers'][ly]['props']:
                     for clip, j, f, fn in prop_files(ly, prop):
-                        r = cut(np.asarray(Image.open(os.path.join(d, "props", fn)).convert("RGBA")))   # a full frame
+                        a_ = np.asarray(Image.open(os.path.join(d, "props", fn)).convert("RGBA"))   # a full frame
+                        r = cut(a_) if (a_[..., 3] > thr).sum() >= SPECK else None   # a speck past his collar or his hat is no prop: hidden behind him
                         ix = None
                         if r is not None: ix = len(pimgs); pimgs.append((to_pal(r[0], ppal), r[1] - fx0, r[2] - fy0))
                         nk = len(S['hold'][clip])
@@ -604,6 +756,8 @@ def pack(only=None):
             pim, prects = shelf(pimgs, 2048)
             pim.save(os.path.join(ROOT, OUT, look + '_props.webp'), 'WEBP', lossless=True, quality=100, method=6)
             entry['props'] = dict(file=look + '_props.webp', size=list(pim.size), cells=prects, by=by)
+
+        entry['layers'] = [ly for ly in ready if all(c_ in cells for c_ in layer_clips(S, ly))]   # the layers whose own keys (and, a named look's, things) are on this sheet
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))
         index['looks'][look] = dict(json=look + '.json')
         print('PACKED', look, body.size, 'props', entry['props']['size'] if 'props' in entry else 'his gang\'s (%s)' % entry.get('ref'), flush=True)

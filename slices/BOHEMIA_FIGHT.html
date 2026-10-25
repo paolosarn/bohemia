@@ -4510,7 +4510,7 @@ function holdClip(v, p, kind, now) {
 function holdDraw(v, p, L, gs, ox, oy, s, now) {
   if (L.kind === 'beast' || v._fallAt !== undefined) return false;   /* a rolled man of the valley too: his own body, his gang's guns */
   const d = holdLook(L); if (!d) return false;
-  if (!gs) { const md = meleeDraw(v, p, L, d, ox, oy, s, now); if (md !== null) return md; }   /* a club, a bat, a pipe, a blade, a hatchet in his fist */
+  { const md = meleeDraw(v, p, L, d, gs, ox, oy, s, now); if (md !== null) return md; }   /* a club, a bat, a pipe, a blade, a hatchet in his fist; a shield on his left arm */
   const kind = gs ? DB.rig.guns.order[gs.row] : null, hc = holdClip(v, p, kind, now);
   if (!hc) { v._holdClip = undefined; return false; }
   const f = v._face || 0, ck = d.clips[hc[0]], ci = ck && ck[hc[1]] && ck[hc[1]][f];
@@ -4530,14 +4530,19 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
 /* MELEE IN THE HAND (the next line, rule 164 item 31; the coordinator's order 10/25: 'melee weapons held right in the hand:
    the club, the bat, the pipe, the knife, the poacher's hatchet: idle, walk, the swing, the hit taken'). Measured: 225 of 360
    men on sixteen real fights held a melee or thrown weapon and every one was drawn bare-fisted (the fight draws only guns).
-   Now the thing is in his right fist on every key, the same man, camera, sun and stretch as his sheets, his body hiding what
-   it should (slices/rig_melee, tools/bohemia_animation_melee_in_hand.py): standing he holds it at the one-hand low ready and
+   Now the thing is in his fist on every key, the same man, camera, sun and stretch as his sheets, his body hiding what it
+   should (slices/rig_melee, tools/bohemia_animation_melee_in_hand.py): standing he holds it at the one-hand low ready and
    breathes, looks about, TAPS IT INTO HIS LEFT PALM or LAYS IT ON HIS SHOULDER; he walks with it low; the swing is COMBAT's
-   own club over the shoulder, the blow, the follow through, with the thing in his hand; a blow rocks him with it kept; on one
-   knee in cover it is up before his chest. A rolled man's thing is his gang's, laid in his gang's cell (as his guns are);
-   a man whose own model carries his weapon (the thug's pipe, the poacher's hatchet) is drawn without a second one. A row
-   with no prop yet, a two-handed thing, a thrown one: as before. */
+   own club over the shoulder, the blow, the follow through, with the thing in his hand (a spear is thrust out along his arm,
+   a Molotov thrown overhand, a flail's chain trails the wind and flies out on the blow); a blow rocks him with it kept; on one
+   knee in cover it is up before his chest. A TWO-HANDED THING (the sledge, the felling axe, the goedendag, the pitchfork) is
+   held across him in both hands, walked at the low ready, LEANED ON (its head set down before him, both hands on the haft's
+   end), brought down in both hands from over his shoulder (the pitchfork thrust out level), kept as he is rocked, and held
+   across him on one knee in cover. A rolled man's thing is his gang's, laid in his gang's cell (as his guns are); a man whose
+   own model carries his weapon (the thug's pipe, the poacher's hatchet) is drawn without a second one. A row with no prop
+   yet: as before. */
 const MELEE = { meta: null, state: 0, looks: {} };
+const MELEE_FIGHT = { Swing: 'swing', Carry: 'carry', CarryWalk: 'carrywalk', Aim: 'aim', Hit: 'hit' };   /* COMBAT's own clips, drawn off his fight sheet */
 function meleeMeta() {
   if (!MELEE.state) {
     MELEE.state = 1;
@@ -4552,51 +4557,91 @@ function meleeLook(key) {
   if (!d) { d = MELEE.looks[key] = { d: null }; fetch('rig_melee/' + e.json).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { d.d = j; }, function () {}); }
   return d.d;
 }
-/* the thing in his right hand, if it is a one-handed melee weapon with a prop: its row, else its class */
+/* the thing in his hands, if it is a melee or thrown weapon with a prop: [prop, two-handed]; its row, else its class */
 function meleeProp(v) {
   const M = meleeMeta(), w = v.weapon; if (!M || !w || FIGHT.isGun(w)) return null;
-  const b = w.of || w; if (FIGHT._t.bothHands(w)) return null;
-  return M.by_row[b.id] || M.by_class[b.class] || null;
+  const b = w.of || w;
+  if (FIGHT._t.bothHands(w)) { const q = (M.two_by_row || {})[b.id] || (M.two_by_class || {})[b.class]; return q ? [q, true] : null; }
+  const q = M.by_row[b.id] || M.by_class[b.class]; return q ? [q, false] : null;
 }
-/* which melee clip and key for the pose the fight gave him */
-function meleeClip(v, p, L, e, now) {
+/* THE SHIELD ARM (the coordinator's order 10/25, (2); rule 149(b), Paolo 10/24: 'if I have a pistol in one hand and a car door as a
+   shield in the other, I should see that in the combat'). A man whose off hand holds a shield (u.shield: the armoury's wooden
+   shields are car doors, the small round ones a stop sign off its post, the metal ones the Heavy's crash bar) carries it on his
+   left forearm across his front with his right hand low and its weapon beside it (a club or a pistol); walks with it held; swings
+   or fires one-handed with it kept up; RAISES IT BEFORE HIS FACE WHEN A BLOW LANDS (the block), and on one knee in cover plants
+   it on the ground before him. Where his right side is toward the glass the weapon is drawn over the shield, else the shield
+   over the weapon. A man whose own model wears his shield (the Heavy's crash bar) is drawn without a second one. */
+function shieldProp(v) {
+  const M = meleeMeta(), sh = v.shield; if (!M || !sh || !M.shield_by_row) return null;
+  return M.shield_by_row[(sh.of || sh).id] || null;
+}
+/* which clip and key of his for the pose the fight gave him: the shield's, the two-hander's, or the one-hander's */
+function meleeClip(v, p, L, e, how, prop, kind, now) {
   const at = function (c) { return Math.max(0, (L.clips || DB.rig.clips)[c].indexOf(p.col)); }, cover = holdCovered(v), M = MELEE.meta;
-  if (p.clip === 'walk' || p.clip === 'carrywalk') return ['MWalk', at(p.clip)];
-  if (p.clip === 'swing') return ['MSwing', at('swing')];
-  if (p.clip === 'hit') return [cover ? 'MCoverHit' : 'MHit', at('hit')];
-  if (p.clip === 'stand' || p.clip === 'carry') {
-    const c = cover ? 'MCover' : 'MIdle', own = e.clips && e.clips.MIdleX;
-    return [c, holdIdle(v, c, now, M.timelines, c === 'MIdle' && !own ? 2 : 0)];
+  const thrust = (M.thrust || []).indexOf(prop) >= 0, thrown = (M.thrown || []).indexOf(prop) >= 0;
+  const idle = function (c, slots) { return [c, holdIdle(v, c, now, M.timelines, slots)]; };
+  if (how === 'S') {
+    if (p.clip === 'walk' || p.clip === 'carrywalk') return ['SWalk', at(p.clip)];
+    if (p.clip === 'swing') return thrust ? ['SAim', at('swing')] : ['SSwing', at('swing')];
+    if (p.clip === 'aim') return kind === 'pistol' && !cover ? ['SAim', at('aim')] : null;
+    if (p.clip === 'hit') return cover ? ['SCoverHit', at('hit')] : ['SBlock', at('hit')];
+    if (p.clip === 'stand' || p.clip === 'carry') return idle(cover ? 'SCover' : 'SIdle');
+    return null;
   }
+  if (how === 'T') {
+    if (p.clip === 'walk' || p.clip === 'carrywalk') return ['T2Walk', at(p.clip)];
+    if (p.clip === 'swing' || p.clip === 'aim') return [thrust ? 'T2Thrust' : 'T2Swing', at(p.clip)];
+    if (p.clip === 'hit') return [cover ? 'T2CoverHit' : 'T2Hit', at('hit')];
+    if (p.clip === 'stand' || p.clip === 'carry') return cover ? idle('T2Cover') : idle('T2Idle');
+    return null;
+  }
+  if (p.clip === 'walk' || p.clip === 'carrywalk') return ['MWalk', at(p.clip)];
+  if (p.clip === 'swing') return [thrust ? 'MThrust' : 'MSwing', at('swing')];
+  if (p.clip === 'aim') return thrown ? ['MSwing', at('aim')] : null;   /* a Molotov goes overhand */
+  if (p.clip === 'hit') return [cover ? 'MCoverHit' : 'MHit', at('hit')];
+  if (p.clip === 'stand' || p.clip === 'carry') return cover ? idle('MCover') : idle('MIdle', e.clips && e.clips.MIdleX ? 0 : 2);
   return null;
 }
-function meleeDraw(v, p, L, d, ox, oy, s, now) {
-  const prop = meleeProp(v); if (!prop) return null;
-  const e = meleeLook(L._key), M = MELEE.meta; if (!e) return null;
+/* his body on a key: this lane's own keys, the held sheets, or COMBAT's own clip on his fight sheet: [image, cell] */
+function meleeBody(src, f, L, e, d) {
+  if (MELEE_FIGHT[src[0]]) { const c = (L.clips || DB.rig.clips)[MELEE_FIGHT[src[0]]]; if (!c) return null;
+    return [UI.imgs['fight_rig/' + L.file], [clipCol(MELEE_FIGHT[src[0]], src[1], L) * L.w, f * L.h, L.w, L.h, 0, 0]]; }
+  const own = e.clips[src[0]], sheet = own ? e : d, ck = own || d.clips[src[0]], ci = ck && ck[src[1]] && ck[src[1]][f];
+  if (ci === null || ci === undefined) return null;
+  return [holdImg(sheet.sheet.file, own ? 'rig_melee/' : undefined), sheet.sheet.cells[ci]];
+}
+function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
+  const kind = gs ? DB.rig.guns.order[gs.row] : null;
+  if (kind && kind !== 'pistol') return null;   /* a long gun is held in both hands: the held clips' */
+  const e = meleeLook(L._key); if (!e) return null;
   const pe = e.props ? e : meleeLook(e.ref); if (!pe || !pe.props) return null;
-  const mc = meleeClip(v, p, L, e, now); if (!mc) return null;
+  const mp = kind ? null : meleeProp(v), two = mp && mp[1];
+  const shield = two ? null : shieldProp(v), sh = shield && e.clips.SIdle && pe.props.by[shield] ? shield : null;
+  const prop = kind === 'pistol' ? (sh ? 'pistol' : null) : mp && mp[0]; if (!prop && !sh) return null;
+  if (two && !(e.clips.T2Idle && pe.props.by[prop])) return null;   /* his two-handed keys or the thing not in yet: as before */
+  if (sh && kind === 'pistol' && (p.clip === 'stand' || p.clip === 'carry') && holdReload(v, kind, holdCovered(v), now)) return null;   /* the reload on his body (rule 124): his left hand leaves the shield for the magazine */
+  const M = MELEE.meta, mc = meleeClip(v, p, L, e, sh ? 'S' : two ? 'T' : 'M', prop, kind, now); if (!mc) return null;
   const f = v._face || 0, src = M.composite[mc[0]] && M.composite[mc[0]][mc[1]]; if (!src) return null;
+  const b = meleeBody(src, f, L, e, d); if (!b || !b[0]) return null;
+  /* what he holds on this key: the thing in his fist (never a second one on a man whose own model carries his) and his shield */
+  const lay = [];
+  [prop, sh && !e.own_shield ? sh : null].forEach(function (q) {
+    if (!q || (q === prop && e.held)) return;
+    const by = pe.props.by[q], pk = by && by[src[0]] && by[src[0]][src[1]];
+    if (!pk) { lay.push(false); return; }
+    if (pk[f] !== null && pk[f] !== undefined) lay.push(pk[f]);
+  });
+  if (lay.indexOf(false) >= 0) return null;   /* never a man without what he holds: as before until it is in */
+  const pimg = lay.length ? holdImg(pe.props.file, 'rig_melee/') : null; if (lay.length && !pimg) return null;
+  if (lay.length === 2 && !M.shield_over[DIR8[f]]) lay.reverse();   /* the weapon over the shield where his right side is toward the glass */
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
-  const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
-  /* his body on this key: the held sheets, this lane's melee keys, or COMBAT's own swing on his fight sheet */
-  let bimg = null, bc = null;
-  if (src[0] === 'Swing') { bimg = UI.imgs['fight_rig/' + L.file]; bc = [clipCol('swing', src[1], L) * L.w, f * L.h, L.w, L.h, 0, 0]; }
-  else if (src[0] === 'MIdleX') { const ci = e.clips.MIdleX && e.clips.MIdleX[src[1]] && e.clips.MIdleX[src[1]][f]; if (ci === null || ci === undefined) return null; bimg = holdImg(e.sheet.file, 'rig_melee/'); bc = e.sheet.cells[ci]; }
-  else { const ck = d.clips[src[0]], ci = ck && ck[src[1]] && ck[src[1]][f]; if (ci === null || ci === undefined) return null; bimg = holdImg(d.sheet.file); bc = d.sheet.cells[ci]; }
-  if (!bimg) return null;
-  /* the thing in his fist (never a second one on a man whose own model carries his) */
-  let pc = null, pimg = null;
-  if (!e.held) {
-    const by = pe.props.by[prop], pk = by && by[src[0]] && by[src[0]][src[1]];
-    if (!pk) return null;
-    pc = pk[f]; pimg = holdImg(pe.props.file, 'rig_melee/');
-    if (pc !== null && pc !== undefined && !pimg) return null;   /* never a man without his weapon: as before until it is in */
-  }
-  cx.drawImage(im(bimg), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
-  if (pimg && pc !== null && pc !== undefined) { const g = pe.props.cells[pc]; cx.drawImage(im(pimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
-  const fl = hitFlash(v, now); if (fl > 0) tintOver(bimg, bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
+  const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; }, bc = b[1];
+  cx.drawImage(im(b[0]), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
+  lay.forEach(function (ix) { const g = pe.props.cells[ix]; cx.drawImage(im(pimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); });
+  const fl = hitFlash(v, now); if (fl > 0) tintOver(b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
-  UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;
+  if (sh) UI.clipSeen['shield:' + sh] = (UI.clipSeen['shield:' + sh] || 0) + 1;
+  if (prop) UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;
   return true;
 }
 /* ==== end __WHAT_A_MAN_HOLDS__ ==== */

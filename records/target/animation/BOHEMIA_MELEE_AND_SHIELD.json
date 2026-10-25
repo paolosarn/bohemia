@@ -283,9 +283,9 @@
      "L": {
       "from": "LU",
       "at": [
-       0.3,
-       -0.04,
-       -0.13
+       0.26,
+       0.1,
+       -0.11
       ],
       "pole": [
        -0.1,
@@ -321,9 +321,9 @@
      "L": {
       "from": "LU",
       "at": [
-       0.24,
-       -0.06,
-       -0.12
+       0.22,
+       0.06,
+       -0.1
       ],
       "pole": [
        -0.1,
@@ -516,6 +516,227 @@
      ]
     ]
    }
+  ],
+  "t2_lean_half": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.24,
+       -0.32,
+       0.1
+      ],
+      "pole": [
+       -1,
+       0,
+       -0.4
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.24,
+       -0.29,
+       -0.1
+      ],
+      "pole": [
+       -1,
+       0,
+       0.4
+      ]
+     }
+    }
+   }
+  ],
+  "t2_lean": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      6
+     ],
+     [
+      "N",
+      "L",
+      6
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.27,
+       -0.42,
+       0.15
+      ],
+      "pole": [
+       -1,
+       0,
+       -0.5
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.27,
+       -0.35,
+       -0.15
+      ],
+      "pole": [
+       -1,
+       0,
+       0.5
+      ]
+     }
+    }
+   }
+  ],
+  "t2_wind": [
+   {
+    "ops": [
+     [
+      "S",
+      "U",
+      -25
+     ],
+     [
+      "C",
+      "U",
+      -10
+     ],
+     [
+      "N",
+      "U",
+      15
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       -0.02,
+       0.18,
+       0.02
+      ],
+      "pole": [
+       -0.3,
+       -0.3,
+       -1
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.08,
+       0.06,
+       -0.3
+      ],
+      "pole": [
+       0.2,
+       -1,
+       0.5
+      ]
+     }
+    }
+   }
+  ],
+  "t2_blow": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      18
+     ],
+     [
+      "S",
+      "U",
+      10
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.5,
+       -0.32,
+       0.14
+      ],
+      "pole": [
+       -0.5,
+       -1,
+       -0.6
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.42,
+       -0.4,
+       -0.14
+      ],
+      "pole": [
+       -0.5,
+       -1,
+       0.6
+      ]
+     }
+    }
+   }
+  ],
+  "t2_follow": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      22
+     ],
+     [
+      "S",
+      "U",
+      25
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.32,
+       -0.55,
+       0.28
+      ],
+      "pole": [
+       -0.5,
+       -0.5,
+       -1
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.22,
+       -0.6,
+       0.02
+      ],
+      "pole": [
+       -0.5,
+       -0.5,
+       0.6
+      ]
+     }
+    }
+   }
   ]
  },
  "clips": {
@@ -692,6 +913,58 @@
     ]
    ],
    "why": "on the knee behind the shield, rocked"
+  },
+  "T2Idle": {
+   "under": "still",
+   "keys": [
+    [
+     "carry",
+     "plant"
+    ],
+    [
+     "breath_in",
+     "carry",
+     "plant"
+    ],
+    [
+     "look_l",
+     "carry",
+     "plant"
+    ],
+    [
+     "look_r",
+     "carry",
+     "plant"
+    ],
+    [
+     "t2_lean_half",
+     "plant"
+    ],
+    [
+     "t2_lean",
+     "breath_in",
+     "plant"
+    ]
+   ],
+   "why": "a two-handed thing held across him in both hands at COMBAT's low ready (the long gun's carry), a breath, a look each way; THE LEAN: its head set down on the ground before him and both hands stacked on the end of the haft"
+  },
+  "T2Swing": {
+   "under": "still",
+   "keys": [
+    [
+     "t2_wind",
+     "plant"
+    ],
+    [
+     "t2_blow",
+     "plant"
+    ],
+    [
+     "t2_follow",
+     "plant"
+    ]
+   ],
+   "why": "the two-handed blow: both hands on the haft raised over his right shoulder, brought down before him, followed through low to his left"
   }
  },
  "composite": {
@@ -913,6 +1186,134 @@
     "SCoverHit",
     0
    ]
+  ],
+  "MThrust": [
+   [
+    "PAim",
+    0
+   ],
+   [
+    "PAim",
+    1
+   ],
+   [
+    "PAim",
+    0
+   ]
+  ],
+  "T2Idle": [
+   [
+    "T2Idle",
+    0
+   ],
+   [
+    "T2Idle",
+    1
+   ],
+   [
+    "T2Idle",
+    2
+   ],
+   [
+    "T2Idle",
+    3
+   ],
+   [
+    "T2Idle",
+    4
+   ],
+   [
+    "T2Idle",
+    5
+   ]
+  ],
+  "T2Walk": [
+   [
+    "CarryWalk",
+    0
+   ],
+   [
+    "CarryWalk",
+    1
+   ],
+   [
+    "CarryWalk",
+    2
+   ],
+   [
+    "CarryWalk",
+    3
+   ],
+   [
+    "CarryWalk",
+    4
+   ],
+   [
+    "CarryWalk",
+    5
+   ]
+  ],
+  "T2Swing": [
+   [
+    "T2Swing",
+    0
+   ],
+   [
+    "T2Swing",
+    1
+   ],
+   [
+    "T2Swing",
+    2
+   ]
+  ],
+  "T2Thrust": [
+   [
+    "Aim",
+    0
+   ],
+   [
+    "Aim",
+    1
+   ],
+   [
+    "Aim",
+    2
+   ]
+  ],
+  "T2Hit": [
+   [
+    "Hit",
+    0
+   ],
+   [
+    "Hit",
+    1
+   ]
+  ],
+  "T2Cover": [
+   [
+    "CoverLong",
+    0
+   ],
+   [
+    "CoverLong",
+    1
+   ],
+   [
+    "CoverLong",
+    2
+   ]
+  ],
+  "T2CoverHit": [
+   [
+    "CoverHit",
+    0
+   ],
+   [
+    "CoverHit",
+    1
+   ]
   ]
  },
  "hold": {
@@ -990,6 +1391,49 @@
   ],
   "SCoverHit": [
    "hit"
+  ],
+  "PAim": [
+   "thrust",
+   "thrust",
+   "thrust"
+  ],
+  "T2Idle": [
+   "two",
+   "two",
+   "two",
+   "two",
+   "lean_half",
+   "lean"
+  ],
+  "Carry": [
+   "two"
+  ],
+  "CarryWalk": [
+   "two",
+   "two",
+   "two",
+   "two",
+   "two",
+   "two"
+  ],
+  "T2Swing": [
+   "two_up",
+   "two_up",
+   "two_up"
+  ],
+  "Aim": [
+   "two",
+   "two",
+   "two"
+  ],
+  "Hit": [
+   "hit",
+   "hit"
+  ],
+  "CoverLong": [
+   "two",
+   "two",
+   "two"
   ]
  },
  "props": {
@@ -1030,8 +1474,8 @@
   "car_door": {
    "say": "a car door cut off below the window: the faded skin, a dent and bullet holes, rust at the seams, the handle, the window channel's two stubs, a strap behind",
    "shield": true,
-   "w": 0.92,
-   "h": 0.6
+   "w": 0.86,
+   "h": 0.56
   },
   "crash_bar": {
    "say": "the Heavy's crash-bar shield (CHARACTER's): a rounded frame of steel tube, a diamond-plate panel, the bent push bar, a dead plate riveted on",
@@ -1044,6 +1488,51 @@
    "shield": true,
    "w": 0.76,
    "h": 0.76
+  },
+  "spear": {
+   "say": "a spear made from a sign post's pipe, a leaf of spring steel lashed to its end with wire, a rag tied under it (the market's SPEAR)",
+   "back": 0.7,
+   "fore": 1.1
+  },
+  "flail": {
+   "say": "a club handle, a length of chain off its end, a spiked iron ball on the chain that hangs and swings (the market's CHAIN)",
+   "back": 0.05,
+   "fore": 0.4,
+   "chain": 0.3
+  },
+  "pick": {
+   "say": "a pickaxe cut down to one hand: a short haft, a curved spike one way and a chisel the other",
+   "back": 0.05,
+   "fore": 0.55
+  },
+  "bottle": {
+   "say": "a Molotov: a brown bottle, its label, tape round the neck, a rag stuffed in and hanging (COOK's market icon's bottle, at its real size)",
+   "back": 0,
+   "fore": 0
+  },
+  "sledge": {
+   "say": "a sledgehammer: a long taped haft, a steel head with bright faces",
+   "back": 0.06,
+   "fore": 0.87,
+   "two": true
+  },
+  "woodaxe": {
+   "say": "a felling axe: a long haft, a bearded head with a ground edge",
+   "back": 0.06,
+   "fore": 0.88,
+   "two": true
+  },
+  "goedendag": {
+   "say": "a fence post turned club, banded with iron at its end, a rail spike driven out of it (Battle Brothers' goedendag)",
+   "back": 0.1,
+   "fore": 1.0,
+   "two": true
+  },
+  "pitchfork": {
+   "say": "a pitchfork: a long haft, three rusted tines on a crossbar",
+   "back": 0.1,
+   "fore": 1.3,
+   "two": true
   }
  },
  "by_row": {
@@ -1054,14 +1543,24 @@
   "shortsword": "machete",
   "hatchet": "hatchet",
   "handaxe": "hatchet",
-  "why": "the Battle Brothers rows the fight deals (measured on 16 real fights, seeds 1 to 8, strip and road: bludgeon 50, wooden_stick 12, morning_star 4, the cleaver 6, the shortsword 12, the hatchet 11, the handaxe 2) to the thing in his hand; a row not named here is drawn as before until its prop is in"
+  "why": "the Battle Brothers rows the fight deals (measured on 16 real fights, seeds 1 to 8, strip and road: bludgeon 50, wooden_stick 12, morning_star 4, the cleaver 6, the shortsword 12, the hatchet 11, the handaxe 2, the flails 21, the throwing axes 16, the pickaxe 12, the spears 10) to the thing in his hand; a row not named here falls back on its class",
+  "militia_spear": "spear",
+  "boar_spear": "spear",
+  "wooden_flail": "flail",
+  "reinforced_wooden_flail": "flail",
+  "flail": "flail",
+  "pickaxe": "pick",
+  "bundle_of_throwing_axes": "bottle"
  },
  "by_class": {
   "mace": "pipe",
   "cleaver": "cleaver",
   "sword": "machete",
   "axe": "hatchet",
-  "why": "a row this lane never measured falls back on its class, the market icon's own reading (slices/market_icons: w_pipe, w_cleaver, w_machete, w_axe)"
+  "why": "a row this lane never measured falls back on its class, the market icon's own reading (slices/market_icons: w_pipe, w_cleaver, w_machete, w_axe)",
+  "spear": "spear",
+  "flail": "flail",
+  "throwing": "bottle"
  },
  "layers": {
   "m1": {
@@ -1173,6 +1672,152 @@
      "SBlock",
      "SCover",
      "SCoverHit"
+    ]
+   }
+  },
+  "m2": {
+   "props": [
+    "spear",
+    "flail",
+    "pick",
+    "bottle"
+   ],
+   "clips": [
+    "PIdle",
+    "MIdleX",
+    "PCarryWalk",
+    "Swing",
+    "PHit",
+    "CoverPistol",
+    "CoverHit",
+    "PAim"
+   ],
+   "keys": {
+    "PIdle": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   "only": {
+    "flail": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ],
+    "pick": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ],
+    "bottle": [
+     "PIdle",
+     "MIdleX",
+     "PCarryWalk",
+     "Swing",
+     "PHit",
+     "CoverPistol",
+     "CoverHit"
+    ]
+   }
+  },
+  "s2": {
+   "props": [
+    "spear",
+    "flail",
+    "pick"
+   ],
+   "clips": [
+    "SIdle",
+    "SWalk",
+    "SSwing",
+    "SAim",
+    "SBlock",
+    "SCover",
+    "SCoverHit"
+   ],
+   "keys": {},
+   "only": {
+    "spear": [
+     "SIdle",
+     "SWalk",
+     "SAim",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "flail": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ],
+    "pick": [
+     "SIdle",
+     "SWalk",
+     "SSwing",
+     "SBlock",
+     "SCover",
+     "SCoverHit"
+    ]
+   }
+  },
+  "t2": {
+   "props": [
+    "sledge",
+    "woodaxe",
+    "goedendag",
+    "pitchfork"
+   ],
+   "clips": [
+    "T2Idle",
+    "Carry",
+    "CarryWalk",
+    "T2Swing",
+    "Aim",
+    "Hit",
+    "CoverLong",
+    "CoverHit"
+   ],
+   "keys": {},
+   "only": {
+    "sledge": [
+     "T2Idle",
+     "Carry",
+     "CarryWalk",
+     "T2Swing",
+     "Hit",
+     "CoverLong",
+     "CoverHit"
+    ],
+    "woodaxe": [
+     "T2Idle",
+     "Carry",
+     "CarryWalk",
+     "T2Swing",
+     "Hit",
+     "CoverLong",
+     "CoverHit"
+    ],
+    "goedendag": [
+     "T2Idle",
+     "Carry",
+     "CarryWalk",
+     "T2Swing",
+     "Hit",
+     "CoverLong",
+     "CoverHit"
     ]
    }
   }
@@ -1378,6 +2023,96 @@
      9
     ]
    ]
+  ],
+  "T2Idle": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     5
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   [
+    [
+     0,
+     4
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     5,
+     14
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     0,
+     4
+    ]
+   ]
+  ],
+  "T2Cover": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     6
+    ],
+    [
+     2,
+     9
+    ],
+    [
+     0,
+     9
+    ]
+   ]
   ]
  },
  "shield_hold": {
@@ -1449,5 +2184,60 @@
  },
  "layers_ready": [
   "m1"
+ ],
+ "hold_by_prop": {
+  "cleaver": {
+   "shoulder": "shoulder_up",
+   "tap": "tap_lift"
+  },
+  "why": "a short blade or a hatchet laid back on the shoulder goes behind a collar, a hood or a fur hat (measured: the cleaver hidden in 3 to 5 facings on the blues, the caravans and the church, the hatchet in 5 on the blues): it is held up beside his head instead; the cleaver's tap is the flat lifted off his palm (tapped down into a fur coat's front it is gone in 5 facings, the caravans)",
+  "hatchet": {
+   "shoulder": "shoulder_up"
+  },
+  "spear": {
+   "rest": "upright",
+   "tap": "upright",
+   "tap_lift": "upright",
+   "shoulder_half": "upright",
+   "port": "upright"
+  },
+  "flail": {
+   "tap": "rest",
+   "tap_lift": "rest"
+  },
+  "bottle": {
+   "rest": "bottle",
+   "tap": "bottle",
+   "tap_lift": "bottle",
+   "shoulder_half": "bottle",
+   "shoulder": "bottle_up",
+   "port": "bottle",
+   "hit": "bottle",
+   "wind": "bottle_wind",
+   "blow": "bottle_blow",
+   "follow": "bottle_blow"
+  }
+ },
+ "two_by_row": {
+  "two_handed_mallet": "sledge",
+  "woodcutter_s_axe": "woodaxe",
+  "goedendag": "goedendag",
+  "pitchfork": "pitchfork",
+  "why": "the two-handed rows the fight deals (measured: the two-handed mallet 34, the woodcutter's axe 30, the goedendag 14, the pitchfork 10), held in both hands"
+ },
+ "two_by_class": {
+  "hammer": "sledge",
+  "axe": "woodaxe",
+  "mace": "goedendag",
+  "polearm": "pitchfork",
+  "spear": "pitchfork",
+  "why": "a two-handed row this lane never measured falls back on its class"
+ },
+ "thrust": [
+  "spear",
+  "pitchfork"
+ ],
+ "thrown": [
+  "bottle"
  ]
 }

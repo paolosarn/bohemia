@@ -10,8 +10,8 @@ Asked of the PICTURES and of the REAL FIGHT, never of a table's say-so:
      GRID); every key of every melee clip is a key some sheet draws and that the props are rendered on; every row it names
      is a row of the armoury (records/target/bb/weapons.json).
   P  THE PICTURES (slices/rig_melee): every man packed has the melee idle's own keys in all eight facings; every named look
-     has every prop on every key of every melee clip in all eight facings (hidden behind him in at most two facings of a key,
-     where he stands in front of it); every cell inside its sheet; the body wears his own fight sheet's colours, a prop the
+     has every prop on every key of every melee clip in all eight facings (hidden behind him in at most half the facings of a key,
+     where his body is between); every cell inside its sheet; the body wears his own fight sheet's colours, a prop the
      style palette's.
   H  IN HIS HAND: wherever the thing shows, it touches him (two pixels at most from his body on the same key: a prop that
      floats free of the fist is caught); IT IS SWUNG: in profile the wind takes it up to his head or over it, and the blow
@@ -39,7 +39,8 @@ QUICK = '--quick' in sys.argv
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 ok_n = fail_n = 0
 TOUCH = 2          # px: the thing in his fist is never further than this from his body on the same key
-HIDDEN_MAX = 2     # facings of one key the thing may be wholly behind him in
+HIDDEN_MAX = 5     # facings of one key the thing may be wholly behind him in (facing away, and the far side of him for a thing held before his belly)
+SEEN_MIN = 0.7     # and over all its keys and facings a thing shows in at least this share
 
 
 def ok(name, cond, why=''):
@@ -53,7 +54,8 @@ def done():
 
 
 D = json.load(open(SRC)); HD = json.load(open(HSRC))
-FIGHT_CLIPS = {'Swing': 3}   # COMBAT's own clips the melee clips borrow (tools/bohemia_combat_the_fight_poses.py man_keys)
+FIGHT_CLIPS = {'Swing': 3, 'Carry': 1, 'CarryWalk': 6, 'Aim': 3, 'Hit': 2}   # COMBAT's own clips the melee clips borrow, drawn from his fight sheet (tools/bohemia_combat_the_fight_poses.py)
+FIGHT_COL = {'Swing': 'swing', 'Carry': 'carry', 'CarryWalk': 'carrywalk', 'Aim': 'aim', 'Hit': 'hit'}
 
 
 # ---------------------------------------------------------------------------------------------------- S the source
@@ -129,8 +131,8 @@ def body(k, src, kk, f):
     e = E[k]
     if src in D['clips']:   # this lane's own new keys (the melee idle's, the shield's)
         i = e['clips'][src][kk][f]; c = e['sheet']['cells'][i]; a = sheet(e['sheet']['file'])[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
-    elif src == 'Swing':
-        L = F['looks'][k]; col = (L.get('clips') or F['clips'])['swing'][kk]; a, c = fight_cell(k, col, f)
+    elif src in FIGHT_COL:   # COMBAT's own clip on his fight sheet
+        L = F['looks'][k]; col = (L.get('clips') or F['clips'])[FIGHT_COL[src]][kk]; a, c = fight_cell(k, col, f)
     else:
         h = EH[k]; i = h['clips'][src][kk][f]; c = h['sheet']['cells'][i]; a = sheet(h['sheet']['file'], HOLD)[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
     return a[..., 3] > 0, c[4], c[5]
@@ -144,6 +146,7 @@ def prop(k, p, src, kk, f, e=None):
 
 
 READY = D.get('layers_ready', list(D['layers']))
+if '--layers' in sys.argv: READY = sys.argv[sys.argv.index('--layers') + 1].split(',')   # a layer still being made, asked of early
 
 
 def layer_of(n):
@@ -172,11 +175,12 @@ def props_of(ly):
 
 
 # ---------------------------------------------------------------------------------------------------- P the pictures
-miss, pmiss, outside, pal, hid = [], [], [], [], []
+miss, pmiss, outside, pal, hid, seen_ = [], [], [], [], [], {}
 PALS = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')))['roles']
 ppal = set(tuple(int(h.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4)) for r in PALS.values() for h in r['ramp']) | {tuple(F['rim'][:3])}
 for k, e in E.items():
-    for n in OWN:
+    mine = e.get('layers', ['m1'])
+    for n in [n_ for n_ in OWN if any(layer_of(c_) in mine for c_ in COMPOSITES if any(s_ == n_ for s_, _ in D['composite'][c_]))]:
         C = D['clips'][n]; ck = e['clips'].get(n)
         if not ck or len(ck) != len(C['keys']) or any(len(r) != 8 or any(i is None for i in r) for r in ck): miss.append('%s %s' % (k, n))
     a = sheet(e['sheet']['file']); H, W = a.shape[:2]
@@ -190,15 +194,17 @@ for k, e in E.items():
     outside += ['%s props %d' % (k, i) for i, c in enumerate(P['cells']) if c[0] < 0 or c[1] < 0 or c[0] + c[2] > W or c[1] + c[3] > H]
     extra = set(map(tuple, pa[pa[..., 3] > 0][:, :3].tolist())) - ppal
     if extra: pal.append('%s props +%d colours off the palette' % (k, len(extra)))
-    for ly in READY:
+    for ly in [l_ for l_ in READY if l_ in e.get('layers', ['m1'])]:
       for p in props_of(ly):
         for src, kk in keys_of(ly, p):
             r = P['by'].get(p, {}).get(src)
             if not r or kk >= len(r) or len(r[kk]) != 8: pmiss.append('%s %s %s k%d' % (k, p, src, kk)); continue
             if sum(1 for i in r[kk] if i is None) > HIDDEN_MAX: hid.append('%s %s %s k%d hidden in %d facings' % (k, p, src, kk, sum(1 for i in r[kk] if i is None)))
+            seen_[(k, p)] = seen_.get((k, p), [0, 0]); seen_[(k, p)][0] += sum(1 for i in r[kk] if i is not None); seen_[(k, p)][1] += 8
 ok('P2 every man packed has the melee idle\'s own keys in all eight facings', not miss, miss[:4])
 ok('P3 every named look has every prop on every key of every melee clip in all eight facings', not pmiss, pmiss[:4])
-ok('P4 a prop is wholly behind him in at most two facings of a key', not hid, hid[:4])
+hid += ['%s %s shows in only %d of %d pictures' % (k, p, s_[0], s_[1]) for (k, p), s_ in seen_.items() if s_[0] < SEEN_MIN * s_[1]]
+ok('P4 a thing shows in at least three facings of every key, and in 70 percent of all its pictures (his body between only where it is)', not hid, hid[:4])
 ok('P5 every cell sits inside its sheet', not outside, outside[:4])
 ok('P6 his body wears his own fight sheet\'s colours; a prop the style palette\'s', not pal, pal[:4])
 
@@ -222,7 +228,7 @@ def hand_faults(E, only=None):
     out = []
     for k, e in E.items():
         if 'props' not in e or (only and k not in only): continue
-        for p, src, kk in sorted(set((p_, s_, k_) for ly in READY for p_ in props_of(ly) for s_, k_ in keys_of(ly, p_) if not D['props'][p_].get('shield'))):
+        for p, src, kk in sorted(set((p_, s_, k_) for ly in READY if ly in e.get('layers', ['m1']) for p_ in props_of(ly) for s_, k_ in keys_of(ly, p_) if not D['props'][p_].get('shield'))):
                 for f in range(8):
                     pr = prop(k, p, src, kk, f, e)
                     if pr is None: continue
@@ -278,11 +284,82 @@ if k0:
     ok('H4 MUTATION: a prop moved off his fist, and a wind that stays at his side, are both caught',
        any('PIdle k0 S' in x for x in hand_faults({k0: me})) and any('wind E' in x for x in swing_faults({k0: me})))
 
+# ---------------------------------------------------------------------------------------------------- G the shield arm
+def shield_faults(E, only=None):
+    """facing the glass (S): CARRIED, the shield's middle on his left (the glass's right of his middle) and over his body;
+    THE BLOCK, its top a tenth of his height higher than carried and up at his face (within a quarter of his height under
+    his crown); IN COVER, planted: its lowest pixel on his ground (three pixels)"""
+    out = []
+    for k, e in E.items():
+        if 'props' not in e or 's1' not in e.get('layers', []) or (only and k not in only): continue
+        fx, fy = e['foot']
+        bm, bx, by = body(k, 'SIdle', 0, 0); ys = np.nonzero(bm)[0]; crown = by + ys.min(); h = fy - crown
+        for sh in [p_ for p_ in props_of('s1') if D['props'][p_].get('shield')]:
+            c = prop(k, sh, 'SIdle', 0, 0, e); b = prop(k, sh, 'SBlock', 0, 0, e); lo = prop(k, sh, 'SCover', 0, 0, e)
+            if c is None or b is None or lo is None: out.append('%s %s: hidden facing the glass' % (k, sh)); continue
+            cxm = c[1] + np.nonzero(c[0])[1].mean()
+            if cxm < fx: out.append('%s %s carried: its middle %d px on his right' % (k, sh, fx - cxm))
+            ct = c[2] + np.nonzero(c[0])[0].min(); bt = b[2] + np.nonzero(b[0])[0].min()
+            if ct - bt < h * 0.1: out.append('%s %s block: only %d px higher than carried' % (k, sh, ct - bt))
+            if bt > crown + h * 0.25: out.append('%s %s block: its top %d px under his crown' % (k, sh, bt - crown))
+            # planted: its foot on the ground before him, never floating; its near end sits lower on the glass by as much as half
+            # its width seen across the 45 degree ground (nearer the camera), never more
+            near = D['props'][sh]['w'] / 2 * 57 * 0.7071 + 3
+            for f, nm in ((0, 'S'), (2, 'E'), (6, 'W')):
+                lp = prop(k, sh, 'SCover', 0, f, e)
+                if lp is None: continue
+                lb = lp[2] + np.nonzero(lp[0])[0].max()
+                if not -3 <= lb - fy <= near + (D['props'][sh]['w'] * 0.3 * 57 * 0.7071 if f == 0 else 0):
+                    out.append('%s %s in cover %s: its foot %+d px from his ground' % (k, sh, nm, lb - fy))
+    return out
+
+
+if 's1' in READY:
+    gf = shield_faults(E)
+    ok('G1 THE SHIELD ARM facing the glass: carried on his left across his front, RAISED TO HIS FACE TO BLOCK, planted on the ground in cover', not gf, gf[:4])
+    ks = next((k for k in named if 's1' in E[k].get('layers', [])), None)
+    ok('G0 a named look carries the shield arm', bool(ks))
+    if ks:
+        ms = json.loads(json.dumps(E[ks])); sh0 = [p_ for p_ in props_of('s1') if D['props'][p_].get('shield')][0]
+        ms['props']['by'][sh0]['SBlock'][0][0] = ms['props']['by'][sh0]['SIdle'][0][0]   # the block drawn as the carry: the shield never comes up
+        ok('G2 MUTATION: a block that never raises the shield is caught', any('block' in x for x in shield_faults({ks: ms})))
+
+# ---------------------------------------------------------------------------------------------------- T two hands
+def two_faults(E, only=None):
+    """in profile (E, W): THE LEAN sets the head down on the ground before him (its lowest pixel on his ground line, six pixels
+    either way: it rests a hand's length nearer or further from the camera); THE TWO-HANDED WIND raises it over his crown"""
+    out = []
+    for k, e in E.items():
+        if 'props' not in e or 't2' not in e.get('layers', []) or (only and k not in only): continue
+        fx, fy = e['foot']
+        for f, nm in ((2, 'E'), (6, 'W')):
+            bm, bx, by = body(k, 'T2Idle', 0, f); ys = np.nonzero(bm)[0]; crown = by + ys.min()
+            for p in [p_ for p_ in props_of('t2')]:
+                ln = prop(k, p, 'T2Idle', 5, f, e); w = prop(k, p, 'T2Swing', 0, f, e)
+                if ln is None or w is None: out.append('%s %s %s: hidden' % (k, p, nm)); continue
+                lb = ln[2] + np.nonzero(ln[0])[0].max()
+                if abs(lb - fy) > 6: out.append('%s %s lean %s: its head %+d px from his ground' % (k, p, nm, lb - fy))
+                wt = w[2] + np.nonzero(w[0])[0].min()
+                if wt > crown: out.append('%s %s two-handed wind %s: its top %d px under his crown' % (k, p, nm, wt - crown))
+    return out
+
+
+if 't2' in READY:
+    tf2 = two_faults(E)
+    ok('T1 TWO HANDS in profile: the lean sets its head on the ground before him, the two-handed wind raises it over his crown', not tf2, tf2[:4])
+    kt = next((k for k in named if 't2' in E[k].get('layers', [])), None)
+    ok('T0 a named look carries the two-handed things', bool(kt))
+    if kt:
+        mt = json.loads(json.dumps(E[kt])); p0 = props_of('t2')[0]
+        mt['props']['by'][p0]['T2Idle'][5][2] = mt['props']['by'][p0]['T2Idle'][0][2]   # the lean drawn as the carry: its head never set down
+        ok('T2 MUTATION: a lean that never sets its head down is caught', any('lean E' in x for x in two_faults({kt: mt})))
+
 # ---------------------------------------------------------------------------------------------------- W wired
 t = open(os.path.join(ROOT, 'slices/BOHEMIA_FIGHT.html')).read()
 blk = t[t.find('__WHAT_A_MAN_HOLDS__ (ANIMATION'):t.find('end __WHAT_A_MAN_HOLDS__')]
 ok('W1 the fight (COMBAT\'s file) carries the melee draw inside the marked block and asks it first for a man with no gun',
-   'function meleeDraw(' in blk and "fetch('rig_melee/rig_melee.json')" in blk and 'const md = meleeDraw(v, p, L, d, ox, oy, s, now); if (md !== null) return md;' in blk)
+   'function meleeDraw(' in blk and "fetch('rig_melee/rig_melee.json')" in blk and 'const md = meleeDraw(v, p, L, d, gs, ox, oy, s, now); if (md !== null) return md;' in blk
+   and 'function meleeBody(' in blk and 'M.shield_over[DIR8[f]]' in blk and "how === 'T'" in blk)
 if not QUICK:
     drv = r'''
 const { open } = require(process.argv[2]);
@@ -292,12 +369,17 @@ const { open } = require(process.argv[2]);
   await p.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length && HOLD.state === 2 && MELEE.state === 2, null, { timeout: 60000 });
   await p.waitForTimeout(6000);
   const set = await p.evaluate(() => {
-    const S = FIGHT.S, mel = S.units.filter(v => FIGHT.onField(v) && !v.beast && meleeProp(v) && MELEE.meta.looks[lookOf(v)._key]);
+    const S = FIGHT.S; let mel = S.units.filter(v => FIGHT.onField(v) && !v.beast && meleeProp(v) && MELEE.meta.looks[lookOf(v)._key]), handed = null;
+    if (!mel.length) {   /* nobody packed holds one on this board yet: a melee row off this board put in a packed man's hand (the bag's swap does it in play) */
+      const w = (S.units.map(u => u.weapon).filter(x => x && meleeProp({ weapon: x }) && !meleeProp({ weapon: x })[1])[0] || DB.weapons.rows.filter(r => MELEE.meta.by_row[r.id])[0]);
+      const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && MELEE.meta.looks[lookOf(u)._key])[0];
+      if (w && v) { v.weapon = w; v.shield = null; mel = [v]; handed = v.id + ' given ' + (w.of || w).id; }
+    }
     const v = mel[0], foe = v && S.units.filter(u => u.side !== v.side && FIGHT.onField(u))[0];
     /* a swing on the beat, as the fight's own attack plays it */
     if (v && foe) UI.anim.unshift({ k: 'attack', at: performance.now(), dur: beatMs(), e: { id: v.id, to: foe.id, shot: false, hit: false } });
     window.__mel = v ? v.id : null;
-    return { melee: mel.map(u => u.id + ':' + meleeProp(u) + ':' + lookOf(u)._key), swinger: v && v.id };
+    return { melee: mel.map(u => u.id + ':' + meleeProp(u) + ':' + lookOf(u)._key), swinger: v && v.id, handed: handed };
   });
   await p.waitForTimeout(1500);
   await p.evaluate(() => { UI.anim = UI.anim.filter(a => !(a.k === 'attack' && a.e.id === window.__mel)); });
@@ -322,7 +404,7 @@ const { open } = require(process.argv[2]);
     R = json.loads(line[-1]) if line else {'err': r.stdout[-300:] + r.stderr[-300:]}
     seen = R.get('seen') or {}
     mel = {k: v for k, v in seen.items() if k.startswith(('melee:', 'prop:'))}
-    print('  note W2 melee men %s; the swinger %s; cover %s; drawn %s' % (len((R.get('set') or {}).get('melee') or []), (R.get('set') or {}).get('swinger'), (R.get('set') or {}).get('cover'), mel))
+    print('  note W2 melee men %s (%s); the swinger %s; cover %s; drawn %s' % (len((R.get('set') or {}).get('melee') or []), (R.get('set') or {}).get('handed') or 'as dealt', (R.get('set') or {}).get('swinger'), (R.get('set') or {}).get('cover'), mel))
     ok('W2 on the real fight a man with a melee row stands in the melee idle with his thing, swings with it in his hand, kneels with it on cover, no page error',
        seen.get('melee:MIdle') and seen.get('melee:MSwing') and seen.get('melee:MCover') and any(k.startswith('prop:') for k in seen) and not R.get('errs') and not R.get('err'),
        'seen %s, errors %s' % (mel, (R.get('errs') or [R.get('err')])[:2]))
@@ -344,8 +426,15 @@ const drive = require(process.argv[2]);
     if (!f) await d.page.waitForTimeout(200);
   }
   if (!f) { console.log(JSON.stringify({ started: st, err: 'no fight frame', errs })); process.exit(0); }
+  const handed = await f.evaluate(() => {   /* as W2: when nobody packed holds one in this fight, a melee row of the fight in a packed man's hand */
+    const S = FIGHT.S; if (S.units.some(v => FIGHT.onField(v) && !v.beast && meleeProp(v) && MELEE.meta.looks[lookOf(v)._key])) return null;
+    const w = (S.units.map(u => u.weapon).filter(x => x && meleeProp({ weapon: x }) && !meleeProp({ weapon: x })[1])[0] || DB.weapons.rows.filter(r => MELEE.meta.by_row[r.id])[0]);
+    const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && MELEE.meta.looks[lookOf(u)._key])[0];
+    if (w && v) { v.weapon = w; v.shield = null; return v.id + ' given ' + (w.of || w).id; } return 'nobody packed';
+  });
   await d.page.waitForTimeout(8000);
   const a = await f.evaluate(() => ({ seen: Object.assign({}, UI.clipSeen), melee: FIGHT.S.units.filter(v => FIGHT.onField(v) && !v.beast && meleeProp(v)).map(v => v.id + ':' + meleeProp(v)) }));
+  a.handed = handed;
   console.log(JSON.stringify({ started: st, a: a, errs: errs.slice(0, 3) }));
   try { await d.browser.close(); } catch (e) {}
   process.exit(0);
@@ -359,7 +448,7 @@ const drive = require(process.argv[2]);
     l3 = [l for l in r3.stdout.splitlines() if l.startswith('{')]
     R3 = json.loads(l3[-1]) if l3 else {'err': r3.stdout[-300:] + r3.stderr[-300:]}
     a3 = (R3.get('a') or {}); s3 = a3.get('seen') or {}
-    print('  note W3 the demo: a road fight %s; melee men %s; drawn %s' % (R3.get('started'), a3.get('melee'), {k: v for k, v in s3.items() if k.startswith(('melee:', 'prop:'))}))
-    ok('W3 IN THE DEMO (a road fight from the map, the fight inside the shell): the men with melee rows are drawn in the melee idle with their things, no page error',
-       R3.get('started') and s3.get('melee:MIdle') and any(k.startswith('prop:') for k in s3) and not R3.get('errs') and not R3.get('err'), (R3.get('errs') or [R3.get('err')])[:2])
+    print('  note W3 the demo: a road fight %s; melee men %s (%s); drawn %s' % (R3.get('started'), a3.get('melee'), a3.get('handed') or 'as dealt', {k: v for k, v in s3.items() if k.startswith(('melee:', 'prop:'))}))
+    ok('W3 IN THE DEMO (a road fight from the map, the fight inside the shell): the men with melee rows are drawn in the melee idle (standing, or down on a cover tile) with their things, no page error',
+       R3.get('started') and (s3.get('melee:MIdle') or s3.get('melee:MCover')) and any(k.startswith('prop:') for k in s3) and not R3.get('errs') and not R3.get('err'), (R3.get('errs') or [R3.get('err')])[:2])
 done()
