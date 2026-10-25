@@ -118,7 +118,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 104 | A gun shoots the man beside him (no two-tile minimum) | 185 | COMBAT | QUEUED (first when COMBAT reopens) |
 | 105 | Any side of a town is its door (no loop round the block) | 186 | RUN | QUEUED (after the crash) |
 | 106 | Every town looks its own (city towns look like the city) | 186 | COOK, RUN TWO | QUEUED (after the item models) |
-| 107 | A job says how far before you take it | 186 | WORLD, UI | RUNNING |
+| 107 | A job says how far before you take it | 186 | WORLD, UI | BUILT, NOT YET SEEN (WORLD 16c26e78: the board's list '· 2 H', the person's offer 'The trip: 17 blocks to ..., about 2 hours, and back.', the phone's lit card '3 H TO REMNANTS, THEN 1 DAY TO PRIMM'; gates/the_trip_before_the_yes_gate.js 7/0 computer and phone) |
 | 108 | Every weapon has its range bands (a rifle debuffed point-blank, a shotgun deadliest close) | 187 | TUNING, COMBAT | QUEUED (COMBAT after 185; TUNING after the origins) |
 | 109 | Every man has a job each turn (no melee man parked behind a house); AUTO's mistakes found before he finds them | 188 | COMBAT, TUNING, EYES | QUEUED (COMBAT next; TUNING's watch standing) |
 | 110 | The ranged defence icon looks better; no two stat icons alike | 189 | UI, EYES | RUNNING (UI reopened) |
