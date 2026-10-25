@@ -152,6 +152,44 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-auto-brain): 10/25 LATEST -- [a better AUTO brain and a true calculator] SHIPPED (rule 176(g), research only, no card,
+no game code touched; the coordinator opened this chat under rule 112, no check-in, this block is the report; the page committed in
+pieces as each landed). RECORD: records/BOHEMIA_TUNING_A_BETTER_AUTO_BRAIN_AND_A_TRUE_CALCULATOR_10_25_26.md. BANK (draft:true, nothing
+reads it): banks/BOHEMIA_TUNING_AUTO_BRAIN_10_25_26.json. BENCH (research instruments, not gates): tools/bohemia_tuning_auto_brain.js
+(--dance, --odds, --brain today,noabil,proto,proto2, --save, --bank, --merge; resumable per-fight cache keyed on the RULES' print, not the
+drawing code), tools/bohemia_tuning_auto_brain_roofs.js (why a gunman skips a roof).
+1 MEASURED, 600 live fights, AUTO both sides: 325 wasted turns (302 a man who could not act, walked by
+  a move score that asks AP only: aiStep never asks 'can I act from there', never scores staying put, re-decides every step), 58
+  off-and-back dances with no swing, 7.1 free swings a fight walking out of rings (theirs 1.1), 118 loaded shots lost to a reload,
+  39% of gunmen who could reach a roof ever stood on one (83% of the misses: climb() needs this turn's shot), gunmen take 0.73
+  melee swings a round against the front's 0.98.
+2 BATTLE BROTHERS FIRST (the library; Grok ask 42 NOT landed, the 42 in the library is morale): their own changelog fixed our two holes
+  ('ranged AI sometimes moving back and forth instead of attacking', 1.2.0.23; 'less prone to gift the player free attacks', 0.7.0.10);
+  a hurt man steps back only by morale; the enemy spreads its blows (fair), AUTO focuses (180(h)); Battle Brothers refused a strength
+  formula ('no satisfying level of prediction'): the simulated read is the honest way and must be checked.
+3 THE CRAFT (cited by author, no game named): utility considerations that veto (Mark, Dill, Lewis), danger and value maps (Tozour,
+  Mark, Champandard), position selection (Jack), one ply (Ballard, Kocsis-Szepesvari, Browne, Churchill-Buro), oscillation (momentum
+  +25%, switch at 10-20% better, commit/inertia/repeat penalty: Dill et al. I/ITSEC 2012), focus (Lanchester 1916).
+4 THE CALCULATOR: 240 real AUTO fights against the read made the fight's way: the same brain and the same fight
+  (80 of 80 identical from a frozen board); true to its worth within 3.7 points, but the worth is a clean-win score 20 points
+  under the win rate: 99 of 176 RED tins were AUTO wins (the doubt he named); the win rate the same runs count is true within
+  2.9 (green 138, won 135); no bias left (+2.1 +- 3.1); cost 7.1 s CPU a read here, 13.9 s past 20 men; proposed: colour from the
+  win rate, casualties in the glow and tint, a Wilson/Wald stop (11 to 16 runs sure, 48 near the line), common dice, a standoff stop.
+5 THE BRAIN for COMBAT (s5a) and the one table's SECTION H (hand-added like F and G): one plan a turn, expected hitpoints, five
+  vetoes, stay unless 15% better, kill and hold over 2 rounds, the hurt man's fear x2, focus 1.25^n ours / spread theirs; the
+  prototype (s5b): no abilities 397 -> 383 won, the six fixes 427, wasted 0, free swings 2.7, roofs doubled, 32 of 34 standoffs our
+  last men on a roof no club reaches (a rules hole: HOLD only while he can shoot; their last men retreat; a standoff end). THE GATE
+  (s5c): ten legs, today's number and the bar; G10 the exhaustive search of one turn costed at about 30 minutes for 50 turns.
+NOTE POSTED: COMBAT [auto brain numbers] (with: the gate table is malformed on main since a62d5bce, row 'NOBODY ON ANYBODY,
+THE WATER RUNS ON' has 3 fields; no gate runs for anybody until COMBAT adds the slow flag; this round's files are records, a bank
+and two research tools, none of them gated).
+NOT MEASURED: the brain of s5a itself (only six blunt splices were tried); the calculator under the no-abilities brain; mid-fight reads
+(every read here is at the fight's start); a phone's own CPU (all times are this container's); the beasts' bands (only the four human factions); G7 (the hurt man with a kill in reach) was not split out.
+NEXT ON THE BOARD: [the odds keep up] (standing), then [the aim he sees], [the first week's losses], [the 32 situations].
+[bb the AI: every act competes, moving included; they fixed the back-and-forth in 1.2.0.23 and refused a strength formula, so ours simulates and checks]
+[analog horror: the tin is honest about clean wins and lies about victory by twenty points, a gauge that reads true and still frightens]
+[PENDING Paolo]: none.
+
 TUNING (tuning-killer-company): 10/25 LATEST -- TWO ROWS SHIPPED (rules 162 and 151(b)(g), research only, no card, no game code touched;
 the coordinator opened this chat under rule 112, no check-in, this block is the report; pages committed in pieces as each landed).
 1 [the killer company: stats and level-ups] SHIPPED be8aa11e: records/BOHEMIA_TUNING_THE_KILLER_COMPANY_STATS_AND_LEVEL_UPS_10_25_26.md,
