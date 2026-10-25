@@ -159,3 +159,33 @@ THE PILOT: one live page held open, steps read from files (scratch, as round one
   wound carries between fights (the 20 percent rule covers the struck down).
 - The passive wipe took 36 rounds and about 3 minutes against a mechanic and his machine (rule 9/29: a routine fight 2 to
   4 minutes); TUNING's to read, not filed.
+
+## PIECE 3 (06:58 to 07:10): MAIN MOVED UNDER THE ROUND, SO THE ROWS WERE READ AGAIN ON BUILD 10/25b
+Between piece 1 and piece 2 main reached DEMO - BUILD 10/25b (RUN TWO's 10/25a THE END SCREEN WAITS 717be9e0, SOUNDS'
+10/25b, COMBAT's f9a2a846 heights, the bag swap and the fight's keys, ANIMATION's wave 1, WORLD's roster scales the enemy).
+A fresh phone game and a fresh computer game on 10/25b, the same steps.
+
+### READ AGAIN ON 10/25b
+- 24 [eyes: the bag line] FIXED: 'YOUR BAG 0 / 36 DRAG ONE ONTO A SLOT ABOVE, OR TAP IT AND HE PUTS IT ON' (q34).
+- THE END SCREEN WAITS (164 item 28, RUN TWO): a won fight's 'YOU WON / THE ROAD CREW RAN' stood 20 s and on until LEAVE
+  (q38); a wipe on the computer the same (k12). The retreat recap's second on the glass (piece 2) is this, now fixed.
+- STILL ON 10/25b: [the town will not slide] (17 px a swipe); [the sheet opens halfway] (cause pinned: a sheet opens at the
+  last sheet's scroll: the hall read to 389 px, closed, reopened at 339; the smith then opened at 195 with his face, line,
+  close and shelf off the top, q36); [three pistols]; [lines under x] ('a blade sha[x]', q35); [the phone line] (the board
+  still says 'They show on your phone', the phone shows Primm and the crates, q37); [plates on my man] at zoom 1 on the phone
+  and the computer ('3/3 SACKS' on his body, q37, k09); [paid before it lands] ('+45 / 45 batteries, like we said' after the
+  road fight, the bar unchanged, the sacks still going, q39); [you the companion]; [one company number] ('3 / 20' and '3/12');
+  [two cards disagree] ('reach 1 (was Qatal Dagger)'); [the BB names]; [men on men] (YOU 7,5 over RAUL 7,6 on the phone,
+  q38 left); [tap again, nothing] (the arm code unchanged, 8 beats).
+- [board seams] ON THE COMPUTER: the escort's canal board breaks in a straight vertical seam at x 807 of 1440: the water's
+  bank jumps and the water carries a cut (k10).
+
+### THE COMPUTER'S FIGHT ON 10/25b (COMBAT's keys, f9a2a846)
+- Enter starts the fight from the line; D (held) pans the board; Space and F each end the man's turn (RAUL -> DESI -> YOU).
+- AUTO is pink before the first click on this board and the fight was lost on AUTO (14 rounds, 'Thug dodged 17 of your
+  18 shots', the crew's pistols at 12 to 24 percent through cover); the same job on the phone was won on AUTO in 5 rounds.
+  The colour told the truth; not filed.
+
+### NEW, SMALL
+20. [RUN TWO] THE END SCREEN'S WORDS. The wipe's head reads 'WIPED OUT  WIPED OUT' (the result word and the fight's head line
+   the same words, k12); the loot's head reads 'WHAT THEY LEFT · OFF 3 DEAD' (q38), which does not read as English.
