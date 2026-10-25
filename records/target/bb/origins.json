@@ -663,7 +663,61 @@
     "Avatar: If your hedge knight dies, the campaign ends",
     "Start with a single experienced hedge knight and great equipment, but low funds"
    ],
-   "source": "reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852"
+   "source": "reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(a), Paolo 10/25: 'a gilded god with three stars in the stats that actually matter'): what each man walks in with, rolled ONCE A GAME by engine/bohemia_origin_start.js and handed to the door's picks, so the crew screen and the fight read the same man. TUNING's god3 (records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s1c, banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json gods.god3): a hedge knight rolled in his background's range, melee defence -2 (the Lone Wolf page), his three door levels TAKEN (levels 2 to 4, four picks a level on his stars, plan order), three stars each on ranged defence, melee skill and melee defence, the hedge knight's own kit in our things (an arming or noble sword is a machete, a fighting axe a fire axe, the kite shield a riot shield, a reinforced mail hauberk to a coat of plates full riot armour, a closed flat top or a full helm a full riot helm), each piece rolled; the pistol (the rondel dagger's row) in his bag; the door's three perk points on colossus, steel brow, brawny. Measured: 98 in 100 of his first fifty days won (today's man 52).",
+    "men": [
+     {
+      "levels_taken": true,
+      "modifiers": {
+       "melee_defense": -2
+      },
+      "stars": {
+       "ranged_defense": 3,
+       "melee_skill": 3,
+       "melee_defense": 3
+      },
+      "plan": [
+       "ranged_defense",
+       "melee_skill",
+       "melee_defense",
+       "fatigue"
+      ],
+      "kit": {
+       "main": [
+        "arming_sword",
+        "noble_sword",
+        "fighting_axe"
+       ],
+       "off": [
+        "kite_shield"
+       ],
+       "body": [
+        "reinforced_mail_hauberk",
+        "heavy_lamellar_armor",
+        "coat_of_scales",
+        "coat_of_plates"
+       ],
+       "head": [
+        "closed_flat_top_with_mail",
+        "full_helm"
+       ],
+       "bag": [
+        "rondel_dagger"
+       ]
+      },
+      "perks": [
+       "colossus",
+       "steel_brow",
+       "brawny"
+      ],
+      "line": "Every crew on the road has heard of you. Not one of them wants to be the crew that finds out.",
+      "line_draft": true
+     }
+    ],
+    "rolled_per_game": true,
+    "source": "banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json gods.god3; reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852 (great equipment, melee defence -2)"
+   }
   }
  ]
 }

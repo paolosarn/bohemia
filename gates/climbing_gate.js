@@ -10,6 +10,9 @@
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
 const ROOT = path.dirname(__dirname), PORT = 8863;
+/* RE-AIMED 10/25 (RUN TWO): how many stats a level raises is the data's (rules.json per_level.attributes_raised: FOUR since TUNING
+   be8aa11e, one more than Battle Brothers' three, rule 162(b)); the gate held three by hand and went red the day the number moved */
+const PICKS = JSON.parse(require('fs').readFileSync(require('path').join(ROOT, 'records/target/bb/rules.json'), 'utf8')).experience.per_level.value.attributes_raised;
 /* PROOF SHOTS GO TO A SCRATCH FOLDER UNLESS ASKED (PLUMBER 10/9, [proof shots churn]): `--shoot` or BOHEMIA_SHOOT=1 writes the VOTE picture */
 const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp', '.ogg': 'audio/ogg', '.wav': 'audio/wav', '.mp3': 'audio/mpeg' };
@@ -69,17 +72,17 @@ const srv = http.createServer((rq, rs) => {
     const go = document.getElementById('raise'); return { rows, label: go && go.textContent, off: go && go.disabled }; });
   const rose0 = Object.keys(after.st).filter(k => after.st[k] > before.st[k]);
   const inCol = roll.rows.every(r => { const s = before.stars[r.k] || 0; return r.g >= 1 && r.g <= 6 && (s < 2 || r.g >= 3); });
-  ok('  nothing rises on its own: all eight stats show what they rolled on his star column, RAISE waits', rose0.length === 0 && roll.rows.length === 8 && inCol && roll.off && /PICK 3 MORE/.test(roll.label),
+  ok('  nothing rises on its own: all eight stats show what they rolled on his star column, RAISE waits', rose0.length === 0 && roll.rows.length === 8 && inCol && roll.off && new RegExp('PICK ' + PICKS + ' MORE').test(roll.label),
     roll.rows.map(r => r.k + ' +' + r.g).join(', '));
-  const pickK = roll.rows.slice().sort((a, c) => c.g - a.g).slice(0, 3).map(r => r.k);
+  const pickK = roll.rows.slice().sort((a, c) => c.g - a.g).slice(0, PICKS).map(r => r.k);
   for (const k of pickK) { await p.click('#levelup [data-raise="' + k + '"]'); await p.waitForTimeout(80); }
   await p.click('#raise'); await p.waitForTimeout(250);
   const raised = await p.evaluate(n => { const m = BohemiaRosterScreen.state.crew.find(x => x.name === n); return { st: Object.assign({}, m.stats), left: (m.rolls || []).length,
     gains: document.querySelectorAll('#card .gain').length, panel: !!document.getElementById('levelup'), post: (window.__rosterLog || []).filter(x => x.act === 'raise').length }; }, top.name);
   const up = Object.keys(raised.st).filter(k => raised.st[k] > before.st[k]);
-  ok('  he taps three and RAISE THEM: exactly those three rise, each by what it showed', up.length === 3 && pickK.every(k => raised.st[k] - before.st[k] === roll.rows.find(r => r.k === k).g) && raised.left === 0 && !raised.panel && raised.post === 1,
+  ok('  he taps ' + PICKS + ' and RAISE THEM: exactly those rise, each by what it showed', up.length === PICKS && pickK.every(k => raised.st[k] - before.st[k] === roll.rows.find(r => r.k === k).g) && raised.left === 0 && !raised.panel && raised.post === 1,
     pickK.map(k => k + ' +' + (raised.st[k] - before.st[k])).join(', '));
-  ok('  the card shows the level, the XP bar and the green gains', /LEVEL 2/.test(after.sub) && after.bar && raised.gains === 3, after.said);
+  ok('  the card shows the level, the XP bar and the green gains', /LEVEL 2/.test(after.sub) && after.bar && raised.gains === PICKS, after.said);
   ok('  he gets one perk point and the card opens on him', after.pts === 1 && after.sel === top.name);
   /* 3. PICK A PERK */
   await p.click('#pick'); await p.waitForTimeout(200);

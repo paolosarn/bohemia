@@ -9751,6 +9751,12 @@ GATES = [
      "own naming (OBJ_CLASS and armourName read out of slices/bohemia_ui_materials.js), every object has its glb in the rig's format (held: grip at the origin, haft +X; "
      "shield: the forearm behind its face; worn: skinned to the rig's man's own 19 bones), every colour a palette step, at most five, never all grey (167(b)), and its "
      "sheet on the man over a real fight floor; four mutations bite. 2 s", False),
+    ('EVERY ORIGIN STARTS LIKE ITSELF', ['node', 'gates/every_origin_starts_like_itself_gate.js'],
+     "RUN TWO gate, 10/25, row [every origin starts like itself] (rule 184, Paolo 10/25: 'in Battle Brothers Lone Wolf you get a gilded god with three stars in the stats that actually matter... it's just one regular guy'). "
+     "MEASURED before: the door handed {hedge_knight, level 4} and the screens built him in YOU's place: a level-4 label on a level-1 body in 90 armour, the same man every game. "
+     "NOW origins.json's door block (TUNING's god3) rolled once a game by engine/bohemia_origin_start.js and handed by the door. HOLDS on the demo: the file is god3; 200 rolls match TUNING's measured spread exactly, 200 different men; "
+     "the wolf picked by a real tap is the same man all game; the crew screen opened by the bar's chip reads LEVEL 4, three drawn three-star stats, his kit, his perks, his line; the fight fields him as rolled; NEW GAME forgets him; "
+     "the same on the computer by mouse (where the crew screen's own boot used to save the default YOU over him); the other fourteen hand their plain men. about 4 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

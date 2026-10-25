@@ -117,8 +117,11 @@
     var bg = bgRow(def.background) || { id: def.background, name: def.background, stats: D.backgrounds.base_stats.stats, daily_wage: 10 };
     var R = rng(seed((def.name || 'man') + ':' + i)), st = {}, stars = {};
     STATS.forEach(function (k) { var rg = (bg.stats && bg.stats[k]) || [0, 0]; st[k] = Math.round(rg[0] + R() * (rg[1] - rg[0])); });
-    var pool = STATS.slice(), n = 1 + Math.floor(R() * 3);
-    for (var s = 0; s < n; s++) { var k2 = pool.splice(Math.floor(R() * pool.length), 1)[0]; var q = R(); stars[k2] = q < .6 ? 1 : q < .9 ? 2 : 3; }
+    /* EXACTLY THREE TALENTS, Battle Brothers' own (TUNING 10/25 [level-up numbers], rule 184(b): 'manOf still gives the founding
+       crew one to three starred stats, uniform; Battle Brothers gives exactly three, as your hall already does'): three of the
+       eight at rules.json talent_star_odds, 60/30/10 */
+    var O = (D.xp && D.xp.talent_star_odds && D.xp.talent_star_odds.value) || { '1': .6, '2': .3, '3': .1 }, pool = STATS.slice(), n = 3;
+    for (var s = 0; s < n; s++) { var k2 = pool.splice(Math.floor(R() * pool.length), 1)[0]; var q = R(); stars[k2] = q < O['1'] ? 1 : q < O['1'] + O['2'] ? 2 : 3; }
     var rowsW = D.ours.weapon_rows && D.ours.weapon_rows.value || {};
     var jobs = def.jobs || [], main = null, off = null;
     jobs.forEach(function (jb) { var it = itemOf(jb === 'car_door' ? 'shield' : 'weapon', rowsW[jb]); if (!it) return; if (it.kind === 'shield') off = it; else if (!main) main = it; });

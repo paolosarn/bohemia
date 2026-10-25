@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/25r - THE SONG ABOVE THE FIGHT, NO CHOP</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/25s - THE LONE WOLF IS A GILDED GOD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13676,13 +13676,18 @@ var BOH_START = (function(){
     else if(k) pick[k] = v;
     save(); var st = document.getElementById('newcostrip'), sl = st ? st.scrollLeft : 0; build(); st = document.getElementById('newcostrip'); if(st) st.scrollLeft = sl;
   }
+  /* __EVERY_ORIGIN_STARTS_LIKE_ITSELF__ (RUN TWO's line in RUN's door, rule 184(a), NOTE on RUN's board): an origin with a door
+     block in the file hands the whole man its door rolled, once a game (engine/bohemia_origin_start.js): the Lone Wolf's real
+     level-4 body, his three stars, his kit; the crew screen and the fight read him from here. Null = the plain men, as before */
+  function rolled(o){ try{ var B = window.BohemiaOriginStart, men = B && B.company(o.id);
+    return men ? men.map(function(m){ return JSON.parse(JSON.stringify(m)); }) : null; }catch(_e){ return null; } }
   function picks(){
     var c = find(COMBAT, pick.combat), e = find(ECON, pick.econ), o = find(ORIGINS, pick.origin);
     return { combat:c.id, combatName:c.name, pkg:c.pkg, econ:e.id, econName:e.name, mult:e.mult,
              origin:o.id, originName:o.name, bb:o.bb, difficulty:D[o.d],
              start:bats(o, e.id), crew:c.crew + (o.men ? 0 : o.crew), pay:o.pay,
              /* the company and its caps, from the file (null until it loads, and the fight then fields its own twelve) */
-             company:o.men ? o.men.map(function(m){ return { background:m.background, level:m.level }; }) : null,
+             company:o.men ? (rolled(o) || o.men.map(function(m){ return { background:m.background, level:m.level }; })) : null,
              cap:o.field_cap || null, roster:o.roster_cap || null,
              name:NAMES[pick.name % NAMES.length], reveal: +pick.reveal === 1, draft:true };
   }
@@ -13700,7 +13705,9 @@ var BOH_START = (function(){
     }).catch(function(){}); }catch(_e){}
   }
   function showPicked(){ try{ var st = document.getElementById('newcostrip'), on = st && st.querySelector('.org.on'); if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 10); }catch(_e){} }
-  function boot(){ build(); showPicked(); load(); var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap);
+  function boot(){ build(); showPicked(); load();
+    try{ var so = document.createElement('script'); so.src = '../engine/bohemia_origin_start.js'; so.async = true; document.head.appendChild(so); }catch(_e){}   /* RUN TWO [every origin starts like itself]: the door's roll, read after the door */
+    var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap);
     /* RUN 10/25 (EYES new 11): on a computer the wheel moves the origins' row, so every origin is in a mouse's reach */
     el.addEventListener('wheel', function(e){ var st = document.getElementById('newcostrip'); if(!st || !(e.target.closest && e.target.closest('#newcostrip'))) return; var d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX; if(!d) return; st.scrollLeft += d; e.preventDefault(); }, { passive: false }); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
@@ -13987,7 +13994,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });

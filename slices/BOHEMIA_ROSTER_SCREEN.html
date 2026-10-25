@@ -791,6 +791,19 @@ var LOADED = false;
    His kept climb (loadClimb) still wins once he has one. */
 function startLevel(m, lv){ lv = lv | 0; if(m && lv > 1){ m.level = lv; m.xp = C.xpFor(lv);
   var pp = (C.data.xp && C.data.xp.per_level && C.data.xp.per_level.value.perk_points) || 1; m.points = Math.min(lv, 11) - 1; m.points *= pp; } return m; }
+/* __EVERY_ORIGIN_STARTS_LIKE_ITSELF__ (RUN TWO's block in UI's file, NOTE on UI's board; rule 184(a), Paolo 10/25: 'a gilded god with
+   three stars in the stats that actually matter... it's just one regular guy'): a man his origin rolled at the door
+   (engine/bohemia_origin_start.js, once a game) walks in as rolled: his body with his door levels taken, his stars, his kit
+   and his bag, the perks his levels bought (only the points he has not spent wait) */
+function rolledIn(man, m){
+  if(m.stats) man.stats = Object.assign({}, m.stats); if(m.stars) man.stars = Object.assign({}, m.stars);
+  if(Array.isArray(m.perks)){ man.perks = m.perks.slice(); man.points = Math.max(0, (man.points | 0) - m.perks.length); }
+  var g = m.gear || {}, bag = Array.isArray(g.bag) ? g.bag : [];
+  if(m.gear) man.gear = {main:C.itemOf('weapon', g.main), off:C.itemOf('shield', g.off), body:C.itemOf('body', g.body), head:C.itemOf('head', g.head),
+    bag1:C.itemOf('weapon', bag[0]) || C.itemOf('shield', bag[0]), bag2:C.itemOf('weapon', bag[1]) || C.itemOf('shield', bag[1])};
+  if(m.line) man.pain = m.line;   /* the line his origin gives him (draft:true) */
+  man.rolled = true; return man;
+}
 function open(o){
   o = o || {};
   if(!LOADED){ S.pending = o; return; }   /* the door's post can come before the company's files are read: it waits for them */
@@ -799,15 +812,20 @@ function open(o){
      fight gives him (ours.crew's place, his origin's background and level over it: the fight's own mapping), so a crew of
      three is three on this screen too; his roster cap with it */
   else if(Array.isArray(o.company) && o.company.length && !S.fromOrigin){
+    /* __THE_DOORS_COMPANY_WINS__ (RUN TWO [every origin starts like itself], 10/25, NOTE on UI's board): MEASURED on the computer, the
+       page's own boot opened before the crew door's post (its files read before the frame's load event), built the default twelve
+       and saved their climb; the origin's men then arrived and loadClimb put the default YOU's level-1 numbers and rags back on
+       the Lone Wolf (level 1, a pistol and a padded vest under his three stars). The default's own save is undone first */
+    if(S.defaultCrew){ try{ if(S.climbBefore == null) localStorage.removeItem(CKEY); else localStorage.setItem(CKEY, S.climbBefore); }catch(e){} S.defaultCrew = false; }
     var defs = (C.data.ours && C.data.ours.crew && C.data.ours.crew.value) || [];
     S.crew = o.company.map(function(m, i){ var d = Object.assign({}, defs[i % Math.max(1, defs.length)] || {});
       if(i >= defs.length){ d.main = false; d.name = (d.name || 'MAN') + ' II'; }
       if(m && m.background) d.background = m.background; if(m && m.level) d.level = m.level;
-      return startLevel(C.manOf(d, i), d.level); });
+      var man = startLevel(C.manOf(d, i), d.level); if(m && m.rolled) rolledIn(man, m); return man; });
     S.fromOrigin = true; if(o.roster) S.cap = o.roster;
   }
   if(o.field) S.field = o.field;   /* EYES [eyes: one company number]: how many fight, named, beside how many he can have */
-  else if(!S.crew.length) S.crew = C.startingCrew();
+  else if(!S.crew.length){ try{ S.climbBefore = localStorage.getItem(CKEY); }catch(e){} S.crew = C.startingCrew(); S.defaultCrew = true; }   /* __THE_DOORS_COMPANY_WINS__: what the climb was before the default's save */
   /* men hired at the posts (the settlement screen keeps them here until the game's save does):
      same stats and stars as on the card he was hired from */
   try{ var hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]');

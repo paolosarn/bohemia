@@ -73,7 +73,8 @@ const HTML = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.h
         const want = g && window.BohemiaRoster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', g.dataset.gun), false) : null;
         return { id: h.dataset.id, look: c && c.dataset.look, cardLook: r && r.look, standing: standing.indexOf(r && r.look) >= 0, drawn: c && c.dataset.drawn, held: c && c.dataset.held, rows,
           gun: g && g.dataset.gun, gunName: g && (g.querySelector('b') || {}).textContent, arm: arm && arm.textContent, want: want && (want.reach + (want.rounds ? '  ·  ' + want.rounds : '')),
-          stars: h.querySelectorAll('.hstats .star').length, btn: (h.querySelector('.act') || {}).textContent || '' };
+          stars: h.querySelectorAll('.hstats .star').length, btn: (h.querySelector('.act') || {}).textContent || '',
+          wage: r && window.BohemiaWages ? Math.round(BohemiaWages.wage(r.backgroundId, r.level) * (window.BohemiaCamp ? BohemiaCamp.mult('wage') : 1)) : 0 };   /* RE-AIMED 10/25 (RUN TWO __THE_HIRED_ARE_PAID__, rule 151(b)): his night is the bill and his wage */
       });
     });
     got.forEach(x => { x.place = name; x.poses = poses[x.id] ? poses[x.id].size : 0; cards.push(x); });
@@ -88,9 +89,9 @@ const HTML = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.h
   const said = cards.filter(c => c.gun && isGun(c.gun) && c.arm && c.want && c.arm === c.want && /TILE/.test(c.arm));
   ok('W2 WHAT HIS GUN DOES: every card names his gun and its reach and rounds in the crew screen\'s own words', said.length === cards.length,
      said.length + ' of ' + cards.length + (cards[0] ? ' (' + cards[0].gunName + ' ' + cards[0].arm + ')' : ''));
-  const three = cards.filter(c => c.stars === 3), priced = cards.filter(c => /\d+ batt/.test(c.btn) && new RegExp(night + ' batter(y|ies) a night').test(c.btn));
+  const three = cards.filter(c => c.stars === 3), priced = cards.filter(c => /\d+ batt/.test(c.btn) && new RegExp('\\b' + (night + c.wage) + ' batter(y|ies) a night').test(c.btn) && c.wage >= 1);
   ok('W3 HIRE WHAT YOU SEE: three stats starred on every card', three.length === cards.length, three.length + ' of ' + cards.length);
-  ok('  his price and his night (the crew\'s one bill, ' + night + ' a man a night)', night > 0 && priced.length === cards.length, (cards[0] ? cards[0].btn.replace(/\s+/g, ' ') : '') + ', ' + priced.length + ' of ' + cards.length);
+  ok('  his price and his night (the crew\'s one bill, ' + night + ' a man a night, and his own wage)', night > 0 && priced.length === cards.length, (cards[0] ? cards[0].btn.replace(/\s+/g, ' ') : '') + ', ' + priced.length + ' of ' + cards.length);
 
   /* W4 */
   await p.evaluate(() => { try { localStorage.removeItem('bohemia.hired.v1'); localStorage.removeItem('bohemia.bag.v1'); } catch (e) {} });

@@ -47,10 +47,10 @@ const ARM = (mode) => `(function(){ var F = window.fetch; window.fetch = functio
   } catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   try {
     const card = pre.cards.find(c => c.id === 'mod_test');
-    ok('*** A1 A MODDER\'S ORIGIN IS ON THE DOOR *** (' + (card ? '"' + card.text.slice(0, 90) + '"' : 'not there') + ')', !!card && /THE MODDERS/.test(card.text) && /YOU AND 1 MAN\b/.test(card.text) && /ROOM FOR 12 IN A FIGHT/.test(card.text));   /* RE-AIMED 10/24 (WORDS [eyes: twelve in a fight]): two men = YOU and 1 man */
+    ok('*** A1 A MODDER\'S ORIGIN IS ON THE DOOR *** (' + (card ? '"' + card.text.slice(0, 90) + '"' : 'not there') + ')', !!card && /THE MODDERS/.test(card.text) && /YOU AND 1 MAN\b/.test(card.text) && /ROOM FOR 20, 12 IN A FIGHT/.test(card.text));   /* RE-AIMED 10/24 (WORDS [eyes: twelve in a fight]): two men = YOU and 1 man; RE-AIMED 10/25 (RUN TWO [eyes: one company number], 9d7feb3b): the company's room, then the fight's */
     const p = pre.picks;
     ok('A2 picking it builds its company and its start (' + p.originName + ': ' + (p.company ? p.company.map(m => m.background + ':' + (m.level || '')).join(',') : 'none') + ', start ' + p.start + ', cap ' + p.cap + ')',
-      p.origin === 'mod_test' && !!p.company && p.company.length === 2 && p.company[0].background === 'thief' && p.company[0].level === 2 && p.start === MOD.batteries.thin && p.cap === 12);
+      p.origin === 'mod_test' && !!p.company && p.company.length === 2 && p.company[0].background === 'thief' && p.company[0].level === 2 && p.start === MOD.batteries[p.econ] && p.cap === 12);   /* RE-AIMED 10/25 (RUN TWO): the start is the picked shelf's column; the door's default is FULL since RUN's __THE_EASY_END_IS_THE_DEFAULT__ (10/23) */
     await d.page.waitForTimeout(2500);
     await d.fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 3 }); });
     let f = null; for (let i = 0; i < 150 && !f; i++) { const h = await d.page.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && FIGHT.S.units.length > 0).catch(() => false)) f = c; } if (!f) await d.page.waitForTimeout(200); }
