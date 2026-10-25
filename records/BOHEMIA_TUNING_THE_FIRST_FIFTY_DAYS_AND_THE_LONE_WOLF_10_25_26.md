@@ -12,7 +12,19 @@ THE BENCH: tools/bohemia_tuning_lone_wolf.js (research instrument, not a gate). 
 (slices/BOHEMIA_FIGHT.html and exactly the data files its own loadAll() reads, played headless through the whole grid's engine,
 no hooks), both sides on the fight's own brain (AUTO), seeded. The map's sums are the live map's (records/target/bb/party_math.json
 read the way BOHEMIA_CITY_WORLD.html partyMath reads it). BANK (draft:true, nothing in the game reads it):
-banks/BOHEMIA_TUNING_LONE_WOLF_10_25_26.json, with its resume cache beside it.
+banks/BOHEMIA_TUNING_LONE_WOLF_10_25_26.json (the resume cache, 15 MB of per-day logs, is not committed: the bench replays it,
+seeded, in about 45 minutes on four cores). 12,600 ladder fights and 2,150 runs of 100 days (about 85,000 fights) in all.
+
+## 0. THE ANSWER IN SHORT
+- **Today the Lone Wolf is not a near-god.** He is a level-4 label on a level-1 body, in the first crew member's rags (90
+  armour, a pistol and a car door). He wins 57 to 64 in 100 of his first ten days' fights and falls in the rest.
+- **In good gear he is exactly what Paolo remembers.** The hedge knight's own kit takes his first fifty days to 94 in 100, one
+  lost fight a run, a third of runs never losing; Battle Brothers' three door levels on top take it to 96 and half the runs.
+- **The game turns hard on day 60, all at once**, when the enemy's late mix switches on: 93 -> 68 in one window. Battle
+  Brothers' turn lands at day 80 to 100 and is foretold at 50 to 70.
+- **An ordinary early hire makes him worse in every row** (the map counts the hire, the hire falls and is laid up a month, the
+  XP splits). **A god-tier hire makes him safer, and the post never offers one.**
+- The numbers that would put his words on the live game are in section 3, NOTEd to RUN, RUN TWO, WORLD and COMBAT.
 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -304,8 +316,9 @@ holds every company under a strength of about 80 at one size, is bigger than thi
 day party_math's numbers are tuned against Grok's formula.)
 
 THE TURN: in every good-gear row the win rate falls 20 to 35 points between days 51-60 and 61-70 and stays there. That is the
-day ours.enemy_tiers changes to its late mix (from_day 60). Nothing about the roster or the map changes on day 60. **A level-10
-near-god in great gear who wins 93 in 100 on day 59 wins 68 in 100 on day 61**, alone; Battle Brothers' wolf the same (95 -> 68).
+day ours.enemy_tiers changes to its late mix (from_day 60). Nothing about the roster or the map changes on day 60. **The good-gear
+wolf who picks his fights (level 7 to 8) wins 93 in 100 in days 51-60 and 68 in days 61-70; the one who meets what comes
+(level 10) falls from 74 to 39**; Battle Brothers' wolf the same (95 -> 68 picking, 74 -> 40 taking).
 
 ## 1g. WHAT IS OFF AGAINST HIS WORDS (measured; the fixes are proposals for the lanes that build them, section 3)
 
@@ -313,7 +326,7 @@ near-god in great gear who wins 93 in 100 on day 59 wins 68 in 100 on day 61**, 
 |---|---|---|
 | 'you start with a mega god' | a level-4 label on a level-1 body (three door levels give no stats) | **OFF** |
 | 'when you get him good equipment' | no gear named for him: he wears YOU's 90-armour rags and the pistol; the good kit is about 650 batteries at the market (three weeks of jobs) | **OFF at the door; reachable by day ~22** |
-| 'virtually impossible to kill' (in good gear, early) | in good gear: 94 to 96 in 100 of the first fifty days, one lost fight a run, a third to a half of runs never lose, his closest call at 81% health (median) | **RIGHT, once he has the gear** |
+| 'virtually impossible to kill' (in good gear, early) | in good gear: 94 to 96 in 100 of the first fifty days, one lost fight a run, a third to a half of runs never lose, his worst won fight leaves him at 81% health (median run) | **RIGHT, once he has the gear** |
 | the early fights are winnable alone | live: 57 to 64 in 100 in his first ten days; in good gear: 90 to 98 | **OFF live; RIGHT in good gear** |
 | 'until the game starts getting harder' | the turn is real and felt, but it is a cliff on day 60 (the late mix switching on), 20 to 40 days before Battle Brothers' crisis, with no warning | **SHAPE RIGHT, DAY AND RAMP OFF** |
 | 'no incentive... unless it's god-tier recruits' | an ordinary hire makes him worse in every row (the map counts the hire, the hire falls and is laid up a month, the experience splits); a god-tier hire makes him safer | **RIGHT for the ordinary man** |
@@ -321,5 +334,78 @@ near-god in great gear who wins 93 in 100 on day 59 wins 68 in 100 on day 61**, 
 | (Battle Brothers) the Lone Wolf meets a new company's jobs alone | ours sizes his jobs at two men for eighty days | different from Battle Brothers, measured mild (the floor costs a good wolf 2 points) |
 | (Battle Brothers) a new hedge knight every campaign | every Lone Wolf is the same man (70 / 105 / 65 / 9) | **OFF** |
 
----------------------------------------------------------------------------------------------------------------------------
-(sections 3 and 4 land in the next piece of this round)
+## 3. THE NUMBERS (the one table's section I, records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md; proposals, nothing reads them yet)
+
+Each is the smallest change that puts his words on the live game, with what it measured to. Better now, never final (rule 178):
+every one is re-measured when perks, gear, enemies or acts arrive.
+
+THE DOOR AND THE START (RUN, with RUN TWO's crew screen)
+- **wolf.door_gear**: the Lone Wolf's one man carries Battle Brothers' 'great equipment', the hedge knight's own kit off the wiki:
+  an arming sword and a heater shield (or the greatsword, his pick at the door), a reinforced mail hauberk (210) and a closed
+  flat top with mail (280), and the pistol in his bag so guns first (rule 120(a)) still holds. Measured: his first fifty days
+  go from 57 to 94 in 100 won (picks), one lost fight a run, a third of runs never lose. (The bag pistol was not in the bench.)
+- **wolf.door_levelups = 3**: three level-ups wait at the door for him to take (four picks of eight each, rule 162), with the three
+  perk points he already gets. Measured on top of the gear: 94 -> 96 won, never-lost runs 34 -> 52 in 100. Alone, in rags,
+  they buy almost nothing (39 -> 45): the gear comes first.
+- **wolf.rolled_per_game**: the knight is rolled anew each game inside the hedge knight's range (melee defence 4 to 8, the Lone
+  Wolf page's -2), with three talents; today every Lone Wolf is the same man.
+- wolf.funds stand (125 / 100 / 75): with the gear at the door, low funds are Battle Brothers' own trade.
+
+THE RECRUITS AND THEIR PRICES (RUN TWO)
+- **recruit.ordinary stays as it is** (37 batteries, 1 a night wage, 2 food): measured, it already teaches the lesson he
+  described: an early ordinary hire costs the good wolf 5 points of wins and two thirds of his never-lost runs (34 -> 14 in 100).
+- **recruit.rare**: a rare man at the post, Battle Brothers' way: a hedge knight, a sellsword or a swordmaster (our names: road
+  knight, gun for hire, blade master), only at a city or a stronghold, never a village or a camp, **3 in 100 a post slot**
+  (the wiki's 2.2 to 8.3%; a post of seven men shows one about one week in five); level 2 to 3, rolled in his background's
+  range, three talents; priced on Battle Brothers' formula through the hall (base up to 150, 400 for the blade master, + 500 x
+  (level - 1)^1.5, + his kit at 1.25, x 0.8): **about 500 batteries at level 2 in mid kit**; wage his background's (a hedge
+  knight 4 a night at level 2, BohemiaWages already). Measured: hired the day the purse covers him (day 16 median), the good
+  wolf's first fifty days hold at 95 in 100 and his never-lost runs go 34 -> 48; hired on day 1 (on credit) 34 -> 74.
+- **recruit.rare_reads_rare**: on the hall's card he shows his background in our name, his three stars lit, the price that
+  says it, and one line from his own mouth (rule 133 change 9's card already carries stars, trait, price and night).
+
+THE ENEMY'S RISE BY DAY (COMBAT for the dress, WORLD for the roads and the crisis)
+- **enemy.late_from_day: 60 -> 80**, Battle Brothers' crisis window (foretold 50 to 70, landing 80 to 100). Measured today: the
+  good-gear wolf falls from 93 to 68 (picks), 74 to 39 (takes) on day 61, with nothing on the map to say why.
+- **enemy.late_ramp_days = 20**: the late mix comes in over twenty days (its share rising from nothing to all) instead of on one
+  morning, so the turn is felt and seen coming. (Not measured: the bench's next row.)
+- **enemy.turn_foretold**: the feed on the city screen (rule 4/9) says it from day 50 to 70, Battle Brothers' foretelling.
+- roaming.per_day = 0.1 stands (two to six men by day 40, nine to eleven by 80 to 100): it is what makes him pick his fights.
+- job.floor: Battle Brothers holds every company under a strength of about 80 at one job size; ours sizes a lone man's job at
+  two. Measured mild (a floor of a new crew of three costs the good wolf 2 points, the live wolf 8). **Not now**: it is a WORLD
+  and RUN question for the day party_math is tuned against Grok's formula (ask 105), and it should land only with the door's gear.
+
+THE FIGHT (COMBAT)
+- **perk_builds for the melee arms**: rows for the sword, axe, mace, hammer, flail, cleaver, spear and polearm (today a man with a
+  sword fights with no perks at all). The bench's sword row: colossus, steel brow, brawny, sword mastery, lone wolf, battle
+  forged, shield expert, nine lives, indomitable, killing frenzy.
+- The breath rule stays Battle Brothers' (2 a block or miss, 5 a hit, 15 back a turn): it is what makes four men too many for one
+  man in heavy armour, and that is right.
+
+## 4. NOTES POSTED (VAMILY.md, on each board)
+
+RUN [lone wolf numbers] (the door and the start), RUN TWO [lone wolf numbers] (recruits and prices, the crew screen's door
+levels), WORLD [the enemy's rise by day] (the roads, the turn, the crisis, the floor), COMBAT [the enemy's rise by day] (the late
+mix's day and ramp, the melee perk rows, the man rolled per game).
+
+## NOT MEASURED (what this page does not know)
+- The bag pistol with the good kit; the greatsword in the campaign (only on the ladder).
+- Armour wear between fights, healing days, and the main's injuries carried between fights: every fight starts whole.
+- Whether a town's market shelf carries the 2,000-crown hauberk (the market's percentile shelves, RUN TWO).
+- The hire's laid-up days are a flat 30 here (the fight rolls them).
+- Beasts, the kids, the heavies and the machines on the Lone Wolf (brigands only: the map's roads and clear jobs are brigands).
+- The late mix moved to day 80 or ramped (proposals, not played); a full company at day 61+ (the killer company page played
+  twelve against late brigands: 99 in 100 at level 11).
+- A human hand: AUTO plays the wolf (COMBAT's new brain). A player who backs into a doorway against four will do better.
+- Renown's pay multiplier (CLOUT, x1 to x4.5) is not in the purse.
+
+## ROUTED
+- RUN: the door's gear and levels (s3). RUN TWO: the rare man at the post, the crew screen's three waiting level-ups, the
+  origin's gear on the card. COMBAT: the late mix's day and ramp, the melee perk rows, a man rolled per game. WORLD: the turn
+  foretold, the floor question. EYES: plays the Lone Wolf start next round (rule 183(e)); this page's 1a is what it will meet.
+- A Grok ask the coordinator may want: the Lone Wolf scenario's exact starting items, talents and pending level-ups
+  (lone_wolf_scenario.nut), so 'great equipment' is the game's own list and not the hedge knight's enemy kit.
+
+[bb the Lone Wolf: the jobs are a new company's size from day one (the 0.75 floor); the great gear and three levels are the
+origin; the roads and the crisis are what outgrow him]
+[analog horror: day 61 nothing on the map changes, and the same road that let him walk through it for sixty days takes him down]
