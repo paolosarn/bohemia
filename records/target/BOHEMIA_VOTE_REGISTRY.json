@@ -15302,6 +15302,42 @@
     "src": "BOHEMIA_NEW_SONG_THE_PAWN_COUNTER_AT_FOUR_IN_THE_MORNING_10_25_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-three-levels-slow-bleed-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "be7ed130",
+   "made": "10/25",
+   "title": "SLOW BLEED: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
+   "why": "Your SLOW BLEED at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
+   "options": [
+    "A, the three levels join the game for SLOW BLEED",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_LEVELS_SLOW_BLEED_10_25_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-three-levels-slow-creep-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "be7ed130",
+   "made": "10/25",
+   "title": "SLOW CREEP: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
+   "why": "Your SLOW CREEP at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
+   "options": [
+    "A, the three levels join the game for SLOW CREEP",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_LEVELS_SLOW_CREEP_10_25_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

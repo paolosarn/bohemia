@@ -25,6 +25,17 @@
    "id": "sounds-three-levels-ghost-in-the-grid-10-25"
   },
   {
+   "name": "SLOW BLEED",
+   "slug": "slow_bleed",
+   "dir": "vote/songs/three_levels/slow_bleed/",
+   "levels_db": [
+    -46.5,
+    -42.67,
+    -39.65
+   ],
+   "id": "sounds-three-levels-slow-bleed-10-25"
+  },
+  {
    "name": "SATELLITE PRAYER",
    "slug": "satellite_prayer",
    "dir": "vote/songs/three_levels/satellite_prayer/",
@@ -34,6 +45,17 @@
     -31.38
    ],
    "id": "sounds-three-levels-satellite-prayer-10-25"
+  },
+  {
+   "name": "SLOW CREEP",
+   "slug": "slow_creep",
+   "dir": "vote/songs/three_levels/slow_creep/",
+   "levels_db": [
+    -45.15,
+    -42.05,
+    -39.65
+   ],
+   "id": "sounds-three-levels-slow-creep-10-25"
   },
   {
    "name": "THE PIT BOSS IS GONE",
