@@ -178,3 +178,4 @@ Newest first.
 - 2026-10-25 | ASK | GROK_ASK_124_SOUNDSCAPE_RULE_2026_10_25.md | soundscape, analog horror, BB soundtrack, hold
 - 2026-10-25 | ASK | GROK_ASK_125_NARRATION_TOGGLE_2026_10_25.md | narration toggle, machine voice, accessibility
 - 2026-10-25 | ASK | GROK_ASK_126_HOUSE_YOU_GIVE_A_FUCK_ABOUT_2026_10_25.md | house you care about, face, memory, relations
+- 2026-10-25 | ASK | GROK_ASK_127_MAYOR_ARC_2026_10_25.md | mayor arc, three rungs, rebuild, seat
