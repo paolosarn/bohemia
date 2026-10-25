@@ -700,10 +700,14 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 166. EVERY SONG ITS OWN SONG (PAOLO 10/25, LOCKED, amends 158(d): 'it's the same one for like seven songs bro and they use the same instruments... seven of the same songs with like one slightly thing different... you have like this background creepy vibe, and it's hard to hear really anything else'; records/BOHEMIA_PAOLO_EVERY_SONG_ITS_OWN_SONG_10_25_26.md). (a) The six night songs of 10/24 are dead (each was one of his songs with two or three values changed, REPO MAN's machine under all six, the tune 12 to 21 dB under the mix): graveyard with a post-mortem, their VOTE cards down; a song made by changing a few values of another song never comes back under a new name. (b) A new song has its own lead, its own instrument set, its own key or mode, its own groove inside the 120 BPM grid, a melody you can hum after one listen, and a form that goes somewhere; no two new songs share more than one of lead, bass, drums, pad, key. (c) The creepy bed is not the song: analog horror lives inside the instruments' sound, never as a drone over everything; the tune and the beat lead the mix. (d) REPO MAN's machine party plays under REPO MAN only. (e) More instruments, from real material (NO SAND). (f) The 120 BPM law, VOTE before the game (122(d)) and his own songs untouched all stand. (g) Fewer and better: four that are each their own song; THE TEST is ten seconds of each back to back, and a stranger tells them apart. (h) A gate measures every new song against the others and his. (i) How FINAL FANTASY X (the sound reference) does it: every track its own lead and identity; the mood is the track list, never one bed. SOUNDS [every song its own song].
 167. THE FIGHT BOARD'S COLOUR BACK, AND THREE INTENSITIES IN EVERY SONG (PAOLO 10/25, LOCKED: 'the combat map like went completely like almost like black and white... I was like how it was previously... please have a reason'; 'all this music so far is great ambience but it's not great combat music... three intensity is like when it's your turn to attack, two when they're attacking, and one when you're in the world map or chilling... you need to make all songs with three intensities... we have a way we've been doing it'; records/BOHEMIA_PAOLO_THE_FIGHT_BOARD_GOT_ITS_COLOUR_TAKEN_AND_THREE_INTENSITIES_IN_EVERY_SONG_10_25_26.md). (a) The fight board goes back to how it was before COOK 9cae20af (the reason: it read rule 159 as 'take the colour out' and multiplied the fight's colour by 0.3, close to black and white); every other COOK change stands. (b) Rule 159 fenced: faded, dirty, rare colour, never drained toward black and white; a grade that cuts colour by more than half goes to him first. (c) EVERY SONG HAS THREE INTENSITIES: 1 the map, a town, chilling (the ambience; his songs' level 1 stays exactly as it plays); 2 the enemy's turn; 3 YOUR TURN TO ATTACK, real combat music with the drums and the drive. Amends 126's 10/23 line (their turn was the lowest): map 1, their turn 2, his turn 3. Every song he plays and every new song (166) has all three; level 3 is never the ambience louder. (d) Through the system that exists (window.INTENSITY, KILLMUS, MUS.layers at the next bar, BOHEMIA_FIGHT_TURN), on the 120 BPM beat. (e) A gate: every playable song renders at 1, 2 and 3; level 3 carries drums and a lead over the bed; the map plays 1, their turn 2, his turn 3. COOK [the fight board's colour back], SOUNDS [three intensities in every song].
 168. EVERYTHING AT 120 BPM, AND YOU CAN HEAR IT (PAOLO 10/25, LOCKED, playing a fight: 'just make sure from now on everything's at 120 BPM... I only hear the sound effects... I'm not hearing any music... it doesn't have tempo, doesn't have BPM, doesn't intensify... that's really important to me'; records/BOHEMIA_PAOLO_EVERYTHING_AT_120_BPM_YOU_CAN_HEAR_10_25_26.md). (a) Every song at every level carries an audible 120 BPM pulse (a kick, a bass on the beat, a hat, a clock); level 1 may be soft, never a beatless hum. (b) The fight never plays without music: a song from the first frame to the end screen, above the effects. (c) It intensifies: map 1, their turn 2, his turn 3, level 3 combat music (167(c)). (d) The gate, in the real fight on the phone and computer profiles: music audible all through, a 120 BPM pulse found at every level, the level changing on every turn at the next bar. (e) First on SOUNDS' board, before the four new songs; heard in his next fight, no card. SOUNDS [the fight's music you can hear].
-169. THE WALK-UP WALKS ON THE GROUND (PAOLO 10/25, LOCKED, corrects RUN TWO cd2582ba: 'you have the player character walking towards the people but you don't understand what the fuck is going on at all... walking on top of buildings and shit... this is obviously not coded in the way that it needs to be'; records/BOHEMIA_PAOLO_THE_WALK_UP_WALKS_ON_TOP_OF_BUILDINGS_10_25_26.md). (a) The lead walks only where a person can walk (street, sidewalk, lot, a door), around every building, wall, fence and prop, on a path found on the town as DRAWN. (b) Drawn in the right order: a building in front hides him; never painted over a roof he is behind. (c) It reads: he leaves, goes the short way on the ground, stops facing the person; a walk that would confuse is not walked. (d) The gate measures the picture: his feet on walkable ground cut from the drawn art every frame, never drawn over a roof, the path never across a footprint; phone and computer, every town. (e) First on RUN TWO's board. RUN TWO [the walk-up, on the ground].
+169. THE WALK-UP WALKS ON THE GROUND (PAOLO 10/25, LOCKED, corrects RUN TWO cd2582ba: 'you have the player character walking towards the people but you don't understand what the fuck is going on at all... walking on top of buildings and shit... this is obviously not coded in the way that it needs to be'; records/BOHEMIA_PAOLO_THE_WALK_UP_WALKS_ON_TOP_OF_BUILDINGS_10_25_26.md). (a) The lead walks only where a person can walk (street, sidewalk, lot, a door), around every building, wall, fence and prop, on a path found on the town as DRAWN. (b) Drawn in the right order: a building in front hides him; never painted over a roof he is behind. (c) It reads: he leaves, goes the short way on the ground, stops facing the person; a walk that would confuse is not walked. (d) The gate measures the picture: his feet on walkable ground cut from the drawn art every frame, never drawn over a roof, the path never across a footprint; phone and computer, every town. (e) First on RUN TWO's board. (f) AMENDED THE SAME HOUR (Paolo: 'on my phone when my character walks and he's at the bottom of the settlement screen, the settlement screen is shaking'): the town moves at most once per tap, eased, and holds still while he walks; the gate measures its offset every frame, one move, no back and forth. RUN TWO [the walk-up, on the ground].
 170. NO COVER IN THE OPEN STREET, AND MELEE REACHES ONE TILE (PAOLO 10/25, LOCKED, playing a fight: 'if you're in the middle of the street you have no cover unless that street tile has crazy car wreckage... enemies using pipes, melee weapons, but they're able to attack for more than one tile'; records/BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md). (a) Cover only from what is on the tile (a wall, a window, a doorway, a wreck, a barrier, junk big enough to hide behind); an open street or sidewalk gives none and a man there never kneels as if covered; the cover, the kneel and the dial's odds are one fact. (b) Melee reaches the next tile only (rule 83 stands); guns two or more, never at a man beside the shooter. (c) The gate, many rolled fights, every enemy kind: every melee hit from an adjacent tile, every kneel on a cover tile. (d) COMBAT [cover is what is on the tile] and [melee is one tile] first; a NOTE on ANIMATION's board.
 171. A DISMISS BUTTON ON THE CREW (PAOLO 10/25, LOCKED: 'for the crew there's not a dismiss button, bro, what if I want to dismiss people'; records/BOHEMIA_PAOLO_A_DISMISS_BUTTON_ON_THE_CREW_10_25_26.md). (a) Every man on the crew screen has DISMISS with one confirm; the main character has none. (b) Battle Brothers' way first from the library and Grok's pages (his gear, his pay, whether the company minds, the words), then ours. (c) His gear to the stash, his wage stops, he walks off, the phone's feed says it. (d) A gate on phone and computer. RUN TWO [a dismiss button], after [the walk-up, on the ground].
 172. THE COMPANY SCREEN AS SIMPLE AS BATTLE BROTHERS, THEN BETTER (PAOLO 10/25, LOCKED: 'find screenshots... how Battle Brothers' company menu works, because they really simplify how easy it can look... you're over complicating it, it's really hard to navigate your equipment, the levelling up... and then we need to improve upon that... you're in deficit'; records/BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md, Battle Brothers' screen there from recall until Grok ask 41 verifies it from screenshots). (a) One screen: the roster in a strip; tap a man and the screen is him; his body wearing his gear with the slots around it; his numbers with icons; the stash beside him with filters; ONE TAP equips (the old item back to the stash), the comparison shown first; the two bag slots; the level-up its own short moment (three attributes, then one perk); DISMISS (171). (b) Better on a phone: thumb-sized, nothing behind hover, a swipe between men; the computer keeps Battle Brothers' keys and right-click. (c) Less, not more: the count of things on the screen goes down, measured. (d) The gate: a stranger's path (open the crew, pick the third man, put the best armour on him, level him up, dismiss the fifth) in the fewest taps on one screen. (e) UI [the company screen, Battle Brothers simple] first, carrying [a dismiss button] (moved from RUN TWO: one lane, one screen).
+173. IT NEVER CRASHES BEFORE A FIGHT (PAOLO 10/25, LOCKED: 'the game keeps crashing at random times, usually right before a fight loads up; maybe it's because of the amount of people on the screen'; records/BOHEMIA_PAOLO_IT_CRASHES_RIGHT_BEFORE_A_FIGHT_10_25_26.md). (a) No crash before, during or after a fight, computer or phone. (b) Measure first: memory at the map, the card, the fight's load, the fight, the end screen and back, both profiles, the biggest fights; the cause named in numbers (10/24's cause was a tab crossing about 1.1 GB of pixels; since then 96 men's held sheets, 17 enemies, 121 fight pictures, the region). (c) Fix at the source, never by taking people or art out. (d) The gate: twenty of the biggest fights in a row on both profiles, no crash, a memory ceiling under a phone's line, beside tools/bohemia_run_the_crash_hunt.js. (e) EYES plays ten fights in a row every round. RUN [the crash before the fight].
+174. ONLY THE FINAL LOOK LOADS, AND THE LOADING SCREEN TELLS THE TRUTH (PAOLO 10/25, LOCKED: 'I'm still seeing the months-ago 2-D character skins underneath everything... that takes up memory... just have things that are going to be final visuals load... we don't need a whole 2-D world underneath it... you say you're loading, I press go, and it's still loading ghost month-old bullshit before I see the 3-D maps'; records/BOHEMIA_PAOLO_ONLY_THE_FINAL_LOOK_LOADS_AND_THE_LOADING_SCREEN_TELLS_THE_TRUTH_10_25_26.md). (a) No old 2-D world, people or stand-in fetched, decoded or drawn under, over or before the final 3-D map and people; dead layers leave the build, their memory measured as saved (feeds 173). (b) The loading screen holds until the map and its 3-D people show together; GO only then; the first frame after GO is the final look. (c) The gate: every frame after GO final, no old asset requested at any moment, the time from GO written down. (d) RUN [only the final look loads] with [the crash before the fight] in one round.
+175. THE SOUND NEVER CHOPS, EVEN ON BLUETOOTH (PAOLO 10/25, LOCKED: 'every time I play the game on my car speakers through Bluetooth it gets all choppy... could you support and fix that'; records/BOHEMIA_PAOLO_THE_SOUND_CHOPS_ON_BLUETOOTH_10_25_26.md). Measured: no microphone; the music synthesized live (783 createOscillator calls); the AudioContext at the smallest default buffer; the fight frame a second AudioContext; a phone near its memory line stalls. (a) No chop on speaker, headphones or Bluetooth. (b) The music plays from audio rendered ahead (each song's three intensities rendered once, the level change a crossfade on the bar, 120 BPM); effects stay instant. (c) One AudioContext for the game, a playback-sized latency, scheduled ahead. (d) The gate: the phone profile with the CPU four times slower through a fight and the map, the output recorded, zero dropouts, the beat on the fight's grid. (e) SOUNDS [the sound never chops] with [the fight's music you can hear].
+176. AUTO NEVER WASTES A TURN, AND THE ODDS ARE TRUE (PAOLO 10/25, LOCKED: 'a guy very low on health, instead of trying to kill the enemy, walks two tiles away and then two tiles back in front of the enemy... if it's melee range, get the fuck [in]... once I start doubting the decisions AUTO takes, I start doubting the calculator'; records/BOHEMIA_PAOLO_AUTO_NEVER_WASTES_A_TURN_AND_THE_ODDS_ARE_TRUE_10_25_26.md). (a) An enemy in reach is struck unless a better act is real and logged; a move ends somewhere better, never where it began. (b) A hurt man decides once (Battle Brothers' way first): finish the enemy, or step back out of reach once and stay back; never off and back. (c) The odds are true: the calculator plays the same brain and is checked against real AUTO fights (80 in 100 wins close to 80 of 100). (d) The gate over many rolled AUTO fights: zero wasted moves, zero dances, the odds within a few points in every band. (e) COMBAT [AUTO never wastes a turn] with rule 170's two rows. (f) AMENDED THE SAME HOUR (Paolo: 'if buildings two or three storeys are supposed to be advantageous for people with guns, why isn't the first thing they do finding the nearest one and firing... big brain research on how to be a better auto combat system and calculator... it's pretty dog shit right now'): AUTO plays the board: a gunman takes the reachable high ground or cover the rules reward, the melee men screen the shooters; what the rules make good, AUTO does. (g) BIG BRAIN RESEARCH FIRST, in parallel: TUNING [a better AUTO brain and a true calculator]: Battle Brothers' AI first (how its men score engage, hold, protect, take height, fall back), then the craft of tactics AI (scored moves, danger and value maps, a turn of lookahead), then the calculator (runs, the same brain, checked against real results); no game he has not named. (h) COMBAT builds the one brain from that page for AUTO, the enemy and the calculator; the gate adds 'a gunman with a reachable roof takes it in most fights'.
 77b. THE MAP'S ROADS (PAOLO 10/10 on the freeway round two: 'BRO ON THE MAP NOT ON THE COMBAT, and even then it's looking like shit'): his 10/9 freeway complaint was the MAP's freeway and streets; one road kit, lanes agreeing, nothing across a road, on the map's far and middle stops; RUN [the far end at two million pixels], WORLD [the roads] and COOK [the far end painted by hand] carry it; the fight's freeway work stands.
 83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; every gun needs at least two tiles to its target and cannot fire at a man beside the shooter; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
 84. AN ACT IS A YEAR (PAOLO 10/10: 'most people will only spend a maximum of 300 to 450 days in a single act, so a year passes; this mechanic is ass'): no mechanic needs more than a year inside one act; DYNASTY's old-body trade is RETIRED; aging shows between acts.
@@ -49155,6 +49159,73 @@ walks (on top of buildings) and that nobody can tell what is going on.
     stands behind, and the path never crosses a building's footprint. Phone and computer profiles, all the towns.
 (e) First on RUN TWO's board, before the camp and the retinue. In the game, no card.
 
+## AMENDED THE SAME HOUR: THE TOWN SHAKES (rule 169(f))
+HIS WORDS: "Also, now when I'm in the settlements and I'm playing on my phone when my character walks somewhere and he's at
+the bottom of the settlement screen the settlement screen is shaking and shit like what's up with that"
+The likely cause, for RUN TWO to confirm: cd2582ba slides the town up so his walk stands above a tall sheet ('the hall:
+169 px on the phone'); a walk near the bottom of the screen and the slide chase each other, so the town jitters.
+(f) THE TOWN NEVER SHAKES: the town moves at most once per tap, eased, and holds still while he walks; a walk never
+    drives the town's position frame by frame. The gate measures the town's offset every frame of every walk-up on the
+    phone profile: one move, no back and forth.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_AUTO_NEVER_WASTES_A_TURN_AND_THE_ODDS_ARE_TRUE_10_25_26.md
+# source: records/BOHEMIA_PAOLO_AUTO_NEVER_WASTES_A_TURN_AND_THE_ODDS_ARE_TRUE_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: AUTO NEVER WASTES A TURN, AND THE ODDS ARE TRUE (LOCKED, rule 176)
+
+## HIS WORDS (verbatim, voice to text, watching AUTO fight)
+"Also, sometimes I just question the auto combat system like I see a guy and he's very low on health instead of taking
+turns trying to kill the enemy like he'll walk. He'll use stamina points to like walk two tiles away and then walk two
+tiles back in front of the enemy like I'm so fucking confused like if it's Malay range get the fuck. It's so bad. I'm
+confused by some of the auto combat decisions and even. Once I start doubting the decisions, the Auto combat takes then I
+start doubting the calculator"
+('Malay' is 'melee'.)
+
+## WHAT IT MEANS
+AUTO dances: a hurt man spends his action points and fatigue walking two tiles off and two tiles back to the same enemy,
+instead of hitting the man in reach. Two wants fight each other in the brain (stay alive, get into reach) and neither wins.
+And the odds he loves (the AUTO colour and the chance of victory, rule 13 kept) come from the same brain playing the fight
+ahead (ODDS_RUNS), so a brain that wastes turns makes the number lie; he said it himself: once he doubts AUTO he doubts the
+calculator.
+
+## THE RULING (rule 176)
+(a) AUTO NEVER WASTES A TURN. If an enemy is in reach, the man strikes, unless a better act is real and measurable (a kill
+    elsewhere in reach, a shot that matters, a guard that saves a man). A move ends somewhere better than it started (in
+    reach, in cover, out of reach for good, beside a friend), never back where it began.
+(b) A HURT MAN DECIDES ONCE: Battle Brothers' way first (the library and Grok's pages on morale and the AI): he finishes
+    the enemy if he can, or he steps back out of reach ONCE and stays back (guarding, reloading, shooting); never off and
+    back within the same turn or the next.
+(c) THE ODDS ARE TRUE: the calculator plays the same fixed brain, and its number is checked against real AUTO fights:
+    when it says 80 in 100, AUTO wins close to 80 of 100 rolled fights of that kind.
+(d) THE GATE, over many rolled AUTO fights and every enemy kind: zero turns where a man spends points and ends where he
+    started; zero off-and-back dances over two turns; a man with an enemy in melee reach strikes unless (a)'s better act is
+    logged; the odds within a few points of the measured win rate in every band.
+(e) COMBAT [AUTO never wastes a turn], with [melee is one tile] and [cover is what is on the tile] (rule 170): the same
+    brain.
+
+## AMENDED THE SAME HOUR: AUTO USES THE HIGH GROUND, AND BIG BRAIN RESEARCH FIRST (rule 176(f) to (h))
+HIS WORDS: "Like it's really confusing if buildings two are supposed to be advantageous for people with guns then why
+aren't they just like? First thing they do is find the nearest 21 or three story building. And start off firing. I'm so
+confused. You know that this is far from final, but yeah like things like that bro like I don't know if you need to do big
+brain research on how to be a better auto combat system and have a better auto combat Calculator, but it's pretty dog shit
+right now."
+('21 or three story' is 'two or three story'.)
+(f) AUTO PLAYS THE BOARD: a man with a gun goes for the high ground or the cover in reach that the rules reward (COMBAT
+    f9a2a846 made a roof and a storey mean something: the nearest two or three storey building he can reach and fire from),
+    and the melee men screen the shooters. What the rules make good, AUTO does; if AUTO never uses something, either the
+    brain is wrong or the bonus is.
+(g) BIG BRAIN RESEARCH FIRST, in parallel: TUNING writes one page, 'a better AUTO brain and a true calculator':
+    Battle Brothers' own AI first (how its men score a move: engage, hold, protect a friend, take height, fall back; from the
+    library, the wiki copy and Grok), then the general craft of tactics AI (scoring every possible move with weights, maps of
+    danger and value over the board, looking a turn ahead), then how the calculator should run (how many simulated fights,
+    the same brain, checked against real results). No game he has not named is cited (rule 6); the craft is cited by its
+    authors and talks, not by other games.
+(h) COMBAT builds the brain from that page: every move scored the same way for AUTO, the enemy and the calculator, so the
+    odds and the play agree; the gate adds 'a gunman with a reachable roof takes it in most fights' and 'the calculator's
+    bands match real AUTO fights'.
+
 
 ====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_THE_FIGHT_BOARD_GOT_ITS_COLOUR_TAKEN_AND_THREE_INTENSITIES_IN_EVERY_SONG_10_25_26.md
@@ -49254,6 +49325,80 @@ Row: SOUNDS [every song its own song], first on its board. Lane opened by the co
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_SOUND_CHOPS_ON_BLUETOOTH_10_25_26.md
+# source: records/BOHEMIA_PAOLO_THE_SOUND_CHOPS_ON_BLUETOOTH_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: THE SOUND CHOPS ON HIS CAR'S BLUETOOTH (LOCKED, rule 175)
+
+## HIS WORDS (verbatim, voice to text)
+"Also, I don't know if you can analyze this or support and help this but every time I play the music or I'm playing the
+game and it's on my car speakers through Bluetooth. It's it gets all choppy and fucked up and I wanna know if you know
+anything about that or could support and fix that."
+
+## WHAT THE COORDINATOR MEASURED IN THE CODE (10/25 17:50, main)
+- No microphone anywhere (no getUserMedia): the car is not being pushed into its phone-call mode.
+- The music is synthesized live: 783 createOscillator calls in the alpha and the demo; every note builds new nodes in
+  real time while the same phone draws the 3-D town and fight.
+- The game's AudioContext is made with the default latency (new AudioContext() with no latencyHint), the smallest
+  buffer: right for a click, fragile for music when the phone stalls.
+- The fight frame makes a second AudioContext of its own.
+- A phone near its memory line (rules 173, 174) stalls; a stall the wired speaker hides becomes a dropout on Bluetooth,
+  which carries its own delay and drops what arrives late.
+
+## THE RULING (rule 175)
+(a) THE SOUND NEVER CHOPS, on the phone's speaker, headphones, or Bluetooth in a car.
+(b) The music plays from audio rendered ahead, not built note by note in real time while the game draws: each song's
+    three intensities (rules 167, 168) rendered once into buffers and played back, the level change a crossfade on the
+    bar, on the 120 BPM beat. Effects stay instant.
+(c) ONE AudioContext for the whole game (the fight's sounds go through the shell's), made with a playback-sized
+    latency for the music, scheduled ahead with a lookahead so a stalled frame never starves it.
+(d) THE GATE: the game played on the phone profile with the CPU throttled (four times slower) through a fight and the
+    map, the audio output recorded, and zero dropouts counted; the music's beat still lands on the same 120 BPM grid
+    the fight's actions use (158).
+(e) SOUNDS [the sound never chops], with [the fight's music you can hear] (168): rendering the three levels ahead is
+    the same work.
+NOTE: if other apps also chop in his car, part of it is the car or the phone's Bluetooth; the game's part is fixed
+either way.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_ONLY_THE_FINAL_LOOK_LOADS_AND_THE_LOADING_SCREEN_TELLS_THE_TRUTH_10_25_26.md
+# source: records/BOHEMIA_PAOLO_ONLY_THE_FINAL_LOOK_LOADS_AND_THE_LOADING_SCREEN_TELLS_THE_TRUTH_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: ONLY THE FINAL LOOK LOADS, AND THE LOADING SCREEN TELLS THE TRUTH (LOCKED, rule 174)
+
+## HIS WORDS (verbatim, voice to text)
+"Also, I hate when when the whole world map loads up like I'm still seeing like the previous like months ago and Judy
+character skin underneath everything like why is that necessary like why can't I'm sure that cost usage like I'm sure
+that that takes up memory like even just trying to have things load underneath other things I'm not quite sure, bro so
+please just have things that are gonna be final visuals like that are part of the actual game load. I don't want it. I
+don't know we don't need to have a whole 2-D world underneath it on top of it bro come on and it just goes to show the
+loading screen isn't even correct because you say you're loading and then I press go and then it's still loading like
+ghost month old bullshit before I see the 3-D in maps so what's going on?"
+('Judy' is the voice transcription; he means the old 2-D character skins from months ago.)
+
+## WHAT HE SEES
+After the loading screen and GO, the map first draws the old 2-D world and the old 2-D people, and only then the 3-D map and
+the 3-D people replace them. Known fallbacks on main draw the old picture until the new one lands (for example COOK
+99486fba: 'until a patch lands the picture is drawn, as before'; RUN cbcebcac: 'the barber's man only if his own sheet
+never comes'), and RUN's 10/24 crash record found the old street tiles and the map's people sheets still costing memory.
+
+## THE RULING (rule 174)
+(a) ONLY THE FINAL LOOK LOADS. No old 2-D world, no old 2-D people, no stand-in, ever drawn under, over or before the
+    final 3-D map and its 3-D people. What is not part of the game's final look is not fetched, decoded or drawn. Dead
+    layers leave the build (to the graveyard where the law says, GRAVEYARD IS FINAL), and the memory they cost is
+    measured as saved (it feeds rule 173's crash).
+(b) THE LOADING SCREEN TELLS THE TRUTH: it holds until the map and its 3-D people are ready to show together; GO appears
+    only then; the first frame after GO is the final look. If something is still coming, the loading screen says so, it
+    never hands him an unfinished map.
+(c) THE GATE: from the title through GO to the map on both profiles, every frame after GO is the final look (no old 2-D
+    asset requested, decoded or drawn at any moment, measured by the requests and the pixels), and the time from GO to the
+    first final frame is written down.
+(d) RUN [only the final look loads], with [the crash before the fight] (rule 173) in the same round: one measurement of
+    memory serves both.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md
 # source: records/BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md
 ====================================================================================================
@@ -49315,6 +49460,37 @@ rises. Whether the fight also plays the music too low under its effects, or not 
     measured against the effects), a 120 BPM pulse found in the recording at every level, and the level changing on
     every turn change at the top of the next bar. A fight that goes silent, beatless or flat fails.
 (e) First on SOUNDS' board, before the four new songs: he hears it in his next fight, no card (rule 127).
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_IT_CRASHES_RIGHT_BEFORE_A_FIGHT_10_25_26.md
+# source: records/BOHEMIA_PAOLO_IT_CRASHES_RIGHT_BEFORE_A_FIGHT_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: IT CRASHES RIGHT BEFORE A FIGHT LOADS (LOCKED, rule 173)
+
+## HIS WORDS (verbatim, voice to text, playing)
+"And the game keeps crashing at random times usually right before like right now before a fight loads up maybe it's
+because the amount of people on the screen or something I don't know"
+
+## WHAT THE COORDINATOR KNOWS (before the lane measures)
+RUN's crash round of 10/24 (records/BOHEMIA_RUN_THE_CRASH_THE_SAVE_AND_ONE_MAP_10_24_26.md) measured the cause then: a
+tab crossing the memory line (about 1.1 GB of decoded pixels), the map alone 436 MB of pictures and 142 MB of canvases,
+a fight sheet up to 34 MB decoded. Since then the fight carries much more: ANIMATION's held, kneeling and reloading
+sheets for all 96 men (64c2139c, 10/25), CHARACTER's seventeen new enemies (9737f26d), COOK's 121 fight pictures back
+(bc076ba3), the region's 34 places (WORLD, COOK). His guess (the number of people) is the likely one: every man in a fight
+brings his own sheets, and the map may still hold its own while the fight decodes its own.
+
+## THE RULING (rule 173)
+(a) THE GAME NEVER CRASHES BEFORE, DURING OR AFTER A FIGHT, on his computer or a phone. First on RUN's board.
+(b) MEASURE FIRST, on the real surface: the memory at the map, at the encounter card, during the fight's load, in the
+    fight, at the end screen and back on the map, on the phone and computer profiles, with the biggest fights the game
+    rolls (the most men, the new enemies). Name the cause with numbers.
+(c) Then fix it at the source (what the fight loads that it does not draw, what the map keeps while the fight runs, sheets
+    decoded twice, pictures bigger than the screen shows), never by taking people out of the fight or art out of the game.
+(d) THE GATE: twenty fights in a row, the biggest the game rolls, map to fight to end screen to map, on both profiles,
+    with no crash, and a memory ceiling that leaves room under a phone's line; it runs beside the crash hunt that exists
+    (tools/bohemia_run_the_crash_hunt.js).
+(e) EYES' playtest adds a long play (ten fights in a row) every round, so a crash is caught before he finds it.
 
 
 ====================================================================================================
@@ -60036,6 +60212,8 @@ refused by the coordinator.
 #    fight and in menus, with what each does. (2) What happens when you abandon or fail a contract (the cost). (3) Exactly how party
 #    strength scales with roster size, days and difficulty. Cite each page or say it does not say.
 # ASK 41. BATTLE BROTHERS' COMPANY SCREEN, FROM SCREENSHOTS (rule 172, his words: 'find screenshots... how Battle Brothers' company menu works, because they really simplify how easy it can look... you're over complicating it, it's really hard to navigate your equipment, the levelling up'). Our sandbox cannot reach the wiki or Steam. Look at real screenshots of the inventory / character screen (the Steam store page, the wiki, guides) and describe it exactly: every panel and where it sits (the roster and formation, the paper doll and its slots, the bag slots, the stats and their icons, the stash and its tabs and sort, the perk tree tab), every button and what it does, how an item is equipped (right-click, drag, what returns to the stash), what a hover shows, how a level-up runs step by step (the plus, the three attributes and their rolls, the stars, the perk), how you switch men, and the dismiss button and what it costs. Give each screenshot's link. Then: three things a phone version should do better. Plain full sentences; 'the screenshot does not show' where it does not.
+
+# ASK 42. HOW BATTLE BROTHERS' AI DECIDES A MOVE (rule 176, his words: 'if buildings two or three storeys are supposed to be advantageous for people with guns, why isn't the first thing they do finding the nearest one and firing... big brain research on how to be a better auto combat system and calculator'). From the dev blogs, the wiki and the game's script where people have read it: how an AI man in Battle Brothers picks what to do each turn (the behaviours it scores: engage, attack, hold, protect a friend, take height, fall back, retreat when hurt; how a score is made and compared), how it uses height and terrain, when a hurt man retreats and when he keeps fighting, how archers pick a spot, and anything the developers said about making the AI smart but fair. Every claim with its link; 'the source does not say' where it does not. Plain full sentences.
 
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems

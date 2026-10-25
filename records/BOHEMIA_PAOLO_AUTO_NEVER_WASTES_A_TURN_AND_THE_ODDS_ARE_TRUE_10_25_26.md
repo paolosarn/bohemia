@@ -29,3 +29,24 @@ calculator.
     logged; the odds within a few points of the measured win rate in every band.
 (e) COMBAT [AUTO never wastes a turn], with [melee is one tile] and [cover is what is on the tile] (rule 170): the same
     brain.
+
+## AMENDED THE SAME HOUR: AUTO USES THE HIGH GROUND, AND BIG BRAIN RESEARCH FIRST (rule 176(f) to (h))
+HIS WORDS: "Like it's really confusing if buildings two are supposed to be advantageous for people with guns then why
+aren't they just like? First thing they do is find the nearest 21 or three story building. And start off firing. I'm so
+confused. You know that this is far from final, but yeah like things like that bro like I don't know if you need to do big
+brain research on how to be a better auto combat system and have a better auto combat Calculator, but it's pretty dog shit
+right now."
+('21 or three story' is 'two or three story'.)
+(f) AUTO PLAYS THE BOARD: a man with a gun goes for the high ground or the cover in reach that the rules reward (COMBAT
+    f9a2a846 made a roof and a storey mean something: the nearest two or three storey building he can reach and fire from),
+    and the melee men screen the shooters. What the rules make good, AUTO does; if AUTO never uses something, either the
+    brain is wrong or the bonus is.
+(g) BIG BRAIN RESEARCH FIRST, in parallel: TUNING writes one page, 'a better AUTO brain and a true calculator':
+    Battle Brothers' own AI first (how its men score a move: engage, hold, protect a friend, take height, fall back; from the
+    library, the wiki copy and Grok), then the general craft of tactics AI (scoring every possible move with weights, maps of
+    danger and value over the board, looking a turn ahead), then how the calculator should run (how many simulated fights,
+    the same brain, checked against real results). No game he has not named is cited (rule 6); the craft is cited by its
+    authors and talks, not by other games.
+(h) COMBAT builds the brain from that page: every move scored the same way for AUTO, the enemy and the calculator, so the
+    odds and the play agree; the gate adds 'a gunman with a reachable roof takes it in most fights' and 'the calculator's
+    bands match real AUTO fights'.
