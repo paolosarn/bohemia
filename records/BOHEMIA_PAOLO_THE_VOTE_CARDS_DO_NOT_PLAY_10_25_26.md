@@ -20,3 +20,10 @@
     playing, on the phone profile in WebKit if the sandbox has it, else Chromium's phone profile plus the iOS path checked in
     code.
 (d) SOUNDS [the vote cards play], first; it covers every song card, old and new.
+
+## HIS REPLY, THE SAME MINUTE
+"I went to Safari and I played the music and it played just fine. I just don't know why I didn't play. I don't know maybe
+just a tiny stupid bug."
+So the files and the card are fine; it failed in the place he first opened it (most likely an in-app browser or the home
+screen app rather than Safari itself). Rule 193 stands at a lower urgency: the <audio> fallback and the loading word make the
+cards play in those places too. SOUNDS keeps it on its board, after the four new songs.
