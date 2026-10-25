@@ -12,6 +12,24 @@ storeys are supposed to be advantageous for people with guns, why isn't the firs
 firing... big brain research on how to be a better auto combat system and have a better auto combat calculator, but it's
 pretty dog shit right now.'
 
+## 0. THE ANSWER, FOR COMBAT, IN EIGHT LINES
+1. THE DANCE IS REAL AND MEASURED: 325 wasted turns in 600 AUTO fights (steps, back on his tile, nothing done); 302 of them
+   are a man who could not act (out of breath or nothing to shoot) walked by a move score that asks AP only (s1b).
+2. THREE HOLES IN aiStep: it never asks 'can I act from there', never scores staying put, and re-decides after every step.
+   Battle Brothers had and fixed the same bug ('moving back and forth instead of attacking', 1.2.0.23) (s1b, s2).
+3. OUR MEN EAT 7.1 FREE SWINGS A FIGHT walking out of rings, theirs 1.1; a walk out is never priced (s1a).
+4. THE ROOF: 39% of gunmen who could reach one ever stand on one; 83% of the missed climbs fail only because the brain needs
+   THIS turn's shot (s1c). Once AUTO does climb, a roof no club can reach becomes a fortress: the rules need a standoff end (s5b).
+5. THE FIXES WORK: six splices on the same 600 fights: no abilities (rule 180) 383 won, with the fixes 427 (losses 202 ->
+   139), wasted turns 0, free swings 2.7, gun turns on a roof doubled (s5b).
+6. THE BRAIN TO BUILD: one plan a turn, every plan in expected hitpoints, five vetoes, stay unless 15% better, kill and hold
+   over two rounds, the hurt man's fear x2, focus ours, spread theirs (s5a; the one numbers table, section H).
+7. THE CALCULATOR IS THE SAME BRAIN AND THE SAME FIGHT (80 of 80 identical) and true to what it counts (within 3.7 points),
+   but it counts a clean-win WORTH, 20 points under the WIN RATE: 99 of 176 red tins were AUTO wins. That is the doubt he
+   named. The win rate the same runs count is true within 2.9 points (s4b).
+8. THE CALCULATOR TO BUILD: the colour from the win rate, the casualties in the glow and the tint, a sequential stop, common
+   dice, the standoff stop; the bands checked every round by TUNING [the odds keep up] (s4c, s5c G9).
+
 ---------------------------------------------------------------------------------------------------------------------------
 
 ## 1. WHAT OUR AUTO DOES WRONG TODAY, MEASURED
@@ -312,6 +330,74 @@ Science 16(2), 2001) puts its floor at 68; it takes 16 clean wins in 16 to clear
 - Mahdi Pakdaman Naeini, Gregory Cooper and Milos Hauskrecht, AAAI 2015, and Chuan Guo et al., 'On Calibration of Modern
   Neural Networks', ICML 2017 (the reliability table: forecasts in bands, each band's mean forecast against its rate).
 
+### 4b. THE READ AGAINST REAL AUTO FIGHTS, MEASURED (rule 176(c): '80 in 100 wins close to 80 of 100')
+
+HOW: 240 fights from the same list (seed 9000+k, a district and cell the map hands, 3, 6 or 12 men, the three gear stages,
+four factions, 0.6 to 1.6 times the map's count). At the start of each, the read EXACTLY as the fight makes it (the frozen
+board, the odds' own seed, ODDS_RUNS = 24, the colour first at ODDS_FIRST = 8, each run worth oddsRunValue); then the REAL
+fight played out on AUTO from the real dice; every fourth fight also a LONG read of 96 runs on other dice (the truth of that
+board, 60 fights). A run with no blow, fall or flight for 20 rounds is stopped and counted 0, as the fight's 6,000-step cap
+counts it. 240 real fights: 162 won, 73 lost, 5 standoffs.
+
+THE SAME BRAIN AND THE SAME FIGHT, PROVEN: the read plays the same rules and the same aiStep, and a board frozen and thawed
+plays the IDENTICAL fight on the same dice (80 of 80 fights, event for event, from round 2; the rules read no key that the
+freeze drops). So the read can be off only by its dice and by WHAT IT COUNTS.
+
+| the tin's hidden number at 24 runs (the WORTH) | fights | it said | real fights' worth | real fights WON |
+|---|---|---|---|---|
+| 0-20 | 89 | 4 | 6 | **20** |
+| 20-40 | 27 | 30 | 41 | **89** |
+| 40-60 | 34 | 51 | 44 | **91** |
+| 60-80 | 26 | 72 | 71 | **100** |
+| 80-92 (green) | 16 | 87 | 80 | 94 |
+| 92-100 (green, the glow) | 48 | 98 | 99 | 100 |
+| expected calibration error | | | **3.7 points** (8 runs: 4.0) | 22.3 points |
+
+| the WIN RATE the same 24 runs already count (ODDS.won) | fights | it said | real fights WON |
+|---|---|---|---|
+| 0-20 | 65 | 3 | 6 |
+| 20-40 | 9 | 27 | 33 |
+| 40-60 | 14 | 51 | 71 |
+| 60-80 | 14 | 72 | 71 |
+| 80-92 | 19 | 89 | 84 |
+| 92-100 | 119 | 100 | 100 |
+| expected calibration error / Brier | | | **2.9 points** / 0.060 |
+
+WHAT IT SAYS:
+1. TRUE TO WHAT IT COUNTS: the worth reads within 3.7 points of what the real fights were worth (Brier 0.070).
+2. BUT IT IS NOT THE CHANCE OF VICTORY, AND THAT IS THE DOUBT HE NAMED: the worth reads 20.2 points under the win rate on
+   average (rule 144(e)(f): a man down halves a win's worth by his share, a death zeroes it). Of the 176 fights that showed
+   a RED tin, AUTO WON 99 (56%); in the 20-40 band AUTO won 89 in 100, in the 40-60 band 91 in 100. A player who reads red
+   as 'I will lose' sees AUTO win, and stops trusting it. The win rate the same runs already count is true within 2.9
+   points: by it, 138 fights read green and AUTO won 135 of them (98%); 102 read red and AUTO won 27.
+3. THE NOISE IS SMALL WHERE IT DOES NOT MATTER: against the long read, 7.3 points (8 runs) and 4.9 (24 runs) on average,
+   the colour on the wrong side of 80 in 2 of 60 fights either way; most fights are near-sure. Near the line it is the 4a
+   table (a true 70 reads green 1 time in 9 at 24 runs).
+4. NO BIAS LEFT: real wins minus the read's win rate +2.1 +- 3.1 points (240 fights; companies of 3: +4.6 +- 6.9, of 6:
+   +0.5 +- 4.8, of 12: +1.1 +- 4.0); the worth +0.7 +- 3.4. Noise. (At 190 fights it read +4.5 +- 3.2; it washed out:
+   [the odds keep up] watches it.)
+5. THE COST: 24 runs took 7.1 s of CPU here on average: 1.8 s with up to 8 men on the board, 4.3 s with 8 to 14, 7.3 s
+   with 14 to 20, 13.9 s past 20, the worst 76.5 s. The first colour (8 runs) is a third of it: about 4.6 s on a 20-man
+   board here, against ODDS_WAIT_MS 3,000: a big fight's board comes up with a bare tin, longer on a phone. 166 of 5,760
+   runs (2.9%) were standoffs, which the fight's own read grinds to 6,000 brain steps before counting 0.
+6. RULE 180 MOVES IT: without abilities AUTO wins about 2 points less (5b); the read follows on its own (the same function).
+
+### 4c. THE CALCULATOR, PROPOSED (the one numbers table, section H, rows odds.*)
+- THE COLOUR FROM THE WIN RATE (rule 176(c), the newest): green/red at the turn (0.8) by the share of runs WON, so '80 in
+  100' means AUTO wins about 80 of 100. THE CASUALTIES STAY IN THE TIN as rule 144 asked: the beat's glow (144(b), 'a clean
+  win nearly certain') rides the WORTH, and a death in the runs leans the tint (144(f)) without turning a likely win red.
+  Both numbers are already counted in the worker (ODDS.won, ODDS.sum): no new runs. (The coordinator's to put to him if he
+  wants the colour to stay the clean-win worth; then the words on the tin must say 'clean win', never 'chance'.)
+- STOP WHEN IT IS SETTLED (Wald 1945): after 8 runs, stop as soon as the Wilson 90% interval (Wilson 1927) of the win rate
+  lies wholly above or below the turn; else go on to 48. Eleven straight wins clear 80 at 90%; a sure fight stops at 11 to 16
+  runs (less CPU than today's 24), a fight near the line reads 48 (+-11 points at 80 instead of +-16).
+- COMMON DICE: run i of every read plays the seed (the fight's seed, i), so two reads of nearly the same board differ by the
+  board, not by luck (Glasserman and Yao 1992): the tin stops wandering through a turn.
+- THE STANDOFF STOP: a run with no blow, fall or flight for 20 rounds stops and counts as not won (today it runs to 6,000
+  steps, seconds of CPU each).
+- THE CHECK STANDS: TUNING [the odds keep up] runs this bench's --odds (240 fights) each round the brain or the content
+  changes; the bar is G9 (every band of 20 fights or more within 10 points, the whole within 5).
+
 ---------------------------------------------------------------------------------------------------------------------------
 
 ## 5. THE ONE BRAIN FOR COMBAT, AND ITS WEIGHTS (rule 176(h), rule 180; the first table, section H of the one numbers table)
@@ -446,70 +532,17 @@ cheaper reading: play each plan only to the end of the next round and score the 
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-## 4b. THE READ AGAINST REAL AUTO FIGHTS, MEASURED (rule 176(c): '80 in 100 wins close to 80 of 100')
+## 6. ROUTED
+- COMBAT [AUTO never wastes a turn] (rule 176(e)(h)): builds the one brain from s5a, for AUTO, the enemy and the calculator;
+  the gate's legs and bars are s5c; the vetoes kill s1b's three holes; the rules hole of s5b point 4 (a roof no club can
+  reach; a standoff end; the enemy's last men retreating by Battle Brothers' count) is COMBAT's to rule into the fight, or
+  the coordinator's to put to him. NOTE posted on COMBAT's board [auto brain numbers].
+- COMBAT [auto never uses abilities] (rule 180): measured, the abilities are worth about 2 points of AUTO's wins (s5b).
+- THE CALCULATOR (s4c): the colour from the win rate is a reading of 176(c) over 144(e)(f) (newest wins), with 144's
+  casualties kept in the glow and the tint; the coordinator's to correct.
+- TUNING [the odds keep up] (rule 178(c), standing): this bench, --odds over 240 fights, each round the brain or the content
+  changes; the drift goes in the one numbers table.
+- The one numbers table: section H added by hand (records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md), brain.* and odds.*.
+- Grok ask 42 (Battle Brothers' AI): not landed while this page was written; fold it into s2 when it does.
 
-HOW: 240 fights from the same list (seed 9000+k, a district and cell the map hands, 3, 6 or 12 men, the three gear stages,
-four factions, 0.6 to 1.6 times the map's count). At the start of each, the read EXACTLY as the fight makes it (the frozen
-board, the odds' own seed, ODDS_RUNS = 24, the colour first at ODDS_FIRST = 8, each run worth oddsRunValue); then the REAL
-fight played out on AUTO from the real dice; every fourth fight also a LONG read of 96 runs on other dice (the truth of that
-board, 60 fights). A run with no blow, fall or flight for 20 rounds is stopped and counted 0, as the fight's 6,000-step cap
-counts it. 240 real fights: 162 won, 73 lost, 5 standoffs.
-
-THE SAME BRAIN AND THE SAME FIGHT, PROVEN: the read plays the same rules and the same aiStep, and a board frozen and thawed
-plays the IDENTICAL fight on the same dice (80 of 80 fights, event for event, from round 2; the rules read no key that the
-freeze drops). So the read can be off only by its dice and by WHAT IT COUNTS.
-
-| the tin's hidden number at 24 runs (the WORTH) | fights | it said | real fights' worth | real fights WON |
-|---|---|---|---|---|
-| 0-20 | 89 | 4 | 6 | **20** |
-| 20-40 | 27 | 30 | 41 | **89** |
-| 40-60 | 34 | 51 | 44 | **91** |
-| 60-80 | 26 | 72 | 71 | **100** |
-| 80-92 (green) | 16 | 87 | 80 | 94 |
-| 92-100 (green, the glow) | 48 | 98 | 99 | 100 |
-| expected calibration error | | | **3.7 points** (8 runs: 4.0) | 22.3 points |
-
-| the WIN RATE the same 24 runs already count (ODDS.won) | fights | it said | real fights WON |
-|---|---|---|---|
-| 0-20 | 65 | 3 | 6 |
-| 20-40 | 9 | 27 | 33 |
-| 40-60 | 14 | 51 | 71 |
-| 60-80 | 14 | 72 | 71 |
-| 80-92 | 19 | 89 | 84 |
-| 92-100 | 119 | 100 | 100 |
-| expected calibration error / Brier | | | **2.9 points** / 0.060 |
-
-WHAT IT SAYS:
-1. TRUE TO WHAT IT COUNTS: the worth reads within 3.7 points of what the real fights were worth (Brier 0.070).
-2. BUT IT IS NOT THE CHANCE OF VICTORY, AND THAT IS THE DOUBT HE NAMED: the worth reads 20.2 points under the win rate on
-   average (rule 144(e)(f): a man down halves a win's worth by his share, a death zeroes it). Of the 176 fights that showed
-   a RED tin, AUTO WON 99 (56%); in the 20-40 band AUTO won 89 in 100, in the 40-60 band 91 in 100. A player who reads red
-   as 'I will lose' sees AUTO win, and stops trusting it. The win rate the same runs already count is true within 2.9
-   points: by it, 138 fights read green and AUTO won 135 of them (98%); 102 read red and AUTO won 27.
-3. THE NOISE IS SMALL WHERE IT DOES NOT MATTER: against the long read, 7.3 points (8 runs) and 4.9 (24 runs) on average,
-   the colour on the wrong side of 80 in 2 of 60 fights either way; most fights are near-sure. Near the line it is the 4a
-   table (a true 70 reads green 1 time in 9 at 24 runs).
-4. NO BIAS LEFT: real wins minus the read's win rate +2.1 +- 3.1 points (240 fights; companies of 3: +4.6 +- 6.9, of 6:
-   +0.5 +- 4.8, of 12: +1.1 +- 4.0); the worth +0.7 +- 3.4. Noise. (At 190 fights it read +4.5 +- 3.2; it washed out:
-   [the odds keep up] watches it.)
-5. THE COST: 24 runs took 7.1 s of CPU here on average: 1.8 s with up to 8 men on the board, 4.3 s with 8 to 14, 7.3 s
-   with 14 to 20, 13.9 s past 20, the worst 76.5 s. The first colour (8 runs) is a third of it: about 4.6 s on a 20-man
-   board here, against ODDS_WAIT_MS 3,000: a big fight's board comes up with a bare tin, longer on a phone. 166 of 5,760
-   runs (2.9%) were standoffs, which the fight's own read grinds to 6,000 brain steps before counting 0.
-6. RULE 180 MOVES IT: without abilities AUTO wins about 2 points less (5b); the read follows on its own (the same function).
-
-### 4c. THE CALCULATOR, PROPOSED (the one numbers table, section H, rows odds.*)
-- THE COLOUR FROM THE WIN RATE (rule 176(c), the newest): green/red at the turn (0.8) by the share of runs WON, so '80 in
-  100' means AUTO wins about 80 of 100. THE CASUALTIES STAY IN THE TIN as rule 144 asked: the beat's glow (144(b), 'a clean
-  win nearly certain') rides the WORTH, and a death in the runs leans the tint (144(f)) without turning a likely win red.
-  Both numbers are already counted in the worker (ODDS.won, ODDS.sum): no new runs. (The coordinator's to put to him if he
-  wants the colour to stay the clean-win worth; then the words on the tin must say 'clean win', never 'chance'.)
-- STOP WHEN IT IS SETTLED (Wald 1945): after 8 runs, stop as soon as the Wilson 90% interval (Wilson 1927) of the win rate
-  lies wholly above or below the turn; else go on to 48. Eleven straight wins clear 80 at 90%; a sure fight stops at 11 to 16
-  runs (less CPU than today's 24), a fight near the line reads 48 (+-11 points at 80 instead of +-16).
-- COMMON DICE: run i of every read plays the seed (the fight's seed, i), so two reads of nearly the same board differ by the
-  board, not by luck (Glasserman and Yao 1992): the tin stops wandering through a turn.
-- THE STANDOFF STOP: a run with no blow, fall or flight for 20 rounds stops and counts as not won (today it runs to 6,000
-  steps, seconds of CPU each).
-- THE CHECK STANDS: TUNING [the odds keep up] runs this bench's --odds (240 fights) each round the brain or the content
-  changes; the bar is G9 (every band of 20 fights or more within 10 points, the whole within 5).
+DRAFT, RESEARCH ONLY (rule 38g): nothing here is in the game; the prototype brains live in the bench's memory only.
