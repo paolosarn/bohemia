@@ -984,6 +984,48 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds-pc-playtest): 10/25 LATEST (round thirty-four, [the PC playtest: the sound's part], rule 164 items 19, 20, 23) -- SHIPPED
+*** THE SQUIGGLE STOPS, TWENTY MORE VOICES, HIS SONG AFTER THE FIGHT. BUILD 10/25b (0e0144c0 sources, ffe6b04f the cut,
+b0190795 the darker tape top). No card (rule 127). ***
+His PC playtest: 'they just kept running and running and overlapping each other, and even when I left the city I was still
+hearing them'; 'they're getting repetitive, not that different from each other'; the song after a battle 'so bad, so terrible'.
+MEASURED BEFORE (tools/bohemia_sounds_pc_playtest_measure.js, the demo of 10/24t): a keeper's line ran 9.38 s; seven town lines
+drew two of the six voices (all one woman, 168 to 252 Hz); the walkers muttered on their own player and context with nothing
+keeping them off anybody; the map hides the town on LEAVE without unloading it and nothing told its voices; after a fight STING
+'win', a synth figure ('glasshope', rising), plus 'paid' and 'done' on the way home.
+(1) ONE FLOOR (engine/bohemia_voice_recorded.js, on the top window): a line for him (make({lead:true}), the shell) cuts every
+voice in every frame; a background line (any other player: RUN TWO's walkers, no edit to their file) only into silence (400 ms),
+refused never queued; a line keeps 12 letters at a word (a mutter 7), the sag or rise kept, the drop and double rates doubled
+(0.40 wrong things a line); every line knows its frame (speakLine passes the message's source, tools/bohemia_squiggle_patch.py
+2d) and fades in 15 ms when that frame or any frame around it hides; a frame already hidden says nothing; an
+OfflineAudioContext never takes the floor. engine/bohemia_settlement_heard.js: HUSH after ALL, zero in 30 ms the moment its
+frame hides (a MutationObserver plus a 250 ms look; was 1 s), back when it shows; state().live.hush is where it is going.
+(2) TWENTY REAL VOICES (tools/bohemia_squiggle_more_voices.py --cut / render / --check; bank reference/library/sound_bank/
+audiomnist_mit/ with the MIT notice; AudioMNIST, the one multi-speaker set this box reaches): 14 men, 6 women, 84 to 246 Hz,
+their own voices, 859 syllables from the ten digits (60 ms of silence padded or the first consonants are lost), two takes a
+letter, a tilt and band top of their own; slices/voice_heard/squiggle_more.mp3 (230 s, 1,349 KB) under index.json 'more', loaded
+after the first sprite (the six's file and index untouched); a person is one of 26 by his id, a known man (people mix 'm' or a
+beard) one of the men, two semitones either side of the speaker. FOUND: by spectrum alone the twenty sat closer than the six
+(the six differ by the colour his 8/11 voices gave them), so each has its own tape; the six's click ruler found 1 click in 57
+lines: the browser's resampler folding a slowed fricative past 13 kHz, fixed by a darker band top (4.2 to 5.2 kHz), 0 in 114.
+(3) THE SONG AFTER THE BATTLE (tools/bohemia_sounds_the_song_after_the_battle_block.js + _patch.py, after the song fence):
+STING 'win' and 'loss' never play their figure; on the top of the next bar another of his songs (CITYMUS.pick, never the
+fight's) takes the transport; paid/done/missed/taken held while the fight or the end screen is up and 12 s after.
+MEASURED AFTER, IN THE DEMO: town 8 lines, 0 overlapping, longest 3.2 s with its breath, voices cand-7, am-46, am-27; nothing
+from the town heard after LEAVE (the map's upkeep line came 437 ms after, the map's own); the fight won, the synth win not
+played, SLOW BLEED after REPO MAN on the bar at 1.1 s, every song after in his set.
+GATES: THE PC PLAYTEST, THE SOUND (new, registered) 15/0 on the final state (bare 10/0, the demo 5/0); THE SQUIGGLE,
+CREEPIER 16/0 (re-aimed: lead player, twelve letters, the source argument, a real greeter); SETTLEMENT HEARD 21/0, THE BUSY TOWN
+TALKS 20/0, THE SETTLEMENT IS BUSY 10/0, THE FIGHT DRIVES THE MUSIC 10/0, THE ONE BEAT 12/0 (11/1 once under four lanes' load),
+SONG LOCK 31/0, DEMO BUILD 25/0, SQUIGGLE VOICE 41/0, VOICE MOOD 19/0, VOICE VARIETY 3/0, VOICE SURFACES 27/0, VOICE AUDIBLE 2/0.
+RED, NOT THIS ROW'S: ONE SONG ONLY O8 (0 machine hits in four seconds), red the same on clean main.
+THE STOPWATCH: BUILD 10/25b, title 2.2 s, the door 14.9 s on the 4x phone profile, median of 5 (14.1 to 15.3), 4.0 MB before.
+Record: records/BOHEMIA_THE_PC_PLAYTEST_THE_SOUND_SOUNDS_10_25_26.md. Pip on this box: praat-parselmouth, pocketsphinx (a fresh
+box has neither; the creepier gate's leg 2 needs parselmouth).
+NEXT: CHARACTER marking women in the people mix makes the voices follow with no change here (81 of 152 'sex' null today); the
+second sprite decodes to about 42 MB on a phone after the first's 22; more songs on his YES (rule 158). PENDING Paolo: nothing.
+UNDER UI (rule 113a): SOUNDS made the squiggle one voice at a time, short, gone the moment you leave a town, gave it twenty real people more, and made the song after a fight one of his, the demo, SHIPPED.
+
 SOUNDS (sounds-more-music): 10/24 LATEST (round thirty-three, [more music, on the one beat], rule 158) -- SHIPPED
 *** THE SONG'S BEAT IS ONE GRID THE FIGHT CAN READ, AND SIX NEW NIGHT SONGS ARE IN THE VOTE TAB. ***
 His 10/24: 'every time you press a button it's a request... everything is supposed to be on this BPM clock of the music...

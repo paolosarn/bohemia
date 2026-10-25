@@ -4,89 +4,89 @@
  "instrument": "tools/bohemia_first_load.js readOnce: a fresh browser, cold cache, no service worker, served like GitHub Pages, nobody touching the glass",
  "throttle": 4,
  "lingerMs": 20000,
- "taken": "2026-10-24T06:08:58.194Z",
+ "taken": "2026-10-25T06:54:28.159Z",
  "demo": {
-  "stamp": "DEMO - BUILD 10/24c - THE SQUIGGLE, CREEPIER",
-  "hash": "142f4b7a"
+  "stamp": "]*>([^",
+  "hash": "e5d31a90"
  },
  "median": {
-  "titleMs": 2375.6,
-  "doorMs": 15151.6,
-  "bytesBeforeDoor": 3754454,
-  "bytesAfterDoor": 19744594,
-  "filesAfterDoor": 87
+  "titleMs": 2205,
+  "doorMs": 14894.8,
+  "bytesBeforeDoor": 4212918,
+  "bytesAfterDoor": 21817182,
+  "filesAfterDoor": 91
  },
  "spread": {
   "titleMs": [
-   2311.1,
-   2447.9
+   2100.7,
+   2579.3
   ],
   "doorMs": [
-   14693.9,
-   15658.4
+   14050.3,
+   15321.1
   ]
  },
  "readings": [
   {
-   "titleMs": 2388.6,
-   "buttonsMs": 3121.9,
-   "doorMs": 15388,
-   "firstPaintMs": 2816,
-   "bytesBeforeDoor": 3754454,
-   "bytesAfterDoor": 19741382,
-   "filesAfterDoor": 87,
-   "bytesAll": 23495836,
+   "titleMs": 2205,
+   "buttonsMs": 2954.9,
+   "doorMs": 15321.1,
+   "firstPaintMs": 2696,
+   "bytesBeforeDoor": 4212918,
+   "bytesAfterDoor": 21817182,
+   "filesAfterDoor": 91,
+   "bytesAll": 26030100,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 2447.9,
-   "buttonsMs": 3231.3,
-   "doorMs": 15130.8,
-   "firstPaintMs": 2976,
-   "bytesBeforeDoor": 3754454,
-   "bytesAfterDoor": 19744594,
-   "filesAfterDoor": 88,
-   "bytesAll": 23499048,
+   "titleMs": 2311.9,
+   "buttonsMs": 3045.3,
+   "doorMs": 14894.8,
+   "firstPaintMs": 2764,
+   "bytesBeforeDoor": 4212918,
+   "bytesAfterDoor": 19821836,
+   "filesAfterDoor": 89,
+   "bytesAll": 24034754,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 2352.1,
-   "buttonsMs": 3002.1,
-   "doorMs": 15151.6,
-   "firstPaintMs": 2752,
-   "bytesBeforeDoor": 3754454,
-   "bytesAfterDoor": 20475480,
-   "filesAfterDoor": 87,
-   "bytesAll": 24229934,
+   "titleMs": 2579.3,
+   "buttonsMs": 3579.3,
+   "doorMs": 15228.8,
+   "firstPaintMs": 3080,
+   "bytesBeforeDoor": 4212918,
+   "bytesAfterDoor": 21817182,
+   "filesAfterDoor": 91,
+   "bytesAll": 26030100,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 2375.6,
-   "buttonsMs": 3192.3,
-   "doorMs": 15658.4,
-   "firstPaintMs": 2904,
-   "bytesBeforeDoor": 3744402,
-   "bytesAfterDoor": 19741382,
-   "filesAfterDoor": 87,
-   "bytesAll": 23485784,
+   "titleMs": 2100.7,
+   "buttonsMs": 2850.7,
+   "doorMs": 14050.3,
+   "firstPaintMs": 2600,
+   "bytesBeforeDoor": 4212918,
+   "bytesAfterDoor": 19825048,
+   "filesAfterDoor": 90,
+   "bytesAll": 24037966,
    "twice": 0,
    "errors": 0
   },
   {
-   "titleMs": 2311.1,
-   "buttonsMs": 2944.4,
-   "doorMs": 14693.9,
-   "firstPaintMs": 2660,
-   "bytesBeforeDoor": 3754454,
-   "bytesAfterDoor": 19744594,
-   "filesAfterDoor": 88,
-   "bytesAll": 23499048,
+   "titleMs": 2156.9,
+   "buttonsMs": 2773.6,
+   "doorMs": 14539.8,
+   "firstPaintMs": 2572,
+   "bytesBeforeDoor": 4222970,
+   "bytesAfterDoor": 21817182,
+   "filesAfterDoor": 91,
+   "bytesAll": 26040152,
    "twice": 0,
    "errors": 0
   }
  ],
- "line": "THE DEMO (DEMO - BUILD 10/24c - THE SQUIGGLE, CREEPIER, demo 142f4b7a): title 2.4 s, the door (NEW GAME ready) 15.2 s on the 4x phone profile, median of 5 (14.7 to 15.7); 3.6 MB before the door, 18.8 MB in 87 files in the 20 s after it."
+ "line": "THE DEMO (]*>([^, demo e5d31a90): title 2.2 s, the door (NEW GAME ready) 14.9 s on the 4x phone profile, median of 5 (14.1 to 15.3); 4.0 MB before the door, 20.8 MB in 91 files in the 20 s after it."
 }
