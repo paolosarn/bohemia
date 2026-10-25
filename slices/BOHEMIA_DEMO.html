@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"6cfcd25eadd9d376",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"2f7e2da3de414d3b",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1568,7 +1568,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/25l - THE WHEEL STOPS, THE CREW IS CLEAR</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/25m - ONLY BEGIN BEGINS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13674,7 +13674,8 @@ var BOH_START = (function(){
     COMBAT.forEach(function(c){ h += '<button data-k="combat" data-v="'+c.id+'"'+(c.id===pick.combat?' class="on"':'')+'>'+c.name+'<small>'+c.sub+'</small></button>'; });
     h += '</div><h4>THE SHELVES</h4><div class="row">';
     ECON.forEach(function(c){ h += '<button data-k="econ" data-v="'+c.id+'"'+(c.id===pick.econ?' class="on"':'')+'>'+c.name+'<small>'+c.sub+'</small></button>'; });
-    h += '</div><h4>WHO YOU WERE &middot; SWIPE</h4><div class="strip" id="newcostrip">';
+    var __fine = false; try{ __fine = window.matchMedia && matchMedia('(pointer: fine)').matches; }catch(_e){}   /* RUN 10/25: a mouse is told to scroll, a finger to swipe */
+    h += '</div><h4>WHO YOU WERE &middot; '+(__fine ? 'SCROLL' : 'SWIPE')+'</h4><div class="strip" id="newcostrip">';
     ORIGINS.forEach(function(o){ h += '<button class="org'+(o.id===pick.origin?' on':'')+'" data-k="origin" data-v="'+o.id+'"><em class="d'+o.d+'">'+D[o.d]+'</em><span>'+card(o)+'</span></button>'; });
     /* RUN 10/25 __A_FRESH_START_AND_A_FOG_OF_WAR__ (rule 155(c)): the map starts dark past where you stand; this shows the towns through it (off unless picked) */
     h += '</div><h4>THE MAP</h4><div class="row"><button data-k="reveal" data-v="0"'+(!+pick.reveal?' class="on"':'')+'>THE DARK<small>you find the towns</small></button><button data-k="reveal" data-v="1"'+(+pick.reveal?' class="on"':'')+'>SHOW THE TOWNS<small>the towns through the dark</small></button>';   /* draft:true */
@@ -13713,17 +13714,24 @@ var BOH_START = (function(){
     }).catch(function(){}); }catch(_e){}
   }
   function showPicked(){ try{ var st = document.getElementById('newcostrip'), on = st && st.querySelector('.org.on'); if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 10); }catch(_e){} }
-  function boot(){ build(); showPicked(); load(); var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
+  function boot(){ build(); showPicked(); load(); var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap);
+    /* RUN 10/25 (EYES new 11): on a computer the wheel moves the origins' row, so every origin is in a mouse's reach */
+    el.addEventListener('wheel', function(e){ var st = document.getElementById('newcostrip'); if(!st || !(e.target.closest && e.target.closest('#newcostrip'))) return; var d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX; if(!d) return; st.scrollLeft += d; e.preventDefault(); }, { passive: false }); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
   return { picks:picks, COMBAT:COMBAT, ECON:ECON, ORIGINS:ORIGINS, NAMES:NAMES, state:pick, data:function(){ return ODATA; } };
 })();
 window.BOH_START = BOH_START;
-document.getElementById('front').addEventListener('click',()=>{
+document.getElementById('front').addEventListener('click',(ev)=>{
   /* *** NOTHING IS TAPPABLE UNTIL IT IS LOADED (rule 18a). *** Before this, the
      first tap started a hundred and thirteen seconds of work and took the screen
      away to do it. Now a tap before BEGIN is simply not a door, and the screen
      says what it is doing instead of pretending to be ready. */
   if(!window.__LOAD_READY) return;
+  /* __ONLY_BEGIN_BEGINS__ (RUN 10/25, EYES round 2 new 11, rule 150): MEASURED on the computer, a mouse drag on the origins' row
+     (100 px was enough) or a click on the floor under the picks started the game with whatever was picked. While the new
+     company's picks are on the door, only BEGIN begins; a drag, a stray click or the row's label does nothing */
+  try{ var __nc = document.getElementById('newco'), __bt = document.getElementById('fronttap');
+    if(ev && ev.isTrusted && __nc && __nc.offsetHeight > 0 && __nc.getClientRects().length && __bt && !(ev.target && (ev.target === __bt || __bt.contains(ev.target)))){   /* a finger or a mouse; a checker's scripted click is not a stray hand */ window.__DOOR_REFUSED = (window.__DOOR_REFUSED | 0) + 1; return; } }catch(_e){}
   /* __THE_BEAT_BEFORE_THE_SONG__ -- FIRST LINE, ON PURPOSE. The pulse is a
      looping buffer on the AUDIO thread, so it is the one thing that can be heard
      immediately. The document-level capture listener has already made the
