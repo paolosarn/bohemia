@@ -1,0 +1,42 @@
+{
+ "cut": "PERSON runner_5",
+ "tag": "person_runner_5",
+ "bank": {
+  "kind": "person",
+  "gang": "Runners"
+ },
+ "worn_by": "Runners, rolled",
+ "model": "records/character/rig/barber_person_runner_5.glb",
+ "body": "records/character/rig/person_runner_5.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  224,
+  189,
+  155
+ ],
+ "model_top_m": 1.5572,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7525,
+ "pieces": {
+  "barber_temple_taper_fade": 31101,
+  "barber_temple_taper": 163690,
+  "face_olive_dust_mask_mask": 7538,
+  "face_olive_dust_mask_strap_top": 296,
+  "face_olive_dust_mask_strap_low": 296,
+  "f1_person_runner_5_seam": 202,
+  "f1_person_runner_5_stitches": 140,
+  "person_runner_5_hood": 277962,
+  "person_runner_5_hood_fall": 6144
+ }
+}
