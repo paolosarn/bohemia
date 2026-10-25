@@ -5013,7 +5013,8 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const fl = hitFlash(v, now); if (fl > 0) tintOver(b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
   if (sh) UI.clipSeen['shield:' + sh] = (UI.clipSeen['shield:' + sh] || 0) + 1;
-  if (prop) UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;
+  if (prop && !e.held) UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;   /* only a thing drawn: a man whose model carries his own (the thug's pipe) counts as held */
+  else if (prop) UI.clipSeen['held:' + prop] = (UI.clipSeen['held:' + prop] || 0) + 1;
   return true;
 }
 /* ==== end __WHAT_A_MAN_HOLDS__ ==== */
