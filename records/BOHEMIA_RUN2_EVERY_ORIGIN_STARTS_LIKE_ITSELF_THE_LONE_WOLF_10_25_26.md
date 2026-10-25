@@ -56,3 +56,24 @@ rolls its own; W7 the same god on the computer, picked by a mouse; W8 the other 
 
 [bb the Lone Wolf: one hedge knight, level 4, great equipment, low funds; the stars are his memory and the ruling]
 [analog horror: the same man in the same rags at the door of every game was the tell; a new face every time is the fix]
+
+## ROUND 2: THE OTHER FOURTEEN (10/25, TUNING's [every origin's numbers] NOTE, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json)
+TUNING measured that every other origin walked in as the line's pistol, car door and rifle in 90 armour, a stated level only a label,
+the same men every game. Its fifteen starts, in origins.json's own shape, are now lifted into the file:
+- **men[] at their real levels** (the bank's: A NEW CREW and UP FROM HENDERSON at level 2; THE WATER TRUCK gets its guard, a militia
+  bought out of the goods, so three men), and a door block for each origin: each man's levels TAKEN at the door (four picks a level
+  on his stars, the front's plan or the back's by his arm: a rifle or a hand cannon is the back), exactly three talents at 60/30/10
+  rolled per game, his own kit in the origin's things (the bank's gear: the oath keepers' mace, riot shield, mail and helm; the
+  raiders' axe, sledge and hand cannon; the hunters' boar spear and rifles), new every game.
+- **food_days** (a week of the bill in the wagon, the water truck 19) and **the fight pit's wage** (6 a man a night) are in the file;
+  the wagon and the wage are built in the next round (__THE_WAGON__).
+- No perks are taken for them: each leveled man walks in with his points to spend on the crew screen (the Lone Wolf alone has his
+  three at the door, TUNING's).
+- Measured by TUNING, careful player, first thirty days: the fight pit 67 -> 96, the raiders 76 -> 96, the hunters 64 -> 90, the
+  promise keepers 50 -> 89, the deserters 54 -> 86, the easy three 64 -> 84, the water truck 41 -> 66, the block watch 83 -> 91,
+  the scavengers 61 -> 69; the lab rats, the faithful and the debt collectors stay (their promise is rules not yet built).
+GATE: EVERY ORIGIN STARTS LIKE ITSELF 13/0: W8 the fourteen over twenty games each (the bank's men and levels, three talents, the
+origin's kit, a stated level lifts a man past his background's top, a new crew every game); W10 THE FIGHT PIT in a new game: three
+pit fighters at level 3 on the crew screen with three stars, their kit and two perk points each, and the fight fields them as rolled.
+Also green: THE ORIGIN SETS THE COMPANY 7/0, THE ORIGINS ARE DATA 6/0, GUNS FROM THE FIRST FIGHT 13/0, THE FIGHT SAYS WHAT IS WEAK
+11/0, THE LOSS IS UNDERSTOOD 15/0, THE FRONT DOOR 7/0.

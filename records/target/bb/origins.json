@@ -29,15 +29,15 @@
    "men": [
     {
      "background": "companion_2hand",
-     "level": null
+     "level": 1
     },
     {
      "background": "companion_1hand",
-     "level": null
+     "level": 1
     },
     {
      "background": "companion_ranged",
-     "level": null
+     "level": 1
     }
    ],
    "crowns": {
@@ -56,7 +56,63 @@
    "rules": [
     "Starts off with a basic tutorial"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Rebuilding a Company"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Rebuilding a Company",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "leather_lamellar_armor",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "heater_shield",
+       "body": "leather_lamellar_armor",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (rebuild)"
+   }
   },
   {
    "id": "newcrew",
@@ -69,15 +125,15 @@
    "men": [
     {
      "background": "companion_2hand",
-     "level": null
+     "level": 2
     },
     {
      "background": "companion_1hand",
-     "level": null
+     "level": 2
     },
     {
      "background": "companion_ranged",
-     "level": null
+     "level": 2
     }
    ],
    "crowns": {
@@ -96,7 +152,63 @@
    "rules": [
     "Impatient: A quick start into the world, without any particular advantages or disadvantages."
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/A New Company"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/A New Company",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "leather_lamellar_armor",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "heater_shield",
+       "body": "leather_lamellar_armor",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (newcrew)"
+   }
   },
   {
    "id": "south",
@@ -109,15 +221,15 @@
    "men": [
     {
      "background": "companion_2hand",
-     "level": null
+     "level": 2
     },
     {
      "background": "companion_1hand",
-     "level": null
+     "level": 2
     },
     {
      "background": "companion_ranged",
-     "level": null
+     "level": 2
     }
    ],
    "crowns": {
@@ -136,7 +248,63 @@
    "rules": [
     "You will spawn in the southern part of the map"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Southern Mercenaries"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Southern Mercenaries",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "leather_lamellar_armor",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "heater_shield",
+       "body": "leather_lamellar_armor",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (south)"
+   }
   },
   {
    "id": "truck",
@@ -149,11 +317,15 @@
    "men": [
     {
      "background": "caravan_hand",
-     "level": null
+     "level": 1
     },
     {
      "background": "caravan_hand",
-     "level": null
+     "level": 1
+    },
+    {
+     "background": "militia",
+     "level": 1
     }
    ],
    "crowns": {
@@ -173,7 +345,65 @@
     "Trader: Get 10% better prices",
     "Not a Warrior: Start with no renown, and gain renown at only 66% the normal rate"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Trading Caravan"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Trading Caravan",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "padded_surcoat",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "heater_shield",
+       "body": "leather_lamellar_armor",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 19,
+    "wagon_goods_batteries": 134,
+    "guard": "the third man, a militia at level 1 (a pistol, the heater car door, a leather vest), bought at the door for 37 out of the goods (TUNING s3 truck.door_guard: 43 -> 66 in 100 of the first thirty days)",
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (truck)"
+   }
   },
   {
    "id": "watch",
@@ -186,51 +416,51 @@
    "men": [
     {
      "background": "farmhand",
-     "level": null
+     "level": 1
     },
     {
      "background": "farmhand",
-     "level": null
+     "level": 1
     },
     {
      "background": "poacher",
-     "level": null
+     "level": 1
     },
     {
      "background": "daytaler",
-     "level": null
+     "level": 1
     },
     {
      "background": "daytaler",
-     "level": null
+     "level": 1
     },
     {
      "background": "miller",
-     "level": null
+     "level": 1
     },
     {
      "background": "fisherman",
-     "level": null
+     "level": 1
     },
     {
      "background": "militia",
-     "level": null
+     "level": 1
     },
     {
      "background": "militia",
-     "level": null
+     "level": 1
     },
     {
      "background": "minstrel",
-     "level": null
+     "level": 1
     },
     {
      "background": "vagabond",
-     "level": null
+     "level": 1
     },
     {
      "background": "butcher",
-     "level": null
+     "level": 1
     }
    ],
    "crowns": {
@@ -251,7 +481,207 @@
     "Can only hire Lowborn men"
    ],
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1533_Peasant Militia.txt:6,58",
-   "notes": "the eleventh and twelfth men are one of Vagabond/Thief/Gambler and one of Butcher/Tailor/Shepherd; the first of each is taken"
+   "notes": "the eleventh and twelfth men are one of Vagabond/Thief/Gambler and one of Butcher/Tailor/Shepherd; the first of each is taken",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "two_handed_mallet",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "militia_spear",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "padded_surcoat",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "butcher_s_cleaver",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (watch)"
+   }
   },
   {
    "id": "scav",
@@ -264,15 +694,15 @@
    "men": [
     {
      "background": "hunter",
-     "level": null
+     "level": 1
     },
     {
      "background": "poacher",
-     "level": null
+     "level": 1
     },
     {
      "background": "poacher",
-     "level": null
+     "level": 1
     }
    ],
    "crowns": {
@@ -291,7 +721,63 @@
    "rules": [
     "Can always see the enemy composition in wild locations"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Band of Poachers"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Band of Poachers",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "crossbow",
+       "off": null,
+       "body": "padded_surcoat",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "padded_surcoat",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "padded_surcoat",
+       "head": "hood",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (scav)"
+   }
   },
   {
    "id": "promise",
@@ -328,7 +814,47 @@
     "One is always Old, level 3 and equipped with Young Anselm's Skull and a Battle Standard",
     "Forced to undertake oaths"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Oathtakers"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Oathtakers",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "winged_mace",
+       "off": "kite_shield",
+       "body": "mail_hauberk",
+       "head": "nasal_helmet_with_mail",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "rondel_dagger",
+       "off": "heater_shield",
+       "body": "mail_hauberk",
+       "head": "nasal_helmet",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (promise)"
+   }
   },
   {
    "id": "desert",
@@ -349,7 +875,7 @@
     },
     {
      "background": "deserter",
-     "level": null
+     "level": 1
     }
    ],
    "crowns": {
@@ -369,7 +895,65 @@
     "first to act in the very first round of combat",
     "three Mail Hauberks, two Heater Shields, Aketon Caps, one Light Crossbow, one Shortsword and one Hatchet"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Deserters:56"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Deserters:56",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "heater_shield",
+       "body": "mail_hauberk",
+       "head": "aketon_cap",
+       "bag": [
+        "hatchet"
+       ]
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "shortsword",
+       "off": "heater_shield",
+       "body": "mail_hauberk",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "mail_hauberk",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (desert)"
+   }
   },
   {
    "id": "raid",
@@ -394,7 +978,7 @@
     },
     {
      "background": "monk",
-     "level": null
+     "level": 1
     }
    ],
    "crowns": {
@@ -413,7 +997,79 @@
    "rules": [
     "higher chance to get items from slain enemies as loot"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Northern Raiders"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Northern Raiders",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "crude_axe",
+       "off": "heater_shield",
+       "body": "mail_hauberk",
+       "head": "nasal_helmet",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "two_handed_mallet",
+       "off": null,
+       "body": "mail_hauberk",
+       "head": "nasal_helmet",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "handgonne",
+       "off": null,
+       "body": "mail_hauberk",
+       "head": "nasal_helmet",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (raid)"
+   }
   },
   {
    "id": "lab",
@@ -453,7 +1109,63 @@
    "rules": [
     "Not Fighters: Your men will never be of confident morale"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Anatomists:32"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Anatomists:32",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "padded_surcoat",
+       "head": "hood",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (lab)"
+   }
   },
   {
    "id": "faith",
@@ -466,19 +1178,19 @@
    "men": [
     {
      "background": "cultist",
-     "level": null
+     "level": 1
     },
     {
      "background": "cultist",
-     "level": null
+     "level": 1
     },
     {
      "background": "cultist",
-     "level": null
+     "level": 1
     },
     {
      "background": "cultist",
-     "level": null
+     "level": 1
     }
    ],
    "crowns": {
@@ -497,7 +1209,79 @@
    "rules": [
     "Needs to do human sacrifices"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Davkul Cultists"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Davkul Cultists",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (faith)"
+   }
   },
   {
    "id": "debt",
@@ -510,27 +1294,27 @@
    "men": [
     {
      "background": "manhunter",
-     "level": null
+     "level": 1
     },
     {
      "background": "manhunter",
-     "level": null
+     "level": 1
     },
     {
      "background": "indebted",
-     "level": null
+     "level": 1
     },
     {
      "background": "southern_indebted",
-     "level": null
+     "level": 1
     },
     {
      "background": "southern_indebted",
-     "level": null
+     "level": 1
     },
     {
      "background": "southern_indebted",
-     "level": null
+     "level": 1
     }
    ],
    "crowns": {
@@ -549,7 +1333,111 @@
    "rules": [
     "Having equal or fewer indebted than non-indebted will make your men dissatisfied"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Manhunters:33,62"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Manhunters:33,62",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "dagger",
+       "off": "wooden_shield",
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "padded_surcoat",
+       "head": "aketon_cap",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "bludgeon",
+       "off": "wooden_shield",
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "two_handed_mallet",
+       "off": null,
+       "body": "thick_tunic",
+       "head": "hood",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (debt)"
+   }
   },
   {
    "id": "hunt",
@@ -589,7 +1477,63 @@
    "rules": [
     "50% chance to get additional beast trophies"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Beast Slayers"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Beast Slayers",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "boar_spear",
+       "off": "heater_shield",
+       "body": "leather_lamellar_armor",
+       "head": "closed_mail_coif",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "crossbow",
+       "off": null,
+       "body": "leather_lamellar_armor",
+       "head": "closed_mail_coif",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "light_crossbow",
+       "off": null,
+       "body": "leather_lamellar_armor",
+       "head": "closed_mail_coif",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (hunt)"
+   }
   },
   {
    "id": "pit",
@@ -630,7 +1574,65 @@
     "You lose the game when all 3 Gladiators die",
     "Has only 12 instead of 20 slots in the roster"
    ],
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0848_Gladiators.txt:57"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0848_Gladiators.txt:57",
+   "door": {
+    "about": "RUN TWO 10/25 (rule 184(b), TUNING's every origin's numbers, banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted; records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md s2 and s3): rolled ONCE A GAME by engine/bohemia_origin_start.js. Each man's stated level is a REAL level (his level-ups taken at the door, four picks a level on his stars and his plan: the front's melee skill, melee defence, breath, ranged defence; the back's ranged skill, breath, hitpoints, ranged defence), exactly three talents at 60/30/10 rolled per game, his own kit in the origin's things (COOK's), never his place in the line's pistol, car door and rifle in 90 armour.",
+    "men": [
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "falchion",
+       "off": "kite_shield",
+       "body": "mail_hauberk",
+       "head": "nasal_helmet",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "melee_skill",
+       "melee_defense",
+       "fatigue",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "crude_axe",
+       "off": "heater_shield",
+       "body": "mail_hauberk",
+       "head": "nasal_helmet",
+       "bag": []
+      }
+     },
+     {
+      "levels_taken": true,
+      "plan": [
+       "ranged_skill",
+       "fatigue",
+       "hp",
+       "ranged_defense"
+      ],
+      "kit": {
+       "main": "handgonne",
+       "off": null,
+       "body": "mail_hauberk",
+       "head": "nasal_helmet",
+       "bag": []
+      }
+     }
+    ],
+    "rolled_per_game": true,
+    "food_days": 7,
+    "wage_per_man_per_night": 6,
+    "wage_about": "a gladiator's 50 crowns base, x1.1 a level past 1, at ten to one: 6 batteries a man a night on top of the bill (TUNING s3 pit.wage_per_man)",
+    "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (pit)"
+   }
   },
   {
    "id": "wolf",
@@ -716,6 +1718,7 @@
      }
     ],
     "rolled_per_game": true,
+    "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json gods.god3; reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852 (great equipment, melee defence -2)"
    }
   }

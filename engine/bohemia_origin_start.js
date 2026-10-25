@@ -19,8 +19,9 @@
                stat_gains_by_stars) and his plan's per_level.attributes_raised stats rise, as a level-up does
      kit       each slot one piece rolled from the door's list (the hedge knight's own kit in our things); the bag
      perks     the door's order, as many as his levels' points buy, each tier open (perks.json tiers)
-   Numbers are TUNING's (god3, measured 98 in 100 of his first fifty days won against 52 today); the mechanism is
-   ours. An origin with no door block is untouched: its men come as they did.
+   Numbers are TUNING's (god3, measured 98 in 100 of his first fifty days won against 52 today; and 10/25 the other fourteen,
+   banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json lifted: every stated level real, three talents rolled, each origin's
+   own kit); the mechanism is ours. An origin with no door block (a modder's) is untouched: its men come as they did.
    ========================================================================== */
 (function (root) {
   'use strict';
@@ -81,8 +82,9 @@
     while (gear.bag.length < 2) gear.bag.push(null);
     var points = (Math.min(lv, 11) - 1) * (per.perk_points || 1), perks = [];
     (spec.perks || []).forEach(function (id) { if (perks.length < points && perks.length >= ((D.tiers && D.tiers[id]) || 1) - 1) perks.push(id); });
-    var man = { background: def.background, level: lv, xp: xpFor(lv), stats: st, stars: stars, gear: gear, perks: perks,
+    var man = { background: def.background, level: lv, xp: xpFor(lv), stats: st, stars: stars, gear: gear,
       rolled: true, plan: plan };
+    if (spec.perks) man.perks = perks;   /* a door that names no perks leaves his points to him (the crew screen), and the fight picks by his arm until he does */
     if (spec.line) man.line = spec.line;   /* his own line on the crew screen (draft:true, WORDS may rewrite it) */
     return man;
   }

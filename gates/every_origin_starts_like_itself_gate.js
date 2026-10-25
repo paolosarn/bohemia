@@ -23,7 +23,8 @@
      W6 A NEW GAME IS A NEW MAN: NEW GAME forgets the roll (the start screen's list names it), and the next ask
         rolls another man; a fresh phone rolls its own
      W7 on the computer, picked by a mouse: the same god on the crew screen
-     W8 the other fourteen origins hand their men as before (no door block, no roll)
+     W8 the other fourteen start like themselves (TUNING's bank lifted: real levels, three talents, their own kit, new each game)
+     W10 THE FIGHT PIT on the crew screen and in the fight, a new game
      W9 nothing threw
    node gates/every_origin_starts_like_itself_gate.js
    ========================================================================== */
@@ -101,11 +102,11 @@ async function crewScreen(d, mouse) {
         const keys = new Set(all.map(m => JSON.stringify([m.stats, m.gear])));
         const kits = new Set(all.map(m => m.gear.main + '/' + m.gear.body + '/' + m.gear.head));
         return { out, distinct: keys.size, kits: kits.size }; }, STATS);
-      /* W8: the other fourteen hand their plain men */
-      pre.others = await page.evaluate(() => { const keep = Object.assign({}, BOH_START.state), out = [];
-        BOH_START.ORIGINS.forEach(o => { if (o.id === 'wolf') return; BOH_START.state.origin = o.id; const p = BOH_START.picks();
-          out.push({ id: o.id, rolled: (p.company || []).some(m => m.rolled || m.stats), keys: (p.company || []).map(m => Object.keys(m).sort().join(',')).join('|') }); });
-        Object.assign(BOH_START.state, keep); return out; });
+      /* W8: every one of the fifteen rolls its own men (the engine, pure, twenty seeds each: the door's stored roll is not touched) */
+      pre.others = await page.evaluate((FILE) => { const out = [];
+        FILE.origins.forEach(o => { if (o.id === 'wolf') return; const rolls = []; for (let s = 1; s <= 20; s++) rolls.push(BohemiaOriginStart.roll(o.id, s));
+          out.push({ id: o.id, men: o.men.length, rolls: rolls.map(r => r.map(m => ({ bg: m.background, level: m.level, rolled: !!m.rolled, stars: m.stars, stats: m.stats, gear: m.gear, perks: m.perks }))) }); });
+        return out; }, FILE);
     } });
   } catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   try {
@@ -158,8 +159,42 @@ async function crewScreen(d, mouse) {
     pre.man1 = JSON.stringify(pre.picks.company);
     ok('W6a NEW GAME forgets the roll (the start screen\'s forget list names it in the demo) and the next ask rolls another man', listed && next.had && next.gone && next.man !== pre.man1 && /"rolled":true/.test(next.man));
     ok('W9a nothing threw on the phone', d.errs.length === 0, d.errs.slice(0, 2).join(' | '));
-    ok('W8 the other fourteen origins hand their plain men (no door block, no roll)', pre.others.length === 14 && pre.others.every(o => !o.rolled && o.keys.split('|').every(k => k === 'background,level')),
-      pre.others.filter(o => o.rolled).map(o => o.id).join(' ') || '14 plain');
+    /* W8: the fourteen, lifted from TUNING's bank (banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json) and rolled */
+    const BGR = {}; J('records/target/bb/backgrounds.json').rows.forEach(r => { BGR[r.id] = r; });
+    const PROP = {}; J('banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json').origins.forEach(o => { PROP[o.id] = o; });
+    const w8 = pre.others.map(o => { const f = FILE.origins.find(x => x.id === o.id), want = PROP[o.id].men, bad = [];
+      if (f.men.length !== want.length || f.men.some((m, i) => m.background !== want[i].background || m.level !== want[i].level)) bad.push('men not the bank\'s');
+      o.rolls.forEach((r, s) => r.forEach((m, i) => { const W0 = want[i], R = BGR[m.bg], g = W0.gear;
+        if (!m.rolled || m.level !== W0.level) bad.push('level ' + i);
+        const st = Object.keys(m.stars || {}); if (st.length !== 3 || st.some(k => !(m.stars[k] >= 1 && m.stars[k] <= 3))) bad.push('stars ' + i);
+        if (m.gear.main !== g.main || (m.gear.off || null) !== (g.off || null) || m.gear.body !== g.body || m.gear.head !== g.head) bad.push('kit ' + i);
+        if (m.perks) bad.push('perks taken ' + i);
+        STATS.forEach(k => { if (m.stats[k] < R.stats[k][0]) bad.push('under range ' + i + ' ' + k); if (W0.level === 1 && m.stats[k] > R.stats[k][R.stats[k].length - 1]) bad.push('over range ' + i + ' ' + k); }); }));
+      /* a stated level is real: over twenty games a level-2+ man's levels lift him past his background's top somewhere */
+      want.forEach((W0, i) => { if (W0.level > 1 && !o.rolls.some(r => STATS.some(k => r[i].stats[k] > BGR[W0.background].stats[k][BGR[W0.background].stats[k].length - 1]))) bad.push('level ' + W0.level + ' gave nothing ' + i); });
+      const distinct = new Set(o.rolls.map(r => JSON.stringify(r.map(m => [m.stats, m.stars])))).size;
+      if (distinct < 20) bad.push('only ' + distinct + ' different crews in 20 games');
+      return { id: o.id, bad: [...new Set(bad)] }; });
+    const w8bad = w8.filter(o => o.bad.length);
+    ok('*** W8 THE OTHER FOURTEEN START LIKE THEMSELVES *** (TUNING\'s bank lifted: each origin\'s men at their stated levels, made real; three talents each; the origin\'s own kit; a new crew every game; 20 games each)',
+      pre.others.length === 14 && w8bad.length === 0, w8bad.length ? w8bad.map(o => o.id + ': ' + o.bad.slice(0, 3).join(', ')).join('; ') : '14 of 14');
+    /* W10: THE FIGHT PIT, a new game: three level-3 pit fighters on the crew screen, three stars each, their own kit; the fight fields them */
+    await d.page.evaluate(() => { ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.origin.roll.v1'].forEach(k => { try { localStorage.removeItem(k); } catch (e) {} }); BOH_START.state.origin = 'pit'; });
+    const pit = await d.page.evaluate(() => BOH_START.picks().company);
+    const cs2 = await crewScreen(d, false);
+    const pitScreen = cs2.rf ? await cs2.rf.evaluate(() => BohemiaRosterScreen.state.crew.map(m => ({ name: m.name, level: m.level, stars: Object.keys(m.stars || {}).length, stats: m.stats, main: m.gear.main && m.gear.main.id, off: m.gear.off && m.gear.off.id, body: m.gear.body && m.gear.body.id, head: m.gear.head && m.gear.head.id, points: m.points }))) : [];
+    if (process.env.BOHEMIA_SHOT_DIR) await d.page.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'pit_crew_phone.png') });
+    if (cs2.rf) await cs2.rf.evaluate(() => { const b = document.getElementById('done'); if (b) b.click(); }).catch(() => {});
+    await d.page.waitForTimeout(800);
+    ok('W10 THE FIGHT PIT, a new game, on the crew screen: three pit fighters at level 3, their rolled numbers, three stars each, their own kit, two perk points each to spend',
+      pit.length === 3 && pitScreen.length === 3 && pitScreen.every((m, i) => m.level === 3 && m.stars === 3 && JSON.stringify(m.stats) === JSON.stringify(pit[i].stats) && m.main === pit[i].gear.main && (m.off || null) === (pit[i].gear.off || null) && m.body === pit[i].gear.body && m.head === pit[i].gear.head && m.points === 2),
+      JSON.stringify(pitScreen.map(m => [m.name, m.level, m.stars, m.main, m.body, m.points])));
+    await d.fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: (Date.now() + 7) % 1000 }); });
+    let f2 = null; for (let i = 0; i < 150 && !f2; i++) { const h = await d.page.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) f2 = c; } if (!f2) await d.page.waitForTimeout(200); }
+    const pu = f2 ? await f2.evaluate(() => FIGHT.S.units.filter(x => x.side === 'you').map(x => ({ kind: x.kind, level: x.level, mskill: x.mskill, weapon: x.weapon && (x.weapon.id || x.weapon.name), body: x.bodyRow && x.bodyRow.id }))) : [];
+    ok('W10b the fight fields the pit as rolled (level 3, their melee skill, their weapons and armour)', pu.length === 3 && pu.every((u, i) => u.kind === 'gladiator' && u.level === 3 && u.mskill === pit[i].stats.melee_skill && u.body === pit[i].gear.body),
+      JSON.stringify(pu));
+    if (f2) { await f2.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }).catch(() => {}); }
   } catch (e) { ok('the phone legs ran without throwing [' + String(e.message).slice(0, 200) + ']', false); }
   await d.close();
 
