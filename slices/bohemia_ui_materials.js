@@ -750,23 +750,35 @@
     return f;
   }
   var TOPBAR_CSS = ''
-    + 'html body #menubar.bmtb>:not(#bmtb){display:none!important}'
-    + 'html body #menubar.bmtb{display:block!important;height:auto!important;min-height:0!important;padding:0!important;'
+    + 'html body #menubar.bmtb>:not(#bmtb),html body .bmhost>:not(#bmtb){display:none!important}'
+    + 'html body #menubar.bmtb,html body .bmhost{display:block!important;height:auto!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important;'
     +   'background:var(--bm-cardedge-up) bottom left/252px 10px repeat-x,#2a2016 var(--bm-cardboard-dk) 0 0/256px 100%!important;box-shadow:0 1px 0 #000!important}'
+    /* ONE HUD (rule 190): the fight's top is the bar, the whole width at the top of the glass on every screen class */
+    + 'html body #top.bmhost{position:fixed!important;left:0!important;right:0!important;top:0!important;width:auto!important;transform:none!important;z-index:6!important;border-radius:0!important}'
+    /* the town is laid under the map's bar; the phone stands over it where it stands on the map; the company screen and
+       the notes are the whole glass, the same as from the map */
+    + 'html.bm-town body #settleFrame{top:var(--bm-hud-h,0px)!important;height:calc(100% - var(--bm-hud-h,0px))!important}'
+    + 'html.bm-town body #cityfeed{z-index:61!important}'
+    + 'html.bm-town body #notewrap{z-index:70!important}'
+    + 'html.bm-town.bm-town-crew body #settleFrame{top:0!important;height:100%!important;z-index:90!important}'
     + '#bmtb{display:flex;flex-direction:column;gap:5px;box-sizing:border-box;padding:max(6px,env(safe-area-inset-top)) 8px 13px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
+    /* ONE HUD: what the map's page gives the bar by inheritance (its line, its chips' tracking) the bar says itself, so the
+       same bar built in the fight's page is the same to the pixel */
+    + '#bmtb{line-height:1.4;-webkit-text-size-adjust:100%;text-size-adjust:100%}'
+    + 'html body .bmhost:not(#menubar) #bmtb #noteplate{letter-spacing:var(--skin-chiptrack,.4px)!important}'
     + '#bmtb .r{display:flex;align-items:center;gap:6px;min-width:0}'
     + '#bmtb .sp{flex:1 1 auto}'
     /* printed things are receipt tags in ink; pressed things are the same tag, 44 points */
-    + '#bmtb .t,html body #menubar #bmtb #notebtn{display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;min-height:44px;padding:0 9px;color:#1f1710;'
+    + '#bmtb .t,html body #menubar #bmtb #notebtn,html body #bmtb #notebtn{display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;min-height:44px;padding:0 9px;color:#1f1710;'
     +   'background:#e2dac6 var(--bm-receipt) center/100% 100%;border:0;border-radius:0;box-shadow:0 1px 0 #000;font-size:12px;letter-spacing:.8px;line-height:1;white-space:nowrap;margin:0;flex:0 0 auto}'
     + '#bmtb .t img{display:block;image-rendering:pixelated}'
     + '#bmtb .t.day b{font-weight:normal;font-size:15px;letter-spacing:1px}'
     + '#bmtb .t.crew b{font-weight:normal;font-size:14px} #bmtb .t.crew em{font-style:normal;font-size:10px}'
     + '#bmtb .t.crew{cursor:pointer;-webkit-tap-highlight-color:transparent;padding-left:6px} #bmtb .t.crew img.me{image-rendering:auto;box-shadow:0 0 0 1px #1f1710,1px 1px 0 1px rgba(10,6,3,.5);background:#2a2016}'
     + '#bmtb .t.gear{width:44px;padding:0;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}'
-    + 'html body #menubar #bmtb #notebtn{cursor:pointer;min-width:44px;justify-content:center;font-size:12px}'
-    + 'html body #menubar #bmtb #noteplate{display:inline;padding:0!important;font-family:inherit;font-size:12px;letter-spacing:.8px;color:#1f1710!important;background:none!important;filter:none!important;box-shadow:none!important}'
-    + 'html body #menubar #bmtb #notebtn.on{background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
+    + 'html body #menubar #bmtb #notebtn,html body #bmtb #notebtn{cursor:pointer;min-width:44px;justify-content:center;font-size:12px;-webkit-tap-highlight-color:transparent}'
+    + 'html body #menubar #bmtb #noteplate,html body #bmtb #noteplate{display:inline;padding:0!important;font-family:inherit;font-size:12px;letter-spacing:.8px;color:#1f1710!important;background:none!important;filter:none!important;box-shadow:none!important}'
+    + 'html body #menubar #bmtb #notebtn.on,html body #bmtb #notebtn.on{background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
     + '#bmtb .ticks{display:inline-flex;gap:2px;align-items:flex-end;height:14px}'
     + '#bmtb .ticks i{display:block;position:relative;width:4px;height:14px;background:#b9ad92;box-shadow:inset 0 -1px 0 #6e6250}'
     + '#bmtb .ticks i b{position:absolute;left:0;bottom:0;display:block;width:4px;background:#2f6b2a}'
@@ -799,7 +811,7 @@
     /* on its side, and on any screen 700 wide (a tablet, a computer): one row, the reads between the day and the crew */
     + '@media (orientation:landscape) and (max-height:500px),(min-width:700px){#bmtb{flex-direction:row;align-items:center;gap:6px;padding:max(4px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) 12px max(8px,env(safe-area-inset-left))}'
     +   '#bmtb .r{display:contents} #bmtb .r1 .day{order:1} #bmtb .g{order:2;min-height:44px} #bmtb .r1 .crew{order:3} #bmtb .r1 .sp{display:none} #bmtb .r1 .x{order:4}'
-    +   '#bmtb .r1 .gear{order:5} html body #menubar #bmtb #notebtn{order:6}}'
+    +   '#bmtb .r1 .gear{order:5} html body #menubar #bmtb #notebtn,html body #bmtb #notebtn{order:6}}'
     /* the shell's own floating gear steps aside while the bar's gear is on the glass (set from the city frame) */
     + '';
   var TB_SHELL_CSS = 'html.bm-gear-in-bar #gearbtn{display:none!important}';
@@ -824,10 +836,13 @@
     });
     return out;
   }
-  function tbPaint() {
-    var root = document.getElementById('bmtb'); if (!root) return;
-    var f = tbFacts();
-    var day = '<img alt="" width="36" height="22" style="width:36px;height:22px" src="' + tbDial(f.min) + '"><b>' + ((typeof KEYS !== 'undefined' && KEYS.savedAt && performance.now() - KEYS.savedAt < 1500) ? 'SAVED' : 'DAY ' + (f.day == null ? '–' : f.day)) + '</b>';   /* F5 (__BATTLE_BROTHERS_KEYS__) says it once where the day is */
+  /* ONE HUD (rule 190): the bar's three parts, made once, from the MAP's facts, as the HTML every screen lays in its own bar.
+     over: what a screen over the map knows better than the map (the town's own name and the purse it is spending) */
+  function hudParts(over) {
+    var f = tbFacts(); over = over || {};
+    if (over.place) f.place = hudEsc(over.place);
+    if (typeof over.batteries === 'number' && isFinite(over.batteries)) f.batteries = Math.max(0, Math.floor(over.batteries));
+    var day ='<img alt="" width="36" height="22" style="width:36px;height:22px" src="' + tbDial(f.min) + '"><b>' + ((typeof KEYS !== 'undefined' && KEYS.savedAt && performance.now() - KEYS.savedAt < 1500) ? 'SAVED' : 'DAY ' + (f.day == null ? '–' : f.day)) + '</b>';   /* F5 (__BATTLE_BROTHERS_KEYS__) says it once where the day is */
     /* UI [portrait menu] (rule 44b, Paolo 9/29: 'the portrait button that used to be the action button could be the character
        menu'): the crew tag wears HIS face (PORTRAIT's 'you', the crew screen's own) and is the door to his company */
     var me = null; try { me = window.BohemiaCrewFaces && BohemiaCrewFaces.has('you') ? BohemiaCrewFaces.src('you', 'rest', 64) : null; } catch (_e) {}
@@ -868,8 +883,16 @@
         + (per ? '<i class="hold">' + last + (last === 1 ? ' NIGHT' : ' NIGHTS') + '</i>' : '') + '</span>';   /* RUN TWO __THE_WAGON__: the wagon is eaten at nightfall, so its hold counts NIGHTS like the batteries' (his NO to the bar saying DAYS twice, THE DAYS ONCE) */
     });
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
-    var parts = { day: day, crew: crew, g: g };
+    return { day: day, crew: crew, g: g };
+  }
+  function hudEsc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function hudLay(root, parts) {
     Object.keys(parts).forEach(function (k) { var e = root.querySelector('[data-tb=' + k + ']'); if (e && e.__was !== parts[k]) { e.innerHTML = parts[k]; e.__was = parts[k]; } });
+  }
+  function tbPaint() {
+    var root = document.getElementById('bmtb'); if (!root || (HUD.screen && HUD.screen !== 'map')) return;   /* the fight paints its copy from the map's parts */
+    hudTown();
+    hudLay(root, hudParts(hudTownOver()));
     /* the shell's floating gear steps aside for good once the bar carries its own (UI [eyes: the gear on top], rule 150,
        EYES 10/24 item 14: it used to come back whenever a screen covered the bar, and floated over the crew screen's FRONT,
        its HITPOINTS and the town's picture). A screen over the map has its own way out (DONE, LEAVE, the fight's own bar);
@@ -887,26 +910,52 @@
     if (window.BohemiaCrewDoor) return go();
     try { var sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_door.js'; sc.onload = go; document.head.appendChild(sc); } catch (e) {}
   }
-  function topBar() {
-    var bar = document.getElementById('menubar'); if (!bar || !document.getElementById('barread')) return false;
-    if (document.getElementById('bmtb')) return true;
-    dressMapBar();
+  /* ======================================================================================================
+     ONE HUD ON THE MAP, IN THE TOWN AND IN THE FIGHT  (UI [one HUD everywhere], 10/25/26; rule 190, enforcing rule 24)
+     PAOLO 10/25: 'why does the UI at the top of the screen on the city map have to be different than the settlement UI...
+     why do things have to change locations... why can't the crew on the map be the same as the crew in the settlement...
+     why is there not something cohesive?'
+     MEASURED FIRST, on the demo (390 x 844 and 1440 x 900): the map wore this bar (DAY, the crew with his face, the gear,
+     NOTES, the batteries on glass, where you are; 108 points upright, 60 on a computer); the town wore its own (its name,
+     '290 BATTERIES' in words, a CREW plate and LEAVE, 61 points, another font, another order); the fight wore nothing
+     across the top. Three screens, three tops: rule 24's 'same buttons every second' had no gate, so it drifted.
+     NOW ONE BAR, BUILT BY ONE FUNCTION (hudBuild) FROM ONE SET OF FACTS (the map's, hudParts):
+     - THE MAP: the bar in the map's own top (#menubar), as it was.
+     - THE TOWN: the town opens over the map, so the town is laid UNDER the map's own bar and phone (the same elements,
+       not copies): its frame starts where the bar ends, the phone stands where it stands on the map, the bar's place is
+       the town's name and its batteries the purse the town is spending; the town's own top row goes, CREW is the bar's
+       crew tag (it presses the town's own CREW, so the town hears what changed), LEAVE is the town's own and keeps the
+       bottom-right corner the map's speed pad keeps.
+     - THE FIGHT: the fight is its own frame over the map, so the same function builds the same bar in the fight's own
+       top (#top, emptied by fightNoTop), painted every half second from the MAP's parts; the fight measures its board
+       under it by itself (hudEdges reads #top). The gear is the shell's, CREW opens the same company screen, NOTES
+       writes into the same notes. THE PHONE STAYS OFF THE FIGHT'S BOARD: his own vote (9/23, THE PHONE IS IN THE CITY
+       VIEW ONLY), and on the phone it would stand on the enemies' corner; it is never anywhere else.
+     A screen ADDS its own things below or beside (the fight's turn row and skills at the bottom, the town's LEAVE in the
+     corner); it never moves or redraws the bar. gates/one_hud_everywhere_gate.js measures it on all three, both profiles.
+     ====================================================================================================== */
+  var HUD = { screen: null, notes: false };
+  function hudVars() {
+    rootVars();
     var R = document.documentElement.style;
+    if (!R.getPropertyValue('--bm-cardedge-up')) { var e = cardedge(), f = document.createElement('canvas'); f.width = e.width; f.height = e.height; var fg = f.getContext('2d');
+      fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0); R.setProperty('--bm-cardedge-up', 'url(' + f.toDataURL('image/png') + ')'); }
     if (!R.getPropertyValue('--bm-cardboard-dk')) { R.setProperty('--bm-cardboard-dk', 'url(' + tbDark(cardboard(), 0.5).toDataURL('image/png') + ')');
       R.setProperty('--bm-glass-dk', 'url(' + tbDark(glass(), 0.45).toDataURL('image/png') + ')'); }
-    TB.man = tbDots(TB_MAN, 2, { a: '#3a2e20', b: '#1f1710' }); TB.gear = tbDots(TB_GEAR, 2, { a: '#3a2e20', b: '#1f1710' });
-    style('bm-topbar', TOPBAR_CSS);
+    if (!TB.man) { TB.man = tbDots(TB_MAN, 2, { a: '#3a2e20', b: '#1f1710' }); TB.gear = tbDots(TB_GEAR, 2, { a: '#3a2e20', b: '#1f1710' }); }
+    style('bm-faces', FACES); style('bm-topbar', TOPBAR_CSS);
+  }
+  /* the bar itself: two rows upright (the presses over what you have and where), one row on its side and from 700 wide */
+  function hudBuild(host, notesEl) {
     var root = document.createElement('div'); root.id = 'bmtb';
     var r1 = document.createElement('div'); r1.className = 'r r1';
     r1.innerHTML = '<span class="t day" data-tb="day" data-f="day"></span><span class="t crew" data-tb="crew" data-f="crew"></span><span class="sp"></span>'
       + '<span class="t gear" role="button" tabindex="0" aria-label="settings" data-f="gear"><img alt="" width="20" height="20" style="width:20px;height:20px" src="' + TB.gear + '"></span>';
-    /* what the right end already carried and still shows (NOTES on the demo; the workshop's chips too), moved, never cloned */
-    var right = document.getElementById('barright');
-    if (right) [].slice.call(right.children).forEach(function (n) { if (n.offsetWidth > 0) { if (n.id !== 'notebtn') n.classList.add('x'); r1.appendChild(n); } });
+    if (notesEl) r1.appendChild(notesEl);
     var r2 = document.createElement('div'); r2.className = 'r r2';
     r2.innerHTML = '<div class="g" data-tb="g"></div>';
     root.appendChild(r1); root.appendChild(r2);
-    bar.classList.add('bmtb'); bar.appendChild(root);
+    host.classList.add('bmhost'); host.appendChild(root);
     /* the days on hold (rule 151(a)): a finger held on the batteries' pane shows the nights, let go and they go; a mouse
        shows them while it hovers (no focus hook: a phone focuses after the finger lifts, and the nights would stick) */
     var gp = r2.querySelector('.g'), hold = function (on) { if (gp.classList.contains('held') !== on) { gp.classList.toggle('held', on); TB.held = on; } };
@@ -917,17 +966,166 @@
     gp.addEventListener('pointerleave', function () { hold(false); });
     gp.addEventListener('contextmenu', function (e) { e.preventDefault(); });
     var ct = r1.querySelector('.crew'); ct.setAttribute('role', 'button'); ct.setAttribute('tabindex', '0'); ct.setAttribute('aria-label', 'your company');
-    ct.addEventListener('click', function (e) { e.stopPropagation(); crewDoor(); });
+    ct.addEventListener('click', function (e) { e.stopPropagation(); if (!hudTownCrew()) crewDoor(); });
+    /* the gear is the shell's own settings, from any frame */
     r1.querySelector('.gear').addEventListener('click', function (e) { e.stopPropagation();
-      try { var sg = window.parent.document.getElementById('gearbtn'); if (sg) sg.click(); } catch (_e) {} });
+      try { var sg = window.top.document.getElementById('gearbtn'); if (sg) sg.click(); } catch (_e) {} });
+    return root;
+  }
+  function topBar() {
+    var bar = document.getElementById('menubar'); if (!bar || !document.getElementById('barread')) return false;
+    if (document.getElementById('bmtb')) return true;
+    dressMapBar(); hudVars();
+    /* what the right end already carried and still shows (NOTES on the demo; the workshop's chips too), moved, never cloned */
+    var right = document.getElementById('barright'), keep = [];
+    if (right) [].slice.call(right.children).forEach(function (n) { if (n.offsetWidth > 0) { if (n.id !== 'notebtn') n.classList.add('x'); keep.push(n); } });
+    var root = hudBuild(bar, null), r1 = root.querySelector('.r1');
+    keep.forEach(function (n) { r1.appendChild(n); });
+    bar.classList.add('bmtb');
+    HUD.screen = 'map';
     tbPaint(); TB.built = true;
     try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
     setInterval(function () { try { tbPaint(); } catch (_e) {} }, 500);
+    window.addEventListener('resize', function () { try { hudTown(); } catch (_e) {} });
     return true;
   }
+  /* THE TOWN, from the map's side: the town's frame is laid under the bar, the phone over it where it stands on the map */
+  function hudTown() {
+    var sf = document.getElementById('settleFrame'), R = document.documentElement;
+    if (sf && !sf.__bmWatch) { sf.__bmWatch = true;
+      try { new MutationObserver(function () { try { tbPaint(); } catch (_e) {} }).observe(sf, { attributes: true, attributeFilter: ['style'] }); } catch (_e) {} }
+    var on = !!sf && sf.style.display !== 'none';
+    if (R.classList.contains('bm-town') !== on) R.classList.toggle('bm-town', on);
+    var host = document.getElementById('menubar');
+    if (host) { var h = Math.round(host.getBoundingClientRect().bottom) + 'px'; if (R.style.getPropertyValue('--bm-hud-h') !== h) R.style.setProperty('--bm-hud-h', h); }
+  }
+  function hudTownWin() {
+    if (!document.documentElement.classList.contains('bm-town')) return null;
+    try { var sf = document.getElementById('settleFrame'); return sf && sf.contentWindow && sf.contentWindow.document ? sf.contentWindow : null; } catch (_e) { return null; }
+  }
+  function hudTownOver() {
+    var w = hudTownWin(); if (!w) return null;
+    try { var n = w.document.getElementById('pname'); return { place: n ? String(n.textContent || '').trim().toUpperCase() : null, batteries: typeof w.bats === 'function' ? w.bats() : undefined }; } catch (_e) { return null; }
+  }
+  /* in the town the bar's crew is the town's own CREW, pressed, so the town re-reads its bag when the company closes */
+  function hudTownCrew() {
+    var w = hudTownWin(); if (!w) return false;
+    try { var b = w.document.getElementById('crew'); if (!b) return false; b.click(); window.__CREW_DOOR = (window.__CREW_DOOR | 0) + 1; return true; } catch (_e) { return false; }
+  }
+  /* THE TOWN, from the town's side: its own top row goes when the map's bar is over it; LEAVE keeps the big action's corner */
+  var TOWN_CSS = ''
+    + 'html.bm-in-hud body #bar{display:none!important}'
+    + '#bmcorner{position:fixed;right:10px;bottom:max(12px,env(safe-area-inset-bottom));z-index:40;padding:8px 6px 6px;border-radius:2px;'
+    +   'background:linear-gradient(rgba(12,8,4,.4),rgba(12,8,4,.4)),#3a2c1e var(--bm-cardboard) 0 0/256px 100%;filter:drop-shadow(0 1px 0 #000)}'
+    + '#bmcorner::before{content:"";position:absolute;top:-6px;left:50%;width:56px;height:14px;margin-left:-28px;background:var(--bm-tape) center/100% 100%;transform:rotate(-2deg)}'
+    + 'html body #bmcorner #leave{display:block;min-width:96px;min-height:46px;margin:0;padding:0 12px;font-size:13px}';
+  function hudInTown() {
+    if (!document.getElementById('sbody') || !document.getElementById('leave') || !document.getElementById('bar')) return false;
+    var P = null; try { P = window.parent !== window ? window.parent.document : null; } catch (_e) { P = null; }
+    if (!P || !P.getElementById('bmtb')) return false;   /* on its own (or a map without the one bar) the town keeps its own top */
+    if (document.getElementById('bmcorner')) return true;
+    rootVars(); style('bm-town-hud', TOWN_CSS);
+    document.documentElement.classList.add('bm-in-hud');
+    var c = document.createElement('div'); c.id = 'bmcorner'; c.appendChild(document.getElementById('leave')); document.body.appendChild(c);
+    /* LEAVE rides above the building's sheet while it is open, never under it and never over its words */
+    var sh = document.getElementById('sheet'), lift = function () {
+      var b = 12; try { if (sh && sh.classList.contains('on')) { var t = sh.getBoundingClientRect().top; if (t < innerHeight - 1) b = Math.max(12, Math.round(innerHeight - t + 10)); } } catch (_e) {}
+      var v = b + 'px'; if (c.style.bottom !== v) c.style.bottom = v; };
+    setInterval(lift, 100); lift();
+    /* the company screen is the whole glass, the same as from the map: while it is open the town's frame takes the glass */
+    var crewOn = function () { try { P.documentElement.classList.toggle('bm-town-crew', !!document.getElementById('crewdoor')); } catch (_e) {} };
+    try { new MutationObserver(crewOn).observe(document.body, { childList: true }); } catch (_e) {}
+    crewOn();
+    HUD.screen = 'town';
+    try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    return true;
+  }
+  /* THE FIGHT: the same bar, built in the fight's own top, painted from the map's parts */
+  function hudMapWin() {
+    try { var w = window.parent; if (w && w !== window) { var cf = w.document.getElementById('cityFrame'); if (cf && cf.contentWindow && cf.contentWindow.BohemiaMaterials && cf.contentWindow.BohemiaMaterials.hudParts) return cf.contentWindow; } } catch (_e) {}
+    return null;
+  }
+  function hudFight() {
+    var top = document.getElementById('top');
+    if (!top || !document.getElementById('bmturnrow')) return false;
+    if (document.getElementById('bmtb')) return true;
+    hudVars();
+    var nb = document.createElement('span'); nb.id = 'notebtn'; nb.setAttribute('role', 'button'); nb.setAttribute('tabindex', '0'); nb.setAttribute('aria-label', 'notes');
+    nb.innerHTML = '<span id="noteplate">NOTES</span>';
+    nb.addEventListener('click', function (e) { e.stopPropagation(); if (HUD.open) hudNoteClose(true); else hudNoteOpen(); });
+    var root = hudBuild(top, nb);
+    HUD.screen = 'fight';
+    var paint = function () {
+      var M = hudMapWin(), parts = null;
+      try { parts = M ? M.BohemiaMaterials.hudParts() : hudParts(); } catch (_e) { try { parts = hudParts(); } catch (_e2) {} }
+      if (parts) hudLay(root, parts);
+      try { var mp = M && M.document.getElementById('noteplate'), t = mp ? mp.textContent : 'NOTES', pl = document.getElementById('noteplate'); if (pl && !HUD.open && pl.textContent !== t) pl.textContent = t; } catch (_e) {}
+    };
+    paint(); setInterval(paint, 500);
+    try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    return true;
+  }
+  /* NOTES in the fight: the map's own box (its look copied from the map's page, its words into the same notes) */
+  function hudNoteBuild() {
+    var M = hudMapWin(); if (document.getElementById('notewrap')) return true;
+    try { var cs = M && M.document.getElementById('notecss'); if (cs && !document.getElementById('notecss')) { var st = document.createElement('style'); st.id = 'notecss'; st.textContent = cs.textContent; document.head.appendChild(st); } } catch (_e) {}
+    var w = document.createElement('div'); w.id = 'notewrap'; w.setAttribute('aria-hidden', 'true');
+    w.innerHTML = '<div id="notecard"><h2>NOTES</h2><div id="notewhere"></div><textarea id="notetext" placeholder="what you are thinking"></textarea>'
+      + '<div id="noterow"><div class="nb go" id="notesave">SAVE AND KEEP PLAYING</div><div class="nb" id="noteback">CLOSE</div><div class="nb" id="notecopy">COPY ALL</div><div class="nb" id="noteout">EXPORT</div></div>'
+      + '<div id="notelist"></div></div>';
+    document.body.appendChild(w);
+    w.addEventListener('click', function (e) { if (e.target === w) e.stopPropagation(); });
+    document.getElementById('notesave').addEventListener('click', function () { hudNoteClose(true); });
+    document.getElementById('noteback').addEventListener('click', function () { hudNoteClose(false); });
+    document.getElementById('notecopy').addEventListener('click', function () { hudNoteKeep(); var t = hudNoteText(), c = document.getElementById('notecopy'), said = function (ok) { c.textContent = ok ? 'COPIED' : 'COULD NOT COPY - USE EXPORT'; setTimeout(function () { c.textContent = 'COPY ALL'; }, 2200); };
+      var old = function () { try { var ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;left:-9999px;top:0'; document.body.appendChild(ta); ta.select(); var ok = document.execCommand('copy'); ta.remove(); return !!ok; } catch (_e) { return false; } };
+      try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(function () { said(true); }, function () { said(old()); }); return; } } catch (_e) {}
+      said(old()); });
+    document.getElementById('noteout').addEventListener('click', function () { hudNoteKeep(); var t = hudNoteText();
+      try { var b = new Blob([t], { type: 'text/plain' }), u = URL.createObjectURL(b), a = document.createElement('a'); a.href = u; a.download = 'BOHEMIA_NOTES_' + new Date().toISOString().slice(0, 10) + '.txt';
+        document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(u); a.remove(); }, 800); } catch (_e) {} });
+    HUD.notes = true;
+    return true;
+  }
+  var NOTE_KEY = 'bohemia.notes.v1';
+  function hudNoteRead() { try { return JSON.parse(localStorage.getItem(NOTE_KEY) || '[]') || []; } catch (_e) { return []; } }
+  function hudNoteLine(c) { c = c || {}; return [c.build, (c.mode || '') + (c.district ? ' / ' + c.district : ''), (c.day != null ? 'DAY ' + c.day + (c.clock ? ' ' + c.clock : '') : ''), (c.secs != null ? c.secs + 'S IN' : '')].filter(Boolean).join('  ·  '); }
+  function hudNoteText() { var M = hudMapWin(); try { if (M && M.BohemiaNotes) return M.BohemiaNotes.text(); } catch (_e) {}
+    return hudNoteRead().map(function (n, i) { return (i + 1) + '. ' + n.text + '\n     ' + hudNoteLine(n.ctx); }).join('\n\n'); }
+  function hudNoteDraw() { var l = document.getElementById('notelist'); if (!l) return; l.textContent = ''; var ns = hudNoteRead();
+    for (var i = ns.length - 1; i >= 0; i--) { var d = document.createElement('div'); d.className = 'nn'; var b = document.createElement('b'); b.textContent = hudNoteLine(ns[i].ctx) + '  '; d.appendChild(b); d.appendChild(document.createTextNode(ns[i].text)); l.appendChild(d); }
+    var pl = document.getElementById('noteplate'); if (pl) pl.textContent = ns.length ? 'NOTES ' + ns.length : 'NOTES'; }
+  function hudNoteKeep() {
+    var ta = document.getElementById('notetext'), t = ta ? String(ta.value || '').trim() : ''; if (!t) return;
+    var M = hudMapWin(), ctx = {}; try { ctx = M && M.BohemiaNotes ? M.BohemiaNotes.where() : {}; } catch (_e) {}
+    ctx.mode = HUD.screen || 'fight';
+    var ns = hudNoteRead(); ns.push({ text: t, ctx: ctx, at: new Date().toISOString() });
+    try { localStorage.setItem(NOTE_KEY, JSON.stringify(ns)); } catch (_e) {}
+    ta.value = ''; hudNoteDraw();
+  }
+  function hudNoteOpen() {
+    hudNoteBuild(); var w = document.getElementById('notewrap'); if (!w) return;
+    var M = hudMapWin(), c = {}; try { c = M && M.BohemiaNotes ? M.BohemiaNotes.where() : {}; } catch (_e) {} c.mode = HUD.screen || 'fight';
+    document.getElementById('notewhere').textContent = hudNoteLine(c); document.getElementById('notetext').value = '';
+    hudNoteDraw(); w.classList.add('on'); w.setAttribute('aria-hidden', 'false');
+    var b = document.getElementById('notebtn'); if (b) b.classList.add('on');
+    HUD.open = true; try { document.getElementById('notetext').focus({ preventScroll: true }); } catch (_e) {}
+  }
+  function hudNoteClose(save) {
+    if (!HUD.open) return; if (save) hudNoteKeep();
+    var w = document.getElementById('notewrap'); if (w) { w.classList.remove('on'); w.setAttribute('aria-hidden', 'true'); }
+    var b = document.getElementById('notebtn'); if (b) b.classList.remove('on');
+    HUD.open = false; hudNoteDraw();
+  }
+  /* a note is typed, not played: while the box is open its keys reach the box and nothing under it (Escape closes it) */
+  window.addEventListener('keydown', function (e) {
+    if (!HUD.notes || !HUD.open) return;
+    if (e.key === 'Escape') { hudNoteClose(false); e.stopImmediatePropagation(); e.preventDefault(); return; }
+    var w = document.getElementById('notewrap'); if (w && e.target && w.contains(e.target)) e.stopImmediatePropagation();
+  }, true);
   /* the fight: the strip across the top goes, its three things ride the bottom bar's top edge */
   var FIGHT_NOTOP_CSS = ''
-    + 'html body #top{display:none!important}'
+    + 'html body #top:not(.bmhost){display:none!important}'
     + '#bmturnrow{display:flex;align-items:center;gap:6px;height:44px;margin:-4px 0 8px;flex:0 0 auto}'
     + 'html body #bmturnrow #round{transform:none;box-shadow:0 1px 0 #000;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:normal;letter-spacing:.8px;font-size:12px;padding:0 9px;height:44px;line-height:44px;box-sizing:border-box;background:#e2dac6 var(--bm-receipt) center/100% 100%}'
     + 'html body #bmturnrow #order{flex:1 1 auto;height:44px;padding:0 4px;background:transparent}'
@@ -1732,7 +1930,9 @@
     /* the bar and the pad are built after load by the city's own modules: try again until they exist */
     if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); }
     /* the top bar, the days once, on the map; the strip off the top in the fight (both pages build their bars after load) */
-    if (!topBar() && !fightNoTop()) { var n = 0, it = setInterval(function () { if (topBar() || fightNoTop() || ++n > 120) clearInterval(it); }, 500); } }
+    /* ONE HUD (rule 190): the map's bar, the same bar in the fight's top, the town laid under the map's */
+    var hudAny = function () { return topBar() || (fightNoTop() && hudFight()) || hudInTown(); };
+    if (!hudAny()) { var n = 0, it = setInterval(function () { if (hudAny() || ++n > 120) clearInterval(it); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   /* ======================================================================================================
@@ -1794,9 +1994,9 @@
     ['tray', 1, ['#order'], ''],
     ['receipt', 1, ['#say', '#drawer', '#over .box'], ''],
     /* THE MAP: the bar is board, its tags tin, what you carry in a tray, the speed pad olive with the one you run at in amber */
-    ['board_plain', 1, ['#menubar.bmtb', '#speedpad', '#bmtimespanel'], ''],
-    ['tin', 0.75, ['#bmtb .t', '#menubar #bmtb #notebtn', '#bmtimes'], KIT_SHADOW],
-    ['tin_amber', 0.75, ['#menubar #bmtb #notebtn.on'], KIT_SHADOW],
+    ['board_plain', 1, ['#menubar.bmtb', '.bmhost', '#speedpad', '#bmtimespanel', '#bmcorner'], ''],
+    ['tin', 0.75, ['#bmtb .t', '#menubar #bmtb #notebtn', '#bmtb #notebtn', '#bmtimes'], KIT_SHADOW],
+    ['tin_amber', 0.75, ['#menubar #bmtb #notebtn.on', '#bmtb #notebtn.on'], KIT_SHADOW],
     ['tray', 0.85, ['#bmtb .g'], ''],
     ['receipt', 0.5, ['#bmtb .s b.low'], ''],
     ['tin_dark', 0.6, ['#speedpad .sp'], KIT_SHADOW + KIT_LIGHT],
@@ -1844,7 +2044,7 @@
     ['tin', 0.5, ['#setcard .setslide input::-moz-range-thumb'], '']
   ];
   /* the press: the slab goes down into its shadow (the individual translate composes with any rotate the rule set) */
-  var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#bmtb .t.crew', '#menubar #bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
+  var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#bmtb .t.crew', '#menubar #bmtb #notebtn', '#bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
     'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn'];
   function kitCSS() {
     var pre = 'html[data-kit] body ', out = [];
@@ -2576,6 +2776,6 @@
 
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
+    itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, hudParts: hudParts, hudScreen: function () { return HUD.screen; }, hudNoteOpen: hudNoteOpen, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };
 })();
