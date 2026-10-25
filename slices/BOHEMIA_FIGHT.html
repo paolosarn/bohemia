@@ -1001,6 +1001,15 @@ const FIGHT = (function () {
     const w = AW.by_kind[g.ghost_kind] || AW.default, base = opts.party && opts.party.count ? opts.party.count : bandFor(men).length;
     return partyFor({ faction: g.faction, count: Math.max(1, Math.round(base * g.crowd * w[act - 1] / w[0])), days: S.days, difficulty: S.difficulty, act: act });
   }
+  /* COVER IS WHAT IS ON THE TILE (rule 170(a), Paolo 10/25, playing a fight: 'if you're in the middle of the street you have no
+     cover unless that street tile has crazy car wreckage'): a man is in cover where a piece he hides behind stands on his tile
+     (COMBAT TWO's kinds COVER and LOW_COVER: a wall, a dead car, a shed, a fence, a barrier, rubble, a boulder, a row of graves);
+     a piece he stands ON (the outcrop, a MOUND; the dock, HEIGHT) is high ground, never cover. One test (hides()) for the
+     tile's defence, the shot's 'he stands in cover', the shove's pick, the first fight's lesson and the kneel he is drawn in;
+     measured before: 312 of 1,040 kneeling frames over six AUTO fights were a man on bare raised ground with nothing on it,
+     65 a man standing on the outcrop */
+  const HIDE_KINDS = ['COVER', 'LOW_COVER'];
+  function hides(x, y) { return inBoard(x, y) && S.coverCount[y][x] > 0; }
   function applyBoard(B) {
     const G = DB.ground;
     S.terrain = B.terrain; S.boardDef = B;
@@ -1012,7 +1021,7 @@ const FIGHT = (function () {
       if (!inBoard(tx, ty)) return;
       const def = pieceDef(c.piece) || {};
       S.cover[ty][tx] = c.piece;
-      S.coverCount[ty][tx]++;
+      if (HIDE_KINDS.indexOf(def.kind) >= 0) S.coverCount[ty][tx]++;   /* rule 170(a): only what a man hides behind is cover */
       if (def.blocks_move) S.solid[ty][tx] = true;
     });
     /* the pools: a tile is lit when the middle of it sits inside a live light's pool (radius_m round the lamp's foot) */
@@ -1471,7 +1480,7 @@ const FIGHT = (function () {
   function inWater(u) { return rowAt(u.x, u.y) === 'swamp'; }
   function shotLine(a, t) {
     /* the wiki's 'blocked target': something stands in the line next to him, or he stands in cover */
-    if (R('ours.cover_tile_blocks_line') && S.cover[t.y][t.x] && dist(a, t) > 1) return true;
+    if (R('ours.cover_tile_blocks_line') && hides(t.x, t.y) && dist(a, t) > 1) return true;
     const pts = line(a, t); if (pts.length < 1 + 1 + 1) return false;
     const n = pts[pts.length - 1 - 1];
     if (sightBlock(n.x, n.y) || S.cover[n.y][n.x]) return true;
@@ -1482,8 +1491,11 @@ const FIGHT = (function () {
   function inRange(a, t, w) {
     w = w || a.weapon;
     const d = dist(a, t);
+    /* MELEE IS ONE TILE (rule 170(b), Paolo 10/25: 'enemies using pipes, melee weapons, but they're able to attack for more than
+       one tile'; rule 83): a blow reaches the next tile only. Measured: the reach was the biggest digit in the weapon's range
+       text, which carries the wiki's skill numbering ('1 (1) Slash 1-2 (2) Split 1 (3) Swing' read 3, an axe's '1/6' read 6) */
     if (!isRanged(w)) {
-      return d <= rangeMax(w.range) && Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap');
+      return d <= R('ours.melee_reach') && Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap');
     }
     const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
     const floor = isGun(w) ? R('ours.gun_min_range') : 1;   /* rule 83: a gun never fires at a man beside the shooter */
@@ -2020,8 +2032,8 @@ const FIGHT = (function () {
     const near = foes(u).filter(function (f) { return canShove(u, f); });
     if (!near.length) return null;
     const shooter = foes(u).some(function (f) { return isRanged(f.weapon) && dist(u, f) > 1 && f.morale !== 'Fleeing'; });
-    return near.sort(function (p, q) { return (S.cover[q.y][q.x] ? 1 : 0) - (S.cover[p.y][p.x] ? 1 : 0) || (isRanged(p.weapon) ? 1 : 0) - (isRanged(q.weapon) ? 1 : 0); })
-      .filter(function (f) { return S.cover[f.y][f.x] || shooter || !isRanged(f.weapon); })[0] || null;
+    return near.sort(function (p, q) { return (hides(q.x, q.y) ? 1 : 0) - (hides(p.x, p.y) ? 1 : 0) || (isRanged(p.weapon) ? 1 : 0) - (isRanged(q.weapon) ? 1 : 0); })
+      .filter(function (f) { return hides(f.x, f.y) || shooter || !isRanged(f.weapon); })[0] || null;
   }
   /* a magazine reloads only when it is empty (rule 117(b): one clear next thing) */
   function canReload(a) {
@@ -2466,7 +2478,7 @@ const FIGHT = (function () {
 
   return {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
-    canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
+    canStrike: canStrike, hides: hides, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
@@ -4562,11 +4574,12 @@ function holdImg(file, dir) {
     createImageBitmap(i).then(function (b) { b.src = i.src; e.b = b; }, function () { e.b = i; }); }); }
   return e.b;
 }
-/* in cover: his tile carries cover, or it is a roof; never while he walks */
+/* in cover: his tile carries cover by the rules' own test, or he is in a building (a roof); never on a bare rise of ground or a
+   rock he stands on (rule 170(a), COMBAT 10/25), never while he walks */
 function holdCovered(v) {
   if (walkOf(v) || (UI.drag && UI.drag.u === v)) return false;
-  const S = FIGHT.S, x = Math.round(v.x), y = Math.round(v.y);
-  return !!(S.coverCount && S.coverCount[y] && S.coverCount[y][x] > 0) || FIGHT.rowAt(x, y) === 'height';
+  const x = Math.round(v.x), y = Math.round(v.y);
+  return FIGHT.hides(x, y) || FIGHT.isRoof(x, y);
 }
 /* standing still in a held clip: slots of two bars, a breath on the even slots and one of his idles on the odd, his own seed */
 function holdIdle(v, clip, now, TL, slots) {
@@ -5497,7 +5510,7 @@ function weaponCard(v) {
   if (w.armor_damage_pct !== null) h += r('Against armour', w.armor_damage_pct + '%');
   if (w.armor_ignore_pct) h += r('Straight through armour', w.armor_ignore_pct + '%');
   const gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? Math.max(FIGHT._t.rangeMin(w), R('ours.gun_min_range')) : 1;
-  h += r('Reach', gun ? lo + ' to ' + w.range_max + ' tiles' : (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile')) + r('Hands', w.hands === 2 ? 'two' : w.hands === 0 ? 'none, it bites' : 'one');
+  h += r('Reach', gun ? lo + ' to ' + w.range_max + ' tiles' : !FIGHT.isRanged(w) ? R('ours.melee_reach') + ' tile' : (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile'))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', w.hands === 2 ? 'two' : w.hands === 0 ? 'none, it bites' : 'one');
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
   if (w.mag) h += r('Rounds', w.mag + ', then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
   else if (rl) h += r(esc(rl.name), rl.ap + ' AP');
@@ -5893,7 +5906,7 @@ function tapAt(px, py) {
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
     UI.pend = { target: who, pv: FIGHT.preview(u, who) }; aimSay(u, who);
     /* the first fight teaches (COMBAT [the first fight teaches]): the first aim; the first man in cover */
-    if (!teach('aim') && (FIGHT.hitChance(u, who).parts.indexOf('cover') >= 0 || S.cover[who.y][who.x])) teach('cover');
+    if (!teach('aim') && (FIGHT.hitChance(u, who).parts.indexOf('cover') >= 0 || FIGHT.hides(who.x, who.y))) teach('cover');
     hud(); return;
   }
   if (who) { UI.pend = null; return; }
@@ -5902,7 +5915,7 @@ function tapAt(px, py) {
   if (!path) { UI.pend = null; say('Too far for the AP left.'); return; }
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; walkKept(u, p.x, p.y); take(); return; }
   walkPreview(u, p, f, path);
-  if (S.cover[p.y][p.x]) teach('cover');
+  if (FIGHT.hides(p.x, p.y)) teach('cover');
   hud();
 }
 /* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */

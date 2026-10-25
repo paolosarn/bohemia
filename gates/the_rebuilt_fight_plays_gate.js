@@ -761,7 +761,10 @@ async function enemyParts() {
     mk.map(x => (x.moved ? 'step ' + x.near0 + '->' + x.near1 : '') + (x.att ? ' shot ' + x.att + ' (softness ' + x.soft.filter(q => q.id === x.att)[0].s + ' of ' + Math.max(...x.soft.map(q => q.s)) + ')' : '')).join(', '));
   const rd = of(await run(['brigand_thug', 'brigand_thug', 'brigand_raider'], true), 'brigand_raider');
   const led0 = rd.filter(x => x.moved && !x.att && x.front !== null && x.me < x.front);
-  leg(rd.length && led0.length === 0 && rd.some(x => x.att && x.reach === 2), '*** THE RAIDER WITH A PIKE WAITS, THEN STRIKES FROM TWO TILES *** (the wiki: \'they wait to not get ahead of their melee allies\')',
+  /* RE-AIMED 10/25 (COMBAT [melee is one tile], rule 170(b), Paolo 10/25: 'enemies using pipes, melee weapons, but they're able to
+     attack for more than one tile'): the wiki's pike reached two; his ruling is the next tile only, so the raider still waits behind
+     his own line and strikes from the next tile */
+  leg(rd.length && led0.length === 0 && rd.some(x => x.att) && rd.every(x => !x.att || x.reach === 1), '*** THE RAIDER WITH A PIKE WAITS, THEN STRIKES FROM THE NEXT TILE *** (the wiki: \'they wait to not get ahead of their melee allies\'; rule 170(b): melee reaches the next tile only)',
     rd.map(x => (x.moved ? 'move to ' + x.me + ' (front ' + x.front + ')' : '') + (x.att ? ' hit at ' + x.reach + (x.held ? ' a held man' : '') : '')).join(', '));
   const ldr = await run(['brigand_thug', 'brigand_thug', 'brigand_thug', 'brigand_leader']), L = of(ldr, 'brigand_leader');
   /* a step up to his front line counts only when his very next act is the swing it was for */
