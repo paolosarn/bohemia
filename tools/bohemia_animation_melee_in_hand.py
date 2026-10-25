@@ -112,7 +112,24 @@ def build_prop(bpy, name):
         top = [o for o in sc.objects if o.name not in before and o.parent is None]
         root = bpy.data.objects.new('prop_' + name, None); sc.collection.objects.link(root)
         for o in top: o.parent = root
-        return root, [o for o in sc.objects if o.name not in before and o.type == 'MESH']
+        parts = [o for o in sc.objects if o.name not in before and o.type == 'MESH']
+        hang = [o for o in parts if o.name.split('.')[0].startswith(('hang_', 'link_', 'lock', 'keyhole', 'shackle'))] if name == 'chain' else []
+        if hang:   # COOK's chain is one stiff piece: its links and its padlock hung from the handle's eye, as the stand-in's chain hangs
+            bpy.context.view_layer.update()
+            def box(os_):
+                vs = [o.matrix_world @ v.co for o in os_ for v in o.data.vertices]
+                return mathutils.Vector([min(v[i] for v in vs) for i in range(3)]), mathutils.Vector([max(v[i] for v in vs) for i in range(3)])
+            lo, _ = box([o for o in hang if o.name.startswith(('link_0', 'hang_0'))] or hang)
+            tip = mathutils.Vector((lo.x, 0, 0))   # where the first link leaves the handle
+            far = [o for o in hang if o.name.startswith(('lock', 'hang_end'))] or hang
+            a_, b_ = box(far); d0 = ((a_ + b_) / 2 - tip).normalized()
+            R0 = d0.rotation_difference(mathutils.Vector((0, 0, 1))).to_matrix().to_4x4()
+            T0 = mathutils.Matrix.Translation(-tip)
+            chain = bpy.data.objects.new('chain_' + name, None); sc.collection.objects.link(chain)
+            for o in hang:
+                W_ = o.matrix_world.copy(); o.parent = chain; o.matrix_parent_inverse = R0 @ T0 @ W_ @ o.matrix_basis.inverted()
+            root['chain'] = chain.name; root['chain_tip'] = tip.x
+        return root, parts
     m = lambda n, role, step: P.mat(bpy, '%s_%s' % (name, n), role, step)
     tape = m('tape', 'rubber', 2)
     if name == 'pipe':   # the thug's pipe (COOK THREE: clay_rust 2, r 2.2 cm, a coupling near each end)
@@ -260,7 +277,7 @@ def model_sig(name):
     """what this thing is rendered from: COOK's model by its bytes, or this tool's stand-in"""
     import hashlib
     fn = cook_model(name)
-    return ('cook:' + hashlib.sha1(open(fn, 'rb').read()).hexdigest()[:12]) if fn else 'stand-in'
+    return ('cook:' + hashlib.sha1(open(fn, 'rb').read()).hexdigest()[:12] + ('+hung' if name == 'chain' else '')) if fn else 'stand-in'   # the chain: its links hung (build_prop)
 
 
 def shield_dims(name):
@@ -543,7 +560,7 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
             if LEGACY: g.parent = None; g.matrix_world = mathutils.Matrix.Diagonal((1, 1, zs, 1)) @ M   # the first pass's way (m1), kept to measure against
             else: g.matrix_basis = M   # under the stretch: stretched as his body is, so it stays in his fist
             if chain is not None:   # the flail's chain hangs from the handle's end, trails the wind, flies out on the blow
-                tip = fist + x * S['props'][prop]['fore']
+                tip = fist + x * g.get('chain_tip', S['props'][prop]['fore'])
                 dd = {'wind': -fwd * 0.7 - up * 0.5, 'blow': fwd * 0.9 - up * 0.3, 'follow': fwd * 0.3 - up * 0.95}.get(hold, -up).normalized()
                 Mc = mathutils.Vector((0, 0, 1)).rotation_difference(dd).to_matrix().to_4x4(); Mc.translation = tip
                 chain.matrix_basis = Mc

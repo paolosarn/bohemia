@@ -73,9 +73,10 @@ before, never a man without what he holds.
 
 COOK'S THINGS (rule 177(c), its [a model for every item] the same hours): COOK built its item models in this tool's frame (it
 read build_shield, place_shield and place()), so a thing is rendered from reference/models/bohemia/item_<thing>.glb the moment
-it is in the folder: the car door, the crash bar, the riot shield, the pipe and the sledge at the time of writing; the club,
-the bat, the cleaver, the machete, the hatchet, the rebar spear, the chain, the bottles, the fire axe and the pole hook are
-this tool's stand-ins until theirs land (exported for COOK as held_*.glb). Each man's pictures keep the bytes of the model they
+it is in the folder: the car door, the crash bar, the riot shield, the pipe and the sledge first, then the bottles, the
+rebar spear, the cleaver and the fire axe as they landed mid-round, and all the rest when COOK shipped its 24 (34589962):
+the club, the bat, the machete, the hatchet, the chain and the pole hook. This tool's stand-ins (exported for COOK as
+held_*.glb) are drawn now only for the pistol's own model and any thing COOK has not built. Each man's pictures keep the bytes of the model they
 were drawn from (props/models.json); a model that lands or changes is rendered again on the next pass. The 310 armoury rows
 are read off COOK's table (records/target/cook_every_item/BOHEMIA_EVERY_ITEM_AND_ITS_MODEL.json: 62 one-handed rows, 25
 two-handed, 19 shields), so the market's thing is the fight's thing. The stop sign stand-in went: COOK's table makes the
@@ -113,7 +114,28 @@ with a pipe and no shield decodes the melee keys and the pipe's layer and nothin
 - The first block raised the shield 4 px (the hand at the shoulder reads as the chest from the 45 degree camera): the hand is
   above the shoulder and the shield's middle by it.
 - The gate's first 'planted' leg read the shield's near end as sunk: a thing standing on the ground nearer the camera sits
-  lower on the glass by half its width across the 45 degree ground; the leg allows exactly that.
+  lower on the glass by half its width across the 45 degree ground; the leg allows exactly that. Facing the glass it stands
+  before his knee instead: measured 19 to 21 px for the car door, the crash bar and the riot shield alike, whatever their
+  width, so that leg reads the kneel's reach (0.55 m), not the width.
+- THE CAR DOOR WENT GREY IN THE FIGHT (seen in the demo's road fight, YOU on one knee behind it): the pack snapped every
+  thing to the nearest of all 80 style colours, and COOK's faded teal under the fight's light (70, 83, 80 on average) is
+  nearer chrome and a glass eye's grey than any teal step. A thing COOK modelled now snaps only to the steps of the
+  materials COOK built it from (its measured_<thing>.json), hue weighed apart from brightness; the pack records which model
+  each thing on each layer was drawn from, and gate P8 holds it (P9, the old snap on the car door, is caught).
+- The spear had no grip on the shield arm's aim (SAim): its render stopped and took YOU's other layers with it. It thrusts
+  out along his arm over the door now, and gate S3 reads every grip the tool knows off the tool itself and checks every
+  thing on every key its layer draws (S4: the spear's grip taken away is caught).
+- I PUSHED THREE RED LEGS ONCE (0455727a): my command chained the commit past the failed gate. Put right in 6d10a677 within
+  the hour. The cause was real: the kneel's hit (CoverHit) is one picture the pipe's one-hand and two-hand layers share (the
+  same file, the same grip), and the second layer wrote its cell numbers into the first layer's entry, so a pipe man hit in
+  cover would have drawn the wrong patch of the sheet. A clip two layers share is packed once now.
+- COOK's two-handed maces are its 70 cm pipe (its table): too short to lean on, so the pipe's lean keys hold it across him.
+  The two-handed wind is cocked high (its head over his crown from every facing; west it sat behind his head).
+- COOK's chain is one stiff piece (a handle, nine links and a padlock): the links and the padlock are hung from the
+  handle's eye at render, as the stand-in's chain hung, so they trail the wind and fly out on the blow.
+- A model that lands used to delete every old picture of the thing first, so a man could not be packed until all were
+  drawn again: the old pictures stand now and the new ones replace them; the model is recorded per thing per layer once
+  the last picture is in, and the pack packs whatever is drawn, marked with its model.
 
 ## REFERENCE CHECK
 The compare law: the twin of every held key is the same man's own fight sheet cell and the market icon of the same thing
