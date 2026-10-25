@@ -4,6 +4,8 @@ Paolo 10/24: 'everything I talked to you about today, it's a pretty huge update;
 The coordinator keeps this list. Every check-in updates the statuses from main and reopens the lane of every line not SHIPPED, until all are. When the last line ships, RUN cuts BUILD THE BIG UPDATE and the coordinator tells him in one message.
 Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a lane's board, next), RESEARCH (a page first).
 
+*** RULE 179 (Paolo 10/25, 'are you sure every job I requested is getting done'): SHIPPED below only means a lane BUILT it. A line is DONE only when EYES has SEEN it in the live game against his words (the audit, EYES [check every ask on the list]). Lines 30 and 31 were marked shipped and are NOT SEEN: the car door shield is never drawn (rule 177). ***
+
 | # | His ask | Rule | Lane | Status 10/25 17:15 UTC |
 |---|---|---|---|---|
 | 1 | The squiggle voice, Animal Crossing way, creepier, no clicking | 135 | SOUNDS | SHIPPED |
@@ -35,8 +37,8 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 27 | Hires reach the fight; bought gear in hand | 147 | RUN TWO | SHIPPED (BUILD 10/24g, 10/24l) |
 | 28 | One crew screen, one face a man | 147 | RUN TWO | SHIPPED (BUILD 10/24i) |
 | 29 | The phone shows the two best-paying jobs, little text | 148 | UI | SHIPPED |
-| 30 | Two hands: a rifle fills both; pistol and a car-door shield | 149 | RUN TWO | SHIPPED (the slots) |
-| 31 | What each hand holds shows in the fight | 149 | COMBAT | SHIPPED (2794f736) |
+| 30 | Two hands: a rifle fills both; pistol and a car-door shield | 149 | RUN TWO | NOT SEEN: the slots were built (717be9e0) but no car door is modelled or drawn in the fight; rule 177 (COOK, ANIMATION, COMBAT) |
+| 31 | What each hand holds shows in the fight | 149 | COMBAT | NOT SEEN: guns show, no shield is ever drawn; rule 177 |
 | 32 | A playtester every round so he does not have to find the little things | 150 | EYES | SHIPPED (EYES round 2: 17 of 30 fixed, 19 new rows filed); round 3 after this wave |
 | 33 | The bar shows batteries; days left on a hold | 151 | UI | SHIPPED (BUILD 10/24n) |
 | 34 | Money teaches: overhiring early hurts | 151 | TUNING | SHIPPED (TUNING's numbers 3c9d8583 and the NOTEs); RUN TWO applies them (reopened 15:45) |
@@ -90,3 +92,17 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 82 | City travel without buildings in the lanes (RUN, COOK) | 164 | see the item | SHIPPED (COOK f458f104: no block in a street's lane) |
 | 83 | Zoom in to see the sidewalks and the crew (RUN, COOK) | 164 | see the item | SHIPPED (COOK f458f104: the close detail) |
 | 84 | More and better animations (ANIMATION) | 164 | see the item | HALF: held guns, cover, the reload (64c2139c); melee in the hand wave 1 (0b2e3068); the shield arm RUNNING |
+| 85 | Every song its own song (the six were one song six times) | 166 | SOUNDS | RUNNING |
+| 86 | The fight board's colour back (it went near black and white) | 167 | COOK | BUILT (bc076ba3), NOT YET SEEN |
+| 87 | Three intensities in every song: map 1, their turn 2, your turn 3 (combat music) | 167 | SOUNDS | RUNNING |
+| 88 | Everything at 120 BPM you can hear; music in every fight | 168 | SOUNDS | RUNNING |
+| 89 | The walk-up walks on the ground, never on roofs; the town never shakes | 169 | RUN TWO | QUEUED (after its camp work) |
+| 90 | No cover in the open street; melee reaches one tile | 170 | COMBAT | QUEUED (after men on men) |
+| 91 | A dismiss button on the crew | 171 | UI | RUNNING |
+| 92 | The company screen as simple as Battle Brothers, then better | 172 | UI | RUNNING |
+| 93 | It never crashes before a fight | 173 | RUN | RUNNING |
+| 94 | Only the final look loads; the loading screen tells the truth | 174 | RUN | RUNNING |
+| 95 | The sound never chops on Bluetooth | 175 | SOUNDS | QUEUED (after the fight's music) |
+| 96 | AUTO never wastes a turn, takes the high ground; the odds are true | 176 | COMBAT, TUNING | RUNNING (TUNING's research); COMBAT QUEUED |
+| 97 | What you equip is what you see in the fight (the car door shield) | 177 | COOK, ANIMATION, COMBAT | RUNNING (COOK) |
+| 98 | Every ask checked in the game before it is called done | 179 | EYES | RUNNING (the audit) |
