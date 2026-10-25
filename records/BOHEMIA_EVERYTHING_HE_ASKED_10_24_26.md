@@ -133,3 +133,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 119 | Retreat works; a broken enemy runs for the edge and can be caught; free hits on runners in melee reach or a gun's reach; END THE FIGHT when all left flee | 198 | COMBAT, TUNING, EYES | QUEUED (COMBAT, after rule 195 and 199) |
 | 120 | Walk through your own men at all times (never end on one); enemies still block | 199 | COMBAT, EYES | QUEUED (COMBAT, second) |
 | 121 | Every currency on the top bar next to the battery on the map, in the town and in the fight (said again; lines 55, 111) | 200 | RUN TWO, UI, EYES | HALF BUILT (the map's bar: RUN TWO 6ee422f8, BUILD 10/25w; the town and the fight: UI running) |
+| 122 | AUTO kills one at a time: the team picks one target and everyone who can reach him hits him, unless moving costs a free hit | 201 | COMBAT, TUNING, EYES | QUEUED (COMBAT, fourth) |
