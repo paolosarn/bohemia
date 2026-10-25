@@ -103,12 +103,18 @@ async function level(p, name, lv, outGain, mp, hot) {
        8.6 dB over level 1 through a phone, their turn as loud as a fight; pulled down so 2 sits about 2 to 3 dB over 1 and
        3 about 5 to 6, the tension between the map and the fight. The pulse on 1 stays soft; on a phone the clock is what
        you hear of it (a phone's speaker drops the kick's low end). */
+    /* HIS TWO HOT SONGS on levels 2 and 3: no added kick, bass, pedal, tom or hit. MEASURED: their own low end already
+       peaks near full scale, so every added low note hit the peak limit and pulled the whole song down with it (SLOW
+       BLEED -46.5 / -48.3 / -49.3 dB with the compressor skipped and no trim); their own kick and bass carry the bottom, the
+       added parts are the ones a phone hears (the ticking, the clap and knock, the hats, the hook). */
+    const lo = hot && lv > 1 ? 0 : 1;
     const P = lv === 1 ? { pulse: part(0.40), clock: part(0.20) }
-      : lv === 2 ? { kick: part(0.55), tick: part(0.26), pedal: part(0.40), tom: part(0.55), rim: part(0.30) }
-      : { kick: part(0.85), snare: part(0.70), hat: part(0.30), hit: part(0.45), bass: part(0.50), hook: part(1.0) };
+      : lv === 2 ? { kick: part(0.55 * lo), tick: part(0.26), pedal: part(0.40 * lo), tom: part(0.55 * lo), rim: part(0.30) }
+      : { kick: part(0.85 * lo), snare: part(0.70), hat: part(0.30), hit: part(0.45 * lo), bass: part(0.50 * lo), hook: part(1.0) };
     const counts = {};
-    const D = (k, node, t) => { counts['d:' + k] = (counts['d:' + k] || 0) + 1; dv0(k, OAC, node, t); };
-    const S = (k, node, semi, t, g, dur) => { counts['s:' + k] = (counts['s:' + k] || 0) + 1; synthV(k, OAC, node, hz, dur || sd, semi, t, g); };
+    /* a part at gain 0 (the hot songs' low parts) is not played and not counted: measured.json says what was added */
+    const D = (k, node, t) => { if (!node.gain.value) return; counts['d:' + k] = (counts['d:' + k] || 0) + 1; dv0(k, OAC, node, t); };
+    const S = (k, node, semi, t, g, dur) => { if (!node.gain.value) return; counts['s:' + k] = (counts['s:' + k] || 0) + 1; synthV(k, OAC, node, hz, dur || sd, semi, t, g); };
     let err = null;
     try {
       for (let s = 0; s < steps; s++) {
