@@ -4403,6 +4403,95 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   return true;
 }
 /* ==== end __EVERYBODY_IDLES__ ==== */
+/* ==== __WHAT_A_MAN_HOLDS__ (ANIMATION [the PC playtest: the bodies' part], rule 164 items 21, 22, 31; Paolo 10/24 on his PC:
+   'if they're using pistols they shouldn't look like they're holding rifles'; 'when they're in a building they get extra cover
+   stats... they shouldn't be standing up, they should look like they're in cover'). ANIMATION's block, COMBAT's file.
+   A PISTOL IS HELD IN ONE HAND: a man whose gun is a pistol stands with it low in his right hand at the thigh (breathing,
+   looking about, bringing it up before his eyes to check it), walks with it there and his left arm swinging, fires it with
+   one arm straight out at the eye and his body bladed (the kick lifts the wrist), and keeps it in that hand when a blow rocks
+   him. A MAN IN COVER LOOKS IN COVER: on a tile that carries cover (a wall, a dead car, a shed, rubble, a barrier: the tile's
+   S.coverCount) or up on a roof, he is down on one knee behind it, his long gun across him or his pistol up at his chest or,
+   with nothing in his hands, ducked low; he breathes and peeks up; he rises on the knee to shoot over it; a blow rocks him
+   on the knee. The pictures are the same man, camera, sun and colours as his fight sheet (slices/rig_hold,
+   tools/bohemia_animation_what_a_man_holds.py), his gun rendered in his hands on every one. Until his pictures are in, the
+   fight draws him exactly as before. ==== */
+const HOLD = { meta: null, state: 0, looks: {}, ims: {} };
+function holdMeta() {
+  if (!HOLD.state) {
+    HOLD.state = 1;
+    try { fetch('rig_hold/rig_hold.json').then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) { HOLD.meta = m; HOLD.state = m && m.looks ? 2 : 3; }, function () { HOLD.state = 3; }); } catch (e) { HOLD.state = 3; }
+  }
+  return HOLD.state === 2 ? HOLD.meta : null;
+}
+/* a look's cells, fetched the first time a man of that look is drawn */
+function holdLook(L) {
+  const M = holdMeta(); if (!M) return null;
+  if (L._key === undefined) L._key = Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k] === L; })[0] || null;
+  const e = L._key && M.looks[L._key]; if (!e) return null;
+  let d = HOLD.looks[L._key];
+  if (!d) { d = HOLD.looks[L._key] = { d: null }; fetch('rig_hold/' + e.json).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { d.d = j; }, function () {}); }
+  return d.d;
+}
+/* a sheet, decoded once and held as an ImageBitmap (as the rig sheets are) */
+function holdImg(file) {
+  let e = HOLD.ims[file];
+  if (!e) { e = HOLD.ims[file] = { b: null }; load('rig_hold/' + file).then(function (i) { if (!i) return;
+    if (typeof createImageBitmap !== 'function') { e.b = i; return; }
+    createImageBitmap(i).then(function (b) { b.src = i.src; e.b = b; }, function () { e.b = i; }); }); }
+  return e.b;
+}
+/* in cover: his tile carries cover, or it is a roof; never while he walks */
+function holdCovered(v) {
+  if (walkOf(v) || (UI.drag && UI.drag.u === v)) return false;
+  const S = FIGHT.S, x = Math.round(v.x), y = Math.round(v.y);
+  return !!(S.coverCount && S.coverCount[y] && S.coverCount[y][x] > 0) || FIGHT.rowAt(x, y) === 'height';
+}
+/* standing still in a held clip: slots of two bars, a breath on the even slots and one of his idles on the odd, his own seed */
+function holdIdle(v, clip, now) {
+  const T = HOLD.meta.timelines && HOLD.meta.timelines[clip]; if (!T || !T.length) return 0;
+  const B = window.BohemiaIdles; if (!B) return 0;
+  const hs = B.hash;   /* the idles' own hash: the same man, the same numbers on every screen */
+  if (v._holdSince === undefined || v._holdClip !== clip) { v._holdSince = now; v._holdClip = clip; }
+  const keyMs = beatMs() / 3, off = hs(v.id, 'hold') % 48, k = Math.floor(now / keyMs) + off, slot = Math.floor(k / 24);
+  const first = Math.floor((Math.floor(v._holdSince / keyMs) + off) / 24) === slot;   /* the slot he began in is a breath */
+  const tl = slot % 2 && !first && T.length > 1 ? T[1 + hs(v.id, slot) % (T.length - 1)] : T[0];
+  let kin = k - slot * 24;
+  for (let i = 0; i < tl.length; i++) { if (kin < tl[i][1]) return tl[i][0]; kin -= tl[i][1]; }
+  return 0;
+}
+/* which held clip and key he shows for the pose the fight gave him, or null (the fight's own) */
+function holdClip(v, p, kind, now) {
+  const at = function (c) { return Math.max(0, DB.rig.clips[c].indexOf(p.col)); }, pistol = kind === 'pistol', cover = holdCovered(v);
+  if (p.clip === 'walk' || p.clip === 'carrywalk') return pistol ? ['PCarryWalk', at(p.clip)] : null;
+  if (p.clip === 'aim') return cover ? (pistol ? ['CoverPistolAim', at('aim')] : kind ? ['CoverLongAim', at('aim')] : null) : pistol ? ['PAim', at('aim')] : null;
+  if (p.clip === 'hit') return cover ? ['CoverHit', at('hit')] : pistol ? ['PHit', at('hit')] : null;
+  if (p.clip === 'stand' || p.clip === 'carry') {
+    const c = cover ? (pistol ? 'CoverPistol' : kind ? 'CoverLong' : 'CoverBare') : pistol ? 'PIdle' : null;
+    return c ? [c, holdIdle(v, c, now)] : null;
+  }
+  return null;
+}
+function holdDraw(v, p, L, gs, ox, oy, s, now) {
+  if (L.kind === 'beast' || v._fallAt !== undefined) return false;   /* a rolled man of the valley too: his own body, his gang's guns */
+  const d = holdLook(L); if (!d) return false;
+  const kind = gs ? DB.rig.guns.order[gs.row] : null, hc = holdClip(v, p, kind, now);
+  if (!hc) { v._holdClip = undefined; return false; }
+  const f = v._face || 0, ck = d.clips[hc[0]], ci = ck && ck[hc[1]] && ck[hc[1]][f];
+  if (ci === null || ci === undefined) return false;
+  let gc = null;
+  if (kind) { const G = d.guns.clips[kind] && d.guns.clips[kind][hc[0]]; if (!G) return false; gc = G[hc[1]][f]; }   /* never a man without his gun */
+  const img = holdImg(d.sheet.file), gimg = kind ? holdImg(d.guns.file) : null;
+  if (!img || (kind && gc !== null && !gimg)) return false;
+  const c = d.sheet.cells[ci], x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
+  const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
+  cx.drawImage(im(img), c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, c[2] * s, c[3] * s);
+  if (gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
+  const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
+  UI.clipSeen['hold:' + hc[0]] = (UI.clipSeen['hold:' + hc[0]] || 0) + 1;
+  return true;
+}
+/* ==== end __WHAT_A_MAN_HOLDS__ ==== */
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
@@ -4420,7 +4509,8 @@ function blitMan(v, X, feet, now, alpha) {
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   if (v.ghost) { ghostBlit(v, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, now, alpha); cx.restore(); return; }
   if (v.machine) { chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha); cx.restore(); return; }
-  const idled = idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
+  const held = holdDraw(v, p, L, gs, ox, oy, s, now);   /* __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
+  const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across

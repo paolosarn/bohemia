@@ -1,0 +1,1199 @@
+{
+ "what": "ANIMATION [the PC playtest: the bodies' part] (rule 164 items 21, 22, 31; Paolo 10/24: 'if they're using pistols they shouldn't look like they're holding rifles'; 'when they're in a building they get extra cover stats... they shouldn't be standing up, they should look like they're in cover'; 'more and better animations when people hold things'). THE SOURCE OF THE HELD CLIPS (rule 128, the kept scene): every clip is a list of HELD keys (three a beat at 120, Crashbox stop-motion holds, rule 115(d)); every key is a list of STEPS run in order on the rig's man (the skeleton every person in the game is built on): 'ops' turns bones about the body's own axes (F forward, U up, L his left; degrees by the right hand) and 'MOVE's a bone (model units, the skeleton's own, f u l); 'reach' puts a wrist on a point by a two-bone reach (the frame 'body' is the armature's axes from the named bone's head as it stands at that step, so an aimed arm points where he faces whatever the chest does); 'legs' plants both feet where they stood ('plant') or KNEELS (the named knee on the ground and its shin back along it, the other foot a step forward, the pelvis dropped exactly so the knee touches: 'seat' sits him back toward his heel, the resting kneel behind cover; without it the high kneel he rises to to fire over it). The tool is tools/bohemia_animation_what_a_man_holds.py.",
+ "bones": {
+  "P": "Skeleton_torso_joint_1",
+  "S": "Skeleton_torso_joint_2",
+  "C": "torso_joint_3",
+  "N": "Skeleton_neck_joint_1",
+  "H": "Skeleton_neck_joint_2",
+  "LU": "Skeleton_arm_joint_L__4_",
+  "LF": "Skeleton_arm_joint_L__3_",
+  "LH": "Skeleton_arm_joint_L__2_",
+  "RU": "Skeleton_arm_joint_R",
+  "RF": "Skeleton_arm_joint_R__2_",
+  "RH": "Skeleton_arm_joint_R__3_",
+  "LT": "leg_joint_L_1",
+  "LS": "leg_joint_L_2",
+  "LA": "leg_joint_L_3",
+  "RT": "leg_joint_R_1",
+  "RS": "leg_joint_R_2",
+  "RA": "leg_joint_R_3"
+ },
+ "parts": {
+  "pistol_low": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.15,
+       -0.37,
+       -0.05
+      ],
+      "pole": [
+       -1,
+       0.2,
+       -0.3
+      ]
+     }
+    }
+   }
+  ],
+  "pistol_low_b": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.16,
+       -0.36,
+       -0.045
+      ],
+      "pole": [
+       -1,
+       0.2,
+       -0.3
+      ]
+     }
+    }
+   }
+  ],
+  "breath_in": [
+   {
+    "ops": [
+     [
+      "MOVE",
+      "C",
+      [
+       0,
+       0.012,
+       0
+      ]
+     ],
+     [
+      "C",
+      "L",
+      -2
+     ],
+     [
+      "H",
+      "L",
+      1
+     ]
+    ]
+   }
+  ],
+  "look_l": [
+   {
+    "ops": [
+     [
+      "C",
+      "U",
+      8
+     ],
+     [
+      "N",
+      "U",
+      12
+     ],
+     [
+      "H",
+      "U",
+      26
+     ]
+    ]
+   }
+  ],
+  "look_r": [
+   {
+    "ops": [
+     [
+      "C",
+      "U",
+      -8
+     ],
+     [
+      "N",
+      "U",
+      -12
+     ],
+     [
+      "H",
+      "U",
+      -26
+     ]
+    ]
+   }
+  ],
+  "check_pistol": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      14
+     ],
+     [
+      "H",
+      "L",
+      10
+     ],
+     [
+      "H",
+      "U",
+      -6
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.25,
+       -0.2,
+       0.07
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       -0.6
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.22,
+       -0.24,
+       -0.09
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       0.6
+      ]
+     }
+    }
+   }
+  ],
+  "check_tilt": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      16
+     ],
+     [
+      "H",
+      "L",
+      12
+     ],
+     [
+      "H",
+      "U",
+      8
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.26,
+       -0.17,
+       0.09
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       -0.6
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.2,
+       -0.27,
+       -0.1
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       0.6
+      ]
+     }
+    }
+   }
+  ],
+  "blade": [
+   {
+    "ops": [
+     [
+      "S",
+      "U",
+      14
+     ],
+     [
+      "C",
+      "U",
+      10
+     ],
+     [
+      "N",
+      "U",
+      -10
+     ],
+     [
+      "H",
+      "U",
+      -12
+     ],
+     [
+      "LU",
+      "L",
+      14
+     ],
+     [
+      "LU",
+      "F",
+      6
+     ],
+     [
+      "LF",
+      "L",
+      -18
+     ]
+    ]
+   }
+  ],
+  "aim_r": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.452,
+       0.02,
+       0.02
+      ],
+      "pole": [
+       0,
+       -1,
+       -0.4
+      ]
+     }
+    }
+   },
+   {
+    "ops": [
+     [
+      "H",
+      "L",
+      6
+     ],
+     [
+      "H",
+      "F",
+      -6
+     ]
+    ]
+   }
+  ],
+  "kick_r": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.43,
+       0.095,
+       0.02
+      ],
+      "pole": [
+       0,
+       -1,
+       -0.4
+      ]
+     }
+    }
+   },
+   {
+    "ops": [
+     [
+      "H",
+      "L",
+      -2
+     ],
+     [
+      "S",
+      "L",
+      -4
+     ],
+     [
+      "H",
+      "F",
+      -6
+     ]
+    ]
+   }
+  ],
+  "rock": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      -16
+     ],
+     [
+      "N",
+      "L",
+      -18
+     ],
+     [
+      "LU",
+      "F",
+      25
+     ],
+     [
+      "LF",
+      "L",
+      -20
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       -0.02,
+       -0.37,
+       -0.13
+      ],
+      "pole": [
+       -0.8,
+       0,
+       -0.5
+      ]
+     }
+    }
+   }
+  ],
+  "rock2": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      -8
+     ],
+     [
+      "N",
+      "L",
+      -6
+     ],
+     [
+      "LU",
+      "F",
+      12
+     ],
+     [
+      "RT",
+      "L",
+      12
+     ],
+     [
+      "RS",
+      "L",
+      10
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.04,
+       -0.4,
+       -0.07
+      ],
+      "pole": [
+       -0.8,
+       0,
+       -0.5
+      ]
+     }
+    }
+   }
+  ],
+  "kneel": [
+   {
+    "legs": {
+     "kneel": "R",
+     "front": 0.24,
+     "seat": 0.24
+    }
+   },
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      14
+     ],
+     [
+      "C",
+      "L",
+      6
+     ],
+     [
+      "N",
+      "L",
+      -8
+     ],
+     [
+      "H",
+      "L",
+      -10
+     ]
+    ]
+   }
+  ],
+  "kneel_up": [
+   {
+    "legs": {
+     "kneel": "R",
+     "front": 0.2
+    }
+   },
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      2
+     ],
+     [
+      "C",
+      "L",
+      0
+     ],
+     [
+      "N",
+      "L",
+      -2
+     ],
+     [
+      "H",
+      "L",
+      -2
+     ]
+    ]
+   }
+  ],
+  "duck": [
+   {
+    "legs": {
+     "kneel": "R",
+     "front": 0.24,
+     "seat": 0.22
+    }
+   },
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      20
+     ],
+     [
+      "C",
+      "L",
+      8
+     ],
+     [
+      "N",
+      "L",
+      -4
+     ],
+     [
+      "H",
+      "L",
+      -8
+     ]
+    ]
+   }
+  ],
+  "peek": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      -12
+     ],
+     [
+      "C",
+      "L",
+      -4
+     ],
+     [
+      "N",
+      "L",
+      -6
+     ],
+     [
+      "H",
+      "L",
+      -10
+     ]
+    ]
+   }
+  ],
+  "c_breath": [
+   {
+    "ops": [
+     [
+      "MOVE",
+      "C",
+      [
+       0,
+       0.01,
+       0
+      ]
+     ],
+     [
+      "C",
+      "L",
+      -2
+     ]
+    ]
+   }
+  ],
+  "c_look_l": [
+   {
+    "ops": [
+     [
+      "N",
+      "U",
+      14
+     ],
+     [
+      "H",
+      "U",
+      26
+     ]
+    ]
+   }
+  ],
+  "c_look_r": [
+   {
+    "ops": [
+     [
+      "N",
+      "U",
+      -14
+     ],
+     [
+      "H",
+      "U",
+      -26
+     ]
+    ]
+   }
+  ],
+  "carry": [
+   {
+    "carry": true
+   }
+  ],
+  "pistol_port": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.17,
+       -0.17,
+       0.07
+      ],
+      "pole": [
+       -0.2,
+       -1,
+       -0.7
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.3,
+       -0.38,
+       0.0
+      ],
+      "pole": [
+       0,
+       -1,
+       0.8
+      ]
+     }
+    }
+   }
+  ],
+  "bare_tuck": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.26,
+       -0.37,
+       0.05
+      ],
+      "pole": [
+       0,
+       -1,
+       -0.8
+      ]
+     },
+     "L": {
+      "from": "LU",
+      "at": [
+       0.28,
+       -0.36,
+       -0.03
+      ],
+      "pole": [
+       0,
+       -1,
+       0.8
+      ]
+     }
+    }
+   }
+  ],
+  "aim_long": [
+   {
+    "combat_aim": 0
+   }
+  ],
+  "kick_long": [
+   {
+    "combat_aim": 1
+   }
+  ],
+  "c_rock": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      -12
+     ],
+     [
+      "N",
+      "L",
+      -16
+     ],
+     [
+      "LU",
+      "F",
+      18
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.1,
+       -0.33,
+       -0.1
+      ],
+      "pole": [
+       -0.8,
+       0,
+       -0.5
+      ]
+     }
+    }
+   }
+  ],
+  "c_rock2": [
+   {
+    "ops": [
+     [
+      "S",
+      "L",
+      -5
+     ],
+     [
+      "N",
+      "L",
+      -6
+     ],
+     [
+      "LU",
+      "F",
+      8
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.14,
+       -0.34,
+       -0.06
+      ],
+      "pole": [
+       -0.8,
+       0,
+       -0.5
+      ]
+     }
+    }
+   }
+  ],
+  "plant": [
+   {
+    "legs": "plant"
+   }
+  ],
+  "check_half": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      8
+     ],
+     [
+      "H",
+      "L",
+      5
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.19,
+       -0.3,
+       0.03
+      ],
+      "pole": [
+       -0.5,
+       -1,
+       -0.6
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "clips": {
+  "PIdle": {
+   "under": "still",
+   "keys": [
+    [
+     "pistol_low",
+     "plant"
+    ],
+    [
+     "breath_in",
+     "pistol_low_b",
+     "plant"
+    ],
+    [
+     "look_l",
+     "pistol_low",
+     "plant"
+    ],
+    [
+     "look_r",
+     "pistol_low",
+     "plant"
+    ],
+    [
+     "check_pistol",
+     "plant"
+    ],
+    [
+     "check_tilt",
+     "plant"
+    ],
+    [
+     "check_half",
+     "plant"
+    ]
+   ]
+  },
+  "PCarryWalk": {
+   "under": "walk",
+   "keep": "L",
+   "keys": [
+    [
+     "pistol_low"
+    ],
+    [
+     "pistol_low"
+    ],
+    [
+     "pistol_low"
+    ],
+    [
+     "pistol_low"
+    ],
+    [
+     "pistol_low"
+    ],
+    [
+     "pistol_low"
+    ]
+   ]
+  },
+  "PAim": {
+   "under": "still",
+   "keys": [
+    [
+     "blade",
+     "aim_r",
+     "plant"
+    ],
+    [
+     "blade",
+     "kick_r",
+     "plant"
+    ],
+    [
+     "blade",
+     "aim_r",
+     "plant"
+    ]
+   ]
+  },
+  "PHit": {
+   "under": "still",
+   "keys": [
+    [
+     "rock",
+     "plant"
+    ],
+    [
+     "rock2",
+     "plant"
+    ]
+   ]
+  },
+  "CoverLong": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel",
+     "carry"
+    ],
+    [
+     "kneel",
+     "c_breath",
+     "carry"
+    ],
+    [
+     "kneel",
+     "peek",
+     "carry"
+    ]
+   ]
+  },
+  "CoverLongAim": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel_up",
+     "aim_long"
+    ],
+    [
+     "kneel_up",
+     "kick_long"
+    ],
+    [
+     "kneel_up",
+     "aim_long"
+    ]
+   ]
+  },
+  "CoverPistol": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel",
+     "pistol_port"
+    ],
+    [
+     "kneel",
+     "c_breath",
+     "pistol_port"
+    ],
+    [
+     "kneel",
+     "peek",
+     "pistol_port"
+    ]
+   ]
+  },
+  "CoverPistolAim": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel_up",
+     "blade",
+     "aim_r"
+    ],
+    [
+     "kneel_up",
+     "blade",
+     "kick_r"
+    ],
+    [
+     "kneel_up",
+     "blade",
+     "aim_r"
+    ]
+   ]
+  },
+  "CoverBare": {
+   "under": "still",
+   "keys": [
+    [
+     "duck",
+     "bare_tuck"
+    ],
+    [
+     "duck",
+     "c_breath",
+     "bare_tuck"
+    ],
+    [
+     "duck",
+     "c_look_l",
+     "bare_tuck"
+    ]
+   ]
+  },
+  "CoverHit": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel",
+     "c_rock"
+    ],
+    [
+     "kneel",
+     "c_rock2"
+    ]
+   ]
+  }
+ },
+ "guns": {
+  "pistol": [
+   "PIdle",
+   "PCarryWalk",
+   "PAim",
+   "PHit",
+   "CoverPistol",
+   "CoverPistolAim",
+   "CoverHit"
+  ],
+  "rifle": [
+   "CoverLong",
+   "CoverLongAim",
+   "CoverHit"
+  ],
+  "shotgun": [
+   "CoverLong",
+   "CoverLongAim",
+   "CoverHit"
+  ]
+ },
+ "hold": {
+  "PIdle": "pistol in the right hand at the one-hand low ready, the forearm forward over the thigh, the muzzle forward and down; check: up before the eyes, the left hand on the slide; key 6 the pistol half way up, on its way to the eyes and back",
+  "PCarryWalk": "pistol low in the right hand, the left arm swinging with the walk",
+  "PAim": "the right arm straight out at the eye, one hand, the body bladed; the kick lifts the wrist",
+  "PHit": "rocked back, the pistol kept in the right hand",
+  "CoverLong": "on one knee, the long gun across him at the low ready; a breath; a peek up",
+  "CoverLongAim": "up on the knee, the long gun at the shoulder over the cover, the kick, the settle",
+  "CoverPistol": "on one knee, the pistol up at the chest, the muzzle up, the left hand on the knee",
+  "CoverPistolAim": "up on the knee, one arm out over the cover",
+  "CoverBare": "on one knee and ducked low, the hands tucked in",
+  "CoverHit": "on the knee, rocked back, the gun kept in the right hand"
+ },
+ "timelines": {
+  "why": "how a man holds still between his turns: time cut in slots of two bars (24 keys, three a beat at 120); an even slot is the first list (a breath), an odd slot one of the rest, rolled per slot off his own seed (no two men in step); [key, how many keys it is held]; every slot starts and ends on key 0, so any follows any, and a big move passes a half key on its way (AN ENVELOPE RAMPS SLOWER THAN THE GRID)",
+  "PIdle": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     5
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   [
+    [
+     0,
+     4
+    ],
+    [
+     6,
+     1
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     6,
+     1
+    ],
+    [
+     0,
+     4
+    ]
+   ]
+  ],
+  "CoverLong": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     6
+    ],
+    [
+     2,
+     9
+    ],
+    [
+     0,
+     9
+    ]
+   ]
+  ],
+  "CoverPistol": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     6
+    ],
+    [
+     2,
+     9
+    ],
+    [
+     0,
+     9
+    ]
+   ]
+  ],
+  "CoverBare": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     6
+    ],
+    [
+     2,
+     8
+    ],
+    [
+     0,
+     10
+    ]
+   ]
+  ]
+ }
+}
