@@ -158,3 +158,100 @@ WHAT THIS MEANS FOR US (Battle Brothers' way first, then his rulings over it):
    of a swing in reach.)
 7. THE CALCULATOR IS THE ONLY HONEST WAY TO A NUMBER: Battle Brothers gave up on a strength formula because it cannot
    predict; ours plays the fight out with the same brain. That is right, and it must be checked (part 4).
+
+---------------------------------------------------------------------------------------------------------------------------
+
+## 3. THE CRAFT OF TACTICS AI (rule 6: cited by author, talk, book and paper; no game named)
+
+Citations checked by search and publisher listings; 'second-hand' marks a chapter whose contents were read in someone
+else's summary, not on its own page (gameaipro.com and GDC Vault were not reachable from here).
+
+### 3a. EVERY ACT SCORED WITH WEIGHTS (utility)
+Each candidate act is scored by several CONSIDERATIONS; each reads one input, clamps it to 0..1 between two bookends, runs it
+through a response curve, and the scores are MULTIPLIED, so any consideration at zero VETOES the act; the agent takes the top
+score (or draws among the near-top by weight). Multiplying many sinks the score (nine at 0.9 give 0.39); the compensation
+for N considerations is s' = s + (1 - s)(1 - 1/N)s (in code credited to Mark; not seen in his own slides).
+- Dave Mark, Behavioral Mathematics for Game AI, Course Technology, 2009 (ISBN 978-1-58450-684-3).
+- Kevin Dill and Dave Mark, 'Improving AI Decision Modeling Through Utility Theory', GDC AI Summit 2010 (gdcvault.com/play/1012410).
+- Dave Mark and Mike Lewis, 'Building a Better Centaur: AI at Massive Scale', GDC AI Summit 2015 (gdcvault.com/play/1021848).
+- Kevin Dill, 'Dual-Utility Reasoning', Game AI Pro 2, ch. 3, CRC Press, 2015 (each option has a RANK and a WEIGHT; only the
+  top-ranked options stay in play; second-hand).
+- Mike Lewis, 'Choosing Effective Utility-Based Considerations', Game AI Pro 3, ch. 13, 2017 (second-hand).
+- David 'Rez' Graham, 'An Introduction to Utility Theory', Game AI Pro, ch. 9, 2013.
+FOR US: our move score is already a weighted sum (95 for 'a foe in range', -95 a step from the fight, +1 an AP left, +5 a
+friend beside, +20 height), but its terms are not in one currency, and the one consideration that must veto, CAN HE ACT
+FROM THERE, is missing (1b, hole 1). In a product it is a factor of 0; in our sum it is a hard filter before the sum.
+
+### 3b. MAPS OF DANGER AND VALUE OVER THE BOARD (influence maps)
+Each unit stamps a value on the grid that fades with distance or, better, with PATH COST (walls block it); layers (enemy
+threat, ally reach) are added and multiplied into one 'working map' per question, and a position's score is
+S(x) = value(x) - w x danger(x).
+- Paul Tozour, 'Influence Mapping', Game Programming Gems 2, Charles River Media, 2001, pp. 287-297.
+- Dave Mark, 'Modular Tactical Influence Maps', Game AI Pro 2, ch. 30, 2015 (templates and working maps; second-hand).
+- Alex J. Champandard, 'The Mechanics of Influence Mapping: Representation, Algorithm and Parameters', AiGameDev.com, 2011
+  (read in full; the spread follows graph edges, so distance is path cost).
+- Damian Isla, 'Probabilistic Target Tracking and Search Using Occupancy Maps', AI Game Programming Wisdom 3, 2006, pp. 379-388.
+FOR US: one DANGER map a round per side (every tile: the damage the foes who can reach or shoot it next round expect to deal
+a man standing there, with their AP, their hit chance at that tile counting height and cover, and their weapon) and one
+VALUE map per man (every tile he can reach: the best damage he can deal from it with the AP and breath left). Our board is
+20 x 15 = 300 tiles and a side is at most about 40 men: a few thousand cheap sums a round.
+
+### 3c. PICKING THE TILE (tactical position selection)
+Generate the candidate tiles, drop the bad ones with cheap yes/no FILTERS first, then score the rest with weighted tests
+(cover from each threat, distance band to the target, line of sight, height, spacing, never in a friend's line of fire):
+S = (product of the pass/fail filters) x (sum of weighted normalised scores).
+- Matthew Jack, 'Tactical Position Selection: An Architecture and Query Language', Game AI Pro, ch. 26, 2013 (second-hand).
+- Mieszko Zielinski, 'Asking the Environment Smart Questions', Game AI Pro, ch. 33, 2013.
+- Matthew Jack and Mika Vehkala, 'Spaces in the Sandbox: Tactical Awareness in Open World Games', GDC AI Summit 2013.
+- Eric Johnson, 'Taming Spatial Queries: Tips for Natural Position Selection', Game AI Pro Online Edition 2021, ch. 5.
+FOR US: the candidates are the reach field the brain already builds (reach()); the filters are CAN ACT FROM THERE (or next
+turn), NOT A WALK THROUGH A RING unless the act is worth the free swings, NOT AHEAD OF THE LINE for a shooter; the score is
+section 5's.
+
+### 3d. A TURN OF LOOKAHEAD
+Score each of my acts against the enemy's best reply, averaged over the dice (expectimax; Ballard's *-minimax prunes trees
+with chance nodes); for big fights, search over a small PORTFOLIO of scripted behaviours rather than raw moves; or sample
+the future (Monte Carlo tree search).
+- Bruce W. Ballard, 'The *-Minimax Search Procedure for Trees Containing Chance Nodes', Artificial Intelligence 21(3), 1983.
+- Levente Kocsis and Csaba Szepesvari, 'Bandit Based Monte-Carlo Planning', ECML 2006.
+- Cameron Browne et al., 'A Survey of Monte Carlo Tree Search Methods', IEEE TCIAIG 4(1), 2012.
+- David Churchill, Abdallah Saffidine and Michael Buro, 'Fast Heuristic Search for RTS Game Combat Scenarios', AIIDE 2012
+  (scripts order the moves, playouts score the leaves; the no-overkill attack value: damage over HP left after the team's
+  committed damage).
+- David Churchill and Michael Buro, IEEE CIG 2013 (portfolio greedy search; its title names a game, left out): beat
+  alpha-beta and UCT in fights of up to 50 against 50, inside 40 ms.
+- Pavel Smejkal and Jakub Gemrot, AIIDE 2018 (title names a game, left out): in turn-based combat on tiles, a Monte Carlo
+  search that values hitpoints beat portfolio search in small and medium fights, and no method won at every size.
+- Gijs-Jan Roelofs, 'Pitfalls and Solutions When Using Monte-Carlo Tree Search for Strategy and Tactical Games', Game AI
+  Pro 3, ch. 28, 2017.
+FOR US: in PLAY the danger map is the turn of lookahead (the enemy's next round, summed, not searched): cheap, on the phone,
+every man every turn. The CALCULATOR and COMMIT'S GATE can afford playouts: the gate's 'exhaustive search of the turn'
+(rule 180(h)) is a portfolio of the man's candidate plans each scored by playouts on common dice (part 4).
+
+### 3e. STOPPING THE DANCE (oscillation)
+- MOMENTUM: the last-chosen behaviour gets a flat +25% on the next decision, 'a bit of hysteresis' (the Curvature utility
+  tool's wiki, github.com/apoch/curvature/wiki, read).
+- A SWITCH THRESHOLD: change only when the new choice beats the current one by 10 to 20% (Johnson 2021, above; second-hand).
+- COMMIT, INERTIA, COOLDOWN, REPEAT PENALTY: Kevin Dill, Eugene Ray Pursel, Pat Garrity and Gino Fragomeni, 'Design
+  Patterns for the Configuration of Utility-Based AI', I/ITSEC 2012, paper 12146 (commit: an option keeps its rank until it
+  finishes; inertia: its rank stays just under the rank it won at; repeat penalty: its rank drops each use; second-hand).
+- A COST FOR UNDOING LAST TURN'S MOVE: no source found; ours is the repeat penalty applied to the tile he left (our
+  extrapolation, named as such).
+FOR US, three fixes in order of what they kill: (1) ONE PLAN A TURN, chosen once at the start and carried out whole (commit:
+kills hole 3, the re-decision after every step); (2) STAYING PUT IS A PLAN and wins ties (inertia: one step's AP, kills hole
+2); (3) THE UNDO RULE: a plan that ends on the tile he left last turn, with no act in either turn, is refused (the repeat
+penalty, kills the two-round dance).
+
+### 3f. THE TEAM (screening, focus)
+- William van der Sterren, 'Squad Tactics: Team AI and Emergent Maneuvers' and 'Squad Tactics: Planned Maneuvers', AI Game
+  Programming Wisdom, Charles River Media, 2002; and 'Hierarchical Plan-Space Planning for Multi-Unit Combat Maneuvers',
+  Game AI Pro, ch. 13, 2013.
+- Alex Champandard, Philip Dunstan and Matthew Jack, 'Believable Tactics for Squad AI', GDC AI Summit 2012.
+- Michael Dawe, 'Beyond the Kung-Fu Circle: A Flexible System for Managing NPC Attacks', Game AI Pro, ch. 28, 2013 (attack
+  slots: how many may attack one target at once).
+- F. W. Lanchester, Aircraft in Warfare: The Dawn of the Fourth Arm, Constable, 1916: the square law (dA/dt = -bB,
+  dB/dt = -aA): every early kill removes that enemy's damage for EVERY turn after it. This is why FOCUS wins (rule 180(h))
+  and why Battle Brothers spreads its enemy's blows on purpose to be fair (part 2).
+FOR US: focus is the team's no-overkill value (damage over the hitpoints LEFT after what the men before him this round
+already put in); the screen is a melee man's tile between a foe and a shooter (the foe's path to the shooter runs through his
+ring), scored as the damage it saves the shooter.

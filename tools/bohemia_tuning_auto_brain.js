@@ -56,6 +56,67 @@ function setupFight(ctx, W) {
 const seedNow = ctx => vm.runInContext('SEED', ctx) >>> 0;
 const seedSet = (ctx, s) => vm.runInContext('SEED = ' + (s >>> 0) + ';', ctx);
 
+/* ---------- THE PROTOTYPE BRAIN (research only, an in-memory copy of the live rules, never the game) ----------
+   Three brains on the same fights, OUR side only (the enemy keeps today's brain, so the change is AUTO's alone):
+     today    the live fight as it plays
+     noabil   rule 180: AUTO uses no ability (no Recover, Rally, Taunt, Adrenaline, Indomitable, Footwork, bag swap, sweep):
+              what the calculator must show from now on
+     proto    noabil plus the five fixes this page proposes, each one splice:
+       F1 CAN I ACT: a man who cannot strike this turn (out of breath, nothing to shoot and no club) does not walk; he stands
+       F2 STAYING IS A CHOICE: the tile he stands on is scored with the rest, plus one step's AP, and he walks only to a
+          better one
+       F3 NO WALK OUT OF A RING: a man in a foe's reach who did not strike does not walk out through the free swings (a bow
+          with no club may still step out once, as today)
+       F4 THE SHOT BEFORE THE RELOAD: he reloads only when no loaded shot is on
+       F5 THE ROOF: a gunman with no shot where he stands climbs a roof he can reach even with no AP left to shoot (he
+          shoots from it next turn), and a roof is worth two steps of closing (190) in his move score, not 20
+       F6 FOCUS (rule 180(h)): a man already struck at this round is worth 1.25^n more, not 1/(1+n) (Battle Brothers'
+          own 1.25^n, bb_all/0626, turned to the team's focus)
+   Each splice is matched exactly once in the rules text or the bench stops (the fight moved). */
+const SPLICES = [
+  ['  function aiFirst(u) {\n', '  function aiFirst(u) {\n    if (NOABIL && u.side === \'you\') return false;\n'],
+  ['  function aiLast(u) {\n', '  function aiLast(u) {\n    if (NOABIL && u.side === \'you\') return false;\n'],
+  ["      if (A.spread_attacks) s /= 1 + ((S.aimed || {})[u.side + t.id] || 0);",
+   "      if (A.spread_attacks) { if (FIX && u.side === 'you') s *= Math.pow(1.25, ((S.aimed || {})[u.side + t.id] || 0)); else s /= 1 + ((S.aimed || {})[u.side + t.id] || 0); }"],
+  ['    return ranged ? g * (1 + 1) : g;\n',
+   "    if (FIX && u.side === 'you' && ranged && level(x, y) >= 2 && level(u.x, u.y) < 2) return g * (1 + 1) + 190;\n    return ranged ? g * (1 + 1) : g;\n"],
+  ['      if (level(x, y) <= level(u.x, u.y) || u.ap - f.best[k] < strikeAP || zocOn(u, x, y).length) return;',
+   "      if (level(x, y) <= level(u.x, u.y) || (u.ap - f.best[k] < strikeAP && !(FIX && u.side === 'you' && !foes(u).some(function (t3) { return canStrike(u, t3); }))) || zocOn(u, x, y).length) return;"],
+  ["    if (ranged && !u.club && adj.length && A.step_out_of_melee && canUse(u, 'footwork')) {",
+   "    if (ranged && !u.club && adj.length && A.step_out_of_melee && !(NOABIL && u.side === 'you') && canUse(u, 'footwork')) {"],
+  ['    if (ranged && A.reload && canReload(u)) { reload(u); return true; }',
+   "    if (ranged && A.reload && canReload(u) && !(FIX && u.side === 'you' && foes(u).some(function (t3) { return canStrike(u, t3) && sideSees(u.side, t3); }))) { reload(u); return true; }"],
+  ['    if (ranged && emptyGun(u) && !canReload(u) && u.bag) {', "    if (ranged && emptyGun(u) && !canReload(u) && u.bag && !(NOABIL && u.side === 'you')) {"],
+  ['    if (t) { const sw = sweepPick(u); if (sw) {', "    if (t) { const sw = NOABIL && u.side === 'you' ? null : sweepPick(u); if (sw) {"],
+  /* F1 and F3, after the strike was tried and missed nothing */
+  ['    /* already in a man\'s reach and out of AP or breath: stand, do not walk out through his swing */\n',
+   "    if (FIX && u.side === 'you') {\n      const sk0 = strikeSkill(w), clubOK = !!u.club && u.fat + skillFat(u, strikeSkill(u.club)) <= fatMax(u);\n" +
+   "      const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));\n" +
+   "      const able = ranged ? (shotOK || clubOK) : u.fat + skillFat(u, sk0) <= fatMax(u);\n" +
+   "      if (!able || (zocOn(u, u.x, u.y).length && (u.club || !ranged))) { endTurn(u); return false; }\n    }\n" +
+   '    /* already in a man\'s reach and out of AP or breath: stand, do not walk out through his swing */\n'],
+  /* F2 */
+  ['      if (x === u.x && y === u.y) return;\n', "      if (x === u.x && y === u.y && !(FIX && u.side === 'you')) return;\n"],
+  ['      if (sc > bs) { bs = sc; best = { x: x, y: y }; }\n    });\n    const here = hunt(u.x, u.y);',
+   "      if (FIX && u.side === 'you' && x === u.x && y === u.y && sc > -Infinity) sc += R('ap.move_cost.flat');\n      if (sc > bs) { bs = sc; best = { x: x, y: y }; }\n    });\n    const here = hunt(u.x, u.y);"],
+  ["    if (best && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {",
+   "    if (best && !(FIX && u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {"]
+];
+async function engineFor(brain) {
+  if (!brain || brain === 'today') return G.engine(true);
+  const html = HTML, grab = id => { const m = html.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>')); if (!m) throw new Error('no script ' + id); return m[1]; };
+  let rules = grab('fight-rules');
+  SPLICES.forEach(([a, b]) => { const n = rules.split(a).length - 1; if (n !== 1) throw new Error('THE FIGHT MOVED: splice anchor found ' + n + ' times: ' + a.slice(0, 70)); rules = rules.replace(a, () => b); });
+  const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Error, Promise, NOABIL: true, FIX: brain === 'proto',
+    localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} },
+    fetch: u => Promise.resolve({ json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', u), 'utf8'))) }) };
+  vm.createContext(ctx);
+  vm.runInContext(grab('fight-data') + ';this.DB=DB;this.loadAll=loadAll;this.setSeed=function(s){SEED=s>>>0;};', ctx);
+  await ctx.loadAll();
+  vm.runInContext(rules + ';this.FIGHT=FIGHT;', ctx);
+  return ctx;
+}
+
 /* ---------- what a man can do at the start of his turn ---------- */
 function startState(F, u) {
   const S = F.S, T = F._t, foes = S.units.filter(v => v.side !== u.side && F.onField(v));
@@ -249,10 +310,10 @@ function readOdds(ctx, snap, seed, runs) {
 }
 const mean = a => a.length ? a.reduce((s, x) => s + x, 0) / a.length : null;
 
-async function oneFight(W, mode) {
-  const ctx = await G.engine(true), F = ctx.FIGHT;
+async function oneFight(W, mode, brain) {
+  const ctx = await engineFor(brain), F = ctx.FIGHT;
   const count = setupFight(ctx, W);
-  const meta = { k: W.k, seed: W.seed, company: W.company, enemies: count, faction: W.faction, stage: W.stage, mult: W.mult, district: W.district,
+  const meta = { brain: brain || 'today', k: W.k, seed: W.seed, company: W.company, enemies: count, faction: W.faction, stage: W.stage, mult: W.mult, district: W.district,
     board: F.S.boardDef.name, boardKind: W.boardKind };
   if (mode === 'odds') {
     /* the read at the start of the fight, the fight's way: frozen board, the odds' own seed, ODDS_RUNS runs (the colour shows at
@@ -273,6 +334,7 @@ async function oneFight(W, mode) {
   const C = countFight(W, P, F);
   const gunIds = new Set(P.recs.filter(r => r.side === 'you' && r.start.gun).map(r => r.id));
   F.S.log.forEach(e => { if (e.t === 'attack' && e.free) { const t = F.byId(e.to); if (t) C[t.side].freeSwingsTaken++; } });
+  C.ourDown = F.S.units.filter(u => u.side === 'you' && (u.down || u.dead)).length; C.ourDead = F.S.units.filter(u => u.side === 'you' && u.dead).length;
   F.S.log.forEach(e => { if (e.t !== 'attack') return; const a = F.byId(e.id); if (!a || a.side !== 'them' || F.isRanged(a.weapon)) return;
     C.you.meleeOnYou++; if (gunIds.has(e.to)) C.you.gunHitInMelee++; });
   return Object.assign(meta, C);
@@ -281,20 +343,29 @@ async function oneFight(W, mode) {
 /* ---------- the run, in worker processes ---------- */
 async function main() {
   const argv = process.argv, arg = (k, d) => { const i = argv.indexOf(k); return i > 0 ? argv[i + 1] : d; };
-  if (argv[2] === '--fight') { process.stdout.write(JSON.stringify(await oneFight(JSON.parse(argv[3]), argv[4]))); return; }
+  if (argv[2] === '--fight') { process.stdout.write(JSON.stringify(await oneFight(JSON.parse(argv[3]), argv[4], argv[5]))); return; }
   const N = Number(arg('--n', 300)), JOBS = Number(arg('--jobs', 4));
   const modes = argv.includes('--write') ? ['dance', 'odds'] : argv.includes('--odds') ? ['odds'] : ['dance'];
   const ctx0 = await G.engine(true), districts = ctx0.DB.boardKinds.districts;
-  const prev = fs.existsSync(BANK) ? JSON.parse(fs.readFileSync(BANK, 'utf8')) : {};
+  const BANKF = arg('--bank', BANK);   /* a run beside another may write its own file; --merge folds it into the bank */
+  if (argv.includes('--merge')) {
+    const into = JSON.parse(fs.readFileSync(BANK, 'utf8')), from = JSON.parse(fs.readFileSync(arg('--merge'), 'utf8'));
+    Object.keys(from).forEach(k => { if (/^(dance|odds)/.test(k)) into[k] = from[k]; });
+    fs.writeFileSync(BANK, JSON.stringify(into) + '\n'); console.log('merged ' + Object.keys(from).filter(k => /^(dance|odds)/.test(k)).join(', ')); return;
+  }
+  const prev = fs.existsSync(BANKF) ? JSON.parse(fs.readFileSync(BANKF, 'utf8')) : {};
   const out = Object.assign({}, prev);
-  for (const mode of modes) {
+  const brains = String(arg('--brain', 'today')).split(',');
+  for (const mode0 of modes) for (const brain of brains) {
+    const mode = mode0, slot = mode0 + (brain === 'today' ? '' : '_' + brain);
+    process.stderr.write('\n== ' + slot + '\n');
     const work = Array.from({ length: N }, (_, k) => fightOf(k, districts)), res = new Array(N);
     let next = 0, running = 0; const t0 = Date.now();
     await new Promise(done => {
       const pump = () => {
         while (running < JOBS && next < work.length) {
           const i = next++, w = work[i]; running++;
-          cp.execFile(process.execPath, [__filename, '--fight', JSON.stringify(w), mode], { maxBuffer: 1 << 26 }, (err, so) => {
+          cp.execFile(process.execPath, [__filename, '--fight', JSON.stringify(w), mode, brain], { maxBuffer: 1 << 26 }, (err, so) => {
             running--;
             if (err) { console.error('fight failed', JSON.stringify(w), err.message.slice(0, 400)); res[i] = null; } else res[i] = JSON.parse(so);
             if ((next % 25) === 0) process.stderr.write(mode + ' ' + next + '/' + N + ' ' + Math.round((Date.now() - t0) / 1000) + 's\n');
@@ -304,8 +375,9 @@ async function main() {
       };
       pump();
     });
-    out[mode] = { fights: res.filter(Boolean), secs: Math.round((Date.now() - t0) / 1000) };
-    report(mode, out[mode].fights);
+    out[slot] = { brain: brain, fights: res.filter(Boolean), secs: Math.round((Date.now() - t0) / 1000) };
+    console.log('\n######## ' + slot.toUpperCase());
+    report(mode, out[slot].fights);
   }
   if (argv.includes('--write') || argv.includes('--save')) {
     out._readme = 'TUNING [a better AUTO brain and a true calculator] 10/25 (rule 176(g), research only). draft:true. NOTHING IN THE GAME READS THIS FILE. '
@@ -314,8 +386,8 @@ async function main() {
       + 'odds: the read at the start of each fight the fight\'s way (ODDS_RUNS runs from the frozen board on the odds\' seed; first = the colour at ODDS_FIRST), '
       + 'a LONG_READ on other dice (the truth of the board), and the real fight played out on AUTO from the real seed.';
     out.draft = true; out.odds_constants = OC; out.long_read = LONG_READ; out.long_every = LONG_EVERY; out.fight_print = G.fightPrint();
-    fs.writeFileSync(BANK, JSON.stringify(out) + '\n');
-    console.log('wrote ' + path.relative(ROOT, BANK));
+    fs.writeFileSync(BANKF, JSON.stringify(out) + '\n');
+    console.log('wrote ' + BANKF);
   }
 }
 function sumSide(fs_, side) {
@@ -342,7 +414,9 @@ function report(mode, fs_) {
       console.log('  gun turns: ' + T.gunTurns + ', with the climb open: ' + T.gunRoofOptTurns + ', climbed then: ' + T.gunRoofOptTaken + ' (' + pct(T.gunRoofOptTaken, T.gunRoofOptTurns) + '), on a roof at the end: ' + T.gunTurnsOnRoof);
       if (side === 'you') console.log('  their melee swings: ' + T.meleeOnYou + ', on our gunmen: ' + T.gunHitInMelee + ' (' + pct(T.gunHitInMelee, T.meleeOnYou) + '); per gunman-round ' + (T.gunHitInMelee / Math.max(1, T.gunTurns)).toFixed(2) + ', per melee-man-round ' + ((T.meleeOnYou - T.gunHitInMelee) / Math.max(1, T.turns - T.gunTurns)).toFixed(2));
     });
-    const won = fs_.filter(f => f.result === 'won').length; console.log('\nwon ' + won + ' of ' + fs_.length);
+    const won = fs_.filter(f => f.result === 'won').length, st = fs_.filter(f => f.result === 'stalled').length;
+    console.log('\nwon ' + won + ' of ' + fs_.length + ' (stalled ' + st + '), rounds a fight ' + (fs_.reduce((a, f) => a + f.rounds, 0) / fs_.length).toFixed(1)
+      + ', our men down a fight ' + (fs_.reduce((a, f) => a + (f.ourDown || 0), 0) / fs_.length).toFixed(2) + ', dead ' + (fs_.reduce((a, f) => a + (f.ourDead || 0), 0) / fs_.length).toFixed(2));
   } else {
     const bands = [[0, 0.2], [0.2, 0.4], [0.4, 0.6], [0.6, 0.8], [0.8, 0.92], [0.92, 1.01]];
     const show = (lab, key) => {
