@@ -159,3 +159,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_105_KEYBOARD_CONTRACTS_SCALING_2026_10_24.md | keyboard shortcuts, contract abandon, roster scaling
 - 2026-10-24 | ASK | GROK_ASK_106_MAYOR_REBUILD_CITY_2026_10_24.md | mayor arc, city rebuild, building kinds
 - 2026-10-24 | ASK | GROK_ASK_107_ANTI_ZACH_D_FILMS_2026_10_24.md | anti Zach D Films, AI economic videos
+- 2026-10-24 | ASK | GROK_ASK_108_VIRAL_LOOKS_2026_10_24.md | viral social clips, scroll stop
