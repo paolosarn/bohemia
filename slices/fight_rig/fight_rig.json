@@ -1448,6 +1448,21 @@
    "type": "runner",
    "rig": "records/target/combat/rig/enemy_runner_2/rig.json"
   },
+  "enemy_runner_3": {
+   "file": "enemy_runner_3.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.746,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "runner",
+   "rig": "records/target/combat/rig/enemy_runner_3/rig.json"
+  },
   "enemy_heavy_0": {
    "file": "enemy_heavy_0.webp",
    "w": 141,
@@ -1478,20 +1493,20 @@
    "type": "heavy",
    "rig": "records/target/combat/rig/enemy_heavy_1/rig.json"
   },
-  "enemy_heavy_2": {
-   "file": "enemy_heavy_2.webp",
+  "enemy_heavy_3": {
+   "file": "enemy_heavy_3.webp",
    "w": 141,
    "h": 161,
    "foot": [
     67,
     110
    ],
-   "height_m": 1.742,
+   "height_m": 1.708,
    "kind": "enemy",
    "ref": "faction_remnants",
    "guns": "faction_remnants_guns.webp",
    "type": "heavy",
-   "rig": "records/target/combat/rig/enemy_heavy_2/rig.json"
+   "rig": "records/target/combat/rig/enemy_heavy_3/rig.json"
   }
  },
  "faces": {
@@ -1583,9 +1598,10 @@
    "enemy_runner_0",
    "enemy_runner_1",
    "enemy_runner_2",
+   "enemy_runner_3",
    "enemy_heavy_0",
    "enemy_heavy_1",
-   "enemy_heavy_2"
+   "enemy_heavy_3"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"

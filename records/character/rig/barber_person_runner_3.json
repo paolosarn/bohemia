@@ -1,0 +1,40 @@
+{
+ "cut": "PERSON runner_3",
+ "tag": "person_runner_3",
+ "bank": {
+  "kind": "person",
+  "gang": "Runners"
+ },
+ "worn_by": "Runners, rolled",
+ "model": "records/character/rig/barber_person_runner_3.glb",
+ "body": "records/character/rig/person_runner_3.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  203,
+  171,
+  138
+ ],
+ "model_top_m": 1.5511,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7456,
+ "pieces": {
+  "barber_curtain_cut_cap": 231026,
+  "barber_curtain_cut_locks": 24324,
+  "hat_oxblood_slouch_beanie_cap": 192650,
+  "face_charcoal_dust_mask_mask": 7538,
+  "face_charcoal_dust_mask_strap_top": 296,
+  "face_charcoal_dust_mask_strap_low": 296,
+  "person_runner_3_turtle": 6528
+ }
+}
