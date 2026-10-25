@@ -1,0 +1,35 @@
+{
+ "_about": "RUN TWO [the rare man at the post], 10/25/26 (rule 183(a), Paolo 10/25: 'there definitely isn't incentive for the first 50 days to grow your crew unless it's god-tier recruits'). THE RARE MAN AT THE POST, Battle Brothers' way: now and then a big place's post holds a man who is not a lowborn: a hedge knight, a sellsword or a swordmaster (our names: road knight, gun for hire, blade master). TUNING's numbers (records/BOHEMIA_TUNING_THE_FIRST_FIFTY_DAYS_AND_THE_LONE_WOLF_10_25_26.md s1e and s3 recruit.rare; the NOTE on RUN TWO's board): only at a town or a fortress (never a camp: a village in Battle Brothers' words), 3 in 100 a post slot (the wiki's 2.2 to 8.3%, bb_all/0370; a post of seven shows one about one week in five), level 2 to 3, rolled in the top quarter of his background's range (the bench's god-tier hire) with his door levels taken on four picks a level, three talents, his own mid kit (the hedge knight's measured: a winged mace, a kite shield, mail and a nasal helm with mail), priced through the hall on Battle Brothers' formula (base, 400 for the blade master, + 500 x (level - 1)^1.5, + his kit at 1.25, x the hall's four fifths): about 500 batteries for the road knight at level 2. Measured: hired the day the purse covers him, the good wolf's never-lost runs go 34 -> 48 in 100; on day 1 on credit 34 -> 74. Every man at the post holds a gun (rule 120(a)): a blade man's pistol rides in his kit. Lines are draft:true (WORDS may rewrite any). A modder may add a man here: background (a backgrounds.json id), stars, plan, kit ids (weapons.json, armor.json), base_crowns, line.",
+ "draft": true,
+ "chance_per_slot": 0.03,
+ "tiers": ["town", "fortress"],
+ "levels": [2, 3],
+ "stat_floor": 0.75,
+ "source": "banks/BOHEMIA_TUNING_LONE_WOLF_10_25_26.json (the god-tier hire); reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0370 (2.2 to 8.3%); records/target/bb/backgrounds.json missing note (base 30 to about 150, Swordmaster 400)",
+ "men": [
+  {
+   "background": "hedge_knight",
+   "stars": { "melee_skill": 3, "melee_defense": 2, "fatigue": 2 },
+   "plan": ["melee_skill", "melee_defense", "fatigue", "ranged_defense"],
+   "kit": { "gun": "knife", "main": "winged_mace", "off": "kite_shield", "body": "mail_hauberk", "head": "nasal_helmet_with_mail" },
+   "base_crowns": 150,
+   "line": "Three winters I held the 95 alone, mano. Pay me and it is your road."
+  },
+  {
+   "background": "sellsword",
+   "stars": { "ranged_skill": 3, "ranged_defense": 2, "resolve": 2 },
+   "plan": ["ranged_skill", "ranged_defense", "resolve", "fatigue"],
+   "kit": { "gun": "crossbow", "main": "crossbow", "body": "mail_shirt", "head": "nasal_helmet" },
+   "base_crowns": 150,
+   "line": "I hit what I aim at. You point, I pull. Simple, no?"
+  },
+  {
+   "background": "swordmaster",
+   "stars": { "melee_skill": 3, "melee_defense": 3, "initiative": 2 },
+   "plan": ["melee_skill", "melee_defense", "initiative", "ranged_defense"],
+   "kit": { "gun": "knife", "main": "arming_sword", "body": "padded_leather" },
+   "base_crowns": 400,
+   "line": "Guns jam, hermano. I don't. Ask the men who tried."
+  }
+ ]
+}

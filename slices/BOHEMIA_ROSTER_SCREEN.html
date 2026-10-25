@@ -833,7 +833,8 @@ function open(o){
       var m = startLevel(C.manOf(def, S.crew.length), def.level); m.hired = true; if(def.stats) m.stats = def.stats; if(def.stars) m.stars = def.stars; if(def.look) m.look = def.look;
       if(def.trait) m.trait = def.trait; if(Array.isArray(def.traits)) m.traits = def.traits.slice();   /* the trait he was hired with (RUN TWO [the trait before you hire], 10/24) */
       var g = def.gear || {};   /* he walks in wearing what he held at the post (RUN TWO [the hire shows the whole man], 10/24) */
-      m.gear = {main:C.itemOf('weapon', g.main), off:null, body:C.itemOf('body', g.body), head:null}; S.crew.push(m); }); }catch(e){}
+      m.gear = {main:C.itemOf('weapon', g.main), off:C.itemOf('shield', g.off), body:C.itemOf('body', g.body), head:C.itemOf('head', g.head)};   /* RUN TWO __THE_RARE_MAN_AT_THE_POST__: a rare man walks in with his shield and helm on (an ordinary hire carries none: null as before) */
+      if(def.line) m.pain = def.line; S.crew.push(m); }); }catch(e){}
   /* __WHO_YOU_HIRE_FIGHTS__: a man who walked (or was let go) is not on this screen */
   var wn = walkedNames(); if(wn.length) S.crew = S.crew.filter(function(m){ return m.main || wn.indexOf(m.name) < 0; });
   if(o.origin) S.origin = o.origin;

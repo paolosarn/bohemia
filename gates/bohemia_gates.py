@@ -9782,6 +9782,12 @@ GATES = [
      "NOW origins.json's door block (TUNING's god3) rolled once a game by engine/bohemia_origin_start.js and handed by the door. HOLDS on the demo: the file is god3; 200 rolls match TUNING's measured spread exactly, 200 different men; "
      "the wolf picked by a real tap is the same man all game; the crew screen opened by the bar's chip reads LEVEL 4, three drawn three-star stats, his kit, his perks, his line; the fight fields him as rolled; NEW GAME forgets him; "
      "the same on the computer by mouse (where the crew screen's own boot used to save the default YOU over him); the other fourteen hand their plain men. about 4 min", True),
+    ('THE RARE MAN AT THE POST', ['node', 'gates/the_rare_man_at_the_post_gate.js'],
+     "RUN TWO gate, 10/25, rule 183(a) (Paolo 10/25: 'there definitely isn't incentive for the first 50 days to grow your crew unless it's god-tier recruits'); TUNING's recruit.rare. "
+     "MEASURED before: the post dealt six lowborn backgrounds at level 1, the god-tier man never existed. NOW records/target/bb/rare_recruits.json: a road knight, a gun for hire or a blade master, a town's or fortress's slot 3 in 100, "
+     "level 2 or 3 in the top quarter of his range, three talents, his own kit, priced on the hall's formula. HOLDS: the file; 2 to 4 in 100 at towns and fortresses over 400 weeks, never a camp; every rare man in range, the level-2 road knight 500; "
+     "his card reads as rare on the phone (gold frame, RARE, level, kit, his line, three stars) and every hall card fits the 390 px phone; on the demo a real tap through Church's door hires him (price taken, crew screen in his own kit, stars, line); "
+     "the fight is handed his kit; the computer. about 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

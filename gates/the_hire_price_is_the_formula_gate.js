@@ -70,7 +70,7 @@ const srv = http.createServer((rq, rs) => {
     await p.waitForTimeout(350);
     const xy = await p.evaluate(() => BohemiaSettlement.where('hall')); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(350);
     return p.evaluate(() => { const R = BohemiaSettlement.state.recruits || [];
-      return Array.from(document.querySelectorAll('#sheet .hire')).map(h => { const r = R.find(x => x.id === h.dataset.id) || {};
+      return Array.from(document.querySelectorAll('#sheet .hire:not(.rare)')).map(h => {   /* RE-AIMED 10/25 (RUN TWO): the rare man is THE RARE MAN AT THE POST's to price */ const r = R.find(x => x.id === h.dataset.id) || {};
         const btn = Array.from(h.querySelectorAll('button')).find(x => /Hire/.test(x.textContent));
         return { id: r.id, backgroundId: r.backgroundId, priceCrowns: r.priceCrowns, level: r.level, old: r.priceBatteries, shown: btn ? +((btn.textContent.match(/(\d+)\s*batt/) || [])[1]) : null }; }); });
   };
