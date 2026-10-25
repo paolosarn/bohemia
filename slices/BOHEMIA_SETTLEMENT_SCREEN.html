@@ -1221,8 +1221,9 @@ function walkNearest(G, x, y, people){
   return best;
 }
 /* A* over the cells, eight ways, then pulled straight wherever the ground between two points is clear */
-function walkFind(G, a, b){
-  var s = walkNearest(G, a.x, a.y, true), t = walkNearest(G, b.x, b.y, false); if(!s || !t) return null;
+function walkFind(G, a, b, through){
+  var s = walkNearest(G, a.x, a.y, true), t = walkNearest(G, b.x, b.y, !!through); if(!s || !t) return null;
+  var free = function(v){ return through ? v !== 0 : v === 1; };   /* __HE_ALWAYS_WALKS__: through, the people standing step aside */
   var W = G.gw, N = W*G.gh, gs = new Float32Array(N), from = new Int32Array(N), open = [], closed = new Uint8Array(N), si = s.j*W + s.i, ti = t.j*W + t.i;
   for(var k = 0; k < N; k++){ gs[k] = Infinity; from[k] = -1; }
   var hh = function(i){ var x = i % W, y = (i / W) | 0, dx = Math.abs(x - t.i), dy = Math.abs(y - t.j); return Math.max(dx, dy) + .414 * Math.min(dx, dy); };
@@ -1234,8 +1235,8 @@ function walkFind(G, a, b){
     var cur = pop()[1]; if(closed[cur]) continue; closed[cur] = 1; if(cur === ti){ found = true; break; }
     var cx0 = cur % W, cy0 = (cur / W) | 0;
     for(var d = 0; d < 8; d++){ var nx = cx0 + D[d][0], ny = cy0 + D[d][1]; if(nx < 0 || ny < 0 || nx >= W || ny >= G.gh) continue; var ni = ny*W + nx;
-      if(closed[ni] || (G.g[ni] !== 1 && ni !== ti)) continue;
-      if(D[d][2] > 1 && (G.g[cy0*W + nx] !== 1 || G.g[ny*W + cx0] !== 1)) continue;   /* never cut a corner of a block */
+      if(closed[ni] || (!free(G.g[ni]) && ni !== ti)) continue;
+      if(D[d][2] > 1 && (!free(G.g[cy0*W + nx]) || !free(G.g[ny*W + cx0]))) continue;   /* never cut a corner of a block */
       var ng = gs[cur] + D[d][2]; if(ng < gs[ni]){ gs[ni] = ng; from[ni] = cur; push(ni, ng + hh(ni)); } } }
   if(!found) return null;
   var cells = []; for(var c = ti; c !== -1; c = from[c]) cells.push({x:(c % W + .5)*G.C, y:(((c / W) | 0) + .5)*G.C}); cells.reverse();
@@ -1245,8 +1246,31 @@ function walkFind(G, a, b){
   while(k0 < pts.length - 1){ var far = k0 + 1; for(var k1 = pts.length - 1; k1 > k0 + 1; k1--) if(leadClear(pts[k0], pts[k1])){ far = k1; break; } out.push(pts[far]); k0 = far; }
   return out;
 }
-var LEAD_LONG_MS = 8000;   /* a way longer than this (sixteen beats, about eight strides on a phone's view) is not walked: he is already there */
-function leadPath(a, b){ var G = walkGrid(); return G ? walkFind(G, a, b) : null; }
+/* __HE_ALWAYS_WALKS__ (RUN TWO [he always walks, never teleports], rule 204, Paolo 10/25: 'am I tweaking or am I seeing my guy instantly
+   teleported to the different settlement stores instead of walking'). He was not tweaking: a way over sixteen beats, a way with nobody
+   able to pass, and a picture's boxed-in door all put him there in one frame (169(c)'s 'a walk that would confuse is not walked', the
+   coordinator's clause, STRUCK). NOW HE ALWAYS WALKS: the way is found around the people standing; failing that, through them (they
+   step aside); failing that, to the ground nearest the thing that he can reach, and he never moves more than a step a frame. A LONG
+   WAY IS RUN, NOT SKIPPED: past a short walk (two seconds) he runs, the walk's own six keys at the pace of his feet, as fast as the
+   way needs to be over in about four seconds (eight beats) and never faster than a step a tenth of a second. */
+var LEAD_WALK_MS = 2000, LEAD_MAX_MS = 4000, LEAD_TOP_SPEED = 4.5;
+function leadPath(a, b){
+  var G = walkGrid(); if(!G) return null;
+  var P = walkFind(G, a, b) || walkFind(G, a, b, true);
+  if(P) return P;
+  var r = walkReach(G, a, b); return r ? walkFind(G, a, r, true) : null;
+}
+/* the cell he can reach (over the ground, through people) nearest the goal: never 'no way' */
+function walkReach(G, a, b){
+  var s = walkNearest(G, a.x, a.y, true); if(!s) return null;
+  var W = G.gw, seen = new Uint8Array(W*G.gh), q = [s.j*W + s.i], best = null, bd = Infinity; seen[q[0]] = 1;
+  for(var h = 0; h < q.length; h++){ var c = q[h], x = c % W, y = (c / W) | 0, d = Math.hypot((x + .5)*G.C - b.x, (y + .5)*G.C - b.y);
+    if(d < bd){ bd = d; best = c; }
+    [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(o){ var nx = x + o[0], ny = y + o[1]; if(nx < 0 || ny < 0 || nx >= W || ny >= G.gh) return; var ni = ny*W + nx; if(seen[ni] || G.g[ni] === 0) return; seen[ni] = 1; q.push(ni); }); }
+  return best == null ? null : {x:(best % W + .5)*G.C, y:(((best / W) | 0) + .5)*G.C};
+}
+/* how much faster than his walk he goes on a way of len picture px: 1 for a short walk, else his run */
+function leadSpeed(len){ var t = len / (WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS); return t <= LEAD_WALK_MS ? 1 : Math.min(LEAD_TOP_SPEED, Math.max(2, t / LEAD_MAX_MS)); }
 function leadDirOf(dx, dy){ var o = Math.round(Math.atan2(dy, dx) / (Math.PI/4)); return LEAD_DIRS.indexOf({'0':'E','1':'SE','2':'S','3':'SW','4':'W','-4':'W','-3':'NW','-2':'N','-1':'NE'}[o]); }
 
 /* where he stands on arrival: on the ground under the middle of what you see, near the main street, clear of everybody's spot */
@@ -1271,19 +1295,14 @@ function leadGo(key, b, spot){
   LEAD.liftFor = null;   /* the town's one move for this tap is worked out when the sheet is up */
   if(LEAD.x != null) leadRoute(performance.now());
 }
-/* his way to the goal on the ground; none, or longer than LEAD_LONG_MS, and he is already there (169(c)) */
+/* his way to the goal on the ground, from where he stands; he walks it, or runs it if it is long, and never jumps (__HE_ALWAYS_WALKS__) */
 function leadRoute(now){
   var g = LEAD.goal; if(!g || LEAD.x == null) return;
   var P = leadPath({x:LEAD.x, y:LEAD.y}, {x:g.x, y:g.y}), len = 0;
   if(P) for(var i = 1; i < P.length; i++) len += Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y);
-  var ms = len / (WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS);
-  if(P && P.length > 1){ g.x = P[P.length - 1].x; g.y = P[P.length - 1].y; }
-  if(!P || ms > LEAD_LONG_MS){
-    LEAD.x = g.x; LEAD.y = g.y; LEAD.path = null; LEAD.since = now || performance.now(); LEAD.placed = (LEAD.placed | 0) + 1;
-    if(g.at){ LEAD.want = LEAD.face = leadDirOf(g.at.x - LEAD.x, (g.at.y - LEAD.y) * 2); }
-    return;
-  }
-  LEAD.path = P; LEAD.seg = 1; LEAD.pathLen = len;
+  if(!P || P.length < 2 || len < 1){ LEAD.path = null; LEAD.noWay = (LEAD.noWay | 0) + (P ? 0 : 1); return; }   /* already there (or, never seen, no ground at all): he stays, never jumps */
+  g.x = P[P.length - 1].x; g.y = P[P.length - 1].y;
+  LEAD.path = P; LEAD.seg = 1; LEAD.pathLen = len; LEAD.speed = leadSpeed(len);
 }
 function leadToPerson(p){
   if(!p || !VAR) return;
@@ -1327,14 +1346,14 @@ function leadTick(now){
   if(view.still) return;   /* held for a measurement: he stands where he is */
   var walking = false;
   if(LEAD.path && LEAD.seg < LEAD.path.length){
-    var v = WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS, go = v * dt;
+    var sp = LEAD.speed || 1, v = WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS * sp, go = v * dt;   /* __HE_ALWAYS_WALKS__: his run is his walk at the pace of his feet */
     while(go > 0 && LEAD.seg < LEAD.path.length){
       var q = LEAD.path[LEAD.seg], dx = q.x - LEAD.x, dy = q.y - LEAD.y, d = Math.hypot(dx, dy);
       if(d > .01) LEAD.want = leadDirOf(dx, dy);
       if(d <= go){ LEAD.x = q.x; LEAD.y = q.y; go -= d; LEAD.seg++; }
       else { LEAD.x += dx/d*go; LEAD.y += dy/d*go; go = 0; }
     }
-    walking = true; LEAD.walkT += dt;
+    walking = true; LEAD.walkT += dt * sp; LEAD.running = sp > 1;
     if(LEAD.seg >= LEAD.path.length){ LEAD.path = null; LEAD.since = now; walking = false; }
   }
   if(!walking && LEAD.goal && LEAD.goal.at && LEAD.x === LEAD.goal.x && LEAD.y === LEAD.goal.y)
@@ -2687,17 +2706,17 @@ window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G &&
       var sp = kp ? leadSpot(kp) : (function(){ var bx = VAR.boxes[k], n = walkNearest(G, (bx[0]+bx[2])/2, Math.min(picH() - 8, bx[3] + 10), false); return n ? {x:n.x, y:n.y} : null; })(); if(sp) spots.push({k:'b:' + k, x:sp.x, y:sp.y}); });
     folkList().forEach(function(p, i){ if(p.keeper) return; var sp = leadSpot(p); spots.push({k:'p:' + i, x:sp.x, y:sp.y}); });
     LEAD.x = keep;
-    var v = WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS;
+    var v = WALK_PX_PER_STRIDE * leadZ() / STRIDE_MS; out.slow = 0; out.longest = 0;
     spots.forEach(function(a){ if(leadBlocked(a.x, a.y)) out.miss.push(a.k + ' stands in a block'); });
     spots.forEach(function(a){ spots.forEach(function(b){ if(a === b) return; var P = leadPath(a, b); if(!P){ out.far++; return; } out.paths++;
       var len = 0; for(var i = 1; i < P.length; i++){ len += Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y);
         var n = Math.max(2, Math.ceil(Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y) / 2)); for(var k = 1; k <= n; k++){ if(leadBlocked(P[i-1].x + (P[i].x - P[i-1].x)*k/n, P[i-1].y + (P[i].y - P[i-1].y)*k/n)){ out.bad++; break; } } }
       if(Math.hypot(P[P.length-1].x - b.x, P[P.length-1].y - b.y) > 40) out.miss.push(a.k + '->' + b.k + ' ends ' + Math.round(Math.hypot(P[P.length-1].x - b.x, P[P.length-1].y - b.y)) + ' px off');
-      if(len / v > LEAD_LONG_MS) out.placed++; }); });
+      var ms = len / (v * leadSpeed(len)); if(ms > out.longest) out.longest = ms; if(ms > LEAD_MAX_MS + 600) out.slow++; }); });   /* __HE_ALWAYS_WALKS__: nothing placed; a way run over about four seconds counts */
     out.miss = out.miss.slice(0, 6); return out; },
   camp:function(){ return {camp:!!S.camp, bagSlots:BAG_SLOTS, info:S.campInfo || null}; },   /* __THE_CAMP__ */
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
-    return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
+    return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
   peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
