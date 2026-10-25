@@ -15,7 +15,7 @@
      D3 YOUR CREW: every man of his on it with the XP the fight gave him; the one who climbed says LEVEL UP and PICK A PERK
      D4 WHAT THEY LEFT: pieces off the dead through the drop rules (none off the one who ran); LOOT ALL (a real tap) moves
         them into the stash and the batteries into the purse, once
-     D5 CHOOSE YOUR LEVEL-UP (a real tap) opens the one crew screen on the man who climbed; he picks three of the eight
+     D5 CHOOSE YOUR LEVEL-UP (a real tap) opens the one crew screen on the man who climbed; he picks four of the eight (TUNING's four, rule 162(b))
         rolled stats and a perk (real taps, rule 162(a)); the looted
         weapon is in the bag there and goes into a man's hand (real taps on his face, his slot, the piece)
      D6 LEAVE (a real tap): the spoils are gone and he is home on the map
@@ -163,14 +163,14 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     await p.waitForTimeout(600);
     const r0 = R ? await R.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel]; return { sel: m && m.name, main: m && m.main, points: m && m.points, level: m && m.level }; }) : null;
     ok('D5 CHOOSE YOUR LEVEL-UP (a real tap) opens the one crew screen on the man who climbed, with his levels and points waiting', !!r0 && r0.main && r0.points > 0, r0 && (r0.sel + ' level ' + r0.level + ', ' + r0.points + ' to spend'));
-    /* rule 162(a): his level-up is his choice: three of the eight rolled stats, real taps */
+    /* rule 162(a): his level-up is his choice: four of the eight rolled stats (TUNING's four, one more than Battle Brothers, rule 162(b)), real taps */
     const rolls = R ? await R.evaluate(() => [].map.call(document.querySelectorAll('#levelup [data-raise]'), b => b.dataset.raise)) : [];
     const st0 = R ? await R.evaluate(() => Object.assign({}, BohemiaRosterScreen.state.crew.find(x => x.main).stats)) : {};
-    for (const k of ['ranged_defense', 'melee_skill', 'hp']) { await RL.locator('#levelup [data-raise="' + k + '"]').first().tap(); await p.waitForTimeout(80); }
+    for (const k of ['ranged_defense', 'melee_skill', 'hp', 'fatigue']) { await RL.locator('#levelup [data-raise="' + k + '"]').first().tap(); await p.waitForTimeout(80); }
     await RL.locator('#raise').tap(); await p.waitForTimeout(250);
     const st1 = R ? await R.evaluate(() => { const m = BohemiaRosterScreen.state.crew.find(x => x.main); return { st: Object.assign({}, m.stats), left: (m.rolls || []).length }; }) : { st: {} };
     const rose = Object.keys(st1.st).filter(k => st1.st[k] > st0[k]);
-    ok('    he chooses his level-up: of the eight rolled stats he taps RANGED DEF, MELEE SKILL and HITPOINTS, and only those rise', rolls.length === 8 && rose.length === 3 && ['ranged_defense', 'melee_skill', 'hp'].every(k => rose.indexOf(k) >= 0),
+    ok('    he chooses his level-up: of the eight rolled stats he taps RANGED DEF, MELEE SKILL, HITPOINTS and FATIGUE, and only those rise', rolls.length === 8 && rose.length === 4 && ['ranged_defense', 'melee_skill', 'hp', 'fatigue'].every(k => rose.indexOf(k) >= 0),
       rose.map(k => k + ' ' + st0[k] + '->' + st1.st[k]).join(', ') + '; ' + st1.left + ' more levels waiting');
     let perk = null;
     if (r0 && r0.points > 0) {

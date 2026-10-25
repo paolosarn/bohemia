@@ -44186,7 +44186,7 @@ function huntFleeRoad(){
 function huntDist(){ return HUNT ? Math.max(Math.abs(HUNT.at[0] - city.x), Math.abs(HUNT.at[1] - city.y)) : 99; }
 /* one of his steps: they close in (a road is his), the chase re-aims, and contact is the fight */
 function mapStepWorld(){
-  if(LOOP.fighting || (LOOP.frame && LOOP.frame.style.display === 'block')) return;
+  if(LOOP.fighting || (LOOP.frame && LOOP.frame.style.display === 'block' && !(CAMP && CAMP.on))) return;   /* __THE_CAMP__: a camp is the world moving while he rests */
   try{ if(CITY_CONTACT_POSTED) return; }catch(_e){}
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.step()) return; }catch(_e){}   /* __EVERY_JOB_KIND__: the cargo follows, the packs and the raiders move */
   if(HUNT){
@@ -44305,6 +44305,8 @@ function mapSkull(x, y, col){
 /* AND THE MAP COMES HOME FROM A FIGHT AT THE SPEED HE HAD (TUNING's change 2c): PAUSE was dropped at the bell (44a, the
    valley does not run on while he fights); a fight he finished hands the pad back as he left it */
 window.addEventListener('message', function(ev){ var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END') return;
+  /* __CLOUT__ (RUN TWO [the camp and the retinue], rule 151(d)): a fight won raises the company's name, five a man beaten (draft, TUNING) */
+  try{ var oc = d.outcome || {}; if(window.BohemiaRenown && (oc.victory || oc.result === 'win') && !((oc.alive | 0) > 0)) BohemiaRenown.fightWon((oc.dead | 0) + (oc.fled | 0), d.at || Date.now()); }catch(_e){}
   setTimeout(function(){ try{ if(TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); window.__RESUMED_AFTER_FIGHT = (window.__RESUMED_AFTER_FIGHT | 0) + 1; }catch(_e){} }, 0); });
 /* ==== /__THE_FIRST_TAP_GOES_SOMEWHERE__ + __LOOK_BEFORE_YOU_FIGHT__ ==== */
 
@@ -44539,7 +44541,8 @@ function freshStart(p, n){
   try { render(); } catch (_e) {} try { mapStatePost(); } catch (_e) {}
 }
 /* ==== /__A_FRESH_START_AND_A_FOG_OF_WAR__ ==== */
-function loopJobPay(base){ var p = LOOP.start; if(!p) return Math.max(1, base | 0); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1))); }
+function loopJobPay(base){ var p = LOOP.start, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__ (RUN TWO [money teaches], rule 151(b)): Battle Brothers' 'the crowns reward increases with your company's Renown', x1 to x4.5 (TUNING) */
+  if(!p) return Math.max(1, Math.round((base | 0) * cm)); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1) * cm)); }
 /* __A_FEW_NOT_TWELVE__ (RUN 10/5, [a few, not twelve], rule 75b). PAOLO 10/5: 'for demo purposes just one enemy
    attacking... 12 vs 12 is cool but that can't be the flow... a lot of math on the type of enemies, the difficulty, the
    equipment as you progress.' MEASURED: every fight dealt COMBAT's fixed nine brigands -- the map's own crew list never
@@ -44692,7 +44695,26 @@ try{ fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.
 var CREW_DEFS = null;   /* ours.json's crew: the names and looks the crew screen and the fight give the company, in order */
 try{ fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }).then(function(j){
   CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] }; }).catch(function(){ CREW_DEFS = { men: [], looks: [], failed: true }; }); }catch(_e){}
-function billPerNight(){ return crewCount() * BILL.per_man; }
+/* __THE_HIRED_ARE_PAID__ (RUN TWO [money teaches], rule 151(b), Paolo 10/24: 'keep a squad fed and paid... it would hurt my ability
+   to hire better people or get better weapons and armour'; TUNING 10/25 s2, 'THE MEN AT THE POST ARE NEVER PAID'). The night is
+   the crew's food AND the hired men's pay: every man hired at a post (bohemia.hired.v1) who is still with you is paid his wage
+   (engine/bohemia_wages.js: his background's wiki wage / 10, x 1.1 a level to 11, at the level he has climbed to); the founding
+   crew eats and is not paid. The camp's retinue: the cook takes 15% off the food, the paymaster 15% off the pay. So twelve
+   hired in the first week cost about 33 a night against the three's 6 (TUNING's table), and the days-left on the bar say so. */
+function billFood(){ return Math.round(crewCount() * BILL.per_man * (window.BohemiaCamp ? BohemiaCamp.mult('food') : 1)); }
+function billWages(){
+  if (!window.BohemiaWages) return 0;
+  var hired = [], co = {}, gone = {};
+  try{ hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []; }catch(_e){}
+  try{ (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).forEach(function(m){ if (m && m.name) co[String(m.name).toUpperCase()] = m; }); }catch(_e){}
+  try{ crewWalked().forEach(function(x){ if (x && x.name) gone[String(x.name).toUpperCase()] = 1; }); }catch(_e){}
+  try{ crewTaken().concat(crewDead()).forEach(function(n){ gone[String(n).toUpperCase()] = 1; }); }catch(_e){}
+  var sum = 0;
+  hired.forEach(function(h){ if (!h || !h.name || h.dead) return; var n = String(h.name).toUpperCase(); if (gone[n]) return; var m = co[n] || {};
+    sum += BohemiaWages.wage(h.background || m.background || m.bgId, m.level || h.level || 1); });
+  return Math.round(sum * (window.BohemiaCamp ? BohemiaCamp.mult('wage') : 1));
+}
+function billPerNight(){ return billFood() + billWages(); }
 function billDaysLeft(){ var p = billPerNight(); return p > 0 ? Math.floor(loopBats() / p) : null; }
 function billPublish(){
   try{ window.__BILL = { perMan: BILL.per_man, crew: crewCount(), perNight: billPerNight(), daysLeft: billDaysLeft(), red: billDaysLeft() != null && billDaysLeft() <= BILL.red_at, last: BILL.last, loaded: BILL.loaded }; }catch(_e){}
@@ -44711,14 +44733,14 @@ function crewWhoWalks(){
   return { name: String(nm), look: looks[i] || null, i: i };
 }
 function crewBillNight(){
-  var crew = crewCount(), due = crew * BILL.per_man, have = loopBats(), paid = Math.min(due, Math.max(0, have)), walked = null;
-  if(paid > 0){ try{ BohemiaPurse.debit(purseGet(), 'electricity', paid, 'the crew ate: ' + crew + (crew === 1 ? ' man' : ' men') + ', food and water', 'bill:' + loopDay(), loopDay()); }catch(_e){} }
+  var crew = crewCount(), food = billFood(), wages = billWages(), due = food + wages, have = loopBats(), paid = Math.min(due, Math.max(0, have)), walked = null;   /* __THE_HIRED_ARE_PAID__ */
+  if(paid > 0){ try{ BohemiaPurse.debit(purseGet(), 'electricity', paid, 'the crew ate: ' + crew + (crew === 1 ? ' man' : ' men') + ', food and water' + (wages ? '; the hired were paid ' + wages : ''), 'bill:' + loopDay(), loopDay()); }catch(_e){} }
   if(have < due && BILL.walks > 0){
     walked = crewWhoWalks();
     if(walked){ var w = crewWalked(); walked.day = loopDay(); w.push(walked); try{ localStorage.setItem(CREW_WALKED_KEY, JSON.stringify(w)); }catch(_e){}
       try{ billSpeaks(walked); }catch(_e){} }
   }
-  BILL.last = { day: loopDay(), crew: crew, due: due, paid: paid, short: due - paid, walked: walked ? walked.name : null };
+  BILL.last = { day: loopDay(), crew: crew, due: due, food: food, wages: wages, paid: paid, short: due - paid, walked: walked ? walked.name : null };
   window.__BILL_NIGHTS = (window.__BILL_NIGHTS | 0) + 1;
   try{ setTimeout(function(){ saveNow('night'); }, 0); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: the night */
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(walked ? (walked.name + ' walked: no batteries for food.') : ('The crew ate: ' + paid + ' batteries.'), 'bill'); }catch(_e){}   /* draft:true */
@@ -44789,6 +44811,7 @@ function loopFrame(){
 }
 function loopPostOpen(){
   var t = LOOP.open; if(!t || !LOOP.frame || !LOOP.ready) return;
+  if(t.camp){ campPost(); return; }   /* __THE_CAMP__ (RUN TWO): the same screen, your own camp */
   var dist = null; try{ var c = om.at(t.x, t.y); dist = c && c.district; }catch(_e){}
   try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN',
     place: { name: t.name, tier: t.tier, district: dist || 'commercial', block: [t.x, t.y] },
@@ -44816,6 +44839,114 @@ function loopOpenTown(t){
   try{ saveNow('town:' + t.name); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: a town reached */
 }
 function loopClose(){ if(LOOP.frame) LOOP.frame.style.display = 'none'; LOOP.open = null; try{ render(); }catch(_e){} }
+/* ==== __THE_CAMP__ (RUN TWO [the camp and the retinue], rule 151(d), Paolo 10/24: 'if you want time to speed along, there should
+   be a camp button: wherever you're posted up you make a camp and upgrade your camp; depending on what tile you're on it shows up on
+   that street tile, kind of like the settlement menu, with the cabin and all your members; and you can hire people to join you,
+   Battle Brothers calls it a retinue'). CAMP (the plate beside the pad, or T, Battle Brothers' key) stops the march and makes camp
+   where the crew stands: the settlement screen opens in camp mode on the block's ground (its tents, its fire, every man of yours),
+   and while it is open THE CLOCK RUNS AN HOUR A BEAT (this map's own advance(): the day turns, the night is billed, the hurt mend
+   by the day, the valley's parties walk). Battle Brothers: camping 'lowers vision range and makes you more visible' (Grok's day
+   loop page): a hunting crew keeps coming while you rest, and when it is two blocks off (four with a LOOKOUT) the camp breaks and
+   the map shows them; one that reaches you is the meet card. BREAK CAMP (or T again) is the way out. The retinue hired there is
+   live on this map: the SCOUT's road time (cityStepMins, the followers module), the LOOKOUT's sight (SIGHT), the COOK's and the
+   PAYMASTER's bill (__THE_HIRED_ARE_PAID__). Words are attempts, draft:true. ==== */
+var CAMP = { on: false, timer: null, hours: 0, base: null, why: null };
+function campSync(){
+  try{ if (!window.BohemiaCamp) return;
+    for (var k in CT_FOLLOWERS) delete CT_FOLLOWERS[k];
+    BohemiaCamp.retinue().forEach(function(id){ CT_FOLLOWERS[id] = true; });   /* the scout's road time reads these */
+    if (!CAMP.base) CAMP.base = { street: SIGHT.street, open: SIGHT.open, openNight: SIGHT.openNight };
+    SIGHT.street = CAMP.base.street + BohemiaCamp.plus('street');
+    SIGHT.open = Math.round(CAMP.base.open * BohemiaCamp.mult('open') * 100) / 100;
+    SIGHT.openNight = Math.round(CAMP.base.openNight * BohemiaCamp.mult('open') * 100) / 100;
+  }catch(_e){}
+}
+setTimeout(function(){ try{ campSync(); }catch(_e){} }, 0);   /* after the whole file has run (CT_FOLLOWERS is declared further down) */
+function campOnMap(){ try{ return MODE === 'city' && !LOOP.fighting && !(LOOP.frame && LOOP.frame.style.display === 'block') && !MEET.up; }catch(_e){ return false; } }
+/* the company as the marker shows it (__THE_MARKER_IS_YOUR_CREW__), with each man's name for the crew screen */
+function campCompany(){
+  var names = {}, add = function(m){ if (m && m.look && m.name && !names[m.look]) names[m.look] = String(m.name); };
+  try{ (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).forEach(add); }catch(_e){}
+  try{ (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).forEach(add); }catch(_e){}
+  var looks = []; try{ MAP_CREW_LOOKS.at = 0; looks = mapCrewLooks(); }catch(_e){}
+  return looks.map(function(l){ return { look: l, name: names[l] || '' }; });
+}
+function campBill(){ try{ return { perNight: billPerNight(), daysLeft: billDaysLeft() }; }catch(_e){ return null; } }
+function campPost(){
+  if (!LOOP.frame || !LOOP.ready) return;
+  var dist = null; try{ var c = om.at(city.x, city.y); dist = c && c.district; }catch(_e){}
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN', camp: true, arrival: false,
+    place: { name: 'YOUR CAMP', tier: 'camp', district: dist || 'desert', block: [city.x | 0, city.y | 0] },
+    batteries: loopBats(), contracts: [], hired: {}, day: T.day, min: T.min, night: isNight(), company: campCompany(), bill: campBill(),
+    cleared: CAMP.why }, '*'); }catch(_e){}
+}
+function campMake(){
+  if (CAMP.on || !campOnMap()) return false;
+  try{ travelStop(); }catch(_e){} try{ travelInterrupt('camp'); }catch(_e){}
+  CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0];
+  LOOP.open = { camp: true, name: 'YOUR CAMP', x: city.x | 0, y: city.y | 0 };
+  var f = loopFrame(); f.style.display = 'block';
+  if (LOOP.ready) campPost();
+  clearInterval(CAMP.timer); CAMP.timer = setInterval(campHour, 500);
+  try{ if (typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Made camp.', 'camp'); }catch(_e){}   /* draft:true */
+  window.__CAMP = { made: (window.__CAMP && window.__CAMP.made | 0) + 1, on: true };
+  try{ campBtnPaint(); }catch(_e){}
+  return true;
+}
+function campBreak(why, say){
+  if (!CAMP.on) return;
+  CAMP.on = false; clearInterval(CAMP.timer); CAMP.timer = null; CAMP.why = why || null;
+  if (LOOP.open && LOOP.open.camp) loopClose();
+  campSync();
+  if (say) try{ loopSay(say); }catch(_e){}
+  try{ saveNow('camp'); }catch(_e){}
+  window.__CAMP = { made: window.__CAMP ? window.__CAMP.made : 0, on: false, why: why || 'left', hours: CAMP.hours, day: T.day, min: T.min };
+  try{ campBtnPaint(); }catch(_e){}
+}
+/* one beat: an hour of the valley */
+function campHour(){
+  if (!CAMP.on) return;
+  if (!LOOP.open || !LOOP.open.camp || !LOOP.frame || LOOP.frame.style.display !== 'block') { campBreak('left'); return; }
+  if (LOOP.fighting || MEET.up) { campBreak('contact'); return; }
+  var warn = 2 + (window.BohemiaCamp ? BohemiaCamp.plus('warn') : 0);
+  try{ if (HUNT && huntDist() <= warn) { campBreak('warned', HUNT.name + ' are coming. Camp\'s broken.'); return; } }catch(_e){}   /* draft:true */
+  try{ advance(60); }catch(_e){}
+  CAMP.hours++;
+  /* the world walks the hour he rests: a block is about ten minutes, so six steps of its parties and hunters */
+  for (var i = 0; i < 6 && CAMP.on; i++){
+    try{ meetWalk(function(){ mapStepWorld(); }); }catch(_e){}
+    if (MEET.up || LOOP.fighting || (typeof CITY_CONTACT_POSTED !== 'undefined' && CITY_CONTACT_POSTED)) { campBreak('contact'); return; }
+  }
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours }, '*'); }catch(_e){}
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_SETTLEMENT' || !LOOP.frame || ev.source !== LOOP.frame.contentWindow) return;
+  if (d.act === 'retinue' || d.act === 'cart') { campSync(); try{ billPublish(); }catch(_e){} }
+});
+/* THE PLATE: CAMP in the pad's own row, left of PAUSE and GO, where his thumb already is (above the pad the map's spoken line
+   lies over it); on the map only */
+function campBtnPaint(){
+  var b = document.getElementById('campbtn');
+  if (!b) { if (!document.body) return; b = document.createElement('div'); b.id = 'campbtn'; b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'make camp');
+    b.textContent = 'CAMP';
+    b.setAttribute('style', 'position:fixed;right:121px;bottom:17px;z-index:30;display:none;min-width:58px;height:44px;padding:0 10px;align-items:center;justify-content:center;border-radius:7px;cursor:pointer;'
+      + 'font:12px BohemiaCasing,ui-monospace,monospace;letter-spacing:1.5px;color:var(--ink,#e8dcc0);background:linear-gradient(var(--skin-chiptop,#2e271b),var(--skin-chipbot,#15110a));'
+      + 'box-shadow:inset 0 1px 0 rgba(231,216,187,.20),inset 0 -2px 0 var(--skin-chipbase,#0b0906),0 2px 0 rgba(0,0,0,.55),0 6px 16px rgba(0,0,0,.45);-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation');
+    var stop = function(e){ try{ e.stopPropagation(); }catch(_e){} };
+    ['pointerdown','pointerup','touchstart','touchend','mousedown','mouseup'].forEach(function(t){ b.addEventListener(t, stop, { passive: true }); });
+    b.addEventListener('click', function(e){ stop(e); campMake(); });
+    document.body.appendChild(b); }
+  b.style.display = campOnMap() && !CAMP.on ? 'flex' : 'none';
+}
+setInterval(function(){ try{ campBtnPaint(); }catch(_e){} }, 400);
+/* T, Battle Brothers' make-camp key (UI's map of keys left it unbound for want of a camp) */
+window.addEventListener('keydown', function(e){
+  if (e.repeat || e.ctrlKey || e.metaKey || e.altKey || String(e.key || '').toLowerCase() !== 't') return;
+  var tg = e.target && e.target.tagName; if (tg === 'INPUT' || tg === 'TEXTAREA') return;
+  if (CAMP.on) { campBreak('left'); e.preventDefault(); } else if (campMake()) e.preventDefault();
+});
+window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); }, on: function(){ return CAMP.on; }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
+/* ==== /__THE_CAMP__ ==== */
 /* where a contract's crew waits: a block he can stand on, six to ten out from the town,
    in a direction the contract's own id picks, with a road to it */
 /* RUN 10/23 ([the first hour, quicker]): IS THIS BLOCK ON THE GLASS, where a finger can reach it: inside the map's own
@@ -88663,6 +88794,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>

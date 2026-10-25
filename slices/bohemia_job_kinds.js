@@ -1121,6 +1121,7 @@
     var q = settledQ(); q.push({ place: String(job.from), act: act, id: job.id, day: day() });
     try { localStorage.setItem(SETKEY, JSON.stringify(q.slice(-40))); } catch (e) {}
     window.__JOB_SETTLED_ACTS = (window.__JOB_SETTLED_ACTS || []).concat([{ id: job.id, place: job.from, act: act, delta: relVal(act) }]).slice(-20);
+    try { if (window.BohemiaRenown) BohemiaRenown.fromAct(act, job.id); } catch (e) {}   /* RUN TWO __CLOUT__ (rule 151(d)): the company's name moves with every job that ends, the wiki's renown */
   }
   /* the acts on their way to the towns' bars, taken by the next town that opens (the map's loopPostOpen) */
   function settledTake() { var q = settledQ(); if (!q.length) return undefined; try { localStorage.removeItem(SETKEY); } catch (e) {} return q.map(function (c) { return { place: c.place, act: c.act }; }); }

@@ -157,11 +157,14 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): the man on his card breathes and idles -->
 <script src="../engine/bohemia_long_injury.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>
+<script src="../engine/bohemia_camp.js"></script>
+<script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches]: a hired man's night is his food and his pay -->  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->
 <script src="bohemia_ui_materials.js"></script>
 <script>
 (function(){
 'use strict';
-var C = window.BohemiaRoster, N = C.SLOTS_PER_ROW, BAG_SLOTS = 36, BAGKEY = 'bohemia.bag.v1', FKEY = 'bohemia.formation.v1';
+var C = window.BohemiaRoster, N = C.SLOTS_PER_ROW, BAG_SLOTS = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 36),   /* RUN TWO __THE_CAMP__: 36, and 12 a step of the cart */
+    BAGKEY = 'bohemia.bag.v1', FKEY = 'bohemia.formation.v1';
 var S = {crew:[], bag:[], front:[], back:[], sel:0, standalone:(window.parent===window), sheets:{}};
 var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
 function post(act, o){ var m = {type:'BOHEMIA_ROSTER', act:act}; for(var k in (o||{})) m[k] = o[k];
@@ -427,6 +430,8 @@ function pickerFor(m, i, s){
 function stars(n){ return n ? '★'.repeat(n) : ''; }
 /* the crew's one bill, as the map takes it and the hall's card says it */
 var NIGHT = {per:2};
+/* __THE_HIRED_ARE_PAID__ (RUN TWO [money teaches], rule 151(b)): a man hired at a post costs his food and his pay a night, the map's bill */
+function nightOf(m){ return NIGHT.per + (m.hired && window.BohemiaWages ? Math.round(BohemiaWages.wage(m.bgId || m.background, m.level) * (window.BohemiaCamp ? BohemiaCamp.mult('wage') : 1)) : 0); }
 fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){ var v = j && j.per_man_per_night; v = +((v && v.value != null) ? v.value : v); if(v > 0){ NIGHT.per = v; if(S.ready) drawCard(); } }).catch(function(){});
 /* no two men say the same line: in the company's order, a line already said goes to the next free one of the pool */
 function lineOf(m){
@@ -447,7 +452,7 @@ function drawCard(){
   /* EYES [eyes: you the companion] and [eyes: two cards disagree] (rule 150): YOU are the leader, no wage and no 'companion';
      nobody wears a raw '(2HAND)'; what a man costs is what the map takes at nightfall and the hall's card says, 'n a night'
      (records/target/bb/nightly_bill.json, the crew's one bill), never the wiki's daily wage */
-  t.querySelector('.sub').textContent = (m.main ? 'THE LEADER' : C.bgName(m.bgId, m.background).toUpperCase()) + '   LEVEL ' + m.level + (m.main ? '' : '   ' + NIGHT.per + (NIGHT.per === 1 ? ' BATTERY A NIGHT' : ' BATTERIES A NIGHT'));   /* UI [eyes: four spellings], rule 150: the money is spelled one way */
+  t.querySelector('.sub').textContent = (m.main ? 'THE LEADER' : C.bgName(m.bgId, m.background).toUpperCase()) + '   LEVEL ' + m.level + (m.main ? '' : '   ' + nightOf(m) + (nightOf(m) === 1 ? ' BATTERY A NIGHT' : ' BATTERIES A NIGHT'));   /* UI [eyes: four spellings], rule 150: the money is spelled one way */
   if(m.trait){ var tt = document.createElement('div'); tt.className = 'trait'; tt.dataset.trait = m.trait.id; tt.textContent = m.trait.name.toUpperCase() + '  ' + (m.trait.says || '') + '  ' + (m.trait.line || ''); t.insertBefore(tt, t.querySelector('.pain')); }   /* his one trait, as on the card he was hired from */
   var a0 = C.xpFor(m.level), a1 = C.xpFor(m.level + 1), xb = document.createElement('div'); xb.className = 'xpbar'; xb.title = m.xp + ' / ' + a1 + ' XP';
   var xi = document.createElement('i'); xi.style.width = Math.max(0, Math.min(100, (m.xp - a0) / Math.max(1, a1 - a0) * 100)) + '%'; xb.appendChild(xi);

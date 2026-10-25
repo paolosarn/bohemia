@@ -153,6 +153,7 @@ button{font-family:var(--rom)}
 <div id="foot"><span class="left" id="left"></span><button id="leave" type="button">LEAVE</button></div>
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_spoils.js"></script>
+<script src="../engine/bohemia_camp.js"></script>  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->
 <script src="../engine/bohemia_people_mix.js"></script>
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_crew_door.js"></script>
@@ -410,7 +411,7 @@ document.getElementById('lootall').addEventListener('click', lootAll);
 document.getElementById('leave').addEventListener('click', leave);
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SPOILS_OPEN') open(d); });
 Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); })]).then(function(a){
-  S.L = a[1]; S.cap = (S.L.stash && S.L.stash.slots) || 36; S.ready = true;
+  S.L = a[1]; S.cap = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 0) || (S.L.stash && S.L.stash.slots) || 36;   /* RUN TWO __THE_CAMP__: the cart's room */ S.ready = true;
   if(S.pending){ var p = S.pending; S.pending = null; open(p); }
   else if(S.standalone){ var smp = JSON.parse(JSON.stringify(SAMPLE)), q = location.search;   /* ?lost, ?ran, ?wipe: the other ends, for a look */
     if(/lost|ran|wipe/.test(q)){ smp.result = 'lost'; smp.retreat = /ran/.test(q); smp.wipe = /wipe/.test(q); smp.spoils.recap.head = smp.wipe ? 'WIPED OUT' : smp.retreat ? 'YOU PULLED OUT' : 'YOUR CREW IS DOWN'; smp.spoils.recap.call = null;

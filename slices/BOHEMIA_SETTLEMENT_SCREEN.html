@@ -98,6 +98,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
 /* the shelf and the bag: square slots, Battle Brothers' stash grid */
 .gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
+.campf{margin:8px 0;padding:8px 8px 2px;border:1px solid var(--line);background:rgba(255,235,200,.03)}.campf b{display:block;font-size:12px;letter-spacing:1px;color:var(--gold)}.campf p{margin:4px 0 6px;font-size:11px;line-height:1.4;color:var(--ink)}.gridh.warn{color:#e2a35a}   /* __THE_CAMP__ */
 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
 .slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);
   font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;
@@ -175,7 +176,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_arrivaltraits.js"></script>
 <script src="../engine/bohemia_relations.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
-<script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
+<script src="../engine/bohemia_crew_door.js"></script>  <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): the company's CLOUT, its cart and its retinue -->  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
 <script src="../engine/bohemia_livingmap.js"></script>  <!-- RUN TWO [the bar names the news]: the map's own dice for every town (traitsFor), so the news is what you find there -->
 <script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
@@ -221,7 +222,10 @@ var B = {
   arms:   {name:'GUNS AND PLATE', short:'buy, sell'},
   smith:  {name:'THE SMITH',     short:'weapons'},
   armourer:{name:'THE ARMOURER', short:'armour'},
-  lot:    {spr:'boneyard',    gx:2, gy:2, name:'SCAVENGE',   short:'one thing or nothing'}
+  lot:    {spr:'boneyard',    gx:2, gy:2, name:'SCAVENGE',   short:'one thing or nothing'},
+  tent:   {name:'THE TENT',     short:'rest, your company'},   /* __THE_CAMP__ (RUN TWO, rule 151(d)): your own camp's three, draft:true */
+  retinue:{name:'THE RETINUE',  short:'who travels with you'},
+  cart:   {name:'THE CART',     short:'room in the stash'}
 };
 
 var TIERS = {
@@ -249,6 +253,7 @@ function caused(t){ return !!(t && t.caused_by); }
    roll at the gate) and its ledger beside them: a raid stands on top of the dice, never instead of the ledger (RUN TWO 10/18: before,
    handing traits switched the ledger off, so a raid the map handed with its crowd's roll would never have reached the counter) */
 function placeTraits(){
+  if(S.camp){ S.traits = []; return; }   /* __THE_CAMP__: your own camp has no town's situations */
   rollTraits();
   var has = function(t){ return S.traits.some(function(x){ return x.id === t.id; }); };
   refugeeTraits().forEach(function(t){ if(!has(t)) S.traits.unshift(t); });
@@ -427,7 +432,7 @@ function restock(){
    then a drawn mark of its kind and its short name). Buying moves it shelf -> bag and takes the
    batteries; selling moves it back. The bag lives with the company, so it is posted to the game on
    every change ('bag') and handed back on open ({bag}); this phone keeps a copy too. */
-var BAG_SLOTS = 36, BAGKEY = 'bohemia.bag.v1';
+var BAG_SLOTS = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 36), BAGKEY = 'bohemia.bag.v1';   /* __THE_CAMP__: 36, and 12 more for every step of the cart */
 function bagSave(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.stash)); }catch(e){} post('bag', {bag:S.stash.slice(), slots:BAG_SLOTS}); }
 function bagLoad(){ try{ var b = JSON.parse(localStorage.getItem(BAGKEY) || '[]'); if(Array.isArray(b)) S.stash = b; }catch(e){} }
 var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
@@ -842,14 +847,17 @@ function seedOf(str){ var h = 2166136261; for(var i=0;i<str.length;i++){ h ^= st
 function pickVariant(){
   if(!GROUND) return;
   var t = GROUND.tiers[S.place.tier] || GROUND.tiers.town, vs = t.variants || [t];
-  VAR = vs[seedOf(S.place.name) % vs.length];
+  VAR = vs[(S.camp && S.place.block ? (S.place.block[0] * 7 + S.place.block[1] * 13) : seedOf(S.place.name)) % vs.length];   /* __THE_CAMP__: the block you camp on picks the ground */
   VAR.boxes = {};
+  if(S.camp) campBoxes();   /* __THE_CAMP__: your tent, the retinue's tent and the cart, nobody's shop */
+  else {
   for(var h in VAR.hotspots){ var k = KMAP[h]; if(k) VAR.boxes[k] = VAR.hotspots[h].box; }
   VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
   VAR.boxes.build = BUILDBOX[S.place.tier] || BUILDBOX.town;   /* __BUILD_ON_THE_SCREEN__ */
   var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
   var vb = BOXBYPIC[VAR.src] || {}; for(var vk in vb) VAR.boxes[vk] = vb[vk];   /* the second picture of a tier lays out differently */
   ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot','build'].filter(function(k){ return VAR.boxes[k]; });
+  }
   placeTraits(); restock();
   /* you arrive looking at what happened here: a raided place opens on its burnt house */
   if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
@@ -950,6 +958,7 @@ function postMen(){ try{ return VAR && VAR.boxes.hall && window.BohemiaRigBodies
    sand west of the stall, read by eye off the picture */
 var CROWD_AT = {'town_0.webp': {x:905, y:742}, 'town_1.webp': {x:905, y:742}};
 function folkList(){
+  if(S.camp) return campFolk();   /* __THE_CAMP__: your own men round the fire, nobody else */
   if(!VAR || !GANG_LOOKS.length) return [];
   var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',');
   if(VAR.folkKey === key) return VAR.folk;
@@ -999,7 +1008,7 @@ function busyCount(){
   return n;
 }
 function busyList(){
-  var B = window.BohemiaRigBodies; if(!VAR || !B || !B.canWalk) return [];
+  var B = window.BohemiaRigBodies; if(!VAR || !B || !B.canWalk || S.camp) return [];
   var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
   if(VAR.busyKey === key) return VAR.busy;
   var lanes = busyLanes(), hand = dealt(), folk = folkList(), R = rng(seedOf(S.place.name + ':busy')), out = [], onLane = {};
@@ -1157,6 +1166,7 @@ function leadDirOf(dx, dy){ var o = Math.round(Math.atan2(dy, dx) / (Math.PI/4))
 function leadFree(x, y){ return !leadBlocked(x, y) && folkList().every(function(p){ return Math.abs(p.x - x) > personH()*.36 || Math.abs(p.y - y) > personH()*.5; }); }
 /* where he stands on arrival: a step off the main street, under the middle of what you see, clear of everybody's spot */
 function leadHome(){
+  if(S.camp) return {x:Math.round(CAMP_FIRE.x + Math.cos(CAMP_LEAD_AT) * 150), y:Math.round(CAMP_FIRE.y + Math.sin(CAMP_LEAD_AT) * 70)};   /* __THE_CAMP__: at the fire's right, facing it */
   var ln = busyLanes().slice().sort(function(a, b){ return Math.abs(a.y - picH()*.6) - Math.abs(b.y - picH()*.6); })[0];
   var x0 = Math.max(ln.x0 + 60, Math.min(ln.x1 - 60, view.cx == null ? picW()/2 : view.cx)), y = Math.min(picH() - 6, ln.y + 22);
   for(var i = 0; i < 24; i++){ var x = x0 + (i % 2 ? 1 : -1) * Math.ceil(i/2) * 48; if(leadFree(x, y)) return {x:x, y:y}; }
@@ -1199,7 +1209,7 @@ function leadTick(now){
   if(!VAR || LEAD.hidden) return;
   var look = leadLook(); if(!look) return;
   if(look !== LEAD.look){ LEAD.look = look; LEAD.im = null; LEAD.dusk = null; }
-  if(LEAD.x == null){ var h = leadHome(); LEAD.x = h.x; LEAD.y = h.y; LEAD.face = LEAD.want = 0; LEAD.since = now;
+  if(LEAD.x == null){ var h = leadHome(); LEAD.x = h.x; LEAD.y = h.y; LEAD.face = LEAD.want = S.camp ? 6 : 0; LEAD.since = now;
     if(LEAD.goal) LEAD.path = leadPath({x:LEAD.x, y:LEAD.y}, {x:LEAD.goal.x, y:LEAD.goal.y}), LEAD.seg = 1; }
   /* the town slides with the sheet (as quick as the sheet slides, a quarter second) */
   var lw = leadLiftWant(), ol = LEAD.lift;
@@ -1245,6 +1255,115 @@ function leadItem(items, s, now){
   LEAD.drawn = LEAD.walking ? 'walk' : 'stand';
 }
 /* ==== end __THE_WALK_UP__ ==== */
+/* ==== __THE_CAMP__ (RUN TWO [the camp and the retinue], rule 151(d), Paolo 10/24: 'if you want time to speed along, there
+   should be a camp button: wherever you're posted up you make a camp and upgrade your camp; it shows up kind of like the
+   settlement menu, with the cabin and all your members; and you can hire people to join you, Battle Brothers calls it a
+   retinue'). The map's CAMP opens this screen in camp mode: the camp picture (COOK FOUR's 3D tents and fires), YOUR MEN round
+   the fire, every one of the company (the map's own list, the marker's), idling (rule 130), your lead among them who walks up
+   to whatever you tap (138); and three places, Battle Brothers' retinue screen (a campfire with tents) in ours:
+     THE TENT     the clock (the map runs it an hour a beat while you camp: days pass, the night is billed, the hurt mend),
+                  what the night costs, and your company (the crew screen)
+     THE RETINUE  the followers, one to a slot, the slots opened by the company's CLOUT (engine/bohemia_camp.js,
+                  engine/bohemia_renown.js; the wiki's table)
+     THE CART     four steps, 12 more in the stash each (Battle Brothers' Donkey to Big Wagon)
+   BREAK CAMP is the way out (the bar's LEAVE). Words are attempts, draft:true. ==== */
+var CAMP_FIRE = {x:945, y:786};
+function campBoxes(){
+  var H = VAR.hotspots || {};
+  if(H.clinic) VAR.boxes.tent = H.clinic.box;
+  if(H.barber) VAR.boxes.retinue = H.barber.box;
+  if(H.stall) VAR.boxes.cart = H.stall.box;
+  ORDER = ['tent','retinue','cart'].filter(function(k){ return VAR.boxes[k]; });
+}
+function campTitle(){ var c = S.campInfo || {}; if(typeof c.day !== 'number') return 'YOUR CAMP';
+  var m = Math.floor(c.min || 0); return 'DAY ' + c.day + '  ' + String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0'); }   /* the clock, whole on a phone's bar (BREAK CAMP says where he is) */
+function campDir(dx, dy){ return LEAD_DIRS[leadDirOf(dx, dy * 2)] || 'S'; }
+/* a spot round the fire: the first ring holds seven, the next ring the rest, each spread even over its ring; the front (toward
+   the camera) stays open so the fire is seen, and your lead stands at its right */
+var CAMP_LEAD_AT = 0.25 * Math.PI;
+function campRing(i, n){
+  var ring = i < 7 ? 0 : 1, m = ring ? Math.max(1, n - 7) : Math.min(7, n), j = ring ? i - 7 : i, rx = ring ? 240 : 150, ry = ring ? 110 : 70;
+  var a0 = Math.PI * .7, span = Math.PI * 1.15;   /* from the front's left, round the back, to short of the lead's place */
+  var a = a0 + (m === 1 ? .5 : j / (m - 1)) * span;
+  if(m === 1) a = Math.PI * 1.5;   /* one man: across the fire from you */
+  return {x:Math.round(CAMP_FIRE.x + Math.cos(a) * rx), y:Math.round(CAMP_FIRE.y + Math.sin(a) * ry)};
+}
+function campFolk(){
+  if(!VAR) return [];
+  var c = (S.campInfo && S.campInfo.company) || [], key = 'camp:' + VAR.src + ':' + c.map(function(m){ return m.look; }).join(',');
+  if(VAR.folkKey === key) return VAR.folk;
+  var men = c.filter(function(m){ return m && m.look && m.look !== 'you'; }).slice(0, 20);
+  var out = men.map(function(m, i){
+    var at = campRing(i, men.length), f = campDir(CAMP_FIRE.x - at.x, CAMP_FIRE.y - at.y), fi = LEAD_DIRS.indexOf(f);
+    var lp = [f, f, LEAD_DIRS[(fi + 1) % 8], f, f, LEAD_DIRS[(fi + 7) % 8]];
+    return {campMan:true, slot:i, look:m.look, name:m.name || '', clip:CROWD_CLIPS[i % CROWD_CLIPS.length], face:f, loop:lp, beat:i % 4, x:at.x, y:at.y, ph:0}; });
+  out.sort(function(a, b){ return a.y - b.y; });
+  VAR.folkKey = key; VAR.folk = out; return out;
+}
+/* a tap on one of yours: the lead walks to him and the crew screen opens on him */
+function campMan(p){
+  S.open = null; hide();
+  if(window.BohemiaCrewDoor) BohemiaCrewDoor.open({ select: p.name || p.look, onDone: function(m){ bagLoad(); post('crew', {company:m.company, formation:m.formation}); } });
+}
+function campSay(body, line){
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, 'you', 'you'), line));
+  var sy = document.createElement('div'); sy.className = 'say';
+  var n = document.createElement('div'); n.className = 'nm'; n.textContent = 'YOU'; sy.appendChild(n);
+  var pp = document.createElement('p'); pp.textContent = line; sy.appendChild(pp); w.appendChild(sy); body.appendChild(w);
+}
+function campLine(acts, t, cls){ var d = document.createElement('div'); d.className = cls || 'gridh'; d.textContent = t; acts.appendChild(d); return d; }
+function campSheet(k){
+  var body = document.getElementById('sbody'); body.textContent = '';
+  var acts = document.createElement('div'), c = S.campInfo || {}, R = window.BohemiaRenown, C = window.BohemiaCamp;
+  acts.className = 'acts'; S.sheetFor = k;
+  if(k === 'tent'){
+    var bill = c.bill || {}, night = c.night;
+    campSay(body, night ? 'Fire\'s low. The men are down for the night. We go when you say.' : 'We rest. Every hour here is an hour the valley moves without us.');   /* draft:true */
+    campLine(acts, campTitle() + (night ? '   NIGHT' : '   DAY') + '   AN HOUR A BEAT WHILE YOU REST');
+    if(bill.perNight != null) campLine(acts, 'THE NIGHT COSTS ' + moneyWord(bill.perNight).toUpperCase() + (bill.daysLeft != null ? '   ' + bill.daysLeft + ' NIGHTS LEFT LIKE THIS' : ''));   /* draft:true */
+    if(c.cleared) campLine(acts, c.cleared, 'gridh warn');
+    acts.appendChild(act('Your company', '', function(){ if(window.BohemiaCrewDoor) BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); post('crew', {company:m.company, formation:m.formation}); } }); }));
+    acts.appendChild(act('Break camp', '', function(){ document.getElementById('leave').click(); }));
+  } else if(k === 'retinue'){
+    var sc = R ? R.score() : 0, sl = R ? R.slots() : 0, nx = R ? R.nextSlot() : null, mine = C ? C.retinue() : [], band = R ? R.band() : {word:'NOBODY'};
+    campSay(body, sl ? (mine.length < sl ? 'There\'s room for one more to travel with us. Pick who.' : 'Every place by the fire is taken. Let one go to take another.')
+                    : 'Nobody follows a crew nobody\'s heard of. Get our name out there first.');   /* draft:true */
+    campLine(acts, (R ? R.WORD : 'CLOUT') + ' ' + sc + '   ' + band.word + '   ' + mine.length + ' OF ' + sl + (sl === 1 ? ' PLACE' : ' PLACES') + (nx ? '   THE NEXT AT ' + nx.at : ''));
+    (C ? C.offer() : []).forEach(function(f){
+      var row = document.createElement('div'); row.className = 'campf'; row.dataset.id = f.id;
+      var h = document.createElement('b'); h.textContent = f.word; row.appendChild(h);
+      var d = document.createElement('p'); d.textContent = f.says; row.appendChild(d);   /* draft:true */
+      if(f.hired) row.appendChild(act('Let him go', '', function(){ C.letGo(f.id); post('retinue', {retinue:C.retinue()}); heard(f.word + ' walks off.'); campSheet('retinue'); }));
+      else row.appendChild(act('Take him on', moneyWord(f.price).toUpperCase(), function(){
+        if(mine.length >= sl){ heard(sl ? 'No place left by the fire.' : 'Nobody follows a crew with no name.'); return; }
+        if(bats() < f.price){ heard('Not enough batteries.'); return; }
+        P.debit(S.purse, 'electricity', f.price, 'the retinue: ' + f.id, 'follower:' + f.id, S.mapDay || 0);
+        C.hire(f.id); post('retinue', {retinue:C.retinue(), follower:f.id, price:f.price}); shelf(); heard(f.hireSays || (f.word + ' is with you.')); campSheet('retinue'); }, mine.length >= sl || bats() < f.price));
+      acts.appendChild(row); });
+  } else if(k === 'cart'){
+    var ca = C ? C.cart() : {level:0, next:null};
+    campSay(body, ca.next ? 'Everything we own rides on this. More room, more we carry out of every fight.' : 'That\'s as much as we can drag around.');   /* draft:true */
+    campLine(acts, 'THE STASH HOLDS ' + BAG_SLOTS + (ca.now ? '   YOU HAVE ' + ca.now.word : ''));
+    if(ca.next) acts.appendChild(act(ca.next.word.charAt(0) + ca.next.word.slice(1).toLowerCase() + ', ' + ca.next.slots + ' more', moneyWord(ca.next.price).toUpperCase(), function(){
+      if(bats() < ca.next.price){ heard('Not enough batteries.'); return; }
+      P.debit(S.purse, 'electricity', ca.next.price, 'the cart: ' + ca.next.id, 'cart:' + ca.next.id, S.mapDay || 0);
+      C.buyCart(); BAG_SLOTS = C.stashSlots(); post('cart', {cart:C.cart().level, slots:BAG_SLOTS}); shelf(); heard('The stash holds ' + BAG_SLOTS + ' now.'); campSheet('cart'); }, bats() < ca.next.price));
+  }
+  body.appendChild(acts);
+  var sh = document.getElementById('sheet'); sh.classList.add('on'); sh.scrollTop = 0;
+}
+/* the map's clock while you rest: the name, the light, the purse after the night's bill */
+function campTime(d){
+  var c = S.campInfo || (S.campInfo = {});
+  c.day = d.day; c.min = d.min; if(d.bill) c.bill = d.bill;
+  if(typeof d.batteries === 'number'){ var df = d.batteries - bats(); if(df > 0) P.credit(S.purse, 'electricity', df, 'camp:sync', null, 0); if(df < 0) P.debit(S.purse, 'electricity', -df, 'camp:sync', null, 0); }
+  if(!!d.night !== !!c.night){ c.night = !!d.night; view.night = c.night; VAR && (VAR.folkKey = null); if(window.BohemiaHeard) BohemiaHeard.night(view.night); }
+  shelf();
+  if(S.open === 'tent') campSheet('tent');
+}
+/* T breaks camp, Battle Brothers' key (the map makes camp on it; UI's keys hand it to this frame while it lies on top) */
+window.addEventListener('keydown', function(e){ if(!S.camp || e.repeat || e.ctrlKey || e.metaKey || String(e.key || '').toLowerCase() !== 't') return; e.preventDefault(); document.getElementById('leave').click(); });
+/* ==== end __THE_CAMP__ ==== */
 function drawPeople(s){
   var L = folkList(), B = window.BohemiaRigBodies; if(!L.length || !B) return;
   var k = rigScale(), now = performance.now(), H = personH()*s, items = [];
@@ -1444,6 +1563,7 @@ function askCrowd(p){
 }
 function openPerson(p, said){
   try{ leadToPerson(p); }catch(e){}   /* __THE_WALK_UP__: he walks up to the man you tapped while the talk opens */
+  if(p.campMan){ campMan(p); return; }   /* __THE_CAMP__: one of yours */
   if(p.keeper){ openB(p.k); return; }
   if(p.post){ openB('hall'); var hc = document.querySelector('#sbody .hire[data-id="' + p.rid + '"]'); if(hc){ hc.classList.add('picked'); try{ hc.scrollIntoView({block:'nearest'}); }catch(e){} } return; }
   S.open = 'person'; S.person = p;
@@ -1523,7 +1643,8 @@ function where(k){
 })();
 function shelf(){
   document.getElementById('bat').textContent = bats()+' BATTER'+(bats()===1?'Y':'IES');
-  document.getElementById('pname').textContent = S.place.name;
+  document.getElementById('pname').textContent = S.camp ? campTitle() : S.place.name;   /* __THE_CAMP__: the camp's clock runs in its name */
+  document.getElementById('leave').textContent = S.camp ? 'BREAK CAMP' : 'LEAVE';
 }
 function sub(k){
   if(k==='board') return S.held.length+' of '+SLOTS+' held';
@@ -1730,7 +1851,7 @@ function hireCard(r){
   BohemiaGoodBros.STAT_KEYS.forEach(function(k){ var e = document.createElement('span'); e.dataset.stat = k; e.textContent = STAT_SHORT[k] + ' ' + ts.stats[k] + (ts.moved[k] ? (ts.moved[k] > 0 ? ' ▴' : ' ▾') : '') + (starOf[k] ? ' ' + '★'.repeat(starOf[k]) : '');   /* an arrow too: never colour alone */
     e.className = (starOf[k] ? 'star' : '') + (ts.moved[k] ? (ts.moved[k] > 0 ? ' up' : ' down') : ''); st.appendChild(e); });
   t.appendChild(st); c.appendChild(t);
-  var price = hallPrice(r), night = HIRE.bill;
+  var price = hallPrice(r), night = HIRE.bill ? HIRE.bill + (window.BohemiaWages ? Math.round(BohemiaWages.wage(r.backgroundId, r.level) * (window.BohemiaCamp ? BohemiaCamp.mult('wage') : 1)) : 0) : null;   /* __THE_HIRED_ARE_PAID__: his food and his pay, what the map takes at nightfall */
   c.appendChild(act('Hire', moneyWord(price) + (night ? '  ·  ' + moneyWord(night) + ' a night' : ''), function(){
     if(bats() < price) return openB('hall', r.name + ' wants ' + price + '. You have ' + bats() + '.');
     P.debit(S.purse, 'electricity', price, 'hire:' + r.backgroundId, S.place.name, S.day);
@@ -1949,7 +2070,8 @@ function offerSpeak(o){
    A raided place keeps one job, the crew that hit it, named from FACTIONS' raid ledger. The four drafted OFFERS only
    until the shelf is in. */
 /* the pay a contract shows is the pay it gives: the map's loopJobPay, (pay + the start's add) x its multiplier */
-function payShown(p){ var r = S.payRule; return r ? Math.max(1, Math.round(((p | 0) + (r.add | 0)) * (r.mult || 1))) : Math.max(1, p | 0); }
+function payShown(p){ var r = S.payRule, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__: the map's loopJobPay, the same sum */
+  return r ? Math.max(1, Math.round(((p | 0) + (r.add | 0)) * (r.mult || 1) * cm)) : Math.max(1, Math.round((p | 0) * cm)); }
 function boardHere(){
   var SH = window.BohemiaBoardShelf, ids = (S.traits||[]).map(function(t){ return t.id; });
   var list = SH && SH.pick(S.place, buildDay(), {traits:ids, held:S.held, crew:raidCrew(), places:S.places});
@@ -1978,6 +2100,7 @@ function openB(k, line){
   if(LIT_DOORS.indexOf(k) >= 0 && !litSeen()[k]){ litSeen()[k] = 1; try{ localStorage.setItem(LITKEY, JSON.stringify(litAll())); }catch(e){} }
   if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
   S.open = k;
+  if(S.camp){ campSheet(k); return; }   /* __THE_CAMP__ */
   if(window.BohemiaHeard){ BohemiaHeard.night(view.night); BohemiaHeard.opened(k, view.night ? NIGHT_TRIM : null); }   /* SOUNDS 10/18: the building answers with its recording */
   /* the bar's first line each visit is the free news from down the road (newsFree); here's own trait the elder already said */
   var free = (k==='bar' && !line) ? newsFree() : null;
@@ -2298,6 +2421,7 @@ function arriveWhenReady(){ if((TRAITS && ARR && (!window.BohemiaBarNews || Bohe
 /* ---------- OPEN ---------- */
 function open(o){
   o = o || {};
+  if(o.place){ S.camp = !!o.camp; S.campInfo = o.camp ? {day:o.day, min:o.min, night:!!o.night, company:o.company || [], bill:o.bill || null, cleared:o.cleared || null} : null; }   /* __THE_CAMP__ */
   if(o.place) for(var k in o.place) S.place[k] = o.place[k];
   S.purse = o.purse || S.purse || P.create({id:'player'});
   if(typeof o.batteries === 'number'){
@@ -2313,6 +2437,7 @@ function open(o){
   /* __THE_SPOILS__ (RUN TWO 10/24, rule 156(c)): the stash is read on EVERY visit. MEASURED: the map keeps this screen's frame
      between visits and never hands it the bag, and it was read only on the first, so what he looted after his first town was
      not at the market, and the next buy or sell wrote the old bag over the stash and the loot was gone */
+  if(window.BohemiaCamp) BAG_SLOTS = BohemiaCamp.stashSlots();   /* __THE_CAMP__: the cart he bought */
   if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else bagLoad();
   S.bagLoaded = true;
   if(o.wounded) S.wounded = o.wounded.slice();
@@ -2346,14 +2471,16 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
+window.BohemiaSettlement = {camp:function(){ return {camp:!!S.camp, bagSlots:BAG_SLOTS, info:S.campInfo || null}; },   /* __THE_CAMP__ */
+  lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
   peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
-  if(d.type==='BOHEMIA_SETTLEMENT_OPEN') open(Object.assign({}, d, {arrival: d.arrival !== false}));
+  if(d.type==='BOHEMIA_SETTLEMENT_OPEN') open(Object.assign({}, d, {arrival: d.arrival !== false && !d.camp}));
+  if(d.type==='BOHEMIA_CAMP_TIME' && S.camp) campTime(d);   /* __THE_CAMP__: the map's clock, an hour a beat while you rest */
   if(d.type==='BOHEMIA_SETTLEMENT_FACE' && d.who){ S.faces[d.who] = d.src; if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); }
 });
 document.getElementById('close').addEventListener('click', hide);

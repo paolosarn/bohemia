@@ -1,0 +1,37 @@
+{
+  "lane": "RUN TWO",
+  "row": "[the camp and the retinue] (rule 151(d)) and [money teaches] (rule 151(b))",
+  "draft": true,
+  "owner": "TUNING (rule 36: every felt number in one table; these are RUN TWO's first numbers, each with where it came from)",
+  "word": { "value": "CLOUT", "why": "Battle Brothers' Renown, in our own word (the repo's word for being known on the street, engine/bohemia_loop.js CLOUTMOD); draft:true" },
+  "slots": {
+    "value": [[250, 1], [750, 2], [1400, 3], [2250, 4], [3350, 5]],
+    "source": "the Battle Brothers wiki's Retinue page, 'Unlocking Follower Slots' (reference/library/grok/wiki/CORE_WIKITEXT.md, PAGE Retinue); Grok's retinue page agrees (reference/library/grok/GROK_RETINUE_FOLLOWER_RULES_2026_10_24.md)"
+  },
+  "bands": {
+    "value": [
+      { "at": 0, "word": "NOBODY", "bb": "Unknown" },
+      { "at": 250, "word": "SEEN AROUND", "bb": "Recognized" },
+      { "at": 500, "word": "GOOD FOR IT", "bb": "Reliable" },
+      { "at": 750, "word": "GETS IT DONE", "bb": "Competent" },
+      { "at": 1050, "word": "PROFESSIONALS", "bb": "Professional" },
+      { "at": 1400, "word": "PEOPLE ASK FOR YOU", "bb": "Reputable" },
+      { "at": 1800, "word": "A NAME IN THE VALLEY", "bb": "Famed" },
+      { "at": 2250, "word": "THE CREW EVERYBODY KNOWS", "bb": "Great" },
+      { "at": 2750, "word": "THEY TELL STORIES", "bb": "Glorious" },
+      { "at": 3350, "word": "STREET LEGEND", "bb": "Fabled" },
+      { "at": 4000, "word": "THE LEGEND", "bb": "Legendary" },
+      { "at": 8000, "word": "NOBODY TOUCHES YOU", "bb": "Invincible" },
+      { "at": 14000, "word": "FOREVER", "bb": "Immortal" }
+    ],
+    "source": "the scores are the wiki's Renown levels (same table as the slots); the words are ours, draft:true (EYES [eyes: the BB names]: never the wiki's word on a screen)"
+  },
+  "gains": {
+    "value": { "civilian_contract_done": 100, "civilian_contract_poor": 50, "fail_civilian_contract": -75, "cancel_contract": -100, "fight_won_per_enemy": 5, "ambition": 100 },
+    "source": "cancel -100 and fail -75: the wiki's Renown page as WORLD cites it (slices/bohemia_job_kinds.js, bb_all/1679_Renown); ambition 100: the wiki's Ambitions page ('All ambitions give at least 100 renown'); a contract done 100, done in part 50 and a won fight 5 a man beaten: RECALL, unverified, the wiki copy in this repo prints no number; TUNING sets them"
+  },
+  "pay_mult": {
+    "value": { "from": 1, "to": 4.5, "at": 4000 },
+    "source": "TUNING 10/25 (records/BOHEMIA_TUNING_WHAT_YOU_SEE_IN_A_CITY_AND_MONEY_TEACHES_10_25_26.md s2 item 3: 'a renown multiplier from x1 at the start to about x4.5 by the late game', Battle Brothers' 'the crowns reward increases with your company's Renown', no formula printed): straight from x1 at 0 to x4.5 at 4,000 (Legendary), flat after"
+  }
+}
