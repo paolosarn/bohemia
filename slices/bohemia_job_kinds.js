@@ -1301,6 +1301,36 @@
     hired.forEach(function (h) { if (h && h.name && !seen[h.name]) add(h, 'hired'); });
     return { men: men, from: from };
   }
+  /* THE ROSTER, SAID (WORLD [the roster scales the enemy], rule 179; rule 164 item 26, Paolo 10/24: 'Battle Brothers matches you with
+     opponents by the amount of people on your roster... if I fill up my roster, the opponents go up too'). The math was built
+     (fce1fc7a: 3 men to 12, a two-skull job 3 to 10) and EYES could not see it in the game (records/BOHEMIA_EYES_EVERY_ASK_CHECKED_
+     ON_THE_LIVE_DEMO_10_25_26.md, line 79): nothing anywhere said the enemy came heavier BECAUSE his company is big; a fight just had
+     more men in it. Battle Brothers says it in the contract's skulls and the party's size; ours says it in words where he decides:
+     the meet card before every fight ('SIZED TO YOUR 12 MEN. WITH 3 YOU WOULD MEET 4.') and the job when he takes it. The number is
+     the map's own party math run twice, his roster and Battle Brothers' three recruits (10 strength a man), so it is never a guess.
+     Said only when his roster changed the count. Words draft:true. */
+  function rosterWhy(party, n) {
+    if (!party || !party.kind || typeof partyMath !== 'function') return null;
+    var R = null; try { R = partyV('roster_strength'); } catch (e) {}
+    var s3 = 3 * ((R && R.per_man) || 10);
+    if (!(party.strength > s3)) return null;
+    var c = party.ctx || {}, now = partyMath(party.kind, c), three = partyMath(party.kind, { skulls: c.skulls, x: c.x, y: c.y, strength: s3 });
+    n = (n | 0) || party.count | 0;
+    var m = Math.max(1, Math.round(n * three.count / Math.max(1, now.count)));
+    if (m >= n) return null;
+    var men = 0; try { men = rosterMen().men.length; } catch (e) {}
+    if (men <= 3) return null;
+    return { men: men, n: n, three: m, strength: party.strength, line: 'SIZED TO YOUR ' + men + ' MEN. WITH 3 YOU WOULD MEET ' + m + '.' };   /* draft:true */
+  }
+  /* the job, when he takes it: a job whose work is a fight with its crew (today's crew job, a camp, a stand) says how many and why */
+  function rosterSays(job) {
+    if (!job || !job.party) return '';
+    var plays = job.plays || 'clear-crew'; if (['clear-crew', 'clear-camp', 'hold-defend'].indexOf(plays) < 0) return '';
+    var n = (plays === 'clear-camp' && job.camp && job.camp.men) ? job.camp.men : (job.crew | 0) || job.party.count;
+    var w = rosterWhy(job.party, n); if (!w) return '';
+    root.__ROSTER_SAID = { id: job.id, n: n, men: w.men, three: w.three };
+    return 'They will be about ' + n + ', sized to your ' + w.men + ' men. With 3 you would meet ' + w.three + '.';   /* draft:true */
+  }
   function rosterLevels() { var r = rosterMen(); window.__ROSTER = { n: r.men.length, from: r.from, levels: r.men.map(function (m) { return m.level; }) }; return window.__ROSTER.levels; }
 
   /* A LAND'S NAME SAYS WHAT IT IS (WORLD [eyes: a place that is nothing], EYES round 2, new 18: 'a name you can travel to is never
@@ -1321,7 +1351,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
   load();
 })(typeof window !== 'undefined' ? window : this);

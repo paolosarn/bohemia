@@ -152,7 +152,13 @@ async function play(profile) {
       const target = from && !from.on ? from : null;
       if (target) {
         await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
-        await tapAt(lit.cv.x + target.box[0] + target.box[2] / 2, lit.cv.y + target.box[1] + 5);   /* the canvas's pixels, where it sits in the frame */
+        /* a crew line's speech box (the outer page's, a few seconds) can stand over the bottom edge: a hand waits for it to go */
+        const tx = lit.cv.x + target.box[0] + target.box[2] / 2, ty = lit.cv.y + target.box[1] + 5;
+        const clear = await waitFor(async () => { const fb = await frameBox(); if (!fb) return false;
+          const outer = await page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cityFrame'; }, [fb.x + tx, fb.y + ty]);
+          return outer && await fr.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cv'; }, [tx, ty]); }, 20000);
+        if (!clear) console.log('  (the edge name stayed covered for 20 s; touched anyway)');
+        await tapAt(tx, ty);   /* the canvas's pixels, where it sits in the frame */
         await page.waitForTimeout(600);
         const tr = await fr.evaluate((nm) => { const p = BohemiaJobKinds.realPlace(nm), dr = p ? townDoor(p.x, p.y) : null;
           return { to: TRAVEL && TRAVEL.to ? TRAVEL.to : null, door: dr, at: [city.x, city.y] }; }, real.place);

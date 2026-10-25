@@ -44579,7 +44579,7 @@ function partyTownDistance(x, y){ var best = 99; try{ var bs = ctBases() || {}; 
 /* kind 'job' {skulls} or 'roaming' {x, y}: the party's size and what the fight needs to dress it */
 function partyMath(kind, ctx){
   ctx = ctx || {};
-  var str = partyRosterStrength(), days = partyDays(), dif = partyDifficulty(), mult = (partyV('difficulty_count_mult') || [])[dif] || 1, n, P;
+  var str = (ctx.strength != null) ? +ctx.strength : partyRosterStrength(), days = partyDays(), dif = partyDifficulty(), mult = (partyV('difficulty_count_mult') || [])[dif] || 1, n, P;   /* ctx.strength: WORLD [the roster scales the enemy], what another crew would meet */
   if(kind === 'job'){ P = partyV('job'); n = str / P.strength_per_enemy * (P.skull_mult[String(ctx.skulls || 1)] || 1) * mult; }
   else { P = partyV('roaming'); var dist = (ctx.x != null) ? partyTownDistance(ctx.x, ctx.y) : 0;
     n = (P.base + P.per_day * (days - 1) + P.per_block_from_town * dist + P.per_strength * str) * mult; }
@@ -44588,7 +44588,7 @@ function partyMath(kind, ctx){
      company plus one (a lone wolf meets two at most, three men meet four), so the first threat is survivable by accident;
      from day two the math above stands whole. The shell holds the same line for a hand-over that never came through here. */
   var cap1 = false; try{ var cc = crewCount(); if(loopDay() <= 1 && cc > 0 && n > cc + 1){ n = cc + 1; cap1 = true; } }catch(_e){}
-  return { count: n, word: partyWord(n), days: days, difficulty: dif, faction: 'brigands', strength: str, kind: kind, dayOneCap: cap1 };
+  return { count: n, word: partyWord(n), days: days, difficulty: dif, faction: 'brigands', strength: str, kind: kind, dayOneCap: cap1, ctx: { skulls: ctx.skulls, x: ctx.x, y: ctx.y } };
 }
 /* HOW MANY ARE IN HIS CREW TONIGHT: the company the origin built, the men hired at the posts (the settlement screen keeps
    them in bohemia.hired.v1 until the game's save does), less the men who walked when the batteries ran out (the bill,
@@ -45005,6 +45005,7 @@ function loopTakeContract(c){
   LOOP.held.push(job);
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Took a contract in ' + town.name + ': ' + job.title + '.', 'contract'); }catch(_e){}
   loopSay(job.sayTake || ('Contract from ' + town.name + ': ' + job.title + '. Pays ' + job.pay + (job.pay === 1 ? ' battery' : ' batteries') + '. The job is marked on the map.'));   /* WORDS [eyes: one blocks], rule 150: '45 batteries', never '45 battery' */
+  try{ var __rs = (window.BohemiaJobKinds && BohemiaJobKinds.rosterSays) ? BohemiaJobKinds.rosterSays(job) : ''; if(__rs) setTimeout(function(){ try{ loopSay(__rs); }catch(_e){} }, 4500); }catch(_e){}   /* WORLD [the roster scales the enemy]: how many, and why */
   return true;
 }
 function loopSettleBats(n, why){
@@ -64164,6 +64165,7 @@ function meetShow(msg, skin){
   var M = window.BohemiaMaterials, kit = function (k, s) { try { return M && M.kit ? M.kit(k, s) : ''; } catch (_e) { return ''; } };
   var who = String(msg.label || 'A CREW').toUpperCase();
   var word = ''; try { word = String((msg.party && msg.party.word) || partyWord(n)).toUpperCase(); } catch (_e) {}
+  var __rw = null; try { __rw = (window.BohemiaJobKinds && BohemiaJobKinds.rosterWhy) ? BohemiaJobKinds.rosterWhy(msg.party, n) : null; } catch (_e) { __rw = null; }
   var el = document.createElement('div'); el.id = 'meetcard'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Meet ' + who);
   el.style.cssText = 'position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;background:rgba(8,6,4,.42);pointer-events:auto';
   var W = Math.min(340, Math.max(260, (window.innerWidth || 360) - 32));
@@ -64171,6 +64173,8 @@ function meetShow(msg, skin){
     + '<div class="mch" style="font:400 15px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;line-height:1.2">' + esc(who) + '</div>'
     + '<div class="mcs" style="margin-top:3px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#cdb98e;text-shadow:0 1px 0 #000;display:flex;align-items:baseline;gap:6px">'
     + '<span>' + esc(n + (n === 1 ? ' MAN' : ' MEN') + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span><span style="margin-left:auto;color:#9f8a64">YOU ' + mine + '</span></div>'
+    /* WORLD [the roster scales the enemy] (rule 164 item 26, his 'if I fill up my roster, the opponents scale'): the card says why there are this many */
+    + (__rw ? '<div class="mcwhy" style="margin-top:3px;font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#e2b45a;text-shadow:0 1px 0 #000">' + esc(__rw.line) + '</div>' : '')
     + '<canvas class="mcmen" style="display:block;width:100%;height:84px;margin:8px 0 6px;image-rendering:pixelated"></canvas>'
     + '<div class="mcg" style="padding:8px 10px 10px;background:#e6dcc4;color:#1f1710;' + kit('receipt', 1) + 'font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.45">'
     + '<div style="font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px">THE GROUND: ' + esc(gr.kind) + (gr.district ? ' · ' + esc(gr.district.toUpperCase()) : '') + '</div>'
@@ -64217,7 +64221,7 @@ function meetShow(msg, skin){
     bt.addEventListener('click', function (ev) { ev.stopPropagation(); done(k[1]); }); });
   ['pointerdown', 'touchstart', 'touchmove', 'touchend', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
   MEET.up = { msg: msg, el: el, key: key, at: performance.now() };
-  window.__MEET_UP = { why: msg.why || null, n: n, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night };
+  window.__MEET_UP = { why: msg.why || null, n: n, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night, roster: __rw };
   try { window.MEET_DONE = done; } catch (_e) {}
   try { if (window.parent && window.parent !== window) window.parent.postMessage({ bohemiaCitySfx: { ev: 'phone_buzz' } }, '*'); } catch (_e) {}
   return true;
