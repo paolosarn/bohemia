@@ -63,6 +63,8 @@ const seedSet = (ctx, s) => vm.runInContext('SEED = ' + (s >>> 0) + ';', ctx);
               what the calculator must show from now on
      proto    noabil plus the five fixes this page proposes, each one splice:
        F1 CAN I ACT: a man who cannot strike this turn (out of breath, nothing to shoot and no club) does not walk; he stands
+          (proto2: he stands only when a foe is within two tiles or he is in a ring; farther off he still closes, so the
+          fight does not stall)
        F2 STAYING IS A CHOICE: the tile he stands on is scored with the rest, plus one step's AP, and he walks only to a
           better one
        F3 NO WALK OUT OF A RING: a man in a foe's reach who did not strike does not walk out through the free swings (a bow
@@ -93,7 +95,8 @@ const SPLICES = [
    "    if (FIX && u.side === 'you') {\n      const sk0 = strikeSkill(w), clubOK = !!u.club && u.fat + skillFat(u, strikeSkill(u.club)) <= fatMax(u);\n" +
    "      const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));\n" +
    "      const able = ranged ? (shotOK || clubOK) : u.fat + skillFat(u, sk0) <= fatMax(u);\n" +
-   "      if (!able || (zocOn(u, u.x, u.y).length && (u.club || !ranged))) { endTurn(u); return false; }\n    }\n" +
+   "      const near = zocOn(u, u.x, u.y).length || foes(u).some(function (f3) { return dist(f3, u) <= 1 + 1; });\n" +
+   "      if ((!able && (near || !FIX2)) || (zocOn(u, u.x, u.y).length && (u.club || !ranged))) { endTurn(u); return false; }\n    }\n" +
    '    /* already in a man\'s reach and out of AP or breath: stand, do not walk out through his swing */\n'],
   /* F2 */
   ['      if (x === u.x && y === u.y) return;\n', "      if (x === u.x && y === u.y && !(FIX && u.side === 'you')) return;\n"],
@@ -107,7 +110,7 @@ async function engineFor(brain) {
   const html = HTML, grab = id => { const m = html.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>')); if (!m) throw new Error('no script ' + id); return m[1]; };
   let rules = grab('fight-rules');
   SPLICES.forEach(([a, b]) => { const n = rules.split(a).length - 1; if (n !== 1) throw new Error('THE FIGHT MOVED: splice anchor found ' + n + ' times: ' + a.slice(0, 70)); rules = rules.replace(a, () => b); });
-  const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Error, Promise, NOABIL: true, FIX: brain === 'proto',
+  const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Error, Promise, NOABIL: true, FIX: brain === 'proto' || brain === 'proto2', FIX2: brain === 'proto2',
     localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} },
     fetch: u => Promise.resolve({ json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', u), 'utf8'))) }) };
   vm.createContext(ctx);
