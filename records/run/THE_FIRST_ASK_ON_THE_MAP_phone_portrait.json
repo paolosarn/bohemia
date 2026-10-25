@@ -1,0 +1,56 @@
+{
+ "profile": "phone_portrait",
+ "passive": [
+  {
+   "at": 0,
+   "st": {
+    "ask": null,
+    "town": null,
+    "travel": false
+   }
+  }
+ ],
+ "spokeUnasked": null,
+ "tapAt": 5.1,
+ "go": {
+  "best": {
+   "name": "Cartel",
+   "x": 64,
+   "y": 78,
+   "d": 3
+  },
+  "ok": true,
+  "from": [
+   66,
+   81
+  ],
+  "said": null
+ },
+ "arrival": {
+  "text": "THE ELDERWork's on the board. Men for hire wait at the posts, and the bar has drink.",
+  "face": true,
+  "at": 9.3
+ },
+ "boardAt": 9.7,
+ "boardOpen": "board",
+ "boardOpenAt": 12.9,
+ "ask": {
+  "name": "MS. ADAIR, FACILITIES",
+  "said": "Two tankers of water to our loading dock before sundown tomorrow. It pays 45 batteries, we do not negotiate upward, we are already generous.",
+  "faceLit": 12497,
+  "img": false
+ },
+ "askAt": 14.6,
+ "opened": {
+  "at": 7.9,
+  "town": "Cartel"
+ },
+ "client": {
+  "at": 13.4,
+  "name": "MS. ADAIR, FACILITIES",
+  "text": "Haul two tankers of waterMS. ADAIR, FACILITIES 45 batteries · 3 H",
+  "faceLit": 12362,
+  "img": false
+ },
+ "errors": []
+}

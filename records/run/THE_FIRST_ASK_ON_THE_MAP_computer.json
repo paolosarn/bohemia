@@ -1,0 +1,56 @@
+{
+ "profile": "computer",
+ "passive": [
+  {
+   "at": 0,
+   "st": {
+    "ask": null,
+    "town": null,
+    "travel": false
+   }
+  }
+ ],
+ "spokeUnasked": null,
+ "tapAt": 5,
+ "go": {
+  "best": {
+   "name": "Volunteers",
+   "x": 37,
+   "y": 23,
+   "d": 1
+  },
+  "ok": true,
+  "from": [
+   36,
+   23
+  ],
+  "said": null
+ },
+ "arrival": {
+  "text": "THE ELDERWork's on the board, mijo. Men for hire wait at the posts, and the bar has drink.",
+  "face": true,
+  "at": 6.4
+ },
+ "boardAt": 6.8,
+ "boardOpen": "board",
+ "boardOpenAt": 8.9,
+ "ask": {
+  "name": "MARI LUZ, THE SIGN PAINTER",
+  "said": "A place without a name is a place you leave, and my eleven tins of paint sit past the hyenas. Bring them and I name it after whoever you want, plus 45 batteries.",
+  "faceLit": 11008,
+  "img": false
+ },
+ "askAt": 10.5,
+ "opened": {
+  "at": 5.7,
+  "town": "Volunteers"
+ },
+ "client": {
+  "at": 9.4,
+  "name": "MARI LUZ, THE SIGN PAINTER",
+  "text": "Fetch the paint for the hall signMARI LUZ, THE SIGN PAINTER 45 batteries · 2 H",
+  "faceLit": 11008,
+  "img": false
+ },
+ "errors": []
+}

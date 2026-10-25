@@ -60,6 +60,9 @@ THE FIXES, AT THE SOURCE, NO MAN AND NO ART TAKEN OUT:
 3. `__THE_MAP_RESTS_UNDER_THE_FIGHT__`: the map drew about 108 times a second under every fight, in a panel the fight hides;
    it now draws nothing until the fight is over.
 4. The map's own dead layers (section 2) leave it lighter going into every fight.
+5. `__THE_MAP_RESTS_UNDER_THE_FIGHT__`, second half (842cfa48): on its first rest the map lets go of its two glass-sized
+   caches (the ground and the painting's view, rebuilt on the first frame back). The gate's first phone run had read
+   384.2 MB of canvases and bitmaps against the 384 line in one fight; the map's canvases in a fight 90 -> 57 MB.
 
 AFTER (the same fights):
 
@@ -69,18 +72,34 @@ AFTER (the same fights):
 | the fight loaded (12 v 13) | 917 to 990 MB | 907 to 978 MB | 263 to 322 MB |
 | the end screen (12 v 13) | 951 to 963 MB | 943 to 956 MB | 276 to 318 MB |
 
-TWENTY OF THE BIGGEST FIGHTS IN A ROW, his phone's profile (records/run/TWENTY_FIGHTS_phone_portrait.json when the gate runs;
-the round's run is the same tool): 20 of 20 stood and ended, NO CRASH, no page error; twelve of his every time against 6 to
-13; the most the tab held after the notice 1,240 MB (fight 19, in the fight; 260 MB under the line), canvases and bitmaps
-at most 345 MB (under 384). His computer's profile: in the record's addendum line below when its run finishes.
+TWENTY OF THE BIGGEST FIGHTS IN A ROW, THE GATE ON THE FINAL TREE (records/run/TWENTY_FIGHTS_phone_portrait.json and
+_computer.json; the computer's run served main as it moved under it, other lanes' newest work in it, the same RUN code):
+
+| | phone | computer |
+|---|---|---|
+| fights that stood and ended | 20 of 20, no crash, 0 page errors | 20 of 20, no crash, 0 page errors |
+| the fights | twelve of his against 13, 8, 11, 6 (the biggest the road rolls) | the same |
+| most the tab held after the notice (T3, ceiling 1,300) | 1,228 MB, fight 18 in the fight (about 270 under a phone's line) | 1,271 MB, fight 20 at the end screen |
+| canvases and bitmaps at most (T4, line 384) | 348.7 MB, fight 6 | 352 MB, fight 8 |
+| the map after each fight (T5) | 669 -> 882 MB, the last five within 6 MB | 664 -> 884 MB, the last five within 13 MB |
+| men from packed sheets (T6) | 451 atlases, nothing threw | 439 atlases, nothing threw |
+| a fight's load | 9.7 to 13.3 s (two browsers at once) | 11.1 to 16.1 s |
+
+THE GATE: 6/0 on each profile.
 
 WHAT IS LEFT, SAID PLAINLY:
 - THE TAB KEEPS ABOUT 35 MB A FIGHT FOR THE FIRST EIGHT OR SO, then stops: after the notice the map read 595, 682, 719, 752,
   782, 812, 837, 855, then 850 to 892 through fight 20. Chrome's dumps put it in Blink's buffer memory (Vector and string
   backings). Ruled out by measurement: the packed sheets (it grows the same with packing off), AUTO play, the odds worker,
   the test server's caching (the same served like GitHub Pages), time on the map (no growth in a minute with no fight),
-  the console, the save. It scales with the fight's size (13 MB after a small fight). It levels off, and the twenty-fight
-  gate holds it to 60 MB over the last five (T5), but its cause is not named yet. Next.
+  the console, the save. It scales with the fight's size (13 MB after a small fight). BISECTED FURTHER: the bare fight page
+  loaded into a frame and removed three times from the demo's shell keeps +105 MB (no map, no card, no end screen); the
+  end-screen page with the same UI scripts keeps nothing (-2.8 MB); with the fight's pictures blocked the fight page keeps
+  +10 MB; the people's sheets account for about 24 MB a fight and the ground's blocks about 10. Closing the bitmaps and
+  emptying the canvases (shipped) and emptying every picture element too (tried, +94 MB, taken back out) do not change it:
+  the browser keeps something per picture a dead frame loaded. It levels off and the twenty-fight gate holds it to 60 MB over
+  the last five (T5). THE STRUCTURAL FIX is one fight frame kept across fights (its sheets loaded once, the next fight dealt
+  in it), which would also take seconds off every fight's load: COMBAT's file, a NOTE on its board. Next.
 - A fight's ground blocks are 2,575 x 1,820 (18 MB decoded each, eight a board): drawn at their own pixels close in, so they
   stay; the held, kneeling and reloading sheets (91 MB as bitmaps in the biggest fight) are already tight (39 to 49 percent
   solid) and stay bitmaps for draw speed.
@@ -148,9 +167,38 @@ THE MAP STANDS UP 13/0, THE WIPE WAKES IN TOWN 8/0, A FRESH START AND A FOG OF W
 8/0, TWO HANDS 9/0. The same reds as main: A FRESH PHONE SEES THE DOOR 7/2, THE MAP AT THE PHONE'S PIXELS 15/1, FACTION
 BETWEEN 80/2, THE FIGHT READS ONLY SOURCED NUMBERS 8/2.
 
-OTHER LANES' GATES THAT MEASURE THE OLD 2-D BAKE ON THE DEMO (red now by rule 174, each a NOTE on its owner's row): CITY CAST
-and CITY CAST SILHOUETTE (the cast reaching the demo's map), LATE ART (the late bank), TRADE FIT (the bake's names), THE
-PARTIES WALK (its first leg waits for the 2-D walk bake; in a real walk his two men are drawn and walking on every frame,
-measured), PEOPLE GATHER B4 (the walked street's crowd), VALLEY BREATHES (one leg), THE ZOOM GOES THROUGH CLOUDS C1 and C5
-(C5 reads the clouds as pixel art, which 10/24's smooth clouds already changed). COMBAT's whole-grid gate ran 40 minutes and
-was stopped: 6 ok, its one red the simulation's step cap (standoffs), not the drawing.
+GATES THAT MEASURE THE OLD 2-D BAKE ON THE DEMO, each run on main (origin at 501930de) and on this tree:
+- red by rule 174, the old bake being gone: TRADE FIT 3 red on main -> 8 (its five new reds are the bake's names and bodies);
+  THE PARTIES WALK 3 red on main -> 4 (the new one is its first leg, the 2-D walk bake reaching the map; in a real walk his
+  two men are drawn and walking on every frame, measured: company 2, walking 2); PEOPLE GATHER B4 (the walked street's
+  crowd, the dead walk). Their owners' rows carry a NOTE.
+- the same as main: CITY CAST, CITY CAST SILHOUETTE and LATE ART throw on main too; VALLEY BREATHES 7/1 on both; THE ZOOM GOES
+  THROUGH CLOUDS C5 (it reads the clouds as pixel art, which 10/24's smooth clouds changed) on both; its C1 (the clouds within
+  400 ms, read 780 under three parallel browsers) is re-run below.
+COMBAT's whole-grid gate ran 40 minutes and was stopped: 6 ok, its one red the simulation's step cap (standoffs), not the
+drawing.
+
+THE SUITE RAN FOR NOBODY while this round closed: COMBAT's new row EVERY MAN HAS A JOB EACH TURN (46d9b8a4) had three fields,
+and the table check refuses every gate when one row is short (TUNING's NOTE named it). 86f001c3 adds its slow flag, False,
+as its neighbours AUTO NEVER WASTES A TURN and MELEE IS ONE TILE; the table reads 0 bad rows.
+
+## 4. THE COORDINATOR'S NOTE: THE FIRST PERSON AT THE DOOR, STILL (Grok page 135, rule 19(d))
+
+The door changed this round (DEVELOPING THE PICTURE), so the check was run, on the demo, with the one driver, both profiles
+(`tools/bohemia_run_the_first_ask_on_the_map.js`, records/run/THE_FIRST_ASK_ON_THE_MAP_<profile>.json):
+
+| | phone | computer |
+|---|---|---|
+| anything spoken at him unasked, his first 60 s after GO | nothing | nothing |
+| he taps the nearest town at +5 s: the town open | +7.9 s (Cartel) | +5.7 s (Volunteers) |
+| the elder's arrival line under his face | +9.3 s | +6.4 s |
+| one tap on the board: a named client with a drawn face | +13.4 s, MS. ADAIR, FACILITIES | +9.4 s, MARI LUZ, THE SIGN PAINTER |
+| his tap on her: the ask in her mouth, under her face | +14.6 s | +10.5 s |
+
+So a named face speaks the first ask inside sixty seconds whenever he goes to her, three taps from GO, and nothing is forced on
+him first: rule 19(d) and rule 32(a) (Paolo 9/23, 'dont force interactions on the player', newer) both hold. No row. Grok's
+open question (is the first ask a short escort to the nearest town): the first two boards offered 2 H and 3 H jobs, short and
+close, Battle Brothers' default (rule 33). SAID: the arrival speaker is a title, THE ELDER, not a name. WIRE THE DOOR, the
+QUESTS lane's gate of 9/22, drives the ALPHA's walked street (the walk died 9/28): 13/2 here, its two reds that street's
+own (the ask spoke at 52 s, which its 9/24 leg calls inside the quiet minute; the inlined mouth module not byte-identical
+to engine/), nothing this round touched. FIRST ASK 49/1 (its 1c, somebody moving house not wired).
