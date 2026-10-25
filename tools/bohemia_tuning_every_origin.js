@@ -132,7 +132,7 @@ function wolfStart(godId, seed) {
   if (spec.kind === 'today') { const t = todayStats('hedge_knight', 0); const R0 = rng(seed * 7919 + 101);
     man = { background: 'hedge_knight', name: t.name, main: true, level: 4, xp: xpFor(4), stats: t.stats, stars: starsOf(R0), plan: PLAN.wolf_gun, gear: null, perkOrder: null, R: rng(seed * 104729 + 17) }; }
   else man = rollGod(spec, seed);
-  return { origin: 'wolf', variant: godId, men: [man], purse: W.batteries.full, cap: W.field_cap, pay: W.pay | 0 };
+  return { origin: 'wolf', variant: godId, men: [man], men0: 1, roster: W.roster_cap, purse: W.batteries.full, cap: W.field_cap, pay: W.pay | 0 };
 }
 
 /* ---------- ONE FIGHT, A WHOLE COMPANY ---------- */
@@ -167,13 +167,21 @@ function days(ctx, start, track, seed) {
     purse -= BILL.per_man_per_night.value * alive.length;
     if (purse < 0) { const go = alive.filter(m => !m.main).pop(); if (go) { go.walked = day; log.push({ day: day, walked: 1 }); } }
     if ((day - 1) % track.every !== 0) continue;
-    const fit = alive.filter(m => !(m.laidUntil && day < m.laidUntil) && !m.walked);
+    /* HIRES (the careful player who also replaces the hurt): on a day his company stands fewer men than it started with, he hires
+       the best man the post offers (an ordinary militia, priced the hall's way: the lone wolf bench's recruit('ord'), 37 batteries)
+       while the purse keeps a week of the bill for everybody, inside the roster cap; never for the Lone Wolf (his promise is alone) */
+    if (track.policy === 'hires' && start.origin !== 'wolf') { const up = men.filter(m => !m.dead && !m.walked), standing = up.filter(m => !(m.laidUntil && day < m.laidUntil)).length;
+      const h = LW.recruit('ord', seed * 100 + day);
+      if (standing < Math.min(start.men0, start.cap) && up.length < start.roster && purse - h.price >= BILL.per_man_per_night.value * (up.length + 1) * 7) {
+        purse -= h.price; men.push({ background: 'militia', name: 'HIRE ' + men.length, main: false, level: 1, xp: 0, stats: h.stats, stars: h.stars, plan: PLAN.front,
+          gear: h.gear, perkOrder: null, R: rng(seed * 104729 + 7 * men.length), hiredOn: day }); log.push({ day: day, hired: h.price }); } }
+    const fit = men.filter(m => !m.dead && !m.walked && !(m.laidUntil && day < m.laidUntil));
     if (!fit.length) { log.push({ day: day, nobody: 1 }); continue; }
     /* PICKS rests in town while fewer than half the company can stand (the fallen are laid up 30 to 40 days, Paolo 9/27): a man
        who walks out alone with his crew in bed loses for a month (measured: a new crew fields YOU alone in 237 of 300 fights in
        days 11 to 20 when it never rests) */
-    if (track.policy === 'picks' && fit.length < Math.ceil(alive.length / 2)) { log.push({ day: day, rested: 1 }); continue; }
-    const levels = alive.map(m => m.level), most = Math.max(3, fit.length + 1);
+    if (track.policy !== 'takes' && fit.length < Math.ceil(men.filter(m => !m.dead && !m.walked).length / 2)) { log.push({ day: day, rested: 1 }); continue; }
+    const levels = men.filter(m => !m.dead && !m.walked).map(m => m.level), most = Math.max(3, fit.length + 1);
     let enc = null, count = null;
     if (track.policy === 'takes') {
       if (R() < 0.5) { const sk = 1 + Math.floor(R() * 3), camp = R() < 0.2; enc = { kind: 'job', skulls: sk, camp: camp }; count = LW.mapCount('job', levels, day, enc); }
@@ -227,7 +235,7 @@ function ladderCell(ctx, c, n) {
 const WOLF_TRACKS = Object.keys(GODS).map(g => ({ id: 'wolf_' + g + '_picks', start: { wolf: g }, policy: 'picks', every: 2, days: 50 }))
   .concat(['today', 'god3', 'god5'].map(g => ({ id: 'wolf_' + g + '_takes', start: { wolf: g }, policy: 'takes', every: 2, days: 50 })))
   .concat(['picks', 'takes'].map(p => ({ id: 'wolf_god3_' + p + '_100', start: { wolf: 'god3' }, policy: p, every: 2, days: 100 })));
-const TRACKS = () => WOLF_TRACKS.concat(ORIGIN_TRACKS.filter(t => !t.needs || !!PROPOSALS[t.needs]));
+const TRACKS = () => WOLF_TRACKS.concat(ORIGIN_TRACKS);
 let ORIGIN_TRACKS = [];   /* filled after the origin starts below */
 const ORIGIN_DAYS = 30, ORIGIN_SEEDS = 60;
 function startOf(track, seed) { if (track.start.wolf) return wolfStart(track.start.wolf, seed); return originStart(track.start.origin, track.start.variant, seed); }
@@ -259,10 +267,11 @@ function realMan(spec, i, seed) {
   for (let lv = 2; lv <= level; lv++) { const r = levelRolls(stars, lv, R); plan.forEach(k => { st[k] += r[k]; }); }
   const cls = spec.gear && classOf(spec.gear.main);
   return { background: spec.bg, name: CREW[i % CREW.length].name, main: i === 0, level: level, xp: xpFor(level), stats: st, stars: stars, plan: plan,
-    gear: spec.gear || null, perkOrder: spec.perks || (BLADE[cls] ? bladePerks(cls) : null), R: rng(seed * 104729 + 31 * i + 3) };
+    gear: spec.gear || null, perkOrder: spec.perks || (BLADE[cls] ? bladePerks(cls) : cls === 'bow' ? BOW_PERKS : null), R: rng(seed * 104729 + 31 * i + 3) };
 }
 function jobOfMain(id) { const c = classOf(id); return { crossbow: 'rifle', bow: 'rifle', firearm: 'shotgun', throwing: 'bottles' }[c] || c; }
 const WEEK = 7;
+const BOW_PERKS = ['fast_adaptation', 'bullseye', 'anticipation', 'bow_mastery', 'lone_wolf', 'battle_forged', 'head_hunter'];   /* the rifle build with the bow's mastery (the fight has no bow build) */
 const P = (men, extra) => Object.assign({ men: men, food_days: WEEK }, extra || {});
 const PROPOSAL_SPECS = {
   /* THE CREW THAT IS LEFT (Rebuilding a Company, easy, the tutorial): the three who are left, level 1, the learning start */
@@ -274,9 +283,12 @@ const PROPOSAL_SPECS = {
               { bg: 'companion_1hand', gear: kit('pipe', 'car_door2', 'padded_vest2', 'hard_hat') },
               { bg: 'companion_ranged', gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
   /* UP FROM HENDERSON (Southern Mercenaries, easy; our line: 'three guns and no friends'): every man a gun */
-  south: P([{ bg: 'companion_2hand', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') },
-            { bg: 'companion_1hand', gear: kit('shotgun', null, 'padded_vest', 'hard_hat') },
-            { bg: 'companion_ranged', gear: kit('rifle', null, 'padded_vest', 'rag_hood') }]),
+  /* UP FROM HENDERSON (Southern Mercenaries, easy; our line: 'three guns and no friends'): two pistols and a rifle are three guns
+     already (measured: a shotgun in the second man's hands loses 6 points, three shooters and no front lose more); Battle
+     Brothers' own Southern Mercenaries are A New Company in the south, so the numbers are A NEW CREW's and the place is his */
+  south: P([{ bg: 'companion_2hand', level: 2, gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
+            { bg: 'companion_1hand', level: 2, gear: kit('pistol', 'car_door2', 'padded_vest2', 'hard_hat') },
+            { bg: 'companion_ranged', level: 2, gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
   /* THE WATER TRUCK (Trading Caravan, easy): two drivers, a pistol and a rifle; the money is the strength (the wagon's goods) */
   truck: P([{ bg: 'caravan_hand', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') },
             { bg: 'caravan_hand', gear: kit('rifle', null, 'padded_vest', 'rag_hood') }], { food_days: 19, wagon: 171 }),
@@ -290,6 +302,14 @@ const PROPOSAL_SPECS = {
   /* THE SCAVENGERS (Band of Poachers, medium): three shooters who look before they go in (they always pick) */
   scav: P([{ bg: 'hunter', gear: kit('rifle2', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') },
            { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') }], { food_days: WEEK }),
+  /* the measured alternatives (a variant is 'origin~name') */
+  'newcrew~l2': P([{ bg: 'companion_2hand', level: 2, gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_1hand', level: 2, gear: kit('pipe', 'car_door2', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_ranged', level: 2, gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
+  'scav~bows': P([{ bg: 'hunter', gear: kit('bow', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('bow', null, 'padded_vest', 'rag_hood') },
+           { bg: 'poacher', gear: kit('pistol', 'car_door', 'padded_vest', 'rag_hood') }]),
+  'scav~front': P([{ bg: 'hunter', gear: kit('rifle2', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') },
+           { bg: 'poacher', gear: kit('pistol', 'car_door', 'padded_vest', 'rag_hood') }]),
   /* THE PROMISE KEEPERS (Oathtakers, medium): two men, each in good kit; the old one level 3 with the standard */
   promise: P([{ bg: 'oathtaker', level: 3, gear: kit('pipe2', 'riot_shield', 'plate_carrier2', 'full_riot_helm') },
               { bg: 'oathtaker', level: 1, gear: kit('pistol2', 'car_door2', 'plate_carrier2', 'riot_helmet') }]),
@@ -304,15 +324,18 @@ const PROPOSAL_SPECS = {
            { bg: 'barbarian', level: 3, gear: kit('shotgun', null, 'plate_carrier2', 'riot_helmet') },
            { bg: 'monk', gear: kit('pistol', 'car_door', 'work_jacket', 'rag_hood') }]),
   /* THE LAB RATS (Anatomists, medium): three who are not fighters; they shoot from the back and the money is theirs */
-  lab: P([{ bg: 'anatomist', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') }, { bg: 'anatomist', gear: kit('rifle', null, 'padded_vest', 'rag_hood') },
+  /* THE LAB RATS (Anatomists, medium): three who are not fighters, in lab coats over padded vests; their money is their strength */
+  lab: P([{ bg: 'anatomist', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') }, { bg: 'anatomist', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') },
           { bg: 'anatomist', gear: kit('rifle', null, 'padded_vest', 'rag_hood') }]),
   /* THE FAITHFUL (Davkul Cultists, medium): four in rags with pipes and a pistol; their resolve is their own */
-  faith: P([{ bg: 'cultist', gear: kit('pistol', 'car_door', 'rags', 'rag_hood') }, { bg: 'cultist', gear: kit('pipe', 'car_door', 'rags', 'rag_hood') },
-            { bg: 'cultist', gear: kit('pipe', 'car_door', 'rags', 'rag_hood') }, { bg: 'cultist', gear: kit('rifle', null, 'rags', 'rag_hood') }]),
+  /* THE FAITHFUL (Davkul Cultists, medium): four in work clothes and cult hoods, pipes and a gun each side; their resolve is their own */
+  faith: P([{ bg: 'cultist', gear: kit('pistol', 'car_door', 'work_jacket', 'rag_hood') }, { bg: 'cultist', gear: kit('pipe', 'car_door', 'work_jacket', 'rag_hood') },
+            { bg: 'cultist', gear: kit('pipe', 'car_door', 'work_jacket', 'rag_hood') }, { bg: 'cultist', gear: kit('rifle', null, 'work_jacket', 'rag_hood') }]),
   /* THE DEBT COLLECTORS (Manhunters, hard): two collectors with guns, four in debt with pipes in front */
+  /* THE DEBT COLLECTORS (Manhunters, hard): two collectors with a pistol and a rifle, the four in debt in work clothes, pipes in front, one rifle */
   debt: P([{ bg: 'manhunter', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') }, { bg: 'manhunter', gear: kit('rifle', null, 'padded_vest', 'hard_hat') },
-           { bg: 'indebted', gear: kit('pipe', 'car_door', 'rags', null) }, { bg: 'southern_indebted', gear: kit('pipe', 'car_door', 'rags', null) },
-           { bg: 'southern_indebted', gear: kit('pipe', 'car_door', 'rags', null) }, { bg: 'southern_indebted', gear: kit('sledge', null, 'rags', null) }]),
+           { bg: 'indebted', gear: kit('pipe', 'car_door', 'work_jacket', 'rag_hood') }, { bg: 'southern_indebted', gear: kit('pipe', 'car_door', 'work_jacket', 'rag_hood') },
+           { bg: 'southern_indebted', gear: kit('rifle', null, 'work_jacket', 'rag_hood') }, { bg: 'southern_indebted', gear: kit('sledge', null, 'work_jacket', 'rag_hood') }]),
   /* THE HUNTERS (Beast Slayers, hard): three level-2 slayers in decent kit, the spear and two rifles */
   hunt: P([{ bg: 'beast_slayer', level: 2, gear: kit('spear', 'car_door2', 'padded_vest2', 'hard_hat2') },
            { bg: 'beast_slayer', level: 2, gear: kit('rifle2', null, 'padded_vest2', 'hard_hat2') },
@@ -324,28 +347,29 @@ const PROPOSAL_SPECS = {
 };
 KIT.rebar = 'militia_spear'; KIT.cleaver = 'butcher_s_cleaver';
 const PROPOSALS = {};   /* id -> function(seed) -> { men, purse } */
-Object.keys(PROPOSAL_SPECS).forEach(id => { const S = PROPOSAL_SPECS[id], o = ORIGINS.filter(x => x.id === id)[0];
+Object.keys(PROPOSAL_SPECS).forEach(id => { const S = PROPOSAL_SPECS[id], o = ORIGINS.filter(x => x.id === id.split('~')[0])[0];
   PROPOSALS[id] = function (seed) { const men = S.men.map((m, i) => realMan(Object.assign({}, m, { gear: Object.assign({}, m.gear, { main: KIT[m.gear.main] || m.gear.main }) }), i, seed));
     return { men: men, purse: o.batteries.full + (S.wagon || 0) + BILL.per_man_per_night.value * men.length * (S.food_days || 0) }; };
   PROPOSALS[id].spec = S; });
 function originStart(id, variant, seed) {
   const o = ORIGINS.filter(x => x.id === id)[0];
-  if (variant === 'today') return { origin: id, variant: variant, men: o.men.map((m, i) => todayMan(m, i, seed)), purse: o.batteries.full, cap: o.field_cap, pay: o.pay | 0 };
-  const P = PROPOSALS[id](seed);
-  return { origin: id, variant: variant, men: P.men, purse: P.purse != null ? P.purse : o.batteries.full, cap: P.cap || o.field_cap, pay: P.pay != null ? P.pay : (o.pay | 0) };
+  if (variant === 'today') { const M = o.men.map((m, i) => todayMan(m, i, seed)); return { origin: id, variant: variant, men: M, men0: M.length, roster: o.roster_cap, purse: o.batteries.full, cap: o.field_cap, pay: o.pay | 0 }; }
+  const P = PROPOSALS[variant === 'proposed' ? id : id + '~' + variant](seed);
+  return { origin: id, variant: variant, men: P.men, men0: P.men.length, roster: o.roster_cap, purse: P.purse != null ? P.purse : o.batteries.full, cap: P.cap || o.field_cap, pay: P.pay != null ? P.pay : (o.pay | 0) };
 }
 
 /* the stamp: the fight and its files plus this bench's own logic */
-ORIGIN_TRACKS = [].concat.apply([], ORIGINS.filter(o => o.id !== 'wolf').map(o => [].concat.apply([], ['today', 'proposed'].map(v => ['picks', 'takes'].map(p =>
-  ({ id: o.id + '_' + v + '_' + p, start: { origin: o.id, variant: v }, policy: p, every: 2, days: ORIGIN_DAYS, seeds: ORIGIN_SEEDS, needs: v === 'proposed' ? o.id : null }))))));
+const variantsOf = id => ['today'].concat(Object.keys(PROPOSAL_SPECS).filter(k => k === id || k.indexOf(id + '~') === 0).map(k => k === id ? 'proposed' : k.split('~')[1]));
+ORIGIN_TRACKS = [].concat.apply([], ORIGINS.filter(o => o.id !== 'wolf').map(o => [].concat.apply([], variantsOf(o.id).map(v => ['picks', 'takes', 'hires'].map(p =>
+  ({ id: o.id + '_' + v + '_' + p, start: { origin: o.id, variant: v }, policy: p, every: 2, days: ORIGIN_DAYS, seeds: ORIGIN_SEEDS }))))));
 
 /* the stamp: the fight and its files, the map's sums (the lone wolf bench's mapCount) and this bench's play logic (LOGIC, bumped
    when days() or fightCrew() change); a track's own start is in its key (specOf), so a new proposal plays only itself */
-const LOGIC = 'days-v2';
+const LOGIC = 'days-v3';
 function stamp() { return G.fightPrint([{ text: LOGIC }, { text: fs.readFileSync(path.join(__dirname, 'bohemia_tuning_lone_wolf.js'), 'utf8') }]); }
 function hashOf(t) { let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); }
 function specOf(t) { const s = t.start.wolf ? JSON.stringify(GODS[t.start.wolf]) + rollGod.toString() + wolfStart.toString()
-  : (t.start.variant === 'today' ? todayMan.toString() : JSON.stringify(PROPOSAL_SPECS[t.start.origin]) + realMan.toString() + JSON.stringify(KIT)); return hashOf(s + JSON.stringify(t)); }
+  : (t.start.variant === 'today' ? todayMan.toString() : JSON.stringify(PROPOSAL_SPECS[t.start.variant === 'proposed' ? t.start.origin : t.start.origin + '~' + t.start.variant]) + realMan.toString() + JSON.stringify(KIT)); return hashOf(s + JSON.stringify(t)); }
 function cache() { const fp = stamp(), got = {};
   if (fs.existsSync(CELLS)) fs.readFileSync(CELLS, 'utf8').split('\n').filter(Boolean).forEach(l => { try { const x = JSON.parse(l); if (x.fp === fp) got[x.k] = x.v; } catch (e) { } });
   return { fp: fp, got: got, put: (k, v) => fs.appendFileSync(CELLS, JSON.stringify({ k: k, fp: fp, v: v }) + '\n') }; }
