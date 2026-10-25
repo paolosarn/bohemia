@@ -725,7 +725,7 @@
     try { var t = om.at(city.x, city.y); f.place = (t && t.district) ? String(t.district).toUpperCase() : null; } catch (_e) {}
     try { var R = window.__BAR_READ; if (R && R.six) f.six = R.six; } catch (_e) {}
     try { var p = window.parent.BOH_START && window.parent.BOH_START.picks(); if (p && p.company) {
-      f.cap = p.cap || null;
+      f.cap = p.roster || p.cap || null;   /* RUN TWO, EYES [eyes: one company number] (rule 150): the company's room, the crew screen's and the door's number; the fight's 12 is named on those two */
       f.crew = p.company.map(function (m) { return (typeof m.hp === 'number' && typeof m.hpMax === 'number' && m.hpMax > 0) ? m.hp / m.hpMax : 1; }); } } catch (_e) {}
     /* UI [the ten changes], change 5 (rule 133, TUNING's ONE BILL IN DAYS): the bill is the map's (RUN 10/23, window.__BILL):
        the crew it feeds is the crew (a man who walked is gone from the count), and the nights the batteries cover is the

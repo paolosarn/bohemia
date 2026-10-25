@@ -76,7 +76,7 @@
       if (SH && SH.ready()) {   /* the place's own people (RUN TWO 10/18): the same pick the settlement's board makes */
         var day = Math.floor(t / 1440), tr = [];
         try { tr = BohemiaLivingMap.traitsFor(LIVING_MAP.traits, name, day).map(function (x) { return x.id; }); } catch (e) {}
-        list = SH.pick({ name: name, tier: tier }, day, { traits: tr, held: held });
+        list = SH.pick({ name: name, tier: tier }, day, { traits: tr, held: held, places: SH.mapPlaces ? SH.mapPlaces(day) : null });   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): one contract, one place */
       }
       if (!list) list = OFFERS.filter(function (o) { return held.indexOf(o.id) < 0; }).slice(0, n);
       for (var i = 0; i < list.length; i++) {
@@ -84,11 +84,13 @@
         var key = name + '|' + o.id; if (SEEN[key] == null) SEEN[key] = t;
         /* stars (146(e)): the job's own stars once RUN's [the job's stars] hands them, its skulls until then (one to three) */
         var st = Math.max(1, Math.min(3, (o.stars | 0) || (o.skulls | 0) || 1));
-        out.push({ key: key, place: name, x: b.x | 0, y: b.y | 0, tier: tier, id: o.id, title: o.title, skulls: o.skulls || 1, stars: st, pay: o.pay | 0,
+        out.push({ key: key, place: name, x: b.x | 0, y: b.y | 0, tier: tier, id: o.id, title: o.title, skulls: o.skulls || 1, stars: st, pay: (typeof loopJobPay === 'function' ? loopJobPay(o.pay) : o.pay | 0),   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): what the contract pays, the start's bonus in it (the map's loopJobPay) */
           dist: Math.max(Math.abs((b.x | 0) - me[0]), Math.abs((b.y | 0) - me[1])), way: way((b.x | 0) - me[0], (b.y | 0) - me[1]), age: t - SEEN[key] });
       }
     });
     out.sort(function (a, b) { return b.pay - a.pay || b.stars - a.stars || a.dist - b.dist || (a.key < b.key ? -1 : 1); });
+    /* a job the shelf ran short on and two places show is on the phone once, from the nearer (RUN TWO 10/25) */
+    var once = {}; out = out.filter(function (a) { if (once[a.id]) return false; once[a.id] = 1; return true; });
     return out;
   }
   function placeWord(name) { return String(name).toUpperCase(); }

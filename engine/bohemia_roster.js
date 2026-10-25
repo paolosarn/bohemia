@@ -32,6 +32,32 @@
     farmhand: 'Grew squash in a dry wash until the well went salt.',
     beggar: 'Sat on the same corner for six years. Somebody else has it now.',
     _: 'Does not talk about before. You do not ask.' };
+  /* EYES [eyes: you the companion] (rule 150, 10/24: 'YOU and DESI carry the same line'): a man with no line of his own draws one
+     from this pool by his name, and the crew screen never shows two men the same line (draft:true); YOU have your own, in
+     the second person, because the card is about you */
+  var PAIN_POOL = ['Does not talk about before. You do not ask.', 'Keeps a dead phone in his pocket and charges it anyway.',
+    'Walked in off the salt flats in somebody else\'s boots.', 'Counts every battery twice and trusts nobody who counts once.',
+    'Lost a brother in the water lines. Drinks slow because of it.', 'Sleeps sitting up, facing the door.',
+    'Fixed slot machines on the Strip once. Fixes guns now.', 'Laughs at the wrong moment and never says why.'];
+  var PAIN_YOU = 'You came in off the road with what you carry. Nobody here knows your name yet.';
+  /* OUR NAMES FOR THEIR BACKGROUNDS (EYES [eyes: the BB names], rule 150; his 9/28: 'our own way, never a rip-off'): the
+     wiki's 77 backgrounds keep their numbers and their ids (the data and the fight read those); what a player reads is ours,
+     the valley's own trades in 2050, each the same lesson in our skin (draft:true, WORDS may rename any). A plain English
+     trade the wiki happens to share (a butcher, a miner, a thief) keeps its plain word. */
+  var BG_NAME = { adventurous_noble: 'casino heir', anatomist: 'body broker', apprentice: 'shop kid', assassin: 'contract man',
+    southern_assassin: 'border knife', barbarian: 'desert wild', bastard: 'casino bastard', beast_slayer: 'lab hunter', beggar: 'corner sitter',
+    belly_dancer: 'lounge dancer', bowyer: 'bow maker', caravan_hand: 'convoy hand', companion_2hand: 'old friend', companion_1hand: 'old friend',
+    companion_ranged: 'old friend', converted_crusader: 'lapsed preacher', cripple: 'busted up', crusader: 'church gun', cultist: 'static listener',
+    daytaler: 'day hire', disowned_noble: 'cut-off heir', regent_in_absentia: 'lost mayor', eunuch: 'cut man', executioner: 'hangman',
+    farmhand: 'dry-farm hand', fisherman: 'lake fisher', flagellant: 'penitent', monk_turned_flagellant: 'burned-out penitent', gladiator: 'pit fighter',
+    graverobber: 'grave picker', hedge_knight: 'road knight', historian: 'archivist', houndmaster: 'dog man', indebted: 'debtor',
+    barbarian_indebted: 'wild debtor', southern_indebted: 'border debtor', juggler: 'street act', killer_on_the_run: 'man on the run',
+    king_s_guard: 'casino guard', lindwurm_slayer: 'big-game hunter', lumberjack: 'salvage cutter', manhunter: 'bounty hunter', mason: 'block layer',
+    messenger: 'runner', militia: 'block watch', miller: 'grain man', minstrel: 'lounge singer', monk: 'chapel keeper', pacified_flagellant: 'quiet penitent',
+    melee_nomad: 'dune rider', ranged_nomad: 'dune shooter', oathtaker: 'oath keeper', orc_slayer: 'machine breaker', pimp: 'strip hustler',
+    retired_soldier: 'old guard', sellsword: 'gun for hire', servant: 'house help', shepherd: 'goat herder', squire: 'gun bearer',
+    swordmaster: 'blade master', vagabond: 'drifter' };
+  function bgName(id, fallback) { return BG_NAME[id] || String(fallback || id || '').replace(/\s*\(((1|2)\s*hand|ranged)\)/i, '').replace(/_/g, ' '); }
   function seed(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   function rng(s) { var x = s >>> 0 || 1; return function () { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 100000) / 100000; }; }
   function priceOf(v) { return Math.max(1, Math.round((v || 0) / 10)); }
@@ -102,7 +128,7 @@
       level: 1, xp: 0, points: 0, stats: st, stars: stars, perks: [], wage: Math.max(1, Math.round((bg.daily_wage || 10) / 10)),
       gear: { main: main, off: off, body: itemOf('body', def.body), head: itemOf('head', def.head) },
       look: lookFor(def, i),
-      pain: PAIN[bg.id] || PAIN._, draft: true };
+      pain: def.main ? PAIN_YOU : PAIN[bg.id] || PAIN_POOL[seed(String(def.name || i)) % PAIN_POOL.length], draft: true };
   }
   function startingCrew() { return ((D.ours && D.ours.crew && D.ours.crew.value) || []).map(manOf); }
   /* TWO HANDS (RUN TWO [two hands], rule 149, Paolo 10/24: 'if I have a rifle in my hand it should take up both the main hand
@@ -213,6 +239,6 @@
     return { reach: 'REACH ' + reach + (a.club ? ', A CLUB AT 1' : ''), rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null };
   }
   var API = { load: load, armOf: armOf, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
-    slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
+    PAIN_POOL: PAIN_POOL, bgName: bgName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

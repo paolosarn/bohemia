@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"86721c76cace66e5",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"6cc4c1543a51aab0",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1568,7 +1568,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/25b - THE SQUIGGLE STOPS, TWENTY MORE VOICES, HIS SONG AFTER THE FIGHT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/25c - THE TOWN SAYS IT TRUE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13661,7 +13661,7 @@ var BOH_START = (function(){
     /* WORDS [eyes: twelve in a fight] (rule 150, EYES 10/24 item 29: 'START 290 BATTERIES · 3 MEN · 12 IN A FIGHT' read as two
        crews): what he starts with, then what the company has room for, each said as what it is. The first man is YOU. */
     var bits = [bats(o)+' BATTERIES'];
-    if(o.men) { var mates = o.men.length - 1; bits.push(mates < 1 ? 'JUST YOU' : 'YOU AND ' + mates + (mates === 1 ? ' MAN' : ' MEN')); bits.push('ROOM FOR ' + o.field_cap + ' IN A FIGHT'); }
+    if(o.men) { var mates = o.men.length - 1; bits.push(mates < 1 ? 'JUST YOU' : 'YOU AND ' + mates + (mates === 1 ? ' MAN' : ' MEN')); bits.push((o.roster_cap ? 'ROOM FOR ' + o.roster_cap + ', ' : 'ROOM FOR ') + o.field_cap + ' IN A FIGHT'); }   /* RUN TWO, EYES [eyes: one company number]: the company's room, the bar's and the crew screen's number, then the fight's */
     else if(o.crew) bits.push('CREWS '+sign(o.crew));
     if(o.pay) bits.push('PAY '+sign(o.pay));
     return '<b>'+o.name+'</b><i>'+o.line+'</i><i>'+bits.join(' &middot; ')+'</i>';

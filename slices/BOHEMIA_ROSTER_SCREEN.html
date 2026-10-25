@@ -337,7 +337,9 @@ function faceCanvas(m){
   return c;
 }
 function draw(){
-  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.filter(function(m){ return !m.dead; }).length + ' / ' + (S.cap || 20);
+  /* EYES [eyes: one company number] (rule 150): one number for how many he can have, the same on the door, the bar and here,
+     and how many fight, named so */
+  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.filter(function(m){ return !m.dead; }).length + ' / ' + (S.cap || 20) + '   ' + (S.field || 12) + ' IN A FIGHT';
   ['front','back'].forEach(function(row){
     var el = document.getElementById(row); el.textContent = '';
     S[row].forEach(function(ix, si){
@@ -423,6 +425,17 @@ function pickerFor(m, i, s){
   return p;
 }
 function stars(n){ return n ? '★'.repeat(n) : ''; }
+/* the crew's one bill, as the map takes it and the hall's card says it */
+var NIGHT = {per:2};
+fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){ var v = j && j.per_man_per_night; v = +((v && v.value != null) ? v.value : v); if(v > 0){ NIGHT.per = v; if(S.ready) drawCard(); } }).catch(function(){});
+/* no two men say the same line: in the company's order, a line already said goes to the next free one of the pool */
+function lineOf(m){
+  var used = {}, P = C.PAIN_POOL || [], out = null;
+  S.crew.some(function(x){ var l = x.pain;
+    if(used[l] && P.length){ var k0 = P.indexOf(l) >= 0 ? P.indexOf(l) : 0; for(var k = 1; k <= P.length; k++){ var c = P[(k0 + k) % P.length]; if(!used[c]){ l = c; break; } } }
+    used[l] = 1; if(x === m){ out = l; return true; } return false; });
+  return out || m.pain;
+}
 function drawCard(){
   var el = document.getElementById('card'); el.textContent = '';
   var m = S.crew[S.sel]; if(!m) return;
@@ -431,14 +444,17 @@ function drawCard(){
   var t = document.createElement('div');
   t.innerHTML = '<div class="nm"></div><div class="sub"></div><div class="pain"></div>';
   t.querySelector('.nm').textContent = m.name;
-  t.querySelector('.sub').textContent = m.background.toUpperCase() + '   LEVEL ' + m.level + '   ' + m.wage + (m.wage === 1 ? ' BATTERY A DAY' : ' BATTERIES A DAY');   /* UI [eyes: four spellings], rule 150: the money is spelled one way */
+  /* EYES [eyes: you the companion] and [eyes: two cards disagree] (rule 150): YOU are the leader, no wage and no 'companion';
+     nobody wears a raw '(2HAND)'; what a man costs is what the map takes at nightfall and the hall's card says, 'n a night'
+     (records/target/bb/nightly_bill.json, the crew's one bill), never the wiki's daily wage */
+  t.querySelector('.sub').textContent = (m.main ? 'THE LEADER' : C.bgName(m.bgId, m.background).toUpperCase()) + '   LEVEL ' + m.level + (m.main ? '' : '   ' + NIGHT.per + (NIGHT.per === 1 ? ' BATTERY A NIGHT' : ' BATTERIES A NIGHT'));   /* UI [eyes: four spellings], rule 150: the money is spelled one way */
   if(m.trait){ var tt = document.createElement('div'); tt.className = 'trait'; tt.dataset.trait = m.trait.id; tt.textContent = m.trait.name.toUpperCase() + '  ' + (m.trait.says || '') + '  ' + (m.trait.line || ''); t.insertBefore(tt, t.querySelector('.pain')); }   /* his one trait, as on the card he was hired from */
   var a0 = C.xpFor(m.level), a1 = C.xpFor(m.level + 1), xb = document.createElement('div'); xb.className = 'xpbar'; xb.title = m.xp + ' / ' + a1 + ' XP';
   var xi = document.createElement('i'); xi.style.width = Math.max(0, Math.min(100, (m.xp - a0) / Math.max(1, a1 - a0) * 100)) + '%'; xb.appendChild(xi);
   t.querySelector('.sub').appendChild(xb);
   var pl = m.mark && window.BohemiaLongInjury ? BohemiaLongInjury.painLine(m.mark.id) : null;
-  t.querySelector('.pain').textContent = '“' + (pl || m.pain) + '”';
-  S.line = pl || m.pain;   /* he says it with the face on the line (talkOnLine) */
+  t.querySelector('.pain').textContent = '“' + (pl || lineOf(m)) + '”';
+  S.line = pl || lineOf(m);   /* he says it with the face on the line (talkOnLine) */
   top.appendChild(t); el.appendChild(top);
   var st = document.createElement('div'); st.className = 'stats';
   C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.textContent = C.STAT_NAME[k];
@@ -618,6 +634,7 @@ function open(o){
       return startLevel(C.manOf(d, i), d.level); });
     S.fromOrigin = true; if(o.roster) S.cap = o.roster;
   }
+  if(o.field) S.field = o.field;   /* EYES [eyes: one company number]: how many fight, named, beside how many he can have */
   else if(!S.crew.length) S.crew = C.startingCrew();
   /* men hired at the posts (the settlement screen keeps them here until the game's save does):
      same stats and stars as on the card he was hired from */

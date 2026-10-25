@@ -44489,7 +44489,11 @@ function loopPostOpen(){
     /* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9): whether this place is yours (your outfit's own base, rule 43), and the map's day */
     held: (function(){ try{ if(typeof lotIsMine === 'function') return lotIsMine(t.name); var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
              return !!m && n(m) === n(t.name); }catch(_e2){ return false; } })(),
-    day: loopDay() }, '*'); }catch(_e){}
+    day: loopDay(),
+    /* RUN TWO 10/25 (EYES [eyes: the job's real pay], rule 150): the board prints what a contract pays (the start's bonus in it,
+       loopJobPay's own numbers), and deals from the same list of places as the phone, so one contract is posted in one place */
+    payRule: LOOP.start ? { add: LOOP.start.pay | 0, mult: LOOP.start.mult || 1 } : null,
+    places: (function(){ try{ return window.BohemiaBoardShelf && BohemiaBoardShelf.mapPlaces ? BohemiaBoardShelf.mapPlaces(T.day | 0) : null; }catch(_e2){ return null; } })() }, '*'); }catch(_e){}
 }
 function loopOpenTown(t){
   LOOP.open = t;

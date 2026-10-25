@@ -12,6 +12,15 @@
      B1 *** TWO BAG SLOTS A MAN *** the crew screen (the town's CREW, a real tap) shows his two bag slots under his hands
      B2 a real tap on a bag slot opens the bag cut to weapons and shields (no armour), a tap puts the second weapon there
      B3 the game's own door hands the next fight that man with it in his bag (gear.bag), for COMBAT's switch
+     EYES' ROWS ON RUN TWO'S BOARD (rule 150, records/BOHEMIA_EYES_THE_PLAYTEST_10_24_26.md items 7, 12, 13, 15, 16, 17):
+     E7  [the BB names] a card at the smith never names the wiki's item ('(was ...)'), and no man's trade on the crew screen
+         or the hall is the wiki's background word where ours exists
+     E13 [lines under x] the keeper's first line clears the sheet's close on the 390 px phone
+     E16 [two cards disagree] a gun's reach on the smith's card is the crew screen's own line; a man's night is the hall's
+     E17 [you the companion] YOU read THE LEADER with no wage and no '(2HAND)', and no two men share a line
+     E15 [one company number] the crew screen, the bar and the door say the same room for the company, the fight's named
+     E12 [the job's real pay] the board's pay is what the contract pays (the start's bonus in it), and dealt across the
+         valley's places one contract stands in one place (a repeat only where the shelf ran dry); the phone shows a job once
      B4 nothing threw
    node gates/the_towns_part_gate.js */
 'use strict';
@@ -56,8 +65,42 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
     ok('J1 a town through the map\'s own door', !!t.sf, t.name);
     if (!t.sf) return done();
     const sf = t.sf, box = await (await sf.frameElement()).boundingBox();
-    for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'smith')) break;
-      const w = await sf.evaluate(() => BohemiaSettlement.where('smith')); if (w) await p.mouse.click(box.x + w.x, box.y + w.y + 30); await p.waitForTimeout(500); }
+    const smith = async () => {
+      if (await sf.evaluate(() => { const o = BohemiaSettlement.state.open; return !!o && o !== 'smith'; })) { const c = await sf.$('#close'); if (c) { await c.tap(); await p.waitForTimeout(500); } }
+      for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'smith')) break;
+      const w = await sf.evaluate(() => BohemiaSettlement.where('smith')); if (w) await p.mouse.click(box.x + w.x, box.y + w.y + 30); await p.waitForTimeout(500); } };
+    /* ---- E12 the board's pay is the contract's, one contract in one place ---- */
+    /* the board is a building, a finger on its own pixels once the town's arrival card has gone (the loop gate's way) */
+    await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
+    for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'board')) break;
+      const w = await sf.evaluate(() => BohemiaSettlement.where('board')); if (w) await p.touchscreen.tap(box.x + w.x, box.y + w.y + (i % 2 ? 30 : 0)); await p.waitForTimeout(600); }
+    const e12 = await sf.evaluate(() => { const S = BohemiaSettlement.state, b = document.querySelector('#sbody .act.client'), id = b && b.dataset.id;
+      const o = (window.BohemiaBoardShelf && BohemiaBoardShelf.pick(S.place, (typeof S.mapDay === 'number' ? S.mapDay : S.day | 0), { held: S.held, places: S.places }) || []).find(x => x.id === id);
+      const em = b && b.querySelector('em'), n = em ? /(\d+)/.exec(em.textContent) : null;
+      return { dbg: ((document.getElementById('sbody') || {}).textContent || '').slice(0, 160), open: S.open, rule: S.payRule, places: (S.places || []).length, base: o && o.pay, shown: n ? +n[1] : null, id: id, em: em && em.textContent }; });
+    const want = await fr.evaluate((base) => loopJobPay(base), e12.base | 0);
+    ok('E12 [the job\'s real pay] the board shows what the contract pays: the base, the start\'s bonus and its multiplier, the map\'s own loopJobPay',
+      e12.places > 5 && e12.shown === want && e12.base > 0, 'open ' + e12.open + ', ' + (e12.dbg || '') + ' base ' + e12.base + ', board ' + e12.shown + ', the map pays ' + want + ' (' + JSON.stringify(e12.rule) + ', ' + e12.places + ' places)');
+    const deal = await fr.evaluate(() => { const day = T.day | 0, P = BohemiaBoardShelf.mapPlaces(day), held = LOOP.held.map(c => c.id), where = {};
+      let posts = 0, repeats = 0, empty = 0; P.forEach(pl => { const g = BohemiaBoardShelf.pick({ name: pl.name, tier: pl.tier }, day, { held, places: P }) || []; if (!g.length) empty++;
+        g.forEach(o => { posts++; if (where[o.id]) repeats++; (where[o.id] = where[o.id] || []).push(pl.name); }); });
+      const ph = (window.BohemiaPhoneBoard && BohemiaPhoneBoard.asks) ? BohemiaPhoneBoard.asks() : null;
+      return { places: P.length, posts, distinct: Object.keys(where).length, repeats, empty, phone: ph ? ph.map(a => a.id) : null }; });
+    ok('    dealt across the valley\'s places, one contract stands in one place (a repeat only where the shelf ran dry), no board is empty',
+      deal.places > 5 && deal.empty === 0 && deal.repeats <= Math.max(0, deal.places - deal.distinct + 2) && deal.repeats * 5 <= deal.posts, deal.places + ' places, ' + deal.posts + ' posts, ' + deal.distinct + ' different, ' + deal.repeats + ' repeats');
+    if (deal.phone) ok('    the phone shows a job once', new Set(deal.phone).size === deal.phone.length, deal.phone.join(', '));
+    await smith();
+    /* ---- E7 E13 E16 the smith's card ---- */
+    const gun = await sf.evaluate(() => { const S = BohemiaSettlement.state, sh = S.stock.smith || []; const it = sh.find(i => i.kind === 'weapon' && BohemiaRoster.armLine && BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', i.id), true) && /TO|,/.test(BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', i.id), true).reach)) || sh.find(i => i.kind === 'weapon'); return it ? { name: it.name, id: it.id, was: it.was } : null; });
+    if (gun) { const g = await sf.$('#shelfgrid .slot.full[aria-label="' + gun.name + '"]'); if (g) { await g.tap(); await p.waitForTimeout(400); } }
+    const e7 = gun ? await sf.evaluate((g) => { const t = (document.getElementById('sbody') || {}).textContent || '', c = document.getElementById('close').getBoundingClientRect(), sy = document.querySelector('#sbody .say');
+      return { dbg: BohemiaSettlement.state.open + ': ' + t.slice(0, 140), names: g.was && t.indexOf(g.was) >= 0, was: /\(was /.test(t), slots: (document.querySelector('#sbody .slots') || {}).textContent || '', clear: sy ? sy.getBoundingClientRect().right <= c.left + 1 : false,
+        line: BohemiaRoster.armLine ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', g.id), true) : null }; }, gun) : null;
+    ok('E7 [the BB names] the smith\'s card never names the wiki\'s item', !!e7 && !e7.was && !e7.names, gun && (gun.name + ' (the data keeps ' + gun.was + ')'));
+    ok('E13 [lines under x] the keeper\'s first line clears the sheet\'s close on the 390 px phone', !!e7 && e7.clear);
+    ok('E16 [two cards disagree] the gun\'s reach on the smith\'s card is the crew screen\'s own line', !!e7 && !!e7.line && e7.slots.indexOf(e7.line.reach) >= 0 && !/reach \d/.test(e7.slots), e7 && (e7.slots + ' | ' + JSON.stringify(gun) + ' | ' + JSON.stringify(e7.line) + ' | ' + e7.dbg));
+    { const back = await sf.$$('#sbody .act'); for (const a of back) { if (/Not this one/.test(await a.textContent())) { await a.tap(); await p.waitForTimeout(400); break; } } }   /* back to the shelf, his finger on Not this one */
+    await smith();
     const j1 = await sf.evaluate(() => { const S = BohemiaSettlement.state, J = BohemiaSettlement.junk(), b = document.getElementById('selljunk');
       return { open: S.open, bag: S.stash.map(i => i.id), junk: J.items.map(i => i.id), got: J.got, btn: b ? b.textContent : null, off: b ? b.disabled : null,
         bats: BohemiaPurse.balance(S.purse, 'electricity'), one: J.items.map(i => { const m = /\+(\d+)/.exec((document.querySelector('#baggrid .slot.full[aria-label="' + i.name + '"] em') || {}).textContent || ''); return m ? +m[1] : null; }) }; });
@@ -89,6 +132,21 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
     ok('B1 the crew screen through the town\'s CREW (a real tap)', !!RF);
     if (!RF) return done();
     await p.waitForTimeout(600);
+    /* ---- E17 E7 E16 the men's cards; E15 one company number ---- */
+    const men = await RF.evaluate(() => document.querySelectorAll('#lines .cell.full').length), cards = [];
+    for (let i = 0; i < men; i++) { const cs = await RF.$$('#lines .cell.full'); await cs[i].tap(); await p.waitForTimeout(250);
+      cards.push(await RF.evaluate(() => { const c = document.getElementById('card'), S = BohemiaRosterScreen.state, m = S.crew[S.sel]; return { name: m && m.name, main: !!(m && m.main), bg: m && m.bgId, sub: (c.querySelector('.sub') || {}).textContent || '', pain: (c.querySelector('.pain') || {}).textContent || '' }; })); }
+    const you = cards.find(c => c.main), bill = await fr.evaluate(() => (window.__BILL && __BILL.perMan) || 2);
+    ok('E17 [you the companion] YOU read THE LEADER with no wage and no raw hands word; no two men share a line', !!you && /^THE LEADER\s+LEVEL \d+$/.test(you.sub.trim()) && cards.every(c => !/\(\dHAND\)/i.test(c.sub)) && new Set(cards.map(c => c.pain)).size === cards.length,
+      cards.length + ' men; YOU: ' + (you && you.sub.trim()) + '; ' + new Set(cards.map(c => c.pain)).size + ' lines');
+    ok('E16 [two cards disagree] every other man costs what the hall and the map say, ' + bill + ' a night', cards.filter(c => !c.main).every(c => new RegExp(bill + ' BATTER(Y|IES) A NIGHT').test(c.sub)), cards.filter(c => !c.main).map(c => c.sub.replace(/\s+/g, ' ')).slice(0, 2).join(' | '));
+    ok('E7 [the BB names] no man\'s trade is the wiki\'s background word where ours exists (DAYTALER, SELLSWORD, CARAVAN HAND...)', cards.every(c => !/DAYTALER|SELLSWORD|CARAVAN HAND|HEDGE KNIGHT|RETIRED SOLDIER|ADVENTUROUS NOBLE|COMPANION/.test(c.sub)), cards.map(c => c.sub.split(/\s{2,}/)[0]).join(', '));
+    const e15 = await RF.evaluate(() => document.getElementById('title').textContent);
+    const bar = await fr.evaluate(() => { try { const f = BohemiaMaterials.topBarFacts ? BohemiaMaterials.topBarFacts() : null; return f ? f.cap : null; } catch (e) { return null; } });
+    const door = await p.evaluate(() => { try { const pk = BOH_START.picks(); return { roster: pk.roster, field: pk.cap }; } catch (e) { return null; } });
+    const doorText = await p.evaluate(() => (document.getElementById('front') || document.body).innerHTML);
+    ok('E15 [one company number] the crew screen says the company\'s room and names the fight\'s; the bar says the same room',
+      !!door && new RegExp('/ ' + door.roster + '\\s+' + door.field + ' IN A FIGHT').test(e15) && (bar == null || bar === door.roster), e15 + ' | bar ' + bar + ' | the door\'s origin: ' + JSON.stringify(door));
     const b1 = await RF.evaluate(() => ({ slots: [...document.querySelectorAll('#bags .gslot')].map(g => g.dataset.slot), man: BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].name }));
     ok('    *** TWO BAG SLOTS A MAN *** under his hands', b1.slots.join() === 'bag1,bag2', b1.man + ': ' + b1.slots.join(', '));
     const tapR = async (sel) => { const h = await RF.$(sel); if (!h) return false; await h.scrollIntoViewIfNeeded(); await p.waitForTimeout(120); const r = await h.boundingBox(); if (!r) return false; await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); return true; };

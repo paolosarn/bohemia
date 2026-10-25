@@ -9562,7 +9562,7 @@ GATES = [
      "says its count and price before the tap and that price is the single sales added up; ONE real tap sells the junk, the purse "
      "rises by exactly that, the bought and the KEEP piece stay and wear KEEP; LET IT GO puts a piece back in the junk; the crew "
      "screen (the town's CREW) shows two bag slots a man, a tap opens the bag cut to weapons and shields, a second weapon goes in, "
-     "and the game's own door hands the next fight gear.bag for COMBAT's switch. green, 12/0, about 1 min", True),
+     "and the game's own door hands the next fight gear.bag for COMBAT's switch; EYES' rows: no wiki item names on a card, no wiki background where ours exists, the first line clears the close, a gun's reach and a man's night the same on every card, YOU the leader with his own line and no two men alike, one company number, the board's pay is what the contract pays and one contract stands in one place. green, 22/0, about 1 min", True),
     ('THE SPOILS', ['node', 'gates/the_spoils_gate.js'],
      "RUN TWO gate, 10/24, row [the end of the fight, the loot, the stash] (rule 156, Paolo 10/24: 'there isn't an end of battle "
      "quick summary of who got experience, who leveled up, and what loot I'm able to take, with a loot button; if my inventory is "

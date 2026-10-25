@@ -45,15 +45,48 @@
     x.says = String(o.says).replace(/(^|[.!?]\s+)\{crew\}/g, function (m, p) { return p + cap(c); }).replace(/\{crew\}/g, c);
     return x;
   }
+  /* ONE CONTRACT, ONE PLACE (RUN TWO 10/25, EYES [eyes: the job's real pay], rule 150: 'Haul eighty tyres to the co-op' stood on
+     Church's and Mob's boards at once). Handed the valley's places (opt.places = [{name, tier, traits}], the map's own list, the
+     same for the phone and every board), the shelf is DEALT across them in rounds, in an order the window turns: every place
+     takes its first job before any takes a second, and a job one place posts no other place posts. Only a place the shelf
+     has nothing left for gets one job somebody else also shows (a board is never empty), and the phone shows a job once. */
+  var DEAL = { key: null, map: null };
+  function dealt(day, opt) {
+    var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
+    var key = win + '|' + (opt.held || []).join(',') + '|' + (opt.crew || '') + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
+    if (DEAL.key === key) return DEAL.map;
+    var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
+    var taken = {}, map = {}, want = {};
+    order.forEach(function (p) { map[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : Math.min(C[p.tier || 'camp'] || 1, C.max || 4); });
+    for (var round = 0; round < (C.max || 4); round++) order.forEach(function (p) {
+      if (map[p.name].length > round || map[p.name].length >= want[p.name]) return;
+      var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, crew: p.crew || opt.crew }, taken, map[p.name].length + 1, map[p.name]);
+      got.forEach(function (o) { taken[o.id] = p.name; }); map[p.name] = got;
+    });
+    order.forEach(function (p) { if (!map[p.name].length) map[p.name] = pickOwn(p, day, { traits: p.traits || [], held: opt.held, crew: p.crew || opt.crew }, {}, 1, []); });
+    DEAL = { key: key, map: map };
+    return map;
+  }
   function pick(place, day, opt) {
     if (!SHELF || !place) return null;
     opt = opt || {};
+    if (Array.isArray(opt.places) && opt.places.length && opt.places.some(function (p) { return p && p.name === place.name; })) {
+      var mine = dealt(day, opt)[place.name] || [];
+      return mine.map(function (o) { return said(o, opt.crew); });
+    }
+    return pickOwn(place, day, opt, {}, null, []);
+  }
+  /* one place's own board: skipping what another place already posts ({id: place}), up to `upto` jobs (its tier's count when
+     null), keeping the ones it already has first */
+  function pickOwn(place, day, opt, taken, upto, have) {
     var C = SHELF.counts || {}, tier = place.tier || 'camp', traits = opt.traits || [], held = opt.held || [];
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3));
     var R = rng(seedOf(String(place.name) + ':board:' + win));
-    var all = SHELF.offers, out = [], seen = {};
+    var all = SHELF.offers, out = (have || []).slice(), seen = {};
+    out.forEach(function (o) { seen[o.id] = 1; });
     function take(pool, n) {
-      shuffled(pool, R).forEach(function (o) { if (out.length < n && !seen[o.id] && held.indexOf(o.id) < 0) { seen[o.id] = 1; out.push(said(o, opt.crew)); } });
+      if (upto != null) n = Math.min(n, upto);
+      shuffled(pool, R).forEach(function (o) { if (out.length < n && !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0) { seen[o.id] = 1; out.push(said(o, opt.crew)); } });
     }
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
       take(all.filter(function (o) { return o.when === 'raided'; }), C.raided || 1);
@@ -66,6 +99,16 @@
     take(all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0; }), n);
     return out;
   }
-  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick,
+  /* the valley's places as the map knows them (its ctBases, mapTierOf and the living map's traits), for a page in the map's
+     frame; the map hands the same list to a settlement screen it opens, so the phone and every board deal from one list */
+  function mapPlaces(day) {
+    try { var bs = ctBases(), out = [];
+      Object.keys(bs).forEach(function (name) { var tier = 'camp', tr = [];
+        try { tier = mapTierOf(name) || 'camp'; } catch (e) {}
+        try { tr = BohemiaLivingMap.traitsFor(LIVING_MAP.traits, name, day).map(function (x) { return x.id; }); } catch (e) {}
+        out.push({ name: name, tier: tier, traits: tr }); });
+      return out.length ? out : null; } catch (e) { return null; }
+  }
+  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick, mapPlaces: mapPlaces,
     shelf: function () { return SHELF; } };
 })(typeof window !== 'undefined' ? window : this);

@@ -75,6 +75,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   border-top:2px solid var(--gold);padding:12px 12px 14px;transform:translateY(105%);transition:transform .25s ease}
 #sheet.on{transform:none}
 .who{display:flex;gap:10px;align-items:flex-start}
+#sheet .who{padding-right:56px}   /* EYES [eyes: lines under x] (rule 150): the first line clears the sheet's close on the 390 px phone */
 .face{width:72px;height:72px;flex:0 0 72px;border:1px solid var(--line);border-radius:4px;background:#0b0907;
   image-rendering:pixelated}
 .say .nm{color:var(--gold);font-size:12px;letter-spacing:1px}
@@ -346,7 +347,7 @@ fetch('../records/target/bb/armor.json').then(function(r){ return r.json(); }).t
 var CLASSNAME = {dagger:'pistol', mace:'pipe', hammer:'sledge', crossbow:'rifle', firearm:'shotgun', throwing:'bottles',
   throwable_item:'bottles', sword:'machete', axe:'fire axe', spear:'rebar spear', cleaver:'cleaver', flail:'chain',
   polearm:'pole hook', bow:'compound bow'};
-var PLAIN = {pistol:'One house away, ignores some armour, spends rounds.', pipe:'Next house over, dents plate, spends nothing.',
+var PLAIN = {pistol:'A few houses off, a club up close, spends rounds.', pipe:'Next house over, dents plate, spends nothing.',
   sledge:'Breaks armour and doors.', rifle:'One hard shot, then rack it.', shotgun:'A short loud cone, reload eats the turn.',
   bottles:'Thrown, a few houses.', machete:'Cuts fast, bleeds them.', 'fire axe':'Splits shields.', 'rebar spear':'Keeps them a step off.',
   cleaver:'Opens wounds.', chain:'Goes over a shield.', 'pole hook':'Reaches over your own front row.', 'compound bow':'Quiet, far, rounds-free.'};
@@ -445,6 +446,7 @@ function iconTile(it, onTap, sub, money){
   return b;
 }
 function shopSheet(k, body, acts, line){
+  hireLoad();   /* the roster's data: a gun's card reads its reach the crew screen's way */
   var items = S.stock[k] || [];
   var hello = {arms:'Guns and plate, whatever made it through. Everything has a price, mijo.', smith:'Fixed, sharpened, loaded. Pick one.', armourer:'If it stops a pipe, I sell it.'}[k];
   body.appendChild(speak(k, line || (items.length ? hello : 'Shelves are empty today.')));
@@ -454,7 +456,11 @@ function shopSheet(k, body, acts, line){
     shelfG.appendChild(iconTile(it, function(){
       openB(k, it.name.charAt(0).toUpperCase() + it.name.slice(1) + '. ' + it.price + ' batter' + (it.price===1?'y':'ies') + '. ' + it.line);
       var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
-      var card = document.createElement('div'); card.className = 'slots'; card.textContent = it.nums + '   (was ' + it.was + ')'; sb.appendChild(card);
+      /* EYES [eyes: the BB names] (rule 150; his 9/28 'our own way, never a rip-off'): the card never names the wiki's item, the source
+         stays in the data (it.was) for the machine. EYES [eyes: two cards disagree]: a gun's reach is the fight's, the crew
+         screen's own line (BohemiaRoster.armLine), never the wiki row's range */
+      var al = it.kind === 'weapon' && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', it.id), true) : null;
+      var card = document.createElement('div'); card.className = 'slots'; card.textContent = (al ? String(it.nums).replace(/\s+reach \d+/, '') + '   ' + al.reach + (al.rounds ? '   ' + al.rounds : '') : it.nums); sb.appendChild(card);
       var full = S.stash.length >= BAG_SLOTS;
       sb.appendChild(act(full ? 'Your bag is full' : 'Buy it', moneyWord(it.price), function(){
         if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
@@ -1525,7 +1531,7 @@ function hireCard(r){
   var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
   if(!crewFace(f, r.look)) sheetFace(f.getContext('2d'), r.look);   /* his own 3D head, else the dim shape (10/19, rule 121e: never the old paint) */
   hd.appendChild(f);
-  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); hd.appendChild(nm);
+  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + (window.BohemiaRoster && BohemiaRoster.bgName ? BohemiaRoster.bgName(r.backgroundId, r.backgroundName) : r.backgroundName).toUpperCase();   /* EYES [eyes: the BB names]: our name for his trade */ hd.appendChild(nm);
   t.appendChild(hd);
   /* what his gun does in the fight, the crew screen's own line */
   var al = gun && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', gun.id), false) : null;
@@ -1725,7 +1731,7 @@ function clientLook(o){
 }
 function clientName(o){ return (o.client.name + ', ' + o.client.from).toUpperCase(); }
 function clientAct(o, full){
-  var b = act(o.title, '☠'.repeat(o.skulls||1) + '  ' + moneyWord(o.pay), function(){ offerSpeak(o); }, full);
+  var b = act(o.title, '☠'.repeat(o.skulls||1) + '  ' + moneyWord(payShown(o.pay)), function(){ offerSpeak(o); }, full);
   b.className = 'act client'; b.dataset.id = o.id;
   var f = face(null, clientWho(o), clientLook(o)); f.classList.add('small');
   var cl = document.createElement('div'); cl.className = 'cl';
@@ -1739,14 +1745,14 @@ function clientAct(o, full){
 function offerSpeak(o){
   S.open = 'board';
   var body = document.getElementById('sbody'); body.textContent = '';
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, o.pay)));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, payShown(o.pay))));
   var sy = document.createElement('div'); sy.className = 'say';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
-  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, o.pay); sy.appendChild(pp);
+  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payShown(o.pay)); sy.appendChild(pp);
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts';
   acts.appendChild(act('Take it', '', function(){
-    S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, o.pay)})}); heard('On your phone: '+o.title+', for '+o.client.name+'.'); shelf(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.');
+    S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your phone: '+o.title+', for '+o.client.name+'.'); shelf(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.');
   }, S.held.length>=SLOTS));
   acts.appendChild(act('Not now', '', function(){ post('declined',{contract:o.id}); openB('board', 'Ni modo. ' + o.client.name + ' will keep asking around, no hard feelings.'); }));
   body.appendChild(acts);
@@ -1758,9 +1764,11 @@ function offerSpeak(o){
    (slices/bohemia_board_shelf.js; the phone's list picks the same, so it never lists a job this board does not offer).
    A raided place keeps one job, the crew that hit it, named from FACTIONS' raid ledger. The four drafted OFFERS only
    until the shelf is in. */
+/* the pay a contract shows is the pay it gives: the map's loopJobPay, (pay + the start's add) x its multiplier */
+function payShown(p){ var r = S.payRule; return r ? Math.max(1, Math.round(((p | 0) + (r.add | 0)) * (r.mult || 1))) : Math.max(1, p | 0); }
 function boardHere(){
   var SH = window.BohemiaBoardShelf, ids = (S.traits||[]).map(function(t){ return t.id; });
-  var list = SH && SH.pick(S.place, buildDay(), {traits:ids, held:S.held, crew:raidCrew()});
+  var list = SH && SH.pick(S.place, buildDay(), {traits:ids, held:S.held, crew:raidCrew(), places:S.places});
   if(list) return list;
   return OFFERS.filter(function(o){ return S.held.indexOf(o.id) < 0; }).slice(0, TIER_OFFERS[S.place.tier] || 1);
 }
@@ -2122,6 +2130,9 @@ function open(o){
   S.build = null;   /* __BUILD_ON_THE_SCREEN__: a new place, its own lots */
   if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
   if(typeof o.day === 'number') S.mapDay = o.day;   /* __BUILD_ON_THE_SCREEN__: the map's day */
+  /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): what a contract pays here is what the map pays (its start's bonus in it),
+     and the valley's places, so this board deals from the same list as the phone and no job stands on two boards */
+  S.payRule = o.payRule || null; S.places = Array.isArray(o.places) ? o.places : null;
   if(o.traits !== undefined) S.forceTraits = o.traits;   /* the game (or the VOTE shot) can name them */
   if(Array.isArray(o.fights)) S.fights = o.fights.slice(); else if(o.place) S.fights = [];   /* RUN TWO [the scavenge button]: fights at this place; a searched body stays searched (S.deadTaken) */
   if(o.ledger !== undefined) S.ledger = o.ledger;   /* RUN TWO [the raid is a record]: FACTIONS' raid ledger ({marks}) and this place's id in it */
