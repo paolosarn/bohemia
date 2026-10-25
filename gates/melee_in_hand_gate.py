@@ -260,8 +260,8 @@ def swing_faults(E, only=None):
 def tap_faults(E, only=None):
     out = []
     for k, e in E.items():
-        if 'props' not in e or (only and k not in only): continue
-        for p in D['layers']['m1']['props']:
+        if 'props' not in e or e.get('held') or (only and k not in only): continue   # a man with his own modelled weapon is drawn without the prop
+        for p in [p_ for p_ in D['layers']['m1']['props'] if D.get('hold_by_prop', {}).get(p_, {}).get('tap', 'tap') == 'tap']:   # a thing whose tap is held otherwise (the cleaver's flat lifted) is not asked to cross him
             t = prop(k, p, 'MIdleX', 2, 0, e)
             if t is None: out.append('%s %s tap S: hidden' % (k, p)); continue
             xs = np.nonzero(t[0])[1] + t[1]
