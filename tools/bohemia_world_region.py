@@ -221,9 +221,19 @@ PATCHES = [
     (36.72, -114.55, 0.9, 't'), (36.20, -114.92, 0.3, 'x'), (36.31, -114.43, 0.5, 'x'), (36.54, -114.44, 0.8, 't'),
 ]
 # the places: name, lat, lon, tier (camp / town / fortress), role, one line of what it is
+# THE THREE SIZES, BATTLE BROTHERS' WAY (WORLD [the three sizes of place], 10/25, from the coordinator's NOTE: Grok's 10/25
+# answer, reference/library/grok/GROK_ASK_118_MAP_SIZE_NUMBERS_2026_10_25.md, 'cite as source: Grok, unverified, plus your own
+# check'): a typical Battle Brothers map holds 17 settlements, 2 city halls, 3 town halls, 6 village halls, 2 strongholds,
+# 2 castles, 2 fortified manors: by size 4 large, 5 middle, 8 small. MEASURED here before: the region's 21 bases were 0
+# large, 4 middle, 17 small, so a man who left the valley never met a big friendly place in 190 km; the six big places out
+# here were all held ground to fight (the dam, the intake, the solar fields, Creech, Mercury, Ivanpah), Battle Brothers'
+# military six. NOW the region's two biggest real towns are its two cities (fortress, the large size): PAHRUMP (about
+# 44,000 people at the last count, the biggest town in Nye County) and BOULDER CITY (about 15,000, the dam's own town);
+# the census figures are the real world's, the sizes are this file's (draft). records/BOHEMIA_WORLD_THE_PLACE_IN_THE_DARK_
+# THE_ROSTER_SAID_AND_THE_SIZES_10_25_26.md section 3.
 PLACES = [
     ('HENDERSON',          36.040, -114.981, 'town',     'base',  'Water Street; the second city, its own grid and its own mind'),
-    ('BOULDER CITY',       35.979, -114.832, 'town',     'base',  'the dam builders\' town; no casinos by law, water from the lake'),
+    ('BOULDER CITY',       35.979, -114.832, 'fortress', 'base',  'the dam builders\' town; no casinos by law, water from the lake'),
     ('HOOVER DAM',         36.016, -114.737, 'fortress', 'fight', 'the powerhouse; 2,080 megawatts when the river gives; the one wall that never fell'),
     ('RAILROAD PASS',      35.970, -114.920, 'camp',     'base',  'the oldest casino licence in Nevada at the pass to the lake'),
     ('LAKE LAS VEGAS',     36.102, -114.930, 'camp',     'base',  'a made lake behind an earthen dam; the resorts round it'),
@@ -247,7 +257,7 @@ PLACES = [
     ('INDIAN SPRINGS',     36.570, -115.670, 'town',     'base',  'the town on the 95 at the foot of the range; the drones\' town'),
     ('CREECH',             36.590, -115.680, 'fortress', 'fight', 'the drone base; the hangars; the one place the war was flown from'),
     ('MERCURY',            36.660, -115.990, 'fortress', 'fight', 'the test site\'s gate town; the proving ground behind the fence'),
-    ('PAHRUMP',            36.210, -115.980, 'town',     'base',  'the valley over the Spring Mountains; wells, lots, no law to speak of'),
+    ('PAHRUMP',            36.210, -115.980, 'fortress', 'base',  'the valley over the Spring Mountains; wells, lots, no law to speak of'),
     ('PRIMM',              35.610, -115.390, 'town',     'base',  'three casinos and an outlet mall at the state line; the lottery store'),
     ('IVANPAH SOLAR',      35.590, -115.400, 'fortress', 'fight', 'the three towers; the mirrors; the light you can see from the pass'),
     ('MOAPA',              36.680, -114.600, 'camp',     'base',  'the river town and the travel plaza on the 15'),

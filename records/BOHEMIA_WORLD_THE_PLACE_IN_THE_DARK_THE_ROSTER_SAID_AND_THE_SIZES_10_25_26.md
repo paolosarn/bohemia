@@ -75,7 +75,7 @@ MEASURED, OURS (engine/bohemia_towns.js thirds, engine/BOHEMIA_REGION_LAND.json)
 | | large (fortress) | middle (town) | small (camp) | all |
 |---|---|---|---|---|
 | Battle Brothers' typical map | 4 (2 cities, 2 strongholds) | 5 (3 towns, 2 castles) | 8 (6 villages, 2 manors) | 17 |
-| the valley's 14 seats (power, cut in thirds) | 5 | 5 | 4 | 14 |
+| the valley's 14 seats (power, cut in thirds: the top 5, the bottom 5) | 5 | 4 | 5 | 14 |
 | the region's 21 bases (where you trade) | 0 | 4 | 17 | 21 |
 | the region's 13 fight places (held ground) | 6 | 0 | 7 | 13 |
 
@@ -89,7 +89,7 @@ PAHRUMP (44,738 at the 2020 census, the biggest town in Nye County, the valley o
 (14,885 at the 2020 census, the dam's own town). Realism and Battle Brothers agree. Region bases now 2 large, 2 middle, 17
 small; everything in the game that reads a tier (the place's picture, its board's offers, the parties it sends, the news it
 makes) reads the new one. The valley's thirds stand (rule 9/5, his 'the more prominent factions kind of feel like strong
-fortress parts'), so the whole map is 7 large, 7 middle, 21 small in 35 settlements, on 12 times Battle Brothers' ground.
+fortress parts'), so the whole map is 7 large, 6 middle, 22 small in 35 settlements, on about 12 times Battle Brothers' ground (496 blocks across against its 140).
 
 NOT DONE, SAID PLAINLY: [the three sizes of place] as a whole (every valley seat placed by its ground, a trait seed each, the
 reachability gate) stays OPEN; this round answered the NOTE's numbers against it and moved the two places the numbers said were
@@ -116,6 +116,19 @@ THE ROSTER, gates/the_roster_scales_the_enemy_gate.js, his computer, 6/0:
 - S3 the same job taken again: 'They will be about 8, sized to your 12 men. With 3 you would meet 2.'
 - S4 the meet card: '8 MEN · MANY ★ · YOU 12' and under it, on the card, 'SIZED TO YOUR 12 MEN. WITH 3 YOU WOULD MEET 2.'
 - S5 ENGAGE by a hand: 8 of them against 12.
+
+THE REGION'S CITIES, gates/the_region_has_its_cities_gate.js 5/0 (his computer): Battle Brothers' 17 read off the Grok page
+(4/5/8); PAHRUMP and BOULDER CITY fortress bases; the map by size: the valley 5/4/5, the region's bases 2/2/17, its fight places
+6/0/7, the settlements 7/6/22; in the game BOULDER CITY drawn as a fortress (a 74 x 72 building beside HOOVER DAM's and THE
+INTAKE's) and named; a click on its name is the town's (the map's own __MAP_TAP) and walks to its door; its screen opens 'BOULDER
+CITY · A FORTRESS · MARKET DAY'. The first two runs read the walk wrong (the camera went back to the crew while the picture was
+taken; a road party once): the checker looks again right before the click. The region's other checkers on the new land: REGION
+LAND 61/0, THE NEWS DOWN THE ROAD 28/0, A PLACE IS NAMED ONCE 7/0, THE DISTRICTS JOIN 29/0, THE ONE RULER 33/0, THE REAL CORNER
+16/0, REGION BASES 365/0, THE REGION IS BATTLE BROTHERS' SIZE 9/0. The generator rerun moved only the two tiers.
+
+AFTER THE PUSH OF ROWS 1 AND 2 (c72af305, rebased over 23 other commits, UI's company screen among them in the same map file):
+both checkers again on merged main: THE PLACE IN THE DARK 20/0 (phone 10/0, computer 10/0; this time the phone's first-day
+offer was 'Bring the freezer from the fossil beds', TULE SPRINGS out of the dark 91 blocks off), THE ROSTER 6/0.
 
 PRE-PUSH PASS (rule 13): the 51 checkers that read slices/BOHEMIA_CITY_WORLD.html or slices/bohemia_job_kinds.js and open no
 browser: 39 green, the same 12 red on the base with the same messages (a_merge_did_not_delete_a_system, combat_lab,
