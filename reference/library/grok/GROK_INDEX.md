@@ -5,6 +5,133 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-24 | ask 26 (map size) | GROK_ASK_26_MAP_SIZE_2026_10_24.md | map size: seeds 140s to 200s across, about 17 settlements, plains 1 and mountains 0.25; thin duplicate; PASSED
+- 2026-10-24 | ask 26 (map size) | GROK_ASK_26_MAP_SIZE_NUMBERS_2026_10_24.md | the map in numbers: 140x140 then about 140x170 hexes, 17 settlements by kind, no days-to-cross on any page; PASSED
+- 2026-10-24 | ask 33 (map size) | GROK_ASK_33_MAP_SIZE_NUMBERS_DETAILED_2026_10_24.md | duplicate of ASK_26_MAP_SIZE_NUMBERS; PASSED
+- 2026-10-24 | ask 38 (map size) | GROK_ASK_38_MAP_SIZE_2026_10_24.md | short duplicate of the map-size numbers; PASSED
+- 2026-10-24 | ask 27 | GROK_ASK_27_FIGHT_TILE_RPG_VIBE_2026_10_24.md | fight the tile-RPG vibe: burst after the tap, camera punch on the shot, reactions on one beat, result under a second; PASSED
+- 2026-10-24 | ask 28 | GROK_ASK_28_SETTLEMENT_ALIVE_WALKUP_2026_10_24.md | a town that feels alive: lead walks as the talk opens, background loops, day and night beds, a head turn; PASSED
+- 2026-10-24 | ask 29 | GROK_ASK_29_EVERY_SOUND_2026_10_24.md | every sound: UI ticks, hover under click, coin and page, ambience by place and hour, no-repeat footsteps by ground; PASSED
+- 2026-10-24 | ask 30 | GROK_ASK_30_MAP_IN_COLOUR_2026_10_24.md | how the BB map reads at a glance (contrast, light roads, big banners, fixed marker); its palette fails rule 159; PASSED
+- 2026-10-24 | ask 112 (our 30) | GROK_ASK_112_MAP_IN_COLOUR_2026_10_24.md | the map in colour: the green-lawn and blue-pool palette rule 159 killed; FAILED
+- 2026-10-24 | ask 31 | GROK_ASK_31_HAUNTING_SIDE_CONTENT_2026_10_24.md | the haunting as side jobs: wrong details, a missing block, the dead clerk; its Backrooms fails rule 132; PASSED
+- 2026-10-24 | ask 113 (our 31) | GROK_ASK_113_HAUNTING_SIDE_CONTENT_2026_10_24.md | the haunting: four side shapes from analog horror; its no-combat Backrooms fails rule 132; PASSED
+- 2026-10-24 | ask 32 | GROK_ASK_32_WHAT_WE_DO_NOT_KNOW_2026_10_24.md | what we do not know: eight weak systems that need many rounds, read as a checklist; PASSED
+- 2026-10-24 | ask 33 | GROK_ASK_33_WHAT_BB_LEAVES_ON_THE_GROUND_2026_10_24.md | what BB leaves on the ground: three fatality kinds, a smashed head stays down, the base is restrained; PASSED
+- 2026-10-24 | ask 33 (ground) | GROK_ASK_33_GROUND_EFFECTS_2026_10_24.md | short duplicate of what BB leaves on the ground; PASSED
+- 2026-10-24 | ask 39 (ground) | GROK_ASK_39_GROUND_EFFECTS_2026_10_24.md | where a corpse lands, armour lost with no free tile, a retreat loses the ground; its restrained line fails rule 145; PASSED
+- 2026-10-24 | ask 34 | GROK_ASK_34_FIRST_MINUTES_2026_10_24.md | first minutes: BB opens with text then the map; competence, motive, horizon; PASSED
+- 2026-10-24 | ask 110 (our 34) | GROK_ASK_110_FIRST_MINUTES_CARE_2026_10_24.md | first minutes that make you care: 8 to 10 seconds of trust, five minutes decide; straight in ranks first; PASSED
+- 2026-10-24 | ask 35 | GROK_ASK_35_WORLD_FEELS_FRESH_2026_10_24.md | a world made fresh: how BB places towns, roads, ridges and factions each new game; PASSED
+- 2026-10-24 | ask 35 (short) | GROK_ASK_35_WORLD_FRESH_2026_10_24.md | short duplicate of a world made fresh; PASSED
+- 2026-10-24 | ask 111 (our 35) | GROK_ASK_111_WORLD_FEELS_FRESH_2026_10_24.md | a world made fresh: random attached locations, generated houses, no fixed start; PASSED
+- 2026-10-24 | ask 36 | GROK_ASK_36_CITY_SIGHT_2026_10_24.md | city sight from street design (20 to 25 ft corners); the encounter card unsourced; PASSED
+- 2026-10-24 | ask 109 (our 36) | GROK_ASK_109_SIGHT_DISTANCE_ENCOUNTER_2026_10_24.md | how far you see in a city: 20 to 50 m round a corner, 15 to 50 m at night; the pre-fight card; PASSED
+- 2026-10-24 | ask 37 | GROK_ASK_37_VIRAL_LOOK_2026_10_24.md | viral: 15 to 40 s clips, a hook in 1 to 2 s, BB's moments are shareable; thin; PASSED
+- 2026-10-24 | ask 108 (our 37) | GROK_ASK_108_VIRAL_LOOKS_2026_10_24.md | how Bohemia looks viral: a scroll stops in 0.5 to 1 s; one bright accent on dirt, vertical, faces talk; PASSED
+- 2026-10-24 | ask 107 (our 38) | GROK_ASK_107_ANTI_ZACH_D_FILMS_2026_10_24.md | the anti Zach D Films: 25 to 40 s, 60 to 80 words, a new picture a second, ten first hooks; PASSED
+- 2026-10-24 | ask 106 (our 39) | GROK_ASK_106_MAYOR_REBUILD_CITY_2026_10_24.md | the mayor arc: rebuild costs (New Orleans 140 billion), twenty buildings with purpose, cost and a look per act; PASSED
+- 2026-10-24 | ask 105 (our 40) | GROK_ASK_105_KEYBOARD_CONTRACTS_SCALING_2026_10_24.md | BB's keys, the cost of dropping a job (100 renown, 10 relation), the roster-strength formula; PASSED
+- 2026-10-24 | ask 40 (first fight) | GROK_ASK_40_FIRST_MINUTES_2026_10_24.md | a fight's first minutes: lines 5 hexes apart, 9 AP, 2 a flat hex, no scripted first fight; PASSED
+- 2026-10-24 | ask 114 (our 32) | GROK_ASK_114_WHAT_WE_DO_NOT_KNOW_2026_10_24.md | the day loop in numbers: a day 1:45, 2 food a man, one medicine an injury, one tool 15 durability; PASSED
+- 2026-10-24 | ask 115 (Grok's own) | GROK_ASK_115_ONE_THING_DONE_ALL_THE_WAY_2026_10_24.md | one thing done all the way: seven one-mechanic games; finish the hire-fight-pay-day loop; PASSED
+- 2026-10-24 | ask 41 | GROK_ASK_41_INJURIES_2026_10_24.md | injuries: a 10+ HP hit at 25 to 60 percent of max; 33 percent survive struck down in BB; PASSED
+- 2026-10-24 | ask 42 | GROK_ASK_42_MORALE_2026_10_24.md | morale: six states, 1.1 to 0.7 on the skills, 95 percent max; PASSED
+- 2026-10-24 | ask 43 | GROK_ASK_43_FATIGUE_2026_10_24.md | fatigue: 15 back a turn, 5 a hit taken, 2 a dodge; PASSED
+- 2026-10-24 | ask 44 | GROK_ASK_44_ZONE_OF_CONTROL_2026_10_24.md | zone of control: free strikes on leaving; two height levels break it; PASSED
+- 2026-10-24 | ask 45 | GROK_ASK_45_SURROUNDING_2026_10_24.md | surrounding: +5 percent to hit per extra man, +10 with Backstabber; PASSED
+- 2026-10-24 | ask 46 | GROK_ASK_46_HIT_CHANCE_2026_10_24.md | hit chance: skill minus defence, defence over 50 halved, 5 to 95 clamp; PASSED
+- 2026-10-24 | ask 47 | GROK_ASK_47_DAMAGE_2026_10_24.md | damage: armour and HP rolled apart, 10 percent of armour off, head 1.5x; PASSED
+- 2026-10-24 | ask 48 | GROK_ASK_48_ARMOR_DURABILITY_2026_10_24.md | armour durability: one tool 15 points, 3 an hour, camp doubles; PASSED
+- 2026-10-24 | ask 49 | GROK_ASK_49_WEAPON_DURABILITY_2026_10_24.md | weapon durability: -3 a hit on armour, none on flesh, -2 a shot; PASSED
+- 2026-10-24 | ask 50 | GROK_ASK_50_SHIELDS_2026_10_24.md | shields: 1 a block, Shield Expert halves it, broken is lost; PASSED
+- 2026-10-24 | ask 51 | GROK_ASK_51_PERKS_2026_10_24.md | perks: 7 rows, one point and three rolls a level; PASSED
+- 2026-10-24 | ask 52 | GROK_ASK_52_TRAITS_2026_10_24.md | traits: 0 to 2 a recruit, Bright +10 and Dumb -15 percent XP; PASSED
+- 2026-10-24 | ask 53 | GROK_ASK_53_BACKGROUNDS_2026_10_24.md | backgrounds: ranges, wage and gear by background; PASSED
+- 2026-10-24 | ask 54 | GROK_ASK_54_ORIGINS_2026_10_24.md | origins: Militia 12 fielding 16, Manhunters 16; PASSED
+- 2026-10-24 | ask 55 | GROK_ASK_55_EVENTS_2026_10_24.md | events: every few days, scored, with cooldowns; PASSED
+- 2026-10-24 | ask 56 | GROK_ASK_56_CONTRACTS_2026_10_24.md | contracts: one at a time, pay by type, skulls, renown; PASSED
+- 2026-10-24 | ask 57 | GROK_ASK_57_RENOWN_RELATIONS_2026_10_24.md | renown, relations and reputation: three tracks; PASSED
+- 2026-10-24 | ask 58 | GROK_ASK_58_SETTLEMENTS_2026_10_24.md | settlements: size, attached places and situations move prices; PASSED
+- 2026-10-24 | ask 59 | GROK_ASK_59_WORLD_MAP_2026_10_24.md | world map: new each campaign, terrain sets speed, sight, food; PASSED
+- 2026-10-24 | ask 60 | GROK_ASK_60_CAMPS_LOCATIONS_2026_10_24.md | camps and locations: destroyed for loot and renown; PASSED
+- 2026-10-24 | ask 61 | GROK_ASK_61_PARTIES_ROAMING_2026_10_24.md | roaming parties: scale with days, strength, distance; leave tracks; PASSED
+- 2026-10-24 | ask 62 | GROK_ASK_62_LATE_GAME_CRISES_2026_10_24.md | crises: four kinds, from day 80 to 100; PASSED
+- 2026-10-24 | ask 63 | GROK_ASK_63_AMBITIONS_2026_10_24.md | ambitions: +100 renown each, mood up; PASSED
+- 2026-10-24 | ask 64 | GROK_ASK_64_RETIREMENT_2026_10_24.md | retirement: five endings by renown, crises, ambitions; PASSED
+- 2026-10-24 | ask 65 | GROK_ASK_65_RELATIONS_2026_10_24.md | relations: 0 to 100 a place, drifting to 50; PASSED
+- 2026-10-24 | ask 66 | GROK_ASK_66_REPUTATION_2026_10_24.md | reputation: 0 to 100, most start at 50; PASSED
+- 2026-10-24 | ask 67 | GROK_ASK_67_RETINUE_2026_10_24.md | retinue: five non-combat followers, slots by renown; PASSED
+- 2026-10-24 | ask 68 | GROK_ASK_68_INVENTORY_AND_CART_2026_10_24.md | inventory: about 99 slots, +27 a cart upgrade; PASSED
+- 2026-10-24 | ask 69 | GROK_ASK_69_COMPANY_ROSTER_AND_FIELDING_2026_10_24.md | roster: 20 hired, 12 fight; Militia 25 and 16; PASSED
+- 2026-10-24 | ask 70 | GROK_ASK_70_WAGES_AND_DESERTION_2026_10_24.md | wages and desertion: wage by background and level; PASSED
+- 2026-10-24 | ask 71 | GROK_ASK_71_PROVISIONS_AND_FOOD_2026_10_24.md | provisions: two a man a day, soonest-to-spoil first; PASSED
+- 2026-10-24 | ask 72 | GROK_ASK_72_TOOLS_AND_REPAIRS_2026_10_24.md | tools: one tool 15 durability, camp doubles; PASSED
+- 2026-10-24 | ask 73 | GROK_ASK_73_AMMUNITION_AND_RANGED_RELOADS_2026_10_24.md | ammo: one pile; arrow 1, handgonne 2, throw 3; PASSED
+- 2026-10-24 | ask 74 | GROK_ASK_74_MEDICINE_AND_HEALING_2026_10_24.md | medicine: one a day an injury, temples halve; PASSED
+- 2026-10-24 | ask 75 | GROK_ASK_75_DAY_LOOP_AND_CAMPING_2026_10_24.md | day loop: night slows and blinds, shops close, camp repairs faster; PASSED
+- 2026-10-24 | ask 76 | GROK_ASK_76_WORLD_MAP_GENERATION_2026_10_24.md | world map generation: duplicate; PASSED
+- 2026-10-24 | ask 77 | GROK_ASK_77_CAMPS_AND_LOCATIONS_2026_10_24.md | camps: bigger and farther hold named items more often; PASSED
+- 2026-10-24 | ask 78 | GROK_ASK_78_PARTIES_AND_ROAMING_2026_10_24.md | parties: strength by days, distance and your 12 strongest; PASSED
+- 2026-10-24 | ask 79 | GROK_ASK_79_LATE_GAME_CRISES_2026_10_24.md | crises: foretold day 50 to 70, start 80 to 100; PASSED
+- 2026-10-24 | ask 80 | GROK_ASK_80_AMBITIONS_AND_RETIREMENT_2026_10_24.md | ambitions and retirement: duplicate; PASSED
+- 2026-10-24 | ask 81 | GROK_ASK_81_RELATIONS_AND_REPUTATION_2026_10_24.md | relations and reputation: duplicate; PASSED
+- 2026-10-24 | ask 82 | GROK_ASK_82_THE_RETINUE_2026_10_24.md | retinue: duplicate; PASSED
+- 2026-10-24 | ask 83 | GROK_ASK_83_INVENTORY_AND_THE_CART_2026_10_24.md | inventory: a donkey, 99 slots, +27 an upgrade; PASSED
+- 2026-10-24 | ask 84 | GROK_ASK_84_ROSTER_AND_FIELD_LIMITS_2026_10_24.md | roster and field: 20 and 12; PASSED
+- 2026-10-24 | ask 84 (reserve) | GROK_ASK_84_THE_ROSTER_AND_THE_RESERVE_2026_10_24.md | roster and reserve: reserve men gain no XP; PASSED
+- 2026-10-24 | ask 85 | GROK_ASK_85_WAGES_AND_MOOD_2026_10_24.md | wages and mood: paid at noon, unpaid drops mood; PASSED
+- 2026-10-24 | ask 86 | GROK_ASK_86_PROVISIONS_AND_SPOILING_2026_10_24.md | provisions: the Cook adds three days; PASSED
+- 2026-10-24 | ask 87 | GROK_ASK_87_TOOLS_AND_REPAIRS_2026_10_24.md | tools: 15 a point, 3 an hour, doubled in camp; PASSED
+- 2026-10-24 | ask 88 | GROK_ASK_88_AMMUNITION_AND_RANGED_RELOADS_2026_10_24.md | ammo: duplicate; PASSED
+- 2026-10-24 | ask 89 | GROK_ASK_89_MEDICINE_AND_HEALING_2026_10_24.md | medicine: duplicate; PASSED
+- 2026-10-24 | ask 90 | GROK_ASK_90_THE_DAY_LOOP_AND_CAMPING_2026_10_24.md | day loop: wages and food at noon, camping risks an ambush; PASSED
+- 2026-10-24 | ask 91 | GROK_ASK_91_WORLD_MAP_GENERATION_2026_10_24.md | world map generation: seed, ridges, 17 settlements; PASSED
+- 2026-10-24 | ask 92 | GROK_ASK_92_CAMPS_AND_LOCATIONS_2026_10_24.md | camps: fortifications show on the engage screen; PASSED
+- 2026-10-24 | ask 93 | GROK_ASK_93_PARTIES_AND_ROAMING_2026_10_24.md | parties: day scaling stops at day 100; PASSED
+- 2026-10-24 | ask 94 | GROK_ASK_94_LATE_GAME_CRISES_2026_10_24.md | crises: greenskins and undead burn towns, the noble war does not; PASSED
+- 2026-10-24 | ask 95 | GROK_ASK_95_AMBITIONS_AND_RETIREMENT_2026_10_24.md | ambitions and retirement: duplicate; PASSED
+- 2026-10-24 | ask 96 | GROK_ASK_96_RELATIONS_AND_REPUTATION_2026_10_24.md | relations and reputation: reputation over 80 blocks raze jobs; PASSED
+- 2026-10-24 | ask 97 | GROK_ASK_97_RETINUE_2026_10_24.md | retinue: first slot 250 renown, fifth 3,350; PASSED
+- 2026-10-24 | ask 98 | GROK_ASK_98_INVENTORY_AND_CART_2026_10_24.md | inventory: the cart 5,000 crowns; PASSED
+- 2026-10-24 | ask 99 | GROK_ASK_99_ROSTER_AND_RESERVE_2026_10_24.md | roster and reserve: duplicate; PASSED
+- 2026-10-24 | ask 100 | GROK_ASK_100_WAGES_AND_MOOD_2026_10_24.md | wages and mood: duplicate; PASSED
+- 2026-10-24 | ask 101 | GROK_ASK_101_PROVISIONS_AND_SPOILING_2026_10_24.md | provisions: spoil in 7 to 16 days; PASSED
+- 2026-10-24 | ask 102 | GROK_ASK_102_TOOLS_AND_REPAIRS_2026_10_24.md | tools: the Blacksmith a third faster; PASSED
+- 2026-10-24 | ask 103 | GROK_ASK_103_AMMUNITION_AND_RELOADS_2026_10_24.md | ammo: duplicate; PASSED
+- 2026-10-24 | ask 104 | GROK_ASK_104_MEDICINE_AND_HEALING_2026_10_24.md | medicine: duplicate; PASSED
+- 2026-10-24 | AMMO | GROK_AMMO_RELOADS_AND_RANGED_RULES_2026_10_24.md | ammo and reloads: a quiver 10, crossbow reload 4 AP, handgonne reload 9 AP, carry 300; PASSED
+- 2026-10-24 | ARMOR | GROK_ARMOR_ATTACHMENTS_AND_REPAIRS_2026_10_24.md | armour attachments and repairs: one add-on a body armour, examples with numbers, tools carry 150; PASSED
+- 2026-10-24 | LOCATIONS | GROK_ATTACHED_LOCATIONS_BB_LIST_2026_10_24.md | the 30-odd attached locations by group: what each makes and who it brings to hire; PASSED
+- 2026-10-24 | LOCATIONS | GROK_ATTACHED_LOCATIONS_BB_WAY_2026_10_24.md | duplicate of the attached locations list, with what each town size carries; PASSED
+- 2026-10-24 | BEASTS | GROK_BIG_BEASTS_LATE_GAME_STATS_2026_10_24.md | late beasts and bosses: Lindwurm 1,100 HP, Schrat 600, Kraken 3,800, Hexe Charm, Warlord 300; PASSED
+- 2026-10-24 | BEASTS | GROK_BIG_BEASTS_STATS_SKILLS_2026_10_24.md | big beasts: adds Lindwurm armour, Ifrit sizes and merge, Nachzehrer growth; PASSED
+- 2026-10-24 | ENEMIES | GROK_BRIGAND_NOBLE_STATS_2026_10_24.md | brigand and noble stats: Thug 55 HP, Raider 75, Footman 70, Knight 135; PASSED
+- 2026-10-24 | BACKGROUNDS | GROK_CHARACTER_BACKGROUND_LIST_2026_10_24.md | backgrounds: wage base 3 to 35 x 0.9 to 1.1 x 1.1 a level; the hire row shows all before you pay; PASSED
+- 2026-10-24 | CONTRACTS | GROK_CONTRACT_AMBITION_LIST_2026_10_24.md | contracts and ambitions: renown +25 done, -100 cancelled, -3 a day; the early ambitions; PASSED
+- 2026-10-24 | DAY LOOP | GROK_DAY_LOOP_CAMP_AND_REPAIRS_2026_10_24.md | the day and the camp: a day 1:45, food by terrain 1 to 2x, camp doubles repair but blinds you; PASSED
+- 2026-10-24 | ENEMY SKINS | GROK_ENEMY_LIST_BOHEMIA_OPTIONS_2026_10_24.md | BB enemy groups with Bohemia skin options (scavengers, salvage robots, drones, chip-bodies); PASSED
+- 2026-10-24 | XP | GROK_EXPERIENCE_LEVEL_UP_RULES_2026_10_24.md | experience and level-ups: the XP ladder to 15,000, three rolls a level, stars widen the roll, 20/80 split; PASSED
+- 2026-10-24 | PARTIES | GROK_FACTION_PARTIES_BB_WAY_2026_10_24.md | faction parties: who sends what, scaling by distance and days (stops at 100), camp defenders; PASSED
+- 2026-10-24 | ENEMIES | GROK_FIRST_ENEMY_STATS_SKILLS_2026_10_24.md | first enemies: Thug 55, Orc Young 125, Orc Warrior 200, Skirmisher 40, Wiederganger 100; PASSED
+- 2026-10-24 | HELMETS | GROK_HELMETS_SHIELDS_DURABILITY_REPAIRS_2026_10_24.md | helmets and shields: a block costs 1, shields 12 to 72, the Blacksmith saves broken gear; PASSED
+- 2026-10-24 | HIT MATH | GROK_HIT_DAMAGE_FORMULAS_UNDERBELLY_2026_10_24.md | the hit and damage formulas with the wiki's worked example; AP costs by ground; PASSED
+- 2026-10-24 | INJURIES | GROK_INJURY_LIST_THRESHOLDS_2026_10_24.md | injury list: 10 HP and 25 or 50 percent thresholds, about 45 temporary and 14 permanent; PASSED
+- 2026-10-24 | CRISES | GROK_LATE_GAME_CRISIS_LIST_2026_10_24.md | the crises: foretold day 50 to 70, start 80 to 100, last 30 to 100 days, 50 days of peace between; PASSED
+- 2026-10-24 | MEDICINE | GROK_MEDICINE_WOUND_HEALING_2026_10_24.md | medicine and healing: one a day an injury, carry 100, the temple price formula; PASSED
+- 2026-10-24 | MORALE | GROK_MORALE_SYSTEM_CHECKS_2026_10_24.md | morale checks in numbers: the 15 HP check, a kill's lift, Rally 0.4 x resolve, the banner; PASSED
+- 2026-10-24 | NAMED ITEMS | GROK_NAMED_LEGENDARY_ITEM_RULES_2026_10_24.md | named and legendary items: always drop, the camp chance formula, once-only places; PASSED
+- 2026-10-24 | ENEMIES | GROK_NEXT_ENEMY_STATS_SKILLS_2026_10_24.md | next enemies: Direwolf 130 HP and 12 AP, Unhold 500, Ambusher poison, Necromancer; PASSED
+- 2026-10-24 | ENEMIES | GROK_ORC_ANCIENT_STATS_SKILLS_2026_10_24.md | orcs and ancient dead: Young 125, Warrior 200, Warlord 300; Legionary shrugs off arrows; PASSED
+- 2026-10-24 | ORIGINS | GROK_ORIGIN_LIST_STARTING_DIFFERENCES_2026_10_24.md | origins: Lone Wolf level 4 and 90 slots, Militia 16 of 25, Caravan prices, renown -100 to 200; PASSED
+- 2026-10-24 | RETINUE | GROK_RETINUE_FOLLOWER_RULES_2026_10_24.md | the retinue: slots at 250 to 3,350 renown, follower costs and effects; PASSED
+- 2026-10-24 | SETTLEMENT | GROK_SETTLEMENT_SCREEN_BB_WAY_2026_10_24.md | the settlement screen: a 15-layer panorama by ground, people only with a reason, sound by place; PASSED
+- 2026-10-24 | SITUATIONS | GROK_SETTLEMENT_SITUATIONS_LIST_2026_10_24.md | settlement situations with their price and stock percentages; PASSED
+- 2026-10-24 | TRADE | GROK_TRADE_GOODS_CARAVAN_RULES_2026_10_24.md | trade goods and caravans: twelve goods 100 to 520, the escort job's fail and half-pay rules; PASSED
+- 2026-10-24 | TRAITS | GROK_TRAIT_LIST_2026_10_24.md | traits: the good and bad ones with their numbers; PASSED
+- 2026-10-24 | WEAPONS | GROK_WEAPONS_DURABILITY_AND_BREAK_RULES_2026_10_24.md | weapon durability and breaking: -3 on armour, -2 a shot, lost at zero; PASSED
+- 2026-10-24 | WEAPONS | GROK_WEAPON_LIST_SPECIAL_ABILITIES_2026_10_24.md | every weapon class's skills with AP, fatigue and reach; PASSED
+- 2026-10-24 | ENEMIES | GROK_WIEDERGANGER_BARBARIAN_STATS_2026_10_24.md | Wiederganger and barbarians: rise chance 66 percent, Thrall 70 HP, Chosen 130; PASSED
 - 2026-10-01 | BUILD | GROK_30_BUILD_ORDER_2026_10_01.md | fight, three weapons, block menu, day. Stop there.
 - 2026-09-30 | WIKI | GROK_29_WIKI_BULK_5_2026_09_30.md | traits, wardog bite, named gear rolls
 - 2026-09-30 | WIKI | GROK_28_WIKI_BULK_4_2026_09_30.md | retinue effects and armor add-ons
