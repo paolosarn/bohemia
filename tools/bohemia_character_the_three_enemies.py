@@ -100,8 +100,11 @@ TYPES = {
         # put twins on every board past three (121(i)). Layers that show (rule 129): every kid wears a top under a coat, a
         # vest, a jacket, a poncho or a cape, a value off it. Rule 159: the blue pieces (a denim vest, the outlaw bandana, the
         # slate and storm greys, which render a hot blue under the rig's cool fill) are out; ash, coal, bone, khaki, rust
-        tops=['HOOD-UP COAL HOODIE', 'LAYERED JERSEY', 'COAL HOODIE', 'CHARCOAL TURTLENECK', 'LONGLINE JERSEY', 'FADED BLACK LONGSLEEVE',
-              'ASH LONGLINE TEE', 'TATTERED TEE'],
+        # round 2 (looking, runner_1 and the outfit's notes): a black jersey under the ash asymmetric coat and an ash longline
+        # under the black comma coat read as ONE garment (48 and 70, 70 and 55 of 255; the outfit had no colour of either
+        # cut that reads apart): a bone runway shirt under the ash coat, a sand hoodie under the black comma
+        tops=['HOOD-UP COAL HOODIE', 'BONE SHOULDER SHIRT', 'COAL HOODIE', 'CHARCOAL TURTLENECK', 'LONGLINE JERSEY', 'FADED BLACK LONGSLEEVE',
+              'SAND HOODIE', 'TATTERED TEE'],
         # round 2 (looking, runner_0 at 1:1): one hoodie and a wrap read as one garment, not streetwear layers (rule 129):
         # the hood stays up and the Balenciaga oversize goes over it, a bone cocoon coat a value off the coal (the slate one rendered a hot blue under the rig's cool fill, rule 159)
         coats=['BONE COCOON COAT', 'ASH ASYM COAT', 'BONE VEST', 'LEATHER JACKET', 'KHAKI JACKET', 'HOODED DUST PONCHO', 'COMMA COAT', None],
@@ -122,11 +125,13 @@ TYPES = {
         dials=[dict(height=0.30, belly=0.85, shoulders=1.00, hips=0.30), dict(height=0.10, belly=1.00, shoulders=0.90, hips=0.40),
                dict(height=0.45, belly=0.60, shoulders=1.00, hips=0.20), dict(height=0.20, belly=0.95, shoulders=0.95, hips=0.35),
                dict(height=0.40, belly=0.70, shoulders=1.00, hips=0.25)],
-        look=dict(shirt=dict(colour=(76, 90, 106), sleeve='long'), coat=None,
+        # round 2: his look's own cloth was a steel blue (76, 90, 106), so the outfit took COBALT for 'his gang's colour' and
+        # put a cobalt shirt under the smith's apron (rule 159): a work-shirt drab instead
+        look=dict(shirt=dict(colour=(86, 80, 70), sleeve='long'), coat=None,
                   trousers=dict(colour=(66, 66, 68), wide=0.02), shoes=dict(colour=SOOT, kind='boot', top=0.24), belt=None),
         # round 2: FIVE (a heavies' band fields up to five Heavies at count_scale 0.45, orc_warrior and lower_orc_warrior)
         # round 2 (looking, heavy_2 at 1:1): the steel shin guards rendered two blue patches on his shins (rule 159): rust scrap guards
-        tops=['WORK COVERALLS', 'BONE BUTTON-UP', 'OLIVE DRAB TEE', 'DUST PLAID SHIRT', 'FADED BLACK LONGSLEEVE'],   # round 2: the steel shirt is blue (rule 159); bone under the olive vest
+        tops=['WORK COVERALLS', 'BONE BUTTON-UP', 'OLIVE DRAB TEE', 'DUST PLAID SHIRT', 'KHAKI BUTTON-UP'],   # 4: black under the leather apron read as one (48 and 69)   # round 2: the steel shirt is blue (rule 159); bone under the olive vest
         coats=['QUILTED VEST', 'TACTICAL VEST', 'LEATHER VEST', 'OLIVE VEST', "SMITH'S APRON"],
         legs=['SLATE WORK PANTS', 'KHAKI CARGOS', 'SOOT CARGOS', 'BONE WORK PANTS', 'DUST BROWN TROUSERS'],
         feet=['FIELD BOOTS', 'TALL MOTO BOOTS', 'RUST BOOTS', 'CHARCOAL BOOTS', 'RANCH BOOTS'],

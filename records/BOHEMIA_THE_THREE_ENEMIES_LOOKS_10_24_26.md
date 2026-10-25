@@ -75,3 +75,17 @@ Rule 159 on the roll before any render: the pieces whose colour runs blue (a den
   height_m, which fight_rig.json carries).
 * round 2, at the fight's pixels: the Mechanic's welding mask, the Runner's hood and wrap and the Heavy's gas mask all read
   on the face strip at 128 px (the bar and the turn row draw from it).
+* round 2, THE OUTFIT REACHED FOR A RAINBOW (rule 159, root cause in this lane's tools/bohemia_character_the_outfit.py):
+  when a top and its coat read as one value, the outfit swaps the top for "the same cut in another colour of the bank", and
+  the bank still holds cobalt, teal, grass, rose and signal red. It put a COBALT SHIRT under the Heavy 4's smith's apron
+  (rendered a bright cornflower body under the frame). Fixed at the source: contrast_pick never takes a loud cloth (a cool
+  or pink hue at saturation 0.30 or more, or a saturated bright red or gold; earth, olive and every grey stay) unless it is
+  the wearer's own gang's colour (COLOUR IS TERRITORY). Measured over RUN TWO's 152 and these 16: 6 of 168 change; it adds
+  no loud piece anywhere (a man RUN TWO rolled in a loud top keeps it when nothing plain reads apart: RUN TWO's roll, its
+  next rebuild). And the Heavy's own look cloth was a steel blue (76, 90, 106), which made cobalt "his gang's colour": a
+  work-shirt drab (86, 80, 70) now.
+* round 2, two kids whose layers read as one (the outfit's own note: "read as one, and no colour of either cut reads
+  apart"): a black jersey under the ash asymmetric coat (48 and 70 of 255) and an ash longline under the black comma coat
+  (70 and 55): a bone runway shirt under the ash coat, a sand hoodie under the black comma. The Heavy 4: a khaki button-up
+  under the leather apron (black under it read as one, 48 and 69). All sixteen now wear two layers that read apart and no
+  loud cloth (audited through the outfit, the list in the commit).

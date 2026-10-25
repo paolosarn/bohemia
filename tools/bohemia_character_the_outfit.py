@@ -92,10 +92,21 @@ def held():
     return set(t['name'] for t in B['tops'] if t['held']), set(c['name'] for c in B['coats'] if c['held'])
 
 
-def contrast_pick(rng, cands, against, *prefer):
+def loud(G):
+    """IT IS AN ECONOMIC APOCALYPSE: NO RAINBOW (rule 159, Paolo 10/24: 'there shouldn't be so much colour'): a cloth whose
+    hue is a toy's in act one: a cool or a pink hue with any real colour in it (green, teal, blue, violet, rose; the rig's
+    cool fill pushes them hotter still: a (70, 78, 89) slate rendered (80, 96, 144)), or a saturated bright red or gold.
+    Earth (rust, brown, khaki, sand, olive) and every grey stay. Measured 10/25 (CHARACTER [the enemies' looks]): a swap
+    for value put a COBALT SHIRT under a smith's apron, a bright blue body under the frame"""
+    h, s_, v = hsv(G['mid'] if isinstance(G, dict) else G)
+    return (s_ >= 0.30 and 80 < h * 360 < 345) or (s_ >= 0.60 and v >= 0.55)
+
+
+def contrast_pick(rng, cands, against, *prefer, own=None):
     """the candidates that read apart from every garment in against; the first preference that leaves any, then the
-    furthest in value, one of the best three"""
-    ok = [G for G in cands if all(apart(G, A) for A in against)]
+    furthest in value, one of the best three. A swap never reaches for a loud cloth (rule 159) unless it is the wearer's
+    own gang's colour (COLOUR IS TERRITORY: own); none left is None, and the layer stays as it was rolled"""
+    ok = [G for G in cands if (not loud(G) or (own and own(G))) and all(apart(G, A) for A in against)]
     if not ok: return None
     best = ok
     for pf in prefer:
@@ -143,7 +154,7 @@ def outfit(spec):
         """the same top in another colour of the bank (the same cut and options, only the ramp moves)"""
         same = [g for g in BASE.BANK if g['shape'] == G['shape'] and g['name'] not in ht and mine(g) and
                 all(g[k] == G[k] for k in OPTS)]
-        return contrast_pick(rng, same, against, *prefer)
+        return contrast_pick(rng, same, against, *prefer, own=ours)
 
     if Gc and S not in ('PONCHO', 'HOODED PONCHO'):
         # 1. UNDER A COAT: the top reads apart from it, or it becomes the same cut in another value (a plain colour first,
@@ -156,7 +167,7 @@ def outfit(spec):
             else:
                 same = [c for c in OUTER.BANK if c['shape'] == S and c['name'] not in hc and mine(c) and
                         all(c[k] == Gc[k] for k in ('len', 'vest', 'jacket', 'split', 'wrap', 'asym', 'cocoon', 'comma', 'hood', 'bibless'))]
-                c = contrast_pick(rng, same, [Gt], ours, plain)
+                c = contrast_pick(rng, same, [Gt], ours, plain, own=ours)
                 if c:
                     why.append('%s read as one with %s (%d and %d of 255) and no colour of that top reads apart: the same coat in %s (%d)' % (
                         top, coat, lum(Gt['mid']), lum(Gc['mid']), c['name'], lum(c['mid']))); coat = c['name']; Gc = c
@@ -196,26 +207,26 @@ def outfit(spec):
         if tee_like and Gt['shape'] in ('TEE', 'TANK') and not Gt['tatter'] and 0.55 <= r < 0.80:
             # his tee or tank over a long-sleeve of another value: the dark sleeves out of the light tee (the photographs'
             # strongest read at 112 px), the long-sleeve's hem a band under the tee's
-            g = contrast_pick(rng, longs, [Gt], plain)
+            g = contrast_pick(rng, longs, [Gt], plain, own=ours)
             if g:
                 mid, base = top, g['name']; Gt = g; L['base']['hem_drop'] = 0.040
                 why.append('his %s over a %s, its sleeves and hem out from under' % (mid, base))
         if not mid and tee_like and r < 0.95:
-            g = contrast_pick(rng, shirts, [Gt], ours, lambda g: not plain(g))
+            g = contrast_pick(rng, shirts, [Gt], ours, lambda g: not plain(g), own=ours)
             if g:
                 mid = g['name']; why.append('an open %s over the %s' % (g['name'], top))
         elif shirt_like and r < 0.90:
-            g = contrast_pick(rng, tees, [Gt], plain)
+            g = contrast_pick(rng, tees, [Gt], plain, own=ours)
             if g:
                 mid, base = top, g['name']; Gt = g; why.append('his %s worn open over a %s' % (mid, base))
         elif Gt['shape'] == 'HOODIE' and r < 0.45:
-            g = contrast_pick(rng, [t for t in tees if t['shape'] == 'TEE' and not t['pattern']], [Gt], plain)
+            g = contrast_pick(rng, [t for t in tees if t['shape'] == 'TEE' and not t['pattern']], [Gt], plain, own=ours)
             if g:
                 mid, base = top, g['name']; Gt = g; L['base']['hem_drop'] = 0.060
                 why.append('his %s over a longer %s, its hem under the band' % (mid, base))
         elif Gt['shape'] == 'HOODIE' and r < 0.90:
             # an open flannel over his hoodie, the hood out over the shirt's collar (the street's own layering)
-            g = contrast_pick(rng, [g for g in shirts if g['sleeves'] == 'long'], [Gt], ours, lambda g: bool(g['pattern']))
+            g = contrast_pick(rng, [g for g in shirts if g['sleeves'] == 'long'], [Gt], ours, lambda g: bool(g['pattern']), own=ours)
             if g:
                 mid = g['name']; L['base']['hood_over'] = round(base_weight(Gt) + 0.005 + 0.012, 4)
                 why.append('an open %s over his %s, the hood out over its collar' % (mid, top))
