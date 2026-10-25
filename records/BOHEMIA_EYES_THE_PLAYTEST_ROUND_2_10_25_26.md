@@ -91,3 +91,71 @@ THE PILOT: one live page held open, steps read from files (scratch, as round one
 - 'Ride shotgun to the salt camp' ends at a place the map calls CUSTOM ('ESCORT TO HERE') (WORLD, 164 item 3).
 - The loot screen's look (UI and RUN TWO, 164 item 25); it stays until LEAVE now (16 s read, 164 item 28).
 - AUTO is green before the first tap (COMBAT adecb465, 164 item 12): seen.
+
+## PIECE 2 (phone 06:45 to 07:20, the computer from 06:33 alongside): a tap on a roaming crew (the chase), the night on
+## the road, an ambush and a RETREAT, a patrol job and a WIPE (every turn ended), the crew after it, a reload and CONTINUE;
+## on the computer: the title, the door, the map's keys, the wheel, the camera on a trip, a town, a trip to Sloan.
+
+### ROUND ONE'S ROWS, READ AGAIN
+- 1 [eyes: the dead stand up] FIXED, BOTH HALVES: the wipe ('WIPED OUT... 2 of yours dead, 2 down'; DESI DEAD, RAUL DEAD,
+  JAMAL VANCE LAID UP 37 DAYS MISSING EYE) leaves the crew screen with YOU in the line and Jamal and Dante under LAID UP; the
+  save's company holds YOU alone; after a reload and CONTINUE ('DAY 2 · 16:07', 0.7 s) the same (q27, q31). The bar still
+  counts them: RUN's new [eyes: the dead still count].
+- 5 [eyes: the man up stays] CONFIRMED: RETREAT on Jamal's turn, Jamal ran first (7,7 -> 3,3 -> out), all four out in round 2.
+- 6 [eyes: retreat recap] CONFIRMED: 'YOU PULLED OUT. 4 got out, 0 did not. No pay. 2 rounds, 0:12 of fighting' (q30). It is
+  on the glass under a second before the clouds (q25): that is 164 item 28, RUN TWO's claimed [the PC playtest: the town's part].
+- 9 [eyes: toy town] STILL: the suburb board of the road ambush: rows of houses a third of a man tall (q24).
+- 11 [eyes: the blocks between] FIXED: three passes filmed at 150 to 250 ms a frame (a win, a retreat, a wipe): the map, or
+  the clouds with 2 to 3 px steps, never a 60 px block (q19, q25).
+- 12 [eyes: the job's real pay] STILL, A SECOND CASE: Church's patrol, the board 'Ride out to the two posts and back, and 30
+  batteries are yours at most'; the contract on the map 'WALK THE POSTS AT COLORFUL AND COME BACK. 23 BATTERIES, AND 6 FOR
+  EVERY ONE YOU PUT DOWN ON THE WAY, UP TO 4' (47 at most) (q29). And 'Haul eighty tyres to the co-op' (EL GUERO SALAS) is
+  on Church's board and on Caravans' board at once, as round one found with Mob.
+- 19 [eyes: hitpoints drift] HOLDS over four fights: YOU 63, DESI 51, RAUL 60, JAMAL 66 at every start.
+- 2 [eyes: one squeeze to space] ON THE COMPUTER IT IS BACK: see RUN's new [eyes: the wheel to space].
+
+### NEW, WORST FIRST (continuing the numbers of piece 1)
+11. [RUN] A CLICK ON THE DOOR STARTS THE GAME. On the computer the door's 15 origins sit in one row cut at 1,052 of 3,534 px,
+   labelled 'WHO YOU WERE · SWIPE'; a mouse drag on the row (100 px is enough) STARTS THE GAME with whatever is picked, no BEGIN;
+   so does one click on the empty floor under the picks (60 percent of the screen) or on the row's own label (k03). The code
+   says it: '#front starts the game on any tap once loaded', and a pick stops its own click only. The wheel does not move the
+   row. A phone tap between two cards takes the same path.
+12. [RUN] THE WHEEL GOES TO SPACE. On the computer the far stop is 0.396; spinning the wheel out reads 0.455, 0.399, 0.396,
+   SKY: the fourth notch is in space, every notch a new gesture; 21 notches deep, 14 to come back (k04). His PC.
+13. [RUN] THE DEAD STILL COUNT. After the wipe the bar reads '5/12' with five green marks (YOU alone in the line, two laid
+   up, two dead), after a reload too (q28); crewCount() is the start's three plus the hired minus who walked, never the
+   dead, and the night's bill ('the crew ate: N men') is crewCount() times the wage: the dead are fed and paid.
+14. [RUN] THE DEAD SPEAK. On the map after the wipe RAUL, tagged DEAD, says 'DESI didn't get up, carnal. He's gone.'; then
+   DESI, tagged DEAD, says 'RAUL didn't get up, carnal. He's gone.' (q32, q33). The living (YOU, Jamal) never speak.
+15. [COMBAT] 'TAP AGAIN', AND THE TAP DOES NOTHING. RETREAT arms for 8 beats (4 s); the line 'Retreat? Your men run for the
+   nearest edge. Who reaches it gets out. No pay. Tap again.' stays after the arm dies, so the tap it asks for only arms it
+   again; read, then tap: nothing, twice, 63 s with nobody moving (q24).
+16. [RUN] THE CHASE RUNS ALL NIGHT. A tap on '4 ☠ EASY / TO REMNANTS' and its plate: the crew followed from 17:58 to 07:31
+   the next morning (the night crossed in about 3 s), never met them, and stopped with no word (q23). The second chase (a
+   Remnants crew, 07:42 to 10:45) the same.
+17. [RUN] THE NIGHT TAKES 44 AND SAYS NOTHING. Over that night the purse lost 10 to food and 34 to 'rent on <faction> ground'
+   (one battery a block: Mob 13, Cartel 6, Church 6, Network 5, Custom 3, Caravans 1); nothing on the glass says rent exists;
+   the bar went 173 to 129. Rule 86: no micro feature the player does not understand; 151(b): money is felt, so it is said.
+18. [WORLD] A NAMED PLACE IS NOTHING. On the computer at the far stop a click on SLOAN: 'SETTING OUT: 62 BLOCKS, ABOUT 5.8
+   H.'; on arrival nothing opens and nothing is said, the bar's district word goes blank (k06). The map names about 40 such
+   places (JEAN, GOODSPRINGS, PRIMM, SANDY VALLEY...); jobs name them ('Ride carts to Primm').
+19. [UI] (a NOTE on the claimed keys row, not a new row) Enter does nothing on the title; Escape does not leave a town; C does
+   not open the crew in a town. Space pauses and unpauses the map (speed 1.22 -> 0 -> 1.22).
+
+### THE COMPUTER, MEASURED (rule 163)
+- SPACE pauses and unpauses the map: TRAVEL_SPEED 1.22 -> 0 -> 1.22.
+- THE CAMERA KEEPS THE CREW CENTRED on a trip: at zoom 1.0 (Church to Remnants, 13.5 s) and at the far stop 0.396 (to Sloan,
+  62 blocks, 34 s) the crew stood at 720,421 to 425 of a 1440 x 840 map in every half second (k08).
+- THE MOUSE DRAGS THE TOWN (Remnants: 52 px moved, to the clamp) where the phone's finger cannot (piece 1, new 1).
+- THE WHEEL ZOOMS about 14 percent a notch, 1.0 to 1.48 in three; and then the sky (new 12).
+
+### ALREADY IN FLIGHT, SEEN AGAIN
+- No card before the road fights (151(e), RUN): the escort's, the ambush, the patrol's.
+- The night crossed in about 3 seconds of travel (164 item 5, night longer, RUN).
+- The job 'Bring up the crates from Sunrise' names a place not on the map; the phone says 'TOUCH CARAVANS ON THE MAP' while
+  you stand in Caravans (164 item 3, WORLD claimed).
+- The retreat recap gone in under a second (164 item 28).
+- A wound does not carry: YOU took 49 in the retreat and stood at 63/63 in the next fight. Not filed: no ruling says a
+  wound carries between fights (the 20 percent rule covers the struck down).
+- The passive wipe took 36 rounds and about 3 minutes against a mechanic and his machine (rule 9/29: a routine fight 2 to
+  4 minutes); TUNING's to read, not filed.
