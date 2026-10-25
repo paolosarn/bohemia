@@ -1,0 +1,10 @@
+UI [the PC playtest: the UI's part] (2) 10/25: the six supplies on the map's bar, in ECONOMY's order (batteries, food, water,
+tape, meds, rounds; records/BOHEMIA_ECONOMY_DAY_80_..._10_25_26.md section 3). Set A of the card he voted UP on 10/17
+(ui-the-six-at-pack-pixels-10-13, records/BOHEMIA_THE_THIRTEENTH_VOTES_10_17_26.txt): each a pack tile copied as-is from
+reference/art_bank/prop, no pixel changed.
+batteries <- pack_11_survival_props_045.png
+food <- pack_11_survival_props_042.png
+water <- pack_11_survival_props_004.png
+tape <- pack_11_survival_props_039.png
+meds <- pack_12_weapons_and_supplies_030.png
+rounds <- pack_12_weapons_and_supplies_018.png

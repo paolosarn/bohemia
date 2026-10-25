@@ -720,7 +720,9 @@
   var TEN = { count: null };
   /* every fact asked of the game, nothing kept here; null where the game knows nothing (the 10/19 lay's reads) */
   function tbFacts() {
-    var f = { day: null, min: null, batteries: null, food: null, perDay: 1, crew: null, cap: null, place: null, six: {} };
+    var f = { day: null, min: null, batteries: null, food: null, perDay: 1, crew: null, cap: null, place: null, six: {}, supplies: {}, eat: null };
+    try { f.supplies = supplyCounts(); } catch (_e) {}
+    try { var B0 = window.__BILL; if (B0 && B0.crew > 0) f.eat = B0.crew | 0; } catch (_e) {}   /* a man eats one a day: the crew the bill feeds */
     try { f.day = T.day | 0; f.min = T.min | 0; } catch (_e) {}
     try { var pb = purseBalances(); if (typeof pb.electricity === 'number') f.batteries = pb.electricity; if (typeof pb.resources === 'number') f.food = pb.resources; } catch (_e) {}
     try { var t = om.at(city.x, city.y); f.place = (t && t.district) ? String(t.district).toUpperCase() : null; } catch (_e) {}
@@ -770,6 +772,10 @@
     +   'box-shadow:inset 0 1px 0 rgba(255,236,200,.18),0 1px 0 #000;border:1px solid #0d0a07;border-radius:0;flex:1 1 auto;min-width:0}'
     + '#bmtb .s{display:inline-flex;align-items:center;gap:4px;color:#ffd98a;font-size:14px;white-space:nowrap;flex:0 0 auto}'
     + '#bmtb .s img{display:block;width:20px;height:20px;image-rendering:pixelated}'
+    /* the six are his pack's props, whole, in a 32-point box (96 phone pixels: the pack's own floor, rule 105) */
+    + '#bmtb .s.six img{width:32px;height:32px;object-fit:contain;image-rendering:pixelated} #bmtb .g{min-height:40px}'
+    + '#bmtb .s.six i.hold{display:none;font-style:normal;font-size:10px;letter-spacing:.8px;color:#ddd2b8;margin-left:2px} #bmtb .g.held .s.six i.hold{display:inline}'
+    + '@media (max-width:359px){#bmtb .s.six img{width:26px;height:26px} #bmtb .g{gap:6px}}'
     + '#bmtb .s b{font-weight:normal} #bmtb .s.none b{color:#ddd2b8} #bmtb .s.none img{opacity:.6}'
     + '#bmtb .s b.low{color:#4a0a05;padding:3px 5px;background:#e2dac6 var(--bm-receipt) center/100% 100%;box-shadow:0 1px 0 #000}'
     + '#bmtb .where{flex:0 1 auto;min-width:0;margin-left:auto;overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:1px;color:#f2e4c6}'
@@ -793,7 +799,22 @@
     /* the shell's own floating gear steps aside while the bar's gear is on the glass (set from the city frame) */
     + '';
   var TB_SHELL_CSS = 'html.bm-gear-in-bar #gearbtn{display:none!important}';
-  var TB_STORES = ['batteries', 'food', 'meds', 'rounds', 'water'];
+  /* THE SIX (UI [the PC playtest: the UI's part] (2)): ECONOMY's order, his pack's props, and the one reader of their counts */
+  var SIX = ['batteries', 'food', 'water', 'tape', 'meds', 'rounds'];
+  function packIcon(k) { return 'supply_icons/' + k + '.png'; }
+  function supplyCounts() {
+    var out = {}, P = window.BohemiaPurse, pu = null, cur = (P && P.CURRENCIES) || [], B = window.BOH_SUPPLIES;
+    try { pu = typeof purseGet === 'function' ? purseGet() : null; } catch (e) {}
+    try { if (typeof B === 'function') B = B(); } catch (e) { B = null; }
+    SIX.forEach(function (k) {
+      if (k === 'batteries') return;
+      var n = null;
+      try { if (pu && cur.indexOf(k) >= 0) n = P.balance(pu, k); } catch (e) {}
+      if (typeof n !== 'number' && B && typeof B[k] === 'number') n = B[k];
+      if (typeof n === 'number' && isFinite(n)) out[k] = Math.max(0, Math.floor(n));
+    });
+    return out;
+  }
   function tbPaint() {
     var root = document.getElementById('bmtb'); if (!root) return;
     var f = tbFacts();
@@ -818,16 +839,25 @@
        amends change 5's two numbers): the glass carries the batteries ONLY. The nights they feed the crew are in the same
        pane, shown only while a finger holds it (a mouse hovers it) and gone when let go. At the bill's red line the
        batteries themselves wear the red tag, so the warning is never only behind a hold. */
-    var g;
-    if (f.days != null) {
-      var cnt = TEN.count ? ' counting' : '';
-      g = '<span class="s bats' + cnt + '" data-f="batteries"><img alt="BATTERIES" src="' + supplyIcon('batteries') + '"><b' + (f.red && !cnt ? ' class="low"' : '') + '>' + (typeof f.batteries === 'number' ? f.batteries : '–') + '</b></span>'
-        + '<span class="s days hold' + (f.red ? ' red' : '') + '" data-f="nights"><img alt="NIGHTS" src="' + supplyIcon('nights') + '"><b' + (f.red ? ' class="low"' : '') + '>' + f.days + '</b><i>' + (f.days === 1 ? 'NIGHT LEFT' : 'NIGHTS LEFT') + '</i></span>';
-    } else g = TB_STORES.map(function (k) {
-      var n = k === 'batteries' ? f.batteries : (k === 'food' ? f.food : (f.six ? f.six[k] : null)), has = typeof n === 'number';
-      var low = k === 'food' && has && Math.floor(n / f.perDay) < 3;
-      return '<span class="s' + (has ? '' : ' none') + '" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + supplyIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + (has ? n : '–') + '</b></span>';
-    }).join('');
+    /* UI [the PC playtest: the UI's part] (2) (rule 164 item 2, Paolo 10/24 on his PC: 'we have four different currencies in
+       this game, you're only showing batteries, it's insane'; ECONOMY's six, records/BOHEMIA_ECONOMY_DAY_80_HOW_MANY_CURRENCIES_
+       HIS_FOUR_ARE_BATTLE_BROTHERS_FOUR_AND_THE_GAME_COUNTS_ONE_10_25_26.md section 3): the glass carries THE SIX, left to right
+       BATTERIES, FOOD, WATER, TAPE, MEDS, ROUNDS, each his pack's own prop (set A of the card he voted UP, 10/17) and a number.
+       A supply stands on the glass the moment the game COUNTS it (supplyCounts: the purse's own key, or the map's BOH_SUPPLIES),
+       never as a dash and never as an invented number; today the game counts the batteries. Held (hovered), the batteries show
+       the nights the bill still has, and food and water the days they last (Battle Brothers shows food as days). Low is red. */
+    var g = '', cnt = TEN.count ? ' counting' : '';
+    SIX.forEach(function (k) {
+      if (k === 'batteries') {
+        g += '<span class="s six bats' + cnt + '" data-f="batteries"><img alt="BATTERIES" src="' + packIcon('batteries') + '"><b' + (f.red && !cnt ? ' class="low"' : '') + '>' + (typeof f.batteries === 'number' ? f.batteries : '–') + '</b></span>';
+        if (f.days != null) g += '<span class="s days hold' + (f.red ? ' red' : '') + '" data-f="nights"><img alt="NIGHTS" src="' + supplyIcon('nights') + '"><b' + (f.red ? ' class="low"' : '') + '>' + f.days + '</b><i>' + (f.days === 1 ? 'NIGHT LEFT' : 'NIGHTS LEFT') + '</i></span>';
+        return;
+      }
+      var n = f.supplies[k]; if (typeof n !== 'number') return;
+      var per = (k === 'food' || k === 'water') ? Math.max(1, f.eat || f.perDay || 1) : 0, last = per ? Math.floor(n / per) : null, low = per ? last < 3 : n <= 0;
+      g += '<span class="s six" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + packIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + n + '</b>'
+        + (per ? '<i class="hold">' + last + (last === 1 ? ' DAY' : ' DAYS') + '</i>' : '') + '</span>';
+    });
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
     var parts = { day: day, crew: crew, g: g };
     Object.keys(parts).forEach(function (k) { var e = root.querySelector('[data-tb=' + k + ']'); if (e && e.__was !== parts[k]) { e.innerHTML = parts[k]; e.__was = parts[k]; } });

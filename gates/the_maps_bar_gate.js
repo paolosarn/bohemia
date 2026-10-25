@@ -33,7 +33,7 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
        the day on receipt, the stores on glass at 20 points, tape left off as dead, NOTES moved in); the old strip is hidden */
     const NEW = !!document.getElementById('bmtb');
     const six = Array.from(document.querySelectorAll(NEW ? '#bmtb .s[data-f]' : '#barread .sx')).map(s => { const im = s.querySelector('img'), r = im ? im.getBoundingClientRect() : null;
-      return { k: NEW ? s.dataset.f : s.dataset.s, img: !!im, src: im ? im.src.slice(-40) : '', w: r ? Math.round(r.width) : 0, nat: im ? im.naturalWidth : 0, drawn: !!(im && window.BohemiaMaterials && im.src === BohemiaMaterials.supplyIcon(NEW ? s.dataset.f : s.dataset.s)) }; });
+      return { k: NEW ? s.dataset.f : s.dataset.s, img: !!im, src: im ? im.src.slice(-40) : '', w: r ? Math.round(r.width) : 0, nat: im ? im.naturalWidth : 0, pack: !!(im && /supply_icons\/\w+\.png$/.test(im.src)), drawn: !!(im && window.BohemiaMaterials && im.src === BohemiaMaterials.supplyIcon(NEW ? s.dataset.f : s.dataset.s)) }; });
     const hour = document.querySelector(NEW ? '#bmtb [data-f=day]' : '#barread .rd[data-k="hour"]'), sixP = document.querySelector(NEW ? '#bmtb .g' : '#barread .rd.six'), note = document.getElementById(NEW ? 'notebtn' : 'noteplate');
     const pad = document.getElementById('speedpad'), plates = pad ? Array.from(pad.querySelectorAll('.sp')) : [];
     const box = el => { const r = el.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
@@ -54,9 +54,12 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
   });
   /* RE-AIMED 10/24 (UI [the ten changes: the UI's part], rule 133, TUNING's change 5: 'the bar shows two numbers, not five'): with
      the map's nightly bill in, the glass carries the batteries and the nights they feed the crew, both drawn here */
-  ok('THE SIX ARE DRAWN OBJECTS FROM THE MATERIALS FILE, in rule 47a\'s order (with the bill: the batteries and the nights, change 5)', a.six.map(s => s.k).join(' ') === (a.NEW ? (a.BILL ? 'batteries nights' : 'batteries food meds rounds water') : 'batteries food meds rounds tape water') && a.six.every(s => s.img && s.drawn && s.nat === 30),
-     a.six.map(s => s.k + (s.drawn ? '' : ' NOT DRAWN')).join(' '));
-  ok('  different pictures, 10 points each on the old strip, 20 (a whole 2x) on the bar with the days once', new Set(a.six.map(s => s.src)).size === a.six.length && a.six.every(s => s.w === (a.NEW ? 20 : 10)), a.six.map(s => s.w).join(' '));
+  /* RE-AIMED 10/25 (UI [the PC playtest: the UI's part] (2), rule 164 item 2; his UP 10/17 on ui-the-six-at-pack-pixels-10-13, set A;
+     ECONOMY's six): a supply on the glass is HIS PACK'S PROP at the pack's floor (32 points), standing only while the game counts it
+     (the batteries today; gates/the_six_on_the_bar_gate.js holds the six); the nights behind the hold stay the drawn moon at 20 */
+  ok('THE SIX ARE HIS PACK\'S PROPS IN ECONOMY\'S ORDER, THE NIGHTS THE MATERIALS\' DRAWN MOON (with the bill: the batteries and the nights)', a.six.map(s => s.k).join(' ') === (a.NEW ? (a.BILL ? 'batteries nights' : 'batteries') : 'batteries food meds rounds water') && a.six.every(s => s.k === 'nights' ? s.drawn : (a.NEW ? s.pack : s.drawn)),
+     a.six.map(s => s.k + (s.k === 'nights' ? (s.drawn ? '' : ' NOT DRAWN') : (s.pack ? ' (pack)' : ' NOT THE PACK'))).join(' '));
+  ok('  different pictures, 10 points each on the old strip; on the bar the pack props 32, the drawn moon 20 (0 while it waits behind the hold, 151(a))', new Set(a.six.map(s => s.src)).size === a.six.length && a.six.every(s => (a.NEW && s.k === 'nights') ? (s.w === 20 || s.w === 0) : s.w === (a.NEW ? 32 : 10)), a.six.map(s => s.k + ' ' + s.w).join(', '));
   ok('THE BAR IS CUT CARDBOARD; THE HOUR, THE PLACE AND NOTES ARE RECEIPT; THE SIX ARE ON GLASS', a.mats.bar && a.mats.hour && a.mats.note && a.mats.six, JSON.stringify(a.mats));
   ok('THE SPEED PAD IS GLASS ON A CARD, the current speed lit amber, square corners', a.mats.pad && a.mats.plates && a.mats.lit && a.radius <= 2, 'radius ' + a.radius);
   ok('  every plate still a thumb', a.thumbs.length === 5 && a.thumbs.every(t => t[0] >= 44 && t[1] >= 44), JSON.stringify(a.thumbs));

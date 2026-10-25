@@ -9675,6 +9675,11 @@ GATES = [
      "W A S D held moves the camera and lets go of the crew; Shift takes it back; Page Down and Page Up zoom; C or I opens the company, Tab the next man, Escape or I closes it; "
      "F shows and hides the tracks (off until asked, 151(f)); F5 saves and the bar says SAVED; Escape with nothing open opens the settings and closes them; "
      "a key with the focus on the shell is handed to the map; in a town C opens the company and Escape closes it, then leaves the town; nothing thrown.", True),
+    ('THE SIX ON THE BAR', ['node', 'gates/the_six_on_the_bar_gate.js'],
+     "UI gate, 10/25, row [the PC playtest: the UI's part] (2) (rule 164 item 2, PAOLO 10/24 on his PC: 'we have four different currencies in this game, you're only showing batteries, it's insane'). "
+     "ECONOMY's six, left to right BATTERIES, FOOD, WATER, TAPE, MEDS, ROUNDS, each his pack's prop (set A of the card he voted UP 10/17), byte for byte; a supply stands only when the game counts it "
+     "(the purse's own key or the map's BOH_SUPPLIES), never a dash or an invented number; in order and inside the glass on a phone and a computer; low water red; a hold shows the nights and the days food and water last; "
+     "a string or NaN never stands; nothing thrown.", True),
     ('THE TEN CHANGES, THE UIS PART', ['node', 'gates/the_ten_changes_the_uis_part_gate.js'],
      "UI gate, 10/24, rows [the ten changes: the UI's part] and [portrait menu] (rule 133, PAOLO 10/23: 'like Battle Brothers but quicker and funner for normies'; TUNING's changes 2, 3, 5, 6, 8). "
      "THE STRANGER'S WALK (tools/bohemia_ui_the_ten_changes_walk.js, real touches, the committed demo): the bar carries two numbers, the batteries and the nights the map's bill covers, the crew the bill feeds; "
