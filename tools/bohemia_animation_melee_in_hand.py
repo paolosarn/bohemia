@@ -446,6 +446,11 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
         zs = rj['z_stretch']; root.scale = (k, k, k * zs)
         g, parts = build_prop(bpy, prop)
         chain = bpy.data.objects[g['chain']] if 'chain' in g.keys() else None
+        # THE STRETCH AS A PARENT (an object's own loc/rot/scale cannot hold a shear: a tilted haft under the 3/4 stretch set as
+        # one matrix lost it): the prop sits unstretched under an empty that carries only the stretch, exactly his body's
+        stretch = bpy.data.objects.new('stretch', None); sc.collection.objects.link(stretch); stretch.scale = (1, 1, zs)
+        for o_ in [g] + ([chain] if chain is not None else []): o_.parent = stretch; o_.matrix_parent_inverse = mathutils.Matrix()
+        LEGACY = os.environ.get('BOHEMIA_MELEE_LEGACY_STRETCH') == '1'
         MR.source_pass(parts, float(MR.G['wear']), 1.0, 0)
         for o in body: o.is_holdout = True
         res = rj['res']; ppm = rj['ppm']
@@ -476,12 +481,13 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
                 if z.length < 1e-4: z = fwd.copy()
                 z.normalize(); y = z.cross(x).normalized(); z = x.cross(y).normalized()
                 M = mathutils.Matrix((x, y, z)).transposed().to_4x4(); M.translation = fist
-            g.matrix_world = mathutils.Matrix.Diagonal((1, 1, zs, 1)) @ M   # stretched as his body is, so it stays in his fist
+            if LEGACY: g.parent = None; g.matrix_world = mathutils.Matrix.Diagonal((1, 1, zs, 1)) @ M   # the first pass's way (m1), kept to measure against
+            else: g.matrix_basis = M   # under the stretch: stretched as his body is, so it stays in his fist
             if chain is not None:   # the flail's chain hangs from the handle's end, trails the wind, flies out on the blow
                 tip = fist + x * S['props'][prop]['fore']
                 dd = {'wind': -fwd * 0.7 - up * 0.5, 'blow': fwd * 0.9 - up * 0.3, 'follow': fwd * 0.3 - up * 0.95}.get(hold, -up).normalized()
                 Mc = mathutils.Vector((0, 0, 1)).rotation_difference(dd).to_matrix().to_4x4(); Mc.translation = tip
-                chain.matrix_world = mathutils.Matrix.Diagonal((1, 1, zs, 1)) @ Mc
+                chain.matrix_basis = Mc
             # only the prop's own patch of the frame is rendered (the rest is empty film): its box on the camera, padded
             bpy.context.view_layer.update()
             dg = bpy.context.evaluated_depsgraph_get()
@@ -638,6 +644,20 @@ def all_(workers=4, only=None):
     for p in procs: p.wait()
 
 
+def export(names=None):
+    """every thing this lane holds in a man's hand, alone at its real size, as a glb for COOK's item models and icons (rule
+    177(c)): reference/models/bohemia/held_<name>.glb; a haft along +X from the middle of the grip, the edge +Z; a shield's
+    face out along +X, its width +Y, up +Z, the strap side at x = 0"""
+    import bpy
+    S = source()
+    for name in (names or [n for n in S['props'] if n != 'pistol']):
+        bpy.ops.wm.read_factory_settings(use_empty=True)
+        g, parts = build_prop(bpy, name)
+        out = os.path.join(ROOT, 'reference/models/bohemia/held_%s.glb' % name)
+        bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', use_selection=False)
+        print('EXPORTED', os.path.relpath(out, ROOT), flush=True)
+
+
 # ------------------------------------------------------------------------------------------------ pack (python3)
 def pack(only=None):
     """slices/rig_melee/<look>.webp (the new body keys, each cell cut to what is drawn, shelf-packed), <look>_props.webp (every
@@ -774,4 +794,5 @@ if __name__ == '__main__':
     elif cmd == 'person': person_one(a[0])
     elif cmd == 'all': all_(int(a[0]) if a else 4, a[1:] or None)
     elif cmd == 'pack': pack(a or None)
+    elif cmd == 'export': export(a or None)
     else: sys.exit(__doc__)
