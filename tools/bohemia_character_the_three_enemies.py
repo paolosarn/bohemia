@@ -93,7 +93,9 @@ TYPES = {
         look=dict(shirt=dict(colour=(48, 48, 52), sleeve='long'), coat=None,
                   trousers=dict(colour=(70, 72, 78), wide=0.03), shoes=dict(colour=(186, 182, 172), kind='sneaker'), belt=None),
         tops=['HOOD-UP COAL HOODIE', 'LAYERED JERSEY', 'ASH HOODIE'],
-        coats=[None, 'STORM JACKET', 'DENIM VEST'],
+        # round 2 (looking, runner_0 at 1:1): one hoodie and a wrap read as one garment, not streetwear layers (rule 129):
+        # the hood stays up and the Balenciaga oversize goes over it, a bone cocoon coat a value off the coal (the slate one rendered a hot blue under the rig's cool fill, rule 159)
+        coats=['BONE COCOON COAT', 'STORM JACKET', 'DENIM VEST'],
         legs=['DROP RISE TROUSER', 'GREY SWEATS', 'BLACK CARGOS'],
         feet=['GREY SNEAKERS', 'WHITE SNEAKERS', 'BONE SNEAKERS'],
         kit=[['TRAILING SCARF', 'HAND WRAPS'], ['SALVAGE SATCHEL', 'SOOT HAND WRAPS'], ['OXBLOOD SATCHEL', 'HAND WRAPS']],

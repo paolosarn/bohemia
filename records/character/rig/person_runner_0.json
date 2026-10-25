@@ -1,14 +1,17 @@
 {
  "look": "PERSON_RUNNER_0",
- "shape": "person_runner_0: teenagers in oversized layered streetwear, hoods up or down, scarves over their faces, a sling in the fist, his own skin skin_light 3, HOOD-UP COAL HOODIE",
+ "shape": "person_runner_0: teenagers in oversized layered streetwear, hoods up or down, scarves over their faces, a sling in the fist, his own skin skin_light 3, HOOD-UP COAL HOODIE under BONE COCOON COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
   "base": "HOOD-UP COAL HOODIE",
+  "outer": "BONE COCOON COAT",
   "legs": "DROP RISE TROUSER",
   "feet": "GREY SNEAKERS",
   "neck": "TRAILING SCARF",
   "hands": "HAND WRAPS",
-  "outfit": []
+  "outfit": [
+   "the sleeves pushed up the forearm"
+  ]
  },
  "dials": {
   "height": -0.85,
@@ -17,9 +20,16 @@
   "hips": -0.1
  },
  "layers": {
-  "base": {},
+  "base": {
+   "under": "COCOON COAT",
+   "arms_covered": true
+  },
   "mid": {},
-  "outer": {}
+  "outer": {
+   "lift": 0.006,
+   "sleeve_to": 1.42,
+   "push": true
+  }
  },
  "model": "records/character/rig/person_runner_0.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
@@ -36,6 +46,11 @@
   "person_runner_0_pocket": 182,
   "person_runner_0_waistband": 1792,
   "person_runner_0_cuffs": 2048,
+  "person_runner_0_coat": 63576,
+  "person_runner_0_coat_skirt": 5886,
+  "person_runner_0_collar.001": 1536,
+  "person_runner_0_lapels": 396,
+  "person_runner_0_pushed": 2048,
   "person_runner_0_sling_cords": 100,
   "person_runner_0_sling_pouch": 314,
   "person_runner_0_sling_stone": 42,
@@ -74,6 +89,16 @@
    0.0152,
    0.013,
    0.0152
+  ],
+  "person_runner_0_coat": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_runner_0_coat_skirt": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_runner_0_collar": [
    0.0296,
@@ -145,6 +170,11 @@
    0.2705,
    0.305
   ],
+  "person_runner_0_lapels": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
   "person_runner_0_midsole_0": [
    0.2582,
    0.2705,
@@ -159,6 +189,11 @@
    0.0296,
    0.0296,
    0.0356
+  ],
+  "person_runner_0_pushed": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_runner_0_shirt": [
    0.0296,
