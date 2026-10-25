@@ -215,6 +215,10 @@ function register(which, write) {
     if (reg.items.some(x => x.id === S.id)) { console.log('already a card: ' + S.id); continue; }
     const sha = execFileSync('git', ['log', '-1', '--format=%h', '--', path.join('slices', S.dir)], { cwd: ROOT, encoding: 'utf8' }).trim();
     if (!sha) throw new Error(S.name + ': commit the recordings first, the card needs their sha');
+    /* the sha must be one he can go look at: on main, not a local commit a rebase will rename (card 1 was registered at a
+       pre-rebase 512d6316 and corrected to 0538fe30) */
+    const onMain = execFileSync('git', ['branch', '-r', '--contains', sha], { cwd: ROOT, encoding: 'utf8' });
+    if (!/origin\/main\b/.test(onMain)) throw new Error(S.name + ': push the recordings to main first, ' + sha + ' is not on main');
     const card = { id: S.id, kind: 'song', lane: 'sounds', sha, made: '10/25',
       title: 'YOUR ' + S.name + ' AT THREE LEVELS, FOR THE FIGHT',
       why: 'Your ' + S.name + ' at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song\'s own lead, and none of it is in the game until you say so. ' +
