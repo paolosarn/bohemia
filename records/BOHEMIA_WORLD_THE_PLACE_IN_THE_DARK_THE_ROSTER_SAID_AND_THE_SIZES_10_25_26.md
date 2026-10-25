@@ -135,3 +135,31 @@ browser: 39 green, the same 12 red on the base with the same messages (a_merge_d
 future_ledgers, integration, no_orphan_script, people_charge, reachability (the census clock, 43.5 h behind the map file on
 both), repo_budget, the_names_wired_in, vista (its browser path), walk_deadlock, pixel_floor). The full suite unmeasured since
 this round's base.
+
+## 5. A JOB SAYS HOW FAR (rule 186(c), first on the board mid-round; CLAIMED and built the same round)
+
+His words, 10/25: 'every time a job is presented it should show how long it's going to take to get there... it sends me to the
+other side of the map without me knowing.'
+
+MEASURED: the board's person said the job and its pay; where it went and how many blocks came after the yes (the take line), and
+the hours never, anywhere. A job at REMNANTS for the carts to PRIMM was 37 blocks to the town and 159 more to PRIMM: a day and a
+half of his clock, said nowhere before he took it.
+
+BUILT (slices/bohemia_job_kinds.js trip(); one marked hook each in RUN TWO's settlement screen and UI's phone board):
+- THE TRIP IS WORKED OUT BY THE CODE THE YES RUNS: plan() is make() on a copy (a dry run marks and says nothing; the same dice,
+  seeded by the job, the town, the day and the jobs done, so the same target the map would give it), and the time is the map's
+  own road (cityRoute) costed by the map's own clock (cityStepMins) at the job's own pace (the carts at 1.6). At the town the
+  trip is that job's exact one, leg by leg (a patrol round its posts); from the phone the walk to the town is exact, a real place's
+  leg exact, else the kind's range off records/target/BOHEMIA_JOB_KINDS.json, said as a range. A job that pays back home says
+  'and back'; a stand says 'you stay'.
+- THE BOARD'S LIST: beside each offer's pay, '45 batteries · 2 H'.
+- THE OFFER SHEET (the person, before 'Take it'), in gold under the words: 'The patrol: 26 blocks round 2 posts, about 2 hours, and
+  back.' / 'The trip: 17 blocks to THE COUSIN'S FARM, about 2 hours, and back.'
+- THE PHONE'S LIT CARD, under TOUCH REMNANTS ON THE MAP, in the card's ink: '3 H TO REMNANTS, THEN 1 DAY TO PRIMM'.
+- NOTHING WALKS ON A YES: taking a job never starts a journey (his GO is a touch on the map), checked.
+
+PROOF: gates/the_trip_before_the_yes_gate.js, his computer 7/0 and the phone 7/0: the list's times; every offer's sheet says the
+trip; 'Take it' makes the job where the trip said (the patrol's first post [36,55] both times) and nothing walks; his GO: the
+map's own 'Setting out: 17 blocks, about 1.5 h.' against the trip's 17 blocks, 1.52 h; the real places (PRIMM 135 blocks about
+20 hours from ANARCHISTS, HOOVER DAM, RAILROAD PASS, the lodge); the phone: '3 H TO REMNANTS, THEN 1 DAY TO PRIMM' and the
+walk to REMNANTS 'Setting out: 37 blocks, about 3.4 h.'

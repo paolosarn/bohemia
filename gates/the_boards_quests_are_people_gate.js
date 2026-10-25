@@ -87,6 +87,9 @@ const srv = http.createServer((rq, rs) => {
   const boards = [];
   for (const pl of PLACES) boards.push(await visit({ place: pl, traits: [], day: 4, contracts: [] }));
   const ids = new Set(rows.map(r => r.id));
+  /* WORLD 10/25: the people the job kinds' file adds for a kind no act-one design carries (the patrols, jk-*), appended to the shelf
+     at load the way a modder adds a row (slices/bohemia_board_shelf.js withMore, WORLD [every job kind] 10/24): the shelf's own too */
+  try { (JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_JOB_KINDS.json'), 'utf8')).board_people.rows || []).forEach(r => { if (r && r.id && /\{pay\}/.test(r.says || '')) ids.add(r.id); }); } catch (_e) {}
   ok('a camp, a town and a fortress on the same day: 1, 2 and 3 people at the board', boards.map(x => x.length).join() === '1,2,3', boards.map(x => x.map(c => c.name).join(' + ')).join(' | '));
   const sig = boards.map(x => x.map(c => c.id).sort().join());
   ok('  three different boards', new Set(sig).size === 3);
