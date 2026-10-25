@@ -123,3 +123,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 109 | Every man has a job each turn (no melee man parked behind a house); AUTO's mistakes found before he finds them | 188 | COMBAT, TUNING, EYES | QUEUED (COMBAT next; TUNING's watch standing) |
 | 110 | The ranged defence icon looks better; no two stat icons alike | 189 | UI, EYES | RUNNING (UI reopened) |
 | 111 | One HUD on the map, in the town and in the fight (the top bar and CREW never move) | 190 | UI, RUN, RUN TWO, COMBAT | RUNNING (UI) |
+| 112 | Shooters take the shot with the best chance | 191 | COMBAT | QUEUED (with the brain) |
+| 113 | Gear never vanishes (the spear and car door gone by fight three) | 191 | COMBAT, RUN TWO | QUEUED (first on COMBAT's board) |
