@@ -2307,7 +2307,9 @@ const FIGHT = (function () {
     /* THE ROOF (rule 176(f), TUNING s1c: 83% of the missed roofs failed only because the brain weighed THIS turn's shot): to
        AUTO's gunman a roof two storeys up is worth roof_steps steps of closing, while he still has a shot to fire from it (a man
        out of rounds has no reason to hold it: s5b point 4) */
-    if (u.side === 'you' && ranged && level(x, y) >= 1 + 1 && level(u.x, u.y) < 1 + 1 && hasShot(u)) return g * (1 + 1) + R('ours.auto_brain').roof_steps * R('hit_chance.cap').max;
+    /* and the roof is worth HOLDING, not only climbing (measured 10/25: the last dances were a gunman up a roof, off it the next
+       turn, up again): it keeps its worth while a foe stands within his reach from it and a step (he shoots from it now or next turn) */
+    if (u.side === 'you' && ranged && level(x, y) >= 1 + 1 && hasShot(u) && roofReach(u, x, y)) return g * (1 + 1) + R('ours.auto_brain').roof_steps * R('hit_chance.cap').max;
     return ranged ? g * (1 + 1) : g;
   }
   function huntField(u) {
@@ -2330,6 +2332,11 @@ const FIGHT = (function () {
     return function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
   }
   /* 70b: a shooter on the flat with a roof in reach, a target still in range from it and AP left to shoot, climbs first */
+  /* a foe within his gun's reach from a roof tile (the reach each storey up adds, rules.json) and one step more */
+  function roofReach(u, x, y) {
+    const per = R('hit_chance.height.ranged_range_per_level'), w = u.weapon;
+    return foes(u).some(function (f) { return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= rangeMax(w.range) + Math.max(0, level(x, y) - level(f.x, f.y)) * per + 1; });
+  }
   /* he has a shot left to fire this fight: a ranged weapon with rounds or throws left (an empty one-shot gun loads again) */
   function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0); }
   function climb(u, A) {
