@@ -1,0 +1,57 @@
+{
+ "profile": "phone_portrait",
+ "seed": 31,
+ "kinds": {
+  "strip": {
+   "board": "strip + suburb + works",
+   "chromaDay": 6.17,
+   "chromaNight": 5.44,
+   "chromaKept": 0.454,
+   "hueTurn": 161.3,
+   "blownWhite": 0.0557,
+   "wentGrey": 0.308,
+   "dayGrey": 0.386,
+   "darkDay": 0.06,
+   "darkNight": 0.073,
+   "darkKept": 1.216,
+   "litVsDark": 3.75,
+   "nLit": 80,
+   "pools": 49,
+   "errs": []
+  },
+  "freeway": {
+   "board": "strip + suburb + freeway",
+   "chromaDay": 5.91,
+   "chromaNight": 5.76,
+   "chromaKept": 0.474,
+   "hueTurn": 161.9,
+   "blownWhite": 0.0479,
+   "wentGrey": 0.266,
+   "dayGrey": 0.399,
+   "darkDay": 0.1069,
+   "darkNight": 0.0917,
+   "darkKept": 0.858,
+   "litVsDark": 3.25,
+   "nLit": 72,
+   "pools": 43,
+   "errs": []
+  },
+  "suburb": {
+   "board": "suburb + lots",
+   "chromaDay": 12.63,
+   "chromaNight": 5.77,
+   "chromaKept": 0.452,
+   "hueTurn": 161.7,
+   "blownWhite": 0.0314,
+   "wentGrey": 0.189,
+   "dayGrey": 0.109,
+   "darkDay": 0.3314,
+   "darkNight": 0.2285,
+   "darkKept": 0.69,
+   "litVsDark": 2.7,
+   "nLit": 27,
+   "pools": 33,
+   "errs": []
+  }
+ }
+}

@@ -9771,6 +9771,12 @@ GATES = [
      "ANIMATION [the PC playtest: the bodies' part], rule 164 items 21, 22, 31 (Paolo 10/24 on his PC: 'if they're using pistols they shouldn't look like they're holding rifles'; 'when they're in a building... they should look like they're in cover'). A pistol in one hand (rest, walk, fire, rocked), a man on a cover tile or a roof down on one knee behind it, the reload on his body; asked of the 96 men's pictures and of the real fight and the demo. Shipped 64c2139c; put in the suite 10/25 by the lane's next line.", True),
     ('THE THING IN HIS HAND', ['python3', 'gates/melee_in_hand_gate.py'],
      "ANIMATION [the PC playtest: the bodies' part], the next line (rule 164 item 31; the coordinator's order 10/25: melee weapons held right in the hand, the club, the bat, the pipe, the knife, the poacher's hatchet; idle, walk, the swing, the hit taken). Measured before: 225 of 360 men on sixteen real fights held a melee weapon and every one was drawn bare-fisted. The source's keys and slots; every prop on every key in eight facings, touching his body wherever it shows, swung up to his head and out in front of him, the tap across his middle; the real fight and the demo draw the melee idle with the thing in his fist. Three mutations caught.", True),
+    ('THE NIGHT KEEPS ITS COLOUR', ['node', 'gates/the_night_keeps_its_colour_gate.js'],
+     "COOK gate, 10/25, row [eyes: the night board] (rule 179; rule 167(a), Paolo 10/25: 'the combat map like went completely like almost like black and white... "
+     "I was like how it was previously'; EYES 10/25: 'both night fights read almost black and white, grey-blue with pools of light blown out to white'). The fight "
+     "page on his phone, the strip and the suburb by day and by night on one seed, the same texels compared: the night turns the hue at most 25 degrees (it turned "
+     "161, a tan to a blue-grey), keeps 0.6 of the colour (it kept 0.45), under 0.2% blown white (it was 3 to 6%), not greyer than the day by a tenth, and still "
+     "night (the suburb darker, a lit tile three to one). Fails main's old night on three legs. About 3 min", True),
     ('EVERY ITEM HAS A MODEL', ['python3', 'gates/every_item_has_a_model_gate.py'],
      "COOK gate, 10/25, row [a model for every item] (rule 177(c), Paolo 10/25: 'I'm not seeing all the weapons, armour and off-hand items in the actual combat; "
      "I gave everyone car door shields and I don't see that'). Measured before: of the 27 things the stash's 310 rows are met as, 3 had a model a renderer could import "

@@ -2891,13 +2891,27 @@ function bakeBoard() {
    of its radius, because a tile is lit when its middle is inside the radius and the lamps stand on the tiles' edges. BRIGHTNESS (the settings slider, UI's;
    localStorage 'bohemia.brightness', 0 to 1) lifts the moonlight toward white and never touches the day. */
 const NIGHT_TINT = [185, 198, 240], NIGHT_GREY = 0.35;
+/* THE NIGHT KEEPS THE DAY'S HUES (COOK [eyes: the night board], 10/25/26; rule 167(a), Paolo 10/25: 'the combat map like went
+   completely like almost like black and white... I was like how it was previously'; EYES 10/25 on BUILD 10/25o, q39 and q43: 'both
+   night fights read almost black and white, grey-blue with pools of light blown out to white'). MEASURED on the strip, the
+   freeway and the suburb, seed 31, his phone (tools/bohemia_cook_the_night_board_10_25_26.js): the night's ground turned its
+   hue a median 161 degrees (the tan to a blue-grey: a third of the way to grey, then a blue multiplied in, cancels a tan), kept
+   under half its colour (0.45), and 3 to 6 percent of the board went pure white under the lamps (the pool doubled the ground:
+   pale concrete clipped). NOW the GROUND's night (never the men's: their moonlight is their stand-off, rule 73): a cooler,
+   lighter moon (NIGHT_GROUND, the same light kept, 0.58 of the day's) and the day's own hue and colour laid back over the
+   night's light (the 'color' blend, NIGHT_HUE of the way), so a tan street is a darker, cooler tan; and a lamp's pool lifts the
+   ground's own light a little, screens the lamp's warm light over it (screen never passes white) and takes it through the
+   lamp's sodium colour, so the palest slab under a lamp is a warm cream, never white. */
+const NIGHT_GROUND = [186, 197, 228], NIGHT_HUE = 0.45, POOL_GAIN = 0.6, LAMP_WARM = 'rgb(255,222,180)';
 function brightness() { try { const b = parseFloat(localStorage.getItem('bohemia.brightness')); return isFinite(b) ? Math.max(0, Math.min(1, b)) : 0; } catch (_e) { return 0; } }
-function nightTint(lift) { const b = Math.min(1, brightness() / 2 + (lift || 0)); return 'rgb(' + NIGHT_TINT.map(function (v) { return Math.round(v + (255 - v) * b); }).join(',') + ')'; }
-/* the night's colour on any picture: a third of the way to grey, then the moonlight multiplied in; keepAlpha for a figure */
-function nightPass(g, w, h, keep, lift) {
+function nightTint(lift, tint) { const b = Math.min(1, brightness() / 2 + (lift || 0)); return 'rgb(' + (tint || NIGHT_TINT).map(function (v) { return Math.round(v + (255 - v) * b); }).join(',') + ')'; }
+/* the night's colour on any picture: a third of the way to grey, then the moonlight multiplied in; keepAlpha for a figure.
+   dayOf (the GROUND's night, a device-space copy of the canvas as it was by day): the ground's moon, its own hues laid back */
+function nightPass(g, w, h, keep, lift, dayOf) {
   g.save();
-  g.globalCompositeOperation = 'saturation'; g.fillStyle = 'rgba(128,128,128,' + NIGHT_GREY + ')'; g.fillRect(0, 0, w, h);
-  g.globalCompositeOperation = 'multiply'; g.fillStyle = nightTint(lift); g.fillRect(0, 0, w, h);
+  if (!dayOf) { g.globalCompositeOperation = 'saturation'; g.fillStyle = 'rgba(128,128,128,' + NIGHT_GREY + ')'; g.fillRect(0, 0, w, h); }
+  g.globalCompositeOperation = 'multiply'; g.fillStyle = nightTint(lift, dayOf ? NIGHT_GROUND : null); g.fillRect(0, 0, w, h);
+  if (dayOf) { g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'color'; g.globalAlpha = NIGHT_HUE; g.drawImage(dayOf, 0, 0); }
   if (keep) { g.globalCompositeOperation = 'destination-in'; g.drawImage(keep, 0, 0); }
   g.restore();
 }
@@ -2910,7 +2924,7 @@ function nightPools(g, c, lights, k, pxm, pym, onGlass) {
      onGlass: the same, straight on the screen (the sharp ground, [the art at its own pixels]). */
   const cv = g.canvas, T = g.getTransform(), day = document.createElement('canvas');
   day.width = cv.width; day.height = cv.height; day.getContext('2d').drawImage(cv, 0, 0);
-  nightPass(g, c.width, c.height);
+  nightPass(g, c.width, c.height, null, 0, day);   /* the ground's night keeps the day's hues (COOK [eyes: the night board]) */
   const live = FIGHT.S.power ? lights.filter(function (l) { return l.live; }) : [];
   UI.poolsDrawn = live.length;
   if (!live.length) return;
@@ -2918,8 +2932,12 @@ function nightPools(g, c, lights, k, pxm, pym, onGlass) {
   const m = mk.getContext('2d'); m.setTransform(T);
   lightMask(m, live, onGlass);
   const lay = day.getContext('2d');
-  lay.globalCompositeOperation = 'lighter'; lay.drawImage(day, 0, 0);   /* the lamp doubles the ground's own light: its detail kept, not painted flat */
+  /* the lamp lifts the ground's own light, its detail kept; it once DOUBLED it, and pale concrete clipped to white (EYES 10/25):
+     a quarter more, the lamp's warm light screened over it (screen never passes white), then the lamp's sodium colour, so the
+     palest slab under it is a warm cream (COOK [eyes: the night board]) */
+  lay.globalCompositeOperation = 'lighter'; lay.globalAlpha = POOL_GAIN; lay.drawImage(day, 0, 0); lay.globalAlpha = 1;
   lay.globalCompositeOperation = 'screen'; lay.fillStyle = LAMP_LIFT; lay.fillRect(0, 0, day.width, day.height);
+  lay.globalCompositeOperation = 'multiply'; lay.fillStyle = LAMP_WARM; lay.fillRect(0, 0, day.width, day.height);
   lay.globalCompositeOperation = 'destination-in'; lay.drawImage(mk, 0, 0);
   g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(day, 0, 0); g.restore();
   /* the bulb: the light comes from somewhere, a small hot glow at the head of each live lamp (the fire at a drum's mouth) */
@@ -2953,7 +2971,7 @@ function lampShadow(v, X, Y, h) {
    rules light (S.lit) take it whole, the ring past them less, the next ring less again; a tile the lamp cannot see (the
    fight's own sight line, a blocked tile between) takes nothing, so a wall throws its shadow; a roof or a wall takes a part.
    No oval: the map is the tiles' levels at four cells a tile, blown up smooth, a quarter tile soft at each edge. */
-const LIGHT_FALL = [1, .2, .08], ROOF_TAKES = .4, LAMP_LIFT = 'rgba(255,176,104,.38)', WASH_CELLS = 4;
+const LIGHT_FALL = [1, .2, .08], ROOF_TAKES = .4, LAMP_LIFT = 'rgba(255,206,150,.56)', WASH_CELLS = 4;   /* the lamp's light (was .38 of an orange, over a doubled ground) */
 function lightLevels(live) {
   const S = FIGHT.S, T = FIGHT._t, tm = DB.ground.tile_metres, L = [];
   for (let y = 0; y < S.h; y++) { L.push([]); for (let x = 0; x < S.w; x++) {
@@ -3142,7 +3160,7 @@ function ringCanvas() {
   let holes = 0;
   ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[blockBase(q.n)].src]; if (!im) { holes++; return; }
     const x = (q.bx + R) * w, y = (q.by + R) * h; blockBlit(g, mipFor(im, w / DPR), q.n, x, y, w, h); dimCell(g, q, nx, ny, x, y, w, h); });
-  if (S.night) nightPass(g, c.width, c.height);
+  if (S.night) { const dc = document.createElement('canvas'); dc.width = c.width; dc.height = c.height; dc.getContext('2d').drawImage(c, 0, 0); nightPass(g, c.width, c.height, null, 0, dc); }   /* the ground's night keeps its hues */
   /* A RING WITH A HOLE IS NEVER KEPT (10/18, measured: a second fight from AGAIN drew this ring while its blocks were still
      loading, kept it, and 35.7% of the glass stayed flat dirt for the whole fight; the key could not tell, because a canvas
      reads the same as a string every time) */

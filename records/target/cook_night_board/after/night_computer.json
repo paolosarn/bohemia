@@ -1,0 +1,57 @@
+{
+ "profile": "computer",
+ "seed": 31,
+ "kinds": {
+  "strip": {
+   "board": "strip + suburb + works",
+   "chromaDay": 6.17,
+   "chromaNight": 9.5,
+   "chromaKept": 0.753,
+   "hueTurn": 3.4,
+   "blownWhite": 0,
+   "wentGrey": 0.087,
+   "dayGrey": 0.386,
+   "darkDay": 0.06,
+   "darkNight": 0.0688,
+   "darkKept": 1.147,
+   "litVsDark": 3.41,
+   "nLit": 80,
+   "pools": 49,
+   "errs": []
+  },
+  "freeway": {
+   "board": "strip + suburb + freeway",
+   "chromaDay": 5.91,
+   "chromaNight": 8.75,
+   "chromaKept": 0.731,
+   "hueTurn": 2.9,
+   "blownWhite": 0,
+   "wentGrey": 0.13,
+   "dayGrey": 0.399,
+   "darkDay": 0.1069,
+   "darkNight": 0.0904,
+   "darkKept": 0.846,
+   "litVsDark": 2.89,
+   "nLit": 72,
+   "pools": 43,
+   "errs": []
+  },
+  "suburb": {
+   "board": "suburb + lots",
+   "chromaDay": 12.63,
+   "chromaNight": 9.92,
+   "chromaKept": 0.79,
+   "hueTurn": 2.8,
+   "blownWhite": 0,
+   "wentGrey": 0.028,
+   "dayGrey": 0.109,
+   "darkDay": 0.3314,
+   "darkNight": 0.2176,
+   "darkKept": 0.657,
+   "litVsDark": 1.99,
+   "nLit": 27,
+   "pools": 33,
+   "errs": []
+  }
+ }
+}
