@@ -133,3 +133,14 @@ the first fight's lessons say point to see, click to do. The rest of the look is
   was worth 60 and pulled shooters past their own front (THE REBUILT FIGHT PLAYS: backline 19% against 7%, men alone 23%
   against 20%). The library's bonus for higher ground is flat (+10 however many levels), so heightGain is too; the extra
   reach a level shows by itself in who he can hit.
+- THE STAND-OFF UNDER A TALL ROOF: the flat score was not the whole story. Replicated THE REBUILT FIGHT PLAYS' AUTO battery
+  offline (the same ten kinds, seeds 31 to 40): the overrun was one fight, the culdesac board (91 of 102 shooter turns past
+  the front), stuck to round 41: NENA, one throw left, on a two-storey roof; the last thug beside her in the street, unable
+  to swing across two levels (the library's rule), waiting there for ever, because the brain's hunting map counted the street
+  beside her as 'next to her'. huntField now lets a club count a tile as beside a foe only where it can swing from it (one
+  level of height at most); he hunts the men he can hit. Measured offline: backline 102/559 (18%) -> 11/429 (3%), alone
+  55/242 (23%) -> 27/180 (15%), every fight ends (culdesac 10 rounds). Switching parts off showed the bag and the storeys each
+  move these few-fight numbers a lot on their own (chaotic dice, not a rule): without the bag 7% and 15%.
+- [eyes: tap again, nothing] (EYES 10/25 round 2, new 15): RETREAT armed for 8 beats while its line 'Tap again.' stayed up, so
+  the tap it asked for after reading only armed it again (63 s with nobody moving). askUp(): an arm lives as long as its ask
+  is on the glass (the line leaves when the turn passes or another takes its place); the R key's ask the same.

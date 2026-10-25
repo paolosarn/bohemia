@@ -1079,7 +1079,12 @@ async function actFramed() {
       /* an act is judged when it ends with the camera at rest: an act that ends mid-glide (the camera catching up, a frame or
          three under load) is judged the frame the glide lands */
       let pend = [];
-      const loop = () => { const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { pend.push(cur); cur = null; } if (pend.length && !FIGHT_UI.glide) { pend.forEach(look); pend = []; }
+      /* RE-AIMED 10/25 (COMBAT [the PC playtest: the fight's part]): a fight AUTO wins inside the thirty seconds is played again
+         (the page's own AGAIN), so the forty acts are always forty acts judged, never a short fight read as a failure (the strip's
+         seed 11 is won in round 2 once a club stops waiting under a two-storey roof) */
+      const again = () => { if (FIGHT.S.over && !window.__again && document.getElementById('over').style.display === 'flex') { window.__again = true; cur = null; pend = [];
+        document.getElementById('over').style.display = 'none'; Promise.resolve(start()).then(() => { FIGHT_UI.auto = true; window.__again = false; }); } };
+      const loop = () => { again(); if (window.__again) { requestAnimationFrame(loop); return; } const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { pend.push(cur); cur = null; } if (pend.length && !FIGHT_UI.glide) { pend.forEach(look); pend = []; }
         if (a && a.at && (a.k === 'step' || a.k === 'attack')) cur = a; requestAnimationFrame(loop); };
       requestAnimationFrame(loop); });
     await d.page.waitForTimeout(30000);

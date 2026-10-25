@@ -35,7 +35,9 @@
       the lines say click, not tap; Battle Brothers' fight keys from the library (Enter starts and ends, Space waits, W A S D
       pan, Page Up zooms, Alt hides the bars, C opens the card, R twice ends the round, 1 to 9 the skill row); on a phone one tap
       shows and a second does, as before;
-   12. the page threw nothing.
+   12. [eyes: tap again, nothing]: RETREAT's ask stays as long as its arm, so the tap it asks for, read and pressed ten beats
+      later, orders the retreat;
+   13. the page threw nothing.
    Run: node gates/the_pc_playtest_the_fight_gate.js */
 'use strict';
 const path = require('path');
@@ -367,6 +369,23 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
     await p.touchscreen.tap(q.X, q.Y); await p.waitForTimeout(1500);
     const two = await p.evaluate((id) => { const u = FIGHT.byId(id); return [u.x, u.y]; }, q.id);
     leg(one.at[0] === q.from[0] && one.at[1] === q.from[1] && two[0] === q.x && two[1] === q.y, '  on a phone one tap shows, the second walks, as before', JSON.stringify({ afterOne: one.at, afterTwo: two }));
+    errs.push.apply(errs, d.errs); await d.close();
+  }
+  /* [eyes: tap again, nothing] (EYES 10/25 round 2): the ask stays as long as its arm; the tap it asks for, after reading, does it */
+  {
+    const CR = [{ background: 'companion_2hand', name: 'RAUL' }, { background: 'companion_1hand', name: 'DESI' }];
+    const o = { seed: 21, kind: 'suburb', flat: true, company: CR, cap: 12, formation: null, deploy: false, teach: false, band: ['brigand_thug'] };
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS=' + JSON.stringify(o) });
+    const p = d.page;
+    await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && performance.now() > FIGHT_UI.openUntil, null, { timeout: 60000 });
+    for (let i = 0; i < 150; i++) { if (await p.evaluate(() => { const u = FIGHT.current(); return u && crewControlled(u) && !FIGHT_UI.anim.length; })) break; await p.waitForTimeout(100); }
+    const b = await p.evaluate(() => { const r = document.getElementById('bflee').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, beat: beatMs() }; });
+    await p.touchscreen.tap(b.x, b.y); await p.waitForTimeout(b.beat * 10);   /* he reads it: longer than the old 8-beat arm */
+    const mid = await p.evaluate(() => ({ say: document.getElementById('say').textContent, armed: !!FIGHT_UI.fleeArm }));
+    await p.touchscreen.tap(b.x, b.y); await p.waitForTimeout(300);
+    const after = await p.evaluate(() => ({ retreat: !!FIGHT.S.retreat, say: document.getElementById('say').textContent }));
+    leg(/Tap again/.test(mid.say) && mid.armed && after.retreat, '  [eyes: tap again, nothing]: the ask stays with its arm; the tap it asks for, ten beats later, orders the retreat',
+      JSON.stringify({ afterTenBeats: mid, second: after }));
     errs.push.apply(errs, d.errs); await d.close();
   }
   leg(!errs.length, '  the page threw nothing', errs.slice(0, 3).join(' | '));

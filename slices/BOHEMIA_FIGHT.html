@@ -2239,12 +2239,16 @@ const FIGHT = (function () {
     /* breadth-first over open ground from every foe, so a man who sees nobody still finds the fight */
     const key = function (x, y) { return y * S.w + x; };
     const d = {}; const q = [];
+    /* a club counts a tile as beside a foe only where it can swing from it: the library's melee reach stops at one level of height
+       (rule 164 item 14 made roofs two and three storeys up; a thug stood under a two-storey roof for forty rounds, measured) */
+    const club = !isRanged(u.weapon), gap = R('hit_chance.height.melee_max_height_gap');
     foes(u).forEach(function (f) { d[key(f.x, f.y)] = 0; q.push(f); });
     while (q.length) {
       const n = q.shift(), nd = d[key(n.x, n.y)];
       DIRS.forEach(function (o) {
         const x = n.x + o[0], y = n.y + o[1];
         if (!passable(x, y) || squeezes(n.x, n.y, x, y) || d[key(x, y)] !== undefined) return;
+        if (club && nd === 0 && Math.abs(level(x, y) - level(n.x, n.y)) > gap) return;
         d[key(x, y)] = nd + 1; q.push({ x: x, y: y });
       });
     }
@@ -5174,7 +5178,7 @@ function hud() {
   const subT = act ? act.sub : ''; if (sub.textContent !== subT) sub.textContent = subT;
   ['go', 'walk', 'shoot', 'hit', 'throw'].forEach(function (k) { be.classList.toggle(k, !!act && (k === 'go' || k === act.k)); });
   document.getElementById('bwait').disabled = dep || !mine || u.waited;
-  const bf = document.getElementById('bflee'); bf.disabled = dep || !mine || !!S.retreat; if (UI.fleeArm && performance.now() - UI.fleeArm > beatMs() * 8) { UI.fleeArm = 0; bf.classList.remove('arm'); }
+  const bf = document.getElementById('bflee'); bf.disabled = dep || !mine || !!S.retreat; if (UI.fleeArm && !askUp(RETREAT_SAYS.arm, UI.fleeArm)) { UI.fleeArm = 0; bf.classList.remove('arm'); }
   be.disabled = dep ? false : !mine;
   document.getElementById('bauto').classList.toggle('on', UI.auto);
   autoFace();
@@ -5736,11 +5740,15 @@ function hoverAt(px, py) {
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target, nm = UI.pend.sweep; UI.pend = null; UI.sweep = null; if (nm) FIGHT.sweep(u, t, null, nm); else FIGHT.strike(u, t); take(); } };
 /* RETREAT (rule 144(c)): one tap to see (the button arms and the line says what happens), one tap to do, within two bars */
+/* THE ASK LEAVES WITH ITS ARM (EYES [eyes: tap again, nothing], 10/25 round 2: the line said 'Tap again.' after its 8-beat arm had
+   died, so the tap it asked for only armed it again, twice, 63 s with nobody moving): an arm lives as long as its ask is on the
+   glass (it leaves when the turn passes or another line takes its place), and a tap the line asks for always does what it says */
+function askUp(ask, armedAt) { const e = document.getElementById('say'); return !!armedAt && e.style.display !== 'none' && e.textContent === forPointer(ask); }
 const RETREAT_SAYS = { arm: 'Retreat? Your men run for the nearest edge. Who reaches it gets out. No pay. Tap again.', go: 'RETREAT. Run for the edge.' };   /* draft:true */
 document.getElementById('bflee').onclick = function () {
   audio(); const u = FIGHT.current(), b = this, S = FIGHT.S;
   if (S.over || S.deploy || S.retreat || !crewControlled(u)) return;
-  if (!UI.fleeArm || performance.now() - UI.fleeArm > beatMs() * 8) { UI.fleeArm = performance.now(); b.classList.add('arm'); say(RETREAT_SAYS.arm); sfx('ui_tap'); return; }
+  if (!UI.fleeArm || !askUp(RETREAT_SAYS.arm, UI.fleeArm)) { UI.fleeArm = performance.now(); b.classList.add('arm'); say(RETREAT_SAYS.arm, true); sfx('ui_tap'); return; }
   UI.fleeArm = 0; b.classList.remove('arm'); UI.pend = null; UI.skillMode = null; UI.back = null;
   FIGHT.retreat(); say(RETREAT_SAYS.go); callSoon('retreat'); take(); hud();
 };
@@ -5790,7 +5798,7 @@ function keyPress(e) {
     if (mine) { UI.pend = null; UI.skillMode = null; UI.sweep = null; FIGHT.endTurn(u); take(); hud(); } return; }
   if (k === 'r' || k === 'R') {
     if (!mine || S.deploy) return;
-    if (!UI.roundArm || performance.now() - UI.roundArm > beatMs() * 8) { UI.roundArm = performance.now(); say(KEY_SAYS.round); return; }
+    if (!UI.roundArm || !askUp(KEY_SAYS.round, UI.roundArm)) { UI.roundArm = performance.now(); say(KEY_SAYS.round, true); return; }
     UI.roundArm = 0; UI.endRound = S.round; UI.pend = null; say(KEY_SAYS.rounded); FIGHT.endTurn(u); take(); hud(); return; }
   if (/^[1-9]$/.test(k)) { const sq = Array.from(document.querySelectorAll('#skills .sq')).filter(function (b) { return b.style.display !== 'none'; })[Number(k) - 1];
     if (sq && !sq.disabled) sq.click(); return; }
