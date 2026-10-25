@@ -2259,6 +2259,96 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', statIconsDrawer); else statIconsDrawer();
 
   /* ======================================================================================================
+     __THE_FIGHTS_BARS__  (UI [the PC playtest: the UI's part] (4), 10/25/26; rule 164 items 7 and 16, Paolo 10/24 on his PC:
+     the UI is placeholder and must never look like AI slop; the fight's UI better than Battle Brothers', mobile first). MEASURED
+     before: the man's plate carried three unlabelled 5-point strips of flat colour (green, grey, blue) with no number and no
+     name, the browser's default progress bar, read only by its colour. Battle Brothers' bars each have a picture and the
+     numbers printed in them (armour, hitpoints, fatigue). NOW each strip is a gauge: the stat's own icon in front (a heart,
+     the steel shield for armour, the lungs for fatigue), a track sunk into the board (its upper lip in shade, its lower lip
+     catching the kit's sun), the fill a lit tube drawn in pixels with grain, and 'now/most' printed in it in the casing face.
+     The fight's own code still sets every width and colour (its side's red or green is read off it); nothing of COMBAT's moves.
+     ====================================================================================================== */
+  var BARS = { tube: {} };
+  function barTube(rgb) {
+    var key = rgb.join(','); if (BARS.tube[key]) return BARS.tube[key];
+    var W = 64, H = 16, c = document.createElement('canvas'); c.width = W; c.height = H; var g = c.getContext('2d'), sd = 91;
+    var rn = function () { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
+    var prof = [1.45, 1.3, 1.16, 1.06, 1.0, 1.0, 0.97, 0.95, 0.92, 0.9, 0.86, 0.82, 0.76, 0.68, 0.58, 0.46];   /* lit along the top, round to its foot */
+    for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+      var f = prof[y] * (0.94 + rn() * 0.12) * (x % 16 === 15 ? 0.82 : 1);   /* a seam every 16: a tube of cells, not a smear */
+      g.fillStyle = 'rgb(' + Math.min(255, rgb[0] * f | 0) + ',' + Math.min(255, rgb[1] * f | 0) + ',' + Math.min(255, rgb[2] * f | 0) + ')'; g.fillRect(x, y, 1, 1);
+    }
+    return (BARS.tube[key] = c.toDataURL('image/png'));
+  }
+  function barWell() {
+    if (BARS.well) return BARS.well;
+    var W = 64, H = 16, c = document.createElement('canvas'); c.width = W; c.height = H; var g = c.getContext('2d'), sd = 17;
+    var rn = function () { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
+    for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+      var v = y === 0 ? 6 : y === 1 ? 10 : y === H - 1 ? 92 : y === H - 2 ? 44 : 22 + rn() * 7;   /* sunk: the top lip in shade, the foot lit */
+      g.fillStyle = 'rgb(' + (v * 1.08 | 0) + ',' + (v * 0.95 | 0) + ',' + (v * 0.78 | 0) + ')'; g.fillRect(x, y, 1, 1);
+    }
+    return (BARS.well = c.toDataURL('image/png'));
+  }
+  var FIGHT_BARS_CSS = ''
+    + 'html body #stats{gap:4px}'
+    + 'html body #stats .bar{position:relative;height:16px;margin-left:22px;overflow:visible;border-radius:0;background:#16110c var(--bm-bar-well) 0 0/64px 100% repeat-x;box-shadow:0 0 0 1px #0c0805}'
+    + 'html body #stats .bar::before{content:"";position:absolute;left:-22px;top:-1px;width:18px;height:18px;background:center/contain no-repeat;image-rendering:pixelated}'
+    + 'html body #stats .bar.bm-hp::before{background-image:url(stat_icons/hp.png)} html body #stats .bar.bm-arm::before{background-image:url(stat_icons/melee_defense.png)} html body #stats .bar.bm-fat::before{background-image:url(stat_icons/fatigue.png)}'
+    + 'html body #stats .bar i{position:relative;height:12px;margin:2px 0;box-shadow:none;image-rendering:pixelated;background-size:64px 100%!important;background-repeat:repeat-x!important}'
+    + 'html body #stats .bar i[data-bm-tube]{background-image:var(--bm-tube)!important}'
+    + 'html body #stats .bar b.bm-num{position:absolute;right:5px;top:0;bottom:0;display:flex;align-items:center;padding-top:2px;line-height:1;font:400 10px "BohemiaCasing",ui-monospace,monospace;letter-spacing:.6px;color:#f4ead2;text-shadow:1px 1px 0 #0c0805,-1px 0 0 #0c0805,0 -1px 0 #0c0805;pointer-events:none}'
+    + 'html body #stats .bar b.bm-num em{font-style:normal;opacity:.7}';
+  function fightBars() {
+    var st = document.getElementById('stats'), hp = document.getElementById('bhp'), am = document.getElementById('barm'), ft = document.getElementById('bfat');
+    if (!st || !hp || !am || !ft || st.__bmBars) return !!(st && st.__bmBars);
+    st.__bmBars = 1;
+    document.documentElement.style.setProperty('--bm-bar-well', 'url(' + barWell() + ')');
+    style('bm-fight-bars', FIGHT_BARS_CSS);
+    var rows = [[hp, 'bm-hp', 'HITPOINTS'], [am, 'bm-arm', 'ARMOUR'], [ft, 'bm-fat', 'FATIGUE']];
+    rows.forEach(function (r) { var bar = r[0].parentNode; bar.classList.add(r[1]); bar.setAttribute('aria-label', r[2]);
+      var n = document.createElement('b'); n.className = 'bm-num'; bar.appendChild(n); r.push(n); });
+    var shown = function () { try { var U = window.FIGHT_UI, F = FIGHT; return (U && U.pend && U.pend.target) || F.current() || F.S.units[0]; } catch (e) { return null; } };
+    var rgbOf = function (el) { var m = (el.style.backgroundColor || getComputedStyle(el).backgroundColor || '').match(/\d+/g); return m ? m.slice(0, 3).map(Number) : null; };
+    var paint = function () {
+      var v = shown(), fm = null; try { fm = v ? FIGHT.fatMax(v) : null; } catch (e) {}
+      var nums = v ? [[v.hp, v.hpMax], [(v.armB | 0) + (v.armH | 0), (v.armBMax | 0) + (v.armHMax | 0)], [Math.round(v.fat), fm]] : [];
+      rows.forEach(function (r, i) {
+        var c = rgbOf(r[0]); if (c && r[0].dataset.bmRgb !== c.join(',')) { r[0].dataset.bmRgb = c.join(','); r[0].style.setProperty('--bm-tube', 'url(' + barTube(c) + ')'); r[0].setAttribute('data-bm-tube', ''); }
+        var t = nums[i] && nums[i][1] != null ? nums[i][0] + '<em>/' + nums[i][1] + '</em>' : '';
+        if (r[3].__t !== t) { r[3].__t = t; r[3].innerHTML = t; }
+      });
+      BARS.painted = (BARS.painted | 0) + 1; window.__BM_BARS = BARS;
+    };
+    var mo = new MutationObserver(paint); rows.forEach(function (r) { mo.observe(r[0], { attributes: true, attributeFilter: ['style'] }); });
+    paint();
+    return true;
+  }
+  /* THE END SCREEN (RUN TWO's one end screen, 717be9e0; item 4 'the loot screen not slop'): its XP bars were the browser's
+     gradient strips (rule 114's loudest tell); they are the same sunk track and lit tube as the fight's gauges, what he had in
+     bronze and what he just earned in gold. What they left wears his pack's own props beside its count (the batteries and the
+     rounds of the bar, the scrap a crate of what they carried), the receipt it is printed on kept. */
+  var SPOILS_CSS = ''
+    + 'html body .xpbar{height:12px;border:0;border-radius:0;background:#16110c var(--bm-bar-well) 0 0/64px 100% repeat-x;box-shadow:0 0 0 1px #0c0805}'
+    + 'html body .xpbar i{top:2px;bottom:2px;background:#8a6c44 var(--bm-tube-xp-was) 0 0/64px 100% repeat-x!important;image-rendering:pixelated}'
+    + 'html body .xpbar u{top:2px;bottom:2px;background:#e2b45a var(--bm-tube-xp-now) 0 0/64px 100% repeat-x!important;image-rendering:pixelated}'
+    + 'html body .count[data-count]{position:relative;padding-left:54px}'
+    + 'html body .count[data-count]::before{content:"";position:absolute;left:8px;top:50%;width:40px;height:40px;margin-top:-20px;background:center/contain no-repeat;image-rendering:pixelated}'
+    + 'html body .count[data-count=batteries]::before{background-image:url(supply_icons/batteries.png)} html body .count[data-count=rounds]::before{background-image:url(supply_icons/rounds.png)}'
+    + 'html body .count[data-count=scrap]::before{background-image:url(supply_icons/scrap.png)}';
+  function dressSpoils() {
+    if (!document.getElementById('lootall') || !document.getElementById('tally')) return false;
+    var R = document.documentElement.style;
+    R.setProperty('--bm-bar-well', 'url(' + barWell() + ')');
+    R.setProperty('--bm-tube-xp-was', 'url(' + barTube([138, 108, 68]) + ')'); R.setProperty('--bm-tube-xp-now', 'url(' + barTube([226, 180, 90]) + ')');
+    style('bm-spoils', SPOILS_CSS); return true;
+  }
+  (function () { var n = 0, go = function () { if (dressSpoils() || ++n > 40) return; setTimeout(go, 250); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go(); })();
+  (function () { var n = 0, go = function () { if (fightBars() || ++n > 120) return; setTimeout(go, 500); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go(); })();
+
+  /* ======================================================================================================
      __BATTLE_BROTHERS_KEYS__  (UI [the PC playtest: the UI's part] (1), 10/25/26; rule 164 item 1, Paolo 10/24 on his PC:
      'find out all the keyboard button clicks that were on Battle Brothers and do pretty much the exact same for Bohemia').
      Source: the wiki's Keyboard Shortcuts page, through Grok ask 105 (PASSED FILTER; Grok, unverified), checked against

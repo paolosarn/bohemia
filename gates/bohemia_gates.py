@@ -9684,6 +9684,10 @@ GATES = [
      "UI gate, 10/25, row [the PC playtest: the UI's part] (3) (rule 164 item 4, PAOLO 10/24 on his PC: 'we need awesome logos for everything... Battle Brothers has logos too, a heart, a shield'). "
      "Eight icons, one per stat, 72 x 72, each a lit solid read off its pixels (the sun's side brighter, many tones, an inked edge; a flat fill fails); the tool is seeded; "
      "on the demo the crew screen shows all eight beside their names at 24 points; the fight's drawer wears them on its rows; nothing thrown.", True),
+    ('THE FIGHT\'S BARS AND THE END SCREEN', ['node', 'gates/the_fights_bars_and_the_end_screen_gate.js'],
+     "UI gate, 10/25, row [the PC playtest: the UI's part] (4) (rule 164 items 7, 16 and 25, PAOLO 10/24 on his PC: the UI never AI slop; the loot screen is slop; the fight's UI better than Battle Brothers'). "
+     "The fight's three strips are gauges on a phone and a computer: the stat icon in front (heart, shield, lungs), 16 points, a sunk track and a lit fill drawn in pixels, no gradient, "
+     "the man's own numbers printed in them and following the man shown; the end screen's XP bars the same track and tube, no gradient; what they left wears his pack's props; nothing thrown.", True),
     ('THE TEN CHANGES, THE UIS PART', ['node', 'gates/the_ten_changes_the_uis_part_gate.js'],
      "UI gate, 10/24, rows [the ten changes: the UI's part] and [portrait menu] (rule 133, PAOLO 10/23: 'like Battle Brothers but quicker and funner for normies'; TUNING's changes 2, 3, 5, 6, 8). "
      "THE STRANGER'S WALK (tools/bohemia_ui_the_ten_changes_walk.js, real touches, the committed demo): the bar carries two numbers, the batteries and the nights the map's bill covers, the crew the bill feeds; "
