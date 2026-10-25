@@ -159,4 +159,36 @@ What the days say:
 - Renown's pay multiplier and the 200 renown at the door.
 
 [bb the Lone Wolf: one hedge knight, level 4, great equipment, low funds; the wiki names no talents, the stars are his memory and the ruling]
+
+---------------------------------------------------------------------------------------------------------------------------
+
+## 2a. THE OTHER FOURTEEN TODAY: EVERY ORIGIN WALKS IN AS THE SAME CREW (measured off the live fight's own setup)
+
+origins.json hands each origin's men as a background and a level, nothing else. The fight stands them in the line's first
+places and deals each his place's kit (guns to the best eyes, rule 120(a)). So, read off the live setup at this commit:
+
+| origin | its men (the file) | what they carry into the first fight | armour a man |
+|---|---|---|---|
+| THE CREW THAT IS LEFT, A NEW CREW, UP FROM HENDERSON | three companions, level 1 | a pistol and a car door, a pistol and a car door, a rifle | 90 to 95 |
+| THE WATER TRUCK | two caravan hands | a pistol and a car door, a rifle | 90 to 95 |
+| THE BLOCK WATCH | twelve lowborn | the crew rows' twelve: two pistols, three rifles, the shotgun, three pipes, two sledges, the bottles | 55 to 100 |
+| THE SCAVENGERS | a hunter (level 2) and two poachers | a pistol and a car door, a rifle, a pistol and a car door | 90 to 95 |
+| THE PROMISE KEEPERS | two oathtakers, level 3 and 1 | a pistol and a car door, a rifle | 90 to 95 |
+| THE DESERTERS | three deserters, two at level 2 | a pistol and a car door, a rifle, a pistol and a car door | 90 to 95 |
+| THE RAIDERS | three barbarians (level 3) and a monk | a pistol and a car door, two rifles, a pistol and a car door | 90 to 95 |
+| THE LAB RATS, THE FAITHFUL, THE HUNTERS, THE FIGHT PIT | their three or four | a pistol and a car door, a rifle or two, a pistol and a car door | 90 to 95 |
+| THE DEBT COLLECTORS | two manhunters and four in debt | the first six crew rows' kits | 60 to 95 |
+
+What that means:
+1. **Every origin is the same crew in different names.** A level-3 gladiator and a level-1 anatomist walk into the first fight
+   holding the same pistol and car door in the same 90 armour. THE CREW THAT IS LEFT, A NEW CREW and UP FROM HENDERSON are the
+   same three men, rolled from the same names: every row measured below is identical for the three.
+2. **A stated level is a label.** Six origins state levels (the Lone Wolf 4, the raiders, the promise keepers' old man and the
+   gladiators 3, the deserters and the hunters 2). The fight rolls every man's numbers at level 1; the level adds only his XP and
+   perk points. A level-3 barbarian has the numbers of a fresh barbarian.
+3. **The same men every game.** A man the door hands with no card is rolled from his name, his look and his background, so every
+   game's crew is the same crew (EYES' hitpoints-drift fix, 10/24, did that on purpose for the fight; the door never rolls a new man).
+4. **No stars reach the fight from the door, no renown, no food, no goods** (TUNING 10/10 and 10/19 pages, still open).
+5. **Nothing of each origin's promise is in the first hour** except the head count, the purse and the field cap (rule 75a).
+
 [analog horror: the same man in the same rags at the door of every game was the tell; a new face every time is the fix]
