@@ -2426,7 +2426,7 @@ tools before building anything new.
 PENDING Paolo: none.
 
 ECONOMY (economy-vamily-10-25): 10/25 LATEST (x) -- [how many currencies] SHIPPED a7cf3682 and [the mayor arc, researched]
-SHIPPED 7db344ba, THE NEW AGE (rule 112: opened by the coordinator after the weekly reset; the 10/24 ECONOMY chat died on the
+SHIPPED e5ee70a3, THE NEW AGE (rule 112: opened by the coordinator after the weekly reset; the 10/24 ECONOMY chat died on the
 limit before it wrote; research only, no screen, no data file the game reads, no VOTE sheet, rule 88).
 (1) records/BOHEMIA_ECONOMY_DAY_80_HOW_MANY_CURRENCIES_HIS_FOUR_ARE_BATTLE_BROTHERS_FOUR_AND_THE_GAME_COUNTS_ONE_10_25_26.md.
 THE ANSWER: the bar shows SIX, BATTERIES FOOD WATER TAPE MEDS ROUNDS (rule 47), hold the batteries for the nights (151(a)'s
