@@ -101,8 +101,8 @@ something you can feel.
   ways to pay for the same meal, and the one on the bar (batteries) hides the other. When the six are counted, the
   bill becomes wages only and the meal comes out of FOOD and WATER (Battle Brothers: wages in crowns, food from the
   pack).
-- Clout can be spent (`ask:leaned`) but there is no way on the map to earn it: a currency with a drain and no
-  faucet (Day 23 named this exact shape on 9/4).
+- Clout is standing, not money: quest beats pay it (`@DO pay clout 1`) and the town stall makes it; it stays off the
+  bar and lives where standing lives.
 
 ## ROUTED
 
