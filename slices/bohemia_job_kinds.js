@@ -141,6 +141,7 @@
     finish(job);
     job.result = { paid: n, at: day() };
     window.__JOB_PAID = (window.__JOB_PAID || []).concat([{ id: job.id, kind: job.plays, paid: n, of: job.pay }]).slice(-20);
+    try { window.dispatchEvent(new CustomEvent('bohemia-job-paid', { detail: { job: job, paid: n, of: job.pay } })); } catch (e) {}   /* the client says it now, with this number (UI's voice) */
     sayLine(line || ('Paid ' + n + ' battery: ' + job.title + '.'));
     save('contract:paid');
   }

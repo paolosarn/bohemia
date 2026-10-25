@@ -17,7 +17,11 @@
      D   DROP A JOB, BATTLE BROTHERS' WAY: the job goes, the client's standing pays for it, the phone says so plainly
 
    On his computer's screen (he played on his PC), JOBS_PART_PROFILE=phone_portrait for the phone.
-   node gates/the_jobs_part_gate.js [roster|names|drop]
+   P   [eyes: paid before it lands]: a road fight on an escort says nothing about pay; the client says paid once, when the money
+       lands, with the number that lands
+   E   [eyes: a place that is nothing]: a click on SLOAN's name at the far stop walks there and its screen opens; PRIMM, named by a
+       job, keeps its name clear of IVANPAH SOLAR's
+   node gates/the_jobs_part_gate.js [roster|names|drop|pay|place]
    ========================================================================== */
 'use strict';
 const path = require('path');
@@ -302,6 +306,69 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       /* the button is UI's (UI [the PC playtest: the UI's part] (5)): said, not judged here */
       const btn = await fr.evaluate(() => [...document.querySelectorAll('button,[role=button]')].filter(e => /\bdrop\b/i.test(e.textContent || '') || e.dataset.drop != null).length);
       console.log('  info D8 UI\'s DROP on the phone and the job card: ' + (btn ? btn + ' drawn' : 'not drawn yet (UI\'s row (5))'));
+    }
+
+    /* ---------------- P: [eyes: paid before it lands] (EYES round 2, new 5): THE CLIENT SAYS PAID ONCE, WHEN IT LANDS ---------------- */
+    if (!ONLY || ONLY === 'pay') {
+      await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; window.__JOB_PAY_SAID = null; render(); });
+      if (!(await settleOpen())) await toTown(null);
+      await take('qd-a02'); await leave();
+      let j = await job('qd-a02');
+      ok('P1 "Ride shotgun to the salt camp" taken: ' + (j ? j.cargo.n + ' ' + j.cargo.unit + 's to ' + j.dest.name : 'no job'), !!j && j.plays === 'haul-caravan');
+      let roadFight = null, saidMid = null, fights = 0;
+      for (let k = 0; k < 10 && j; k++) {
+        if (!(await fr.evaluate(() => !!TRAVEL))) await goCell(j.target.x, j.target.y);
+        await waitFor(async () => (await shell()).fight || !(await job('qd-a02')) || await fr.evaluate(() => !TRAVEL), 180000);
+        if ((await shell()).fight) {
+          fights++; await forceWin();
+          if (roadFight == null && (await job('qd-a02'))) { roadFight = true;
+            await d.page.waitForTimeout(1500);
+            saidMid = await fr.evaluate(() => ({ said: window.__JOB_PAY_SAID, shown: ((window.__VOICE && __VOICE.shown) || []).filter(x => x.id === 'pay:qd-a02').map(x => x.tag + ' ' + x.line), bats: loopBats() })); }
+        }
+        j = await job('qd-a02');
+      }
+      ok('P2 A ROAD FIGHT MID-JOB SAYS NOTHING ABOUT PAY: the job goes on (' + (roadFight ? JSON.stringify(saidMid) : 'no road fight this run') + ')',
+        !roadFight || (!saidMid.said && saidMid.shown.length === 0));
+      const paid = (await fr.evaluate(() => window.__JOB_PAID || [])).filter(p => p.id === 'qd-a02')[0];
+      const said = await fr.evaluate(() => window.__JOB_PAY_SAID);
+      ok('P3 AND WHEN IT LANDS, ONCE, WITH THE NUMBER THAT LANDS: paid ' + (paid ? paid.paid + ' of ' + paid.of : 'nothing') + ', the client says ' + JSON.stringify(said),
+        !!paid && !!said && said.id === 'qd-a02' && said.paid === paid.paid && said.line && said.line.indexOf(String(paid.paid)) === 0);
+    }
+
+    /* ---------------- E: [eyes: a place that is nothing] (EYES round 2, new 18): A NAME YOU CAN TRAVEL TO IS SOMETHING ---------------- */
+    if (!ONLY || ONLY === 'place') {
+      await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; render(); });
+      if (await settleOpen()) await leave();
+      await waitFor(() => fr.evaluate(() => !!(window.BOH_REGION && BOH_REGION.ready)), 120000);
+      /* the far stop, by the wheel on his computer, then a click on SLOAN's name where it is drawn */
+      const fb = await cityBox();
+      const cv = await fr.evaluate(() => { const r = document.getElementById('cv').getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
+      for (let i = 0; i < 25; i++) { await d.page.mouse.move(fb.x + cv.x + cv.w / 2, fb.y + cv.y + cv.h / 2); await d.page.mouse.wheel(0, 400); await d.page.waitForTimeout(120); }
+      await d.page.waitForTimeout(1200);
+      const q = await fr.evaluate(() => { render(); const b = (BOH_REGION.nameBoxes || []).filter(x => x[3] === 'SLOAN')[0]; return b ? { x: b[0] + b[2] / 2, y: b[1] + 6 } : null; });
+      ok('E1 at the far stop SLOAN is named on the map (' + JSON.stringify(q) + ')', !!q);
+      if (q) await d.page.mouse.click(fb.x + cv.x + q.x, fb.y + cv.y + q.y);
+      await d.page.waitForTimeout(600);
+      const go = await fr.evaluate(() => TRAVEL && TRAVEL.to ? TRAVEL.to.slice() : null);
+      await waitFor(async () => await settleOpen() || (await shell()).fight || await fr.evaluate(() => !TRAVEL), 240000);
+      if ((await shell()).fight) { await forceWin(); const sl = await fr.evaluate(() => { const p = BOH_REGION.places.filter(x => x.name === 'SLOAN')[0]; return townDoor(p.x, p.y); }); await goCell(sl[0], sl[1]); await waitFor(settleOpen, 240000); }
+      await waitFor(settleOpen, 8000);
+      const at = await fr.evaluate(() => ({ open: LOOP.open && LOOP.open.name, here: (loopTownAt(city.x, city.y, 1) || {}).name }));
+      ok('E2 A CLICK ON THE NAME GOES SOMEWHERE THAT IS SOMETHING: set out for ' + JSON.stringify(go) + ', and SLOAN\'s screen opens (' + JSON.stringify(at) + ')', !!go && at.open === 'SLOAN');
+      await shot('E_sloan_opens');
+      /* PRIMM, named by a job (taken here at SLOAN's board), is never under IVANPAH SOLAR's name */
+      await fr.evaluate(() => { LOOP.held = []; render(); });
+      await take('qd-ar05'); await leave();
+      await waitFor(async () => { const jj = await job('qd-ar05'); return !jj || jj.stage !== 'wait'; }, 120000);
+      const pr = await fr.evaluate(() => { const P = BOH_REGION.places.filter(x => x.name === 'PRIMM')[0]; const r = document.getElementById('cv');
+        /* PRIMM on the glass: the camera over it, the way a drag puts it there */
+        const was = [panX, panY]; panX += (CVW / 2) - (CVW / 2 - (city.x - city.y) * TW / 2 + panX + (P.x - P.y) * TW / 2); panY += (CVH / 2) - (CVH / 2 - (city.x + city.y) * TH / 2 + panY + (P.x + P.y) * TH / 2);
+        try { clampPan(); } catch (e) {} render();
+        const B = BOH_REGION.nameBoxes || [], a = B.filter(x => x[3] === 'PRIMM')[0], b = B.filter(x => x[3] === 'IVANPAH SOLAR')[0];
+        const over = !!(a && b && a[0] < b[0] + b[2] && a[0] + a[2] > b[0] && a[1] < b[1] + 13 && a[1] + 13 > b[1]);
+        return { primm: a, ivanpah: b, over: over, jobNamed: BOH_REGION.jobNamed }; });
+      ok('E3 PRIMM, the place a job names, keeps its name clear of IVANPAH SOLAR\'s (' + JSON.stringify(pr) + ')', !!pr.primm && !pr.over && pr.jobNamed >= 1);
+      await shot('E_primm_and_ivanpah');
     }
   } catch (e) {
     ok('the drive ran without a throw [' + String(e && e.message || e).slice(0, 200) + ' ' + String(e && e.stack || '').split('\n').filter(l => /the_jobs_part_gate/.test(l)).slice(0, 2).join(' ').replace(/\s+/g, ' ').slice(0, 200) + ']', false);

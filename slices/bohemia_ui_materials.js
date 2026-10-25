@@ -2035,6 +2035,9 @@
     var o = d.outcome || {}, won = !!(o.victory || o.result === 'win'), job = null;
     try { var id = LOOP.fighting; (LOOP.held || []).forEach(function (h) { if (h.id === id) job = h; }); } catch (e) {}
     var paid = !!(job && won && !((o.alive | 0) > 0));
+    /* WORLD [eyes: paid before it lands] (rule 150): a job of a kind (an escort, a hunt, a hold) is not paid by a won fight on its
+       road; it pays when its own end lands, and says so then with the number that lands ('bohemia-job-paid', below) */
+    try { if (paid && window.BohemiaJobKinds && BohemiaJobKinds.owns(job)) paid = false; } catch (e) {}
     var day = tenDay(); if (won && !((o.alive | 0) > 0)) VOICE.won[day] = (VOICE.won[day] | 0) + 1;
     TEN.why = paid ? 'pay' : (won ? 'win' : 'loss');
     var snap = null; try { snap = window.parent.__BM_FIGHT_OVER; if (!snap || Date.now() - snap.at > 60000) snap = null; } catch (e) {}
@@ -2171,6 +2174,12 @@
     window.addEventListener('message', function (ev) { var d = ev && ev.data; if (!d) return;
       if (d.type === 'BOHEMIA_START' && !VOICE.t0) VOICE.t0 = performance.now();
       if (d.type === 'BOHEMIA_CITY_COMBAT_END') { try { tenFightHome(d); } catch (e) {} } });
+    /* WORLD [eyes: paid before it lands]: the client says paid once, when the money lands, with the number that lands */
+    window.addEventListener('bohemia-job-paid', function (ev) { var d = ev && ev.detail; if (!d || !d.job || !(d.paid > 0)) return;
+      try { var cl = clientOf(d.job), l = (d.paid < d.of && L('client_pay_part')) || L('client_pay');
+        if (cl && l) say({ id: 'pay:' + d.job.id, kind: 'pay', who: cl, line: fill(l.line, { pay: d.paid }), tag: '+' + d.paid, prio: 1, ttl: l.ttl || 45 });
+        var f1 = L('first_pay'), sec = tenSecond(); if (f1 && sec) say({ id: 'first_pay', kind: 'teach', once: true, who: sec, line: f1.line, prio: 1, ttl: f1.ttl || 90 });
+        window.__JOB_PAY_SAID = { id: d.job.id, paid: d.paid, of: d.of, line: l ? fill(l.line, { pay: d.paid }) : null }; } catch (e) {} });
     voiceLines(); voiceFaces();
     /* the tag's nine pieces are fetched now, so the first plate he asks for is already tin (the map draws on demand) */
     ['tl', 't', 'tr', 'l', 'c', 'r', 'bl', 'b', 'br'].forEach(function (k) { plateImg('tin', k); });

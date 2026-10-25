@@ -63,6 +63,12 @@
    "who": "the client who posted the job (the board's own person)",
    "draft": true
   },
+  "client_pay_part": {
+   "line": "{pay} batteries, for what got here. Gracias.",
+   "ttl": 45,
+   "who": "the client who posted the job, when only part of it landed (WORLD [eyes: paid before it lands])",
+   "draft": true
+  },
   "hurt": {
    "line": "They got me. {days} days, then I'm back.",
    "ttl": 45,

@@ -327,7 +327,7 @@
   };
   function drawPlaces(){
     var ox = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY);
-    var drawn = 0, named = 0, boxes = [], jobNamed = 0;
+    var drawn = 0, named = 0, boxes = [], jobNamed = 0, names = [];
     g.save();
     R.places.forEach(function(p){
       var q = iso(p.x, p.y, ox, oy); if (q.sx < -60 || q.sx > CVW + 60 || q.sy < -60 || q.sy > CVH + 60) return;
@@ -335,29 +335,45 @@
       try { ps = mapBaseDraw(p.tier, p.name, q.sx, foot, false, mapArtBeat()); } catch(_e){ ps = null; }
       if (!ps) { g.fillStyle = 'rgba(14,11,8,0.6)'; g.beginPath(); g.ellipse(q.sx, foot - 4, 14, 5, 0, 0, 7); g.fill();
         g.fillStyle = '#c8a558'; g.fillRect(q.sx - 5, foot - 16, 10, 12); }
-      var h = ps ? ps.height : 16;
-      g.font = 'bold 10px ui-monospace, monospace'; g.textAlign = 'center';
-      var w = g.measureText(p.name).width + 8, ty = Math.round(foot - h - 10);
-      /* a name never sits on another: nudged up a line at a time, three tries, else the place stands unnamed */
-      var bx = Math.round(q.sx - w / 2), free = false;
-      for (var tries = 0; tries < 4 && !free; tries++) {
-        free = boxes.every(function(b){ return bx + w <= b[0] || bx >= b[0] + b[2] || ty <= b[1] - 10 || ty - 10 >= b[1] + 3; });
-        if (!free) ty -= 14; }
-      drawn++;
       /* __A_JOB_NAMES_ITS_PLACE__ (WORLD, rule 164 item 3): a place a held job names is always named, lit, and the one it sends
          him to next wears the lit ring (slices/bohemia_job_kinds.js) */
       var job = null; try { job = (window.BohemiaJobKinds && BohemiaJobKinds.names) ? BohemiaJobKinds.names(p.name) : null; } catch(_e){}
-      if (!free && !job) return;
       if (job === 'next') { g.save(); g.globalAlpha = 0.55 + 0.35 * ((mapArtBeat() % 2) ? 1 : 0); g.strokeStyle = '#f0b44c'; g.lineWidth = 2;
         g.beginPath(); g.ellipse(q.sx, foot - 2, 30, 11, 0, 0, 7); g.stroke(); g.restore(); }
-      boxes.push([bx, ty - 10, w]);
+      /* WORLD [eyes: a place that is nothing] (EYES round 2, new 18: 'a click on SLOAN... on arrival nothing opens'): MEASURED, a
+         click on a place's name or building out here walked to the ground under the finger (SLOAN's name: block 50,96, six blocks
+         off); the place now answers a tap the way a valley town does (the map's MAP_TOWN_HIT: its building, then its name), so the
+         click goes to its gate and its screen opens */
+      var bw = (ps && ps.width) || 40, bh = ps ? ps.height : 16, hitE = { name: p.name, x: p.x, y: p.y, plate: null, region: true,
+        bld: { x: q.sx - bw / 2, y: foot - bh, w: bw, h: bh + 8 } };
+      try { MAP_TOWN_HIT.push(hitE); } catch(_e){}
+      names.push({ p: p, q: q, foot: foot, h: bh, job: job, hit: hitE });
+      drawn++;
+    });
+    /* THE NAMES AFTER EVERY BUILDING, a job's places first (WORLD [eyes: a place that is nothing], EYES round 2: 'PRIMM's own name
+       sits under IVANPAH SOLAR's plate'): a building drawn later never covers a name, and the place a job names keeps its spot;
+       a neighbour moves up around it */
+    names.sort(function(a, b){ return (b.job ? 1 : 0) - (a.job ? 1 : 0); });
+    names.forEach(function(n){
+      var p = n.p, q = n.q, job = n.job;
+      g.font = 'bold 10px ui-monospace, monospace'; g.textAlign = 'center';
+      var w = g.measureText(p.name).width + 8, ty = Math.round(n.foot - n.h - 10);
+      /* a name never sits on another: nudged up a line at a time, three tries, else the place stands unnamed */
+      var bx = Math.round(q.sx - w / 2), free = false;
+      for (var tries = 0; tries < 4 && !free; tries++) {
+        /* a name is 13 tall, from ty - 10 to ty + 3 (WORLD 10/25: the test let two overlap by up to 10, PRIMM under IVANPAH SOLAR) */
+        free = boxes.every(function(b){ return bx + w <= b[0] || bx >= b[0] + b[2] || ty + 3 <= b[1] || ty - 10 >= b[1] + 13; });
+        if (!free) ty -= 14; }
+      if (!free && !job) return;
+      boxes.push([bx, ty - 10, w, p.name]);
+      n.hit.plate = { x: bx, y: ty - 10, w: w, h: 13 };
       g.fillStyle = 'rgba(14,11,8,0.82)'; g.fillRect(bx, ty - 10, Math.round(w), 13);
       g.fillStyle = job ? '#ffd27a' : '#e8dcc0'; g.fillText(p.name, Math.round(q.sx), ty);
       if (job) jobNamed++;
       named++;
     });
     g.restore();
-    R.drawn = drawn; R.named = named; R.jobNamed = jobNamed;
+    R.drawn = drawn; R.named = named; R.jobNamed = jobNamed; R.nameBoxes = boxes;
   }
 
   /* ---- what the map says out loud while he is out there ---- */
