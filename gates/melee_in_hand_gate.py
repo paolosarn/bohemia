@@ -243,6 +243,7 @@ for k, e in E.items():
         if extra: pal.append('%s things %s +%d colours off the palette' % (k, l_, len(extra)))
     for ly in [l_ for l_ in READY if l_ in e.get('layers', ['m1'])]:
       for p in props_of(ly):
+        if e.get('held') and not D['props'][p].get('shield'): continue   # never drawn in a held look's hand (his model carries his own): only his shield is
         for src, kk in keys_of(ly, p):
             try: o_ = owner(k, p, src)[0]
             except KeyError: pmiss.append('%s %s %s k%d' % (k, p, src, kk)); continue
@@ -328,7 +329,7 @@ def gap(bm, bx, by, pm, px, py):
 def hand_faults(E, only=None):
     out = []
     for k, e in E.items():
-        if 'props' not in e or (only and k not in only): continue
+        if 'props' not in e or e.get('held') or (only and k not in only): continue   # a man with his own modelled weapon is drawn without the prop
         for p, src, kk in sorted(set((p_, s_, k_) for ly in READY if ly in e.get('layers', ['m1']) for p_ in props_of(ly) for s_, k_ in keys_of(ly, p_) if not D['props'][p_].get('shield'))):
                 for f in range(8):
                     pr = prop(k, p, src, kk, f, e)
@@ -344,7 +345,7 @@ def swing_faults(E, only=None):
     crown); the blow carries it out in front of him (its far end a fifth of his height past his foot)"""
     out = []
     for k, e in E.items():
-        if 'props' not in e or (only and k not in only): continue
+        if 'props' not in e or e.get('held') or (only and k not in only): continue   # a man with his own modelled weapon is drawn without the prop
         fx, fy = e['foot']
         for f, side in ((2, 1), (6, -1)):
             bm, bx, by = body(k, 'PIdle', 0, f); ys = np.nonzero(bm)[0]; crown = by + ys.min(); h = fy - crown
@@ -436,7 +437,7 @@ def two_faults(E, only=None):
     either way: it rests a hand's length nearer or further from the camera); THE TWO-HANDED WIND raises it over his crown"""
     out = []
     for k, e in E.items():
-        if 'props' not in e or 't2' not in e.get('layers', []) or (only and k not in only): continue
+        if 'props' not in e or e.get('held') or 't2' not in e.get('layers', []) or (only and k not in only): continue   # a held look's two-handers are never drawn
         fx, fy = e['foot']
         for f, nm in ((2, 'E'), (6, 'W')):
             bm, bx, by = body(k, 'T2Idle', 0, f); ys = np.nonzero(bm)[0]; crown = by + ys.min()
@@ -457,7 +458,7 @@ def two_faults(E, only=None):
 if 't2' in READY:
     tf2 = two_faults(E)
     ok('T1 TWO HANDS in profile: the lean sets its head on the ground before him, the two-handed wind raises it over his crown (a thing under 80 cm to it)', not tf2, tf2[:4])
-    kt = next((k for k in named if 't2' in E[k].get('layers', []) and props_of('t2')[0] in E[k].get('props', {}).get('by', {})), None)
+    kt = next((k for k in named if not E[k].get('held') and 't2' in E[k].get('layers', []) and props_of('t2')[0] in E[k].get('props', {}).get('by', {})), None)
     ok('T0 a named look carries the two-handed things', bool(kt))
     if kt:
         mt = json.loads(json.dumps(E[kt])); p0 = props_of('t2')[0]
