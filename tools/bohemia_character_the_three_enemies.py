@@ -749,9 +749,13 @@ def pack():
     # THE POOLS: one per type, the band the fight deals the type's men from (COMBAT's enemy rows name the key)
     op_ = os.path.join(ROOT, 'records/target/bb/ours.json'); O = json.load(open(op_)); PL = O['people_looks']['value']
     for t in ORDER:
-        PL['band'][POOL[t]] = [lk for p, lk in made_ if p['gang'] == t]
+        mine = [lk for p, lk in made_ if p['gang'] == t]
+        # a pool switches only when the whole type is made: three Runners for a band of ten would put twins on the board
+        # (121(i)), so until then the band keeps the pool it had (COMBAT's fallback, pl[kind])
+        if len(mine) == COUNT[t]: PL['band'][POOL[t]] = mine
+        else: print('HELD %s: %d of %d made, its pool waits' % (POOL[t], len(mine), COUNT[t]))
     with open(op_, 'w') as f: f.write(json.dumps(O, indent=1, ensure_ascii=False) + '\n')
-    print('packed', len(made_), {POOL[t]: PL['band'][POOL[t]] for t in ORDER})
+    print('packed', len(made_), {POOL[t]: PL['band'].get(POOL[t]) for t in ORDER})
 
 
 # ---- THE SHEET (for the record and the lane's own eye; no card, rule 127) --------------------------------------------

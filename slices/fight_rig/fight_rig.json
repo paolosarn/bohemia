@@ -1357,6 +1357,81 @@
    "guns": "you_guns.webp",
    "gang": "town",
    "rig": "records/target/combat/rig/person_town_11/rig.json"
+  },
+  "enemy_mechanic_0": {
+   "file": "enemy_mechanic_0.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.862,
+   "kind": "enemy",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "type": "mechanic",
+   "rig": "records/target/combat/rig/enemy_mechanic_0/rig.json"
+  },
+  "enemy_mechanic_1": {
+   "file": "enemy_mechanic_1.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.86,
+   "kind": "enemy",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "type": "mechanic",
+   "rig": "records/target/combat/rig/enemy_mechanic_1/rig.json"
+  },
+  "enemy_runner_0": {
+   "file": "enemy_runner_0.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.752,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "runner",
+   "rig": "records/target/combat/rig/enemy_runner_0/rig.json"
+  },
+  "enemy_runner_1": {
+   "file": "enemy_runner_1.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.748,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "runner",
+   "rig": "records/target/combat/rig/enemy_runner_1/rig.json"
+  },
+  "enemy_heavy_0": {
+   "file": "enemy_heavy_0.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.742,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "heavy",
+   "rig": "records/target/combat/rig/enemy_heavy_0/rig.json"
   }
  },
  "faces": {
@@ -1441,7 +1516,12 @@
    "person_town_8",
    "person_town_9",
    "person_town_10",
-   "person_town_11"
+   "person_town_11",
+   "enemy_mechanic_0",
+   "enemy_mechanic_1",
+   "enemy_runner_0",
+   "enemy_runner_1",
+   "enemy_heavy_0"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"
@@ -1503,5 +1583,6 @@
   },
   "src": "COOK's guns (reference/models/bohemia/gun_*_a.glb) rendered in each look's hands with his body as a holdout, tools/bohemia_combat_the_guns_in_their_hands.py"
  },
- "people": "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them"
+ "people": "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them",
+ "enemies": "CHARACTER [the three enemies' looks] 10/24: the Mechanic, the Kids and Runners and the Heavy (kind 'enemy'), packed by tools/bohemia_character_the_three_enemies.py pack into a reference gang's cell with its guns; their pools are ours.people_looks.band.mechanic / runner / heavy"
 }

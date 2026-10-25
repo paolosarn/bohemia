@@ -32,12 +32,12 @@
   "M": "records/target/character/enemies/enemy_runner_0/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  42,
+  34,
   33,
-  188,
+  189,
   218
  ],
  "model": "records/character/rig/barber_person_runner_0.glb",
  "body_rig": "rig.json",
- "colours": 25679
+ "colours": 32054
 }
