@@ -20,7 +20,8 @@
       a few pixels), and the map above the board is the canal's far bank (the shore mirrored top to bottom), never a straight
       line where water meets sand;
    9. the map around the board comes in softly: the step of shade at the board's edge is gone (the row of glass just outside the
-      board against the row just inside: under a third of the old 22% step);
+      board against the row just inside: under a third of the old 22% step); and THE GROUND RUNS ON: where two blocks of open
+      ground meet the seam is no harder a line than the ground's own texture (rule 164 item 13, 'more organic');
    10. nothing threw.
    Run: node gates/nobody_on_anybody_the_water_runs_on_gate.js */
 'use strict';
@@ -114,11 +115,22 @@ const BODIES = () => {
         out.joins.push({ at: Math.round(X), l: bank(X - 6, y0, y1), r: bank(X + 6, y0, y1) });
       }
       out.ring = (surround().filter(q => q.by === -1 && q.bx >= 0 && q.bx < FIGHT.S.w / bt).map(q => q.n));
+      /* THE GROUND RUNS ON: the seam under the canal's bank (the shore row over a dry row): how hard a line it is, the change from
+         the row of glass just above it to the row just below, against the same change one and two tiles further down (the ground's
+         own texture); a straight cut stands far above its neighbours */
+      const rowL = (y) => { const d = g.getImageData(0, Math.round(y * D), c.width, 1).data, o = []; for (let i = 0; i < d.length; i += 4) o.push(0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]); return o; };
+      const mean = (r) => r.reduce((t, v) => t + v, 0) / r.length, step = (y) => Math.abs(mean(rowL(y - 3)) - mean(rowL(y + 3)));   /* a straight seam is a shift in the whole row's brightness; texture is not */
+      FIGHT_UI.cy = bt * FIGHT_UI.th; clampCam(); await new Promise(r => setTimeout(r, 400));
+      const Ys = sy(bt * FIGHT_UI.th), th = FIGHT_UI.th * FIGHT_UI.zoom;
+      out.seam = { at: step(Ys), near: [step(Ys + th * 0.8), step(Ys + th * 1.6), step(Ys + th * 2.4)], soft: (FIGHT_UI.feather || []).length };
       /* the shade's step at the board's top edge: a row of glass just outside against one just inside, on dry ground */
       return out;
     });
     leg(g.joins.length > 0 && g.joins.every(j => j.l > 0 && j.r > 0 && Math.abs(j.l - j.r) <= 4), 'on the glass the bank meets itself at every join of the canal (the mud\'s top edge either side of the join within 4 px; EYES saw it jump at x 807)',
       g.joins.map(j => 'x ' + j.at + ': ' + j.l + ' | ' + j.r).join(', '));
+    const nearMax = Math.max.apply(null, g.seam.near);
+    leg(g.seam.soft > 0 && g.seam.at <= Math.max(2, nearMax * 2), '*** THE GROUND RUNS ON *** (rule 164 item 13, \'more organic\'): the seam under the canal\'s bank shifts the row\'s brightness no more than twice the ground\'s own does a tile further on (a straight cut shifted it 19.7 against 2.4)',
+      'the row\'s brightness shifts ' + g.seam.at.toFixed(1) + ' across the seam against ' + g.seam.near.map(v => v.toFixed(1)).join(', ') + ' across the rows further on, ' + g.seam.soft + ' soft joins on the board');
     leg(g.ring.length > 0 && g.ring.every(n => /^shore\.\d\|.*v/.test(n)), 'the map above the canal is its far bank: the shore mirrored top to bottom over every block of the top row', g.ring.join(' '));
     await d.close();
   }
