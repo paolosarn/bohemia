@@ -7,7 +7,7 @@
  "rows_total": 310,
  "objects_total": 27,
  "objects_with_a_model_before": 3,
- "objects_with_a_model_now": 8,
+ "objects_with_a_model_now": 10,
  "objects": {
   "car_door": {
    "kind": "shield",
@@ -78,7 +78,7 @@
    "rows": 7,
    "glb": "reference/models/bohemia/item_sledge.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "bottles": {
@@ -186,7 +186,7 @@
    "rows": 16,
    "glb": "reference/models/bohemia/item_work_jacket.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "padded_vest": {

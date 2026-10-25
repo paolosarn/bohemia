@@ -300,6 +300,120 @@
     "verts": 422,
     "parts": 18
    }
+  },
+  "work_jacket": {
+   "glb": "item_work_jacket.glb",
+   "kind": "worn_body",
+   "name": "a work jacket",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "tattered_sackcloth",
+    "sackcloth",
+    "linen_tunic",
+    "cloth_sash",
+    "leather_wraps",
+    "monk_s_robe",
+    "noble_tunic",
+    "wizard_s_robe",
+    "apron",
+    "butcher_s_apron",
+    "undertaker_s_apron",
+    "leather_tunic",
+    "thick_furs",
+    "nomad_robe",
+    "dark_thick_tunic",
+    "thick_tunic"
+   ],
+   "sha1": "e5e9d1fd544895c2ce58b6c89c659be3f7cf666d",
+   "measured": {
+    "size_m": [
+     0.974,
+     0.382,
+     0.605
+    ],
+    "lo": [
+     -0.484,
+     -0.199,
+     0.59
+    ],
+    "hi": [
+     0.49,
+     0.184,
+     1.195
+    ],
+    "materials": [
+     "clay_mustard 1",
+     "cloth_black 1",
+     "rubber 2",
+     "tape_grey 1"
+    ],
+    "verts": 3500,
+    "parts": 38,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_arm_joint_L__2_",
+     "Skeleton_arm_joint_L__3_",
+     "Skeleton_arm_joint_L__4_",
+     "Skeleton_arm_joint_R",
+     "Skeleton_arm_joint_R__2_",
+     "Skeleton_arm_joint_R__3_",
+     "Skeleton_neck_joint_1",
+     "Skeleton_neck_joint_2",
+     "Skeleton_torso_joint_1",
+     "Skeleton_torso_joint_2",
+     "leg_joint_L_1",
+     "leg_joint_L_2",
+     "leg_joint_R_1",
+     "leg_joint_R_2",
+     "torso_joint_3"
+    ]
+   }
+  },
+  "sledge": {
+   "glb": "item_sledge.glb",
+   "kind": "held",
+   "name": "sledge",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "pickaxe",
+    "military_pick",
+    "warhammer",
+    "two_handed_mallet",
+    "two_handed_skull_hammer",
+    "two_handed_hammer",
+    "polehammer"
+   ],
+   "sha1": "910e29baf96950ef00260b5bebfb9c5fecd2e210",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     0.905,
+     0.066,
+     0.176
+    ],
+    "lo": [
+     -0.06,
+     -0.033,
+     -0.088
+    ],
+    "hi": [
+     0.845,
+     0.033,
+     0.088
+    ],
+    "materials": [
+     "chrome 0",
+     "clay_mustard 1",
+     "metal_painted 0",
+     "rubber 1"
+    ],
+    "verts": 394,
+    "parts": 15,
+    "left_x": 0.34
+   },
+   "left_x": 0.34
   }
  }
 }

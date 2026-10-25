@@ -1,0 +1,43 @@
+{
+ "size_m": [
+  0.974,
+  0.382,
+  0.605
+ ],
+ "lo": [
+  -0.484,
+  -0.199,
+  0.59
+ ],
+ "hi": [
+  0.49,
+  0.184,
+  1.195
+ ],
+ "materials": [
+  "clay_mustard 1",
+  "cloth_black 1",
+  "rubber 2",
+  "tape_grey 1"
+ ],
+ "verts": 3500,
+ "parts": 38,
+ "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+ "bones": [
+  "Skeleton_arm_joint_L__2_",
+  "Skeleton_arm_joint_L__3_",
+  "Skeleton_arm_joint_L__4_",
+  "Skeleton_arm_joint_R",
+  "Skeleton_arm_joint_R__2_",
+  "Skeleton_arm_joint_R__3_",
+  "Skeleton_neck_joint_1",
+  "Skeleton_neck_joint_2",
+  "Skeleton_torso_joint_1",
+  "Skeleton_torso_joint_2",
+  "leg_joint_L_1",
+  "leg_joint_L_2",
+  "leg_joint_R_1",
+  "leg_joint_R_2",
+  "torso_joint_3"
+ ]
+}
