@@ -4,7 +4,7 @@ Paolo 10/24: 'everything I talked to you about today, it's a pretty huge update;
 The coordinator keeps this list. Every check-in updates the statuses from main and reopens the lane of every line not SHIPPED, until all are. When the last line ships, RUN cuts BUILD THE BIG UPDATE and the coordinator tells him in one message.
 Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a lane's board, next), RESEARCH (a page first).
 
-| # | His ask | Rule | Lane | Status 10/25 16:35 UTC |
+| # | His ask | Rule | Lane | Status 10/25 17:15 UTC |
 |---|---|---|---|---|
 | 1 | The squiggle voice, Animal Crossing way, creepier, no clicking | 135 | SOUNDS | SHIPPED |
 | 2 | New enemies that each teach one lesson (Mechanic, Kids and Runners, Heavy) | bestiary | COMBAT | SHIPPED |
@@ -14,7 +14,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 6 | The map remade | 137 | COOK | SHIPPED (bd6d7c46 regrade, f458f104 streets, a6e1ad1d towns, 99486fba the region) |
 | 7 | No grey-yellow sand flood AND no rainbow: the economic apocalypse palette | 137, 159 | COOK | SHIPPED (bd6d7c46, all 69 pictures in act one's palette) |
 | 8 | The towns part of the map, never stickers | 154 | COOK | SHIPPED (a6e1ad1d, THE TOWN IS PAINTED IN) |
-| 9 | Your lead walks up to whoever you tap in a town | 138 | RUN TWO | RUNNING (RUN TWO reopened 15:45) |
+| 9 | Your lead walks up to whoever you tap in a town | 138 | RUN TWO | SHIPPED (RUN TWO BUILD 10/25n THE WALK-UP) |
 | 10 | Every game a learning block; fight the tile-RPG vibe; Grok set up | 139, 140 | GROK | SHIPPED (Grok answered every ask; 126 of 127 pages passed and routed, 7bc175b6) |
 | 11 | The crash | 141 | RUN | SHIPPED (two leaks fixed, 90% of map pictures cut); EYES to confirm |
 | 12 | The save remembers what you just did | 141 | RUN | SHIPPED (BUILD 10/24h); EYES to confirm |
@@ -60,12 +60,12 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 52 | Spacebar pauses on PC | 163 | RUN | SHIPPED (BUILD 10/24s) |
 | 53 | The camera keeps the party centred to the map's edge, beyond the outer settlements, at every zoom | 163 | RUN | SHIPPED (BUILD 10/24s) |
 | 54 | Battle Brothers' keyboard keys (UI) | 164 | see the item | SHIPPED (the fight's keys f9a2a846, the map's keys UI c4f0c4f1) |
-| 55 | Every currency on the top bar (UI, ECONOMY) | 164 | see the item | HALF: ECONOMY's page SHIPPED (six on the bar, a7cf3682); the bar RUNNING (UI) |
+| 55 | Every currency on the top bar (UI, ECONOMY) | 164 | see the item | SHIPPED (ECONOMY a7cf3682, UI 6cf805c5: the six on the bar) |
 | 56 | A job's place named and marked on the map (WORLD) | 164 | see the item | SHIPPED (WORLD 07826e02) |
-| 57 | Stat icons like Battle Brothers' (UI, COOK) | 164 | see the item | RUNNING (UI reopened 15:45) |
+| 57 | Stat icons like Battle Brothers' (UI, COOK) | 164 | see the item | SHIPPED (UI 81a3323e) |
 | 58 | Night longer (RUN, $20 round) | 164 | see the item | SHIPPED (BUILD 10/25e THE NIGHT IS PLAYED) |
 | 59 | No daily recap (RUN, $20 round) | 164 | see the item | SHIPPED (BUILD 10/25e) |
-| 60 | The UI never AI slop (UI) | 164 | see the item | RUNNING (UI reopened 15:45) |
+| 60 | The UI never AI slop (UI) | 164 | see the item | SHIPPED (UI d7eb9aea: the fight's bars and the end screen) |
 | 61 | A way to drop a job (WORLD, UI) | 164 | see the item | HALF: the rule SHIPPED (WORLD 07826e02); the plain button RUNNING (UI) |
 | 62 | Where am I: the golden arrow, the marker (RUN, $20 round) | 164 | see the item | SHIPPED (BUILD 10/24t: the arrow was the Church's gold flag; it stands down near his crew; his crew on a ring) |
 | 63 | No flags, no route lines (RUN, $20 round) | 164 | see the item | SHIPPED (10/24t no route lines; 10/25d flags off) |
@@ -89,4 +89,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 81 | The end screen stays until closed (RUN TWO) | 164 | see the item | SHIPPED (RUN TWO 717be9e0) |
 | 82 | City travel without buildings in the lanes (RUN, COOK) | 164 | see the item | SHIPPED (COOK f458f104: no block in a street's lane) |
 | 83 | Zoom in to see the sidewalks and the crew (RUN, COOK) | 164 | see the item | SHIPPED (COOK f458f104: the close detail) |
-| 84 | More and better animations (ANIMATION) | 164 | see the item | HALF: held guns, kneeling in cover, the reload (64c2139c); melee in hand and the shield arm RUNNING (ANIMATION reopened 15:45) |
+| 84 | More and better animations (ANIMATION) | 164 | see the item | HALF: held guns, cover, the reload (64c2139c); melee in the hand wave 1 (0b2e3068); the shield arm RUNNING |
