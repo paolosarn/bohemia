@@ -55,4 +55,44 @@ THE TWO RULES THAT DECIDE WHAT A POINT IS WORTH (Combat Mechanics; Morale)
   from heavy crossbow bolts" (steamcommunity.com/app/365360/discussions/0/1743353798886310459, .../135512133545402508). In Battle Brothers the
   arrows are a minority of the enemy; in Bohemia the guns lead (rule 120). That is the whole reason this page exists.
 
-PIECE 2 (the endgame company Battle Brothers' rules make, computed) AND PIECE 3 (our numbers, played on the live fight) FOLLOW.
+## 2. THE ENDGAME COMPANY THOSE RULES MAKE (computed, not remembered)
+tools/bohemia_tuning_the_killer_company.js --lines rolls his shape 2,000 times a cell the wiki's way: each man inside his own background's range,
+exactly three starred stats at 60/30/10, every attribute rolled each level on its star column, the player taking his plan's picks; veterans
++1 on three. The nine in front are the backgrounds a late Battle Brothers company is built from (two hedge knights, two sellswords, two
+gladiators, a retired soldier, a militiaman, a brawler); the three shooters a hunter, a sellsword and a poacher. "Any" is stars where the dice
+put them; "kept" is a man whose three stars sit on his plan (the one he kept out of the many he saw: a bound, the killer premise).
+
+HIS OLD PLAN, THREE PICKS (front: melee skill, melee defence, fatigue; back: ranged skill, fatigue, hitpoints), the average man:
+
+      who, level, stars       hitpoints  fatigue  resolve  melee skill  ranged skill  melee def  ranged def
+      front, level 1             57        98       41        62           42            8          6
+      front, 11, any             57       131       41        84           42           30          6
+      front, 11, kept            57       135       41        89           42           35          6
+      front, 16, kept            57       140       41        94           42           40          6
+      back, level 1              55        97       37        56           51            5          5
+      back, 11, any              88       130       37        56           83            5          5
+      back, 11, kept             92       135       37        56           88            5          5
+
+THE CHECK THAT THE BENCH IS POINTED RIGHT: a player on r/BattleBrothers calls "about 90 melee attack and 40 melee defense by lvl 11... solid late
+game frontliner material" (web search, a Reddit comment; anecdotal, version unknown). The wiki's rules, rolled, put his kept frontliner at 89
+and 35 at level 11 and 94 and 40 at level 16. Battle Brothers' own dice make the man players call a killer, so the numbers below are the
+real game's, not a guess.
+
+WHAT HIS OLD PLAN NEVER TOUCHES: ranged defence. It sits at 5 or 6 on all twelve men at level 1, 11 and 16. In Battle Brothers that is a choice
+a good player makes on purpose: the late brigands the fight dresses (day 80) are two shooters in ten, and a shield's +15 does the rest.
+
+WHAT FATIGUE BUYS (why his nine raise it every level): a man's breath is his fatigue less what his kit weighs (the fight's own fatMax). The late
+kit on a shield man weighs 63 (reinforced mail 26, bascinet 13, winged mace 10, heater 14), on a hammer man 57, on a shooter 51; the endgame
+kit (coat of scales 38, full helm 20) weighs 82, 76 and 70. A turn gives back 15, a mace's Bash costs 13, a hammer's Smite 15.
+
+      front shield man       late kit (63)    endgame kit (82)
+      level 1 (98)            35 left           16 left: one swing, then he stands
+      level 11, old plan      68 left           49 left
+      level 11, fatigue
+        traded for ranged
+        defence (98)          35 left           16 left: one swing, then he stands
+
+So with THREE picks, "care about ranged defence" can only be paid out of fatigue, and a front without fatigue cannot wear the heavy armour.
+That is the trade his words describe, measured: three picks cannot hold his old plan AND ranged defence at once. Piece 3 plays it.
+
+PIECE 3 (our numbers, played on the live fight) FOLLOWS.
