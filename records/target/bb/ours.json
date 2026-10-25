@@ -870,18 +870,26 @@
    },
    "height": {
     "row": "height",
-    "say": "High ground: easier hits."
+    "say": "Roof or rise, one level up."
    },
    "blocked": {
     "row": "obstacles",
     "say": ""
+   },
+   "height2": {
+    "row": "height",
+    "say": "Roof, two storeys up."
+   },
+   "height3": {
+    "row": "height",
+    "say": "Roof, three storeys up."
    }
   },
   "source": "records/BOHEMIA_PAOLO_EVERY_FLOOR_TILE_NEEDS_A_TRANSLATION_10_1_26.md",
   "quote": "every floor tile from Battle Brothers needs a proper translation for our game... how it impacts your accuracy or your defence or the positioning, how many action points it costs to move through",
   "rows_from": "records/target/BOHEMIA_GROUND_EFFECTS.json battleBrothersRows (WORLD's one table; rule 59: never a second list of grounds)",
   "draft": true,
-  "why": "every tile kind COMBAT TWO's 35 blocks draw answers to ONE row of WORLD's ground table: flat is Battle Brothers' plains (2 AP, nothing else), rough and rubble its forest floor and snow (3 AP), water its swamp (4 AP, skill and defence x0.75), a roof its hills (+1 AP to climb, +10 to hit down, -10 up for melee, +1 reach a level for guns), a wall or a house its obstacles (no path, no sight). The numbers stay in records/target/bb (TUNING holds every one at Battle Brothers for both sides, rule 117). 'say' is the line he reads when he taps a tile that changes something (an attempt, draft:true); a tile that changes nothing says nothing (rule 117b: one clear next thing)"
+  "why": "every tile kind COMBAT TWO's 35 blocks draw answers to ONE row of WORLD's ground table: flat is Battle Brothers' plains (2 AP, nothing else), rough and rubble its forest floor and snow (3 AP), water its swamp (4 AP, skill and defence x0.75), a roof its hills (+1 AP to climb, +10 to hit down, -10 up for melee, +1 reach a level for guns), a wall or a house its obstacles (no path, no sight). The numbers stay in records/target/bb (TUNING holds every one at Battle Brothers for both sides, rule 117). 'say' is the line he reads when he taps a tile that changes something (an attempt, draft:true); a tile that changes nothing says nothing (rule 117b: one clear next thing) HEIGHT2 and HEIGHT3 (COMBAT [the PC playtest: the fight's part] (3), rule 164 item 14, 10/25): a roof two or three storeys up is the same hills row at Battle Brothers' height level 2 or 3 (board.height_levels [0, 1, 2, 3]); ours.roof_storeys says which roof tiles they are."
  },
  "beast_looks": {
   "value": {
@@ -1281,6 +1289,153 @@
   "source": "VAMILY.md rule 157 (Paolo 10/24); the library: reference/library/grok/wiki/pages/0160_Attributes.txt (Vision)",
   "quote": "if there are tiles that our team, with their vision all together, can't see, you've gotta be able to tell; a different opacity, maybe a grey darkness to it... it's gotta be done a lot better",
   "why": "COMBAT [what the crew can't see reads dark] 10/24: a tile none of his men sees wears dark at dark_alpha with a static of light specks (static_density of its cells) at static_alpha over it, lifting or falling over lift_beats; a man of theirs lost from sight leaves a rust ring at lost_alpha[0] fading to lost_alpha[1] over lost_beats, until seen again. per_level: the library says height adds vision toward lower ground ('Elevation is taken into account after the cap... applied only vs lower positioned opponents') and names no number: one tile a level.",
+  "tuned": false
+ },
+ "roof_storeys": {
+  "value": {
+   "metres_per_storey": 3,
+   "blocks": {
+    "main.0": [
+     [
+      1,
+      3,
+      2
+     ],
+     [
+      2,
+      3,
+      2
+     ],
+     [
+      3,
+      3,
+      2
+     ]
+    ],
+    "main.1": [
+     [
+      1,
+      3,
+      2
+     ],
+     [
+      2,
+      3,
+      2
+     ],
+     [
+      3,
+      3,
+      2
+     ]
+    ],
+    "strip.0": [
+     [
+      1,
+      0,
+      2
+     ]
+    ],
+    "strip.1": [
+     [
+      1,
+      0,
+      2
+     ]
+    ],
+    "ruin.0": [
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      3,
+      3,
+      2
+     ]
+    ],
+    "ruin.1": [
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      3,
+      3,
+      2
+     ]
+    ],
+    "works.0": [
+     [
+      3,
+      1,
+      3
+     ],
+     [
+      4,
+      1,
+      3
+     ]
+    ]
+   },
+   "roof_kinds": [
+    "corner",
+    "culdesac",
+    "subs",
+    "suburb_stem",
+    "strip",
+    "main",
+    "ruin",
+    "works"
+   ],
+   "rise": [
+    0,
+    0.2,
+    0.45,
+    0.8
+   ],
+   "measured_faces_m": {
+    "ranch house (corner, subs, suburb_stem)": 3.0,
+    "motel (main row 1)": 3.0,
+    "strip store (strip 1,0)": 6.2,
+    "school (main row 3)": 5.8,
+    "flat-roof block (ruin 0,1 and 3,3)": 5.5,
+    "warehouse (works 3,1 and 4,1)": 11.0
+   },
+   "not_roofs": {
+    "works.0": [
+     [
+      1,
+      4
+     ]
+    ]
+   }
+  },
+  "source": "VAMILY.md rule 164 item 14 (Paolo 10/24, records/BOHEMIA_PAOLO_THE_PC_PLAYTEST_AND_THE_TWENTY_DOLLARS_10_24_26.md); the library: bb_all/0424_Combat Mechanics.txt (four height levels, 0 to 3) and 1002_Hit Chance.txt; the faces measured on COMBAT TWO's block art (slices/fight_ground/block_*.webp, the 45 law: a face is its height x cos45 at 42.9 px a metre)",
+  "quote": "one-story versus two-story or even a three-story building, I don't know how that helps me and it's hard to tell visually",
+  "why": "COMBAT [the PC playtest: the fight's part] (3) 10/25: a roof you can stand on (a 'height' tile of a building block, roof_kinds) is Battle Brothers' height level = its storeys (its face in metres / metres_per_storey, rounded, at least 1, at most 3); blocks lists the roof tiles over one storey as [x, y, storeys] inside the 5 x 5 block; every other height tile is level 1 (a one-storey roof, a rise of ground, a trash heap). What the level does is the library's, unchanged. rise: how far up the tile (a share of a tile's height on the glass) a man on that level stands, so he stands on his roof's plane (drawing only). not_roofs: a height tile inside a roof block that the art draws as bare ground (works.0's 1,4, in front of the low works), a rise of ground: level 1, no ladder.",
+  "tuned": false
+ },
+ "bag": {
+  "value": {
+   "kit": {
+    "pistol": [
+     "pipe"
+    ],
+    "bottles": [
+     "pipe"
+    ],
+    "default": [
+     "pistol"
+    ]
+   }
+  },
+  "source": "VAMILY.md rule 164 item 15 (Paolo 10/24, records/BOHEMIA_PAOLO_THE_PC_PLAYTEST_AND_THE_TWENTY_DOLLARS_10_24_26.md); the library: rules ap.swap_item, ap.bag_slots, fatigue.bag_items_penalty_multiplier; perks quick_hands, bags_and_belts",
+  "quote": "you can't switch weapon... Battle Brothers has two slots to bring shit into combat... it takes up stamina",
+  "why": "COMBAT [the PC playtest: the fight's part] (4) 10/25: a man carries what the crew screen put in his two bag slots (gear.bag, item ids, RUN TWO's hand-over; four with Bags and Belts) and swaps it into his hands for the library's 4 AP (Quick Hands: the first swap a turn free); what rides in the bag weighs on his wind at half its weight (Bags and Belts: only a two-hander's). kit: until the crew screen hands a bag, a man with none carries this by his weapon's job (a pistol man the pipe, everybody else a pistol: guns lead, rule 120), so the swap is there in the first fight; a handed bag, even an empty one, wins.",
+  "draft": true,
   "tuned": false
  }
 }

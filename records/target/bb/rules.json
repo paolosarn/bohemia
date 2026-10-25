@@ -231,6 +231,16 @@
     "source": "bb_all/0424_Combat Mechanics.txt",
     "quote": "exception: Warbrand, Rhomphaia and 2-Handed Cleavers use 4AP on regular strikes; Jagged Pike uses 5AP"
    }
+  },
+  "swap_item": {
+   "value": 4,
+   "source": "bb_all/1415_News and Dev Blogs.txt",
+   "quote": "Changed Quick Hands perk again. The first item swap each turn is now a free action, every additional swap has the normal cost of 4AP."
+  },
+  "bag_slots": {
+   "value": 2,
+   "source": "bb_all/0170_Bags and Belts.txt",
+   "quote": "Unlock two extra bag slots to carry all your favorite things."
   }
  },
  "fatigue": {

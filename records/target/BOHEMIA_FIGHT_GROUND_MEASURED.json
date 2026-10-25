@@ -22,11 +22,19 @@
   },
   "height": {
    "row": "height",
-   "say": "High ground: easier hits."
+   "say": "Roof or rise, one level up."
   },
   "blocked": {
    "row": "obstacles",
    "say": ""
+  },
+  "height2": {
+   "row": "height",
+   "say": "Roof, two storeys up."
+  },
+  "height3": {
+   "row": "height",
+   "say": "Roof, three storeys up."
   }
  },
  "worldCanFire": {
@@ -50,7 +58,7 @@
    "named": "90 of 90",
    "share": {
     "solid": 0.0173,
-    "cover": 0.238,
+    "cover": 0.2792,
     "obstacles": 0.1941,
     "door": 0,
     "flat": 0.6127,
@@ -129,7 +137,7 @@
    "named": "18 of 18",
    "share": {
     "solid": 0,
-    "cover": 0.2956,
+    "cover": 0.0133,
     "obstacles": 0.07,
     "door": 0,
     "flat": 0.3724,
@@ -181,7 +189,7 @@
    "named": "6 of 6",
    "share": {
     "solid": 0,
-    "cover": 0.3222,
+    "cover": 0.9272,
     "obstacles": 0.0661,
     "door": 0,
     "flat": 0.3472,
@@ -206,8 +214,8 @@
    ],
    "named": "24 of 24",
    "share": {
-    "solid": 0.0114,
-    "cover": 0.2374,
+    "solid": 0.0096,
+    "cover": 0.1728,
     "obstacles": 0.15,
     "door": 0,
     "flat": 0.6676,
@@ -259,7 +267,7 @@
    "named": "6 of 6",
    "share": {
     "solid": 0.0322,
-    "cover": 0.2156,
+    "cover": 0.2967,
     "obstacles": 0.2094,
     "door": 0,
     "flat": 0.7633,
@@ -286,14 +294,14 @@
    ],
    "named": "48 of 48",
    "share": {
-    "solid": 0.0081,
-    "cover": 0.2699,
-    "obstacles": 0.1303,
+    "solid": 0.0057,
+    "cover": 0.2452,
+    "obstacles": 0.1031,
     "door": 0,
-    "flat": 0.4828,
-    "rough": 0.2858,
+    "flat": 0.4453,
+    "rough": 0.354,
     "swamp": 0.0131,
-    "height": 0.0879,
+    "height": 0.0846,
     "night": 0
    },
    "world": {
@@ -311,8 +319,8 @@
    ],
    "named": "18 of 18",
    "share": {
-    "solid": 0.0098,
-    "cover": 0.252,
+    "solid": 0.0094,
+    "cover": 0.2452,
     "obstacles": 0.1937,
     "door": 0,
     "flat": 0.5346,
@@ -338,7 +346,7 @@
    "named": "30 of 30",
    "share": {
     "solid": 0.009,
-    "cover": 0.2691,
+    "cover": 0.2684,
     "obstacles": 0.1647,
     "door": 0,
     "flat": 0.4893,
@@ -363,7 +371,7 @@
    "named": "6 of 6",
    "share": {
     "solid": 0,
-    "cover": 0.2806,
+    "cover": 0.15,
     "obstacles": 0.0661,
     "door": 0,
     "flat": 0.3506,

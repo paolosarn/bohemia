@@ -379,7 +379,7 @@ async function sweep() {
           const eng = FIGHT.alive('them').some(f => dd(f, u) === 1);
           if (eng) { m.engaged++; if (!mates.some(f => dd(f, u) === 1)) m.alone++; }
           else if (from[k][0] !== u.x || from[k][1] !== u.y) { m.walks++; if (L.mid !== null && h(u.x, u.y) < L.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
-          if (FIGHT.isRanged(u.weapon)) { m.shots++; if (S.terrain[u.y][u.x] === 'height') m.roof++; if (L.front !== null && h(u.x, u.y) < L.front) m.breach++; }
+          if (FIGHT.isRanged(u.weapon)) { m.shots++; if (/^height/.test(S.terrain[u.y][u.x])) m.roof++; if (L.front !== null && h(u.x, u.y) < L.front) m.breach++; }
         }
         return r;
       };

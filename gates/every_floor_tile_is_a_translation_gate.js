@@ -156,6 +156,10 @@ leg(!!M && M.grounds.length === GE.grounds.length && M.grounds.every(g => g.shar
       /* the line under the board says what the ground does; the walk and its AP are the tag on the tile and the big button (COMBAT [one tap to see, one tap to do]) */
       return p.evaluate(() => { const k = document.getElementById('pick'); return document.getElementById('say').textContent + (k && k.style.display !== 'none' ? ' | ' + k.innerText.replace(/\s+/g, ' ').trim() : ''); }); };
     const says = { rough: OURS.ground_rows.value.rough.say, height: OURS.ground_rows.value.height.say };
+    /* RE-AIMED 10/25 by rule 164 item 14 (COMBAT [the PC playtest: the fight's part], Paolo 10/24: 'one-story versus two-story or
+       even a three-story building, I don't know how that helps me'): a finger on a roof names its storeys and what the height gives
+       ('Roof, 1 storey up: +10% to hit anyone lower, ...'); a rise of ground 'High ground, 1 up: ...' */
+    const saysUp = t => t.indexOf(says.height) === 0 || /^(Roof, \d+ storeys? up|High ground, \d+ up): \+\d+% to hit anyone lower/.test(t);
     let rough = null, flat = null, up = null;
     for (let seed = 1; seed <= 30 && !(rough && flat); seed++) {
       await startOn({ seed, kind: 'wash', speed: 3, formation: null, night: false }); if (!await fightOn()) continue;
@@ -168,7 +172,7 @@ leg(!!M && M.grounds.length === GE.grounds.length && M.grounds.every(g => g.shar
       await startOn({ seed, kind: 'suburb', speed: 3, formation: null, night: false }); if (!await fightOn()) continue;
       const t = await find('height'); if (!t) continue;
       const first = await tap(t);
-      if (first.indexOf(says.height) !== 0) { up = { first }; break; }
+      if (!saysUp(first)) { up = { first }; break; }
       const s = await p.evaluate(q => ({ x: sx((q.x + .5) * FIGHT_UI.tw), y: sy((q.y + .5) * FIGHT_UI.th) }), t);
       await p.touchscreen.tap(s.x, s.y);
       const rang = await until(() => FIGHT_UI.pops.some(q => q.col === '#f0d296'), 6000);
@@ -176,7 +180,7 @@ leg(!!M && M.grounds.length === GE.grounds.length && M.grounds.every(g => g.shar
       const on = await p.evaluate(id => { const u = FIGHT.byId(id); return FIGHT.rowAt(u.x, u.y); }, t.id);
       up = { first, rang, feed, on };
     }
-    leg(!!up && up.first.indexOf(says.height) === 0 && up.rang && /takes the high ground/.test(up.feed) && up.on === 'height',
+    leg(!!up && saysUp(up.first) && up.rang && /takes the high ground/.test(up.feed) && up.on === 'height',
       'a finger on a roof says high ground, and his step up rings gold at his feet with the line in the feed (rule 117c)', JSON.stringify(up));
 
     /* ---- 8. AGAIN draws the map, not dirt ---- */

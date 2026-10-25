@@ -107,6 +107,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .sq:disabled{opacity:.32}
 .sq.on{outline:2px solid #8fb8e0}
 .sq.hot{outline:2px solid #e0604a}
+.sq.bag{border-color:#6b5434;box-shadow:0 2px 3px rgba(0,0,0,.55),inset 0 0 0 1px rgba(224,176,98,.25)}
+.sq.bag b{font-size:9px;color:#e0b062}
 /* THE EMPTY GUN SHOUTS (COMBAT [the reload is loud], rule 124, Paolo 10/20: 'if I need to reload it needs to be very apparent
    on the screen... super clear'): the moment the man you control has an empty gun, the strike square gives its place to ONE BIG
    RELOAD, a VCR's warning on the cracked glass, never a game-show banner: the ROM's white letters with the tape's red and blue
@@ -150,6 +152,7 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
   font-size:13px;letter-spacing:.5px;line-height:1.15;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/100% 100%;
   filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));transform:rotate(-1.5deg);white-space:nowrap;text-align:center}
 #pick i{display:block;font-style:normal;font-size:10px;color:#a3261a}
+#pick em{display:block;font-style:normal;font-size:10px;color:#3b3326;letter-spacing:.5px}
 /* THE FIRST FIGHT TEACHES (COMBAT [the first fight teaches]): one veteran of the company says it, his own face beside his
    words, on receipt paper at the top of the board under the strip; it covers no man's middle and takes no tap */
 #vet{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:8px;max-width:min(calc(100vw - 16px),420px);
@@ -427,7 +430,27 @@ const FIGHT = (function () {
   }
   /* the tile's kind stays the one truth (a test bench or a cut may rewrite it); its row is looked up every time */
   function rowAt(x, y) { return inBoard(x, y) ? rowOf(S.terrain[y][x]) : null; }   /* off the board: no row (reads as it always did) */
-  function level(x, y) { return rowAt(x, y) === 'height' ? R('board.height_levels')[1] : R('board.height_levels')[0]; }
+  /* HEIGHTS THAT MEAN SOMETHING (COMBAT [the PC playtest: the fight's part] (3), rule 164 item 14, Paolo 10/24: 'one-story versus
+     two-story or even a three-story building, I don't know how that helps me'): Battle Brothers' four height levels (0 to 3); a
+     roof stands at its storeys ('height2', 'height3', dealt from ours.roof_storeys), every other height tile at level 1 */
+  function level(x, y) {
+    const L = R('board.height_levels');
+    if (rowAt(x, y) !== 'height') return L[0];
+    const n = Number(String(S.terrain[y][x]).slice('height'.length)) || L[1];
+    return L[Math.min(L.length - 1, n)];
+  }
+  /* the block a tile was dealt from (the window's offset put back), and whether its high ground is a building's roof */
+  function blockNameAt(x, y) {
+    const B = S.boardDef, bt = DB.ground.block_tiles, c = S.crop || { ox: 0, oy: 0 };
+    if (!B || !B.blocks || !inBoard(x, y)) return null;
+    const row = B.blocks[Math.floor((y + c.oy) / bt)]; return row ? row[Math.floor((x + c.ox) / bt)] || null : null;
+  }
+  function isRoof(x, y) {
+    const n = blockNameAt(x, y), T = R('ours.roof_storeys'), bt = DB.ground.block_tiles, c = S.crop || { ox: 0, oy: 0 };
+    if (rowAt(x, y) !== 'height' || !n || T.roof_kinds.indexOf(n.split('.')[0]) < 0) return false;
+    const bx = (x + c.ox) % bt, by = (y + c.oy) % bt;
+    return !((T.not_roofs || {})[n] || []).some(function (q) { return q[0] === bx && q[1] === by; });
+  }
   function passable(x, y) { return inBoard(x, y) && rowAt(x, y) !== 'obstacles' && !S.solid[y][x]; }
   function sightBlock(x, y) { return rowAt(x, y) === 'obstacles'; }
   /* what standing on a tile does, in his words (ours.ground_rows' say; empty where nothing changes) */
@@ -569,7 +592,44 @@ const FIGHT = (function () {
     u.injuries.forEach(function (j) { if (j.effects && typeof j.effects[key] === 'number') m *= (1 + j.effects[key] / 100); });
     return m;
   }
-  function fatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u)) * injMult(u, 'max_fatigue_pct'))); }
+  function fatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u) + bagFat(u)) * injMult(u, 'max_fatigue_pct'))); }
+  /* THE BAG (COMBAT [the PC playtest: the fight's part] (4), rule 164 item 15, Paolo 10/24: 'you can't switch weapon... Battle
+     Brothers has two slots to bring shit into combat... it takes up stamina'): what rides in his bag weighs on his wind at half
+     its weight (fatigue.bag_items_penalty_multiplier); with Bags and Belts only a two-hander still weighs */
+  function bagFat(u) {
+    if (!u.bag || !u.bag.length) return 0;
+    const half = R('fatigue.bag_items_penalty_multiplier'), bb = PK(u, 'bags_and_belts');
+    return u.bag.reduce(function (t, w) { if (!w || typeof w.fatigue !== 'number') return t; return t + w.fatigue * (bb && !bothHands(w) ? 0 : half); }, 0);
+  }
+  /* a weapon held in both hands: the wiki's hands column, and a bow, a crossbow or a firearm (no column: two) */
+  function bothHands(w) { const b = w.of || w; return b.hands === 1 + 1 || (b.hands === null || b.hands === undefined) && ['bow', 'crossbow', 'firearm'].indexOf(b.class) >= 0; }
+  function bagSlots(u) { const bb = PK(u, 'bags_and_belts'); return R('ap.bag_slots') + (bb ? bb.extra_bag_slots : 0); }
+  /* the swap: the library's 4 AP; Quick Hands makes the first one a turn free */
+  function swapCost(u) { const qh = PK(u, 'quick_hands'); return qh && !u.swappedFree ? qh.swap_ap_cost : R('ap.swap_item'); }
+  function jobOfWeapon(w) { const b = w.of || w; return ((DB.wlines.rows[b.class] || {}).job) || b.class; }
+  function canSwap(u, i) { return !S.over && !S.deploy && current() === u && !!u.bag && !!u.bag[i] && !u.netted && u.ap >= swapCost(u); }
+  function swap(u, i) {
+    if (!canSwap(u, i)) return false;
+    const c = swapCost(u), qh = PK(u, 'quick_hands');
+    u.ap -= c; if (qh && !u.swappedFree) u.swappedFree = true;
+    const out = u.weapon, outState = { ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded }, inn = u.bag[i], st = (u.bagState && u.bagState[i]) || null;
+    u.weapon = inn; u.bag[i] = out; u.bagState = u.bagState || []; u.bagState[i] = outState;
+    if (st) { u.ammo = st.ammo; u.ammoMax = st.ammoMax; u.loaded = st.loaded; }
+    else { const am = inn.ammo ? String(inn.ammo).match(/\d+/) : null; u.ammo = inn.mag || (am ? Number(am[0]) : null); u.ammoMax = u.ammo; u.loaded = true; }
+    u.club = clubFor(u.weapon); u.job = jobOfWeapon(u.weapon);
+    /* a two-hander wants both hands: the car door goes on his back until a one-hander comes out */
+    if (bothHands(inn) && u.shield) { u.shieldBack = u.shield; u.shield = null; }
+    else if (!bothHands(inn) && !u.shield && u.shieldBack) { u.shield = u.shieldBack; u.shieldBack = null; }
+    emit({ t: 'swap', id: u.id, slot: i, from: out.name, to: inn.name, ap: c }); afterAction(u); return true;
+  }
+  /* what a man carries in his bag: the crew screen's two slots (gear.bag), else the kit by his weapon's job (ours.bag) */
+  function bagFor(c, job) {
+    const G = c.gear || null, ids = G && Array.isArray(G.bag) ? G.bag : Array.isArray(c.bag) ? c.bag : null;
+    const asW = function (id) { const w = id && weaponRow(id); return w ? (pistolShot(w) || w) : null; };
+    if (ids) return ids.slice(0, R('ap.bag_slots')).map(asW).filter(Boolean);
+    const K = R('ours.bag').kit, rows = R('ours.weapon_rows');
+    return (K[job] || K.default).map(function (j) { return asW(rows[j]); }).filter(Boolean);
+  }
   function curIni(u) {
     const rl = PK(u, 'relentless');
     return u.initiative * injMult(u, 'initiative_pct') * netCut(u) - u.fat * (rl ? rl.initiative_reduced_by_fatigue_pct / 100 : 1) + gearFat(u);
@@ -625,7 +685,7 @@ const FIGHT = (function () {
     return makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
-      apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
+      apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagState: [],
       armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
   }
   /* GUNS FIRST, IN THE RIGHT HANDS (rule 120(a); ours.guns_first_kit): the kit the crew rows carry, in order, is dealt to the men
@@ -775,8 +835,11 @@ const FIGHT = (function () {
       B.blocks.forEach(function (row, by) { row.forEach(function (name, bx) {
         if (lib[name]) return;
         const x0 = bx * bt * tm, y0 = by * bt * tm, x1 = (bx + 1) * bt * tm, y1 = (by + 1) * bt * tm;
+        const T = B.terrain.slice(by * bt, (by + 1) * bt).map(function (r) { return r.slice(bx * bt, (bx + 1) * bt); });
+        /* a roof over one storey is its storeys' level (rule 164 item 14; ours.roof_storeys, measured on the block's art) */
+        (R('ours.roof_storeys').blocks[name] || []).forEach(function (q) { if (T[q[1]] && T[q[1]][q[0]] === 'height' && q[2] > 1) T[q[1]][q[0]] = 'height' + q[2]; });
         lib[name] = {
-          terrain: B.terrain.slice(by * bt, (by + 1) * bt).map(function (r) { return r.slice(bx * bt, (bx + 1) * bt); }),
+          terrain: T,
           cover: (B.cover || []).filter(function (c) { return c.x_m >= x0 && c.x_m < x1 && c.y_m >= y0 && c.y_m < y1; })
             .map(function (c) { return { piece: c.piece, x_m: c.x_m - x0, y_m: c.y_m - y0 }; }),
           lights: (B.lights || []).filter(function (l) { return l.x_m >= x0 && l.x_m < x1 && l.y_m >= y0 && l.y_m < y1; })
@@ -1257,7 +1320,7 @@ const FIGHT = (function () {
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
-    u.threw = false; u.kited = false; u.shoved = false;
+    u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
       if (die() <= ch) { u.netted = null; emit({ t: 'free', id: u.id }); } else { u.netted.fails++; emit({ t: 'stuck', id: u.id, chance: Math.max(0, Math.round(ch)) }); } }
@@ -1429,7 +1492,9 @@ const FIGHT = (function () {
     if (fa && a.missStack) { ch += fa.hit_chance_per_miss_pct * a.missStack; parts.push('reads you'); }
     const la = level(a.x, a.y), lt = level(t.x, t.y);
     if (la > lt) { ch += R('hit_chance.height.higher_attacker_bonus'); parts.push('above'); }
-    if (la < lt && !isRanged(w)) { ch += R('hit_chance.height.lower_attacker_penalty'); parts.push('below'); }
+    /* from below, the library's Hit Chance page: '-10% penalty to hit chance per level difference', a shot as much as a blow
+       (rule 164 item 14: a man two storeys up is twice as hard to hit from the street) */
+    if (la < lt) { ch += R('hit_chance.height.hit_chance_page_wording').lower_per_level * (lt - la); parts.push('below'); }
     ch += rollShift(a);
     const cap = R('hit_chance.cap');
     return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
@@ -2233,6 +2298,11 @@ const FIGHT = (function () {
       if (best && moveTo(u, best.x, best.y)) return true;
     }
     if (ranged && A.reload && canReload(u)) { reload(u); return true; }
+    /* THE BAG ON AUTO (rule 164 item 15): an empty gun he cannot reload this turn, and a loaded one in the bag: he swaps */
+    if (ranged && emptyGun(u) && !canReload(u) && u.bag) {
+      const gi = u.bag.findIndex(function (w, i) { const st = u.bagState && u.bagState[i]; return w && isRanged(w) && (!st || (w.mag ? st.ammo > 0 : st.loaded)) && canSwap(u, i); });
+      if (gi >= 0 && swap(u, gi)) return true;
+    }
     if (ranged && A.high_ground && climb(u, A)) return true;   /* 70b: the shooter takes the roof before he shoots */
     const t = bestTarget(u);
     if (t) { const sw = sweepPick(u); if (sw) { sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); return true; }
@@ -2352,7 +2422,8 @@ const FIGHT = (function () {
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
-    level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
+    swap: swap, canSwap: canSwap, swapCost: swapCost, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
+    level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
@@ -2545,8 +2616,10 @@ function bakeBoard() {
       });
       if (FIGHT.S.night) nightPools(g, c, B.lights || [], k, pxm, pym);
       UI.groundLum = FIGHT.S.night ? groundLums(c) : null;
-      UI.board = c; fitStops();
-    });
+      /* the new board is handed over once the AUTO colour is read (rule 164 item 12; capped at ODDS_WAIT_MS): the fight is never
+         shown, nor answers a tap, before its colour */
+      return oddsFirst() || null;
+    }).then(function () { UI.board = c; fitStops(); });
 }
 /* THE NIGHT IS A COLOUR, NOT A DARKNESS (rule 73, Paolo 10/4: 'I love the nighttime aesthetic... even at its darkest
    it's really hard to see... full brightness and outside, I should still be able to play'; the school page
@@ -2808,6 +2881,7 @@ function sy(wy) { return (wy - UI.cy) * UI.zoom + TOPH + (H - TOPH - BOTH) / 2; 
 function wx(px) { return (px - W / 2) / UI.zoom + UI.cx; }
 function wy(py) { return (py - TOPH - (H - TOPH - BOTH) / 2) / UI.zoom + UI.cy; }
 function clampCam() {
+  if (!UI.board) return;   /* a fight dealt again has no board until its reveal */
   const bw = UI.board.width, bh = UI.board.height;
   const hw = W / 2 / UI.zoom, hh = (H - TOPH - BOTH) / 2 / UI.zoom;
   /* the camera may look past the board's edge by a man's height at the top and half his figure at the sides, so a man on
@@ -2956,7 +3030,7 @@ function walkTick(a, now) {
   while ((a.crossed || 0) < done) {
     const i = a.crossed || 0, q = a.path[i + 1], o = a.path[i]; a.crossed = i + 1; footfall(u, q);
     /* HE TAKES THE HIGH GROUND (rule 59's height row; rule 117c: a good choice gets a visible and audible win) */
-    if (u.side === 'you' && FIGHT.level(q.x, q.y) > FIGHT.level(o.x, o.y)) { sfx('high_ground'); pop({ x: q.x, y: q.y }, '', '#f0d296', true, u.name + ' takes the high ground.'); }
+    if (u.side === 'you' && FIGHT.level(q.x, q.y) > FIGHT.level(o.x, o.y)) { sfx('high_ground'); pop({ x: q.x, y: q.y }, '', '#f0d296', true, u.name + (FIGHT.level(q.x, q.y) > 1 ? ' is ' + FIGHT.level(q.x, q.y) + ' storeys up.' : ' takes the high ground.')); }
   }
   return p;
 }
@@ -2968,7 +3042,11 @@ function endAnim(a) {
   }
 }
 function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
-function say(s, wrap) { const e = document.getElementById('say'); e.classList.toggle('aim', !!wrap); e.textContent = s; e.style.display = s ? 'block' : 'none';
+/* A MOUSE IS NOT A FINGER (rule 164 item 16): on a computer (a fine pointer that hovers) the lines say click, not tap, and the
+   first fight's lessons say what the mouse does (point to see, click to do) */
+const FINE = (function () { try { return matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (_e) { return false; } })();
+function forPointer(s) { return FINE && s ? s.replace(/\bTap\b/g, 'Click').replace(/\btap\b/g, 'click') : s; }
+function say(s, wrap) { s = forPointer(s); const e = document.getElementById('say'); e.classList.toggle('aim', !!wrap); e.textContent = s; e.style.display = s ? 'block' : 'none';
   /* an aim or a refusal belongs to the turn it was said in (EYES [eyes: the stale line], 10/24: 'out of reach' stood through AUTO's
      next two rounds): the director clears it when the turn passes */
   UI.sayTurn = wrap && s && FIGHT.S && FIGHT.S.order ? turnKeyOf(FIGHT.current()) : null; }
@@ -3002,6 +3080,16 @@ function armName(v, arm) {
    man the bar shows, and every shot he dodges throws him aside on the board with the sidestep mark on the receipt tag (a block when the
    round went into the piece he stands behind). The words are drafts for WORDS (draft:true). */
 const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR' };   /* draft:true */
+/* WHAT A HEIGHT GIVES, IN WORDS (rule 164 item 14): on the tile he taps and in the aim; every number the rules' own */
+const HEIGHT_SAYS = { roof: 'Roof, {n} up: ', rise: 'High ground, {n} up: ', gives: '+{bonus}% to hit anyone lower, guns reach {reach} farther, sees {sight} farther',
+  noclub: ', no club reaches him from the street', wall: 'A wall. No way up: climb a roof with a ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
+function heightSay(x, y) {
+  const n = FIGHT.level(x, y); if (!n) return '';
+  const st = n + (n > 1 ? ' storeys' : ' storey');
+  return wfill(FIGHT.isRoof(x, y) ? HEIGHT_SAYS.roof : HEIGHT_SAYS.rise, { n: FIGHT.isRoof(x, y) ? st : n }) +
+    wfill(HEIGHT_SAYS.gives, { bonus: R('hit_chance.height.higher_attacker_bonus'), reach: n * R('hit_chance.height.ranged_range_per_level') + (n * R('hit_chance.height.ranged_range_per_level') > 1 ? ' tiles' : ' tile'), sight: n * R('ours.sight').per_level + (n * R('ours.sight').per_level > 1 ? ' tiles' : ' tile') }) +
+    (n > R('hit_chance.height.melee_max_height_gap') ? HEIGHT_SAYS.noclub : '') + '.';
+}
 /* the tag over a missed man carries a mark, never a word (rule 46f: numbers only on the ground): he slipped it, or it hit his cover */
 const MISS_MARK = { dodged: '\u2194', cover: '\u25AE' };
 function lvOf(v) { if (v.side === 'you') return v.level || 1; const X = R('parsed.brother_xp'); return Math.max(1, Math.round(1 + ((v.xp || X.base) - X.base) / X.per_level)); }
@@ -3059,6 +3147,9 @@ function aimLines(u, t) {
   const p = FIGHT.preview(u, t), out = [];
   if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
   out.push('<b>' + p.chance + '%</b> to hit. A hit: <b>-' + p.hp + '</b> health, <b>-' + p.armour + '</b> armour.');
+  const la = FIGHT.level(u.x, u.y), lt = FIGHT.level(t.x, t.y);
+  if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('hit_chance.height.higher_attacker_bonus'), reach: FIGHT.isRanged(u.weapon) ? ', reach +' + (la - lt) * R('hit_chance.height.ranged_range_per_level') : '' }));
+  if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('hit_chance.height.hit_chance_page_wording').lower_per_level * (lt - la) }));
   if (p.club) out.push('Too close to shoot: he clubs with his ' + armName(u, p.arm) + '.');
   if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
     const aw = armourWord(t), n = isFinite(p.blows) ? p.blows + ' hits to drop him.' : 'It will not drop him.';
@@ -3149,6 +3240,9 @@ function hauntedFight() { const t = FIGHT.S.units.filter(function (v) { return v
    cover, the empty gun, their turn, the step taken back, the fight AUTO can finish. A line that comes while another is up
    waits its turn (never two at once), one whose moment has passed is dropped, and a tap puts a line away (it never stops
    the march). YOU alone, the strip keeps one rule for him. */
+const TEACH_PC = {   /* draft:true; the same lessons where a mouse points (hover to see, click to do) */
+  walk: 'Point at a chalk tile to see the walk. Click it, compa. He walks.',
+  aim: 'Mira. Point at him to see your odds. Click to shoot.' };
 const TEACH = {   /* draft:true; written in Spanglish, spoken through BohemiaSpanglish.say (rule 143a): mostly the plain English under it */
   deploy: 'Ándale. Drag a man to where you want him.',
   walk: 'Tap a chalk tile, then tap it again, compa. He walks.',
@@ -3215,7 +3309,8 @@ function teach(k) {
   T[k] = 1; try { localStorage.setItem(TEACH_KEY, JSON.stringify(T)); } catch (_e) {}
   /* WORDS [spanglish at ten percent] (rule 143a, Paolo 10/24: 'now all my crew members are in Spanglish'): the line is rolled for
      the man who says it; plain English most times, his one word of Spanish about 1 in 8 (more if he leans to it) */
-  const said = window.BohemiaSpanglish ? BohemiaSpanglish.say(v.id || v.name, TEACH[k], 'teach:' + k) : TEACH[k];
+  const base = FINE && TEACH_PC[k] ? TEACH_PC[k] : forPointer(TEACH[k]);
+  const said = window.BohemiaSpanglish ? BohemiaSpanglish.say(v.id || v.name, base, 'teach:' + k) : base;
   const line = said.replace('{name}', UI.hauntName ? titleName(UI.hauntName) : 'him');
   UI.vet = { k: k, who: v.id, line: line, t: performance.now() };
   drawPortrait(document.getElementById('vetface').getContext('2d'), v, document.getElementById('vetface').width);
@@ -3651,7 +3746,7 @@ function skipTurn() {
 /* rule 158(b): every pace a power of two, so a faster fight lands on halves and quarters of the song's beat, never off it (the
    hand's top was 3x, a third of a beat, off the song: it is 4x, a quarter; a phone that kept 3 keeps the top) */
 const THEIRS_PACE = 2, SPEEDS = [1, 2, 4], FINISH_PACE = 4, SPEED_KEY = 'bohemia.fight.speed';
-const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000, ODDS_WAIT_MS = 1500;
+const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000, ODDS_WAIT_MS = 1500, ODDS_REST_MS = 16;
 const KEPT_KEY = 'bohemia.fight.kept.v1', KEPT_HOURS = 6;
 function paceNow() {
   if (UI.finish) return FINISH_PACE;
@@ -3728,11 +3823,12 @@ function oddsWorkerMain() {
   self.onmessage = function (m) {
     const d = m.data;
     if (d.db) { Object.keys(d.db).forEach(function (k) { DB[k] = d.db[k]; }); return; }
-    JOB = { id: d.id, snap: d.snap, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, n: 0, sum: 0, won: 0, clean: 0 };
+    JOB = { id: d.id, snap: d.snap, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, show: d.show, rest: d.rest, n: 0, sum: 0, won: 0, clean: 0 };
     const id = d.id; setTimeout(function () { run(id); }, 0);
   };
   function run(id) {
     const J = JOB; if (!J || J.id !== id) return;   /* a newer board asked: this read is dropped */
+    const t0 = Date.now();
     try {
       SEED = J.seed; FIGHT.thaw(J.snap, false); FIGHT.S.deploy = false;
       let g = 0; while (!FIGHT.S.over && g <= J.steps) { const v = FIGHT.current(); if (!v) break; FIGHT.aiStep(v); FIGHT.S.events = []; g++; }
@@ -3740,7 +3836,9 @@ function oddsWorkerMain() {
       if (FIGHT.S.result === 'won') J.won++; J.sum += w; if (w === 1) J.clean++; J.n++; J.seed = SEED;
       self.postMessage({ id: id, runs: J.n, sum: J.sum, won: J.won, clean: J.clean });
     } catch (e) { self.postMessage({ id: id, broke: String(e && e.message || e) }); JOB = null; return; }
-    if (J.n < J.runs) setTimeout(function () { run(id); }, 0); else JOB = null;
+    /* the first read as fast as it plays (the colour on the tin); the runs that only refine it rest between, so a phone with few
+       cores keeps its frames */
+    if (J.n < J.runs) setTimeout(function () { run(id); }, J.n < J.show ? 0 : Math.max(J.rest, (Date.now() - t0) * J.rest / 8)); else JOB = null;
   }
 }
 function oddsWorker() {
@@ -3789,7 +3887,7 @@ function oddsTick(now) {
   const k = oddsKeyNow();
   if (k !== ODDS.key) {
     ODDS.key = k; ODDS.runs = 0; ODDS.won = 0; ODDS.sum = 0; ODDS.clean = 0; ODDS.live = false; ODDS.snap = FIGHT.freeze(); ODDS.seed = (SEED ^ 0x9e3779b9) >>> 0; ODDS.job++;
-    ODDS.postAt = performance.now(); const W = oddsWorker(); if (W) W.postMessage({ id: ODDS.job, snap: ODDS.snap, seed: ODDS.seed, runs: ODDS_RUNS, steps: ODDS_STEPS });
+    ODDS.postAt = performance.now(); const W = oddsWorker(); if (W) W.postMessage({ id: ODDS.job, snap: ODDS.snap, seed: ODDS.seed, runs: ODDS_RUNS, steps: ODDS_STEPS, show: ODDS_SHOW, rest: ODDS_REST_MS });
   }
   if (ODDS.W || ODDS.runs >= ODDS_RUNS || !UI.board) return;   /* the worker plays it */
   const E = oddsEngine(); if (!E) return;
@@ -3979,6 +4077,7 @@ function draw(now) {
   if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
+  drawLadders();   /* rule 164 item 14: a roof you can climb has a ladder, as long as the roof is high */
   drawFog(now);   /* rule 157: what none of his men can see reads dark, under the marks so the chalk still reads */
   mkOn();
   /* YOUR FORMATION: your two columns in one chalk line (where your men can go); once a man is picked, a chalk dot on every free
@@ -4083,7 +4182,7 @@ function draw(now) {
   drawDrops(now);   /* rule 145(b): the burst in the air, over the men */
   /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
   if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26) {
-    const Y = sy((dy(u) + .9) * UI.th) - (FIGHT.level(u.x, u.y) ? th * .14 : 0);
+    const Y = sy((dy(u) + .9) * UI.th) - th * riseAt(u.x, u.y);
     roundsMark(u, sx((dx(u) + .5) * UI.tw), Math.round(Y - manH() - 9), now);
   }
   /* what a blow did, as light on the man, never as words on the ground (rule 46f): the words are in the bar */
@@ -4514,10 +4613,47 @@ function drawBody(v, tw, th) {
 /* the man he is dragging into his line stands under his finger, his feet a little above it so the finger does not cover him */
 const DRAG_LIFT = 0.45;
 function skinOf(v) { return '#8c6a52'; }
+/* HEIGHTS YOU CAN SEE (COMBAT [the PC playtest: the fight's part] (3), rule 164 item 14, Paolo 10/24: 'one-story versus two-story
+   or even a three-story building, I don't know how that helps me and it's hard to tell visually'). Measured first: every house
+   was a wall but one a block, a roof you could stand on, drawn the same as the walls beside it; every roof was one level, the
+   two- and three-storey ones too. Now a roof stands at its storeys (Battle Brothers' levels 1 to 3, ours.roof_storeys), a man on
+   it stands on its plane, a ladder leans on every building you can climb (as long as its face is tall, a rung a metre), and
+   the level rides over his head; what it gives is said on the tile and in the odds. */
+function riseAt(x, y) { return R('ours.roof_storeys').rise[FIGHT.level(x, y)] || 0; }
+function upChevron(c, r, k, col) {   /* an up-chevron five cells wide, k cells a cell, an ink rim under it */
+  [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]].forEach(function (q) { mkCell(c + q[0] * k, r + q[1] * k + k, k, k, MK.ink); });
+  [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]].forEach(function (q) { mkCell(c + q[0] * k, r + q[1] * k, k, k, col); });
+}
+function drawLadders() {
+  const S = FIGHT.S; if (!S || !S.terrain) return;
+  if (UI.roofsOf !== S.terrain) {   /* the roofs, found once a board: one ladder a roof, on its first tile */
+    UI.roofsOf = S.terrain; UI.roofs = [];
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
+      if (!FIGHT.isRoof(x, y)) continue;
+      const lv = FIGHT.level(x, y);
+      if (x > 0 && FIGHT.isRoof(x - 1, y) && FIGHT.level(x - 1, y) === lv) continue;
+      UI.roofs.push({ x: x, y: y, lv: lv });
+    }
+  }
+  const th = UI.th * UI.zoom, out = [];
+  mkOn();
+  for (let i = 0; i < UI.roofs.length; i++) {
+    const x = UI.roofs[i].x, y = UI.roofs[i].y, lv = UI.roofs[i].lv;
+    const X = sx((x + .8) * UI.tw), foot = sy((y + .93) * UI.th), top = foot - th * (riseAt(x, y) + .04);
+    if (X < -40 || X > W + 40 || foot < -40 || top > H + 40) continue;
+    const c0 = mc(X), r1 = mc(foot), r0 = mc(top), k = Math.max(1, Math.round(th * DPR / MKU / 90)), gap = 4 * k, step = Math.max(2, Math.round((r1 - r0) / (lv * 3 + 1)));
+    mkCell(c0 + k, r0 + k, k, r1 - r0, 'rgba(0,0,0,.55)'); mkCell(c0 + gap + 2 * k, r0 + k, k, r1 - r0, 'rgba(0,0,0,.55)');   /* its shadow on the wall */
+    mkCell(c0, r0, k, r1 - r0, '#8a6c45'); mkCell(c0 + gap + k, r0, k, r1 - r0, '#8a6c45');                                       /* the rails */
+    for (let r = r0 + step; r < r1 - 1; r += step) mkCell(c0 + k, r, gap, k, '#b08a58');                                            /* the rungs */
+    out.push({ x: x, y: y, lv: lv, X: X, top: top, foot: foot });
+  }
+  mkOff();
+  UI.ladders = out;   /* for the gates */
+}
 function drawMan(v, tw, th) {
   const h = manH(), you = v.side === 'you', now = performance.now();
   const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now), feet = sy((dy(v) + .9) * UI.th);
-  const lvl = FIGHT.level(v.x, v.y) ? th * .14 : 0;
+  const lvl = th * riseAt(v.x, v.y);
   const Y = feet - lvl;
   v._seen = true;
   lampShadow(v, X, Y, h);
@@ -4541,12 +4677,16 @@ function drawMan(v, tw, th) {
      he acts or is picked' (Battle Brothers' habit, the research's, not his words): every man on the field wears his bars over
      his head, as wide as the man, three points tall; his men's on a gold rim with green health, theirs on a rust rim with red;
      the one acting and the one picked a rim brighter. Nothing on the ground (rule 46f). */
-  if (h > 26 && FIGHT.onField(v)) {
+  if (h > 26 && FIGHT.onField(v) && (!UI.barsOff || FIGHT.current() === v)) {
     const bw = Math.round(Math.max(18, h * .42)), bx = Math.round(X - bw / 2), by = Math.round(Y - h - 9);   /* on whole pixels: no soft edge */
     const lit = FIGHT.current() === v || (UI.pend && UI.pend.target === v);
     cx.fillStyle = you ? (lit ? '#f0d296' : SIDE_RIM.you) : (lit ? '#f07a5e' : SIDE_RIM.them); cx.fillRect(bx - 2, by - 2, bw + 4, BAR_PT * 2 + 5);
     cx.fillStyle = 'rgba(0,0,0,.82)'; cx.fillRect(bx - 1, by - 1, bw + 2, BAR_PT * 2 + 3);
     v._bar = { x: bx - 2, y: by + 1, lit: lit, at: now };   /* a point on its rim (the left side: the rounds' plate sits over the middle), for the gates */
+    /* HOW HIGH HE STANDS (rule 164 item 14): one up-chevron a level, stacked left of his bars in his side's rim colour */
+    const up = FIGHT.level(v.x, v.y);
+    if (up > 0) { mkOn(); const k = Math.max(1, Math.round(h / 46)), cx0 = mc(bx - 4) - 3 * k, cy0 = mc(by + BAR_PT) + k;
+      for (let i = 0; i < up; i++) upChevron(cx0, cy0 - i * 3 * k, k, you ? SIDE_RIM.you : SIDE_RIM.them); mkOff(); v._up = { n: up, x: (cx0 + k) * MKU / DPR, y: cy0 * MKU / DPR, at: now }; }
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
     /* WHAT THE BLOW TAKES, ON HIS BARS (one tap to see): the part of his armour and of his health one hit takes, blinking on
@@ -4752,6 +4892,26 @@ function sweepSay(u, t, name) {
   e.innerHTML = '<b>' + FIGHT.hitChance(u, t, k).chance + '%</b> to hit. ' + name.toUpperCase() + ' strikes ' + n + ' of theirs.';
   e.style.display = 'block';
 }
+/* THE BAG'S SQUARE: the weapon's glyph with a strap across its top corner and two swap arrows, the pen's cells */
+function bagIcon(job, css) {
+  const c = iconCanvas(JOB_ICON[job] || 'mace_mastery', css), g = c.getContext('2d'), u = c.width / 24;
+  g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(0, 0, c.width, u * 7);
+  g.fillStyle = '#e0b062';
+  [[1, 2], [2, 1], [2, 2], [2, 3], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2]].forEach(function (q) { g.fillRect(q[0] * u, q[1] * u, u, u); });     /* <- */
+  [[17, 4], [18, 4], [19, 4], [20, 4], [21, 4], [22, 3], [22, 4], [22, 5], [23, 4]].forEach(function (q) { g.fillRect(q[0] * u, q[1] * u, u, u); });   /* -> */
+  return c;
+}
+const BAG_SAYS = { done: '{name} swaps the {from} for the {to} from the bag. {cost}', free: 'Free: Quick Hands.', ap: 'Not enough AP: a swap costs {need}, {name} has {have}.' };   /* draft:true */
+function bagTap(i) {
+  const u = FIGHT.current(); if (!crewControlled(u) || UI.anim.length || FIGHT.S.over) return;
+  const w = u.bag && u.bag[i]; if (!w) return;
+  const c = FIGHT.swapCost(u);
+  if (!FIGHT.canSwap(u, i)) { say(wfill(BAG_SAYS.ap, { need: c, name: u.name, have: u.ap }), true); sfx('ui_deny'); return; }
+  const from = armName(u, u.weapon); UI.pend = null; UI.sweep = null; UI.skillMode = null; UI.back = null;
+  FIGHT.swap(u, i); sfx('swap', { from: from, to: armName(u, w) });
+  say(wfill(BAG_SAYS.done, { name: u.name, from: from, to: armName(u, u.weapon), cost: c ? c + ' AP.' : BAG_SAYS.free }), true);
+  take(); hud();
+}
 function iconCanvas(id, css) {
   const c = document.createElement('canvas'), d = Math.min(window.devicePixelRatio || 1, 3);
   c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px';
@@ -4826,7 +4986,8 @@ function hud() {
   const lastRd = mine && !dry && rd && rd.of > 1 && rd.left === 1;
   const sweeps = mine ? FIGHT.sweepSkills(u.weapon) : [];
   const back = mine && backOk(u);
-  const key = (u ? u.id + u.job : '') + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
+  const bagK = mine && u.bag ? u.bag.map(function (w, i) { return (w ? w.id : '-') + (FIGHT.canSwap(u, i) ? 1 : 0); }).join(',') + FIGHT.swapCost(u) : '';
+  const key = (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
     + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',');
   if (sk.dataset.key !== key) {
     sk.dataset.key = key;
@@ -4836,6 +4997,17 @@ function hud() {
     bb.textContent = ''; bb.style.display = back ? '' : 'none'; bb.disabled = !back;
     if (back) { bb.appendChild(backIcon(30)); const bl = document.createElement('b'); bl.textContent = 'BACK'; bb.appendChild(bl); }
     sk.appendChild(bb);
+    /* THE BAG (rule 164 item 15): what rides in his bag slots, a square each: the weapon's glyph under a strap, the swap's AP
+       on it (FREE with Quick Hands' one a turn); a tap swaps it into his hands */
+    (mine && u.bag ? u.bag : []).forEach(function (w, i) {
+      if (!w) return;
+      const b = document.createElement('button'), c = FIGHT.swapCost(u);
+      b.className = 'sq bag'; b.appendChild(bagIcon(FIGHT.jobOfWeapon(w), 30));
+      const t = document.createElement('b'); t.textContent = c ? c + ' AP' : 'FREE'; b.appendChild(t);
+      b.dataset.bag = i; b.title = 'SWAP: ' + armName(u, w).toUpperCase(); b.disabled = !FIGHT.canSwap(u, i);
+      b.onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } bagTap(i); };
+      sk.appendChild(b);
+    });
     bs.textContent = ''; bs.disabled = !tgt; bs.className = 'sq' + (tgt ? ' hot' : ''); bs.title = 'STRIKE'; bs.style.display = dry && !tgt ? 'none' : '';
     if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
     const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
@@ -4910,7 +5082,8 @@ function placePick() {
   let X, top;
   if (p.target) { const v = p.target; X = sx((dx(v) + .5) * UI.tw); top = sy((dy(v) + .9) * UI.th) - manH() - 14; }
   else { X = sx((p.tile.x + .5) * UI.tw); top = sy((p.tile.y + .9) * UI.th) - manH() * .45; }
-  const html = act.label + ' ' + act.sub + (p.swings ? '<i>' + p.swings + ' free swing' + (p.swings > 1 ? 's' : '') + '</i>' : '');
+  const upN = !p.target && p.tile ? FIGHT.level(p.tile.x, p.tile.y) : 0;
+  const html = act.label + ' ' + act.sub + (upN ? '<em>' + (FIGHT.isRoof(p.tile.x, p.tile.y) ? 'ROOF ' : 'HIGH ') + upN + ' UP</em>' : '') + (p.swings ? '<i>' + p.swings + ' free swing' + (p.swings > 1 ? 's' : '') + '</i>' : '');
   if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; }
   el.style.display = 'block';
   const w = el.offsetWidth, h = el.offsetHeight;
@@ -5199,6 +5372,7 @@ cv.addEventListener('pointerdown', function (e) {
   UI.glide = null;
 });
 cv.addEventListener('pointermove', function (e) {
+  if (e.pointerType === 'mouse' && !touches[e.pointerId] && !e.buttons) { hoverAt(e.clientX, e.clientY); return; }   /* rule 164 item 16: hover to see */
   const t = touches[e.pointerId]; if (!t || !gest) return;
   t.x = e.clientX; t.y = e.clientY;
   const ids = Object.keys(touches);
@@ -5247,6 +5421,7 @@ function up(e) {
   if (!Object.keys(touches).length) gest = null;
 }
 cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+cv.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && !touches[e.pointerId]) { UI.hoverKey = 'out'; if (UI.pend && UI.pend.hover) { UI.pend = null; say(''); hud(); } } });
 cv.addEventListener('wheel', function (e) {
   e.preventDefault(); UI.pinched = true; const z = Math.max(UI.far, Math.min(UI.max, UI.zoom * Math.pow(1.0015, -e.deltaY)));
   const X = wx(e.clientX), Y = wy(e.clientY); UI.zoom = z;
@@ -5345,19 +5520,8 @@ function tapAt(px, py) {
     if (!FIGHT.useSkill(u, id, p)) say('Not there.'); else take();
     return;
   }
-  const th = UI.th * UI.zoom, hgt = manH();
-  const body = S.units.filter(function (v) {
-    if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
-    const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
-    return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
-  }).sort(function (a, b) { return b.y - a.y; })[0], onTile = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
-  /* the man ON the tile first; a body over an empty tile answers only if it is theirs (aim), never one of yours (rule 104a:
-     zoomed out to both teams, your own men's bodies cover the tiles behind them, and those tiles must still be walkable) */
-  let who = onTile || (body && body.side === 'them' ? body : null);
+  const who = whoAt(px, py, p, u);
   UI.tapped = true;   /* his first tap: the open's how-to line has done its job and does not come back */
-  /* NO BODY COVERS A TILE HE NEEDS (one tap to see, one tap to do): a body of theirs drawn over an empty tile his arm cannot
-     reach from here gives the finger to the tile under it, when he can walk there */
-  if (who && !onTile && !FIGHT.canStrike(u, who) && !FIGHT.dryAt(u, who) && FIGHT.pathTo(u, p.x, p.y, FIGHT.reach(u, null, true))) who = null;
   if (who && who.side === 'them' && FIGHT.sideSees('you', who) && UI.sweep) {
     /* WEAPON SHAPES: a sweep armed: the first tap lights its shape, the second swings it */
     if (!FIGHT.canSweep(u, who, UI.sweep)) { say(who.name + ' is out of the ' + UI.sweep.toLowerCase() + '\'s reach.' + reachWords(u), true); UI.pend = null; return; }
@@ -5379,22 +5543,68 @@ function tapAt(px, py) {
   }
   if (who) { UI.pend = null; return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
+  if (!path && FIGHT.rowAt(p.x, p.y) === 'obstacles') { UI.pend = null; say(HEIGHT_SAYS.wall); return; }   /* a house's wall is not 'too far' */
   if (!path) { UI.pend = null; say('Too far for the AP left.'); return; }
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; walkKept(u, p.x, p.y); take(); return; }
+  walkPreview(u, p, f, path);
+  if (S.cover[p.y][p.x]) teach('cover');
+  hud();
+}
+/* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */
+function walkPreview(u, p, f, path) {
+  const S = FIGHT.S;
   /* the price of walking past: every tile left inside a man's reach is a free swing */
   let swings = 0, at = { x: u.x, y: u.y };
   path.forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
   UI.pend = { tile: p, path: path, cost: f.best[f.key(p.x, p.y)], swings: swings };
   /* what standing there does (rule 59; rule 117b: only where the ground changes something) and what the walk costs in swings;
      the AP and 'tap again' are no longer sentences: the tag on the tile and the big button say WALK and its AP */
-  const gs = FIGHT.groundSay(p.x, p.y);
+  const gs = FIGHT.level(p.x, p.y) ? heightSay(p.x, p.y) : FIGHT.groundSay(p.x, p.y);
   /* WHAT THE WALK LEAVES (EYES [eyes: the reason is AP], 10/24: 'the chalk shows before the walk what a walk will leave'): when the
      AP left after it will not pay for his blow or shot, the line says so before he commits */
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });
   const short = foeSeen && sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
   say([gs || '', swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
-  if (S.cover[p.y][p.x]) teach('cover');
-  hud();
+}
+/* who a finger (or the mouse) at px, py means: the man ON the tile first; a body over an empty tile answers only if it is theirs
+   (aim), never one of yours (rule 104a: zoomed out to both teams, your own men's bodies cover the tiles behind them, and those
+   tiles must still be walkable); NO BODY COVERS A TILE HE NEEDS: a body of theirs drawn over an empty tile his arm cannot reach
+   from here gives the finger to the tile under it, when he can walk there */
+function whoAt(px, py, p, u) {
+  const S = FIGHT.S, th = UI.th * UI.zoom, hgt = manH();
+  const body = S.units.filter(function (v) {
+    if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
+    const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
+    return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
+  }).sort(function (a, b) { return b.y - a.y; })[0], onTile = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
+  let who = onTile || (body && body.side === 'them' ? body : null);
+  if (who && !onTile && !FIGHT.canStrike(u, who) && !FIGHT.dryAt(u, who) && FIGHT.pathTo(u, p.x, p.y, FIGHT.reach(u, null, true))) who = null;
+  return who;
+}
+/* HOVER TO SEE, CLICK TO DO (COMBAT [the PC playtest: the fight's part] (5), rule 164 item 16, Paolo 10/24: 'the combat UI better
+   than Battle Brothers', mobile first'): on a computer the mouse over a tile is the first tap (the walk, its AP and its tag; what
+   standing there does), over a man of his reach the aim (the chance, what one blow takes); one click does it. A finger keeps one
+   tap to see, one tap to do. Nothing is spent, rolled or taught by a hover. */
+function hoverAt(px, py) {
+  const S = FIGHT.S, u = FIGHT.current();
+  if (!UI.board || S.deploy || S.over || UI.auto || !crewControlled(u) || UI.anim.length || UI.skillMode || UI.sweep || UI.drag) return;
+  const p = tileAt(px, py), out = p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h;
+  const key = out ? 'out' : p.x + ',' + p.y + ':' + turnKeyOf(u) + ':' + S.log.length + ':' + u.ap;
+  if (UI.hoverKey === key) return; UI.hoverKey = key;
+  const clear = function () { if (UI.pend && UI.pend.hover) { UI.pend = null; say(''); hud(); } };
+  if (out) { clear(); return; }
+  const who = whoAt(px, py, p, u);
+  if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
+    if (!FIGHT.canStrike(u, who) || FIGHT.dryAt(u, who)) { clear(); return; }
+    if (UI.pend && UI.pend.target === who) return;
+    UI.pend = { target: who, pv: FIGHT.preview(u, who), hover: true }; aimSay(u, who); hud(); return;
+  }
+  if (who) { clear(); return; }
+  if (p.x === u.x && p.y === u.y) { clear(); return; }
+  const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
+  if (!path) { clear(); return; }
+  if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) return;
+  walkPreview(u, p, f, path); UI.pend.hover = true; hud();
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target, nm = UI.pend.sweep; UI.pend = null; UI.sweep = null; if (nm) FIGHT.sweep(u, t, null, nm); else FIGHT.strike(u, t); take(); } };
 /* RETREAT (rule 144(c)): one tap to see (the button arms and the line says what happens), one tap to do, within two bars */
@@ -5426,12 +5636,54 @@ document.getElementById('bspeed').onclick = function () { audio(); const i = SPE
 document.getElementById('bback').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } takeBack(); };
 document.getElementById('oagain').onclick = function () { document.getElementById('over').style.display = 'none'; start(); };
 
+/* BATTLE BROTHERS' KEYS IN THE FIGHT (COMBAT [the PC playtest: the fight's part] (5), rule 164 items 1 and 16, Paolo 10/24: 'find
+   out all the keyboard button clicks that were on Battle Brothers and do pretty much the exact same for Bohemia'). The library's
+   Tactical Map Keyboard Shortcuts (bb_all/1111_Keyboard Shortcuts.txt), key for key: W A S D and the arrows move the camera;
+   Space or End waits the turn; Enter or F ends it (on the formation, starts the fight); R ends the round (his men skip to the
+   next; twice, like RETREAT, since there is no dialog); 1 to 9 the squares of the skill row in order; Alt shows or hides the
+   bars over the men; Shift centres on the man acting; Page Up and Page Down (and the wheel) zoom; C or I opens his card.
+   Esc lets go of what the first tap picked. */
+const KEY_PAN = 48, KEY_ZOOM = 1.15;
+const KEY_SAYS = { round: 'End the round? Your men skip their turns until the next. Press R again.', rounded: 'Round ended: your men wait for the next.' };   /* draft:true */
+function keyPress(e) {
+  const S = FIGHT.S, u = FIGHT.current(), k = e.key, mine = crewControlled(u) && !UI.anim.length && !S.over;
+  if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  if (e.target && e.target.tagName === 'BUTTON' && (k === ' ' || k === 'Enter')) e.target.blur();   /* a focused button would press itself too */
+  const pan = { w: [0, -1], arrowup: [0, -1], s: [0, 1], arrowdown: [0, 1], a: [-1, 0], arrowleft: [-1, 0], d: [1, 0], arrowright: [1, 0] }[k.toLowerCase()];
+  if (pan) { UI.pinched = true; UI.glide = null; UI.cx += pan[0] * KEY_PAN / UI.zoom; UI.cy += pan[1] * KEY_PAN / UI.zoom; clampCam(); e.preventDefault(); return; }
+  if (k === 'PageUp' || k === 'PageDown' || k === '+' || k === '=' || k === '-') {
+    UI.pinched = true; UI.zoom = Math.max(UI.far, Math.min(UI.max, UI.zoom * (k === 'PageUp' || k === '+' || k === '=' ? KEY_ZOOM : 1 / KEY_ZOOM))); clampCam(); e.preventDefault(); return; }
+  if (k === 'Shift') { if (u && FIGHT.onField(u)) { UI.glide = null; UI.cx = (dx(u) + .5) * UI.tw; UI.cy = (dy(u) + .5) * UI.th; clampCam(); } return; }
+  if (k === 'Alt') { UI.barsOff = !UI.barsOff; e.preventDefault(); return; }
+  if (k === 'Escape') { if (UI.pend) { UI.pend = null; UI.sweep = null; UI.skillMode = null; say(''); hud(); } return; }
+  if (k === ' ' || k === 'End') { e.preventDefault(); document.getElementById('bwait').click(); return; }
+  if (k === 'Enter' || k === 'f' || k === 'F') { e.preventDefault(); audio();
+    if (S.deploy) { fightNow(); return; }
+    if (mine) { UI.pend = null; UI.skillMode = null; UI.sweep = null; FIGHT.endTurn(u); take(); hud(); } return; }
+  if (k === 'r' || k === 'R') {
+    if (!mine || S.deploy) return;
+    if (!UI.roundArm || performance.now() - UI.roundArm > beatMs() * 8) { UI.roundArm = performance.now(); say(KEY_SAYS.round); return; }
+    UI.roundArm = 0; UI.endRound = S.round; UI.pend = null; say(KEY_SAYS.rounded); FIGHT.endTurn(u); take(); hud(); return; }
+  if (/^[1-9]$/.test(k)) { const sq = Array.from(document.querySelectorAll('#skills .sq')).filter(function (b) { return b.style.display !== 'none'; })[Number(k) - 1];
+    if (sq && !sq.disabled) sq.click(); return; }
+  if (k === 'c' || k === 'C' || k === 'i' || k === 'I') { document.getElementById('card').click(); return; }
+}
+document.addEventListener('keydown', keyPress);
+/* the shell may hand the keys on while the fight is open and its own window has the focus (BOHEMIA_FIGHT_KEY {key}) */
+window.addEventListener('message', function (m) { const d = m && m.data; if (d && d.type === 'BOHEMIA_FIGHT_KEY' && typeof d.key === 'string') keyPress({ key: d.key, preventDefault: function () {}, target: null }); });
+/* R: his men skip their turns for the rest of the round he ended (the next round they act again) */
+function roundSkip() {
+  const S = FIGHT.S, u = FIGHT.current();
+  if (UI.endRound === undefined || UI.endRound === null) return;
+  if (S.round !== UI.endRound) { UI.endRound = null; return; }
+  if (crewControlled(u) && !UI.anim.length && !S.over) { FIGHT.endTurn(u); take(); }
+}
 /* ---------------- boot ---------------- */
 let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
-  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); if (++hudN % 6 === 0) hud(); }
+  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
   catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
 }
 const MET_KEY = 'bohemia.fight.met.v1';
@@ -5456,8 +5708,12 @@ function start() {
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = []; clearTimeout(UI.beatT); UI.beatFor = null; UI.onBeat = []; SONG.read = -1e9;
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.spentKey = null; hideSpent();
+  /* a fight started again (AGAIN, a new kind) is dealt behind the loading screen like the first: the last board is gone, so the
+     glass never answers a tap on a fight it has not shown yet (rule 164 item 12: its AUTO colour is read first) */
+  if (UI.board) { UI.board = null; UI.roofsOf = null; document.getElementById('load').style.display = ''; }
   try { oddsTick(performance.now()); } catch (_e) {}   /* rule 164 item 12: the AUTO colour's read starts while the board bakes */
-  return bakeBoard().then(function () { UI.bakedAt = performance.now(); return oddsFirst(); }).then(function () {
+  return bakeBoard().then(function () {
+    UI.bakedAt = performance.now();
     resize();
     /* THE OPEN (rule 104a, amending 79's 'on your line, a pinch shows the rest'): both teams on the glass, the man at 112.
        Two beats of stillness (nothing happens in the first second). */
