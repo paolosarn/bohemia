@@ -170,3 +170,4 @@ Newest first.
 - 2026-10-25 | ASK | GROK_ASK_116_WHAT_BB_LEAVES_ON_THE_GROUND_2026_10_25.md | hit effects, corpses, loot on ground
 - 2026-10-25 | ASK | GROK_ASK_117_COMPANY_SCREEN_2026_10_25.md | company screen, paper doll, level-up
 - 2026-10-25 | ASK | GROK_ASK_118_MAP_SIZE_NUMBERS_2026_10_25.md | map size, settlements, hex gaps
+- 2026-10-25 | ASK | GROK_ASK_119_VISION_RADIUS_2026_10_25.md | vision radius, fog, lookout, night
