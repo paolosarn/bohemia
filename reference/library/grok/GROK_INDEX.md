@@ -172,3 +172,4 @@ Newest first.
 - 2026-10-25 | ASK | GROK_ASK_118_MAP_SIZE_NUMBERS_2026_10_25.md | map size, settlements, hex gaps
 - 2026-10-25 | ASK | GROK_ASK_119_VISION_RADIUS_2026_10_25.md | vision radius, fog, lookout, night
 - 2026-10-25 | ASK | GROK_ASK_120_WHAT_I_FOUND_ON_MY_OWN_2026_10_25.md | missing crises, weak undead visuals, map contradiction
+- 2026-10-25 | ASK | GROK_ASK_121_LORE_HOLES_THREE_ACTS_2026_10_25.md | three acts, crisis placement, chip bodies, mayor
