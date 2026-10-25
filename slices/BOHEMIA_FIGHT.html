@@ -651,6 +651,9 @@ const FIGHT = (function () {
     u.hpMax = u.hp; u.armHMax = u.armH; u.armBMax = u.armB;
     u.missStack = 0; u.headNext = false; u.frenzy = 0; u.reachStacks = 0; u.overwhelmed = 0; u.nineUsed = false; u.nineUp = false; u.berserkUsed = false;
     const ps = pistolShot(u.weapon); if (ps) u.weapon = ps;
+    /* NOBODY HOLDS WHAT HE DOES NOT HAVE (rule 177(a)(d)): a two-hander and a shield never share his hands (Battle Brothers will not
+       equip them together); handed both, the car door rides on his back as the swap puts it, and only a door on his arm guards him */
+    if (u.shield && bothHands(u.weapon)) { u.shieldBack = u.shield; u.shield = null; }
     u.club = clubFor(u.weapon);
     const ammo = u.weapon.ammo ? String(u.weapon.ammo).match(/\d+/) : null;
     u.ammo = ammo ? Number(ammo[0]) : null; u.ammoMax = u.ammo;
@@ -2692,6 +2695,16 @@ function fitStops() {
 function load(src) {
   return new Promise(function (ok) { const i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; });
 }
+/* a rig sheet the fight's start did not load (a gun he picks up or swaps in, rule 177(a): measured 10/25, a man who swapped a pistol
+   out of his bag stood bare-handed for good): fetched once, as an ImageBitmap like the rest, drawn the frame it lands */
+const RIG_LATER = {};
+function rigLater(s) {
+  if (UI.imgs[s] || RIG_LATER[s]) return;
+  RIG_LATER[s] = 1;
+  load(s).then(function (i) { if (!i) return;
+    if (typeof createImageBitmap !== 'function') { UI.imgs[s] = i; return; }
+    createImageBitmap(i).then(function (b) { b.src = i.src; UI.imgs[s] = b; }, function () { UI.imgs[s] = i; }); });
+}
 /* the ground: COMBAT TWO's blocks and cover baked once into one picture */
 const MEN_GRACE = 3000;
 function bakeBoard() {
@@ -2716,7 +2729,8 @@ function bakeBoard() {
   /* the people: the rig sheet of every look a man in THIS fight wears (slices/fight_rig, rule 121), and his gun's */
   const men = [], guns = [];
   FIGHT.S.units.forEach(function (v) { const L = lookOf(v), f = 'fight_rig/' + L.file; if (men.indexOf(f) < 0) men.push(f);
-    if (L.guns && v.weapon && FIGHT.isGun(v.weapon) && guns.indexOf('fight_rig/' + L.guns) < 0) guns.push('fight_rig/' + L.guns); });
+    const armed = [v.weapon].concat(v.bag || []).some(function (w) { return w && FIGHT.isGun(w); });   /* a gun in his bag too: the swap shows it at once (rule 177(a)) */
+    if (L.guns && armed && guns.indexOf('fight_rig/' + L.guns) < 0) guns.push('fight_rig/' + L.guns); });
   /* a rig sheet is held as an ImageBitmap (decoded once, drawn straight from the GPU's copy; measured 10/19: a man drawn from a
      canvas cost the frame 14 ms on the phone profile, the source copied every draw) */
   const one = function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) {
@@ -4620,7 +4634,7 @@ function beastOf(v) { return v.beast ? rigBeast(v) : null; }
 function gunSheet(v, L) {
   const G = DB.rig.guns; if (!G || !L.guns || !v.weapon || !FIGHT.isGun(v.weapon)) return null;
   const kind = G.by_class[(v.weapon.of && v.weapon.of.class) || v.weapon.class], row = G.order.indexOf(kind); if (row < 0) return null;   /* a pistol rides a thrown row: its own class names it */
-  const img = UI.imgs['fight_rig/' + L.guns]; if (!img) return null;
+  const img = UI.imgs['fight_rig/' + L.guns]; if (!img) { rigLater('fight_rig/' + L.guns); return null; }
   const x = Math.round(dx(v)), y = Math.round(dy(v));
   return { img: FIGHT.S.night && !FIGHT._t.litAt(x, y) ? nightSheet(img, moonOf(x, y)) : img, row: row };
 }
