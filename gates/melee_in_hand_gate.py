@@ -494,6 +494,13 @@ const { open } = require(process.argv[2]);
     for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.coverCount[y][x] > 0 && FIGHT.rowAt(x, y) !== 'obstacles' && !S.solid[y][x] && !taken[y * S.w + x]) { v.x = x; v.y = y; v._at = undefined; v._holdClip = undefined; return v.id + ' to ' + x + ',' + y; }
     return null; });
   await p.waitForTimeout(4000);
+  /* THE BLOCK: a blow lands on a man with a shield whose own shield keys are in (as the fight's own attack plays it) */
+  set.block = await p.evaluate(() => { const S = FIGHT.S;
+    const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && shieldProp(u) && (meleeLook(lookOf(u)._key) || { clips: {} }).clips.SIdle)[0];
+    const foe = v && S.units.filter(u => u.side !== v.side && FIGHT.onField(u))[0]; if (!v || !foe) return null;
+    UI.anim.unshift({ k: 'attack', at: performance.now(), dur: beatMs() * 2, e: { id: foe.id, to: v.id, shot: false, hit: true } });
+    return v.id + ':' + lookOf(v)._key + ':' + shieldProp(v); });
+  await p.waitForTimeout(2000);
   const seen = await p.evaluate(() => UI.clipSeen);
   console.log(JSON.stringify({ set: set, seen: seen, errs: errs }));
   try { await d.browser.close(); } catch (e) {}
@@ -510,9 +517,14 @@ const { open } = require(process.argv[2]);
     seen = R.get('seen') or {}
     mel = {k: v for k, v in seen.items() if k.startswith(('melee:', 'prop:'))}
     print('  note W2 melee men %s (%s); the swinger %s; cover %s; drawn %s' % (len((R.get('set') or {}).get('melee') or []), (R.get('set') or {}).get('handed') or 'as dealt', (R.get('set') or {}).get('swinger'), (R.get('set') or {}).get('cover'), mel))
-    ok('W2 on the real fight a man with a melee row stands in the melee idle with his thing, swings with it in his hand, kneels with it on cover, no page error',
-       seen.get('melee:MIdle') and seen.get('melee:MSwing') and seen.get('melee:MCover') and any(k.startswith('prop:') for k in seen) and not R.get('errs') and not R.get('err'),
+    ok('W2 on the real fight a man with a melee row stands in the melee idle with his thing, swings (a spear thrusts) with it in his hand, kneels with it on cover, no page error',
+       seen.get('melee:MIdle') and any(seen.get('melee:' + c_) for c_ in ('MSwing', 'MThrust', 'SSwing', 'T2Swing', 'T2Thrust')) and seen.get('melee:MCover') and any(k.startswith('prop:') for k in seen) and not R.get('errs') and not R.get('err'),
        'seen %s, errors %s' % (mel, (R.get('errs') or [R.get('err')])[:2]))
+    if 's1' in READY:
+        print('  note W4 the block: %s; drawn %s' % ((R.get('set') or {}).get('block'), {k: v for k, v in seen.items() if k.startswith(('shield:', 'melee:S'))}))
+        ok('W4 THE SHIELD ARM on the real fight: a man with a shield stands (or kneels) with it on his arm, and a blow that lands brings it up before his face (THE BLOCK), no page error',
+           any(k.startswith('shield:') for k in seen) and (seen.get('melee:SIdle') or seen.get('melee:SCover')) and seen.get('melee:SBlock') and not R.get('errs') and not R.get('err'),
+           'seen %s' % {k: v for k, v in seen.items() if k.startswith(('shield:', 'melee:S'))})
     drv3 = r"""
 const drive = require(process.argv[2]);
 (async () => {
@@ -554,6 +566,10 @@ const drive = require(process.argv[2]);
     R3 = json.loads(l3[-1]) if l3 else {'err': r3.stdout[-300:] + r3.stderr[-300:]}
     a3 = (R3.get('a') or {}); s3 = a3.get('seen') or {}
     print('  note W3 the demo: a road fight %s; melee men %s (%s); drawn %s' % (R3.get('started'), a3.get('melee'), a3.get('handed') or 'as dealt', {k: v for k, v in s3.items() if k.startswith(('melee:', 'prop:'))}))
-    ok('W3 IN THE DEMO (a road fight from the map, the fight inside the shell): the men with melee rows are drawn in the melee idle (standing, or down on a cover tile) with their things, no page error',
-       R3.get('started') and (s3.get('melee:MIdle') or s3.get('melee:MCover')) and any(k.startswith('prop:') for k in s3) and not R3.get('errs') and not R3.get('err'), (R3.get('errs') or [R3.get('err')])[:2])
+    ok('W3 IN THE DEMO (a road fight from the map, the fight inside the shell): the men with melee rows are drawn in their idle (one hand, the shield arm or two hands; standing, or down on a cover tile) with their things, no page error',
+       R3.get('started') and any(s3.get('melee:' + c_) for c_ in ('MIdle', 'MCover', 'SIdle', 'SCover', 'T2Idle', 'T2Cover')) and any(k.startswith(('prop:', 'shield:')) for k in s3) and not R3.get('errs') and not R3.get('err'), (R3.get('errs') or [R3.get('err')])[:2])
+    if 's1' in READY:
+        ok('W5 THE SHIELD ARM IN THE DEMO: the road fight draws its shield men with the shield on the arm (standing, or planted on a cover tile)',
+           R3.get('started') and any(k.startswith('shield:') for k in s3) and (s3.get('melee:SIdle') or s3.get('melee:SCover')) and not R3.get('errs') and not R3.get('err'),
+           {k: v for k, v in s3.items() if k.startswith(('shield:', 'melee:S'))})
 done()

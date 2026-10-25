@@ -455,12 +455,14 @@ def props_from(look, layer, S=None):
     return look
 
 
-def props_done(look, layer, prop):
+def props_done(look, layer, prop, any_model=False):
     """every picture of this thing on this layer is rendered, from the model it is made of now (a COOK model that landed or
-    changed since is rendered again)"""
+    changed since is rendered again); any_model, the pack's question: drawn at all, from whatever model (a model that lands
+    mid-round never holds back a man's other layers: his old pictures stand, marked with what they were drawn from, until
+    the new ones are in)"""
     d = os.path.join(ROOT, RENDERS, look, 'props')
     sigs = json.load(open(os.path.join(d, 'models.json'))) if os.path.exists(os.path.join(d, 'models.json')) else {}
-    if sigs.get(prop, 'stand-in') != model_sig(prop): return False
+    if not any_model and sigs.get(prop, 'stand-in') != model_sig(prop): return False
     return all(os.path.exists(os.path.join(d, fn)) for _, _, _, fn in prop_files(layer, prop))
 
 
@@ -793,7 +795,7 @@ def pack(only=None):
         d = os.path.join(ROOT, RENDERS, look)
         if look not in FR['looks'] or not os.path.exists(os.path.join(d, 'rig.json')) or not clip_dir(look, 'MIdleX'): continue
         person = is_person(look); fl = FR['looks'][look]
-        ready = [ly for ly in S['layers'] if ly in S.get('layers_ready', S['layers']) and (person or all(props_done(props_from(look, ly, S), ly, p_) for p_ in S['layers'][ly]['props']))]
+        ready = [ly for ly in S['layers'] if ly in S.get('layers_ready', S['layers']) and (person or all(props_done(props_from(look, ly, S), ly, p_, any_model=True) for p_ in S['layers'][ly]['props']))]
         if not person and 'm1' not in ready:
             print('SKIP', look, 'not every prop is rendered yet'); continue
         if person and fl.get('ref') not in index['looks']:
