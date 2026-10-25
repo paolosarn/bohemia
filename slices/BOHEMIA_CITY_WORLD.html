@@ -44331,6 +44331,41 @@ window.addEventListener('message', function(ev){
   try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@' + String(p.name || 'thecrew').toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: p.originName + '. ' + p.start + ' batteries between us. ' + p.combatName + ', ' + p.econName + '.', kind: 'mine', draft: true }); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
 });
+/* ==== __SIGHT_DOWN_THE_STREET__ (RUN 10/25, rule 151(g), amends [sight radius] and 102(d); Paolo 10/24: 'research how far
+   people can realistically see, because it's a city; you should only be able to see things straight down a street you're
+   near'). TUNING's numbers (b2c89a81, records/BOHEMIA_TUNING_WHAT_YOU_SEE_IN_A_CITY_AND_MONEY_TEACHES_10_25_26.md s1, 384 m a
+   block; NOTE on RUN's board): down the street you stand in, by day, a party at 4 blocks; a cross street only from its
+   intersection, nothing past a corner; around you, your own block; at night with no power 1 block, a lit (powered) stretch
+   reads as day; a rise or the open desert past the edge a circle. MEASURED before: every roaming party in the valley was
+   drawn wherever it walked, through every building (Battle Brothers draws a party only inside your sight).
+   NOW a roaming party is on the glass only where he could see it: the blocks round him (one ring), and straight down the
+   street he stands on, both ways along it, block by block while the blocks between are street (a road district), 4 blocks
+   by day or lit, 1 at night in the dark; past the valley's edge, open ground, a 6-block circle by day, 3 at night. A crew
+   coming for him keeps its plate (it is coming); his own jobs stay where he put them; the towns are places, not walkers.
+   The bench's valley (bohemia.fog.off, the checkers' default) sees everything, as before. ==== */
+var SIGHT = { on: true, street: 4, ring: 1, dark: 1, open: 6, openNight: 3 };
+var SIGHT_ROAD = { freeway: 1, arterial: 1, interchange: 1, strip: 1, beltway: 1, rail: 1, speedway: 1 };
+function sightRoad(x, y){ try { var t = om.at(x, y); return !!(t && SIGHT_ROAD[t.district]); } catch (_e) { return false; } }
+function sightLit(x, y){ try { return !!((POWER.at(x, y) || {}).live); } catch (_e) { return false; } }
+function mapSees(x, y){
+  if (!SIGHT.on || !FOG.on) return true;
+  var dx = x - city.x, dy = y - city.y, d = Math.max(Math.abs(dx), Math.abs(dy));
+  if (d <= SIGHT.ring) return true;
+  var night = false; try { night = isNight(); } catch (_e) {}
+  var N = om.n, meIn = city.x >= 0 && city.y >= 0 && city.x < N && city.y < N, itIn = x >= 0 && y >= 0 && x < N && y < N;
+  if (!meIn || !itIn) return dx * dx + dy * dy <= Math.pow(night ? SIGHT.openNight : SIGHT.open, 2);   /* open ground past the edge */
+  if (dx !== 0 && dy !== 0) return false;                       /* nothing past a corner */
+  if (!sightRoad(city.x, city.y)) return false;                 /* a street is seen from the street */
+  var sx = Math.sign(dx), sy = Math.sign(dy);
+  for (var k = 1; k <= d; k++) {
+    var cx = city.x + sx * k, cy = city.y + sy * k, lit = !night || sightLit(cx, cy);
+    if (k > (lit ? SIGHT.street : SIGHT.dark)) return false;
+    if (k < d && !sightRoad(cx, cy)) return false;              /* a building between ends the street */
+  }
+  return true;
+}
+try { window.mapSees = mapSees; } catch (_e) {}
+/* ==== /__SIGHT_DOWN_THE_STREET__ ==== */
 /* ==== __A_FRESH_START_AND_A_FOG_OF_WAR__ (RUN 10/25, rule 155, Paolo 10/24, asked twice: 'I don't wanna start off on the
    same part of the map every time... in Battle Brothers when you start your campaign most of the map is hidden... you see
    where you're at, a radius around you, and that's it, but it gives you the option to reveal all settlement locations').
@@ -48831,6 +48866,7 @@ function renderCity(){
       /* 10/1: within a block of home they are still IN the town: drawn as people under flags they
          piled onto the base and hid it (photographed). Two blocks out, they are on the road. */
       if (fogHides(__q.at.x | 0, __q.at.y | 0)) continue;   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: nobody walks where he has not been */
+      if (!(HUNT && HUNT.id === __q.id) && !mapSees(__q.at.x | 0, __q.at.y | 0)) { try { MAP_DREW.unseen = (MAP_DREW.unseen | 0) + 1; } catch (_e) {} continue; }   /* __SIGHT_DOWN_THE_STREET__ */
       var __gq = partyGlidePos(__q.id != null ? __q.id : ('i' + __pi2), __q.at.x | 0, __q.at.y | 0, performance.now());   /* __THE_PARTIES_WALK__ */
       if (__gq.u < 1) __partyMoving = true;
       try { (MAP_DREW.partyAt = MAP_DREW.partyAt || {})[__q.id != null ? __q.id : ('i' + __pi2)] = [__gq.x, __gq.y]; } catch (_e) {}   /* where it was DRAWN, for the gate */
