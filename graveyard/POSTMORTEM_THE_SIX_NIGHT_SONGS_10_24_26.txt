@@ -1,0 +1,33 @@
+POST-MORTEM: THE SIX NIGHT SONGS OF 10/24 (SOUNDS, buried 10/25/26, rule 166(a)). GRAVEYARD FINAL.
+
+THE DEAD: THE METER READER, THE SUBSTATION HUMS ALONE, THE LOBBY PIANO STILL PLAYS, THE CASHIER'S CAGE,
+THE MALL AFTER CLOSING, THE LAST BUS TO HENDERSON. Made 10/24 (records/BOHEMIA_MORE_MUSIC_SOUNDS_10_24_26.md), cards
+sounds-*-10-24 in the VOTE tab, never voted, never wired. Their files are in this folder; their cards are out of the tab.
+
+HIS WORDS (10/25): 'it's the same one for like seven songs bro and they use the same instruments... seven of the same songs
+with like one slightly thing different... you have like this background creepy vibe, and it's hard to hear really anything
+else.'
+
+WHY THEY DIED, MEASURED, NOT GUESSED:
+1. EACH WAS ONE OF HIS SONGS WITH TWO OR THREE VALUES CHANGED. The tool's own design: a parent from his OVERWORLD NIGHT
+   category and two to four fields (a lead, an accent, a hat, a bass) taken from another of his songs. Everything else, the
+   kit, the bass line, the form, the key moves, the late beat, was the parent's. A song made that way is the parent wearing a
+   different hat; seven of them in a row is one song seven times.
+2. REPO MAN'S MACHINE PLAYED UNDER ALL SIX. The machine party (the coupling on the kick, the clock on the hat, the motor) is
+   REPO MAN's identity (his YES 10/19) and it was put under every one, so the loudest, most recognisable layer of each new
+   song was the same layer.
+3. THE TUNE WAS BURIED. Measured through a phone's speaker the tune sat 12.4 to 21.6 dB under the mix (THE SUBSTATION HUMS
+   ALONE -21.6, THE LAST BUS TO HENDERSON -20.5): the creepy bed led and the melody was a rumour under it. His 'it's hard to
+   hear really anything else' is that number.
+4. THE GATE CHECKED THE WRONG THING. more_music_gate proved each song was built only from values he had said yes to, which is
+   exactly what made them clones. It never asked whether a stranger could tell them apart.
+
+THE LESSON (rule 166(b)(c)(g)): a new song has its own lead, its own instrument set, its own key or mode, its own groove on
+the 120 grid, a melody you can hum after one listen, and a form that goes somewhere; no two new songs share more than one of
+lead, bass, drums, pad, key; the creepy bed is never the song, analog horror lives inside the instruments' sound; the tune and
+the beat lead the mix; REPO MAN's machine plays under REPO MAN only. THE TEST: ten seconds of each, back to back, and a
+stranger tells them apart. A song made by changing a few values of another song never comes back under a new name.
+
+THE TOMBSTONES: gates/bohemia_graveyard.txt holds each name as a row literal (n:'NAME'), so none can be wired into the game;
+records/BOHEMIA_SONG_LOCK.json keeps their new_songs lines, pointed here, so the files cannot change quietly either;
+gates/more_music_gate.js now proves the burial (no card, no page in slices/, nothing in the alpha or the demo, the files here).
