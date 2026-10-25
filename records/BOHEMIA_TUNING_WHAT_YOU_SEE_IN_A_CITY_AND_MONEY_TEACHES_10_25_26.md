@@ -117,10 +117,10 @@ OURS, AS MAIN PLAYS IT NOW (A NEW CREW on full shelves, 290 batteries, the door'
 AND THE FIGHT KILLS THEM (the live fight, early stage, the map's own job size, 100 fights each):
       the three against the job's 2      won 99 in 100   0.16 struck down a fight   1 dead in 100 fights
       twelve against the job's 10        won 91 in 100   3.25 struck down a fight   62 dead in 100 fights
-So "a lot of people would be dying, I'd be wasting money" is already what main does: the twelve lose a man to death in nearly every
-other fight, a dead hire is 12 to 37 batteries thrown away, and every struck-down man who lives (80 in 100, rule 37g) lies up 30 to 40
+So "a lot of people would be dying, I'd be wasting money" is already what main does: the twelve lose about two men to death every
+three fights, a dead hire is 12 to 37 batteries thrown away, and every struck-down man who lives (80 in 100, rule 37g) lies up 30 to 40
 days ON THE BILL: 2 a night, 60 to 80 batteries of food each while he cannot fight. A first week of twelve on one-skull jobs runs out of
-food in four nights and buries about one man every two fights.
+food in four nights and buries about two men every three fights.
 
 THE FINDING THAT PROVES US WRONG: HE SAID "FED AND PAID", AND NOBODY IS PAID.
 The bill feeds the crew (2 a man a night: a ration and four litres) and charges NO WAGE. engine/bohemia_goodbros.js gives every man at the
@@ -159,5 +159,5 @@ THE NUMBERS THAT WOULD NEED TO CHANGE (draft; each a row; RUN owns the bill, RUN
  5. The days-left number on the bar (151(a): hold the batteries) must read the bill WITH the wage once 1 lands, or it lies by a third.
 
 WHAT A STRANGER FEELS, IN ONE LINE: three men with 290 batteries have seven weeks; the same men who hire nine on night one have three
-nights, meet ten for every thirty batteries, and bury a man every second fight. That is a mistake you feel in the first week, and
+nights, meet ten for every thirty batteries, and lose about two men to death every three fights. That is a mistake you feel in the first week, and
 nothing on this page makes it cheap.
