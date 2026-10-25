@@ -19207,6 +19207,41 @@ window.INTENSITY=KILLMUS;
   setInterval(function(){ if(K.nf && !fightWin()) K.settle(); }, 1000);
 })();
 /* ===== /__THE_FIGHT_DRIVES_THE_MUSIC__ ===== */
+/* ===== __THE_SONG_ABOVE_THE_FIGHT__ (SOUNDS 10/25, row [the fight's music you can hear], rules 168(b), 181(c)) =====
+   PAOLO 10/25, playing a fight: 'I only hear the sound effects... I'm not hearing any music'. MEASURED (the demo, a road
+   fight, AUTO, his sliders at their defaults): while an effect sounds the music sat UNDER it (computer: music -32.6 dB,
+   effects -31.3; the phone at 4x: -34.1 and -34.1); the music lifted 6 dB alone still sat 2.2 dB under. A volume, not new
+   music (181(c)): one gain node after his music slider (__MUSVOL) and one after the effects bus (__SFXBUS), both at 1
+   everywhere but a fight, where the music rises 6 dB and the effects come down 4 over half a second when the board comes
+   up, and both come back over a bar when the fight ends. His sliders still move both; the song's notes are untouched.
+   tools/bohemia_sounds_the_sound_never_chops_patch.py, gates/the_fights_music_you_can_hear_gate.js. */
+(function(){
+  var LIFT = 2.0, TRIM = 0.63, mus = null, fx = null, ctx = null, on = false;
+  function between(src, dst, g){ var n = ctx.createGain(); n.gain.value = g; src.disconnect(dst); src.connect(n); n.connect(dst); return n; }
+  function ensure(){
+    try{
+      if(typeof MUS === 'undefined' || !MUS.AC || !window.__MUSVOL || !MUS.OUT) return false;
+      if(window.OfflineAudioContext && MUS.AC instanceof window.OfflineAudioContext) return false;
+      if(ctx !== MUS.AC){ ctx = MUS.AC; mus = null; fx = null; }
+      if(!mus){ mus = between(window.__MUSVOL, MUS.OUT, on ? LIFT : 1); window.__FIGHTLIFT = mus; }
+      if(!fx){ try{ window.__sfxOut && window.__sfxOut(); }catch(_e){}
+        if(window.__SFXBUS && window.__SFXBUS.context === ctx){ fx = between(window.__SFXBUS, MUS.OUT, on ? TRIM : 1); window.__FIGHTTRIM = fx; } }
+      return true;
+    }catch(e){ return false; }
+  }
+  function ramp(n, to, secs){ if(!n) return; var t = ctx.currentTime, g = n.gain; g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(to, t + secs); }
+  function set(up, secs){ on = up; if(!ensure()) return; ramp(mus, up ? LIFT : 1, secs); ramp(fx, up ? TRIM : 1, secs); }
+  window.addEventListener('message', function(ev){
+    var d = ev && ev.data; if(!d || !d.type) return;
+    if(d.type === 'BOHEMIA_COMBAT_STARTED') set(true, 0.5);
+    else if(d.type === 'BOHEMIA_FIGHT_OVER' || d.type === 'BOHEMIA_COMBAT_END') set(false, 2.0);
+  });
+  /* built as soon as the game has its music, so nothing is rewired mid-fight; and a fight frame gone without its end
+     never leaves the song lifted */
+  setInterval(function(){ ensure(); if(on && !document.getElementById('fightFrame')) set(false, 2.0); }, 1000);
+  window.__songAboveTheFight = function(){ return { lift: LIFT, trim: TRIM, on: on, music: mus ? +mus.gain.value.toFixed(3) : null, effects: fx ? +fx.gain.value.toFixed(3) : null }; };
+})();
+/* ===== /__THE_SONG_ABOVE_THE_FIGHT__ ===== */
 /* ===== __INTENSITY_WATCHER__ (8/27) -- THE OTHER TWO TRIGGERS ==============
    Paolo 8/26, LOCKED: "...an enemy trying to hurt you or SOMEONE IS TALKING TO
    YOU is lvl 2 then you either kill 2 enemies or THERESA WHOLE BUNCH OF PEOPLE
@@ -19734,7 +19769,8 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
  noteHz(s){return 110*Math.pow(2,s/12);},   /* THE OCTAVE BUG (Paolo caught it 7/3/26): this was typed from memory as a MIDI formula and mapped every note ~3 octaves wrong vs combat. VERBATIM combat's mapping now; the parity gate makes drift impossible. */
  stepDur(){return (60/120)/4;},
  audio(){ if(this.AC){if(this.AC.state==='suspended'&&!/Offline/.test(this.AC.constructor&&this.AC.constructor.name))this.AC.resume();return;}   /* __THE_START_SCREEN__ (RUN 10/4): a bar rendered offline swaps this.AC for an OfflineAudioContext; resuming that rejects (async, so no catch sees it) -- measured as a page error when the first touch lands in that window */
-  try{this.AC=new (window.AudioContext||window.webkitAudioContext)();this.MAST=this.AC.createGain();this.MAST.gain.value=0.8;
+  try{this.AC=(function(){ var C=window.AudioContext||window.webkitAudioContext; try{ return new C({latencyHint:'playback'}); }catch(_e){ return new C(); } })();   /* __THE_SOUND_NEVER_CHOPS__ (SOUNDS 10/25, rule 175(c)): the playback-sized buffer a car's Bluetooth and a busy phone need; it was the smallest the device allows (10 ms on a computer) */
+  this.MAST=this.AC.createGain();this.MAST.gain.value=0.8;
    const cmp=this.AC.createDynamicsCompressor();cmp.threshold.value=-14;cmp.knee.value=8;cmp.ratio.value=6;cmp.attack.value=0.002;cmp.release.value=0.12;
    const lim=this.AC.createDynamicsCompressor();lim.threshold.value=-5;lim.knee.value=0;lim.ratio.value=20;lim.attack.value=0.001;lim.release.value=0.08;   /* BRICKWALL (7/8 screech incident): nothing gets past this */
    /* THE OUTPUT BUS (8/2). MAST used to connect straight to the compressor,
@@ -19985,7 +20021,12 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
     var _n=MUS.AC.currentTime;
     if(MUS.nextT < _n-0.25){
       var _p=null; try{ _p=window.__pulseNextBeat&&window.__pulseNextBeat(); }catch(_e){}
+      var _was=MUS.nextT, _st=MUS.step;
       MUS.nextT=(_p&&_p>_n+0.02)?_p:(window.__beatNext?window.__beatNext(_n+0.06):_n+0.06); MUS.step=0; MUS.uiBar=0;   /* __THE_ONE_BEAT__ 10/24 */
+      /* __THE_SONG_KEEPS_ITS_PLACE__ (SOUNDS 10/25, rule 175(a)): a song already playing does not start over after a
+         stall; it moves on by the time the stall took, rounded up to the beat, on the same grid. Nothing booked yet
+         (the boot's long parse) still starts at step 0, as above. */
+      if(_st>0){ var _lost=Math.max(0,Math.round((MUS.nextT-_was)/MUS.stepDur())); MUS.step=Math.ceil((_st+_lost)/4)*4; MUS.uiBar=Math.floor(MUS.step/16)%64; }
     }
     /* __THE_HORIZON_IS_ONE_BEAT__ (9/18, SOUNDS lane) -- THE HORIZON WAS 0.12 s
        ON A THREAD THAT STALLS FOR SECONDS. PLUMBER measured the 120 BPM law

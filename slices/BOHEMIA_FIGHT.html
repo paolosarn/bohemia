@@ -5862,7 +5862,7 @@ function homeMessage(result) {
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;
-function audio() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (_e) {} } }
+function audio() { if (!AC) { try { AC = (function () { try { const o = window.parent !== window && typeof window.parent.__sfxOut === 'function' ? window.parent.__sfxOut() : null; return o && o.AC ? o.AC : null; } catch (_e) { return null; } })() || (function () { const C = window.AudioContext || window.webkitAudioContext; try { return new C({ latencyHint: 'playback' }); } catch (_e) { return new C(); } })(); } catch (_e) {} } }   /* __ONE_AUDIOCONTEXT__ (SOUNDS 10/25, rule 175(c)): the game's one AudioContext from the shell; its own only alone */
 cv.addEventListener('pointerdown', function (e) {
   audio(); cv.setPointerCapture(e.pointerId);
   touches[e.pointerId] = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, t: performance.now() };
