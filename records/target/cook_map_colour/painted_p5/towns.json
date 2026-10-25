@@ -1,0 +1,237 @@
+{
+ "label": "p5",
+ "stops": [
+  "s0_far",
+  "s1_district",
+  "s2_opening",
+  "s3_mid",
+  "s4_step",
+  "s5_near"
+ ],
+ "towns": {
+  "Remnants": {
+   "s0_far": {
+    "TW": 3.9,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 14,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Remnants_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 10,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Remnants_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 7,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Remnants_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 2,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Remnants_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Remnants_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Remnants_s5_near.png"
+   }
+  },
+  "Church": {
+   "s0_far": {
+    "TW": 3.9,
+    "painted": true,
+    "tier": 2,
+    "n": 3,
+    "drewPainted": 14,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Church_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": true,
+    "tier": 2,
+    "n": 3,
+    "drewPainted": 13,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Church_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": true,
+    "tier": 2,
+    "n": 3,
+    "drewPainted": 10,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Church_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": true,
+    "tier": 2,
+    "n": 3,
+    "drewPainted": 4,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Church_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": true,
+    "tier": 2,
+    "n": 3,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Church_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": true,
+    "tier": 2,
+    "n": 3,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Church_s5_near.png"
+   }
+  },
+  "Colorful": {
+   "s0_far": {
+    "TW": 3.9,
+    "painted": true,
+    "tier": 3,
+    "n": 2,
+    "drewPainted": 14,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Colorful_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": true,
+    "tier": 3,
+    "n": 2,
+    "drewPainted": 13,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Colorful_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": true,
+    "tier": 3,
+    "n": 2,
+    "drewPainted": 5,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Colorful_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": true,
+    "tier": 3,
+    "n": 2,
+    "drewPainted": 3,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Colorful_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": true,
+    "tier": 3,
+    "n": 2,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Colorful_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": true,
+    "tier": 3,
+    "n": 2,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Colorful_s5_near.png"
+   }
+  },
+  "Network": {
+   "s0_far": {
+    "TW": 3.9,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 14,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Network_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 12,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Network_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 10,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Network_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 5,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Network_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 4,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Network_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": true,
+    "tier": 1,
+    "n": 4,
+    "drewPainted": 3,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_p5/Network_s5_near.png"
+   }
+  }
+ }
+}
