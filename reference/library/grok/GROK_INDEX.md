@@ -163,3 +163,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_109_SIGHT_DISTANCE_ENCOUNTER_2026_10_24.md | city sight distance, encounter card
 - 2026-10-24 | ASK | GROK_ASK_110_FIRST_MINUTES_CARE_2026_10_24.md | first five minutes, origins openings
 - 2026-10-24 | ASK | GROK_ASK_111_WORLD_FEELS_FRESH_2026_10_24.md | world generation, fresh feel
+- 2026-10-24 | ASK | GROK_ASK_112_MAP_IN_COLOUR_2026_10_24.md | map colour, Las Vegas valley
