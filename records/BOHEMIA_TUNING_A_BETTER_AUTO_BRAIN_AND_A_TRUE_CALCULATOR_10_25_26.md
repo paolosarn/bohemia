@@ -311,3 +311,108 @@ Science 16(2), 2001) puts its floor at 68; it takes 16 clean wins in 16 to clear
   forecast against what happened; always saying 50 scores 0.25).
 - Mahdi Pakdaman Naeini, Gregory Cooper and Milos Hauskrecht, AAAI 2015, and Chuan Guo et al., 'On Calibration of Modern
   Neural Networks', ICML 2017 (the reliability table: forecasts in bands, each band's mean forecast against its rate).
+
+---------------------------------------------------------------------------------------------------------------------------
+
+## 5. THE ONE BRAIN FOR COMBAT, AND ITS WEIGHTS (rule 176(h), rule 180; the first table, section H of the one numbers table)
+
+A FIRST TABLE, NOT A FINISH LINE (rule 178): every weight below is re-tuned when perks, gear, enemies or acts enter the
+fight, and the calculator re-checked (TUNING [the odds keep up], standing).
+
+### 5a. THE SHAPE: ONE PLAN A TURN, EVERY PLAN SCORED IN ONE CURRENCY
+The same function for AUTO, the enemy and the calculator (one switch per side: focus or spread; abilities or not).
+At the START of his turn the man lists his PLANS: every tile he can reach this turn, THE ONE HE STANDS ON INCLUDED, and at
+each tile the act he could do there: strike a foe with his best-accuracy attack (gun or club or blade), reload to fire, or
+nothing. He picks the best plan ONCE and carries it out whole (3e: commit). Every term is in ONE CURRENCY: EXPECTED
+HITPOINTS (armour counted the way the rules split a blow), for his side (+) and against it (-), so a roof, a kill, a free
+swing and a step can be weighed against each other without a hand-made scale.
+
+HARD FILTERS FIRST (a plan that fails one is never scored; 3a's veto, 3c's filters):
+- V1 CAN ACT: a plan with a strike needs everything canStrike asks from that tile with the AP left: breath, rounds, a
+  loaded gun, range, sight (kills 1b hole 1: 93% of the wasted turns).
+- V2 NO UNDO: a plan with no act that ends on the tile he left last turn, after a turn with no act, is refused (3e's repeat
+  penalty; kills the two-round dance).
+- V3 RULE 180 ON OUR SIDE: move, fire, strike; reload only to keep firing (never with a loaded shot on, 1b: 118 lost shots);
+  no Recover, Rally, Taunt, Adrenaline, Indomitable, Footwork, bag swap, sweep, wait.
+- V4 NEVER ARRIVE WITH NOTHING (Battle Brothers 0.7.0.10): a walk into a foe's reach with no AP left to strike is refused,
+  except for the kinds that rush by nature (the beasts' 'rusher').
+- V5 THE LINE (today's shield_the_backline, kept): a shooter never ends ahead of his own front man.
+
+THE SCORE OF A PLAN (H rows below):
+  S = DEAL + KILL + HOLD - lambda(hp) x DANGER - FREE + SCREEN + NEXT + STAY
+- DEAL: chance to hit from that tile (the rules' own hitChance, height and cover in it) x mean damage; on OUR side times
+  1.25^n for n of his friends who already struck that foe this round (focus, 180(h); Battle Brothers' own 1.25^n weight,
+  bb_all/0626), on THEIRS divided by 1 + n (Battle Brothers' spread, fair to him).
+- KILL: chance the act kills x the foe's THREAT (the damage he expects to deal a round) x brain.kill_rounds (Lanchester: a
+  kill removes his damage for every round after; 3f).
+- HOLD: what the tile is worth for the rounds he will stand on it (brain.hold_rounds): for a shooter, the +10 he gets
+  shooting down and the -10 a level the foes get shooting up at him, times the shots that will be traded; a tile in cover
+  the same way with the cover's numbers. THIS IS THE ROOF: the rules' own height numbers over two rounds, not +20.
+- DANGER: the danger map (3b): the damage the foes who can reach or shoot that tile next round expect to deal there.
+  lambda(hp) = brain.danger_weight x (1 + brain.hurt_weight x (1 - hp/hpMax)): a hurt man weighs danger up to twice.
+- FREE: the free swings the walk draws out of a ring: each one's chance x damage, plus the chance he is HELD x the plan's
+  own act (a held man loses it). Measured today: 7.1 free swings a fight, unpriced (1a).
+- SCREEN: for a melee man, a tile in the ring a foe must cross to reach one of our shooters: the damage that foe would deal
+  the shooter in a round (3f; 1d).
+- NEXT: for a plan with no act this turn, the best DEAL he can make NEXT turn from that tile x brain.next_turn_discount
+  (replaces today's 'a step closer is worth 95'); this is what walks a gunman to the nearest roof he can shoot from next
+  turn, and what keeps a winded man where he will be able to swing.
+- STAY: the plan that keeps him where he stands wins unless another beats it by brain.switch_margin (3e: inertia).
+- Ties: the plan that spends less AP.
+
+THE HURT MAN (rule 176(b)), in this shape: lambda doubles his fear, so: if he can KILL the man in reach, KILL wins (the
+threat removed outweighs his danger); if he cannot act, V1 and FREE keep him from walking out through swings, and NEXT plus
+DANGER pick ONE tile out of reach he can still fight from; V2 never lets him walk back the next turn for nothing.
+
+### 5b. THE FIXES, TRIED ON THE SAME 600 FIGHTS (a research prototype, never the game)
+To show what the fixes buy before COMBAT builds them, the bench splices six small changes into an IN-MEMORY copy of the live
+rules (tools/bohemia_tuning_auto_brain.js, SPLICES; each anchor matched exactly once or it stops), for OUR side only (the
+enemy keeps today's brain, so every change is AUTO's), on the same 600 seeded fights:
+- TODAY: the live brain.
+- NO ABILITIES (rule 180): no Recover, Rally, Taunt, Adrenaline, Indomitable, Footwork, bag swap or sweep for AUTO.
+- PROTO: no abilities plus F1 can I act (a man who cannot strike does not walk; he stands), F2 staying is a plan (his tile
+  scored with the rest, plus one step's AP), F3 no walk out of a ring (a man in reach who did not strike stays; a bow with no
+  club may still step out once), F4 the shot before the reload, F5 the roof (a gunman with no shot where he stands climbs a
+  roof he can reach even with no AP to shoot, and a roof is worth two steps, 190, in his move score), F6 focus (1.25^n).
+- PROTO2: PROTO, but a man who cannot act stands only with a foe within two tiles (he still closes from farther off).
+These are blunt hand splices, not section 5a's brain: they show the size of the holes, not the best weights.
+
+| our AUTO, 600 fights | TODAY | NO ABILITIES | PROTO | PROTO2 |
+|---|---|---|---|---|
+| WON | **397** | 383 | **427** | 423 |
+| lost | 185 | 202 | 139 | 143 |
+| standoffs (60 rounds, nobody ends it) | 18 | 15 | 34 | 34 |
+| rounds a fight | 11.3 | 11.0 | 14.2 | 14.2 |
+| our men down a fight / dead | 2.41 / 0.42 | 2.58 / 0.42 | 2.22 / 0.41 | 2.24 / 0.39 |
+| WASTED TURNS (steps, back on his tile, nothing done) | **325** | 343 | **0** | 0 |
+| turns ending on the tile he began | 914 | 958 | 7 | 10 |
+| off one round and back the next | 460 | 388 | 140 | 190 |
+| ... with no swing in either | 58 | 87 | 45 | 59 |
+| left a fight and walked back in | 71 | 71 | 26 | 41 |
+| free swings taken a fight | **7.1** | 7.6 | **2.7** | 2.7 |
+| a strike in reach never swung | 1.5% | 1.8% | 0.2% | 0.2% |
+| gunmen who could walk onto a roof and ever stood on one | 39% | 38% | 46% | 45% |
+| gun turns ending on a roof | 3,275 | 3,202 | **6,980** | 6,782 |
+| melee swings taken a round: gunman / melee man (the screen) | 0.73 / 0.98 | 0.76 / 1.03 | 0.56 / 0.99 | 0.56 / 1.00 |
+
+WHAT THIS SAYS:
+1. RULE 180 COSTS AUTO ABOUT 2 POINTS (397 -> 383 won): the calculator's number drops by about that much when COMBAT takes
+   the abilities away (180(d)); TUNING [the odds keep up] re-checks it then.
+2. THE FIXES ARE WORTH MORE THAN THE ABILITIES: 383 -> 427, a quarter of the losses gone (202 -> 139), the wasted turn
+   gone (325 -> 0), the free swings cut by 64%, twice the gun turns on a roof, the shooters hit in melee a quarter less.
+3. THE DANCE THAT IS LEFT is mostly morale and the kids' kite: 45 off-and-backs with no swing remain, 10 of the 26
+   leave-and-returns are a man who FLED and rallied (Battle Brothers' own morale, rule 33: kept), the rest a man pushed or
+   waiting a turn; F2 alone (stay is a plan) does not stop the TWO-ROUND dance: that is V2's job (the undo rule), not
+   tried here.
+4. THE ROOF EXPOSES A RULES HOLE: the standoffs double (18 -> 34) and the fights run 26% longer (11.3 -> 14.2 rounds).
+   Replayed, 32 of the 34 are our last men on a roof that no club can reach (melee_max_height_gap 1: a club reaches one
+   storey; a one-tile roof two storeys up has no tile beside it at its own level), 25 of them against enemies with no gun
+   left. Under today's brain most of those fights were LOSSES (28 of the 34 ended lost or won today); with the roof they
+   never end. Battle Brothers ends such a fight two ways (part 2): the AI's last few RETREAT when they see no chance, and
+   a man's position is only worth what he can do from it. So, for COMBAT: (a) HOLD counts only while he can shoot from
+   the roof (a man out of rounds and with no club reach has no reason to stay up); (b) the enemy's last men retreat by
+   Battle Brothers' count (allies left, allies fallen, his men left; bb_all/1415); (c) the fight's own standoff end
+   (nobody can harm anybody for N rounds) is a rule the fight lacks today (the bench's idle mark is 20 rounds, the whole
+   grid's). And the fights must stay short (2 to 4 minutes routine, 9/29): PROTO2 shows closing from afar is not the cause.
+5. ONE BRAIN STILL: the splices are side-switched only to measure AUTO's share; the gate (rule 176(h)) is the same brain for
+   both sides with the two side switches (focus or spread, abilities or not).

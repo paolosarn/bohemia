@@ -53,6 +53,15 @@ function setupFight(ctx, W) {
     days: st.day, district: W.district, cell: W.cell, act: 1 });
   return count;
 }
+/* the RULES' fingerprint: the two scripts the bench plays (fight-data, fight-rules) and every data file loadAll() reads; the
+   drawing code around them changes every hour (another lane's ship) and must not throw a finished fight out of the cache */
+function rulesPrint() {
+  const grab = id => { const m = HTML.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>')); return m ? m[1] : ''; };
+  const list = (HTML.match(/const DATA_FILES = \[([\s\S]*?)\];/) || [])[1] || '';
+  const h = require('crypto').createHash('sha1').update(grab('fight-data')).update(grab('fight-rules'));
+  (list.match(/'[^'\n]+\.json'/g) || []).map(x => x.slice(1, -1)).forEach(f => h.update(fs.readFileSync(path.join(ROOT, 'slices', f))));
+  return h.digest('hex').slice(0, 12);
+}
 const seedNow = ctx => vm.runInContext('SEED', ctx) >>> 0;
 const seedSet = (ctx, s) => vm.runInContext('SEED = ' + (s >>> 0) + ';', ctx);
 
@@ -374,7 +383,7 @@ async function main() {
     process.stderr.write('\n== ' + slot + '\n');
     const all = Array.from({ length: N }, (_, k) => fightOf(k, districts)), res = new Array(N);
     /* THE RESUME CACHE: every finished fight is one line (slot, k, the fight's fingerprint); a stopped run starts where it stopped */
-    const CF = BANKF.replace(/\.json$/, '') + '.' + slot + '.ndjson', fp = G.fightPrint();
+    const CF = BANKF.replace(/\.json$/, '') + '.' + slot + '.ndjson', fp = rulesPrint();
     if (fs.existsSync(CF)) fs.readFileSync(CF, 'utf8').split('\n').filter(Boolean).forEach(l => { try { const x = JSON.parse(l); if (x.fp === fp && x.k < N) res[x.k] = x.v; } catch (e) { /* a cut line */ } });
     const work = all.filter(w => !res[w.k]);
     process.stderr.write('resume: ' + (N - work.length) + ' of ' + N + ' already played\n');
@@ -403,7 +412,7 @@ async function main() {
       + 'tools/bohemia_tuning_auto_brain.js; fight k plays seed 9000+k on a district and cell the map could hand. dance: per side, counts per man per round. '
       + 'odds: the read at the start of each fight the fight\'s way (ODDS_RUNS runs from the frozen board on the odds\' seed; first = the colour at ODDS_FIRST), '
       + 'a LONG_READ on other dice (the truth of the board), and the real fight played out on AUTO from the real seed.';
-    out.draft = true; out.odds_constants = OC; out.long_read = LONG_READ; out.long_every = LONG_EVERY; out.fight_print = G.fightPrint();
+    out.draft = true; out.odds_constants = OC; out.long_read = LONG_READ; out.long_every = LONG_EVERY; out.fight_print = G.fightPrint(); out.rules_print = rulesPrint();
     fs.writeFileSync(BANKF, JSON.stringify(out) + '\n');
     console.log('wrote ' + BANKF);
   }
@@ -456,4 +465,4 @@ function report(mode, fs_) {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { fightOf, setupFight, playWatched, countFight, readOdds, oneFight, OC };
+module.exports = { fightOf, setupFight, playWatched, countFight, readOdds, oneFight, engineFor, rulesPrint, OC };
