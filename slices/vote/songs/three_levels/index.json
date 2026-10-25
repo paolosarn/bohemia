@@ -12,6 +12,17 @@
     -30.04
    ],
    "id": "sounds-three-levels-the-vault-10-25"
+  },
+  {
+   "name": "GHOST IN THE GRID",
+   "slug": "ghost_in_the_grid",
+   "dir": "vote/songs/three_levels/ghost_in_the_grid/",
+   "levels_db": [
+    -35.45,
+    -31.39,
+    -30.35
+   ],
+   "id": "sounds-three-levels-ghost-in-the-grid-10-25"
   }
  ]
 }

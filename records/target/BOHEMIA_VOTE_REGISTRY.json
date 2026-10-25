@@ -15230,6 +15230,24 @@
     "src": "BOHEMIA_THREE_LEVELS_THE_VAULT_10_25_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-three-levels-ghost-in-the-grid-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "6fa34532",
+   "made": "10/25",
+   "title": "YOUR GHOST IN THE GRID AT THREE LEVELS, FOR THE FIGHT",
+   "why": "Your GHOST IN THE GRID at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
+   "options": [
+    "A, the three levels join the game for GHOST IN THE GRID",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_LEVELS_GHOST_IN_THE_GRID_10_25_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

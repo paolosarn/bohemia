@@ -55,15 +55,17 @@ async function level(p, name, lv, outGain) {
     MUS.audio();
     const OAC = new OfflineAudioContext(1, Math.ceil(SR * secs), SR);
     const save = { AC: MUS.AC, MAST: MUS.MAST, OUT: MUS.OUT, cur: MUS.cur, curSlot: MUS.curSlot, layers: MUS.layers, step: MUS.step, on: CITYMUS.on };
-    const out0 = OAC.createGain(); out0.gain.value = outGain; out0.connect(OAC.destination);
+    const out0 = OAC.createGain(); out0.gain.value = outGain;
     /* level 1 is his song as approved: straight to the output. Levels 2 and 3 are new music, through a gentle limiter
-       so the added kit never clips his song (the limiter never touches level 1). */
+       so the added kit never clips his song (the limiter never touches level 1). THE GAIN GOES FIRST: his SLOW BLEED and
+       SLOW CREEP play past full scale and are recorded 6 dB down; with the gain after the limiter they hit it 6 dB hot and
+       came out squashed, levels 2 and 3 quieter than level 1 on a phone (SLOW BLEED -46.5 / -50.2 / -51.2 dB), measured. */
     let songBus = out0, partBus = out0;
     if (lv > 1) {
       const lim = OAC.createDynamicsCompressor();
       lim.threshold.value = -9; lim.knee.value = 6; lim.ratio.value = 8; lim.attack.value = 0.003; lim.release.value = 0.12;
-      lim.connect(out0); songBus = lim; partBus = lim;
-    }
+      out0.connect(lim); lim.connect(OAC.destination);
+    } else out0.connect(OAC.destination);
     const part = g => { const n = OAC.createGain(); n.gain.value = g; n.connect(partBus); return n; };
     MUS.AC = OAC; MUS.MAST = songBus; MUS.OUT = songBus; MUS.cur = MFACTIONS.length + li; MUS.curSlot = 1;
     MUS.layers = lv === 1 ? 0 : lv === 2 ? 2 : 4;              /* KILLMUS.LAYERS: level 1, 2, 3 -> arrangement 0, 2, 4 */
@@ -207,8 +209,9 @@ function writePage(S) {
 function register(which, write) {
   const REG = path.join(ROOT, 'records', 'target', 'BOHEMIA_VOTE_REGISTRY.json');
   const reg = JSON.parse(fs.readFileSync(REG, 'utf8'));
-  const index = JSON.parse(fs.readFileSync(path.join(OUTD, 'index.json'), 'utf8'));
-  const list = index.songs.filter(x => which === 'all' || x.name === which || x.slug === which);
+  const list = SONGS.filter(n => which === 'all' || n === which || slug(n) === which || which.split(',').indexOf(n) >= 0)
+    .filter(n => fs.existsSync(path.join(OUTD, slug(n), 'measured.json')))
+    .map(n => ({ name: n, slug: slug(n), dir: 'vote/songs/three_levels/' + slug(n) + '/', id: 'sounds-three-levels-' + slug(n).replace(/_/g, '-') + '-10-25' }));
   let added = 0;
   for (const S of list) {
     writePage(S);
@@ -229,6 +232,23 @@ function register(which, write) {
     console.log((write ? 'REGISTERED ' : 'would register ') + S.id + ' at ' + sha); added++;
   }
   if (write && added) fs.writeFileSync(REG, JSON.stringify(reg, null, 1) + '\n');
+  if (write) rebuild(reg);
+}
+
+/* THE LIST THE PAGES READ, REBUILT FROM THE RECORDINGS THAT HAVE A CARD: a song still rendering, or rendered and not yet
+   carded, is never on it, so the tab never shows a card for a song that is not there (and the renderer's own writes of the
+   list, made while it runs, are put right at the next card) */
+function rebuild(reg) {
+  reg = reg || JSON.parse(fs.readFileSync(path.join(ROOT, 'records', 'target', 'BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));
+  const ids = new Set(reg.items.map(x => x.id));
+  const songs = SONGS.map(name => {
+    const sl = slug(name), m = path.join(OUTD, sl, 'measured.json'), id = 'sounds-three-levels-' + sl.replace(/_/g, '-') + '-10-25';
+    if (!fs.existsSync(m) || !ids.has(id)) return null;
+    const M = JSON.parse(fs.readFileSync(m, 'utf8'));
+    return { name, slug: sl, dir: 'vote/songs/three_levels/' + sl + '/', levels_db: M.levels.map(x => x.audio.phone_rms_db), id };
+  }).filter(Boolean);
+  fs.writeFileSync(path.join(OUTD, 'index.json'), JSON.stringify({ made: '10/25', tool: 'tools/bohemia_sounds_three_levels.js', songs }, null, 1) + '\n');
+  console.log('the list: ' + songs.map(x => x.name).join(', '));
 }
 
 if (require.main === module) {
