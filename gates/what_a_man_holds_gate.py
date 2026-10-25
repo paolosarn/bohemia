@@ -11,16 +11,18 @@ A PISTOL IN ONE HAND AND COVER THAT LOOKS LIKE COVER, asked of the PICTURES and 
      each other: the half key is between).
   P  THE PICTURES (slices/rig_hold): every man packed has every key of every clip in all eight facings, his gun on every
      key its clip holds one (or the body hides it, said so), every cell inside its sheet, his own fight sheet's colours.
+  R  THE RELOAD ON HIS BODY: reloading, the long gun stays in his left hand while his right hand works (profile, the muzzle within three pixels).
   O  ONE HAND: the pistol at rest hangs on his RIGHT side (facing the camera, the glass's left; facing away, its right),
      never at his belt buckle between two fists; fired, it is out at arm's length in front of him (profile, a third of his
      height past his feet or more).
   F  THE FEET STAY PUT standing: in the pistol's stand, aim and blow his soles are on his ground line (two pixels).
   K  COVER LOOKS LIKE COVER: in every cover key and facing he is ON THE GROUND (in profile his lowest pixel on his ground line,
-     never above it by more than three pixels, a long coat's hem draped onto the floor at most eight below; turned to or from
-     the glass a foot or a shin toward the camera may sit lower, never higher) and DOWN (his
+     never above it by more than three pixels, a long coat or baggy trousers bunched on the floor at most twelve below; turned to or from
+     the glass a foot, a shin or a wide trouser's hem toward the camera may sit lower, eighteen at most, never higher) and DOWN (his
      crown a sixth of his height lower than standing at rest behind it, a tenth when he rises on the knee to fire over it).
   W  WIRED: the fight carries the marked block and the hook; on the real fight (headless, the shipped file) the man with
-     a pistol is drawn in a held pistol clip, a man put on a tile with cover is drawn kneeling, no page error.
+     a pistol is drawn in a held pistol clip, a man put on a tile with cover is drawn kneeling, no page error; and IN THE
+     DEMO (a road fight from the map, the fight inside the shell he plays) the same.
   MUTATIONS (the gate must bite): a cover cell swapped for the standing still, a pistol moved to his belt buckle, a timeline
   a key short, rest and the check put next to each other.
     python3 gates/what_a_man_holds_gate.py            (all legs)
@@ -178,6 +180,36 @@ for f in (0, 4):   # the pistol moved to his belt buckle: the old two-handed car
 ok('O2 MUTATION: a pistol at his belt buckle is caught', any('PIdle' in x for x in one_hand_faults({k0: e0})))
 
 
+# ---------------------------------------------------------------------------------------------------- R the reload
+def reload_faults(E):
+    """THE LONG GUN STAYS IN HIS LEFT HAND while his right hand goes to the pocket and works the action: in profile (E, W)
+    the gun's middle moves four pixels at most over the four keys (in his right fist it followed the hand to his hip)"""
+    out = []
+    for k, e in E.items():
+        if e.get('ref'): continue   # a rolled man holds his gang's guns, checked on the gang
+        for gun in ('rifle', 'shotgun'):
+            for clip in ('LReload', 'CoverLReload'):
+                if clip not in e['guns']['clips'].get(gun, {}): continue   # not packed yet: P2 and P3 say so
+                for f in (2, 6):
+                    cs = [bbox(e, clip, kk, f, 'guns', gun) for kk in range(len(D['clips'][clip]['keys']))]
+                    if any(c is None for c in cs): out.append('%s %s %s %s: the gun is hidden' % (k, gun, clip, I['dirs'][f])); continue
+                    # the MUZZLE END (the top corner ahead of him: E the right, W the left), never the box's middle: his right
+                    # arm working the action passes in front of the gun and hides part of it (the blues' shotgun, measured)
+                    mx = [c[2] if f == 2 else c[0] for c in cs]; my = [c[1] for c in cs]
+                    mv = max(max(mx) - min(mx), max(my) - min(my))
+                    if mv > 3: out.append('%s %s %s %s: the muzzle moves %d px while his right hand works' % (k, gun, clip, I['dirs'][f], mv))
+    return out
+
+
+rf = reload_faults(E)
+ok('R1 reloading, the long gun stays in his left hand (its muzzle within three pixels) while his right hand goes to the pocket and works the action', not rf, rf[:4])
+kr = next((k for k in looks if not E[k].get('ref') and 'LReload' in E[k]['guns']['clips'].get('rifle', {}) and E[k]['guns']['clips']['rifle']['LReload'][1][2] is not None), None)
+mr = json.loads(json.dumps(E)); er = mr[kr] if kr else None; i = er['guns']['clips']['rifle']['LReload'][1][2] if er else None
+if er:
+    er['guns']['cells'][i] = list(er['guns']['cells'][i]); er['guns']['cells'][i][5] += 12   # the gun dragged down to his hip on the pocket key
+ok('R2 MUTATION: a long gun that follows his right hand to his pocket is caught', bool(er) and any('LReload E' in x for x in reload_faults({kr: er})))
+
+
 # ---------------------------------------------------------------------------------------------------- F the feet
 def feet_faults(E):
     out = []
@@ -209,7 +241,7 @@ def cover_faults(E, show=False):
                     b = bbox(e, n, kk, f)
                     # in profile (E, W) the ground is the ground; turned to or from the glass, the foot stepped forward or the shin laid
                     # back comes toward the camera and sits lower on the glass, never higher (a man kneels on his tile, he does not float)
-                    lo, hi = (-3, 8) if f in (2, 6) else (-3, 14)   # in profile a long coat's hem drapes onto the floor before his knee (the anarchists' robe, +7)
+                    lo, hi = (-3, 12) if f in (2, 6) else (-3, 18)   # in profile a long coat's hem drapes onto the floor before his knee (the anarchists' robe, +7) and baggy trousers bunch under the kneeling knee (person_town_0, +12); turned to the glass a wide trouser's hem comes forward with the front foot (person_town_0, +16)
                     if not lo <= b[3] - ground <= hi: out.append('%s %s k%d %s: his lowest pixel %+d from the ground' % (k, n, kk, I['dirs'][f], b[3] - ground))
                     down = (b[1] - crown) / float(h)
                     worst.append(down)
@@ -226,8 +258,9 @@ ok('K2 MUTATION: a man in cover drawn standing is caught', any('CoverLong k0' in
 
 # ---------------------------------------------------------------------------------------------------- W wired
 t = open(os.path.join(ROOT, 'slices/BOHEMIA_FIGHT.html')).read()
-ok('W1 the fight (COMBAT\'s file) carries the marked block and draws through it', '__WHAT_A_MAN_HOLDS__' in t and 'end __WHAT_A_MAN_HOLDS__' in t
-   and 'const held = holdDraw(v, p, L, gs, ox, oy, s, now);' in t and 'const idled = held || idleDraw(' in t)
+ok('W1 the fight (COMBAT\'s file) carries the marked block, draws through it, and stamps the reload on the man', '__WHAT_A_MAN_HOLDS__' in t and 'end __WHAT_A_MAN_HOLDS__' in t
+   and 'const held = holdDraw(v, p, L, gs, ox, oy, s, now);' in t and 'const idled = held || idleDraw(' in t
+   and "u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__" in t)
 if not QUICK:
     drv = r'''
 const { open } = require(process.argv[2]);
@@ -251,6 +284,9 @@ const { open } = require(process.argv[2]);
     const man = S.units.filter(v => FIGHT.onField(v) && !v.beast && v.side === 'you' && HOLD.meta.looks[lookOf(v)._key])[0];
     if (!t || !man) return null; man.x = t.x; man.y = t.y; man._at = undefined; return man.id + ' (' + lookOf(man)._key + ')'; });
   await p.waitForTimeout(7000);
+  /* the reload the fight stamps when the mag seats (its note handler): four keys on his body */
+  await p.evaluate(() => { const v = FIGHT.S.units.filter(u => u.side === 'you' && HOLD.meta.looks[lookOf(u)._key])[0]; if (v) v._reloadAt = performance.now(); });
+  await p.waitForTimeout(2500);
   const seen = await p.evaluate(() => UI.clipSeen);
   console.log(JSON.stringify({ set: set, seen: seen, errs: errs }));
   try { await d.browser.close(); } catch (e) {}
@@ -269,6 +305,54 @@ const { open } = require(process.argv[2]);
     cov = sorted(k[5:] for k in seen if k.startswith('hold:Cover'))
     print('  note W2 pistols %s, the man in cover %s at %s; held clips drawn %s' % (len((R.get('set') or {}).get('pistols') or []), (R.get('set') or {}).get('cover'),
           (R.get('set') or {}).get('tile'), {k: v for k, v in seen.items() if k.startswith('hold:')}))
-    ok('W2 on the real fight the man with a pistol is drawn in a held pistol clip and the man on a cover tile kneels, no page error',
-       pist and cov and not R.get('errs') and not R.get('err'), 'pistol %s, cover %s, errors %s' % (pist, cov, (R.get('errs') or [R.get('err')])[:2]))
+    rel = sorted(k[5:] for k in seen if k.startswith('hold:') and 'Reload' in k)
+    ok('W2 on the real fight the man with a pistol is drawn in a held pistol clip, the man on a cover tile kneels, a reload plays on his body, no page error',
+       pist and cov and rel and not R.get('errs') and not R.get('err'), 'pistol %s, cover %s, reload %s, errors %s' % (pist, cov, rel, (R.get('errs') or [R.get('err')])[:2]))
+    # W3 THE DEMO (the shell he plays, the fight opened inside it as every fight is): a road fight from the map; his company's
+    # pistol men in a held pistol clip or kneeling, and a man of his stood on the nearest tile with cover kneels
+    drv3 = r"""
+const drive = require(process.argv[2]);
+(async () => {
+  const d = await drive.open(), errs = [];
+  d.page.on('pageerror', e => errs.push(String(e)));
+  await d.fr.waitForFunction(() => typeof roadContactFight === 'function' && typeof om !== 'undefined' && !!om, null, { timeout: 120000 });
+  const st = await d.fr.evaluate(async () => {
+    for (let i = 0; i < 40 && typeof FZOOMING !== 'undefined' && FZOOMING; i++) await new Promise(r => setTimeout(r, 250));
+    try { stepOnce(0); stepOnce(4); } catch (_e) {}
+    return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 });
+  });
+  let f = null;
+  for (let i = 0; i < 300 && !f; i++) {
+    const h = await d.page.$('#fightFrame');
+    if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S.board && typeof HOLD !== 'undefined' && HOLD.state === 2).catch(() => false)) f = c; }
+    if (!f) await d.page.waitForTimeout(200);
+  }
+  if (!f) { console.log(JSON.stringify({ started: st, err: 'no fight frame', errs })); process.exit(0); }
+  await d.page.waitForTimeout(5000);
+  const a = await f.evaluate(() => Object.assign({}, UI.clipSeen));
+  const mv = await f.evaluate(() => { const S = FIGHT.S, v = S.units.filter(u => u.side === 'you' && HOLD.meta.looks[lookOf(u)._key])[0]; if (!v) return null; let best = null;
+    const taken = {}; S.units.forEach(u => { taken[u.y * S.w + u.x] = 1; });
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.coverCount[y][x] > 0 && FIGHT.rowAt(x, y) !== 'obstacles' && !S.solid[y][x] && !taken[y * S.w + x]) { const dd = Math.abs(x - v.x) + Math.abs(y - v.y); if (!best || dd < best.d) best = { x, y, d: dd }; }
+    if (best) { v.x = best.x; v.y = best.y; v._at = undefined; } v._holdClip = undefined; return v.id + ' to ' + (best && [best.x, best.y]); });
+  const b0 = await f.evaluate(() => Object.assign({}, UI.clipSeen));
+  await d.page.waitForTimeout(5000);
+  const b = await f.evaluate(() => Object.assign({}, UI.clipSeen));
+  console.log(JSON.stringify({ started: st, a: a, moved: mv, b0: b0, b: b, errs: errs.slice(0, 3) }));
+  try { await d.browser.close(); } catch (e) {}
+  process.exit(0);
+})().catch(e => { console.log(JSON.stringify({ err: String(e) })); process.exit(0); });
+"""
+    js3 = os.path.join(ROOT, 'gates', '.what_a_man_holds_demo.js'); open(js3, 'w').write(drv3)
+    try:
+        r3 = subprocess.run(['node', js3, os.path.join(ROOT, 'tools/bohemia_drive_the_demo.js')], capture_output=True, text=True, timeout=420, cwd=ROOT)
+    finally:
+        os.remove(js3)
+    l3 = [l for l in r3.stdout.splitlines() if l.startswith('{')]
+    R3 = json.loads(l3[-1]) if l3 else {'err': r3.stdout[-300:] + r3.stderr[-300:]}
+    a3, b0, b3 = R3.get('a') or {}, R3.get('b0') or {}, R3.get('b') or {}
+    held = sorted(k[5:] for k in a3 if k.startswith('hold:'))
+    knelt = sorted(k[5:] for k in b3 if k.startswith('hold:Cover') and b3[k] > b0.get(k, 0))
+    print('  note W3 the demo: a road fight %s; held before %s; %s; kneeling after %s' % (R3.get('started'), held, R3.get('moved'), knelt))
+    ok('W3 IN THE DEMO (a road fight from the map, the fight inside the shell): his pistol men are drawn in held clips, and his man stood on cover kneels, no page error',
+       R3.get('started') and held and knelt and not R3.get('errs') and not R3.get('err'), (R3.get('errs') or [R3.get('err')])[:2])
 done()

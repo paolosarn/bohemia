@@ -3541,7 +3541,7 @@ function startAnim(a) {
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
 
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
-    if (e.t === 'reload' && u) { sfx('mag_home'); pop(u, '', '#f0d296', false, u.name + ' reloads.');
+    if (e.t === 'reload' && u) { sfx('mag_home'); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
       if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'free' && u) { sfx('cloth_on', { side: u.side }); pop(u, 'tears free', '#c9b48a'); }
@@ -4477,10 +4477,22 @@ function holdIdle(v, clip, now) {
   for (let i = 0; i < tl.length; i++) { if (kin < tl[i][1]) return tl[i][0]; kin -= tl[i][1]; }
   return 0;
 }
+/* THE RELOAD ON HIS BODY (item 31, 'more and better animations when people hold things'): the fight's reload was a sound and a
+   word; now his hands do it, four held keys from the moment the mag seats (the pistol up, a magazine from the belt, seated,
+   the slide racked; the long gun up in the left hand, the right hand to the pocket, to the action, working it), on one knee
+   in cover */
+const HOLD_RELOAD_KEYS = 4;
+function holdReload(v, kind, cover, now) {
+  if (!kind || v._reloadAt === undefined) return null;
+  const k = Math.floor((now - v._reloadAt) / (beatMs() / 3));
+  if (k < 0 || k >= HOLD_RELOAD_KEYS) return null;
+  return [(cover ? 'Cover' : '') + (kind === 'pistol' ? 'PReload' : 'LReload'), k];
+}
 /* which held clip and key he shows for the pose the fight gave him, or null (the fight's own) */
 function holdClip(v, p, kind, now) {
   const at = function (c) { return Math.max(0, DB.rig.clips[c].indexOf(p.col)); }, pistol = kind === 'pistol', cover = holdCovered(v);
   if (p.clip === 'walk' || p.clip === 'carrywalk') return pistol ? ['PCarryWalk', at(p.clip)] : null;
+  if (p.clip === 'stand' || p.clip === 'carry') { const r = holdReload(v, kind, cover, now); if (r) return r; }
   if (p.clip === 'aim') return cover ? (pistol ? ['CoverPistolAim', at('aim')] : kind ? ['CoverLongAim', at('aim')] : null) : pistol ? ['PAim', at('aim')] : null;
   if (p.clip === 'hit') return cover ? ['CoverHit', at('hit')] : pistol ? ['PHit', at('hit')] : null;
   if (p.clip === 'stand' || p.clip === 'carry') {

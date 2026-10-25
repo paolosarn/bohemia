@@ -26,7 +26,7 @@ is built on, so one list fits every look and every act's wardrobe): bone turns, 
 the feet planted, or a KNEEL (the gun side's knee and shin on the ground, the other foot a step forward, the pelvis dropped
 exactly as far as the skeleton's own lengths put the knee on the floor; 'seat' sits him back toward his heel).
 
-TEN CLIPS, 35 KEYS, EIGHT FACINGS:
+TEN CLIPS, 35 KEYS, EIGHT FACINGS (and four reload clips, 16 keys, below):
 - PIdle 7: the pistol in his right hand at the one-hand low ready (the forearm forward over the thigh, the muzzle forward
   and down); a breath; a look each way; the pistol brought up before his eyes, his left hand on the slide, turned; key 6 the
   half way up, so it never jumps from his thigh to his eyes.
@@ -39,6 +39,18 @@ TEN CLIPS, 35 KEYS, EIGHT FACINGS:
 - CoverPistolAim 3: up on the knee, one arm out over the cover, the kick, the settle.
 - CoverBare 3: a man with nothing in his hands ducks low on one knee, hands tucked in; a breath; a look.
 - CoverHit 2: on the knee, rocked back, whatever he holds kept in his right hand.
+
+AND FOUR MORE FOR ITEM 31 (more and better animations when people hold things), THE RELOAD ON HIS BODY. Measured: the fight's
+reload was a sound (mag_home) and a word ('RAUL reloads.'); the man stood still. Now his hands do it, four held keys from
+the moment the mag seats:
+- PReload 4: the pistol up before his chest, tilted; his left hand to the belt for the magazine, to the butt to seat it,
+  over the slide and back to rack it.
+- LReload 4: the long gun up in his LEFT hand at the fore-end, the muzzle up and forward; his right hand off the grip to his
+  hip pocket, to the action, working it back.
+- CoverPReload 4, CoverLReload 4: the same down on one knee behind cover.
+They were made after the first ten, so for the men already rendered they are a pass of their own (<look>_more), packed into the
+same sheet; the men rendered after get all fourteen in one pass. The fight's reload note stamps u._reloadAt (one marked line in
+COMBAT's handler) and the block plays the four keys from it.
 
 HOW HE HOLDS STILL in a held clip (the source's timelines): slots of two bars (24 keys); an even slot is a breath, an odd one
 of his idles, rolled off his own seed with the idles' own hash, so no two men move in step; every slot starts and ends on key
@@ -81,6 +93,9 @@ a man stood on a cover tile drawn kneeling; no page error), and four mutations t
 - The first rest pistol hung flat against his dark trousers and vanished at the fight's pixels: it is held forward at the
   one-hand low ready now, against the ground.
 - The first kneel was a high kneel only 11 to 24 percent lower than standing; the resting kneel sits back toward his heel.
+- The first reload's gun step had no hold for the reload, so COMBAT's blow hold put the rifle in his right fist and it
+  followed his hand to his pocket: the long gun now rides his left hand at the fore-end on the line his hands were posed on
+  (in the 3/4 stretched body), the pistol tilts up in his right; the reload guns made before the fix were rendered again.
 
 ## REFERENCE CHECK
 The compare law: the twin of every held clip is the same man's own carry, aim and stand cells on the fight sheet, side by

@@ -798,6 +798,224 @@
      }
     }
    }
+  ],
+  "p_reload_up": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      12
+     ],
+     [
+      "H",
+      "L",
+      10
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.24,
+       -0.22,
+       0.07
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       -0.6
+      ]
+     }
+    }
+   }
+  ],
+  "l_belt": [
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.02,
+       -0.42,
+       0.03
+      ],
+      "pole": [
+       -1,
+       0,
+       0.4
+      ]
+     }
+    }
+   }
+  ],
+  "l_butt": [
+   {
+    "reach": {
+     "L": {
+      "from": "RH",
+      "at": [
+       0.0,
+       -0.09,
+       0.04
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       0.7
+      ]
+     }
+    }
+   }
+  ],
+  "l_rack": [
+   {
+    "reach": {
+     "L": {
+      "from": "RH",
+      "at": [
+       0.03,
+       0.05,
+       0.07
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       0.7
+      ]
+     }
+    }
+   }
+  ],
+  "l_rack_back": [
+   {
+    "reach": {
+     "L": {
+      "from": "RH",
+      "at": [
+       -0.06,
+       0.05,
+       0.08
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       0.7
+      ]
+     }
+    }
+   }
+  ],
+  "long_port": [
+   {
+    "ops": [
+     [
+      "N",
+      "L",
+      10
+     ],
+     [
+      "H",
+      "L",
+      8
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.33,
+       -0.17,
+       -0.13
+      ],
+      "pole": [
+       -0.2,
+       -1,
+       0.8
+      ]
+     }
+    }
+   }
+  ],
+  "r_grip": [
+   {
+    "reach": {
+     "R": {
+      "from": "LH",
+      "at": [
+       -0.17,
+       -0.15,
+       -0.03
+      ],
+      "pole": [
+       -0.5,
+       -1,
+       -0.6
+      ]
+     }
+    }
+   }
+  ],
+  "r_pocket": [
+   {
+    "reach": {
+     "R": {
+      "from": "RU",
+      "at": [
+       0.0,
+       -0.42,
+       -0.04
+      ],
+      "pole": [
+       -1,
+       0,
+       -0.4
+      ]
+     }
+    }
+   }
+  ],
+  "r_action": [
+   {
+    "reach": {
+     "R": {
+      "from": "LH",
+      "at": [
+       -0.1,
+       -0.08,
+       -0.04
+      ],
+      "pole": [
+       -0.5,
+       -1,
+       -0.6
+      ]
+     }
+    }
+   }
+  ],
+  "r_action_back": [
+   {
+    "reach": {
+     "R": {
+      "from": "LH",
+      "at": [
+       -0.2,
+       -0.1,
+       -0.05
+      ],
+      "pole": [
+       -0.5,
+       -1,
+       -0.6
+      ]
+     }
+    }
+   }
   ]
  },
  "clips": {
@@ -1000,6 +1218,106 @@
      "c_rock2"
     ]
    ]
+  },
+  "PReload": {
+   "under": "still",
+   "keys": [
+    [
+     "p_reload_up",
+     "l_belt",
+     "plant"
+    ],
+    [
+     "p_reload_up",
+     "l_butt",
+     "plant"
+    ],
+    [
+     "p_reload_up",
+     "l_rack",
+     "plant"
+    ],
+    [
+     "p_reload_up",
+     "l_rack_back",
+     "plant"
+    ]
+   ]
+  },
+  "LReload": {
+   "under": "still",
+   "keys": [
+    [
+     "long_port",
+     "r_grip",
+     "plant"
+    ],
+    [
+     "long_port",
+     "r_pocket",
+     "plant"
+    ],
+    [
+     "long_port",
+     "r_action",
+     "plant"
+    ],
+    [
+     "long_port",
+     "r_action_back",
+     "plant"
+    ]
+   ]
+  },
+  "CoverPReload": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel",
+     "p_reload_up",
+     "l_belt"
+    ],
+    [
+     "kneel",
+     "p_reload_up",
+     "l_butt"
+    ],
+    [
+     "kneel",
+     "p_reload_up",
+     "l_rack"
+    ],
+    [
+     "kneel",
+     "p_reload_up",
+     "l_rack_back"
+    ]
+   ]
+  },
+  "CoverLReload": {
+   "under": "still",
+   "keys": [
+    [
+     "kneel",
+     "long_port",
+     "r_grip"
+    ],
+    [
+     "kneel",
+     "long_port",
+     "r_pocket"
+    ],
+    [
+     "kneel",
+     "long_port",
+     "r_action"
+    ],
+    [
+     "kneel",
+     "long_port",
+     "r_action_back"
+    ]
+   ]
   }
  },
  "guns": {
@@ -1010,17 +1328,23 @@
    "PHit",
    "CoverPistol",
    "CoverPistolAim",
-   "CoverHit"
+   "CoverHit",
+   "PReload",
+   "CoverPReload"
   ],
   "rifle": [
    "CoverLong",
    "CoverLongAim",
-   "CoverHit"
+   "CoverHit",
+   "LReload",
+   "CoverLReload"
   ],
   "shotgun": [
    "CoverLong",
    "CoverLongAim",
-   "CoverHit"
+   "CoverHit",
+   "LReload",
+   "CoverLReload"
   ]
  },
  "hold": {
@@ -1033,7 +1357,11 @@
   "CoverPistol": "on one knee, the pistol up at the chest, the muzzle up, the left hand on the knee",
   "CoverPistolAim": "up on the knee, one arm out over the cover",
   "CoverBare": "on one knee and ducked low, the hands tucked in",
-  "CoverHit": "on the knee, rocked back, the gun kept in the right hand"
+  "CoverHit": "on the knee, rocked back, the gun kept in the right hand",
+  "PReload": "the pistol up before his chest, tilted; the left hand to the belt for the magazine, to the butt to seat it, over the slide and back to rack it",
+  "LReload": "the long gun up in his left hand, the muzzle up and forward; the right hand off the grip to his hip pocket, to the action, working it back",
+  "CoverPReload": "the pistol reload down on one knee behind the cover",
+  "CoverLReload": "the long gun reload down on one knee behind the cover"
  },
  "timelines": {
   "why": "how a man holds still between his turns: time cut in slots of two bars (24 keys, three a beat at 120); an even slot is the first list (a breath), an odd slot one of the rest, rolled per slot off his own seed (no two men in step); [key, how many keys it is held]; every slot starts and ends on key 0, so any follows any, and a big move passes a half key on its way (AN ENVELOPE RAMPS SLOWER THAN THE GRID)",
@@ -1194,6 +1522,15 @@
      10
     ]
    ]
+  ]
+ },
+ "more": {
+  "why": "clips made after the first pass, rendered as a pass of their own (records/target/animation/hold/<look>_more) and packed into the same sheet, so the first ten are never rendered twice",
+  "clips": [
+   "PReload",
+   "LReload",
+   "CoverPReload",
+   "CoverLReload"
   ]
  }
 }

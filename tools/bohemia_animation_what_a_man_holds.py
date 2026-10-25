@@ -72,6 +72,23 @@ def clip_list(D=None):
     return [(n, len(c['keys'])) for n, c in D['clips'].items()]
 
 
+def made(name, clip):
+    """this clip of this man is rendered, in his main pass or in the pass made after it (<name>_more)"""
+    return any(os.path.exists(os.path.join(ROOT, RENDERS, name + sfx, 'rig_%s_S_k00.png' % clip)) for sfx in ('', '_more'))
+
+
+def gun_made(name, gun, clip, D=None):
+    D = D or source(); n = len(D['clips'][clip]['keys'])
+    return any(os.path.exists(os.path.join(ROOT, RENDERS, name + sfx, 'guns', '%s_%s_NW_k%02d.png' % (gun, clip, n - 1))) for sfx in ('', '_more'))
+
+
+def more_clips(name, D=None):
+    """the clips his main pass never made (made after it): rendered as a pass of their own into <name>_more"""
+    D = D or source()
+    if not os.path.exists(os.path.join(ROOT, RENDERS, name, 'rig.json')): return []
+    return [(c, k) for c, k in clip_list(D) if not os.path.exists(os.path.join(ROOT, RENDERS, name, 'rig_%s_S_k00.png' % c))]
+
+
 def last_gun_file(D=None):
     """the last picture the guns step writes: when it is there, this look's guns are done"""
     D = D or source(); g = list(D['guns'])[-1]; c = D['guns'][g][-1]
@@ -273,6 +290,12 @@ def fight_one(name):
         CF.POSED, CF.RENDERS = POSED, RENDERS
         CF.render(name, clips=[('Stand', 1)] + clip_list(), suffix='')
     guns(name)
+    more = more_clips(name)
+    if more and not all(made(name, c) for c, _ in more):   # clips made after his main pass: his model posed again with every clip, those rendered alone
+        I.run([py, os.path.abspath(__file__), 'pose', src, glb], glb)
+        CF.POSED, CF.RENDERS = POSED, RENDERS
+        CF.render(name, clips=[('Stand', 1)] + more, suffix='_more')
+    if more: guns(name + '_more', [c for c, _ in more])
     print('HOLD', name, flush=True)
 
 
@@ -297,38 +320,52 @@ def _hold_place(clip, gun, rw, lw, re, fwd, up):
         bar = lw - rw
         if bar.length < 1e-4 or bar.normalized().dot(fwd) < 0.2: bar = fwd
         return rw, mathutils.Vector((bar.x, bar.y, bar.z * 0.15))
+    if clip in ('PReload', 'CoverPReload'):        # tilted up before his chest, the muzzle up, his left hand at its butt and slide
+        return rw, up * 0.75 + fwd * 0.55
+    if clip in ('LReload', 'CoverLReload'):        # up in his LEFT hand at the fore-end, the muzzle up and forward, the right hand free
+        d = (fwd * 0.756 + up * 0.655 * _ZS).normalized()   # the line his hands were posed on, in the stretched 3/4 body
+        return lw - d * 0.32, d
     return None                                    # PHit, CoverHit: COMBAT's own blow (in the right hand)
 '''
 
 
-def guns(name):
+def guns(name, only=None):
     """COMBAT's guns tool on the held clips: its own render() with changes made in memory (the clip list, the guns per
-    clip, the hold for a one-hand pistol and a kneeling gun), reading this look's rig.json"""
+    clip, the hold for a one-hand pistol and a kneeling gun), reading the rig.json of this folder (a look's main pass, or
+    <look>_more with only the clips made after it)"""
     D = source(); out = os.path.join(ROOT, RENDERS, name, 'guns')
-    if os.path.exists(os.path.join(out, last_gun_file(D))): return
+    rj = json.load(open(os.path.join(ROOT, RENDERS, name, 'rig.json')))
+    clips = [c for c in (only or [c for c, _ in clip_list(D)]) if c in rj.get('clips', {})]   # only what this folder's render holds
+    look = name[:-5] if name.endswith('_more') else name
+    clips = [c for c in clips if not all(gun_made(look, g, c, D) for g, gl in D['guns'].items() if c in gl)]   # only what is missing
+    want = [(g, c) for g, gl in D['guns'].items() for c in gl if c in clips]
+    if not want: return
     code = open(os.path.join(ROOT, 'tools/bohemia_combat_the_guns_in_their_hands.py')).read()
     a = "CLIPS = [('Carry', 1), ('CarryWalk', 6), ('Aim', 3), ('Hit', 2), ('Swing', 3)]"
     b = "            if clip == 'Aim':"
     c = "RENDERS = 'records/target/combat/rig'"
     d = "        for name, keys in CLIPS:\n"
     e = "GUNS = {'pistol': 'gun_pistol_a', 'rifle': 'gun_rifle_a', 'shotgun': 'gun_shotgun_a'}"
-    for s in (a, b, c, d, e): assert code.count(s) == 1, 'COMBAT\'s guns tool changed: re-read it before patching in memory'
+    z = "        zs = rj['z_stretch']; root.scale = (k, k, k * zs)"
+    for s in (a, b, c, d, e, z): assert code.count(s) == 1, 'COMBAT\'s guns tool changed: re-read it before patching in memory'
+    code = code.replace(z, "        zs = rj['z_stretch']; globals()['_ZS'] = zs; root.scale = (k, k, k * zs)")
     keys = dict(clip_list(D))
-    code = code.replace(a, "CLIPS = %r" % [(k, keys[k]) for k in keys])
+    code = code.replace(a, "CLIPS = %r" % [(k, keys[k]) for k in clips])
     code = code.replace(b, "            _h = _hold_place(clip, gun, rw, lw, re, fwd, up)\n            if _h: grip, bar = _h\n            elif clip == 'Aim':")
     code = code.replace(c, "RENDERS = %r" % RENDERS)
     code = code.replace(d, d + "            if name not in _GUN_CLIPS[gun]: continue\n")
-    code = code.replace(e, e + "\n_GUN_CLIPS = %r\n" % D['guns'] + PLACE)
+    code = code.replace(e, e + "\n_GUN_CLIPS = %r\n_ZS = 1.0\n" % D['guns'] + PLACE)
     code = code.replace("if __name__ == '__main__':", "if False:")
     prog = ('import sys; sys.argv = [%r]; __file__ = %r\n' % ('guns', os.path.join(ROOT, 'tools/bohemia_combat_the_guns_in_their_hands.py'))) + code + '\nrender(%r)\n' % name
     for i in range(3):
         r = subprocess.run([sys.executable, '-c', prog], cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
-        if os.path.exists(os.path.join(out, last_gun_file(D))): return
+        if all(gun_made(look, g, c, D) for g, c in want): return
     raise SystemExit('GUNS FAILED ' + name + ': ' + (r.stderr or '')[-600:])
 
 
 def done(name):
-    return os.path.exists(os.path.join(ROOT, RENDERS, name, 'guns', last_gun_file()))
+    D = source()
+    return all(made(name, c) for c, _ in clip_list(D)) and all(gun_made(name, g, c, D) for g, gl in D['guns'].items() for c in gl)
 
 
 def fight(arg, workers=1):
@@ -364,8 +401,13 @@ def person_done(tag):
     return os.path.exists(os.path.join(ROOT, RENDERS, tag, 'made.txt'))
 
 
+def person_complete(tag):
+    return person_done(tag) and all(made(tag, c) for c, _ in clip_list())
+
+
 def person_one(tag):
     I = idles(); py = sys.executable
+    if person_complete(tag): return
     pid = next(p['id'] for p in json.load(open(os.path.join(ROOT, PEOPLE_ROLL))) if 'person_' + p['id'].lower() == tag)
     glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_%s.glb' % tag); gj = glb.replace('.glb', '.json')
     kept = open(gj).read() if os.path.exists(gj) else None
@@ -376,19 +418,23 @@ def person_one(tag):
             if txt is not None:
                 with open(fn_, 'w') as f: f.write(txt)
     h = json.load(open(gj))['real_height_for_rig']
+    main = not person_done(tag)
+    more = [] if main else [m for m in more_clips(tag) if not made(tag, m[0])]   # clips made after his main pass, rendered alone
+    if not main and not more: return
     posed = os.path.join(ROOT, POSED, tag + '.glb')
     I.run([py, os.path.abspath(__file__), 'pose', glb, posed], posed)
-    out = os.path.join(ROOT, RENDERS, tag)
-    I.render_model(posed, out, h, [('Stand', 1)] + clip_list())
+    out = os.path.join(ROOT, RENDERS, tag + ('' if main else '_more'))
+    I.render_model(posed, out, h, [('Stand', 1)] + (clip_list() if main else more))
     os.remove(posed)
     for f in os.listdir(out):
         if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
-    with open(os.path.join(out, 'made.txt'), 'w') as f: f.write('hold\n')
-    print('HOLD person', tag, flush=True)
+    if main:
+        with open(os.path.join(out, 'made.txt'), 'w') as f: f.write('hold\n')
+    print('HOLD person', tag, '' if main else 'the clips made after (%s)' % ', '.join(c for c, _ in more), flush=True)
 
 
 def people(workers=2):
-    todo = [t for t in fight_people() if not person_done(t)]
+    todo = [t for t in fight_people() if not person_complete(t)]
     env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // workers)))
     procs = []
     for w in range(workers):
@@ -399,16 +445,30 @@ def people(workers=2):
     for p in procs: p.wait()
 
 
+def regun(since, clips=('PReload', 'LReload', 'CoverPReload', 'CoverLReload')):
+    """the guns of these clips rendered before a change to how they sit (the time, seconds) are rendered again, nothing else"""
+    for look in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
+        g = os.path.join(ROOT, RENDERS, look, 'guns')
+        if look.startswith('person_') or not os.path.isdir(g): continue
+        old = [f for f in os.listdir(g) if f.split('_')[1] in clips and os.path.getmtime(os.path.join(g, f)) < since]
+        if not old: continue
+        for f in old: os.remove(os.path.join(g, f))
+        guns(look); print('REGUN', look, len(old), flush=True)
+
+
 def queue():
-    """everyone the fight draws, in the order he meets them: YOU, the gangs and the tiers (a rolled man holds his gang's guns),
-    the rolled men (most of every company and every band), then the cast"""
-    named = [l[0] for l in men('ALL')]
-    first = ['you'] + [n for n in named if n.startswith(('faction_', 'tier_'))]
-    return first + sorted(fight_people()) + [n for n in named if n not in first]
+    """everyone the fight draws, in the order he meets them: YOU and the hall's hires (his own company: rolled men holding YOU's
+    guns), each gang and then its rolled men (a rolled man holds his gang's guns), the tiers, then the cast"""
+    named = [l[0] for l in men('ALL')]; P = fight_people(); out = ['you']
+    out += sorted(t for t in P if P[t].get('ref') == 'you')                   # the hall's hires: his own company, YOU's guns
+    for g in [n for n in named if n.startswith('faction_')]:                   # each gang, then its men (they hold its guns)
+        out += [g] + sorted(t for t in P if P[t].get('ref') == g)
+    out += [n for n in named if n.startswith('tier_')] + sorted(t for t in P if t not in out)
+    return out + [n for n in named if n not in out]
 
 
 def all_(workers=2):
-    todo = [t for t in queue() if not (person_done(t) if t.startswith('person_') else done(t))]
+    todo = [t for t in queue() if not (person_complete(t) if t.startswith('person_') else done(t))]
     env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // workers)))
     procs = []
     for w in range(workers):
@@ -453,8 +513,7 @@ def pack(only=None):
         if person and not os.path.exists(os.path.join(d, 'made.txt')): continue
         if person and FR['looks'][look].get('ref') not in index['looks']:
             print('SKIP', look, 'his gang\'s guns are not packed yet'); continue
-        if not person and not os.path.exists(os.path.join(d, 'guns', last_gun_file(D))):
-            print('SKIP', look, 'his guns are not rendered yet'); continue
+
         rj = json.load(open(os.path.join(d, 'rig.json')))
         fl = FR['looks'][look]
         # the look's own fight cell is the frame of reference: the same model, still and camera (Stand first), so the same
@@ -482,11 +541,21 @@ def pack(only=None):
             near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
             a[near & ~op] = RIM
             return a, x0, y0
+        dm = d + '_more'; rm = json.load(open(os.path.join(dm, 'rig.json'))) if os.path.exists(os.path.join(dm, 'rig.json')) else None
+        if rm: assert rm['res'] == rj['res'] and rm['ground_screen'] == rj['ground_screen'], look + ': the pass made after is not his frame'
+        if not all(made(look, c) for c, _ in clip_list(D)) or (not person and not all(gun_made(look, g, c, D) for g, gl in D['guns'].items() for c in gl)):
+            print('SKIP', look, 'not every clip is rendered yet'); continue
+        def frame(clip, f, k):   # a clip of the main pass, or of the pass made after it (its own crop of the same full frame)
+            fn = os.path.join(d, 'rig_%s_%s_k%02d.png' % (clip, f, k))
+            return (fn, rj['crop_box_px']) if os.path.exists(fn) else (os.path.join(dm, 'rig_%s_%s_k%02d.png' % (clip, f, k)), rm['crop_box_px'])
+        def gframe(gun, clip, f, k):
+            fn = os.path.join(d, 'guns', '%s_%s_%s_k%02d.png' % (gun, clip, f, k))
+            return fn if os.path.exists(fn) else os.path.join(dm, 'guns', '%s_%s_%s_k%02d.png' % (gun, clip, f, k))
         imgs, cells, gimgs, gcells = [], {}, [], {}
         for clip, n in clip_list(D):
             for k in range(n):
                 for row, f in enumerate(FIGHT_DIRS):
-                    a = full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (clip, f, k)), rj['crop_box_px'])
+                    a = full(*frame(clip, f, k))
                     r = cut(a, int(G['alpha_threshold']))
                     ix = None
                     if r is not None:
@@ -494,7 +563,7 @@ def pack(only=None):
                     cells.setdefault(clip, [[None] * 8 for _ in range(n)])[k][row] = ix
                     for gun, gl in D['guns'].items():
                         if clip not in gl or person: continue   # a rolled man holds his gang's guns (below)
-                        ga = full(os.path.join(d, 'guns', '%s_%s_%s_k%02d.png' % (gun, clip, f, k)), (0, 0, rj['res'], rj['res']))
+                        ga = full(gframe(gun, clip, f, k), (0, 0, rj['res'], rj['res']))
                         gr = cut(ga, int(G['alpha_threshold']))
                         gi = None
                         if gr is not None: gi = len(gimgs); gimgs.append((to_pal(gr[0]), gr[1] - fx0, gr[2] - fy0))
@@ -536,6 +605,7 @@ if __name__ == '__main__':
     elif cmd == 'person_one': person_one(a[0])
     elif cmd == 'people': people(int(a[0]) if a else 2)
     elif cmd == 'all': all_(int(a[0]) if a else 2)
+    elif cmd == 'regun': regun(float(a[0]))
     elif cmd == 'preview': preview(*a)
     elif cmd == 'pack': pack(a or None)
     else: sys.exit('pose <in> <out> | fight [LOOK|ALL] [workers] | preview <glb> <png> [clips] [facings] | pack [LOOK ...]')
