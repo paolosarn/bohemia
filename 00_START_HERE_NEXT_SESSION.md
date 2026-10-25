@@ -2425,6 +2425,36 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-vamily-10-25): 10/25 LATEST (x) -- [how many currencies] SHIPPED a7cf3682 and [the mayor arc, researched]
+SHIPPED 7db344ba, THE NEW AGE (rule 112: opened by the coordinator after the weekly reset; the 10/24 ECONOMY chat died on the
+limit before it wrote; research only, no screen, no data file the game reads, no VOTE sheet, rule 88).
+(1) records/BOHEMIA_ECONOMY_DAY_80_HOW_MANY_CURRENCIES_HIS_FOUR_ARE_BATTLE_BROTHERS_FOUR_AND_THE_GAME_COUNTS_ONE_10_25_26.md.
+THE ANSWER: the bar shows SIX, BATTERIES FOOD WATER TAPE MEDS ROUNDS (rule 47), hold the batteries for the nights (151(a)'s
+real words); not scrap, clout, fuel or gas. His four are Battle Brothers' four used-up things beside the money (his 9/4 'battle
+brothers has 3-4 currencies', his 9/29 list); the stall's four make the same five. THE FINDING: only BATTERIES is a real count
+on main (food pooled with loot in `resources`; water, meds, rounds sold for a battery that adds nothing; tape no key; the town's
+purse never syncs food back); the counts come first, then the icons. 151(a)'s 'only' was the coordinator's word, not his. A NOTE
+sits on UI's board under [the PC playtest: the UI's part].
+(2) records/BOHEMIA_ECONOMY_DAY_81_THE_MAYOR_ARC_YOU_PAY_FOR_THE_CORE_AND_THE_PEOPLE_BUILD_THE_CITY_10_25_26.md; calculator
+tools/bohemia_economy_the_mayor_arc_catalog.py; bank banks/BOHEMIA_ECONOMY_THE_MAYOR_ARC_BUILDINGS_10_25_26.json draft:true.
+THE ANSWER: earned AND paid, no upkeep, neglect bites by raids; build in the settlement screen, the map shows it; a hand-day is 3
+batteries; 31 kinds in ten needs (8 to 1,300 batteries hired), five grand works (10,000 to 25,000 plus the people's hand-days);
+the three rungs read off bases, standing and housed families; the city grows his 17%/33% times what you built; the ten first:
+pump house, roof, lookout, workshop, garden/allotments, first-aid room, wind rig, wall and gate, swap stall, bunkhouse. THE
+FINDING: the real record rebuilds cities with the people's own hands once the core exists (Quinta Monroy, Havana, Warsaw);
+main's lotbuild makes the player pay for every lot at 1 battery and 1 day, the people build nothing, and the solar panel pays
+back in ONE day (4 lots = 28 batteries a week of a crew's 42).
+ROUTED: UI (the six), RUN (one purse, six counts, the bill as wages only), RUN TWO (the stall adds to its counts; more lots per
+rung), COMBAT (rounds from the company stock; a built lot on the board), TUNING (the six's starts; 31 prices; a month's payback),
+LIFE+CITY (8 kinds to 31; the people's core-and-finish), WORLD (power yield; the cleared road), FACTIONS (rungs from standing),
+DYNASTY (a rung and a half-built grand work across the flip; growth between acts), DIRECTION/COOK/COOK FOUR (each building's three
+acts in rule 159's palette), PEOPLE (the family with a roof; the mason, electrician, doctor, rail man), QUESTS, MODS, COORDINATOR
+(151(a)'s 'only'; WHOLE GAME section 16 can point at Day 81).
+GATES (rule 13, by name): OPEN ROW 9/0, ATTEMPT 15/0, TOOLS RUN 8/0; CANON ROT 11/2 (C3 77 of 62, four other lanes' old records,
+red on main before this diff; every path these pages cite resolves). Full suite not run.
+NEXT OPEN (jump list, rule 74): [made here], [the gap that survives], [the pump at home] (Day 81 prices the pump house: 38 hired).
+PENDING Paolo: none new.
+
 ECONOMY (economy-opus-10-19): 10/19 LATEST (w) -- [the grid's money] SHIPPED, THE NEW AGE
 (rule 117(e): a number is a grid; the 10/18 claim's session died at the cap with nothing pushed, resumed by this session;
 research and numbers only, no screen, no data file the game reads, no VOTE sheet, rule 88). Record:
