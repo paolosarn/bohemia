@@ -69,7 +69,9 @@ for (const S of index.songs) {
   ok(!k2['d:clap'], S.name + ': level 2 has a backbeat (it waits; the backbeat is your turn)');
   const card = reg.items.find(x => x.id === S.id);
   ok(!!card, S.name + ': no card ' + S.id);
-  if (card) { ok(card.show && card.show.how === 'page' && card.show.src === PAGE + '#' + S.slug, S.name + ': the card does not show its page'); ok(card.kind === 'song' && card.lane === 'sounds', S.name + ': card kind/lane'); }
+  const own = 'BOHEMIA_THREE_LEVELS_' + S.slug.toUpperCase() + '_10_25_26.html';
+  ok(fs.existsSync(path.join(SL, own)) && fs.readFileSync(path.join(SL, own), 'utf8').includes('<meta name="song" content="' + S.slug + '">'), S.name + ': no page of its own naming it (' + own + ')');
+  if (card) { ok(card.show && card.show.how === 'page' && card.show.src === own, S.name + ': the card does not show its own page'); ok(card.kind === 'song' && card.lane === 'sounds', S.name + ': card kind/lane'); }
   report.push(S.name + ' pulse ratio ' + P.map(p => p.ratio.toFixed(2)).join('/') + ', phone dB ' + M.levels.map(l => l.audio.phone_rms_db).join('/'));
 }
 ok(fs.existsSync(path.join(SL, PAGE)), 'no card page');
@@ -90,7 +92,7 @@ async function plays() {
     await p.route('http://bohemia.test/**', r => { const u = new URL(r.request().url()), f = path.join(SL, decodeURIComponent(u.pathname.replace(/^\/+/, '')));
       if (!f.startsWith(SL) || !fs.existsSync(f)) return r.fulfill({ status: 404, body: '' });
       const ext = path.extname(f); r.fulfill({ status: 200, body: fs.readFileSync(f), contentType: ext === '.html' ? 'text/html' : ext === '.json' ? 'application/json' : ext === '.mp3' ? 'audio/mpeg' : 'application/octet-stream' }); });
-    await p.goto('http://bohemia.test/' + PAGE + '#' + S.slug);
+    await p.goto('http://bohemia.test/BOHEMIA_THREE_LEVELS_' + S.slug.toUpperCase() + '_10_25_26.html');
     await p.waitForTimeout(600);
     const st = () => p.evaluate(() => window.__threelevels());
     ok((await st()).song === S.name, prof.name + ': the page did not pick ' + S.name);

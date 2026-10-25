@@ -191,6 +191,17 @@ async function record(which) {
   fs.rmSync(tmp, { recursive: true, force: true });
 }
 
+/* ONE PAGE PER SONG: the tab checks every card's page is a file, so each song's card has its own copy of the one page,
+   the song named in its <meta name="song">; the template is BOHEMIA_THREE_LEVELS_10_25_26.html, never hand-edited copies */
+const TEMPLATE = path.join(ROOT, 'slices', 'BOHEMIA_THREE_LEVELS_10_25_26.html');
+const pageOf = S => 'BOHEMIA_THREE_LEVELS_' + S.slug.toUpperCase() + '_10_25_26.html';
+function writePage(S) {
+  const t = fs.readFileSync(TEMPLATE, 'utf8');
+  const out = t.replace('<meta name="song" content="">', '<meta name="song" content="' + S.slug + '">').replace('<title>Three Levels</title>', '<title>' + S.name.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase()) + ', Three Levels</title>');
+  if (out === t) throw new Error('the template lost its song meta');
+  fs.writeFileSync(path.join(ROOT, 'slices', pageOf(S)), out);
+}
+
 /* THE CARD (rule 181(a)): one card per song, appended to the registry, never editing anybody else's; the sha is the
    commit that last touched the song's recordings, so the card points at what he hears */
 function register(which, write) {
@@ -200,15 +211,16 @@ function register(which, write) {
   const list = index.songs.filter(x => which === 'all' || x.name === which || x.slug === which);
   let added = 0;
   for (const S of list) {
+    writePage(S);
     if (reg.items.some(x => x.id === S.id)) { console.log('already a card: ' + S.id); continue; }
     const sha = execFileSync('git', ['log', '-1', '--format=%h', '--', path.join('slices', S.dir)], { cwd: ROOT, encoding: 'utf8' }).trim();
     if (!sha) throw new Error(S.name + ': commit the recordings first, the card needs their sha');
     const card = { id: S.id, kind: 'song', lane: 'sounds', sha, made: '10/25',
       title: 'YOUR ' + S.name + ' AT THREE LEVELS, FOR THE FIGHT',
-      why: 'You said one intensity on the map, two when they attack, three when it is your turn, real combat music, all on the 120 beat. This is your ' + S.name +
-        ' played by its own machine at all three: 1 the map, your song exactly as you approved it with a soft 120 beat under it; 2 their turn, tension, a heartbeat kick and ticking; 3 your turn, full drums, a driving bass and a hook in your song\'s own lead. Tap A FIGHT to hear the turns change on the bar the way a fight plays them. None of it is in the game until you say so; the game keeps your song as it is.',
+      why: 'Your ' + S.name + ' at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song\'s own lead, and none of it is in the game until you say so. ' +
+        'Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.',
       options: ['A, the three levels join the game for ' + S.name, 'B, no, not like this'],
-      show: { how: 'page', src: 'BOHEMIA_THREE_LEVELS_10_25_26.html#' + S.slug }, draft: true };
+      show: { how: 'page', src: pageOf(S) }, draft: true };
     if (write) reg.items.push(card);
     console.log((write ? 'REGISTERED ' : 'would register ') + S.id + ' at ' + sha); added++;
   }

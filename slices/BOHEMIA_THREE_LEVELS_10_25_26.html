@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="song" content="">
 <title>Three Levels</title>
 <!-- SOUNDS lane, 10/25, rules 167, 168 and 181. PAOLO 10/25: 'one intensity on the map or chilling, two when they're
      attacking, three when it's your turn to attack, real combat music'; 'everything at 120 BPM'; and rule 181: 'I still
@@ -12,7 +13,8 @@
        3 YOUR TURN    real combat music: his engine's top tier, a driving kit, a driving bass, a hook in his lead voice
      and A FIGHT, the turn changes as a fight plays them (the map, their turn, your turn, their turn, your turn), each
      change on the bar line. The three levels are one timeline: tap a level while another plays and it changes on the
-     next bar, the song does not jump. NOTHING HERE IS IN THE GAME (rule 181(d)). The song is the part after the #.
+     next bar, the song does not jump. NOTHING HERE IS IN THE GAME (rule 181(d)). The song is this page's <meta name="song">
+     (each card's own copy, written by the tool), or the part after the #, or the first song.
      Gate: gates/three_levels_vote_gate.js. -->
 <style>
   :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#b9a77e; --hot:#6a1d10; }
@@ -122,7 +124,7 @@
     IDX=j; var sel=document.getElementById('pick');
     j.songs.forEach(function(x){ var o=document.createElement('option'); o.value=x.slug; o.textContent=x.name; sel.appendChild(o); });
     sel.onchange=function(){ pickSong(sel.value); };
-    pickSong((location.hash||'').slice(1));
+    var mt=document.querySelector('meta[name=song]'); pickSong((mt&&mt.content)||(location.hash||'').slice(1));
   }).catch(function(e){ n.textContent='The song list did not load: '+e.message; });
   clock=setInterval(tick,50);
   window.__threelevels=function(){ return { song:S&&S.name, level:lvlNow, live:!!live, fight:!!run, state:AC&&AC.state, latency:AC&&AC.baseLatency, loaded:Object.keys(BUF), t:live?+(AC.currentTime-live.t0).toFixed(2):run?+(AC.currentTime-run.t0).toFixed(2):0, gains:live?live.g.map(function(g){ return +g.gain.value.toFixed(3); }):null, text:n.textContent }; };
