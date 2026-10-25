@@ -1,0 +1,145 @@
+{
+ "label": "region1",
+ "stops": [
+  "s0_far",
+  "s1_district",
+  "s2_opening",
+  "s3_mid",
+  "s4_step",
+  "s5_near"
+ ],
+ "towns": {
+  "99,199": {
+   "s0_far": {
+    "TW": 1.9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 44,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/99_199_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 5,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/99_199_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 2,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/99_199_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 2,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/99_199_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 2,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/99_199_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 2,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/99_199_s5_near.png"
+   }
+  },
+  "-30,91": {
+   "s0_far": {
+    "err": "no base"
+   },
+   "s1_district": {
+    "err": "no base"
+   },
+   "s2_opening": {
+    "err": "no base"
+   },
+   "s3_mid": {
+    "err": "no base"
+   },
+   "s4_step": {
+    "err": "no base"
+   },
+   "s5_near": {
+    "err": "no base"
+   }
+  },
+  "85,150": {
+   "s0_far": {
+    "TW": 1.9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 44,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/85_150_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 13,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/85_150_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 2,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/85_150_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/85_150_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/85_150_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_region1/85_150_s5_near.png"
+   }
+  }
+ }
+}

@@ -33,7 +33,7 @@ const OUT = path.join(ROOT, 'records/target/cook_map_colour', 'painted_' + LABEL
     res.towns[name] = {};
     for (const [stop, z] of stops) {
       const info = await d.fr.evaluate(async (a) => {
-        const m = /^(\d+),(\d+)$/.exec(a.name), B = m ? null : ctBases(); const b = m ? { x: +m[1], y: +m[2] } : B && B[a.name]; if (!b) return { err: 'no base' };   /* a town by name, or any block by x,y */
+        const m = /^(-?\d+),(-?\d+)$/.exec(a.name), B = m ? null : ctBases(); const b = m ? { x: +m[1], y: +m[2] } : B && B[a.name]; if (!b) return { err: 'no base' };   /* a town by name, or any block by x,y */
         CZOOM = a.z; TW = TW0 * CZOOM; TH = TH0 * CZOOM;
         try { camLetGo(); } catch (_e) {}   /* the camera holds the crew (rule 163): let it go, as a drag by hand does */
         const put = () => { panX = ((city.x - city.y) - (b.x - b.y)) * TW / 2; panY = ((city.x + city.y) - (b.x + b.y + 1)) * TH / 2; };

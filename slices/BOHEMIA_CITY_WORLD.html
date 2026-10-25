@@ -46114,6 +46114,54 @@ function vbTownsInput(){
   VB_TOWNS.list = out; VB_TOWNS.key = out.map(function (o) { return o.x0 + ',' + o.y0 + ',' + o.n + ',' + o.tier; }).join(';');
   return out;
 }
+/* THE REGION'S PLACES (bohemia_region.js: Primm, Jean, Boulder City, the Hoover Dam...) stand on the far land, which the
+   land's own painter paints at two texels a block, too coarse to hold a town. So each is painted as its own small patch by
+   the same painter (its tier's town, 4, 3 or 2 blocks, in the house or works family's colours, the region's road through it)
+   with its land CUT AWAY, in the worker like a close tile, at the zoom's detail; until a patch lands the picture is drawn. */
+function vbRegionPlaceOf(name){
+  var R = window.BOH_REGION; if (!R || !R.ready || !R.places) return null;
+  for (var i = 0; i < R.places.length; i++) if (R.places[i].name === name) return R.places[i];
+  return null;
+}
+function vbRegionPatchGeom(p){
+  var t = p.tier === 'fortress' ? 1 : p.tier === 'town' ? 2 : 3, n = t === 1 ? 4 : t === 2 ? 3 : 2, M = 1, bx = p.x | 0, by = p.y | 0;
+  var x0 = bx - (n >> 1), y0 = by - (n >> 1);
+  return { t: t, n: n, M: M, N: n + 2 * M, bx: bx, by: by, x0: x0, y0: y0, X0: x0 - M, Y0: y0 - M };
+}
+function vbRegionPatchKey(p, S){ return 'rp:' + p.name + ':' + p.x + ',' + p.y + ':' + S + ':' + om.seed + ':' + VB_COOK.v; }
+function vbRegionPatchInput(p, S){
+  var G = vbRegionPatchGeom(p), N = G.N, R = window.BOH_REGION, I = VB_COOK.index || {};
+  var th = function (k){ var i = I[k]; return i == null ? 255 : i; };
+  var cl = G.t === 1 ? VB_CLASS.roof : G.t === 2 ? VB_CLASS.houses : VB_CLASS.land, sb = G.t === 1 ? VB_SUB.works : 0, tf = th(G.t === 1 ? 'industry' : G.t === 2 ? 'house' : 'desert');
+  var cls = new Uint8Array(N * N), live = new Uint8Array(N * N), sub = new Uint8Array(N * N), thm = new Uint8Array(N * N);
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+    var inF = x >= G.M && x < G.M + G.n && y >= G.M && y < G.M + G.n, road = false;
+    try { road = R && R.passAt && R.passAt(G.X0 + x, G.Y0 + y) === 1; } catch (_e) {}
+    cls[y * N + x] = road ? VB_CLASS.road : inF ? cl : VB_CLASS.land; sub[y * N + x] = inF && !road ? sb : 0; thm[y * N + x] = inF ? tf : th('desert'); }
+  vbTownsInput();   /* the palette */
+  return { kind: 'tile', N: N, NF: om.n, S: S, PAD: 0, hashPad: VB_CPAD, org: [G.X0, G.Y0], seed: om.seed, cls: cls, live: live, sub: sub,
+           thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, key: vbRegionPatchKey(p, S), tx: 0, ty: 0, cutout: true,
+           towns: [{ name: p.name, bx: G.bx, by: G.by, x0: G.x0, y0: G.y0, n: G.n, tier: G.t, acc: [119, 115, 110] }], townPal: VB_TOWNS.pal };
+}
+function vbRegionPatchDraw(p, sx, footY){
+  if (!VB_TOWNS.on || !VB_COOK.themes || typeof VBT === 'undefined') return null;
+  var S = TW < 27 ? 24 : TW < 66 ? 48 : 96, T = VBT.tiles.get(vbRegionPatchKey(p, S));
+  if (!T) {
+    if (!VBT.busy) { var inp = vbRegionPatchInput(p, S); VBT.busy = true; VBT.asked++;
+      try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]); }
+      catch (e) { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: 0, ty: 0, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights }); } }
+    [24, 48, 96].some(function (s2) { var T2 = s2 !== S && VBT.tiles.get(vbRegionPatchKey(p, s2)); if (T2) { T = T2; return true; } return false; });   /* another detail meanwhile */
+    if (!T) return null;
+  }
+  T.seen = VBT.frame;
+  var G = vbRegionPatchGeom(p), St = T.S, dpr = (typeof CV_DPR === 'number' && CV_DPR) || 1;
+  var ox0 = sx + ((G.X0 - G.bx) - (G.Y0 - G.by)) * TW / 2, oy0 = (footY - 6 - TH / 2) + ((G.X0 - G.bx) + (G.Y0 - G.by)) * TH / 2;
+  g.save(); g.imageSmoothingEnabled = (TW / St) * dpr < 1;
+  g.transform(TW / 2 / St, TH / 2 / St, -TW / 2 / St, TH / 2 / St, ox0, oy0);
+  g.drawImage(T.day, 0, 0);
+  g.restore();
+  return G;
+}
 /* the town as the painting drew it, or null while the painting has not got it */
 function vbTownPainted(faction){
   if (!VB_TOWNS.on || !VB_TOWNS.list || typeof VBC === 'undefined' || !VBC.day || !VBC.key || VBC.key.indexOf(':t') < 0) return null;
@@ -46150,6 +46198,13 @@ function mapBaseDraw(tier, faction, sx, footY, mine, beat){
     /* the people and the name stand at the gate: the town's near corner, so the town shows behind them */
     return { width: n * TW * 0.85, height: 6 + (cyc - top), painted: 1, gateDy: Math.max(0, bot - cyc - 0.6 * TH),
              box: { x: sx + (dx0 - dy0 - n) * TW / 2, y: top, w: n * TW, h: n * TH } };
+  }
+  var __rp = !__tp && vbRegionPlaceOf(faction), __rg = __rp ? vbRegionPatchDraw(__rp, sx, footY) : null;   /* __THE_TOWN_IS_PAINTED_IN__: a region place, painted on the far land */
+  if (__rg) {
+    var rw0 = Math.max(30, Math.round(MAP_BASE_W * MAP_ART_K / 2) * 2), rh0 = rw0 * 0.75;
+    if (!mapNearYou(sx + rw0 * 0.18, footY - rh0 * 0.55)) mapFlagDraw(sx + rw0 * 0.18, footY - rh0 * 0.55, rh0 * 0.55, mapFactionColour(faction), beat, false);
+    if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.buildings++; MAP_DREW.art.painted = (MAP_DREW.art.painted || 0) + 1; }
+    return { width: __rg.n * TW * 0.85, height: 6 + __rg.n * TH / 2, painted: 1 };
   }
   var im = HERO_IMG[MAP_TIER_HERO[tier] || 'trailer'];
   var __tg = townInGroundImg(MAP_TIER_HERO[tier] || 'trailer'); if (__tg) im = __tg;   /* __THE_TOWN_SITS_IN_THE_GROUND__ */
@@ -46762,7 +46817,11 @@ function vbCityCore(inp){
      faction's own colour only on its tower roofs and a banner on the wall, faded (COLOUR IS TERRITORY). Rolled on the valley's
      coordinates, so a tile and the whole painting agree. inp.towns [{x0, y0, n, tier: 1 fortress 2 town 3 camp, acc}],
      inp.townPal (a colour a part). ==== */
-  var TWL = inp.towns && inp.towns.length ? inp.towns : null, TWP = inp.townPal || null, TWN = null, TW_L = 0, TW_P = 0, TW_K = 16;
+  var TWL = inp.towns && inp.towns.length ? inp.towns : null, TWP = inp.townPal || null, TWN = null, TW_L = 0, TW_P = 0, TW_K = 16, TW_E = 0, TW_W0 = 0, TW_NZ = 0;
+  /* a place out on the region's land is painted as a patch with its land CUT AWAY (inp.cutout): the land, its roads and the
+     town's own yard past the ragged line are transparent, the shadows the town casts on them a soft dark, so the town stands
+     on the far land's own ground with no plate under it */
+  var CUT = !!inp.cutout, CUTM = CUT ? new Uint8Array(P * P) : null;
   /* __THE_STREETS_READ_AS_STREETS__: a street's classes and its colours (rule 159: grey and worn; the sign paint the one faded accent) */
   var STRT = function (c){ return c === VB_CLASS.road || c === VB_CLASS.blvd || c === VB_CLASS.freeway; };
   var SC = { asph: '#3b3834', asphF: '#5b5955', asphS: '#383532', walk: '#827f7a', walkS: '#8b8780', gut: '#4c4945', oil: '#4f4d49',
@@ -46781,9 +46840,11 @@ function vbCityCore(inp){
     var eu = Math.min(fu, L - fu), ev = Math.min(fv, L - fv), e = Math.min(eu, ev), alongV = eu < ev, along = alongV ? fv : fu;
     var hu = tw.x0 * 12 + Math.floor(fu), hv = tw.y0 * 12 + Math.floor(fv), cu = fu - Math.floor(fu), cv = fv - Math.floor(fv);
     var nz = vbNoise((tw.x0 * 12 + fu) / 2.6, (tw.y0 * 12 + fv) / 2.6, sd + 301);
+    TW_E = e; TW_NZ = nz;
     var road = cl === VB_CLASS.road || cl === VB_CLASS.blvd, tier = tw.tier;
     /* the rings, in q (8 m of ground) in from the town's edge: the field of fire, the wall, the walk behind it */
     var w0 = tier === 1 ? 3.0 : tier === 2 ? 2.6 : 1.5, w1 = tier === 1 ? 4.3 : tier === 2 ? 3.7 : 2.5, w2 = w1 + (tier === 3 ? 0 : 1.1);
+    TW_W0 = w0;
     var across = (horiz && !vert) ? (ty + 0.5) / Q : (vert && !horiz) ? (tx + 0.5) / Q : -1, down = (horiz && !vert) ? fu : fv;
     var crossing = across >= 0 && (alongV ? (horiz && !vert) : (vert && !horiz));   /* the wall crosses this street (a gate), or runs beside it */
     TW_L = lift; TW_P = part;
@@ -47035,6 +47096,7 @@ function vbCityCore(inp){
       }
       var twOwn = 0;
       if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
+      if (CUT && !twOwn && (cl === VB_CLASS.land || STRT(cl) || (twi >= 0 && lift === 0 && TW_E < TW_W0 * (0.1 + 0.62 * TW_NZ)))) CUTM[o] = 1;   /* the land and the yard past the ragged line, cut away */
       HS[o] = lift; COLI[o] = twOwn ? idx(TW_K, part) + twi * 1024 : idx(cl, part) + (burned ? 16 * 32 : 0) + sb * 1024;   /* __THE_DISTRICTS_READ_APART__: the sub-kind rides above the burn bit */
     }
   }
@@ -47120,7 +47182,7 @@ function vbCityCore(inp){
     if (cxl < 0 || cyl < 0 || cxl >= N || cyl >= N) return null;
     var t = THM[cyl * N + cxl]; if (t === 255) return null;
     var TH = CK[t]; if (!TH) return null;
-    var burned = (ci & 1023) >= 16 * 32; if (burned) return null;
+    var burned = (ci & 1023) >= 16 * 32; if (burned && part2 !== PART.ground && part2 !== PART.spot && part2 !== PART.row) return null;   /* COOK 10/25 (__THE_STREETS_READ_AS_STREETS__): a burned block's GROUND is its district's ground like its neighbours'; it fell back to the table, and a burned shop's lot was the palest key there (198,196,191), white boxes all over the map */
     if (part2 === PART.burn || part2 === PART.hole || part2 === PART.tree || part2 === PART.line || part2 === PART.edge || part2 === PART.neon || part2 === PART.lampspot) return null;
     if (cl2 === VB_CLASS.road || cl2 === VB_CLASS.freeway || cl2 === VB_CLASS.blvd || cl2 === VB_CLASS.rail || cl2 === VB_CLASS.water || cl2 === VB_CLASS.solar || cl2 === VB_CLASS.dam) return null;
     var gx = cxl + X0, gy = cyl + Y0, lx = Math.floor((qu - (cxl + PAD) * S) * 3 / S), ly = Math.floor((qv - (cyl + PAD) * S) * 3 / S);
@@ -47170,6 +47232,7 @@ function vbCityCore(inp){
       var o8 = (vv * P + uu) * 4;
       for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
       day[o8 + 3] = 255; night[o8 + 3] = 255;
+      if (CUT && CUTM[qo]) { if (top && SHD[qo] > 0) { day[o8] = day[o8 + 1] = day[o8 + 2] = 8; day[o8 + 3] = Math.round(255 * 0.42 * Math.min(1, SHD[qo])); } else day[o8 + 3] = 0; continue; }   /* cut: the far land shows, under the town's own shadow */
       /* NIGHT: light only where the block has power, the way the map's lamps already decide */
       var cxl = Math.floor(qu / S) - PAD, cyl = Math.floor(qv / S) - PAD, lv = cxl >= 0 && cyl >= 0 && cxl < N && cyl < N && live[cyl * N + cxl];
       if (lv) {
