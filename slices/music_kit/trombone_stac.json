@@ -1,0 +1,63 @@
+{
+ "what": "trombone_stac: a real instrument (VSCO-2-CE, CC0 1.0), one worn tape at the source",
+ "source": "https://github.com/sgossner/VSCO-2-CE (CC0 1.0)",
+ "sr": 44100,
+ "notes": [
+  {
+   "at": 0.1,
+   "dur": 0.5,
+   "midi": 34,
+   "hz": 58.27,
+   "measured_hz": 58.49,
+   "file": "tenortbn_stac_A#0_v3_rr1.flac"
+  },
+  {
+   "at": 2.5,
+   "dur": 0.5,
+   "midi": 41,
+   "hz": 87.307,
+   "measured_hz": 87.5,
+   "file": "tenortbn_stac_F1_v3_rr1.flac"
+  },
+  {
+   "at": 0.7,
+   "dur": 0.5,
+   "midi": 46,
+   "hz": 116.541,
+   "measured_hz": 115.45,
+   "file": "tenortbn_stac_A#1_v3_rr1.flac"
+  },
+  {
+   "at": 3.1,
+   "dur": 0.5,
+   "midi": 53,
+   "hz": 174.614,
+   "measured_hz": 173.62,
+   "file": "tenortbn_stac_F2_v3_rr1.flac"
+  },
+  {
+   "at": 1.3,
+   "dur": 0.5,
+   "midi": 58,
+   "hz": 233.082,
+   "measured_hz": 232.11,
+   "file": "tenortbn_stac_A#2_v3_rr1.flac"
+  },
+  {
+   "at": 1.9,
+   "dur": 0.5,
+   "midi": 62,
+   "hz": 293.665,
+   "measured_hz": 292.05,
+   "file": "tenortbn_stac_D3_v3_rr1.flac"
+  },
+  {
+   "at": 3.7,
+   "dur": 0.5,
+   "midi": 65,
+   "hz": 349.228,
+   "measured_hz": 347.24,
+   "file": "tenortbn_stac_F3_v3_rr1.flac"
+  }
+ ]
+}

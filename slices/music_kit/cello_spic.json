@@ -1,0 +1,111 @@
+{
+ "what": "cello_spic: a real instrument (VSCO-2-CE, CC0 1.0), one worn tape at the source",
+ "source": "https://github.com/sgossner/VSCO-2-CE (CC0 1.0)",
+ "sr": 44100,
+ "notes": [
+  {
+   "at": 3.95,
+   "dur": 0.45,
+   "midi": 40,
+   "hz": 82.407,
+   "measured_hz": 83.05,
+   "file": "spic_E1_v2_RR1.flac"
+  },
+  {
+   "at": 6.15,
+   "dur": 0.45,
+   "midi": 43,
+   "hz": 97.999,
+   "measured_hz": 97.78,
+   "file": "spic_G1_v2_RR1.flac"
+  },
+  {
+   "at": 0.65,
+   "dur": 0.45,
+   "midi": 47,
+   "hz": 123.471,
+   "measured_hz": 123.18,
+   "file": "spic_B1_v2_RR1.flac"
+  },
+  {
+   "at": 1.75,
+   "dur": 0.45,
+   "midi": 48,
+   "hz": 130.813,
+   "measured_hz": 132.43,
+   "file": "spic_C1_v2_RR1.flac"
+  },
+  {
+   "at": 2.85,
+   "dur": 0.45,
+   "midi": 50,
+   "hz": 146.832,
+   "measured_hz": 146.51,
+   "file": "spic_D2_v2_RR1.flac"
+  },
+  {
+   "at": 5.05,
+   "dur": 0.45,
+   "midi": 53,
+   "hz": 174.614,
+   "measured_hz": 172.94,
+   "file": "spic_F2_v2_RR1.flac"
+  },
+  {
+   "at": 0.1,
+   "dur": 0.45,
+   "midi": 57,
+   "hz": 220.0,
+   "measured_hz": 218.32,
+   "file": "spic_A2_v2_RR1.flac"
+  },
+  {
+   "at": 2.3,
+   "dur": 0.45,
+   "midi": 60,
+   "hz": 261.626,
+   "measured_hz": 259.41,
+   "file": "spic_C3_v2_RR1.flac"
+  },
+  {
+   "at": 4.5,
+   "dur": 0.45,
+   "midi": 64,
+   "hz": 329.628,
+   "measured_hz": 326.67,
+   "file": "spic_E3_v2_RR1.flac"
+  },
+  {
+   "at": 5.6,
+   "dur": 0.45,
+   "midi": 65,
+   "hz": 349.228,
+   "measured_hz": 344.53,
+   "file": "spic_F4_v2_RR1.flac"
+  },
+  {
+   "at": 6.7,
+   "dur": 0.45,
+   "midi": 67,
+   "hz": 391.995,
+   "measured_hz": 386.84,
+   "file": "spic_G3_v2_RR1.flac"
+  },
+  {
+   "at": 1.2,
+   "dur": 0.45,
+   "midi": 71,
+   "hz": 493.883,
+   "measured_hz": 490.0,
+   "file": "spic_B3_v2_RR1.flac"
+  },
+  {
+   "at": 3.4,
+   "dur": 0.45,
+   "midi": 74,
+   "hz": 587.33,
+   "measured_hz": 580.26,
+   "file": "spic_D4_v2_RR1.flac"
+  }
+ ]
+}

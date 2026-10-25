@@ -1,0 +1,52 @@
+VSCO-2-CE (Versilian Studios Chamber Orchestra 2, Community Edition)
+Recorded by Sam Gossner and Simon Dalzell; sample cutting by Elan Hickler/Soundemote.
+License: CC0 1.0 Universal (public domain dedication). https://github.com/sgossner/VSCO-2-CE
+The files here are trimmed mono cuts of the originals, peak-normalised, for the game's fight kit.
+
+kick        <- VSCO 1 Percussion/drums/bass/bdrum_muted_fff_1.wav
+kick_f      <- VSCO 1 Percussion/drums/bass/bdrum_muted_ff_1.wav
+kick_mf     <- VSCO 1 Percussion/drums/bass/bdrum_muted_mf_1.wav
+kick_p      <- VSCO 1 Percussion/drums/bass/bdrum_muted_pp_1.wav
+kick_pp     <- VSCO 1 Percussion/drums/bass/bdrum_muted_ppp_1.wav
+boom        <- VSCO 1 Percussion/drums/bass/bdrum_f_1.wav
+snare       <- VSCO 1 Percussion/drums/snare/drum1/snare1_ff_1.wav
+snare_f     <- VSCO 1 Percussion/drums/snare/drum1/snare1_f_1.wav
+snare_mp    <- VSCO 1 Percussion/drums/snare/drum1/snare1_mp_1.wav
+ghost       <- VSCO 1 Percussion/drums/snare/drum1/snare1_ppp_1.wav
+rimshot     <- VSCO 1 Percussion/drums/snare/drum1/snare1_rimshot_f.wav
+click       <- VSCO 1 Percussion/drums/snare/drum1/snare1_click.wav
+click2      <- VSCO 1 Percussion/drums/snare/drum1/snare1_click2.wav
+snareoff    <- VSCO 1 Percussion/drums/snare/drum1/snare1_nosnare_f_2.wav
+oldsnare    <- VSCO 1 Percussion/drums/snare/OldSnare/snare_f.wav
+oldsnare_p  <- VSCO 1 Percussion/drums/snare/OldSnare/snare_mf.wav
+oldrim      <- VSCO 1 Percussion/drums/snare/OldSnare/snare_rim.wav
+snare2      <- Percussion/Snare2-HitSN_v9_rr1_Sum.wav
+snare2_p    <- Percussion/Snare2-HitSN_v5_rr1_Sum.wav
+tom_lo      <- VSCO 1 Percussion/drums/tenor/tenor_lower/tenor_ff_1.wav
+tom_lo_p    <- VSCO 1 Percussion/drums/tenor/tenor_lower/tenor_mf_1.wav
+tom_hi      <- VSCO 1 Percussion/drums/tenor/tenor_higher/tenorH_ff_1.wav
+tom_hi_p    <- VSCO 1 Percussion/drums/tenor/tenor_higher/tenorH_mf_1.wav
+shk1        <- VSCO 1 Percussion/varWood/Camo's Shaker/shake1.wav
+shk2        <- VSCO 1 Percussion/varWood/Camo's Shaker/shake2.wav
+shk3        <- VSCO 1 Percussion/varWood/Camo's Shaker/shake3.wav
+shk4        <- VSCO 1 Percussion/varWood/Camo's Shaker/shake4.wav
+war         <- VSCO 1 Percussion/drums/other/ethnic/giant/mallet/EthnicLargeMallet_hit_ff_1.wav
+war_stick   <- VSCO 1 Percussion/drums/other/ethnic/giant/sticks/EthnicLargeSticks_hit_f_1.wav
+war_hand    <- VSCO 1 Percussion/drums/other/ethnic/giant/hand/EthnicLargeHand_hit_f_1.wav
+crash       <- VSCO 1 Percussion/varMetal/Cymbals/clash/crash_hit_ff_tight.wav
+crash_p     <- VSCO 1 Percussion/varMetal/Cymbals/clash/crash_hit_mp_loose.wav
+metal       <- VSCO 1 Percussion/varMetal/Cymbals/susp/susp_hit_metal_2_mf.wav
+scrape      <- VSCO 1 Percussion/varMetal/Cymbals/susp/susp_FX_scrape_1.wav
+swell       <- VSCO 1 Percussion/varMetal/Cymbals/susp/susp_hit_softmall_roll2_cresc.wav
+brake       <- Percussion/BrakeDrum1_Hammer_v3_Sum.wav
+brake_mf    <- Percussion/BrakeDrum1_Hammer_v2_Sum.wav
+brake_p     <- Percussion/BrakeDrum1_Hammer_v1_Sum.wav
+anvil       <- Percussion/Anvil_Hit1_v2_Sum.wav
+anvil_p     <- Percussion/Anvil_Hit1_v1_Sum.wav
+clave       <- Percussion/Claves1_Hit_v1_rr1_Sum.wav
+tamb        <- Percussion/Tamb1-Hit_v2_rr1_Sum.wav
+tamb_p      <- Percussion/Tamb1-Hit_v1_rr1_Sum.wav
+tshake      <- Percussion/Tamb1-Shake_v1_rr1_Sum.wav
+timp_lo     <- Percussion/Timpani/Timpani2_Hit_v3_rr1_Sum.wav
+timp_hi     <- Percussion/Timpani/Timpani4_Hit_v3_rr1_Sum.wav
+triangle    <- Percussion/Triangle3-HitM_v1_rr1_Sum.wav
