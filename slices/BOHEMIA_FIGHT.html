@@ -1474,9 +1474,26 @@ const FIGHT = (function () {
     while (c !== field.key(u.x, u.y)) { out.unshift({ x: c % S.w, y: Math.floor(c / S.w) }); c = field.prev[c]; }
     return out;
   }
-  function moveTo(u, x, y, through) {
+  /* A FAR TILE WALKS AS FAR AS HE CAN (COMBAT [a far tile walks as far as he can], rule 206, Paolo 10/25: 'in Battle Brothers, if
+     I clicked a tile farther than my stamina would allow, if you double clicked it you would take the path as far as it goes...
+     fix that now'): the whole way to a tile past this turn's AP, by the finger's own rules (round blockers and houses, past a
+     lone man's reach paying its free swing, through one of his own men), and where on it this turn's AP runs out: the stop is
+     the last tile he can stand on (never a friend's). The walk spends AP only (stepCost), so the AP is the whole budget. */
+  function farWalk(u, x, y) {
+    if (u.netted || !inBoard(x, y)) return null;
+    const path = pathTo(u, x, y, reach(u, Infinity, true)); if (!path || !path.length) return null;
+    let at = { x: u.x, y: u.y }, spent = 0, stop = -1, cost = 0;
+    for (let i = 0; i < path.length; i++) {
+      spent += stepCost(u, at.x, at.y, path[i].x, path[i].y); at = path[i];
+      if (spent > u.ap) break;
+      const o = unitAt(at.x, at.y); if (!o || o === u) { stop = i; cost = spent; }
+    }
+    return { path: path, n: stop + 1, cost: cost, stop: stop >= 0 ? path[stop] : null, far: stop < path.length - 1 };
+  }
+  function moveTo(u, x, y, through, along) {
     if (S.over || current() !== u) return false;
-    const p = pathTo(u, x, y, through ? reach(u, null, true) : null); if (!p || !p.length) return false;
+    /* along: the drawn way (rule 206: he walks the path he was shown), else the cheapest one this turn */
+    const p = along && along.length && along[along.length - 1].x === x && along[along.length - 1].y === y ? along : pathTo(u, x, y, through ? reach(u, null, true) : null); if (!p || !p.length) return false;
     let back = { x: u.x, y: u.y };
     for (let i = 0; i < p.length; i++) {
       const s = p[i], cost = stepCost(u, u.x, u.y, s.x, s.y);
@@ -2561,7 +2578,7 @@ const FIGHT = (function () {
   }
 
   return {
-    S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
+    S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, farWalk: farWalk, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hides: hides, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
@@ -4138,8 +4155,8 @@ function hurryWalk() {
 }
 /* (c) the walk that can be taken back: the state before it, and the die's place after it */
 function turnKeyOf(u) { return u ? u.id + ':' + FIGHT.S.round + ':' + FIGHT.S.idx : ''; }
-function walkKept(u, x, y) {
-  const snap = FIGHT.freeze(), s0 = SEED, ok = FIGHT.moveTo(u, x, y, true);
+function walkKept(u, x, y, along) {
+  const snap = FIGHT.freeze(), s0 = SEED, ok = FIGHT.moveTo(u, x, y, true, along);
   UI.back = ok && SEED === s0 && UI.backUsed !== turnKeyOf(u) ? { snap: snap, key: turnKeyOf(u), seed: SEED, logN: FIGHT.S.log.length } : null;
   if (UI.back) teachSoon('back');
   return ok;
@@ -4538,6 +4555,13 @@ function draw(now) {
       }
       const e = pts[pts.length - 1];
       mkEllipse(e[0], e[1] + 1, r, r * .36, MK.ink, 'rim'); mkEllipse(e[0], e[1], r, r * .36, MK.chalk, 'rim');
+      /* rule 206(a): past this turn's mark, the rest of the way in dim chalk, sparser, to a dim ring on the tile he picked */
+      if (UI.pend.rest && UI.pend.rest.length) {
+        const rp = [UI.pend.stop].concat(UI.pend.rest).map(function (p) { return [sx((p.x + .5) * UI.tw), sy((p.y + .9) * UI.th)]; });
+        for (let i = 1; i < rp.length; i++) for (let k = 1; k <= 3; k++) { const t = k / 3; if (i === rp.length - 1 && k === 3) break;
+          mkDot(rp[i - 1][0] + (rp[i][0] - rp[i - 1][0]) * t, rp[i - 1][1] + (rp[i][1] - rp[i - 1][1]) * t, MK.chalkDim); }
+        const z = rp[rp.length - 1]; mkEllipse(z[0], z[1], r * .7, r * .25, MK.chalkDim, 'rim');
+      }
     }
   }
   /* the man acting: GAFFER TAPE on his tile's corners (his side's paint for theirs) */
@@ -5728,9 +5752,9 @@ function placePick() {
   if (!act) { if (el.style.display !== 'none') el.style.display = 'none'; return; }
   let X, top;
   if (p.target) { const v = p.target; X = sx((dx(v) + .5) * UI.tw); top = sy((dy(v) + .9) * UI.th) - manH() - 14; }
-  else { X = sx((p.tile.x + .5) * UI.tw); top = sy((p.tile.y + .9) * UI.th) - manH() * .45; }
-  const upN = !p.target && p.tile ? FIGHT.level(p.tile.x, p.tile.y) : 0;
-  const html = act.label + ' ' + act.sub + (upN ? '<em>' + (FIGHT.isRoof(p.tile.x, p.tile.y) ? 'ROOF ' : 'HIGH ') + upN + ' UP</em>' : '') + (p.swings ? '<i>' + p.swings + ' free swing' + (p.swings > 1 ? 's' : '') + '</i>' : '');
+  else { const at = p.far ? p.stop : p.tile; X = sx((at.x + .5) * UI.tw); top = sy((at.y + .9) * UI.th) - manH() * .45; }   /* rule 206: the tag stands where he stops */
+  const at2 = p.far ? p.stop : p.tile, upN = !p.target && at2 ? FIGHT.level(at2.x, at2.y) : 0;
+  const html = act.label + ' ' + act.sub + (upN ? '<em>' + (FIGHT.isRoof(at2.x, at2.y) ? 'ROOF ' : 'HIGH ') + upN + ' UP</em>' : '') + (p.swings ? '<i>' + p.swings + ' free swing' + (p.swings > 1 ? 's' : '') + '</i>' : '');
   if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; }
   el.style.display = 'block';
   const w = el.offsetWidth, h = el.offsetHeight;
@@ -6198,11 +6222,29 @@ function tapAt(px, py) {
   if (who) { UI.pend = null; return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
   if (!path && FIGHT.rowAt(p.x, p.y) === 'obstacles') { UI.pend = null; say(HEIGHT_SAYS.wall); return; }   /* a house's wall is not 'too far' */
-  if (!path) { UI.pend = null; say('Too far for the AP left.'); return; }
+  /* rule 206: a tile past this turn's AP is never refused: the first tap draws the whole way and marks where he stops, the second walks it */
+  const far = !path ? FIGHT.farWalk(u, p.x, p.y) : null;
+  if (far && far.stop) {
+    if (UI.pend && UI.pend.far && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { const pp = UI.pend; UI.pend = null; walkKept(u, pp.stop.x, pp.stop.y, pp.path); take(); return; }
+    farPreview(u, p, far); hud(); return;
+  }
+  if (!path) { UI.pend = null; say(far ? wfill(FAR_SAYS.none, { left: u.ap }) : 'No way there.'); return; }
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; walkKept(u, p.x, p.y); take(); return; }
   walkPreview(u, p, f, path);
   if (FIGHT.hides(p.x, p.y)) teach('cover');
   hud();
+}
+/* the first tap on a tile past this turn's AP (rule 206): the whole way drawn, this turn's part lit to the mark where he stops,
+   the rest dim; the line says how far he gets and the free swings on this turn's part (rule 206(c)) */
+const FAR_SAYS = { far: 'Too far for one turn: {name} walks {n} of the {m} tiles and stops at the mark.', you: 'Too far for one turn: you walk {n} of the {m} tiles and stop at the mark.',
+  none: 'Too far: {left} AP left, not enough for a step.' };   /* draft:true */
+function farPreview(u, p, far) {
+  let swings = 0, at = { x: u.x, y: u.y };
+  far.path.slice(0, far.n).forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
+  UI.pend = { tile: p, far: true, stop: far.stop, path: far.path.slice(0, far.n), rest: far.path.slice(far.n), cost: far.cost, swings: swings };
+  const sc = FIGHT.strikeCost(u), leftAP = u.ap - far.cost;
+  const short = sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
+  say([wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
 }
 /* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */
 function walkPreview(u, p, f, path) {
@@ -6256,8 +6298,8 @@ function hoverAt(px, py) {
   if (who) { clear(); return; }
   if (p.x === u.x && p.y === u.y) { clear(); return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
-  if (!path) { clear(); return; }
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) return;
+  if (!path) { const far = FIGHT.farWalk(u, p.x, p.y); if (!far || !far.stop) { clear(); return; } farPreview(u, p, far); UI.pend.hover = true; hud(); return; }   /* rule 206(d): the mouse over a far tile is the first tap */
   walkPreview(u, p, f, path); UI.pend.hover = true; hud();
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target, nm = UI.pend.sweep; UI.pend = null; UI.sweep = null; if (nm) FIGHT.sweep(u, t, null, nm); else FIGHT.strike(u, t); take(); } };
@@ -6282,7 +6324,7 @@ document.getElementById('bend').onclick = function () { audio();
   const p = UI.pend, act = nextAct(u); UI.pend = null; UI.skillMode = null; UI.sweep = null;
   if (act && p.target && p.sweep) FIGHT.sweep(u, p.target, null, p.sweep);
   else if (act && p.target) FIGHT.strike(u, p.target);
-  else if (act && p.tile) walkKept(u, p.tile.x, p.tile.y);
+  else if (act && p.tile) { if (p.far) walkKept(u, p.stop.x, p.stop.y, p.path); else walkKept(u, p.tile.x, p.tile.y); }
   else FIGHT.endTurn(u);
   take(); hud(); };
 document.getElementById('breload').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; if (FIGHT.reload(u)) say(''); take(); } };
