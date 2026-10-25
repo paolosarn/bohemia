@@ -44382,7 +44382,7 @@ try{ fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.
   BILL.loaded = true; billPublish(); }).catch(function(){}); }catch(_e){}
 var CREW_DEFS = null;   /* ours.json's crew: the names and looks the crew screen and the fight give the company, in order */
 try{ fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }).then(function(j){
-  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] }; }).catch(function(){}); }catch(_e){}
+  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] }; }).catch(function(){ CREW_DEFS = { men: [], looks: [], failed: true }; }); }catch(_e){}
 function billPerNight(){ return crewCount() * BILL.per_man; }
 function billDaysLeft(){ var p = billPerNight(); return p > 0 ? Math.floor(loopBats() / p) : null; }
 function billPublish(){
@@ -45623,7 +45623,8 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh){
   /* __THE_PARTIES_WALK__: on the move, the stride's own picture (one stride = two steps of the glide) */
   if (walkPh != null && f.walk && f.walk.length) { fr = f.walk[Math.floor((((walkPh % 1) + 1) % 1) * f.walk.length) % f.walk.length]; if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.walking = (MAP_DREW.art.walking | 0) + 1; }
   var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
-  var w = fr.width * s56 * MAP_PERSON_K * MAP_PEOPLE_K, h = fr.height * s56 * MAP_PERSON_K * MAP_PEOPLE_K;
+  var kk = MAP_CREW_DRAWING ? MAP_CREW_K.body : MAP_PERSON_K * MAP_PEOPLE_K;   /* __THE_MARKER_IS_YOUR_CREW__: his men at his size */
+  var w = fr.width * s56 * kk, h = fr.height * s56 * kk;
   if (!MAP_SHADOW_DONE) {   /* __THE_SHADOW_LINE__: the party's one pass already laid this one on the ground */
     g.fillStyle = 'rgba(10,8,6,0.45)';
     g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill(); }
@@ -45778,12 +45779,22 @@ var RIG_POOLS = { crowd: ['layered_fall', 'coil_crown', 'temple_taper'], job: ['
                   company: ['coil_crown', 'temple_taper'], you: ['body'] };
 function rigAllReady(){
   rigCastLoad(); rigSheetLoad(RIG_PEOPLE, 'BOHEMIA_RIG_PEOPLE');
-  return RIG_CAST.state === 2 && RIG_PEOPLE.state === 2;
+  return RIG_CAST.state === 2 && RIG_PEOPLE.state === 2 && mapCrewSheetsIn();
 }
 function rigWaiting(){   /* a sheet is still on its way: draw nobody rather than the old cast or COOK's flat marks */
   if (window.__RIG_CAST_OFF) return false;
   rigAllReady();
-  return RIG_CAST.state < 2 || RIG_PEOPLE.state < 2;
+  return RIG_CAST.state < 2 || RIG_PEOPLE.state < 2 || !mapCrewSheetsIn();
+}
+/* __THE_MARKER_IS_YOUR_CREW__: his own men's sheets are part of 'the 3D people are in' (or will never come), so he never
+   stands for a frame beside strangers or beside nobody */
+function mapCrewSheetsIn(){
+  try {
+    if (window.__RIG_CAST_OFF || !MAP_CREW_K.on) return true;
+    var L = mapCrewLooks(); if (!MAP_CREW_LOOKS.ready) return false;
+    for (var k = 0; k < 2; k++) if (L[k] && !rigMixLook(L[k]) && !rigMixLookFailed(L[k])) return false;
+    return true;
+  } catch (_e) { return true; }
 }
 function rigFailed(){ return RIG_CAST.state === 3 || RIG_PEOPLE.state === 3; }
 /* ==== __NO_TWO_ALIKE__ (RUN TWO [no two people alike], rule 121(i), 10/23) ====
@@ -45823,7 +45834,10 @@ function rigMixFor(group, key, i, peek){
   /* a crowd that has used up the places' people borrows from a gang whose sheet is already in for its parties: a man in
      a crowd may wear his gang's colours, and no sheet is fetched for a crowd alone */
   var M = L;
-  if (group === 'town') Object.keys(RIG_MIX.sheets).forEach(function(n){ var S = RIG_MIX.sheets[n];
+  /* and only once the places' own sheets are all in (RUN 10/25): a crowd seated while one town sheet of four was in borrowed
+     gang men and kept them (a seat is sticky), and the gangs' own parties then ran out of men and drew one twice */
+  var allIn = names.every(function(n){ var S = RIG_MIX.sheets[n]; return S && S.state >= 2; });
+  if (group === 'town' && allIn) Object.keys(RIG_MIX.sheets).forEach(function(n){ var S = RIG_MIX.sheets[n];
     if (S.state === 2 && names.indexOf(n) < 0) S.meta.gangs.forEach(function(l){ if (!at[l] && !mixMine(l)) { at[l] = S; M = M === L ? L.slice() : M; M.push(l); } }); });
   if (!seat || used[seat] || !at[seat]) {
     seat = null;
@@ -45934,6 +45948,62 @@ var MAP_SHADOW_DONE = false;
 function mapCompanySpot(k, dx, dy, K){ var o2 = k ? 1 : -1;
   if (Math.abs(dx) > 0.3) { var sg = Math.sign(dx); return [-sg * (k ? 22 : 13) * K, (k ? -4 : 5) * K - dy * (k ? 6 : 3) * K]; }
   return [o2 * 13 * K, -dy * 10 * K]; }
+/* ==== __THE_MARKER_IS_YOUR_CREW__ (RUN 10/25, rules 143(f) and 164 item 9, Paolo 10/24: 'the people on my map icon don't
+   look like my squad'). LOOKED AT on the computer profile: the two at his shoulders were the barber's 3D man in two cuts
+   (RIG_POOLS.company), the same two for every company, so DESI and RAUL on the crew screen were two strangers on the map.
+   Now the two beside him are the NEXT TWO MEN OF HIS OWN COMPANY, each in his own 3D model, the look the crew screen and the
+   fight dress him in (bohemia_roster.js lookFor: the saved company's look, else ours.json people_looks.crew at his place,
+   a hire's own rolled person): rig_mix's sheet that holds him (his eleven are kept out of every crowd, mixMine). A man who
+   walked or died leaves the marker; alone, he walks alone. The old pool only while his man's sheet is still on its way. ==== */
+var MAP_CREW_LOOKS = { at: 0, looks: [] };
+function mapCrewLooks(){
+  var now = Date.now(); if (now - MAP_CREW_LOOKS.at < 1000) return MAP_CREW_LOOKS.looks;
+  var out = [], gone = {}, seen = {};
+  try { crewWalked().forEach(function(x){ if (x && x.name) gone['n:' + x.name] = 1; if (x && x.look) gone['l:' + x.look] = 1; }); } catch (_e) {}
+  var add = function(name, look, dead){
+    if (!look || look === 'you' || dead || seen[look] || gone['l:' + look] || (name && gone['n:' + name])) return;
+    seen[look] = 1; out.push(look);
+  };
+  var saved = null; try { saved = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null'); } catch (_e) { saved = null; }
+  if (Array.isArray(saved) && saved.length) saved.forEach(function(m){ if (m && !m.main) add(m.name, m.look, m.dead); });
+  else {
+    var co = (LOOP.start && LOOP.start.company) || [], n = co.length || 3, men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [];
+    for (var i = 1; i < n; i++) add(men[i] && men[i].name, looks[i] || null, false);
+  }
+  try { (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).forEach(function(d){ if (d) add(d.name, d.look, d.dead); }); } catch (_e) {}
+  MAP_CREW_LOOKS = { at: now, looks: out, ready: !!CREW_DEFS || (Array.isArray(saved) && saved.length > 0) };
+  return out;
+}
+/* his man's own model: the rig_mix sheet that holds his look */
+function rigMixLook(look){
+  if (!look || !rigMixIndex()) return null;
+  var sh = RIG_MIX.index.sheets || {}, name = null;
+  for (var n in sh) if (sh[n] && sh[n].indexOf(look) >= 0) { name = n; break; }
+  if (!name) return null;
+  var S = RIG_MIX.sheets[name] || (RIG_MIX.sheets[name] = { state: 0, meta: null, img: null, sets: {}, drew: 0 });
+  rigSheetLoad(S, 'rig_mix/' + name);
+  return S.state === 2 ? rigSheetSet(S, look) : null;
+}
+function rigMixLookFailed(look){   /* his man's sheet will never come: the index failed, he is on no sheet, or his sheet failed */
+  if (RIG_MIX.state === 3) return true;
+  if (RIG_MIX.state !== 2) return false;
+  var sh = RIG_MIX.index.sheets || {};
+  for (var n in sh) if (sh[n] && sh[n].indexOf(look) >= 0) return !!(RIG_MIX.sheets[n] && RIG_MIX.sheets[n].state === 3);
+  return true;
+}
+function mapCompanyMan(k){
+  if (window.__RIG_CAST_OFF) return mapPeopleOf('company', 7 + k * 3);   /* the before picture only */
+  var L = mapCrewLooks();
+  if (!MAP_CREW_LOOKS.ready) return null;   /* the crew's names are still on their way (a split second): nobody, never a stranger */
+  if (!L[k]) return null;                   /* fewer men than places beside him: nobody there */
+  var set = rigMixLook(L[k]);
+  if (set) { try { (MAP_DREW.crewLooks = MAP_DREW.crewLooks || [])[k] = L[k]; } catch (_e) {} return set; }
+  return rigMixLookFailed(L[k]) ? mapPeopleOf('company', k) : null;   /* the barber's man only if his own sheet never comes */
+}
+/* and they stand at HIS size (rule 102(a): 'the only thing that should [scale] is you and your team'): a head under his, never
+   shrinking with the zoom; they were two thirds of him and shrank again pulled out, so three men read as one man and two kids */
+var MAP_CREW_K = { on: true, body: 0.92, space: 1.4 }, MAP_CREW_DRAWING = false;
+/* ==== /__THE_MARKER_IS_YOUR_CREW__ ==== */
 function mapPartyShadow(gx, gy){
   if (!MAP_PARTY_AS_ONE.on) return false;
   try {
@@ -45942,7 +46012,7 @@ function mapPartyShadow(gx, gy){
     var K = Math.max(0.75, MAP_PEOPLE_K), P = MAP_PARTY_AS_ONE;
     var cw = 112 * (56 / 112) * MAP_PERSON_K * MAP_PEOPLE_K;   /* a companion's drawn width (mapPersonDraw's w for the 112 box) */
     var sh = [{ x: gx, y: gy, rx: 56 * P.feet }];                /* his drawn width is the 112 box at half */
-    [0, 1].forEach(function(k){ if (!mapPeopleOf('company', window.__RIG_CAST_OFF ? 7 + k * 3 : k)) return; var sp = mapCompanySpot(k, dx, dy, K); sh.push({ x: gx + sp[0], y: gy + sp[1], rx: cw * P.feet }); });
+    [0, 1].forEach(function(k){ if (!mapCompanyMan(k)) return; var sp = mapCompanySpot(k, dx, dy, K); sh.push({ x: gx + sp[0], y: gy + sp[1], rx: cw * P.feet }); });
     g.fillStyle = P.shade; g.beginPath();
     sh.forEach(function(e){ e.ry = e.rx * P.flat; g.moveTo(e.x + e.rx, e.y); g.ellipse(e.x, e.y, e.rx, e.ry, 0, 0, Math.PI * 2); });
     g.fill('nonzero');   /* one fill: where two meet it is the same shade, never darker */
@@ -45951,10 +46021,11 @@ function mapPartyShadow(gx, gy){
   } catch (_e) { return false; }
 }   /* 13 back and 8 out hid one of the two wholly behind his body on every frame (filmed 10/11) */
 function mapCompanyDraw(gx, gy, lift, moving, G, pass){
+  MAP_CREW_DRAWING = !!MAP_CREW_K.on && !MAP_PARTY_AS_ONE.on;   /* __THE_MARKER_IS_YOUR_CREW__: his size, his spacing (the as-one candidate keeps its own) */
   try {
     var f = mapFaceNow(), v = MAP_VEC_OF[f] || [1, 1];
     var dx = (v[0] - v[1]) * TW / 2, dy = (v[0] + v[1]) * TH / 2, dl = Math.hypot(dx, dy) || 1; dx /= dl; dy /= dl;
-    var K = Math.max(0.75, MAP_PEOPLE_K), ONE = MAP_PARTY_AS_ONE.on;
+    var ONE = MAP_PARTY_AS_ONE.on, K = MAP_CREW_DRAWING ? MAP_CREW_K.space : Math.max(0.75, MAP_PEOPLE_K);
     var bx = -dx * (ONE ? MAP_PARTY_AS_ONE.back : 6) * K, by = -dy * (ONE ? MAP_PARTY_AS_ONE.back : 6) * K;   /* a half step back; as one, a whole step */
     var st = strideOf({ u: G.u, n: CITY_GLIDE.n });
     g.translate(0, lift);
@@ -45965,7 +46036,7 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
        behind his body on every cross-screen walk, and pushing it clear put it AHEAD of him (both measured 10/11). */
     var spot = function(k){ return mapCompanySpot(k, dx, dy, K); };
     [[-1, 0.25], [1, 0.5]].forEach(function(o, k){
-      var m = mapPeopleOf('company', window.__RIG_CAST_OFF ? 7 + k * 3 : k); if (!m) return;   /* his two men: the barber's 3D man in two cuts (__THE_MAP_IS_ALL_RIG__) */
+      var m = mapCompanyMan(k); if (!m) return;   /* his two men: the next two of his own company, each his own model (__THE_MARKER_IS_YOUR_CREW__) */
       if (ONE && pass) { var sp = spot(k); if ((pass === 'front') !== (sp[1] > 0)) return;
         MAP_SHADOW_DONE = true; try { mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null); } finally { MAP_SHADOW_DONE = false; }
         MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + sp[0]), Math.round(gy + sp[1]), f]);
@@ -45981,6 +46052,7 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
     });
     g.translate(0, -lift);
   } catch (_e) {}
+  MAP_CREW_DRAWING = false;
 }
 /* HOME BASE: its tier's own building, the faction's flag on it; his own sits on a pale plate */
 /* THE BUILDING IS THE SAME ART THE GROUND IS PAINTED WITH, so on the map it melted into
