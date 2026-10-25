@@ -42,3 +42,49 @@ his approved songs as approved until he says a level joins.
 - slices/vote/songs/three_levels/<song>/{level_1,level_2,level_3,a_fight}.mp3 + measured.json; index.json
 - the card page: slices/BOHEMIA_THREE_LEVELS_10_25_26.html (template), one copy per song naming it
 - gates/three_levels_vote_gate.js, in the suite as THREE LEVELS IN THE VOTE TAB FIRST
+
+## THE CARDS, ALL SEVEN (registry ids sounds-three-levels-<song>-10-25)
+| song | phone rms L1 / L2 / L3 (dB) | the beat repeats (of its energy, high end) L1 / L2 / L3 / fight |
+|---|---|---|
+| THE VAULT | -36.8 / -32.4 / -30.0 | 0.34 / 0.34 / 0.44 / 0.44 |
+| GHOST IN THE GRID | -35.5 / -31.4 / -30.4 | 0.30 / 0.42 / 0.64 / 0.49 |
+| SATELLITE PRAYER | -41.2 / -37.1 / -31.4 | 0.33 / 0.37 / 0.35 / 0.42 |
+| THE PIT BOSS IS GONE | -37.3 / -33.0 / -30.8 | 0.28 / 0.40 / 0.51 / 0.47 |
+| THE ORGAN IN THE DROWNED CHAPEL | -36.0 / -31.6 / -30.5 | 0.17 / 0.24 / 0.43 / 0.35 |
+| CAMPFIRE CONFESSION | -38.7 / -33.3 / -30.2 | 0.33 / 0.25 / 0.39 / 0.29 |
+| REPO MAN (through the game's own machine party, take A, trim -9.21 dB) | -36.7 / -33.1 / -31.9 | 0.29 / 0.31 / 0.28 / 0.34 |
+SLOW BLEED and SLOW CREEP (his engine plays both past full scale; recorded 6 dB down) wait for their cards: their low end
+at -7 dBFS held the compressor down (level 3 under level 1 on a phone), and a 6 dB trim on the song was worse (the phone
+hears its tune). Rendering again with the compressor skipped and the true peak limit only.
+
+## FOUND ON THE WAY, MEASURED
+- THE PULSE TEST WAS FOOLED BY A DRONE: the full-band onset autocorrelation put CAMPFIRE CONFESSION's beat under an
+  off-grid lag on every level (0.40 to 0.54) because its drone and strum swell every 0.31 to 0.46 s. Heard through the high
+  end (the clock, the hats, the kit's attack, a phone's band) its beat repeats at 0.25 to 0.39 of its energy, like the rest.
+- A CARD'S SHA MUST BE ON MAIN: card 1 was registered at a local commit a rebase renamed (512d6316 -> 0538fe30); the tool
+  now refuses a sha that is not on main.
+- THE LIST MUST COME FROM THE CARDS: the renderer wrote all nine songs into the list between a rebuild and its commit, and
+  main listed three songs with no card for about two minutes; the renderer never writes the list now.
+
+## THE GAME FIX (181(c), not new music; straight in, BUILD 10/25r, main 0c54e493, live in pages run 3865)
+MEASURED BEFORE on the demo (a road fight, AUTO, seeded; gates/the_fights_music_you_can_hear_gate.js):
+| | computer | phone, CPU 4x slower |
+|---|---|---|
+| music while an effect sounds | -32.6 dB vs effects -31.3 | -34.1 vs -34.1 |
+| the game's AudioContext asked for | nothing (10 ms base) | nothing |
+| AudioContexts the fight frame made | 0 on AUTO, 1 on his first finger down | 1 |
+| notes booked late in the fight | 0 of 101 | 4 of 144 (205 ms) |
+AFTER (tools/bohemia_sounds_the_sound_never_chops_patch.py):
+| | computer | phone, CPU 4x slower |
+|---|---|---|
+| music while an effect sounds | -31.7 dB vs effects -35.4 | -31.5 vs -36.2 |
+| the game's AudioContext | 'playback': 23 ms base, 72 ms out | the same |
+| AudioContexts the fight frame made | 0 | 0 |
+| the song restarting after a stall | 0 | 0 (it re-anchored to step 0 before) |
+| notes booked late | 0 of 96 | 3 of 141 (156 ms): OWED to 175(b), the music rendered ahead |
+What changed: (1) latencyHint 'playback'; (2) the fight frame takes the shell's AudioContext; (3) a playing song moves on
+after a stall by the time it took, on the beat, instead of starting over; (4) in a fight the music +6 dB and the effects
+-4 dB over half a second, back over a bar at the end (one node after each slider; the lift alone left the song 2.2 dB
+under the shots). The neighbours, run with and without it: SONG LOCK 31/0, ONE SONG ONLY 16/0, THE ONE BEAT 12/0, THE BULLET
+LANDS 14/0; THE FIGHT DRIVES THE MUSIC, EVERY ACTION ON THE BEAT and THE GUNS HEARD are red on main without it too (2, 1 and
+1 legs; with it 1, 1 and 1), none of them this change's.
