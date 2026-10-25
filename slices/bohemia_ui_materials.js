@@ -766,6 +766,13 @@
        same bar built in the fight's page is the same to the pixel */
     + '#bmtb{line-height:1.4;font-weight:700;font-size:10px;letter-spacing:.4px;color:#e7d8bb;-webkit-text-size-adjust:100%;text-size-adjust:100%}'
     + 'html body .bmhost:not(#menubar) #bmtb #noteplate{letter-spacing:var(--skin-chiptrack,.4px)!important}'
+    /* where you are: upright, in the presses' row (the glass is full of the six); on its side and wide, at the glass's end */
+    + '#bmtb .r1 .wh{display:flex;align-items:center;flex:1 1 auto;min-width:0;height:44px;padding:0 2px 0 4px;box-sizing:border-box;overflow:hidden;'
+    +   'font-size:10px;letter-spacing:.6px;line-height:1.15;color:#f2e4c6;text-shadow:0 1px 0 #000;font-weight:400}'
+    + '#bmtb .r1 .wh span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere}'
+    + '#bmtb .r1 .wh:empty{display:none} #bmtb .r1 .wh:not(:empty)+.sp{display:none}'
+    + '#bmtb .r2 .where{display:none}'
+    + '@media (orientation:landscape) and (max-height:500px),(min-width:700px){#bmtb .r1 .wh{display:none!important} #bmtb .r2 .where{display:inline-block} #bmtb .r1 .sp{display:none}}'
     + '#bmtb .r{display:flex;align-items:center;gap:6px;min-width:0}'
     + '#bmtb .sp{flex:1 1 auto}'
     /* printed things are receipt tags in ink; pressed things are the same tag, 44 points */
@@ -883,11 +890,20 @@
         + (per ? '<i class="hold">' + last + (last === 1 ? ' NIGHT' : ' NIGHTS') + '</i>' : '') + '</span>';   /* RUN TWO __THE_WAGON__: the wagon is eaten at nightfall, so its hold counts NIGHTS like the batteries' (his NO to the bar saying DAYS twice, THE DAYS ONCE) */
     });
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
-    return { day: day, crew: crew, g: g };
+    /* ONE HUD: where you are, said once where it has room. The glass carries the six now (RUN TWO's wagon, rule 200), and on a
+       phone held upright six counts fill the pane to its edge, so there the place stands in the presses' row between the crew
+       and the gear (two short lines at most); on its side and from 700 wide it stays at the glass's right end */
+    var wh = f.place ? '<span>' + f.place + '</span>' : '';
+    return { day: day, crew: crew, g: g, wh: wh };
   }
   function hudEsc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function hudLay(root, parts) {
     Object.keys(parts).forEach(function (k) { var e = root.querySelector('[data-tb=' + k + ']'); if (e && e.__was !== parts[k]) { e.innerHTML = parts[k]; e.__was = parts[k]; } });
+    /* the place is said once: the one on the glass is 'the place' (data-f) where the bar is one row, the presses' row's upright */
+    var wide = false; try { wide = matchMedia('(orientation:landscape) and (max-height:500px),(min-width:700px)').matches; } catch (_e) {}
+    var a = root.querySelector('.r2 .where'), b = root.querySelector('.r1 .wh');
+    if (a) { if (wide) a.setAttribute('data-f', 'place'); else a.removeAttribute('data-f'); }
+    if (b) { if (wide) b.removeAttribute('data-f'); else b.setAttribute('data-f', 'place'); }
   }
   /* NOTES says how many, the same count on every screen: a note written in the fight is counted on the map's NOTES too
      (the map's own box says it in the same words when it draws; this keeps it true between its draws) */
@@ -957,7 +973,7 @@
   function hudBuild(host, notesEl) {
     var root = document.createElement('div'); root.id = 'bmtb';
     var r1 = document.createElement('div'); r1.className = 'r r1';
-    r1.innerHTML = '<span class="t day" data-tb="day" data-f="day"></span><span class="t crew" data-tb="crew" data-f="crew"></span><span class="sp"></span>'
+    r1.innerHTML = '<span class="t day" data-tb="day" data-f="day"></span><span class="t crew" data-tb="crew" data-f="crew"></span><span class="wh" data-tb="wh" data-f="place"></span><span class="sp"></span>'
       + '<span class="t gear" role="button" tabindex="0" aria-label="settings" data-f="gear"><img alt="" width="20" height="20" style="width:20px;height:20px" src="' + TB.gear + '"></span>';
     if (notesEl) r1.appendChild(notesEl);
     var r2 = document.createElement('div'); r2.className = 'r r2';

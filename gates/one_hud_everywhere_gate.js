@@ -43,13 +43,17 @@ const PIECES = ['bar', 'day', 'crew', 'gear', 'notes', 'glass', 'place'];
 
 /* the bar's pieces and facts, read in whichever page carries the bar */
 const READ = () => {
-  const S = { bar: '#bmtb', day: '#bmtb .t.day', crew: '#bmtb .t.crew', gear: '#bmtb .t.gear', notes: '#bmtb #notebtn', glass: '#bmtb .g', place: '#bmtb .where' };
+  /* the place is said once where it has room: upright in the presses' row, wide at the glass's end (the visible one is read) */
+  const S = { bar: '#bmtb', day: '#bmtb .t.day', crew: '#bmtb .t.crew', gear: '#bmtb .t.gear', notes: '#bmtb #notebtn', glass: '#bmtb .g', place: '#bmtb [data-f=place]' };
+  const vis = sel => [...document.querySelectorAll(sel)].find(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }) || null;
   const out = { rect: {}, at: {} };
-  for (const k in S) { const e = document.querySelector(S[k]); if (!e) { out.rect[k] = null; continue; }
+  for (const k in S) { const e = vis(S[k]); if (!e) { out.rect[k] = null; continue; }
     const r = e.getBoundingClientRect(); out.rect[k] = [r.x, r.y, r.width, r.height];
     const h = document.elementFromPoint(r.x + r.width / 2, r.y + Math.min(r.height / 2, 14)); out.at[k] = !!h && (h === e || e.contains(h)); }
-  const t = s => { const e = document.querySelector(s); return e ? e.textContent.replace(/\s+/g, ' ').trim() : null; };
-  out.facts = { day: t('#bmtb [data-f=day] b'), crew: t('#bmtb [data-f=crew] b'), batteries: t('#bmtb [data-f=batteries] b'), place: t('#bmtb .where') };
+  const t = s => { const e = vis(s); return e ? e.textContent.replace(/\s+/g, ' ').trim() : null; };
+  out.facts = { day: t('#bmtb [data-f=day] b'), crew: t('#bmtb [data-f=crew] b'), batteries: t('#bmtb [data-f=batteries] b'), place: t('#bmtb [data-f=place]') };
+  /* said ONCE: never at the glass's end and in the presses' row both */
+  out.placeOnce = [...document.querySelectorAll('#bmtb [data-f=place]')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }).length === 1;
   return out;
 };
 const PHONE = () => { const e = document.getElementById('cityfeed'); if (!e) return null; const r = e.getBoundingClientRect();
@@ -88,6 +92,7 @@ async function side(profile) {
     const M = await fr.evaluate('(' + READ + ')()'), MP = await fr.evaluate('(' + PHONE + ')()'), Ms = await shot();
     ok('the map: the bar and its pieces are on the glass', PIECES.every(k => M.rect[k] && M.rect[k][2] > 0), PIECES.filter(k => !M.rect[k]).join(' '));
     ok('  nothing of the map lies over the bar', PIECES.every(k => M.at[k]), PIECES.filter(k => !M.at[k]).join(' '));
+    ok('  where you are is said once, whole (upright in the presses\' row, wide at the glass\'s end)', M.placeOnce && !!M.facts.place, M.facts.place + ' at ' + fmt(M.rect.place));
     ok('  the phone is on the map', !!MP && MP.shown && MP.onTop, MP && fmt(MP.rect));
     {
       await fr.evaluate(() => document.querySelector('#bmtb .t.crew').click()); await p.waitForTimeout(1800);
