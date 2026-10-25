@@ -108,3 +108,53 @@ swings and a melee man 0.98: our shooters are hit in melee three quarters as oft
 puts a melee man BETWEEN a foe and a shooter; 'shield_the_backline' only stops a shooter walking AHEAD of the front.
 (Early kit is guns first, rule 120: a company of mostly gunmen has few men to screen with; the number is for the brain's
 choices, not a law of the rules.)
+
+---------------------------------------------------------------------------------------------------------------------------
+
+## 2. BATTLE BROTHERS' AI FIRST (rule 33; the library: reference/library/grok/wiki/PAGES_ALL.tar.gz, bb_all/)
+
+The library never prints the AI's machinery: no list of scored behaviours, no formula. It shows what the scores DO, in the
+developers' own words and the changelogs. Every quote below was read on its page. Grok ask 42 (Battle Brothers' AI, the dev
+blogs) has NOT landed as this page is written (the only 'ask 42' file in the library, GROK_ASK_42_MORALE_2026_10_24.md, is a
+different ask, morale; the number is used twice); fold it in when it lands.
+
+| question | what Battle Brothers does | the words, the page |
+|---|---|---|
+| how a man picks his act | every act competes, moving included, not just the swing | 'The AI also takes into account all other things it can do like moving to a better position and so on.' (0626_Developer Posts) |
+| weights are numbers on acts | a choice's likelihood is multiplied by what is around it; a hazard is one constant | 'The likelihood of going for the shield is increased by 1.25^n, with n being the number of allies surrounding the target' and 'a single constant that determines to what lengths it will go to avoid running into spearwalls' (0626) |
+| behaviours are separate pieces | a kind with no 'flee' piece cannot flee | 'Fleeing hexen and alps don't actually flee, because their AI has no "flee" behavior.' (0321_Bugs) |
+| engage or hold | by the range balance and the count it can SEE | 'Changed AI to better handle range advantages and disadvantages when deciding whether to engage or hold a defensive position.' (1415_News and Dev Blogs, 0.7.0.10); Brigands: 'if they think they have it, they will stand their ground and shoot at you' (0299_Brigands); 'a bandit wouldn't rush to attack 6-8 men on his own' (0626) |
+| it never cheats | it scores only what its side can see | 'the AI can not target anyone it can not see.' and 'No AI cheating in this game and that is very important to us.' (0626) |
+| fair to the player | the enemy spreads its blows | 'The AI will not stack all its attacks on the weakest target as this would be unfair and really hard to counter.' (0626) |
+| protect a friend | guard the soft ones, rotate a friend out of danger | 'They'll be better at protecting their vulnerable units, changing between offensive and defensive strategies, and identifying bait from the player.' (0583_Dev Blog 105); Footmen 'can Rotate with allies to save them from danger' (0801_Footman); the line-of-fire penalty raised so 'protecting vulnerable characters with good positioning is rewarded more' (1415, Beta 0.9.0.21) |
+| take height | the high ground, shooters first | 'It is always advantageous to have the high ground in any battle and the AI will try to occupy the high ground whenever possible, especially their ranged units.' (0424_Combat Mechanics); 'Ranged weapons gain an additional hex of range for each level of height' and climbing costs '+1 to AP cost per tile' (0424); the bonus above is flat +10, the penalty below -10 a level (1002_Hit Chance) |
+| never arrive with nothing | do not walk into reach with no AP to swing | 'Changed AI of more intelligent opponents to be less prone to gift the player free attacks by charging without any action points left on arrival.' (1415, 0.7.0.10) |
+| never waste AP | wait rather than waste | 'Changed AI to make use of the wait function in more situations as to waste less action points.' (1415, 0.7.0.10) |
+| THE DANCE | a bug, fixed | 'Fixed issue with ranged AI sometimes moving back and forth instead of attacking.' (2113_Update 1.2.0.23) |
+| hazards on the floor | a tile with a bad effect is avoided | 'Fixed AI not properly avoiding tiles with negatives effects, such as fire' (2149_Update 1.5.0.13) |
+| a hurt man | he does NOT step back by choice; morale decides. A check on 15 or more hitpoints lost (worse the more he is missing), a friend's death, being surrounded; each failed check one state down (Steady, Wavering, Breaking, Fleeing; skills x0.9, x0.8, x0.7); a fleeing man 'can't fight or use skills' and 'can rally on their own when not adjacent to enemies' | 1316_Morale; Grok's morale page (GROK_ASK_42_MORALE_2026_10_24.md, PASSED FILTER) agrees |
+| leaving the battle | only the last few, by the count | 'Whether an AI combatant retreats or not depends on a few factors, such as how many of his allies are still with him, how many have already fallen, and how many men the player still has.' and 'the AI will not attempt to flee a battle from the beginning' (1415) |
+| the same brain at every difficulty | difficulty is numbers, never a smarter brain | 'AI behavior are the same for all difficulty levels.' (0626) |
+| a prediction | Battle Brothers REFUSED a formula: it cannot predict a fight | 'No matter how we shuffle numbers with the current system, there's no way we'll arrive at a satisfying level of prediction, so we're going another way.' (1415, Progress Update) and on auto-resolve: 'What if you auto-resolve and your favourite brother dies in that fight against a pretty easy opponent? Then you will probably reload' (0626) |
+| how an archer picks his spot | THE LIBRARY DOES NOT SAY; players saw Nomad Archers 'position themselves directly behind advancing melee allies' (1437_Nomad Archer) | |
+
+WHAT THIS MEANS FOR US (Battle Brothers' way first, then his rulings over it):
+1. ONE SCORE FOR EVERY ACT, MOVING INCLUDED, AND STAYING PUT IS AN ACT. Their brain weighs 'moving to a better position'
+   against the swing; ours skips the tile it stands on (1b, hole 2).
+2. NEVER ARRIVE WITH NOTHING, NEVER DANCE: two of their own fixes are our two holes (1b): a man walks only to a tile from
+   which he can DO something this turn or next, and the back-and-forth they fixed in 1.2.0.23 is the dance he saw.
+3. THE HURT MAN, BATTLE BROTHERS' WAY: he keeps fighting until his MORALE breaks; the step back is morale's, not his
+   choice, and a friend rotating him out is an ability (rule 180: never on AUTO). So for AUTO (rule 176(b)): a hurt man who
+   can finish the man in reach strikes; one who cannot act steps back ONCE, only if the step costs no free swing, and stays
+   back; otherwise he holds and ends his turn. The measured dance (1a) is mostly NOT morale: 15 of 71 leave-and-returns were
+   a flight and rally; 302 of 325 wasted turns were men who could not act and were walked.
+4. HEIGHT FOR THE SHOOTERS, OVER MORE THAN ONE TURN: 'whenever possible, especially their ranged units' is a standing want,
+   not a one-turn test.
+5. FAIR ONE WAY, FOCUSED THE OTHER: the ENEMY keeps Battle Brothers' spread (fair to him); OUR AUTO focuses (rule 180(h),
+   his words: 'the man the team can kill this turn'). One brain, one switch per side.
+6. WAIT: their AI waits to save AP. Rule 180(g) reads every button but move, fire and the melee attack as an ability, so
+   AUTO does not wait; it ends its turn. (Recover, Rally, Taunt, Adrenaline, Indomitable, Footwork and the bag swap, all
+   used by the crew brain today, go the same way for our side: measured 33 turns in 600 fights where a skill took the place
+   of a swing in reach.)
+7. THE CALCULATOR IS THE ONLY HONEST WAY TO A NUMBER: Battle Brothers gave up on a strength formula because it cannot
+   predict; ours plays the fight out with the same brain. That is right, and it must be checked (part 4).
