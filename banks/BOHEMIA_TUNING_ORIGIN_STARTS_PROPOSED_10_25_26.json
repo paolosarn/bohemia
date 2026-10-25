@@ -1,0 +1,1277 @@
+{
+ "_about": "TUNING [every origin starts like itself] 10/25 (rule 184, research only): the fifteen starts this page proposes, in records/target/bb/origins.json's shape with the fields a start needs. NOTHING READS THIS FILE. men[].level is a REAL level: the door takes his level-ups (levelups_at_door, four picks each on his stars, his plan); men[].stars \"rolled\" = three talents at 60/30/10 rolled per game, else the stars named; men[].gear the ids of the rows he wears (COOK's things: records/target/cook_every_item/); a list in gear is a pool, one picked per game; food_days = nights of the bill in the wagon at the door; wage_per_man_per_night on top of the bill. Measured: records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md, bank banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json.",
+ "draft": true,
+ "picks_four_a_level": true,
+ "origins": [
+  {
+   "id": "rebuild",
+   "bb": "Rebuilding a Company",
+   "name": "THE CREW THAT IS LEFT",
+   "line": "Three of you, a debt paid off, and a name to fix.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "leather_lamellar_armor",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "companion_1hand",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "heater_shield",
+      "body": "leather_lamellar_armor",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "companion_ranged",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 2500,
+    "medium": 2000,
+    "low": 1500
+   },
+   "batteries": {
+    "full": 250,
+    "thin": 200,
+    "bare": 150
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Starts off with a basic tutorial"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Rebuilding a Company",
+   "food_days": 7
+  },
+  {
+   "id": "newcrew",
+   "bb": "A New Company",
+   "name": "A NEW CREW",
+   "line": "Three of you and nothing owed. Start clean.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "leather_lamellar_armor",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "companion_1hand",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "heater_shield",
+      "body": "leather_lamellar_armor",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "companion_ranged",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 2900,
+    "medium": 2400,
+    "low": 1900
+   },
+   "batteries": {
+    "full": 290,
+    "thin": 240,
+    "bare": 190
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Impatient: A quick start into the world, without any particular advantages or disadvantages."
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/A New Company",
+   "food_days": 7
+  },
+  {
+   "id": "south",
+   "bb": "Southern Mercenaries",
+   "name": "UP FROM HENDERSON",
+   "line": "You came north on the 95 with three guns and no friends.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "leather_lamellar_armor",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "companion_1hand",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "heater_shield",
+      "body": "leather_lamellar_armor",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "companion_ranged",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 2900,
+    "medium": 2400,
+    "low": 1900
+   },
+   "batteries": {
+    "full": 290,
+    "thin": 240,
+    "bare": 190
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "You will spawn in the southern part of the map"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Southern Mercenaries",
+   "food_days": 7
+  },
+  {
+   "id": "truck",
+   "bb": "Trading Caravan",
+   "name": "THE WATER TRUCK",
+   "line": "Two drivers and a tank. The water gets more respect than you do.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "caravan_hand",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "caravan_hand",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "padded_surcoat",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "militia",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "heater_shield",
+      "body": "leather_lamellar_armor",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 1650,
+    "medium": 1400,
+    "low": 1150
+   },
+   "batteries": {
+    "full": 165,
+    "thin": 140,
+    "bare": 115
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 1,
+   "rules": [
+    "Trader: Get 10% better prices",
+    "Not a Warrior: Start with no renown, and gain renown at only 66% the normal rate"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Trading Caravan",
+   "food_days": 19,
+   "wagon_goods_batteries": 134
+  },
+  {
+   "id": "watch",
+   "bb": "Peasant Militia",
+   "name": "THE BLOCK WATCH",
+   "line": "Twelve neighbours with pipes. Nobody brings a small crew against you.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "farmhand",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "farmhand",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "poacher",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "daytaler",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "daytaler",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "two_handed_mallet",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "miller",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "fisherman",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "militia_spear",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "militia",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "militia",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "padded_surcoat",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "minstrel",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "vagabond",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "butcher",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "butcher_s_cleaver",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 25,
+   "field_cap": 16,
+   "pay": 0,
+   "rules": [
+    "Start with a roster of 12 poorly equipped peasants",
+    "Can only hire Lowborn men"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1533_Peasant Militia.txt:6,58",
+   "notes": "the eleventh and twelfth men are one of Vagabond/Thief/Gambler and one of Butcher/Tailor/Shepherd; the first of each is taken",
+   "food_days": 7
+  },
+  {
+   "id": "scav",
+   "bb": "Band of Poachers",
+   "name": "THE SCAVENGERS",
+   "line": "You know every gutted store from here to the dam.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "hunter",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "crossbow",
+      "off": null,
+      "body": "padded_surcoat",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "poacher",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "padded_surcoat",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "poacher",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "padded_surcoat",
+      "head": "hood",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 2500,
+    "medium": 2000,
+    "low": 1500
+   },
+   "batteries": {
+    "full": 250,
+    "thin": 200,
+    "bare": 150
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Can always see the enemy composition in wild locations"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Band of Poachers",
+   "food_days": 7
+  },
+  {
+   "id": "promise",
+   "bb": "Oathtakers",
+   "name": "THE PROMISE KEEPERS",
+   "line": "Two of you and a promise you made at a grave.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "oathtaker",
+     "level": 3,
+     "levelups_at_door": 2,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "winged_mace",
+      "off": "kite_shield",
+      "body": "mail_hauberk",
+      "head": "nasal_helmet_with_mail",
+      "bag": []
+     }
+    },
+    {
+     "background": "oathtaker",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "rondel_dagger",
+      "off": "heater_shield",
+      "body": "mail_hauberk",
+      "head": "nasal_helmet",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 1500,
+    "medium": 1000,
+    "low": 500
+   },
+   "batteries": {
+    "full": 150,
+    "thin": 100,
+    "bare": 50
+   },
+   "roster_cap": 18,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "One is always Old, level 3 and equipped with Young Anselm's Skull and a Battle Standard",
+    "Forced to undertake oaths"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Oathtakers",
+   "food_days": 7
+  },
+  {
+   "id": "desert",
+   "bb": "Deserters",
+   "name": "THE DESERTERS",
+   "line": "You walked off a faction's line. They have not forgotten.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "deserter",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "heater_shield",
+      "body": "mail_hauberk",
+      "head": "aketon_cap",
+      "bag": [
+       "hatchet"
+      ]
+     }
+    },
+    {
+     "background": "deserter",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "shortsword",
+      "off": "heater_shield",
+      "body": "mail_hauberk",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "deserter",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "mail_hauberk",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "first to act in the very first round of combat",
+    "three Mail Hauberks, two Heater Shields, Aketon Caps, one Light Crossbow, one Shortsword and one Hatchet"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Deserters:56",
+   "food_days": 7
+  },
+  {
+   "id": "raid",
+   "bb": "Northern Raiders",
+   "name": "THE RAIDERS",
+   "line": "You take, and the valley knows your faces.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "barbarian",
+     "level": 3,
+     "levelups_at_door": 2,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "crude_axe",
+      "off": "heater_shield",
+      "body": "mail_hauberk",
+      "head": "nasal_helmet",
+      "bag": []
+     }
+    },
+    {
+     "background": "barbarian",
+     "level": 3,
+     "levelups_at_door": 2,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "two_handed_mallet",
+      "off": null,
+      "body": "mail_hauberk",
+      "head": "nasal_helmet",
+      "bag": []
+     }
+    },
+    {
+     "background": "barbarian",
+     "level": 3,
+     "levelups_at_door": 2,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "handgonne",
+      "off": null,
+      "body": "mail_hauberk",
+      "head": "nasal_helmet",
+      "bag": []
+     }
+    },
+    {
+     "background": "monk",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 1,
+   "rules": [
+    "higher chance to get items from slain enemies as loot"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Northern Raiders",
+   "food_days": 7
+  },
+  {
+   "id": "lab",
+   "bb": "Anatomists",
+   "name": "THE LAB RATS",
+   "line": "You worked at the lab the animals broke out of.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "anatomist",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "anatomist",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "anatomist",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "padded_surcoat",
+      "head": "hood",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 3200,
+    "medium": 2700,
+    "low": 2200
+   },
+   "batteries": {
+    "full": 320,
+    "thin": 270,
+    "bare": 220
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Not Fighters: Your men will never be of confident morale"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Anatomists:32",
+   "food_days": 7
+  },
+  {
+   "id": "faith",
+   "bb": "Davkul Cultists",
+   "name": "THE FAITHFUL",
+   "line": "Four of you, and something you pray to that is not a god.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "cultist",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "cultist",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "cultist",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "cultist",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 2900,
+    "medium": 2400,
+    "low": 1900
+   },
+   "batteries": {
+    "full": 290,
+    "thin": 240,
+    "bare": 190
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Needs to do human sacrifices"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Davkul Cultists",
+   "food_days": 7
+  },
+  {
+   "id": "debt",
+   "bb": "Manhunters",
+   "name": "THE DEBT COLLECTORS",
+   "line": "Four of you owe the other two, and the two collect.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "manhunter",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "dagger",
+      "off": "wooden_shield",
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "manhunter",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "padded_surcoat",
+      "head": "aketon_cap",
+      "bag": []
+     }
+    },
+    {
+     "background": "indebted",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "southern_indebted",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "bludgeon",
+      "off": "wooden_shield",
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "southern_indebted",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    },
+    {
+     "background": "southern_indebted",
+     "level": 1,
+     "levelups_at_door": 0,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "two_handed_mallet",
+      "off": null,
+      "body": "thick_tunic",
+      "head": "hood",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 2500,
+    "medium": 2000,
+    "low": 1500
+   },
+   "batteries": {
+    "full": 250,
+    "thin": 200,
+    "bare": 150
+   },
+   "roster_cap": 25,
+   "field_cap": 16,
+   "pay": 1,
+   "rules": [
+    "Having equal or fewer indebted than non-indebted will make your men dissatisfied"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Manhunters:33,62",
+   "food_days": 7
+  },
+  {
+   "id": "hunt",
+   "bb": "Beast Slayers",
+   "name": "THE HUNTERS",
+   "line": "You track what came out of the lab. It tracks you back.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "beast_slayer",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "boar_spear",
+      "off": "heater_shield",
+      "body": "leather_lamellar_armor",
+      "head": "closed_mail_coif",
+      "bag": []
+     }
+    },
+    {
+     "background": "beast_slayer",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "crossbow",
+      "off": null,
+      "body": "leather_lamellar_armor",
+      "head": "closed_mail_coif",
+      "bag": []
+     }
+    },
+    {
+     "background": "beast_slayer",
+     "level": 2,
+     "levelups_at_door": 1,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "light_crossbow",
+      "off": null,
+      "body": "leather_lamellar_armor",
+      "head": "closed_mail_coif",
+      "bag": []
+     }
+    }
+   ],
+   "crowns": {
+    "high": 1875,
+    "medium": 1500,
+    "low": 1125
+   },
+   "batteries": {
+    "full": 188,
+    "thin": 150,
+    "bare": 113
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "50% chance to get additional beast trophies"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Beast Slayers",
+   "food_days": 7
+  },
+  {
+   "id": "pit",
+   "bb": "Gladiators",
+   "name": "THE FIGHT PIT",
+   "line": "Three of you off a casino floor that charged to watch.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "gladiator",
+     "level": 3,
+     "levelups_at_door": 2,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "falchion",
+      "off": "kite_shield",
+      "body": "mail_hauberk",
+      "head": "nasal_helmet",
+      "bag": []
+     },
+     "wage_per_man_per_night": 6
+    },
+    {
+     "background": "gladiator",
+     "level": 3,
+     "levelups_at_door": 2,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "crude_axe",
+      "off": "heater_shield",
+      "body": "mail_hauberk",
+      "head": "nasal_helmet",
+      "bag": []
+     },
+     "wage_per_man_per_night": 6
+    },
+    {
+     "background": "gladiator",
+     "level": 3,
+     "levelups_at_door": 2,
+     "stars": "rolled",
+     "rolled_per_game": true,
+     "gear": {
+      "main": "handgonne",
+      "off": null,
+      "body": "mail_hauberk",
+      "head": "nasal_helmet",
+      "bag": []
+     },
+     "wage_per_man_per_night": 6
+    }
+   ],
+   "crowns": {
+    "high": 950,
+    "medium": 700,
+    "low": 450
+   },
+   "batteries": {
+    "full": 95,
+    "thin": 70,
+    "bare": 45
+   },
+   "roster_cap": 12,
+   "field_cap": 12,
+   "pay": 1,
+   "rules": [
+    "You lose the game when all 3 Gladiators die",
+    "Has only 12 instead of 20 slots in the roster"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0848_Gladiators.txt:57",
+   "food_days": 7
+  },
+  {
+   "id": "wolf",
+   "bb": "Lone Wolf",
+   "name": "THE LONE WOLF",
+   "line": "Just you. If you go down, it ends.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "levelups_at_door": 3,
+     "plan": [
+      "ranged_defense",
+      "melee_skill",
+      "melee_defense",
+      "fatigue"
+     ],
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3
+     },
+     "stat_mod": {
+      "melee_defense": -2
+     },
+     "rolled_per_game": true,
+     "gear": {
+      "main": [
+       "arming_sword",
+       "noble_sword",
+       "fighting_axe"
+      ],
+      "off": "kite_shield",
+      "body": [
+       "reinforced_mail_hauberk",
+       "heavy_lamellar_armor",
+       "coat_of_scales",
+       "coat_of_plates"
+      ],
+      "head": [
+       "closed_flat_top_with_mail",
+       "full_helm"
+      ],
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks_in_order": [
+      "colossus",
+      "steel_brow",
+      "brawny",
+      "sword_mastery",
+      "lone_wolf",
+      "battle_forged",
+      "shield_expert",
+      "nine_lives",
+      "indomitable",
+      "killing_frenzy"
+     ]
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 12,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Avatar: If your hedge knight dies, the campaign ends",
+    "Start with a single experienced hedge knight and great equipment, but low funds"
+   ],
+   "source": "reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852"
+  }
+ ]
+}

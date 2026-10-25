@@ -164,7 +164,7 @@ function days(ctx, start, track, seed) {
   let purse = start.purse;
   for (let day = 1; day <= track.days; day++) {
     const alive = men.filter(m => !m.dead && !m.walked);
-    purse -= BILL.per_man_per_night.value * alive.length;
+    purse -= alive.reduce((t, m) => t + BILL.per_man_per_night.value + (m.wage || 0), 0);   /* the one bill, and an origin's own wage on top (the fight pit's) */
     if (purse < 0) { const go = alive.filter(m => !m.main).pop(); if (go) { go.walked = day; log.push({ day: day, walked: 1 }); } }
     if ((day - 1) % track.every !== 0) continue;
     /* HIRES (the careful player who also replaces the hurt): on a day his company stands fewer men than it started with, he hires
@@ -267,22 +267,23 @@ function realMan(spec, i, seed) {
   for (let lv = 2; lv <= level; lv++) { const r = levelRolls(stars, lv, R); plan.forEach(k => { st[k] += r[k]; }); }
   const cls = spec.gear && classOf(spec.gear.main);
   return { background: spec.bg, name: CREW[i % CREW.length].name, main: i === 0, level: level, xp: xpFor(level), stats: st, stars: stars, plan: plan,
-    gear: spec.gear || null, perkOrder: spec.perks || (BLADE[cls] ? bladePerks(cls) : cls === 'bow' ? BOW_PERKS : null), R: rng(seed * 104729 + 31 * i + 3) };
+    gear: spec.gear || null, perkOrder: spec.perks || (BLADE[cls] ? bladePerks(cls) : cls === 'bow' ? BOW_PERKS : null), wage: spec.wage || 0, R: rng(seed * 104729 + 31 * i + 3) };
 }
 function jobOfMain(id) { const c = classOf(id); return { crossbow: 'rifle', bow: 'rifle', firearm: 'shotgun', throwing: 'bottles' }[c] || c; }
 const WEEK = 7;
 const BOW_PERKS = ['fast_adaptation', 'bullseye', 'anticipation', 'bow_mastery', 'lone_wolf', 'battle_forged', 'head_hunter'];   /* the rifle build with the bow's mastery (the fight has no bow build) */
 const P = (men, extra) => Object.assign({ men: men, food_days: WEEK }, extra || {});
 const PROPOSAL_SPECS = {
-  /* THE CREW THAT IS LEFT (Rebuilding a Company, easy, the tutorial): the three who are left, level 1, the learning start */
-  rebuild: P([{ bg: 'companion_2hand', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') },
-              { bg: 'companion_1hand', gear: kit('pipe', 'car_door', 'padded_vest', 'hard_hat') },
-              { bg: 'companion_ranged', gear: kit('rifle', null, 'padded_vest', 'rag_hood') }]),
-  /* A NEW CREW (A New Company, easy, 'three experienced mercenaries'): the same three, a step better kit, nothing owed */
-  newcrew: P([{ bg: 'companion_2hand', gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
-              { bg: 'companion_1hand', gear: kit('pipe', 'car_door2', 'padded_vest2', 'hard_hat') },
+  /* THE CREW THAT IS LEFT (Rebuilding a Company, easy, the tutorial): the three who are left, level 1, in A NEW CREW's kit (two
+     pistols with car doors and a rifle, leather vests in front); the learning start's ease is its guided first job */
+  rebuild: P([{ bg: 'companion_2hand', gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_1hand', gear: kit('pistol', 'car_door2', 'padded_vest2', 'hard_hat') },
               { bg: 'companion_ranged', gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
-  /* UP FROM HENDERSON (Southern Mercenaries, easy; our line: 'three guns and no friends'): every man a gun */
+  /* A NEW CREW (A New Company, easy, 'three experienced mercenaries'): level 2, a real body; two pistols with car doors and a rifle
+     (measured: a pipe in the second man's hand wins 80, the pistol 84), leather vests in front; nothing owed */
+  newcrew: P([{ bg: 'companion_2hand', level: 2, gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_1hand', level: 2, gear: kit('pistol', 'car_door2', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_ranged', level: 2, gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
   /* UP FROM HENDERSON (Southern Mercenaries, easy; our line: 'three guns and no friends'): two pistols and a rifle are three guns
      already (measured: a shotgun in the second man's hands loses 6 points, three shooters and no front lose more); Battle
      Brothers' own Southern Mercenaries are A New Company in the south, so the numbers are A NEW CREW's and the place is his */
@@ -299,17 +300,34 @@ const PROPOSAL_SPECS = {
             { bg: 'fisherman', gear: kit('rebar', null, 'work_jacket', 'rag_hood') }, { bg: 'militia', gear: kit('rifle', null, 'work_jacket', 'rag_hood') },
             { bg: 'militia', gear: kit('pipe', 'car_door', 'padded_vest', 'rag_hood') }, { bg: 'minstrel', gear: kit('pistol', null, 'work_jacket', 'rag_hood') },
             { bg: 'vagabond', gear: kit('pipe', 'car_door', 'work_jacket', 'rag_hood') }, { bg: 'butcher', gear: kit('cleaver', 'car_door', 'work_jacket', 'rag_hood') }]),
-  /* THE SCAVENGERS (Band of Poachers, medium): three shooters who look before they go in (they always pick) */
-  scav: P([{ bg: 'hunter', gear: kit('rifle2', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') },
-           { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') }], { food_days: WEEK }),
+  /* THE SCAVENGERS (Band of Poachers, medium): the hunter's crossbow, the poachers' pistols and car doors (measured: every extra long gun
+     with no front loses: three rifles 55, two and a front man 58, two bows and a front man 50); their edge is the look before the fight */
+  scav: P([{ bg: 'hunter', gear: kit('rifle2', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('pistol', 'car_door', 'padded_vest', 'rag_hood') },
+           { bg: 'poacher', gear: kit('pistol', 'car_door', 'padded_vest', 'rag_hood') }]),
   /* the measured alternatives (a variant is 'origin~name') */
-  'newcrew~l2': P([{ bg: 'companion_2hand', level: 2, gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
+  /* THE FIGHT PIT with Battle Brothers' 'very high daily wages': a gladiator's base wage 50 crowns (against a hedge knight's 35),
+     x1.1 a level past 1 (BohemiaWages' rule): 60 crowns at level 3, 6 batteries a night on top of the bill */
+  'pit~wages': P([{ bg: 'gladiator', level: 3, wage: 6, gear: kit('machete2', 'riot_shield', 'plate_carrier2', 'riot_helmet') },
+          { bg: 'gladiator', level: 3, wage: 6, gear: kit('fire_axe', 'car_door2', 'plate_carrier2', 'riot_helmet') },
+          { bg: 'gladiator', level: 3, wage: 6, gear: kit('shotgun', null, 'plate_carrier2', 'riot_helmet') }]),
+  'rebuild~l2': P([{ bg: 'companion_2hand', level: 2, gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_1hand', level: 2, gear: kit('pistol', 'car_door2', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_ranged', level: 2, gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
+  'newcrew~pipe': P([{ bg: 'companion_2hand', level: 2, gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
               { bg: 'companion_1hand', level: 2, gear: kit('pipe', 'car_door2', 'padded_vest2', 'hard_hat') },
               { bg: 'companion_ranged', level: 2, gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
+  'newcrew~l1': P([{ bg: 'companion_2hand', gear: kit('pistol', 'car_door', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_1hand', gear: kit('pipe', 'car_door2', 'padded_vest2', 'hard_hat') },
+              { bg: 'companion_ranged', gear: kit('rifle', null, 'padded_vest', 'hard_hat') }]),
+  'truck~guard': P([{ bg: 'caravan_hand', gear: kit('pistol', 'car_door', 'padded_vest', 'hard_hat') },
+            { bg: 'caravan_hand', gear: kit('rifle', null, 'padded_vest', 'rag_hood') },
+            { bg: 'militia', gear: kit('pistol', 'car_door2', 'padded_vest2', 'hard_hat') }], { food_days: 19, wagon: 171 - 37 }),
   'scav~bows': P([{ bg: 'hunter', gear: kit('bow', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('bow', null, 'padded_vest', 'rag_hood') },
            { bg: 'poacher', gear: kit('pistol', 'car_door', 'padded_vest', 'rag_hood') }]),
   'scav~front': P([{ bg: 'hunter', gear: kit('rifle2', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') },
            { bg: 'poacher', gear: kit('pistol', 'car_door', 'padded_vest', 'rag_hood') }]),
+  'scav~rifles': P([{ bg: 'hunter', gear: kit('rifle2', null, 'padded_vest', 'rag_hood') }, { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') },
+           { bg: 'poacher', gear: kit('rifle', null, 'padded_vest', 'rag_hood') }]),
   /* THE PROMISE KEEPERS (Oathtakers, medium): two men, each in good kit; the old one level 3 with the standard */
   promise: P([{ bg: 'oathtaker', level: 3, gear: kit('pipe2', 'riot_shield', 'plate_carrier2', 'full_riot_helm') },
               { bg: 'oathtaker', level: 1, gear: kit('pistol2', 'car_door2', 'plate_carrier2', 'riot_helmet') }]),
@@ -408,6 +426,26 @@ async function main() {
       for (let s0 = 1; s0 <= seeds; s0 += chunk) { const ss = []; for (let s = s0; s < s0 + chunk && s <= seeds; s++) ss.push(s);
         const k = 'days|' + t.id + '|' + ss[0] + '-' + ss[ss.length - 1] + '|' + specOf(t); if (!C.got[k]) jobs.push({ k: k, job: { kind: 'days', track: t.id, seeds: ss } }); } });
     process.stderr.write('days: ' + jobs.length + ' chunks\n'); await pool(jobs, JOBS, (j, v) => { C.put(j.k, v); C.got[j.k] = v; }); }
+  if (argv.includes('--origins')) {   /* the fifteen proposed starts in origins.json's own shape, for RUN TWO to lift (draft:true) */
+    const PICK = { truck: 'truck~guard', pit: 'pit~wages' }, O = J('records/target/bb/origins.json');
+    const unkit = g => g && { main: g.main, off: g.off, body: g.body, head: g.head, bag: g.bag && g.bag.length ? g.bag : [] };
+    const out = { _about: 'TUNING [every origin starts like itself] 10/25 (rule 184, research only): the fifteen starts this page proposes, in records/target/bb/origins.json\'s shape with the fields a start needs. '
+      + 'NOTHING READS THIS FILE. men[].level is a REAL level: the door takes his level-ups (levelups_at_door, four picks each on his stars, his plan); men[].stars "rolled" = three talents at 60/30/10 rolled per game, else the stars named; '
+      + 'men[].gear the ids of the rows he wears (COOK\'s things: records/target/cook_every_item/); a list in gear is a pool, one picked per game; food_days = nights of the bill in the wagon at the door; wage_per_man_per_night on top of the bill. '
+      + 'Measured: records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md, bank banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json.', draft: true, picks_four_a_level: true, origins: [] };
+    O.origins.forEach(o => {
+      const r = Object.assign({}, o);
+      if (o.id === 'wolf') { const G = GODS.god3;
+        r.men = [{ background: 'hedge_knight', level: 4, levelups_at_door: 3, plan: G.plan, stars: G.stars, stat_mod: { melee_defense: -2 }, rolled_per_game: true,
+          gear: { main: G.kit.main, off: G.kit.off[0], body: G.kit.body, head: G.kit.head, bag: ['rondel_dagger'] }, perks_in_order: bladePerks('sword') }];
+      } else { const S = PROPOSAL_SPECS[PICK[o.id] || o.id];
+        r.men = S.men.map(m => { const lv = m.level || 1, g = Object.assign({}, m.gear, { main: KIT[m.gear.main] || m.gear.main });
+          const out = { background: m.bg, level: lv, levelups_at_door: lv - 1, stars: 'rolled', rolled_per_game: true, gear: unkit(g) };
+          if (m.wage) out.wage_per_man_per_night = m.wage; return out; });
+        r.food_days = S.food_days || 0; if (S.wagon != null) r.wagon_goods_batteries = S.wagon; }
+      r.draft = true; out.origins.push(r); });
+    const f = path.join(ROOT, 'banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json');
+    fs.writeFileSync(f, JSON.stringify(out, null, 1) + '\n'); console.log('wrote ' + path.relative(ROOT, f)); return; }
   if (argv.includes('--write') || argv.includes('--print')) {
     const ladder = {}, runs = {};
     Object.keys(C.got).forEach(k => { const p = k.split('|');
