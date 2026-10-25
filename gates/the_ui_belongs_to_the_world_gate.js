@@ -210,10 +210,12 @@ async function settlement() {
 }
 async function roster() {
   console.log('\nTHE CREW SCREEN');
-  const d = await open({ file: 'BOHEMIA_ROSTER_SCREEN.html', bare: true });
+  /* RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple]): the stash shows only the pieces there are (the 26 empty
+     slots left the screen, rule 172(c)), so the crew screen opens on a stash of two for its wells to be on the glass */
+  const d = await open({ file: 'BOHEMIA_ROSTER_SCREEN.html', bare: true, arm: "try{localStorage.setItem('bohemia.bag.v1', JSON.stringify([{id:'gambeson',kind:'body',name:'a padded vest',was:'Gambeson',price:15,nums:'holds 65  weight 6'},{id:'knife',kind:'weapon',cls:'dagger',name:'pistol',was:'Knife',price:3,nums:'dmg 15-25'}]))}catch(e){}" });
   try {
     await d.page.waitForTimeout(3000);
-    await check('the crew screen', d.page, d.page, [['#bar', 'board_plain'], ['#done', 'tin'], ['#card', 'board_plain'], ['.cell:not(.full)', 'tray'], ['.stats', 'receipt'], ['#bag .slot', 'well']],
+    await check('the crew screen', d.page, d.page, [['#bar', 'board_plain'], ['#done', 'tin'], ['#card', 'board_plain'], ['.cell:not(.full)', 'tray'], ['.stats', 'receipt'], ['#bag .slot.full', 'well_full'], ['.gslot:not(.full)', 'well']],   /* RE-AIMED UI 10/25: the stash holds only full pieces; an empty well is his empty slot */
       [['DONE on tin', '#done']]);
   } finally { await d.close(); }
 }

@@ -175,7 +175,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     let perk = null;
     if (r0 && r0.points > 0) {
       await RL.locator('#pick').tap(); await p.waitForTimeout(250);
-      const first = RL.locator('#card [data-perk]').first(); perk = await first.getAttribute('data-perk'); await first.tap(); await p.waitForTimeout(300);
+      const first = RL.locator('#bag [data-perk]').first();   /* RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple]): the perks are on the PERK tab beside him */ perk = await first.getAttribute('data-perk'); await first.tap(); await p.waitForTimeout(300);
     }
     const took = R ? await R.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew.find(x => x.main); return m.perks.slice(); }) : [];
     ok('    he takes a perk (a real tap), and it is kept', !!perk && took.indexOf(perk) >= 0 && (JSON.parse(await p.evaluate(() => localStorage.getItem('bohemia.climb.v1')) || '{}')[(await R.evaluate(() => BohemiaRosterScreen.state.crew.find(x => x.main).name))] || {}).perks.indexOf(perk) >= 0, perk);
@@ -184,7 +184,8 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     await RL.locator('#lines .cell.full[aria-label="' + man + '"]').first().tap(); await p.waitForTimeout(300);
     await RL.locator('#card .gslot[data-slot="main"]').first().tap(); await p.waitForTimeout(300);
     const idx = await R.evaluate((id) => { const S = BohemiaRosterScreen.state; return S.bag.findIndex(i => i.id === id); }, weapon.id);
-    await RL.locator('#picker [data-pick="' + idx + '"]').first().tap(); await p.waitForTimeout(400);
+    /* RE-AIMED UI 10/25: his tapped slot cuts the stash beside him; one tap on the piece compares, the second puts it on */
+    await RL.locator('#bag .slot[data-bag="' + idx + '"]').first().tap(); await p.waitForTimeout(250); await RL.locator('#bag .slot[data-bag="' + idx + '"]').first().tap(); await p.waitForTimeout(400);
     const worn = await R.evaluate((n) => { const m = BohemiaRosterScreen.state.crew.find(x => x.name === n); return m && m.gear.main && m.gear.main.id; }, man);
     ok('    the looted weapon is in the bag there and goes into a man\'s hand (real taps on his face, his slot, the piece)', inBag && worn === weapon.id, man + ' holds ' + worn);
     await RL.locator('#done').tap(); await p.waitForTimeout(400);

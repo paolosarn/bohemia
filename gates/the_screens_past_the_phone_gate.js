@@ -21,8 +21,11 @@ const ok = (m, g, extra) => { if (g) { pass++; console.log('  ok   ' + m + (extr
 const done = () => { console.log('\nTHE SCREENS PAST THE PHONE: ' + pass + ' ok, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
 const WIDE = ['tablet', 'computer', 'phone_landscape'];
 
+/* RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple], rule 172): the screen is him (#man) and the stash (#stash);
+   from 700 wide the stash stands BESIDE him and the line runs along the bottom (Battle Brothers' shape); upright on a phone
+   the stash is under him */
 const ROSTER = () => { const b = id => { const r = document.getElementById(id).getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom }; };
-  const L = b('left'), R = b('right');
+  const L = b('man'), R = b('stash');
   return { beside: R.l >= L.r - 1 && Math.abs(R.t - L.t) < 40, under: R.t >= L.b - 1, page: document.documentElement.scrollWidth <= innerWidth + 1, L, R }; };
 const SHEET = () => { const g = e => { const r = e.getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom, w: r.width, h: r.height }; };
   const sh = g(document.getElementById('sheet')), who = document.querySelector('#sbody > .who'), right = [...document.querySelectorAll('#sbody > :not(.who)')].map(g).filter(x => x.w > 0);

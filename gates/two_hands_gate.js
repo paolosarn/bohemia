@@ -41,7 +41,9 @@ const RIFLE = { id: 'light_crossbow', kind: 'weapon', cls: 'crossbow', name: 'so
      hands.rifle === 2 && hands.shotgun === 2 && hands.sledge === 2 && hands.pistol === 1 && hands.pipe === 1 && hands.bottles === 1, JSON.stringify(hands));
   const pickIn = async (slot, id) => { await p.locator('#card .gslot[data-slot="' + slot + '"]').click(); await p.waitForTimeout(250);
     const i = await p.evaluate(id => BohemiaRosterScreen.state.bag.findIndex(x => x.id === id), id);
-    await p.locator('#card #picker .slot[data-pick="' + i + '"]').click(); await p.waitForTimeout(350); };
+    /* RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple]): the tapped slot cuts the stash beside him; one tap on the
+       piece compares, the second puts it on */
+    const t = p.locator('#bag .slot[data-bag="' + i + '"]'); await t.click(); await p.waitForTimeout(200); await t.click(); await p.waitForTimeout(350); };
   const you = () => p.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew.find(x => x.main); const off = document.querySelector('#card .gslot[data-slot="off"]');
     return { main: m.gear.main && m.gear.main.id, off: m.gear.off && m.gear.off.id, bag: S.bag.map(x => x.id), offText: off ? off.innerText.replace(/\s+/g, ' ') : '', grey: !!(off && off.classList.contains('both') && parseFloat(getComputedStyle(off).opacity) < 1),
       said: document.getElementById('said').textContent }; });

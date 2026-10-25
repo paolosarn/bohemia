@@ -1109,6 +1109,28 @@
     + 'html[data-bm-roster] .xpbar i{background:linear-gradient(#f4cf7c,#d9a650)}'
     + 'html[data-bm-roster] .stats{padding:9px 10px 14px;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));gap:3px 14px}'
     + 'html[data-bm-roster] .stats div{border-bottom:1px dotted rgba(42,34,26,.35);align-items:center}'
+    /* THE COMPANY SCREEN (UI [the company screen, Battle Brothers simple], 10/25): his eight numbers printed on the receipt as
+       icon and number, no box of their own; the level-up's picks the same eight on glass, the picked ones lit amber; the
+       stash's tabs and his DISMISS receipt tags (DISMISS in the red ink of a cut-off notice); the comparison's slot lit */
+    + 'html[data-bm-roster] .stats>div{background:none;border:0;border-bottom:1px dotted rgba(42,34,26,.35);border-radius:0;color:#1f1710;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:14px}'
+    + 'html[data-bm-roster] .stats{padding:8px 10px 12px;gap:2px 10px}'
+    + 'html[data-bm-roster] .lugrid button{border:1px solid #0d0a07;border-radius:2px;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.12);color:#f2e4c6}'
+    + 'html[data-bm-roster] .lugrid button .v{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400}'
+    + 'html[data-bm-roster] .lugrid button small{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;color:#e2d3ab}'
+    + 'html[data-bm-roster] .lugrid button.on{border-color:#0d0a07;background:linear-gradient(#f4cf7c,#d9a650);color:#120c06}'
+    + 'html[data-bm-roster] .lugrid button.on .v b{color:#1d5a12} html[data-bm-roster] .lugrid button.on small{color:#3a2a12}'
+    + 'html[data-bm-roster] .levelup>b,html[data-bm-roster] #tabs .n{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px}'
+    + 'html[data-bm-roster] #tabs .n{color:#e2d3ab}'   /* the stash's head reads in the sun (4.5 to 1, the old line head's ink) */
+    + 'html[data-bm-roster] #tabs button,html[data-bm-roster] #dismiss,html[data-bm-roster] #keep{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.6px}'
+    + 'html[data-bm-roster] #tabs button.on{filter:none;transform:translateY(1px);box-shadow:inset 0 -3px 0 #1f1710}'   /* the tab you are on is pressed in; amber is kept for the thing to do (a perk waiting) */
+    + 'html[data-bm-roster] #tabs button.perk{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650)}'
+    + 'html[data-bm-roster] #dismiss{color:#8a1d0e}'
+    + 'html[data-bm-roster] #letgo{border:0;border-radius:0;color:#fbe9dc;background:linear-gradient(#9c2b18,#6e1b0e);box-shadow:inset 0 1px 0 rgba(255,200,170,.35),0 1px 0 #000;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.8px}'
+    + 'html[data-bm-roster] .ask b{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;color:#f4b8a0}'
+    + 'html[data-bm-roster] .gslot.cmp,html[data-bm-roster] .gslot.pick,html[data-bm-roster] #bag .slot.sel{outline:2px solid #f4cf7c;outline-offset:-1px}'
+    + 'html[data-bm-roster] .gslot b.v{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400}'
+    + 'html[data-bm-roster] #bag .slot b{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;text-shadow:0 1px 0 #000}'
+    + 'html[data-bm-roster] .cell i.up{background:linear-gradient(#f4cf7c,#d9a650);box-shadow:0 1px 0 #000}'
     + 'html[data-bm-roster] .stats div>span:first-child{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.4px}'
     + 'html[data-bm-roster] .stats .stars,html[data-bm-roster] .stats .bmstars{display:inline;margin-left:3px;letter-spacing:0;vertical-align:baseline}'
     + 'html[data-bm-roster] .stats .stars .bmstar:first-child{margin-left:0}'
@@ -1137,10 +1159,7 @@
        its side, a tablet) up to where the screen's own laptop rule takes over at 1100, the company screen stops being the
        phone's column stretched: Battle Brothers' way, the line and who wears what on the left, his page and the bag beside
        it on the right, held in view while the left scrolls */
-    + '@media (min-width:700px) and (max-width:1099px){'
-    +   'html[data-bm-roster] #cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;column-gap:12px;align-items:start}'
-    +   'html[data-bm-roster] #right{position:sticky;top:64px}'
-    +   'html[data-bm-roster] #bag{grid-template-columns:repeat(5,minmax(44px,56px));justify-content:start}}';
+    + '';   /* (the 10/22 tablet columns: the company screen lays itself out from 700 wide since UI 10/25, Battle Brothers' shape) */
   /* the hire cards at the settlement's hall (RUN TWO's .hire): the same card as a man's page */
   var HIRE_CSS = ''
     + 'html body #sheet .hire{position:relative;border:0;border-radius:2px;padding:12px 8px 8px;margin-top:12px;background:' + CARD_BG + ';box-shadow:inset 0 1px 0 rgba(255,220,170,.22),inset 0 -2px 0 rgba(0,0,0,.45),0 2px 0 #000}'
@@ -1194,7 +1213,9 @@
           var ic = itemIcon(it, 30); ic.dataset.id = it.id; var lab = g.querySelector('i'); g.insertBefore(ic, lab ? lab.nextSibling : g.firstChild);
         });
         if (RS) Array.prototype.forEach.call(document.querySelectorAll('#bag .slot'), function (b, i) {
-          var it = RS.bag && RS.bag[i], old = b.querySelector('.bm-icon');
+          if (b.dataset.bag == null && b.classList.contains('tile')) return;
+          if (b.classList.contains('off')) return;   /* the company screen's TAKE OFF (UI 10/25): a word, no item */
+          var it = RS.bag && RS.bag[b.dataset.bag != null ? +b.dataset.bag : i], old = b.querySelector('.bm-icon');   /* the stash is filtered: a tile names its own place in the bag */
           if (!it) { if (old) old.remove(); return; }
           if (old && old.dataset.id === it.id) return; if (old) old.remove();
           var gi = b.querySelector('i'); if (gi) gi.style.display = 'none';
@@ -2264,7 +2285,7 @@
     var b = 'content:"";display:inline-block;flex:0 0 auto;vertical-align:middle;background:center/contain no-repeat;image-rendering:pixelated;';
     return STAT_ICONS.map(function (k) {
       var u = 'background-image:url(' + statIcon(k) + ')';
-      return '.stats [data-stat="' + k + '"]>span:first-child::before,.lugrid button[data-raise="' + k + '"]>span:first-child::before{' + b + 'width:24px;height:24px;margin:-3px 6px -3px 0;' + u + '}'
+      return '.stats [data-stat="' + k + '"]>span:first-child::before,.lugrid button[data-raise="' + k + '"]>span:first-child::before{' + b + 'width:24px;height:24px;margin:-3px 3px -3px 0;' + u + '}'
         + '.hstats span[data-stat="' + k + '"]::before{' + b + 'width:18px;height:18px;margin:-2px 3px 0 0;' + u + '}';
     }).join('') + '.stats [data-stat]>span:first-child{display:inline-flex;align-items:center} .stats [data-stat]{align-items:center;min-height:26px}'
       + '#drawer .r>span:first-child img.bm-stat{width:18px;height:18px;margin:0 4px -4px 0;image-rendering:pixelated}';
@@ -2499,8 +2520,9 @@
   function keyCrew(ev, k, lk) {
     var R = window.BohemiaRosterScreen && BohemiaRosterScreen.state;
     if (k === 'Escape' || lk === 'c' || lk === 'i') { if (ev.repeat) return true;
-      var pk = k === 'Escape' && R && R.pick ? document.querySelector('.gslot.pick') : null;
-      if (pk) { pk.click(); keyLog('crew: picker shut'); return true; }
+      /* UI [the company screen, Battle Brothers simple] 10/25: Escape takes back the last tap (the dismiss question, the
+         comparison, the stash cut to a slot) before it closes the screen */
+      if (k === 'Escape' && window.BohemiaRosterScreen && BohemiaRosterScreen.cancel && BohemiaRosterScreen.cancel()) { keyLog('crew: took back'); return true; }
       var b = document.getElementById('done'); if (b) { b.click(); keyLog('crew: done'); } return !!b; }
     if (k === 'Tab' || lk === 'd' || lk === 'a') {
       try { var cells = [], seen = {}; [].forEach.call(document.querySelectorAll('.cell[data-man]'), function (c) { var i = +c.dataset.man; if (!seen[i]) { seen[i] = 1; cells.push(c); } });

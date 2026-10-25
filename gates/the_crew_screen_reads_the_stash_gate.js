@@ -43,7 +43,11 @@ const STASH = [
   ok('every file the screen loads is there', missing.length === 0, missing.slice(0, 2).join(' '));
   /* ONE CREW SCREEN (rule 147(b), Paolo 10/24: 'why is it showing me the crew twice? ... one face, all the inventory... when
      I click them it should be the same'): the rows of 10/18 are gone; each man is his face on the line, and a tap on it opens
-     his page on the same screen with his four slots filled. Every leg below is that screen. */
+     his page on the same screen with his four slots filled. Every leg below is that screen.
+     RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple], rule 172: 'it's really hard to navigate your equipment'):
+     his slots are Battle Brothers' six around him, each wearing its piece's icon (the name in its label and in the line when
+     tapped, never printed across a slot); a tapped slot CUTS THE STASH BESIDE HIM to what fits it (no picker inside his page),
+     TAKE OFF first; one tap on a piece shows the comparison, the second puts it on. */
   const tapMan = async (i) => { await p.locator('#lines .cell[data-man="' + i + '"]').first().click(); await p.waitForTimeout(200); };
   /* 1. every living man once on the line; tap each and his page reads his four slots */
   const live = await p.evaluate(() => BohemiaRosterScreen.state.crew.map((m, i) => ({ i, dead: m.dead, laid: !!(m.hurt && m.hurt.days > 0) })).filter(m => !m.dead && !m.laid).map(m => m.i));
@@ -54,15 +58,15 @@ const STASH = [
   const pages = [];
   for (const i of live) { await tapMan(i); pages.push(await p.evaluate(i => { const S = BohemiaRosterScreen.state, m = S.crew[i], c = document.getElementById('card');
     return { sel: S.sel === i, name: (c.querySelector('.nm') || {}).textContent === m.name, slots: c.querySelectorAll('.gear:not(.bags) .gslot').length,
-      filled: ['main', 'off', 'body', 'head'].every(s => { const d = c.querySelector('.gslot[data-slot="' + s + '"]'); return d && !!m.gear[s] === d.classList.contains('full') && (!m.gear[s] || d.textContent.indexOf(m.gear[s].name) >= 0); }),
+      filled: ['main', 'off', 'body', 'head'].every(s => { const d = c.querySelector('.gslot[data-slot="' + s + '"]'); return d && !!m.gear[s] === d.classList.contains('full') && (!m.gear[s] || ((d.getAttribute('aria-label') || '').indexOf(m.gear[s].name) >= 0 && !!d.querySelector('.bm-icon[data-id="' + m.gear[s].id + '"]'))); }),
       tile: !m.gear.main || !!c.querySelector('.gslot[data-slot="main"] img.pk'), face: (() => { const f = document.querySelector('#lines .cell[data-man="' + i + '"] canvas.head'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, f.width, f.height).data; let n = 0; for (let k = 3; k < d.length; k += 4) if (d[k] > 0) n++; return n; })() }; }, i)); }
   ok('  a tap on each face opens his page on the same screen, his name on it', pages.every(x => x.sel && x.name), pages.filter(x => x.sel && x.name).length + ' of ' + pages.length);
-  ok('  his page has his four slots (main, off, body, head)', pages.every(x => x.slots === 4), pages.map(x => x.slots).join(','));
-  ok('  and every slot reads what he wears: full where he has it, empty where he does not, the name on it', pages.every(x => x.filled), pages.filter(x => x.filled).length + ' of ' + pages.length);
+  ok('  his page has his six slots around him (head, main, body; accessory, off, ammo)', pages.every(x => x.slots === 6), pages.map(x => x.slots).join(','));
+  ok('  and every slot reads what he wears: full where he has it, empty where he does not, its icon on it and its name in its label', pages.every(x => x.filled), pages.filter(x => x.filled).length + ' of ' + pages.length);
   ok('  his face on the line is drawn', pages.every(x => x.face > 400), pages.map(x => x.face).join(','));
   ok('  a worn weapon shows the pack\'s own tile, not a glyph', pages.every(x => x.tile));
   /* 2. thumb-sized and on the glass */
-  const fit = await p.evaluate(() => { const ss = [].slice.call(document.querySelectorAll('#card .gslot, #lines .cell')).map(e => e.getBoundingClientRect());
+  const fit = await p.evaluate(() => { const ss = [].slice.call(document.querySelectorAll('#card .gslot, #lines .cell.full')).map(e => e.getBoundingClientRect());   /* an empty place in the line is a drop spot, never a tap */
     return { small: ss.filter(r => r.height < 44 || r.width < 44).length, over: Math.max.apply(null, ss.map(r => r.right)) <= window.innerWidth, w: Math.round(Math.min.apply(null, ss.map(r => r.width))), h: Math.round(Math.min.apply(null, ss.map(r => r.height))) }; });
   ok('every slot and every face is thumb-sized (44 or more) and nothing runs off the glass', fit.small === 0 && fit.over, 'smallest ' + fit.w + 'x' + fit.h);
   /* 3. the stash is the bag */
@@ -71,16 +75,16 @@ const STASH = [
   /* 4. tap the second man's face, then his HEAD slot: the picker opens inside his page with ONLY what fits a head */
   const who = await p.evaluate(() => { const S = BohemiaRosterScreen.state; const i = S.crew.findIndex((m, k) => !m.dead && k !== S.sel); return { i, name: S.crew[i].name, oldHead: S.crew[i].gear.head && S.crew[i].gear.head.id }; });
   await tapMan(who.i); await p.click('#card .gslot[data-slot="head"]'); await p.waitForTimeout(300);
-  const pk = await p.evaluate(i => { const r = document.getElementById('card'), pkr = r && r.querySelector('#picker');
-    return { inRow: !!pkr, offered: pkr ? [].slice.call(pkr.querySelectorAll('.slot.full')).map(e => e.getAttribute('aria-label')) : [], off: !!(pkr && pkr.querySelector('.slot.off')),
+  const pk = await p.evaluate(i => { const r = document.getElementById('card'), pkr = document.getElementById('bag'), S = BohemiaRosterScreen.state;
+    return { inRow: !!(S.pick && S.pick.slot === 'head'), offered: [].slice.call(pkr.querySelectorAll('.slot.full[data-bag]')).map(e => e.getAttribute('aria-label')), off: !!pkr.querySelector('.slot.off'),
       sel: BohemiaRosterScreen.state.sel, said: document.getElementById('said').textContent, lit: !!r.querySelector('.gslot.pick[data-slot="head"]') }; }, who.i);
-  ok('tap his face, then his HEAD slot, and the bag opens inside his page, the slot lit', pk.inRow && pk.lit && pk.sel === who.i, who.name + ': ' + pk.said);
+  ok('tap his face, then his HEAD slot, and the stash beside him is cut to it, the slot lit', pk.inRow && pk.lit && pk.sel === who.i, who.name + ': ' + pk.said);
   ok('  it offers only what fits a head: the hard hat, never the rifle or the vest', pk.offered.length === 1 && /hard hat/.test(pk.offered[0]), pk.offered.join(' | '));
   ok('  and TAKE OFF, since he wears something there', pk.off === !!who.oldHead, 'wore ' + who.oldHead);
   /* 5. tap the hat: he wears it, what he wore goes back in the bag */
-  await p.click('#card #picker .slot.full'); await p.waitForTimeout(300);
+  await p.click('#bag .slot.full[data-bag]'); await p.waitForTimeout(250); await p.click('#bag .slot.full[data-bag]'); await p.waitForTimeout(300);   /* one tap shows the comparison, the second puts it on */
   const h = await p.evaluate(i => { const S = BohemiaRosterScreen.state, m = S.crew[i]; return { head: m.gear.head && m.gear.head.id, bagHas: S.bag.some(x => x.id === 'kettle_hat'), bagOld: S.bag.map(x => x.id),
-    rowText: document.querySelector('#card .gslot[data-slot="head"]').textContent, picker: !!document.getElementById('picker'),
+    rowText: document.querySelector('#card .gslot[data-slot="head"]').getAttribute('aria-label'), picker: !!S.pick,
     post: (window.__rosterLog || []).filter(x => x.act === 'equip' && x.who === m.idx && x.slot === 'head' && x.item && x.item.id === 'kettle_hat').length }; }, who.i);
   ok('tap the hat and he wears it: his page reads hat, the bag lost it, the picker closed', h.head === 'kettle_hat' && !h.bagHas && /hat/.test(h.rowText) && !h.picker, who.name + ' head -> ' + h.head);
   ok('  what he wore went back in the bag', !who.oldHead || h.bagOld.indexOf(who.oldHead) >= 0, 'bag: ' + h.bagOld.join(', '));
@@ -90,16 +94,16 @@ const STASH = [
   const oldOff = await p.evaluate(i => { const m = BohemiaRosterScreen.state.crew[i]; return m.gear.off && m.gear.off.id; }, who.i);
   const oldMain = await p.evaluate(i => BohemiaRosterScreen.state.crew[i].gear.main && BohemiaRosterScreen.state.crew[i].gear.main.id, who.i);
   await p.click('#card .gslot[data-slot="main"]'); await p.waitForTimeout(250);
-  const offered = await p.evaluate(() => [].slice.call(document.querySelectorAll('#picker .slot.full')).map(e => e.getAttribute('aria-label')));
+  const offered = await p.evaluate(() => [].slice.call(document.querySelectorAll('#bag .slot.full[data-bag]')).map(e => e.getAttribute('aria-label')));
   ok('tap his MAIN slot: the rifle is offered, the hat and the vest are not', offered.length === 1 && /rifle/.test(offered[0]), offered.join(' | '));
   await p.screenshot({ path: SHOT });
-  await p.click('#picker .slot.full'); await p.waitForTimeout(300);
+  await p.click('#bag .slot.full[data-bag]'); await p.waitForTimeout(250); await p.click('#bag .slot.full[data-bag]'); await p.waitForTimeout(300);
   /* TWO HANDS (rule 149, 10/24): the rifle takes both hands, so a shield in his off hand goes to the bag too */
   const sw = await p.evaluate(a => { const S = BohemiaRosterScreen.state, m = S.crew[a.i]; return { main: m.gear.main && m.gear.main.id, off: m.gear.off, bagN: S.bag.length, same: S.bag.length === a.n + (a.off ? 1 : 0), ids: S.bag.map(x => x.id) }; }, { i: who.i, n: bagN, off: oldOff });
   ok('tap the rifle and they swap: he holds the rifle in both hands, his old gun (and any shield) in the bag, nothing lost', sw.main === 'light_crossbow' && !sw.off && (!oldMain || sw.ids.indexOf(oldMain) >= 0) && (!oldOff || sw.ids.indexOf(oldOff) >= 0) && sw.same, oldMain + (oldOff ? '+' + oldOff : '') + ' -> ' + sw.main + ', bag ' + sw.bagN);
   /* 7. TAKE OFF empties a slot into the bag */
   await p.click('#card .gslot[data-slot="head"]'); await p.waitForTimeout(250);
-  await p.click('#picker .slot.off'); await p.waitForTimeout(300);
+  await p.click('#bag .slot.off'); await p.waitForTimeout(300);
   const off = await p.evaluate(i => { const S = BohemiaRosterScreen.state; return { head: S.crew[i].gear.head, inBag: S.bag.some(x => x.id === 'kettle_hat'), row: document.querySelector('#card .gslot[data-slot="head"]').classList.contains('full') }; }, who.i);
   ok('TAKE OFF empties the slot into the bag and his page reads empty', !off.head && off.inBag && !off.row);
   /* 8. the company the fight reads carries what the rows show */

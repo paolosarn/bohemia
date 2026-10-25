@@ -5,150 +5,189 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Your Company</title>
 <!-- ============================================================================
-     THE ROSTER SCREEN  (RUN TWO, row [the roster screen], 10/9/26)
+     THE COMPANY SCREEN  (RUN TWO, row [the roster screen], 10/9/26; REBUILT by UI 10/25/26, row [the company screen,
+     Battle Brothers simple], rule 172, carrying [a dismiss button], rule 171; one lane owns the screen from here)
 
-     Paolo, the sixth votes: formation and gear are the depth. Rule 69: every character from the
-     bank. Grok GROK_75: the layout before the fight is the formation. Battle Brothers' own screen:
-     two battle lines of nine (front, back), a man's page with his stats and their stars, his gear
-     slots, the stash under it.
+     Paolo 10/25: 'find screenshots of how Battle Brothers' company menu works, because they really simplify how easy it
+     can look... you're over complicating it, it's really hard to navigate your equipment, the levelling up... and then we
+     need to improve upon that.' And: 'there's not a dismiss button, bro, what if I want to dismiss people.'
+     Battle Brothers' screen (records/BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md, recall
+     until Grok ask 41 lands): one man at a time, everything about him in one place, the stash always beside him, one
+     click to equip with the comparison before it, the level-up its own short moment.
 
-     YOUR MEN IN TWO ROWS you can drag between; tap a man and his card opens: the face and body from
-     the fight's own sheets (slices/fight_people/), name, background, level, wage, the eight stats
-     with stars, his four gear slots, his perks, his one pain line. YOUR BAG (the same 36 slots the
-     market fills) sits under it: drag an item onto a gear slot (or tap it) and he wears it, and what
-     he wore goes back in the bag.
-     ONE CREW SCREEN (RUN TWO [who you hire fights, one crew screen], 10/24, rule 147(b); his 'why is it
-     showing me the crew twice?'): each man once, his face on the line; tap him and his page opens under
-     the line with his four slots FILLED; tap a slot and the bag opens inside his page cut to what fits
-     it; tap one and they swap, TAKE OFF empties the slot. (The 10/18 rows, WHO IS WEARING WHAT, are gone.)
-     Every change is kept the moment it happens, and the fight gets it (__WHO_YOU_HIRE_FIGHTS__).
+     ONE SCREEN, MEASURED (tools/bohemia_ui_company_screen_count.js; the 10/25 screen on his phone: 132 things open, 169
+     with a man picked, 2.3 screens tall, the stranger's path 11 taps and 2 scrolls and no dismiss):
+     - THE LINE IS THE ROSTER STRIP: FRONT and BACK, nine places each, every man once, his face where he stands (rule
+       147(b)); drag a face to move him; a man with a level waiting wears Battle Brothers' plus.
+     - TAP A MAN AND THE SCREEN IS HIM: his 3D body in his gear with the slots around it (HEAD, MAIN HAND, BODY on one
+       side, ACCESSORY, OFF HAND, AMMO on the other), his two bag slots under him, his eight numbers as icons
+       (UI's stat icons), his name, trade, level, wage and XP on one line. A swipe across him is the next man.
+     - THE STASH BESIDE HIM, every piece with its one number, green when it beats what he wears; tabs ALL, WEAPONS,
+       ARMOUR and SORT. ONE TAP SHOWS THE COMPARISON (on the slot it would go in and in the one line), THE SECOND TAP
+       PUTS IT ON and his old one goes back to the stash. Tap his slot and the stash is cut to what fits it; tap the
+       slot again and it comes off. On a computer the comparison is under the mouse and a right-click puts it on
+       (Battle Brothers' own), Tab/D and A step through the men, Escape takes back the last tap.
+     - THE LEVEL-UP IS ITS OWN SHORT MOMENT: a man with a level waiting shows his eight numbers as the picks, each with
+       what it rolled on his stars; three taps, RAISE THEM; then the PERK tab opens itself and one tap takes the perk.
+     - DISMISS on him, one confirm, never on YOU: his gear back to the stash, his name off the wage bill (he goes in
+       the map's bohemia.walked.v1 with dismissed:true, the list the bill, the fight, the marker and the roster count
+       already read), he walks off the map's marker, and the phone's feed says it.
 
-     HOW THE GAME PLUGS IT IN: frame this page and post {type:'BOHEMIA_ROSTER_OPEN', crew?, bag?,
-     formation?}. It posts back {type:'BOHEMIA_ROSTER', act:'formation', formation:{front:[idx|null x9],
-     back:[...]}} (exactly what COMBAT [your formation] reads), act:'equip' {who, slot, item},
-     act:'bag' {bag}, act:'done'. Standalone it runs on the fight's starting crew (ours.json) and the
-     bag this phone kept. Gate: gates/roster_screen_gate.js
+     HOW THE GAME PLUGS IT IN: engine/bohemia_crew_door.js frames this page and posts {type:'BOHEMIA_ROSTER_OPEN', company,
+     roster, field, origin, day, select}. It posts back {type:'BOHEMIA_ROSTER', act:'formation'|'equip'|'bag'|'raise'|
+     'perk'|'dismiss'|'done', ...}. Every change is kept the moment it happens, and the fight gets it
+     (__WHO_YOU_HIRE_FIGHTS__). Gates: gates/the_company_screen_battle_brothers_simple_gate.js and RUN TWO's roster gates.
      ============================================================================ -->
 <style>
-:root{--bg:#120e0a;--plate:#2a2119;--plate2:#1c1611;--ink:#e9dcc4;--dim:#a8977c;--gold:#d9a85a;--line:#3a2f24}
+:root{--bg:#120e0a;--plate:#2a2119;--plate2:#1c1611;--ink:#e9dcc4;--dim:#a8977c;--gold:#d9a85a;--line:#3a2f24;--up:#8fd16a;--dn:#e07a5f}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.35 ui-monospace,Menlo,Consolas,monospace;-webkit-tap-highlight-color:transparent;user-select:none}
-#bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top)) 12px 8px;background:var(--plate2);border-bottom:1px solid var(--line)}
-#bar .t{flex:1;font-weight:700;letter-spacing:1px}
-#sortbag{display:block;margin:0 12px 6px;min-height:44px;padding:0 14px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700;letter-spacing:1px}
-#done{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700}
-.h{margin:12px 12px 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
-#lines{overflow-x:auto;padding:0 12px 4px}
-.line{display:grid;grid-template-columns:repeat(9,48px);gap:4px;margin-bottom:4px;width:max-content}
-.ln{font-size:10px;color:var(--dim);margin:4px 0 2px}
-.cell{width:48px;height:64px;background:#16110c;border:1px solid var(--line);border-radius:3px;position:relative;touch-action:none;box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
+button{font:inherit;color:inherit}
+#bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:max(6px,env(safe-area-inset-top)) 12px 6px;background:var(--plate2);border-bottom:1px solid var(--line)}
+#bar .t{flex:1;font-weight:700;letter-spacing:1px;font-size:12px}
+#done{min-width:72px;min-height:44px;background:var(--plate);border:1px solid var(--line);border-radius:6px;font-weight:700}
+#cols{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"strip" "man" "said" "stash";padding:0 12px 12px;gap:4px}
+/* THE ROSTER STRIP: the line, nine places a row, every man his face */
+#strip{grid-area:strip;margin:0 -6px}
+#lines{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:4px;row-gap:3px;margin-top:6px}
+.ln{font-size:9px;letter-spacing:.5px;color:var(--dim);writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+/* every man a full thumb (--cw, 44 points on a phone): nine 44s do not sit across 390, so an EMPTY place in the line is
+   narrower and takes what is left; the places keep their order (where a man stands is where he fights); a row of nine
+   men is the one case that shrinks them */
+.line{--cw:46px;display:flex;gap:2px;min-width:0}   /* 46 with its edge: the face inside is 44 */
+.cell.full{flex:0 1 var(--cw);min-width:0}
+.cell:not(.full){flex:1 1 14px;min-width:0}
+.cell{height:var(--cw);background:#16110c;border:1px solid var(--line);border-radius:3px;position:relative;touch-action:none;overflow:hidden}
 .cell.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
-.cell.sel{border-color:var(--gold)}
-.cell canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
-.cell canvas.head{inset:auto;top:1px;left:1px;width:calc(100% - 2px);height:auto;aspect-ratio:1;border-radius:2px}
-.cell b{position:absolute;left:0;right:0;bottom:1px;font-size:8px;text-align:center;pointer-events:none;color:var(--ink);text-shadow:0 1px 0 #000}
-.cell.over{outline:2px solid var(--gold)}
-#card{margin:8px 12px;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--plate2)}
-.top{display:flex;gap:10px}
-.face{width:72px;height:72px;flex:0 0 72px;border:1px solid var(--line);border-radius:4px;image-rendering:pixelated;background:#0b0907}
-.rbody{width:72px;height:124px;flex:0 0 72px;border:1px solid var(--line);border-radius:4px;image-rendering:pixelated;background:radial-gradient(ellipse at 50% 92%,rgba(0,0,0,.45) 0 22%,transparent 23%),#0b0907;touch-action:manipulation;cursor:pointer}
-.nm{color:var(--gold);font-weight:700;letter-spacing:1px}
-.sub{color:var(--dim);font-size:11px}
-.pain{margin-top:4px;font-style:italic}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;margin-top:8px;font-size:11px}
-.stats div{display:flex;justify-content:space-between}
-.stars{color:var(--gold);letter-spacing:-1px;margin-left:4px}
-.trait{font-size:11px;color:#d9c8a6;letter-spacing:.5px;margin-top:2px}
-.gear{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px}
-.gslot{min-height:58px;border:1px dashed var(--line);border-radius:3px;padding:3px;font-size:9px;text-align:center;touch-action:none;background:#16110c}
-.gslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610)}
-.gslot i{display:block;font-style:normal;color:var(--dim);font-size:9px}
-.gslot.over{outline:2px solid var(--gold)}
-.gear.bags{margin-top:4px}
-.gear.bags .gslot{min-height:58px}
-.gear.bags .bagh{grid-column:3 / span 2;align-self:center;font-size:9px;line-height:1.3;color:var(--dim);letter-spacing:.5px;padding:0 4px}
-.hurtbox{margin-top:8px;padding:6px 8px;border:1px solid #6e2a20;border-radius:4px;background:#22130f;font-size:11px}
-.hurtbox b{color:#e07a5f;letter-spacing:1px}
-.hurtbox i{display:block;font-style:normal;color:var(--dim)}
-.cell.laid{filter:grayscale(.8) brightness(.7);border-color:#6e2a20}
-.perks{margin-top:8px;font-size:11px;color:var(--dim)}
-.xpbar{height:6px;margin-top:4px;background:#16110c;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.cell.sel{outline:2px solid var(--gold);outline-offset:-1px}
+.cell.over{outline:2px dashed var(--gold)}
+.cell canvas.head{position:absolute;left:50%;top:0;height:100%;width:auto;aspect-ratio:1;transform:translateX(-50%);image-rendering:pixelated;pointer-events:none}
+.cell b{position:absolute;left:0;right:0;bottom:0;font-size:7px;line-height:9px;text-align:center;pointer-events:none;white-space:nowrap;overflow:hidden}
+.cell i.up{position:absolute;top:1px;right:1px;width:13px;height:13px;border-radius:7px;background:var(--gold);color:#120c06;font:700 11px/13px ui-monospace,monospace;text-align:center;font-style:normal;pointer-events:none}
+.cell.laid{border-color:#6e2a20}
+.cell.laid canvas.head{filter:grayscale(.8) brightness(.7)}
+.cell i.days{position:absolute;top:1px;right:1px;padding:0 2px;background:#5a1c12;color:#fbe9dc;font:700 8px/11px ui-monospace,monospace;font-style:normal;pointer-events:none}
+#hurtrow{display:none;grid-template-columns:auto 1fr;column-gap:4px;align-items:center;margin-top:3px}
+#hurtrow.on{display:grid}
+#hurt.line{justify-content:flex-start}
+/* HIM */
+#man{grid-area:man;touch-action:pan-y}
+#card{padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--plate2);position:relative}
+.who{display:flex;align-items:flex-start;gap:8px}
+.who .id{flex:1;min-width:0}
+.nm{color:var(--gold);font-weight:700;letter-spacing:1px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub{color:var(--dim);font-size:10px;letter-spacing:.3px}
+.xpbar{height:5px;margin-top:3px;background:#16110c;border:1px solid var(--line);border-radius:3px;overflow:hidden}
 .xpbar i{display:block;height:100%;background:var(--gold)}
-.gain{color:#8fd16a;margin-left:4px}
-.pick{display:block;width:100%;min-height:44px;margin-top:6px;background:linear-gradient(#5a4320,#3a2b16);color:var(--gold);border:1px solid var(--gold);border-radius:4px;font:inherit;font-weight:700;letter-spacing:1px}
-.levelup{margin-top:8px;padding:8px;border:1px solid var(--gold);border-radius:4px;background:#1d1610}
-.levelup>b{color:var(--gold);font-size:11px;letter-spacing:1px}
-.lugrid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px}
-.lugrid button{min-height:44px;display:flex;align-items:center;gap:6px;background:#16110c;color:var(--ink);border:1px solid var(--line);border-radius:3px;font:inherit;font-size:10px;padding:4px 6px;text-align:left}
-.lugrid button span{flex:1}
-.lugrid button b{color:#8fd16a;font-size:13px}
-.lugrid button i{font-style:normal;color:var(--gold);font-size:9px}
-.lugrid button.on{border-color:var(--gold);background:linear-gradient(#5a4320,#3a2b16)}
-.pick:disabled{opacity:.55}
-.plist{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px}
-.plist button{min-height:44px;background:#1d1610;color:var(--ink);border:1px solid var(--line);border-radius:3px;font:inherit;font-size:10px;text-align:left;padding:4px}
-.plist button i{display:block;font-style:normal;color:var(--dim);font-size:9px}
-#bag{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:0 12px 24px}
-.slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;touch-action:none}
-.slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
-.slot i{font-style:normal;font-size:15px;color:var(--gold);line-height:1}
-canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 shown at 44 to 72 css px scales smooth, never nearest (RUN TWO 10/18) */
-/* __ONE_CREW_SCREEN__ (rule 147(b)): his four slots on his page, each with what he wears; a tap opens the bag cut to it */
-.gslot{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1px;cursor:pointer;min-height:64px}
-.gslot.pick{outline:2px solid var(--gold);outline-offset:-1px}
-.gslot .gn{font-size:9px;line-height:1.15;max-width:100%;overflow:hidden;text-overflow:ellipsis}
-.gslot img.pk{width:auto;height:20px;max-width:90%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
-.gslot .bm-icon,.gslot canvas{width:22px;height:22px;image-rendering:pixelated}
-.gslot b.arm{display:block;font-weight:700;color:var(--gold);font-size:9px;letter-spacing:.3px;line-height:1.15;white-space:normal}
-.gslot b.arm.rd{color:var(--ink);font-weight:400}
-/* __TWO_HANDS__ (rule 149): the off hand under a long gun is the gun's, greyed */
+.trait{font-size:10px;color:#d9c8a6;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pain{font-size:10px;font-style:italic;color:#d9c8a6;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#dismiss,#letgo,#keep{min-height:44px;padding:0 10px;background:#22130f;color:#e8b4a2;border:1px solid #6e2a20;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.8px;flex:0 0 auto}
+.ask{display:flex;flex-direction:column;gap:4px;align-items:stretch}
+.ask b{font-size:10px;color:#e8b4a2;letter-spacing:.5px;text-align:right}
+.ask .row{display:flex;gap:4px}
+#letgo{background:#5a1c12;color:#f8e0d0}
+#keep{background:var(--plate);color:var(--ink);border-color:var(--line)}
+/* the paper doll: his body in the middle, the slots around it, the two bag slots under him */
+.doll{display:grid;grid-template-columns:62px 1fr 62px;gap:4px;margin-top:6px;align-items:start}
+.doll .side{display:flex;flex-direction:column;gap:4px}
+.doll .mid{display:flex;flex-direction:column;align-items:center;gap:4px}
+.rbody,.face.big{width:72px;height:124px;image-rendering:pixelated;background:radial-gradient(ellipse at 50% 92%,rgba(0,0,0,.45) 0 22%,transparent 23%);touch-action:pan-y;cursor:pointer}
+.gslot{position:relative;height:56px;border:1px dashed var(--line);border-radius:3px;padding:2px;font-size:8px;text-align:center;touch-action:none;background:#16110c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;overflow:hidden}
+.gslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610)}
+.gslot>i{position:absolute;top:1px;left:2px;right:2px;font-style:normal;color:var(--dim);font-size:7px;letter-spacing:.3px;text-align:left;white-space:nowrap;overflow:hidden}
+.gslot img.pk{height:22px;width:auto;max-width:90%;object-fit:contain;image-rendering:pixelated;margin-top:6px}
+.gslot canvas,.gslot .bm-icon{width:26px;height:26px;image-rendering:pixelated;margin-top:6px}
+.gslot b.v{font-size:9px;font-weight:700;color:var(--ink);letter-spacing:.2px;line-height:1}
+.gslot b.arm{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:.2px;line-height:1}
+.gslot b.arm.rd{color:var(--ink)}
+.gslot.pick,.gslot.cmp{outline:2px solid var(--gold);outline-offset:-1px}
+.gslot.over{outline:2px dashed var(--gold)}
+.gslot em.d{position:absolute;right:2px;bottom:1px;font-style:normal;font-size:9px;font-weight:700}
 .gslot.both{opacity:.55;border-style:solid}
 .gslot img.ghost,.gslot canvas.ghost{opacity:.6;filter:grayscale(1)}
-.gslot i.hands{display:block;font-style:normal;font-size:8px;letter-spacing:.5px;color:var(--dim)}
-#picker{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;padding:6px;border:1px solid var(--gold);border-radius:4px;background:#1a140e}
-#picker .slot{width:52px;flex:0 0 52px;min-height:52px;font-size:8px;border-color:#4a3b2c}
-#picker .slot.off{border-style:dashed;color:var(--dim)}
-#picker .none{align-self:center;color:var(--dim);font-size:10px;padding:0 4px}
+.gslot.flat{cursor:default}
+.bagrow{display:grid;grid-template-columns:52px 52px;gap:4px}
+.bagrow .gslot{height:48px}
+.up{color:var(--up)} .dn{color:var(--dn)}
+/* his numbers: eight icons and eight numbers */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;margin-top:6px}
+.stats>div{display:flex;align-items:center;gap:3px;min-height:30px;white-space:nowrap;padding:2px 4px;background:#16110c;border:1px solid var(--line);border-radius:3px;font-size:12px;font-weight:700}
+.stats>div>span:first-child{display:inline-flex;align-items:center;font-size:0}
+.stats .stars{color:var(--gold);letter-spacing:-1px;font-size:9px}
+.gain{color:var(--up);font-size:10px}
+/* the level-up moment: the numbers are the picks */
+.levelup{margin-top:6px}
+.levelup>b{display:block;color:var(--gold);font-size:11px;letter-spacing:1px;margin-bottom:4px}
+.lugrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+.lugrid button{position:relative;min-height:44px;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:3px;align-items:center;background:#16110c;border:1px solid var(--line);border-radius:3px;padding:2px 4px;text-align:left}
+.lugrid button>span:first-child{grid-row:1 / 3;display:inline-flex;align-items:center;font-size:0}
+.lugrid button .v{font-size:12px;font-weight:700;white-space:nowrap}
+.lugrid button .v b{color:var(--up);font-size:12px;margin-left:2px}
+.lugrid button small{font-size:7px;letter-spacing:.2px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lugrid button i{position:absolute;top:1px;right:2px;font-style:normal;color:var(--gold);font-size:7px;letter-spacing:-1px}
+.lugrid button.on{border-color:var(--gold);background:linear-gradient(#5a4320,#3a2b16)}
+.pick{display:block;width:100%;min-height:44px;margin-top:4px;background:linear-gradient(#5a4320,#3a2b16);color:var(--gold);border:1px solid var(--gold);border-radius:4px;font-weight:700;letter-spacing:1px}
+.pick:disabled{opacity:.55}
+.hurtbox{margin-top:6px;padding:4px 6px;border:1px solid #6e2a20;border-radius:4px;background:#22130f;font-size:10px}
+.hurtbox b{color:var(--dn);letter-spacing:1px}
+.hurtbox i{display:block;font-style:normal;color:var(--dim)}
+.perks{margin-top:6px;font-size:10px;color:var(--dim)}
+/* the one line: what happened, or the comparison before the second tap */
+#said{grid-area:said;height:44px;overflow:hidden;font-size:10px;line-height:1.35;color:var(--dim);padding:2px 2px 0}   /* a fixed three lines: the comparison under a mouse never moves the stash out from under it */
+#said b{color:var(--ink)} #said b.up{color:var(--up)} #said b.dn{color:var(--dn)}
+/* THE STASH */
+#stash{grid-area:stash}
+#tabs{display:flex;gap:3px;align-items:center}
+#tabs .n{flex:1;font-size:9px;color:var(--dim);letter-spacing:.5px;white-space:nowrap}
+#tabs button{min-height:44px;padding:0 8px;text-align:left;background:var(--plate);border:1px solid var(--line);border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.5px}
+#tabs button.on{border-color:var(--gold);color:var(--gold)}
+#tabs button.perk{background:linear-gradient(#5a4320,#3a2b16);color:var(--gold);border-color:var(--gold)}
+#bag{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;margin-top:4px;max-height:40vh;overflow-y:auto;align-content:start}
+#bag .slot{position:relative;height:54px;background:linear-gradient(#2e241a,#1d1610);border:1px solid #4a3b2c;border-radius:3px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;touch-action:none;cursor:pointer}
+#bag .slot canvas,#bag .slot img,#bag .slot .bm-icon{width:30px;height:30px;image-rendering:pixelated;pointer-events:none}
+#bag .slot b{font-size:10px;font-weight:700;line-height:1;pointer-events:none}
+#bag .slot.sel{outline:2px solid var(--gold);outline-offset:-1px}
+#bag .slot.off{border-style:dashed;color:var(--dim);font-size:9px}
+#bag .none{grid-column:1/-1;color:var(--dim);font-size:10px;padding:6px 2px}
+.plist{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.plist button{min-height:44px;background:#1d1610;border:1px solid var(--line);border-radius:3px;font-size:10px;text-align:left;padding:3px 5px}
+.plist button i{display:block;font-style:normal;color:var(--dim);font-size:8px}
 #ghost{position:fixed;pointer-events:none;z-index:50;opacity:.85;display:none;padding:4px 6px;background:#2e241a;border:1px solid var(--gold);border-radius:3px;font-size:10px}
-#said{margin:0 12px;color:var(--dim);font-size:11px;min-height:16px}
-/* THE CREW SCREEN AT FOURTEEN (RUN TWO, his 10/18 'when you got one person... three... six... up to 14 people'; rule 117).
-   A full company reads in one look and nothing ever scrolls sideways:
-   - a phone upright cannot hold nine 44-point cells across (9 x 44 = 396 > 390), so THE LINE stands up: FRONT and BACK
-     side by side, the nine places top to bottom, every man a face and his whole name; the laid-up strip wraps the same way
-   - a laptop is the phone's view with room: two columns, the line and who wears what on the left, the man's card and the
-     bag on the right, both at a size a person reads (the bag's slots stop growing past 64) */
-.nmx{display:none}
-@media (max-width:489px){
-  #lines{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"lf lb" "f b";column-gap:6px;overflow:visible}
-  #lines > .ln:first-child{grid-area:lf} #front{grid-area:f} #lines > .ln:nth-child(3){grid-area:lb} #back{grid-area:b}
-  #front,#back{display:flex;flex-direction:column;gap:4px;width:auto}
-  #hurt{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:auto}
-  #front .cell,#back .cell,#hurt .cell{width:100%;height:48px}
-  #front .cell canvas.head,#back .cell canvas.head,#hurt .cell canvas.head{width:44px;height:44px;top:1px;left:1px}
-  #front .cell b,#back .cell b,#hurt .cell b{left:50px;right:4px;top:0;bottom:0;display:flex;align-items:center;font-size:11px;text-align:left;letter-spacing:.5px;white-space:nowrap;overflow:hidden}
-  .nmx{display:inline;margin-right:6px}
+canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 shown at 44 css px scales smooth, never nearest (RUN TWO 10/18) */
+/* A PHONE ON ITS SIDE, A TABLET, A COMPUTER: Battle Brothers' own shape, him on the left, the stash on the right, the
+   line along the bottom; the cells grow to a thumb and a half */
+@media (min-width:700px){
+  #cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"man stash" "man said" "strip strip";grid-template-rows:auto 1fr auto;align-items:start;column-gap:14px}   /* the comparison line under the stash, beside the piece the mouse is on */
+  #strip{margin:0}
+  #bag{max-height:none;grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}
+  .line{--cw:52px}
 }
 @media (min-width:1100px){
-  #cols{display:grid;grid-template-columns:minmax(0,640px) 440px;justify-content:center;column-gap:24px;align-items:start}
-  #right{position:sticky;top:64px}
-  #bag{grid-template-columns:repeat(6,minmax(44px,64px));justify-content:start}
+  #cols{grid-template-columns:minmax(0,560px) minmax(0,560px);justify-content:center;padding:16px 24px;column-gap:24px;row-gap:10px}
+  #strip{justify-self:center;width:min(100%,760px)} .line{--cw:72px} .cell b{font-size:9px;line-height:11px}
+  html body .nm{font-size:20px} html body .sub,html body .trait,html body .pain{font-size:13px} html body .gslot>i{font-size:10px} html body .gslot b.v,html body .gslot b.arm{font-size:13px}
+  html body #said{font-size:13px;height:56px} html body #tabs button{font-size:13px;min-height:44px} html body #tabs .n{font-size:12px} html body #bag .slot b{font-size:13px}
+  html body .lugrid button{min-height:52px} html body .lugrid button small{font-size:10px} html body .lugrid button .v,html body .lugrid button .v b{font-size:16px} html body .levelup>b{font-size:14px}
+  html body .stats>div{font-size:17px} html body #bar .t{font-size:15px}
+  html body .plist button{font-size:13px} html body .plist button i{font-size:11px} html body #dismiss,html body #letgo,html body #keep{font-size:13px;min-height:44px}
+  .doll{grid-template-columns:76px 1fr 76px} .gslot{height:72px} .bagrow{grid-template-columns:64px 64px} .bagrow .gslot{height:64px}
+  .rbody,.face.big{width:144px;height:248px}
+  .stats>div{min-height:36px;font-size:14px}
+  #bag .slot{height:64px}
 }
 </style>
 </head>
 <body>
 <div id="bar"><span class="t" id="title">YOUR COMPANY</span><button id="done">DONE</button></div>
-<div id="cols"><div id="left">
-<div class="h">YOUR LINE. TAP A MAN FOR HIS GEAR. DRAG HIM TO MOVE HIM. FRONT FIGHTS, BACK SHOOTS.</div>
+<div id="cols">
+<div id="strip">
 <div id="lines"><div class="ln">FRONT</div><div class="line" id="front"></div><div class="ln">BACK</div><div class="line" id="back"></div></div>
-<div class="ln" id="hurth" style="margin:0 12px;display:none">LAID UP. HE HEALS ON THE ROAD; HE CANNOT STAND IN THE LINE.</div>
-<div class="line" id="hurt" style="margin:0 12px 6px"></div>
-</div><div id="right">
-<div id="card"></div>
+<div id="hurtrow"><div class="ln" id="hurth">LAID UP</div><div class="line" id="hurt"></div></div>
+</div>
+<div id="man"><div id="card"></div></div>
 <div id="said"></div>
-<div class="h" id="bagh">YOUR BAG</div>
-<button id="sortbag" type="button">SORT THE BAG</button>
-<div id="bag"></div>
-</div></div>
+<div id="stash"><div id="tabs"></div><div id="bag"></div></div>
+</div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: a hired man is one of the valley's rolled people, his own body and face -->
@@ -165,7 +204,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 'use strict';
 var C = window.BohemiaRoster, N = C.SLOTS_PER_ROW, BAG_SLOTS = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 36),   /* RUN TWO __THE_CAMP__: 36, and 12 a step of the cart */
     BAGKEY = 'bohemia.bag.v1', FKEY = 'bohemia.formation.v1';
-var S = {crew:[], bag:[], front:[], back:[], sel:0, standalone:(window.parent===window), sheets:{}};
+var S = {crew:[], bag:[], front:[], back:[], sel:0, standalone:(window.parent===window), sheets:{}, tab:'all', cmp:null, pick:null, ask:null};
 var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
 function post(act, o){ var m = {type:'BOHEMIA_ROSTER', act:act}; for(var k in (o||{})) m[k] = o[k];
   window.__rosterLog = (window.__rosterLog||[]); window.__rosterLog.push(m);
@@ -177,7 +216,9 @@ function post(act, o){ var m = {type:'BOHEMIA_ROSTER', act:act}; for(var k in (o
    a new recipe, over an already-judged sound. */
 function sfx(ev){ window.__rosterLog = (window.__rosterLog||[]); window.__rosterLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev});
   if(!S.standalone) try{ window.parent.postMessage({type:'BOHEMIA_SFX', ev:ev},'*'); }catch(e){} }
-function say(t){ document.getElementById('said').textContent = t; }
+/* the one line: a sentence, or (the comparison) a few words with the numbers in ink */
+function say(t, html){ var el = document.getElementById('said'); if(html) el.innerHTML = t; else el.textContent = t; }
+function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
 var CKEY = 'bohemia.climb.v1';
@@ -198,6 +239,7 @@ function afterFight(rows){
     if(g.to > g.from) ups.push(m.name + ' is level ' + g.to); });
   benchHurt(); saveClimb(); saveForm(); var first = S.crew.findIndex(function(m){ return ((m.rolls && m.rolls.length) || m.points > 0) && !m.dead; }); if(first >= 0) S.sel = first;
   var lh = S.crew.findIndex(function(m){ return m.hurt && m.hurt.days > 0; }); if(first < 0 && lh >= 0) S.sel = lh;
+  S.cmp = null; S.pick = null; S.ask = null;
   say((hurt.length ? hurt.join('. ') + '. ' : '') + (ups.length ? ups.join('. ') + '. Pick his stats and his perk.' : 'Nobody climbed this time.')); draw(); return ups;
 }
 /* a laid-up or dead man leaves the line; a healed one takes the first empty slot, front first */
@@ -270,8 +312,10 @@ function healToToday(){
   if(back.length){ benchHurt(); saveForm(); say(back.join(', ') + ' can stand in the line again.'); draw(); }
   saveClimb(); return back.length;
 }
-/* a man who walked when the bill went unpaid (the map's bohemia.walked.v1, by name) is gone from the company; YOU never walk */
-function walkedNames(){ try{ return (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).map(function(w){ return w && w.name; }).filter(Boolean); }catch(e){ return []; } }
+/* a man who walked when the bill went unpaid, or that you let go (the map's bohemia.walked.v1, by name) is gone from the
+   company; YOU never walk */
+var WKEY = 'bohemia.walked.v1';
+function walkedNames(){ try{ return (JSON.parse(localStorage.getItem(WKEY) || '[]') || []).map(function(w){ return w && w.name; }).filter(Boolean); }catch(e){ return []; } }
 /* ==== end __WHO_YOU_HIRE_FIGHTS__ ==== */
 /* who stands where to start: Battle Brothers puts the shooters behind; a rifle, a bow or bottles go back */
 function defaultForm(){
@@ -285,20 +329,20 @@ function defaultForm(){
 /* RUN TWO [portraits on the roster], 10/11 (his YES with a note: 'display the portraits all the time, not the full body;
    it looks so tiny'): a man on the line is his face, never the full-body sprite */
 function headCanvas(m){ var c = faceCanvas(m); c.className = 'head'; return c; }
-/* HIS WHOLE BODY ON HIS CARD (RUN TWO [the 3D models on your screens], 10/19, rule 121(e): 'BRO EVERYTHING IS A 3D MODEL
-   NOW'): the 3D model his face was rendered from (PORTRAIT's crew rig, engine/bohemia_rig_bodies.js), in his own skin, at
-   one render pixel to one point (three of his phone's pixels, never a fraction); a tap turns him one eighth, all eight
-   turns, the way Battle Brothers shows the man you picked. The pose is the one the model was rendered in, mid-stride. */
+/* HIS WHOLE BODY IN THE MIDDLE OF HIS SLOTS (RUN TWO [the 3D models on your screens], 10/19, rule 121(e): 'BRO EVERYTHING IS A 3D
+   MODEL NOW'): the 3D model his face was rendered from (PORTRAIT's crew rig, engine/bohemia_rig_bodies.js), in his own skin, at
+   one render pixel to one point on a phone and two on a computer (whole phone pixels, never a fraction); a tap turns him one
+   eighth, all eight turns, the way Battle Brothers shows the man you picked. */
 var TURN = {};
 function rigBody(m, i){
   var R = window.BohemiaRigBodies; if(!R || !R.has(m.look)) return null;
   var c = document.createElement('canvas'); c.width = 72; c.height = 124; c.className = 'rbody'; c.dataset.body = 'rig'; c.dataset.look = m.look;
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-  function paint(){ var t = R.TURNS[(TURN[i] || 0) % 8]; c.dataset.turn = t;
+  function paint(){ var t = R.TURNS[(TURN[m.name] || 0) % 8]; c.dataset.turn = t;
     R.image(m.look, t, function(im){ if(!im || c.dataset.turn !== t) return; x.clearRect(0, 0, 72, 124);
       x.drawImage(im, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight); }); }
   c.setAttribute('aria-label', 'Turn ' + m.name);
-  c.addEventListener('click', function(){ TURN[i] = ((TURN[i] || 0) + 1) % 8; paint(); });
+  c.addEventListener('click', function(){ if(SWIPE.moved) return; TURN[m.name] = ((TURN[m.name] || 0) + 1) % 8; paint(); });
   paint(); idleCard(c, m, i); return c;
 }
 /* ==== __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... it's looking
@@ -339,7 +383,16 @@ function faceCanvas(m){
   x.fillStyle = '#1a1410'; x.fillRect(0,0,64,64); x.fillStyle = '#3b3026'; x.fillRect(22,12,20,24); x.fillRect(14,40,36,18);
   return c;
 }
+/* the men in the strip's own order, front left to right, then back, then the laid-up: what a swipe and Tab step through */
+function order(){ var o = []; S.front.concat(S.back).forEach(function(i){ if(i != null && o.indexOf(i) < 0) o.push(i); });
+  S.crew.forEach(function(m, i){ if(laid(m) && !m.dead && o.indexOf(i) < 0) o.push(i); }); return o; }
+function choose(i){ if(i == null || !S.crew[i]) return;   /* his own face again: he is drawn fresh, whatever was waiting */
+  S.sel = i; S.cmp = null; S.pick = null; S.ask = null; S.raise = null; if(S.tab === 'perk') S.tab = 'all';
+  say(''); draw(); }
+function step(by){ var o = order(); if(!o.length) return; var at = o.indexOf(S.sel); choose(o[((at < 0 ? 0 : at + by) % o.length + o.length) % o.length]); }
+function waiting(m){ return !!(m && !m.dead && ((m.rolls && m.rolls.length) || m.points > 0)); }
 function draw(){
+  S.hover = null;   /* a mouse's comparison is painted over the drawn screen (paintCmp), never kept through a redraw */
   /* EYES [eyes: one company number] (rule 150): one number for how many he can have, the same on the door, the bar and here,
      and how many fight, named so */
   document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.filter(function(m){ return !m.dead; }).length + ' / ' + (S.cap || 20) + '   ' + (S.field || 12) + ' IN A FIGHT';
@@ -349,83 +402,64 @@ function draw(){
       var d = document.createElement('div'); d.className = 'cell' + (ix != null ? ' full' : '') + (ix === S.sel ? ' sel' : '');
       d.dataset.drop = row + ':' + si;
       if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.dataset.man = ix; d.appendChild(headCanvas(m));
-        var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b); d.setAttribute('aria-label', m.name); }   /* a hire's name is two words (PEOPLE [the names wired in]); the 48 px slot carries the first, his card the whole */
+        var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b); d.setAttribute('aria-label', m.name);   /* a hire's name is two words (PEOPLE [the names wired in]); the cell carries the first, his card the whole */
+        if(waiting(m)){ var up = document.createElement('i'); up.className = 'up'; up.textContent = '+'; up.setAttribute('aria-hidden', 'true'); d.appendChild(up); } }   /* Battle Brothers' plus: a level waits on him */
       el.appendChild(d);
     });
   });
   var hu = document.getElementById('hurt'); hu.textContent = ''; var any = false;
   S.crew.forEach(function(m, i){ if(!laid(m)) return; any = true;
     var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i; d.dataset.man = i;
-    d.appendChild(headCanvas(m)); var b = document.createElement('b'); var bn = document.createElement('span'); bn.className = 'nmx'; bn.textContent = m.name; b.appendChild(bn);
-    b.appendChild(document.createTextNode(m.hurt.days + 'd')); d.appendChild(b); hu.appendChild(d); });   /* his name beside his days where there is room (a phone upright) */
-  document.getElementById('hurth').style.display = any ? 'block' : 'none';
+    d.appendChild(headCanvas(m)); var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b);
+    var dd = document.createElement('i'); dd.className = 'days'; dd.textContent = m.hurt.days + 'd'; d.appendChild(dd);   /* his name and his days, both on the glass */
+    d.setAttribute('aria-label', m.name + ', laid up ' + m.hurt.days + ' days'); hu.appendChild(d); });
+  document.getElementById('hurtrow').classList.toggle('on', any);
   drawCard(); drawBag(); talkOnLine();
 }
-/* ==== __ONE_CREW_SCREEN__ (RUN TWO [who you hire fights, one crew screen], rule 147(b), Paolo 10/24: 'the crew page is fucked
-   up, why is it showing me the crew twice? It should be simplified: one face, all the inventory; there's one for the battle
-   line and one for their inventory, but when I click them it should be the same, I don't need to see the crew twice').
-   EACH MAN ONCE, ONE FACE: his face stands on the line (front or back) and nowhere else; the second list (WHO IS WEARING
-   WHAT, 10/18) is gone. TAP HIM and his page opens right under the line on this same screen, Battle Brothers' way: his
-   whole body (the 3D model), his name, level, stats and stars, and his FOUR SLOTS with what he wears (the pack's own tile for
-   a weapon, the materials' icon for the rest, rule 101: placeholders) and his gun's reach. Tap a slot and the bag opens
-   inside his page cut to what fits it; tap one and they swap, TAKE OFF puts his back in the bag; or drag from the bag below.
-   He says his line with the face on the line (rule 19c). Nothing pops up over the screen (rule 19a). ==== */
-var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD', bag1:'BAG', bag2:'BAG'};
+/* ==== __ONE_CREW_SCREEN__ (RUN TWO, rule 147(b), Paolo 10/24: 'why is it showing me the crew twice? It should be simplified:
+   one face, all the inventory'): each man once, his face on the line and nowhere else; tap him and the screen is him. ==== */
+var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD', acc:'ACCESSORY', ammo:'AMMO', bag1:'BAG', bag2:'BAG'};
 /* __TWO_BAG_SLOTS__ (RUN TWO 10/25, rule 164 item 15; Paolo 10/24 on his PC: 'you can't switch weapon... Battle Brothers has two
    slots to bring shit into combat... it takes up stamina'): Battle Brothers' bag, two slots a man (the wiki's Bags and Belts
    perk adds two more), each holding a weapon or a shield he carries into the fight; COMBAT's fight switches them (its cost is
    COMBAT's). The fight is handed them as gear.bag = [id, id] (engine/bohemia_roster.js company()). */
 var BAG_GEAR = ['bag1', 'bag2'];
+/* ACCESSORY and AMMO keep Battle Brothers' shape around him. MEASURED 10/25: no item of either kind exists in the valley
+   (the market, the spoils and the fight deal weapons, shields, heads and bodies only), so the accessory slot takes nothing
+   yet and says so when tapped; AMMO shows what his gun holds going in (the fight loads every gun full, armOf().rounds),
+   which the main hand carried before. */
 var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'w_rifle', firearm:'w_shotgun', throwing:'w_bottles', throwable_item:'w_bottles',
   sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole'};
-function shortName(it){ return it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; }
+function shortName(it){ return it.name.replace(/^(a|an) /,''); }
 /* EACH MAN'S GUN AND ITS REACH (RUN TWO [the guns on the crew screen], 10/22; rule 120(a), rule 83, rule 117 one look): what
-   his arm does in the fight, read the fight's way (BohemiaRoster.armOf): the reach in tiles and the rounds it holds going in.
-   Short: '2-4' over '5 RDS' in his row; long: 'REACH 2 TO 4 TILES, A CLUB AT 1' and '5 ROUNDS, THEN RELOAD' on his card */
+   his arm does in the fight, read the fight's way (BohemiaRoster.armOf) */
 function armLine(it, long){ return C.armLine ? C.armLine(it, long) : null; }   /* the words live in engine/bohemia_roster.js, so the hall's man reads the same line (10/24) */
 function itemPic(it, px){
   var f = it.kind === 'weapon' && PACK_ICON[it.cls];
   if(f){ var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
-  try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon){ var ic = BohemiaMaterials.itemIcon(it, px || 22); ic.dataset.id = it.id; return ic; } }catch(e){}
+  try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon){ var ic = BohemiaMaterials.itemIcon(it, px || 26); ic.dataset.id = it.id; return ic; } }catch(e){}
   var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; g.style.fontSize = '15px'; g.style.color = 'var(--gold)'; return g;
 }
+/* an item's words for the line: a gun's reach is the fight's (armLine), never the market's 'reach n' beside it (RUN TWO 10/22:
+   'the row's own number would contradict it'); a long gun says so */
+function numsText(it){ var al = it.kind === 'weapon' && armLine(it, true), t = String(it.nums || '').replace(/\s+2 hands/i, '');
+  if(al){ t = t.replace(/\s+reach \d+/, '') + '. ' + al.reach + (al.rounds ? '. ' + al.rounds : ''); }
+  return t + (C.twoHanded(it) ? '. TWO HANDS' : ''); }
 function fits(it, slot){ if(!it) return false; if(BAG_GEAR.indexOf(slot) >= 0) return it.kind === 'weapon' || it.kind === 'shield'; return C.slotFor(it) === slot; }
+/* AN ITEM'S ONE NUMBER, and whether it beats what he wears there: a weapon its damage (the middle of its roll), armour, a head
+   and a shield what it holds. Read from the item's own words (nums), the same the market prints. */
+function numsOf(it){ var s = String(it && it.nums || ''), d = s.match(/dmg\s+(\d+)\s*-\s*(\d+)/), h = s.match(/holds\s+(\d+)/), w = s.match(/weight\s+(\d+)/);
+  return { lo: d ? +d[1] : null, hi: d ? +d[2] : null, holds: h ? +h[1] : null, weight: w ? +w[1] : 0 }; }
+function worth(it){ if(!it) return 0; var n = numsOf(it); return it.kind === 'weapon' ? ((n.lo || 0) + (n.hi || 0)) / 2 : (n.holds || 0); }
+function face(it){ var n = numsOf(it); return it.kind === 'weapon' ? (n.lo != null ? n.lo + '-' + n.hi : '') : (n.holds != null ? String(n.holds) : ''); }
+function slotOf(it){ return S.pick && S.pick.man === S.sel && fits(it, S.pick.slot) ? S.pick.slot : C.slotFor(it); }
+function delta(it, m){ var s = slotOf(it), cur = m && m.gear[s]; return Math.round(worth(it) - worth(cur)); }
 /* he says his line with the face on the line, once each time he is picked */
 function talkOnLine(){
   if(S.talked === S.sel) return; S.talked = S.sel;
   var m = S.crew[S.sel], F = window.BohemiaCrewFaces; if(!m || !S.line || !F) return;
   var c = document.querySelector('.cell[data-man="' + S.sel + '"] canvas.head');
   if(c && c.dataset.face === 'fresh') F.talk(c, m.look, S.line);
-}
-/* his page opens under the line: if it is below the glass, the screen brings it up (the line stays in sight above it) */
-function reveal(){
-  var c = document.getElementById('card'); if(!c || !c.getBoundingClientRect) return;
-  var r = c.getBoundingClientRect(), h = window.innerHeight || 800;
-  if(r.top > h * 0.72) window.scrollBy({top: r.top - h * 0.42, behavior: 'smooth'});
-}
-function togglePick(i, s){
-  if(S.pick && S.pick.man === i && S.pick.slot === s){ S.pick = null; draw(); return; }
-  S.pick = {man:i, slot:s}; S.sel = i; S.picking = false; draw();
-  var m = S.crew[i], n = S.bag.filter(function(it){ return fits(it, s); }).length;
-  var tw = s === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' A shield puts the ' + shortName(m.gear.main) + ' in the bag.' : '';   /* __TWO_HANDS__ */
-  if(!n) say('Nothing in the bag goes on ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '.' + (m.gear[s] ? ' TAKE OFF puts his back in the bag.' : '') + (s === 'off' && tw ? ' His hands are on the ' + shortName(m.gear.main) + '.' : ''));
-  else say(n + ' in the bag ' + (n === 1 ? 'fits' : 'fit') + ' ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '. Tap one and they swap.' + tw);
-}
-/* the bag, cut to what fits the slot he tapped; a tap swaps */
-function pickerFor(m, i, s){
-  var p = document.createElement('div'); p.id = 'picker'; p.dataset.slot = s; var any = false;
-  S.bag.forEach(function(it, bi){
-    if(!fits(it, s)) return; any = true;
-    var t = document.createElement('button'); t.className = 'slot full'; t.dataset.pick = bi; t.setAttribute('aria-label', it.name);
-    t.appendChild(itemPic(it, 22)); var n = document.createElement('span'); n.textContent = shortName(it); t.appendChild(n);
-    var e2 = document.createElement('em'); e2.textContent = String(it.nums || '').replace(/\s+2 hands/i, '') + (C.twoHanded(it) ? '  2 HANDS' : ''); e2.style.fontSize = '7px'; e2.style.color = 'var(--dim)'; t.appendChild(e2);   /* __TWO_HANDS__ */
-    t.addEventListener('click', function(){ S.sel = i; S.pick = null; equip(bi, s); });
-    p.appendChild(t);
-  });
-  if(m.gear[s]){ var off = document.createElement('button'); off.className = 'slot off'; off.dataset.pick = 'off'; off.textContent = 'TAKE OFF';
-    off.addEventListener('click', function(){ S.sel = i; S.pick = null; unequip(s); }); p.appendChild(off); }
-  if(!any){ var no = document.createElement('span'); no.className = 'none'; no.textContent = 'Nothing in the bag fits.'; p.appendChild(no); }
-  return p;
 }
 function stars(n){ return n ? '★'.repeat(n) : ''; }
 /* the crew's one bill, as the map takes it and the hall's card says it */
@@ -441,134 +475,223 @@ function lineOf(m){
     used[l] = 1; if(x === m){ out = l; return true; } return false; });
   return out || m.pain;
 }
+/* one of his slots around him: its name in the corner, what he wears (icon and its one number), or the dash */
+function slotEl(m, sl){
+  var it = m.gear[sl], both = m.gear.main && C.twoHanded(m.gear.main), d = document.createElement('div');
+  var flat = sl === 'ammo' || sl === 'acc';
+  d.className = 'gslot' + (it ? ' full' : '') + (sl === 'off' && both ? ' both' : '') + (S.pick && S.pick.man === S.sel && S.pick.slot === sl ? ' pick' : '') + (flat ? ' flat' : '');
+  d.dataset.slot = sl; if(!flat){ d.dataset.drop = 'gear:' + sl; d.setAttribute('role', 'button'); }
+  d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': ' + (it ? it.name : 'empty'));
+  var lab = document.createElement('i'); lab.textContent = SLOT_NAME[sl]; d.appendChild(lab);
+  if(sl === 'ammo'){   /* what his gun holds going in */
+    var al0 = m.gear.main && armLine(m.gear.main, false);
+    if(al0 && al0.rounds){ var ri = document.createElement('img'); ri.className = 'pk'; ri.alt = ''; ri.src = 'market_icons/s_rounds.png'; d.appendChild(ri);
+      var rb = document.createElement('b'); rb.className = 'arm rd'; rb.textContent = al0.rounds; d.appendChild(rb); d.classList.add('full'); }
+    else { var e0 = document.createElement('b'); e0.className = 'v'; e0.textContent = '—'; d.appendChild(e0); }
+    return d;
+  }
+  if(it){ var pic = itemPic(it, 26); pic.classList.add('bm-icon'); pic.dataset.id = it.id; d.appendChild(pic);   /* the kit's own icon mark, so the paint layer never adds a second */
+    var al = (sl === 'main' || (BAG_GEAR.indexOf(sl) >= 0 && it.kind === 'weapon')) && armLine(it, false);
+    var v = document.createElement('b'); v.className = al ? 'arm' : 'v'; if(al) v.dataset.reach = al.reach; v.textContent = al ? al.reach : face(it); d.appendChild(v);
+    d.dataset.drag = 'gear:' + sl; }
+  else if(sl === 'off' && both){ var gp = itemPic(m.gear.main, 26); gp.classList.remove('bm-icon'); gp.classList.add('ghost'); d.appendChild(gp);
+    var bh = document.createElement('b'); bh.className = 'v'; bh.textContent = 'BOTH HANDS'; d.appendChild(bh);
+    d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': both hands on the ' + shortName(m.gear.main)); }
+  else { var e = document.createElement('b'); e.className = 'v'; e.textContent = '—'; d.appendChild(e); }
+  /* the comparison lands on the slot it would go in, before the second tap */
+  var c = S.cmp != null ? S.bag[S.cmp] : (S.hover != null ? S.bag[S.hover] : null);
+  if(c && slotOf(c) === sl){ d.classList.add('cmp'); var dv = delta(c, m), em = document.createElement('em'); em.className = 'd ' + (dv > 0 ? 'up' : dv < 0 ? 'dn' : ''); em.textContent = (dv > 0 ? '+' : '') + dv; d.appendChild(em); }
+  d.addEventListener('click', function(){ if(S.dragged) return; tapSlot(sl); });
+  d.addEventListener('contextmenu', function(e){ e.preventDefault(); if(m.gear[sl] && !flat){ S.pick = null; unequip(sl); } });   /* a computer: right-click takes it off, Battle Brothers' own */
+  return d;
+}
+/* tap his slot: the stash is cut to what fits it; tap it again and what he wears there comes off */
+function tapSlot(sl){
+  var m = S.crew[S.sel]; if(!m) return; S.cmp = null; S.ask = null;
+  if(sl === 'acc'){ S.pick = null; say('Nothing in the valley goes on an accessory yet.'); draw(); return; }
+  if(sl === 'ammo'){ S.pick = null; var a = m.gear.main && armLine(m.gear.main, true); say(a && a.rounds ? m.name + "'s " + shortName(m.gear.main) + ': ' + a.rounds + '.' : m.name + ' carries no gun that loads.'); draw(); return; }
+  if(S.pick && S.pick.man === S.sel && S.pick.slot === sl){ S.pick = null; if(m.gear[sl]){ unequip(sl); return; } draw(); return; }
+  S.pick = {man:S.sel, slot:sl}; S.tab = 'all';
+  var n = S.bag.filter(function(it){ return fits(it, sl); }).length, it = m.gear[sl];
+  var tw = sl === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' A shield puts the ' + shortName(m.gear.main) + ' in the stash.' : '';   /* __TWO_HANDS__ */
+  say((it ? '<b>' + esc(shortName(it).toUpperCase()) + '</b> ' + esc(numsText(it)) + '. ' : esc(m.name + "'s " + SLOT_NAME[sl].toLowerCase() + ' is empty. ')) +
+      esc(n ? n + ' in the stash ' + (n === 1 ? 'fits' : 'fit') + '.' : 'Nothing in the stash fits.') + (it ? ' Tap the slot again to take it off.' : '') + esc(tw), true);
+  draw();
+}
 function drawCard(){
   var el = document.getElementById('card'); el.textContent = '';
   var m = S.crew[S.sel]; if(!m) return;
-  /* __ONE_CREW_SCREEN__: his page is his whole body; his face is the one on the line (a man with no model yet keeps his face here) */
-  var top = document.createElement('div'); top.className = 'top'; var rb = rigBody(m, S.sel); top.appendChild(rb || faceCanvas(m));
-  var t = document.createElement('div');
-  t.innerHTML = '<div class="nm"></div><div class="sub"></div><div class="pain"></div>';
-  t.querySelector('.nm').textContent = m.name;
+  /* WHO HE IS, on one line: his name, his trade, his level, his wage, his XP; DISMISS on the right (never on YOU) */
+  var who = document.createElement('div'); who.className = 'who';
+  var id = document.createElement('div'); id.className = 'id';
+  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = m.name; id.appendChild(nm);
   /* EYES [eyes: you the companion] and [eyes: two cards disagree] (rule 150): YOU are the leader, no wage and no 'companion';
-     nobody wears a raw '(2HAND)'; what a man costs is what the map takes at nightfall and the hall's card says, 'n a night'
-     (records/target/bb/nightly_bill.json, the crew's one bill), never the wiki's daily wage */
-  t.querySelector('.sub').textContent = (m.main ? 'THE LEADER' : C.bgName(m.bgId, m.background).toUpperCase()) + '   LEVEL ' + m.level + (m.main ? '' : '   ' + nightOf(m) + (nightOf(m) === 1 ? ' BATTERY A NIGHT' : ' BATTERIES A NIGHT'));   /* UI [eyes: four spellings], rule 150: the money is spelled one way */
-  if(m.trait){ var tt = document.createElement('div'); tt.className = 'trait'; tt.dataset.trait = m.trait.id; tt.textContent = m.trait.name.toUpperCase() + '  ' + (m.trait.says || '') + '  ' + (m.trait.line || ''); t.insertBefore(tt, t.querySelector('.pain')); }   /* his one trait, as on the card he was hired from */
+     what a man costs is what the map takes at nightfall, 'n a night' (records/target/bb/nightly_bill.json), never the wiki's daily wage */
+  var sub = document.createElement('div'); sub.className = 'sub';
+  sub.textContent = (m.main ? 'THE LEADER' : C.bgName(m.bgId, m.background).toUpperCase()) + '  LEVEL ' + m.level + (m.main ? '' : '  ' + nightOf(m) + (nightOf(m) === 1 ? ' BATTERY A NIGHT' : ' BATTERIES A NIGHT'));   /* RUN TWO __THE_HIRED_ARE_PAID__: his food and his pay */   /* UI [eyes: four spellings], rule 150: the money is spelled one way */
   var a0 = C.xpFor(m.level), a1 = C.xpFor(m.level + 1), xb = document.createElement('div'); xb.className = 'xpbar'; xb.title = m.xp + ' / ' + a1 + ' XP';
   var xi = document.createElement('i'); xi.style.width = Math.max(0, Math.min(100, (m.xp - a0) / Math.max(1, a1 - a0) * 100)) + '%'; xb.appendChild(xi);
-  t.querySelector('.sub').appendChild(xb);
+  sub.appendChild(xb); id.appendChild(sub);
+  if(m.trait){ var tt = document.createElement('div'); tt.className = 'trait'; tt.dataset.trait = m.trait.id; tt.textContent = m.trait.name.toUpperCase() + '  ' + (m.trait.says || '') + '  ' + (m.trait.line || ''); id.appendChild(tt); }   /* his one trait, as on the card he was hired from */
   var pl = m.mark && window.BohemiaLongInjury ? BohemiaLongInjury.painLine(m.mark.id) : null;
-  t.querySelector('.pain').textContent = '“' + (pl || lineOf(m)) + '”';
+  var pn = document.createElement('div'); pn.className = 'pain'; pn.textContent = '“' + (pl || lineOf(m)) + '”'; id.appendChild(pn);
   S.line = pl || lineOf(m);   /* he says it with the face on the line (talkOnLine) */
-  top.appendChild(t); el.appendChild(top);
-  var st = document.createElement('div'); st.className = 'stats';
-  C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.textContent = C.STAT_NAME[k];
-    var v = document.createElement('span'); v.textContent = m.stats[k]; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
-    if(m.gained && m.gained[k]){ var gn = document.createElement('span'); gn.className = 'gain'; gn.textContent = '+' + m.gained[k]; v.appendChild(gn); }
-    r.appendChild(a); r.appendChild(v); r.dataset.stat = k; st.appendChild(r); });
-  el.appendChild(st);
-  /* __HIS_LEVEL_UP__ (VAMILY rule 162(a), Paolo 10/24: 'in Battle Brothers you had to really prioritise when you levelled,
-     min-max a killer group who barely get hit and whose hits always land'; RUN TWO [the end of the fight, the loot, the stash]
-     round 2). A level waiting on him shows all eight stats with what each rolled on his stars; he taps the ones he wants
-     (as many as the level gives, engine/bohemia_roster.js raise) and RAISE THEM puts them on him; the perk is its own pick. */
+  who.appendChild(id);
+  /* ==== __A_DISMISS_BUTTON__ (rule 171, Paolo 10/25: 'there's not a dismiss button, bro, what if I want to dismiss people').
+     One button, one confirm; YOU have none (the third votes: the main character never dies, and never leaves). ==== */
+  if(!m.main && !m.dead){
+    if(S.ask === S.sel){ var ak = document.createElement('div'); ak.className = 'ask'; var q = document.createElement('b'); q.textContent = 'LET ' + m.name.split(' ')[0] + ' GO?'; ak.appendChild(q);
+      var rw = document.createElement('div'); rw.className = 'row';
+      var yes = document.createElement('button'); yes.type = 'button'; yes.id = 'letgo'; yes.textContent = 'YES'; yes.addEventListener('click', function(){ dismiss(S.sel); }); rw.appendChild(yes);
+      var no = document.createElement('button'); no.type = 'button'; no.id = 'keep'; no.textContent = 'KEEP HIM'; no.addEventListener('click', function(){ S.ask = null; say(''); drawCard(); }); rw.appendChild(no);
+      ak.appendChild(rw); who.appendChild(ak); }
+    else { var db = document.createElement('button'); db.type = 'button'; db.id = 'dismiss'; db.dataset.act = 'dismiss'; db.textContent = 'DISMISS';
+      db.addEventListener('click', function(){ S.ask = S.sel; S.cmp = null; S.pick = null; var g = gearOf(m);
+        say(m.name + ' takes his pay and walks.' + (g.length ? ' His ' + g.map(function(x){ return shortName(x.it); }).join(', ') + ' come' + (g.length === 1 ? 's' : '') + ' back to the stash.' : '') + ' His wage stops.'); draw(); });
+      who.appendChild(db); }
+  }
+  el.appendChild(who);
+  /* THE PAPER DOLL: HEAD, MAIN HAND, BODY on his right; ACCESSORY, OFF HAND, AMMO on his left; his body between; his bag under him */
+  var doll = document.createElement('div'); doll.className = 'doll';
+  var L = document.createElement('div'); L.className = 'side gear'; ['head','main','body'].forEach(function(sl){ L.appendChild(slotEl(m, sl)); });
+  var M = document.createElement('div'); M.className = 'mid'; var rb = rigBody(m, S.sel); if(!rb){ rb = faceCanvas(m); rb.classList.add('big'); } M.appendChild(rb);
+  var gb = document.createElement('div'); gb.className = 'bagrow gear bags'; gb.id = 'bags'; BAG_GEAR.forEach(function(sl){ gb.appendChild(slotEl(m, sl)); }); M.appendChild(gb);
+  var R = document.createElement('div'); R.className = 'side gear'; ['acc','off','ammo'].forEach(function(sl){ R.appendChild(slotEl(m, sl)); });
+  doll.appendChild(L); doll.appendChild(M); doll.appendChild(R); el.appendChild(doll);
+  /* HIS NUMBERS, or, while a level waits on him, the numbers ARE the level-up (Battle Brothers' plus on each bar) */
   var rl = (m.rolls || [])[0];
-  if(rl){ var lu = document.createElement('div'); lu.className = 'levelup'; lu.id = 'levelup';
-    var hh = document.createElement('b'); hh.textContent = 'LEVEL ' + rl.level + ': RAISE ' + rl.pick + ' OF 8' + ((m.rolls.length > 1) ? '  (' + m.rolls.length + ' LEVELS WAITING)' : ''); lu.appendChild(hh);
+  if(rl){
+    /* __HIS_LEVEL_UP__ (VAMILY rule 162(a), Paolo 10/24: 'in Battle Brothers you had to really prioritise when you levelled'): all
+       eight stats with what each rolled on his stars; three taps and RAISE THEM (engine/bohemia_roster.js raise); the perk is
+       its own tap after, on the PERK tab beside him */
+    var lu = document.createElement('div'); lu.className = 'levelup'; lu.id = 'levelup';
     if(!S.raise || S.raise.man !== m.name || S.raise.level !== rl.level) S.raise = {man:m.name, level:rl.level, keys:[]};
+    var left = rl.pick - S.raise.keys.length;
+    var hh = document.createElement('b'); hh.textContent = 'LEVEL ' + rl.level + ': PICK ' + rl.pick + ' TO RAISE' + ((m.rolls.length > 1) ? '  (' + m.rolls.length + ' LEVELS WAITING)' : ''); lu.appendChild(hh);
     var lg = document.createElement('div'); lg.className = 'lugrid';
     C.STATS.forEach(function(k){ var b = document.createElement('button'); b.type = 'button'; b.dataset.raise = k; b.className = S.raise.keys.indexOf(k) >= 0 ? 'on' : '';
-      var n1 = document.createElement('span'); n1.textContent = C.STAT_NAME[k]; b.appendChild(n1);
-      var n2 = document.createElement('b'); n2.textContent = '+' + rl.gains[k]; b.appendChild(n2);
+      /* the same chip as his number (the icon, the number), with what it rolled in green and its name small under it */
+      var n1 = document.createElement('span'); n1.setAttribute('aria-label', C.STAT_NAME[k]); b.appendChild(n1);
+      var n0 = document.createElement('span'); n0.className = 'v'; n0.textContent = m.stats[k]; var n2 = document.createElement('b'); n2.textContent = '+' + rl.gains[k]; n0.appendChild(n2); b.appendChild(n0);
+      var nn = document.createElement('small'); nn.textContent = C.STAT_NAME[k]; b.appendChild(nn);
       if(m.stars[k]){ var n3 = document.createElement('i'); n3.textContent = stars(m.stars[k]); b.appendChild(n3); }
-      b.addEventListener('click', function(){ var ks = S.raise.keys, i = ks.indexOf(k); if(i >= 0) ks.splice(i, 1); else { if(ks.length >= rl.pick) ks.shift(); ks.push(k); } drawCard(); });
+      b.addEventListener('click', function(){ var ks = S.raise.keys, i = ks.indexOf(k); if(i >= 0) ks.splice(i, 1); else { if(ks.length >= rl.pick) ks.shift(); ks.push(k); }
+        var l2 = rl.pick - ks.length; say(C.STAT_NAME[k] + (ks.indexOf(k) >= 0 ? ' +' + rl.gains[k] + '.' : ' left as it is.') + (l2 > 0 ? ' Pick ' + l2 + ' more.' : ' RAISE THEM puts them on him.')); drawCard(); });
       lg.appendChild(b); });
     lu.appendChild(lg);
-    var go = document.createElement('button'); go.type = 'button'; go.className = 'pick'; go.id = 'raise'; var left = rl.pick - S.raise.keys.length;
+    var go = document.createElement('button'); go.type = 'button'; go.className = 'pick'; go.id = 'raise';
     go.textContent = left > 0 ? 'PICK ' + left + ' MORE' : 'RAISE THEM'; go.disabled = left > 0;
     go.addEventListener('click', function(){ var got = C.raise(m, S.raise.keys); if(!got) return; m.gained = got; S.raise = null; saveClimb(); post('raise', {who:m.name, stats:got}); sfx('equip');
-      say(m.name + ': ' + Object.keys(got).map(function(k){ return C.STAT_NAME[k] + ' +' + got[k]; }).join(', ') + '.'); drawCard(); });
-    lu.appendChild(go); el.appendChild(lu); }
-  var g = document.createElement('div'); g.className = 'gear';
-  var both = m.gear.main && C.twoHanded(m.gear.main);   /* __TWO_HANDS__: the off hand is the long gun's too */
-  var slotEl = function(sl){
-    var it = m.gear[sl], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : '') + (sl === 'off' && both ? ' both' : '') + (S.pick && S.pick.man === S.sel && S.pick.slot === sl ? ' pick' : '');
-    d.dataset.drop = 'gear:' + sl; d.dataset.slot = sl; d.setAttribute('role', 'button'); d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': ' + (it ? it.name : 'empty'));
-    var lab = document.createElement('i'); lab.textContent = SLOT_NAME[sl]; d.appendChild(lab);
-    if(it){ var pic = itemPic(it, 22); pic.classList.add('bm-icon'); pic.dataset.id = it.id; d.appendChild(pic);   /* the kit's own icon mark, so the paint layer never adds a second */
-      var nm = document.createElement('div'); nm.className = 'gn'; nm.textContent = it.name; d.appendChild(nm); var al = (sl === 'main' || (BAG_GEAR.indexOf(sl) >= 0 && it.kind === 'weapon')) && armLine(it, true);
-      var n2 = document.createElement('i'); n2.textContent = String(al ? String(it.nums).replace(/\s+reach \d+/, '') : it.nums).replace(/\s+2 hands/i, ''); d.appendChild(n2); d.dataset.drag = 'gear:' + sl;   /* the reach is his arm's in the fight, below; the row's own number would contradict it */
-      if(al){ var ar = document.createElement('b'); ar.className = 'arm'; ar.dataset.reach = al.reach; ar.textContent = al.reach; d.appendChild(ar);
-        if(al.rounds){ var rd = document.createElement('b'); rd.className = 'arm rd'; rd.textContent = al.rounds; d.appendChild(rd); } } }
-    else if(sl === 'off' && both){ var gp = itemPic(m.gear.main, 22); gp.classList.remove('bm-icon'); gp.classList.add('ghost'); d.appendChild(gp); var bh = document.createElement('div'); bh.className = 'gn'; bh.textContent = 'BOTH HANDS'; d.appendChild(bh);
-      d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[sl] + ': both hands on the ' + shortName(m.gear.main)); }
-    else { var e = document.createElement('div'); e.textContent = '—'; d.appendChild(e); }
-    if(sl === 'main' && it && C.twoHanded(it)){ var two = document.createElement('i'); two.className = 'hands'; two.textContent = 'TWO HANDS'; d.appendChild(two); }
-    d.addEventListener('click', function(){ if(S.dragged) return; togglePick(S.sel, sl); });   /* the bag, cut to what fits, opens here */
-    return d;
-  };
-  ['main','off','body','head'].forEach(function(sl){ g.appendChild(slotEl(sl)); });
-  el.appendChild(g);
-  /* __TWO_BAG_SLOTS__: his two bag slots, under his hands */
-  var gb = document.createElement('div'); gb.className = 'gear bags'; gb.id = 'bags';
-  BAG_GEAR.forEach(function(sl){ gb.appendChild(slotEl(sl)); });
-  var bh = document.createElement('div'); bh.className = 'bagh'; bh.textContent = 'HIS BAG: A SECOND WEAPON OR A SHIELD, CARRIED INTO THE FIGHT'; gb.appendChild(bh);
-  el.appendChild(gb);
-  if(S.pick && S.pick.man === S.sel) el.appendChild(pickerFor(m, S.sel, S.pick.slot));
+      if(m.points > 0) S.tab = 'perk';   /* the perk is next: its tab opens itself */
+      say(m.name + ': ' + Object.keys(got).map(function(k){ return C.STAT_NAME[k] + ' +' + got[k]; }).join(', ') + '.' + (m.points > 0 ? ' Now one perk.' : '')); draw(); });
+    lu.appendChild(go); el.appendChild(lu);
+  } else {
+    var st = document.createElement('div'); st.className = 'stats';
+    C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.setAttribute('aria-label', C.STAT_NAME[k]);
+      var v = document.createElement('span'); v.textContent = m.stats[k]; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
+      if(m.gained && m.gained[k]){ var gn = document.createElement('span'); gn.className = 'gain'; gn.textContent = '+' + m.gained[k]; v.appendChild(gn); }
+      r.appendChild(a); r.appendChild(v); r.dataset.stat = k; r.title = C.STAT_NAME[k]; r.setAttribute('role', 'button');
+      r.addEventListener('click', function(){ say(C.STAT_NAME[k] + ' ' + m.stats[k] + (m.stars[k] ? ', ' + m.stars[k] + (m.stars[k] === 1 ? ' star' : ' stars') + ': it climbs faster' : '') + '. ' + (STAT_SAYS[k] || '')); });
+      st.appendChild(r); });
+    el.appendChild(st);
+  }
   if(m.mark){ var hb = document.createElement('div'); hb.className = 'hurtbox';
     var h1 = document.createElement('b'); h1.textContent = laid(m) ? 'LAID UP ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
     var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + m.mark.name.toUpperCase() + (m.mark.line ? ', ' + m.mark.line : ''); hb.appendChild(h2);
     if(laid(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; h3.textContent = 'The clinic halves it for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
     el.appendChild(hb); }
-  var pk = document.createElement('div'); pk.className = 'perks';
-  pk.textContent = m.perks.length ? 'PERKS: ' + m.perks.map(C.perkName).join(', ') : 'PERKS: none yet. Level 2 picks the first one.';
-  el.appendChild(pk);
-  /* A PERK POINT TO SPEND: Battle Brothers' tiers, the next tier opens after each one taken */
-  if(m.points > 0){
-    var b = document.createElement('button'); b.className = 'pick'; b.id = 'pick';
-    b.textContent = 'PICK A PERK (' + m.points + ' TO SPEND)'; el.appendChild(b);
-    var pl = document.createElement('div'); pl.className = 'plist'; pl.style.display = S.picking ? 'grid' : 'none'; el.appendChild(pl);
-    b.addEventListener('click', function(){ S.picking = !S.picking; pl.style.display = S.picking ? 'grid' : 'none'; });
-    C.perkChoices(m).forEach(function(r){ var x = document.createElement('button'); x.dataset.perk = r.id;
-      x.textContent = r.name; var i2 = document.createElement('i'); i2.textContent = r.skin; x.appendChild(i2);
-      x.addEventListener('click', function(){ if(!C.takePerk(m, r.id)) return; S.picking = m.points > 0; saveClimb(); post('perk', {who:m.name, perk:r.id}); sfx('equip'); say(m.name + ' took ' + r.name + '.'); drawCard(); });
-      pl.appendChild(x); });
-  }
+  if(m.perks.length){ var pk = document.createElement('div'); pk.className = 'perks'; pk.textContent = 'PERKS: ' + m.perks.map(C.perkName).join(', '); el.appendChild(pk); }
 }
+/* what each number does, said when its icon is tapped (draft:true, WORDS owns the voice) */
+var STAT_SAYS = { hp: 'How much he takes before he drops.', fatigue: 'How long he swings and runs before he is spent.', resolve: 'How long he holds when it goes bad.',
+  initiative: 'Who moves first.', melee_skill: 'How often his swing lands.', ranged_skill: 'How often his shot lands.',
+  melee_defense: 'How often a swing at him misses.', ranged_defense: 'How often a shot at him misses.' };
+/* THE STASH BESIDE HIM: the tabs, then every piece with its one number, coloured against what he wears */
+var TABS = [['all', 'ALL'], ['weapons', 'WEAPONS'], ['armour', 'ARMOUR']];
+function inTab(it){ if(S.pick && S.pick.man === S.sel) return fits(it, S.pick.slot);
+  return S.tab === 'weapons' ? (it.kind === 'weapon' || it.kind === 'shield') : S.tab === 'armour' ? (it.kind === 'body' || it.kind === 'head') : true; }
 function drawBag(){
-  var sb = document.getElementById('sortbag'); if(sb) sb.style.display = S.bag.length > 1 && window.BohemiaBagSort ? '' : 'none';
-  document.getElementById('bagh').textContent = 'YOUR BAG  ' + S.bag.length + ' / ' + BAG_SLOTS + '   DRAG ONE ONTO A SLOT ABOVE, OR TAP IT AND HE PUTS IT ON';   /* EYES [the bag line], rule 150: the sentence ends */
+  var m = S.crew[S.sel], tb = document.getElementById('tabs'); tb.textContent = '';
+  var n = document.createElement('span'); n.className = 'n'; n.id = 'bagh'; n.textContent = 'STASH ' + S.bag.length + '/' + BAG_SLOTS; tb.appendChild(n);
+  var pickOn = S.pick && S.pick.man === S.sel;
+  if(m && m.points > 0){ var pb = document.createElement('button');   /* a point waiting is a perk to take, whatever levels still wait on his numbers (Battle Brothers: each level its three, then its perk) */ pb.type = 'button'; pb.id = 'pick'; pb.className = 'perk' + (S.tab === 'perk' ? ' on' : ''); pb.textContent = 'PERK';
+    pb.addEventListener('click', function(){ S.tab = 'perk'; S.pick = null; S.cmp = null; draw(); }); tb.appendChild(pb); }
+  TABS.forEach(function(t){ var b = document.createElement('button'); b.type = 'button'; b.dataset.tab = t[0]; b.textContent = t[1];
+    b.className = !pickOn && S.tab === t[0] ? 'on' : ''; b.addEventListener('click', function(){ S.tab = t[0]; S.pick = null; S.cmp = null; say(''); draw(); }); tb.appendChild(b); });
+  if(S.bag.length > 1 && window.BohemiaBagSort){ var sb = document.createElement('button'); sb.type = 'button'; sb.id = 'sortbag'; sb.textContent = 'SORT';
+    sb.addEventListener('click', function(){ S.bag = BohemiaBagSort.sort(S.bag); S.cmp = null; saveBag(); post('sort', {bag:S.bag.map(function(i){ return i.id; })}); say('Sorted: weapons, armour, heads, then the rest.'); draw(); }); tb.appendChild(sb); }   /* RUN TWO [the bag sorts] */
   var el = document.getElementById('bag'); el.textContent = '';
-  for(var i=0;i<BAG_SLOTS;i++){
-    var it = S.bag[i], b = document.createElement('div'); b.className = 'slot' + (it ? ' full' : '');
-    if(it){ var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g);
-      var n = document.createElement('span'); n.textContent = it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; b.appendChild(n);
-      b.dataset.drag = 'bag:' + i; b.setAttribute('aria-label', it.name);
-      (function(ix){ b.addEventListener('click', function(){ if(!S.dragged) equip(ix); }); })(i);
-      try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon){ var ic = BohemiaMaterials.itemIcon(it, 26); b.replaceChild(ic, g); } }catch(e){}
-    }
+  if(S.tab === 'perk' && m && m.points > 0 && !pickOn){ drawPerks(m, el); return; }
+  /* TAKE OFF first when his tapped slot holds something */
+  if(pickOn && m.gear[S.pick.slot]){ var off = document.createElement('button'); off.type = 'button'; off.className = 'slot off'; off.dataset.pick = 'off'; off.textContent = 'TAKE OFF';
+    off.addEventListener('click', function(){ var s = S.pick.slot; S.pick = null; unequip(s); }); el.appendChild(off); }
+  var shown = 0;
+  S.bag.forEach(function(it, i){
+    if(!inTab(it)) return; shown++;
+    var b = document.createElement('div'); b.className = 'slot full tile' + (S.cmp === i ? ' sel' : ''); b.dataset.bag = i; b.dataset.drag = 'bag:' + i; b.setAttribute('role', 'button'); b.setAttribute('aria-label', it.name);
+    var ip = itemPic(it, 30); ip.classList.add('bm-icon'); ip.dataset.id = it.id; b.appendChild(ip); var v = document.createElement('b'); v.textContent = face(it);   /* the kit's own icon mark: the paint layer never adds a second */
+    var dv = m ? delta(it, m) : 0; if(m && fits(it, slotOf(it))) v.className = dv > 0 ? 'up' : dv < 0 ? 'dn' : ''; b.appendChild(v);
+    b.addEventListener('click', function(){ if(S.dragged) return; tapItem(i); });
+    b.addEventListener('contextmenu', function(e){ e.preventDefault(); S.cmp = null; equip(i, slotOf(it)); });   /* a computer: right-click puts it on, Battle Brothers' own */
+    b.addEventListener('mouseenter', function(e){ if(S.cmp != null || (e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents)) return; S.hover = i; compareLine(it); paintCmp(); });
+    b.addEventListener('mouseleave', function(){ if(S.hover !== i) return; S.hover = null; if(S.cmp == null) say(''); paintCmp(); });
     el.appendChild(b);
-  }
+  });
+  if(!shown){ var no = document.createElement('div'); no.className = 'none'; no.textContent = S.bag.length ? 'Nothing here fits.' : 'The stash is empty. The market and the fights fill it.'; el.appendChild(no); }
 }
-/* he wears it; what he wore goes back in the bag */
+/* the comparison, in the one line: what it is, what he wears there now, the difference; and how to put it on */
+function compareLine(it){
+  var m = S.crew[S.sel]; if(!m || !it) return;
+  var s = slotOf(it), cur = m.gear[s], dv = delta(it, m);
+  var tw = s === 'main' && C.twoHanded(it) && m.gear.off ? ' Both hands: the ' + shortName(m.gear.off) + ' goes to the stash.' : s === 'off' && m.gear.main && C.twoHanded(m.gear.main) ? ' The ' + shortName(m.gear.main) + ' goes to the stash.' : '';
+  say('<b>' + esc(shortName(it).toUpperCase()) + '</b> ' + esc(numsText(it)) +
+      '<br>' + esc(m.name.split(' ')[0]) + "'S " + esc(SLOT_NAME[s]) + ': ' + (cur ? esc(shortName(cur)) + ' ' + esc(numsText(cur)) : 'nothing') +
+      ' <b class="' + (dv > 0 ? 'up' : dv < 0 ? 'dn' : '') + '">' + (dv > 0 ? '+' : '') + dv + '</b>' +
+      (S.cmp != null ? '  TAP IT AGAIN TO PUT IT ON.' : '') + esc(tw), true);
+}
+/* the slot the comparison lands on, without redrawing him (a mouse passing over the stash) */
+function paintCmp(){ var m = S.crew[S.sel]; if(!m) return; var c = S.cmp != null ? S.bag[S.cmp] : (S.hover != null ? S.bag[S.hover] : null), to = c ? slotOf(c) : null;
+  [].forEach.call(document.querySelectorAll('#card .gslot'), function(g){ var on = g.dataset.slot === to; g.classList.toggle('cmp', on); var em = g.querySelector('em.d'); if(em) em.remove();
+    if(on){ var dv = delta(c, m); em = document.createElement('em'); em.className = 'd ' + (dv > 0 ? 'up' : dv < 0 ? 'dn' : ''); em.textContent = (dv > 0 ? '+' : '') + dv; g.appendChild(em); } }); }
+/* ONE TAP SHOWS THE COMPARISON, THE SECOND PUTS IT ON */
+function tapItem(i){
+  var it = S.bag[i], m = S.crew[S.sel]; if(!it || !m) return; S.ask = null;
+  if(S.cmp === i){ S.cmp = null; equip(i, slotOf(it)); return; }
+  S.cmp = i; S.hover = null; draw(); compareLine(it);
+}
+/* the perks he may take now, on the PERK tab beside him: one tap takes it (its words are on the button) */
+function drawPerks(m, el){
+  var pl = document.createElement('div'); pl.className = 'plist'; pl.id = 'plist';
+  C.perkChoices(m).forEach(function(r){ var x = document.createElement('button'); x.type = 'button'; x.dataset.perk = r.id;
+    x.textContent = r.name; var i2 = document.createElement('i'); i2.textContent = r.skin; x.appendChild(i2);
+    x.addEventListener('click', function(){ if(!C.takePerk(m, r.id)) return; saveClimb(); post('perk', {who:m.name, perk:r.id}); sfx('equip');
+      if(!(m.points > 0)) S.tab = 'all'; say(m.name + ' took ' + r.name + '.' + (m.points > 0 ? ' ' + m.points + ' more to take.' : '')); draw(); });
+    pl.appendChild(x); });
+  el.appendChild(pl);
+}
+/* who does it, said right: 'You take', 'BOOKIE takes' */
+function doer(m, v){ return m.main ? 'You ' + v.replace(/s$/, '') : m.name + ' ' + v; }
+/* he wears it; what he wore goes back in the stash */
 function equip(bi, slot){
   var m = S.crew[S.sel], it = S.bag[bi]; if(!m || !it) return;
   var s = slot || C.slotFor(it);
   if(slot && !fits(it, slot)){ say(BAG_GEAR.indexOf(slot) >= 0 ? 'A bag slot holds a weapon or a shield.' : 'That does not go there.'); return; }
-  /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): a long gun takes both hands, so the shield goes to the bag; a shield in a
-     hand that holds a long gun sends the gun to the bag (Battle Brothers' way). Never past the bag's 36. */
+  /* __TWO_HANDS__ (RUN TWO [two hands], rule 149): a long gun takes both hands, so the shield goes to the stash; a shield in a
+     hand that holds a long gun sends the gun to the stash (Battle Brothers' way). Never past the stash's 36. */
   var freed = null;
   if(s === 'main' && C.twoHanded(it) && m.gear.off) freed = 'off';
   if(s === 'off' && m.gear.main && C.twoHanded(m.gear.main)) freed = 'main';
   var old = m.gear[s];
-  if(S.bag.length - 1 + (old ? 1 : 0) + (freed ? 1 : 0) > BAG_SLOTS){ say('Your bag is full.'); return; }
+  if(S.bag.length - 1 + (old ? 1 : 0) + (freed ? 1 : 0) > BAG_SLOTS){ say('Your stash is full.'); return; }
   var off = freed ? m.gear[freed] : null; if(freed) m.gear[freed] = null;
   /* a piece a man has worn is one you chose: SELL THE JUNK leaves it alone unless you let it go (RUN TWO 10/25, rule 164 item 18) */
   [it, old, off].forEach(function(x){ if(x && x.keep == null) x.keep = true; });
   m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old); if(off) S.bag.push(off);
+  S.cmp = null; S.hover = null; S.pick = null;
   saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); if(off) post('equip', {who:m.idx, name:m.name, slot:freed, item:null}); sfx('equip');
-  say(m.name + ' takes ' + it.name + (off ? (s === 'main' ? ' in both hands; ' : '; ') + off.name + ' goes in the bag.' : '.')); draw();
+  say(doer(m, 'takes') + ' the ' + shortName(it) + (off ? (s === 'main' ? ' in both hands; the ' : '; the ') + shortName(off) + ' goes in the stash.' : old ? '; the ' + shortName(old) + ' goes in the stash.' : '.')); draw();
 }
-/* __TWO_HANDS__: a man kept from before this rule with a long gun and a shield puts the shield in the bag */
+/* __TWO_HANDS__: a man kept from before this rule with a long gun and a shield puts the shield in the stash */
 function twoHandsKept(){
   var moved = 0;
   S.crew.forEach(function(m){ if(m.gear && m.gear.main && m.gear.off && C.twoHanded(m.gear.main) && S.bag.length < BAG_SLOTS){ S.bag.push(m.gear.off); m.gear.off = null; moved++; } });
@@ -577,16 +700,48 @@ function twoHandsKept(){
 }
 function unequip(slot){
   var m = S.crew[S.sel], it = m && m.gear[slot]; if(!it) return;
-  if(S.bag.length >= BAG_SLOTS){ say('Your bag is full.'); return; }
+  if(S.bag.length >= BAG_SLOTS){ say('Your stash is full.'); return; }
   if(it.keep == null) it.keep = true;   /* worn, so chosen: never sold as junk unless let go */
-  m.gear[slot] = null; S.bag.push(it); saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); sfx('equip'); say(m.name + ' puts down ' + it.name + '.'); draw();
+  m.gear[slot] = null; S.bag.push(it); S.cmp = null; S.pick = null; saveBag(); keep(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); sfx('equip'); say(doer(m, 'puts') + ' down the ' + shortName(it) + '. It is in the stash.'); draw();
 }
+/* ==== __A_DISMISS_BUTTON__ (rule 171). BATTLE BROTHERS' WAY FIRST (the wiki's Mood page, reference/library/grok/wiki/CORE_WIKITEXT.md:
+   'dismissed men without compensation' is one of the common moods that sink the rest of the company; the brother's gear stays
+   with the company, recall, Grok ask 41 to verify). OURS: the batteries are the money and this company has no mood yet, so
+   there is no payout to choose and nobody sulks; he takes his pay and walks. His gear comes back to the stash (what does not
+   fit in the 36 walks off on him, and the line says so); he is gone from the line, the fight's hand-over and the roster's
+   count; he goes in the map's walked list (bohemia.walked.v1, dismissed:true), the very list the nightly bill (crewCount), the
+   fight's door (__WHO_YOU_HIRE_FIGHTS__), the enemy's sizing (rosterMen) and the map's marker (mapCrewLooks) already read,
+   so his wage stops and he walks off the map; the phone's feed says it. ==== */
+function gearOf(m){ var out = []; ['main','off','body','head','bag1','bag2'].forEach(function(s){ if(m.gear && m.gear[s]) out.push({slot:s, it:m.gear[s]}); }); return out; }
+function upFind(name){ try{ for(var w = window, k = 0; w && k < 6; k++){ if(w[name]) return w[name];
+  var f = w.document && w.document.getElementById('cityFrame'); if(f && f.contentWindow && f.contentWindow[name]) return f.contentWindow[name];
+  if(w.parent === w) break; w = w.parent; } }catch(e){} return null; }
+function dismiss(i){
+  var m = S.crew[i]; if(!m || m.main) return false;
+  var back = [], kept = [], at = order().indexOf(i);
+  gearOf(m).forEach(function(g){ if(S.bag.length < BAG_SLOTS){ if(g.it.keep == null) g.it.keep = true; S.bag.push(g.it); back.push(g.it); } else kept.push(g.it); m.gear[g.slot] = null; });
+  /* the line loses him, and every index past his moves down one */
+  ['front','back'].forEach(function(row){ S[row] = S[row].map(function(ix){ return ix == null || ix === i ? null : ix > i ? ix - 1 : ix; }); });
+  S.crew.splice(i, 1);
+  try{ var w = JSON.parse(localStorage.getItem(WKEY) || '[]') || []; w.push({ name: m.name, look: m.look || null, hired: !!m.hired, dismissed: true, day: S.today || null });
+    localStorage.setItem(WKEY, JSON.stringify(w)); }catch(e){}
+  var o = order(); S.sel = o.length ? o[Math.min(o.length - 1, Math.max(0, at))] : 0;   /* the man who stood next to him in the strip */
+  S.ask = null; S.cmp = null; S.pick = null; S.raise = null; S.talked = null;
+  saveBag(); saveClimb(); saveForm();
+  var words = m.name + ' took his pay and walked.' + (back.length ? ' His ' + back.map(shortName).join(', ') + (back.length === 1 ? ' is' : ' are') + ' in the stash.' : '') + (kept.length ? ' The stash was full: he walked off in his ' + kept.map(shortName).join(', ') + '.' : '');   /* draft:true */
+  post('dismiss', {name:m.name, back:back.map(function(x){ return x.id; }), kept:kept.map(function(x){ return x.id; })}); sfx('equip');
+  try{ var F = upFind('BOHEMIA_FEED'); if(F && F.push) F.push({ who: '@thecrew', txt: m.name + ' is out. You let him go. ' + (back.length ? 'Left his gear.' : 'Took nothing.'), kind: 'mine', draft: true }); }catch(e){}   /* the phone's feed says it (draft:true) */
+  try{ var D = upFind('DAY'); if(D && D.happened) D.happened(m.name + ' was let go.', 'crew'); }catch(e){}
+  window.__DISMISSED = { name: m.name, back: back.length, kept: kept.length, n: (window.__DISMISSED ? window.__DISMISSED.n : 0) + 1 };
+  say(words); draw(); return true;
+}
+/* ==== end __A_DISMISS_BUTTON__ ==== */
 function moveMan(fromRow, fromI, toRow, toI){
   if(fromRow === 'hurt'){ var hm = S.crew[fromI]; say(hm.name + ' is laid up ' + hm.hurt.days + ' more days. He cannot stand in the line.'); post('refused', {who:hm.name}); return; }
   var a = S[fromRow][fromI], b = S[toRow][toI];
   S[toRow][toI] = a; S[fromRow][fromI] = b; saveForm(); say(S.crew[a].name + ' moves to the ' + toRow + '.'); draw();
 }
-/* ONE DRAG for everything: a man between the lines, an item from the bag onto a gear slot */
+/* ONE DRAG for everything: a man between the lines, an item from the stash onto a slot */
 (function(){
   var src = null, x0 = 0, y0 = 0, ghost = document.getElementById('ghost'), over = null;
   document.addEventListener('pointerdown', function(e){
@@ -607,7 +762,7 @@ function moveMan(fromRow, fromI, toRow, toI){
     if(!src) return; var s = src; src = null; ghost.style.display = 'none'; if(over) over.classList.remove('over');
     var p = s.split(':');
     if(!S.dragged){
-      if(p[0] === 'man'){ var was = S.sel; S.sel = p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]; if(S.sel !== was) S.pick = null; draw(); reveal(); }
+      if(p[0] === 'man') choose(p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]);
       return;
     }
     var t = document.elementFromPoint(e.clientX, e.clientY), dz = t && t.closest('[data-drop]');
@@ -617,6 +772,18 @@ function moveMan(fromRow, fromI, toRow, toI){
     else if(p[0] === 'bag' && q[0] === 'gear') equip(+p[1], q[1]);
   });
 })();
+/* A SWIPE ACROSS HIM IS THE NEXT MAN (rule 172(b), better than Battle Brothers on a phone): a finger that crosses him sideways
+   more than 48 points, and more sideways than down, steps through the line in the strip's order */
+var SWIPE = { x: 0, y: 0, on: false, moved: false };
+(function(){
+  var man = document.getElementById('man');
+  man.addEventListener('pointerdown', function(e){ if(e.target.closest('[data-drag],button')) return; SWIPE.on = true; SWIPE.moved = false; SWIPE.x = e.clientX; SWIPE.y = e.clientY; });
+  man.addEventListener('pointerup', function(e){ if(!SWIPE.on) return; SWIPE.on = false; var dx = e.clientX - SWIPE.x, dy = e.clientY - SWIPE.y;
+    if(Math.abs(dx) > 48 && Math.abs(dx) > 1.6 * Math.abs(dy)){ SWIPE.moved = true; setTimeout(function(){ SWIPE.moved = false; }, 0); step(dx < 0 ? 1 : -1); } });
+  man.addEventListener('pointercancel', function(){ SWIPE.on = false; });
+})();
+/* Escape (and the keys): take back the last tap: the dismiss question, the comparison, the cut stash; else nothing */
+function cancel(){ if(S.ask != null){ S.ask = null; say(''); draw(); return true; } if(S.cmp != null || S.pick){ S.cmp = null; S.pick = null; say(''); draw(); return true; } return false; }
 var LOADED = false;
 /* __THE_SPOILS__ (RUN TWO [the end of the fight, the loot, the stash], 10/24): a man comes in at the level his origin or the post
    gave him, with that level's XP and the perk points it earned unspent (Battle Brothers' recruits: a level a point to 11), so
@@ -649,7 +816,7 @@ function open(o){
       if(def.trait) m.trait = def.trait; if(Array.isArray(def.traits)) m.traits = def.traits.slice();   /* the trait he was hired with (RUN TWO [the trait before you hire], 10/24) */
       var g = def.gear || {};   /* he walks in wearing what he held at the post (RUN TWO [the hire shows the whole man], 10/24) */
       m.gear = {main:C.itemOf('weapon', g.main), off:null, body:C.itemOf('body', g.body), head:null}; S.crew.push(m); }); }catch(e){}
-  /* __WHO_YOU_HIRE_FIGHTS__: a man who walked is not on this screen (he stood on it, and in the fight's count, after he left) */
+  /* __WHO_YOU_HIRE_FIGHTS__: a man who walked (or was let go) is not on this screen */
   var wn = walkedNames(); if(wn.length) S.crew = S.crew.filter(function(m){ return m.main || wn.indexOf(m.name) < 0; });
   if(o.origin) S.origin = o.origin;
   if(o.day) S.today = o.day | 0;   /* the map's day, from the door: a laid-up man's days count by it */
@@ -664,13 +831,12 @@ function open(o){
   S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
   S.ready = true; draw();
   afterTheFights(); healToToday();
-  if(o.select){ var si = S.crew.findIndex(function(m){ return m.name === o.select; }); if(si >= 0){ S.sel = si; draw(); } }   /* __THE_SPOILS__: open on the man he tapped */
+  if(o.select){ var si = S.crew.findIndex(function(m){ return m.name === o.select; }); if(si >= 0) choose(si); }   /* __THE_SPOILS__: open on the man he tapped */
   keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
   if(Array.isArray(o.fight)) afterFight(o.fight);
 }
-window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed};
+window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
-document.getElementById('sortbag').addEventListener('click', function(){ if(!window.BohemiaBagSort) return; S.bag = BohemiaBagSort.sort(S.bag); saveBag(); post('sort', {bag:S.bag.map(function(i){ return i.id; })}); say('Sorted: weapons, armour, heads, then the rest.'); draw(); });   /* RUN TWO [the bag sorts] */
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
 C.load().then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });
 })();

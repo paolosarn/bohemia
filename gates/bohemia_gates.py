@@ -9696,6 +9696,11 @@ GATES = [
      "ECONOMY's six, left to right BATTERIES, FOOD, WATER, TAPE, MEDS, ROUNDS, each his pack's prop (set A of the card he voted UP 10/17), byte for byte; a supply stands only when the game counts it "
      "(the purse's own key or the map's BOH_SUPPLIES), never a dash or an invented number; in order and inside the glass on a phone and a computer; low water red; a hold shows the nights and the days food and water last; "
      "a string or NaN never stands; nothing thrown.", True),
+    ('THE COMPANY SCREEN, BATTLE BROTHERS SIMPLE', ['node', 'gates/the_company_screen_battle_brothers_simple_gate.js'],
+     "UI gate, 10/25, row [the company screen, Battle Brothers simple] carrying [a dismiss button] (rules 172 and 171, PAOLO 10/25: 'you're over complicating it, it's really hard to navigate your equipment, the levelling up'; 'what if I want to dismiss people'). "
+     "On a phone and a computer, through the crew door, on the stranger's state: fewer things on the screen than the 10/25 screen (132 open, 169 with a man picked) and inside this round's budget, one screen with no page to scroll; "
+     "the stranger's path (open the crew, the third man, the best armour, his level, dismiss the fifth) with every press on the glass and fewer taps than the 10/25 screen; one tap compares (the slot lit, the difference signed), the second (a right-click on a computer) puts it on; "
+     "the level-up in his numbers, three picks raise exactly those, the perk tab opens itself; DISMISS asks once, never on YOU, his gear to the stash, and the map's own bill, the enemy's sizing and the fight's door all leave him out; the feed says it; a swipe and Tab step the men; nothing thrown.", True),
     ('THE STAT ICONS', ['node', 'gates/the_stat_icons_gate.js'],
      "UI gate, 10/25, row [the PC playtest: the UI's part] (3) (rule 164 item 4, PAOLO 10/24 on his PC: 'we need awesome logos for everything... Battle Brothers has logos too, a heart, a shield'). "
      "Eight icons, one per stat, 72 x 72, each a lit solid read off its pixels (the sun's side brighter, many tones, an inked edge; a flat fill fails); the tool is seeded; "

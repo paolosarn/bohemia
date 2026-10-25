@@ -57,18 +57,26 @@ const srv = http.createServer((rq, rs) => {
   for (const i of men) {
     await p.locator('#lines .cell[data-man="' + i + '"]').first().click(); await p.waitForTimeout(120);
     rows.push(await p.evaluate(i => {
-      const S = BohemiaRosterScreen.state, m = S.crew[i], it = m && m.gear.main, a = it && BohemiaRoster.armOf(it), e = document.querySelector('#card .gslot[data-slot=main]');
-      const arm = e && e.querySelector('b.arm:not(.rd)'), rd = e && e.querySelector('b.arm.rd');
-      const box = e.getBoundingClientRect(), inside = [].slice.call(e.querySelectorAll('b.arm')).every(x => { const q = x.getBoundingClientRect(); return q.left >= box.left - 0.5 && q.right <= box.right + 0.5 && q.bottom <= box.bottom + 0.5 && x.scrollWidth <= x.clientWidth + 1; });
-      return { name: m && m.name, weapon: !!a, reach: arm && arm.textContent, rounds: rd && rd.textContent, wantRounds: !!(a && a.rounds), inside, text: e.innerText };
+      const S = BohemiaRosterScreen.state, m = S.crew[i], it = m && m.gear.main, a = it && BohemiaRoster.armOf(it), e = document.querySelector('#card .gslot[data-slot=main]'), am = document.querySelector('#card .gslot[data-slot=ammo]');
+      const arm = e && e.querySelector('b.arm:not(.rd)'), rd = am && am.querySelector('b.arm.rd');
+      const inBox = (x, el) => { const box = el.getBoundingClientRect(), q = x.getBoundingClientRect(); return q.left >= box.left - 0.5 && q.right <= box.right + 0.5 && q.bottom <= box.bottom + 0.5 && x.scrollWidth <= x.clientWidth + 1; };
+      const inside = (!arm || inBox(arm, e)) && (!rd || inBox(rd, am));
+      return { name: m && m.name, weapon: !!a, reach: arm && arm.textContent, rounds: rd && rd.textContent, wantRounds: !!(a && a.rounds), inside, text: document.getElementById('card').innerText };
     }, i));
+    /* his gun the long way: a tap on his main hand says it in the line */
+    if (rows[rows.length - 1].weapon) { await p.click('#card .gslot[data-slot="main"]'); await p.waitForTimeout(120);
+      rows[rows.length - 1].said = await p.evaluate(() => document.getElementById('said').textContent);
+      await p.evaluate(() => BohemiaRosterScreen.cancel()); await p.waitForTimeout(80); }   /* Escape's own take-back: a second tap would take the gun off */
   }
   const armed = rows.filter(x => x.weapon);
-  ok('every armed man\'s main slot, on his page, shows his reach in tiles', armed.length > 0 && armed.every(x => /^REACH \d+( TO \d+)? TILES?(, A CLUB AT 1)?$/.test(x.reach || '')), armed.map(x => x.reach).join(' | '));
-  ok('and the rounds his gun holds, when it holds any', armed.every(x => !!x.rounds === x.wantRounds), armed.map(x => x.rounds).join(','));
-  ok('a pistol reads REACH 2 TO 4 TILES and 5 ROUNDS, THEN RELOAD', armed.some(x => /^REACH 2 TO 4 TILES/.test(x.reach) && x.rounds === '5 ROUNDS, THEN RELOAD'));
+  /* RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple], rule 172): Battle Brothers' slots around him; the main hand
+     shows the reach short, the AMMO slot what the gun holds going in, and a tap on the main hand says it the long way in the
+     line (REACH 2 TO 4 TILES, A CLUB AT 1; 5 ROUNDS, THEN RELOAD) */
+  ok('every armed man\'s main slot, on his page, shows his reach in tiles', armed.length > 0 && armed.every(x => /^\d+(-\d+)? TILES?$/.test(x.reach || '')), armed.map(x => x.reach).join(' | '));
+  ok('and his AMMO slot the rounds his gun holds, when it holds any', armed.every(x => !!x.rounds === x.wantRounds), armed.map(x => x.rounds).join(','));
+  ok('a pistol reads 2-4 TILES and 5 RDS, and a tap says REACH 2 TO 4 TILES, A CLUB AT 1 and 5 ROUNDS, THEN RELOAD', armed.some(x => x.reach === '2-4 TILES' && x.rounds === '5 RDS' && /REACH 2 TO 4 TILES, A CLUB AT 1/.test(x.said || '') && /5 ROUNDS, THEN RELOAD/.test(x.said || '')), armed.map(x => x.said).filter(Boolean)[0]);
   ok('every line inside its slot on 390 x 844', armed.every(x => x.inside), armed.filter(x => !x.inside).map(x => x.name).join(','));
-  ok('his page says it with no second reach', armed.every(x => !/reach \d/.test(x.text)), armed.filter(x => /reach \d/.test(x.text)).map(x => x.name).join(','));
+  ok('his page and the line say it with no second reach', armed.every(x => !/reach \d/.test(x.text) && !/reach \d/.test(x.said || '')), armed.filter(x => /reach \d/.test(x.text + (x.said || ''))).map(x => x.name).join(','));
   ok('nothing threw', !errs.length, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();
   console.log('\nTHE GUNS ON THE CREW SCREEN: ' + pass + ' passed, ' + fail + ' failed');

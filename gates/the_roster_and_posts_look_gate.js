@@ -75,7 +75,7 @@ async function roster(profile) {
       const bg = s => { const e = document.querySelector(s); return e ? getComputedStyle(e).backgroundImage : ''; };
       return { vw: innerWidth, sw: document.scrollingElement.scrollWidth, dressed: document.documentElement.hasAttribute('data-bm-roster') && !!document.getElementById('bm-roster'),
         faces: fam('BohemiaCasing') && fam('BohemiaROM'), card: /url\(/.test(bg('#card')), stats: /url\(/.test(bg('#card .stats')), glass: /url\(/.test(bg('#card .gslot')), done: /url\(/.test(bg('#done')),
-        pressed: [['DONE', R(document.getElementById('done'))]].concat([...document.querySelectorAll('.cell')].map((e, i) => ['cell ' + i, R(e)]), [...document.querySelectorAll('#card .gslot')].map((e, i) => ['gear ' + i, R(e)]), [...document.querySelectorAll('#bag .slot')].map((e, i) => ['bag ' + i, R(e)])) };
+        pressed: [['DONE', R(document.getElementById('done'))]].concat([...document.querySelectorAll('.cell.full')].map((e, i) => ['cell ' + i, R(e)])   /* RE-AIMED UI 10/25: an empty place in the line is a drop spot, narrower, never a tap */, [...document.querySelectorAll('#card .gslot')].map((e, i) => ['gear ' + i, R(e)]), [...document.querySelectorAll('#bag .slot')].map((e, i) => ['bag ' + i, R(e)])) };
     });
     console.log('\n  -- ' + prof + ' ' + m.vw + ' wide\n');
     ok('THE COMPANY SCREEN WEARS THE MATERIALS (the card, the receipt, the glass, DONE on a receipt), the faces loaded', m.dressed && m.faces && m.card && m.stats && m.glass && m.done, JSON.stringify({ dressed: m.dressed, faces: m.faces, card: m.card, stats: m.stats, glass: m.glass, done: m.done }));
@@ -101,12 +101,13 @@ async function roster(profile) {
     const main = await p.evaluate(() => { const g = document.querySelector('#card .gslot[data-slot=main]'); g.scrollIntoView({ block: 'center' }); const r = g.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, id: BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel].gear.main.id }; });
     await p.touchscreen.tap(main.x, main.y); await p.waitForTimeout(400);
     /* ONE CREW SCREEN (RUN TWO, rule 147(b), 10/24): a tap on a slot opens the bag cut to it on his page; TAKE OFF is a real tap too */
-    const offB = await p.evaluate(() => { const b = document.querySelector('#card #picker .slot.off'); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    /* RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple]): the tapped slot cuts the stash beside him, TAKE OFF first */
+    const offB = await p.evaluate(() => { const b = document.querySelector('#bag .slot.off'); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     if (offB) await p.touchscreen.tap(offB.x, offB.y); await p.waitForTimeout(900);
-    const bag = await p.evaluate(() => { const S = BohemiaRosterScreen.state, i = S.bag.length - 1, sl = document.querySelectorAll('#bag .slot')[i]; return { n: S.bag.length, id: S.bag[i] && S.bag[i].id, icon: sl && sl.querySelector('.bm-icon') ? sl.querySelector('.bm-icon').dataset.id : null }; });
+    const bag = await p.evaluate(() => { const S = BohemiaRosterScreen.state, i = S.bag.length - 1, sl = document.querySelector('#bag .slot[data-bag="' + i + '"]'); return { n: S.bag.length, id: S.bag[i] && S.bag[i].id, icon: sl && sl.querySelector('.bm-icon') ? sl.querySelector('.bm-icon').dataset.id : null }; });
     ok('  a real finger takes his weapon off, and the bag\'s slot wears the same icon', bag.id === main.id && bag.icon === main.id, 'bag ' + bag.n + ', slot icon ' + bag.icon + ', item ' + bag.id);
     /* put it back so the page reads as he left it */
-    await p.evaluate(() => { const sl = document.querySelectorAll('#bag .slot'); sl[sl.length ? BohemiaRosterScreen.state.bag.length - 1 : 0].click(); }); await p.waitForTimeout(700);
+    await p.evaluate(() => { const q = () => document.querySelector('#bag .slot[data-bag="' + (BohemiaRosterScreen.state.bag.length - 1) + '"]'); q().click(); q().click(); }); await p.waitForTimeout(700);   /* one tap compares, the second puts it back on */
 
     /* ONE CREW SCREEN (RUN TWO, rule 147(b), 10/24): his page opens right under the line, so the words are measured where he
        reads them: the page just under the sticky bar (it sat under it after the slot was scrolled to the middle), and the
@@ -123,7 +124,7 @@ async function roster(profile) {
     });
     const cr1 = await contrasts(p, jobs);
     await p.evaluate(() => window.scrollTo(0, 0)); await p.waitForTimeout(300);
-    const jobs2 = await p.evaluate(() => { const h = document.querySelector('.h').getBoundingClientRect(); return [{ k: 'the head', box: [h.right - 14, h.top + 2, 8, Math.max(2, h.height - 4)], ink: getComputedStyle(document.querySelector('.h')).color, dark: true }]; });
+    const jobs2 = await p.evaluate(() => { const e = document.querySelector('#tabs .n'), h = e.getBoundingClientRect(); return [{ k: 'the stash\'s head', box: [h.right - 14, h.top + 2, 8, Math.max(2, h.height - 4)], ink: getComputedStyle(e).color, dark: true }]; });   /* RE-AIMED UI 10/25: the old line head is gone; the stash's head reads on the same ground */
     const cr = cr1.concat(await contrasts(p, jobs2));
     ok('EVERY WORD ON HIS PAGE PASSES 4.5 TO 1 ON WHAT IT SITS ON, PLAIN AND IN THE SUN', cr.length >= 8 && passes(cr), worst(cr) + ' | ' + show(cr));
 

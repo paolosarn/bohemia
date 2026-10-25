@@ -58,8 +58,10 @@ const srv = http.createServer((rq, rs) => {
   ok('  every face on the screen is PORTRAIT\'s fresh portrait and drawn, never a crop of a body; each man\'s face once', rig.n === rig.men && rig.rig === rig.n && rig.drawn === rig.n, rig.rig + ' fresh of ' + rig.n + ' for ' + rig.men + ' men, ' + rig.drawn + ' drawn');
   const card = await p.evaluate(() => { const c = document.getElementById('card'); return { stats: c.querySelectorAll('.stats > div').length, stars: c.querySelectorAll('.stars').length, gear: c.querySelectorAll('.gear:not(.bags) .gslot').length, bags: c.querySelectorAll('#bags .gslot').length,
     pain: (c.querySelector('.pain') || {}).textContent || '', sub: (c.querySelector('.sub') || {}).textContent || '', face: (() => { const f = c.querySelector('canvas.rbody, canvas.face'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, f.width, f.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
-  ok('a man\'s card: his whole body (his face is the one on the line), background, level, wage, eight stats, stars, four gear slots and his two bag slots (rule 164 item 15), one pain line',
-     card.face > 400 && card.stats === 8 && card.stars >= 1 && card.gear === 4 && card.bags === 2 && card.pain.length > 10 && /LEVEL 1/.test(card.sub) && /THE LEADER|BATTER(Y|IES) A NIGHT/.test(card.sub) && !/\(\dHAND\)/.test(card.sub),   /* the money spelled one way (UI [eyes: four spellings]); YOU the leader, the others the map's nightly bill (EYES [eyes: you the companion], [eyes: two cards disagree]) */
+  /* RE-AIMED UI 10/25 ([the company screen, Battle Brothers simple], rule 172): his slots are Battle Brothers' six around his body
+     (head, main hand, body; accessory, off hand, ammo), his two bag slots under him */
+  ok('a man\'s card: his whole body (his face is the one on the line), background, level, wage, eight stats, stars, six slots around him and his two bag slots (rule 164 item 15), one pain line',
+     card.face > 400 && card.stats === 8 && card.stars >= 1 && card.gear === 6 && card.bags === 2 && card.pain.length > 10 && /LEVEL 1/.test(card.sub) && /THE LEADER|BATTER(Y|IES) A NIGHT/.test(card.sub) && !/\(\dHAND\)/.test(card.sub),   /* the money spelled one way (UI [eyes: four spellings]); YOU the leader, the others the map's nightly bill (EYES [eyes: you the companion], [eyes: two cards disagree]) */
      card.sub + ' | stars on ' + card.stars + ' | ' + card.pain.slice(0, 40));
   /* drag a man from the front line to an empty back slot */
   const fr = await p.evaluate(() => { const s = BohemiaRosterScreen.state; return { i: s.front.findIndex(x => x != null), j: s.back.findIndex(x => x == null) }; });
@@ -83,9 +85,10 @@ const srv = http.createServer((rq, rs) => {
   ok('drag the rifle from the bag onto his main hand and he wears it', eq.main === 'solid rifle' && eq.post >= 1, who.name + ' now ' + eq.main);
   ok('  and what he carried goes back in the bag', !who.old || eq.bag.indexOf(who.old) >= 0, 'bag: ' + eq.bag.join(', '));
   await p.screenshot({ path: SHOT });
-  /* ONE CREW SCREEN (rule 147(b)): a tap on a slot opens the bag cut to it on his page, TAKE OFF among them */
+  /* ONE CREW SCREEN (rule 147(b)): a tap on a slot cuts the stash beside him to what fits it, TAKE OFF first among them
+     (RE-AIMED UI 10/25, rule 172: the stash is beside him, no picker inside his page) */
   await p.click('#card .gslot[data-slot="main"]'); await p.waitForTimeout(250);
-  await p.click('#card #picker .slot.off'); await p.waitForTimeout(250);
+  await p.click('#bag .slot.off'); await p.waitForTimeout(250);
   const off = await p.evaluate(() => { const s = BohemiaRosterScreen.state; return { main: s.crew[s.sel].gear.main, bag: s.bag.length }; });
   ok('tap a worn slot, then TAKE OFF, and it comes off into the bag', !off.main && off.bag >= 1, 'bag ' + off.bag);
   /* THE WARDROBE MAKES A SOUND (row [the soundscape], 10/9): 'equip' is already an approved,
@@ -93,7 +96,7 @@ const srv = http.createServer((rq, rs) => {
      above and the tap-off just above should each have posted it once, zero new content. */
   const sfxLog = await p.evaluate(() => (window.__rosterLog || []).filter(x => x.act === 'sfx' && x.ev === 'equip').length);
   ok('wearing gear and taking it off both play the already-approved equip sound', sfxLog === 2, sfxLog + ' equip sfx posts');
-  const sizes = await p.evaluate(() => [].slice.call(document.querySelectorAll('.cell, .gslot, #bag .slot, #done')).map(e => { const r = e.getBoundingClientRect(); return Math.min(r.width, r.height); }).filter(v => v < 44).length);
+  const sizes = await p.evaluate(() => [].slice.call(document.querySelectorAll('.cell.full, .gslot, #bag .slot, #done'))   /* an empty place in the line is a drop spot, narrower, never a tap (UI 10/25) */.map(e => { const r = e.getBoundingClientRect(); return Math.min(r.width, r.height); }).filter(v => v < 44).length);
   ok('every target is 44 on his phone', sizes === 0, sizes + ' small');
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();

@@ -44723,14 +44723,17 @@ function billPublish(){
 /* who walks: the newest hire first (he owes you least), then the company from the back; never YOU */
 function crewWhoWalks(){
   var w = crewWalked(), hired = []; try{ hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []; }catch(_e){}
-  var hiredGone = w.filter(function(x){ return x.hired; }).length, coGone = w.filter(function(x){ return !x.hired; }).length;
-  var hLeft = hired.length - hiredGone;
-  if(hLeft > 0){ var d = hired[hLeft - 1] || {}; return { name: String(d.name || 'THE NEW MAN'), look: d.look || null, hired: true }; }
-  var co = (LOOP.start && LOOP.start.company) || [], left = co.length - coGone;
-  if(left <= 1) return null;                              /* only he is left, and he never walks */
-  var i = left - 1, men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [];
-  var nm = (men[i] && men[i].name) || ('MAN ' + i); if(i >= men.length && men.length) nm = (men[i % men.length].name || 'MAN') + ' II';
-  return { name: String(nm), look: looks[i] || null, i: i };
+  /* UI 10/25 [a dismiss button] (rule 171): a man he LET GO is in the walked list too (dismissed:true), and he may not be the
+     newest hire or the back of the company, so the one who walks is picked BY NAME, never by count: the newest hire not gone,
+     then the company from the back not gone; a man already gone (walked, let go, taken, dead) never walks twice */
+  var gone = {}; w.forEach(function(x){ if(x && x.name) gone[x.name] = 1; });
+  try{ crewTaken().forEach(function(n){ gone[n] = 1; }); crewDead().forEach(function(n){ gone[n] = 1; }); }catch(_e){}
+  for(var h = hired.length - 1; h >= 0; h--){ var d = hired[h] || {}; if(d.name && !gone[d.name]) return { name: String(d.name), look: d.look || null, hired: true }; }
+  var co = (LOOP.start && LOOP.start.company) || [], men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [];
+  for(var i = co.length - 1; i >= 1; i--){                /* never i 0: he never walks */
+    var nm = (men[i] && men[i].name) || ('MAN ' + i); if(i >= men.length && men.length) nm = (men[i % men.length].name || 'MAN') + ' II';
+    if(!gone[nm]) return { name: String(nm), look: looks[i] || null, i: i }; }
+  return null;                                            /* only he is left, and he never walks */
 }
 function crewBillNight(){
   var crew = crewCount(), food = billFood(), wages = billWages(), due = food + wages, have = loopBats(), paid = Math.min(due, Math.max(0, have)), walked = null;   /* __THE_HIRED_ARE_PAID__ */
