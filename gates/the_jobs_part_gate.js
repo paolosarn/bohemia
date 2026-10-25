@@ -37,7 +37,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
   const fr = d.fr;
   const TOUCH = (process.env.JOBS_PART_PROFILE || 'computer') !== 'computer';
   /* a finger on a phone, the mouse on his computer */
-  const tapAt = async (x, y) => { if (TOUCH) return d.tapAt(x, y); const fb = await (await d.page.$('#cityFrame')).boundingBox(); return d.page.mouse.click(fb.x + x, fb.y + y); };   /* in the city frame's own pixels */
+  const tapAt = async (x, y) => { if (TOUCH) return d.tapAt(x, y); const h = await d.page.$('#cityFrame'), fb = h ? await h.boundingBox() : null; if (!fb) return null; return d.page.mouse.click(fb.x + x, fb.y + y); };   /* in the city frame's own pixels */
   const shot = async (n) => { if (SHOTS) await d.page.screenshot({ path: path.join(SHOTS, n + '.png') }); };
   const shell = () => d.page.evaluate(() => ({ fight: !!CITYFIGHT }));
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn()) return true; await d.page.waitForTimeout(300); } return false; };
@@ -63,8 +63,8 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
     const up = await waitFor(() => d.page.evaluate(() => !!(window.SPOILS && SPOILS.frame) || !CITYFIGHT), 15000);
     const h = await d.page.$('#spoilsdoor iframe'); if (!h) return false;
     const sf = await h.contentFrame(), box = await h.boundingBox();
-    const b = sf ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
-    if (b) await d.page.mouse.click(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+    const b = sf && box ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
+    if (b && box) await d.page.mouse.click(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
     return up;
   };
   /* a fight that is not the one measured (a roaming party on the road): ended by the gate as a cleared fight, said */
@@ -304,7 +304,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       console.log('  info D8 UI\'s DROP on the phone and the job card: ' + (btn ? btn + ' drawn' : 'not drawn yet (UI\'s row (5))'));
     }
   } catch (e) {
-    ok('the drive ran without a throw [' + String(e && e.message || e).slice(0, 200) + ']', false);
+    ok('the drive ran without a throw [' + String(e && e.message || e).slice(0, 200) + ' ' + String(e && e.stack || '').split('\n').filter(l => /the_jobs_part_gate/.test(l)).slice(0, 2).join(' ').replace(/\s+/g, ' ').slice(0, 200) + ']', false);
   }
   await d.close();
   done();
