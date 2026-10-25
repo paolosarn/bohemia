@@ -1124,16 +1124,14 @@ my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
 SOUNDS (sounds-vote-levels, session_01JqRsAp2CBXfJsx1KRWhfV7): 10/25 LATEST (round thirty-five, rule 181: NEW MUSIC GOES TO THE VOTE TAB FIRST; rows [three intensities in every song], [the fight's music you can hear], [the sound never chops], [every song its own song]) -- SHIPPED IN PARTS, ROWS STAY CLAIMED
 *** HIS SONGS AT THREE LEVELS IN VOTE, THE GAME'S MUSIC ABOVE THE FIGHT, THE SIX IN THE GRAVEYARD, FOUR NEW SONGS IN VOTE. BUILD 10/25r. ***
-(1) VOTE, NOTHING WIRED (181): eleven cards. Seven of his songs at levels 1 (his song as approved + a soft 120 pulse, his own kick
+(1) VOTE, NOTHING WIRED (181): thirteen cards. All nine of his songs at levels 1 (his song as approved + a soft 120 pulse, his own kick
 and clock), 2 (their turn: his tier 2, heartbeat kick, ticking, pedal, toms, no backbeat), 3 (his turn: his top tier, a driving
 kit, a driving bass, a hook in his own lead voice) and A FIGHT (map, their, yours, their, yours, each change on the bar), all from
 his own engine on one timeline (tools/bohemia_sounds_three_levels.js; REPO MAN through the game's own machine party): THE VAULT,
 GHOST IN THE GRID, SATELLITE PRAYER, THE PIT BOSS IS GONE, THE ORGAN IN THE DROWNED CHAPEL, CAMPFIRE CONFESSION, REPO MAN (ids
-sounds-three-levels-<song>-10-25; gate THREE LEVELS IN THE VOTE TAB FIRST). SLOW BLEED and SLOW CREEP have NO CARD YET: his engine
-plays both past full scale, so every added low part hit the peak limit and level 3 came out quieter than level 1 on a phone; the
-last fix (no added kick or bass on those two, the compressor skipped) was rendering at the end of the round; card them with
-'node tools/bohemia_sounds_three_levels.js register "SLOW BLEED" --write' after the recordings are on main, only if the gate's
-'level 3 louder than level 1' holds. Four NEW songs (sounds-new-song-*-10-25), written note by note, each its own key, lead, bass,
+sounds-three-levels-<song>-10-25; gate THREE LEVELS IN THE VOTE TAB FIRST). SLOW BLEED and SLOW CREEP carded too (main 8c287604):
+both carry a DC offset (their centre at 2 to 3 Hz) that held the limit down, so levels 2 and 3 go through a 15 Hz high-pass
+(level 1 untouched); all nine of his songs have their card. Four NEW songs (sounds-new-song-*-10-25), written note by note, each its own key, lead, bass,
 pad and real-recording kit (CC0 bank), a worn tape inside each, no machine party: THE CHURCH CLOCK STRIKES TWELVE (the church
 clock's real bell for the lead), THE SODA MACHINE STILL TAKES COINS, THE HELICOPTER THAT NEVER LANDS, THE PAWN COUNTER AT FOUR IN
 THE MORNING (tools/bohemia_sounds_four_new_songs.js; gate FOUR NEW SONGS, EACH ITS OWN 106/0). records/BOHEMIA_THREE_LEVELS_IN_THE
@@ -1148,7 +1146,7 @@ change a crossfade on the bar) and it goes in when he says the levels join (181(
 the song lock's lines pointed there; gates/more_music_gate.js proves the burial.
 RED, NOT MINE, MEASURED ON MAIN WITHOUT MY CHANGE: THE FIGHT DRIVES THE MUSIC (2 legs), EVERY ACTION ON THE BEAT (20 motions off,
 worst 22.8 ms), THE GUNS HEARD (his own rifle not heard), the vote tab's dynasty whys and the alpha's landing; a NOTE on COMBAT's
-board. NEXT: his verdicts on the eleven cards (a level that gets his yes is wired through window.INTENSITY with the render-ahead,
+board. NEXT: his verdicts on the thirteen cards (a level that gets his yes is wired through window.INTENSITY with the render-ahead,
 map 1, their turn 2, his turn 3); real instrument recordings once a host is allowed. PENDING Paolo: nothing.
 
 SOUNDS (sounds-pc-playtest): 10/25 LATEST (round thirty-four, [the PC playtest: the sound's part], rule 164 items 19, 20, 23) -- SHIPPED

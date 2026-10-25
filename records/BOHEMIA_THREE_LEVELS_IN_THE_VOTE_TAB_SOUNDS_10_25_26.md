@@ -53,9 +53,15 @@ his approved songs as approved until he says a level joins.
 | THE ORGAN IN THE DROWNED CHAPEL | -36.0 / -31.6 / -30.5 | 0.17 / 0.24 / 0.43 / 0.35 |
 | CAMPFIRE CONFESSION | -38.7 / -33.3 / -30.2 | 0.33 / 0.25 / 0.39 / 0.29 |
 | REPO MAN (through the game's own machine party, take A, trim -9.21 dB) | -36.7 / -33.1 / -31.9 | 0.29 / 0.31 / 0.28 / 0.34 |
-SLOW BLEED and SLOW CREEP (his engine plays both past full scale; recorded 6 dB down) wait for their cards: their low end
-at -7 dBFS held the compressor down (level 3 under level 1 on a phone), and a 6 dB trim on the song was worse (the phone
-hears its tune). Rendering again with the compressor skipped and the true peak limit only.
+| SLOW BLEED | -46.5 / -42.7 / -39.7 | 0.39 / 0.45 / 0.66 / 0.57 |
+| SLOW CREEP | -45.2 / -42.1 / -39.7 | 0.17 / 0.29 / 0.55 / 0.47 |
+SLOW BLEED AND SLOW CREEP, FOUR TRIES, THE LAST ONE MEASURED RIGHT: his engine plays both 'past full scale' (recorded 6 dB
+down). Tried and measured wrong: the compressor (level 3 under level 1 on a phone), a 6 dB trim on the song (worse: the
+phone hears its tune), no added low parts (worse again, -46.5 / -49.2 / -50.5). THE CAUSE: a DC offset, their spectral
+centre at 2 to 3 Hz, under hearing; his tier 2 piles more on (full-band rms -9.2 dBFS at level 1, -1.8 at level 2 with only
+a tick and a rim added), and the peak limit answered the offset and pulled down everything a person hears. Levels 2 and 3
+now go through a 15 Hz high-pass in front of the limit (the centre moves to 75 to 95 Hz); level 1 is his song as approved.
+All nine of his songs have their card (gate 218/0).
 
 ## FOUND ON THE WAY, MEASURED
 - THE PULSE TEST WAS FOOLED BY A DRONE: the full-band onset autocorrelation put CAMPFIRE CONFESSION's beat under an
