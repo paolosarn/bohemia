@@ -76,15 +76,27 @@ its --check names the same three blocks as on main.
 STILL OPEN IN ITEM 13: the board's edge (COMBAT's ring of dimmed blocks ends on a straight line; NOTE on their board) and
 the board's layout (COMBAT TWO's): rows of the same house read as made by a machine.
 
+## 4. 99486fba: THE REGION'S PLACES PAINTED ON THE FAR LAND, AND NO WHITE LOTS
+
+WORLD's 07826e02 turned the region on in the demo mid-round (34 places: Primm, Jean, Boulder City, the Hoover Dam, Ivanpah
+Solar...), and they came drawn the old way, a picture laid on the far land. The land's painter paints at two texels a block,
+too coarse to hold a town, so each place is painted as its own small patch by the same painter (vbRegionPatchInput: a
+fortress 4 x 4 blocks of works, a town 3 x 3 of houses, a camp 2 x 2 of tents, the dials' industry, house and desert colours,
+the region's road through it), in the worker like a close tile at 24, 48 or 96 texels a block, WITH ITS LAND CUT AWAY
+(inp.cutout: the land, its road and the yard past the ragged line transparent, the town's shadow on them a soft dark), so it
+stands on the far land with nothing under it and the region's own road runs through its gate. records/target/
+cook_map_colour/painted_region1 (Primm and Ivanpah Solar). Until a patch lands, the picture is drawn.
+NO WHITE LOTS: a burned block skipped COOK's dials, so a burned shop's parking lot fell back to the palest key in the table
+(198,196,191) and read as a white box on the map at every zoom; its ground now takes its district's ground (painted_lots1).
+
 ## GATES (rule 13: the pre-push pass, by name)
 THE MAP HAS ITS PEOPLE 19/0, THE MAP STANDS UP 13/0 (the berm mutation still turns U3 red), THE FAR END IS PAINTED 11/0,
 THE LIVING MAP 22/0, NO TWO TEXTS OVERLAP ON THE DEMO 14/0, THE MAP AT THE PHONE'S PIXELS 16/0. FACTION BETWEEN 80/2 and THE
 NEAR END IS THE BLOCK 6/1 are the same reds on main without this (a card's size; the speed pad, rule 151(c)).
 
 ## WHAT IS NOT DONE
-- The region's twelve places outside the valley (bohemia_region.js) still draw through mapBaseDraw's picture path; the
-  region never turns on in the demo today (BOH_REGION.ready false after 60 s), so nothing he sees is a sticker. When RUN
-  turns it on, they want the same: the painter run on a small patch of land with the town in it, ground cut away.
+- The region's places have no night lights yet (the patch's lights canvas is not drawn); the far land under them is the
+  land painter's two texels a block, so close in a crisp town stands on a coarse land (RUN's land).
 - Item 13: the floor's colour is done (part two); the board's edge is COMBAT's (NOTE on their board) and its layout COMBAT
   TWO's.
 - The crowd at a town's gate still covers most of a camp at the opening zoom (LIFE+CITY's people at their size, rule 21).
