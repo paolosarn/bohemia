@@ -46746,6 +46746,12 @@ function vbCityCore(inp){
      coordinates, so a tile and the whole painting agree. inp.towns [{x0, y0, n, tier: 1 fortress 2 town 3 camp, acc}],
      inp.townPal (a colour a part). ==== */
   var TWL = inp.towns && inp.towns.length ? inp.towns : null, TWP = inp.townPal || null, TWN = null, TW_L = 0, TW_P = 0, TW_K = 16;
+  /* __THE_STREETS_READ_AS_STREETS__: a street's classes and its colours (rule 159: grey and worn; the sign paint the one faded accent) */
+  var STRT = function (c){ return c === VB_CLASS.road || c === VB_CLASS.blvd || c === VB_CLASS.freeway; };
+  var SC = { asph: '#3b3834', asphF: '#5b5955', asphS: '#383532', walk: '#827f7a', walkS: '#8b8780', gut: '#4c4945', oil: '#4f4d49',
+    dash: '#9a9893', yel: '#857b5f', shldF: '#6a6864', med: '#55504a', jersey: '#a19f99', crack: '#2b2927', dust: '#78736b',
+    carA: '#6b6865', carB: '#5c4d45', carC: '#4b5054', char: '#2e2b29', palm: '#5e5647', sign: '#7b6b50', post: '#393735' };
+  for (var sck in SC) SC[sck] = vbHex(SC[sck]);
   if (TWL && TWP) { TWN = new Int16Array(N * N).fill(-1);
     for (var twi0 = 0; twi0 < TWL.length; twi0++) { var tw0 = TWL[twi0];
       for (var twy = tw0.y0; twy < tw0.y0 + tw0.n; twy++) for (var twx = tw0.x0; twx < tw0.x0 + tw0.n; twx++) {
@@ -46822,14 +46828,32 @@ function vbCityCore(inp){
     var gx = cx + X0, gy = cy + Y0;   /* __ONE_MAP_AT_EVERY_ZOOM__: the valley's own block */
     if (cls[cy * N + cx] === 255) continue;   /* past the valley's edge: nothing, like the whole painting's pad */
     var cl = cls[cy * N + cx], h0 = vbHash(gx, gy, sd), h1 = vbHash(gy, gx, sd + 1), h2 = vbHash(gx + 7, gy + 3, sd + 2);
+    /* __THE_STREETS_READ_AS_STREETS__: NO BUILDING IN A STREET'S LANE (rule 164 item 29, Paolo 10/24: 'there are some buildings
+       in the street lanes'). MEASURED: 14 blocks the valley's roll set inside a street's line, the street running into them
+       from both sides (a fire station and the sign in the middle of the Strip, a resort and a casino in arterials, five suburbs);
+       the street runs through them on the map now, its lanes unbroken */
+    var thru = 0;
+    if (!STRT(cl) && cl !== VB_CLASS.rail && cl !== VB_CLASS.water && cl !== VB_CLASS.mountain && cl !== VB_CLASS.land && cl !== VB_CLASS.dam) {
+      var sw1 = clsAt(cx - 1, cy), se1 = clsAt(cx + 1, cy), sn1 = clsAt(cx, cy - 1), ss1 = clsAt(cx, cy + 1);
+      if (STRT(sw1) && sw1 === se1 && clsAt(cx - 2, cy) === sw1 && clsAt(cx + 2, cy) === sw1 && !(STRT(clsAt(cx - 1, cy - 1)) && STRT(clsAt(cx - 1, cy + 1))) && !(STRT(clsAt(cx + 1, cy - 1)) && STRT(clsAt(cx + 1, cy + 1)))) { thru = 1; cl = sw1; }
+      else if (STRT(sn1) && sn1 === ss1 && clsAt(cx, cy - 2) === sn1 && clsAt(cx, cy + 2) === sn1 && !(STRT(clsAt(cx - 1, cy - 1)) && STRT(clsAt(cx + 1, cy - 1))) && !(STRT(clsAt(cx - 1, cy + 1)) && STRT(clsAt(cx + 1, cy + 1)))) { thru = 2; cl = sn1; }
+    }
     var burned = (cl === VB_CLASS.houses || cl === VB_CLASS.roof) && h2 < 0.16;   /* act one is the ruin */
     var horiz = (clsAt(cx - 1, cy) === cl || clsAt(cx + 1, cy) === cl), vert = (clsAt(cx, cy - 1) === cl || clsAt(cx, cy + 1) === cl);
+    if (thru) { horiz = thru === 1; vert = thru === 2; }   /* __THE_STREETS_READ_AS_STREETS__ */
+    /* __THE_STREETS_READ_AS_STREETS__: which way the freeway and the Strip run and how wide they are (one block or two), so
+       their lanes run the length of them and a two-wide one is one road with one median, not two slabs (a two-wide had its
+       own kind on three sides and was painted as a crossing: no line at all on the freeway, crosswalks all down the Strip) */
+    var fwW = 0, fwI = 0, fwH = false;
+    if (cl === VB_CLASS.freeway || cl === VB_CLASS.blvd) { var fx1 = clsAt(cx - 1, cy) === cl, fx2 = clsAt(cx + 1, cy) === cl, fy1 = clsAt(cx, cy - 1) === cl, fy2 = clsAt(cx, cy + 1) === cl, nxF = (fx1 ? 1 : 0) + (fx2 ? 1 : 0), nyF = (fy1 ? 1 : 0) + (fy2 ? 1 : 0);
+      if (nyF >= 1 && nxF <= 1 && !(nyF === 1 && nxF === 1)) { fwH = false; fwW = nxF + 1; fwI = fx1 ? 1 : 0; }
+      else if (nxF >= 1 && nyF <= 1 && !(nxF === 1 && nyF === 1)) { fwH = true; fwW = nyF + 1; fwI = fy1 ? 1 : 0; } }
     /* the berm's banks: which sides of a freeway block meet ground that is not freeway (__THE_MAP_STANDS_UP__) */
     var bW = cl === VB_CLASS.freeway && !FWY(clsAt(cx - 1, cy)), bE = cl === VB_CLASS.freeway && !FWY(clsAt(cx + 1, cy)),
         bN = cl === VB_CLASS.freeway && !FWY(clsAt(cx, cy - 1)), bS = cl === VB_CLASS.freeway && !FWY(clsAt(cx, cy + 1));
     var knot = cl === VB_CLASS.freeway && !bW && !bE && !bN && !bS;   /* freeway on all four sides: a knot, the flyover */
     /* a works block is one, two or three boxes (__THE_MAP_STANDS_UP__) */
-    var nBox = h1 < 0.45 ? 1 : h1 < 0.8 ? 2 : 3, boxAlongX = h0 < 0.5, sb = inp.sub ? inp.sub[cy * N + cx] : 0;
+    var nBox = h1 < 0.45 ? 1 : h1 < 0.8 ? 2 : 3, boxAlongX = h0 < 0.5, sb = inp.sub && !thru ? inp.sub[cy * N + cx] : 0;
     if (sb === VB_SUB.shop) nBox = Math.min(nBox, 2);
     var twi = TWN && cl !== VB_CLASS.freeway && cl !== VB_CLASS.water && cl !== VB_CLASS.mountain && cl !== VB_CLASS.dam && cl !== VB_CLASS.rail ? TWN[cy * N + cx] : -1;   /* __THE_TOWN_IS_PAINTED_IN__ */
     for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
@@ -46837,16 +46861,82 @@ function vbCityCore(inp){
       var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u + XS, v + YS, sd + 5), rq = Q === 1 ? r : vbHash(((gx + HP) * 12 + qx), ((gy + HP) * 12 + qy), sd + 5);
       switch (cl) {
         case VB_CLASS.road: case VB_CLASS.freeway: case VB_CLASS.blvd: {
-          var along = (horiz && !vert) ? qy : (vert && !horiz) ? qx : -1, mid = 6, SQ = 12;
-          if (cl === VB_CLASS.freeway) { part = (along === 0 || along === SQ - 1) ? PART.edge : (along === mid && ((cl === VB_CLASS.freeway && ((horiz ? qx : qy) % 3) !== 0))) ? PART.line : PART.ground; }
-          else if (along === mid - 1 && ((horiz ? qx : qy) % 4) < 2) part = PART.line;
-          if (cl === VB_CLASS.blvd && (qx === 0 || qy === 0 || qx === SQ - 1 || qy === SQ - 1) && rq < 0.35) part = PART.neon;
-          if (cl === VB_CLASS.road && (along === 0 || along === SQ - 1) && ((horiz ? qx : qy) % 4) === 1) part = PART.lampspot;
+          /* ==== __THE_STREETS_READ_AS_STREETS__ (COOK 10/25/26, rule 164 items 11, 29, 30, Paolo 10/24: 'the freeway and the
+             Strip still look bad'; 'I want to zoom in and see more detail, the sidewalks'). A street was asphalt and one dashed
+             line, the freeway a concrete slab with one line (none on a two-wide one), the Strip asphalt with gold squares at
+             random on its edges. NOW, across each: an arterial a sidewalk and a gutter each side, three lanes a way, the centre
+             line faded yellow; the freeway shoulders, its lanes, a Jersey barrier down the median, on its berm; the Strip wide
+             sidewalks with the casinos' sign pylons, a raised median of dead palms. Close in (four texels a q and up) the
+             street's things: lamp posts, the slabs' joints, crosswalks, the oil line down a lane, the cars left the day it
+             stopped (a jam on the freeway, a semi), sand drifted at the kerbs and the barrier, cracks. Act one's colour
+             (rule 159): grey, worn, the Strip's sign paint the one faded accent, lit at night only where there is power. ==== */
+          var wide = cl === VB_CLASS.freeway || cl === VB_CLASS.blvd, hz1 = wide ? (fwW > 0 && fwH) : (horiz && !vert), vt1 = wide ? (fwW > 0 && !fwH) : (vert && !horiz);
+          var ac = hz1 ? (ty + 0.5) / Q : vt1 ? (tx + 0.5) / Q : -1, al = hz1 ? gx * 12 + (tx + 0.5) / Q : gy * 12 + (ty + 0.5) / Q;
+          var ali = Math.floor(al), alf = al - ali, line_ = hz1 ? gy : gx, fine = Q >= 4, px = 1 / Q, dz = fine ? vbNoise(al / 3.2, (ac < 0 ? 0 : ac) / 1.7 + line_ * 13, sd + 409) : 0;   /* the sand only close in: the whole painting never pays for it */
+          part = PART.ground;
           if (cl === VB_CLASS.freeway) {   /* __THE_MAP_STANDS_UP__: the freeway on its berm, banked down to the ground it crosses */
             var top3 = (knot ? 6 : 3) * T, dB = 1e9;
             if (bW) dB = Math.min(dB, tx); if (bE) dB = Math.min(dB, S - 1 - tx); if (bN) dB = Math.min(dB, ty); if (bS) dB = Math.min(dB, S - 1 - ty);
             lift = Math.min(top3, (dB + 0.5) * 1.1);
+            if (ac >= 0) {
+              var FW = fwW * 12, FA = ac + fwI * 12, med = FW / 2, sh0 = fwW > 1 ? 1.6 : 0.8, mw = fwW > 1 ? 1.4 : 0.55;
+              if (FA < sh0 || FA >= FW - sh0) { part = PART.edge; if (fine && dz > 0.66) part = PART.hole; }   /* the shoulder, sand on it */
+              else if (Math.abs(FA - med) < mw) { part = PART.edge;   /* the median, its Jersey barrier down the middle */
+                if (Math.abs(FA - med) < Math.max(0.17, px * 0.6)) { part = PART.row; lift += 0.45 * T; }
+                else if (fine && dz > 0.55) part = PART.hole; }
+              else {
+                var c0 = FA < med ? sh0 : med + mw, c1 = FA < med ? med - mw : FW - sh0, nL = fwW > 1 ? 5 : 3, lw = (c1 - c0) / nL, la = (FA - c0) / lw, lk = Math.min(nL - 1, Math.floor(la)), lf = la - lk, lt = Math.max(0.05, px * 0.7 / lw);
+                if ((lk === 0 && lf < lt) || (lk === nL - 1 && lf > 1 - lt)) part = PART.line;   /* the solid edge lines */
+                else if (fine && lk > 0 && lf < lt && (ali % 3) === 0 && alf < 0.6) part = PART.line;   /* the lane dashes */
+                else if (fine && Math.abs(lf - 0.5) < 0.12) part = PART.side;   /* the oil line down the lane */
+                else if (r < 0.008) part = PART.spot;
+                if (fine) {   /* the day it stopped: what was in the lanes is still there */
+                  var sg = Math.floor(al / 2.4), hc = vbHash(sg, line_ * 32 + (FA < med ? 0 : 16) + lk, sd + 401), hc2 = vbHash(sg, line_ * 32 + (FA < med ? 0 : 16) + lk, sd + 403);
+                  var semi = hc < 0.025, o0 = sg * 2.4 + 0.2 + hc2 * 0.4, ln = semi ? 1.9 : 1.05, cw = semi ? 0.36 : 0.3, ca = (al - o0) / ln;
+                  if (hc < 0.17 && ca >= 0 && ca < 1 && Math.abs(lf - 0.5) < cw) {
+                    lift += (semi ? 0.9 : (ca > 0.25 && ca < 0.7 ? 0.55 : 0.38)) * T;
+                    part = semi ? (hc2 < 0.5 ? PART.roofL : PART.tree) : hc2 < 0.12 ? PART.burn : hc2 < 0.5 ? PART.roof : hc2 < 0.8 ? PART.tree : PART.roofL; }
+                }
+              }
+            } else if (r < 0.01) part = PART.spot;
+          } else {   /* an arterial and the Strip: sidewalks, gutters, lanes */
+            var strip = cl === VB_CLASS.blvd, wk = strip ? 1.6 : 1.0, gt = Math.max(0.12, px * 0.9);
+            if (ac >= 0) {
+              var SW = strip ? fwW * 12 : 12, SA = strip ? ac + fwI * 12 : ac, med = SW / 2, mwS = SW > 12 ? 0.9 : 0.58, nLn = SW > 12 ? 4 : 3, nearSide = SA < med;
+              var sa = Math.min(SA, SW - SA);   /* from the near sidewalk's outside */
+              if (sa < wk) { part = PART.top; lift = 0.12 * T;   /* the sidewalk */
+                if (strip && (ali % 6) === (nearSide ? 2 : 5) && alf >= 0.2 && alf < 0.8 && sa >= 0.3 && sa < 1.05) { lift = 7 * T; part = PART.neon; }   /* a casino's sign on its pylon */
+                else if ((ali % 4) === 1 && sa >= wk - 0.42) part = PART.lampspot;   /* a lamp's pool (lit at night where there is power) */
+                else if (fine && (ali % 4) === 1 && alf >= 0.36 && alf < 0.64 && sa >= wk - 0.72 && sa < wk - 0.42) { lift = 3 * T; part = PART.window; }   /* its post, the head lit at night */
+                else if (fine && alf < px * 0.9) part = PART.side;   /* the slabs' joints */
+                else if (fine && dz > 0.72) part = PART.hole;
+              } else if (sa < wk + gt) part = PART.side;   /* the gutter */
+              else if (strip && sa > med - mwS) { lift = 0.25 * T; part = PART.edge;   /* the Strip's median, its planting dead */
+                if ((ali % 2) === 0 && alf >= 0.3 && alf < 0.7 && sa > med - Math.max(0.2, px * 0.6)) { lift = 4.5 * T; part = PART.tree; } }   /* a dead palm */
+              else {
+                var k0 = wk + gt, k1 = strip ? med - mwS : med, lw2 = (k1 - k0) / nLn, la2 = (sa - k0) / lw2, lk2 = Math.min(nLn - 1, Math.floor(la2)), lf2 = la2 - lk2, lt2 = Math.max(0.05, px * 0.7 / lw2);
+                if (!strip && (fine ? (sa >= med - 0.28 && sa < med - 0.14) : (sa > med - Math.max(0.1, px * 0.6) && (ali % 4) < 2))) part = 15;   /* the centre line, faded yellow: a double line close in */
+                else if (fine && lk2 > 0 && lf2 < lt2 && (ali % 3) === 0 && alf < 0.6) part = PART.line;   /* the lane dashes */
+                else if (!fine && strip && lk2 === nLn - 1 && lf2 > 1 - lt2 && (ali % 4) < 2) part = PART.line;
+                else if (fine && lk2 === 0 && dz > 0.62) part = PART.hole;   /* sand drifted at the kerb */
+                else if (r < 0.01) part = PART.spot;
+                if (fine) {   /* the cars left at the kerb and in the lanes */
+                  var lid = (strip ? (hz1 ? gy - fwI : gx - fwI) : line_) * 32 + (nearSide ? 0 : 16) + lk2, sg2 = Math.floor(al / 2.2), hk = vbHash(sg2, lid, sd + 405), hk2 = vbHash(sg2, lid, sd + 407);
+                  var o2 = sg2 * 2.2 + 0.25 + hk2 * 0.5, ca2 = (al - o2) / 1.05;
+                  if (hk < (lk2 === 0 ? 0.22 : 0.05) && ca2 >= 0 && ca2 < 1 && Math.abs(lf2 - 0.5) < 0.3) {
+                    lift = (ca2 > 0.25 && ca2 < 0.7 ? 0.55 : 0.38) * T; part = hk2 < 0.14 ? PART.burn : hk2 < 0.5 ? PART.roof : hk2 < 0.8 ? PART.tree : PART.roofL;
+                    if (strip && part === PART.tree) part = PART.roofL; }
+                }
+              }
+            } else {   /* a crossing: the corners' sidewalks, the crosswalks on its sides */
+              var cu0 = (tx + 0.5) / Q, cv0 = (ty + 0.5) / Q, eu0 = Math.min(cu0, 12 - cu0), ev0 = Math.min(cv0, 12 - cv0);
+              if (eu0 < wk && ev0 < wk) { part = PART.top; lift = 0.12 * T; }
+              else if (fine && eu0 >= wk + 0.25 && eu0 < wk + 1.1 && ev0 >= wk + 0.15 && (Math.floor(cv0 * 2.4) & 1) === 0) part = PART.line;
+              else if (fine && ev0 >= wk + 0.25 && ev0 < wk + 1.1 && eu0 >= wk + 0.15 && (Math.floor(cu0 * 2.4) & 1) === 0) part = PART.line;
+              else if (r < 0.01) part = PART.spot;
+            }
           }
+          /* ==== /__THE_STREETS_READ_AS_STREETS__ ==== */
           break; }
         case VB_CLASS.rail: part = ((horiz ? qx : qy) % 2 === 0) ? PART.line : PART.ground; lift = T; break;
         case VB_CLASS.houses: if (sb === VB_SUB.trailer) {
@@ -46946,6 +47036,24 @@ function vbCityCore(inp){
     var burned = ci >= 16 * 32; if (burned) ci -= 16 * 32;
     var cl = ci >> 4, part = ci & 15;
     if (cl === TW_K && TWP) return (part === PART.top || part === PART.neon) && TWL[sb] ? TWL[sb].acc : (TWP[part] || TWP[1]);   /* __THE_TOWN_IS_PAINTED_IN__ */
+    if (STRT(cl)) { var fw = cl === VB_CLASS.freeway, st = cl === VB_CLASS.blvd;   /* __THE_STREETS_READ_AS_STREETS__ */
+      switch (part) {
+        case PART.top: case PART.lampspot: return st ? SC.walkS : SC.walk;
+        case PART.side: return fw ? SC.oil : SC.gut;
+        case PART.line: return SC.dash;
+        case 15: return SC.yel;
+        case PART.edge: return fw ? SC.shldF : st ? SC.med : SC.gut;
+        case PART.row: return SC.jersey;
+        case PART.spot: return SC.crack;
+        case PART.hole: return SC.dust;
+        case PART.roof: return SC.carA;
+        case PART.roofL: return SC.carB;
+        case PART.burn: return SC.char;
+        case PART.tree: return st ? SC.palm : SC.carC;
+        case PART.neon: return SC.sign;
+        case PART.window: return SC.post;
+        default: return fw ? SC.asphF : st ? SC.asphS : SC.asph;
+      } }
     /* __THE_DISTRICTS_READ_APART__ (10/23): each family its own roofs and its own ground */
     if (cl === VB_CLASS.houses && sb) {
       if (part === PART.burn) return C.burn; if (part === PART.hole) return C.ash; if (part === PART.spot) return C.brush;

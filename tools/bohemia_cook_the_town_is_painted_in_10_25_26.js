@@ -5,7 +5,7 @@
    a town and a camp, two of each) at six stops from the far end to the near one, the tiles let land, and the glass round
    the town cut out; one contact sheet a town, its six stops (drawn in the page on a canvas). It also says, from the render's own record, whether each
    town was drawn as the painting (MAP_DREW.art.painted) or as a picture laid over it.
-     node tools/bohemia_cook_the_town_is_painted_in_10_25_26.js [label] [Town,Town,...]
+     node tools/bohemia_cook_the_town_is_painted_in_10_25_26.js [label] ['Town;Town;x,y;...']   (a town by name or any block by x,y)
    -> records/target/cook_map_colour/painted_<label>/{<town>_<stop>.png, sheet_<town>.jpg, towns.json}
    REFERENCE CHECK (the 9/4 standing duty): from the game's camera, beside Battle Brothers' towns on its world map (9/24). */
 'use strict';
@@ -14,7 +14,7 @@ const fs = require('fs');
 const ROOT = path.join(__dirname, '..');
 const D = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const LABEL = process.argv[2] || 'look';
-const PICK = (process.argv[3] || 'Remnants,Network,Church,Reds,Colorful,Homeless').split(',');
+const PICK = (process.argv[3] || 'Remnants;Network;Church;Reds;Colorful;Homeless').split(';');
 const OUT = path.join(ROOT, 'records/target/cook_map_colour', 'painted_' + LABEL);
 
 (async () => {
@@ -33,7 +33,7 @@ const OUT = path.join(ROOT, 'records/target/cook_map_colour', 'painted_' + LABEL
     res.towns[name] = {};
     for (const [stop, z] of stops) {
       const info = await d.fr.evaluate(async (a) => {
-        const B = ctBases(); const b = B && B[a.name]; if (!b) return { err: 'no base' };
+        const m = /^(\d+),(\d+)$/.exec(a.name), B = m ? null : ctBases(); const b = m ? { x: +m[1], y: +m[2] } : B && B[a.name]; if (!b) return { err: 'no base' };   /* a town by name, or any block by x,y */
         CZOOM = a.z; TW = TW0 * CZOOM; TH = TH0 * CZOOM;
         try { camLetGo(); } catch (_e) {}   /* the camera holds the crew (rule 163): let it go, as a drag by hand does */
         const put = () => { panX = ((city.x - city.y) - (b.x - b.y)) * TW / 2; panY = ((city.x + city.y) - (b.x + b.y + 1)) * TH / 2; };
@@ -48,7 +48,7 @@ const OUT = path.join(ROOT, 'records/target/cook_map_colour', 'painted_' + LABEL
       const ox = (frameBox ? frameBox.x : 0) + info.x, oy = (frameBox ? frameBox.y : 0) + info.y;
       const cw = Math.min(380, info.w - 10), ch = 320;
       const clip = { x: ox + info.w / 2 - cw / 2, y: oy + info.h / 2 - ch / 2 + 20, width: cw, height: ch };
-      const fn = path.join(OUT, name + '_' + stop + '.png');
+      const fn = path.join(OUT, name.replace(',', '_') + '_' + stop + '.png');
       await d.page.screenshot({ path: fn, clip });
       res.towns[name][stop] = { TW: Math.round(info.TW * 10) / 10, painted: info.painted, tier: info.tier, n: info.n, drewPainted: info.drewPainted, tilesWaiting: info.want, shot: path.relative(ROOT, fn) };
       console.log(name, stop, JSON.stringify(res.towns[name][stop]));
@@ -57,7 +57,7 @@ const OUT = path.join(ROOT, 'records/target/cook_map_colour', 'painted_' + LABEL
   fs.writeFileSync(path.join(OUT, 'towns.json'), JSON.stringify(res, null, 1));
   /* the sheets, drawn in the page: one a town (its six stops) */
   for (const name of PICK) {
-    const files = stops.map(s => path.join(OUT, name + '_' + s[0] + '.png')).filter(f => fs.existsSync(f));
+    const files = stops.map(s => path.join(OUT, name.replace(',', '_') + '_' + s[0] + '.png')).filter(f => fs.existsSync(f));
     if (!files.length) continue;
     const imgs = files.map(f => 'data:image/png;base64,' + fs.readFileSync(f).toString('base64'));
     const b64 = await d.page.evaluate(async (a) => {
@@ -68,7 +68,7 @@ const OUT = path.join(ROOT, 'records/target/cook_map_colour', 'painted_' + LABEL
       x.fillStyle = '#ddd'; x.font = 'bold 28px monospace'; x.fillText(a.title, 10, 30);
       return c.toDataURL('image/jpeg', 0.85).split(',')[1];
     }, { imgs, title: name + ' (' + LABEL + '): far, district, opening, mid, step, near' });
-    fs.writeFileSync(path.join(OUT, 'sheet_' + name + '.jpg'), Buffer.from(b64, 'base64'));
+    fs.writeFileSync(path.join(OUT, 'sheet_' + name.replace(',', '_') + '.jpg'), Buffer.from(b64, 'base64'));
   }
   await d.close();
 })().catch(e => { console.error(e); process.exit(1); });
