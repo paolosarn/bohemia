@@ -5,6 +5,25 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-10-25 | ask 33 (ground, again) | GROK_ASK_116_WHAT_BB_LEAVES_ON_THE_GROUND_2026_10_25.md | what BB leaves on the ground: a smashed or cut-off head stays down, a disembowelled body can rise, blood on weapons and men, loot only from gear not destroyed; PASSED
+- 2026-10-25 | ask 41 | GROK_ASK_117_COMPANY_SCREEN_2026_10_25.md | the company screen: C or I, the paper doll's six slots, stat icons, two rows of nine and a reserve row, right-click equips, three attributes then one perk; no screenshot links; PASSED EXCEPT the four bag slots and the three-branch perk tree
+- 2026-10-25 | ask 26 (map size, 10/16) | GROK_ASK_118_MAP_SIZE_NUMBERS_2026_10_25.md | the map in numbers again: 17 settlements by kind, seeds 140s to 200s across, a mod's 140 by 140; no hex count or days to cross; PASSED
+- 2026-10-25 | ask 25 (vision) | GROK_ASK_119_VISION_RADIUS_2026_10_25.md | the map's sight: 1 open, 1.25 hills, 2 mountains, the Lookout +25 percent, night narrows it, a base of 500 (recall); PASSED EXCEPT 'settlements and roads start revealed'
+- 2026-10-25 | ask 11 (own digging) | GROK_ASK_120_WHAT_I_FOUND_ON_MY_OWN_2026_10_25.md | what is missing: a crisis schedule, the chipped dead's look, the map size; the crisis clock and the forum's 160 and 180 (recall); not ask 42; PASSED EXCEPT 'no crisis schedule' (rule 85)
+- 2026-10-25 | ask 12 (lore holes) | GROK_ASK_121_LORE_HOLES_THREE_ACTS_2026_10_25.md | lore holes: where the first crisis sits in act one, the chipped dead by act, the mayor's power over a ruined town; PASSED EXCEPT the three-currency paragraph
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_122_SIXTY_MINI_BOSSES_2026_10_25.md | the 60 mini bosses: the ladder is a pool of 53, Battle Brothers' legendary locations (about a dozen a campaign) as the nearest system; PASSED
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_123_FOURTEEN_FACTIONS_OF_MUSIC_2026_10_25.md | music per faction: Battle Brothers' houses have no track each; relations 0 to 100; PASSED EXCEPT 'sounds are on hold'
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_124_SOUNDSCAPE_RULE_2026_10_25.md | the soundscape: Battle Brothers' 39 tracks by Breakdown Epiphanies with place and faction themes (Dev Blog 119); PASSED EXCEPT 'sounds are on hold' and the beat question
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_125_NARRATION_TOGGLE_2026_10_25.md | the narration toggle: Battle Brothers has none, a screen-reader mod does it; PASSED
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_126_HOUSE_YOU_GIVE_A_FUCK_ABOUT_2026_10_25.md | a house you care about: Battle Brothers' houses are a coat of arms, a description and a relation bar, no face that remembers; PASSED
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_127_MAYOR_ARC_2026_10_25.md | the mayor arc read back; Battle Brothers' nearest is the Restore Location contract; PASSED
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_128_VEHICLE_LADDER_2026_10_25.md | the vehicle ladder read back; terrain speeds plains 1, forest 0.65, mountains 0.25, the Scout +15 percent; PASSED
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_129_THREE_CURRENCY_SYSTEM_2026_10_25.md | Battle Brothers' starting supplies by difficulty (High: 2,500 crowns, 50 food, 40 tools, 80 ammo, 30 medicine) and supply prices; PASSED EXCEPT its Bohemia half (rule 47's six)
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_130_DEATH_MATH_2026_10_25.md | the death math: a flat 33 percent survival, Survivor 90, the Surgeon; PASSED EXCEPT 'the run ends on a wipe' and BB's 33 as ours
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_131_GENERATIONAL_HANDOFF_2026_10_25.md | the handoff: Battle Brothers' five retirement endings, two carry on; PASSED EXCEPT the wipe ending the run and a handoff by wipe
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_132_THREE_ACTS_AT_ONCE_2026_10_25.md | the three acts at once read back; the crisis clock; PASSED EXCEPT its 'not locked' lines (rule 85, the third votes)
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_133_ENDING_TWIST_2026_10_25.md | the ending twist: Assassin's Creed in its department only, Battle Brothers' five endings; PASSED
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_134_QUEST_IS_PEOPLE_PLACES_THINGS_2026_10_25.md | a quest is people: Battle Brothers' employer speaks the offer, one contract at a time, the gold coin on the map; PASSED
 - 2026-10-24 | ask 26 (map size) | GROK_ASK_26_MAP_SIZE_2026_10_24.md | map size: seeds 140s to 200s across, about 17 settlements, plains 1 and mountains 0.25; thin duplicate; PASSED
 - 2026-10-24 | ask 26 (map size) | GROK_ASK_26_MAP_SIZE_NUMBERS_2026_10_24.md | the map in numbers: 140x140 then about 140x170 hexes, 17 settlements by kind, no days-to-cross on any page; PASSED
 - 2026-10-24 | ask 33 (map size) | GROK_ASK_33_MAP_SIZE_NUMBERS_DETAILED_2026_10_24.md | duplicate of ASK_26_MAP_SIZE_NUMBERS; PASSED
