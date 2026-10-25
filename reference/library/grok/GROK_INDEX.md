@@ -153,3 +153,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_99_ROSTER_AND_RESERVE_2026_10_24.md | roster, reserve, limits
 - 2026-10-24 | ASK | GROK_ASK_100_WAGES_AND_MOOD_2026_10_24.md | wages, mood, desertion
 - 2026-10-24 | ASK | GROK_ASK_101_PROVISIONS_AND_SPOILING_2026_10_24.md | provisions, spoiling, food
+- 2026-10-24 | ASK | GROK_ASK_102_TOOLS_AND_REPAIRS_2026_10_24.md | tools, repairs, durability
