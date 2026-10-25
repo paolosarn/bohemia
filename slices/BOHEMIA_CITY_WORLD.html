@@ -44045,6 +44045,7 @@ function phoneLitPath(){
 }
 function phoneRouteDraw(ox, oy){
   var p = phoneLitPath(); if(!p) return;
+  if(!MAP_PATHS_DRAWN) return;   /* __NO_ROUTE_LINES__: the town lights, no road is drawn to it */
   g.save();
   var beat = mapArtBeat();
   for(var i = 1; i < p.length; i++){
@@ -44221,7 +44222,7 @@ function mapContact(){
 function huntDraw(ox, oy){
   if(!HUNT) return;
   var q = iso(HUNT.at[0], HUNT.at[1], ox, oy), fy = q.sy + TH / 2 + 2, bt = mapArtBeat(), kp = MAP_PEOPLE_K;
-  if(HUNT_FLEE){
+  if(HUNT_FLEE && MAP_PATHS_DRAWN){   /* __NO_ROUTE_LINES__ */
     g.save();
     for(var i = 0; i < HUNT_FLEE.length; i++){
       var f = iso(HUNT_FLEE[i][0], HUNT_FLEE[i][1], ox, oy); g.globalAlpha = Math.max(0.45, 1 - i * 0.12); g.fillStyle = '#9fe08a';
@@ -45627,6 +45628,22 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh){
 /* __NO_FLAGS_ON_THE_ROAD__ (RUN 10/24, rule 143(f), Paolo: 'I keep seeing people walking around the map with flags, nobody
    walks around with flags'): a flag stands on a base (moving false); a party, a job's crew or the hunters carry none */
 var MAP_WALKERS_CARRY_FLAGS = false;
+/* __NO_ROUTE_LINES__ (RUN 10/24, rule 151(f), Paolo: 'I don't know why I'm seeing their lines on the ground of where they're
+   gonna walk, that was never a thing in Battle Brothers'): nobody's path is drawn on the ground. Off: his own dots to where he
+   is going (the thin ring where he stops stays), the phone's amber road to a job's town (the town still lights), the parties'
+   coloured legs and the living map's prints, the green road away from a hunt (FALL BACK on the encounter card is the way out
+   now). The code stays behind this switch. */
+var MAP_PATHS_DRAWN = false;
+/* __WHERE_AM_I__ (RUN 10/24, rule 164 item 9, Paolo on his PC: 'it's really hard to see where anything is on my character;
+   there's always a golden arrow facing northeast, I have no clue what that is'). LOOKED AT on the computer profile: every new
+   game starts beside the Church, and the Church's gold flag stands on its building right at his crew's shoulder, a gold cloth
+   on a pole pointing up and right. A town's flag now stands down while his crew is beside it (the town's name plate still
+   says whose it is), and his crew stands on a pale ring in his own colour (the 'mine' bone of the town he owns), so the
+   eye finds him first at every zoom. */
+function mapNearYou(x, y){
+  var px = CVW / 2 + panX, py = CVH / 2 + panY + TH * 0.5;
+  return Math.abs(x - px) < 46 && y > py - 90 && y < py + 30;
+}
 function mapFlagDraw(px, footY, tall, col, beat, moving){
   if (moving && !MAP_WALKERS_CARRY_FLAGS) { try { MAP_DREW.flagsOff = (MAP_DREW.flagsOff | 0) + 1; } catch (_e) {} return; }
   var top = footY - tall;
@@ -46006,7 +46023,7 @@ function mapBaseDraw(tier, faction, sx, footY, mine, beat){
   var q = (typeof CV_DPR === 'number' && CV_DPR) || 1, pad = spr.pad / q;
   g.imageSmoothingEnabled = false;
   g.drawImage(spr.c, mapSnap(sx - w / 2) - pad, mapSnap(footY - h) - pad, spr.c.width / q, spr.c.height / q);
-  mapFlagDraw(sx + w * 0.18, footY - h * 0.55, h * 0.55, mine ? '#e8dcc0' : mapFactionColour(faction), beat, false);
+  if (!mapNearYou(sx + w * 0.18, footY - h * 0.55)) mapFlagDraw(sx + w * 0.18, footY - h * 0.55, h * 0.55, mine ? '#e8dcc0' : mapFactionColour(faction), beat, false);   /* __WHERE_AM_I__ */
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.buildings++;
   return { width: w, height: h };
 }
@@ -47744,7 +47761,7 @@ function renderCity(){
          not a rule about how long footprints last. */
       try {
         /* __THE_LIVING_MAP__: the prints below replace the derived leg; this one stands down */
-        var __pl = (livingMapOn() && LIVING_MAP.st) ? [] : (partiesAll() || []);
+        var __pl = (!MAP_PATHS_DRAWN || (livingMapOn() && LIVING_MAP.st)) ? [] : (partiesAll() || []);   /* __NO_ROUTE_LINES__ */
         if (__pl.length) {
           g.save();
           g.lineCap = 'round';
@@ -47788,7 +47805,7 @@ function renderCity(){
          hour it was made; it reads full the hour it was made and is gone a day later. The ink is the
          faction's own (colour is territory), brighter for your own people, as the leg drawing was. */
       try {
-        if (livingMapOn() && LIVING_MAP.st && LIVING_MAP.st.prints.length) {
+        if (MAP_PATHS_DRAWN && livingMapOn() && LIVING_MAP.st && LIVING_MAP.st.prints.length) {   /* __NO_ROUTE_LINES__ */
           var __lh = livingMapHour(), __lk = {}, __ln = 0;
           g.save(); g.lineCap = 'round';
           for (var __li = 0; __li < LIVING_MAP.st.prints.length; __li++) {
@@ -48204,6 +48221,7 @@ function renderCity(){
       var __rp=iso(TRAVEL.path[__ri][0], TRAVEL.path[__ri][1], ox, oy);
       if(__rp.sx<-40||__rp.sx>CVW+40||__rp.sy<-40||__rp.sy>CVH+40) continue;
       var __last=(__ri===TRAVEL.path.length-1);
+      if(!__last&&!MAP_PATHS_DRAWN) continue;   /* __NO_ROUTE_LINES__: the ring where he stops, no dots on the way */
       var __ry=__rp.sy+TH*0.4;
       if(__last){
         /* the destination: a thin ring, wider than a dot, on the ground. Its own
@@ -48241,6 +48259,11 @@ function renderCity(){
     const __moving=!!(TRAVEL || __G.u<1);
     g.save(); g.globalAlpha=1;
     /* PLANTED: a dark ellipse under the feet, so he stands on the map, not over it */
+    /* __WHERE_AM_I__: his crew stands on a pale ring in his own colour, breathing on the beat */
+    { const __rp=0.85+0.15*((mapArtBeat()%2)?1:0);
+      g.lineWidth=2; g.strokeStyle='rgba(14,11,8,0.55)'; g.beginPath(); g.ellipse(__gx,__gy+1,26,9,0,0,7); g.stroke();
+      g.lineWidth=1.5; g.strokeStyle='rgba(232,220,192,'+__rp.toFixed(2)+')'; g.beginPath(); g.ellipse(__gx,__gy,26,9,0,0,7); g.stroke();
+      try{ MAP_DREW.youRing=(MAP_DREW.youRing|0)+1; }catch(_e){} }
     if(!mapPartyShadow(__gx,__gy)){ g.fillStyle='rgba(14,11,8,0.6)';
     g.beginPath(); g.ellipse(__gx,__gy,11,4,0,0,7); g.fill(); }
     /* THE HOP IS ANIMATION'S (__THE_MAP_GLIDES__, one per beat): the foot stays on the
