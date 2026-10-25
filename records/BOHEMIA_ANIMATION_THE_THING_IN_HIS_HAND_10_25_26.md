@@ -137,6 +137,16 @@ with a pipe and no shield decodes the melee keys and the pipe's layer and nothin
   drawn again: the old pictures stand now and the new ones replace them; the model is recorded per thing per layer once
   the last picture is in, and the pack packs whatever is drawn, marked with its model.
 
+## WHAT IS STILL HELD WRONG, AND WHY IT WAITS (item (3), measured against COOK's table and the armoury 10/25)
+Every row a man was dealt in the sixteen measured fights now has a thing. Of the armoury's rows none of those fights dealt:
+- the two-handed swords (5: rhomphaia, warbrand, longsword, greatsword, executioner's sword), the two-handed cleavers (4)
+  and the two-handed flails (3): COOK's table makes them its machete (65 cm), its cleaver (32 cm) and its chain; a 32 cm
+  cleaver cannot read as a two-handed blade, so they wait for long models (asked on COOK's board) and are drawn as before;
+- the bows (8): a bow is drawn and loosed, a pose no man has yet (new body keys for every man: the next line, not this one);
+- the slings (2): two-handed throwing, likewise a pose of its own.
+- the one-handed axes (crude, fighting, head splitter, axehammer) are drawn as the hatchet through their class (COOK's
+  table names its 92 cm fire axe, a two-handed tool), and the two-handed spears (warfork, spetum) as the pole hook.
+
 ## REFERENCE CHECK
 The compare law: the twin of every held key is the same man's own fight sheet cell and the market icon of the same thing
 (slices/market_icons: w_pipe, w_machete, w_cleaver, w_axe, w_sledge, w_spear, w_pole, w_chain, w_bottles), side by side at
