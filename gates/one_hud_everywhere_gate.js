@@ -176,6 +176,10 @@ async function side(profile) {
       }
       const toph = await f.evaluate(() => TOPH);
       ok('  the fight\'s board is measured under the bar (TOPH is the bar\'s bottom)', Math.abs(toph - Math.round(M.rect.bar[1] + M.rect.bar[3])) <= 1, 'TOPH ' + toph);
+      /* THE BAR'S COST, MEASURED AND HELD: the board's share of the glass in the game with the one bar on top (the fight's own
+         two-thirds leg measures the bench fight, which has no map and no bar); a floor of half, so the cost can only be seen */
+      const share = await f.evaluate(() => Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight));
+      ok('  the fight\'s board keeps at least half the glass under the one bar', share >= 50, share + '% (TOPH ' + toph + ')');
       const ph = await p.evaluate(r => { const h = document.elementFromPoint(r[0] + r[2] / 2, r[1] + r[3] / 2); return h ? (h.id || h.tagName) : null; }, MP.rect);
       ok('  the phone is not on the fight\'s glass (his vote: the phone is in the city view only)', ph === 'fightFrame', 'at the phone\'s place: ' + ph);
       /* CREW, the gear and NOTES in the fight */

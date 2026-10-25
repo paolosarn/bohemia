@@ -1059,6 +1059,9 @@
     var top = document.getElementById('top');
     if (!top || !document.getElementById('bmturnrow')) return false;
     if (document.getElementById('bmtb')) return true;
+    /* the one bar is the GAME's: a fight opened on its own (COMBAT's bench, its gates) has no map and no facts to show,
+       so it keeps its old top; inside the game the map is always there (the city frame under the fight) */
+    if (!hudMapWin()) { HUD.benchTries = (HUD.benchTries | 0) + 1; return HUD.benchTries > 6; }
     hudVars();
     var nb = document.createElement('span'); nb.id = 'notebtn'; nb.setAttribute('role', 'button'); nb.setAttribute('tabindex', '0'); nb.setAttribute('aria-label', 'notes');
     nb.innerHTML = '<span id="noteplate">NOTES</span>';
