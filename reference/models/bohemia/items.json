@@ -466,6 +466,113 @@
     "verts": 274,
     "parts": 9
    }
+  },
+  "hard_hat": {
+   "glb": "item_hard_hat.glb",
+   "kind": "worn_head",
+   "name": "a hard hat",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "undertaker_s_hat",
+    "witchhunter_s_hat",
+    "dark_cowl",
+    "assassin_s_head_wrap",
+    "aketon_cap",
+    "open_leather_cap",
+    "leather_head_wrap",
+    "desert_stalker_s_head_wrap",
+    "full_leather_cap",
+    "full_aketon_cap",
+    "nomad_leather_cap",
+    "bear_headpiece",
+    "blade_dancer_s_head_wrap",
+    "cultist_leather_hood",
+    "nomad_light_helmet",
+    "physician_s_mask",
+    "duelist_s_hat",
+    "rusty_mail_coif",
+    "mail_coif",
+    "closed_mail_coif",
+    "ancient_household_helmet"
+   ],
+   "sha1": "b9b0d03e974dabac29516fc01291b1f9ed2be917",
+   "measured": {
+    "size_m": [
+     0.406,
+     0.442,
+     0.3
+    ],
+    "lo": [
+     -0.202,
+     -0.218,
+     1.284
+    ],
+    "hi": [
+     0.205,
+     0.224,
+     1.584
+    ],
+    "materials": [
+     "clay_mustard 3",
+     "rubber 1",
+     "tape_masking 3"
+    ],
+    "verts": 3016,
+    "parts": 76,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_2"
+    ]
+   }
+  },
+  "fire_axe": {
+   "glb": "item_fire_axe.glb",
+   "kind": "held",
+   "name": "fire axe",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "crude_axe",
+    "fighting_axe",
+    "head_splitter",
+    "axehammer",
+    "woodcutter_s_axe",
+    "heavy_rusty_axe",
+    "bardiche",
+    "greataxe",
+    "man_splitter",
+    "longaxe"
+   ],
+   "sha1": "3500fdddc8aa295a8befc1f7e0b21b4c8f30084f",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     0.919,
+     0.061,
+     0.345
+    ],
+    "lo": [
+     -0.06,
+     -0.031,
+     -0.18
+    ],
+    "hi": [
+     0.859,
+     0.031,
+     0.165
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_mustard 1",
+     "clay_rust 2",
+     "rubber 1"
+    ],
+    "verts": 282,
+    "parts": 11,
+    "left_x": 0.4
+   },
+   "left_x": 0.4
   }
  }
 }

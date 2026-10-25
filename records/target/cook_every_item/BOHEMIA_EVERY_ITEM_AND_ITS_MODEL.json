@@ -7,7 +7,7 @@
  "rows_total": 310,
  "objects_total": 27,
  "objects_with_a_model_before": 3,
- "objects_with_a_model_now": 12,
+ "objects_with_a_model_now": 14,
  "objects": {
   "car_door": {
    "kind": "shield",
@@ -105,7 +105,7 @@
    "rows": 10,
    "glb": "reference/models/bohemia/item_fire_axe.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "rebar_spear": {
@@ -231,7 +231,7 @@
    "rows": 21,
    "glb": "reference/models/bohemia/item_hard_hat.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "riot_helmet": {

@@ -1,0 +1,28 @@
+{
+ "size_m": [
+  0.406,
+  0.442,
+  0.3
+ ],
+ "lo": [
+  -0.202,
+  -0.218,
+  1.284
+ ],
+ "hi": [
+  0.205,
+  0.224,
+  1.584
+ ],
+ "materials": [
+  "clay_mustard 3",
+  "rubber 1",
+  "tape_masking 3"
+ ],
+ "verts": 3016,
+ "parts": 76,
+ "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+ "bones": [
+  "Skeleton_neck_joint_2"
+ ]
+}
