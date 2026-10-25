@@ -1,0 +1,13 @@
+{
+ "_about": "RUN TWO [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). The share of the men at a hiring post who are women. Each is a whole person: her own body on the rig, her own face and voice (a person in engine/bohemia_people_mix.js with sex 'f', rolled by CHARACTER's builder), her name from the valley's women's names (BohemiaNames, sex 'f'), rolled like any hire, her numbers no different. TUNING may lift this number into the one table; the post reads it from here until then.",
+ "share": {
+  "value": 0.01,
+  "source": "Paolo 10/25, his word: 'like one percent' (NOTES ARE RULINGS; rule 203(b): his number until he picks)"
+ },
+ "share_realistic": {
+  "value": 0.02,
+  "source": "rule 203(b) AMENDED 10/25 (the coordinator, records/BOHEMIA_PAOLO_A_FEW_WOMEN_AT_THE_POST_10_25_26.md): Ukraine's war, women about 8 percent of the army but about 1.5 percent of those with combat status (13,487 of about 880,000); the 3 percent first put mixed in street gangs. Put to him once by the coordinator, never played until he picks it"
+ },
+ "plays_at": "the share while at least one woman's whole body exists to stand at a post (a person with sex 'f', 'fight' true, not of the company); 0 until then, never a man's body with a woman's name",
+ "draft": true
+}

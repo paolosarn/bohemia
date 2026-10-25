@@ -115,6 +115,7 @@ button{font:inherit;color:inherit}
 .stats>div>span:first-child{display:inline-flex;align-items:center;font-size:0}
 .stats .stars{color:var(--gold);letter-spacing:-1px;font-size:9px}
 .gain{color:var(--up);font-size:10px}
+.stats .worn{font-size:10px;margin-left:3px}   /* RUN TWO __THE_SHOP_SAYS_WHAT_IT_DOES__: the gear's part of the number */
 /* the level-up moment: the numbers are the picks */
 .levelup{margin-top:6px}
 .levelup>b{display:block;color:var(--gold);font-size:11px;letter-spacing:1px;margin-bottom:4px}
@@ -587,11 +588,17 @@ function drawCard(){
     lu.appendChild(go); el.appendChild(lu);
   } else {
     var st = document.createElement('div'); st.className = 'stats';
+    /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (RUN TWO's lines in UI's file, NOTE on UI's board; rule 202(c), Paolo 10/25: 'when you wear the
+       shield it reflects in your stats'): his defences, fatigue and initiative are shown WITH what he wears, the same numbers the
+       shop promised and the fight's makeUnit uses (engine/bohemia_roster.js worn); the gear's part is marked beside it */
+    var W = C.worn ? C.worn(m) : null;
     C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.setAttribute('aria-label', C.STAT_NAME[k]);
-      var v = document.createElement('span'); v.textContent = m.stats[k]; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
+      var shown = W && typeof W[k] === 'number' ? W[k] : m.stats[k], gearPart = shown - m.stats[k];
+      var v = document.createElement('span'); v.textContent = shown; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
+      if(gearPart){ var gw = document.createElement('span'); gw.className = 'worn ' + (gearPart > 0 ? 'up' : 'dn'); gw.textContent = (gearPart > 0 ? '+' : '') + gearPart; gw.title = 'what he wears'; v.appendChild(gw); }
       if(m.gained && m.gained[k]){ var gn = document.createElement('span'); gn.className = 'gain'; gn.textContent = '+' + m.gained[k]; v.appendChild(gn); }
-      r.appendChild(a); r.appendChild(v); r.dataset.stat = k; r.title = C.STAT_NAME[k]; r.setAttribute('role', 'button');
-      r.addEventListener('click', function(){ say(C.STAT_NAME[k] + ' ' + m.stats[k] + (m.stars[k] ? ', ' + m.stars[k] + (m.stars[k] === 1 ? ' star' : ' stars') + ': it climbs faster' : '') + '. ' + (STAT_SAYS[k] || '')); });
+      r.appendChild(a); r.appendChild(v); r.dataset.stat = k; r.dataset.shown = shown; r.title = C.STAT_NAME[k]; r.setAttribute('role', 'button');
+      r.addEventListener('click', function(){ say(C.STAT_NAME[k] + ' ' + shown + (gearPart ? ' (' + m.stats[k] + ' his own, ' + (gearPart > 0 ? '+' : '') + gearPart + ' from what he wears)' : '') + (m.stars[k] ? ', ' + m.stars[k] + (m.stars[k] === 1 ? ' star' : ' stars') + ': it climbs faster' : '') + '. ' + (STAT_SAYS[k] || '')); });
       st.appendChild(r); });
     el.appendChild(st);
   }

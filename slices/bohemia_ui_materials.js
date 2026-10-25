@@ -463,6 +463,8 @@
     if (kind === 'shield' || kind === 'shields') return dur < 40 ? 'a car door' : 'a riot shield';
     return dur < 40 ? 'a work jacket' : dur < 100 ? 'a padded vest' : dur < 180 ? 'a plate carrier' : 'full riot armour';
   }
+  var ARMOUR_NAMES = null;   /* RUN TWO __THE_SHOP_SAYS_WHAT_IT_DOES__ */
+  try { if (typeof fetch === 'function') fetch('../records/target/bb/armour_names.json').then(function (r) { return r.json(); }).then(function (j) { ARMOUR_NAMES = j; }).catch(function () {}); } catch (e) {}
   function itemFromRow(kind, row, all) {
     if (kind === 'weapon') {
       /* RUN TWO __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194): mirrors the market's rule, a two-hander in a class that holds both is a
@@ -474,7 +476,10 @@
       return { id: row.id, kind: 'weapon', name: (q < .34 ? 'beat-up ' : q < .67 ? 'solid ' : 'good ') + (h === 2 && mixed ? 'two-hand ' : '') + c };
     }
     var k = kind === 'shields' ? 'shield' : kind;
-    return { id: row.id, kind: k, name: armourName(k, row.durability), dur: row.durability || 0 };
+    /* RUN TWO __THE_SHOP_SAYS_WHAT_IT_DOES__ (rule 202(d)): every shield, armour and helmet row its own name, the object word still in it
+       (records/target/bb/armour_names.json, the market's own file); the bucket when the file is not read */
+    var NM = ARMOUR_NAMES && ARMOUR_NAMES[k === 'shield' ? 'shields' : k];
+    return { id: row.id, kind: k, name: (NM && NM[row.id]) || armourName(k, row.durability), dur: row.durability || 0 };
   }
   var OBJECTS = ['pistol', 'shotgun', 'rifle', 'pipe', 'sledge', 'bottles', 'machete', 'fire axe', 'rebar spear', 'cleaver', 'chain', 'pole hook', 'compound bow',
     'work jacket', 'padded vest', 'plate carrier', 'full riot armour', 'rag hood', 'hard hat', 'riot helmet', 'full riot helm', 'car door', 'riot shield'];

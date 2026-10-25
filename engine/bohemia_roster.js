@@ -90,15 +90,22 @@
     function j(u) { return fetch(u).then(function (r) { return r.json(); }); }
     return Promise.all([j(base + 'ours.json'), j(base + 'backgrounds.json'), j(base + 'armor.json'), j(base + 'weapons.json'),
       j('fight_people/fight_people.json').catch(function () { return null; }),
-      j(base + 'rules.json'), j(base + 'perk_translation.json')])
+      j(base + 'rules.json'), j(base + 'perk_translation.json'),
+      j(base + 'perks.json').catch(function () { return null; }), j(base + 'armour_names.json').catch(function () { return null; })])   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ */
       .then(function (a) { D.ours = a[0]; D.backgrounds = a[1]; D.armor = a[2]; D.weapons = a[3]; D.people = a[4];
-        D.xp = a[5].experience; D.perkRows = a[6].rows; return D; });
+        D.xp = a[5].experience; D.perkRows = a[6].rows; D.rules = a[5]; D.perks = a[7]; D.names = a[8]; return D; });
   }
   function bgRow(id) { var rs = (D.backgrounds && D.backgrounds.rows) || []; for (var i = 0; i < rs.length; i++) if (rs[i].id === id) return rs[i]; return null; }
   function armourName(kind, dur) {
     if (kind === 'head') return dur < 40 ? 'a rag hood' : dur < 100 ? 'a hard hat' : dur < 180 ? 'a riot helmet' : 'a full riot helm';
     if (kind === 'shields') return dur < 40 ? 'a car door' : 'a riot shield';
     return dur < 40 ? 'a work jacket' : dur < 100 ? 'a padded vest' : dur < 180 ? 'a plate carrier' : 'full riot armour';
+  }
+  /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (RUN TWO, rule 202(d)): every shield, armour and helmet row its own name
+     (records/target/bb/armour_names.json, draft:true), the object it is drawn as still in it; the bucket when the file is not read */
+  function ownName(kind, row) {
+    var k = kind === 'shield' ? 'shields' : kind, N = D.names && D.names[k];
+    return (N && row && N[row.id]) || armourName(k, row ? row.durability : 0);
   }
   /* an item the bag, the shops and the roster all speak: {id, kind, name, was, price, nums} */
   function itemOf(kind, id) {
@@ -114,7 +121,7 @@
     var list = kind === 'head' ? D.armor.head : kind === 'shield' ? D.armor.shields : D.armor.body, a = null;
     for (var k = 0; k < list.length; k++) if (list[k].id === id) a = list[k];
     if (!a) return null;
-    return { id: a.id, kind: kind, name: armourName(kind === 'shield' ? 'shields' : kind, a.durability), was: a.name, price: priceOf(a.value),
+    return { id: a.id, kind: kind, name: ownName(kind, a), was: a.name, price: priceOf(a.value),
       nums: 'holds ' + a.durability + (a.fatigue != null ? '  weight ' + Math.abs(a.fatigue) : '') };
   }
   /* a man from a crew entry: stats rolled in his background's wiki range, stars on up to three */
@@ -148,7 +155,7 @@
     var rowsW = D.ours.weapon_rows && D.ours.weapon_rows.value || {};
     var jobs = def.jobs || [], main = null, off = null;
     jobs.forEach(function (jb) { var it = itemOf(jb === 'car_door' ? 'shield' : 'weapon', rowsW[jb]); if (!it) return; if (it.kind === 'shield') off = it; else if (!main) main = it; });
-    if (off) off.name = jobs.indexOf('car_door') >= 0 ? 'a car door' : off.name;
+    /* RUN TWO rule 202(d): the door he starts with wears its row's own name (the shop's, the stash's), never the bucket word */
     if (main && off && twoHanded(main)) off = null;   /* TWO HANDS: a long gun leaves no hand for the door */
     return { id: 'm' + i, idx: i, name: def.name, main: !!def.main, background: bg.name || bg.id, bgId: bg.id,
       level: 1, xp: 0, points: 0, stats: st, stars: stars, perks: [], wage: Math.max(1, Math.round((bg.daily_wage || 10) / 10)),
@@ -267,7 +274,67 @@
     if (!long) return { reach: reach, rounds: shots };
     return { reach: 'REACH ' + reach, rounds: shots ? shots + (a.gun ? ', THEN RELOAD' : '') : null };
   }
-  var API = { load: load, armOf: armOf, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  /* ==== __THE_SHOP_SAYS_WHAT_IT_DOES__ (RUN TWO [the shop says what it does to your man], rule 202, Paolo 10/25: 'in the shop you
+     cannot just say how many batteries it costs without saying the stat it does... when you wear the shield it reflects in your
+     stats'). ONE SOURCE for the shop's card, the crew screen and the fight: what a man's numbers are with what he wears, read the
+     way the fight reads them (slices/BOHEMIA_FIGHT.html makeUnit, shieldDef, gearFat, bagFat, fatMax, curIni at rest), from the
+     same rows (armor.json, weapons.json, a pistol's shot from ours.pistol_shot, perks.json's numbers, rules.json's bag half).
+     A shield on a man whose weapon takes both hands is carried on his back, so it adds nothing (the fight's own rule). ==== */
+  function rowOf(kind, id) {
+    if (!id) return null; id = id.id || id;
+    var list = kind === 'weapon' ? ((D.weapons && D.weapons.rows) || []) : kind === 'shield' ? ((D.armor && D.armor.shields) || []) : ((D.armor && D.armor[kind]) || []);
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+  /* the weapon the fight swings or shoots: a pistol fires the row ours.pistol_shot rides (its damage), with its own weight */
+  function fightWeapon(id) {
+    var w = rowOf('weapon', id); if (!w) return null;
+    var P = D.ours && D.ours.pistol_shot && (D.ours.pistol_shot.value || D.ours.pistol_shot);
+    var r = P && w['class'] === P['class'] && P.by_row && P.by_row[w.id] ? rowOf('weapon', P.by_row[w.id]) : null;
+    return r ? Object.assign({}, r, { id: w.id, name: w.name, value: w.value, fatigue: w.fatigue, durability: w.durability, of: w, rides: r.id }) : w;
+  }
+  function perkNums(perks, id) {
+    if (!perks || perks.indexOf(id) < 0) return null;
+    var rows = (D.perks && D.perks.rows) || [];
+    for (var i = 0; i < rows.length; i++) if (rows[i].id === id) return rows[i].numbers || {};
+    return null;
+  }
+  function gearIds(g) {
+    g = g || {}; var id = function (x) { return x ? (x.id || x) : null; };
+    var bag = Array.isArray(g.bag) ? g.bag.map(id) : [id(g.bag1), id(g.bag2)];
+    return { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head), bag: bag };
+  }
+  /* his numbers with what he wears: {melee_defense, ranged_defense, fatigue, initiative, armour_body, armour_head, from:{...}} */
+  function worn(man) {
+    var st = (man && man.stats) || {}, perks = (man && man.perks) || [], g = gearIds(man && man.gear);
+    var w = fightWeapon(g.main), sh = rowOf('shield', g.off), body = rowOf('body', g.body), head = rowOf('head', g.head);
+    if (sh && w && handsOfRow(w.of || w) === 2) sh = null;   /* the fight: a two-hander puts the shield on his back */
+    var se = perkNums(perks, 'shield_expert'), sx = se ? 1 + se.shield_defense_bonus_increase_pct / 100 : 1;
+    var f = 0, worn0 = 0;
+    [w, sh].forEach(function (x) { if (x && typeof x.fatigue === 'number') f += x.fatigue; });
+    [body, head].forEach(function (x) { if (x && typeof x.fatigue === 'number') worn0 += x.fatigue; });
+    var br = perkNums(perks, 'brawny'), gearFat = f + (br ? worn0 * (1 - br.armor_fatigue_initiative_penalty_reduction_pct / 100) : worn0);
+    var half = D.rules && D.rules.fatigue && D.rules.fatigue.bag_items_penalty_multiplier, hv = half && half.value != null ? half.value : 0.5;
+    var bb = perkNums(perks, 'bags_and_belts'), bagFat = 0;
+    g.bag.forEach(function (id) { var x = fightWeapon(id) || rowOf('shield', id); if (!x || typeof x.fatigue !== 'number') return;
+      bagFat += x.fatigue * (bb && handsOfRow(x.of || x) !== 2 ? 0 : hv); });   /* half its weight; Bags and Belts: only a two-hander weighs */
+    var md = (st.melee_defense || 0) + (sh ? sh.melee_defense * sx : 0), rd = (st.ranged_defense || 0) + (sh ? sh.ranged_defense * sx : 0);
+    return { melee_defense: Math.round(md), ranged_defense: Math.round(rd), fatigue: Math.max(0, Math.round((st.fatigue || 0) + gearFat + bagFat)),
+      initiative: Math.round((st.initiative || 0) + gearFat), armour_body: body ? body.durability : 0, armour_head: head ? head.durability : 0,
+      from: { shield: sh ? { melee_defense: Math.round(sh.melee_defense * sx), ranged_defense: Math.round(sh.ranged_defense * sx) } : null, gearFat: Math.round(gearFat), bagFat: Math.round(bagFat) } };
+  }
+  /* the item in its slot on him: what his numbers become, and the one thing that stops it (a two-hander and a shield) */
+  function wearing(man, it) {
+    var g = gearIds(man && man.gear), slot = slotFor(it), out = { slot: slot, was: g[slot] || null, before: worn(man), stops: null };
+    var g2 = Object.assign({}, g, { bag: g.bag.slice() }); g2[slot] = it.id;
+    var mw = rowOf('weapon', g.main);
+    if (slot === 'off' && mw && handsOfRow(mw) === 2) out.stops = { why: 'both', weapon: itemOf('weapon', mw.id) };
+    if (slot === 'main' && handsOfRow(rowOf('weapon', it.id) || {}) === 2 && g.off) { g2.off = null; out.drops = itemOf('shield', g.off); }   /* the shield goes to the stash */
+    out.after = out.stops ? out.before : worn(Object.assign({}, man, { gear: g2 }));
+    return out;
+  }
+  /* ==== end __THE_SHOP_SAYS_WHAT_IT_DOES__ ==== */
+  var API = { load: load, armOf: armOf, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     PAIN_POOL: PAIN_POOL, bgName: bgName, classWord: classWord, weaponName: weaponName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

@@ -9836,6 +9836,14 @@ GATES = [
      "The eight at the sizes the game shows them (72 and 54 real pixels on his phone, 18 on a computer), nearest and smooth: no pair mistakable (one outline 0.85+, or 0.60+ with colours under 30 delta E apart), "
      "a stranger's glance (moved, scaled, softened, in the sun) names each from its picture alone, 40 glances each, none mistaken; the two defences' outlines under 0.60; the 10/25 shot-through shield caught (outline 1.00) "
      "and a twin caught by the glance; the ranged defence in the game is the tool's cover byte for byte. 2 s", False),
+    ('THE SHOP SAYS WHAT IT DOES TO YOUR MAN', ['node', 'gates/the_shop_says_what_it_does_gate.js'],
+     "RUN TWO gate, 10/25, row [the shop says what it does to your man] (rule 202, Paolo 10/25: 'in the shop you cannot just say how many batteries it costs without saying the stat it does... when you wear the shield it reflects in your stats'). "
+     "MEASURED before: a shield's card said 'holds 16 weight 4', never its defences; every shield under 40 'a car door'; nothing on a man; the crew screen without what he wears. HOLDS on the demo through Church's door by real taps: every shield, armour and helmet row its own name, none alike, the object word in it, shop, crew screen and icons agreeing; "
+     "a shield's card its own numbers with UI's stat icons; ON A MAN before and after equal to a sum from the files; a face tapped shows another man; armour and weapon cards (a pistol's damage the fight's shot); bought and put on by real taps, the crew screen shows exactly the shop's numbers, and the fight stands him with the same; the computer. about 4 min", True),
+    ('A FEW WOMEN AT THE POST', ['node', 'gates/a_few_women_at_the_post_gate.js'],
+     "RUN TWO gate, 10/25, row [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). "
+     "MEASURED before: no woman's body exists (71 people 'm', 81 unset, all on the master rig, a man's), and the unset 81 rolled their names 50/50 (405 of 810 rolled names read as women's): men wore women's names. "
+     "HOLDS: the file (his 1 percent, the realistic 2 for him); NOW 10,000 rolled hires give 0 women and no man at a post, a keeper or the crowd wears a woman's name; the machine, a woman's body handed in for the test, gives the share within its noise, each her body and her name, no man's roll moved. about 1 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

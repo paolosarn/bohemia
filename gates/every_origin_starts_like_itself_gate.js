@@ -128,7 +128,7 @@ async function crewScreen(d, mouse) {
     const cs = await crewScreen(d, false), m = cs.man || {};
     if (process.env.BOHEMIA_SHOT_DIR) await d.page.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'wolf_crew_phone.png') });
     const kitOk = m.gear && m.gear.main === c0.gear.main && m.gear.off === c0.gear.off && m.gear.body === c0.gear.body && m.gear.head === c0.gear.head && m.gear.bag1 === 'rondel_dagger'
-      && /^(machete|fire axe)$/.test(m.names.main) && m.names.off === 'a riot shield' && m.names.body === 'full riot armour' && m.names.head === 'a full riot helm' && m.names.bag1 === 'pistol';
+      && /^(machete|fire axe)$/.test(m.names.main) && /riot shield$/.test(m.names.off) && /full riot armour$/.test(m.names.body) && /full riot helm$/.test(m.names.head)   /* RE-AIMED RUN TWO rule 202(d): each row its own name, the object it is drawn as at its end */ && m.names.bag1 === 'pistol';
     ok('*** W4 THE CREW SCREEN READS AS A GOD *** (a real tap on the chip: YOU at LEVEL 4, his rolled numbers, ★★★ drawn on the three stats, his kit, the pistol in his bag, his three perks, his own line)',
       cs.tapped && m.name === 'YOU' && m.level === 4 && m.levelShown && JSON.stringify(m.stats) === JSON.stringify(c0.stats) && m.starsDrawn === 3 && kitOk
       && JSON.stringify(m.perks) === JSON.stringify(dm.perks) && m.points === 0 && m.perksShown && m.pain === dm.line && m.lineShown && m.crew === 1,
@@ -153,7 +153,7 @@ async function crewScreen(d, mouse) {
 
     /* ---- W6 a new game is a new man ---- */
     const demoSrc = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8');
-    const listed = /'bohemia\.camp\.v1', 'bohemia\.origin\.roll\.v1'\]\.forEach\(function\(k\)\{ try\{ localStorage\.removeItem\(k\)/.test(demoSrc);
+    const listed = /'bohemia\.origin\.roll\.v1'[^\]]*\]\.forEach\(function\(k\)\{ try\{ localStorage\.removeItem\(k\)/.test(demoSrc);   /* RE-AIMED 10/25: the wagon's count is forgotten beside it (THE WAGON AND THE SIX) */
     const next = await d.page.evaluate(() => { const before = localStorage.getItem(BohemiaOriginStart.KEY); BohemiaOriginStart.forget(); const gone = localStorage.getItem(BohemiaOriginStart.KEY) === null;
       return { had: !!before, gone, man: JSON.stringify(BOH_START.picks().company) }; });
     pre.man1 = JSON.stringify(pre.picks.company);

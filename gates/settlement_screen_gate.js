@@ -140,7 +140,7 @@ const srv = http.createServer((rq, rs) => {
   ok('  the shelf is weapons in our names', /pistol|pipe|sledge|rifle|machete|axe|spear|cleaver|chain|hook|bow|bottles|shotgun/.test(first.name), first.name + ' (was ' + first.was + ')');
   await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(250);
   const said = await p.evaluate(() => document.querySelector('#sbody .say p').textContent + ' | ' + (document.querySelector('#sbody .slots') || {}).textContent);
-  ok('  the keeper says the price and the card shows the numbers', said.indexOf(String(first.price)) >= 0 && /dmg/.test(said), said.slice(0, 90));
+  ok('  the keeper says the price and the card shows the numbers', said.indexOf(String(first.price)) >= 0 && /DAMAGE \d+-\d+/.test(said), said.slice(0, 90));   /* RE-AIMED RUN TWO rule 202(a): the card's numbers in words with UI's icons ('DAMAGE 25-35'), never 'dmg' */
   const m0 = await bat();
   await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
   const m1 = await bat(), inBag = await p.evaluate(() => document.querySelectorAll('#baggrid .slot.full').length);
