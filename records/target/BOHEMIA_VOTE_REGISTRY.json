@@ -15230,6 +15230,78 @@
     "src": "BOHEMIA_THREE_LEVELS_REPO_MAN_10_25_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-new-song-the-church-clock-strikes-twelve-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "b6618455",
+   "made": "10/25",
+   "title": "A NEW SONG: THE CHURCH CLOCK STRIKES TWELVE",
+   "why": "A new song, THE CHURCH CLOCK STRIKES TWELVE, its own song this time: the church clock's own bell (a real recording, tuned note by note) for the lead, wood knocked for the kick, hands clapped for the snare, the old Yantar clock for the hat, in D minor (aeolian), a tune you can hum, at the three levels of a fight on the 120 beat, and it is in nothing until you say it joins. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, THE CHURCH CLOCK STRIKES TWELVE joins the game",
+    "B, no, not this one"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_NEW_SONG_THE_CHURCH_CLOCK_STRIKES_TWELVE_10_25_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-new-song-the-soda-machine-still-takes-coins-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "b6618455",
+   "made": "10/25",
+   "title": "A NEW SONG: THE SODA MACHINE STILL TAKES COINS",
+   "why": "A new song, THE SODA MACHINE STILL TAKES COINS, its own song this time: a drawbar organ that bends, his engine's drawbarmorph for the lead, a bass drum shell for the kick, a soda can opening for the snare, a mouse click for the hat, swung, in E phrygian, a tune you can hum, at the three levels of a fight on the 120 beat, and it is in nothing until you say it joins. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, THE SODA MACHINE STILL TAKES COINS joins the game",
+    "B, no, not this one"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_NEW_SONG_THE_SODA_MACHINE_STILL_TAKES_COINS_10_25_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-new-song-the-helicopter-that-never-lands-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "b6618455",
+   "made": "10/25",
+   "title": "A NEW SONG: THE HELICOPTER THAT NEVER LANDS",
+   "why": "A new song, THE HELICOPTER THAT NEVER LANDS, its own song this time: a ghost flute, his engine's for the lead, a large wooden door knocked for the kick, a clap for the snare, a clock ticking close for the hat, four on the floor, in A dorian, a tune you can hum, at the three levels of a fight on the 120 beat, and it is in nothing until you say it joins. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, THE HELICOPTER THAT NEVER LANDS joins the game",
+    "B, no, not this one"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_NEW_SONG_THE_HELICOPTER_THAT_NEVER_LANDS_10_25_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-new-song-the-pawn-counter-at-four-in-the-morning-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "4dbd20c9",
+   "made": "10/25",
+   "title": "A NEW SONG: THE PAWN COUNTER AT FOUR IN THE MORNING",
+   "why": "A new song, THE PAWN COUNTER AT FOUR IN THE MORNING, its own song this time: a drowned upright piano, his engine's for the lead, a door knock for the kick, a can opened for the snare, a wind-up clock for the hat, a broken beat, in C harmonic minor, a tune you can hum, at the three levels of a fight on the 120 beat, and it is in nothing until you say it joins. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, THE PAWN COUNTER AT FOUR IN THE MORNING joins the game",
+    "B, no, not this one"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_NEW_SONG_THE_PAWN_COUNTER_AT_FOUR_IN_THE_MORNING_10_25_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

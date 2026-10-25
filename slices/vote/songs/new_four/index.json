@@ -1,0 +1,74 @@
+{
+ "made": "10/25",
+ "tool": "tools/bohemia_sounds_four_new_songs.js",
+ "songs": [
+  {
+   "name": "THE CHURCH CLOCK STRIKES TWELVE",
+   "slug": "the_church_clock_strikes_twelve",
+   "dir": "vote/songs/new_four/the_church_clock_strikes_twelve/",
+   "id": "sounds-new-song-the-church-clock-strikes-twelve-10-25",
+   "levels_db": [
+    -36.5,
+    -35.2,
+    -33.19
+   ],
+   "sub": "A new song, THE CHURCH CLOCK STRIKES TWELVE: the church on Maryland Parkway whose clock still strikes the hours for nobody, its bell the tune. Its own lead, the church clock's own bell (a real recording, tuned note by note), its own drums (wood knocked for the kick, hands clapped for the snare, the old Yantar clock for the hat), in D minor (aeolian). In nothing until you say it joins.",
+   "what": {
+    "1": "1. THE MAP: the song as it would play on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: the beat tightens, the ticking doubles, the bass pushes. The tune stays.",
+    "3": "3. YOUR TURN: the full kit, the bass driving, the tune doubled an octave."
+   }
+  },
+  {
+   "name": "THE SODA MACHINE STILL TAKES COINS",
+   "slug": "the_soda_machine_still_takes_coins",
+   "dir": "vote/songs/new_four/the_soda_machine_still_takes_coins/",
+   "id": "sounds-new-song-the-soda-machine-still-takes-coins-10-25",
+   "levels_db": [
+    -36.5,
+    -33.62,
+    -29.84
+   ],
+   "sub": "A new song, THE SODA MACHINE STILL TAKES COINS: a soda machine in a dead laundromat on Fremont, lit, humming, still swallowing coins nobody has. Its own lead, a drawbar organ that bends, his engine's drawbarmorph, its own drums (a bass drum shell for the kick, a soda can opening for the snare, a mouse click for the hat, swung), in E phrygian. In nothing until you say it joins.",
+   "what": {
+    "1": "1. THE MAP: the song as it would play on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: the beat tightens, the ticking doubles, the bass pushes. The tune stays.",
+    "3": "3. YOUR TURN: the full kit, the bass driving, the tune doubled an octave."
+   }
+  },
+  {
+   "name": "THE HELICOPTER THAT NEVER LANDS",
+   "slug": "the_helicopter_that_never_lands",
+   "dir": "vote/songs/new_four/the_helicopter_that_never_lands/",
+   "id": "sounds-new-song-the-helicopter-that-never-lands-10-25",
+   "levels_db": [
+    -36.5,
+    -33.94,
+    -31
+   ],
+   "sub": "A new song, THE HELICOPTER THAT NEVER LANDS: a news helicopter that has circled the Strip since the dollar died, its pilot long gone, the rotor still turning. Its own lead, a ghost flute, his engine's, its own drums (a large wooden door knocked for the kick, a clap for the snare, a clock ticking close for the hat, four on the floor), in A dorian. In nothing until you say it joins.",
+   "what": {
+    "1": "1. THE MAP: the song as it would play on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: the beat tightens, the ticking doubles, the bass pushes. The tune stays.",
+    "3": "3. YOUR TURN: the full kit, the bass driving, the tune doubled an octave."
+   }
+  },
+  {
+   "name": "THE PAWN COUNTER AT FOUR IN THE MORNING",
+   "slug": "the_pawn_counter_at_four_in_the_morning",
+   "dir": "vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/",
+   "id": "sounds-new-song-the-pawn-counter-at-four-in-the-morning-10-25",
+   "levels_db": [
+    -36.5,
+    -33.84,
+    -30.71
+   ],
+   "sub": "A new song, THE PAWN COUNTER AT FOUR IN THE MORNING: the pawn shop on Las Vegas Boulevard that never closed, the owner asleep behind the glass, a piano nobody bought. Its own lead, a drowned upright piano, his engine's, its own drums (a door knock for the kick, a can opened for the snare, a wind-up clock for the hat, a broken beat), in C harmonic minor. In nothing until you say it joins.",
+   "what": {
+    "1": "1. THE MAP: the song as it would play on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: the beat tightens, the ticking doubles, the bass pushes. The tune stays.",
+    "3": "3. YOUR TURN: the full kit, the bass driving, the tune doubled an octave."
+   }
+  }
+ ]
+}
