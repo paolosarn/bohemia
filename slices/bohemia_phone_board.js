@@ -84,6 +84,7 @@
         var key = name + '|' + o.id; if (SEEN[key] == null) SEEN[key] = t;
         /* stars (146(e)): the job's own stars once RUN's [the job's stars] hands them, its skulls until then (one to three) */
         var st = Math.max(1, Math.min(3, (o.stars | 0) || (o.skulls | 0) || 1));
+        try { if (typeof loopJobStars === 'function') st = loopJobStars(o); } catch (e) {}   /* RUN 10/25 __THE_JOBS_STARS__: its real party against his company */
         out.push({ key: key, place: name, x: b.x | 0, y: b.y | 0, tier: tier, id: o.id, title: o.title, skulls: o.skulls || 1, stars: st, pay: (typeof loopJobPay === 'function' ? loopJobPay(o.pay) : o.pay | 0),   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): what the contract pays, the start's bonus in it (the map's loopJobPay) */
           dist: Math.max(Math.abs((b.x | 0) - me[0]), Math.abs((b.y | 0) - me[1])), way: way((b.x | 0) - me[0], (b.y | 0) - me[1]), age: t - SEEN[key] });
       }

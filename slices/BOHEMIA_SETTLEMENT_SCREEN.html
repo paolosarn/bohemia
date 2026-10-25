@@ -1769,7 +1769,12 @@ function clientLook(o){
 }
 function clientName(o){ return (o.client.name + ', ' + o.client.from).toUpperCase(); }
 function clientAct(o, full){
-  var b = act(o.title, '☠'.repeat(o.skulls||1) + '  ' + moneyWord(payShown(o.pay)), function(){ offerSpeak(o); }, full);
+  /* RUN 10/25 __THE_JOBS_STARS__ (rule 146(e): one mark, stars, never skulls): the map's stars for the job, the UI's star */
+  var stN = Math.max(1, Math.min(3, o.skulls || 1)); try{ if(window.parent && window.parent.loopJobStars) stN = window.parent.loopJobStars(o); }catch(e){}
+  var b = act(o.title, moneyWord(payShown(o.pay)), function(){ offerSpeak(o); }, full);
+  try{ var em = b.querySelector('em'), M = window.BohemiaMaterials, se = (M && M.stars) ? M.stars(stN, { gap: 0 }) : null;
+    if(em){ if(!se){ se = document.createElement('span'); se.textContent = new Array(stN + 1).join('\u2605'); }
+      se.dataset.jobStars = stN; em.insertBefore(document.createTextNode('  '), em.firstChild); em.insertBefore(se, em.firstChild); } }catch(e){}
   b.className = 'act client'; b.dataset.id = o.id;
   var f = face(null, clientWho(o), clientLook(o)); f.classList.add('small');
   var cl = document.createElement('div'); cl.className = 'cl';

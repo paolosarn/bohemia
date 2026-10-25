@@ -206,8 +206,9 @@ const srv = http.createServer((rq, rs) => {
 
   /* the board reads as work: every contract shows its skulls and its pay */
   await tapB('board'); await p.waitForTimeout(250);
-  const skulls = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act em')).map(e => e.textContent));
-  ok('the board is where work is: each job shows its skulls and its pay', skulls.length > 0 && skulls.every(t => /\u2620/.test(t) && /batt/.test(t)), skulls.join(' / '));
+  /* RUN 10/25 (rule 146(e), 'one mark, stars, never skulls'): the stars the map gives the job, in the UI's star, and the pay */
+  const skulls = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act.client em')).map(e => { const s = e.querySelector('[data-job-stars]'); return (s ? s.dataset.jobStars + '*' : '') + e.textContent; }));
+  ok('the board is where work is: each job shows its stars and its pay, never a skull', skulls.length > 0 && skulls.every(t => /^[123]\*/.test(t) && /batt/i.test(t) && !/\u2620/.test(t)), skulls.join(' / '));
 
   /* THE OFFER IS A MOUTH (RUN TWO 10/17, rule 51c and rule 19: 'text comes from a mouth with a portrait',
      'accepting is at the place'): the people who need the work stand at the board with faces and names; tap

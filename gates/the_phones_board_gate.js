@@ -127,15 +127,16 @@ async function contrasts(page, jobs) {
   const sb = await sfh.boundingBox(), wb = await sf.evaluate(() => BohemiaSettlement.where('board'));
   await p.touchscreen.tap(sb.x + wb.x, sb.y + wb.y); await p.waitForTimeout(1000);
   const board = await sf.evaluate(() => ({ place: BohemiaSettlement.state.place.name, open: BohemiaSettlement.state.open,
-    acts: [...document.querySelectorAll('#sbody .act')].map(b => ({ t: (b.querySelector('span') || b).textContent, em: (b.querySelector('em') || {}).textContent || '' })) }));
+    acts: [...document.querySelectorAll('#sbody .act')].map(b => ({ t: (b.querySelector('span') || b).textContent, em: (b.querySelector('em') || {}).textContent || '', st: +(((b.querySelector('[data-job-stars]') || {}).dataset || {}).jobStars || 0) })) }));
   const line = board.acts.find(a => a.t === first.title);
-  const sk = line ? (line.em.match(/☠/g) || []).length : 0, pay = line ? (line.em.match(/(\d+)\s*batt/) || [])[1] : null;
-  ok('THE PHONE AGREES WITH THE PLACE: its own board offers that job, that pay, those skulls', board.open === 'board' && board.place === first.place && !!line && sk === first.skulls && first.meta.indexOf(String(pay)) >= 0 && +pay === first.pay,
+  const sk = line ? line.st : 0, pay = line ? (line.em.match(/(\d+)\s*batt/i) || [])[1] : null;   /* RUN 10/25: the stars, one mark (146(e)) */
+  ok('THE PHONE AGREES WITH THE PLACE: its own board offers that job, that pay, those stars', board.open === 'board' && board.place === first.place && !!line && sk === first.stars && first.meta.indexOf(String(pay)) >= 0 && +pay === first.pay,
      board.place + '\'s board: ' + board.acts.map(a => a.t + ' [' + a.em + ']').join(' | '));
   /* AND EVERY ASK THE PHONE HOLDS FOR THAT PLACE IS ON ITS BOARD, AND NOTHING MORE: one invented job ranked under a real
      one passed the leg above (mutation, 10/9), so the whole list is compared, title, pay and skulls */
-  const mine = await fr.evaluate(name => BohemiaPhoneBoard.asks().filter(a => a.place === name).map(a => a.title + '|' + a.pay + '|' + a.skulls).sort(), first.place);
-  const theirs = board.acts.filter(a => /batt/.test(a.em)).map(a => a.t + '|' + ((a.em.match(/(\d+)\s*batt/) || [])[1]) + '|' + (a.em.match(/\u2620/g) || []).length).sort();
+  /* RUN 10/25: compared by title, pay and STARS (rule 146(e), one mark; the map's loopJobStars on both) */
+  const mine = await fr.evaluate(name => BohemiaPhoneBoard.asks().filter(a => a.place === name).map(a => a.title + '|' + a.pay + '|' + a.stars).sort(), first.place);
+  const theirs = board.acts.filter(a => /batt/i.test(a.em)).map(a => a.t + '|' + ((a.em.match(/(\d+)\s*batt/i) || [])[1]) + '|' + a.st).sort();
   ok('  and every ask the phone holds for that place is on its board, and nothing more', mine.length > 0 && mine.join(';') === theirs.join(';'), 'phone ' + mine.join(', ') + ' / board ' + theirs.join(', '));
 
   /* TAKEN AT THE BOARD WITH A REAL FINGER, IT DISAPPEARS */

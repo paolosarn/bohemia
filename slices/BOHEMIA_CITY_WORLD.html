@@ -44083,6 +44083,21 @@ function partySizeOf(p){
 /* TUNING's line at early gear (10/19): an even crew wins about 70 in 100. One skull: fewer than his crew, he wins about 9
    in 10. Two: up to one more than his. Three: bigger than that. TUNING's skull line for change 3 replaces this when it lands. */
 function partySkulls(n){ var c = 3; try{ c = crewCount(); }catch(_e){} return n < c ? 1 : n <= c + 1 ? 2 : 3; }
+/* ==== __THE_JOBS_STARS__ (RUN 10/25, rule 146(b) as amended by (e), Paolo 10/24: 'even Battle Brothers has a tiered quest
+   system, one, two or three... jobs should just have stars as well'). MEASURED on the phone at the opening: both posts read
+   three stars (the shelf's skulls copied across, every 'Bring the crates' a three against a crew of three that would meet
+   two men). NOW a job's stars are its REAL PARTY AGAINST HIS COMPANY, the plate's own rule: the party the fight will deal
+   (partyMath 'job', the job's skulls as the job's size, the roster, the day, the difficulty) against crewCount(): fewer than
+   his men one star, his men or one more two, more three; the same number the meet card, the phone and the town's board
+   show, and it moves as his company grows or shrinks (Battle Brothers' contract difficulty reads your company the same way). ==== */
+function loopJobStars(o){
+  var sk = Math.max(1, Math.min(3, (o && (o.skulls | 0)) || 1)), n = 0;
+  try{ n = partyMath('job', { skulls: sk }).count | 0; }catch(_e){ n = 0; }
+  if(!n) return sk;
+  return partySkulls(n);
+}
+try{ window.loopJobStars = loopJobStars; }catch(_e){}
+/* ==== /__THE_JOBS_STARS__ ==== */
 function partyGoing(p){
   try{ var leg = BohemiaParties.legOf(p); if(leg === 'back') return 'GOING HOME';
     if(p.agenda === 'patrol') return 'ON THE BORDER';
@@ -44437,7 +44452,7 @@ function rescueDone(job){
   window.__RESCUED = { job: job.id, men: (job.men || []).slice() };
   return 'Your men are back: ' + (job.men || []).join(', ') + '. Hurt, but back, with their gear.';   /* draft:true */
 }
-/* ==== /__THE_WIPE_WAKES_IN_TOWN__ ====
+/* ==== /__THE_WIPE_WAKES_IN_TOWN__ ==== */
 /* ==== __ONE_BILL_IN_DAYS__ (RUN 10/23, [the first hour, quicker], TUNING's change 5, rule 133(b)) ====================
    PAOLO 10/23: 'also kind of hardcore vibes if you're fucking around too much.' MEASURED (TUNING's walk and this lane's):
    06:00 to 22:00 charged nothing for the crew; nightfall took one battery of rent; and THE CLOCK THEN STOPPED AT 22:00 FOR
