@@ -125,11 +125,12 @@ TYPES = {
         look=dict(shirt=dict(colour=(76, 90, 106), sleeve='long'), coat=None,
                   trousers=dict(colour=(66, 66, 68), wide=0.02), shoes=dict(colour=SOOT, kind='boot', top=0.24), belt=None),
         # round 2: FIVE (a heavies' band fields up to five Heavies at count_scale 0.45, orc_warrior and lower_orc_warrior)
+        # round 2 (looking, heavy_2 at 1:1): the steel shin guards rendered two blue patches on his shins (rule 159): rust scrap guards
         tops=['WORK COVERALLS', 'BONE BUTTON-UP', 'OLIVE DRAB TEE', 'DUST PLAID SHIRT', 'FADED BLACK LONGSLEEVE'],   # round 2: the steel shirt is blue (rule 159); bone under the olive vest
         coats=['QUILTED VEST', 'TACTICAL VEST', 'LEATHER VEST', 'OLIVE VEST', "SMITH'S APRON"],
         legs=['SLATE WORK PANTS', 'KHAKI CARGOS', 'SOOT CARGOS', 'BONE WORK PANTS', 'DUST BROWN TROUSERS'],
         feet=['FIELD BOOTS', 'TALL MOTO BOOTS', 'RUST BOOTS', 'CHARCOAL BOOTS', 'RANCH BOOTS'],
-        kit=[['SCAV KNEEPADS', 'LEATHER GLOVES'], ['SOOT GLOVES', 'SOOT GORGET'], ['STEEL SHIN GUARDS', 'LEATHER GLOVES'],
+        kit=[['SCAV KNEEPADS', 'LEATHER GLOVES'], ['SOOT GLOVES', 'SOOT GORGET'], ['SHIN GUARDS', 'LEATHER GLOVES'],
              ['SCRAP PAULDRON', 'SOOT GLOVES'], ['SOOT CHEST PLATE', 'LEATHER GLOVES']],
         hats=[None, 'HAT SCRAP HELM', None, None, 'HAT DUST WORK CAP'], eyewear=['FACE RUBBER GAS MASK', None, 'FACE SHIELD VISOR', 'FACE ASH SHIELD', None],
         # cycle 1 (looking, heavy_0): a bald or shaved crown takes the rig's up-face dust and a deep skin read as a pale
