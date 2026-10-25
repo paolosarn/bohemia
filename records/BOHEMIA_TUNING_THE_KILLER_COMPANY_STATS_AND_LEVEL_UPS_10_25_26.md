@@ -133,7 +133,7 @@ the fight writes it (id the striker, shot for a ranged blow). The level rule is 
       the fight                          his old plan (fatigue)      ranged defence for fatigue     who wins the trade
       12 v 20 the GUN LINE               100, 2.13 down, 46 dead     100, 0.63, 10                  RANGED DEFENCE, by far
       12 v 30 the GUN LINE               77, 5.86, 119               98, 2.27, 45                   RANGED DEFENCE: 77 -> 98 won
-      12 v 40 the GUN LINE               30, 9.62, 166               59, 7.22, (cell)               ranged defence
+      12 v 40 the GUN LINE               30, 9.62, 166               59, 7.22, 133                  ranged defence
       12 v 30 brigands, late kit         67, 6.22, 119               64, 6.26, 115                  a wash
       12 v 30 brigands, ENDGAME kit      88, 3.08, 67                33, 9.24, 186                  FATIGUE, by far: 88 -> 33 won
       12 v 40 brigands, ENDGAME kit      53, 7.26, 123                9, 11.4, 210                  fatigue
@@ -141,4 +141,69 @@ the fight writes it (id the striker, shot for a ranged blow). The level rule is 
     in the endgame kit begins half his turns spent (50 to 72 in 100 turns against 9 to 35 on the old plan): he cannot swing.
     THAT IS HIS SENTENCE IN NUMBERS: against guns the best team needs ranged defence, the heavy armour needs the fatigue, and three
     picks a level cannot hold both. 'We might just have to give more points' is right; 4c measures how many.
+
+### 4c. MORE POINTS A LEVEL, MEASURED (level 11; won in 100, men struck down a fight, dead in 100 fights)
+'four' is his old plan plus ranged defence (front: melee skill, melee defence, fatigue, ranged defence; back: ranged skill, fatigue,
+hitpoints, ranged defence): his shape exactly. 'four, hitpoints' spends the fourth on hitpoints in front and resolve behind, no ranged
+defence (a side run on the same cells). 'five' is four plus hitpoints in front and resolve behind. ('Three picks plus ranged defence
+rising by itself' rolls the same men as 'four' and 'four plus ranged defence by itself' the same as 'five'; each pair was played once.)
+
+      the fight                          three (BB)        four               four, hitpoints     five
+      12 v 30 the GUN LINE               77, 5.86, 119     98, 1.33, 20       98, 2.98, 53        100, 0.53, 13
+      12 v 40 the GUN LINE               30, 9.62, 166     85, 4.07, 65       (not played)        97, 1.71, 35
+      12 v 30 brigands, late kit         67, 6.22, 119     88, 3.50, 63       85, 3.79, 65        93, 2.11, 35
+      12 v 30 brigands, ENDGAME kit      88, 3.08, 67      93, 1.93, 40       98, 2.03, 40        98, 1.11, 21
+      12 v 40 brigands, ENDGAME kit      53, 7.26, 123     75, 4.69, 88       (not played)        85, 3.18, 60
+      12 v 20 the gun line, LEVEL 16     100, 1.74, 34     100, 0.15, 1       (not played)        100, 0.09, 2
+      12 v 20 the gun line, STARS KEPT   100, 1.82, 30     100, 0.36, 6       (not played)        100, 0.18, 0
+      MIDDLE OF THE GAME, level 6:
+      12 v 13 brigands                   96, 1.80, 39      98, 1.25, 23       (not played)        98, 1.07, 21
+      12 v 13 the gun line               100, 1.36, 19     100, 0.60, 9       (not played)        100, 0.52, 9
+    Their shots land 19 in 100 on three picks against the gun line at 30 and 7 on four. The fourth pick on hitpoints instead of
+    ranged defence wins the brigands in heavy kit (98 against 93) and loses twice the men to the gun line (2.98 down against 1.33):
+    THE FOURTH PICK IS A REAL CHOICE, and the guns decide it the way he said they would.
+
+### 4d. RESOLVE, MEASURED (rule 162(d): 'the rolls on resolve, whether they flee or not')
+      the fight                          his old plan      resolve behind only    resolve in front (front's fourth pick)
+      12 v 13 ghosts (the scream)        5.19 ran a fight  4.53                   1.05
+      12 v 20 ghosts                     10.91 ran, 14.1   10.36, 12.8 rounds     3.01 ran, 4.5 rounds
+                                         rounds
+      12 v 30 brigands, late kit         (five) 1.04 ran, 93 won                  0.04 ran, 98 won
+    The geists' Horrific Scream is four morale checks against resolve (the fight's own scream()). With his old plan nearly all
+    twelve break against twenty of them and the fight takes three times as long; a front that took resolve as its fourth pick
+    holds. Resolve rolls 2-4 a level (4-5 with three stars): over ten levels that is 33 more resolve on a front of 41, which is
+    the difference between running and holding. HIS MEMORY IS RIGHT, AND IT IS A FOURTH-PICK THING: against screamers and big
+    hordes, resolve; against guns, ranged defence; against heavy hitters, hitpoints.
+
+## 5. THE NUMBERS (draft; research only, nothing wired by this lane; rows in the one table, section F)
+
+THE PICK: FOUR ATTRIBUTES A LEVEL, chosen by the player from all eight rolled, Battle Brothers' way (one more than its three).
+ - Why four: his shape plus ranged defence on all twelve is exactly four stats a level (front: melee skill, melee defence, fatigue,
+   ranged defence; back: ranged skill, fatigue, hitpoints, ranged defence), and four builds it by level 11 (front 84 / 30 / 131 / 39,
+   back 83 / 130 / 88 / 38 with the stars where the dice put them). On the live fight that company wins 98 in 100 against thirty men
+   of whom half shoot, with 1.3 men struck down a fight: the killer company. It still loses one fight in seven against forty shooters and one in four against forty brigands in heavy kit: not a god.
+ - Why not five: five is nearly invincible (97 in 100 against forty shooters, 1.7 down) and leaves nothing to choose: the front's five
+   are the same five every level and the only decision is the sixth. 'In Battle Brothers you had to really prioritise' dies at five.
+   Four keeps one real choice every level (ranged defence, hitpoints or resolve) and the fight shows each one winning somewhere.
+ - Why not three plus ranged defence rising by itself: the same numbers, but the game makes the choice for him. Rule 162(a) keeps
+   the min-max.
+ - The rolls stay Battle Brothers' own, star for star (2-4 / 3-4 / 4 / 4-5 for ranged defence, hitpoints, fatigue, resolve, ranged
+   skill; 1-3 / 2-3 / 3 / 3-4 for melee skill and defence; 3-5 / 4-5 / 5 / 5-6 initiative). RANGED DEFENCE IS WEIGHTED FOR GUNS BY THE
+   FOURTH PICK, NOT BY A BIGGER ROLL: its roll is already a secondary stat's, and 39 at level 11 cuts their shots from 24 to 8 in 100.
+   A bigger roll on top would count the guns twice.
+ - Veteran levels (12 to 33): +1 on FOUR stats, no perk point (Battle Brothers: +1 on three). The cap stays 33, the XP table stays.
+ - Perks: one point a level to 11, unchanged.
+ - Stars at hire: EXACTLY THREE starred stats at 60/30/10, the founding crew too (engine/bohemia_roster.js manOf still gives one to
+   three, uniformly: TUNING's 10/10 departure D1, still open; the hall already gives three). A man is a killer by his stars: with his
+   stars on his plan the four-pick front reaches 89 / 35 / 135 at level 11.
+ - Resolve: no new rule; it is in the picks, and 4d shows when he wants it.
+
+WHAT THE MAP DOES TO THE TEST (named for WORLD, COMBAT and RUN, not decided here): party_math caps a job and a roaming party at 13.
+Against 13 every level-11 company here wins 99 or 100 with under 0.4 down, on three picks or four. So the killer company is only tested
+by the fights past 13 (the crisis, three parties at once, rule 79's big board). Without them the endgame company has nothing to be
+killer against.
+
+WHERE IT IS READ: RUN TWO's level-up (engine/bohemia_roster.js levelUp: pick = rules.json per_level.attributes_raised, 3; veterans
+veteran_level_rules.stats, 3) would read the two new rows instead; the fight already fights every man as his card says
+(company().stats, rule 162(e)), so nothing in the fight moves.
 
