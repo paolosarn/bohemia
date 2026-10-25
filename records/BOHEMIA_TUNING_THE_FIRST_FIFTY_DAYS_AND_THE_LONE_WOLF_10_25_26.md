@@ -69,10 +69,18 @@ what is marked (recall) where the library is silent.
 **THE LONE WOLF PERK** (bb_all/1195_Lone Wolf (Perk).txt; tier 5 in our perks.json): with no ally within 3 tiles, +15% melee
 skill, ranged skill, melee defence, ranged defence and resolve. The origin's man is the perk's ideal owner.
 
-**WHY THE EARLY DAYS ARE KIND TO ONE MAN, AND WHY THEY STOP BEING KIND** (bb_all/0828_Game Mechanics.txt:101-111):
+**WHAT THE MAP HANDS ONE MAN, AND WHAT OUTGROWS HIM** (bb_all/0828_Game Mechanics.txt:101-111; GROK_ASK_105 PASSED FILTER,
+from the Game Mechanics and Game Guide pages):
 - A CONTRACT scales with the roster's strength (10 + 2 x (level - 1) for each of the 12 strongest), the skulls and the type.
-  Renown does not change its size, only its pay. **One man's roster is small, so his contracts are small.** A level-4 knight is
-  strength 16; three level-1 recruits are 30. The Lone Wolf is handed fights sized to one man.
+  Renown does not change its size, only its pay.
+- **BUT IT HAS A FLOOR, AND THE FLOOR IS THE LONE WOLF'S WHOLE EARLY GAME.** A company of fewer than three men counts 10 a man
+  whatever his level, and the contract multiplier, 0.94 x (strength / 100)^0.89, is held between 0.75 and 5. It only climbs off
+  0.75 past a strength of about 80 (eight level-1 men, or six level-4 men). So in Battle Brothers a lone level-4 knight
+  (strength 10), a new crew of three (30) and a crew of six (60) are all handed THE SAME contracts, at 0.75 of the type's
+  base. **The Lone Wolf is not handed fights sized to one man: he is handed a new company's fights, alone.** That is why he
+  must be a near-god, and why the great equipment and the three levels are the origin, not a bonus.
+- Ours does not do this (measured in 1c below): party_math sizes a job straight off the strength with no floor, so one man's
+  job is 2 enemies at every skull for a long time, while a new crew's two-skull job is 3.
 - ROAMING PARTIES AND LOCATIONS scale 'mostly with distance to civilization and time', roaming parties 'slightly' with your
   strength, locations not at all. **These are what outgrow one man**: the days make them bigger whatever the roster is.
 - The combat difficulty raises both numbers and tier ('harder enemy groups appear sooner').
@@ -100,5 +108,30 @@ Guide in backgrounds.json hiring_and_wage_rules):
 - His wage: a hedge knight's base is 35 a day, the most of any background (the Game Guide: a level-11 hedge knight costs 91 a day).
 - The Recruiter follower (3,000 crowns, unlocked by recruiting 12): 2 to 4 more men at every settlement, 10% off the price.
 
+## 1c. WHAT THE MAP HANDS ONE MAN, DAY BY DAY (party_math.json as the live map sums it; NEW HERE, the door's default)
+
+His level by day is the median the GOOD campaign reached (1d). A job is sized off the roster's strength (10 + 2 a level past 1),
+the skulls and the difficulty, at least 2; a roaming party off the days, the blocks from town and a little of the strength;
+the first game day is capped at the company plus one; a camp is a job plus two.
+
+| day | his level | job, 1 skull | 2 skulls | 3 skulls | a camp (3) | roaming at a town | 4 blocks out | 8 blocks out | A NEW CREW OF THREE, 2 skulls / 3 skulls |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | 4 | 2 | 2 | 2 | 4 | 2 | 2 | 2 | 3 / 3 |
+| 10 | 5 | 2 | 2 | 2 | 4 | 3 | 3 | 3 | 3 / 3 |
+| 20 | 6 | 2 | 2 | 2 | 4 | 3 | 4 | 4 | 3 / 3 |
+| 30 | 7 | 2 | 2 | 2 | 4 | 4 | 5 | 5 | 3 / 3 |
+| 40 | 7 | 2 | 2 | 2 | 4 | 5 | 6 | 6 | 3 / 3 |
+| 50 | 8 | 2 | 2 | 3 | 5 | 6 | 6 | 7 | 3 / 3 |
+| 60 | 8 | 2 | 2 | 3 | 5 | 7 | 7 | 8 | 3 / 3 |
+| 80 | 9 | 2 | 2 | 3 | 5 | 9 | 9 | 9 | 3 / 3 |
+| 100 | 10 | 2 | 2 | 3 | 5 | 10 | 11 | 11 | 3 / 3 |
+
+Read it plainly: **a lone man's job is two men, at any skull, for fifty days and more** (a three-skull job reaches three at
+level 8). Only the ROAMING parties grow: two on day one, four by day 20, six by day 40, nine to eleven by days 80 to 100.
+The blocks from town barely move it (0.1 a block). So in ours the jobs never outgrow him and the roads do, which is
+Battle Brothers' shape for the roads, but NOT for the jobs: Battle Brothers holds every early company's job at one floor
+(section 2), so its Lone Wolf meets a new company's job, three men and more, from day one. A hire changes the job too: the
+wolf and one level-1 man meet a three-skull job of 3 from day 1 and 4 from day 30 (his strength counts in full).
+
 ---------------------------------------------------------------------------------------------------------------------------
-(sections 1b to 1g, 3 and 4 land in the next pieces of this round)
+(sections 1b, 1d to 1g, 3 and 4 land in the next pieces of this round)

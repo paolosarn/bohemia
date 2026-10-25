@@ -80,7 +80,8 @@ const WOLVES = {
   w_today: { name: 'TODAY: the live game\'s Lone Wolf (YOU\'s kit, the three door levels give no stats, the pistol build\'s perks)', kit: 'today', stats: 'door', perks: null },
   w_good: { name: 'TODAY\'S MAN IN GOOD GEAR (the hedge knight\'s kit off the wiki, the sword perks)', kit: 'good', stats: 'door', perks: SWORD_PERKS },
   w_bb: { name: 'BATTLE BROTHERS\' LONE WOLF (his three door level-ups taken, three talents, the good kit, the sword perks)', kit: 'good', stats: 'bb', perks: SWORD_PERKS },
-  w_bb2h: { name: 'BATTLE BROTHERS\' LONE WOLF WITH THE GREATSWORD', kit: 'good2h', stats: 'bb', perks: SWORD_PERKS }
+  w_bb2h: { name: 'BATTLE BROTHERS\' LONE WOLF WITH THE GREATSWORD', kit: 'good2h', stats: 'bb', perks: SWORD_PERKS },
+  w_levels: { name: 'BATTLE BROTHERS\' LEVELS IN TODAY\'S KIT (his three door level-ups taken, YOU\'s rags and the pistol build: what the levels alone buy)', kit: 'today', stats: 'bb', perks: null }
 };
 const PLAN = { four: ['melee_skill', 'melee_defense', 'fatigue', 'ranged_defense'], bb: ['melee_skill', 'melee_defense', 'fatigue'] };
 
@@ -188,8 +189,12 @@ function rosterStrength(levels) {
   const R = PM.roster_strength.value;
   return levels.slice().sort((a, b) => b - a).slice(0, R.strongest).reduce((t, l) => t + R.per_man + R.per_level * (Math.max(1, l) - 1), 0);
 }
-function mapCount(kind, levels, day, ctx) {
-  const str = rosterStrength(levels), days = Math.max(1, Math.min(PM.day_cap.value, day)), dif = 0;   /* NEW HERE, the door's default (RUN 10/23) */
+/* floor: Battle Brothers holds every early company's contract to one size (GROK_ASK_105, the Game Mechanics and Game Guide pages:
+   fewer than three men count 10 each whatever their level, and the multiplier 0.94 x (strength/100)^0.89 never drops under 0.75,
+   which it reaches only past a strength of about 80), so a lone man meets what a new crew meets. Ours, as a test: a job is never
+   sized for less than a fresh crew of three (strength 30, party_math's own anchor) */
+function mapCount(kind, levels, day, ctx, floor) {
+  const str = Math.max(rosterStrength(levels), kind === 'job' && floor ? floor : 0), days = Math.max(1, Math.min(PM.day_cap.value, day)), dif = 0;   /* NEW HERE, the door's default (RUN 10/23) */
   const mult = PM.difficulty_count_mult.value[dif];
   let n, P;
   if (kind === 'job') { P = PM.job.value; n = str / P.strength_per_enemy * (P.skull_mult[String(ctx.skulls)] || 1) * mult; }
@@ -270,11 +275,12 @@ function campaign(ctx, door, track, seed, days) {
     const levels = [wolf.level].concat(hire && !hire.dead ? [hire.level] : []);   /* the roster the map counts (the laid-up still count, the dead do not) */
     let enc, count;
     if (track.policy === 'takes') {
-      if (R() < 0.5) { const sk = 1 + Math.floor(R() * 3), camp = R() < 0.2; enc = { kind: 'job', skulls: sk, camp: camp }; count = mapCount('job', levels, day, enc); }
+      if (R() < 0.5) { const sk = 1 + Math.floor(R() * 3), camp = R() < 0.2; enc = { kind: 'job', skulls: sk, camp: camp }; count = mapCount('job', levels, day, enc, track.floor); }
       else { const bl = Math.floor(R() * 9); enc = { kind: 'roaming', blocks: bl }; count = mapCount('roaming', levels, day, enc); }
     } else {
       if (R() < 0.5) {
-        let best = null; for (let sk = 3; sk >= 1 && !best; sk--) { const e = { kind: 'job', skulls: sk, camp: false }, c = mapCount('job', levels, day, e); if (c <= 3) { best = e; count = c; } }
+        let best = null; for (let sk = 3; sk >= 1 && !best; sk--) { const e = { kind: 'job', skulls: sk, camp: false }, c = mapCount('job', levels, day, e, track.floor); if (c <= 3) { best = e; count = c; } }
+        if (!best && track.floor) { best = { kind: 'job', skulls: 1, camp: false }; count = mapCount('job', levels, day, best, track.floor); }
         enc = best;
       } else { const bl = Math.floor(R() * 9), e = { kind: 'roaming', blocks: bl }, c = mapCount('roaming', levels, day, e); if (c <= 3) { enc = e; count = c; } else { log.push({ day: day, fellBack: c }); enc = null; } }
     }
@@ -329,7 +335,11 @@ const TRACKS = [
   { id: 'good_picks_ord25', wolf: 'w_good', policy: 'picks', every: 2, hire: 'ord', hireDay: 25 },
   { id: 'good_picks_every1', wolf: 'w_good', policy: 'picks', every: 1 },
   { id: 'good_picks_every4', wolf: 'w_good', policy: 'picks', every: 4 },
-  { id: 'today_picks_every4', wolf: 'w_today', policy: 'picks', every: 4 }
+  { id: 'today_picks_every4', wolf: 'w_today', policy: 'picks', every: 4 },
+  { id: 'good_takes_floor30', wolf: 'w_good', policy: 'takes', every: 2, floor: 30 },
+  { id: 'bb_takes_floor30', wolf: 'w_bb', policy: 'takes', every: 2, floor: 30 },
+  { id: 'today_takes_floor30', wolf: 'w_today', policy: 'takes', every: 2, floor: 30 },
+  { id: 'levels_takes', wolf: 'w_levels', policy: 'takes', every: 2 }
 ];
 const DAYS = 100;
 
@@ -445,7 +455,8 @@ async function main() {
     const mapByDay = [1, 10, 20, 30, 40, 50, 60, 80, 100].map(d => { const lv = lvlAt(d);
       return { day: d, his_level: lv, job_1_skull: mapCount('job', [lv], d, { skulls: 1 }), job_2_skulls: mapCount('job', [lv], d, { skulls: 2 }), job_3_skulls: mapCount('job', [lv], d, { skulls: 3 }),
         camp_3_skulls: mapCount('job', [lv], d, { skulls: 3, camp: true }), roaming_at_town: mapCount('roaming', [lv], d, { blocks: 0 }), roaming_4_blocks: mapCount('roaming', [lv], d, { blocks: 4 }),
-        roaming_8_blocks: mapCount('roaming', [lv], d, { blocks: 8 }), with_a_second_man_level_1_job_2_skulls: mapCount('job', [lv, 1], d, { skulls: 2 }) }; });
+        roaming_8_blocks: mapCount('roaming', [lv], d, { blocks: 8 }), with_a_second_man_level_1_job_2_skulls: mapCount('job', [lv, 1], d, { skulls: 2 }), a_new_crew_of_three_job_2_skulls: mapCount('job', [1, 1, 1], d, { skulls: 2 }),
+        floor30_job_2_skulls: mapCount('job', [lv], d, { skulls: 2 }, 30), floor30_job_3_skulls: mapCount('job', [lv], d, { skulls: 3 }, 30) }; });
     const out = { _readme: 'TUNING [the first fifty days and the lone wolf] 10/25 (rule 183; research only, rule 38g). draft:true. NOTHING IN THE GAME READS THIS FILE. '
         + 'Every fight is the live fight (slices/BOHEMIA_FIGHT.html and exactly the files its loadAll() reads, played headless, AUTO both sides, seeded) through tools/bohemia_tuning_lone_wolf.js. '
         + 'who: the man the fight builds from origins.json (door) and the crew screen\'s card (screen). ladder: one man alone, key wolf|day|count. campaign: the days played, per track, by ten-day window. map_by_day: the counts party_math hands one man.',
