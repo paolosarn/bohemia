@@ -24,7 +24,7 @@ Asked of the PICTURES and of the REAL FIGHT, never of a table's say-so:
     python3 gates/melee_in_hand_gate.py            (all legs)
     python3 gates/melee_in_hand_gate.py --quick    (no browser)
 """
-import json, os, subprocess, sys
+import copy, json, os, re, subprocess, sys
 import numpy as np
 from PIL import Image
 
@@ -103,6 +103,40 @@ ok('S1 every new key names parts that exist; every slot is 24 keys from key 0 to
 m1 = json.loads(json.dumps(D)); m1['timelines']['MIdle'][0][0][1] -= 1
 m2 = json.loads(json.dumps(D)); m2['composite']['MIdle'].append(['PIdle', 5])
 ok('S2 MUTATION: a slot a key short, and a key with no prop rendered on it, are both caught', source_faults(m1) and source_faults(m2))
+
+
+def grips_of(fn):
+    """the holds the tool's placers grip a thing in, read off the tool itself: place() for a melee thing, place_pistol() for
+    the pistol (a hold neither knows stops the render: 'PROPS FAILED')"""
+    src = open(os.path.join(ROOT, 'tools/bohemia_animation_melee_in_hand.py')).read()
+    body = src[src.index('def %s(' % fn):]; body = body[:body.index('\ndef ', 10) if fn != 'place' else body.index('raise KeyError(hold)')]
+    out = set(re.findall(r"hold == '(\w+)'", body))
+    for grp in re.findall(r"hold in \(([^)]*)\)", body): out |= set(re.findall(r"'(\w+)'", grp))
+    return out
+
+
+GRIPS = {'place': grips_of('place'), 'place_pistol': grips_of('place_pistol')}
+
+
+def grip_faults(S_):
+    """every thing on every key of every clip its layer draws it on has a grip (hold_by_prop first, then the clip's hold)"""
+    out = []
+    for ly, L in S_['layers'].items():
+        for p in L['props']:
+            if S_['props'][p].get('shield'): continue
+            only = L.get('only', {}).get(p, 'all')
+            for clip in L['clips']:
+                if only != 'all' and clip not in only: continue
+                for j in L.get('keys', {}).get(clip, range(len(S_['hold'][clip]))):
+                    h = S_['hold'][clip][j]; h = S_.get('hold_by_prop', {}).get(p, {}).get(h, h)
+                    if h not in GRIPS['place_pistol' if p == 'pistol' else 'place']: out.append('%s %s %s k%d: no grip for %r' % (ly, p, clip, j, h))
+    return out
+
+
+gr = grip_faults(D)
+ok('S3 every thing has a grip on every key its layer draws it on (the spear thrusts out over the shield on the aim)', not gr, gr[:4])
+m3 = copy.deepcopy(D); m3['hold_by_prop']['rebar_spear'].pop('aim', None)
+ok('S4 MUTATION: the spear with no grip on the shield arm\'s aim is caught', bool(grip_faults(m3)))
 
 if not os.path.exists(IDX):
     ok('P0 the pictures are packed (slices/rig_melee/rig_melee.json)', False, 'no index'); done()
@@ -224,6 +258,55 @@ ok('P5 every cell sits inside its sheet', not outside, outside[:4])
 ok('P6 his body wears his own fight sheet\'s colours; a prop the style palette\'s', not pal, pal[:4])
 big = ['%s %s %dx%d' % (k, s_['file'], s_['size'][0], s_['size'][1]) for k, e in E.items() for s_ in list(e['sheets'].values()) + list(e.get('props', {}).get('sheets', {}).values()) if s_['size'][0] * s_['size'][1] > 2048 * 1024]
 ok('P7 ONE SHEET A GROUP (rule 173, no crash before a fight): his own keys split melee, shield, two hands; a named look\'s things one sheet a layer; none over 2048 x 1024 (8 MB decoded)', not big, big[:4])
+
+
+def own_ramps(prop):
+    """the colours of the materials COOK built a thing from (records/target/cook_every_item/measured_<thing>.json), with the
+    rim; None for a stand-in"""
+    mj = os.path.join(ROOT, 'records/target/cook_every_item/measured_%s.json' % prop)
+    if not os.path.exists(mj) or not os.path.exists(os.path.join(ROOT, 'reference/models/bohemia/item_%s.glb' % prop)): return None
+    roles = [m.split()[0] for m in json.load(open(mj)).get('materials', []) if m.split()[0] in PALS]
+    return set(tuple(int(h.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4)) for r in roles for h in PALS[r]['ramp']) | {tuple(F['rim'][:3])}
+
+
+def paint_faults(E_, cell_of=None):
+    """a COOK thing wears only its own materials' steps: a faded teal door snapped to chrome or a glass eye's grey is caught"""
+    out = []
+    for k, e in E_.items():
+        P = e.get('props')
+        if not P: continue
+        for prop, clips in P['by'].items():
+            own = own_ramps(prop) if P.get('models', {}).get(prop, 'stand-in').startswith('cook:') else None   # drawn from COOK's model
+            if own is None: continue
+            bad = 0
+            for clip, pk in clips.items():
+                sh = P['sheets'].get(pk['l'])
+                if not sh: continue
+                pa = sheet(sh['file'])
+                for row in pk['k']:
+                    for ix in row:
+                        if ix is None: continue
+                        x, y, w, h = sh['cells'][ix][:4]; c = pa[y:y + h, x:x + w] if cell_of is None else cell_of(pa[y:y + h, x:x + w])
+                        bad += len(set(map(tuple, c[c[..., 3] > 0][:, :3].tolist())) - own)
+            if bad: out.append('%s %s: %d colours not of its own materials' % (k, prop, bad))
+    return out
+
+
+pf = paint_faults(E)
+ok('P8 A THING KEEPS ITS PAINT: a thing COOK modelled wears only the steps of the materials it is built from (the car door teal, never chrome grey)', not pf, pf[:4])
+_full = np.array(sorted(ppal), np.int32)
+
+
+def _rgb_snap(c):   # the old way: the nearest of every style colour by plain distance
+    c = c.copy(); op = c[..., 3] > 0; px = c[op][:, :3].astype(np.int32)
+    c[op, :3] = _full[((px[:, None, :] - _full[None]) ** 2).sum(2).argmin(1)]; return c
+
+
+_one = {k: e for k, e in E.items() if 'car_door' in e.get('props', {}).get('by', {}) and own_ramps('car_door') is not None}
+_one = dict(list(_one.items())[:1])
+if _one:
+    _tint = lambda c: _rgb_snap(np.concatenate([np.clip(c[..., :3].astype(np.int32) + np.array([-20, -12, -14]), 0, 255).astype(np.uint8), c[..., 3:]], -1))
+    ok('P9 MUTATION: the car door snapped the old way (the nearest style colour, its paint gone grey) is caught', bool(paint_faults(_one, _tint)))
 
 
 # ---------------------------------------------------------------------------------------------------- H in his hand

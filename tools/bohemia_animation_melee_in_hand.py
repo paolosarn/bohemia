@@ -743,10 +743,28 @@ def pack(only=None):
     index['props'] = sorted(set(p_ for L in S['layers'].values() for p_ in L['props']))
     index['clips'] = {n: len(c['keys']) for n, c in S['clips'].items()}
 
-    def to_pal(a, P):
+    def to_pal(a, P, hue=0):
         u, inv = np.unique(a[..., :3].reshape(-1, 3), axis=0, return_inverse=True)
-        dd = ((u.astype(np.int32)[:, None, :] - P[None, :, :]) ** 2).sum(2)
+        if hue:   # a thing: its brightness and its hue weighed apart, so a faded teal door in the fight's light stays teal, never chrome grey
+            def ycc(x):
+                x = x.astype(np.float64); Y = 0.299 * x[..., 0] + 0.587 * x[..., 1] + 0.114 * x[..., 2]
+                return np.stack([Y, (x[..., 2] - Y) * 0.564, (x[..., 0] - Y) * 0.713], -1)
+            dd = (((ycc(u)[:, None, :] - ycc(P)[None, :, :]) ** 2) * np.array([1.0, hue, hue])).sum(2)
+        else: dd = ((u.astype(np.int32)[:, None, :] - P[None, :, :]) ** 2).sum(2)
         a[..., :3] = P[dd.argmin(1)][inv.reshape(-1)].reshape(a.shape[:2] + (3,)).astype(np.uint8); return a
+
+    PPAL = {}
+
+    def ppal_of(prop, sig):
+        """the colours a thing snaps to: drawn from COOK's model, the ramps of the materials COOK built it from
+        (records/target/cook_every_item/measured_<thing>.json), so its paint is never pulled to another material's step; drawn
+        from this tool's stand-in, the whole style palette"""
+        key = (prop, sig.startswith('cook:'))
+        if key not in PPAL:
+            mj = os.path.join(ROOT, 'records/target/cook_every_item/measured_%s.json' % prop); roles = []
+            if key[1] and os.path.exists(mj): roles = [m.split()[0] for m in json.load(open(mj)).get('materials', []) if m.split()[0] in PAL]
+            PPAL[key] = np.array(sorted(set(tuple(int(h.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4)) for r in roles for h in PAL[r]['ramp'])), np.int32) if roles else ppal
+        return PPAL[key]
 
     def cut(a):
         op = a[..., 3] > thr; a = a.copy(); a[..., 3] = np.where(op, 255, 0); a[~op] = 0
@@ -828,6 +846,7 @@ def pack(only=None):
         else:
             psheets, by = {}, {}
             if any(props_from(look, ly, S) != look for ly in ready): entry['props_ref'] = next(props_from(look, ly, S) for ly in ready if props_from(look, ly, S) != look)
+            mf = os.path.join(d, 'props', 'models.json'); sigs = json.load(open(mf)) if os.path.exists(mf) else {}
             for ly in [l_ for l_ in ready if props_from(look, l_, S) == look]:
                 pimgs = []
                 for prop in S['layers'][ly]['props']:
@@ -835,13 +854,13 @@ def pack(only=None):
                         a_ = np.asarray(Image.open(os.path.join(d, "props", fn)).convert("RGBA"))   # a full frame
                         r = cut(a_) if (a_[..., 3] > thr).sum() >= SPECK else None   # a speck past his collar or his hat is no prop: hidden behind him
                         ix = None
-                        if r is not None: ix = len(pimgs); pimgs.append((to_pal(r[0], ppal), r[1] - fx0, r[2] - fy0))
+                        if r is not None: ix = len(pimgs); pimgs.append((to_pal(r[0], ppal_of(prop, sigs.get(prop, 'stand-in')), 4.0), r[1] - fx0, r[2] - fy0))
                         nk = len(S['hold'][clip])
                         by.setdefault(prop, {}).setdefault(clip, dict(l=ly, k=[[None] * 8 for _ in range(nk)]))['k'][j][FIGHT_DIRS.index(f)] = ix
                 pim, prects = shelf(pimgs, 2048)
                 fn_ = '%s_props_%s.webp' % (look, ly); pim.save(os.path.join(ROOT, OUT, fn_), 'WEBP', lossless=True, quality=100, method=6)
                 psheets[ly] = dict(file=fn_, size=list(pim.size), cells=prects)
-            entry['props'] = dict(sheets=psheets, by=by)
+            entry['props'] = dict(sheets=psheets, by=by, models={p_: sigs.get(p_, 'stand-in') for p_ in by})   # what each thing was drawn from
 
         entry['layers'] = [ly for ly in ready if all(c_ in cells for c_ in layer_clips(S, ly))]   # the layers whose own keys (and, a named look's, things) are on these sheets
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))

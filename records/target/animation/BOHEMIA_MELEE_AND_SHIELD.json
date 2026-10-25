@@ -2245,7 +2245,8 @@
    "tap": "upright",
    "tap_lift": "upright",
    "shoulder_half": "upright",
-   "port": "upright"
+   "port": "upright",
+   "aim": "thrust"
   },
   "chain": {
    "tap": "rest",
