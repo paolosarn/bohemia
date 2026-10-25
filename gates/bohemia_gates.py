@@ -9796,6 +9796,11 @@ GATES = [
      "level 2 or 3 in the top quarter of his range, three talents, his own kit, priced on the hall's formula. HOLDS: the file; 2 to 4 in 100 at towns and fortresses over 400 weeks, never a camp; every rare man in range, the level-2 road knight 500; "
      "his card reads as rare on the phone (gold frame, RARE, level, kit, his line, three stars) and every hall card fits the 390 px phone; on the demo a real tap through Church's door hires him (price taken, crew screen in his own kit, stars, line); "
      "the fight is handed his kit; the computer. about 3 min", True),
+    ('THE WAGON AND THE SIX', ['node', 'gates/the_wagon_and_the_six_gate.js'],
+     "RUN TWO gate, 10/25, rows [eyes: four currencies] and [every origin starts like itself] (rule 164 item 2, Paolo 10/24: 'we have four different currencies in this game, you're only showing batteries, it's insane'). "
+     "MEASURED before: the bar carried the batteries alone; the stall took a battery for water, meds and rounds and added nothing (ECONOMY). NOW bohemia.supplies.v1, seeded at the door: FOOD and WATER the origin's food_days in the wagon (TUNING), "
+     "TAPE, ROUNDS, MEDS the origin's Battle Brothers start from the wiki's Starting Funds table. HOLDS: the file; the six on the bar from the first minute (phone and computer); the night eats the wagon before the batteries and the nights left count it; "
+     "the stall by real taps adds to its counts; LOOT ALL's rounds into ROUNDS; the fight pit's wage; the wolf's bare start; NEW GAME forgets it. about 4 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

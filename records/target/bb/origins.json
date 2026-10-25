@@ -112,6 +112,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (rebuild)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Rebuilding a Company"
    }
   },
   {
@@ -208,6 +227,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (newcrew)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/A New Company"
    }
   },
   {
@@ -304,6 +342,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (south)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Southern Mercenaries"
    }
   },
   {
@@ -403,6 +460,25 @@
     "wagon_goods_batteries": 134,
     "guard": "the third man, a militia at level 1 (a pistol, the heater car door, a leather vest), bought at the door for 37 out of the goods (TUNING s3 truck.door_guard: 43 -> 66 in 100 of the first thirty days)",
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (truck)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Trading Caravan"
    }
   },
   {
@@ -681,6 +757,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (watch)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 20,
+     "thin": 10,
+     "bare": 5
+    },
+    "rounds": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "meds": {
+     "full": 15,
+     "thin": 10,
+     "bare": 5
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Peasant Militia"
    }
   },
   {
@@ -777,6 +872,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (scav)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 20,
+     "thin": 10,
+     "bare": 5
+    },
+    "rounds": {
+     "full": 160,
+     "thin": 80,
+     "bare": 40
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Band of Poachers"
    }
   },
   {
@@ -854,6 +968,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (promise)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 20,
+     "thin": 10,
+     "bare": 5
+    },
+    "rounds": {
+     "full": 7,
+     "thin": 5,
+     "bare": 2
+    },
+    "meds": {
+     "full": 15,
+     "thin": 10,
+     "bare": 5
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Oathtakers"
    }
   },
   {
@@ -953,6 +1086,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (desert)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Deserters"
    }
   },
   {
@@ -1069,6 +1221,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (raid)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Northern Raiders"
    }
   },
   {
@@ -1165,6 +1336,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (lab)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Anatomists"
    }
   },
   {
@@ -1281,6 +1471,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (faith)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Davkul Cultists"
    }
   },
   {
@@ -1437,6 +1646,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (debt)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 20,
+     "thin": 10,
+     "bare": 5
+    },
+    "rounds": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "meds": {
+     "full": 15,
+     "thin": 10,
+     "bare": 5
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Manhunters"
    }
   },
   {
@@ -1533,6 +1761,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (hunt)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 40,
+     "thin": 20,
+     "bare": 10
+    },
+    "rounds": {
+     "full": 80,
+     "thin": 40,
+     "bare": 20
+    },
+    "meds": {
+     "full": 30,
+     "thin": 20,
+     "bare": 10
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Beast Slayers"
    }
   },
   {
@@ -1632,6 +1879,25 @@
     "wage_per_man_per_night": 6,
     "wage_about": "a gladiator's 50 crowns base, x1.1 a level past 1, at ten to one: 6 batteries a man a night on top of the bill (TUNING s3 pit.wage_per_man)",
     "source": "banks/BOHEMIA_TUNING_ORIGIN_STARTS_PROPOSED_10_25_26.json (pit)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 20,
+     "thin": 10,
+     "bare": 5
+    },
+    "rounds": {
+     "full": 0,
+     "thin": 0,
+     "bare": 0
+    },
+    "meds": {
+     "full": 15,
+     "thin": 10,
+     "bare": 5
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Gladiators"
    }
   },
   {
@@ -1720,6 +1986,25 @@
     "rolled_per_game": true,
     "food_days": 7,
     "source": "banks/BOHEMIA_TUNING_EVERY_ORIGIN_10_25_26.json gods.god3; reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852 (great equipment, melee defence -2)"
+   },
+   "supplies": {
+    "tape": {
+     "full": 20,
+     "thin": 10,
+     "bare": 5
+    },
+    "rounds": {
+     "full": 0,
+     "thin": 0,
+     "bare": 0
+    },
+    "meds": {
+     "full": 10,
+     "thin": 6,
+     "bare": 3
+    },
+    "about": "Battle Brothers' own start, the origin page's Starting Funds table (Tools, Ammunition, Medicine at High / Medium / Low funds = our FULL / THIN / BARE shelves) in our names: TAPE, ROUNDS, MEDS (rule 47; ECONOMY's six). FOOD and WATER are the door block's food_days (a week of the bill in the wagon, TUNING).",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Lone Wolf"
    }
   }
  ]

@@ -47,7 +47,11 @@ const CHECK = () => {
   out.push(['the day is the game\'s day', f && n('day') === 'DAY ' + T.day, n('day') + ' vs ' + T.day]);
   out.push(['the batteries are the purse\'s', String(pb.electricity) === n('batteries'), n('batteries') + ' vs ' + pb.electricity]);
   const B = window.__BILL || {};
-  out.push(['the nights are the map\'s bill (the batteries over tonight\'s bill)', B.perNight > 0 && n('nights') === String(Math.floor(pb.electricity / B.perNight)) && n('nights') === String(B.daysLeft), n('nights') + ' vs ' + B.daysLeft]);
+  /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__): the night eats the wagon before the batteries, so the nights are the bill's own count
+     (the wagon's nights, then the batteries over the full bill: THE WAGON AND THE SIX holds the arithmetic); with no wagon it is
+     still the batteries over tonight's bill */
+  let wg = null; try { wg = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); } catch (_e) {}
+  out.push(['the nights are the map\'s bill (the wagon\'s nights, then the batteries over the bill)', B.daysLeft > 0 && n('nights') === String(B.daysLeft) && (wg || (B.perNight > 0 && n('nights') === String(Math.floor(pb.electricity / B.perNight)))), n('nights') + ' vs ' + B.daysLeft]);
   const nt = root.querySelector('[data-f=nights] b');
   out.push(['  red-inked at the bill\'s red line, plain above it', !!nt && nt.classList.contains('low') === !!B.red, nt && nt.className]);
   const bt = root.querySelector('[data-f=batteries] b'), counting = !!root.querySelector('[data-f=batteries].counting');
@@ -56,7 +60,11 @@ const CHECK = () => {
   const shown = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).display !== 'none'; };
   const held = !!root.querySelector('[data-tb=g].held');
   const figs = [...root.querySelectorAll('[data-tb=g] .s')].filter(shown).map(e => e.dataset.f), dash = [...root.querySelectorAll('[data-tb=g] .s b')].some(e => /^[–-]$/.test(e.textContent.trim()));
-  out.push(['one number on the glass, the batteries (the nights only on a hold), no dash', figs.join(' ') === (held ? 'batteries nights' : 'batteries') && !dash && !!root.querySelector('[data-f=nights]'), figs.join(' ') + (held ? ' (held)' : '')]);
+  /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__, EYES [eyes: four currencies], rule 164 item 2: 'we have four different currencies... you're
+     only showing batteries, it's insane'): the glass carries the batteries and every count the game keeps, in ECONOMY's order (the
+     nights still only on a hold), no dash */
+  const kept = ['food', 'water', 'tape', 'meds', 'rounds'].filter(k => wg && typeof wg[k] === 'number');
+  out.push(['the batteries and every count the game keeps on the glass (the nights only on a hold), no dash', figs.join(' ') === ['batteries'].concat(held ? ['nights'] : [], kept).join(' ') && !dash && !!root.querySelector('[data-f=nights]'), figs.join(' ') + (held ? ' (held)' : '')]);
   const presses = [root.querySelector('.gear'), document.getElementById('notebtn')].map(e => e ? e.getBoundingClientRect() : null);
   out.push(['the gear and NOTES are 44 points or more', presses.every(r => r && r.width >= 44 && r.height >= 44), presses.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ')]);
   const boxes = [...root.querySelectorAll('.t,#notebtn,.g')].map(e => e.getBoundingClientRect()).filter(r => r.width > 0);
@@ -138,7 +146,7 @@ async function side(profile) {
       /* the narrowest phone anybody holds: every fact still there, nothing past the glass, nothing on top of anything */
       const was = p.viewportSize(); await p.setViewportSize({ width: 320, height: 700 }); await p.waitForTimeout(900);
       const n320 = await fr.evaluate('(' + CHECK.toString() + ')()');
-      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are 44 points or more', 'one number on the glass, the batteries (the nights only on a hold), no dash'];
+      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are 44 points or more', 'the batteries and every count the game keeps on the glass (the nights only on a hold), no dash'];
       ok('at 320 wide every fact stays, it fits, nothing overlaps, every press 44', want.every(w => (n320.find(x => x[0] === w) || [0, false])[1]),
         n320.filter(x => want.indexOf(x[0]) >= 0 && !x[1]).map(x => x[0] + ' ' + x[2]).join(' | '));
       await p.setViewportSize(was); await p.waitForTimeout(900);

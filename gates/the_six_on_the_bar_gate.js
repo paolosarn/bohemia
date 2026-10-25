@@ -5,7 +5,7 @@
    10_25_26.md section 3), each his pack's own prop (set A of ui-the-six-at-pack-pixels-10-13, his UP 10/17) and a number; a
    supply stands on the glass only when the game counts it, never a dash, never an invented number. Legs, on the demo:
    S1  the six icons are his pack tiles, byte for byte (slices/supply_icons/ against reference/art_bank/prop);
-   S2  today the game counts the batteries: the glass carries the batteries and no dash, the batteries wear the pack's cells;
+   S2  the game counts the six (RE-AIMED 10/25, RUN TWO's wagon): the glass carries them from the first minute, no dash, the pack's cells;
    S3  a count handed by the map (window.BOH_SUPPLIES, the one door the purse or the map fills) stands at once, in ECONOMY's order,
        each with its own pack prop, on the phone and on the computer, fitting the glass;
    S4  low reads red: water for under three days of the crew the bill feeds; enough food is not red;
@@ -35,8 +35,11 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
         return { f: e.dataset.f, n: b ? b.textContent.trim() : '', low: !!(b && b.classList.contains('low')), src: im ? im.getAttribute('src') : '', icon: im ? Math.round(im.getBoundingClientRect().height) : 0,
           inside: r.left >= gr.left - 1 && r.right <= gr.right + 1, i: i && i.offsetWidth > 0 ? i.textContent.trim() : '' }; }); });
     let r0 = await read();
-    if (prof === 'phone_portrait') leg(r0.map(x => x.f).join(' ') === 'batteries' && !r0.some(x => /^[–-]$/.test(x.n)) && /supply_icons\/batteries\.png$/.test(r0[0].src) && /^\d+$/.test(r0[0].n),
-      'S2  TODAY THE GAME COUNTS THE BATTERIES: THE GLASS CARRIES THEM, NO DASH, THE PACK\'S CELLS', JSON.stringify(r0.map(x => x.f + ':' + x.n)));
+    /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__): the game counts the six now (bohemia.supplies.v1, seeded at the door: the origin's
+       wagon and its Battle Brothers start), so the glass carries the batteries and every count the game keeps from the first minute */
+    const kept = await fr.evaluate(() => { try { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); return ['food', 'water', 'tape', 'meds', 'rounds'].filter(k => w && typeof w[k] === 'number'); } catch (e) { return []; } });
+    if (prof === 'phone_portrait') leg(r0.map(x => x.f).join(' ') === ['batteries'].concat(kept).join(' ') && kept.length === 5 && !r0.some(x => /^[–-]$/.test(x.n)) && /supply_icons\/batteries\.png$/.test(r0[0].src) && r0.every(x => /^\d+$/.test(x.n)),
+      'S2  THE GAME COUNTS THE SIX: THE GLASS CARRIES THEM FROM THE FIRST MINUTE, NO DASH, THE PACK\'S CELLS', JSON.stringify(r0.map(x => x.f + ':' + x.n)));
     const crew = await fr.evaluate(() => (window.__BILL && __BILL.crew) | 0);
     await fr.evaluate(() => { window.BOH_SUPPLIES = { food: 30, water: 2, tape: 3, meds: 1, rounds: 40 }; });
     await p.waitForTimeout(900);
@@ -53,8 +56,8 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
       await p.mouse.move(5, 880); await p.waitForTimeout(700);
       const h2 = await read();
       const nights = h.find(x => x.f === 'nights'), hf = h.find(x => x.f === 'food'), hw = h.find(x => x.f === 'water');
-      leg(nights && hf && /^\d+ DAYS?$/.test(hf.i) && hw && /^\d+ DAYS?$/.test(hw.i) && h.map(x => x.f).indexOf('nights') === 1 && !h2.find(x => x.f === 'nights') && !(h2.find(x => x.f === 'food') || {}).i,
-        'S5  A HOLD SHOWS THE NIGHTS AFTER THE BATTERIES AND THE DAYS FOOD AND WATER LAST; LET GO, THEY GO', 'held: ' + h.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' ') + ' | let go: ' + h2.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' '));
+      leg(nights && hf && /^\d+ NIGHTS?$/.test(hf.i) && hw && /^\d+ NIGHTS?$/.test(hw.i)   /* RE-AIMED 10/25 (RUN TWO): the wagon is eaten at nightfall, so its hold counts nights (THE DAYS ONCE: DAYS is never on the bar) */ && h.map(x => x.f).indexOf('nights') === 1 && !h2.find(x => x.f === 'nights') && !(h2.find(x => x.f === 'food') || {}).i,
+        'S5  A HOLD SHOWS THE NIGHTS AFTER THE BATTERIES AND THE NIGHTS FOOD AND WATER LAST; LET GO, THEY GO', 'held: ' + h.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' ') + ' | let go: ' + h2.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' '));
       await fr.evaluate(() => { window.BOH_SUPPLIES = { food: 'lots', water: NaN, meds: 2 }; });
       await p.waitForTimeout(900);
       const r6 = await read();

@@ -101,7 +101,8 @@
   }
   function kept() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
   /* THIS GAME's men for the origin: the kept roll while the game lasts; a new roll at the first ask of a new game */
-  function company(id) {
+  function company(id, econ) {
+    seedSupplies(id, econ);   /* __THE_WAGON__: the company's supplies, the same moment as its men */
     var k = kept();
     if (k && k.origin === id && Array.isArray(k.men) && k.men.length) return k.men;
     if (!D.ready) { load(); return null; }
@@ -110,8 +111,30 @@
     try { localStorage.setItem(KEY, JSON.stringify({ origin: id, seed: seed, men: men, at: Date.now() })); } catch (e) {}
     return men;
   }
-  function forget() { try { localStorage.removeItem(KEY); } catch (e) {} }
-  root.BohemiaOriginStart = { KEY: KEY, load: load, roll: roll, company: company, forget: forget, kept: kept, talents: talents, data: D, STATS: STATS };
+  /* __THE_WAGON__ (RUN TWO [every origin starts like itself] + [eyes: four currencies], rules 184(b), 164 item 2, 47): the company's
+     supplies, one count each, kept in bohemia.supplies.v1 where every frame's bar reads them (UI's supplyCounts): FOOD and WATER are
+     the origin's food_days of the bill in the wagon (a ration and four litres a man a night, TUNING s3: a week, the water truck 19),
+     TAPE, ROUNDS and MEDS its Battle Brothers start for the shelves picked (origins.json supplies, the wiki's Starting Funds table).
+     Seeded once a game, at the door, beside the roll; NEW GAME forgets it. The night eats the wagon before the batteries (the map's
+     bill); the stall and the loot add to it. wage is a founding man's pay a night where the origin has one (the fight pit's 6). */
+  var SKEY = 'bohemia.supplies.v1';
+  function supplies() { try { return JSON.parse(localStorage.getItem(SKEY) || 'null'); } catch (e) { return null; } }
+  function seedSupplies(id, econ) {
+    var k = supplies(); if (k && k.origin === id) return k;
+    if (!D.ready) return null;
+    var o = originRow(id); if (!o) return null;
+    var e = econ === 'thin' || econ === 'bare' ? econ : 'full', n = (o.men || []).length || 1, sp = o.supplies || {}, dd = (o.door && o.door.food_days) || 0;
+    var col = function (c) { return c && typeof c[e] === 'number' ? c[e] : 0; };
+    var s = { origin: id, econ: e, food: dd * n, water: dd * n, tape: col(sp.tape), rounds: col(sp.rounds), meds: col(sp.meds),
+      wage: (o.door && o.door.wage_per_man_per_night) | 0, founding: n, at: Date.now() };
+    try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch (e2) {}
+    return s;
+  }
+  /* add (or take, with a negative n) to one count; never under zero; returns the new count */
+  function addSupply(k, n) { var s = supplies(); if (!s) return null; s[k] = Math.max(0, (s[k] | 0) + (n | 0)); try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch (e) {} return s[k]; }
+  function forget() { try { localStorage.removeItem(KEY); localStorage.removeItem(SKEY); } catch (e) {} }
+  root.BohemiaOriginStart = { KEY: KEY, SKEY: SKEY, load: load, roll: roll, company: company, forget: forget, kept: kept, talents: talents, data: D, STATS: STATS,
+    supplies: supplies, seedSupplies: seedSupplies, addSupply: addSupply };
   /* the data is read as the page comes up, after the door: three small files, nothing in the way of NEW GAME */
   try { if (root.fetch) setTimeout(function () { load(); }, 0); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);

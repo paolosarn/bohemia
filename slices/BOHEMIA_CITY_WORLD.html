@@ -44735,7 +44735,15 @@ try{ fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); 
    (engine/bohemia_wages.js: his background's wiki wage / 10, x 1.1 a level to 11, at the level he has climbed to); the founding
    crew eats and is not paid. The camp's retinue: the cook takes 15% off the food, the paymaster 15% off the pay. So twelve
    hired in the first week cost about 33 a night against the three's 6 (TUNING's table), and the days-left on the bar say so. */
-function billFood(){ return Math.round(crewCount() * BILL.per_man * (window.BohemiaCamp ? BohemiaCamp.mult('food') : 1)); }
+/* __THE_WAGON__ (RUN TWO [every origin starts like itself] + [eyes: four currencies], rules 184(b), 47; TUNING s3 origin.food_days
+   and pit.wage_per_man). A man eats a ration and drinks four litres a night: the bill's per_man (2) is one of each at the counter. The
+   wagon (bohemia.supplies.v1, seeded at the door: a week of the bill, the water truck 19) feeds the crew first, a ration and a jug a
+   man; only what it cannot cover is bought in batteries. A Battle Brothers' wagon carries 3 to 19 days; when it is empty the night is
+   batteries again, as before. The fight pit's founding men are paid their wage a night on top (TUNING: a gladiator's 50 crowns). */
+function wagonGet(){ try{ return JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); }catch(_e){ return null; } }
+function wagonPut(w){ try{ localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w)); }catch(_e){} }
+function billShort(crew, w){ w = w || wagonGet(); if(!w) return crew * 2; return Math.max(0, crew - (w.food | 0)) + Math.max(0, crew - (w.water | 0)); }   /* rations and jugs the wagon cannot give tonight */
+function billFood(){ return Math.round(billShort(crewCount()) * BILL.per_man / 2 * (window.BohemiaCamp ? BohemiaCamp.mult('food') : 1)); }
 function billWages(){
   if (!window.BohemiaWages) return 0;
   var hired = [], co = {}, gone = {};
@@ -44746,10 +44754,21 @@ function billWages(){
   var sum = 0;
   hired.forEach(function(h){ if (!h || !h.name || h.dead) return; var n = String(h.name).toUpperCase(); if (gone[n]) return; var m = co[n] || {};
     sum += BohemiaWages.wage(h.background || m.background || m.bgId, m.level || h.level || 1); });
+  try{ var wg = wagonGet(); if(wg && wg.wage > 0){   /* __THE_WAGON__: the founding men's wage (the fight pit's), every man with you who was not hired */
+    sum += wg.wage * Math.max(0, crewCount() - hired.filter(function(h){ return h && h.name && !h.dead && !gone[String(h.name).toUpperCase()]; }).length); } }catch(_e){}
   return Math.round(sum * (window.BohemiaCamp ? BohemiaCamp.mult('wage') : 1));
 }
 function billPerNight(){ return billFood() + billWages(); }
-function billDaysLeft(){ var p = billPerNight(); return p > 0 ? Math.floor(loopBats() / p) : null; }
+/* __THE_WAGON__: how many more nightfalls he can cover: the wagon's nights first, then the batteries at the full bill */
+function billDaysLeft(){
+  var crew = crewCount(), w = wagonGet(), bats = loopBats(), wages = billWages(), m = window.BohemiaCamp ? BohemiaCamp.mult('food') : 1;
+  var night = function(f, wa){ return Math.round((Math.max(0, crew - f) + Math.max(0, crew - wa)) * BILL.per_man / 2 * m) + wages; };
+  if(!w){ var full = night(0, 0); return full > 0 ? Math.floor(bats / full) : null; }
+  if(night(0, 0) <= 0) return null;
+  var f = w.food | 0, wa = w.water | 0, n = 0;
+  while(n < 999){ var c = night(f, wa); if(c > bats) break; bats -= c; f = Math.max(0, f - crew); wa = Math.max(0, wa - crew); n++; }
+  return n;
+}
 function billPublish(){
   try{ window.__BILL = { perMan: BILL.per_man, crew: crewCount(), perNight: billPerNight(), daysLeft: billDaysLeft(), red: billDaysLeft() != null && billDaysLeft() <= BILL.red_at, last: BILL.last, loaded: BILL.loaded }; }catch(_e){}
   return window.__BILL;
@@ -44771,13 +44790,14 @@ function crewWhoWalks(){
 }
 function crewBillNight(){
   var crew = crewCount(), food = billFood(), wages = billWages(), due = food + wages, have = loopBats(), paid = Math.min(due, Math.max(0, have)), walked = null;   /* __THE_HIRED_ARE_PAID__ */
+  var wg = wagonGet(), ate = null; if(wg){ ate = { food: Math.min(crew, wg.food | 0), water: Math.min(crew, wg.water | 0) }; wg.food = (wg.food | 0) - ate.food; wg.water = (wg.water | 0) - ate.water; wagonPut(wg); }   /* __THE_WAGON__: the wagon feeds them first */
   if(paid > 0){ try{ BohemiaPurse.debit(purseGet(), 'electricity', paid, 'the crew ate: ' + crew + (crew === 1 ? ' man' : ' men') + ', food and water' + (wages ? '; the hired were paid ' + wages : ''), 'bill:' + loopDay(), loopDay()); }catch(_e){} }
   if(have < due && BILL.walks > 0){
     walked = crewWhoWalks();
     if(walked){ var w = crewWalked(); walked.day = loopDay(); w.push(walked); try{ localStorage.setItem(CREW_WALKED_KEY, JSON.stringify(w)); }catch(_e){}
       try{ billSpeaks(walked); }catch(_e){} }
   }
-  BILL.last = { day: loopDay(), crew: crew, due: due, food: food, wages: wages, paid: paid, short: due - paid, walked: walked ? walked.name : null };
+  BILL.last = { day: loopDay(), crew: crew, due: due, food: food, wages: wages, paid: paid, short: due - paid, walked: walked ? walked.name : null, ate: ate };   /* __THE_WAGON__: what the wagon gave */
   window.__BILL_NIGHTS = (window.__BILL_NIGHTS | 0) + 1;
   try{ setTimeout(function(){ saveNow('night'); }, 0); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: the night */
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(walked ? (walked.name + ' walked: no batteries for food.') : ('The crew ate: ' + paid + ' batteries.'), 'bill'); }catch(_e){}   /* draft:true */

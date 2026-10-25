@@ -30,7 +30,10 @@ const done = () => { console.log('=== MONEY TEACHES GATE: ' + pass + ' passed, '
   p.on('pageerror', e => errs.push(e.message));
   try {
     await p.waitForTimeout(3000);
-    await fr.evaluate(() => { ['bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.hired.v1'].forEach(k => localStorage.removeItem(k)); });
+    await fr.evaluate(() => { ['bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.hired.v1'].forEach(k => localStorage.removeItem(k));
+      /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__): the night eats the wagon before the batteries now (THE WAGON AND THE SIX holds that);
+         this gate holds the batteries' bill, the food and the pay, so its wagon is empty and stays empty */
+      const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); if (w) { w.food = 0; w.water = 0; localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w)); } });
     await fr.waitForFunction(() => window.BohemiaWages && BohemiaWages.ready(), null, { timeout: 8000 }).catch(() => {});
     /* ---- M1 ---- */
     const m1 = await fr.evaluate(() => ({ crew: crewCount(), food: billFood(), wages: billWages(), night: billPerNight() }));

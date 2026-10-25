@@ -671,10 +671,14 @@ function roundPrice(){ return Math.max(1, S.crewSize || 3); }
 /* THE STALL. What the shelf holds is ECONOMY's to rule (BohemiaPlace.STOCKS is empty on
    purpose); until then the stall sells the goods the economy already names, ONE battery
    each, and only FOOD is counted by the purse (the six in the bar). */
-var STALL = [{good:'food', label:'A ration of food', counts:'resources'},
-             {good:'water', label:'Water, four litres', counts:null},
-             {good:'meds', label:'A dose of meds', counts:null},
-             {good:'rounds', label:'Six rounds', counts:null}];
+var STALL = [{good:'food', label:'A ration of food', counts:'resources', adds:1},
+             {good:'water', label:'Water, four litres', counts:null, adds:1},
+             {good:'meds', label:'A dose of meds', counts:null, adds:1},
+             {good:'rounds', label:'Six rounds', counts:null, adds:6}];
+/* __THE_WAGON__ (RUN TWO [eyes: four currencies], ECONOMY's section 4 item 3: 'the stall's water, meds and rounds add to WATER, MEDS,
+   ROUNDS'): what you buy goes into its count, the company's (bohemia.supplies.v1, the bar's in every frame): a ration, a jug of four
+   litres, a dose, six rounds. Before this the stall took a battery for water, meds and rounds and added nothing. */
+function supplyAdd(k, n){ try{ var s = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null') || {food:0, water:0, tape:0, meds:0, rounds:0}; s[k] = Math.max(0, (s[k] | 0) + (n | 0)); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(s)); return s[k]; }catch(e){ return null; } }
 
 var S = {
   place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
@@ -2306,6 +2310,7 @@ function openB(k, line){
         if(bats()<pr) return openB('stall','You are out of batteries. Come back with ' + pr + '.');
         P.debit(S.purse,'electricity',pr,'stall:'+g.good,S.place.name,S.day);
         if(g.counts) P.credit(S.purse,g.counts,1,'stall:'+g.good,S.place.name,S.day);
+        if(g.adds) supplyAdd(g.good, g.adds);   /* __THE_WAGON__ */
         post('buy',{good:g.good}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB('stall','There you go. Gracias.');
       }, bats()<pr);
       var gi = packIcon(g.good); if(gi) ab.insertBefore(gi, ab.firstChild); acts.appendChild(ab);

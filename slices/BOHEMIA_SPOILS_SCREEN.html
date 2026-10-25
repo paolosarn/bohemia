@@ -294,6 +294,7 @@ function hasCounts(){ var c = S.counts || {}; return (c.batteries | 0) + (c.roun
 function takeCounts(){
   if(S.countsTaken || !hasCounts()) return false;
   S.countsTaken = true; var c = S.counts;
+  if(c.rounds | 0){ try{ var sw = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); if(sw){ sw.rounds = (sw.rounds | 0) + (c.rounds | 0); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(sw)); } }catch(e){} }   /* __THE_WAGON__ (ECONOMY section 4 item 3): the loot's rounds are ROUNDS on the bar */
   post('counts', {batteries:c.batteries | 0, resources:(c.rounds | 0) + (c.scrap | 0), rounds:c.rounds | 0, scrap:c.scrap | 0, seq:S.seq});
   sfx('equip'); drawCounts(); drawGround(); return true;
 }

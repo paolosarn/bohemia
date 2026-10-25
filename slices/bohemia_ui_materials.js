@@ -810,6 +810,7 @@
     var out = {}, P = window.BohemiaPurse, pu = null, cur = (P && P.CURRENCIES) || [], B = window.BOH_SUPPLIES;
     try { pu = typeof purseGet === 'function' ? purseGet() : null; } catch (e) {}
     try { if (typeof B === 'function') B = B(); } catch (e) { B = null; }
+    if (!B) { try { B = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); } catch (e) { B = null; } }   /* RUN TWO __THE_WAGON__: the company's counts, seeded at the door (engine/bohemia_origin_start.js), the same in every frame */
     SIX.forEach(function (k) {
       if (k === 'batteries') return;
       var n = null;
@@ -860,7 +861,7 @@
       var n = f.supplies[k]; if (typeof n !== 'number') return;
       var per = (k === 'food' || k === 'water') ? Math.max(1, f.eat || f.perDay || 1) : 0, last = per ? Math.floor(n / per) : null, low = per ? last < 3 : n <= 0;
       g += '<span class="s six" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + packIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + n + '</b>'
-        + (per ? '<i class="hold">' + last + (last === 1 ? ' DAY' : ' DAYS') + '</i>' : '') + '</span>';
+        + (per ? '<i class="hold">' + last + (last === 1 ? ' NIGHT' : ' NIGHTS') + '</i>' : '') + '</span>';   /* RUN TWO __THE_WAGON__: the wagon is eaten at nightfall, so its hold counts NIGHTS like the batteries' (his NO to the bar saying DAYS twice, THE DAYS ONCE) */
     });
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
     var parts = { day: day, crew: crew, g: g };
