@@ -46005,6 +46005,10 @@ function mapPlatesDraw(){
       if (Pc.party && Pc.info) { pb.x = Pc.sx - 40; pb.y = Pc.cy - 38; pb.w = 80; pb.h = 34; }
       if (pb.x < cb.x + cb.w && pb.x + pb.w > cb.x && pb.y < cb.y + cb.h && pb.y + pb.h > cb.y) {
         var ny = cb.y + cb.h + 2 + (MAP_DREW.platesUnder | 0) * 12, oy0 = Pc.ly;
+        /* WORLD 10/25 ([eyes: the place in the dark]: a job's towns are named at every zoom now, and at the far stop CARAVANS stepped
+           under the crew onto ANARCHISTS, which already stood there): the step goes on a line at a time past any other name */
+        for (var nt = 0; nt < 8 && MAP_PLATES.some(function(o, oi){ if (oi === ci || (o.party && o.info)) return false;
+          return pb.x < o.lx + o.w + 6 && pb.x + pb.w > o.lx && ny < o.ly + 11 && ny + pb.h > o.ly; }); nt++) ny += 12;
         try { MAP_TOWN_HIT.forEach(function(T){ if (T.plate && Math.abs(T.plate.y - oy0) < 0.5 && Math.abs(T.plate.x - Pc.lx) < 0.5) T.plate.y = ny; }); } catch (_e) {}
         if (Pc.party && Pc.info) Pc.cy += ny - pb.y; else Pc.ly = ny;
         if (Pc.box) Pc.box.y = ny;

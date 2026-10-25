@@ -204,14 +204,81 @@
     /* today's crew job (and every kind not built yet): the crew, where the map marks it */
     return tg.x != null ? { name: pn || 'THE CREW', act: 'THE JOB', x: tg.x, y: tg.y, town: false } : null;
   }
-  /* is this town or real place named by a job he holds? 'next' (the place he goes now: ringed) or 'named' (named), else null */
+  /* is this town or real place named by a job he holds, or by a job on the phone? 'next' (the place he goes now, or the town the
+     lit card says to touch: ringed) or 'named' (named at every zoom), else null */
   function names(nm) {
     var N = String(nm || '').toUpperCase(), out = null; if (!N) return null;
     try { (LOOP.held || []).forEach(function (j) {
       var n = nextOf(j); if (n && n.town && n.name === N) out = 'next';
       if (!out && (String(j.from || '').toUpperCase() === N || (j.dest && String(j.dest.name).toUpperCase() === N && !j.dest.made))) out = 'named';
     }); } catch (e) {}
+    if (!out) phonePlaces().forEach(function (p) { if (p.name.toUpperCase() !== N) return; if (p.lit && p.role === 'from') out = 'next'; else if (!out) out = 'named'; });
     return out;
+  }
+
+  /* ---------- THE PLACE IN THE DARK (WORLD [eyes: the place in the dark], EYES [check every ask on the list] 10/25, rule 179 with
+     rule 155; line 56 of records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md, his 'take three carts to Prim, and it's really just the
+     blue settlement'). MEASURED by EYES on BUILD 10/25o, a phone, a new game in the dark (records/BOHEMIA_EYES_EVERY_ASK_CHECKED_ON_
+     THE_LIVE_DEMO_10_25_26.md, q05, q06): the phone's card said 'TOUCH REMNANTS ON THE MAP' while Remnants sat under the fog, no
+     name and no mark at any zoom from 2.4 to 0.29, and PRIMM, where the carts go, was named nowhere. Two holes: the names above
+     were only for a job he HELD, and the fog hid even those (a town under the fog is skipped before its name is asked; this lane's
+     own checker ran with the fog lifted, the checkers' default, so it never met the dark).
+     Battle Brothers: a contract's place is put on the map when you take it, through the fog. Ours offers from the phone, from
+     anywhere, so the phone's jobs count from the moment they are offered: the two it shows and the one he lit.
+     NOW every place a job names (who gives it, and the real place its words send him to), from the phone through the job he
+     holds, is opened in the fog the way SHOW THE TOWNS opens a town (rule 155(c)'s own small circle, kept with the game: once the
+     phone told him where it is, he knows where it is), and named at every zoom; the town the lit card says to touch wears the
+     ring; when it is off the glass, its name waits at the glass's edge pointing ('JOB AT REMNANTS', and 'TO PRIMM' for where it
+     goes), and a tap there walks to it. The land between stays dark. ---------- */
+  function phonePlaces() {
+    var out = [], have = {};
+    var add = function (nm, role, id, lit) {
+      if (!nm) return; var p = realPlace(nm); if (!p) return;
+      var k = p.name.toUpperCase() + '|' + role; if (have[k]) { if (lit) have[k].lit = true; return; }
+      have[k] = { name: p.name, x: p.x, y: p.y, region: !!p.region, role: role, id: id, lit: !!lit }; out.push(have[k]);
+    };
+    var shown = [], pick = null;
+    try { shown = (root.__PHONE_BOARD && root.__PHONE_BOARD.shown) || []; } catch (e) {}
+    try { pick = root.BOH_PHONE_ROUTE || null; } catch (e) {}
+    shown.concat(pick ? [pick] : []).forEach(function (a) {
+      if (!a || !a.place) return;
+      var lit = !!(pick && pick.id === a.id && String(pick.place) === String(a.place));
+      add(a.place, 'from', a.id, lit);
+      var row = DATA && DATA.offers && DATA.offers[a.id], pl = row && row.place;
+      if (pl && pl.real) add(pl.real, 'to', a.id, lit);
+    });
+    return out;
+  }
+  /* every place a job names right now: the phone's, then the jobs he holds (the client's town, where it goes when that is a real
+     place or a town, and where it sends him next when that is a town) */
+  function placesNamed() {
+    var out = phonePlaces().slice();
+    try { (LOOP.held || []).forEach(function (j) {
+      if (j.fromAt && j.fromAt.x != null) out.push({ name: String(j.from || ''), x: j.fromAt.x | 0, y: j.fromAt.y | 0, role: 'from', id: j.id, held: true });
+      if (j.dest && !j.dest.made && j.dest.x != null) out.push({ name: String(j.dest.name), x: j.dest.x | 0, y: j.dest.y | 0, role: 'to', id: j.id, held: true });
+      var n = nextOf(j); if (n && n.town && n.x != null) out.push({ name: n.name, x: n.x | 0, y: n.y | 0, role: 'next', id: j.id, held: true });
+    }); } catch (e) {}
+    return out;
+  }
+  /* the dark opens over each of them once (the fog's own reveal, the circle SHOW THE TOWNS uses); 0 when nothing was hidden */
+  function lightTheDark() {
+    var hides = root.fogHides, reveal = root.fogReveal;
+    if (typeof hides !== 'function' || typeof reveal !== 'function') return 0;
+    var lit = [];
+    placesNamed().forEach(function (p) { try { if (hides(p.x, p.y)) { reveal(p.x, p.y, 1.6); if (!hides(p.x, p.y)) lit.push(p.name); } } catch (e) {} });
+    if (lit.length) root.__JOB_LIT_THE_DARK = (root.__JOB_LIT_THE_DARK || []).concat(lit.map(function (n) { return { name: n, day: day() }; })).slice(-30);
+    return lit.length;
+  }
+  /* the lit card's places, at the glass's edge when they are off it (on the glass the map rings and names them itself) */
+  function markPhone(ox, oy, bt) {
+    var marks = [];
+    phonePlaces().forEach(function (p) {
+      if (!p.lit) return;
+      var n = { name: p.name.toUpperCase(), act: p.role === 'from' ? 'JOB AT' : 'TO', x: p.x, y: p.y, town: true };
+      var m = markPlace(n, ox, oy, bt, function (box, cell) { HITS.push({ job: null, x: box.x, y: box.y, w: box.w, h: box.h, cell: cell, pack: null, town: { name: p.name, x: p.x, y: p.y } }); }, p.role === 'from' ? 'phone' : 'phone-to', true);
+      if (m) marks.push(m);
+    });
+    return marks;
   }
 
   /* ======================= ESCORT: haul-caravan ======================= */
@@ -871,6 +938,7 @@
   function tap(sx, sy) {
     for (var i = HITS.length - 1; i >= 0; i--) { var h = HITS[i];
       if (sx < h.x - 4 || sx > h.x + h.w + 4 || sy < h.y - 4 || sy > h.y + h.h + 4) continue;
+      if (h.town) { try { return townTap({ name: h.town.name, x: h.town.x, y: h.town.y }) || true; } catch (e) { return false; } }   /* the lit card's town: the map's own town tap */
       var job = null; LOOP.held.forEach(function (j) { if (j.id === h.job) job = j; });
       if (!job) continue;
       if (cheb(h.cell[0], h.cell[1], city.x, city.y) <= 1) { try { travelStop(); } catch (e) {} if (arrived(city.x, city.y)) return true; }
@@ -924,7 +992,8 @@
     return true;
   }
   function draw(ox, oy) {
-    HITS = [];
+    HITS = []; EDGE_BOXES = [];
+    try { if (lightTheDark()) setTimeout(function () { try { render(); } catch (e) {} }, 0); } catch (e) {}   /* [eyes: the place in the dark] */
     var H = held(), bt = mapArtBeat(), kp = MAP_PEOPLE_K;
     H.forEach(function (j) { if (j.stage === 'wait') settleWait(j); });
     H = held();
@@ -935,41 +1004,75 @@
     try { MAP_DREW.jobKinds = H.length; } catch (e) {}
     /* every job he holds, today's crew job too: where it sends him next, named and marked (rule 164 item 3) */
     var marks = []; try { (LOOP.held || []).forEach(function (j) { try { var m = markNext(j, ox, oy, bt); if (m) marks.push(m); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); } }); } catch (e) {}
+    try { marks = marks.concat(markPhone(ox, oy, bt)); } catch (e) { window.__JOB_DRAW_ERR = String(e && e.message || e); }   /* [eyes: the place in the dark]: the lit card's town and where it goes */
     window.__JOB_MARKS = marks;
   }
   /* THE NEXT PLACE, MARKED: on the glass a ring on its ground that breathes on the beat, and a made place's name on the ground
      under it (a town and a real place name themselves: the map's hooks light their own plates); off the glass, its name at the
      glass's edge on the line from the middle of the glass, a point toward it, the act first ('ESCORT TO PRIMM'). A tap on
      either walks there. No flag and no road line (rule 164 item 10). */
-  var EDGE = { l: 14, r: 14, t: 66, b: 124 };
+  var EDGE = { l: 14, r: 14, t: 66, b: 124 }, EDGE_BOXES = [], WEDGES = [];
+  function wedgesDraw() {
+    if (!WEDGES.length) return;
+    g.save(); g.setTransform(1, 0, 0, 1, 0, 0); try { if (typeof CV_DPR === 'number' && CV_DPR > 0) g.setTransform(CV_DPR, 0, 0, CV_DPR, 0, 0); } catch (e) {}
+    g.globalAlpha = 1; g.fillStyle = 'rgba(12,10,8,0.82)'; g.strokeStyle = '#f0b44c'; g.lineWidth = 1.5;
+    WEDGES.forEach(function (w) { var ex = w[0], ey = w[1], ux = w[2], uy = w[3];
+      g.beginPath(); g.moveTo(ex + ux * 6, ey + uy * 6); g.lineTo(ex - ux * 5 - uy * 6, ey - uy * 5 + ux * 6); g.lineTo(ex - ux * 5 + uy * 6, ey - uy * 5 - ux * 6); g.closePath(); g.fill(); g.stroke(); });
+    g.restore();
+  }
+  /* the map's frame, then the wedges over it (over the fog; the region's places hook the same way) */
+  try { if (typeof renderCity === 'function') { var _rcJ = renderCity; renderCity = function () { WEDGES = []; var out = _rcJ.apply(this, arguments); try { if (typeof MODE === 'undefined' || MODE === 'city') wedgesDraw(); } catch (e) {} return out; }; } } catch (e) {}
   function markNext(j, ox, oy, bt) {
-    var n = nextOf(j); if (!n || n.x == null) return null;
+    return markPlace(nextOf(j), ox, oy, bt, function (box, cell) { hit(j, box, cell); }, j.id, false);
+  }
+  /* one place marked: n { name, act, x, y, town }; onHit(box, cell) takes the tap; edgeOnly: on the glass the map marks it itself */
+  function markPlace(n, ox, oy, bt, onHit, id, edgeOnly) {
+    if (!n || n.x == null) return null;
     var p = iso(n.x, n.y, ox, oy), fy = p.sy + TH / 2 + 2, cell = n.town ? (gate(n.x, n.y) || [n.x, n.y]) : [n.x, n.y];
-    var label = n.act === 'HOLD' ? 'HOLD · ' + (n.sub || n.name) : n.act === 'GET PAID' ? 'GET PAID · ' + n.name : n.act === 'THE JOB' ? n.name : n.act + (/ TO$/.test(n.act) ? ' ' : ' · ') + n.name;
+    var label = n.act === 'HOLD' ? 'HOLD · ' + (n.sub || n.name) : n.act === 'GET PAID' ? 'GET PAID · ' + n.name : n.act === 'THE JOB' ? n.name : n.act + (/ (TO|AT)$|^(TO|AT)$/.test(n.act) ? ' ' : ' · ') + n.name;
     var on = p.sx > EDGE.l && p.sx < CVW - EDGE.r && fy > EDGE.t && fy < CVH - EDGE.b;
+    if (on && edgeOnly) return { id: id, name: n.name, act: n.act, label: label, on: true, x: n.x, y: n.y, sx: Math.round(p.sx), sy: Math.round(fy) };
     if (on) {
       var rw = n.town ? 30 : 20, pulse = 0.55 + 0.35 * ((bt % 2) ? 1 : 0);
       g.save(); g.globalAlpha = pulse; g.strokeStyle = '#f0b44c'; g.lineWidth = 2;
       g.beginPath(); g.ellipse(p.sx, fy + 2, rw, rw * 0.38, 0, 0, 7); g.stroke(); g.restore();
       if (!n.town) { g.font = '700 9px ' + FACE('casing'); var w = g.measureText(n.name).width;
         MAP_PLATES.push({ t: n.name, lx: p.sx - w / 2 - 3, ly: fy + 12, w: w, col: '#ffd27a', sx: p.sx, cy: fy + 26, r: 0 });
-        hit(j, { x: p.sx - w / 2 - 3, y: fy + 12, w: w + 6, h: 11 }, cell); }
+        onHit({ x: p.sx - w / 2 - 3, y: fy + 12, w: w + 6, h: 11 }, cell); }
       try { MAP_DREW.jobRings = (MAP_DREW.jobRings | 0) + 1; } catch (e) {}
-      return { id: j.id, name: n.name, act: n.act, label: label, on: true, x: n.x, y: n.y, sx: Math.round(p.sx), sy: Math.round(fy) };
+      return { id: id, name: n.name, act: n.act, label: label, on: true, x: n.x, y: n.y, sx: Math.round(p.sx), sy: Math.round(fy) };
     }
     /* off the glass: where the line from the middle of the glass to it leaves the glass (inside the bars and the pad) */
     var cx = CVW / 2, cy = (EDGE.t + CVH - EDGE.b) / 2, dx = p.sx - cx, dy = fy - cy;
     var tx = dx > 0 ? (CVW - EDGE.r - cx) / dx : dx < 0 ? (EDGE.l - cx) / dx : Infinity, ty = dy > 0 ? (CVH - EDGE.b - cy) / dy : dy < 0 ? (EDGE.t - cy) / dy : Infinity;
-    var t = Math.min(tx, ty), ex = cx + dx * t, ey = cy + dy * t, L = Math.sqrt(dx * dx + dy * dy) || 1, ux = dx / L, uy = dy / L;
+    var t = Math.min(tx, ty);
+    /* the phone on the glass is part of the edge (WORLD [eyes: the place in the dark]: a name under the phone is no name): the
+       line stops where it meets the phone */
+    try { var fe = document.getElementById('cityfeed'), cv = document.getElementById('cv');
+      if (fe && cv && fe.classList.contains('on')) { var fr = fe.getBoundingClientRect(), vr = cv.getBoundingClientRect(), pad = 6;
+        var L0 = fr.left - vr.left - pad, R0 = fr.right - vr.left + pad, T0 = fr.top - vr.top - pad, B0 = fr.bottom - vr.top + pad;
+        if (fr.width > 0 && fr.height > 0) { var t0 = -Infinity, t1 = Infinity;
+          [[dx, cx, L0, R0], [dy, cy, T0, B0]].forEach(function (a) { if (a[0] === 0) { if (a[1] < a[2] || a[1] > a[3]) t1 = -Infinity; return; }
+            var u = (a[2] - a[1]) / a[0], v = (a[3] - a[1]) / a[0]; t0 = Math.max(t0, Math.min(u, v)); t1 = Math.min(t1, Math.max(u, v)); });
+          if (t0 <= t1 && t0 > 0 && t0 < t) t = t0; } } } catch (e) {}
+    var ex = cx + dx * t, ey = cy + dy * t, L = Math.sqrt(dx * dx + dy * dy) || 1, ux = dx / L, uy = dy / L;
     g.font = '700 9px ' + FACE('casing');
     var tw = g.measureText(label).width + 6, bx = Math.max(EDGE.l, Math.min(CVW - EDGE.r - tw, ex - ux * 14 - tw / 2)), by = Math.max(EDGE.t, Math.min(CVH - EDGE.b - 11, ey - uy * 14 - 5));
-    /* the point: a small amber wedge at the edge, aimed at the place */
-    g.save(); g.fillStyle = 'rgba(12,10,8,0.82)'; g.strokeStyle = '#f0b44c'; g.lineWidth = 1.5;
-    g.beginPath(); g.moveTo(ex + ux * 6, ey + uy * 6); g.lineTo(ex - ux * 5 - uy * 6, ey - uy * 5 + ux * 6); g.lineTo(ex - ux * 5 + uy * 6, ey - uy * 5 - ux * 6); g.closePath(); g.fill(); g.stroke(); g.restore();
+    /* two names the same way never sit on each other: the later one steps along the edge a line at a time */
+    var sideways = Math.abs(ex - EDGE.l) < 2 || Math.abs(ex - (CVW - EDGE.r)) < 2;
+    for (var k = 0; k < 6 && EDGE_BOXES.some(function (b) { return bx < b[0] + b[2] && bx + tw > b[0] && by < b[1] + 13 && by + 13 > b[1]; }); k++) {
+      if (sideways) by = Math.max(EDGE.t, Math.min(CVH - EDGE.b - 11, by + (by > (EDGE.t + CVH - EDGE.b) / 2 ? -14 : 14)));
+      else bx = Math.max(EDGE.l, Math.min(CVW - EDGE.r - tw, bx + (bx > CVW / 2 ? -tw - 4 : tw + 4)));
+    }
+    if (sideways) bx = ex > CVW / 2 ? Math.min(bx, ex - 10 - tw) : Math.max(bx, ex + 10);   /* the name beside its point, never on it */
+    EDGE_BOXES.push([bx, by, tw]);
+    /* the point: a small amber wedge at the edge, aimed at the place; drawn after the fog (WORLD [eyes: the place in the dark]:
+       under the dark it was a smudge), with the names */
+    WEDGES.push([ex, ey, ux, uy]);
     MAP_PLATES.push({ t: label, lx: bx, ly: by, w: tw - 6, col: '#f0b44c', sx: bx + tw / 2, cy: by + 14, r: 0 });
-    hit(j, { x: Math.min(bx, ex - 8), y: Math.min(by, ey - 8), w: Math.max(bx + tw, ex + 8) - Math.min(bx, ex - 8), h: Math.max(by + 11, ey + 8) - Math.min(by, ey - 8) }, cell);
+    onHit({ x: Math.min(bx, ex - 8), y: Math.min(by, ey - 8), w: Math.max(bx + tw, ex + 8) - Math.min(bx, ex - 8), h: Math.max(by + 11, ey + 8) - Math.min(by, ey - 8) }, cell);
     try { MAP_DREW.jobEdges = (MAP_DREW.jobEdges | 0) + 1; } catch (e) {}
-    return { id: j.id, name: n.name, act: n.act, label: label, on: false, x: n.x, y: n.y, ex: Math.round(ex), ey: Math.round(ey), box: [Math.round(bx), Math.round(by), Math.round(tw), 11] };
+    return { id: id, name: n.name, act: n.act, label: label, on: false, x: n.x, y: n.y, ex: Math.round(ex), ey: Math.round(ey), box: [Math.round(bx), Math.round(by), Math.round(tw), 11] };
   }
   function hit(job, box, cell, pack) { HITS.push({ job: job.id, x: box.x, y: box.y, w: box.w, h: box.h, cell: cell, pack: pack == null ? null : pack }); }
   function cargoDraw(job, ox, oy, kp) {
@@ -1218,7 +1321,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace,
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
   load();
 })(typeof window !== 'undefined' ? window : this);
