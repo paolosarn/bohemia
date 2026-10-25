@@ -63,12 +63,25 @@ rolled man's things are his gang's; a man whose own model carries his weapon (th
 shield (the Heavy's crash bar) is drawn without a second one. A row with no prop, or a man whose pictures are not in: as
 before, never a man without what he holds.
 
+COOK'S THINGS (rule 177(c), its [a model for every item] the same hours): COOK built its item models in this tool's frame (it
+read build_shield, place_shield and place()), so a thing is rendered from reference/models/bohemia/item_<thing>.glb the moment
+it is in the folder: the car door, the crash bar, the riot shield, the pipe and the sledge at the time of writing; the club,
+the bat, the cleaver, the machete, the hatchet, the rebar spear, the chain, the bottles, the fire axe and the pole hook are
+this tool's stand-ins until theirs land (exported for COOK as held_*.glb). Each man's pictures keep the bytes of the model they
+were drawn from (props/models.json); a model that lands or changes is rendered again on the next pass. The 310 armoury rows
+are read off COOK's table (records/target/cook_every_item/BOHEMIA_EVERY_ITEM_AND_ITS_MODEL.json: 62 one-handed rows, 25
+two-handed, 19 shields), so the market's thing is the fight's thing. The stop sign stand-in went: COOK's table makes the
+buckler a car door.
+
 WHO HOLDS WHOSE THINGS (the render bill, measured: a named look's things are about 4,400 pictures at 0.55 s each, a rolled
 man's own keys 320 pictures at about 2 s plus 6 to 10 minutes to rebuild his model; 0.45 s of every thing's picture is the
 render's own start, samples and the frame's size barely move it, four things in one scene save nothing):
-- YOU, the thirteen gangs and the two tiers: their own things on every layer.
-- the twelve cast: their own first layer, YOU's things on the rest (the same skeleton, scale and camera: their hands sit
-  within a pixel of his on the held sheets, the way his twelve town men already hold his guns); their own body keys.
+- every named look: its own first layer of things (the one-handed six).
+- past the first layer, MEASURED: aligned at the feet, a look whose model renders at YOU's scale (1.101 to 1.110) holds
+  his things within about a pixel (17 to 28 px of a thing's 88 differ, the order of a one-pixel shift of a thin haft), so
+  eleven cast and nine gangs hold YOU's things there; a hat that makes a man taller makes him smaller in the frame (the
+  wide brim 1.054 and the caravans 1.058: 105 and 110 px off), and the anarchists, the church and the network sit two
+  pixels off (29 to 44), so they, YOU and the two tiers render their own. Every look has its own body keys.
 - the 68 rolled men (RUN TWO's 51, CHARACTER's 17): their gang's things (YOU's for his town men), moved by the difference of
   their feet so the thing is in this man's fist; their own body keys once rendered; UNTIL THEN they stand on their held
   sheets (the pistol's low ready, walk, blow and kneel) with their gang's thing in the fist and the breath and the looks for
