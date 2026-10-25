@@ -9669,6 +9669,12 @@ GATES = [
      "the bar's gear opens the settings and the shell's floating gear is off the glass; NOTES opens and closes; every word 4.5 to 1 plain and in the sun; "
      "in a road fight nothing crosses the top (TOPH 0), the round, the faces and AUTO ride the bottom bar and AUTO flips; five planted defects caught. "
      "Supersedes THE BAR SAYS THREE THINGS (the hour on the bar) and THE TOP BAR (the three candidates he said NO to), both TOLD_DEAD in gate_registry_gate.js.", True),
+    ('THE MAP\'S KEYS', ['node', 'gates/the_map_keys_gate.js'],
+     "UI gate, 10/25, row [the PC playtest: the UI's part] (1) (rule 164 item 1, PAOLO 10/24 on his PC: 'find out all the keyboard button clicks that were on Battle Brothers and do pretty much the exact same for Bohemia'). "
+     "Battle Brothers' world-map keys (the wiki's Keyboard Shortcuts page via Grok ask 105) on the demo, the computer profile, real key presses: Enter on the title presses NEW GAME; "
+     "W A S D held moves the camera and lets go of the crew; Shift takes it back; Page Down and Page Up zoom; C or I opens the company, Tab the next man, Escape or I closes it; "
+     "F shows and hides the tracks (off until asked, 151(f)); F5 saves and the bar says SAVED; Escape with nothing open opens the settings and closes them; "
+     "a key with the focus on the shell is handed to the map; in a town C opens the company and Escape closes it, then leaves the town; nothing thrown.", True),
     ('THE TEN CHANGES, THE UIS PART', ['node', 'gates/the_ten_changes_the_uis_part_gate.js'],
      "UI gate, 10/24, rows [the ten changes: the UI's part] and [portrait menu] (rule 133, PAOLO 10/23: 'like Battle Brothers but quicker and funner for normies'; TUNING's changes 2, 3, 5, 6, 8). "
      "THE STRANGER'S WALK (tools/bohemia_ui_the_ten_changes_walk.js, real touches, the committed demo): the bar carries two numbers, the batteries and the nights the map's bill covers, the crew the bill feeds; "

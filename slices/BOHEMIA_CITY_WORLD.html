@@ -45976,6 +45976,9 @@ var MAP_WALKERS_CARRY_FLAGS = false;
    coloured legs and the living map's prints, the green road away from a hunt (FALL BACK on the encounter card is the way out
    now). The code stays behind this switch. */
 var MAP_PATHS_DRAWN = false;
+/* __BATTLE_BROTHERS_KEYS__ (UI 10/25, rule 164 item 1): Battle Brothers' F shows or hides the tracks; the parties' prints stay
+   off as 151(f) has them until he presses F (slices/bohemia_ui_materials.js sets this); the route lines stay off */
+var MAP_PRINTS_SHOWN = false;
 /* __WHERE_AM_I__ (RUN 10/24, rule 164 item 9, Paolo on his PC: 'it's really hard to see where anything is on my character;
    there's always a golden arrow facing northeast, I have no clue what that is'). LOOKED AT on the computer profile: every new
    game starts beside the Church, and the Church's gold flag stands on its building right at his crew's shoulder, a gold cloth
@@ -48527,7 +48530,7 @@ function renderCity(){
          hour it was made; it reads full the hour it was made and is gone a day later. The ink is the
          faction's own (colour is territory), brighter for your own people, as the leg drawing was. */
       try {
-        if (MAP_PATHS_DRAWN && livingMapOn() && LIVING_MAP.st && LIVING_MAP.st.prints.length) {   /* __NO_ROUTE_LINES__ */
+        if ((MAP_PATHS_DRAWN || MAP_PRINTS_SHOWN) && livingMapOn() && LIVING_MAP.st && LIVING_MAP.st.prints.length) {   /* __NO_ROUTE_LINES__; F shows them (__BATTLE_BROTHERS_KEYS__) */
           var __lh = livingMapHour(), __lk = {}, __ln = 0;
           g.save(); g.lineCap = 'round';
           for (var __li = 0; __li < LIVING_MAP.st.prints.length; __li++) {

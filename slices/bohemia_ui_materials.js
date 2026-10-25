@@ -366,6 +366,7 @@
       destroy: function () { if (root.parentNode) root.parentNode.removeChild(root); }
     };
     api.paint(opts.saved || null);
+    BM_TITLE = api;   /* __BATTLE_BROTHERS_KEYS__: Enter presses the lit choice */
     return api;
   }
   /* ======================================================================================================
@@ -796,7 +797,7 @@
   function tbPaint() {
     var root = document.getElementById('bmtb'); if (!root) return;
     var f = tbFacts();
-    var day = '<img alt="" width="36" height="22" style="width:36px;height:22px" src="' + tbDial(f.min) + '"><b>DAY ' + (f.day == null ? '–' : f.day) + '</b>';
+    var day = '<img alt="" width="36" height="22" style="width:36px;height:22px" src="' + tbDial(f.min) + '"><b>' + ((typeof KEYS !== 'undefined' && KEYS.savedAt && performance.now() - KEYS.savedAt < 1500) ? 'SAVED' : 'DAY ' + (f.day == null ? '–' : f.day)) + '</b>';   /* F5 (__BATTLE_BROTHERS_KEYS__) says it once where the day is */
     /* UI [portrait menu] (rule 44b, Paolo 9/29: 'the portrait button that used to be the action button could be the character
        menu'): the crew tag wears HIS face (PORTRAIT's 'you', the crew screen's own) and is the door to his company */
     var me = null; try { me = window.BohemiaCrewFaces && BohemiaCrewFaces.has('you') ? BohemiaCrewFaces.src('you', 'rest', 64) : null; } catch (_e) {}
@@ -2192,6 +2193,181 @@
      was tried this round and taken off: an image beside the word moved the button's box while it loaded and the word's own
      read (THE UI BELONGS TO THE WORLD went 34/2); the button is RUN TWO's to dress with it, measured. */
   TEN.say = say; TEN.voice = VOICE; TEN.partyPlate = partyPlate; TEN.count_ = tenCount; TEN.crewDoor = crewDoor;
+
+  /* ======================================================================================================
+     __BATTLE_BROTHERS_KEYS__  (UI [the PC playtest: the UI's part] (1), 10/25/26; rule 164 item 1, Paolo 10/24 on his PC:
+     'find out all the keyboard button clicks that were on Battle Brothers and do pretty much the exact same for Bohemia').
+     Source: the wiki's Keyboard Shortcuts page, through Grok ask 105 (PASSED FILTER; Grok, unverified), checked against
+     COMBAT's fight keys (the same page's tactical half, slices/BOHEMIA_FIGHT.html keyPress). Every frame loads this file, so
+     one block answers the key wherever the focus is and hands it to the screen lying on top, the way the eye sees it:
+       THE TITLE   Enter presses the lit choice (CONTINUE over a save, else NEW GAME); on the picks, Enter is BEGIN.
+       THE MAP     W A S D or the arrows move the camera while held (it lets go of the crew, like a drag);
+                   the wheel, Page Up / Page Down and + / - zoom (one spin's rule: a run of presses stops at the far stop);
+                   Shift or Return centres on the crew (and zooms in to the middle stop when out past it);
+                   Space pauses (RUN's, kept); C or I opens the company (the one crew door); F shows or hides the
+                   parties' tracks (off by his 151(f), on only when he asks); F5 saves now (the bar says SAVED);
+                   F9 loads the last save (the title, CONTINUE lit); Esc closes what is open, and with nothing open the settings.
+       A TOWN      Esc closes the open building, then leaves the town (LEAVE); C or I opens the company (CREW).
+       THE COMPANY Esc, C or I closes it (DONE; a picker open closes first); Tab or D the next man, A the one before.
+       THE FIGHT   COMBAT's own keys; a key pressed while the focus sits on the shell is handed to it.
+     NOT BOUND, AND SAID: T (make or break camp) and R (the relations window) open things the game does not have; Ctrl+click
+     on a neutral party (no neutral attack). How a key travels: the page's own listeners answer first (this listens on the
+     window, behind them), and a key on a page with a frame over it is dispatched INTO that frame's document, so every
+     listener there (RUN's space, the meet card's Enter and F, the fight's keyPress) answers as if it had the focus.
+     ====================================================================================================== */
+  var BM_TITLE = null;
+  var KEYS = { page: '', held: {}, raf: 0, last: 0, panned: 0, n: 0, log: [], escOpen: false, savedAt: 0, prints: false };
+  KEYS.page = (function () { try { var p = location.pathname;
+    if (/BOHEMIA_(DEMO|ALPHA_0_9)\.html$/.test(p)) return 'shell';
+    if (/BOHEMIA_CITY_WORLD/.test(p)) return 'map';
+    if (/BOHEMIA_SETTLEMENT_SCREEN/.test(p)) return 'town';
+    if (/BOHEMIA_ROSTER_SCREEN/.test(p)) return 'crew';
+    if (/BOHEMIA_SPOILS_SCREEN/.test(p)) return 'spoils';
+    return ''; } catch (e) { return ''; } })();
+  var KEY_PAN = { w: [0, -1], arrowup: [0, -1], s: [0, 1], arrowdown: [0, 1], a: [-1, 0], arrowleft: [-1, 0], d: [1, 0], arrowright: [1, 0] };
+  function keyShown(el) { if (!el || !el.isConnected) return false;
+    try { var s = getComputedStyle(el); if (s.display === 'none' || s.visibility === 'hidden') return false; var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; } catch (e) { return false; } }
+  function keyTyping(t) { var tag = t && t.tagName; return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || !!(t && t.isContentEditable); }
+  function keyLog(what) { KEYS.n++; KEYS.log.push({ page: KEYS.page, what: what, at: Math.round(performance.now()) }); if (KEYS.log.length > 40) KEYS.log.shift(); window.__KEYS = KEYS; }
+  /* what lies on top of this page, in the order it lies: the frame the key belongs to */
+  function keyChild() {
+    var ids = { shell: ['crewdoor', 'spoilsdoor', 'fightFrame', 'cityFrame'], map: ['crewdoor', 'settleFrame'], town: ['crewdoor'], spoils: ['crewdoor'] }[KEYS.page];
+    if (!ids) return null;
+    for (var i = 0; i < ids.length; i++) { var el = document.getElementById(ids[i]); if (!keyShown(el)) continue;
+      var f = el.tagName === 'IFRAME' ? el : el.querySelector('iframe'); if (f && f.contentWindow) return f; }
+    return null;
+  }
+  function keyPass(f, ev, type) { return keyPassWin(f.contentWindow, ev, type); }
+  function keyPassWin(w, ev, type) {
+    var d = null; try { d = w.document; } catch (e) { return false; }
+    if (!d || !w.KeyboardEvent) return false;
+    var e2 = new w.KeyboardEvent(type, { key: ev.key, code: ev.code, shiftKey: ev.shiftKey, altKey: ev.altKey, ctrlKey: ev.ctrlKey, metaKey: ev.metaKey, repeat: ev.repeat, bubbles: true, cancelable: true });
+    try { d.dispatchEvent(e2); } catch (e) { return false; }
+    return e2.defaultPrevented;
+  }
+  /* the shell keeps the key while its own things stand over the game: the settings, the title, the door's picks */
+  function keyShellOwns() {
+    var sw = document.getElementById('setwrap'), vw = document.getElementById('votewrap');
+    if ((sw && sw.classList.contains('on')) || (vw && vw.classList.contains('on'))) return 'settings';
+    try { if (window.BOH_TITLE && BOH_TITLE.up && BOH_TITLE.up()) return 'title'; } catch (e) {}
+    if (BM_TITLE && keyShown(BM_TITLE.root)) return 'title';
+    if (keyShown(document.getElementById('front'))) return 'door';
+    return null;
+  }
+  function keyAnyOpen() {
+    if (KEYS.page === 'shell') return keyShellOwns() === 'settings';
+    if (KEYS.page !== 'map') return false;
+    try { var dc = document.getElementById('daycard'); if (dc && dc.classList.contains('on')) return true; } catch (e) {}
+    try { if (typeof VISTA !== 'undefined' && VISTA) return true; } catch (e) {}
+    try { if (typeof MEET !== 'undefined' && MEET.up) return true; } catch (e) {}
+    try { if (typeof PHONE_ON !== 'undefined' && PHONE_ON) return true; } catch (e) {}
+    try { if (typeof LOOK !== 'undefined' && LOOK.on) return true; } catch (e) {}
+    try { if (typeof OUTSIDE_PANELS !== 'undefined') for (var i = 0; i < OUTSIDE_PANELS.length; i++) if (panelIsOpen(document.getElementById(OUTSIDE_PANELS[i][0]))) return true; } catch (e) {}
+    return false;
+  }
+  function keyPanLoop() {
+    if (KEYS.raf) return;
+    KEYS.last = performance.now();
+    var step = function (now) {
+      KEYS.raf = 0;
+      var dx = 0, dy = 0; for (var k in KEYS.held) { dx += KEYS.held[k][0]; dy += KEYS.held[k][1]; }
+      if (!dx && !dy) return;
+      try { if (MODE !== 'city' || SKY || (typeof LOOP !== 'undefined' && LOOP.open)) { KEYS.held = {}; return; } } catch (e) { KEYS.held = {}; return; }
+      var dt = Math.min(0.05, Math.max(0, (now - KEYS.last) / 1000)), n = Math.sqrt(dx * dx + dy * dy), px = 0.6 * Math.max(CVW, CVH) * dt;
+      KEYS.last = now;
+      try { camLetGo(); } catch (e) {}
+      panX -= dx / n * px; panY -= dy / n * px; clampPan(); render();
+      KEYS.panned += px;
+      KEYS.raf = requestAnimationFrame(step);
+    };
+    KEYS.raf = requestAnimationFrame(step);
+  }
+  function keyZoom(dir) {
+    if (SKY) { skyZoom(dir); return; }
+    var now = performance.now();   /* the wheel's own rule (RUN's __THE_WHEEL_STOPS_AT_THE_FAR_STOP__): a run of presses is one gesture */
+    if (now - (window.__WHEEL_T || 0) < 800) ZGEST.t = now; else ZGEST.fresh = true;
+    window.__WHEEL_T = now;
+    setZoomAt(CZOOM * (dir > 0 ? 1.14 : 0.877), CVW / 2, CVH / 2);
+  }
+  function keyCentre() {
+    try { if (SKY) skyExit(); } catch (e) {}
+    camHold();
+    if (CZOOM < 1) { ZGEST.fresh = true; setZoomAt(1, CVW / 2, CVH / 2); }
+    render();
+  }
+  function keySettings() { try { var g = window.parent.document.getElementById('gearbtn'); if (g) { g.click(); return true; } } catch (e) {} return false; }
+  function keyMap(ev, k, lk) {
+    if (typeof MODE === 'undefined' || MODE !== 'city') return false;
+    if (KEY_PAN[lk]) { if (!ev.repeat && !SKY) { KEYS.held[lk] = KEY_PAN[lk]; keyPanLoop(); keyLog('pan ' + lk); } return true; }
+    if (k === 'PageUp' || k === 'PageDown' || k === '+' || k === '=' || k === '-' || k === '_') { keyZoom(k === 'PageUp' || k === '+' || k === '=' ? 1 : -1); keyLog('zoom ' + k); return true; }
+    if (k === 'Shift' || k === 'Enter') { if (!ev.repeat) { keyCentre(); keyLog('centre'); } return true; }
+    if (lk === 'c' || lk === 'i') { if (!ev.repeat) { crewDoor(); keyLog('crew'); } return true; }
+    if (lk === 'f') { if (!ev.repeat) { KEYS.prints = !KEYS.prints; window.MAP_PRINTS_SHOWN = KEYS.prints; try { render(); } catch (e) {} keyLog('tracks ' + (KEYS.prints ? 'on' : 'off')); } return true; }
+    if (k === 'F5') { if (!ev.repeat) { var ok = false; try { ok = saveNow('key:F5'); } catch (e) {} if (ok) KEYS.savedAt = performance.now(); try { tbPaint(); } catch (e) {} keyLog('save ' + ok); } return true; }
+    if (k === 'F9') { keyLog('load'); try { (window.top || window).location.reload(); } catch (e) { location.reload(); } return true; }
+    if (k === 'Escape') { if (KEYS.escOpen) return false; if (keySettings()) { keyLog('settings'); return true; } return false; }
+    return false;
+  }
+  function keyTown(ev, k, lk) {
+    if (k === 'Escape') {
+      var sh = document.getElementById('sheet'), x = document.getElementById('close');   /* a building's sheet open: its own close */
+      if (sh && x && sh.classList.contains('on')) { x.click(); keyLog('town: shut'); return true; }
+      var b = document.getElementById('leave'); if (keyShown(b)) { b.click(); keyLog('town: leave'); return true; } return false; }
+    if (lk === 'c' || lk === 'i') { var c = document.getElementById('crew'); if (c && !ev.repeat) { c.click(); keyLog('town: crew'); } return !!c; }
+    return false;
+  }
+  /* the company screen keeps its state to itself (BohemiaRosterScreen.state is a read): every key presses its own controls,
+     a man's cell the way a finger does (its pointerdown, then its pointerup with no drag), the open slot to fold its picker */
+  function keyCrew(ev, k, lk) {
+    var R = window.BohemiaRosterScreen && BohemiaRosterScreen.state;
+    if (k === 'Escape' || lk === 'c' || lk === 'i') { if (ev.repeat) return true;
+      var pk = k === 'Escape' && R && R.pick ? document.querySelector('.gslot.pick') : null;
+      if (pk) { pk.click(); keyLog('crew: picker shut'); return true; }
+      var b = document.getElementById('done'); if (b) { b.click(); keyLog('crew: done'); } return !!b; }
+    if (k === 'Tab' || lk === 'd' || lk === 'a') {
+      try { var cells = [], seen = {}; [].forEach.call(document.querySelectorAll('.cell[data-man]'), function (c) { var i = +c.dataset.man; if (!seen[i]) { seen[i] = 1; cells.push(c); } });
+        if (!cells.length || !R) return true;
+        var at = -1; cells.forEach(function (c, j) { if (+c.dataset.man === R.sel) at = j; });
+        var by = (lk === 'a' || (k === 'Tab' && ev.shiftKey)) ? -1 : 1, c = cells[((at < 0 ? 0 : at + by) % cells.length + cells.length) % cells.length];
+        var r = c.getBoundingClientRect(), o = { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, pointerId: 1, isPrimary: true, pointerType: 'mouse' };
+        c.dispatchEvent(new PointerEvent('pointerdown', o)); document.dispatchEvent(new PointerEvent('pointerup', o));
+        keyLog('crew: man ' + R.sel); } catch (e) {}
+      return true; }
+    return false;
+  }
+  function keyShell(ev, k, own) {
+    if (own === 'title' && k === 'Enter') {
+      var r = BM_TITLE && BM_TITLE.root, c = r && r.querySelector('[data-k="continue"]'), nw = r && r.querySelector('[data-k="new"]');
+      var b = (c && !c.disabled) ? c : nw; if (!b) return false;
+      if (document.activeElement && document.activeElement.tagName === 'BUTTON' && r.contains(document.activeElement)) return false;   /* a focused choice presses itself */
+      b.click(); keyLog('title: ' + b.getAttribute('data-k')); return true; }
+    if (own === 'door' && k === 'Enter') { var ft = document.getElementById('fronttap'); if (keyShown(ft)) { ft.click(); keyLog('door: begin'); return true; } }
+    return false;
+  }
+  function keyOn(ev) {
+    if (ev.defaultPrevented || ev.ctrlKey || ev.metaKey || keyTyping(ev.target)) return;
+    /* what stood open when the key went down (the capture below), not after the page's own listeners closed it */
+    var k = String(ev.key || ''), lk = k.toLowerCase(), own = KEYS.page === 'shell' ? KEYS.own : null;
+    /* the settings, the title or the door stand over every frame: a key pressed in a frame under them goes up to them */
+    if (KEYS.page !== 'shell') { var T0 = null; try { T0 = window.top !== window && window.top.__KEYS; } catch (e) {}
+      if (T0 && T0.owns && T0.owns()) { if (keyPassWin(window.top, ev, 'keydown')) ev.preventDefault(); return; } }
+    if (!own) { var f = keyChild(); if (f) { if (keyPass(f, ev, 'keydown')) ev.preventDefault(); return; } }
+    if (ev.altKey && KEYS.page !== 'shell') return;
+    var done = KEYS.page === 'map' ? keyMap(ev, k, lk) : KEYS.page === 'town' ? keyTown(ev, k, lk) : KEYS.page === 'crew' ? keyCrew(ev, k, lk) : KEYS.page === 'shell' ? keyShell(ev, k, own) : false;
+    if (done) ev.preventDefault();
+  }
+  function keyOff(ev) {
+    var lk = String(ev.key || '').toLowerCase(); if (KEYS.held[lk]) delete KEYS.held[lk];
+    var f = keyChild(); if (f) keyPass(f, ev, 'keyup');
+  }
+  if (KEYS.page) {
+    window.addEventListener('keydown', function (ev) { KEYS.own = KEYS.page === 'shell' ? keyShellOwns() : null; KEYS.escOpen = ev.key === 'Escape' ? keyAnyOpen() : false; }, true);   /* before anything closes */
+    window.addEventListener('keydown', keyOn);
+    window.addEventListener('keyup', keyOff);
+    window.addEventListener('blur', function () { KEYS.held = {}; });
+    if (KEYS.page === 'shell') KEYS.owns = keyShellOwns;
+    window.__KEYS = KEYS;
+  }
 
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
