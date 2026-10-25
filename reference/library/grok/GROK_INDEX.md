@@ -182,3 +182,4 @@ Newest first.
 - 2026-10-25 | ASK | GROK_ASK_128_VEHICLE_LADDER_2026_10_25.md | vehicle ladder, man-powered, cars later, speed
 - 2026-10-25 | ASK | GROK_ASK_129_THREE_CURRENCY_SYSTEM_2026_10_25.md | three currencies, batteries, medicine, resources
 - 2026-10-25 | ASK | GROK_ASK_130_DEATH_MATH_2026_10_25.md | death math, downed not dead, heirs, 33 percent
+- 2026-10-25 | ASK | GROK_ASK_131_GENERATIONAL_HANDOFF_2026_10_25.md | generational handoff, heirs, three acts, retirement
