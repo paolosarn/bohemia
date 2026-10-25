@@ -26,7 +26,7 @@
       it takes up stamina'): the crew screen's bag (gear.bag) rides into the fight, an empty one empty, none handed the kit (a
       rifleman a pistol, a pistol man the pipe); a swap costs the library's 4 AP, Quick Hands the first a turn free; the gun keeps
       its rounds in the bag; the bag weighs half its weight on his wind (Bags and Belts: only a two-hander's); a two-hander puts
-      the car door on his back and a one-hander brings it back; on AUTO an empty gun he cannot reload swaps for a loaded one;
+      the car door on his back and a one-hander brings it back; on AUTO the bag is never touched (rule 180(g): the swap is his button);
    10. shown: a square a bag item with the swap's AP, a tap swaps it (the strike square and the gun in his hands follow), too
       few AP says so; a car door in the bag straps on for 4 AP (never beside a two-hander); the end message says what each hand
       holds when the fight ends;
@@ -282,7 +282,10 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
     turn(T); T.perks = T.perks.filter(k => k !== 'quick_hands'); if (F.jobOfWeapon(T.weapon) !== 'rifle') F.swap(T, 0); turn(T);
     T.loaded = false; T.ap = T.apTurn; T.fat = F.fatMax(T); const foe = S.units.filter(u => u.side === 'them')[0]; foe.x = T.x + 3; foe.y = T.y;
     const ev0 = S.log.length; F.aiStep(T); const did = S.log.slice(ev0).map(e => e.t);
-    leg(did[0] === 'swap' && F.jobOfWeapon(T.weapon) === 'pistol', '  on AUTO an empty gun he cannot reload this turn (out of breath: a swap costs none) swaps for the loaded one in the bag', did.join(' '));
+    /* RE-AIMED 10/25 (rule 180(g), Paolo 10/25, the same day and newer: 'when I mean abilities, I mean buttons you can press during
+       combat that aren't fire or attack with melee'): the bag swap is his button, never AUTO's; on AUTO the empty rifle stays
+       in his hands (the swap stays one tap away for him, legs above) */
+    leg(did.indexOf('swap') < 0 && F.jobOfWeapon(T.weapon) === 'rifle', '  on AUTO an empty gun is never swapped from the bag: the swap is his button (rule 180(g))', did.join(' '));
     /* a shield in the bag: onto a free arm for the library's 4 AP (Quick Hands never makes it free); never beside a two-hander */
     const N = by('NENA'), C = by('CHEWY');
     turn(N); N.perks.push('quick_hands'); const n0 = N.ap, sw = F.swap(N, 0), n1 = N.ap, onArm = !!N.shield, left = N.bag[0];

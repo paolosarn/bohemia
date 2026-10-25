@@ -1112,7 +1112,7 @@ const FIGHT = (function () {
     }
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false;
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.firstBlow = 0; S.lastHitBy = {};
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -1337,8 +1337,23 @@ const FIGHT = (function () {
   function shown(t) { return t.side === 'you' || !!S.deploy || sideSees('you', t); }
 
   /* ---------------- THE ROUND ---------------- */
+  /* THE STANDOFF ENDS (COMBAT [AUTO never wastes a turn], rule 176; TUNING 10/25 s5b point 4: a roof no club can reach made 34
+     of 600 fights never end; Battle Brothers: the AI that sees no chance retreats, bb_all/1415): once the fight has begun (the
+     first blow), when THEY have landed nothing on anybody for ours.auto_brain.standoff_rounds rounds (his man on a roof their
+     clubs cannot reach, plinking at them; their bows at the 5% floor against his man two storeys up), they break off for good,
+     every man of theirs running for the edge, never rallying; the fight ends the way a rout does. Measured 10/25 (the same
+     300 fights): 12 ran to the bench's 60-round cap, a lone gunman of his two storeys up shooting at 23% while nine men below
+     could not climb; counting their blows left 4, their bows missing at 5% round after round; counting what lands, see the
+     record */
+  function standoff() {
+    const n = R('ours.auto_brain').standoff_rounds, since = Math.max((S.lastHitBy || {}).them || 0, S.firstBlow || 0);
+    if (!S.firstBlow || S.round - since <= n || !alive('you').length || !alive('them').length) return;
+    alive('them').forEach(function (u) { u.morale = 'Fleeing'; u.roundsFleeing = 0; u.givesUp = true; });
+    emit({ t: 'standoff', rounds: S.round - since });
+  }
   function newRound() {
     S.round++; S.aimed = {};
+    standoff();
     S.units.forEach(function (u) {
       if (!onField(u)) return;
       u.ap = u.apTurn; u.fat = Math.max(0, u.fat - R('fatigue.recovery_per_turn'));
@@ -1370,6 +1385,9 @@ const FIGHT = (function () {
     if (u && !u.begun) { u.begun = true; beginTurn(u); }
   }
   function beginTurn(u) {
+    /* THE UNDO VETO's memory (rule 176(b)): where his last turn began and whether he did anything in it */
+    u.lastTurn = u.turnFrom ? { x: u.turnFrom.x, y: u.turnFrom.y, acted: S.log.slice(u.turnLog).some(function (e) { return e.id === u.id && /^(attack|reload|skill)$/.test(e.t); }) } : null;
+    u.turnFrom = { x: u.x, y: u.y }; u.turnLog = S.log.length;
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
@@ -1377,7 +1395,7 @@ const FIGHT = (function () {
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
       if (die() <= ch) { u.netted = null; emit({ t: 'free', id: u.id }); } else { u.netted.fails++; emit({ t: 'stuck', id: u.id, chance: Math.max(0, Math.round(ch)) }); } }
-    if (u.morale === 'Fleeing' && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
+    if (u.morale === 'Fleeing' && !u.givesUp && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
       const p = R('parsed.morale_stop_fleeing');
       if (check(u, 'pos', p.per_round * u.roundsFleeing, true)) { u.morale = STATES()[STATES().indexOf('Wavering')]; emit({ t: 'rally', id: u.id }); }
     }
@@ -1636,6 +1654,7 @@ const FIGHT = (function () {
   /* what a result does to the two men: armour, hitpoints, fatigue, injury, morale, death */
   function apply(a, t, r, opt) {
     opt = opt || {};
+    S.firstBlow = S.firstBlow || S.round; S.lastHitBy = S.lastHitBy || {}; if (r.hit) S.lastHitBy[a.side] = S.round;   /* THE STANDOFF ENDS reads these */
     if (!isRanged(a.weapon)) S.contact = true;
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
       shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, skill: opt.skill || null });   /* the arm that struck: the pistol's shot or its club at one */
@@ -2228,6 +2247,7 @@ const FIGHT = (function () {
   }
   /* the start of a turn: rally the breaking, rest when too winded to swing (Recover takes the whole turn) */
   function aiFirst(u) {
+    if (u.side === 'you') return false;   /* rule 180: AUTO moves, fires and strikes, nothing else; abilities are his */
     if (canUse(u, 'rally_the_troops') && rallyable(u).some(function (f) { return f.morale === 'Breaking' || f.morale === 'Fleeing'; })) return useSkill(u, 'rally_the_troops');
     if (canUse(u, 'recover') && u.ap === u.apTurn) {
       const s = strikeSkill(u.weapon);
@@ -2237,6 +2257,7 @@ const FIGHT = (function () {
   }
   /* the end of a turn, AP left: plant his feet when more than one is on him, call a man off a breaking friend, go first next round */
   function aiLast(u) {
+    if (u.side === 'you') return false;   /* rule 180 */
     const on = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); }).length;
     if (on > 1 && canUse(u, 'indomitable')) return useSkill(u, 'indomitable');
     if (canUse(u, 'taunt')) {
@@ -2260,7 +2281,9 @@ const FIGHT = (function () {
     foes(u).forEach(function (t) {
       if (!canStrike(u, t) || (A.sees_only && !sideSees(u.side, t))) return;   /* 70b: never a man his side cannot see */
       let s = expected(u, t);
-      if (A.spread_attacks) s /= 1 + ((S.aimed || {})[u.side + t.id] || 0);  /* 70b: not every swing on the weakest */
+      /* rule 180(h): his side FOCUSES (a man his friends already struck this round is worth focus_per_strike more a strike: the
+         man the team can kill), theirs spreads (Battle Brothers' own 1 / (1 + n), fair to him) */
+      if (A.spread_attacks) { const n = (S.aimed || {})[u.side + t.id] || 0; if (u.side === 'you') s *= Math.pow(R('ours.auto_brain').focus_per_strike, n); else s /= 1 + n; }  /* 70b: not every swing on the weakest */
       if (A.prefers_soft && isRanged(u.weapon)) s *= 1 + softness(t);       /* the marksman: the shieldless, the rookie, the bare head */
       if (s > bs) { bs = s; best = t; }
     });
@@ -2281,6 +2304,10 @@ const FIGHT = (function () {
     /* the library's bonus for higher ground is flat (+10 however many levels up), so the brain's is too: a three-storey roof is
        not three times the prize (rule 164 item 14 made levels 2 and 3 real; the extra reach a level shows in who he can hit) */
     const dl = level(x, y) - level(u.x, u.y), g = (dl > 0 ? 1 : dl < 0 ? -1 : 0) * R('hit_chance.height.higher_attacker_bonus');
+    /* THE ROOF (rule 176(f), TUNING s1c: 83% of the missed roofs failed only because the brain weighed THIS turn's shot): to
+       AUTO's gunman a roof two storeys up is worth roof_steps steps of closing, while he still has a shot to fire from it (a man
+       out of rounds has no reason to hold it: s5b point 4) */
+    if (u.side === 'you' && ranged && level(x, y) >= 1 + 1 && level(u.x, u.y) < 1 + 1 && hasShot(u)) return g * (1 + 1) + R('ours.auto_brain').roof_steps * R('hit_chance.cap').max;
     return ranged ? g * (1 + 1) : g;
   }
   function huntField(u) {
@@ -2303,6 +2330,8 @@ const FIGHT = (function () {
     return function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
   }
   /* 70b: a shooter on the flat with a roof in reach, a target still in range from it and AP left to shoot, climbs first */
+  /* he has a shot left to fire this fight: a ranged weapon with rounds or throws left (an empty one-shot gun loads again) */
+  function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0); }
   function climb(u, A) {
     if (u.climbed === S.round) return false;
     u.climbed = S.round;
@@ -2311,7 +2340,9 @@ const FIGHT = (function () {
     let best = null, bs = -Infinity;
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
-      if (level(x, y) <= level(u.x, u.y) || u.ap - f.best[k] < strikeAP || zocOn(u, x, y).length) return;
+      /* AUTO's gunman with no shot where he stands takes the roof even with no AP left to fire: he fires from it next turn */
+      const later = u.side === 'you' && hasShot(u) && !foes(u).some(function (t3) { return canStrike(u, t3); });
+      if (level(x, y) <= level(u.x, u.y) || (u.ap - f.best[k] < strikeAP && !later) || zocOn(u, x, y).length) return;
       if (line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) return;
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
       const ok = foes(u).some(function (t2) { return inRange(u, t2) && sideSees(u.side, t2); });
@@ -2343,7 +2374,7 @@ const FIGHT = (function () {
       const st = screamTarget(u); if (st) return scream(u, st);
       if (!u.drifted) { const g = screamGround(u); if (g) { u.drifted = true; if (moveTo(u, g.x, g.y)) return true; } }
     }
-    if (ranged && !u.club && adj.length && A.step_out_of_melee && canUse(u, 'footwork')) {
+    if (ranged && !u.club && adj.length && A.step_out_of_melee && u.side !== 'you' && canUse(u, 'footwork')) {   /* rule 180: an ability */
       /* sidestep out of reach without the free swing */
       const out = skillTargets(u, 'footwork').filter(function (q) { return !zocOn(u, q.x, q.y).length; })[0];
       if (out && useSkill(u, 'footwork', out)) return true;
@@ -2359,15 +2390,28 @@ const FIGHT = (function () {
       });
       if (best && moveTo(u, best.x, best.y)) return true;
     }
-    if (ranged && A.reload && canReload(u)) { reload(u); return true; }
+    /* THE SHOT BEFORE THE RELOAD (TUNING s1b: 118 shots lost topping up a magazine with a foe in his sights): AUTO reloads only to
+       keep firing (rule 180(g)) */
+    if (ranged && A.reload && canReload(u) && !(u.side === 'you' && foes(u).some(function (t3) { return canStrike(u, t3) && sideSees(u.side, t3); }))) { reload(u); return true; }
     /* THE BAG ON AUTO (rule 164 item 15): an empty gun he cannot reload this turn, and a loaded one in the bag: he swaps */
-    if (ranged && emptyGun(u) && !canReload(u) && u.bag) {
+    if (ranged && emptyGun(u) && !canReload(u) && u.bag && u.side !== 'you') {   /* rule 180(g): the bag swap is his button, never AUTO's */
       const gi = u.bag.findIndex(function (w, i) { const st = u.bagState && u.bagState[i]; return w && isRanged(w) && (!st || (w.mag ? st.ammo > 0 : st.loaded)) && canSwap(u, i); });
       if (gi >= 0 && swap(u, gi)) return true;
     }
     if (ranged && A.high_ground && climb(u, A)) return true;   /* 70b: the shooter takes the roof before he shoots */
     const t = bestTarget(u);
-    if (t) { const sw = sweepPick(u); if (sw) { sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); return true; }
+    if (t) { const sw = u.side === 'you' ? null : sweepPick(u); if (sw) {   /* rule 180(g): a special swing is his */ sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); return true; }
+    /* CAN I ACT (rule 176(a)(b), TUNING s1b: 93% of the wasted turns were a man who could not strike, walked anyway): AUTO's man
+       who cannot strike this turn (out of breath, nothing to shoot and no club to swing) stands when a foe is within near_tiles
+       (farther off he still closes, so the fight never stalls); a man in a foe's ring who has a club or a blade never walks
+       out through the free swings (s1a: 7.1 free swings a fight) */
+    if (u.side === 'you') {
+      const sk0 = strikeSkill(w), clubOK = !!u.club && u.fat + skillFat(u, strikeSkill(u.club)) <= fatMax(u);
+      const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));
+      const able = ranged ? (shotOK || clubOK) : u.fat + skillFat(u, sk0) <= fatMax(u);
+      const ring = zocOn(u, u.x, u.y).length, near = ring || foes(u).some(function (f3) { return dist(f3, u) <= R('ours.auto_brain').near_tiles; });
+      if ((!able && near) || (ring && (u.club || !ranged))) { endTurn(u); return false; }
+    }
     /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
     if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { if (aiLast(u)) return true; endTurn(u); return false; }
     if (ranged && (A.stand_and_shoot && !A.advance) && foes(u).some(function (f) { return sideSees(u.side, f) && dist(u, f) <= rangeMax(w.range); })) {
@@ -2384,7 +2428,7 @@ const FIGHT = (function () {
     const depth = R('ours.formation_depth_lines');
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
-      if (x === u.x && y === u.y) return;
+      if (x === u.x && y === u.y && u.side !== 'you') return;   /* to AUTO, staying where he stands is a plan like any other */
       const left = u.ap - f.best[k];
       const ghost = { x: x, y: y, side: u.side, weapon: w };
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
@@ -2415,10 +2459,14 @@ const FIGHT = (function () {
       /* the leader: still until the lines meet, then a step behind his own front man unless he can strike from there now */
       if (A.stays_back && (!S.contact || (!canHit && line && line.front !== null && hunt(x, y) <= line.front))) sc = -Infinity;
       if (A.shield_the_backline && ranged && line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) sc = -Infinity;
+      if (u.side === 'you' && x === u.x && y === u.y && sc > -Infinity) sc += R('ap.move_cost.flat');   /* the step he saves */
+      /* THE UNDO VETO (rule 176(b): 'never off and back'): after a turn in which he did nothing, AUTO never walks back to where
+         that turn began unless he can strike from there now */
+      if (u.side === 'you' && u.lastTurn && !u.lastTurn.acted && x === u.lastTurn.x && y === u.lastTurn.y && !(x === u.x && y === u.y) && !canHit) sc = -Infinity;
       if (sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     const here = hunt(u.x, u.y);
-    if (best && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {
+    if (best && !(u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {
       if (moveTo(u, best.x, best.y)) return true;
     }
     if (aiLast(u)) return true;
@@ -2456,7 +2504,7 @@ const FIGHT = (function () {
     return JSON.parse(JSON.stringify(v));
   }
   const KEPT_STATE = ['retreat', 'order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
-    'boardDef', 'solid', 'cover', 'coverCount', 'lit', 'days', 'difficulty', 'act', 'board', 'formationKept', 'formation', 'deploy'];
+    'boardDef', 'solid', 'cover', 'coverCount', 'lit', 'days', 'difficulty', 'act', 'board', 'formationKept', 'formation', 'deploy', 'firstBlow', 'lastHitBy'];
   function screenKey(k) { return k.charAt(0) === '_' || k.indexOf('seen') === 0; }
   function freeze() {
     const o = { units: S.units.map(function (u) { const c = {}; Object.keys(u).forEach(function (k) { if (!screenKey(k)) c[k] = keepVal(u[k]); }); return c; }), logN: S.log.length };

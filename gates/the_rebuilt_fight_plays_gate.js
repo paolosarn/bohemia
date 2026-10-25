@@ -451,11 +451,17 @@ async function table70() {
     S.aimed = {}; const first = T.bestTarget(u);
     const other = first === a ? b : a;
     S.aimed = {}; S.aimed['you' + first.id] = 2; const second = T.bestTarget(u);
+    /* their side, the same two equal men of his: Battle Brothers' spread stays theirs */
+    const side0 = u.side; u.side = 'them'; a.side = b.side = 'you'; S.aimed = {}; const tFirst = T.bestTarget(u);
+    S.aimed = {}; if (tFirst) S.aimed['them' + tFirst.id] = 2; const tSecond = T.bestTarget(u); u.side = side0; a.side = b.side = 'them';
     S.aimed = {};
-    return { first: first && first.id, second: second && second.id, other: other.id };
+    return { first: first && first.id, second: second && second.id, other: other.id, tFirst: tFirst && tFirst.id, tSecond: tSecond && tSecond.id };
   });
-  leg(!r.skip && r.second === r.other, '*** AUTO SPREADS ITS SWINGS *** (Developer Posts: \'The AI will not stack all its attacks on the weakest target\'): two equal foes, his friends already swung twice at one this round, he takes the other',
-    r.skip || ('first pick ' + r.first + ', after two swings on him: ' + r.second));
+  /* RE-AIMED 10/25 (rule 180(h), Paolo 10/25: 'the decisions from what tile our team selects to walk towards to what enemies they
+     target have to be done better'; the coordinator's reading: 'targets focused, the man the team can kill this turn, never spread
+     so nobody falls'): his AUTO FOCUSES (ours.auto_brain.focus_per_strike); their brain keeps Battle Brothers' spread */
+  leg(!r.skip && r.second === r.first && r.tSecond && r.tSecond !== r.tFirst, '*** AUTO FOCUSES ITS SWINGS, THEIRS SPREAD *** (rule 180(h); Developer Posts: \'The AI will not stack all its attacks on the weakest target\', theirs): two equal foes, his friends already swung twice at one this round, he takes the same man; their man takes the other',
+    r.skip || ('his first pick ' + r.first + ', after two swings on him: ' + r.second + '; theirs ' + r.tFirst + ' then ' + r.tSecond));
   await d.close();
 }
 

@@ -880,6 +880,18 @@
   "why": "COMBAT [melee is one tile] 10/25, measured: the fight read a melee weapon's reach as the biggest digit in its weapons.json range text, and that text carries the wiki's skill numbering and ranges ('1 (1) Slash 1-2 (2) Split 1 (3) Swing' read as 3, '1/1 (Split Man) 1/6 (Round Swing)' as 6, the pipe's '1-2' as 2, the polearms' '1 - 2' as 2), so swords struck from three tiles and axes from six; every melee blow now reaches the next tile only (Battle Brothers' polearm reach of two is his to give back, never ours); a blow's SHAPE (a split's man behind, a swing's arc, rule 46d) still lands where its shape says",
   "tuned": false
  },
+ "auto_brain": {
+  "value": {
+   "focus_per_strike": 1.25,
+   "roof_steps": 2,
+   "near_tiles": 2,
+   "standoff_rounds": 5
+  },
+  "source": "VAMILY.md rules 176 and 180 (Paolo 10/25); records/BOHEMIA_TUNING_A_BETTER_AUTO_BRAIN_AND_A_TRUE_CALCULATOR_10_25_26.md sections 5a and 5b (600 fights, the PROTO2 brain); bb_all/0626 (the 1.25 a strike), bb_all/1415_News and Dev Blogs.txt (the AI that sees no chance retreats)",
+  "quote": "a guy very low on health, instead of trying to kill the enemy, walks two tiles away and then two tiles back in front of the enemy... if it's melee range, get the fuck in; I don't want the auto combat to use abilities",
+  "why": "COMBAT [AUTO never wastes a turn] 10/25, TUNING's measured prototype built in: focus_per_strike, a foe his friends already struck this round is worth 1.25 a strike more to AUTO (Battle Brothers' own 1.25^n turned to focus, rule 180(h)); roof_steps, a roof a gunman can still shoot from is worth two steps of closing; near_tiles, a man who cannot act this turn stands when a foe is within two tiles (farther off he still closes, so the fight never stalls); standoff_rounds, after the first blow a fight in which nobody strikes anybody for five rounds ends with the enemy breaking off for good (Battle Brothers: the AI that sees no chance retreats; TUNING s5b point 4: a roof no club can reach made 34 fights of 600 never end)",
+  "tuned": false
+ },
  "ground_rows": {
   "value": {
    "flat": {
