@@ -196,6 +196,110 @@
    },
    "elbow_z": 0.12,
    "grip_z": -0.12
+  },
+  "rag_hood": {
+   "glb": "item_rag_hood.glb",
+   "kind": "worn_head",
+   "name": "a rag hood",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "mouthpiece",
+    "headscarf",
+    "hood",
+    "straw_hat",
+    "nomad_head_wrap",
+    "southern_head_wrap",
+    "hunter_s_hat",
+    "feathered_hat",
+    "leather_headband",
+    "engineer_s_hat",
+    "gunner_s_hat",
+    "jester_s_hat",
+    "cultist_hood"
+   ],
+   "sha1": "c93480370f4df32f478eee2f39a5464a3211cc39",
+   "measured": {
+    "size_m": [
+     0.411,
+     0.453,
+     0.435
+    ],
+    "lo": [
+     -0.203,
+     -0.192,
+     1.136
+    ],
+    "hi": [
+     0.207,
+     0.261,
+     1.571
+    ],
+    "materials": [
+     "clay_bone 1",
+     "clay_rust 1",
+     "cloth_black 2"
+    ],
+    "verts": 2684,
+    "parts": 98,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_1",
+     "Skeleton_neck_joint_2",
+     "torso_joint_3"
+    ]
+   }
+  },
+  "pipe": {
+   "glb": "item_pipe.glb",
+   "kind": "held",
+   "name": "pipe",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "claw_club",
+    "bludgeon",
+    "nomad_mace",
+    "light_southern_mace",
+    "heavy_southern_mace",
+    "winged_mace",
+    "gnarly_staff",
+    "tree_limb",
+    "cudgel",
+    "lute",
+    "two_handed_spiked_mace",
+    "two_handed_mace",
+    "two_handed_flanged_mace",
+    "polemace",
+    "goedendag"
+   ],
+   "sha1": "485ccd2268f5c4418146570a13525defe3139619",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.702,
+     0.088,
+     0.167
+    ],
+    "lo": [
+     -0.102,
+     -0.051,
+     -0.037
+    ],
+    "hi": [
+     0.6,
+     0.037,
+     0.13
+    ],
+    "materials": [
+     "clay_rust 1",
+     "metal_painted 0",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 422,
+    "parts": 18
+   }
   }
  }
 }
