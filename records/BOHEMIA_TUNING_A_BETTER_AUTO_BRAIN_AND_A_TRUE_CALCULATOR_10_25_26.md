@@ -97,6 +97,18 @@ it AND the AP to shoot is left (line 2266) the SAME turn. A roof 2.5 steps off c
 could have walked there, and nothing walks him there to shoot NEXT turn. Outside the climb, a roof is worth +10 to a
 melee man and +20 to a gunman (heightGain, line 2232) while every step toward the fight is worth 95 (line 2357: -hunt x 95):
 one step closer beats any roof. Their brigand shooters ('backline') have no high-ground switch at all.
+MEASURED (the first 150 fights again, every turn a gunman of ours stood below a roof he could walk onto that turn: 1,320):
+
+| why he did not climb | turns | share |
+|---|---|---|
+| no foe in range from any roof he could reach (yet: he would shoot from it NEXT turn) | 600 | 45% |
+| a foe in range from the roof, but no AP left to shoot after the climb (he would shoot NEXT turn) | 496 | 38% |
+| the climb test was met (he climbs, as above, about 7 times in 10) | 190 | 14% |
+| the only roofs were ahead of his own front man (shield_the_backline) | 33 | 3% |
+| the only roofs were inside a foe's ring | 1 | 0% |
+
+83% of the missed roofs fail on ONE thing: the brain counts only THIS turn's shot. A man who climbs now and shoots from the
+roof for the rest of the fight is never weighed.
 What the rules give a man on a roof (all live, rules.json hit_chance.height): +10 to hit down, -10 a level for anyone
 shooting up at him, +1 tile of range a level, and no club reaches him from the street (melee_max_height_gap 1). Over a fight
 of five or six rounds that is worth far more than the one shot lost walking up: the brain weighs one turn, never the fight.
