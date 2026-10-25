@@ -1,4 +1,4 @@
-# BOHEMIA: THE MASTER FOR GROK (everything current, one file; built 2026-10-24)
+# BOHEMIA: THE MASTER FOR GROK (everything current, one file; built 2026-10-25)
 # Public repo: https://github.com/paolosarn/bohemia . Raw file: https://raw.githubusercontent.com/paolosarn/bohemia/main/reference/BOHEMIA_MASTER_FOR_GROK.md
 # NEWEST DATE WINS on any conflict. Paolo decides; the coordinator files; Grok researches and never rules.
 
@@ -462,7 +462,7 @@ laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 13. "I RAN THE SUITE" MEANS TWO THINGS AND ONLY TWO (coordinator 9/13, from three lanes measuring the same wall: 331 of 603 gates NEVER RAN in a 45-minute budget, 56 of 372 that did run were red, the floor is 71 minutes; records/BOHEMIA_COORDINATOR_SWING_HOW_BIG_SHOPS_RUN_A_SUITE_THAT_CANNOT_FINISH_9_13_26.md). (a) You ran the PRE-PUSH PASS, the gates that read the files in your diff, and it was green. (b) You read THE SUITE LINE, the last full run PLUMBER posts on this front page (sha, ran, green, red, never ran, flaked), and you name which of its reds are yours. Nobody runs the whole 70 minutes alone any more, and nobody writes "suite green" over gates that never ran. A gate on the QUARANTINE list still runs and never decides a ship. Until PLUMBER posts the first line, the honest sentence is "pre-push pass green; full suite unmeasured since <sha>".
 THE SUITE LINE (coordinator 10/4 sweep P, from the lanes' own runs; PLUMBER [suite line] still owes the machine-posted version): the suite does not finish inside 40 minutes, so every lane runs its own gates by name and the ones it touched, and says so (rule 13). GREEN THIS SWEEP: MAP DENSITY 13/0 (was 8/4), THE MAP AT THE PHONE'S PIXELS 16/0, THE FAR END IS PAINTED 9/0, THE ZOOM GOES THROUGH CLOUDS 8/0, THE NEAR END IS THE BLOCK 9/0, THE VALLEY HAS AN EDGE 14/0 (one light, E13 worst split 0.004), THE REBUILT FIGHT PLAYS 38/0, THE PERKS ARE LIVE 45/0, THE FIGHT READS ONLY SOURCED NUMBERS, the settlement screen 28/0, THE LOOP PLAYS ON THE MAP 12/0, the cut's fight-door leg 29/0, nothing_on_the_ground 11/0, HEIRS 83/0, followers 44/0, GROK FENCE 5/0, GROK FILTER 6/0 (all 102 pages stamped). RED ON MAIN, KNOWN, WITH AN OWNER: PAGES PUBLISH (size; PLUMBER [excavate]'s 145-file move); NO OVERLAP red on purpose (UI [danger line] under BUILD HERE; RUN's quest-line half is gone with the card); INLINED FRESH (engine/bohemia_ambitions.js has no closing banner, PEOPLE, one line); six RUN checkers that press the dead day card (RUN [the sign fix]); one_mode 7/4 and combat_floor 12/1 belong to the FROZEN fight, unreachable from the demo since fd016146 (COMBAT retires or re-aims them); the speed pad's 2.5x leg (PLUMBER [grid budget]); THE FACE ON THE MAP IS HIS 17/1 (RUN); the first sound gate one run in five (PLUMBER [flaky gate]); vote_tab 30/1 (TUNING's sha-less item). 292 checkers open a browser; the self-built-door baseline is 288 and may only shrink. *** SWEEP AF adds: A FRESH PHONE SEES THE DOOR 9/0 (RUN), FOUR LEGS 22/0, the people gate 17/0, the settlement gate 59/0, FACTIONS 41/0; RED: SOURCED on main from LIFE+CITY's typed numbers (routed), the one-file loop 12/1 (the hire leg, RUN). ***
 THE DEPLOY LINE (coordinator 10/16 sweep AL; one builder, the `pages` workflow): 10/17 sweep AM: pages run for b7666287 SUCCESS at 22:49, the whole hour live; one run (5efc414c) CANCELLED at 22:44 under cancel-in-progress false, its content rode the next run; PLUMBER reads why.
-THE STOPWATCH LINE (PLUMBER posts it, row [the one stopwatch]; the only load number any lane quotes; THE ONE STOPWATCH in the suite refuses another door or title time; RUN re-runs `node tools/bohemia_one_stopwatch.js 5` in the same commit as a cut): THE DEMO (DEMO - BUILD 10/24a - THE BULLET LANDS, demo 33f9cba7): title 2.1 s, the door (NEW GAME ready) 13.4 s on the 4x phone profile, median of 5 (13.1 to 13.8); 3.5 MB before the door, 18.1 MB in 92 files in the 20 s after it. (SOUNDS 10/24, on this session's box, in the commit after its cut, RUN closed; the bullet lands' 1.4 MB loads 25 s after the music runs and is not in the 92; 10/23c read 12.4 s on RUN's box.)
+THE STOPWATCH LINE (PLUMBER posts it, row [the one stopwatch]; the only load number any lane quotes; THE ONE STOPWATCH in the suite refuses another door or title time; RUN re-runs `node tools/bohemia_one_stopwatch.js 5` in the same commit as a cut): THE DEMO (DEMO - BUILD 10/25b - THE SQUIGGLE STOPS, TWENTY MORE VOICES, HIS SONG AFTER THE FIGHT, demo e5d31a90): title 2.2 s, the door (NEW GAME ready) 14.9 s on the 4x phone profile, median of 5 (14.1 to 15.3); 4.0 MB before the door, 20.8 MB in 91 files in the 20 s after it. (SOUNDS 10/25, on this session's box, in the commit after its cut; the tool printed the stamp as a fragment of its own pattern, the demo sha is right; the twenty voices' 1.35 MB load after the first voice sprite, 4 s after the music runs, never before the door; 10/24a read 13.4 s and 3.5 MB on this lane's box.)
 THE CUT LINE (coordinator 10/4 sweep P, rule 33h; records/BOHEMIA_THE_REVAMP_LIST_9_24_26.md): DONE: the walk pad and DROP IN stripped; the cell board deleted; the cold open and its banner; the asks as a text stream; the noise recipe; the builder as a mode; HE IS ON THE MAP AS HIMSELF with crowds, buildings by tier and moving parties; the speed pad on the map; no two texts overlap on the demo; THE REBUILT FIGHT IS THE DEMO'S FIGHT (fd016146, the frozen fight unreachable); THE LOOP ON THE REAL MAP (tap the BOARD building, take a job, the job is on the map, fight it, get paid); the front door picks the fights, the shelves, fifteen origins and the crew's name; the quest card removed; the map at the phone's pixels with a painted far end, clouds into the fight, the near end a block at the walk's scale, the far stop keeping the land under one light; the settlement screen's buildings are the buttons. STILL LIVE AND DEAD BY RULE: the three names at the door (67: the heirs are made on entering the act, DYNASTY [heirs made on entry]); the thumb shelf under the settlement picture (71a, RUN TWO round four decides below or gone); the loading screen as a screen (66: a start screen with NEW GAME, CONTINUE, SETTINGS; RUN [the start screen]). NEXT CUT = RUN's four open lines in his order: the start screen, you can flee, screen fit, one song; then RUN TWO's painted place. *** 10/17 AM: BUILD 10/13b stands; RUN is mid-round on the map at Battle Brothers' size and re-cuts when it lands; the STOP block stands (a 1,433 ms worst stall on a walk that did not count); the older notes are in records/BOHEMIA_COORDINATOR_ROUND_10_17_26_AM.md.
 THE COOK LINE (rule 22e; the coordinator reads the registry every VAMILY): 10/17 sweep AM: 608 items, 417 verdicts; 24 items from the hour tagged, 7 new reds (one per lane: the region, the formation is kept, one screen, the face performs, the straight-roof family, the settlement heard whole, the map's four numbers); the cap of twelve stands; 389 older untagged items wait behind the fold and are not his to clear (rule 113c: the tab does not grow).
 14. THE FIVE MINUTES (folded to one line 10/16 by rule 96: no lane named it for 33 sweeps; the full text is laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md, and records/BOHEMIA_EVAPORATED_10_16_26.md).
@@ -697,6 +697,13 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 22, 10
 163. SPACEBAR PAUSES, AND THE CAMERA KEEPS YOUR PARTY CENTRED (PAOLO 10/24, LOCKED: 'when I play on PC, spacebar definitely has to be pause; it was a good experience; just when the team is moving around the map they should definitely be in the centre of the screen until they reach the whole map's edges, which means farther than the outside settlements; keep this in mind as I zoom in and zoom out'; records/BOHEMIA_PAOLO_SPACEBAR_PAUSES_AND_THE_CAMERA_FOLLOWS_10_24_26.md). (a) On a computer the spacebar pauses and unpauses the map (Battle Brothers' key). (b) While the party travels, the camera keeps it in the centre of the screen; the camera stops following only where its view would pass the edge of the whole map, and the map's edge lies beyond the outermost settlements, so they are never at the screen's border. (c) It holds at every zoom of the one map's pinch (142); a pinch or a drag by hand lets the camera go, and the next move brings it back. (d) RUN; no card.
 164. THE PC PLAYTEST: THIRTY-ONE THINGS (PAOLO 10/24 evening, LOCKED: 'I'm playing this on my PC and I'm so fucking impressed, we've come such a long way, but I have a lot of feedback'; records/BOHEMIA_PAOLO_THE_PC_PLAYTEST_AND_THE_TWENTY_DOLLARS_10_24_26.md, every item in his words with its lane). The short form: Battle Brothers' keyboard keys; every currency on the bar; a job's place named and marked on the map; stat icons like Battle Brothers'; night longer and no daily recap; the UI never AI slop; a way to drop a job; where am I (the golden arrow); no flags or route lines; the freeway and the Strip; the AUTO colour before the first tap; house heights that read; switching weapons from two bag slots; the combat UI better than Battle Brothers' and mobile first; who is on my team; selling in one tap; the squiggle short, one at a time, cut when you leave, more voices; a pistol in one hand; men in cover look in cover; the song after a battle replaced by one of his; the camera; the loot screen not slop; the roster scales the enemy; the end screen stays until he closes it; city travel without buildings in the lanes; zoom in to see sidewalks and the crew; more animations. Later: the Strip is the one place you walk; the city grows about 17% in act two and 33% in act three with how you help it. (a) Every item is an OPEN row on its lane's board. (b) records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md carries them as lines 54 to 84.
 165. THE TWENTY DOLLARS (PAOLO 10/24: 'I just spent $20 for 20 more credits... I use the full usage every week and I haven't bought extra in a long time... turn me up, everything I've said make it happen'). (a) The weekly limit hit about 22:30 UTC and stopped every lane mid-round. (b) The $20 is about one lane round at this week's rates; it buys PLUMBER's [the stalled work onto main]: every lane branch the limit stranded rebased, gated and merged, the demo re-cut, so nothing built tonight is lost. (c) Everything else resumes at the reset, 10/25 05:00 UTC (10 PM his time), running the 10/24 list in its order. (d) Extra usage beyond his $20 is never spent without his word. (e) MEASURED THE SAME HOUR: almost nothing was stranded (WORLD's nine job kinds, COOK's act-one palette and part of the towns in the ground, COMBAT's dark tiles and five EYES rows, UI and WORDS' nine little things and three of RUN's EYES rows all reached main before the limit). So the $20 goes to ONE RUN round on the biggest share of his list left: the spacebar and the camera, no flags or route lines and the golden arrow, night longer and no daily recap, the speed and the encounter card, the wipe's wake, the job's stars, the fresh start and the fog.
+166. EVERY SONG ITS OWN SONG (PAOLO 10/25, LOCKED, amends 158(d): 'it's the same one for like seven songs bro and they use the same instruments... seven of the same songs with like one slightly thing different... you have like this background creepy vibe, and it's hard to hear really anything else'; records/BOHEMIA_PAOLO_EVERY_SONG_ITS_OWN_SONG_10_25_26.md). (a) The six night songs of 10/24 are dead (each was one of his songs with two or three values changed, REPO MAN's machine under all six, the tune 12 to 21 dB under the mix): graveyard with a post-mortem, their VOTE cards down; a song made by changing a few values of another song never comes back under a new name. (b) A new song has its own lead, its own instrument set, its own key or mode, its own groove inside the 120 BPM grid, a melody you can hum after one listen, and a form that goes somewhere; no two new songs share more than one of lead, bass, drums, pad, key. (c) The creepy bed is not the song: analog horror lives inside the instruments' sound, never as a drone over everything; the tune and the beat lead the mix. (d) REPO MAN's machine party plays under REPO MAN only. (e) More instruments, from real material (NO SAND). (f) The 120 BPM law, VOTE before the game (122(d)) and his own songs untouched all stand. (g) Fewer and better: four that are each their own song; THE TEST is ten seconds of each back to back, and a stranger tells them apart. (h) A gate measures every new song against the others and his. (i) How FINAL FANTASY X (the sound reference) does it: every track its own lead and identity; the mood is the track list, never one bed. SOUNDS [every song its own song].
+167. THE FIGHT BOARD'S COLOUR BACK, AND THREE INTENSITIES IN EVERY SONG (PAOLO 10/25, LOCKED: 'the combat map like went completely like almost like black and white... I was like how it was previously... please have a reason'; 'all this music so far is great ambience but it's not great combat music... three intensity is like when it's your turn to attack, two when they're attacking, and one when you're in the world map or chilling... you need to make all songs with three intensities... we have a way we've been doing it'; records/BOHEMIA_PAOLO_THE_FIGHT_BOARD_GOT_ITS_COLOUR_TAKEN_AND_THREE_INTENSITIES_IN_EVERY_SONG_10_25_26.md). (a) The fight board goes back to how it was before COOK 9cae20af (the reason: it read rule 159 as 'take the colour out' and multiplied the fight's colour by 0.3, close to black and white); every other COOK change stands. (b) Rule 159 fenced: faded, dirty, rare colour, never drained toward black and white; a grade that cuts colour by more than half goes to him first. (c) EVERY SONG HAS THREE INTENSITIES: 1 the map, a town, chilling (the ambience; his songs' level 1 stays exactly as it plays); 2 the enemy's turn; 3 YOUR TURN TO ATTACK, real combat music with the drums and the drive. Amends 126's 10/23 line (their turn was the lowest): map 1, their turn 2, his turn 3. Every song he plays and every new song (166) has all three; level 3 is never the ambience louder. (d) Through the system that exists (window.INTENSITY, KILLMUS, MUS.layers at the next bar, BOHEMIA_FIGHT_TURN), on the 120 BPM beat. (e) A gate: every playable song renders at 1, 2 and 3; level 3 carries drums and a lead over the bed; the map plays 1, their turn 2, his turn 3. COOK [the fight board's colour back], SOUNDS [three intensities in every song].
+168. EVERYTHING AT 120 BPM, AND YOU CAN HEAR IT (PAOLO 10/25, LOCKED, playing a fight: 'just make sure from now on everything's at 120 BPM... I only hear the sound effects... I'm not hearing any music... it doesn't have tempo, doesn't have BPM, doesn't intensify... that's really important to me'; records/BOHEMIA_PAOLO_EVERYTHING_AT_120_BPM_YOU_CAN_HEAR_10_25_26.md). (a) Every song at every level carries an audible 120 BPM pulse (a kick, a bass on the beat, a hat, a clock); level 1 may be soft, never a beatless hum. (b) The fight never plays without music: a song from the first frame to the end screen, above the effects. (c) It intensifies: map 1, their turn 2, his turn 3, level 3 combat music (167(c)). (d) The gate, in the real fight on the phone and computer profiles: music audible all through, a 120 BPM pulse found at every level, the level changing on every turn at the next bar. (e) First on SOUNDS' board, before the four new songs; heard in his next fight, no card. SOUNDS [the fight's music you can hear].
+169. THE WALK-UP WALKS ON THE GROUND (PAOLO 10/25, LOCKED, corrects RUN TWO cd2582ba: 'you have the player character walking towards the people but you don't understand what the fuck is going on at all... walking on top of buildings and shit... this is obviously not coded in the way that it needs to be'; records/BOHEMIA_PAOLO_THE_WALK_UP_WALKS_ON_TOP_OF_BUILDINGS_10_25_26.md). (a) The lead walks only where a person can walk (street, sidewalk, lot, a door), around every building, wall, fence and prop, on a path found on the town as DRAWN. (b) Drawn in the right order: a building in front hides him; never painted over a roof he is behind. (c) It reads: he leaves, goes the short way on the ground, stops facing the person; a walk that would confuse is not walked. (d) The gate measures the picture: his feet on walkable ground cut from the drawn art every frame, never drawn over a roof, the path never across a footprint; phone and computer, every town. (e) First on RUN TWO's board. RUN TWO [the walk-up, on the ground].
+170. NO COVER IN THE OPEN STREET, AND MELEE REACHES ONE TILE (PAOLO 10/25, LOCKED, playing a fight: 'if you're in the middle of the street you have no cover unless that street tile has crazy car wreckage... enemies using pipes, melee weapons, but they're able to attack for more than one tile'; records/BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md). (a) Cover only from what is on the tile (a wall, a window, a doorway, a wreck, a barrier, junk big enough to hide behind); an open street or sidewalk gives none and a man there never kneels as if covered; the cover, the kneel and the dial's odds are one fact. (b) Melee reaches the next tile only (rule 83 stands); guns two or more, never at a man beside the shooter. (c) The gate, many rolled fights, every enemy kind: every melee hit from an adjacent tile, every kneel on a cover tile. (d) COMBAT [cover is what is on the tile] and [melee is one tile] first; a NOTE on ANIMATION's board.
+171. A DISMISS BUTTON ON THE CREW (PAOLO 10/25, LOCKED: 'for the crew there's not a dismiss button, bro, what if I want to dismiss people'; records/BOHEMIA_PAOLO_A_DISMISS_BUTTON_ON_THE_CREW_10_25_26.md). (a) Every man on the crew screen has DISMISS with one confirm; the main character has none. (b) Battle Brothers' way first from the library and Grok's pages (his gear, his pay, whether the company minds, the words), then ours. (c) His gear to the stash, his wage stops, he walks off, the phone's feed says it. (d) A gate on phone and computer. RUN TWO [a dismiss button], after [the walk-up, on the ground].
+172. THE COMPANY SCREEN AS SIMPLE AS BATTLE BROTHERS, THEN BETTER (PAOLO 10/25, LOCKED: 'find screenshots... how Battle Brothers' company menu works, because they really simplify how easy it can look... you're over complicating it, it's really hard to navigate your equipment, the levelling up... and then we need to improve upon that... you're in deficit'; records/BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md, Battle Brothers' screen there from recall until Grok ask 41 verifies it from screenshots). (a) One screen: the roster in a strip; tap a man and the screen is him; his body wearing his gear with the slots around it; his numbers with icons; the stash beside him with filters; ONE TAP equips (the old item back to the stash), the comparison shown first; the two bag slots; the level-up its own short moment (three attributes, then one perk); DISMISS (171). (b) Better on a phone: thumb-sized, nothing behind hover, a swipe between men; the computer keeps Battle Brothers' keys and right-click. (c) Less, not more: the count of things on the screen goes down, measured. (d) The gate: a stranger's path (open the crew, pick the third man, put the best armour on him, level him up, dismiss the fifth) in the fewest taps on one screen. (e) UI [the company screen, Battle Brothers simple] first, carrying [a dismiss button] (moved from RUN TWO: one lane, one screen).
 77b. THE MAP'S ROADS (PAOLO 10/10 on the freeway round two: 'BRO ON THE MAP NOT ON THE COMBAT, and even then it's looking like shit'): his 10/9 freeway complaint was the MAP's freeway and streets; one road kit, lanes agreeing, nothing across a road, on the map's far and middle stops; RUN [the far end at two million pixels], WORLD [the roads] and COOK [the far end painted by hand] carry it; the fight's freeway work stands.
 83. MELEE ONE TILE, GUNS TWO (PAOLO 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a melee weapon reaches the next tile; every gun needs at least two tiles to its target and cannot fire at a man beside the shooter; COMBAT [guns need two tiles] FIRST; amends the VIA GROK pistol-is-the-dagger one-tile line (the pistol is a two-tile gun, or a club at one).
 84. AN ACT IS A YEAR (PAOLO 10/10: 'most people will only spend a maximum of 300 to 450 days in a single act, so a year passes; this mechanic is ass'): no mechanic needs more than a year inside one act; DYNASTY's old-body trade is RETIRED; aging shows between acts.
@@ -49120,6 +49127,281 @@ File: `bohemia_combat_v12.html`. Engine: phase-lock baked into `bohemia_engine.m
 
 
 ====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_WALK_UP_WALKS_ON_TOP_OF_BUILDINGS_10_25_26.md
+# source: records/BOHEMIA_PAOLO_THE_WALK_UP_WALKS_ON_TOP_OF_BUILDINGS_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: THE WALK-UP WALKS ON TOP OF BUILDINGS (LOCKED, rule 169; corrects RUN TWO cd2582ba, BUILD 10/25n)
+
+## HIS WORDS (verbatim, voice to text, playing the settlement screen)
+"OK, so when I'm in the settlement menu, you have the player character walking towards the people right but you don't
+understand what the fuck is going on at all. You have my player character like walking on top of buildings and shit and
+this is obviously not coded in the way that it needs to be."
+
+## WHAT WAS SHIPPED, AND WHY IT FAILED THE REAL SURFACE
+RUN TWO cd2582ba said 'down the street when the way is long or a building stands in the line (nobody over a roof)' and its
+gate went 8/0. On his screen the lead walks across buildings. So the gate measured something other than what he sees (a
+coarse grid or a line test, not the drawn town): VERIFY ON THE REAL SURFACE. Two things are wrong, in his words: where he
+walks (on top of buildings) and that nobody can tell what is going on.
+
+## THE RULING (rule 169)
+(a) THE LEAD WALKS ONLY WHERE A PERSON CAN WALK: the street, the sidewalk, the open lot, through a door. Around every
+    building, wall, fence and prop, never across a roof or through a wall, on a path found on the town as it is DRAWN.
+(b) HE IS DRAWN IN THE RIGHT ORDER: a building in front of him hides him; he never paints over a roof he is behind.
+(c) IT READS: you can tell at a glance what is happening: your lead leaves where he stands, goes the short way on the
+    ground to the person you tapped, and stops facing them. If the walk would be long or would read as noise, he does not
+    walk it (he is already there, or the talk opens with him beside the person); a walk that confuses is worse than none.
+(d) THE GATE MEASURES THE PICTURE: every frame of every walk-up in every town, his feet are on walkable ground as the
+    town's own art draws it (a mask cut from the drawn pictures, not a grid), his body is never drawn over a roof he
+    stands behind, and the path never crosses a building's footprint. Phone and computer profiles, all the towns.
+(e) First on RUN TWO's board, before the camp and the retinue. In the game, no card.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_FIGHT_BOARD_GOT_ITS_COLOUR_TAKEN_AND_THREE_INTENSITIES_IN_EVERY_SONG_10_25_26.md
+# source: records/BOHEMIA_PAOLO_THE_FIGHT_BOARD_GOT_ITS_COLOUR_TAKEN_AND_THREE_INTENSITIES_IN_EVERY_SONG_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: THE FIGHT BOARD WENT BLACK AND WHITE, AND EVERY SONG HAS THREE INTENSITIES (LOCKED, rule 167)
+
+## HIS WORDS (verbatim, voice to text)
+"Also, bro, the combat map like went completely like almost like black and white. I'm kind of confused why that
+happened like what the fuck I was like how it was previously I'm just I don't know why you did that. Please have a
+reason also all this music so far is great ambience but it's not great combat music, you know and I want it to be both
+like it's ambient when it's on one intensity and then you know then it goes up to three intensity right so three
+intensity is like when it's your turn to attack two in intensities like when it's when they're attacking and one in
+intensities like when you're just I guess in the world map or chilling and shit like that like you need to make all
+songs with three intensities and I don't think you've been doing that like bro we have we have a way we've been doing
+it and you just forget about everything, Bro."
+
+## THE REASON HE ASKED FOR (the fight board)
+COOK 9cae20af (10/25 08:18, 'THE FIGHT FLOOR IN ACT ONE'S PALETTE') read rule 159 ('no rainbow, an economic apocalypse')
+and rule 137 (no grey-yellow sand flood) as 'take the colour out', so the fight would match the regraded map: it
+multiplied every fight block's and cover piece's colour by 0.3 and capped it (chroma median 12.7 -> under 4). That is
+close to black and white. Rule 159 meant faded, dirty and rare colour, never grey. The coordinator wrote 159 and did not
+fence it; the lane obeyed it too hard.
+
+## THE RULING (rule 167)
+(a) THE FIGHT BOARD GOES BACK TO HOW IT WAS before 9cae20af (his words: 'I was like how it was previously'; NOTES ARE
+    RULINGS). The pre-grade pictures are that commit's parent (rule 128). Every other COOK change stands.
+(b) RULE 159 IS FENCED: act one's palette is faded and dirty with rare colour; it never drains a picture toward black
+    and white. A grade that cuts colour by more than half is a new look and goes to him first.
+(c) EVERY SONG HAS THREE INTENSITIES, his numbers:
+    1 = the world map, a town, chilling: the ambience (what he loves now; for his own songs this level stays exactly as
+        it plays today);
+    2 = the enemy is attacking (their turn): the song rises, tension;
+    3 = YOUR TURN TO ATTACK: real combat music, the drums and the drive ('my turn time shit').
+    This amends 126's 10/23 line ('on the enemy's turn the song drops to its lowest arrangement'): their turn is 2, his
+    turn is 3, the map is 1. Every song he plays and every new song (rule 166) has all three; level 3 must be combat
+    music, never the ambience a little louder. His songs' level 1 is untouched; their 2 and 3 are built on top.
+(d) THE WAY WE HAVE BEEN DOING IT stays the way: the intensity system in the demo (window.INTENSITY, KILLMUS: MUS.layers
+    at the top of the next bar, built 8/20 and 8/26-27; the fight posts BOHEMIA_FIGHT_TURN and the four messages,
+    COMBAT 10/23). The change goes into that system, never beside it, and on the 120 BPM beat.
+(e) A GATE: every playable song renders at levels 1, 2 and 3; level 3 measurably carries drums and a lead over the bed
+    (louder and busier than 1); the map plays 1, their turn 2, his turn 3.
+
+Rows: COOK [the fight board's colour back], SOUNDS [three intensities in every song] beside [every song its own song].
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_EVERY_SONG_ITS_OWN_SONG_10_25_26.md
+# source: records/BOHEMIA_PAOLO_EVERY_SONG_ITS_OWN_SONG_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: EVERY SONG ITS OWN SONG (LOCKED, rule 166; amends 158(d))
+
+## HIS WORDS (verbatim, voice to text)
+"Bro, I want you to like remake the music that you try to present to me like what's going on like it's just like that
+like creepy background vibe. It's the same one for like seven songs bro and they use the same instruments. Do not know
+how to make individual different songs and tracks like bro you breaking my heart that was so bad like it was just seven
+of the same songs with like one slightly thing different like the lowest volume to like it was insane bro you have like
+this background creepy vibe, and it's hard to hear it really anything else"
+
+## WHAT HE HEARD, AND WHY (the coordinator's reading of records/BOHEMIA_MORE_MUSIC_SOUNDS_10_24_26.md)
+The six new night songs in the VOTE tab (THE METER READER, THE SUBSTATION HUMS ALONE, THE LOBBY PIANO STILL PLAYS,
+THE CASHIER'S CAGE, THE MALL AFTER CLOSING, THE LAST BUS TO HENDERSON) were each ONE ROW copied from one of his
+OVERWORLD NIGHT songs with two or three values changed, and the tool REFUSED any value his own songs did not already
+hold. On top of every one, REPO MAN THE MACHINE PARTY's machine played along, the same five parts (press, clock,
+party, steel, motor) in all six. Each song was matched to its parent's loudness, and its tune sat 12 to 21 dB under
+the mix. So: one creepy bed, one instrument set, one machine, a buried tune, six times. He is right. The cause is the
+brief as much as the lane: rule 158(d) said 'in his songs' own machine, in the vibe of his OVERWORLD NIGHT category and
+REPO MAN', and the lane obeyed it to the letter.
+
+## THE RULING (rule 166)
+(a) THE SIX ARE DEAD: graveyarded with a post-mortem (the one-row clone, the shared machine, the buried tune); their
+    VOTE cards come down. GRAVEYARD IS FINAL: a song made by changing two or three values of another song does not
+    come back under a new name.
+(b) EVERY SONG IS ITS OWN SONG. A new song has its own lead instrument, its own instrument set, its own key and mode,
+    its own groove inside the 120 BPM grid (half time, straight, swung, a shuffle, a double-time feel), a melody you can
+    hum after one listen, and a form that goes somewhere (an opening, a theme, a second part, a turn). No two new songs
+    share more than one of: lead, bass, drums, pad, key.
+(c) THE CREEPY BED IS NOT THE SONG. Analog horror lives inside the sound of the instruments (the tape, the wow, the
+    room, the wrong note), never as a drone laid over everything. The tune and the beat lead the mix; nothing sits on
+    top of the tune.
+(d) REPO MAN's machine party belongs to REPO MAN. It does not play under any other song.
+(e) MORE INSTRUMENTS, FROM REAL MATERIAL (the second votes: NO SAND, sounds from real material): real recorded
+    instruments under a free license where they can be had, else new voices built for the song; never the same few
+    voices reused.
+(f) Stands: the 120 BPM law (every song keeps the beat, 158(a) to (c)); a new song goes to the VOTE tab, playing,
+    before it joins the game (122(d)); his own songs are never touched.
+(g) FEWER AND BETTER: four songs that are each their own beat six that are one. THE TEST: ten seconds of each, back to
+    back, and a stranger can tell which is which and hum one of them.
+(h) THE GATE (a law without a machine gate is not enforced): every new song is measured against every other new song
+    and against his: the instrument sets differ (at most one part shared), the keys or modes differ, the grooves differ,
+    the tune is not buried under the mix, no shared bed. SOUNDS builds it with the songs.
+(i) HOW STUDIOS DO IT, his sound reference (FINAL FANTASY X, the sound inside analog horror, 9/6 and 9/20): every track
+    has its own lead and its own identity (a piano piece, a flute and guitar island song, a rock battle theme), and the
+    world's mood comes from the track list as a whole, never one bed under all of them. SOUNDS reads that first.
+
+Row: SOUNDS [every song its own song], first on its board. Lane opened by the coordinator the same turn.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md
+# source: records/BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: NO COVER IN THE OPEN STREET, AND MELEE REACHES ONE TILE (LOCKED, rule 170; rule 83 stands)
+
+## HIS WORDS (verbatim, voice to text, playing a fight)
+"I don't understand why people when they're in the middle of the street of the street tile. They're like crouched like
+bro if you're in the middle of the street, you have no cover unless that street tile has like crazy car wreckage bullshit
+going on like yeah like if you're in the middle of the street, you're not covered and I'm I'm so confused. I'm seeing
+people that are Malay characters that are enemies that like that I see them using like pipes Malay weapons but then
+they're able to attack for more than one tile next to them. It's so it's so weird."
+('Malay' is the voice transcription of 'melee'.)
+
+## WHAT IT MEANS
+Two things he saw in the fight, both against rules already locked:
+- Men kneel in cover on an open street tile. ANIMATION 64c2139c made every man kneel 'behind cover' through the rig;
+  the kneel follows whatever the fight calls cover, and an open street is being called cover (or the kneel does not ask).
+- A man with a pipe hits from more than one tile away. Rule 83 (Paolo 10/10): 'melee weapons work on one tile away, all
+  guns 2+ minimum'.
+
+## THE RULING (rule 170)
+(a) COVER COMES ONLY FROM WHAT IS ON THE TILE: a wall, a window, a doorway, a car wreck, a barrier, a pile of junk big
+    enough to hide behind. An open street or sidewalk tile gives NO cover, and a man there stands or moves in the open,
+    never kneels as if covered. The cover he gets, the kneel you see and the hit chance the dial shows are the same fact.
+(b) MELEE REACHES ONE TILE, EXACTLY (rule 83 stands): a pipe, a club, a bat, a knife, a hatchet hits only the man on the
+    next tile. Guns need two tiles or more and never fire at a man beside the shooter.
+(c) THE GATE, over many rolled fights and every enemy kind: every melee hit is struck from an adjacent tile; every kneel
+    is on a tile that gives cover; no man on an open street tile is shown or counted as covered.
+(d) COMBAT [cover is what is on the tile] and [melee is one tile] first; a NOTE on ANIMATION's board (the kneel plays
+    only where the fight says cover). In the game, no card.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_EVERYTHING_AT_120_BPM_YOU_CAN_HEAR_10_25_26.md
+# source: records/BOHEMIA_PAOLO_EVERYTHING_AT_120_BPM_YOU_CAN_HEAR_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: EVERYTHING AT 120 BPM, AND YOU CAN HEAR IT (LOCKED, rule 168; sharpens 158 and 167)
+
+## HIS WORDS (verbatim, voice to text, while playing a fight)
+"Yeah bro, just make sure from now on everything's at 120 BPM shit bro I'm playing the combat right now and I only hear
+like all the sound effects right but I'm not hearing any music like this background hum music that you've been making
+like it's not doing it bro like it doesn't have tempo doesn't have BPM doesn't intensify like that's pretty bad like
+that's really important to me"
+
+## WHAT THE COORDINATOR FOUND (before writing this)
+The intensity system is wired in both the alpha and the demo (KILLMUS, window.INTENSITY, BOHEMIA_FIGHT_TURN, the four
+fight messages). The songs he allowed (rule 122: his OVERWORLD NIGHT category and REPO MAN) are mostly hums without
+drums (rule 158 says so in his words), so a level lift on a hum is still a hum: no tempo he can hear, nothing that
+rises. Whether the fight also plays the music too low under its effects, or not at all, is measured first by SOUNDS.
+
+## THE RULING (rule 168)
+(a) FROM NOW ON EVERYTHING IS AT 120 BPM, AND YOU CAN HEAR IT: every song, at every level, carries an audible pulse at
+    120 BPM (a kick, a bass on the beat, a hat, a clock: something a player taps a foot to). Level 1 may be soft; it is
+    never a beatless hum. Every action already lands on that beat (158(a)).
+(b) THE FIGHT NEVER PLAYS WITHOUT MUSIC: from the first frame of a fight to its end screen a song plays, above the
+    effects (the effects sit inside the music, never on top of it with the music gone).
+(c) IT INTENSIFIES (167(c)): the map 1, their turn 2, his turn 3, and level 3 is combat music.
+(d) THE GATE, IN THE REAL FIGHT ON THE PHONE AND THE COMPUTER PROFILES: music audible through the whole fight (its level
+    measured against the effects), a 120 BPM pulse found in the recording at every level, and the level changing on
+    every turn change at the top of the next bar. A fight that goes silent, beatless or flat fails.
+(e) First on SOUNDS' board, before the four new songs: he hears it in his next fight, no card (rule 127).
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md
+# source: records/BOHEMIA_PAOLO_THE_COMPANY_SCREEN_AS_SIMPLE_AS_BATTLE_BROTHERS_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: THE COMPANY SCREEN AS SIMPLE AS BATTLE BROTHERS, THEN BETTER (LOCKED, rule 172)
+
+## HIS WORDS (verbatim, voice to text)
+"I need you to find screenshots look online on how battle Brothers company menu works bro because they really simplify
+how easy can look like to their equipment and shit like that because you're like over complicating it and it's it's
+really hard to navigate your equipment there that the leveling up shit like bro and then we need to improve upon that so
+like you're like you're in deficit"
+
+## WHAT THE COORDINATOR COULD AND COULD NOT REACH
+The sandbox's network refuses the Battle Brothers wiki and Steam (CONNECT 403, measured 10/25 17:40), so no screenshot
+could be pulled from here. Two text guides were reached through search (sources below). The layout below is the
+coordinator's RECALL of the game, marked so; Grok is asked to verify it from real screenshots (reference/BOHEMIA_GROK_ASKS.md,
+ask 41) and the lane corrects anything Grok's page contradicts.
+
+## HOW BATTLE BROTHERS' COMPANY SCREEN WORKS (recall, to be verified by Grok ask 41)
+ONE SCREEN DOES IT ALL (opened with I or C on the map, or the company button):
+- THE ROSTER ALONG THE BOTTOM: every man as a small portrait in the formation grid (the battle lines and the reserve).
+  Tap a portrait and the whole screen is that man. Drag a portrait to move him in the formation.
+- THE MAN ON THE LEFT: his paper doll, the figure wearing what he wears, with the slots around it: head, body, main hand,
+  off hand, accessory, ammo, and the bag slots under it (two, more with the Bags and Belts perk).
+- HIS NUMBERS BESIDE HIM: hitpoints, fatigue, resolve, initiative, melee and ranged skill, melee and ranged defence,
+  action points, armour on head and body, each one icon, one number, one bar. His name, level, background, traits,
+  wage and XP bar on top.
+- THE STASH ON THE RIGHT: the company's whole pile as one grid of item icons, with filter tabs (all, weapons, armour,
+  usable, misc) and a sort button.
+- EQUIPPING: right-click an item in the stash and the selected man wears it (the old item goes back to the stash); drag
+  works too. Hovering any item shows its numbers beside what he wears now, so the choice is obvious before the click.
+- LEVELLING UP: a man with a level waiting shows a plus. The level-up asks one thing at a time: pick three of the
+  attributes (each shows how much it will rise, the talent stars widening the roll), then one perk from the perk tree,
+  which sits behind a tab on the same screen in rows by level. Nothing else on the screen changes.
+- WHY IT FEELS SIMPLE: one man selected at a time, everything about him in one place, the stash always beside him, one
+  click to equip, the comparison before the click, and level-ups as their own short moment.
+
+## THE RULING (rule 172)
+(a) OUR CREW SCREEN IS REBUILT THAT WAY: one screen; the roster in a strip; tap a man and the screen is him; his body
+    wearing his gear with the slots around it; his numbers with their icons (UI's 81a3323e); the stash beside him with
+    filters; ONE TAP on a stash item equips it on him (the old one back to the stash), with the comparison shown before;
+    the two bag slots (RUN TWO 717be9e0) under him; the level-up as its own short moment (three attributes, then one
+    perk); the DISMISS button (rule 171) on him.
+(b) THEN BETTER THAN BATTLE BROTHERS, ON A PHONE FIRST: thumb-sized, one hand, nothing hidden behind hover (the comparison
+    shows on the first tap, the second tap equips), a swipe between men, and the computer gets Battle Brothers' keys and
+    right-click on top.
+(c) LESS, NOT MORE: anything on today's crew screen that is not in (a) leaves it or goes behind one tab. He called it
+    over complicated; the count of things on the screen goes down, measured before and after.
+(d) THE GATE: on the phone and computer profiles, a stranger's path (open the crew, pick the third man, put the best armour
+    in the stash on him, level him up, dismiss the fifth man) is done in the fewest taps, every step on one screen, and the
+    count of elements on the screen is under today's.
+(e) UI [the company screen, Battle Brothers simple], first on its board; it carries [a dismiss button] this round (moved
+    from RUN TWO so one lane owns the screen; RUN TWO keeps the walk-up fix, money teaches and its EYES rows).
+
+## SOURCES REACHED
+- Steam guide 'Battle Brothers: A Beginner's Guide': https://steamcommunity.com/sharedfiles/filedetails/?id=902880552
+  (loot bags picked up by standing on them and opening the inventory; the stash 90 slots, 117 with the cart)
+- Steam guide 'Fritz's Treatise on Builds, Perks, Gear, Archetypes & Formations':
+  https://steamcommunity.com/sharedfiles/filedetails/?id=1185230449 (Bags and Belts adds two bag slots)
+- Steam guide 'Battle Brothers Perk Guide': https://steamcommunity.com/sharedfiles/filedetails/?id=898522624
+  (the perk tree in tiers that unlock as points go in)
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_A_DISMISS_BUTTON_ON_THE_CREW_10_25_26.md
+# source: records/BOHEMIA_PAOLO_A_DISMISS_BUTTON_ON_THE_CREW_10_25_26.md
+====================================================================================================
+# PAOLO 10/25: A DISMISS BUTTON ON THE CREW (LOCKED, rule 171)
+
+## HIS WORDS (verbatim, voice to text)
+"Also, for the crew is not like a dismiss button, bro what if I want to dismiss people what the fuck?"
+
+## THE RULING (rule 171)
+(a) Every man on the crew screen has a DISMISS button, plain on the phone and on the computer, with one confirm so a stray
+    tap never loses a man. The main character is never dismissed (the third votes: the main character never dies).
+(b) HOW BATTLE BROTHERS DOES IT FIRST (rule 33, from the library and Grok's pages): what happens to his gear, his pay,
+    whether the company minds (mood, a payout), and the words on the button. Then our way: the batteries are the money.
+(c) His gear comes back to the stash, his wage stops, he leaves the town or the map the way a man would, and the feed on
+    the phone says it (rule 'the feed on the city screen').
+(d) A gate: dismiss a man on the phone and the computer; he is gone from the crew, the fight and the wage bill, his gear
+    is in the stash, the main character has no button.
+RUN TWO [a dismiss button] (it owns the one crew screen), after [the walk-up, on the ground]. In the game, no card.
+
+
+====================================================================================================
 # HIS WORDS BOHEMIA_PAOLO_PURPLE_GHOSTS_NOT_MAIN_QUEST_AND_THE_MAP_REMADE_NO_SAND_FLOOD_10_24_26.md
 # source: records/BOHEMIA_PAOLO_PURPLE_GHOSTS_NOT_MAIN_QUEST_AND_THE_MAP_REMADE_NO_SAND_FLOOD_10_24_26.md
 ====================================================================================================
@@ -59753,6 +60035,8 @@ refused by the coordinator.
 #    opponents by the amount of people on your roster'). (1) Every key and shortcut Battle Brothers has, on the world map, in towns, in the
 #    fight and in menus, with what each does. (2) What happens when you abandon or fail a contract (the cost). (3) Exactly how party
 #    strength scales with roster size, days and difficulty. Cite each page or say it does not say.
+# ASK 41. BATTLE BROTHERS' COMPANY SCREEN, FROM SCREENSHOTS (rule 172, his words: 'find screenshots... how Battle Brothers' company menu works, because they really simplify how easy it can look... you're over complicating it, it's really hard to navigate your equipment, the levelling up'). Our sandbox cannot reach the wiki or Steam. Look at real screenshots of the inventory / character screen (the Steam store page, the wiki, guides) and describe it exactly: every panel and where it sits (the roster and formation, the paper doll and its slots, the bag slots, the stats and their icons, the stash and its tabs and sort, the perk tree tab), every button and what it does, how an item is equipped (right-click, drag, what returns to the stash), what a hover shows, how a level-up runs step by step (the plus, the three attributes and their rolls, the stars, the perk), how you switch men, and the dismiss button and what it costs. Give each screenshot's link. Then: three things a phone version should do better. Plain full sentences; 'the screenshot does not show' where it does not.
+
 # ASK 32. WHAT WE DO NOT KNOW (his words: 'know what you don't know... what features need lots and lots of rounds of research').
 #    Read the whole master and tell him, plainly: what is missing, what is weak, what contradicts itself, and which of our systems
 #    need many more rounds of research than a single page. Rank them by how much they hurt the game today.
