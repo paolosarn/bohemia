@@ -54,7 +54,7 @@ THE CITY VIEW ONLY. And measured: on his phone the phone is 156 x 185 points at 
 at the start of a fight. So the phone stands in ONE place on the map and in the town (the same element), and stays off the
 fight's glass; it is never anywhere else. The gate holds both halves. If he wants it in the fight, it is one line.
 
-### Measured after (gates/one_hud_everywhere_gate.js, in the suite as ONE HUD EVERYWHERE, 58/0)
+### Measured after (gates/one_hud_everywhere_gate.js, in the suite as ONE HUD EVERYWHERE, 60/0)
 
 - Every piece (the bar, DAY, the crew, the gear, NOTES, the glass, the place) in the same rectangle on the map, in the town and
   in the fight: identical to a tenth of a point on the phone (bar 0,0,390,108) and on the computer (0,0,1440,60).
@@ -66,6 +66,11 @@ fight's glass; it is never anywhere else. The gate holds both halves. If he want
   opening the same roster screen over the whole glass from all three, the gear and NOTES working in the fight.
 - Four plants bite: the fight's gear moved six points, the fight's gear redrawn (38 percent), the town's own row back, the phone
   moved in the town.
+- THE BAR'S COST TO THE FIGHT, MEASURED AND HELD: in the game the board is 66 percent of the glass upright (TOPH 108) and 77
+  percent on a computer (TOPH 60); the gate holds a floor of half. COMBAT's own 'two thirds of the glass' leg (THE REBUILT FIGHT
+  PLAYS) measures the BENCH fight, which has no map: the bar is the game's, so a fight opened on its own keeps its old top and
+  that leg reads as before (it read 66 upright and 50 on its side while the bench briefly wore a bar of dashes; fixed by building
+  the bar only where the map is). The bottom bar is where COMBAT can win room back (NOTE on its board).
 
 ## PART TWO: THE STAT ICONS
 
@@ -126,6 +131,20 @@ At 72 and 54 real pixels (his phone, 24 and 18 points) and 18 (a computer at 1x)
 - The company screen opened from the fight changes the stash and the line for the next fight, not the fight already running
   (the fight reads the company at its start). That is Battle Brothers' own rule (no company screen in a fight); his rule 190(b)
   asked for the door from all three.
+
+## Proof run (rule 13)
+
+Pre-push pass on the merged tree (main at eefda7f9 + this): ONE HUD EVERYWHERE 60/0, THE STAT ICONS READ AT A GLANCE 7/0, THE
+STAT ICONS 5/0, THE DAYS ONCE 59/0 (re-aimed), THE SIX ON THE BAR, THE WAGON AND THE SIX, DEMO BUILD 25/0, the cut --check exact.
+Also green on this change: THE MAP'S KEYS 11/0, SETTINGS IN OUR MATERIALS 15/0, THE NOTES BUTTON 22/0, THE FIGHT'S BAR IS STUDIO
+MADE 15/0, WHEN THE PHONE TURNS 14/0, THE FORMATION IS KEPT 23/0 (alone; 22/1 only under three parallel browsers), WHAT THE CREW
+CAN'T SEE 7/0, NOBODY ON ANYBODY 14/0, EVERY JOB KIND 37/0, THE JOBS' PART 31/0, THE PHONE'S BOARD 18/0, THE REGION HAS ITS
+CITIES 5/0, THE ROSTER SCALES THE ENEMY 6/0, SETTLEMENT SCREEN 74/0, THE COMPANY SCREEN 48/0, THE SCREENS PAST THE PHONE 36/0.
+RED, NOT MINE (each the same on a clean worktree of main): THE TOP MENU BAR 13/2, THE MAP'S BAR 6/1 (the pad's plates), SETTINGS
+AND PAUSE 17/1 (QUIT), THE NOTES SECTION 27/1 (the plate read as a box-shadow the kit replaced), THE TEN CHANGES 17/5, THE LITTLE
+THINGS IN THE FIGHT 6/1 (the AP reason), THE UI BELONGS TO THE WORLD 35/1 (AUTO on tin), THE HIT CHANCE LOOK 24/1 (C covers the
+speed button), THE LOOP PLAYS ON THE MAP 3/2 (the board's contract, L4 and L5); THE REBUILT FIGHT PLAYS 150/5 alone (night frames,
+pauses, night lift, the bank's frames, the perk brains: the bench fight, which this change no longer touches).
 
 ## Where it lives
 
