@@ -1,0 +1,28 @@
+{
+ "size_m": [
+  0.235,
+  0.517,
+  0.624
+ ],
+ "lo": [
+  -0.085,
+  -0.258,
+  -0.312
+ ],
+ "hi": [
+  0.151,
+  0.258,
+  0.312
+ ],
+ "materials": [
+  "clay_bone 3",
+  "clay_rust 1",
+  "metal_painted 1",
+  "rubber 1",
+  "tape_grey 2"
+ ],
+ "verts": 2222,
+ "parts": 113,
+ "elbow_z": 0.12,
+ "grip_z": -0.13
+}

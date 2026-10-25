@@ -7,7 +7,7 @@
  "rows_total": 310,
  "objects_total": 27,
  "objects_with_a_model_before": 3,
- "objects_with_a_model_now": 4,
+ "objects_with_a_model_now": 8,
  "objects": {
   "car_door": {
    "kind": "shield",
@@ -24,7 +24,7 @@
    "rows": 1,
    "glb": "reference/models/bohemia/item_crash_bar.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "an inline sketch inside ANIMATION's melee tool, no file"
   },
   "riot_shield": {
@@ -231,7 +231,7 @@
    "rows": 21,
    "glb": "reference/models/bohemia/item_hard_hat.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "riot_helmet": {
@@ -240,7 +240,7 @@
    "rows": 24,
    "glb": "reference/models/bohemia/item_riot_helmet.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "full_riot_helm": {
@@ -249,7 +249,7 @@
    "rows": 29,
    "glb": "reference/models/bohemia/item_full_riot_helm.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   }
  },

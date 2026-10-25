@@ -105,6 +105,49 @@
    ],
    "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
    "hands": 2
+  },
+  "crash_bar": {
+   "glb": "item_crash_bar.glb",
+   "kind": "shield",
+   "name": "a crash-bar shield",
+   "say": "a pickup's push bar cut off and strapped on (CHARACTER's Heavy): two bent uprights of tube with their black rubber push pads, three crossbars, a dented diamond plate welded behind, a dead Nevada plate riveted on, rust at every weld; behind, two loops of webbing and a grip bar",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "heavy_metal_shield"
+   ],
+   "sha1": "275a5fa7e5f090ed147f1d3b25c9ea3afa8d5dcb",
+   "w": 0.48,
+   "h": 0.62,
+   "measured": {
+    "size_m": [
+     0.235,
+     0.517,
+     0.624
+    ],
+    "lo": [
+     -0.085,
+     -0.258,
+     -0.312
+    ],
+    "hi": [
+     0.151,
+     0.258,
+     0.312
+    ],
+    "materials": [
+     "clay_bone 3",
+     "clay_rust 1",
+     "metal_painted 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 2222,
+    "parts": 113,
+    "elbow_z": 0.12,
+    "grip_z": -0.13
+   },
+   "elbow_z": 0.12,
+   "grip_z": -0.13
   }
  }
 }
