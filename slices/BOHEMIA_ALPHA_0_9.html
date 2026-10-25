@@ -1554,7 +1554,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/25f - MEET BEFORE YOU FIGHT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/25g - THE WIPE WAKES IN TOWN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12413,6 +12413,7 @@ function nfOpts(d){
   /* __ONE_BILL_IN_DAYS__ (RUN 10/23): a man who walked when the batteries ran out does not come to the fight (the map keeps
      who walked in bohemia.walked.v1; the company from the back, never YOU) */
   try{ var gone = (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).filter(function(x){ return x && !x.hired; }).length;
+    try{ (JSON.parse(localStorage.getItem('bohemia.taken.v1') || '[]') || []).forEach(function(t){ gone += ((t && t.names) || []).length; }); }catch(_e){}   /* RUN 10/25 __THE_WIPE_WAKES_IN_TOWN__: the taken stay with who took them */
     if(o.company && gone > 0) o.company = o.company.slice(0, Math.max(1, o.company.length - gone)); }catch(_e){}
   /* ==== __WHO_YOU_HIRE_FIGHTS__ (RUN TWO's block in RUN's file, NOTE on RUN's board; rule 147(a), Paolo 10/24: 'I hired new
      people and put them in my crew and they were on the line, but when it was battle time they weren't there; also I bought a
@@ -12426,6 +12427,7 @@ function nfOpts(d){
   try{ var hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null'), hl = JSON.parse(localStorage.getItem('bohemia.company.line.v1') || 'null');
     var hp = window.BOH_START && BOH_START.picks(), hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || [];
     var walked = (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).map(function(x){ return x && x.name; }).filter(Boolean);
+    try{ (JSON.parse(localStorage.getItem('bohemia.taken.v1') || '[]') || []).forEach(function(t){ (t && t.names || []).forEach(function(n){ walked.push(n); }); }); }catch(_e){}   /* RUN 10/25 __THE_WIPE_WAKES_IN_TOWN__: a man the crew that beat you took is not in your fight */
     var same = !(hl && hl.origin && hp && hp.origin && hl.origin !== hp.origin), useH = Array.isArray(hk) && hk.length > 0 && same;
     var co = useH ? hk : (o.company ? o.company.slice() : null), keepAt = {}, kept = [];
     /* AFTER THE FIGHT: a fight the crew screen has not read yet still counts: its dead stay dead, its fallen are laid up their
@@ -13975,7 +13977,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });

@@ -44372,8 +44372,72 @@ function crewHired(){ try{ var a = JSON.parse(localStorage.getItem('bohemia.hire
 function crewCount(){
   var co = (LOOP.start && LOOP.start.company) || null;
   var n = co ? co.length : 3;                           /* no picks yet: Battle Brothers' own three */
-  return Math.max(1, n + crewHired() - crewWalked().length);   /* the main character never walks */
+  return Math.max(1, n + crewHired() - crewWalked().length - crewTaken().length);   /* the main character never walks; the taken are not here (__THE_WIPE_WAKES_IN_TOWN__) */
 }
+/* ==== __THE_WIPE_WAKES_IN_TOWN__ (RUN 10/25, rule 143(e), Paolo 10/24: 'if everyone dies you're still where you were before
+   the battle... spawn in the nearest town, a mini side quest, your whole squad got wiped'). MEASURED: a wipe (COMBAT's
+   BOHEMIA_CITY_COMBAT_END outcome.wipe, YOU down, never a retreat) ran __DEATH_IS_A_RELOAD__ (8/22), so the game put him back
+   at the save before the bell, standing where he was, as if it never happened. NOW A WIPE IS AN EVENT: somebody drags him to
+   the nearest town (a few hours pass), a face there says what happened (COMBAT's wipeInfo.lines and .next, his words for it),
+   and the men the fight left DOWN are TAKEN by the crew that beat him, with their gear on them (bohemia.taken.v1): they eat
+   nothing, fight nowhere and walk beside him on no map until he gets them back. THE MINI SIDE QUEST is a held job at the
+   place it happened, 'Get your men back from <them>': the same contract door (the meet card, the fight sized against who he
+   has now, one star), and winning it brings the men home. The dead stay dead (COMBAT's fates, RUN TWO's nfAfterKeep). ==== */
+var TAKEN_KEY = 'bohemia.taken.v1';
+function crewTakenAll(){ try{ var a = JSON.parse(localStorage.getItem(TAKEN_KEY) || '[]'); return Array.isArray(a) ? a : []; }catch(_e){ return []; } }
+function crewTaken(){ var out = []; crewTakenAll().forEach(function(t){ (t.names || []).forEach(function(n){ if(out.indexOf(n) < 0) out.push(n); }); }); return out; }
+function wipeWake(o){
+  var W = o.wipeInfo || {}, fates = Array.isArray(o.fates) ? o.fates : [];
+  var at = (Array.isArray(W.cell) && W.cell.length === 2) ? [W.cell[0] | 0, W.cell[1] | 0] : [city.x, city.y];
+  var down = []; fates.forEach(function(f){ if(f && !f.main && !f.dead && (f.down || !f.fled) && f.name) down.push(String(f.name)); });
+  if(!down.length && Array.isArray(W.down)) W.down.forEach(function(n){ if(n && down.indexOf(String(n)) < 0) down.push(String(n)); });
+  try{ var mains = fates.filter(function(f){ return f && f.main; }).map(function(f){ return String(f.name); }); down = down.filter(function(n){ return mains.indexOf(n) < 0; }); }catch(_e){}
+  var by = String(W.byName || W.by || 'the crew that beat you');
+  /* the nearest town: the nearest base of a town or a fort, else any base */
+  var bs = null; try{ bs = ctBases(); }catch(_e){ bs = null; }
+  var best = null, bd = 1e9, any = null, ad = 1e9;
+  for(var n in (bs || {})){ var b = bs[n]; if(!b) continue; var d = Math.max(Math.abs((b.x | 0) - at[0]), Math.abs((b.y | 0) - at[1]));
+    var tier = 'camp'; try{ tier = mapTierOf(n) || 'camp'; }catch(_e){}
+    if(d < ad){ ad = d; any = { name: n, x: b.x | 0, y: b.y | 0 }; }
+    if(tier !== 'camp' && d < bd){ bd = d; best = { name: n, x: b.x | 0, y: b.y | 0 }; } }
+  best = best || any;
+  if(best){ var door = null; try{ door = townDoor(best.x, best.y); }catch(_e){} if(door){ city.x = door[0]; city.y = door[1]; } }
+  try{ travelStop(); }catch(_e){} try{ travelInterrupt('wipe'); }catch(_e){}
+  try{ camHold(); }catch(_e){}
+  try{ advance(4 * 60); }catch(_e){}   /* he comes to hours later */
+  /* the men they took, and the job to get them back where it happened */
+  var job = null;
+  if(down.length){
+    var stand = at; try{ if(!cityWalkable(at[0], at[1])){ var dd = townDoor(at[0], at[1]); if(dd) stand = dd; } }catch(_e){}
+    job = { id: 'rescue-' + loopDay() + '-' + (Date.now() % 100000), title: 'Get your men back from ' + by, pay: 0, skulls: 1, rescue: true,
+            target: { x: stand[0], y: stand[1] }, men: down.slice(), by: by, draft: true };
+    var T0 = crewTakenAll(); T0.push({ job: job.id, by: by, names: down.slice(), at: stand, day: loopDay() });
+    try{ localStorage.setItem(TAKEN_KEY, JSON.stringify(T0.slice(-6))); }catch(_e){}
+    try{ LOOP.held.unshift(job); if(LOOP.held.length > LOOP_MAX + 1) LOOP.held.length = LOOP_MAX + 1; }catch(_e){}
+  }
+  /* a face at the town says it: COMBAT's own lines for what happened, then what is next (draft:true) */
+  var said = (Array.isArray(W.lines) && W.lines.length ? String(W.lines[0]) + ' ' : '')
+           + (W.next ? String(W.next) : ('Somebody dragged you to ' + (best ? best.name : 'town') + '. ' + by + ' have your men and your gear.'));
+  if(down.length) said += ' ' + down.join(', ') + (down.length === 1 ? ' is' : ' are') + ' still alive. Go get them.';   /* draft:true */
+  var who = null; try{ var F = window.BohemiaCrewFaces; ['cast_apron', 'cast_widebrim', 'cast_poncho', 'cast_shortcoat', 'cast_longcoat'].some(function(l){ if(!F || F.has(l)){ who = { name: (best ? String(best.name).toUpperCase() : 'A STRANGER'), look: l }; return true; } return false; }); }catch(_e){}
+  try{ var TEN = window.BohemiaMaterials && BohemiaMaterials.ten; if(TEN && TEN.say && who) TEN.say({ id: 'wipe:' + loopDay() + ':' + (job ? job.id : 'none'), kind: 'wipe', who: who, line: said, tag: 'YOU CAME TO', prio: 1, ttl: 40 }); }catch(_e){}
+  try{ loopSay(said); }catch(_e){}
+  try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(said, 'fight'); }catch(_e){}
+  window.__WIPE_WOKE = { town: best ? best.name : null, at: [city.x, city.y], taken: down, job: job ? job.id : null, said: said };
+  try{ saveNow('fight:wipe'); }catch(_e){}
+  try{ render(); }catch(_e){} try{ mapStatePost(); }catch(_e){}
+  return true;
+}
+/* the job's win: the men come home with what they wore */
+function by_still(job){ LOOP.held.unshift(job); return (job.by || 'They') + ' still have your men.'; }   /* a lost rescue stays held (draft:true) */
+function rescueDone(job){
+  var left = crewTakenAll().filter(function(t){ return t.job !== job.id; });
+  try{ localStorage.setItem(TAKEN_KEY, JSON.stringify(left)); }catch(_e){}
+  try{ MAP_CREW_LOOKS.at = 0; }catch(_e){}
+  window.__RESCUED = { job: job.id, men: (job.men || []).slice() };
+  return 'Your men are back: ' + (job.men || []).join(', ') + '. Hurt, but back, with their gear.';   /* draft:true */
+}
+/* ==== /__THE_WIPE_WAKES_IN_TOWN__ ====
 /* ==== __ONE_BILL_IN_DAYS__ (RUN 10/23, [the first hour, quicker], TUNING's change 5, rule 133(b)) ====================
    PAOLO 10/23: 'also kind of hardcore vibes if you're fucking around too much.' MEASURED (TUNING's walk and this lane's):
    06:00 to 22:00 charged nothing for the crew; nightfall took one battery of rent; and THE CLOCK THEN STOPPED AT 22:00 FOR
@@ -44668,10 +44732,13 @@ window.addEventListener('message', function(ev){
      what a place offers less what he holds; a job done or lost was neither, so it came back on the phone ('5H AGO').
      Done jobs are kept by id and the phone's board leaves them out the way it leaves out held ones. */
   try{ LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-60); }catch(_e){}
-  if(won){
+  if(won && job.rescue){ line = rescueDone(job); }   /* __THE_WIPE_WAKES_IN_TOWN__ */
+  else if(won){
     try{ BohemiaPurse.credit(purseGet(), 'electricity', job.pay, 'contract: ' + job.title, 'contract:' + job.id + ':' + LOOP.done, loopDay()); }catch(_e){}
     LOOP.done++;
     line = 'Paid ' + job.pay + ' battery: ' + job.title + '.';                        /* draft:true */
+  } else if(job.rescue){
+    line = by_still(job);
   } else {
     line = 'The job is lost: ' + job.title + '. Nobody pays for that.';               /* draft:true */
   }
@@ -44699,7 +44766,7 @@ function loopJobsDraw(ox, oy){
     }
     /* a SHORT plate right over the crew's heads: the long name ran under him (photographed);
        the job's whole name is on the quest line and on the phone */
-    var t = 'JOB';
+    var t = j.rescue ? 'YOUR MEN' : 'JOB';   /* __THE_WIPE_WAKES_IN_TOWN__ */
     g.font = '700 9px ' + FACE('casing');
     var w = g.measureText(t).width;
     MAP_PLATES.push({ t: t, lx: p.sx - w / 2 - 3, ly: fy - 44, w: w, col: '#e8806a', sx: p.sx, cy: fy, r: 33 });
@@ -45978,6 +46045,7 @@ function mapCrewLooks(){
   var now = Date.now(); if (now - MAP_CREW_LOOKS.at < 1000) return MAP_CREW_LOOKS.looks;
   var out = [], gone = {}, seen = {};
   try { crewWalked().forEach(function(x){ if (x && x.name) gone['n:' + x.name] = 1; if (x && x.look) gone['l:' + x.look] = 1; }); } catch (_e) {}
+  try { crewTaken().forEach(function(n){ gone['n:' + n] = 1; }); } catch (_e) {}   /* __THE_WIPE_WAKES_IN_TOWN__ */
   var add = function(name, look, dead){
     if (!look || look === 'you' || dead || seen[look] || gone['l:' + look] || (name && gone['n:' + name])) return;
     seen[look] = 1; out.push(look);
@@ -68391,6 +68459,9 @@ window.addEventListener('message',function(ev){
      bohemiaCityNeedRestore -> the shell's CITYSAVE.load() -> bohemiaCityRestore
      or bohemiaCityRestoreNone -> applyRestore. A death path with its own restore
      would be the third copy of one thing. */
+  /* __THE_WIPE_WAKES_IN_TOWN__: a wipe is an event, never the reload */
+  if(!won && o.wipe){ try{ window.parent.postMessage({bohemiaCitySfx:{ev:'went_down'}},'*'); }catch(_e){} try{ setTimeout(function(){ wipeWake(o); }, 300); }catch(_e){}
+    try{ upkeepPost('fight:plate', (d.at||null)); }catch(_e){} try{ window.__FIGHT_CAME_HOME={won:false,wipe:true,at:d.at||null}; }catch(_e){} return; }
   var line = won
     ? 'You walked out of that one.'                       /* draft:true */
     : 'You went down. Back to your last save.';           /* draft:true */
