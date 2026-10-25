@@ -9812,6 +9812,9 @@ GATES = [
      "RUN TWO gate, 10/25, rows [a two-hander wears its own name] (rule 194, Paolo 10/25: 'I can't make a spear shield wall anymore... it kept saying this shield was like both hands') and [the pistol is never a club, the words] (rule 195). "
      "MEASURED before: nine classes named one- and two-handers alike (every spear a 'rebar spear', the Warfork too); every pistol 'REACH 2 TO 4 TILES, A CLUB AT 1'. HOLDS: no name shared across hands over all 126 rows through the shop's and the crew screen's naming, UI's icon mirror equal; "
      "TWO HANDS on a two-hander's card by a real tap; a one-handed spear and a car door on one man by real taps, both in his hands in the fight (the demo, the phone); the words blame the weapon; every gun's reach from the fight's own 1, no club word. about 3 min", True),
+    ('DROP A JOB RIGHT IN THE TOWN', ['node', 'gates/drop_a_job_in_the_town_gate.js'],
+     "RUN TWO gate, 10/25, row [drop a job right in the town] (rule 197, Paolo 10/25: 'to cancel a quest I have to go into the world map, click on the phone, and then go back into the city... this is dog shit'). "
+     "MEASURED before: the only drop was the phone on the map. HOLDS on the demo through Church's door by real taps: the jobs he is on at the top of the board with DROP and the phone's cost; the drop in two taps (gone from the map, the standing once, the phone's line, no map screen), phone and computer; the swap in two taps on a full board. about 4 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

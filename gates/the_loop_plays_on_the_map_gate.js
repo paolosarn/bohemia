@@ -104,7 +104,8 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
     if (bp) await d.page.touchscreen.tap(fb.x + bp.x, fb.y + bp.y);
     else await tapText(/^BOARD/);
     await d.page.waitForTimeout(1000);
-    const offer = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button, #sheet .act, #sheet div')].filter(e => /\d+ batt(ery|eries)?$/i.test((e.textContent || '').trim()) && e.classList.contains('client') && e.getBoundingClientRect().height > 20)
+    /* RE-AIMED 10/25 (RUN TWO): WORLD's [a job says how far] (16c26e78) puts the trip after the pay ('45 BATTERIES · 2 H') */
+    const offer = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button, #sheet .act, #sheet div')].filter(e => /\d+ batt(ery|eries)?(\s*\u00b7\s*.*)?$/i.test((e.textContent || '').trim()) && e.classList.contains('client') && e.getBoundingClientRect().height > 20)
         .sort((a, b) => a.getBoundingClientRect().width * a.getBoundingClientRect().height - b.getBoundingClientRect().width * b.getBoundingClientRect().height)[0];
       return b ? ((b.querySelector('.cl > span') || b.querySelector('span') || b).textContent.trim()) : null; });   /* the job's title, the button's first span (RUN TWO's client buttons, 10/17) */
     if (offer) { await tapText(new RegExp('^' + offer.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))); await d.page.waitForTimeout(800); await tapText(/^Take it/); await d.page.waitForTimeout(800); }

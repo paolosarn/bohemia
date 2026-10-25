@@ -130,6 +130,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .hire .hgun img,.hire .hgun canvas{width:28px;height:28px;image-rendering:pixelated}
 .hire .hgun .arm{color:var(--gold);letter-spacing:.5px}
 .hire.picked{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.act.held{border-color:#c9775f}.act.held .cost{display:block;font-style:normal;font-size:11px;color:#c9775f;margin-top:2px;flex-basis:100%}   /* rule 197: the job he is on, DROP and its cost */
+#sbody .swap{color:#c9775f;font-size:12px;margin-top:6px}
 .twoh{margin:8px 14px 0;font-size:20px;letter-spacing:4px;color:#f4cf7c;font-weight:bold}   /* rule 194(b): TWO HANDS in big letters on a two-hander's card */   /* the man you tapped at the post (RUN TWO, change 7) */
 .hire.rare,html body #sheet .hire.rare{box-shadow:0 0 0 2px #e0ad3a,0 0 18px rgba(224,173,58,.55),0 2px 0 #000}   /* __THE_RARE_MAN_AT_THE_POST__: he reads as rare the moment he is met (over UI's card skin too) */
 .hire .hrare{margin-top:4px;font-size:11px;letter-spacing:1px;color:#f4cf7c;overflow-wrap:anywhere}
@@ -2209,6 +2211,39 @@ function clientAct(o, full){
   b.insertBefore(cl, b.firstChild); b.insertBefore(f, b.firstChild);
   return b;
 }
+/* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (RUN TWO [drop a job right in the town], rule 197, Paolo 10/25: 'to cancel a quest I have to go
+   into the world map, click on the phone, and then go back into the city to pick up another quest... this is dog shit'). MEASURED: the
+   only drop was the phone, and the phone lives on the map: five steps and a trip for one decision. NOW the board shows every job he is
+   on at the top with DROP and its cost in plain words; one tap, then yes. When the board is full, a new person's job asks once: drop
+   the one you are on and take this one, the same tap. It is the phone's own drop (slices/bohemia_job_kinds.js drop/dropCost: the
+   standing, the words, the cost paid once), so the two can never disagree. The keeper says it; never a card. */
+function jobsK(){ try{ return window.parent && window.parent !== window ? window.parent.BohemiaJobKinds : null; }catch(e){ return null; } }
+function heldCost(id){ var K = jobsK(); try{ return K && K.dropCost ? K.dropCost(id) : null; }catch(e){ return null; } }
+function dropWords(c){ return String(c.place).toUpperCase() + ' thinks less of you: ' + Math.round(c.before) + ' to ' + Math.round(c.after) + (c.band !== c.bandAfter ? ', ' + c.band + ' to ' + c.bandAfter : ''); }   /* draft:true: the phone's own words */
+/* the job a swap gives up: the one this town gave, else the oldest */
+function swapOut(){ var ids = S.held.slice(), here = ids.filter(function(id){ var c = heldCost(id); return c && String(c.place) === String(S.place.name); }); return here[0] || ids[0] || null; }
+function dropHeld(id){
+  var K = jobsK(), r = null; try{ r = K && K.drop ? K.drop(id) : null; }catch(e){ r = null; }
+  if(!r || !r.ok) return null;
+  S.held = S.held.filter(function(x){ return x !== id; }); post('dropped', {contract:id, cost:r.cost && r.cost.delta}); shelf();
+  return r;
+}
+function heldAct(c){
+  var b = act('ON THE JOB: ' + c.title, 'DROP', function(){ dropAsk(c); }, false);
+  b.className = 'act held'; b.dataset.held = c.id;
+  var em = b.querySelector('em'); if(em) em.title = dropWords(c);
+  var w = document.createElement('i'); w.className = 'cost'; w.textContent = 'Drop it: ' + dropWords(c); b.appendChild(w);
+  return b;
+}
+function dropAsk(c){
+  S.open = 'board';
+  var body = document.getElementById('sbody'); body.textContent = '';
+  body.appendChild(speak('board', 'Drop ' + c.title + '? Nobody pays, and ' + dropWords(c) + '.'));
+  var acts = document.createElement('div'); acts.className = 'acts';
+  var yes = act('Drop it', '', function(){ var r = dropHeld(c.id); openB('board', r ? r.line : 'That job cannot be dropped right now.'); }, false); yes.dataset.drop = 'yes'; acts.appendChild(yes);
+  acts.appendChild(act('Keep it', '', function(){ openB('board', 'Bueno. Finish it, then.'); }, false));
+  body.appendChild(acts); document.getElementById('sheet').classList.add('on');
+}
 /* HE SPEAKS IT: two sentences, the pay in the second, under his own face; Take it or Not now */
 function offerSpeak(o){
   S.open = 'board';
@@ -2223,9 +2258,12 @@ function offerSpeak(o){
     if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.words; sy.appendChild(tp); S.trip = TR; } }catch(e){}
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts';
-  acts.appendChild(act('Take it', '', function(){
-    S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.');
-  }, S.held.length>=SLOTS));
+  var take = function(){ S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
+  var out = S.held.length >= SLOTS ? swapOut() : null, oc = out ? heldCost(out) : null;
+  if(oc){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
+    var ask = document.createElement('p'); ask.className = 'swap'; ask.textContent = 'You are on a job for ' + String(oc.place).toUpperCase() + ': ' + oc.title + '. Drop it and take this one? (' + dropWords(oc) + ')'; sy.appendChild(ask);
+    var sw = act('Drop it and take this one', '', function(){ var r = dropHeld(out); if(!r) return openB('board', 'That job cannot be dropped right now.'); take(); openB('board', r.line + ' Bueno. ' + o.client.name + ' will sleep tonight.'); }, false); sw.dataset.swap = out; acts.appendChild(sw);
+  } else acts.appendChild(act('Take it', '', function(){ take(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.'); }, S.held.length>=SLOTS));
   acts.appendChild(act('Not now', '', function(){ post('declined',{contract:o.id}); openB('board', 'Ni modo. ' + o.client.name + ' will keep asking around, no hard feelings.'); }));
   body.appendChild(acts);
   post('offer', {contract:o.id, who:clientWho(o), look:clientLook(o)});
@@ -2304,8 +2342,9 @@ function openB(k, line){
        in two sentences with the pay in his mouth; Take it or Not now are the only answers, and Not now
        costs nothing (rule 35c). The phone only lists (UI's board); accepting happens here, from a face. */
     var full = S.held.length>=SLOTS;
-    body.appendChild(speak(k, line || (full ? 'You already carry two jobs. Finish one, then come talk to these people.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
-    boardHere().forEach(function(o){ acts.appendChild(clientAct(o, full)); });
+    body.appendChild(speak(k, line || (full ? 'You carry ' + (SLOTS === 1 ? 'a job' : 'two jobs') + '. Drop one here, or take a new one and I will tear up the old.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
+    S.held.map(heldCost).filter(Boolean).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top */
+    boardHere().forEach(function(o){ acts.appendChild(clientAct(o, full && !jobsK())); });   /* full or not, a person can be talked to: a full board asks to swap */
     var sl = document.createElement('div'); sl.className = 'slots';
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */
     body.appendChild(acts); body.appendChild(sl); return show();
