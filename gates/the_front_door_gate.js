@@ -59,7 +59,7 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
     const picks = await page.evaluate(() => BOH_START.picks());
     door = { before, after, n0, card, picks };
   };
-  try { d = await drive.open({ keepCards: true, beforeTap }); }
+  try { d = await drive.open({ keepCards: true, engage: true, beforeTap }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   const fr = d.fr;
   try {

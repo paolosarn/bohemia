@@ -38,7 +38,7 @@ const PM = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_m
     unsourced.length === 0 && oursOk && PM.roster_strength.value.per_man === 10 && PM.roster_strength.value.per_level === 2 && PM.count_words.value[0].word === 'A FEW');
 
   let d;
-  try { d = await drive.open({ keepCards: true, beforeTap: async (p) => { await throughTheTitle(p); } }); }
+  try { d = await drive.open({ keepCards: true, engage: true, beforeTap: async (p) => { await throughTheTitle(p); } }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   const fr = d.fr;
   try {

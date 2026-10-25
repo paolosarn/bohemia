@@ -80,7 +80,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
+const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'keepCards',
                     'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -177,6 +177,11 @@ async function open(opts) {
      that has already painted three bodies. Arm before the page, or measure nothing.
      Off unless a caller passes it, so no existing use of this driver changes. */
   if (opts.arm && !again) await ctx.addInitScript({ content: opts.arm });
+  /* opts.engage (RUN 10/25, __MEET_BEFORE_YOU_FIGHT__, rule 151(e)): the map now asks ENGAGE or FALL BACK before a fight his
+     walking walks into. A checker that walks into a fight to measure the fight presses ENGAGE, the way a player would, the
+     moment the card stands (the same precedent as spoilsLeave after a forced win). Off unless a caller passes it: a driver
+     that plays like a stranger meets the card and has to answer it. */
+  if (opts.engage && !again) await ctx.addInitScript({ content: "setInterval(function(){ try { if (window.MEET && MEET.up && window.MEET_DONE) { window.__MEET_ENGAGED_BY_CHECKER = (window.__MEET_ENGAGED_BY_CHECKER | 0) + 1; MEET_DONE(true); } } catch (e) {} }, 250);" });
   const page = await ctx.newPage();
   const errs = [];
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));

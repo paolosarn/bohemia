@@ -85,7 +85,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
 
   /* ---- THE DEMO ---- */
   let d;
-  try { d = await drive.open({ keepCards: true, beforeTap: async (p) => { await throughTheTitle(p); } }); }
+  try { d = await drive.open({ keepCards: true, engage: true, beforeTap: async (p) => { await throughTheTitle(p); } }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   const p = d.page, fr = d.fr, errs = [];
   p.on('pageerror', e => errs.push(e.message));

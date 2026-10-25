@@ -56,7 +56,7 @@ const ARM = `(function(){
 
 (async () => {
   let d;
-  try { d = await drive.open({ keepCards: true, arm: ARM }); }
+  try { d = await drive.open({ keepCards: true, engage: true, arm: ARM }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   const samples = [];
   const sample = async (where) => {

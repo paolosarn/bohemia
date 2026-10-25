@@ -38,7 +38,7 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
 
 (async () => {
   let d;
-  try { d = await drive.open({ keepCards: true }); }
+  try { d = await drive.open({ keepCards: true, engage: true }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   const fr = d.fr;
   const shell = () => d.page.evaluate(() => ({ fight: !!CITYFIGHT }));

@@ -50,7 +50,7 @@ const done = () => {
   ok('the cutter strips the walk pad and DROP IN from the demo', /#nav\{display:none !important\}/.test(CUTTER));
 
   let d;
-  try { d = await drive.open({ keepCards: true }); }
+  try { d = await drive.open({ keepCards: true, engage: true }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   const fr = d.fr;
   try {

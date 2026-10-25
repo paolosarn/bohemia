@@ -46,7 +46,7 @@ const byId = {}; FILE.origins.forEach(o => { byId[o.id] = o; });
 
   let d, pre = {};
   try {
-    d = await drive.open({ keepCards: true, beforeTap: async (page) => {
+    d = await drive.open({ keepCards: true, engage: true, beforeTap: async (page) => {
       await throughTheTitle(page);
       for (let i = 0; i < 60; i++) { if (await page.evaluate(() => !!(window.BOH_START && BOH_START.data && BOH_START.data()))) break; await page.waitForTimeout(250); }
       /* O2 and O3: every origin at every shelf, read off the door the way BEGIN reads it */

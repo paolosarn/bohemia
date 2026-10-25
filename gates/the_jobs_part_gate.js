@@ -36,7 +36,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
 
 (async () => {
   let d;
-  try { d = await drive.open({ keepCards: true, profile: process.env.JOBS_PART_PROFILE || 'computer' }); }
+  try { d = await drive.open({ keepCards: true, engage: true, profile: process.env.JOBS_PART_PROFILE || 'computer' }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   const fr = d.fr;
   const TOUCH = (process.env.JOBS_PART_PROFILE || 'computer') !== 'computer';

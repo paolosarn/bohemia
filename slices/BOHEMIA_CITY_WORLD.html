@@ -43905,7 +43905,7 @@ function travelTo(sx,sy,cell){
     /* __THE_LOOP_ON_THE_MAP__: a touch on the JOB or the town he is standing at IS the arrival:
        the fight starts, the town opens. Without this a walked-out job could never be retried
        from where he stood (driven: the second touch said "You are standing there"). */
-    try{ if(loopJobAt(city.x,city.y) || loopTownAt(city.x,city.y,1) || (window.BohemiaJobKinds && BohemiaJobKinds.here(city.x,city.y))){ travelStop(); loopArrived([city.x,city.y]); return true; } }catch(_e){}
+    try{ if(loopJobAt(city.x,city.y) || loopTownAt(city.x,city.y,1) || (window.BohemiaJobKinds && BohemiaJobKinds.here(city.x,city.y))){ travelStop(); meetWalk(function(){ loopArrived([city.x,city.y]); }); return true; } }catch(_e){}
   }
   if(tx===city.x && ty===city.y){ travelStop(); travelSay('You are standing there.'); return false; }
   var p=cityRoute(city.x,city.y,tx,ty);
@@ -43934,7 +43934,8 @@ function travelNext(){
 }
 
 function travelStepped(moved){
-  try{ travelSteppedCore(moved); } finally { if(moved){ try{ mapStepWorld(); }catch(_e){} } }   /* __LOOK_BEFORE_YOU_FIGHT__: the hunters and the chase move on his step */
+  MEET.walk++;   /* __MEET_BEFORE_YOU_FIGHT__: what his walking meets asks first */
+  try{ travelSteppedCore(moved); } finally { try{ if(moved){ try{ mapStepWorld(); }catch(_e){} } } finally { MEET.walk--; } }   /* __LOOK_BEFORE_YOU_FIGHT__: the hunters and the chase move on his step */
 }
 function travelSteppedCore(moved){
   if(!TRAVEL) return;
@@ -44031,7 +44032,7 @@ function mapTapWhich(sx, sy){
 }
 function townTap(t){
   PARTY_SEL = null;
-  if(Math.max(Math.abs(t.x - city.x), Math.abs(t.y - city.y)) <= 1){ travelStop(); loopArrived([city.x, city.y]); return true; }
+  if(Math.max(Math.abs(t.x - city.x), Math.abs(t.y - city.y)) <= 1){ travelStop(); meetWalk(function(){ loopArrived([city.x, city.y]); }); return true; }
   var door = townDoor(t.x, t.y); if(!door){ travelSay('No way through to ' + t.name + '.'); return true; }
   travelStop();
   return travelTo(0, 0, door) || true;
@@ -44208,7 +44209,7 @@ function mapContact(){
     var party = null; try{ party = partyMath('roaming', { x: city.x, y: city.y }); party.count = H.count; party.word = partyWord(H.count); }catch(_e){}
     var ok = false;
     try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: H.name, faction: null, draft: true, roster: roster, party: party,
-      street: true, why: 'road:' + (H.ev && H.ev.id) + ':caught', at: { gx: w[0] | 0, gy: w[1] | 0 } }); }catch(_e){}
+      street: true, why: 'road:' + (H.ev && H.ev.id) + ':caught', at: { gx: w[0] | 0, gy: w[1] | 0 }, __hunt: H }); }catch(_e){}   /* __MEET_BEFORE_YOU_FIGHT__: FALL BACK puts them back */
     if(ok){ try{ CITY_CONTACT_POSTED = true; }catch(_e){} window.__HUNT_CAUGHT = (window.__HUNT_CAUGHT | 0) + 1; }
     return ok;
   }
@@ -44620,7 +44621,7 @@ function loopArrived(to){
   }
   var t = loopTownAt(x, y, 1);
   if(t){ MAP_ARRIVAL = { name: String(t.name || ''), at: performance.now(), seq: ++MAP_ARRIVAL_N }; try{ mapStatePost(); }catch(_e){}   /* __THE_MAP_HEARS__ */
-    setTimeout(function(){ loopOpenTown(t); }, 250); }
+    setTimeout(function(){ if(MEET.up) return; loopOpenTown(t); }, 250); }   /* __MEET_BEFORE_YOU_FIGHT__: a crew met on the same step comes first */
 }
 /* __THE_MAP_HEARS__ (RUN 10/9, [the map hears]). SOUNDS 10/5 measured the travel screen posts nothing to the parent, so
    the road and dirt beds and the sight-stop sound (68a) have nothing to play to. NOW the map posts its TRAVEL STATE on
@@ -63641,7 +63642,163 @@ function cityPlateNow(){
   }catch(_e){ return null; }
 }
 /* ===== /V211 __PLATE_COSTS_TAPE__ ===== */
+/* ==== __MEET_BEFORE_YOU_FIGHT__ (RUN 10/25, rule 151(e), Paolo 10/24: 'when I walk over to an enemy or a job it doesn't
+   display who I'm about to fight or the terrain, how Battle Brothers does: you find an enemy and they give you the option to
+   fall back'). MEASURED before: every way into a fight on the map (a crew that caught him, a party he chased, a contract's
+   crew, a job kind's pack, a raid at his gate, a base he takes) went straight from contact to the fight through this one door.
+   NOW THE DOOR ASKS FIRST, Battle Brothers' way: the map stops and a card stands in the middle of it, in the UI's own kit
+   (board, receipt, tin): WHO (their own 3D men, how many, their stars against his company, the one mark of 146(e)), THE
+   GROUND the fight will be on (the block it starts on, what that board gives: cover, roofs, open road) and the hour, and two
+   choices: ENGAGE (the fight, exactly as before) or FALL BACK (he steps back two blocks, away from them; a crew that was
+   hunting him keeps hunting and is slower than him on a road, a party he chased is still there, a contract stays held and
+   its crew waits). Keys: Enter or E engages, Escape or F falls back. Only on the map; the walked street keeps its contact.
+   Words are attempts, draft:true. ==== */
+var MEET = { on: true, up: null, walk: 0 };
+/* THE CARD ANSWERS WHAT HE WALKED INTO: a contact made by his travel (a step, an arrival, a touch on where he stands) asks
+   first; a fight the game opens on purpose (a TAKE button, a checker calling the door) goes straight through, as before */
+function meetWalk(fn){ MEET.walk++; try { return fn(); } finally { MEET.walk--; } }
+var MEET_GROUND = [
+  [/^(freeway|arterial|interchange|rail|speedway)$/, 'OPEN ROAD', 'wrecks and the median for cover, nothing high'],
+  [/^(suburb|estate|gated|trailer|apartment|town|school|chapel|library|firestation|policestation)$/, 'HOUSES', 'yards, fences and walls to hide behind; a roof is high ground'],
+  [/^(commercial|strip|casino|resort|mall|downtown|convention|sphere|highroller|luxor|sign|courthouse|medical|campus|stadium|ballpark|terminal|airport)$/, 'TALL BUILDINGS', 'cover on every corner, the roofs see far'],
+  [/^(industrial|storage|warehouse|railyard|landfill|boneyard|quarry|solar|battery|substation|datafort|reclaim|granary|pumpstation|watertreat|intake|dam|arsenal|airbase|fort|prison|jail|strat|radio|truckstop|swapmeet|drivein|minigp)$/, 'YARDS AND MACHINES', 'stacks and containers to put between you'],
+  [/^(desert|wash|basin|farm|park|golf|mountain|cemetery|springs|reservoir|water|waterpark|gypsum)$/, 'OPEN GROUND', 'scrub and rock, little to hide behind']
+];
+function meetGround(d){
+  d = String(d || '').toLowerCase();
+  for (var i = 0; i < MEET_GROUND.length; i++) if (MEET_GROUND[i][0].test(d)) return { kind: MEET_GROUND[i][1], what: MEET_GROUND[i][2], district: d };
+  return { kind: d ? d.toUpperCase() : 'THE BLOCK', what: 'the block as it stands', district: d };
+}
+/* who they are: the party's own gang look when it has one, the map's job men when it does not; nobody drawn for beasts */
+function meetMen(msg, n){
+  var out = [], fac = msg.faction || (msg.party && msg.party.faction) || null, beasts = false;
+  try { beasts = !!(msg.roster && msg.roster.length && msg.roster[0].arch === 'beast'); } catch (_e) {}
+  if (beasts) return out;
+  var gang = null; try { gang = fac ? rigSetOf(fac) : null; } catch (_e) { gang = null; }
+  for (var i = 0; i < Math.min(n, 6); i++) {
+    var set = null;
+    try { set = gang ? (rigMixFor(fac, 'meet:' + i, i) || gang) : mapPeopleOf('job', i); } catch (_e) { set = null; }
+    if (set) out.push(set);
+  }
+  return out;
+}
+function meetStars(msg, n){
+  var m = /^contract:([^:]+)/.exec(String(msg.why || '')), job = null;
+  if (m) try { for (var i = 0; i < LOOP.held.length; i++) if (String(LOOP.held[i].id) === m[1]) job = LOOP.held[i]; } catch (_e) {}
+  var st = 0;
+  try { if (job && typeof loopJobStars === 'function') st = loopJobStars(job); } catch (_e) {}
+  if (!st) try { st = partySkulls(n); } catch (_e) { st = 2; }
+  return Math.max(1, Math.min(3, st | 0));
+}
+function meetShow(msg, skin){
+  if (MEET.up) return true;
+  var n = (msg.party && msg.party.count) || (msg.roster && msg.roster.length) || 1;
+  var at = (msg.at && msg.at.gx != null) ? [msg.at.gx | 0, msg.at.gy | 0] : [city.x, city.y];
+  var t = null; try { t = om.at(at[0], at[1]); } catch (_e) {}
+  var gr = meetGround(msg.district || (t && t.district));
+  var night = false; try { night = isNight(); } catch (_e) {}
+  var stars = meetStars(msg, n), men = meetMen(msg, n), mine = 1; try { mine = crewCount(); } catch (_e) {}
+  var M = window.BohemiaMaterials, kit = function (k, s) { try { return M && M.kit ? M.kit(k, s) : ''; } catch (_e) { return ''; } };
+  var who = String(msg.label || 'A CREW').toUpperCase();
+  var word = ''; try { word = String((msg.party && msg.party.word) || partyWord(n)).toUpperCase(); } catch (_e) {}
+  var el = document.createElement('div'); el.id = 'meetcard'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Meet ' + who);
+  el.style.cssText = 'position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;background:rgba(8,6,4,.42);pointer-events:auto';
+  var W = Math.min(340, Math.max(260, (window.innerWidth || 360) - 32));
+  el.innerHTML = '<div class="mc" style="width:' + W + 'px;padding:16px 16px 14px;box-sizing:border-box;background:#2a2016;border:1px solid #4a3a26;border-radius:2px;' + kit('board', 1) + 'filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))">'
+    + '<div class="mch" style="font:400 15px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;line-height:1.2">' + esc(who) + '</div>'
+    + '<div class="mcs" style="margin-top:3px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#cdb98e;text-shadow:0 1px 0 #000;display:flex;align-items:baseline;gap:6px">'
+    + '<span>' + esc(n + (n === 1 ? ' MAN' : ' MEN') + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span><span style="margin-left:auto;color:#9f8a64">YOU ' + mine + '</span></div>'
+    + '<canvas class="mcmen" style="display:block;width:100%;height:84px;margin:8px 0 6px;image-rendering:pixelated"></canvas>'
+    + '<div class="mcg" style="padding:8px 10px 10px;background:#e6dcc4;color:#1f1710;' + kit('receipt', 1) + 'font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.45">'
+    + '<div style="font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px">THE GROUND: ' + esc(gr.kind) + (gr.district ? ' · ' + esc(gr.district.toUpperCase()) : '') + '</div>'
+    + '<div>' + esc(gr.what) + (night ? '. Night: you see less, so do they.' : '.') + '</div></div>'
+    + '<div class="mcb" style="display:flex;gap:10px;margin-top:12px">'
+    + '<button data-meet="back" style="flex:1;min-height:44px;font:400 13px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#1f1710;background:#b9ad92;border:0;' + kit('tin', 0.75) + 'cursor:pointer">FALL BACK</button>'
+    + '<button data-meet="go" style="flex:1;min-height:44px;font:400 13px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#1f1710;background:#e2b45a;border:0;' + kit('tin_amber', 0.75) + 'cursor:pointer">ENGAGE</button>'
+    + '</div></div>';
+  document.body.appendChild(el);
+  try { var sp = el.querySelector('.mcstars'), st = M && M.stars ? M.stars(stars, { gap: 0 }) : null; if (st) sp.appendChild(st); else sp.textContent = new Array(stars + 1).join('★'); } catch (_e) {}
+  /* their men, standing, facing him, the map's own models at the glass's own pixels */
+  try {
+    var cv = el.querySelector('.mcmen'), q = Math.max(1, Math.round(window.devicePixelRatio || 1)), cw = W - 32;
+    cv.width = cw * q; cv.height = 84 * q; var x = cv.getContext('2d'); x.imageSmoothingEnabled = false;
+    if (men.length) {
+      var step = Math.min(48, (cw - 40) / Math.max(1, men.length)), x0 = cw / 2 - step * (men.length - 1) / 2;
+      for (var i = 0; i < men.length; i++) {
+        var f = men[i].S || men[i].SW || men[i][Object.keys(men[i])[0]], fr = f && f.idle; if (!fr) continue;
+        var c = (typeof rigCanvas === 'function') ? rigCanvas(fr) : fr, k = 0.62, w = fr.width * k, h = fr.height * k;
+        x.drawImage(c, Math.round((x0 + i * step - w / 2) * q), Math.round((80 - h * 0.93) * q), Math.round(w * q), Math.round(h * q));
+      }
+      if (n > men.length) { x.font = (13 * q) + 'px BohemiaCasing, ui-monospace, monospace'; x.fillStyle = '#f2e4c6'; x.textAlign = 'right'; x.fillText('+' + (n - men.length), cw * q - 2 * q, 78 * q); }
+    } else { x.font = (13 * q) + 'px BohemiaCasing, ui-monospace, monospace'; x.fillStyle = '#cdb98e'; x.textAlign = 'center'; x.fillText(n + ' OF THEM, IN THE DARK', cw * q / 2, 48 * q); }
+  } catch (_e) {}
+  var done = function (go) {
+    if (!MEET.up) return; var up = MEET.up; MEET.up = null;
+    try { document.removeEventListener('keydown', up.key, true); } catch (_e) {}
+    try { el.remove(); } catch (_e) {}
+    window.__MEET_LAST = { go: !!go, why: msg.why || null, n: n, stars: stars, ground: gr.kind, at: performance.now() };
+    if (go) { msg.__met = true; delete msg.__hunt; try { cityHandOver(msg, skin); } catch (_e) {} }   /* the hunters' object does not cross to the shell */
+    else meetFallBack(msg);
+  };
+  var key = function (ev) {
+    var k = String(ev.key || '').toLowerCase();
+    if (k === 'enter' || k === 'e') { ev.preventDefault(); ev.stopPropagation(); done(true); }
+    else if (k === 'escape' || k === 'f') { ev.preventDefault(); ev.stopPropagation(); done(false); }
+    else if (k === ' ' || ev.code === 'Space') { ev.preventDefault(); ev.stopPropagation(); }
+  };
+  document.addEventListener('keydown', key, true);
+  /* a finger on a phone: the map's own touch handlers keep the browser from making a click, so the button answers its own
+     pointerup (and a click, for a mouse and the keyboard); done() runs once */
+  [['go', true], ['back', false]].forEach(function (k) { var bt = el.querySelector('[data-meet="' + k[0] + '"]');
+    bt.addEventListener('pointerup', function (ev) { ev.stopPropagation(); ev.preventDefault(); done(k[1]); });
+    bt.addEventListener('click', function (ev) { ev.stopPropagation(); done(k[1]); }); });
+  ['pointerdown', 'touchstart', 'touchmove', 'touchend', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
+  MEET.up = { msg: msg, el: el, key: key, at: performance.now() };
+  window.__MEET_UP = { why: msg.why || null, n: n, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night };
+  try { window.MEET_DONE = done; } catch (_e) {}
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ bohemiaCitySfx: { ev: 'phone_buzz' } }, '*'); } catch (_e) {}
+  return true;
+}
+/* FALL BACK: what the contact had already set is undone, and he steps two blocks away from them */
+function meetFallBack(msg){
+  var why = String(msg.why || ''), from = null;
+  try { CITY_CONTACT_POSTED = false; } catch (_e) {}
+  var mc = /^contract:([^:]+)/.exec(why);
+  if (mc) { try { LOOP.fighting = null; LOOP.held.forEach(function (j) { if (String(j.id) === mc[1]) { j.fight = null; from = [j.target.x | 0, j.target.y | 0]; } }); } catch (_e) {} }
+  var mp = /^party:(.+)$/.exec(why);
+  if (mp) { try { delete PARTY_FOUGHT[mp[1]]; var p = partyById(mp[1]); if (p) from = [p.at.x | 0, p.at.y | 0]; } catch (_e) {} }
+  if (msg.__hunt) { try { HUNT = msg.__hunt; from = HUNT.at.slice(); } catch (_e) {} }
+  if (!from && msg.at && msg.at.gx != null) from = [msg.at.gx | 0, msg.at.gy | 0];
+  if (!from) from = [city.x, city.y];
+  /* two blocks, each to the walkable neighbour farthest from them (a tie keeps the road) */
+  for (var s = 0; s < 2; s++) {
+    var best = null, bd = -1;
+    for (var d = 0; d < DIRS.length; d++) {
+      var nx = city.x + DIRS[d][0], ny = city.y + DIRS[d][1];
+      if (!cityWalkable(nx, ny)) continue;
+      var dd = Math.max(Math.abs(nx - from[0]), Math.abs(ny - from[1])) * 10 + Math.abs(nx - from[0]) + Math.abs(ny - from[1]);
+      if (dd > bd) { bd = dd; best = [nx, ny]; }
+    }
+    if (!best) break;
+    city.x = best[0]; city.y = best[1];
+  }
+  try { if (HUNT) huntFleeRoad(); } catch (_e) {}
+  try { camHold(); } catch (_e) {}
+  try { travelSay('You fell back.'); } catch (_e) {}   /* draft:true */
+  window.__MEET_FELL_BACK = (window.__MEET_FELL_BACK | 0) + 1;
+  try { render(); } catch (_e) {}
+  try { mapStatePost(); } catch (_e) {}
+}
+/* ==== /__MEET_BEFORE_YOU_FIGHT__ ==== */
 function cityHandOver(msg, skin){
+  /* __MEET_BEFORE_YOU_FIGHT__: on the map, the card first; ENGAGE comes back through here with __met */
+  try {
+    if (MEET.on && MEET.walk > 0 && msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.__met && typeof MODE !== 'undefined' && MODE === 'city') {
+      try { if (typeof travelStop === 'function') travelStop(); } catch (_e) {}
+      try { if (typeof travelInterrupt === 'function') travelInterrupt('meet'); } catch (_e) {}
+      return meetShow(msg, skin);
+    }
+  } catch (_e) {}
   /* ===== V215 __SAVE_BEFORE_THE_BELL__ -- A SAVE EXISTS AT THE BELL ==========
      BB-SAVE-BEFORE-THE-BELL. The game he named autosaves before EVERY battle, on
      purpose. Ours was covered by accident: CITYSAVE.save only fires when the city
@@ -67742,6 +67899,7 @@ document.addEventListener('keydown', function(ev){
    the fight is its own frame and keeps its keys. The alpha hands the key here when its own page has the focus. */
 function spacePause(){
   if (typeof MODE === 'undefined' || MODE !== 'city' || SKY) return false;
+  if (MEET.up) return false;   /* __MEET_BEFORE_YOU_FIGHT__: the card holds the map; its own keys answer */
   try { if (LOOP.frame && LOOP.frame.style.display === 'block') return false; } catch(_e){}
   if (TRAVEL_SPEED > 0) travelSpeedSet(0);
   else { travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); try { camHold(); } catch(_e){} }

@@ -31,7 +31,7 @@ const done = () => { console.log('THE ZOOM GOES THROUGH CLOUDS: ' + pass + ' pas
 
 (async () => {
   let d;
-  try { d = await drive.open({ keepCards: true }); }
+  try { d = await drive.open({ keepCards: true, engage: true }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   try {
     await d.page.waitForTimeout(2000);
