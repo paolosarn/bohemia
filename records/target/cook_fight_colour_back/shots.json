@@ -1,0 +1,108 @@
+{
+ "phone_portrait": {
+  "fight_chroma_median_grey": 3.7,
+  "fight_chroma_median_colour": 8.7,
+  "map_chroma_median": 3.0,
+  "shot_px": [
+   1170,
+   2532
+  ]
+ },
+ "computer": {
+  "fight_chroma_median_grey": 3.4,
+  "fight_chroma_median_colour": 9.5,
+  "map_chroma_median": 3.0,
+  "shot_px": [
+   1440,
+   900
+  ]
+ },
+ "phone_portrait_colour": {
+  "profile": "phone_portrait",
+  "which": "colour",
+  "district": "arterial",
+  "started": true,
+  "board": "suburb + strip",
+  "kinds": [
+   "suburb_stem",
+   "corner",
+   "strip"
+  ],
+  "floor": [
+   "suburb_stem.1",
+   "corner.1",
+   "strip.1",
+   "corner.0",
+   "strip.0",
+   "suburb_stem.0"
+  ],
+  "fightPicturesLoaded": 14,
+  "errs": []
+ },
+ "phone_portrait_grey": {
+  "profile": "phone_portrait",
+  "which": "grey",
+  "district": "arterial",
+  "started": true,
+  "board": "suburb + strip",
+  "kinds": [
+   "suburb_stem",
+   "corner",
+   "strip"
+  ],
+  "floor": [
+   "suburb_stem.1",
+   "corner.1",
+   "strip.1",
+   "corner.0",
+   "strip.0",
+   "suburb_stem.0"
+  ],
+  "fightPicturesLoaded": 14,
+  "errs": []
+ },
+ "computer_colour": {
+  "profile": "computer",
+  "which": "colour",
+  "district": "arterial",
+  "started": true,
+  "board": "suburb + strip",
+  "kinds": [
+   "suburb_stem",
+   "corner",
+   "strip"
+  ],
+  "floor": [
+   "suburb_stem.1",
+   "corner.1",
+   "strip.1",
+   "corner.0",
+   "strip.0",
+   "suburb_stem.0"
+  ],
+  "fightPicturesLoaded": 14,
+  "errs": []
+ },
+ "computer_grey": {
+  "profile": "computer",
+  "which": "grey",
+  "district": "arterial",
+  "started": true,
+  "board": "suburb + strip",
+  "kinds": [
+   "suburb_stem",
+   "corner",
+   "strip"
+  ],
+  "floor": [
+   "suburb_stem.1",
+   "corner.1",
+   "strip.1",
+   "corner.0",
+   "strip.0",
+   "suburb_stem.0"
+  ],
+  "fightPicturesLoaded": 14,
+  "errs": []
+ }
+}

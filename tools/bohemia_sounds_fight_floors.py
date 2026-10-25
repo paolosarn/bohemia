@@ -13,8 +13,7 @@ THE RULE, IN ORDER (first match wins):
   1. a CASINO block is carpet, wall to wall (the picture is one red carpet; the bar on casino.1 stands on it)
   2. a tile COMBAT TWO's kit plan lays a road piece on is asphalt (the street, the crossing, the junction);
      the plan's key is 'row,col' (lots.0's east-west road is '2,0' to '2,4'), measured against the pictures
-  3. a tile whose picture is at least DARK_SHARE dark grey (saturation under 0.07, value under 0.35; 0.18 and 0.42 before
-     COOK graded the floor to act one, 10/25) is
+  3. a tile whose picture is at least DARK_SHARE dark grey (saturation under 0.18, value under 0.42) is
      asphalt: the strip's parking, the freeway's lanes, the cul-de-sac's ring
   4. everything else is gravel ('dirt', the gravel walks): the desert yards, the scrub, the wash, the
      rubble, the landfill, the roofs (a flat Las Vegas roof is tar and gravel), and the shore's wet edge
@@ -31,9 +30,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GROUND = os.path.join(ROOT, 'slices', 'fight_ground', 'fight_ground.json')
 OUT = os.path.join(ROOT, 'slices', 'vote', 'travel_steps', 'fight_floors.json')
 DARK_SHARE = 0.30
-SAT, VAL = 0.07, 0.35   # COOK 10/25 (rule 159): the floor is graded to act one's palette (tools/bohemia_cook_the_fight_floor_in_act_one_10_25_26.py),
-                        # so shaded dirt is near-neutral too; was 0.18, 0.42 on the tan floor. Measured over every SAT/VAL/share: this pair
-                        # gives back the same table on every block it matched before the grade (shore.0, shore.1, works.0 differ on main too)
+SAT, VAL = 0.18, 0.42
 
 
 def derive():

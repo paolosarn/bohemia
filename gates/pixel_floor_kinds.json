@@ -286,6 +286,11 @@
    "why": "UI's screenshots and before/after shots"
   },
   {
+   "glob": "records/target/cook_fight_colour_back/**",
+   "kind": "proof",
+   "why": "COOK's demo-fight screenshots, the grey grade beside the colour put back (rule 167; tools/bohemia_cook_the_fight_colour_back_shots_10_25_26.js)"
+  },
+  {
    "glob": "records/target/cook_fight_look/**",
    "kind": "proof",
    "why": "COOK's fight-board screenshots, the floor before and after a grade (tools/bohemia_cook_the_fight_floor_in_act_one_10_25_26.py)"

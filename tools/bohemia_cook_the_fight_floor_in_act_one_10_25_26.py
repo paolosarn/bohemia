@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """COOK [the PC playtest: the art's part] (10/25/26): THE FIGHT FLOOR IN ACT ONE'S PALETTE.
 
+*** REVERSED, rule 167 (Paolo 10/25: 'the combat map like went completely like almost like black and white... I was like
+how it was previously'). COOK [the fight board's colour back] put the 121 pictures back to this grade's parent byte for
+byte; --write is refused. 'measure' stays as the instrument. Rule 159 is faded, dirty, rare colour, NEVER drained grey. ***
+REFERENCE CHECK (the law: compare every piece of art to the world): the grade was held against the regraded map and the packs
+and passed by number, and his eye on the real fight said no; the reference that wins is the pre-grade pictures he knew, and
+records/target/cook_fight_colour_back/ shows the grey grade beside them on his phone and a computer, and the map beside the fight.
+
 Rule 159 (Paolo 10/24, LOCKED: 'it's an economic apocalypse, it just happened, there shouldn't be so much colour'; and 137:
 'I don't want a grey yellow sand color to flood all of our art'), rule 164 item 13 (the fight board 'more organic'). The map
 is in act one's palette now (the 69 district pictures, bd6d7c46; the painting, RUN e6eb5dba; its streets and towns, this
@@ -147,6 +154,9 @@ def main():
     if cmd == 'grade':
         names = args[1:] or None
         write = '--write' in sys.argv
+        if write:   # rule 167 (Paolo 10/25): this grade drained the fight to near black and white and was reversed; 167(b): a grade that cuts colour by more than half goes to him first
+            sys.exit('REFUSED: rule 167 reversed this grade (chroma x %.1f took the fight board toward black and white); '
+                     'rule 159 means faded, dirty, rare colour, never grey. Look at it in records/target/, never --write.' % CHROMA_K)
         os.makedirs(OUT, exist_ok=True)
         log = {}
         for base, f in blocks(names, cover='--cover' in sys.argv):
