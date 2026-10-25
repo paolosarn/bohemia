@@ -2341,6 +2341,7 @@ const FIGHT = (function () {
   function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0); }
   function climb(u, A) {
     if (u.climbed === S.round) return false;
+    if (u.side === 'you' && u.club && zocOn(u, u.x, u.y).length) return false;   /* AUTO never climbs out of a ring through the free swings: he clubs (measured 10/25) */
     u.climbed = S.round;
     const f = reach(u), strikeAP = skillAP(u.weapon, strikeSkill(u.weapon), u), hunt = huntField(u);
     const line = A.shield_the_backline ? lineOf(u, hunt) : null;
@@ -2412,10 +2413,10 @@ const FIGHT = (function () {
        who cannot strike this turn (out of breath, nothing to shoot and no club to swing) stands when a foe is within near_tiles
        (farther off he still closes, so the fight never stalls); a man in a foe's ring who has a club or a blade never walks
        out through the free swings (s1a: 7.1 free swings a fight) */
+    const sk0 = strikeSkill(w), clubOK = !!u.club && u.fat + skillFat(u, strikeSkill(u.club)) <= fatMax(u);
+    const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));
+    const able = ranged ? (shotOK || clubOK) : u.fat + skillFat(u, sk0) <= fatMax(u);
     if (u.side === 'you') {
-      const sk0 = strikeSkill(w), clubOK = !!u.club && u.fat + skillFat(u, strikeSkill(u.club)) <= fatMax(u);
-      const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));
-      const able = ranged ? (shotOK || clubOK) : u.fat + skillFat(u, sk0) <= fatMax(u);
       const ring = zocOn(u, u.x, u.y).length, near = ring || foes(u).some(function (f3) { return dist(f3, u) <= R('ours.auto_brain').near_tiles; });
       if ((!able && near) || (ring && (u.club || !ranged))) { endTurn(u); return false; }
     }
@@ -2442,8 +2443,11 @@ const FIGHT = (function () {
       const tgts = foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)); });
       u.x = ox; u.y = oy;
       let sc;
-      const canHit = tgts.length && left >= strikeAP;
-      if (tgts.length && (left >= strikeAP || A.rush_even_without_ap_to_strike)) {
+      /* V1, CAN I ACT FROM THERE (TUNING s5a): to AUTO a tile is a shooting tile only when everything a shot asks is there: the
+         AP left, and the breath, the rounds and a loaded or loadable gun (measured 10/25: the last dances were a gunman out of
+         breath walking to a tile he 'could shoot from', not shooting, and walking back) */
+      const canHit = tgts.length && left >= strikeAP && (u.side !== 'you' || shotOK || (!ranged && able));
+      if (tgts.length && (left >= strikeAP || A.rush_even_without_ap_to_strike) && (u.side !== 'you' || canHit)) {
         sc = R('hit_chance.cap').max + left;
         if (avoid) {
           const pal = friends(u).filter(function (fr) { return dist(fr, ghost) === 1; }).length;
@@ -2470,6 +2474,8 @@ const FIGHT = (function () {
       /* THE UNDO VETO (rule 176(b): 'never off and back'): after a turn in which he did nothing, AUTO never walks back to where
          that turn began unless he can strike from there now */
       if (u.side === 'you' && u.lastTurn && !u.lastTurn.acted && x === u.lastTurn.x && y === u.lastTurn.y && !(x === u.x && y === u.y) && !canHit) sc = -Infinity;
+      /* and inside one turn (the brain decides again after each step): never back onto the tile the turn began on without a blow from it */
+      if (u.side === 'you' && u.turnFrom && x === u.turnFrom.x && y === u.turnFrom.y && !(x === u.x && y === u.y) && !canHit) sc = -Infinity;
       if (sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     const here = hunt(u.x, u.y);
