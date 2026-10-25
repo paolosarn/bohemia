@@ -168,3 +168,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_114_WHAT_WE_DO_NOT_KNOW_2026_10_24.md | day loop rules, wiki gaps
 - 2026-10-24 | ASK | GROK_ASK_115_ONE_THING_DONE_ALL_THE_WAY_2026_10_24.md | one mechanic done well
 - 2026-10-25 | ASK | GROK_ASK_116_WHAT_BB_LEAVES_ON_THE_GROUND_2026_10_25.md | hit effects, corpses, loot on ground
+- 2026-10-25 | ASK | GROK_ASK_117_COMPANY_SCREEN_2026_10_25.md | company screen, paper doll, level-up
