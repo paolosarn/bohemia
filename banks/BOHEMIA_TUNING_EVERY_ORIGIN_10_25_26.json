@@ -1,0 +1,3022 @@
+{
+ "_readme": "TUNING [every origin starts like itself] 10/25 (rule 184; research only, rule 38g). draft:true. NOTHING IN THE GAME READS THIS FILE. Every fight is the live fight (slices/BOHEMIA_FIGHT.html, AUTO both sides, seeded) through tools/bohemia_tuning_every_origin.js. ladder: the Lone Wolf alone, key god|day|count. tracks: each start played its first days (first) and its first ten (first_ten). wolf_spread: the rolled gods over 200 seeds, [lowest, median, highest] a stat.",
+ "draft": true,
+ "schema": 1,
+ "stamp": "94f37b0127fd",
+ "gods": {
+  "today": {
+   "kind": "today"
+  },
+  "bb": {
+   "kind": "god",
+   "stars": "bb",
+   "picks": 3,
+   "plan": [
+    "melee_skill",
+    "melee_defense",
+    "fatigue"
+   ],
+   "kit": {
+    "main": [
+     "arming_sword"
+    ],
+    "off": [
+     "heater_shield"
+    ],
+    "body": [
+     "reinforced_mail_hauberk"
+    ],
+    "head": [
+     "closed_flat_top_with_mail"
+    ]
+   }
+  },
+  "god3": {
+   "kind": "god",
+   "stars": {
+    "ranged_defense": 3,
+    "melee_skill": 3,
+    "melee_defense": 3
+   },
+   "picks": 4,
+   "plan": [
+    "ranged_defense",
+    "melee_skill",
+    "melee_defense",
+    "fatigue"
+   ],
+   "kit": {
+    "main": [
+     "arming_sword",
+     "noble_sword",
+     "fighting_axe"
+    ],
+    "off": [
+     "kite_shield"
+    ],
+    "body": [
+     "reinforced_mail_hauberk",
+     "heavy_lamellar_armor",
+     "coat_of_scales",
+     "coat_of_plates"
+    ],
+    "head": [
+     "closed_flat_top_with_mail",
+     "full_helm"
+    ]
+   }
+  },
+  "god3_light": {
+   "kind": "god",
+   "stars": {
+    "ranged_defense": 3,
+    "melee_skill": 3,
+    "melee_defense": 3
+   },
+   "picks": 4,
+   "plan": [
+    "ranged_defense",
+    "melee_skill",
+    "melee_defense",
+    "fatigue"
+   ],
+   "kit": {
+    "main": [
+     "arming_sword",
+     "noble_sword",
+     "fighting_axe"
+    ],
+    "off": [
+     "kite_shield"
+    ],
+    "body": [
+     "reinforced_mail_hauberk"
+    ],
+    "head": [
+     "closed_flat_top_with_mail"
+    ]
+   }
+  },
+  "god5": {
+   "kind": "god",
+   "stars": {
+    "ranged_defense": 3,
+    "melee_skill": 3,
+    "melee_defense": 3,
+    "resolve": 3,
+    "fatigue": 3
+   },
+   "picks": 4,
+   "plan": [
+    "ranged_defense",
+    "melee_skill",
+    "melee_defense",
+    "fatigue"
+   ],
+   "kit": {
+    "main": [
+     "arming_sword",
+     "noble_sword",
+     "fighting_axe"
+    ],
+    "off": [
+     "kite_shield"
+    ],
+    "body": [
+     "reinforced_mail_hauberk",
+     "heavy_lamellar_armor",
+     "coat_of_scales",
+     "coat_of_plates"
+    ],
+    "head": [
+     "closed_flat_top_with_mail",
+     "full_helm"
+    ]
+   }
+  },
+  "god3_gun": {
+   "kind": "god",
+   "stars": {
+    "ranged_defense": 3,
+    "ranged_skill": 3,
+    "melee_defense": 3
+   },
+   "picks": 4,
+   "plan": [
+    "ranged_defense",
+    "ranged_skill",
+    "melee_defense",
+    "fatigue"
+   ],
+   "kit": {
+    "main": [
+     "rondel_dagger"
+    ],
+    "off": [
+     "kite_shield"
+    ],
+    "body": [
+     "reinforced_mail_hauberk",
+     "heavy_lamellar_armor",
+     "coat_of_scales",
+     "coat_of_plates"
+    ],
+    "head": [
+     "closed_flat_top_with_mail",
+     "full_helm"
+    ]
+   }
+  }
+ },
+ "hk_kit": {
+  "mains_1h": [
+   "arming_sword",
+   "noble_sword",
+   "fighting_axe"
+  ],
+  "bodies": [
+   "reinforced_mail_hauberk",
+   "heavy_lamellar_armor",
+   "coat_of_scales",
+   "coat_of_plates"
+  ],
+  "heads": [
+   "closed_flat_top_with_mail",
+   "full_helm"
+  ]
+ },
+ "plans": {
+  "front": [
+   "melee_skill",
+   "melee_defense",
+   "fatigue",
+   "ranged_defense"
+  ],
+  "back": [
+   "ranged_skill",
+   "fatigue",
+   "hp",
+   "ranged_defense"
+  ],
+  "wolf_blade": [
+   "ranged_defense",
+   "melee_skill",
+   "melee_defense",
+   "fatigue"
+  ],
+  "wolf_gun": [
+   "ranged_defense",
+   "ranged_skill",
+   "melee_defense",
+   "fatigue"
+  ]
+ },
+ "wolf_spread": {
+  "bb": {
+   "hp": [
+    62,
+    67,
+    73
+   ],
+   "fatigue": [
+    112,
+    117,
+    124
+   ],
+   "resolve": [
+    39,
+    41,
+    44
+   ],
+   "initiative": [
+    86,
+    94,
+    103
+   ],
+   "melee_skill": [
+    61,
+    69,
+    76
+   ],
+   "ranged_skill": [
+    32,
+    36,
+    42
+   ],
+   "melee_defense": [
+    7,
+    13,
+    20
+   ],
+   "ranged_defense": [
+    0,
+    3,
+    5
+   ]
+  },
+  "god3": {
+   "hp": [
+    62,
+    67,
+    73
+   ],
+   "fatigue": [
+    111,
+    117,
+    122
+   ],
+   "resolve": [
+    39,
+    41,
+    44
+   ],
+   "initiative": [
+    86,
+    94,
+    103
+   ],
+   "melee_skill": [
+    68,
+    73,
+    79
+   ],
+   "ranged_skill": [
+    32,
+    36,
+    42
+   ],
+   "melee_defense": [
+    13,
+    17,
+    20
+   ],
+   "ranged_defense": [
+    12,
+    16,
+    20
+   ]
+  },
+  "god3_light": {
+   "hp": [
+    62,
+    67,
+    73
+   ],
+   "fatigue": [
+    111,
+    117,
+    122
+   ],
+   "resolve": [
+    39,
+    41,
+    44
+   ],
+   "initiative": [
+    86,
+    94,
+    103
+   ],
+   "melee_skill": [
+    68,
+    73,
+    79
+   ],
+   "ranged_skill": [
+    32,
+    36,
+    42
+   ],
+   "melee_defense": [
+    13,
+    17,
+    20
+   ],
+   "ranged_defense": [
+    12,
+    16,
+    20
+   ]
+  },
+  "god5": {
+   "hp": [
+    62,
+    67,
+    73
+   ],
+   "fatigue": [
+    117,
+    121,
+    125
+   ],
+   "resolve": [
+    39,
+    41,
+    44
+   ],
+   "initiative": [
+    86,
+    94,
+    103
+   ],
+   "melee_skill": [
+    68,
+    73,
+    79
+   ],
+   "ranged_skill": [
+    32,
+    36,
+    42
+   ],
+   "melee_defense": [
+    13,
+    17,
+    20
+   ],
+   "ranged_defense": [
+    12,
+    16,
+    20
+   ]
+  },
+  "god3_gun": {
+   "hp": [
+    62,
+    67,
+    73
+   ],
+   "fatigue": [
+    111,
+    117,
+    122
+   ],
+   "resolve": [
+    39,
+    41,
+    44
+   ],
+   "initiative": [
+    86,
+    94,
+    103
+   ],
+   "melee_skill": [
+    58,
+    62,
+    67
+   ],
+   "ranged_skill": [
+    44,
+    50,
+    57
+   ],
+   "melee_defense": [
+    13,
+    17,
+    20
+   ],
+   "ranged_defense": [
+    12,
+    16,
+    20
+   ]
+  }
+ },
+ "ladder": {
+  "today|1|1": {
+   "god": "today",
+   "day": 1,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 85,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|1|2": {
+   "god": "today",
+   "day": 1,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 77,
+   "down_in_100": 23,
+   "avg_lowest_health_pct": 68,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|1|3": {
+   "god": "today",
+   "day": 1,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 32,
+   "down_in_100": 68,
+   "avg_lowest_health_pct": 29,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|1|4": {
+   "god": "today",
+   "day": 1,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 12,
+   "down_in_100": 88,
+   "avg_lowest_health_pct": 10,
+   "won_under_a_quarter_in_100": 2
+  },
+  "today|20|1": {
+   "god": "today",
+   "day": 20,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 75,
+   "down_in_100": 25,
+   "avg_lowest_health_pct": 65,
+   "won_under_a_quarter_in_100": 3
+  },
+  "today|1|5": {
+   "god": "today",
+   "day": 1,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 10,
+   "down_in_100": 90,
+   "avg_lowest_health_pct": 8,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|1|6": {
+   "god": "today",
+   "day": 1,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 7,
+   "down_in_100": 93,
+   "avg_lowest_health_pct": 6,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|20|2": {
+   "god": "today",
+   "day": 20,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 50,
+   "down_in_100": 50,
+   "avg_lowest_health_pct": 39,
+   "won_under_a_quarter_in_100": 2
+  },
+  "today|20|3": {
+   "god": "today",
+   "day": 20,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 22,
+   "down_in_100": 78,
+   "avg_lowest_health_pct": 17,
+   "won_under_a_quarter_in_100": 3
+  },
+  "today|1|8": {
+   "god": "today",
+   "day": 1,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 5,
+   "down_in_100": 95,
+   "avg_lowest_health_pct": 5,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|20|4": {
+   "god": "today",
+   "day": 20,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 7,
+   "down_in_100": 93,
+   "avg_lowest_health_pct": 6,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|20|5": {
+   "god": "today",
+   "day": 20,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 7,
+   "down_in_100": 93,
+   "avg_lowest_health_pct": 3,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|40|1": {
+   "god": "today",
+   "day": 40,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 73,
+   "down_in_100": 27,
+   "avg_lowest_health_pct": 63,
+   "won_under_a_quarter_in_100": 3
+  },
+  "today|20|6": {
+   "god": "today",
+   "day": 20,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 3,
+   "down_in_100": 97,
+   "avg_lowest_health_pct": 3,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|40|2": {
+   "god": "today",
+   "day": 40,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 48,
+   "down_in_100": 52,
+   "avg_lowest_health_pct": 38,
+   "won_under_a_quarter_in_100": 2
+  },
+  "today|40|3": {
+   "god": "today",
+   "day": 40,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 18,
+   "down_in_100": 82,
+   "avg_lowest_health_pct": 14,
+   "won_under_a_quarter_in_100": 3
+  },
+  "today|40|4": {
+   "god": "today",
+   "day": 40,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 5,
+   "down_in_100": 95,
+   "avg_lowest_health_pct": 5,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|20|8": {
+   "god": "today",
+   "day": 20,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 5,
+   "down_in_100": 95,
+   "avg_lowest_health_pct": 4,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|1|1": {
+   "god": "bb",
+   "day": 1,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|40|5": {
+   "god": "today",
+   "day": 40,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 8,
+   "down_in_100": 92,
+   "avg_lowest_health_pct": 4,
+   "won_under_a_quarter_in_100": 2
+  },
+  "bb|1|2": {
+   "god": "bb",
+   "day": 1,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|40|6": {
+   "god": "today",
+   "day": 40,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 2,
+   "down_in_100": 98,
+   "avg_lowest_health_pct": 1,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|1|3": {
+   "god": "bb",
+   "day": 1,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 97,
+   "down_in_100": 3,
+   "avg_lowest_health_pct": 96,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|1|4": {
+   "god": "bb",
+   "day": 1,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 75,
+   "down_in_100": 25,
+   "avg_lowest_health_pct": 73,
+   "won_under_a_quarter_in_100": 0
+  },
+  "today|40|8": {
+   "god": "today",
+   "day": 40,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 5,
+   "down_in_100": 95,
+   "avg_lowest_health_pct": 3,
+   "won_under_a_quarter_in_100": 2
+  },
+  "bb|1|5": {
+   "god": "bb",
+   "day": 1,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 43,
+   "down_in_100": 57,
+   "avg_lowest_health_pct": 39,
+   "won_under_a_quarter_in_100": 2
+  },
+  "bb|20|1": {
+   "god": "bb",
+   "day": 20,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 91,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|1|6": {
+   "god": "bb",
+   "day": 1,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 22,
+   "down_in_100": 78,
+   "avg_lowest_health_pct": 20,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|20|2": {
+   "god": "bb",
+   "day": 20,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 83,
+   "down_in_100": 17,
+   "avg_lowest_health_pct": 79,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|20|3": {
+   "god": "bb",
+   "day": 20,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 67,
+   "down_in_100": 33,
+   "avg_lowest_health_pct": 60,
+   "won_under_a_quarter_in_100": 2
+  },
+  "bb|20|4": {
+   "god": "bb",
+   "day": 20,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 40,
+   "down_in_100": 60,
+   "avg_lowest_health_pct": 33,
+   "won_under_a_quarter_in_100": 5
+  },
+  "bb|1|8": {
+   "god": "bb",
+   "day": 1,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 7,
+   "down_in_100": 93,
+   "avg_lowest_health_pct": 7,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|20|5": {
+   "god": "bb",
+   "day": 20,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 25,
+   "down_in_100": 75,
+   "avg_lowest_health_pct": 20,
+   "won_under_a_quarter_in_100": 3
+  },
+  "bb|40|1": {
+   "god": "bb",
+   "day": 40,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 91,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|20|6": {
+   "god": "bb",
+   "day": 20,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 10,
+   "down_in_100": 90,
+   "avg_lowest_health_pct": 8,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|40|2": {
+   "god": "bb",
+   "day": 40,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 85,
+   "down_in_100": 15,
+   "avg_lowest_health_pct": 81,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|40|3": {
+   "god": "bb",
+   "day": 40,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 65,
+   "down_in_100": 35,
+   "avg_lowest_health_pct": 58,
+   "won_under_a_quarter_in_100": 2
+  },
+  "bb|20|8": {
+   "god": "bb",
+   "day": 20,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 3,
+   "down_in_100": 97,
+   "avg_lowest_health_pct": 3,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|40|4": {
+   "god": "bb",
+   "day": 40,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 42,
+   "down_in_100": 58,
+   "avg_lowest_health_pct": 34,
+   "won_under_a_quarter_in_100": 5
+  },
+  "god3|1|1": {
+   "god": "god3",
+   "day": 1,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|40|5": {
+   "god": "bb",
+   "day": 40,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 22,
+   "down_in_100": 78,
+   "avg_lowest_health_pct": 17,
+   "won_under_a_quarter_in_100": 3
+  },
+  "god3|1|2": {
+   "god": "god3",
+   "day": 1,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|40|6": {
+   "god": "bb",
+   "day": 40,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 8,
+   "down_in_100": 92,
+   "avg_lowest_health_pct": 7,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|1|3": {
+   "god": "god3",
+   "day": 1,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 93,
+   "down_in_100": 7,
+   "avg_lowest_health_pct": 93,
+   "won_under_a_quarter_in_100": 0
+  },
+  "bb|40|8": {
+   "god": "bb",
+   "day": 40,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 2,
+   "down_in_100": 98,
+   "avg_lowest_health_pct": 1,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|1|4": {
+   "god": "god3",
+   "day": 1,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 70,
+   "down_in_100": 30,
+   "avg_lowest_health_pct": 67,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|20|1": {
+   "god": "god3",
+   "day": 20,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 95,
+   "down_in_100": 5,
+   "avg_lowest_health_pct": 95,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|1|5": {
+   "god": "god3",
+   "day": 1,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 33,
+   "down_in_100": 67,
+   "avg_lowest_health_pct": 30,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3|20|2": {
+   "god": "god3",
+   "day": 20,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 90,
+   "down_in_100": 10,
+   "avg_lowest_health_pct": 87,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|1|6": {
+   "god": "god3",
+   "day": 1,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 17,
+   "down_in_100": 83,
+   "avg_lowest_health_pct": 14,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3|20|3": {
+   "god": "god3",
+   "day": 20,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 72,
+   "down_in_100": 28,
+   "avg_lowest_health_pct": 68,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3|20|4": {
+   "god": "god3",
+   "day": 20,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 52,
+   "down_in_100": 48,
+   "avg_lowest_health_pct": 49,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|1|8": {
+   "god": "god3",
+   "day": 1,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 10,
+   "down_in_100": 90,
+   "avg_lowest_health_pct": 9,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|20|5": {
+   "god": "god3",
+   "day": 20,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 32,
+   "down_in_100": 68,
+   "avg_lowest_health_pct": 26,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|40|1": {
+   "god": "god3",
+   "day": 40,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 95,
+   "down_in_100": 5,
+   "avg_lowest_health_pct": 95,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|20|6": {
+   "god": "god3",
+   "day": 20,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 17,
+   "down_in_100": 83,
+   "avg_lowest_health_pct": 14,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|40|2": {
+   "god": "god3",
+   "day": 40,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 88,
+   "down_in_100": 12,
+   "avg_lowest_health_pct": 85,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3|40|3": {
+   "god": "god3",
+   "day": 40,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 72,
+   "down_in_100": 28,
+   "avg_lowest_health_pct": 68,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3|20|8": {
+   "god": "god3",
+   "day": 20,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 7,
+   "down_in_100": 93,
+   "avg_lowest_health_pct": 4,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|40|4": {
+   "god": "god3",
+   "day": 40,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 48,
+   "down_in_100": 52,
+   "avg_lowest_health_pct": 45,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|1|1": {
+   "god": "god3_light",
+   "day": 1,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|40|5": {
+   "god": "god3",
+   "day": 40,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 27,
+   "down_in_100": 73,
+   "avg_lowest_health_pct": 23,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|1|2": {
+   "god": "god3_light",
+   "day": 1,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|1|3": {
+   "god": "god3_light",
+   "day": 1,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 90,
+   "down_in_100": 10,
+   "avg_lowest_health_pct": 89,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|40|6": {
+   "god": "god3",
+   "day": 40,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 13,
+   "down_in_100": 87,
+   "avg_lowest_health_pct": 9,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3_light|1|4": {
+   "god": "god3_light",
+   "day": 1,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 65,
+   "down_in_100": 35,
+   "avg_lowest_health_pct": 62,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3|40|8": {
+   "god": "god3",
+   "day": 40,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 3,
+   "down_in_100": 97,
+   "avg_lowest_health_pct": 2,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|1|5": {
+   "god": "god3_light",
+   "day": 1,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 38,
+   "down_in_100": 62,
+   "avg_lowest_health_pct": 32,
+   "won_under_a_quarter_in_100": 3
+  },
+  "god3_light|20|1": {
+   "god": "god3_light",
+   "day": 20,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 91,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|1|6": {
+   "god": "god3_light",
+   "day": 1,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 18,
+   "down_in_100": 82,
+   "avg_lowest_health_pct": 15,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3_light|20|2": {
+   "god": "god3_light",
+   "day": 20,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 80,
+   "down_in_100": 20,
+   "avg_lowest_health_pct": 77,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|20|3": {
+   "god": "god3_light",
+   "day": 20,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 70,
+   "down_in_100": 30,
+   "avg_lowest_health_pct": 64,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3_light|20|4": {
+   "god": "god3_light",
+   "day": 20,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 53,
+   "down_in_100": 47,
+   "avg_lowest_health_pct": 49,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3_light|1|8": {
+   "god": "god3_light",
+   "day": 1,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 12,
+   "down_in_100": 88,
+   "avg_lowest_health_pct": 11,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|20|5": {
+   "god": "god3_light",
+   "day": 20,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 27,
+   "down_in_100": 73,
+   "avg_lowest_health_pct": 20,
+   "won_under_a_quarter_in_100": 5
+  },
+  "god3_light|40|1": {
+   "god": "god3_light",
+   "day": 40,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 91,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|40|2": {
+   "god": "god3_light",
+   "day": 40,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 82,
+   "down_in_100": 18,
+   "avg_lowest_health_pct": 79,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|20|6": {
+   "god": "god3_light",
+   "day": 20,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 15,
+   "down_in_100": 85,
+   "avg_lowest_health_pct": 12,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|40|3": {
+   "god": "god3_light",
+   "day": 40,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 70,
+   "down_in_100": 30,
+   "avg_lowest_health_pct": 63,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3_light|20|8": {
+   "god": "god3_light",
+   "day": 20,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 2,
+   "down_in_100": 98,
+   "avg_lowest_health_pct": 1,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|40|4": {
+   "god": "god3_light",
+   "day": 40,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 45,
+   "down_in_100": 55,
+   "avg_lowest_health_pct": 41,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god5|1|1": {
+   "god": "god5",
+   "day": 1,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|40|5": {
+   "god": "god3_light",
+   "day": 40,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 27,
+   "down_in_100": 73,
+   "avg_lowest_health_pct": 22,
+   "won_under_a_quarter_in_100": 3
+  },
+  "god5|1|2": {
+   "god": "god5",
+   "day": 1,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|40|6": {
+   "god": "god3_light",
+   "day": 40,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 13,
+   "down_in_100": 87,
+   "avg_lowest_health_pct": 11,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|1|3": {
+   "god": "god5",
+   "day": 1,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 95,
+   "down_in_100": 5,
+   "avg_lowest_health_pct": 94,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|1|4": {
+   "god": "god5",
+   "day": 1,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 72,
+   "down_in_100": 28,
+   "avg_lowest_health_pct": 70,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_light|40|8": {
+   "god": "god3_light",
+   "day": 40,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 2,
+   "down_in_100": 98,
+   "avg_lowest_health_pct": 1,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|20|1": {
+   "god": "god5",
+   "day": 20,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 95,
+   "down_in_100": 5,
+   "avg_lowest_health_pct": 95,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|1|5": {
+   "god": "god5",
+   "day": 1,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 42,
+   "down_in_100": 58,
+   "avg_lowest_health_pct": 40,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|20|2": {
+   "god": "god5",
+   "day": 20,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 89,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|1|6": {
+   "god": "god5",
+   "day": 1,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 22,
+   "down_in_100": 78,
+   "avg_lowest_health_pct": 21,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|20|3": {
+   "god": "god5",
+   "day": 20,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 72,
+   "down_in_100": 28,
+   "avg_lowest_health_pct": 68,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god5|20|4": {
+   "god": "god5",
+   "day": 20,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 52,
+   "down_in_100": 48,
+   "avg_lowest_health_pct": 50,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|20|5": {
+   "god": "god5",
+   "day": 20,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 30,
+   "down_in_100": 70,
+   "avg_lowest_health_pct": 26,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|1|8": {
+   "god": "god5",
+   "day": 1,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 10,
+   "down_in_100": 90,
+   "avg_lowest_health_pct": 9,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|40|1": {
+   "god": "god5",
+   "day": 40,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 95,
+   "down_in_100": 5,
+   "avg_lowest_health_pct": 95,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|20|6": {
+   "god": "god5",
+   "day": 20,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 18,
+   "down_in_100": 82,
+   "avg_lowest_health_pct": 16,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|40|2": {
+   "god": "god5",
+   "day": 40,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 89,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|40|3": {
+   "god": "god5",
+   "day": 40,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 72,
+   "down_in_100": 28,
+   "avg_lowest_health_pct": 68,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god5|40|4": {
+   "god": "god5",
+   "day": 40,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 47,
+   "down_in_100": 53,
+   "avg_lowest_health_pct": 45,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|20|8": {
+   "god": "god5",
+   "day": 20,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 5,
+   "down_in_100": 95,
+   "avg_lowest_health_pct": 4,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|40|5": {
+   "god": "god5",
+   "day": 40,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 32,
+   "down_in_100": 68,
+   "avg_lowest_health_pct": 26,
+   "won_under_a_quarter_in_100": 3
+  },
+  "god3_gun|1|1": {
+   "god": "god3_gun",
+   "day": 1,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 100,
+   "down_in_100": 0,
+   "avg_lowest_health_pct": 100,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|1|2": {
+   "god": "god3_gun",
+   "day": 1,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 98,
+   "down_in_100": 2,
+   "avg_lowest_health_pct": 98,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god5|40|6": {
+   "god": "god5",
+   "day": 40,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 15,
+   "down_in_100": 85,
+   "avg_lowest_health_pct": 14,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|1|3": {
+   "god": "god3_gun",
+   "day": 1,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 65,
+   "down_in_100": 35,
+   "avg_lowest_health_pct": 63,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god5|40|8": {
+   "god": "god5",
+   "day": 40,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 3,
+   "down_in_100": 97,
+   "avg_lowest_health_pct": 3,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|1|4": {
+   "god": "god3_gun",
+   "day": 1,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 42,
+   "down_in_100": 58,
+   "avg_lowest_health_pct": 38,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|1|5": {
+   "god": "god3_gun",
+   "day": 1,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 17,
+   "down_in_100": 83,
+   "avg_lowest_health_pct": 16,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|20|1": {
+   "god": "god3_gun",
+   "day": 20,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 92,
+   "down_in_100": 8,
+   "avg_lowest_health_pct": 92,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|1|6": {
+   "god": "god3_gun",
+   "day": 1,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 17,
+   "down_in_100": 83,
+   "avg_lowest_health_pct": 17,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|20|2": {
+   "god": "god3_gun",
+   "day": 20,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 83,
+   "down_in_100": 17,
+   "avg_lowest_health_pct": 78,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|20|3": {
+   "god": "god3_gun",
+   "day": 20,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 53,
+   "down_in_100": 47,
+   "avg_lowest_health_pct": 50,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3_gun|1|8": {
+   "god": "god3_gun",
+   "day": 1,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 17,
+   "down_in_100": 83,
+   "avg_lowest_health_pct": 17,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|20|4": {
+   "god": "god3_gun",
+   "day": 20,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 27,
+   "down_in_100": 73,
+   "avg_lowest_health_pct": 24,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|20|5": {
+   "god": "god3_gun",
+   "day": 20,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 13,
+   "down_in_100": 87,
+   "avg_lowest_health_pct": 12,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|40|1": {
+   "god": "god3_gun",
+   "day": 40,
+   "count": 1,
+   "fights": 60,
+   "won_in_100": 90,
+   "down_in_100": 10,
+   "avg_lowest_health_pct": 90,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|20|6": {
+   "god": "god3_gun",
+   "day": 20,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 8,
+   "down_in_100": 92,
+   "avg_lowest_health_pct": 8,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|40|2": {
+   "god": "god3_gun",
+   "day": 40,
+   "count": 2,
+   "fights": 60,
+   "won_in_100": 83,
+   "down_in_100": 17,
+   "avg_lowest_health_pct": 76,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|40|3": {
+   "god": "god3_gun",
+   "day": 40,
+   "count": 3,
+   "fights": 60,
+   "won_in_100": 53,
+   "down_in_100": 47,
+   "avg_lowest_health_pct": 49,
+   "won_under_a_quarter_in_100": 2
+  },
+  "god3_gun|20|8": {
+   "god": "god3_gun",
+   "day": 20,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 10,
+   "down_in_100": 90,
+   "avg_lowest_health_pct": 10,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|40|4": {
+   "god": "god3_gun",
+   "day": 40,
+   "count": 4,
+   "fights": 60,
+   "won_in_100": 25,
+   "down_in_100": 75,
+   "avg_lowest_health_pct": 23,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|40|5": {
+   "god": "god3_gun",
+   "day": 40,
+   "count": 5,
+   "fights": 60,
+   "won_in_100": 13,
+   "down_in_100": 87,
+   "avg_lowest_health_pct": 12,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|40|6": {
+   "god": "god3_gun",
+   "day": 40,
+   "count": 6,
+   "fights": 60,
+   "won_in_100": 8,
+   "down_in_100": 92,
+   "avg_lowest_health_pct": 8,
+   "won_under_a_quarter_in_100": 0
+  },
+  "god3_gun|40|8": {
+   "god": "god3_gun",
+   "day": 40,
+   "count": 8,
+   "fights": 60,
+   "won_in_100": 8,
+   "down_in_100": 92,
+   "avg_lowest_health_pct": 8,
+   "won_under_a_quarter_in_100": 0
+  }
+ },
+ "tracks": {
+  "wolf_today_picks": {
+   "track": {
+    "id": "wolf_today_picks",
+    "start": {
+     "wolf": "today"
+    },
+    "policy": "picks",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 16.6,
+    "won_in_100": 52,
+    "lost_fights_a_run": 7.9,
+    "runs_never_lost_in_100": 0,
+    "first_fight_won_in_100": 67,
+    "you_down_in_100_fights": 48,
+    "men_down_a_fight": 0.48,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 40,
+    "main_level": 5,
+    "purse": 972,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 62,
+      "avg_enemies": 2.3
+     },
+     {
+      "days": "11-20",
+      "fights": 416,
+      "won_in_100": 52,
+      "avg_enemies": 2.4
+     },
+     {
+      "days": "21-30",
+      "fights": 258,
+      "won_in_100": 48,
+      "avg_enemies": 2
+     },
+     {
+      "days": "31-40",
+      "fights": 246,
+      "won_in_100": 45,
+      "avg_enemies": 2
+     },
+     {
+      "days": "41-50",
+      "fights": 241,
+      "won_in_100": 44,
+      "avg_enemies": 2
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 62,
+    "lost_fights_a_run": 1.9,
+    "runs_never_lost_in_100": 9,
+    "first_fight_won_in_100": 67,
+    "you_down_in_100_fights": 38,
+    "men_down_a_fight": 0.38,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 71,
+    "main_level": 4,
+    "purse": 377,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 62,
+      "avg_enemies": 2.3
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 70,
+      "fatigue": 105,
+      "resolve": 41,
+      "initiative": 102,
+      "melee_skill": 65,
+      "ranged_skill": 37,
+      "melee_defense": 9,
+      "ranged_defense": 2
+     },
+     "stars": {
+      "hp": 2,
+      "initiative": 1,
+      "ranged_skill": 1
+     },
+     "gear": null,
+     "perks": "(the fight picks by his job)"
+    }
+   ]
+  },
+  "wolf_bb_picks": {
+   "track": {
+    "id": "wolf_bb_picks",
+    "start": {
+     "wolf": "bb"
+    },
+    "policy": "picks",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 16.6,
+    "won_in_100": 97,
+    "lost_fights_a_run": 0.5,
+    "runs_never_lost_in_100": 58,
+    "first_fight_won_in_100": 99,
+    "you_down_in_100_fights": 3,
+    "men_down_a_fight": 0.03,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 74,
+    "main_level": 7,
+    "purse": 1651,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 99,
+      "avg_enemies": 2.3
+     },
+     {
+      "days": "11-20",
+      "fights": 416,
+      "won_in_100": 98,
+      "avg_enemies": 2.4
+     },
+     {
+      "days": "21-30",
+      "fights": 258,
+      "won_in_100": 91,
+      "avg_enemies": 2
+     },
+     {
+      "days": "31-40",
+      "fights": 246,
+      "won_in_100": 95,
+      "avg_enemies": 2
+     },
+     {
+      "days": "41-50",
+      "fights": 241,
+      "won_in_100": 97,
+      "avg_enemies": 2
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 99,
+    "lost_fights_a_run": 0,
+    "runs_never_lost_in_100": 97,
+    "first_fight_won_in_100": 99,
+    "you_down_in_100_fights": 1,
+    "men_down_a_fight": 0.01,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 377,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 99,
+      "avg_enemies": 2.3
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 119,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 71,
+      "ranged_skill": 36,
+      "melee_defense": 12,
+      "ranged_defense": 1
+     },
+     "stars": {
+      "fatigue": 1,
+      "ranged_defense": 1,
+      "melee_skill": 1
+     },
+     "gear": {
+      "main": "arming_sword",
+      "off": "heater_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "closed_flat_top_with_mail",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  },
+  "wolf_god3_picks": {
+   "track": {
+    "id": "wolf_god3_picks",
+    "start": {
+     "wolf": "god3"
+    },
+    "policy": "picks",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 16.6,
+    "won_in_100": 98,
+    "lost_fights_a_run": 0.4,
+    "runs_never_lost_in_100": 73,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 2,
+    "men_down_a_fight": 0.02,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 93,
+    "main_level": 7,
+    "purse": 1655,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 98,
+      "avg_enemies": 2.3
+     },
+     {
+      "days": "11-20",
+      "fights": 416,
+      "won_in_100": 99,
+      "avg_enemies": 2.4
+     },
+     {
+      "days": "21-30",
+      "fights": 258,
+      "won_in_100": 95,
+      "avg_enemies": 2
+     },
+     {
+      "days": "31-40",
+      "fights": 246,
+      "won_in_100": 98,
+      "avg_enemies": 2
+     },
+     {
+      "days": "41-50",
+      "fights": 241,
+      "won_in_100": 99,
+      "avg_enemies": 2
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 98,
+    "lost_fights_a_run": 0.1,
+    "runs_never_lost_in_100": 92,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 2,
+    "men_down_a_fight": 0.02,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 377,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 98,
+      "avg_enemies": 2.3
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 116,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 75,
+      "ranged_skill": 36,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3
+     },
+     "gear": {
+      "main": "noble_sword",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "full_helm",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  },
+  "wolf_god3_light_picks": {
+   "track": {
+    "id": "wolf_god3_light_picks",
+    "start": {
+     "wolf": "god3_light"
+    },
+    "policy": "picks",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 16.6,
+    "won_in_100": 97,
+    "lost_fights_a_run": 0.4,
+    "runs_never_lost_in_100": 66,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 3,
+    "men_down_a_fight": 0.03,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 87,
+    "main_level": 7,
+    "purse": 1655,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 97,
+      "avg_enemies": 2.3
+     },
+     {
+      "days": "11-20",
+      "fights": 416,
+      "won_in_100": 100,
+      "avg_enemies": 2.4
+     },
+     {
+      "days": "21-30",
+      "fights": 258,
+      "won_in_100": 93,
+      "avg_enemies": 2
+     },
+     {
+      "days": "31-40",
+      "fights": 246,
+      "won_in_100": 97,
+      "avg_enemies": 2
+     },
+     {
+      "days": "41-50",
+      "fights": 241,
+      "won_in_100": 98,
+      "avg_enemies": 2
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 97,
+    "lost_fights_a_run": 0.1,
+    "runs_never_lost_in_100": 88,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 3,
+    "men_down_a_fight": 0.03,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 377,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 97,
+      "avg_enemies": 2.3
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 116,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 75,
+      "ranged_skill": 36,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3
+     },
+     "gear": {
+      "main": "noble_sword",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "closed_flat_top_with_mail",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  },
+  "wolf_god5_picks": {
+   "track": {
+    "id": "wolf_god5_picks",
+    "start": {
+     "wolf": "god5"
+    },
+    "policy": "picks",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 16.6,
+    "won_in_100": 98,
+    "lost_fights_a_run": 0.3,
+    "runs_never_lost_in_100": 77,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 2,
+    "men_down_a_fight": 0.02,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 94,
+    "main_level": 7,
+    "purse": 1655,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 98,
+      "avg_enemies": 2.3
+     },
+     {
+      "days": "11-20",
+      "fights": 416,
+      "won_in_100": 99,
+      "avg_enemies": 2.4
+     },
+     {
+      "days": "21-30",
+      "fights": 258,
+      "won_in_100": 96,
+      "avg_enemies": 2
+     },
+     {
+      "days": "31-40",
+      "fights": 246,
+      "won_in_100": 98,
+      "avg_enemies": 2
+     },
+     {
+      "days": "41-50",
+      "fights": 241,
+      "won_in_100": 99,
+      "avg_enemies": 2
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 98,
+    "lost_fights_a_run": 0.1,
+    "runs_never_lost_in_100": 92,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 2,
+    "men_down_a_fight": 0.02,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 377,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 98,
+      "avg_enemies": 2.3
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 121,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 75,
+      "ranged_skill": 36,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3,
+      "resolve": 3,
+      "fatigue": 3
+     },
+     "gear": {
+      "main": "noble_sword",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "full_helm",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  },
+  "wolf_god3_gun_picks": {
+   "track": {
+    "id": "wolf_god3_gun_picks",
+    "start": {
+     "wolf": "god3_gun"
+    },
+    "policy": "picks",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 16.6,
+    "won_in_100": 83,
+    "lost_fights_a_run": 2.8,
+    "runs_never_lost_in_100": 3,
+    "first_fight_won_in_100": 94,
+    "you_down_in_100_fights": 17,
+    "men_down_a_fight": 0.17,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 80,
+    "main_level": 6,
+    "purse": 1389,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 87,
+      "avg_enemies": 2.3
+     },
+     {
+      "days": "11-20",
+      "fights": 416,
+      "won_in_100": 86,
+      "avg_enemies": 2.4
+     },
+     {
+      "days": "21-30",
+      "fights": 258,
+      "won_in_100": 78,
+      "avg_enemies": 2
+     },
+     {
+      "days": "31-40",
+      "fights": 246,
+      "won_in_100": 80,
+      "avg_enemies": 2
+     },
+     {
+      "days": "41-50",
+      "fights": 241,
+      "won_in_100": 77,
+      "avg_enemies": 2
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 87,
+    "lost_fights_a_run": 0.6,
+    "runs_never_lost_in_100": 50,
+    "first_fight_won_in_100": 94,
+    "you_down_in_100_fights": 13,
+    "men_down_a_fight": 0.13,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 4,
+    "purse": 377,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 87,
+      "avg_enemies": 2.3
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 116,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 64,
+      "ranged_skill": 50,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "ranged_skill": 3,
+      "melee_defense": 3
+     },
+     "gear": {
+      "main": "rondel_dagger",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "full_helm",
+      "bag": []
+     },
+     "perks": "(the fight picks by his job)"
+    }
+   ]
+  },
+  "wolf_today_takes": {
+   "track": {
+    "id": "wolf_today_takes",
+    "start": {
+     "wolf": "today"
+    },
+    "policy": "takes",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 25,
+    "won_in_100": 35,
+    "lost_fights_a_run": 16.2,
+    "runs_never_lost_in_100": 0,
+    "first_fight_won_in_100": 61,
+    "you_down_in_100_fights": 65,
+    "men_down_a_fight": 0.65,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 37,
+    "main_level": 6,
+    "purse": 567,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 52,
+      "avg_enemies": 2.5
+     },
+     {
+      "days": "11-20",
+      "fights": 500,
+      "won_in_100": 39,
+      "avg_enemies": 2.8
+     },
+     {
+      "days": "21-30",
+      "fights": 500,
+      "won_in_100": 29,
+      "avg_enemies": 3.3
+     },
+     {
+      "days": "31-40",
+      "fights": 500,
+      "won_in_100": 29,
+      "avg_enemies": 3.7
+     },
+     {
+      "days": "41-50",
+      "fights": 500,
+      "won_in_100": 28,
+      "avg_enemies": 4.2
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 52,
+    "lost_fights_a_run": 2.4,
+    "runs_never_lost_in_100": 7,
+    "first_fight_won_in_100": 61,
+    "you_down_in_100_fights": 48,
+    "men_down_a_fight": 0.48,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 77,
+    "main_level": 4,
+    "purse": 197,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 52,
+      "avg_enemies": 2.5
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 70,
+      "fatigue": 105,
+      "resolve": 41,
+      "initiative": 102,
+      "melee_skill": 65,
+      "ranged_skill": 37,
+      "melee_defense": 9,
+      "ranged_defense": 2
+     },
+     "stars": {
+      "hp": 2,
+      "initiative": 1,
+      "ranged_skill": 1
+     },
+     "gear": null,
+     "perks": "(the fight picks by his job)"
+    }
+   ]
+  },
+  "wolf_god3_takes": {
+   "track": {
+    "id": "wolf_god3_takes",
+    "start": {
+     "wolf": "god3"
+    },
+    "policy": "takes",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 25,
+    "won_in_100": 92,
+    "lost_fights_a_run": 2,
+    "runs_never_lost_in_100": 20,
+    "first_fight_won_in_100": 96,
+    "you_down_in_100_fights": 8,
+    "men_down_a_fight": 0.08,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 72,
+    "main_level": 9,
+    "purse": 1107,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 94,
+      "avg_enemies": 2.5
+     },
+     {
+      "days": "11-20",
+      "fights": 500,
+      "won_in_100": 95,
+      "avg_enemies": 2.8
+     },
+     {
+      "days": "21-30",
+      "fights": 500,
+      "won_in_100": 89,
+      "avg_enemies": 3.3
+     },
+     {
+      "days": "31-40",
+      "fights": 500,
+      "won_in_100": 93,
+      "avg_enemies": 3.8
+     },
+     {
+      "days": "41-50",
+      "fights": 500,
+      "won_in_100": 88,
+      "avg_enemies": 4.4
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 94,
+    "lost_fights_a_run": 0.3,
+    "runs_never_lost_in_100": 73,
+    "first_fight_won_in_100": 96,
+    "you_down_in_100_fights": 6,
+    "men_down_a_fight": 0.06,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 332,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 94,
+      "avg_enemies": 2.5
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 116,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 75,
+      "ranged_skill": 36,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3
+     },
+     "gear": {
+      "main": "noble_sword",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "full_helm",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  },
+  "wolf_god5_takes": {
+   "track": {
+    "id": "wolf_god5_takes",
+    "start": {
+     "wolf": "god5"
+    },
+    "policy": "takes",
+    "every": 2,
+    "days": 50
+   },
+   "first": {
+    "seeds": 100,
+    "days": 50,
+    "fights_a_run": 25,
+    "won_in_100": 93,
+    "lost_fights_a_run": 1.8,
+    "runs_never_lost_in_100": 23,
+    "first_fight_won_in_100": 95,
+    "you_down_in_100_fights": 7,
+    "men_down_a_fight": 0.07,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 75,
+    "main_level": 9,
+    "purse": 1107,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 95,
+      "avg_enemies": 2.5
+     },
+     {
+      "days": "11-20",
+      "fights": 500,
+      "won_in_100": 96,
+      "avg_enemies": 2.8
+     },
+     {
+      "days": "21-30",
+      "fights": 500,
+      "won_in_100": 91,
+      "avg_enemies": 3.3
+     },
+     {
+      "days": "31-40",
+      "fights": 500,
+      "won_in_100": 94,
+      "avg_enemies": 3.9
+     },
+     {
+      "days": "41-50",
+      "fights": 500,
+      "won_in_100": 89,
+      "avg_enemies": 4.4
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 95,
+    "lost_fights_a_run": 0.3,
+    "runs_never_lost_in_100": 78,
+    "first_fight_won_in_100": 95,
+    "you_down_in_100_fights": 5,
+    "men_down_a_fight": 0.05,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 332,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 95,
+      "avg_enemies": 2.5
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 121,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 75,
+      "ranged_skill": 36,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3,
+      "resolve": 3,
+      "fatigue": 3
+     },
+     "gear": {
+      "main": "noble_sword",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "full_helm",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  },
+  "wolf_god3_picks_100": {
+   "track": {
+    "id": "wolf_god3_picks_100",
+    "start": {
+     "wolf": "god3"
+    },
+    "policy": "picks",
+    "every": 2,
+    "days": 100
+   },
+   "first": {
+    "seeds": 100,
+    "days": 100,
+    "fights_a_run": 28.6,
+    "won_in_100": 94,
+    "lost_fights_a_run": 1.8,
+    "runs_never_lost_in_100": 17,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 6,
+    "men_down_a_fight": 0.06,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 74,
+    "main_level": 9,
+    "purse": 3032,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 98,
+      "avg_enemies": 2.3
+     },
+     {
+      "days": "11-20",
+      "fights": 416,
+      "won_in_100": 99,
+      "avg_enemies": 2.4
+     },
+     {
+      "days": "21-30",
+      "fights": 258,
+      "won_in_100": 95,
+      "avg_enemies": 2
+     },
+     {
+      "days": "31-40",
+      "fights": 246,
+      "won_in_100": 98,
+      "avg_enemies": 2
+     },
+     {
+      "days": "41-50",
+      "fights": 241,
+      "won_in_100": 99,
+      "avg_enemies": 2
+     },
+     {
+      "days": "51-60",
+      "fights": 251,
+      "won_in_100": 97,
+      "avg_enemies": 2.2
+     },
+     {
+      "days": "61-70",
+      "fights": 228,
+      "won_in_100": 82,
+      "avg_enemies": 2.5
+     },
+     {
+      "days": "71-80",
+      "fights": 245,
+      "won_in_100": 88,
+      "avg_enemies": 2.8
+     },
+     {
+      "days": "81-90",
+      "fights": 230,
+      "won_in_100": 87,
+      "avg_enemies": 2.9
+     },
+     {
+      "days": "91-100",
+      "fights": 241,
+      "won_in_100": 85,
+      "avg_enemies": 2.9
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 98,
+    "lost_fights_a_run": 0.1,
+    "runs_never_lost_in_100": 92,
+    "first_fight_won_in_100": 100,
+    "you_down_in_100_fights": 2,
+    "men_down_a_fight": 0.02,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 377,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 98,
+      "avg_enemies": 2.3
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 116,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 75,
+      "ranged_skill": 36,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3
+     },
+     "gear": {
+      "main": "noble_sword",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "full_helm",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  },
+  "wolf_god3_takes_100": {
+   "track": {
+    "id": "wolf_god3_takes_100",
+    "start": {
+     "wolf": "god3"
+    },
+    "policy": "takes",
+    "every": 2,
+    "days": 100
+   },
+   "first": {
+    "seeds": 100,
+    "days": 100,
+    "fights_a_run": 50,
+    "won_in_100": 75,
+    "lost_fights_a_run": 12.4,
+    "runs_never_lost_in_100": 0,
+    "first_fight_won_in_100": 96,
+    "you_down_in_100_fights": 25,
+    "men_down_a_fight": 0.25,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 41,
+    "main_level": 12,
+    "purse": 1952,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 94,
+      "avg_enemies": 2.5
+     },
+     {
+      "days": "11-20",
+      "fights": 500,
+      "won_in_100": 95,
+      "avg_enemies": 2.8
+     },
+     {
+      "days": "21-30",
+      "fights": 500,
+      "won_in_100": 89,
+      "avg_enemies": 3.3
+     },
+     {
+      "days": "31-40",
+      "fights": 500,
+      "won_in_100": 93,
+      "avg_enemies": 3.8
+     },
+     {
+      "days": "41-50",
+      "fights": 500,
+      "won_in_100": 88,
+      "avg_enemies": 4.4
+     },
+     {
+      "days": "51-60",
+      "fights": 500,
+      "won_in_100": 85,
+      "avg_enemies": 4.8
+     },
+     {
+      "days": "61-70",
+      "fights": 500,
+      "won_in_100": 51,
+      "avg_enemies": 5.4
+     },
+     {
+      "days": "71-80",
+      "fights": 500,
+      "won_in_100": 54,
+      "avg_enemies": 5.8
+     },
+     {
+      "days": "81-90",
+      "fights": 500,
+      "won_in_100": 53,
+      "avg_enemies": 6.2
+     },
+     {
+      "days": "91-100",
+      "fights": 500,
+      "won_in_100": 49,
+      "avg_enemies": 6.8
+     }
+    ]
+   },
+   "first_ten": {
+    "seeds": 100,
+    "days": 10,
+    "fights_a_run": 5,
+    "won_in_100": 94,
+    "lost_fights_a_run": 0.3,
+    "runs_never_lost_in_100": 73,
+    "first_fight_won_in_100": 96,
+    "you_down_in_100_fights": 6,
+    "men_down_a_fight": 0.06,
+    "dead_a_run": 0,
+    "walked_a_run": 0,
+    "closest_call_median_pct": 100,
+    "main_level": 5,
+    "purse": 332,
+    "by_ten_days": [
+     {
+      "days": "1-10",
+      "fights": 500,
+      "won_in_100": 94,
+      "avg_enemies": 2.5
+     }
+    ]
+   },
+   "door": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "stats": {
+      "hp": 62,
+      "fatigue": 116,
+      "resolve": 41,
+      "initiative": 86,
+      "melee_skill": 75,
+      "ranged_skill": 36,
+      "melee_defense": 15,
+      "ranged_defense": 14
+     },
+     "stars": {
+      "ranged_defense": 3,
+      "melee_skill": 3,
+      "melee_defense": 3
+     },
+     "gear": {
+      "main": "noble_sword",
+      "off": "kite_shield",
+      "body": "reinforced_mail_hauberk",
+      "head": "full_helm",
+      "bag": [
+       "rondel_dagger"
+      ]
+     },
+     "perks": [
+      "colossus",
+      "steel_brow",
+      "brawny"
+     ]
+    }
+   ]
+  }
+ }
+}
