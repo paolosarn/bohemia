@@ -134,3 +134,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 120 | Walk through your own men at all times (never end on one); enemies still block | 199 | COMBAT, EYES | QUEUED (COMBAT, second) |
 | 121 | Every currency on the top bar next to the battery on the map, in the town and in the fight (said again; lines 55, 111) | 200 | RUN TWO, UI, EYES | HALF BUILT (the map's bar: RUN TWO 6ee422f8, BUILD 10/25w; the town and the fight: UI running) |
 | 122 | AUTO kills one at a time: the team picks one target and everyone who can reach him hits him, unless moving costs a free hit | 201 | COMBAT, TUNING, EYES | QUEUED (COMBAT, fourth) |
+| 123 | The shop says what every item does (a shield's melee and ranged defence, armour's weight cost, a weapon's numbers) and what it does to your man, before the price; the crew screen's numbers move by the same amounts | 202 | RUN TWO, UI, EYES | QUEUED (RUN TWO, with 194, 195, 197) |
