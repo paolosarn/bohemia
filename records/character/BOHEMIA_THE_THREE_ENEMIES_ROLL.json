@@ -111,7 +111,7 @@
   "face_name": "HAWK",
   "mark_name": "BROKEN NOSE",
   "mark": "broken_nose",
-  "legs": "SLATE WORK PANTS",
+  "legs": "DUST TROUSERS",
   "feet": "FIELD BOOTS",
   "kit": [
    "SCAV TOOL BELT",
@@ -200,8 +200,8 @@
   ],
   "type": "Runners",
   "top": "LAYERED JERSEY",
-  "coat": "STORM JACKET",
-  "eyewear": "FACE OUTLAW BANDANA",
+  "coat": "ASH ASYM COAT",
+  "eyewear": "FACE OXBLOOD DUST MASK",
   "pieces": [
    "sling"
   ],
@@ -243,8 +243,8 @@
    "HAND WRAPS"
   ],
   "type": "Runners",
-  "top": "ASH HOODIE",
-  "coat": "DENIM VEST",
+  "top": "COAL HOODIE",
+  "coat": "BONE VEST",
   "eyewear": "FACE FACE WRAP",
   "pieces": [
    "sling"
@@ -253,6 +253,215 @@
    "height": -1.0,
    "belly": -0.5,
    "shoulders": -0.6,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "runner_3",
+  "gang": "Runners",
+  "heritage": "asian",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "CURTAIN CUT",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": null,
+  "face_name": "THE STARRED FACE",
+  "legs": "BONE DROP TROUSER",
+  "feet": "COAL MID BOOT",
+  "kit": [
+   "CHARCOAL SCARF",
+   "SOOT HAND WRAPS"
+  ],
+  "type": "Runners",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "LEATHER JACKET",
+  "hat": "HAT OXBLOOD SLOUCH BEANIE",
+  "eyewear": "FACE CHARCOAL DUST MASK",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -0.75,
+   "belly": -0.5,
+   "shoulders": -0.5,
+   "hips": 0.05
+  }
+ },
+ {
+  "id": "runner_4",
+  "gang": "Runners",
+  "heritage": "mixed",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "HEAVY FRINGE",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "mark_name": "CHEEK SCAR",
+  "scar": "cheek",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "ASH SLOUCH BOOT",
+  "kit": [
+   "DUST SCARF",
+   "RUCK PACK"
+  ],
+  "type": "Runners",
+  "top": "LONGLINE JERSEY",
+  "coat": "KHAKI JACKET",
+  "hat": "HAT CHARCOAL WATCH CAP",
+  "eyewear": "FACE RUST DUST MASK",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -0.9,
+   "belly": -0.6,
+   "shoulders": -0.65,
+   "hips": -0.05
+  }
+ },
+ {
+  "id": "runner_5",
+  "gang": "Runners",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "HEAVY FRINGE",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "mark_name": "STITCHED GASH",
+  "mark": "stitched_gash",
+  "legs": "BLACK DENIM",
+  "feet": "STACKED SOLE BOOT",
+  "kit": [
+   "HAND WRAPS",
+   "HIP SASH"
+  ],
+  "type": "Runners",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "HOODED DUST PONCHO",
+  "eyewear": "FACE OLIVE DUST MASK",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -0.55,
+   "belly": -0.4,
+   "shoulders": -0.4,
+   "hips": 0.05
+  }
+ },
+ {
+  "id": "runner_6",
+  "gang": "Runners",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "legs": "DUST TROUSERS",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "BONE SCARF",
+   "SOOT HAND WRAPS"
+  ],
+  "type": "Runners",
+  "top": "ASH LONGLINE TEE",
+  "coat": "COMMA COAT",
+  "hat": "HAT SOOT HEAD WRAP",
+  "eyewear": "FACE FACE WRAP",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -0.7,
+   "belly": -0.55,
+   "shoulders": -0.5,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "runner_7",
+  "gang": "Runners",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "STATIC",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": null,
+  "face_name": "THE STARRED FACE",
+  "legs": "LEATHER STACK PANT",
+  "feet": "GREY SNEAKERS",
+  "kit": [
+   "CHARCOAL ROAD CAPE",
+   "DUST BROWN BANDOLIER",
+   "HAND WRAPS"
+  ],
+  "type": "Runners",
+  "top": "TATTERED TEE",
+  "hat": "HAT SAND KNIT CAP",
+  "eyewear": "FACE CHARCOAL DUST MASK",
+  "pieces": [
+   "sling"
+  ],
+  "dials": {
+   "height": -0.95,
+   "belly": -0.45,
+   "shoulders": -0.55,
    "hips": 0.0
   }
  },
@@ -335,7 +544,7 @@
    "SOOT GORGET"
   ],
   "type": "Heavy",
-  "top": "STEEL WORK SHIRT",
+  "top": "BONE BUTTON-UP",
   "coat": "TACTICAL VEST",
   "hat": "HAT SCRAP HELM",
   "pieces": [
@@ -392,6 +601,98 @@
    "belly": 0.6,
    "shoulders": 1.0,
    "hips": 0.2
+  }
+ },
+ {
+  "id": "heavy_3",
+  "gang": "Heavy",
+  "heritage": "asian",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "legs": "BONE WORK PANTS",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "SCRAP PAULDRON",
+   "SOOT GLOVES"
+  ],
+  "type": "Heavy",
+  "top": "DUST PLAID SHIRT",
+  "coat": "OLIVE VEST",
+  "eyewear": "FACE ASH SHIELD",
+  "pieces": [
+   "exo",
+   "crashbar"
+  ],
+  "dials": {
+   "height": 0.2,
+   "belly": 0.95,
+   "shoulders": 0.95,
+   "hips": 0.35
+  }
+ },
+ {
+  "id": "heavy_4",
+  "gang": "Heavy",
+  "heritage": "black",
+  "tone": "onyx",
+  "skin": [
+   "skin_light",
+   0
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "SOOT CHEST PLATE",
+   "LEATHER GLOVES"
+  ],
+  "type": "Heavy",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "SMITH'S APRON",
+  "hat": "HAT DUST WORK CAP",
+  "pieces": [
+   "exo",
+   "crashbar"
+  ],
+  "dials": {
+   "height": 0.4,
+   "belly": 0.7,
+   "shoulders": 1.0,
+   "hips": 0.25
   }
  }
 ]

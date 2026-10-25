@@ -61,6 +61,7 @@ FIGHT_RENDERS = 'records/target/combat/rig'       # COMBAT's render folder (rege
 SHEET_DIR = 'records/target/character/the_three_enemies'
 STAMP = 'three-enemies-10-24'
 PER_TYPE = 3
+COUNT = {'Mechanic': 3, 'Runners': 8, 'Heavy': 5}   # round 2: sized to the bands the fight deals (the Mechanic heads his machines alone)
 
 # ---- THE THREE TYPES ------------------------------------------------------------------------------------------------
 # A type is a look like a gang's: its own dials, its colours (the outfit and the gear read a look's cloths as its
@@ -80,7 +81,7 @@ TYPES = {
         # what is under it: a sand duster on dark coveralls, a soot trench on a bone henley, a black split tail on rust
         tops=['WORK COVERALLS', 'BONE HENLEY', 'RUST HENLEY'],
         coats=['WASTELAND DUSTER', 'SOOT TRENCH', 'SPLIT-TAIL COAT'],
-        legs=['PATCHED WORK PANTS', 'SOOT CARGOS', 'SLATE WORK PANTS'],
+        legs=['PATCHED WORK PANTS', 'SOOT CARGOS', 'DUST TROUSERS'],   # round 2: no slate (rule 159, the cool fill turns it blue)
         feet=['TALL MOTO BOOTS', 'DUST BROWN BOOTS', 'FIELD BOOTS'],
         kit=[['SCAV TOOL BELT', 'SOOT GLOVES'], ['SOOT TOOL BELT', 'LEATHER GLOVES', 'WORK SUSPENDERS'], ['SCAV TOOL BELT', 'SALVAGE SATCHEL', 'SOOT GLOVES']],
         hats=['WELDER UP', 'WELDER UP', 'WELDER UP'], eyewear=[None, None, None],
@@ -89,31 +90,48 @@ TYPES = {
         what='teenagers in oversized layered streetwear, hoods up or down, scarves over their faces, a sling in the fist',
         stand_in='Colorful', cell='faction_colorful',
         dials=[dict(height=-0.85, belly=-0.55, shoulders=-0.55, hips=-0.10), dict(height=-0.60, belly=-0.45, shoulders=-0.45, hips=0.10),
-               dict(height=-1.00, belly=-0.50, shoulders=-0.60, hips=0.00)],
+               dict(height=-1.00, belly=-0.50, shoulders=-0.60, hips=0.00), dict(height=-0.75, belly=-0.50, shoulders=-0.50, hips=0.05),
+               dict(height=-0.90, belly=-0.60, shoulders=-0.65, hips=-0.05), dict(height=-0.55, belly=-0.40, shoulders=-0.40, hips=0.05),
+               dict(height=-0.70, belly=-0.55, shoulders=-0.50, hips=0.10), dict(height=-0.95, belly=-0.45, shoulders=-0.55, hips=0.00)],
         look=dict(shirt=dict(colour=(48, 48, 52), sleeve='long'), coat=None,
                   trousers=dict(colour=(70, 72, 78), wide=0.03), shoes=dict(colour=(186, 182, 172), kind='sneaker'), belt=None),
-        tops=['HOOD-UP COAL HOODIE', 'LAYERED JERSEY', 'ASH HOODIE'],
+        # round 2: EIGHT, not three. The fight deals a kids' band of up to ten from this one pool (ours.enemy_tiers kids,
+        # count_scale 0.6; every goblin kind reads 'runner') and only a pool smaller than the board repeats a face, so three
+        # put twins on every board past three (121(i)). Layers that show (rule 129): every kid wears a top under a coat, a
+        # vest, a jacket, a poncho or a cape, a value off it. Rule 159: the blue pieces (a denim vest, the outlaw bandana, the
+        # slate and storm greys, which render a hot blue under the rig's cool fill) are out; ash, coal, bone, khaki, rust
+        tops=['HOOD-UP COAL HOODIE', 'LAYERED JERSEY', 'COAL HOODIE', 'CHARCOAL TURTLENECK', 'LONGLINE JERSEY', 'FADED BLACK LONGSLEEVE',
+              'ASH LONGLINE TEE', 'TATTERED TEE'],
         # round 2 (looking, runner_0 at 1:1): one hoodie and a wrap read as one garment, not streetwear layers (rule 129):
         # the hood stays up and the Balenciaga oversize goes over it, a bone cocoon coat a value off the coal (the slate one rendered a hot blue under the rig's cool fill, rule 159)
-        coats=['BONE COCOON COAT', 'STORM JACKET', 'DENIM VEST'],
-        legs=['DROP RISE TROUSER', 'GREY SWEATS', 'BLACK CARGOS'],
-        feet=['GREY SNEAKERS', 'WHITE SNEAKERS', 'BONE SNEAKERS'],
-        kit=[['TRAILING SCARF', 'HAND WRAPS'], ['SALVAGE SATCHEL', 'SOOT HAND WRAPS'], ['OXBLOOD SATCHEL', 'HAND WRAPS']],
-        hats=[None, None, None], eyewear=['FACE ASH FACE WRAP', 'FACE OUTLAW BANDANA', 'FACE FACE WRAP'],
+        coats=['BONE COCOON COAT', 'ASH ASYM COAT', 'BONE VEST', 'LEATHER JACKET', 'KHAKI JACKET', 'HOODED DUST PONCHO', 'COMMA COAT', None],
+        legs=['DROP RISE TROUSER', 'GREY SWEATS', 'BLACK CARGOS', 'BONE DROP TROUSER', 'CHARCOAL CROP TROUSER', 'BLACK DENIM',
+              'DUST TROUSERS', 'LEATHER STACK PANT'],
+        feet=['GREY SNEAKERS', 'WHITE SNEAKERS', 'BONE SNEAKERS', 'COAL MID BOOT', 'ASH SLOUCH BOOT', 'STACKED SOLE BOOT',
+              'WRAPPED BOOTS', 'GREY SNEAKERS'],
+        kit=[['TRAILING SCARF', 'HAND WRAPS'], ['SALVAGE SATCHEL', 'SOOT HAND WRAPS'], ['OXBLOOD SATCHEL', 'HAND WRAPS'],
+             ['CHARCOAL SCARF', 'SOOT HAND WRAPS'], ['DUST SCARF', 'RUCK PACK'], ['HAND WRAPS', 'HIP SASH'],
+             ['BONE SCARF', 'SOOT HAND WRAPS'], ['CHARCOAL ROAD CAPE', 'DUST BROWN BANDOLIER', 'HAND WRAPS']],
+        hats=[None, None, None, 'HAT OXBLOOD SLOUCH BEANIE', 'HAT CHARCOAL WATCH CAP', None, 'HAT SOOT HEAD WRAP', 'HAT SAND KNIT CAP'],
+        eyewear=['FACE ASH FACE WRAP', 'FACE OXBLOOD DUST MASK', 'FACE FACE WRAP', 'FACE CHARCOAL DUST MASK', 'FACE RUST DUST MASK',
+                 'FACE OLIVE DUST MASK', 'FACE FACE WRAP', 'FACE CHARCOAL DUST MASK'],
         pieces=['sling'], cuts=['SHAG', 'HEAVY FRINGE', 'SPRING CURLS', 'SHORT ROPES', 'CURTAIN CUT', 'STATIC', 'HALF SHAVE']),
     'Heavy': dict(
         what='an exo-suit frame strapped over his work clothes in woven leather, a battery on the spine, a crash-bar shield on the left arm',
         stand_in='Remnants', cell='faction_remnants',
         dials=[dict(height=0.30, belly=0.85, shoulders=1.00, hips=0.30), dict(height=0.10, belly=1.00, shoulders=0.90, hips=0.40),
-               dict(height=0.45, belly=0.60, shoulders=1.00, hips=0.20)],
+               dict(height=0.45, belly=0.60, shoulders=1.00, hips=0.20), dict(height=0.20, belly=0.95, shoulders=0.95, hips=0.35),
+               dict(height=0.40, belly=0.70, shoulders=1.00, hips=0.25)],
         look=dict(shirt=dict(colour=(76, 90, 106), sleeve='long'), coat=None,
                   trousers=dict(colour=(66, 66, 68), wide=0.02), shoes=dict(colour=SOOT, kind='boot', top=0.24), belt=None),
-        tops=['WORK COVERALLS', 'STEEL WORK SHIRT', 'OLIVE DRAB TEE'],
-        coats=['QUILTED VEST', 'TACTICAL VEST', 'LEATHER VEST'],
-        legs=['SLATE WORK PANTS', 'KHAKI CARGOS', 'SOOT CARGOS'],
-        feet=['FIELD BOOTS', 'TALL MOTO BOOTS', 'RUST BOOTS'],
-        kit=[['SCAV KNEEPADS', 'LEATHER GLOVES'], ['SOOT GLOVES', 'SOOT GORGET'], ['STEEL SHIN GUARDS', 'LEATHER GLOVES']],
-        hats=[None, 'HAT SCRAP HELM', None], eyewear=['FACE RUBBER GAS MASK', None, 'FACE SHIELD VISOR'],
+        # round 2: FIVE (a heavies' band fields up to five Heavies at count_scale 0.45, orc_warrior and lower_orc_warrior)
+        tops=['WORK COVERALLS', 'BONE BUTTON-UP', 'OLIVE DRAB TEE', 'DUST PLAID SHIRT', 'FADED BLACK LONGSLEEVE'],   # round 2: the steel shirt is blue (rule 159); bone under the olive vest
+        coats=['QUILTED VEST', 'TACTICAL VEST', 'LEATHER VEST', 'OLIVE VEST', "SMITH'S APRON"],
+        legs=['SLATE WORK PANTS', 'KHAKI CARGOS', 'SOOT CARGOS', 'BONE WORK PANTS', 'DUST BROWN TROUSERS'],
+        feet=['FIELD BOOTS', 'TALL MOTO BOOTS', 'RUST BOOTS', 'CHARCOAL BOOTS', 'RANCH BOOTS'],
+        kit=[['SCAV KNEEPADS', 'LEATHER GLOVES'], ['SOOT GLOVES', 'SOOT GORGET'], ['STEEL SHIN GUARDS', 'LEATHER GLOVES'],
+             ['SCRAP PAULDRON', 'SOOT GLOVES'], ['SOOT CHEST PLATE', 'LEATHER GLOVES']],
+        hats=[None, 'HAT SCRAP HELM', None, None, 'HAT DUST WORK CAP'], eyewear=['FACE RUBBER GAS MASK', None, 'FACE SHIELD VISOR', 'FACE ASH SHIELD', None],
         # cycle 1 (looking, heavy_0): a bald or shaved crown takes the rig's up-face dust and a deep skin read as a pale
         # egg; the Heavy wears short hair or the helm
         pieces=['exo', 'crashbar'], cuts=['TEMPLE TAPER', 'HOME CLIPPERS', 'DRY TAPER', 'DEEP TAPER']),
@@ -158,7 +176,7 @@ def roll():
     people = []
     for t in ORDER:
         T = TYPES[t]; seen = set(); i = 0; got = 0
-        while got < PER_TYPE:
+        while got < COUNT[t]:
             P = BB.roll_one(B, T['stand_in'], 'enemy:%s:%d' % (t, i)); i += 1
             rng = random.Random('three enemies:%s:%d' % (t, got))
             k = got
@@ -667,7 +685,7 @@ def batch(n=2):
 def worker(w, n):
     # the order deals the types round by round (a short run still covers all three)
     R = json.load(open(ROLL)); order = []
-    for k in range(PER_TYPE):
+    for k in range(max(COUNT.values())):
         for t in ORDER: order += [p['id'] for p in R if p['gang'] == t and p['id'].endswith('_%d' % k)]
     left = [pid for pid in order if not (made(pid) and fought(pid))]
     for i, pid in enumerate(left):
