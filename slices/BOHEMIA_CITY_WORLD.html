@@ -43157,7 +43157,7 @@ function stepOnce(di){
        second opinion about the number living up here. Ten minutes was very nearly
        right for rough going (FN * MIN_PER_CELL = 10.75), which is why nobody
        noticed the road was not cheaper. */
-    if(cityWalkable(nx,ny)){ city.x=nx; city.y=ny; advance(cityStepMins(nx,ny)); moversAdvance();
+    if(cityWalkable(nx,ny) || travelYardStep(nx,ny)){ city.x=nx; city.y=ny; advance(cityStepMins(nx,ny)); moversAdvance();   /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: the last step of a walk to a town may be into its yard */
       ROAD_LASTDIR=di;   /* __THE_ROAD_IS_A_DECISION__: which way the cab would be going */
       /* __THE_ROAD_INTERRUPTS__: TEN MINUTES OF HIS DAY JUST WENT BY. Hand it to the
          approved director and let the road have its say. This is the whole wiring:
@@ -43894,6 +43894,9 @@ function travelTo(sx,sy,cell){
   var c=null; try{ c=cell ? [cell[0]|0, cell[1]|0] : CBcellAt(sx,sy); }catch(_e){ c=null; }   /* a town or a party tapped hands its own block (mapTapWhat) */
   if(!c) return false;
   var tx=c[0], ty=c[1];
+  /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: a finger on a town's painted ground off the street is a tap on the town (the nearest
+     road to the tapped block, first in scan order, was always its west or north side) */
+  if(!cell && !cityWalkable(tx,ty)){ try{ var tn=townAtDoor(tx,ty,true); if(tn && typeof townTap==='function') return townTap(tn); }catch(_e){} }
   /* A THUMB IS 44 PX WIDE AND A ROOF IS NOT A REFUSAL. If the cell under the
      fingertip cannot be stood on, the nearest one that can within two cells is
      what he meant. Past two cells it is a real refusal and it says so. */
@@ -43920,8 +43923,14 @@ function travelTo(sx,sy,cell){
   if(tx===city.x && ty===city.y){ travelStop(); travelSay('You are standing there.'); return false; }
   var p=cityRoute(city.x,city.y,tx,ty);
   if(!p){ travelSay('No way through to there.'); return false; }
+  return travelPath(p,[tx,ty],false);
+}
+/* A ROUTE SET GOING (travelTo's tail, and townTap's walk to a town's nearest side; yard: its last step is off the street) */
+function travelPath(p,to,yard,town){
+  if(!p || p.length<2) return false;
+  var tx=to[0], ty=to[1];
   var mins=0; for(var i=1;i<p.length;i++) mins+=cityStepMins(p[i][0],p[i][1]);
-  TRAVEL={ path:p, i:1, cells:0, mins:0, to:[tx,ty] };
+  TRAVEL={ path:p, i:1, cells:0, mins:0, to:[tx,ty], yard:!!yard, town:town||null };
   try{ camHold(); }catch(_e){}   /* __THE_CAMERA_KEEPS_THE_CREW__: a journey takes the camera back */
   try{ travelGoes(); }catch(_e){}   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: a tap on a place always goes */
   travelSay('Setting out: '+(p.length-1)+' blocks, about '+Math.round(mins/60*10)/10+' h.');
@@ -43955,14 +43964,14 @@ function travelSteppedCore(moved){
      show 06:21 while the clock already said 06:26, one block behind. Each step repaints it. */
   try{ if(typeof window.__barPaintRead==='function') window.__barPaintRead(); }catch(_e){}
   if(TRAVEL.i>=TRAVEL.path.length){
-    var to=TRAVEL.to, cells=TRAVEL.cells;
+    var to=TRAVEL.to, cells=TRAVEL.cells, town=TRAVEL.town;
     TRAVEL=null;
     /* ARRIVAL IS ALREADY BUILT: the seam lands him on the street of the cell the
        marker is standing on (swapMode, SEAM_INTENT). So arriving says where he is
        and leaves the spread to him -- no teleport, no mode (rule 24). */
     travelSay('Arrived: '+cells+' block'+(cells===1?'':'s')+' crossed.');
     try{ render(); }catch(_e){}
-    try{ loopArrived(to); }catch(_e){}   /* __THE_LOOP_ON_THE_MAP__: a town opens, a JOB starts its fight */
+    try{ loopArrived(to, town); }catch(_e){}   /* __THE_LOOP_ON_THE_MAP__: a town opens, a JOB starts its fight (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: the town walked to) */
   }
 }
 /* ==== /__THE_MAP_IS_HOW_YOU_TRAVEL__ ==== */
@@ -44009,6 +44018,73 @@ function townDoor(x, y){
     var d = Math.abs(cx - city.x) + Math.abs(cy - city.y); if(d < bd){ bd = d; best = [cx, cy]; } }
   return best;
 }
+/* ==== __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__ (RUN 10/25, [any side of a town is its door], rule 186(a)) ====
+   PAOLO 10/25: 'any tile next to a settlement... take me to the nearest tile that lets me enter... it makes me do a full
+   loopy loop around the block.' MEASURED on the demo's valley before writing: of the 14 towns, 12 have street on ONE side
+   only of their own block (Mob one tile, north; Church two, north), and a town opened only from the eight blocks round that
+   one block, so the door was the street tile there nearest him as the crow flies, often across the block from him, and the
+   walk went round it (22 of 111 walks from eight sides, Remnants from the east 11 blocks for 4). A tap on a town's own block
+   (not its picture) was worse: the road nearest the TAPPED block, first in scan order, so always its west or north side.
+   NOW THE TOWN IS WHAT HE SEES: the painter builds a fortress on 4 x 4 blocks, a town 3 x 3, a camp 2 x 2 (vbTownsInput), so
+   a town is touched from any block on or next to that painted ground, and it opens there. The door is the touching block his
+   shortest walk reaches first (fewest blocks, then fewest minutes; one breadth-first search from where he stands), the street
+   beside it or one step off the street onto the town's ground, so the walk never passes the town to reach a far side. That
+   one step is ground only as the last step of a walk to that town: no route cuts through anybody's yard, the roaming
+   parties' roads are as they were, and the old townDoor still answers its other callers (the wipe, a party at a town). */
+function townFoot(t){
+  var tier = t.tier; if (!tier) { try { var rp = vbRegionPlaceOf(t.name); tier = rp && rp.tier ? rp.tier : mapTierOf(t.name); } catch (_e) { tier = 'camp'; } }
+  var n = tier === 'fortress' ? 4 : tier === 'town' ? 3 : 2;   /* the painter's own sizes (vbTownsInput; a region place's vbRegionPatchGeom) */
+  return { x0: (t.x | 0) - (n >> 1), y0: (t.y | 0) - (n >> 1), n: n };
+}
+function townFootDist(f, x, y){
+  var dx = x < f.x0 ? f.x0 - x : x > f.x0 + f.n - 1 ? x - (f.x0 + f.n - 1) : 0, dy = y < f.y0 ? f.y0 - y : y > f.y0 + f.n - 1 ? y - (f.y0 + f.n - 1) : 0;
+  return Math.max(dx, dy);
+}
+function townTouches(t, f, x, y){ return !(x === (t.x | 0) && y === (t.y | 0)) && townFootDist(f, x, y) <= 1; }
+/* the town whose painted ground (x, y) is on or beside, the nearest base first; null if none */
+function townAtDoor(x, y, onlyOn){
+  var bs = null; try { bs = ctBases(); } catch (_e) { bs = null; }
+  if (!bs) return null;
+  var best = null, bd = 1e9;
+  for (var nm in bs) { var b = bs[nm]; if (!b) continue; var t = { name: nm, x: b.x | 0, y: b.y | 0, tier: mapTierOf(nm) };
+    if (townFootDist(townFoot(t), x, y) > (onlyOn ? 0 : 1)) continue;
+    var d = Math.max(Math.abs(t.x - x), Math.abs(t.y - y)); if (d < bd) { bd = d; best = t; } }
+  return best;
+}
+function townDoorWalk(t){
+  var n = 0; try{ n = om.n | 0; }catch(_e){ return null; }
+  if(!n || !t) return null;
+  var f = townFoot(t), sx = city.x | 0, sy = city.y | 0;
+  if(townFootDist(f, sx, sy) <= 1 || Math.max(Math.abs(sx - t.x), Math.abs(sy - t.y)) <= 1) return { door: [sx, sy], path: [[sx, sy]], mins: 0 };
+  var K = function(x, y){ return y * n + x; };
+  var from = {}, mins = {}, seen = {}, layer = [[sx, sy]], best = null;
+  seen[K(sx, sy)] = 1; mins[K(sx, sy)] = 0;
+  for(var depth = 0; layer.length && !best && depth < n * 2; depth++){
+    var next = [];
+    for(var i = 0; i < layer.length; i++){
+      var c = layer[i], m0 = mins[K(c[0], c[1])];
+      for(var d = 0; d < DIRS.length; d++){
+        var nx = c[0] + DIRS[d][0], ny = c[1] + DIRS[d][1];
+        if(nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+        var k = K(nx, ny), on = townTouches(t, f, nx, ny);
+        if(!on && !cityWalkable(nx, ny)) continue;
+        var m = m0 + cityStepMins(nx, ny);
+        if(on){ if(!best || m < best.mins){ best = { at: [nx, ny], prev: c, mins: m }; } continue; }
+        if(seen[k]) continue;
+        seen[k] = 1; from[k] = c; mins[k] = m; next.push([nx, ny]);
+      }
+    }
+    layer = next;
+  }
+  if(!best) return null;
+  var path = [best.at], cur = best.prev;
+  while(cur){ path.push(cur); if(cur[0] === sx && cur[1] === sy) break; cur = from[K(cur[0], cur[1])]; if(path.length > n * n) return null; }
+  path.reverse();
+  return { door: best.at, path: path, mins: best.mins };
+}
+/* the step onto a town's ground is taken only as the last step of a walk to its town (stepOnce asks) */
+function travelYardStep(nx, ny){ return !!(TRAVEL && TRAVEL.yard && TRAVEL.to && TRAVEL.to[0] === nx && TRAVEL.to[1] === ny && TRAVEL.i === TRAVEL.path.length - 1); }
+/* ==== /__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__ ==== */
 /* WHAT THE FINGER IS ON. A town's plate first (it is drawn last, over everything), then a party (drawn over the
    buildings), then a town's building. Returns true when it answered. */
 function mapTapWhat(sx, sy){
@@ -44043,10 +44119,10 @@ function mapTapWhich(sx, sy){
 }
 function townTap(t){
   PARTY_SEL = null;
-  if(Math.max(Math.abs(t.x - city.x), Math.abs(t.y - city.y)) <= 1){ travelStop(); meetWalk(function(){ loopArrived([city.x, city.y]); }); return true; }
-  var door = townDoor(t.x, t.y); if(!door){ travelSay('No way through to ' + t.name + '.'); return true; }
+  if(Math.max(Math.abs(t.x - city.x), Math.abs(t.y - city.y)) <= 1 || townFootDist(townFoot(t), city.x, city.y) <= 1){ travelStop(); meetWalk(function(){ loopArrived([city.x, city.y], t); }); return true; }   /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: on or beside its painted ground */
+  var w = townDoorWalk(t); if(!w){ travelSay('No way through to ' + t.name + '.'); return true; }   /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__ */
   travelStop();
-  return travelTo(0, 0, door) || true;
+  return travelPath(w.path, w.door, !cityWalkable(w.door[0], w.door[1]), t) || true;
 }
 /* ---- THE PHONE'S JOB LIGHTS ITS TOWN ---- */
 window.addEventListener('bohemia-phone-route', function(ev){
@@ -44060,8 +44136,8 @@ function phoneLitPath(){
   var k = city.x + ',' + city.y + '>' + PHONE_LIT.x + ',' + PHONE_LIT.y;
   if(k === PHONE_LIT_KEY) return PHONE_LIT_PATH;
   PHONE_LIT_KEY = k; PHONE_LIT_PATH = null;
-  var door = townDoor(PHONE_LIT.x, PHONE_LIT.y);
-  if(door) PHONE_LIT_PATH = (door[0] === city.x && door[1] === city.y) ? [[city.x, city.y]] : cityRoute(city.x, city.y, door[0], door[1]);
+  var w = townDoorWalk({ name: PHONE_LIT.place, x: PHONE_LIT.x, y: PHONE_LIT.y });   /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: the road the tap will walk */
+  if(w) PHONE_LIT_PATH = w.path;
   return PHONE_LIT_PATH;
 }
 function phoneRouteDraw(ox, oy){
@@ -45087,7 +45163,7 @@ function loopJobAt(x, y){
     if(Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) <= 1) return LOOP.held[i]; }
   return null;
 }
-function loopArrived(to){
+function loopArrived(to, town){
   var x = city.x, y = city.y;
   /* RUN 10/23: ONE FIGHT PER JOB. MEASURED on the stranger's walk: a second touch on the JOB while the camera pulled back
      into its fight called this again and handed the same job over twice; the pay never landed. A job in flight is in flight. */
@@ -45107,7 +45183,7 @@ function loopArrived(to){
     if(!ok) LOOP.fighting = null;
     return;
   }
-  var t = loopTownAt(x, y, 1);
+  var t = (town && town.name && townTouches(town, townFoot(town), x, y) ? { name: town.name, x: town.x | 0, y: town.y | 0, tier: mapTierOf(town.name) } : null) || loopTownAt(x, y, 1);   /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: the town he walked to opens from any block on or beside its painted ground; a walk to anywhere else opens a town only at its gate, as before */
   if(t){ MAP_ARRIVAL = { name: String(t.name || ''), at: performance.now(), seq: ++MAP_ARRIVAL_N }; try{ mapStatePost(); }catch(_e){}   /* __THE_MAP_HEARS__ */
     setTimeout(function(){ if(MEET.up) return; loopOpenTown(t); }, 250); }   /* __MEET_BEFORE_YOU_FIGHT__: a crew met on the same step comes first */
 }

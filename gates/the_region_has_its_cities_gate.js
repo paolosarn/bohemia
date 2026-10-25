@@ -84,8 +84,9 @@ const done = () => { console.log('\nTHE REGION HAS ITS CITIES: ' + pass + ' pass
       await pg.waitForTimeout(500);
       /* the click is the town's (the map's own record of what the finger was on) and the walk to its door begins (or a party on the
          road met him the moment he set out, which only a walk can do) */
-      const walking = await fr.evaluate(() => { const p = BOH_REGION.places.filter(q => q.name === 'BOULDER CITY')[0], dr = townDoor(p.x, p.y), t = window.__MAP_TAP || {};
-        const going = !!(TRAVEL && TRAVEL.to && dr && Math.max(Math.abs(TRAVEL.to[0] - dr[0]), Math.abs(TRAVEL.to[1] - dr[1])) <= 1);
+      const walking = await fr.evaluate(() => { const p = BOH_REGION.places.filter(q => q.name === 'BOULDER CITY')[0], t = window.__MAP_TAP || {};
+        /* RUN 10/25 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__): the walk ends touching the town's painted ground, the nearest side */
+        const going = !!(TRAVEL && TRAVEL.to && townTouches(p, townFoot(p), TRAVEL.to[0], TRAVEL.to[1]));
         return t.what === 'town' && t.name === 'BOULDER CITY' && (going || !!LOOP.fighting || !!(window.MEET && MEET.up)); });
       /* the walk is long (half a day out of the valley) and a roaming party can stop it: that fight is ended by the checker as a
          cleared fight (said), and the walk goes on by the town's own tap; the screen is what is measured */

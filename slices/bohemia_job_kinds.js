@@ -938,6 +938,10 @@
     var town = { name: t.name, x: t.x, y: t.y }, door = gate(town.x, town.y) || [town.x, town.y];
     var here = cheb(city.x, city.y, town.x, town.y) <= 2, out = { id: c.id, place: t.name, here: here, toTown: null, job: null };
     if (!here) out.toTown = legOf(city.x, city.y, door[0], door[1], 1);
+    /* RUN 10/25 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): a tap on the town walks to the side his shortest walk reaches
+       first (the map's townDoorWalk), so the trip it says is that walk, never the old one gate tile's road round the block */
+    if (!here) { try { var dw = root.townDoorWalk ? root.townDoorWalk(town) : null, p1 = 1; try { p1 = pace() || 1; } catch (e) {}
+      if (dw && dw.path) out.toTown = { blocks: dw.path.length - 1, mins: dw.mins / p1 }; } catch (e) {} }
     var kind = kindOf(c), k = K(kind) || {}, row = (DATA && DATA.offers && DATA.offers[c.id]) || {}, pl = row.place || null, mult = (kind === 'haul-caravan' && k.pace) ? k.pace : 1;
     var real = pl && pl.real ? realPlace(pl.real) : null;
     if (here) {
