@@ -152,6 +152,41 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-killer-company): 10/25 LATEST -- TWO ROWS SHIPPED (rules 162 and 151(b)(g), research only, no card, no game code touched;
+the coordinator opened this chat under rule 112, no check-in, this block is the report; pages committed in pieces as each landed).
+1 [the killer company: stats and level-ups] SHIPPED be8aa11e: records/BOHEMIA_TUNING_THE_KILLER_COMPANY_STATS_AND_LEVEL_UPS_10_25_26.md,
+bank banks/BOHEMIA_TUNING_THE_KILLER_COMPANY_10_25_26.json (+ .cells.ndjson, the resume cache), bench tools/bohemia_tuning_the_killer_company.js
+(--lines, --fights, --write, --control, --stamp; the stamp is the fight's fingerprint plus the bench's own logic, never its cell list).
+Battle Brothers' level-up exactly from the wiki (three starred stats 60/30/10, three picks of eight a level on star-widened rolls, veterans
++1 on three, cap 33, defence past 50 halved, resolve the morale roll capped 95). Rolled 2,000 times a cell: his old plan at 11, stars
+kept, front 89 melee skill / 35 melee defence (the player benchmark is about 90 / 40), ranged defence 5 or 6 on all twelve. On the live
+fight (85 cells x 100 seeded fights, late and endgame kit, brigands, a gun line half shooters, the kids, 13 to 40): THREE PICKS CANNOT
+HOLD BOTH (fatigue for ranged defence: 12 v 30 the gun line 77 -> 98 won, 12 v 30 brigands in endgame kit 88 -> 33). THE NUMBER: FOUR
+PICKS a level, his shape plus ranged defence exactly; 98 in 100 v 30 shooters, 1.33 down; five near invincible and no choice left. The
+fourth pick is a real choice: ranged defence v guns, hitpoints v heavy hordes, resolve v screamers (12 v 20 ghosts: 10.9 men ran on
+the old plan, 3.0 with resolve in front). Rolls stay Battle Brothers'; veterans +1 on four; stars exactly three, the founding crew too
+(roster.js manOf D1 still open). The endgame is level 11 (fight ~80) to 16 (~200). The map caps fights at 13, where every level-11
+company wins 99: the killer company is tested only past 13.
+2 [what you can see in a city, and money teaches] SHIPPED 3c9d8583: records/BOHEMIA_TUNING_WHAT_YOU_SEE_IN_A_CITY_AND_MONEY_TEACHES_10_25_26.md,
+bench tools/bohemia_tuning_money_teaches.js. SIGHT (384 m a block, sources on the page): seen at 4 blocks down your street by day, known
+at 1, a face at 60 m, a cross street only from its intersection, your own block around you, night 1 block under a moon and your own
+without, a light at 7 blocks day or night, a roof 4 blocks round; FACTIONS' 50-block base circle is 13 times the eye's reach in a city.
+MONEY (live files + live fight): twelve on night one is 181 to hire, 4 nights of food, 10 enemies for every 30, 62 dead in 100 fights
+against 1 for the three, so the lesson already bites. THE FINDING: he said fed AND paid and nobody is paid: engine/bohemia_goodbros.js
+wageChargedHere 0 'bought once, rule 56, applied here too', and rule 56 is the RETINUE. Proposed: the hired man's wage in the nightly
+bill, the founding crew eats unpaid (three keep 48 nights, rule 117; twelve get 3); the pay climbs with renown (the level-11 twelve
+cost 82 a night against a 90 job, about x4.5 by the late game).
+THE ONE TABLE: sections F (the level-up) and G (sight and money) added by hand at the end of records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md;
+the seed tool's --write would drop them (the note is in the section header).
+NOTES POSTED: RUN [sight numbers], [money numbers], [level-up numbers]; RUN TWO [money numbers], [level-up numbers].
+SUITE: pre-push pass is CANON ROT, red 11/2 on main before and after these files (77 gone, 8 archived-as-live: none of them mine).
+NOT MEASURED: four picks against the kids past 40, a three-pick company at level 16 against the brigands, the money week with fights
+played day by day (the runway is idle nights plus the measured fight losses, not a played week).
+NEXT ON THE BOARD: [the aim he sees], then [the first week's losses], then [the 32 situations].
+[bb level-up: three picks of eight, the stars widen the roll; ours four, because the guns make ranged defence the stat nobody could skip]
+[analog horror: at night you never see them, only their light, seven blocks off]
+[PENDING Paolo]: none.
+
 TUNING (tuning-first-minutes): 10/24 LATEST -- [the first minutes that make you care] SHIPPED 07347946 (rule 146(c)(d), research only,
 no card, no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
 RECORD: records/BOHEMIA_TUNING_THE_FIRST_MINUTES_THAT_MAKE_YOU_CARE_10_24_26.md. BANK (four fresh boots, draft:true):
