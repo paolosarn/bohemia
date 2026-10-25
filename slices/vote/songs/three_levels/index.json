@@ -25,17 +25,6 @@
    "id": "sounds-three-levels-ghost-in-the-grid-10-25"
   },
   {
-   "name": "SLOW BLEED",
-   "slug": "slow_bleed",
-   "dir": "vote/songs/three_levels/slow_bleed/",
-   "levels_db": [
-    -46.5,
-    -47.29,
-    -54.43
-   ],
-   "id": "sounds-three-levels-slow-bleed-10-25"
-  },
-  {
    "name": "SATELLITE PRAYER",
    "slug": "satellite_prayer",
    "dir": "vote/songs/three_levels/satellite_prayer/",
@@ -45,17 +34,6 @@
     -31.38
    ],
    "id": "sounds-three-levels-satellite-prayer-10-25"
-  },
-  {
-   "name": "SLOW CREEP",
-   "slug": "slow_creep",
-   "dir": "vote/songs/three_levels/slow_creep/",
-   "levels_db": [
-    -45.15,
-    -41.58,
-    -44.94
-   ],
-   "id": "sounds-three-levels-slow-creep-10-25"
   },
   {
    "name": "THE PIT BOSS IS GONE",
@@ -89,17 +67,6 @@
     -30.15
    ],
    "id": "sounds-three-levels-campfire-confession-10-25"
-  },
-  {
-   "name": "REPO MAN",
-   "slug": "repo_man",
-   "dir": "vote/songs/three_levels/repo_man/",
-   "levels_db": [
-    -36.67,
-    -33.14,
-    -31.87
-   ],
-   "id": "sounds-three-levels-repo-man-10-25"
   }
  ]
 }

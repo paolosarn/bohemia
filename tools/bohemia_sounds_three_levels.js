@@ -187,8 +187,6 @@ async function record(which) {
     return { spec, trimDb: +m[1] };
   })() : null;
   fs.mkdirSync(OUTD, { recursive: true });
-  const IDX = path.join(OUTD, 'index.json');
-  const index = fs.existsSync(IDX) ? JSON.parse(fs.readFileSync(IDX, 'utf8')) : { made: '10/25', tool: 'tools/bohemia_sounds_three_levels.js', songs: [] };
   for (const name of list) {
     const t0 = Date.now(), sl = slug(name), dir = path.join(OUTD, sl);
     fs.mkdirSync(dir, { recursive: true });
@@ -215,10 +213,8 @@ async function record(which) {
         gain_db: R[lv].gain_db, clipped_samples: R[lv].clipped, parts_added: R[lv].counts, audio: m[lv - 1] })),
       a_fight: { file: path.relative(ROOT, ro), mp3_md5: md5(fs.readFileSync(ro)), bytes: fs.statSync(ro).size, audio: m[3] } };
     fs.writeFileSync(path.join(dir, 'measured.json'), JSON.stringify(out, null, 1) + '\n');
-    index.songs = index.songs.filter(x => x.name !== name).concat([{ name, slug: sl, dir: 'vote/songs/three_levels/' + sl + '/',
-      levels_db: out.levels.map(x => x.audio.phone_rms_db), id: 'sounds-three-levels-' + sl.replace(/_/g, '-') + '-10-25' }]);
-    index.songs.sort((a, c) => SONGS.indexOf(a.name) - SONGS.indexOf(c.name));
-    fs.writeFileSync(IDX, JSON.stringify(index, null, 1) + '\n');
+    /* the list the pages read is written only from the registry (rebuild): a song rendered and not yet carded is never on it
+       (MEASURED 10/25: this line wrote all nine while three had no card, between a rebuild and its commit, and main listed them) */
     console.log(name + ' in ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s; phone rms L1 ' + m[0].phone_rms_db + ' L2 ' + m[1].phone_rms_db + ' L3 ' + m[2].phone_rms_db + ' run ' + m[3].phone_rms_db + '; clipped ' + [1, 2, 3].map(l => R[l].clipped).join('/'));
   }
   await Promise.all(A.map(x => x.b.close()));
