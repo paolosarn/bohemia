@@ -15,6 +15,14 @@ butcher's cleaver 6, the militia and boar spears 10, the morning star 4, the han
 HANDS: the fight draws only guns (rule 120(a)); a man with a pipe stood, walked and swung bare-fisted. About 150 carry a
 shield (the wooden shield, the car door, and the buckler); none was drawn.
 
+MEASURED AGAIN on the shipped file mid-round (the same sixteen fights, 336 men): 142 carry a shield, none on the back. The
+two commonest are the pipe and a car door (48: the bludgeon and the wooden shield) and THE PISTOL AND A CAR DOOR (32: the
+dagger row is our pistol, ours.gun_classes, and it carries the wooden shield): rule 149(b)'s own words, a third of all the
+shields. Every melee and shield row those men hold maps to a thing; the 48 light crossbows and 16 handgonnes are our rifle
+and shotgun (COMBAT's guns). By look: YOU's crew 192 men (80 shields, 32 two-handers, town men 1, 2, 3, 6, 8, 11 among
+them), the homeless 48 (20, 22), the anarchists 48 (18, 24), the thug tier 16 (10, 2), the mob 16 (8, 4), the reds 16
+(6, 4): the render order follows them.
+
 ## WHAT WAS BUILT
 THE SOURCE, KEPT (rule 128): records/target/animation/BOHEMIA_MELEE_AND_SHIELD.json. THE TOOL:
 tools/bohemia_animation_melee_in_hand.py. THE SHEETS: slices/rig_melee/<look>.webp (his own new keys), <look>_props.webp

@@ -301,6 +301,9 @@ if k0:
        any('PIdle k0 S' in x for x in hand_faults({k0: me})) and any('wind E' in x for x in swing_faults({k0: me})))
 
 # ---------------------------------------------------------------------------------------------------- G the shield arm
+KNEEL_REACH = 0.55   # metres: how far before his feet a man on one knee plants a shield (his knee and forearm)
+
+
 def shield_faults(E, only=None):
     """facing the glass (S): CARRIED, the shield's middle on his left (the glass's right of his middle) and over his body;
     THE BLOCK, its top a tenth of his height higher than carried and up at his face (within a quarter of his height under
@@ -318,14 +321,16 @@ def shield_faults(E, only=None):
             ct = c[2] + np.nonzero(c[0])[0].min(); bt = b[2] + np.nonzero(b[0])[0].min()
             if ct - bt < h * 0.1: out.append('%s %s block: only %d px higher than carried' % (k, sh, ct - bt))
             if bt > crown + h * 0.25: out.append('%s %s block: its top %d px under his crown' % (k, sh, bt - crown))
-            # planted: its foot on the ground before him, never floating; its near end sits lower on the glass by as much as half
-            # its width seen across the 45 degree ground (nearer the camera), never more
+            # planted: its foot on the ground before him, never floating. In profile its near end sits lower on the glass by as
+            # much as half its width seen across the 45 degree ground (nearer the camera), never more; facing the glass it stands
+            # before his knee, lower by the kneel's reach (measured 10/25: 19 to 21 px for the car door, the crash bar and the
+            # riot shield alike, whatever their width), never more than KNEEL_REACH
             near = D['props'][sh]['w'] / 2 * 57 * 0.7071 + 3
             for f, nm in ((0, 'S'), (2, 'E'), (6, 'W')):
                 lp = prop(k, sh, 'SCover', 0, f, e)
                 if lp is None: continue
                 lb = lp[2] + np.nonzero(lp[0])[0].max()
-                if not -3 <= lb - fy <= near + (D['props'][sh]['w'] * 0.3 * 57 * 0.7071 if f == 0 else 0):
+                if not -3 <= lb - fy <= (KNEEL_REACH * 57 * 0.7071 + 3 if f == 0 else near):
                     out.append('%s %s in cover %s: its foot %+d px from his ground' % (k, sh, nm, lb - fy))
     return out
 
