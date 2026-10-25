@@ -44101,11 +44101,13 @@ function partySkulls(n){ var c = 3; try{ c = crewCount(); }catch(_e){} return n 
    (partyMath 'job', the job's skulls as the job's size, the roster, the day, the difficulty) against crewCount(): fewer than
    his men one star, his men or one more two, more three; the same number the meet card, the phone and the town's board
    show, and it moves as his company grows or shrinks (Battle Brothers' contract difficulty reads your company the same way). ==== */
+/* WORLD [most jobs fit the company] (rule 192(a)(b), Paolo 10/25, newest wins over 146(e)'s count rule): THE STARS ARE THE SKULLS.
+   The count against his men told a day-20 company of six that a one-skull job of seven men was two stars, and he won it 33 in 100.
+   A job's party is now sized FROM its skulls on his company's strength (partyMath 'job', Battle Brothers' contract multiplier), so
+   the skulls are what he will meet: measured on the live fight, one star won 90 to 100 at day 1, 20, 50 and 90, two 70 to 80,
+   three 50 to 80 (tools/bohemia_world_most_jobs_fit.js). A bigger company meets a bigger party under the same stars. */
 function loopJobStars(o){
-  var sk = Math.max(1, Math.min(3, (o && (o.skulls | 0)) || 1)), n = 0;
-  try{ n = partyMath('job', { skulls: sk }).count | 0; }catch(_e){ n = 0; }
-  if(!n) return sk;
-  return partySkulls(n);
+  return Math.max(1, Math.min(3, (o && (o.skulls | 0)) || 1));
 }
 try{ window.loopJobStars = loopJobStars; }catch(_e){}
 /* ==== /__THE_JOBS_STARS__ ==== */
@@ -44570,7 +44572,8 @@ var PARTY_MATH = { roster_strength: { value: { per_man: 10, per_level: 2, strong
   count_words: { value: [{ word: 'A FEW', lo: 2, hi: 3 }, { word: 'SOME', lo: 4, hi: 6 }, { word: 'MANY', lo: 7, hi: 10 }, { word: 'LOTS', lo: 11, hi: 13 }, { word: 'A PLETHORA', lo: 14, hi: 99 }] },
   day_cap: { value: 100 }, difficulty_by_pick: { value: { 'new': 0, seen: 1, out: 2 } }, difficulty_count_mult: { value: [0.85, 1, 1.15, 1.3] },
   job: { value: { strength_per_enemy: 10, skull_mult: { '1': 0.8, '2': 1.0, '3': 1.3 }, min: 2, max: 13 } },
-  roaming: { value: { base: 2, per_day: 0.1, per_block_from_town: 0.1, per_strength: 0.01, min: 2, max: 13 } }, loaded: false };   /* the file's numbers until it loads */
+  roaming: { value: { base: 2, per_day: 0.1, per_block_from_town: 0.1, per_strength: 0.01, min: 2, max: 13 } }, loaded: false,
+  job_bb: { value: { k: 0.94, exp: 0.89, mult_min: 0.75, mult_max: 5, base_men: { '1': 4, '2': 6, '3': 8 }, dress: [[30, 1], [84, 20], [162, 50], [288, 90]] } } };   /* the file's numbers until it loads */
 try{ fetch('../records/target/bb/party_math.json').then(function(r){ return r.json(); }).then(function(j){ j.loaded = true; PARTY_MATH = j; }).catch(function(){}); }catch(_e){}
 function partyV(k){ return PARTY_MATH[k] && PARTY_MATH[k].value; }
 /* the roster's strength: the strongest 12 (14 for the wide origins) at 10 + 2 a level past 1; a man with no stated level
@@ -44588,13 +44591,30 @@ function partyRosterStrength(){
 }
 function partyWord(n){ var W = partyV('count_words') || []; for(var i = 0; i < W.length; i++) if(n >= W[i].lo && n <= W[i].hi) return W[i].word; return n < 2 ? 'ONE' : 'A FEW'; }
 function partyDays(){ return Math.max(1, Math.min(partyV('day_cap') || 100, loopDay() || 1)); }
+/* the day a typical company stands this strong (job_bb.dress, [strength, day] in order): what a job's enemies are dressed for */
+function partyDressDay(str, T){
+  if(!T || !T.length) return partyDays();
+  if(str <= T[0][0]) return T[0][1];
+  for(var i = 1; i < T.length; i++) if(str <= T[i][0]) return Math.round(T[i - 1][1] + (T[i][1] - T[i - 1][1]) * (str - T[i - 1][0]) / (T[i][0] - T[i - 1][0]));
+  return Math.min(partyV('day_cap') || 100, Math.round(T[T.length - 1][1] + (str - T[T.length - 1][0]) / 4));
+}
 function partyDifficulty(){ var m = partyV('difficulty_by_pick') || {}; var c = LOOP.start && LOOP.start.combat; return (c && m[c] != null) ? m[c] : 1; }   /* COMBAT's scale: 0 Beginner .. 3 Legendary; SEEN IT is Veteran */
 function partyTownDistance(x, y){ var best = 99; try{ var bs = ctBases() || {}; for(var n in bs){ var b = bs[n]; best = Math.min(best, Math.max(Math.abs(b.x - x), Math.abs(b.y - y))); } }catch(_e){} return best === 99 ? 0 : best; }
 /* kind 'job' {skulls} or 'roaming' {x, y}: the party's size and what the fight needs to dress it */
 function partyMath(kind, ctx){
   ctx = ctx || {};
   var str = (ctx.strength != null) ? +ctx.strength : partyRosterStrength(), days = partyDays(), dif = partyDifficulty(), mult = (partyV('difficulty_count_mult') || [])[dif] || 1, n, P;   /* ctx.strength: WORLD [the roster scales the enemy], what another crew would meet */
-  if(kind === 'job'){ P = partyV('job'); n = str / P.strength_per_enemy * (P.skull_mult[String(ctx.skulls || 1)] || 1) * mult; }
+  /* WORLD [most jobs fit the company] (rule 192, Paolo 10/25: 'why is the game so in love with throwing overpowered enemies in like 75%
+     of the quests I take... look how Battle Brothers does it'): a JOB is Battle Brothers' contract: its count is the skulls' base times
+     the contract multiplier, 0.94 x (strength / 100)^0.89 held to 0.75..5 (Grok 105), never one enemy a man; and it is DRESSED for
+     the day a typical company stands that strong, never the calendar (Battle Brothers scales a contract by the company, a roaming
+     party by the days). records/target/bb/party_math.json job_bb; measured by tools/bohemia_world_most_jobs_fit.js */
+  var B = (kind === 'job') ? partyV('job_bb') : null;
+  if(kind === 'job' && B){ P = partyV('job');
+    var bm = Math.max(B.mult_min, Math.min(B.mult_max, B.k * Math.pow(str / 100, B.exp)));
+    n = (B.base_men[String(ctx.skulls || 1)] || B.base_men['2']) * bm * mult;
+    days = partyDressDay(str, B.dress); }
+  else if(kind === 'job'){ P = partyV('job'); n = str / P.strength_per_enemy * (P.skull_mult[String(ctx.skulls || 1)] || 1) * mult; }
   else { P = partyV('roaming'); var dist = (ctx.x != null) ? partyTownDistance(ctx.x, ctx.y) : 0;
     n = (P.base + P.per_day * (days - 1) + P.per_block_from_town * dist + P.per_strength * str) * mult; }
   n = Math.max(P.min, Math.min(P.max, Math.floor(n + 0.5)));

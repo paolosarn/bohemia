@@ -85,6 +85,44 @@
   "source": "ours (draft): a job 'scales with the strength of your roster, the skulls, and the type' (reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt:105); one enemy per 10 points of roster strength (one level-1 man) at two skulls, calibrated so a fresh three-man crew's one-skull job is a few (rule 75b's anchor)",
   "quote": "Contract difficulty scales with the strength of your roster, the difficulty rating (skulls), the type of contract"
  },
+ "job_bb": {
+  "value": {
+   "k": 0.94,
+   "exp": 0.89,
+   "mult_min": 0.75,
+   "mult_max": 5,
+   "base_men": {
+    "1": 4,
+    "2": 6,
+    "3": 8
+   },
+   "dress": [
+    [
+     30,
+     1
+    ],
+    [
+     84,
+     20
+    ],
+    [
+     162,
+     50
+    ],
+    [
+     288,
+     90
+    ]
+   ]
+  },
+  "source": "reference/library/grok/GROK_ASK_105_KEYBOARD_CONTRACTS_SCALING_2026_10_24.md (Grok, unverified, PASSED FILTER 10/25; the wiki's Game Mechanics page agrees on the inputs): k, exp, mult_min, mult_max are Battle Brothers'; base_men and dress are OURS (WORLD [most jobs fit the company], rule 192, 10/25), calibrated on the live fight by tools/bohemia_world_most_jobs_fit.js",
+  "quote": "The final multiplier is 94 percent times (1 percent times roster strength) raised to the power of 0.89. The multiplier cannot be lower than 0.75 or higher than 5. / Non-contract locations and most roaming parties scale mainly with days and distance to civilization.",
+  "ours": [
+   "base_men",
+   "dress"
+  ],
+  "why": "Rule 192 (Paolo 10/25: 'why is the game so in love with throwing overpowered enemies in like 75% of the quests I take... look how Battle Brothers does it'). MEASURED on the live fight before: a job's count grew one for one with his men and their levels (job.strength_per_enemy) AND its enemies were dressed by the calendar day, so a day-20 company of six at level 3 met 7 to 11 men dressed for day 20: a one-skull job won 33 in 100, three skulls 13, an enemy OUTCLASSED him in 97 to 100 fights. Battle Brothers scales a contract by the company's strength alone, bent down (^0.89) and floored (0.75), and only roaming parties by the days. NOW a job's count is base_men[skulls] x that multiplier x the difficulty, and it is DRESSED for the day a typical company stands that strong (dress: [strength, day], the company of tools/bohemia_world_most_jobs_fit.js: day 1 a new crew of three, day 20 six at level 3, day 50 nine at 5, day 90 twelve at 8). Calibrated (30 fights a cell): one skull won 90 to 100 at every point, two 70 to 80, three 50 to 80 (a real risk, the stars say so); a crew of three at day 6 and 30: 97, 67 to 73, 30 to 37."
+ },
  "roaming": {
   "value": {
    "base": 2,

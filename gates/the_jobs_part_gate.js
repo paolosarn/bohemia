@@ -158,8 +158,12 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       const s1 = await size();
       ok('R4 after: ' + (s1.roster ? s1.roster.n : '?') + ' men, strength ' + s1.strength + ': a two-skull job is ' + s1.job2 + ' (' + s1.word2 + '), three skulls ' + s1.job3 + ', a roaming party ' + s1.roam,
         !!s1.roster && s1.roster.n >= s0.roster.n + 9 && s1.strength >= s0.strength + 90);
-      ok('R5 FILL THE ROSTER AND THE JOBS GROW (Battle Brothers: contracts scale with the roster): two skulls ' + s0.job2 + ' -> ' + s1.job2 + ', three ' + s0.job3 + ' -> ' + s1.job3,
-        s1.job2 >= s0.job2 + 5 && s1.job3 > s0.job3);
+      /* WORLD 10/25 (rule 192): the growth is Battle Brothers' contract multiplier, 0.94 x (strength / 100)^0.89 held to 0.75..5, on
+         the skulls' base (party_math.json job_bb), never one enemy a man: the jobs grow, bent down */
+      const bb = await fr.evaluate(([a, b]) => { const B = partyV('job_bb'), m = s => Math.max(B.mult_min, Math.min(B.mult_max, B.k * Math.pow(s / 100, B.exp)));
+        return { r0: m(a), r1: m(b) }; }, [s0.strength, s1.strength]);
+      ok('R5 FILL THE ROSTER AND THE JOBS GROW (Battle Brothers: contracts scale with the roster, bent down): two skulls ' + s0.job2 + ' -> ' + s1.job2 + ', three ' + s0.job3 + ' -> ' + s1.job3 + ' (the multiplier ' + bb.r0.toFixed(2) + ' -> ' + bb.r1.toFixed(2) + ')',
+        s1.job2 > s0.job2 && s1.job3 > s0.job3 && bb.r1 > bb.r0);
       ok('R6 and the roaming parties only a little (the wiki: \'slightly\'): ' + s0.roam + ' -> ' + s1.roam, s1.roam >= s0.roam && s1.roam - s0.roam <= 3);
       await shot('R_after_hire');
       /* the fight he walks into: a crew job (today's kind) sized as the company stands when he gets there */
@@ -167,7 +171,8 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       await leave();
       const j = await job('qd-s10');
       const want = j ? await fr.evaluate((sk) => partyMath('job', { skulls: sk }).count, j.skulls) : 0;
-      ok('R7 a crew job taken ("' + title + '", ' + (j ? j.skulls : '?') + ' skulls): ' + (j ? j.crew + ' of them at ' + j.target.x + ',' + j.target.y + ' (the math says ' + want + ' for twelve men)' : 'no job'), !!j && j.crew === want && j.crew > s0.job2);
+      const three = j ? await fr.evaluate((sk) => partyMath('job', { skulls: sk, strength: 30 }).count, j.skulls) : 0;   /* the same job for three recruits */
+      ok('R7 a crew job taken ("' + title + '", ' + (j ? j.skulls : '?') + ' skulls): ' + (j ? j.crew + ' of them at ' + j.target.x + ',' + j.target.y + ' (the math says ' + want + ' for twelve men, ' + three + ' for three)' : 'no job'), !!j && j.crew === want && j.crew > three);
       if (j) {
         /* what the map hands the fight, read where it hands it (the one door) */
         await fr.evaluate(() => { if (window.__JP_WRAP) return; window.__JP_WRAP = 1; const f = cityHandOver;

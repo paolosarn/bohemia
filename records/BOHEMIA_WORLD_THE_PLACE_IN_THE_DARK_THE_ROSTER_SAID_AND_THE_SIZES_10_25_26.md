@@ -163,3 +163,44 @@ trip; 'Take it' makes the job where the trip said (the patrol's first post [36,5
 map's own 'Setting out: 17 blocks, about 1.5 h.' against the trip's 17 blocks, 1.52 h; the real places (PRIMM 135 blocks about
 20 hours from ANARCHISTS, HOOVER DAM, RAILROAD PASS, the lodge); the phone: '3 H TO REMNANTS, THEN 1 DAY TO PRIMM' and the
 walk to REMNANTS 'Setting out: 37 blocks, about 3.4 h.'
+
+## 6. MOST JOBS FIT THE COMPANY (rule 192, first on the board mid-round; CLAIMED and built the same round)
+
+His words, 10/25: 'I don't know why the game is so in love with throwing overpowered enemies in like 75% of the quests that I take...
+look how Battle Brothers does it.'
+
+MEASURED FIRST (tools/bohemia_world_most_jobs_fit.js: the live fight's own rules, TUNING's engine, AUTO both sides, 30 fights a cell;
+the company as it would stand: day 1 a new crew of three, day 20 six at level 3, day 50 nine at 5, day 90 twelve at 8):
+
+| | before (one enemy a man, dressed for the calendar) | now (Battle Brothers' contract math, dressed for his strength) |
+|---|---|---|
+| day 1, 1/2/3 skulls | 2, 3, 4 men: won 100, 100, 80 | 3, 4, 4 men: won 100, 80, 80 |
+| day 20, six at L3 | 7, 8, 11 men: won 33, 37, 13; outclassed 97 to 100 | 3, 5, 6 men: won 90, 70, 50; outclassed 63 to 90 |
+| day 50, nine at L5 | 13, 13, 13: won 50, 50, 50 | 6, 9, 12: won 100, 80, 67 |
+| day 90, twelve at L8 | 13, 13, 13: won 77 each | 10, 13, 13: won 97, 77, 77 |
+| win per star | 1★ 100 (1 cell), 2★ 74, 3★ 40 | 1★ 97, 2★ 77, 3★ 69 |
+
+THE CAUSES, all in the job math: (1) a job's count grew one enemy for each man AND each two levels of his (party_math job:
+strength_per_enemy 10), and the 13-man cap flattened every star past day 50; (2) its enemies were dressed for the calendar day while
+Battle Brothers scales a contract by the company's strength alone (only roaming parties by the days); (3) the stars counted the party
+against his men, so a one-skull job of seven men against his six read two stars and was lost two times in three. ALSO MEASURED: the
+board's shelf is Battle Brothers-shaped (17 one-skull, 16 two, 6 three of 39), but the phone shows the two best paid in the valley
+(rule 148, his) and pay is 30 a skull, so 94 in 100 of the phone's jobs are three skulls: the phone hands him the hardest work.
+
+BUILT:
+- records/target/bb/party_math.json job_bb: Battle Brothers' contract multiplier (Grok 105: 0.94 x (strength / 100)^0.89 held to
+  0.75..5) on a base a skull (OURS, calibrated: 4, 6, 8) times the difficulty; and the dressing: a job's party is dressed for the day
+  a typical company stands that strong ([30, 1], [84, 20], [162, 50], [288, 90]), a roaming party still for the calendar.
+- RUN's partyMath reads it (the map's own numbers until the file loads); loopJobStars: THE STARS ARE THE SKULLS (192(a)); RUN's
+  THE JOB'S STARS gate follows (S1 the stars are the skulls; S2 a bigger company keeps the stars and meets a bigger party).
+- NO TEST SETTING LEAKS (192(c)), looked for: no forced superior enemy, tier floor or late mix in the map, the shell or the fight;
+  ours.json enemy_tiers.difficulty_days adds days only above Veteran (the door's default is Veteran).
+- NOT MINE, NOTED: COMBAT's OUTCLASSES YOU mark (rule 143(b): three levels over his best, the enemy's level read off his row's xp)
+  fires on ordinary middle-tier raiders against a level-3 company: in 63 of 100 one-star day-20 fights he wins 90 of. With
+  ours.json enemy_tiers.leader_from_count 4, every party of four or more carries a leader. The mark reads 'overpowered' when the
+  fight is not; NOTE on COMBAT's board with the numbers. TUNING: base_men and dress are the felt numbers for its one table.
+
+PROOF: gates/most_jobs_fit_the_company_gate.js 5/0: M1 the stars tell the truth at day 1, 20, 50, 90 (1★ 85+, 2★ 60+, 3★ 30 to 90);
+M2 at most 15 in 100 of a board's jobs lost more often than won (0 at every point); M3 the gate bites (the old math fails M1: day
+20 one star won 30); M4 the demo uses it (a new crew's job dressed for day 1 on day 40, a roaming party for day 40, the stars the
+skulls).

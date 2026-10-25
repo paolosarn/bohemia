@@ -10,7 +10,7 @@
 
    LEGS, on the demo:
      P1 the file: every input carries its Battle Brothers source; every coefficient that is ours says so
-     P2 a fresh crew's first one-skull job is A FEW; the Lone Wolf's is the floor; the Block Watch's is MANY
+     P2 a fresh crew's first one-skull job is A FEW; the Lone Wolf's is the floor; the Block Watch's more (SOME, rule 192's bent math)
      P3 *** DAY ONE AND DAY ONE HUNDRED DIFFER *** on the road: a few early thugs against lots, late tier, in the fight
      P4 *** THE FIGHT DEALS THE PARTY, NOT ITS OWN NINE *** (the enemy count in the fight is the party's)
      P5 the combat difficulty raises the count (OUTLIVED IT over NEW HERE, the same day and road)
@@ -52,8 +52,10 @@ const PM = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_m
     const job = await fr.evaluate((J) => { const keep = LOOP.start, r = {};
       for (const k in J) { LOOP.start = J[k]; r[k] = partyMath('job', { skulls: 1 }); }
       LOOP.start = keep; return r; }, jobs);
-    ok('P2 a fresh crew\'s first one-skull job is A FEW, the Lone Wolf\'s the floor, the Block Watch\'s MANY (' + ['newcrew', 'wolf', 'watch'].map(k => k + ' ' + job[k].count + ' ' + job[k].word + ' from strength ' + job[k].strength).join('; ') + ')',
-      job.newcrew.word === 'A FEW' && job.wolf.count === PM.job.value.min && job.watch.word === 'MANY');
+    ok('P2 a fresh crew\'s first one-skull job is A FEW, the Lone Wolf\'s the floor, the Block Watch\'s more (' + ['newcrew', 'wolf', 'watch'].map(k => k + ' ' + job[k].count + ' ' + job[k].word + ' from strength ' + job[k].strength).join('; ') + ')',
+      /* WORLD 10/25 (rule 192, newest wins): a job is Battle Brothers' contract math, bent down (party_math.json job_bb), so the Block
+         Watch's twelve meet more than a new crew's three on the same one-skull job, but SOME, not MANY (one enemy a man is gone) */
+      job.newcrew.word === 'A FEW' && job.wolf.count === PM.job.value.min && job.watch.count > job.newcrew.count && ['SOME', 'MANY'].indexOf(job.watch.word) >= 0);
 
     /* P3, P4, P5: road fights through the one door, counted on the fight's own board */
     const road = async (day, combat) => {
