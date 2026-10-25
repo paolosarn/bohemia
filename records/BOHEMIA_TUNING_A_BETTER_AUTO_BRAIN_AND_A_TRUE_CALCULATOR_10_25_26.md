@@ -255,3 +255,47 @@ penalty, kills the two-round dance).
 FOR US: focus is the team's no-overkill value (damage over the hitpoints LEFT after what the men before him this round
 already put in); the screen is a melee man's tile between a foe and a shooter (the foe's path to the shooter runs through his
 ring), scored as the damage it saves the shooter.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+## 4. THE CALCULATOR (rule 176(c)(d), rule 180(d))
+
+WHAT IT IS TODAY (slices/BOHEMIA_FIGHT.html line 3763 on): a second copy of the same rules (the same aiStep: THE SAME BRAIN,
+already) is handed the frozen board and plays it out on AUTO for BOTH sides, ODDS_RUNS = 24 times, in a worker; the colour
+goes on the tin after ODDS_FIRST = 8 runs and is refined to 24; a run stops at ODDS_STEPS = 6,000 brain steps. Each run is
+WORTH (oddsRunValue, rule 144(e)(f)) 1 for a win with nobody down, ours.odds_colour.down_value (0.5) times the share still
+standing for a win with men down and none dead, and 0 for a loss, a death, or a run that did not end. The hidden number is
+the mean worth; green at 0.8 and over ('turn'), the beat's glow at 0.92.
+
+### 4a. HOW MANY RUNS FOR A STEADY NUMBER (the arithmetic; the citations are in 3d and below)
+A read of n runs has a standard error of root(p(1-p)/n); the 95% margin is 1.96 of those.
+
+| runs | margin at a true 50 | at a true 80 | at a true 90 |
+|---|---|---|---|
+| 8 (the first colour today) | +-35 points | +-28 | +-21 |
+| 24 (the full read today) | +-20 | +-16 | +-12 |
+| 64 | +-12 | +-10 | +-7 |
+| 250 | +-6 | +-5 | +-4 |
+
+Runs for a margin E at 95%: n = 1.96^2 p(1-p) / E^2: +-5 points takes 385 runs at 50 and 246 at 80; +-10 takes 97 and 62.
+WHAT THE TIN DOES WRONG FROM NOISE ALONE (binomial, the read's own worth taken as a win rate):
+
+| the true chance | read at 8 runs | read at 24 | read at 64 |
+|---|---|---|---|
+| 70 (should be red) reads GREEN | 26 in 100 | 11 in 100 | 3 in 100 |
+| 85 (should be green) reads RED | 34 in 100 | 29 in 100 | 15 in 100 |
+| 90 (should be green) reads RED | 19 in 100 | 9 in 100 | 1 in 100 |
+
+So even with a perfect brain, today's first colour is wrong about one time in four near the line. Eight clean wins out of
+eight cannot even prove the fight is over 80: the Wilson interval (Wilson 1927; Brown, Cai and DasGupta, Statistical
+Science 16(2), 2001) puts its floor at 68; it takes 16 clean wins in 16 to clear 80 at 95%.
+- E. B. Wilson, 'Probable Inference, the Law of Succession, and Statistical Inference', JASA 22(158), 1927.
+- Abraham Wald, 'Sequential Tests of Statistical Hypotheses', Annals of Mathematical Statistics 16(2), 1945 (stop the
+  runs as soon as the side of the line is settled).
+- Paul Glasserman and David D. Yao, 'Some Guidelines and Guarantees for Common Random Numbers', Management Science 38(6),
+  1992 (the same dice for every read, so two reads differ by the board, not the luck).
+- Glenn W. Brier, 'Verification of Forecasts Expressed in Terms of Probability', Monthly Weather Review 78(1), 1950, and
+  Allan H. Murphy, 'A New Vector Partition of the Probability Score', J. Applied Meteorology 12, 1973 (the score of a
+  forecast against what happened; always saying 50 scores 0.25).
+- Mahdi Pakdaman Naeini, Gregory Cooper and Milos Hauskrecht, AAAI 2015, and Chuan Guo et al., 'On Calibration of Modern
+  Neural Networks', ICML 2017 (the reliability table: forecasts in bands, each band's mean forecast against its rate).
