@@ -67,6 +67,17 @@
     -30.15
    ],
    "id": "sounds-three-levels-campfire-confession-10-25"
+  },
+  {
+   "name": "REPO MAN",
+   "slug": "repo_man",
+   "dir": "vote/songs/three_levels/repo_man/",
+   "levels_db": [
+    -36.67,
+    -33.14,
+    -31.87
+   ],
+   "id": "sounds-three-levels-repo-man-10-25"
   }
  ]
 }

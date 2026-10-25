@@ -48,8 +48,8 @@ const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, 
 const md5 = b => crypto.createHash('md5').update(b).digest('hex');
 
 /* ONE LEVEL, ONE PASS of his engine into an OfflineAudioContext. */
-async function level(p, name, lv, outGain, mp) {
-  return p.evaluate(async ({ name, lv, bars, outGain, mp }) => {
+async function level(p, name, lv, outGain, mp, hot) {
+  return p.evaluate(async ({ name, lv, bars, outGain, mp, hot }) => {
     const SR = 44100, steps = bars * 16, sd = MUS.stepDur(), secs = steps * sd + 2.5;
     const li = MLOOPS.findIndex(x => x.n === name); if (li < 0) return { err: 'no song ' + name };
     MUS.audio();
@@ -66,6 +66,11 @@ async function level(p, name, lv, outGain, mp) {
       lim.threshold.value = -9; lim.knee.value = 6; lim.ratio.value = 8; lim.attack.value = 0.003; lim.release.value = 0.12;
       out0.connect(lim); lim.connect(OAC.destination);
     } else out0.connect(OAC.destination);
+    /* HIS TWO HOT SONGS (SLOW BLEED, SLOW CREEP: recorded 6 dB down because his engine plays them past full scale) carry
+       their own low end at -7 dBFS, so on levels 2 and 3 the limiter squashed everything under it and level 3 came out no
+       louder than level 1 on a phone (SLOW CREEP -45.2 / -41.6 / -44.9 dB). On those two, levels 2 and 3 carry the song a
+       further 6 dB down under the added parts; level 1 stays exactly as approved. */
+    if (hot && lv > 1) { const t = OAC.createGain(); t.gain.value = 0.5; t.connect(out0); songBus = t; }
     /* REPO MAN PLAYS AS THE MACHINE PARTY (his YES 10/19, rule 122): exactly the game's own wiring (SONGFENCE.machine in
        the alpha): take A's hall and tape, the recorder's trim, the machine answering his kick and hat. The added parts go
        into the same chain (the same room, the same trim); they call his drumV from BEFORE the machine wraps it, so the
@@ -145,7 +150,7 @@ async function level(p, name, lv, outGain, mp) {
     for (let i = 0; i < L.length; i++) { const v = Math.round(L[i] * 32767); if (Math.abs(v) > 32767) clip++; pcm[i] = Math.max(-32767, Math.min(32767, v)); }
     const u8 = new Uint8Array(pcm.buffer); let bin = ''; for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
     return { b64: btoa(bin), sr: SR, sd, clipped: clip, root: f.root, scale: sc, lead, bass: bassV, kick, klay: f.klay || 'drive', arr: MUS.ARR.slice(0, 8), rt: MUS.RT.slice(0, 8), counts };
-  }, { name, lv, bars: BARS, outGain, mp: mp || null });
+  }, { name, lv, bars: BARS, outGain, mp: mp || null, hot: !!hot });
 }
 
 /* the measure his machine's own tool uses: rms, peak, phone rms, per bar */
@@ -196,7 +201,7 @@ async function record(which) {
     await Promise.all([1, 2, 3].map(async lv => {
       const p = A[lv - 1].p;
       let g = og, r;
-      for (;;) { const tl = Date.now(); r = await level(p, name, lv, g, name === 'REPO MAN' ? MP : null); console.log("  " + name + " level " + lv + " gain " + g.toFixed(3) + " clipped " + r.clipped + " in " + ((Date.now() - tl) / 1000).toFixed(1) + " s"); if (r.err) throw new Error(name + ' level ' + lv + ': ' + r.err); if (!r.clipped || g < 0.1) break; g /= 2; }
+      for (;;) { const tl = Date.now(); r = await level(p, name, lv, g, name === 'REPO MAN' ? MP : null, !!(his[name] && his[name].gain_db < 0)); console.log("  " + name + " level " + lv + " gain " + g.toFixed(3) + " clipped " + r.clipped + " in " + ((Date.now() - tl) / 1000).toFixed(1) + " s"); if (r.err) throw new Error(name + ' level ' + lv + ': ' + r.err); if (!r.clipped || g < 0.1) break; g /= 2; }
       const raw = path.join(tmp, sl + '_' + lv + '.raw'); fs.writeFileSync(raw, Buffer.from(r.b64, 'base64')); delete r.b64;
       pcm[lv] = new Int16Array(fs.readFileSync(raw).buffer.slice(0)); R[lv] = Object.assign(r, { gain_db: +(20 * Math.log10(g)).toFixed(2) }); raws[lv - 1] = raw;
     }));

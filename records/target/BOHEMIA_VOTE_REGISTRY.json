@@ -15212,6 +15212,24 @@
     "src": "BOHEMIA_THREE_LEVELS_CAMPFIRE_CONFESSION_10_25_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-three-levels-repo-man-10-25",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "44edea18",
+   "made": "10/25",
+   "title": "REPO MAN: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
+   "why": "Your REPO MAN at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
+   "options": [
+    "A, the three levels join the game for REPO MAN",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THREE_LEVELS_REPO_MAN_10_25_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
