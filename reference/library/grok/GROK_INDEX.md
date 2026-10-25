@@ -185,3 +185,4 @@ Newest first.
 - 2026-10-25 | ASK | GROK_ASK_131_GENERATIONAL_HANDOFF_2026_10_25.md | generational handoff, heirs, three acts, retirement
 - 2026-10-25 | ASK | GROK_ASK_132_THREE_ACTS_AT_ONCE_2026_10_25.md | three acts at once, flip, future city, crisis day
 - 2026-10-25 | ASK | GROK_ASK_133_ENDING_TWIST_2026_10_25.md | ending twist, Assassin's Creed, five endings
+- 2026-10-25 | ASK | GROK_ASK_134_QUEST_IS_PEOPLE_PLACES_THINGS_2026_10_25.md | quest is people places things, no card, portrait
