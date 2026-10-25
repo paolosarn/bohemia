@@ -406,7 +406,7 @@ def place_fn(mathutils):
                 if bar.length < 1e-4 or bar.normalized().dot(fwd) < 0.2: bar = fwd - up * 0.2
             elif hold in ('two_up', 'two_wind'):   # the two-handed blow: his left hand at the haft's end, the haft up through his right
                 fist = lw + (lw - rw).normalized() * 0.05; bar = rw - lw
-                if hold == 'two_wind': bar = bar.normalized() + up * 0.9   # cocked high: its head over his crown from every side (a short pipe too)
+                if hold == 'two_wind': bar = bar.normalized() + up * 1.4   # cocked high: its head over his crown from every side (a short pipe too)
             else:                              # the lean: both hands on the haft's end, its head set down on the ground before him
                 fist = (rw + lw) / 2; h_ = max(0.05, fist.z)
                 if hold == 'lean_half': bar = fwd * 0.6 - up * 0.8

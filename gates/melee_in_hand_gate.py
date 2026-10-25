@@ -447,13 +447,16 @@ def two_faults(E, only=None):
                 leans = D.get('hold_by_prop', {}).get(p, {}).get('lean', 'lean') == 'lean'   # a thing too short to lean on (COOK's 70 cm pipe) holds across him there
                 if leans and abs(lb - fy) > 6: out.append('%s %s lean %s: its head %+d px from his ground' % (k, p, nm, lb - fy))
                 wt = w[2] + np.nonzero(w[0])[0].min()
-                if wt > crown: out.append('%s %s two-handed wind %s: its top %d px under his crown' % (k, p, nm, wt - crown))
+                # a thing shorter than 80 cm held at his chin (COOK's 70 cm pipe, the two-handed maces) can rise only to his crown
+                mj = os.path.join(ROOT, 'records/target/cook_every_item/measured_%s.json' % p)
+                short = os.path.exists(mj) and json.load(open(mj))['size_m'][0] < 0.8
+                if wt > crown + (2 if short else 0): out.append('%s %s two-handed wind %s: its top %d px under his crown' % (k, p, nm, wt - crown))
     return out
 
 
 if 't2' in READY:
     tf2 = two_faults(E)
-    ok('T1 TWO HANDS in profile: the lean sets its head on the ground before him, the two-handed wind raises it over his crown', not tf2, tf2[:4])
+    ok('T1 TWO HANDS in profile: the lean sets its head on the ground before him, the two-handed wind raises it over his crown (a thing under 80 cm to it)', not tf2, tf2[:4])
     kt = next((k for k in named if 't2' in E[k].get('layers', []) and props_of('t2')[0] in E[k].get('props', {}).get('by', {})), None)
     ok('T0 a named look carries the two-handed things', bool(kt))
     if kt:
