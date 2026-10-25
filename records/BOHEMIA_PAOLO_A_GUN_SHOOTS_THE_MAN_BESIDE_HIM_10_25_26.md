@@ -31,4 +31,4 @@ pistol whipping him out I never told you to do that"
 ('mainly weapons' is 'melee weapons'.)
 (g) MELEE KEEPS ITS EDGE UP CLOSE: a melee weapon is the stronger choice against the man on the next tile (its advantage there
     is a number TUNING sets, Battle Brothers' way first), but a gun is never refused there: a man with a pistol shoots the man
-    beside him, he does not pistol-whip unless he chooses to. The minimum range is gone (185(a)).
+    beside him, he does not pistol-whip. [STRUCK 10/25 by rule 195: the words 'unless he chooses to' were the coordinator's, never his, and were built as the WHIP button; no gun is ever a club, records/BOHEMIA_PAOLO_THE_PISTOL_IS_NEVER_A_CLUB_10_25_26.md] The minimum range is gone (185(a)).
