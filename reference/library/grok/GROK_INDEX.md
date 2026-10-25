@@ -23,6 +23,7 @@ Newest first.
 - 2026-10-25 | Grok's own (the master) | GROK_ASK_131_GENERATIONAL_HANDOFF_2026_10_25.md | the handoff: Battle Brothers' five retirement endings, two carry on; PASSED EXCEPT the wipe ending the run and a handoff by wipe
 - 2026-10-25 | Grok's own (the master) | GROK_ASK_132_THREE_ACTS_AT_ONCE_2026_10_25.md | the three acts at once read back; the crisis clock; PASSED EXCEPT its 'not locked' lines (rule 85, the third votes)
 - 2026-10-25 | Grok's own (the master) | GROK_ASK_133_ENDING_TWIST_2026_10_25.md | the ending twist: Assassin's Creed in its department only, Battle Brothers' five endings; PASSED
+- 2026-10-25 | Grok's own (the master) | GROK_ASK_135_FIRST_PERSON_AT_THE_DOOR_2026_10_25.md | the first person at the door read back: a portrait, the first ask spoken inside the first minute, nothing pops up; Battle Brothers' employer speaks the offer; already built 9/22 (RUN [wire the door]); PASSED
 - 2026-10-25 | Grok's own (the master) | GROK_ASK_134_QUEST_IS_PEOPLE_PLACES_THINGS_2026_10_25.md | a quest is people: Battle Brothers' employer speaks the offer, one contract at a time, the gold coin on the map; PASSED
 - 2026-10-24 | ask 26 (map size) | GROK_ASK_26_MAP_SIZE_2026_10_24.md | map size: seeds 140s to 200s across, about 17 settlements, plains 1 and mountains 0.25; thin duplicate; PASSED
 - 2026-10-24 | ask 26 (map size) | GROK_ASK_26_MAP_SIZE_NUMBERS_2026_10_24.md | the map in numbers: 140x140 then about 140x170 hexes, 17 settlements by kind, no days-to-cross on any page; PASSED
