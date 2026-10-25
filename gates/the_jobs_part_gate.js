@@ -290,8 +290,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       const bar = await fr.evaluate((t) => { try { const r = JSON.parse(localStorage.getItem('bohemia.relations.v1') || 'null'); return r && r.bars ? r.bars[t] : null; } catch (e) { return null; } }, town);
       const q2 = await fr.evaluate(() => BohemiaJobKinds.settledPeek().length);
       ok('D5 THE TOWN\'S BAR PAYS FOR IT: ' + town + ' at ' + bar + ' (was ' + (cost && cost.before) + '), nothing left waiting (' + q2 + ')', bar != null && cost && Math.abs(bar - cost.after) < 0.01 && q2 === 0);
-      await leave();
-      /* not in the middle of its own fight */
+      /* not in the middle of its own fight: a crew job from the same board, while the town is open */
       await take('qd-s10'); await leave();
       const cj = await job('qd-s10');
       let inFight = null;

@@ -77,7 +77,9 @@ scales hard with the roster, a roaming party a little, as the wiki says.
   (SLOAN's name: block 50,96, six blocks off Sloan), so nothing opened on arrival. The 34 places answer a tap the way a valley
   town does now (MAP_TOWN_HIT: the building, then the name): the click goes to the gate and the screen opens. Their names are
   drawn after every building, a job's places first, and the names' overlap test was off by ten (two 13-pixel names could
-  overlap by 10: PRIMM under IVANPAH SOLAR); it is exact now.
+  overlap by 10: PRIMM under IVANPAH SOLAR); it is exact now. And a land's own name (FRENCHMAN MOUNTAIN, LAKE MEAD, SPRING
+  MOUNTAINS, the 15), which is not a place, says what it is on a click and walks nowhere ('SPRING MOUNTAINS: mountains.
+  Nobody lives up there; the roads go around.', draft:true; 01f32ca4).
 
 ## 3. PROVED IN THE DEMO (gates/the_jobs_part_gate.js, his computer's screen 1440 x 900; real clicks where a finger can)
 
@@ -94,6 +96,9 @@ scales hard with the roster, a roaming party a little, as the wiki says.
   lands.
 - E place 3/0: at the far stop a click on SLOAN's name goes to Sloan and its screen opens; PRIMM's name clear of IVANPAH
   SOLAR's.
+- THE WHOLE GATE IN ONE SITTING (R, N, D, P, E back to back on one demo, 12 men hired first, so every road is busier): 28/2;
+  the two were the gate's own order (it took the drop leg's second job after leaving the town, and 'Take it' is only in an
+  open town); fixed, D 7/0 again. The land-name check (E1b) landed after that sitting: place 4/0 on its own.
 - gates/every_job_kind_gate.js (last round's) 37/0 after this round's changes (E7 re-aimed: a made place is where he stands,
   no town to open).
 - Static gates that read the touched files (55): the same 11 red as a clean main worktree, plus reachability's census, a
@@ -105,5 +110,6 @@ scales hard with the roster, a roaming party a little, as the wiki says.
   held job. The rule is in; the button is owed by UI.
 - COMBAT's road factions dress a party as a tougher faction that fields fewer (kids 0.6, heavies 0.45): a full roster's 8 can
   meet 5. That is COMBAT's design, kept; the count handed over grows with the roster every time.
-- A land label (FRENCHMAN MOUNTAIN, BLACK MOUNTAINS) is a name on the land, not a place; a click there still walks to the
-  ground under it. EYES' list of 'about 40' names was the region's places, all of which now open.
+- EYES' 'about 40' names were the region's 34 places (all open a screen now) and the land's own names (they say what they
+  are now). The 'fight' places out there (HOOVER DAM, RED ROCK, IVANPAH SOLAR) open a town's screen like the bases; Battle
+  Brothers would make them a location with a fight on arrival. Not this row's; for the coordinator.
