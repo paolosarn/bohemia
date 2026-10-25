@@ -166,3 +166,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_112_MAP_IN_COLOUR_2026_10_24.md | map colour, Las Vegas valley
 - 2026-10-24 | ASK | GROK_ASK_113_HAUNTING_SIDE_CONTENT_2026_10_24.md | haunting side content, analog horror
 - 2026-10-24 | ASK | GROK_ASK_114_WHAT_WE_DO_NOT_KNOW_2026_10_24.md | day loop rules, wiki gaps
+- 2026-10-24 | ASK | GROK_ASK_115_ONE_THING_DONE_ALL_THE_WAY_2026_10_24.md | one mechanic done well
