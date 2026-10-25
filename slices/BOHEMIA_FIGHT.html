@@ -858,6 +858,41 @@ const FIGHT = (function () {
     S.lib = lib; return lib;
   }
   function kindOf(name) { return name.split('.')[0]; }
+  /* A BLOCK MAY BE DEALT MIRRORED ([eyes: board seams]): 'shore.0|h' is shore.0 mirrored left to right, '|v' top to bottom; its
+     terrain, cover and lamps are mirrored with it (a cover piece keeps its place inside its tile, a lamp's foot is a point) */
+  function libOf(n) {
+    const lib = blockLibrary(); if (lib[n]) return lib[n];
+    const base = lib[n.split('|')[0]], f = n.split('|')[1] || '', bt = DB.ground.block_tiles, tm = DB.ground.tile_metres, span = bt * tm;
+    if (!base) return null;
+    const H = f.indexOf('h') >= 0, V = f.indexOf('v') >= 0;
+    const tileM = function (v, on) { if (!on) return v; const t = Math.floor(v / tm); return (bt - 1 - t) * tm + (v - t * tm); };
+    const footM = function (v, on) { return on ? span - v : v; };
+    lib[n] = {
+      terrain: (V ? base.terrain.slice().reverse() : base.terrain).map(function (r) { return H ? r.slice().reverse() : r.slice(); }),
+      cover: base.cover.map(function (c) { return { piece: c.piece, x_m: tileM(c.x_m, H), y_m: tileM(c.y_m, V) }; }),
+      lights: base.lights.map(function (l) { return Object.assign({}, l, { x_m: footM(l.x_m, H), y_m: footM(l.y_m, V) }); })
+    };
+    return lib[n];
+  }
+  /* THE WATER RUNS ON (COMBAT [eyes: board seams], EYES 10/24 and 10/25: 'the canal ends in a straight vertical cut mid-board';
+     'on the computer the escort's canal board breaks in a straight vertical seam, the water's bank jumping'). A canal is never
+     one block of water beside a block of sand: when the deal puts the shore on a board, the shore takes the board's top row
+     end to end and nowhere else, the shore block beside itself MIRRORED (A, A mirrored, A...), so every join meets its own bank
+     (both shore blocks' banks sit 45 art px higher on the right than on the left: no two blocks of the pair meet unmirrored);
+     the map around the board above it is the far bank (surround()). A row below that held a shore block takes a dry block
+     of the deal's own kinds instead, the twin rule kept. No die is thrown: the fight's dice are the ones they were. */
+  function waterRunsOn(grid, pool) {
+    const wet = function (n) { return kindOf(n) === 'shore'; };
+    const first = [].concat.apply([], grid).filter(wet)[0]; if (!first) return grid;
+    const A = first.split('|')[0], dry = pool.filter(function (n) { return !wet(n); });
+    grid[0] = grid[0].map(function (_n, bx) { return bx % (1 + 1) ? A + '|h' : A; });
+    for (let by = 1; by < grid.length; by++) for (let bx = 0; bx < grid[by].length; bx++) {
+      if (!wet(grid[by][bx]) || !dry.length) continue;
+      const can = dry.filter(function (n) { return n !== grid[by][bx - 1] && n !== grid[by - 1][bx] && n !== grid[by][bx + 1]; }), list = can.length ? can : dry;
+      grid[by][bx] = list[(bx + by * (1 + 1 + 1)) % list.length];
+    }
+    return grid;
+  }
   function shuffled(a) { return a.map(function (x) { return { x: x, k: rng() }; }).sort(function (p, q) { return p.k - q.k; }).map(function (o) { return o.x; }); }
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
@@ -889,12 +924,13 @@ const FIGHT = (function () {
       }
       grid.push(row);
     }
+    waterRunsOn(grid, pool);
     const terrain = [], cover = [];
-    for (let y = 0; y < S.h; y++) { terrain.push([]); for (let x = 0; x < S.w; x++) terrain[y].push(lib[grid[Math.floor(y / bt)][Math.floor(x / bt)]].terrain[y % bt][x % bt]); }
-    grid.forEach(function (row, by) { row.forEach(function (n, bx) { lib[n].cover.forEach(function (c) {
+    for (let y = 0; y < S.h; y++) { terrain.push([]); for (let x = 0; x < S.w; x++) terrain[y].push(libOf(grid[Math.floor(y / bt)][Math.floor(x / bt)]).terrain[y % bt][x % bt]); }
+    grid.forEach(function (row, by) { row.forEach(function (n, bx) { libOf(n).cover.forEach(function (c) {
       cover.push({ piece: c.piece, x_m: c.x_m + bx * bt * tm, y_m: c.y_m + by * bt * tm }); }); }); });
     const lights = [];
-    grid.forEach(function (row, by) { row.forEach(function (n, bx) { lib[n].lights.forEach(function (l) {
+    grid.forEach(function (row, by) { row.forEach(function (n, bx) { libOf(n).lights.forEach(function (l) {
       lights.push(Object.assign({}, l, { x_m: l.x_m + bx * bt * tm, y_m: l.y_m + by * bt * tm })); }); }); });
     const used = []; grid.forEach(function (r) { r.forEach(function (n) { if (used.indexOf(kindOf(n)) < 0) used.push(kindOf(n)); }); });
     if (opts.kind && leads.length && used.indexOf(opts.kind) < 0) used.unshift(opts.kind);   /* the board answers to the name it was asked by */
@@ -2587,12 +2623,12 @@ function bakeBoard() {
   const g = c.getContext('2d');
   g.fillStyle = '#2a2219'; g.fillRect(0, 0, c.width, c.height);
   const names = [];
-  B.blocks.forEach(function (row) { row.forEach(function (n) { if (names.indexOf(n) < 0) names.push(n); }); });
+  B.blocks.forEach(function (row) { row.forEach(function (n) { n = blockBase(n); if (names.indexOf(n) < 0) names.push(n); }); });
   const covers = (B.cover || []).map(function (k) { return k.piece; });
   /* THE FAT MAP (his 10/17: 'the map should just be really fat'): the map around the board is dealt from the board's kinds,
      blocks the board itself may not use; they load with it, or a hole shows (moon blue at night, black by day: corner.2 on
      the strip, sideways, measured 10/18) */
-  surround().forEach(function (q) { if (names.indexOf(q.n) < 0) names.push(q.n); });
+  surround().forEach(function (q) { const n = blockBase(q.n); if (names.indexOf(n) < 0) names.push(n); });
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return FIGHT.pieceSrc(p); }).filter(Boolean));
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
@@ -2619,8 +2655,8 @@ function bakeBoard() {
       /* the cut board (rule 79) draws the dealt blocks shifted by its window; the glass shows only the window */
       const ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
       B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
-        const im = UI.imgs['fight_ground/' + G.blocks[n].src];
-        if (im) g.drawImage(im, (bx * bt - ox) * UI.tw, (by * bt - oy) * UI.th, bt * UI.tw, bt * UI.th);
+        const im = UI.imgs['fight_ground/' + G.blocks[blockBase(n)].src];
+        if (im) blockBlit(g, im, n, (bx * bt - ox) * UI.tw, (by * bt - oy) * UI.th, bt * UI.tw, bt * UI.th);
       }); });
       const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
       (B.cover || []).forEach(function (cv2) {
@@ -2810,6 +2846,34 @@ function drawGround() {
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
 }
 const SURROUND_BLOCKS = 2, SURROUND_DIM = 'rgba(8,6,4,.22)', MIP = 4, RING_K = .5, GROUND_UNDER = '#2a2219';
+/* A DEALT BLOCK'S NAME MAY CARRY ITS MIRROR ('shore.0|h', THE WATER RUNS ON): the picture is the plain block's */
+function blockBase(n) { return String(n).split('|')[0]; }
+function blockFlip(n) { return String(n).split('|')[1] || ''; }
+function flipOf(n, f) { let g = blockFlip(n); f.split('').forEach(function (c) { g = g.indexOf(c) >= 0 ? g.replace(c, '') : g + c; }); return blockBase(n) + (g ? '|' + g.split('').sort().join('') : ''); }
+/* THE EDGE A BLOCK'S ART CURLS AT ([eyes: board seams], measured 10/25 on the art itself): both shore blocks bend their water
+   band down into a wall along their own left edge (24 art px of 2,575) and right edge (12 px); those columns are left out and
+   the rest drawn to the block's full width (1.1% each side), so two shore blocks meet bank to bank */
+const EDGE_INSET = { shore: 28 };
+function blockBlit(g, im, n, x, y, w, h) {
+  const k = blockBase(n).split('.')[0], f = blockFlip(n), G = DB.ground;
+  const ins = (EDGE_INSET[k] || 0) * im.width / (G.block_tiles * G.tile_px[0]), H = f.indexOf('h') >= 0, V = f.indexOf('v') >= 0;
+  if (!H && !V) { g.drawImage(im, ins, 0, im.width - ins * (1 + 1), im.height, x, y, w, h); return; }
+  g.save(); g.translate(x + (H ? w : 0), y + (V ? h : 0)); g.scale(H ? -1 : 1, V ? -1 : 1);
+  g.drawImage(im, ins, 0, im.width - ins * (1 + 1), im.height, 0, 0, w, h); g.restore();
+}
+/* THE MAP AROUND THE BOARD COMES IN SOFTLY ([eyes: board seams], EYES 10/25: 'the strip above the board still meets it at a
+   straight line'): the ring is drawn a shade darker (SURROUND_DIM) and that shade comes in over the tile next to the board,
+   from nothing at the board's edge, never as a step along a straight line */
+function dimCell(g, q, nx, ny, x, y, w, h) {
+  const a = 1 / DB.ground.block_tiles, out = function (i, n) { return i < 0 ? -i : i >= n ? i - n + 1 : 0; };
+  const dx = out(q.bx, nx), dy = out(q.by, ny);
+  const stop = function (gr) { gr.addColorStop(0, 'rgba(8,6,4,0)'); gr.addColorStop(a, SURROUND_DIM); gr.addColorStop(1, SURROUND_DIM); return gr; };
+  let gr = null;
+  if (dx === 1 && dy === 0) gr = stop(q.bx < 0 ? g.createLinearGradient(x + w, 0, x, 0) : g.createLinearGradient(x, 0, x + w, 0));
+  else if (dy === 1 && dx === 0) gr = stop(q.by < 0 ? g.createLinearGradient(0, y + h, 0, y) : g.createLinearGradient(0, y, 0, y + h));
+  else if (dx === 1 && dy === 1) { const cx0 = q.bx < 0 ? x + w : x, cy0 = q.by < 0 ? y + h : y; gr = stop(g.createRadialGradient(cx0, cy0, 0, cx0, cy0, Math.hypot(w, h))); }
+  g.fillStyle = gr || SURROUND_DIM; g.fillRect(x, y, w, h);
+}
 /* the ring baked once at half size (it is the map you look at, not the board you fight on), the night's colour on it */
 function ringCanvas() {
   const S = FIGHT.S, G = DB.ground, bt = G.block_tiles, R = SURROUND_BLOCKS, key = UI.ringKey + ':' + !!S.night + ':' + UI.board;
@@ -2821,8 +2885,8 @@ function ringCanvas() {
      night's moonlight multiplied onto glass IS the blue; the ring is ground before it is blocks, so a hole is dirt, never blue */
   g.fillStyle = GROUND_UNDER; g.fillRect(0, 0, c.width, c.height);
   let holes = 0;
-  ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[q.n].src]; if (!im) { holes++; return; }
-    const x = (q.bx + R) * w, y = (q.by + R) * h; g.drawImage(mipFor(im, w / DPR), x, y, w, h); g.fillStyle = SURROUND_DIM; g.fillRect(x, y, w, h); });
+  ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[blockBase(q.n)].src]; if (!im) { holes++; return; }
+    const x = (q.bx + R) * w, y = (q.by + R) * h; blockBlit(g, mipFor(im, w / DPR), q.n, x, y, w, h); dimCell(g, q, nx, ny, x, y, w, h); });
   if (S.night) nightPass(g, c.width, c.height);
   /* A RING WITH A HOLE IS NEVER KEPT (10/18, measured: a second fight from AGAIN drew this ring while its blocks were still
      loading, kept it, and 35.7% of the glass stayed flat dirt for the whole fight; the key could not tell, because a canvas
@@ -2831,7 +2895,11 @@ function ringCanvas() {
   return c;
 }
 /* the ring: SURROUND_BLOCKS blocks on every side, each a block of the board's own kinds, picked by a hash of the fight's seed
-   and its place (its own hash, so the fight's dice are never touched) */
+   and its place (its own hash, so the fight's dice are never touched). THE MAP RUNS ON PAST THE BOARD ([eyes: board seams]):
+   a ring block takes the KIND of the board block nearest it (the board's own block mirrored back across its edge), another
+   block of that kind where it has one; the shore is the board's water mirrored across the edge, so the canal on the top row
+   has its far bank above it and runs on left and right (THE WATER RUNS ON). A cut board (rule 79's window) keeps the old
+   deal from the kinds. */
 function surround() {
   const S = FIGHT.S, B = S.boardDef, G = DB.ground, bt = G.block_tiles;
   const key = S.w + 'x' + S.h + ':' + (B.name || '');
@@ -2839,10 +2907,18 @@ function surround() {
   const names = Object.keys(G.blocks), kinds = (B.kinds || []).map(function (k) { return k.split('.')[0]; });
   let pool = names.filter(function (n) { return kinds.indexOf(n.split('.')[0]) >= 0; }); if (!pool.length) pool = names;
   const nx = Math.ceil(S.w / bt), ny = Math.ceil(S.h / bt), R = SURROUND_BLOCKS, seed = (window.FIGHT_OPTS && window.FIGHT_OPTS.seed) || 1, out = [];
+  const grid = !B.crop && B.blocks && B.blocks.length === ny && B.blocks[0].length === nx ? B.blocks : null;
+  const refl = function (i, n) { let f = false; while (i < 0 || i >= n) { if (i < 0) i = -1 - i; else i = n + n - 1 - i; f = !f; } return { i: i, f: f }; };
   for (let by = -R; by < ny + R; by++) for (let bx = -R; bx < nx + R; bx++) {
     if (bx >= 0 && by >= 0 && bx < nx && by < ny) continue;
     const h = Math.abs(Math.sin((bx * 374761 + by * 668265 + seed * 2654435) * 1e-3) * 1e4) % 1;
-    out.push({ bx: bx, by: by, n: pool[Math.floor(h * pool.length)] });
+    let n = pool[Math.floor(h * pool.length)];
+    if (grid) {
+      const rx = refl(bx, nx), ry = refl(by, ny), src = grid[ry.i][rx.i], k = blockBase(src).split('.')[0];
+      if (k === 'shore') n = flipOf(src, (rx.f ? 'h' : '') + (ry.f ? 'v' : ''));
+      else { const same = names.filter(function (m) { return m.split('.')[0] === k && m !== blockBase(src); }); n = same.length ? same[Math.floor(h * same.length)] : blockBase(src); }
+    }
+    out.push({ bx: bx, by: by, n: n });
   }
   UI.ring = out; UI.ringKey = key; return out;
 }
@@ -2866,19 +2942,20 @@ function groundOn(cx) {
   cx.imageSmoothingEnabled = !one; cx.imageSmoothingQuality = 'high';
   /* THE MAP AROUND THE BOARD (his eleventh votes: 'I don't want to see any black... only more of the map'): the same
      district's blocks dealt in a ring past the board's edge, drawn a shade darker, seen and never walked */
+  const nxB = Math.ceil(S.w / bt), nyB = Math.ceil(S.h / bt);
   surround().forEach(function (q) {
-    const im = UI.imgs['fight_ground/' + G.blocks[q.n].src];
+    const im = UI.imgs['fight_ground/' + G.blocks[blockBase(q.n)].src];
     const x = snap(sx(q.bx * bt * UI.tw)), y = snap(sy(q.by * bt * UI.th)), w = bt * UI.tw * z, h = bt * UI.th * z;
     if (!on(x, y, w, h)) return;
-    if (im) cx.drawImage(mipFor(im, w), x, y, w, h); else { cx.fillStyle = GROUND_UNDER; cx.fillRect(x, y, w, h); }   /* a hole is dirt (THE BLUE) */
-    cx.fillStyle = SURROUND_DIM; cx.fillRect(x, y, w, h);
+    if (im) blockBlit(cx, mipFor(im, w), q.n, x, y, w, h); else { cx.fillStyle = GROUND_UNDER; cx.fillRect(x, y, w, h); }   /* a hole is dirt (THE BLUE) */
+    dimCell(cx, q, nxB, nyB, x, y, w, h);
   });
   cx.beginPath(); cx.rect(x0, y0, bw, bh); cx.clip();
   cx.fillStyle = '#2a2219'; cx.fillRect(x0, y0, bw, bh);
   B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
-    const im = UI.imgs['fight_ground/' + G.blocks[n].src]; if (!im) return;
+    const im = UI.imgs['fight_ground/' + G.blocks[blockBase(n)].src]; if (!im) return;
     const x = snap(sx((bx * bt - ox) * UI.tw)), y = snap(sy((by * bt - oy) * UI.th)), w = bt * UI.tw * z, h = bt * UI.th * z;
-    if (on(x, y, w, h)) cx.drawImage(one ? im : mipFor(im, w), x, y, one ? im.width / DPR : w, one ? im.height / DPR : h);
+    if (on(x, y, w, h)) blockBlit(cx, one ? im : mipFor(im, w), n, x, y, one ? im.width / DPR : w, one ? im.height / DPR : h);
   }); });
   (B.cover || []).forEach(function (cv2) {
     const im = UI.imgs[FIGHT.pieceSrc(cv2.piece)]; if (!im) return;
