@@ -7,7 +7,7 @@
  "rows_total": 310,
  "objects_total": 27,
  "objects_with_a_model_before": 3,
- "objects_with_a_model_now": 14,
+ "objects_with_a_model_now": 17,
  "objects": {
   "car_door": {
    "kind": "shield",
@@ -114,7 +114,7 @@
    "rows": 8,
    "glb": "reference/models/bohemia/item_rebar_spear.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "cleaver": {
@@ -213,7 +213,7 @@
    "rows": 20,
    "glb": "reference/models/bohemia/item_full_riot_armour.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "rag_hood": {
@@ -240,7 +240,7 @@
    "rows": 24,
    "glb": "reference/models/bohemia/item_riot_helmet.glb",
    "built": true,
-   "checked": false,
+   "checked": true,
    "before_this_round": "nothing"
   },
   "full_riot_helm": {

@@ -573,6 +573,187 @@
     "left_x": 0.4
    },
    "left_x": 0.4
+  },
+  "full_riot_armour": {
+   "glb": "item_full_riot_armour.glb",
+   "kind": "worn_body",
+   "name": "full riot armour",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "ancient_plated_mail_hauberk",
+    "footman_s_armor",
+    "ancient_scale_coat",
+    "adorned_warrior_s_armor",
+    "southern_long_mail_shirt_with_padding",
+    "ancient_plate_harness",
+    "reinforced_mail_hauberk",
+    "ancient_plated_scale_hauberk",
+    "lamellar_harness",
+    "thick_plated_barbarian_armor",
+    "scale_armor",
+    "decayed_coat_of_scales",
+    "heraldic_hauberk",
+    "sellsword_s_armor",
+    "decayed_coat_of_plates",
+    "heavy_lamellar_armor",
+    "padded_mail_and_lamellar_hauberk",
+    "adorned_heavy_mail_hauberk",
+    "coat_of_scales",
+    "coat_of_plates"
+   ],
+   "sha1": "7f05ae592578e22e6b7e887fd94ff378923c9aff",
+   "measured": {
+    "size_m": [
+     0.943,
+     0.42,
+     1.057
+    ],
+    "lo": [
+     -0.462,
+     -0.223,
+     0.144
+    ],
+    "hi": [
+     0.481,
+     0.197,
+     1.201
+    ],
+    "materials": [
+     "clay_bone 1",
+     "cloth_black 2",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 4260,
+    "parts": 107,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_arm_joint_L__3_",
+     "Skeleton_arm_joint_L__4_",
+     "Skeleton_arm_joint_R",
+     "Skeleton_arm_joint_R__2_",
+     "Skeleton_neck_joint_1",
+     "Skeleton_torso_joint_1",
+     "Skeleton_torso_joint_2",
+     "leg_joint_L_1",
+     "leg_joint_L_2",
+     "leg_joint_R_1",
+     "leg_joint_R_2",
+     "torso_joint_3"
+    ]
+   }
+  },
+  "riot_helmet": {
+   "glb": "item_riot_helmet.glb",
+   "kind": "worn_head",
+   "name": "a riot helmet",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "reinforced_mail_coif",
+    "nasal_helmet",
+    "wrapped_southern_helmet",
+    "leather_helmet",
+    "heavy_mail_coif",
+    "padded_dented_nasal_helmet",
+    "kettle_hat",
+    "sallet_helmet",
+    "masked_kettle_helmet",
+    "flat_top_helmet",
+    "nordic_helmet",
+    "spiked_skull_cap_with_mail",
+    "nomad_reinforced_helmet",
+    "padded_nasal_helmet",
+    "beastmaster_s_headpiece",
+    "ancient_legionary_helmet",
+    "assassin_s_face_mask",
+    "padded_kettle_hat",
+    "nasal_helmet_with_rusty_mail",
+    "crude_metal_helmet",
+    "padded_flat_top_helmet",
+    "zweihander_s_helmet",
+    "crude_faceguard_helmet",
+    "closed_flat_top_helmet"
+   ],
+   "sha1": "1290a258e1464734f879f053a09f09519fb1add9",
+   "measured": {
+    "size_m": [
+     0.45,
+     0.476,
+     0.463
+    ],
+    "lo": [
+     -0.223,
+     -0.212,
+     1.112
+    ],
+    "hi": [
+     0.227,
+     0.263,
+     1.575
+    ],
+    "materials": [
+     "clay_bone 3",
+     "cloth_black 2",
+     "glass_eye 1",
+     "metal_painted 0",
+     "rubber 1"
+    ],
+    "verts": 2454,
+    "parts": 38,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_1",
+     "Skeleton_neck_joint_2"
+    ]
+   }
+  },
+  "rebar_spear": {
+   "glb": "item_rebar_spear.glb",
+   "kind": "held",
+   "name": "rebar spear",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "militia_spear",
+    "ancient_spear",
+    "goblin_skewer",
+    "boar_spear",
+    "fire_lance",
+    "fighting_spear",
+    "warfork",
+    "spetum"
+   ],
+   "sha1": "30a23bf05f0d0f73f1f5e6603164a0c06c1b9860",
+   "hands": 2,
+   "measured": {
+    "size_m": [
+     2.2,
+     0.042,
+     0.044
+    ],
+    "lo": [
+     -0.55,
+     -0.021,
+     -0.022
+    ],
+    "hi": [
+     1.65,
+     0.021,
+     0.022
+    ],
+    "materials": [
+     "clay_mustard 1",
+     "clay_rust 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 724,
+    "parts": 34,
+    "left_x": 0.49
+   },
+   "left_x": 0.49
   }
  }
 }
