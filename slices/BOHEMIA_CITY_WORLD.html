@@ -63676,7 +63676,15 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
      second under every fight, in a panel the fight hides, so the phone paid for a picture nobody saw and every person and painting
      it drew stayed locked in memory the whole fight (a phone can only throw away a picture nothing is drawing). While a fight is
      up the map draws nothing; it draws again the moment the fight is over (cityFightHome), under the clouds. */
-  try{ var __P = window.parent; if(__P && __P !== window && __P.CITYFIGHT && __P.NF && __P.NF.frame && !__P.NF.over){ window.__MAP_RESTED = (window.__MAP_RESTED|0) + 1; return; } }catch(_e){}
+  /* and its two glass-sized caches (the ground picture and the sharp land past the city, 16 MB each on a phone) are let go while it
+     rests: the twenty-fight gate read the tab's canvases and bitmaps 0.2 MB over Safari's 384 MB line with them held; both are
+     rebuilt by the first draw after the fight, under the clouds */
+  try{ var __P = window.parent; if(__P && __P !== window && __P.CITYFIGHT && __P.NF && __P.NF.frame && !__P.NF.over){ window.__MAP_RESTED = (window.__MAP_RESTED|0) + 1;
+    if(!window.__MAP_RESTING){ window.__MAP_RESTING = 1;
+      try{ if(MAP_GROUND.cv){ MAP_GROUND.cv.width = 0; MAP_GROUND.cv.height = 0; MAP_GROUND.key = ''; MAP_GROUND.x = null; } }catch(_e){}
+      try{ if(VBV.cv){ VBV.cv.width = 0; VBV.cv.height = 0; VBV.W = 0; VBV.H = 0; VBV.key = ''; VBV.x = null; } }catch(_e){} }
+    return; } }catch(_e){}
+  window.__MAP_RESTING = 0;
   cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__: the map at the phone's pixels, the street at one */
   if(SKY){ screenFilter('city'); renderSky(); return; }   /* __ONE_ZOOM_TO_THE_MOON__ */
   /* __YOUR_HOUSE__: you slept at home, so the day starts at your own door.
