@@ -45,5 +45,16 @@ University of Iowa instrument libraries were tried and the network refuses their
 material is the CC0 bank already in the repo (a church bell, wood, a soda can, clocks, claps), and the pitched voices are his
 engine's own. A real piano, strings or brass are the next round's ask once a host is allowed.
 
-## NUMBERS
-Filled from slices/vote/songs/new_four/<song>/measured.json by the gate (gates/four_new_songs_gate.py) when the cards land.
+## NUMBERS (slices/vote/songs/new_four/<song>/measured.json; gate gates/four_new_songs_gate.py 106/0, in the suite)
+| song | phone rms L1 / L2 / L3 (dB) | climb L2 / L3 | the tune vs the mix | the beat, level 1 to 3 | the kit set by | card |
+|---|---|---|---|---|---|---|
+| THE CHURCH CLOCK STRIKES TWELVE | -36.5 / -35.2 / -33.2 | +1.3 / +3.3 | -0.36 dB | 11.11 dB | 3.89 dB | sounds-new-song-the-church-clock-strikes-twelve-10-25 |
+| THE SODA MACHINE STILL TAKES COINS | -36.5 / -33.6 / -29.8 | +2.9 / +6.7 | -0.58 dB | 14.07 dB | -15.06 dB | sounds-new-song-the-soda-machine-still-takes-coins-10-25 |
+| THE HELICOPTER THAT NEVER LANDS | -36.5 / -33.9 / -31.0 | +2.6 / +5.5 | -0.75 dB | 11.92 dB | -9.32 dB | sounds-new-song-the-helicopter-that-never-lands-10-25 |
+| THE PAWN COUNTER AT FOUR IN THE MORNING | -36.5 / -33.8 / -30.7 | +2.7 / +5.8 | -1.35 dB | 9.97 dB | -18.18 dB | sounds-new-song-the-pawn-counter-at-four-in-the-morning-10-25 |
+
+A STRANGER TELLS THEM APART, measured as a pitch-class fingerprint (12-bin chroma) of ten seconds of level 1 from the bar the
+tune comes in: against each other mean 0.69, the closest pair 0.85; against ten seconds of each of his eight night songs the
+closest 0.78 (the gate's line is 0.95). The 120 BPM pulse, heard through the high end, repeats at 0.20 to 0.95 of its energy on
+every level of every song. Every card plays on the phone and computer profiles (level 1, level 3 on the bar, A FIGHT, STOP).
+None clipped; nothing named in the alpha or the demo.
