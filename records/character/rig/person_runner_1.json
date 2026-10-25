@@ -1,16 +1,15 @@
 {
  "look": "PERSON_RUNNER_1",
- "shape": "person_runner_1: teenagers in oversized layered streetwear, hoods up or down, scarves over their faces, a sling in the fist, his own skin skin_deep 3, LAYERED JERSEY under ASH ASYM COAT",
+ "shape": "person_runner_1: teenagers in oversized layered streetwear, hoods up or down, scarves over their faces, a sling in the fist, his own skin skin_deep 3, BONE SHOULDER SHIRT under ASH ASYM COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "LAYERED JERSEY",
+  "base": "BONE SHOULDER SHIRT",
   "outer": "ASH ASYM COAT",
   "legs": "GREY SWEATS",
   "feet": "WHITE SNEAKERS",
   "back": "SALVAGE SATCHEL",
   "hands": "SOOT HAND WRAPS",
   "outfit": [
-   "LAYERED JERSEY and ASH ASYM COAT read as one, and no colour of either cut reads apart",
    "the sleeves pushed up the forearm"
   ]
  },
@@ -44,8 +43,7 @@
   "person_runner_1_shirt": 67488,
   "person_runner_1_collar": 1536,
   "person_runner_1_cuffs": 2048,
-  "person_runner_1_under": 3808,
-  "person_runner_1_over": 2464,
+  "person_runner_1_hem": 1792,
   "person_runner_1_coat": 63608,
   "person_runner_1_coat_skirt": 3990,
   "person_runner_1_collar.001": 1536,
@@ -95,9 +93,9 @@
    0.0704
   ],
   "person_runner_1_collar": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_runner_1_cuff": [
    0.1878,
@@ -105,9 +103,9 @@
    0.2384
   ],
   "person_runner_1_cuffs": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_runner_1_eyes": [
    0.0212,
@@ -128,6 +126,11 @@
    0.4179,
    0.3916,
    0.3372
+  ],
+  "person_runner_1_hem": [
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_runner_1_laces_0": [
    0.4179,
@@ -154,11 +157,6 @@
    0.8879,
    0.8228
   ],
-  "person_runner_1_over": [
-   0.0296,
-   0.0296,
-   0.0356
-  ],
   "person_runner_1_pushed": [
    0.0612,
    0.0612,
@@ -180,9 +178,9 @@
    0.0075
   ],
   "person_runner_1_shirt": [
-   0.0296,
-   0.0296,
-   0.0356
+   0.3763,
+   0.3231,
+   0.2086
   ],
   "person_runner_1_shoe": [
    0.6654,
@@ -263,11 +261,6 @@
    0.1878,
    0.1878,
    0.2384
-  ],
-  "person_runner_1_under": [
-   0.0116,
-   0.0116,
-   0.0137
   ]
  }
 }

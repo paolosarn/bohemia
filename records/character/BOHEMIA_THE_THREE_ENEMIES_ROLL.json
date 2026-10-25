@@ -694,5 +694,51 @@
    "shoulders": 1.0,
    "hips": 0.25
   }
+ },
+ {
+  "id": "heavy_5",
+  "gang": "Heavy",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "legs": "OLIVE PANTS",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "SPIKED PAULDRON",
+   "OXBLOOD GLOVES"
+  ],
+  "type": "Heavy",
+  "top": "ROLLED FLANNEL",
+  "coat": "BONE VEST",
+  "hat": "HAT SOOT HEAD WRAP",
+  "eyewear": "FACE GREY WRAPAROUNDS",
+  "pieces": [
+   "exo",
+   "crashbar"
+  ],
+  "dials": {
+   "height": 0.25,
+   "belly": 0.8,
+   "shoulders": 0.95,
+   "hips": 0.3
+  }
  }
 ]

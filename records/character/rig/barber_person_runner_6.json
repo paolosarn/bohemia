@@ -1,0 +1,41 @@
+{
+ "cut": "PERSON runner_6",
+ "tag": "person_runner_6",
+ "bank": {
+  "kind": "person",
+  "gang": "Runners"
+ },
+ "worn_by": "Runners, rolled",
+ "model": "records/character/rig/barber_person_runner_6.glb",
+ "body": "records/character/rig/person_runner_6.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  1
+ ],
+ "hair_rgb": [
+  125,
+  77,
+  29
+ ],
+ "skin_rgb": [
+  205,
+  160,
+  115
+ ],
+ "model_top_m": 1.5535,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7483,
+ "pieces": {
+  "h2_half_shave_roots": 37117,
+  "barber_half_shave_cap": 148834,
+  "barber_half_shave_sweep": 20566,
+  "hat_soot_head_wrap_under": 44406,
+  "hat_soot_head_wrap_bands": 8042,
+  "face_face_wrap_turn_0": 352,
+  "face_face_wrap_turn_1": 352,
+  "face_face_wrap_turn_2": 352
+ }
+}

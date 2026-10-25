@@ -1,0 +1,39 @@
+{
+ "cut": "PERSON heavy_4",
+ "tag": "person_heavy_4",
+ "bank": {
+  "kind": "person",
+  "gang": "Heavy"
+ },
+ "worn_by": "Heavy, rolled",
+ "model": "records/character/rig/barber_person_heavy_4.glb",
+ "body": "records/character/rig/person_heavy_4.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  76,
+  50,
+  44
+ ],
+ "model_top_m": 1.5483,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7425,
+ "pieces": {
+  "barber_dry_taper_fade": 35025,
+  "barber_dry_taper": 158562,
+  "hat_dust_work_cap_crown": 164482,
+  "hat_dust_work_cap_brim": 406,
+  "hat_dust_work_cap_button": 52,
+  "f1_person_heavy_4": 194
+ }
+}

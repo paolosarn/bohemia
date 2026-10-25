@@ -7,7 +7,7 @@
   "outer": "LEATHER VEST",
   "legs": "SOOT CARGOS",
   "feet": "RUST BOOTS",
-  "gear": "STEEL SHIN GUARDS",
+  "gear": "SHIN GUARDS",
   "hands": "LEATHER GLOVES",
   "outfit": [
    "OLIVE DRAB TEE read as one with LEATHER VEST (76 and 69 of 255): the same cut in STRIPED TEE (154)",
@@ -109,11 +109,11 @@
   "person_heavy_2_boot_collar_line": 2048,
   "person_heavy_2_eyelets_1": 120,
   "person_heavy_2_eyelets_0": 120,
-  "person_heavy_2_steel_shin_guards_1": 1958,
-  "person_heavy_2_steel_shin_guards_0": 1958,
-  "person_heavy_2_steel_shin_guards_strap_-7": 2048,
-  "person_heavy_2_steel_shin_guards_strap_0": 2048,
-  "person_heavy_2_steel_shin_guards_strap_7": 2048,
+  "person_heavy_2_shin_guards_1": 1958,
+  "person_heavy_2_shin_guards_0": 1958,
+  "person_heavy_2_shin_guards_strap_-7": 2048,
+  "person_heavy_2_shin_guards_strap_0": 2048,
+  "person_heavy_2_shin_guards_strap_7": 2048,
   "person_heavy_2_leather_gloves_L": 392,
   "person_heavy_2_leather_gloves_R": 392,
   "person_heavy_2_leather_gloves_cuff": 2048,
@@ -452,6 +452,31 @@
    0.0762,
    0.0823
   ],
+  "person_heavy_2_shin_guards_0": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_heavy_2_shin_guards_1": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_heavy_2_shin_guards_strap_-7": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_heavy_2_shin_guards_strap_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_heavy_2_shin_guards_strap_7": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
   "person_heavy_2_shirt": [
    0.3763,
    0.3231,
@@ -501,31 +526,6 @@
    0.0685,
    0.0273,
    0.0144
-  ],
-  "person_heavy_2_steel_shin_guards_0": [
-   0.063,
-   0.1046,
-   0.1651
-  ],
-  "person_heavy_2_steel_shin_guards_1": [
-   0.063,
-   0.1046,
-   0.1651
-  ],
-  "person_heavy_2_steel_shin_guards_strap_-7": [
-   0.0262,
-   0.0437,
-   0.0704
-  ],
-  "person_heavy_2_steel_shin_guards_strap_0": [
-   0.0262,
-   0.0437,
-   0.0704
-  ],
-  "person_heavy_2_steel_shin_guards_strap_7": [
-   0.0262,
-   0.0437,
-   0.0704
   ],
   "person_heavy_2_tail": [
    0.3763,

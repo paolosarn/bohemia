@@ -61,7 +61,7 @@ FIGHT_RENDERS = 'records/target/combat/rig'       # COMBAT's render folder (rege
 SHEET_DIR = 'records/target/character/the_three_enemies'
 STAMP = 'three-enemies-10-24'
 PER_TYPE = 3
-COUNT = {'Mechanic': 3, 'Runners': 8, 'Heavy': 5}   # round 2: sized to the bands the fight deals (the Mechanic heads his machines alone)
+COUNT = {'Mechanic': 3, 'Runners': 8, 'Heavy': 6}   # round 2: sized to the bands the fight deals (the Mechanic heads his machines alone)
 
 # ---- THE THREE TYPES ------------------------------------------------------------------------------------------------
 # A type is a look like a gang's: its own dials, its colours (the outfit and the gear read a look's cloths as its
@@ -124,20 +124,22 @@ TYPES = {
         stand_in='Remnants', cell='faction_remnants',
         dials=[dict(height=0.30, belly=0.85, shoulders=1.00, hips=0.30), dict(height=0.10, belly=1.00, shoulders=0.90, hips=0.40),
                dict(height=0.45, belly=0.60, shoulders=1.00, hips=0.20), dict(height=0.20, belly=0.95, shoulders=0.95, hips=0.35),
-               dict(height=0.40, belly=0.70, shoulders=1.00, hips=0.25)],
+               dict(height=0.40, belly=0.70, shoulders=1.00, hips=0.25), dict(height=0.25, belly=0.80, shoulders=0.95, hips=0.30)],
         # round 2: his look's own cloth was a steel blue (76, 90, 106), so the outfit took COBALT for 'his gang's colour' and
         # put a cobalt shirt under the smith's apron (rule 159): a work-shirt drab instead
         look=dict(shirt=dict(colour=(86, 80, 70), sleeve='long'), coat=None,
                   trousers=dict(colour=(66, 66, 68), wide=0.02), shoes=dict(colour=SOOT, kind='boot', top=0.24), belt=None),
-        # round 2: FIVE (a heavies' band fields up to five Heavies at count_scale 0.45, orc_warrior and lower_orc_warrior)
+        # round 2: SIX (the map's biggest party is 13, a crew's 14 (records/target/bb/party_math.json roaming max, +1): a heavies'
+        # band is 6 at count_scale 0.45, and with orc_young in the frame too (the NOTE to COMBAT) all six are Heavies)
         # round 2 (looking, heavy_2 at 1:1): the steel shin guards rendered two blue patches on his shins (rule 159): rust scrap guards
-        tops=['WORK COVERALLS', 'BONE BUTTON-UP', 'OLIVE DRAB TEE', 'DUST PLAID SHIRT', 'KHAKI BUTTON-UP'],   # 4: black under the leather apron read as one (48 and 69)   # round 2: the steel shirt is blue (rule 159); bone under the olive vest
-        coats=['QUILTED VEST', 'TACTICAL VEST', 'LEATHER VEST', 'OLIVE VEST', "SMITH'S APRON"],
-        legs=['SLATE WORK PANTS', 'KHAKI CARGOS', 'SOOT CARGOS', 'BONE WORK PANTS', 'DUST BROWN TROUSERS'],
-        feet=['FIELD BOOTS', 'TALL MOTO BOOTS', 'RUST BOOTS', 'CHARCOAL BOOTS', 'RANCH BOOTS'],
+        tops=['WORK COVERALLS', 'BONE BUTTON-UP', 'OLIVE DRAB TEE', 'DUST PLAID SHIRT', 'KHAKI BUTTON-UP', 'ROLLED FLANNEL'],   # 4: black under the leather apron read as one (48 and 69)   # round 2: the steel shirt is blue (rule 159); bone under the olive vest
+        coats=['QUILTED VEST', 'TACTICAL VEST', 'LEATHER VEST', 'OLIVE VEST', "SMITH'S APRON", 'BONE VEST'],
+        legs=['SLATE WORK PANTS', 'KHAKI CARGOS', 'SOOT CARGOS', 'BONE WORK PANTS', 'DUST BROWN TROUSERS', 'OLIVE PANTS'],
+        feet=['FIELD BOOTS', 'TALL MOTO BOOTS', 'RUST BOOTS', 'CHARCOAL BOOTS', 'RANCH BOOTS', 'WRAPPED BOOTS'],
         kit=[['SCAV KNEEPADS', 'LEATHER GLOVES'], ['SOOT GLOVES', 'SOOT GORGET'], ['SHIN GUARDS', 'LEATHER GLOVES'],
-             ['SCRAP PAULDRON', 'SOOT GLOVES'], ['SOOT CHEST PLATE', 'LEATHER GLOVES']],
-        hats=[None, 'HAT SCRAP HELM', None, None, 'HAT DUST WORK CAP'], eyewear=['FACE RUBBER GAS MASK', None, 'FACE SHIELD VISOR', 'FACE ASH SHIELD', None],
+             ['SCRAP PAULDRON', 'SOOT GLOVES'], ['SOOT CHEST PLATE', 'LEATHER GLOVES'], ['SPIKED PAULDRON', 'OXBLOOD GLOVES']],
+        hats=[None, 'HAT SCRAP HELM', None, None, 'HAT DUST WORK CAP', 'HAT SOOT HEAD WRAP'],
+        eyewear=['FACE RUBBER GAS MASK', None, 'FACE SHIELD VISOR', 'FACE ASH SHIELD', None, 'FACE GREY WRAPAROUNDS'],
         # cycle 1 (looking, heavy_0): a bald or shaved crown takes the rig's up-face dust and a deep skin read as a pale
         # egg; the Heavy wears short hair or the helm
         pieces=['exo', 'crashbar'], cuts=['TEMPLE TAPER', 'HOME CLIPPERS', 'DRY TAPER', 'DEEP TAPER']),

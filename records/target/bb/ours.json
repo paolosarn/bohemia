@@ -608,6 +608,24 @@
      "enemy_mechanic_0",
      "enemy_mechanic_1",
      "enemy_mechanic_2"
+    ],
+    "runner": [
+     "enemy_runner_0",
+     "enemy_runner_1",
+     "enemy_runner_2",
+     "enemy_runner_3",
+     "enemy_runner_4",
+     "enemy_runner_5",
+     "enemy_runner_6",
+     "enemy_runner_7"
+    ],
+    "heavy": [
+     "enemy_heavy_0",
+     "enemy_heavy_1",
+     "enemy_heavy_2",
+     "enemy_heavy_3",
+     "enemy_heavy_4",
+     "enemy_heavy_5"
     ]
    }
   },
