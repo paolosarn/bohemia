@@ -131,6 +131,16 @@ async function level(p, name, lv, outGain, mp) {
     MUS.AC = save.AC; MUS.MAST = save.MAST; MUS.OUT = save.OUT; MUS.cur = save.cur; MUS.curSlot = save.curSlot; MUS.layers = save.layers; MUS.step = save.step; CITYMUS.on = save.on;
     if (err) return { err };
     const buf = await OAC.startRendering(), L = buf.getChannelData(0);
+    /* A TRUE PEAK LIMIT on levels 2 and 3 (never level 1, his song as approved): the compressor lets a transient through
+       (his SLOW BLEED, recorded 6 dB down because his engine plays it past full scale, clipped 12,776 samples at level 3
+       through it), so the gain that keeps every sample under -0.5 dBFS is held 5 ms ahead and released over 80 ms */
+    if (lv > 1) {
+      const CEIL = 0.944, SR2 = 44100, AH = Math.round(SR2 * 0.005), REL = Math.exp(-1 / (SR2 * 0.08)), n2 = L.length;
+      const need = new Float32Array(n2); for (let i = 0; i < n2; i++) { const a = Math.abs(L[i]); need[i] = a > CEIL ? CEIL / a : 1; }
+      const hold = new Float32Array(n2); const dq = []; /* the smallest need over the next AH samples, a sliding minimum */
+      for (let i = n2 - 1; i >= 0; i--) { while (dq.length && need[dq[dq.length - 1]] >= need[i]) dq.pop(); dq.push(i); while (dq[0] > i + AH) dq.shift(); hold[i] = need[dq[0]]; }
+      let g = 1; for (let i = 0; i < n2; i++) { const w = hold[i]; g = w < g ? w : w - (w - g) * REL; L[i] *= g; }
+    }
     const pcm = new Int16Array(L.length); let clip = 0;
     for (let i = 0; i < L.length; i++) { const v = Math.round(L[i] * 32767); if (Math.abs(v) > 32767) clip++; pcm[i] = Math.max(-32767, Math.min(32767, v)); }
     const u8 = new Uint8Array(pcm.buffer); let bin = ''; for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
@@ -245,7 +255,7 @@ function register(which, write) {
     const onMain = execFileSync('git', ['branch', '-r', '--contains', sha], { cwd: ROOT, encoding: 'utf8' });
     if (!/origin\/main\b/.test(onMain)) throw new Error(S.name + ': push the recordings to main first, ' + sha + ' is not on main');
     const card = { id: S.id, kind: 'song', lane: 'sounds', sha, made: '10/25',
-      title: 'YOUR ' + S.name + ' AT THREE LEVELS, FOR THE FIGHT',
+      title: S.name + ': YOUR SONG AT THREE LEVELS, FOR THE FIGHT',
       why: 'Your ' + S.name + ' at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song\'s own lead, and none of it is in the game until you say so. ' +
         'Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.',
       options: ['A, the three levels join the game for ' + S.name, 'B, no, not like this'],
@@ -277,6 +287,7 @@ if (require.main === module) {
   const [cmd, arg, flag] = process.argv.slice(2);
   if (cmd === 'record') record(arg || 'THE VAULT').catch(e => { console.error(e); process.exit(1); });
   else if (cmd === 'register') register(arg || 'THE VAULT', flag === '--write');
+  else if (cmd === 'index') rebuild();
   else { console.log('usage: record "<his song>" | record all | register "<his song>"|all [--write]'); process.exit(2); }
 }
 module.exports = { level, SONGS, RUN, slug };

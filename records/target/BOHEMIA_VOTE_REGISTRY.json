@@ -15106,120 +15106,12 @@
    }
   },
   {
-   "id": "sounds-the-substation-hums-alone-10-24",
-   "kind": "song",
-   "lane": "sounds",
-   "sha": "c85b6dd0",
-   "made": "10/24",
-   "title": "A NEW NIGHT SONG: THE SUBSTATION HUMS ALONE",
-   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your GHOST IN THE GRID with a wire that crackles as it sings from your WHAT THE SLOT MACHINE REMEMBERS, an empty building's hum from your song THE LAST BROADCAST CORRODES and a sizzling hat from your song THE HYMN THE STATIC ATE, a power substation nobody works at any more, still humming in the dark, the wires crackling, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your GHOST IN THE GRID and C your REPO MAN at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
-   "options": [
-    "A, THE SUBSTATION HUMS ALONE joins your night songs",
-    "B, no, not this one"
-   ],
-   "show": {
-    "how": "page",
-    "src": "BOHEMIA_THE_SUBSTATION_HUMS_ALONE_10_24_26.html"
-   },
-   "draft": true
-  },
-  {
-   "id": "sounds-the-cashier-s-cage-10-24",
-   "kind": "song",
-   "lane": "sounds",
-   "sha": "c85b6dd0",
-   "made": "10/24",
-   "title": "A NEW NIGHT SONG: THE CASHIER'S CAGE",
-   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your song THE VAULT with a rotting viola from your song THE LAST DEALER FOLDS, a held breath from your song A GASP IN THE VAULT and a call and answer tune from your REPO MAN, the casino cashier's cage behind its bars, a machine still counting money that is worth nothing, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your song THE VAULT and C your song THE PIT BOSS IS GONE at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
-   "options": [
-    "A, THE CASHIER'S CAGE joins your night songs",
-    "B, no, not this one"
-   ],
-   "show": {
-    "how": "page",
-    "src": "BOHEMIA_THE_CASHIER_S_CAGE_10_24_26.html"
-   },
-   "draft": true
-  },
-  {
-   "id": "sounds-the-mall-after-closing-10-24",
-   "kind": "song",
-   "lane": "sounds",
-   "sha": "c85b6dd0",
-   "made": "10/24",
-   "title": "A NEW NIGHT SONG: THE MALL AFTER CLOSING",
-   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your song THE ORGAN IN THE DROWNED CHAPEL with the voice in the mall's ceiling from your song THE VOICE THAT STILL ANNOUNCES FLOORS, a dead satellite still sending from your REPO MAN and the kick from your SLOW CREEP, the mall at night with the lights off, and the voice in the ceiling still announcing the floors, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your song THE ORGAN IN THE DROWNED CHAPEL and C your GHOST IN THE GRID at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
-   "options": [
-    "A, THE MALL AFTER CLOSING joins your night songs",
-    "B, no, not this one"
-   ],
-   "show": {
-    "how": "page",
-    "src": "BOHEMIA_THE_MALL_AFTER_CLOSING_10_24_26.html"
-   },
-   "draft": true
-  },
-  {
-   "id": "sounds-the-meter-reader-10-24",
-   "kind": "song",
-   "lane": "sounds",
-   "sha": "c85b6dd0",
-   "made": "10/24",
-   "title": "A NEW NIGHT SONG: THE METER READER",
-   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your REPO MAN with a pawned piano with keys that stick from your PAWNSHOP PSALM and a low dread hum from your song THE PIT BOSS IS GONE, the man who still comes round to read the meter on houses that have had no power for a year, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your REPO MAN and C your SLOW BLEED at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
-   "options": [
-    "A, THE METER READER joins your night songs",
-    "B, no, not this one"
-   ],
-   "show": {
-    "how": "page",
-    "src": "BOHEMIA_THE_METER_READER_10_24_26.html"
-   },
-   "draft": true
-  },
-  {
-   "id": "sounds-the-lobby-piano-still-plays-10-24",
-   "kind": "song",
-   "lane": "sounds",
-   "sha": "c85b6dd0",
-   "made": "10/24",
-   "title": "A NEW NIGHT SONG: THE LOBBY PIANO STILL PLAYS",
-   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your SLOW BLEED with a drowned piano from your song THE SENDING, an undertow bass from your song THE SENDING and a ride cymbal from your song THE SENDING, a hotel lobby with the water up to the carpet, and the player piano in the corner still going, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your SLOW BLEED and C your song THE VAULT at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
-   "options": [
-    "A, THE LOBBY PIANO STILL PLAYS joins your night songs",
-    "B, no, not this one"
-   ],
-   "show": {
-    "how": "page",
-    "src": "BOHEMIA_THE_LOBBY_PIANO_STILL_PLAYS_10_24_26.html"
-   },
-   "draft": true
-  },
-  {
-   "id": "sounds-the-last-bus-to-henderson-10-24",
-   "kind": "song",
-   "lane": "sounds",
-   "sha": "c85b6dd0",
-   "made": "10/24",
-   "title": "A NEW NIGHT SONG: THE LAST BUS TO HENDERSON",
-   "why": "You said we need more music, so this is a new night song made in your songs' own machine: your SLOW CREEP with a ghost flute from your WHERE THE PROCESSION DROWNED and a deep abyss bass from your WHERE THE PROCESSION DROWNED, a bus stop on Boulder Highway at two in the morning, waiting on a bus that stopped running a year ago, with the REPO MAN machine party playing along in the concrete hall on a worn tape. You hear it on this page over the real map, A the new song beside B your SLOW CREEP and C your SATELLITE PRAYER at the same loudness on a phone, on the 120 beat, and it is not in the game until you say yes (EYES AND EARS' line is owed, rule 119(c); rule 158(d) put it here).",
-   "options": [
-    "A, THE LAST BUS TO HENDERSON joins your night songs",
-    "B, no, not this one"
-   ],
-   "show": {
-    "how": "page",
-    "src": "BOHEMIA_THE_LAST_BUS_TO_HENDERSON_10_24_26.html"
-   },
-   "draft": true
-  },
-  {
    "id": "sounds-three-levels-the-vault-10-25",
    "kind": "song",
    "lane": "sounds",
    "sha": "0538fe30",
    "made": "10/25",
-   "title": "YOUR THE VAULT AT THREE LEVELS, FOR THE FIGHT",
+   "title": "THE VAULT: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
    "why": "Your THE VAULT at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
    "options": [
     "A, the three levels join the game for THE VAULT",
@@ -15237,7 +15129,7 @@
    "lane": "sounds",
    "sha": "6fa34532",
    "made": "10/25",
-   "title": "YOUR GHOST IN THE GRID AT THREE LEVELS, FOR THE FIGHT",
+   "title": "GHOST IN THE GRID: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
    "why": "Your GHOST IN THE GRID at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
    "options": [
     "A, the three levels join the game for GHOST IN THE GRID",
@@ -15255,7 +15147,7 @@
    "lane": "sounds",
    "sha": "05b5e782",
    "made": "10/25",
-   "title": "YOUR SATELLITE PRAYER AT THREE LEVELS, FOR THE FIGHT",
+   "title": "SATELLITE PRAYER: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
    "why": "Your SATELLITE PRAYER at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
    "options": [
     "A, the three levels join the game for SATELLITE PRAYER",
@@ -15273,7 +15165,7 @@
    "lane": "sounds",
    "sha": "74cbe326",
    "made": "10/25",
-   "title": "YOUR THE PIT BOSS IS GONE AT THREE LEVELS, FOR THE FIGHT",
+   "title": "THE PIT BOSS IS GONE: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
    "why": "Your THE PIT BOSS IS GONE at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
    "options": [
     "A, the three levels join the game for THE PIT BOSS IS GONE",
@@ -15291,7 +15183,7 @@
    "lane": "sounds",
    "sha": "74cbe326",
    "made": "10/25",
-   "title": "YOUR THE ORGAN IN THE DROWNED CHAPEL AT THREE LEVELS, FOR THE FIGHT",
+   "title": "THE ORGAN IN THE DROWNED CHAPEL: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
    "why": "Your THE ORGAN IN THE DROWNED CHAPEL at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
    "options": [
     "A, the three levels join the game for THE ORGAN IN THE DROWNED CHAPEL",
@@ -15309,7 +15201,7 @@
    "lane": "sounds",
    "sha": "74cbe326",
    "made": "10/25",
-   "title": "YOUR CAMPFIRE CONFESSION AT THREE LEVELS, FOR THE FIGHT",
+   "title": "CAMPFIRE CONFESSION: YOUR SONG AT THREE LEVELS, FOR THE FIGHT",
    "why": "Your CAMPFIRE CONFESSION at three levels on the 120 beat: 1 the map as you approved it with a soft beat under it, 2 their turn with tension, 3 your turn with full drums, a driving bass and a hook in your song's own lead, and none of it is in the game until you say so. Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar the way a fight plays them.",
    "options": [
     "A, the three levels join the game for CAMPFIRE CONFESSION",
