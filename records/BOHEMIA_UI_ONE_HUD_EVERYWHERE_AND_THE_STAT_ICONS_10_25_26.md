@@ -46,6 +46,11 @@ ONE BAR, BUILT BY ONE FUNCTION FROM ONE SET OF FACTS (slices/bohemia_ui_material
   in the fight, and the place's line was 15.4 points on the map and 14.3 in the fight.
 - A screen ADDS its own things below or beside (the fight's turn row and skills at the bottom, the town's LEAVE in the corner);
   it never moves or redraws the bar.
+- WHERE YOU ARE, SAID ONCE WHERE IT HAS ROOM. Mid-round RUN TWO's wagon put all six currencies on the glass (rule 200), and on a
+  phone held upright six counts fill the pane to its edge: the place was squeezed to nothing on all three screens alike (the
+  gate caught it the moment main moved), and in a town the place IS the town's name. Now, upright, the place stands in the
+  presses' row between the crew and the gear (two short lines at most); on its side and from 700 wide it stays at the glass's
+  right end. Only the one on the glass carries data-f=place at a time, so every gate reading 'the place' reads the one he sees.
 
 ### The phone in the fight: decided, said
 
@@ -54,7 +59,7 @@ THE CITY VIEW ONLY. And measured: on his phone the phone is 156 x 185 points at 
 at the start of a fight. So the phone stands in ONE place on the map and in the town (the same element), and stays off the
 fight's glass; it is never anywhere else. The gate holds both halves. If he wants it in the fight, it is one line.
 
-### Measured after (gates/one_hud_everywhere_gate.js, in the suite as ONE HUD EVERYWHERE, 60/0)
+### Measured after (gates/one_hud_everywhere_gate.js, in the suite as ONE HUD EVERYWHERE, 62/0)
 
 - Every piece (the bar, DAY, the crew, the gear, NOTES, the glass, the place) in the same rectangle on the map, in the town and
   in the fight: identical to a tenth of a point on the phone (bar 0,0,390,108) and on the computer (0,0,1440,60).
@@ -134,7 +139,7 @@ At 72 and 54 real pixels (his phone, 24 and 18 points) and 18 (a computer at 1x)
 
 ## Proof run (rule 13)
 
-Pre-push pass on the merged tree (main at eefda7f9 + this): ONE HUD EVERYWHERE 60/0, THE STAT ICONS READ AT A GLANCE 7/0, THE
+Pre-push pass on the merged tree (main at ae378aa4 + this): ONE HUD EVERYWHERE 62/0, THE STAT ICONS READ AT A GLANCE 7/0, THE
 STAT ICONS 5/0, THE DAYS ONCE 59/0 (re-aimed), THE SIX ON THE BAR, THE WAGON AND THE SIX, DEMO BUILD 25/0, the cut --check exact.
 Also green on this change: THE MAP'S KEYS 11/0, SETTINGS IN OUR MATERIALS 15/0, THE NOTES BUTTON 22/0, THE FIGHT'S BAR IS STUDIO
 MADE 15/0, WHEN THE PHONE TURNS 14/0, THE FORMATION IS KEPT 23/0 (alone; 22/1 only under three parallel browsers), WHAT THE CREW
