@@ -64,11 +64,17 @@ async function level(p, name, lv, outGain, mp, hot) {
     /* (not on his two hot songs: their low end at -7 dBFS holds the compressor down and every part under it with it;
        measured, SLOW BLEED's level 3 came out 2.5 dB under its level 1 on a phone even with the song 6 dB down. On those
        two the true peak limit below is the only limit.) */
+    /* THE OFFSET (his two hot songs, levels 2 and 3): MEASURED, SLOW BLEED's spectral centre sits at 2 to 3 Hz, a DC offset
+       under hearing that is why his engine plays it 'past full scale' (full-band rms -9.2 dBFS at level 1, -1.8 at level 2
+       with only a tick and a rim added: his tier 2 piles more offset on). The peak limit then answered the offset and pulled
+       everything a person hears down (level 3 4 dB under level 1 on a phone). A 15 Hz high-pass in front of the limit takes
+       the offset and nothing anybody hears; level 1 keeps his song exactly as approved, offset and all. */
+    if (hot && lv > 1) { const dc = OAC.createBiquadFilter(); dc.type = 'highpass'; dc.frequency.value = 15; dc.Q.value = 0.7; out0.connect(dc); dc.connect(OAC.destination); }
     if (lv > 1 && !hot) {
       const lim = OAC.createDynamicsCompressor();
       lim.threshold.value = -9; lim.knee.value = 6; lim.ratio.value = 8; lim.attack.value = 0.003; lim.release.value = 0.12;
       out0.connect(lim); lim.connect(OAC.destination);
-    } else out0.connect(OAC.destination);
+    } else if (!(hot && lv > 1)) out0.connect(OAC.destination);
     /* HIS TWO HOT SONGS (SLOW BLEED, SLOW CREEP: recorded 6 dB down because his engine plays them past full scale) carry
        their own low end at -7 dBFS, so on levels 2 and 3 the compressor squashed everything under it and level 3 came out
        no louder than level 1 on a phone (SLOW CREEP -45.2 / -41.6 / -44.9 dB): on those two it is skipped (above). */
@@ -103,11 +109,9 @@ async function level(p, name, lv, outGain, mp, hot) {
        8.6 dB over level 1 through a phone, their turn as loud as a fight; pulled down so 2 sits about 2 to 3 dB over 1 and
        3 about 5 to 6, the tension between the map and the fight. The pulse on 1 stays soft; on a phone the clock is what
        you hear of it (a phone's speaker drops the kick's low end). */
-    /* HIS TWO HOT SONGS on levels 2 and 3: no added kick, bass, pedal, tom or hit. MEASURED: their own low end already
-       peaks near full scale, so every added low note hit the peak limit and pulled the whole song down with it (SLOW
-       BLEED -46.5 / -48.3 / -49.3 dB with the compressor skipped and no trim); their own kick and bass carry the bottom, the
-       added parts are the ones a phone hears (the ticking, the clap and knock, the hats, the hook). */
-    const lo = hot && lv > 1 ? 0 : 1;
+    /* (Tried and measured wrong: no added low parts on the hot songs; SLOW BLEED still came out -46.5 / -49.2 / -50.5. The
+       cause was never the parts: see THE OFFSET below.) */
+    const lo = 1;
     const P = lv === 1 ? { pulse: part(0.40), clock: part(0.20) }
       : lv === 2 ? { kick: part(0.55 * lo), tick: part(0.26), pedal: part(0.40 * lo), tom: part(0.55 * lo), rim: part(0.30) }
       : { kick: part(0.85 * lo), snare: part(0.70), hat: part(0.30), hit: part(0.45 * lo), bass: part(0.50 * lo), hook: part(1.0) };
