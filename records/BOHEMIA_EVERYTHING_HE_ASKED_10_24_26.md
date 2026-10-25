@@ -4,7 +4,7 @@ Paolo 10/24: 'everything I talked to you about today, it's a pretty huge update;
 The coordinator keeps this list. Every check-in updates the statuses from main and reopens the lane of every line not SHIPPED, until all are. When the last line ships, RUN cuts BUILD THE BIG UPDATE and the coordinator tells him in one message.
 Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a lane's board, next), RESEARCH (a page first).
 
-| # | His ask | Rule | Lane | Status 10/25 15:45 UTC |
+| # | His ask | Rule | Lane | Status 10/25 16:35 UTC |
 |---|---|---|---|---|
 | 1 | The squiggle voice, Animal Crossing way, creepier, no clicking | 135 | SOUNDS | SHIPPED |
 | 2 | New enemies that each teach one lesson (Mechanic, Kids and Runners, Heavy) | bestiary | COMBAT | SHIPPED |
@@ -53,13 +53,13 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 45 | After every win: the summary, the loot, LOOT ALL, the bag screen, perks | 156 | RUN TWO | SHIPPED (BUILD 10/24n THE SPOILS, 10/24p level-ups) |
 | 46 | What the crew can't see reads grey-dark | 157 | COMBAT | SHIPPED (ebf9d676) |
 | 47 | Every action lands on the music's beat, by hand and on AUTO | 158 | COMBAT | SHIPPED (COMBAT c73be60d) |
-| 48 | More music, on the one beat (new songs to VOTE) | 158 | SOUNDS | SHIPPED (six new night songs in VOTE, the one beat) |
+| 48 | More music, on the one beat (new songs to VOTE) | 158 | SOUNDS | REDO: the six songs killed (rule 166, all the same); four new ones, each its own and with three intensities, RUNNING (SOUNDS 16:31) |
 | 49 | The pseudo-mayor arc and building the city, researched first | 161 | ECONOMY, GROK | SHIPPED (ECONOMY e5ee70a3: 31 kinds, 5 grand works, prices, looks) |
 | 50 | The killer company: Battle Brothers' level-ups, ranged defence, more points a level | 162 | RUN TWO, TUNING | SHIPPED (level-up choice 10/24p; TUNING's four picks a level be8aa11e) |
 | 51 | EYES' first playtest: 30 small wrong things filed on six boards (the dead stand up, a squeeze zooms to space, the shop's Battle Brothers names, the gear floating over screens, and the rest) | 150 | RUN, RUN TWO, COMBAT, UI, WORDS | 17 FIXED, 2 HALF, 8 STILL (on RUN, RUN TWO, COMBAT, COMBAT TWO, WORLD boards; EYES R2) |
 | 52 | Spacebar pauses on PC | 163 | RUN | SHIPPED (BUILD 10/24s) |
 | 53 | The camera keeps the party centred to the map's edge, beyond the outer settlements, at every zoom | 163 | RUN | SHIPPED (BUILD 10/24s) |
-| 54 | Battle Brothers' keyboard keys (UI) | 164 | see the item | HALF: the fight's keys SHIPPED (COMBAT f9a2a846); the map's keys RUNNING (UI reopened 15:45) |
+| 54 | Battle Brothers' keyboard keys (UI) | 164 | see the item | SHIPPED (the fight's keys f9a2a846, the map's keys UI c4f0c4f1) |
 | 55 | Every currency on the top bar (UI, ECONOMY) | 164 | see the item | HALF: ECONOMY's page SHIPPED (six on the bar, a7cf3682); the bar RUNNING (UI) |
 | 56 | A job's place named and marked on the map (WORLD) | 164 | see the item | SHIPPED (WORLD 07826e02) |
 | 57 | Stat icons like Battle Brothers' (UI, COOK) | 164 | see the item | RUNNING (UI reopened 15:45) |
@@ -71,7 +71,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 63 | No flags, no route lines (RUN, $20 round) | 164 | see the item | SHIPPED (10/24t no route lines; 10/25d flags off) |
 | 64 | The freeway and the Strip (COOK) | 164 | see the item | SHIPPED (COOK f458f104) |
 | 65 | The AUTO colour before the first tap (COMBAT) | 164 | see the item | SHIPPED (COMBAT adecb465, 2794f736) |
-| 66 | The fight board more organic, no glitches (COMBAT, COOK) | 164 | see the item | HALF: the fight floor in act one's palette (COOK 9cae20af); the board seams RUNNING (COMBAT reopened 15:45) |
+| 66 | The fight board more organic, no glitches (COMBAT, COOK) | 164 | see the item | REDO: COOK's grey fight floor goes back to its old colour (rule 167, COOK 16:30); the seams RUNNING (COMBAT) |
 | 67 | House heights that read (COMBAT) | 164 | see the item | SHIPPED (COMBAT f9a2a846) |
 | 68 | Switch weapons from two bag slots (RUN TWO, COMBAT) | 164 | see the item | SHIPPED (RUN TWO 717be9e0 the slots, COMBAT f9a2a846 the swap) |
 | 69 | The fight's UI better than Battle Brothers', mobile first (COMBAT, UI) | 164 | see the item | SHIPPED (COMBAT f9a2a846: hover info, the keys); UI keeps polishing |
