@@ -152,6 +152,40 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-lone-wolf): 10/25 LATEST -- [the first fifty days and the lone wolf] SHIPPED (rule 183, research only, no card, no game
+code touched; the coordinator opened this chat under rule 112, no check-in, this block is the report; the page committed in six pieces).
+RECORD: records/BOHEMIA_TUNING_THE_FIRST_FIFTY_DAYS_AND_THE_LONE_WOLF_10_25_26.md. BANK (draft:true, nothing reads it):
+banks/BOHEMIA_TUNING_LONE_WOLF_10_25_26.json (the 15 MB resume cache is NOT committed; the bench replays it seeded in ~45 min on 4 cores).
+BENCH (research instrument, not a gate): tools/bohemia_tuning_lone_wolf.js (--who, --ladder, --campaign, --write; stamp = the fight's print + the bench).
+MEASURED ON A FROZEN COPY: main's fight changed mid-run (COMBAT built the new AUTO brain, e0f39941 + 9fa7d655), so every number was played
+on a scratch worktree frozen at a132d9c6; the stamp 4823b957f531 names that fight. Re-measure when the fight moves (rule 178).
+1 WHO IS AT THE DOOR: origins.json gives {hedge_knight, level 4} and no gear; the fight dresses him as ours.crew[0] (YOU: dagger-pistol,
+  wooden shield, padded surcoat 50, open leather cap 40 = 90 armour); the crew screen's startLevel gives 3 perk points and no rolls;
+  every Lone Wolf is the same man (crewUnit rolls a named man by name: 70/105/65/9); a man handed a sword fights with no perks.
+2 THE LADDER (level 4, 60 fights a cell): live wolf vs the day-one pair 73 won / 27 fell; good gear 98 / 2, vs 3 87 / 13, vs 4 53 / 47
+  (out of breath a quarter of his turns: BB's 2-a-miss 5-a-hit rule); BB levels alone in rags add almost nothing.
+3 THE DAYS PLAYED (100 seeds, a fight every 2nd day, to day 100): live 57-64 in 100 in days 1-10, level 6 at day 100; good gear 94 in 100
+  of the first fifty (picks), one lost fight a run, 34 in 100 runs never lose; BB wolf 96 / 52; THE TURN: a cliff at day 61 (93 -> 68
+  picks, 74 -> 39 takes) when ours.enemy_tiers' late mix starts; the rags wolf buys the 650-battery kit by day 22.
+4 RECRUITS: an ordinary early hire (militia, 37 + 1/night) makes him worse in every row (the map counts him, he falls and is laid up, the XP
+  splits): good wolf 94 -> 89, never-lost 34 -> 14; a god-tier hire (hedge knight L2, ~497) safer: never-lost 34 -> 48 (hired day 16
+  when paid for) to 74 (day 1 on credit); the post deals six lowborn backgrounds only, so none exists.
+5 BB FIRST: the Lone Wolf page; contracts held at a 0.75 floor to strength ~80 (GROK_ASK_105), so BB's wolf meets a new company's jobs
+  alone; ours sizes his job at 2 for 80 days (the floor measured mild: -2 for a good wolf); crises foretold 50-70, at 80-100, minimum
+  roster; elite recruits 2.2-8.3% a city/fort slot.
+THE ONE TABLE: section I hand-added at the end of records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md (like F, G, H).
+NOTES POSTED: RUN [lone wolf numbers] (door gear, funds stand, day-one cap), RUN TWO [lone wolf numbers] (three waiting level-ups,
+the origin's gear on the card, the rare man at the post, the ordinary hire stays), WORLD [the enemy's rise by day] (the turn foretold,
+the floor not now), COMBAT [the enemy's rise by day] (late mix 60 -> 80 + a 20-day ramp, melee perk rows, roll per game, breath rule right).
+FOR THE COORDINATOR: a Grok ask may be worth it: the Lone Wolf scenario's exact starting items, talents and pending level-ups.
+NOT MEASURED: the bag pistol with the good kit; armour wear and healing between fights; the town shelf's hauberk; beasts and the other
+factions; the late mix at 80 or ramped (proposals); a human hand (AUTO plays him); renown's pay multiplier.
+SUITE: see the commit; pre-push pass named there.
+NEXT ON THE BOARD: [the odds keep up] (standing), then [the aim he sees], [the first week's losses], [the 32 situations].
+[bb the Lone Wolf: a new company's jobs from day one (the 0.75 floor); the great gear and three levels ARE the origin; the roads and the crisis outgrow him]
+[analog horror: day 61 nothing on the map changes, and the road that let him walk through it for sixty days takes him down]
+[PENDING Paolo]: none.
+
 TUNING (tuning-auto-brain): 10/25 LATEST -- [a better AUTO brain and a true calculator] SHIPPED (rule 176(g), research only, no card,
 no game code touched; the coordinator opened this chat under rule 112, no check-in, this block is the report; the page committed in
 pieces as each landed). RECORD: records/BOHEMIA_TUNING_A_BETTER_AUTO_BRAIN_AND_A_TRUE_CALCULATOR_10_25_26.md. BANK (draft:true, nothing
