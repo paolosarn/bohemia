@@ -872,7 +872,11 @@ async function turnPace() {
    gonna be solved'; ours.pistol_shot, ours.gun_club): the PISTOL fires from two to four tiles as Battle Brothers' javelin
    row, a magazine it reloads; EVERY GUN IS A CLUB AT ONE (his words for the pistol), the bludgeon's row, so a gunman beside
    a man clubs him and never walks out through the free swing (measured: stepping out lost the guns kit 63 to 88 in 100). The
-   legs ask where a gun FIRES (the shot, not the club) and where it clubs. */
+   legs ask where a gun FIRES (the shot, not the club) and where it clubs.
+   AMENDED 10/25 (rule 185, Paolo 10/25: 'why do you have pistols not able to shoot the tile next to them... if I have a pistol in
+   my hand, I shouldn't be pistol-whipping the tile next to me, I should still be shooting'): 'all guns 2+' was the REACH, never a
+   minimum (rule 83 misread). Every gun fires from the tile beside him to its range; the butt (ours.gun_club) only when the shot
+   is not there or he picks the WHIP; a rifleman beside a man still never walks out through the free swing: he shoots him. */
 async function gunsTwo() {
   const open1 = async (party) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,deploy:false,cap:1,auto:true,party:' + JSON.stringify(party) + '}' });
     await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 }); return d; };
@@ -894,12 +898,12 @@ async function gunsTwo() {
   back.err = d2.errs[0]; await d2.close();
   const o = reach.out, upto = (a, lo, hi) => a.length === hi - lo + 1 && a[0] === lo && a[a.length - 1] === hi;
   const cl = reach.club;
-  leg(upto(o.crossbow, 2, reach.range.crossbow) && upto(o.firearm, 2, reach.range.firearm) && !reach.err, '*** GUNS TWO (rule 83) ***: the RIFLE fires from two tiles to its range and the SHOTGUN at its two, never at a man beside the shooter (the rifle hit at exactly six before)',
+  leg(upto(o.crossbow, 1, reach.range.crossbow) && upto(o.firearm, 1, reach.range.firearm) && !reach.err, '*** GUNS FROM THE TILE BESIDE HIM (rule 185) ***: the RIFLE fires from the next tile to its range and the SHOTGUN to its two (the rifle hit at exactly six before; the two-tile minimum was rule 83 misread)',
     'rifle ' + o.crossbow.join(',') + '; shotgun ' + o.firearm.join(','));
   leg(upto(o.bow, 1, reach.range.bow) && upto(o.throwing, 2, 4) && !cl.bow.length && !cl.throwing.length, '  the bow fires anywhere inside its reach (it fired at exactly seven), the bottles from the wiki\'s minimum two; neither is a gun, neither clubs', 'bow ' + o.bow.join(',') + '; bottles ' + o.throwing.join(','));
-  leg(upto(o.dagger, 2, reach.pistol) && cl.dagger.join() === '1' && o.mace.join() === '1' && o.sword.join() === '1', '*** THE PISTOL SHOOTS (rule 120(a)) ***: from two tiles to the javelin row\'s four, a club at one; melee reaches the next tile', 'pistol fires ' + o.dagger.join(',') + ', clubs ' + cl.dagger.join(',') + '; pipe ' + o.mace.join(',') + ', blade ' + o.sword.join(','));
-  leg(cl.crossbow.join() === '1' && cl.firearm.join() === '1', '*** EVERY GUN IS A CLUB AT ONE (ours.gun_club) ***: the rifle and the shotgun club the man beside them, and fire at none', 'rifle clubs ' + cl.crossbow.join(',') + '; shotgun clubs ' + cl.firearm.join(','));
-  leg(!back.stepped && back.clubs > 0 && back.shots === 0 && !back.err, '  a rifleman beside a man clubs him where he stands, never walks out through the free swing', (back.stepped ? 'STEPPED, ' : 'stood, ') + back.clubs + ' club, ' + back.shots + ' shot at ' + back.at + ' tiles');
+  leg(upto(o.dagger, 1, reach.pistol) && !cl.dagger.length && o.mace.join() === '1' && o.sword.join() === '1', '*** THE PISTOL SHOOTS THE MAN BESIDE HIM (rules 120(a), 185) ***: from the next tile to the javelin row\'s four; melee reaches the next tile', 'pistol fires ' + o.dagger.join(',') + ', clubs ' + (cl.dagger.join(',') || 'never') + '; pipe ' + o.mace.join(',') + ', blade ' + o.sword.join(','));
+  leg(!cl.crossbow.length && !cl.firearm.length, '*** NO GUN CLUBS WHILE IT HAS A SHOT (rule 185(g)) ***: the rifle and the shotgun shoot the man beside them', 'rifle clubs ' + (cl.crossbow.join(',') || 'never') + '; shotgun clubs ' + (cl.firearm.join(',') || 'never'));
+  leg(!back.stepped && back.shots > 0 && back.clubs === 0 && back.at === 1 && !back.err, '  a rifleman beside a man shoots him where he stands, never walks out through the free swing', (back.stepped ? 'STEPPED, ' : 'stood, ') + back.clubs + ' club, ' + back.shots + ' shot at ' + back.at + ' tiles');
 }
 
 /* ZONE OF CONTROL IS MELEE ONLY (rule 103, Paolo 10/10: 'anyone using a ranged weapon has no zone of control and you can

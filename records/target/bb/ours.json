@@ -867,10 +867,10 @@
   "tuned": false
  },
  "gun_min_range": {
-  "value": 2,
-  "source": "VAMILY.md rule 83 (Paolo 10/10) and records/BOHEMIA_PAOLO_THE_SEVENTH_VOTES_ALL_THE_ART_LOOKS_NOTHING_LIKE_THE_ASSETS_WE_DOWNLOADED_10_10_26.md",
-  "quote": "melee weapons work on one tile away, all guns 2+ minimum",
-  "why": "a gun that fires (ours.gun_classes that are ranged: the SHOTGUN, the RIFLE, and from 10/19 the PISTOL's shot, ours.pistol_shot) never fires at a man beside the shooter; the pistol is the club at one (rule 83: 'the pistol is a two-tile gun, or a club at one'); its shot came with rule 120, the guns vote rule 47b waited for",
+  "value": 1,
+  "source": "VAMILY.md rule 185 (Paolo 10/25, LOCKED), correcting rule 83's reading of his 10/10 words; records/BOHEMIA_PAOLO_A_GUN_SHOOTS_THE_MAN_BESIDE_HIM_10_25_26.md",
+  "quote": "why do you have pistols not able to shoot in the tile next to them? All I wanted was that if someone has a melee weapon they can control one tile around them... if I have a pistol in my hand, I shouldn't be pistol-whipping the tile next to me, I should still be shooting",
+  "why": "the nearest tile a gun (ours.gun_classes that are ranged: the SHOTGUN, the RIFLE, the PISTOL's shot, ours.pistol_shot) fires at: the one beside him. His 10/10 'all guns 2+ minimum' was the REACH (a gun reaches two tiles or more), read once as a minimum distance (rule 83, built 10/10 to 10/25); the pistol's shot rides a javelin row whose own page starts at two, and a gun no longer takes that floor (rangeLo). The gun's butt (ours.gun_club) is struck only when the shot is not there or he picks it (rule 185(g))",
   "tuned": false
  },
  "melee_reach": {
@@ -1005,9 +1005,9 @@
   "value": {
    "row": "bludgeon"
   },
-  "source": "VAMILY.md rule 83 (Paolo 10/10) and rule 120(a) (Paolo 10/18); records/target/bb/ours.json weapon_rows (a pipe is their mace: the bludgeon)",
-  "quote": "melee weapons work on one tile away, all guns 2+ minimum / the pistol is a two-tile gun, or a club at one / the guns were supposed to be the main way this is gonna be solved",
-  "why": "a gun never fires at a man beside the shooter (rule 83), so a gunman a thug reaches was helpless: measured 10/19, the auto brain walked him out of the thug's reach and he ate the free swing, and the guns kit lost to the pipes kit 63 to 88 in 100 on three thugs. Every gun (ours.gun_classes and the pistol's shot) is a CLUB AT ONE, his own words for the pistol: at one tile it strikes as the plainest row of Battle Brothers' club class, the bludgeon (the pipe's own row, Bash 4 AP), and a gunman with his club does not step out of a man's reach. Both sides: an enemy's crossbow is a rifle too. It holds no ring (rule 103: a gun in his hands holds none).",
+  "source": "VAMILY.md rule 83 (Paolo 10/10), rule 120(a) (Paolo 10/18) and rule 185 (Paolo 10/25); records/target/bb/ours.json weapon_rows (a pipe is their mace: the bludgeon)",
+  "quote": "I shouldn't be pistol-whipping the tile next to me, I should still be shooting / the guns were supposed to be the main way this is gonna be solved",
+  "why": "THE GUN'S BUTT: every gun strikes the man beside him as the bludgeon only when the shot is not there (no round, not loaded, no breath or AP for the shot) or when he picks the whip (rule 185(g): 'he does not pistol-whip unless he chooses to'); before rule 185 it was every blow at one tile, because a gun could not fire there. The history: a gun never fires at a man beside the shooter (rule 83), so a gunman a thug reaches was helpless: measured 10/19, the auto brain walked him out of the thug's reach and he ate the free swing, and the guns kit lost to the pipes kit 63 to 88 in 100 on three thugs. Every gun (ours.gun_classes and the pistol's shot) is a CLUB AT ONE, his own words for the pistol: at one tile it strikes as the plainest row of Battle Brothers' club class, the bludgeon (the pipe's own row, Bash 4 AP), and a gunman with his club does not step out of a man's reach. Both sides: an enemy's crossbow is a rifle too. It holds no ring (rule 103: a gun in his hands holds none).",
   "tuned": false
  },
  "weapon_says_weak": {

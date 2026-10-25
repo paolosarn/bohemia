@@ -8,9 +8,11 @@
    Legs:
    1. every origin's company as the door builds it (background and level, no gear) carries a gun; every company of two or
       more a pistol and a rifle; the rifle in the hands of the best eye;
-   2. the PISTOL fires from two tiles to four and clubs at one; its five rounds are a magazine, a reload refills it, only when
-      it is empty; PISTOL WORK (dagger mastery) fires it at three AP;
-   3. every gun clubs at one (the rifle, the shotgun), and never fires there; the bow and the bottles are not guns and do not;
+   2. the PISTOL fires from the tile beside him to four (rule 185, Paolo 10/25: 'if I have a pistol in my hand, I shouldn't be
+      pistol-whipping the tile next to me, I should still be shooting'; it clubbed at one from 10/10 to 10/25, rule 83 misread);
+      its five rounds are a magazine, a reload refills it, only when it is empty; PISTOL WORK (dagger mastery) fires it at three AP;
+   3. every gun fires at the man beside him (the rifle, the shotgun); the butt (ours.gun_club) only when there is no shot in it
+      or he picks the WHIP; the bow and the bottles are not guns and have no butt;
    4. the first week's band is thugs (ours.enemy_tiers 'first'); the lesser raider from day eight;
    5. Battle Brothers' Beginner aim is the default (ours.hit_roll_shift): +5 his, -5 theirs on SEEN IT, nothing on OUTLIVED IT;
    6. THE FIRST FIGHT IS WON BY SHOOTING: A NEW CREW against its first week's band of two and of three (day 1, SEEN IT), AUTO
@@ -55,9 +57,14 @@ const reach = {};
   for (let d = 1; d <= 8; d++) { u.x = 2; u.y = 7; t.x = 2 + d; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (F.canStrike(u, t)) (T.armIn(u, t) === u.weapon ? fires : clubs).push(d); }
   reach[c] = { fires: fires.join(','), clubs: clubs.join(',') };
 });
-leg(reach.dagger.fires === '2,3,4' && reach.dagger.clubs === '1', '*** THE PISTOL SHOOTS (ours.pistol_shot) ***: from two tiles to four, a club at one', 'fires ' + reach.dagger.fires + ', clubs ' + reach.dagger.clubs);
-leg(reach.crossbow.clubs === '1' && reach.firearm.clubs === '1' && reach.crossbow.fires.split(',')[0] === '2' && reach.firearm.fires === '2',
-  '*** EVERY GUN IS A CLUB AT ONE (ours.gun_club) ***: the rifle and the shotgun club the man beside them and fire from two', 'rifle fires ' + reach.crossbow.fires + ' clubs ' + reach.crossbow.clubs + '; shotgun fires ' + reach.firearm.fires + ' clubs ' + reach.firearm.clubs);
+leg(reach.dagger.fires === '1,2,3,4' && !reach.dagger.clubs, '*** THE PISTOL SHOOTS THE MAN BESIDE HIM (rule 185) ***: from the next tile to four, never the butt while there is a shot', 'fires ' + reach.dagger.fires + ', clubs ' + (reach.dagger.clubs || 'never'));
+leg(!reach.crossbow.clubs && !reach.firearm.clubs && reach.crossbow.fires.split(',')[0] === '1' && reach.firearm.fires === '1,2',
+  '*** EVERY GUN FIRES FROM THE TILE BESIDE HIM (rule 185: \'all guns 2+\' is the reach, never a minimum) ***: the rifle and the shotgun shoot the man beside them', 'rifle fires ' + reach.crossbow.fires + '; shotgun fires ' + reach.firearm.fires + '; the butt ' + ((reach.crossbow.clubs + reach.firearm.clubs) || 'never'));
+/* the butt: when the shot is not there, or he picks the whip */
+{ const pw0 = T.pistolShot(W.filter(x => x.id === 'dagger')[0]); u.weapon = pw0; u.club = T.clubFor(pw0); u.x = 2; u.y = 7; t.x = 3; t.y = 7; u.ap = u.apTurn; u.fat = 0;
+  u.ammo = 0; const dry = F.canStrike(u, t) && T.armIn(u, t) === u.club; u.ammo = pw0.mag;
+  u.whip = true; const picked = F.canStrike(u, t) && T.armIn(u, t) === u.club, far = (t.x = 4, T.armIn(u, t) === u.weapon); u.whip = false; t.x = 3;
+  leg(dry && picked && far, '  the butt: an empty pistol clubs the man beside him; with the WHIP picked he clubs him though it is loaded; a man two off is shot', 'empty ' + dry + ', whip ' + picked + ', two off shot ' + far); }
 leg(!reach.bow.clubs && !reach.throwing.clubs && !reach.mace.clubs, '  the bow, the bottles and the pipe are not guns: none of them clubs as a gun', 'bow ' + reach.bow.fires + ', bottles ' + reach.throwing.fires + ', pipe ' + reach.mace.fires);
 /* the magazine */
 const pw = T.pistolShot(W.filter(x => x.id === 'dagger')[0]);

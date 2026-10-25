@@ -93,7 +93,15 @@ leg(fresh.every(b => b < WEAK) && pb >= WEAK, '*** THE LINE IS EARNED ***: no ma
       '*** A FINGER ON HIM SAYS WHAT THE BLOW DOES (rule 120(b)) ***: the chance, the health and the armour of one blow, the rules\' own numbers, inside the glass above the bar (390 x 844)', a.text.replace(/\n/g, ' / '));
     leg(!/barely/.test(a.text), '  a pistol on a day-one thug gets no lecture', a.text.split('\n').length + ' lines');
     const b = await aimAt(p, '!!v.weapon.of', [14, 2], 1);
-    leg(/Too close to shoot/.test(b.text) && /club/.test(b.text), '*** A GUN BESIDE HIM SAYS IT CLUBS ***', b.text.replace(/\n/g, ' / '));
+    leg(/% to hit/.test(b.text) && /left|reload/i.test(b.text) && !/club|Too close/.test(b.text), '*** A GUN BESIDE HIM SHOOTS HIM (rule 185, Paolo 10/25: \'I shouldn\'t be pistol-whipping the tile next to me, I should still be shooting\') ***: the aim says the shot and its rounds, no club', b.text.replace(/\n/g, ' / '));
+    /* the WHIP is his pick (rule 185(g)): its square is up while a man of theirs is beside him; armed, the aim says the butt */
+    const wq = await p.evaluate(() => { const q = document.querySelector('#skills [data-whip]'); if (!q) return null; const r = q.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2, off: q.disabled }; });
+    let wt = '';
+    if (wq && !wq.off) { await p.touchscreen.tap(wq.x, wq.y); await p.waitForTimeout(250);
+      const s2 = await p.evaluate(() => { const t = FIGHT.S.units.filter(v => v.side === 'them')[0]; return { x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th) }; });
+      await p.touchscreen.tap(s2.x, s2.y); await p.waitForTimeout(350); wt = await p.evaluate(() => document.getElementById('say').innerText);
+      await p.evaluate(() => { const u = FIGHT.current(); if (u) u.whip = false; FIGHT_UI.pend = null; }); }
+    leg(!!wq && /whips him/i.test(wt) && !/ left\./.test(wt), '  the WHIP square is up beside him; picked, the aim says he whips him with the butt and no round is counted', wq ? wt.replace(/\n/g, ' / ') : 'no WHIP square');
     /* the second tap: what it did */
     const a2 = await aimAt(p, '!!v.weapon.of', [14, 2], 2);
     const s = await p.evaluate(() => { const t = FIGHT.S.units.filter(v => v.side === 'them')[0]; return { x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th) }; });
