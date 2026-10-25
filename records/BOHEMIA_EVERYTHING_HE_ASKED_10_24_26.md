@@ -126,3 +126,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 112 | Shooters take the shot with the best chance | 191 | COMBAT | QUEUED (with the brain) |
 | 113 | Gear never vanishes (the spear and car door gone by fight three) | 191 | COMBAT, RUN TWO | QUEUED (first on COMBAT's board) |
 | 114 | Most jobs fit the company like Battle Brothers (not 75% overpowered); the stars tell the truth | 192 | WORLD, TUNING, EYES | BUILT, NOT YET SEEN (WORLD 53acbf78: a job is Battle Brothers' contract on his strength, the stars are the skulls; day 20 one star won 90 in 100, was 33; gates/most_jobs_fit_the_company_gate.js 5/0; COMBAT's OUTCLASSES YOU mark still fires on fights he wins, noted) |
+| 115 | The shield is one hand: a spear and a car door on one man, a wall (the two-handed 'rebar spears' get their own names and a TWO HANDS mark) | 194 | RUN TWO, UI, COMBAT, EYES | QUEUED (first on RUN TWO's board, after its running round) |
