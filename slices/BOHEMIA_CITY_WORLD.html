@@ -39167,7 +39167,7 @@ const T={day:1, min:6*60};
 const DAY=BohemiaDayLoop.make();
 
 DAY.wake();
-function daySync(){ T.day=DAY.day; T.min=DAY.min; }
+function daySync(){ T.day=DAY.day; T.min=((DAY.min%1440)+1440)%1440; }   /* __THE_NIGHT_IS_PLAYED__: a day that starts at 22:00 reads 22:00, not -2:00 */
 function advance(mins){
   const was=DAY.phase;
   DAY.tick(mins, dayWhere());
@@ -39205,7 +39205,16 @@ function advance(mins){
   }
   updHud();
 }
-function isNight(){ return T.min>=19*60||T.min<6*60; }
+/* ==== __THE_NIGHT_IS_PLAYED__ (RUN 10/25, rule 164 item 5, Paolo on his PC: 'I don't know why night is so short... I actually
+   want it to be night more, it was fun'). MEASURED (EYES round 2: 'the night crossed in about 3 seconds of travel'): the map
+   went dark at 19:00, nightfall at 22:00 turned the day and the clock jumped to 06:00, so of the eleven dark hours he saw three
+   and the other eight were never on the glass. NOW THE NIGHT IS PLAYED: nightfall still pays the night (the crew's food, the
+   lights, the rent, the loans) and still turns the day, but the new day starts where the old one stopped, at 22:00, and the
+   clock runs on through the dark to dawn; and the dark comes at 18:00. A day is 24 hours on the clock and 12 of them are
+   night (he saw 3 of 19 before). Turning in early (the walked surface's SLEEP) still wakes you at 06:00. The day loop
+   (engine/bohemia_dayloop.js) is untouched: its day simply begins two hours before midnight. ==== */
+var NIGHT_FROM = 18*60, NIGHT_PLAYED = true;
+function isNight(){ return T.min>=NIGHT_FROM||T.min<6*60; }
 function clockStr(){ const h=(T.min/60)|0, m=Math.floor(T.min%60); return 'DAY '+T.day+' · '+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
 
 // ---- modes ----
@@ -48223,10 +48232,16 @@ function renderCity(){
                 /* A HALO AND A CORE. A flat dot this size vanishes into a street
                    full of roofs; the soft ring is what makes it read as a LIGHT
                    rather than as another piece of the ground. */
-                g.fillStyle = __col; g.globalAlpha = 0.16;
-                g.beginPath(); g.arc(__cx, __cy, __rad * 2.2, 0, 6.2832); g.fill();
-                g.globalAlpha = 0.95;
-                g.beginPath(); g.arc(__cx, __cy, __rad, 0, 6.2832); g.fill();
+                /* __A_LIGHT_NOT_A_BEAD__ (RUN 10/25, with __THE_NIGHT_IS_PLAYED__ and rule 151(f)): LOOKED AT on the phone at
+                   23:13, a lit street was a row of hard 3.5 px beads in the holder's ink, and a row of beads on a street is
+                   exactly a route line (his 'their lines on the ground of where they're gonna walk'). Now each is a glow
+                   with a pinprick at its heart: two soft rings and a 1.5 px core, the holder's ink kept */
+                g.fillStyle = __col; g.globalAlpha = 0.07;
+                g.beginPath(); g.arc(__cx, __cy, __rad * 2.8, 0, 6.2832); g.fill();
+                g.globalAlpha = 0.12;
+                g.beginPath(); g.arc(__cx, __cy, __rad * 1.5, 0, 6.2832); g.fill();
+                g.globalAlpha = 0.9;
+                g.beginPath(); g.arc(__cx, __cy, Math.max(0.75, __rad * 0.42), 0, 6.2832); g.fill();
                 if (__c.faction) __ink[__c.faction] = g.fillStyle;
                 __lit++;
               } else {
@@ -50215,7 +50230,7 @@ function facadeDoor(v,C){
 
    INTEGER ALWAYS: every rect is C x C at a rounded offset, the whole-pixel
    lattice. Nothing is scaled and no smoothing path is touched. */
-const SUN_UP=6*60, SUN_DOWN=19*60;   /* THE SAME two numbers isNight() uses */
+const SUN_UP=6*60, SUN_DOWN=NIGHT_FROM;   /* THE SAME two numbers isNight() uses */
 const SHADOW_A=0.34;                 /* one flat value. NO DITHER, NO GRADIENT */
 const SHADOW_MAX=5;                  /* cells: the longest a shadow ever runs */
 const SHADOW_SWEEP=1.15;             /* radians of azimuth swing, dawn -> dusk */
@@ -65131,7 +65146,7 @@ function showWake(){
      press left to hang it on: the morning's sound and the vista beat. Dropping them
      with the card would have been a feature quietly deleted by a fix, which is the
      thing this file keeps being caught by. */
-  toPhone('this morning', h);
+  if (MAP_DAY_RECAP) toPhone('this morning', h);   /* __NO_DAILY_RECAP__ */
   try{ if(window.parent&&window.parent!==window)
     window.parent.postMessage({bohemiaCitySfx:{ev:'come_up'}},'*'); }catch(_e){}
   try{ vistaBeatMaybe(); }catch(_e){}
@@ -65259,6 +65274,12 @@ function phoneLines(html){
 }
 /* ONE DOOR FOR BOTH THE MORNING AND THE NIGHT, so there is one answer to "where did
    that go" and one place a future lane adds to. */
+/* __NO_DAILY_RECAP__ (RUN 10/25, rule 164 item 6, Paolo on his PC: 'a whole daily recap I never asked for'). LOOKED AT: every
+   nightfall the reckoning (DAY n NIGHTFALL, hours lived, who you let down, who you owe, the batteries, the steps) and every
+   wake ('this morning') were pushed onto the phone with its badge ringing, over the two jobs. Both stand down; what the night
+   costs is still charged and still said where it happens (the crew's food and the man who walks speak for themselves, the
+   bar's batteries move). The cards are built as before behind this switch. */
+var MAP_DAY_RECAP = false;
 function toPhone(title, html){
   var lines = phoneLines(html);
   if(!lines.length) return 0;
@@ -67085,7 +67106,7 @@ function showReckoning(){
      A CARD WITH ONE BUTTON ON IT IS A CHOICE PRETENDING IT IS NOT -- this file's own
      sentence, written for the road card, and just as true here: SLEEP had no second
      option, so nothing was ever being decided. */
-  toPhone('last night', h);
+  if (MAP_DAY_RECAP) toPhone('last night', h);   /* __NO_DAILY_RECAP__: the night's bookkeeping still runs above and below */
   (function(){
     /* __CITY_NEGLECT__ -- MOVED (__WHAT_YOU_OWE__, 9/5). The upkeep for the day
        that is ending is charged at the TOP of showReckoning now, before the card
@@ -67106,7 +67127,10 @@ function showReckoning(){
        still runs, because the day he played really did happen. Everything below
        is the rollover, and the rollover is what the demo does not get. */
     if (ctDemoOver(s.day)) { try { showEnding(); return; } catch(_e){} }
-    DAY.nextDay(); daySync(); _lastDistrict=null;
+    DAY.nextDay();
+    /* __THE_NIGHT_IS_PLAYED__: the new day starts at the nightfall it came from, and the night is crossed on the map */
+    if (NIGHT_PLAYED && s.reason !== 'slept') { DAY.min = DAY.NIGHT_MIN - 1440; DAY._frac = 0; }
+    daySync(); _lastDistrict=null;
     showWake(); updHud(); render(); reportState(); })();
 }
 

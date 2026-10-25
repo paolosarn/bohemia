@@ -2072,13 +2072,16 @@
     tenPost({ kind: 'drops', n: list.length });
   }
   /* nightfall: the day's tally, said by his second (fights won, batteries in and out, days left); one tap */
+  var TEN_TALLY = false;   /* __NO_DAILY_RECAP__ */
   function tenNight() {
     var B = window.__BILL || {}, last = B.last || {}, day = last.day || (tenDay() - 1) || 1, inn = 0, out = 0;
     try { purseGet().entries.forEach(function (e) { if (e.currency !== 'electricity' || e.day !== day) return; if (/^start:/.test(String(e.ref || '')) || /^the crew starts/i.test(String(e.reason || ''))) return;   /* the start's own grant is not the day's */ if (e.amount > 0) inn += e.amount; else out -= e.amount; }); } catch (e) {}
     TEN.lastNight = { day: day, won: VOICE.won[day] | 0, in: inn, out: out, days: B.daysLeft, walked: last.walked || null };
     var sec = tenSecond(), l = L('tally');
     var won = VOICE.won[day] | 0;
-    if (sec && l) say({ id: 'tally:' + day, kind: 'tally', who: sec, line: fill(l.line, { day: day, won: won, fights: won === 1 ? '1 fight' : won + ' fights', in: inn, out: out, days: B.daysLeft }), tag: 'DAY ' + day, red: !!B.red, prio: 2, ttl: 60, hold: 12 });
+    /* __NO_DAILY_RECAP__ (RUN 10/25, rule 164 item 6, Paolo on his PC: 'a whole daily recap I never asked for'): the tally stays
+       counted in TEN.lastNight for whoever reads it; his second no longer says it at the foot of the map every night */
+    if (TEN_TALLY && sec && l) say({ id: 'tally:' + day, kind: 'tally', who: sec, line: fill(l.line, { day: day, won: won, fights: won === 1 ? '1 fight' : won + ' fights', in: inn, out: out, days: B.daysLeft }), tag: 'DAY ' + day, red: !!B.red, prio: 2, ttl: 60, hold: 12 });
     var f = L('first_night'); if (f && sec) say({ id: 'first_night', kind: 'teach', once: true, who: sec, line: f.line, prio: 2, ttl: 90 });
   }
   /* the seven of the eight that are the map's (the first fight's three are COMBAT's): states read on the beat */
