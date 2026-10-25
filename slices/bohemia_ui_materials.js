@@ -2225,6 +2225,40 @@
   TEN.say = say; TEN.voice = VOICE; TEN.partyPlate = partyPlate; TEN.count_ = tenCount; TEN.crewDoor = crewDoor;
 
   /* ======================================================================================================
+     __THE_STAT_ICONS__  (UI [the PC playtest: the UI's part] (3), 10/25/26; rule 164 item 4, Paolo 10/24 on his PC: 'we need
+     awesome logos for everything... Battle Brothers has logos too, a heart, a shield'). A picture beside every stat wherever a
+     man's numbers are read, Battle Brothers' way: HITPOINTS a heart, FATIGUE two lungs, RESOLVE a taped fist, INITIATIVE a
+     bolt, MELEE SKILL a machete, RANGED SKILL a reticle, MELEE DEFENSE a steel shield, RANGED DEFENSE the drab shield shot
+     through. Each is a solid lit by the kit's one sun (tools/bohemia_ui_stat_icons.py writes slices/stat_icons/, 72 pixels =
+     24 points, one art pixel to one phone pixel). Laid on by CSS on the screens' own markup, nothing of theirs rewritten:
+     the crew screen's rows and its level-up picks ([data-stat], [data-raise]), the hire's numbers (.hstats [data-stat]);
+     in the fight the drawer's rows are matched by their words.
+     ====================================================================================================== */
+  var STAT_ICONS = ['hp', 'fatigue', 'resolve', 'initiative', 'melee_skill', 'ranged_skill', 'melee_defense', 'ranged_defense'];
+  function statIcon(k) { return 'stat_icons/' + k + '.png'; }
+  function statIconsCSS() {
+    var b = 'content:"";display:inline-block;flex:0 0 auto;vertical-align:middle;background:center/contain no-repeat;image-rendering:pixelated;';
+    return STAT_ICONS.map(function (k) {
+      var u = 'background-image:url(' + statIcon(k) + ')';
+      return '.stats [data-stat="' + k + '"]>span:first-child::before,.lugrid button[data-raise="' + k + '"]>span:first-child::before{' + b + 'width:24px;height:24px;margin:-3px 6px -3px 0;' + u + '}'
+        + '.hstats span[data-stat="' + k + '"]::before{' + b + 'width:18px;height:18px;margin:-2px 3px 0 0;' + u + '}';
+    }).join('') + '.stats [data-stat]>span:first-child{display:inline-flex;align-items:center} .stats [data-stat]{align-items:center;min-height:26px}'
+      + '#drawer .r>span:first-child img.bm-stat{width:18px;height:18px;margin:0 4px -4px 0;image-rendering:pixelated}';
+  }
+  /* the fight's drawer says its rows in words (COMBAT's file): the words name the stat */
+  var STAT_WORDS = [[/^health/i, ['hp']], [/^fatigue/i, ['fatigue']], [/^resolve/i, ['resolve']], [/^initiative/i, ['initiative']],
+    [/^melee skill/i, ['melee_skill', 'melee_defense']], [/^ranged skill/i, ['ranged_skill', 'ranged_defense']]];
+  function statIconsDrawer() {
+    var d = document.getElementById('drawer'); if (!d || d.__bmStat) return; d.__bmStat = 1;
+    var lay = function () { [].forEach.call(d.querySelectorAll('.r>span:first-child'), function (sp) { if (sp.querySelector('img.bm-stat')) return;
+      var t = sp.textContent.trim(); for (var i = 0; i < STAT_WORDS.length; i++) if (STAT_WORDS[i][0].test(t)) { STAT_WORDS[i][1].slice().reverse().forEach(function (k) {
+        var im = document.createElement('img'); im.className = 'bm-stat'; im.alt = ''; im.src = statIcon(k); sp.insertBefore(im, sp.firstChild); }); break; } }); };
+    new MutationObserver(lay).observe(d, { childList: true }); lay();
+  }
+  try { style('bm-stat-icons', statIconsCSS()); } catch (e) {}
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', statIconsDrawer); else statIconsDrawer();
+
+  /* ======================================================================================================
      __BATTLE_BROTHERS_KEYS__  (UI [the PC playtest: the UI's part] (1), 10/25/26; rule 164 item 1, Paolo 10/24 on his PC:
      'find out all the keyboard button clicks that were on Battle Brothers and do pretty much the exact same for Bohemia').
      Source: the wiki's Keyboard Shortcuts page, through Grok ask 105 (PASSED FILTER; Grok, unverified), checked against
@@ -2401,6 +2435,6 @@
 
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
+    itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };
 })();
