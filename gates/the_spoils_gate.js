@@ -73,6 +73,14 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
   await sp.tap('#ground .slot.full >> nth=0'); await sp.waitForTimeout(150);
   const after = await sp.evaluate(() => { const S = BohemiaSpoilsScreen.state; return { stash: S.stash.length, left: S.ground.length, kept: JSON.parse(localStorage.getItem('bohemia.bag.v1')).length }; });
   ok('    a piece put back makes room, and a tap takes one from the ground; the stash is kept', after.stash === n.cap && after.left === 1 && after.kept === n.cap, JSON.stringify(after));
+  /* EYES [eyes: the end screen's words] (rule 150): the wipe's head is not its word twice, and the loot's head reads as English */
+  await sp.goto('http://127.0.0.1:8894/slices/BOHEMIA_SPOILS_SCREEN.html?wipe');
+  await sp.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened, null, { timeout: 30000 });
+  const ww = await sp.evaluate(() => ({ word: document.getElementById('word').textContent, head: document.getElementById('head').textContent }));
+  await sp.goto('http://127.0.0.1:8894/slices/BOHEMIA_SPOILS_SCREEN.html');
+  await sp.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened, null, { timeout: 30000 });
+  const fromn = await sp.evaluate(() => document.getElementById('fromn').textContent);
+  ok('S2 [eyes: the end screen\'s words] a wipe reads ' + ww.word + ' once (head "' + ww.head + '"), and the loot\'s head reads "' + fromn + '"', ww.word === 'WIPED OUT' && ww.head.indexOf('WIPED OUT') < 0 && /^OFF THEIR \d+ DEAD$/.test(fromn));
   await sp.close(); await b.close(); srv.close();
 
   /* ---- THE DEMO ---- */

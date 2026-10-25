@@ -56,7 +56,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #leave{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);
   border-radius:6px;font:inherit;font-weight:700}
 #scene{position:relative;flex:1;min-height:0;overflow:hidden;background:#0b0907}
-#cv{position:absolute;left:0;top:0;image-rendering:pixelated;image-rendering:crisp-edges}
+#cv{position:absolute;left:0;top:0;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none}   /* EYES [eyes: the town will not slide] (rule 150): the finger is the pan's, never the browser's (it cancelled the pointer after one move: a 280 px swipe moved the town 17 px) */
 .hot{position:absolute;border:1px dashed rgba(217,168,90,0);border-radius:3px;background:transparent;padding:0;
   min-width:44px;min-height:44px;cursor:pointer}
 .hot span{position:absolute;left:50%;top:6px;max-width:none;transform:translateX(-50%);background:rgba(18,14,10,.86);
@@ -104,6 +104,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .slot img.pk{width:auto;height:58%;max-width:84%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
 .act img.pk{width:34px;height:34px;object-fit:contain;image-rendering:pixelated;margin-right:8px;vertical-align:middle;flex:none}
 .slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.slot span.nm2{white-space:normal;text-align:center;line-height:1.05;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .slot em{font-style:normal;color:var(--dim);font-size:9px}
 /* SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18): the price on every piece in your bag reads at a glance, a piece you
    keep wears KEEP and never goes with the junk, and one button sells the rest */
@@ -438,7 +439,8 @@ function iconTile(it, onTap, sub, money){
   if(it){
     var pk = it.kind === 'weapon' ? packIcon(it.cls) : null;
     if(pk) b.appendChild(pk); else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }
-    var n = document.createElement('span'); n.textContent = it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; b.appendChild(n);
+    /* EYES [eyes: three pistols] (rule 150): a tile says the name its card says ('good pistol', 'beat-up pistol'), two lines at most */
+    var n = document.createElement('span'); n.className = 'nm2'; n.textContent = it.name.replace(/^(a|an) /,''); b.appendChild(n);
     if(sub != null){ var c = document.createElement('em'); c.textContent = sub; if(money) c.className = 'money'; b.appendChild(c); }
     b.setAttribute('aria-label', it.name);
     b.addEventListener('click', onTap);
@@ -1330,6 +1332,7 @@ function where(k){
     if(Math.abs(d) > 8 || Math.abs(dy) > 8){ moved = true; view.lit = null; }
     if(moved){ pan(c0 - d/view.s); panY(cy0 - dy/view.s); }
   });
+  window.addEventListener('pointercancel', function(){ x0 = null; view.lit = null; });
   window.addEventListener('pointerup', function(e){
     if(x0 === null) return; x0 = null; view.lit = null;
     if(moved) return;
@@ -1752,7 +1755,7 @@ function offerSpeak(o){
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts';
   acts.appendChild(act('Take it', '', function(){
-    S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your phone: '+o.title+', for '+o.client.name+'.'); shelf(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.');
+    S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.');
   }, S.held.length>=SLOTS));
   acts.appendChild(act('Not now', '', function(){ post('declined',{contract:o.id}); openB('board', 'Ni modo. ' + o.client.name + ' will keep asking around, no hard feelings.'); }));
   body.appendChild(acts);
@@ -1832,7 +1835,7 @@ function openB(k, line){
     body.appendChild(speak(k, line || (full ? 'You already carry two jobs. Finish one, then come talk to these people.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
     boardHere().forEach(function(o){ acts.appendChild(clientAct(o, full)); });
     var sl = document.createElement('div'); sl.className = 'slots';
-    sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your phone.';
+    sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */
     body.appendChild(acts); body.appendChild(sl); return show();
   }
   else if(k==='stall'){
@@ -1940,10 +1943,16 @@ function openB(k, line){
   show();
 }
 function show(){
-  document.getElementById('sheet').classList.add('on');
+  /* EYES [eyes: the sheet opens halfway] (rule 150): a sheet opened for a building opens at its top (it kept the last sheet's
+     scroll: the smith opened 195 px down, his face, his line and the close off the glass); the same building's sheet
+     redrawn after a buy keeps where he was */
+  var sh = document.getElementById('sheet');
+  if(!sh.classList.contains('on') || S.sheetFor !== S.open) sh.scrollTop = 0;
+  S.sheetFor = S.open;
+  sh.classList.add('on');
 
 }
-function hide(){ if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
+function hide(){ S.sheetFor = null; if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;
@@ -2130,6 +2139,7 @@ function open(o){
   S.build = null;   /* __BUILD_ON_THE_SCREEN__: a new place, its own lots */
   if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
   if(typeof o.day === 'number') S.mapDay = o.day;   /* __BUILD_ON_THE_SCREEN__: the map's day */
+  heard('');   /* EYES [eyes: the last town's line] (rule 150): a town opens with nothing carried from the last one */
   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): what a contract pays here is what the map pays (its start's bonus in it),
      and the valley's places, so this board deals from the same list as the phone and no job stands on two boards */
   S.payRule = o.payRule || null; S.places = Array.isArray(o.places) ? o.places : null;

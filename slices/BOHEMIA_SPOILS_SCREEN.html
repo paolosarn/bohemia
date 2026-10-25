@@ -279,7 +279,7 @@ function drawGround(){
   else { el.className = 'grid'; S.ground.forEach(function(it, i){ el.appendChild(slotFor(it, 'ground', i)); }); }
   var la = document.getElementById('lootall'), any = S.ground.length > 0 || (!S.countsTaken && hasCounts());
   la.disabled = !any; la.textContent = any ? 'LOOT ALL' : 'ALL TAKEN';
-  document.getElementById('fromn').textContent = S.found ? 'OFF ' + S.found.from + ' DEAD' : '';
+  document.getElementById('fromn').textContent = S.found && S.found.from ? 'OFF THEIR ' + S.found.from + ' DEAD' : '';   /* EYES [eyes: the end screen's words]: said as English */
   var lf = document.getElementById('left'); lf.textContent = S.ground.length ? S.ground.length + ' STILL ON THE GROUND' : '';
 }
 function drawStash(){
@@ -334,7 +334,10 @@ function head(f){
   var bar = document.getElementById('bar'); bar.className = kind === 'won' ? 'won' : 'lost';
   document.body.className = kind === 'won' ? '' : 'lost';
   document.getElementById('word').textContent = WORDS[kind];
-  document.getElementById('head').textContent = rc.head || (kind === 'won' ? 'THE FIGHT IS WON' : '');
+  /* EYES [eyes: the end screen's words] (rule 150): the head line stands only when it says something the word does not ('WIPED
+     OUT  WIPED OUT' read twice) */
+  var hd = String(rc.head || (kind === 'won' ? 'THE FIGHT IS WON' : '')), same = hd.replace(/\W+/g, ' ').trim() === WORDS[kind].replace(/\W+/g, ' ').trim() || hd.indexOf(WORDS[kind]) >= 0;
+  document.getElementById('head').textContent = same ? '' : hd;
   var t = document.getElementById('tally'); t.textContent = '';
   var bits = [];
   if(f.rounds) bits.push([f.rounds, f.rounds === 1 ? 'ROUND' : 'ROUNDS']);

@@ -21,6 +21,10 @@
      E15 [one company number] the crew screen, the bar and the door say the same room for the company, the fight's named
      E12 [the job's real pay] the board's pay is what the contract pays (the start's bonus in it), and dealt across the
          valley's places one contract stands in one place (a repeat only where the shelf ran dry); the phone shows a job once
+     EYES' ROUND 2 (10/25): E30 [the town will not slide] a finger's swipe across the town moves it with the finger;
+     E36 [the sheet opens halfway] a sheet opens at its top after another was read down; E33 [three pistols] every tile
+     on a shelf says its card's name; E37 [the phone line] the board says a held job is on the map, never the phone;
+     E38 [the last town's line] a town opens with no line carried from the last
      B4 nothing threw
    node gates/the_towns_part_gate.js */
 'use strict';
@@ -69,6 +73,17 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
       if (await sf.evaluate(() => { const o = BohemiaSettlement.state.open; return !!o && o !== 'smith'; })) { const c = await sf.$('#close'); if (c) { await c.tap(); await p.waitForTimeout(500); } }
       for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'smith')) break;
       const w = await sf.evaluate(() => BohemiaSettlement.where('smith')); if (w) await p.mouse.click(box.x + w.x, box.y + w.y + 30); await p.waitForTimeout(500); } };
+    /* ---- E30 a swipe moves the town with the finger (a real touch, start, moves, end) ---- */
+    await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
+    { const cdp = await p.context().newCDPSession(p), cvb = await (await sf.$('#cv')).boundingBox(), y = box.y + Math.min(cvb.height * 0.4, 220), x0 = box.x + 320, x1 = box.x + 40;
+      const ox0 = await sf.evaluate(() => BohemiaSettlement._view().ox);
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: x0, y }] });
+      for (let k = 1; k <= 14; k++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x0 + (x1 - x0) * k / 14, y }] }); await p.waitForTimeout(16); }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await p.waitForTimeout(300);
+      const ox1 = await sf.evaluate(() => BohemiaSettlement._view().ox);
+      const room = await sf.evaluate(() => { const v = BohemiaSettlement._view(); return Math.max(0, v.pw * v.s - v.W); });
+      ok('E30 [the town will not slide] a finger\'s swipe of ' + Math.round(x0 - x1) + ' px moves the town with it', Math.abs(ox1 - ox0) >= 0.9 * Math.min(Math.abs(x0 - x1), Math.max(0, ox0 + room)),   /* with the finger, up to the picture's own edge */
+        'the picture moved ' + Math.round(ox1 - ox0) + ' px, ' + Math.round(Math.max(0, ox0 + room)) + ' of room that way (EYES measured 17)'); }
     /* ---- E12 the board's pay is the contract's, one contract in one place ---- */
     /* the board is a building, a finger on its own pixels once the town's arrival card has gone (the loop gate's way) */
     await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
@@ -89,7 +104,15 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
     ok('    dealt across the valley\'s places, one contract stands in one place (a repeat only where the shelf ran dry), no board is empty',
       deal.places > 5 && deal.empty === 0 && deal.repeats <= Math.max(0, deal.places - deal.distinct + 2) && deal.repeats * 5 <= deal.posts, deal.places + ' places, ' + deal.posts + ' posts, ' + deal.distinct + ' different, ' + deal.repeats + ' repeats');
     if (deal.phone) ok('    the phone shows a job once', new Set(deal.phone).size === deal.phone.length, deal.phone.join(', '));
+    const e37 = await sf.evaluate(() => (document.querySelector('#sbody .slots') || {}).textContent || '');
+    ok('E37 [the phone line] the board says a held job is on the map, never the phone', /on your map/i.test(e37) && !/phone/i.test(e37), e37);
+    /* E36: read the board's sheet down, then open another building's: it opens at its top */
+    await sf.evaluate(() => { document.getElementById('sheet').scrollTop = 400; });
     await smith();
+    const e36 = await sf.evaluate(() => ({ top: document.getElementById('sheet').scrollTop, close: document.getElementById('close').getBoundingClientRect().top }));
+    ok('E36 [the sheet opens halfway] the smith\'s sheet opens at its top after the board\'s was read 400 px down, its close on the glass', e36.top === 0 && e36.close >= 0, JSON.stringify(e36));
+    const e33 = await sf.evaluate(() => [...document.querySelectorAll('#shelfgrid .slot.full')].map(t => ({ say: (t.querySelector('span') || {}).textContent || '', card: (t.getAttribute('aria-label') || '').replace(/^(a|an) /, '') })));
+    ok('E33 [three pistols] every tile on the shelf says the name its card uses, so two different things never read the same', e33.length > 0 && e33.every(t => t.say === t.card) && new Set(e33.map(t => t.say)).size === new Set(e33.map(t => t.card)).size, e33.map(t => t.say).join(', '));
     /* ---- E7 E13 E16 the smith's card ---- */
     const gun = await sf.evaluate(() => { const S = BohemiaSettlement.state, sh = S.stock.smith || []; const it = sh.find(i => i.kind === 'weapon' && BohemiaRoster.armLine && BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', i.id), true) && /TO|,/.test(BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', i.id), true).reach)) || sh.find(i => i.kind === 'weapon'); return it ? { name: it.name, id: it.id, was: it.was } : null; });
     if (gun) { const g = await sf.$('#shelfgrid .slot.full[aria-label="' + gun.name + '"]'); if (g) { await g.tap(); await p.waitForTimeout(400); } }
@@ -159,6 +182,12 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
     const b2 = await RF.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel]; return { name: m.name, bag1: m.gear.bag1 && m.gear.bag1.id }; });
     ok('    a tap puts the second weapon in his first bag slot', b2.bag1 === wid, b2.name + ' carries ' + b2.bag1);
     await tapR('#done'); await p.waitForTimeout(500);
+    /* ---- E38 the next town opens with nothing carried from this one ---- */
+    { const before = await sf.evaluate(() => { const l = document.querySelector('#leave'); if (l) l.click(); return (document.getElementById('heard') || {}).textContent || ''; });
+      await p.waitForTimeout(800);
+      const other = await fr.evaluate(() => { const bs = ctBases(), ks = Object.keys(bs), n = ks[1] || ks[0], t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); return n; });
+      let line = null; for (let k = 0; k < 30; k++) { await p.waitForTimeout(400); line = await sf.evaluate((n) => { try { return BohemiaSettlement.state.place && BohemiaSettlement.state.place.name === n ? (document.getElementById('heard') || {}).textContent || '' : null; } catch (e) { return null; } }, other).catch(() => null); if (line !== null) break; }
+      ok('E38 [the last town\'s line] ' + other + ' opens with nothing carried from the last town', line !== null && line.indexOf('head back out') < 0, 'left with "' + before + '", ' + other + ' opens with "' + line + '"'); }
     /* B3 the next fight */
     const o = await p.evaluate(() => JSON.parse(JSON.stringify(nfOpts({ district: 'downtown', world: { night: false, day: 2 } }))));
     const row = (o.company || []).find(m => m.name === b2.name || (b2.name === 'YOU' && m.main)) || (o.company || [])[0];
