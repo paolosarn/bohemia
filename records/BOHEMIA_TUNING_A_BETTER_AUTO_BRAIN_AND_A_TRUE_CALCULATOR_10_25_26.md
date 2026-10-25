@@ -225,7 +225,7 @@ the future (Monte Carlo tree search).
 - Gijs-Jan Roelofs, 'Pitfalls and Solutions When Using Monte-Carlo Tree Search for Strategy and Tactical Games', Game AI
   Pro 3, ch. 28, 2017.
 FOR US: in PLAY the danger map is the turn of lookahead (the enemy's next round, summed, not searched): cheap, on the phone,
-every man every turn. The CALCULATOR and COMMIT'S GATE can afford playouts: the gate's 'exhaustive search of the turn'
+every man every turn. The CALCULATOR and COMBAT'S GATE can afford playouts: the gate's 'exhaustive search of the turn'
 (rule 180(h)) is a portfolio of the man's candidate plans each scored by playouts on common dice (part 4).
 
 ### 3e. STOPPING THE DANCE (oscillation)

@@ -297,14 +297,22 @@ function runValue(F, downValue) {
   const down = mine.filter(v => v.down || v.fled).length;
   return down ? downValue * (mine.length - down) / Math.max(1, mine.length) : 1;
 }
+/* A STANDOFF (the whole grid's rule, tools/bohemia_tuning_the_whole_grid.js idleWatch): 20 rounds in which nobody strikes, falls
+   or flees never end. The fight's own read plays such a run to ODDS_STEPS (6,000 brain steps, seconds of CPU each) and counts
+   it 0; the bench stops it at the idle mark and counts it 0 the same way, and says how many runs it stopped. */
 function readOdds(ctx, snap, seed, runs) {
-  const F = ctx.FIGHT, dv = ctx.DB.ours.odds_colour.value.down_value, real = seedNow(ctx), out = { values: [], wins: [] };
+  const F = ctx.FIGHT, dv = ctx.DB.ours.odds_colour.value.down_value, real = seedNow(ctx), out = { values: [], wins: [], standoffs: 0, capped: 0, steps: 0, ms: 0 };
   seedSet(ctx, seed);
+  const t0 = Date.now();
   for (let i = 0; i < runs; i++) {
     F.thaw(snap, false); F.S.deploy = false;
-    let g = 0; while (!F.S.over && g <= OC.ODDS_STEPS) { const v = F.current(); if (!v) break; F.aiStep(v); F.S.events = []; g++; }
+    const idle = G.idleWatch(F);
+    let g = 0, stood = false; while (!F.S.over && g <= OC.ODDS_STEPS) { const v = F.current(); if (!v) break; F.aiStep(v); F.S.events = []; g++; if (idle()) { stood = true; break; } }
+    if (stood) out.standoffs++; else if (!F.S.over) out.capped++;
+    out.steps += g;
     out.values.push(F.S.over ? runValue(F, dv) : 0); out.wins.push(F.S.result === 'won' ? 1 : 0);
   }
+  out.ms = Date.now() - t0;
   seedSet(ctx, real);
   return out;
 }
@@ -322,12 +330,14 @@ async function oneFight(W, mode, brain) {
     const R1 = readOdds(ctx, snap, oseed, OC.ODDS_RUNS);
     const R2 = W.k % LONG_EVERY === 0 ? readOdds(ctx, snap, (real ^ 0x5bd1e995) >>> 0, LONG_READ) : { values: [], wins: [] };
     F.thaw(snap, false); F.S.deploy = false; seedSet(ctx, real);
-    let g = 0; while (!F.S.over && g <= 400000) { const v = F.current(); if (!v) break; F.aiStep(v); F.S.events = []; g++; }
+    const idle = G.idleWatch(F);
+    let g = 0; while (!F.S.over && g <= 400000) { const v = F.current(); if (!v) break; F.aiStep(v); F.S.events = []; g++; if (idle()) break; }
     const dv = ctx.DB.ours.odds_colour.value.down_value;
     return Object.assign(meta, {
       first: mean(R1.values.slice(0, OC.ODDS_FIRST)), shown: mean(R1.values), shownWin: mean(R1.wins), firstWin: mean(R1.wins.slice(0, OC.ODDS_FIRST)),
       long: mean(R2.values), longWin: mean(R2.wins),
-      real: F.S.over ? F.S.result : 'stalled', realValue: F.S.over ? runValue(F, dv) : 0, rounds: F.S.round });
+      real: F.S.over ? F.S.result : 'stalled', realValue: F.S.over ? runValue(F, dv) : 0, rounds: F.S.round,
+      readStandoffs: R1.standoffs, readCapped: R1.capped, readSteps: R1.steps, readMs: R1.ms, men: F.S.units.length });
   }
   const P = playWatched(ctx);
   /* screening: their melee swings that landed on one of our gunmen */
@@ -359,21 +369,26 @@ async function main() {
   for (const mode0 of modes) for (const brain of brains) {
     const mode = mode0, slot = mode0 + (brain === 'today' ? '' : '_' + brain);
     process.stderr.write('\n== ' + slot + '\n');
-    const work = Array.from({ length: N }, (_, k) => fightOf(k, districts)), res = new Array(N);
+    const all = Array.from({ length: N }, (_, k) => fightOf(k, districts)), res = new Array(N);
+    /* THE RESUME CACHE: every finished fight is one line (slot, k, the fight's fingerprint); a stopped run starts where it stopped */
+    const CF = BANKF.replace(/\.json$/, '') + '.' + slot + '.ndjson', fp = G.fightPrint();
+    if (fs.existsSync(CF)) fs.readFileSync(CF, 'utf8').split('\n').filter(Boolean).forEach(l => { try { const x = JSON.parse(l); if (x.fp === fp && x.k < N) res[x.k] = x.v; } catch (e) { /* a cut line */ } });
+    const work = all.filter(w => !res[w.k]);
+    process.stderr.write('resume: ' + (N - work.length) + ' of ' + N + ' already played\n');
     let next = 0, running = 0; const t0 = Date.now();
     await new Promise(done => {
       const pump = () => {
         while (running < JOBS && next < work.length) {
-          const i = next++, w = work[i]; running++;
+          const w = work[next++], i = w.k; running++;
           cp.execFile(process.execPath, [__filename, '--fight', JSON.stringify(w), mode, brain], { maxBuffer: 1 << 26 }, (err, so) => {
             running--;
-            if (err) { console.error('fight failed', JSON.stringify(w), err.message.slice(0, 400)); res[i] = null; } else res[i] = JSON.parse(so);
+            if (err) { console.error('fight failed', JSON.stringify(w), err.message.slice(0, 400)); res[i] = null; } else { res[i] = JSON.parse(so); fs.appendFileSync(CF, JSON.stringify({ k: i, fp: fp, v: res[i] }) + '\n'); }
             if ((next % 25) === 0) process.stderr.write(mode + ' ' + next + '/' + N + ' ' + Math.round((Date.now() - t0) / 1000) + 's\n');
             if (next >= work.length && running === 0) done(); else pump();
           });
         }
       };
-      pump();
+      if (!work.length) done(); else pump();
     });
     out[slot] = { brain: brain, fights: res.filter(Boolean), secs: Math.round((Date.now() - t0) / 1000) };
     console.log('\n######## ' + slot.toUpperCase());
