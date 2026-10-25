@@ -1122,6 +1122,35 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds-vote-levels, session_01JqRsAp2CBXfJsx1KRWhfV7): 10/25 LATEST (round thirty-five, rule 181: NEW MUSIC GOES TO THE VOTE TAB FIRST; rows [three intensities in every song], [the fight's music you can hear], [the sound never chops], [every song its own song]) -- SHIPPED IN PARTS, ROWS STAY CLAIMED
+*** HIS SONGS AT THREE LEVELS IN VOTE, THE GAME'S MUSIC ABOVE THE FIGHT, THE SIX IN THE GRAVEYARD, FOUR NEW SONGS IN VOTE. BUILD 10/25r. ***
+(1) VOTE, NOTHING WIRED (181): eleven cards. Seven of his songs at levels 1 (his song as approved + a soft 120 pulse, his own kick
+and clock), 2 (their turn: his tier 2, heartbeat kick, ticking, pedal, toms, no backbeat), 3 (his turn: his top tier, a driving
+kit, a driving bass, a hook in his own lead voice) and A FIGHT (map, their, yours, their, yours, each change on the bar), all from
+his own engine on one timeline (tools/bohemia_sounds_three_levels.js; REPO MAN through the game's own machine party): THE VAULT,
+GHOST IN THE GRID, SATELLITE PRAYER, THE PIT BOSS IS GONE, THE ORGAN IN THE DROWNED CHAPEL, CAMPFIRE CONFESSION, REPO MAN (ids
+sounds-three-levels-<song>-10-25; gate THREE LEVELS IN THE VOTE TAB FIRST). SLOW BLEED and SLOW CREEP have NO CARD YET: his engine
+plays both past full scale, so every added low part hit the peak limit and level 3 came out quieter than level 1 on a phone; the
+last fix (no added kick or bass on those two, the compressor skipped) was rendering at the end of the round; card them with
+'node tools/bohemia_sounds_three_levels.js register "SLOW BLEED" --write' after the recordings are on main, only if the gate's
+'level 3 louder than level 1' holds. Four NEW songs (sounds-new-song-*-10-25), written note by note, each its own key, lead, bass,
+pad and real-recording kit (CC0 bank), a worn tape inside each, no machine party: THE CHURCH CLOCK STRIKES TWELVE (the church
+clock's real bell for the lead), THE SODA MACHINE STILL TAKES COINS, THE HELICOPTER THAT NEVER LANDS, THE PAWN COUNTER AT FOUR IN
+THE MORNING (tools/bohemia_sounds_four_new_songs.js; gate FOUR NEW SONGS, EACH ITS OWN 106/0). records/BOHEMIA_THREE_LEVELS_IN_THE
+_VOTE_TAB_SOUNDS_10_25_26.md, records/BOHEMIA_FOUR_NEW_SONGS_SOUNDS_10_25_26.md.
+(2) THE GAME, A FIX (181(c)), main 0c54e493, live: measured in a real fight the music sat UNDER the effects (computer -32.6 vs
+-31.3 dB); now in a fight the music +6 dB and the effects -4 dB (computer -31.7 vs -35.4, phone at 4x -31.5 vs -36.2); latencyHint
+'playback' (23 ms base, 72 ms out); the fight frame takes the shell's one AudioContext; a stall no longer restarts the song
+(tools/bohemia_sounds_the_sound_never_chops_patch.py; gate THE FIGHTS MUSIC YOU CAN HEAR). OWED: the music rendered ahead in the
+game (175(b)): 2 to 4 of ~145 notes still land late on the phone at 4x; the way is the cards' (three levels rendered once, the
+change a crossfade on the bar) and it goes in when he says the levels join (181(d)).
+(3) THE SIX OF 10/24 BURIED (166(a)): graveyard/the_six_night_songs_10_24_26/, the post-mortem beside it, cards out, tombstones,
+the song lock's lines pointed there; gates/more_music_gate.js proves the burial.
+RED, NOT MINE, MEASURED ON MAIN WITHOUT MY CHANGE: THE FIGHT DRIVES THE MUSIC (2 legs), EVERY ACTION ON THE BEAT (20 motions off,
+worst 22.8 ms), THE GUNS HEARD (his own rifle not heard), the vote tab's dynasty whys and the alpha's landing; a NOTE on COMBAT's
+board. NEXT: his verdicts on the eleven cards (a level that gets his yes is wired through window.INTENSITY with the render-ahead,
+map 1, their turn 2, his turn 3); real instrument recordings once a host is allowed. PENDING Paolo: nothing.
+
 SOUNDS (sounds-pc-playtest): 10/25 LATEST (round thirty-four, [the PC playtest: the sound's part], rule 164 items 19, 20, 23) -- SHIPPED
 *** THE SQUIGGLE STOPS, TWENTY MORE VOICES, HIS SONG AFTER THE FIGHT. BUILD 10/25b (0e0144c0 sources, ffe6b04f the cut,
 b0190795 the darker tape top). No card (rule 127). ***
