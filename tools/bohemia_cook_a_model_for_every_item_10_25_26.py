@@ -1170,7 +1170,14 @@ def arm_rings(B, side, s0, s1, ns, n=16, off=0.02, r_add=None):
 
 
 def soft_w(B, bones=None):
-    return lambda p: B.weights(p, bones)
+    """his nearest vertex's weights; with bones given, ONLY those bones' share of them (round 2 of the loop: the padded vest's
+    stuffing took a vertex of his that the right arm also carried, and in the walk a pale sliver stretched from his side to his
+    swinging hand and on to the floor)"""
+    if not bones: return lambda p: B.weights(p)
+    def w(p):
+        ws = {b: v for b, v in B.weights(p, bones).items() if b in bones}
+        return ws or {'Skeleton_torso_joint_2': 1.0}
+    return w
 
 
 def b_work_jacket(K, mu):

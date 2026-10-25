@@ -414,6 +414,58 @@
     "left_x": 0.34
    },
    "left_x": 0.34
+  },
+  "bottles": {
+   "glb": "item_bottles.glb",
+   "kind": "held",
+   "name": "bottles",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "bundle_of_spiked_bolas",
+    "bundle_of_crude_javelins",
+    "bundle_of_javelins",
+    "bundle_of_heavy_javelins",
+    "bundle_of_throwing_axes",
+    "bundle_of_heavy_throwing_axes",
+    "throwing_spear",
+    "staff_sling",
+    "nomad_sling",
+    "throwing_net",
+    "reinforced_throwing_net",
+    "acid_flask",
+    "flask_of_blessed_water",
+    "fire_pot",
+    "smoke_pot",
+    "flash_pot"
+   ],
+   "sha1": "b38a5f5c3ebe523f2bffa266f9a4e2d043cc13a6",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.344,
+     0.09,
+     0.109
+    ],
+    "lo": [
+     -0.121,
+     -0.045,
+     -0.045
+    ],
+    "hi": [
+     0.223,
+     0.045,
+     0.064
+    ],
+    "materials": [
+     "clay_bone 2",
+     "clay_teal 1",
+     "rubber 0",
+     "tape_masking 2"
+    ],
+    "verts": 274,
+    "parts": 9
+   }
   }
  }
 }
