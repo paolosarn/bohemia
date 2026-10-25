@@ -110,3 +110,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 96 | AUTO never wastes a turn, takes the high ground; the odds are true | 176 | COMBAT, TUNING | NOT MEASURED THIS ROUND (EYES 10/25: TUNING's research running, COMBAT queued) [lane said: RUNNING (TUNING's research); COMBAT QUEUED] |
 | 97 | What you equip is what you see in the fight (the car door shield) | 177 | COOK, ANIMATION, COMBAT | NOT SEEN, IN FLIGHT (EYES 10/25): as lines 30 and 31, the car door is in the slot and never in his hand in the fight (q19) [lane said: RUNNING (COOK)] |
 | 98 | Every ask checked in the game before it is called done | 179 | EYES | RUNNING (EYES 10/25: this audit, marks committed in pieces) [lane said: RUNNING (the audit)] |
+| 99 | Auto never uses abilities (only move, fire, the melee attack); tiles and targets done better | 180 | COMBAT, TUNING | RUNNING (COMBAT porting the brain) |
+| 100 | AUTO knows every enemy's lesson (kill the Mechanic first) | 182 | COMBAT | QUEUED (next in COMBAT) |
+| 101 | New music goes to the VOTE tab first, he hears it before the game does | 181 | SOUNDS | RUNNING |
+| 102 | The first fifty days reward a small strong crew; the Lone Wolf plays like he remembers | 183 | TUNING, RUN, RUN TWO, EYES | RUNNING (TUNING measures) |
