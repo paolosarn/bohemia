@@ -919,6 +919,202 @@
     "verts": 220,
     "parts": 13
    }
+  },
+  "plate_carrier": {
+   "glb": "item_plate_carrier.glb",
+   "kind": "worn_body",
+   "name": "a plate carrier",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "reinforced_leather_armor",
+    "direwolf_hide_armor",
+    "ancient_mail",
+    "plated_nomad_mail",
+    "southern_mail_shirt",
+    "worn_mail_shirt",
+    "basic_mail_shirt",
+    "assassin_s_robe",
+    "ancient_double_layer_mail",
+    "ancient_scale_harness",
+    "mail_shirt",
+    "mail_with_lamellar_plating",
+    "ancient_breastplate",
+    "direwolf_mail_armor",
+    "leather_scale_armor",
+    "rugged_scale_armor",
+    "adorned_mail_shirt",
+    "mail_hauberk",
+    "noble_mail",
+    "light_scale_armor",
+    "heavy_iron_armor",
+    "decayed_reinforced_mail_hauberk"
+   ],
+   "sha1": "f4ec319026e8cdd04cea75236fe9b9234b2e9d17",
+   "measured": {
+    "size_m": [
+     0.399,
+     0.471,
+     0.431
+    ],
+    "lo": [
+     -0.207,
+     -0.247,
+     0.8
+    ],
+    "hi": [
+     0.192,
+     0.224,
+     1.23
+    ],
+    "materials": [
+     "clay_bone 1",
+     "metal_painted 0",
+     "metal_painted 2",
+     "rubber 1"
+    ],
+    "verts": 1446,
+    "parts": 24,
+    "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+    "bones": [
+     "Skeleton_neck_joint_1",
+     "Skeleton_torso_joint_1",
+     "Skeleton_torso_joint_2",
+     "torso_joint_3"
+    ]
+   }
+  },
+  "machete": {
+   "glb": "item_machete.glb",
+   "kind": "held",
+   "name": "machete",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "broken_ancient_sword",
+    "shortsword",
+    "saif",
+    "falchion",
+    "cruel_falchion",
+    "ancient_sword",
+    "scimitar",
+    "arming_sword",
+    "shamshir",
+    "noble_sword",
+    "fencing_sword",
+    "rhomphaia",
+    "warbrand",
+    "longsword",
+    "greatsword",
+    "executioner_s_sword"
+   ],
+   "sha1": "8be37a7f02b4defde45d768d58af98510e2954bb",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.65,
+     0.042,
+     0.09
+    ],
+    "lo": [
+     -0.05,
+     -0.021,
+     -0.022
+    ],
+    "hi": [
+     0.6,
+     0.021,
+     0.068
+    ],
+    "materials": [
+     "chrome 1",
+     "clay_rust 1",
+     "rubber 1",
+     "tape_grey 1"
+    ],
+    "verts": 196,
+    "parts": 10
+   }
+  },
+  "chain": {
+   "glb": "item_chain.glb",
+   "kind": "held",
+   "name": "chain",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "wooden_flail",
+    "reinforced_wooden_flail",
+    "flail",
+    "three_headed_flail",
+    "two_handed_wooden_flail",
+    "two_handed_flail",
+    "berserk_chain"
+   ],
+   "sha1": "0d4035851e31306b66670dadbe484bfcd0c70563",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.823,
+     0.05,
+     0.22
+    ],
+    "lo": [
+     -0.07,
+     -0.025,
+     -0.023
+    ],
+    "hi": [
+     0.753,
+     0.025,
+     0.197
+    ],
+    "materials": [
+     "clay_mustard 2",
+     "clay_rust 1",
+     "metal_painted 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 1248,
+    "parts": 26
+   }
+  },
+  "club": {
+   "glb": "item_club.glb",
+   "kind": "held",
+   "name": "club (the wooden stick)",
+   "say": "",
+   "made": "COOK 10/25 (bohemia_cook_a_model_for_every_item_10_25_26.py)",
+   "rows": [
+    "wooden_stick"
+   ],
+   "sha1": "4aabfda9ec4545e744536501ffcd36bd0625c761",
+   "hands": 1,
+   "measured": {
+    "size_m": [
+     0.56,
+     0.085,
+     0.098
+    ],
+    "lo": [
+     -0.06,
+     -0.048,
+     -0.038
+    ],
+    "hi": [
+     0.5,
+     0.038,
+     0.06
+    ],
+    "materials": [
+     "clay_mustard 1",
+     "rubber 1",
+     "tape_grey 2"
+    ],
+    "verts": 206,
+    "parts": 9
+   }
   }
  }
 }

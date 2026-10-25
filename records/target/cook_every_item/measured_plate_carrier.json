@@ -1,0 +1,32 @@
+{
+ "size_m": [
+  0.399,
+  0.471,
+  0.431
+ ],
+ "lo": [
+  -0.207,
+  -0.247,
+  0.8
+ ],
+ "hi": [
+  0.192,
+  0.224,
+  1.23
+ ],
+ "materials": [
+  "clay_bone 1",
+  "metal_painted 0",
+  "metal_painted 2",
+  "rubber 1"
+ ],
+ "verts": 1446,
+ "parts": 24,
+ "units": "the model's own (the man about 1.5 tall; the master rig scales him to 1.72 m)",
+ "bones": [
+  "Skeleton_neck_joint_1",
+  "Skeleton_torso_joint_1",
+  "Skeleton_torso_joint_2",
+  "torso_joint_3"
+ ]
+}
