@@ -25,7 +25,7 @@ OUTFIT). What it did not have is modelled once, as clay, in the new tool:
 | THE EXO FRAME | the Heavy | a 4 cm bar down the outside of each thigh and shin, a hip disc, a knee disc and a stirrup at the boot, a piston along each thigh; a spine bar, a hip ring with a pivot to each leg, a yoke over both shoulders with a motor drum on each; bars on the backs of the arms with an elbow disc; a car battery strapped to the spine (batteries are the money, 9/4); every strap tan woven leather (the Bottega note) |
 | THE CRASH-BAR SHIELD | the Heavy | a truck's bull bar cut off and strapped to the left forearm, 62 by 48 cm: a bent 3.6 cm tube frame, two uprights and a crossbar, a push bar standing off it, a dented diamond-plate panel rusted at its edges, a dead Nevada plate riveted on; it faces out and forward when the arm hangs |
 
-## 2. The sixteen (round 2, 10/25: nine became sixteen)
+## 2. The seventeen (round 2, 10/25: nine became seventeen)
 
 MEASURED FIRST, in the demo's own fight (the demo's nfOpen door with a road party, before any pack): a kids' band of 14 deals eight kids, all from one pool (every goblin kind reads ours.people_looks.band.runner), and the fight repeats a face only when the pool is smaller than the board (freeLook). Three Runners for eight kids is twins on every board (121(i)). So the cast is sized to the bands: EIGHT Runners (a kids' band runs to ten at count_scale 0.6), FIVE Heavies (a heavies' band fields up to five at 0.45), THREE Mechanics (one heads each machines party, never two). A type's pool switches only when the whole type is made, so no board ever lost a look while the rest rendered.
 
@@ -49,6 +49,7 @@ Rule 159 on the roll before any render: the pieces whose colour runs blue (a den
 | heavy_2 | mid 3 | dry taper | olive drab tee | leather vest | soot cargos / rust boots | steel shin guards, leather gloves | face shield visor |
 | heavy_3 | light 2 | home clippers | dust plaid shirt | olive vest | bone work pants / charcoal boots | scrap pauldron, soot gloves | face ash shield |
 | heavy_4 | light 0 | dry taper | faded black longsleeve | smith's apron | dust brown trousers / ranch boots | soot chest plate, leather gloves | hat dust work cap |
+| heavy_5 | deep 3 | dry taper | rolled flannel | bone vest | olive pants / wrapped boots | spiked pauldron, oxblood gloves | hat soot head wrap, face grey wraparounds |
 
 
 ## 3. Looking at it (the cycles, each from the picture at 1:1 and x4)
@@ -89,3 +90,49 @@ Rule 159 on the roll before any render: the pieces whose colour runs blue (a den
   (70 and 55): a bone runway shirt under the ash coat, a sand hoodie under the black comma. The Heavy 4: a khaki button-up
   under the leather apron (black under it read as one, 48 and 69). All sixteen now wear two layers that read apart and no
   loud cloth (audited through the outfit, the list in the commit).
+
+## 4. Sized to the map, and the sixth Heavy
+
+The map's biggest party is 13 (records/target/bb/party_math.json, roaming and job max), a crew's 14. A kids' band is
+round(14 x 0.6) = 8, every kid from the runner pool: eight Runners, every kid his own man. A heavies' band is round(14 x
+0.45) = 6; today orc_young reads the old cast (the NOTE to COMBAT), and with it in the frame all six are Heavies, so a
+sixth Heavy (a rolled brick flannel under a bone vest, a spiked pauldron, oxblood gloves, a soot head wrap and grey
+wraparounds). The pack lost 434 to 1,075 pixels a sheet outside the reference cell over 200 cells (2 to 5 a cell, the
+reach of a swing or the shield's corner), the same as RUN TWO's people in the same cells.
+
+## 5. Checked in the demo's fight (rule 6: play it before you call it shipped)
+
+The demo's own door (BOHEMIA_DEMO.html, nfOpen with a road party, the way the map hands one over; the one driver,
+tools/bohemia_drive_the_demo.js), the fight read off its own state and shot from its camera on the phone profile:
+
+| party | dealt | looks |
+|---|---|---|
+| machines 6 | the Mechanic and 4 machines | enemy_mechanic_0 |
+| machines 13 | the Mechanic and 10 machines | enemy_mechanic_0 |
+| kids 14 (x2) | 8 kids | 8 different Runners, both times |
+| kids 16 (past the map's max) | 10 kids | 8 Runners, 2 repeat |
+| heavies 12 | 2 Heavies, 3 orc_young | enemy_heavy_0, enemy_heavy_3; the young in the old cast |
+| heavies 14 | 3 Heavies, 3 orc_young | enemy_heavy_0, 2, 3 (then 0, 4 at seed 3) |
+
+0 page errors in every run. The picture: records/target/character/the_three_enemies/CHARACTER_THE_THREE_ENEMIES_IN_THE_DEMOS_FIGHT.webp
+(the Mechanic with his robots; the kids; the Heavies with the plain young beside them). Before the pack the same bands
+wore the old gang looks (the kids in the Colorful gang's greens and purples).
+
+## 6. Handed on, by NOTE (each the owner's file)
+
+* COMBAT: the Mechanic is dealt at band index 0, so always enemy_mechanic_0; orc_young has no look pool; every bar sits
+  at the ruler's height, on the Mechanic's mask.
+* ANIMATION: the enemies have no idles; EVERYBODY IDLES P1 is red on them (it exempts kind 'person', the rolled men
+  rendered in batches, and these are the same kind of men under another name). The recipe is on its board. Not built
+  here: ANIMATION was mid-round on slices/rig_idles and its gate (one system, one session).
+* RUN TWO: the outfit's no-rainbow swap changes six of its 152 on its next rebuild.
+
+## 7. Gates (rule 13: the pre-push pass, and which reds are this lane's)
+
+Green: THE BESTIARY 10/0, ONE MAN ONE LOOK, TOOLS RUN 8/0, ONE SKIN ONE PERSON 15/0, THE ROLL CALL 8/0. Red and THIS
+LANE'S: EVERYBODY IDLES P1 (the enemies' idles, handed to ANIMATION above). Red on clean main before this lane touched
+them, not this lane's: NO TWO PEOPLE ALIKE (the crew screen leg), THE FACE IS HIS OWN FACE (the board's clients), PAGES
+PUBLISH (the size, PLUMBER's), THE FIGHT READS ONLY SOURCED NUMBERS (typed numbers in the fight), REFERENCE CHECK and
+REUSE-FIRST (other lanes' tools). THE REBUILT FIGHT PLAYS: 152 passed, 1 failed with all seventeen live and nothing else on the
+box (the night 60-frame leg, 16 fps, red on main before); its two opening-camera legs went red once only while this
+lane's renders held the CPU.

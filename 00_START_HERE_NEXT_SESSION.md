@@ -371,6 +371,41 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-enemies, opened by the coordinator 10/25 after the reset, rule 112): 10/25 (z) LATEST -- *** THE MECHANIC, THE KIDS AND RUNNERS AND THE HEAVY ARE IN THE FIGHT: SEVENTEEN ON THE 3D MAN, LAYERED, FADED, NO TWO ALIKE. ***
+TAB: the fight (COMBAT), in the demo, on any road fight after the first: a machines party brings the Mechanic, a kids'
+party the Runners, a heavies' party the Heavies. No card (rule 127). [the enemies' looks] SHIPPED 9737f26d.
+WHAT: 3 Mechanics (a long coat over work clothes, tool belt, cables crossing him, the welding mask pushed up), 8 Runners
+(teenagers, two layers each: a hood or a turtleneck or a jersey under a cocoon coat, an asymmetric coat, a vest, a
+jacket, a poncho or a cape; a scarf or a mask over the face; the sling), 6 Heavies (the exo frame in tan woven straps,
+the battery on the spine, the bull-bar shield on the left arm, over work clothes). Sized to the map's biggest party (13,
+a crew's 14): a kids' band tops at 8, a heavies' at 6, so nobody stands beside his twin. Each his own sheet in
+slices/fight_rig (kind 'enemy', a reference gang's cell and guns), his face on the strip, the pools
+ours.people_looks.band.mechanic / runner / heavy (COMBAT's look_pools already named them). A type's pool switched only
+when the whole type was made.
+CHECKED in the demo's fight through its own door (nfOpen with a road party, the one driver): kids 14 deals 8 kids in 8
+looks (twice); the Mechanic heads his robots with his pistol; the Heavies in the frame; 0 page errors. Picture:
+records/target/character/the_three_enemies/CHARACTER_THE_THREE_ENEMIES_IN_THE_DEMOS_FIGHT.webp.
+RULE 159 AT THE SOURCE: this lane's outfit (tools/bohemia_character_the_outfit.py) swapped a top that read as one with its
+coat for "the same cut in another colour of the bank" and took COBALT, teal, grass, signal red (a cobalt shirt under a
+Heavy's apron). contrast_pick now never takes a loud cloth unless it is the wearer's gang's colour. 6 of RUN TWO's 152
+change on its next rebuild, none gains a loud piece (NOTE on RUN TWO's board). Also out of the roll before render: a
+denim vest, the outlaw bandana, a steel shirt, slate trousers, steel shin guards, and a slate coat that rendered a hot
+blue under the rig's cool fill.
+HANDED ON BY NOTE: COMBAT (the Mechanic is always band index 0 so always mechanic_0; orc_young has no look pool so
+heavies' bands are half old cast; the bars sit at the ruler's 1.72 m, on the Mechanic's 1.86 m mask). ANIMATION (the
+seventeen have no idles: they stand still; the recipe on its board).
+GATES (rule 13): green THE BESTIARY 10/0, ONE MAN ONE LOOK, TOOLS RUN 8/0, ONE SKIN ONE PERSON 15/0, THE ROLL CALL 8/0.
+RED AND MINE: EVERYBODY IDLES P1 (the seventeen's idles; ANIMATION's system, it was mid-round on it, handed over).
+Red on clean main before me: NO TWO PEOPLE ALIKE (crew screen leg), THE FACE IS HIS OWN FACE (board clients), PAGES
+PUBLISH (size), THE FIGHT READS ONLY SOURCED NUMBERS, REFERENCE CHECK / REUSE-FIRST (other lanes' tools), THE REBUILT
+FIGHT PLAYS (the night 60-frame leg: 16 fps at night; re-run with all seventeen live and nothing else on the box,
+152 passed, 1 failed, the same as main before; two camera legs went red once only while my renders held the CPU).
+NEXT FOR THIS LANE: the idles if ANIMATION hands them back; the coordinator's Grok note on this board (scavenger crews in
+mismatched gear, salvage robots, drones) is read-only reference for any next enemy look. Tooling: bpy 4.2 in a scratch
+venv (python3.11 -m venv v; v/bin/pip install bpy==4.2.0 numpy pillow; BOHEMIA_BPY=v/bin/python); a person is about 10
+minutes (street pass 4, fight pass 6) two at a time on 4 cores; tools/bohemia_character_the_three_enemies.py roll /
+batch 2 / pack. Push from a second worktree on origin/main while a batch writes into the tree.
+
 CHARACTER (character-layers): 10/23 (y) LATEST -- *** THE CLOTHES LOOK REAL, LAYERS FIRST: EVERY PERSON WEARS AN OUTFIT OF LAYERS THAT SHOW; 143 OF RUN TWO'S 152 WEAR TWO OR MORE (110 OF THE FIRST 116, WAS 40); THE COATS HANG IN FOLDS. ***
 TAB: NOT IN A TAB YET until RUN TWO renders again from main (its 152 were built at 03:01 from an older checkout, without
 the outfits). No card (rule 127). Sheet: records/target/character/the_clothes_look_real/CHARACTER_THE_LAYERS_BEFORE_AND_AFTER.png
