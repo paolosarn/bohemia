@@ -1199,10 +1199,25 @@
   }
   function rosterLevels() { var r = rosterMen(); window.__ROSTER = { n: r.men.length, from: r.from, levels: r.men.map(function (m) { return m.level; }) }; return window.__ROSTER.levels; }
 
+  /* A LAND'S NAME SAYS WHAT IT IS (WORLD [eyes: a place that is nothing], EYES round 2, new 18: 'a name you can travel to is never
+     nothing'): FRENCHMAN MOUNTAIN, LAKE MEAD, the 15 are names on the land, not places; a click on one walked to the bare ground
+     under it. Now it says what it is, on the map's own line, and nobody walks. The words are draft:true (WORDS' to overwrite). */
+  var LAND_SAYS = { range: 'mountains. Nobody lives up there; the roads go around.', peak: 'a peak. Nothing up there but the view.',
+    lake: 'water, and the mud it left when it fell.', road: 'a road out of the valley. Faster than the sand.' };
+  function landTap(sx, sy) {
+    var H = (root.VB && root.VB.hits) || [];
+    for (var i = H.length - 1; i >= 0; i--) { var b = H[i].box;
+      if (sx < b[0] - 4 || sx > b[2] + 4 || sy < b[1] - 4 || sy > b[3] + 4) continue;
+      var nm = H[i].kind === 'road' ? 'THE ' + H[i].txt : String(H[i].txt).toUpperCase(), line = nm + ': ' + (LAND_SAYS[H[i].kind] || 'land, and nothing on it.');   /* draft:true */
+      now(line); window.__LAND_SAID = { txt: H[i].txt, kind: H[i].kind, line: line };
+      return true; }
+    return false;
+  }
+
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); },
     roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace,
-    drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle };
+    drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
   load();
 })(typeof window !== 'undefined' ? window : this);

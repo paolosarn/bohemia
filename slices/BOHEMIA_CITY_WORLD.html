@@ -44004,7 +44004,7 @@ function mapTapWhat(sx, sy){
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.tap(sx, sy)) return true; }catch(_e){}   /* __EVERY_JOB_KIND__: a pack, the raiders, a camp, a ring */
   var r = mapTapWhich(sx, sy);
   try{ window.__MAP_TAP = { sx: Math.round(sx), sy: Math.round(sy), what: r ? r.what : 'ground', name: r ? r.name : null, towns: MAP_TOWN_HIT.length, parties: MAP_PARTY_HIT.length }; }catch(_e){}
-  if(!r) return false;
+  if(!r){ try{ if(window.BohemiaJobKinds && BohemiaJobKinds.landTap && BohemiaJobKinds.landTap(sx, sy)) return true; }catch(_e){} return false; }   /* WORLD [eyes: a place that is nothing]: a land's name says what it is */
   if(r.what === 'town') return townTap(r.t);
   return partyTap(r.h);
 }
@@ -47514,6 +47514,7 @@ function vbSeam(ox, oy, night){
 function vbLabels(ox, oy, night){
   if (!VB.day || VB.seed !== om.seed) return;
   var shown = 0, taken = [], drawn = [];
+  VB.hits = [];   /* WORLD [eyes: a place that is nothing]: what each land name covers, so a click on it says what it is (BohemiaJobKinds.landTap) */
   g.save(); g.textAlign = 'center'; g.textBaseline = 'middle';
   /* roads first (a number is small and sits on its road), then the land; a name that would sit on
      another is left off, and one hanging off the glass is nudged on if it is close */
@@ -47541,7 +47542,7 @@ function vbLabels(ox, oy, night){
     var box = [p.sx - lw / 2 - 3, sy - 8, p.sx + lw / 2 + 3, sy + 8], hit = false;
     for (var k = 0; k < taken.length; k++) { var b = taken[k]; if (box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]) { hit = true; break; } }
     if (hit) continue;
-    taken.push(box); shown++; drawn.push(l.txt);
+    taken.push(box); shown++; drawn.push(l.txt); VB.hits.push({ txt: l.txt, kind: l.kind, box: box });
     if (l.kind === 'road') {   /* a shield: the number on a dark plate, the road's own colour */
       var tw = lw;
       g.fillStyle = 'rgba(12,10,8,0.85)'; g.fillRect(Math.round(p.sx - tw / 2), Math.round(sy - 7), tw, 14);

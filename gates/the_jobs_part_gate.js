@@ -83,6 +83,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
   const settleOpen = () => fr.evaluate(() => !!(LOOP.frame && LOOP.frame.style.display === 'block' && LOOP.ready));
   const settleFrame = async () => { const fh = await fr.$('#settleFrame'); return fh ? fh.contentFrame() : null; };
   const take = async (id) => {
+    if (!(await settleOpen())) return null;   /* the board's 'Take it' is only in an open town */
     const sf = await settleFrame(); if (!sf) return null;
     await sf.waitForFunction(() => window.BohemiaBoardShelf && BohemiaBoardShelf.ready(), null, { timeout: 15000 }).catch(() => {});
     const t = await sf.evaluate((id) => { const o = BohemiaBoardShelf.shelf().offers.filter(x => x.id === id)[0]; if (!o) return null;
@@ -98,8 +99,14 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       for (const n in bs) { const b = bs[n], dd = Math.max(Math.abs(b.x - city.x), Math.abs(b.y - city.y)); if (name ? n === name : (dd >= 2 && (!best || dd < best.d))) best = { n, x: b.x, y: b.y, d: dd }; }
       if (!best) return null; const g = townDoor(best.x, best.y); return Object.assign(best, { g }); }, name || null);
     if (!t) return null;
-    await goCell(t.g[0], t.g[1]);
-    const opened = await waitFor(settleOpen, 60000);
+    /* a roaming party can catch him on the way: that fight is ended by the gate (said in the line that needs it), and on to the town */
+    let opened = false;
+    for (let k = 0; k < 4 && !opened; k++) {
+      if ((await shell()).fight) { await forceWin(); continue; }
+      await goCell(t.g[0], t.g[1]);
+      await waitFor(async () => await settleOpen() || (await shell()).fight, 90000);
+      opened = await settleOpen();
+    }
     await d.page.waitForTimeout(1200);
     return opened ? t : null;
   };
@@ -212,6 +219,7 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       await shot('N_edge_primm');
       /* a finger on the name at the edge walks toward PRIMM */
       if (m && m.box) {
+        if ((await shell()).fight) await forceWin();
         const cv = await fr.evaluate(() => { const r = document.getElementById('cv').getBoundingClientRect(); return { x: r.left, y: r.top }; });
         const fb = await cityBox();
         await d.page.mouse.click(fb.x + cv.x + m.box[0] + m.box[2] / 2, fb.y + cv.y + m.box[1] + 5);
@@ -347,6 +355,11 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       await d.page.waitForTimeout(1200);
       const q = await fr.evaluate(() => { render(); const b = (BOH_REGION.nameBoxes || []).filter(x => x[3] === 'SLOAN')[0]; return b ? { x: b[0] + b[2] / 2, y: b[1] + 6 } : null; });
       ok('E1 at the far stop SLOAN is named on the map (' + JSON.stringify(q) + ')', !!q);
+      /* a land's name (a range, a lake, a road number) is not a place: a click says what it is, and nobody walks */
+      const lab = await fr.evaluate(() => { render(); const h = (VB.hits || []).filter(x => x.kind !== 'road')[0] || (VB.hits || [])[0]; return h ? { txt: h.txt, kind: h.kind, x: (h.box[0] + h.box[2]) / 2, y: (h.box[1] + h.box[3]) / 2 } : null; });
+      if (lab) { await d.page.mouse.click(fb.x + cv.x + lab.x, fb.y + cv.y + lab.y); await d.page.waitForTimeout(500); }
+      const ls = await fr.evaluate(() => ({ said: window.__LAND_SAID || null, travel: !!TRAVEL }));
+      ok('E1b a click on a land\'s name says what it is and walks nowhere (' + (lab ? lab.txt : 'no land name drawn') + ': ' + JSON.stringify(ls) + ')', !!lab && !!ls.said && ls.said.txt === lab.txt && !ls.travel);
       if (q) await d.page.mouse.click(fb.x + cv.x + q.x, fb.y + cv.y + q.y);
       await d.page.waitForTimeout(600);
       const go = await fr.evaluate(() => TRAVEL && TRAVEL.to ? TRAVEL.to.slice() : null);
