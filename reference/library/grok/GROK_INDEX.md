@@ -151,3 +151,4 @@ Newest first.
 - 2026-10-24 | ASK | GROK_ASK_97_RETINUE_2026_10_24.md | retinue, followers, slots
 - 2026-10-24 | ASK | GROK_ASK_98_INVENTORY_AND_CART_2026_10_24.md | inventory, cart, slots
 - 2026-10-24 | ASK | GROK_ASK_99_ROSTER_AND_RESERVE_2026_10_24.md | roster, reserve, limits
+- 2026-10-24 | ASK | GROK_ASK_100_WAGES_AND_MOOD_2026_10_24.md | wages, mood, desertion
