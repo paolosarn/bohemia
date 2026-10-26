@@ -2170,16 +2170,21 @@
        Same boxes, same sizes (the kit never changes one). */
     ['board_plain', 1, ['#notecard'], 'background-color:#2a2016!important'],
     ['receipt', 1, ['#notetext'], KIT_INK + 'caret-color:#6e140c!important;outline:0!important'],
-    ['tin', 0.75, ['#noterow .nb'], KIT_SHADOW + KIT_INK + KIT_FACE],
-    ['tin_amber', 0.75, ['#noterow .nb.go'], KIT_SHADOW + 'color:#120c06!important;text-shadow:none!important;' + KIT_FACE]
+    ['tin', 0.75, ['#noterow .nb'], KIT_SHADOW + KIT_INK],   /* the presses keep their own face and tracking: a new face would widen them */
+    ['tin_amber', 0.75, ['#noterow .nb.go'], KIT_SHADOW + 'color:#120c06!important;text-shadow:none!important;']
   ];
   /* what the notes say that the kit's pieces do not carry: the hint in his empty roll in the receipt's grey, and the words printed
      on the board light, each with the hard one-pixel shadow down (rule 114's sun test on board: 4.5 to 1) */
   var NOTE_KIT_CSS = 'html[data-kit] body #notetext::placeholder{color:#6a5a44!important;opacity:1!important}'
     + 'html[data-kit] body #notecard h2{color:#f2e4c6!important;text-shadow:0 1px 0 #000!important;font-weight:400!important}'
-    + 'html[data-kit] body #notewhere,html[data-kit] body #notelist .nn{color:#e2d6bc!important;text-shadow:0 1px 0 #000!important}'
+    + 'html[data-kit] body #notewhere,html[data-kit] body #notelist .nn{color:#f4e9d2!important;text-shadow:0 1px 0 #000!important}'
     + 'html[data-kit] body #notelist .nn b{color:#f0c47e!important;font-weight:400!important}'
-    + 'html[data-kit] body #notelist .nn{box-shadow:0 1px 0 rgba(0,0,0,.6),0 2px 0 rgba(242,228,198,.08)!important}';
+    + 'html[data-kit] body #notelist .nn{box-shadow:0 1px 0 rgba(0,0,0,.6),0 2px 0 rgba(242,228,198,.08)!important}'
+    /* AUTO'S ODDS ON THE TIN (COMBAT's tint, rule 144: AUTO's colour is the odds): the tint was laid on the tin by multiply, which
+       darkens the plate under the word as the odds firm up, to 3.3 to 1 in the sun (THE UI BELONGS TO THE WORLD, red on main
+       before this). Laid by 'color' instead, the tin keeps its own light and takes only the hue: still green when the fight is
+       his and red when it is not, the word AUTO always readable (rule 73). The tint's element and its numbers stay COMBAT's. */
+    + 'html[data-kit] body #bauto .tint{mix-blend-mode:color!important}';
   /* the press: the slab goes down into its shadow (the individual translate composes with any rotate the rule set) */
   var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#bmtb .t.crew', '#menubar #bmtb #notebtn', '#bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
     'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn', '#noterow .nb'];

@@ -14,8 +14,8 @@
 1. THE FIGHT DRAWS NO BAR WHILE IT IS ON. hudFight() still builds the one bar in the fight's #top (the phone's CREW, NOTES and
    SETTINGS press its very buttons, UI TWO's barPress: one handler each, no button twice), but html.bm-nobar keeps #top off the
    glass (display none) for as long as COMBAT's FIGHT.S.over is false. No batteries, no supplies, no clock, no day. The fight
-   measures its top as 0 (TOPH 0), so the board gets the bar's room: phone upright the board went from about 51 percent of the
-   glass to 64 (the toll crew), a computer 83.
+   measures its top as 0 (TOPH 0), so the board gets the bar's room: the board's share of the glass, the toll crew, went from about
+   72 to 85 percent with the phone upright, 49 to 64 on its side, 76 to 83 on a computer (the bar was 108, 60 and 60 points).
 2. THE BAR COMES BACK THE MOMENT THE FIGHT IS OVER. A 100 ms watch on FIGHT.S.over lays the map's facts, takes the class off
    and drops the bar in from above the glass through MOTION's one layer (BohemiaMotion.fly, on twos, the tin leaning; a fade in
    place under LESS MOTION). If the same page starts again (COMBAT's start()), the bar goes off again.
@@ -43,11 +43,29 @@
 
 ## GATES (rule 13)
 - NEW, in the suite: gates/no_top_bar_in_the_fight_gate.js, NO TOP BAR IN THE FIGHT (rule 280(d)): N1 to N7 on phone upright,
-  on its side and a computer, two fights each; four plants (the fight's bar forced back, a clock on the fight's glass, a clock on
-  the phone's fight face, the loot screen's bar hidden, the map's bar left see-through).
-- RE-AIMED, each marked in its own words: ONE HUD EVERYWHERE (the fight's half: no bar, TOPH 0, CREW/SETTINGS/NOTES the phone's,
-  a plant of the bar forced back); THE DAYS ONCE (nothing across the fight's top, TOPH 0); THE UI MORPHS M8 (MOTION's; the bar
+  on its side and a computer, two fights each; five plants (the fight's bar forced back, a clock on the fight's glass, a clock on
+  the phone's fight face, the loot screen's bar hidden, the map's bar left see-through); 62/0.
+- RE-AIMED, each marked in its own words: ONE HUD EVERYWHERE 64/0 (the fight's half: no bar, TOPH 0, CREW/SETTINGS/NOTES the phone's,
+  a plant of the bar forced back); THE DAYS ONCE 59/0 (nothing across the fight's top, TOPH 0); THE UI MORPHS M8 (MOTION's; the bar
   lifts off at the door in budget, no bar in the fight).
+- THE UI BELONGS TO THE WORLD gains THE NOTES (the box on board, his words on paper, the presses tin, SAVE amber, every word 4.5 to 1
+  in the sun; nothing changes size).
+
+## ALSO: THE UI GOES CRASHBOX, THE NEXT TWO PIECES (rule 130(b), Paolo 10/23: 'the UI kind of still sucks, it doesn't look as
+## elevated as the Crashbox style'; the coordinator's order item 4)
+Swept every box he touches against the kit's table (KIT_RULES): the meet card, the settings, the crew screen, the town, the loot
+screen and the phone already wear rendered pieces. Two did not hold up:
+1. THE NOTES BOX (the one he writes to the manager from, the phone's NOTES on the map, in the town and in the fight) was the last
+   box he touches still drawn as a flat plate (#notecard: one colour and four inset lines). Now: a sheet of the rendered board, what
+   he writes on the rendered thermal paper in the receipt's ink (he writes on the till roll the game prints on), CLOSE, COPY ALL and
+   EXPORT tin, SAVE AND KEEP PLAYING the amber tin; NOTES, where he was and the notes he kept printed light on the board. Same boxes,
+   same sizes (the kit's own rule: measured with the kit on and off). Picture: the notes on the map, phone upright, this round.
+2. AUTO'S WORD IN THE SUN: the fight's AUTO wears COMBAT's odds tint (rule 144) laid by multiply, which darkened the tin under the
+   word to 3.28 to 1 in the sun (THE UI BELONGS TO THE WORLD red ON MAIN before this round, measured with main's file). Laid by
+   'color' now: the tin keeps its own light and takes only the hue, green when the fight is his, red when not; the tint's element
+   and numbers stay COMBAT's (NOTE on COMBAT's board).
+No Blender in this container (and no installs), so nothing new was rendered this round: both pieces wear the kit's existing renders.
+The fight's thin bars over the men (COMBAT's canvas fills) are the next flat thing; a rendered bar piece needs the Blender pass.
 
 ## WEAK, SAID
 - On an iPhone in standalone mode (viewport-fit cover) the board now runs under the status bar's safe area at the top; the

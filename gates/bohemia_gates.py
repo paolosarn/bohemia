@@ -10258,6 +10258,12 @@ GATES = [
      "centre away from the phone; no living fighter's body outside it on any frame (a man out of the dark and a man the camera is already gliding to hold, half a beat, counted and said); every frame a beat after the first frame "
      "that saw the last walk, fall or change is the tightest frame again, centred; the camera moves only inside a glide; where the fight draws in a tenth the man is drawn bigger (his floor said); the phone flipped re-centres in two "
      "beats; a real pinch or the wheel holds through END TURN and their turns and lets go at his next man's turn. Three plants bite. About 15 min", True),
+    ('NO TOP BAR IN THE FIGHT', ['node', 'gates/no_top_bar_in_the_fight_gate.js'],
+     "UI gate, 10/26, row [no top bar in the fight] (rule 280(d), PAOLO 10/26: 'when it's combat mode I don't need to see my batteries and the time of day... in combat it can completely go away'). "
+     "MEASURED before: the fight wore the map's whole bar across its top (390 x 108 upright, 60 on its side and on a computer: the day, the crew, the batteries and the supplies) and measured its board under it. "
+     "On the demo, phone upright, on its side and a computer, two rolled road fights each through the map's own door: at the door the map's bar lifts off as the clouds come in (never held waiting); in the fight "
+     "no bar on any page, nothing at its place is the bar, no DAY n, no hour, no battery count on the fight's words, the shell's or the phone's drawn face; TOPH 0; the phone's CREW, SETTINGS and NOTES open the "
+     "company screen, the settings and the notes over the fight; won, the loot screen wears the bar in the map's rectangle with YOU WON under it; LEAVE, the map's bar whole and on top. Five plants bite. About 9 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
