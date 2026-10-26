@@ -2894,6 +2894,38 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (y) -- [buy versus sell] SHIPPED, lifted from rule 121's pause for rule 242
+(opened by the coordinator, rule 112). Record: records/BOHEMIA_ECONOMY_DAY_82_BUY_VERSUS_SELL_THE_STALL_PAYS_HALF_AND_A_TOWN_IN_NEED_PAYS_THE_DIFFERENCE_10_26_26.md.
+THE ANSWER: THEY PAY HALF at a calm stall (a night of food bought for 2 sells for 1; a dose, a roll, six rounds two for a
+battery); Battle Brothers pays 0.15 on Veteran, 0.135 on Expert (bb_all/1244, quoted) and never buys supplies back (only
+food, bb_all/2150). A town in need pays the rise and the stall keeps the same cut (the realistic: Gardner 1975, Demsetz
+1968, Peltzman 2000; Battle Brothers' proportional is the slider's hard end): a sick town food 4 / 3, a dose 3 / 2. The
+need is the card's own field (Sickness food x2 meds x3, Refugees food x1.25), a hole of a size that eases unit by unit:
+food 2 / 4 / 6, meds 1 / 1 / 2 (camp / town / fortress); rounds and tape have none (no Battle Brothers situation moves them).
+THE SQUEEZE (the live dice, 52 weeks, the 14 home bases): every game's week one has six sick towns; the best loop (22 nights
+and 7 doses bought at Network for 51, six stops, 26 h) makes +27 against one routine job's 30; the best week of a year +38
+against three men's week of food, 42 (mean 21.9); a loved company 23 / 36; 17,664 checks, no stall pays what it charges;
+Battle Brothers' own spread pays 0 on any trade. Flat needs failed (food 3/6/9, meds 2/3/4 made week one +83); the easing
+need holds with a margin. The Lone Wolf (14 a week) can live on trading: reported to TUNING, not tested.
+BUILT: records/target/bb/stall_prices.json (every row sourced; quotes checked word for word in the tarball, his rule 248
+words in his record); engine/bohemia_stall_prices.js (the one arithmetic: line, pays, handful, needAt, warns);
+tools/bohemia_economy_buy_versus_sell.js (the calculator, --share, --model); gates/buy_versus_sell_gate.js in the suite as
+BUY VERSUS SELL 28/0 (eight mutations red); TUNING's one table section R, 15 rows (TUNING took P and Q the same hour);
+banks/BOHEMIA_ECONOMY_THE_STALLS_WORDS_10_26_26.json (keeper lines, draft:true); price_table.json's three half cards.
+FOUND: (1) week one's town cards are the same in every game (rollTraits / traitsFor seed name + week, never the save:
+against 146(c)); (2) this lane's price_table.json had one side of Ambushed Trade Routes, Well Supplied, Safe Roads
+(fixed; WORLD's region news copied the half, NOTE on WORLD's board); (3) there is no famine card on main, 242(d)'s famine
+leg reads Sickness; (4) 43.1 percent of place-weeks are sick, which is what keeps the holes small.
+PIPE: the suite runner was down for every lane (THE GATE TABLE IS MALFORMED, row AUTO KILLS ONE AT A TIME with three
+fields, COMBAT TWO 50d5cba1); the slow field added (True), `--only` runs again.
+ROUTED: RUN TWO (NOTE on its board: how the stall reads the module, the buy-back with 248, tape, the dice's seed with
+LIFE+CITY); WORLD (NOTE: the half cards); TUNING (section R is yours; the sick roll; the Lone Wolf); FACTIONS (a famine
+card); UI (two prices as icons and the count, 224); WORDS (the bank); EYES (242(d) once RUN TWO's button is in).
+GATES (rule 13, by name): BUY VERSUS SELL 28/0 (new); PRICE TABLE 19/0; THE NEWS DOWN THE ROAD 28/0; the pre-push pass
+in the commit. Full suite not run (rule 13).
+NEXT: the pause (rule 121) resumes for this lane; the jump list stands: [made here], [the gap that survives], [the pump at
+home]. PENDING Paolo: none.
+
 ECONOMY (economy-vamily-10-25): 10/25 LATEST (x) -- [how many currencies] SHIPPED a7cf3682 and [the mayor arc, researched]
 SHIPPED e5ee70a3, THE NEW AGE (rule 112: opened by the coordinator after the weekly reset; the 10/24 ECONOMY chat died on the
 limit before it wrote; research only, no screen, no data file the game reads, no VOTE sheet, rule 88).
