@@ -198,3 +198,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 180 | On the lineup screen I can always retreat at once, before anyone moves, whatever the odds; no first turn | 253 | COMBAT, CAMP, EYES | 
 | 181 | The job's bloody button uses the same calculator and scale as AUTO's colour: bloodiest when I'd lose men or men would fall | 254 | WORLD, TUNING, EYES | 
 | 182 | The danger ramps with the days, up to about day 50; no six-wolf jobs early, nothing that kills a Lone Wolf in his first weeks | 255 | WORLD, TUNING, EYES | 
+| 183 | A retreat right at the start of a fight nearly always gets out; fast enemies start farther back so the head start is real | 256 | COMBAT, TUNING, EYES | 
+| 184 | Camp happens on the live map: while my men heal I can still watch the city (parties, feed, events) | 257 | CAMP, UI TWO, EYES | 
+| 185 | The map zooms in much closer, down to the street, almost the fight's look, my men walking; one pinch, no new screen; the map must look good up close | 258 | RUN, COOK, ANIMATION, EYES | 
