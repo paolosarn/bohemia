@@ -242,7 +242,7 @@ async function run(profile) {
     const hk4 = await fr2.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).map(m => m && m.name)).catch(() => []);
     ok(P + 'D4 THE DEAD STAY DEAD after a reload: the map\'s count is the living (the woken man added), the hand-over and the sizing never carry ' + DEAD,
       !d4.err && d4.crew === wantCrew(d4, [F1.rows, F2.rows]) && !hk4.some(n => n && canon(n) === DK) && !d4.roster.some(n => n && canon(n) === DK),
-      JSON.stringify({ crew: d4.crew, want: d4.err ? null : wantCrew(d4, [F1.rows, F2.rows]), handOver: hk4, err: d4.err }));
+      JSON.stringify({ crew: d4.crew, want: d4.err ? null : wantCrew(d4, [F1.rows, F2.rows]), handOver: hk4, origin: d4.origin, hired: d4.hired, taken: d4.taken, walked: d4.walked, dead: d4.dead, err: d4.err }));
 
     /* ---- S11 ---- */
     ok(P + 'S11 nothing threw', d.errs.length === 0, d.errs.length ? String(d.errs[0]).slice(0, 160) : 'no errors');

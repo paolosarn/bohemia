@@ -314,7 +314,7 @@ function handOver(){
      message, and when the screen closed first (or the message was late) the next fight fielded the default twelve, the dead among
      them at full health ('YOUR COMPANY 12 / 25' after a death). Inside the game the default twelve is a placeholder, never the
      company: nothing is written until the door's company is here. A screen opened on its own (a checker's host) is unchanged */
-  if(S.defaultCrew && window.parent && window.parent !== window) return null;
+  if(S.defaultCrew && !S.doorSpoke && window.parent && window.parent !== window) return null;
   var on = S.front.concat(S.back).filter(function(i){ return i != null && S.crew[i] && !S.crew[i].dead && !laid(S.crew[i]); });
   var main = S.crew.findIndex(function(m){ return m.main; });
   var order = S.crew.map(function(m, i){ return i; }).filter(function(i){ return on.indexOf(i) >= 0; });
@@ -967,13 +967,18 @@ function open(o){
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
   S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
   S.ready = true; draw();
-  afterTheFights(); healToToday(); if(syncCondition()) draw();   /* CAMP rule 234: the one clock for a wound */
+  /* __THE_DEAD_STAY_DEAD__ (CAMP [eyes: the dead stand up], 10/26): MEASURED, inside the game this screen's own boot opens on its
+     placeholder twelve before the door's message lands; it read the fight's queue onto THOSE men (marking the dead), emptied the
+     queue, and the door's company then put the old climb back: the dead marks were gone with the queue, and the dead stood up.
+     Until the door has spoken, nothing is read from the fights and nothing is kept */
+  var held = S.defaultCrew && !S.doorSpoke && window.parent && window.parent !== window;
+  if(!held){ afterTheFights(); healToToday(); if(syncCondition()) draw(); }   /* CAMP rule 234: the one clock for a wound */
   if(o.select){ var si = S.crew.findIndex(function(m){ return m.name === o.select; }); if(si >= 0) choose(si); }   /* __THE_SPOILS__: open on the man he tapped */
-  keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
+  if(!held) keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
   if(Array.isArray(o.fight)) afterFight(o.fight);
 }
 window.BohemiaRosterScreen = {open:open, state:S, held:HELD, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
-window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
+window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN'){ S.doorSpoke = true; open(d); } if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
 C.load().then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });
 })();
