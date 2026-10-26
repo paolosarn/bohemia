@@ -9674,6 +9674,21 @@ GATES = [
      "has an atlas cut from the bytes on disk (tools/bohemia_run_the_sheets_packed.py repacks), a sampled set re-assembles to the "
      "sheet pixel for pixel, the atlases weigh at most a quarter decoded (2584 MB -> 419 MB), and the fight holds an atlas only "
      "through the size check, else the whole sheet. green at registration, 4/0, 20 s", True),
+    ('THE MAP STANDS TALLER', ['node', 'gates/the_map_stands_taller_gate.js'],
+     "RUN gate, 10/26, row [the map stands taller, you walk behind it] (rule 196, Paolo 10/25: 'on the map I need the buildings to "
+     "be taller taller taller... the bottom of your legs... are behind the buildings... or behind the freeway'): on the phone and "
+     "his computer, the painter against its 2165008f self on the same valley (houses x3, everything else at least x2, the order "
+     "kept, the Strip the tallest; the px at the far, opening and near stops); him behind a house (the glass there is the "
+     "building), behind a tower (most of him, his outline shows), behind the freeway (his legs), walked over it never sunk in its "
+     "berm, whole in the open at every stop; a party covered; a tap travels; the depth off turns it red; the frame's cost. green "
+     "at registration, 13/0 a profile, about 3 min", True),
+    ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
+     "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
+     "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "
+     "every town from eight sides (111 walks): each ends touching the town, never passes it first, and is the shortest walk to a "
+     "tile touching it (the gate's own search); the old door's loops counted (22 of 111, worst Remnants 11 -> 4) and put back as a "
+     "mutation that turns it red; a real finger on five towns and on their bare blocks; five walks on the beat open their towns. "
+     "green at registration, 9/0 a profile, about 3 min", True),
     ('THE ROLL CALL', ['python3', 'gates/the_roll_call_gate.py'],
      "CHARACTER gate, 10/19, row [every old asset into the new look] (his 10/18: 'we still have to get the hair approved and the hats approved and the sunglasses approved and all the assets we have we have to coordinate them, rename them, reapply them in the new art stuff, so please don't forget'): every GARMENTS entry and paper-doll piece on records/target/character/BOHEMIA_THE_ROLL_CALL.json once, every worn name on it, approved only with his UP, no hair/hat/eyewear approved before its own card, the dead never batched, the list re-derives row for row, PORTRAIT's head pieces mapped. green at registration, 8/0, 3 s", False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],

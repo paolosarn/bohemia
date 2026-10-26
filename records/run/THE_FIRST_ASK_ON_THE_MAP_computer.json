@@ -14,42 +14,42 @@
  "tapAt": 5,
  "go": {
   "best": {
-   "name": "Volunteers",
-   "x": 37,
-   "y": 23,
-   "d": 1
+   "name": "Anarchists",
+   "x": 24,
+   "y": 82,
+   "d": 2
   },
   "ok": true,
   "from": [
-   36,
-   23
+   25,
+   84
   ],
   "said": null
  },
  "arrival": {
-  "text": "THE ELDERWork's on the board, mijo. Men for hire wait at the posts, and the bar has drink.",
+  "text": "THE ELDERWork's on the board. Men for hire wait at the posts, and the bar has drink.",
   "face": true,
-  "at": 6.4
+  "at": 5.6
  },
- "boardAt": 6.8,
+ "boardAt": 6,
  "boardOpen": "board",
- "boardOpenAt": 8.9,
+ "boardOpenAt": 7.5,
  "ask": {
-  "name": "MARI LUZ, THE SIGN PAINTER",
-  "said": "A place without a name is a place you leave, and my eleven tins of paint sit past the hyenas. Bring them and I name it after whoever you want, plus 45 batteries.",
-  "faceLit": 11008,
+  "name": "DR. YUSRA ADEYEMI, THE CHILDREN'S DOCTOR",
+  "said": "The lab at the fossil beds has a freezer on its own panels that never went warm. Bring me the freezer, empty it first if you have to, and 45 batteries are yours.",
+  "faceLit": 14060,
   "img": false
  },
- "askAt": 10.5,
+ "askAt": 9.2,
  "opened": {
-  "at": 5.7,
-  "town": "Volunteers"
+  "at": 5.5,
+  "town": "Anarchists"
  },
  "client": {
-  "at": 9.4,
-  "name": "MARI LUZ, THE SIGN PAINTER",
-  "text": "Fetch the paint for the hall signMARI LUZ, THE SIGN PAINTER 45 batteries · 2 H",
-  "faceLit": 11008,
+  "at": 8,
+  "name": "DR. YUSRA ADEYEMI, THE CHILDREN'S DOCTOR",
+  "text": "Bring the freezer from the fossil bedsDR. YUSRA ADEYEMI, THE CHILDREN'S DOCTOR 45 batteries · 11 H",
+  "faceLit": 14060,
   "img": false
  },
  "errors": []
