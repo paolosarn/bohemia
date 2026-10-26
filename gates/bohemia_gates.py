@@ -9784,6 +9784,15 @@ GATES = [
      "a town with two jobs he and both places sit inside the open area, none under the phone; one job fits closer; a job taken on "
      "the map fits; a pinch during the ease is his, a journey takes the camera back; the fit off turns it red. about 4 min a "
      "profile", True),
+    ('THE MAP ZOOMS IN TO THE STREET', ['node', 'gates/the_map_zooms_in_to_the_street_gate.js'],
+     "RUN gate, 10/26, row [the map zooms in to the street] (rule 258(e), Paolo 10/26: 'I want the zoom to zoom in a lot more, even "
+     "on the main map... almost like I'm on the combat map... it doesn't have to transition to a whole other screen or phase'): on "
+     "the phone and his computer, real squeezes carry on past the old closest stop into the street on the same map (the phone and "
+     "the bar unmoved); the street stop straight on, every block the fight's own, a house to his man as in the fight; a journey "
+     "there: held at the focus, the ground by at a walk, his stride turning, facing his way, his two with him; a roaming party "
+     "there in its people; a tap travels to the block under the finger; squeezes out come back to the whole city with no jump over "
+     "30 px; the frame no more than the map's own closest; two minutes at the close end inside the 20 MB budget; the street off "
+     "turns it red. about 5 min a profile", True),
     ('MEET BEFORE YOU FIGHT', ['node', 'gates/meet_before_you_fight_gate.js'],
      "RUN gate, 10/25 (rule 151(e)), and 10/26 [eyes: the meet card's men] (rule 198(g)): a walk into a party stops on a card with "
      "who and the ground, FALL BACK and ENGAGE by a finger; a beast meet by day names them as beasts at the count that stands, never "
