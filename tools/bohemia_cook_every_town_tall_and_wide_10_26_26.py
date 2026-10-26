@@ -719,6 +719,8 @@ def ship_tall(towns_):
         print('  shipped tall', s, len(bl), 'outlines', flush=True)
     json.dump(man, open(manp, 'w'), indent=1)
     json.dump(walk, open(walkp, 'w'), indent=1)
+    import subprocess                                    # the flip's pairs follow the scenes (rule 289(b); its gate leg 10 fails a stale plan)
+    subprocess.run(['python3', os.path.join(R, 'tools/bohemia_cook_every_town_the_glide_10_26_26.py')], check=True)
 
 
 def check_layout(town, meta):

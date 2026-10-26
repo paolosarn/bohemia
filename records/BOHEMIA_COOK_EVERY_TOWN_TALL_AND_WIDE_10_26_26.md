@@ -71,6 +71,32 @@ doors (where a keeper stands and where he walks in) and every tap's box from the
 - The upright towns' heights: the heart's three blocks rise off the top (Church six, five and seven storeys; Reds the garage, four
   and the ten-storey bank; Mob the casino tower over a two-storey row); the edge's houses and yards low with the ground behind.
 
+## THE GLIDE'S PAIRS (rule 289(b), the routine's ask: 'the flip is a glide: each building slides from its tall spot to its wide
+## spot. Keep every building's ID the same in both compositions and write both spots in the plan; RUN TWO reads them')
+tools/bohemia_cook_every_town_the_glide_10_26_26.py writes settlement_ground.json towns[name].glide from the scenes' own measure
+(wide/render and tall/render, every piece roof to foot):
+- pieces: every thing that stands in both compositions, ONE id ('<town>.<name>', '.<k>' when a kind stands several times, the
+  tap's name when a tent or a shed is the clinic), its roles (the taps it IS), and both spots: box and foot in picture px and the
+  foot in the scene's metres.
+- How a thing is found: pieces of one name merge where one nests in another (a sign on its wall) or they touch on one line (a row of
+  graves, the church's tower and nave); ten tents one behind the next stay ten. When the two compositions hold a different count of
+  a name, its touching parts merge (a garden's rows of beds, a run of panels).
+- How they pair: every tap pins first (the thing of that name with the most overlap with the tap's box both ways, so the clinic's
+  tent glides to the clinic's tent); the rest of a kind pair by the least travel (each foot as a share of its picture, scipy's
+  assignment); what one scene holds more of fades (listed in fade).
+- taps: a tap that is part of a piece (the fortress's smith is the barber's ground floor, its armourer the clinic's) or the ground
+  (the lot, the build ground, a camp's arms and bar) gets its own id and 'rides' the piece it sits in, or 'ground'.
+- beat_ms 500 (one beat at 120 BPM), ease MOTION's curve (rule 229).
+MEASURED: 351 pieces across the fourteen towns (Church 31, Homeless 31, Colorful 30 ... Reds and Mob 20, Remnants 19); every tap
+of both compositions one id (82 taps are pieces themselves, 53 ride a piece or the ground); every building and landmark built both ways one id, but the
+five filler blocks leg 2 names; the fades are junk kinds a frame holds more or fewer of (carts, crates, drums, tyres, barriers) and
+Cartel's wall lengths between its gates. Gate EVERY TOWN TALL AND WIDE leg 10, THE GLIDE HAS ITS PAIRS: one beat, every tap and
+building an id, each id once, each spot on its picture, and the glide re-read from the scenes equals the shipped one (a stale plan
+fails). It bites: a Church without its barber's id and a Mob at 900 ms failed it.
+NOT YET: the pictures are flat, so a glide of real shapes needs each piece cut out of its picture. RUN TWO can slide each piece's
+box (the picture's own pixels under it) over the cross-faded ground; if it wants cut-outs to the outline, COOK renders an id map
+per picture (each pixel the piece it belongs to) on its next round with Blender.
+
 ## THE GATES
 - EVERY TOWN SCREEN ITS OWN (gates/every_town_screen_its_own_gate.py): the wide half, 10/25's eight legs.
 - EVERY TOWN TALL AND WIDE (gates/every_town_tall_and_wide_gate.py): both ways, rule 220(f)'s legs.

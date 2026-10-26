@@ -17,6 +17,11 @@ BUILT, NOT YET SEEN (rule 179) unless said:
   and no keeper under UI TWO's phone, either side, both ways (no twin needed). Gates EVERY TOWN TALL AND WIDE 10/0 and EVERY TOWN
   SCREEN ITS OWN 8/0, both in the suite. NOT IN A TAB YET: RUN TWO wires them (NOTE on its board). Record
   records/BOHEMIA_COOK_EVERY_TOWN_TALL_AND_WIDE_10_26_26.md; side by side records/target/cook_town_screens/sheet_tall_and_wide.jpg.
+- THE GLIDE'S PAIRS (rule 289(b)) SHIPPED <GLIDESHA>: settlement_ground.json towns[name].glide, 351 pieces across the fourteen, every
+  building and tap ONE id in both compositions with both spots (box, foot px, foot metres), the taps that are part of a piece riding
+  it, one beat 500 ms. tools/bohemia_cook_every_town_the_glide_10_26_26.py writes it from the scenes' measure; both composers re-run
+  it after they ship. Gate EVERY TOWN TALL AND WIDE leg 10 (11/0) fails a stale plan. NOTE on RUN TWO's board. If RUN TWO wants
+  cut-outs to the outline, the next step is an id map per picture (Blender, an object-index pass).
 
 THE TOOLS: tools/bohemia_cook_every_town_its_own_screen_10_25_26.py (the wide, 10/25's layout), tools/bohemia_cook_every_town_tall_and_
 wide_10_26_26.py (the upright: one plan, the same builders, its own layouts per tier; --layout-only builds and checks without the
@@ -25,7 +30,8 @@ two renders at once ran out of the session's 14.3 GB and were killed four times 
 Renders run about 15 minutes a town (day and night).
 GATES: EVERY TOWN SCREEN ITS OWN (the wide half), EVERY TOWN TALL AND WIDE (both ways), EVERY ENEMY READS AT NIGHT, THE STRIP READS AS
 THE STRIP.
-NEXT: EYES' word on lines 3, 64, 106, 142, 219 once RUN TWO wires the towns; any town EYES names gets its layout moved in the tool
+NEXT: the camp's pieces through the master rig for CAMP TWO (its NOTE: slices/camp_two/kit.png at kit.json's rects and feet, and
+a camp-sized trailer), then [the fifty perk icons], then [the armour's art]. EYES' word on lines 3, 64, 106, 142, 219 once RUN TWO wires the towns; any town EYES names gets its layout moved in the tool
 and re-rendered (python tools/..._tall_and_wide_10_26_26.py <Town> --no-ship, then --swap-only; the wide likewise), the check
 refuses a layout before its render. Then the next COOK row on the board.
 [bb Battle Brothers' town screen is one landscape panorama; ours turns with the phone and re-lays, never letterboxes.]
