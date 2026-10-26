@@ -1146,12 +1146,14 @@ const FIGHT = (function () {
     return [ours, ours + Math.max(c[1] - c[0], R('deployment.min_gap_between_lines_hexes') + 1)];   /* five tiles BETWEEN the fronts, as the wiki's 'at least 5 hexes between parties' */
   }
   function placeBack(units) {
-    const run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat'));
-    units.forEach(function (u) {
-      const extra = Math.floor(u.apTurn / R('ap.move_cost.flat')) - run; if (extra <= 0) return;
+    const run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat')), front = S.cols[1];
+    /* only a man nearer than his own extra run allows moves, to the nearest open tile at that column or past it (the ranks behind
+       him are far enough already, so the line stays as deep as it was dealt and the board as framed) */
+    units.slice().sort(function (a, b) { return b.x - a.x; }).forEach(function (u) {
+      const extra = Math.floor(u.apTurn / R('ap.move_cost.flat')) - run, want = front + extra; if (extra <= 0 || u.x >= want) return;
       let best = null, bd = Infinity;
-      for (let x = Math.min(S.w - 1, u.x + extra); x > u.x && !best; x--) for (let y = 0; y < S.h; y++) {
-        if (!passable(x, y) || unitAt(x, y)) continue;
+      for (let x = want; x < S.w && !best; x++) for (let y = 0; y < S.h; y++) {
+        if (!passable(x, y) || unitAt(x, y) || level(x, y) > 0) continue;
         const d = Math.abs(y - u.y); if (d < bd) { bd = d; best = { x: x, y: y }; }
       }
       if (best) { u.x = best.x; u.y = best.y; }
@@ -1291,7 +1293,7 @@ const FIGHT = (function () {
     const mid = (S.h - 1) / (1 + 1);
     function rowsIn(x) {
       const c = [];
-      for (let y = 0; y < S.h; y++) if (passable(x, y) && !unitAt(x, y)) c.push(y);
+      for (let y = 0; y < S.h; y++) if (passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0)) c.push(y);   /* on the ground at the bell (rule 256) */
       return c.sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
     }
     function fill(list, x0) {
@@ -1336,7 +1338,9 @@ const FIGHT = (function () {
   }
   function deployCrew(units, col, back, formation) {
     const n = R('ours.formation').slots_per_row, mid = (S.h - 1) / (1 + 1), midR = Math.round(mid);
-    const free = function (x, y) { return inBoard(x, y) && passable(x, y) && !unitAt(x, y); };
+    /* THE LINE STANDS ON THE GROUND AT THE BELL (rule 256: measured, his line moved nearer his edge put a lone man on a two storey
+       roof the beasts could not climb; nobody is dealt onto a roof): a roof only when the board has no ground left for him */
+    const free = function (x, y) { return inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0); };
     const zone = zoneCols();
     function nearest(x, y) {
       let best = null, bd = Infinity;
@@ -1346,6 +1350,7 @@ const FIGHT = (function () {
         if (d < bd) { bd = d; best = { x: xx, y: yy }; }
       });
       for (let xx = zone[zone.length - 1] + back; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (free(xx, yy)) { best = { x: xx, y: yy }; break; }
+      for (let xx = zone[0]; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (inBoard(xx, yy) && passable(xx, yy) && !unitAt(xx, yy)) { best = { x: xx, y: yy }; break; }
       return best;
     }
     const later = [], rest = [];

@@ -58,7 +58,7 @@ function minutes(S) {
   return beats / 120;
 }
 
-const t0 = Date.now(), cells = [], bad = { build: [], placed: [], stacked: [], ended: [], bite: [] };
+const t0 = Date.now(), cells = [], bad = { build: [], placed: [], stacked: [], ended: [], bite: [] }, roofed = [];
 for (const who of WHO) for (const g of GEAR) for (const m of COMPANY) for (const e of ENEMY) {
   const cell = { who: who, gear: g.id, men: m, enemies: e, fights: 0, won: 0, rounds: 0, minutes: 0, worst_minutes: 0, kinds: {} };
   for (const sd of SEEDS) {
@@ -76,7 +76,11 @@ for (const who of WHO) for (const g of GEAR) for (const m of COMPANY) for (const
       them.forEach(u => { cell.kinds[u.kind] = (cell.kinds[u.kind] || 0) + 1; });
       let k = 0; while (!S.over && k < STEP_CAP) { const u = F.current(); if (!u) break; F.aiStep(u); k++; }
       if (!S.over || !S.result) bad.ended.push(name + ' (' + k + ' steps, round ' + S.round + ')');
-      if (who === 'beasts' && !S.log.some(ev => ev.t === 'attack' && them.some(u => u.id === ev.id && u.weapon.class === 'natural'))) bad.bite.push(name);
+      /* the beasts bite, unless every man of his stood out of their reach on a roof they cannot climb and they broke off (rule 176's
+         standoff; rule 256 put his line nearer his edge, where a lone gunman on AUTO takes the roof beside him, as his rule 70b says) */
+      if (who === 'beasts' && !S.log.some(ev => ev.t === 'attack' && them.some(u => u.id === ev.id && u.weapon.class === 'natural'))) {
+        const up = S.log.some(ev => ev.t === 'standoff') && S.units.filter(u => u.side === 'you' && F.onField(u)).every(u => F.level(u.x, u.y) > 0);
+        (up ? roofed : bad.bite).push(name); }
       const mn = minutes(S);
       cell.fights++; if (S.result === 'won') cell.won++; cell.rounds += S.round; cell.minutes += mn; cell.worst_minutes = Math.max(cell.worst_minutes, mn);
     } catch (err) { bad.build.push(name + ': ' + String(err && err.message || err).slice(0, 90)); }
@@ -92,7 +96,8 @@ leg(bad.build.length === 0, '*** EVERY CELL BUILDS: 1 to 14 men against 3 to 40,
 leg(bad.placed.length === 0, 'every man of both sides stands on an open tile of the board, the counts asked for', bad.placed.slice(0, 3).join(' | '));
 leg(bad.stacked.length === 0, 'nobody stands on anybody (the first votes)', bad.stacked.slice(0, 3).join(' | '));
 leg(bad.ended.length === 0, 'every fight ends with a result inside the step cap', bad.ended.slice(0, 3).join(' | '));
-leg(bad.bite.length === 0, '*** IN EVERY BEAST CELL THE BEASTS BITE (their racial skill, records/target/bb/beast_attacks.json) ***', bad.bite.slice(0, 3).join(' | '));
+leg(bad.bite.length === 0, '*** IN EVERY BEAST CELL THE BEASTS BITE (their racial skill, records/target/bb/beast_attacks.json), or his men stood out of their reach on a roof and they broke off ***',
+  bad.bite.slice(0, 3).join(' | ') + (roofed.length ? ' (out of reach on a roof: ' + roofed.slice(0, 3).join(' | ') + ')' : ''));
 const forty = cells.filter(c => c.enemies === 40 && c.fights === SEEDS.length);
 leg(forty.length === WHO.length * GEAR.length * COMPANY.length, 'the forty: every company size against 40, men and beasts, all three gear stages', forty.length + ' cells');
 const kinds = {}; cells.filter(c => c.who === 'beasts').forEach(c => Object.keys(c.kinds).forEach(k => { kinds[k] = (kinds[k] || 0) + c.kinds[k]; }));
@@ -166,6 +171,12 @@ if (process.argv.indexOf('--write') >= 0) fs.writeFileSync(path.join(ROOT, 'reco
     leg(up, 'the glass: 14 against 40 dire wolves loads on his phone\'s profile');
     if (up) {
       await p.waitForTimeout(800);
+      /* the open is framed as it stands; the pack is counted once his men see it (rule 256: a fast kind starts back by its extra run,
+         past his men's sight on a board that opens straight into the fight; the fog hides what they cannot see) */
+      const framedAtOpen = await p.evaluate(() => allFramed());
+      await p.evaluate(() => { FIGHT_UI.auto = true; });
+      for (let i = 0; i < 100 && !(await p.evaluate(() => FIGHT.S.units.some(u => u.beast && FIGHT.onField(u) && FIGHT.shown(u)))); i++) await p.waitForTimeout(200);
+      await p.evaluate(() => { FIGHT_UI.auto = false; });
       /* counted at the blit (COMBAT 10/24): since the idles (ANIMATION [everybody idles], 10/23) a standing beast is drawn from its
          rig model's idle cells, and the sheets reach the glass as canvases with no address, so the old count of drawImage calls
          by a picture's address read 0 on main; now every beast the frame blits is counted, and its sheet must be its rig model */
@@ -176,9 +187,9 @@ if (process.argv.indexOf('--write') >= 0) fs.writeFileSync(path.join(ROOT, 'reco
         drawnOneFrame: n, shown: FIGHT.S.units.filter(u => u.beast && FIGHT.onField(u) && FIGHT.shown(u)).length, framed: allFramed(), strip: document.querySelectorAll('#order canvas').length, name: (FIGHT.S.units.find(u => u.beast) || {}).name }; });
       /* the fight's fog (Battle Brothers': a man you cannot see is not drawn): every beast your men can see is drawn, once a frame */
       leg(g.you === 14 && g.them === 40 && g.shown > 0 && g.drawnOneFrame === g.shown && g.rig === g.drawnOneFrame, '*** THE GLASS: all 54 on the board, every beast your men can see drawn from its rig model (ANIMATION\'s redone beasts through the master rig, rule 121) in one frame ***', JSON.stringify(g));
-      leg(g.framed, 'both teams framed at the open, no swipe (rule 104a), with 54 on the board');
+      leg(framedAtOpen, 'both teams framed at the open, no swipe (rule 104a), with 54 on the board');
       await p.evaluate(() => { FIGHT_UI.auto = true; FIGHT_UI.speed = 6; });
-      await p.waitForTimeout(6000);
+      for (let i = 0; i < 60 && !(await p.evaluate(() => FIGHT.S.log.some(e => e.t === 'attack' && FIGHT.byId(e.id).beast))); i++) await p.waitForTimeout(500);   /* rule 256: never on its first turn */
       const r = await p.evaluate(() => ({ bites: FIGHT.S.log.filter(e => e.t === 'attack' && FIGHT.byId(e.id).beast).length, round: FIGHT.S.round, err: window.__err }));
       leg(errs.length === 0 && r.err.length === 0, 'no page error while the pack plays on AUTO', errs.concat(r.err).slice(0, 2).join(' | '));
       leg(r.bites > 0, 'on the glass the pack bites', r.bites + ' bites by round ' + r.round);
