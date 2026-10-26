@@ -1,0 +1,101 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Minutes After A Fight</title>
+<!-- ANIMATION [the minutes after a fight], rule 245 (Paolo 10/26: 'a live show... of your characters looting the bodies and
+     walking between them... research what people typically do after battles'). His own men from the game's own pictures
+     (slices/rig_town, played by engine/bohemia_idles.js, the same call RUN FOUR plays behind the end-of-fight screen) on a scrap
+     of ground with the dead from the fight's own sheets (slices/fight_rig, their last fall key). Research and sources:
+     records/BOHEMIA_ANIMATION_THE_MINUTES_AFTER_A_FIGHT_RESEARCH_10_26_26.md. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  canvas{width:100%;display:block;image-rendering:pixelated;background:#0a0c11;border-radius:3px}
+  button{font:inherit;font-size:11px;letter-spacing:1px;background:#1d1c24;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 10px;margin:0 6px 8px 0}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  .note{margin-top:10px;color:#6f6862;max-width:60ch}
+  .who{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:11px;color:#8d8478;margin-top:8px}
+  .who b{color:var(--ink);font-weight:normal;letter-spacing:1px}
+</style>
+<h1>THE MINUTES AFTER A FIGHT</h1>
+<p>When a fight ends, your men don't just stand there. This plays behind the loot screen instead of black: one goes
+through a dead man's pockets and finds a battery, one kneels by a hurt friend, one ties a rag round his cut arm, one is
+bent over catching his breath, and two smoke and talk about what's next.</p>
+<div class="row"><div class="lab"><span>YOUR MEN ON THE FIGHT'S GROUND</span><span class="tag" id="state">LOADING</span></div>
+<button id="dim">AS IT SITS BEHIND THE LOOT SCREEN</button><button id="zoom">CLOSER</button>
+<canvas id="cv"></canvas>
+<div class="who">
+<b>LOOT</b><span>down on a knee, hands in the dead man's coat, a battery out, looked at, pocketed, a look over his shoulder</span>
+<b>TEND</b><span>down by a hurt friend, both hands pressing on him, leaning in to talk to him, a look round for help</span>
+<b>BIND</b><span>a dirty rag wound round his left arm, over and under, the end pulled tight in his teeth</span>
+<b>BREATH</b><span>bent over his knees, heaving; up with his hands on his hips; his own hands shaking; an arm across his face</span>
+<b>SMOKE, TALK</b><span>the town's own: a cigarette, and two of them going over what comes next, turn and turn about</span>
+</div></div>
+<p class="note">Why these: soldiers' memoirs and the army's own manuals say the same thing about the minutes after. Men
+check each other, patch wounds, go through the dead, reload, and the shakes hit once it's quiet. Held keys on the beat,
+the same stop-motion as everything else.</p>
+<script>window.BOHEMIA_IDLES_BASE = '../rig_idles/'; window.BOHEMIA_TOWN_BASE = '../rig_town/';</script>
+<script src="../../engine/bohemia_idles.js"></script>
+<script>
+(function(){
+  var cv = document.getElementById('cv'), cx = cv.getContext('2d'), I = window.BohemiaIdles;
+  var GW = 640, GH = 330, zoom = 2, dim = false;
+  cv.width = GW; cv.height = GH;
+  var FR = null, IMG = {};
+  /* the dead: the fight's own sheets, their last fall key (fall@2) at a facing; x y are their feet on the ground */
+  var DEAD = [ { look: 'faction_mob', f: 2, x: 196, y: 200 }, { look: 'person_town_5', f: 2, x: 470, y: 240 }, { look: 'faction_mob', f: 6, x: 560, y: 150 } ];
+  /* his men: look, act, facing (0 S, 2 E, 4 N, 6 W), where his feet stand; the looter and the tender face their man */
+  var MEN = [
+    { look: 'person_town_0', act: 'loot', f: 2, x: 150, y: 196, n: 0 },
+    { look: 'person_town_1', act: 'tend', f: 0, x: 432, y: 222, n: 1 },   /* behind his friend's chest, facing the glass and him */
+    { look: 'person_town_2', act: 'bind', f: 1, x: 330, y: 300, n: 2 },
+    { look: 'person_town_3', act: 'breath', f: 7, x: 300, y: 170, n: 3 },
+    { look: 'person_town_4', act: 'talk', f: 1, x: 70, y: 300, n: 4, pair: 'p', partner: false },
+    { look: 'person_town_6', act: 'talk', f: 7, x: 120, y: 292, n: 5, pair: 'p', partner: true },
+    { look: 'person_town_7', act: 'smoke', f: 0, x: 580, y: 300, n: 6 } ];
+  fetch('../fight_rig/fight_rig.json').then(function(r){ return r.json(); }).then(function(j){ FR = j; });
+  function img(src){ if(!IMG[src]){ IMG[src] = new Image(); IMG[src].src = src; } return IMG[src]; }
+  /* the ground: dust, a few stones, the fight's tile line faint (the board where they fell); grain, nothing that moves */
+  var G = document.createElement('canvas'); G.width = GW; G.height = GH;
+  (function(){ var g = G.getContext('2d'); g.fillStyle = '#2b2721'; g.fillRect(0, 0, GW, GH);
+    var s = 7; function r(){ s = (s * 16807) % 2147483647; return s / 2147483647; }
+    for (var i = 0; i < 6000; i++){ var v = r(); g.fillStyle = v < .5 ? '#26221d' : v < .85 ? '#302b24' : '#3a342b'; g.fillRect(Math.floor(r()*GW), Math.floor(r()*GH), 1 + (r() < .2 ? 1 : 0), 1); }
+    for (var k = 0; k < 70; k++){ g.fillStyle = r() < .5 ? '#45403a' : '#1c1915'; g.fillRect(Math.floor(r()*GW), Math.floor(r()*GH), 2, 1); }
+    g.fillStyle = 'rgba(0,0,0,.18)'; for (var y = 0; y < GH; y += 2) g.fillRect(0, y, GW, 1); })();
+  function drawDead(d){
+    if (!FR) return; var L = FR.looks[d.look]; if (!L) return; var im = img('../fight_rig/' + L.file); if (!im.complete || !im.naturalWidth) return;
+    var col = FR.cols.indexOf('fall@2');
+    cx.drawImage(im, col * L.w, d.f * L.h, L.w, L.h, Math.round(d.x - L.foot[0]), Math.round(d.y - L.foot[1]), L.w, L.h);
+  }
+  function drawMan(m, now){
+    if (!I || !I.activity) return 0;
+    var q = I.activity(m.look, 'after:' + m.look, now, m.f, { act: m.act, n: m.n, pair: m.pair, partner: m.partner });
+    if (!q) return 0;
+    cx.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(m.x - (q.foot[0] - q.dx)), Math.round(m.y - (q.foot[1] - q.dy)), q.w, q.h);
+    return 1;
+  }
+  function frame(now){
+    var vw = zoom === 2 ? GW : 320, vh = zoom === 2 ? GH : 165, ox = zoom === 2 ? 0 : 160, oy = zoom === 2 ? 0 : 90;
+    cv.width = vw; cv.height = vh; cx.imageSmoothingEnabled = false;
+    cx.setTransform(1, 0, 0, 1, -ox, -oy);
+    cx.drawImage(G, 0, 0);
+    var all = DEAD.map(function(d){ return { y: d.y - 6, f: function(){ drawDead(d); } }; })
+      .concat(MEN.map(function(m){ return { y: m.y, f: function(){ return drawMan(m, now); } }; }));
+    all.sort(function(a, b){ return a.y - b.y; });
+    var drawn = 0; all.forEach(function(e){ drawn += e.f() || 0; });
+    cx.setTransform(1, 0, 0, 1, 0, 0);
+    if (dim){ cx.fillStyle = 'rgba(8,8,12,.62)'; cx.fillRect(0, 0, vw, vh); }
+    document.getElementById('state').textContent = drawn ? drawn + ' MEN ON THE BEAT' : 'LOADING';
+    cv.style.height = (cv.clientWidth * vh / vw) + 'px';
+    requestAnimationFrame(frame);
+  }
+  document.getElementById('dim').onclick = function(){ dim = !dim; this.classList.toggle('on', dim); };
+  document.getElementById('zoom').onclick = function(){ zoom = zoom === 2 ? 3 : 2; this.classList.toggle('on', zoom === 3); };
+  requestAnimationFrame(frame);
+})();
+</script>
