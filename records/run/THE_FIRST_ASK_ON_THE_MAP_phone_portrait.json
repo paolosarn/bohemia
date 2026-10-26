@@ -11,45 +11,45 @@
   }
  ],
  "spokeUnasked": null,
- "tapAt": 5.1,
+ "tapAt": 5,
  "go": {
   "best": {
-   "name": "Cartel",
-   "x": 64,
-   "y": 78,
-   "d": 3
+   "name": "Colorful",
+   "x": 35,
+   "y": 56,
+   "d": 1
   },
   "ok": true,
   "from": [
-   66,
-   81
+   36,
+   55
   ],
   "said": null
  },
  "arrival": {
   "text": "THE ELDERWork's on the board. Men for hire wait at the posts, and the bar has drink.",
   "face": true,
-  "at": 9.3
+  "at": 6.1
  },
- "boardAt": 9.7,
+ "boardAt": 6.5,
  "boardOpen": "board",
- "boardOpenAt": 12.9,
+ "boardOpenAt": 8.8,
  "ask": {
-  "name": "MS. ADAIR, FACILITIES",
-  "said": "Two tankers of water to our loading dock before sundown tomorrow. It pays 45 batteries, we do not negotiate upward, we are already generous.",
-  "faceLit": 12497,
+  "name": "EL GUERO SALAS, THE YARD BOSS",
+  "said": "Four hundred tyres came in for the fair and there is room for two hundred, and the co-op wants eighty. Haul them over, do not sell any on the way, and 45 batteries are yours.",
+  "faceLit": 11572,
   "img": false
  },
- "askAt": 14.6,
+ "askAt": 10.4,
  "opened": {
-  "at": 7.9,
-  "town": "Cartel"
+  "at": 5.5,
+  "town": "Colorful"
  },
  "client": {
-  "at": 13.4,
-  "name": "MS. ADAIR, FACILITIES",
-  "text": "Haul two tankers of waterMS. ADAIR, FACILITIES 45 batteries · 3 H",
-  "faceLit": 12362,
+  "at": 9.3,
+  "name": "EL GUERO SALAS, THE YARD BOSS",
+  "text": "Haul eighty tyres to the co-opEL GUERO SALAS, THE YARD BOSS 45 batteries · 2 H",
+  "faceLit": 11451,
   "img": false
  },
  "errors": []

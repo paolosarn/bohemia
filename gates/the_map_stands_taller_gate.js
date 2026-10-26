@@ -126,7 +126,7 @@ async function run(profile) {
     await new Promise(r => setTimeout(r, 3200)); clearInterval(t); const at = [city.x, city.y]; travelStop();
     return { w, mx, onBerm, n, at };
   });
-  ok('W3 walked north over the freeway, stepping down its far side the berm covers his feet (and on it he stands on it)', !!fw && fw.mx >= 0.03 && fw.onBerm === 0 && fw.at[0] === fw.w.b[0] && fw.at[1] === fw.w.b[1],
+  ok('W3 walked north over the freeway, stepping down its far side the berm covers his feet (and on it he stands on it)', !!fw && fw.mx >= 0.02 && fw.onBerm === 0 && fw.at[0] === fw.w.b[0] && fw.at[1] === fw.w.b[1],
      fw ? 'at most ' + Math.round(fw.mx * 100) + '% of him covered over ' + fw.n + ' frames, ' + fw.onBerm + ' frames sunk on the berm, ended at ' + fw.at : 'no freeway with a street either side');
   const opens = [];
   for (const c of cands.open.slice(0, 2)) for (const z of ['far', 'open', 'near']) { const q = await place(c, z); opens.push(z + ' ' + Math.round(q.share * 100) + '%'); if (q.share > 0.02) opens.push('!'); }

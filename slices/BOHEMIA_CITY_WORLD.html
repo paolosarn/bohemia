@@ -43894,9 +43894,9 @@ function travelTo(sx,sy,cell){
   var c=null; try{ c=cell ? [cell[0]|0, cell[1]|0] : CBcellAt(sx,sy); }catch(_e){ c=null; }   /* a town or a party tapped hands its own block (mapTapWhat) */
   if(!c) return false;
   var tx=c[0], ty=c[1];
-  /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: a finger on a town's painted ground off the street is a tap on the town (the nearest
-     road to the tapped block, first in scan order, was always its west or north side) */
-  if(!cell && !cityWalkable(tx,ty)){ try{ var tn=townAtDoor(tx,ty,true); if(tn && typeof townTap==='function') return townTap(tn); }catch(_e){} }
+  /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: a finger on a town's painted ground off the street, or a town's own block handed in, is
+     a tap on the town (the nearest road to the tapped block, first in scan order, was always its west or north side) */
+  if(!cityWalkable(tx,ty)){ try{ var tn=cell ? loopTownAt(tx,ty,0) : townAtDoor(tx,ty,true); if(tn && typeof townTap==='function') return townTap(tn); }catch(_e){} }   /* a caller's cell that is a town's own block is the town too */
   /* A THUMB IS 44 PX WIDE AND A ROOF IS NOT A REFUSAL. If the cell under the
      fingertip cannot be stood on, the nearest one that can within two cells is
      what he meant. Past two cells it is a real refusal and it says so. */
@@ -46686,7 +46686,9 @@ function mapDepthRef(gx, gy){ return { d: gx + gy + 1, cx: Math.round(gx), cy: M
 /* the ground's height under a walker, in CSS px (a man on the freeway stands on its berm) */
 function mapStandLift(gx, gy){
   var B = VBC.blk, N = om && om.n; if (!B || !N || !MAP_DEPTH.on) return 0;
-  var x0 = Math.floor(gx), y0 = Math.floor(gy), fx = gx - x0, fy = gy - y0;
+  /* the block his feet are on (the glide's whole numbers are block middles), the step to the next at its edge (a berm's bank is
+     steep): stepping off the freeway he drops to the street beside it, the berm in front of him, never slides down a ramp in the air */
+  var x0 = Math.floor(gx), y0 = Math.floor(gy), sh = function (f){ return Math.max(0, Math.min(1, (f - 0.44) / 0.12)); }, fx = sh(gx - x0), fy = sh(gy - y0);
   var at = function (x, y){ x = Math.max(0, Math.min(N - 1, x)); y = Math.max(0, Math.min(N - 1, y)); return B[y * N + x] || 0; };
   var h = (at(x0, y0) * (1 - fx) + at(x0 + 1, y0) * fx) * (1 - fy) + (at(x0, y0 + 1) * (1 - fx) + at(x0 + 1, y0 + 1) * fx) * fy;
   return h * TH / (VBC.S || VB_CS);
@@ -47653,7 +47655,7 @@ var VB_CS = 24, VB_CPAD = 2;   /* 24 texels a block (RUN 10/19, __THE_MAP_HE_OPE
 /* __THE_MAP_STANDS_TALLER__ (RUN 10/25, rule 196(a)): how many times its 2165008f height each kind of standing thing stands on the
    painting; houses three times, everything else at least twice, the Strip the tallest. One table, read by the painter in the
    page and in its worker (vbWorker sends it). on: false is the map as it was (a checker's before). */
-var VB_TALL = { on: true, house: 3, trailer: 2, apartment: 3, works: 3, shop: 2.2, tower: 2, casino: 3.5, freeway: 2.1, tree: 2, low: 2, pylon: 2, town: 2 };
+var VB_TALL = { on: true, house: 3, trailer: 2, apartment: 3, works: 3, shop: 2.2, tower: 2, casino: 3.5, freeway: 3, tree: 2, low: 2, pylon: 2, town: 2 };
 window.VB_TALL = VB_TALL;
 var VB_CLASS = { lot: 0, road: 1, freeway: 2, blvd: 3, houses: 4, roof: 5, tower: 6, casino: 7, green: 8, water: 9, land: 10, mountain: 11, solar: 12, field: 13, dam: 14, rail: 15 };
 function vbClassOf(d){
