@@ -171,8 +171,8 @@ RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLI
   wound. THE FIRST DAY (382 next fights after a fight that left men struck down, 202 of them losses): benched won 128, back camped
   with the debuff 221, on ONE hitpoint 183 with 280 dead against 223: rule 234 is right by 24 wins in 100; camp first. The heal from
   one: the median man (57) whole in 56 h on the march, 28 camped (14 s), 19 with the cook. The false quote on ours.json
-  struck_down_laid_up_days: CAMP's branch carries the fix (his 10/26 words and a 'was' line), checked; if CAMP has not landed it
-  when you next run, carry the same hunk.
+  struck_down_laid_up_days: GONE on main (his 10/26 words and a 'was' line), the same hunk as CAMP's branch so its merge is clean;
+  the one table's row and the seed tool's line now read 'the fresh wound's days, never a bench'.
 2 [the clinic's half] (rule 241): half = the wound jumps halfway down its line (days and debuff together), the mark untouched.
   FINDING: today's clinicPrice charges Battle Brothers' 20 a day for OUR 30 to 40 days, 70 batteries at level one, the 89 he saw at
   level two, 2 to 3 one-skull jobs; Battle Brothers' temple for the same wound is a sixth to a quarter of its contract. Proposed

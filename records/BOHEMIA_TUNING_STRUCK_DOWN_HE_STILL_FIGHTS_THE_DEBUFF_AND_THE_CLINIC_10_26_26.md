@@ -114,7 +114,8 @@ player's choice stays real (rule 234(a): pickable, never forced).
 - THE FRESH WOUND'S DAYS: 30 to 40, whole days, each as likely (ours.json struck_down_laid_up_days, his 9/27 '30 to 40 days'); they
   measure the debuff and never keep him out (234(b)). THE FALSE QUOTE: ours.json's row quoted 'a DEBILITATING INJURY that takes them
   out of fights for 30 to 40 game days' as if he said it; it was the coordinator's reading. CAMP's branch camp-struck-down replaces
-  it with his 10/26 words and a 'was' line saying so; TUNING checked it and carries the same hunk if CAMP has not landed it.
+  it with his 10/26 words and a 'was' line saying so; TUNING applied the SAME hunk, word for word, to main (records/target/bb/ours.json),
+  so CAMP's later merge is clean; the one table's row and the seed tool's line say 'the fresh wound's days, never a bench'.
 - THE FADE: whole at waking, nothing on the last day, a straight line (CAMP's struck_down_fresh_full_share 1). KEEP. The real
   world heals faster at first and slower at the end (a fracture's bone takes weeks, but most of the pain and the use come back in
   the first ones), so a curve would be truer; the straight line is kept because the arrow shrinks the same each day and the
