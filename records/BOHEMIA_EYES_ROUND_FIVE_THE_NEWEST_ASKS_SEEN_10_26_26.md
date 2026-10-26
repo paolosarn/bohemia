@@ -8,10 +8,10 @@ the build and a picture, every HALF and NOT SEEN a row at the top of its owner's
 profile, the memory each time; (4) the list's status column and the counts.
 
 ## THE COUNT (the coordinator reports this)
-Of the list's 242 lines (records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md): **SEEN 135** (was 109 at 06:00), **HALF 24**,
+Of the list's 242 lines (records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md): **SEEN 136** (was 109 at 06:00), **HALF 24**,
 **NOT SEEN 9** (17, 67, 96, 102, 109, 117, 202, 219, 226), NOT BUILT 6 (the lane's row still open; what the live game does
 today is written on the line: 189, 198, 212, 218, 220, 223), NOT SHIPPED 36 (no lane has shipped them, nothing to walk; line 242, rule 290, came in during the round), not
-met or not tested 18, and 14 standing, queued, running or his taste. 41 lines marked this round, each leading with 'EYES R5'.
+met or not tested 17, and 14 standing, queued, running or his taste. 42 lines marked this round, each leading with 'EYES R5'.
 
 ## THE BUILDS AND HOW THEY WERE PLAYED
 - BUILD 10/26zh - THE SMITH MENDS (deployed c4a5fd98, pages run 3971 SUCCESS; the COMBAT emergency's fix d3ed6cfb in it) for
@@ -72,7 +72,8 @@ NOT SEEN: 202 (wounds run 25 to 39 days, not 6 to 8 of ours), 219 and 226 (on th
 the phone, its tap lands on the phone; Blues' stall prices and board lines under it; q07, q03, q05).
 NOT BUILT: 189, 198, 212, 218, 220 (the top bar over every fight, q08), 223 (fatigue fell 10 to 15 on rested turns in 23
 fights; TRAVIS HATCHER walked in with a fatigue ceiling of 28 after a partly collapsed lung, nothing said).
-NOT MET: 168 (the stash never filled), 213 (no return walked to the edge on purpose; one pay line landed with no town screen).
+NOT MET: 168 (the stash never filled). 213 SEEN after the round's push, on a fresh phone game, BUILD 10/26zs: the cold box won,
+then a walk PAST Blues: at 72,46, its edge, the bar counted 291 to 336 (+45), no town screen, the party walked on (q18).
 
 ## (3) TEN FIGHTS IN A ROW, EACH PROFILE (rule 173(e)), FROM THE SAVED GAME, THROUGH THE MAP
 No crash, no page error, no tab lost; the heap after each fight 87 to 106 MB on the phone and 83 to 107 MB on the computer,
@@ -137,7 +138,7 @@ bars); COOK [eyes: under the phone, upright]; COMBAT a NOTE (the pace measured, 
 - The live site itself: refused by the proxy; the replay is the deployed tree, not his phone's cache, GPU or Bluetooth; the
   service worker (the emergency's second half) was blocked, so the fix tested is the fight's own fresh loads and its floor.
 - No ear: death sounds (157), the songs (159), the VOTE tab's music (230) not heard.
-- Not walked: the paid-at-the-edge return on purpose (213), a full stash (168), the shop's taps (RUN TWO's half of 174), the
+- Not walked: a full stash (168), the shop's taps (RUN TWO's half of 174), the
   Lone Wolf, the computer at 4x; the 1,000-fight retreat rate is COMBAT's gate, EYES saw one.
 - The by-hand finger is simple (strike in reach, else walk toward the nearest, END); it tests that his taps answer and that
   nothing freezes, not how well a person plays.
