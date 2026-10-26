@@ -15338,6 +15338,37 @@
     "src": "BOHEMIA_THREE_LEVELS_SLOW_CREEP_10_25_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "camp-struck-down-he-still-fights-10-26",
+   "kind": "ui",
+   "lane": "camp",
+   "sha": "ff94590b",
+   "made": "10/26",
+   "title": "A MAN STRUCK DOWN STAYS IN YOUR LINE AT ONE HIT POINT, HIS WOUND A PENALTY THAT FADES",
+   "why": "After a bad fight your hurt men used to sit out a month and you were left fighting alone; now a man who goes down and lives stays in your line at one hit point, carrying his wound as a penalty that fades over its days and a mark for life, and the dead never come back. You see it in the DEMO on the crew screen (CREW) after any fight where a man goes down: before on the left, now on the right.",
+   "before_after": {
+    "before": "the crew screen at 10/10 with eight men LAID UP and only YOU in the line (RUN TWO's own picture)",
+    "after": "BUILD 10/26zc: all twelve in the line, each struck-down man's wound days on his face, his card's wound with a red arrow a stat, the clinic's after beside it",
+    "scale": "his phone upright, 390 x 844"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/CAMP_STRUCK_DOWN_HE_STILL_FIGHTS_10_26.webp"
+   }
+  },
+  {
+   "id": "camp-the-clinic-halves-both-10-26",
+   "kind": "ui",
+   "lane": "camp",
+   "sha": "ff94590b",
+   "made": "10/26",
+   "title": "THE CLINIC SHOWS THE WOUND, THE DAYS AND WHAT IT CUTS, BEFORE YOU PAY",
+   "why": "The town's clinic now shows each hurt man's wound with a red arrow for every stat it takes, the days left on a clock and the clinic's after beside it with both cut in half, then the price; paying halves the days and the penalty, and what he lost for life stays. You see it in the DEMO in any town with a clinic: tap the clinic after a fight where a man went down.",
+   "show": {
+    "how": "image",
+    "src": "vote/CAMP_THE_CLINIC_HALVES_BOTH_10_26.webp"
+   }
   }
  ],
  "verdicts": [
