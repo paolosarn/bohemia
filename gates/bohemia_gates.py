@@ -10211,6 +10211,13 @@ GATES = [
      "C1 the crew card draws both (his pixels change against the same figure with nothing drawn), C2 his portrait wears the helmet, F1 the fight draws both facing the glass and "
      "facing east, F2 the fight's face wears it, K1 the camp draws him at the fire in both, M1 the demo's map through its own door draws him and the two men at his shoulders in theirs, M2 at the map's close end too; "
      "E1 every class the shop sells drawn on its wearer; PLANTED: the drawing switched off, C1 catches him bare. about 5 min", True),
+    ('THE FIGHT AS CLOSE AS IT CAN BE', ['node', 'gates/the_fight_as_close_as_it_can_be_gate.js'],
+     "COMBAT TWO gate, 10/26, rows [the fight frames around the phone] and [the fight's camera follows the fight] (rules 288(b)(c)(d), 230(a), 213(c)(e); PAOLO 10/26: 'from the map into combat we always want everyone, "
+     "the enemies to the crew, as zoomed in as possible until we start touching and moving the camera... your characters bigger than when they were zoomed out'). Rolled fights on the phone upright, on its side and a computer, "
+     "the phone right then left, the open area read off the glass (the strip, the bar at its tallest, the phone's rectangle): the open is the tightest frame of every fighter plus a tile, centred in the open area, off the glass's "
+     "centre away from the phone; no living fighter's body outside it on any frame (a man out of the dark and a man the camera is already gliding to hold, half a beat, counted and said); every frame a beat after the first frame "
+     "that saw the last walk, fall or change is the tightest frame again, centred; the camera moves only inside a glide; where the fight draws in a tenth the man is drawn bigger (his floor said); the phone flipped re-centres in two "
+     "beats; a real pinch or the wheel holds through END TURN and their turns and lets go at his next man's turn. Three plants bite. About 15 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

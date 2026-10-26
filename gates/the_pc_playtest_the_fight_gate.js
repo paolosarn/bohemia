@@ -202,7 +202,7 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
       /* one ladder for each roof (a run of one level along a row is one roof) */
       const firsts = roofs.filter(q => !roofs.some(o => o.y === q.y && o.x === q.x - 1 && o.lv === q.lv));
       FIGHT_UI.roofsOf = null; drawLadders();
-      out.ladders = (UI.ladders || FIGHT_UI.ladders || []).length; out.roofsOn = firsts.filter(q => { const X = sx((q.x + .8) * FIGHT_UI.tw), F0 = sy((q.y + .93) * FIGHT_UI.th); return X > -40 && X < W + 40 && F0 > -40 && F0 - FIGHT_UI.th * FIGHT_UI.zoom < H + 40; }).length;
+      out.ladders = (UI.ladders || FIGHT_UI.ladders || []).length; out.roofsOn = firsts.filter(q => { const X = sx((q.x + .8) * FIGHT_UI.tw), F0 = sy((q.y + .93) * FIGHT_UI.th); return X > -40 && X < W + 40 && F0 > -40 && F0 - FIGHT_UI.th * FIGHT_UI.zoom * (riseAt(q.x, q.y) + .04) < H + 40; }).length;   /* the ladder's top as the page draws it (COMBAT TWO 10/26: the tighter frame put a low roof's ladder top past the glass's bottom while a whole tile's top was not) */
       out.ladderOnRise = (FIGHT_UI.ladders || []).some(l => rises.some(q => q.x === l.x && q.y === l.y)); out.ladderOnWall = (FIGHT_UI.ladders || []).some(l => walls.some(q => q.x === l.x && q.y === l.y));
       out.tall = (FIGHT_UI.ladders || []).map(l => [l.lv, Math.round(l.foot - l.top)]);
       /* a man of his on the tallest roof */
