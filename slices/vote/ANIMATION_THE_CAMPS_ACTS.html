@@ -24,11 +24,13 @@
 <h1>THE CAMP</h1>
 <p>When you make camp, you see your whole crew, each doing what he needs. The badly hurt one lies bandaged with a friend
 kneeling by him, a hurt one binds his cut by the fire, one hammers his car door straight, one cooks, one cleans his rifle,
-one sleeps. When the hurt one heals, he gets up.</p>
+one sleeps. When the hurt one heals, he gets up. First they pitch it: two pull the gear out of the cart, two drive the
+tent stakes, one lights the fire.</p>
 <div class="row"><div class="lab"><span>YOUR CREW AT CAMP</span><span class="tag" id="state">LOADING</span></div>
-<button id="dim">NIGHT</button><button id="zoom">CLOSER</button><button id="heal">HE HEALS</button>
+<button id="dim">NIGHT</button><button id="zoom">CLOSER</button><button id="heal">HE HEALS</button><button id="pitch">MAKE CAMP AGAIN</button>
 <canvas id="cv"></canvas>
 <div class="who">
+<b>PITCHING IT</b><span>gear hauled out of the shopping cart and tossed on the pile, tent stakes hammered in, a lighter at the laid fire, blowing on it</span>
 <b>BADLY HURT</b><span>on his back, a bloody wrap round his belly, a hand pressed on it, a knee drawn up; a friend kneels by him</span>
 <b>HURT</b><span>sitting by the fire, winding a rag round his arm, the end pulled tight in his teeth</span>
 <b>ARMOUR BROKEN</b><span>down on a knee at his car door, a hammer on the beat, tape run round it</span>
@@ -46,7 +48,16 @@ only for this card. Held keys on the beat, the same stop-motion as everything el
   cv.width = GW; cv.height = GH;
   var FR = null, IMG = {};
   var DEAD = [];   /* nobody dead at camp */
-  var FIRE = { x: 310, y: 236 }, healAt = null;
+  var FIRE = { x: 310, y: 236 }, healAt = null, CART = { x: 200, y: 262 }, pitchAt = null, PITCH_MS = 8000;
+  /* they pitch it first (rule 269(c)): two slots, then the camp; a man with no pitching pictures yet does his camp act */
+  var PITCH = {
+    person_town_0: { act: 'light', f: 2, x: FIRE.x - 27, y: FIRE.y },
+    person_town_2: { act: 'unpack', f: 2, x: CART.x - 24, y: CART.y },
+    you: { act: 'unpack', f: 6, x: CART.x + 24, y: CART.y + 6 },
+    person_town_3: { act: 'stake', f: 2, x: 110, y: 170 },
+    person_town_1: { act: 'stake', f: 6, x: 540, y: 196 },
+    person_town_4: { act: 'stake', f: 0, x: 420, y: 120 },
+    person_town_5: { act: 'bind', f: 6, x: 480, y: 262 } };
   /* his men: look, act, facing (0 S, 2 E, 4 N, 6 W), where his feet stand; the looter and the tender face their man */
   var MEN = [
     { look: 'person_town_5', act: 'lie', f: 2, x: 470, y: 250, n: 0, hurt: true },
@@ -76,8 +87,22 @@ only for this card. Held keys on the beat, the same stop-motion as everything el
     for (var i = 0; i < 4; i++){ var h = [7, 10, 6, 9][(i + k) % 4]; cx.fillStyle = cols[i]; cx.fillRect(FIRE.x - 6 + i * 3, FIRE.y - h, 3, h); }
     return 0;
   }
+  function drawCart(){   /* CAMP TWO's cart is the real one; a shopping cart's shape for this card */
+    var x = CART.x - 15, y = CART.y - 22;
+    cx.fillStyle = '#16161a'; cx.fillRect(x + 2, y + 21, 3, 3); cx.fillRect(x + 25, y + 21, 3, 3);
+    cx.fillStyle = '#6d6f72'; cx.fillRect(x, y, 30, 15); cx.fillStyle = '#2a2b2e'; cx.fillRect(x + 2, y + 2, 26, 11);
+    cx.fillStyle = '#55575a'; for (var i = 4; i < 28; i += 4) cx.fillRect(x + i, y + 2, 1, 11);
+    cx.fillStyle = '#6b5a3c'; cx.fillRect(x + 4, y + 4, 9, 6); cx.fillStyle = '#3f4a33'; cx.fillRect(x + 15, y + 5, 10, 5);
+    cx.fillStyle = '#6d6f72'; cx.fillRect(x + 3, y + 15, 1, 6); cx.fillRect(x + 26, y + 15, 1, 6); cx.fillRect(x + 2, y + 20, 27, 1);
+    return 0;
+  }
   function drawMan(m, now){
     if (!I || !I.activity) return 0;
+    var pm = pitching(now) ? PITCH[m.look] : null;
+    if (pm){
+      var qp = I.activity(m.look, 'pitch:' + m.look, now, pm.f, { act: pm.act, n: m.n });
+      if (qp){ cx.drawImage(qp.img, qp.x, qp.y, qp.w, qp.h, Math.round(pm.x - (qp.foot[0] - qp.dx)), Math.round(pm.y - (qp.foot[1] - qp.dy)), qp.w, qp.h); return 1; }
+    }
     var act = m.act, o = { act: act, n: m.n, pair: m.pair, partner: m.partner };
     if (m.hurt && healAt !== null){ act = o.act = now - healAt < 4000 ? 'rise' : 'smoke'; o.since = healAt; }
     var q = I.activity(m.look, 'camp:' + m.look, now, m.f, o);
@@ -90,8 +115,9 @@ only for this card. Held keys on the beat, the same stop-motion as everything el
     cv.width = vw; cv.height = vh; cx.imageSmoothingEnabled = false;
     cx.setTransform(1, 0, 0, 1, -ox, -oy);
     cx.drawImage(G, 0, 0);
-    var all = [{ y: FIRE.y, f: function(){ return drawFire(now); } }].concat(DEAD.map(function(d){ return { y: d.y - 6, f: function(){ drawDead(d); } }; }))
-      .concat(MEN.map(function(m){ return { y: m.y, f: function(){ return drawMan(m, now); } }; }));
+    if (pitchAt === null) pitchAt = now;
+    var all = [pitching(now) ? { y: CART.y, f: drawCart } : { y: FIRE.y, f: function(){ return drawFire(now); } }].concat(DEAD.map(function(d){ return { y: d.y - 6, f: function(){ drawDead(d); } }; }))
+      .concat(MEN.map(function(m){ var pm = pitching(now) && PITCH[m.look]; return { y: pm ? pm.y : m.y, f: function(){ return drawMan(m, now); } }; }));
     all.sort(function(a, b){ return a.y - b.y; });
     var drawn = 0; all.forEach(function(e){ drawn += e.f() || 0; });
     cx.setTransform(1, 0, 0, 1, 0, 0);
@@ -102,6 +128,8 @@ only for this card. Held keys on the beat, the same stop-motion as everything el
   }
   document.getElementById('dim').onclick = function(){ dim = !dim; this.classList.toggle('on', dim); };
   document.getElementById('heal').onclick = function(){ healAt = performance.now(); };
+  document.getElementById('pitch').onclick = function(){ pitchAt = performance.now(); healAt = null; };
+  function pitching(now){ return pitchAt !== null && now - pitchAt < PITCH_MS; }
   document.getElementById('zoom').onclick = function(){ zoom = zoom === 2 ? 3 : 2; this.classList.toggle('on', zoom === 3); };
   requestAnimationFrame(frame);
 })();

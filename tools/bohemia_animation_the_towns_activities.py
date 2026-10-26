@@ -79,7 +79,7 @@ def set_of(T, act):
 
 def acts_of(T, arg=None, set_='town'):
     """the activities named (any set), else every activity of the set: 'town' (the six he named, rule 218(a)), 'after' (the
-    minutes after a fight, rule 245) or 'camp' (the camp's acts, rule 259)"""
+    minutes after a fight, rule 245), 'camp' (the camp's acts, rule 259) or 'pitch' (they pitch the camp, rule 269(c))"""
     a = list(T['activities'])
     return [x for x in a if x in arg.split(',')] if arg else [x for x in a if set_of(T, x) == set_]
 
@@ -420,7 +420,7 @@ def model(pid):
 
 def person_one(tag, which=None):
     T = source(); D = EI.source()
-    set_ = which if which in ('town', 'after', 'camp') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp') else which, set_)
+    set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
     set_ = set_of(T, acts[0])
     pid = tag[len('person_'):]
     glb, h = model(pid)
@@ -442,7 +442,7 @@ def fight_one(name, which=None):
     `bodies` when missing), the activities laid on it here, rendered by COMBAT's render() pointed at this folder (the idles'
     way: the same camera, sun, scale and samples as his fight sheet, Stand first so his box is his own)"""
     T = source(); D = EI.source(); CF = EI.combat(); py = sys.executable
-    set_ = which if which in ('town', 'after', 'camp') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp') else which, set_)
+    set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
     set_ = set_of(T, acts[0]); sfx = '' if set_ == 'town' else '.' + set_
     src = os.path.join(ROOT, EI.COMBAT_POSED, name + '.glb')
     if not os.path.exists(src): EI.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
@@ -500,7 +500,7 @@ def closeup(glb, out, act, names='', facings='S,SE,E,SW'):
     root.scale = (k, k, k * 1.414)
     cd = bpy.data.cameras.new('cam'); cd.type = 'ORTHO'; cd.ortho_scale = 1.7
     cam = bpy.data.objects.new('cam', cd); sc.collection.objects.link(cam); sc.camera = cam
-    t = math.radians(45); cam.rotation_euler = (t, 0, 0); cam.location = mathutils.Vector((0, 0, 1.45)) - mathutils.Vector((0, math.sin(t), -math.cos(t))) * 30
+    t = math.radians(45); cam.rotation_euler = (t, 0, 0); cam.location = mathutils.Vector((0, 0, float(os.environ.get('BOHEMIA_CU_Z', 1.45)))) - mathutils.Vector((0, math.sin(t), -math.cos(t))) * 30   # BOHEMIA_CU_Z lower for a man down on the ground
     R = 360; sc.render.resolution_x = sc.render.resolution_y = R
     MR.light_and_film(sc, dict(sun_rot=list(MR.G['sun_rot_deg']))); sc.cycles.samples = 8; sc.render.film_transparent = True
     from PIL import Image
@@ -572,7 +572,7 @@ def pack(only=None):
 
     n_ok = 0
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
-    SETS = ['town', 'after', 'camp']
+    SETS = ['town', 'after', 'camp', 'pitch']
 
     def passes(tag):
         """his render passes on disk (the town's six, the minutes after a fight), each its folder and the acts it made"""

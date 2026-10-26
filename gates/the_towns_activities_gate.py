@@ -34,6 +34,8 @@ PLAYER, never of a table's say-so:
   A2 THE CAMP'S ACTS (rule 259, the set 'camp': LIE, SLEEP, MEND, REPAIR, COOK, CLEAN, RISE once): a man lying has his pelvis
      on the floor in every lying pose (8 cm); RISE is one slot from the moment asked then its standing held (X4); once any man
      has one, his company and YOU have all seven.
+  A3 THEY PITCH THE CAMP (rule 269(c), the set 'pitch': UNPACK the cart, drive a STAKE, LIGHT the fire): once any man has one,
+     his company and YOU have all three.
   MUTATIONS (the gate must bite): a timeline a key short, two sides of a turn put next to each other, a joint that jumps
   out and back in one key, a variant pose that is its rest, a player that seats every man in one step, a pair that both
   talk.
@@ -54,6 +56,7 @@ DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 NAMED = ['drink', 'smoke', 'talk', 'flirt', 'sit', 'stall']
 AFTER = ['loot', 'tend', 'bind', 'breath']   # rule 245: the minutes after a fight, the set 'after'
 CAMP = ['lie', 'sleep', 'mend', 'repair', 'cook', 'clean', 'rise']   # rule 259: the camp's acts, the set 'camp'
+PITCH = ['unpack', 'stake', 'light']   # rule 269(c): they pitch the camp, the set 'pitch'
 SET = lambda a: T['activities'][a].get('set', 'town')
 PPM = 57.0           # the master rig's pixels a real metre at the street's settings (rig.json 'ppm')
 REVERSE_DEG, MOVE_PX, JUMP_PX = 120, 2.0, 24.0
@@ -349,13 +352,15 @@ if packed:
         ok('A1 THE MINUTES AFTER A FIGHT: his company and YOU (%d) have all four (loot, tend, bind, breath)' % (len(comp) + 1), not lack, '; '.join(lack[:4]))
     def has_any(acts):
         return any(any(a in json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][l]['json'])))['sheets'] for a in acts) for l in packed)
-    if '--camp' in sys.argv or has_any(CAMP):
+    for leg, flag, acts, what in (('A2 THE CAMP\'S ACTS', '--camp', CAMP, 'all seven (lie, sleep, mend, repair, cook, clean, rise)'),
+                                  ('A3 THEY PITCH THE CAMP', '--pitch', PITCH, 'all three (unpack, stake, light)')):
+        if flag not in sys.argv and not has_any(acts): continue
         lack = []
         for c in comp + ['you']:
             Lc = json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][c]['json']))) if c in IX['looks'] else {'sheets': {}}
-            miss = [a for a in CAMP if a not in Lc['sheets']]
+            miss = [a for a in acts if a not in Lc['sheets']]
             if miss: lack.append('%s lacks %s' % (c, ','.join(miss)))
-        ok('A2 THE CAMP\'S ACTS: his company and YOU (%d) have all seven (lie, sleep, mend, repair, cook, clean, rise)' % (len(comp) + 1), not lack, '; '.join(lack[:4]))
+        ok('%s: his company and YOU (%d) have %s' % (leg, len(comp) + 1, what), not lack, '; '.join(lack[:4]))
     cf = chess_faults(packed[:6])
     ok('C1 every variant differs from its rest in every facing; drinking, smoking, sitting, at a stall is not his plain still',
        not cf, '; '.join(cf[:4]))
