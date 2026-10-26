@@ -1,0 +1,32 @@
+{
+ "draft": true,
+ "source": "ECONOMY [buy versus sell], rule 242(c): 'a town short of a thing pays more for it and the stall says so in a word'",
+ "page": "records/BOHEMIA_ECONOMY_DAY_82_BUY_VERSUS_SELL_THE_STALL_PAYS_HALF_AND_A_TOWN_IN_NEED_PAYS_THE_DIFFERENCE_10_26_26.md",
+ "note": "The stall keeper's lines for the SELL side, an attempt for WORDS and RUN TWO (rule 8/11: words get an attempt). Never read by the game until RUN TWO or WORDS takes them. The keeper speaks, never the player (rule 150; the player does not speak Spanglish, the first votes); the keeper's Spanglish rolls at runtime (WORDS rule 143a), so most lines are plain. {n} is how many more the town wants, {sell} what the next one brings.",
+ "lines": {
+  "calm_sell": [
+   { "text": "Half what I sell it for. That's the deal, same as everywhere.", "draft": true },
+   { "text": "I'll take it. Half price, I've got to sell it again.", "draft": true }
+  ],
+  "short_food": [
+   { "text": "We're short on food here. I'll pay {sell} a night for {n} more.", "draft": true },
+   { "text": "People are hungry, mijo. Bring me food and I pay good, {n} more.", "draft": true }
+  ],
+  "short_meds": [
+   { "text": "They need meds here. {sell} a dose, for {n} more.", "draft": true },
+   { "text": "Half the block is coughing. Every dose you've got, I'll take {n}.", "draft": true }
+  ],
+  "need_met": [
+   { "text": "That's what we needed. Back to the usual price.", "draft": true }
+  ],
+  "plenty": [
+   { "text": "We're drowning in it. I can't take more this week.", "draft": true }
+  ],
+  "warn_food": [
+   { "text": "That's your crew's dinner tonight. Still want to sell it?", "draft": true }
+  ],
+  "undo": [
+   { "text": "Changed your mind? Same price back, no hard feelings.", "draft": true }
+  ]
+ }
+}

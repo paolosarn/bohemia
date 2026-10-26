@@ -8,7 +8,15 @@
      grew(rows, climb, xpFor, levelOf) each man's XP and level before and after, the way the crew screen will climb him
      take(stash, ground, i, cap)      one piece from the ground into the stash, if there is room
      takeAll(stash, ground, cap)      as many as fit, in order, then stop: {took, left}
-   node: require('./bohemia_spoils.js')   Gate: gates/the_spoils_gate.js */
+   OPTIMIZE LOOT (RUN FOUR [optimize loot], rule 244, Paolo 10/26: 'if my inventory is full but there are ten more things that
+   could be taken... it takes the things in your inventory that are sellable at the lowest price and replaces them with the more
+   expensive loot'):
+     sellBack(it, at)                 what a town pays for it: the shop's own sum (slices/BOHEMIA_SETTLEMENT_SCREEN.html sellBack:
+                                      its worth, what is left of it, the cut, the standing, the place's trait); at = {add, mult}
+     fixed(it)                        a piece optimize never moves: KEEP (the shop's mark: bought or kept, never let go), worn,
+                                      held, bagged, a job's
+     optimize(stash, ground, cap, at) the best stash that fits: {stash, ground, took, left, gain, before, after}; pure, nothing moved
+   node: require('./bohemia_spoils.js')   Gates: gates/the_spoils_gate.js, gates/optimize_loot_gate.js */
 (function (root) {
   'use strict';
   function pct(now, max) { return max > 0 ? 100 * now / max : 0; }
@@ -76,7 +84,41 @@
     while (ground.length && stash.length < cap) { stash.push(ground.shift()); took++; }
     return { took: took, left: ground.length };
   }
-  var API = { found: found, grew: grew, take: take, takeAll: takeAll, partFound: partFound };
+  /* ---------- OPTIMIZE LOOT (rule 244) ----------
+     THE PRICE is the shop's (the gate holds the two equal): a piece is worth its price times what is left of it, and a town pays
+     the cut of that (Battle Brothers' seventh, TUNING 10/10), moved by the standing (add) and the place's trait (mult), floor 1.
+     WHY ONE ORDER IS RIGHT AT EVERY TOWN: a town moves every piece's price by the same cut and the same trait, and the floor is
+     never a reversal, so the piece worth more is never paid less anywhere; the swap is the same whichever town is nearest, only
+     the batteries it is worth there change. THE SWAP is Battle Brothers' drag done for him: the cheapest piece he did not choose
+     goes back on the ground for the most valuable piece left, until nothing left beats the cheapest kept (a tie never swaps). */
+  var SELL_CUT = 1 / 7;
+  function cond01(it) { return it && it.condMax > 0 ? Math.max(0, Math.min(1, it.cond / it.condMax)) : 1; }
+  function worth(it) { return it ? (it.base || it.price || 0) * cond01(it) : 0; }
+  function sellBack(it, at) {
+    at = at || {};
+    return Math.max(1, Math.floor(worth(it) * (SELL_CUT + (at.add || 0)) * (at.mult != null ? at.mult : 1)));
+  }
+  /* the shop's KEEP (isJunk's other side): a piece he bought or took off his own men is his until he lets it go; a looted one is
+     junk until he marks it KEEP; anything worn, held, in a man's bag or a job's never moves */
+  function junk(it) { return !!it && (it.keep === false || (it.keep !== true && !!it.looted)); }
+  function fixed(it) { return !it || !junk(it) || !!(it.worn || it.held || it.bagged || it.equipped || it.job || it.quest); }
+  function optimize(stash, ground, cap, at) {
+    var pool = [], keep = 0, sum = function (a) { return a.reduce(function (s, it) { return s + sellBack(it, at); }, 0); };
+    stash.forEach(function (it, i) { if (fixed(it)) keep++; else pool.push({ it: it, s: 1, i: i }); });
+    ground.forEach(function (it, i) { pool.push({ it: it, s: 0, i: i }); });
+    pool.sort(function (a, b) { return worth(b.it) - worth(a.it) || b.s - a.s || a.i - b.i; });
+    var room = Math.max(0, cap - keep), stay = pool.slice(0, room), go = pool.slice(room);
+    var took = stay.filter(function (p) { return !p.s; }).map(function (p) { return p.it; });
+    var left = go.filter(function (p) { return p.s; }).sort(function (a, b) { return a.i - b.i; }).map(function (p) { return p.it; });
+    /* nothing he keeps changes its slot: a piece that left gives its slot to the best piece taken; the rest after */
+    var inn = took.slice(), out = [];
+    stash.forEach(function (it) { if (left.indexOf(it) < 0) out.push(it); else if (inn.length) out.push(inn.shift()); });
+    out = out.concat(inn);
+    var g = ground.filter(function (it) { return took.indexOf(it) < 0; }).concat(left);
+    return { stash: out, ground: g, took: took, left: left, gain: sum(took) - sum(left), before: sum(stash), after: sum(out) };
+  }
+  var API = { found: found, grew: grew, take: take, takeAll: takeAll, partFound: partFound,
+    SELL_CUT: SELL_CUT, worth: worth, sellBack: sellBack, junk: junk, fixed: fixed, optimize: optimize };
   root.BohemiaSpoils = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : this);

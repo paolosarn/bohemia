@@ -1,0 +1,127 @@
+{
+ "draft": true,
+ "_about": "TUNING 10/26 [healing on our clock] (rule 264): research only, nothing in the game reads this. Our gap between fights on our real trips: the live demo (BOHEMIA_DEMO.html), every job of records/target/BOHEMIA_JOB_KINDS.json and the board's four offered at all 14 home bases, costed by BohemiaJobKinds.trip (the map's road and clock, the way back when paid at home) over BohemiaJobKinds.fightsOf (each fight by its chance); hold-defend left out (its waves are one place). Tool tools/bohemia_tuning_healing_on_our_clock.js; record records/BOHEMIA_TUNING_HEALING_ON_OUR_CLOCK_10_26_26.md",
+ "towns": 14,
+ "offers": 48,
+ "trips": 602,
+ "step_minutes_here": {
+  "here": 5.376,
+  "pace": 1
+ },
+ "all": {
+  "hours": 2941,
+  "fights": 634.5,
+  "gap_hours": 4.64,
+  "fights_a_day": 5.18,
+  "trip_hours_median": 3.0,
+  "trip_hours_p90": 12.7
+ },
+ "sure_fight_jobs": {
+  "n": 462,
+  "gap_hours": 3.36
+ },
+ "trips_under_a_day": {
+  "n": 585,
+  "gap_hours": 4.06
+ },
+ "by_kind": {
+  "haul-caravan": {
+   "n": 126,
+   "trip_hours_median": 4.4,
+   "trip_hours_p90": 21.3,
+   "fights_median": 1.11,
+   "paid_at_home": 0
+  },
+  "find-place": {
+   "n": 56,
+   "trip_hours_median": 4.0,
+   "trip_hours_p90": 22.6,
+   "fights_median": 0.21,
+   "paid_at_home": 56
+  },
+  "recover-return": {
+   "n": 154,
+   "trip_hours_median": 2.4,
+   "trip_hours_p90": 3.9,
+   "fights_median": 1.0,
+   "paid_at_home": 154
+  },
+  "find-person": {
+   "n": 56,
+   "trip_hours_median": 3.0,
+   "trip_hours_p90": 4.3,
+   "fights_median": 0.01,
+   "paid_at_home": 56
+  },
+  "hunt-kind": {
+   "n": 70,
+   "trip_hours_median": 2.7,
+   "trip_hours_p90": 4.4,
+   "fights_median": 3.0,
+   "paid_at_home": 70
+  },
+  "clear-camp": {
+   "n": 70,
+   "trip_hours_median": 1.3,
+   "trip_hours_p90": 13.6,
+   "fights_median": 1.0,
+   "paid_at_home": 0
+  },
+  "clear-crew": {
+   "n": 28,
+   "trip_hours_median": 0.9,
+   "trip_hours_p90": 1.3,
+   "fights_median": 1.0,
+   "paid_at_home": 0
+  },
+  "carry": {
+   "n": 14,
+   "trip_hours_median": 9.9,
+   "trip_hours_p90": 11.4,
+   "fights_median": 0.24,
+   "paid_at_home": 0
+  },
+  "patrol": {
+   "n": 28,
+   "trip_hours_median": 4.3,
+   "trip_hours_p90": 6.8,
+   "fights_median": 1.01,
+   "paid_at_home": 28
+  }
+ },
+ "gap_by_town": {
+  "Anarchists": 3.7,
+  "Blues": 4.3,
+  "Caravans": 5.0,
+  "Cartel": 4.1,
+  "Church": 4.6,
+  "Colorful": 3.9,
+  "Custom": 4.1,
+  "Homeless": 4.3,
+  "Mob": 5.0,
+  "Network": 4.2,
+  "Reds": 4.8,
+  "Remnants": 7.2,
+  "Trades": 4.9,
+  "Volunteers": 4.7
+ },
+ "battle_brothers": {
+  "gap_hours": 24,
+  "range": [
+   12,
+   48
+  ],
+  "why": "about one fight a map day: bb_all/0828 (a day is 1 minute 45 seconds), bb_all/2107 (an escort quoted at about two days), bb_all/1415 (a patrol limited to ten days), bb_all/1604 (privateering five days); the coordinator's sources (a veteran brother logs 179 to 306 battles over a 350 to 400 day run)"
+ },
+ "typical_fight_at_bb_rates": {
+  "source": "banks/BOHEMIA_TUNING_THE_CAMP_CLOCK_10_26_26.json groups.all (600 AUTO fights, 423 won, rule 234 reading)",
+  "hp_hours_march_median": 27,
+  "armour_hours_march_median": 11.7,
+  "whole_hours_march_median": 36
+ },
+ "scale": {
+  "measured": 5.18,
+  "proposed": 5,
+  "coordinator_default": 4
+ }
+}

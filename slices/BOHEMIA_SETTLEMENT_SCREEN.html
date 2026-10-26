@@ -132,6 +132,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .hire.picked{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
 .act.held{border-color:#c9775f}.act.held .cost{display:block;font-style:normal;font-size:11px;color:#c9775f;margin-top:2px;flex-basis:100%}   /* rule 197: the job he is on, DROP and its cost */
 #sbody .swap{color:#c9775f;font-size:12px;margin-top:6px}
+.act[data-swap]{flex-wrap:wrap}.act[data-swap] .cost{display:block;font-style:normal;font-size:11px;color:#c9775f;margin-top:2px;flex-basis:100%}   /* __TWO_JOBS_AT_ONCE__: the swap for either job, its cost under it */
 /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (RUN TWO, rule 202): the item's own numbers with UI's stat icons, then what it does on one of your men */
 .slots.inums{display:flex;flex-wrap:wrap;gap:6px;color:var(--ink);font-size:12px}
 .inums .ch{display:inline-flex;align-items:center;gap:4px;padding:3px 7px;border:1px solid var(--line);border-radius:4px;background:var(--plate2);white-space:nowrap}
@@ -227,6 +228,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): every keeper and every man in the crowd breathes and idles at his spot -->
 <script src="../engine/bohemia_roster.js"></script>  <!-- RUN TWO [the hire shows the whole man]: what a man's gun does in the fight, the crew screen's own line -->
+<script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): the hall's eight in his order as bars, the shop's changes as arrows -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -727,6 +729,41 @@ function wearBought(it, m, w){
   return said;
 }
 /* ==== end __WHAT_YOU_BUY_GOES_ON_THE_MAN__ ==== */
+/* ==== __UI_THREE_STATS__ (UI THREE [stats are bars and arrows], rule 223(b), Paolo 10/26: 'in the store when I'm upgrading
+   weapons and armor and seeing who it fits best, it's just a bunch of ugly numbers and I hate that... an up green icon or a down
+   red icon plus the number... I don't even want to see it would go from 63 to 68'). RUN TWO's 'ON A MAN' lines keep every number
+   they carry (data-before, data-after, data-delta, the .d's up and dn) and lose the 'X to Y' words: a stat of his eight is its
+   icon, his stars, the bar to the most possible with the new fill and the moved part lit, and the arrow and the amount; armour
+   and damage (no bar of the eight) are the label, the arrow and the amount. A marked block over RUN TWO's onMan, nothing of
+   theirs rewritten; NOTE on RUN TWO's board. ==== */
+(function(){ if(typeof onMan !== 'function') return; var base = onMan;
+  onMan = function(it, again){ var box = base(it, again); try{ if(box && window.BohemiaStats) shopArrows(box); }catch(e){} return box; }; })();
+function shopArrows(box){
+  var B = window.BohemiaStats, man = (shopCrew() || []).filter(function(m){ return m.name === box.dataset.man; })[0] || {};
+  [].forEach.call(box.querySelectorAll('.ln'), function(ln){
+    var k = ln.dataset.k, dv = +ln.dataset.delta || 0, ab = ln.querySelector('.ab'), d = ln.querySelector('.d');
+    if(ab) ab.remove();
+    if(B.ORDER.indexOf(k) >= 0){
+      var lab = (ln.querySelector('.k') || {}).textContent || B.NAME[k], cls = d ? d.className : '';
+      ln.textContent = ''; ln.classList.add('bst-shopln');
+      B.row(k, {into:ln, icon:'i', glass:true, n:+ln.dataset.after, from:+ln.dataset.before, delta:dv, stars:((man.stars || {})[k]) | 0, label:lab});
+      var ch = ln.querySelector('b.bst-chg'); if(ch){ ch.classList.add('d'); if(!dv) ch.classList.add('eq'); }
+    } else if(d){ var c = B.change(dv); c.className += ' d'; if(!dv) c.textContent = 'same'; d.replaceWith(c); ln.classList.add('bst-glass'); }
+  });
+  /* his order (rule 247(a)): the lines that are not his eight first (damage, armour), then the eight as the one list has them */
+  var all = [].slice.call(box.querySelectorAll('.ln')); if(!all.length) return;
+  var rank = function(l){ var i = B.ORDER.indexOf(l.dataset.k); return i < 0 ? -1 : i; }, ph = document.createComment('lines');
+  box.insertBefore(ph, all[0]);
+  all.map(function(l, i){ return {l:l, i:i}; }).sort(function(a, b){ return rank(a.l) - rank(b.l) || a.i - b.i; }).forEach(function(x){ box.insertBefore(x.l, ph); });
+  ph.remove();
+}
+(function(){ var st = document.createElement('style'); st.id = 'bst-shop-css';
+  st.textContent = '.onman .ln.bst-row{display:grid!important;grid-template-columns:20px 23px minmax(0,1fr) 44px;padding:1px 0;min-height:18px}'
+    + '.onman .ln.bst-row>i.bst-ic{width:20px;height:18px;background-size:18px 18px}'
+    + '.onman .ln.bst-row b.bst-chg{justify-content:flex-end;font-size:13px;margin:0}'
+    + '.onman .ln:not(.bst-row) b.bst-chg{margin-left:auto;font-size:13px}';
+  (document.head || document.documentElement).appendChild(st); })();
+/* ==== end __UI_THREE_STATS__ ==== */
 /* ---------- SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18; Paolo 10/24 on his PC: 'every time selling shit was so
    painful, one of the things I hated most about Battle Brothers'; the row: 'selling my dog shit inventory for some batteries'):
    Battle Brothers sells one piece a click. Here the junk goes in ONE tap, the button says how many pieces and what they
@@ -2525,6 +2562,43 @@ function hireCard(r){
   }, bats() < price));
   return c;
 }
+/* ==== __UI_THREE_STATS__ (UI THREE [the stat order], [stats are bars and arrows]; rules 223(a), 247(a)(c)(d), Paolo 10/26:
+   'HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale and initiative... I'm trying to scan the stars
+   quickly... behind the numbers, like a progress bar, how far it is from the maximum that's even possible'). RUN THREE's hall card
+   keeps its eight spans (data-stat, the star and up/down classes, the number in its text) and each becomes the one stat row:
+   HIS order, one column, the icon, the stars down one line, the bar to the most possible with the faint tick at this man's own
+   ceiling; a stat his trait moved shows the arrow and the amount with the moved part lit. A marked block over hireCard, nothing
+   of theirs rewritten; NOTE on RUN THREE's board. ==== */
+(function(){ if(typeof hireCard !== 'function') return; var base = hireCard;
+  hireCard = function(r){ var c = base(r); try{ if(c && window.BohemiaStats) hallBars(c, r); }catch(e){} return c; }; })();
+function hallBars(c, r){
+  var B = window.BohemiaStats, st = c.querySelector('.hstats'); if(!st) return;
+  var tal = hireTalents(r), stars = {}; tal.forEach(function(x){ stars[x.k] = x.n; });
+  var ts = traitStats(r.stats, hireTrait(r) || null), who = {level:r.level || 1, stars:stars};
+  st.classList.add('bst-col');
+  B.ORDER.forEach(function(k){ var e = st.querySelector('span[data-stat="' + k + '"]'); if(!e) return;
+    var n = ts.stats[k], mv = ts.moved[k] || 0; e.textContent = '';
+    B.row(k, {into:e, icon:'none', label:STAT_SHORT[k], n:n, from:mv ? n - mv : null, arrow:false, stars:stars[k] | 0, ceil:B.ceilingOf(who, k, n)});
+    e.title = B.NAME[k]; st.appendChild(e); });
+  /* his trait's numbers (rule 224(a): 'more icons, more green up arrow, down red arrow, and the only number that matters is by how
+     much'): '-5 RES' becomes the resolve icon, the red arrow and 5; the amount lives here once, its part lit on the bar below.
+     The words are kept for a screen reader (the line's text is the same as before) */
+  var tr = hireTrait(r), em = c.querySelector('.htrait em');
+  if(tr && em && B.mark){ var fx = (tr.effects || []).filter(function(x){ return x.flat_eight; });
+    if(fx.length){ em.textContent = ''; em.classList.add('bst-traitline'); em.classList.add('bst-glass');
+      fx.forEach(function(x, i){ if(i){ var sp = document.createElement('i'); sp.className = 'bst-sr'; sp.textContent = '  '; em.appendChild(sp); }
+        em.appendChild(B.mark(x.stat, x.n, {say:STAT_SHORT[x.stat]})); }); } }
+}
+(function(){ var cs = document.createElement('style'); cs.id = 'bst-hall-css';
+  cs.textContent = 'html body #sheet .hire .hstats.bst-col{display:grid;grid-template-columns:minmax(0,1fr);gap:0}'
+    + 'html body #sheet .hire .hstats.bst-col span.bst-row{display:grid!important;grid-template-columns:20px 23px minmax(0,1fr) 34px;column-gap:4px!important;align-items:center;min-height:16px;height:16px}'
+    + 'html body #sheet .hire .hstats.bst-col span.bst-row::before{margin:0 2px 0 0!important}'
+    + 'html body #sheet .hire .hstats.bst-col .bst-bar{height:12px}'
+    + 'html body #sheet .hire .hstats.bst-col .bst-bar>i.bst-n{font-size:11px;line-height:10px}'
+    + 'html body #sheet .hire .hstats.bst-col b.bst-chg{font-size:11px;justify-content:flex-end}'
+    + 'html body #sheet .hire .htrait em.bst-traitline{display:inline-flex;gap:8px;font-style:normal}html body #sheet .hire .htrait em.bst-traitline b.bst-chg{font-size:13px}';
+  (document.head || document.documentElement).appendChild(cs); })();
+/* ==== end __UI_THREE_STATS__ ==== */
 /* what he wears in: his gun in his main hand, his cloth on his back (Battle Brothers' recruits come in their own gear); the rest goes in the bag */
 function hireWears(kit, gun){
   var o = {main: gun ? gun.id : null, body: null};
@@ -2728,7 +2802,23 @@ function clientAct(o, full){
    standing, the words, the cost paid once), so the two can never disagree. The keeper says it; never a card. */
 function jobsK(){ try{ return window.parent && window.parent !== window ? window.parent.BohemiaJobKinds : null; }catch(e){ return null; } }
 function heldCost(id){ var K = jobsK(); try{ return K && K.dropCost ? K.dropCost(id) : null; }catch(e){ return null; } }
-function dropWords(c){ return String(c.place).toUpperCase() + ' thinks less of you: ' + Math.round(c.before) + ' to ' + Math.round(c.after) + (c.band !== c.bandAfter ? ', ' + c.band + ' to ' + c.bandAfter : ''); }   /* draft:true: the phone's own words */
+function dropWords(c){ if(c.before == null) return String(c.place).toUpperCase() + ' will think less of you';   /* __TWO_JOBS_AT_ONCE__: the map is still writing it down */
+  return String(c.place).toUpperCase() + ' thinks less of you: ' + Math.round(c.before) + ' to ' + Math.round(c.after) + (c.band !== c.bandAfter ? ', ' + c.band + ' to ' + c.bandAfter : ''); }   /* draft:true: the phone's own words */
+/* ==== __TWO_JOBS_AT_ONCE__ (RUN TWO [two jobs at once], rule 228(b), Paolo 10/26: 'if I got two quests from a city'; EYES 10/25z:
+   'right after Take it the board does not show the job just taken at the top until it is opened again; with two held, only the
+   first shows as ON THE JOB'; 10/25w: a third offer tapped with two held did nothing). MEASURED: the board listed a held job only
+   when the map's own drop cost knew it (heldCost), and the map hears 'contract' a moment after the tap, so the job just taken was
+   missing; and a third offer whose swap cost was not known yet fell through to a greyed Take it. NOW every job he holds is on the
+   board from the tap (its title and place kept here), its cost filled in where it stands the moment the map has it; a third
+   offer says two is the most and offers the swap for either job he holds. ==== */
+function heldRow(id){ var c = heldCost(id); if(c) return c; var i = (S.heldInfo || {})[id] || {}; return {id:id, title:i.title || 'a job', place:i.place || (S.place && S.place.name) || '', pending:true}; }
+function heldFill(n){
+  n = n || 0; if(n > 20 || S.open !== 'board') return;
+  var left = [].slice.call(document.querySelectorAll('#sbody .act.held[data-pending]'));
+  left.forEach(function(el){ var c = heldCost(el.dataset.held); if(c) el.parentNode.replaceChild(heldAct(c), el); });
+  if(document.querySelector('#sbody .act.held[data-pending]')) setTimeout(function(){ heldFill(n + 1); }, 150);
+}
+/* ==== end __TWO_JOBS_AT_ONCE__ ==== */
 /* the job a swap gives up: the one this town gave, else the oldest */
 function swapOut(){ var ids = S.held.slice(), here = ids.filter(function(id){ var c = heldCost(id); return c && String(c.place) === String(S.place.name); }); return here[0] || ids[0] || null; }
 function dropHeld(id){
@@ -2738,8 +2828,8 @@ function dropHeld(id){
   return r;
 }
 function heldAct(c){
-  var b = act('ON THE JOB: ' + c.title, 'DROP', function(){ dropAsk(c); }, false);
-  b.className = 'act held'; b.dataset.held = c.id;
+  var b = act('ON THE JOB: ' + c.title, 'DROP', function(){ dropAsk(heldCost(c.id) || c); }, !jobsK());   /* the drop is the map's: a town with no map behind it lists the job, greyed */
+  b.className = 'act held'; b.dataset.held = c.id; if(c.pending) b.dataset.pending = 1;   /* __TWO_JOBS_AT_ONCE__ */
   var em = b.querySelector('em'); if(em) em.title = dropWords(c);
   var w = document.createElement('i'); w.className = 'cost'; w.textContent = 'Drop it: ' + dropWords(c); b.appendChild(w);
   return b;
@@ -2747,7 +2837,7 @@ function heldAct(c){
 function dropAsk(c){
   S.open = 'board';
   var body = document.getElementById('sbody'); body.textContent = '';
-  body.appendChild(speak('board', 'Drop ' + c.title + '? Nobody pays, and ' + dropWords(c) + '.'));
+  body.appendChild(speak('board', 'Drop ' + c.title + '? Nobody pays' + (c.before == null ? '.' : ', and ' + dropWords(c) + '.')));
   var acts = document.createElement('div'); acts.className = 'acts';
   var yes = act('Drop it', '', function(){ var r = dropHeld(c.id); openB('board', r ? r.line : 'That job cannot be dropped right now.'); }, false); yes.dataset.drop = 'yes'; acts.appendChild(yes);
   acts.appendChild(act('Keep it', '', function(){ openB('board', 'Bueno. Finish it, then.'); }, false));
@@ -2767,11 +2857,18 @@ function offerSpeak(o){
     if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.words; sy.appendChild(tp); S.trip = TR; } }catch(e){}
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts';
-  var take = function(){ S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
+  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
   var out = S.held.length >= SLOTS ? swapOut() : null, oc = out ? heldCost(out) : null;
-  if(oc){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
-    var ask = document.createElement('p'); ask.className = 'swap'; ask.textContent = 'You are on a job for ' + String(oc.place).toUpperCase() + ': ' + oc.title + '. Drop it and take this one? (' + dropWords(oc) + ')'; sy.appendChild(ask);
-    var sw = act('Drop it and take this one', '', function(){ var r = dropHeld(out); if(!r) return openB('board', 'That job cannot be dropped right now.'); take(); openB('board', r.line + ' Bueno. ' + o.client.name + ' will sleep tonight.'); }, false); sw.dataset.swap = out; acts.appendChild(sw);
+  if(out && jobsK()){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
+    /* __TWO_JOBS_AT_ONCE__ (rule 228(b)): two is the most, said plainly, and the swap for either job he holds (this town's first) */
+    var outs = [out].concat(S.held.filter(function(id){ return id !== out; })).slice(0, SLOTS), first = heldRow(out);
+    var ask = document.createElement('p'); ask.className = 'swap';
+    ask.textContent = 'You carry two jobs, the most a company can. ' + (outs.length > 1 ? 'Drop one and take this one?' : 'You are on a job for ' + String(first.place).toUpperCase() + ': ' + first.title + '. Drop it and take this one? (' + dropWords(first) + ')');
+    sy.appendChild(ask);
+    outs.forEach(function(id){ var c = heldRow(id);
+      var sw = act(outs.length > 1 ? 'Drop ' + c.title + ', take this one' : 'Drop it and take this one', '', function(){ var r = dropHeld(id); if(!r) return openB('board', 'That job cannot be dropped right now.'); take(); openB('board', r.line + ' Bueno. ' + o.client.name + ' will sleep tonight.'); }, false);
+      if(outs.length > 1){ var cw = document.createElement('i'); cw.className = 'cost'; cw.textContent = dropWords(c); sw.appendChild(cw); }
+      sw.dataset.swap = id; acts.appendChild(sw); });
   } else acts.appendChild(act('Take it', '', function(){ take(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.'); }, S.held.length>=SLOTS));
   /* WORLD [the job tells the truth, in blood] (rule 208(c)): the offer's yes bleeds the same, and the client's name carries the red stars */
   try{ var JD2 = window.parent && window.parent.BohemiaJobDanger, yes = acts.lastChild, M2 = window.BohemiaMaterials;
@@ -2862,7 +2959,8 @@ function openB(k, line){
        costs nothing (rule 35c). The phone only lists (UI's board); accepting happens here, from a face. */
     var full = S.held.length>=SLOTS;
     body.appendChild(speak(k, line || (full ? 'You carry ' + (SLOTS === 1 ? 'a job' : 'two jobs') + '. Drop one here, or take a new one and I will tear up the old.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
-    S.held.map(heldCost).filter(Boolean).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top */
+    S.held.map(heldRow).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top; __TWO_JOBS_AT_ONCE__: both, from the tap */
+    setTimeout(function(){ heldFill(0); }, 150);
     boardHere().forEach(function(o){ acts.appendChild(clientAct(o, full && !jobsK())); });   /* full or not, a person can be talked to: a full board asks to swap */
     var sl = document.createElement('div'); sl.className = 'slots';
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */

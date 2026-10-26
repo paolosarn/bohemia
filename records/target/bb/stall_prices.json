@@ -1,0 +1,434 @@
+{
+ "_about": "ECONOMY [buy versus sell] (rule 242, Paolo 10/26: 'at the stall where a dose of med six rounds food and water are available, I should also be able to sell... how much you can make, buy versus sell prices'). What the town's stall charges for his supplies AND what it pays for them, both moved by the town (rule 71's traits, the standing). RUN TWO's stall reads this file through engine/bohemia_stall_prices.js (one arithmetic for the screen, the gate and the calculator); TUNING owns moving any number here (the one table, section R, records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md). The town's NEED for a good is not typed here: it is the card's own field (records/target/settlement_traits.json food_buy_mult, medicine_buy_mult; the stall's traitMult() m.food, m.meds), never a second list. A 'quote' is the cited page's own words, checked against the page by gates/buy_versus_sell_gate.js; a row with no words to quote carries a 'why' instead. Record: records/BOHEMIA_ECONOMY_DAY_82_BUY_VERSUS_SELL_THE_STALL_PAYS_HALF_AND_A_TOWN_IN_NEED_PAYS_THE_DIFFERENCE_10_26_26.md. Calculator: tools/bohemia_economy_buy_versus_sell.js.",
+ "draft": true,
+ "goods": {
+  "food": {
+   "unit": "a night of food and water for one man (a can and a bottle, rule 209)",
+   "count": "food",
+   "buy": {
+    "value": 2,
+    "source": "records/target/bb/nightly_bill.json per_man_per_night (the stall's live line, slices/BOHEMIA_SETTLEMENT_SCREEN.html STALL food price 2)",
+    "why": "one price for the same night everywhere it is bought: the stall, the bill at nightfall, the wagon's refill"
+   }
+  },
+  "meds": {
+   "unit": "a dose",
+   "count": "meds",
+   "buy": {
+    "value": 1,
+    "source": "slices/BOHEMIA_SETTLEMENT_SCREEN.html STALL (no price typed: the stall's one battery, EVERYTHING COSTS ONE)",
+    "why": "a dose is one point of Battle Brothers' medicine, one a day per injury (records/target/bb/stash_rates.json medicine)"
+   }
+  },
+  "rounds": {
+   "unit": "six rounds",
+   "count": "rounds",
+   "per_unit": 6,
+   "buy": {
+    "value": 1,
+    "source": "slices/BOHEMIA_SETTLEMENT_SCREEN.html STALL (six rounds for one battery, adds 6)",
+    "why": "Battle Brothers' ammunition is the cheapest supply (worth 100 against medicine's and tools' 200); six of ours land on the one-battery floor"
+   }
+  },
+  "tape": {
+   "unit": "a roll of tape",
+   "count": "tape",
+   "buy": {
+    "value": 1,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+    "quote": "Repairs Equipment<br />Base worth:<br />200[[File:Crowns.png|23px]] for 20",
+    "why": "Battle Brothers sells tools 200 crowns for a stack of 20 points; at ten to one that is 20 batteries a stack, one a roll. Medicine is the same 200 for 20 (a dose, one battery); ammunition 100 for 50 (six rounds, 1.2, the floor's one)"
+   }
+  }
+ },
+ "sell_share": {
+  "value": 0.5,
+  "unit": "of the calm buy price, paid when he sells one unit to a calm town",
+  "source": "ECONOMY Day 82 s2 (rule 117(a): start easier than Battle Brothers, its value at the hard end); the real record: a shop's buy at half its sell is the trade's oldest rule (keystone: the shelf price is double the cost)",
+  "why": "THEY PAY HALF: one number a fifteen-year-old reads at a glance (117(b)); about three times what Battle Brothers pays back, under what a grocer works on in a calm economy (a gross margin near a quarter)",
+  "bb_veteran": {
+   "value": 0.15,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+   "quote": "Buying price modifier/Selling price modifier = 6.67 (approx) in both cases."
+  },
+  "bb_expert": {
+   "value": 0.135,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+   "quote": "Expert Economic difficulty has a higher ratio (approx 7.41) due to lower Selling price modifiers."
+  },
+  "bb_supplies": {
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+   "quote": "Supplies (tools/medicine/ammo) purchase generally also use the same buying price modifier",
+   "why": "Battle Brothers sells tools, medicine and ammo but never buys them back (they go into a pool the moment they are bought; the coordinator's recall, records/BOHEMIA_PAOLO_SELL_AT_THE_STALL_10_26_26.md); only food sells back (bb_all/2150_Update 1.5.0.14.txt: 'buy back food that they previously sold'). His words beat it: every supply sells here"
+  }
+ },
+ "need_model": {
+  "value": "constant_cut",
+  "options": {
+   "constant_cut": "sell = price x (need - cut): the stall keeps the same cut in batteries, the rise is the seller's (the realistic: the farm-to-shelf margin is a fixed cost per unit, Gardner 1975; a spread narrows as goods move faster, Demsetz 1968; a glut drops what a buyer pays first, Peltzman 2000)",
+   "proportional": "sell = price x need x share: Battle Brothers' own (a situation multiplies the modifier, both sides alike); a famine pays twice a calm town for food and the stall keeps twice the cut"
+  },
+  "source": "ECONOMY Day 82 s2 (realism first, 8/4: the realistic leads; Battle Brothers' proportional is the hard end of the slider)",
+  "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+  "bb_quote": "These are applied multiplicatively on price modifiers after Relations has been factored in."
+ },
+ "sell_share_max": {
+  "value": 0.85,
+  "unit": "of what the stall charges for the same unit in the same town",
+  "source": "ECONOMY Day 82 s2: the Allied buy cut, 0.15 of worth (records/target/settlement_traits.json relation_prices buy_sub_at_100)",
+  "why": "the stall always keeps something, even from a loved company in a famine: a famine stacked on Sickness (food x6) would otherwise pay more than it charges"
+ },
+ "buy_floor": {
+  "value": 1,
+  "source": "reference/library/grok/GROK_33_PRICE_FLOOR_2026_10_01.md (his ten-to-one floor, records/target/bb/price_table.json conversion.floorBatteries)",
+  "why": "nothing at the stall costs under one battery"
+ },
+ "size_mult": {
+  "value": {
+   "camp": 0.95,
+   "town": 1.02,
+   "fortress": 1.1
+  },
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+  "quote": "Level 1 (small): 95%",
+  "why": "rule 265(b), his: 'a small place pays less'. Battle Brothers' base multiplier by settlement level, the same page: small 95%, medium 102%, large 110%; ours camp, town, fortress (engine/bohemia_towns.js). It moves everything the stall charges and pays, so 'they pay half' is half of what THIS stall charges. Battle Brothers adds 3% an attached location on top; our places have none yet, so none"
+ },
+ "sell_floor_share": {
+  "value": 0.15,
+  "unit": "of what the stall charges, the least it pays for anything",
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+  "quote": "Other items: 15%",
+  "why": "rule 265(b), his: 'even if there's just a stall at a settlement I can still sell at it'. A stall never refuses: in a glut (a harvest town's food) it still pays Battle Brothers' price for any ordinary thing, 15 in 100 of its own price, so a handful of twelve or fewer always brings a battery"
+ },
+ "need_units": {
+  "value": {
+   "food": {
+    "camp": 2,
+    "town": 4,
+    "fortress": 6
+   },
+   "meds": {
+    "camp": 1,
+    "town": 1,
+    "fortress": 1
+   }
+  },
+  "unit": "units a town in need buys at the need price in one week of its card (a night of food for one man; a dose)",
+  "source": "ECONOMY Day 82 s4, re-measured Day 83 with the place's size (rule 265(b)): sized so the best week of trading the valley's dice allow pays under one routine contract (30, records/target/BOHEMIA_BOARD_SHELF.json) in week one and under a week of food for three (42) in every week of a year, the loved company included (tools/bohemia_economy_buy_versus_sell.js): 23 and 37 today",
+  "why": "a shortage is a hole of a size, and once it is filled the price falls back (Sen 1981, the 1943 and 1974 famines: grain arriving broke the price); a camp's hole is a third of a fortress's (records/target/settlement_traits.json's tiers: camp, town, fortress, the map's REACH 1, 2, 3). Rounds and tape have no need card in Battle Brothers (no situation moves ammunition or tools), so none here: they move only with the town's sell knob"
+ },
+ "need_eases": {
+  "value": true,
+  "source": "ECONOMY Day 82 s2",
+  "why": "each unit he brings eases the shortage: the first sells at the card's full need, each next one a step nearer calm, calm after the town's last unit (the realistic: grain arriving is what broke the famine price, Sen 1981; and a hole filled by the map's own caravans, records/target/bb/arrival_traits.json well_supplied). The stall shows the next unit's price and how many the town still wants"
+ },
+ "need_word_at": {
+  "value": 1.25,
+  "source": "the smallest need a card on main sets (records/target/settlement_traits.json refugees food_buy_mult 1.25)",
+  "why": "every need card on main says its word ('they need meds here', rule 242(c)); a market day's 1.25 on both knobs is not a need and says nothing"
+ },
+ "handful_max": {
+  "value": 12,
+  "source": "ECONOMY Day 82 s2",
+  "why": "the most units one tap hands over: twelve rolls or doses; a good that would need more than twelve to bring one battery is a good the stall does not take here"
+ },
+ "warn_food_nights": {
+  "value": 1,
+  "unit": "nights for every man, left in the wagon after the sale",
+  "source": "VAMILY rule 242(a): 'never below what the next night needs without a warning'",
+  "why": "the night eats one a man (records/target/bb/nightly_bill.json); a sale that leaves less than that warns before it goes"
+ },
+ "undo_same_visit": {
+  "value": true,
+  "source": "records/BOHEMIA_PAOLO_WHAT_YOU_SELL_SITS_ON_THEIR_SHELF_AND_BUYS_BACK_AT_ITS_PRICE_10_26_26.md (VAMILY rule 248, his)",
+  "quote": "I can just re-buy it back at the at the sell price not like it increased",
+  "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2150_Update 1.5.0.14.txt",
+  "bb_quote": "buy back food that they previously sold",
+  "why": "rule 248(a)(b): what he sells goes back on the stall's count marked his and buys back at exactly what it brought while he is in that town (the 'while in that town' is the coordinator's default, rule 205); this lane adds the other way, what he bought this visit sells back at what it cost, so a wrong tap costs nothing either way (rule 117(c)) and makes no money either way. A unit bought back out of a town's need gives that need its unit back"
+ },
+ "slider": {
+  "easiest": {
+   "sell_share": 0.67,
+   "need_model": "constant_cut",
+   "why": "two thirds back: a mistake barely hurts"
+  },
+  "start": {
+   "sell_share": 0.5,
+   "need_model": "constant_cut",
+   "why": "the pick"
+  },
+  "bb": {
+   "sell_share": 0.15,
+   "need_model": "proportional",
+   "why": "Battle Brothers on Veteran (rule 117(a): its value at the hard end); 0.135 on Expert"
+  },
+  "source": "VAMILY rule 117(a): 'the difficulty sliders go up from there; its default sits at our hard end'"
+ },
+ "tape_shelf": {
+  "value": {
+   "camp": 20,
+   "town": 40,
+   "fortress": 60
+  },
+  "unit": "rolls of tape on the stall's shelf each restock (one stack in a camp, two in a town, three in a fortress)",
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+  "quote": "Repairs Equipment<br />Base worth:<br />200[[File:Crowns.png|23px]] for 20",
+  "why": "rule 265(a), his: 'all stalls... always sell at least... a stack of duct tape'. A stack is Battle Brothers' one item of Tools, 20 points; a won fight eats about 6 rolls (mean 9.1, the worst tenth 18.7; TUNING's one table camp.after_fight), so a camp's stack mends two fights and a fortress's six. Battle Brothers: 'Large settlements have higher availability' (bb_all/2014)",
+  "min": {
+   "value": 20,
+   "source": "VAMILY rule 265(a)",
+   "why": "at least a stack every visit, whatever a raid or a taken town did to the shelf"
+  },
+  "restock_days": {
+   "value": 3,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+   "quote": "Shops resupply every 3 days"
+  },
+  "back_room_mult": {
+   "value": 2,
+   "source": "ECONOMY Day 83 s1",
+   "why": "rule 265(a): 'the price may rise when a town is short, never sold out': past the shelf the keeper sells from the back at twice the price, as many as he wants"
+  },
+  "made_by": {
+   "value": [
+    "Trades"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2014_Tools and Supplies.txt",
+   "quote": "substantially increases availability at adequate price",
+   "why": "the skilled-workers' guild is the valley's workshop (engine/BOHEMIA_faction_graph.json: 'Best for vehicle/solar/construction'): its shelf holds twice the stack"
+  },
+  "made_mult": {
+   "value": 2,
+   "source": "ECONOMY Day 83 s1",
+   "why": "Battle Brothers' workshop 'substantially increases availability'; twice is our reading of 'substantially'"
+  }
+ },
+ "trade": {
+  "_about": "rule 266(a): each place makes what its place really is; cheap at home, bought back there for little, paid well where it is not made. Battle Brothers' own rule from the Game Guide; the worth its own at ten to one (crowns/10). Volunteers ('resource-poor by design') and Custom (the player's own, built in the mayor arc) make nothing. The names are drafts (draft:true, WORDS); the twins first sketched in records/BOHEMIA_ECONOMY_DAY_68_A_DAYS_TRAVEL_IS_A_PRICE_10_17_26.md 1f, Day 83 moves tobacco out for the Church's candles and lithium cells out for pawnshop gold (a cell is too close to the money, 9/4)",
+  "made_here": {
+   "value": {
+    "buy": 1.0,
+    "sell": 0.15
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+   "quote": "Selling price: 15%",
+   "why": "made here: 'Buying price: unchanged', 'Selling price: 15%': the town will not pay for what it digs itself"
+  },
+  "not_made": {
+   "value": {
+    "buy": 1.5,
+    "sell": 1.1
+   },
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+   "quote": "Buying price: 150%",
+   "why": "not made here: 'Buying price: 150%', 'Selling price: 110%': the money is in carrying it from where it is made to where it is not"
+  },
+  "relations": {
+   "value": 0.15,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+   "quote": "for a range of 0-15% (subtracted if buying, added if selling)",
+   "why": "the standing moves the base for trade goods: up to 0.15 off buying and onto selling at Allied (records/target/settlement_traits.json relation_prices.buy_sub_at_100 is the same 0.15: the stall passes relPrice().buySub as relBase)"
+  },
+  "stock": {
+   "value": {
+    "camp": 1,
+    "town": 2,
+    "fortress": 2
+   },
+   "unit": "units of its own good a maker's stall holds, a batch a week",
+   "source": "ECONOMY Day 83 s3 (tools/bohemia_economy_buy_versus_sell.js runTrade)",
+   "why": "the weekly batch is what holds the first week's squeeze: a trader who knows every price, starts with the richest purse on main and walks the roads makes 165 in week one (plus 24 at most from supplies, 189), under one routine job a day (210), while every good's obvious carry pays its trip's food and wages (the median by 4). More in a bigger place (265(a)'s spirit; Battle Brothers: 'Large settlements have higher availability')"
+  },
+  "restock_days": {
+   "value": 7,
+   "source": "ECONOMY Day 83 s3",
+   "why": "a batch a week, not Battle Brothers' shop shuffle: our legs are hours where theirs are days (the pace math: one of our days holds 4 to 6 of theirs), so at their 3-day restock the valley's twelve makers paid a perfect trader 797 in week one (30 carries, about four jobs a day, no risk). The real record agrees: a charcoal pit, a salt pond and a pawn counter turn out a batch, not a shelf every three days. Tape, supplies and gear keep the 3 days",
+   "bb_value": 3,
+   "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+   "bb_quote": "Shops resupply every 3 days"
+  },
+  "goods": [
+   {
+    "id": "charcoal",
+    "name": "CHARCOAL",
+    "bb": "Peat Bricks",
+    "worth": 10,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Peat Bricks<br />Base worth: 100"
+    },
+    "made_by": [
+     "Homeless"
+    ],
+    "why": "burned out of what the fires left; the tunnels' people make the cheapest good there is",
+    "draft": true
+   },
+   {
+    "id": "casino_linen",
+    "name": "CASINO LINEN",
+    "bb": "Cloth Rolls",
+    "worth": 14,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Cloth Rolls<br />Base worth: 140"
+    },
+    "made_by": [
+     "Mob"
+    ],
+    "why": "the Strip's casinos' linen stores; the Mob holds the Strip",
+    "draft": true
+   },
+   {
+    "id": "mountain_timber",
+    "name": "MOUNTAIN TIMBER",
+    "bb": "Quality Wood",
+    "worth": 18,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Quality Wood'''*'''<br />Base worth: 180"
+    },
+    "made_by": [
+     "Anarchists"
+    ],
+    "why": "pine off the Spring Mountains' south slope, cut where nobody owns the trees; their place sits on that edge (x 24, y 82)",
+    "draft": true
+   },
+   {
+    "id": "copper_wire",
+    "name": "STRIPPED COPPER WIRE",
+    "bb": "Copper Ingots",
+    "worth": 22,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Copper Ingots<br />Base worth: 220"
+    },
+    "made_by": [
+     "Trades"
+    ],
+    "why": "the skilled-workers' guild strips the dead grid; copper is the real crash's scrap trade (Detroit's and Johannesburg's wire thieves)",
+    "draft": true
+   },
+   {
+    "id": "turquoise",
+    "name": "TURQUOISE",
+    "bb": "Amber Shards",
+    "worth": 26,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Amber Shards<br />Base worth: 260"
+    },
+    "made_by": [
+     "Colorful"
+    ],
+    "why": "turquoise and petrified wood from the washes, cut and set by the community's makers",
+    "draft": true
+   },
+   {
+    "id": "hides",
+    "name": "HIDES",
+    "bb": "Furs",
+    "worth": 30,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Furs<br />Base worth: 300"
+    },
+    "made_by": [
+     "Remnants"
+    ],
+    "why": "the escaped lab beasts shot on the military range (the beasts law, 9/29); the Remnants hold the range",
+    "draft": true
+   },
+   {
+    "id": "coffee",
+    "name": "COFFEE AND CHILE",
+    "bb": "Spices",
+    "worth": 32,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Spices<br />Base worth: 320"
+    },
+    "made_by": [
+     "Caravans"
+    ],
+    "why": "brought in from the outside world on the I-15; the Caravans are the valley's door",
+    "draft": true
+   },
+   {
+    "id": "salt",
+    "name": "SALT",
+    "bb": "Salt",
+    "worth": 34,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Salt<br />Base worth: 340"
+    },
+    "made_by": [
+     "Blues"
+    ],
+    "why": "from evaporation ponds on Lake Mead's dropped shore; the environmentalists' sun does the work (their place sits east by the lake, x 71)",
+    "draft": true
+   },
+   {
+    "id": "candles",
+    "name": "CANDLES AND INCENSE",
+    "bb": "Incense",
+    "worth": 38,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Incense<br />Base worth: 380"
+    },
+    "made_by": [
+     "Church"
+    ],
+    "why": "the Church's own; Battle Brothers' incense is a temple good",
+    "draft": true
+   },
+   {
+    "id": "pharmacy_stock",
+    "name": "PHARMACY STOCK",
+    "bb": "Dyes",
+    "worth": 40,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Dyes<br />Base worth: 400"
+    },
+    "made_by": [
+     "Cartel"
+    ],
+    "why": "stolen and cut pharmacy stock, the black market's own good (the only faction the game frames as evil)",
+    "draft": true
+   },
+   {
+    "id": "runway_cloth",
+    "name": "RUNWAY CLOTH",
+    "bb": "Silk",
+    "worth": 46,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Silk<br />Base worth: 460"
+    },
+    "made_by": [
+     "Network"
+    ],
+    "why": "the runway's own cloth (everyone dresses like a runway, 9/4), brought in through the strongest outside ties in the valley",
+    "draft": true
+   },
+   {
+    "id": "pawn_gold",
+    "name": "PAWNSHOP GOLD",
+    "bb": "Uncut Gems",
+    "worth": 52,
+    "worth_source": {
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2018_Trade.txt",
+     "quote": "Uncut Gems<br />Base worth: 520"
+    },
+    "made_by": [
+     "Reds"
+    ],
+    "why": "rings, watches and teeth bought cheap at the pawn counter; the capitalists' compound interest (gold is what a crash runs to: Argentina 2001, Venezuela 2016)",
+    "draft": true
+   }
+  ]
+ }
+}

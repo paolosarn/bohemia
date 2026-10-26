@@ -104,7 +104,7 @@ const done = () => { console.log('\nTHE ROSTER SCALES THE ENEMY: ' + pass + ' pa
       await waitFor(() => meetUp(), 90000);
       const why = await fr.evaluate(() => (window.__MEET_UP && window.__MEET_UP.why) || '');
       if (new RegExp('^contract:' + id).test(why)) return fr.evaluate(() => { const c = document.getElementById('meetcard'); const t = c ? c.querySelector('.mcwhy') : null, s = c ? c.querySelector('.mcs') : null;
-        return { up: JSON.parse(JSON.stringify(window.__MEET_UP)), why: t ? t.textContent : null, whyShown: !!(t && t.getBoundingClientRect().height > 0), count: s ? s.textContent : null }; });
+        return { up: JSON.parse(JSON.stringify(window.__MEET_UP)), why: t ? t.textContent : null, men: t ? +t.dataset.men : null, three: t ? +t.dataset.three : null, more: t ? +t.dataset.more : null, whyShown: !!(t && t.getBoundingClientRect().height > 0), count: s ? s.textContent : null }; });
       if (await meetUp()) await roadFight();
     }
     return null;
@@ -169,7 +169,8 @@ const done = () => { console.log('\nTHE ROSTER SCALES THE ENEMY: ' + pass + ' pa
     /* ---------------- S4: the meet card says it ---------------- */
     const m1 = j1 ? await meetTheJob(j1.id) : null;
     await shot('s4_the_meet_card');
-    ok('S4 the meet card says the enemy is sized to his roster, on the card', !!m1 && m1.whyShown && new RegExp('SIZED TO YOUR ' + men + ' MEN\\. WITH 3 YOU WOULD MEET ' + (jj && jj.three) + '\\.').test(m1.why || '') && m1.up.n === jj.crew,
+    /* rule 224 (Paolo 10/26: icons, not numbers): the line is a red up arrow and only by how much; the counts ride in its data */
+    ok('S4 the meet card says the enemy is sized to his roster, on the card', !!m1 && m1.whyShown && /SIZED TO YOUR CREW \u25B2 \d+ MORE/.test(m1.why || '') && m1.men === men && m1.three === (jj && jj.three) && m1.more === jj.crew - jj.three && m1.up.n === jj.crew,
       m1 ? 'card: "' + m1.count + '" / "' + m1.why + '"' : 'no card');
 
     /* ---------------- S5: ENGAGE, and the fight has them ---------------- */

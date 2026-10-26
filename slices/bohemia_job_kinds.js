@@ -131,6 +131,23 @@
     return true;
   }
 
+  /* __PAID_ONLY_FOR_THE_WORK__ (WORLD [eyes: paid without the fight], EYES round three 10/26, line 138; rule 198(g): FALL BACK is
+     the way out BEFORE a fight, never a way to finish a job; Battle Brothers pays a contract for the work done). MEASURED: three
+     kinds spent their twist the moment the card showed (the ambush where the place was, the ones holding the people, the crew at
+     the caravan's gate), so FALL BACK and one touch on the place finished the job: 'GET PAID · TRADES', 60 batteries, no fight.
+     NOW a band that holds the job's thing is set on the job before the card shows and STAYS until a fight against it is won:
+     FALL BACK leaves it standing where it stood, drawn on the map with its people, the job waits on it, and the card comes back
+     only when he walks into them (one block; never on every step near the place, 198(g)). A lost fight or a retreat leaves the
+     ones still standing. */
+  function holdBy(job, what, n, foe, at, label) {
+    if (!job.holders) { job.holders = { what: what, n: Math.max(1, n | 0), foe: foe || 'brigands', x: at.x | 0, y: at.y | 0, label: label }; job.target = { x: at.x | 0, y: at.y | 0 }; }
+    return holdersFight(job);
+  }
+  function holdersFight(job) { var h = job.holders; return h ? (fight(job, h.what, h.n, h.foe, h.label) || true) : false; }
+  function holdersAt(job, x, y) { var h = job.holders; return !!h && cheb(x, y, h.x, h.y) <= 1; }
+  /* true when the band is gone (the fight against them won); else the ones still standing keep holding it */
+  function holdersEnd(job, won, ran, o) { var h = job.holders; if (!h) return true; if (won && !ran) { job.holders = null; return true; } h.n = Math.max(1, h.n - (o.dead | 0)); return false; }
+
   /* ---------- PAID, LOST, DONE ---------- */
   function finish(job) {
     var i = LOOP.held.indexOf(job); if (i >= 0) LOOP.held.splice(i, 1);
@@ -380,11 +397,10 @@
     var t = townNear(x, y, 1);
     if (!(t && t.name === job.dest.name) && cheb(x, y, job.target.x, job.target.y) > 1) return false;
     /* T18 A THIRD PARTY SHOWS UP: at the gate somebody says the cargo is stolen */
-    if (job.twist === 'T18' && !job.twistDone) {
-      job.twistDone = true;
-      now('At the gate of ' + job.dest.name + ', a crew says ' + job.cargo.what + ' is stolen and theirs now.');   /* draft:true */
+    if (job.twist === 'T18' && !job.twistDone) {   /* __PAID_ONLY_FOR_THE_WORK__: the crew holds the gate until it is fought */
+      if (!job.holders) now('At the gate of ' + job.dest.name + ', a crew says ' + job.cargo.what + ' is stolen and theirs now.');   /* draft:true */
       var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-      return fight(job, 'gate', n, 'brigands', 'a crew at the gate of ' + job.dest.name) || true;
+      return holdBy(job, 'gate', n, 'brigands', job.target, 'a crew at the gate of ' + job.dest.name);
     }
     deliver(job);
     return false;   /* and the town opens: he is there */
@@ -403,6 +419,7 @@
     if (f.what === 'raid') job.raid = null;
     if (c.n <= 0) return lost(job, 'They took the last of ' + c.what + '. The job is lost: ' + job.title + '.');   /* draft:true */
     if (f.what === 'gate') {
+      job.holders = null; job.twistDone = true;   /* the gate was fought: what they took is taken, the rest goes in */
       if (won && !ran) { deliver(job); return; }
       return paidPartial(job, 'They took ' + take + ' at the gate. ');
     }
@@ -441,20 +458,18 @@
   function found(job) {
     var k = K(job.plays) || {};
     if (job.plays === 'find-person') {
-      if (job.guarded && !job.guardsDone) {
-        job.guardsDone = true;
+      if (job.guarded && !job.guardsDone) {   /* __PAID_ONLY_FOR_THE_WORK__: they hold them until they are beaten */
         var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-        now('Found ' + job.what + ', and the ones holding them.');   /* draft:true */
-        return fight(job, 'guards', n, 'brigands', 'the ones holding ' + job.what) || true;
+        if (!job.holders) now('Found ' + job.what + ', and the ones holding them.');   /* draft:true */
+        return holdBy(job, 'guards', n, 'brigands', job.spot, 'the ones holding ' + job.what);
       }
       return foundHome(job);
     }
     /* T22: the directions led into an ambush */
-    if (job.twist === 'T22' && !job.twistDone) {
-      job.twistDone = true;
+    if (job.twist === 'T22' && !job.twistDone) {   /* __PAID_ONLY_FOR_THE_WORK__: the ambush holds the place until it is beaten */
       var m = 3; try { m = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-      now('It was a setup. The directions led straight into them.');   /* draft:true */
-      return fight(job, 'ambush', m, 'brigands', 'an ambush where ' + job.what + ' was') || true;
+      if (!job.holders) now('It was a setup. The directions led straight into them.');   /* draft:true */
+      return holdBy(job, 'ambush', m, 'brigands', job.spot, 'an ambush where ' + job.what + ' was');
     }
     var row = (DATA.offers || {})[job.id] || {};
     job.stage = 'back'; backTo(job);
@@ -476,6 +491,7 @@
     var k = K(job.plays) || {};
     if (job.stage === 'home') { cargoStep(job); return false; }
     if (job.stage !== 'look') return false;
+    if (job.holders) return holdersAt(job, city.x, city.y) ? holdersFight(job) === true : false;   /* they stand where they stood */
     if (cheb(city.x, city.y, job.spot.x, job.spot.y) <= (k.seen_at || 2)) return found(job) === true;
     return false;
   }
@@ -483,6 +499,7 @@
   function findArrive(job, x, y) {
     var k = K(job.plays) || {};
     if (job.stage === 'look') {
+      if (job.holders) return holdersAt(job, x, y) ? holdersFight(job) === true : false;   /* __PAID_ONLY_FOR_THE_WORK__ */
       if (cheb(x, y, job.spot.x, job.spot.y) <= (k.seen_at || 2)) return found(job) === true;
       if (cheb(x, y, job.ring.x, job.ring.y) <= job.ring.r) {   /* a stop inside the ring says which way (Battle Brothers gives directions if lost) */
         now('Somewhere ' + way(job.spot.x - x, job.spot.y - y) + ' of here, ' + cheb(x, y, job.spot.x, job.spot.y) + ' blocks or so.');   /* draft:true */
@@ -499,15 +516,18 @@
   }
   ARRIVE['find-place'] = findArrive; ARRIVE['find-person'] = findArrive;
   function findEnd(job, f, won, ran, o) {
-    if (f.what === 'ambush') {   /* found is found; a lost fight still came home with the word */
-      job.stage = 'back'; backTo(job);
-      sayLine((won && !ran ? 'They are down. ' : 'You got out. ') + 'Found ' + job.what + ' anyway. Back to ' + job.from + ' to be paid.');   /* draft:true */
+    if (f.what === 'ambush') {   /* __PAID_ONLY_FOR_THE_WORK__: found only when the ambush is beaten (a retreat or a loss: they still hold it) */
+      if (!holdersEnd(job, won, ran, o)) {
+        sayLine((ran ? 'You pulled back. ' : 'They held it. ') + 'They still hold ' + job.what + ', ' + job.holders.n + ' of them. The job is still yours.');   /* draft:true */
+        save('contract:held'); return;
+      }
+      job.twistDone = true; job.stage = 'back'; backTo(job);
+      sayLine('They are down. Found ' + job.what + '. Back to ' + job.from + ' to be paid.');   /* draft:true */
       save('contract:found'); return;
     }
     if (f.what === 'guards') {
-      if (won && !ran) { foundHome(job); return; }
-      job.guardsDone = false;
-      sayLine('They still hold ' + job.what + '. The job is still there.');   /* draft:true */
+      if (holdersEnd(job, won, ran, o)) { job.guardsDone = true; foundHome(job); return; }
+      sayLine((ran ? 'You pulled back. ' : '') + 'They still hold ' + job.what + ', ' + job.holders.n + ' of them. The job is still there.');   /* draft:true */
       save('contract:guards'); return;
     }
   }
@@ -984,20 +1004,22 @@
     }
     return w.join(', ');   /* draft:true */
   }
-  /* in plain words, the way a person says it: 'REMNANTS IS 12 BLOCKS, about 1 hour. Then 148 blocks to PRIMM, about 2 days.' */
+  /* in plain words, the way a person says it: 'REMNANTS: about 1 hour. Then to PRIMM, about 2 days, paid there.'
+     RULE 224 (Paolo 10/26: 'I'm tired of it just being numbers numbers numbers'): the time is kept (a time he plans by, 224(b));
+     the blocks, a lone number, are gone from the words (the map's own Setting out still says them when he goes) */
   function tripWords(T) {
     if (!T) return null;
     var w = [], J = T.job;
-    if (T.toTown) w.push(String(T.place).toUpperCase() + ' is ' + T.toTown.blocks + (T.toTown.blocks === 1 ? ' block' : ' blocks') + ', ' + timeWords(T.toTown.mins) + '.');
+    if (T.toTown) w.push(String(T.place).toUpperCase() + ': ' + timeWords(T.toTown.mins) + '.');
     if (J) {
       var to = J.name ? ' to ' + String(J.name).toUpperCase() : (J.plays === 'hunt-kind' ? ' to where they roam' : '');
       /* rule 222(a)(b): the time is there and back when he must come back to be paid, his words for which ('About 2 days there and back',
          'About 1 day, paid there'); the blocks are the way out */
       var back = J.back ? ' there and back' : ', paid there', tm = J.total != null ? J.total : J.mins;
       if (J.plays === 'hold-defend') w.push('The job is the town itself: you stay.');
-      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + J.blocks + ' blocks round ' + ((J.legs || []).length || 2) + ' posts, ' + timeWords(tm) + back + '.');
-      else if (J.exact) w.push((T.toTown ? 'Then ' : 'The trip: ') + J.blocks + (J.blocks === 1 ? ' block' : ' blocks') + to + ', ' + timeWords(tm) + back + '.');
-      else w.push((T.toTown ? 'Then ' : 'The trip: ') + J.lo + ' to ' + J.hi + ' blocks' + to + ', ' + timeWords(J.totalLo != null ? J.totalLo : J.minsLo).replace('about ', '') + ' to ' + timeWords(J.totalHi != null ? J.totalHi : J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
+      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + 'round the posts, ' + timeWords(tm) + back + '.');
+      else if (J.exact) w.push((T.toTown ? 'Then' : 'The trip:') + (to ? to : '') + (to ? ', ' : ' ') + timeWords(tm) + back + '.');
+      else w.push((T.toTown ? 'Then' : 'The trip:') + (to ? to : '') + (to ? ', ' : ' ') + timeWords(J.totalLo != null ? J.totalLo : J.minsLo).replace('about ', '') + ' to ' + timeWords(J.totalHi != null ? J.totalHi : J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
     }
     return w.join(' ');   /* draft:true */
   }
@@ -1030,6 +1052,7 @@
       if (j.plays === 'hunt-kind' && j.stage === 'hunt' && packNear(j, x, y, 1)) return true;
       if (j.plays === 'clear-camp' && j.stage === 'camp' && cheb(x, y, j.camp.x, j.camp.y) <= 1) return true;
       if (j.plays === 'haul-caravan' && j.raid && cheb(x, y, j.raid.x, j.raid.y) <= 1) return true;
+      if (j.holders && cheb(x, y, j.holders.x, j.holders.y) <= 1) return true;   /* __PAID_ONLY_FOR_THE_WORK__ */
       if ((j.plays === 'find-place' || j.plays === 'find-person') && j.stage === 'look' && cheb(x, y, j.ring.x, j.ring.y) <= j.ring.r) return true;
       if (j.plays === 'carry' && ((j.thief && cheb(x, y, j.thief.x, j.thief.y) <= 1) || (j.stage === 'lair' && cheb(x, y, j.lair.x, j.lair.y) <= 1))) return true;
       if (j.plays === 'hold-defend' && j.stage === 'hold' && cheb(x, y, j.target.x, j.target.y) <= 1) return true;
@@ -1230,6 +1253,7 @@
       if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 0);
         hit(j, plate('RAIDERS · ' + j.raid.n, r.sx, fy, '#ff8f7a', hh + 14), [j.raid.x, j.raid.y]);
         HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.raid.x, j.raid.y], pack: null }); } }
+    holdersDraw(j, ox, oy, bt, kp);
   };
   function ringDraw(j, ox, oy) {
     var c = j.ring, beat = mapArtBeat();
@@ -1242,7 +1266,18 @@
     g.restore();
     try { MAP_DREW.rings = (MAP_DREW.rings | 0) + 1; } catch (e) {}
   }
+  /* __PAID_ONLY_FOR_THE_WORK__: the band that holds the job's thing, where it stands, their own people and a plate in words */
+  function holdersDraw(j, ox, oy, bt, kp) {
+    var h = j.holders; if (!h) return false;
+    var r = iso(h.x, h.y, ox, oy), fy = r.sy + TH / 2 + 2; if (!vis(r)) return true;
+    var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 0);
+    hit(j, plate(h.what === 'gate' ? 'THEY HOLD THE GATE' : 'THEY HOLD IT', r.sx, fy, '#ff8f7a', hh + 14), [h.x, h.y]);   /* draft:true */
+    HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [h.x, h.y], pack: null });
+    try { MAP_DREW.holders = (MAP_DREW.holders | 0) + 1; } catch (e) {}
+    return true;
+  }
   DRAWS['find-place'] = DRAWS['find-person'] = function (j, ox, oy, bt, kp) {
+    if (j.stage === 'look' && j.holders) { holdersDraw(j, ox, oy, bt, kp); return; }
     if (j.stage === 'look') {
       ringDraw(j, ox, oy);
       var c = iso(j.ring.x, j.ring.y, ox, oy);
@@ -1500,13 +1535,13 @@
         var rn = Math.max(2, jm() + ((k.ambush_extra | 0) || 0));
         if (job.raid) add(1, 'raid', job.raid.n, k.ambush_foe, job.raid);
         (job.ambush || []).forEach(function () { add(1, 'raid', rn, k.ambush_foe, job.target); });
-        if (!job.twistDone) add(held ? (job.twist === 'T18' ? 1 : 0) : twistP(k, 'T18'), 'gate', jm(), 'brigands', job.target);
+        if (!job.twistDone) add(held ? (job.twist === 'T18' ? 1 : 0) : twistP(k, 'T18'), 'gate', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.target);
         break; }
       case 'find-place':
-        if (job.stage === 'look' && !job.twistDone) add(held ? (job.twist === 'T22' ? 1 : 0) : twistP(k, 'T22'), 'ambush', jm(), 'brigands', job.ring);
+        if (job.stage === 'look' && !job.twistDone) add(held ? (job.twist === 'T22' ? 1 : 0) : twistP(k, 'T22'), 'ambush', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.ring);
         break;
       case 'find-person':
-        if (job.stage === 'look' && job.guarded && !job.guardsDone) add(1, 'guards', jm(), 'brigands', job.ring);
+        if (job.stage === 'look' && job.guarded && !job.guardsDone) add(1, 'guards', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.ring);
         break;
       case 'hunt-kind': {
         var left = Math.max(0, (job.need | 0) - (job.got | 0)), packs = (job.packs || []).slice(), i = 0, last = packs[packs.length - 1];

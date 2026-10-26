@@ -10,8 +10,11 @@
 
    On the DEMO, through the one driver, on his phone (390 x 844) and a computer (1440 x 900), on the map, in a town (the
    map's own loopOpenTown) and in a road fight (the map's own roadContactFight), this holds:
+     NO TILE NAME ON THE BAR (UI [no tile name on the bar], rule 262(a), Paolo 10/26: 'on the top of the UI I don't need to see
+       that I'm on a freeway... the character sees it visually'): on the map and in the fight the bar writes no ground or tile
+       name (the code keeps it); in a town the town's name is said once
      ONE BAR
-     - every piece of the bar (the bar, DAY, the crew, the gear, NOTES, the glass, the place) stands in the SAME RECTANGLE on
+     - every piece of the bar (the bar, DAY, the crew, the gear, NOTES, the glass) stands in the SAME RECTANGLE on
        the map, in the town and in the fight, within a pixel and a half
      - and is the SAME PICTURE: each piece cut out of the glass's own screenshot, the map's against the town's and the
        fight's, fewer than 2 percent of its pixels apart (the place's words are left out where the place is another place)
@@ -43,7 +46,7 @@ const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const TOL = 1.5, PIC = 0.02;
-const PIECES = ['bar', 'day', 'crew', 'gear', 'notes', 'glass', 'place'];
+const PIECES = ['bar', 'day', 'crew', 'gear', 'notes', 'glass'];   /* the place is said only where it is a place (rule 262(a)) */
 
 /* the bar's pieces and facts, read in whichever page carries the bar */
 const READ = () => {
@@ -58,6 +61,11 @@ const READ = () => {
   out.facts = { day: t('#bmtb [data-f=day] b'), crew: t('#bmtb [data-f=crew] b'), batteries: t('#bmtb [data-f=batteries] b'), place: t('#bmtb [data-f=place]') };
   /* said ONCE: never at the glass's end and in the presses' row both */
   out.placeOnce = [...document.querySelectorAll('#bmtb [data-f=place]')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }).length === 1;
+  out.placeShown = [...document.querySelectorAll('#bmtb [data-f=place]')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && e.textContent.trim(); }).length;
+  /* UI [no tile name on the bar] (rule 262(a)): the ground he stands on, which the code keeps, is nowhere in the bar's words */
+  const bt = (document.getElementById('bmtb') || {}).innerText || '';
+  let g = null; try { g = (window.BohemiaMaterials && BohemiaMaterials.topBarFacts && BohemiaMaterials.topBarFacts().ground) || (parent && parent.BohemiaMaterials && parent.BohemiaMaterials.topBarFacts().ground) || null; } catch (_e) {}
+  out.ground = g; out.groundOnBar = !!g && bt.toUpperCase().replace(/\s+/g, '').indexOf(String(g).toUpperCase().replace(/\s+/g, '')) >= 0;
   return out;
 };
 const PHONE = () => { const e = document.getElementById('cityfeed'); if (!e) return null; const r = e.getBoundingClientRect();
@@ -104,7 +112,7 @@ async function side(profile) {
     const M = await fr.evaluate('(' + READ + ')()'), MP = await fr.evaluate('(' + PHONE + ')()'), Ms = await shot();
     ok('the map: the bar and its pieces are on the glass', PIECES.every(k => M.rect[k] && M.rect[k][2] > 0), PIECES.filter(k => !M.rect[k]).join(' '));
     ok('  nothing of the map lies over the bar', PIECES.every(k => M.at[k]), PIECES.filter(k => !M.at[k]).join(' '));
-    ok('  where you are is said once, whole (upright in the presses\' row, wide at the glass\'s end)', M.placeOnce && !!M.facts.place, M.facts.place + ' at ' + fmt(M.rect.place));
+    ok('  no ground or tile name on the map\'s bar (rule 262(a): \'the character sees it visually\')', M.placeShown === 0 && !M.groundOnBar && !!M.ground, 'the ground ' + M.ground + ' kept in the code; on the bar: ' + (M.placeShown ? M.facts.place : 'nothing'));
     ok('  the phone is on the map', !!MP && MP.shown && MP.onTop, MP && fmt(MP.rect));
     { const L = await fr.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
       ok('  nothing covers a press on the map (every press\'s centre is the press)', L.length >= 6 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
@@ -131,8 +139,8 @@ async function side(profile) {
       return { T, TP, own, fb };
     };
     const t1 = await TOWNCHK(), Ts = await shot();
-    ok('the town (' + town + '): every piece of the bar in the map\'s rectangle', PIECES.every(k => k === 'place' || near(M.rect[k], t1.T.rect[k])) && !!t1.T.rect.place,
-      PIECES.filter(k => k !== 'place' && !near(M.rect[k], t1.T.rect[k])).map(k => k + ' ' + fmt(M.rect[k]) + ' vs ' + fmt(t1.T.rect[k])).join(' | '));
+    ok('the town (' + town + '): every piece of the bar in the map\'s rectangle, and the town\'s name said once', PIECES.every(k => near(M.rect[k], t1.T.rect[k])) && !!t1.T.rect.place && t1.T.placeOnce,
+      PIECES.filter(k => !near(M.rect[k], t1.T.rect[k])).map(k => k + ' ' + fmt(M.rect[k]) + ' vs ' + fmt(t1.T.rect[k])).join(' | ') + ' place ' + fmt(t1.T.rect.place));
     ok('  nothing of the town lies over the bar', PIECES.every(k => t1.T.at[k]), PIECES.filter(k => !t1.T.at[k]).join(' '));
     ok('  the town\'s own top row is gone (its name, its batteries, its CREW)', !t1.own.bar && !t1.own.crew, 'bar ' + t1.own.bar + ', crew ' + t1.own.crew);
     ok('  the town is laid under the bar (its frame starts where the bar ends)', Math.abs(t1.fb[1] - (M.rect.bar[1] + M.rect.bar[3])) <= TOL && t1.fb[3] > 200, 'frame top ' + Math.round(t1.fb[1]) + ', bar bottom ' + Math.round(M.rect.bar[1] + M.rect.bar[3]));
@@ -166,7 +174,7 @@ async function side(profile) {
     ok('  LEAVE keeps the big action\'s corner (bottom right, where the map\'s speed pad is), 44 points', !!L && L[0] + L[2] >= LW - 30 && L[1] + L[3] >= LH - 40 && L[2] >= 44 && L[3] >= 44, L && fmt(L) + ' of ' + LW + 'x' + LH);
     {
       const diffs = {};
-      for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, Ms, Ts, M.rect[k], dpr, k === 'glass' ? (t1.T.rect.place || M.rect.place) : null);
+      for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, Ms, Ts, M.rect[k], dpr, k === 'glass' ? t1.T.rect.place : null);
       ok('  the same picture as the map\'s, piece by piece (the place\'s words left out)', Object.values(diffs).every(v => v < PIC), Object.entries(diffs).map(([k, v]) => k + ' ' + (v * 100).toFixed(2) + '%').join(', '));
     }
     {
@@ -210,11 +218,11 @@ async function side(profile) {
       ok('  nothing of the fight lies over the bar', PIECES.every(k => F.at[k]), PIECES.filter(k => !F.at[k]).join(' '));
       { const L = await f.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
         ok('  nothing covers a press in the fight', L.length >= 4 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
-      ok('  the same facts as the map\'s (the day, the crew, the batteries, the place)', ['day', 'crew', 'batteries', 'place'].every(k => F.facts[k] && F.facts[k] === MB.facts[k]), JSON.stringify(F.facts) + ' vs ' + JSON.stringify(MB.facts));
+      ok('  no ground or tile name on the fight\'s bar (rule 262(a))', F.placeShown === 0 && !F.groundOnBar, 'on the bar: ' + (F.placeShown ? F.facts.place : 'nothing') + ', the map\'s ground ' + MB.ground);
+      ok('  the same facts as the map\'s (the day, the crew, the batteries)', ['day', 'crew', 'batteries'].every(k => F.facts[k] && F.facts[k] === MB.facts[k]), JSON.stringify(F.facts) + ' vs ' + JSON.stringify(MB.facts));
       {
         const diffs = {};
-        for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, MBs, Fs, MB.rect[k], dpr, k === 'glass' ? MB.rect.place : null);
-        diffs.place = await picDiff(cmp, MBs, Fs, MB.rect.place, dpr, null);
+        for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, MBs, Fs, MB.rect[k], dpr, null);
         ok('  the same picture as the map\'s, piece by piece', Object.values(diffs).every(v => v < PIC), Object.entries(diffs).map(([k, v]) => k + ' ' + (v * 100).toFixed(2) + '%').join(', '));
       }
       const toph = await f.evaluate(() => TOPH);

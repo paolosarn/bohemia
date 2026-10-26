@@ -30,10 +30,11 @@
   "situationMultipliers": {
     "_about": "stack on the relation price AFTER it is set, and multiply rather than add on top of each other. Every entry's effect is exactly as reported; there is no full list, and this file does not invent the missing ones.",
     "_source": "GROK_120_UNDERBELLY_SITUATIONS_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Settlement_situations",
-    "ambushedTradeRoutes": { "sellBonus": 0.10 },
-    "safeRoads": { "sellBonus": 0.09 },
+    "_corrected": "ECONOMY Day 82 (10/26) against the library's own cards in reference/library/grok/wiki/PAGES_ALL.tar.gz: Ambushed Trade Routes also raises buying 20% and cuts items 25% (bb_all/0054), Well Supplied also cuts selling 10% (bb_all/2199, as records/target/bb/arrival_traits.json already reads it), Safe Roads also raises buying 10% (bb_all/1727). GROK_120 gave one side of each; the other was missing, not zero.",
+    "ambushedTradeRoutes": { "sellBonus": 0.10, "buyBonus": 0.20, "itemsCut": 0.25 },
+    "safeRoads": { "sellBonus": 0.09, "buyBonus": 0.10, "note": "the Market prices page (bb_all/1244) says selling 9%; the Safe Roads card (bb_all/1727) says +10% buying and +10% selling; the sell side kept at the page that measured it, the buy side from the card (ECONOMY Day 82 s1)" },
     "highSpirits": { "sellBonus": 0.05, "buyCut": 0.05 },
-    "wellSupplied": { "buyCut": 0.10 },
+    "wellSupplied": { "buyCut": 0.10, "sellCut": 0.10 },
     "abductedChildren": { "buyBonus": 0.25, "sellCut": 0.25, "recruitsCutHalf": true },
     "siege": { "buyBonus": 0.25, "foodPriceDouble": true, "itemsCut": 0.25, "recruitsCutHalf": true },
     "conquered": { "buyBonus": 0.10, "sellCut": 0.10 }

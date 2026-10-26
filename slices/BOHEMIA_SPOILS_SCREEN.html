@@ -101,11 +101,38 @@ button{font-family:var(--rom)}
 .slot canvas{max-width:80%;height:auto}
 .slot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 0 #000}
 .slot em{position:absolute;right:4px;top:3px;font-style:normal;font-size:8px;color:var(--gold);text-shadow:0 1px 0 #000}
+/* what is left of a worn piece is a fill along the box's foot, not a number (rule 224); the number is a long press or a hover away */
+.slot .cw{position:absolute;left:5px;right:5px;bottom:3px;height:3px;background:rgba(0,0,0,.65);border-radius:1px;overflow:hidden;pointer-events:none}
+.slot .cw i{display:block;height:100%;background:#8fb27a}
+.slot .cw.mid i{background:#d8a64a}.slot .cw.low i{background:#c0553c}
 #ground.empty{display:block;margin:0 14px;color:var(--dim);font-size:12px}
-#lootall{display:block;width:calc(100% - 28px);margin:10px 14px 0;min-height:54px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:17px/1 var(--casing);letter-spacing:3px}
+/* LOOT ALL and, beside it, OPTIMIZE LOOT (RUN FOUR [optimize loot], rule 244): one row, the two the same size */
+#lootrow{display:flex;gap:8px;margin:10px 14px 0}
+#lootall{display:block;flex:1 1 0;min-width:0;min-height:54px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:17px/1 var(--casing);letter-spacing:3px}
 #lootall:disabled{color:var(--dim)}
-#said{margin:8px 14px 0;min-height:18px;color:var(--ink);font-size:12px}
+#optimize{flex:1 1 0;min-width:0;min-height:54px;padding:4px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:17px/1 var(--casing);letter-spacing:3px}
+#optimize[hidden]{display:none}
+#optimize small{display:flex;align-items:center;gap:4px;font:13px/1 var(--casing);letter-spacing:1px}
+#optimize small img,#said img.bat{height:16px;width:auto;image-rendering:pixelated}
+#optimize.undo{background:var(--plate);color:var(--paper)}
+#optimize:disabled{color:var(--dim)}
+.gup{color:#2f6b25;font-style:normal}.gdn{color:#9a2d1c;font-style:normal}
+/* THE STRIP (rules 249, 250): one line that is always there at one size: what he said, the piece he picked, what OPTIMIZE did */
+#said{margin:8px 14px 0;height:58px;overflow:hidden;padding:6px 10px;display:flex;align-items:center;gap:8px;color:var(--ink);font-size:12px;line-height:1.3;border-radius:3px;background:#16110c}
 #said.full{color:var(--red)}
+#said .pk,#said canvas{flex:0 0 auto;height:34px;width:auto;max-width:44px;object-fit:contain;image-rendering:pixelated}
+#said .fx{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+#said .fx b{font:13px/1.1 var(--casing);letter-spacing:1px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#said .fx span{font-size:10px;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#said .cbar{display:inline-block;width:46px;height:6px;margin-right:4px;vertical-align:middle;background:#0d0a07;border:1px solid #4a3b2c;border-radius:2px;overflow:hidden}
+#said .cbar i{display:block;height:100%;background:#7f9a62}
+#said .sell{flex:0 0 auto;display:flex;align-items:center;gap:3px;font:15px/1 var(--casing)}
+#said .kp{font:10px/1 var(--casing);letter-spacing:1px;padding:2px 4px;border:1px solid currentColor;border-radius:2px}
+#said .rep{display:flex;align-items:center;gap:4px;flex-wrap:nowrap;overflow:hidden;min-width:0}
+#said .rep .pk,#said .rep canvas{height:24px;max-width:30px}
+#said .rep i{font:16px/1 var(--casing)}
+.slot.sel{outline:3px solid #fff2c2;outline-offset:-1px;box-shadow:0 0 0 2px rgba(226,189,106,.55),inset 0 0 14px rgba(255,236,170,.28)}
+.slot.out::before{content:'';position:absolute;inset:2px;border:2px dashed #b04a33;border-radius:3px;pointer-events:none}
 #nothing{margin:0 14px;padding:10px 12px 12px;color:var(--ink);font:13px/1.4 var(--casing);letter-spacing:1px}
 #foot{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:10px 14px max(10px,env(safe-area-inset-bottom));background:var(--plate2);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
 #foot .left{flex:1;font-size:11px;color:var(--dim)}
@@ -114,8 +141,16 @@ button{font-family:var(--rom)}
 .man .xp,.man .nums,.man .lv{color:#c4b190}
 /* a phone: LOOT ALL rides the bottom bar beside LEAVE, one tap without a scroll however long the crew is (mobile first, rule 164 item 16) */
 @media (max-width:699px){
-  #lootall{position:fixed;z-index:7;left:14px;bottom:max(10px,env(safe-area-inset-bottom));width:calc(100% - 28px - 160px);min-height:54px;margin:0;font-size:15px;letter-spacing:2px}
+  #lootrow{position:fixed;z-index:7;left:14px;bottom:max(10px,env(safe-area-inset-bottom));width:calc(100% - 28px - 160px);margin:0;gap:6px}
+  #lootall{min-height:54px;font-size:15px;letter-spacing:2px}
   #lootall:disabled{display:none}
+  #optimize{font-size:14px;letter-spacing:1px;padding:4px 2px}
+  /* OPTIMIZE beside LOOT ALL on the bar: LEAVE gives up a little room while the two stand there */
+  body.opt #lootrow{width:calc(100% - 28px - 116px)}
+  body.opt #leave{min-width:106px}
+  /* the strip rides just over the bar, where his thumb is */
+  #said{position:fixed;z-index:6;left:0;right:0;bottom:calc(74px + env(safe-area-inset-bottom));margin:0;border-radius:0;padding:6px 14px;border-top:1px solid var(--line)}
+  body{padding-bottom:calc(144px + env(safe-area-inset-bottom))}
   #foot .left{visibility:hidden}
   body:not(.lost) #loot .h:first-child{margin-top:18px}
 }
@@ -142,9 +177,9 @@ button{font-family:var(--rom)}
       <div class="h"><span>WHAT THEY LEFT</span><span id="fromn"></span></div>
       <div id="counts"></div>
       <div id="ground" class="grid"></div>
-      <button id="lootall" type="button">LOOT ALL</button>
+      <div id="lootrow"><button id="lootall" type="button">LOOT ALL</button><button id="optimize" type="button" hidden>OPTIMIZE LOOT</button></div>
       <div id="said"></div>
-      <div class="h"><span>YOUR STASH <b id="stashn">0 / 36</b></span><span>TAP ONE TO PUT IT BACK</span></div>
+      <div class="h"><span>YOUR STASH <b id="stashn">0 / 36</b></span><span id="stashhow">TAP TWICE TO PUT IT BACK</span></div>
       <div id="stash" class="grid"></div>
     </div>
     <div id="nothing" hidden></div>
@@ -162,7 +197,9 @@ button{font-family:var(--rom)}
 (function(){
 'use strict';
 var C = window.BohemiaRoster, SP = window.BohemiaSpoils, BAGKEY = 'bohemia.bag.v1', CKEY = 'bohemia.climb.v1', AKEY = 'bohemia.fight.after.v1';
-var S = { ready:false, L:null, cap:36, fight:null, nums:{}, rc:null, won:true, ground:[], stash:[], counts:null, countsTaken:false, men:[], looks:{}, seq:0, standalone:(window.parent === window), log:[] };
+var S = { ready:false, L:null, cap:36, fight:null, nums:{}, rc:null, won:true, ground:[], stash:[], counts:null, countsTaken:false, men:[], looks:{}, seq:0, standalone:(window.parent === window), log:[],
+  sel:null, tap:{it:null, at:0}, undo:null, out:[], at:{} };   /* RUN FOUR: the piece he picked, his last tap, OPTIMIZE's UNDO, what it left, the town's prices */
+var FINE = !!(window.matchMedia && matchMedia('(pointer:fine)').matches);   /* a mouse: a double click or a right click; a finger: two taps */
 function post(act, o){ var m = {type:'BOHEMIA_SPOILS', act:act}; for(var k in (o||{})) m[k] = o[k]; S.log.push(m);
   if(!S.standalone) try{ window.parent.postMessage(m, '*'); }catch(e){} }
 function sfx(ev){ S.log.push({type:'BOHEMIA_SFX', ev:ev}); if(!S.standalone) try{ window.parent.postMessage({type:'BOHEMIA_SFX', ev:ev}, '*'); }catch(e){} }
@@ -255,15 +292,55 @@ function shortName(it){ return it.name.replace(/^(a|an) /, '').split(' ').slice(
 function condPct(it){ return it.condMax > 0 ? Math.round(100 * it.cond / it.condMax) : 100; }
 function slotFor(it, where, i){
   var b = document.createElement('button'); b.type = 'button'; b.className = 'slot' + (it ? ' full' : '');
-  if(!it) return b;
+  if(!it){ b.addEventListener('click', function(){ pick(null); }); return b; }
   b.appendChild(pic(it, where === 'ground' && window.innerWidth >= 700 ? 38 : 28));
   var n = document.createElement('span'); n.textContent = shortName(it); b.appendChild(n);
-  if(it.condMax > 0 && condPct(it) < 100){ var e = document.createElement('em'); e.textContent = condPct(it) + '%'; b.appendChild(e); }
+  if(it.condMax > 0 && condPct(it) < 100){ var cw = document.createElement('span'), pc = condPct(it); cw.className = 'cw' + (pc < 34 ? ' low' : pc < 67 ? ' mid' : '');
+    var ci = document.createElement('i'); ci.style.width = pc + '%'; cw.appendChild(ci); b.appendChild(cw); }
   b.setAttribute('aria-label', it.name + (it.from ? ', off ' + it.from : ''));
+  b.title = it.name.replace(/^(a|an) /, '') + (it.condMax > 0 ? ', ' + condPct(it) + '% left' : '') + ', sells for ' + SP.sellBack(it, S.at);
   b.dataset.where = where; b.dataset.i = i; b.dataset.id = it.id;
   if(where === 'stash' && it.looted && it.fresh) b.className += ' new';
-  b.addEventListener('click', function(){ where === 'ground' ? takeOne(i) : putBack(i); });
+  if(where === 'ground' && S.out.indexOf(it) >= 0) b.className += ' out';
+  if(it === S.sel) b.className += ' sel';
+  /* ONE TAP SELECTS, TWO TAPS DO IT (rule 249; RUN FOUR [one tap selects, two taps take]): a tap lights the box and puts its
+     facts in the strip, nothing else moves (rule 250); a second tap on it inside a beat, a double click, or a right click on a
+     computer takes it, or puts it back */
+  b.addEventListener('click', function(){ var t = performance.now(), again = S.tap.it === it && t - S.tap.at < 450;
+    S.tap = {it:again ? null : it, at:t};
+    if(again) act(it); else pick(it); });
+  b.addEventListener('contextmenu', function(e){ e.preventDefault(); S.tap = {it:null, at:0}; act(it); });
   return b;
+}
+/* the piece he picked: its box lit, its facts in the strip (rule 249(a)); the boxes never move for it (rule 250(a)) */
+function pick(it){
+  S.sel = it || null;
+  [].forEach.call(document.querySelectorAll('.slot.sel'), function(x){ x.classList.remove('sel'); });
+  if(!it){ return; }
+  var g = S.ground.indexOf(it), k = S.stash.indexOf(it), el = g >= 0 ? document.querySelector('#ground .slot[data-i="' + g + '"]') : document.querySelector('#stash .slot[data-i="' + k + '"]');
+  if(el) el.classList.add('sel');
+  facts(it, g >= 0 ? 'ground' : 'stash');
+}
+function act(it){
+  var g = S.ground.indexOf(it), k = S.stash.indexOf(it);
+  if(g >= 0) takeOne(g); else if(k >= 0) putBack(k);
+}
+function batImg(){ var im = document.createElement('img'); im.className = 'bat'; im.alt = 'batteries'; im.src = 'supply_icons/batteries.png'; return im; }
+/* the strip, for one piece: its picture, its name, what is left of it as a fill, what a town pays for it (a battery and the
+   count, rule 224), where it is and what two taps do */
+function facts(it, where){
+  var el = document.getElementById('said'); el.textContent = ''; el.className = 'facts';
+  el.appendChild(pic(it, 34));
+  var fx = document.createElement('div'); fx.className = 'fx';
+  var nm = document.createElement('b'); nm.textContent = it.name.replace(/^(a|an) /, '').toUpperCase(); fx.appendChild(nm);
+  var ln = document.createElement('span');
+  if(it.condMax > 0){ var cb = document.createElement('span'); cb.className = 'cbar'; cb.title = condPct(it) + '%'; var ci = document.createElement('i'); ci.style.width = condPct(it) + '%'; cb.appendChild(ci); ln.appendChild(cb); }
+  var how = FINE ? 'DOUBLE CLICK' : 'TAP TWICE';
+  ln.appendChild(document.createTextNode(where === 'ground' ? (it.from ? 'OFF ' + String(it.from).toUpperCase() + '. ' : '') + how + ' TO TAKE IT' : how + ' TO PUT IT BACK'));
+  fx.appendChild(ln); el.appendChild(fx);
+  if(where === 'stash' && SP.fixed(it)){ var kp = document.createElement('span'); kp.className = 'kp'; kp.textContent = 'KEEP'; kp.title = 'OPTIMIZE LOOT never moves it'; el.appendChild(kp); }
+  var sv = document.createElement('span'); sv.className = 'sell'; sv.title = 'a town pays ' + SP.sellBack(it, S.at) + ' batteries for it';
+  sv.appendChild(batImg()); sv.appendChild(document.createTextNode(String(SP.sellBack(it, S.at)))); el.appendChild(sv);
 }
 function drawCounts(){
   var el = document.getElementById('counts'); el.textContent = '';
@@ -282,6 +359,24 @@ function drawGround(){
   la.disabled = !any; la.textContent = any ? 'LOOT ALL' : 'ALL TAKEN';
   document.getElementById('fromn').textContent = S.found && S.found.from ? 'OFF THEIR ' + S.found.from + ' DEAD' : '';   /* EYES [eyes: the end screen's words]: said as English */
   var lf = document.getElementById('left'); lf.textContent = S.ground.length ? S.ground.length + ' STILL ON THE GROUND' : '';
+  drawOpt();
+}
+/* OPTIMIZE LOOT (RUN FOUR [optimize loot], rule 244(a)): beside LOOT ALL when the stash is full and loot is left (or more is left
+   than fits); it says what it would gain before he taps it (SELL THE JUNK's way); after a tap it is UNDO until he leaves */
+function drawOpt(){
+  var b = document.getElementById('optimize'); if(!b) return;
+  var want = S.won && (S.undo || (S.ground.length > 0 && S.ground.length > S.cap - S.stash.length));
+  b.hidden = !want; document.body.classList.toggle('opt', !!want && !document.getElementById('lootall').disabled);
+  if(!want) return;
+  b.textContent = ''; b.className = '';
+  if(S.undo){ b.className = 'undo'; b.disabled = false; b.appendChild(document.createTextNode('UNDO'));
+    var u = document.createElement('small'); u.textContent = 'AS IT WAS'; b.appendChild(u); b.setAttribute('aria-label', 'Undo optimize loot'); return; }
+  var r = SP.optimize(S.stash, S.ground, S.cap, S.at);
+  b.disabled = !r.took.length; b.appendChild(document.createTextNode('OPTIMIZE' + (FINE || window.innerWidth >= 700 ? ' LOOT' : '')));
+  var sm = document.createElement('small');
+  if(r.took.length){ sm.appendChild(batImg()); var up = document.createElement('i'); up.className = 'gup'; up.textContent = '\u25b2' + r.gain; sm.appendChild(up); }
+  else sm.textContent = 'THE BEST YOU CAN CARRY';
+  b.appendChild(sm); b.setAttribute('aria-label', 'Optimize loot' + (r.took.length ? ': the stash is worth ' + r.gain + ' batteries more' : ': already the best'));
 }
 function drawStash(){
   var el = document.getElementById('stash'); el.textContent = '';
@@ -289,6 +384,38 @@ function drawStash(){
   document.getElementById('stashn').textContent = S.stash.length + ' / ' + S.cap;
 }
 function draw(){ drawCrew(); drawCounts(); drawGround(); drawStash(); }
+/* one tap: the cheapest pieces he did not choose go back on the ground for the most valuable left (engine/bohemia_spoils.js
+   optimize, the shop's own price); the strip says it in pictures: down what it left, up what it took, a battery and by how much */
+function optimize(){
+  if(S.undo) return undo();
+  var r = SP.optimize(S.stash, S.ground, S.cap, S.at); if(!r.took.length) return r;
+  S.undo = { stash:S.stash.slice(), ground:S.ground.slice(), fresh:S.stash.concat(S.ground).map(function(it){ return !!it.fresh; }), out:S.out.slice() };
+  S.stash = r.stash; S.ground = r.ground; S.out = r.left.slice();
+  r.took.forEach(function(it){ it.fresh = true; }); r.left.forEach(function(it){ delete it.fresh; });
+  S.sel = null; saveStash(); sfx('equip'); drawGround(); drawStash(); report(r);
+  return r;
+}
+function undo(){
+  var u = S.undo; if(!u) return null;
+  u.stash.concat(u.ground).forEach(function(it, i){ if(u.fresh[i]) it.fresh = true; else delete it.fresh; });
+  S.stash = u.stash; S.ground = u.ground; S.out = u.out; S.undo = null; S.sel = null;
+  saveStash(); sfx('equip'); drawGround(); drawStash(); say('Back as it was.');
+  return true;
+}
+function report(r){
+  var el = document.getElementById('said'); el.textContent = ''; el.className = 'report';
+  var rep = document.createElement('div'); rep.className = 'rep'; rep.setAttribute('aria-label', 'Left ' + r.left.length + ', took ' + r.took.length + ', the stash is worth ' + r.gain + ' batteries more');
+  var dn = document.createElement('i'); dn.className = 'gdn'; dn.textContent = '\u25bc'; rep.appendChild(dn);
+  r.left.slice(0, 4).forEach(function(it){ rep.appendChild(pic(it, 24)); });
+  if(r.left.length > 4){ var m1 = document.createElement('i'); m1.className = 'gdn'; m1.textContent = '+' + (r.left.length - 4); rep.appendChild(m1); }
+  var up = document.createElement('i'); up.className = 'gup'; up.textContent = '\u25b2'; up.style.marginLeft = '6px'; rep.appendChild(up);
+  r.took.slice(0, 4).forEach(function(it){ rep.appendChild(pic(it, 24)); });
+  if(r.took.length > 4){ var m2 = document.createElement('i'); m2.className = 'gup'; m2.textContent = '+' + (r.took.length - 4); rep.appendChild(m2); }
+  el.appendChild(rep);
+  var sv = document.createElement('span'); sv.className = 'sell'; sv.style.marginLeft = 'auto'; sv.appendChild(batImg());
+  var g = document.createElement('i'); g.className = 'gup'; g.textContent = '\u25b2' + r.gain; sv.appendChild(g); el.appendChild(sv);
+  S.lastReport = { left:r.left.map(function(it){ return it.id; }), took:r.took.map(function(it){ return it.id; }), gain:r.gain };
+}
 function hasCounts(){ var c = S.counts || {}; return (c.batteries | 0) + (c.rounds | 0) + (c.scrap | 0) > 0; }
 /* the counts take no room: batteries to the purse, rounds and scrap to its resources (the shell credits them) */
 function takeCounts(){
@@ -302,16 +429,16 @@ function takeOne(i){
   var it = S.ground[i]; if(!it) return;
   var r = SP.take(S.stash, S.ground, i, S.cap);
   if(!r.ok){ say('Your stash is full (' + S.cap + ' of ' + S.cap + '). Put one back, or leave it.', true); return; }
-  it.fresh = true; saveStash(); sfx('equip'); say('Took ' + it.name + (it.from ? ', off ' + titled(it.from) : '') + '.'); drawGround(); drawStash();
+  it.fresh = true; S.out = S.out.filter(function(x){ return x !== it; }); S.sel = null; saveStash(); sfx('equip'); say('Took ' + it.name + (it.from ? ', off ' + titled(it.from) : '') + '.'); drawGround(); drawStash();
 }
 function putBack(i){
   var it = S.stash[i]; if(!it) return;
-  S.stash.splice(i, 1); S.ground.push(it); saveStash(); say('Put ' + it.name + ' on the ground.'); drawGround(); drawStash();
+  S.stash.splice(i, 1); S.ground.push(it); S.sel = null; saveStash(); say('Put ' + it.name + ' on the ground.'); drawGround(); drawStash();
 }
 function lootAll(){
   var gotCounts = takeCounts();
   var n0 = S.ground.length, r = SP.takeAll(S.stash, S.ground, S.cap);
-  S.stash.slice(S.stash.length - r.took).forEach(function(it){ it.fresh = true; });
+  S.stash.slice(S.stash.length - r.took).forEach(function(it){ it.fresh = true; }); S.out = S.out.filter(function(x){ return S.ground.indexOf(x) >= 0; }); S.sel = null;
   if(r.took) saveStash();
   if(r.took || gotCounts) sfx('equip');
   if(r.left) say('Took ' + r.took + ' of ' + n0 + '. Your stash is full: ' + r.left + ' left on the ground.', true);
@@ -362,13 +489,14 @@ function head(f){
 function dress(){
   var M = window.BohemiaMaterials; if(!M || !M.kit || document.getElementById('sp-kit')) return false;
   var pre = 'html[data-kit] body ', R = [['board_plain', 1, ['#bar', '#foot', '.man', '#nothing']], ['tray', 1, ['.man .face']], ['receipt', 1, ['#tally', '.quote', '.count']],
-    ['tin_amber', .75, ['.perk', '#lootall:not(:disabled)']], ['tin_dark', .75, ['#lootall:disabled']], ['tin', .75, ['#leave']], ['well', 1, ['.slot']], ['well_full', 1, ['.slot.full']]];
+    ['tin_amber', .75, ['.perk', '#lootall:not(:disabled)', '#optimize:not(.undo):not(:disabled)']], ['tin_dark', .75, ['#lootall:disabled', '#optimize:disabled']], ['tin', .75, ['#leave', '#optimize.undo']], ['well', 1, ['.slot']], ['well_full', 1, ['.slot.full']], ['receipt', 1, ['#said']]];
   var css = R.map(function(r){ return r[2].map(function(x){ return pre + x; }).join(',') + '{' + M.kit(r[0], r[1]) + (/^tin/.test(r[0]) ? 'filter:drop-shadow(2px 1px 0 rgba(10,6,3,.6));' : '') + '}'; });
   /* a grid of pockets: every slot's floor is cut from another part of the same glass (the crew screen's own trick) */
   [[3, 1, [0.37, 0.61]], [3, 2, [0.71, 0.23]], [5, 3, [0.13, 0.47]], [7, 4, [0.55, 0.83]]].forEach(function(v){
     css.push(pre + '.slot:nth-child(' + v[0] + 'n+' + v[1] + '){' + M.kit('well', 1, v[2]) + '}');
     css.push(pre + '.slot.full:nth-child(' + v[0] + 'n+' + v[1] + '){' + M.kit('well_full', 1, v[2]) + '}'); });
-  css.push(pre + '#leave:active,' + pre + '#lootall:active,' + pre + '.perk:active{translate:1px 1px;filter:none}');
+  css.push(pre + '#leave:active,' + pre + '#lootall:active,' + pre + '#optimize:active,' + pre + '.perk:active{translate:1px 1px;filter:none}');
+  css.push(pre + '#said{color:var(--paper)}' + pre + '#said.full{color:#9a2d1c}');   /* the strip is printed receipt: dark ink on it, the full stash's warning in a red that reads on paper */
   var st = document.createElement('style'); st.id = 'sp-kit'; st.textContent = css.join('\n'); document.head.appendChild(st);
   return true;
 }
@@ -390,9 +518,11 @@ function open(o){
   S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, scrap: 0 }, from: 0 };
   S.ground = S.found.items.map(itemFor).filter(Boolean);
   S.counts = S.found.counts; S.countsTaken = false;
+  S.sel = null; S.undo = null; S.out = []; S.tap = {it:null, at:0};
+  S.at = o.sell && typeof o.sell === 'object' ? { add:+o.sell.add || 0, mult:o.sell.mult != null ? +o.sell.mult : 1 } : {};   /* the nearest town's standing and trait, when the game hands them over */
   head(f);
   draw();
-  if(S.won) say(S.ground.length ? 'Tap a piece to take it, or LOOT ALL.' : hasCounts() ? 'Take what was in their pockets.' : '');
+  if(S.won) say(S.ground.length ? (FINE ? 'Click a piece to see it. Double click to take it, or LOOT ALL.' : 'Tap a piece to see it. Tap it twice to take it, or LOOT ALL.') : hasCounts() ? 'Take what was in their pockets.' : '');
   S.opened = (S.opened | 0) + 1;
 }
 var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,
@@ -407,8 +537,11 @@ var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,
       men:[{name:'YOU', kills:2, dealt:61, taken:12}, {name:'MARCO', kills:0, dealt:14, taken:38}, {name:'TERESA', kills:0, dealt:22, taken:4}],
       call:{who:'TERESA', line:'That one ran. Let him tell them.', look:'cast_skirt'} } } };
 dress(); document.addEventListener('DOMContentLoaded', dress);
-window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE };
+window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE,
+  optimize:optimize, undo:undo, draw:draw, pick:pick };
 document.getElementById('lootall').addEventListener('click', lootAll);
+document.getElementById('optimize').addEventListener('click', optimize);
+if(FINE) document.getElementById('stashhow').textContent = 'DOUBLE CLICK TO PUT IT BACK';
 document.getElementById('leave').addEventListener('click', leave);
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SPOILS_OPEN') open(d); });
 Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); })]).then(function(a){

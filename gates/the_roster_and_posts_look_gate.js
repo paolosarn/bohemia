@@ -117,7 +117,12 @@ async function roster(profile) {
       const r = s => { const e = typeof s === 'string' ? document.querySelector(s) : s; return e && e.getBoundingClientRect(); }, c = r('#card'), col = s => getComputedStyle(typeof s === 'string' ? document.querySelector(s) : s).color;
       const J = [];
       ['.nm', '.sub', '.pain'].forEach(s => { const q = r('#card ' + s); if (q) J.push({ k: s.slice(1), box: [c.right - 9, q.top + 2, 5, Math.max(2, q.height - 4)], ink: col('#card ' + s), dark: true }); });
-      const st = r('#card .stats'); document.querySelectorAll('#card .stats div > span:first-child').forEach((e, i) => { if (i < 2) J.push({ k: 'stat ' + e.textContent.trim().toLowerCase(), box: [st.left + 12, st.bottom - 11, st.width - 24, 3], ink: getComputedStyle(e).color, dark: false }); });
+      const st = r('#card .stats'); document.querySelectorAll('#card .stats div > span:first-child').forEach((e, i) => { if (i >= 2) return;
+        /* RE-AIMED 10/26 (UI THREE, rules 223 and 247): a stat's number is printed on its bar, on a see-through tag of the receipt's
+           paper; the ground it sits on is that tag (its bottom row, under the glyphs), read where the number is */
+        const n = e.parentNode.querySelector('.bst-n'), q = n && n.getBoundingClientRect();
+        if (q) J.push({ k: 'stat ' + e.parentNode.dataset.stat, box: [q.left + 1, q.bottom - 2, Math.max(1, q.width - 2), 1], ink: getComputedStyle(n).color, dark: false });
+        else J.push({ k: 'stat ' + e.textContent.trim().toLowerCase(), box: [st.left + 12, st.bottom - 11, st.width - 24, 3], ink: getComputedStyle(e).color, dark: false }); });
       document.querySelectorAll('#card .gslot').forEach((g, i) => { if (i > 1) return; const q = g.getBoundingClientRect(), lab = g.querySelector('i'); J.push({ k: 'gear label ' + i, box: [q.right - 8, q.top + 3, 4, 10], ink: getComputedStyle(lab).color, dark: true }); });
       const dn = r('#done'); J.push({ k: 'DONE', box: [dn.right - 9, dn.top + 8, 4, dn.height - 16], ink: col('#done'), dark: false });
       return J;
@@ -157,12 +162,17 @@ async function roster(profile) {
     await q.waitForTimeout(1200);
     await q.evaluate(() => BohemiaSettlement.open({ place: { name: 'Church', tier: 'town', district: 'commercial' }, traits: [], batteries: 200, day: 3 })); await q.waitForTimeout(1200);
     const xy = await q.evaluate(() => BohemiaSettlement.where('hall')); await q.mouse.click(xy.x, xy.y); await q.waitForTimeout(1200);
+    /* RE-AIMED 10/26 (UI THREE): a card's eight are one column of bars now (rule 247(c)), so a card is taller; the first card is
+       brought onto the glass before its words are read, as a thumb would */
+    await q.evaluate(() => { const h = document.querySelector('#sbody .hire'); if (h) h.scrollIntoView({ block: 'center' }); }); await q.waitForTimeout(400);
     const H = await q.evaluate(() => [...document.querySelectorAll('#sbody .hire')].map(h => { const r = h.getBoundingClientRect(), hs = h.querySelector('.hstats'), sr = hs.getBoundingClientRect(), nm = h.querySelector('.nm'), a = h.querySelector('.act');
       return { y: r.top, bg: getComputedStyle(h).backgroundImage, tape: getComputedStyle(h, '::before').backgroundImage, receipt: getComputedStyle(hs).backgroundImage, nmFam: getComputedStyle(nm).fontFamily.split(',')[0].replace(/["']/g, ''),
         typed: (h.textContent.match(/★/g) || []).length, drawn: h.querySelectorAll('.bmstar').length, drawnW: [...h.querySelectorAll('.bmstar')].every(e => Math.round(e.getBoundingClientRect().width) === 7),   /* rule 146(e), was >= 9 */
         actH: a ? a.getBoundingClientRect().height : 0, onScreen: r.top >= 0 && r.bottom <= innerHeight,
         jobs: [{ k: 'name', box: [r.right - 10, nm.getBoundingClientRect().top + 2, 5, nm.getBoundingClientRect().height - 4], ink: getComputedStyle(nm).color, dark: true },
-               { k: 'stats', box: [sr.left + 10, sr.bottom - 10, sr.width - 20, 3], ink: getComputedStyle(hs.querySelector('span')).color, dark: false }] }; }));
+               (() => { const n = hs.querySelector('.bst-n'), qn = n && n.getBoundingClientRect();   /* RE-AIMED 10/26 (UI THREE): the number's own tag */
+                 return qn ? { k: 'stats', box: [qn.left + 1, qn.bottom - 2, Math.max(1, qn.width - 2), 1], ink: getComputedStyle(n).color, dark: false }
+                   : { k: 'stats', box: [sr.left + 10, sr.bottom - 10, sr.width - 20, 3], ink: getComputedStyle(hs.querySelector('span')).color, dark: false }; })()] }; }));
     ok('THE POSTS: EVERY HIRE CARD IS A TAPED CARDBOARD CARD, THE STATS ON A RECEIPT, THE NAME STAMPED', H.length >= 2 && H.every(h => /url\(/.test(h.bg) && /url\(/.test(h.tape) && /url\(/.test(h.receipt) && h.nmFam === 'BohemiaCasing'), H.length + ' cards');
     ok('  the stars drawn, none typed, and the Hire line 44 points', H.every(h => h.typed === 0 && h.drawnW && h.actH >= 44) && H.some(h => h.drawn > 0), H.map(h => h.drawn + ' drawn ' + Math.round(h.actH)).join(', '));
     const vis = H.filter(h => h.onScreen);
