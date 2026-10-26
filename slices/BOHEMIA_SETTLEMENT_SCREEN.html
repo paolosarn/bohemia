@@ -173,10 +173,12 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 .hsort button+button{border-left:1px solid var(--line)}
 .hsort button.on{background:#e0ad3a;color:#1f1710;font-weight:bold}
 .hire .hceil{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin-top:4px;font-size:11px;letter-spacing:1px;color:#e8dcc4}
-.hire .hceil b{font-size:13px;color:#f4cf7c;letter-spacing:1px}
+.hire .hceil b{font-size:12px;color:#f4cf7c;letter-spacing:1px}
 .hire .hceil .kind{color:#d9c8a6}.hire .hceil .cprice{color:#e8dcc4}
 .hire .hceil .bargain{font-style:normal;padding:1px 6px;background:#a9c27a;color:#0f2a06;letter-spacing:2px;border-radius:1px;font-weight:bold}
-.hire .hceil11{font-size:10px;letter-spacing:.5px;color:var(--dim)}
+.hire .hceil .cbar{position:relative;display:inline-block;flex:1 1 90px;min-width:90px;max-width:160px;height:16px;align-self:center;background:rgba(255,235,200,.08);border:1px solid rgba(244,207,124,.45);border-radius:2px;overflow:hidden}
+.hire .hceil .cfill{position:absolute;left:0;top:0;bottom:0;background:rgba(244,207,124,.55)}
+.hire .hceil .cbar em{position:relative;display:block;text-align:center;font-style:normal;font-size:11px;line-height:16px;color:#fff3d6;text-shadow:0 1px 0 #000}
 .hire .hwhy{font-size:10px;letter-spacing:.5px;color:#e2a35a}
 #heard{min-height:20px;padding:0 12px;color:var(--dim);font-size:12px;background:var(--plate2)}
 /* THE ARRIVAL (RUN TWO 10/18, [the arrival]): the town's name on a torn tag, its tier, the elder's one line under
@@ -2086,7 +2088,7 @@ function hireTalents(r){
   var at = function(k){ var g = gb && gb.stats[k]; return g && g[1] > g[0] ? (r.stats[k] - g[0]) / (g[1] - g[0]) : 0; };
   var rest = K.filter(function(k){ return k !== r.starredStat; }).sort(function(a, b){ return at(b) - at(a) || K.indexOf(a) - K.indexOf(b); });
   var out = [{k:r.starredStat, n:r.starCount}];
-  rest.slice(0, 2).forEach(function(k, i){ out.push({k:k, n:BohemiaGoodBros.starCountFor(S.place.name + ':' + r.id + ':' + k + '|star-count-' + (i + 2))}); });
+  rest.slice(0, 2).forEach(function(k, i){ out.push({k:k, n:BohemiaGoodBros.starCountFor((r.refKey || S.place.name) + ':' + r.id + ':' + k + '|star-count-' + (i + 2))}); });
   return (r.talents = out);
 }
 function hireFigure(r, gun){
@@ -2152,7 +2154,7 @@ function hireTrait(r){
   if(r.trait !== undefined) return r.trait;
   if(!MEN_TRAITS || !BGX) return null;   /* both in before any man is dealt one, so an excluded one is never shown and taken back */
   var ex = BGX[r.backgroundId] || [], pool = MEN_TRAITS.filter(function(t){ return ex.indexOf(t.name.toLowerCase()) < 0; });
-  var R = rng(seedOf(S.place.name + ':' + Math.floor(buildDay()/7) + ':' + r.id + ':' + r.backgroundId + ':trait'));
+  var R = rng(seedOf((r.refKey || S.place.name + ':' + Math.floor(buildDay()/7)) + ':' + r.id + ':' + r.backgroundId + ':trait'));   /* refKey: the calculator's reference roll (__THE_BEST_RECRUIT_AT_THE_TOP__) */
   return (r.trait = pool.length ? pool[Math.floor(R() * pool.length)] : false);
 }
 /* his stats with the trait on them, and what moved */
@@ -2174,14 +2176,25 @@ function traitStats(stats, t){
    205, his to kill]. A REAL MIX OF KINDS (EYES 10/25: 'nineteen recruits in four halls, every one a pistol man'): a GUN man walks
    in with the rifle (ours.weapon_rows.rifle) where his trade carried the pistol, priced on the same formula; a MELEE man keeps the
    pistol in his hand (rule 120(a), guns first) and his trade's arm in his kit. The rare man keeps his own kit. ==== */
-function ceilReady(){ return !!(HIRE.roster && window.BohemiaRoster && BohemiaRoster.ceiling && BohemiaRoster.data.xp && MEN_TRAITS && BGX); }
+function ceilReady(){ return !!(HIRE.roster && window.BohemiaRoster && BohemiaRoster.ceiling && BohemiaRoster.data.xp && MEN_TRAITS && BGX && window.BohemiaGoodBros); }
+/* the man's numbers as his card shows them: his stats with his trait on them, his three stars, his level */
+function ceilMan(r){ var tr = hireTrait(r), ts = traitStats(r.stats, tr || null), stars = {};
+  hireTalents(r).forEach(function(x){ if(x && x.k) stars[x.k] = x.n; }); return {stats:ts.stats, stars:stars, level:r.level || 1}; }
+/* THE POSTS' OWN ROLL, ONCE (TUNING's recruit.ceiling_shown: 'a rank among every man the posts roll'): 400 posts of six dealt the hall's
+   way, their stars and their traits on their own seed (refKey), each man's ceiling; sorted, so a man's rank is the share he beats */
+var CEIL_REF = null;
+function ceilRef(){
+  if(CEIL_REF) return CEIL_REF; if(!ceilReady()) return null;
+  var sh = BohemiaRoster.data.ceiling && BohemiaRoster.data.ceiling.shown, n = +(sh && sh.value && sh.value.sample_posts) || 400, out = [];
+  for(var p = 0; p < n; p++) BohemiaGoodBros.sixAtThePost('THE POSTS ROLL:' + p).forEach(function(r, i){ r.id = 'ref' + i; r.refKey = 'THE POSTS ROLL:' + p; out.push(BohemiaRoster.ceiling(ceilMan(r)).value); });
+  return (CEIL_REF = out.sort(function(a, b){ return a - b; }));
+}
 function hireCeil(r){
   if(r.ceil) return r.ceil;
-  if(!ceilReady()) return null;
-  var tr = hireTrait(r), ts = traitStats(r.stats, tr || null), stars = {};
-  hireTalents(r).forEach(function(x){ if(x && x.k) stars[x.k] = x.n; });
-  return (r.ceil = BohemiaRoster.ceiling({stats:ts.stats, stars:stars, level:r.level || 1}));
+  var ref = ceilRef(); if(!ref) return null;
+  return (r.ceil = BohemiaRoster.ceiling(ceilMan(r), null, ref));
 }
+function ceilScore(c){ return Math.min(99, Math.floor(100 * c.rank)); }   /* better than N of 100: never 100, nobody beats himself */
 function hireKit(r){
   if(r.kit) return r.kit;
   var base = (KIT[r.backgroundId] || []).slice(), c = !r.rare && hireCeil(r);
@@ -2191,15 +2204,24 @@ function hireKit(r){
   if(c.kind === 'gun' && rifle){ var at = base.indexOf('knife'); if(at >= 0) base[at] = rifle; else base.unshift(rifle); }
   return (r.kit = base);
 }
-/* the hall's medians: worth per battery and the ceiling, over the men standing here now */
+/* what a battery buys of him: his rank over his price */
+function hireWorth(r){ var c = hireCeil(r), p = hallPrice(r); return c && p > 0 ? c.rank / p : null; }
+/* the hall's medians: worth per battery, the rank and the price, over the men standing here now */
 function hallMedians(men){
   var med = function(a){ a = a.slice().sort(function(x, y){ return x - y; }); var n = a.length; return !n ? null : n % 2 ? a[(n - 1)/2] : (a[n/2 - 1] + a[n/2]) / 2; };
-  var rows = men.map(function(r){ var c = hireCeil(r), p = hallPrice(r); return c && p > 0 ? {c:c.value, w:c.value / p, p:p} : null; }).filter(Boolean);
-  return rows.length ? {worth:med(rows.map(function(x){ return x.w; })), ceiling:med(rows.map(function(x){ return x.c; })), price:med(rows.map(function(x){ return x.p; })), n:rows.length} : null;
+  var rows = men.map(function(r){ var c = hireCeil(r), p = hallPrice(r); return c && p > 0 ? {r:c.rank, w:c.rank / p, p:p} : null; }).filter(Boolean);
+  return rows.length ? {worth:med(rows.map(function(x){ return x.w; })), rank:med(rows.map(function(x){ return x.r; })), price:med(rows.map(function(x){ return x.p; })), n:rows.length} : null;
+}
+/* BARGAIN (TUNING's recruit.bargain_line inside 216(f)): his ceiling in the top fifth of all men, his price under the hall's median,
+   and his worth per battery over the hall's median */
+function isBargain(r, MED){
+  var c = hireCeil(r), p = hallPrice(r), B = BohemiaRoster.data.ceiling && BohemiaRoster.data.ceiling.bargain, top = +(B && B.value && B.value.rank_at_least) || 0.8;
+  return !!(MED && MED.n > 1 && c && p > 0 && c.rank >= top && p < MED.price && c.rank / p > MED.worth + 1e-12);
 }
 function hallSorted(men){
-  var by = S.hallSort === 'price' ? function(r){ var c = hireCeil(r), p = hallPrice(r); return c && p > 0 ? c.value / p : -1; } : function(r){ var c = hireCeil(r); return c ? c.value : -1; };
-  return men.map(function(r, i){ return {r:r, v:by(r), i:i}; }).sort(function(a, b){ return b.v - a.v || a.i - b.i; }).map(function(x){ return x.r; });
+  var by = S.hallSort === 'price' ? function(r){ var w = hireWorth(r); return w == null ? -1 : w; } : function(r){ var c = hireCeil(r); return c ? c.rank : -1; };
+  var tie = function(r){ var c = hireCeil(r); return c ? c.value : -1; };
+  return men.map(function(r, i){ return {r:r, v:by(r), t:tie(r), i:i}; }).sort(function(a, b){ return b.v - a.v || b.t - a.t || a.i - b.i; }).map(function(x){ return x.r; });
 }
 function hallSortBar(){
   var bar = document.createElement('div'); bar.className = 'hsort'; bar.setAttribute('role', 'tablist');
@@ -2242,19 +2264,22 @@ function hireCard(r){
   hd.appendChild(f);
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + (window.BohemiaRoster && BohemiaRoster.bgName ? BohemiaRoster.bgName(r.backgroundId, r.backgroundName) : r.backgroundName).toUpperCase();   /* EYES [eyes: the BB names]: our name for his trade */ hd.appendChild(nm);
   t.appendChild(hd);
-  var cl = hireCeil(r), cp = hallPrice(r), MED = S.hallMed;   /* __THE_BEST_RECRUIT_AT_THE_TOP__: his ceiling, his price beside it */
-  if(cl){ var ce = document.createElement('div'); ce.className = 'hceil'; ce.dataset.ceiling = String(cl.value); ce.dataset.kind = cl.kind; ce.dataset.price = cp;
-    var cb = document.createElement('b'); cb.textContent = 'CEILING ' + Math.round(cl.value); ce.appendChild(cb);
+  var cl = hireCeil(r), cp = hallPrice(r), MED = S.hallMed;   /* __THE_BEST_RECRUIT_AT_THE_TOP__: his ceiling as a bar, his price beside it */
+  if(cl){ var sc = ceilScore(cl), ce = document.createElement('div'); ce.className = 'hceil'; ce.dataset.ceiling = String(cl.value); ce.dataset.rank = String(cl.rank); ce.dataset.score = sc; ce.dataset.kind = cl.kind; ce.dataset.price = cp;
+    var S2 = STAT_SHORT;
+    ce.title = 'BETTER THAN ' + sc + ' OF 100 MEN AT THE POSTS, AS A ' + (cl.kind === 'gun' ? 'GUNMAN' : 'FRONT MAN') + '. AT LEVEL ' + cl.level + ': ' + cl.plan.map(function(k){ return S2[k] + ' ' + Math.round(cl.at[k]); }).join(', ');   /* the exact figures a long press away (rule 224(b)) */
+    var cb = document.createElement('b'); cb.textContent = 'CEILING'; ce.appendChild(cb);
+    var bar = document.createElement('span'); bar.className = 'cbar'; bar.setAttribute('role', 'meter'); bar.setAttribute('aria-valuemin', '0'); bar.setAttribute('aria-valuemax', '100'); bar.setAttribute('aria-valuenow', String(sc)); bar.setAttribute('aria-label', ce.title);
+    var fill = document.createElement('i'); fill.className = 'cfill'; fill.style.width = sc + '%'; bar.appendChild(fill);
+    var num = document.createElement('em'); num.textContent = sc; bar.appendChild(num); ce.appendChild(bar);   /* the number on the bar, the fill behind it (rule 223(a)) */
     var ck = document.createElement('span'); ck.className = 'kind'; ck.textContent = cl.kind === 'gun' ? 'GUN' : 'MELEE'; ce.appendChild(ck);
     var cpr = document.createElement('span'); cpr.className = 'cprice'; cpr.textContent = moneyWord(cp).toUpperCase(); ce.appendChild(cpr);
-    var bargain = !!(MED && MED.n > 1 && cp > 0 && cl.value / cp > MED.worth + 1e-9 && cl.value >= MED.ceiling - 1e-9);
+    var bargain = isBargain(r, MED);
     if(bargain){ var bg = document.createElement('i'); bg.className = 'bargain'; bg.textContent = 'BARGAIN'; ce.appendChild(bg); c.classList.add('isbargain'); }
     ce.dataset.bargain = bargain ? '1' : '0';
     t.appendChild(ce);
-    var S2 = STAT_SHORT, top = cl.plan.slice(0, 2).map(function(k){ return S2[k] + ' ' + Math.round(cl.at[k]); }).join('  ');
-    var c11 = document.createElement('div'); c11.className = 'hceil11'; c11.textContent = 'AT LEVEL ' + cl.level + ': ' + top; t.appendChild(c11);
     if(MED && MED.n > 1 && cp > MED.price){ var w = pricyWhy(r); if(w){ var wy = document.createElement('div'); wy.className = 'hwhy'; wy.dataset.why = w.why; wy.textContent = w.line; t.appendChild(wy); } }
-    c.dataset.ceiling = ce.dataset.ceiling; c.dataset.worth = cp > 0 ? String(cl.value / cp) : '0'; }
+    c.dataset.ceiling = ce.dataset.ceiling; c.dataset.rank = ce.dataset.rank; c.dataset.worth = cp > 0 ? String(cl.rank / cp) : '0'; }
   if(r.rare){   /* __THE_RARE_MAN_AT_THE_POST__: what he is, before anything else on his card, and one line from his own mouth */
     var rb = document.createElement('div'); rb.className = 'hrare'; var rbb = document.createElement('b'); rbb.textContent = 'RARE'; rb.appendChild(rbb);
     rb.appendChild(document.createTextNode('LEVEL ' + r.level + (rareKitWords(r) ? '  ·  ' + rareKitWords(r) : ''))); t.appendChild(rb);
@@ -2989,7 +3014,7 @@ window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G &&
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

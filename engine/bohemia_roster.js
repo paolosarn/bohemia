@@ -242,32 +242,37 @@
      make a calculator'). THE CEILING: what a man is expected to be at level 11 through THIS file's level-up, never a second rule:
      levelUp rolls every stat on his star column (range() over stat_gains_by_stars) and raise() takes per_level.attributes_raised
      of them; the calculator takes the first that many off his kind's plan, each at its column's mean (an 'a-b' roll is (a+b)/2).
-     ONE NUMBER: the plan's stats at the top above the plainest man's floor (backgrounds.json base_stats, the low end), each point
-     weighed by how slowly Battle Brothers' own table grows it (melee skill's no-star mean over the stat's: 1, 2/3, 1/2). Both
-     kinds are worked; his kind is the one his numbers make him best at. Inputs: records/target/bb/recruit_ceiling.json (a
-     modder's, TUNING checks it); the same numbers built in below if it is not read. ==== */
-  var CEIL_DEF = { level: 11, weights: 'by_roll',
-    plans: { melee: ['melee_skill', 'melee_defense', 'fatigue', 'ranged_defense', 'hp', 'resolve'],
-             gun: ['ranged_skill', 'fatigue', 'hp', 'ranged_defense', 'resolve', 'initiative'] } };
-  function ceilDef(k) { var c = D.ceiling && D.ceiling[k]; return c && c.value != null ? c.value : CEIL_DEF[k]; }
+     ONE NUMBER A KIND: the plan's raised stats at the top, each weighed by what a point of it saves in the live fight, over the sum
+     of the weights (TUNING's measured weights, records/BOHEMIA_TUNING_THE_RECRUITS_CEILING_10_26_26.md); his kind is the better.
+     With the posts' own roll handed in (ref, sorted), his rank among them (the share he beats), which is what the card shows.
+     Inputs: records/target/bb/recruit_ceiling.json (TUNING's section O, a modder's); the same numbers built in below. ==== */
+  var CEIL_DEF = { level: 11,
+    plans: { melee: ['melee_skill', 'melee_defense', 'ranged_defense', 'hp', 'fatigue'], gun: ['ranged_skill', 'melee_defense', 'hp', 'fatigue', 'ranged_defense'] },
+    weights: { melee: { melee_skill: 1, melee_defense: 0.41, ranged_defense: 0.38, hp: 0.35, fatigue: 0.32 },
+               gun: { ranged_skill: 1, melee_defense: 0.76, hp: 0.24, fatigue: 0.24, ranged_defense: 0.12 } } };
+  function ceilDef(k) { var c = D.ceiling && D.ceiling[k]; return c && c.value != null && typeof c.value === typeof CEIL_DEF[k] ? c.value : CEIL_DEF[k]; }
   function rollMean(txt) { var m = String(txt).split('-').map(Number); return (m[0] + (m.length > 1 ? m[1] : m[0])) / 2; }
   function gainMean(k, stars) { return rollMean(D.xp.stat_gains_by_stars.value[STAT_KEY[k]][stars || 0]); }
-  function ceilWeight(k) { var w = ceilDef('weights'); return w && typeof w === 'object' && w[k] != null ? +w[k] : gainMean('melee_skill', 0) / gainMean(k, 0); }
-  function ceilFloor(k) { var b = D.backgrounds && D.backgrounds.base_stats && D.backgrounds.base_stats.stats[k]; return b ? b[0] : 0; }
   function planFor(kind) { return ((ceilDef('plans') || {})[kind] || []).slice(0, D.xp.per_level.value.attributes_raised); }
+  function ceilWeight(k, kind) { var w = (ceilDef('weights') || {})[kind] || {}; return planFor(kind).indexOf(k) >= 0 && w[k] > 0 ? +w[k] : 0; }
   /* the one number for stats as they stand, for a kind (the gate scores a man levelled by grant() and raise() with it) */
-  function worthOf(stats, kind) { var v = 0; planFor(kind).forEach(function (k) { v += ceilWeight(k) * ((stats[k] || 0) - ceilFloor(k)); }); return Math.round(v * 1e6) / 1e6; }   /* six places: two men with the same numbers tie exactly */
+  function worthOf(stats, kind) {
+    var v = 0, sw = 0; planFor(kind).forEach(function (k) { var w = ceilWeight(k, kind); v += w * (stats[k] || 0); sw += w; });
+    return sw > 0 ? Math.round(v / sw * 1e6) / 1e6 : 0;   /* six places: two men with the same numbers tie exactly */
+  }
   function ceilingOf(man, kind) {
     var top = ceilDef('level'), plan = planFor(kind), n = Math.max(0, top - Math.max(1, man.level || 1)), at = {}, stars = man.stars || {};
     STATS.forEach(function (k) { at[k] = (man.stats[k] || 0) + (plan.indexOf(k) >= 0 ? n * gainMean(k, stars[k]) : 0); });
     return { kind: kind, value: worthOf(at, kind), at: at, plan: plan, level: top, levels: n };
   }
-  /* ceiling({stats, stars, level}[, kind]): his kind's ceiling (the better of the two when no kind is asked), {value, kind, at, plan,
-     melee, gun}; value unrounded (the card rounds it) */
-  function ceiling(man, kind) {
+  /* the share of the sorted roll strictly under v (0 to 1) */
+  function rankIn(v, sorted) { var lo = 0, hi = sorted ? sorted.length : 0; while (lo < hi) { var m = (lo + hi) >> 1; if (sorted[m] < v) lo = m + 1; else hi = m; } return sorted && sorted.length ? lo / sorted.length : null; }
+  /* ceiling({stats, stars, level}[, kind][, ref]): his kind's ceiling (the better of the two when no kind is asked), {value, kind,
+     at, plan, melee, gun, rank}; rank his share of ref (the posts' roll, sorted) when it is handed in */
+  function ceiling(man, kind, ref) {
     if (kind) return ceilingOf(man, kind);
     var a = ceilingOf(man, 'melee'), b = ceilingOf(man, 'gun'), best = b.value > a.value ? b : a;
-    best.melee = a.value; best.gun = b.value; return best;
+    best.melee = a.value; best.gun = b.value; best.rank = ref ? rankIn(best.value, ref) : null; return best;
   }
   /* ==== end __THE_BEST_RECRUIT_AT_THE_TOP__ ==== */
   /* the perks he may take now: Battle Brothers' tiers, tier n opens after n-1 points are spent */
@@ -379,7 +384,7 @@
     return out;
   }
   /* ==== end __THE_SHOP_SAYS_WHAT_IT_DOES__ ==== */
-  var API = { load: load, ceiling: ceiling, worthOf: worthOf, planFor: planFor, ceilWeight: ceilWeight, levelUp: levelUp, armOf: armOf, nameFor: nameFor, MEN_FOR: MEN_FOR, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  var API = { load: load, ceiling: ceiling, worthOf: worthOf, planFor: planFor, ceilWeight: ceilWeight, rankIn: rankIn, levelUp: levelUp, armOf: armOf, nameFor: nameFor, MEN_FOR: MEN_FOR, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     PAIN_POOL: PAIN_POOL, bgName: bgName, classWord: classWord, weaponName: weaponName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

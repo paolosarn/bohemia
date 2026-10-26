@@ -1,32 +1,68 @@
 {
- "_about": "RUN THREE [the best recruit at the top] (rule 216, Paolo 10/26: 'in the recruiting pitstop just put the best at the absolute top... when we level them up as much as we can, their stars and default good stats lead the way... you might have to make a calculator... that's one failure of Battle Brothers, no proper filter to quickly see who's the fire one'). THE CALCULATOR'S INPUTS, a modder's and TUNING's to edit (engine/bohemia_roster.js ceiling() reads them; with this file missing it uses the same numbers built in). A man's CEILING is what he is expected to be at the top level through the game's own level-up (engine/bohemia_roster.js levelUp + raise, rules.json's experience block): every level each stat is rolled on his star column and he takes per_level.attributes_raised of them; the calculator takes the first that many off his kind's plan, each at the mean of its star column's roll; the number is the plan's stats above the plainest man's floor, each point weighed. Both kinds are worked for every man and his kind is the one his numbers make him best at. TUNING checks the plans and the weights (rule 216(a)).",
+ "_about": "RUN THREE [the best recruit at the top] (rule 216, Paolo 10/26: 'in the recruiting pitstop just put the best at the absolute top... when we level them up as much as we can, their stars and default good stats lead the way... you might have to make a calculator... that's one failure of Battle Brothers, no proper filter to quickly see who's the fire one'). THE CALCULATOR'S INPUTS, TUNING's numbers (records/BOHEMIA_TUNING_THE_RECRUITS_CEILING_10_26_26.md; the one table section O), a modder's to edit (engine/bohemia_roster.js ceiling() reads them; the same numbers are built in if this file is not read). A man's CEILING: his stats at the top level through the game's own level-up (engine/bohemia_roster.js levelUp + raise, rules.json's experience block): every level each stat is rolled on his star column and he takes per_level.attributes_raised of them; the calculator takes the first that many off his kind's plan, each at its column's mean (recruit.ceiling_formula). One number per kind: the plan's stats at the top, weighted (recruit.weights_*), over the sum of the weights. His kind is the better of the two; the card shows it as a rank among every man the posts roll (recruit.ceiling_shown).",
  "level": {
   "value": 11,
   "source": "rules.json experience level_table_total_xp (the table tops at 11; past it a level is +1 on four and no perk, veteran_level_rules); rule 216(a): 'his expected stats at level 11'"
  },
  "plans": {
   "value": {
-   "melee": ["melee_skill", "melee_defense", "fatigue", "ranged_defense", "hp", "resolve"],
-   "gun": ["ranged_skill", "fatigue", "hp", "ranged_defense", "resolve", "initiative"]
+   "melee": [
+    "melee_skill",
+    "melee_defense",
+    "ranged_defense",
+    "hp",
+    "fatigue"
+   ],
+   "gun": [
+    "ranged_skill",
+    "melee_defense",
+    "hp",
+    "fatigue",
+    "ranged_defense"
+   ]
   },
-  "source": "TUNING records/BOHEMIA_TUNING_THE_KILLER_COMPANY_STATS_AND_LEVEL_UPS_10_25_26.md sections 4c and 5 (his shape, four picks: front melee skill, melee defence, fatigue, ranged defence; back ranged skill, fatigue, hitpoints, ranged defence; the company that wins 98 in 100 against thirty men of whom half shoot). The fifth and sixth are read only if the picks a level ever grow past four (section 4c's 'five': hitpoints in front, resolve behind)"
+  "source": "TUNING, the one table rows recruit.plan_melee and recruit.plan_gun (each kind's four best stats by the weights measured on the live fight; a gunman's second stat is melee defence since rule 185 put the guns in reach of a blade). The fifth is read only if the picks a level ever grow past four"
  },
  "weights": {
-  "value": "by_roll",
-  "source": "Battle Brothers' own level-up table prices a point by how slowly it grows (rules.json stat_gains_by_stars, the no-star column): melee skill and melee defence roll 1-3 (mean 2), ranged skill, ranged defence, hitpoints, fatigue and resolve 2-4 (mean 3), initiative 3-5 (mean 4). A point weighs melee skill's mean over its own: 1, 2/3, 1/2. A modder may put an object here instead ({\"melee_skill\": 1, ...}); TUNING checks it",
-  "tuned": false
- },
- "floor": {
-  "value": "base_stats_low",
-  "source": "backgrounds.json base_stats (the Apprentice's range, the background with no modifiers): each stat counts from the low end of the plainest man's range, so the number is what he has above the floor every recruit stands on"
+  "value": {
+   "melee": {
+    "melee_skill": 1,
+    "melee_defense": 0.41,
+    "ranged_defense": 0.38,
+    "hp": 0.35,
+    "fatigue": 0.32
+   },
+   "gun": {
+    "ranged_skill": 1,
+    "melee_defense": 0.76,
+    "hp": 0.24,
+    "fatigue": 0.24,
+    "ranged_defense": 0.12
+   }
+  },
+  "source": "TUNING, the one table rows recruit.weights_melee and recruit.weights_gun: men struck down saved per point (+10 on one stat of every man of one kind, 100 seeded fights a cell, six men at level 5 against nine brigands), his main skill = 1; only the plan's raised stats are weighed (TUNING's bench, tools/bohemia_tuning_the_recruit_ceiling.js)",
+  "tuned": true
  },
  "bargain": {
-  "value": { "worth_per_battery": "above the hall's median", "ceiling": "at or above the hall's median" },
-  "source": "rule 216(c) and (f): 'a cheap man with a high ceiling marked as a BARGAIN (his worth over his price beats the hall's usual)'; BARGAIN only above the hall's median worth per battery, and a high ceiling too, so the cheapest weak man is never the bargain"
+  "value": {
+   "rank_at_least": 0.8,
+   "price": "under the hall's median",
+   "worth_per_battery": "over the hall's median"
+  },
+  "source": "TUNING, recruit.bargain_line (a ceiling in the top fifth of all men AND a price under the hall's median: about one man in two halls, and they are the real thing, 89 of 100), held inside rule 216(f) as ruled (only over the hall's median worth per battery, his rank over his price). The coordinator's, TUNING proposed it to replace the median"
  },
  "pricey": {
-  "value": { "price": "above the hall's median" },
+  "value": {
+   "price": "over the hall's median"
+  },
   "source": "rule 216(c): 'a Hedge Knight type costs more and says why': a man priced over the hall's median names the biggest part of his price (his trade's asking, his levels, the kit he brings), the hall's own formula's parts"
  },
- "draft": true
+ "draft": true,
+ "shown": {
+  "value": {
+   "rank_of": "every man the posts roll",
+   "sample_posts": 400
+  },
+  "source": "TUNING, recruit.ceiling_shown: his better kind's ceiling as a rank (better than N of 100), the kind named, 'because a weighted sum's own size means nothing to him and a rank reads at a glance'. The page rolls 400 posts of six the hall's own way (the trades, the stars, the trait) once, and ranks a man among them; the rare man is not in the sample, so he reads near the top, as he is"
+ }
 }
