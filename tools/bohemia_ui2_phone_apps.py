@@ -16,7 +16,8 @@ camera tipped 25 degrees so a bottom edge shows its thickness):
   app_relations  a pennant on a pole (whose side they are on: Battle Brothers' banners)
   app_settings   a gear (the phone's own settings page)
   app_combat     a dead-olive plate with a red crosshair: the phone's face when a fight starts
-  app_heal       a bone plate with a medic's cross in red: CAMP is the HEAL button (rule 226)
+  app_heal       a bone plate with a medic's cross in red inside a ring: CAMP is the HEAL button (rules 226, 232(b));
+                 the ring is the track the page fills with the company's blood and armour
   app_x          a dead-olive plate with a bone X: the job card's drop (rule 227)
   case           the handset: a dead-olive tin frame with a rivet at each corner round a hole the screen shows through,
                  one picture the page slices (border-image) so it stands at the phone's one size on every screen
@@ -126,9 +127,27 @@ def G_combat():
 
 
 def G_heal():
-    """rule 226: the CAMP app is the HEAL button: a medic's cross struck in red"""
-    a, b, c, d = 9.5, 17.5, 26.5, 34.5   # one outline: two crossed bars as one shape (overlapping solids render a hole)
-    return [(ccw([(b, a), (c, a), (c, b), (d, b), (d, c), (c, c), (c, d), (b, d), (b, c), (a, c), (a, b), (b, b)]), RED, 1.6)]
+    """rule 232(b), Paolo 10/26: 'the camp will be like a medical icon maybe in a circle': a medic's cross struck in red inside a
+    ring pressed into the plate; the ring is the TRACK the page fills with the company's blood and armour (rule 226(c)), so it
+    is struck low and dark, the empty part what is missing"""
+    a, b, c, d = 13.0, 19.4, 24.6, 31.0   # one outline: two crossed bars as one shape (overlapping solids render a hole)
+    return [('ring', (circle(22.0, 22.0, 17.6, 56), circle(22.0, 22.0, 13.4, 56)), INK, 0.7),
+            (ccw([(b, a), (c, a), (c, b), (d, b), (d, c), (c, c), (c, d), (b, d), (b, c), (a, c), (a, b), (b, b)]), RED, 1.6)]
+
+
+def ring_of(png):
+    """where the ring's track landed on the rendered icon (the camera tips it and lifts it by its height): its centre and radii
+    as fractions of the picture, read off the dark pixels, for the page's gauge (phone.json app_heal.ring)"""
+    from PIL import Image
+    a = np.asarray(Image.open(png).convert('RGBA')).astype(float)
+    h, w = a.shape[:2]; lum = a[..., :3].mean(axis=2); dark = (a[..., 3] > 200) & (lum < 70)
+    ys, xs = np.nonzero(dark)
+    cx, cy = w / 2.0, h / 2.0
+    for _ in range(4):   # the ring's own pixels only (the cross's shade inside and the plate's edge outside left out)
+        r = np.hypot(xs - cx, ys - cy); k = (r > 0.25 * w) & (r < 0.46 * w); cx, cy = xs[k].mean(), ys[k].mean()
+    r = np.hypot(xs - cx, ys - cy); k = (r > 0.25 * w) & (r < 0.46 * w)
+    ro, ri = np.percentile(r[k], 98), np.percentile(r[k], 2)
+    return dict(cx=round(float(cx / w), 4), cy=round(float(cy / h), 4), ro=round(float(ro / w), 4), ri=round(float(ri / w), 4))
 
 
 def G_x():
@@ -207,6 +226,7 @@ def render_icon(name):
     os.makedirs(SHIP, exist_ok=True)
     Image.fromarray(a.astype(np.uint8), 'RGBA').save(os.path.join(SHIP, name + '.png'), optimize=True)
     meta = dict(w=W, h=H + lip, up=UP, lip=lip)
+    if name == 'app_heal': meta['ring'] = ring_of(os.path.join(SHIP, name + '.png'))
     print('  icon', name, meta, flush=True)
     return meta
 

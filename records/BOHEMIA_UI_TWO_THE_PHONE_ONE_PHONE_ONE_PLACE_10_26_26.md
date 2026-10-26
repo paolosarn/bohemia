@@ -31,8 +31,9 @@ ONE FUNCTION EVERY SCREEN READS (for RUN, RUN TWO and COMBAT's [... frames aroun
 THE FIVE APPS, rendered through the rig (tools/bohemia_ui2_phone_apps.py imports the kit's tin, masks, light and camera;
 three texels a point; slices/phone/): PLAY/PAUSE (amber, the big slot; the clock and the march, travelSpeedSet, the
 spacebar's door; the last speed its mark, 1.22x; a held press opens the speeds, one on the map for now), CREW (the social
-app's people; the bar's own CREW door), HEAL (rule 226: a red cross over ONE bar, the company's hitpoints red and armour grey
-over their maxima; a tap makes camp, BREAK CAMP breaks it), FEED (his company's page: its name, one tap to rename, the game's
+app's people; the bar's own CREW door), HEAL (rule 226: a red cross over ONE bar, CAMP's own bar drawn by CAMP's own call, BohemiaCondition.drawBar over
+BohemiaMapCamp.condition(): the company's blood red and armour grey, the dark part what is missing; a tap is CAMP's
+BohemiaMapCamp.toggle(), making camp on the map and BREAK CAMP over it), FEED (his company's page: its name, one tap to rename, the game's
 one name `BohemiaCompanyName`, and the feed says 'We go by THE DUST LOT now'; the city's posts under it, the handle first,
 no faces, rule 217), RELATIONS (every town, Battle Brothers' nine bands and the number, and the last thing that moved it).
 The hour is on the phone ONCE, the clock beside PLAY (GOING / STOPPED / IN TOWN / RESTING under it); the status bar says where
@@ -60,8 +61,10 @@ THE SETTINGS: the game's SETTINGS card carries THE PHONE (CORNER LEFT | RIGHT; e
 app takes the big slot); a finger held on the phone's home opens it. LEFT mirrors the phone at once, no reload.
 
 WHAT STEPPED ASIDE (212(g)): on the map the old phone, the speed pad and the CAMP plate are hidden by the phone's own
-stylesheet (RUN's code untouched; the lines are marked __ONE_PHONE__ for RUN to take out). The town's LEAVE stands over the
-phone in its corner (one marked line in UI's TOWN lift). The company screen's stash stands beside the phone under 700 wide.
+stylesheet (RUN's code untouched; the lines are marked __ONE_PHONE__ for RUN to take out). CAMP's own HEAL plate (#campbtn) and the camp's #healbtn stand down
+under the phone the same way, as CAMP's note asked. The town's LEAVE stands over the phone in its corner (one marked line in
+UI's TOWN lift). The map's spoken line stands beside the phone (bottoms level) or over it, never under it (one marked line in
+UI's voicePlace); WORLD's job names at the glass's edge step round the phone's box (one marked line in bohemia_job_kinds.js). The company screen's stash stands beside the phone under 700 wide.
 DYNASTY's SWITCH TIMELINE lived in the old opened phone: after the first crisis the new phone's status bar shows a TIMELINE tag
 that opens that same door.
 
@@ -70,8 +73,6 @@ gates/the_phone_gate.js, THE PHONE (in the suite): phone upright, on its side, a
 the phone upright, all green on its side and on the computer on this tree (the counts are in the commit). Four plants bite.
 
 ## WEAK, SAID
-- HEAL's bar is full until CAMP hands the company's condition (`window.BohemiaHeal.condition()` -> {hp, hpMax, arm, armMax});
-  damage does not stay between fights yet (rule 226(a), CAMP's row).
 - PLAY to the job goes to the job's own block; the way back to the paying town is RUN's [play takes you there].
 - The fight's bar is narrowed by the phone's band, not re-laid: on the phone upright the AP line runs under END TURN.
 - The phone is taller (276) than the first cut (212) to hold the job column; the cameras are not framing around it yet
