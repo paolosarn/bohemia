@@ -35,11 +35,11 @@ THE STRIP.
   eight facings (records/target/master_rig/cook_camp_trailer/, kit.json camp_trailer_rig). tools/bohemia_cook_the_camp_through_the_rig_
   10_26_26.py (/tmp/v/bin/python). Gate THE CAMP THROUGH THE RIG 5/0. Honest: fewer colours than the numpy recipe (median 1,266 to
   1,901), card 13 of 30 BACK (was 12): the rig's light, one look with the cart and the pickup. NOTE for CAMP TWO in CAMP's section.
-- [the fifty perk icons] (rule 252(c)) SHIPPED <PERKSHA>: all fifty a model of what the perk does through the master rig on a worn
+- [the fifty perk icons] (rule 252(c)) SHIPPED 79250901: all fifty a model of what the perk does through the master rig on a worn
   tag (gold rim carried, blue pressed, the row in dots), 96 x 96, slices/perk_icons/ + perk_icons.json. The models STAND facing the
   camera (laid back, the source pass dusted every front pink). Gate EVERY PERK A PICTURE 5/0. NOT IN A TAB YET: UI THREE's shared
   perk module draws them (NOTE in UI's section). tools/bohemia_cook_the_fifty_perk_icons_10_26_26.py (--only <ids>, --plates).
-- [the armour's art] (rule 272(b)(d)) SHIPPED <ARMOURSHA>: the police riot helmet (police black, vent ribs, pivot bolts, lift tab,
+- [the armour's art] (rule 272(b)(d)) SHIPPED 79250901: the police riot helmet (police black, vent ribs, pivot bolts, lift tab,
   chin strap, its visor smoked glass his face shows through) and the police vest (webbing, radio pouch and aerial, buckles) their
   own art, and all 27 of CHARACTER's pieces meshed from its own distances (tools/bohemia_cook_surface_nets.py) and rendered through
   the real rig with his head and trunk as holdouts, file for file into slices/wear/ (CHARACTER's format and anchors; the

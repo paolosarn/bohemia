@@ -1,5 +1,5 @@
 # COOK [the fifty perk icons] (rule 252(c); line 179 of his list)
-# BUILT 10/26, NOT YET SEEN (rule 179): fifty icons in the rig's look; UI THREE's shared perk module draws them
+# SHIPPED 10/26 79250901, BUILT, NOT YET SEEN (rule 179): fifty icons in the rig's look; UI THREE's shared perk module draws them
 
 ## THE ASK
 Rule 252, Paolo 10/26: 'I don't want a single perk without an icon, I need you to have icons for all the perks... I need to be able

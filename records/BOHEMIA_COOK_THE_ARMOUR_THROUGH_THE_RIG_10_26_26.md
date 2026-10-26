@@ -1,5 +1,5 @@
 # COOK [the armour's art] (rule 272(b)(d)): THE POLICE RIOT HELMET AND THE POLICE VEST FIRST, AND EVERY PIECE THROUGH THE REAL RIG
-# BUILT 10/26, NOT YET SEEN (rule 179)
+# SHIPPED 10/26 79250901, BUILT, NOT YET SEEN (rule 179)
 
 ## THE ASK
 Rule 272, Paolo 10/26: 'the weapons and the shield show, but the good armour I have on me doesn't show, like a police helmet... I know
