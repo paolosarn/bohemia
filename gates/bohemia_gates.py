@@ -9850,6 +9850,13 @@ GATES = [
      "RUN TWO gate, 10/25, row [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). "
      "MEASURED before: no woman's body exists (71 people 'm', 81 unset, all on the master rig, a man's), and the unset 81 rolled their names 50/50 (405 of 810 rolled names read as women's): men wore women's names. "
      "HOLDS: the file (his 4 percent since rule 214, 10/26, RUN THREE [four percent]; the realistic 2 beside it; TUNING's one table row post.women_share the same number); NOW 10,000 rolled hires give 0 women and no man at a post, a keeper or the crowd wears a woman's name; the machine, a woman's body handed in for the test, gives the share within its noise, each her body and her name, no man's roll moved. about 1 min", True),
+    ('THE STRIP READS AS THE STRIP', ['node', 'gates/the_strip_reads_as_the_strip_gate.js'],
+     "COOK gate, 10/26, row [the Strip close in] (line 64 of his list: EYES 10/25 'the freeway reads as a freeway close in; the Strip NOT LOOKED AT'; rule 164 "
+     "items 11 and 30, Paolo 10/24: 'the freeway and the Strip still look bad'). Looked at before: close in a wide road between stepped grey boxes, its signs tan "
+     "pillars, a downtown. The painter's own resort run on its own (the Y on three wings, the arc concave to the Strip with its lake, the slab along the Boulevard, "
+     "the marquee and porte-cochere on the front and none on a back, the pool drained), the demo's own painting counting it (every resort facing the Boulevard its "
+     "marquee, three in five in their own shapes, the pools, the sign boards) and the demo's map on the glass at the near stop (the marquees' faded rose and teal; "
+     "no rainbow). About 2 min", True),
     ('EVERY ENEMY READS AT NIGHT', ['node', 'gates/every_enemy_reads_at_night_gate.js'],
      "COOK gate, 10/25, row [every enemy reads at night] (line 3 of his list; EYES 10/25 q43: 'the one Kid stood on a dark tile at night and was never drawn'; "
      "rule 73: playable in the dark). The fight page itself, the strip, the suburb and the freeway by day and by night, seed 31: every look an enemy can wear "
