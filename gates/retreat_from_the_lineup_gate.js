@@ -12,7 +12,7 @@
       withdrew, its crew rows as they came in, no spoils;
    L2 THE DEMO, THE ONE DOOR, A JOB HELD: a road fight through the game's own door with a job held; RETREAT on the lineup by a real
       press: back on the map, no spoils screen, never 'back to your last save', the job still held, the company, the condition, the
-      supplies and the stash exactly as before;
+      supplies and the stash exactly as before, and the party two blocks or more from where they met (rule 275(c), the bounce);
    L3 nothing threw.
    Run: node gates/retreat_from_the_lineup_gate.js [--profile phone_portrait|computer] */
 'use strict';
@@ -86,12 +86,13 @@ const snapOf = f => f.evaluate(() => FIGHT.S.units.map(v => v.id + '@' + v.x + '
         await waitFor(page, () => page.evaluate(() => !CITYFIGHT), 20000);
         await page.waitForTimeout(1500);
         const res = await f.evaluate(() => FIGHT.S.result).catch(() => 'gone');
-        const map = await fr.evaluate(() => ({ held: LOOP.held.some(h => h.id === 'lineup-gate-job'), wentDown: !!window.__WENT_DOWN, home: window.__FIGHT_CAME_HOME || null }));
+        const map = await fr.evaluate(() => ({ held: LOOP.held.some(h => h.id === 'lineup-gate-job'), wentDown: !!window.__WENT_DOWN, home: window.__FIGHT_CAME_HOME || null, at: { x: city.x, y: city.y } }));
+        const met = map.home && map.home.at, away = met && met.gx != null ? Math.max(Math.abs(map.at.x - met.gx), Math.abs(map.at.y - met.gy)) : -1;
         const spoils = await page.evaluate(() => !!(window.SPOILS && SPOILS.frame)), after = await store(), back = await page.evaluate(() => !CITYFIGHT);
         const same = keys.filter((k, i) => before[i] !== after[i]);
-        leg(back && !spoils && map.held && !map.wentDown && !!map.home && map.home.withdrew === true && same.length === 0,
-          '*** L2 ' + tag + ': THE DEMO, A JOB HELD: RETREAT ON THE LINEUP TAKES HIM BACK TO THE MAP, NOTHING CHANGED, THE JOB STILL HIS *** (rule 253(b)(d))',
-          'lit ' + b.lit + ', result ' + res + ', on the map ' + back + ', spoils ' + spoils + ', job held ' + map.held + ', last save asked ' + map.wentDown + ', home ' + JSON.stringify(map.home) + ', changed ' + (same.join(',') || 'nothing'));
+        leg(back && !spoils && map.held && !map.wentDown && !!map.home && map.home.withdrew === true && same.length === 0 && away >= 2,
+          '*** L2 ' + tag + ': THE DEMO, A JOB HELD: RETREAT ON THE LINEUP TAKES HIM BACK TO THE MAP, NOTHING CHANGED, THE JOB STILL HIS, TWO BLOCKS AWAY *** (rule 253(b)(d), 275(c))',
+          'lit ' + b.lit + ', result ' + res + ', on the map ' + back + ', spoils ' + spoils + ', job held ' + map.held + ', last save asked ' + map.wentDown + ', home ' + JSON.stringify(map.home) + ', ' + away + ' blocks from where they met, changed ' + (same.join(',') || 'nothing'));
         errs.push.apply(errs, (d.errs || []).map(e => tag + ' L2: ' + e));
       } catch (e) { leg(false, '  ' + tag + ' L2 ran', String(e.message).slice(0, 200)); }
       finally { if (d) await d.close().catch(() => {}); }

@@ -20,11 +20,15 @@ loss with 'You went down. Back to your last save.' and a reload of the last save
 the shell (BOHEMIA_ALPHA_0_9.html, the demo re-cut) keeps nothing of a withdrawal (no wound, no laid-up day, no XP, no loot, no pay,
 no sting), the map's job handler keeps the job held ('You pulled back before anyone moved. The job is still yours: ...'), the map's
 fight-end handler never reloads and never spends, and the feed posts it as the way out (fight.fled), never a loss.
-LEFT FOR CAMP (rule 275(c)): the party bounced two or three blocks from the enemy on the map.
+THE BOUNCE (rule 275(c), 'it bounces me a couple tiles away to get a head start'; the coordinator gave it to COMBAT): cityHandOver
+keeps the contact whole (window.__HANDED, a marked line) and the map's fight-end handler hands a withdrawal to RUN's meetFallBack,
+the meet card's own FALL BACK: the party steps two blocks away from them, the hunters keep hunting, a party he chased stays, a job
+stays held. The gate's L2 reads it (two blocks or more from where they met).
 GATE: RETREAT FROM THE LINEUP (gates/retreat_from_the_lineup_gate.js): L1 the real fight page, the five road factions and a fight
-the odds read red (0.06), AUTO off: one real press, withdrew in 0.2 to 0.8 s, no action logged, every man unchanged, the card and
+the odds read red (0.00 to 0.06), AUTO off: one real press, withdrew in 0.2 to 0.8 s, no action logged, every man unchanged, the card and
 the message right; L2 the demo through the one door with a job held: back on the map, no spoils, no reload asked, the job held,
-the company, condition, supplies and stash unchanged; L3 nothing threw. Phone 3/0, computer 3/0.
+the company, condition, supplies and stash unchanged, the party two blocks or more from where they met (48,48 -> 49,46); L3 nothing
+threw. 5/0 (phone and computer).
 
 ## 2. AN EARLY RETREAT GETS OUT (rule 256)
 MEASURED BEFORE (tools/bohemia_combat_early_retreat.js: 1,000 rolled fights, his company of 3, 6 or 12, the five road factions,

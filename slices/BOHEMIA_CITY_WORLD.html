@@ -65886,6 +65886,7 @@ function cityHandOver(msg, skin){
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */
   try{ if(msg){ msg.firstDay = loopDay() <= 1; msg.crewCount = crewCount(); } }catch(_e){}
   try{ window.__LAST_HANDOVER = { why: msg && msg.why, label: msg && msg.label, n: (msg && msg.roster) ? msg.roster.length : null, party: (msg && msg.party) ? msg.party.count : null, at: performance.now() }; }catch(_e){}
+  try{ window.__HANDED = msg; }catch(_e){}   /* __PULLED_BACK__ (COMBAT, rule 275(c), a marked line): the contact kept whole, so a lineup left can be undone */
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}
@@ -70436,7 +70437,11 @@ window.addEventListener('message',function(ev){
   /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b)(d), a marked line): a lineup left is no loss, so never the
      reload of the last save and never the plate's tape: nothing happened */
   if(o.withdrew){ try{ var qw=document.getElementById('qline'); if(qw) qw.textContent='You pulled back before anyone moved.'; }catch(_e){}   /* draft:true */
-    try{ window.__FIGHT_CAME_HOME={won:false,withdrew:true,at:d.at||null}; }catch(_e){} return; }
+    /* rule 275(c) (Paolo 10/26: 'if I retreat, it bounces me a couple tiles away to get a head start'): the party steps back two
+       blocks from them, the way FALL BACK on the meet card does (the hunters keep hunting, a party he chased stays, a job stays
+       held), so the same contact is not touched again on the next step */
+    var hb = null; try{ hb = window.__HANDED || null; window.__HANDED = null; meetFallBack(hb || { at: d.at || null }); }catch(_e){}
+    try{ window.__FIGHT_CAME_HOME={won:false,withdrew:true,at:d.at||null,bounced:{x:city.x,y:city.y}}; }catch(_e){} return; }
   /* draft:true -- ALWAYS MAKE AN ATTEMPT (8/11). Real words, written as if they
      ship, his to overwrite. */
   /* __DEATH_IS_A_RELOAD__ (8/22). Yesterday this said "It went badly in there.
