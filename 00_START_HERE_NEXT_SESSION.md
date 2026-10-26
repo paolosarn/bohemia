@@ -1758,6 +1758,10 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-clean-trip): 10/26 (o) LATEST -- *** [one scale: the blood is the AUTO colour] (rule 254) BUILT, NOT YET SEEN 64988ad5; BUILD 10/26zzb. ***
+- One calculator, one scale: a run is worth the fight's own oddsRunValue, the job's number the plain mean; the stars' and the blood's lines are read from the fight (ours.odds_colour turn 0.8, down_value 0.5); the one-in-six reading struck. Gate: the job tells the truth (J1-J10).
+- NEXT: rule 255 [the danger ramps to day fifty] is BUILT on the branch world-254 side copy (fits() in the reader, one marked hook in RUN TWO's board shelf, gates/the_danger_ramps_to_day_fifty_gate.js); it ships next with its gate.
+
 WORLD (world-clean-trip): 10/26 (n) LATEST -- *** [paid at the town's edge] (rule 275(a)) BUILT, NOT YET SEEN 5a92ee48; BUILD 10/26ze. ***
 - The step onto any tile of the client town's edge pays the return (no town screen); a delivery into its town the same; the caravan's gate crew still met at the gate. Gate: paid_at_the_towns_edge (phone 3/0, computer 3/0).
 - NEXT (the coordinator's routine order): rule 254 [one scale: the blood is the AUTO colour] is PARKED ON A STASH in the world-clean-trip session ('WORLD rule 254 WIP: one calculator one scale'): one calculator (the fight's own oddsRunValue), cut-offs read from ours.odds_colour (turn 0.8, down_value 0.5), blood = (turn - value)/(turn - down); the one-in-six reading is STRUCK. A fresh session rebuilds it from that description if the stash is gone. Then rule 255 [the danger ramps to day fifty].

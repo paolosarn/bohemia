@@ -82,6 +82,14 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
   await sp.goto('http://127.0.0.1:8894/slices/BOHEMIA_SPOILS_SCREEN.html');
   await sp.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened, null, { timeout: 30000 });
   const fromn = await sp.evaluate(() => document.getElementById('fromn').textContent);
+  /* EYES [eyes: the road crew ran]: who they were, RAN only when some ran, a level never 'climbed' */
+  const said = await sp.evaluate(() => { const H = BohemiaSpoilsScreen.wonHead, B = (n, o) => Array.from({ length: n }, () => Object.assign({ dead: true }, o));
+    return { sample: document.getElementById('head').textContent, crewn: document.getElementById('crewn').textContent,
+      pack: H({ faction: 'brigands', bodies: B(3, { beast: true }) }), packRan: H({ faction: 'brigands', bodies: B(2, { beast: true }).concat([{ beast: true, fled: true }]) }),
+      raiders: H({ faction: 'brigands', bodies: B(4) }), allRan: H({ faction: 'machines', bodies: B(2, { dead: false, fled: true }) }), one: H({ faction: 'kids', bodies: B(1) }) }; });
+  ok('S3 [eyes: the road crew ran] the head names who they were and says RAN only when some ran; no level is \'climbed\'',
+    said.sample === 'THE RAIDERS BROKE AND RAN' && said.pack === 'THE PACK IS DOWN' && said.packRan === 'THE PACK BROKE AND RAN' && said.raiders === 'THE RAIDERS ARE DOWN'
+      && said.allRan === 'THE MACHINES RAN' && said.one === 'THE KID IS DOWN' && !/CLIMB/.test(said.crewn) && /LEVEL/.test(said.crewn), JSON.stringify(said));
   ok('S2 [eyes: the end screen\'s words] a wipe reads ' + ww.word + ' once (head "' + ww.head + '"), and the loot\'s head reads "' + fromn + '"', ww.word === 'WIPED OUT' && ww.head.indexOf('WIPED OUT') < 0 && /^OFF THEIR \d+ DEAD$/.test(fromn));
   await sp.close(); await b.close(); srv.close();
 
@@ -131,11 +139,16 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
     for (let i = 0; i < 80 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
     /* ---- E1 one end screen: the result, the fight's own head and numbers ---- */
-    const fh = await f.evaluate(() => ({ head: document.getElementById('oh').textContent, rounds: FIGHT.S.round, kills: (FIGHT.S.units.find(u => u.side === 'you' && u.main) || {}).kills | 0 }));
+    const fh = await f.evaluate(() => ({ head: document.getElementById('oh').textContent, rounds: FIGHT.S.round, kills: (FIGHT.S.units.find(u => u.side === 'you' && u.main) || {}).kills | 0,
+      ran: FIGHT.S.units.filter(u => u.side === 'them' && u.fled).length, beasts: FIGHT.S.units.filter(u => u.side === 'them').every(u => u.beast) }));
+    /* EYES [eyes: the road crew ran] (RUN FOUR): the fight's one head for every win, 'THE ROAD CREW RAN', is said off the bodies: who
+       they were (the pack when every one is a beast), RAN only when some ran; every other head of the fight's stands as it is */
+    const named = h => fh.head !== 'THE ROAD CREW RAN' ? h === fh.head
+      : /^THE [A-Z]+ (IS DOWN|ARE DOWN|RAN|BROKE AND RAN)$/.test(h) && (/RAN$/.test(h) === fh.ran > 0) && (/^THE (PACK|BEAST) /.test(h) === fh.beasts);
     const e1 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, head: document.getElementById('head').textContent, tally: document.getElementById('tally').textContent,
       you: ((document.querySelector('#crew .man[data-man="YOU"] .nums') || document.querySelector('#crew .man .nums')) || {}).textContent || '', loot: getComputedStyle(document.getElementById('loot')).display }));
     ok('E1 *** ONE END SCREEN *** YOU WON, the fight\'s own head, its rounds, and what YOU did in it, all on the one screen that waits',
-      e1.word === 'YOU WON' && e1.head === fh.head && fh.head.length > 0 && new RegExp('^' + fh.rounds + ' ROUND').test(e1.tally) && new RegExp('^' + fh.kills + ' KILL').test(e1.you) && e1.loot !== 'none',
+      e1.word === 'YOU WON' && named(e1.head) && fh.head.length > 0 && new RegExp('^' + fh.rounds + ' ROUND').test(e1.tally) && new RegExp('^' + fh.kills + ' KILL').test(e1.you) && e1.loot !== 'none',
       e1.word + ' / ' + e1.head + ' / ' + e1.tally + ' / YOU: ' + e1.you);
     const s0 = await SF().evaluate(() => { const S = BohemiaSpoilsScreen.state; return { men: S.men.map(m => ({ name: m.name, main: m.main, gained: m.gained, up: m.up, to: m.to })), ground: S.ground.map(i => ({ id: i.id, kind: i.kind, from: i.from })), counts: S.counts, from: S.found.from,
       rows: document.querySelectorAll('#crew .man').length, perk: document.querySelectorAll('#crew button.perk').length, heads: document.querySelectorAll('#crew .man canvas').length }; });
