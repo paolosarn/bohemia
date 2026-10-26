@@ -187,7 +187,9 @@ the coordinator opened this chat under rule 112, no check-in, this block is the 
 4 [the bars' maxima] (rule 223(c)): records/BOHEMIA_TUNING_THE_BARS_MAXIMA_10_26_26.md, the one table's section Q: hitpoints 133,
   fatigue 183, resolve 120, initiative 195, melee skill 122, ranged skill 109, melee defence 65, ranged defence 68 (the highest base of
   77 backgrounds + the best trait + ten three-star tops); a fresh man fills 4 to 54 percent, the defences move most; gear, perks and
-  veterans clip at the bar's end. NOTE on UI's board.
+  veterans clip at the bar's end. NOTE on UI's board. RULE 247 (landed this round): his order HP, fatigue, ranged skill, melee skill,
+  ranged defence, melee defence, resolve, initiative; the tick at the man's own ceiling = his number + levels left to 11 x the middle
+  of his star column (bar.tick.own_ceiling), for UI THREE.
 THE ONE TABLE: K (round two's counts) and L (201) rewritten; P (the camp) and Q (the maxima) added, by hand like F to O.
 NOT MEASURED: the Lone Wolf with the door's Recover (rule 231(b) not built yet); rule 230's shield cover (not built); rule 234(e)
 (AUTO keeps the 1-hitpoint man back; not built); whether Battle Brothers mends pieces at once (a Grok line); a phone's CPU.

@@ -25,6 +25,16 @@ melee defence 3-4).
 Without the trait the maxima are 123, 173, 110, 185, 117, 109, 60, 63: then a level-11 man with the top roll and the trait would
 overflow, so the trait is in.
 
+## 1b. RULE 247 (landed during this round: 'HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale and
+## initiative... behind the numbers, like a progress bar, how far it is from the maximum that's even possible... remember, I asked that')
+His order on every screen: HP 133, FATIGUE 183, RANGED SKILL 109, MELEE SKILL 122, RANGED DEFENCE 68, MELEE DEFENCE 65, RESOLVE 120,
+INITIATIVE 195. 247(d)'s tick at THIS man's own ceiling [COORDINATOR'S DEFAULT]: his number now + the levels left to 11 x the MIDDLE
+of his star column for that stat (3 / 3.5 / 4 / 4.5 a level at 0 to 3 stars for hitpoints, fatigue, resolve, ranged skill and ranged
+defence; 2 / 2.5 / 3 / 3.5 for melee skill and melee defence; 4 / 4.5 / 5 / 5.5 for initiative); past level 11 his number. The
+middle, not the top: it is where he lands raising that stat every level (RUN THREE's ceiling for his four uses the same), and the
+top would put every three-star man's tick near the maximum's own end, saying nothing. Example: a level-1 gunman at ranged skill 45
+with three stars ticks at 45 + 10 x 4.5 = 90 (83 percent of 109); the same 45 with no star ticks at 75 (69 percent).
+
 ## 2. WHAT THE BAR SHOWS, AND WHAT GOES PAST IT
 The bar shows the man's OWN number (his rolls, his levels, his trait). Gear and perks are the arrows of 223(b): a shield's +15
 melee defence is the lit part and a green arrow with 15, and the light stops at the bar's end. Past the maximum, clipped: a veteran
@@ -39,6 +49,7 @@ level-11 man's) would overflow on every big man; the trait-and-three-star maximu
 the min-maxer something to fill.
 
 ## ROUTED
-- UI: NOTE [the bars' maxima] on UI's board: the eight maxima, the clip rule, the armour bar's whole.
+- UI and UI THREE (rule 247(f), the one stat component): NOTE [the bars' maxima] on UI's board: the eight maxima in his order, the
+  tick at the man's own ceiling, the clip rule, the armour bar's whole.
 - RUN TWO and RUN THREE (the crew screen, the hall, the shop): the same eight, one source (the one table section Q until a data
   file carries them; a mod-friendly home would be records/target/bb/ours.json beside the level-up rows).
