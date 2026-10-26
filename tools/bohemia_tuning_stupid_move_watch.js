@@ -76,6 +76,9 @@ const SHAPES = {
   /* Battle Brothers' own answer, as a research splice (never the game): the Recover perk (tier 1, 9 AP, half his fatigue) in the
      place of Steel Brow, and AUTO allowed that one button when the swing's fatigue passes his most at a full turn (rule 180 bars it) */
   wolfrecover: { why: 'the Lone Wolf with Recover in place of Steel Brow, AUTO may press Recover only (research splice), dogs only', side: true, origin: 'wolf', perks: ['colossus', 'brawny', 'recover'], engine: 'recover', faction: () => 'beasts', count: k => 2 + (k % 3), days: k => 1 + (k % 4) * 15 },
+  his_bands: { why: 'his crew on the bands (research splice)', side: true, engine: 'bands', faction: k => FACTIONS[k % 5], count: k => 2 + (k % 4), days: k => 1 + (k % 5) * 12 },
+  newcrew_bands: { why: 'A New Crew on the bands (research splice)', side: true, engine: 'bands', origin: 'newcrew', faction: k => k % 3 ? 'brigands' : FACTIONS[k % 5], count: k => 3 + (k % 3), days: k => 1 + (k % 4) * 10 },
+  watch_bands: { why: 'the twelve on the bands (research splice)', side: true, engine: 'bands', origin: 'watch', cap: 12, faction: k => FACTIONS[k % 5], count: k => 6 + (k % 5), days: k => 1 + (k % 5) * 12 },
   wolfheavy: { why: 'the Lone Wolf in the door\'s heaviest kit (coat of plates, full helm), dogs only', side: true, origin: 'wolf', kit: { body: 'coat_of_plates', head: 'full_helm' }, faction: () => 'beasts', count: k => 2 + (k % 3), days: k => 1 + (k % 4) * 15 }
 };
 async function setupShape(ctx, shape, k, districts) {
@@ -259,6 +262,13 @@ function playWatched(ctx, meta) {
 
 /* a research engine: the live rules with one splice, each anchor matched exactly once or it stops (the fight moved) */
 const ENGINES = {
+  /* rule 187's bands as proposed (records/BOHEMIA_TUNING_EVERY_WEAPONS_RANGE_BANDS_10_26_26.md): the rifle -10 at the next tile, the
+     shotgun's blow whole to two tiles, x0.6 at three and x0.35 at four (a roof's extra reach; the pellets leave the torso past
+     25 yards); the pistol keeps Battle Brothers' thrown curve as it is */
+  bands: [["      ch = sk - df + base + per * Math.max(0, dist(a, t) - free);\n",
+    "      ch = sk - df + base + per * Math.max(0, dist(a, t) - free);\n      if (w.class === 'crossbow' && dist(a, t) <= 1) ch -= 10;\n"],
+    ["    let base = raw * injMult(a, 'damage_inflicted_pct');\n",
+    "    let base = raw * injMult(a, 'damage_inflicted_pct');\n    if (w.class === 'firearm' && dist(a, t) >= 3) base *= dist(a, t) >= 4 ? 0.35 : 0.6;\n"]],
   recover: [["    if (u.side === 'you') return false;   /* rule 180: AUTO moves, fires and strikes, nothing else; abilities are his */\n",
     "    if (u.side === 'you') { if (canUse(u, 'recover') && u.ap === u.apTurn && u.fat + skillFat(u, strikeSkill(u.weapon)) > fatMax(u)) return useSkill(u, 'recover'); return false; }\n"]]
 };
