@@ -49,6 +49,22 @@ struck_down_laid_up_days to [6, 8] with engine/bohemia_long_injury.js's LAID_UP_
   second Treat and no after column.
 - STRUCK DOWN, HE STILL FIGHTS reads its range from ours.json (S2: the fight's own fall() gives 6 to 8 now); its words say so.
 - THE REBUILT FIGHT PLAYS (COMBAT's) reads the range already; two leg labels said '30 to 40' and now print the range they check.
+- STRUCK DOWN, HE STILL FIGHTS 30/0; THE ROSTER SHOWS THE HURT 14/0, re-aimed (its first leg typed 30 to 40: red 13/1 on the new days,
+  'DESI down, 6 days' after; it reads the module's range now); THE ROSTER COUNTS WHO CAN FIGHT 6/0; THE CREW SCREEN AT FOURTEEN 21/0;
+  THE FACE SHOWS THE WOUND 29/0; THE HEAL BUTTON 16/0.
+- THE SETTLEMENT SCREEN 72/2 on this build and 72/2 twice on plain main (c71def86), the same two legs (the hiring posts' count moves
+  between runs: fortress 4 then 6, market day 4 then 6; 74/0 on main once, twenty minutes before): RUN TWO's recruitsHere, not the
+  clinic; NOTE on RUN TWO's board.
+- THE BROWSERLESS TIER (gates/bohemia_gates.py --pure) ran an hour and was stopped at its limit about row 600 of 1119; every red it
+  reached is red on main already (BUNDLE, GRAVEYARD, DISTRICT FILL, REPO BUDGET, MAP SIZE, STREET SOURCE, READABLE RULER, THREE BLOCKS,
+  FUTURE LEDGERS, PEOPLE CHARGE, THE ZOOM GOES THROUGH CLOUDS) but three speed gates (CLOCK RATE, LOADING IN PLAY, FPS ON A PHONE),
+  measured against main one at a time below.
+
+## 4. THE LAST UPLOAD
+Paolo 10/26 (records/BOHEMIA_PAOLO_EVERY_CHAT_STOPS_THE_LAST_UPLOAD_10_26_26.md): 'whatever each chat is doing have them finish their
+last task and stop'. This is CAMP's last task and its last upload; [the fight saves only at its start] (rule 233) is NOT started (its
+plan stays in records/BOHEMIA_CAMP_STRUCK_DOWN_HE_STILL_FIGHTS_AND_THE_CLINIC_HALVES_BOTH_10_26_26.md section 9), nor the EYES rows
+still OPEN on CAMP's board.
 
 [bb Battle Brothers: a struck-down man there keeps his permanent injury for life and nothing fresh; its temple's wounds heal in 1 to 9
 of its days. Ours keeps the mark for life and a fresh wound for 6 to 8 of our days, about the month of fights Battle Brothers would take.]

@@ -47,7 +47,8 @@ const srv = http.createServer((rq, rs) => {
     hurt = over.crew.find(c => c.down && !c.main && c.injury);
     if (hurt) console.log('     seed ' + seed + ': ' + hurt.name + ' down, ' + hurt.laidUpDays + ' days, ' + hurt.injury.name);
   }
-  ok('the fight strikes one of his down and says so (down, days, the injury)', !!hurt && hurt.laidUpDays >= 30 && hurt.laidUpDays <= 40, hurt && hurt.name);
+  /* the days are the fight's own roll over ours.json's range (6 to 8 of our days since rule 264(h)), never typed here */
+  ok('the fight strikes one of his down and says so (down, ' + LI.LAID_UP_DAYS_MIN + ' to ' + LI.LAID_UP_DAYS_MAX + ' days, the injury)', !!hurt && hurt.laidUpDays >= LI.LAID_UP_DAYS_MIN && hurt.laidUpDays <= LI.LAID_UP_DAYS_MAX, hurt && hurt.name + ' ' + hurt.laidUpDays);
   if (!hurt) { await b.close(); srv.close(); console.log('\nTHE ROSTER SHOWS THE HURT GATE: ' + pass + ' ok, ' + (fail) + ' failed'); process.exit(1); }
   /* 2. THE ROSTER */
   const p = await ctx.newPage(); p.on('pageerror', e => errs.push('roster: ' + e.message));
