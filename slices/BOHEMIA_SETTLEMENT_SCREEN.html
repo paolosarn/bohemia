@@ -3775,20 +3775,23 @@ function openB(k, line){
     var CW = window.BohemiaCondition ? BohemiaCondition.wounded() : [];
     if(CW.length && !(S.wounded && S.wounded.length)){
       var climbL = {}; try{ climbL = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}') || {}; }catch(e){}
-      body.appendChild(speak(k, line || 'Leave them with me. Half the days, and half of what the wound takes off him, if you can pay.'));
+      body.appendChild(speak(k, line || 'Let me see them. Half the days, and half of what the wound takes off him, if you can pay. They walk out with you.'));
       CW.forEach(function(cw){
         var cl = climbL[cw.name] || {}, w = { name: cw.name, days: cw.days, level: cl.level || 1 }, price = clinicPrice(w), medic = !!(S.hired && S.hired.medic);
-        var card = BohemiaInjuryCard.build(document, cw.injury, { clinic: true, medic: medic, price: price, priceWord: moneyWord(price) });
-        card.dataset.man = cw.name; card.dataset.clinic = 'card';
-        var who = document.createElement('div'); who.className = 'slots'; who.textContent = cw.name + (cw.treated ? ': treated, the days already cut' : ''); acts.appendChild(who);
+        /* ONE HALVING (rule 241(b); EYES [eyes: the clinic twice]: the treated card offered 'Treat DESI: 13 days to 7' for 26 more): a
+           wound the clinic already cut shows as it is now, says so, and is never offered again */
+        var card = BohemiaInjuryCard.build(document, cw.injury, cw.treated ? {} : { clinic: true, medic: medic, price: price, priceWord: moneyWord(price) });
+        card.dataset.man = cw.name; card.dataset.clinic = cw.treated ? 'treated' : 'card';
+        var who = document.createElement('div'); who.className = 'slots'; who.textContent = cw.name + (cw.treated ? ': TREATED. I already cut this one in half; the rest heals on the road.' : ''); acts.appendChild(who);
         acts.appendChild(card);
+        if(cw.treated) return;
         var af = BohemiaInjuryCard.after(cw.injury, medic);
         var bt = act('Treat ' + cw.name + ': ' + cw.days + ' days to ' + (af ? af.days : cw.days) + ', half the wound', moneyWord(price), function(){
           if(bats() < price) return openB('clinic', 'That is ' + price + ' batteries for ' + cw.name + '. You have ' + bats() + '.');
           P.debit(S.purse, 'electricity', price, 'clinic:' + cw.name, S.place.name, S.day);
           var t = BohemiaCondition.treat(cw.name, { medic: medic });
           post('clinic', {who:cw.name, before:cw.days, days:t ? Math.ceil(t.left - 1e-9) : cw.days, price:price, halved:true}); shelf();
-          openB('clinic', cw.name + ' stays with me. ' + (t ? Math.ceil(t.left - 1e-9) : cw.days) + ' days instead of ' + cw.days + ', and the wound bites half as hard. What he lost for good stays lost.');
+          openB('clinic', 'Done. ' + cw.name + ' walks out with you. ' + (t ? Math.ceil(t.left - 1e-9) : cw.days) + ' days instead of ' + cw.days + ', and the wound bites half as hard. What he lost for good stays lost.');
         }, cw.treated || bats() < price);
         bt.dataset.treat = cw.name; acts.appendChild(bt);
       });

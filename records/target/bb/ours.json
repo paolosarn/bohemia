@@ -32,10 +32,12 @@
  },
  "struck_down_laid_up_days": {
   "value": [
-   30,
-   40
+   6,
+   8
   ],
-  "source": "records/BOHEMIA_PAOLO_STRUCK_DOWN_HE_STILL_FIGHTS_AND_HIS_FACE_SHOWS_IT_10_26_26.md (VAMILY rule 234(b)) and laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md s2 (the 30 to 40 days)",
+  "source": "VAMILY rule 264(h) [COORDINATOR'S DEFAULT, rule 205, his to flip] and records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md s9 (the one table's struck.fresh.days): 'the struck-down debuff's fresh part lasts 6 TO 8 OF OUR DAYS (the same 30 to 40 fights' worth)', one of our days holding about five of Battle Brothers' (TUNING's measured 5.2, records/BOHEMIA_TUNING_HEALING_ON_OUR_CLOCK_10_26_26.md); from records/BOHEMIA_PAOLO_STRUCK_DOWN_HE_STILL_FIGHTS_AND_HIS_FACE_SHOWS_IT_10_26_26.md (VAMILY rule 234(b)) and laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md s2 (his 30 to 40 days, Battle Brothers' month, now on our clock)",
+  "was_days": "[30, 40] until 10/26 (rule 264(h)): Battle Brothers' days hour for hour, 156 to 208 of our fights",
+  "picked_by": "TUNING (the one table's struck.fresh.days 6 to 8, whole days, each as likely), moved here and in engine/bohemia_long_injury.js by CAMP 10/26",
   "quote": "(Paolo 10/26) they should just have that debuff... but they should still be able to be in combat",
   "why": "the days the FRESH WOUND of a struck-down man lasts (engine/bohemia_long_injury.js freshNow, records/target/bb/condition.json struck_down_fresh): its penalty falls from whole to nothing over them; they never keep him out of a fight. The key keeps its old name because the fight reads it",
   "was": "until 10/26 this row quoted 'a DEBILITATING INJURY that takes them out of fights for 30 to 40 game days' as if he said it; that was the coordinator's reading of his 'a debilitating injury', struck by rule 234 (he restarted runs without getting past the first day)"

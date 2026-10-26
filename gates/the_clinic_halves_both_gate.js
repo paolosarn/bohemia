@@ -3,13 +3,15 @@
    the debuff and the time as well... if I did take it to a clinic, I want it to be clear that it would half the days and half the
    debuff'.
    A man struck down (the company's condition fed the fight's own kind of end row through engine/bohemia_condition.js afterFight:
-   down, a wiki permanent mark, 34 days), then the town's clinic and the crew card, on the phone profile and the computer profile:
+   down, a wiki permanent mark, 7 days: rule 264(h)'s 6 to 8 of ours, odd so a rounded half could not pass for half the debuff),
+   then the town's clinic and the crew card, on the phone profile and the computer profile:
      C1 the clinic knows he is hurt (the live game never handed the town its hurt: the clinic reads the company's own condition)
      C2 THE WHOLE TRADE BEFORE HE PAYS: the wound's mark and its word; its debuff, one stat icon and a red DOWN arrow a cut; the days
-        on a clock; the clinic's after beside the now: the days cut in two (rounded up) and every arrow halved (the after's figures
+        on a clock; the clinic's after beside the now: the days cut in two (the clock rounds up) and every arrow halved (the after's figures
         are half the now's); what is his for life and that the clinic cannot touch it; then the price
-     C3 PAY (a real press on Treat): the batteries go down by the price; his wound's days left are half, rounded up, and its debuff
+     C3 PAY (a real press on Treat): the batteries go down by the price; his wound's days left are exactly half, and its debuff
         half for them (engine/bohemia_long_injury.js freshNow); his mark for life untouched; Treat is spent
+     C3b ONE HALVING (rule 241(b)): after the press the doc says he walks out with you; his card says TREATED, no second Treat
      C4 THE CREW CARD MATCHES: the crew screen's card shows the same days and the same halved arrows, and says the clinic already cut it
      C5 nothing threw
    node gates/the_clinic_halves_both_gate.js */
@@ -26,7 +28,7 @@ const srv = http.createServer((rq, rs) => {
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); }
   rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs);
 });
-const MAN = 'TOMAS', MARK = 'missing_eye', DAYS = 34;
+const MAN = 'TOMAS', MARK = 'missing_eye', DAYS = 7;
 const PROFILES = { phone_portrait: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true }, computer: { viewport: { width: 1280, height: 800 } } };
 /* the card's figures as drawn: each chip's stat and value (the hover's own words), each arrow's length, the days on its clock */
 const READ_CARD = (sel) => { const c = document.querySelector(sel); if (!c) return null;
@@ -52,9 +54,9 @@ async function run(b, profile) {
   const c1 = await q.evaluate((MAN) => ({ wounded: BohemiaCondition.wounded().map(w => w.name), card: !!document.querySelector('.injc[data-man="' + MAN + '"]') }), MAN);
   ok(P + 'C1 the clinic knows he is hurt, from the company\'s own condition', c1.wounded.indexOf(MAN) >= 0 && c1.card, JSON.stringify(c1));
   const card = await q.evaluate(READ_CARD, '.injc[data-man="' + MAN + '"]');
-  const fw = LI.freshNow(MARK, DAYS, DAYS), half = Math.ceil(DAYS / 2), fh = LI.freshNow(MARK, half, DAYS);
+  const fw = LI.freshNow(MARK, DAYS, DAYS), half = DAYS / 2, shown = Math.ceil(half), fh = LI.freshNow(MARK, half, DAYS);
   const nowOk = !!card && !!card.now && card.now.days === DAYS && card.now.chips.length === Object.keys(fw.effects).length && card.now.chips.every(c => c.down && c.icon);
-  const afterOk = !!card && !!card.after && card.after.days === half && card.after.chips.length === card.now.chips.length
+  const afterOk = !!card && !!card.after && card.after.days === shown && card.after.chips.length === card.now.chips.length
     && card.after.chips.every((c, i) => Math.abs(c.value) <= Math.ceil(Math.abs(card.now.chips[i].value) / 2) && Math.abs(c.value) >= Math.floor(Math.abs(card.now.chips[i].value) / 2) && c.len <= card.now.chips[i].len);
   ok(P + 'C2 THE WHOLE TRADE: the wound\'s mark and word, a stat icon and a red DOWN arrow a cut, the days on a clock, the clinic\'s after beside it (days halved, every arrow halved), his for life untouched, the price',
     !!card && card.drop && card.clock && /GRAZED EYE SOCKET/.test(card.head) && nowOk && afterOk && /FOR LIFE: MISSING EYE/.test(card.life) && /cannot touch/.test(card.life) && card.price > 0,
@@ -65,10 +67,18 @@ async function run(b, profile) {
   if (bt) { await tap(bt); await q.waitForTimeout(900); }
   const after = await q.evaluate((MAN) => { const m = BohemiaCondition.get().men[MAN]; return { left: m.wound && m.wound.left, of: m.wound && m.wound.of, marks: m.marks, treated: m.wound && m.wound.treated, said: (document.getElementById('sbody') || {}).innerText || '' }; }, MAN);
   const bats1 = await q.evaluate(() => +((document.body.innerText.match(/(\d+) BATTERIES/i) || [0, -1])[1]));
-  ok(P + 'C3 PAY (a real press on Treat): the price is paid, his wound\'s days left are half (rounded up) and its debuff half for them, his mark for life untouched',
+  ok(P + 'C3 PAY (a real press on Treat): the price is paid, his wound\'s days left are exactly half (the clock rounds up) and its debuff half for them, his mark for life untouched',
     !!bt && after.left === half && after.of === DAYS && JSON.stringify(after.marks) === JSON.stringify([MARK]) && !!fh && JSON.stringify(LI.freshNow(MARK, after.left, after.of).effects) === JSON.stringify(fh.effects)
       && fh.effects.ranged_skill_pct === Math.round(fw.effects.ranged_skill_pct * half / DAYS) && bats1 === before.bats - card.price,
     'days ' + DAYS + ' -> ' + after.left + '; debuff ' + JSON.stringify(fw.effects) + ' -> ' + JSON.stringify(fh && fh.effects) + '; batteries ' + before.bats + ' -> ' + bats1 + ' (price ' + (card && card.price) + ')');
+  /* C3b ONE HALVING (rule 241(b); EYES [eyes: the clinic twice]: on BUILD 10/26zq the treated card offered 'Treat DESI: 13 days to 7'
+     for 26 more and the doc said 'DESI stays with me'): the sheet the press leaves says he walks out with you, shows him TREATED with
+     his wound as it is now, and offers nothing more for him */
+  const again = await q.evaluate((MAN) => { const c = document.querySelector('.injc[data-man="' + MAN + '"]'), sb = (document.getElementById('sbody') || {}).innerText || '';
+    return { offer: !!document.querySelector('button[data-treat="' + MAN + '"]'), side: !!(c && c.querySelector('[data-side]')), kind: c && c.dataset.clinic, said: sb.slice(0, 400) }; }, MAN);
+  ok(P + 'C3b ONE HALVING: the doc says he walks out with you; his card says TREATED, shows the wound as it is now, and no second Treat is offered',
+    !again.offer && !again.side && again.kind === 'treated' && /walks out with you/.test(again.said) && /TREATED/.test(again.said) && !/stays with me/.test(again.said),
+    JSON.stringify(again));
   /* C4 the crew card matches */
   const r = await ctx.newPage(); r.on('pageerror', e => errs.push('crew: ' + e.message));
   await r.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html');
@@ -80,7 +90,7 @@ async function run(b, profile) {
     return { i, head: c ? (c.querySelector('b') || {}).textContent : null, clinic: c ? (c.querySelector('.clinic') || {}).textContent : null }; }, { MAN });
   const ccard = await r.evaluate(READ_CARD, '#card .hurtbox .injc');
   ok(P + 'C4 THE CREW CARD MATCHES: the same days and the same halved arrows the clinic left, and that the clinic already cut it',
-    !!ccard && crew.head === 'STRUCK DOWN, THE WOUND ' + half + ' OF ' + DAYS + ' DAYS' && ccard.now.days === half && JSON.stringify(ccard.now.chips.map(c => c.stat + c.value)) === JSON.stringify(card.after.chips.map(c => c.stat + c.value)) && /already cut the wound in half/.test(crew.clinic || ''),
+    !!ccard && crew.head === 'STRUCK DOWN, THE WOUND ' + shown + ' OF ' + DAYS + ' DAYS' && ccard.now.days === shown && JSON.stringify(ccard.now.chips.map(c => c.stat + c.value)) === JSON.stringify(card.after.chips.map(c => c.stat + c.value)) && /already cut the wound in half/.test(crew.clinic || ''),
     crew.head + ' / ' + JSON.stringify(ccard && ccard.now.chips.map(c => c.stat + c.value)) + ' / ' + crew.clinic);
   ok(P + 'C5 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | ') || 'no errors');
   await ctx.close();

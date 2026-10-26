@@ -9,7 +9,8 @@
 // A man struck down who lives wakes at one hitpoint, in the crew, and can be picked for the next fight. What he carries is a
 // DEBUFF in two parts, both Battle Brothers' own numbers off records/target/bb/injuries.json:
 //   THE MARK, for life: the permanent injury's own effects (the wiki's eleven), on him in every fight from the day he wakes;
-//   THE FRESH WOUND, for the 30 to 40 days: the temporary injury the mark grew out of (records/target/bb/condition.json
+//   THE FRESH WOUND, for 6 to 8 of our days (rule 264(h): his 30 to 40 were Battle Brothers' days; one of ours holds about
+//   five of theirs): the temporary injury the mark grew out of (records/target/bb/condition.json
 //   struck_down_fresh, one wiki row per mark), its whole penalty the day he wakes, falling in a straight line to nothing on
 //   the last of his days. 'days' below is how long the fresh wound lasts; it never keeps him out of a fight.
 // freshNow() is the wound as it stands today, already scaled, in the shape the fight's injMult reads; penalties() is the
@@ -26,7 +27,7 @@
 // lane), the odds are TUNING's rows, the fight's trigger is COMBAT's." THE
 // ODDS ARE ALREADY REAL AND SOURCED (records/target/bb/ours.json's
 // struck_down_death_chance 0.2, veteran_death_chance 0.1,
-// struck_down_laid_up_days [30, 40], all cited to the locked law or THE
+// struck_down_laid_up_days [30, 40] (6 to 8 of ours from rule 264(h)), all cited to the locked law or THE
 // THIRD VOTES); nothing to add there. THE FIGHT'S TRIGGER IS COMBAT'S OWN
 // CLAIMED ROW (VAMILY.md [struck down], combat-nfnki9), which names the
 // same card this module builds ("the roster shows the injury as one pain
@@ -78,9 +79,12 @@
   // cited to the locked law. Kept here as a constant pointed at that real
   // source (checked byte for byte by the gate), never a second number to drift.
   // From 10/26 (rule 234) they are the days THE FRESH WOUND lasts; the old
-  // names stay so nothing that reads them breaks.
-  var LAID_UP_DAYS_MIN = 30;
-  var LAID_UP_DAYS_MAX = 40;
+  // names stay so nothing that reads them breaks. From 10/26 too (rule
+  // 264(h), TUNING's struck.fresh.days) they are OUR days, 6 to 8: his 30 to
+  // 40 were Battle Brothers' month, and one of our days holds about five of
+  // theirs, so the same fights' worth is 6 to 8 of ours.
+  var LAID_UP_DAYS_MIN = 6;
+  var LAID_UP_DAYS_MAX = 8;
   var FRESH_DAYS_MIN = LAID_UP_DAYS_MIN, FRESH_DAYS_MAX = LAID_UP_DAYS_MAX;
 
   // THE REAL MARKS: loaded live off injuries.json in Node (the gate's own

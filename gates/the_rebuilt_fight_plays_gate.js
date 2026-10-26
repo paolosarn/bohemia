@@ -354,7 +354,7 @@ async function fight(F, first) {
   leg(R.fair, F.board + ': every swing rolled inside the wiki\'s 5 to 95 cap');
   leg(!R.mainDead, F.board + ': YOU are downed, never dead (rule 37)');
   const lu = OURS.struck_down_laid_up_days.value;
-  leg(R.hires.every(h => h === 'dead' || (h >= lu[0] && h <= lu[1])), F.board + ': a hire struck down is dead or carries a fresh wound for 30 to 40 days (rule 36b; rule 234: a debuff, never a bench)', R.hires.join(',') || 'nobody fell');
+  leg(R.hires.every(h => h === 'dead' || (h >= lu[0] && h <= lu[1])), F.board + ': a hire struck down is dead or carries a fresh wound for ' + lu[0] + ' to ' + lu[1] + ' days (rule 264(h); rule 36b; rule 234: a debuff, never a bench)', R.hires.join(',') || 'nobody fell');
   console.log('  ' + F.board + ': ' + R.c.hit + ' hits, ' + R.c.miss + ' misses, ' + R.c.head + ' to the head, ' + R.c.free + ' free swings, '
     + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.skill + ' perk skills used, ' + R.c.down + ' fell');
   const words = await ev(() => window.__words);
@@ -1265,7 +1265,7 @@ async function struckDown() {
     '*** WHO DIES, A LITTLE MORE PER MARK *** (his fifth votes): two carried marks die 26 to 34 in 100, six are capped at four marks (36 to 44), and a fall never hands a mark he already carries',
     'two marks ' + r.marked.two / 10 + '%, six marks ' + r.marked.six / 10 + '% (the cap)');
   leg(r.injured === 1000 - r.dead && r.ids.every(x => r.perm.indexOf(x) >= 0) && r.ids.length >= 8 && r.dMin >= r.range[0] && r.dMax <= r.range[1],
-    'every man who lives carries one of the wiki\'s permanent injuries (each as likely), its fresh wound 30 to 40 days', r.ids.length + ' of the ' + r.perm.length + ' drawn, ' + r.dMin + ' to ' + r.dMax + ' days');
+    'every man who lives carries one of the wiki\'s permanent injuries (each as likely), its fresh wound ' + r.range[0] + ' to ' + r.range[1] + ' days (rule 264(h))', r.ids.length + ' of the ' + r.perm.length + ' drawn, ' + r.dMin + ' to ' + r.dMax + ' days');
   leg(r.hire.inj && r.recap.toUpperCase().indexOf(r.hire.inj.toUpperCase()) >= 0 && r.recap.indexOf('STRUCK DOWN, STILL IN') >= 0 && r.recap.indexOf('LAID UP') < 0 && r.sent && r.sent.injury && r.sent.injury.name === r.hire.inj && r.sent.laidUpDays === r.hire.days,
     'the recap names his injury and says STRUCK DOWN, STILL IN (never LAID UP, rule 234(f)), and the message home carries the mark and its days for the roster\'s pain line', r.hire.name + ': ' + r.hire.inj + ', ' + r.hire.days + ' days' + (r.sent && r.sent.injury ? ' (' + r.sent.injury.line + ')' : ''));
   const INJ = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/injuries.json'), 'utf8')), mul = INJ.rules.temporary_threshold_formula.multipliers;

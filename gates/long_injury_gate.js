@@ -55,13 +55,18 @@ ok('*** LAID_UP_DAYS_MIN matches it exactly ***', L.LAID_UP_DAYS_MIN === OURS.st
 ok('*** LAID_UP_DAYS_MAX matches it exactly ***', L.LAID_UP_DAYS_MAX === OURS.struck_down_laid_up_days.value[1]);
 ok('the real law is actually cited on that row (not asserted)', OURS.struck_down_laid_up_days.source.indexOf('BOHEMIA_LAW_THE_FIGHT_GETS_DEEP') >= 0);
 ok('*** and the 10/26 ruling that struck the bench is cited too (rule 234) ***', OURS.struck_down_laid_up_days.source.indexOf('STRUCK_DOWN_HE_STILL_FIGHTS') >= 0);
+/* rule 264(h) (CAMP 10/26, TUNING's struck.fresh.days): the fresh wound runs on OUR clock, 6 to 8 of our days (his 30 to 40 were
+   Battle Brothers' month; one of our days holds about five of theirs); on the build before it every wound ran 30 to 40 */
+ok('*** THE DAYS ARE OURS: 6 to 8 of our days, rule 264(h) cited (was 30 to 40, Battle Brothers\' days hour for hour) ***',
+  JSON.stringify(OURS.struck_down_laid_up_days.value) === '[6,8]' && OURS.struck_down_laid_up_days.source.indexOf('264(h)') >= 0,
+  JSON.stringify(OURS.struck_down_laid_up_days.value));
 (function () {
   var N = 4000, out = 0;
   for (var i = 0; i < N; i++) {
     var d = L.rollDays('range-check:' + i);
     if (d < L.LAID_UP_DAYS_MIN || d > L.LAID_UP_DAYS_MAX) out++;
   }
-  ok('*** ' + N + ' rolls, ZERO land outside 30 to 40 ***', out === 0, out + ' out of range');
+  ok('*** ' + N + ' rolls, ZERO land outside ' + L.LAID_UP_DAYS_MIN + ' to ' + L.LAID_UP_DAYS_MAX + ' (rule 264(h): 6 to 8 of our days) ***', out === 0, out + ' out of range');
 })();
 
 head('B. ALL ELEVEN REAL PERMANENT MARKS ARE REACHABLE, NOTHING INVENTED, NOTHING TEMPORARY LEAKS IN');

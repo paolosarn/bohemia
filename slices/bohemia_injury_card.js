@@ -81,9 +81,10 @@
      fresh wound's share of its penalty (the share is the days left over its days, engine/bohemia_long_injury.js freshShare) */
   function after(inj, medic) {
     if (!inj || !inj.wound) return null;
-    var left = Math.max(1, Math.ceil(inj.wound.left / 2 - 1e-9) - (medic ? 1 : 0));
+    /* the clinic's own half (BohemiaCondition.halve: exact, rule 264(h)); the days on its clock rounded up like every count of days */
+    var h = inj.wound.left / 2, left = root.BohemiaCondition && root.BohemiaCondition.halve ? root.BohemiaCondition.halve(inj.wound.left, medic) : (medic ? Math.max(Math.min(1, h), h - 1) : h);
     var L = root.BohemiaLongInjury, fresh = L ? L.freshNow(inj.wound.mark, left, inj.wound.of) : null;
-    return { left: left, of: inj.wound.of, days: left, fresh: fresh, penalties: fresh ? Object.keys(fresh.effects).map(function (k) { var pct = /_pct$/.test(k);
+    return { left: left, of: inj.wound.of, days: Math.max(0, Math.ceil(left - 1e-9)), fresh: fresh, penalties: fresh ? Object.keys(fresh.effects).map(function (k) { var pct = /_pct$/.test(k);
       return { stat: pct ? k.replace(/_pct$/, '') : k, value: fresh.effects[k], unit: pct ? '%' : '', from: 'fresh' }; }) : [] };
   }
   function markName(id) { var L = root.BohemiaLongInjury, m = L && L.byId(id); return m ? m.name : id; }

@@ -34,7 +34,7 @@
    and when you heal them they go back up. They're still active... that's why I restarted hella runs... they should just have that
    debuff'). A man struck down who lives wakes at ONE HITPOINT and is in the company for the next fight; nothing here or anywhere
    holds him out. What the fight gave him is kept by name: his MARK for life (every one he has ever taken, the wiki's permanent
-   injuries) and his FRESH WOUND (the mark's own temporary injury, its 30 to 40 days counted down by the map's clock, its penalty
+   injuries) and his FRESH WOUND (the mark's own temporary injury, its 6 to 8 of our days (rule 264(h)) counted down by the map's clock, its penalty
    fading with them: engine/bohemia_long_injury.js freshNow). handOver gives the fight both (c.marks, c.fresh); the camp heals his
    hitpoints at the table's rates like any man's. ***
    Words are attempts, draft:true. */
@@ -299,10 +299,17 @@
       out.push({ key: k, name: m.shown || k, mark: m.wound.mark, left: m.wound.left, of: m.wound.of, days: Math.ceil(m.wound.left - 1e-9), treated: !!m.wound.treated, injury: injuryOf(m.shown || k) }); }
     return out;
   }
+  /* THE CLINIC'S HALF (rule 241; TUNING 10/26, rule 264(h): exact): what is left of the wound, cut in two exactly, so the debuff is
+     exactly half too (a rounded-up half of 7 days was 4 of 7 of the debuff); the hired medic a day more, never under one day or the
+     half, whichever is less. The days a card shows are this rounded up, as every count of days left is */
+  function halve(before, medic) {
+    before = +before || 0; if (!(before > 0)) return 0;
+    var h = before / 2; return medic ? Math.max(Math.min(1, h), h - 1) : h;
+  }
   function treat(name, ctx) {
     var s = get(), k = canon(name), m = s.men[k];
     if (!m || !m.wound || !(m.wound.left > 0)) return null;
-    var before = m.wound.left, left = Math.max(1, Math.ceil(before / 2 - 1e-9) - (ctx && ctx.medic ? 1 : 0));
+    var before = m.wound.left, left = halve(before, ctx && ctx.medic);
     m.wound.left = Math.min(before, left); m.wound.treated = (m.wound.treated | 0) + 1;
     put(s); notify();
     return { name: m.shown || k, before: before, left: m.wound.left, of: m.wound.of, injury: injuryOf(m.shown || k) };
@@ -402,7 +409,7 @@
   }
   /* ==== end __THE_SMITH_MENDS__ ==== */
   root.BohemiaCondition = { broken: broken, mend: mend, KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
-    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, bars: bars, drawHeadBars: drawHeadBars, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
+    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, halve: halve, bars: bars, drawHeadBars: drawHeadBars, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
     says: says, drawBar: drawBar, forget: forget, last: last };
   try { if (root.document) setTimeout(load, 0); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);

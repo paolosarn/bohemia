@@ -4,10 +4,10 @@
    I restarted hella runs... they should just have that debuff'; 'I'm gonna have to restart a run and I didn't even make it past the
    first day'.
    WHY THIS WALKS THE DEMO (rule 179): the cut he plays, phone and computer, two real fights in a row from the map's own road door.
-   The man is struck down by THE FIGHT'S OWN fall() (its 20 in 100 death roll, its wiki mark, its 30 to 40 days), never a row typed
+   The man is struck down by THE FIGHT'S OWN fall() (its 20 in 100 death roll, its wiki mark, its 6 to 8 of our days, rule 264(h)), never a row typed
    here; AUTO by a real press, LEAVE by a real press.
      S1 fight one: the fight's own fall() strikes his men down one by one (never YOU) until one lives; the fight ends
-     S2 the fight's end row for him is down with a wiki permanent mark and 30 to 40 days, and the company's condition keeps him at
+     S2 the fight's end row for him is down with a wiki permanent mark and ours.json's days (6 to 8), and the company's condition keeps him at
         ONE hitpoint, the mark for life, the fresh wound for those days
      S3 *** STILL IN THE CREW, ACTIVE *** the map's door hands him to the very next fight and he stands on its board, at exactly what
         he was handed (one hitpoint and what the clock healed between); nobody is held out for injury days
