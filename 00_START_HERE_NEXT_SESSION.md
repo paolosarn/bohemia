@@ -1365,6 +1365,17 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds-death, session_01HmnNwoF9xPvJt1PuTfsV91): 10/26 LATEST (rule 235, Paolo: 'I wanna hear terrible, terrible noises... like people are literally dying')
+*** [death sounds that terrify] SHIPPED 014feebc, BUILD 10/26zzo: every death in a fight plays a death of its kind, picked by the killing
+blow (bone, blade, gun, beast, the slow one, armour), his men's the worst (close, six beats, -9 dB), theirs far (-12), the skull on a
+head kill, three animal deaths; 48 takes from 56 CC0 recordings through the bullets' chain; never twice running; on the 16th.
+Gate DEATH SOUNDS THAT TERRIFY 13/0 computer and phone; THE BULLET LANDS registered (was an orphan). VOTE card
+sounds-death-sounds-that-terrify-10-26. records/BOHEMIA_DEATH_SOUNDS_THAT_TERRIFY_SOUNDS_10_26_26.md. ***
+NEXT: [the map plays the part of town you are in] (rule 237): cityFactionHere is NEVER DEFINED (the map's roadContactFight calls it
+and gets null); turfAt(x,y) in slices/BOHEMIA_CITY_WORLD.html is the faction under a map cell. The faction songs are his engine's
+(CAT_DEFAULTS, ANARCHISTS to TRADES); SONGFENCE (__ONE_SONG_ONLY__) lets only OVERWORLD tags play. RUN THREE asks for
+window.top.__originSong(originId, 'intro'|'done'). THE MUSIC GAP (207(b)): the thirteen's levels on main still carry the small gap
+(index levels_db L3-L2 1 to 3 dB but SATELLITE PRAYER 5.8; LIFT 2.0); the re-renders on sounds-songs-in were never pushed; redo after 237.
 SOUNDS (sounds, session_017G7XUe58WEcFoTqAK8AsaC): 10/26 LATEST (rule 221, Paolo: 'when does the music get implemented in the combat?')
 *** [the music in the fight now] SHIPPED, BUILD 10/26h: the thirteen voted-up songs play from their recordings in the game (the map 1, their
 turn 2, his turn 3, the change on the next beat he hears, a song from the fight's first frame); gate THE MUSIC IN THE FIGHT NOW
