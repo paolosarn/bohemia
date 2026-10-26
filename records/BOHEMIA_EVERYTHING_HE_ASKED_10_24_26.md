@@ -173,3 +173,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 155 | The fight saves only at its start, like Battle Brothers: a reload or crash puts me at the start of the same fight; nothing is saved until I'm back on the map | 233 | CAMP, EYES | 
 | 156 | A man struck down who lives stays in my crew at 1 HP and can still fight; healing brings him back up; he keeps the debuff; his portrait shows it (eye patch, bandage, ear or nose gone, blood, band-aid) | 234 | CAMP, PORTRAIT, TUNING, EYES | 
 | 157 | Deaths in a fight make terrible, terrifying sounds, many kinds (broken bones and the rest), in the game's own sound | 235 | SOUNDS, EYES | 
+| 158 | The game starts with a close-up of my squad, then in the closest town's settlement screen, not the map; the origin may pick where | 236 | RUN THREE, RUN TWO, EYES | 
+| 159 | Each origin gets its own song; put the faction songs in now as placeholders; on the map the music changes with the part of town I'm near | 237 | SOUNDS, WORLD, EYES | 
+| 160 | (the journal) Remake the faction songs later like the thirteen, keeping their intensities | 237(e) | SOUNDS | 
+| 161 | All buttons on the phone; tiny is fine; the phone NEVER gets longer; buttons read by icon, not colour; I can see where my jobs are, not the good ones nearby | 238 | UI TWO, UI, EYES | 
