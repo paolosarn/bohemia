@@ -36,13 +36,23 @@ drew (window.__MAP_BARS on the map, window.__HEADBARS in the town and the camp; 
 - slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's and RUN THREE's): headBarsDraw at the end of drawPeople, every frame.
 
 ## 4. THE GATE (rule 261(e)), gates/the_bars_over_their_heads_gate.js, on the cut he plays
-Phone and computer, 10/0:
+Phone and computer, 12/0:
 B1 THE MAP: YOU at 40 percent hit points, his man with armour at 60, his man at 95 of both: bars over the first two only, each fill
 his number over his maximum within a pixel (phone: YOU 6 of 16, the man 16/10 of 16). B2 AT 87 THEY GO: the third man at 86 carries
 bars, at 87 nothing. B3 IN A TOWN (through the map's door): the same over his men in the town's picture, none over YOU at 95.
 B4 AT CAMP: the camp heals an hour every half second at TUNING's x5 rates (rule 264(f)), so each man is read in the very frame the
 picture was drawn and the fill is judged against what he is that moment (the first try judged against the numbers seeded a second
-before, and the camp had already healed them past the line). B5 nothing threw. Registered in the suite as THE BARS OVER THEIR HEADS.
+before, and the camp had already healed them past the line). B5 nothing threw. B6 THE MAP DRAWS ONCE: ten heals in one beat on the map are one draw on the next frame, a heal while the map is
+drawing anyway adds none, and none under a town or the camp. Registered in the suite as THE BARS OVER THEIR HEADS.
+WHY B6: the first build asked the map for a whole draw on every heal, outside RUN's one-draw-a-frame fold (__ONE_RENDER_A_FRAME__,
+one draw is 0.4 to 0.7 s on a phone at 4x); on the march the clock heals every block, so the map drew twice. THE MAP ANSWERS AFTER
+BEGIN went red (M2 a 3.1 s freeze, M11) in the browserless pass; with the repaint folded into the next frame it is 12/0, the same as
+main. The town and the camp read the company's condition once a frame for all their men, not once a man.
+PRE-SHIP, measured against plain main d315168a in a second worktree, one browser at a time: every red of the browserless pass is red
+on main with the same legs (BUNDLE, DISTRICT FILL, REPO BUDGET, MAP SIZE, STREET SOURCE, THREE BLOCKS, FUTURE LEDGERS, PEOPLE
+CHARGE, NOTES SECTION, THE ZOOM GOES THROUGH CLOUDS C5, NOTHING COMES TWICE N1, THE FAR END D0, A FRESH PHONE SEES THE DOOR F0 F1,
+THE MAP HEARS H5, A FEW NOT TWELVE P3 P4, READABLE RULER); THE MAP ANSWERS AFTER BEGIN 12/0 on both. CAMP's: THE HEAL BUTTON 16/0,
+STRUCK DOWN HE STILL FIGHTS 30/0, THE CLINIC HALVES BOTH 10/0, LONG INJURY 55/0.
 Screens looked at on the phone: the map (two bars over YOU and the hurt man, none over the whole one), the camp (two bars over the
 two hurt men round the fire, none over YOU); the VOTE picture is those two side by side.
 

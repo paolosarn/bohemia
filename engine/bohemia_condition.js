@@ -333,17 +333,17 @@
      anymore... I need to see how everyone's healing'). One man's two bars from what this file keeps for him: his hit points and his
      armour (helmet and body together) over their maxima; shown when either is under 87 percent (records/target/bb/condition.json
      bars_hide_at, his number); a man no fight has touched is whole and shows nothing. Found by his name, or by his look (the map and
-     the town draw a man by his look), or YOU */
-  function recordFor(o) {
-    o = o || {}; var s = get();
+     the town draw a man by his look), or YOU. s: the condition already read (a picture drawing many men reads it once a frame) */
+  function recordFor(o, s) {
+    o = o || {}; s = s || get();
     if (o.main) return s.men.YOU || null;
     var k = o.name ? canon(o.name) : '';
     if (k && s.men[k]) return deadIn(s, k) ? null : s.men[k];
     if (o.look) for (var kk in s.men) if (s.men[kk] && s.men[kk].look === o.look && !s.men[kk].main && !deadIn(s, kk)) return s.men[kk];
     return null;
   }
-  function bars(o) {
-    var r = recordFor(o); if (!r || !(r.hpMax > 0)) return null;
+  function bars(o, s) {
+    var r = recordFor(o, s); if (!r || !(r.hpMax > 0)) return null;
     var hp = Math.max(0, r.hpMax - (r.lostHp || 0)), armMax = (r.armHMax || 0) + (r.armBMax || 0), arm = Math.max(0, armMax - (r.lostH || 0) - (r.lostB || 0));
     var hpF = Math.max(0, Math.min(1, hp / r.hpMax)), armF = armMax > 0 ? Math.max(0, Math.min(1, arm / armMax)) : 1, cut = RATE.bars_hide_at;
     return { hp: hp, hpMax: r.hpMax, arm: arm, armMax: armMax, hpF: hpF, armF: armF, show: hpF < cut || (armMax > 0 && armF < cut) };

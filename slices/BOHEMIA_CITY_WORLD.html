@@ -47362,11 +47362,12 @@ function mapInkTop(im){
 }
 function mapHeadBarsQueue(who, x, bottom){
   if(!window.BohemiaCondition || !BohemiaCondition.bars) return;
-  var b = BohemiaCondition.bars(who); if(!b || !b.show) return;
+  var __t = performance.now(); if(!MAP_BARS.st || __t - MAP_BARS.stAt > 40){ MAP_BARS.st = BohemiaCondition.get(); MAP_BARS.stAt = __t; if(MAP_BARS.q.length > 12) MAP_BARS.q = []; }   /* read once a draw, not once a man (and never a draw old) */
+  var b = BohemiaCondition.bars(who, MAP_BARS.st); if(!b || !b.show) return;
   MAP_BARS.q.push({ b: b, x: x, y: bottom, who: who.main ? 'YOU' : (who.look || who.name || '') });
 }
 function mapHeadBarsDraw(){
-  var q = MAP_BARS.q; MAP_BARS.q = []; var drew = [];
+  var q = MAP_BARS.q; MAP_BARS.q = []; MAP_BARS.st = null; var drew = [];
   q.forEach(function(e){ var d = BohemiaCondition.drawHeadBars(g, e.x, e.y, e.b, { w: 16, h: 2 }); if(d){ d.who = e.who; drew.push(d); } });
   try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.bars = drew; window.__MAP_BARS = { at: Date.now(), drew: drew }; }catch(_e){}
 }
