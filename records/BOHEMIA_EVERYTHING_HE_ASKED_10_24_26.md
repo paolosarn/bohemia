@@ -196,3 +196,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 178 | The weapon stats card is ugly: remake it as icons with bars, not lines of numbers | 251(b) | UI THREE, EYES | 
 | 179 | Every perk has an icon, everywhere, next to its words | 252 | UI THREE, COOK, EYES | 
 | 180 | On the lineup screen I can always retreat at once, before anyone moves, whatever the odds; no first turn | 253 | COMBAT, CAMP, EYES | 
+| 181 | The job's bloody button uses the same calculator and scale as AUTO's colour: bloodiest when I'd lose men or men would fall | 254 | WORLD, TUNING, EYES | 
+| 182 | The danger ramps with the days, up to about day 50; no six-wolf jobs early, nothing that kills a Lone Wolf in his first weeks | 255 | WORLD, TUNING, EYES | 
