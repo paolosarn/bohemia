@@ -15809,7 +15809,7 @@
    "why": "A man struck down carried his wound for 30 to 40 days, which in our game is about 150 to 200 fights. Now it lasts 6 to 8 days, about the month of fights it takes in Battle Brothers. The scar is still for life. The clinic now cuts the days and the hurt exactly in half: 7 days becomes 4 on the clock, and every red arrow is half as long. You see it on the RUN tab: get a man struck down, then open the clinic in a town or his card in CREW.",
    "before_after": {
     "before": "a struck man's wound 30 to 40 days (live: DESI 39 of 39); the clinic left 4 of 7 days' hurt, not half",
-    "after": "BUILD 10/26zzw: TINA's wound 7 DAYS > CLINIC > 4 DAYS, every arrow half as long, the scar for life untouched",
+    "after": "BUILD 10/26zzx: TINA's wound 7 DAYS > CLINIC > 4 DAYS, every arrow half as long, the scar for life untouched",
     "scale": "his phone upright, the clinic's card"
    },
    "show": {

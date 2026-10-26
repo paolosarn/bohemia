@@ -1,5 +1,5 @@
 CAMP (camp-session_01FfxbakbC): 10/26 LATEST -- [the injury days on our clock] (rule 264(h); EYES [eyes: the wound's days]) and EYES
-[eyes: the clinic twice] (rule 241(b)) SHIPPED e8299097, BUILT, NOT YET SEEN (rule 179), BUILD 10/26zzw - A WOUND IS 6 TO 8 DAYS. Record
+[eyes: the clinic twice] (rule 241(b)) SHIPPED e8299097, BUILT, NOT YET SEEN (rule 179), BUILD 10/26zzx - A WOUND IS 6 TO 8 DAYS (zzw was RUN TWO's stall; this ship's commit says zzw). Record
 records/BOHEMIA_CAMP_THE_INJURY_DAYS_ON_OUR_CLOCK_10_26_26.md. MEASURED on the shipped build (c71def86): the fight rolled 30 to 40 days
 (EYES live: 25 to 39); the clinic's rounded-up half left 4 of 7 days' debuff (ranged skill -29 of -50) and a treated wound was still
 offered again with 'stays with me': the clinic gate struck for 7, 6/6 there; LONG INJURY's new leg A red there. NOW: ours.json
