@@ -84,9 +84,19 @@ stars at 0.50); the nine's two-skull jobs won 100, clean 65 (two stars). In the 
 A man down is laid up 30 to 40 days and dies one time in five (rule 36b); with twelve men that is the cost of a routine day, and
 Battle Brothers' own skulls never count it. PROPOSED (a change to 208(a)'s words, so the coordinator's, then his): the star's number
 is the chance he comes home with NOBODY DEAD AND NO MORE THAN ONE MAN IN SIX LAID UP (a crew under six: nobody down, the reading as
-ruled; six to eleven men: one; twelve: two). For a crew under six the two readings are the same number, so the cut-offs above hold
-for both. The second pass (the same 200 jobs, the six, the nine and the twelve played again with deaths and downs counted run by
-run) is running into the bank (readOk, ok, deaths); until it lands, the cut-offs for a big crew are the same 0.95 / 0.50.
+ruled; six to eleven men: one; twelve: two). For a crew under six the two readings are the same number.
+THE SECOND PASS (the six, the nine and the twelve's 99 jobs played again, deaths and downs counted run by run; bank fields readOk, ok,
+deaths): clean / the proposed reading / won / a man of his DEAD, in 100 plays:
+| crew | 1 skull | 2 skulls | 3 skulls |
+|---|---|---|---|
+| six at level 3 | 68 / 84 / 100 / 8 | 58 / 74 / 94 / 14 | 17 / 26 / 57 / 49 |
+| nine at level 5 | 84 / 94 / 100 / 4 | 65 / 80 / 100 / 12 | 23 / 40 / 83 / 38 |
+| twelve at level 8 | 45 / 68 / 97 / 24 | 38 / 46 / 71 / 45 | 41 / 53 / 92 / 35 |
+- THE CUT-OFFS HOLD ON THE PROPOSED READING: at 24 runs, 0.95 / 0.50 gives 75 one-star jobs (pooled 98, no lie), 41 two-star (72),
+  84 three-star (14, one borderline at 65); the draft 0.90 / 0.60 lies on 6. One pair of cut-offs serves both readings.
+- AND THE BIG CREW BLEEDS: in its big-crew jobs a man of his dies in 25.5 of 100 plays (the twelve 35, the nine 18, the six 24); the
+  twelve's routine one-skull job, won 97 in 100, kills one of his men 24 times in 100. The proposed reading keeps every death in the
+  star (nobody dead is part of it), so that job reads two red stars (68), not one and not three: the truth.
 
 
 ## 5. WHAT PROVES US WRONG
