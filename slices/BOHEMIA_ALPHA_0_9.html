@@ -1563,7 +1563,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26zc - STRUCK DOWN, HE STILL FIGHTS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26zg - THE DEAD CARRY TAPE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12591,7 +12591,8 @@ function nfAfterKeep(d){
    to the loot screen before allowing him to return to the worldmap', the library's dev blog): after a WON fight the card
    stands two beats, then THE SPOILS (slices/BOHEMIA_SPOILS_SCREEN.html) lies over the fight and WAITS: who grew, who is hurt,
    what they left, LOOT ALL into the stash; LEAVE takes him home. A tap on the card opens it at once; nothing goes home past
-   it. The counts it hands back (batteries, rounds and scrap) are credited to the map's purse here, once.
+   it. The counts it hands back (batteries and rounds) are credited to the map's purse here, once; its tape (rule 276(a), what was
+   'scrap') goes straight into the company's tape on the screen itself.
    AMENDED 10/25 (rule 164 item 28, Paolo 10/24 on his PC: 'it goes away way too quickly, I can't read it'): EVERY fight's end is
    this ONE screen, won, lost, pulled out or wiped: the result, the fight's own numbers (its recap card's head, rounds, time,
    who killed and bled what), the crew's XP and level-ups, and the loot when there is any; it opens the moment the fight
@@ -12613,26 +12614,53 @@ function spoilsOpen(){
   f.addEventListener('load', send);
   return true;
 }
-/* the counts take no room: batteries to the purse's electricity, rounds and scrap to its resources, each once by its seq */
+/* the counts take no room: batteries to the purse's electricity, rounds to its resources, each once by its seq */
 function spoilsPay(m){
   var key = String(m.seq || SPOILS.seq); if(SPOILS.paid[key]) return false; SPOILS.paid[key] = true;
   var cf = document.getElementById('cityFrame'), w = cf && cf.contentWindow;
   try{ if(!w || !w.BohemiaPurse || typeof w.purseGet !== 'function') return false;
     var day = typeof w.loopDay === 'function' ? w.loopDay() : (NF.day | 0);
     if((m.batteries | 0) > 0) w.BohemiaPurse.credit(w.purseGet(), 'electricity', m.batteries | 0, 'loot: cells off their bodies', 'loot:' + key + ':cells', day);
-    if((m.resources | 0) > 0) w.BohemiaPurse.credit(w.purseGet(), 'resources', m.resources | 0, 'loot: ' + (m.rounds | 0) + ' rounds, ' + (m.scrap | 0) + ' scrap', 'loot:' + key + ':goods', day);
+    if((m.resources | 0) > 0) w.BohemiaPurse.credit(w.purseGet(), 'resources', m.resources | 0, 'loot: ' + (m.rounds | 0) + ' rounds', 'loot:' + key + ':goods', day);
     try{ if(typeof w.__barPaintRead === 'function') w.__barPaintRead(); }catch(_e){}
     try{ if(typeof w.saveNow === 'function') w.saveNow('loot'); }catch(_e){}
   }catch(_e){ return false; }
   return true;
 }
 function spoilsClose(){ try{ if(SPOILS.wrap) SPOILS.wrap.remove(); }catch(_e){} SPOILS.wrap = null; SPOILS.frame = null; }
+/* SCRAP IS TAPE (RUN FOUR [scrap is tape], rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap, why am
+   I not getting more duct tape for my armour'): an old save's loot scrap sits in the purse's resources as 'loot: N rounds, M scrap'; each
+   such entry gives M times ECONOMY's rolls a wrecked piece (records/target/bb/tape_income.json salvage.tape_per_scrap: 'an old save's
+   scrap converts at the same two') to the company's tape (bohemia.supplies.v1), once (the refs kept in bohemia.scrap.tape.v1), as the
+   map comes up and after every fight. The purse's resources are left as they were (nothing he uses reads them). */
+var SPOILS_TAPE = { per: null, asked: false };
+function spoilsScrapToTape(){
+  if(SPOILS_TAPE.per === null){
+    if(!SPOILS_TAPE.asked){ SPOILS_TAPE.asked = true;
+      fetch('../records/target/bb/tape_income.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+        var v = j && j.salvage && j.salvage.tape_per_scrap && j.salvage.tape_per_scrap.value; SPOILS_TAPE.per = typeof v === 'number' ? v : 0; }, function(){ SPOILS_TAPE.asked = false; }); }
+    return null;   /* not yet: the number is not in */
+  }
+  if(!(SPOILS_TAPE.per > 0)) return 0;
+  var cf = document.getElementById('cityFrame'), w = cf && cf.contentWindow, pu = null, sw = null, done = {}, n = 0;
+  try{ pu = w && typeof w.purseGet === 'function' ? w.purseGet() : null; }catch(_e){ pu = null; }
+  if(!pu || !Array.isArray(pu.entries)) return null;
+  try{ sw = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); done = JSON.parse(localStorage.getItem('bohemia.scrap.tape.v1') || '{}') || {}; }catch(_e){}
+  if(!sw) return null;
+  pu.entries.forEach(function(e){ var m = e && /^loot: \d+ rounds, (\d+) scrap$/.exec(String(e.reason || '')), ref = e && e.ref;
+    if(!m || !ref || done[ref] !== undefined) return; done[ref] = +m[1] * SPOILS_TAPE.per; n += +m[1] * SPOILS_TAPE.per; });
+  if(n > 0){ sw.tape = (sw.tape | 0) + n; try{ localStorage.setItem('bohemia.supplies.v1', JSON.stringify(sw)); }catch(_e){} try{ if(typeof w.__barPaintRead === 'function') w.__barPaintRead(); }catch(_e){} }
+  try{ localStorage.setItem('bohemia.scrap.tape.v1', JSON.stringify(done)); }catch(_e){}
+  return n;
+}
+window.spoilsScrapToTape = spoilsScrapToTape;
+(function(){ var k = 0, t = setInterval(function(){ k++; var r = null; try{ r = spoilsScrapToTape(); }catch(_e){} if(r !== null || k > 60) clearInterval(t); }, 2000); })();
 /* LEAVE, from outside the screen (a checker that walks past the spoils to the next fight) */
 function spoilsLeave(){ SPOILS.left = true; spoilsClose(); return nfHome(); }
 window.spoilsLeave = spoilsLeave;
 window.addEventListener('message', function(ev){
   var m = ev && ev.data; if(!m || m.type !== 'BOHEMIA_SPOILS' || !SPOILS.frame || ev.source !== SPOILS.frame.contentWindow) return;
-  if(m.act === 'counts') spoilsPay(m);
+  if(m.act === 'counts'){ spoilsPay(m); try{ spoilsScrapToTape(); }catch(_e){} }
   if(m.act === 'leave'){ SPOILS.left = true; spoilsClose(); nfHome(); }
 });
 /* ==== end __THE_SPOILS__ ==== */

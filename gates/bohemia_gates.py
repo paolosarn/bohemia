@@ -2804,6 +2804,11 @@ GATES = [
      'recover job\'s label walks onto it and the pickup says so over the crew; GET PAID walks to the client; the patrol\'s next post '
      'labelled once and walked; one job, one time on the phone and the board; men, never mans, no counted blocks; the last read\'s red '
      'stars stand, pulsing, while a changed crew is read again.', True),
+    ('PAID AT THE TOWN\'S EDGE', ['node', 'gates/paid_at_the_towns_edge_gate.js'],
+     'WORLD [paid at the town\'s edge], rule 275(a)(d) (PAOLO 10/26: "as long as I get in the territory of the town I should get '
+     'paid, I don\'t wanna have to enter the settlement mode"). On the demo: a return walked past the client\'s town is paid on the '
+     'step over its edge, the batteries on the bar, the town\'s screen never opened; walked to the town, paid on the step that '
+     'reaches its edge, before any screen; nothing paid twice.', True),
     ('PAID ONLY FOR THE WORK', ['node', 'gates/paid_only_for_the_work_gate.js'],
      'WORLD [eyes: paid without the fight], EYES round three line 138, rule 198(g) (FALL BACK from an ambush and one tap on the '
      'place paid 60 batteries). On the demo, a finger on the meet card: the ambush where the place was, the ones holding the '
@@ -9653,6 +9658,13 @@ GATES = [
      "LEVEL UP and PICK A PERK; pieces off the dead; LOOT ALL (a real tap) into the stash, the counts into the purse once; PICK A "
      "PERK opens the one crew screen, a perk taken, the looted weapon into a man's hand; LEAVE home; the door and the next road "
      "fight hand him the looted weapon. green at registration, 19/0, about 2 min", True),
+    ('SCRAP IS TAPE', ['node', 'gates/scrap_is_tape_gate.js'],
+     "RUN FOUR gate, 10/26, row [scrap is tape] (rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap, why am I not getting more "
+     "duct tape for my armour... this run's over'). MEASURED before: the loot counted SCRAP into the purse's resources, which nothing he uses reads; the company's tape "
+     "never rose after a fight. HOLDS: the loot file's count is TAPE, two rolls a wrecked piece (ECONOMY's tape_income.json); the screen on a phone and a computer says "
+     "TAPE with the tape roll, LOOT ALL raises the company's tape (bohemia.supplies.v1) by it once, no 'scrap' on the screen; the live demo on both after a road fight "
+     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. AND [tape in the loot] (rule 271(a)(c)): 400 rolled fights, every man "
+     "of theirs killed carried ECONOMY's two or three rolls in his kit, every fight with a kill leaves tape, nothing off the men who ran or a beast. about 4 min", True),
     ('OPTIMIZE LOOT', ['node', 'gates/optimize_loot_gate.js'],
      "RUN FOUR gate, 10/26, rows [optimize loot] and [one tap selects, two taps take] (rules 244, 249, Paolo 10/26: 'an optimize loot button at the end of battle "
      "screen... if my inventory is full but there are ten more things that could be taken... it takes the things in your inventory that are sellable at the lowest "
@@ -9935,6 +9947,10 @@ GATES = [
      "RUN TWO gate, 10/25, row [the shop says what it does to your man] (rule 202, Paolo 10/25: 'in the shop you cannot just say how many batteries it costs without saying the stat it does... when you wear the shield it reflects in your stats'). "
      "MEASURED before: a shield's card said 'holds 16 weight 4', never its defences; every shield under 40 'a car door'; nothing on a man; the crew screen without what he wears. HOLDS on the demo through Church's door by real taps: every shield, armour and helmet row its own name, none alike, the object word in it, shop, crew screen and icons agreeing; "
      "a shield's card its own numbers with UI's stat icons; ON A MAN before and after equal to a sum from the files; a face tapped shows another man; armour and weapon cards (a pistol's damage the fight's shot); bought and put on by real taps, the crew screen shows exactly the shop's numbers, and the fight stands him with the same; the computer. about 4 min", True),
+    ('TAPE AT EVERY STALL', ['node', 'gates/tape_at_every_stall_gate.js'],
+     "RUN TWO gate, 10/26, row [tape at every stall] (rules 265(a), 276(b), Paolo 10/26: 'all stalls, no matter the settlement, always sell at least a stack of duct tape... it almost makes the game unplayable'; 'I made it to day four and couldn't find anywhere to get repair items, duct tape'). "
+     "MEASURED before: no stall sold tape anywhere. HOLDS on the demo, a new game, real taps: the first town's stall shows a roll and a stack of 20 with the tape icon at ECONOMY's price, its shelf ECONOMY's tapeShelf (a stack at least); a roll and a stack go into TAPE and out of the purse; "
+     "days 2 to 5 on the map's own clock the stall sells tape every day and is full again on the restock; all 14 home bases have tape on the stall; the computer by a click. about 3 min", True),
     ('WHAT YOU BUY GOES ON THE MAN', ['node', 'gates/what_you_buy_goes_on_the_man_gate.js'],
      "RUN TWO gate, 10/26, row [what you buy goes on the man] (rule 210, Paolo 10/26: 'I love the idea of shopping for something and seeing where it's best ranked for your company, but then if I buy it, depending on whichever person I select it looks best on, it auto-equips to them'). "
      "MEASURED before: BUY put every piece in the stash, and a new game has no crew-screen files until the crew screen is opened once. HOLDS on the demo through Church's door, a new game, real taps: the card shows it on a man and BUY names him, 'to the stash' under it, both 44 points; "

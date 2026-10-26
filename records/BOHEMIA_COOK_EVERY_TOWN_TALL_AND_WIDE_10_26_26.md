@@ -45,8 +45,24 @@ doors (where a keeper stands and where he walks in) and every tap's box from the
 - settlement_ground.json towns[<name>]: .wide and .tall, each {src, night_src, px, hotspots, boxes, doors, entrance}.
 - settlement_walk.json pictures[<src>].blocks for all 56.
 
-## MEASURED
-(filled from the gates below)
+## MEASURED (so far; the record is rewritten when the wide re-lay ships)
+- The wide half (0cc15f6c): every pair of the fourteen under 0.70 likeness, the most alike Church ~ Reds 0.607 (the tier's two old
+  pictures read 0.78 to 0.90); the heart Church 4, Mob 3, Reds 4 buildings of 12 m and more off the top, the edge's tallest 8.6 m;
+  median colour 3.7 to 13.5; every night darker with its pools. EVERY TOWN SCREEN ITS OWN 7/8: the walk leg named three feet the 10/25
+  layout covers (a semi before Caravans' stall, a wall before Cartel's posts, the tier boxes a little above their buildings): the re-lay.
+- The upright half (cb2c18c6): EVERY TOWN TALL AND WIDE 7/10 on the first ship: the same buildings (dropped, named: Church's and
+  Reds' east blocks, Mob's west tower, Cartel's second storage row, Network's third dish: the narrow frame's filler), never a crop
+  or bars, nothing he taps under the phone upright, turning keeps the door, no two alike upright (most alike Network ~ Remnants
+  0.639), night. Homeless upright re-rendered with its wash's concrete and dry bed as wide: its own wide nearest in colour, 0.925
+  against the next 0.793.
+- THE CHECK BEFORE THE RENDER refused eleven upright layouts and three wide ones and named what stood in the way: cars parked before
+  shop doors, a 7 m water tank before a smith, a hoist's beam over the posts, a house behind a house (its door hidden), a stall
+  before a barber's door, a tent and a water bladder before two notice boards, the church's tower over the lot, hiring posts across
+  the street's end, a razor wire before the posts' feet; each moved and the town checked again.
+- RULE 279 (Paolo 10/26, after the first ship): a KEEPER's door is checked too, with UI TWO's real phone (124 x 276 points, 0.9 on
+  its side, 1.25 on a computer): nine upright towns had a keeper in a corner (the town tier's smith and armourer on the front walk,
+  the fortress's posts): the front walk up without its awnings, the posts a row up; re-rendering. One composition clears both
+  corners, so the phone's side needs no twin.
 
 ## THE GATES
 - EVERY TOWN SCREEN ITS OWN (gates/every_town_screen_its_own_gate.py): the wide half, 10/25's eight legs.

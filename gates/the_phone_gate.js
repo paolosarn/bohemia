@@ -359,6 +359,19 @@ async function side(profile) {
       U = await under([fr, sf]);
       ok('  no press of the town lies under the phone (LEAVE stands over it)', !U.length, U.join(' | ') || 'none');
       SIZES.town = two(T);
+      /* rule 279(b): the town re-lays in the same beat when the side changes, so the town's own page hears it at once: one source
+         (BOH_PHONE_RECT, BohemiaPhone.side() in its own frame) and one event ('bohemia-phone', detail.side) */
+      if (sd === 'right') {
+        await sf.evaluate(() => { window.__sideEv = []; window.addEventListener('bohemia-phone', e => { window.__sideEv.push({ side: e.detail && e.detail.side, t: performance.now() }); }); });
+        const t0 = await sf.evaluate(() => performance.now());
+        await p.evaluate(() => BohemiaPhone.setSide('left'));
+        const flip = await sf.evaluate((t0) => { const r = BOH_PHONE_RECT(), ev = window.__sideEv.filter(e => e.side === 'left')[0];
+          return { side: r.side, sideCall: BohemiaPhone.side(), left: r.left, W: innerWidth, ev: !!ev, ms: ev ? Math.round(ev.t - t0) : null }; }, t0);
+        await p.evaluate(() => BohemiaPhone.setSide('right')); await p.waitForTimeout(300);
+        const back = await sf.evaluate(() => ({ side: BOH_PHONE_RECT().side, n: window.__sideEv.length }));
+        ok('  the side changed in a town: the town\'s own page hears it in the same beat (one event, one rectangle, one side)', flip.ev && flip.ms !== null && flip.ms <= 500 && flip.side === 'left' && flip.sideCall === 'left' && flip.left < flip.W / 2 && back.side === 'right',
+          JSON.stringify(flip) + ' back ' + back.side);
+      }
       { const ks = Object.keys(SIZES), base = SIZES.map || {}, eq = (a, b) => !!a && !!b && Math.abs(a[0] - b[0]) <= TOL && Math.abs(a[1] - b[1]) <= TOL;
         ok('  PLAY/PAUSE and HEAL are on the phone at one size on every screen (232(b): ' + ks.join(', ') + ')', !!base.play && !!base.heal && ks.every(k => eq(SIZES[k].play, base.play) && eq(SIZES[k].heal, base.heal)),
           ks.map(k => k + ' ' + JSON.stringify(SIZES[k])).join(' | ')); }

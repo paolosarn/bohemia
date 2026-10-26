@@ -131,7 +131,7 @@ def lay_town(town, pl, K):
     n = town['name']
     BY = 44.0                                                          # the back row's front
     L, Mx, Rx = (18.2, 25.8), (26.0, 33.8), (34.0, 41.8)
-    FY = 16.0                                                          # the front walk's row (one storey, 3.5 deep): its roof plant stays under a man at the posts
+    FY = 18.6                                                          # the front walk's row (one storey, 3 deep, no awning): its keepers' steps clear the phone (rule 279), its roof plant under a man at the posts
     pl.boxes['lot'] = (25.6, 34.4, 19.5, 25.5, 0.0)
     pl.boxes['build'] = (26.0, 41.4, 37.4, 42.2, 0.0)                # on the street, as wide
     def lamp(x, y, kind='lamp.glb'): pl.lamp(x, y, kind)
@@ -142,8 +142,8 @@ def lay_town(town, pl, K):
         pl.here('bar', block, K, 'bar', *L, BY, 14, 6, 'shop', accent=K.fac, sign=(25.0, K.fac))
         pl.here('barber', block, K, 'barber', *Mx, BY, 16, 5, 'shop', wall=K.concrete_warm, accent=K.fac_dark)
         pl.here('clinic', block, K, 'clinic', *Rx, BY, 16, 7, 'shop', accent=K.fac, sign=(41.0, K.bone))
-        pl.here('smith', block, K, 'smith', 18.3, 24.6, FY, 3.5, 1, 'shop', accent=K.fac_dark)
-        pl.here('armourer', block, K, 'armourer', 35.4, 41.7, FY, 3.5, 1, 'office')
+        pl.here('smith', block, K, 'smith', 18.3, 24.6, FY, 3.0, 1, 'shop')
+        pl.here('armourer', block, K, 'armourer', 35.4, 41.7, FY, 3.0, 1, 'office')
         pl.here('church', church_small, K, 'church', 26.0, 34.5, 2.0, 5.5, 3.0, 11.0, K.fac_dark, K.fac)     # in front, its tower short of the lot
         pl.here('soup', soup_line, K, 'soup', 21.5, 6.5)
         for k, (x, y) in enumerate(((36.0, 6.2), (36.2, 3.8))): pl.model('graveyard_grave_row_%d.glb' % (k % 4), x + 1.0, y, None, 0.0, 0.55)
@@ -166,8 +166,8 @@ def lay_town(town, pl, K):
             P.box(bpy, 'banner', K.fac, (1.2, 0.03, 3.6), (x0 + 1.9, yf - 1.65, 3.4)); P.box(bpy, 'banner2', K.fac, (1.2, 0.03, 3.6), (x1 - 1.9, yf - 1.65, 3.4))
         pl.here('clinic', bank)
         pl.here('cashing', block, K, 'cashing', 25.8, 34.2, 6.5, 5.0, 1, 'shop', accent=K.fac, sign=(33.6, K.fac))
-        pl.here('smith', block, K, 'smith', 18.3, 24.6, FY, 3.5, 1, 'shop', accent=K.fac)
-        pl.here('armourer', block, K, 'armourer', 35.4, 41.7, FY, 3.5, 1, 'shop', wall=K.concrete_warm)
+        pl.here('smith', block, K, 'smith', 18.3, 24.6, FY, 3.0, 1, 'shop')
+        pl.here('armourer', block, K, 'armourer', 35.4, 41.7, FY, 3.0, 1, 'shop', wall=K.concrete_warm)
         pl.model('patrol.glb', 30.0, 1.8, None, math.radians(92), 1.0)           # the cars off the street (the doors' walk)
         pl.model('sandbags.glb', 41.0, 36.4, None, 0.0, 1.0)
         for x, y, r in ((21.0, 3.4, 88), (38.6, 4.2, 95), (20.4, 8.4, 80)): pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
@@ -181,7 +181,7 @@ def lay_town(town, pl, K):
         pl.here('squat_mural', mural_wall, K, 'squat_mural', 18.3, 21.6, 41.6, 2.2)
         pl.here('wall', mural_wall, K, 'mural', 18.4, 24.2, 9.0, 3.0)
         pl.here('post', tower, K, 'post', 19.4, 1.6, 5.0)
-        pl.here('smith', shack, K, 'smith', 18.3, 24.6, FY, 3.5, 2.6, tarp=K.blue_tarp)
+        pl.here('smith', shack, K, 'smith', 18.3, 24.6, FY, 3.0, 2.6, tarp=K.blue_tarp)
         pl.model('container.glb', 38.6, FY, None, 0.0, 1.0)            # the armourer's container
         pl.here('stage', stage, K, 'stage', 25.6, 33.0, 6.0, 4.0, K.fac)
         for (x, y, r) in ((23.6, 4.2, 20), (35.0, 6.0, -70), (24.6, 13.2, 10), (33.0, 11.2, -20)):
@@ -209,7 +209,7 @@ def lay_town(town, pl, K):
         pl.here('turbine', turbine, K, 'turbine', 19.0, 35.0, 10.0, 3.2, walk=True)
         pl.here('smith', shack, K, 'smith', 18.3, 21.6, FY, 3.0, 2.4, tarp=K.blue_tarp)
         pl.model('shed.glb', 23.4, FY, None, 0.0, 1.0)
-        pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY, 3.5, 2.6, tarp=K.fac)
+        pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY, 3.0, 2.6, tarp=K.fac)
         pl.model('rolled.glb', 22.6, 0.6, None, 0.0, 0.7)
         for x in (25.9, 34.0): lamp(x, 43.0)
         drum(25.3, 27.2)
@@ -324,11 +324,11 @@ def lay_fortress(town, pl, K):
         pl.here('guard_c', tower, K, 'guard_c', 40.0, 5.0, 5.5, 2.6, K.fac)
         pl.here('front_wire', razor, K, 'front_wire', 14.0, 44.0, 1.4, 2.4)
         pl.model('patrol.glb', 33.0, 12.2, None, math.radians(90), 1.0)
-        for k, x in enumerate((19.6, 21.6)): pl.model('sandbags.glb', x, 24.6 + k * 1.2, None, 0.0, 1.0)
+        for k, x in enumerate((19.6, 21.6)): pl.model('sandbags.glb', x, 13.6 + k * 1.2, None, 0.0, 1.0)
         for x in (29.0, 41.4): lamp(x, CY - 1.2)
     pl.built(S.stall, 22.8, 24.4, 7.0, 0.0, 1.0, 7.0)
     pl.built(S.board, 28.6, 25.4, 2.0)
-    pl.built(S.posts, 22.6, 18.0, None, 0.0, 1.0, 7.0)
+    pl.built(S.posts, 22.6, 19.5, None, 0.0, 1.0, 7.0)          # their keeper's step clear of the phone (rule 279)
 
 
 def lay_camp(town, pl, K):
@@ -599,11 +599,22 @@ def reach(W, H, blocks, start, targets, cell=8):
     return out
 
 
-def corner_clear(box, W=TW, H=TH):
-    """rule 213: the phone sits in a bottom corner, left or right; a tap's middle is never in the bottom three tenths at either
-    side (the middle two tenths of the width are the thumb's reach)"""
-    cx, cy = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
-    return not (cy > 0.70 * H and (cx < 0.40 * W or cx > 0.60 * W))
+# THE PHONE'S CORNER (rules 213, 279): UI TWO's phone is 124 x 276 points upright, 0.9 of that on its side, 1.25 from 500 across
+# (handoffs/UI_TWO.md, slices/bohemia_phone.js), bottom left or right by his setting. With the town fitted to the screen: upright
+# on a phone (9:19.5) the 9:16 picture's bottom three tenths at the outer third (four tenths kept); on its side the 16:9 picture
+# beside a 112 x 248 phone, its outer tenth over the bottom two thirds (a computer: the outer tenth, the bottom 37 percent).
+# Nothing he taps and no keeper's door in it, the phone set either side (rule 279(a)): one composition clears both corners.
+ZONE = {'tall': (0.70, 0.40), 'wide': (0.36, 0.11)}       # (where the zone starts from the top, the outer share either side)
+
+
+def in_zone(pt, comp, W, H):
+    top, side = ZONE[comp]
+    return pt[1] > top * H and (pt[0] < side * W or pt[0] > (1 - side) * W)
+
+
+def corner_clear(box, W=TW, H=TH, comp='tall'):
+    """rules 213, 279: a tap's middle is never under the phone, either side"""
+    return not in_zone(((box[0] + box[2]) / 2, (box[1] + box[3]) / 2), comp, W, H)
 
 
 # ---- the render: the 10/25 tool's own, with the upright frame -------------------------------------------------------------
@@ -717,6 +728,7 @@ def check_layout(town, meta):
         r = reach(TW, TH, [o['box'] for o in meta['outlines']], ent[sd], doors)
         bad += ['door %s from the %s' % (k, sd) for k, v in r.items() if not v]
     bad += ['corner ' + k for k, v in list(hot.items()) + list(boxes.items()) if not corner_clear(v['box'] if isinstance(v, dict) else v)]
+    bad += ['keeper under the phone ' + k for k, p in doors.items() if in_zone((p[0], p[1] + 10), 'tall', TW, TH)]   # rule 279: no keeper there
     return bad
 
 

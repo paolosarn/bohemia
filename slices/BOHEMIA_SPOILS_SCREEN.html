@@ -24,15 +24,15 @@
          struck down with what (one hitpoint, still in the crew: rule 234, never laid up), who fell for good.
        WHAT THEY LEFT: what the dead carried, through Battle Brothers' own drop conditions (records/target/bb/
          loot.json: a weapon 90%, a shield 90%, a helmet 70%, armour only with a quarter of it left), as pieces;
-         and what is not a thing you wear as a COUNT that takes no room: batteries (the money), rounds and scrap
-         (resources). TAP A PIECE to take it, LOOT ALL takes as much as the stash holds and STOPS when it is full.
+         and what is not a thing you wear as a COUNT that takes no room: batteries (the money), rounds and TAPE
+         (what is left of a wrecked piece; it was 'scrap' until rule 276(a), RUN FOUR 10/26: it goes into the company's tape). TAP A PIECE to take it, LOOT ALL takes as much as the stash holds and STOPS when it is full.
        YOUR STASH n / 36: the company's one bag (bohemia.bag.v1, the market fills it, the crew screen equips
          from it, the shops buy and sell from it); tap a piece in it to put it back on the ground.
        LEAVE: the counts ride home in your pockets; what is still on the ground stays there.
 
      HOW THE GAME PLUGS IT IN: frame this page and post {type:'BOHEMIA_SPOILS_OPEN', fight:<the fight's
      BOHEMIA_FIGHT_OVER message>, day?, seed?}. It posts back {type:'BOHEMIA_SPOILS', act:'counts', batteries,
-     resources, seq} once the counts are taken, act:'stash' {bag} on every change, act:'leave'. Standalone it
+     resources, rounds, tape, seq} once the counts are taken (resources is the rounds; the tape is already in bohemia.supplies.v1), act:'stash' {bag} on every change, act:'leave'. Standalone it
      shows a sample fight. Gate: gates/the_spoils_gate.js
      ============================================================================ -->
 <style>
@@ -88,6 +88,7 @@ button{font-family:var(--rom)}
 .state.gone{color:var(--red);font:12px var(--casing);letter-spacing:1px}
 .perk{margin-top:8px;min-height:44px;padding:0 16px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font-size:12px;letter-spacing:1px}
 #counts{display:flex;flex-wrap:wrap;gap:8px;margin:0 14px 8px}
+html body #counts .count[data-count=tape]::before{background-image:url(supply_icons/tape.png)}   /* rule 276(a): the roll of tape off the bar, beside its count */
 .count{min-height:44px;padding:6px 14px 8px;display:flex;flex-direction:column;justify-content:center;background:#ddd4bd;border:0;border-radius:2px;color:var(--paper);text-align:left}
 .count b{font:16px/1.1 var(--casing);letter-spacing:1px;font-weight:400}
 .count span{font-size:9px;letter-spacing:.5px;opacity:.75}
@@ -344,8 +345,10 @@ function facts(it, where){
 }
 function drawCounts(){
   var el = document.getElementById('counts'); el.textContent = '';
-  var c = S.counts || {batteries:0, rounds:0, scrap:0};
-  [['batteries', 'BATTERIES', 'THE MONEY', 'BATTERY'], ['rounds', 'ROUNDS', 'OUT OF THEIR GUNS', 'ROUND'], ['scrap', 'SCRAP', 'WHAT WAS LEFT OF IT', 'SCRAP']].forEach(function(k){
+  var c = S.counts || {batteries:0, rounds:0, tape:0};
+  /* SCRAP IS TAPE (RUN FOUR [scrap is tape], rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap, why
+     am I not getting more duct tape for my armour'): what is left of a wrecked piece is TAPE, the tape icon, the company's own tape */
+  [['batteries', 'BATTERIES', 'THE MONEY', 'BATTERY'], ['rounds', 'ROUNDS', 'OUT OF THEIR GUNS', 'ROUND'], ['tape', 'TAPE', 'MENDS ARMOUR', 'TAPE']].forEach(function(k){
     if(!(c[k[0]] > 0)) return; if(c[k[0]] === 1) k[1] = k[3];
     var b = document.createElement('button'); b.type = 'button'; b.className = 'count' + (S.countsTaken ? ' taken' : ''); b.dataset.count = k[0];
     b.innerHTML = '<b>+' + c[k[0]] + ' ' + k[1] + '</b><span>' + (S.countsTaken ? 'TAKEN' : k[2]) + '</span>';
@@ -416,13 +419,19 @@ function report(r){
   var g = document.createElement('i'); g.className = 'gup'; g.textContent = '\u25b2' + r.gain; sv.appendChild(g); el.appendChild(sv);
   S.lastReport = { left:r.left.map(function(it){ return it.id; }), took:r.took.map(function(it){ return it.id; }), gain:r.gain };
 }
-function hasCounts(){ var c = S.counts || {}; return (c.batteries | 0) + (c.rounds | 0) + (c.scrap | 0) > 0; }
-/* the counts take no room: batteries to the purse, rounds and scrap to its resources (the shell credits them) */
+function hasCounts(){ var c = S.counts || {}; return (c.batteries | 0) + (c.rounds | 0) + (c.tape | 0) > 0; }
+/* the counts take no room: batteries to the purse (the shell credits them), rounds and tape to the company's counts (bohemia.supplies.v1,
+   the bar's own: the tape is the tape that mends armour, rule 276(a)) */
+function addSupplies(o){
+  try{ var sw = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); if(!sw) return false;
+    for(var k in o) if(o[k] | 0) sw[k] = Math.max(0, (sw[k] | 0) + (o[k] | 0));
+    localStorage.setItem('bohemia.supplies.v1', JSON.stringify(sw)); return true; }catch(e){ return false; }
+}
 function takeCounts(){
   if(S.countsTaken || !hasCounts()) return false;
   S.countsTaken = true; var c = S.counts;
-  if(c.rounds | 0){ try{ var sw = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); if(sw){ sw.rounds = (sw.rounds | 0) + (c.rounds | 0); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(sw)); } }catch(e){} }   /* __THE_WAGON__ (ECONOMY section 4 item 3): the loot's rounds are ROUNDS on the bar */
-  post('counts', {batteries:c.batteries | 0, resources:(c.rounds | 0) + (c.scrap | 0), rounds:c.rounds | 0, scrap:c.scrap | 0, seq:S.seq});
+  addSupplies({rounds:c.rounds | 0, tape:c.tape | 0});   /* __THE_WAGON__ (ECONOMY section 4 item 3): the loot's rounds are ROUNDS on the bar; rule 276(a): its tape is TAPE */
+  post('counts', {batteries:c.batteries | 0, resources:c.rounds | 0, rounds:c.rounds | 0, tape:c.tape | 0, seq:S.seq});
   sfx('equip'); drawCounts(); drawGround(); return true;
 }
 function takeOne(i){
@@ -515,7 +524,7 @@ function open(o){
   /* ONE END SCREEN FOR EVERY FIGHT (rule 164 item 28): a won fight leaves its dead's gear; a loss, a retreat and a wipe leave nothing */
   S.won = f.result === 'won' && !f.retreat && !f.wipe;
   var seed = o.seed != null ? o.seed : hash(JSON.stringify((f.spoils && f.spoils.bodies) || []) + ':' + (f.rounds | 0));
-  S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, scrap: 0 }, from: 0 };
+  S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0 };
   S.ground = S.found.items.map(itemFor).filter(Boolean);
   S.counts = S.found.counts; S.countsTaken = false;
   S.sel = null; S.undo = null; S.out = []; S.tap = {it:null, at:0};
@@ -544,8 +553,9 @@ document.getElementById('optimize').addEventListener('click', optimize);
 if(FINE) document.getElementById('stashhow').textContent = 'DOUBLE CLICK TO PUT IT BACK';
 document.getElementById('leave').addEventListener('click', leave);
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SPOILS_OPEN') open(d); });
-Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); })]).then(function(a){
-  S.L = a[1]; S.cap = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 0) || (S.L.stash && S.L.stash.slots) || 36;   /* RUN TWO __THE_CAMP__: the cart's room */ S.ready = true;
+Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); }),
+  fetch('../records/target/bb/tape_income.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })]).then(function(a){
+  S.L = a[1]; S.L.tape_income = a[2];   /* RUN FOUR, rule 276(a): ECONOMY's rolls of tape a wrecked piece */ S.cap = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 0) || (S.L.stash && S.L.stash.slots) || 36;   /* RUN TWO __THE_CAMP__: the cart's room */ S.ready = true;
   if(S.pending){ var p = S.pending; S.pending = null; open(p); }
   else if(S.standalone){ var smp = JSON.parse(JSON.stringify(SAMPLE)), q = location.search;   /* ?lost, ?ran, ?wipe: the other ends, for a look */
     if(/lost|ran|wipe/.test(q)){ smp.result = 'lost'; smp.retreat = /ran/.test(q); smp.wipe = /wipe/.test(q); smp.spoils.recap.head = smp.wipe ? 'WIPED OUT' : smp.retreat ? 'YOU PULLED OUT' : 'YOUR CREW IS DOWN'; smp.spoils.recap.call = null;
