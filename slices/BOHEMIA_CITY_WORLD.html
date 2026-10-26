@@ -44362,10 +44362,13 @@ function huntDraw(ox, oy){
     try{ MAP_DREW.fleeRoad = HUNT_FLEE.length; }catch(_e){}
   }
   var L = null;
+  fy -= mapStandLift(HUNT.at[0], HUNT.at[1]); MAP_DEPTH.ref = mapDepthRef(HUNT.at[0], HUNT.at[1]);   /* __YOU_WALK_BEHIND_IT__ */
+  try {
   if(mapPeopleOf('job', 0)){
     mapPersonDraw(mapPeopleOf('job', 7), 'S', bt + 1, q.sx + 7 * kp, fy - 2 * kp, 0.5);
     L = mapPersonDraw(mapPeopleOf('job', 9), 'S', bt, q.sx - 3 * kp, fy + kp, 0);
   }
+  } finally { MAP_DEPTH.ref = null; }
   var tall = (L ? L.h : 30 * kp) + 8 * kp;
   mapFlagDraw(q.sx - 11 * kp, fy + kp, tall, '#7a1f1a', bt, true);
   HUNT.box = { x: q.sx - 18 * kp, y: fy - tall - 4, w: 36 * kp, h: tall + 10 };
@@ -46228,11 +46231,15 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh){
   var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
   var kk = MAP_CREW_DRAWING ? MAP_CREW_K.body : MAP_PERSON_K * MAP_PEOPLE_K;   /* __THE_MARKER_IS_YOUR_CREW__: his men at his size */
   var w = fr.width * s56 * kk, h = fr.height * s56 * kk;
-  if (!MAP_SHADOW_DONE) {   /* __THE_SHADOW_LINE__: the party's one pass already laid this one on the ground */
-    g.fillStyle = 'rgba(10,8,6,0.45)';
-    g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill(); }
-  g.imageSmoothingEnabled = false;
-  rigBlit(fr, mapSnap(sx - w / 2), mapSnap(footY - h * 0.93), w, h);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__ */
+  var __sh = !MAP_SHADOW_DONE, __bx = mapSnap(sx - w / 2), __by = mapSnap(footY - h * 0.93);
+  /* __YOU_WALK_BEHIND_IT__: the shadow and the body drawn in depth with the painting (as before when nothing stands in front) */
+  mapDepthBlit(function(){
+    if (__sh) {   /* __THE_SHADOW_LINE__: the party's one pass already laid this one on the ground */
+      g.fillStyle = 'rgba(10,8,6,0.45)';
+      g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill(); }
+    g.imageSmoothingEnabled = false;
+    rigBlit(fr, __bx, __by, w, h);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__ */
+  }, Math.min(__bx, sx - w * 0.22), __by, Math.max(w, w * 0.44), h + w * 0.07 + 1);
   return { w: w, h: h * 0.93 };
 }
 /* a flag on a pole: the faction's colour, a dark edge, a fold that moves with the beat */
@@ -46640,6 +46647,87 @@ function mapCompanyMan(k){
    shrinking with the zoom; they were two thirds of him and shrank again pulled out, so three men read as one man and two kids */
 var MAP_CREW_K = { on: true, body: 0.92, space: 1.4 }, MAP_CREW_DRAWING = false;
 /* ==== /__THE_MARKER_IS_YOUR_CREW__ ==== */
+/* ==== __YOU_WALK_BEHIND_IT__ (RUN 10/25, [the map stands taller, you walk behind it], rule 196(b)(c), Paolo 10/25: 'the way you
+   move north, east and west, maybe the bottom of your legs... are behind the buildings... or behind the freeway'). His crew and
+   every roaming party were drawn over the whole painting, so nothing ever stood in front of them. NOW each walker is drawn in
+   depth with the city: the painter (in its worker) says, for every pixel of its picture, how far toward the camera the thing
+   painted there stands (VBC.dep, and each close tile's own), and a walker's pixel is covered where what is painted there stands
+   between him and the camera: a block nearer the camera than his, standing (a lift), and not his own block. Every zoom (the
+   close tiles carry their own depth), any direction. When most of a man is covered his outline shows through, faint, in the
+   colour of his ring (the coordinator's default, his to kill: MAP_DEPTH.ghost), and a tap still travels. A man on the freeway
+   stands on its berm (VBC.blk, each block's ground height at its middle). Cheap: a few points first (most frames, in the open,
+   nothing is in front of him and he is drawn as before); only a man with something in front of him is drawn through a scratch
+   canvas, read a CSS pixel at a time. ==== */
+var MAP_DEPTH = { on: true, eps: 0.3, ghost: 0.5, col: [232, 220, 192], edgeA: 170, fillA: 30, ox: 0, oy: 0, ref: null, sc: null,
+  open: 0, masked: 0, covered: 0, ghosted: 0, last: null };
+window.MAP_DEPTH = MAP_DEPTH;
+/* what owns the picture at a CSS point of the glass: the ground point under it (bx, by, in blocks) and how far toward the camera
+   the owner stands (L, in blocks along each axis), from the close tile drawn there this frame, else the whole painting */
+function mapDepthAt(X, Y){
+  var a = (X - MAP_DEPTH.ox) / (TW / 2), b = (Y - MAP_DEPTH.oy) / (TH / 2), bx = (a + b) / 2, by = (b - a) / 2, L = 0, k;
+  var T = null;
+  if (VBT.onGlass && VBT.NT && VBT.frame) { var tx = Math.floor(bx / VB_TILE), ty = Math.floor(by / VB_TILE); if (tx >= 0 && ty >= 0 && tx < VBT.NT && ty < VBT.NT) T = VBT.onGlass[ty * VBT.NT + tx] || null; }
+  if (T && T.dep) { var u = Math.floor((bx - T.org[0]) * T.S), v = Math.floor((by - T.org[1]) * T.S);
+    if (u < 0 || v < 0 || u >= T.P || v >= T.P) return null; k = T.dep[v * T.P + u]; L = k / T.S; if (k < Math.max(1, T.S / 24)) L = 0; }
+  else { var D = VBC.dep; if (!D) return null; var S = VBC.S || VB_CS, P = VBC.P, pad = VBC.PAD != null ? VBC.PAD : VB_CPAD;
+    var u2 = Math.floor((bx + pad) * S), v2 = Math.floor((by + pad) * S); if (u2 < 0 || v2 < 0 || u2 >= P || v2 >= P) return null;
+    k = D[v2 * P + u2]; L = k >= 1 ? k / S : 0; }
+  return { bx: bx, by: by, L: L };
+}
+/* is the picture at this CSS point standing between the camera and a walker whose feet are at depth R.d on block R.cx, R.cy */
+function mapDepthCovers(X, Y, R){
+  var q = mapDepthAt(X, Y); if (!q || q.L <= 0) return false;
+  var ox = q.bx + q.L, oy = q.by + q.L;
+  if (Math.floor(ox) === R.cx && Math.floor(oy) === R.cy) return false;   /* his own block never stands in front of him */
+  return ox + oy > R.d + MAP_DEPTH.eps;
+}
+/* a walker's ground: where his feet stand (blocks, the glide's own), for the depth and the berm under him */
+function mapDepthRef(gx, gy){ return { d: gx + gy + 1, cx: Math.round(gx), cy: Math.round(gy) }; }
+/* the ground's height under a walker, in CSS px (a man on the freeway stands on its berm) */
+function mapStandLift(gx, gy){
+  var B = VBC.blk, N = om && om.n; if (!B || !N || !MAP_DEPTH.on) return 0;
+  var x0 = Math.floor(gx), y0 = Math.floor(gy), fx = gx - x0, fy = gy - y0;
+  var at = function (x, y){ x = Math.max(0, Math.min(N - 1, x)); y = Math.max(0, Math.min(N - 1, y)); return B[y * N + x] || 0; };
+  var h = (at(x0, y0) * (1 - fx) + at(x0 + 1, y0) * fx) * (1 - fy) + (at(x0, y0 + 1) * (1 - fx) + at(x0 + 1, y0 + 1) * fx) * fy;
+  return h * TH / (VBC.S || VB_CS);
+}
+/* draw one walker's picture (draw() paints it on g at x, y, w, h in g's own units) in depth with the painting */
+function mapDepthBlit(draw, x, y, w, h, noGhost){
+  var R = MAP_DEPTH.ref;
+  if (MAP_DEPTH.hide && R) return 0;   /* a checker's frame with the walkers not drawn (THE MAP STANDS TALLER W1) */
+  if (!MAP_DEPTH.on || !R || !VBC.dep || typeof g.getTransform !== 'function') { draw(); return 0; }
+  var m = g.getTransform(), dpr = (typeof CV_DPR === 'number' && CV_DPR) || 1;
+  if (m.b || m.c) { draw(); return 0; }
+  var X0 = m.a * x + m.e, Y0 = m.d * y + m.f, W = m.a * w, H = m.d * h, any = false;
+  for (var j = 0; j <= 8 && !any; j++) for (var i = 0; i <= 4 && !any; i++) if (mapDepthCovers((X0 + W * i / 4) / dpr, (Y0 + H * j / 8) / dpr, R)) any = true;
+  if (!any) { draw(); MAP_DEPTH.open++; return 0; }
+  var ix = Math.floor(X0), iy = Math.floor(Y0), iw = Math.ceil(X0 + W) - ix + 1, ih = Math.ceil(Y0 + H) - iy + 1;
+  if (iw <= 0 || ih <= 0 || iw > 2048 || ih > 2048) { draw(); return 0; }
+  var sc = MAP_DEPTH.sc || (MAP_DEPTH.sc = document.createElement('canvas'));
+  if (sc.width < iw) sc.width = iw; if (sc.height < ih) sc.height = ih;
+  var sx = sc.__ctx || (sc.__ctx = sc.getContext('2d', { willReadFrequently: true }));
+  sx.setTransform(1, 0, 0, 1, 0, 0); sx.clearRect(0, 0, iw, ih); sx.imageSmoothingEnabled = false;
+  sx.setTransform(m.a, 0, 0, m.d, m.e - ix, m.f - iy);
+  var g0 = g; g = sx; try { draw(); } finally { g = g0; }
+  var im = sx.getImageData(0, 0, iw, ih), A = im.data, cov = new Uint8Array(iw * ih), nOp = 0, nCov = 0;
+  /* read a CSS pixel at a time (dpr device pixels a side) */
+  var st = Math.max(1, Math.round(dpr));
+  for (var py = 0; py < ih; py += st) for (var px = 0; px < iw; px += st) {
+    var c = mapDepthCovers((ix + px + st / 2) / dpr, (iy + py + st / 2) / dpr, R) ? 1 : 0;
+    for (var yy = py; yy < Math.min(ih, py + st); yy++) for (var xx = px; xx < Math.min(iw, px + st); xx++) { var kk = yy * iw + xx; if (A[kk * 4 + 3] < 8) continue; nOp++; if (c) { cov[kk] = 1; nCov++; } } }
+  var ghost = !noGhost && nOp > 0 && nCov / nOp >= MAP_DEPTH.ghost, C3 = MAP_DEPTH.col;   /* his ring hides whole: his own outline is what shows */
+  for (var k2 = 0; k2 < cov.length; k2++) { if (!cov[k2]) continue; var o = k2 * 4;
+    if (!ghost) { A[o + 3] = 0; continue; }
+    var xq = k2 % iw, yq = (k2 / iw) | 0, edge = xq === 0 || yq === 0 || xq === iw - 1 || yq === ih - 1
+      || A[o - 4 + 3] < 8 || A[o + 4 + 3] < 8 || A[o - iw * 4 + 3] < 8 || A[o + iw * 4 + 3] < 8;
+    A[o] = C3[0]; A[o + 1] = C3[1]; A[o + 2] = C3[2]; A[o + 3] = edge ? MAP_DEPTH.edgeA : MAP_DEPTH.fillA; }
+  sx.putImageData(im, 0, 0);
+  g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(sc, 0, 0, iw, ih, ix, iy, iw, ih); g.restore();
+  MAP_DEPTH.masked++; MAP_DEPTH.covered += nCov; if (ghost) MAP_DEPTH.ghosted++;
+  MAP_DEPTH.last = { n: nOp, cov: nCov, ghost: ghost, at: [Math.round(X0 / dpr), Math.round(Y0 / dpr)] };
+  return nOp ? nCov / nOp : 0;
+}
+/* ==== /__YOU_WALK_BEHIND_IT__ ==== */
 function mapPartyShadow(gx, gy){
   if (!MAP_PARTY_AS_ONE.on) return false;
   try {
@@ -47562,6 +47650,11 @@ function vbView(inp){
    ruin), and at night only the blocks with power show light. Baked in the worker, drawn once a
    frame over the tiles as the camera pulls out. */
 var VB_CS = 24, VB_CPAD = 2;   /* 24 texels a block (RUN 10/19, __THE_MAP_HE_OPENS_IS_PAINTED__: the painting carries the opening zoom, where Paolo's floor is a painted unit of 1.5 device px; it was 12, 0.93 device px a texel at the far stop, and at the far stop a texel under a device pixel is averaged down, never skipped) */
+/* __THE_MAP_STANDS_TALLER__ (RUN 10/25, rule 196(a)): how many times its 2165008f height each kind of standing thing stands on the
+   painting; houses three times, everything else at least twice, the Strip the tallest. One table, read by the painter in the
+   page and in its worker (vbWorker sends it). on: false is the map as it was (a checker's before). */
+var VB_TALL = { on: true, house: 3, trailer: 2, apartment: 3, works: 3, shop: 2.2, tower: 2, casino: 3.5, freeway: 2.1, tree: 2, low: 2, pylon: 2, town: 2 };
+window.VB_TALL = VB_TALL;
 var VB_CLASS = { lot: 0, road: 1, freeway: 2, blvd: 3, houses: 4, roof: 5, tower: 6, casino: 7, green: 8, water: 9, land: 10, mountain: 11, solar: 12, field: 13, dam: 14, rail: 15 };
 function vbClassOf(d){
   d = String(d || '');
@@ -47644,6 +47737,27 @@ function vbCityCore(inp){
      And the sun (the land's own, from the north-west, upper left on the glass) casts every one of them onto what is below
      (one sweep, the shadow falling down-right on the glass), which is what reads as height from above. */
   var T = Q / 2, FWY = function (c){ return c === VB_CLASS.freeway; };
+  /* ==== __THE_MAP_STANDS_TALLER__ (RUN 10/25, [the map stands taller, you walk behind it], rule 196(a), Paolo 10/25: 'on the
+     map I need the buildings to be taller taller taller'). Every standing thing at least twice the height it stood at 2165008f,
+     the houses (the flattest, a 2 T wall under a 1.6 T gable) three times, the order kept: a house under a two-storey under a
+     works block under the towers, the Strip's casinos the tallest; the freeway's berm and its knots, the trees, the rail's bank,
+     the Strip's pylons and palms with them; the cars and the kerbs stay as they lie. Taller for reading, Battle Brothers' way, not
+     to scale (his trade). The sun's sweep below casts every one of them, so the shadows lengthen with them. VB_TALL, one table. */
+  var TALL = (typeof VB_TALL !== 'undefined' && VB_TALL && VB_TALL.on) ? VB_TALL : null;
+  function tallOf(c, lf, sb){
+    switch (c) {
+      case VB_CLASS.houses: return sb === VB_SUB.trailer ? TALL.trailer : sb === VB_SUB.apartment ? TALL.apartment : TALL.house;
+      case VB_CLASS.roof: return sb === VB_SUB.shop ? TALL.shop : TALL.works;
+      case VB_CLASS.tower: return TALL.tower;
+      case VB_CLASS.casino: return TALL.casino;
+      case VB_CLASS.freeway: return TALL.freeway;
+      case VB_CLASS.green: return TALL.tree;
+      case VB_CLASS.rail: case VB_CLASS.solar: return TALL.low;
+      case VB_CLASS.road: case VB_CLASS.blvd: return lf >= 1.5 * T ? TALL.pylon : 1;   /* a pylon, a lamp post, a dead palm; never a car or a kerb */
+    }
+    return 1;
+  }
+  /* ==== /__THE_MAP_STANDS_TALLER__ (the scale is laid on each texel below, before the towns, and on a town's own texels after) ==== */
   /* ==== __THE_TOWN_IS_PAINTED_IN__ (COOK 10/25/26, rule 154, Paolo 10/24: 'I asked you a long time ago to fix the settlements
      so they're part of the map instead of a sticker on top; they still look like that'). A town was a picture laid over this
      painting: its own camera, its own light, its own scale (74 CSS px at every zoom), so at every stop it read as a cut-out.
@@ -48121,8 +48235,9 @@ function vbCityCore(inp){
         case VB_CLASS.dam: lift = 2 * Q; part = PART.top; break;
         default: if (r < 0.1) part = PART.spot;
       }
+      if (TALL && lift > 0) lift *= tallOf(cl, lift, sb);   /* __THE_MAP_STANDS_TALLER__ */
       var twOwn = 0;
-      if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
+      if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; if (TALL && twOwn === 1) lift *= TALL.town; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
       if (CUT && (twOwn === 2 || (!twOwn && (cl === VB_CLASS.land || STRT(cl) || (twi >= 0 && lift === 0 && TW_E < TW_W0 * (0.1 + 0.62 * TW_NZ)))))) CUTM[o] = 1;   /* __EVERY_TOWN_ITS_OWN__: the town's open ground too */   /* the land and the yard past the ragged line, cut away */
       HS[o] = lift; COLI[o] = twOwn === 1 ? idx(TW_K, part) + twi * 1024 : idx(cl, part) + (burned ? 16 * 32 : 0) + sb * 1024;   /* __EVERY_TOWN_ITS_OWN__: 2, the town's open ground, is the district's own ground */   /* __THE_DISTRICTS_READ_APART__: the sub-kind rides above the burn bit */
     }
@@ -48233,6 +48348,12 @@ function vbCityCore(inp){
   /* ==== /__THE_PAINTING_WEARS_COOK__ ==== */
   /* the picture: along each view diagonal, near to far, the nearest column that rises over a texel owns it */
   var day = new Uint8ClampedArray(P * P * 4), night = new Uint8ClampedArray(P * P * 4), lights = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), NM = [0.26, 0.254, 0.295];
+  /* __YOU_WALK_BEHIND_IT__ (RUN 10/25, rule 196(b)): what owns each pixel of the picture, as how far the owning column stands
+     toward the camera along the view (its lift, in texels: the owner is (u + k, v + k)), so the map can tell, for any pixel of a
+     walker drawn over the picture, whether what is painted there stands between him and the camera; and each block's ground
+     height at its middle, so a man on the freeway stands on its berm. One byte a pixel, made here in the worker. */
+  var DEP = new Uint8Array(P * P), BLK = new Float32Array(N * N);
+  for (var by0 = 0; by0 < N; by0++) for (var bx0 = 0; bx0 < N; bx0++) BLK[by0 * N + bx0] = HS[((by0 + PAD) * S + (S >> 1)) * P + (bx0 + PAD) * S + (S >> 1)];
   var ST = { built: 0, wall: 0, shade: 0, top: 0, houseMax: 0, fwyMax: 0 };   /* __THE_MAP_STANDS_UP__: what the gate reads */
   for (var dg = -(P - 1); dg <= P - 1; dg++) {
     var ua = Math.max(0, dg), ub = Math.min(P - 1, P - 1 + dg), head = 0, tail = 0;
@@ -48243,6 +48364,7 @@ function vbCityCore(inp){
       var qu = dq[head], qv = qu - dg, qo = qv * P + qu, ci = COLI[qo];
       if (ci < 0) continue;
       var Hq = HS[qo], liftk = qu - uu, top = (Hq - liftk) < 1, sh, b = base(ci), cl2 = (ci % (16 * 32)) >> 4, part2 = ci & 15;   /* (ci & 1023 holds the class: 1024 is a multiple of 512) */
+      DEP[vv * P + uu] = liftk > 255 ? 255 : liftk;   /* __YOU_WALK_BEHIND_IT__ */
       if (CK) { var bk = cookPick(qu, qv, top, Hq, ci, cl2, part2); if (bk) b = bk; }   /* __THE_PAINTING_WEARS_COOK__ */
       if (cl2 === TW_K && !top) { var twp = TWL && TWL[ci >> 10] && TWL[ci >> 10].pal; if (twp && twp[16 + part2]) b = twp[16 + part2]; }   /* __EVERY_TOWN_ITS_OWN__: its own walls */
       var sxp = qu + 1 < P ? HS[qo + 1] : Hq, sxm = qu > 0 ? HS[qo - 1] : Hq, syp = qv + 1 < P ? HS[qo + P] : Hq;
@@ -48276,7 +48398,8 @@ function vbCityCore(inp){
     }
   }
   ST.T = T;
-  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, ms: Math.round(performance.now() - t0) };
+  if (inp.wantH) { ST.HS = HS; ST.COLI = COLI; }   /* a checker's own reading of every texel's height (never in the game: the gate asks) */
+  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, dep: DEP, blk: BLK, ms: Math.round(performance.now() - t0) };
 }
 function vbInput(m){
   var V = m || om;   /* any valley: the one he is in, or one a checker rolls */
@@ -48313,9 +48436,10 @@ function vbWorker(){
         + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
         + '\nvar VB_FRONT=' + VB_FRONT + ';'
         + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';\nvar VB_SUB=' + JSON.stringify(VB_SUB) + ';\nvar VB_LAST=null;'
+        + '\nvar VB_TALL=' + JSON.stringify(VB_TALL) + ';'   /* __THE_MAP_STANDS_TALLER__ */
         + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'view\'){ var v=vbView(e.data); postMessage(v, v.px?[v.px.buffer]:[]); return; }'
-        + ' if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer]); return; }'
-        + ' if(e.data&&e.data.kind===\'tile\'){ var t=vbCityCore(e.data); postMessage({kind:\'tile\',key:e.data.key,seed:e.data.seed,tx:e.data.tx,ty:e.data.ty,org:e.data.org,S:t.S,P:t.P,ms:t.ms,day:t.day,lights:t.lights},[t.day.buffer,t.lights.buffer]); return; }'
+        + ' if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer,c.dep.buffer,c.blk.buffer]); return; }'
+        + ' if(e.data&&e.data.kind===\'tile\'){ var t=vbCityCore(e.data); postMessage({kind:\'tile\',key:e.data.key,seed:e.data.seed,tx:e.data.tx,ty:e.data.ty,org:e.data.org,S:t.S,P:t.P,ms:t.ms,day:t.day,lights:t.lights,dep:t.dep},[t.day.buffer,t.lights.buffer,t.dep.buffer]); return; }'
         + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
       var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
       w.onmessage = function (e) { if (e.data && e.data.kind === 'view') vbViewLand(e.data); else if (e.data && e.data.kind === 'city') vbCityLand(e.data); else if (e.data && e.data.kind === 'tile') vbTileLand(e.data); else vbLand(e.data); };
@@ -48353,7 +48477,7 @@ function vbCityLand(r){
   VBC.busy = false;
   if (!r || r.seed !== om.seed) return;
   function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
-  VBC.day = cv(r.day); VBC.night = null; VBC.lights = r.lights ? cv(r.lights) : null;   /* __ONE_MAP_AT_EVERY_ZOOM__: the night picture was a 2,400-square canvas (22 MB) nothing draws: the night pass lights the day picture */ VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
+  VBC.day = cv(r.day); VBC.night = null; VBC.lights = r.lights ? cv(r.lights) : null; VBC.dep = r.dep || null; VBC.blk = r.blk || null; VBC.S = r.S; VBC.PAD = r.PAD;   /* __YOU_WALK_BEHIND_IT__ */   /* __ONE_MAP_AT_EVERY_ZOOM__: the night picture was a 2,400-square canvas (22 MB) nothing draws: the night pass lights the day picture */ VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
   try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
 }
 function vbCityReady(){
@@ -48433,7 +48557,8 @@ function vbTileLand(r){
   function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
   var lit = false; for (var i = 3; i < r.lights.length; i += 4) if (r.lights[i]) { lit = true; break; }   /* a tile with no light in it keeps no lights canvas */
   var by = r.P * r.P * 4 * (lit ? 2 : 1);
-  VBT.tiles.set(r.key, { day: cv(r.day), lights: lit ? cv(r.lights) : null, org: r.org, tx: r.tx, ty: r.ty, S: r.S, at: performance.now(), bytes: by, seen: VBT.frame });
+  if (r.dep) by += r.dep.length;   /* __YOU_WALK_BEHIND_IT__: a tile's depth, a byte a pixel, counted in the budget */
+  VBT.tiles.set(r.key, { day: cv(r.day), lights: lit ? cv(r.lights) : null, dep: r.dep || null, P: r.P, org: r.org, tx: r.tx, ty: r.ty, S: r.S, at: performance.now(), bytes: by, seen: VBT.frame });
   VBT.bytes += by; VBT.landed++; VBT.last = { key: r.key, ms: r.ms, P: r.P };
   /* a memory budget, never a count: the oldest let go first, never one on the glass this paint */
   for (var it = VBT.tiles.keys(), k = it.next(); VBT.bytes > VBT.budget && !k.done; k = it.next()) {
@@ -48451,7 +48576,7 @@ function vbTilesDraw(ox, oy, lights){
   var tx0 = Math.max(0, Math.floor(Math.min.apply(null, xs) / VB_TILE)), tx1 = Math.min(NT - 1, Math.floor(Math.max.apply(null, xs) / VB_TILE)),
       ty0 = Math.max(0, Math.floor(Math.min.apply(null, ys) / VB_TILE)), ty1 = Math.min(NT - 1, Math.floor(Math.max.apply(null, ys) / VB_TILE));
   var want = [], cxs = CVW / 2, cys = CVH / 2, sm = g.imageSmoothingEnabled, dpr = (typeof CV_DPR === 'number' && CV_DPR) || 1;
-  if (!lights) VBT.frame++;
+  if (!lights) { VBT.frame++; VBT.onGlass = new Array(NT * NT); VBT.NT = NT; }   /* __YOU_WALK_BEHIND_IT__: which picture each tile of blocks was drawn from this frame */
   var pre = om.seed + ':' + (VBC.key || '') + ':';
   for (var ty = ty0; ty <= ty1; ty++) for (var tx = tx0; tx <= tx1; tx++) {
     /* only a tile whose blocks reach the glass (the corners of a box in the valley are off it) */
@@ -48464,6 +48589,7 @@ function vbTilesDraw(ox, oy, lights){
       [96, 60, 36].some(function (s2) { if (s2 === S) return false; var T2 = VBT.tiles.get(pre + s2 + ':' + tx + ',' + ty); if (T2) { T = T2; key = pre + s2 + ':' + tx + ',' + ty; return true; } return false; });
       if (!T) continue; }
     VBT.tiles.delete(key); VBT.tiles.set(key, T); T.seen = VBT.frame;   /* in use: the newest */
+    if (!lights && VBT.onGlass) VBT.onGlass[ty * NT + tx] = T;   /* __YOU_WALK_BEHIND_IT__ */
     var cv0 = lights ? T.lights : T.day; if (!cv0) continue;
     var St = T.S, o = iso(T.org[0], T.org[1], ox, oy), ix = (tx * VB_TILE - T.org[0]) * St, iy = (ty * VB_TILE - T.org[1]) * St;
     var w = Math.min(VB_TILE, N - tx * VB_TILE) * St, h = Math.min(VB_TILE, N - ty * VB_TILE) * St;
@@ -48478,7 +48604,7 @@ function vbTilesDraw(ox, oy, lights){
     var t0 = want[0]; VBT.busy = true; VBT.asked++;
     var inp = vbTileInput(t0.tx, t0.ty, S);
     try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]); }
-    catch (e) { VBT.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights }); }, 0); }
+    catch (e) { VBT.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights, dep: c.dep }); }, 0); }
   }
   VBT.want = want.length;
 }
@@ -49609,6 +49735,7 @@ function renderCity(){
      bank). So the trail stays, and at its bright end the party now stands, banner up,
      stepping on its own beat. Volume 01: "parties within sight... you can see their banner." */
   var __partyMoving = false;
+  MAP_DEPTH.ox = ox; MAP_DEPTH.oy = oy; MAP_DEPTH.ref = null;   /* __YOU_WALK_BEHIND_IT__: this frame's camera, for the walkers' depth */
   try {
     var __pp = partiesAll() || [];
     for (var __pi2 = 0; __pi2 < __pp.length; __pi2++) {
@@ -49627,13 +49754,15 @@ function renderCity(){
       var __qp = iso(__gq.x, __gq.y, ox, oy);
       if (__qp.sx < -30 || __qp.sx > CVW + 30 || __qp.sy < -30 || __qp.sy > CVH + 40) continue;
       var __look = mapPartyLook(__q);
-      var __qy = __qp.sy + TH / 2;
+      var __qy = __qp.sy + TH / 2 - mapStandLift(__gq.x, __gq.y);   /* __YOU_WALK_BEHIND_IT__: on the berm when on the freeway */
+      MAP_DEPTH.ref = mapDepthRef(__gq.x, __gq.y);   /* __YOU_WALK_BEHIND_IT__: this party, in depth with the city */
       /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: two of the cast under their flag; COOK's shape until they arrive */
       if (!mapPartyDraw(__q, __pi2, __qp.sx, __qy + 2, mapArtBeat() + __pi2, strideOf(__gq))) {
         g.fillStyle = 'rgba(14,11,8,0.5)';
         g.beginPath(); g.ellipse(__qp.sx, __qy + 1, 11, 3.5, 0, 0, 7); g.fill();
         mapArtDraw(__look.mask, mapArtBeat() + __pi2, __look.banner, __qp.sx, __qy + 2);
       }
+      MAP_DEPTH.ref = null;
       MAP_DREW.parties++;
       /* __LOOK_BEFORE_YOU_FIGHT__ (RUN 10/23): where this party stands on the glass is what a finger is tested against,
          and the one he looked at carries its plate on its flag */
@@ -49643,6 +49772,7 @@ function renderCity(){
         MAP_PARTY_HIT.push(__ph); } catch (_e) {}
     }
   } catch (_e) {}
+  MAP_DEPTH.ref = null;
   /* __LOOK_BEFORE_YOU_FIGHT__: the party coming for him, its plate always up (they are coming), and the road away */
   try { if (HUNT) { huntDraw(ox, oy); var __hq = iso(HUNT.at[0], HUNT.at[1], ox, oy);
     HUNT.plateBox = partyPlatePush(HUNT.id, __hq.sx, (HUNT.box ? HUNT.box.y : __hq.sy - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }); } } catch (_e) {}
@@ -49700,18 +49830,21 @@ function renderCity(){
      beat while he travels, hanging dead when he stops (cook-the-map-has-markers-9-24).
      Drawn LAST, so nothing covers him, and at ONE size at every zoom. */
   { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: he rides the glide */
-    const __gx=p.sx, __gy=p.sy+TH*0.5;                 /* where his feet are */
+    const __gx=p.sx, __gy=p.sy+TH*0.5-mapStandLift(__G.x,__G.y);   /* where his feet are (__YOU_WALK_BEHIND_IT__: on the berm on the freeway) */
+    MAP_DEPTH.ox=ox; MAP_DEPTH.oy=oy; MAP_DEPTH.ref=mapDepthRef(__G.x,__G.y);   /* __YOU_WALK_BEHIND_IT__: him and his two, in depth with the city */
     const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*Math.max(2,TW*0.07):0;   /* the glide's hop, one per beat (ANIMATION's number) */
     const __moving=!!(TRAVEL || __G.u<1);
     g.save(); g.globalAlpha=1;
     /* PLANTED: a dark ellipse under the feet, so he stands on the map, not over it */
     /* __WHERE_AM_I__: his crew stands on a pale ring in his own colour, breathing on the beat */
     { const __rp=0.85+0.15*((mapArtBeat()%2)?1:0);
+      mapDepthBlit(function(){   /* __YOU_WALK_BEHIND_IT__: his ring and his shadow are on his ground, behind what stands in front */
       g.lineWidth=2; g.strokeStyle='rgba(14,11,8,0.55)'; g.beginPath(); g.ellipse(__gx,__gy+1,26,9,0,0,7); g.stroke();
       g.lineWidth=1.5; g.strokeStyle='rgba(232,220,192,'+__rp.toFixed(2)+')'; g.beginPath(); g.ellipse(__gx,__gy,26,9,0,0,7); g.stroke();
+      if(!mapPartyShadow(__gx,__gy)){ g.fillStyle='rgba(14,11,8,0.6)';
+      g.beginPath(); g.ellipse(__gx,__gy,11,4,0,0,7); g.fill(); }
+      }, __gx-30, __gy-12, 60, 24, true);
       try{ MAP_DREW.youRing=(MAP_DREW.youRing|0)+1; }catch(_e){} }
-    if(!mapPartyShadow(__gx,__gy)){ g.fillStyle='rgba(14,11,8,0.6)';
-    g.beginPath(); g.ellipse(__gx,__gy,11,4,0,0,7); g.fill(); }
     /* THE HOP IS ANIMATION'S (__THE_MAP_GLIDES__, one per beat): the foot stays on the
        ground and everything above it lifts, done as the same translate the pin used so
        THE MAP GLIDES keeps measuring it off the draw. */
@@ -49746,12 +49879,14 @@ function renderCity(){
       g.imageSmoothingEnabled=false;
       __bw=__body.width/2; __bh=__body.height/2;
       /* the rig's box carries the body in its lower middle with the feet near the bottom */
-      g.drawImage(__body, mapSnap(__gx-__bw/2), mapSnap(__gy-__bh*0.93), __bw, __bh);
+      const __yx=mapSnap(__gx-__bw/2), __yy=mapSnap(__gy-__bh*0.93);
+      MAP_DEPTH.you=mapDepthBlit(function(){ g.drawImage(__body, __yx, __yy, __bw, __bh); }, __yx, __yy, __bw, __bh);   /* __YOU_WALK_BEHIND_IT__: the share of him covered */
     } else {
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
     }
     mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,1);   /* facing away, his company is between him and you */
+    MAP_DEPTH.ref=null;
     g.restore();
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}
