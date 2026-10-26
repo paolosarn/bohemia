@@ -2804,6 +2804,11 @@ GATES = [
      'recover job\'s label walks onto it and the pickup says so over the crew; GET PAID walks to the client; the patrol\'s next post '
      'labelled once and walked; one job, one time on the phone and the board; men, never mans, no counted blocks; the last read\'s red '
      'stars stand, pulsing, while a changed crew is read again.', True),
+    ('PAID AT THE TOWN\'S EDGE', ['node', 'gates/paid_at_the_towns_edge_gate.js'],
+     'WORLD [paid at the town\'s edge], rule 275(a)(d) (PAOLO 10/26: "as long as I get in the territory of the town I should get '
+     'paid, I don\'t wanna have to enter the settlement mode"). On the demo: a return walked past the client\'s town is paid on the '
+     'step over its edge, the batteries on the bar, the town\'s screen never opened; walked to the town, paid on the step that '
+     'reaches its edge, before any screen; nothing paid twice.', True),
     ('PAID ONLY FOR THE WORK', ['node', 'gates/paid_only_for_the_work_gate.js'],
      'WORLD [eyes: paid without the fight], EYES round three line 138, rule 198(g) (FALL BACK from an ambush and one tap on the '
      'place paid 60 batteries). On the demo, a finger on the meet card: the ambush where the place was, the ones holding the '

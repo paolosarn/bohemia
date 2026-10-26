@@ -121,3 +121,20 @@ tap on the drawn GET PAID walks to the client's door (48,49, the door itself); N
 SIX CELLS' is drawn over the crew; N4 'POST 1' once, tapped, walked, 'POST 1 WALKED'; N5 six jobs at six towns (recover, find a person,
 hunt, patrol), the phone's time equal to the board's to the minute; N6 plural(man, 4) = men, no take line counts blocks; N7 the
 changed crew's read starts with the last read's red star, pulsing (animation jdread), and lands red.
+
+## 8. [paid at the town's edge] (rule 275(a), Paolo 10/26, FIRST and small when it landed)
+His words: 'I have to double click to enter the town for a go-back-and-get-paid... as long as I get in the territory of the town I
+should get paid, I don't wanna have to enter the settlement mode.'
+- MEASURED: a return was settled only on an ARRIVAL at the client's town, the end of a journey there, which is the same arrival that
+  opens the town's screen; walking up to the town and on paid nothing.
+- NOW (slices/bohemia_job_kinds.js __PAID_AT_THE_TOWNS_EDGE__): the step that puts the party on any tile of the client town's edge
+  (RUN's any-side door) settles the return there and then: the batteries land on the bar with their sound (the purse's credit; UI's
+  bar counts it up and posts BOHEMIA_COUNT_UP, SOUNDS' counter ticks and the battery drops in the crate; the bar never counted while a
+  town's screen was over it, so the old way the sound waited for him to leave the town), the client says it (UI's voice on 'bohemia-job-paid'); the screen opens only when he was going into the town.
+  The same for a delivery walking into the town it goes to; a crew holding the caravan's gate is met at the gate, never all along the
+  edge (198(g)).
+- PROOF: gates/paid_at_the_towns_edge_gate.js (new, registered) phone 3/0, computer 3/0: E1 a recover job picked up, then a walk whose road crosses
+  the client town's edge and ends four blocks beyond it: paid 45 on the step at (49,50), 290 -> 335 on the bar, the screen never
+  opened, the count-up posted (the sound); E2 a walk to the town: paid on the step that reached its edge, 1.1 s before the screen opened; E3 nothing paid twice.
+  The neighbours on the same tree: paid_only_for_the_work 13/0, the_normie_hour_world 8/0, a_jobs_time_counts_the_way_back 6/0,
+  every_job_kind 37/0. The count-up on E1: 11 ticks posted as the 45 landed (the bar's sound, SOUNDS' counter and drop).

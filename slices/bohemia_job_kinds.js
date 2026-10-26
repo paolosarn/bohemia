@@ -1043,10 +1043,30 @@
     return false;
   }
   /* 3. A STEP of his: the cargo follows, the packs and the raiders move; true = a fight started */
+  /* __PAID_AT_THE_TOWNS_EDGE__ (WORLD [paid at the town's edge], rule 275(a), Paolo 10/26: 'I have to double click to enter the town
+     for a go-back-and-get-paid... as long as I get in the territory of the town I should get paid, I don't wanna have to enter the
+     settlement mode'). MEASURED: a return was settled only when a journey ENDED at the client's town (the arrival), which is also
+     the arrival that opens the town's screen; walking up to the town and on paid nothing. NOW the step that puts the party on any
+     tile of the client town's edge (RUN's any-side door, townNear) settles the return there and then: the batteries land on the
+     bar (the purse's credit, the shell's pay sound) and the client says it; the screen opens only if he was going into the town.
+     The same for a delivery walking into the town it goes to. */
+  function payHere(j, x, y) {
+    if ((j.stage === 'back' || j.stage === 'home') && j.plays !== 'hold-defend' && j.plays !== 'clear-camp') return atClient(j, x, y);
+    if ((j.plays === 'haul-caravan' && j.stage === 'haul') || (j.plays === 'carry' && j.stage === 'carry')) { if (!j.dest || j.dest.made) return false;
+      if (j.holders) return holdersAt(j, x, y);   /* the crew at the gate is met at the gate, never all along the edge (198(g)) */
+      var t = townNear(x, y, 1); return !!(t && t.name === j.dest.name); }
+    return false;
+  }
   function step() {
     STEPS++;
     var H = held();
     for (var i = 0; i < H.length; i++) { var f = STEP[H[i].plays], k = K(H[i].plays) || {}; if (f && f(H[i], k) === true) return true; }
+    var P = held().slice();
+    for (var q = 0; q < P.length; q++) { var J = P[q]; if (LOOP.held.indexOf(J) < 0 || !payHere(J, city.x, city.y)) continue;
+      var a = ARRIVE[J.plays]; if (!a) continue;
+      root.__JOB_EDGE_PAY = { id: J.id, at: [city.x, city.y], t: Date.now() };
+      if (a(J, city.x, city.y) === true) return true;   /* the gate's crew (T18) waits there: that is a fight */
+    }
     return false;
   }
   /* 4. A FIGHT ENDED that was this job's */
