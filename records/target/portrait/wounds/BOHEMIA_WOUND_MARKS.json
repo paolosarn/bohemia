@@ -1,0 +1,700 @@
+{
+ "what": "PORTRAIT [the face shows the wound] (rule 234(c)): every injury row's mark on the man's own face, drawn over it as a patch rendered from his own model under the rig's sun; the fresh wound's blood and band-aid come off as it heals",
+ "tool": "tools/bohemia_portrait_the_face_shows_the_wound.py",
+ "rule": "234(c)",
+ "draft": true,
+ "stamp": "wounds-10-26",
+ "atlas": "records/target/portrait/wounds/<look>.png and <look>.json (rows: mark -> key -> size -> [sx, sy, w, h, dx, dy] in the atlas and on the face)",
+ "keys": [
+  "rest",
+  "A",
+  "E",
+  "O",
+  "M"
+ ],
+ "sizes": [
+  128,
+  64
+ ],
+ "marks": {
+  "eye_patch": {
+   "name": "EYE PATCH",
+   "life": "life",
+   "keys": "rest",
+   "layer": 40,
+   "what": "a domed oval of black cloth over the eye, a strap round the skull above the ears"
+  },
+  "skull_stitches": {
+   "name": "STITCHES",
+   "life": "life",
+   "keys": "rest",
+   "layer": 20,
+   "what": "a horseshoe of stapled scar from the brow back over the skull, the hair shaved along it"
+  },
+  "ear_gone": {
+   "name": "THE EAR GONE",
+   "life": "life",
+   "keys": "rest",
+   "layer": 10,
+   "what": "the ear cut to a ragged stump with the hole showing, the hair hacked away round it"
+  },
+  "nose_gone": {
+   "name": "THE NOSE GONE",
+   "life": "life",
+   "keys": "all",
+   "layer": 10,
+   "what": "the nose cut flat to the face, a dark gaping hole with a ridge of healed scar round it"
+  },
+  "haunted": {
+   "name": "THE STARE",
+   "life": "life",
+   "keys": "rest",
+   "layer": 5,
+   "what": "eyes sunk in dark rings and held too wide, a lock of hair gone white at the brow"
+  },
+  "heart_scar": {
+   "name": "THE SURGEON'S SCAR",
+   "life": "life",
+   "keys": "all",
+   "layer": 15,
+   "what": "a long stitched scar up out of the collar to the throat, the lips a dead grey-blue"
+  },
+  "trach_scar": {
+   "name": "THE BREATHING HOLE",
+   "life": "life",
+   "keys": "all",
+   "layer": 15,
+   "what": "the puckered scar of a hole cut in the throat to let him breathe, and his mouth hanging open for air"
+  },
+  "sling": {
+   "name": "SLING",
+   "life": "heals",
+   "keys": "all",
+   "layer": 30,
+   "what": "the strap of a dirty linen sling round his neck, knotted at the side, the arm in it below the picture"
+  },
+  "tag": {
+   "name": "THE SURGEON'S TAG",
+   "life": "heals",
+   "keys": "rest",
+   "layer": 35,
+   "what": "a yellow cattle tag punched through his ear, the surgeon's marker on it, for the wound his face cannot show"
+  },
+  "head_bandage": {
+   "name": "HEAD BANDAGE",
+   "life": "heals",
+   "keys": "rest",
+   "layer": 50,
+   "what": "gauze wound twice round the head over the brow, an old brown seep at the temple"
+  },
+  "eye_pad": {
+   "name": "EYE PAD",
+   "life": "heals",
+   "keys": "rest",
+   "layer": 45,
+   "what": "a square of gauze taped over the eye in an X, stained through"
+  },
+  "nose_tape": {
+   "name": "NOSE TAPED",
+   "life": "heals",
+   "keys": "all",
+   "layer": 45,
+   "what": "two strips of tape crossed over a broken nose, dried blood under the nostrils"
+  },
+  "ear_bandage": {
+   "name": "EAR BANDAGED",
+   "life": "heals",
+   "keys": "rest",
+   "layer": 45,
+   "what": "a gauze pad taped over the torn ear, stained through"
+  },
+  "face_stitches": {
+   "name": "STITCHED CHEEK",
+   "life": "heals",
+   "keys": "rest",
+   "layer": 25,
+   "what": "a gash across the cheek, black thread crossing it, the edges swollen"
+  },
+  "burn": {
+   "name": "BURN",
+   "life": "heals",
+   "keys": "all",
+   "layer": 25,
+   "what": "a raw wet patch of burn down the cheek and jaw, soot in the nostrils"
+  },
+  "neck_wrap": {
+   "name": "NECK WRAPPED",
+   "life": "heals",
+   "keys": "all",
+   "layer": 30,
+   "what": "gauze wound round the throat, a brown seep through it"
+  },
+  "blood": {
+   "name": "BLOOD",
+   "life": "fresh",
+   "keys": "rest",
+   "layer": 60,
+   "what": "dried blood run from a cut at the hairline down the temple and the cheek"
+  },
+  "bandaid": {
+   "name": "BAND-AID",
+   "life": "fresh",
+   "keys": "rest",
+   "layer": 65,
+   "what": "a band-aid stuck over the cut at the hairline, its pad gone brown"
+  }
+ },
+ "rows": {
+  "sick": {
+   "name": "Sick",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    1,
+    3
+   ]
+  },
+  "infected_wound": {
+   "name": "Infected Wound",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "broken_arm": {
+   "name": "Broken Arm",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    5,
+    7
+   ]
+  },
+  "broken_leg": {
+   "name": "Broken Leg",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    5,
+    7
+   ]
+  },
+  "broken_ribs": {
+   "name": "Broken Ribs",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    5,
+    7
+   ]
+  },
+  "bruised_leg": {
+   "name": "Bruised Leg",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    2,
+    3
+   ]
+  },
+  "crushed_finger": {
+   "name": "Crushed Finger",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    2,
+    3
+   ]
+  },
+  "dislocated_shoulder": {
+   "name": "Dislocated Shoulder",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    5,
+    7
+   ]
+  },
+  "fractured_elbow": {
+   "name": "Fractured Elbow",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "fractured_hand": {
+   "name": "Fractured Hand",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "fractured_ribs": {
+   "name": "Fractured Ribs",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "smashed_hand": {
+   "name": "Smashed Hand",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    4,
+    6
+   ]
+  },
+  "sprained_ankle": {
+   "name": "Sprained Ankle",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    2,
+    3
+   ]
+  },
+  "broken_nose": {
+   "name": "Broken Nose",
+   "kind": "temporary",
+   "mark": "nose_tape",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "crushed_windpipe": {
+   "name": "Crushed Windpipe",
+   "kind": "temporary",
+   "mark": "neck_wrap",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "fractured_skull": {
+   "name": "Fractured Skull",
+   "kind": "temporary",
+   "mark": "head_bandage",
+   "heal_days": [
+    6,
+    9
+   ]
+  },
+  "severe_concussion": {
+   "name": "Severe Concussion",
+   "kind": "temporary",
+   "mark": "head_bandage",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "cut_achilles_tendon": {
+   "name": "Cut Achilles Tendon",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "cut_arm": {
+   "name": "Cut Arm",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    2,
+    4
+   ]
+  },
+  "cut_arm_sinew": {
+   "name": "Cut Arm Sinew",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    4,
+    6
+   ]
+  },
+  "cut_artery": {
+   "name": "Cut Artery",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    1,
+    3
+   ]
+  },
+  "cut_leg_muscles": {
+   "name": "Cut Leg Muscles",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "deep_abdominal_cut": {
+   "name": "Deep Abdominal Cut",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "deep_chest_cut": {
+   "name": "Deep Chest Cut",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    5,
+    6
+   ]
+  },
+  "exposed_ribs": {
+   "name": "Exposed Ribs",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    6
+   ]
+  },
+  "split_hand": {
+   "name": "Split Hand",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    5,
+    7
+   ]
+  },
+  "split_shoulder": {
+   "name": "Split Shoulder",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    4,
+    6
+   ]
+  },
+  "cut_neck_vein": {
+   "name": "Cut Neck Vein",
+   "kind": "temporary",
+   "mark": "neck_wrap",
+   "heal_days": [
+    1,
+    4
+   ]
+  },
+  "deep_face_cut": {
+   "name": "Deep Face Cut",
+   "kind": "temporary",
+   "mark": "face_stitches",
+   "heal_days": [
+    2,
+    3
+   ]
+  },
+  "grazed_neck": {
+   "name": "Grazed Neck",
+   "kind": "temporary",
+   "mark": "neck_wrap",
+   "heal_days": [
+    1,
+    2
+   ]
+  },
+  "pierced_cheek": {
+   "name": "Pierced Cheek",
+   "kind": "temporary",
+   "mark": "face_stitches",
+   "heal_days": [
+    1,
+    2
+   ]
+  },
+  "ripped_ear": {
+   "name": "Ripped Ear",
+   "kind": "temporary",
+   "mark": "ear_bandage",
+   "heal_days": [
+    2,
+    3
+   ]
+  },
+  "split_nose": {
+   "name": "Split Nose",
+   "kind": "temporary",
+   "mark": "nose_tape",
+   "heal_days": [
+    2,
+    4
+   ]
+  },
+  "grazed_kidney": {
+   "name": "Grazed Kidney",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    6
+   ]
+  },
+  "injured_knee_cap": {
+   "name": "Injured Knee Cap",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    5,
+    8
+   ]
+  },
+  "injured_shoulder": {
+   "name": "Injured Shoulder",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "pierced_arm_muscles": {
+   "name": "Pierced Arm Muscles",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "pierced_chest": {
+   "name": "Pierced Chest",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "pierced_hand": {
+   "name": "Pierced Hand",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "pierced_leg_muscles": {
+   "name": "Pierced Leg Muscles",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "pierced_lung": {
+   "name": "Pierced Lung",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    5,
+    7
+   ]
+  },
+  "pierced_side": {
+   "name": "Pierced Side",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "stabbed_guts": {
+   "name": "Stabbed Guts",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    3,
+    5
+   ]
+  },
+  "grazed_eye_socket": {
+   "name": "Grazed Eye Socket",
+   "kind": "temporary",
+   "mark": "eye_pad",
+   "heal_days": [
+    2,
+    4
+   ]
+  },
+  "burnt_leg": {
+   "name": "Burnt Leg",
+   "kind": "temporary",
+   "mark": "tag",
+   "heal_days": [
+    2,
+    3
+   ]
+  },
+  "burnt_hands": {
+   "name": "Burnt Hands",
+   "kind": "temporary",
+   "mark": "sling",
+   "heal_days": [
+    4,
+    5
+   ]
+  },
+  "burnt_face": {
+   "name": "Burnt Face",
+   "kind": "temporary",
+   "mark": "burn",
+   "heal_days": [
+    3,
+    4
+   ]
+  },
+  "inhaled_flames": {
+   "name": "Inhaled Flames",
+   "kind": "temporary",
+   "mark": "burn",
+   "heal_days": [
+    4,
+    6
+   ]
+  },
+  "brain_damage": {
+   "name": "Brain Damage",
+   "kind": "permanent",
+   "mark": "skull_stitches",
+   "heal_days": null
+  },
+  "broken_elbow_joint": {
+   "name": "Broken Elbow Joint",
+   "kind": "permanent",
+   "mark": "sling",
+   "heal_days": null
+  },
+  "broken_knee": {
+   "name": "Broken Knee",
+   "kind": "permanent",
+   "mark": "tag",
+   "heal_days": null
+  },
+  "partly_collapsed_lung": {
+   "name": "Partly Collapsed Lung",
+   "kind": "permanent",
+   "mark": "trach_scar",
+   "heal_days": null
+  },
+  "maimed_foot": {
+   "name": "Maimed Foot",
+   "kind": "permanent",
+   "mark": "tag",
+   "heal_days": null
+  },
+  "missing_ear": {
+   "name": "Missing Ear",
+   "kind": "permanent",
+   "mark": "ear_gone",
+   "heal_days": null
+  },
+  "missing_eye": {
+   "name": "Missing Eye",
+   "kind": "permanent",
+   "mark": "eye_patch",
+   "heal_days": null
+  },
+  "missing_finger": {
+   "name": "Missing Finger",
+   "kind": "permanent",
+   "mark": "tag",
+   "heal_days": null
+  },
+  "missing_nose": {
+   "name": "Missing Nose",
+   "kind": "permanent",
+   "mark": "nose_gone",
+   "heal_days": null
+  },
+  "traumatized": {
+   "name": "Traumatized",
+   "kind": "permanent",
+   "mark": "haunted",
+   "heal_days": null
+  },
+  "weakened_heart": {
+   "name": "Weakened Heart",
+   "kind": "permanent",
+   "mark": "heart_scar",
+   "heal_days": null
+  }
+ },
+ "stages": [
+  {
+   "stage": "fresh",
+   "while_left_over": 0.5,
+   "show": [
+    "blood",
+    "bandaid"
+   ]
+  },
+  {
+   "stage": "mending",
+   "while_left_over": 0.0,
+   "show": [
+    "bandaid"
+   ]
+  },
+  {
+   "stage": "healed",
+   "while_left_over": null,
+   "show": []
+  }
+ ],
+ "fresh": [
+  "blood",
+  "bandaid"
+ ],
+ "order": [
+  "haunted",
+  "ear_gone",
+  "nose_gone",
+  "heart_scar",
+  "trach_scar",
+  "skull_stitches",
+  "burn",
+  "face_stitches",
+  "neck_wrap",
+  "sling",
+  "tag",
+  "eye_patch",
+  "ear_bandage",
+  "eye_pad",
+  "nose_tape",
+  "head_bandage",
+  "blood",
+  "bandaid"
+ ],
+ "bb": {
+  "quote_visible": "Most of these injuries will be visible on your Battle Brothers (so you can see that a guy really has an eye missing)",
+  "source_visible": "bb_all/0626_Developer Posts.txt",
+  "quote_bandage": "The bandages shown on your characters are even visibly replaced by clean ones.",
+  "source_bandage": "bb_all/1415_News and Dev Blogs.txt",
+  "recall": "RECALL (not in the library): the bust is layers, the head and an injury layer over it; a temporary injury a dirty bandage while it heals; a few permanent ones change the head for life"
+ }
+}

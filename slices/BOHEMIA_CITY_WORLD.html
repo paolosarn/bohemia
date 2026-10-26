@@ -583,6 +583,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
        strip of tape holding the top edge, and a screen that is lit rather than black.
        Every colour and thickness here comes from the SKIN, so act two and act three
        swap the whole object without touching a word of the feed. -->
+  <!-- __ONE_PHONE__ (UI TWO 10/26, rule 212(g)): the new phone (slices/bohemia_phone.js) took this over and hides it with its own stylesheet; RUN takes it out (the old phone: its feed now reads on the phone's FEED app, BOHEMIA_FEED.posts()) -->
   <div id="cityfeed" aria-hidden="true">
     <div id="cityfeedscreen">
       <div id="cityfeedbar"><span id="cityfeedsig">▮▮▮</span><span id="cityfeedname">THE VALLEY</span><span id="cityfeedbatt" title="the grid where you are standing"></span><span id="cityfeedclock">--:--</span></div>
@@ -45096,6 +45097,7 @@ function mapStartIn(d){
      ledger is what survives a save: a 'start:' credit already in it means this crew was paid. */
   try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0){ try{ fogContinue(); }catch(_e2){} return; } }catch(_e){}
   try{ freshStart(p); }catch(_e){}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: a new game, a new corner, the map dark past it */
+  try{ if(FOG.on) startInTown(p); }catch(_e){}   /* __THE_GAME_STARTS_IN_A_TOWN__ (RUN THREE, rule 236): his squad up close, then the closest town */
   try{ localStorage.removeItem(CREW_WALKED_KEY); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: a new crew; nobody has walked from it */
   try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
   try{ billPublish(); }catch(_e){}
@@ -45294,6 +45296,69 @@ function freshStart(p, n){
   try { render(); } catch (_e) {} try { mapStatePost(); } catch (_e) {}
 }
 /* ==== /__A_FRESH_START_AND_A_FOG_OF_WAR__ ==== */
+/* ==== __THE_GAME_STARTS_IN_A_TOWN__ (RUN THREE [the game starts in a town], rule 236, Paolo 10/26: 'some sort of introduction vibe
+   where you get a close-up of the squad, and then instead of starting in map mode it will start on settlement mode... the closest
+   settlement... whatever the math is right now... maybe depending on the origin'). A NEW GAME (not a CONTINUE, not the bench's
+   valley with the dark lifted) opens on his squad up close (slices/bohemia_the_squad_up_close.js over the whole screen: the men
+   his origin rolled, named and dressed as the crew screen names them, their own heads), then the SETTLEMENT SCREEN of the
+   closest settlement to the corner his origin started him on (__A_FRESH_START_AND_A_FOG_OF_WAR__, its START_KINDS: the Faithful
+   by a chapel, the water truck at a truck stop or on the road, up from Henderson on the south freeway), by the map's own measure
+   (startPick's townNear: blocks, the longer side; the straight line breaks a tie). The company stands in that town, so the map,
+   when he leaves it, is the town's block. THE ORIGIN'S PLACE IS A MODDER'S: an origin in records/target/bb/origins.json with a
+   start_kinds list (district kinds, START_KINDS' words) starts there instead (RUN TWO adds the field, rule 236(c)). ==== */
+try{ fetch('../records/target/bb/origins.json').then(function(r){ return r.json(); }).then(function(j){ (j.origins || []).forEach(function(o){ if(o && o.id && Array.isArray(o.start_kinds) && o.start_kinds.length) START_KINDS[o.id] = o.start_kinds.slice(); }); }).catch(function(){}); }catch(_e){}
+var START_TOWN = { on: false, opened: false };
+function startTownPick(){
+  var bs = ctBases(), best = null, bd = 1e9, be = 1e9;
+  for (var n in (bs || {})) { var b = bs[n]; if (!b) continue;
+    var d = Math.max(Math.abs((b.x | 0) - city.x), Math.abs((b.y | 0) - city.y)), e = Math.hypot((b.x | 0) - city.x, (b.y | 0) - city.y);
+    if (d < bd || (d === bd && e < be)) { bd = d; be = e; var t = 'camp'; try { t = mapTierOf(n) || 'camp'; } catch (_e) {} best = { name: n, x: b.x | 0, y: b.y | 0, tier: t, blocks: d }; } }
+  return best;
+}
+/* his men as the crew screen will name and dress them (engine/bohemia_roster.js manOf + lookFor: ours.json's crew at his place, the
+   origin's background and level over it, his rolled stars) */
+function startSquad(p){
+  var co = (p && p.company) || [], men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [], n = co.length || 3, out = [];
+  var crew = looks.filter(function(l){ return l && l !== 'you'; });
+  var bg = function(id){ try { if (window.BohemiaRoster && BohemiaRoster.bgName) return BohemiaRoster.bgName(id); } catch (_e) {} return String(id || '').replace(/_/g, ' '); };
+  for (var i = 0; i < n; i++) { var m = co[i] || {}, d = men[i % Math.max(1, men.length)] || {}, main = i === 0 && (d.main !== false);
+    var look = main ? 'you' : (looks[i] && looks[i] !== 'you' ? looks[i] : (crew.length ? crew[(i - 1 + crew.length * 8) % crew.length] : null));
+    out.push({ name: (d.name || (main ? 'YOU' : 'MAN')) + (i >= men.length && men.length ? ' II' : ''), look: look, trade: bg(m.background || d.background), level: m.level || d.level || 1, stars: m.stars || null, main: main }); }
+  return out;
+}
+function startInTown(p){
+  if (START_TOWN.on) return; START_TOWN.on = true;
+  /* the tape's black at once, so not one frame of the map shows before it (the module takes this cover's place) */
+  try { var td = (window.top && window.top.document) || document; if (!td.getElementById('squadup')) { var cv = td.createElement('div'); cv.id = 'squadup'; cv.style.cssText = 'position:fixed;inset:0;z-index:2147483000;background:#050403';
+    (td.body || td.documentElement).appendChild(cv); setTimeout(function(){ try { if (cv.isConnected && !window.BohemiaSquadUpClose) cv.remove(); } catch (_e) {} }, 6000); } } catch (_e) {}
+  var S = window.__START_IN_TOWN = { origin: (p && p.origin) || null, began: Date.now(), intro: null, town: null, opened: null, from: null };
+  var open = function(k){
+    if (START_TOWN.opened) return;
+    if (!(window.__FRESH_START && window.__FRESH_START.at) || !CREW_DEFS) { if ((k | 0) < 160) setTimeout(function(){ open((k | 0) + 1); }, 250); return; }   /* the corner and the places still being worked out */
+    START_TOWN.opened = true;
+    var t = null; try { t = startTownPick(); } catch (_e) {}
+    if (!t) { S.why = 'no settlement on the map'; return; }
+    S.from = [city.x, city.y]; S.town = t.name; S.tier = t.tier; S.blocks = t.blocks;
+    try { travelStop(); } catch (_e) {}
+    city.x = t.x; city.y = t.y;   /* the company is in the town: leaving it, the map is the town's block (the dark clears round him there) */
+    try { camHold(); } catch (_e) {}
+    try { loopOpenTown({ name: t.name, x: t.x, y: t.y, tier: t.tier }); } catch (_e) {}
+    S.opened = Date.now();
+    try { render(); } catch (_e) {} try { mapStatePost(); } catch (_e) {}
+  };
+  var play = function(){
+    var top = document; try { if (window.top && window.top.document) top = window.top.document; } catch (_e) {}
+    var men = startSquad(p);
+    S.intro = { men: men.map(function(m){ return { name: m.name, look: m.look }; }) };
+    try { BohemiaSquadUpClose.play({ men: men, origin: p.origin, originName: p.originName, crew: p.name, doc: top, base: '../engine/', onDone: function(r){ S.intro.done = Date.now(); S.intro.skipped = !!(r && r.skipped); open(0); } }); }
+    catch (_e) { S.intro.failed = String(_e); open(0); }
+  };
+  var need = function(src, ok, then){ if (ok()) return then(); try { var sc = document.createElement('script'); sc.src = src; sc.onload = then; sc.onerror = then; document.head.appendChild(sc); } catch (_e) { then(); } };
+  /* the names and the heads need ours.json's crew (CREW_DEFS) and the roster's trade words; the tape waits for them, a second at most */
+  var go = function(k){ if (!CREW_DEFS && (k | 0) < 8) return setTimeout(function(){ go((k | 0) + 1); }, 125); need('bohemia_the_squad_up_close.js', function(){ return !!window.BohemiaSquadUpClose; }, play); };
+  need('../engine/bohemia_roster.js', function(){ return !!window.BohemiaRoster; }, function(){ go(0); });
+}
+/* ==== /__THE_GAME_STARTS_IN_A_TOWN__ ==== */
 function loopJobPay(base){ var p = LOOP.start, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__ (RUN TWO [money teaches], rule 151(b)): Battle Brothers' 'the crowns reward increases with your company's Renown', x1 to x4.5 (TUNING) */
   if(!p) return Math.max(1, Math.round((base | 0) * cm)); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1) * cm)); }
 /* __A_FEW_NOT_TWELVE__ (RUN 10/5, [a few, not twelve], rule 75b). PAOLO 10/5: 'for demo purposes just one enemy
@@ -45383,9 +45448,18 @@ function crewCount(){
    (bohemia.fight.after.v1, RUN TWO's nfAfterKeep) and the crew screen's company (bohemia.company.v1), by name, never YOU;
    the bar, the bill, the marker, the plate's stars and the fight's size all read crewCount */
 function crewDead(){
-  var out = [], add = function(n){ n = String(n || ''); if (n && out.indexOf(n) < 0) out.push(n); };
+  /* __THE_DEAD_STAY_DEAD__ (CAMP [eyes: the dead stand up] and [eyes: the dead, again], moved to CAMP 10/26, one system with rule 234).
+     MEASURED: the fight's rows live in bohemia.fight.after.v1 only until the crew screen reads them (it empties the queue), and
+     the crew screen's hand-over never carries a dead man (so no m.dead to find there): the first time CREW was opened after a death,
+     this list went empty and every count that reads it (the bar, the bill, the marker, the sizing) counted the dead again. NOW the
+     dead are also read where they are kept for good: the company's condition (engine/bohemia_condition.js dead(), never emptied)
+     and the crew screen's own climb file (a man it marked dead). One man is counted once, by the condition's own key. */
+  var out = [], seen = {}, key = function(n){ try{ return window.BohemiaCondition ? BohemiaCondition.canon(n) : String(n).toUpperCase(); }catch(_e){ return String(n).toUpperCase(); } };
+  var add = function(n){ n = String(n || ''); if (!n) return; var k = key(n); if (!k || k === 'YOU' || seen[k]) return; seen[k] = 1; out.push(n); };
   try{ (JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []).forEach(function(f){ ((f && f.rows) || []).forEach(function(r){ if (r && r.dead && !r.main) add(r.name); }); }); }catch(_e){}
   try{ (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).forEach(function(m){ if (m && m.dead && !m.main) add(m.name); }); }catch(_e){}
+  try{ if (window.BohemiaCondition) BohemiaCondition.dead().forEach(function(d){ if (d) add(d.shown || d.name); }); }catch(_e){}
+  try{ var cl = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}') || {}; for (var nm in cl) if (cl[nm] && cl[nm].dead) add(nm); }catch(_e){}
   return out;
 }
 try{ window.crewDead = crewDead; window.crewTaken = crewTaken; window.crewWalked = window.crewWalked || crewWalked; }catch(_e){}
@@ -45759,6 +45833,7 @@ window.addEventListener('bohemia:condition', function(){ try{ healPaint(); }catc
 /* ==== /__THE_HEAL_BUTTON__ ==== */
 /* THE PLATE: CAMP in the pad's own row, left of PAUSE and GO, where his thumb already is (above the pad the map's spoken line
    lies over it); on the map only */
+/* __ONE_PHONE__ (UI TWO 10/26, rule 212(g)): the new phone (slices/bohemia_phone.js) took this over and hides it with its own stylesheet; RUN takes it out (the CAMP plate: the phone's HEAL app makes camp, rule 226) */
 function campBtnPaint(){
   var b = document.getElementById('campbtn');
   if (!b) { if (!document.body) return; b = document.createElement('div'); b.id = 'campbtn'; b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'heal: make camp');
@@ -45793,6 +45868,7 @@ window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); 
 function mapOnGlass(x, y){
   try{ var sp = __CITY.isoAt(x, y), cv0 = document.getElementById('cv').getBoundingClientRect(), ph = document.getElementById('cityfeed');
     var pr = (ph && ph.classList.contains('on')) ? ph.getBoundingClientRect() : null, gx = cv0.left + sp.sx, gy = cv0.top + sp.sy;
+    try{ var bp = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if(bp && bp.on) pr = bp; }catch(_e){}   /* __ONE_PHONE__ (UI TWO): the phone where it is now, in this page's pixels */
     if(sp.sx < 24 || sp.sx > CVW - 24 || sp.sy < 60 || sp.sy > CVH - 150) return false;
     if(pr && gx > pr.left - 20 && gx < pr.right + 20 && gy > pr.top - 30 && gy < pr.bottom + 10) return false;
     return true; }catch(_e){ return true; }
@@ -45920,6 +45996,10 @@ window.addEventListener('message', function(ev){
   var i = -1; LOOP.held.forEach(function(h, k){ if(h.id === id) i = k; });
   if(i < 0) return;
   var o = d.outcome || {}, won = !!(o.victory || o.result === 'win');
+  /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b), a marked line; CAMP's door, NOTEd): a lineup left is no fight:
+     the job stays held, its clock running */
+  if(o.withdrew){ var lb = 'You pulled back before anyone moved. The job is still yours: ' + LOOP.held[i].title + '.';   /* draft:true */
+    setTimeout(function(){ try{ loopSay(lb); render(); }catch(_e){} }, 600); return; }
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])){ BohemiaJobKinds.fightEnd(LOOP.held[i], o); return; } }catch(_e){}   /* __EVERY_JOB_KIND__ */
   var line;
   /* WALKING OUT IS NOT THE JOB. The fight lets him leave by the way out and calls that a win
@@ -65806,6 +65886,7 @@ function cityHandOver(msg, skin){
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */
   try{ if(msg){ msg.firstDay = loopDay() <= 1; msg.crewCount = crewCount(); } }catch(_e){}
   try{ window.__LAST_HANDOVER = { why: msg && msg.why, label: msg && msg.label, n: (msg && msg.roster) ? msg.roster.length : null, party: (msg && msg.party) ? msg.party.count : null, at: performance.now() }; }catch(_e){}
+  try{ window.__HANDED = msg; }catch(_e){}   /* __PULLED_BACK__ (COMBAT, rule 275(c), a marked line): the contact kept whole, so a lineup left can be undone */
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}
@@ -70353,6 +70434,14 @@ window.addEventListener('message',function(ev){
   /* WON is the explicit flag the shell sends; anything else is not a win. A
      fight that ended some third way is still a thing that HAPPENED to him. */
   var won = !!(o.victory||o.result==='win');
+  /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b)(d), a marked line): a lineup left is no loss, so never the
+     reload of the last save and never the plate's tape: nothing happened */
+  if(o.withdrew){ try{ var qw=document.getElementById('qline'); if(qw) qw.textContent='You pulled back before anyone moved.'; }catch(_e){}   /* draft:true */
+    /* rule 275(c) (Paolo 10/26: 'if I retreat, it bounces me a couple tiles away to get a head start'): the party steps back two
+       blocks from them, the way FALL BACK on the meet card does (the hunters keep hunting, a party he chased stays, a job stays
+       held), so the same contact is not touched again on the next step */
+    var hb = null; try{ hb = window.__HANDED || null; window.__HANDED = null; meetFallBack(hb || { at: d.at || null }); }catch(_e){}
+    try{ window.__FIGHT_CAME_HOME={won:false,withdrew:true,at:d.at||null,bounced:{x:city.x,y:city.y}}; }catch(_e){} return; }
   /* draft:true -- ALWAYS MAKE AN ATTEMPT (8/11). Real words, written as if they
      ship, his to overwrite. */
   /* __DEATH_IS_A_RELOAD__ (8/22). Yesterday this said "It went badly in there.
@@ -88691,6 +88780,7 @@ window.BOHEMIA_FEED = (function(){
      the start screen's names are capitals, so they are read as a person writes them (THE NIGHT SHIFT -> Night Shift) */
   function companyName(){
     var n = ''; try { n = String(LOOP.start.name || ''); } catch(_e){}
+    try { var rn = window.BohemiaCompanyName && localStorage.getItem(BohemiaCompanyName.KEY); if (rn) n = String(rn); } catch(_e){}   /* __ONE_PHONE__ (UI TWO): the name he gave it on the phone's FEED */
     n = n.replace(/^\s*the\s+/i, '');
     if (n && n === n.toUpperCase()) n = n.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, a, c){ return a + c.toUpperCase(); });
     return n || null;
@@ -88732,6 +88822,7 @@ window.BOHEMIA_FEED = (function(){
   /* ---- THE SLOT ON THE PHONE (interim, UI TWO replaces it) ---- */
   var SLOT = null;
   function slot(){
+    if (window.BohemiaPhone) return null;   /* __ONE_PHONE__ (UI TWO 10/26): the phone's FEED app reads BohemiaFeed.read(); the slot is retired, as this block asked */
     if (SLOT && SLOT.parentNode) return SLOT;
     var scr = document.getElementById('cityfeedscreen'); if (!scr) return null;
     SLOT = document.createElement('div'); SLOT.id = 'feednow'; SLOT.setAttribute('role', 'status'); SLOT.setAttribute('aria-label', 'the newest post in the valley');
@@ -88909,7 +89000,7 @@ window.BOHEMIA_FEED = (function(){
       var cx = ctx(), e = { enemy: fname(fac) || (h.label ? String(h.label).toLowerCase() : null), enemy_faction: fac,
                 count: (h.party && h.party.count) || (((o.dead | 0) + (o.fled | 0) + (o.alive | 0)) || null), town: cx.town,
                 district: h.district || cx.district || null };
-      var how = (won && (o.alive | 0) > 0) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* the way out is fleeing; a wipe is its own story */
+      var how = ((won && (o.alive | 0) > 0) || o.withdrew) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* __PULLED_BACK__ (COMBAT, rule 253): a lineup left is the way out */   /* the way out is fleeing; a wipe is its own story */
       fire(how, e);
       /* the crew that beat him, or watched him run, says so on its own page */
       if (how !== 'fight.won' && fac) fire('faction.claim', { faction_id: fac, enemy: cx.company ? 'the ' + cx.company : null, town: cx.town, district: e.district });
@@ -90069,6 +90160,7 @@ window.BOHEMIA_BAR = (function(){
    A PRESS IS A PRESS, NOT A TAP ON THE MAP: pointer and click stop here, or tapping 3x would
    also set a journey to wherever the plate happens to sit (the same trap [the flip] found).
    ============================================================================ */
+/* __ONE_PHONE__ (UI TWO 10/26, rule 212(g)): the new phone (slices/bohemia_phone.js) took this over and hides it with its own stylesheet; RUN takes it out (the speed pad: the phone's PLAY/PAUSE, travelSpeedSet as before) */
 var speedPadPaint = null;
 (function(){
   var LABEL = { 0:'II', 1:'1x', 2:'2x', 3:'3x', 5:'5x', 1.22:'\u25B6' };   /* __ONE_POINT_TWO_TWO__: PAUSE and GO on the map */
@@ -90682,7 +90774,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
-<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->

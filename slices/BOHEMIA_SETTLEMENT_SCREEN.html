@@ -150,6 +150,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .fstrip button{flex:0 0 auto;width:52px;padding:2px;border:1px solid var(--line);border-radius:6px;background:var(--plate);color:var(--dim);font:inherit;font-size:9px;letter-spacing:.5px;display:flex;flex-direction:column;align-items:center;gap:2px}
 .fstrip button.on{border-color:var(--gold);color:var(--gold)}
 .fstrip canvas{width:40px;height:40px;border-radius:4px;background:#0c0906}
+.mbars{display:inline-flex;gap:3px;margin-left:auto;margin-right:8px}.mbar{display:inline-block;width:34px;height:7px;background:#3a1610;border:1px solid #000;vertical-align:middle}.mbar i{display:block;height:100%;background:#9a9a8e}   /* __THE_SMITH_MENDS__: each broken piece a bar, the grey what is left */
 .act.tostash{min-height:44px;font-size:12px;letter-spacing:1px;color:var(--dim);background:transparent;border-style:dashed;justify-content:center}   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210(c)): BUY wears it; this keeps it unworn */
 .twoh{margin:8px 14px 0;font-size:20px;letter-spacing:4px;color:#f4cf7c;font-weight:bold}   /* rule 194(b): TWO HANDS in big letters on a two-hander's card */   /* the man you tapped at the post (RUN TWO, change 7) */
 .hire.rare,html body #sheet .hire.rare{box-shadow:0 0 0 2px #e0ad3a,0 0 18px rgba(224,173,58,.55),0 2px 0 #000}   /* __THE_RARE_MAN_AT_THE_POST__: he reads as rare the moment he is met (over UI's card skin too) */
@@ -220,7 +221,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_arrivaltraits.js"></script>
 <script src="../engine/bohemia_relations.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
-<script src="../engine/bohemia_crew_door.js"></script>  <script src="../engine/bohemia_shop_wear.js"></script>  <!-- RUN TWO __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210) -->  <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): the company's CLOUT, its cart and its retinue -->  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
+<script src="../engine/bohemia_crew_door.js"></script>  <script src="../engine/bohemia_stall_prices.js"></script>  <!-- RUN TWO __TAPE_AT_EVERY_STALL__ (rules 265(a), 276(b)): ECONOMY's tape shelf -->  <script src="../engine/bohemia_shop_wear.js"></script>  <!-- RUN TWO __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210) -->  <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): the company's CLOUT, its cart and its retinue -->  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
 <script src="../engine/bohemia_livingmap.js"></script>  <!-- RUN TWO [the bar names the news]: the map's own dice for every town (traitsFor), so the news is what you find there -->
 <script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
@@ -230,6 +231,9 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_roster.js"></script>  <!-- RUN TWO [the hire shows the whole man]: what a man's gun does in the fight, the crew screen's own line -->
 <script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): the hall's eight in his order as bars, the shop's changes as arrows -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
+<script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__ (rule 241): the wound, its debuff, its days -->
+<script src="../engine/bohemia_condition.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: who is hurt, from the company's own condition -->
+<script src="bohemia_injury_card.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: the one card the clinic and the crew card both draw -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
 <script src="../engine/bohemia_housing.js"></script>
@@ -516,6 +520,7 @@ function shopSheet(k, body, acts, line){
   var items = S.stock[k] || [];
   var hello = {arms:'Guns and plate, whatever made it through. Everything has a price, mijo.', smith:'Fixed, sharpened, loaded. Pick one.', armourer:'If it stops a pipe, I sell it.'}[k];
   body.appendChild(speak(k, line || (items.length ? hello : 'Shelves are empty today.')));
+  mendLines(k, acts);   /* __THE_SMITH_MENDS__: his broken gear first, then the shelf */
   var h1 = document.createElement('div'); h1.className = 'gridh'; h1.textContent = 'THEIR SHELF'; acts.appendChild(h1);
   var shelfG = document.createElement('div'); shelfG.className = 'grid'; shelfG.id = 'shelfgrid'; acts.appendChild(shelfG);
   items.forEach(function(it){
@@ -931,6 +936,83 @@ var S = {
   purse:null, day:0, traits:[], traitSaid:{}, stock:{}, stash:[], rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
 };
 var P = window.BohemiaPurse;
+/* ==== __TAPE_AT_EVERY_STALL__ (RUN TWO [tape at every stall], rules 265(a) and 276(b), Paolo 10/26: 'all stalls, no matter the
+   settlement, always sell at least a stack of duct tape... it almost makes the game unplayable'; 'I made it to day four and couldn't
+   find anywhere to get repair items, duct tape... my stuff's not repairing'). MEASURED: the stall sold food, meds and rounds and no
+   tape anywhere, so CAMP's mending (a roll for 15 points of armour) had nothing to spend after the origin's start. NOW every stall
+   holds ECONOMY's shelf (records/target/bb/stall_prices.json tape_shelf, engine/bohemia_stall_prices.js tapeShelf/tapePrice): a stack
+   of 20 in a camp, 40 in a town, 60 in a fortress, twice where Trades make it, a card thins or fills it but never under a stack,
+   restocked by the file's restock_days (every map day since ECONOMY's Day 84); a roll is the stall's own price (1 battery here), past the shelf the back room's (twice), never sold out.
+   One roll or a stack of 20 in one tap; it goes into TAPE on the bar (bohemia.supplies.v1). ==== */
+var STALLP = null, TAPEKEY = 'bohemia.tape.sold.v1', TAPE_STACK = 20;
+try{ fetch('../records/target/bb/stall_prices.json').then(function(r){ return r.json(); }).then(function(j){ STALLP = j; if(S.open === 'stall') openB('stall'); }).catch(function(){}); }catch(e){}
+function tapeOn(){ return !!(STALLP && window.BohemiaStallPrices && STALLP.tape_shelf && !S.camp); }
+function tapePeriod(){ var d = STALLP && STALLP.tape_shelf && STALLP.tape_shelf.restock_days; return Math.floor(buildDay() / ((d && d.value) || 3)); }
+function tapeKey(){ return S.place.name + ':' + tapePeriod(); }
+function tapeSoldAll(){ try{ var a = JSON.parse(localStorage.getItem(TAPEKEY) || '{}'); return a && typeof a === 'object' ? a : {}; }catch(e){ return {}; } }
+function tapeSold(){ return tapeSoldAll()[tapeKey()] | 0; }
+function tapeTook(n){ var a = tapeSoldAll(), k = tapeKey(); Object.keys(a).forEach(function(x){ if(x !== k && x.slice(0, x.lastIndexOf(':')) === S.place.name) delete a[x]; });   /* a new restock forgets the old */
+  a[k] = (a[k] | 0) + n; try{ localStorage.setItem(TAPEKEY, JSON.stringify(a)); }catch(e){} }
+function tapeCtx(){ var m = traitMult(), r = relPrice(); return {place:S.place.name, tier:S.place.tier, stockMult:m.stock, buyMult:m.buy, relBuySub:r.buySub, soldThisRestock:tapeSold()}; }
+function tapeShelfNow(){ return Math.max(0, BohemiaStallPrices.tapeShelf(STALLP, tapeCtx()) - tapeSold()); }
+function tapeCost(n){ var c = tapeCtx(), t = 0; for(var i = 0; i < n; i++){ t += BohemiaStallPrices.tapePrice(STALLP, c); c.soldThisRestock++; } return t; }
+function tapeIcon(){ var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'supply_icons/tape.png'; return im; }
+function tapeLines(acts){
+  if(!tapeOn()) return;
+  var left = tapeShelfNow();
+  [1, TAPE_STACK].forEach(function(n){
+    var cost = tapeCost(n);
+    var b = act(n === 1 ? 'A roll of tape' : 'A stack of tape, ' + n + ' rolls', moneyWord(cost), function(){
+      var c2 = tapeCost(n); if(bats() < c2) return openB('stall', 'That is ' + moneyWord(c2) + ', mijo. Come back with it.');
+      P.debit(S.purse, 'electricity', c2, 'stall:tape', S.place.name, S.day);
+      supplyAdd('tape', n); tapeTook(n);
+      window.__TAPE_BOUGHT = {n:n, cost:c2, place:S.place.name, day:buildDay(), tape:supplyAdd('tape', 0), count:(window.__TAPE_BOUGHT ? window.__TAPE_BOUGHT.count : 0) + 1};
+      post('buy', {good:'tape', n:n, cost:c2}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf();
+      openB('stall', n === 1 ? 'A roll. It holds a coat together, mostly.' : 'A whole stack. You fight a lot, huh.');   /* draft:true */
+    }, bats() < cost);
+    b.dataset.good = 'tape'; b.dataset.n = n; b.insertBefore(tapeIcon(), b.firstChild); acts.appendChild(b);
+  });
+  var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft';
+  sl.textContent = left > 0 ? left + ' rolls on the shelf. More in the back, dearer.' : 'The shelf is bare. The back room has more, dearer.';   /* draft:true */
+  acts.appendChild(sl);
+}
+/* ==== end __TAPE_AT_EVERY_STALL__ ==== */
+/* ==== __THE_SMITH_MENDS__ (RUN TWO [the smith mends], rule 277, Paolo 10/26: 'if I go to a settlement that has a smith and an armourer
+   I should be able to repair my stuff with them pretty easily and quickly... the fact that that's not even an option is insane').
+   MEASURED: the smith said 'Fixed, sharpened, loaded' and only bought and sold; armour damage stays between fights (CAMP's
+   engine/bohemia_condition.js) and the only mend was the camp's, slow and paid in tape. NOW the smith, the armourer and a camp's GUNS
+   AND PLATE show MEND first: MEND IT ALL (every living man's broken helmet and body armour back to full) or one man alone, the price
+   on the button before the tap, ECONOMY's craftsman's price (BohemiaStallPrices.mendPrice: twice the tape the damage takes at this
+   stall, a roll per 15 points, moved by the place's size and the town's card); paid in batteries, none of his tape; about an hour of
+   town time on the map's own clock (mend.hours). ==== */
+function mendOrigin(){ try{ var pk = window.top && window.top.BOH_START && window.top.BOH_START.picks ? window.top.BOH_START.picks() : null; return pk && pk.company || null; }catch(e){ return null; } }
+function mendList(){ var C = window.BohemiaCondition; if(!C || !C.broken || !tapeOn()) return null;
+  var stm = traitMult(), ctx = {tier:S.place.tier, buyMult:stm.buy}, all = 0, n = 0;
+  var L = C.broken(mendOrigin()).map(function(m){ var c = 0; m.pieces.forEach(function(p){ p.price = BohemiaStallPrices.mendPrice(STALLP, p.missing, ctx); c += p.price; n++; }); m.price = c; all += c; return m; });
+  return {men:L, all:all, pieces:n, ctx:ctx, hours:(STALLP.mend && STALLP.mend.hours && STALLP.mend.hours.value) || 1}; }
+function mendBar(p){ var b = document.createElement('span'); b.className = 'mbar'; b.title = (p.part === 'head' ? 'helmet ' : 'armour ') + (p.max - p.missing) + ' of ' + p.max;
+  var f = document.createElement('i'); f.style.width = Math.round(100 * Math.max(0, p.max - p.missing) / Math.max(1, p.max)) + '%'; b.appendChild(f); return b; }
+function mendPay(k, cost, keys, who){
+  var C = window.BohemiaCondition; if(!C || !C.mend) return;
+  if(bats() < cost) return openB(k, 'That is ' + moneyWord(cost) + '. You have ' + bats() + '.');
+  P.debit(S.purse, 'electricity', cost, 'mend', S.place.name, S.day);
+  var done = C.mend(keys), M = mendList();
+  try{ if(window.parent && window.parent !== window && typeof window.parent.advance === 'function') window.parent.advance(60 * ((M && M.hours) || 1)); }catch(e){}   /* about an hour of town time (rule 277(c)) */
+  window.__MENDED = {cost:cost, keys:keys || null, done:done, n:(window.__MENDED ? window.__MENDED.n : 0) + 1};
+  post('mend', {cost:cost, men:done.men, pieces:done.pieces, points:Math.round(done.points)}); sfx('equip', view.night ? NIGHT_TRIM : null); shelf();
+  openB(k, (who === 'Your' ? 'Your gear is' : who ? who + "'s gear is" : 'Everything is') + ' good as new. An hour of work. ' + moneyWord(cost) + '.');   /* draft:true */
+}
+function mendLines(k, acts){
+  var M = mendList(); if(!M) return;
+  var h = document.createElement('div'); h.className = 'gridh'; h.textContent = 'MEND YOUR GEAR'; acts.appendChild(h);
+  if(!M.men.length){ var ok0 = document.createElement('div'); ok0.className = 'slots'; ok0.id = 'mendnone'; ok0.textContent = 'Nothing of yours is broken.'; acts.appendChild(ok0); return; }   /* draft:true */
+  var all = act('Mend it all, ' + M.pieces + (M.pieces === 1 ? ' piece' : ' pieces'), moneyWord(M.all), function(){ mendPay(k, M.all, null, null); }, bats() < M.all);
+  all.id = 'mendall'; all.insertBefore(tapeIcon(), all.firstChild); acts.appendChild(all);
+  M.men.forEach(function(m){ var who = m.main ? 'Your' : String(m.name).charAt(0) + String(m.name).slice(1).toLowerCase() + "'s";
+    var b = act('Mend ' + (m.main ? 'your' : who) + ' gear', moneyWord(m.price), function(){ mendPay(k, m.price, [m.key], m.main ? 'Your' : who.replace(/'s$/, '')); }, bats() < m.price);
+    b.className += ' mendman'; b.dataset.man = m.key; var bars = document.createElement('span'); bars.className = 'mbars'; m.pieces.forEach(function(p){ bars.appendChild(mendBar(p)); }); b.insertBefore(bars, b.querySelector('em')); acts.appendChild(b); });
+}
+/* ==== end __THE_SMITH_MENDS__ ==== */
 function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
 /* THE MONEY IS SPELLED ONE WAY (UI [eyes: four spellings], rule 150, EYES 10/24 item 26: '290 BATTERIES', '30 batt', '1 battery',
    '138b' on one screen): in words it is always 'N batteries' / '1 battery'; where a tag has no room, the number and the kit's
@@ -2967,7 +3049,7 @@ function openB(k, line){
     body.appendChild(acts); body.appendChild(sl); return show();
   }
   else if(k==='stall'){
-    body.appendChild(speak(k, line || 'One battery a thing, two for a night of food and water. No haggling at this stall, mijo.'));   /* draft:true */
+    body.appendChild(speak(k, line || 'One battery a thing, two for a night of food and water. Tape by the roll or the stack. No haggling at this stall, mijo.'));   /* draft:true */
     var stm = traitMult();
     STALL.forEach(function(g){
       /* one battery each; a card moves it (Sickness triples the meds), never below one */
@@ -2981,6 +3063,7 @@ function openB(k, line){
       }, bats()<pr);
       var gi = packIcon(g.good); if(gi) ab.insertBefore(gi, ab.firstChild); acts.appendChild(ab);
     });
+    tapeLines(acts);   /* __TAPE_AT_EVERY_STALL__ */
   }
   else if(k==='barber'){
     body.appendChild(speak(k, line || 'Sit down. A new cut, a new face, one battery. Who are you becoming?'));
@@ -3029,6 +3112,38 @@ function openB(k, line){
     /* BATTLE BROTHERS' TEMPLE, our clinic (records/target/bb/injuries.json rules): treatment HALVES the
        healing time, at 20 crowns x the place's price multiplier x the days left x (1 + 0.2 per level
        past one), ten crowns a battery; a hired medic (BB's surgeon) takes a day more */
+    /* ==== __THE_CLINIC_HALVES_BOTH__ (CAMP's block in RUN TWO's file, NOTE on RUN TWO's board; rules 241 and 234, Paolo 10/26:
+       'I just want you to make it clear that it has the debuff and the time as well... if I did take it to a clinic, I want it to
+       be clear that it would half the days and half the debuff'). MEASURED: the live game never handed this screen its hurt (only
+       the old loop page posts o.wounded), so the clinic always said nobody was hurt while the crew screen quoted its price. NOW the
+       clinic reads the company's own condition (engine/bohemia_condition.js wounded(): every man with a fresh wound) and shows THE
+       WHOLE TRADE before he pays, one card each (slices/bohemia_injury_card.js, the crew card's own drawing): the wound and its word,
+       its debuff as icons with a red down arrow by how much, the days left on a clock, the clinic's after beside the now (the days
+       halved, every arrow halved), what is his for life and that the clinic cannot touch it, then the price. Paying halves the days
+       left (rounded up, the hired medic a day more) and the debuff with them (BohemiaCondition.treat). The old list stays for an
+       older caller that hands its own. ==== */
+    var CW = window.BohemiaCondition ? BohemiaCondition.wounded() : [];
+    if(CW.length && !(S.wounded && S.wounded.length)){
+      var climbL = {}; try{ climbL = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}') || {}; }catch(e){}
+      body.appendChild(speak(k, line || 'Leave them with me. Half the days, and half of what the wound takes off him, if you can pay.'));
+      CW.forEach(function(cw){
+        var cl = climbL[cw.name] || {}, w = { name: cw.name, days: cw.days, level: cl.level || 1 }, price = clinicPrice(w), medic = !!(S.hired && S.hired.medic);
+        var card = BohemiaInjuryCard.build(document, cw.injury, { clinic: true, medic: medic, price: price, priceWord: moneyWord(price) });
+        card.dataset.man = cw.name; card.dataset.clinic = 'card';
+        var who = document.createElement('div'); who.className = 'slots'; who.textContent = cw.name + (cw.treated ? ': treated, the days already cut' : ''); acts.appendChild(who);
+        acts.appendChild(card);
+        var af = BohemiaInjuryCard.after(cw.injury, medic);
+        var bt = act('Treat ' + cw.name + ': ' + cw.days + ' days to ' + (af ? af.days : cw.days) + ', half the wound', moneyWord(price), function(){
+          if(bats() < price) return openB('clinic', 'That is ' + price + ' batteries for ' + cw.name + '. You have ' + bats() + '.');
+          P.debit(S.purse, 'electricity', price, 'clinic:' + cw.name, S.place.name, S.day);
+          var t = BohemiaCondition.treat(cw.name, { medic: medic });
+          post('clinic', {who:cw.name, before:cw.days, days:t ? Math.ceil(t.left - 1e-9) : cw.days, price:price, halved:true}); shelf();
+          openB('clinic', cw.name + ' stays with me. ' + (t ? Math.ceil(t.left - 1e-9) : cw.days) + ' days instead of ' + cw.days + ', and the wound bites half as hard. What he lost for good stays lost.');
+        }, cw.treated || bats() < price);
+        bt.dataset.treat = cw.name; acts.appendChild(bt);
+      });
+    } else {
+    /* ==== end __THE_CLINIC_HALVES_BOTH__ (the old list, for an older caller, follows) ==== */
     var hurt = woundedList();
     body.appendChild(speak(k, line || (hurt.length ? 'Leave them with me. I can halve the days, if you can pay.'
       : 'Nobody in your crew is hurt right now, gracias a Dios. Come back when somebody is.')));
@@ -3045,6 +3160,7 @@ function openB(k, line){
         openB('clinic', w.name + ' stays with me. ' + w.days + ' day' + (w.days===1?'':'s') + ' instead of ' + before + '.');
       }, w.treated || bats() < price));
     });
+    }   /* __THE_CLINIC_HALVES_BOTH__: the old list's end */
   }
   else if(k==='train'){
     var vets = (S.veterans||[]).length;
@@ -3319,7 +3435,7 @@ window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G &&
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, bats:function(){ return bats(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, mend:function(){ return mendList(); }, tape:function(){ return tapeOn() ? {shelf:tapeShelfNow(), sold:tapeSold(), full:BohemiaStallPrices.tapeShelf(STALLP, tapeCtx()), roll:tapeCost(1), stack:tapeCost(TAPE_STACK), period:tapePeriod()} : null; }, bats:function(){ return bats(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

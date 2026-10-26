@@ -841,11 +841,13 @@
  "struck_down_injury": {
   "value": {
    "from_kind": "permanent",
-   "lasts": "laid_up_days"
+   "lasts": "life",
+   "fresh_wound_days": "struck_down_laid_up_days"
   },
   "source": "bb_all/1540_Permanent Injuries.txt and VAMILY.md 04 COMBAT [struck down] (Paolo's fifth votes)",
   "quote": "Permanent injuries are incurable disabilities received after having been struck down in battle... The part hit does not matter in selecting the injury. / (Paolo) a veteran struck down dies 20 percent of the time, else a long injury from injuries.json",
-  "why": "a man struck down who lives carries one of the wiki's permanent injuries (all equally likely, the body part not mattering, as the wiki says), and ours lasts the days he is laid up (ours.struck_down_laid_up_days), Paolo's 'debilitating injury 30 to 40 days'; the roster reads it as one pain line"
+  "why": "a man struck down who lives carries one of the wiki's permanent injuries (all equally likely, the body part not mattering, as the wiki says) FOR LIFE, the wiki's way, and on top of it the fresh wound it grew out of for ours.struck_down_laid_up_days, fading (rule 234(b), CAMP 10/26); he wakes at one hitpoint and fights again whenever he is picked; the roster reads it as one pain line",
+  "was": "until 10/26 'lasts: laid_up_days', the mark held him out of fights for those days (struck by rule 234)"
  },
  "built_piece": {
   "value": {
@@ -1553,5 +1555,11 @@
   "why": "OUR DEFAULT: AUTO's shotgunner steps beside his target before he fires only when the shot from there is worth this many times the shot from where he stands (the band's damage times the rules' chance), so a step is taken for a real gain, never for a point or two; TUNING may move it.",
   "draft": true,
   "tuned": false
+ },
+ "early_retreat": {
+  "value": {"edge_margin_tiles": 1},
+  "source": "VAMILY.md rule 256 (Paolo 10/26, LOCKED: 'if I retreat immediately at the beginning of the battle, most of the time I should be able to escape... in Battle Brothers every time I retreated I watched my people run tile to tile and they always made it, they got that head start'); records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md",
+  "quote": "they got that head start",
+  "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: his front column stands a man's run on flat ground (ap.per_turn over ap.move_cost.flat, four tiles) LESS this many tiles from his edge, so rough ground still lets a first-turn retreat reach it; ours.start_cols stays the farthest it may be. Measured on 300 rolled fights, RETREAT on his first turn: margin 0 put 98.8% of his men out, 1 put 99.9% (beasts 100%), 2 the same as 1."
  }
 }

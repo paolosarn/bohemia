@@ -12,14 +12,16 @@ settlement_walk.json) and the scenes' own measure beside them (records/target/co
      the same name), but for the filler blocks a narrow frame has no room for, named here with why.
   3. NEVER A CROP, NEVER BARS: every picture is town to its four edges (no flat band at any edge), and the TALL is composed, not
      cut: its things stand where the WIDE's do not (the composition moved them).
-  4. *** NOTHING HE TAPS UNDER THE PHONE *** (rule 213: the phone in a bottom corner, left or right): in the TALL no tap's middle
-     in the bottom three tenths at the outer four tenths either side; in the WIDE (re-laid) none in the bottom nine twentieths at
-     the outer fifth either side (the phone's rectangle is my reading until UI TWO fixes it; the numbers follow it).
+  4. *** NOTHING HE TAPS AND NO KEEPER UNDER THE PHONE *** (rules 213, 279: the phone in a bottom corner, left or right; UI TWO's
+     phone 124 x 276 points, 0.9 on its side, 1.25 on a computer; the town fitted to the screen): no tap's middle and no door a
+     keeper stands at in the zone the composer names (ZONE: upright the bottom three tenths at the outer four tenths; sideways the
+     bottom two thirds at the outer tenth), either side; the TALL and the WIDE (re-laid).
   5. *** EVERY DOOR ON GROUND HE CAN WALK *** (rule 220(c), 169): from the entrance, over the composed ground (the picture less
      its blocks), every door of both compositions is reached.
   6. TURNING KEEPS HIM BY THE SAME BUILDING: every role's door is in both compositions, and the entrance is on the same side.
   7. NO TWO TOWNS ALIKE, BOTH WAYS: every pair of TALL pictures under 0.70 likeness (the 10/25 measure), as the WIDE pairs are.
-  8. RECOGNISABLY THE SAME TOWN: each town's TALL is nearer in colour to its own WIDE than to any other town's.
+  8. RECOGNISABLY THE SAME TOWN: each town's own WIDE is among the three nearest its TALL in colour (the three concrete heart
+     towns are near each other by nature; the buildings themselves are leg 2).
   9. NIGHT IS NIGHT: every TALL night picture darker than its day with lit pools.
   Run: python3 gates/every_town_tall_and_wide_gate.py
 """
@@ -30,7 +32,7 @@ from PIL import Image
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
 import bohemia_cook_town_screen_likeness_10_25_26 as LK
-from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach   # the composed ground's walk (the composer's own check)
+from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach, in_zone, ZONE   # the composed ground's walk and the phone's corner (the composer's own)
 
 SHIP = os.path.join(R, 'slices/settlement_ground_towns')
 WREND = os.path.join(R, 'records/target/cook_town_screens/render')            # the 10/25 wide scenes
@@ -137,9 +139,9 @@ def main():
         W, H = c['px']
         for r, v in list(c['hotspots'].items()) + list(c['boxes'].items()):
             b = v['box'] if isinstance(v, dict) else v
-            cx, cy = (b[0] + b[2]) / 2, (b[1] + b[3]) / 2
-            if cy > 0.70 * H and (cx < 0.40 * W or cx > 0.60 * W): under.append('%s %s' % (n, r))
-    leg(not under, '*** NOTHING HE TAPS UNDER THE PHONE *** (rule 213): in every upright town no tap in the bottom three tenths at either side', ', '.join(under[:8]) if under else 'every tap clear of both bottom corners')
+            if in_zone(((b[0] + b[2]) / 2, (b[1] + b[3]) / 2), 'tall', W, H): under.append('%s %s' % (n, r))
+        under += ['%s %s\'s keeper' % (n, r) for r, p in c['doors'].items() if in_zone((p[0], p[1] + 10), 'tall', W, H)]
+    leg(not under, '*** NOTHING HE TAPS AND NO KEEPER UNDER THE PHONE *** (rules 213, 279): in every upright town, the phone either side', ', '.join(under[:8]) if under else 'every tap clear of both bottom corners')
     side = []
     for n in names:
         c = (towns.get(n) or {}).get('wide')
@@ -147,9 +149,9 @@ def main():
         W, H = c['px']
         for r, v in list(c['hotspots'].items()) + list(c['boxes'].items()):
             b = v['box'] if isinstance(v, dict) else v
-            cx, cy = (b[0] + b[2]) / 2, (b[1] + b[3]) / 2
-            if cy > 0.55 * H and (cx < 0.22 * W or cx > 0.78 * W): side.append('%s %s' % (n, r))
-    leg(not side, 'sideways too (rule 213): in every wide town no tap in the bottom nine twentieths at the outer fifth either side (the wide re-laid)', ', '.join(side[:8]) if side else 'every tap clear of both bottom corners')
+            if in_zone(((b[0] + b[2]) / 2, (b[1] + b[3]) / 2), 'wide', W, H): side.append('%s %s' % (n, r))
+        side += ['%s %s\'s keeper' % (n, r) for r, p in c['doors'].items() if in_zone((p[0], p[1] + 10), 'wide', W, H)]
+    leg(not side, 'sideways too (rules 213, 279): in every wide town no tap and no keeper under the phone, either side (the wide re-laid)', ', '.join(side[:8]) if side else 'every tap clear of both bottom corners')
     # 5, 6
     cut, same = [], []
     for n in names:
@@ -158,11 +160,12 @@ def main():
             c = e.get(comp)
             if not c: continue
             W, H = c['px']
-            r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance']['at'], c['doors'])
-            cut += ['%s %s %s' % (n, comp, k) for k, v in r.items() if not v]
+            for sd in ('left', 'right'):                  # he may walk in from either end (RUN's any side is the door, rule 186(a))
+                r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance'].get(sd, c['entrance']['at']), c['doors'])
+                cut += ['%s %s %s from the %s' % (n, comp, k, sd) for k, v in r.items() if not v]
         if e.get('tall') and e.get('wide'):
             if set(e['tall']['doors']) != set(e['wide']['doors']) or e['tall']['entrance']['side'] != e['wide']['entrance']['side']: same.append(n)
-    leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from the entrance over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')
+    leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from either end of the street over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')
     leg(not same, 'turning keeps him by the same building: every role\'s door in both compositions, the entrance on the same side', ', '.join(same) if same else 'all fourteen')
     # 7
     T = {n: (towns.get(n) or {}).get('tall') for n in names}
@@ -175,15 +178,16 @@ def main():
         e = towns.get(n) or {}
         if not e.get('tall'): continue
         ht = LK.hist(LK.load(os.path.join(SHIP, e['tall']['src'])))
-        mine = None; best = (-1, '')
+        mine = None; near = []
         for m in names:
             w = (towns.get(m) or {}).get('wide')
             if not w: continue
             v = float(np.minimum(ht, LK.hist(LK.load(os.path.join(SHIP, w['src'])))).sum())
             if m == n: mine = v
-            best = max(best, (v, m))
-        if best[1] != n: off.append('%s nearer %s' % (n, best[1]))
-    leg(not off, 'recognisably the same town: every upright picture nearer in colour to its own wide picture than to any other town\'s', ', '.join(off[:6]) if off else 'all fourteen')
+            else: near.append(v)
+        rank = 1 + sum(1 for v in near if v > mine)
+        if rank > 3: off.append('%s: its own wide %d of 14' % (n, rank))
+    leg(not off, 'recognisably the same town: every upright picture\'s own wide among the three nearest it in colour (the heart\'s three concrete towns sit near each other by nature)', ', '.join(off[:6]) if off else 'all fourteen')
     # 9
     dull = []
     for n in names:

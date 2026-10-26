@@ -76,6 +76,10 @@ const TOLD_DEAD = {
   'the_person_is_112_gate.js':     { lane: 'COMBAT', why: 'reads the person on the walked street at the 112 box; the walk died 9/28 and the street draws no person (null)' },
   'you_can_start_it_gate.js':      { lane: 'COMBAT', why: 'starts a fight by walking the street to a crew (9/15); the walk died 9/28, fights start on the map' },
   'the_bar_says_three_things_gate.js': { lane: 'UI', why: "holds the hour on the map's bar; his NO 10/19 ('how many times you gonna show how many days') put every fact on the glass once, the hour on the phone; THE DAYS ONCE holds the bar (UI 10/22)" },
+  'the_phones_board_gate.js':      { lane: 'UI', why: "holds rule 148's two best-paid jobs on the old phone; rule 212(d) killed 148 (UI TWO 10/26); THE PHONE holds the opposite (no offer on the phone) and the jobs he is on" },
+  'the_phones_look_gate.js':       { lane: 'UI', why: 'holds the old phone object on the map (#cityfeed, rule 67a); rule 212 replaced it with one phone in his corner (UI TWO 10/26); THE PHONE holds the new one' },
+  'the_phone_turns_gate.js':       { lane: 'UI', why: 'holds the old phone and the speed pad on a phone on its side (rule 50b); rule 212 replaced both (UI TWO 10/26); THE PHONE runs on its side, both corners' },
+  'the_pad_is_travel_speed_gate.js': { lane: 'UI', why: "holds the map's speed pad of five plates (rule 44a); rule 151(c) cut it to PAUSE and GO and rule 212(b) moved them onto the phone's PLAY/PAUSE (UI TWO 10/26); THE PHONE holds pause, play and the interrupt" },
   'the_top_bar_gate.py':           { lane: 'UI', why: "holds the three candidate bars he said NO to (ui-the-top-bar-10-19); THE DAYS ONCE holds the bar in the game (UI 10/22)" },
 };
 

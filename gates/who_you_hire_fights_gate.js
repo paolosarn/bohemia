@@ -14,8 +14,10 @@
         the back line
      W6 AFTER A RELOAD: the crew screen opens with the hire still holding it, and the door and the fight do the same again
      W8 AFTER A FIGHT where the armed hire died and the other was struck down (the fight's own rows, kept by the shell's
-        nfAfterKeep): the next fight has neither; the crew screen opens with the dead man gone, the fallen one laid up his
-        days and YOU climbed; on the day he is healed he stands in the fight again, the crew screen never reopened
+        nfAfterKeep): the next fight has the fallen one and never the dead; the crew screen opens with the dead man gone, the
+        fallen one in the line with his wound's days on his card and YOU climbed; he stands in every fight after, the crew
+        screen never reopened. RE-AIMED 10/26 (CAMP [struck down, he still fights], rule 234, Paolo 10/26: 'they're still
+        active... that's why I restarted hella runs'): the old leg proved he stayed home until healed, the bench rule 234 struck
      W7 a new game is a new company: the door's NEW GAME wipes the old hires out of the hand-over
    Run: node gates/who_you_hire_fights_gate.js */
 'use strict';
@@ -156,9 +158,9 @@ const B = 'http://127.0.0.1:' + PORT;
   const kept8 = await k8.evaluate(a => { window.NF = { day: 2 }; (0, eval)(a.src + '\nwindow.__k = nfAfterKeep;'); return window.__k({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', crew: a.rows }); }, { src: AFTER, rows });
   await k8.close();
   const o8 = await theDoor(2), n8 = (o8.company || []).map(m => m && m.name);
-  ok('W8 the shell kept the fight\'s rows, and the next fight has neither the dead hire nor the fallen one', kept8 === 1 && n8.indexOf(armed) < 0 && n8.indexOf(moved) < 0 && n8.length === 3, n8.join(', '));
+  ok('W8 the shell kept the fight\'s rows, and the next fight has the fallen one (rule 234) and never the dead hire', kept8 === 1 && n8.indexOf(armed) < 0 && n8.indexOf(moved) >= 0 && n8.length === 4, n8.join(', '));
   const us8 = await fight(o8);
-  ok('  THE FIGHT after it: three men, none of them the dead or the fallen', us8.length === 3 && !us8.some(u => u.name === armed || u.name === moved), us8.map(u => u.name).join(', '));
+  ok('  THE FIGHT after it: four men, the fallen one among them, never the dead', us8.length === 4 && us8.some(u => u.name === moved) && !us8.some(u => u.name === armed), us8.map(u => u.name).join(', '));
   /* the crew screen opens on the map's day 2 */
   await p.evaluate(() => { window.mapState = () => ({ day: 2 }); const c = document.getElementById('crewdoor'); if (c) BohemiaCrewDoor.close(); });
   await p.click('#crew'); await p.waitForTimeout(300);
@@ -167,11 +169,11 @@ const B = 'http://127.0.0.1:' + PORT;
   const cs = await F().evaluate(a => { const S = BohemiaRosterScreen.state, f = n => S.crew.find(m => m.name === n), you = S.crew.find(m => m.main);
     return { dead: !!(f(a.armed) && f(a.armed).dead), laid: f(a.moved) && f(a.moved).hurt ? f(a.moved).hurt.days : 0, strip: [...document.querySelectorAll('#hurt .cell')].length,
       onLine: S.front.concat(S.back).filter(i => i != null).map(i => S.crew[i].name), youLevel: you.level, queue: localStorage.getItem('bohemia.fight.after.v1') }; }, { armed, moved });
-  ok('  the crew screen read it: the dead hire is gone from the line, the fallen one laid up 3 days in the strip, YOU climbed, the queue empty',
-     cs.dead && cs.laid === 3 && cs.strip === 1 && cs.onLine.indexOf(armed) < 0 && cs.onLine.indexOf(moved) < 0 && cs.youLevel > 1 && !cs.queue, JSON.stringify(cs).slice(0, 160));
+  ok('  the crew screen read it: the dead hire is gone from the line, the fallen one IN the line with his wound\'s 3 days, no strip, YOU climbed, the queue empty',
+     cs.dead && cs.laid === 3 && cs.strip === 0 && cs.onLine.indexOf(armed) < 0 && cs.onLine.indexOf(moved) >= 0 && cs.youLevel > 1 && !cs.queue, JSON.stringify(cs).slice(0, 160));
   await p.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} });
   const o9 = await theDoor(4), o10 = await theDoor(5);
-  ok('  the fallen hire stays home on day 4 and stands in the fight on day 5, healed (the crew screen never reopened)', !(o9.company || []).some(m => m.name === moved) && (o10.company || []).some(m => m.name === moved) && !(o10.company || []).some(m => m.name === armed),
+  ok('  the fallen hire stands in the fight on day 4 and on day 5, never held home, the dead never (the crew screen never reopened)', (o9.company || []).some(m => m.name === moved) && (o10.company || []).some(m => m.name === moved) && !(o9.company || []).concat(o10.company || []).some(m => m.name === armed),
      'day 4: ' + (o9.company || []).length + ' men; day 5: ' + (o10.company || []).map(m => m.name).join(', '));
   /* ---- W7 NEW GAME is a new company ---- */
   const w7 = await ctx.newPage(); await w7.goto(B + '/slices/__door.html');

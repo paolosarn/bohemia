@@ -51,7 +51,9 @@ const done = () => { console.log('\nTHE FIGHT\'S BAR IS STUDIO MADE: ' + pass + 
     for (let y = 0; y < rc.height; y++) { let sum = 0; for (let x = 0; x < rc.width; x++) { const i = (y * rc.width + x) * 4; sum += D[i] * .3 + D[i + 1] * .59 + D[i + 2] * .11; } rows.push(sum / rc.width); }
     let jump = 0; for (let y = 6; y < rc.height - 12; y++) jump = Math.max(jump, Math.abs(rows[y] - (rows[y - 2] + rows[y + 2]) / 2));
     const taps = ['bend', 'bwait', 'bauto', 'card'].map(id => document.getElementById(id).getBoundingClientRect())
-      .concat(Array.from(document.querySelectorAll('#skills .sq')).filter(b => b.style.display !== 'none').map(b => b.getBoundingClientRect()));
+      /* RE-AIMED 10/26 BY UI TWO (rule 213(b)): with the one phone up, his abilities (the bag, the sweeps, the perks' skills) and
+         BACK ride the phone, hidden on the bar by the phone's rule; a square that is not on the bar is not a press of the bar */
+      .concat(Array.from(document.querySelectorAll('#skills .sq')).filter(b => b.style.display !== 'none' && getComputedStyle(b).display !== 'none').map(b => b.getBoundingClientRect()));
     return {
       /* NOT document.fonts.check(): it answers true for a family that has no face at all (nothing to
          load), which let a run with the faces deleted pass. Each face must be in the set AND loaded. */

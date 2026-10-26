@@ -28,16 +28,19 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
   const d = await open({ door: 120000 });
   if (!d.doorIsBehindUs()) { ok('the driver got past the door', false); await d.close(); done(); }
   const p = d.page, fr = d.fr;
-  const t0 = Date.now(); while (Date.now() - t0 < 20000) { if (await fr.evaluate(() => { const f = document.getElementById('cityfeed'); return !!(f && f.classList.contains('on')); })) break; await p.waitForTimeout(300); }
+  /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the phone on the map is the new one (#bohphone, drawn by the shell); after the
+     crisis its status bar's TIMELINE tag is the door to the old opened phone, where DYNASTY's family and its reshuffle live */
+  const t0 = Date.now(); while (Date.now() - t0 < 20000) { if (await p.evaluate(() => { const f = document.getElementById('bohphone'); return !!(f && f.classList.contains('on')); })) break; await p.waitForTimeout(300); }
   await fr.evaluate(() => { try { BohemiaActs.resetAll(); BohemiaActs.crisis(90); ctActUnlock(3); ctActFlipPaint(); } catch (e) {} });
   await p.waitForTimeout(1200);
   const fb = await (await fr.frameElement()).boundingBox();
   /* THE FAMILY LIVES IN THE OPENED PHONE NOW (UI [the flip off the face]): after the crisis a real finger opens the phone and
      its SWITCH TIMELINE entry, and the reshuffle is read on the cards there */
-  { const l = await fr.evaluate(() => { const r = document.getElementById('cityfeedscreen').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.bottom - 40 }; });   /* rule 148: the glass under the two jobs */
-    await p.touchscreen.tap(fb.x + l.x, fb.y + l.y); await p.waitForTimeout(900);
-    const e = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-    if (e) { await p.touchscreen.tap(fb.x + e.x, fb.y + e.y); await p.waitForTimeout(900); } }
+  { const l = await p.evaluate(() => { const e = document.querySelector('#bohphone .stat .tl'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+    if (l) { await p.touchscreen.tap(l.x, l.y); await p.waitForTimeout(1800); }   /* one finger on the tag: the opened phone and its SWITCH TIMELINE panel */
+    const open = await fr.evaluate(() => !!(document.getElementById('bmtimespanel') && document.getElementById('bmtimespanel').classList.contains('on')));
+    if (!open) { const e = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+      if (e) { await p.touchscreen.tap(fb.x + e.x, fb.y + e.y); await p.waitForTimeout(900); } } }
 
   const read = () => fr.evaluate(({ ox, oy }) => [...document.querySelectorAll('#actflip .af')].map(t => {
     const r = t.getBoundingClientRect(), a = t.querySelector('.afr'), cv = t.querySelector('canvas').getBoundingClientRect();

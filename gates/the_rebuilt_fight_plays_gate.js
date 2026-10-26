@@ -7,7 +7,7 @@
    Then it reads the log the rules wrote and checks Battle Brothers' rules actually happened
    in the fight, not just exist in the file: turn order by initiative, hits and misses at the
    rolled chance, head hits, morale moving, the fight ending, YOU never dead, a hire struck
-   down either dead or laid up 30 to 40 days, and the length of the fight on the beat.
+   down either dead or carrying a fresh wound 30 to 40 days (rule 234: never a bench), and the length of the fight on the beat.
    Shots: slices/vote/COMBAT_THE_FIGHT_REBUILT_*_10_2.jpg.
    Run: node gates/the_rebuilt_fight_plays_gate.js */
 'use strict';
@@ -348,7 +348,7 @@ async function fight(F, first) {
   leg(R.fair, F.board + ': every swing rolled inside the wiki\'s 5 to 95 cap');
   leg(!R.mainDead, F.board + ': YOU are downed, never dead (rule 37)');
   const lu = OURS.struck_down_laid_up_days.value;
-  leg(R.hires.every(h => h === 'dead' || (h >= lu[0] && h <= lu[1])), F.board + ': a hire struck down is dead or laid up 30 to 40 days (rule 36b)', R.hires.join(',') || 'nobody fell');
+  leg(R.hires.every(h => h === 'dead' || (h >= lu[0] && h <= lu[1])), F.board + ': a hire struck down is dead or carries a fresh wound for 30 to 40 days (rule 36b; rule 234: a debuff, never a bench)', R.hires.join(',') || 'nobody fell');
   console.log('  ' + F.board + ': ' + R.c.hit + ' hits, ' + R.c.miss + ' misses, ' + R.c.head + ' to the head, ' + R.c.free + ' free swings, '
     + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.skill + ' perk skills used, ' + R.c.down + ' fell');
   const words = await ev(() => window.__words);
@@ -878,7 +878,8 @@ async function turnPace() {
 
 /* STRUCK DOWN (Paolo's fifth votes, flat 20%; third votes, the main character never dies; the wiki's Permanent Injuries):
    a thousand struck-down rolls on a hire land 17 to 23 percent dead; a thousand on the main character, never; every man who
-   lives carries one of the wiki's permanent injuries for the days he is laid up; the recap says so and so does the fight's
+   lives carries one of the wiki's permanent injuries for life and its fresh wound for 30 to 40 days (CAMP 10/26, rule 234: never a
+   bench, he fights again at one hitpoint); the recap says STRUCK DOWN with the mark and the fight's
    message home; GROK_115's injury sheet is in injuries.json. And rule 73a's day rim: by day every man is drawn with a dark
    one-pixel edge round his silhouette. */
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
@@ -1255,9 +1256,9 @@ async function struckDown() {
     '*** WHO DIES, A LITTLE MORE PER MARK *** (his fifth votes): two carried marks die 26 to 34 in 100, six are capped at four marks (36 to 44), and a fall never hands a mark he already carries',
     'two marks ' + r.marked.two / 10 + '%, six marks ' + r.marked.six / 10 + '% (the cap)');
   leg(r.injured === 1000 - r.dead && r.ids.every(x => r.perm.indexOf(x) >= 0) && r.ids.length >= 8 && r.dMin >= r.range[0] && r.dMax <= r.range[1],
-    'every man who lives carries one of the wiki\'s permanent injuries (each as likely), laid up 30 to 40 days', r.ids.length + ' of the ' + r.perm.length + ' drawn, ' + r.dMin + ' to ' + r.dMax + ' days');
-  leg(r.hire.inj && r.recap.toUpperCase().indexOf(r.hire.inj.toUpperCase()) >= 0 && r.recap.indexOf('LAID UP ' + r.hire.days + ' DAYS') >= 0 && r.sent && r.sent.injury && r.sent.injury.name === r.hire.inj && r.sent.laidUpDays === r.hire.days,
-    'the recap names his injury and his days, and the message home carries them for the roster\'s pain line', r.hire.name + ': ' + r.hire.inj + ', ' + r.hire.days + ' days' + (r.sent && r.sent.injury ? ' (' + r.sent.injury.line + ')' : ''));
+    'every man who lives carries one of the wiki\'s permanent injuries (each as likely), its fresh wound 30 to 40 days', r.ids.length + ' of the ' + r.perm.length + ' drawn, ' + r.dMin + ' to ' + r.dMax + ' days');
+  leg(r.hire.inj && r.recap.toUpperCase().indexOf(r.hire.inj.toUpperCase()) >= 0 && r.recap.indexOf('STRUCK DOWN, STILL IN') >= 0 && r.recap.indexOf('LAID UP') < 0 && r.sent && r.sent.injury && r.sent.injury.name === r.hire.inj && r.sent.laidUpDays === r.hire.days,
+    'the recap names his injury and says STRUCK DOWN, STILL IN (never LAID UP, rule 234(f)), and the message home carries the mark and its days for the roster\'s pain line', r.hire.name + ': ' + r.hire.inj + ', ' + r.hire.days + ' days' + (r.sent && r.sent.injury ? ' (' + r.sent.injury.line + ')' : ''));
   const INJ = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/injuries.json'), 'utf8')), mul = INJ.rules.temporary_threshold_formula.multipliers;
   const temp = INJ.rows.filter(j => j.kind === 'temporary'), withT = temp.filter(j => j.threshold_pct_of_max_hp !== null).length;
   leg(mul.inflict_injury_threshold_multiplier_crippling_strikes.value === 0.66 && mul.receive_injury_threshold_multiplier_iron_jaw.value === 1.25 && mul.bonus_head_hit.value === 1.25 && INJ.rules.temporary_base_conditions.min_damage_hitpoints === 10 && withT >= temp.length - 2,

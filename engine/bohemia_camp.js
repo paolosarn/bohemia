@@ -19,6 +19,9 @@
      BohemiaCamp.offer()               every follower the camp can offer, with his price now and what he does, in plain words
      BohemiaCamp.hire(id) / letGo(id)  in or out (a slot and the price are the screen's to check)
      BohemiaCamp.LIVE                  what each live follower changes, the numbers the map reads
+     BohemiaCamp.look()                THE CAMP'S LOOK in one call (rule 239, for UI's camp behind the crew screen): the fire (and
+                                       whether the company is camped now), the cart he has grown to, each follower by his word, a
+                                       tent a head, the stash's room
    Kept in localStorage bohemia.camp.v1 (a new game clears it). */
 (function (root) {
   'use strict';
@@ -38,7 +41,7 @@
     /* CAMP [the heal button, damage that stays] (rule 226(e): the camp grows: faster healing, faster repair): Battle Brothers' own
        follower pages (bb_all/1947, 1974), the numbers in records/target/bb/condition.json, read by engine/bohemia_condition.js */
     blacksmith: { says: 'Armour gets mended a fifth quicker, and it eats a fifth less tape.', repair: 1.2, tape: 0.8 },
-    surgeon: { says: 'A man laid up after a bad fall is back on his feet a day sooner.', injuryDays: 1 }
+    surgeon: { says: 'A man struck down heals his fresh wound a day sooner.', injuryDays: 1 }   /* CAMP rule 234: nobody is laid up any more */
   };
   var WORD = { scout: 'THE SCOUT', lookout: 'THE LOOKOUT', cook: 'THE COOK', paymaster: 'THE PAYMASTER', blacksmith: 'THE BLACKSMITH', surgeon: 'THE SURGEON' };
   function state() {
@@ -65,6 +68,14 @@
   /* the numbers the map reads, multiplied over the retinue (1 with nobody) */
   function mult(k) { var m = 1; retinue().forEach(function (id) { var L = LIVE[id]; if (L && typeof L[k] === 'number') m *= L[k]; }); return m; }
   function plus(k) { var n = 0; retinue().forEach(function (id) { var L = LIVE[id]; if (L && typeof L[k] === 'number') n += L[k]; }); return n; }
+  /* THE CAMP'S LOOK (CAMP, rule 239, NOTE on CAMP's board: 'UI draws his camp behind the crew screen; give it the camp's look and
+     what it has grown (the fire, the followers, the wagon) as one call'): read off what the camp already keeps, nothing new */
+  function look() {
+    var c = cart(), r = retinue(), on = false;
+    try { var M = root.BohemiaMapCamp || (root.parent && root.parent !== root && root.parent.BohemiaMapCamp); on = !!(M && M.on()); } catch (e) {}
+    return { fire: true, camped: on, cart: c.now ? c.now.id : null, cartWord: c.now ? c.now.word : null, cartLevel: c.level, cartMax: CART.length,
+      followers: r.map(function (id) { return { id: id, word: WORD[id] || id.toUpperCase() }; }), tents: 1 + r.length, stash: stashSlots() };
+  }
   root.BohemiaCamp = { KEY: KEY, BASE_SLOTS: BASE_SLOTS, CART: CART, LIVE: LIVE, WORD: WORD, state: state, stashSlots: stashSlots, cart: cart, buyCart: buyCart,
-    retinue: retinue, has: has, hired: hired, offer: offer, hire: hire, letGo: letGo, mult: mult, plus: plus };
+    retinue: retinue, has: has, hired: hired, offer: offer, hire: hire, letGo: letGo, mult: mult, plus: plus, look: look };
 })(typeof window !== 'undefined' ? window : this);

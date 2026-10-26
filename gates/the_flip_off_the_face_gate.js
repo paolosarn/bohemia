@@ -19,6 +19,12 @@
        - CLOSE shuts the panel with the phone; opened again, the entry is there and the panel shut
      - no page error
 
+   RE-AIMED 10/26 BY UI TWO (rules 212, 213): the phone on the map is the new one in his corner (#bohphone, drawn by the
+   shell); the old opened phone with DYNASTY's SWITCH TIMELINE is reached from the new phone's status bar, where a TIMELINE
+   tag stands only after the crisis, and one finger on it opens the family under SWITCH TIMELINE. The legs keep what they
+   protect: nothing on the phone's face switches acts; no door before the crisis; after it, one door, the entry, the family
+   44 points, a card flips, CLOSE shuts the panel.
+
    node gates/the_flip_off_the_face_gate.js */
 const path = require('path');
 const ROOT = path.dirname(__dirname);
@@ -37,26 +43,24 @@ const done = () => { console.log('\nTHE FLIP OFF THE FACE: ' + pass + ' ok, ' + 
   const R = sel => fr.evaluate(s => [...document.querySelectorAll(s)].map(e => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e);
     return { x: r.x, y: r.y, w: r.width, h: r.height, vis: cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 0 && r.height > 0 && !!e.offsetParent }; }), sel);
   const tapAt = async r => { await p.touchscreen.tap(fb.x + r.x + r.w / 2, fb.y + r.y + Math.min(r.h / 2, 16)); await p.waitForTimeout(1000); };
-  const faceCards = async () => (await R('#cityfeedscreen .af')).filter(r => r.vis).length;
+  const faceCards = async () => (await R('#cityfeedscreen .af')).filter(r => r.vis).length + await p.evaluate(() => document.querySelectorAll('#bohphone .af').length);
+  const tag = () => p.evaluate(() => { const e = document.querySelector('#bohphone .stat .tl'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 && getComputedStyle(e).display !== 'none' ? { x: r.x, y: r.y, w: r.width, h: r.height } : null; });
+  const tapTag = async () => { const r = await tag(); if (!r) return false; await p.touchscreen.tap(r.x + r.w / 2, r.y + r.h / 2); await p.waitForTimeout(1600); return true; };
   const isOpen = () => fr.evaluate(() => document.getElementById('phonewrap').classList.contains('on'));
 
   /* ---- before the crisis ---- */
   await fr.evaluate(() => { BohemiaActs.resetAll(); try { ctActFlipPaint(); } catch (e) {} });
   await p.waitForTimeout(900);
   ok('BEFORE THE CRISIS: NOTHING ON THE PHONE\'S FACE SWITCHES ACTS (no family card painted on it)', (await faceCards()) === 0, (await faceCards()) + ' cards on the face');
-  /* rule 148: the chat stream is off the face; the finger opens the phone on the glass under the two jobs */
-  /* RE-AIMED 10/24 (UI [eyes: the empty phone], rule 150): the glass under the jobs is the phone's 48-point home strip now */
-  const sc = (await R('#cityfeedscreen'))[0], list = { x: sc.x, y: sc.y + sc.h - 48, w: sc.w, h: 48 };
-  await tapAt(list);
-  const e0 = (await R('#bmtimes')).filter(r => r.vis);
-  ok('  a real finger opens the phone, and there is no switch anywhere in it', (await isOpen()) && e0.length === 0, 'open ' + (await isOpen()) + ', entries ' + e0.length);
-  await fr.evaluate(() => { const c = document.getElementById('phoneclose'); if (c) c.click(); }); await p.waitForTimeout(600);
+  const t0 = await tag(), e0 = (await R('#bmtimes')).filter(r => r.vis);
+  ok('  and there is no door to a switch anywhere: no TIMELINE tag on the phone, no entry', !t0 && e0.length === 0, 'tag ' + !!t0 + ', entries ' + e0.length);
 
   /* ---- after the crisis ---- */
   await fr.evaluate(() => { BohemiaActs.crisis(90); try { ctActFlipPaint(); } catch (e) {} });
   await p.waitForTimeout(1400);
   ok('AFTER THE CRISIS: THE PHONE\'S FACE STILL CARRIES NO FAMILY CARD', (await faceCards()) === 0, (await faceCards()) + ' cards on the face');
-  await tapAt(list);
+  ok('  and the phone\'s status bar carries one TIMELINE tag, the door', !!(await tag()));
+  await tapTag();
   const ent = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b || !b.offsetParent) return null; const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
     /* UI 10/23 [the UI the Crashbox way]: the entry is a tin slab lit from the left, so its words are read against the ground
        just right of the words themselves (the text's own box), not against the slab's shaded right bevel */
@@ -79,16 +83,15 @@ const done = () => { console.log('\nTHE FLIP OFF THE FACE: ' + pass + ' ok, ' + 
       return { plain: +CR(LUM(...t), LUM(...bg)).toFixed(2), sun: +CR(LUM(...SUN(t)), LUM(...SUN(bg))).toFixed(2) };
     }, { png, box: [fb.x + ent.tx + ent.tw + 2, fb.y + ent.ty + 2, 4, Math.max(2, ent.th - 4)], ink: ent.ink });
     ok('  its words pass 4.5 to 1 plain and in the sun', cr.plain >= 4.5 && cr.sun >= 4.5, cr.plain + '/' + cr.sun);
-    await tapAt(ent);
     const cards = (await R('#bmtimespanel .af')).filter(r => r.vis);
-    ok('A REAL FINGER ON IT OPENS THE FAMILY UNDER IT, every card 44 points', cards.length >= 2 && cards.every(c => c.w >= 44 && c.h >= 44), cards.length + ' cards: ' + cards.map(c => Math.round(c.w) + 'x' + Math.round(c.h)).join(', '));
+    ok('ONE FINGER ON THE TAG OPENS THE FAMILY UNDER IT, every card 44 points', cards.length >= 2 && cards.every(c => c.w >= 44 && c.h >= 44), cards.length + ' cards: ' + cards.map(c => Math.round(c.w) + 'x' + Math.round(c.h)).join(', '));
     const before = await fr.evaluate(() => BohemiaActs.current());
     if (cards[1]) await tapAt(cards[1]);
     const after = await fr.evaluate(() => BohemiaActs.current());
     ok('  and a real finger on a card makes it the one you are', after !== before, 'act ' + before + ' -> ' + after);
     ok('  and the phone\'s face still carries none', (await faceCards()) === 0);
     await fr.evaluate(() => { const c = document.getElementById('phoneclose'); if (c) c.click(); }); await p.waitForTimeout(900);
-    { const s2 = (await R('#cityfeedscreen'))[0]; await tapAt({ x: s2.x, y: s2.y + s2.h - 48, w: s2.w, h: 48 }); }   /* the phone is as tall as what it holds: read it again */
+    await fr.evaluate(() => { try { phoneOpen(); } catch (e) {} }); await p.waitForTimeout(900);   /* the opened phone again, by its own door */
     const again = await fr.evaluate(() => ({ open: document.getElementById('phonewrap').classList.contains('on'), entry: !!(document.getElementById('bmtimes') || {}).offsetParent, panel: (document.getElementById('bmtimespanel') || { classList: { contains: () => false } }).classList.contains('on') }));
     ok('CLOSE SHUTS THE PANEL WITH THE PHONE; OPENED AGAIN, THE ENTRY IS THERE AND THE PANEL SHUT', again.open && again.entry && !again.panel, JSON.stringify(again));
   } else { ok('  its words pass', false); ok('A REAL FINGER ON IT OPENS THE FAMILY', false); ok('  a card flips', false); ok('  the face carries none', false); ok('CLOSE SHUTS THE PANEL', false); }

@@ -231,9 +231,10 @@ async function live(profile) {
     leg(c4.length >= 1, 'C4  [' + profile + '] A TOWN OPENED (the map\'s own loopOpenTown) POSTS', town + ': ' + (c4[0] || 'none'));
     /* CAMP: the real button runs the clock */
     const fb = await p.evaluate(() => { const r = document.getElementById('cityFrame').getBoundingClientRect(); return { x: r.x, y: r.y }; });
-    const cb = await fr.evaluate(() => { try { campBtnPaint(); } catch (e) {} const b = document.getElementById('campbtn'); if (!b || b.style.display === 'none') return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    /* RE-AIMED 10/26 BY UI TWO (rules 212(b), 226): the CAMP plate is the phone's HEAL app, drawn by the shell; the tap is at its real place */
+    const cb = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b || !document.getElementById('bohphone').classList.contains('on')) return null; const r = b.getBoundingClientRect(); return r.width ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
     const t0 = await fr.evaluate(() => DAY.day * 1440 + DAY.min), n0 = await fr.evaluate(() => BohemiaFeed.stats().posts);
-    if (cb) { if (profile === 'computer') await p.mouse.click(fb.x + cb.x, fb.y + cb.y); else await p.touchscreen.tap(fb.x + cb.x, fb.y + cb.y); }
+    if (cb) { if (profile === 'computer') await p.mouse.click(cb.x, cb.y); else await p.touchscreen.tap(cb.x, cb.y); }
     await p.waitForTimeout(75000);
     const c5 = await fr.evaluate(() => ({ t: DAY.day * 1440 + DAY.min, st: BohemiaFeed.stats(), posts: BohemiaFeed.read({ limit: 80 }) }));
     const handles = {}; FILE.accounts.forEach(a => { handles[a.id] = 1; });
@@ -242,14 +243,19 @@ async function live(profile) {
     leg(!!cb && c5.t - t0 >= 240 && c5.st.posts > n0 && kinds.mine > 0 && kinds.world > 0 && kinds.life > 0 && strangers.length === 0,
       'C5  [' + profile + '] CAMP (THE REAL BUTTON) RUNS THE CLOCK AND THE CITY TALKS, FROM HANDLES IN THE FILE',
       'camp ' + !!cb + ', ' + Math.round((c5.t - t0) / 60) + ' game hours, posts ' + n0 + ' -> ' + c5.st.posts + ' ' + JSON.stringify(kinds) + '; newest: ' + (c5.posts[0] ? c5.posts[0].handle + ': ' + c5.posts[0].text : '-'));
-    /* the phone: the newest post in its slot */
-    const c6 = await fr.evaluate(() => { const s = document.getElementById('feednow'), f = document.getElementById('cityfeed'); const n = BohemiaFeed.read({ limit: 1 })[0];
-      if (!s || !n) return { slot: !!s, post: !!n };
-      const r = s.getBoundingClientRect(), fr2 = f ? f.getBoundingClientRect() : null;
-      return { shown: s.classList.contains('has') && r.height > 10 && getComputedStyle(s).display !== 'none', inPhone: !!fr2 && r.top >= fr2.top - 1 && r.bottom <= fr2.bottom + 1 && r.left >= fr2.left - 1 && r.right <= fr2.right + 1,
-        who: (s.querySelector('.fwho') || {}).textContent, txt: (s.querySelector('.ftxt') || {}).textContent, newest: n.handle, newestTxt: n.text, phoneOn: !!(f && f.classList.contains('on')) }; });
-    leg(c6.shown && c6.inPhone && c6.who && c6.who.indexOf(c6.newest) === 0 && c6.txt === c6.newestTxt,
-      'C6  [' + profile + '] THE NEWEST POST IS ON THE PHONE, INSIDE ITS GLASS (the handle and the words), NOTHING OVER THE MAP', JSON.stringify(c6));
+    /* the phone: RE-AIMED 10/26 BY UI TWO (rule 212(b), 215(e)): the slot is gone; the phone's FEED app reads BohemiaFeed.read(),
+       its newest post first, inside the phone's glass, in one tap (the camp broken first, so the phone shows its apps) */
+    await fr.evaluate(() => { try { if (BohemiaMapCamp.on()) BohemiaMapCamp.break(); } catch (e) {} }); await p.waitForTimeout(1200);
+    const fa = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=feed]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (fa) { if (profile === 'computer') await p.mouse.click(fa.x, fa.y); else await p.touchscreen.tap(fa.x, fa.y); }
+    await p.waitForTimeout(700);
+    const n6 = await fr.evaluate(() => BohemiaFeed.read({ limit: 1 })[0] || null);
+    const c6 = await p.evaluate(() => { const ph = document.getElementById('bohphone'), pg = ph && ph.querySelector('.page.on'); if (!pg) return { page: false };
+      const s = pg.querySelector('.po'), r = s ? s.getBoundingClientRect() : null, sc = ph.querySelector('.scr').getBoundingClientRect();
+      return { shown: !!r && r.height > 10, inPhone: !!r && r.top >= sc.top - 1 && r.left >= sc.left - 1 && r.right <= sc.right + 1, page: pg.dataset.page,
+        who: s ? (s.querySelector('.w') || {}).textContent : '', txt: s ? (s.querySelector('.t') || {}).textContent : '' }; });
+    leg(!!n6 && c6.page === 'feed' && c6.shown && c6.inPhone && c6.who && c6.who.indexOf(n6.handle) >= 0 && c6.txt === n6.text,
+      'C6  [' + profile + '] THE NEWEST POST IS ON THE PHONE\'S FEED, FIRST, INSIDE ITS GLASS (the handle and the words), ONE TAP, NOTHING OVER THE MAP', JSON.stringify(c6) + ' newest ' + (n6 && n6.handle));
     try { await p.screenshot({ path: path.join(require('os').tmpdir(), 'the_feed_is_alive_' + profile + '.png') }); } catch (_e) {}   /* the picture, for a person to look at; never committed */
     leg(d.errs.length === 0, 'C7  [' + profile + '] NOTHING THROWN', d.errs.slice(0, 3).join(' | ') || '0 page errors');
   } finally { await d.close(); }

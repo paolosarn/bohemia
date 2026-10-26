@@ -3,7 +3,7 @@
    upgrade your camp; depending on what tile you're on it shows up on that street tile, kind of like the settlement menu, with the
    cabin and all your members; and you can hire people to join you, Battle Brothers calls it a retinue'.
    WHY THIS WALKS THE DEMO: rule 150(d), on the surface he plays; every press below is a real finger.
-     C1 the CAMP plate stands on the map beside the pad, a thumb wide, nothing over it
+     C1 the HEAL app (the camp's door since rules 212 and 226, UI TWO 10/26) stands on the phone on the map, a thumb wide, nothing over it
      C2 *** A TAP MAKES CAMP *** the screen opens with the clock on its bar and BREAK CAMP: every man of the company round the fire (the
         marker's own list), your lead at it, the tent, the retinue and the cart, and nothing of a town (no keeper, crowd, walker)
      C3 the clock runs an hour a beat while the camp stands, and the night is billed on it (the batteries go down by the bill)
@@ -34,15 +34,17 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     await fr.evaluate(() => { try { localStorage.removeItem('bohemia.renown.v1'); localStorage.removeItem('bohemia.camp.v1'); } catch (e) {} });
     const tapEl = async (frame, sel) => { const h = await frame.$(sel); if (!h) return false; await h.scrollIntoViewIfNeeded().catch(() => {}); await p.waitForTimeout(150);
       const r = await h.boundingBox(); if (!r) return false; await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); return true; };
-    /* ---- C1 ---- */
-    await fr.waitForFunction(() => { const b = document.getElementById('campbtn'); return b && getComputedStyle(b).display !== 'none'; }, null, { timeout: 8000 }).catch(() => {});
-    const c1 = await fr.evaluate(() => { const b = document.getElementById('campbtn'), pad = document.getElementById('speedpad'); if (!b) return null; const r = b.getBoundingClientRect(), q = pad && pad.getBoundingClientRect();
+    /* ---- C1 ---- RE-AIMED 10/26 BY UI TWO (rules 212(b), 226(c)): the CAMP plate is the phone's HEAL app now, in his corner on
+       the phone the shell draws over the map; the leg keeps what it protects: shown on the map, a thumb wide, nothing over it */
+    const HEAL = '#bohphone .app[data-app=heal]';
+    await p.waitForFunction((s) => { const b = document.querySelector(s); return !!b && b.getBoundingClientRect().width > 0 && document.getElementById('bohphone').classList.contains('on'); }, HEAL, { timeout: 15000 }).catch(() => {});
+    const c1 = await p.evaluate((s) => { const b = document.querySelector(s); if (!b) return null; const r = b.getBoundingClientRect();
       const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
-      return { shown: getComputedStyle(b).display !== 'none', w: Math.round(r.width), h: Math.round(r.height), word: b.textContent, besidePad: !!q && r.right <= q.left + 1 && Math.abs((r.top + r.bottom) / 2 - (q.top + q.bottom) / 2) < 8, top: e === b }; });
-    ok('C1 the CAMP plate stands on the map beside the pad, a thumb wide, nothing over it', !!c1 && c1.shown && c1.w >= 44 && c1.h >= 44 && c1.besidePad && c1.top, JSON.stringify(c1));
+      return { shown: getComputedStyle(b).display !== 'none' && r.width > 0, w: Math.round(r.width), h: Math.round(r.height), mark: !!b.querySelector('img[src*="app_heal"]'), label: b.getAttribute('aria-label') || '', top: !!e && (e === b || b.contains(e)) }; }, HEAL);
+    ok('C1 the HEAL app (the camp, rule 226) stands on the phone on the map, a thumb wide, nothing over it', !!c1 && c1.shown && c1.w >= 44 && c1.h >= 44 && c1.mark && /heal/i.test(c1.label) && c1.top, JSON.stringify(c1));   /* 232(b): the cross in its ring, no word on it */
     /* ---- C2 ---- */
     const before = await fr.evaluate(() => ({ min: T.day * 1440 + T.min, bats: loopBats(), men: mapCrewLooks().length }));
-    await tapEl(fr, '#campbtn');
+    await tapEl(p.mainFrame(), HEAL);
     let sf = null;
     for (let k = 0; k < 40 && !sf; k++) { await p.waitForTimeout(300);
       for (const x of p.frames().filter(x => /SETTLEMENT_SCREEN/.test(x.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.camp().camp && BohemiaSettlement.ready(); } catch (e) { return false; } }).catch(() => false)) { sf = x; break; } }
@@ -101,14 +103,15 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     await fr.evaluate(() => { HUNT = null; });
     /* ---- C7 BREAK CAMP ---- */
     await p.waitForTimeout(800);
-    const c7top = await fr.evaluate(() => { const b = document.getElementById('campbtn'), r = b.getBoundingClientRect(); return document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2) === b; });
-    await tapEl(fr, '#campbtn'); await p.waitForTimeout(1500);
+    const c7top = await p.evaluate((s) => { const b = document.querySelector(s), r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return !!e && (e === b || b.contains(e)); }, HEAL);
+    await tapEl(p.mainFrame(), HEAL); await p.waitForTimeout(1500);
     const sf2 = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url()));
     const brk = sf2 ? await tapEl(sf2, '#leave') : false;
     await p.waitForTimeout(800);
     const m0 = await fr.evaluate(() => T.day * 1440 + T.min); await p.waitForTimeout(2000);
-    const c7 = await fr.evaluate((m0) => ({ on: BohemiaMapCamp.on(), moved: T.day * 1440 + T.min - m0, plate: getComputedStyle(document.getElementById('campbtn')).display, why: window.__CAMP && window.__CAMP.why }), m0);
-    ok('C7 with the line about them on the map the plate is still on top; BREAK CAMP (a real tap) closes a camp and the clock stops; the plate is back', c7top && brk && !c7.on && c7.moved === 0 && c7.plate !== 'none' && c7.why === 'left', JSON.stringify(c7));
+    const c7 = Object.assign(await fr.evaluate((m0) => ({ on: BohemiaMapCamp.on(), moved: T.day * 1440 + T.min - m0, why: window.__CAMP && window.__CAMP.why }), m0),
+      { plate: await p.evaluate((s) => { const b = document.querySelector(s); return b && !b.classList.contains('off') && (b.querySelector('.lab') || {}).textContent === 'HEAL' ? 'heal' : 'none'; }, HEAL) });
+    ok('C7 with the line about them on the map the HEAL app is still on top; BREAK CAMP (a real tap) closes a camp and the clock stops; HEAL is back', c7top && brk && !c7.on && c7.moved === 0 && c7.plate !== 'none' && c7.why === 'left', JSON.stringify(c7));
   } catch (e) { ok('the camp ran [' + String(e.message).slice(0, 200) + ']', false); }
   ok('C8 nothing threw', errs.length === 0, errs.slice(0, 3).join(' | '));
   try { await d.close(); } catch (e) {}

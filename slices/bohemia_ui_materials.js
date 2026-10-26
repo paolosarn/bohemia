@@ -1080,6 +1080,8 @@
     /* LEAVE rides above the building's sheet while it is open, never under it and never over its words */
     var sh = document.getElementById('sheet'), lift = function () {
       var b = 12; try { if (sh && sh.classList.contains('on')) { var t = sh.getBoundingClientRect().top; if (t < innerHeight - 1) b = Math.max(12, Math.round(innerHeight - t + 10)); } } catch (_e) {}
+      /* __ONE_PHONE__ (UI TWO, rule 213(a)): the phone holds its corner in the town too; LEAVE stands over it in the same corner, never under it */
+      try { var pr = window.BOH_PHONE_RECT && window.BOH_PHONE_RECT(); if (pr && pr.on && pr.side === 'right') b = Math.max(b, Math.round(innerHeight - pr.top + 10)); } catch (_e) {}
       var v = b + 'px'; if (c.style.bottom !== v) c.style.bottom = v; };
     setInterval(lift, 100); lift();
     /* the company screen is the whole glass, the same as from the map: while it is open the town's frame takes the glass */
@@ -2518,7 +2520,13 @@
   function voicePlace(el) {
     var H = window.innerHeight, b = 118;
     try { var p = document.getElementById('speedpad'), r = p && p.getBoundingClientRect(); if (r && r.height > 0 && r.top < H) b = Math.round(H - r.top + 8); } catch (e) {}
-    el.style.bottom = b + 'px'; el.style.left = ''; el.style.top = '';
+    el.style.bottom = b + 'px'; el.style.left = ''; el.style.top = ''; el.style.right = ''; el.style.margin = '';
+    /* __ONE_PHONE__ (UI TWO 10/26, rule 213): the one phone holds his bottom corner; the line stands beside it (its bottoms level) when
+       there is room for a face and a few words, else over it, never under it */
+    try { var pr = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if (pr && pr.on) { var Wd = window.innerWidth, room = pr.side === 'left' ? Wd - pr.right - 16 : pr.left - 16;
+      if (room >= 220) { el.style.margin = '0'; if (pr.side === 'left') { el.style.left = Math.round(pr.right + 8) + 'px'; el.style.right = '8px'; } else { el.style.left = '8px'; el.style.right = Math.round(Wd - pr.left + 8) + 'px'; } el.style.bottom = Math.max(8, Math.round(H - pr.bottom)) + 'px'; }
+      else el.style.bottom = Math.max(b, Math.round(H - pr.top + 8)) + 'px';
+      return; } } catch (e) {}
     try { var ph = document.getElementById('cityfeed'), q = ph && ph.getBoundingClientRect(), v = el.getBoundingClientRect();
       if (q && q.width > 0 && ph.classList.contains('on') && q.bottom > H - b - 80 && q.right < window.innerWidth / 2) el.style.left = Math.round(q.right + 8) + 'px'; } catch (e) {}
   }
@@ -2997,4 +3005,8 @@
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, hudParts: hudParts, hudScreen: function () { return HUD.screen; }, hudNoteOpen: hudNoteOpen, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT, bleed: bleed, bloodStage: bloodStage, bloodStageOf: bloodStageOf, bloodHoles: bloodHoles, BLOOD: BLOOD };
+  /* __ONE_PHONE__ (UI TWO, 10/26, rules 212 and 213): the phone is its own file, slices/bohemia_phone.js; every page that wears
+     this HUD loads it, the topmost page of the game draws it once, and every page answers BOH_PHONE_RECT() */
+  try { if (!window.BohemiaPhone && !document.getElementById('bohphonejs')) { var phs = document.createElement('script'); phs.id = 'bohphonejs';
+    phs.src = KIT_BASE.replace(/ui_kit\/$/, '') + 'bohemia_phone.js'; (document.head || document.documentElement).appendChild(phs); } } catch (e) {}
 })();

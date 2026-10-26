@@ -21,18 +21,18 @@
      and it waits for him.
        YOUR CREW: each man once, his face, the XP he got on a bar, LEVEL UP when he climbed (and CHOOSE HIS LEVEL-UP,
          which opens the one crew screen on him: there he picks which stats rise from what each rolled, and his perk, Battle Brothers' way, rule 162), who is
-         laid up how many days with what, who fell for good.
+         struck down with what (one hitpoint, still in the crew: rule 234, never laid up), who fell for good.
        WHAT THEY LEFT: what the dead carried, through Battle Brothers' own drop conditions (records/target/bb/
          loot.json: a weapon 90%, a shield 90%, a helmet 70%, armour only with a quarter of it left), as pieces;
-         and what is not a thing you wear as a COUNT that takes no room: batteries (the money), rounds and scrap
-         (resources). TAP A PIECE to take it, LOOT ALL takes as much as the stash holds and STOPS when it is full.
+         and what is not a thing you wear as a COUNT that takes no room: batteries (the money), rounds and TAPE
+         (what is left of a wrecked piece; it was 'scrap' until rule 276(a), RUN FOUR 10/26: it goes into the company's tape). TAP A PIECE to take it, LOOT ALL takes as much as the stash holds and STOPS when it is full.
        YOUR STASH n / 36: the company's one bag (bohemia.bag.v1, the market fills it, the crew screen equips
          from it, the shops buy and sell from it); tap a piece in it to put it back on the ground.
        LEAVE: the counts ride home in your pockets; what is still on the ground stays there.
 
      HOW THE GAME PLUGS IT IN: frame this page and post {type:'BOHEMIA_SPOILS_OPEN', fight:<the fight's
      BOHEMIA_FIGHT_OVER message>, day?, seed?}. It posts back {type:'BOHEMIA_SPOILS', act:'counts', batteries,
-     resources, seq} once the counts are taken, act:'stash' {bag} on every change, act:'leave'. Standalone it
+     resources, rounds, tape, seq} once the counts are taken (resources is the rounds; the tape is already in bohemia.supplies.v1), act:'stash' {bag} on every change, act:'leave'. Standalone it
      shows a sample fight. Gate: gates/the_spoils_gate.js
      ============================================================================ -->
 <style>
@@ -46,6 +46,16 @@
   --casing:'BohemiaCasing',ui-sans-serif,sans-serif;--rom:'BohemiaROM',ui-monospace,Menlo,Consolas,monospace}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.4 var(--rom);-webkit-tap-highlight-color:transparent;user-select:none}
+/* THE AFTERMATH BEHIND IT (RUN FOUR [the aftermath plays behind the loot screen], rule 245): never black; the fight's own board
+   where the dead fell, his men among them, dimmed under everything (slices/bohemia_aftermath.js) */
+body{background:transparent}
+#after{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;image-rendering:pixelated}
+/* the words that stand on the scene and not on a plate carry their own dark ground (the contrast floor) */
+.h>span,#crewn,#fromn,.lines p,#ground.empty{background:rgba(9,7,5,.84);border-radius:2px;padding:2px 6px;box-shadow:0 0 8px 4px rgba(9,7,5,.55)}
+.h>span:first-child{margin-left:-6px}
+/* a phone: a window on the field before the crew, where the scene plays clearest */
+#field{height:0}
+@media (max-width:699px){ #field{height:30vh} }
 html{animation:in 280ms ease-out}
 @keyframes in{from{opacity:0}to{opacity:1}}
 body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
@@ -88,6 +98,7 @@ button{font-family:var(--rom)}
 .state.gone{color:var(--red);font:12px var(--casing);letter-spacing:1px}
 .perk{margin-top:8px;min-height:44px;padding:0 16px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font-size:12px;letter-spacing:1px}
 #counts{display:flex;flex-wrap:wrap;gap:8px;margin:0 14px 8px}
+html body #counts .count[data-count=tape]::before{background-image:url(supply_icons/tape.png)}   /* rule 276(a): the roll of tape off the bar, beside its count */
 .count{min-height:44px;padding:6px 14px 8px;display:flex;flex-direction:column;justify-content:center;background:#ddd4bd;border:0;border-radius:2px;color:var(--paper);text-align:left}
 .count b{font:16px/1.1 var(--casing);letter-spacing:1px;font-weight:400}
 .count span{font-size:9px;letter-spacing:.5px;opacity:.75}
@@ -137,20 +148,26 @@ button{font-family:var(--rom)}
 #foot{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:10px 14px max(10px,env(safe-area-inset-bottom));background:var(--plate2);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
 #foot .left{flex:1;font-size:11px;color:var(--dim)}
 #leave{min-width:150px;min-height:54px;background:var(--plate);color:var(--paper);border:0;border-radius:6px;font:16px/1 var(--casing);letter-spacing:3px}
+/* MAKE CAMP beside LEAVE (RUN FOUR [make camp from the fight], rule 267(b), Paolo 10/26: 'after combat ends there should be a button where
+   you go straight into camp mode to start healing'): home, and the camp made at the fight's place at once */
+#camp{min-width:150px;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--plate);color:var(--paper);border:0;border-radius:6px;font:16px/1 var(--casing);letter-spacing:3px}
+#camp small{font:10px/1 var(--rom);letter-spacing:.5px;opacity:.8}
+#camp[hidden]{display:none}
 .lost #loot{display:none}
 .man .xp,.man .nums,.man .lv{color:#c4b190}
 /* a phone: LOOT ALL rides the bottom bar beside LEAVE, one tap without a scroll however long the crew is (mobile first, rule 164 item 16) */
 @media (max-width:699px){
-  #lootrow{position:fixed;z-index:7;left:14px;bottom:max(10px,env(safe-area-inset-bottom));width:calc(100% - 28px - 160px);margin:0;gap:6px}
+  /* a phone: the two ways out (MAKE CAMP, LEAVE) are the bottom row; the loot's two buttons ride the row above while there is loot
+     left; the strip over them, under his thumb (mobile first, rule 164 item 16) */
+  #foot #camp,#foot #leave{flex:1 1 0;min-width:0}
+  #lootrow{position:fixed;z-index:7;left:14px;right:14px;bottom:calc(74px + env(safe-area-inset-bottom));width:auto;margin:0;gap:6px}
   #lootall{min-height:54px;font-size:15px;letter-spacing:2px}
   #lootall:disabled{display:none}
   #optimize{font-size:14px;letter-spacing:1px;padding:4px 2px}
-  /* OPTIMIZE beside LOOT ALL on the bar: LEAVE gives up a little room while the two stand there */
-  body.opt #lootrow{width:calc(100% - 28px - 116px)}
-  body.opt #leave{min-width:106px}
-  /* the strip rides just over the bar, where his thumb is */
   #said{position:fixed;z-index:6;left:0;right:0;bottom:calc(74px + env(safe-area-inset-bottom));margin:0;border-radius:0;padding:6px 14px;border-top:1px solid var(--line)}
+  body.looting #said{bottom:calc(138px + env(safe-area-inset-bottom))}
   body{padding-bottom:calc(144px + env(safe-area-inset-bottom))}
+  body.looting{padding-bottom:calc(208px + env(safe-area-inset-bottom))}
   #foot .left{visibility:hidden}
   body:not(.lost) #loot .h:first-child{margin-top:18px}
 }
@@ -164,7 +181,9 @@ button{font-family:var(--rom)}
 </style>
 </head>
 <body>
+<canvas id="after" aria-hidden="true"></canvas>
 <div id="bar"><span class="word" id="word">YOU WON</span><span class="sub" id="head">THE FIGHT IS WON</span><span id="tally"><span id="rounds"></span></span></div>
+<div id="field" aria-hidden="true"></div>
 <div id="lines" class="lines"></div>
 <div id="cols">
   <div>
@@ -185,7 +204,7 @@ button{font-family:var(--rom)}
     <div id="nothing" hidden></div>
   </div>
 </div>
-<div id="foot"><span class="left" id="left"></span><button id="leave" type="button">LEAVE</button></div>
+<div id="foot"><span class="left" id="left"></span><button id="camp" type="button" aria-label="Make camp here: home, and camp at the fight's place to heal">MAKE CAMP<small>HEAL HERE</small></button><button id="leave" type="button">LEAVE</button></div>
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_spoils.js"></script>
 <script src="../engine/bohemia_camp.js"></script>  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->
@@ -193,6 +212,8 @@ button{font-family:var(--rom)}
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_crew_door.js"></script>
 <script src="bohemia_ui_materials.js"></script>
+<script src="../engine/bohemia_idles.js"></script>  <!-- RUN FOUR: the idles, for the scene behind it when no fight stands behind (the fight's own when it does) -->
+<script src="bohemia_aftermath.js"></script>  <!-- RUN FOUR [the aftermath plays behind the loot screen] -->
 <script>
 (function(){
 'use strict';
@@ -255,7 +276,7 @@ function drawCrew(){
     var st = null;
     if(m.dead){ st = document.createElement('div'); st.className = 'state gone'; st.textContent = 'FELL. HE IS DEAD.'; }
     else if(m.down && m.main){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'WENT DOWN. UP AGAIN AFTER.'; }
-    else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'LAID UP ' + m.days + ' DAYS: ' + String(m.injury.name || '').toUpperCase(); }
+    else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'STRUCK DOWN. ONE HITPOINT, STILL IN THE CREW: ' + String(m.injury.name || '').toUpperCase(); }   /* CAMP rule 234(f): never 'laid up' */
     if(st) w.appendChild(st);
     if(m.up && !m.dead){ ups++;
       var b = document.createElement('button'); b.className = 'perk'; b.type = 'button'; b.textContent = m.main ? 'CHOOSE YOUR LEVEL-UP' : 'CHOOSE HIS LEVEL-UP'; b.dataset.perk = m.name;
@@ -344,8 +365,10 @@ function facts(it, where){
 }
 function drawCounts(){
   var el = document.getElementById('counts'); el.textContent = '';
-  var c = S.counts || {batteries:0, rounds:0, scrap:0};
-  [['batteries', 'BATTERIES', 'THE MONEY', 'BATTERY'], ['rounds', 'ROUNDS', 'OUT OF THEIR GUNS', 'ROUND'], ['scrap', 'SCRAP', 'WHAT WAS LEFT OF IT', 'SCRAP']].forEach(function(k){
+  var c = S.counts || {batteries:0, rounds:0, tape:0};
+  /* SCRAP IS TAPE (RUN FOUR [scrap is tape], rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap, why
+     am I not getting more duct tape for my armour'): what is left of a wrecked piece is TAPE, the tape icon, the company's own tape */
+  [['batteries', 'BATTERIES', 'THE MONEY', 'BATTERY'], ['rounds', 'ROUNDS', 'OUT OF THEIR GUNS', 'ROUND'], ['tape', 'TAPE', 'MENDS ARMOUR', 'TAPE']].forEach(function(k){
     if(!(c[k[0]] > 0)) return; if(c[k[0]] === 1) k[1] = k[3];
     var b = document.createElement('button'); b.type = 'button'; b.className = 'count' + (S.countsTaken ? ' taken' : ''); b.dataset.count = k[0];
     b.innerHTML = '<b>+' + c[k[0]] + ' ' + k[1] + '</b><span>' + (S.countsTaken ? 'TAKEN' : k[2]) + '</span>';
@@ -367,6 +390,7 @@ function drawOpt(){
   var b = document.getElementById('optimize'); if(!b) return;
   var want = S.won && (S.undo || (S.ground.length > 0 && S.ground.length > S.cap - S.stash.length));
   b.hidden = !want; document.body.classList.toggle('opt', !!want && !document.getElementById('lootall').disabled);
+  document.body.classList.toggle('looting', !document.getElementById('lootall').disabled || !!want);   /* a phone: the loot's row over the two ways out */
   if(!want) return;
   b.textContent = ''; b.className = '';
   if(S.undo){ b.className = 'undo'; b.disabled = false; b.appendChild(document.createTextNode('UNDO'));
@@ -416,13 +440,19 @@ function report(r){
   var g = document.createElement('i'); g.className = 'gup'; g.textContent = '\u25b2' + r.gain; sv.appendChild(g); el.appendChild(sv);
   S.lastReport = { left:r.left.map(function(it){ return it.id; }), took:r.took.map(function(it){ return it.id; }), gain:r.gain };
 }
-function hasCounts(){ var c = S.counts || {}; return (c.batteries | 0) + (c.rounds | 0) + (c.scrap | 0) > 0; }
-/* the counts take no room: batteries to the purse, rounds and scrap to its resources (the shell credits them) */
+function hasCounts(){ var c = S.counts || {}; return (c.batteries | 0) + (c.rounds | 0) + (c.tape | 0) > 0; }
+/* the counts take no room: batteries to the purse (the shell credits them), rounds and tape to the company's counts (bohemia.supplies.v1,
+   the bar's own: the tape is the tape that mends armour, rule 276(a)) */
+function addSupplies(o){
+  try{ var sw = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); if(!sw) return false;
+    for(var k in o) if(o[k] | 0) sw[k] = Math.max(0, (sw[k] | 0) + (o[k] | 0));
+    localStorage.setItem('bohemia.supplies.v1', JSON.stringify(sw)); return true; }catch(e){ return false; }
+}
 function takeCounts(){
   if(S.countsTaken || !hasCounts()) return false;
   S.countsTaken = true; var c = S.counts;
-  if(c.rounds | 0){ try{ var sw = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); if(sw){ sw.rounds = (sw.rounds | 0) + (c.rounds | 0); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(sw)); } }catch(e){} }   /* __THE_WAGON__ (ECONOMY section 4 item 3): the loot's rounds are ROUNDS on the bar */
-  post('counts', {batteries:c.batteries | 0, resources:(c.rounds | 0) + (c.scrap | 0), rounds:c.rounds | 0, scrap:c.scrap | 0, seq:S.seq});
+  addSupplies({rounds:c.rounds | 0, tape:c.tape | 0});   /* __THE_WAGON__ (ECONOMY section 4 item 3): the loot's rounds are ROUNDS on the bar; rule 276(a): its tape is TAPE */
+  post('counts', {batteries:c.batteries | 0, resources:c.rounds | 0, rounds:c.rounds | 0, tape:c.tape | 0, seq:S.seq});
   sfx('equip'); drawCounts(); drawGround(); return true;
 }
 function takeOne(i){
@@ -447,10 +477,14 @@ function lootAll(){
   return r;
 }
 function titled(s){ return String(s || '').toLowerCase().replace(/\b[a-z]/g, function(c){ return c.toUpperCase(); }); }
-function leave(){
+/* MAKE CAMP: everything LEAVE does, and the shell makes camp at the fight's place once he is home (rule 267(b); CAMP's camp,
+   BohemiaMapCamp.make, the slices/BOHEMIA_ALPHA_0_9.html __THE_SPOILS__ block hands it over) */
+function makeCamp(){ return leave(true); }
+function leave(camp){
+  try{ if(window.BohemiaAftermath) BohemiaAftermath.stop(); }catch(e){}   /* lets go of the fight's board and sheets before the frame is taken down */
   takeCounts();   /* the counts take no room: they always ride home */
   S.stash.forEach(function(it){ delete it.fresh; }); saveStash();
-  post('leave', {left:S.ground.length, stash:S.stash.length});
+  post('leave', {left:S.ground.length, stash:S.stash.length, camp:camp === true});
 }
 
 /* ---------- THE RESULT: the word, the fight's own head, its numbers, what it said ---------- */
@@ -483,24 +517,48 @@ function head(f){
     var qq = document.createElement('q'); qq.textContent = rc.call.line; q.appendChild(qq);
     var w = document.createElement('b'); w.textContent = rc.call.who; q.appendChild(w); cw.appendChild(q); }
   var no = document.getElementById('nothing'); no.hidden = kind === 'won';
+  document.getElementById('camp').hidden = kind === 'wipe';   /* nobody left standing to make one */
   no.textContent = kind === 'won' ? '' : WORDS[kind === 'wipe' ? 'nothingWipe' : kind === 'ran' ? 'nothingRan' : 'nothingLost'];
 }
 /* the kit (UI's rendered pieces, the crew screen's own): laid on once the materials file is here */
 function dress(){
   var M = window.BohemiaMaterials; if(!M || !M.kit || document.getElementById('sp-kit')) return false;
   var pre = 'html[data-kit] body ', R = [['board_plain', 1, ['#bar', '#foot', '.man', '#nothing']], ['tray', 1, ['.man .face']], ['receipt', 1, ['#tally', '.quote', '.count']],
-    ['tin_amber', .75, ['.perk', '#lootall:not(:disabled)', '#optimize:not(.undo):not(:disabled)']], ['tin_dark', .75, ['#lootall:disabled', '#optimize:disabled']], ['tin', .75, ['#leave', '#optimize.undo']], ['well', 1, ['.slot']], ['well_full', 1, ['.slot.full']], ['receipt', 1, ['#said']]];
+    ['tin_amber', .75, ['.perk', '#lootall:not(:disabled)', '#optimize:not(.undo):not(:disabled)']], ['tin_dark', .75, ['#lootall:disabled', '#optimize:disabled']], ['tin', .75, ['#leave', '#camp', '#optimize.undo']], ['well', 1, ['.slot']], ['well_full', 1, ['.slot.full']], ['receipt', 1, ['#said']]];
   var css = R.map(function(r){ return r[2].map(function(x){ return pre + x; }).join(',') + '{' + M.kit(r[0], r[1]) + (/^tin/.test(r[0]) ? 'filter:drop-shadow(2px 1px 0 rgba(10,6,3,.6));' : '') + '}'; });
   /* a grid of pockets: every slot's floor is cut from another part of the same glass (the crew screen's own trick) */
   [[3, 1, [0.37, 0.61]], [3, 2, [0.71, 0.23]], [5, 3, [0.13, 0.47]], [7, 4, [0.55, 0.83]]].forEach(function(v){
     css.push(pre + '.slot:nth-child(' + v[0] + 'n+' + v[1] + '){' + M.kit('well', 1, v[2]) + '}');
     css.push(pre + '.slot.full:nth-child(' + v[0] + 'n+' + v[1] + '){' + M.kit('well_full', 1, v[2]) + '}'); });
-  css.push(pre + '#leave:active,' + pre + '#lootall:active,' + pre + '#optimize:active,' + pre + '.perk:active{translate:1px 1px;filter:none}');
+  css.push(pre + '#leave:active,' + pre + '#camp:active,' + pre + '#lootall:active,' + pre + '#optimize:active,' + pre + '.perk:active{translate:1px 1px;filter:none}');
   css.push(pre + '#said{color:var(--paper)}' + pre + '#said.full{color:#9a2d1c}');   /* the strip is printed receipt: dark ink on it, the full stash's warning in a red that reads on paper */
   var st = document.createElement('style'); st.id = 'sp-kit'; st.textContent = css.join('\n'); document.head.appendChild(st);
   return true;
 }
 
+/* ---------- THE AFTERMATH BEHIND IT (rule 245) ----------
+   The fight that just ended still stands behind this screen (its frame is taken down when he leaves): the scene is read off it,
+   its board, its dead where they fell, his men; with no fight behind (this page on its own), the sample's men on a fight block */
+function fightWindow(){ try{ var fr = window.parent !== window && window.parent.document.getElementById('fightFrame'); return fr && fr.contentWindow; }catch(e){ return null; } }
+function aftermath(f){
+  var AM = window.BohemiaAftermath, cv = document.getElementById('after'); if(!AM || !cv) return;
+  /* where his men stand on the screen: in the phone's window on the field while it shows, else the middle of what is open */
+  var fld = document.getElementById('field');
+  var o = { dim:.56, paused:function(){ return !!document.getElementById('crewdoor'); },
+    focus:function(){ var q = fld.getBoundingClientRect(), H = window.innerHeight, W = window.innerWidth;
+      if(q.height > 40 && q.bottom > 90 && q.top < H) return [.5, Math.max(.08, Math.min(.9, (Math.max(q.top, 70) + Math.min(q.bottom, H)) / 2 / H))];
+      /* a computer: the open ground under the crew column, when the crew leaves room under it */
+      var c = document.getElementById('crew').getBoundingClientRect(), ft = document.getElementById('foot').getBoundingClientRect().top;
+      if(W >= 700 && ft - c.bottom > 160) return [(c.left + c.right) / 2 / W, (c.bottom + ft) / 2 / H];
+      return [.5, .5]; } };
+  var sc = AM.fromFight(fightWindow());
+  S.after = { from:sc ? 'fight' : 'sample', at:Date.now() };
+  if(sc){ AM.start(cv, sc, o); return; }
+  var men = (f.crew || []).map(function(r, i){ var l = ((f.spoils && f.spoils.looks) || []).filter(function(x){ return x.name === r.name; })[0];
+    return { name:r.name, main:!!r.main, look:(l && l.look) || (r.main ? 'you' : 'cast_longcoat'), x:3 + (i % 3) * 2, y:4 + Math.floor(i / 3) * 2 + (i % 2), state:r.dead ? 'dead' : r.down ? 'down' : 'up', face:2 }; });
+  var dead = ((f.spoils && f.spoils.bodies) || []).filter(function(b){ return b.dead; }).map(function(b, i){ return { name:b.name, look:i % 2 ? 'tier_poacher' : 'tier_thug', x:5 + (i % 2), y:3 + i * 2, face:(i * 3) % 8 }; });
+  AM.fromSample({ men:men.filter(function(m){ return m.state !== 'dead'; }), dead:dead.concat(men.filter(function(m){ return m.state === 'dead'; })) }).then(function(sc2){ if(sc2 && S.fight === f) AM.start(cv, sc2, o); }).catch(function(){});
+}
 /* ---------- open ---------- */
 function open(o){
   o = o || {};
@@ -515,13 +573,14 @@ function open(o){
   /* ONE END SCREEN FOR EVERY FIGHT (rule 164 item 28): a won fight leaves its dead's gear; a loss, a retreat and a wipe leave nothing */
   S.won = f.result === 'won' && !f.retreat && !f.wipe;
   var seed = o.seed != null ? o.seed : hash(JSON.stringify((f.spoils && f.spoils.bodies) || []) + ':' + (f.rounds | 0));
-  S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, scrap: 0 }, from: 0 };
+  S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0 };
   S.ground = S.found.items.map(itemFor).filter(Boolean);
   S.counts = S.found.counts; S.countsTaken = false;
   S.sel = null; S.undo = null; S.out = []; S.tap = {it:null, at:0};
   S.at = o.sell && typeof o.sell === 'object' ? { add:+o.sell.add || 0, mult:o.sell.mult != null ? +o.sell.mult : 1 } : {};   /* the nearest town's standing and trait, when the game hands them over */
   head(f);
   draw();
+  aftermath(f);
   if(S.won) say(S.ground.length ? (FINE ? 'Click a piece to see it. Double click to take it, or LOOT ALL.' : 'Tap a piece to see it. Tap it twice to take it, or LOOT ALL.') : hasCounts() ? 'Take what was in their pockets.' : '');
   S.opened = (S.opened | 0) + 1;
 }
@@ -538,14 +597,16 @@ var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,
       call:{who:'TERESA', line:'That one ran. Let him tell them.', look:'cast_skirt'} } } };
 dress(); document.addEventListener('DOMContentLoaded', dress);
 window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE,
-  optimize:optimize, undo:undo, draw:draw, pick:pick };
+  optimize:optimize, undo:undo, draw:draw, pick:pick, makeCamp:makeCamp };
 document.getElementById('lootall').addEventListener('click', lootAll);
 document.getElementById('optimize').addEventListener('click', optimize);
 if(FINE) document.getElementById('stashhow').textContent = 'DOUBLE CLICK TO PUT IT BACK';
-document.getElementById('leave').addEventListener('click', leave);
+document.getElementById('leave').addEventListener('click', function(){ leave(); });
+document.getElementById('camp').addEventListener('click', makeCamp);
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SPOILS_OPEN') open(d); });
-Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); })]).then(function(a){
-  S.L = a[1]; S.cap = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 0) || (S.L.stash && S.L.stash.slots) || 36;   /* RUN TWO __THE_CAMP__: the cart's room */ S.ready = true;
+Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); }),
+  fetch('../records/target/bb/tape_income.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })]).then(function(a){
+  S.L = a[1]; S.L.tape_income = a[2];   /* RUN FOUR, rule 276(a): ECONOMY's rolls of tape a wrecked piece */ S.cap = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 0) || (S.L.stash && S.L.stash.slots) || 36;   /* RUN TWO __THE_CAMP__: the cart's room */ S.ready = true;
   if(S.pending){ var p = S.pending; S.pending = null; open(p); }
   else if(S.standalone){ var smp = JSON.parse(JSON.stringify(SAMPLE)), q = location.search;   /* ?lost, ?ran, ?wipe: the other ends, for a look */
     if(/lost|ran|wipe/.test(q)){ smp.result = 'lost'; smp.retreat = /ran/.test(q); smp.wipe = /wipe/.test(q); smp.spoils.recap.head = smp.wipe ? 'WIPED OUT' : smp.retreat ? 'YOU PULLED OUT' : 'YOUR CREW IS DOWN'; smp.spoils.recap.call = null;

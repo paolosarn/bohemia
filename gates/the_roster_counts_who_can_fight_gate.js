@@ -5,8 +5,9 @@
    were laid up, the next job still said 'SIZED TO YOUR 13 MEN' with six able, and it wiped; the rescue then said 'YOU 8' and sent
    YOU in alone against eight; 'Bring the Salcedo family home', paid, was on the same board again at once, and taking it again wiped.
    THE LIVE DEMO, on his computer (ROSTER2_PROFILE=phone_portrait for the phone):
-     R1  twelve on the crew screen, three dead in the fight's rows, four laid up: the enemy is sized to the five who can fight (the
-         map's own party math, the same as for a crew of five)
+     R1  twelve on the crew screen, three dead in the fight's rows, four struck down: the enemy is sized to the NINE who can fight
+         (the map's own party math, the same as for a crew of nine). RE-AIMED 10/26 (CAMP [struck down, he still fights], rule 234,
+         Paolo 10/26: 'they're still active'): a struck-down man fights again at one hitpoint, so he is counted; the dead never are
      R2  the men the enemy took (the wipe's own list) are not counted: YOU alone is sized as YOU alone
      R3  the meet card's YOU is the men the fight's own door stands on the board, and the fight agrees
      D1  a job he finished is not on the town's board (and the same board offers it when it was never done: the leg bites)
@@ -44,11 +45,12 @@ const NAMES = ['YOU', 'DESI', 'RAUL', 'TINA', 'OSCAR', 'LUPE', 'BETO', 'NENA', '
         { name: 'DESI', dead: true }, { name: 'RAUL', dead: true }, { name: 'TINA', dead: true },
         { name: 'OSCAR', down: true, injury: 'broken arm', laidUpDays: 30 }, { name: 'LUPE', down: true, injury: 'cut', laidUpDays: 6 },
         { name: 'BETO', down: true, injury: 'concussion', laidUpDays: 9 }, { name: 'NENA', down: true, injury: 'fractured ribs', laidUpDays: 20 }] }]));
-      const r = BohemiaJobKinds.roster(), five = partyMath('job', { skulls: 2, strength: 5 * (10 + 2 * 2) }), now = partyMath('job', { skulls: 2 });
-      return { men: r.men.map(m => m.name), n: r.men.length, count: now.count, five: five.count, strength: now.strength };
+      const r = BohemiaJobKinds.roster(), nine = partyMath('job', { skulls: 2, strength: 9 * (10 + 2 * 2) }), now = partyMath('job', { skulls: 2 });
+      return { men: r.men.map(m => m.name), n: r.men.length, count: now.count, nine: nine.count, strength: now.strength,
+        struck: ['OSCAR', 'LUPE', 'BETO', 'NENA'].every(n => r.men.some(m => m.name === n)), dead: ['DESI', 'RAUL', 'TINA'].some(n => r.men.some(m => m.name === n)) };
     }, NAMES);
-    ok('R1 twelve on the crew screen, three dead and four laid up: sized to the five who can fight', r1.n === 5 && r1.count === r1.five && r1.strength === 5 * (10 + 2 * 2),
-      'counted ' + r1.n + ' (' + r1.men.join(', ') + '), strength ' + r1.strength + ', a two-star job meets ' + r1.count + ' (five men meet ' + r1.five + ')');
+    ok('R1 twelve on the crew screen, three dead and four struck down: sized to the nine who can fight (the struck down still fight, rule 234; the dead never)', r1.n === 9 && r1.struck && !r1.dead && r1.count === r1.nine && r1.strength === 9 * (10 + 2 * 2),
+      'counted ' + r1.n + ' (' + r1.men.join(', ') + '), strength ' + r1.strength + ', a two-star job meets ' + r1.count + ' (nine men meet ' + r1.nine + ')');
     /* R2: the wipe took everyone but YOU */
     const r2 = await fr.evaluate((NAMES) => {
       localStorage.setItem('bohemia.fight.after.v1', '[]');

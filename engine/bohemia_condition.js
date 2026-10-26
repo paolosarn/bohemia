@@ -24,7 +24,19 @@
                                                blacksmith); no tape, no mending
      BohemiaCondition.company(origin)          the HEAL bar's numbers: the living company's hitpoints and armour, now and whole
      BohemiaCondition.drawBar(canvas, sum)     the one bar: red the blood, grey the armour, the dark part what is missing
-     BohemiaCondition.laidUpDays(days)         an injury's days with the retinue's surgeon (one day fewer)
+     BohemiaCondition.laidUpDays(days)         a fresh wound's days with the retinue's surgeon (one day fewer)
+     BohemiaCondition.injuryOf(name)           his marks for life, his fresh wound today, what they take off him, what his face
+                                               shows (engine/bohemia_long_injury.js penalties and look; for the crew card and PORTRAIT)
+     BohemiaCondition.wake()                   an old save's benched man is back in the company at his saved hitpoints, or one
+     BohemiaCondition.wounded() / treat(name)  the men a clinic can help; the clinic halves a fresh wound's days left and so its
+                                               penalty (rule 241), never the mark
+   *** STRUCK DOWN, HE STILL FIGHTS (CAMP [struck down, he still fights], rule 234, Paolo 10/26: 'their health will just be at one,
+   and when you heal them they go back up. They're still active... that's why I restarted hella runs... they should just have that
+   debuff'). A man struck down who lives wakes at ONE HITPOINT and is in the company for the next fight; nothing here or anywhere
+   holds him out. What the fight gave him is kept by name: his MARK for life (every one he has ever taken, the wiki's permanent
+   injuries) and his FRESH WOUND (the mark's own temporary injury, its 30 to 40 days counted down by the map's clock, its penalty
+   fading with them: engine/bohemia_long_injury.js freshNow). handOver gives the fight both (c.marks, c.fresh); the camp heals his
+   hitpoints at the table's rates like any man's. ***
    Words are attempts, draft:true. */
 (function (root) {
   'use strict';
@@ -39,9 +51,12 @@
   var LAST = null;
 
   function json(k) { try { return JSON.parse(root.localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+  function LI() { return root.BohemiaLongInjury || null; }
+  function uniq(a) { var o = [], seen = {}; (a || []).forEach(function (x) { var k = x && x.id || x; if (k && !seen[k]) { seen[k] = 1; o.push(k); } }); return o; }
   function fetchJSON(url, cb) { try { if (!root.fetch) return; root.fetch(url).then(function (r) { return r.json(); }).then(cb).catch(function () {}); } catch (e) {} }
   function load() {
     if (D.asked.rates) return; D.asked.rates = 1;
+    try { wake(); } catch (e) {}
     var kept = json(KEY); if (kept && Array.isArray(kept.crewNames) && !D.crew) { D.crew = kept.crewNames; D.looks = kept.crewLooks || []; }
     fetchJSON(BASE + 'condition.json', function (j) { for (var k in DEF) if (j && j[k] && typeof j[k].value === 'number') RATE[k] = j[k].value; D.rates = true; });
     fetchJSON(BASE + 'ours.json', function (j) {
@@ -92,6 +107,13 @@
       m.armHMax = Math.max(0, +r.armHMax || 0); m.lostH = Math.max(0, m.armHMax - Math.max(0, +r.armH || 0)); m.head = r.head || null;
       m.armBMax = Math.max(0, +r.armBMax || 0); m.lostB = Math.max(0, m.armBMax - Math.max(0, +r.armB || 0)); m.body = r.body || null;
       m.fights = (m.fights | 0) + 1; m.day = day;
+      /* STRUCK DOWN AND ALIVE (rule 234): the mark for life, every one he has ever taken; the fresh wound its days from today */
+      if (r.down && !r.main && r.injury && r.injury.id) {
+        m.marks = uniq((m.marks || []).concat([r.injury.id]));
+        var of = Math.max(0, (r.laidUpDays | 0) || (r.injury.days | 0));
+        m.wound = of > 0 ? { mark: r.injury.id, left: of, of: of, day: day } : null;
+        m.struck = (m.struck | 0) + 1;
+      }
       s.men[k] = m; n++;
     });
     s.lastFight = { day: day, men: n, at: Date.now() };
@@ -112,7 +134,8 @@
     });
   }
   /* the company for the fight: the dead never again; every man with what he is missing */
-  function condOf(r) { return r ? { lostHp: Math.round(r.lostHp || 0), lostH: Math.round(r.lostH || 0), head: r.head || null, lostB: Math.round(r.lostB || 0), body: r.body || null } : null; }
+  function condOf(r) { return r ? { lostHp: Math.round(r.lostHp || 0), lostH: Math.round(r.lostH || 0), head: r.head || null, lostB: Math.round(r.lostB || 0), body: r.body || null,
+    marks: uniq(r.marks), wound: r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: Math.round(r.wound.left * 100) / 100, of: r.wound.of } : null } : null; }
   function handOver(company, formation) {
     if (!Array.isArray(company)) return { company: company, formation: formation || null, left: [] };
     var s = get(), out = [], at = {}, left = [];
@@ -122,6 +145,11 @@
       if (i > 0 && k && deadIn(s, k)) { left.push(m.name); return; }
       var c = {}; for (var f in m) c[f] = m[f];
       var r = k ? s.men[k] : null; if (r) c.cond = condOf(r); else delete c.cond;
+      /* rule 234: his marks for life (the crew screen's and the fight's, one list) and his fresh wound as it stands today, in the
+         shapes the fight reads (opts.company[i].marks, .fresh) */
+      if (r && r.marks && r.marks.length) c.marks = uniq((Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []).concat(r.marks));
+      var fw = r && r.wound && LI() ? LI().freshNow(r.wound.mark, r.wound.left, r.wound.of) : null;
+      if (fw) c.fresh = [fw]; else delete c.fresh;
       at[i] = out.length; out.push(c);
     });
     /* the line the crew screen set points at places in the list: a dead man's place is empty now, everyone else keeps his */
@@ -133,6 +161,16 @@
     return { company: out, formation: line, left: left };
   }
   function condFor(name, main) { var r = get().men[canon(name, main)]; return condOf(r); }
+  /* WHAT THE INJURY IS ON HIM (rule 234(c)(d)): his marks, his fresh wound today, the penalties for the crew card's icons, his
+     face's marks for PORTRAIT; nothing when he carries none */
+  function injuryOf(name, main) {
+    var r = get().men[canon(name, main)], L = LI();
+    if (!r || !(r.marks && r.marks.length)) return null;
+    var w = r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: r.wound.left, of: r.wound.of, treated: (r.wound.treated | 0) > 0 } : null;
+    return { marks: uniq(r.marks), wound: w, daysLeft: w ? Math.ceil(w.left - 1e-9) : 0,
+      fresh: w && L ? L.freshNow(w.mark, w.left, w.of) : null,
+      penalties: L ? L.penalties(r.marks, w) : [], look: L ? L.look(r.marks, w) : null };
+  }
 
   /* THE RETINUE'S HELP (engine/bohemia_camp.js): the cook's hitpoints, the blacksmith's mending, the surgeon's day */
   function hiredMap(ctx) { if (ctx && ctx.hired) return ctx.hired; try { return root.BohemiaCamp ? root.BohemiaCamp.hired() : {}; } catch (e) { return {}; } }
@@ -148,9 +186,12 @@
   /* TIME PASSES: the map's clock hands every minute it spends (its advance(), the one place the valley's time moves) */
   function elapse(hours, ctx) {
     hours = +hours || 0; if (!(hours > 0)) return null; if (hours > 24 * 90) hours = 24 * 90;
-    var s = get(), R = rates(ctx), healed = 0, want = 0, items = [];
+    var s = get(), R = rates(ctx), healed = 0, want = 0, items = [], closed = [];
     for (var k in s.men) {
       var m = s.men[k];
+      /* THE FRESH WOUND'S DAYS (rule 234(b)): the clock's days, camped or marching (the wiki heals an injury by days; the surgeon's
+         day came off when it was given); at nothing it has closed and only the mark is left */
+      if (m.wound && m.wound.left > 0) { m.wound.left = Math.max(0, m.wound.left - hours / 24); if (m.wound.left < 1e-6) { m.wound = null; closed.push(m.shown || k); } }
       if (m.lostHp > 0) { var g = Math.min(m.lostHp, R.hp * hours); m.lostHp -= g; healed += g; if (m.lostHp < 1e-6) m.lostHp = 0; }
       ['lostH', 'lostB'].forEach(function (p) { if (m[p] > 0) { var a = Math.min(m[p], R.armour * hours); items.push([m, p, a]); want += a; } });
     }
@@ -166,7 +207,7 @@
     }
     s.healed += healed; s.mended += mended; s.spent += spent; s.hours += hours; if (R.camped) s.campHours += hours;
     put(s);
-    LAST = { hours: hours, healed: healed, mended: mended, spent: spent, short: want - mended, camped: R.camped, rates: R, tape: W ? W.tape | 0 : null };
+    LAST = { hours: hours, healed: healed, mended: mended, spent: spent, short: want - mended, camped: R.camped, rates: R, tape: W ? W.tape | 0 : null, closed: closed };
     notify(); return LAST;
   }
 
@@ -240,13 +281,85 @@
     if (sum.armMax > 0) seg(split + 2, W - split - 3, sum.armour, o.armour || '#a3a7aa', '#5f6366', '#d4d7d9');
     return { split: split, blood: sum.blood, armour: sum.armour };
   }
+  /* THE CLINIC (rule 241, Paolo 10/26: 'if I did take it to a clinic... it would half the days and half the debuff'): the days left on
+     his fresh wound halved, rounded up (a hired medic a day fewer, never under one), and with them its penalty, which is the days left
+     over its days; his mark for life is never touched. Every man the clinic can help, and the treatment itself */
+  function wounded() {
+    var s = get(), out = [];
+    for (var k in s.men) { var m = s.men[k]; if (!m.wound || !(m.wound.left > 0) || m.main || deadIn(s, k)) continue;
+      out.push({ key: k, name: m.shown || k, mark: m.wound.mark, left: m.wound.left, of: m.wound.of, days: Math.ceil(m.wound.left - 1e-9), treated: !!m.wound.treated, injury: injuryOf(m.shown || k) }); }
+    return out;
+  }
+  function treat(name, ctx) {
+    var s = get(), k = canon(name), m = s.men[k];
+    if (!m || !m.wound || !(m.wound.left > 0)) return null;
+    var before = m.wound.left, left = Math.max(1, Math.ceil(before / 2 - 1e-9) - (ctx && ctx.medic ? 1 : 0));
+    m.wound.left = Math.min(before, left); m.wound.treated = (m.wound.treated | 0) + 1;
+    put(s); notify();
+    return { name: m.shown || k, before: before, left: m.wound.left, of: m.wound.of, injury: injuryOf(m.shown || k) };
+  }
+  /* AN OLD SAVE'S BENCH WAKES (rule 234, row step 4): a man the crew screen benched hurt (bohemia.company.line.v1 bench, a save from
+     before 10/26) is put back in the company the fight is handed, at his saved hitpoints (what this file kept from his fight), or at
+     ONE when nothing was kept; his mark and his fresh wound come with him. Runs at every boot; a save with no bench does nothing */
+  function wake() {
+    var hl = json('bohemia.company.line.v1'); if (!hl || !Array.isArray(hl.bench) || !hl.bench.length) return [];
+    var hk = json('bohemia.company.v1'); if (!Array.isArray(hk)) hk = [];
+    var s = get(), have = {}, woke = [];
+    hk.forEach(function (m, i) { if (m && m.name) have[canon(m.name, i === 0)] = 1; });
+    var climb = json('bohemia.climb.v1') || {};
+    hl.bench.forEach(function (b) {
+      var m = b && b.man; if (!m || !m.name || m.dead) return;
+      var k = canon(m.name); if (!k || have[k] || deadIn(s, k)) return;
+      have[k] = 1; hk.push(m); woke.push(m.name);
+      var r = s.men[k];
+      if (!r) {
+        var hpMax = (m.stats && +m.stats.hp > 0) ? +m.stats.hp : RATE.unknown_hp_max;
+        r = s.men[k] = { shown: String(m.name), look: m.look || null, main: false, hpMax: hpMax, lostHp: Math.max(0, hpMax - RATE.struck_down_hp_left),
+          armHMax: 0, lostH: 0, head: null, armBMax: 0, lostB: 0, body: null, fights: 0, day: 0 };
+      }
+      var c = climb[m.name], mk = uniq((Array.isArray(m.marks) ? m.marks : []).concat(c && c.mark ? [c.mark] : []));
+      if (mk.length) r.marks = uniq((r.marks || []).concat(mk));
+      if (!r.wound && c && c.hurt && c.hurt.days > 0 && c.mark) r.wound = { mark: c.mark.id || c.mark, left: c.hurt.days, of: c.hurt.of || c.hurt.days, day: 0 };
+    });
+    if (Array.isArray(hl.men)) woke.forEach(function (n) { if (hl.men.indexOf(n) < 0) hl.men.push(n); });
+    hl.bench = []; hl.woke = (hl.woke || []).concat(woke);
+    try { root.localStorage.setItem('bohemia.company.v1', JSON.stringify(hk)); root.localStorage.setItem('bohemia.company.line.v1', JSON.stringify(hl)); } catch (e) {}
+    put(s); if (woke.length) notify();
+    return woke;
+  }
   function notify() { try { if (root.dispatchEvent && root.CustomEvent) root.dispatchEvent(new root.CustomEvent('bohemia:condition', { detail: LAST })); } catch (e) {} }
   function forget() { try { root.localStorage.removeItem(KEY); } catch (e) {} LAST = null; }
   function dead() { return get().dead.slice(); }
   function last() { return LAST; }
 
-  root.BohemiaCondition = { KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
-    condFor: condFor, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
+  /* ==== __THE_SMITH_MENDS__ (RUN TWO's block in CAMP's file, NOTE on CAMP's board; RUN TWO [the smith mends], rule 277, Paolo 10/26:
+     'if I go to a settlement that has a smith and an armourer I should be able to repair my stuff with them pretty easily and
+     quickly'). What a craftsman can mend (every living man's helmet and body armour he is missing, the pieces this file keeps), and
+     the mend itself: the pieces back to full, at once, paid at the counter (the camp's mending is the slow, cheap way and spends tape;
+     the craftsman's spends batteries and none of his tape).
+       broken(origin)  [{key, name, main, pieces:[{part:'head'|'body', id, missing, max}]}] for every living man missing armour
+       mend(keys)      the named men's pieces (all when keys is empty) back to full: {men, pieces, points} ==== */
+  function broken(origin) {
+    var s = get(), out = [];
+    members(origin).forEach(function (e) { var r = s.men[e.key]; if (!r) return; var pcs = [];
+      if ((r.lostH || 0) >= 0.5) pcs.push({ part: 'head', id: r.head || null, missing: Math.round(r.lostH), max: Math.round(r.armHMax || 0) });
+      if ((r.lostB || 0) >= 0.5) pcs.push({ part: 'body', id: r.body || null, missing: Math.round(r.lostB), max: Math.round(r.armBMax || 0) });
+      if (pcs.length) out.push({ key: e.key, name: e.main ? 'YOU' : (r.shown || (e.man && e.man.name) || e.key), main: !!e.main, pieces: pcs }); });
+    return out;
+  }
+  function mend(keys) {
+    var s = get(), want = Array.isArray(keys) && keys.length ? keys : null, done = { men: 0, pieces: 0, points: 0 };
+    Object.keys(s.men).forEach(function (k) { if (want && want.indexOf(k) < 0) return; var r = s.men[k], n = 0;
+      ['lostH', 'lostB'].forEach(function (p) { if ((r[p] || 0) > 0) { done.points += r[p]; r[p] = 0; n++; } });
+      if (n) { done.men++; done.pieces += n; } });
+    s.mendedAtCounter = (s.mendedAtCounter || 0) + done.points; put(s);
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mended: done } })); } catch (e) {}
+    try { if (root.parent && root.parent !== root) root.parent.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mended: done } })); } catch (e) {}
+    return done;
+  }
+  /* ==== end __THE_SMITH_MENDS__ ==== */
+  root.BohemiaCondition = { broken: broken, mend: mend, KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
+    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
     says: says, drawBar: drawBar, forget: forget, last: last };
   try { if (root.document) setTimeout(load, 0); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);
