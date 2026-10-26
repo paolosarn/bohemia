@@ -179,3 +179,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 161 | All buttons on the phone; tiny is fine; the phone NEVER gets longer; buttons read by icon, not colour; I can see where my jobs are, not the good ones nearby | 238 | UI TWO, UI, EYES | 
 | 162 | The crew screen (C) is never black: behind it my crew at their camp on the exact place we are (the town, the street, the desert), dimmed so it reads | 239 | UI, ANIMATION, CAMP, COOK, EYES | 
 | 163 | (said again) The food icon shows the water bottle next to the can, both plainly seen | 240 | UI, EYES | 
+| 164 | The clinic shows the debuff and the days, not just the price, and makes clear it halves the days AND halves the debuff | 241 | CAMP, EYES | 
+| 165 | (said again) If I lose a fight badly I can close the browser, reopen it and restart the fight, any time before the map; the loot screen counts as the fight | 233(h), 241(d) | CAMP, EYES | 
