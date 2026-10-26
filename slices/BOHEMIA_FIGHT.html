@@ -5543,6 +5543,10 @@ function meleeLook(key) {
 function meleeProp(v) {
   const M = meleeMeta(), w = v.weapon; if (!M || !w || FIGHT.isGun(w)) return null;
   const b = w.of || w;
+  /* THE BOW (the coordinator's 10/26 item (3)): drawn and loosed in its own keys, in his left fist; THE SLING whirled, not
+     thrown as a bottle. Each only once its layer is in the index (until then, as before) */
+  const bq = (M.bow_by_row || {})[b.id] || (M.bow_by_class || {})[b.class]; if (bq) return [bq, false, true];
+  const sq = (M.sling_by_row || {})[b.id]; if (sq) return [sq, false];
   if (FIGHT._t.bothHands(w)) { const q = (M.two_by_row || {})[b.id] || (M.two_by_class || {})[b.class]; return q ? [q, true] : null; }
   const q = M.by_row[b.id] || M.by_class[b.class]; return q ? [q, false] : null;
 }
@@ -5568,6 +5572,13 @@ function meleeClip(v, p, L, e, how, prop, kind, now) {
     if (p.clip === 'aim') return kind === 'pistol' && !cover ? ['SAim', at('aim')] : null;
     if (p.clip === 'hit') return cover ? ['SCoverHit', at('hit')] : ['SBlock', at('hit')];
     if (p.clip === 'stand' || p.clip === 'carry') return idle(cover ? 'SCover' : 'SIdle');
+    return null;
+  }
+  if (how === 'B') {   /* the bow: low in his left fist, walked, drawn and loosed on the shot (from cover too), kept as he is rocked */
+    if (p.clip === 'walk' || p.clip === 'carrywalk') return ['BWalk', at(p.clip)];
+    if (p.clip === 'aim' || p.clip === 'swing') return ['BAim', at(p.clip)];
+    if (p.clip === 'hit') return [cover ? 'BCoverHit' : 'BHit', at('hit')];
+    if (p.clip === 'stand' || p.clip === 'carry') return cover ? idle('BCover') : idle('BIdle');
     return null;
   }
   if (how === 'T') {
@@ -5607,12 +5618,13 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const keyOf = function (x) { return x === r1 ? (e.ref || e.props_ref) : x === r2 ? r1.props_ref : L._key; };
   const thing = function (q, clip) { for (let i = 0; i < srcs.length; i++) { const by = srcs[i].props.by[q]; if (by && by[clip]) return [srcs[i], by[clip]]; } return null; };
   const has = function (q) { return srcs.some(function (x) { return x.props.by[q]; }); };
-  const mp = kind ? null : meleeProp(v), two = mp && mp[1];
-  const shield = two ? null : shieldProp(v), sh = shield && e.clips.SIdle && has(shield) ? shield : null;
+  const mp = kind ? null : meleeProp(v), two = mp && mp[1], bow = mp && mp[2];
+  const shield = two || bow ? null : shieldProp(v), sh = shield && e.clips.SIdle && has(shield) ? shield : null;   /* a bow takes both hands */
   const prop = kind === 'pistol' ? (sh ? 'pistol' : null) : mp && mp[0]; if (!prop && !sh) return null;
   if (two && !(e.clips.T2Idle && has(prop))) return null;   /* his two-handed keys or the thing not in yet: as before */
+  if (bow && !(e.clips.BIdle && has(prop))) return null;    /* his bow keys or the bow not in yet: as before */
   if (sh && kind === 'pistol' && (p.clip === 'stand' || p.clip === 'carry') && holdReload(v, kind, holdCovered(v), now)) return null;   /* the reload on his body (rule 124): his left hand leaves the shield for the magazine */
-  const mc = meleeClip(v, p, L, e, sh ? 'S' : two ? 'T' : 'M', prop, kind, now); if (!mc) return null;
+  const mc = meleeClip(v, p, L, e, sh ? 'S' : two ? 'T' : bow ? 'B' : 'M', prop, kind, now); if (!mc) return null;
   const f = v._face || 0, src = M.composite[mc[0]] && M.composite[mc[0]][mc[1]]; if (!src) return null;
   const b = meleeBody(src, f, L, e, d); if (!b || !b[0]) return null;
   /* what he holds on this key: the thing in his fist (never a second one on a man whose own model carries his) and his shield */
