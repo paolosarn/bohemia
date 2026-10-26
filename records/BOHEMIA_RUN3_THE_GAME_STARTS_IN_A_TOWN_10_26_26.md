@@ -55,7 +55,11 @@ after GO is 'city' and the pad buttons are hidden, so every stranger's-game driv
 
 ## NOT DONE (rule 236 in full)
 - (d) the origins made personal (their own look, their unique things to buy): his direction, not this round.
-- The tape plays the crew faces; ANIMATION's town pictures of the company (or the crew's own full renders) could join it.
+- ROUND TWO DONE (BUILD 10/26zj): each man on the tape is his HD head beside his own body MOVING, ANIMATION's town cells
+  (BohemiaIdles.activity, his own seed's activity: a smoke, a drink, a lean) at a whole-number zoom with smoothing off (their
+  NOTE), loaded during the quiet second; the group shot stands them two and two, talking. A man with no cells yet keeps his head
+  alone (.hd.solo). S4 counts both ('cell' and 'fresh'): faith 1 body moving, wolf 2 of 3. ONLY THE FINAL LOOK 5/0 phone and 5/0
+  computer on the new tape. The faces breathe when PORTRAIT's rule 246 lands in the crew faces (nothing to change here).
 - The origin's song is SOUNDS' (rule 237): the hook is in, the table is not.
 
 [bb Battle Brothers opens a campaign on a painted card about who these men are, then the company beside a town on the map. Ours

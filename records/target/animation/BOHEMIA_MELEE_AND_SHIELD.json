@@ -2832,5 +2832,26 @@
   "staff_sling": "sling",
   "nomad_sling": "sling",
   "why": "the slings are whirled, not thrown as a bottle: drawn as the sling once its layer (m3) is live, as the bottle until then"
+ },
+ "withhold": {
+  "why": "a named look whose shield arm is not right yet keeps his one-hand stance in the fight (his shield's pictures left out by the pack): the thug's and the poacher's planted shields, measured 10/26 by THE THING IN HIS HAND G1, sink 14 to 15 px facing west and float 5 px facing east (their bigger build kneels deeper: pulled in to PLANT_REACH his front leg hides the shield's foot in profile), and the poacher's block tops out a pixel low; the next round's placement; the caravans and the wide brim (10/26): measured from the top of their hats, the crash bar's block tops out 27 and 28 px under it and the pipe's two-handed wind 6 px under it, and the caravans' pistol with the shield shows in 92 of 144 pictures (64 percent): their shield arm and two hands held back until a look at what a hat does to the crown",
+  "tier_thug": [
+   "s1",
+   "s2"
+  ],
+  "tier_poacher": [
+   "s1",
+   "s2"
+  ],
+  "faction_caravans": [
+   "s1",
+   "s2",
+   "t2"
+  ],
+  "cast_widebrim": [
+   "s1",
+   "s2",
+   "t2"
+  ]
  }
 }

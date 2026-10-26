@@ -24,10 +24,18 @@ const done = () => { console.log('=== HEIGHTS YOU CAN READ GATE: ' + pass + ' pa
 const boot = (profile, o) => open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS=' + JSON.stringify(Object.assign({ speed: 1, formation: null, band: ['brigand_thug'], teach: false, odds: false }, o)) });
 const ready = p => p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round !== undefined && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 });
 
-/* the roofs of a storey count, the camera on one, its ladder's chevrons counted in the bone colour they are drawn in */
+/* the roofs of a storey count, the camera on one, its ladder's chevrons counted in the bone colour they are drawn in.
+   The roof measured is the first of its storey his men see with nobody standing at its ladder: the fog's dark (his men's sight)
+   and a man drawn in front both cover the chevrons, and that is the fog and the man, not the count (measured 10/26 when rule 256
+   opened the lines a tile wider: suburb 1's first three-storey roof stood dark at the bell and a man of theirs stood at the
+   ladder of the next, 0 and 28 bone pixels; with a clear view every one-storey roof drew 20, two 40, three 60). So the boards are
+   read on his lineup, where he reads the roofs before anyone climbs them and nothing is dark (rule 110b). */
 async function marks(p, lv) {
   return p.evaluate(lv => new Promise(res => {
-    const r = (FIGHT_UI.roofs || []).filter(q => q.lv === lv)[0]; if (!r) return res(null);
+    const all = (FIGHT_UI.roofs || []).filter(q => q.lv === lv);
+    const S = FIGHT.S, A = FIGHT_UI.fogA, lit = (x, y) => y < 0 || !A || A[y * S.w + x] < .01;   /* the tiles the ladder and its chevrons rise over */
+    const clear = q => lit(q.x, q.y) && lit(q.x, q.y - 1) && lit(q.x, q.y - 2) && !S.units.some(v => FIGHT.onField(v) && Math.abs(v.x - q.x) <= 1 && Math.abs(v.y - q.y) <= 2);
+    const r = all.filter(clear)[0] || all[0]; if (!r) return res(null);
     FIGHT_UI.cx = (r.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (r.y + .5) * FIGHT_UI.th; FIGHT_UI.zoom = FIGHT_UI.near || FIGHT_UI.zoom; hud();
     requestAnimationFrame(() => requestAnimationFrame(() => {
       const L = (FIGHT_UI.ladders || []).filter(q => q.x === r.x && q.y === r.y)[0]; if (!L) return res({ lv, drawn: false });
@@ -44,7 +52,7 @@ async function marks(p, lv) {
   /* H1 */
   const seen = {}, bad = [];
   for (const [kind, seed] of [['suburb', 1], ['suburb', 2], ['ruin', 2], ['strip', 2]]) {
-    const d = await boot('computer', { seed, kind, deploy: false });
+    const d = await boot('computer', { seed, kind, deploy: true });   /* on his lineup, where he reads the roofs before anyone climbs (no dark there, rule 110b) */
     d.page.on('pageerror', e => errs.push('H1 ' + kind + ': ' + e.message));
     try {
       await ready(d.page);

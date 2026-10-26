@@ -1,0 +1,2268 @@
+{
+ "look": "person_trades_1",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.4235,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.423 m",
+  "ppm": 302.254,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     0.0,
+     0.0007,
+     1.3446
+    ],
+    "eyes": [
+     [
+      -0.0428,
+      -0.1214,
+      1.3618
+     ],
+     [
+      0.0428,
+      -0.1214,
+      1.3618
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     -0.0,
+     -0.1888,
+     1.2959
+    ],
+    "mouth_z": 1.2523,
+    "chin_z": 1.1509,
+    "top_z": 1.53,
+    "ears": 2,
+    "hair": [
+     "barber_horseshoe_ring",
+     "f1_person_trades_1",
+     "h2_horseshoe_thin"
+    ],
+    "gear": [
+     "person_trades_1_hood"
+    ],
+    "torso": [
+     "Cesium_Man",
+     "person_trades_1_coat",
+     "person_trades_1_collar",
+     "person_trades_1_cuffs",
+     "person_trades_1_drawstrings",
+     "person_trades_1_hand_L",
+     "person_trades_1_hand_R",
+     "person_trades_1_lapels",
+     "person_trades_1_pocket",
+     "person_trades_1_pushed",
+     "person_trades_1_shirt",
+     "person_trades_1_waistband",
+     "person_trades_1_zip"
+    ],
+    "body": [
+     "Cesium_Man",
+     "person_trades_1_belt",
+     "person_trades_1_boot_collar",
+     "person_trades_1_boot_collar_line",
+     "person_trades_1_coat",
+     "person_trades_1_collar",
+     "person_trades_1_cuffs",
+     "person_trades_1_drawstrings",
+     "person_trades_1_hand_L",
+     "person_trades_1_hand_R",
+     "person_trades_1_lapels",
+     "person_trades_1_midsole_0",
+     "person_trades_1_midsole_1",
+     "person_trades_1_pocket",
+     "person_trades_1_pouch",
+     "person_trades_1_pouch.001",
+     "person_trades_1_pushed",
+     "person_trades_1_shirt",
+     "person_trades_1_shoe",
+     "person_trades_1_sole_0"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "barber_person_trades_1_hair",
+     "f1_person_trades_1_beard_hair",
+     "h2_horseshoe_thin_hair_22",
+     "h2_horseshoe_thin_hair_38",
+     "person_trades_1_belt",
+     "person_trades_1_boot_collar",
+     "person_trades_1_boot_collar_line",
+     "person_trades_1_coat",
+     "person_trades_1_collar",
+     "person_trades_1_cuffs",
+     "person_trades_1_drawstrings",
+     "person_trades_1_hood",
+     "person_trades_1_lapels",
+     "person_trades_1_midsole_0",
+     "person_trades_1_midsole_1",
+     "person_trades_1_pocket",
+     "person_trades_1_pushed",
+     "person_trades_1_shirt",
+     "person_trades_1_shoe",
+     "person_trades_1_shoes",
+     "person_trades_1_skin",
+     "person_trades_1_sole_0",
+     "person_trades_1_sole_1",
+     "person_trades_1_tail",
+     "person_trades_1_trouser",
+     "person_trades_1_trouser_folds",
+     "person_trades_1_trousers",
+     "person_trades_1_waistband",
+     "person_trades_1_zip",
+     "portrait_barber_person_trades_1_buzz",
+     "portrait_barber_person_trades_1_iris",
+     "portrait_barber_person_trades_1_lips",
+     "portrait_barber_person_trades_1_mouth",
+     "portrait_barber_person_trades_1_pupil",
+     "portrait_barber_person_trades_1_sclera",
+     "portrait_barber_person_trades_1_skin"
+    ]
+   }
+  },
+  {
+   "life": true
+  },
+  {
+   "piece": "wound_eye_patch_patch",
+   "verts": 305,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_eye_patch_strap",
+   "verts": 462,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "eye_patch",
+   "ok": true,
+   "pieces": [
+    "wound_eye_patch_patch",
+    "wound_eye_patch_strap"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_skull_stitches_scar",
+   "verts": 110,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple05",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple08",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple11",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple14",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple17",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple20",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple23",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple26",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple29",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple32",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple35",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple37",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple39",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple41",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple43",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple45",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple47",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple49",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple51",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_skull_stitches_staple53",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "skull_stitches",
+   "ok": true,
+   "pieces": [
+    "wound_skull_stitches_scar",
+    "wound_skull_stitches_staple05",
+    "wound_skull_stitches_staple08",
+    "wound_skull_stitches_staple11",
+    "wound_skull_stitches_staple14",
+    "wound_skull_stitches_staple17",
+    "wound_skull_stitches_staple20",
+    "wound_skull_stitches_staple23",
+    "wound_skull_stitches_staple26",
+    "wound_skull_stitches_staple29",
+    "wound_skull_stitches_staple32",
+    "wound_skull_stitches_staple35",
+    "wound_skull_stitches_staple37",
+    "wound_skull_stitches_staple39",
+    "wound_skull_stitches_staple41",
+    "wound_skull_stitches_staple43",
+    "wound_skull_stitches_staple45",
+    "wound_skull_stitches_staple47",
+    "wound_skull_stitches_staple49",
+    "wound_skull_stitches_staple51",
+    "wound_skull_stitches_staple53"
+   ],
+   "keys": [
+    "wound_skull_stitches_h2_horseshoe_thin"
+   ]
+  },
+  {
+   "piece": "wound_ear_gone_stump",
+   "verts": 209,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_ear_gone_crust",
+   "verts": 139,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_ear_gone_raw",
+   "verts": 155,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_ear_gone_hole",
+   "verts": 52,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "ear_gone",
+   "ok": true,
+   "pieces": [
+    "wound_ear_gone_stump",
+    "wound_ear_gone_crust",
+    "wound_ear_gone_raw",
+    "wound_ear_gone_hole"
+   ],
+   "keys": [
+    "wound_ear",
+    "wound_ear_gone_barber_horseshoe_rin"
+   ]
+  },
+  {
+   "piece": "wound_nose_gone_rim",
+   "verts": 82,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_nose_gone_hole",
+   "verts": 202,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_nose_gone_cave-1",
+   "verts": 156,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_nose_gone_cave+1",
+   "verts": 156,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "nose_gone",
+   "ok": true,
+   "pieces": [
+    "wound_nose_gone_rim",
+    "wound_nose_gone_hole",
+    "wound_nose_gone_cave-1",
+    "wound_nose_gone_cave+1"
+   ],
+   "keys": [
+    "wound_nose"
+   ]
+  },
+  {
+   "mark": "haunted",
+   "ok": true,
+   "pieces": [],
+   "keys": [
+    "wound_sockets"
+   ]
+  },
+  {
+   "piece": "wound_heart_scar_scar",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_heart_scar_mark01",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "mark": "heart_scar",
+   "ok": true,
+   "pieces": [
+    "wound_heart_scar_scar",
+    "wound_heart_scar_mark01"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_trach_scar_ring",
+   "verts": 121,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_pit",
+   "verts": 50,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease0",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease1",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease2",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease3",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease4",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease5",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease6",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_trach_scar_crease7",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "mark": "trach_scar",
+   "ok": true,
+   "pieces": [
+    "wound_trach_scar_ring",
+    "wound_trach_scar_pit",
+    "wound_trach_scar_crease0",
+    "wound_trach_scar_crease1",
+    "wound_trach_scar_crease2",
+    "wound_trach_scar_crease3",
+    "wound_trach_scar_crease4",
+    "wound_trach_scar_crease5",
+    "wound_trach_scar_crease6",
+    "wound_trach_scar_crease7"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_sling_strap",
+   "verts": 576,
+   "groups": [
+    "Skeleton_neck_joint_1",
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_sling_knot",
+   "verts": 76,
+   "groups": [
+    "Skeleton_neck_joint_1"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "mark": "sling",
+   "ok": true,
+   "pieces": [
+    "wound_sling_strap",
+    "wound_sling_knot"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_tag_plate",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_tag_ink",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_tag_ink2",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_tag_stud",
+   "verts": 10,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "tag",
+   "ok": true,
+   "pieces": [
+    "wound_tag_plate",
+    "wound_tag_ink",
+    "wound_tag_ink2",
+    "wound_tag_stud"
+   ],
+   "keys": [
+    "wound_tag_barber_horseshoe_rin"
+   ]
+  },
+  {
+   "piece": "wound_head_bandage_turn1",
+   "verts": 720,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_head_bandage_turn2",
+   "verts": 600,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_head_bandage_seep",
+   "verts": 40,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "head_bandage",
+   "ok": true,
+   "pieces": [
+    "wound_head_bandage_turn1",
+    "wound_head_bandage_turn2",
+    "wound_head_bandage_seep"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_eye_pad_gauze",
+   "verts": 342,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_eye_pad_stain",
+   "verts": 79,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_eye_pad_tape+6",
+   "verts": 125,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_eye_pad_tape-6",
+   "verts": 125,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "eye_pad",
+   "ok": true,
+   "pieces": [
+    "wound_eye_pad_gauze",
+    "wound_eye_pad_stain",
+    "wound_eye_pad_tape+6",
+    "wound_eye_pad_tape-6"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_nose_tape_tape+5",
+   "verts": 174,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_nose_tape_tape-5",
+   "verts": 174,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_nose_tape_blood-1",
+   "verts": 8,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_nose_tape_blood+1",
+   "verts": 8,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "nose_tape",
+   "ok": true,
+   "pieces": [
+    "wound_nose_tape_tape+5",
+    "wound_nose_tape_tape-5",
+    "wound_nose_tape_blood-1",
+    "wound_nose_tape_blood+1"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_ear_bandage_gauze",
+   "verts": 401,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_ear_bandage_stain",
+   "verts": 75,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_ear_bandage_tape",
+   "verts": 105,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "ear_bandage",
+   "ok": true,
+   "pieces": [
+    "wound_ear_bandage_gauze",
+    "wound_ear_bandage_stain",
+    "wound_ear_bandage_tape"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_face_stitches_swell",
+   "verts": 30,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_scab",
+   "verts": 30,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_stitch01",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_stitch03",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_stitch05",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_stitch07",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_stitch09",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_stitch11",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_face_stitches_stitch13",
+   "verts": 4,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "face_stitches",
+   "ok": true,
+   "pieces": [
+    "wound_face_stitches_swell",
+    "wound_face_stitches_scab",
+    "wound_face_stitches_stitch01",
+    "wound_face_stitches_stitch03",
+    "wound_face_stitches_stitch05",
+    "wound_face_stitches_stitch07",
+    "wound_face_stitches_stitch09",
+    "wound_face_stitches_stitch11",
+    "wound_face_stitches_stitch13"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_burn_patch",
+   "verts": 490,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_burn_soot-1",
+   "verts": 19,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_burn_soot+1",
+   "verts": 21,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "burn",
+   "ok": true,
+   "pieces": [
+    "wound_burn_patch",
+    "wound_burn_soot-1",
+    "wound_burn_soot+1"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_neck_wrap_turn1",
+   "verts": 600,
+   "groups": [
+    "Skeleton_neck_joint_1",
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_neck_wrap_turn2",
+   "verts": 480,
+   "groups": [
+    "Skeleton_neck_joint_1",
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_neck_wrap_seep",
+   "verts": 48,
+   "groups": [
+    "Skeleton_neck_joint_1",
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_neck"
+  },
+  {
+   "piece": "wound_neck_wrap_over",
+   "verts": 122,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "neck_wrap",
+   "ok": true,
+   "pieces": [
+    "wound_neck_wrap_turn1",
+    "wound_neck_wrap_turn2",
+    "wound_neck_wrap_seep",
+    "wound_neck_wrap_over"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_blood_run",
+   "verts": 16,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_blood_branch",
+   "verts": 6,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_blood_clot",
+   "verts": 38,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "blood",
+   "ok": true,
+   "pieces": [
+    "wound_blood_run",
+    "wound_blood_branch",
+    "wound_blood_clot"
+   ],
+   "keys": []
+  },
+  {
+   "piece": "wound_bandaid_strip",
+   "verts": 215,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_bandaid_pad",
+   "verts": 72,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "piece": "wound_bandaid_spot",
+   "verts": 21,
+   "groups": [
+    "Skeleton_neck_joint_2"
+   ],
+   "unweighted": 0,
+   "src": "portrait_head"
+  },
+  {
+   "mark": "bandaid",
+   "ok": true,
+   "pieces": [
+    "wound_bandaid_strip",
+    "wound_bandaid_pad",
+    "wound_bandaid_spot"
+   ],
+   "keys": []
+  },
+  {
+   "posed": "wound_eye_patch_patch",
+   "rest_span": [
+    0.0459,
+    0.0259,
+    0.0381
+   ],
+   "posed_span": [
+    0.0459,
+    0.0259,
+    0.0381
+   ]
+  },
+  {
+   "posed": "wound_eye_patch_strap",
+   "rest_span": [
+    0.326,
+    0.3778,
+    0.0828
+   ],
+   "posed_span": [
+    0.326,
+    0.3778,
+    0.0828
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_scar",
+   "rest_span": [
+    0.1061,
+    0.2481,
+    0.117
+   ],
+   "posed_span": [
+    0.1061,
+    0.2481,
+    0.117
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple05",
+   "rest_span": [
+    0.0198,
+    0.0065,
+    0.0086
+   ],
+   "posed_span": [
+    0.0198,
+    0.0065,
+    0.0086
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple08",
+   "rest_span": [
+    0.0191,
+    0.0046,
+    0.0116
+   ],
+   "posed_span": [
+    0.0191,
+    0.0046,
+    0.0116
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple11",
+   "rest_span": [
+    0.019,
+    0.0028,
+    0.0124
+   ],
+   "posed_span": [
+    0.019,
+    0.0028,
+    0.0124
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple14",
+   "rest_span": [
+    0.0179,
+    0.0016,
+    0.0143
+   ],
+   "posed_span": [
+    0.0179,
+    0.0016,
+    0.0143
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple17",
+   "rest_span": [
+    0.0178,
+    0.0029,
+    0.0142
+   ],
+   "posed_span": [
+    0.0178,
+    0.0029,
+    0.0142
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple20",
+   "rest_span": [
+    0.017,
+    0.0024,
+    0.0152
+   ],
+   "posed_span": [
+    0.017,
+    0.0024,
+    0.0152
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple23",
+   "rest_span": [
+    0.0173,
+    0.0029,
+    0.0145
+   ],
+   "posed_span": [
+    0.0173,
+    0.0029,
+    0.0145
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple26",
+   "rest_span": [
+    0.0159,
+    0.0027,
+    0.0159
+   ],
+   "posed_span": [
+    0.0159,
+    0.0027,
+    0.0159
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple29",
+   "rest_span": [
+    0.0162,
+    0.0031,
+    0.0153
+   ],
+   "posed_span": [
+    0.0162,
+    0.0031,
+    0.0153
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple32",
+   "rest_span": [
+    0.015,
+    0.004,
+    0.016
+   ],
+   "posed_span": [
+    0.015,
+    0.004,
+    0.016
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple35",
+   "rest_span": [
+    0.0152,
+    0.0033,
+    0.0156
+   ],
+   "posed_span": [
+    0.0152,
+    0.0033,
+    0.0156
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple37",
+   "rest_span": [
+    0.0141,
+    0.0057,
+    0.0159
+   ],
+   "posed_span": [
+    0.0141,
+    0.0057,
+    0.0159
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple39",
+   "rest_span": [
+    0.0144,
+    0.0045,
+    0.0156
+   ],
+   "posed_span": [
+    0.0144,
+    0.0045,
+    0.0156
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple41",
+   "rest_span": [
+    0.0142,
+    0.0034,
+    0.0156
+   ],
+   "posed_span": [
+    0.0142,
+    0.0034,
+    0.0156
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple43",
+   "rest_span": [
+    0.0139,
+    0.0057,
+    0.0152
+   ],
+   "posed_span": [
+    0.0139,
+    0.0057,
+    0.0152
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple45",
+   "rest_span": [
+    0.0137,
+    0.0039,
+    0.0153
+   ],
+   "posed_span": [
+    0.0137,
+    0.0039,
+    0.0153
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple47",
+   "rest_span": [
+    0.0133,
+    0.0046,
+    0.0153
+   ],
+   "posed_span": [
+    0.0133,
+    0.0046,
+    0.0153
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple49",
+   "rest_span": [
+    0.0134,
+    0.0062,
+    0.0153
+   ],
+   "posed_span": [
+    0.0134,
+    0.0062,
+    0.0153
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple51",
+   "rest_span": [
+    0.0133,
+    0.0041,
+    0.0157
+   ],
+   "posed_span": [
+    0.0133,
+    0.0041,
+    0.0157
+   ]
+  },
+  {
+   "posed": "wound_skull_stitches_staple53",
+   "rest_span": [
+    0.0137,
+    0.0046,
+    0.0157
+   ],
+   "posed_span": [
+    0.0137,
+    0.0046,
+    0.0157
+   ]
+  },
+  {
+   "posed": "wound_ear_gone_stump",
+   "rest_span": [
+    0.0086,
+    0.0665,
+    0.0592
+   ],
+   "posed_span": [
+    0.0086,
+    0.0665,
+    0.0592
+   ]
+  },
+  {
+   "posed": "wound_ear_gone_crust",
+   "rest_span": [
+    0.0046,
+    0.0321,
+    0.0427
+   ],
+   "posed_span": [
+    0.0046,
+    0.0321,
+    0.0427
+   ]
+  },
+  {
+   "posed": "wound_ear_gone_raw",
+   "rest_span": [
+    0.0148,
+    0.0295,
+    0.0442
+   ],
+   "posed_span": [
+    0.0148,
+    0.0295,
+    0.0442
+   ]
+  },
+  {
+   "posed": "wound_ear_gone_hole",
+   "rest_span": [
+    0.0015,
+    0.0092,
+    0.0113
+   ],
+   "posed_span": [
+    0.0015,
+    0.0092,
+    0.0113
+   ]
+  },
+  {
+   "posed": "wound_nose_gone_rim",
+   "rest_span": [
+    0.0464,
+    0.0058,
+    0.055
+   ],
+   "posed_span": [
+    0.0464,
+    0.0058,
+    0.055
+   ]
+  },
+  {
+   "posed": "wound_nose_gone_hole",
+   "rest_span": [
+    0.0272,
+    0.0049,
+    0.0362
+   ],
+   "posed_span": [
+    0.0272,
+    0.0049,
+    0.0362
+   ]
+  },
+  {
+   "posed": "wound_nose_gone_cave-1",
+   "rest_span": [
+    0.0118,
+    0.0045,
+    0.0226
+   ],
+   "posed_span": [
+    0.0118,
+    0.0045,
+    0.0226
+   ]
+  },
+  {
+   "posed": "wound_nose_gone_cave+1",
+   "rest_span": [
+    0.0118,
+    0.0036,
+    0.0226
+   ],
+   "posed_span": [
+    0.0118,
+    0.0036,
+    0.0226
+   ]
+  },
+  {
+   "posed": "wound_heart_scar_scar",
+   "rest_span": [
+    0.0076,
+    0.0009,
+    0.0135
+   ],
+   "posed_span": [
+    0.0076,
+    0.0009,
+    0.0135
+   ]
+  },
+  {
+   "posed": "wound_heart_scar_mark01",
+   "rest_span": [
+    0.0123,
+    0.0,
+    0.0018
+   ],
+   "posed_span": [
+    0.0123,
+    0.0,
+    0.0018
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_ring",
+   "rest_span": [
+    0.0254,
+    0.0022,
+    0.0186
+   ],
+   "posed_span": [
+    0.0254,
+    0.0022,
+    0.0186
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_pit",
+   "rest_span": [
+    0.0089,
+    0.0004,
+    0.0056
+   ],
+   "posed_span": [
+    0.0089,
+    0.0004,
+    0.0056
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease0",
+   "rest_span": [
+    0.0068,
+    0.0002,
+    0.0023
+   ],
+   "posed_span": [
+    0.0068,
+    0.0002,
+    0.0023
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease1",
+   "rest_span": [
+    0.0047,
+    0.0002,
+    0.0051
+   ],
+   "posed_span": [
+    0.0047,
+    0.0002,
+    0.0051
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease2",
+   "rest_span": [
+    0.0026,
+    0.0002,
+    0.0053
+   ],
+   "posed_span": [
+    0.0026,
+    0.0002,
+    0.0053
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease3",
+   "rest_span": [
+    0.0062,
+    0.0002,
+    0.004
+   ],
+   "posed_span": [
+    0.0062,
+    0.0002,
+    0.004
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease4",
+   "rest_span": [
+    0.0068,
+    0.0001,
+    0.0023
+   ],
+   "posed_span": [
+    0.0068,
+    0.0001,
+    0.0023
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease5",
+   "rest_span": [
+    0.0047,
+    0.0002,
+    0.0051
+   ],
+   "posed_span": [
+    0.0047,
+    0.0002,
+    0.0051
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease6",
+   "rest_span": [
+    0.0026,
+    0.0002,
+    0.0053
+   ],
+   "posed_span": [
+    0.0026,
+    0.0002,
+    0.0053
+   ]
+  },
+  {
+   "posed": "wound_trach_scar_crease7",
+   "rest_span": [
+    0.0062,
+    0.0001,
+    0.004
+   ],
+   "posed_span": [
+    0.0062,
+    0.0001,
+    0.004
+   ]
+  },
+  {
+   "posed": "wound_sling_strap",
+   "rest_span": [
+    0.3074,
+    0.2365,
+    0.113
+   ],
+   "posed_span": [
+    0.3074,
+    0.2365,
+    0.113
+   ]
+  },
+  {
+   "posed": "wound_sling_knot",
+   "rest_span": [
+    0.041,
+    0.0279,
+    0.0232
+   ],
+   "posed_span": [
+    0.041,
+    0.0279,
+    0.0232
+   ]
+  },
+  {
+   "posed": "wound_tag_plate",
+   "rest_span": [
+    0.0394,
+    0.021,
+    0.0558
+   ],
+   "posed_span": [
+    0.0394,
+    0.021,
+    0.0558
+   ]
+  },
+  {
+   "posed": "wound_tag_ink",
+   "rest_span": [
+    0.0256,
+    0.0136,
+    0.0078
+   ],
+   "posed_span": [
+    0.0256,
+    0.0136,
+    0.0078
+   ]
+  },
+  {
+   "posed": "wound_tag_ink2",
+   "rest_span": [
+    0.0177,
+    0.0094,
+    0.0067
+   ],
+   "posed_span": [
+    0.0177,
+    0.0094,
+    0.0067
+   ]
+  },
+  {
+   "posed": "wound_tag_stud",
+   "rest_span": [
+    0.0069,
+    0.0037,
+    0.0074
+   ],
+   "posed_span": [
+    0.0069,
+    0.0037,
+    0.0074
+   ]
+  },
+  {
+   "posed": "wound_head_bandage_turn1",
+   "rest_span": [
+    0.3369,
+    0.3653,
+    0.0447
+   ],
+   "posed_span": [
+    0.3369,
+    0.3653,
+    0.0447
+   ]
+  },
+  {
+   "posed": "wound_head_bandage_turn2",
+   "rest_span": [
+    0.3393,
+    0.368,
+    0.0652
+   ],
+   "posed_span": [
+    0.3393,
+    0.368,
+    0.0652
+   ]
+  },
+  {
+   "posed": "wound_head_bandage_seep",
+   "rest_span": [
+    0.0533,
+    0.0628,
+    0.0246
+   ],
+   "posed_span": [
+    0.0533,
+    0.0628,
+    0.0246
+   ]
+  },
+  {
+   "posed": "wound_eye_pad_gauze",
+   "rest_span": [
+    0.0531,
+    0.0293,
+    0.0466
+   ],
+   "posed_span": [
+    0.0531,
+    0.0293,
+    0.0466
+   ]
+  },
+  {
+   "posed": "wound_eye_pad_stain",
+   "rest_span": [
+    0.016,
+    0.0057,
+    0.0151
+   ],
+   "posed_span": [
+    0.016,
+    0.0057,
+    0.0151
+   ]
+  },
+  {
+   "posed": "wound_eye_pad_tape+6",
+   "rest_span": [
+    0.0708,
+    0.0311,
+    0.0554
+   ],
+   "posed_span": [
+    0.0708,
+    0.0311,
+    0.0554
+   ]
+  },
+  {
+   "posed": "wound_eye_pad_tape-6",
+   "rest_span": [
+    0.0708,
+    0.0269,
+    0.0554
+   ],
+   "posed_span": [
+    0.0708,
+    0.0269,
+    0.0554
+   ]
+  },
+  {
+   "posed": "wound_nose_tape_tape+5",
+   "rest_span": [
+    0.0679,
+    0.0275,
+    0.0488
+   ],
+   "posed_span": [
+    0.0679,
+    0.0275,
+    0.0488
+   ]
+  },
+  {
+   "posed": "wound_nose_tape_tape-5",
+   "rest_span": [
+    0.0679,
+    0.0277,
+    0.0488
+   ],
+   "posed_span": [
+    0.0679,
+    0.0277,
+    0.0488
+   ]
+  },
+  {
+   "posed": "wound_nose_tape_blood-1",
+   "rest_span": [
+    0.0056,
+    0.0116,
+    0.029
+   ],
+   "posed_span": [
+    0.0056,
+    0.0116,
+    0.029
+   ]
+  },
+  {
+   "posed": "wound_nose_tape_blood+1",
+   "rest_span": [
+    0.0056,
+    0.0116,
+    0.029
+   ],
+   "posed_span": [
+    0.0056,
+    0.0116,
+    0.029
+   ]
+  },
+  {
+   "posed": "wound_ear_bandage_gauze",
+   "rest_span": [
+    0.0311,
+    0.1005,
+    0.1005
+   ],
+   "posed_span": [
+    0.0311,
+    0.1005,
+    0.1005
+   ]
+  },
+  {
+   "posed": "wound_ear_bandage_stain",
+   "rest_span": [
+    0.003,
+    0.0251,
+    0.0263
+   ],
+   "posed_span": [
+    0.003,
+    0.0251,
+    0.0263
+   ]
+  },
+  {
+   "posed": "wound_ear_bandage_tape",
+   "rest_span": [
+    0.0151,
+    0.0952,
+    0.0609
+   ],
+   "posed_span": [
+    0.0151,
+    0.0952,
+    0.0609
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_swell",
+   "rest_span": [
+    0.0675,
+    0.0332,
+    0.0662
+   ],
+   "posed_span": [
+    0.0675,
+    0.0332,
+    0.0662
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_scab",
+   "rest_span": [
+    0.0633,
+    0.0296,
+    0.0602
+   ],
+   "posed_span": [
+    0.0633,
+    0.0296,
+    0.0602
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_stitch01",
+   "rest_span": [
+    0.0055,
+    0.0081,
+    0.0128
+   ],
+   "posed_span": [
+    0.0055,
+    0.0081,
+    0.0128
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_stitch03",
+   "rest_span": [
+    0.0079,
+    0.0054,
+    0.0133
+   ],
+   "posed_span": [
+    0.0079,
+    0.0054,
+    0.0133
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_stitch05",
+   "rest_span": [
+    0.0095,
+    0.0052,
+    0.0126
+   ],
+   "posed_span": [
+    0.0095,
+    0.0052,
+    0.0126
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_stitch07",
+   "rest_span": [
+    0.011,
+    0.0022,
+    0.0124
+   ],
+   "posed_span": [
+    0.011,
+    0.0022,
+    0.0124
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_stitch09",
+   "rest_span": [
+    0.0106,
+    0.0041,
+    0.0122
+   ],
+   "posed_span": [
+    0.0106,
+    0.0041,
+    0.0122
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_stitch11",
+   "rest_span": [
+    0.0109,
+    0.004,
+    0.0117
+   ],
+   "posed_span": [
+    0.0109,
+    0.004,
+    0.0117
+   ]
+  },
+  {
+   "posed": "wound_face_stitches_stitch13",
+   "rest_span": [
+    0.0104,
+    0.0048,
+    0.0119
+   ],
+   "posed_span": [
+    0.0104,
+    0.0048,
+    0.0119
+   ]
+  },
+  {
+   "posed": "wound_burn_patch",
+   "rest_span": [
+    0.0673,
+    0.0419,
+    0.0925
+   ],
+   "posed_span": [
+    0.0673,
+    0.0419,
+    0.0925
+   ]
+  },
+  {
+   "posed": "wound_burn_soot-1",
+   "rest_span": [
+    0.0084,
+    0.0052,
+    0.006
+   ],
+   "posed_span": [
+    0.0084,
+    0.0052,
+    0.006
+   ]
+  },
+  {
+   "posed": "wound_burn_soot+1",
+   "rest_span": [
+    0.0084,
+    0.0062,
+    0.006
+   ],
+   "posed_span": [
+    0.0084,
+    0.0062,
+    0.006
+   ]
+  },
+  {
+   "posed": "wound_neck_wrap_turn1",
+   "rest_span": [
+    0.183,
+    0.1782,
+    0.0625
+   ],
+   "posed_span": [
+    0.183,
+    0.1782,
+    0.0625
+   ]
+  },
+  {
+   "posed": "wound_neck_wrap_turn2",
+   "rest_span": [
+    0.1832,
+    0.1742,
+    0.0447
+   ],
+   "posed_span": [
+    0.1832,
+    0.1742,
+    0.0447
+   ]
+  },
+  {
+   "posed": "wound_neck_wrap_seep",
+   "rest_span": [
+    0.0387,
+    0.0347,
+    0.0223
+   ],
+   "posed_span": [
+    0.0387,
+    0.0347,
+    0.0223
+   ]
+  },
+  {
+   "posed": "wound_neck_wrap_over",
+   "rest_span": [
+    0.3502,
+    0.029,
+    0.2922
+   ],
+   "posed_span": [
+    0.3502,
+    0.029,
+    0.2922
+   ]
+  },
+  {
+   "posed": "wound_blood_run",
+   "rest_span": [
+    0.0479,
+    0.0164,
+    0.1263
+   ],
+   "posed_span": [
+    0.0479,
+    0.0164,
+    0.1263
+   ]
+  },
+  {
+   "posed": "wound_blood_branch",
+   "rest_span": [
+    0.012,
+    0.0023,
+    0.0366
+   ],
+   "posed_span": [
+    0.012,
+    0.0023,
+    0.0366
+   ]
+  },
+  {
+   "posed": "wound_blood_clot",
+   "rest_span": [
+    0.0198,
+    0.0034,
+    0.0132
+   ],
+   "posed_span": [
+    0.0198,
+    0.0034,
+    0.0132
+   ]
+  },
+  {
+   "posed": "wound_bandaid_strip",
+   "rest_span": [
+    0.0733,
+    0.0182,
+    0.0398
+   ],
+   "posed_span": [
+    0.0733,
+    0.0182,
+    0.0398
+   ]
+  },
+  {
+   "posed": "wound_bandaid_pad",
+   "rest_span": [
+    0.0257,
+    0.01,
+    0.0202
+   ],
+   "posed_span": [
+    0.0257,
+    0.01,
+    0.0202
+   ]
+  },
+  {
+   "posed": "wound_bandaid_spot",
+   "rest_span": [
+    0.0095,
+    0.0021,
+    0.0089
+   ],
+   "posed_span": [
+    0.0095,
+    0.0021,
+    0.0089
+   ]
+  },
+  {
+   "shots": 50,
+   "seconds": 143.1
+  }
+ ],
+ "made": [
+  "_blink",
+  "_look_l",
+  "_look_r",
+  "_wince",
+  "bandaid",
+  "blood",
+  "burn",
+  "ear_bandage",
+  "ear_gone",
+  "eye_pad",
+  "eye_patch",
+  "face_stitches",
+  "haunted",
+  "head_bandage",
+  "heart_scar",
+  "neck_wrap",
+  "nose_gone",
+  "nose_tape",
+  "skull_stitches",
+  "sling",
+  "tag",
+  "trach_scar"
+ ]
+}

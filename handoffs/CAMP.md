@@ -1,3 +1,28 @@
+CAMP (camp-session_01FfxbakbC): 10/26 LATEST -- [the bars over their heads] SHIPPED 9e5595cf, BUILT, NOT YET SEEN (rule 179; rule 261
+and 278(c); line 189), BUILD 10/26zu - THE BARS OVER THEIR HEADS. Record records/BOHEMIA_CAMP_THE_BARS_OVER_THEIR_HEADS_10_26_26.md.
+BUILT: over YOU and every man of his, outside the fight (the map's party at every zoom, a town's picture with his crew standing and
+walking, the camp), two small bars: red his hit points, grey his armour, the dark part what is missing, a hard dark edge; hidden when
+both are at 87 percent or more, so a whole company shows nothing. engine/bohemia_condition.js bars(o) (by name, else look, YOU by key)
+and drawHeadBars; records/target/bb/condition.json bars_hide_at 0.87 (his number). Hooks marked __THE_BARS_OVER_THEIR_HEADS__ in the
+map (queued per man, drawn after the party; the map repaints on a condition change, here or from the town's frame by storage; YOU's
+bars sit on the top of his ink, not his picture's box) and the settlement screen (end of drawPeople, every frame).
+GATE: THE BARS OVER THEIR HEADS 12/0 (phone 6/0, computer 6/0, on the cut: B1 the map, B2 gone at 87, B3 a town through the map's door,
+B4 the camp read in the frame it heals, B5 nothing threw, B6 the map draws once a frame for any number of heals); registered in the suite. Pre-ship: every red of the
+browserless tier measured on plain main too, same legs (the record lists them); THE MAP ANSWERS AFTER BEGIN 12/0 on both (my first
+build drew the map twice a heal and turned it red: fixed, B6); THE HEAL BUTTON 16/0, STRUCK DOWN HE STILL FIGHTS 30/0, THE CLINIC
+HALVES BOTH 10/0, LONG INJURY 55/0. Known, not new: NOTHING COMES TWICE fetches condition.json twice (the map and the shell each
+load the condition module; on main since ff94590b).
+NOTEs: RUN, RUN TWO (for RUN THREE), TUNING. VOTE: camp-the-bars-over-their-heads-10-26.
+NEXT, the coordinator's order (07:09): [camp holds until he ends it] (267(a), built in a worktree: the won fight's contact flag that
+broke a camp made straight after a fight, a hunter two blocks off now a warning said by one of his men, a hidden frame shown again;
+gate gates/camp_holds_until_he_ends_it_gate.js), rule 278 (healing stops itself at 99 percent, paused; drafted), [a town is safe]
+(273), [make camp from the fight] (267(b)(c)), the injury days on our clock (264(h)), then [the fight saves only at its start] (233).
+[bb Battle Brothers: every man in a fight carries a red hit point bar and a grey armour bar over his head; on its world map nothing.
+We carry the two bars out of the fight and hide them at 87 so a whole company is clean.]
+[analog horror: the bars are flat hard pixels with a black edge, a dried-blood red over a dull steel grey, a gauge on old equipment
+emptying while you watch.]
+
+PREVIOUS:
 CAMP (camp-session_01FfxbakbC): 10/26 LATEST -- [struck down, he still fights], [the clinic halves the days and the debuff] and [eyes:
 the dead stand up] / [eyes: the dead, again] SHIPPED ff94590b, BUILT, NOT YET SEEN (rule 179; lines 156, 164 and the dead rows),
 BUILD 10/26zc - STRUCK DOWN, HE STILL FIGHTS. Record records/BOHEMIA_CAMP_STRUCK_DOWN_HE_STILL_FIGHTS_AND_THE_CLINIC_HALVES_BOTH_10_26_26.md.
@@ -29,28 +54,3 @@ life moved to CAMP TWO (BohemiaCamp.look(), BohemiaCondition.company/injuryOf/dr
 and the surgeon shorten an injury's days.]
 [analog horror: the wound reads like a medical chart left out in the rain: a drop of dried blood, a clock with no glass, arrows the
 colour of old iodine, and under it the line that does not go away.]
-
-PREVIOUS:
-CAMP (camp-vamily): 10/26 LATEST -- [the heal button, damage that stays] SHIPPED, BUILT, NOT YET SEEN (rule 179; line 148), BUILD 10/26l.
-Lane 24, opened by the coordinator for rule 226 (Paolo 10/26: 'the camp button should be a heal button... you can't just do fights
-back to back... combine the HP and armor of all your people into a single bar... healing is important, the damage you sustained').
-MEASURED FIRST: the fight's message home carried no hitpoint or armour, crewUnit rolled every man whole at the bell, and the dead
-stood up because an origin's men had no names and the shell dropped men from the back of the list by count (RUN's [eyes: the dead
-stand up]). BUILT: engine/bohemia_condition.js (what each man is MISSING, by name, bohemia.condition.v1, the dead list for good);
-records/target/bb/condition.json (Battle Brothers' rates, each with its wiki line: 1 hp an hour on the map, 2 camped, +1 the cook;
-armour 3 a piece an hour, x2 camped, x1.2 the blacksmith; one TAPE for 15, x0.8 the blacksmith; the surgeon a day off); the fight's
-half in COMBAT's file (condApply at the bell, the end rows carry hp and armour); the shell's door in RUN's file (named, the count
-slice only for nameless men, handOver leaves the dead out and re-points the line; nfOverIn keeps the rows; NEW GAME forgets);
-the map's advance() mends every minute; THE HEAL BUTTON (the CAMP plate, same place: his first-aid kit over one red and grey bar,
-no number, the figure on hover; a tap makes camp; the same button over the camp fills hour by hour and a tap breaks it);
-BohemiaCamp.LIVE gained the blacksmith and the surgeon, the cook heals. GATE: gates/the_heal_button_gate.js 8/0 phone, 8/0
-computer, on the cut (two fights in a row from the map's road door; fight one's blows landed by hand so it never passes on luck).
-Also: the camp gate's C5 was red on main (it read 'YOUR BAG' through a CREW button now 0 x 0); it reads STASH through the tent, 8/0.
-NOTEs: COMBAT (keep the fields), RUN (its row's half), RUN TWO (the camp moved), UI (UI TWO's HEAL app: BohemiaMapCamp.condition(),
-BohemiaCondition.drawBar, BohemiaMapCamp.toggle(), the 'bohemia:condition' event), TUNING (the rates), FEED (a camp may post), EYES.
-NOT DONE, SAID: the phone app is UI TWO's; the crew screen still draws every man whole (condFor(name) is there); the quartermaster
-is not offered (Battle Brothers' is carry capacity, and our counts have no cap: ECONOMY's); what comes after camp is his.
-Record records/BOHEMIA_CAMP_THE_HEAL_BUTTON_AND_DAMAGE_THAT_STAYS_10_26_26.md. DEPLOYED: pages run 3925 for 72835dfb SUCCESS 03:39. NEXT: whatever EYES finds on line 148.
-[bb Battle Brothers: 1 hitpoint an hour on the march, 2 camped; armour 3 a piece an hour, doubled camped, one tool for 15; T makes camp.]
-[analog horror: between fights the company's blood lives in one strip on the glass, going dark from the right, and the grey only
-comes back if somebody spends the tape.]

@@ -181,7 +181,7 @@ def lay_town(town, pl, K):
         pl.here('squat_mural', mural_wall, K, 'squat_mural', 18.3, 21.6, 41.6, 2.2)
         pl.here('wall', mural_wall, K, 'mural', 18.4, 24.2, 9.0, 3.0)
         pl.here('post', tower, K, 'post', 19.4, 1.6, 5.0)
-        pl.here('smith', shack, K, 'smith', 18.3, 24.6, FY, 3.0, 2.6, tarp=K.blue_tarp)
+        pl.here('smith', shack, K, 'smith', 18.3, 24.6, FY + 1.0, 3.0, 2.6, tarp=K.blue_tarp)   # a shack's tarp hangs a metre forward
         pl.model('container.glb', 38.6, FY, None, 0.0, 1.0)            # the armourer's container
         pl.here('stage', stage, K, 'stage', 25.6, 33.0, 6.0, 4.0, K.fac)
         for (x, y, r) in ((23.6, 4.2, 20), (35.0, 6.0, -70), (24.6, 13.2, 10), (33.0, 11.2, -20)):
@@ -207,9 +207,9 @@ def lay_town(town, pl, K):
         pl.here('beds_a', beds, K, 'beds_a', 18.6, 23.8, 9.0, 13.5, 3)
         pl.here('beds_b', beds, K, 'beds_b', 36.2, 41.4, 9.0, 13.5, 3)
         pl.here('turbine', turbine, K, 'turbine', 19.0, 35.0, 10.0, 3.2, walk=True)
-        pl.here('smith', shack, K, 'smith', 18.3, 21.6, FY, 3.0, 2.4, tarp=K.blue_tarp)
-        pl.model('shed.glb', 23.4, FY, None, 0.0, 1.0)
-        pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY, 3.0, 2.6, tarp=K.fac)
+        pl.here('smith', shack, K, 'smith', 18.3, 21.6, FY + 1.0, 3.0, 2.4, tarp=K.blue_tarp)   # a shack's tarp hangs a metre forward
+        pl.model('shed.glb', 23.4, FY + 1.0, None, 0.0, 1.0)
+        pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY + 1.0, 3.0, 2.6, tarp=K.fac)
         pl.model('rolled.glb', 22.6, 0.6, None, 0.0, 0.7)
         for x in (25.9, 34.0): lamp(x, 43.0)
         drum(25.3, 27.2)
@@ -706,15 +706,16 @@ def ship_tall(towns_):
         wide_boxes = {k: v for k, v in {**V.ARMSBOX.get(town['tier'], {}), 'lot': V.LOTBOX[town['tier']], 'build': V.BUILDBOX[town['tier']]}.items()}
         LOOK = {'camp': [840, 220, 1000, 420], 'town': [1600, 0, 2060, 370], 'fortress': [1116, 122, 1631, 486]}
         wide_boxes['look'] = LOOK[town['tier']]
-        e['wide'] = dict(src=e.get('src', s + '.webp'), night_src=e.get('night_src', s + '_night.webp'), px=[WW, WH], hotspots=town['hot'],
+        if not (e.get('wide') or {}).get('relaid'): e['wide'] = dict(src=e.get('src', s + '.webp'), night_src=e.get('night_src', s + '_night.webp'), px=[WW, WH], hotspots=town['hot'],
                          boxes=wide_boxes, doors=doors_of(town['hot'], wide_boxes, town['tier']), entrance=entrance_of(town, WW, WH, wide=True), zoom_max=ZOOM[town['tier']])
         e['tall'] = dict(src=s + '_tall.webp', night_src=s + '_tall_night.webp', px=[TW, TH], hotspots=hot, boxes=boxes,
                          doors=doors_of(hot, boxes, town['tier']), entrance=entrance_of(town, TW, TH), zoom_max=ZOOM[town['tier']])
         bl = sorted({tuple(o['box']) for o in meta['outlines']})
         for suf in ('', '_night'): walk['pictures'][s + '_tall' + suf + '.webp'] = {'blocks': [list(b) for b in bl]}
-        wm = json.load(open(os.path.join(R, 'records/target/cook_town_screens/render', s + '.json')))
-        wb = sorted({tuple(o['box']) for o in wm['outlines'] if o['h'] >= 0.45})        # the wide's: a flat thing he steps over is no block
-        for suf in ('', '_night'): walk['pictures'][s + suf + '.webp'] = {'blocks': [list(b) for b in wb]}
+        if not (e.get('wide') or {}).get('relaid'):        # the 10/25 wide's walk (the re-laid wide writes its own)
+            wm = json.load(open(os.path.join(R, 'records/target/cook_town_screens/render', s + '.json')))
+            wb = sorted({tuple(o['box']) for o in wm['outlines'] if o['h'] >= 0.45})        # a flat thing he steps over is no block
+            for suf in ('', '_night'): walk['pictures'][s + suf + '.webp'] = {'blocks': [list(b) for b in wb]}
         print('  shipped tall', s, len(bl), 'outlines', flush=True)
     json.dump(man, open(manp, 'w'), indent=1)
     json.dump(walk, open(walkp, 'w'), indent=1)

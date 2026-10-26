@@ -27,6 +27,11 @@
        amount.
    P   THE SHOP'S 'ON A MAN' (a tap on a shield at the armourer): the eight's lines in his order, each the arrow and the amount
        wearing() says, the fill at the new number within a pixel and the moved part lit; no 'X to Y' anywhere on the card.
+   F   THE FIGHT'S CARD (COMBAT's drawer, a UI THREE block): his eight in his order, his stars, what he has now on the bar, the
+       wound and the spent fatigue hatched, the shield in his defences (rule 202(c)), the tick, within a pixel; F2 its weapon card's
+       Damage row wears damage's picture.
+   C8, P2 [a damage icon] (rule 275(b)): the stash's weapon numbers, the said line, the shop's DAMAGE chip and ON A MAN line.
+   D   the damage icon is UI's renderer's, byte for byte, and no pair of the nine icons is alike (tools/bohemia_ui_three_damage_icon.py --check).
    E   nothing thrown.
    --plant (the phone): the order swapped, the fill off the maximum, the tick at the top roll, the change column let grow, the 'X to Y' words put back
        in the shop: each must turn a leg red.
@@ -164,6 +169,17 @@ async function crew(b, prof, plant, legs) {
       if (XTOY.test(r.text)) b6.push('X to Y: ' + r.text); });
     const said = await fr.evaluate(() => document.getElementById('said') ? document.getElementById('said').innerText : '');
     legs.C6 = ok(prof.name + ' C6 THE PIECE COMPARED (' + (prof.name === 'computer' ? 'the mouse over it' : 'one tap') + '): every stat it moves an arrow and the amount, its part of the bar lit, never X to Y', moved > 0 && !b6.length && !XTOY.test(said), (moved + ' moved; ') + b6.slice(0, 4).join('; '));
+    /* C8 [a damage icon] (rule 275(b)): a weapon's number in the stash and 'dmg' in the said line wear damage's own picture */
+    const c8 = await fr.evaluate(() => { const S = BohemiaRosterScreen.state, out = { tiles: 0, iconed: 0, said: null };
+      [].forEach.call(document.querySelectorAll('#bag .slot[data-bag]'), t => { const it = S.bag[+t.dataset.bag]; if (!it || it.kind !== 'weapon') return; out.tiles++;
+        const n = t.querySelector('b'); if (n && /stat_icons\/damage\.png/.test(getComputedStyle(n, '::before').backgroundImage)) out.iconed++; });
+      return out; });
+    const wsel = await fr.evaluate(() => { const S = BohemiaRosterScreen.state, i = S.bag.findIndex(x => x.kind === 'weapon'); return i < 0 ? null : '#bag .slot[data-bag="' + i + '"]'; });
+    if (wsel) { if (prof.name === 'computer') await fr.hover(wsel); else await fr.click(wsel); await page.waitForTimeout(300);
+      c8.said = await fr.evaluate(() => { const s = document.getElementById('said'), k = s.cloneNode(true); k.querySelectorAll('.bst-sr').forEach(x => x.remove());
+        const im = s.querySelector('i.bst-dmgi'); return { icon: !!(im && /stat_icons\/damage\.png/.test(getComputedStyle(im).backgroundImage)), word: /\bdmg\b/.test(k.textContent) }; }); }
+    legs.C8 = ok(prof.name + ' C8 [a damage icon]: every weapon\'s number in the stash and the said line wear damage\'s picture, no \'dmg\' word shown',
+      c8.tiles > 0 && c8.iconed === c8.tiles && c8.said && c8.said.icon && !c8.said.word, JSON.stringify(c8));
   } catch (e) { ok(prof.name + ' the crew screen ran', false, e && e.message); }
   legs.errsC = errs.filter(e => !/ResizeObserver/.test(e));
   await ctx.close(); srv.close();
@@ -230,8 +246,58 @@ async function town(b, prof, plant, legs) {
       if (!P.lines.some(r => r.bar)) pb.push('no stat line shown');
     }
     legs.P1 = ok(prof.name + ' P1 THE SHOP ON A MAN: his order, each an arrow and the amount, the new fill and the moved part lit within a pixel, no X to Y', !pb.length, pb.slice(0, 4).join('; '));
+    /* P2 [a damage icon] (rule 275(b)): at the smith a weapon's card, its DAMAGE chip and its ON A MAN damage line wear damage's picture */
+    await go('smith');
+    const wn = await p.evaluate(() => (BohemiaSettlement.state.stock.smith || []).findIndex(i => i.kind === 'weapon'));
+    if (wn >= 0) { const s2 = '#shelfgrid .slot:nth-child(' + (wn + 1) + ')'; if (prof.ctx.hasTouch) await p.tap(s2); else await p.click(s2); await p.waitForTimeout(700); }
+    const P2 = await p.evaluate(() => { const img = e => !!(e && e.querySelector('img') && /stat_icons\/damage\.png/.test(e.querySelector('img').src));
+      const ch = document.querySelector('#sbody .inums .ch[data-stat="damage"]'), ln = document.querySelector('#sbody .onman .ln[data-k="damage"]'), k = ln && ln.querySelector('.k');
+      return { chip: img(ch), chipText: ch ? ch.textContent.replace(/\s+/g, ' ').trim() : null, line: img(ln), wordHidden: !k || /bst-sr/.test(k.className), arrow: !!(ln && ln.querySelector('b.bst-chg')) }; });
+    legs.P2 = ok(prof.name + ' P2 [a damage icon]: the weapon\'s DAMAGE chip and its ON A MAN damage line wear damage\'s picture, the line an arrow and the amount',
+      wn >= 0 && P2.chip && P2.line && P2.wordHidden && P2.arrow, JSON.stringify(P2));
   } catch (e) { ok(prof.name + ' the town ran', false, e && e.message); }
   legs.errsT = errs.filter(e => !/ResizeObserver/.test(e));
+  await ctx.close(); srv.close();
+}
+
+/* THE FIGHT'S CARD (rule 247(a) names it; COMBAT's file, a UI THREE block over drawer) and its weapon card's Damage row */
+const PERKS = J('records/target/bb/perks.json').rows || [];
+async function fight(b, prof, plant, legs) {
+  const srv = await serve(plant), port = srv.address().port;
+  const ctx = await b.newContext(prof.ctx), p = await ctx.newPage(), errs = [];
+  p.on('pageerror', e => errs.push(e.message));
+  const STARS = { ranged_skill: 3, hp: 1, melee_defense: 2 };
+  try {
+    await p.addInitScript(st => { window.FIGHT_OPTS = { seed: 21, kind: 'suburb', company: [{ background: 'companion_2hand', name: 'RAUL' }, { background: 'companion_1hand', name: 'DESI' }, { background: 'companion_ranged', name: 'TINA' }], cap: 12, party: { count: 4, days: 3, difficulty: 1, faction: 'brigands' } };
+      try { localStorage.setItem('bohemia.company.v1', JSON.stringify([{ name: 'YOU', stars: st }])); } catch (e) {} }, STARS);
+    await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load' });
+    await p.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length, null, { timeout: 90000 });
+    await p.waitForTimeout(500);
+    const F = await p.evaluate(rd => { const read = new Function('return (' + rd + ')')(), u = FIGHT.S.units.find(x => x.name === 'YOU') || FIGHT.S.units[0];
+      u.hp = Math.max(1, u.hpMax - 12); u.fat = 20; drawer(u);
+      const o = { name: u.name, level: u.level || 1, hp: u.hp, hpMax: u.hpMax, fat: Math.round(u.fat), fm: FIGHT.fatMax(u), rskill: u.rskill, mskill: u.mskill, rdef: u.rdef, mdef: u.mdef,
+        shield: u.shield || null, perks: u.perks || [], resolve: u.resolve, initiative: u.initiative, rows: read('#drawer .bst-row'),
+        words: [...document.querySelectorAll('#drawer .r>span:first-child')].map(x => x.textContent.trim()) };
+      weaponCard(u);
+      return new Promise(r => setTimeout(() => { o.wcard = [...document.querySelectorAll('#drawer .r>span:first-child')].filter(x => /^Damage/.test(x.textContent.trim())).map(x => [...x.querySelectorAll('img.bm-stat')].map(i => i.getAttribute('src').replace(/^.*\//, '')).join('+')); r(o); }, 300)); }, READ.toString());
+    const se = PERKS.find(r => r.id === 'shield_expert'), sx = F.perks.indexOf('shield_expert') >= 0 && se && se.numbers ? 1 + (se.numbers.shield_defense_bonus_increase_pct || 0) / 100 : 1;
+    const sh = k => F.shield ? Math.round((F.shield[k] || 0) * sx) : 0;
+    const W = { hp: [F.hp, F.hpMax], fatigue: [Math.max(0, F.fm - F.fat), F.fm], ranged_skill: [F.rskill], melee_skill: [F.mskill], ranged_defense: [F.rdef + sh('ranged_defense')],
+      melee_defense: [F.mdef + sh('melee_defense')], resolve: [F.resolve], initiative: [F.initiative] };
+    const want = ORDER.filter(k => W[k][0] !== null && W[k][0] !== undefined), fb = [];
+    if (orderOf(F.rows) !== want.join(',')) fb.push('order ' + orderOf(F.rows));
+    if (!oneColumn(F.rows)) fb.push('stars not one column');
+    F.rows.forEach(r => { const x = W[r.k], whole = x[1] != null ? x[1] : x[0];
+      if (r.stars !== (STARS[r.k] | 0)) fb.push(r.k + ' stars ' + r.stars + ' want ' + (STARS[r.k] | 0));
+      barOk(r, x[0], x[1] != null && x[1] !== x[0] ? x[1] : null, ceilK(r.k, whole, F.level, STARS[r.k])).forEach(z => fb.push(z));
+      if (r.chg) fb.push(r.k + ' an amount ' + r.chg + ' (the fight\'s part is the hatch)'); });
+    const gone = F.words.filter(w => /^(Health|Fatigue|Melee skill \/ defence|Ranged skill \/ defence|Initiative|Resolve)$/.test(w));
+    if (gone.length) fb.push('the old word rows still there: ' + gone.join(', '));
+    legs.F1 = ok(prof.name + ' F1 THE FIGHT\'S CARD: his eight in his order, his stars (the crew screen\'s) in one column, what he has now on the bar, the wound and the spent fatigue hatched, the shield in his defences, the tick, all within a pixel',
+      !fb.length && F.rows.length >= 7, fb.slice(0, 4).join('; ') || F.rows.map(r => r.k + ' ' + r.n).join(', '));
+    legs.F2 = ok(prof.name + ' F2 [a damage icon]: the weapon card\'s Damage row wears damage\'s picture', F.wcard.length === 1 && F.wcard[0] === 'damage.png', JSON.stringify(F.wcard));
+  } catch (e) { ok(prof.name + ' the fight ran', false, e && e.message); }
+  legs.errsF = errs.filter(e => !/ResizeObserver/.test(e));
   await ctx.close(); srv.close();
 }
 
@@ -241,6 +307,9 @@ const PLANTS = [
   { name: 'the fill off the maximum', want: ['C3', 'H2'], plant: { '/engine/bohemia_stats.js': [["return Math.max(0, Math.min(1, (+n || 0) / maxOf(k)));", "return Math.max(0, Math.min(1, (+n || 0) / (maxOf(k) * 0.8)));"]] } },
   { name: 'the tick at the top roll, not the middle', want: ['C4', 'H2'], plant: { '/engine/bohemia_stats.js': [["DATA.mid_roll[k][Math.max(0, Math.min(3, st))]", "DATA.best_roll[k][Math.max(0, Math.min(3, st))]"]] } },
   { name: 'the change column grows when a change shows', want: ['C7'], plant: { '/engine/bohemia_stats.js': [['minmax(0,1fr) 40px;align-items', 'minmax(0,1fr) auto;align-items']] } },
+  { name: 'the fight card left in Battle Brothers\' words', want: ['F1'], only: 'fight', plant: { '/slices/BOHEMIA_FIGHT.html': [['drawer = function (v) { base(v); try { if (window.BohemiaStats) fightBars(v); } catch (e) {} };', 'drawer = function (v) { base(v); };']] } },
+  { name: 'the damage icon taken off the shop and the fight\'s weapon card', want: ['P2', 'F2'], plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["c.dataset.stat = 'damage'; c.insertBefore(statImg('damage'), c.firstChild);", "c.dataset.stat = 'damage';"]],
+    '/slices/bohemia_ui_materials.js': [["[/^damage/i, ['damage']]];", "];"]] } },
   { name: 'X to Y put back in the shop', want: ['P1'], plant: { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["try{ if(box && window.BohemiaStats) shopArrows(box); }catch(e){}", ""]] } }
 ];
 
@@ -261,20 +330,23 @@ const PLANTS = [
   const SIX = [[1, 'hp', 55, 0, 85], [1, 'hp', 55, 3, 100], [1, 'melee_skill', 50, 2, 80], [6, 'ranged_skill', 60, 1, 77.5], [3, 'initiative', 110, 3, 154], [11, 'melee_defense', 30, 2, 30]];
   const six = SIX.map(([lv, k, n, st, t]) => ({ k, want: t, got: S.ceilingOf({ level: lv, stars: { [k]: st } }, k, n), oracle: ceilK(k, n, lv, st) }));
   ok('S4 TUNING\'s six worked ticks come out of the engine and the gate\'s own oracle alike', six.every(x => x.got === x.want && x.oracle === x.want), six.map(x => x.k + ' ' + x.got + '/' + x.want).join(', '));
-  const scr = ['slices/BOHEMIA_ROSTER_SCREEN.html', 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'].map(f => [f, fs.readFileSync(path.join(ROOT, f), 'utf8')]);
+  /* D the damage icon (rule 275(b)): UI's renderer's, byte for byte, and no pair of the nine alike (UI's own look-alike measure) */
+  let dOut = '', dOk = false; try { dOut = require('child_process').execFileSync('python3', [path.join(ROOT, 'tools/bohemia_ui_three_damage_icon.py'), '--check'], { cwd: ROOT }).toString(); dOk = true; } catch (e) { dOut = String(e.stdout || e.message); }
+  ok('D  THE DAMAGE ICON: drawn by UI\'s renderer, byte for byte, and no pair of the nine icons alike at 72, 54 or 18 px', dOk && !/FAIL/.test(dOut), dOut.split('\n').filter(l => /FAIL/.test(l)).join(' | '));
+  const scr = ['slices/BOHEMIA_ROSTER_SCREEN.html', 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', 'slices/BOHEMIA_FIGHT.html'].map(f => [f, fs.readFileSync(path.join(ROOT, f), 'utf8')]);
   ok('S3 every screen that shows the eight loads the one list and lays its rows from it', scr.every(([f, t]) => /<script src="\.\.\/engine\/bohemia_stats\.js"><\/script>/.test(t) && /BohemiaStats\.ORDER|B\.ORDER/.test(t)), scr.map(([f, t]) => f.replace(/^.*\//, '') + ' ' + (t.match(/BohemiaStats\.ORDER|B\.ORDER/g) || []).length).join(', '));
   const { chromium } = require('playwright'); const b = await chromium.launch();
   const errs = [];
   for (const prof of PROFILES) {
-    const legs = {}; await crew(b, prof, null, legs); await town(b, prof, null, legs);
-    errs.push(...legs.errsC, ...legs.errsT);
+    const legs = {}; await crew(b, prof, null, legs); await town(b, prof, null, legs); await fight(b, prof, null, legs);
+    errs.push(...legs.errsC, ...legs.errsT, ...legs.errsF);
   }
   ok('E nothing thrown', !errs.length, errs.slice(0, 3).join(' | '));
   if (plantMode) {
     for (const pl of PLANTS) {
       const legs = {}, saved = { p: pass, f: fail };
       const log = console.log; console.log = () => {};
-      try { await crew(b, PROFILES[0], pl.plant, legs); await town(b, PROFILES[0], pl.plant, legs); } finally { console.log = log; }
+      try { if (!pl.only || pl.only === 'crew') await crew(b, PROFILES[0], pl.plant, legs); if (!pl.only || pl.only === 'town') await town(b, PROFILES[0], pl.plant, legs); if (!pl.only || pl.only === 'fight') await fight(b, PROFILES[0], pl.plant, legs); } finally { console.log = log; }
       pass = saved.p; fail = saved.f;
       const red = pl.want.filter(k => legs[k] === false);
       ok('PLANT ' + pl.name + ': caught (' + (red.join(', ') || 'nothing went red') + ')', red.length > 0);

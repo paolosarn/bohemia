@@ -15369,6 +15369,181 @@
     "how": "image",
     "src": "vote/CAMP_THE_CLINIC_HALVES_BOTH_10_26.webp"
    }
+  },
+  {
+   "id": "portrait-the-face-shows-the-wound-10-26",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "c552e2a9",
+   "made": "10/26",
+   "title": "YOUR MEN WEAR THEIR WOUNDS: AN EYE PATCH, STAPLES IN THE SKULL, THE NOSE GONE, BLOOD AND A BAND-AID",
+   "why": "When a man is struck down and lives, his face now shows it: a lost eye gets an eye patch, brain damage a stapled scar over a shaved line, a lost nose a hole in a ring of scar, a lost ear a raw stump, and a fresh wound dried blood and a band-aid that come off as he heals, each one built on his own 3D head and lit by the same sun as his face. You see it in the VOTE tab on you and your 11 starting men, all 18 marks at the portrait's size and the thumb's, and on the crew screen on any man who carries one.",
+   "options": [
+    "A, the marks stay on their faces",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_THE_FACE_SHOWS_THE_WOUND.webp",
+    "first": "../records/target/vote_first/portrait-the-face-shows-the-wound-10-26.webp",
+    "firstAt": [
+     12,
+     64,
+     1008,
+     280
+    ]
+   },
+   "before_after": {
+    "before": "his face today: the first column of every man's row (TODAY)",
+    "after": "the same face wearing each mark, one mark a column, the mark's name under it",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "records/target/character/barber/person_town_0/face/rest_128.png",
+    "diffs": [
+     "THE MARK FOR LIFE: ours puts a lost eye's patch, a lost nose's hole or a skull's staples on his own head for good; his face today shows nothing he has been through.",
+     "THE FRESH WOUND: ours adds dried blood run from a cut over the brow and a band-aid over it the day he is struck down, the blood gone past half his days and the band-aid gone when he heals; his face today never changes.",
+     "THE WHOLE COMPANY: ours is made for you and all 152 people who can join you, every mark at 128 and the 64 thumb; today only the plain face exists."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "portrait-every-face-breathes-10-26",
+   "kind": "animation",
+   "lane": "portrait",
+   "sha": "c552e2a9",
+   "made": "10/26",
+   "title": "EVERY FACE BREATHES: YOUR CREW BLINKS, GLANCES AND WINCES WHEN HURT",
+   "why": "Every face on screen now breathes about 15 times a minute on the game's beat, blinks every 3 to 6 seconds and glances to the side now and then, and a hurt man winces with his breath catching, every 5 seconds while the wound is fresh and less as it heals, all from renders of his own 3D face. You see it moving in the VOTE tab, his face today beside the same face breathing on you and three of your men, and live on the crew screen, the town and the spoils on every face.",
+   "options": [
+    "A, the faces keep breathing",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_EVERY_FACE_BREATHES.webp"
+   },
+   "before_after": {
+    "before": "his face today, still (the left of each pair)",
+    "after": "the same face as every screen now draws it, breathing, blinking and wincing on the beat (the right of each pair), recorded off the real face painter",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "records/target/character/barber/person_town_0/face/rest_128.png",
+    "diffs": [
+     "IT BREATHES: ours rises a pixel and settles every eight beats of the game's 120 (15 breaths a minute); his face today holds dead still.",
+     "THE EYES: ours blinks every 3 to 6 seconds and glances left or right now and then, his own eyelids and eyeballs rendered; his face today never blinks.",
+     "THE HURT: ours winces with the breath catching when he carries a wound, every 5 seconds fresh and every 14 for a mark for life; his face today looks the same hurt or whole."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "world-two-his-map-10-26",
+   "kind": "ui",
+   "lane": "world two",
+   "sha": "e3cf4d6f",
+   "made": "10/26",
+   "title": "THE CITY YOU HAVE NOT WALKED IS GREY TAPE, NOT BLACK: YOU SEE ITS SHAPE, NOT WHO IS THERE. YOUR OWN PINS. THE BOSS FOUND BY A SIGN, AND HIS PART OF TOWN CHANGES WHEN HE FALLS",
+   "why": "Where you have not been is the city in grey under tape snow, not black, and it fills in with colour where you walk; hold a finger to pin CAMP, DANGER, LOOT, SHOP or a word. A flyer near you marks THE POT, and when he falls his block gets its lights back and THE KITCHEN, on the DEMO's map from the moment you press BEGIN.",
+   "before_after": {
+    "before": "the map at BUILD 10/26n from the game's camera on 390 x 844: the black static (top left)",
+    "after": "BUILD 10/26zq, a new game: the grey tape (top middle), the boss marked (top right), the boss fallen with his lights and THE KITCHEN (bottom left), the pin box (bottom middle)",
+    "scale": "1:1"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_TWO_HIS_MAP_10_26.webp",
+    "first": "../records/target/vote_first/world-two-his-map-10-26.webp",
+    "firstAt": [
+     398,
+     0,
+     390,
+     736
+    ]
+   }
+  },
+  {
+   "id": "character-the-armour-he-wears-shows-10-26",
+   "kind": "outfit",
+   "lane": "character",
+   "made": "10/26",
+   "sha": "7035d1c7",
+   "draft": true,
+   "title": "EVERY HELMET AND BODY ARMOUR IS DRAWN ON THE MAN WHO WEARS IT: THE POLICE RIOT HELMET AND THE POLICE VEST FIRST, SEVENTEEN PLACEHOLDERS IN ALL",
+   "why": "Every one of the 87 helmets and 78 body armours the shop sells is now drawn on whoever wears it, as one of 17 placeholder pieces in the 3D look (a police riot helmet, a motorcycle helmet, a welder's mask, a hard hat, a police vest, a car door strapped on, a plated jacket and the rest), until COOK makes each piece's real art. You see it in the fight, on the crew screen, at camp and on the map, and on this sheet: him bare, then wearing each one in all eight turns and in his portrait.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_SHOWS.png",
+    "first": "../records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_SHOWS_FIRST.png",
+    "firstAt": [
+     0,
+     0,
+     1806,
+     288
+    ]
+   },
+   "twin": {
+    "src": "fight_rig/you.webp",
+    "diffs": [
+     "HIS HEAD: the game's man today is bare-headed whatever helmet he bought; now the piece he has on sits on his head in every turn and clip, the police riot helmet with its clear shield down over his face.",
+     "HIS CHEST: the game's man today shows no body armour; now the vest, the car door, the scales or the riot plates sit on his chest and back, under his gun and his shield.",
+     "HIS FACE: the portrait today is his bare head; now the portrait wears the helmet he wears (the third votes: head gear shows in the portrait)."
+    ]
+   },
+   "before_after": {
+    "before": "him today, wearing nothing he has on (BEFORE, left of every row)",
+    "after": "the same man wearing each class, eight turns at 2:1, and his portrait at 128",
+    "scale": "2:1"
+   },
+   "placeholder": true
+  },
+  {
+   "id": "character-the-armour-on-every-screen-10-26",
+   "kind": "outfit",
+   "lane": "character",
+   "made": "10/26",
+   "sha": "7035d1c7",
+   "draft": true,
+   "title": "THE POLICE RIOT HELMET AND VEST ON HIM ON EVERY SCREEN: THE CREW CARD, THE FIGHT, CAMP AND THE MAP, FAR AND CLOSE",
+   "why": "The man in the police riot helmet and the police vest, shot on the phone on each screen, bare above and wearing them below; his two men on the map wear their own hard hats and padded vests, far and at the close end. You see it on the crew screen, in the fight, at camp and on the map.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_ON_EVERY_SCREEN.png"
+   },
+   "twin": {
+    "src": "records/target/character/the_armour_shows/SCREEN_FIGHT_BEFORE.png",
+    "diffs": [
+     "THE CREW CARD: bare-headed before, the riot helmet and the vest after, the swap drawn at once.",
+     "THE FIGHT AND CAMP: the same man in the same pose, the helmet and the vest drawn under his car door and his gun.",
+     "THE MAP: he and the two at his shoulders were bare; now each wears what he has on, in depth with the buildings."
+    ]
+   },
+   "before_after": {
+    "before": "each screen with nothing he wears drawn (above)",
+    "after": "the same screen, the same moment, wearing it (below)",
+    "scale": "1:1 on the phone"
+   },
+   "placeholder": true
+  },
+  {
+   "id": "camp-the-bars-over-their-heads-10-26",
+   "kind": "ui",
+   "lane": "camp",
+   "sha": "9e5595cf",
+   "made": "10/26",
+   "title": "A RED AND A GREY BAR OVER EVERY HURT MAN OF YOURS, ON THE MAP, IN TOWN AND AT CAMP",
+   "why": "You could not see who was hurt or how fast they were healing. Now every man of yours under 87 percent carries two small bars over his head, red his health and grey his armour, and they fill as he heals, then vanish at 87. You see it on the RUN tab after any fight: on the map over your party, and in a town or at camp over your men.",
+   "before_after": {
+    "before": "nothing over anybody's head outside the fight",
+    "after": "BUILD 10/26zu: on the left the map, bars over YOU and the man with broken armour, none over the whole one; on the right the camp, bars over the two hurt men by the fire",
+    "scale": "his phone upright, cropped"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/CAMP_THE_BARS_OVER_THEIR_HEADS_10_26.webp"
+   }
   }
  ],
  "verdicts": [

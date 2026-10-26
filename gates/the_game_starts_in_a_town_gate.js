@@ -14,7 +14,7 @@
         by the map's own measure (blocks, the longer side), never the map
      S3 THE MAP WHEN HE LEAVES: a real tap on LEAVE and the map is on the glass, the company on the town's block
      S4 A TAP SKIPS IT, NEVER IN ITS FIRST SECOND (the same tape in the same page, real taps): a tap at half a second leaves it on,
-        a tap after the second ends it at once; his men's own heads are drawn
+        a tap after the second ends it at once; each man drawn as himself (his body moving, ANIMATION's cells, else his head)
      S5 THE BENCH IS UNTOUCHED: the checkers' valley (the dark lifted) begins on the map as before, no tape, no town
      S6 nothing threw
    node gates/the_game_starts_in_a_town_gate.js
@@ -89,8 +89,8 @@ const settleFrame = (P) => P.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()
       !!S.town && S.opened >= up.endedAt - 50 && g.m.open === S.town && g.m.shown && !!g.town && g.town.place === S.town && !g.town.camp && S.blocks === g.m.near, JSON.stringify({ open: g.m.open, place: g.town && g.town.place }));
     ok('S3 THE MAP WHEN HE LEAVES (' + g.origin + '): a real tap on LEAVE and the map is on the glass, the company on ' + S.town + "'s block",
       !!g.left && !g.left.open && !g.left.shown && g.left.at[0] === g.m.at[0] && g.left.at[1] === g.m.at[1], JSON.stringify(g.left));
-    if (g.sk) ok('S4 A TAP SKIPS IT, NEVER IN ITS FIRST SECOND (' + g.origin + ', ' + g.profile + '): a tap at half a second left it on, a tap after the second ended it in ' + g.sk.ms + ' ms; his heads drawn (' + g.sk.heads.filter(h => h.face === 'fresh').length + ' of ' + g.sk.heads.length + ')',
-      g.sk.early && g.sk.skipped === true && g.sk.ms != null && g.sk.ms < 400 && g.sk.gone && g.sk.heads.length >= 1 && g.sk.heads.every(h => h.face === 'fresh'), JSON.stringify(g.sk.heads.slice(0, 4)));
+    if (g.sk) ok('S4 A TAP SKIPS IT, NEVER IN ITS FIRST SECOND (' + g.origin + ', ' + g.profile + '): a tap at half a second left it on, a tap after the second ended it in ' + g.sk.ms + ' ms; his own picture drawn (' + g.sk.heads.filter(h => h.face === 'cell').length + ' his body moving, ' + g.sk.heads.filter(h => h.face === 'fresh').length + ' his head, of ' + g.sk.heads.length + ')',
+      g.sk.early && g.sk.skipped === true && g.sk.ms != null && g.sk.ms < 400 && g.sk.gone && g.sk.heads.length >= 1 && g.sk.heads.every(h => h.face === 'fresh' || h.face === 'cell'), JSON.stringify(g.sk.heads.slice(0, 4)));
     ok('S6 nothing threw (' + g.origin + ')', !g.errs.length, g.errs.join(' | '));
   }
   /* S5: the bench's valley */

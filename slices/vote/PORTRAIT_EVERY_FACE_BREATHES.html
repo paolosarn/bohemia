@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every Face Breathes</title>
+<!-- PORTRAIT [every face breathes] (rule 246) and [the face shows the wound] (rule 234(c)), 10/26/26: the real face painter
+     (engine/bohemia_crew_faces.js) and its marks and clock (engine/bohemia_wound_faces.js), running, on his own crew's faces.
+     Nothing here draws a face: every pixel is a render of the man's own model; this page only says who is hurt. -->
+<style>
+  :root { --bg: #171513; --card: #24211e; --ink: #e2d6be; --dim: #968e80; --line: #3a342e; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --bg: #efe9dc; --card: #e2dacb; --ink: #2a241e; --dim: #6b6256; --line: #c9bfae; } }
+  :root[data-theme="light"] { --bg: #efe9dc; --card: #e2dacb; --ink: #2a241e; --dim: #6b6256; --line: #c9bfae; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.35 ui-monospace, Menlo, monospace; }
+  main { max-width: 720px; margin: 0 auto; padding: 14px 16px 28px; }
+  h1 { font-size: 15px; letter-spacing: 2px; margin: 4px 0 2px; }
+  p { color: var(--dim); margin: 0 0 12px; }
+  .row { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 0 0 14px; }
+  .man { background: var(--card); border: 1px solid var(--line); padding: 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .man canvas.big { width: 128px; height: 128px; }
+  .man canvas.thumb { width: 64px; height: 64px; }
+  .faces { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .who { font-size: 12px; text-align: center; min-height: 32px; }
+  .who b { display: block; letter-spacing: 1px; }
+  .who span { color: var(--dim); }
+</style>
+</head>
+<body>
+<main>
+  <h1>EVERY FACE BREATHES</h1>
+  <p>Your own men's faces, live, at the crew screen's size and the thumb's: breathing on the beat, blinking, glancing. The hurt ones wince, more when the wound is fresh.</p>
+  <div class="row" id="whole"></div>
+  <h1>THE HURT ONES</h1>
+  <p>Struck down today: the mark for life, the blood and the band-aid. Past half his days: the band-aid. Healed: the mark alone.</p>
+  <div class="row" id="hurt"></div>
+</main>
+<script>
+  window.BOHEMIA_CREW_FACES_BASE = '../../records/target/portrait/crew/';
+  window.BOHEMIA_PEOPLE_BASE = '../../records/target/character/barber/';
+  window.BOHEMIA_WOUNDS_BASE = '../../records/target/portrait/wounds/';
+</script>
+<script src="../../engine/bohemia_wound_faces.js"></script>
+<script src="../../engine/bohemia_crew_faces.js"></script>
+<script>
+(function () {
+  'use strict';
+  var WHOLE = [['you', 'YOU', 'whole'], ['person_town_5', 'TOWN 5', 'whole'], ['person_town_6', 'TOWN 6', 'whole'], ['person_town_14', 'TOWN 14', 'whole']];
+  var HURT = [['person_town_0', 'STRUCK DOWN TODAY', 'lost an eye', { marks: ['missing_eye'], fresh: 'blood' }],
+              ['person_town_2', 'PAST HALF HIS DAYS', 'lost his nose', { marks: ['missing_nose'], fresh: 'bandage' }],
+              ['person_town_1', 'HEALED', 'brain damage', { marks: ['brain_damage'], fresh: null }],
+              ['person_town_3', 'STRUCK DOWN TODAY', 'traumatized', { marks: ['traumatized'], fresh: 'blood' }]];
+  function man(row, look, name, line, injury) {
+    var W = window.BohemiaWoundFaces, F = window.BohemiaCrewFaces;
+    if (injury) W.set(look, injury);
+    var d = document.createElement('div'); d.className = 'man';
+    var faces = document.createElement('div'); faces.className = 'faces';
+    [128, 64].forEach(function (n) {
+      var c = document.createElement('canvas'); c.width = c.height = n; c.className = n > 64 ? 'big' : 'thumb'; c.dataset.look = look;
+      faces.appendChild(c); F.draw(c.getContext('2d'), look, n);
+    });
+    var w = document.createElement('div'); w.className = 'who'; w.innerHTML = '<b></b><span></span>';
+    w.firstChild.textContent = name; w.lastChild.textContent = line;
+    d.appendChild(faces); d.appendChild(w); row.appendChild(d);
+  }
+  function go() {
+    WHOLE.forEach(function (m) { man(document.getElementById('whole'), m[0], m[1], m[2]); });
+    HURT.forEach(function (m) { man(document.getElementById('hurt'), m[0], m[1], m[2], m[3]); });
+  }
+  if (window.BohemiaCrewFaces) window.BohemiaCrewFaces.ready(go); else go();
+})();
+</script>
+</body>
+</html>

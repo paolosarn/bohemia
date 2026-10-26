@@ -1555,5 +1555,11 @@
   "why": "OUR DEFAULT: AUTO's shotgunner steps beside his target before he fires only when the shot from there is worth this many times the shot from where he stands (the band's damage times the rules' chance), so a step is taken for a real gain, never for a point or two; TUNING may move it.",
   "draft": true,
   "tuned": false
+ },
+ "early_retreat": {
+  "value": {"edge_margin_tiles": 1},
+  "source": "VAMILY.md rule 256 (Paolo 10/26, LOCKED: 'if I retreat immediately at the beginning of the battle, most of the time I should be able to escape... in Battle Brothers every time I retreated I watched my people run tile to tile and they always made it, they got that head start'); records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md",
+  "quote": "they got that head start",
+  "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: his front column stands a man's run on flat ground (ap.per_turn over ap.move_cost.flat, four tiles) LESS this many tiles from his edge, so rough ground still lets a first-turn retreat reach it; ours.start_cols stays the farthest it may be. Measured on 300 rolled fights, RETREAT on his first turn: margin 0 put 98.8% of his men out, 1 put 99.9% (beasts 100%), 2 the same as 1."
  }
 }

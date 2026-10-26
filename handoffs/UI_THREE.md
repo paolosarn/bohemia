@@ -1,4 +1,21 @@
-UI THREE (ui-three-stats): the stat component, session ui-three-session_018MTLRcHi -- 10/26 LATEST -- [the stat order] and [stats are bars and arrows]
+UI THREE (ui-three-stats): the stat component, session ui-three-session_018MTLRcHi -- 10/26 LATEST (round two) -- [the stat order] and
+[stats are bars and arrows] SHIPPED, BUILT, NOT YET SEEN (rule 179): the fight's card is in, the last screen with stats; [a damage icon]
+SHIPPED, BUILT, NOT YET SEEN (rule 275(b)). Record records/BOHEMIA_UI_THREE_THE_FIGHTS_CARD_AND_A_DAMAGE_ICON_10_26_26.md.
+- THE FIGHT'S CARD: a block over COMBAT's drawer() in slices/BOHEMIA_FIGHT.html (fightBars, fightStars): his eight in his order, what he
+  has now on the bar, the wound and the spent fatigue hatched, his stars from bohemia.company.v1 by name, the shield in his defences
+  (shieldDef's own sum), the tick. FATIGUE READS WHAT IS LEFT (Battle Brothers counts it up).
+- THE DAMAGE ICON: slices/stat_icons/damage.png (tools/bohemia_ui_three_damage_icon.py, UI's renderer imported, --check runs UI's
+  look-alike measure over the nine): the shop's DAMAGE chip (a block over itemNums), the ON A MAN damage line, the stash's weapon
+  numbers (b[data-dmg]), 'dmg' in the said line, the fight's weapon card (the kit's STAT_WORDS, one entry).
+- GATE: STATS ARE BARS IN HIS ORDER 41/0 with seven plants (D, C8, P2, F1, F2 new). UI's THE STAT ICONS I4 re-aimed to the card's
+  eight rows (5/0).
+NEXT: [icons not numbers] round two (count the seven screens), then [the item box] (249(d)), [the weapon card] (251(b)), [an icon for
+every perk] (252).
+[bb Battle Brothers puts a small picture beside a weapon's damage on its tooltip; ours is the wound itself.]
+[analog horror: a hole and what came out of it, printed small on the receipt beside the number, the way a ledger keeps it.]
+
+ROUND ONE (10/26, 01ddcb92):
+[the stat order] and [stats are bars and arrows]
 ROUND ONE SHIPPED, BUILT, NOT YET SEEN (rule 179); [icons not numbers, everywhere] round one (the count's shape and four screens).
 Record records/BOHEMIA_UI_THREE_THE_STAT_ORDER_AND_THE_BARS_10_26_26.md.
 

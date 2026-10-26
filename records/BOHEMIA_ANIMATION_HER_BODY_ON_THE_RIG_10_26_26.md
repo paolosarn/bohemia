@@ -52,8 +52,8 @@ THE SOURCE, KEPT (rule 128): records/target/animation/BOHEMIA_HER_BODY.json. THE
   edited the idles' tool (three lines at its head) while her renders ran, so the running process read the new file at the old
   line numbers and refused (its own guard). And the guard saved more: she is on a map sheet now, so the patched pack would have
   written the map's people file with the women alone; it merges into it now.
-- RENDERING: her town activities (the same six, her body), then her pistol-in-one-hand and cover keys, then her melee keys
-  (the same skeleton: the men's queue renders her). HER BODY gate 8/1 until her town activities land (M1), then into the suite.
+- LIVE: her town activities, all four (the same six on her body, matched to her stills); HER BODY 9/0 in the suite.
+- OWED: her pistol-in-one-hand and cover keys, then her melee keys (the same skeleton: the men's queue renders her).
 
 ## GATE
 HER BODY (gates/her_body_gate.py, in the suite): S the source; R the roll (after every man, 'f', no beard); B her body in the
