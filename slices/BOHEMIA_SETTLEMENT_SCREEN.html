@@ -1917,7 +1917,22 @@ function drawPeople(s){
       cx.drawImage(img, col*m.w, row*m.h, m.w, m.h, Math.round(fx - m.mid*k*s), Math.round(fy - m.foot*k*s), Math.round(m.w*k*s), Math.round(m.h*k*s)); }});
   });
   items.sort(function(a, b){ return a.y - b.y; }).forEach(function(it){ it.draw(); });
+  try{ headBarsDraw(s, now); }catch(e){}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__: over everybody of his, after everybody */
 }
+/* ==== __THE_BARS_OVER_THEIR_HEADS__ (CAMP [the bars over their heads], rule 261, Paolo 10/26: 'in any settlement it should show above
+   each person in my company, as they walk or chill, a health bar and an armour bar'). Over every man of his in the town's picture and
+   in the camp (RUN THREE's crew who stand and who walk, the camp's men, YOU the lead): his two small bars from the company's condition
+   (engine/bohemia_condition.js bars and drawHeadBars), hidden at 87 percent of both, drawn after everybody so nobody covers them ==== */
+function headBarsDraw(s, now){
+  var C = window.BohemiaCondition; if(!C || !C.bars) return;
+  var H = personH() * s, drew = [], one = function(who, fx, fy){ var b = C.bars(who); if(!b || !b.show) return;
+    var d = C.drawHeadBars(cx, fx, fy - H - 2, b, { w: Math.max(14, Math.round(H * .3)), h: 2 }); if(d){ d.who = who.main ? 'YOU' : (who.name || who.look); drew.push(d); } };
+  folkList().forEach(function(p){ if(p.crewMan || p.campMan) one({ name: p.name, look: p.look }, view.ox + p.x * s, view.oy + p.y * s); });
+  if(!view.noBusy) busyList().forEach(function(w){ if(!w.crewMan) return; var at = busyAt(w, now); one({ name: w.name, look: w.look }, view.ox + at.x * s, view.oy + w.y * s); });
+  if(!LEAD.hidden && LEAD.x != null) one({ main: true }, view.ox + LEAD.x * s, view.oy + LEAD.y * s);
+  window.__HEADBARS = { at: Date.now(), drew: drew };
+}
+/* ==== /__THE_BARS_OVER_THEIR_HEADS__ ==== */
 
 function draw(){
   var dpr = window.devicePixelRatio||1, W = view.W, H = view.H;

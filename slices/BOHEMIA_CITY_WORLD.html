@@ -47339,6 +47339,27 @@ function mapYouBanner(__gx,__gy,__moving){
         if(__cloth[__y][__x] !== '.') g.fillRect(__px + 1 + __x*MAP_ART_X, __py - __flagH + __y*MAP_ART_X, MAP_ART_X, MAP_ART_X); }
     }
 }
+/* ==== __THE_BARS_OVER_THEIR_HEADS__ (CAMP [the bars over their heads], rule 261, Paolo 10/26: 'I need the HP and the armour displaying
+   on top of my characters, right now, any time... above 87 percent it doesn't display anymore'). Over YOU and the two of his company
+   who walk with him, wherever the party is drawn: his two small bars (engine/bohemia_condition.js bars and drawHeadBars), hidden at
+   87 percent of both; queued as each man is drawn (in the party's own transform) and drawn after the whole party, so no man of his
+   stands over another's bars. The town and the camp draw theirs in the settlement screen (the same two calls) ==== */
+var MAP_BARS = { q: [] };
+function mapHeadBarsQueue(who, x, bottom){
+  if(!window.BohemiaCondition || !BohemiaCondition.bars) return;
+  var b = BohemiaCondition.bars(who); if(!b || !b.show) return;
+  MAP_BARS.q.push({ b: b, x: x, y: bottom, who: who.main ? 'YOU' : (who.look || who.name || '') });
+}
+function mapHeadBarsDraw(){
+  var q = MAP_BARS.q; MAP_BARS.q = []; var drew = [];
+  q.forEach(function(e){ var d = BohemiaCondition.drawHeadBars(g, e.x, e.y, e.b, { w: 16, h: 2 }); if(d){ d.who = e.who; drew.push(d); } });
+  try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.bars = drew; window.__MAP_BARS = { at: Date.now(), drew: drew }; }catch(_e){}
+}
+/* the map paints when something moves; a man healing (the condition's own word, in this window or from the town's or the camp's
+   frame through the browser's storage) is something moving */
+window.addEventListener('bohemia:condition', function(){ try{ if(typeof renderSoon === 'function') renderSoon(); }catch(_e){} });
+window.addEventListener('storage', function(e){ if(e && e.key === 'bohemia.condition.v1') try{ if(typeof renderSoon === 'function') renderSoon(); }catch(_e){} });
+/* ==== /__THE_BARS_OVER_THEIR_HEADS__ ==== */
 function mapCompanyPass(gx,gy,lift,moving,G,near,front){
   if(MAP_PARTY_AS_ONE.on) mapCompanyDraw(gx,gy,lift,moving,G,front?'front':'back');
   else if(!!near===!!front) mapCompanyDraw(gx,gy,lift,moving,G);
@@ -47551,6 +47572,7 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
       if (ONE && pass) { var sp = spot(k); if ((pass === 'front') !== (sp[1] > 0)) return;
         MAP_SHADOW_DONE = true; try { mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null); } finally { MAP_SHADOW_DONE = false; }
         MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + sp[0]), Math.round(gy + sp[1]), f]);
+        try { var __L1 = mapCrewLooks(); mapHeadBarsQueue({ look: __L1[k] }, gx + sp[0], gy + sp[1] - 42 + lift); } catch (_e) {}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__ */
         return; }
       /* level across the glass at his shoulders, or, as one, off each shoulder ACROSS HIS WAY (the perpendicular to his facing) */
       var px_ = (-v[1] - v[0]) * TW / 2, py_ = (-v[1] + v[0]) * TH / 2, pl = Math.hypot(px_, py_) || 1;   /* across his way ON THE GROUND, then on the glass */
@@ -47558,8 +47580,9 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
       /* and the CAMERA wins: walking across the glass, 'beside him on the ground' points up the screen, straight behind his
          head, and one of the two vanished behind his body (filmed 10/11); so each keeps at least 12 px to its own side */
       if (ONE) { var sgn = (lx === 0 ? o[0] : Math.sign(lx)), tx = bx + lx; if (Math.abs(tx) < 12 * K || Math.sign(tx) !== sgn) { lx = sgn * 12 * K - bx; ly *= 0.35; } }   /* where it LANDS, the step back included: on the side alone it sat 6 px right and 10 up, behind his head (logged 10/11) */
-      mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + bx + lx, gy + by + ly, moving && st != null ? st + o[1] : null);
+      var __pd = mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + bx + lx, gy + by + ly, moving && st != null ? st + o[1] : null);
       MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + bx + lx), Math.round(gy + by + ly), f]);
+      try { var __L = mapCrewLooks(); mapHeadBarsQueue({ look: __L[k] }, gx + bx + lx, gy + by + ly - (__pd ? __pd.h : 40) - 2 + lift); } catch (_e) {}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__ */
     });
     g.translate(0, -lift);
   } catch (_e) {}
@@ -50723,6 +50746,7 @@ function renderCity(){
       __bw=__s.width; __bh=__s.height;
     }
     mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,1);   /* facing away, his company is between him and you */
+    try{ mapHeadBarsQueue({ main: true }, __gx, __gy-(__bh?__bh*0.93:40)-2); mapHeadBarsDraw(); }catch(_e){}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__: over everybody of his, last */
     MAP_DEPTH.ref=null;
     g.restore();
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
