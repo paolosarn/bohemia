@@ -49,17 +49,22 @@ def corner_clear_wide(box, W=WW, H=WH):
 
 
 # what moves, per town: (the thing's name, near where it stands now (x, y front), by how much (dx, dy)) in metres
-TOWN_ARM = {'Church': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('palm43', (43.0, 27.6), (-1.6, 0.0)), ('palm51', (51.5, 27.6), (2.2, 0.0)),
-                       ('dumpster', (46.0, 25.0), (8.0, -3.0))],
-            'Reds': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('sandbags', (43.0, 27.4), (-2.0, -0.4)), ('wreck', (45.0, 23.0), (7.0, -4.0))],
+# (the cars, palms and posts that stood across the street close the shops' walk on the picture: they move off it, or out of the frame)
+TOWN_ARM = {'Church': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('palm43', (43.0, 27.6), (-2.0, -7.6)), ('palm51', (51.5, 27.6), (2.5, -6.6)),
+                       ('dumpster', (46.0, 25.0), (12.0, -3.0)), ('patrol', (38.0, 30.0), (-35.0, -8.0)), ('wreck', (47.0, 30.8), (10.5, -4.8)),
+                       ('posts', (9.3, 31.5), (0.0, -4.5)), ('rubble', (20.0, 12.5), (-17.0, 0.0)), ('cart', (22.5, 13.4), (4.0, -2.4))],
+            'Reds': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('sandbags', (43.0, 27.4), (-2.0, -0.4)), ('wreck', (45.0, 23.0), (7.0, -4.0)),
+                     ('patrol', (37.0, 30.2), (-27.0, -8.2)), ('cover_jersey', (32.0, 27.2), (0.0, -6.0)), ('cover_jersey', (38.5, 27.2), (0.0, -6.0)),
+                     ('rubble', (20.0, 12.5), (7.5, -1.0)), ('tyres', (22.0, 14.2), (4.0, -2.2))],
             'Anarchists': [('container', (51.4, 15.2), (-2.4, 11.3))],
-            'Blues': [('armourer', (51.8, 14.7), (-2.6, 11.8)), ('turbine', (47.5, 22.0), (6.0, -2.0)), ('corral', (51.5, 22.0), (1.0, -4.0))]}
-FORT = {'Mob': [('barber', (13.0, 20.0), (0.0, 6.0)), ('wreck', (30.5, 16.0), (-9.5, -7.0))],
-        'Caravans': [('barber', (13.0, 20.0), (-2.0, 5.0)), ('canopy', (22.5, 30.5), (2.0, 0.0)), ('cover_pump', (19.0, 32.0), (2.0, 0.0)),
+            'Blues': [('armourer', (51.8, 14.7), (-2.6, 11.8)), ('turbine', (47.5, 22.0), (6.0, -2.0)), ('corral', (51.5, 22.0), (1.0, -4.0)),
+                      ('rolled', (21.0, 13.0), (3.5, -2.5))]}   # the bale stood on the lot
+FORT = {'Mob': [('barber', (13.0, 20.0), (0.0, 7.0)), ('wreck', (30.5, 16.0), (-9.5, -7.0))],
+        'Caravans': [('barber', (13.0, 20.0), (-2.0, 8.0)), ('lamp', (6.0, 36.2), (0.0, 3.0)), ('canopy', (22.5, 30.5), (2.0, 0.0)), ('cover_pump', (19.0, 32.0), (2.0, 0.0)),
                      ('cover_pump', (26.0, 32.0), (2.0, 0.0)), ('drums', (30.5, 19.5), (-6.0, -4.0)), ('semi1', (27.5, 12.6), (-13.5, 0.0))],   # the semi stood before the stall
         'Cartel': [('barber', (13.0, 20.0), (0.0, 6.0))],
         'Network': [('barber', (13.0, 20.0), (0.0, 6.0)), ('reels', (27.5, 19.0), (-8.0, 0.0))],
-        'Remnants': [('barber', (13.0, 20.0), (0.0, 6.0))]}
+        'Remnants': [('barber', (13.0, 20.0), (0.0, 6.0)), ('posts', (40.3, 13.5), (0.0, 4.0))]}     # the razor wire ran before the posts' feet
 CAMP = {'Colorful': [], 'Custom': [], 'Homeless': [],
         'Trades': [('dozer', (28.0, 13.8), (21.5, -0.8))],
         'Volunteers': [('crates', (41.5, 16.5), (4.5, -0.5))]}
@@ -98,6 +103,9 @@ def _move(pl, name, near, d):
     if best is None or best[0] > 4.0: raise SystemExit('WIDE: no %s near %s' % (name, near))
     r = best[1]; r.location = (r.location[0] + d[0], r.location[1] + d[1], r.location[2])
     pl.bpy.context.view_layer.update()
+    if name in ('lamp', 'streetlight'):                  # its light at night goes with it
+        k = min(range(len(pl.lamps)), key=lambda i: abs(pl.lamps[i][0] - near[0]) + abs(pl.lamps[i][1] - near[1]))
+        x, y, h = pl.lamps[k]; pl.lamps[k] = (x + d[0], y + d[1], h)
 
 
 def lay_wide(town, pl, K):
