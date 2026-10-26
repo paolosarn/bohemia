@@ -1,7 +1,7 @@
 RUN THREE (run-three, the hall, his men in the town, the start, his main guy): 10/26 LATEST -- five rows SHIPPED, all BUILT, NOT YET
 SEEN (rule 179): [four percent] 262c23b0 (her body landed 1b0ee711: 407 women in 10,000 rolled hires), [the best recruit at the top]
 07853c6a, [your crew lives in the town] 963bbc0d round one, [the game starts in a town] 32369eed (round two, his body moving on the
-tape, c9bcf86d), [make your main guy] (BUILD 10/26zza - MAKE YOUR MAIN GUY; the sha on the board line). Answered on my board: the
+tape, c9bcf86d), [make your main guy] (BUILD 10/26zzf - MAKE YOUR MAIN GUY; the sha on the board line). Answered on my board: the
 coordinator's three NOTEs [camp in a town], [the bars over their heads], [a town is safe] (CAMP's call in the town, below).
 CLAIMED next: [each origin its own] (rule 236(d), 287): STEP 1 DONE, records/BOHEMIA_RUN3_EACH_ORIGIN_ITS_OWN_HOW_BATTLE_BROTHERS_DOES_IT_10_26_26.md
 (the wiki's fifteen, the six levers, what ours run today: nothing of their rules); STEP 2 next: per origin a look, a shelf, a rule,
