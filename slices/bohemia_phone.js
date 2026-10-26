@@ -58,6 +58,10 @@
   var WHYKEY = 'bohemia.relations.why.v1';    /* what moved each town's opinion, the last few, per town */
   var APPS = ['play', 'crew', 'heal', 'feed', 'relations'];   /* CAMP is the HEAL button (rule 226 amends 212(b)) */
   var LABEL = { play: 'PLAY', crew: 'CREW', heal: 'HEAL', feed: 'FEED', relations: 'RELATIONS' };   /* draft:true */
+  var KEEP = ['play', 'heal'];   /* rule 232(b): PLAY/PAUSE and HEAL/CAMP are on the phone ALWAYS; settings move them, never hide them */
+  /* THE HEAL RING (rule 232(b), Paolo: 'a medical icon maybe in a circle'): where the rig struck the ring's track on app_heal.png,
+     as fractions of the picture (tools/bohemia_ui2_phone_apps.py measures it into phone.json app_heal.ring; read at boot) */
+  var RING = { cx: 0.5021, cy: 0.4845, ro: 0.4068, ri: 0.3065 };
   var BEAT = 500;                              /* 120 BPM */
   var BASE = (function () {
     try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, ''); } catch (e) {}
@@ -73,7 +77,7 @@
     var was = function (a) { return a === 'camp' ? 'heal' : a; };   /* a phone set up before rule 226 keeps its order */
     var order = Array.isArray(c.order) ? c.order.map(was).filter(function (a, i, A) { return APPS.indexOf(a) >= 0 && A.indexOf(a) === i; }) : [];
     APPS.forEach(function (a) { if (order.indexOf(a) < 0) order.push(a); });
-    var hidden = Array.isArray(c.hidden) ? c.hidden.map(was).filter(function (a) { return APPS.indexOf(a) >= 0; }) : [];
+    var hidden = Array.isArray(c.hidden) ? c.hidden.map(was).filter(function (a) { return APPS.indexOf(a) >= 0 && KEEP.indexOf(a) < 0; }) : [];
     if (hidden.length >= APPS.length) hidden = hidden.slice(1);   /* never a phone with nothing on it */
     return { side: side, order: order, hidden: hidden };
   }
@@ -254,7 +258,6 @@
         blood: c.blood != null ? +c.blood : (c.hpMax ? c.hp / c.hpMax : 1), armour: c.armour != null ? +c.armour : (c.armMax ? c.arm / c.armMax : 1), says: c.says || '', from: 'camp' }; } catch (e) {}
     return { hp: 1, hpMax: 1, arm: 1, armMax: 1, blood: 1, armour: 1, says: '', from: 'whole' };
   };
-  P.drawBar = function (cv, c) { try { if (window.BohemiaCondition && typeof BohemiaCondition.drawBar === 'function') { BohemiaCondition.drawBar(cv, c); return true; } } catch (e) {} return false; };
   P.crew = function () {   /* the bar's own CREW: the one company screen, from the map and the town (it presses the town's own) */
     var t = document.querySelector('#bmtb .t.crew'); if (!t) return false; t.click(); return true;
   };
@@ -463,11 +466,10 @@
       + '#bohphone .app.big img{left:2px;top:0;width:50px;height:53.4px}'
       + '#bohphone .app.big .lab{display:none}'
       /* THE HEAL BAR (rule 226(c)): one bar under the cross, the company's hitpoints red and armour grey over their maxima */
-      + '#bohphone .app .hb{position:absolute;left:8px;top:37px;width:36px;height:6px;display:flex;background:#1a120c;box-shadow:inset 0 1px 0 rgba(0,0,0,.8),0 1px 0 rgba(255,240,210,.25);pointer-events:none}'
-      + '#bohphone .app .hb i{display:block;height:100%}#bohphone .app .hb canvas{display:none;position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}'
-      + '#bohphone .app .hb.cv i{display:none}#bohphone .app .hb.cv canvas{display:block}'
-      + '#bohphone .app .hb .hp{background:#b8352a;box-shadow:inset 0 1px 0 rgba(255,190,170,.45)}'
-      + '#bohphone .app .hb .ar{background:#9aa0a2;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}'
+      /* HEAL (rule 232(b)): the cross in its ring, the ring filled with the company's blood and armour; no word on it */
+      + '#bohphone .app[data-app=heal] .lab{display:none}'
+      + '#bohphone .app .rg{position:absolute;left:4px;top:0;width:44px;height:47px;pointer-events:none}'
+      + '#bohphone .app.big .rg{left:2px;width:50px;height:53.4px}'
       /* THE JOB COLUMN (rules 227 and 228): the main quest's slot first and always kept, then the jobs he is on */
       + '#bohphone .jobs{position:absolute;left:3px;right:3px;top:1px;height:64px;display:flex;flex-direction:column;gap:2px}'
       + '#bohphone .jobs .mq{flex:0 0 12px;opacity:.55;' + kit('well', 0.25) + '}'
@@ -481,7 +483,8 @@
       + '#bohphone .jc .x{flex:0 0 32px;width:32px;height:24px;margin:-1px -2px -1px 0;padding:0 0 0 10px;border:0;background:none;cursor:pointer}'   /* the X is 20 drawn, 32 by the card's height to a thumb */
       + '#bohphone .jc .x img{width:20px;height:21.4px;display:block;pointer-events:none}'
       + '#bohphone .jc.arm{flex:0 0 50px;background:#e8d6b4!important;color:#5a1408}'
-      + '#bohphone .jobs.asking .jc:not(.arm){display:none}'   /* while one asks, it has the column */
+      + '#bohphone .jobs.asking .jc:not(.arm),#bohphone .jobs.asking .je{display:none}'   /* while one asks, it has the column */
+      + '#bohphone .jobs .je{flex:0 0 24px;opacity:.5;' + kit('well', 0.25) + '}'   /* an empty slot, ready to go (232(a)) */
       + '#bohphone .jc .dr{flex:0 0 44px;width:44px;height:44px;border:0;cursor:pointer;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#7a1206;' + kit('tin', 0.4) + '}'
       + '#bohphone .app .mark{position:absolute;right:-3px;bottom:3px;padding:1px 4px 0 3px;font-size:7px;line-height:8px;color:#f6cf74;background:#1c140c;border-radius:1px;pointer-events:none}'
       + '#bohphone .clk{position:absolute;left:58px;top:71px;width:46px;text-align:left;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
@@ -609,7 +612,7 @@
       b.style.left = SLOTS[i][0] + 'px'; b.style.top = SLOTS[i][1] + 'px';
       b.setAttribute('aria-label', a === 'play' ? 'play or pause' : LABEL[a].toLowerCase());
       b.innerHTML = '<img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span class="lab">' + LABEL[a] + '</span>' + (a === 'play' ? '<span class="mark"></span>' : '')
-        + (a === 'heal' ? '<span class="hb" aria-hidden="true"><i class="hp"></i><i class="ar"></i><canvas width="108" height="18"></canvas></span>' : '');
+        + (a === 'heal' ? '<canvas class="rg" aria-hidden="true" width="132" height="141"></canvas>' : '');
       b.addEventListener('click', function () { if (H.holdFired === b) { H.holdFired = null; return; } appPress(a); });   /* the held press's own click is the hold's */
       b.addEventListener('pointerdown', function () { H.holdFired = null; });
       if (a === 'play') {   /* a held finger opens the speeds */
@@ -759,10 +762,36 @@
     var sig = js.map(function (j) { return j.id + j.stars + j.mins + j.what + j.at; }).join('|') + '|' + H.sel + '|' + (H.arm ? H.arm.id + H.arm.why : '');
     window.__PHONE_JOBS = js.map(function (j) { return j.id; });
     if (!force && sig === H.jobSig) return; H.jobSig = sig;
-    [].slice.call(jb.querySelectorAll('.jc')).forEach(function (n) { n.remove(); });
+    [].slice.call(jb.querySelectorAll('.jc, .je')).forEach(function (n) { n.remove(); });
     jb.classList.toggle('asking', !!H.arm);
     js.slice(0, 2).forEach(function (j) { jb.appendChild(jobCard(j, L)); });
+    /* rule 232(a): every slot he does not fill reads EMPTY, READY TO GO: a plain empty slot, never an offer */
+    for (var e = Math.min(2, js.length); e < 2; e++) { var je = el('div', 'je'); je.setAttribute('role', 'img'); je.setAttribute('aria-label', 'an empty job slot, ready to go'); jb.appendChild(je); }
   }
+
+  /* ---- THE HEAL RING (rules 226(c), 232(b)): ONE gauge of the company, bent round the cross: from the top, clockwise, the
+     company's blood in red over its share (its hitpoints over the hitpoints and armour together), then the dark of what blood is
+     missing, then its armour in grey over the armour's share, then the dark of what armour is missing (CAMP's bar, the same
+     numbers, the same order: BohemiaMapCamp.condition()); lit from the kit's sun, upper left ---- */
+  function ringPaint(cv, cd) {
+    if (!cv) return;
+    var k = Math.max(1, Math.min(4, (window.devicePixelRatio || 1) * ((H.state.rect && H.state.rect.scale) || 1))), r = cv.getBoundingClientRect();
+    var W = Math.max(8, Math.round((r.width || 44) * k / ((H.state.rect && H.state.rect.scale) || 1))), Hh = Math.max(8, Math.round((r.height || 47) * k / ((H.state.rect && H.state.rect.scale) || 1)));
+    if (cv.width !== W || cv.height !== Hh) { cv.width = W; cv.height = Hh; }
+    var g = cv.getContext('2d'); g.clearRect(0, 0, W, Hh);
+    if (!cd) return;
+    var tot = Math.max(1e-9, (cd.hpMax || 0) + (cd.armMax || 0)), cx = RING.cx * W, cy = RING.cy * Hh, rr = (RING.ro + RING.ri) / 2 * W, lw = (RING.ro - RING.ri) * W * 0.78;
+    var a0 = -Math.PI / 2, T = Math.PI * 2, seg = [[cd.hp / tot, ['#d9604a', '#b8352a', '#7e2014']], [(cd.hpMax - cd.hp) / tot, null], [cd.arm / tot, ['#d3d8d9', '#9aa0a2', '#686d6f']], [(cd.armMax - cd.arm) / tot, null]];
+    g.lineWidth = lw; g.lineCap = 'butt';
+    seg.forEach(function (sg) {
+      var f = Math.max(0, Math.min(1, sg[0] || 0)); if (!f) return;
+      var a1 = a0 + f * T;
+      if (sg[1]) { var gr = g.createLinearGradient(cx - rr, cy - rr, cx + rr, cy + rr); gr.addColorStop(0, sg[1][0]); gr.addColorStop(0.5, sg[1][1]); gr.addColorStop(1, sg[1][2]);
+        g.strokeStyle = gr; g.beginPath(); g.arc(cx, cy, rr, a0, a1, false); g.stroke(); }
+      a0 = a1;
+    });
+  }
+  try { fetch(BASE + 'phone/phone.json').then(function (x) { return x.json(); }).then(function (m) { var q = m && m.app_heal && m.app_heal.ring; if (q && q.ro > q.ri) { RING = q; try { paintHome(true); } catch (e) {} } }).catch(function () {}); } catch (e) {}
 
   /* ---- THE HOME'S FACE: the hour, the speed's mark, what each app can do here ---- */
   function paintHome(force) {
@@ -787,13 +816,9 @@
         off = scr !== 'map';
       } else if (a === 'heal') {
         off = !(scr === 'map' || scr === 'camp');
-        b.querySelector('.lab').textContent = scr === 'camp' ? 'BREAK CAMP' : 'HEAL';   /* draft:true */
+        b.querySelector('.lab').textContent = scr === 'camp' ? 'BREAK CAMP' : 'HEAL';   /* draft:true; read by the aria label only: no word on it (232(b)) */
         var cd = L ? L.condition() : null, tot = cd ? Math.max(1, cd.hpMax + cd.armMax) : 1;
-        b.querySelector('.hp').style.width = (cd ? 100 * cd.hp / tot : 50) + '%'; b.querySelector('.ar').style.width = (cd ? 100 * cd.arm / tot : 50) + '%';
-        /* CAMP's own bar, by CAMP's own call, when it is up (one bar on the map's plate, the camp's and the phone's) */
-        var hbc = b.querySelector('.hb canvas'), hk = Math.max(1, Math.min(4, (window.devicePixelRatio || 1) * ((H.state.rect && H.state.rect.scale) || 1))), hw = Math.round(36 * hk), hh = Math.max(5, Math.round(6 * hk));
-        if (hbc.width !== hw || hbc.height !== hh) { hbc.width = hw; hbc.height = hh; }
-        var drew = !!(cd && L && L.drawBar && cd.from === 'camp' && L.drawBar(hbc, cd)); b.querySelector('.hb').classList.toggle('cv', drew);
+        ringPaint(b.querySelector('canvas.rg'), cd);
         if (cd) { b.dataset.blood = String(Math.round(cd.blood * 1000) / 1000); b.dataset.armour = String(Math.round(cd.armour * 1000) / 1000); b.title = (scr === 'camp' ? 'HEAL: break camp.  ' : 'HEAL: make camp.  ') + (cd.says || ''); }
         b.setAttribute('aria-label', (scr === 'camp' ? 'break camp' : 'heal: make camp') + (cd ? ', the company at ' + Math.round(100 * (cd.hp + cd.arm) / tot) + ' percent' : ''));
       }
@@ -894,7 +919,8 @@
       h += '<div class="pa' + (hid ? ' hid' : '') + '" data-a="' + a + '"><img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span>' + LABEL[a] + (i === 0 && !hid ? ' &middot; BIG' : '') + '</span>'
         + '<button type="button" data-do="up" aria-label="move ' + LABEL[a].toLowerCase() + ' up"' + (i === 0 ? ' disabled' : '') + '>&uarr;</button>'
         + '<button type="button" data-do="down" aria-label="move ' + LABEL[a].toLowerCase() + ' down"' + (i === c.order.length - 1 ? ' disabled' : '') + '>&darr;</button>'
-        + '<button type="button" class="hide" data-do="hide">' + (hid ? 'SHOW' : 'HIDE') + '</button></div>';
+        + (KEEP.indexOf(a) >= 0 ? '<button type="button" class="hide" disabled title="always on the phone">ALWAYS</button></div>'   /* draft:true */
+          : '<button type="button" class="hide" data-do="hide">' + (hid ? 'SHOW' : 'HIDE') + '</button></div>');
     });
     box.innerHTML = h;
     [].forEach.call(box.querySelectorAll('[data-side]'), function (b) { b.addEventListener('click', function () { setSide(b.dataset.side); settingsRows(); }); });
@@ -902,7 +928,7 @@
       var a = b.closest('.pa').dataset.a, o = H.cfg.order.slice(), i = o.indexOf(a), hd = H.cfg.hidden.slice();
       if (b.dataset.do === 'up' && i > 0) { o.splice(i, 1); o.splice(i - 1, 0, a); }
       else if (b.dataset.do === 'down' && i < o.length - 1) { o.splice(i, 1); o.splice(i + 1, 0, a); }
-      else if (b.dataset.do === 'hide') { var j = hd.indexOf(a); if (j >= 0) hd.splice(j, 1); else if (hd.length < APPS.length - 1) hd.push(a); }
+      else if (b.dataset.do === 'hide' && KEEP.indexOf(a) < 0) { var j = hd.indexOf(a); if (j >= 0) hd.splice(j, 1); else if (hd.length < APPS.length - 1) hd.push(a); }
       setApps(o, hd); settingsRows();
     }); });
     return true;
@@ -959,6 +985,7 @@
     press: function (a) { if (IS_HOST && H.el) { appPress(a); return true; } return false; },
     settings: function () { return IS_HOST ? settingsRows() : false; },
     /* for the gate: paint the wallpaper now and say what it shows */
+    ring: function () { return RING; },   /* where the HEAL ring's track is on its picture (232(b)) */
     wall: function () { if (!IS_HOST || !H.el) return null; paintWall(true); var c = H.el.querySelector('.wall'); return { what: H.wallWhat, w: c.width, h: c.height }; }
   };
   if (IS_HOST) {

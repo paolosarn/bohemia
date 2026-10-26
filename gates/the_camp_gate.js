@@ -40,8 +40,8 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     await p.waitForFunction((s) => { const b = document.querySelector(s); return !!b && b.getBoundingClientRect().width > 0 && document.getElementById('bohphone').classList.contains('on'); }, HEAL, { timeout: 15000 }).catch(() => {});
     const c1 = await p.evaluate((s) => { const b = document.querySelector(s); if (!b) return null; const r = b.getBoundingClientRect();
       const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
-      return { shown: getComputedStyle(b).display !== 'none' && r.width > 0, w: Math.round(r.width), h: Math.round(r.height), word: (b.querySelector('.lab') || {}).textContent, top: !!e && (e === b || b.contains(e)) }; }, HEAL);
-    ok('C1 the HEAL app (the camp, rule 226) stands on the phone on the map, a thumb wide, nothing over it', !!c1 && c1.shown && c1.w >= 44 && c1.h >= 44 && c1.word === 'HEAL' && c1.top, JSON.stringify(c1));
+      return { shown: getComputedStyle(b).display !== 'none' && r.width > 0, w: Math.round(r.width), h: Math.round(r.height), mark: !!b.querySelector('img[src*="app_heal"]'), label: b.getAttribute('aria-label') || '', top: !!e && (e === b || b.contains(e)) }; }, HEAL);
+    ok('C1 the HEAL app (the camp, rule 226) stands on the phone on the map, a thumb wide, nothing over it', !!c1 && c1.shown && c1.w >= 44 && c1.h >= 44 && c1.mark && /heal/i.test(c1.label) && c1.top, JSON.stringify(c1));   /* 232(b): the cross in its ring, no word on it */
     /* ---- C2 ---- */
     const before = await fr.evaluate(() => ({ min: T.day * 1440 + T.min, bats: loopBats(), men: mapCrewLooks().length }));
     await tapEl(p.mainFrame(), HEAL);

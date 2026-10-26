@@ -53,13 +53,16 @@ const TOL = 0.6;
 const K = ['left', 'top', 'width', 'height'];
 const same = (a, b, t) => !!a && !!b && K.every(k => Math.abs(a[k] - b[k]) <= (t || TOL));
 const fmt = r => r ? K.map(k => Math.round(r[k] * 10) / 10).join(',') : 'none';
+/* rule 232(b): PLAY/PAUSE and HEAL on the phone at one size on every screen: their boxes, read off each screen's snapshot */
+let SIZES = {};
+const two = S => { const o = {}; ((S && S.apps) || []).forEach(a => { if (a.app === 'play' || a.app === 'heal') o[a.app] = [Math.round(a.w * 10) / 10, Math.round(a.h * 10) / 10]; }); return o; };
 
 /* ---- in the shell ---- */
 const PHONE = () => {
   const e = document.getElementById('bohphone'); if (!e) return null;
   const R = window.BOH_PHONE_RECT(), b = e.getBoundingClientRect();
   const apps = [...e.querySelectorAll('.home .app')].map(a => { const r = a.getBoundingClientRect(), cx = r.x + r.width / 2, cy = r.y + r.height / 2, h = document.elementFromPoint(cx, cy);
-    return { app: a.dataset.app, cx, cy, self: !!h && (h === a || a.contains(h)), big: a.classList.contains('big'), off: a.classList.contains('off'), img: (a.querySelector('img') || {}).getAttribute ? a.querySelector('img').getAttribute('src') : '' }; });
+    return { app: a.dataset.app, cx, cy, w: r.width, h: r.height, self: !!h && (h === a || a.contains(h)), big: a.classList.contains('big'), off: a.classList.contains('off'), img: (a.querySelector('img') || {}).getAttribute ? a.querySelector('img').getAttribute('src') : '' }; });
   return { R, dom: { left: b.x, top: b.y, width: b.width, height: b.height }, on: e.classList.contains('on') && getComputedStyle(e).display !== 'none', screen: e.dataset.screen,
     apps, text: e.innerText, page: (e.querySelector('.page.on') || {}).dataset ? (e.querySelector('.page.on') ? e.querySelector('.page.on').dataset.page : '') : '',
     fight: !!e.querySelector('.fight.on'), cmb: !!e.querySelector('.cmb.on'), home: getComputedStyle(e.querySelector('.home')).visibility !== 'hidden', W: innerWidth, H: innerHeight };
@@ -129,6 +132,7 @@ async function side(profile) {
       }
       /* ---- THE MAP ---- */
       const M = await p.evaluate('(' + PHONE + ')()');
+      SIZES = { map: two(M) };
       RECTS[sd] = M.R;
       ok('[' + sd + '] the map: the phone is on, in the ' + sd + ' bottom corner, inside the glass', M.on && M.screen === 'map' && M.R.side === sd && M.R.bottom <= M.H && M.R.bottom >= M.H - 60
         && (sd === 'right' ? M.R.right <= M.W && M.R.right >= M.W - 60 : M.R.left >= 0 && M.R.left <= 60), fmt(M.R) + ' of ' + M.W + 'x' + M.H);
@@ -236,17 +240,17 @@ async function side(profile) {
         /* ---- THE JOB COLUMN (rules 227, 228): the main quest's slot first, then the jobs he is on, X and DROP, PLAY to the job ---- */
         const COL = () => p.evaluate(() => { const jb = document.querySelector('#bohphone .home .jobs'); if (!jb) return null; const sc = document.querySelector('#bohphone .scr').getBoundingClientRect();
           const kids = [...jb.children].filter(k => k.getBoundingClientRect().height > 0);
-          return { first: kids[0] && kids[0].className, cards: kids.filter(k => k.classList.contains('jc')).map(k => { const r = k.getBoundingClientRect(); const wh = k.querySelector('.wh'), st = k.querySelector('.st'), pl = k.querySelector('.pl');
+          return { first: kids[0] && kids[0].className, empty: kids.filter(k => k.classList.contains('je') && !k.textContent.trim()).length, others: kids.filter(k => !/\b(mq|jc|je)\b/.test(k.className)).length, cards: kids.filter(k => k.classList.contains('jc')).map(k => { const r = k.getBoundingClientRect(); const wh = k.querySelector('.wh'), st = k.querySelector('.st'), pl = k.querySelector('.pl');
             return { id: k.dataset.job, sel: k.classList.contains('sel'), arm: k.classList.contains('arm'), inside: r.top >= sc.top - 0.5 && r.bottom <= sc.bottom + 0.5 && r.left >= sc.left - 0.5 && r.right <= sc.right + 0.5,
               text: k.innerText.replace(/\s+/g, ' '), stars: st ? st.textContent.length : 0, starInk: st ? getComputedStyle(st).color : '', time: pl ? pl.textContent : '', timeWhole: pl ? pl.scrollWidth <= pl.clientWidth + 1 : true }; }) }; });
         const c0 = await COL();
-        ok('the job column: the main quest\'s slot first and kept, no job card with no job on', !!c0 && /\bmq\b/.test(c0.first) && c0.cards.length === 0, JSON.stringify(c0 && c0.first));
+        ok('the job column: the main quest\'s slot first and kept; no job held: no card, both slots EMPTY, READY TO GO (232(a))', !!c0 && /\bmq\b/.test(c0.first) && c0.cards.length === 0 && c0.empty === 2 && c0.others === 0, JSON.stringify(c0 && { first: c0.first, empty: c0.empty, others: c0.others }));
         await fr.waitForFunction(() => window.BohemiaPhoneBoard && BohemiaPhoneBoard.asks().length > 1, null, { timeout: 60000 }).catch(() => {});
         const took = await fr.evaluate(() => { const A = BohemiaPhoneBoard.asks(), out = []; for (const o of A) { if (out.length >= 2) break; LOOP.open = { name: o.place, x: o.x, y: o.y, tier: o.tier };
           if (loopTakeContract({ id: o.id, title: o.title, pay: o.pay, skulls: o.skulls })) out.push(o.id); LOOP.open = null; } return out; });
         await p.waitForTimeout(1500);
         const c2 = await COL();
-        ok('  two jobs on: the main slot first, then both jobs, each with its red stars and its time, nothing cut off', took.length === 2 && /\bmq\b/.test(c2.first) && c2.cards.length === 2
+        ok('  two jobs on: the main slot first, then both jobs (no empty slot left), each with its red stars and its time, nothing cut off', took.length === 2 && /\bmq\b/.test(c2.first) && c2.cards.length === 2 && c2.empty === 0
           && c2.cards.every(c => c.inside && c.stars >= 1 && /rgb\((1[4-9]\d|2\d\d), ?\d{1,2}, ?\d{1,2}\)/.test(c.starInk) && c.timeWhole) && c2.cards.map(c => c.id).join() === took.join(),
           c2.cards.map(c => c.text + (c.inside ? '' : ' CUT') + ' ' + c.starInk).join(' | '));
         ok('  no offer on the phone: only the jobs he is on', !(await p.evaluate(() => /\bPAYS?\b|TAKE IT/i.test(document.getElementById('bohphone').innerText))));
@@ -275,30 +279,32 @@ async function side(profile) {
         await tap(dr[0], dr[1]); await p.waitForTimeout(500);
         const after = await fr.evaluate((id) => ({ held: LOOP.held.map(j => j.id), settled: (BohemiaJobKinds.settledPeek ? BohemiaJobKinds.settledPeek() : []) }), took[0]);
         const c1 = await COL();
-        ok('  DROP drops it through the board\'s own drop (its cost waits for the town), and the card goes', after.held.indexOf(took[0]) < 0 && c1.cards.length === 1 && c1.cards[0].id === took[1] && /\bmq\b/.test(c1.first)
+        ok('  DROP drops it through the board\'s own drop (its cost waits for the town), and the card goes: one job held, one card, one slot EMPTY, READY TO GO', after.held.indexOf(took[0]) < 0 && c1.cards.length === 1 && c1.cards[0].id === took[1] && /\bmq\b/.test(c1.first) && c1.empty === 1
           && JSON.stringify(after.settled || []).indexOf(took[0].split('-')[0]) >= -1, 'held ' + after.held.join(',') + ' settled ' + JSON.stringify(after.settled).slice(0, 80));
         await fr.evaluate(() => { try { LOOP.held.slice().forEach(j => BohemiaJobKinds.drop(j.id)); } catch (e) {} });
         await p.waitForTimeout(400);
         /* ---- HEAL (rule 226): the cross over the company's one bar ---- */
-        /* CAMP's numbers (BohemiaMapCamp.condition()) drawn by CAMP's own call (BohemiaCondition.drawBar) when CAMP's module is up: the
-           phone's bar is compared pixel for pixel with the same call drawn here; before it, the two inks over their maxima */
-        const HB = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b) return null; const hp = b.querySelector('.hp'), ar = b.querySelector('.ar'), cv = b.querySelector('.hb canvas');
-          const cvOn = !!cv && getComputedStyle(cv).display !== 'none' && cv.getBoundingClientRect().width > 0;
-          return { lab: b.querySelector('.lab').textContent, img: b.querySelector('img').getAttribute('src'), hp: hp.getBoundingClientRect().width, ar: ar.getBoundingClientRect().width, all: b.querySelector('.hb').getBoundingClientRect().width,
-            hpInk: getComputedStyle(hp).backgroundColor, arInk: getComputedStyle(ar).backgroundColor, cvOn, cw: cv ? cv.width : 0, ch: cv ? cv.height : 0, blood: +b.dataset.blood, armour: +b.dataset.armour,
-            px: cvOn ? Array.from(cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data) : null }; });
+        /* HEAL (rules 226(c), 232(b): 'a medical icon maybe in a circle'): the cross inside a ring, the ring filled with the company's
+           blood and armour from CAMP's numbers (BohemiaMapCamp.condition()), no word on it; read back off the ring's own pixels at
+           72 angles from the top, clockwise: red over the blood's share, then what blood is missing (dark), grey over the armour's, then
+           what armour is missing */
         const cond = await fr.evaluate(() => BohemiaPhone.P.condition());
-        const tot = cond.hpMax + cond.armMax;
-        if (cond.from === 'camp') {
-          const ref = await fr.evaluate(({ w, h }) => { const c = document.createElement('canvas'); c.width = w; c.height = h; BohemiaCondition.drawBar(c, BohemiaMapCamp.condition()); return Array.from(c.getContext('2d').getImageData(0, 0, w, h).data); }, { w: HB.cw, h: HB.ch });
-          let same = 0, red = 0; if (HB.px) for (let i = 0; i < HB.px.length; i += 4) { if (Math.abs(HB.px[i] - ref[i]) + Math.abs(HB.px[i + 1] - ref[i + 1]) + Math.abs(HB.px[i + 2] - ref[i + 2]) <= 6) same++; if (HB.px[i] > 120 && HB.px[i] > HB.px[i + 1] * 1.8) red++; }
-          const n = HB.px ? HB.px.length / 4 : 1;
-          ok('HEAL: the cross over one bar, CAMP\'s own bar by CAMP\'s own call (the company\'s blood red and armour grey), its numbers CAMP\'s', !!HB && HB.lab === 'HEAL' && /app_heal/.test(HB.img) && HB.cvOn && same / n >= 0.98 && red > 0
-            && Math.abs(HB.blood - cond.blood) < 0.002 && Math.abs(HB.armour - cond.armour) < 0.002,
-            HB && (HB.lab + ' ' + HB.cw + 'x' + HB.ch + ', ' + Math.round(100 * same / n) + '% the same as drawBar, red ' + red + ' px; blood ' + HB.blood + ' / ' + cond.blood.toFixed(3) + ', armour ' + HB.armour + ' / ' + cond.armour.toFixed(3)));
-        } else
-        ok('HEAL: the cross over one bar, the company\'s hitpoints red and armour grey over their maxima', !!HB && HB.lab === 'HEAL' && /app_heal/.test(HB.img) && Math.abs(HB.hp - HB.all * cond.hp / tot) <= 1 && Math.abs(HB.ar - HB.all * cond.arm / tot) <= 1
-          && /rgb\(1[5-9]\d|rgb\(2\d\d/.test(HB.hpInk), HB && (HB.lab + ' red ' + HB.hp.toFixed(1) + ' grey ' + HB.ar.toFixed(1) + ' of ' + HB.all.toFixed(1) + ' (' + cond.from + ')'));
+        const HB = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b) return null; const cv = b.querySelector('canvas.rg'), lab = b.querySelector('.lab');
+          const on = !!cv && getComputedStyle(cv).display !== 'none' && cv.getBoundingClientRect().width > 0;
+          return { img: b.querySelector('img').getAttribute('src'), word: lab && getComputedStyle(lab).display !== 'none' ? lab.textContent : '', on, cw: cv ? cv.width : 0, ch: cv ? cv.height : 0,
+            ring: BohemiaPhone.ring ? BohemiaPhone.ring() : null, blood: +b.dataset.blood, armour: +b.dataset.armour,
+            px: on ? Array.from(cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data) : null }; });
+        let miss = 0, reds = 0, greys = 0, seen = [];
+        if (HB && HB.px && HB.ring) {
+          const tot = cond.hpMax + cond.armMax, cut = [cond.hp / tot, cond.hpMax / tot, (cond.hpMax + cond.arm) / tot], want = t => t < cut[0] ? 'r' : t < cut[1] ? '.' : t < cut[2] ? 'g' : '.';
+          const cx = HB.ring.cx * HB.cw, cy = HB.ring.cy * HB.ch, rr = (HB.ring.ro + HB.ring.ri) / 2 * HB.cw;
+          for (let i = 0; i < 72; i++) { const t = (i + 0.5) / 72, th = 2 * Math.PI * t, x = Math.round(cx + rr * Math.sin(th)), y = Math.round(cy - rr * Math.cos(th)), q = (y * HB.cw + x) * 4;
+            const r = HB.px[q], g = HB.px[q + 1], al = HB.px[q + 3], got = al < 40 ? '.' : r > 1.6 * g ? 'r' : 'g'; seen.push(got);
+            if (got === 'r') reds++; if (got === 'g') greys++;
+            if (cut.some(c => Math.abs(c - t) < 0.02)) continue; if (got !== want(t)) miss++; } }
+        ok('HEAL: a medical cross inside a ring, no word on it; the ring is the company: red over the blood\'s share, grey over the armour\'s, the dark what is missing (CAMP\'s numbers)',
+          !!HB && /app_heal/.test(HB.img) && !HB.word && HB.on && miss <= 2 && reds > 0 && greys > 0 && Math.abs(HB.blood - cond.blood) < 0.002 && Math.abs(HB.armour - cond.armour) < 0.002,
+          HB && ('ring ' + seen.join('') + ', ' + miss + ' off; blood ' + HB.blood + ' / ' + (cond.blood != null ? cond.blood.toFixed(3) : '-') + ' armour ' + HB.armour + ' (' + cond.from + ')' + (HB.word ? ', a word: ' + HB.word : '')));
         /* ---- CREW ---- */
         await tapApp('crew'); await p.waitForTimeout(1800);
         const CR = await fr.evaluate(() => { const w = document.getElementById('crewdoor'); const f = w && w.querySelector('iframe'); return f ? f.getAttribute('src') : null; });
@@ -310,7 +316,9 @@ async function side(profile) {
         await tapApp('heal'); await p.waitForTimeout(2500);
         const CA = await p.evaluate('(' + PHONE + ')()'), campOn = await fr.evaluate(() => BohemiaMapCamp.on());
         const CW = await p.evaluate(() => BohemiaPhone.wall());
-        ok('HEAL makes camp in one tap: the phone says so, the same rectangle, the camp\'s own picture behind it', campOn && CA.screen === 'camp' && same(CA.R, M.R) && /BREAK CAMP/.test(CA.text) && CW && CW.what === 'place',
+        SIZES.camp = two(CA);
+        const caLab = await p.evaluate(() => (document.querySelector('#bohphone .app[data-app=heal]') || { getAttribute: () => '' }).getAttribute('aria-label'));
+        ok('HEAL makes camp in one tap: the phone says so, the same rectangle, the camp\'s own picture behind it', campOn && CA.screen === 'camp' && same(CA.R, M.R) && /break camp/i.test(caLab) && CW && CW.what === 'place',
           'camp ' + campOn + ', ' + CA.screen + ' ' + fmt(CA.R) + ', wall ' + (CW && CW.what));
         const sfC = p.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
         if (sfC) { U = await under([sfC]); ok('  no press of the camp lies under the phone', !U.length, U.join(' | ') || 'none'); }
@@ -327,6 +335,10 @@ async function side(profile) {
       ok('[' + sd + '] the town: the phone in the map\'s rectangle, the same size; the town\'s own page answers it', T.on && T.screen === 'town' && same(T.R, M.R) && same(T.dom, M.R) && same(TR, M.R), fmt(T.R) + ' town ' + fmt(TR));
       U = await under([fr, sf]);
       ok('  no press of the town lies under the phone (LEAVE stands over it)', !U.length, U.join(' | ') || 'none');
+      SIZES.town = two(T);
+      { const ks = Object.keys(SIZES), base = SIZES.map || {}, eq = (a, b) => !!a && !!b && Math.abs(a[0] - b[0]) <= TOL && Math.abs(a[1] - b[1]) <= TOL;
+        ok('  PLAY/PAUSE and HEAL are on the phone at one size on every screen (232(b): ' + ks.join(', ') + ')', !!base.play && !!base.heal && ks.every(k => eq(SIZES[k].play, base.play) && eq(SIZES[k].heal, base.heal)),
+          ks.map(k => k + ' ' + JSON.stringify(SIZES[k])).join(' | ')); }
       await tapIn(sf, '#leave'); await p.waitForTimeout(1500);
       /* ---- THE FIGHT ---- */
       const c0 = await p.evaluate(() => window.__PHONE_COMBAT | 0);

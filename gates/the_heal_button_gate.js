@@ -55,9 +55,9 @@ const press = async (d, x, y) => { if (d.touch) await d.page.touchscreen.tap(x, 
    below reads the same numbers off the button he presses, at its place on the glass. While no phone is up the old plates are read. */
 const phoneOn = (d) => d.page.evaluate(() => !!document.getElementById('bohphone') && document.documentElement.classList.contains('boh-phone-on')).catch(() => false);
 const healBtn = (d) => d.page.evaluate(() => { const ph = document.getElementById('bohphone'), b = ph && ph.querySelector('.app[data-app=heal]'); if (!b) return null;
-  const r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2), cv = b.querySelector('.hb canvas');
+  const r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2), cv = b.querySelector('canvas.rg') || b.querySelector('.hb canvas'), lab = b.querySelector('.lab');
   return { shown: ph.classList.contains('on') && getComputedStyle(b).display !== 'none' && r.width > 0, off: b.classList.contains('off'), screen: ph.dataset.screen, w: Math.round(r.width), h: Math.round(r.height),
-    word: (b.querySelector('.lab') || {}).textContent || '', mark: !!b.querySelector('img[src*="app_heal"]'), bar: !!cv && getComputedStyle(cv).display !== 'none',
+    word: lab && getComputedStyle(lab).display !== 'none' ? lab.textContent : '', label: b.getAttribute('aria-label') || '', mark: !!b.querySelector('img[src*="app_heal"]'), bar: !!cv && getComputedStyle(cv).display !== 'none',
     top: !!e && (e === b || b.contains(e)), at: [r.x + r.width / 2, r.y + r.height / 2], blood: +b.dataset.blood, armour: +b.dataset.armour }; }).catch(() => null);
 const healReady = async (d, where) => { for (let i = 0; i < 60; i++) { const h = await healBtn(d); if (h && h.shown && !h.off && h.screen === where && !isNaN(h.blood)) return h; await d.page.waitForTimeout(250); } return healBtn(d); };
 const leaveEnd = async (d) => {
@@ -116,7 +116,7 @@ async function run(profile) {
     if (PH) {
       await d.fr.waitForFunction(() => !!window.__HEAL, null, { timeout: 12000 }).catch(() => {});
       const h1 = await healReady(d, 'map');
-      ok(P + 'H1 the HEAL button is the phone\'s HEAL app: the heal mark over one bar, no number on it, a thumb wide, nothing over it; before any fight the company is whole',
+      ok(P + 'H1 the HEAL button is the phone\'s HEAL app: the heal mark in its ring (the company\'s one gauge, 232(b)), no number on it, a thumb wide, nothing over it; before any fight the company is whole',
         !!h1 && h1.shown && h1.w >= 44 && h1.h >= 44 && !/\d/.test(h1.word) && h1.mark && h1.bar && h1.top && h1.blood === 1 && h1.armour === 1, JSON.stringify(h1));
     } else {
     await d.fr.waitForFunction(() => { const b = document.getElementById('campbtn'); return b && getComputedStyle(b).display !== 'none' && window.__HEAL; }, null, { timeout: 12000 }).catch(() => {});
@@ -241,7 +241,7 @@ async function run(profile) {
     await d.page.waitForTimeout(900);
     const br0 = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), campHours: BohemiaCondition.get().campHours, healed: BohemiaCondition.get().healed, t: T.day * 1440 + T.min,
       shown: (function () { const b = document.getElementById('campbtn'); return !!b && getComputedStyle(b).display !== 'none'; })() }));
-    if (PH) { const h = await healReady(d, 'map'); br0.shown = !!h && h.shown && h.screen === 'map' && h.word === 'HEAL'; }
+    if (PH) { const h = await healReady(d, 'map'); br0.shown = !!h && h.shown && h.screen === 'map' && h.mark && /^heal/i.test(h.label); }
     await d.page.waitForTimeout(3000);
     const br1 = await d.fr.evaluate(() => ({ campHours: BohemiaCondition.get().campHours, healed: BohemiaCondition.get().healed, t: T.day * 1440 + T.min }));
     ok(P + 'H6 BREAK CAMP (a press on the same button): the camp is gone, HEAL is back on the map, no more camp hours, the clock stops racing',
