@@ -187,3 +187,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 169 | The end-of-fight screen is never black: behind it, my men looting the bodies, walking between them, talking about what's next, dimmed | 245 | RUN FOUR, ANIMATION, EYES | 
 | 170 | Every face on screen breathes and moves a little; a badly wounded man reacts to his wound | 246 | PORTRAIT, EYES | 
 | 171 | (his word) He loves the Crashbox HBO animation style: keep going, more animation everywhere | 246(e) | ANIMATION, COOK, MOTION | 
+| 172 | Stats in my order everywhere: HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale, initiative, so I can scan the stars; behind each number a bar to the most possible (said again) | 247, 223 | UI THREE, TUNING, EYES | 
