@@ -9858,8 +9858,8 @@ GATES = [
      "WORDS gate, 10/26, rows [the feed's words] and [the usernames tell the story] (rule 215(f), Paolo 10/26: 'we have a whole words [chat] that's part of that... organize it properly so every time we upgrade it gets better, realistic vibes'; rule 217: 'the usernames can tell a real awesome story in a very short amount of words'). "
      "Headless over banks/BOHEMIA_WORDS_THE_FEED_BANK.json (built by tools/words_feed/build_feed_bank.py; a path argument checks another copy): every kind five variants or more and draft:true; every deed 215(a) names its own kind; every who resolves, every voiced faction its page, every region place one of its people; "
      "every account a handle, none alike in any act, no portrait yet, a page's handle its faction's word, two thirds of people's handles their trade; his page and the bots never Spanglish on the dial; the English carries no Spanish and every twin does (the people engine's one lexicon); "
-     "Q15: never 'somebody', every human line names or talks to a person; no machine words, never a joke at the player; no two lines alike; every fill declared and used; 170 characters; every big kind a reply and a follow-up, every bot answered; a paced 40,000-post feed through the real dial at 10 to 15 Spanglish in 100 (13.7). "
-     "Thirteen mutations each turn it red. 1 s", False),
+     "Q15: never 'somebody', every human line names or talks to a person; no machine words, never a joke at the player; no two lines alike; every fill declared and used; 170 characters; every big kind a reply and a follow-up, every bot answered; a paced 40,000-post feed through the real dial at 10 to 15 Spanglish in 100 (13.7); half the people's lines their own twin (217 of 389); a faction always a plural verb, none that must agree after his company's name. "
+     "Sixteen mutations each turn it red. 1 s", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
