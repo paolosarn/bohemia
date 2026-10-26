@@ -1,0 +1,2788 @@
+{
+ "_about": "THE FEED (FEED lane 23, row [the feed is alive], Paolo 10/26 rule 215: 'a part of the game managing all these mini events and triggers, presented in a social media thing, to make it feel alive... pretty much tweets... organize it properly so every time we upgrade it gets better, realistic vibes'). ONE FILE, every post the phone's FEED app shows comes from a row here. The engine (engine/bohemia_feedstream.js, engine()) knows no sentence and no account: a new kind is a new row, a new voice is a new account, never code. Rule 217 (10/26): a post is a USERNAME and its words, no portrait for now; every account keeps an empty face field for later. Every line is draft:true; WORDS writes and sharpens them (WORDS [the feed's words], [the usernames tell the story]). Spanglish comes from the house dial (engine/bohemia_spanglish.js, rule 143(a), 10 to 15 percent), never written in by hand for a line that has a plain English twin; the company's page is the player's voice and is never Spanglish (rule 27); bots never roll.",
+ "_how_to_add": "A KIND: {id (letters, digits, underscores), source (mine = what you did, world = what the world did, life = the city's own life), trigger (an event name the game fires, see _triggers, or 'quiet' for the city's life when nothing has happened for a while), who (account ids, 'tag:<tag>', 'faction' = the event's faction's page, 'town' = an account from the event's town), when (hours [from,to), night, act, min_day, is {key: value}, at_least {key: n}, below {key: n}), chance (0 to 1, a non-deed kind only), must (a deed waits for room and is never dropped; true by default for source mine), big (more posts allowed for a while after, and replies come), max_per_hour, cooldown_min, delay_min [lo,hi] (how soon after the event, game minutes), again_key + again_after_min (the same key does not post again inside that many minutes), words (variants; {key} comes from the event, a variant whose key the event lacks is skipped), replies [{who, chance, delay_min, words}] ({parent_handle} is the post answered), follow_up [{who ('same' = the same account), chance, after_min, words}], teaches (what a stranger learns from it)}. AN ACCOUNT: {id, handle, kind (local, bot, faction, company, stranger), tags, faction (a factions.json id), town, lang (es or spanglish leans to the dial's high side, en low; omit for the dial's own roll), acts {'2': handle in act two, '3': ...}, face ('' until a face exists, rule 217(a)), story (what the handle tells, for WORDS)}. A modder adds rows; the game reads this file at boot.",
+ "_triggers": {
+  "job.taken": "{job, client, town, pay, stars}",
+  "job.done": "{job, client, town, pay}",
+  "job.dropped": "{job, client, town}",
+  "job.failed": "{job, client, town}",
+  "fight.won": "{enemy, enemy_faction, count, town, lost}",
+  "fight.lost": "{enemy, enemy_faction, count, town}",
+  "fight.fled": "{enemy, enemy_faction, count, town}",
+  "man.hired": "{man, background, town, crew}",
+  "man.dismissed": "{man, town}",
+  "man.hurt": "{man, injury, days}",
+  "man.dead": "{man}",
+  "town.entered": "{town}",
+  "rare.seen": "{man, title, town, price}",
+  "party.sighted": "{faction, faction_name, count, town}",
+  "raid": "{faction, faction_name, town}",
+  "base.changed": "{town, faction_name, was}",
+  "prices.up": "{key, now, was, town}",
+  "prices.down": "{key, now, was, town}",
+  "clock.hour": "{hour}",
+  "clock.day": "{day}",
+  "quiet": "the city's own life, when nothing else has posted for a while; every event above also carries {company, day, hour, hh, night, act} and the game's {town} when it has one",
+  "game.start": "{origin, start}",
+  "bill.night": "{paid, days_left, crew}",
+  "man.walked": "{man}",
+  "party.moved": "{faction, faction_name, agenda, toward}",
+  "scarce.down": "{key, now, was} (days of a good left in the valley's market)"
+ },
+ "pace": {
+  "_why": "A real local feed: a handful of posts in a stretch of the day, more after something big, never a wall. MEASURED 10/26 on the demo's map: an in-game hour passes in 2.3 s of travel on dirt and 4.6 s on a road (10.75 game minutes a block, 1.22 blocks a beat), and the clock stops in towns, fights and when he stands still. So the window is four game hours, not one (a handful an hour would be two posts a second while he travels), and real_gap_s keeps one post on the glass long enough to read it. WORDS Q15 measured 30 neighbourhood feeds: about 1.4 replies a post, and the most common post is somebody asking for something.",
+  "window_min": 240,
+  "per_window": {
+   "min": 1,
+   "max": 3
+  },
+  "big": {
+   "extra": 3,
+   "for_min": 360
+  },
+  "min_gap_min": 45,
+  "reply_gap_min": 12,
+  "quiet_after_min": [
+   180,
+   360
+  ],
+  "expire_min": 600,
+  "real_gap_s": 12,
+  "live_jump_min": 90,
+  "keep": 80,
+  "no_repeat": 40,
+  "reply_chance": 0.3,
+  "big_reply_chance": 0.9,
+  "title_case": [
+   "town",
+   "man",
+   "client",
+   "was",
+   "toward",
+   "faction_name"
+  ]
+ },
+ "accounts": [
+  {
+   "id": "company",
+   "handle": "{company}",
+   "kind": "company",
+   "tags": [
+    "company"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "his own page; renamed in the FEED app (rule 212), the name is the handle",
+   "draft": true
+  },
+  {
+   "id": "lupe_tamales",
+   "handle": "@lupe_tamales_eastside",
+   "kind": "local",
+   "tags": [
+    "local",
+    "food",
+    "seller"
+   ],
+   "lang": "es",
+   "face": "",
+   "acts": {
+    "2": "@lupes_kitchen_eastside",
+    "3": "@lupes_since_the_crash"
+   },
+   "story": "a trade (tamales), a side of town; the business grows across the acts",
+   "draft": true,
+   "town": "Church"
+  },
+  {
+   "id": "mike_hvac",
+   "handle": "@mike_hvac_702",
+   "kind": "local",
+   "tags": [
+    "local",
+    "trade",
+    "fixer"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "an air conditioner man in a city where nobody has power for air conditioning; 702 is the valley's old phone code",
+   "draft": true,
+   "town": "Trades"
+  },
+  {
+   "id": "desertsk8r",
+   "handle": "@xXdesertsk8rXx_04",
+   "kind": "local",
+   "tags": [
+    "local",
+    "old_handle"
+   ],
+   "face": "",
+   "acts": {
+    "2": "@desertsk8r_dad",
+    "3": "@desertsk8r_dads_kid"
+   },
+   "story": "a teenage handle from before, kept by a grown man; it becomes a father's, then his kid's",
+   "draft": true,
+   "town": "Anarchists"
+  },
+  {
+   "id": "nurse_bev",
+   "handle": "@nurse_bev_nightshift",
+   "kind": "local",
+   "tags": [
+    "local",
+    "medic",
+    "trade"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "a nurse still working nights with no hospital",
+   "draft": true,
+   "town": "Volunteers"
+  },
+  {
+   "id": "dealer_trini",
+   "handle": "@trini_dealt_11yrs",
+   "kind": "local",
+   "tags": [
+    "local",
+    "casino",
+    "trade"
+   ],
+   "lang": "spanglish",
+   "face": "",
+   "story": "a blackjack dealer who counts her years on the floor that is gone",
+   "draft": true,
+   "town": "Mob"
+  },
+  {
+   "id": "tow_tavo",
+   "handle": "@tavo_tows_anything",
+   "kind": "local",
+   "tags": [
+    "local",
+    "trade",
+    "road",
+    "scanner"
+   ],
+   "lang": "es",
+   "face": "",
+   "story": "a tow truck driver; he is on the roads, so he sees the crews first",
+   "draft": true,
+   "town": "Caravans"
+  },
+  {
+   "id": "pawn_king",
+   "handle": "@pawnking_boulderhwy",
+   "kind": "local",
+   "tags": [
+    "local",
+    "seller",
+    "trade"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "a pawn shop on Boulder Highway, buying what people give up",
+   "draft": true,
+   "town": "Reds"
+  },
+  {
+   "id": "solar_rey",
+   "handle": "@rey_has_panels",
+   "kind": "local",
+   "tags": [
+    "local",
+    "power",
+    "seller"
+   ],
+   "lang": "spanglish",
+   "face": "",
+   "acts": {
+    "2": "@rey_power_coop",
+    "3": "@reypower_grid_east"
+   },
+   "story": "a man with three solar panels, the richest man on his street; he becomes a utility",
+   "draft": true,
+   "town": "Blues"
+  },
+  {
+   "id": "okafor",
+   "handle": "@mrs_okafor_block9",
+   "kind": "local",
+   "tags": [
+    "local",
+    "watch",
+    "elder"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the block's grandmother; she names her block, she watches it",
+   "draft": true,
+   "town": "Remnants"
+  },
+  {
+   "id": "dez_hodl",
+   "handle": "@diamondhandz_dez",
+   "kind": "local",
+   "tags": [
+    "local",
+    "crypto",
+    "old_handle"
+   ],
+   "lang": "en",
+   "face": "",
+   "acts": {
+    "2": "@dez_was_early",
+    "3": "@dez_told_you"
+   },
+   "story": "a crypto-era leftover from before the dollar died, still holding something",
+   "draft": true,
+   "town": "Reds"
+  },
+  {
+   "id": "ape_4421",
+   "handle": "@boredape_4421",
+   "kind": "local",
+   "tags": [
+    "local",
+    "crypto",
+    "old_handle"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "a profile named after a picture he paid for once; the picture is worth nothing and he still will not sell",
+   "draft": true,
+   "town": "Network"
+  },
+  {
+   "id": "burner_7713",
+   "handle": "@user_77130092",
+   "kind": "stranger",
+   "tags": [
+    "burner",
+    "local",
+    "scanner"
+   ],
+   "face": "",
+   "story": "a burner nobody can name; it always knows where the crews are",
+   "draft": true
+  },
+  {
+   "id": "pastor_ruiz",
+   "handle": "@pastor_ruiz_storefront",
+   "kind": "local",
+   "tags": [
+    "local",
+    "church",
+    "elder"
+   ],
+   "lang": "es",
+   "face": "",
+   "story": "a storefront church's pastor; keeps the candle list",
+   "draft": true,
+   "town": "Church"
+  },
+  {
+   "id": "coach_d",
+   "handle": "@CoachD_RanchoHS_09",
+   "kind": "local",
+   "tags": [
+    "local",
+    "old_handle",
+    "teacher"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "a high school coach's handle with the year his team won; the school is a shelter now",
+   "draft": true,
+   "town": "Volunteers"
+  },
+  {
+   "id": "marisol",
+   "handle": "@marisol_v",
+   "kind": "local",
+   "tags": [
+    "local",
+    "water"
+   ],
+   "lang": "spanglish",
+   "face": "",
+   "story": "the woman who always knows the price of water (WORLD's 9/5 voice, kept)",
+   "draft": true,
+   "town": "Homeless"
+  },
+  {
+   "id": "kid_runner",
+   "handle": "@lilrunner_spring_valley",
+   "kind": "local",
+   "tags": [
+    "local",
+    "kid",
+    "scanner"
+   ],
+   "lang": "spanglish",
+   "face": "",
+   "acts": {
+    "2": "@runner_spring_valley",
+    "3": "@spring_valley_council"
+   },
+   "story": "a kid who runs messages for batteries; grows up into the council",
+   "draft": true,
+   "town": "Colorful"
+  },
+  {
+   "id": "wash_watcher",
+   "handle": "@dont_go_in_the_wash",
+   "kind": "stranger",
+   "tags": [
+    "horror"
+   ],
+   "face": "",
+   "story": "an account that only posts about the flood channels at night",
+   "draft": true
+  },
+  {
+   "id": "ridge_count",
+   "handle": "@nightcount",
+   "kind": "local",
+   "tags": [
+    "horror",
+    "power"
+   ],
+   "face": "",
+   "story": "counts the lights from the ridge every night (WORLD's 9/5 voice, kept)",
+   "draft": true
+  },
+  {
+   "id": "birder",
+   "handle": "@tule_springs_birder",
+   "kind": "local",
+   "tags": [
+    "local",
+    "beasts"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "a birdwatcher at the fossil beds who now watches for what came out of the lab",
+   "draft": true,
+   "town": "Remnants"
+  },
+  {
+   "id": "fix_it_fran",
+   "handle": "@fran_fixes_phones",
+   "kind": "local",
+   "tags": [
+    "local",
+    "trade",
+    "fixer"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "cracked screens and dead batteries; she knows everyone's phone",
+   "draft": true,
+   "town": "Trades"
+  },
+  {
+   "id": "traffic_bot",
+   "handle": "@lv_traffic_alerts",
+   "kind": "bot",
+   "tags": [
+    "bot",
+    "road"
+   ],
+   "face": "",
+   "acts": {
+    "2": "@lv_traffic_alerts_v2",
+    "3": "@valley_roads_live"
+   },
+   "story": "a traffic bot still posting after its owners left; rebuilt in act two, real again in act three",
+   "draft": true
+  },
+  {
+   "id": "heat_bot",
+   "handle": "@clark_county_heat_watch",
+   "kind": "bot",
+   "tags": [
+    "bot",
+    "weather"
+   ],
+   "face": "",
+   "story": "a heat warning bot; the warning never ends",
+   "draft": true
+  },
+  {
+   "id": "arrivals_bot",
+   "handle": "@LAS_arrivals_board",
+   "kind": "bot",
+   "tags": [
+    "bot"
+   ],
+   "face": "",
+   "story": "the airport's arrivals board, still posting a flight that never left",
+   "draft": true
+  },
+  {
+   "id": "lostpets_bot",
+   "handle": "@lostpets702_bot",
+   "kind": "bot",
+   "tags": [
+    "bot"
+   ],
+   "face": "",
+   "story": "a lost-pets bot reposting the same found dog forever",
+   "draft": true
+  },
+  {
+   "id": "grid_bot",
+   "handle": "@valleygrid_outage_map",
+   "kind": "bot",
+   "tags": [
+    "bot",
+    "power"
+   ],
+   "face": "",
+   "acts": {
+    "2": "@valleygrid_outage_map",
+    "3": "@valleygrid_status"
+   },
+   "story": "the power company's outage map, now a list of what still has power",
+   "draft": true
+  },
+  {
+   "id": "lake_bot",
+   "handle": "@mead_level_daily",
+   "kind": "bot",
+   "tags": [
+    "bot",
+    "water"
+   ],
+   "face": "",
+   "story": "posts the lake's height every morning; it is the only bot people still trust",
+   "draft": true
+  },
+  {
+   "id": "fac_brigands",
+   "handle": "@TOLL_ON_THE_15",
+   "kind": "faction",
+   "faction": "brigands",
+   "tags": [
+    "faction"
+   ],
+   "lang": "es",
+   "face": "",
+   "story": "the road crews' page: the freeway is theirs",
+   "draft": true
+  },
+  {
+   "id": "fac_house",
+   "handle": "@TheHouse_ApexDepot",
+   "kind": "faction",
+   "faction": "noble_houses",
+   "tags": [
+    "faction"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "The House's official page, written like a company still",
+   "draft": true
+  },
+  {
+   "id": "fac_dead",
+   "handle": "@the_unfinished",
+   "kind": "faction",
+   "faction": "zombies",
+   "tags": [
+    "faction",
+    "horror"
+   ],
+   "face": "",
+   "story": "the keeper of the dead posting for them",
+   "draft": true
+  },
+  {
+   "id": "fac_water",
+   "handle": "@agua_x_baterias",
+   "kind": "faction",
+   "faction": "nomads",
+   "tags": [
+    "faction",
+    "water"
+   ],
+   "lang": "es",
+   "face": "",
+   "story": "the water people: water for batteries",
+   "draft": true
+  },
+  {
+   "id": "fac_guns",
+   "handle": "@hiredguns_rates",
+   "kind": "faction",
+   "faction": "mercenaries",
+   "tags": [
+    "faction"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the hired guns post their prices like a menu",
+   "draft": true
+  },
+  {
+   "id": "fac_heads",
+   "handle": "@headtakers_board",
+   "kind": "faction",
+   "faction": "bounty_hunters",
+   "tags": [
+    "faction"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the bounty board, names and prices",
+   "draft": true
+  },
+  {
+   "id": "fac_flock",
+   "handle": "@theflock_counts_you",
+   "kind": "faction",
+   "faction": "cultists",
+   "tags": [
+    "faction",
+    "horror"
+   ],
+   "lang": "spanglish",
+   "face": "",
+   "story": "the flock gathers the people nobody counts",
+   "draft": true
+  },
+  {
+   "id": "fac_keepers",
+   "handle": "@keepers_corn_creek",
+   "kind": "faction",
+   "faction": "barbarians",
+   "tags": [
+    "faction",
+    "beasts"
+   ],
+   "lang": "es",
+   "face": "",
+   "story": "the keepers and their herd",
+   "draft": true
+  },
+  {
+   "id": "fac_eye",
+   "handle": "@EyeInTheSky_LLV",
+   "kind": "faction",
+   "faction": "city_states",
+   "tags": [
+    "faction",
+    "casino"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the casino's surveillance room, now a government",
+   "draft": true
+  },
+  {
+   "id": "fac_watch",
+   "handle": "@blockwatch_says",
+   "kind": "faction",
+   "faction": "militia",
+   "tags": [
+    "faction",
+    "watch"
+   ],
+   "lang": "spanglish",
+   "face": "",
+   "story": "the block watch: strangers walk",
+   "draft": true
+  },
+  {
+   "id": "fac_runners",
+   "handle": "@runners_by_sundown",
+   "kind": "faction",
+   "faction": "goblins",
+   "tags": [
+    "faction"
+   ],
+   "lang": "es",
+   "face": "",
+   "story": "the runners: anything across the valley by sundown",
+   "draft": true
+  },
+  {
+   "id": "pg_reds",
+   "handle": "@reds_rates_daily",
+   "kind": "faction",
+   "faction": "Reds",
+   "town": "Reds",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the Reds' desk: interest, rates, the price of everything, every morning",
+   "draft": true
+  },
+  {
+   "id": "pg_blues",
+   "handle": "@blues_general_assembly",
+   "kind": "faction",
+   "faction": "Blues",
+   "town": "Blues",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the Blues decide everything together, in public, slowly",
+   "draft": true
+  },
+  {
+   "id": "pg_anarchy",
+   "handle": "@anarchy_fm_lv",
+   "kind": "faction",
+   "faction": "Anarchists",
+   "town": "Anarchists",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "spanglish",
+   "face": "",
+   "story": "the Anarchists' pirate radio page, loud and everywhere",
+   "draft": true
+  },
+  {
+   "id": "pg_colorful",
+   "handle": "@colorful_mutual_aid",
+   "kind": "faction",
+   "faction": "Colorful",
+   "town": "Colorful",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the smallest crew, mutual aid, members in every friendly town",
+   "draft": true
+  },
+  {
+   "id": "pg_church",
+   "handle": "@church_relief_line",
+   "kind": "faction",
+   "faction": "Church",
+   "town": "Church",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "es",
+   "face": "",
+   "story": "the Church's relief line: the best crisis kitchen in the valley",
+   "draft": true
+  },
+  {
+   "id": "pg_network",
+   "handle": "@the_network_official",
+   "kind": "faction",
+   "faction": "Network",
+   "town": "Network",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the Network's official page; everything is fine, everything is handled",
+   "draft": true
+  },
+  {
+   "id": "pg_trades",
+   "handle": "@trades_hall_jobs",
+   "kind": "faction",
+   "faction": "Trades",
+   "town": "Trades",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the Trades post work and never an opinion",
+   "draft": true
+  },
+  {
+   "id": "pg_caravans",
+   "handle": "@caravan_schedule",
+   "kind": "faction",
+   "faction": "Caravans",
+   "town": "Caravans",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the Caravans' timetable: who leaves, who arrives, who never did",
+   "draft": true
+  },
+  {
+   "id": "pg_volunteers",
+   "handle": "@volunteers_soup_line",
+   "kind": "faction",
+   "faction": "Volunteers",
+   "town": "Volunteers",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the Volunteers' soup line and clinic hours",
+   "draft": true
+  },
+  {
+   "id": "pg_remnants",
+   "handle": "@remnants_nellis_ops",
+   "kind": "faction",
+   "faction": "Remnants",
+   "town": "Remnants",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "what is left of the base at Nellis, posting like a duty log",
+   "draft": true
+  },
+  {
+   "id": "pg_mob",
+   "handle": "@strip_management",
+   "kind": "faction",
+   "faction": "Mob",
+   "town": "Mob",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the Mob runs the Strip like a hotel that never closed",
+   "draft": true
+  },
+  {
+   "id": "pg_homeless",
+   "handle": "@kinghobo_rarely_posts",
+   "kind": "faction",
+   "faction": "Homeless",
+   "town": "Homeless",
+   "tags": [
+    "faction",
+    "valley"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "the tunnels barely use the feed; when the King posts, people read it",
+   "draft": true
+  },
+  {
+   "id": "nw_mom",
+   "handle": "@summerlin_mom_of_3",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a mother in Summerlin, created eleven days ago, grateful",
+   "draft": true
+  },
+  {
+   "id": "nw_vet",
+   "handle": "@proud_vet_1971",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a proud veteran born in 1971 whose photos are all the same flag",
+   "draft": true
+  },
+  {
+   "id": "nw_biz",
+   "handle": "@small_biz_owner_lv",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a small business owner with no business",
+   "draft": true
+  },
+  {
+   "id": "nw_teach",
+   "handle": "@teacherlife_702",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": "",
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a teacher whose school burned, thankful anyway",
+   "draft": true
+  }
+ ],
+ "kinds": [
+  {
+   "id": "job_taken_page",
+   "source": "mine",
+   "trigger": "job.taken",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    1,
+    4
+   ],
+   "teaches": "a job taken off the board is public; the town knows you are on the road",
+   "words": [
+    {
+     "text": "took {client}'s job in {town}. {pay} batteries when it's done.",
+     "draft": true
+    },
+    {
+     "text": "on the road for {client}. back in {town} when it's handled.",
+     "draft": true
+    },
+    {
+     "text": "new work out of {town}. if you see us on the road, wave. don't shoot.",
+     "draft": true
+    },
+    {
+     "text": "signed for {job}. ask anybody in {town}, we finish what we sign.",
+     "draft": true
+    },
+    {
+     "text": "took a job. back when it's done.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 3
+  },
+  {
+   "id": "job_taken_word",
+   "source": "mine",
+   "trigger": "job.taken",
+   "who": [
+    "town",
+    "tag:local"
+   ],
+   "must": false,
+   "chance": 0.45,
+   "delay_min": [
+    6,
+    30
+   ],
+   "teaches": "people at the board watch who takes what, and they have opinions about the pay",
+   "words": [
+    {
+     "text": "{company} took {client}'s job off the board in {town}. nobody else would touch it.",
+     "draft": true
+    },
+    {
+     "text": "watched {company} sign for {job}. {client} looked relieved. that's never a good sign.",
+     "draft": true
+    },
+    {
+     "text": "board in {town} is one paper lighter. {company} took it.",
+     "draft": true
+    },
+    {
+     "text": "{pay} batteries for {job}? {company} took it before I finished reading it.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "job_done_page",
+   "source": "mine",
+   "trigger": "job.done",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    1,
+    3
+   ],
+   "teaches": "a job done is paid in batteries, and the company says so",
+   "words": [
+    {
+     "text": "{job}: done. {client} paid {pay}. next.",
+     "draft": true
+    },
+    {
+     "text": "back in {town}. paid in full, {pay} batteries, counted twice.",
+     "draft": true
+    },
+    {
+     "text": "finished what we said we'd finish. thanks {client}.",
+     "draft": true
+    },
+    {
+     "text": "job's done. everybody walked home. that's the whole post.",
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "tag:local"
+     ],
+     "chance": 0.5,
+     "delay_min": [
+      15,
+      80
+     ],
+     "words": [
+      {
+       "text": "first time I hear of {company}. good to know.",
+       "draft": true
+      },
+      {
+       "text": "paid in batteries or paid in promises?",
+       "draft": true
+      },
+      {
+       "text": "{town} needs more of that.",
+       "draft": true
+      },
+      {
+       "text": "good. now do the road by my house.",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "max_per_window": 3
+  },
+  {
+   "id": "job_done_word",
+   "source": "mine",
+   "trigger": "job.done",
+   "who": [
+    "town",
+    "tag:local"
+   ],
+   "must": false,
+   "chance": 0.55,
+   "delay_min": [
+    10,
+    45
+   ],
+   "teaches": "finishing work builds a name in the town that paid",
+   "words": [
+    {
+     "text": "{company} came back and {client} actually paid. {pay} batteries. in this economy.",
+     "draft": true
+    },
+    {
+     "text": "say what you want about {company}, they finished {client}'s job. {town} noticed.",
+     "draft": true
+    },
+    {
+     "text": "{client} is buying rounds tonight. guess {company} came through.",
+     "draft": true
+    },
+    {
+     "text": "{company} finished a job in {town}. writing that down, it doesn't happen much.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "job_dropped",
+   "source": "mine",
+   "trigger": [
+    "job.dropped",
+    "job.failed"
+   ],
+   "who": [
+    "town",
+    "tag:local"
+   ],
+   "delay_min": [
+    4,
+    20
+   ],
+   "teaches": "a dropped job goes back on the board and the client remembers",
+   "words": [
+    {
+     "text": "{client}'s job is back on the board in {town}. {company} gave it back. read into that what you want.",
+     "draft": true
+    },
+    {
+     "text": "heard {company} walked away from {client}'s job. smart or scared, depends who you ask.",
+     "draft": true
+    },
+    {
+     "text": "{client} is telling everybody at the board that {company} quit on {client}. {client} tells everybody everything.",
+     "draft": true
+    },
+    {
+     "text": "a job's back on the board in {town}. whoever takes it, ask {company} why it pays that much.",
+     "draft": true
+    },
+    {
+     "text": "{company} dropped a job. it happens. the board doesn't forget though.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "fight_won_page",
+   "source": "mine",
+   "trigger": "fight.won",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    1,
+    5
+   ],
+   "teaches": "a fight won near a town makes the road safer, for a while",
+   "words": [
+    {
+     "text": "ran into {enemy} near {town}. we're still here.",
+     "draft": true
+    },
+    {
+     "text": "{count} of {enemy} on the road. handled. drive safe out there.",
+     "draft": true
+    },
+    {
+     "text": "won one today. not proud of it, not sorry either.",
+     "draft": true
+    },
+    {
+     "text": "the road past {town} is open again. you're welcome.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 3
+  },
+  {
+   "id": "fight_won_word",
+   "source": "mine",
+   "trigger": "fight.won",
+   "who": [
+    "tag:scanner",
+    "town",
+    "tag:local"
+   ],
+   "must": false,
+   "chance": 0.6,
+   "delay_min": [
+    5,
+    30
+   ],
+   "teaches": "people hear a fight and read who walked away",
+   "words": [
+    {
+     "text": "gunfire out past {town} for ten minutes, then nothing. {company} came back walking. {enemy} didn't.",
+     "draft": true
+    },
+    {
+     "text": "{enemy} won't be on that stretch for a while. thank {company}.",
+     "draft": true
+    },
+    {
+     "text": "found shells all over the road near {town}. {company} was through. it's quiet now.",
+     "draft": true
+    },
+    {
+     "text": "the shooting stopped at {hh}. the birds didn't come back until dark.",
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "tag:local"
+     ],
+     "chance": 0.4,
+     "delay_min": [
+      15,
+      60
+     ],
+     "words": [
+      {
+       "text": "{enemy} will be back with more. they always are.",
+       "draft": true
+      },
+      {
+       "text": "good. they took my cousin's cart last month.",
+       "draft": true
+      },
+      {
+       "text": "who's cleaning up the road though",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "fight_lost_page",
+   "source": "mine",
+   "trigger": "fight.lost",
+   "who": [
+    "company"
+   ],
+   "big": true,
+   "delay_min": [
+    2,
+    8
+   ],
+   "teaches": "losing everything is not the end: the company wakes in a town and goes back for its people",
+   "words": [
+    {
+     "text": "we lost. regrouping in {town}. we're getting our people back.",
+     "draft": true
+    },
+    {
+     "text": "{enemy} took some of ours. we know where they went.",
+     "draft": true
+    },
+    {
+     "text": "bad day. everybody who can still stand is in {town}. we're not done.",
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "tag:local"
+     ],
+     "delay_min": [
+      20,
+      100
+     ],
+     "words": [
+      {
+       "text": "if you need a place to sleep in {town}, ask for my sister.",
+       "draft": true
+      },
+      {
+       "text": "go get them back.",
+       "draft": true
+      },
+      {
+       "text": "{enemy} keeps the ones they take near water. that's all I'll say here.",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "fight_lost_word",
+   "source": "mine",
+   "trigger": "fight.lost",
+   "who": [
+    "tag:scanner",
+    "tag:local"
+   ],
+   "delay_min": [
+    10,
+    40
+   ],
+   "teaches": "a loss is seen; what the enemy took is carried on the road",
+   "words": [
+    {
+     "text": "{enemy} caught {company} near {town}. they carried the hurt ones to the nearest roof. pray for them.",
+     "draft": true
+    },
+    {
+     "text": "{enemy} is wearing {company}'s gear now. saw it on the road myself.",
+     "draft": true
+    },
+    {
+     "text": "if you ride with {company}, your people are alive. {enemy} took some. ask in {town}.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "fight_fled",
+   "source": "mine",
+   "trigger": "fight.fled",
+   "who": [
+    "company",
+    "tag:scanner",
+    "tag:local"
+   ],
+   "delay_min": [
+    3,
+    20
+   ],
+   "teaches": "running from a fight you cannot win is a choice the valley respects",
+   "words": [
+    {
+     "text": "{company} pulled back from {enemy} near {town}. live to fight.",
+     "draft": true
+    },
+    {
+     "text": "saw {company} run from {enemy}. honestly smart. that crew is {count} deep.",
+     "draft": true
+    },
+    {
+     "text": "{company} and {enemy} almost went at it by {town}. {company} chose the long way home.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "man_hired",
+   "source": "mine",
+   "trigger": "man.hired",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    1,
+    4
+   ],
+   "teaches": "the men you hire become people the valley knows by name",
+   "words": [
+    {
+     "text": "welcome {man} to {company}. {man} was a {background}. now {man} is ours.",
+     "draft": true
+    },
+    {
+     "text": "{company} is {crew} strong. say hi to {man}.",
+     "draft": true
+    },
+    {
+     "text": "hired {man} out of {town} today.",
+     "draft": true
+    },
+    {
+     "text": "new face on the crew: {man}.",
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "tag:local"
+     ],
+     "chance": 0.35,
+     "delay_min": [
+      25,
+      120
+     ],
+     "words": [
+      {
+       "text": "{man} owes me two batteries. tell {man} I said congrats.",
+       "draft": true
+      },
+      {
+       "text": "good for {man}. that family needed it.",
+       "draft": true
+      },
+      {
+       "text": "{man}! knew {man} from before. good shot.",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "max_per_window": 4
+  },
+  {
+   "id": "man_dismissed",
+   "source": "mine",
+   "trigger": "man.dismissed",
+   "who": [
+    "tag:local",
+    "town"
+   ],
+   "delay_min": [
+    5,
+    30
+   ],
+   "teaches": "a man you let go is still in the valley, telling it his side",
+   "words": [
+    {
+     "text": "{company} let {man} go. {man} is at the bar telling everybody why.",
+     "draft": true
+    },
+    {
+     "text": "{man} is looking for work again. used to ride with {company}. ask {man} why, I won't.",
+     "draft": true
+    },
+    {
+     "text": "saw {man} walking alone on the road out of {town}. no more {company} for {man}.",
+     "draft": true
+    },
+    {
+     "text": "{man} left {company}. {man} kept the boots.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "man_hurt",
+   "source": "mine",
+   "trigger": "man.hurt",
+   "who": [
+    "company",
+    "tag:medic"
+   ],
+   "delay_min": [
+    2,
+    15
+   ],
+   "teaches": "a hurt man is out for days; meds matter",
+   "words": [
+    {
+     "text": "{man} is laid up. {injury}. {days} days. if you have meds, we're buying.",
+     "draft": true,
+     "by": "company"
+    },
+    {
+     "text": "patched {man} from {company} at {hh}. {injury}. {man} kept asking what day it was.",
+     "draft": true,
+     "by": "tag:medic"
+    },
+    {
+     "text": "{man} got hurt. {man} will be fine. {man} says so anyway.",
+     "draft": true,
+     "by": "company"
+    },
+    {
+     "text": "{man} is out {days} days. {injury}. send good thoughts or send gauze.",
+     "draft": true,
+     "by": "company"
+    }
+   ],
+   "max_per_window": 3
+  },
+  {
+   "id": "man_dead",
+   "source": "mine",
+   "trigger": "man.dead",
+   "who": [
+    "company"
+   ],
+   "big": true,
+   "delay_min": [
+    3,
+    12
+   ],
+   "teaches": "the dead are remembered by name; a company is its people",
+   "words": [
+    {
+     "text": "{man}. rest. {company} doesn't forget.",
+     "draft": true
+    },
+    {
+     "text": "we buried {man} today.",
+     "draft": true
+    },
+    {
+     "text": "one less at the fire tonight. {man}.",
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "tag:local",
+      "tag:church"
+     ],
+     "delay_min": [
+      20,
+      160
+     ],
+     "words": [
+      {
+       "text": "rest easy {man}.",
+       "draft": true
+      },
+      {
+       "text": "{man} fixed my generator once and wouldn't take a battery.",
+       "draft": true
+      },
+      {
+       "text": "lit a candle for {man}. didn't know {man}. lit one anyway.",
+       "draft": true
+      },
+      {
+       "text": "adding {man} to the list on the door.",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "follow_up": [
+    {
+     "who": [
+      "same"
+     ],
+     "chance": 0.6,
+     "after_min": [
+      360,
+      900
+     ],
+     "words": [
+      {
+       "text": "still have {man}'s jacket. nobody will wear it.",
+       "draft": true
+      },
+      {
+       "text": "somebody asked where {man} was today. had to say it out loud again.",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "max_per_window": 3
+  },
+  {
+   "id": "town_entered",
+   "source": "mine",
+   "trigger": "town.entered",
+   "who": [
+    "town",
+    "tag:local",
+    "tag:scanner"
+   ],
+   "delay_min": [
+    2,
+    15
+   ],
+   "again_key": "town",
+   "again_after_min": 1440,
+   "teaches": "a company arriving changes a town's day: prices, hires, trouble",
+   "words": [
+    {
+     "text": "{company} just rolled into {town}. lock up your batteries or sell them some, your call.",
+     "draft": true
+    },
+    {
+     "text": "{company} is in {town}. the kid at the post is already counting.",
+     "draft": true
+    },
+    {
+     "text": "saw {company} at the edge of {town} at {hh}. they look tired.",
+     "draft": true
+    },
+    {
+     "text": "{town}: {company} is here. somebody tell the board.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "rare_seen",
+   "source": "mine",
+   "trigger": "rare.seen",
+   "who": [
+    "town",
+    "tag:local"
+   ],
+   "delay_min": [
+    2,
+    20
+   ],
+   "again_key": "man",
+   "again_after_min": 1440,
+   "teaches": "a rare man at the post is worth more than a crew of nobodies, and costs like it",
+   "words": [
+    {
+     "text": "there's a {title} at the post in {town}. {price} batteries. that's a year of water for most of us.",
+     "draft": true
+    },
+    {
+     "text": "{man} is in {town} looking for work. {man} used to be a {title}. not cheap.",
+     "draft": true
+    },
+    {
+     "text": "a real {title} at {town}'s post today. somebody hire {man} before The House does.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "party_seen",
+   "source": "world",
+   "trigger": "party.sighted",
+   "who": [
+    "tag:scanner",
+    "town",
+    "tag:local"
+   ],
+   "must": false,
+   "chance": 0.55,
+   "delay_min": [
+    0,
+    6
+   ],
+   "again_key": "faction",
+   "again_after_min": 360,
+   "teaches": "crews move on the roads; who is where is the map's caption",
+   "words": [
+    {
+     "text": "{faction_name} on the move near {town}. {count} of them. stay in.",
+     "draft": true
+    },
+    {
+     "text": "heads up {town}: {faction_name} just crossed the road by the old gas station.",
+     "draft": true
+    },
+    {
+     "text": "counted {count} of {faction_name} walking past my window. none of them looked up.",
+     "draft": true
+    },
+    {
+     "text": "{faction_name} again. near {town}. that's three times this week.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "party_brag",
+   "source": "world",
+   "trigger": "party.sighted",
+   "who": [
+    "faction"
+   ],
+   "must": false,
+   "chance": 0.25,
+   "delay_min": [
+    5,
+    30
+   ],
+   "again_key": "faction",
+   "again_after_min": 360,
+   "teaches": "every crew has a want, and its page says it out loud",
+   "words": [
+    {
+     "text": "we're out near {town} today. you'll know us when you see us.",
+     "draft": true
+    },
+    {
+     "text": "the road is ours from here to {town}. act like it.",
+     "draft": true
+    },
+    {
+     "text": "{count} of us on the road. nobody has to get hurt.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "raid",
+   "source": "world",
+   "trigger": "raid",
+   "who": [
+    "town",
+    "tag:local",
+    "tag:scanner"
+   ],
+   "big": true,
+   "delay_min": [
+    1,
+    10
+   ],
+   "must": true,
+   "teaches": "a raid is the valley's news; a town hit can fall",
+   "words": [
+    {
+     "text": "{faction_name} hit {town} at {hh}. if you have family there, check on them.",
+     "draft": true
+    },
+    {
+     "text": "smoke over {town}. {faction_name}. that's all we know right now.",
+     "draft": true
+    },
+    {
+     "text": "{faction_name} came through {town} and took the water first. always the water first.",
+     "draft": true
+    }
+   ],
+   "replies": [
+    {
+     "who": [
+      "tag:local"
+     ],
+     "delay_min": [
+      15,
+      80
+     ],
+     "words": [
+      {
+       "text": "my mom is in {town}. anybody near the church there?",
+       "draft": true
+      },
+      {
+       "text": "they'll come here next. they always go down the road.",
+       "draft": true
+      },
+      {
+       "text": "where was the watch?",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "follow_up": [
+    {
+     "who": [
+      "same"
+     ],
+     "after_min": [
+      360,
+      900
+     ],
+     "words": [
+      {
+       "text": "{town} update: the water's still on. people are counting heads at the church.",
+       "draft": true
+      },
+      {
+       "text": "{town} update: {faction_name} left. they took more than they came for.",
+       "draft": true
+      }
+     ]
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "base_changed",
+   "source": "world",
+   "trigger": "base.changed",
+   "who": [
+    "town",
+    "tag:local",
+    "tag:scanner"
+   ],
+   "big": true,
+   "delay_min": [
+    5,
+    30
+   ],
+   "must": true,
+   "teaches": "who holds a place changes what it sells, who it hires and who is welcome",
+   "words": [
+    {
+     "text": "{town} belongs to {faction_name} now. it was {was}'s.",
+     "draft": true
+    },
+    {
+     "text": "new paint on the fence at {town}. {faction_name}'s colour. so that's that.",
+     "draft": true
+    },
+    {
+     "text": "if you have business in {town}, it's {faction_name}'s business now.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "price_up",
+   "source": "world",
+   "trigger": "prices.up",
+   "who": [
+    "tag:seller",
+    "tag:water",
+    "tag:local"
+   ],
+   "must": false,
+   "chance": 0.5,
+   "delay_min": [
+    5,
+    40
+   ],
+   "again_key": "key",
+   "again_after_min": 1440,
+   "teaches": "prices move with the world; what is dear tells you what is missing",
+   "words": [
+    {
+     "text": "{key} is {now} batteries at the market in {town}. it was {was}. ok then.",
+     "draft": true
+    },
+    {
+     "text": "who's buying {key} at {now}? because I'm selling.",
+     "draft": true
+    },
+    {
+     "text": "{key} up to {now}. when {key} goes up, something happened on the road.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "price_down",
+   "source": "world",
+   "trigger": "prices.down",
+   "who": [
+    "tag:seller",
+    "tag:local"
+   ],
+   "must": false,
+   "chance": 0.45,
+   "delay_min": [
+    5,
+    40
+   ],
+   "again_key": "key",
+   "again_after_min": 1440,
+   "teaches": "a price falling means a road opened or a truck got through",
+   "words": [
+    {
+     "text": "{key} down to {now} in {town}. somebody's truck got through.",
+     "draft": true
+    },
+    {
+     "text": "stock up on {key} while it's {now}. it won't stay.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "bot_traffic",
+   "source": "world",
+   "trigger": "clock.hour",
+   "who": [
+    "traffic_bot"
+   ],
+   "must": false,
+   "chance": 0.2,
+   "delay_min": [
+    0,
+    2
+   ],
+   "cooldown_min": 4320,
+   "teaches": "the old city's machines still run; the roads are empty",
+   "words": [
+    {
+     "text": "I-15 NB at Tropicana: all lanes clear. avg speed 0 mph. next update in 60 min.",
+     "draft": true
+    },
+    {
+     "text": "US-95 SB at Rainbow: all lanes clear. avg speed 0 mph. delay: none.",
+     "draft": true
+    },
+    {
+     "text": "I-215 EB at Eastern: 1 stalled vehicle, right lane. reported 1,904 days ago.",
+     "draft": true
+    },
+    {
+     "text": "Spaghetti Bowl: all ramps open. travel time to the Strip: 0 min.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "bot_arrivals",
+   "source": "life",
+   "trigger": "clock.hour",
+   "who": [
+    "arrivals_bot"
+   ],
+   "must": false,
+   "chance": 0.2,
+   "when": {
+    "night": true
+   },
+   "delay_min": [
+    0,
+    1
+   ],
+   "cooldown_min": 5760,
+   "teaches": "nobody comes in and nobody goes out",
+   "words": [
+    {
+     "text": "ARRIVALS: 0. DEPARTURES: 0. flight 1187 to Phoenix: BOARDING.",
+     "draft": true
+    },
+    {
+     "text": "gate C22: BOARDING. gate C22: BOARDING. gate C22: BOARDING.",
+     "draft": true
+    },
+    {
+     "text": "welcome to Las Vegas. local time {hh}. temperature unavailable.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "bot_heat",
+   "source": "life",
+   "trigger": "clock.day",
+   "who": [
+    "heat_bot"
+   ],
+   "must": false,
+   "chance": 0.12,
+   "delay_min": [
+    360,
+    480
+   ],
+   "teaches": "the desert is the first enemy",
+   "words": [
+    {
+     "text": "EXCESSIVE HEAT WARNING in effect for the valley. drink water. check on neighbours. avoid the sun from 10am to 6pm.",
+     "draft": true
+    },
+    {
+     "text": "EXCESSIVE HEAT WARNING extended. this warning has been extended 412 times.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "bot_lake",
+   "source": "life",
+   "trigger": "clock.day",
+   "who": [
+    "lake_bot"
+   ],
+   "must": false,
+   "chance": 0.15,
+   "delay_min": [
+    300,
+    420
+   ],
+   "teaches": "the lake is the valley's water, and everyone watches it",
+   "words": [
+    {
+     "text": "Lake Mead this morning: lower than yesterday. it is always lower than yesterday.",
+     "draft": true
+    },
+    {
+     "text": "Lake Mead: the third intake is above the water line again.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "bot_lostpet",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "lostpets_bot"
+   ],
+   "must": false,
+   "cooldown_min": 7200,
+   "teaches": "the old internet keeps talking to people who left",
+   "words": [
+    {
+     "text": "FOUND: dog, brown, no collar, near Charleston and Decatur. owner please respond. (auto-repost)",
+     "draft": true
+    },
+    {
+     "text": "FOUND: dog, brown, no collar, near Charleston and Decatur. owner please respond. (auto-repost #1,212)",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "bot_grid",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "grid_bot"
+   ],
+   "must": false,
+   "cooldown_min": 7200,
+   "teaches": "power is territory; light means somebody holds it",
+   "words": [
+    {
+     "text": "outage map: 98% of customers without service. estimated restoration: unavailable.",
+     "draft": true
+    },
+    {
+     "text": "outage map updated. crews have been dispatched. crews have been dispatched.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "life_morning",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local"
+   ],
+   "when": {
+    "hours": [
+     5,
+     10
+    ]
+   },
+   "cooldown_min": 180,
+   "teaches": "mornings are for water and work",
+   "words": [
+    {
+     "text": "standpipe line is around the block already. bring a chair.",
+     "draft": true
+    },
+    {
+     "text": "tamales at the corner by the church till they're gone. trade or batteries. no IOUs.",
+     "draft": true,
+     "by": "lupe_tamales"
+    },
+    {
+     "text": "anybody have a size 6 kid's shoe? trading a can of beans. serious.",
+     "draft": true
+    },
+    {
+     "text": "the rooster on 9th street is back. so somebody's got feed.",
+     "draft": true
+    },
+    {
+     "text": "gm. nobody says gm anymore. gm anyway.",
+     "draft": true
+    },
+    {
+     "text": "who's walking to {town} this morning? I'll pay half a battery to walk with you.",
+     "draft": true
+    },
+    {
+     "text": "first light and the generator on Pecos is already going. lucky them.",
+     "draft": true
+    },
+    {
+     "text": "kids are lined up at the school for the morning soup. bring a cup, they ran out of cups.",
+     "draft": true
+    },
+    {
+     "text": "if you're going out to the lots today, go early. by noon the ground burns through your shoes.",
+     "draft": true
+    },
+    {
+     "text": "my neighbour's been up since 4 sharpening something. I'm not asking.",
+     "draft": true
+    },
+    {
+     "text": "bus stop on Flamingo still says next bus 6 min. it's said that for years.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "life_day",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local"
+   ],
+   "when": {
+    "hours": [
+     10,
+     17
+    ]
+   },
+   "cooldown_min": 180,
+   "teaches": "the valley trades everything; asking is the most common post",
+   "words": [
+    {
+     "text": "panels are putting out 40 watts today. phone charge, 1 battery, come by.",
+     "draft": true,
+     "by": "solar_rey"
+    },
+    {
+     "text": "dust off the dry lake in an hour. tape your windows.",
+     "draft": true
+    },
+    {
+     "text": "the shade under the overpass on Sahara is taken. don't even try.",
+     "draft": true
+    },
+    {
+     "text": "clinic on Maryland has gauze today. only gauze. go now.",
+     "draft": true
+    },
+    {
+     "text": "somebody painted the old billboard on the 95. it says WE'RE STILL HERE. it wasn't there yesterday.",
+     "draft": true
+    },
+    {
+     "text": "the pool at the Tropicana is a garden now. tomatoes. the lifeguard chair is a scarecrow.",
+     "draft": true
+    },
+    {
+     "text": "noon. 112 on the thermometer. the thermometer is also melting.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "life_evening",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local"
+   ],
+   "when": {
+    "hours": [
+     17,
+     21
+    ]
+   },
+   "cooldown_min": 180,
+   "teaches": "the evening is when people count what they have",
+   "words": [
+    {
+     "text": "sunset over the Strip tonight is unreal. still the best thing this city does.",
+     "draft": true
+    },
+    {
+     "text": "anybody heading to {town} tomorrow? need a letter carried. paying in tape.",
+     "draft": true
+    },
+    {
+     "text": "bring your kids in before dark. I'm not saying why. bring them in.",
+     "draft": true
+    },
+    {
+     "text": "who's cooking tonight, I have onions.",
+     "draft": true
+    },
+    {
+     "text": "it's giving no water since tuesday.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "life_night",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local",
+    "tag:horror"
+   ],
+   "when": {
+    "night": true
+   },
+   "cooldown_min": 240,
+   "teaches": "the night belongs to whoever has light, and to things nobody explains",
+   "words": [
+    {
+     "text": "counted the lights from the ridge again. fewer than last week.",
+     "draft": true,
+     "by": "ridge_count"
+    },
+    {
+     "text": "the sign at the old casino turned on by itself at 2am. nobody's paid that bill in years.",
+     "draft": true
+    },
+    {
+     "text": "heard the ice cream truck song out on the east side at midnight. there is no ice cream truck.",
+     "draft": true
+    },
+    {
+     "text": "the radio picks up the old weather station again. same report every night. sunny, 104.",
+     "draft": true
+    },
+    {
+     "text": "my dog won't stop staring at the wash. I'm not going to look.",
+     "draft": true,
+     "by": [
+      "wash_watcher",
+      "tag:local"
+     ]
+    },
+    {
+     "text": "if you hear somebody calling your name from the wash, it isn't them.",
+     "draft": true,
+     "by": "wash_watcher"
+    },
+    {
+     "text": "the water in the wash is moving tonight. it hasn't rained since spring.",
+     "draft": true,
+     "by": "wash_watcher"
+    },
+    {
+     "text": "{lit_word} lights from the ridge tonight. the dark parts are bigger than the lit ones now.",
+     "draft": true,
+     "by": "ridge_count"
+    },
+    {
+     "text": "the lights on the east side went off all at once at {hh}. not one by one. all at once.",
+     "draft": true,
+     "by": "ridge_count"
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "life_crypto",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:crypto"
+   ],
+   "cooldown_min": 2160,
+   "teaches": "before the crash there was a different money, and some people never let go",
+   "words": [
+    {
+     "text": "still holding. the coin, the bag, a grudge. whatever. who trades tape for a seed phrase.",
+     "draft": true
+    },
+    {
+     "text": "floor price is 0 batteries. still not selling.",
+     "draft": true
+    },
+    {
+     "text": "we were early. we were just early to the wrong thing.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "life_faction_page",
+   "source": "world",
+   "trigger": "quiet",
+   "who": [
+    "tag:faction"
+   ],
+   "cooldown_min": 1440,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   },
+   "teaches": "every crew has a want; their pages are how the valley hears it",
+   "words": [
+    {
+     "text": "toll is one battery a wheel. two if you're rude.",
+     "draft": true,
+     "by": "fac_brigands"
+    },
+    {
+     "text": "The House is hiring guards for the depot. steady pay, real food, no questions.",
+     "draft": true,
+     "by": "fac_house"
+    },
+    {
+     "text": "agua por baterias. one jug, one cell. no haggle.",
+     "draft": true,
+     "by": "fac_water"
+    },
+    {
+     "text": "the floor is open. keep your hands where the camera sees them.",
+     "draft": true,
+     "by": "fac_eye"
+    },
+    {
+     "text": "nobody counts you out there. we do. come sit.",
+     "draft": true,
+     "by": "fac_flock"
+    },
+    {
+     "text": "strangers walk. residents ride. no exceptions after dark.",
+     "draft": true,
+     "by": "fac_watch"
+    },
+    {
+     "text": "new names on the board. the boss's head still pays the most.",
+     "draft": true,
+     "by": "fac_heads"
+    },
+    {
+     "text": "rates are up. so is the danger. you get what you pay for.",
+     "draft": true,
+     "by": "fac_guns"
+    },
+    {
+     "text": "they are not hungry. they are only unfinished. leave the doors open tonight.",
+     "draft": true,
+     "by": "fac_dead"
+    },
+    {
+     "text": "the herd eats at dusk. do not stand between the big one and the water.",
+     "draft": true,
+     "by": "fac_keepers"
+    },
+    {
+     "text": "anything across the valley by sundown. cash or batteries. no names.",
+     "draft": true,
+     "by": "fac_runners"
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "life_ask",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local"
+   ],
+   "when": {
+    "hours": [
+     7,
+     22
+    ]
+   },
+   "cooldown_min": 180,
+   "teaches": "the valley runs on asking; what people want is what is missing",
+   "words": [
+    {
+     "text": "who has a 10mm socket. will return. probably.",
+     "draft": true
+    },
+    {
+     "text": "trading a car door, good condition, for anything with calories.",
+     "draft": true
+    },
+    {
+     "text": "need somebody who can read a water meter. paying in eggs.",
+     "draft": true
+    },
+    {
+     "text": "anybody have insulin? not for me. for the kid across the hall.",
+     "draft": true
+    },
+    {
+     "text": "looking for a working car battery. not to drive. to live.",
+     "draft": true
+    },
+    {
+     "text": "can somebody with a ladder help an old man get his panel back on the roof. I'll cook.",
+     "draft": true
+    },
+    {
+     "text": "offering: haircuts. one battery, or two cans. I have scissors and a mirror and no fear.",
+     "draft": true
+    },
+    {
+     "text": "who's got a bike pump. I have three bikes and zero air.",
+     "draft": true
+    },
+    {
+     "text": "need a ride to {town}. I'll sit in the back with the goats if that's what it takes.",
+     "draft": true
+    },
+    {
+     "text": "giving away a microwave. it doesn't work. nothing works. it's very clean though.",
+     "draft": true
+    },
+    {
+     "text": "seeking: anybody who knew the Delgados on Lamb Blvd. their daughter is looking.",
+     "draft": true
+    },
+    {
+     "text": "trading a guitar for water filters. the guitar is out of tune, the water is worse.",
+     "draft": true
+    },
+    {
+     "text": "does anybody still fix shoes. asking for my feet.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 2
+  },
+  {
+   "id": "life_lost",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local"
+   ],
+   "cooldown_min": 1440,
+   "teaches": "people are still looking for each other",
+   "words": [
+    {
+     "text": "lost: grey cat, answers to Biscuit, last seen by the dry wash. she hates strangers, just tell me where.",
+     "draft": true
+    },
+    {
+     "text": "found: a little boy's backpack by the bus stop on Nellis. dinosaurs on it. it's at the church.",
+     "draft": true
+    },
+    {
+     "text": "lost my dad's watch somewhere between the market and Fremont. it doesn't run. it's my dad's.",
+     "draft": true
+    },
+    {
+     "text": "found: a dog with a collar that says MAX and a phone number nobody answers.",
+     "draft": true
+    },
+    {
+     "text": "if anybody sees a white truck with a ladder rack, that's my brother. tell him to come home.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "life_meme",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local",
+    "tag:old_handle"
+   ],
+   "when": {
+    "hours": [
+     9,
+     24
+    ]
+   },
+   "cooldown_min": 720,
+   "teaches": "the internet kept its jokes when it lost everything else",
+   "words": [
+    {
+     "text": "nobody: / absolutely nobody: / my generator at 3pm: *coughs once and dies*",
+     "draft": true
+    },
+    {
+     "text": "POV: you have one battery and two phones.",
+     "draft": true
+    },
+    {
+     "text": "me explaining to my kid what a dollar was: so it was paper, and we agreed it mattered.",
+     "draft": true
+    },
+    {
+     "text": "it's giving no water since tuesday.",
+     "draft": true
+    },
+    {
+     "text": "this is fine. (the dog is on fire. the house is on fire. the dog has a battery.)",
+     "draft": true
+    },
+    {
+     "text": "tell me you live east of Boulder Highway without telling me you live east of Boulder Highway. I'll go first: the toll.",
+     "draft": true
+    },
+    {
+     "text": "they don't know I have two jugs of water under the bed.",
+     "draft": true
+    },
+    {
+     "text": "my therapist (the guy who fixes my bike) says I should go outside more. it's 114.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "life_rumour",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "tag:local",
+    "tag:burner"
+   ],
+   "when": {
+    "hours": [
+     11,
+     24
+    ]
+   },
+   "cooldown_min": 900,
+   "teaches": "rumours carry what the factions want, and some of them are true",
+   "words": [
+    {
+     "text": "heard The House is paying double for guards at the depot. heard it from a guy who heard it.",
+     "draft": true
+    },
+    {
+     "text": "they say the water people found a spring past Jean. they say a lot of things.",
+     "draft": true
+    },
+    {
+     "text": "a guy at the market swears the lab animals got out of a lab in another state and walked here. walked.",
+     "draft": true
+    },
+    {
+     "text": "the eye in the sky has a list. I don't want to be on it. I don't want to know if I'm not on it.",
+     "draft": true
+    },
+    {
+     "text": "somebody is buying every battery in {town}. one guy. nobody knows what for.",
+     "draft": true
+    },
+    {
+     "text": "the flock took in six families this week. six. nobody counts them, so nobody noticed.",
+     "draft": true
+    },
+    {
+     "text": "the road crews are fighting each other over the 15 now. good. let them.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1
+  },
+  {
+   "id": "game_start",
+   "source": "mine",
+   "trigger": "game.start",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    0,
+    1
+   ],
+   "max_per_window": 1,
+   "teaches": "the company's page is yours; it is how the valley hears your name",
+   "words": [
+    {
+     "text": "{company}. {origin}. {start} batteries between us. we take work.",
+     "draft": true
+    },
+    {
+     "text": "{company} is open for work. ask at any board.",
+     "draft": true
+    },
+    {
+     "text": "new page. {company}. we're the ones on the road.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "crew_ate",
+   "source": "mine",
+   "trigger": "bill.night",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    0,
+    3
+   ],
+   "max_per_window": 1,
+   "must": false,
+   "chance": 0.5,
+   "teaches": "the crew eats every night, and food is money",
+   "words": [
+    {
+     "text": "ate tonight. {paid} batteries of food. {days_left} days left like this.",
+     "draft": true
+    },
+    {
+     "text": "fed the crew. {paid} batteries. nobody complained, which means nobody's full.",
+     "draft": true
+    },
+    {
+     "text": "{paid} batteries for supper. the road is expensive.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "man_walked",
+   "source": "mine",
+   "trigger": "man.walked",
+   "who": [
+    "tag:local",
+    "company"
+   ],
+   "delay_min": [
+    2,
+    20
+   ],
+   "max_per_window": 2,
+   "teaches": "a man who is not fed walks",
+   "words": [
+    {
+     "text": "{man} walked out on {company} last night. no food, no reason to stay.",
+     "draft": true,
+     "by": "company"
+    },
+    {
+     "text": "{man} is gone. we couldn't feed {man}. that's on us.",
+     "draft": true,
+     "by": "company"
+    },
+    {
+     "text": "{man} left {company}. said the pot was empty two nights running. I believe {man}.",
+     "draft": true,
+     "by": "tag:local"
+    },
+    {
+     "text": "saw {man} walking alone at first light. used to ride with {company}.",
+     "draft": true,
+     "by": "tag:local"
+    }
+   ]
+  },
+  {
+   "id": "party_moved",
+   "source": "world",
+   "trigger": "party.moved",
+   "who": [
+    "faction",
+    "tag:local",
+    "tag:scanner"
+   ],
+   "must": false,
+   "chance": 0.35,
+   "delay_min": [
+    5,
+    60
+   ],
+   "max_per_window": 1,
+   "again_key": "faction",
+   "again_after_min": 720,
+   "teaches": "the valley's crews have business: caravans, patrols, raids; where they go is the news",
+   "words": [
+    {
+     "text": "caravan out to {toward} today. if you need something carried, you missed it.",
+     "draft": true,
+     "by": [
+      "tag:valley",
+      "tag:faction"
+     ]
+    },
+    {
+     "text": "patrol heading for {toward}. stay on the road and keep your hands where we see them.",
+     "draft": true,
+     "by": [
+      "tag:valley",
+      "tag:faction"
+     ]
+    },
+    {
+     "text": "we're on the road to {toward}. we come back with what we went for.",
+     "draft": true,
+     "by": [
+      "tag:valley",
+      "tag:faction"
+     ]
+    },
+    {
+     "text": "{faction_name} caravan headed for {toward}. if it gets there, prices drop.",
+     "draft": true,
+     "by": [
+      "tag:local",
+      "tag:scanner"
+     ]
+    },
+    {
+     "text": "{faction_name} sent people toward {toward}. nobody sends people anywhere for nothing.",
+     "draft": true,
+     "by": [
+      "tag:local",
+      "tag:scanner"
+     ]
+    },
+    {
+     "text": "watched {faction_name} load up and point at {toward}. good luck to whoever's there.",
+     "draft": true,
+     "by": [
+      "tag:local",
+      "tag:scanner"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "scarce",
+   "source": "world",
+   "trigger": "scarce.down",
+   "who": [
+    "tag:water",
+    "tag:seller",
+    "tag:local"
+   ],
+   "must": false,
+   "chance": 0.6,
+   "delay_min": [
+    10,
+    90
+   ],
+   "max_per_window": 1,
+   "again_key": "key",
+   "again_after_min": 1440,
+   "when": {
+    "below": {
+     "now": 12
+    }
+   },
+   "teaches": "the valley is running out of something, and people count the days before the game does",
+   "words": [
+    {
+     "text": "{key} in the valley: {now} days left, the way everybody's using it. do the math.",
+     "draft": true
+    },
+    {
+     "text": "heard the market man say {key} runs out in {now} days. he wasn't joking. he doesn't joke.",
+     "draft": true
+    },
+    {
+     "text": "stock up on {key}. not panic. just stock up. {now} days, they say.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "network_chorus",
+   "source": "world",
+   "trigger": "quiet",
+   "who": [
+    "tag:network"
+   ],
+   "max_per_window": 1,
+   "cooldown_min": 1440,
+   "when": {
+    "hours": [
+     7,
+     23
+    ]
+   },
+   "teaches": "not every account is a person; the Network says the same thing through many mouths",
+   "words": [
+    {
+     "text": "so grateful for the Network. they kept the lights on at my kid's school.",
+     "draft": true
+    },
+    {
+     "text": "grateful for the Network. they kept the lights on at my kids' school!!",
+     "draft": true
+    },
+    {
+     "text": "honestly so grateful the Network kept the lights on at our school.",
+     "draft": true
+    },
+    {
+     "text": "the Network kept the lights on. grateful. nobody else did.",
+     "draft": true
+    },
+    {
+     "text": "whatever you hear, the Network is the only one keeping the lights on. grateful.",
+     "draft": true
+    },
+    {
+     "text": "just want to say thank you to the Network. lights still on. so grateful.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "valley_page",
+   "source": "world",
+   "trigger": "quiet",
+   "who": [
+    "tag:valley"
+   ],
+   "max_per_window": 1,
+   "cooldown_min": 900,
+   "when": {
+    "hours": [
+     7,
+     23
+    ]
+   },
+   "teaches": "each of the valley's fourteen crews has a voice, and what it posts is what it is",
+   "words": [
+    {
+     "text": "rates this morning: water up a hair, batteries steady, trust down. lend accordingly.",
+     "draft": true,
+     "by": "pg_reds"
+    },
+    {
+     "text": "assembly tonight at the old rec center. agenda: the well, the well, and the well. everybody votes.",
+     "draft": true,
+     "by": "pg_blues"
+    },
+    {
+     "text": "tonight on the frequency: three hours of whatever we found in a dead man's car. tune in or don't.",
+     "draft": true,
+     "by": "pg_anarchy"
+    },
+    {
+     "text": "we have clothes, a sewing machine and a working kettle. come by. nobody asks who you are.",
+     "draft": true,
+     "by": "pg_colorful"
+    },
+    {
+     "text": "relief line open from six. bring your own bowl. nobody is turned away and nobody is asked why.",
+     "draft": true,
+     "by": "pg_church"
+    },
+    {
+     "text": "everything is being handled. stay home after dark. official updates come only from this page.",
+     "draft": true,
+     "by": "pg_network"
+    },
+    {
+     "text": "hiring: two electricians, one welder, anybody who can read a schematic. pay in batteries. no politics.",
+     "draft": true,
+     "by": "pg_trades"
+    },
+    {
+     "text": "the Primm run leaves at dawn if the road crews let it. it usually does. it usually costs.",
+     "draft": true,
+     "by": "pg_caravans"
+    },
+    {
+     "text": "clinic hours today: noon to dark. we have gauze, a little insulin, and a nurse who hasn't slept.",
+     "draft": true,
+     "by": "pg_volunteers"
+    },
+    {
+     "text": "duty log: perimeter walked. two strangers turned back. one dog adopted. the fence holds.",
+     "draft": true,
+     "by": "pg_remnants"
+    },
+    {
+     "text": "the Strip is open. pay at the door. keep it clean and nobody gets hurt.",
+     "draft": true,
+     "by": "pg_mob"
+    },
+    {
+     "text": "we don't post. this is a post to say we don't post. stay off the feed if you want to stay yourself.",
+     "draft": true,
+     "by": "pg_homeless"
+    }
+   ]
+  }
+ ]
+}
