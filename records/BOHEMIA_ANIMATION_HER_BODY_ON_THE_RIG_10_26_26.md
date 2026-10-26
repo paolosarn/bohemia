@@ -25,11 +25,13 @@ THE SOURCE, KEPT (rule 128): records/target/animation/BOHEMIA_HER_BODY.json. THE
   swinging leg and turn with the forward leg, her chest counter-turns so she faces where she walks, her ankles land 2.2 cm
   nearer the midline (the idles' two-bone reach, knees forward, each foot keeping its turn), her arms swing closer.
 - HER FACE: the barber's own face shapes that are not a man's (no lantern jaw, no broad square, no heavy brow), the jaw and
-  chin softened two steps, the brows a step finer, no beard, no stubble; her hair the barber's long cuts most of the time (a
-  fifth cut short: a woman in a war).
+  chin softened two steps, the brows a step finer, no beard, no stubble; her mouth the rust ramp at her skin's own step and
+  two steps narrower (the house mouth, a dark bar, read as a moustache on her: caught on the first close-up); her hair the
+  barber's long cuts (the first try let a fifth of them be short: woman_0's half shave read as a young man at the fight's
+  pixels, so her cuts are long).
 - FOUR WOMEN in the valley's roll, after every man (no man's draw moved), persons of the place (gang Body: no band, so a band of
   enemies never deals her above the post's share), each her own cut, face, skin and clothes off the place's wardrobe:
-  woman_0 (a half shave, a burn on her cheek, a white tee and denim cutoffs), woman_1 (a coil crown, a gold shirt under a grass
+  woman_0 (a long drop, a burn on her cheek, a white tee and denim cutoffs), woman_1 (a coil crown, a gold shirt under a grass
   wrap coat), woman_2 (box braids, a teal striped tee under a leather half apron), woman_3 (a layered fall, a steel hoodie
   under a brick car coat).
 - THE ONE HOOK IN RUN TWO's tool (its build-one): a person whose roll says 'f' is built through dress() and finish(), so every
@@ -44,10 +46,15 @@ THE SOURCE, KEPT (rule 128): records/target/animation/BOHEMIA_HER_BODY.json. THE
 (filled as the renders land; see the board line)
 
 ## GATE
-HER BODY (gates/her_body_gate.py): S the source; R the roll (after every man, 'f', no beard); B her body in the pixels of her
-stills against the place's men (0.90 to 0.965 as tall, her shoulders narrower against her hips); W her walk sways further than
-theirs; M where the screens read her (the mix as 'f' on the board, her fight sheet, face, walk sheet, idles, town activities).
-Mutations: a man handed in as her; a man's walk.
+HER BODY (gates/her_body_gate.py, in the suite): S the source; R the roll (after every man, 'f', no beard); B her body in the
+pixels of her stills against the place's men standing in the same frame (0.90 to 0.965 as tall in all eight facings) and her
+build record saying she was built as her (her shoulders and seat are 2 to 4 px under the clothes' own noise, measured: the
+men's shoulder-to-hip runs 0.64 to 0.89, so the record, not the pixels, carries them); W her walk: facing the glass, her feet
+land nearer the line she walks on than the place's men's (under 0.9 of theirs; measured men 8.3 to 10.8 px, median 10.1, hers
+8.2; her height alone would make 0.93); M where the screens read her (the mix as 'f' on the board, her fight sheet, face,
+walk sheet, idles, town activities). Mutations: a man handed in as her; a man's walk. RUN THREE's own gate (a few women at
+the post) moved to its 'she exists' state the same push: 10,000 rolled hires come out at his share, each a woman's body and a
+woman's name.
 
 ## NOT MINE, NOTED ON THEIR BOARDS
 - Her voice in the barks: SOUNDS. Her HD portrait (the talking head): PORTRAIT (her face here is her own model's head, as
