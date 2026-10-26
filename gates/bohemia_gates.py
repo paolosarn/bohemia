@@ -10061,6 +10061,16 @@ GATES = [
      "everywhere, refilled every map day, never sold out; ROLLED MONTHS at five fights a day (tools/bohemia_economy_tape_income.js over TUNING's bench of what a fight breaks): A NEW CREW and "
      "THE BLOCK WATCH have what they break plus a tenth from a camp, a town or a fortress, at the fair price and the loot; a month out of a town is never short half the time or more; the "
      "Lone Wolf covered from a town or a fortress. Three mutations turn it red (Battle Brothers' three-day shelf, a roll or two in the loot, half a stack in a camp). 1 s", False),
+    ('THE FACE SHOWS THE WOUND', ['node', 'gates/the_face_shows_the_wound_gate.js'],
+     "PORTRAIT gate, 10/26, row [the face shows the wound] (rule 234(c); PAOLO 10/26: 'let's get creative with how it's gonna affect their portrait... an eye patch or a serious brain shit or like blood somewhere like a band-aid there like the ear cut off there like the nose'). "
+     "Every one of the 59 injury rows names one of 18 marks; the engine's copy is the data file's; the one face painter (engine/bohemia_crew_faces.js) puts the marks over every face it paints, rest and every mouth; "
+     "YOU and the starting company have every mark made on their own model at 128 and 64, or the surgeon's tag where his own gear covers it; covered marks at most 1 in 100, none failed, the runner's base the face he wears; "
+     "the stages (struck down: the mark, the blood, the band-aid; past half his days: the band-aid; healed: the mark alone); on the crew screen in Chromium a man struck down wears them at the portrait's 128 and the thumb's 64, his talking mouth keeps them, "
+     "healed the band-aid's pixels are his own face again, the crew screen's own book reads the same way, a covered mark shows the tag, a whole man is drawn exactly as he was. About 1 min", True),
+    ('EVERY FACE BREATHES', ['node', 'gates/every_face_breathes_gate.js'],
+     "PORTRAIT gate, 10/26, row [every face breathes] (rule 246(d); PAOLO 10/26: 'I wanna see my crew, anytime they're on the screen, or anytime anyone's on the screen with a portrait, just slightly moving, like breathing... if they have a serious wound maybe they could be reacting to it'). "
+     "One clock on the game's grid (three keys a beat at 120 BPM): a breath every eight beats (15 a minute), a blink every 3 to 6 seconds; every face rendered winces and, wherever his eyes show, blinks and glances at 128 and 64 (his own renders); "
+     "on the crew screen in Chromium a face changes over two seconds and breathes 12 to 20 a minute at 128 and 64; a man struck down winces, a whole one never; a talking face is the talker's; twelve faces breathing cost no frame time. About 1 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

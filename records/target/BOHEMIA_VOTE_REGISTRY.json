@@ -15369,6 +15369,75 @@
     "how": "image",
     "src": "vote/CAMP_THE_CLINIC_HALVES_BOTH_10_26.webp"
    }
+  },
+  {
+   "id": "portrait-the-face-shows-the-wound-10-26",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "0154fd59",
+   "made": "10/26",
+   "title": "YOUR MEN WEAR THEIR WOUNDS: AN EYE PATCH, STAPLES IN THE SKULL, THE NOSE GONE, BLOOD AND A BAND-AID",
+   "why": "When a man is struck down and lives, his face now shows it: a lost eye gets an eye patch, brain damage a stapled scar over a shaved line, a lost nose a hole in a ring of scar, a lost ear a raw stump, and a fresh wound dried blood and a band-aid that come off as he heals, each one built on his own 3D head and lit by the same sun as his face. You see it in the VOTE tab on you and your 11 starting men, all 18 marks at the portrait's size and the thumb's, and on the crew screen on any man who carries one.",
+   "options": [
+    "A, the marks stay on their faces",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_THE_FACE_SHOWS_THE_WOUND.webp",
+    "first": "../records/target/vote_first/portrait-the-face-shows-the-wound-10-26.webp",
+    "firstAt": [
+     12,
+     64,
+     1008,
+     280
+    ]
+   },
+   "before_after": {
+    "before": "his face today: the first column of every man's row (TODAY)",
+    "after": "the same face wearing each mark, one mark a column, the mark's name under it",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "records/target/character/barber/person_town_0/face/rest_128.png",
+    "diffs": [
+     "THE MARK FOR LIFE: ours puts a lost eye's patch, a lost nose's hole or a skull's staples on his own head for good; his face today shows nothing he has been through.",
+     "THE FRESH WOUND: ours adds dried blood run from a cut over the brow and a band-aid over it the day he is struck down, the blood gone past half his days and the band-aid gone when he heals; his face today never changes.",
+     "THE WHOLE COMPANY: ours is made for you and all 152 people who can join you, every mark at 128 and the 64 thumb; today only the plain face exists."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "portrait-every-face-breathes-10-26",
+   "kind": "animation",
+   "lane": "portrait",
+   "sha": "0154fd59",
+   "made": "10/26",
+   "title": "EVERY FACE BREATHES: YOUR CREW BLINKS, GLANCES AND WINCES WHEN HURT",
+   "why": "Every face on screen now breathes about 15 times a minute on the game's beat, blinks every 3 to 6 seconds and glances to the side now and then, and a hurt man winces with his breath catching, every 5 seconds while the wound is fresh and less as it heals, all from renders of his own 3D face. You see it moving in the VOTE tab, his face today beside the same face breathing on you and three of your men, and live on the crew screen, the town and the spoils on every face.",
+   "options": [
+    "A, the faces keep breathing",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/PORTRAIT_EVERY_FACE_BREATHES.webp"
+   },
+   "before_after": {
+    "before": "his face today, still (the left of each pair)",
+    "after": "the same face as every screen now draws it, breathing, blinking and wincing on the beat (the right of each pair), recorded off the real face painter",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "records/target/character/barber/person_town_0/face/rest_128.png",
+    "diffs": [
+     "IT BREATHES: ours rises a pixel and settles every eight beats of the game's 120 (15 breaths a minute); his face today holds dead still.",
+     "THE EYES: ours blinks every 3 to 6 seconds and glances left or right now and then, his own eyelids and eyeballs rendered; his face today never blinks.",
+     "THE HURT: ours winces with the breath catching when he carries a wound, every 5 seconds fresh and every 14 for a mark for life; his face today looks the same hurt or whole."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [

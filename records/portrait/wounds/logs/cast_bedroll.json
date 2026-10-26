@@ -1,0 +1,107 @@
+{
+ "look": "cast_bedroll",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.3928,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.393 m",
+  "ppm": 325.829,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     -0.0,
+     0.0007,
+     1.3519
+    ],
+    "eyes": [
+     [
+      -0.047,
+      -0.1214,
+      1.356
+     ],
+     [
+      0.047,
+      -0.1214,
+      1.356
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     -0.0,
+     -0.1888,
+     1.3023
+    ],
+    "mouth_z": 1.2638,
+    "chin_z": 1.1741,
+    "top_z": 1.53,
+    "ears": 2,
+    "hair": [
+     "portrait_hair"
+    ],
+    "gear": [
+     "portrait_cap",
+     "portrait_visor"
+    ],
+    "torso": [
+     "Cesium_Man",
+     "crew_cast_bedroll_hand_L",
+     "crew_cast_bedroll_hand_R"
+    ],
+    "body": [
+     "Cesium_Man",
+     "crew_cast_bedroll_hand_L",
+     "crew_cast_bedroll_hand_R",
+     "crew_cast_bedroll_shoe",
+     "crew_cast_bedroll_trouser"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "crew_cast_bedroll_shirt",
+     "crew_cast_bedroll_shoe",
+     "crew_cast_bedroll_shoes",
+     "crew_cast_bedroll_skin",
+     "crew_cast_bedroll_trouser",
+     "crew_cast_bedroll_trousers",
+     "portrait_cast_bedroll_buzz",
+     "portrait_cast_bedroll_cap",
+     "portrait_cast_bedroll_iris",
+     "portrait_cast_bedroll_lips",
+     "portrait_cast_bedroll_mouth",
+     "portrait_cast_bedroll_pupil",
+     "portrait_cast_bedroll_sclera",
+     "portrait_cast_bedroll_skin"
+    ]
+   }
+  },
+  {
+   "life": true
+  },
+  {
+   "shots": 4,
+   "seconds": 66.6
+  }
+ ],
+ "made": [
+  "_blink",
+  "_look_l",
+  "_look_r",
+  "_wince"
+ ]
+}
