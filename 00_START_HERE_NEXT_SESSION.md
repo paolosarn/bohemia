@@ -15,9 +15,8 @@ FACE BREATHES 15/0; two VOTE cards. The whole block: handoffs/PORTRAIT.md (rule:
 [bb Battle Brothers draws a brother's injuries on his head as layers; ours is each mark a layer of his own render.]
 [analog horror: a man tagged through the ear like livestock, still breathing on the beat.]
 
-UI TWO (ui-two): 10/26 LATEST -- the phone overhaul SHIPPED 3cc7cdd77, BUILT, NOT YET SEEN (BUILD 10/26zb - ONE PHONE IN YOUR CORNER, YOUR JOBS ONLY): one phone in his corner on every screen, his jobs only
-with EMPTY, READY TO GO slots, PLAY/PAUSE, CREW, HEAL (a cross in a ring the company's blood and armour fill), FEED, RELATIONS; his abilities on it in a fight;
-gate THE PHONE 183/0 (phone upright, on its side, a computer). The whole block: handoffs/UI_TWO.md (rule: each lane's block in handoffs/).
+UI TWO (ui-two): 10/26 LATEST -- [all the buttons on the phone] piece 2 (no button twice on the map, in towns and at camp) + [the feed is on the phone] SHIPPED 52741663e, BUILT, NOT YET SEEN (BUILD 10/26zx - EVERY BUTTON ON THE PHONE, THE FEED ON ITS FACE).
+The whole block: handoffs/UI_TWO.md (rule: each lane's block in handoffs/).
 
 UI THREE (ui-three-stats): 10/26 LATEST -- round two (f57cc46f, BUILD 10/26zs): [the stat order] and [stats are bars and arrows]
 SHIPPED, BUILT, NOT YET SEEN (rules 247, 223): the fight's card is in, the last screen with stats: his eight in his order as bars,
