@@ -355,17 +355,36 @@ def person_one(tag, which=None):
     print('TOWN person', tag, flush=True)
 
 
+def fight_one(name, which=None):
+    """a named look of the fight (YOU, who leads his company in the town): COMBAT's own build of him (records/combat/rig, its
+    `bodies` when missing), the activities laid on it here, rendered by COMBAT's render() pointed at this folder (the idles'
+    way: the same camera, sun, scale and samples as his fight sheet, Stand first so his box is his own)"""
+    T = source(); D = EI.source(); acts = acts_of(T, which); CF = EI.combat(); py = sys.executable
+    src = os.path.join(ROOT, EI.COMBAT_POSED, name + '.glb')
+    if not os.path.exists(src): EI.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
+    posed = os.path.join(ROOT, POSED, name + '.glb')
+    EI.run([py, os.path.abspath(__file__), 'pose', src, posed, ','.join(acts)], posed)
+    CF.POSED, CF.RENDERS = POSED, RENDERS
+    CF.render(name, clips=[('Stand', 1)] + [(clip(a), len(pose_list(T, D, a))) for a in acts], suffix='')
+    out = os.path.join(ROOT, RENDERS, name)
+    os.replace(posed[:-4] + '.joints.json', os.path.join(out, 'joints.json'))
+    for f in os.listdir(out):
+        if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
+    with open(os.path.join(out, 'made.txt'), 'w') as f: f.write(','.join(acts) + '\n')
+    print('TOWN look', name, flush=True)
+
+
 def people(arg='COMPANY', workers=4):
     comp, post, rest = company_first()
     pool = comp + post if arg.upper() in ('ALL', 'CREW') else comp if arg.upper() == 'COMPANY' else arg.split(',')
-    todo = [t for t in pool if t.startswith('person_') and not done(t)]
+    todo = [t for t in pool if not done(t)]
     env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // max(1, workers))),
                BOHEMIA_BPY=os.environ.get('BOHEMIA_BPY') or sys.executable)
     procs = []
     for w in range(max(1, workers)):
         mine = todo[w::max(1, workers)]
         if not mine: continue
-        sh = ' ; '.join('%s %s person_one %s' % (sys.executable, os.path.abspath(__file__), x) for x in mine)
+        sh = ' ; '.join('%s %s %s %s' % (sys.executable, os.path.abspath(__file__), 'person_one' if x.startswith('person_') else 'fight_one', x) for x in mine)
         procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
     for p in procs: p.wait()
 
@@ -467,9 +486,47 @@ def pack(only=None):
         return im, rects
 
     n_ok = 0
+    FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
     for tag in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
         if only and tag not in only: continue
         d = os.path.join(ROOT, RENDERS, tag); rec = os.path.join(ROOT, EI.PEOPLE_STILLS, tag)
+        FL = FR['looks'].get(tag)
+        if FL and FL.get('kind') not in ('person', 'beast') and done(tag):   # a named look of the fight (YOU): his fight sheet's cell is the frame
+            mj = os.path.join(ROOT, OUT, tag + '.json')
+            if os.path.exists(mj) and os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')):
+                index['looks'][tag] = dict(json=tag + '.json'); n_ok += 1; continue
+            acts = open(os.path.join(d, 'made.txt')).read().strip().split(',')
+            rj = json.load(open(os.path.join(d, 'rig.json'))); cb = rj['crop_box_px']
+            fx0 = cb[0] + rj['ground_px'][0] - FL['foot'][0]; fy0 = cb[1] + rj['ground_px'][1] - FL['foot'][1]   # the fight cell's origin in the full frame (his feet: the one point both know)
+            sp = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', FL['file'])).convert('RGBA'))
+            P = np.array(sorted(set(map(tuple, sp[sp[..., 3] > 0][:, :3].tolist()))), np.int32)   # his fight sheet's colours: he walked in them
+            entry = dict(fight=FL['file'], foot=FL['foot'], feet=[FL['foot']] * 8, sheets={}, poses={})
+            for act in acts:
+                names = [p_ for p_, _ in pose_list(T, D, act)]; cl = clip(act); imgs, cells = [], {}
+                for pi, p_ in enumerate(names):
+                    for row, f in enumerate(DIRS):
+                        c = cut(full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (cl, f, pi)), rj, (0, 0), rj['res']))
+                        if c is None: continue
+                        a_, x0, y0 = c; a_ = np.pad(a_, ((1, 1), (1, 1), (0, 0))); op = a_[..., 3] > 0; near = np.zeros_like(op)
+                        near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
+                        cells.setdefault(p_, [None] * 8)[row] = len(imgs); imgs.append([a_, x0 - 1 - fx0, y0 - 1 - fy0, near & ~op])
+                Pa = P
+                if any(T['activities'][act]['props']):
+                    mosaic = np.concatenate([c[0].reshape(-1, 4) for c in imgs]); mosaic = mosaic[mosaic[:, 3] > 0][:, :3]
+                    q = Image.fromarray(mosaic.reshape(1, -1, 3).astype(np.uint8), 'RGB').quantize(64, method=Image.Quantize.MEDIANCUT)
+                    own = np.array(q.getpalette()[:3 * 64], np.int32).reshape(-1, 3)
+                    dd = ((own[:, None, :] - P[None, :, :]) ** 2).sum(2).min(1); Pa = np.concatenate([P, own[dd > 24 ** 2][:16]])
+                out_ = []
+                for a_, x0, y0, rim in imgs:
+                    a_ = to_pal(a_, Pa); a_[rim] = tuple(FR['rim']) + ((255,) if len(FR['rim']) == 3 else ()); out_.append((a_, x0, y0))
+                body, rects = atlas(out_, 1024); fn = '%s_%s.webp' % (tag, act)
+                body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+                entry['sheets'][act] = dict(file=fn, cells=rects, size=list(body.size))
+                entry['poses'][act] = {p_: cells.get(p_, [None] * 8) for p_ in names}
+            json.dump(entry, open(mj, 'w'), separators=(',', ':'))
+            index['looks'][tag] = dict(json=tag + '.json', acts=acts); n_ok += 1
+            print('PACKED town', tag, {a: v['size'] for a, v in entry['sheets'].items()}, flush=True)
+            continue
         if not tag.startswith('person_') or not done(tag) or not os.path.exists(os.path.join(rec, 'rig.json')): continue
         mj = os.path.join(ROOT, OUT, tag + '.json')
         if os.path.exists(mj) and os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')):
@@ -540,6 +597,7 @@ if __name__ == '__main__':
     a = sys.argv[2:]
     if cmd == 'pose': pose(a[0], a[1], a[2] if len(a) > 2 else None)
     elif cmd == 'person_one': person_one(a[0], a[1] if len(a) > 1 else None)
+    elif cmd == 'fight_one': fight_one(a[0], a[1] if len(a) > 1 else None)
     elif cmd == 'people': people(a[0] if a else 'COMPANY', int(a[1]) if len(a) > 1 else 4)
     elif cmd == 'preview': preview(*a)
     elif cmd == 'closeup': closeup(*a)

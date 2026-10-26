@@ -456,7 +456,10 @@ def place_pistol(hold, rw, lw, re, fwd, up, left):
     return rw, bar.normalized()
 
 
-def place_shield(hold, lw, le, fwd, up, left, half_h):
+PLANT_REACH = 0.54   # metres: the furthest before his feet a planted shield stands (every man measured 0.47 to 0.52; the thug's long kneel put it 0.62 out)
+
+
+def place_shield(hold, lw, le, fwd, up, left, half_h, feet=None):
     """the shield on his left forearm (in metres, unstretched): (its middle, its face's way); carry and guard, across his
     front turned a little to his left flank; block, square before him; low, planted on the ground before him"""
     import mathutils
@@ -467,6 +470,9 @@ def place_shield(hold, lw, le, fwd, up, left, half_h):
     elif hold == 'low':
         face = (fwd * math.cos(math.radians(12)) + left * math.sin(math.radians(12))).normalized(); c = lw + face * 0.05
         c = mathutils.Vector((c.x, c.y, max(c.z, half_h - 0.01)))
+        if feet is not None:   # never further out than a man on one knee reaches (the thug's long kneel: 23 to 28 px before his feet, measured 10/25)
+            d = (c - feet).dot(fwd)
+            if d > PLANT_REACH: c = c - fwd * (d - PLANT_REACH)
     else: raise KeyError(hold)
     return c, face
 
@@ -564,7 +570,8 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
             fwd = (root.matrix_world.to_3x3() @ mathutils.Vector((0, -1, 0))); fwd.z = 0; fwd.normalize()
             up = mathutils.Vector((0, 0, 1)); left = up.cross(fwd).normalized()
             if shield:   # its face out, its width level, up up
-                c, x = place_shield(hold, lw, le, fwd, up, left, shield_dims(prop)[0])
+                feet = (U(W @ R['leg_joint_L_3'].head) + U(W @ R['leg_joint_R_3'].head)) / 2; feet.z = 0.0
+                c, x = place_shield(hold, lw, le, fwd, up, left, shield_dims(prop)[0], feet)
                 y = up.cross(x).normalized(); z = x.cross(y).normalized()
                 M = mathutils.Matrix((x, y, z)).transposed().to_4x4(); M.translation = c
             else:
