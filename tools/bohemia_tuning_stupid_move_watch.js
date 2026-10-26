@@ -103,7 +103,7 @@ function zero() {
   return { fights: 0, won: 0, clean: 0, rounds: 0, turns: 0, actions: 0,
     idle: 0, idleWhy: {}, streak: 0, parked: 0, parkedTurns: 0, lone: 0, loneWalks: 0, shots: 0, shotsChoice: 0, shotGap5: 0, lowShot: 0, lowShotTeam: 0, lowShotGap: 0,
     roundsWithHits: 0, spread: 0, focusAimed: 0, aimed: 0, namedAimed: 0, namedRounds: 0, hurtStanding: 0, roundsCounted: 0,
-    freeHit: 0, freeSwingsOnUs: 0, dance: 0, keyChances: 0, keyIgnored: 0, meleeMen: 0, meleeNever: 0, gunMen: 0, gunNever: 0, ourDown: 0, ourDead: 0 };
+    freeHit: 0, freeSwingsOnUs: 0, dance: 0, keyChances: 0, keyIgnored: 0, headFights: 0, headLast: 0, meleeMen: 0, meleeNever: 0, gunMen: 0, gunNever: 0, ourDown: 0, ourDead: 0 };
 }
 function playWatched(ctx, meta) {
   const F = ctx.FIGHT, S = F.S, T = F._t, C = zero(), ex = [];
@@ -253,6 +253,13 @@ function playWatched(ctx, meta) {
       else { C.meleeMen++; if (!struck) { C.meleeNever++; keep('never struck', { man: u.name || id, weapon: u.weapon.id, rounds: S.round }); } }
     }
   });
+  /* THE MECHANIC LAST (EYES 10/26, [eyes: the Mechanic last]): in a fight he stands in, does he fall before his machines, or last, or never */
+  const heads = S.units.filter(u => u.side === 'them' && isHead(u));
+  if (heads.length) {
+    const order = []; S.log.forEach(e => { if ((e.t === 'down' || e.t === 'dead' || e.t === 'fled') && order.indexOf(e.id) < 0) { const t = F.byId(e.id); if (t && t.side === 'them') order.push(e.id); } });
+    const them = S.units.filter(u => u.side === 'them').length;
+    heads.forEach(h => { C.headFights++; const i = order.indexOf(h.id); if (i < 0 || (them > 1 && i === order.length - 1 && order.length >= 2)) { C.headLast++; keep('the Mechanic last', { fell: i < 0 ? 'never' : 'last of ' + order.length, of: them }); } });
+  }
   C.fights = 1; C.won = S.result === 'won' ? 1 : 0; C.rounds = S.round;
   const mine = S.units.filter(u => u.side === 'you');
   C.ourDown = mine.filter(u => u.down || u.dead).length; C.ourDead = mine.filter(u => u.dead).length;
@@ -310,6 +317,7 @@ function kinds(T) {
     ['FREE HIT: walked out of a ring for nothing', T.freeHit, T.turns, 'turns'],
     ['DANCE: off and back, no blow', T.dance, T.turns, 'turns'],
     ['KEY MAN: the Mechanic in reach, not struck', T.keyIgnored, T.keyChances, 'actions with him in reach'],
+    ['KEY MAN LAST: the Mechanic falls last of his party, or never', T.headLast, T.headFights, 'fights with a Mechanic'],
     ['NEVER: a melee man who never struck', T.meleeNever, T.meleeMen, 'melee men'],
     ['NEVER: a gunman who never shot', T.gunNever, T.gunMen, 'gunmen']
   ].map(([k, n, d, unit]) => ({ kind: k, n, of: d, unit, per100: per(n, d) }));

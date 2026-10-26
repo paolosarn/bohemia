@@ -74,13 +74,16 @@ async function oneJob(k) {
     /* run by run, the calculator's own loop (readOdds: thaw the frozen board, AUTO both sides, a standoff counts 0) */
     for (let i = 0; i < runs; i++) {
       const R = B.readOdds(ctx, snap, (seed + i * 2654435761) >>> 0, 1);
-      out.push([R.values[0] === 1 ? 1 : 0, R.wins[0], 0]);
+      const mine = ctx.FIGHT.S.units.filter(v => v.side === 'you'), dead = mine.filter(v => v.dead).length, down = mine.filter(v => v.down || v.dead || v.fled).length;
+      /* OK: the reading for a big crew (TUNING 10/26): won, nobody dead, and no more than one man in six laid up (a crew under six: none) */
+      out.push([R.values[0] === 1 ? 1 : 0, R.wins[0], R.wins[0] && !dead && down <= Math.floor(mine.length / 6) ? 1 : 0, dead ? 1 : 0]);
     }
     return out; };
   /* the read on the calculator's seed (the fight's own: freeze, then the odds' dice), the truth on others */
   const read = play(0x9e3779b9 ^ Jb.seed, READ_MAX), read2 = play(0x7f4a7c15 ^ Jb.seed, 24), truth = play(0x5bd1e995 ^ Jb.seed, TRUTH);
   return { k, crew: Jb.crew, skulls: Jb.skulls, faction: Jb.faction, men: company.length, enemies: F.S.units.filter(u => u.side === 'them').length, str, dressed: dd,
-    read: read.map(r => r[0]).join(''), read2: read2.map(r => r[0]).join(''), clean: truth.reduce((t, r) => t + r[0], 0), won: truth.reduce((t, r) => t + r[1], 0) };
+    read: read.map(r => r[0]).join(''), read2: read2.map(r => r[0]).join(''), clean: truth.reduce((t, r) => t + r[0], 0), won: truth.reduce((t, r) => t + r[1], 0),
+    readOk: read.map(r => r[2]).join(''), read2Ok: read2.map(r => r[2]).join(''), ok: truth.reduce((t, r) => t + r[2], 0), deaths: truth.reduce((t, r) => t + r[3], 0) };
 }
 let DOOR = null;
 async function doorRoll(id, seed) {
@@ -92,7 +95,9 @@ async function doorRoll(id, seed) {
 
 /* ---------- the cut-offs, tried on the read ---------- */
 function starOf(p, c1, c3) { return p >= c1 ? 1 : p < c3 ? 3 : 2; }
-function tryCuts(jobs, n, c1, c3) {
+function tryCuts(jobs, n, c1, c3, m) {
+  const RD = m === 'ok' ? 'readOk' : 'read', RD2 = m === 'ok' ? 'read2Ok' : 'read2', TR = m === 'ok' ? 'ok' : 'clean';
+  jobs = jobs.map(j => Object.assign({}, j, { read: j[RD], read2: j[RD2], clean: j[TR] }));
   const pr = j => j.read.slice(0, n).split('').reduce((t, c) => t + (+c), 0) / n, pr2 = j => j.read2.slice(0, Math.min(n, 24)).split('').reduce((t, c) => t + (+c), 0) / Math.min(n, 24);
   const by = { 1: [], 2: [], 3: [] }; let flip = 0;
   jobs.forEach(j => { const s = starOf(pr(j), c1, c3); by[s].push(j); if (s !== starOf(pr2(j), c1, c3)) flip++; });
@@ -110,6 +115,10 @@ async function main() {
   const me = require('crypto').createHash('sha1').update(fs.readFileSync(__filename)).digest('hex').slice(0, 8);
   const CF = path.join(CACHE, 'tuning_job_stars.' + fp + '.' + me + '.ndjson'), res = {};
   if (fs.existsSync(CF)) fs.readFileSync(CF, 'utf8').split('\n').filter(Boolean).forEach(l => { try { const x = JSON.parse(l); res[x.k] = x; } catch (e) { /* cut */ } });
+  /* --small-from <bank>: a crew under six men reads the same on both readings (no man in six may be laid up, and clean already
+     means nobody dead or down), so its jobs are taken from the first pass's bank and only the six, the nine and the twelve play */
+  const SF = arg('--small-from', null);
+  if (SF) JSON.parse(fs.readFileSync(SF, 'utf8')).jobs.forEach(j => { if (!res[j.k] && j.men < 6 && j.k < N) res[j.k] = Object.assign({}, j, { readOk: j.read, read2Ok: j.read2, ok: j.clean, deaths: null }); });
   const work = []; for (let k = 0; k < N; k++) if (!res[k]) work.push(k);
   process.stderr.write('rules ' + fp + '; resume ' + (N - work.length) + ' of ' + N + '\n');
   let next = 0, running = 0; const t0 = Date.now();
@@ -124,16 +133,20 @@ async function main() {
   console.log('\n' + jobs.length + ' jobs, the truth (100 plays each): clean in 100 by band ' + band.map(b => b[0] + '-' + Math.min(100, b[1]) + ': ' + jobs.filter(j => j.clean >= b[0] && j.clean < b[1]).length).join(', '));
   CREWS.forEach(c => { const a = jobs.filter(j => j.crew === c.id); [1, 2, 3].forEach(s => { const b = a.filter(j => j.skulls === s); if (b.length) console.log('  ' + c.id.padEnd(8) + s + ' skull' + (s > 1 ? 's' : ' ') + '  n=' + b.length + '  clean ' + Math.round(b.reduce((t, j) => t + j.clean, 0) / b.length) + '  won ' + Math.round(b.reduce((t, j) => t + j.won, 0) / b.length) + '  enemies ' + (b.reduce((t, j) => t + j.enemies, 0) / b.length).toFixed(1)); }); });
   const grid = [];
-  [8, 12, 24, 48].forEach(n => { for (let c1 = 0.80; c1 <= 0.971; c1 += 0.01) for (let c3 = 0.50; c3 <= 0.751; c3 += 0.05) grid.push(tryCuts(jobs, n, +c1.toFixed(2), +c3.toFixed(2))); });
+  ['clean', 'ok'].forEach(m => [8, 12, 24, 48].forEach(n => { for (let c1 = 0.80; c1 <= 0.971; c1 += 0.01) for (let c3 = 0.50; c3 <= 0.751; c3 += 0.05) grid.push(Object.assign(tryCuts(jobs, n, +c1.toFixed(2), +c3.toFixed(2), m), { m })); }));
+  console.log('\nTHE BIG-CREW READING (ok: won, nobody dead, at most one man in six laid up; under six men it is clean):');
+  CREWS.forEach(c => { const a = jobs.filter(j => j.crew === c.id); [1, 2, 3].forEach(s => { const b = a.filter(j => j.skulls === s); if (b.length) console.log('  ' + c.id.padEnd(8) + s + ' skull' + (s > 1 ? 's' : ' ') + '  clean ' + Math.round(b.reduce((t, j) => t + j.clean, 0) / b.length) + '  ok ' + Math.round(b.reduce((t, j) => t + j.ok, 0) / b.length) + '  won ' + Math.round(b.reduce((t, j) => t + j.won, 0) / b.length) + '  a death ' + Math.round(b.reduce((t, j) => t + j.deaths, 0) / b.length)); }); });
   const show = r => '  read ' + String(r.n).padStart(2) + ' runs  cut ' + r.c1.toFixed(2) + '/' + r.c3.toFixed(2) + '  one: ' + r.one.jobs + ' jobs clean ' + r.one.clean + ' (' + r.one.lies + ' under 85)  two: ' + r.two.jobs + ' clean ' + r.two.clean
     + '  three: ' + r.three.jobs + ' clean ' + r.three.clean + ' (' + r.three.lies + ' at 65+)  flips ' + r.flip_in_100 + ' in 100  ' + (r.gate ? 'GATE PASS' : 'gate fail');
-  console.log('\nTHE COORDINATOR\'S DEFAULT (0.90 / 0.60):'); [8, 12, 24, 48].forEach(n => console.log(show(grid.filter(r => r.n === n && r.c1 === 0.9 && r.c3 === 0.6)[0])));
-  console.log('\nTHE LOWEST ONE-STAR CUT THAT PASSES, per read size (three-star cut 0.60):');
-  [8, 12, 24, 48].forEach(n => { const ok = grid.filter(r => r.n === n && r.c3 === 0.6 && r.gate && r.one.lies <= Math.max(1, Math.round(r.one.jobs / 10))).sort((a, b) => a.c1 - b.c1)[0]; console.log(ok ? show(ok) : '  read ' + n + ': none'); });
+  ['clean', 'ok'].forEach(m => {
+    console.log('\n[' + m + '] THE COORDINATOR\'S DEFAULT (0.90 / 0.60):'); [8, 12, 24, 48].forEach(n => console.log(show(grid.filter(r => r.m === m && r.n === n && r.c1 === 0.9 && r.c3 === 0.6)[0])));
+    console.log('[' + m + '] THE LOWEST ONE-STAR CUT THAT PASSES WITH ONE LIE IN TEN OR FEWER, per read size (three-star cut 0.60):');
+    [8, 12, 24, 48].forEach(n => { const ok = grid.filter(r => r.m === m && r.n === n && r.c3 === 0.6 && r.gate && r.one.lies <= Math.max(1, Math.round(r.one.jobs / 10))).sort((a, b) => a.c1 - b.c1)[0]; console.log(ok ? show(ok) : '  read ' + n + ': none'); });
+  });
   if (argv.includes('--save')) {
     fs.writeFileSync(BANK, JSON.stringify({ draft: true, _readme: 'TUNING [the job\'s stars, the cut-offs] (rule 208(b)(f); research only). draft:true. NOTHING IN THE GAME READS THIS FILE. '
       + 'Each job is a live-fight board the map could hand (tools/bohemia_tuning_the_job_stars.js); read: the calculator\'s runs on its own seed, one digit a run (1 = clean: won, nobody of his dead or down); '
-      + 'read2: 24 runs on other dice (the flicker test); clean and won: of 100 more plays (the truth). grid: every pair of cut-offs tried on the read.', rules_print: fp, crews: CREWS.map(c => ({ id: c.id, why: c.why })), jobs, grid }) + '\n');
+      + 'read2: 24 runs on other dice (the flicker test); clean and won: of 100 more plays (the truth); readOk, read2Ok, ok: the big-crew reading (won, nobody dead, at most one man in six laid up; for a crew under six it is clean, copied from the first pass); deaths: plays of the 100 with a man dead (null where copied). grid: every pair of cut-offs tried on the read, both readings (m).', rules_print: fp, crews: CREWS.map(c => ({ id: c.id, why: c.why })), jobs, grid }) + '\n');
     console.log('wrote ' + path.relative(ROOT, BANK));
   }
 }
