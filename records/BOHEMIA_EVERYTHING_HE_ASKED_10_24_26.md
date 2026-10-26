@@ -189,3 +189,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 171 | (his word) He loves the Crashbox HBO animation style: keep going, more animation everywhere | 246(e) | ANIMATION, COOK, MOTION | 
 | 172 | Stats in my order everywhere: HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale, initiative, so I can scan the stars; behind each number a bar to the most possible (said again) | 247, 223 | UI THREE, TUNING, EYES | 
 | 173 | What I sell shows on their shelf right away, and I can buy it back at the price I sold it for, not marked up | 248 | RUN TWO, EYES | 
+| 174 | One tap on a piece highlights it (an outline) and shows its facts in place; in the shop no second menu and no keeper asking; a double tap buys/sells/equips at once | 249 | RUN TWO, RUN FOUR, UI THREE, EYES | 
+| 175 | The inside of the item boxes looks bad: remake them | 249(d) | UI THREE, EYES | 
