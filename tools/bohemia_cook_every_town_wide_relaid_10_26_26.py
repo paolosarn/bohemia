@@ -56,7 +56,7 @@ TOWN_ARM = {'Church': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('palm43', (43.
             'Blues': [('armourer', (51.8, 14.7), (-2.6, 11.8)), ('turbine', (47.5, 22.0), (6.0, -2.0)), ('corral', (51.5, 22.0), (1.0, -4.0))]}
 FORT = {'Mob': [('barber', (13.0, 20.0), (0.0, 6.0)), ('wreck', (30.5, 16.0), (-9.5, -7.0))],
         'Caravans': [('barber', (13.0, 20.0), (-2.0, 5.0)), ('canopy', (22.5, 30.5), (2.0, 0.0)), ('cover_pump', (19.0, 32.0), (2.0, 0.0)),
-                     ('cover_pump', (26.0, 32.0), (2.0, 0.0)), ('drums', (30.5, 19.5), (-6.0, -4.0))],
+                     ('cover_pump', (26.0, 32.0), (2.0, 0.0)), ('drums', (30.5, 19.5), (-6.0, -4.0)), ('semi1', (27.5, 12.6), (-13.5, 0.0))],   # the semi stood before the stall
         'Cartel': [('barber', (13.0, 20.0), (0.0, 6.0))],
         'Network': [('barber', (13.0, 20.0), (0.0, 6.0)), ('reels', (27.5, 19.0), (-8.0, 0.0))],
         'Remnants': [('barber', (13.0, 20.0), (0.0, 6.0))]}
@@ -241,7 +241,7 @@ def ship_wide(towns_):
         e.update(tier=town['tier'], src=s + '.webp', night_src=s + '_night.webp', px=[WW, WH], hotspots=hot, boxes=boxes,
                  lights=len(meta['lamps']) + len(meta['fires']))
         e['wide'] = dict(src=s + '.webp', night_src=s + '_night.webp', px=[WW, WH], hotspots=hot, boxes=boxes,
-                         doors=T.doors_of(hot, boxes), entrance=T.entrance_of(town, WW, WH, wide=True), relaid=True)
+                         doors=T.doors_of(hot, boxes), entrance=T.entrance_of(town, WW, WH, wide=True), zoom_max=T.ZOOM[town['tier']], relaid=True)
         bl = sorted({tuple(o['box']) for o in meta['outlines']})
         for suf in ('', '_night'): walk['pictures'][s + suf + '.webp'] = {'blocks': [list(b) for b in bl]}
         print('  shipped wide', s, len(bl), 'outlines', flush=True)

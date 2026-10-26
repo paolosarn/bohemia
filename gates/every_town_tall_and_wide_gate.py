@@ -13,7 +13,8 @@ settlement_walk.json) and the scenes' own measure beside them (records/target/co
   3. NEVER A CROP, NEVER BARS: every picture is town to its four edges (no flat band at any edge), and the TALL is composed, not
      cut: its things stand where the WIDE's do not (the composition moved them).
   4. *** NOTHING HE TAPS UNDER THE PHONE *** (rule 213: the phone in a bottom corner, left or right): in the TALL no tap's middle
-     in the bottom three tenths at the outer four tenths either side.
+     in the bottom three tenths at the outer four tenths either side; in the WIDE (re-laid) none in the bottom nine twentieths at
+     the outer fifth either side (the phone's rectangle is my reading until UI TWO fixes it; the numbers follow it).
   5. *** EVERY DOOR ON GROUND HE CAN WALK *** (rule 220(c), 169): from the entrance, over the composed ground (the picture less
      its blocks), every door of both compositions is reached.
   6. TURNING KEEPS HIM BY THE SAME BUILDING: every role's door is in both compositions, and the entrance is on the same side.
@@ -32,7 +33,8 @@ import bohemia_cook_town_screen_likeness_10_25_26 as LK
 from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach   # the composed ground's walk (the composer's own check)
 
 SHIP = os.path.join(R, 'slices/settlement_ground_towns')
-WREND = os.path.join(R, 'records/target/cook_town_screens/render')
+WREND = os.path.join(R, 'records/target/cook_town_screens/render')            # the 10/25 wide scenes
+WREND2 = os.path.join(R, 'records/target/cook_town_screens/wide/render')     # the wide re-laid
 TREND = os.path.join(R, 'records/target/cook_town_screens/tall/render')
 LINE = 0.70
 SIZE = {'wide': (2060, 1092), 'tall': (1024, 1820)}
@@ -98,7 +100,8 @@ def main():
     lost = []
     for n in names:
         slug = n.lower()
-        try: W = json.load(open(os.path.join(WREND, slug + '.json'))); T = json.load(open(os.path.join(TREND, slug + '.json')))
+        wr = WREND2 if ((towns.get(n) or {}).get('wide') or {}).get('relaid') else WREND
+        try: W = json.load(open(os.path.join(wr, slug + '.json'))); T = json.load(open(os.path.join(TREND, slug + '.json')))
         except Exception as ex: lost.append(n + ' no scene record'); continue
         wn = {o['name'].split('.')[0] for o in W['outlines'] if not PROPS.match(o['name'])}
         tn = {o['name'].split('.')[0] for o in T['outlines']}
@@ -137,6 +140,16 @@ def main():
             cx, cy = (b[0] + b[2]) / 2, (b[1] + b[3]) / 2
             if cy > 0.70 * H and (cx < 0.40 * W or cx > 0.60 * W): under.append('%s %s' % (n, r))
     leg(not under, '*** NOTHING HE TAPS UNDER THE PHONE *** (rule 213): in every upright town no tap in the bottom three tenths at either side', ', '.join(under[:8]) if under else 'every tap clear of both bottom corners')
+    side = []
+    for n in names:
+        c = (towns.get(n) or {}).get('wide')
+        if not c: continue
+        W, H = c['px']
+        for r, v in list(c['hotspots'].items()) + list(c['boxes'].items()):
+            b = v['box'] if isinstance(v, dict) else v
+            cx, cy = (b[0] + b[2]) / 2, (b[1] + b[3]) / 2
+            if cy > 0.55 * H and (cx < 0.22 * W or cx > 0.78 * W): side.append('%s %s' % (n, r))
+    leg(not side, 'sideways too (rule 213): in every wide town no tap in the bottom nine twentieths at the outer fifth either side (the wide re-laid)', ', '.join(side[:8]) if side else 'every tap clear of both bottom corners')
     # 5, 6
     cut, same = [], []
     for n in names:

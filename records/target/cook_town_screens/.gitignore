@@ -1,0 +1,2 @@
+# the renders are the source of the shipped webp (slices/settlement_ground_towns/); the scene records (.json) are committed
+*.png

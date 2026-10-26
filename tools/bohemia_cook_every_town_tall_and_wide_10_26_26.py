@@ -660,9 +660,14 @@ class _Hook(TallTown):
         return out
 
 
+# rule 220(d): each composition opens fitted to the screen; a pinch zooms in as far as the town's size earns (a camp a little, a big
+# town more): the most the screen may scale the fitted picture, by tier
+ZOOM = {'camp': 1.5, 'town': 2.0, 'fortress': 2.5}
+
+
 def ship_tall(towns_):
     """the upright pictures into slices/settlement_ground_towns/ beside the wide ones; each town's entry carries both
-    compositions (src, px, hotspots, boxes, doors, entrance) and the walk outlines of both"""
+    compositions (src, px, hotspots, boxes, doors, entrance, zoom_max) and the walk outlines of both"""
     from PIL import Image
     SHIP = V.SHIP
     manp = os.path.join(SHIP, 'settlement_ground.json'); walkp = os.path.join(SHIP, 'settlement_walk.json')
@@ -687,9 +692,9 @@ def ship_tall(towns_):
         LOOK = {'camp': [840, 220, 1000, 420], 'town': [1600, 0, 2060, 370], 'fortress': [1116, 122, 1631, 486]}
         wide_boxes['look'] = LOOK[town['tier']]
         e['wide'] = dict(src=e.get('src', s + '.webp'), night_src=e.get('night_src', s + '_night.webp'), px=[WW, WH], hotspots=town['hot'],
-                         boxes=wide_boxes, doors=doors_of(town['hot'], wide_boxes), entrance=entrance_of(town, WW, WH, wide=True))
+                         boxes=wide_boxes, doors=doors_of(town['hot'], wide_boxes), entrance=entrance_of(town, WW, WH, wide=True), zoom_max=ZOOM[town['tier']])
         e['tall'] = dict(src=s + '_tall.webp', night_src=s + '_tall_night.webp', px=[TW, TH], hotspots=hot, boxes=boxes,
-                         doors=doors_of(hot, boxes), entrance=entrance_of(town, TW, TH))
+                         doors=doors_of(hot, boxes), entrance=entrance_of(town, TW, TH), zoom_max=ZOOM[town['tier']])
         bl = sorted({tuple(o['box']) for o in meta['outlines']})
         for suf in ('', '_night'): walk['pictures'][s + '_tall' + suf + '.webp'] = {'blocks': [list(b) for b in bl]}
         wm = json.load(open(os.path.join(R, 'records/target/cook_town_screens/render', s + '.json')))
