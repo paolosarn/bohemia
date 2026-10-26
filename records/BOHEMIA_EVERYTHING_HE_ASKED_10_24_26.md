@@ -195,3 +195,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 177 | In the shop my men's full stats are not shown: only what the piece would change on each man, icon and arrow and how much | 251(a) | RUN TWO, UI THREE, EYES | 
 | 178 | The weapon stats card is ugly: remake it as icons with bars, not lines of numbers | 251(b) | UI THREE, EYES | 
 | 179 | Every perk has an icon, everywhere, next to its words | 252 | UI THREE, COOK, EYES | 
+| 180 | On the lineup screen I can always retreat at once, before anyone moves, whatever the odds; no first turn | 253 | COMBAT, CAMP, EYES | 
