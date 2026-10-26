@@ -1734,6 +1734,10 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-clean-trip): 10/26 (n) LATEST -- *** [paid at the town's edge] (rule 275(a)) BUILT, NOT YET SEEN 5a92ee48; BUILD 10/26ze. ***
+- The step onto any tile of the client town's edge pays the return (no town screen); a delivery into its town the same; the caravan's gate crew still met at the gate. Gate: paid_at_the_towns_edge (phone 3/0, computer 3/0).
+- NEXT (the coordinator's routine order): rule 254 [one scale: the blood is the AUTO colour] is PARKED ON A STASH in the world-clean-trip session ('WORLD rule 254 WIP: one calculator one scale'): one calculator (the fight's own oddsRunValue), cut-offs read from ours.odds_colour (turn 0.8, down_value 0.5), blood = (turn - value)/(turn - down); the one-in-six reading is STRUCK. A fresh session rebuilds it from that description if the stash is gone. Then rule 255 [the danger ramps to day fifty].
+
 WORLD (world-clean-trip): 10/26 (m) LATEST -- *** [eyes: the normie hour, world] BUILT, NOT YET SEEN (EYES round four's seven job frictions); BUILD 10/26v deployed (pages SUCCESS e49d786b); BUILD 10/26za ships this (10/26z was RUN THREE's the same minute). ***
 Commit 1bf94fe3. Record section 7 of records/BOHEMIA_WORLD_THE_CLEAN_TRIP_NO_CHAMPION_ON_DAY_ONE_PAID_ONLY_FOR_THE_WORK_10_26_26.md.
 (1) THE TAP IS WHERE THE PLATE IS (F11, k36, F10): plate() and markPlace hand the map the plate's own box (MAP_PLATES box), the map steps it, the tap reads it live (liveHit); BohemiaJobKinds.plates() keeps this frame's plates for checkers (the map empties its list once drawn).
