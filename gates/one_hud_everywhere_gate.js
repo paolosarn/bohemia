@@ -125,7 +125,8 @@ async function side(profile) {
       const T = await fr.evaluate('(' + READ + ')()'), TP = await fr.evaluate('(' + PHONE + ')()');
       const own = await sf.evaluate(() => { const b = document.getElementById('bar'), r = b ? b.getBoundingClientRect() : null; const c = document.getElementById('crew'), cr = c ? c.getBoundingClientRect() : null;
         const l = document.getElementById('leave'), lr = l ? l.getBoundingClientRect() : null;
-        return { bar: !!r && r.height > 0 && getComputedStyle(b).display !== 'none', crew: !!cr && cr.width > 0, leave: lr && [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight,
+        const F = BohemiaSettlement.fit ? BohemiaSettlement.fit() : null, ph = F && F.phone;   /* RUN TWO [the town frames around the phone] (rule 213): where the phone stands in the town */
+        return { bar: !!r && r.height > 0 && getComputedStyle(b).display !== 'none', crew: !!cr && cr.width > 0, leave: lr && [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight, phone: ph ? [ph.left, ph.top, ph.width, ph.height] : null,
           name: (document.getElementById('pname') || {}).textContent, bats: parseInt(String((document.getElementById('bat') || {}).textContent || '').replace(/[^0-9-]/g, ''), 10) }; });
       const fb = await fr.evaluate(() => { const r = document.getElementById('settleFrame').getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; });
       return { T, TP, own, fb };
@@ -153,7 +154,9 @@ async function side(profile) {
         T.forEach((q, i) => { if (up[i] !== 'settleFrame') { q.ok = false; q.on = 'the map page\'s ' + up[i]; } });
         return B.concat(T); };
       const L = await TP();
-      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job)', L.length >= 8 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
+      /* RUN TWO 10/26 (rule 213): the board's sheet stands above the phone's band now and scrolls, so fewer of its rows are on the glass at
+         once; the floor counts the bar's five, LEAVE and the X with a job (it was eight with the sheet over the phone's corner) */
+      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job)', L.length >= 7 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
       if (PLANT) {
         await sf.evaluate(() => { const l = document.getElementById('leave'), r = l.getBoundingClientRect(), d = document.createElement('div'); d.id = 'plantcover';
           d.style.cssText = 'position:fixed;z-index:99999;left:' + r.x + 'px;top:' + r.y + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; document.body.appendChild(d); });
@@ -163,7 +166,13 @@ async function side(profile) {
       await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await p.waitForTimeout(400);
     }
     const L = t1.own.leave, LW = t1.own.W, LH = t1.own.H;
-    ok('  LEAVE keeps the big action\'s corner (bottom right, where the map\'s speed pad is), 44 points', !!L && L[0] + L[2] >= LW - 30 && L[1] + L[3] >= LH - 40 && L[2] >= 44 && L[3] >= 44, L && fmt(L) + ' of ' + LW + 'x' + LH);
+    /* RE-AIMED 10/26 by RUN TWO ([the town frames around the phone], rule 213(a): 'every screen lays its buttons out of its corner'; NOTE
+       on UI's board): LEAVE was held to the bottom-right corner, the phone's own corner (EYES 10/26m q10, q11: under the phone, a tap
+       on it opened DROP IT). Now LEAVE stands in the phone's band, out of its corner: at the bottom beside the phone upright, over it on
+       its side; never on the phone, 44 points */
+    const PH = t1.own.phone, apart = (a, b) => !a || !b || a[0] + a[2] <= b[0] || b[0] + b[2] <= a[0] || a[1] + a[3] <= b[1] || b[1] + b[3] <= a[1];
+    ok('  LEAVE stands out of the phone\'s corner (in its band, never on it), 44 points', !!L && !!PH && apart(L, PH) && L[2] >= 44 && L[3] >= 44 && (LH > LW ? L[1] + L[3] >= LH - 60 : L[1] + L[3] <= PH[1] + 4),
+      L && fmt(L) + ' of ' + LW + 'x' + LH + ', the phone ' + (PH && fmt(PH)));
     {
       const diffs = {};
       for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, Ms, Ts, M.rect[k], dpr, k === 'glass' ? (t1.T.rect.place || M.rect.place) : null);
