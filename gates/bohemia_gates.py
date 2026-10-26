@@ -9864,6 +9864,13 @@ GATES = [
      "RUN TWO gate, 10/26, row [eyes: the quiet town] (rule 131, Paolo 10/23: 'characters you can't even interact with walking around the settlement, doing something, doing important things'; EYES 10/25: Blues one person standing, an empty dark band under the picture). "
      "MEASURED before: 6 of the 14 places sick that week, each cut to ONE man and ONE walker; the phone showed the picture at half the glass's height, a person 45 points tall. "
      "HOLDS on the demo through the map's door: every one of the 14 places has at least three on its paths, two seen walking and one at work over six seconds, a crowd, nobody alone in a sick or raided place; the computer, three places (the dark band is rule 218(c)'s [the town fits the screen]). about 7 min", True),
+    ('THE BLOOD IS CRASHBOX', ['node', 'gates/the_blood_is_crashbox_gate.js'],
+     "UI gate, 10/26, rows [the blood is CRASHBOX] and [the job tells the truth, in blood] (rule 208(c), PAOLO 10/25: 'the button itself looks bloody depending on how difficult the job is... "
+     "the button looking like some crashbox blood filter'; 'not Crash Bandicoot, Crashbox'). MEASURED before: no button could bleed. The pictures: 8 stages x 5 pieces of red clay rendered through the kit's sun, "
+     "camera and post on Cycles with a shadow catcher; every pixel opaque or the one shadow value, 95 in 100 red; every stage holds the one before (95 in 100), the blood on a button rises every stage, the last darker; "
+     "bloodStage clean to 2 percent, soaked from 70, monotonic, every stage reachable. On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
+     "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held (250 ms, 150 or more measured); the halo from stage 5; on the glass soaked a third red or more, one star under a twentieth; "
+     "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

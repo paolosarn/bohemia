@@ -1036,7 +1036,10 @@
     var w = hudTownWin(); if (!w) return null;
     /* the town's own words for both (its name, and the purse it is spending, printed on its own label every time it changes) */
     try { var d = w.document, n = d.getElementById('pname'), b = d.getElementById('bat'), v = b ? parseInt(String(b.textContent || '').replace(/[^0-9-]/g, ''), 10) : NaN;
-      return { place: n ? String(n.textContent || '').trim().toUpperCase() : null, batteries: isFinite(v) ? v : undefined }; } catch (_e) { return null; }
+      /* UI [eyes: the camp's clock] (EYES 10/25 q27: the camp's own bar cut its clock to 'DAY 1 12…'): the camp prints its clock
+         where a town prints its name, and the bar already carries the day and the hour on its dial, so at camp the place is CAMP */
+      var camp = false; try { camp = !!(w.BohemiaSettlement && w.BohemiaSettlement.camp && w.BohemiaSettlement.camp().camp); } catch (_e) {}
+      return { place: camp ? 'CAMP' : n ? String(n.textContent || '').trim().toUpperCase() : null, batteries: isFinite(v) ? v : undefined }; } catch (_e) { return null; }
   }
   /* in the town the bar's crew is the town's own CREW, pressed, so the town re-reads its bag when the company closes */
   function hudTownCrew() {
@@ -2115,6 +2118,112 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressKit);
 
   /* ======================================================================================================
+     THE BLOOD IS CRASHBOX  (UI [the blood is CRASHBOX] + [the job tells the truth, in blood], 10/26/26; rule 208(c), Paolo
+     10/25: 'the button itself looks bloody depending on how difficult the job is, especially if it's gonna be super
+     overpowered like wolves... the button looking like some crashbox blood filter'; and 'not Crash Bandicoot, Crashbox')
+     MEASURED FIRST: no button in the game could bleed; a job's danger had nowhere to go but its stars.
+     The blood is red clay MODELLED and rendered through the kit's sun and camera (tools/bohemia_ui_blood.py): eight held
+     stages of one clay, each holding all the stage before had and more, darker: a thumbprint, then a spatter and the
+     blood pooling at the bottom edge, then fingers dragged from the top right and drips off the top edge lengthening each
+     stage, then a palm's swipes, then soaked. Five pictures a stage (slices/ui_kit/blood/<stage>/): the thumb at the
+     left end (past a face, if the button starts with one), the hand at the top right, the top edge and the bottom edge
+     repeating along any width, the field repeating both ways from the button's middle. It is worn as the button's
+     ::after, UNDER its words and its face and over its own tin or paper, and it never takes a tap.
+     ONE NUMBER IN: the danger (WORLD's: the chance he comes home with a man dead or down). bloodStage() is the one scale,
+     clean to 2 percent, a stage every 8.75 points, soaked from 70. A button gets it by data-danger="0.37" (watched, so
+     WORLD only sets the number) or by bleed(el, danger). When the danger changes the clay steps through every stage
+     between, one held frame an eighth note (250 ms at 120 BPM), never a fade: stop-motion. A job seen before starts
+     from the stage it last showed; a job seen for the first time bleeds in from clean.
+     From stage five, where drips and swipes cross the words, the words get a one-pixel halo the colour of what the clay
+     sits on (bone under dark ink, soot under light), so a soaked job still reads.
+     ====================================================================================================== */
+  var BLOOD = { stages: 8, hold: 250, clean: 0.02, soaked: 0.7, halo: 5,
+    pieces: [['thumb', 34, 40], ['hand', 56, 44], ['top', 96, 40], ['foot', 112, 16], ['field', 128, 128]] };
+  function bloodStage(d) {
+    d = +d; if (!(d > BLOOD.clean)) return 0;
+    return Math.max(1, Math.min(BLOOD.stages, Math.ceil(d * BLOOD.stages / BLOOD.soaked - 1e-9)));
+  }
+  function bloodCSS() {
+    var pre = 'html[data-kit] body ', sz = BLOOD.pieces.map(function (p) { return p[1] + 'px ' + p[2] + 'px'; }).join(',');
+    var out = [pre + '[data-blood]{isolation:isolate}',
+      pre + '[data-blood]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;border-radius:inherit;'
+        + 'background-position:var(--blood-x,3px) 50%,100% 0,0 0,0 100%,0 50%;background-size:' + sz + ';'
+        + 'background-repeat:no-repeat,no-repeat,repeat-x,repeat-x,repeat;image-rendering:auto}',
+      pre + '[data-blood="0"]::after{content:none}'];
+    for (var s = 1; s <= BLOOD.stages; s++) {
+      out.push(pre + '[data-blood="' + s + '"]::after{background-image:' + BLOOD.pieces.map(function (p) { return 'url(' + KIT_BASE + 'blood/' + s + '/' + p[0] + '.png)'; }).join(',') + '}');
+    }
+    [['bone', '#e9ddc2'], ['soot', '#120c08']].forEach(function (h) {
+      out.push(pre + '[data-blood-halo="' + h[0] + '"],' + pre + '[data-blood-halo="' + h[0] + '"] *{text-shadow:1px 0 0 ' + h[1] + ',-1px 0 0 ' + h[1] + ',0 1px 0 ' + h[1] + ',0 -1px 0 ' + h[1] + '!important}');
+    });
+    return out.join('\n');
+  }
+  var BLOOD_SEEN = {};
+  function bloodKey(el) { return el.getAttribute('data-blood-key') || el.getAttribute('data-id') || el.getAttribute('data-job') || null; }
+  function bloodPaint(el, s) {
+    el.setAttribute('data-blood', s);
+    if (s >= BLOOD.halo) {
+      var c = (getComputedStyle(el).color.match(/\d+(\.\d+)?/g) || [0, 0, 0]).map(Number);
+      el.setAttribute('data-blood-halo', (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) < 128 ? 'bone' : 'soot');
+    } else el.removeAttribute('data-blood-halo');
+  }
+  function bloodStep(el, cur) {
+    clearTimeout(el.__bloodT);
+    bloodPaint(el, cur); var k = bloodKey(el); if (k) BLOOD_SEEN[k] = cur;
+    if (cur === el.__bloodWant) return;
+    el.__bloodT = setTimeout(function () { bloodStep(el, cur + (el.__bloodWant > cur ? 1 : -1)); }, BLOOD.hold);
+  }
+  function bleed(el, d) {
+    if (!el || !el.getAttribute) return 0;
+    var want = bloodStage(d), k = bloodKey(el);
+    try { if (getComputedStyle(el).position === 'static') el.style.position = 'relative'; } catch (e) {}
+    /* the thumb lands past a face that starts the button (the client's face on the town's board) */
+    var f = el.firstElementChild;
+    if (f && /^(CANVAS|IMG)$/.test(f.tagName) && f.offsetLeft < 16) el.style.setProperty('--blood-x', (f.offsetLeft + f.offsetWidth + 4) + 'px');
+    el.__bloodWant = want;
+    var from = el.hasAttribute('data-blood') ? +el.getAttribute('data-blood') : (k && BLOOD_SEEN[k] != null ? BLOOD_SEEN[k] : 0);
+    bloodStep(el, from);
+    return want;
+  }
+  /* PROVISIONAL, UNTIL WORLD'S NUMBER: a job row that carries no data-danger yet takes one from its stars (the stars WORLD
+     is making true), and the offer's Take it the row's it came from; data-danger wins the moment it is there */
+  var STAR_DANGER = { 1: 0.06, 2: 0.25, 3: 0.52 }, BLOOD_LAST = null;
+  function bloodDangerOf(el) {
+    if (el.hasAttribute('data-danger')) return +el.getAttribute('data-danger');
+    var st = el.querySelector('[data-job-stars]');
+    return st ? STAR_DANGER[+st.getAttribute('data-job-stars')] || 0 : null;
+  }
+  function bloodScan(root) {
+    if (!root || !root.querySelectorAll) return;
+    var L = root.matches && root.matches('[data-danger],.act.client') ? [root] : [];
+    L = L.concat([].slice.call(root.querySelectorAll('[data-danger],.act.client')));
+    L.forEach(function (el) { var d = bloodDangerOf(el); if (d != null && bloodStage(d) !== el.__bloodWant) bleed(el, d); });
+    /* the offer: the Take it under the person who was just tapped */
+    if (BLOOD_LAST != null) [].slice.call(root.querySelectorAll('#sbody .acts .act')).forEach(function (b) {
+      if (!b.hasAttribute('data-danger') && /^\s*(take|drop it and take)/i.test(b.textContent) && b.__bloodWant == null) { b.setAttribute('data-blood-key', 'offer:' + BLOOD_LAST.k); BLOOD_SEEN['offer:' + BLOOD_LAST.k] = BLOOD_SEEN[BLOOD_LAST.k]; bleed(b, BLOOD_LAST.d); }
+    });
+  }
+  function bloodWatch() {
+    if (document.getElementById('bm-blood')) return;
+    var st = document.createElement('style'); st.id = 'bm-blood'; st.textContent = bloodCSS(); (document.head || document.documentElement).appendChild(st);
+    document.addEventListener('click', function (e) {
+      var r = e.target && e.target.closest && e.target.closest('[data-blood]');
+      if (r && !/^\s*(take|drop it and take)/i.test(r.textContent)) { var d = bloodDangerOf(r); if (d != null) BLOOD_LAST = { d: d, k: bloodKey(r) || 'job' }; }
+    }, true);
+    try {
+      new MutationObserver(function (ms) {
+        for (var i = 0; i < ms.length; i++) {
+          var m = ms[i];
+          if (m.type === 'attributes') { var el = m.target; bleed(el, +el.getAttribute('data-danger')); }
+          else for (var j = 0; j < m.addedNodes.length; j++) if (m.addedNodes[j].nodeType === 1) bloodScan(m.addedNodes[j]);
+        }
+      }).observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['data-danger'] });
+    } catch (e) {}
+    bloodScan(document);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bloodWatch); else bloodWatch();
+
+  /* ======================================================================================================
      THE TEN CHANGES, THE UI'S PART  (UI [the ten changes: the UI's part], 10/24/26; rule 133, Paolo 10/23: 'the whole
      point of this project was to be like Battle Brothers but quicker and funner for normies... also kind of hardcore
      vibes if you're fucking around too much'; TUNING's page, records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md)
@@ -2811,5 +2920,5 @@
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, hudParts: hudParts, hudScreen: function () { return HUD.screen; }, hudNoteOpen: hudNoteOpen, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
-    hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT };
+    hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT, bleed: bleed, bloodStage: bloodStage, BLOOD: BLOOD };
 })();
