@@ -203,3 +203,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 183 | A retreat right at the start of a fight nearly always gets out; fast enemies start farther back so the head start is real | 256 | COMBAT, TUNING, EYES | 
 | 184 | Camp happens on the live map: while my men heal I can still watch the city (parties, feed, events) | 257 | CAMP, UI TWO, EYES | 
 | 185 | The map zooms in much closer, down to the street, almost the fight's look, my men walking; one pinch, no new screen; the map must look good up close | 258 | RUN, COOK, ANIMATION, EYES | 
+| 186 | In camp I see my main character and the whole team, each doing what he needs (resting hurt, repairing armour, helping others), changing as time passes; and I can camp in a town | 259 | CAMP, ANIMATION, RUN, RUN THREE, EYES | 
