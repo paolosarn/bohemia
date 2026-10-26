@@ -1968,6 +1968,12 @@ function campTime(d){
   if(S.open === 'tent') campSheet('tent');
   if(d.warn) campWarnSay(d.warn);   /* CAMP __CAMP_HOLDS__ */
 }
+/* CAMP [a town is safe] (rule 273(b)): HEAL in a town passes the hours here at camp speed, the town's picture staying; the picture
+   turns with the clock (night falls on it as it would on the camp) */
+function townRest(d){
+  if(!!d.night !== !!view.night){ view.night = !!d.night; VAR && (VAR.folkKey = null); if(window.BohemiaHeard) BohemiaHeard.night(view.night); }
+  window.__TOWN_REST = { hours: d.hours, day: d.day, min: d.min, town: d.town, at: Date.now() };
+}
 /* CAMP [camp holds until he ends it] (rule 267(a)): a crew coming is a warning, never the end. One of his men says who and how far, at
    the top of the camp, from his mouth with his face (rule 32a); a tap or a few seconds takes it away; the camp stands */
 function campWarnSay(w){
@@ -3503,6 +3509,7 @@ window.addEventListener('message', function(e){
   var d = e.data || {};
   if(d.type==='BOHEMIA_SETTLEMENT_OPEN') open(Object.assign({}, d, {arrival: d.arrival !== false && !d.camp}));
   if(d.type==='BOHEMIA_CAMP_TIME' && S.camp) campTime(d);   /* __THE_CAMP__: the map's clock, an hour a beat while you rest */
+  else if(d.type==='BOHEMIA_CAMP_TIME' && d.town) townRest(d);   /* CAMP __A_TOWN_IS_SAFE__: resting in this town */
   if(d.type==='BOHEMIA_SETTLEMENT_FACE' && d.who){ S.faces[d.who] = d.src; if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); }
 });
 document.getElementById('close').addEventListener('click', hide);

@@ -656,7 +656,7 @@
     var scr = H.state.screen; try { scr = whichScreen() || scr; } catch (e) {}   /* where he is at the press, not a beat ago (a town just closed is the map) */
     if (a === 'play') { if (L && scr === 'map') { L.play(H.sel); paintHome(true); } return; }
     if (a === 'crew') { if (H.page) pageClose(); if (L && (scr === 'map' || scr === 'town' || scr === 'camp')) L.crew(); return; }
-    if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp')) { L.camp(); setTimeout(tick, 60); } return; }
+    if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp' || scr === 'town')) { L.camp(); setTimeout(tick, 60); } return; }   /* CAMP [a town is safe] (rule 273(b)): HEAL in a town rests there */
     if (a === 'feed' || a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
   }
 
