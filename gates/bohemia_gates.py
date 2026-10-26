@@ -2800,8 +2800,9 @@ GATES = [
      'J9 no champion on day one (every day-one fight dressed for day one, first-phase kinds only). AMENDED 10/26 (rule 254, PAOLO: '
      '"the same calculator as the auto combat... max bloody if you think I would lose members"): ONE CALCULATOR, ONE SCALE, the '
      'one-in-six reading struck: a play is worth the AUTO count, J2/J3/J8 on the AUTO colour\'s turn (0.8) and down_value (0.5); '
-     'J10 the page plays AUTO\'s count on AUTO\'s own lines, every job\'s blood on AUTO\'s side of the turn, its number AUTO\'s within '
-     'a hair, every job that loses a man 6 plays in 10 three stars and the deepest blood.', True),
+     'J10 the page plays AUTO\'s count on AUTO\'s own lines, every job\'s blood on AUTO\'s side of the turn, its blood the blood of '
+     'AUTO\'s own 100-play number within two of the kit\'s eight stages for 95 in 100, every job that loses a man 6 plays in 10 three '
+     'stars and the deepest blood; a fight read between the lines plays on to 96.', True),
     ('THE NORMIE HOUR, WORLD', ['node', 'gates/the_normie_hour_world_gate.js'],
      'WORLD [eyes: the normie hour, world], EYES round four, rule 225(d): the seven job frictions a stranger met in his first hour. '
      'On the demo, real taps on what the map draws: a job plate the map steps off the crew takes its tap box with it; a tap on a '

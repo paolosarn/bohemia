@@ -49,15 +49,19 @@
   "source": "OURS: a fight plainly lost stops early, after this many plays..."
  },
  "stop_below": {
-  "value": 0.42,
-  "source": "OURS: ...when its plain mean is under this: a job with it in is three stars whatever the rest (0.42 < cut_three 0.50)"
+  "value": 0.2,
+  "source": "OURS (measured 10/26, rule 254's gate: at 0.42 after 12 plays, 6 of 221 jobs worth 0.59 to 0.62 stopped and read three stars): ...when its plain mean is under this: a fight that plain is under the deepest line (cut_three 0.50) whatever the next plays say"
  },
  "near_cut": {
   "value": 0.12,
-  "source": "OURS (measured 10/26: one read of 32 plays came out 0.60 for a fight worth 0.80, and every job sharing that fight read three stars): a fight whose read lands this close to a star's line plays on..."
+  "source": "OURS: a fight whose read lands between the lines or this close outside them (0.38 to 0.92), where the blood rises, plays on..."
  },
  "runs_more": {
   "value": 32,
-  "source": "OURS: ...this many more plays, once, before the star is decided"
+  "source": "OURS: ...this many more plays at a time..."
+ },
+ "runs_max": {
+  "value": 96,
+  "source": "OURS (measured 10/26, rule 254's gate: on 32 plays the blood missed the 100-play truth by more than a quarter of its scale on 17 of 221 jobs): ...up to this many, where the blood is read; three times the plays only for the fights that need them"
  }
 }

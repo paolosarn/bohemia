@@ -31,7 +31,7 @@
    Gate: gates/the_job_tells_the_truth_gate.js. Loaded by BOHEMIA_CITY_WORLD.html. */
 (function (root) {
   'use strict';
-  var CFG = { runs: 32, prior: 0, cut_one: 0.8, cut_three: 0.5, road_per_hour: 0.0038, blood_from: 0.2, blood_full: 0.5, steps: 6000, slice_ms: 6, stop_from: 12, stop_below: 0.42, near_cut: 0.12, runs_more: 32 };
+  var CFG = { runs: 32, prior: 0, cut_one: 0.8, cut_three: 0.5, road_per_hour: 0.0038, blood_from: 0.2, blood_full: 0.5, steps: 6000, slice_ms: 6, stop_from: 12, stop_below: 0.2, near_cut: 0.12, runs_more: 32, runs_max: 96 };
   var BASE = (function () {
     try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, ''); } catch (e) {}
     try { return new URL('.', document.baseURI).href; } catch (e) {}
@@ -86,7 +86,7 @@
       var d = m.data;
       if (d.db) { Object.keys(d.db).forEach(function (k) { DB[k] = d.db[k]; }); return; }
       if (d.ls) { LSV = d.ls; return; }
-      JOB = { id: d.id, opts: d.opts, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, stopFrom: d.stopFrom, stopBelow: d.stopBelow, cuts: d.cuts || [], near: d.near || 0, more: d.more || 0, n: 0, sum: 0, clean: 0, won: 0, down: 0, dead: 0, hung: 0 };
+      JOB = { id: d.id, opts: d.opts, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, stopFrom: d.stopFrom, stopBelow: d.stopBelow, cuts: d.cuts || [], near: d.near || 0, more: d.more || 0, max: d.max || d.runs, n: 0, sum: 0, clean: 0, won: 0, down: 0, dead: 0, hung: 0 };
       var id = d.id; soon(function () { run(id); });
     };
     function run(id) {
@@ -103,8 +103,10 @@
         J.n++;
       } catch (e) { self.postMessage({ id: id, broke: String(e && e.message || e) }); JOB = null; return; }
       var lost = J.stopFrom && J.n >= J.stopFrom && J.sum / J.n < J.stopBelow;
-      /* a read that lands near a star's line plays on before it decides (once): the line is where a few plays move a star */
-      if (J.n === J.runs && !lost && J.more && !J.extended) { var c = J.sum / J.n; if (J.cuts.some(function (k) { return Math.abs(c - k) < J.near; })) { J.runs += J.more; J.extended = true; } }
+      /* a read that lands where the blood rises (between the lines, near_cut either side) plays on, 32 at a time, to runs_max: there a
+         few plays move the blood a stage (measured 10/26: on 32 plays the blood missed the 100-play truth by a third of its scale on 1
+         job in 20); outside it the button is clean or soaked whatever the next plays say */
+      if (J.n === J.runs && !lost && J.more && J.runs < J.max) { var c = J.sum / J.n; if (J.near && c > Math.min.apply(null, J.cuts) - J.near && c < Math.max.apply(null, J.cuts) + J.near) J.runs = Math.min(J.max, J.runs + J.more); }
       if (J.n < J.runs && !lost) soon(function () { run(id); });
       else { self.postMessage({ id: id, runs: J.n, sum: J.sum, clean: J.clean, won: J.won, down: J.down, dead: J.dead, hung: J.hung }); JOB = null; }
     }
@@ -295,7 +297,7 @@
        stops early (under stop_below after stop_from plays: any job with it in is three stars whatever the rest) */
     var runs = f.p >= 0.25 ? (CFG.runs | 0 || 32) : Math.max(8, Math.round((CFG.runs | 0 || 32) / 4));
     var job = { id: ++JOBN, fk: fk, opts: opts, seed: seedOf('runs:' + fk), runs: runs, steps: CFG.steps, stopFrom: CFG.stop_from, stopBelow: CFG.stop_below,
-      cuts: [CFG.cut_one, CFG.cut_three], near: f.p >= 0.25 ? CFG.near_cut : 0, more: CFG.runs_more, t0: Date.now() };
+      cuts: [CFG.cut_one, CFG.cut_three], near: f.p >= 0.25 ? CFG.near_cut : 0, more: CFG.runs_more, max: f.p >= 0.25 ? Math.max(runs, CFG.runs_max | 0) : runs, t0: Date.now() };
     BUSY = job;
     var w = worker();
     if (w) { job.viaWorker = true; w.postMessage({ ls: { 'bohemia.fight.formation.v1': ls('bohemia.fight.formation.v1', null) } }); w.postMessage(job); }
@@ -320,7 +322,7 @@
       }
     } catch (e) { done(J, { broke: String(e && e.message || e) }); return; }
     var lost = J.stopFrom && J.n >= J.stopFrom && J.sum / J.n < J.stopBelow;
-    if (J.n >= J.runs && !lost && J.more && !J.extended) { var c = J.sum / J.n; if (J.cuts.some(function (k) { return Math.abs(c - k) < J.near; })) { J.runs += J.more; J.extended = true; setTimeout(slice, 16); return; } }
+    if (J.n >= J.runs && !lost && J.more && J.runs < J.max) { var c = J.sum / J.n; if (J.near && c > Math.min.apply(null, J.cuts) - J.near && c < Math.max.apply(null, J.cuts) + J.near) { J.runs = Math.min(J.max, J.runs + J.more); setTimeout(slice, 16); return; } }
     if (J.n >= J.runs || lost) done(J, { runs: J.n, sum: J.sum, clean: J.clean, won: J.won, down: J.down, dead: J.dead, hung: J.hung });
     else setTimeout(slice, 16);
   }
