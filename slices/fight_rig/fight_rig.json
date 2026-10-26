@@ -1612,6 +1612,66 @@
    "guns": "faction_remnants_guns.webp",
    "type": "heavy",
    "rig": "records/target/combat/rig/enemy_heavy_5/rig.json"
+  },
+  "person_woman_0": {
+   "file": "person_woman_0.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.612,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_woman_0/rig.json"
+  },
+  "person_woman_1": {
+   "file": "person_woman_1.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.667,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_woman_1/rig.json"
+  },
+  "person_woman_2": {
+   "file": "person_woman_2.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.605,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_woman_2/rig.json"
+  },
+  "person_woman_3": {
+   "file": "person_woman_3.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.626,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_woman_3/rig.json"
   }
  },
  "faces": {
@@ -1713,7 +1773,11 @@
    "enemy_heavy_2",
    "enemy_heavy_3",
    "enemy_heavy_4",
-   "enemy_heavy_5"
+   "enemy_heavy_5",
+   "person_woman_0",
+   "person_woman_1",
+   "person_woman_2",
+   "person_woman_3"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"

@@ -153,9 +153,12 @@ def build_one(pid):
         spec['body'] = 'records/character/rig/%s.glb' % name.lower()
 
     BS.person_body = person_body
+    if P.get('sex') == 'f':   # ANIMATION [a few women at the post] (rule 203(a)): her own body on the rig, never a man's
+        import bohemia_animation_her_body as HB; HB.dress('person_' + pid.lower())
     if not os.path.exists(os.path.join(ROOT, 'records/character/rig/barberbody.glb')): BS.barber_body()
     for n in BS.people(one): BS.build(n)
     os.remove(one)
+    if P.get('sex') == 'f': HB.finish(pid)   # her height and her walk on the model she was built as
 
 
 def render_code(glb, out, h, clips=None, stand_only=False):
@@ -283,7 +286,7 @@ def fight_list():
         for g in GANGS + [TOWN]:
             mine = [p for p in R if p['gang'] == g]
             if k < len(mine) and (g == TOWN or k < PER_GANG_FIGHT): out.append(mine[k])
-    return out
+    return out + [p for p in R if p.get('sex') == 'f' and p not in out]   # the women the post may hire (rule 214), after every man: nobody's place moves
 
 
 def fight_todo():
@@ -486,7 +489,7 @@ def who(p):
     q = dict(look='person_' + p['id'].lower(), gang=p['gang'].lower() if p['gang'] != TOWN else 'town',
              cut=p['hair_cut'], hat=p.get('hat'), face=p.get('eyewear'), beard=p.get('facial_hair'), mark=p.get('mark_name'),
              top=p.get('top'), coat=p.get('coat'), heritage=p['heritage'], skin=BAND.get(p['tone']),
-             sex='m' if (p.get('facial_hair') or p.get('stubble')) else None)
+             sex='f' if p.get('sex') == 'f' else 'm' if (p.get('facial_hair') or p.get('stubble')) else None)   # 'f': a woman's whole body (ANIMATION [a few women at the post])
     bj = os.path.join(ROOT, 'records/character/rig/person_%s.json' % p['id'].lower())
     if os.path.exists(bj):
         w = json.load(open(bj)).get('worn') or {}

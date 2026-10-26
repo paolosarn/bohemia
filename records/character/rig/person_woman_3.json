@@ -1,0 +1,249 @@
+{
+ "look": "PERSON_WOMAN_3",
+ "shape": "person_woman_3: a person of the Body, his own skin skin_light 0, SAND HOODIE under BRICK CAR COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SAND HOODIE",
+  "legs": "DROP RISE TROUSER",
+  "feet": "WRAPPED BOOTS",
+  "outer": "BRICK CAR COAT",
+  "waist": "LEAD WAIST WRAP",
+  "outfit": [
+   "STEEL HOODIE read as one with BRICK CAR COAT (88 and 68 of 255): the same cut in SAND HOODIE (111)",
+   "BRICK CAR COAT worn open to the neck",
+   "the hood heaped over the coat's collar",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": -1.4,
+  "belly": -0.45,
+  "shoulders": -1.3,
+  "hips": 2.0
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "hood_over": 0.022,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.006,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.12,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_woman_3.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.5996,
+ "real_height_for_rig": 1.6052,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_woman_3_shoe": 3716,
+  "person_woman_3_shirt": 68624,
+  "person_woman_3_collar": 1536,
+  "person_woman_3_hood": 14088,
+  "person_woman_3_drawstrings": 100,
+  "person_woman_3_pocket": 182,
+  "person_woman_3_waistband": 1792,
+  "person_woman_3_cuffs": 2048,
+  "person_woman_3_coat": 61208,
+  "person_woman_3_coat_skirt": 5454,
+  "person_woman_3_lapels": 396,
+  "person_woman_3_cuffs.001": 2048,
+  "person_woman_3_pockets": 252,
+  "person_woman_3_pocket_flaps": 252,
+  "person_woman_3_trouser": 43706,
+  "person_woman_3_drop_yoke": 5600,
+  "person_woman_3_ankle": 2048,
+  "person_woman_3_sole_1": 242,
+  "person_woman_3_midsole_1": 242,
+  "person_woman_3_sole_0": 242,
+  "person_woman_3_midsole_0": 242,
+  "person_woman_3_boot_collar": 2048,
+  "person_woman_3_boot_collar_line": 2048,
+  "person_woman_3_eyelets_1": 120,
+  "person_woman_3_eyelets_0": 120,
+  "person_woman_3_lead_waist_wrap": 1792,
+  "person_woman_3_lead_waist_wrap_edge": 1792,
+  "person_woman_3_hair": 17968,
+  "person_woman_3_hand_L": 392,
+  "person_woman_3_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_woman_3_ankle": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_woman_3_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_woman_3_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_woman_3_coat": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_3_coat_skirt": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_3_collar": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_woman_3_cuffs": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_woman_3_drawstrings": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_woman_3_drop_yoke": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_woman_3_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_woman_3_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_woman_3_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_woman_3_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_woman_3_hood": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_woman_3_lapels": [
+   0.0931,
+   0.0168,
+   0.011
+  ],
+  "person_woman_3_lead_waist_wrap": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_woman_3_lead_waist_wrap_edge": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_woman_3_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_woman_3_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_woman_3_pocket": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_woman_3_pocket_flaps": [
+   0.0931,
+   0.0168,
+   0.011
+  ],
+  "person_woman_3_pockets": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_3_shirt": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_woman_3_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_woman_3_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_woman_3_skin": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "person_woman_3_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_woman_3_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_woman_3_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_woman_3_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_woman_3_waistband": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_woman_3_yoke_drape": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}
