@@ -103,6 +103,8 @@ async function main() {
       return Math.max(1, Math.floor(c * HALL.easier / 10)); };
     const WF = arg('--weights-from', null), WJ = WF ? JSON.parse(fs.readFileSync(WF, 'utf8')) : null;
     /* the weights: measured (win per point, the plan's four only, negative read as none) or, without a file, one per point on the plan */
+    /* with measured weights the plan is each kind's four best stats by weight (the four a player raises), never the page's guess */
+    if (WJ) ['melee', 'gun'].forEach(kd => { PLAN[kd] = STATS.slice().sort((a, b) => (WJ.win_per_point[kd][b] || 0) - (WJ.win_per_point[kd][a] || 0)).slice(0, 4); });
     const wOf = kd => { const o = {}; PLAN[kd].forEach(k => { o[k] = WJ ? Math.max(0, WJ.win_per_point[kd][k] || 0) : 1; }); return o; };
     const W = { melee: wOf('melee'), gun: wOf('gun') };
     const POSTS = Number(arg('--posts', 2000)), men = [];
@@ -123,6 +125,7 @@ async function main() {
     men.forEach(m => { m.best = Math.max(m.ceil.melee / sumW(W.melee), m.ceil.gun / sumW(W.gun)); m.score = pctOf(m.best); });
     const corr = (xs, ys) => { const mx = xs.reduce((a, b) => a + b, 0) / xs.length, my = ys.reduce((a, b) => a + b, 0) / ys.length;
       let sxy = 0, sx = 0, sy = 0; xs.forEach((x, i) => { sxy += (x - mx) * (ys[i] - my); sx += (x - mx) ** 2; sy += (ys[i] - my) ** 2; }); return sxy / Math.sqrt(sx * sy); };
+    console.log('the plan (four raised a level): ' + JSON.stringify(PLAN));
     console.log(men.length + ' men in ' + POSTS + ' halls of seven; weights ' + (WJ ? 'measured (' + WF + ')' : 'one a point on the plan') + ': ' + JSON.stringify(W));
     console.log('price against ceiling: correlation ' + corr(men.map(m => m.price), men.map(m => m.best)).toFixed(2) + '; stars against price ' + corr(men.map(m => m.stars), men.map(m => m.price)).toFixed(2) + '; stars on his plan against ceiling ' + corr(men.map(m => Math.max(m.starsOnPlan.melee, m.starsOnPlan.gun)), men.map(m => m.best)).toFixed(2));
     /* the star's widening: a 3-star melee skill over ten levels against none */
