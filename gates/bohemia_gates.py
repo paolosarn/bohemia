@@ -2798,6 +2798,12 @@ GATES = [
      'the crew. AMENDED 10/26 (rule 208(a) as the coordinator amended it): a clean trip is nobody dead and at most one in six '
      'laid up; a fifth crew, the Block Watch\'s twelve on day one with EYES\' cold box and tigers; J8 no star lies job by job; '
      'J9 no champion on day one (every day-one fight dressed for day one, first-phase kinds only).', True),
+    ('THE NORMIE HOUR, WORLD', ['node', 'gates/the_normie_hour_world_gate.js'],
+     'WORLD [eyes: the normie hour, world], EYES round four, rule 225(d): the seven job frictions a stranger met in his first hour. '
+     'On the demo, real taps on what the map draws: a job plate the map steps off the crew takes its tap box with it; a tap on a '
+     'recover job\'s label walks onto it and the pickup says so over the crew; GET PAID walks to the client; the patrol\'s next post '
+     'labelled once and walked; one job, one time on the phone and the board; men, never mans, no counted blocks; the last read\'s red '
+     'stars stand, pulsing, while a changed crew is read again.', True),
     ('PAID ONLY FOR THE WORK', ['node', 'gates/paid_only_for_the_work_gate.js'],
      'WORLD [eyes: paid without the fight], EYES round three line 138, rule 198(g) (FALL BACK from an ambush and one tap on the '
      'place paid 60 batteries). On the demo, a finger on the meet card: the ambush where the place was, the ones holding the '

@@ -93,3 +93,31 @@ stays on the map until it is beaten, never a flag spent by a card.
 
 ## [analog horror]
 Where the card has no models to draw, it draws their eyes in the dark, a pair for each: the count is the eyes.
+
+## 7. [eyes: the normie hour, world] (EYES round four, rule 225(d), FIRST on the board when it landed mid-round)
+EYES' stranger, his first hour on the phone, BUILD 10/26m: seven frictions on the jobs. What each was, measured, and what it is now:
+- F11 and k36 (a tap on 'GET PAID · CARAVANS' walked one cell; the hit box sat on the crew): the map steps any plate that would cover
+  his crew below their feet (RUN's mapPlatesDraw, __NOTHING_IS_DRAWN_OVER_THE_CREW__) and moves the plate's own box, but this file
+  handed the tap a COPY made before the step, so the finger on the drawn words touched bare map. NOW every plate this file draws
+  carries its box (the map moves it) and the tap reads it live (__THE_TAP_IS_WHERE_THE_PLATE_IS__); an edge name and its point keep
+  a box each.
+- F10 (the first tap on the label walked three cells short; the second finished the pickup with no word): the first half was F11's
+  stale box. The 'no word': the job's lines go to the map's #packline, which the map keeps hidden (rule 19: no prose on the map
+  without a mouth; the lines reach the phone's feed). NOW the moment has a plate, the map's own: 'GOT SIX CELLS', 'FOUND IT',
+  'FOUND THEM', 'POST 1 WALKED' over his crew for a few beats (__A_MOMENT_HAS_A_PLATE__), green like GET PAID.
+- F29 (two 'POST 1' labels): the patrol drew its own plate on the next post AND the next-place mark named it. NOW the next post is
+  marked once (the mark's ring and name); the others keep their plates.
+- F30 (walked onto POST 1, 150 s of nothing): the walk went to where the stepped label was drawn, not the post; F11's fix sends the
+  tap to the post's cell, and it is walked on arrival.
+- F5 (one job, two times: the board '1 H ROUND TRIP', the phone 'UP TO 5 H'): away from the town the trip was only a range. NOW it is
+  planned from the town's door (the board's own plan; plan() is make() on a copy), so the phone and the board say one time.
+- F21 ('4 MANS', '4/4 MANS'; 'about 116 blocks' on the map against 129 on the offer): English's own plurals (men, women, people,
+  children...); the take lines say how far in words ('close by', 'a short walk', 'a long walk', 'far out'), rule 224's no lone
+  number, so no two counts of blocks can disagree.
+- F28 (every star cream on cream for about 40 s after a hire or a fight): a job read again for a changed crew keeps its LAST read's
+  red stars and blood while the new one plays, and the stars pulse on the beat (two held poses); a job never read pulses its own.
+PROOF: gates/the_normie_hour_world_gate.js (new, registered) phone 8/0: N1 every job plate the map steps carries its tap box; N2 a
+tap on the drawn GET PAID walks to the client's door (48,49, the door itself); N3 a tap on 'GET SIX CELLS' walks onto it and 'GOT
+SIX CELLS' is drawn over the crew; N4 'POST 1' once, tapped, walked, 'POST 1 WALKED'; N5 six jobs at six towns (recover, find a person,
+hunt, patrol), the phone's time equal to the board's to the minute; N6 plural(man, 4) = men, no take line counts blocks; N7 the
+changed crew's read starts with the last read's red star, pulsing (animation jdread), and lands red.
