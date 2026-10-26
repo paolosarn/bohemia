@@ -127,7 +127,7 @@ const done = () => { console.log('\nPAID ONLY FOR THE WORK: ' + pass + ' passed,
     if (await card()) await cardBtn('back');
     if (await settleOpen()) await leave();
     const j3 = await job(id), pd3 = await paidOf(id), after = await fr.evaluate(() => loopBats());
-    ok(L + '3 the card holds after FALL BACK, comes back only on a touch on the place, and walking home is not paid', quiet && !!c2 && pd3 === 0 && !!j3 && !!j3.holders && after === before,
+    ok(L + '3 the card holds after FALL BACK, comes back only on a touch on the place, and walking home is not paid', quiet && !!c2 && pd3 === 0 && !!j3 && !!j3.holders && after <= before,   /* never up (the night's bill may take some while he walks) */
       'quiet ' + quiet + ', card again ' + (c2 ? c2.text.slice(0, 60) : 'none') + ', paid ' + pd3 + ', batteries ' + before + ' -> ' + after + ', ' + (j3 ? j3.stage : 'job gone'));
     /* ENGAGE and win */
     const sp2 = spotOf(j3 || j); await walkInto(sp2[0], sp2[1]);
