@@ -14,6 +14,18 @@ ending his turn to rest when it did not: 70 of 296 of his turns winded, the long
 In the heaviest body and helmet (maximum 21): 220 of 295 winded, the longest run 15. He never swung again: his 'it's over'.
 The recovery ran for his men (the code was right); nothing on the screen said how much came back; RECOVER was the perk's only.
 
+## THE COORDINATOR'S FOUR SUSPECTS, EACH ANSWERED
+1. THE HITS OUTRUN THE 15: TRUE. Ringed by three, +5 a hit and +2 a block put back as much as came off, and more (resting, 81 -> 83
+   -> 83 of 83). Fixed: a rest brings 30, and the hits of a rest are owed until after his next swing.
+2. A HEAVY KIT'S CEILING: TRUE for the worst kits. The heaviest body and helmet with a car door and a full bag leave a maximum of 0 to
+   21; where his own blow costs more than his maximum no rest can buy a swing (60 of the gate's AUTO men): his card says TOO HEAVY TO
+   SWING at the lineup and in the fight (283(c)); every other kit swings the turn after one rest.
+3. A LIVE PATH THAT SKIPS IT, OR A STALE BAR: FALSE. newRound() runs on every path (AUTO and by hand, the fight page and the demo's
+   door are one page); the card's bar reads the engine's fatigue over his maximum every turn (the gate's F5, phone and computer).
+4. NOTHING ON SCREEN SHOWS IT: TRUE. Fixed: the wind glyph and the number over him at each of his turns, the faint +N on his card.
+(The live site is out of this container's reach; the measuring was on the live rules headless and on the real fight page, which is
+the page the demo's door opens.)
+
 ## THE FIX (slices/BOHEMIA_FIGHT.html, COMBAT's rules and its fight screen)
 - A REST (283(b), 285(b)): END TURN with no AP spent is a rest. At his next turn ours.rest_recovery (30, a new sourced row, the
   coordinator's default) comes back instead of 15. The fatigue hits and blocks put on a resting man is OWED, never taken off the
