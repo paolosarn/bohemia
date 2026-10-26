@@ -309,6 +309,12 @@ function saveForm(){ try{ localStorage.setItem(FKEY, JSON.stringify(formation())
 var HKEY = 'bohemia.company.v1', LKEY = 'bohemia.company.line.v1';
 function handOver(){
   if(!S.ready) return null;
+  /* __THE_DEAD_STAY_DEAD__ (CAMP [eyes: the dead stand up], 10/26): MEASURED, opened inside the game this screen first boots on its
+     own default twelve and keep() wrote THEM as the company the fight is handed; the game's own company arrives a moment later by
+     message, and when the screen closed first (or the message was late) the next fight fielded the default twelve, the dead among
+     them at full health ('YOUR COMPANY 12 / 25' after a death). Inside the game the default twelve is a placeholder, never the
+     company: nothing is written until the door's company is here. A screen opened on its own (a checker's host) is unchanged */
+  if(S.defaultCrew && window.parent && window.parent !== window) return null;
   var on = S.front.concat(S.back).filter(function(i){ return i != null && S.crew[i] && !S.crew[i].dead && !laid(S.crew[i]); });
   var main = S.crew.findIndex(function(m){ return m.main; });
   var order = S.crew.map(function(m, i){ return i; }).filter(function(i){ return on.indexOf(i) >= 0; });

@@ -1427,9 +1427,26 @@
       /* no crew screen yet: the origin's men, the walked from the back (the bill's own order: hires first, then the company) */
       var oc = (st.company || []).slice(), coGone = walked.filter(function (w) { return w && !w.hired; }).length;
       if (!oc.length) oc = [{}, {}, {}];   /* no picks yet: Battle Brothers' own three */
+      /* __THE_DEAD_STAY_DEAD__ (CAMP [eyes: the dead stand up], 10/26): MEASURED, the count below cut the origin's men from the back,
+         so after the second man of three died the roster kept HIM and dropped the third, alive. The origin's men are named the
+         fight's own way (engine/bohemia_condition.js named, their first place), and a named man who is dead, taken or walked is
+         taken out by NAME; the count from the back is left only for men with no name */
+      try { if (window.BohemiaCondition) oc = BohemiaCondition.named(oc); } catch (e) {}
+      if (oc.slice(1).some(function (m) { return m && m.name; })) {
+        var ocNames = oc.map(function (m) { return m && m.name ? String(m.name) : null; }), mine = [];
+        oc.forEach(function (m, i) { if (!m) return; var nm = m.name ? String(m.name) : null;
+          if (i > 0 && nm && (dead[nm] || gone[nm] || (window.BohemiaCondition && BohemiaCondition.isDead(nm)))) return;
+          if (nm && seen[nm]) return; if (nm) seen[nm] = 1;
+          mine.push({ name: i === 0 ? (nm || null) : nm, level: Math.max(1, (m.level | 0) || 1), why: 'origin' }); });
+        /* a man who walked with no name the list knows: the bill's own order, from the back, never YOU */
+        var unnamed = walked.filter(function (w) { return w && !w.hired && !(w.name && ocNames.indexOf(String(w.name)) >= 0); }).length;
+        while (unnamed-- > 0 && mine.length > 1) mine.pop();
+        mine.forEach(function (x) { men.push(x); });
+        oc = [];
+      }
       /* the origin's men have no names to strike: the map's own count (crewCount: less the walked, the taken and the dead) says how many stand */
       var keepO = oc.length - coGone; try { if (typeof crewCount === 'function') keepO = Math.min(keepO, crewCount() - hired.filter(function (h) { return h && h.name && !dead[h.name] && !gone[h.name]; }).length); } catch (e) {}
-      oc.slice(0, Math.max(1, keepO)).forEach(function (m) { men.push({ name: m && m.name || null, level: Math.max(1, (m && m.level | 0) || 1), why: 'origin' }); });
+      if (oc.length) oc.slice(0, Math.max(1, keepO)).forEach(function (m) { men.push({ name: m && m.name || null, level: Math.max(1, (m && m.level | 0) || 1), why: 'origin' }); });
     }
     hired.forEach(function (h) { if (h && h.name && !seen[h.name]) add(h, 'hired'); });
     return { men: men, from: from };

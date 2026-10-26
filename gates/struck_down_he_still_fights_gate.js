@@ -85,13 +85,22 @@ const playFight = async (d, seq, strike) => {
   let struck = null;
   if (strike) struck = await f.evaluate(() => {
     const us = FIGHT.S.units.filter(u => u.side === 'you' && !u.main), them = FIGHT.S.units.filter(u => u.side === 'them'), tried = [];
-    /* THE DEAD (CAMP [eyes: the dead stand up]): the first man of the line killed in the fight's own state, by hand, so every fight
-       of this gate has a dead man to keep out (the fight's own 20 in 100 is left to the rest) */
-    let killed = null; if (us.length >= 3) { const k = us[0]; k.hp = 0; k.dead = true; killed = k.name; tried.push({ name: k.name, dead: true, down: false }); }
-    let lived = null;
-    for (const u of us.slice(1).reverse()) { if (lived || us.length - tried.length <= 1) break; FIGHT._t.fall(u, them[0] || null); tried.push({ name: u.name, dead: !!u.dead, down: !!u.down });
-      if (u.down && !u.dead) lived = { name: u.name, days: u.laidUp, injury: u.longInjury ? u.longInjury.id : null }; }
-    them.forEach(u => { u.hp = 1; u.armH = 0; u.armB = 0; });
+    /* STRUCK DOWN BY THE FIGHT'S OWN ROLL: the last man of the line falls through FIGHT._t.fall (its 20 in 100 death roll, its wiki mark,
+       its 30 to 40 days); a roll that killed him is taken back (the fight's own freeze and thaw, in place; its dice move on) and
+       rolled again, so the gate never passes or fails on luck. THE DEAD (CAMP [eyes: the dead stand up]): then the first man of
+       the line is killed, by hand, in the fight's own state, so there is a dead man to keep out */
+    let lived = null, killed = null;
+    const sid = us.length ? us[us.length - 1].id : null;
+    for (let t = 0; t < 40 && sid && !lived; t++) {
+      const snap = FIGHT.freeze(), u = FIGHT.byId(sid);
+      FIGHT._t.fall(u, them[0] || null); tried.push({ name: u.name, dead: !!u.dead, down: !!u.down });
+      if (u.down && !u.dead) lived = { name: u.name, days: u.laidUp, injury: u.longInjury ? u.longInjury.id : null };
+      else FIGHT.thaw(snap, true);
+    }
+    if (us.length >= 2) { const k = FIGHT.byId(us[0].id); k.hp = 0; k.dead = true; killed = k.name; }
+    /* fight one is always won (a lost fight hands the struck-down man to the crew that beat him, rule 143(e)): one of theirs is
+       left at one hitpoint, the rest are down already */
+    them.forEach((u, i) => { u.hp = i ? 0 : 1; u.armH = 0; u.armB = 0; if (i) u.dead = true; });
     return { lived, killed, tried };
   });
   const start = await units(f);
@@ -206,6 +215,8 @@ async function run(profile) {
       if (window.BohemiaCrewDoor) return go(); const sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_door.js'; sc.onload = go; document.head.appendChild(sc); }));
     let cf = null; for (let i = 0; i < 60 && !cf; i++) { await d.page.waitForTimeout(250);
       for (const x of d.page.frames().filter(x => /ROSTER_SCREEN/.test(x.url()))) if (await x.evaluate(() => !!(window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready)).catch(() => false)) { cf = x; break; } }
+    /* the game's company comes by message a moment after the screen's own boot: read it once it is here */
+    if (cf) for (let i = 0; i < 40; i++) { if (await cf.evaluate(() => !!BohemiaRosterScreen.state.fromOrigin || !BohemiaRosterScreen.state.defaultCrew).catch(() => false)) break; await d.page.waitForTimeout(150); }
     const s8 = cf ? await cf.evaluate((a) => { const S = BohemiaRosterScreen.state, c = (m) => BohemiaCondition ? BohemiaCondition.canon(m.name, m.main) : m.name.toUpperCase();
       const ix = S.crew.findIndex(m => c(m) === a.K), dx = S.crew.findIndex(m => c(m) === a.DK), living = S.crew.filter(m => !m.dead).length;
       return { ix, inLine: S.front.concat(S.back).indexOf(ix) >= 0, strip: document.querySelectorAll('#hurt .cell').length, bench: (JSON.parse(localStorage.getItem('bohemia.company.line.v1') || '{}').bench || []).length,
@@ -215,7 +226,7 @@ async function run(profile) {
     await d.page.waitForTimeout(400);
     const d3 = await counts(d.fr);
     ok(P + 'D3 THE DEAD STAY DEAD after the crew screen has read the fight: it has ' + DEAD + ' dead and off the line, its count is the living, and the map\'s count stays right with the queue emptied',
-      !!s8 && !s8.deadAlive && !s8.deadInLine && new RegExp('COMPANY ' + s8.living + ' ').test(s8.title) && d3.crew === wantCrew(d3, [F1.rows, F2.rows]) && !d3.roster.some(n => n && canon(n) === DK),
+      !!s8 && !s8.deadAlive && !s8.deadInLine && new RegExp('COMPANY\\s+' + s8.living + '\\s').test(s8.title) && d3.crew === wantCrew(d3, [F1.rows, F2.rows]) && !d3.roster.some(n => n && canon(n) === DK),
       (s8 ? s8.title + '; dead alive ' + s8.deadAlive + ', in line ' + s8.deadInLine : 'no screen') + '; map count ' + d3.crew + ' (want ' + wantCrew(d3, [F1.rows, F2.rows]) + '); queue ' + await d.fr.evaluate(() => localStorage.getItem('bohemia.fight.after.v1')));
 
     /* ---- S9 an old save wakes (last: it reloads) ---- */
