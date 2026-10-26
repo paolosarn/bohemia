@@ -47853,6 +47853,42 @@ function vbCityCore(inp){
     return 0;
   }
   /* ==== /__THE_TOWN_IS_PAINTED_IN__ ==== */
+  /* ==== __THE_STRIP_READS_AS_THE_STRIP__ (COOK 10/25/26, line 64 of his list: EYES 10/25 'the freeway reads as a freeway close
+     in; the Strip NOT LOOKED AT'; rule 164 items 11, 30, Paolo 10/24: 'the freeway and the Strip still look bad'). LOOKED AT on
+     BUILD 10/26 (tools/bohemia_cook_the_town_is_painted_in_10_25_26.js 'strip_before' '44,40;43,49;43,59', the fog lifted): close
+     in the Strip was a wide road between stepped grey boxes, the casinos' signs plain tan pillars and the median's palms pegs: a
+     downtown, not the Strip. What makes the Strip the Strip from above (the real one, any aerial of Las Vegas Boulevard): the
+     resorts' towers in their own shapes (the Y of three wings, the Mirage, Treasure Island, the Venetian; the arc, Bellagio and
+     Wynn, concave to the Boulevard; the long slab), each on its podium with its pool deck behind, the porte-cochere and the
+     marquee sign on the Boulevard, the signs standing over the sidewalks. Now every resort block: its tower in one of the three
+     shapes or the old square (rolled on the block), the podium, a drained pool on the deck behind the tower (its pale tile, rule
+     159: the water is gone), and where it faces the Strip a porte-cochere with its fascia and a marquee tower over the walk;
+     the Boulevard's signs are boards, not posts. The neon is the one faded accent, lit at night only where there is power. */
+  function stripResort(k, front, f, a, ha){
+    var TH = (6 + Math.floor(ha * 3)) * 3 * T;   /* 18 to 24 T, the Strip's towers */
+    if (front) {
+      if (f < 0.08 && a > 0.12 && a < 0.21) return [11 * T, PART.neon];   /* the marquee tower, its board to the Boulevard */
+      if (f < 0.14 && a > 0.32 && a < 0.72) return [1.5 * T, f < 0.035 ? PART.neon : PART.top];   /* the porte-cochere and its lit fascia */
+    }
+    if (k === 1) {   /* the Y: three wings from a core, each stepping down at its end */
+      var dx = a - 0.5, dy = f - 0.56, best = 1e9, along = 0;
+      for (var w = 0; w < 3; w++) { var an = -Math.PI / 2 + w * 2 * Math.PI / 3, ux = Math.cos(an), uy = Math.sin(an), tt = dx * ux + dy * uy, nn = Math.abs(dy * ux - dx * uy);
+        if (tt > -0.07 && tt < 0.36 && nn < 0.07 && nn < best) { best = nn; along = tt; } }
+      if (best < 1e9) return [along > 0.27 ? TH * 0.76 : along > 0.18 ? TH * 0.88 : TH, PART.top];
+    } else if (k === 2) {   /* the arc, concave to the Strip */
+      var ar = Math.hypot(a - 0.5, f - 1.02), aa = Math.atan2(a - 0.5, 1.02 - f);
+      if (ar > 0.5 && ar < 0.62 && Math.abs(aa) < 0.8) return [Math.abs(aa) > 0.62 ? TH * 0.8 : TH, PART.top];
+    } else if (k === 3) {   /* the slab along the Boulevard */
+      if (f > 0.38 && f < 0.52 && a > 0.12 && a < 0.88) return [(a < 0.2 || a > 0.8) ? TH * 0.84 : TH * 1.05, PART.top];
+    }
+    if (!k) return null;   /* the old square tower, the old podium */
+    if (f > 0.06 && f < 0.94 && a > 0.06 && a < 0.94) {
+      if (Math.hypot((a - 0.5) / 0.21, (f - 0.8) / 0.1) < 1) return [2.6 * T, PART.line];   /* the pool, drained */
+      return [3 * T, r < 0.05 ? PART.spot : PART.ground];   /* the podium */
+    }
+    return [0, PART.ground];
+  }
+  /* ==== /__THE_STRIP_READS_AS_THE_STRIP__ ==== */
   for (var cy = 0; cy < N; cy++) for (var cx = 0; cx < N; cx++) {
     var gx = cx + X0, gy = cy + Y0;   /* __ONE_MAP_AT_EVERY_ZOOM__: the valley's own block */
     if (cls[cy * N + cx] === 255) continue;   /* past the valley's edge: nothing, like the whole painting's pad */
@@ -47885,6 +47921,9 @@ function vbCityCore(inp){
     var nBox = h1 < 0.45 ? 1 : h1 < 0.8 ? 2 : 3, boxAlongX = h0 < 0.5, sb = inp.sub && !thru ? inp.sub[cy * N + cx] : 0;
     if (sb === VB_SUB.shop) nBox = Math.min(nBox, 2);
     var twi = TWN && cl !== VB_CLASS.freeway && cl !== VB_CLASS.water && cl !== VB_CLASS.mountain && cl !== VB_CLASS.dam && cl !== VB_CLASS.rail ? TWN[cy * N + cx] : -1;   /* __THE_TOWN_IS_PAINTED_IN__ */
+    /* __THE_STRIP_READS_AS_THE_STRIP__: which side of a resort faces the Strip (1 east, 2 west, 3 south, 4 north) and its tower's shape */
+    var stF = cl === VB_CLASS.casino ? (clsAt(cx + 1, cy) === VB_CLASS.blvd ? 1 : clsAt(cx - 1, cy) === VB_CLASS.blvd ? 2 : clsAt(cx, cy + 1) === VB_CLASS.blvd ? 3 : clsAt(cx, cy - 1) === VB_CLASS.blvd ? 4 : 0) : 0;
+    var stK = cl === VB_CLASS.casino ? (h2 < 0.3 ? 1 : h2 < 0.55 ? 2 : h2 < 0.75 ? 3 : 0) : 0;
     for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
       var qx = (tx / Q) | 0, qy = (ty / Q) | 0;
       var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u + XS, v + YS, sd + 5), rq = Q === 1 ? r : vbHash(((gx + HP) * 12 + qx), ((gy + HP) * 12 + qy), sd + 5);
@@ -47934,7 +47973,7 @@ function vbCityCore(inp){
               var SW = strip ? fwW * 12 : 12, SA = strip ? ac + fwI * 12 : ac, med = SW / 2, mwS = SW > 12 ? 0.9 : 0.58, nLn = SW > 12 ? 4 : 3, nearSide = SA < med;
               var sa = Math.min(SA, SW - SA);   /* from the near sidewalk's outside */
               if (sa < wk) { part = PART.top; lift = 0.12 * T;   /* the sidewalk */
-                if (strip && (ali % 6) === (nearSide ? 2 : 5) && alf >= 0.2 && alf < 0.8 && sa >= 0.3 && sa < 1.05) { lift = 7 * T; part = PART.neon; }   /* a casino's sign on its pylon */
+                if (strip && (ali % 6) === (nearSide ? 2 : 5) && alf >= 0.06 && alf < 0.94 && sa >= 0.42 && sa < 0.82) { lift = (alf > 0.44 && alf < 0.56 ? 9 : 7.5) * T; part = PART.neon; }   /* a casino's sign, a board along the walk on its pylon (__THE_STRIP_READS_AS_THE_STRIP__: it was a 5 m post) */
                 else if ((ali % 4) === 1 && sa >= wk - 0.42) part = PART.lampspot;   /* a lamp's pool (lit at night where there is power) */
                 else if (fine && (ali % 4) === 1 && alf >= 0.36 && alf < 0.64 && sa >= wk - 0.72 && sa < wk - 0.42) { lift = 3 * T; part = PART.window; }   /* its post, the head lit at night */
                 else if (fine && alf < px * 0.9) part = PART.side;   /* the slabs' joints */
@@ -48021,6 +48060,9 @@ function vbCityCore(inp){
           }
           break; }
         case VB_CLASS.tower: case VB_CLASS.casino: {
+          if (stF || stK) {   /* __THE_STRIP_READS_AS_THE_STRIP__ */
+            var su0 = (tx + 0.5) / S, sv0 = (ty + 0.5) / S, sf0 = stF === 1 ? 1 - su0 : stF === 2 ? su0 : stF === 4 ? sv0 : 1 - sv0, sa0 = (stF === 1 || stF === 2) ? sv0 : su0;
+            var srs = stripResort(stK, stF, sf0, sa0, h0); if (srs) { lift = srs[0]; part = srs[1]; break; } }
           var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
           var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= Q && (tx % half) < half - Q && (ty % half) >= Q && (ty % half) < half - Q)
                         : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
@@ -48109,7 +48151,7 @@ function vbCityCore(inp){
       case VB_CLASS.houses: return part === PART.roofL ? C.roofB : part === PART.roof ? C.roofA : part === PART.window ? C.roofC : part === PART.burn ? C.burn : part === PART.hole ? C.ash : part === PART.spot ? C.brush : C.yard;
       case VB_CLASS.roof: return part === PART.roof || part === PART.window ? C.roof : part === PART.spot ? C.hvac : part === PART.burn ? C.burn : part === PART.hole ? C.ash : C.field;
       case VB_CLASS.tower: return part === PART.top ? C.tower : part === PART.spot ? C.mark : C.field;
-      case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.spot ? C.neon : C.field;
+      case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.spot || part === PART.neon ? C.neon : part === PART.line ? C.poolDry : C.field;   /* __THE_STRIP_READS_AS_THE_STRIP__: the drained pool, the marquee */
       case VB_CLASS.green: return part === PART.tree ? C.tree : C.green;
       case VB_CLASS.water: return C.water;
       case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : C.floor;
