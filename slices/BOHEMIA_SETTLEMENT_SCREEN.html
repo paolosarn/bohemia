@@ -154,6 +154,22 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .shopstrip{display:flex;flex-direction:column;gap:5px;margin:8px 0 0;position:sticky;bottom:0;z-index:3;background:rgba(22,17,12,.985);padding:6px 0 6px;border-top:1px solid var(--line);box-shadow:0 -8px 12px rgba(0,0,0,.55)}
 #sheet.shopping{scroll-padding-bottom:206px}   /* a piece brought into view is never left behind the strip */
 .ss-facts{height:44px;overflow:hidden;display:flex;flex-direction:column;gap:4px}
+#sheet.stalling{scroll-padding-bottom:80px}
+.stallstrip .ss-facts{height:58px;gap:2px}.stallstrip .st-what{font-size:12px;line-height:1.35;color:#e8dcc4}.stallstrip .st-warn{font-size:12px;line-height:1.3;color:#e07a5f}
+.stallstrip .ss-said{white-space:normal}
+#sheet .act.stline{padding:4px 6px 4px 8px;gap:6px}
+#sheet .act.stline .stl{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px;line-height:1.15}
+#sheet .act.stline .stl small{font-size:10px;letter-spacing:.8px;opacity:.75}
+#sheet .act.stline .sw{font-size:10px;letter-spacing:1px;color:#8a2f12}#sheet .act.stline .sw.plenty{color:#5d5446}
+#sheet .act.stline .sb{flex:0 0 66px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0;border:1px solid rgba(42,34,26,.45);border-radius:3px;background:rgba(255,250,236,.45);color:#1f1710;font:inherit;cursor:pointer;box-shadow:inset 0 1px 3px rgba(42,34,26,.35)}
+#sheet .act.stline .sb small{font-size:9px;letter-spacing:1px;color:#5d5446}
+#sheet .act.stline .sb .sp{flex:none;display:inline-flex;align-items:center;gap:3px;font-size:15px;font-weight:bold}
+#sheet .act.stline .sb .sp img{width:14px;height:14px;image-rendering:pixelated}
+#sheet .act.stline .sb.sell .sp{color:#2f5a22}#sheet .act.stline .sb.back{border-style:dashed}
+#sheet .act.stline .sb.off{opacity:.45}
+#sheet .act.stline .sb.sel{outline:2px solid #f4cf7c;outline-offset:-1px;box-shadow:0 0 0 2px rgba(244,207,124,.35),inset 0 0 8px rgba(244,207,124,.3)}
+#sheet .slot.yours{border-color:#9fc38f}
+#sheet .slot .ys{position:absolute;left:3px;top:2px;font-size:7px;letter-spacing:.4px;color:#9fc38f;text-shadow:0 1px 0 #000;line-height:1}
 .ss-facts .ss-title{display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
 .ss-facts .ss-title b{color:var(--ink);font-size:13px;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis}
 .ss-facts .ss-title em{font-style:normal;color:var(--gold);margin-left:auto}
@@ -522,7 +538,32 @@ function restock(){
   /* what you bought here this delivery stays bought */
   var gone = ((S.sold||{})[soldKey()] || []).slice();
   for(var sk2 in S.stock) S.stock[sk2] = S.stock[sk2].filter(function(it){ var j = gone.indexOf(sk2 + ':' + it.id); if(j >= 0){ gone.splice(j, 1); return false; } return true; });
+  soldToHere().forEach(function(r){ if(S.stock[r.k]) S.stock[r.k].unshift(soldToItem(r)); });   /* __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__: his, first */
 }
+/* ==== __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ (RUN TWO [what you sell sits on their shelf], rule 248, Paolo 10/26: 'when I sell my junk I
+   should be able to see it on their shelf... just in case something accidentally fucked up... I can just re-buy it back at the sell
+   price, not like it increased'). MEASURED: a piece he sold was gone; the shelf never showed it and nothing bought it back. NOW every
+   piece he sells (one or SELL THE JUNK) goes on that shop's shelf at once, first, marked YOURS, SOLD; while he is in the town it costs
+   exactly what they paid him and goes back where it was (the stash, its slot, its KEEP mark); after he leaves it is their stock at
+   their price, until the shelf restocks (Battle Brothers' merchant keeps what you sold him). Kept per place and delivery
+   (bohemia.soldto.v1), so a reload keeps it. ==== */
+var SOLDTO = 'bohemia.soldto.v1';
+function soldToAll(){ try{ var a = JSON.parse(localStorage.getItem(SOLDTO) || '{}'); return a && typeof a === 'object' ? a : {}; }catch(e){ return {}; } }
+function soldToSave(a){ try{ localStorage.setItem(SOLDTO, JSON.stringify(a)); }catch(e){} }
+function soldToHere(){ return soldToAll()[soldKey()] || []; }
+function soldToItem(r){ var it = JSON.parse(JSON.stringify(r.it)); it.soldRow = r.uid;
+  if(r.visit === S.visit){ it.yours = true; it.price = r.paid; }   /* this visit: what they paid him */
+  else { var rp = relPrice(), tm = traitMult(); it.price = Math.max(1, Math.round((it.base || it.price) * (1 - rp.buySub) * tm.buy)); }   /* after he left: their stock, their price */
+  return it; }
+function soldToShelf(k, it, paid, slot){
+  var a = soldToAll(), key = soldKey(), r = {uid:Date.now().toString(36) + Math.random().toString(36).slice(2, 7), k:k, it:JSON.parse(JSON.stringify(it)), paid:paid, visit:S.visit, slot:slot};
+  Object.keys(a).forEach(function(x){ if(x !== key && x.slice(0, x.lastIndexOf(':')) === S.place.name) delete a[x]; });   /* a new delivery forgets the old */
+  (a[key] = a[key] || []).push(r); soldToSave(a);
+  if(S.stock && S.stock[k]) S.stock[k].unshift(soldToItem(r));
+}
+function soldToTake(uid){ var a = soldToAll(), key = soldKey(), L = a[key] || [], r = null;
+  a[key] = L.filter(function(x){ if(x.uid === uid){ r = x; return false; } return true; }); soldToSave(a); return r; }
+/* ==== end __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ ==== */
 /* ---------- THE BAG (rule 76, Paolo 10/5: 'a standardized way where you buy things and they end up
    in your inventory, inventory space with icons'). Battle Brothers' stash: 36 slots to start. A shop
    is two grids, its shelf on top and your bag under it, the way Battle Brothers' trade screen puts
@@ -569,11 +610,13 @@ function shopSelIt(k){ var sl = S.shopSel; return sl && sl.k === k ? sl : null; 
 /* the shelf as it stood when he walked in: a piece he buys leaves its place empty for the visit, so nothing slides into it */
 function shelfView(k){
   var items = S.stock[k] || [], O = (S.shelfOrder = S.shelfOrder || {}), o = O[k];
-  if(!o || items.some(function(it){ return o.indexOf(it) < 0; })) o = O[k] = items.slice();
+  var fresh = items.filter(function(it){ return !o || o.indexOf(it) < 0; });
+  if(!o || fresh.length === items.length) o = O[k] = items.slice();   /* a new roll: the shelf as it stands */
+  else if(fresh.length) o = O[k] = fresh.concat(o);   /* __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__: what he just sold goes in first, the gaps kept */
   return o.map(function(it){ return items.indexOf(it) >= 0 ? it : null; });
 }
 /* better for at least one of his men in the same slot (rule 282(c): the strip's own score, the one 'it suits him best' reads) */
-function shopUpFor(it){ var crew = shopCrew(); if(!crew.length || !window.BohemiaRoster) return null; var best = null, bv = 0;
+function shopUpFor(it){ var crew = shopCrew(); if(!crew.length || !window.BohemiaRoster || it.yours) return null;   /* his own, sold here: it goes back to the bag, never marked */ var best = null, bv = 0;
   crew.forEach(function(m){ var w = null; try{ w = shopWearOn(m, it); }catch(e){} if(!w || w.stops || (w.was && w.was === it.id)) return; var v = headline(w, it.kind); if(v > bv + 1e-6){ bv = v; best = m; } });
   return best ? {man:best, by:bv} : null; }
 function shopPick(k, it, from){
@@ -586,27 +629,38 @@ function shopPick(k, it, from){
 function shopMark(){ [].forEach.call(document.querySelectorAll('#shelfgrid .slot, #baggrid .slot'), function(t){ t.classList.toggle('sel', !!S.shopSel && !!t.__it && t.__it === S.shopSel.it); }); }
 /* the one action of the piece lit: buy it onto the man the strip names (or into the stash), or sell his own */
 function shopDo(k){ var sl = shopSelIt(k); if(!sl) return;
-  if(sl.from === 'shelf') shopBuy(k, sl.it, !!wearTarget(sl.it)); else shopSell(k, sl.it); }
+  if(sl.from === 'shelf') shopBuy(k, sl.it, !sl.it.yours && !!wearTarget(sl.it)); else shopSell(k, sl.it); }
 /* the sheet drawn again after an action, where it was (the shelf and the bag at the same scroll), the result in the strip */
 function shopRedo(k, said){ var sh = document.getElementById('sheet'), sc = sh ? sh.scrollTop : 0;
   S.shopSel = null; S.shopSaid = said || null; openB(k); if(sh) sh.scrollTop = sc; }
 function shopBuy(k, it, onHim){
   if(bats() < it.price){ S.shopSaid = 'You are short. ' + it.price + ', and you have ' + bats() + '.'; shopStripFill(k); return; }
+  if(it.yours){   /* __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ (rule 248(b)(c)): back for what they paid, back where it was */
+    if(S.stash.length >= BAG_SLOTS){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; }
+    var r = soldToTake(it.soldRow); if(!r) return shopStripFill(k);
+    P.debit(S.purse, 'electricity', it.price, 'buyback:' + it.id, S.place.name, S.day);
+    S.stock[k].splice(S.stock[k].indexOf(it), 1);
+    var was = JSON.parse(JSON.stringify(r.it)); S.stash.splice(Math.max(0, Math.min(r.slot | 0, S.stash.length)), 0, was); bagSave();
+    window.__BOUGHT_BACK = {id:was.id, paid:it.price, slot:S.stash.indexOf(was), keep:was.keep, n:((window.__BOUGHT_BACK || {}).n | 0) + 1};
+    post('buyBack', {item:was, cost:it.price}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); shopRedo(k, 'Back in your bag where it was, for the ' + moneyWord(it.price) + ' they paid you.'); return;
+  }
+  var fromHim = it.soldRow; if(fromHim){ soldToTake(fromHim); delete it.soldRow; }   /* his old piece, now their stock at their price */
   var full = S.stash.length >= BAG_SLOTS, wm = onHim ? wearTarget(it) : null;   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__: the man the strip shows, read again now */
   if(onHim && !wm) return shopStripFill(k);
   if(wm){ var need = (wm.w.was ? 1 : 0) + (wm.w.drops ? 1 : 0); if(BAG_SLOTS - S.stash.length < need){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; } }
   else if(full){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; }
   P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
   S.stock[k].splice(S.stock[k].indexOf(it), 1);
-  S.sold = S.sold || {}; (S.sold[soldKey()] = S.sold[soldKey()] || []).push(k + ':' + it.id);   /* [the shelf restocks] */
+  if(!fromHim){ S.sold = S.sold || {}; (S.sold[soldKey()] = S.sold[soldKey()] || []).push(k + ':' + it.id); }   /* [the shelf restocks] */
   if(wm){ var said = wearBought(it, wm.m, wm.w); bagSave(); post('buyArms', {item:it, wornBy:wm.m.name, slot:wm.w.slot}); sfx('equip', view.night ? NIGHT_TRIM : null); shelf(); shopRedo(k, said); return; }
   S.stash.push(it); bagSave();
   post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); shopRedo(k, 'Yours. It is in your stash.');
 }
 function shopSell(k, it){
-  var back = sellBack(it);
+  var back = sellBack(it), slot = S.stash.indexOf(it);
   P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
-  S.stash.splice(S.stash.indexOf(it), 1); bagSave(); post('sellArms', {item:it, got:back}); shelf(); shopRedo(k, 'Sold. ' + back + ' batteries.');
+  S.stash.splice(slot, 1); bagSave(); soldToShelf(k, it, back, slot);   /* __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */
+  post('sellArms', {item:it, got:back}); shelf(); shopRedo(k, 'Sold. ' + back + ' batteries. It is on their shelf, back for the same.');
 }
 /* the strip: always there, always one size; a selection only changes what is in it */
 function shopStripFill(k, el){
@@ -634,9 +688,9 @@ function shopStripFill(k, el){
   /* the two buttons, always there at one size: the shelf's buy (onto the man, or the stash), or his own piece's sell and keep */
   var a = document.createElement('div'); a.className = 'ss-acts'; st.appendChild(a);
   if(!it || shelfIt){
-    var tw = it && om ? wearTarget(it) : null, room = BAG_SLOTS - S.stash.length, full = room <= 0, poor = !!it && bats() < it.price;
+    var tw = it && om && !it.yours ? wearTarget(it) : null, room = BAG_SLOTS - S.stash.length, full = room <= 0, poor = !!it && bats() < it.price;
     var need = tw ? (tw.w.was ? 1 : 0) + (tw.w.drops ? 1 : 0) : 0;
-    var bw = act(!it ? 'Buy it' : tw ? (room < need ? 'Your stash is full' : tw.m.main ? 'Buy it and wear it' : 'Buy it, ' + manWord(tw.m) + ' wears it') : (full ? 'Your stash is full' : 'Buy it'), it ? moneyWord(it.price) : '',
+    var bw = act(!it ? 'Buy it' : it.yours ? (full ? 'Your stash is full' : 'Buy it back') : tw ? (room < need ? 'Your stash is full' : tw.m.main ? 'Buy it and wear it' : 'Buy it, ' + manWord(tw.m) + ' wears it') : (full ? 'Your stash is full' : 'Buy it'), it ? moneyWord(it.price) : '',
       function(){ if(it) shopBuy(k, it, !!tw); }, !it || poor || (tw ? room < need : full));
     if(tw){ bw.id = 'buywear'; bw.dataset.man = tw.m.name; } else bw.id = 'buystash';
     a.appendChild(bw);
@@ -670,6 +724,7 @@ function shopSheet(k, body, acts, line){
   shelfView(k).forEach(function(it){
     if(!it){ var gone = iconTile(null); gone.className += ' gone'; shelfG.appendChild(gone); return; }   /* bought this visit: its place stays */
     var tile = shopTile(k, it, 'shelf', it.price, true);
+    if(it.yours){ tile.classList.add('yours'); var ys = document.createElement('b'); ys.className = 'ys'; ys.textContent = 'YOURS, SOLD'; tile.appendChild(ys); }   /* rule 248(a) */
     var up = shopUpFor(it); if(up){ tile.classList.add('up'); tile.dataset.up = up.man.name; var gm = document.createElement('b'); gm.className = 'upm'; gm.textContent = '▲'; gm.setAttribute('aria-hidden', 'true'); tile.appendChild(gm); }   /* rule 282(a): better for one of his men */
     shelfG.appendChild(tile);
   });
@@ -914,7 +969,9 @@ function isJunk(it){ return !!it && (it.keep === false || (it.keep !== true && !
 function junkSale(){ var items = S.stash.filter(isJunk), got = 0; items.forEach(function(it){ got += sellBack(it); }); return { items: items, got: got }; }
 function sellJunk(k){
   var J = junkSale(); if(!J.items.length) return 0;
-  J.items.forEach(function(it){ P.credit(S.purse, 'electricity', sellBack(it), 'sell:' + it.id, S.place.name, S.day); S.stash.splice(S.stash.indexOf(it), 1); });
+  var slots = J.items.map(function(it){ return S.stash.indexOf(it); }), paid = J.items.map(sellBack);
+  J.items.forEach(function(it, i){ P.credit(S.purse, 'electricity', paid[i], 'sell:' + it.id, S.place.name, S.day); S.stash.splice(S.stash.indexOf(it), 1); });
+  J.items.forEach(function(it, i){ soldToShelf(k, it, paid[i], slots[i]); });   /* __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__: SELL THE JUNK too, each back for what it brought */
   bagSave(); post('sellJunk', {items:J.items.map(function(i){ return i.id; }), got:J.got}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf();
   S.soldNote = 'Sold ' + J.items.length + (J.items.length === 1 ? ' piece' : ' pieces') + ' for ' + moneyWord(J.got) + '. Kept ' + S.stash.length + '.';
   openB(k, J.got >= 10 ? 'All of it? Bueno. ' + J.got + ' batteries, count them.' : 'Junk for junk money. ' + J.got + '.');
@@ -1078,26 +1135,150 @@ function tapeCtx(){ var m = traitMult(), r = relPrice(); return {place:S.place.n
 function tapeShelfNow(){ return Math.max(0, BohemiaStallPrices.tapeShelf(STALLP, tapeCtx()) - tapeSold()); }
 function tapeCost(n){ var c = tapeCtx(), t = 0; for(var i = 0; i < n; i++){ t += BohemiaStallPrices.tapePrice(STALLP, c); c.soldThisRestock++; } return t; }
 function tapeIcon(){ var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'supply_icons/tape.png'; return im; }
-function tapeLines(acts){
-  if(!tapeOn()) return;
-  var left = tapeShelfNow();
-  [1, TAPE_STACK].forEach(function(n){
-    var cost = tapeCost(n);
-    var b = act(n === 1 ? 'A roll of tape' : 'A stack of tape, ' + n + ' rolls', moneyWord(cost), function(){
-      var c2 = tapeCost(n); if(bats() < c2) return openB('stall', 'That is ' + moneyWord(c2) + ', mijo. Come back with it.');
-      P.debit(S.purse, 'electricity', c2, 'stall:tape', S.place.name, S.day);
-      supplyAdd('tape', n); tapeTook(n);
-      window.__TAPE_BOUGHT = {n:n, cost:c2, place:S.place.name, day:buildDay(), tape:supplyAdd('tape', 0), count:(window.__TAPE_BOUGHT ? window.__TAPE_BOUGHT.count : 0) + 1};
-      post('buy', {good:'tape', n:n, cost:c2}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf();
-      openB('stall', n === 1 ? 'A roll. It holds a coat together, mostly.' : 'A whole stack. You fight a lot, huh.');   /* draft:true */
-    }, bats() < cost);
-    b.dataset.good = 'tape'; b.dataset.n = n; b.insertBefore(tapeIcon(), b.firstChild); acts.appendChild(b);
-  });
-  var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft';
-  sl.textContent = left > 0 ? left + ' rolls on the shelf. More in the back, dearer.' : 'The shelf is bare. The back room has more, dearer.';   /* draft:true */
-  acts.appendChild(sl);
-}
+function tapeLeftText(){ var left = tapeShelfNow(); return left > 0 ? left + ' rolls on the shelf. More in the back, dearer.' : 'The shelf is bare. The back room has more, dearer.'; }   /* draft:true */
 /* ==== end __TAPE_AT_EVERY_STALL__ ==== */
+/* ==== __SELL_AT_THE_STALL__ (RUN TWO [sell at the stall], rule 242, Paolo 10/26: 'at the stall, where a dose of meds, six rounds,
+   food and water are available, I should also be able to sell... how much you can make, buy versus sell prices'), with the stall's
+   halves of [one tap selects, two taps buy] (rule 249) and [what you sell sits on their shelf] (rule 248). MEASURED: the stall bought
+   his gear (the shops) but never his supplies, and every line was one button that bought on one tap. NOW each supply is one receipt
+   line with BUY and SELL side by side, the battery and the count (rule 224): buy one at ECONOMY's price (engine/bohemia_stall_prices.js
+   line(): the town's card, its size, what it thinks of him), sell a handful at what it pays (half in a calm town, the rise where the
+   town is short, which says so in a word, nothing in a glut). One tap lights a box and the strip at the sheet's foot says what it
+   does; two quick taps (a right click on a computer) do it; a sale that leaves less than tonight's food says so on the first tap and
+   goes only on a second double tap. What he sold this visit buys back at what it paid him, what he bought sells back at what it cost
+   (rule 249(c)): the box says BACK. ==== */
+var STALL_NEED = 'bohemia.stall.need.v1', STALLTAP = {key:null, t:0};
+function stallHave(good){ var v = supplyAdd(good, 0); return v == null ? 0 : v; }
+/* what this town has already bought into its need this card week (ECONOMY: key place + week) */
+function stallWeek(){ return S.place.name + ':' + Math.floor(buildDay() / 7); }
+function stallNeedAll(){ try{ var a = JSON.parse(localStorage.getItem(STALL_NEED) || '{}'); return a && typeof a === 'object' ? a : {}; }catch(e){ return {}; } }
+function stallNeedSold(good){ var a = stallNeedAll()[stallWeek()]; return a ? (a[good] | 0) : 0; }
+function stallNeedAdd(good, n){ var A = stallNeedAll(), k = stallWeek(); Object.keys(A).forEach(function(x){ if(x !== k && x.slice(0, x.lastIndexOf(':')) === S.place.name) delete A[x]; });
+  var a = A[k] = A[k] || {}; a[good] = Math.max(0, (a[good] | 0) + n); try{ localStorage.setItem(STALL_NEED, JSON.stringify(A)); }catch(e){} }
+function stallCtx(good){ var m = traitMult(), r = relPrice(); return {tier:S.place.tier, need:good === 'food' ? m.food : good === 'meds' ? m.meds : 1, buyMult:m.buy, sellMult:m.sell, relBuySub:r.buySub, relSellAdd:r.sellAdd, soldToNeed:stallNeedSold(good)}; }
+/* the stall's lines: the three goods, and tape by the roll and the stack */
+function stallRows(){ var R = STALL.map(function(g){ return {key:g.good, good:g.good, label:g.label, units:1, per:g.adds || 1, price:g.price || 1}; });
+  if(tapeOn()) R.push({key:'tape1', good:'tape', label:'A roll of tape', units:1, per:1}, {key:'tape' + TAPE_STACK, good:'tape', label:'A stack of tape, ' + TAPE_STACK + ' rolls', units:TAPE_STACK, per:1});
+  return R; }
+function stallRowOf(key){ return stallRows().filter(function(r){ return r.key === key; })[0] || null; }
+function stallPrice(row){
+  var file = STALLP && window.BohemiaStallPrices ? STALLP : null, ctx = stallCtx(row.good), m = traitMult(), L = file ? BohemiaStallPrices.line(file, row.good, ctx) : null;
+  var buy = row.good === 'tape' ? tapeCost(row.units) : L ? L.buy : Math.max(1, Math.round(row.price * m.buy * (row.good === 'meds' ? m.meds : 1) * (row.good === 'food' ? m.food : 1)));   /* no file yet: the old one battery */
+  var k = row.units > 1 ? row.units : (L ? L.handful : 0), p = file && k ? BohemiaStallPrices.pays(file, row.good, ctx, k) : 0;
+  return {buy:buy, k:k, p:p, word:L ? L.word : null, needLeft:L ? L.needLeft : 0};
+}
+function stallLots(key){ if(!S.stallLots || S.stallLots.visit !== S.visit) S.stallLots = {visit:S.visit, rows:{}}; return S.stallLots.rows[key] = S.stallLots.rows[key] || {sold:[], bought:[]}; }
+/* the two boxes of a line as they stand: BUY (or BACK, what he sold here this visit) and SELL (or BACK, what he bought) */
+function stallSides(row){
+  var pr = stallPrice(row), lots = stallLots(row.key), have = Math.floor(stallHave(row.good) / row.per);
+  var sl = lots.sold[lots.sold.length - 1], bl = lots.bought[lots.bought.length - 1];
+  var buy = sl ? {k:sl.k, p:sl.p, back:true, need:sl.need | 0} : {k:row.units, p:pr.buy, back:false};
+  var sell = bl ? {k:bl.k, p:bl.p, back:true} : {k:pr.k, p:pr.p, back:false};
+  buy.off = buy.p == null || bats() < buy.p;
+  sell.off = !sell.k || have < sell.k || !(sell.p >= 1);
+  return {pr:pr, buy:buy, sell:sell, have:have};
+}
+function stallWarns(row, s){ return row.good === 'food' && !!STALLP && window.BohemiaStallPrices && BohemiaStallPrices.warns(STALLP, 'food', s.have - s.sell.k, S.crewSize || 3); }
+function unitWord(good, k){ return good === 'food' ? (k === 1 ? 'a night of food and water' : k + ' nights of food and water') : good === 'meds' ? (k === 1 ? 'a dose of meds' : k + ' doses of meds') : good === 'rounds' ? (k * 6) + ' rounds' : (k === 1 ? 'a roll of tape' : k + ' rolls of tape'); }
+function haveWord(good, n){ return good === 'food' ? n + (n === 1 ? ' night' : ' nights') + ' of food' : good === 'meds' ? n + (n === 1 ? ' dose' : ' doses') : good === 'rounds' ? n + ' rounds' : n + (n === 1 ? ' roll' : ' rolls') + ' of tape'; }
+function stallBox(row, side, x){
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : ''); b.dataset.side = side;
+  b.dataset.p = x.p == null ? '' : x.p; b.dataset.k = x.k; if(x.off) b.setAttribute('aria-disabled', 'true');
+  var cap = document.createElement('small'); cap.textContent = x.back ? 'BACK' : side === 'buy' ? 'BUY' : (!x.k ? 'NOT TAKEN' : 'SELL' + (x.k > 1 && row.units === 1 ? ' ' + (row.good === 'rounds' ? x.k * 6 : x.k) : '')); b.appendChild(cap);
+  var pr = document.createElement('span'); pr.className = 'sp';
+  if(x.p != null && (side === 'buy' || x.k)){ var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode((side === 'sell' ? '+' : '') + x.p)); }
+  b.appendChild(pr);
+  b.setAttribute('aria-label', (side === 'buy' ? (x.back ? 'Buy back ' : 'Buy ') : (x.back ? 'Sell back ' : 'Sell ')) + unitWord(row.good, x.k) + (x.p != null ? ', ' + moneyWord(x.p) : ''));
+  b.addEventListener('click', function(){ stallTap(row.key, side, false); });
+  b.addEventListener('contextmenu', function(e){ e.preventDefault(); stallTap(row.key, side, true); });   /* Battle Brothers' right click */
+  return b;
+}
+function stallLine(row){
+  var s = stallSides(row), ln = document.createElement('div'); ln.className = 'act stline'; ln.dataset.good = row.good; ln.dataset.n = row.units; ln.dataset.key = row.key;
+  ln.dataset.buy = s.buy.p == null ? '' : s.buy.p; ln.dataset.sell = s.sell.p; ln.dataset.sellK = s.sell.k; ln.dataset.have = s.have; if(s.pr.word) ln.dataset.word = s.pr.word;
+  var ic = row.good === 'tape' ? tapeIcon() : packIcon(row.good); if(ic) ln.appendChild(ic);
+  var l = document.createElement('span'); l.className = 'stl'; l.textContent = row.label;
+  var hv = document.createElement('small'); hv.textContent = 'YOU HAVE ' + stallHave(row.good); l.appendChild(hv);
+  if(s.pr.word && row.units === 1){ var w = document.createElement('b'); w.className = 'sw ' + s.pr.word; w.textContent = s.pr.word === 'short' ? 'THEY NEED IT' : 'FULL UP'; l.appendChild(w); }   /* rule 242(c): the town says it in a word */
+  ln.appendChild(l); ln.appendChild(stallBox(row, 'buy', s.buy)); ln.appendChild(stallBox(row, 'sell', s.sell));
+  return ln;
+}
+function stallTap(key, side, now1){
+  var row = stallRowOf(key); if(!row) return;
+  var id = key + ':' + side, now = performance.now(), twice = now1 || (STALLTAP.key === id && now - STALLTAP.t < 450);
+  STALLTAP.key = id; STALLTAP.t = now;
+  if(!(S.stallSel && S.stallSel.id === id)){ S.stallSel = {id:id, key:key, side:side, at:now}; S.stallSaid = null; }
+  if(twice){ STALLTAP.key = null;
+    var s = stallSides(row);
+    if(side === 'sell' && !s.sell.back && stallWarns(row, s) && now - S.stallSel.at < 450){ S.stallSaid = null; S.stallWarned = true; stallMark(); return stallStripFill(); }   /* the warning first: a second double tap sells */
+    S.stallWarned = false; return stallDo(row, side);
+  }
+  stallMark(); stallStripFill();
+}
+function stallMark(){ [].forEach.call(document.querySelectorAll('#sbody .stline .sb'), function(b){ var ln = b.parentNode; b.classList.toggle('sel', !!S.stallSel && S.stallSel.key === ln.dataset.key && S.stallSel.side === b.dataset.side); }); }
+function stallDo(row, side){
+  var s = stallSides(row), x = s[side], lots = stallLots(row.key), units = x.k;
+  if(x.off){ S.stallSaid = null; return stallStripFill(); }
+  if(side === 'buy'){
+    P.debit(S.purse, 'electricity', x.p, 'stall:' + row.good, S.place.name, S.day);
+    if(row.good === 'food') P.credit(S.purse, 'resources', units, 'stall:food', S.place.name, S.day);
+    supplyAdd(row.good, units * row.per);   /* __THE_WAGON__ */
+    if(row.good === 'tape'){ tapeTook(units); window.__TAPE_BOUGHT = {n:units, cost:x.p, place:S.place.name, day:buildDay(), tape:stallHave('tape'), count:(window.__TAPE_BOUGHT ? window.__TAPE_BOUGHT.count : 0) + 1}; }
+    if(x.back){ lots.sold.pop(); if(x.need) stallNeedAdd(row.good, -x.need); } else lots.bought.push({k:units, p:x.p});   /* a unit bought back out of a need gives the need its unit back */
+    post('buy', {good:row.good, n:units * row.per, cost:x.p, back:!!x.back});
+    S.stallSaid = (x.back ? 'Back, for what they paid you. ' : 'Bought. ') + 'You have ' + haveWord(row.good, stallHave(row.good)) + '.';
+  } else {
+    P.credit(S.purse, 'electricity', x.p, 'stall:sell:' + row.good, S.place.name, S.day);
+    if(row.good === 'food'){ var rb = P.balance(S.purse, 'resources'); if(rb > 0) P.debit(S.purse, 'resources', Math.min(rb, units), 'stall:sell:food', S.place.name, S.day); }
+    supplyAdd(row.good, -units * row.per);
+    if(row.good === 'tape') tapeTook(-units);   /* what he sells goes on their shelf (rule 248(a)) */
+    if(x.back) lots.bought.pop(); else { var nd = Math.min(units, s.pr.needLeft | 0); if(nd) stallNeedAdd(row.good, nd); lots.sold.push({k:units, p:x.p, need:nd}); }
+    post('sell', {good:row.good, n:units * row.per, got:x.p, back:!!x.back});
+    S.stallSaid = 'Sold. +' + moneyWord(x.p) + '. You have ' + haveWord(row.good, stallHave(row.good)) + '.';
+  }
+  window.__STALL_DID = {key:row.key, side:side, k:units, p:x.p, back:!!x.back, n:((window.__STALL_DID || {}).n | 0) + 1};
+  sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); stallRefresh();
+}
+/* the lines again in place (the same boxes, new numbers), the strip with what happened: nothing moves, the keeper says nothing */
+function stallRefresh(){
+  [].forEach.call(document.querySelectorAll('#sbody .stline'), function(ln){ var r = stallRowOf(ln.dataset.key); if(r) ln.replaceWith(stallLine(r)); });
+  var tl = document.getElementById('tapeleft'); if(tl && tapeOn()) tl.textContent = tapeLeftText();
+  stallMark(); stallStripFill();
+}
+function stallStripFill(el){
+  var st = el || document.getElementById('stallstrip'); if(!st) return; st.textContent = '';
+  var f = document.createElement('div'); f.className = 'ss-facts'; st.appendChild(f);
+  var sel = S.stallSel, row = sel ? stallRowOf(sel.key) : null;
+  if(S.stallSaid){ var sd = document.createElement('div'); sd.className = 'ss-said'; sd.textContent = S.stallSaid; f.appendChild(sd); }
+  if(!row){ if(!S.stallSaid){ var hn = document.createElement('div'); hn.className = 'ss-hint'; hn.textContent = 'Tap a price to see it. Tap it twice to buy or sell.'; f.appendChild(hn); } return; }   /* draft:true */
+  var s = stallSides(row), x = s[sel.side], w = document.createElement('div'), t; w.className = 'st-what';
+  if(sel.side === 'buy') t = x.back ? 'Buy back ' + unitWord(row.good, x.k) + ' you sold: ' + moneyWord(x.p) + ', what they paid you.'
+    : 'Buy ' + unitWord(row.good, x.k) + ': ' + moneyWord(x.p) + '.' + (x.off && x.p != null ? ' You have ' + moneyWord(bats()) + '.' : '');
+  else t = x.back ? 'Sell back ' + unitWord(row.good, x.k) + ' you bought: ' + moneyWord(x.p) + ', what it cost.'
+    : !x.k ? 'They have plenty here this week. They will not take it.'
+    : 'Sell ' + unitWord(row.good, x.k) + ': +' + moneyWord(x.p) + '.' + (s.have < x.k ? ' You do not have ' + (x.k === 1 ? 'one' : x.k) + '.' : s.pr.word === 'short' && s.pr.needLeft ? ' They need it here: ' + s.pr.needLeft + ' more at this price.' : '');
+  t += ' You have ' + haveWord(row.good, stallHave(row.good)) + (row.good === 'food' ? ', your ' + (S.crewSize || 3) + ' men eat ' + (S.crewSize || 3) + ' a night.' : '.');
+  w.textContent = t; f.appendChild(w);
+  if(sel.side === 'sell' && !x.back && x.k && s.have >= x.k && stallWarns(row, s)){ var wn = document.createElement('div'); wn.className = 'st-warn'; wn.textContent = 'That leaves less than tonight\'s food for your men.' + (S.stallWarned ? ' Tap it twice again to sell it anyway.' : ''); f.appendChild(wn); }   /* rule 242(a) */
+}
+function stallSheet(k, body, acts, line){
+  var rows = stallRows(), sh = null;
+  rows.forEach(function(r){ if(sh || r.units > 1) return; var p = stallPrice(r); if(p.word === 'short' && p.needLeft) sh = {r:r, p:p}; });
+  var short = sh && STALL_WORDS && STALL_WORDS['short_' + sh.r.good];
+  var said = short ? short[seedOf(S.place.name + ':' + stallWeek()) % short.length].text.replace(/\{sell\}/g, moneyWord(sh.p.p)).replace(/\{n\}/g, sh.p.needLeft) : null;   /* ECONOMY's words (draft:true): the town short of a thing says so first */
+  body.appendChild(speak(k, line || said || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
+  if(S.stallSel && !stallRowOf(S.stallSel.key)) S.stallSel = null;
+  rows.forEach(function(r){ acts.appendChild(stallLine(r)); });
+  if(tapeOn()){ var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft'; sl.textContent = tapeLeftText(); acts.appendChild(sl); }
+  var strip = document.createElement('div'); strip.className = 'shopstrip stallstrip'; strip.id = 'stallstrip'; acts.appendChild(strip); stallStripFill(strip);
+  setTimeout(stallMark, 0);
+}
+/* ECONOMY's keeper lines for a town short of a thing (banks/BOHEMIA_ECONOMY_THE_STALLS_WORDS_10_26_26.json, draft:true; banks/ is never
+   published, so the two the stall says are carried here as they are written there) */
+var STALL_WORDS = {
+  short_food:[{text:"We're short on food here. I'll pay {sell} a night for {n} more.", draft:true}, {text:'People are hungry, mijo. Bring me food and I pay good, {n} more.', draft:true}],
+  short_meds:[{text:'They need meds here. {sell} a dose, for {n} more.', draft:true}, {text:"Half the block is coughing. Every dose you've got, I'll take {n}.", draft:true}]};
+/* ==== end __SELL_AT_THE_STALL__ ==== */
 /* ==== __THE_SMITH_MENDS__ (RUN TWO [the smith mends], rule 277, Paolo 10/26: 'if I go to a settlement that has a smith and an armourer
    I should be able to repair my stuff with them pretty easily and quickly... the fact that that's not even an option is insane').
    MEASURED: the smith said 'Fixed, sharpened, loaded' and only bought and sold; armour damage stays between fights (CAMP's
@@ -1454,7 +1635,7 @@ function openArea(){
 function placeChrome(){
   var o = FIT.open, sh = document.getElementById('sheet'), ph = FIT.phone; if(!sh || !o) return;
   sh.style.bottom = (o.band === 'bottom' ? Math.round(view.H - o.y1) : 0) + 'px'; sh.style.setProperty('--sheet-b', sh.style.bottom);
-  var shop = /^(arms|smith|armourer)$/.test(S.open || '');   /* __ONE_TAP_SELECTS__ (rule 250): the shelf, the strip and the buttons together on an upright phone */
+  var shop = /^(arms|smith|armourer|stall)$/.test(S.open || '');   /* __ONE_TAP_SELECTS__ (rule 250): the shelf, the strip and the buttons together on an upright phone */
   sh.style.maxHeight = o.band === 'bottom' ? Math.round((o.y1 - o.y0) * (shop ? 1 : .72) - (shop ? 8 : 0)) + 'px' : '';   /* its x stays on the glass: 72 percent of the open area, not of the scene */
   /* across: the open area's width, the sheet centred in it at most 1040 wide (UI's wide-glass rule, laid in the open area, not the glass) */
   var ow = o.x1 - o.x0, sw = Math.min(1040, ow - (ow >= 700 ? 24 : 0));
@@ -3690,23 +3871,7 @@ function openB(k, line){
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */
     body.appendChild(acts); body.appendChild(sl); return show();
   }
-  else if(k==='stall'){
-    body.appendChild(speak(k, line || 'One battery a thing, two for a night of food and water. Tape by the roll or the stack. No haggling at this stall, mijo.'));   /* draft:true */
-    var stm = traitMult();
-    STALL.forEach(function(g){
-      /* one battery each; a card moves it (Sickness triples the meds), never below one */
-      var pr = Math.max(1, Math.round((g.price || 1) * stm.buy * (g.good === 'meds' ? stm.meds : 1) * (g.good === 'food' ? stm.food : 1)));
-      var ab = act(g.label, pr + (pr === 1 ? ' battery' : ' batteries'), function(){
-        if(bats()<pr) return openB('stall','You are out of batteries. Come back with ' + pr + '.');
-        P.debit(S.purse,'electricity',pr,'stall:'+g.good,S.place.name,S.day);
-        if(g.counts) P.credit(S.purse,g.counts,1,'stall:'+g.good,S.place.name,S.day);
-        if(g.adds) supplyAdd(g.good, g.adds);   /* __THE_WAGON__ */
-        post('buy',{good:g.good}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB('stall','There you go. Gracias.');
-      }, bats()<pr);
-      var gi = packIcon(g.good); if(gi) ab.insertBefore(gi, ab.firstChild); acts.appendChild(ab);
-    });
-    tapeLines(acts);   /* __TAPE_AT_EVERY_STALL__ */
-  }
+  else if(k==='stall'){ stallSheet(k, body, acts, line); }   /* __SELL_AT_THE_STALL__: buy and sell side by side, one tap lights, two do it */
   else if(k==='barber'){
     body.appendChild(speak(k, line || 'Sit down. A new cut, a new face, one battery. Who are you becoming?'));
     acts.appendChild(act('Sit in the chair', '1 battery', function(){
@@ -3837,7 +4002,7 @@ function show(){
   if(!sh.classList.contains('on') || S.sheetFor !== S.open) sh.scrollTop = 0;
   S.sheetFor = S.open;
   sh.classList.add('on');
-  sh.classList.toggle('shopping', /^(arms|smith|armourer)$/.test(S.open || ''));
+  sh.classList.toggle('shopping', /^(arms|smith|armourer)$/.test(S.open || '')); sh.classList.toggle('stalling', S.open === 'stall' && !S.camp);   /* __SELL_AT_THE_STALL__ */
   try{ placeChrome(); }catch(e){}   /* __ONE_TAP_SELECTS__: a shop's sheet stands the whole open area tall */
 
 }
@@ -4010,7 +4175,7 @@ function arriveWhenReady(){ if((TRAITS && ARR && (!window.BohemiaBarNews || Bohe
 /* ---------- OPEN ---------- */
 function open(o){
   o = o || {};
-  if(o.place){ S.shelfOrder = {}; S.shopSel = null; S.shopSaid = null; }   /* __ONE_TAP_SELECTS__: a new visit, a new shelf */
+  if(o.place){ S.shelfOrder = {}; S.shopSel = null; S.shopSaid = null; S.visit = Date.now().toString(36) + Math.random().toString(36).slice(2, 6); S.stallSel = null; S.stallSaid = null; S.stallLots = null; }   /* __ONE_TAP_SELECTS__: a new visit, a new shelf; __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ and __SELL_AT_THE_STALL__: what he sold buys back at its price while this visit lasts */
   hireLoad();   /* __THE_SHOP_SAYS_WHAT_IT_DOES__: the hall's and the shops' files (the roster, the rig, the bill) are read as the town opens, so a card is whole when he taps it and the hall never redraws under a keeper mid-line */
   if(o.place){ S.camp = !!o.camp; S.campInfo = o.camp ? {day:o.day, min:o.min, night:!!o.night, company:o.company || [], bill:o.bill || null, cleared:o.cleared || null, condition:o.condition || null} : null; healShow(); }   /* __THE_CAMP__; __THE_HEAL_BUTTON__ */
   if(o.place && window.BohemiaCampLook) try{ if(S.camp) BohemiaCampLook.open(Object.assign({block:o.place.block || null, kills:o.kills | 0}, S.campInfo)); else BohemiaCampLook.close(); }catch(e){}   /* __CAMP_TWO__ */
@@ -4064,7 +4229,8 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },   /* __HIS_MAP__ WORLD TWO: this stall's price for one of a trade good today */
+window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },   stall:function(){ return stallRows().map(function(r){ var x = stallSides(r); return {key:r.key, good:r.good, units:r.units, per:r.per, buy:x.buy, sell:x.sell, have:x.have, word:x.pr.word, needLeft:x.pr.needLeft, warns:!!stallWarns(r, x)}; }); }, soldTo:function(){ return soldToHere(); }, visit:function(){ return S.visit; },   /* __SELL_AT_THE_STALL__, __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */
+   /* __HIS_MAP__ WORLD TWO: this stall's price for one of a trade good today */
   _ground:function(x, y){ var G = walkGrid(), n = G && walkNearest(G, x, y, false); return n ? {x:n.x, y:n.y} : null; },   /* the nearest ground a man can stand on (the gate) */
   _walkAll:function(){   /* RUN TWO [the walk-up, on the ground]: every way between every place he can be sent, for the gate */
     var out = {paths:0, bad:0, placed:0, far:0, miss:[]}, G = walkGrid(); if(!G){ out.miss.push('no ground traced'); return out; }

@@ -93,7 +93,7 @@ const RAID = { marks: [{ place: 'Mob', trait: 'raided', by: 'Reds', party: 'p1',
   };
   const keeper = async k => { await p.evaluate(() => { const o = document.getElementById('arrive'); if (o) o.remove(); }); await close();
     const xy = await p.evaluate(k => BohemiaSettlement.where(k), k); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(200);
-    return p.evaluate(() => ({ line: (document.querySelector('#sheet.on .who .say p') || {}).textContent || '', acts: [...document.querySelectorAll('#sheet.on .acts .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim()) })); };
+    return p.evaluate(() => ({ line: (document.querySelector('#sheet.on .who .say p') || {}).textContent || '', acts: [...document.querySelectorAll('#sheet.on .acts .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim() + (b.dataset.buy ? ' ' + b.dataset.buy + ' batteries' : '')) })); };
   const near = N.nearestTo(places.find(q => q.id === 'Mob')).name;
   const ref = await arrive(near, 4, RAID, []);
   ok('the Reds raid the Mob: at ' + near + ' (its nearest) on day 4 the arrival reads REFUGEES', /REFUGEES/.test(ref.tag) && ref.ids.indexOf('refugees') >= 0, ref.tag);
@@ -102,11 +102,12 @@ const RAID = { marks: [{ place: 'Mob', trait: 'raided', by: 'Reds', party: 'p1',
   ok('  the hall\'s keeper says where the men walked from', /the Mob's place/.test(hall.line), hall.line);
   const calm = await arrive(near, 4, null, []);
   ok('  the shelves are a tenth thinner than the same visit calm (the card\'s -10% items)', ref.stock < calm.stock && calm.ids.indexOf('refugees') < 0, ref.stock + ' vs ' + calm.stock);
-  /* the food price: one battery rounds a quarter away, so read it on a market day (x1.25 twice is 1.56, two batteries) */
-  const food = s => +((s.acts.find(a => /ration of food/i.test(a)) || '').match(/(\d+) batter/) || [])[1];
-  await arrive(near, 4, null, ['market_day']); const calmStall = await keeper('stall');
-  await arrive(near, 4, RAID, ['market_day']); const stall = await keeper('stall');
-  ok('  the stall\'s food is priced by the card, +25% on top of the day (a market day: 1 calm, 2 with the refugees)', food(calmStall) === 1 && food(stall) === 2, food(stall) + ' vs calm ' + food(calmStall));
+  /* RE-AIMED 10/26 BY RUN TWO ([sell at the stall]; rule 209: food and water one good, a night for one man at 2): a plain day, 2 calm
+     (2 x 1.02 for a town), 3 with the refugees' +25% (2.55) */
+  const food = s => +((s.acts.find(a => /food and water|ration of food/i.test(a)) || '').match(/(\d+) batter/) || [])[1];
+  await arrive(near, 4, null, []); const calmStall = await keeper('stall');
+  await arrive(near, 4, RAID, []); const stall = await keeper('stall');
+  ok('  the stall\'s food is priced by the card, +25% (a night of food: 2 calm, 3 with the refugees)', food(calmStall) === 2 && food(stall) === 3, food(stall) + ' vs calm ' + food(calmStall));
   const over = await arrive(near, 9, RAID, []);
   ok('on day 9 the raid is over and so are the refugees', over.ids.indexOf('refugees') < 0 && !/REFUGEES/.test(over.tag), over.tag);
   const reds = await arrive('Reds', 4, RAID, []);
