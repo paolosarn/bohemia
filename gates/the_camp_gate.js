@@ -83,10 +83,14 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     const t5 = await tapEl(sf, '#sbody .acts button.act');
     await p.waitForTimeout(600);
     const c5 = await sf.evaluate(() => ({ slots: BohemiaSettlement.camp().bagSlots, store: BohemiaCamp.stashSlots(), line: (document.querySelector('#sbody .gridh') || {}).textContent }));
-    let rosterBag = null;
-    if (await tapEl(sf, '#crew')) { await p.waitForTimeout(1500);
+    let rosterBag = null;   /* CAMP 10/26 (the camp moved under CAMP, rule 226): the crew screen's bag reads 'STASH n/48' now (it read 'YOUR BAG'), both are read */
+    /* the bar's CREW is folded away on this screen now (0 x 0; the phone carries CREW, rule 212): the camp's own way in is THE TENT's
+       'Your company' (CAMP 10/26) */
+    const crewShown = await sf.evaluate(() => { const b = document.getElementById('crew'), r = b && b.getBoundingClientRect(); return !!r && r.width > 4 && r.height > 4; });
+    const toCrew = crewShown ? await tapEl(sf, '#crew') : (await openIn('tent'), await tapEl(sf, '#sbody .acts button.act'));
+    if (toCrew) { await p.waitForTimeout(1500);
       const rf = p.frames().find(x => /ROSTER_SCREEN/.test(x.url()));
-      if (rf) { rosterBag = await rf.evaluate(() => (document.body.innerText.match(/YOUR BAG\s+\d+\s*\/\s*(\d+)/) || [])[1] || null).catch(() => null);
+      if (rf) { rosterBag = await rf.evaluate(() => (document.body.innerText.match(/(?:YOUR BAG|STASH)\s+\d+\s*\/\s*(\d+)/) || [])[1] || null).catch(() => null);
         const dn = await rf.$('#done') || await rf.$('button'); if (dn) await rf.evaluate(() => { const b = document.getElementById('done'); if (b) b.click(); }); await p.waitForTimeout(500); } }
     ok('C5 THE CART: a real tap buys the first step, the stash holds 48, and the crew screen\'s bag says so', t5 && c5.slots === 48 && c5.store === 48 && rosterBag === '48', JSON.stringify(c5) + ' crew screen bag of ' + rosterBag);
     /* ---- C6 a hunting crew breaks camp ---- */
