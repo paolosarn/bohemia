@@ -19,6 +19,10 @@ him best'; the end screen calls them he. The post, the keepers and the crowd wer
 - He keeps the old name as 'was', and the crew screen's climb (UI's file, one marked expression) finds a man saved before under it,
   so nobody loses his levels in a game already running.
 - DESI stays: a man's name too (Desiderio), on a beardless man, as THE FACE IS HIS OWN FACE already held.
+- ROUND 2 (the same row): the crew screen was not the only namer. The door (engine/bohemia_origin_start.js) now names each rolled
+  man as the crew screen will (a fight fought before the crew screen is opened took the crew list's TINA for him), and the map's
+  crew list (RUN's file, one marked block: who walks when the bill is short, the bar, the lines) carries the same names; the three
+  copies of the map are held equal by W0.
 
 ## THE GATE
 EVERY ORIGIN STARTS LIKE ITSELF gains W0: every origin's crew named as the crew screen names them, none a woman's name

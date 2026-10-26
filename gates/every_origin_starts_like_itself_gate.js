@@ -86,7 +86,15 @@ async function crewScreen(d, mouse) {
     const C = box.BohemiaRoster, N = box.BohemiaNames, defs = J('records/target/bb/ours.json').crew.value, bad = [], all = [];
     FILE.origins.forEach(o => (o.men || []).forEach((m, i) => { const d = defs[i % defs.length] || {}, nm0 = i >= defs.length ? (d.name || 'MAN') + ' II' : d.name;
       const nm = C.nameFor(nm0, null), first = nm.split(' ')[0]; all.push(nm); if (N.sexOf(first.charAt(0) + first.slice(1).toLowerCase()) === 'f' || /^(TINA|MARISOL|LUPE|NENA)\b/.test(nm)) bad.push(o.id + ':' + nm); }));
-    ok('W0 NO MAN WEARS A WOMAN\'S NAME in any of the ' + FILE.origins.length + ' origins\' crews (' + all.length + ' men; ' + Object.values(C.MEN_FOR).join(', ') + ' for the four)', bad.length === 0 && all.length > 30, bad.slice(0, 6).join(', '));
+    /* the door names each rolled man as the crew screen will (a fight before the crew screen opens reads the door's names) */
+    const box2 = {}; box2.window = box2; vm.createContext(box2); vm.runInContext(fs.readFileSync(path.join(ROOT, 'engine/bohemia_origin_start.js'), 'utf8'), box2);
+    const O = box2.BohemiaOriginStart; O.data.crew = defs.map(d => d.name);
+    FILE.origins.forEach(o => (o.men || []).forEach((m, i) => { if (i === 0) return; const d = defs[i % defs.length] || {}, want = C.nameFor(i >= defs.length ? (d.name || 'MAN') + ' II' : d.name, null);
+      if (O.placeName(i) !== want) bad.push(o.id + ':' + i + ' door ' + O.placeName(i) + ' vs crew screen ' + want); }));
+    /* the three copies of the map (the crew screen's engine, the door, the map's crew list) are one map */
+    const lit = f => { const m = fs.readFileSync(path.join(ROOT, f), 'utf8').match(/var MEN_FOR = (\{[^}]*\})/); return m ? m[1].replace(/\s+/g, '') : null; };
+    const copies = ['engine/bohemia_roster.js', 'engine/bohemia_origin_start.js', 'slices/BOHEMIA_CITY_WORLD.html'].map(lit), same = copies.every(c => c && c === copies[0]);
+    ok('W0 NO MAN WEARS A WOMAN\'S NAME in any of the ' + FILE.origins.length + ' origins\' crews (' + all.length + ' men; ' + Object.values(C.MEN_FOR).join(', ') + ' for the four), the crew screen, the door and the map one map', bad.length === 0 && all.length > 30 && same, bad.slice(0, 6).join(', ') + (same ? '' : ' copies differ: ' + copies.join(' | ')));
   }
   /* ---- W1 the file ---- */
   const dm = (W.door && W.door.men && W.door.men[0]) || {}, kit = dm.kit || {};

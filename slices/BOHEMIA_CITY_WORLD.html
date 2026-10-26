@@ -44728,7 +44728,12 @@ try{ fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.
   BILL.loaded = true; billPublish(); }).catch(function(){}); }catch(_e){}
 var CREW_DEFS = null;   /* ours.json's crew: the names and looks the crew screen and the fight give the company, in order */
 try{ fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }).then(function(j){
-  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] }; }).catch(function(){ CREW_DEFS = { men: [], looks: [], failed: true }; }); }catch(_e){}
+  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] };
+  /* __NO_MAN_WEARS_A_WOMANS_NAME__ (RUN TWO's line in RUN's file, NOTE on RUN's board; rule 203): every body on the rig is a man's until
+     one is built 'f', so the crew list's four women's names are called as the crew screen calls them (engine/bohemia_roster.js MEN_FOR,
+     the copies held equal by EVERY ORIGIN STARTS LIKE ITSELF W0): who walks, the bar and the lines name the man the crew screen shows */
+  var MEN_FOR = { TINA: 'TITO', MARISOL: 'MARCOS', LUPE: 'LALO', NENA: 'NENO' };
+  CREW_DEFS.men = CREW_DEFS.men.map(function(m){ return m && MEN_FOR[m.name] ? Object.assign({}, m, { name: MEN_FOR[m.name], was: m.name }) : m; }); }).catch(function(){ CREW_DEFS = { men: [], looks: [], failed: true }; }); }catch(_e){}
 /* __THE_HIRED_ARE_PAID__ (RUN TWO [money teaches], rule 151(b), Paolo 10/24: 'keep a squad fed and paid... it would hurt my ability
    to hire better people or get better weapons and armour'; TUNING 10/25 s2, 'THE MEN AT THE POST ARE NEVER PAID'). The night is
    the crew's food AND the hired men's pay: every man hired at a post (bohemia.hired.v1) who is still with you is paid his wage

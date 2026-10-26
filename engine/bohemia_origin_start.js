@@ -52,8 +52,10 @@
     if (D.loading) return D.loading;
     base = base || '../records/target/bb/';
     var j = function (u) { return fetch(u).then(function (r) { return r.json(); }); };
-    D.loading = Promise.all([j(base + 'origins.json'), j(base + 'backgrounds.json'), j(base + 'rules.json'), j(base + 'perks.json').catch(function () { return null; })])
+    D.loading = Promise.all([j(base + 'origins.json'), j(base + 'backgrounds.json'), j(base + 'rules.json'), j(base + 'perks.json').catch(function () { return null; }),
+        j(base + 'ours.json').catch(function () { return null; })])
       .then(function (a) { D.origins = a[0]; D.bgs = a[1]; D.xp = a[2].experience; D.tiers = {};
+        D.crew = ((a[4] && a[4].crew && (a[4].crew.value || a[4].crew)) || []).map(function (m) { return m.name; });   /* __NO_MAN_WEARS_A_WOMANS_NAME__ */
         ((a[3] && a[3].rows) || []).forEach(function (r) { D.tiers[r.id] = r.tier; }); D.ready = true; return D; })
       .catch(function () { D.loading = null; return null; });
     return D.loading;
@@ -88,6 +90,11 @@
     if (spec.line) man.line = spec.line;   /* his own line on the crew screen (draft:true, WORDS may rewrite it) */
     return man;
   }
+  /* __NO_MAN_WEARS_A_WOMANS_NAME__ (RUN TWO [eyes: the Block Watch's names], rule 203): each man after YOU carries the name the crew
+     screen gives his place (the crew list, 'II' past it), a man's name on a man's body: the same map as engine/bohemia_roster.js
+     MEN_FOR (EVERY ORIGIN STARTS LIKE ITSELF W0 holds the copies equal), so a fight before the crew screen is opened calls him so */
+  var MEN_FOR = { TINA: 'TITO', MARISOL: 'MARCOS', LUPE: 'LALO', NENA: 'NENO' };
+  function placeName(i) { var L = D.crew || []; if (!L.length || i === 0) return null; var b = L[i % L.length]; if (!b) return null; b = MEN_FOR[b] || b; return i >= L.length ? b + ' II' : b; }
   /* the whole company for an origin, from a seed; null when the origin has no door block (its men come as they did) */
   function roll(id, seed) {
     var o = originRow(id); if (!o || !o.door || !Array.isArray(o.door.men) || !D.ready) return null;
@@ -96,6 +103,7 @@
       var spec = o.door.men[i];
       out.push(spec ? (rollMan(o.men[i], spec, R) || { background: o.men[i].background, level: o.men[i].level })
                     : { background: o.men[i].background, level: o.men[i].level });
+      var pn = placeName(i); if (pn) out[i].name = pn;
     }
     return out;
   }
@@ -133,7 +141,7 @@
   /* add (or take, with a negative n) to one count; never under zero; returns the new count */
   function addSupply(k, n) { var s = supplies(); if (!s) return null; s[k] = Math.max(0, (s[k] | 0) + (n | 0)); try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch (e) {} return s[k]; }
   function forget() { try { localStorage.removeItem(KEY); localStorage.removeItem(SKEY); } catch (e) {} }
-  root.BohemiaOriginStart = { KEY: KEY, SKEY: SKEY, load: load, roll: roll, company: company, forget: forget, kept: kept, talents: talents, data: D, STATS: STATS,
+  root.BohemiaOriginStart = { KEY: KEY, SKEY: SKEY, load: load, roll: roll, company: company, forget: forget, kept: kept, talents: talents, data: D, STATS: STATS, MEN_FOR: MEN_FOR, placeName: placeName,
     supplies: supplies, seedSupplies: seedSupplies, addSupply: addSupply };
   /* the data is read as the page comes up, after the door: three small files, nothing in the way of NEW GAME */
   try { if (root.fetch) setTimeout(function () { load(); }, 0); } catch (e) {}
