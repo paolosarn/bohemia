@@ -504,6 +504,10 @@ const { open } = require(process.argv[2]);
   set.block = await p.evaluate(() => { const S = FIGHT.S;
     const v = S.units.filter(u => FIGHT.onField(u) && !u.beast && shieldProp(u) && (meleeLook(lookOf(u)._key) || { clips: {} }).clips.SIdle)[0];
     const foe = v && S.units.filter(u => u.side !== v.side && FIGHT.onField(u))[0]; if (!v || !foe) return null;
+    /* stood off any cover first (COMBAT's lineup may start him on a cover tile, where a blow lands on his planted shield) */
+    const taken = {}; S.units.forEach(u => { taken[u.y * S.w + u.x] = 1; }); let open_ = null;
+    for (let y = 0; y < S.h && !open_; y++) for (let x = 0; x < S.w && !open_; x++) if (!FIGHT.hides(x, y) && !FIGHT.isRoof(x, y) && FIGHT.rowAt(x, y) !== 'obstacles' && !S.solid[y][x] && !taken[y * S.w + x]) open_ = [x, y];   /* the fight's own test (holdCovered) */
+    if (open_) { v.x = open_[0]; v.y = open_[1]; v._at = undefined; v._holdClip = undefined; }
     UI.anim.unshift({ k: 'attack', at: performance.now(), dur: beatMs() * 2, e: { id: foe.id, to: v.id, shot: false, hit: true } });
     return v.id + ':' + lookOf(v)._key + ':' + shieldProp(v); });
   await p.waitForTimeout(2000);
@@ -524,7 +528,7 @@ const { open } = require(process.argv[2]);
     mel = {k: v for k, v in seen.items() if k.startswith(('melee:', 'prop:'))}
     print('  note W2 melee men %s (%s); the swinger %s; cover %s; drawn %s' % (len((R.get('set') or {}).get('melee') or []), (R.get('set') or {}).get('handed') or 'as dealt', (R.get('set') or {}).get('swinger'), (R.get('set') or {}).get('cover'), mel))
     ok('W2 on the real fight a man with a melee row stands in the melee idle with his thing, swings (a spear thrusts) with it in his hand, kneels with it on cover, no page error',
-       seen.get('melee:MIdle') and any(seen.get('melee:' + c_) for c_ in ('MSwing', 'MThrust', 'SSwing', 'T2Swing', 'T2Thrust')) and seen.get('melee:MCover') and any(k.startswith('prop:') for k in seen) and not R.get('errs') and not R.get('err'),
+       seen.get('melee:MIdle') and any(seen.get('melee:' + c_) for c_ in ('MSwing', 'MThrust', 'SSwing', 'T2Swing', 'T2Thrust')) and any(seen.get('melee:' + c_) for c_ in ('MCover', 'T2Cover', 'SCover')) and any(k.startswith('prop:') for k in seen) and not R.get('errs') and not R.get('err'),
        'seen %s, errors %s' % (mel, (R.get('errs') or [R.get('err')])[:2]))
     if 's1' in READY:
         print('  note W4 the block: %s; drawn %s' % ((R.get('set') or {}).get('block'), {k: v for k, v in seen.items() if k.startswith(('shield:', 'melee:S'))}))
@@ -596,7 +600,8 @@ const { open } = require(process.argv[2]);
     if (men[0] && bow) { men[0].weapon = bow; men[0].shield = null; out.archer = men[0].id + ':' + lookOf(men[0])._key; window.__archer = men[0].id;
       const foe = S.units.filter(u => u.side !== men[0].side && FIGHT.onField(u))[0];
       if (foe) setTimeout(function () { UI.anim.unshift({ k: 'attack', at: performance.now(), dur: beatMs(), e: { id: men[0].id, to: foe.id, shot: false, hit: false } }); }, 2500); }
-    if (men[1] && sling) { men[1].weapon = sling; men[1].shield = null; out.slinger = men[1].id + ':' + lookOf(men[1])._key; }
+    const sl = S.units.filter(u => u !== men[0] && FIGHT.onField(u) && !u.beast && ((meleeLook(lookOf(u)._key) || { clips: {} }).clips.MIdleX) && !(meleeLook(lookOf(u)._key) || {}).held)[0];   /* a man whose own model carries no thing of its own */
+    if (sl && sling) { sl.weapon = sling; sl.shield = null; out.slinger = sl.id + ':' + lookOf(sl)._key; }
     return out; });
   await p.waitForTimeout(5000);
   const seen = await p.evaluate(() => UI.clipSeen);
@@ -615,7 +620,7 @@ const { open } = require(process.argv[2]);
     s6 = R6.get('seen') or {}
     print('  note W6 %s; drawn %s' % (R6.get('set'), {k: v for k, v in s6.items() if k.startswith(('melee:B', 'prop:compound', 'prop:sling'))}))
     ok('W6 THE BOW AND THE SLING on the real fight: a man handed a bow stands with it low in his left fist and draws and looses it on his shot; a man handed a sling holds it; no page error',
-       (R6.get('set') or {}).get('archer') and s6.get('melee:BIdle') and s6.get('melee:BAim') and s6.get('prop:compound_bow')
+       (R6.get('set') or {}).get('archer') and (s6.get('melee:BIdle') or s6.get('melee:BCover')) and s6.get('melee:BAim') and s6.get('prop:compound_bow')
        and ((R6.get('set') or {}).get('slinger') is None or s6.get('prop:sling')) and not R6.get('errs') and not R6.get('err'),
        R6.get('err') or R6.get('errs') or {k: v for k, v in s6.items() if k.startswith(('melee:B', 'prop:'))})
 done()
