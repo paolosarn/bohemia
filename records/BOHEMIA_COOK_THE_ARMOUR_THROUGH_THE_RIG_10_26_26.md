@@ -34,13 +34,24 @@ tools/bohemia_cook_the_armour_through_the_rig_10_26_26.py (Blender's Python) and
   (engine/bohemia_wear.js) draws them with nothing changed.
 
 ## MEASURED
-<MEASURED>
+- 27 pieces (11 head classes, 6 body classes and their extras: chain, closed chain, spike, horns), 1.28 million faces meshed
+  from CHARACTER's distances (the riot helmet 65,592 with its own art, the police vest 34,460), each 8 facings, the helmets also
+  dropped and at portrait size: wear.webp 512 x 605 (160 kB), wear_face.webp 512 x 435; a few seconds a piece on the CPU.
+- Every facing sits where CHARACTER's placeholder put it: the worst middle 2.5 px off (the riot helmet's new chin strap). Every
+  piece's fullest view 114 colours or more (the dust mask, a small cloth); the police pair a few hundred each.
+- THE GLASS: the riot visor shows his face through smoked polycarbonate, 33 see-through pixels in the front facing and 1,218 in
+  the portrait; the welder's lens stays solid.
+- THE DUST: at the rig's full share every dome came out the dust's grey (the riot helmet a mid grey, the oxblood moto shell pink,
+  the olive steel pot sage); armour takes 0.15 of it, the share the guide gives caps (the rig's own wear_by_material, as COOK's
+  floor added the road's). The sun's bleach of upward faces is not in that share: the moto helmet's oxblood still fades to a rose
+  on its crown, said plainly; the police pair read black.
+- Gate THE ARMOUR THROUGH THE RIG 5/0.
 
 ## THE GATE
 THE ARMOUR THROUGH THE RIG (gates/the_armour_through_the_rig_gate.py): file for file (every class and extra in use, eight facings, a
 helmet's drop and portrait, every cell on its sheet with a body); made by the rig (no setting moved, 120 colours or more a facing); the
 police pieces carry their own art; the riot visor is glass (partial alpha) and the welder's lens is not; the anchors hold.
-CHARACTER's own gate THE ARMOUR HE WEARS SHOWS on the new sheets: <CHARGATE>.
+CHARACTER's own gate THE ARMOUR HE WEARS SHOWS on the new sheets: THE ARMOUR HE WEARS SHOWS 18/0 on the new sheets (the crew card, the fight, the camp, the map and the portrait, phone and computer).
 
 ## SAID PLAINLY
 - Where he sees it: every screen that draws a man in his gear: the CREW card, the FIGHT, the CAMP, the MAP, his portrait (the
