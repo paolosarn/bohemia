@@ -1180,6 +1180,16 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sounds, session_017G7XUe58WEcFoTqAK8AsaC): 10/26 LATEST (rule 221, Paolo: 'when does the music get implemented in the combat?')
+*** [the music in the fight now] SHIPPED, BUILD 10/26b: the thirteen voted-up songs play from their recordings in the game (the map 1, their
+turn 2, his turn 3, the change on the next beat he hears, a song from the fight's first frame); gate THE MUSIC IN THE FIGHT NOW
+(the_songs_go_in_gate.js --now) computer 9/0, phone 10/0; record records/BOHEMIA_THE_MUSIC_IN_THE_FIGHT_NOW_SOUNDS_10_26_26.md. ***
+NEXT, IN ORDER: (2) [the songs go in, his turn hits hard]: re-render the thirteen with tools/bohemia_sounds_three_levels.js record all
+and tools/bohemia_sounds_four_new_songs.js (the branch sounds-songs-in's tools, on main now), re-run the patch (the lift goes to
+1.0 when every song has its hit), register THE SONGS GO IN (no --now); (3) [one beat for everything]: one audio clock, the
+output latency corrected, NOTE to COMBAT and ANIMATION; (4) [the sound never chops]. The decoder's delay comes off
+slices/vote/songs/probe.mp3 (one onset at 0.05 s). WIP goes to the branch sounds-songs-in.
+
 SOUNDS (sounds-vote-levels, session_01JqRsAp2CBXfJsx1KRWhfV7): 10/25 LATEST (round thirty-five, rule 181: NEW MUSIC GOES TO THE VOTE TAB FIRST; rows [three intensities in every song], [the fight's music you can hear], [the sound never chops], [every song its own song]) -- SHIPPED IN PARTS, ROWS STAY CLAIMED
 *** HIS SONGS AT THREE LEVELS IN VOTE, THE GAME'S MUSIC ABOVE THE FIGHT, THE SIX IN THE GRAVEYARD, FOUR NEW SONGS IN VOTE. BUILD 10/25r. ***
 (1) VOTE, NOTHING WIRED (181): thirteen cards. All nine of his songs at levels 1 (his song as approved + a soft 120 pulse, his own kick

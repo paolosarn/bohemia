@@ -164,14 +164,17 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
       const log0 = window.MACHINEPARTY ? MACHINEPARTY.log.length : 0;
       await new Promise(r => setTimeout(r, 4000));
       const n1 = window.MACHINEPARTY ? MACHINEPARTY.log.length : 0;
-      const on = { state: SONGFENCE.machine.state, err: SONGFENCE.machine.err, on: !!(window.MACHINEPARTY && MACHINEPARTY.on), moved: n1 >= log0 ? n1 - log0 : n1, now: SONGFENCE.now() };
+      const on = { state: SONGFENCE.machine.state, err: SONGFENCE.machine.err, on: !!(window.MACHINEPARTY && MACHINEPARTY.on), moved: n1 >= log0 ? n1 - log0 : n1, now: SONGFENCE.now(), book: window.SONGBOOK ? SONGBOOK.state() : null };
       const j = MUS.lib().findIndex(f => f.n !== 'REPO MAN' && SONGFENCE.allowed(MUS.lib().indexOf(f), 1)); MUS.cur = j;
       await new Promise(r => setTimeout(r, 1500));
       const off = { on: !!(window.MACHINEPARTY && MACHINEPARTY.on), ps: MUS.playStep !== SONGFENCE._ps && !(window.MACHINEPARTY && MACHINEPARTY._ps), now: SONGFENCE.now() };
       return { on, off };
     });
-    ok('O8 REPO MAN PLAYS AS THE MACHINE PARTY: the machine attached and playing (' + mp.on.moved + ' machine hits in four seconds)',
-      mp.on.state === 'ready' && mp.on.on && mp.on.moved > 0 && mp.on.now === 'REPO MAN', JSON.stringify(mp.on));
+    /* RULE 207 (SOUNDS 10/25): REPO MAN plays from its recording, made through this very chain (take A, the trim, the machine
+       answering his kit: tools/bohemia_sounds_three_levels.js), so the live machine only runs while that recording decodes */
+    const rec = mp.on.book && mp.on.book.song === 'REPO MAN' && mp.on.book.playing;
+    ok('O8 REPO MAN PLAYS AS THE MACHINE PARTY: ' + (rec ? 'its recording through the machine party is what plays' : 'the machine attached and playing (' + mp.on.moved + ' machine hits in four seconds)'),
+      mp.on.now === 'REPO MAN' && (rec || (mp.on.state === 'ready' && mp.on.on && mp.on.moved > 0)), JSON.stringify(mp.on));
     ok('O8 the machine lets go on any other song (' + mp.off.now + ')', !mp.off.on && mp.off.ps, JSON.stringify(mp.off));
 
     /* O9 the ambience far down by default, and the beds go into its bus */

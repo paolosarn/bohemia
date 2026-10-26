@@ -370,7 +370,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       try{
         KILLMUS.reset();
         MUS.step=17;                       // 17 % 16 = 1: just past the line
-        KILLMUS.kills=1; KILLMUS.killed();  // -> 2 kills, which is now LEVEL 3
+        KILLMUS.setThreat(true);            // RULE 207: the fight starting is level 2 (layers 2), held for the bar
         await wait(400);
         r.held={step:MUS.step%16, want:KILLMUS.want, layers:MUS.layers};
         // HOLD THE TRANSPORT ON THE BAR LINE AND WAIT FOR THE APPLIER, rather
@@ -753,20 +753,21 @@ def main():
             print('  NOTE  the lift ladder ran out on at least one kill (waits %s, '
                   'landed %s) -- this claim did not observe, so it is not counted '
                   'as a failure' % (waits, [x.get('landed') for x in st]))
-        ok('TWO KILLS GO STRAIGHT TO THE TOP, layer 4 -- his 8/26 ladder, down '
-           'from the four kills that shipped (layers after each kill: %s, waits %s)'
+        # RULE 207 (Paolo 10/25, through 167(c)), NEWEST DATE WINS over 8/26: the levels are the fight's now (the map 1,
+        # their turn 2, his turn 3), so a kill moves nothing; SOUNDS moved this leg with the ladder, 10/25.
+        ok('A KILL MOVES NOTHING NOW, the map plays 1 (rule 207) (layers after each kill: %s, waits %s)'
            % (got, waits),
-           (not allLanded) or (len(got) == 5 and got[1] == 4 and all(g == 4 for g in got[1:])))
+           (not allLanded) or (len(got) == 5 and all(g == 0 for g in got)))
         # DRIVEN, not observed in passing. See the note in the browser leg:
         # watching the five kills above for a gap is timing-dependent and went
         # red on correct code.
         held, landed = kl.get('held') or {}, kl.get('landed') or {}
-        ok('the lift is HELD when the transport is mid-bar (step%%16=%s, want %s, '
+        ok('the fight\'s lift is HELD when the transport is mid-bar (step%%16=%s, want %s, '
            'layers %s)' % (held.get('step'), held.get('want'), held.get('layers')),
-           held.get('want') == 4 and held.get('layers') == 0)
+           held.get('want') == 2 and held.get('layers') == 0)
         ok('and LANDS at the top of the next bar (want %s, layers %s)'
            % (landed.get('want'), landed.get('layers')),
-           landed.get('layers') == 4)
+           landed.get('layers') == 2)
         ok('the fight settling puts it back to CALM (%s)'
            % (kl.get('afterReset') or {}).get('layers'),
            (kl.get('afterReset') or {}).get('layers') == 0)

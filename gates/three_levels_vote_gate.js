@@ -13,7 +13,7 @@
      3  level 3 is louder than level 1 on a phone, and carries the drums, the bass and the hook (the parts its pass
         scheduled), level 2 carries the heartbeat and no backbeat
      4  the card is in the registry, its page exists and names this song
-     5  NOT IN THE GAME (181(d)): no file of the alpha or the demo names the three levels
+     5  IN THE GAME (207, his yes): the alpha and the demo play the three levels from these files
      6  THE CARD PLAYS, on a phone profile and a computer profile: level 1 starts, level 3 tapped mid-song lands on the
         next bar line (the gains cross there, not before), A FIGHT plays the run, STOP stops
    node gates/three_levels_vote_gate.js [--fast]   (--fast skips 6) */
@@ -86,10 +86,11 @@ for (const S of index.songs) {
   report.push(S.name + ' the beat repeats ' + P.map(p => p.norm.toFixed(2)).join('/') + ' (vs off-grid, high ' + P.map(p => p.ratio_high > 50 ? '>50' : p.ratio_high.toFixed(1)).join('/') + '), phone dB ' + M.levels.map(l => l.audio.phone_rms_db).join('/'));
 }
 ok(fs.existsSync(path.join(SL, PAGE)), 'no card page');
-/* 181(d): not in the game */
+/* 207 (Paolo 10/25: 'I like the songs, I want you to implement them'): his yes came, so the game plays them now, from these
+   same files (181(d) is met: he heard them first) */
 for (const f of ['BOHEMIA_ALPHA_0_9.html', 'BOHEMIA_DEMO.html']) {
   const p = path.join(SL, f); if (!fs.existsSync(p)) continue;
-  const s = fs.readFileSync(p, 'utf8'); ok(!/three_levels|THREE_LEVELS/.test(s), f + ' names the three levels: they are not in the game until he says so (181(d))');
+  const s = fs.readFileSync(p, 'utf8'); ok(/vote\/songs\/three_levels\//.test(s) && s.includes('<!-- /__THE_SONGS_GO_IN__ -->'), f + ' does not play the three levels (rule 207: the songs go in)');
 }
 
 async function plays() {

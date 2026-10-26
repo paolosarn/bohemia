@@ -79,8 +79,11 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     I.setThreat(true);               const threat=L();
     I.reset(); I.killed();           const one=L();
     I.killed();                      const two=L();
+    I.reset(); I.setThreat(true);    const form=L();
+    if(I.turn) I.turn('you');        const yours=L();
+    if(I.turn) I.turn('them');       const theirs=L();
     I.reset();
-    return {calm, threat, one, two};
+    return {calm, threat, one, two, form, yours, theirs};
   });
 
   /* ---- 3. TALKING, driven on the REAL conversation card ---------------- */
@@ -206,14 +209,18 @@ def main():
     L = d.get('ladder') or {}
     ok('LEVEL 1 overworld calm (%s)' % L.get('calm'), L.get('calm') == 1)
     ok('LEVEL 2 an enemy trying to hurt you (%s)' % L.get('threat'), L.get('threat') == 2)
-    ok('one kill is NOT enough, he said two (%s)' % L.get('one'), L.get('one') == 1)
-    ok('LEVEL 3 two kills (%s)' % L.get('two'), L.get('two') == 3)
+    # RULE 207 (Paolo 10/25, through 167(c)): the three levels are the fight's now: the map and the towns 1, their turn 2,
+    # his turn 3. A kill on the map, a conversation and a crowd no longer raise it (SOUNDS 10/25 moved these legs).
+    ok('a kill on the map leaves it at 1 (%s)' % L.get('one'), L.get('one') == 1)
+    ok('two kills on the map leave it at 1, the map plays 1 (rule 207) (%s)' % L.get('two'), L.get('two') == 1)
+    ok('THE FORMATION, before the first turn: 2 (%s)' % L.get('form'), L.get('form') == 2)
+    ok('LEVEL 3 HIS TURN (rule 207) (%s)' % L.get('yours'), L.get('yours') == 3)
+    ok('LEVEL 2 THEIR TURN (rule 207) (%s)' % L.get('theirs'), L.get('theirs') == 2)
 
     t = d.get('talk') or {}
-    ok('LEVEL 2 SOMEBODY TALKING TO YOU: a real conversation card raises it, and '
-       'it does so ON ITS OWN TIMER rather than because the gate poked it '
+    ok('SOMEBODY TALKING TO YOU on the map stays at 1 (rule 207: the map and the towns play 1) '
        '(%s -> %s)' % (t.get('before'), t.get('during')),
-       t.get('before') == 1 and t.get('during') == 2)
+       t.get('before') == 1 and t.get('during') == 1)
     ok('and it LETS GO when the conversation closes -- a level that only ever '
        'climbs is a stuck level (%s)' % t.get('after'), t.get('after') == 1)
 
@@ -221,9 +228,9 @@ def main():
     ok('the crowd threshold was driven at its edges (%d case(s))' % len(rows),
        len(rows) == 5)
     for row in rows:
-        ok('LEVEL 3 CROWD, %s: distances %s -> level %s (wanted %s)'
-           % (row['name'], row['ds'], row['got'], row['want']),
-           row['got'] == row['want'])
+        ok('A CROWD ON THE MAP STAYS AT 1 (rule 207), %s: distances %s -> level %s'
+           % (row['name'], row['ds'], row['got']),
+           row['got'] == 1)
 
     ok('the page threw nothing: %s' % (d.get('errors') or 'clean'), not d.get('errors'))
 

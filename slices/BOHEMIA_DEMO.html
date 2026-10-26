@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"745a33578b87a8a6",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"2ab38d51beb5a54d",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1568,7 +1568,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/26g - THE BEST RECRUIT AT THE TOP</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/26h - THE SONGS IN THE FIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -19278,7 +19278,7 @@ window.INTENSITY=KILLMUS;
    up, and both come back over a bar when the fight ends. His sliders still move both; the song's notes are untouched.
    tools/bohemia_sounds_the_sound_never_chops_patch.py, gates/the_fights_music_you_can_hear_gate.js. */
 (function(){
-  var LIFT = 2.0, TRIM = 0.63, mus = null, fx = null, ctx = null, on = false;
+  var LIFT = 2.0, TRIM = 0.63, /* __THE_SONGS_GO_IN__: 1.0 and 0.5 once the re-rendered levels carry the gap (rule 207), 2.0 and 0.63 until then */ mus = null, fx = null, ctx = null, on = false;
   function between(src, dst, g){ var n = ctx.createGain(); n.gain.value = g; src.disconnect(dst); src.connect(n); n.connect(dst); return n; }
   function ensure(){
     try{
@@ -22655,6 +22655,271 @@ drawLogoBig();requestAnimationFrame(loop);
 })();
 </script>
 <!-- /__THE_ONE_BEAT__ -->
+<!-- __THE_SONGS_GO_IN__ (SOUNDS 10/25, rule 207) -->
+<script>
+/* ============================================================================
+   __THE_SONGS_GO_IN__ (SOUNDS 10/25/26, row [the songs go in, his turn hits hard], rule 207; and rule 175(b))
+
+   PAOLO 10/25: 'I like the songs, I want you to implement them; there has to be a pretty big difference between the
+   opponent's turn and my turn... it can't just be one quiet thing that's the difference between their turn and your turn.'
+
+   THE THIRTEEN SONGS PLAY FROM THEIR RECORDINGS (slices/vote/songs/three_levels/ and new_four/, the same files the VOTE
+   cards play): level 1 on the map and in the towns, level 2 on their turn, level 3 on his turn, every level of a song one
+   timeline. Through a phone's speaker level 2 is 3.6 dB over level 1 and level 3 6.8 dB over level 2, and level 3 is the
+   only one with the full drums and the lead (tools/bohemia_sounds_three_levels.js measures and sets it).
+   HOW: the game's transport still books every sixteenth on the 120 beat (the one grid: THE ONE BEAT, the fight's beat, the
+   street's turns). On each step it books, the recording at the level MUS.layers asks for is checked to be sounding at
+   that step's place; a level change starts the new level at the same place, on the beat it was committed on (a turn's
+   change is committed on its beat by COMBAT's commit-on-read, read here), with a hit into 3 and a drop out of it.
+   RENDERED AHEAD (175(b)): a stalled main thread books nothing, and the recording plays on in the audio thread.
+   UNTIL A RECORDING IS DECODED his song plays from his engine live, as it always did, and the swap lands on a beat.
+   tools/bohemia_sounds_the_songs_go_in_patch.py; gate gates/the_songs_go_in_gate.js. window.SONGBOOK reads it.
+   ========================================================================== */
+(function(){
+ 'use strict';
+ if(window.SONGBOOK) return;
+ if(typeof MUS==='undefined' || typeof KILLMUS==='undefined') return;
+ var BOOK=/*BOOK*/{"made":"10/26","rule":[207,221],"probe":"vote/songs/probe.mp3?v=17c599b6","songs":{"THE VAULT":{"dir":"vote/songs/three_levels/the_vault/","steps":512,"gain_db":0.0,"hit":false,"v":"57080c63"},"GHOST IN THE GRID":{"dir":"vote/songs/three_levels/ghost_in_the_grid/","steps":512,"gain_db":0.0,"hit":false,"v":"238af79a"},"SLOW BLEED":{"dir":"vote/songs/three_levels/slow_bleed/","steps":512,"gain_db":0.0,"hit":false,"v":"78be8e4d"},"SATELLITE PRAYER":{"dir":"vote/songs/three_levels/satellite_prayer/","steps":512,"gain_db":0.0,"hit":false,"v":"9a2626fd"},"SLOW CREEP":{"dir":"vote/songs/three_levels/slow_creep/","steps":512,"gain_db":0.0,"hit":false,"v":"f3f658fb"},"THE PIT BOSS IS GONE":{"dir":"vote/songs/three_levels/the_pit_boss_is_gone/","steps":512,"gain_db":0.0,"hit":false,"v":"40453992"},"THE ORGAN IN THE DROWNED CHAPEL":{"dir":"vote/songs/three_levels/the_organ_in_the_drowned_chapel/","steps":512,"gain_db":0.0,"hit":false,"v":"ac845781"},"CAMPFIRE CONFESSION":{"dir":"vote/songs/three_levels/campfire_confession/","steps":512,"gain_db":0.0,"hit":false,"v":"47122140"},"REPO MAN":{"dir":"vote/songs/three_levels/repo_man/","steps":512,"gain_db":0.0,"hit":false,"v":"8082b910"},"THE CHURCH CLOCK STRIKES TWELVE":{"dir":"vote/songs/new_four/the_church_clock_strikes_twelve/","steps":512,"gain_db":0.0,"hit":false,"v":"7652aab8","row":{"root":36,"scale":[0,2,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE SODA MACHINE STILL TAKES COINS":{"dir":"vote/songs/new_four/the_soda_machine_still_takes_coins/","steps":512,"gain_db":0.0,"hit":false,"v":"f436d07a","row":{"root":38,"scale":[0,1,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE HELICOPTER THAT NEVER LANDS":{"dir":"vote/songs/new_four/the_helicopter_that_never_lands/","steps":512,"gain_db":0.0,"hit":false,"v":"93c1342e","row":{"root":43,"scale":[0,2,3,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE PAWN COUNTER AT FOUR IN THE MORNING":{"dir":"vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/","steps":512,"gain_db":0.0,"hit":false,"v":"b6e846f2","row":{"root":34,"scale":[0,2,3,5,7,8,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}}}}/*/BOOK*/;
+ var SD=0.125, OFF=0.05, TOL=0.004;
+ var R=window.SONGBOOK={ book:BOOK, sets:{}, src:null, ring:[], buses:{}, delay:null, queued:null, switches:[], hits:0,
+   fallback:0, steps:0, resync:0, errs:[], decoded:0, dropped:0, rate:null };
+
+ function live(){
+  try{ var A=MUS.AC; if(!A) return null;
+   if(window.OfflineAudioContext && A instanceof window.OfflineAudioContext) return null;
+   if(/Offline/.test((A.constructor&&A.constructor.name)||'')) return null;
+   return A; }catch(e){ return null; } }
+ function nameOf(fi){ try{ var L=MUS.lib(); return L[fi]?L[fi].n:null; }catch(e){ return null; } }
+ function entry(){ try{ if((MUS.curSlot||1)!==1) return null; var n=nameOf(MUS.cur); return (n && BOOK.songs[n]) ? n : null; }catch(e){ return null; } }
+ function fighting(){ try{ return !!(KILLMUS.threat || KILLMUS.nf); }catch(e){ return false; } }
+ /* the fight is coming: its frame is in the page (on a slow phone 9 s before the board), so its levels decode before the first turn */
+ function coming(){ try{ return fighting() || !!document.getElementById('fightFrame'); }catch(e){ return false; } }
+ function note(o){ o.at=+(performance.now()/1000).toFixed(3); R.switches.push(o); if(R.switches.length>80) R.switches.shift(); }
+
+ /* ---- THE FOUR NEW SONGS: a row each, no notes (their notes are their recordings), in his set ---------------------- */
+ try{
+  for(var n0 in BOOK.songs){ var b0=BOOK.songs[n0]; if(!b0.row) continue;
+   if(!MLOOPS.some(function(x){ return x.n===n0; })){ var row={ n:n0 }; for(var k0 in b0.row) row[k0]=b0.row[k0]; MLOOPS.push(row); }
+   var key=n0+'#1';
+   if(typeof CAT_DEFAULTS!=='undefined' && !CAT_DEFAULTS[key]) CAT_DEFAULTS[key]=['OVERWORLD NIGHT'];
+   if(typeof CANON_DEFAULTS!=='undefined' && CANON_DEFAULTS[key]==null) CANON_DEFAULTS[key]=2;
+   try{ if(MUS.cats && !MUS.cats[key]) MUS.cats[key]=['OVERWORLD NIGHT']; }catch(e){}
+   try{ if(MUS.V && MUS.V[key]==null) MUS.V[key]=2; }catch(e){}
+  }
+ }catch(e){ R.errs.push('rows: '+e.message); }
+ /* the opening never opens on a song with no live engine under it */
+ try{ var mc=MENUMUS.candidates; MENUMUS.candidates=function(){ return mc.call(MENUMUS).filter(function(c){ var n=nameOf(c.fi); return !(n && BOOK.songs[n] && BOOK.songs[n].row); }); }; }catch(e){}
+
+ /* ---- THE LADDER (207(a)): the map and the towns 1; a fight: their turn 2, his turn 3, the formation 2 ------------- */
+ (function(){
+  var K=KILLMUS, side=null, turn0=K.turn, settle0=K.settle, reset0=K.reset;
+  K.level=function(){ if(!(this.threat || this.nf)) return 1; return side==='you' ? 3 : 2; };
+  if(turn0) K.turn=function(s){ side=(s==='them')?'them':'you'; var r=turn0.apply(this, arguments); try{ turnNow(); }catch(e){} return r; };
+  if(settle0) K.settle=function(){ side=null; var r=settle0.apply(this, arguments); setTimeout(function(){ try{ plan(); }catch(e){} }, 0); return r; };
+  if(reset0) K.reset=function(){ side=null; return reset0.apply(this, arguments); };
+  K.side=function(){ return side; };
+ })();
+
+ /* ---- DECODING: on a phone at 24 kHz; the encoder's delay read once, off the hit (one onset, 0.05 s into its file) ---- */
+ function coarse(){ try{ return !!(window.matchMedia && matchMedia('(pointer: coarse)').matches); }catch(e){ return false; } }
+ function decode(ab){
+  return new Promise(function(res, rej){
+   var C=window.OfflineAudioContext||window.webkitOfflineAudioContext, d=null;
+   if(coarse() && C){ try{ d=new C(1, 1, 24000); }catch(e){ d=null; } }
+   if(!d) d=live();
+   if(!d) return rej(new Error('no audio'));
+   R.rate=d.sampleRate;
+   try{ var p=d.decodeAudioData(ab, res, rej); if(p && p.then) p.then(res, rej); }catch(e){ rej(e); }
+  });
+ }
+ function onset(b){
+  var d=b.getChannelData(0), sr=b.sampleRate, n=Math.min(d.length, Math.round(sr*0.4)), pk=0, i;
+  for(i=0;i<n;i++){ var a=Math.abs(d[i]); if(a>pk) pk=a; }
+  var th=Math.max(0.002, pk*0.25);
+  for(i=0;i<n;i++) if(Math.abs(d[i])>th) break;
+  return i>=n ? 0 : Math.max(-0.01, Math.min(0.1, i/sr-OFF));
+ }
+ /* THE DECODER'S DELAY, read once off the probe (one hard onset exactly 0.05 s into its file, the songs' own encoder): a
+    browser that trims the encoder's padding reads 0 (Chromium does), one that keeps it reads the padding; every song's
+    step 0 then sits at 0.05 s plus that. */
+ var PR=null;
+ function probe(){
+  if(R.delay!=null) return Promise.resolve();
+  if(PR) return PR;
+  PR=fetch(BOOK.probe).then(function(r){ if(!r.ok) throw new Error('probe '+r.status); return r.arrayBuffer(); })
+   .then(function(ab){ return decode(ab); }).then(function(b){ R.delay=onset(b); },
+    function(e){ R.delay=0; R.errs.push('probe: '+(e&&e.message||e)); });
+  return PR;
+ }
+ function setOf(n){ var s=R.sets[n]; if(!s) s=R.sets[n]={ n:n, b:BOOK.songs[n], ab:{}, buf:{}, ld:{} }; return s; }
+ function bytes(s, f){
+  if(s.ab[f]) return Promise.resolve(s.ab[f]);
+  return fetch(s.b.dir+f+'.mp3?v='+s.b.v).then(function(r){ if(!r.ok) throw new Error(f+' '+r.status); return r.arrayBuffer(); })
+   .then(function(ab){ s.ab[f]=ab; return ab; });
+ }
+ function load(s, f){
+  if(s.buf[f]) return Promise.resolve(s.buf[f]);
+  if(s.ld[f]) return s.ld[f];
+  s.ld[f]=probe().then(function(){ return bytes(s, f); }).then(function(ab){ return decode(ab.slice(0)); }).then(function(b){
+    delete s.ld[f]; s.buf[f]=b; R.decoded++;
+    /* a level the fight asked for, decoded after the turn was told: it comes in on its next beat, not the transport's */
+    if(f!=='hit') setTimeout(function(){ try{ turnNow(true); }catch(e){} }, 0);
+    return b; },
+   function(e){ delete s.ld[f]; R.errs.push(s.n+' '+f+': '+(e&&e.message||e)); if(R.errs.length>20) R.errs.shift(); throw e; });
+  return s.ld[f];
+ }
+ /* WHAT IS HELD: the playing song's levels for where he is (on the map level 1 decoded and the fight's two levels as bytes,
+    so a fight decodes without a fetch), the hit, the next song's level 1 (its bytes only in a fight) */
+ function plan(){
+  var keep={}, n=entry();
+  if(n){ var s=setOf(n), k=keep[n]={}; if(s.b.hit) k.hit=1;
+   if(coming()){ k.level_2=1; k.level_3=1; if(!s.buf.level_2) k.level_1=1; }
+   else { k.level_1=1; k['bytes:level_2']=1; k['bytes:level_3']=1; }
+   if(R.src && R.src.n===n && !R.src.stop) k['level_'+R.src.lv]=1; }
+  if(fighting() && !R.queued) queue();
+  /* the song after this one: queued (its bytes in a fight, its level 1 on the map) or just picked and about to swap in */
+  [R.queued, (R.coming && Date.now()-R.coming.t<8000) ? R.coming : null].forEach(function(q){
+   if(!q || !BOOK.songs[q.name] || q.name===n) return;
+   var kq=keep[q.name]=keep[q.name]||{}; kq['bytes:level_1']=1; if(!fighting() || q===R.coming){ kq.level_1=1; if(BOOK.songs[q.name].hit) kq.hit=1; } });
+  for(var m in keep){ var s2=setOf(m);
+   for(var f in keep[m]){ if(f.indexOf('bytes:')===0){ bytes(s2, f.slice(6)).catch(function(){}); continue; } load(s2, f).catch(function(){}); } }
+  for(var m2 in R.sets){ var s3=R.sets[m2];
+   for(var g in s3.buf) if(!(keep[m2] && keep[m2][g])){ delete s3.buf[g]; R.dropped++; }
+   if(!keep[m2]) s3.ab={}; }
+ }
+ setInterval(function(){ try{ if(live() && MUS.playing) plan(); }catch(e){} }, 1000);
+
+ /* ---- THE NEXT SONG, CHOSEN A PHRASE EARLY so its recording is in when the street turns ------------------------------ */
+ var pick0=CITYMUS.pick;
+ CITYMUS.pick=function(){
+  var q=R.queued;
+  if(q && q.fi!==MUS.cur && Date.now()-q.t<600000){ R.queued=null;
+   try{ if(!window.SONGFENCE || SONGFENCE.allowed(q.fi, q.slot)){ R.coming={ fi:q.fi, slot:q.slot, name:q.name, t:Date.now() }; setTimeout(plan, 0); return { fi:q.fi, slot:q.slot }; } }catch(e){} }
+  R.queued=null;
+  var c=pick0.apply(this, arguments);
+  if(c){ R.coming={ fi:c.fi, slot:c.slot, name:nameOf(c.fi), t:Date.now() }; setTimeout(plan, 0); }
+  return c;
+ };
+ function queue(){
+  if(R.queued) return;
+  var c=null; try{ c=pick0.call(CITYMUS); }catch(e){ c=null; }
+  if(!c || c.fi===MUS.cur) return;
+  R.queued={ fi:c.fi, slot:c.slot, name:nameOf(c.fi), t:Date.now() }; plan();
+ }
+
+ /* ---- THE PLAYER ---------------------------------------------------------------------------------------------------- */
+ function bus(s){
+  var A=live(), b=R.buses[s.n];
+  if(b && b.context===A && b._to===MUS.MAST) return b;
+  b=A.createGain(); b.gain.value=Math.pow(10, (s.b.gain_db||0)/20); b.connect(MUS.MAST); b._to=MUS.MAST; R.buses[s.n]=b; return b;
+ }
+ function begin(s, lv, k, t, fadeIn){
+  var A=live(), src=A.createBufferSource(), g=A.createGain(), now=A.currentTime;
+  var off=OFF+(R.delay||0)+k*SD;
+  if(t<now){ off+=now-t; t=now; }                 /* a step booked late: the song where it is now, never a rush */
+  src.buffer=s.buf['level_'+lv]; src.connect(g); g.connect(bus(s));
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(1, t+(fadeIn||0.006));
+  src.start(t, Math.max(0, off));
+  var c={ n:s.n, lv:lv, src:src, g:g, t0:t, off0:off, stop:null };
+  src.onended=function(){ try{ src.disconnect(); g.disconnect(); }catch(e){} var i=R.ring.indexOf(c); if(i>=0) R.ring.splice(i,1); };
+  R.ring.push(c); R.src=c; return c;
+ }
+ function end(c, t, fade){
+  if(!c || c.stop) return; c.stop=t;
+  try{ var g=c.g.gain; g.cancelScheduledValues(t); g.setValueAtTime(1, t); g.linearRampToValueAtTime(0, t+fade); c.src.stop(t+fade+0.02); }catch(e){}
+ }
+ function strike(s, t){
+  var hb=s.buf.hit, A=live(); if(!hb || !A) return;
+  try{ var h=A.createBufferSource(); h.buffer=hb; h.connect(bus(s)); h.start(Math.max(t, A.currentTime), OFF+(R.delay||0)); R.hits++; }catch(e){}
+ }
+ /* the level asked for, or the nearest one under it that is decoded, else the nearest over it (a fight just over) */
+ function best(s, want){ var l; for(l=want; l>=1; l--) if(s.buf['level_'+l]) return l; for(l=want+1; l<=3; l++) if(s.buf['level_'+l]) return l; return 0; }
+ R.stopAll=function(fade){ var A=live(); if(!A) return; var t=A.currentTime; R.ring.slice().forEach(function(c){ c.stop=null; end(c, t, fade||0.06); }); R.src=null; };
+
+ var PS=MUS.playStep;
+ MUS.playStep=function(s, t, sc){
+  var A=live();
+  if(!A || !MUS.playing) return PS.apply(MUS, arguments);   /* an offline render (the cards' recorder), or a step booked by hand
+                                                    with the transport stopped (a gate's sweep): his engine, as always */
+  try{ if(window.SONGFENCE && !SONGFENCE.ok() && !(MUS._audit && MUS.userPicked)) SONGFENCE.fix('net'); }catch(e){}
+  var lay=MUS.layers;                               /* reading it commits a turn's change, on its beat (COMBAT's read) */
+  var pend=KILLMUS.pending ? KILLMUS.pending() : null; if(pend) lay=pend.want;   /* a turn already heard (turnNow) holds */
+  var n=entry(), c=R.src;
+  if(!n){ if(c && !c.stop) end(c, t, 0.3); R.src=null; return PS.apply(MUS, arguments); }
+  var S=setOf(n), N=S.b.steps, k=MUS.step%N, want=lay>=4?3:(lay>=2?2:1);
+  R.steps++; R.want=want;
+  if(k===N-256 && !fighting()) queue();
+  if(R.queued && R.queued.name===n) R.queued=null;
+  var lv=best(S, want);
+  if(!lv){
+   if(c && !c.stop && c.n!==n){ end(c, t, 0.3); R.src=null; }
+   if(!S.ld.level_1 && !S.ld.level_2) plan();
+   if(S.b.row) return;                              /* a new song has no engine notes: it waits for its recording */
+   R.fallback++; return PS.apply(MUS, arguments);   /* his song, live, until its recording is in */
+  }
+  var at=OFF+(R.delay||0)+k*SD;
+  if(c && !c.stop && c.n===n){
+   var pos=c.off0+(t-c.t0), drift=pos-at;
+   if(c.lv===lv && Math.abs(drift)<TOL) return;    /* sounding, in its place */
+   if(c.lv===lv && k===0 && Math.abs(pos-(OFF+(R.delay||0)+N*SD))<TOL){   /* the pass came round: the old one rings its tail */
+    c.stop=t; begin(S, lv, 0, t, 0.004); note({ song:n, lv:lv, k:0, why:'round' }); return; }
+   if(c.lv!==lv && Math.abs(drift)<TOL && k%4!==0) return;   /* a level change waits for the beat */
+   var into3=(lv===3 && c.lv!==3), outOf3=(c.lv===3 && lv!==3);
+   if(c.lv===lv) R.resync++;
+   end(c, t, outOf3 ? 0.015 : 0.03);
+   begin(S, lv, k, t, into3 ? 0.004 : 0.012);
+   if(into3) strike(S, t);
+   note({ song:n, from:c.lv, lv:lv, want:want, k:k, step:MUS.step, beat:k%4===0, t:+t.toFixed(3), why:c.lv===lv?'resync':(into3?'hit':(outOf3?'drop':'change')) });
+   return;
+  }
+  /* a new song, or the first sound of one: from the engine's fallback the swap waits for the beat */
+  if(c && !c.stop && c.n!==n) end(c, t, 0.3);
+  else if(!c && R.steps>1 && k%4!==0 && !S.b.row && R.fallback) { R.fallback++; return PS.apply(MUS, arguments); }
+  begin(S, lv, k, t, c ? 0.01 : 0.02);
+  note({ song:n, lv:lv, want:want, k:k, step:MUS.step, t:+t.toFixed(3), why:c?'song':'start' });
+ };
+ R.net=MUS.playStep;
+ /* THE TURN ON THE NEXT BEAT HE HEARS (207(c)). The transport books a beat ahead, so waiting for its next booked beat put
+    the change 0.5 to 1.0 s after the turn (MEASURED, computer: 0.55 to 0.97 s). The recording is already sounding, so the
+    level changes at the song's next beat that has not yet come out of the speaker (40 ms of margin), and the transport,
+    booking that beat later, finds it done. */
+ function turnNow(decoded){
+  var A=live(), c=R.src, n=entry(); if(!A || !c || c.stop || !n || c.n!==n) return;
+  var p=KILLMUS.pending ? KILLMUS.pending() : null, wl=p ? p.want : (decoded ? KILLMUS.want : null); if(wl==null) return;
+  var want=wl>=4?3:(wl>=2?2:1), S=setOf(n), lv=best(S, want); if(!lv || lv===c.lv) return;
+  var d=OFF+(R.delay||0), N=S.b.steps, now=A.currentTime+0.04;
+  var pos=c.off0+(now-c.t0), k=Math.ceil((pos-d)/(4*SD)-1e-9)*4, t=c.t0+(d+k*SD-c.off0);
+  if(k>=N) return;                                  /* the pass is coming round: the transport's own beat takes it */
+  var into3=(lv===3 && c.lv!==3), outOf3=(c.lv===3 && lv!==3);
+  end(c, t, outOf3 ? 0.015 : 0.03);
+  begin(S, lv, k, t, into3 ? 0.004 : 0.012);
+  if(into3) strike(S, t);
+  note({ song:n, from:c.lv, lv:lv, want:want, k:k, step:k, beat:true, t:+t.toFixed(3), why:(into3?'hit':(outOf3?'drop':'change'))+(decoded?' decoded':' now') });
+ }
+ /* stopping the transport stops the recordings (MAST is cut to zero by stop(), and would bring them back with start()) */
+ var STOP0=MUS.stop;
+ MUS.stop=function(){ try{ R.stopAll(0.06); }catch(e){} return STOP0.apply(this, arguments); };
+ R.state=function(){ var c=R.src; return { song:c?c.n:null, level:c?c.lv:0, want:R.want||0, playing:!!(c && !c.stop), fighting:fighting(),
+   side:KILLMUS.side?KILLMUS.side():null, delay:R.delay, rate:R.rate, decoded:R.decoded, held:Object.keys(R.sets).map(function(m){ return m+':'+Object.keys(R.sets[m].buf).join(','); }),
+   queued:R.queued?R.queued.name:null, hits:R.hits, fallback:R.fallback, resync:R.resync, errs:R.errs.slice(-5) }; };
+ /* THE BEAT ON THE GRID, read off the decoded recording itself: its loudness in 2.5 ms frames, folded on the eighth note
+    (0.25 s) from where the player puts step 0 (0.05 s + the decoder's delay) and averaged, then the steepest rise of that
+    average: the kit's onsets on the beat and its eighths rise at phase 0. A fold first and a rise after, so a pad or a tail
+    never outvotes the kit (rule 221(c): within 20 ms of a beat or its eighth). ms off the grid, and how steep. */
+ R.beatPhase=function(n, lv){
+  var s=R.sets[n], b=s&&s.buf['level_'+lv]; if(!b) return null;
+  var d=b.getChannelData(0), sr=b.sampleRate, fr=Math.max(1, Math.round(sr*0.0025)), N=Math.floor(d.length/fr), o0=OFF+(R.delay||0);
+  var P=0.25, B=100, sum=new Float64Array(B), cnt=new Float64Array(B), i, k;
+  for(i=0;i<N;i++){ var t=i*fr/sr-o0; if(t<0) continue; var a=0; for(k=0;k<fr;k++) a+=Math.abs(d[i*fr+k]);
+   var j=Math.floor((t%P)/0.0025)%B; sum[j]+=a/fr; cnt[j]++; }
+  var avg=new Float64Array(B), mean=0; for(i=0;i<B;i++){ avg[i]=cnt[i]?sum[i]/cnt[i]:0; mean+=avg[i]/B; }
+  var best=0, rb=-1; for(i=0;i<B;i++){ var r=avg[i]-avg[(i+B-1)%B]; if(r>rb){ rb=r; best=i; } }
+  var ms=best*2.5; if(ms>125) ms-=250;
+  return { ms_off_the_grid:ms, rise:+(rb/(mean||1)).toFixed(2), delay_ms:+((R.delay||0)*1000).toFixed(1), rate:sr };
+ };
+})();
+</script>
+<!-- /__THE_SONGS_GO_IN__ -->
 <!-- BOHEMIA RUN BEAT BRIDGE (7/29/26) -->
 <script>
 /* === RUN BEAT BRIDGE (7/29/26, SOUNDS lane) ==============================

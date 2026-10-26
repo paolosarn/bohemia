@@ -105,8 +105,9 @@ def main():
         # +0.9 and +2.6), and the beat itself climbs hard to level 3 (167(c): drums and drive on your turn)
         ok(b - a >= 0.5 and c - a >= 2, S['name'] + ': it does not climb (%s / %s / %s dB)' % (a, b, c))
         ok(m.get('beat_climbs_level_1_to_3_db', 0) >= 6, S['name'] + ': the beat does not come in on your turn (%s dB from level 1 to 3)' % m.get('beat_climbs_level_1_to_3_db'))
-        row = re.compile(r"n:\s*['\"]" + re.escape(S['name']) + r"['\"]")
-        ok(not row.search(alpha) and not row.search(demo), S['name'] + ': wired into the game before his yes')
+        # 207 (Paolo 10/25: 'I like the songs, I want you to implement them'): his yes came; the game's book names it now
+        book = re.compile(r'/\*BOOK\*/.*"' + re.escape(S['name']) + r'":\{')
+        ok(bool(book.search(alpha)) and bool(book.search(demo)), S['name'] + ': not in the game (rule 207: the songs go in)')
         card = next((it for it in reg['items'] if it['id'] == S['id']), None)
         ok(card is not None, S['name'] + ': no card')
         if card:

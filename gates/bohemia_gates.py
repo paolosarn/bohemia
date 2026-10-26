@@ -9708,6 +9708,12 @@ GATES = [
      "(written note by note, tools/bohemia_sounds_four_new_songs.js), each with a card: no two share more than one of lead, bass, drums, pad, key; the tune no more than 6 dB under the mix on a phone; "
      "a 120 BPM pulse at every level; level 2 and 3 climb and the beat alone climbs 6 dB to level 3; a pitch fingerprint of ten seconds tells each from the others and from his eight night songs (cosine under 0.95); "
      "never wired; no machine party (REPO MAN only); the card's page names the song and its list. green at registration 106/0, about 40 s", True),
+    ('THE MUSIC IN THE FIGHT NOW', ['node', 'gates/the_songs_go_in_gate.js', '--now'],
+     "SOUNDS gate, 10/26, row [the music in the fight now] (rule 221(a), Paolo 10/26: 'when does the music get implemented in the combat? I'm tired of not everything being on the same BPM, not sounding good'): "
+     "the thirteen voted-up songs (his nine at three levels, the four new) on disk and in the alpha's and the demo's book as the files are now; then the live demo on the phone profile at 4x and the computer: "
+     "the map plays 1 from its recording, twelve seconds never silent, a road fight on AUTO where every turn changes the level on a beat within 1.2 s (their turn 2, his turn 3; EYES line 87 heard 1 and 2), "
+     "a song from the fight's first frame (never silent from the fight's frame in the page to 3 s after the board), the song never jumps nor goes silent, every decoded level's beat (folded on the eighth) within 15 ms of the transport's, back to 1 after. "
+     "The gap (his turn 6 dB over theirs) and the hit are printed, counted by THE SONGS GO IN when the re-renders land (rule 207). green at registration: computer 9/0, phone 10/0, about 7 minutes", True),
     ('THE VOTE CARDS PLAY', ['node', 'gates/the_vote_cards_play_gate.js'],
      "SOUNDS gate, 10/25, row [the vote cards play] (rule 193, Paolo 10/25: 'I went in the vote tab and tried to play the music and the music wasn't playing'): the alpha, its door, the VOTE tab, a song card's LOOK AT IT (two frames), "
      "phone (an iPhone's user agent, touch) and computer: the first tap plays and says LOADING then PLAYING; the page asks for the phone's playback audio session (the ringer switch); with Web Audio locked the plain <audio> player takes the tap; "

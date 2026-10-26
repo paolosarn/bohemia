@@ -8,6 +8,14 @@
    more than one of lead, bass, drums, pad, key. (c) the tune and the beat lead the mix, the creepy bed is never the song.
    (d) REPO MAN's machine plays under REPO MAN only (none here). (e) more instruments, from real material (NO SAND).
    181: each song goes to the VOTE tab first, at levels 1, 2 and 3 and a fight's turns; nothing is wired.
+   207 (Paolo 10/25, having heard them: 'I like the songs, I want you to implement them; there has to be a pretty big
+   difference between the opponent's turn and my turn'): THE GAP IS BUILT IN. Level 1 stays as approved (the file is not
+   touched). Level 2 is tension only: the tune is held back (it is your turn's), the kick on the beat and the ticking, the
+   bass pushing, the chord held a bar at a time; set 3.6 dB over level 1 through a phone. Level 3 is everything: the tune
+   doubled an octave, the full kit with its fill, the bass driving; set 10.4 dB over level 1 (6.8 over level 2). The
+   loudness of 2 and 3 is set by measuring (one gain each and a true peak limit, iterated, the three-levels tool's own),
+   never by guessing part gains. THE HIT: a one-shot in the song's own real kit and bass at level 3's gain, struck on the
+   beat the turn comes back to him, in the game and in the card's A FIGHT.
 
    WHAT IS DIFFERENT FROM THE SIX THAT DIED: nothing is one of his songs with values changed. Each song here is written:
    the melody note by note (a phrase that asks and a phrase that answers, a B section that climbs, the A coming home), the
@@ -28,6 +36,7 @@ const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 const ROOT = path.dirname(__dirname);
 const H = require(path.join(ROOT, 'tools', 'bohemia_sounds_his_machine.js'));
+const TL = require(path.join(ROOT, 'tools', 'bohemia_sounds_three_levels.js'));   /* the gap, the limit and the fight run: one way for every song */
 const BANK = path.join(ROOT, 'reference', 'library', 'sound_bank', 'esc50_cc0');
 const OUTD = path.join(ROOT, 'slices', 'vote', 'songs', 'new_four');
 const BARS = 32;
@@ -113,7 +122,7 @@ const FORM = ['I', 'I', 'I', 'I', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B', '
 
 async function render(p, S, lv, only) {
   return p.evaluate(async ({ S, lv, only, bars, FORM, kitB64 }) => {
-    const SR = 44100, sd = 0.125, steps = bars * 16, secs = steps * sd + 3;
+    const SR = 44100, sd = 0.125, steps = only === 'hit' ? 0 : bars * 16, secs = only === 'hit' ? 2.5 : steps * sd + 3;
     MUS.audio();
     const OAC = new OfflineAudioContext(1, Math.ceil(SR * secs), SR);
     /* the worn tape: a soft saturation, the top rolled off, everything through it (analog horror inside the sound) */
@@ -164,7 +173,11 @@ async function render(p, S, lv, only) {
         /* the pad: the chord, held, once a bar (none on the dry song) */
         if (S.pad && q === 0 && !kitOnly) for (const d of [0, 2, 4]) { counts.pad = (counts.pad || 0) + 1; synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root - 12 + deg(chord + d), t, lv === 3 ? 0.035 : 0.05); }
       }
-      if (!muteTune && (sec === 'A' || sec === 'B' || sec === 'A2' || (sec === 'E' && bar === 28))) {
+      /* LEVEL 2 HOLDS THE TUNE BACK (207(b): tension is a pulse, the bass, held notes; the tune is your turn's) */
+      if (lv === 2 && !onlyTune && !kitOnly && q === 0) for (const d of [0, 2, 4]) { counts.held = (counts.held || 0) + 1;
+        if (S.pad) synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.06);
+        else synthV(S.lead.voice, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.03); }
+      if (!muteTune && lv !== 2 && (sec === 'A' || sec === 'B' || sec === 'A2' || (sec === 'E' && bar === 28))) {
         const ph = sec === 'B' ? S.melody.B : S.melody.A, ib = sec === 'E' ? 3 : pib;
         for (const [b, at, d, len] of ph) if (b === ib && q === at) {
           /* the lead sits an octave over the root (a phone's speaker hears it), the bell a further octave, A2 higher again */
@@ -174,6 +187,9 @@ async function render(p, S, lv, only) {
         }
       }
     }
+    /* THE HIT (207(c)): the song's own kick, snare and hat struck together with its bass on the root, at level 3's weight */
+    if (only === 'hit') { const t = 0.05; hit('kick', t, 1.35); hit('snare', t, 1.3); hit('hat', t, 1.3);
+      synthV(S.bass, OAC, B.bass, hz, sd * 4, S.root - 12 + deg(S.chords[0]), t, 0.14); }
     const buf = await OAC.startRendering(), L = buf.getChannelData(0);
     const CEIL = 0.944, AH = Math.round(SR * 0.005), REL = Math.exp(-1 / (SR * 0.08)), n2 = L.length;
     const need = new Float32Array(n2); for (let i = 0; i < n2; i++) { const a = Math.abs(L[i]); need[i] = a > CEIL ? CEIL / a : 1; }
@@ -192,17 +208,6 @@ function kitFor(S) {
 }
 const measure = raws => JSON.parse(execFileSync('python3', ['-I', path.join(ROOT, 'tools', 'bohemia_sounds_his_machine_measure.py')].concat(raws), { encoding: 'utf8', maxBuffer: 64 << 20 }));
 const toMp3 = (raw, out) => execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 's16le', '-ar', '44100', '-ac', '1', '-i', raw, '-c:a', 'libmp3lame', '-b:a', '96k', out]);
-function fightRun(pcm) {
-  const sr = 44100, bar = Math.round(2 * sr), off = Math.round(0.05 * sr), xf = Math.round(0.04 * sr);
-  const len = RUN.parts.length * RUN.bars * bar, out = new Int16Array(len + xf);
-  RUN.parts.forEach(([lv], i) => { const src = pcm[lv], s0 = off + (RUN.from + i * RUN.bars) * bar, o0 = i * RUN.bars * bar;
-    for (let k = -xf; k < RUN.bars * bar + xf; k++) { const o = o0 + k; if (o < 0 || o >= out.length || (i === 0 && k < 0)) continue;
-      let w = 1; if (k < 0) w = (k + xf) / xf; else if (k >= RUN.bars * bar) w = 1 - (k - RUN.bars * bar) / xf;
-      out[o] = Math.max(-32767, Math.min(32767, out[o] + (src[s0 + k] || 0) * w)); } });
-  const fade = 2 * bar; for (let k = 0; k < fade; k++) { const i = len - fade + k; out[i] = Math.round(out[i] * (1 - k / fade)); }
-  return out.subarray(0, len);
-}
-
 async function record(which) {
   const list = SONGS.filter(S => !which || which === 'all' || slug(S.name) === which);
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'new_four_'));
@@ -225,26 +230,40 @@ async function record(which) {
        matters (167(c): drums and drive on your turn) is measured on the beat itself */
     const beat3 = await render(A[2].p, S, 3, 'beat'), b3raw = path.join(tmp, sl + '_beat3.raw'); fs.writeFileSync(b3raw, Buffer.from(beat3.b64, 'base64'));
     /* THE LOUDNESS OF HIS SONGS: level 1 set to -36.5 dB through a phone (his eight night songs measure -35.5 to -41), one
-       gain for every level and the tune and beat takes, so the levels keep their distance and the card is never a blast
-       beside his songs (the first take measured -19.2 dB, 17 dB over his) */
+       gain for level 1 and the tune and beat takes (the card is never a blast beside his songs) */
     const L1 = measure([raws[0]])[0], gn = Math.pow(10, (-36.5 - L1.phone_rms_db) / 20);
     const scale = f => { const b = fs.readFileSync(f), a = new Int16Array(b.buffer, b.byteOffset, b.length >> 1); for (let i = 0; i < a.length; i++) a[i] = Math.max(-32767, Math.min(32767, Math.round(a[i] * gn))); fs.writeFileSync(f, Buffer.from(a.buffer, a.byteOffset, a.byteLength)); return a; };
     [1, 2, 3].forEach(lv => { pcm[lv] = scale(raws[lv - 1]); }); scale(traw); scale(braw); scale(b3raw);
-    const run = fightRun(pcm), rraw = path.join(tmp, sl + '_run.raw'); fs.writeFileSync(rraw, Buffer.from(run.buffer, run.byteOffset, run.byteLength));
-    const files = {}; [['level_1', raws[0]], ['level_2', raws[1]], ['level_3', raws[2]], ['a_fight', rraw]].forEach(([f, r]) => { const o = path.join(dir, f + '.mp3'); toMp3(r, o); files[f] = o; });
-    const m = measure(raws.concat([rraw, traw, braw, b3raw]));
-    const out = { name: S.name, made: '10/25', tool: 'tools/bohemia_sounds_four_new_songs.js', page_errors: errs.length, bars: BARS, bpm: 120,
+    /* THE GAP (207(b)): levels 2 and 3 brought to level 1 + 3.6 and + 10.4 dB through a phone, by measuring; the hit at
+       level 3's own gain */
+    const x1 = TL.f32(pcm[1]), base = TL.phoneDb(x1), kbase = TL.kDb(x1), F = { 1: { y: x1, gain: 1, phone_db: +base.toFixed(2), k_db: +kbase.toFixed(2) } };
+    F[2] = TL.fit(TL.f32(pcm[2]), { phone: base + TL.GAP[2], k: kbase + TL.GAP[2] });
+    F[3] = TL.fit(TL.f32(pcm[3]), { phone: F[2].phone_db + TL.GAP[3] - TL.GAP[2], k: F[2].k_db + TL.GAP[3] - TL.GAP[2] });
+    for (const lv of [2, 3]) { const q = TL.i16(F[lv].y); R[lv].clipped = q.clip; pcm[lv] = q; fs.writeFileSync(raws[lv - 1], Buffer.from(q.buffer, q.byteOffset, q.byteLength)); }
+    const hr = await render(A[2].p, S, 3, 'hit'), hb = Buffer.from(hr.b64, 'base64'), hp = new Int16Array(hb.buffer, hb.byteOffset, hb.length >> 1);
+    const hitY = TL.limit(Float32Array.from(TL.f32(hp), v => v * gn * F[3].gain)).y, hq = TL.i16(hitY), hraw = path.join(tmp, sl + '_hit.raw');
+    fs.writeFileSync(hraw, Buffer.from(hq.buffer, hq.byteOffset, hq.byteLength));
+    const run = TL.i16(TL.fightRun({ 1: F[1].y, 2: F[2].y, 3: F[3].y }, hitY, 0.125, RUN)), rraw = path.join(tmp, sl + '_run.raw'); fs.writeFileSync(rraw, Buffer.from(run.buffer, run.byteOffset, run.byteLength));
+    /* level 1 is the approved file: written only when there is none (its re-render is checked against it below) */
+    const files = {}; [['level_1', raws[0]], ['level_2', raws[1]], ['level_3', raws[2]], ['hit', hraw], ['a_fight', rraw]].forEach(([f, r]) => { const o = path.join(dir, f + '.mp3'); if (f !== 'level_1' || !fs.existsSync(o)) toMp3(r, o); files[f] = o; });
+    const m = measure(raws.concat([rraw, traw, braw, b3raw, hraw]));
+    const old1 = (() => { try { return JSON.parse(fs.readFileSync(path.join(dir, 'measured.json'), 'utf8')).levels[0].audio.phone_rms_db; } catch (e) { return null; } })();
+    const out = { name: S.name, made: '10/25', remade: '10/25 rule 207', tool: 'tools/bohemia_sounds_four_new_songs.js', page_errors: errs.length, bars: BARS, steps: BARS * 16, bpm: 120,
       key: S.key, root: S.root, mode: S.mode, story: S.story, lead: S.lead.sample ? 'sample:' + S.lead.sample : S.lead.voice, lead_name: S.leadName, bass: S.bass, pad: S.pad,
       drums: [S.kit.kick.stem, S.kit.snare.stem, S.kit.hat.stem], kit_name: S.kitName, swing: S.swing || 0,
+      play_gain_db: 0,
+      gap: { target_over_level_1_db: TL.GAP, phone_db: [m[0].phone_rms_db, m[1].phone_rms_db, m[2].phone_rms_db], full_range_lufs: [F[1].k_db, F[2].k_db, F[3].k_db] },
+      level_1_rerender_vs_the_approved_file_db: old1 == null ? null : +(m[0].phone_rms_db - old1).toFixed(2),
       run: { from_bar: RUN.from + 1, bars_each: RUN.bars, parts: RUN.parts.map(x => x[1] + ' (level ' + x[0] + ')') },
       levels: [1, 2, 3].map(lv => ({ level: lv, file: path.relative(ROOT, files['level_' + lv]), mp3_md5: md5(fs.readFileSync(files['level_' + lv])), bytes: fs.statSync(files['level_' + lv]).size,
-        clipped_samples: R[lv].clipped, parts: R[lv].counts, audio: m[lv - 1] })),
+        clipped_samples: R[lv].clipped, fit: lv === 1 ? null : { limiter_worst_db: F[lv].limiter_worst_db, limiter_mean_db: F[lv].limiter_mean_db }, parts: R[lv].counts, audio: m[lv - 1] })),
+      hit: { file: path.relative(ROOT, files.hit), mp3_md5: md5(fs.readFileSync(files.hit)), bytes: fs.statSync(files.hit).size, audio: m[7] },
       a_fight: { file: path.relative(ROOT, files.a_fight), mp3_md5: md5(fs.readFileSync(files.a_fight)), bytes: fs.statSync(files.a_fight).size, audio: m[3] },
       gain_to_his_loudness_db: +(20 * Math.log10(gn)).toFixed(2), kit_scale_db: +(20 * Math.log10(S.kitScale)).toFixed(2),
       tune_on_a_phone_vs_the_mix_db: +(m[4].phone_rms_db - m[0].phone_rms_db).toFixed(2), beat_on_a_phone_vs_the_mix_db: +(m[5].phone_rms_db - m[0].phone_rms_db).toFixed(2),
       beat_climbs_level_1_to_3_db: +(m[6].phone_rms_db - m[5].phone_rms_db).toFixed(2) };
     fs.writeFileSync(path.join(dir, 'measured.json'), JSON.stringify(out, null, 1) + '\n');
-    console.log(S.name + ' in ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s; phone rms ' + m.slice(0, 4).map(x => x.phone_rms_db).join(' / ') + '; tune vs mix ' + out.tune_on_a_phone_vs_the_mix_db + ' dB, beat vs mix ' + out.beat_on_a_phone_vs_the_mix_db + ', the beat climbs ' + out.beat_climbs_level_1_to_3_db + ' dB to level 3; clipped ' + [1, 2, 3].map(l => R[l].clipped).join('/'));
+    console.log(S.name + ' in ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s; phone rms ' + m.slice(0, 4).map(x => x.phone_rms_db).join(' / ') + ' (L2-L1 ' + (m[1].phone_rms_db - m[0].phone_rms_db).toFixed(2) + ', L3-L2 ' + (m[2].phone_rms_db - m[1].phone_rms_db).toFixed(2) + '); full range LUFS ' + [F[1].k_db, F[2].k_db, F[3].k_db].join('/') + '; level 1 re-render vs the approved file ' + out.level_1_rerender_vs_the_approved_file_db + ' dB; limiter L2 ' + F[2].limiter_worst_db + ' L3 ' + F[3].limiter_worst_db + '; clipped ' + [1, 2, 3].map(l => R[l].clipped).join('/'));
   }
   await Promise.all(A.map(x => x.b.close()));
   fs.rmSync(tmp, { recursive: true, force: true });
@@ -261,8 +280,8 @@ function entry(S) {
   return { name: S.name, slug: slug(S.name), dir: 'vote/songs/new_four/' + slug(S.name) + '/', id: idOf(S), levels_db: M.levels.map(x => x.audio.phone_rms_db),
     sub: 'A new song, ' + S.name + ': ' + S.story + '. Its own lead, ' + S.leadName + ', its own drums (' + S.kitName + '), in ' + S.key + '. In nothing until you say it joins.',
     what: { 1: '1. THE MAP: the song as it would play on the map, the tune on top, a soft 120 beat under it.',
-            2: '2. THEIR TURN: the beat tightens, the ticking doubles, the bass pushes. The tune stays.',
-            3: '3. YOUR TURN: the full kit, the bass driving, the tune doubled an octave.' } };
+            2: '2. THEIR TURN: tension only. The tune waits, the chord is held, the kick on the beat, the ticking, the bass pushing.',
+            3: '3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you.' } };
 }
 function register(which, write) {
   const reg = JSON.parse(fs.readFileSync(REG, 'utf8')), have = new Set(reg.items.map(x => x.id));

@@ -17,12 +17,13 @@
    4. THE SONG LIFTS WHEN THE FIGHT STARTS: MUS.layers 0 -> 2 or more inside a bar of the board coming up, on a beat;
    5. THEIR TURN DROPS IT, HIS BRINGS IT BACK, ON THE BEAT (126(e)): every turn the shell hears moves the arrangement to the
       bottom (their turn) or back to the fight's level (his) at the next beat, never between two beats;
-   6. KILLS CLIMB IT: the shell counts every killshot the fight sends, and after the second, his turn plays the top (4);
+   6. KILLS ARE COUNTED (rule 207, SOUNDS 10/26: a kill moves nothing now, his turn is the top): the shell counts every
+      killshot the fight sends, and his turn after a kill plays the top (4);
    7. THE END SETTLES ON THE BAR: after the fight's BOHEMIA_FIGHT_OVER the arrangement comes down at the top of a bar, the
       count and the threat cleared, and the recap still gets its beats (he is not sent home at once);
    8. HIS SONGS ONLY (rule 122): every bar of the fight played a song in his set, the music never stopped;
-   9. YOU HEAR IT: live, the notes a bar at the fight's level and at the top outnumber the bottom's (the parts his songs
-      carry come in; the master's level is reported, not judged: the parts are a lead line or a drum, not a volume);
+   9. YOU HEAR IT (rule 207, SOUNDS 10/25): the levels play from their recordings, so the master's own level is the ruler: his
+      turn at least 4 dB over theirs once the bigger-gap re-renders are in the game (until then printed, rule 221(a));
    10. nothing threw.
    Run: node gates/the_fight_drives_the_music_gate.js */
 'use strict';
@@ -154,24 +155,29 @@ const TALLY = `(function(){
       const next = (turns[i + 1] || ends[0] || { t: Infinity }).t;
       if (next - m.t < beatMs + POLL) return;                             /* gone before the next beat: nothing owed */
       owed++;
-      const want = m.side === 'them' ? 0 : 2;
-      const s = sets.filter(x => x.t >= m.t && x.t < next && (m.side === 'them' ? x.to === 0 : x.to >= 2))[0];
+      /* RULE 207 (Paolo 10/25, amends 126's their-turn-lowest through 167(c)): their turn level 2 (layers 2), his turn level 3
+         (layers 4); the map 1 (layers 0). SOUNDS changed this leg with the ladder, 10/25. */
+      const want = m.side === 'them' ? 2 : 4;
+      const s = sets.filter(x => x.t >= m.t && x.t < next && x.to === want)[0];
       const already = sets.filter(x => x.t < m.t).slice(-1)[0], was = already ? already.to : 0;
-      if ((m.side === 'them' ? was === 0 : was >= want) && !s) { landed++; return; }   /* it was already there */
+      if (was === want && !s) { landed++; return; }   /* it was already there */
       if (s && s.t - m.t <= beatMs + POLL) landed++; else late.push(m.side + ' ' + (s ? Math.round(s.t - m.t) + ' ms' : 'never'));
     });
     sets.filter(s => start && s.t >= start.t && (!ends[0] || s.t <= ends[0].t)).forEach(s => { if (s.step % 4 !== 0) offBeat++; });
     leg(owed >= 4 && landed === owed && offBeat === 0,
-      '*** THEIR TURN DROPS IT, HIS BRINGS IT BACK, ON THE BEAT ***: every turn the shell hears moves the arrangement at the next beat, never between two',
+      '*** THEIR TURN 2, HIS TURN 3, ON THE BEAT *** (rule 207): every turn the shell hears moves the arrangement at the next beat, never between two',
       turns.length + ' turns told, ' + owed + ' long enough to owe a change, ' + landed + ' landed inside a beat' + (late.length ? ', late: ' + late.slice(0, 4).join(' / ') : '') + '; ' + offBeat + ' changes off the beat');
     /* 6: kills */
     const kills = msgs.filter(m => m.type === 'BOHEMIA_SHOT_RESULT' && m.outcome === 'killshot');
-    const second = kills[1], top = second && sets.filter(s => s.t >= second.t && s.to === 4)[0];
-    const youAfter = second && turns.some(m => m.side === 'you' && m.t > second.t && (!ends[0] || m.t < ends[0].t));
+    /* RULE 207 (SOUNDS 10/26, with rule 221(a)): the levels are the turns' now, so a kill moves nothing and his turn is the top
+       from the first; the leg keeps the count and asks the top of his turn after the first kill (one kill or two is the
+       fight's luck, not the music's) */
+    const first = kills[0], top = first && sets.filter(s => s.t >= first.t && s.to === 4)[0];
+    const youAfter = first && turns.some(m => m.side === 'you' && m.t > first.t && (!ends[0] || m.t < ends[0].t));
     const counted = kills.every((m, i) => i === 0 || m.kills >= 1);
-    leg(kills.length >= 2 && counted && (!!top || !youAfter),
-      '*** KILLS CLIMB IT ***: the shell counts every killshot, and after the second his turn plays the top',
-      kills.length + ' killshots' + (top ? ', the top (4) ' + Math.round(top.t - second.t) + ' ms after the second, at step ' + top.step : youAfter ? ', never the top' : ', the fight ended on the second'));
+    leg(kills.length >= 1 && counted && (!!top || !youAfter),
+      '*** KILLS ARE COUNTED, HIS TURN PLAYS THE TOP *** (rule 207): the shell counts every killshot, and his turn after a kill plays the top',
+      kills.length + ' killshots' + (top ? ', the top (4) ' + Math.round(top.t - first.t) + ' ms after the first, at step ' + top.step : youAfter ? ', never the top' : ', the fight ended on the first'));
     /* 7: the end */
     const end = ends[0], down = end && sets.filter(s => s.t >= end.t && s.to === 0)[0];
     const atBar = !down ? false : down.step % 16 === 0;
@@ -190,10 +196,18 @@ const TALLY = `(function(){
     const v0 = vpb(0), v2 = vpb(2), v4 = vpb(4), up = [v2, v4].filter(x => x !== null);
     /* the bar is 'more at each level', a twentieth at least: which bars land on which level is the fight's, and his songs'
        sections differ in how full they are (measured: GHOST IN THE GRID +12% one run, +20% another; SLOW CREEP +36%) */
-    leg(v0 !== null && up.length > 0 && up.every(x => x >= v0 * 1.05) && (v4 === null || v2 === null || v4 > v2),
-      '*** YOU HEAR IT ***: live, more notes a bar at the fight\'s level than at the bottom, and more again at the top: the parts his song carries come in',
+    /* RULE 207: the levels play from their recordings now (SOUNDS, __THE_SONGS_GO_IN__), so no note is built in a step and the
+       ruler is the master's own level: his turn at least 4 dB over theirs on the full band (SOUNDS sets 6.8 dB through a
+       phone and full range on the files; the sections of a song differ, so 4 here) */
+    /* RULE 221(a): the music went in the fight on the renders there were; the 4 dB is asked once the bigger-gap re-renders
+       are in the game (every song in the book carries its hit, rule 207(c)); until then the gap is printed */
+    let rerendered = false; try { const bm = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_DEMO.html'), 'utf8').match(/\/\*BOOK\*\/(\{.*?\})\/\*\/BOOK\*\//);
+      const B = bm && JSON.parse(bm[1]); rerendered = !!B && Object.keys(B.songs).every(k => B.songs[k].hit !== false); } catch (e) { rerendered = false; }
+    const d2 = db(2), d4 = db(4);
+    leg(d2 !== null && d4 !== null && (!rerendered || d4 - d2 >= 4),
+      '*** YOU HEAR IT ***: live, his turn is louder than theirs on the game\'s own master by at least 4 dB (rule 207: his turn hits hard)',
       'notes a bar: bottom ' + (v0 || 0).toFixed(1) + ', fight ' + (v2 === null ? '-' : v2.toFixed(1) + ' (+' + Math.round((v2 / v0 - 1) * 100) + '%)') + ', top ' + (v4 === null ? '-' : v4.toFixed(1) + ' (+' + Math.round((v4 / v0 - 1) * 100) + '%)')
-        + '; the master while each played (reported): ' + [0, 2, 4].map(k => db(k) === null ? '-' : db(k).toFixed(1) + ' dB').join(' / ') + '; the commit on the read: ' + L.exact);
+        + '; the master while each played (reported): ' + [0, 2, 4].map(k => db(k) === null ? '-' : db(k).toFixed(1) + ' dB').join(' / ') + (rerendered ? '' : '; the 4 dB counted when the re-renders land (rule 207)') + '; the commit on the read: ' + L.exact);
     leg(d.errs.length === 0, 'nothing threw', d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 140) : ''));
   } catch (e) { leg(false, 'the demo leg ran', String(e.message).slice(0, 200)); }
   await d.close();
