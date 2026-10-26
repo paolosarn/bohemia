@@ -1,0 +1,111 @@
+{
+ "look": "faction_anarchists",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.4333,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.433 m",
+  "ppm": 295.44,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     -0.0,
+     0.0007,
+     1.3464
+    ],
+    "eyes": [
+     [
+      -0.047,
+      -0.1214,
+      1.3563
+     ],
+     [
+      0.047,
+      -0.1214,
+      1.3563
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     0.0,
+     -0.1894,
+     1.2942
+    ],
+    "mouth_z": 1.2494,
+    "chin_z": 1.1451,
+    "top_z": 1.5416,
+    "ears": 2,
+    "hair": [
+     "portrait_hair"
+    ],
+    "gear": [
+     "portrait_cap"
+    ],
+    "torso": [
+     "anarchists_coat",
+     "anarchists_coat_skirt",
+     "anarchists_hand_L",
+     "anarchists_hand_R",
+     "Cesium_Man"
+    ],
+    "body": [
+     "anarchists_coat",
+     "anarchists_coat_skirt",
+     "anarchists_hand_L",
+     "anarchists_hand_R",
+     "anarchists_shoe",
+     "Cesium_Man"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "anarchists_coat",
+     "anarchists_coat_skirt",
+     "anarchists_shirt",
+     "anarchists_shoe",
+     "anarchists_shoes",
+     "anarchists_skin",
+     "anarchists_trousers",
+     "portrait_faction_anarchists_buzz",
+     "portrait_faction_anarchists_cap",
+     "portrait_faction_anarchists_iris",
+     "portrait_faction_anarchists_lips",
+     "portrait_faction_anarchists_mouth",
+     "portrait_faction_anarchists_pupil",
+     "portrait_faction_anarchists_scar",
+     "portrait_faction_anarchists_sclera",
+     "portrait_faction_anarchists_skin"
+    ]
+   }
+  },
+  {
+   "life": true
+  },
+  {
+   "shots": 4,
+   "seconds": 57.0
+  }
+ ],
+ "made": [
+  "_blink",
+  "_look_l",
+  "_look_r",
+  "_wince"
+ ]
+}

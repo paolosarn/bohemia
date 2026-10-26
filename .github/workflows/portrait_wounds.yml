@@ -1,0 +1,149 @@
+# BOHEMIA — THE FACE SHOWS THE WOUND, RENDERED ON THE FREE RUNNER (10/26/26, PORTRAIT, VAMILY row [the face shows the wound])
+#
+# Rule 234(c): every injury has a mark on the man's own face, made the way his face was made: his own model, DIRECTION's
+# master rig, its one sun. That needs Blender's Python (bpy 4.2 on Python 3.11), and the chats' container does not install
+# it (the session's brief: no installs). GitHub's standard runners are free on this public repo, so THIS RUNNER IS THE BOX,
+# the way the look ruler and Aseprite already run here:
+#
+#   1. a push to the portrait-wounds branch that changes records/portrait/wounds/REQUEST.json starts it (never main);
+#   2. each shard builds its men with the builders their faces came from (RUN TWO's person builder, PORTRAIT's crew build
+#      for YOU), adds the marks as geometry on the head, renders them through the master rig and packs the patches
+#      (tools/bohemia_portrait_the_face_shows_the_wound.py shard <i> <n>);
+#   3. the last job commits what the shards made to the branch portrait-wounds-renders; the lane fetches it from there.
+#      Nothing is ever pushed to main from here.
+name: portrait wounds
+
+on:
+  push:
+    branches: [portrait-wounds]
+    paths:
+      - 'records/portrait/wounds/REQUEST.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portrait-wounds
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      shards: ${{ steps.p.outputs.shards }}
+      n: ${{ steps.p.outputs.n }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            records/portrait/wounds
+      - id: p
+        run: |
+          n=$(python3 -c "import json; print(int(json.load(open('records/portrait/wounds/REQUEST.json')).get('shards', 1)))")
+          echo "n=$n" >> "$GITHUB_OUTPUT"
+          echo "shards=$(python3 -c "print(list(range($n)))")" >> "$GITHUB_OUTPUT"
+
+  render:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJson(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/slices/*
+            /slices/fight_rig/fight_rig.json
+            /slices/BOHEMIA_ALPHA_0_9.html
+            /slices/fight_people/
+            /slices/fight_people/fight_people.json
+            !/banks/
+            !/exports/
+            !/questbook/
+            !/graveyard/
+            !/archive/
+            !/records/run2/people/
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: .github/workflows/portrait_wounds.yml
+
+      - name: Blender's Python on the runner (bpy 4.2, the rig's own line)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q libxrender1 libxxf86vm1 libxfixes3 libxi6 libxkbcommon0 libsm6 libgl1 libegl1 >/dev/null
+          python -m pip install --quiet bpy==4.2.0 numpy pillow
+          python -c "import bpy; print('bpy', bpy.app.version_string)"
+
+      - name: the shard (build, mark, render, pack)
+        env:
+          BOHEMIA_WOUND_WORKERS: '2'
+          BOHEMIA_RIG_THREADS: '2'
+        run: |
+          export BOHEMIA_BPY="$(which python)"
+          mkdir -p records/portrait/wounds/logs
+          # the artifact carries only what this shard makes (the checkout's own packs and logs stay on the branch; the full
+          # batch's first collect showed the branch's old logs riding every artifact over the new ones)
+          find records/target/portrait/wounds -maxdepth 1 -type f ! -name 'BOHEMIA_*' -delete
+          find records/portrait/wounds/logs -type f -delete
+          set -o pipefail
+          python tools/bohemia_portrait_the_face_shows_the_wound.py shard ${{ matrix.shard }} ${{ needs.plan.outputs.n }} 2>&1 \
+            | grep -v -E '^(Fra:|Saved:|Time:|Info: |Read prefs|Blender quit|Read blend|Warning: Unable)' \
+            | tee records/portrait/wounds/logs/shard_${{ matrix.shard }}.txt
+
+      - name: what this shard made
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wounds-${{ matrix.shard }}
+          if-no-files-found: warn
+          path: |
+            records/target/portrait/wounds/
+            records/portrait/wounds/logs/
+
+  commit:
+    needs: render
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            records/portrait/wounds
+            records/target/portrait/wounds
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wounds-*
+          merge-multiple: true
+          path: records/
+      # 10/26: the full batch's push from this sparse, shallow, blob-less checkout died with HTTP 500 twice; the renders now
+      # go up from a fresh repository, the same way portrait_wounds_collect.yml does.
+      - name: to the renders branch (never main)
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          src=$(git rev-parse --short HEAD)
+          mkdir -p /tmp/out/records/target/portrait /tmp/out/records/portrait/wounds
+          cp -r records/target/portrait/wounds /tmp/out/records/target/portrait/
+          if [ -d records/portrait/wounds/logs ]; then cp -r records/portrait/wounds/logs /tmp/out/records/portrait/wounds/; fi
+          cd /tmp/out
+          git init -q -b renders
+          git config user.name 'bohemia-runner'
+          git config user.email 'bohemia-runner@users.noreply.github.com'
+          git remote add origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add -A records
+          git commit -q -m "PORTRAIT [the face shows the wound]: the runner's renders for $src"
+          for t in 1 2 3 4; do git push -q -f origin HEAD:refs/heads/portrait-wounds-renders && exit 0; sleep $((t * 4)); done
+          exit 1
