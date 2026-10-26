@@ -33,6 +33,9 @@ THE STEPS (Blender's Python for pose/render/guns: bpy 4.2 in a python3.11 venv, 
         <look>_guns.webp (the three guns on the carry cells), and slices/rig_idles/rig_idles.json: the cells, the feet,
         the timelines and the sets; the colours are the look's own fight sheet's (slices/fight_rig/<look>.webp), so a man
         who stops walking keeps every colour he walked in
+    python3 tools/bohemia_animation_everybody_idles.py pack <look> [<look> ...]
+        those looks alone, laid into the index as it stands (the renders are gitignored: in a container that holds only some
+        looks' renders a whole pack would drop the rest)
     engine/bohemia_idles.js plays them: one call per person per frame, his own offset and his own handful of idles.
 
 REUSE CHECK: the bodies are PORTRAIT's and CHARACTER's builds posed by COMBAT's tool; the carry is COMBAT's carry_ops,
@@ -1188,7 +1191,10 @@ def preview_clips(glb, out, clips, facings='S,SE,E,N', beast=False):
 
 
 # ------------------------------------------------------------------------------------------------ pack (python3)
-def pack():
+def pack(only=None):
+    """every rendered look's idles into slices/rig_idles. With looks named (only): those looks alone, laid into the index as it
+    stands, every other look's sheets and the map's left as they are (the renders are gitignored: a whole pack in a container
+    that does not hold every look's renders would drop the rest)"""
     import numpy as np
     from PIL import Image
     D = source()
@@ -1196,7 +1202,7 @@ def pack():
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
     RIM = tuple(FR['rim'])
     os.makedirs(os.path.join(ROOT, OUT), exist_ok=True)
-    for fn in os.listdir(os.path.join(ROOT, OUT)):   # everything here is made by this step: last pack's files go first
+    for fn in ([] if only else os.listdir(os.path.join(ROOT, OUT))):   # everything here is made by this step: last pack's files go first
         if fn.endswith(('.webp', '.json')): os.remove(os.path.join(ROOT, OUT, fn))
     sets = {s: [p for p in D['sets'][s]['poses']] for s in ('bare', 'carry', 'beast')}
     index = dict(version='rig-idles-10-23', lane='animation', row='[everybody idles]', rule='130(a), 128',
@@ -1206,7 +1212,8 @@ def pack():
                  breathe={k: v for k, v in D['breathe'].items() if k != 'why'},
                  idles=D['idles'], guns=['pistol', 'rifle', 'shotgun'], cell='[x, y, w, h, dx, dy]: the cell on the sheet and where its top left '
                  'sits from the look\'s fight-sheet cell origin (so his feet are where they were: the fight sheet\'s foot)', looks={})
-    for look in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
+    if only: index = json.load(open(os.path.join(ROOT, OUT, 'rig_idles.json')))
+    for look in sorted(only or os.listdir(os.path.join(ROOT, RENDERS))):
         d = os.path.join(ROOT, RENDERS, look)
         if look not in FR['looks'] or not os.path.exists(os.path.join(d, 'rig.json')): continue
         rj = json.load(open(os.path.join(d, 'rig.json')))
@@ -1285,7 +1292,7 @@ def pack():
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))   # a look's cells, fetched only by a screen that draws him
         index['looks'][look] = dict(json=look + '.json')
         print('PACKED', look, {k: v['size'] for k, v in entry['sheets'].items()}, 'guns', gimgs and gim.size, flush=True)
-    pack_map(index)
+    if not only: pack_map(index)
     json.dump(index, open(os.path.join(ROOT, OUT, 'rig_idles.json'), 'w'), separators=(',', ':'))
     print('INDEX', os.path.join(OUT, 'rig_idles.json'), len(index['looks']), 'looks')
 
@@ -1311,7 +1318,7 @@ if __name__ == '__main__':
     elif cmd == 'people_pack': people_pack()
     elif cmd == 'people': people(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 4)
     elif cmd == 'preview': preview(*a)
-    elif cmd == 'pack': pack()
+    elif cmd == 'pack': pack(a or None)
     elif cmd == 'packmap':   # the map's sheet alone, into the index as it stands
         ix = json.load(open(os.path.join(ROOT, OUT, 'rig_idles.json'))); pack_map(ix)
         json.dump(ix, open(os.path.join(ROOT, OUT, 'rig_idles.json'), 'w'), separators=(',', ':'))
