@@ -291,3 +291,8 @@ box: NOTE). Two of my gates re-aimed for other lanes' ships this round: YOUR MAI
 CHARACTER's armour layer off (the helmet is THE ARMOUR HE WEARS SHOWS'), THE NEAR END IS THE BLOCK N7 reads UI TWO's phone and its
 PLAY (the old pad and #cityfeed are hidden under it). THE MAP STANDS TALLER C1 missed by 0.8 ms with two browsers running and passed
 26/0 alone (a timing leg).
+THE MAP IS HOW YOU TRAVEL, FIXED AFTER THE SHIP (the gate, not the game; 17/0 twice): a new game opens in a town now (RUN THREE's
+start), so the gate leaves the town by its own LEAVE before it taps; and its far tap was picked off the map's own page, which could
+not see UI TWO's phone lying over it from the page around (the far point measured inside the phone, the tap the phone's), or a
+town's or a party's name (which answers a tap as itself): it now picks ground inside the open area beside the phone that no name
+answers.
