@@ -9924,7 +9924,7 @@ GATES = [
      "UI gate, 10/26, rows [the blood is CRASHBOX] and [the job tells the truth, in blood] (rule 208(c), PAOLO 10/25: 'the button itself looks bloody depending on how difficult the job is... "
      "the button looking like some crashbox blood filter'; 'not Crash Bandicoot, Crashbox'). MEASURED before: no button could bleed. The pictures: 8 stages x 5 pieces of red clay rendered through the kit's sun, "
      "camera and post on Cycles with a shadow catcher; every pixel opaque or the one shadow value, 95 in 100 red; every stage holds the one before (95 in 100), the blood on a button rises every stage, the last darker; "
-     "bloodStage clean to 2 percent, soaked from 70, monotonic, every stage reachable. On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
+     "bloodStage is WORLD's one scale (job_danger.json: clean to 4 percent, soaked from 65), monotonic, every stage reachable; ONE blood on a button (WORLD's reader hands its number to the kit layer). On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
      "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held (250 ms, 150 or more measured); the halo from stage 5; on the glass soaked a third red or more, one star under a twentieth; "
      "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
     ('THE FEED IS ALIVE', ['node', 'gates/the_feed_is_alive_gate.js'],

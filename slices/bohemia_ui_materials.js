@@ -2136,28 +2136,36 @@
      repeating along any width, the field repeating both ways from the button's middle. It is worn as the button's
      ::after, UNDER its words and its face and over its own tin or paper, and it never takes a tap.
      ONE NUMBER IN: the danger (WORLD's: the chance he comes home with a man dead or down). bloodStage() is the one scale,
-     clean to 2 percent, a stage every 8.75 points, soaked from 70. A button gets it by data-danger="0.37" (watched, so
-     WORLD only sets the number) or by bleed(el, danger). When the danger changes the clay steps through every stage
+     WORLD's own (job_danger.json): clean to 4 percent, eight stages between, soaked from 65. A button gets it by data-danger="0.37" (watched, so
+     WORLD only sets the number; WORLD's reader hands it here, effa8af7) or by bleed(el, danger). When the danger changes the clay steps through every stage
      between, one held frame an eighth note (250 ms at 120 BPM), never a fade: stop-motion. A job seen before starts
      from the stage it last showed; a job seen for the first time bleeds in from clean.
      From stage five, where drips and swipes cross the words, the words get a one-pixel halo the colour of what the clay
      sits on (bone under dark ink, soot under light), so a soaked job still reads.
      ====================================================================================================== */
-  var BLOOD = { stages: 8, hold: 250, clean: 0.02, soaked: 0.7, halo: 5,
+  /* ONE SCALE: clean and soaked are WORLD's numbers (records/target/bb/job_danger.json blood_from and blood_full, its reader's
+     CFG), read from the reader when it is on the page; the same two numbers stand here until then */
+  var BLOOD = { stages: 8, hold: 250, clean: 0.04, soaked: 0.65, halo: 5,
     pieces: [['thumb', 34, 40], ['hand', 56, 44], ['top', 96, 40], ['foot', 112, 16], ['field', 128, 128]] };
+  function bloodScale() {
+    try { var W = window.BohemiaJobDanger || (window.parent && window.parent !== window && window.parent.BohemiaJobDanger), c = W && W.cfg && W.cfg();
+      if (c && c.blood_full > c.blood_from) { BLOOD.clean = c.blood_from; BLOOD.soaked = c.blood_full; } } catch (e) {}
+    return BLOOD;
+  }
   function bloodStage(d) {
-    d = +d; if (!(d > BLOOD.clean)) return 0;
-    return Math.max(1, Math.min(BLOOD.stages, Math.ceil(d * BLOOD.stages / BLOOD.soaked - 1e-9)));
+    var B = bloodScale(); d = +d; if (!(d > B.clean)) return 0;
+    var b = (d - B.clean) / (B.soaked - B.clean);   /* WORLD's own blood number (bloodOf): over 0 the thumbprint, 1 and over soaked */
+    return b >= 1 ? B.stages : Math.max(1, Math.min(B.stages - 1, 1 + Math.floor(b * (B.stages - 1))));
   }
   function bloodCSS() {
     var pre = 'html[data-kit] body ', sz = BLOOD.pieces.map(function (p) { return p[1] + 'px ' + p[2] + 'px'; }).join(',');
-    var out = [pre + '[data-blood]{isolation:isolate}',
-      pre + '[data-blood]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;border-radius:inherit;'
+    var out = [pre + '[data-bm-blood]{isolation:isolate}',
+      pre + '[data-bm-blood]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;border-radius:inherit;'
         + 'background-position:var(--blood-x,3px) 50%,100% 0,0 0,0 100%,0 50%;background-size:' + sz + ';'
         + 'background-repeat:no-repeat,no-repeat,repeat-x,repeat-x,repeat;image-rendering:auto}',
-      pre + '[data-blood="0"]::after{content:none}'];
+      pre + '[data-bm-blood="0"]::after{content:none}'];
     for (var s = 1; s <= BLOOD.stages; s++) {
-      out.push(pre + '[data-blood="' + s + '"]::after{background-image:' + BLOOD.pieces.map(function (p) { return 'url(' + KIT_BASE + 'blood/' + s + '/' + p[0] + '.png)'; }).join(',') + '}');
+      out.push(pre + '[data-bm-blood="' + s + '"]::after{background-image:' + BLOOD.pieces.map(function (p) { return 'url(' + KIT_BASE + 'blood/' + s + '/' + p[0] + '.png)'; }).join(',') + '}');
     }
     [['bone', '#e9ddc2'], ['soot', '#120c08']].forEach(function (h) {
       out.push(pre + '[data-blood-halo="' + h[0] + '"],' + pre + '[data-blood-halo="' + h[0] + '"] *{text-shadow:1px 0 0 ' + h[1] + ',-1px 0 0 ' + h[1] + ',0 1px 0 ' + h[1] + ',0 -1px 0 ' + h[1] + '!important}');
@@ -2167,7 +2175,7 @@
   var BLOOD_SEEN = {};
   function bloodKey(el) { return el.getAttribute('data-blood-key') || el.getAttribute('data-id') || el.getAttribute('data-job') || null; }
   function bloodPaint(el, s) {
-    el.setAttribute('data-blood', s);
+    el.setAttribute('data-bm-blood', s);
     if (s >= BLOOD.halo) {
       var c = (getComputedStyle(el).color.match(/\d+(\.\d+)?/g) || [0, 0, 0]).map(Number);
       el.setAttribute('data-blood-halo', (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) < 128 ? 'bone' : 'soot');
@@ -2186,16 +2194,20 @@
     /* the thumb lands past a face that starts the button (the client's face on the town's board) */
     var f = el.firstElementChild;
     if (f && /^(CANVAS|IMG)$/.test(f.tagName) && f.offsetLeft < 16) el.style.setProperty('--blood-x', (f.offsetLeft + f.offsetWidth + 4) + 'px');
-    el.__bloodWant = want;
-    var from = el.hasAttribute('data-blood') ? +el.getAttribute('data-blood') : (k && BLOOD_SEEN[k] != null ? BLOOD_SEEN[k] : 0);
+    el.__bloodWant = want; el.setAttribute('data-bm-blood-to', want);
+    var from = el.hasAttribute('data-bm-blood') ? +el.getAttribute('data-bm-blood') : (k && BLOOD_SEEN[k] != null ? BLOOD_SEEN[k] : 0);
     bloodStep(el, from);
     return want;
   }
-  /* PROVISIONAL, UNTIL WORLD'S NUMBER: a job row that carries no data-danger yet takes one from its stars (the stars WORLD
-     is making true), and the offer's Take it the row's it came from; data-danger wins the moment it is there */
+  /* PROVISIONAL, ONLY WHERE WORLD'S READER IS NOT ON THE PAGE: a job row with no data-danger takes one from its stars, and
+     the offer's Take it the row's it came from; data-danger wins the moment it is there. WORLD's reader (slices/
+     bohemia_job_danger.js, effa8af7) plays each job on AUTO and sets data-danger itself, row and offer; its own data-blood is
+     its 0..1 number and stays its own: this layer's stage is data-bm-blood (and data-bm-blood-to, the stage it is going to) */
   var STAR_DANGER = { 1: 0.06, 2: 0.25, 3: 0.52 }, BLOOD_LAST = null;
+  function bloodWorld() { try { return !!(window.BohemiaJobDanger || (window.parent && window.parent !== window && window.parent.BohemiaJobDanger)); } catch (e) { return false; } }
   function bloodDangerOf(el) {
     if (el.hasAttribute('data-danger')) return +el.getAttribute('data-danger');
+    if (bloodWorld()) return null;   /* WORLD's reader is here: its number comes (data-danger), the stars never stand in */
     var st = el.querySelector('[data-job-stars]');
     return st ? STAR_DANGER[+st.getAttribute('data-job-stars')] || 0 : null;
   }
@@ -2213,7 +2225,7 @@
     if (document.getElementById('bm-blood')) return;
     var st = document.createElement('style'); st.id = 'bm-blood'; st.textContent = bloodCSS(); (document.head || document.documentElement).appendChild(st);
     document.addEventListener('click', function (e) {
-      var r = e.target && e.target.closest && e.target.closest('[data-blood]');
+      var r = e.target && e.target.closest && e.target.closest('[data-bm-blood]');
       if (r && !/^\s*(take|drop it and take)/i.test(r.textContent)) { var d = bloodDangerOf(r); if (d != null) BLOOD_LAST = { d: d, k: bloodKey(r) || 'job' }; }
     }, true);
     try {
