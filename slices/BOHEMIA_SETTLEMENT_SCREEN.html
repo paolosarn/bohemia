@@ -1248,6 +1248,7 @@ function layout(){
    a side and a size (a drag of his is never undone); the phone's side flips in a beat and the camp moves with it */
 function campCompose(){
   if(!(S.camp && VAR && VAR.camp2 && window.BohemiaCampLook)) return;
+  if(BohemiaCampLook.wantsFlip(VAR)){ BohemiaCampLook.flip(cv, view); view.cx = null; view.cy = null; pickVariant(); return; }   /* rule 289: the glass turned: the tall camp or the wide, gliding */
   var t = BohemiaCampLook.compose(view, document.getElementById('scene').getBoundingClientRect(), view.W, view.H); if(!t) return;
   panY(t.cy); pan(t.cx);
 }
@@ -2110,7 +2111,7 @@ function draw(){
   cx.setTransform(dpr,0,0,dpr,0,0); cx.imageSmoothingEnabled = false;
   cx.fillStyle = '#1a140f'; cx.fillRect(0,0,W,H);
   var im = view.night ? PIC.night : PIC.day;
-  if(!VAR || !im || !im.complete || !im.naturalWidth) return;
+  if(!VAR || !im || !im.complete || !im.naturalWidth){ if(VAR && VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.holdFrame(cx, W, H); }catch(e){} return; }   /* __CAMP_TWO__ (rule 289(b)): a turn never shows a black frame: the last one holds while the new ground comes in */
   try{ leadTick(performance.now()); }catch(e){}   /* __THE_WALK_UP__: his step, and the town above an open sheet */
   var s = view.s;
   /* the valley goes on past the edge of the place: the same picture, far bigger and sunk in dusk,

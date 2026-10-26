@@ -66,7 +66,7 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     /* CAMP TWO 10/26 (rule 260: the camp screen is his own camp): the fire is his camp's own (engine/bohemia_camp_life.js), his men stand
        where their condition puts them in it (rule 259), not in one ring, and the camp's doors are more than three (the fire, a tent
        a pair, the cart, the seats); the leg reads all of that from the camp's own call */
-    const c2 = await sf.evaluate(() => { const S = BohemiaSettlement, F = S.folk(), l = S.lead(), fire = window.BohemiaCampLife ? BohemiaCampLife.FIRE : { x: 945, y: 786 };
+    const c2 = await sf.evaluate(() => { const S = BohemiaSettlement, F = S.folk(), l = S.lead(), fire = (window.BohemiaCampLook && BohemiaCampLook.state().fire) || (window.BohemiaCampLife ? BohemiaCampLife.FIRE : { x: 945, y: 786 });
       return { name: document.getElementById('pname').textContent, leave: document.getElementById('leave').textContent, order: S.order(), men: F.length, all: F.every(p => p.campMan),
         round: F.every(p => Math.hypot((p.x - fire.x) / 2.1, p.y - fire.y) < 420), lead: l.look, leadAt: Math.round(Math.hypot((l.x - fire.x) / 2.1, l.y - fire.y)), busy: S.busy().length, drawn: l.drawn }; });
     ok('C2 a tap makes camp: the clock on the bar and BREAK CAMP, every man of the company round the fire, your lead at it, the tent, the retinue and the cart, nothing of a town',

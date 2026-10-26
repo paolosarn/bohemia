@@ -33,6 +33,8 @@
      K12 ALL EIGHTEEN: Battle Brothers' eighteen followers in the retinue, each with his number and his piece, each drawn in the camp
         when he is with you, his number moving with him; the twelve whose screens are not wired yet stand priced with their hire
         shut (rule 270(c))
+     K13 THE TURN GLIDES: a glass turned mid-camp gets the other shape (the tall camp on the tall ground, the wide on the wide), every
+        piece and man there before and after, gliding one beat, never a black frame (rule 289(b)(c))
    node gates/the_camp_is_his_own_gate.js [--profile phone_portrait|phone_landscape|computer]   (no flag: all three) */
 'use strict';
 const path = require('path');
@@ -80,9 +82,9 @@ async function run(profile) {
     const k2a = k4a.pitch;
     const sb = await (await sf.frameElement()).boundingBox();
     const k1 = await sf.evaluate(() => { const S = BohemiaSettlement, st = BohemiaCampLook.state();
-      const c2 = S.camp2(); return { src: c2.src, camp2: c2.camp2, order: S.order(), kinds: st.pieces.map(q => q.kind), carrier: st.carrier, keepers: S.folk().filter(q => !q.campMan).length, busy: S.busy().length, men: st.men }; });
+      const c2 = S.camp2(); return { src: c2.src, camp2: c2.camp2, tall: st.tall, order: S.order(), kinds: st.pieces.map(q => q.kind), carrier: st.carrier, keepers: S.folk().filter(q => !q.campMan).length, busy: S.busy().length, men: st.men }; });
     ok(P + 'K1 *** A PRESS ON HEAL OPENS HIS CAMP *** his own ground, nothing of a town, the fire, his tents, the shopping cart, the supplies, the seats, each a door',
-      /camp_two\/plate\.webp$/.test(k1.src || '') && k1.camp2 && k1.keepers === 0 && k1.busy === 0 && ['fire', 'tent', 'carrier', 'supplies', 'seats'].every(k => k1.kinds.indexOf(k) >= 0)
+      /camp_two\/plate(_tall)?\.webp$/.test(k1.src || '') && k1.camp2 && (/_tall/.test(k1.src) === (profile === 'phone_portrait')) && k1.keepers === 0 && k1.busy === 0 && ['fire', 'tent', 'carrier', 'supplies', 'seats'].every(k => k1.kinds.indexOf(k) >= 0)
         && k1.carrier === 'shopping_cart' && ['fire', 'tent', 'cart', 'retinue'].every(k => k1.order.indexOf(k) >= 0),
       JSON.stringify(k1));
     /* a real tap anywhere on the camp skips the pitch */
@@ -226,6 +228,24 @@ async function run(profile) {
       return out; });
     ok(P + 'K12 ALL EIGHTEEN: every one of Battle Brothers\' followers is in the retinue with his number and his piece, drawn at his spot when he is with you, his number moving with him (the twelve whose screens are not wired yet stand priced and shut)',
       k12.n === 18 && !k12.noPiece.length && !k12.noNumber.length && !k12.notDrawn.length && k12.moved.length === 18 && k12.soon.length === 12, JSON.stringify(k12));
+    /* ---- K13 THE TURN GLIDES (rule 289(b)(c)): the glass turned mid-camp: the other shape, every piece and man there before and after,
+       a glide of one beat, never a black frame ---- */
+    const vp0 = p.viewportSize(), turned = { width: vp0.height, height: vp0.width };
+    const before13 = await look(sf);
+    await sf.evaluate(() => { window.__CAMP2_DARK = []; const cv = document.querySelector('#scene canvas') || document.querySelector('canvas'); const t0 = performance.now();
+      (function f() { try { const g = cv.getContext('2d'), w = cv.width, h = cv.height, d = g.getImageData(Math.floor(w * 0.3), Math.floor(h * 0.3), Math.floor(w * 0.4), Math.floor(h * 0.4)).data; let m = 0, n = 0;
+        for (let i = 0; i < d.length; i += 64) { m += d[i] + d[i + 1] + d[i + 2]; n++; } window.__CAMP2_DARK.push(Math.round(m / Math.max(1, n) / 3)); } catch (e) {} if (performance.now() - t0 < 1800) requestAnimationFrame(f); })(); });
+    await p.setViewportSize(turned);
+    await p.waitForTimeout(2000);
+    const after13 = await look(sf), dark = await sf.evaluate(() => window.__CAMP2_DARK || []);
+    /* the glide the camp drew: a beat (about 500 ms) over more than one frame, the pieces in between */
+    const gl = after13.lastGlide, glided = !!gl && gl.n === after13.flips && gl.frames >= 2 && gl.ms >= 400 && gl.ms <= 2000;
+    await p.setViewportSize(vp0); await p.waitForTimeout(1200);
+    const back13 = await look(sf);
+    const keys = (st) => st.pieces.map(q => q.key).sort().join(',');
+    ok(P + 'K13 THE TURN GLIDES: the glass turned mid-camp, the other shape (tall for tall, wide for wide), every piece and man there before and after, gliding, never a black frame; and back',
+      before13.tall !== after13.tall && after13.flips > before13.flips && keys(before13) === keys(after13) && before13.acts.length === after13.acts.length && glided && dark.length >= 3 && Math.min.apply(null, dark) > 8 && back13.tall === before13.tall && back13.flips === after13.flips + 1,
+      JSON.stringify({ before: before13.tall, after: after13.tall, back: back13.tall, flips: [after13.flips, back13.flips], glide: gl, darkest: Math.min.apply(null, dark.length ? dark : [0]), frames: dark.length, pieces: keys(after13) }));
     /* leave it as found: break the camp by its own button */
     await tapIn(p.mainFrame(), HEAL); await p.waitForTimeout(500);
     await fr.evaluate(() => { clearInterval(window.__GATE_KEEP_OFF); });

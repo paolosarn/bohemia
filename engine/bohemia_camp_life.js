@@ -33,6 +33,13 @@
   'use strict';
   var PIC = { w: 2060, h: 1092 };
   var FIRE = { x: 1030, y: 640 };
+  /* THE TWO SHAPES (rule 289, Paolo 10/26: 'all camps and settlements have to look good when you flip them from portrait to landscape...
+     before you can even begin to try to make the phone location look good'): the wide camp on the wide ground (2060 x 1092) and the
+     tall camp on the tall ground (1092 x 1940, slices/camp_two/plate_tall.webp): the same pieces, the tents stacked in rows behind
+     the fire instead of spread in arcs, every other offset narrowed and lengthened (sx, sy), so a phone held upright fills with it */
+  var GEO = { wide: { w: 2060, h: 1092, fx: 1030, fy: 640, sx: 1, sy: 1, cap: [4, 5, 6], rx: [300, 170], ry: [200, 110] },
+              tall: { w: 1092, h: 1940, fx: 546, fy: 900, sx: 0.5, sy: 1.25, cap: [3, 3, 3, 3], rx: [250, 15], ry: [215, 215] } };   /* the camp in the upper middle: both bottom corners stay open for the phone, either side */
+  function geo(o) { return o && o.tall ? GEO.tall : GEO.wide; }
   var HURT = 0.87, BAD = 0.35;          /* rule 261(b): under 87 percent he shows; under about a third he is down on a bedroll */
   /* the odds colour, read from ours.json by whoever loads it (the same file COMBAT's AUTO reads), else the 144(e) numbers */
   var ODDS = { turn: 0.8, glow_at: 0.92, alpha_min: 0.18, alpha_max: 0.62 };
@@ -70,14 +77,15 @@
   var FOLLOWER_SPOTS = [{ dx: 470, dy: 40 }, { dx: -600, dy: 20 }, { dx: 560, dy: -110 }, { dx: -470, dy: -200 }, { dx: 330, dy: -230 }, { dx: -300, dy: 210 }, { dx: 200, dy: 230 }];
 
   /* the tents in rows behind the fire, an arc a row, the first tent his */
-  function tentSpots(n, R) {
-    var out = [], rows = [], left = n, cap = [4, 5, 6], ri = 0;
+  function tentSpots(n, R, G) {
+    G = G || GEO.wide;
+    var out = [], rows = [], left = n, cap = G.cap, ri = 0;
     while (left > 0) { var c = Math.min(left, cap[Math.min(ri, cap.length - 1)]); rows.push(c); left -= c; ri++; }
     rows.forEach(function (c, r) {
-      var rx = 300 + r * 170, ry = 200 + r * 110, span = Math.min(Math.PI * 0.95, 0.42 * Math.max(1, c - 1) + 0.3);
+      var rx = G.rx[0] + r * G.rx[1], ry = G.ry[0] + r * G.ry[1], span = Math.min(Math.PI * 0.95, 0.42 * Math.max(1, c - 1) + 0.3);
       for (var i = 0; i < c; i++) {
         var t = c === 1 ? 0 : (i / (c - 1) - 0.5), a = -Math.PI / 2 + t * span + (R() - 0.5) * 0.08;
-        out.push({ x: Math.round(FIRE.x + Math.cos(a) * rx + (R() - 0.5) * 20), y: Math.round(FIRE.y + Math.sin(a) * ry + (R() - 0.5) * 12) });
+        out.push({ x: Math.round(G.fx + Math.cos(a) * rx + (R() - 0.5) * 20), y: Math.round(G.fy + Math.sin(a) * ry + (R() - 0.5) * 12) });
       }
     });
     return out;
@@ -85,25 +93,27 @@
   var CLOTHS = ['tent_olive', 'tent_tarp', 'tent_stripe'];
   function layout(o) {
     o = o || {};
-    var men = Math.max(1, o.men | 0), R = rnd(seedOf('camp:' + (o.seed || 0))), car = carrier(o.level, o.smart), pieces = [];
-    pieces.push({ kind: 'fire', key: 'fire', sprite: 'fire', x: FIRE.x, y: FIRE.y, tap: 'fire' });
-    tentSpots(tents(men), R).forEach(function (p, i) {
+    var men = Math.max(1, o.men | 0), R = rnd(seedOf('camp:' + (o.seed || 0))), car = carrier(o.level, o.smart), pieces = [], G = geo(o);
+    var at = function (dx, dy) { return { x: G.fx + dx * G.sx, y: G.fy + dy * G.sy }; };
+    pieces.push({ kind: 'fire', key: 'fire', sprite: 'fire', x: G.fx, y: G.fy, tap: 'fire' });
+    tentSpots(tents(men), R, G).forEach(function (p, i) {
       pieces.push({ kind: 'tent', key: i ? 'tent_' + (i + 1) : 'tent', sprite: CLOTHS[(i + (seedOf('cloth:' + (o.seed || 0)) % 3)) % 3], x: p.x, y: p.y, tap: 'tent', i: i,
         sleeps: [i * 2, i * 2 + 1].filter(function (k) { return k < men; }) });
     });
-    pieces.push({ kind: 'carrier', key: 'cart', sprite: car.sprite, carrier: car.id, word: car.word, trailer: !!car.trailer, x: FIRE.x - 470, y: FIRE.y + 70, tap: 'cart' });
-    pieces.push({ kind: 'supplies', key: 'supplies', sprite: 'supplies', x: FIRE.x - 330, y: FIRE.y + 140, tap: 'cart' });   /* the camp kept off the glass's bottom corners, where the phone stands (rule 286) */
-    pieces.push({ kind: 'seats', key: 'retinue', sprite: 'seats', x: FIRE.x + 300, y: FIRE.y + 150, tap: 'retinue' });
+    var q1 = at(-470, 70), q2 = at(-330, 140), q3 = at(300, 150);
+    pieces.push({ kind: 'carrier', key: 'cart', sprite: car.sprite, carrier: car.id, word: car.word, trailer: !!car.trailer, x: q1.x, y: q1.y, tap: 'cart' });
+    pieces.push({ kind: 'supplies', key: 'supplies', sprite: 'supplies', x: q2.x, y: q2.y, tap: 'cart' });   /* the camp kept off the glass's bottom corners, where the phone stands (rule 286) */
+    pieces.push({ kind: 'seats', key: 'retinue', sprite: 'seats', x: q3.x, y: q3.y, tap: 'retinue' });
     var freeSpot = 0, taken = {};
     (o.followers || []).forEach(function (id) { if (FOLLOWER_AT[id]) taken[FOLLOWER_AT[id].dx + ',' + FOLLOWER_AT[id].dy] = 1; });
     (o.followers || []).forEach(function (id) {
       var f = FOLLOWER_AT[id];
       if (!f) { var sp = null; while (freeSpot < FOLLOWER_SPOTS.length && !sp) { var q = FOLLOWER_SPOTS[freeSpot++]; if (!taken[q.dx + ',' + q.dy]) sp = q; } if (!sp) return; f = { sprite: 'f_' + id, dx: sp.dx, dy: sp.dy }; }
-      pieces.push({ kind: 'follower', key: 'f_' + id, follower: id, sprite: f.sprite, x: FIRE.x + f.dx, y: FIRE.y + f.dy, tap: 'retinue' }); });
+      var qf = at(f.dx, f.dy); pieces.push({ kind: 'follower', key: 'f_' + id, follower: id, sprite: f.sprite, x: qf.x, y: qf.y, tap: 'retinue' }); });
     var k = o.kills | 0;
-    if (k > 0) pieces.push({ kind: 'slain', key: 'slain', sprite: k <= 2 ? 'slain_few' : k <= 5 ? 'slain_some' : 'slain_many', n: k, x: FIRE.x + 680, y: FIRE.y + 330, tap: null });
-    pieces.forEach(function (p) { p.x = Math.max(120, Math.min(PIC.w - 120, p.x)); p.y = Math.max(200, Math.min(PIC.h - 60, p.y)); });
-    return { fire: { x: FIRE.x, y: FIRE.y }, pieces: pieces, tents: tents(men), carrier: car, pic: PIC };
+    var qs = at(-600, -330); if (k > 0) pieces.push({ kind: 'slain', key: 'slain', sprite: k <= 2 ? 'slain_few' : k <= 5 ? 'slain_some' : 'slain_many', n: k, x: qs.x, y: qs.y, tap: null });
+    pieces.forEach(function (p) { p.x = Math.round(Math.max(100, Math.min(G.w - 100, p.x))); p.y = Math.round(Math.max(200, Math.min(G.h - 60, p.y))); });
+    return { fire: { x: G.fx, y: G.fy }, pieces: pieces, tents: tents(men), carrier: car, pic: { w: G.w, h: G.h }, tall: G === GEO.tall, geo: G };
   }
 
   /* ONE MAN'S CONDITION, READ: the share of his blood and armour he has now (1 whole, a man no fight has seen is whole) */
@@ -150,20 +160,22 @@
   /* WHERE HE IS FOR WHAT HE DOES, and the way he faces (the eight turns S SE E NE N NW W SW) */
   function dirTo(dx, dy) { var a = Math.atan2(dy * 2, dx), k = Math.round(a / (Math.PI / 4)); return ['E', 'SE', 'S', 'SW', 'W', 'NW', 'N', 'NE'][((k % 8) + 8) % 8]; }
   function spots(list, L) {
+    var G = L.geo || GEO.wide, X = function (dx) { return dx * Math.max(G.sx, 0.62); }, Y = function (dy) { return dy * G.sy; };
     var f = L.fire, piece = function (k) { for (var i = 0; i < L.pieces.length; i++) if (L.pieces[i].key === k || L.pieces[i].kind === k) return L.pieces[i]; return null; };
     var used = {}, ring = function (n, rx, ry, a0, a1, i) { var a = n <= 1 ? (a0 + a1) / 2 : a0 + (a1 - a0) * i / (n - 1); return { x: Math.round(f.x + Math.cos(a) * rx), y: Math.round(f.y + Math.sin(a) * ry) }; };
     var by = {}; list.forEach(function (e) { (by[e.act] = by[e.act] || []).push(e); });
     var out = {};
     var put = function (e, x, y, face) { out[e.i] = { x: Math.round(x), y: Math.round(y), face: face, act: e.act }; };
-    (by.lie || []).forEach(function (e, j) { put(e, f.x - 160 + j * 170 - ((by.lie.length - 1) * 85), f.y + 200 + (j % 2) * 40, 'E'); });
+    (by.lie || []).forEach(function (e, j) { var per = G === GEO.tall ? 3 : 6, row = Math.floor(j / per), col = j % per, n = Math.min(per, by.lie.length - row * per);
+      put(e, f.x - 160 + col * 170 - ((n - 1) * 85) + 160, f.y + Y(200) + row * 80 + (col % 2) * 30, 'E'); });   /* in front of the fire, a row a few at a time */
     (by.tend || []).forEach(function (e) { var p = out[e.by]; if (p) put(e, p.x + 20, p.y - 46, 'S'); else put(e, f.x, f.y + 120, 'N'); });
     var sitters = (by.rest || []).concat(by.clean || []);
     sitters.forEach(function (e, j) { var q = ring(sitters.length, 175, 85, Math.PI * 0.62, Math.PI * 1.38, j); put(e, q.x, q.y, dirTo(f.x - q.x, f.y - q.y)); });
     var smith = piece('f_blacksmith'), cart = piece('cart');
     (by.mend || []).forEach(function (e, j) { var at = smith || cart; put(e, at.x + 70 + j * 46, at.y + 40 + (j % 2) * 18, dirTo(at.x - (at.x + 70 + j * 46), -1)); });
     var pot = piece('f_cook');
-    (by.cook || []).forEach(function (e, j) { var at = pot || f; put(e, at.x + (pot ? 95 : 170) + j * 50, at.y + (pot ? 45 : -10), 'W'); });   /* beside the pot, never in front of it (the pot stays a door) */
-    var edges = [{ x: f.x - 420, y: f.y + 300, face: 'SW' }, { x: f.x + 470, y: f.y + 290, face: 'SE' }, { x: f.x + 520, y: f.y - 250, face: 'NE' }, { x: f.x - 520, y: f.y - 240, face: 'NW' }];   /* the camp's edge, inside what a phone shows of it */
+    (by.cook || []).forEach(function (e, j) { var at = pot || f; put(e, at.x + (pot ? 95 : X(170)) + j * 50, at.y + (pot ? 45 : -10), 'W'); });   /* beside the pot, never in front of it (the pot stays a door) */
+    var edges = [{ x: f.x - X(470), y: f.y + Y(120), face: 'SW' }, { x: f.x + X(500), y: f.y + Y(110), face: 'SE' }, { x: f.x + X(520), y: f.y - Y(250), face: 'NE' }, { x: f.x - X(520), y: f.y - Y(240), face: 'NW' }];   /* the camp's sides, never its bottom corners (where the phone stands) */   /* the camp's edge, inside what a phone shows of it */
     (by.watch || []).forEach(function (e, j) { var q = edges[j % edges.length]; put(e, q.x, q.y, q.face); });
     var tl = L.pieces.filter(function (p) { return p.kind === 'tent'; });
     (by.sleep || []).forEach(function (e, j) { var t = tl[Math.floor(e.i / 2) % Math.max(1, tl.length)] || { x: f.x, y: f.y - 200 }; put(e, t.x - 40 + (e.i % 2) * 80, t.y + 95, 'E'); });
@@ -211,6 +223,6 @@
 
   function setOdds(c) { if (c && typeof c.turn === 'number') for (var k in ODDS) if (typeof c[k] === 'number') ODDS[k] = c[k]; }
 
-  root.BohemiaCampLife = { PIC: PIC, FIRE: FIRE, HURT: HURT, BAD: BAD, CARRIERS: CARRIERS, FOLLOWER_AT: FOLLOWER_AT, tents: tents, carrier: carrier, layout: layout,
+  root.BohemiaCampLife = { PIC: PIC, FIRE: FIRE, GEO: GEO, HURT: HURT, BAD: BAD, CARRIERS: CARRIERS, FOLLOWER_AT: FOLLOWER_AT, tents: tents, carrier: carrier, layout: layout,
     manOf: manOf, acts: acts, spots: spots, octant: octant, tint: tint, compass: compass, pitch: pitch, setOdds: setOdds, odds: function () { return ODDS; }, seedOf: seedOf };
 })(typeof window !== 'undefined' ? window : this);

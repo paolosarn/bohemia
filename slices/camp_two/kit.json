@@ -719,5 +719,15 @@
   "day_ground_median": 0.588,
   "night_ground_median": 0.215,
   "from": "slices/settlement_ground_packs/camp_0.webp, quilted from its clean sand (CLEAN boxes in the tool)"
+ },
+ "plate_tall": {
+  "src": "plate_tall.webp",
+  "night_src": "plate_tall_night.webp",
+  "px": [
+   1092,
+   1940
+  ],
+  "ppm": 42.916666666666664,
+  "why": "rule 289: the camp good tall first; the same sand quilted upright, the camp laid out for it (BohemiaCampLife.layout tall)"
  }
 }
