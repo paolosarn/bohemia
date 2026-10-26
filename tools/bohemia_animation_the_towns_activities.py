@@ -77,8 +77,8 @@ def set_of(T, act):
 
 
 def acts_of(T, arg=None, set_='town'):
-    """the activities named (any set), else every activity of the set: 'town' (the six he named, rule 218(a)) or 'after' (the
-    minutes after a fight, rule 245)"""
+    """the activities named (any set), else every activity of the set: 'town' (the six he named, rule 218(a)), 'after' (the
+    minutes after a fight, rule 245) or 'camp' (the camp's acts, rule 259)"""
     a = list(T['activities'])
     return [x for x in a if x in arg.split(',')] if arg else [x for x in a if set_of(T, x) == set_]
 
@@ -203,8 +203,8 @@ def pose(src, out, which=None):
         for pb in PB: pb.matrix_basis = base[pb.name].copy()
         bpy.context.view_layer.update()
         name = lambda op: op[1] if op[0] == 'MOVE' else op[0]
-        kn = [op for op in ops if op[0] == 'KNEEL']; rc = [op for op in ops if op[0] == 'REACH']
-        ops = [op for op in ops if op[0] not in ('KNEEL', 'REACH')]
+        kn = [op for op in ops if op[0] == 'KNEEL']; rc = [op for op in ops if op[0] == 'REACH']; lie = [op for op in ops if op[0] == 'LIE']
+        ops = [op for op in ops if op[0] not in ('KNEEL', 'REACH', 'LIE')]
         for op in sorted(ops, key=lambda op: order.index(name(op)) if name(op) in order else -1):
             if op[0] == 'MOVE':
                 pb = PB[op[1]]; v = sum((V(AX[c]) * float(x) for c, x in zip('FUL', op[2])), V((0, 0, 0)))
@@ -212,7 +212,13 @@ def pose(src, out, which=None):
             else:
                 pb = PB[op[0]]
                 rot(pb, pb.matrix.translation.copy(), mathutils.Matrix.Rotation(math.radians(op[2]), 4, V(AX[op[1]])))
-        if kn: kneel(kn[-1][1], *kn[-1][2:])
+        if lie:   # ['LIE', back, roll, height]: the pose as he would hold it standing, tipped back about his pelvis (every bone
+            # hangs off it) and rolled about his facing, then let down until his pelvis is `height` off the floor; no plant
+            back, roll, hgt = lie[-1][1], lie[-1][2], lie[-1][3]; pb = PB[B['P']]; piv = pb.head.copy()
+            rot(pb, piv, mathutils.Matrix.Rotation(math.radians(roll), 4, Fv) @ mathutils.Matrix.Rotation(math.radians(-back), 4, Lv))
+            drop = PB[B['P']].head.dot(Uv) - hgt
+            pb.matrix = mathutils.Matrix.Translation(-Uv * drop) @ pb.matrix; bpy.context.view_layer.update()
+        elif kn: kneel(kn[-1][1], *kn[-1][2:])
         else: plant()
         for op in rc:   # ['REACH', side, from, [f, u, l], pole [f, u, l]]: names already the rig's
             u1, f1, h1 = op[1]; two_bone(u1, f1, h1, at_of(op[2]) + vec(op[3]), vec(op[4]))
@@ -220,7 +226,7 @@ def pose(src, out, which=None):
     def named(ops):
         def one(o):
             if o[0] == 'MOVE': return ['MOVE', B[o[1]], o[2]]
-            if o[0] == 'KNEEL': return list(o)
+            if o[0] in ('KNEEL', 'LIE'): return list(o)
             if o[0] == 'REACH': return ['REACH', (B[o[1] + 'U'], B[o[1] + 'F'], B[o[1] + 'H']), o[2], o[3], o[4]]
             return [B[o[0]], o[1], o[2]]
         return [one(o) for o in ops]
@@ -280,7 +286,11 @@ def pose(src, out, which=None):
     made = []   # (prop, parent bone or None, anchor in the world, object)
     for nm in needed:
         S = T['props'][nm]; kind = S['kind']
-        if kind == 'hand':
+        if kind == 'hand' and S['bone'] == 'LH':   # the left fist's own frame (its forearm), the right's mirrored across him
+            lh = W @ PB[B['LH']].head; lf = W @ PB[B['LF']].head; hl = (lh - lf).normalized()
+            gl = (facing - hl * facing.dot(hl)).normalized(); c = lh + hl * S['along']
+            ob = make(nm, *mesh_from(S['parts'], (c, hl, gl, -hl.cross(gl).normalized(), (1, 1, 1)))); made.append((nm, B['LH'], c, ob))
+        elif kind == 'hand':
             c = rh + hand * S['along']
             ob = make(nm, *mesh_from(S['parts'], (c, hand, grip, side, (1, 1, 1)))); made.append((nm, B[S['bone']], c, ob))
         elif kind == 'cigarette':   # the idles' own: past the fingers, along the hand
@@ -304,12 +314,12 @@ def pose(src, out, which=None):
             bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
             made.append((nm, B[S['bone']], hd + facing * 0.12 + up * 0.1 + left * -0.13, ob))
         elif kind == 'limb':   # wrapped round a bone between two fractions of it (a bandage on his forearm), skinned to that bone
-            j = S['bone']; nxt = {'LF': 'LH', 'RF': 'RH', 'LU': 'LF', 'RU': 'RF'}[j]
+            j = S['bone']; nxt = {'LF': 'LH', 'RF': 'RH', 'LU': 'LF', 'RU': 'RF', 'S': 'C', 'P': 'S', 'N': 'H'}[j]
             h0 = W @ PB[B[j]].head; h1 = W @ PB[B[nxt]].head; ax_ = (h1 - h0).normalized(); o_ = ax_.orthogonal().normalized()
             a0 = h0 + (h1 - h0) * S['from']; ln = (h1 - h0).length * (S['to'] - S['from'])
             ob = make(nm, *mesh_from(S['parts'], (a0, ax_, o_, ax_.cross(o_), (ln, 1, 1)))); made.append((nm, B[j], a0, ob))
         elif kind == 'ground':   # the work's crate set where he sits, in the armature's frame, in real metres
-            parts = WP[S['from'].split('.', 1)[1]]['parts'] if S['from'].startswith('work.') else S['parts']
+            parts = WP[S['from'].split('.', 1)[1]]['parts'] if S.get('from', '').startswith('work.') else S['parts']
             la, ra = PB[B['LA']].head.copy(), PB[B['RA']].head.copy(); G0 = (la + ra) / 2; G0 = G0 - Uv * G0.dot(Uv)
             at = W @ (G0 + (Fv * S['at'][0] + Uv * S['at'][1] + Lv * S['at'][2]) * k)
             ob = make(nm, *mesh_from(parts, (at, facing * k, up * k, left * k, S.get('scale', (1, 1, 1)))))
@@ -409,7 +419,7 @@ def model(pid):
 
 def person_one(tag, which=None):
     T = source(); D = EI.source()
-    set_ = which if which in ('town', 'after') else 'town'; acts = acts_of(T, None if which in ('town', 'after') else which, set_)
+    set_ = which if which in ('town', 'after', 'camp') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp') else which, set_)
     set_ = set_of(T, acts[0])
     pid = tag[len('person_'):]
     glb, h = model(pid)
@@ -431,7 +441,7 @@ def fight_one(name, which=None):
     `bodies` when missing), the activities laid on it here, rendered by COMBAT's render() pointed at this folder (the idles'
     way: the same camera, sun, scale and samples as his fight sheet, Stand first so his box is his own)"""
     T = source(); D = EI.source(); CF = EI.combat(); py = sys.executable
-    set_ = which if which in ('town', 'after') else 'town'; acts = acts_of(T, None if which in ('town', 'after') else which, set_)
+    set_ = which if which in ('town', 'after', 'camp') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp') else which, set_)
     set_ = set_of(T, acts[0]); sfx = '' if set_ == 'town' else '.' + set_
     src = os.path.join(ROOT, EI.COMBAT_POSED, name + '.glb')
     if not os.path.exists(src): EI.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
@@ -523,7 +533,7 @@ def pack(only=None):
                         'tools/bohemia_animation_the_towns_activities.py, rendered by DIRECTION\'s master rig at the street\'s settings',
                  dirs=DIRS, keys_per_beat=3, slot=24,
                  timelines={k: v for k, v in T['timelines'].items() if k != 'why'},
-                 activities={a: {k: v for k, v in A.items() if k in ('rest', 'breathe', 'idles', 'habit', 'fidget', 'turns', 'wall', 'set')}
+                 activities={a: {k: v for k, v in A.items() if k in ('rest', 'breathe', 'idles', 'habit', 'fidget', 'turns', 'wall', 'set', 'once')}
                              for a, A in T['activities'].items()},
                  cell='[x, y, w, h, dx, dy]: the cell on its sheet and where its top left sits in his render\'s full frame; feet[f] is '
                       'where his still stands in that frame (the bare idles\' numbers, so an activity lands where his still stood)')
@@ -561,7 +571,7 @@ def pack(only=None):
 
     n_ok = 0
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
-    SETS = ['town', 'after']
+    SETS = ['town', 'after', 'camp']
 
     def passes(tag):
         """his render passes on disk (the town's six, the minutes after a fight), each its folder and the acts it made"""

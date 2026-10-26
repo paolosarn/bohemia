@@ -138,7 +138,7 @@ def envelope_faults(J, T):
         for k1 in kinds:   # every slot, and every slot into every next one (any follows any)
             keys = [p for p, h in T['timelines'][k1] for _ in range(h)]
             seqs.append((k1, keys))
-            for k2 in kinds:
+            for k2 in ([] if A.get('once') else kinds):   # an act played once (the camp's rise) never follows itself
                 keys2 = [p for p, h in T['timelines'][k2] for _ in range(h)]
                 seqs.append((k1 + '>' + k2, keys[-3:] + keys2[:3]))
         for name, keys in seqs:
@@ -162,7 +162,7 @@ def joints_of(l):
     """his posed joints, every pass merged (the town's six in <look>/, the minutes after a fight in <look>.after/: the same
     build posed twice, so one armature's space)"""
     J = None
-    for d in (l, l + '.after'):
+    for d in (l, l + '.after', l + '.camp'):
         fn = os.path.join(RENDERS, d, 'joints.json')
         if not os.path.exists(fn): continue
         j = json.load(open(fn))
@@ -182,7 +182,7 @@ for l in looks_j:
 def kneels(T, a, p):
     """the kneel a pose makes (['KNEEL', side, front, seat]), or None"""
     P = dict(D['parts']); P.update(T['parts'])
-    ks = [op for part in T['activities'][a]['poses'][p] for op in P[part] if op[0] == 'KNEEL']
+    ks = [op for part in T['activities'][a]['poses'][p] for op in P[part] if op[0] in ('KNEEL', 'LIE')]
     return ks[-1] if ks else None
 
 
@@ -196,6 +196,9 @@ def ankle_faults(J, T):
         ref = J['acts']['talk']['at']['T'] if 'talk' in J['acts'] else None
         for p, row in at.items():
             kn = kneels(T, a, p)
+            if kn and kn[0] == 'LIE' and ref is not None:   # lying (or sat on the ground): his pelvis on the floor
+                if row['P'][1] / k > kn[3] / k + 0.08: out.append('%s.%s lies %.0f cm off the floor' % (a, p, row['P'][1] / k * 100))
+                continue
             if kn and ref is not None:
                 down = kn[1]; up = 'L' if down == 'R' else 'R'
                 if row[down + 'S'][1] / k > 0.12: out.append('%s.%s the %s knee %.0f cm off the ground' % (a, p, down, row[down + 'S'][1] / k * 100))
@@ -282,7 +285,7 @@ def picture_faults(looks):
                     px = im[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
                     rows = np.nonzero((px[..., 3] > 0).any(1))[0]
                     sole = c[5] + (rows.max() + 1 if len(rows) else 0)
-                    if p not in seated and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too: his heels are held by the joints (E3)
+                    if p not in seated and not kneels(T, a, p) and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too, a kneeling man's front foot a step forward, a lying man along the ground: their feet are held by the joints (E3, K)
                         out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - ground[fi]))
     return out
 
@@ -378,6 +381,10 @@ setTimeout(function () {
     const sa = say.indexOf(a.kind) >= 0, sb = say.indexOf(b.kind) >= 0; if (sa && sb) both++; if (sa) aT++; if (sb) bT++; n++; }
   out.pair = { both: both, a: aT / n, b: bT / n };
   [true, false].forEach(function (w) { const k = {}; for (let i = 0; i < 30; i++) for (let t = 0; t < 600000; t += 4000) k[B.townAt('w' + i, t, { act: 'flirt', wall: w }).kind] = 1; out.wall[w] = Object.keys(k); });
+  out.once = {}; Object.keys(M.activities).filter(a => M.activities[a].once).forEach(function (a) {
+    const t0 = 7777 * keyMs, seq = []; for (let k = 0; k < 40; k++) seq.push(B.townAt('o', t0 + k * keyMs + 1, { act: a, since: t0 }).pose);
+    const late = B.townAt('o', t0 + 400 * keyMs, { act: a, since: t0 }).pose, none = B.townAt('o', t0, { act: a }).pose;
+    out.once[a] = { seq: seq, late: late, none: none }; });
   console.log(JSON.stringify(out));
 }, 50);
 '''
@@ -397,6 +404,7 @@ def player(mode=''):
 def player_faults(X):
     out = []
     for a, R in X['acts'].items():
+        if T['activities'][a].get('once'): continue   # played once from o.since, then held (its own leg, X4)
         P = R['people']
         for i, p in enumerate(P):
             if p['maxHeld'] > 4000: out.append('%s man %d holds one picture %.1f s' % (a, i, p['maxHeld'] / 1000))
@@ -429,6 +437,15 @@ if X:
     ok('X2 MUTATION: a player that hands every man the same clock is caught', any('share' in x for x in sf_))
     Xb = player('bothtalk'); bf = player_faults(Xb) if Xb else ['no run']
     ok('X3 MUTATION: a pair that both talk at once is caught', any('both talk' in x for x in bf))
+    of = []
+    for a, A in T['activities'].items():
+        if not A.get('once'): continue
+        R = X.get('once', {}).get(a)
+        want = [p for p, h in T['timelines'][A['breathe'][0][0]] for _ in range(h)]
+        if not R: of.append('%s not played' % a); continue
+        if R['seq'][:24] != want: of.append('%s from since is not its one slot' % a)
+        if any(p != A['rest'] for p in R['seq'][24:]) or R['late'] != A['rest'] or R['none'] != A['rest']: of.append('%s does not hold its rest after its slot (or without since)' % a)
+    ok('X4 AN ACT PLAYED ONCE (the camp\'s rise): its one slot from the moment it was asked, then its rest held, never looped', not of, '; '.join(of))
 
 
 # ---------------------------------------------------------------------------------------------------- W wired
