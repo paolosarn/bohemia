@@ -1,5 +1,5 @@
 CAMP TWO (camp-two, the camp's look and life; a split of CAMP, lane 24): 10/26 LATEST -- ROUND ONE SHIPPED b8dab965, BUILT, NOT YET SEEN
-(BUILD 10/26zzm - YOUR CAMP, TALL AND WIDE). Record: records/BOHEMIA_CAMP_TWO_HIS_CAMP_HIS_MEN_THE_COMPASS_AND_THE_PITCH_10_26_26.md.
+(BUILD 10/26zzn - YOUR CAMP, TALL AND WIDE). Record: records/BOHEMIA_CAMP_TWO_HIS_CAMP_HIS_MEN_THE_COMPASS_AND_THE_PITCH_10_26_26.md.
 
 WHAT IS LIVE (the demo: LEAVE the start town, then press HEAL on the phone anywhere on the map):
 - HIS CAMP (260(a)): his own ground (slices/camp_two/plate.webp, the rig's sand with nobody's things on it) and his camp on it: a tent
