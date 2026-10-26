@@ -46797,8 +46797,11 @@ function streetYouDraw(gx, gy, moving, st, G){
   } catch (_e) { body = null; }
   var near = mapCompanyNear(), bw = 0, bh = 0;
   mapCompanyPass(gx, gy, 0, moving, G, near, 0);
-  if (body) { g.imageSmoothingEnabled = false; bw = body.width / 2; bh = body.height / 2; g.drawImage(body, mapSnap(gx - bw / 2), mapSnap(gy - bh * 0.93), bw, bh); }
+  if (body) { g.imageSmoothingEnabled = false; bw = body.width / 2; bh = body.height / 2; var bx = mapSnap(gx - bw / 2), by = mapSnap(gy - bh * 0.93); g.drawImage(body, bx, by, bw, bh);
+    if (how === 'rig3d' && typeof mapWearOn === 'function') { try { mapWearOn(body, bx, by, bw / body.width, face, (typeof mapMainLook === 'function' && mapMainLook()) || 'you'); } catch (_e) {} } }   /* CHARACTER's __THE_ARMOUR_HE_WEARS_SHOWS__, as on the map */
   mapCompanyPass(gx, gy, 0, moving, G, near, 1);
+  try { if (typeof mapHeadBarsQueue === 'function') { var top = body ? mapSnap(gy - bh * 0.93) + (typeof mapInkTop === 'function' ? mapInkTop(body) : 0) * bh : gy - 40;
+    mapHeadBarsQueue({ main: true }, gx, top - 3); mapHeadBarsDraw(); } } catch (_e) {}   /* CAMP's __THE_BARS_OVER_THEIR_HEADS__, as on the map */
   g.restore();
   try { MAP_DREW.youCount = (MAP_DREW.youCount | 0) + 1; MAP_DREW.you = { how: how, x: Math.round(gx), y: Math.round(gy), w: bw, h: bh, moving: moving, face: face, street: true, st: st }; } catch (_e) {}
 }
