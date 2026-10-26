@@ -52,8 +52,10 @@ The set 'pitch', three acts on the same grammar and call:
   again; back up with a hand on his knee, a look round. CAMP draws its fire lit when the scene ends.
 THE BUGS I MADE AND CAUGHT: the hammer's middle pose swung the elbow out and back (the down pose was past his reach, so his arm
 went straight and the elbow came in): the stake brought within reach, the elbow out the whole swing, the envelope 0. The bundle
-ran out of his right fist to his right (the fist's own axis points to his left once the arm is up): turned, seen on the
-closeup. His left fist sat a hand's width off the stake: the stake moved into it.
+ran out of his right fist to his right, and turning it did not help: each fist turns its own way from pose to pose, so a thing
+fixed to one fist cannot span two. THE TOOL'S SPAN: a hand prop marked span 'LH' is aimed, on every key, from the right fist to
+the left (its rest axis rotated onto the line between them), so a thing held in both hands stays in both hands; seen on the
+closeup in four facings. His left fist sat a hand's width off the stake: the stake moved into it.
 
 ## WHO DOES WHAT (CAMP's call, by his condition)
 badly hurt: lie, a healthy friend on tend by him | hurt: mend | armour broken: repair | healthy: cook, clean, tend, watch (the

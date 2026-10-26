@@ -430,6 +430,8 @@ def person_one(tag, which=None):
     T = source(); D = EI.source()
     set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
     set_ = set_of(T, acts[0])
+    if done(tag, set_) and os.environ.get('BOHEMIA_TOWN_AGAIN') != '1':   # a run killed by the two-hour cap, run again, skips who is made
+        print('TOWN made already', tag, set_, flush=True); return
     pid = tag[len('person_'):]
     glb, h = model(pid)
     posed = os.path.join(ROOT, POSED, folder(tag, set_) + '.glb')

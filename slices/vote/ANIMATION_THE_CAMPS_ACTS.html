@@ -52,8 +52,8 @@ only for this card. Held keys on the beat, the same stop-motion as everything el
   /* they pitch it first (rule 269(c)): two slots, then the camp; a man with no pitching pictures yet does his camp act */
   var PITCH = {
     person_town_0: { act: 'light', f: 2, x: FIRE.x - 27, y: FIRE.y },
-    person_town_2: { act: 'unpack', f: 2, x: CART.x - 24, y: CART.y },
-    you: { act: 'unpack', f: 6, x: CART.x + 24, y: CART.y + 6 },
+    person_town_2: { act: 'unpack', f: 2, x: CART.x - 50, y: CART.y - 8 },
+    you: { act: 'unpack', f: 6, x: CART.x + 50, y: CART.y - 4 },
     person_town_3: { act: 'stake', f: 2, x: 110, y: 170 },
     person_town_1: { act: 'stake', f: 6, x: 540, y: 196 },
     person_town_4: { act: 'stake', f: 0, x: 420, y: 120 },
@@ -87,13 +87,15 @@ only for this card. Held keys on the beat, the same stop-motion as everything el
     for (var i = 0; i < 4; i++){ var h = [7, 10, 6, 9][(i + k) % 4]; cx.fillStyle = cols[i]; cx.fillRect(FIRE.x - 6 + i * 3, FIRE.y - h, 3, h); }
     return 0;
   }
-  function drawCart(){   /* CAMP TWO's cart is the real one; a shopping cart's shape for this card */
-    var x = CART.x - 15, y = CART.y - 22;
-    cx.fillStyle = '#16161a'; cx.fillRect(x + 2, y + 21, 3, 3); cx.fillRect(x + 25, y + 21, 3, 3);
-    cx.fillStyle = '#6d6f72'; cx.fillRect(x, y, 30, 15); cx.fillStyle = '#2a2b2e'; cx.fillRect(x + 2, y + 2, 26, 11);
-    cx.fillStyle = '#55575a'; for (var i = 4; i < 28; i += 4) cx.fillRect(x + i, y + 2, 1, 11);
-    cx.fillStyle = '#6b5a3c'; cx.fillRect(x + 4, y + 4, 9, 6); cx.fillStyle = '#3f4a33'; cx.fillRect(x + 15, y + 5, 10, 5);
-    cx.fillStyle = '#6d6f72'; cx.fillRect(x + 3, y + 15, 1, 6); cx.fillRect(x + 26, y + 15, 1, 6); cx.fillRect(x + 2, y + 20, 27, 1);
+  function drawCart(){   /* CAMP TWO's cart is the real one; a shopping cart's shape for this card, at the men's scale (57 px a metre: 0.9 m long, 1 m to its rim) */
+    var x = CART.x - 26, y = CART.y - 50;
+    cx.fillStyle = '#121215'; cx.fillRect(x + 3, y + 46, 5, 4); cx.fillRect(x + 44, y + 46, 5, 4);
+    cx.fillStyle = '#6d6f72'; cx.fillRect(x + 4, y + 26, 2, 21); cx.fillRect(x + 45, y + 26, 2, 21); cx.fillRect(x + 3, y + 44, 46, 2);
+    cx.fillStyle = '#5b5d60'; cx.fillRect(x - 6, y - 4, 2, 10); cx.fillRect(x - 6, y - 4, 8, 2);
+    cx.fillStyle = '#6d6f72'; cx.fillRect(x, y, 52, 27); cx.fillStyle = '#26272a'; cx.fillRect(x + 2, y + 2, 48, 23);
+    cx.fillStyle = '#4c4e51'; for (var i = 6; i < 50; i += 5) cx.fillRect(x + i, y + 2, 1, 23); cx.fillRect(x + 2, y + 13, 48, 1);
+    cx.fillStyle = '#6b5a3c'; cx.fillRect(x + 6, y + 4, 14, 9); cx.fillStyle = '#3f4a33'; cx.fillRect(x + 22, y + 6, 18, 8);
+    cx.fillStyle = '#8a8378'; cx.fillRect(x + 30, y + 2, 12, 5);
     return 0;
   }
   function drawMan(m, now){
