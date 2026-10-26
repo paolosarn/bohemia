@@ -2161,10 +2161,11 @@
       if (c && c.blood_full > c.blood_from) { BLOOD.clean = c.blood_from; BLOOD.soaked = c.blood_full; } } catch (e) {}
     return BLOOD;
   }
+  /* a blood number 0..1 (WORLD's bloodOf, rule 254: the AUTO colour's scale) to a held stage: over 0 the thumbprint, 1 soaked */
+  function bloodStageOf(b) { b = +b; return !(b > 0) ? 0 : b >= 1 ? BLOOD.stages : Math.max(1, Math.min(BLOOD.stages - 1, 1 + Math.floor(b * (BLOOD.stages - 1)))); }
   function bloodStage(d) {
     var B = bloodScale(); d = +d; if (!(d > B.clean)) return 0;
-    var b = (d - B.clean) / (B.soaked - B.clean);   /* WORLD's own blood number (bloodOf): over 0 the thumbprint, 1 and over soaked */
-    return b >= 1 ? B.stages : Math.max(1, Math.min(B.stages - 1, 1 + Math.floor(b * (B.stages - 1))));
+    return bloodStageOf((d - B.clean) / (B.soaked - B.clean));   /* WORLD's own bloodOf on its job_danger.json numbers */
   }
   function bloodCSS() {
     var pre = 'html[data-kit] body ', sz = BLOOD.pieces.map(function (p) { return p[1] + 'px ' + p[2] + 'px'; }).join(',');
@@ -2234,9 +2235,11 @@
   }
   try { document.fonts && document.fonts.ready.then(function () { [].slice.call(document.querySelectorAll('[data-bm-blood]')).forEach(bloodHolesSoon); }); } catch (e) {}
   /* ==== end __THE_WORDS_ARE_WIPED_CLEAN__ ==== */
-  function bleed(el, d) {
+  /* bleed(el, danger) or bleed(el, danger, {blood: b}): WORLD's reader hands its own blood number (rule 254: one calculator, one
+     scale, the AUTO colour), so whatever scale WORLD reads the runs on, the clay follows it with nothing changed here */
+  function bleed(el, d, o) {
     if (!el || !el.getAttribute) return 0;
-    var want = bloodStage(d), k = bloodKey(el);
+    var want = o && o.blood != null && isFinite(+o.blood) ? bloodStageOf(o.blood) : bloodStage(d), k = bloodKey(el);
     try { if (getComputedStyle(el).position === 'static') el.style.position = 'relative'; } catch (e) {}
     /* the thumb lands past a face that starts the button (the client's face on the town's board) */
     var f = el.firstElementChild;
@@ -2986,5 +2989,5 @@
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, hudParts: hudParts, hudScreen: function () { return HUD.screen; }, hudNoteOpen: hudNoteOpen, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
-    hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT, bleed: bleed, bloodStage: bloodStage, bloodHoles: bloodHoles, BLOOD: BLOOD };
+    hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT, bleed: bleed, bloodStage: bloodStage, bloodStageOf: bloodStageOf, bloodHoles: bloodHoles, BLOOD: BLOOD };
 })();

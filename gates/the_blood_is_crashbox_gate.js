@@ -148,7 +148,9 @@ async function side(profile, d0) {
       const d = e.hasAttribute('data-danger') ? +e.getAttribute('data-danger') : ({ 1: 0.06, 2: 0.25, 3: 0.52 })[st ? +st.getAttribute('data-job-stars') : 0];
       const two = e.querySelectorAll(':scope > i.jdblood').length;   /* ONE blood: WORLD's own layer never drawn beside the kit's */
       const h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
-      return { id: e.dataset.id, two, blood: +e.getAttribute('data-bm-blood'), want: BohemiaMaterials.bloodStage(d), d, bg: ca.backgroundImage, z: ca.zIndex, pe: ca.pointerEvents,
+      /* WORLD's reader hands its own blood number (rule 254: the AUTO colour's scale); the stage follows that number */
+      const want = e.hasAttribute('data-blood') && (window.BohemiaJobDanger || (parent && parent.BohemiaJobDanger)) ? BohemiaMaterials.bloodStageOf(+e.getAttribute('data-blood')) : BohemiaMaterials.bloodStage(d);
+      return { id: e.dataset.id, two, blood: +e.getAttribute('data-bm-blood'), want, d, wb: e.getAttribute('data-blood'), bg: ca.backgroundImage, z: ca.zIndex, pe: ca.pointerEvents,
         iso: getComputedStyle(e).isolation, hit: !!h && (h === e || e.contains(h)) };
     }));
     ok('D1 ' + profile + ': every job on the board wears the blood of its danger, from the rendered pictures',

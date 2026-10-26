@@ -363,7 +363,7 @@
        button wears ONE blood. data-blood stays this file's 0..1 number; the kit's stage is data-bm-blood. */
     var KM = doc.defaultView && doc.defaultView.BohemiaMaterials;
     if (KM && KM.bleed) { var old = el.querySelectorAll(':scope > i.jdblood'); for (var q = 0; q < old.length; q++) old[q].remove();
-      el.classList.remove('jdheavy'); el.style.removeProperty('text-shadow'); el.dataset.blood = b.toFixed(3); KM.bleed(el, +el.dataset.danger); return; }
+      el.classList.remove('jdheavy'); el.style.removeProperty('text-shadow'); el.dataset.blood = b.toFixed(3); KM.bleed(el, +el.dataset.danger, { blood: b }); return; }   /* the read's own blood number (rule 254) */
     css(doc);
     var cs = null; try { cs = doc.defaultView.getComputedStyle(el); } catch (e) {}
     if (cs && cs.position === 'static') el.style.position = 'relative';
