@@ -1,4 +1,4 @@
-# CAMP TWO, ROUND ONE: HIS CAMP, HIS MEN AT IT, THE CAMP ON THE LIVE MAP, THE COMPASS OF DANGER, THE PITCH, THE CAMP AROUND THE PHONE (10/26/26)
+# CAMP TWO, ROUND ONE: HIS CAMP, HIS MEN AT IT, THE CAMP ON THE LIVE MAP, THE COMPASS OF DANGER, THE PITCH, THE CAMP AROUND THE PHONE, TALL AND WIDE (10/26/26)
 
 Lane: CAMP TWO (a split of CAMP, lane 24: the camp's look and life). Rows worked this round, in the order the board gave them:
 [the camp fits the phone] (rule 286, FIRST), [the camp is your own settlement] (260(a)(b)), [you see your men at camp] (259),
@@ -109,10 +109,22 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
      allowing, centred in what is left; it rises and settles in one beat when the phone comes or goes. On its side and on a
      computer the camp is panned as before (the fire at the centre of what the phone leaves).
    - THE TURN GLIDES: when the glass turns mid-camp the screen swaps to the other ground and every piece and man slides from his
-     spot on the old glass to his spot on the new one in one beat (500 ms, eased), each man still doing what he was doing; the old
-     picture fades out under the new one; the last frame is held while the new ground comes in, so there is never a black frame.
-     The beat starts on the first frame the new ground is drawn (a slow phone's first frame after a turn is late; the glide is
-     never eaten by it).
+     spot on the old glass to his spot on the new one in one beat (500 ms, eased), each man still doing what he was doing; the
+     ground swaps under them (the same sand both ways; a first try faded the old picture out under the new one, but pasted at the
+     old glass's size it showed two fires for a moment, measured on the capture, so it went); if the new ground is not in yet the
+     last beat's quarter-size copy of the glass is held over it (the glass clears itself on a resize, so the copy is taken a beat
+     before), never a black frame. The beat starts on the first frame the new ground is drawn (a slow phone's first frame after
+     a turn is late; the glide is never eaten by it).
+   - THE TURN, SEEN: tools/bohemia_camp2_capture_the_turn.js boots the demo upright like a player (LEAVE the start town, HEAL),
+     turns the glass on its side and back, and screenshots the real screen; records/target/camp_two/CAMP_TWO_THE_TURN_10_26.webp
+     (the glide slowed 12x so a headless browser's few frames a second can see it; the card says so).
+8. THE CAMP OPENS ON THE CAMP, NOT ON A PLATE (found by the capture, a bug a player would see): MOTION's grow (the camp growing out
+   of HEAL) waits on its last pose until the real screen is drawn, and it judged 'drawn' by the settlement's name reading YOUR
+   CAMP; the camp's name is its clock (DAY 1  14:00, CAMP's), so every camp open waited out READY_MAX (2 s) behind the dark CAMP
+   plate, and a tap restarts that wait, so the pitch played under it. One marked __CAMP_TWO__ line in slices/bohemia_motion.js:
+   the camp is also ready when BohemiaCampLook.drawn() (a frame of his camp drawn in the last 1.5 s). Measured: upright, the
+   first screenshot after HEAL was the plate (both the gate's K2 picture and the capture's); after, the camp.
+
 
 ## THE GATES
 - gates/the_camp_is_his_own_gate.js (new): K1 his camp opens on the phone's HEAL; K2 the pitch plays and a tap skips it; K3 a tent
@@ -120,7 +132,10 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
   the stash; K6 a hired follower's piece is a door to the retinue; K7 the compass: six men still four blocks north-east light the
   north-east edge red (their AUTO read 0.41, a loss), a lone man south-east a weak green (0.92), dimmer; K8 MAP: the camp at his
   spot on the map, the clock running, the parties walking, CAMP back; K9 the ghosts; K10 nothing threw; K11 the camp fits the
-  phone, right and left. Phone upright 12/0 (results for wide and the computer in the handoff block).
+  phone, right and left; K12 all eighteen; K13 THE TURN GLIDES (the glass turned mid-camp gets the other shape, the same pieces
+  and men before and after, the glide recorded by the camp itself (a beat over more than one frame), never a dark frame, and
+  back). Each profile 14/0 (results in the handoff block). K4's fixture grew (the hurt man 6 of 300 hitpoints) because a loaded
+  machine runs more camp hours before the read.
   Fixtures said out loud in the gate: wounds set through the condition's own door (afterFight), a still party for the compass, the
   roaming hunters kept off (CAMP's [camp holds until he ends it] is the bug that would break the camp under test).
 - gates/the_camp_gate.js (RUN TWO's, the camp moved): C2 reads his camp (the fire is his camp's, the men in it, more doors than
@@ -136,6 +151,10 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
 - The followers: the twelve pieces are drawn; the twelve in the data with TUNING's numbers is the next round's first job.
 - The pitch's men slide (the still with a bob) from the cart to their places: ANIMATION's [the camp's acts] makes the unpacking,
   lying, kneeling, hammering and cooking (NOTE).
+- Every tier is drawn both ways from the layout code on one sheet, but only the three-man company is walked on the real screen
+  by the gate; a fixture company of twelve with the pickup is the next leg.
+- Upright, the tall ground's whole height shows, so the camp rises to clear the phone (up to 440 picture px); with the phone off
+  it settles centred. A camp bigger than twelve men would crowd the top rows; nobody has more than twelve yet.
 - The healing is quick at TUNING's x5 (a man from 0.04 to 0.41 in about four seconds of camp): TUNING's own note says slow the
   camp's clock if he cannot see them heal, never the rates; campHour is CAMP's (NOTE).
 
@@ -144,7 +163,9 @@ CAMP (the camp breaks when a crew screen or the phone's flip touches the frame: 
 BohemiaCampLife.tents; kills for the pile), COOK (the pieces through the master rig when a session has Blender; the camp's
 trailer), ANIMATION ([the camp's acts]: the call is BohemiaCampLife.acts/spots; the acts to make), RUN (one hook in the marker's
 drawing), RUN TWO (the marked hooks in the settlement screen), RUN THREE (the town camp's men and ghosts), UI TWO (MAP and CAMP
-beside the phone; the camp's BREAK CAMP stands down under the phone's HEAL), RUN FOUR (the scavenger, next round), EYES.
+beside the phone; the camp's BREAK CAMP stands down under the phone's HEAL), RUN FOUR (the scavenger, next round), EYES, MOTION
+(the one marked line in its camp grow's ready), UI (the cart, the tents and the followers' pieces for the crew screen's camp are
+in slices/camp_two/kit.png + kit.json at the rig's ruler).
 
 [bb Battle Brothers: the retinue screen is a campfire with tents and the cart; T makes camp; a party seen on the map is seen
 coming; here the camp is his own place on the map and the danger lights the edge it comes from.]
