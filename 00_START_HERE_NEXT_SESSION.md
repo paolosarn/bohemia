@@ -1,3 +1,12 @@
+CAMP TWO (camp-two-look): 10/26 LATEST -- round one SHIPPED SHA_PENDING, BUILT, NOT YET SEEN (rules 259, 260, 269, 270, 273(c),
+286, 289; BUILD 10/26zza): his camp is his own place (a tent a pair, the shopping cart, the fire, the supplies, the seats, each
+follower's piece, every piece a door), his men at the acts their wounds call for, the pitch, the compass of danger in AUTO's colour,
+the camp on the live map, the ghosts; TALL AND WIDE FIRST: an upright camp of its own on a tall ground, every tier both ways, the
+turn a one-beat glide, then the phone (upright the camp rises clear of it); the camp opens on the camp, not on MOTION's plate.
+THE CAMP IS HIS OWN 14/0 upright, on its side and a computer; four VOTE cards. The whole block: handoffs/CAMP_TWO.md.
+[bb Battle Brothers: the retinue screen is a campfire with tents and the cart; here the camp is his own place on the map.]
+[analog horror: the hours leave their ghosts on the sand at two percent.]
+
 WORLD TWO (world-two-map): 10/26 LATEST -- [where it sells best] BUILT, NOT YET SEEN (rule 266(b), BUILD 10/26zv, 0dfe8446), after
 [the best of both maps] (rule 243, e3cf4d6f): the town's screen tells the map what its stall pays; mapSellMarks(good) marks the towns he
 knows best first, fading, '?' where never priced; WHERE IT SELLS BEST 7/0 phone, 7/0 computer. The stash's tap is RUN TWO's.

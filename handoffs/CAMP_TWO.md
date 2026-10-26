@@ -1,5 +1,5 @@
 CAMP TWO (camp-two, the camp's look and life; a split of CAMP, lane 24): 10/26 LATEST -- ROUND ONE SHIPPED SHA_PENDING, BUILT, NOT YET SEEN
-(BUILD 10/26zw - YOUR CAMP, TALL AND WIDE). Record: records/BOHEMIA_CAMP_TWO_HIS_CAMP_HIS_MEN_THE_COMPASS_AND_THE_PITCH_10_26_26.md.
+(BUILD 10/26zza - YOUR CAMP, TALL AND WIDE). Record: records/BOHEMIA_CAMP_TWO_HIS_CAMP_HIS_MEN_THE_COMPASS_AND_THE_PITCH_10_26_26.md.
 
 WHAT IS LIVE (the demo: LEAVE the start town, then press HEAL on the phone anywhere on the map):
 - HIS CAMP (260(a)): his own ground (slices/camp_two/plate.webp, the rig's sand with nobody's things on it) and his camp on it: a tent
@@ -41,7 +41,7 @@ tools/bohemia_camp2_capture_the_turn.js (the turn clip), slices/camp_two/ (kit.p
 plate_tall_night), gates/the_camp_is_his_own_gate.js. Marked __CAMP_TWO__ hooks in RUN TWO's settlement screen, one in RUN's map
 marker, one in MOTION's camp grow; the __ALL_EIGHTEEN__ block in engine/bohemia_camp.js.
 
-GATES (on this ship's tree, BUILD 10/26zw, each run alone): THE CAMP IS HIS OWN 14/0 phone upright, 14/0 on its side, 14/0
+GATES (on this ship's tree, BUILD 10/26zza, each run alone): THE CAMP IS HIS OWN 14/0 phone upright, 14/0 on its side, 14/0
 computer (K1 to K13); THE HEAL BUTTON 16/0; THE BARS OVER THEIR HEADS 6/0 computer (11/1 when run beside two other browsers: B4's
 read raced the camp's healing; alone it is green); THE ARMOUR HE WEARS SHOWS green; DEMO BUILD 25/0. The same reds on a clean
 main worktree at 11403892, so not this lane's: THE CAMP GATE 7/1 (C5, the crew screen's bag), THE UI MORPHS 29/21 (the same 21,
