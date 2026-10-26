@@ -68,7 +68,12 @@ const READ = () => {
   out.ground = g; out.groundOnBar = !!g && bt.toUpperCase().replace(/\s+/g, '').indexOf(String(g).toUpperCase().replace(/\s+/g, '')) >= 0;
   return out;
 };
-const PHONE = () => { const e = document.getElementById('cityfeed'); if (!e) return null; const r = e.getBoundingClientRect();
+/* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the phone on the map is the one the shell draws once over every screen (#bohphone,
+   read in the shell's own pixels); the map's old #cityfeed is read only while there is no new phone */
+const PHONE = () => { let D = document; try { if (window.top.document.getElementById('bohphone')) D = window.top.document; } catch (_e) {}
+  const n = D.getElementById('bohphone'); if (n) { const r = n.getBoundingClientRect(), h = D.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    return { rect: [r.x, r.y, r.width, r.height], onTop: !!h && n.contains(h), shown: r.width > 0 && n.classList.contains('on'), corner: true }; }
+  const e = document.getElementById('cityfeed'); if (!e) return null; const r = e.getBoundingClientRect();
   const h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { rect: [r.x, r.y, r.width, r.height], onTop: !!h && e.contains(h), shown: r.width > 0 && getComputedStyle(e).display !== 'none' }; };
 /* every press on this page: visible, inside the glass, and its centre hit-tests to itself (rule 211(b)) */
 const PRESS = (sel) => { const out = []; const vis = e => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > 2 && r.height > 2 && cs.visibility !== 'hidden' && +cs.opacity > 0.05 && cs.pointerEvents !== 'none'
@@ -231,8 +236,11 @@ async function side(profile) {
          two-thirds leg measures the bench fight, which has no map and no bar); a floor of half, so the cost can only be seen */
       const share = await f.evaluate(() => Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight));
       ok('  the fight\'s board keeps at least half the glass under the one bar', share >= 50, share + '% (TOPH ' + toph + ')');
-      const ph = await p.evaluate(r => { const h = document.elementFromPoint(r[0] + r[2] / 2, r[1] + r[3] / 2); return h ? (h.id || h.tagName) : null; }, MP.rect);
-      ok('  the phone is not on the fight\'s glass (his vote: the phone is in the city view only)', ph === 'fightFrame', 'at the phone\'s place: ' + ph);
+      const ph = await p.evaluate(r => { const h = document.elementFromPoint(r[0] + r[2] / 2, r[1] + r[3] / 2); return h ? (h.closest && h.closest('#bohphone') ? 'bohphone' : (h.id || h.tagName)) : null; }, MP.rect);
+      /* RE-AIMED 10/26 BY UI TWO: rule 213(a) ('in combat the exact same... the same place') amends his 9/23 vote for the new phone: it
+         stands in the fight where it stands on the map; the old phone is still never on the fight's glass */
+      ok(MP && MP.corner ? '  the phone stands in the fight where it stands on the map (rule 213(a))' : '  the phone is not on the fight\'s glass (his vote: the phone is in the city view only)',
+        MP && MP.corner ? ph === 'bohphone' : ph === 'fightFrame', 'at the phone\'s place: ' + ph);
       /* CREW, the gear and NOTES in the fight */
       await f.evaluate(() => document.querySelector('#bmtb .t.crew').click()); await p.waitForTimeout(2000);
       const c = await f.evaluate(() => { const w = document.getElementById('crewdoor'); if (!w) return null; const r = w.getBoundingClientRect(), fe = w.querySelector('iframe'); return { rect: [r.x, r.y, r.width, r.height], src: fe ? fe.getAttribute('src') : '' }; });

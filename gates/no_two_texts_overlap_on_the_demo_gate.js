@@ -82,6 +82,9 @@ const COLLECT = ([offX, offY, where]) => {
         /* the phone's own cracked glass over its own screen is the ruled look, not a defect */
         const glass = top.closest && top.closest('#cityfeedglass');
         if (glass && glass.parentElement && glass.parentElement.contains(el)) continue;
+        /* UI TWO 10/26: the same ruling for the new phone (rule 212): its cracked glass over its own screen */
+        const glass2 = top.closest && top.closest('#bohphone .glass');
+        if (glass2 && glass2.parentElement && glass2.parentElement.contains(el)) continue;
         if (paints(top)) { under = top.id || top.tagName; break; }
       }
       out.push({ where, text: t.slice(0, 36), id: el.id || '', x: l + offX, y: tt + offY, w: r - l, h: b - tt, under });

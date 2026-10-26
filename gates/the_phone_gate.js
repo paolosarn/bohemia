@@ -173,7 +173,12 @@ async function side(profile) {
         ok('  a tap starts them again (the hour moves, the crew walks), the picture is PAUSE, the last speed its mark', c.v > 0 && c.t > b.t && c.at.join() !== b.at.join() && /app_pause/.test(pic1.img)
           && await p.evaluate(() => /\d/.test(document.querySelector('#bohphone .app[data-app=play] .mark').textContent)),
           'speed ' + c.v + ', hour ' + b.t + ' -> ' + c.t + ', ' + b.at + ' -> ' + c.at);
-        await tapApp('play'); await p.waitForTimeout(300);
+        /* the one door every fight and road event comes through drops the clock to PAUSE, and the phone says so */
+        const it0 = await fr.evaluate(() => window.__TRAVEL_SPEED);   /* running, from the leg above */
+        const it = await fr.evaluate(() => { travelInterrupt('gate'); return window.__TRAVEL_SPEED; }); await p.waitForTimeout(450);
+        const pi = (await p.evaluate('(' + PHONE + ')()')).apps.find(z => z.app === 'play');
+        ok('  an interrupt (a road event, a fight) drops it to PAUSE and the phone shows PLAY', it0 > 0 && it === 0 && /app_play/.test(pi.img), 'speed ' + it0 + ' -> ' + it + ', picture ' + pi.img.split('/').pop());
+        await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
         if (!touch) {
           const t = (await p.evaluate('(' + PHONE + ')()')).apps.find(z => z.app === 'play');
           await p.mouse.move(t.cx, t.cy); await p.mouse.down(); await p.waitForTimeout(800); await p.mouse.up(); await p.waitForTimeout(200);

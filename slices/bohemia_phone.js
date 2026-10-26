@@ -207,7 +207,12 @@
   };
   P.speed = function (n) { try { return travelSpeedSet(n); } catch (e) { return false; } };
   /* THE JOBS HE IS ON (rule 227): what, where, the red stars, the time there and back (rule 222), never the offers */
+  var JOBS_AT = { key: null, out: [] };
   P.jobs = function () {
+    /* the path finder is not asked five times a second: only when the jobs, his block or the hour change */
+    var key = ''; try { key = (LOOP.held || []).map(function (j) { return j && j.id; }).join(',') + '|' + city.x + ',' + city.y + '|' + T.day + ':' + ((T.min / 30) | 0)
+      + '|' + (window.BohemiaJobDanger && BohemiaJobDanger.ready && BohemiaJobDanger.ready() ? 1 : 0); } catch (e) { key = String(Math.random()); }
+    if (key === JOBS_AT.key) return JOBS_AT.out;
     var out = [];
     try {
       var W = (window.BohemiaPhoneBoard && BohemiaPhoneBoard.what) ? BohemiaPhoneBoard.what() : null;
@@ -222,6 +227,7 @@
         out.push({ id: j.id, what: String((W && W[j.id]) || j.title || 'a job'), from: String(j.from || ''), at: at, stars: stars | 0, mins: mins, back: back });
       });
     } catch (e) {}
+    JOBS_AT = { key: key, out: out };
     return out;
   };
   P.dropCost = function (id) { try { return window.BohemiaJobKinds && BohemiaJobKinds.dropCost ? BohemiaJobKinds.dropCost(id) : null; } catch (e) { return null; } };
@@ -249,6 +255,13 @@
   };
   P.camp = function () {
     try { var C = window.BohemiaMapCamp; if (!C) return false; if (C.on()) { C.break(); return 'broke'; } return C.make() ? 'made' : false; } catch (e) { return false; }
+  };
+  /* THE FLIP'S DOOR (DYNASTY's, rule 31): after the first crisis the old opened phone carried SWITCH TIMELINE; the new phone's
+     status bar carries a TIMELINE tag that opens that same door, until DYNASTY puts the flip where it belongs */
+  P.timeline = function (go) {
+    var ready = false; try { ready = !!(window.BohemiaActs && BohemiaActs.crisisStarted()); } catch (e) {}
+    if (!go || !ready) return ready;
+    try { phoneOpen(); setTimeout(function () { var b = document.getElementById('bmtimes'); if (b && !b.classList.contains('on')) b.click(); }, 700); return true; } catch (e) { return false; }
   };
   P.posts = function () { try { return window.BOHEMIA_FEED ? window.BOHEMIA_FEED.posts() : []; } catch (e) { return []; } };
   P.post = function (p) { try { return window.BOHEMIA_FEED ? window.BOHEMIA_FEED.push(p) : false; } catch (e) { return false; } };
@@ -408,10 +421,10 @@
       + '#bohphone.on{display:block}'
       + '#bohphone.behind{opacity:.35;pointer-events:none}'
       + '#bohphone *{box-sizing:border-box}'
-      + '#bohphone .case{position:absolute;inset:0;z-index:8;pointer-events:none;border-style:solid;border-width:20px 15px 23px 15px;'
+      + '#bohphone .case{position:absolute;inset:0;z-index:0;pointer-events:none;border-style:solid;border-width:20px 15px 23px 15px;'
       +   'border-image:url(' + IMG('case') + ') 60 45 69 45 / 20px 15px 23px 15px round}'
       + '#bohphone .ear{position:absolute;left:45px;top:2px;width:34px;height:9px;z-index:9;pointer-events:none;image-rendering:auto}'
-      + '#bohphone .scr{position:absolute;left:8px;top:13px;right:8px;bottom:16px;border-radius:7px;overflow:hidden;background:#0b0a08}'
+      + '#bohphone .scr{position:absolute;z-index:1;left:8px;top:13px;right:8px;bottom:16px;border-radius:7px;overflow:hidden;background:#0b0a08}'   /* in the case's hole, over the case */
       + '#bohphone .wall{position:absolute;left:0;top:0;width:100%;height:100%;image-rendering:pixelated}'
       + '#bohphone .dim{position:absolute;inset:0;background:rgba(9,7,5,.46)}'
       + '#bohphone .glass{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:.42;mix-blend-mode:screen;'
@@ -419,6 +432,8 @@
       + '#bohphone .stat{position:absolute;left:0;right:0;top:0;height:12px;z-index:6;display:flex;align-items:center;justify-content:space-between;'
       +   'padding:1px 5px 0;font-size:7px;letter-spacing:.4px;color:#e9dcbc;background:rgba(6,5,4,.62);text-shadow:0 1px 0 #000}'
       + '#bohphone .stat .wh{max-width:64px;overflow:hidden;white-space:nowrap;text-overflow:clip}'
+      + '#bohphone .stat .tl{display:none;height:11px;padding:0 3px;border:0;cursor:pointer;font:6.5px "BohemiaROM",ui-monospace,monospace;letter-spacing:.4px;color:#1f1710;background:#f2c96a}'
+      + '#bohphone.tl .stat .tl{display:block}#bohphone.tl .stat .wh{display:none}'
       + '#bohphone .home{position:absolute;left:0;right:0;top:12px;bottom:0;z-index:2}'
       + '#bohphone .app{position:absolute;width:52px;height:56px;padding:0;margin:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;outline:none}'
       + '#bohphone .app img{position:absolute;left:4px;top:0;width:44px;height:47px;image-rendering:auto;pointer-events:none}'
@@ -443,10 +458,11 @@
       + '#bohphone .jc .wh{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:clip}'
       + '#bohphone .jc .mt{font-size:6px;white-space:nowrap;overflow:hidden;color:#4a3826}'
       + '#bohphone .jc .st{color:#a3180c;letter-spacing:-.5px;margin-right:2px}'
-      + '#bohphone .jc .x{flex:0 0 20px;width:20px;height:21px;padding:0;border:0;background:none;cursor:pointer}'
+      + '#bohphone .jc .x{flex:0 0 32px;width:32px;height:24px;margin:-1px -2px -1px 0;padding:0 0 0 10px;border:0;background:none;cursor:pointer}'   /* the X is 20 drawn, 32 by the card's height to a thumb */
       + '#bohphone .jc .x img{width:20px;height:21.4px;display:block;pointer-events:none}'
-      + '#bohphone .jc.arm{background:#e8d6b4!important;color:#5a1408}'
-      + '#bohphone .jc .dr{flex:0 0 34px;height:20px;border:0;cursor:pointer;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#7a1206;' + kit('tin', 0.35) + '}'
+      + '#bohphone .jc.arm{flex:0 0 50px;background:#e8d6b4!important;color:#5a1408}'
+      + '#bohphone .jobs.asking .jc:not(.arm){display:none}'   /* while one asks, it has the column */
+      + '#bohphone .jc .dr{flex:0 0 44px;width:44px;height:44px;border:0;cursor:pointer;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#7a1206;' + kit('tin', 0.4) + '}'
       + '#bohphone .app .mark{position:absolute;right:-3px;bottom:3px;padding:1px 2px 0;font-size:7px;line-height:8px;color:#f6cf74;background:#1c140c;border-radius:1px;pointer-events:none}'
       + '#bohphone .clk{position:absolute;left:58px;top:71px;width:46px;text-align:left;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
       + '#bohphone .clk b{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:15px;line-height:16px;letter-spacing:.5px;color:#f4e8cc}'
@@ -480,6 +496,7 @@
       + '#bohphone .post{position:absolute;left:0;right:0;top:0;height:12px;z-index:6;padding:0 4px;overflow:hidden;white-space:nowrap;font-size:7px;line-height:12.5px;color:#1f1710;'
       +   kit('receipt', 0.5) + 'border-radius:0!important;transform:translateY(-100%);transition:transform ' + (BEAT / 2) + 'ms steps(2);pointer-events:none}'
       + '#bohphone .post.in{transform:none;pointer-events:auto;cursor:pointer}'
+      + '#bohphone:has(.post.in) .stat > *{visibility:hidden}'   /* the strip covers the status bar: its words step back, never two at once */
       + '#bohphone .post .cr{display:inline-block;will-change:transform}'
       + '#bohphone .post b{font-weight:400;color:#7a2c12;margin-right:4px}'
       + '#bohphone .post.in .cr{animation:bohCrawl var(--crawl-ms,3000ms) linear ' + BEAT + 'ms forwards}'
@@ -534,7 +551,7 @@
     var st = document.createElement('style'); st.id = 'bohphone-css'; st.textContent = CSS(); document.head.appendChild(st);
     var ph = el('div'); ph.id = 'bohphone'; ph.setAttribute('role', 'group'); ph.setAttribute('aria-label', 'your phone');
     ph.innerHTML = '<div class="scr"><canvas class="wall" aria-hidden="true"></canvas><div class="dim"></div>'
-      + '<div class="stat"><span class="t">--:--</span><span class="wh"></span></div>'
+      + '<div class="stat"><span class="t">--:--</span><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button></div>'
       + '<div class="home"></div>'
       + '<div class="page" data-page=""><div class="ph" role="button" tabindex="0"><i>&lsaquo;</i><span></span></div><div class="pb"></div></div>'
       + '<div class="fight" aria-label="your abilities"><div class="fh"><canvas width="44" height="44"></canvas><b></b></div><div class="ab"></div></div>'
@@ -550,6 +567,7 @@
     H.el = ph; H.scr = ph.querySelector('.scr');
     ph.querySelector('.page .ph').addEventListener('click', function () { pageClose(); });
     ph.querySelector('.stat').addEventListener('click', function () { if (H.page) pageClose(); });
+    ph.querySelector('.stat .tl').addEventListener('click', function (e) { e.stopPropagation(); var cw = cityWin(); try { cw.BohemiaPhone.P.timeline(true); window.__PHONE_TIMELINE = (window.__PHONE_TIMELINE | 0) + 1; } catch (x) {} });
     ph.querySelector('.post').addEventListener('click', function () { postHide(); pageOpen('feed'); });
     /* a finger held on the home (not on an app) opens the phone's settings */
     var home = ph.querySelector('.home'), ht = 0;
@@ -717,6 +735,7 @@
     window.__PHONE_JOBS = js.map(function (j) { return j.id; });
     if (!force && sig === H.jobSig) return; H.jobSig = sig;
     [].slice.call(jb.querySelectorAll('.jc')).forEach(function (n) { n.remove(); });
+    jb.classList.toggle('asking', !!H.arm);
     js.slice(0, 2).forEach(function (j) { jb.appendChild(jobCard(j, L)); });
   }
 
@@ -725,6 +744,7 @@
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P, s = L ? L.state() : null, scr = H.state.screen;
     var running = !!(s && s.speed > 0), mark = s ? (s.last || s.speed) : 0;
     jobsPaint(L, force);
+    H.el.classList.toggle('tl', !!(L && L.timeline(false)));
     var cd = L ? L.condition() : null;
     var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join()].join('|');
     if (!force && sig === H.homeSig) return; H.homeSig = sig;

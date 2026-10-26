@@ -13967,7 +13967,8 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
       return { day: d, min: (typeof s.data.min === 'number') ? s.data.min : null };
     }catch(_e){ return null; }
   }
-  function crew(){ try{ var p = window.BOH_START && BOH_START.picks(); return p && p.name ? String(p.name) : ''; }catch(_e){ return ''; } }
+  function crew(){ try{ var nm = window.BohemiaCompanyName && BohemiaCompanyName.get && localStorage.getItem(BohemiaCompanyName.KEY); if (nm) return String(nm);   /* __ONE_PHONE__ (UI TWO, rule 212(b)): the name he gave it on the phone's FEED */
+    var p = window.BOH_START && BOH_START.picks(); return p && p.name ? String(p.name) : ''; }catch(_e){ return ''; } }
   function build(){
     var fr = $('front'); if (!fr) return null;
     css();
@@ -14059,7 +14060,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });

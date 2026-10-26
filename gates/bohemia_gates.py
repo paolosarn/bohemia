@@ -9564,18 +9564,10 @@ GATES = [
      'CHARACTER gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). THE ROW: "COPPER WORK SHIRT is #506e60, GREEN, and that one lie is the whole reason Trades measured 121 degrees off his chosen orange... gate it so a. green at registration, 3 s', True),
     ('THE ONE SCREEN', ['python3', 'gates/the_one_screen_gate.py'],
      "UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). PAOLO 10/16: 'the screen shit'; rule 24 (one game mode, the same UI every second); rule 67a (one UI across map, settlement and fight, 44 points); rule. green at registration, 5 s", False),
-    ('THE PAD IS TRAVEL SPEED', ['node', 'gates/the_pad_is_travel_speed_gate.js'],
-     'UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). RULE 44(a), PAOLO 9/29: "bring the trackpad back but instead of controlling your directions... how Battle Brothers does it when you travel on the map,. RED AT REGISTRATION, named to UI, never edited to pass: boots the demo five times and passes the suite\'s 600 s cap (timed out at 300 and at 600); the driver\'s door throws reading click of undefined', True),
     ('THE PHONE NEVER OPENS BLACK', ['node', 'gates/the_phone_never_opens_black_gate.js'],
      'UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). THE PHONE NEVER OPENS BLACK (UI lane 11, 9/24) -- row [phone black].  THE COORDINATOR\'S WORDS, off my own 400c374: "the phone\'s own screen is black. green at registration, 138 s', True),
-    ('THE PHONE TURNS', ['node', 'gates/the_phone_turns_gate.js'],
-     'UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). RULE 50b (Paolo 9/30, his sixth Pocket City 2 shot, reference/pocket_city_2/06): portrait is the default; in landscape the HUD re-lays to the corners. green at registration, 260 s', True),
-    ('THE PHONES BOARD', ['node', 'gates/the_phones_board_gate.js'],
-     "UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). RULE 51c (Paolo 9/30): on the cracked phone in the city view, the settlements' open contracts right now, as the feed's 'what the world did' posts: a p. green at registration, 140 s", True),
     ('THE PHONES CRACK', ['python3', 'gates/the_phones_crack_gate.py'],
      "UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). PAOLO: 'these cracks look like a seventh grader coded it' (eighth votes) and 'the cracks look like shit, they're literally just straight lines' (eleve. green at registration, 3 s", False),
-    ('THE PHONES LOOK', ['node', 'gates/the_phones_look_gate.js'],
-     'UI gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). RULE 67a (one UI across map, settlement and fight) and his votes on the phone (9/23 a cracked iPhone in the city view only; 9/27 one crack, his A). Th. green at registration, 135 s', True),
     ('THE REGION IS BATTLE BROTHERS SIZE', ['node', 'gates/the_region_is_battle_brothers_size_gate.js'],
      'RUN gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). THE REGION IS BATTLE BROTHERS\' SIZE (RUN, 10/16/26, VAMILY [the map at Battle Brothers\' size], rules 109, 110) PAOLO 10/16: "our map has to be as big. green at registration, 16 s', True),
     ('THE RESHUFFLE MARK', ['node', 'gates/the_reshuffle_mark_gate.js'],
@@ -10028,6 +10020,15 @@ GATES = [
      "(records/target/bb/stat_max.json); phone and computer with real taps: the crew screen, its level-up and a stash piece compared, the hall's cards and the shop's ON A MAN: his order, "
      "the stars in one column, every fill his number over the most possible within a pixel, the tick at his ceiling within a pixel, every change an arrow and the amount, no 'X to Y'. "
      "Five planted defects (the order swapped, the fill off the maximum, the tick at the top roll, the change column let grow so the bars move, the X to Y put back) each turn a leg red; NOTHING MOVES (rule 250) when a comparison shows. About 1 min", True),
+    ('THE PHONE', ['node', 'gates/the_phone_gate.js'],
+     "UI TWO gate, 10/26, rows [the phone overhaul], [one phone, one place], [the job you are on, on the phone], [the main quest's slot] (rules 212, 213, 226(c), 227, 228(c); PAOLO 10/26: 'the phone at the bottom left or bottom right depending on the setting I choose... "
+     "one button for play and pause... it stays in the same place... in combat the exact same, our abilities, but small... an animation to let you know it's combat time... the phone placement permanent... the same size'). "
+     "On the demo by real taps, the phone upright, on its side and a computer, right then left: one phone in one rectangle (0.6 points) on the map, a town, camp and a fight, drawn where BOH_PHONE_RECT says and every frame answering the same; "
+     "in the chosen corner; no press of the map, the town, the camp, the company screen, the fight or the spoils under it; the old phone, speed pad and CAMP plate gone; five apps at most, each hit-testing to itself; "
+     "PLAY/PAUSE stops and starts the clock and the march; FEED opens the company's page and renames it (the game's one name, a post says so); RELATIONS lists every town; CREW opens the company screen; HEAL a cross over the company's one bar, makes and breaks camp; "
+     "the job column: the main quest's slot first, two jobs with red stars and time, nothing cut, PLAY to the picked job, X asks once with the board's cost, DROP drops it; the wallpaper the map's own pixels around the crew; "
+     "the combat strike seen at every fight's start, the abilities on the phone and off the bar, a phone press presses the fight's own button, END TURN AUTO RETREAT on the bar, the apps back the moment it is won; "
+     "SETTINGS carries THE PHONE, LEFT mirrors at once with every frame's event, an app moved up takes the big slot; four plants bite. About 8 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

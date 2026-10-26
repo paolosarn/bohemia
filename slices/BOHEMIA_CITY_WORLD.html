@@ -583,6 +583,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
        strip of tape holding the top edge, and a screen that is lit rather than black.
        Every colour and thickness here comes from the SKIN, so act two and act three
        swap the whole object without touching a word of the feed. -->
+  <!-- __ONE_PHONE__ (UI TWO 10/26, rule 212(g)): the new phone (slices/bohemia_phone.js) took this over and hides it with its own stylesheet; RUN takes it out (the old phone: its feed now reads on the phone's FEED app, BOHEMIA_FEED.posts()) -->
   <div id="cityfeed" aria-hidden="true">
     <div id="cityfeedscreen">
       <div id="cityfeedbar"><span id="cityfeedsig">▮▮▮</span><span id="cityfeedname">THE VALLEY</span><span id="cityfeedbatt" title="the grid where you are standing"></span><span id="cityfeedclock">--:--</span></div>
@@ -45823,6 +45824,7 @@ window.addEventListener('bohemia:condition', function(){ try{ healPaint(); }catc
 /* ==== /__THE_HEAL_BUTTON__ ==== */
 /* THE PLATE: CAMP in the pad's own row, left of PAUSE and GO, where his thumb already is (above the pad the map's spoken line
    lies over it); on the map only */
+/* __ONE_PHONE__ (UI TWO 10/26, rule 212(g)): the new phone (slices/bohemia_phone.js) took this over and hides it with its own stylesheet; RUN takes it out (the CAMP plate: the phone's HEAL app makes camp, rule 226) */
 function campBtnPaint(){
   var b = document.getElementById('campbtn');
   if (!b) { if (!document.body) return; b = document.createElement('div'); b.id = 'campbtn'; b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'heal: make camp');
@@ -45857,6 +45859,7 @@ window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); 
 function mapOnGlass(x, y){
   try{ var sp = __CITY.isoAt(x, y), cv0 = document.getElementById('cv').getBoundingClientRect(), ph = document.getElementById('cityfeed');
     var pr = (ph && ph.classList.contains('on')) ? ph.getBoundingClientRect() : null, gx = cv0.left + sp.sx, gy = cv0.top + sp.sy;
+    try{ var bp = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if(bp && bp.on) pr = bp; }catch(_e){}   /* __ONE_PHONE__ (UI TWO): the phone where it is now, in this page's pixels */
     if(sp.sx < 24 || sp.sx > CVW - 24 || sp.sy < 60 || sp.sy > CVH - 150) return false;
     if(pr && gx > pr.left - 20 && gx < pr.right + 20 && gy > pr.top - 30 && gy < pr.bottom + 10) return false;
     return true; }catch(_e){ return true; }
@@ -90133,6 +90136,7 @@ window.BOHEMIA_BAR = (function(){
    A PRESS IS A PRESS, NOT A TAP ON THE MAP: pointer and click stop here, or tapping 3x would
    also set a journey to wherever the plate happens to sit (the same trap [the flip] found).
    ============================================================================ */
+/* __ONE_PHONE__ (UI TWO 10/26, rule 212(g)): the new phone (slices/bohemia_phone.js) took this over and hides it with its own stylesheet; RUN takes it out (the speed pad: the phone's PLAY/PAUSE, travelSpeedSet as before) */
 var speedPadPaint = null;
 (function(){
   var LABEL = { 0:'II', 1:'1x', 2:'2x', 3:'3x', 5:'5x', 1.22:'\u25B6' };   /* __ONE_POINT_TWO_TWO__: PAUSE and GO on the map */

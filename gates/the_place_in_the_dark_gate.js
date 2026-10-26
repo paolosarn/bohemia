@@ -113,8 +113,9 @@ async function play(profile) {
       const s = (window.__PHONE_BOARD.shown || []).filter(a => a.id === to.id)[0]; return s ? { id: s.id, title: s.title, place: s.place, to: to.name } : null; });
     let real = await realOnPhone(), camped = 0, dayAt = await fr.evaluate(() => T.day);
     for (let k = 0; k < 6 && !real; k++) {
-      const cb = await fr.evaluate(() => { campBtnPaint(); const b = document.getElementById('campbtn'); if (!b || b.style.display === 'none') return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-      if (cb) await tapAt(cb.x, cb.y); else await fr.evaluate(() => campMake());
+      /* RE-AIMED 10/26 BY UI TWO (rules 212(b), 226): the CAMP plate is the phone's HEAL app, a real touch on it in the shell */
+      const cb = await page.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b || !document.getElementById('bohphone').classList.contains('on')) return null; const r = b.getBoundingClientRect(); return r.width ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+      if (cb) { if (P === 'computer') await page.mouse.click(cb.x, cb.y); else await page.touchscreen.tap(cb.x, cb.y); } else await fr.evaluate(() => campMake());
       const made = await waitFor(() => fr.evaluate(() => !!CAMP.on), 4000);
       if (made) camped++;
       const d0 = await fr.evaluate(() => T.day);

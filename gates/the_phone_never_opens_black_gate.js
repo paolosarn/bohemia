@@ -126,13 +126,15 @@ function litFraction(file) {
   ok('the driver is really inside the game, not still on the splash', d.doorIsBehindUs());
 
   const shots = fs.mkdtempSync(path.join(os.tmpdir(), 'phoneblack-'));
+  /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the drawn phone on the map is the new one in his corner; the opened phone
+     (#phonewrap, its slot and its never-black face) is DYNASTY's timeline door now, opened by the TIMELINE tag the new phone's
+     status bar carries after the crisis. The property is the same: AT NO MOMENT BETWEEN THE TOUCH AND THE PHONE BEING UP IS
+     THE GLASS BLACK. */
   const tapPhone = async () => {
-    const box = await d.fr.evaluate(() => {
-      const f = document.getElementById('cityfeed'), b = f.getBoundingClientRect();
-      return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
-    });
-    const fb = await (await d.fr.frameElement()).boundingBox();
-    await d.page.mouse.click(fb.x + box.x, fb.y + box.y);
+    await d.fr.evaluate(() => { try { if (!BohemiaActs.crisisStarted()) BohemiaActs.crisis(90); } catch (e) {} });
+    await d.page.waitForFunction(() => { const e = document.querySelector('#bohphone .stat .tl'); return !!e && e.getBoundingClientRect().width > 0; }, null, { timeout: 8000 }).catch(() => {});
+    const box = await d.page.evaluate(() => { const e = document.querySelector('#bohphone .stat .tl'); if (!e) return null; const b = e.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; });
+    if (box) await d.page.mouse.click(box.x, box.y);
   };
   /* PHOTOGRAPH THE GLASS AS FAST AS THIS CAN TAKE PICTURES, from the touch onward. A
      handful of chosen moments walks straight past a dark frame; the question is the WORST
