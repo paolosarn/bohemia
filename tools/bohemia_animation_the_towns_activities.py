@@ -426,17 +426,18 @@ def model(pid):
     return glb, json.load(open(gj))['real_height_for_rig']
 
 
-def person_one(tag, which=None):
+def person_one(tag, which=None, sub=None):
+    """sub: a pass of its own (redo's <look>.<set>.<act>), else the set's pass"""
     T = source(); D = EI.source()
     set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
     set_ = set_of(T, acts[0])
-    if done(tag, set_) and os.environ.get('BOHEMIA_TOWN_AGAIN') != '1':   # a run killed by the two-hour cap, run again, skips who is made
+    if not sub and done(tag, set_) and os.environ.get('BOHEMIA_TOWN_AGAIN') != '1':   # a run killed by the two-hour cap, run again, skips who is made
         print('TOWN made already', tag, set_, flush=True); return
     pid = tag[len('person_'):]
     glb, h = model(pid)
-    posed = os.path.join(ROOT, POSED, folder(tag, set_) + '.glb')
+    posed = os.path.join(ROOT, POSED, (sub or folder(tag, set_)) + '.glb')
     EI.run([sys.executable, os.path.abspath(__file__), 'pose', glb, posed, ','.join(acts)], posed)
-    out = os.path.join(ROOT, RENDERS, folder(tag, set_))
+    out = os.path.join(ROOT, RENDERS, sub or folder(tag, set_))
     EI.render_model(posed, out, h, [('Stand', 1)] + [(clip(a), len(pose_list(T, D, a))) for a in acts])
     os.replace(posed[:-4] + '.joints.json', os.path.join(out, 'joints.json'))
     os.remove(posed)
@@ -447,13 +448,13 @@ def person_one(tag, which=None):
     print('TOWN person', tag, flush=True)
 
 
-def fight_one(name, which=None):
+def fight_one(name, which=None, sub=None):
     """a named look of the fight (YOU, who leads his company in the town): COMBAT's own build of him (records/combat/rig, its
     `bodies` when missing), the activities laid on it here, rendered by COMBAT's render() pointed at this folder (the idles'
     way: the same camera, sun, scale and samples as his fight sheet, Stand first so his box is his own)"""
     T = source(); D = EI.source(); CF = EI.combat(); py = sys.executable
     set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
-    set_ = set_of(T, acts[0]); sfx = '' if set_ == 'town' else '.' + set_
+    set_ = set_of(T, acts[0]); sfx = sub[len(name):] if sub else '' if set_ == 'town' else '.' + set_
     src = os.path.join(ROOT, EI.COMBAT_POSED, name + '.glb')
     if not os.path.exists(src): EI.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
     posed = os.path.join(ROOT, POSED, name + '.glb')   # COMBAT's render() reads <name>.glb; the pass is its suffix
@@ -466,6 +467,16 @@ def fight_one(name, which=None):
         if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
     with open(os.path.join(out, 'made.txt'), 'w') as f: f.write(','.join(acts) + '\n')
     print('TOWN look', name, flush=True)
+
+
+def redo(tags, act):
+    """one act again for men already made, each in a pass of its own (<look>.<set>.<act>): the pack lays it on his still like any
+    pass and it takes the place of that act's first pictures; nothing else of his is touched (the camp's stir from behind, 10/26)"""
+    T = source(); set_ = set_of(T, act)
+    for tag in tags.split(','):
+        sub = folder(tag, set_) + '.' + act
+        if tag.startswith('person_'): person_one(tag, act, sub)
+        else: fight_one(tag, act, sub)
 
 
 def people(arg='COMPANY', workers=4, set_='town'):
@@ -590,6 +601,9 @@ def pack(only=None):
         for st in SETS:
             d = os.path.join(ROOT, RENDERS, folder(tag, st))
             if os.path.exists(os.path.join(d, 'made.txt')): out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))
+        redos = [os.path.join(ROOT, RENDERS, x) for x in os.listdir(os.path.join(ROOT, RENDERS)) if x.startswith(tag + '.') and x.count('.') == 2]
+        for d in sorted((d for d in redos if os.path.exists(os.path.join(d, 'made.txt'))), key=lambda d: os.path.getmtime(os.path.join(d, 'made.txt'))):
+            out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))   # a redo's act, laid after its set's
         return out
 
     os.makedirs(os.path.join(ROOT, JOINTS_KEPT), exist_ok=True)
@@ -726,5 +740,6 @@ if __name__ == '__main__':
     elif cmd == 'people': people(a[0] if a else 'COMPANY', int(a[1]) if len(a) > 1 else 4, a[2] if len(a) > 2 else 'town')
     elif cmd == 'preview': preview(*a)
     elif cmd == 'closeup': closeup(*a)
+    elif cmd == 'redo': redo(a[0], a[1])
     elif cmd == 'pack': pack(set(a) if a else None)
     else: sys.exit('pose <in.glb> <out.glb> [acts] | person_one <look> [acts] | people [COMPANY|CREW|look,look] [workers] | preview <glb> <png> [acts] [facings] | pack [looks]')

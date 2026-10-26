@@ -55,7 +55,10 @@ went straight and the elbow came in): the stake brought within reach, the elbow 
 ran out of his right fist to his right, and turning it did not help: each fist turns its own way from pose to pose, so a thing
 fixed to one fist cannot span two. THE TOOL'S SPAN: a hand prop marked span 'LH' is aimed, on every key, from the right fist to
 the left (its rest axis rotated onto the line between them), so a thing held in both hands stays in both hands; seen on the
-closeup in four facings. His left fist sat a hand's width off the stake: the stake moved into it.
+closeup in four facings. And the fire's sit-back loops were first named 'sitback', the town's own sitting loop's name: the
+source took the new one over the old, so the town's sit would have played the fire's poses; the gate's S1 caught it (a loop
+naming poses its act does not have) before anything left the branch; renamed 'ltsit' and 'ltsit2', the town's restored from main,
+the index rewritten. His left fist sat a hand's width off the stake: the stake moved into it.
 
 ## WHO DOES WHAT (CAMP's call, by his condition)
 badly hurt: lie, a healthy friend on tend by him | hurt: mend | armour broken: repair | healthy: cook, clean, tend, watch (the

@@ -170,7 +170,9 @@ def joints_of(l):
     """his posed joints, every pass merged (the town's six in <look>/, the minutes after a fight in <look>.after/: the same
     build posed twice, so one armature's space)"""
     J = None
-    for d in (l, l + '.after', l + '.camp'):
+    redo = sorted(set([f[:-5] for f in os.listdir(JOINTS) if f.startswith(l + '.') and f.count('.') == 3] if os.path.isdir(JOINTS) else [])
+                  | set([d for d in os.listdir(RENDERS) if d.startswith(l + '.') and d.count('.') == 2] if os.path.isdir(RENDERS) else []))
+    for d in [l, l + '.after', l + '.camp', l + '.pitch'] + redo:   # a redo's act (<look>.<set>.<act>) after its set's, as the pack lays it
         fn = os.path.join(JOINTS, d + '.json')
         if not os.path.exists(fn): fn = os.path.join(RENDERS, d, 'joints.json')
         if not os.path.exists(fn): continue
@@ -189,6 +191,13 @@ ok('E0 the posed model\'s joints are kept beside every packed man\'s render (the
 ef = []
 for l in looks_j:
     ef += ['%s: %s' % (l, x) for x in envelope_faults(joints_of(l), T)]
+def crouched(T, a, p):
+    """a crouch (the pelvis let down by a MOVE, the feet planted): his feet are where he stands by the joints (E3), and his lowest
+    pixel can be the skirt of a long coat on the ground before him (town_0 rising, 10/26), not his soles"""
+    P = dict(D['parts']); P.update(T['parts'])
+    return any(op[0] == 'MOVE' and op[1] == 'P' and op[2][1] < -0.1 for part in T['activities'][a]['poses'][p] for op in P[part])
+
+
 def kneels(T, a, p):
     """the kneel a pose makes (['KNEEL', side, front, seat]), or None"""
     P = dict(D['parts']); P.update(T['parts'])
@@ -295,7 +304,7 @@ def picture_faults(looks):
                     px = im[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
                     rows = np.nonzero((px[..., 3] > 0).any(1))[0]
                     sole = c[5] + (rows.max() + 1 if len(rows) else 0)
-                    if p not in seated and not kneels(T, a, p) and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too, a kneeling man's front foot a step forward, a lying man along the ground: their feet are held by the joints (E3, K)
+                    if p not in seated and not kneels(T, a, p) and not crouched(T, a, p) and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too, a kneeling man's front foot a step forward, a lying man along the ground, a long coat's skirt pooled before a crouching man: their feet are held by the joints (E3, K)
                         out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - ground[fi]))
     return out
 
