@@ -17,7 +17,7 @@ BUILT, NOT YET SEEN (rule 179) unless said:
   and no keeper under UI TWO's phone, either side, both ways (no twin needed). Gates EVERY TOWN TALL AND WIDE 10/0 and EVERY TOWN
   SCREEN ITS OWN 8/0, both in the suite. NOT IN A TAB YET: RUN TWO wires them (NOTE on its board). Record
   records/BOHEMIA_COOK_EVERY_TOWN_TALL_AND_WIDE_10_26_26.md; side by side records/target/cook_town_screens/sheet_tall_and_wide.jpg.
-- THE GLIDE'S PAIRS (rule 289(b)) SHIPPED <GLIDESHA>: settlement_ground.json towns[name].glide, 351 pieces across the fourteen, every
+- THE GLIDE'S PAIRS (rule 289(b)) SHIPPED 21fc51f5: settlement_ground.json towns[name].glide, 351 pieces across the fourteen, every
   building and tap ONE id in both compositions with both spots (box, foot px, foot metres), the taps that are part of a piece riding
   it, one beat 500 ms. tools/bohemia_cook_every_town_the_glide_10_26_26.py writes it from the scenes' measure; both composers re-run
   it after they ship. Gate EVERY TOWN TALL AND WIDE leg 10 (11/0) fails a stale plan. NOTE on RUN TWO's board. If RUN TWO wants
