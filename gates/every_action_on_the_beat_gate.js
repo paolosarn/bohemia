@@ -11,7 +11,7 @@
       ON a beat (its landing, LAND_BEATS of its beat in, is the kick);
    2. AUTO AND THEIR TURNS TOO: every motion of a whole AUTO fight that shows something lands on its grid, his men's and theirs;
    3. FASTER IS FINER, NEVER OFF: the hand is 1x / 2x / 4x and every grid any motion used is the song's beat over a power of two
-      (a beat, a half, a quarter); their turns on halves;
+      (a beat, a half, a quarter); their turns on HIS grid (RE-AIMED 10/26 by rule 274, ONE PACE: they were on halves);
    and in the demo with his music on (a road fight through the map's own door, seeded):
    4. THE FIGHT READS THE SONG'S CLOCK: SONG.from is the shell's song, never the fight's own;
    5. ON THE SONG'S OWN BEATS: every motion's landing, his by hand, his on AUTO and theirs, sits within 5 ms of the grid cut from
@@ -80,12 +80,12 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
       leg(q.length >= 8 && !bad.length && sides.has('you') && sides.has('them'),
         '*** AUTO AND THEIR TURNS TOO ***: every motion of the fight that shows something lands on its grid, his men\'s and theirs',
         q.length + ' motions on the grid of ' + L.log.length + ' (' + (L.log.length - q.length) + ' with nothing to show take no beat); off: ' + bad.length + '; sides ' + [...sides].join('+'));
-      const gs = [...new Set(q.map(x => x.g))].sort((a, b) => b - a), theirs = q.filter(x => x.side === 'them' && x.k !== 'note');
+      const gs = [...new Set(q.map(x => x.g))].sort((a, b) => b - a), theirs = q.filter(x => x.side === 'them' && x.k !== 'note'), his = q.filter(x => x.side === 'you' && x.k !== 'note');
       const sp = await p.evaluate(async () => { const b = document.getElementById('bspeed'), seen = [];
-        for (let i = 0; i < 3; i++) { b.click(); await new Promise(r => setTimeout(r, 50)); seen.push(b.innerText + '=' + Math.round(60000 / R('ours.beat_bpm') / FIGHT_UI.speed / FIGHT_UI.hand)); } return { seen, top: SPEEDS[SPEEDS.length - 1], speeds: SPEEDS.slice(), finish: FINISH_PACE }; });
-      leg(gs.every(g => pow2(L.beat, g)) && theirs.length && theirs.every(x => Math.abs(x.g - L.beat / 2) < 1e-6) && sp.speeds.every(v => pow2(L.beat, L.beat / v)) && pow2(L.beat, L.beat / sp.finish) && sp.seen.join() === '2x=250,4x=125,1x=500',
-        '*** FASTER IS FINER, NEVER OFF ***: every grid a beat over a power of two, their turns on halves, the hand 1x / 2x / 4x and AUTO\'s finish 4x',
-        'grids ' + gs.join(', ') + ' ms; theirs ' + [...new Set(theirs.map(x => x.g))].join(',') + '; the pane ' + sp.seen.join(' ') + '; finish ' + sp.finish + 'x');
+        for (let i = 0; i < 3; i++) { b.click(); await new Promise(r => setTimeout(r, 50)); seen.push(b.innerText + '=' + Math.round(60000 / R('ours.beat_bpm') / FIGHT_UI.speed / FIGHT_UI.hand)); } return { seen, top: SPEEDS[SPEEDS.length - 1], speeds: SPEEDS.slice() }; });
+      leg(gs.every(g => pow2(L.beat, g)) && theirs.length && his.length && theirs.concat(his).every(x => Math.abs(x.g - L.beat) < 1e-6) && sp.speeds.every(v => pow2(L.beat, L.beat / v)) && sp.seen.join() === '2x=250,4x=125,1x=500',
+        '*** FASTER IS FINER, NEVER OFF ***: every grid a beat over a power of two, their turns on his grid (rule 274), the hand 1x / 2x / 4x',
+        'grids ' + gs.join(', ') + ' ms; theirs ' + [...new Set(theirs.map(x => x.g))].join(',') + ', his ' + [...new Set(his.map(x => x.g))].join(',') + '; the pane ' + sp.seen.join(' '));
     } catch (e) { leg(false, 'the fight\'s page ran', String(e.message).slice(0, 200)); }
     errs.push.apply(errs, d.errs); await d.close();
   }
@@ -133,7 +133,10 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     leg(L.from === 'song' || L.from === 'shell', '*** THE FIGHT READS THE SONG\'S CLOCK ***: the beat comes from the shell\'s song, never the fight\'s own', 'from ' + L.from + ', ' + Math.round(L.beat) + ' ms a beat, ' + L.lat.toFixed(1) + ' ms to the ear');
     const q = L.log.filter(x => x.g > 0).map(x => { const t = x.land + shift, n = near(t), ph = n.at === null ? 1e9 : (((t - n.at) % x.g) + x.g) % x.g; return Object.assign({}, x, { off: Math.min(ph, x.g - ph), beatOff: n.d }); });
     const bad = q.filter(x => x.off > TOL), blows = q.filter(x => x.k === 'attack' && Math.abs(x.g - L.beat) < 1e-6), blowsOff = blows.filter(x => x.beatOff > TOL);
-    const byHand = hand ? q.filter(x => x.k === 'step' && x.side === 'you' && x.asked >= hand.t - 20)[0] || null : null;
+    /* RE-AIMED 10/26 (rule 274): his walk is found by when it was CHOSEN (the log's chose, the moment take() queued it); 'asked'
+       is the grid's anchor, the last motion's end when he chose within 120 ms of it, so it could fall before the tap and the walk
+       read NONE (red on main before rule 274 too) */
+    const byHand = hand ? q.filter(x => x.k === 'step' && x.side === 'you' && (x.chose !== undefined ? x.chose : x.asked) >= hand.t - 20)[0] || null : null;
     leg(q.length >= 8 && !bad.length && byHand && q.some(x => x.side === 'them') && blows.length && !blowsOff.length,
       '*** ON THE SONG\'S OWN BEATS ***: every motion lands within ' + TOL + ' ms of the grid cut from the beats the shell booked (his by hand, his on AUTO, theirs), every blow at 1x on a booked beat',
       q.length + ' motions, ' + bad.length + ' off (worst ' + Math.max(0, ...q.map(x => x.off)).toFixed(1) + ' ms); his tapped walk ' + (byHand ? byHand.off.toFixed(1) + ' ms off' : 'NONE') + '; ' + blows.length + ' blows at 1x, worst ' + Math.max(0, ...blows.map(x => x.beatOff)).toFixed(1) + ' ms from a booked beat; ' + P.beats.length + ' beats booked');

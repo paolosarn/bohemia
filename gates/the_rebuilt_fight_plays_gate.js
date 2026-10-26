@@ -859,12 +859,15 @@ async function turnPace() {
   const acts = await p.evaluate(e => window.__acts.filter(a => a.t > e), tEnd), gaps = acts.slice(1).map((a, i) => a.t - acts[i].t);
   const nums = await p.evaluate(() => window.__nums);
   leg(still, 'his own turn has no timer: three seconds on, it is still his, waiting for his finger');
-  /* THEIR TURNS AT DOUBLE PACE (COMBAT [the ten changes], TUNING's change 10(b), rule 133): their acts keep their own beat, his
-     beat over the pace their turn plays at */
-  const beat = await p.evaluate(() => beatMs() / (typeof THEIRS_PACE !== 'undefined' ? THEIRS_PACE : 1)), stills = acts.slice(1).map(a => a.t - a.prevEnd);
-  leg(acts.length >= 6 && acts.every(a => a.busy === 0) && gaps.every(g => g >= beat * 0.6) && stills.every(x => x >= 0 && x <= beat * 0.375 + 60),
-    '*** A TURN YOU CAN READ, AND NO DEAD PAUSE *** (VIA GROK 10/9, amended by his 10/19 \'not smooth\'): every act of theirs plays whole before the next, and the board stands still at most an eighth of a beat and the wait for the next quarter beat between two',
-    acts.length + ' acts in ' + ((tBack - tEnd) / 1000).toFixed(1) + ' s, the shortest from act to act ' + Math.round(Math.min(...gaps)) + ' ms, the longest still ' + Math.round(Math.max(...stills)) + ' ms (at most ' + Math.round(beat * 0.375 + 60) + ')');
+  /* RE-AIMED 10/26 by rule 274 (ONE PACE: their turns at his pace, not double; AUTO and theirs THINK AHEAD in the last quarter beat
+     of the motion playing, so an aiStep call no longer marks when an act begins): read on the MOTIONS the page played (the beat
+     log), each of theirs: it begins after the last motion ended (plays whole), and the board stands still at most the wait for
+     the next grid point (one grid, the beat at 1x) after the last motion's end or the camera's glide */
+  const mo = await p.evaluate(e => (FIGHT_UI.onBeat || []).filter(x => x.at > e && x.g > 0 && x.prevEnd > 0), tEnd), theirsMo = mo.filter(x => x.side === 'them');
+  const stills = theirsMo.map(x => x.at - Math.max(x.prevEnd, x.glideEnd || 0)), whole = theirsMo.filter(x => x.at < x.prevEnd - 1).length;
+  leg(acts.length >= 6 && theirsMo.length >= 6 && !whole && stills.every((s, i) => s >= -1 && s <= theirsMo[i].g + 25),
+    '*** A TURN YOU CAN READ, AND NO DEAD PAUSE *** (VIA GROK 10/9, amended by his 10/19 \'not smooth\', re-aimed by rule 274): every act of theirs plays whole before the next, and the board stands still at most the wait for the next grid point',
+    acts.length + ' acts, ' + theirsMo.length + ' motions of theirs in ' + ((tBack - tEnd) / 1000).toFixed(1) + ' s, ' + whole + ' begun before the last ended, the longest still ' + Math.round(Math.max(0, ...stills)) + ' ms (at most the grid, ' + Math.round(Math.max(0, ...theirsMo.map(x => x.g))) + ' + 25)');
   leg(nums.some(t => /^\d+%$/.test(t)) && nums.some(t => /^-\d+$/.test(t)) && !nums.some(t => /[a-z]/i.test(t)), 'the struck man shows the number: his chance to be hit, then what it cost him, numbers only (no word on the ground, rule 46f)', nums.slice(0, 6).join(' '));
   await p.touchscreen.tap(end[0], end[1]);
   /* tapped while they move: at their double pace (change 10(b)) their whole turn can be over inside a fixed 1.2 s wait, so the

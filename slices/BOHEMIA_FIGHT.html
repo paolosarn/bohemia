@@ -3162,7 +3162,15 @@ let MAN_IDLE = MAN_DEFAULT;
 function manH() { return rigScale() * DB.rig.ruler.px / DPR; }
 const MAN_ROWS = 1.8;
 
-function beatMs() { return songBeat() / UI.speed / (UI.hand || 1) / paceNow(); }   /* the song's beat over the hand's speed and the turn's pace (THE FIGHT BY HAND, QUICKER) */
+/* ONE PACE, ON THE BEAT, FOR EVERY TURN (COMBAT [one pace, on the beat], rule 274, Paolo 10/26: 'the combat still isn't in sync
+   with the music, and when I do the auto combat it's not the same pace, it speeds up and slows down however it wants... really
+   fast, then back to normal, really fast... I want it consistent with the BPM of the music... do the math, it has to go to the
+   BPM, we need a formula for it'). MEASURED BEFORE: this divided the song's beat by a hidden pace as well, 2 on every turn of
+   theirs and 4 once AUTO was finishing it, so on AUTO the board ran at the beat on his men's turns, twice as fast on theirs, back
+   to the beat, twice as fast..., then four times as fast at the end. THE FORMULA: an action starts at t0 + k x (60000 / BPM) / s,
+   k whole, BPM the song's, s his own speed (UI.hand 1, 2 or 4; UI.speed a test's slow motion), the same s for his men and theirs
+   from the first turn to the last; the difference between their turn and his is the MUSIC's (rule 207), never the speed */
+function beatMs() { return songBeat() / UI.speed / (UI.hand || 1); }
 /* ===== THE SONG IS THE CLOCK (COMBAT 10/24, row [every action on the music's beat], rule 158) =====
    PAOLO 10/24: 'every time you press a button it's a request, and the game does those actions on the BPM, everything is
    supposed to be on the BPM clock of the music, and we totally lost sight of that in this revamp... if I press AUTO or I'm
@@ -3176,8 +3184,8 @@ function beatMs() { return songBeat() / UI.speed / (UI.hand || 1) / paceNow(); }
    (__pulseNextBeat), the song not in yet; else the fight's own 120 from its start (the fight opened alone). Audio time comes onto this
    page's clock through the context's output timestamp, so a beat is placed where it is HEARD, and SONG.lat is how long a
    sound asked for now takes to reach the ear: the sound goes that far ahead of the picture and both land on the kick.
-   THE GRID IS ONE FIGHT BEAT FROM A BEAT OF THE SONG. The hand (1x, 2x, 4x), their turns (2x) and AUTO's finish (4x) are
-   powers of two, so a faster fight lands on halves and quarters of the same beat, never off it (158(b)). */
+   THE GRID IS ONE FIGHT BEAT FROM A BEAT OF THE SONG. The hand (1x, 2x, 4x) is a power of two, so a faster fight lands on
+   halves and quarters of the same beat, never off it (158(b)); their turns and AUTO's finish keep his pace (rule 274). */
 const SONG = { at: 0, beat: 0, lat: 0, from: 'own', read: -1e9, n: 0 };
 const SONG_READ_MS = 200, SONG_JUMP_MS = 30, SONG_FOLLOW = .25, SONG_LAT_MAX = 400;
 function songBeat() { return SONG.beat || 60000 / R('ours.beat_bpm'); }
@@ -3949,7 +3957,7 @@ function bullet(moment, a, t, e) {
    quarter, a morale word or an injury nothing (they are rings on the man already) */
 const NOTE_BEATS = { allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
 function take() {
-  const ev = FIGHT.S.events; FIGHT.S.events = [];
+  const ev = FIGHT.S.events, n0 = UI.anim.length; FIGHT.S.events = [];
   let swing = null;   /* WEAPON SHAPES: the other men a sweep strikes ride the one swing (one motion, one beat, every man it caught) */
   ev.forEach(function (e) {
     if (e.t === 'step') {
@@ -3966,6 +3974,8 @@ function take() {
     else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: e.unplugged ? beatMs() / 4 : beatMs() * NOTE_BEATS[e.t] });   /* his machines drop a sixteenth apart */
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
   });
+  /* when each motion was chosen (rule 274(c): a choice that comes after its grid point takes the next one) */
+  const asked = performance.now(); for (let i = Math.max(0, n0 - 1); i < UI.anim.length; i++) if (UI.anim[i].askedAt === undefined) UI.anim[i].askedAt = asked;
 }
 /* a walk's tiles as he crosses them: the footfall, and the high ground the moment he stands on it */
 /* ONE FOOTFALL A TILE CROSSED: a walk is one move now, so the step is told per tile here (SOUNDS' real shoes hook this:
@@ -4597,13 +4607,14 @@ function tick(now) {
       const a = UI.anim[0];
       if (!a.at && !onTheBeat(a, now)) return;   /* rule 158: the request waits for its beat on the song */
       if (a.k === 'step') walkTick(a, Math.min(now, a.at + a.dur));
-      if (now - a.at < a.dur) break;
+      if (now - a.at < a.dur) { endOnTime(a.at + a.dur); if (UI.anim.length === 1) aheadOnTime(a); break; }
       UI.anim.shift(); UI.animEnd = a.at + a.dur; endAnim(a);
     }
-    if (UI.anim.length) return;
-    /* the board breathes an eighth of a beat after the last motion and the next man decides (it held two whole beats from
-       the start of every act of theirs, whatever the act: 55% of an AUTO fight stood still, 10/19); what he does then waits
-       for its own beat on the song (onTheBeat), so a decision cut to the grid here would cost a second wait */
+    if (UI.anim.length) { thinkAhead(now); return; }
+    /* the next man decides the moment the last motion ends (it held two whole beats from the start of every act of theirs,
+       whatever the act: 55% of an AUTO fight stood still, 10/19; then an eighth of a beat, rule 274 measured: his motion was
+       then booked on the grid point at the last one's end, already behind him, and began up to 125 ms into itself, a skip);
+       what he does then waits for its own beat on the song (onTheBeat), the board's breath */
     const next = UI.animEnd + beatMs() * BREATH_BEATS;
     if (next > UI.nextAI) { UI.beats += (next - Math.max(UI.nextAI, UI.animEnd)) / beatMs(); UI.nextAI = next; }
   }
@@ -4615,9 +4626,7 @@ function tick(now) {
      AUTO means he does not want to set it, so it starts on the kept line */
   if (FIGHT.S.deploy) { if (UI.auto) fightNow(); else if (UI.drag) dragPan(); return; }
   /* as they close, they stay on the glass: a new round refits if any man stands off it (rule 104a) */
-  if (UI.fitRound !== FIGHT.S.round) { UI.fitRound = FIGHT.S.round; const f = fitBoth();
-    /* a man off the glass, or the lines closed enough to come in closer: the camera takes them all again (it tightens as they meet) */
-    if (!UI.pinched && !(gest && gest.moved) && (!allFramed() || f.z > UI.zoom * FIT_CLOSER)) glideTo(f.cx, f.cy, f.z, beatMs(), !allFramed()); }
+  roundFit();
   const u = FIGHT.current();
   if (!u) return;
   MUSIC.turn(u.side === 'you' ? 'you' : 'them');   /* rule 126(e): the turn is heard, after the last act's motion, not when the rules pass it */
@@ -4634,24 +4643,77 @@ function tick(now) {
   if (!UI.auto && u.side === 'them' && !isTheirsSay(sayEl.textContent)) { say(theirsSay()); teachSoon('skip'); }
   if (now < UI.nextAI) return;
   if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first (three quarters of a beat), then he acts */
-  const before = UI.anim.length;
+  const before = UI.anim.length, th0 = performance.now();
   try { FIGHT.aiStep(u); } catch (e) { turnBroke(u, e); }
+  (UI.thinks = UI.thinks || []).push(performance.now() - th0); if (UI.thinks.length > REQ_LOG) UI.thinks.shift();   /* rule 274(c): what each act's thinking cost */
   take();
   /* A TURN YOU CAN READ (VIA GROK 10/9: 'the turns are too short') AND NO DEAD PAUSE (rule 121): an act is read by its own
      motion played whole (a walk half a beat a tile, a shot or a blow a beat, a fall a beat) and the quarter-beat breath
      after it; a man who only ends his turn passes it on at once (nothing moved, nothing to read: the strip moves on) */
   const acted = UI.anim.slice(before).some(function (a) { return a.k === 'step' || a.k === 'attack' || a.k === 'note'; });
   if (acted) UI.lastAct = now;
+  /* ONE PACE (rule 274(d)): his first motion is put on the song now, not on the next frame (measured: a frame later, 24 to 33 ms
+     past its grid point) */
+  if (UI.anim.length && UI.anim[0].at === undefined) onTheBeat(UI.anim[0], performance.now());
 }
 /* A TURN THAT THROWS PASSES; IT NEVER FREEZES THE FIGHT (COMBAT [the fight is broken live]): a man's turn that threw (a rule from
    another deploy, a bug) threw again on every frame, so the fight stood still for good, AUTO and by hand alike. Now his turn passes
    and the fight goes on; the error is still thrown to the page, once a turn, so every gate sees it, and UI.broke counts them */
+/* as they close, they stay on the glass: a new round refits if any man stands off it (rule 104a); true when that glide holds
+   the turn (a man off the glass) */
+function roundFit() {
+  if (UI.fitRound === FIGHT.S.round) return false;
+  UI.fitRound = FIGHT.S.round; const f = fitBoth(), off = !allFramed();
+  /* a man off the glass, or the lines closed enough to come in closer: the camera takes them all again (it tightens as they meet) */
+  if (!UI.pinched && !(gest && gest.moved) && (off || f.z > UI.zoom * FIT_CLOSER)) { glideTo(f.cx, f.cy, f.z, beatMs(), off); return off; }
+  return false;
+}
+/* ONE PACE (rule 274(c)): a motion's end is caught by a timer at its own time, not the next frame (measured: the next motion
+   came a frame late, 17 ms at 60 a second and 34 at 30, so on a slow phone it missed its grid point and lost a beat) */
+function endOnTime(end) {
+  if (UI.endFor === end) return;
+  clearTimeout(UI.endT); UI.endFor = end;
+  UI.endT = setTimeout(function () { UI.endFor = null; try { tick(performance.now()); } catch (e) { setTimeout(function () { throw e; }); } }, Math.max(0, end - performance.now()));
+}
+/* AUTO THINKS AHEAD (COMBAT [one pace, on the beat], rule 274(c): 'AUTO's thinking is done ahead, during the beat before, so an
+   action never waits past its grid point'). The next man of theirs, or of his on AUTO, decides in the last quarter beat of the
+   motion playing (at most AHEAD_MS), so his motion is booked on the grid point the last one ends on, not a beat later for the
+   time his thinking took. Not while the camera holds, a new round is still to be framed, the man stands off the glass (the
+   camera goes to him first, as before), or the man is his by hand. His turn's music turns when that motion starts (a.turn),
+   as it turned after the last motion before (rule 126(e)) */
+const AHEAD_BEATS = .25, AHEAD_MS = 125;
+/* the think ahead on its own timer, not the next frame: on a slow phone a frame can be longer than the whole window (measured: at a
+   quarter of this computer's speed, 10 of 57 choices waited for the motion's end and lost the beat) */
+function aheadOnTime(a) {
+  if (UI.aheadFor === a) return; UI.aheadFor = a;
+  const at = a.at + a.dur - Math.min(beatMs() * AHEAD_BEATS, AHEAD_MS) + 2;
+  clearTimeout(UI.aheadT); UI.aheadT = setTimeout(function () { try { thinkAhead(performance.now()); } catch (e) { setTimeout(function () { throw e; }); } }, Math.max(0, at - performance.now()));
+}
+function thinkAhead(now) {
+  const S = FIGHT.S, a = UI.anim[0];
+  if (UI.anim.length !== 1 || a.at === undefined || S.over || S.deploy || now < UI.openUntil || (UI.glide && UI.glide.hold) || UI.skip || UI.aheadOf === a) return;
+  if (a.at + a.dur - now > Math.min(beatMs() * AHEAD_BEATS, AHEAD_MS)) return;
+  const u = FIGHT.current(); if (!u || crewControlled(u)) return;
+  /* a new round is framed first (its glide holds only with a man off the glass); a man off the glass waits for the camera only
+     when it has somewhere to go (follow's own test) */
+  if (roundFit() || (UI.glide && UI.glide.hold)) return;
+  if (!framed(u.x, u.y) && (UI.pinched || !camThere(fitBoth()))) return;
+  if (!UI.auto && u.side === 'them' && !isTheirsSay(document.getElementById('say').textContent)) say(theirsSay());
+  const before = UI.anim.length, th0 = performance.now();
+  try { FIGHT.aiStep(u); } catch (e) { turnBroke(u, e); }
+  (UI.thinks = UI.thinks || []).push(performance.now() - th0); if (UI.thinks.length > REQ_LOG) UI.thinks.shift();
+  take();
+  const his = UI.anim.slice(before); his.forEach(function (b) { b.ahead = true; }); if (his.length) his[0].turn = u.side === 'you' ? 'you' : 'them';
+  if (!his.length && FIGHT.current() === u) UI.aheadOf = a;   /* he did nothing and kept his turn: the usual way, after this motion */
+  if (his.some(function (b) { return b.k === 'step' || b.k === 'attack' || b.k === 'note'; })) UI.lastAct = now;
+  UI.ahead = (UI.ahead || 0) + 1;
+}
 function turnBroke(u, e) {
   UI.broke = (UI.broke || 0) + 1; UI.brokeLast = String(e && e.message || e);
   setTimeout(function () { throw e; });
   try { if (FIGHT.current() === u) FIGHT.endTurn(u); } catch (_e) { if (FIGHT.current() === u) FIGHT.S.idx++; }   /* its own end threw: the order moves on */
 }
-const BREATH_BEATS = .125, THEIRS_SAY ='Their move. Tap the board to skip it.', THEIRS_SHORT = 'Their move.';
+const BREATH_BEATS = 0, THEIRS_SAY ='Their move. Tap the board to skip it.', THEIRS_SHORT = 'Their move.';
 /* once his veteran has said the skip (change 8), the strip only says whose move it is */
 function theirsSay() { return taughtNow().skip || faceTeaches() ? THEIRS_SHORT : THEIRS_SAY; }
 function isTheirsSay(t) { return t === THEIRS_SAY || t === THEIRS_SHORT; }
@@ -4661,7 +4723,7 @@ function isTheirsSay(t) { return t === THEIRS_SAY || t === THEIRS_SHORT; }
    beat. Back to back motions stay back to back when the last one ends on the grid. The grid is the motion's own beat (the
    song's at 1x, a half at 2x, a quarter at 4x), a quarter of it for a walk he hurried. The motion's sounds go SONG.lat ahead
    of its picture, so the ear and the eye meet on the kick. UI.onBeat keeps the last REQ_LOG for the gate. */
-const LAND_BEATS = 0.45, REQ_LOG = 240;
+const LAND_BEATS = 0.45, REQ_LOG = 240, LATE_MS = 20;   /* rule 274(d): a motion begins within 20 ms of its grid point, or on the next */
 function landOf(a) { return a.k === 'attack' ? a.b * LAND_BEATS : 0; }
 function onTheBeat(a, now) {
   const t = performance.now();
@@ -4671,18 +4733,29 @@ function onTheBeat(a, now) {
     a.b = beatMs();
     const land = landOf(a);
     const g = a.dur > 0 && !unseen ? (a.hurry ? a.b / 4 : a.b) : 0;
-    a.qAt = g ? songGrid(from + land, g) - land : from;
-    (UI.onBeat = UI.onBeat || []).push({ k: a.k, t: a.e && a.e.t, side: u ? u.side : null, asked: from, at: a.qAt, land: a.qAt + land, g: g, song: SONG.from, songAt: SONG.at });
+    a.qAt = g ? songGrid(from + land, g) - land : from; a.g = g;
+    a.log = { k: a.k, t: a.e && a.e.t, side: u ? u.side : null, asked: from, at: a.qAt, land: a.qAt + land, g: g, song: SONG.from, songAt: SONG.at, prevEnd: UI.animEnd || 0, glideEnd: UI.glideEnd || 0, finish: !!UI.finish, chose: a.askedAt, ahead: !!a.ahead };
+    (UI.onBeat = UI.onBeat || []).push(a.log);
     if (UI.onBeat.length > REQ_LOG) UI.onBeat.shift();
   }
   const lead = a.dur > 0 ? SONG.lat : 0;
+  /* ONE PACE (rule 274(c)): a CHOICE that came after its grid point takes the next one; it never begins inside itself (measured
+     before: up to 125 ms of a motion skipped) and never two at once. Only the choice's own time counts: a frame or a timer late
+     on a slow phone starts it on its point's clock (measured: judged by the frame, a phone at a quarter of this computer's speed
+     put 47 of 57 motions a whole beat later, the pace he hates), and so does a choice inside the device's own frame (on that
+     phone a frame is 100 ms and more: a timer cannot fire inside one) */
+  if (a.g && !a.late && a.askedAt !== undefined && a.askedAt > a.qAt + Math.max(LATE_MS, (UI.frameMs || 0) * 1.25)) {
+    const land = landOf(a); a.late = true; a.qAt = songGrid(t + lead + land, a.g) - land;
+    if (a.log) { a.log.at = a.qAt; a.log.land = a.qAt + land; a.log.late = true; }
+  }
   if (t < a.qAt - lead - 1) {
     /* a timer, not the next frame, starts it: a frame is 16 ms late at best and a busy phone's far more */
     if (UI.beatFor !== a.qAt) { clearTimeout(UI.beatT); UI.beatFor = a.qAt;
       UI.beatT = setTimeout(function () { UI.beatFor = null; try { tick(performance.now()); } catch (e) { setTimeout(function () { throw e; }); } }, Math.max(0, a.qAt - lead - t)); }
     return false;
   }
-  a.at = a.qAt; startAnim(a); UI.beats += a.dur / beatMs();
+  if (a.turn) MUSIC.turn(a.turn);   /* a motion thought ahead turns the music as it starts (rule 126(e)) */
+  a.at = a.qAt; if (a.log) { a.log.real = Math.max(t, a.qAt); a.log.dur = a.dur; a.log.frame = UI.frameMs || 0; } startAnim(a); UI.beats += a.dur / beatMs();   /* real: when the page really began it, on the picture's clock (rule 274(d)) */
   return true;
 }
 /* a tap on the board while they move: their turn ends at once, everything they do resolved, no animation; on AUTO it runs
@@ -4708,8 +4781,8 @@ function skipTurn() {
    decision), their turns 6 to 24 s of watching; a tough one 2.4 to 3.5 minutes. The five parts, and the speed:
      (a) THE FIGHT READS ITS ODDS: a second copy of these same rules plays the rest out on AUTO, six milliseconds of a frame
          at a time, and at 80 in 100 or better AUTO glows on the beat with the number; one tap finishes the fight on AUTO at
-         the top pace (an injury taken on AUTO is still an injury: nothing is rolled twice, the real dice go on as they were);
-     (b) THEIR TURNS AT DOUBLE PACE, and a tap on the board while his man walks puts him at the end of the walk;
+         his own pace (rule 274; it was a top pace, 4x) (an injury taken on AUTO is still an injury: nothing is rolled twice, the real dice go on as they were);
+     (b) THEIR TURNS AT HIS OWN PACE (rule 274; they ran at double pace), and a tap on the board while his man walks puts him at the end of the walk;
      (c) TAKE BACK THE LAST STEP, once a turn, never a blow: the walk's state is kept, and while no die has rolled since (a
          free swing, a morale check) BACK puts every man where he stood;
      (d) the turn ends itself (rule 125, shipped 10/20);
@@ -4719,14 +4792,10 @@ function skipTurn() {
    halves and quarters), kept on the phone. */
 /* rule 158(b): every pace a power of two, so a faster fight lands on halves and quarters of the song's beat, never off it (the
    hand's top was 3x, a third of a beat, off the song: it is 4x, a quarter; a phone that kept 3 keeps the top) */
-const THEIRS_PACE = 2, SPEEDS = [1, 2, 4], FINISH_PACE = 4, SPEED_KEY = 'bohemia.fight.speed';
+/* rule 274 (ONE PACE): THEIRS_PACE (2) and FINISH_PACE (4) are gone; their turns and AUTO's finish run at his own speed */
+const SPEEDS = [1, 2, 4], SPEED_KEY = 'bohemia.fight.speed';
 const ODDS_RUNS = 24, ODDS_SHOW = 12, ODDS_FIRST = 8, ODDS_SLICE_MS = 6, ODDS_STEPS = 6000, ODDS_WAIT_MS = 3000, ODDS_REST_MS = 16;
 const KEPT_KEY = 'bohemia.fight.kept.v1', KEPT_HOURS = 6;
-function paceNow() {
-  if (UI.finish) return FINISH_PACE;
-  const S = FIGHT.S; if (!UI.board || !S || S.over || S.deploy || !S.order || !S.order.length) return 1;
-  const u = FIGHT.current(); return u && u.side === 'them' ? (UI.theirsPace || THEIRS_PACE) : 1;
-}
 function storedSpeed() { try { const v = Number(localStorage.getItem(SPEED_KEY)); return v === 3 ? 4 : SPEEDS.indexOf(v) >= 0 ? v : 1; } catch (_e) { return 1; } }
 function handSpeed(v, quiet) {
   UI.hand = SPEEDS.indexOf(v) >= 0 ? v : 1;
@@ -4936,11 +5005,16 @@ function follow(u, every) {
   UI.lastFollow = u.id + ':' + FIGHT.S.round;
   const aim = aimAt(u.x, u.y), at = u.id + ':' + u.x + ':' + u.y;
   /* once per spot: at the board's edge the camera may not be able to frame him whole, and he acts anyway */
-  if (!framed(u.x, u.y) && UI.framedAt !== at) { UI.framedAt = at; if (keepAll(beatMs() * .75, undefined, true)) return true; if (UI.zoom > UI.far * 1.05) { glideTo(aim[0], aim[1], UI.zoom, beatMs() * .75, true); return true; } }
+  if (!framed(u.x, u.y) && UI.framedAt !== at) { UI.framedAt = at;
+    /* ONE PACE (rule 274(c)): the camera holds the turn only when it has somewhere to go (measured: on his computer's wide board
+       half of AUTO's acts held three quarters of a beat with the camera already holding both teams, then lost the beat) */
+    if (!UI.pinched && camThere(fitBoth())) return false;
+    if (keepAll(beatMs() * .75, undefined, true)) return true; if (UI.zoom > UI.far * 1.05) { glideTo(aim[0], aim[1], UI.zoom, beatMs() * .75, true); return true; } }
   return false;
 }
 /* rule 104a: the camera holds both teams; when a man would leave the glass it takes them all again, never one man alone.
    A finger that pinched (or a wheel) takes the camera, and then it follows the man as before */
+function camThere(f) { return Math.abs(f.cx - UI.cx) < UI.tw * .25 && Math.abs(f.cy - UI.cy) < UI.th * .25 && Math.abs(f.z / UI.zoom - 1) < .03; }
 function keepAll(ms, more, hold) { if (UI.pinched) return false; const f = fitBoth(more); glideTo(f.cx, f.cy, f.z, ms, hold); return true; }
 /* THE HEAD UNDER THE STRIP (rule 88): a man is on the glass only when his whole box, head to feet, stands between the turn
    strip and the bar (the old test read his tile's middle, 40 pt in, and let the camera stop with his head under the strip
@@ -7046,7 +7120,7 @@ document.getElementById('bend').onclick = function () { audio();
   take(); hud(); };
 document.getElementById('breload').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; if (FIGHT.reload(u)) say(''); take(); } };
 document.getElementById('bauto').onclick = function () { audio();
-  /* THE FIGHT READS ITS ODDS (change 10(a)): glowing, one tap finishes it, AUTO at the top pace to the end */
+  /* THE FIGHT READS ITS ODDS (change 10(a)): glowing, one tap finishes it, AUTO at his own pace to the end (rule 274) */
   if (!UI.auto && oddsGlow()) { UI.auto = true; UI.finish = true; UI.pend = null; UI.skillMode = null; UI.back = null; hud(); return; }
   UI.auto = !UI.auto; if (!UI.auto) UI.finish = false; UI.pend = null; UI.skillMode = null; };
 document.getElementById('bspeed').onclick = function () { audio(); const i = SPEEDS.indexOf(UI.hand || 1); handSpeed(SPEEDS[(i + 1) % SPEEDS.length]); };
@@ -7100,6 +7174,8 @@ let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
+  /* the device's own frame (rule 274(c)): a choice inside one frame of its grid point is not late, it is the device */
+  if (UI.lastFrameAt) UI.frameMs = Math.min(250, (UI.frameMs || 16.7) * .9 + (now - UI.lastFrameAt) * .1); UI.lastFrameAt = now;
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }
@@ -7114,7 +7190,7 @@ function start() {
   if (o.speed) UI.speed = o.speed;
   if (o.auto) UI.auto = true;
   MAN_IDLE = o.manPx > 0 ? o.manPx : MAN_DEFAULT;
-  UI.finish = false; UI.back = null; UI.backUsed = null; UI.theirsPace = o.theirsPace || 0; oddsReset();
+  UI.finish = false; UI.back = null; UI.backUsed = null; oddsReset();
   handSpeed(o.hand || storedSpeed(), true);
   /* THE ROAD SETS THE ENEMY (COMBAT [bestiary]): how many fights this phone has opened, so his first stays the lesson fight */
   let met = 0; try { met = Number(localStorage.getItem(MET_KEY)) || 0; localStorage.setItem(MET_KEY, String(met + 1)); } catch (_e) {}
