@@ -4,20 +4,20 @@
 <meta name="song" content="the_church_clock_strikes_twelve">
 <meta name="list" content="vote/songs/new_four/index.json">
 <title>The Church Clock Strikes Twelve</title>
-<!-- SOUNDS lane, 10/25, rules 167, 168 and 181. PAOLO 10/25: 'one intensity on the map or chilling, two when they're
-     attacking, three when it's your turn to attack, real combat music'; 'everything at 120 BPM'; and rule 181: 'I still
-     want to hear if it's something I even want... I hope you're not telling it to go immediately into the game.'
+<!-- SOUNDS lane, 10/25, rules 167, 168, 181, 193 and 207. PAOLO 10/25: 'one intensity on the map or chilling, two when
+     they're attacking, three when it's your turn to attack, real combat music'; and having heard them (rule 207): 'I like the
+     songs, I want you to implement them; there has to be a pretty big difference between the opponent's turn and my turn.'
 
-     WHAT THIS PAGE IS: one of his songs, played by his own engine (tools/bohemia_sounds_three_levels.js), at
-       1 THE MAP      his song exactly as approved, with a soft 120 BPM pulse under it (his own kick and clock, quiet)
-       2 THEIR TURN   tension: his engine's second tier, a heartbeat kick, ticking 16ths, a low pedal, toms
-       3 YOUR TURN    real combat music: his engine's top tier, a driving kit, a driving bass, a hook in his lead voice
-     and A FIGHT, the turn changes as a fight plays them (the map, their turn, your turn, their turn, your turn), each
-     change on the bar line. The three levels are one timeline: tap a level while another plays and it changes on the
-     next bar, the song does not jump. NOTHING HERE IS IN THE GAME (rule 181(d)). The song is this page's <meta name="song">
-     (each card's own copy, written by the tool), or the part after the #, or the first song. The list is this page's
-     <meta name="list">: his songs' levels (vote/songs/three_levels/index.json) or the new songs (vote/songs/new_four/).
-     Gate: gates/three_levels_vote_gate.js. -->
+     WHAT THIS PAGE IS: one of the thirteen songs at its three levels, THE SAME FILES THE GAME PLAYS (rule 207(e)):
+       1 THE MAP      the song as approved, with a soft 120 BPM pulse under it
+       2 THEIR TURN   tension only: the tune waits, the bass, a held chord, a heartbeat, the clock (3.6 dB over 1 on a phone)
+       3 YOUR TURN    everything: the tune, the full drums, the driving bass, the hook (6.8 dB over 2 on a phone)
+     and A FIGHT, the turn changes as a fight plays them, a hit on the beat into 3, a drop out of it. The three levels are one
+     timeline: tap a level while another plays and it changes on the next bar, the song does not jump.
+     IT PLAYS WHERE HE PLAYS IT (rule 193): the iPhone's silent switch does not mute it (navigator.audioSession 'playback'
+     where the phone has it, and a plain <audio> player when Web Audio will not start), it says LOADING, PLAYING or a plain
+     error, and the first tap plays. The song is this page's <meta name="song">, or the part after the #, or the first song.
+     The list is this page's <meta name="list">. Gates: gates/three_levels_vote_gate.js, gates/the_vote_cards_play_gate.js. -->
 <style>
   :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#b9a77e; --hot:#6a1d10; }
   html,body{margin:0;min-height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -54,59 +54,110 @@
 <script>
 (function(){
   'use strict';
-  var AC=null, OUT=null, BUF={}, IDX=null, S=null, live=null, run=null, clock=null, lvlNow=0, n=document.getElementById('num');
-  var WHAT0, WHAT={ 1:'1. THE MAP: your song as you approved it, with a soft 120 beat under it (your own kick and clock, quiet).',
-             2:'2. THEIR TURN: tension. A heartbeat kick on every beat, the ticking, a low note pushing, toms. No backbeat yet.',
+  var AC=null, OUT=null, BUF={}, IDX=null, S=null, live=null, run=null, clock=null, lvlNow=0, n=document.getElementById('num'), EL=null, mode='web';
+  var WHAT={ 1:'1. THE MAP: the song as you approved it, with a soft 120 beat under it.',
+             2:'2. THEIR TURN: tension. A heartbeat kick on every beat, the ticking, a low note pushing. No backbeat yet.',
              3:'3. YOUR TURN: combat music. Full drums, the bass driving, a hook in your song\'s own lead.' };
-  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; try{ AC=new C({latencyHint:'playback'}); }catch(e){ AC=new C(); } OUT=AC.createGain(); OUT.gain.value=0.9; OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function say(t){ n.textContent=t; }
+  /* THE SILENT SWITCH (rule 193): Safari 16.4 and later let a page say it is music, so the ringer switch does not mute it */
+  function session(){ try{ if(navigator.audioSession && navigator.audioSession.type!=='playback') navigator.audioSession.type='playback'; }catch(e){} unmute(); }
+  /* AND FOR AN OLDER iPHONE: a silent <audio> loop started inside the tap puts the phone's audio in its media mode, where the
+     ringer switch does not mute Web Audio either (the plain element is never muted by it) */
+  var MUTEFIX=null;
+  function unmute(){ if(MUTEFIX) return; try{
+    var n=800, b=new Uint8Array(44+n), v=new DataView(b.buffer), w=function(o,t){ for(var i=0;i<t.length;i++) b[o+i]=t.charCodeAt(i); };
+    w(0,'RIFF'); v.setUint32(4,36+n,true); w(8,'WAVEfmt '); v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+    v.setUint32(24,8000,true); v.setUint32(28,8000,true); v.setUint16(32,1,true); v.setUint16(34,8,true); w(36,'data'); v.setUint32(40,n,true);
+    for(var i=0;i<n;i++) b[44+i]=128;
+    MUTEFIX=new Audio(URL.createObjectURL(new Blob([b],{type:'audio/wav'}))); MUTEFIX.loop=true; MUTEFIX.setAttribute('playsinline','');
+    var pr=MUTEFIX.play(); if(pr&&pr.catch) pr.catch(function(){});
+  }catch(e){} }
+  function ctx(){ session();
+    if(!AC){ var C=window.AudioContext||window.webkitAudioContext; if(!C) return null;
+      try{ AC=new C({latencyHint:'playback'}); }catch(e){ try{ AC=new C(); }catch(e2){ return null; } }
+      OUT=AC.createGain(); OUT.gain.value=0.9; OUT.connect(AC.destination);
+      /* an iPhone unlocks Web Audio with a sound started inside the tap itself: one silent sample, now */
+      try{ var u=AC.createBuffer(1,1,22050), z=AC.createBufferSource(); z.buffer=u; z.connect(AC.destination); z.start(0); }catch(e){} }
+    if(AC.state!=='running'){ try{ var r=AC.resume(); if(r&&r.catch) r.catch(function(){}); }catch(e){} }
+    return AC; }
+  function coarse(){ try{ return !!(window.matchMedia&&matchMedia('(pointer: coarse)').matches); }catch(e){ return false; } }
+  /* on a phone the three levels decode at 24 kHz (three 128 s levels are 37 MB, not 75): the game does the same */
+  function decode(ab){ return new Promise(function(res,rej){ var O=window.OfflineAudioContext||window.webkitOfflineAudioContext, d=null;
+    if(coarse()&&O){ try{ d=new O(1,1,24000); }catch(e){ d=null; } } if(!d) d=ctx(); if(!d) return rej(new Error('this browser has no Web Audio'));
+    try{ var p=d.decodeAudioData(ab,res,rej); if(p&&p.then) p.then(res,rej); }catch(e){ rej(e); } }); }
   function load(p){ if(BUF[p]) return Promise.resolve(BUF[p]);
-    return fetch(p).then(function(r){ if(!r.ok) throw new Error(p+' '+r.status); return r.arrayBuffer(); })
-      .then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[p]=b); }); }
+    return fetch(p).then(function(r){ if(!r.ok) throw new Error('the file did not load ('+r.status+')'); return r.arrayBuffer(); })
+      .then(decode).then(function(b){ return (BUF[p]=b); }); }
   function file(f){ return S.dir+f+'.mp3'; }
+  var BARS=function(){ return (S&&S.bars)||32; };
   /* the bar line: bar 1 starts 0.05 s into every file, a bar is 2 s at 120 BPM */
   function barAt(t0,at){ var x=(at-t0-0.05)/2; return Math.max(0,Math.ceil(x-1e-6)); }
-  function mark(){ ['l1','l2','l3'].forEach(function(k,i){ document.getElementById(k).classList.toggle('on',!!live&&lvlNow===i+1); });
+  function mark(){ ['l1','l2','l3'].forEach(function(k,i){ document.getElementById(k).classList.toggle('on',(!!live||mode==='el')&&lvlNow===i+1); });
     document.getElementById('fight').classList.toggle('on',!!run); }
+  function stopEl(){ if(EL){ try{ EL.pause(); }catch(e){} EL=null; } }
   function stopAll(){
     var t=AC?AC.currentTime:0;
     [live,run].forEach(function(h){ if(!h) return; h.src.forEach(function(s,i){ try{ var g=h.g[i]; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value,t); g.gain.linearRampToValueAtTime(0,t+0.15); s.stop(t+0.2); }catch(e){} }); });
-    live=null; run=null; lvlNow=0; turns(-1); mark(); }
-  /* THE THREE LEVELS LIVE: all three start together, one is heard; a change crossfades on the next bar line */
+    live=null; run=null; stopEl(); lvlNow=0; turns(-1); mark(); }
+  /* THE PLAIN PLAYER (rule 193): when Web Audio will not start on his phone, the same file through an <audio> element.
+     No change on the bar there (one file plays), but it plays, and the words say so. */
+  function plain(f, what, lv){
+    stopAll(); mode='el'; var a=new Audio(); a.preload='auto'; a.src=file(f); a.setAttribute('playsinline','');
+    EL=a; lvlNow=lv||0; mark(); say('Loading '+S.name+'...');
+    a.onplaying=function(){ if(EL===a) say('PLAYING (the simple player): '+what); };
+    a.onerror=function(){ if(EL===a){ EL=null; mark(); say('It did not play: the file did not load. Check your signal and tap again.'); } };
+    a.onended=function(){ if(EL===a){ EL=null; lvlNow=0; mark(); say('That was the whole song. Tap again.'); } };
+    var pr=a.play(); if(pr&&pr.catch) pr.catch(function(e){ if(EL===a){ EL=null; mark(); say('It did not play: '+(e&&e.name==='NotAllowedError'?'the phone blocked it, tap once more.':(e&&e.message||'unknown'))); } });
+  }
+  /* Web Audio that does not come up within a second and a half of a tap is not going to: the plain player takes the tap */
+  function webOr(fn, f, what, lv){ var A=ctx(); if(!A){ plain(f,what,lv); return; }
+    if(A.state==='running'){ mode='web'; fn(); return; }
+    var t0=Date.now(), iv=setInterval(function(){ if(AC.state==='running'){ clearInterval(iv); mode='web'; fn(); } else if(Date.now()-t0>1500){ clearInterval(iv); plain(f,what,lv); } },50); }
+  /* THE THREE LEVELS LIVE: all three start together, one is heard; a change lands on the next bar line, a hit into 3 and a
+     drop out of it, as the game does */
   function level(lv){
     ctx();
     if(run) stopAll();
+    if(mode==='el'){ plain('level_'+lv, WHAT[lv], lv); return; }
     if(live){ var t=AC.currentTime, b=barAt(live.t0,t+0.08), at=live.t0+0.05+b*2;
-      if(at>live.t0+0.05+31*2){ stopAll(); return level(lv); }
-      live.g.forEach(function(g,i){ g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value,t); g.gain.setValueAtTime(g.gain.value,at-0.03); g.gain.linearRampToValueAtTime(i===lv-1?1:0,at+0.03); });
-      lvlNow=lv; live.want=lv; live.at=at; mark(); n.textContent=WHAT[lv]+' It comes in at bar '+(b+1)+'.'; return; }
-    n.textContent='Loading '+S.name+'...';
-    Promise.all([1,2,3].map(function(k){ return load(file('level_'+k)); })).then(function(bs){
-      if(live||run) return;
-      var t0=AC.currentTime+0.1, h={ t0:t0, src:[], g:[], want:lv, at:t0 };
-      bs.forEach(function(b,i){ var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; g.gain.value=i===lv-1?1:0; s.connect(g); g.connect(OUT); s.start(t0); h.src.push(s); h.g.push(g); });
-      h.src[0].onended=function(){ if(live===h){ live=null; lvlNow=0; mark(); n.textContent='That was the first minute. Tap a level again.'; } };
-      live=h; lvlNow=lv; mark(); n.textContent=WHAT[lv];
-    }).catch(function(e){ n.textContent='It did not load: '+e.message; });
+      if(at>live.t0+0.05+(BARS()-1)*2){ stopAll(); return level(lv); }
+      var from=live.want, into3=(lv===3&&from!==3), outOf3=(from===3&&lv!==3), x=outOf3?0.015:0.03;
+      live.g.forEach(function(g,i){ g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value,t); g.gain.setValueAtTime(g.gain.value,at-(i===lv-1?0.004:x)); g.gain.linearRampToValueAtTime(i===lv-1?1:0,at+(i===lv-1?0.004:0)); });
+      if(into3&&BUF[file('hit')]){ var h=AC.createBufferSource(); h.buffer=BUF[file('hit')]; h.connect(OUT); h.start(at,0.05); }
+      lvlNow=lv; live.want=lv; live.at=at; mark(); say('PLAYING '+WHAT[lv]+' It comes in at bar '+(b+1)+'.'); return; }
+    webOr(function(){
+      var got=0; say('LOADING '+S.name+': 0 of 3');
+      Promise.all([1,2,3].map(function(k){ return load(file('level_'+k)).then(function(x){ got++; if(!live&&!run) say('LOADING '+S.name+': '+got+' of 3'); return x; }); }).concat([load(file('hit')).catch(function(){ return null; })])).then(function(bs){
+        if(live||run) return;
+        var t0=AC.currentTime+0.1, h={ t0:t0, src:[], g:[], want:lv, at:t0 };
+        bs.slice(0,3).forEach(function(b,i){ var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; g.gain.value=i===lv-1?1:0; s.connect(g); g.connect(OUT); s.start(t0); h.src.push(s); h.g.push(g); });
+        h.src[0].onended=function(){ if(live===h){ live=null; lvlNow=0; mark(); say('That was the whole song. Tap a level again.'); } };
+        live=h; lvlNow=lv; mark(); say('PLAYING '+WHAT[lv]);
+      }).catch(function(e){ plain('level_'+lv, WHAT[lv], lv); });
+    }, 'level_'+lv, WHAT[lv], lv);
   }
-  /* A FIGHT: the run his engine's three levels make, spliced on the bar line by the tool */
+  /* A FIGHT: the run the game's three levels make, spliced on the bar line by the tool, the hit and the drop in it */
   function turns(on){ var el=document.getElementById('turns'); if(!el.children.length&&S){ (S.run||[]).forEach(function(p){ var s=document.createElement('span'); s.textContent=p; el.appendChild(s); }); }
     Array.prototype.forEach.call(el.children,function(c,i){ c.classList.toggle('now',i===on); }); }
   function fight(){
-    ctx(); stopAll(); n.textContent='Loading the fight...';
-    load(file('a_fight')).then(function(b){
-      if(live||run) return;
-      var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; s.connect(g); g.connect(OUT); var t0=AC.currentTime+0.1; s.start(t0);
-      var h=run={ t0:t0, src:[s], g:[g] }; mark();
-      s.onended=function(){ if(run===h){ run=null; turns(-1); mark(); n.textContent='That was a fight: the map, their turn, your turn, their turn, your turn. Each change on the bar.'; } };
-    }).catch(function(e){ n.textContent='It did not load: '+e.message; });
+    ctx(); stopAll();
+    webOr(function(){
+      say('LOADING the fight...');
+      load(file('a_fight')).then(function(b){
+        if(live||run) return;
+        var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=b; s.connect(g); g.connect(OUT); var t0=AC.currentTime+0.1; s.start(t0);
+        var h=run={ t0:t0, src:[s], g:[g] }; mark();
+        s.onended=function(){ if(run===h){ run=null; turns(-1); mark(); say('That was a fight: the map, their turn, your turn, their turn, your turn. Each change on the bar, a hit when it comes back to you.'); } };
+      }).catch(function(e){ plain('a_fight','A FIGHT, the turns changing.',0); });
+    }, 'a_fight', 'A FIGHT, the turns changing.', 0);
   }
   /* the beat light and the words, off the audio clock, so what you see is what you hear */
   function tick(){
     var t=AC?AC.currentTime:0, h=live||run, lights=document.querySelectorAll('#beat i');
-    var beat=-1; if(h&&t>=h.t0+0.05){ beat=Math.floor((t-h.t0-0.05)/0.5)%4; }
+    var beat=-1; if(h&&t>=h.t0+0.05){ beat=Math.floor((t-h.t0-0.05)/0.5)%4; } else if(EL&&!EL.paused){ beat=Math.floor(Math.max(0,EL.currentTime-0.05)/0.5)%4; }
     Array.prototype.forEach.call(lights,function(l,i){ l.classList.toggle('lit',i===beat); });
     if(run){ var sec=t-run.t0, part=Math.min((S.run||[]).length-1,Math.floor(sec/8)); turns(part);
-      var lv=S.run_levels?S.run_levels[part]:0; n.textContent='A FIGHT: '+(S.run[part]||'')+' (level '+lv+'). Bar '+(Math.floor(sec/2)%4+1)+' of 4.'; }
+      var lv=S.run_levels?S.run_levels[part]:0; say('PLAYING A FIGHT: '+(S.run[part]||'')+' (level '+lv+'). Bar '+(Math.floor(sec/2)%4+1)+' of 4.'); }
   }
   function pickSong(sl){
     stopAll(); S=null;
@@ -114,7 +165,7 @@
     S.run=['THE MAP','THEIR TURN','YOUR TURN','THEIR TURN','YOUR TURN']; S.run_levels=[1,2,3,2,3];
     document.getElementById('turns').innerHTML='';
     document.getElementById('ttl').textContent=S.name+', AT THREE LEVELS';
-    document.getElementById('sub').textContent=S.sub||('Your song '+S.name+' at the three levels of a fight. Your song stays exactly as it plays in the game until you say a level joins.');
+    document.getElementById('sub').textContent=S.sub||('Your song '+S.name+' at the three levels of a fight: the map 1, their turn 2, your turn 3.');
     if(S.what) WHAT=S.what;
     document.getElementById('pick').value=S.slug; turns(-1);
   }
@@ -122,16 +173,16 @@
   document.getElementById('l2').onclick=function(){ level(2); };
   document.getElementById('l3').onclick=function(){ level(3); };
   document.getElementById('fight').onclick=fight;
-  document.getElementById('stop').onclick=function(){ if(AC) stopAll(); n.textContent='Stopped.'; };
+  document.getElementById('stop').onclick=function(){ stopAll(); mode='web'; say('Stopped.'); };
   var lm=document.querySelector('meta[name=list]');
-  fetch((lm&&lm.content)||'vote/songs/three_levels/index.json').then(function(r){ return r.json(); }).then(function(j){
+  fetch((lm&&lm.content)||'vote/songs/three_levels/index.json').then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); }).then(function(j){
     IDX=j; var sel=document.getElementById('pick');
     j.songs.forEach(function(x){ var o=document.createElement('option'); o.value=x.slug; o.textContent=x.name; sel.appendChild(o); });
     sel.onchange=function(){ pickSong(sel.value); };
     var mt=document.querySelector('meta[name=song]'); pickSong((mt&&mt.content)||(location.hash||'').slice(1));
-  }).catch(function(e){ n.textContent='The song list did not load: '+e.message; });
+  }).catch(function(e){ say('It did not load: the song list did not come ('+e.message+'). Check your signal and reopen the card.'); });
   clock=setInterval(tick,50);
-  window.__threelevels=function(){ return { song:S&&S.name, level:lvlNow, live:!!live, fight:!!run, state:AC&&AC.state, latency:AC&&AC.baseLatency, loaded:Object.keys(BUF), t:live?+(AC.currentTime-live.t0).toFixed(2):run?+(AC.currentTime-run.t0).toFixed(2):0, gains:live?live.g.map(function(g){ return +g.gain.value.toFixed(3); }):null, text:n.textContent }; };
+  window.__threelevels=function(){ return { song:S&&S.name, level:lvlNow, live:!!live||!!(EL&&!EL.paused), fight:!!run, mode:mode, words:n.textContent, state:AC&&AC.state, latency:AC&&AC.baseLatency, loaded:Object.keys(BUF), t:live?+(AC.currentTime-live.t0).toFixed(2):run?+(AC.currentTime-run.t0).toFixed(2):EL?+EL.currentTime.toFixed(2):0, gains:live?live.g.map(function(g){ return +g.gain.value.toFixed(3); }):[], text:n.textContent }; };
 })();
 </script>
 </body></html>
