@@ -1,0 +1,32 @@
+{
+ "_about": "RUN THREE [the best recruit at the top] (rule 216, Paolo 10/26: 'in the recruiting pitstop just put the best at the absolute top... when we level them up as much as we can, their stars and default good stats lead the way... you might have to make a calculator... that's one failure of Battle Brothers, no proper filter to quickly see who's the fire one'). THE CALCULATOR'S INPUTS, a modder's and TUNING's to edit (engine/bohemia_roster.js ceiling() reads them; with this file missing it uses the same numbers built in). A man's CEILING is what he is expected to be at the top level through the game's own level-up (engine/bohemia_roster.js levelUp + raise, rules.json's experience block): every level each stat is rolled on his star column and he takes per_level.attributes_raised of them; the calculator takes the first that many off his kind's plan, each at the mean of its star column's roll; the number is the plan's stats above the plainest man's floor, each point weighed. Both kinds are worked for every man and his kind is the one his numbers make him best at. TUNING checks the plans and the weights (rule 216(a)).",
+ "level": {
+  "value": 11,
+  "source": "rules.json experience level_table_total_xp (the table tops at 11; past it a level is +1 on four and no perk, veteran_level_rules); rule 216(a): 'his expected stats at level 11'"
+ },
+ "plans": {
+  "value": {
+   "melee": ["melee_skill", "melee_defense", "fatigue", "ranged_defense", "hp", "resolve"],
+   "gun": ["ranged_skill", "fatigue", "hp", "ranged_defense", "resolve", "initiative"]
+  },
+  "source": "TUNING records/BOHEMIA_TUNING_THE_KILLER_COMPANY_STATS_AND_LEVEL_UPS_10_25_26.md sections 4c and 5 (his shape, four picks: front melee skill, melee defence, fatigue, ranged defence; back ranged skill, fatigue, hitpoints, ranged defence; the company that wins 98 in 100 against thirty men of whom half shoot). The fifth and sixth are read only if the picks a level ever grow past four (section 4c's 'five': hitpoints in front, resolve behind)"
+ },
+ "weights": {
+  "value": "by_roll",
+  "source": "Battle Brothers' own level-up table prices a point by how slowly it grows (rules.json stat_gains_by_stars, the no-star column): melee skill and melee defence roll 1-3 (mean 2), ranged skill, ranged defence, hitpoints, fatigue and resolve 2-4 (mean 3), initiative 3-5 (mean 4). A point weighs melee skill's mean over its own: 1, 2/3, 1/2. A modder may put an object here instead ({\"melee_skill\": 1, ...}); TUNING checks it",
+  "tuned": false
+ },
+ "floor": {
+  "value": "base_stats_low",
+  "source": "backgrounds.json base_stats (the Apprentice's range, the background with no modifiers): each stat counts from the low end of the plainest man's range, so the number is what he has above the floor every recruit stands on"
+ },
+ "bargain": {
+  "value": { "worth_per_battery": "above the hall's median", "ceiling": "at or above the hall's median" },
+  "source": "rule 216(c) and (f): 'a cheap man with a high ceiling marked as a BARGAIN (his worth over his price beats the hall's usual)'; BARGAIN only above the hall's median worth per battery, and a high ceiling too, so the cheapest weak man is never the bargain"
+ },
+ "pricey": {
+  "value": { "price": "above the hall's median" },
+  "source": "rule 216(c): 'a Hedge Knight type costs more and says why': a man priced over the hall's median names the biggest part of his price (his trade's asking, his levels, the kit he brings), the hall's own formula's parts"
+ },
+ "draft": true
+}

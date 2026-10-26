@@ -93,9 +93,10 @@
     return Promise.all([j(base + 'ours.json'), j(base + 'backgrounds.json'), j(base + 'armor.json'), j(base + 'weapons.json'),
       opts && opts.people === false ? Promise.resolve(null) : j('fight_people/fight_people.json').catch(function () { return null; }),
       j(base + 'rules.json'), j(base + 'perk_translation.json'),
-      j(base + 'perks.json').catch(function () { return null; }), j(base + 'armour_names.json').catch(function () { return null; })])   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ */
+      j(base + 'perks.json').catch(function () { return null; }), j(base + 'armour_names.json').catch(function () { return null; }),   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ */
+      j(base + 'recruit_ceiling.json').catch(function () { return null; })])   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */
       .then(function (a) { D.ours = a[0]; D.backgrounds = a[1]; D.armor = a[2]; D.weapons = a[3]; D.people = a[4];
-        D.xp = a[5].experience; D.perkRows = a[6].rows; D.rules = a[5]; D.perks = a[7]; D.names = a[8]; return D; });
+        D.xp = a[5].experience; D.perkRows = a[6].rows; D.rules = a[5]; D.perks = a[7]; D.names = a[8]; D.ceiling = a[9]; return D; });
   }
   function bgRow(id) { var rs = (D.backgrounds && D.backgrounds.rows) || []; for (var i = 0; i < rs.length; i++) if (rs[i].id === id) return rs[i]; return null; }
   function armourName(kind, dur) {
@@ -236,6 +237,39 @@
     while (m.level < to) ups.push(levelUp(m, R));
     return { from: before, to: m.level, gains: ups };
   }
+  /* ==== __THE_BEST_RECRUIT_AT_THE_TOP__ (RUN THREE [the best recruit at the top], rule 216, Paolo 10/26: 'just put the best at the
+     absolute top... when we level them up as much as we can, their stars and default good stats lead the way... you might have to
+     make a calculator'). THE CEILING: what a man is expected to be at level 11 through THIS file's level-up, never a second rule:
+     levelUp rolls every stat on his star column (range() over stat_gains_by_stars) and raise() takes per_level.attributes_raised
+     of them; the calculator takes the first that many off his kind's plan, each at its column's mean (an 'a-b' roll is (a+b)/2).
+     ONE NUMBER: the plan's stats at the top above the plainest man's floor (backgrounds.json base_stats, the low end), each point
+     weighed by how slowly Battle Brothers' own table grows it (melee skill's no-star mean over the stat's: 1, 2/3, 1/2). Both
+     kinds are worked; his kind is the one his numbers make him best at. Inputs: records/target/bb/recruit_ceiling.json (a
+     modder's, TUNING checks it); the same numbers built in below if it is not read. ==== */
+  var CEIL_DEF = { level: 11, weights: 'by_roll',
+    plans: { melee: ['melee_skill', 'melee_defense', 'fatigue', 'ranged_defense', 'hp', 'resolve'],
+             gun: ['ranged_skill', 'fatigue', 'hp', 'ranged_defense', 'resolve', 'initiative'] } };
+  function ceilDef(k) { var c = D.ceiling && D.ceiling[k]; return c && c.value != null ? c.value : CEIL_DEF[k]; }
+  function rollMean(txt) { var m = String(txt).split('-').map(Number); return (m[0] + (m.length > 1 ? m[1] : m[0])) / 2; }
+  function gainMean(k, stars) { return rollMean(D.xp.stat_gains_by_stars.value[STAT_KEY[k]][stars || 0]); }
+  function ceilWeight(k) { var w = ceilDef('weights'); return w && typeof w === 'object' && w[k] != null ? +w[k] : gainMean('melee_skill', 0) / gainMean(k, 0); }
+  function ceilFloor(k) { var b = D.backgrounds && D.backgrounds.base_stats && D.backgrounds.base_stats.stats[k]; return b ? b[0] : 0; }
+  function planFor(kind) { return ((ceilDef('plans') || {})[kind] || []).slice(0, D.xp.per_level.value.attributes_raised); }
+  /* the one number for stats as they stand, for a kind (the gate scores a man levelled by grant() and raise() with it) */
+  function worthOf(stats, kind) { var v = 0; planFor(kind).forEach(function (k) { v += ceilWeight(k) * ((stats[k] || 0) - ceilFloor(k)); }); return Math.round(v * 1e6) / 1e6; }   /* six places: two men with the same numbers tie exactly */
+  function ceilingOf(man, kind) {
+    var top = ceilDef('level'), plan = planFor(kind), n = Math.max(0, top - Math.max(1, man.level || 1)), at = {}, stars = man.stars || {};
+    STATS.forEach(function (k) { at[k] = (man.stats[k] || 0) + (plan.indexOf(k) >= 0 ? n * gainMean(k, stars[k]) : 0); });
+    return { kind: kind, value: worthOf(at, kind), at: at, plan: plan, level: top, levels: n };
+  }
+  /* ceiling({stats, stars, level}[, kind]): his kind's ceiling (the better of the two when no kind is asked), {value, kind, at, plan,
+     melee, gun}; value unrounded (the card rounds it) */
+  function ceiling(man, kind) {
+    if (kind) return ceilingOf(man, kind);
+    var a = ceilingOf(man, 'melee'), b = ceilingOf(man, 'gun'), best = b.value > a.value ? b : a;
+    best.melee = a.value; best.gun = b.value; return best;
+  }
+  /* ==== end __THE_BEST_RECRUIT_AT_THE_TOP__ ==== */
   /* the perks he may take now: Battle Brothers' tiers, tier n opens after n-1 points are spent */
   function perkChoices(m) {
     var spent = (m.perks || []).length;
@@ -345,7 +379,7 @@
     return out;
   }
   /* ==== end __THE_SHOP_SAYS_WHAT_IT_DOES__ ==== */
-  var API = { load: load, armOf: armOf, nameFor: nameFor, MEN_FOR: MEN_FOR, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  var API = { load: load, ceiling: ceiling, worthOf: worthOf, planFor: planFor, ceilWeight: ceilWeight, levelUp: levelUp, armOf: armOf, nameFor: nameFor, MEN_FOR: MEN_FOR, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     PAIN_POOL: PAIN_POOL, bgName: bgName, classWord: classWord, weaponName: weaponName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

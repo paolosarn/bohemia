@@ -9886,6 +9886,12 @@ GATES = [
      "the marquee and porte-cochere on the front and none on a back, the pool drained), the demo's own painting counting it (every resort facing the Boulevard its "
      "marquee, three in five in their own shapes, the pools, the sign boards) and the demo's map on the glass at the near stop (the marquees' faded rose and teal; "
      "no rainbow). About 2 min", True),
+    ('THE BEST RECRUIT AT THE TOP', ['node', 'gates/the_best_recruit_at_the_top_gate.js'],
+     "RUN THREE gate, 10/26, row [the best recruit at the top] (rule 216, Paolo 10/26: 'just put the best at the absolute top... you might have to make a calculator... Battle Brothers had no proper filter to quickly see who's the fire one'; EYES 10/25: 'nineteen recruits in four halls, every one a pistol man'). "
+     "MEASURED before: the hall in the roll's order, the same trades for a size every week, every man the pistol, no number for who would be good. "
+     "HOLDS: for 100 rolled men the ceiling equals the mean of 300 climbs to level 11 through the crew screen's grant() and raise() within a point; 36 halls on the phone by real taps list by the ceiling, CEILING, kind and price on every card; "
+     "BARGAIN exactly over the hall's median worth per battery with a ceiling at its median or more; a man over the median price says why; one tap switches BEST and BEST FOR THE PRICE; three stars and the trait on every card; "
+     "a real mix (gun men with the rifle, melee men with the pistol, every trade at a town), the rare man at 2 to 4 in 100; the computer; the live demo through the title, the hall by a real tap. about 3 min", True),
     ('EVERY ENEMY READS AT NIGHT', ['node', 'gates/every_enemy_reads_at_night_gate.js'],
      "COOK gate, 10/25, row [every enemy reads at night] (line 3 of his list; EYES 10/25 q43: 'the one Kid stood on a dark tile at night and was never drawn'; "
      "rule 73: playable in the dark). The fight page itself, the strip, the suburb and the freeway by day and by night, seed 31: every look an enemy can wear "

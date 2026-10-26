@@ -126,18 +126,21 @@ const STAT = { Health: 'hp', Fatigue: 'fatigue', Resolve: 'resolve', Initiative:
   await f.addInitScript(c => { window.FIGHT_OPTS = { seed: 11, speed: 1, company: c, deploy: false }; }, company);
   await f.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_FIGHT.html');
   await f.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length, null, { timeout: 60000 });
+  const band = pg => pg.evaluate(() => FIGHT.S.units.filter(x => x.side !== 'you').map(x => [x.name, x.hpMax != null ? x.hpMax : x.hp, x.x, x.y].join(':')).join('|'));
+  const b1 = await band(f);   /* the moment it is dealt (see the dice leg below) */
   const u = await f.evaluate(() => { const v = FIGHT.S.units.find(x => x.side === 'you'); return v && { hp: v.hpMax != null ? v.hpMax : v.hp, resolve: v.resolve, initiative: v.initiative, fatigue: v.fatigueMax != null ? v.fatigueMax : v.fatigue, keys: Object.keys(v).slice(0, 60) }; });
   const statsOk = u && ['hp', 'resolve', 'initiative'].every(k => u[k] === shownStats[k]);
   ok('H6 AND HE FIGHTS AS HIS CARD SAID: the fight handed that company gives him his card\'s numbers, his trait on them', statsOk,
     u ? 'HP ' + u.hp + '/' + shownStats.hp + ', RES ' + u.resolve + '/' + shownStats.resolve + ', INI ' + u.initiative + '/' + shownStats.initiative : 'no unit');
-  /* the dice for everybody else unchanged: the same seed with the same company minus his stats deals the band the same */
+  /* the dice for everybody else unchanged: the same seed with the same company minus his stats deals the band the same.
+     RE-AIMED 10/26 (RUN THREE): the band is read off each fight the moment it is dealt; it was read off the first fight after the second
+     had loaded, seconds into a running fight, and a man with the rifle (a gun man at the post now brings one) can have shot by then */
   const g = await ctx.newPage();
   const plain = company.map(c => { const o = Object.assign({}, c); delete o.stats; delete o.traits; return o; });
   await g.addInitScript(c => { window.FIGHT_OPTS = { seed: 11, speed: 1, company: c, deploy: false }; }, plain);
   await g.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_FIGHT.html');
   await g.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length, null, { timeout: 60000 });
-  const band = pg => pg.evaluate(() => FIGHT.S.units.filter(x => x.side !== 'you').map(x => [x.name, x.hp, x.x, x.y].join(':')).join('|'));
-  const [b1, b2] = [await band(f), await band(g)];
+  const b2 = await band(g);
   ok('  the dice for everybody else are the same (his numbers come off the card, the roll is still drawn)', b1.length > 0 && b1 === b2, b1 === b2 ? 'the same band, the same places' : 'differs');
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | ') || '0');
   await b.close(); srv.close();
