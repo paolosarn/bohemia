@@ -3,7 +3,7 @@ and the shell's __THE_SPOILS__ block in slices/BOHEMIA_ALPHA_0_9.html; opened 10
 the shop, the stall and the crew): 10/26 LATEST -- six rows SHIPPED, all BUILT, NOT YET SEEN:
 [optimize loot] + [one tap selects, two taps take] 8907a49e (BUILD 10/26u); [scrap is tape] 5209dead (10/26zf); [tape in the loot]
 958f0f6a (10/26zg); [the aftermath plays behind the loot screen] + MAKE CAMP (RUN FOUR's half of CAMP's [make camp from the fight])
-in one ship, BUILD 10/26zi (the sha on the board lines).
+in one ship, 2c3d9698 (BUILD 10/26zk).
 
 WHAT IS LIVE ON EVERY FIGHT'S END SCREEN (the demo; the page alone shows a sample):
 - THE AFTERMATH (rule 245): the black is gone. Behind the screen, the fight that just ended, read off its frame still standing behind
