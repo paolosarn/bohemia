@@ -18,7 +18,13 @@
    on the real page, his phone (390 x 844 at 3x) and his computer (1440 x 900):
    R5 RETREAT ON AUTO, IN THEIR TURN: the button is lit while AUTO plays and a man of theirs is up; two taps order it; his men run
       for the edge and the fight ends YOU PULLED OUT;
-   R6 END THE FIGHT: every one of theirs left running, the button reads END THE FIGHT; two taps win it, the runners counted as ran;
+   R6 SPARE THEM (RE-AIMED 10/26 by rule 198(h), Paolo: 'even Battle Brothers has it... it's spare them or run them down'; it
+      was END THE FIGHT, two taps): every one of theirs left breaking, his lead says so, the retreat button reads SPARE THEM and
+      WAIT reads RUN THEM DOWN; ONE press of SPARE THEM wins it, the runners counted as ran;
+   R8 RUN THEM DOWN: the same break; one press of RUN THEM DOWN and the fight goes on, every runner still on the board, SPARE THEM
+      still on the retreat button;
+   R9 AUTO'S HALF: on AUTO the break asks the calculator (the odds worker plays the rest of the rout ours.chase_calc.runs times);
+      its answer lands, and AUTO spares them when it says the chase is not worth it or not safe, else runs them down;
    R7 nothing threw.
    Run: node gates/retreat_and_the_rout_a_chase_gate.js */
 'use strict';
@@ -140,26 +146,63 @@ const edgeOf = (S, v) => Math.min(v.x, v.y, S.w - 1 - v.x, S.h - 1 - v.y);
       } catch (e) { errs.push(profile + ' R5: ' + e.message.slice(0, 160)); }
       finally { await d.close(); }
     }
-    /* R6: by hand, every one of theirs left running */
+    /* R6, R8: by hand, every one of theirs left breaking (the rules' own allflee note, as afterAction emits it) */
+    const PRO = profile === 'computer' ? 'COMPUTER' : 'PHONE';
+    const tap = async (p, sel) => { const at = await p.evaluate(s => { const r = document.querySelector(s).getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, sel);
+      if (profile === 'computer') await p.mouse.click(at.x, at.y); else await p.touchscreen.tap(at.x, at.y); };
+    const breakThem = async p => {
+      let mine = false; for (let i = 0; i < 300 && !mine; i++) { mine = await p.evaluate(() => { const u = FIGHT.current(); return !FIGHT.S.over && crewControlled(u) && !FIGHT_UI.anim.length; }); if (!mine) await p.waitForTimeout(100); }
+      const before = await p.evaluate(() => { hud(); return { flee: document.getElementById('bflee').textContent, wait: document.getElementById('bwait').textContent, all: FIGHT.allFleeing() }; });
+      const n = await p.evaluate(() => { const th = FIGHT.S.units.filter(v => v.side === 'them' && FIGHT.onField(v)); th.forEach(v => { v.morale = 'Fleeing'; v.givesUp = true; });
+        FIGHT.S.events.push({ t: 'allflee', n: th.length }); take(); return th.length; });
+      await p.waitForFunction(() => FIGHT_UI.rout !== null && FIGHT_UI.rout !== undefined, null, { timeout: 6000 }).catch(() => {});
+      const set = await p.evaluate(() => { hud(); return { flee: document.getElementById('bflee').textContent, fleeLit: !document.getElementById('bflee').disabled, wait: document.getElementById('bwait').textContent, waitLit: !document.getElementById('bwait').disabled, say: document.getElementById('say').innerText }; });
+      return { mine, before, n, set };
+    };
     {
       const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS=' + JSON.stringify({ seed: 42, speed: 1, kind: 'suburb', flat: true, deploy: false, formation: null, company: CREW3, cap: 12, band: ['brigand_thug', 'brigand_thug'], teach: false, odds: false }) });
       const p = d.page; p.on('pageerror', e => errs.push(profile + ' R6: ' + e.message));
       try {
-        await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 });
-        let mine = false; for (let i = 0; i < 300 && !mine; i++) { mine = await p.evaluate(() => { const u = FIGHT.current(); return !FIGHT.S.over && crewControlled(u) && !FIGHT_UI.anim.length; }); if (!mine) await p.waitForTimeout(100); }
-        const before = await p.evaluate(() => { hud(); return { txt: document.getElementById('bflee').textContent, all: FIGHT.allFleeing() }; });
-        const set = await p.evaluate(() => { const th = FIGHT.S.units.filter(v => v.side === 'them' && FIGHT.onField(v)); th.forEach(v => { v.morale = 'Fleeing'; v.givesUp = true; }); hud(); return { n: th.length, txt: document.getElementById('bflee').textContent, lit: !document.getElementById('bflee').disabled }; });
-        const at = await p.evaluate(() => { const r = document.getElementById('bflee').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-        if (profile === 'computer') await p.mouse.click(at.x, at.y); else await p.touchscreen.tap(at.x, at.y);
-        await p.waitForTimeout(400);
-        const asked = await p.evaluate(() => document.getElementById('say').innerText);
-        if (profile === 'computer') await p.mouse.click(at.x, at.y); else await p.touchscreen.tap(at.x, at.y);
+        const b = await breakThem(p);
+        await tap(p, '#bflee');
         await p.waitForFunction(() => FIGHT.S.over && !FIGHT_UI.anim.length && document.getElementById('over').style.display === 'flex', null, { timeout: 30000 }).catch(() => {});
-        const r = await p.evaluate(() => ({ over: FIGHT.S.over, result: FIGHT.S.result, ran: FIGHT.S.units.filter(v => v.side === 'them' && v.fled).length, body: document.getElementById('ob').innerText, head: document.getElementById('oh').innerText }));
-        leg(!/END THE FIGHT/.test(before.txt) && !before.all && /END THE FIGHT/.test(set.txt) && set.lit && /End the fight\?/.test(asked) && r.over && r.result === 'won' && r.ran === set.n,
-          '*** R6 ' + (profile === 'computer' ? 'COMPUTER' : 'PHONE') + ': END THE FIGHT *** (rule 198(d)): RETREAT while they fight; END THE FIGHT once every one of theirs left runs; two taps win it, the runners ran',
-          'before "' + before.txt + '", all running "' + set.txt + '" lit ' + set.lit + ', asked "' + asked.replace(/\n/g, ' ').slice(0, 50) + '" | ' + r.head + ' ' + r.result + ', ' + r.ran + ' of ' + set.n + ' ran');
+        const r = await p.evaluate(() => ({ over: FIGHT.S.over, result: FIGHT.S.result, ran: FIGHT.S.units.filter(v => v.side === 'them' && v.fled).length, head: document.getElementById('oh').innerText }));
+        leg(b.mine && /RETREAT/.test(b.before.flee) && !b.before.all && /SPARE THEM/.test(b.set.flee) && b.set.fleeLit && /RUN THEM DOWN/.test(b.set.wait) && b.set.waitLit && /breaking/i.test(b.set.say) && r.over && r.result === 'won' && r.ran === b.n,
+          '*** R6 ' + PRO + ': THEY BREAK, SPARE THEM *** (rule 198(h)): his lead says it, the bar asks SPARE THEM or RUN THEM DOWN; one press of SPARE THEM wins it, the runners ran',
+          'before "' + b.before.flee + '"/"' + b.before.wait + '", breaking "' + b.set.flee + '"/"' + b.set.wait + '" said "' + b.set.say.replace(/\n/g, ' ').slice(0, 50) + '" | ' + r.head + ' ' + r.result + ', ' + r.ran + ' of ' + b.n + ' ran');
       } catch (e) { errs.push(profile + ' R6: ' + e.message.slice(0, 160)); }
+      finally { await d.close(); }
+    }
+    {
+      const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS=' + JSON.stringify({ seed: 42, speed: 1, kind: 'suburb', flat: true, deploy: false, formation: null, company: CREW3, cap: 12, band: ['brigand_thug', 'brigand_thug'], teach: false, odds: false }) });
+      const p = d.page; p.on('pageerror', e => errs.push(profile + ' R8: ' + e.message));
+      try {
+        const b = await breakThem(p);
+        await tap(p, '#bwait');
+        await p.waitForTimeout(400);
+        const r = await p.evaluate(() => { hud(); return { over: FIGHT.S.over, onBoard: FIGHT.S.units.filter(v => v.side === 'them' && FIGHT.onField(v)).length, rout: FIGHT_UI.rout, say: document.getElementById('say').innerText,
+          flee: document.getElementById('bflee').textContent, fleeLit: !document.getElementById('bflee').disabled, wait: document.getElementById('bwait').textContent }; });
+        leg(/RUN THEM DOWN/.test(b.set.wait) && !r.over && r.onBoard === b.n && (r.rout === null || r.rout === undefined) && /Run them down/.test(r.say) && /SPARE THEM/.test(r.flee) && r.fleeLit && !/RUN THEM DOWN/.test(r.wait),
+          '*** R8 ' + PRO + ': RUN THEM DOWN *** (rule 198(h)): one press and the fight goes on, every runner still on the board, SPARE THEM still on the retreat button',
+          'over ' + r.over + ', ' + r.onBoard + ' of ' + b.n + ' on the board, said "' + r.say.replace(/\n/g, ' ').slice(0, 50) + '", the bar "' + r.flee + '"/"' + r.wait + '"');
+      } catch (e) { errs.push(profile + ' R8: ' + e.message.slice(0, 160)); }
+      finally { await d.close(); }
+    }
+    /* R9: AUTO, the calculator's verdict */
+    if (profile === 'computer') {
+      const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS=' + JSON.stringify({ seed: 43, speed: 1, hand: 4, kind: 'suburb', flat: true, deploy: false, formation: null, company: CREW3, cap: 12, band: ['brigand_thug', 'brigand_thug'], teach: false, odds: false, auto: true }) });
+      const p = d.page; p.on('pageerror', e => errs.push(profile + ' R9: ' + e.message));
+      try {
+        await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 });
+        const n = await p.evaluate(() => { const th = FIGHT.S.units.filter(v => v.side === 'them' && FIGHT.onField(v)); th.forEach(v => { v.morale = 'Fleeing'; v.givesUp = true; }); FIGHT.S.events.push({ t: 'allflee', n: th.length }); take(); hud(); return th.length; });
+        await p.waitForFunction(() => FIGHT.S.chaseCalc && FIGHT.S.chaseCalc.runs >= R('ours.chase_calc').runs, null, { timeout: 30000 }).catch(() => {});
+        const c = await p.evaluate(() => FIGHT.S.chaseCalc ? Object.assign({ want: R('ours.chase_calc').runs }, FIGHT.S.chaseCalc) : null);
+        await p.waitForFunction(() => FIGHT.S.over, null, { timeout: 60000 }).catch(() => {});
+        const r = await p.evaluate(() => ({ over: FIGHT.S.over, result: FIGHT.S.result, ran: FIGHT.S.units.filter(v => v.side === 'them' && v.fled).length, caught: FIGHT.S.units.filter(v => v.side === 'them' && (v.dead || v.down)).length }));
+        const fits = c && (c.run ? (r.caught > 0 || r.over) : (r.over && r.result === 'won'));
+        leg(!!c && c.runs >= c.want && fits, '*** R9 AUTO\'S HALF: THE CALCULATOR SAYS SPARE OR RUN, AND AUTO DOES IT *** (rule 198(h), 178(c))',
+          c ? 'the worker played ' + c.runs + ' of ' + c.want + ' runs: caught in ' + c.caught + ', every man of his standing in ' + c.safe + ' -> ' + (c.run ? 'RUN THEM DOWN' : 'SPARE THEM') + ' | ' + (r.over ? r.result : 'going on') + ', ' + r.caught + ' caught, ' + r.ran + ' ran of ' + n : 'no answer from the worker');
+      } catch (e) { errs.push(profile + ' R9: ' + e.message.slice(0, 160)); }
       finally { await d.close(); }
     }
   }
