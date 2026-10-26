@@ -29,6 +29,7 @@ from PIL import Image
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
 import bohemia_cook_town_screen_likeness_10_25_26 as LK
+from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach   # the composed ground's walk (the composer's own check)
 
 SHIP = os.path.join(R, 'slices/settlement_ground_towns')
 WREND = os.path.join(R, 'records/target/cook_town_screens/render')
@@ -65,33 +66,6 @@ def flat_edge(a):
     for band in (g[:6], g[-6:], g[:, :6], g[:, -6:]):
         if band.std() < 2.5 or band.mean() < 4: return True
     return False
-
-
-def reach(W, H, blocks, start, targets, cell=8):
-    """the composed ground: the picture less its blocks, in cells; from the entrance, which doors are reached"""
-    gw, gh = W // cell + 1, H // cell + 1
-    free = np.ones((gh, gw), bool)
-    for b in blocks:
-        x0, y0, x1, y1 = b
-        # a block is where a person cannot stand: from its roof to a little above its foot (he stands at a door's foot)
-        free[max(0, int(y0 // cell)):max(0, int((y1 - 6) // cell)), max(0, int(x0 // cell) + 1):max(0, int(x1 // cell))] = False
-    def cellof(p): return min(gh - 1, max(0, int(p[1] // cell))), min(gw - 1, max(0, int(p[0] // cell)))
-    s = cellof(start)
-    if not free[s]:
-        for r in range(1, 12):
-            hit = [(s[0] + dy, s[1] + dx) for dy in range(-r, r + 1) for dx in range(-r, r + 1) if 0 <= s[0] + dy < gh and 0 <= s[1] + dx < gw and free[s[0] + dy, s[1] + dx]]
-            if hit: s = hit[0]; break
-    seen = np.zeros_like(free); stack = [s]; seen[s] = True
-    while stack:
-        y, x = stack.pop()
-        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            q = (y + dy, x + dx)
-            if 0 <= q[0] < gh and 0 <= q[1] < gw and free[q] and not seen[q]: seen[q] = True; stack.append(q)
-    out = {}
-    for k, p in targets.items():
-        c = cellof((p[0], p[1] + 10))
-        out[k] = any(seen[c[0] + dy, c[1] + dx] for dy in (-1, 0, 1, 2) for dx in (-1, 0, 1) if 0 <= c[0] + dy < gh and 0 <= c[1] + dx < gw)
-    return out
 
 
 def main():

@@ -93,6 +93,37 @@ class TallTown(V.Town):
     def __init__(s, *a):
         super().__init__(*a); s.boxes = {}           # the ground taps (lot, build, bar, arms) in metres
 
+    def outlines(s):
+        """where a person cannot stand, per thing and per PIECE of it: a thing's meshes that stand apart (three mattresses, a
+        row of reels, the graves) are separate blocks, never one box over the ground between them (the walk check caught
+        three mattresses written as one block over the whole wash); flat things a man steps over (under 0.45 m) are no block"""
+        import bpy
+        out = []
+        for name, root, walk in s.things:
+            if not walk: continue
+            objs = [o for o in root.children_recursive if o.type == 'MESH'] if hasattr(root, 'children_recursive') else []
+            groups = []
+            for o in objs:
+                lo, hi = s._bounds([o])
+                if hi[0] < lo[0]: continue
+                nb = [lo[0], lo[1], lo[2], hi[0], hi[1], hi[2]]
+                changed = True
+                while changed:
+                    changed = False
+                    for g in list(groups):
+                        if not (nb[0] > g[3] + 0.1 or nb[3] < g[0] - 0.1 or nb[1] > g[4] + 0.1 or nb[4] < g[1] - 0.1):
+                            nb = [min(nb[0], g[0]), min(nb[1], g[1]), min(nb[2], g[2]), max(nb[3], g[3]), max(nb[4], g[4]), max(nb[5], g[5])]
+                            groups.remove(g); changed = True
+                groups.append(nb)
+            for g in groups:
+                if g[5] < 0.45: continue
+                pts = [(x, y, z) for x in (g[0], g[3]) for y in (g[1], g[4]) for z in (max(0.0, g[2]), g[5])]
+                pp = [proj(x, y, z, V.PW, V.PH) for x, y, z in pts]
+                b = [max(0, int(min(p[0] for p in pp))), max(0, int(min(p[1] for p in pp))), min(V.PW, int(math.ceil(max(p[0] for p in pp)))), min(V.PH, int(math.ceil(max(p[1] for p in pp))))]
+                if b[2] - b[0] < 4 or b[3] - b[1] < 4 or b[0] >= V.PW or b[1] >= V.PH or b[2] <= 0 or b[3] <= 0: continue
+                out.append(dict(name=name, box=b, h=round(g[5], 2), w=round(g[3] - g[0], 2)))
+        return out
+
 
 def lay_town(town, pl, K):
     """the TALL town tier"""
@@ -100,7 +131,7 @@ def lay_town(town, pl, K):
     n = town['name']
     BY = 44.0                                                          # the back row's front
     L, Mx, Rx = (18.2, 25.8), (26.0, 33.8), (34.0, 41.8)
-    FY = 20.0                                                          # the front walk's row (one storey, 3.5 deep)
+    FY = 16.0                                                          # the front walk's row (one storey, 3.5 deep): its roof plant stays under a man at the posts
     pl.boxes['lot'] = (25.6, 34.4, 19.5, 25.5, 0.0)
     pl.boxes['build'] = (26.0, 41.4, 37.4, 42.2, 0.0)                # on the street, as wide
     def lamp(x, y, kind='lamp.glb'): pl.lamp(x, y, kind)
@@ -118,10 +149,10 @@ def lay_town(town, pl, K):
         pl.model('graveyard_obelisk.glb', 40.3, 8.4, None, 0.0, 1.0)
         for x in (25.9, 33.9): lamp(x, 43.3, 'streetlight.glb')
         pl.here('palm40', palm, K, 'palm', 40.8, 36.0, 7.5)
-        pl.model('patrol.glb', 29.0, 39.0, None, math.radians(97), 1.0)
-        pl.model('wreck.glb', 21.5, 40.4, None, math.radians(-80), 1.0)
+        pl.model('patrol.glb', 29.0, 37.3, None, math.radians(97), 1.0)          # the cars keep the far lane: never before a door
+        pl.model('wreck.glb', 21.5, 37.4, None, math.radians(-80), 1.0)
         pl.model('rubble.glb', 19.8, 1.6, None, 0.4, 1.0); pl.model('cart.glb', 24.6, 3.0, None, 0.6, 1.0)
-        pl.model('dumpster.glb', 20.0, 14.5, None, 0.1, 1.0); drum(25.3, 27.2)
+        pl.model('dumpster.glb', 19.6, 11.0, None, 0.1, 1.0); drum(25.3, 27.2)
     elif n == 'Reds':                                                  # THE HEART, the bank
         pl.here('bar', parking_deck, K, 'bar', *L, BY, 14, 5)
         pl.here('barber', block, K, 'barber', 26.0, 33.4, BY, 14, 4, 'shop', accent=K.fac)
@@ -136,9 +167,9 @@ def lay_town(town, pl, K):
         pl.here('cashing', block, K, 'cashing', 25.8, 34.2, 6.5, 5.0, 1, 'shop', accent=K.fac, sign=(33.6, K.fac))
         pl.here('smith', block, K, 'smith', 18.3, 24.6, FY, 3.5, 1, 'shop', accent=K.fac)
         pl.here('armourer', block, K, 'armourer', 35.4, 41.7, FY, 3.5, 1, 'shop', wall=K.concrete_warm)
-        pl.model('patrol.glb', 37.5, 39.2, None, math.radians(92), 1.0)
+        pl.model('patrol.glb', 37.5, 37.3, None, math.radians(92), 1.0)
         pl.model('sandbags.glb', 41.0, 36.4, None, 0.0, 1.0)
-        for x, y, r in ((21.0, 3.4, 88), (38.6, 4.2, 95), (20.0, 12.4, 80)): pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
+        for x, y, r in ((21.0, 3.4, 88), (38.6, 4.2, 95), (20.4, 8.4, 80)): pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
         for x in (25.9, 33.5): lamp(x, 43.3, 'streetlight.glb')
         pl.model('rubble.glb', 38.0, 12.0, None, 1.2, 1.0); pl.model('tyres.glb', 23.8, 13.4, None, 0.0, 1.0)
         drum(25.3, 27.2)
@@ -156,11 +187,11 @@ def lay_town(town, pl, K):
             root, _ = pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
             for i_, o in enumerate(root.children_recursive):
                 if o.type == 'MESH': o.data.materials.clear(); o.data.materials.append(K.rust if i_ % 5 == 2 else K.char)
-        for (x, y, r) in ((36.5, 38.6, 100), (21.4, 40.0, 75)):
+        for (x, y, r) in ((36.5, 37.4, 100), (21.4, 37.5, 75)):
             root, _ = pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
             for o in root.children_recursive:
                 if o.type == 'MESH': o.data.materials.clear(); o.data.materials.append(K.char)
-        pl.here('mural2', mural_wall, K, 'mural2', 35.6, 40.8, 14.6, 2.4)
+        pl.here('mural2', mural_wall, K, 'mural2', 35.6, 40.8, 8.0, 2.4)
         pl.built(S.fire, 29.2, 13.0, None, 0.0, 1.0, True); pl.fires.append((29.2, 13.6, 1.6))
         drum(25.3, 27.2); drum(33.4, 26.4)
         pl.model('rubble.glb', 20.4, 2.0, None, 2.2, 1.0)
@@ -174,15 +205,15 @@ def lay_town(town, pl, K):
             for k, x in enumerate(np.arange(26.0, 34.0, 2.1)):
                 P.box(bpy, 'panel%d' % k, K.dark, (1.9, 1.2, 0.05), (x + 1.0, 15.6, 1.1), rot=(math.radians(-28), 0, 0)); Bx(K, 'pv_leg', K.steel, x + 0.9, x + 1.1, 15.8, 16.0, 0, 1.0)
         pl.here('solar', solar)
-        pl.here('hoop_b', hoop_house, K, 'hoop_b', 22.4, 28.0, 6.0, 6.0, K.plastic)
-        pl.here('hoop_c', hoop_house, K, 'hoop_c', 28.6, 34.0, 6.0, 6.0, K.blue_tarp)
-        pl.here('beds_a', beds, K, 'beds_a', 19.0, 24.0, 12.6, 17.0, 3)
-        pl.here('beds_b', beds, K, 'beds_b', 35.6, 41.0, 12.6, 17.0, 3)
+        pl.here('hoop_b', hoop_house, K, 'hoop_b', 24.4, 29.8, 3.0, 6.0, K.plastic)
+        pl.here('hoop_c', hoop_house, K, 'hoop_c', 30.4, 35.8, 3.0, 6.0, K.blue_tarp)
+        pl.here('beds_a', beds, K, 'beds_a', 18.6, 23.8, 9.0, 13.5, 3)
+        pl.here('beds_b', beds, K, 'beds_b', 36.2, 41.4, 9.0, 13.5, 3)
         pl.here('turbine', turbine, K, 'turbine', 19.0, 35.0, 10.0, 3.2, walk=True)
         pl.here('smith', shack, K, 'smith', 18.3, 21.6, FY, 3.0, 2.4, tarp=K.blue_tarp)
         pl.model('shed.glb', 23.4, FY, None, 0.0, 1.0)
         pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY, 3.5, 2.6, tarp=K.fac)
-        pl.model('corral.glb', 34.0, 3.0, None, 0.0, 1.0)
+        pl.model('corral.glb', 39.0, 1.0, None, 0.0, 1.0)
         pl.model('rolled.glb', 19.8, 3.2, None, 0.0, 0.7)
         for x in (25.9, 34.0): lamp(x, 43.0)
         drum(25.3, 27.2)
@@ -228,7 +259,7 @@ def lay_fortress(town, pl, K):
         for x in (18.8, 41.2): pl.here('palm%d' % x, palm, K, 'palm', x, 31.0, 8.5)
         for x in (22.0, 38.0): pl.model('cover_jersey.glb', x, 3.0, None, 0.0, 1.0)
         for x, r in ((23.0, 92), (37.5, 86)): pl.model('wreck.glb', x, 7.0, None, math.radians(r), 1.0)
-        for x in (28.9, 41.2): lamp(x, 42.4, 'streetlight.glb')
+        for x in (29.0, 41.4): lamp(x, CY - 1.2, 'streetlight.glb')
         drum2()
     elif n == 'Caravans':                                              # THE EDGE: the truck stop
         for k, x in enumerate((11.4, 27.4)):                           # two rigs side on along the back, as the truck stop parks them
@@ -237,12 +268,12 @@ def lay_fortress(town, pl, K):
             r_.rotation_euler = (0, 0, math.radians(90)); r_.location = (x + 12.6 + 3.1, 51.0 + k * 0.4 + 1.3, 0)
         pl.here('clinic', block, K, 'clinic', *CL, CY, 8, 1, 'shop', wall=K.concrete_warm, accent=K.fac, ground_h=4.8)
         pl.here('barber', block, K, 'barber', *BL, CY, 9, 1, 'shop', wall=K.concrete_warm, accent=K.fac)
-        pl.here('canopy', canopy, K, 'canopy', 18.4, 29.0, 10.0, 14.5, 4.6, K.fac)
-        for x in (21.6, 26.0): pl.model('cover_pump.glb', x, 11.4, None, 0.0, 1.0)
+        pl.here('canopy', canopy, K, 'canopy', 18.4, 29.0, 3.0, 7.5, 4.6, K.fac)          # the fuel canopy in front, low enough to show the posts
+        for x in (21.6, 26.0): pl.model('cover_pump.glb', x, 4.4, None, 0.0, 1.0)
         for k, x in enumerate((33.0, 38.6)): pl.here('semi%d' % k, cab, K, 'semi', x, 9.0, K.bone if k else K.mustard)
         for k, y in enumerate((44.0, 46.4)): pl.model('propane.glb', 40.6, y, None, 0.0, 2.0)
-        pl.model('tyres.glb', 20.0, 3.0, None, 0.0, 1.0); pl.model('drums.glb', 37.0, 2.6, None, 0.2, 1.0)
-        for x in (28.9, 41.2): lamp(x, 42.4)
+        pl.model('tyres.glb', 33.6, 2.4, None, 0.0, 1.0); pl.model('drums.glb', 37.0, 2.6, None, 0.2, 1.0)
+        for x in (29.0, 41.4): lamp(x, CY - 1.2)
         drum2()
     elif n == 'Cartel':                                                # THE EDGE: storage rows behind a dark wall
         def back_wall():
@@ -255,10 +286,10 @@ def lay_fortress(town, pl, K):
             block(K, 'office', BL[0], BL[1], CY, 8, 2, 'cells', wall=K.concrete_dk, roof=True)
             dish(K, 'office_dish', BL[1] - 2.6, CY + 4.0, 0.8)
         pl.here('barber', office)
-        pl.here('watch_b', tower, K, 'watch_b', 20.0, 9.6, 6.0, 2.4, K.black)
+        pl.here('watch_b', tower, K, 'watch_b', 19.2, 4.0, 6.0, 2.4, K.black)
         pl.here('front_wall', front_wall)
         pl.model('sandbags.glb', 30.0, 9.6, None, 0.0, 1.0); pl.model('wreck.glb', 37.0, 12.0, None, math.radians(70), 1.0)
-        for x in (28.9, 41.2): lamp(x, 42.4)
+        for x in (29.0, 41.4): lamp(x, CY - 1.2)
         drum2()
     elif n == 'Network':                                               # BETWEEN: the mast and its dishes
         pl.here('exchange', block, K, 'exchange', 18.2, 41.8, 52.0, 8, 3, 'blank', wall=K.concrete)
@@ -267,16 +298,16 @@ def lay_fortress(town, pl, K):
         def doors():
             for x in (CL[0] + 2.0, CL[0] + 6.5, CL[0] + 10.5): Bx(K, 'door_teal', K.fac, x - 0.6, x + 0.6, CY - 0.05, CY - 0.02, 0.0, 2.4)
         pl.here('doors', doors)
-        pl.here('mast', mast, K, 'mast', 21.6, 44.6, 34.0, 3.2)
+        pl.here('mast', mast, K, 'mast', 27.5, 35.4, 34.0, 3.2)        # in the gap between the barber and the exchange's front block: it shows its whole height
         for k, (x, y) in enumerate(((35.0, 8.6), (39.6, 10.4))): pl.here('dish%d' % k, dish, K, 'dish', x, y, 1.9)
-        pl.here('barber', block, K, 'barber', *BL, CY, 9, 2, 'office', wall=K.concrete, lit=0.3)
+        pl.here('barber', block, K, 'barber', BL[0], 25.6, CY, 9, 2, 'office', wall=K.concrete, lit=0.3)
         def reels():
             for k, x in enumerate((21.0, 22.6, 38.4)): P.cyl(bpy, 'reel%d' % k, K.wood, 0.75, 0.7, (x, 9.0 + k * 0.4, 0.75), rot=(0, math.pi / 2, 0), verts=16)
         pl.here('reels', reels)
         root, _ = pl.model('container.glb', 33.0, 4.0, None, 0.0, 1.0)
         for o in root.children_recursive:
             if o.type == 'MESH' and rnd.random() < 0.6: o.data.materials.clear(); o.data.materials.append(K.fac)
-        for x in (28.9, 41.2): lamp(x, 42.4, 'streetlight.glb')
+        for x in (29.0, 41.4): lamp(x, CY - 1.2, 'streetlight.glb')
     else:                                                              # Remnants: the prison
         def prison_wall():
             Bx(K, 'pwall', K.concrete, 14.0, 46.0, 54.0, 54.6, 0, 5.2)
@@ -288,17 +319,17 @@ def lay_fortress(town, pl, K):
         pl.here('clinic', block, K, 'clinic', *CL, CY, 10, 2, 'cells', wall=K.concrete_warm)
         pl.here('barber', block, K, 'barber', *BL, CY, 9, 1, 'office', wall=K.concrete)
         def cage():
-            fence_fast(K, 'cage_back', 19.2, 26.6, 15.4, 3.2); fence_fast(K, 'cage_front', 19.2, 26.6, 9.4, 3.2)
+            fence_fast(K, 'cage_back', 19.2, 26.6, 9.0, 3.2); fence_fast(K, 'cage_front', 19.2, 26.6, 3.0, 3.2)
             for x in (19.2, 26.6):
-                for y in np.arange(9.4, 15.5, 2.0): P.cyl(bpy, 'cage_post', K.mm['trim'], 0.03, 3.25, (x, y, 1.62), verts=8)
-                P.rod(bpy, 'cage_rail', K.mm['trim'], (x, 9.4, 3.2), (x, 15.4, 3.2), 0.02, 6)
-            P.rod(bpy, 'hoop_pole', K.steel, (22.9, 15.2, 0), (22.9, 15.2, 3.4), 0.06, 6); Bx(K, 'backboard', K.bone, 22.3, 23.5, 14.8, 14.9, 3.0, 3.9)
+                for y in np.arange(3.0, 9.1, 2.0): P.cyl(bpy, 'cage_post', K.mm['trim'], 0.03, 3.25, (x, y, 1.62), verts=8)
+                P.rod(bpy, 'cage_rail', K.mm['trim'], (x, 3.0, 3.2), (x, 9.0, 3.2), 0.02, 6)
+            P.rod(bpy, 'hoop_pole', K.steel, (22.9, 8.8, 0), (22.9, 8.8, 3.4), 0.06, 6); Bx(K, 'backboard', K.bone, 22.3, 23.5, 8.4, 8.5, 3.0, 3.9)
         pl.here('cage', cage)
-        pl.here('guard_c', tower, K, 'guard_c', 39.4, 9.0, 5.5, 2.6, K.fac)
-        pl.here('front_wire', razor, K, 'front_wire', 14.0, 44.0, 5.0, 2.4)
+        pl.here('guard_c', tower, K, 'guard_c', 40.0, 5.0, 5.5, 2.6, K.fac)
+        pl.here('front_wire', razor, K, 'front_wire', 14.0, 44.0, 1.4, 2.4)
         pl.model('patrol.glb', 33.0, 12.2, None, math.radians(90), 1.0)
         for k, x in enumerate((19.6, 21.6)): pl.model('sandbags.glb', x, 24.6 + k * 1.2, None, 0.0, 1.0)
-        for x in (28.9, 41.2): lamp(x, 42.4)
+        for x in (29.0, 41.4): lamp(x, CY - 1.2)
     pl.built(S.stall, 22.8, 24.4, 7.0, 0.0, 1.0, 7.0)
     pl.built(S.board, 28.6, 25.4, 2.0)
     pl.built(S.posts, 22.6, 18.0, None, 0.0, 1.0, 7.0)
@@ -517,11 +548,15 @@ def taps_tall(town, meta):
     return hot, boxes
 
 
-def doors_of(hot, boxes):
-    """where a keeper stands and where he walks in: the foot of each tap, its middle (picture px)"""
+GROUND = {'lot', 'build', 'bar', 'arms'}
+
+
+def doors_of(hot, boxes, ground=GROUND):
+    """where a keeper stands and where he walks in (picture px): a building's or a stall's foot, its middle; a patch of ground
+    he taps (the lot, the build ground, the bar's fire, the arms) its middle"""
     out = {}
     for r, v in list(hot.items()) + [(k, {'box': b}) for k, b in boxes.items() if k != 'look']:
-        b = v['box']; out[r] = [int((b[0] + b[2]) / 2), int(b[3])]
+        b = v['box']; out[r] = [int((b[0] + b[2]) / 2), int((b[1] + b[3]) / 2) if r in ground else int(b[3])]
     return out
 
 
@@ -534,6 +569,33 @@ def entrance_of(town, W, H, wide=False):
 
 
 V_STREET_Y = {'town': 31.8, 'fortress': 39.0, 'camp': 29.5}       # the 10/25 pictures' street, track and road
+
+
+def reach(W, H, blocks, start, targets, cell=8):
+    """the composed ground: the picture less its blocks, in cells; from the entrance, which doors are reached"""
+    gw, gh = W // cell + 1, H // cell + 1
+    free = np.ones((gh, gw), bool)
+    for b in blocks:
+        x0, y0, x1, y1 = b
+        # a block is where a person cannot stand: from its roof to a little above its foot (he stands at a door's foot)
+        free[max(0, int(y0 // cell)):max(0, int((y1 - 6) // cell)), max(0, int(x0 // cell) + 1):max(0, int(x1 // cell))] = False
+    def cellof(p): return min(gh - 1, max(0, int(p[1] // cell))), min(gw - 1, max(0, int(p[0] // cell)))
+    s = cellof(start)
+    if not free[s]:
+        for r in range(1, 12):
+            hit = [(s[0] + dy, s[1] + dx) for dy in range(-r, r + 1) for dx in range(-r, r + 1) if 0 <= s[0] + dy < gh and 0 <= s[1] + dx < gw and free[s[0] + dy, s[1] + dx]]
+            if hit: s = hit[0]; break
+    seen = np.zeros_like(free); stack = [s]; seen[s] = True
+    while stack:
+        y, x = stack.pop()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (y + dy, x + dx)
+            if 0 <= q[0] < gh and 0 <= q[1] < gw and free[q] and not seen[q]: seen[q] = True; stack.append(q)
+    out = {}
+    for k, p in targets.items():
+        c = cellof((p[0], p[1] + 10))
+        out[k] = any(seen[c[0] + dy, c[1] + dx] for dy in (-1, 0, 1, 2) for dx in (-1, 0, 1) if 0 <= c[0] + dy < gh and 0 <= c[1] + dx < gw)
+    return out
 
 
 def corner_clear(box, W=TW, H=TH):
@@ -552,11 +614,12 @@ def patch_tall():
 
 def fill_tall(town, pl, K, n_want=14):
     """the 10/25 fill (the town's own junk on its free ground), kept off the upright frame's taps"""
-    occ = [o['box'] for o in pl.outlines()]
+    now = TallTown.outlines(pl)                    # the measure so far (never the render's checked one)
+    occ = [o['box'] for o in now]
     taps = [gbox(*b) for b in pl.boxes.values()]
     # the open middle and the walks in front of the tap things are kept clear for people
     for nm in ('stall', 'posts', 'board', 'barber', 'clinic', 'smith', 'armourer', 'bar'):
-        for o in pl.outlines():
+        for o in now:
             if o['name'] == nm: b = o['box']; taps.append([b[0], b[3] - 20, b[2], b[3] + 80])
     occ += [[b[0] - 30, b[1] - 20, b[2] + 30, b[3] + 30] for b in taps]
     kinds = V.TOWN_FILL.get(town['name'], ['crates', 'drums'])
@@ -581,10 +644,20 @@ def _dump(obj, fp, *a, **k):
 _LAST = {}
 
 
+class LayoutBad(Exception):
+    pass
+
+
 class _Hook(TallTown):
     def outlines(s):
+        """the render's own measure (after the fill): the doors and the phone's corner checked here, before the long render;
+        a town that fails is named and not rendered"""
         _LAST['boxes'] = s.boxes
-        return super().outlines()
+        out = super().outlines()
+        if _LAST.get('town') is not None:
+            bad = check_layout(_LAST['town'], {'outlines': out, 'boxes': s.boxes})
+            if bad: raise LayoutBad(', '.join(bad))
+        return out
 
 
 def ship_tall(towns_):
@@ -619,19 +692,62 @@ def ship_tall(towns_):
                          doors=doors_of(hot, boxes), entrance=entrance_of(town, TW, TH))
         bl = sorted({tuple(o['box']) for o in meta['outlines']})
         for suf in ('', '_night'): walk['pictures'][s + '_tall' + suf + '.webp'] = {'blocks': [list(b) for b in bl]}
+        wm = json.load(open(os.path.join(R, 'records/target/cook_town_screens/render', s + '.json')))
+        wb = sorted({tuple(o['box']) for o in wm['outlines'] if o['h'] >= 0.45})        # the wide's: a flat thing he steps over is no block
+        for suf in ('', '_night'): walk['pictures'][s + suf + '.webp'] = {'blocks': [list(b) for b in wb]}
         print('  shipped tall', s, len(bl), 'outlines', flush=True)
     json.dump(man, open(manp, 'w'), indent=1)
     json.dump(walk, open(walkp, 'w'), indent=1)
+
+
+def check_layout(town, meta):
+    """the door and the phone's corner, before the long render: what fails is named"""
+    hot, boxes = taps_tall(town, meta); doors = doors_of(hot, boxes); ent = entrance_of(town, TW, TH)
+    r = reach(TW, TH, [o['box'] for o in meta['outlines']], ent['at'], doors)
+    bad = ['door ' + k for k, v in r.items() if not v]
+    bad += ['corner ' + k for k, v in list(hot.items()) + list(boxes.items()) if not corner_clear(v['box'] if isinstance(v, dict) else v)]
+    return bad
+
+
+def layout_only(town):
+    """the scene built and measured as the render builds it (the same seed, plan, layout and fill), its outlines and taps
+    written to tall/layout/<town>.json, nothing rendered: the door check before the long render"""
+    import bpy, hashlib, random
+    import bohemia_cook_model_props as P
+    import bohemia_cook_model_buildings as BLD
+    import bohemia_cook_the_floor_not_final_10_20_26 as NF
+    F = NF.F
+    seed = int(hashlib.sha1(('town:' + town['name']).encode()).hexdigest()[:6], 16) % 9973
+    rnd = random.Random(seed)
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    NF.LEDGER.clear(); NF.LEDGER.update(bid='settle.' + town['slug'], seed=seed % 97)
+    g = plan_tall(town, rnd)
+    objs, gg = F.build(bpy, g, 2020 + seed, True)
+    K = V.Kit(bpy, P, BLD, town, rnd)
+    pl = TallTown(bpy, P, rnd)
+    layout_tall(town, pl, K)
+    filled = fill_tall(town, pl, K, 14 if town['tier'] != 'camp' else 18)
+    meta = dict(name=town['name'], tier=town['tier'], outlines=pl.outlines(), boxes=pl.boxes, filled=filled, seed=seed)
+    od = os.path.join(TOUT, 'layout'); os.makedirs(od, exist_ok=True)
+    _orig_render_dump(meta, open(os.path.join(od, town['slug'] + '.json'), 'w'), indent=0)
+    return meta
 
 
 if __name__ == '__main__':
     a = sys.argv[1:]
     want = [x for x in a if not x.startswith('--')]
     T = [t for t in V.towns() if not want or t['name'] in want or t['slug'] in want]
+    if '--layout-only' in a:
+        patch_tall()
+        for town in T: m = layout_only(town); print('  laid out', town['name'], check_layout(town, m) or 'every door walked to, every tap clear of the phone', flush=True)
+        sys.stdout.flush(); os._exit(0)
     if '--swap-only' not in a:
         patch_tall(); V.Town = _Hook; json.dump = _dump
-        for town in T:
-            d, nn = V.render(town, quick='--quick' in a, day_only='--day-only' in a); print('  rendered tall', town['name'], d, nn, flush=True)
+        for town in list(T):
+            _LAST['town'] = town
+            try: d, nn = V.render(town, quick='--quick' in a, day_only='--day-only' in a); print('  rendered tall', town['name'], d, nn, flush=True)
+            except LayoutBad as ex: print('  NOT RENDERED', town['name'], str(ex), flush=True); T.remove(town)
+        _LAST['town'] = None
         json.dump = _orig_render_dump
     if '--quick' not in a and '--no-ship' not in a: ship_tall(T)
     sys.stdout.flush(); os._exit(0)
