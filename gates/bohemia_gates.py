@@ -9640,6 +9640,15 @@ GATES = [
      "LEVEL UP and PICK A PERK; pieces off the dead; LOOT ALL (a real tap) into the stash, the counts into the purse once; PICK A "
      "PERK opens the one crew screen, a perk taken, the looted weapon into a man's hand; LEAVE home; the door and the next road "
      "fight hand him the looted weapon. green at registration, 19/0, about 2 min", True),
+    ('OPTIMIZE LOOT', ['node', 'gates/optimize_loot_gate.js'],
+     "RUN FOUR gate, 10/26, rows [optimize loot] and [one tap selects, two taps take] (rules 244, 249, Paolo 10/26: 'an optimize loot button at the end of battle "
+     "screen... if my inventory is full but there are ten more things that could be taken... it takes the things in your inventory that are sellable at the lowest "
+     "price and replaces them with the more expensive loot'; 'when I click something once... it should be highlighted... I just double click it'). MEASURED before: "
+     "LOOT ALL in the ground's order and stop; a full stash got better only piece by piece; no price anywhere on the screen; one tap moved a piece. HOLDS: 600 rolled "
+     "stashes against every possible stash, at the plain price and five towns (the best, the same pick at every town); nothing KEEP, bought, worn or a job's moves; "
+     "the shop's own sellBack and isJunk cut out of its file agree with ours; phone and computer: OPTIMIZE LOOT beside LOOT ALL with its gain, one real tap makes the "
+     "most valuable stash, the strip shows what it left and took and the gain, UNDO puts back every piece exactly; one tap lights a piece and moves no box, two taps "
+     "(a double click, a right click) take it; the live demo after a road fight. green at registration, 22/0, about 2 min", True),
     ('THE STARS SIT WITH THE WORDS', ['node', 'gates/the_stars_sit_with_the_words_gate.js'],
      "RUN TWO gate, 10/24, row [the stars sit with the words] (rule 146(e), Paolo 10/24: 'even on the hire screen the stars are a "
      "little too big and not nicely put with the UI's letters, so make the stars smaller'): on the hall's hire cards and a man's "

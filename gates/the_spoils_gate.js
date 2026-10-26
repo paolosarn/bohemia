@@ -8,7 +8,7 @@
    in the stash, equip it, fight with it, on the surface he plays.
      L1 the rules are Battle Brothers' own, quoted, and every count that is ours says why (records/target/bb/loot.json)
      S1 the full stash STOPS: the screen on its own sample, the stash one short of the ground, LOOT ALL takes what fits and
-        says it is full; a piece put back makes room and a tap takes the last one
+        says it is full; a piece put back makes room and two taps take the last one (rule 249, RE-AIMED RUN FOUR 10/26)
      T0 THE DEMO: a town first (its screen's frame stands between visits)
      D1 a road fight through the map's own door; every man of theirs falls; the fight's card comes up
      D2 *** THE SPOILS WAIT FOR HIM *** the spoils screen lies over the fight and the game does NOT go home on its own
@@ -69,8 +69,10 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
   const full = await sp.evaluate(() => { const S = BohemiaSpoilsScreen.state; return { stash: S.stash.length, left: S.ground.length, said: document.getElementById('said').textContent, red: document.getElementById('said').className }; });
   ok('S1 the stash one short of the ground: LOOT ALL takes what fits, STOPS, and says it is full',
     n.ground >= 2 && full.stash === n.cap && full.left === 1 && /full/i.test(full.said) && full.red === 'full', n.ground + ' on the ground, ' + n.stash + ' in the stash: ' + full.said);
-  await sp.tap('#stash .slot.full >> nth=0'); await sp.waitForTimeout(150);
-  await sp.tap('#ground .slot.full >> nth=0'); await sp.waitForTimeout(150);
+  /* RE-AIMED RUN FOUR 10/26 (rule 249, Paolo 10/26: 'when I click something once... it should be highlighted... I just double
+     click it'): one tap lights a piece, two taps put it back or take it */
+  await sp.tap('#stash .slot.full >> nth=0'); await sp.tap('#stash .slot.full >> nth=0'); await sp.waitForTimeout(150);
+  await sp.tap('#ground .slot.full >> nth=0'); await sp.tap('#ground .slot.full >> nth=0'); await sp.waitForTimeout(150);
   const after = await sp.evaluate(() => { const S = BohemiaSpoilsScreen.state; return { stash: S.stash.length, left: S.ground.length, kept: JSON.parse(localStorage.getItem('bohemia.bag.v1')).length }; });
   ok('    a piece put back makes room, and a tap takes one from the ground; the stash is kept', after.stash === n.cap && after.left === 1 && after.kept === n.cap, JSON.stringify(after));
   /* EYES [eyes: the end screen's words] (rule 150): the wipe's head is not its word twice, and the loot's head reads as English */
