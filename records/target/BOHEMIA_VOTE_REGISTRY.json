@@ -15569,6 +15569,25 @@
      736
     ]
    }
+  },
+  {
+   "id": "animation-the-minutes-after-a-fight-10-26",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "a6fb707f",
+   "made": "10/26",
+   "title": "THE MINUTES AFTER A FIGHT: YOUR MEN BEHIND THE LOOT SCREEN",
+   "said": "instead of it being black... a live show, as zoomed in as it can be, of your characters looting the bodies and walking between them... research what people typically do after battles",
+   "why": "Behind the loot screen your own men on the fight's ground: one goes through a dead man's pockets and pockets a battery, one kneels by a hurt friend, one ties a rag round his cut arm, one is bent over catching his breath, two smoke and talk, all of it from soldiers' memoirs and the army's manuals. You see it in the VOTE tab moving on the beat, and dimmed the way it sits behind the loot screen.",
+   "options": [
+    "A, yes, play it behind the loot screen",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_MINUTES_AFTER_A_FIGHT.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
