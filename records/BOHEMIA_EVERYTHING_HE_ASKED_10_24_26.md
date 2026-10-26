@@ -212,3 +212,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 192 | Before the game starts I can customise my main guy, with the barber's UI | 263(b) | RUN THREE, PORTRAIT, EYES | 
 | 193 | Research Battle Brothers' healing and repair times; our day is denser (one of ours is three or four of theirs), so heal faster or camp easily | 264 | TUNING, CAMP, EYES | 
 | 194 | Do the math on our pace against Battle Brothers' (walking, interactions, fights) | 264(f) | the coordinator (done: about 5 of our fights a day to their 1; healing x4) | 
+| 195 | Every stall in every settlement always sells at least a stack of duct tape | 265(a) | RUN TWO, ECONOMY, EYES | 
+| 196 | Every stall buys everything I carry, even in a stall-only town (pays less) | 265(b) | RUN TWO, EYES | 
+| 197 | Trade goods to buy where they're made and sell elsewhere; the map shows which town pays best for my goods | 266 | ECONOMY, RUN TWO, WORLD TWO, EYES | 
