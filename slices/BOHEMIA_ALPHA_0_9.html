@@ -7,6 +7,9 @@
 <script src="../engine/bohemia_condition.js"></script>
 <!-- __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (RUN TWO, rule 210): what a town's shop put straight on a man, for the fight's door (nfOpts) -->
 <script src="../engine/bohemia_shop_wear.js"></script>
+<!-- __THE_UI_MORPHS__ (MOTION 10/26, [the UI morphs], rule 229): the one motion layer over every frame; nothing cuts,
+     a tap is never lost, on the beat, REDUCED MOTION fades (slices/bohemia_motion.js) -->
+<script src="bohemia_motion.js"></script>
 <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- IT GOES ON HIS HOME SCREEN (demo board row 6).
      iOS DOES NOT read the manifest's icons for the springboard: it reads
      apple-touch-icon, and that element OVERRIDES the manifest list where both
@@ -1558,7 +1561,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26s - TWO JOBS AT ONCE ON THE BOARD</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26t - THE UI MORPHS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -41441,6 +41444,9 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     var c=el('setclose'); if(c) c.addEventListener('click', close);
     var m=el('setmute'); if(m) m.addEventListener('click', function(){ muted=!muted; commit(); });
     var ec=el('setenc'); if(ec) ec.addEventListener('click', nextEnc);
+    /* __THE_UI_MORPHS__ (MOTION 10/26, rule 229(b)): MOTION was painted and saved and never tappable; LESS is REDUCED MOTION,
+       every morph a quick fade (slices/bohemia_motion.js reads motion()) */
+    var mo=el('setmotion'); if(mo) mo.addEventListener('click', function(){ lessmo=!lessmo; commit(); });
     var sv=el('setsave'); if(sv) sv.addEventListener('click', doSave);
     var q=el('setquit'); if(q) q.addEventListener('click', doQuit);
     var vb=el('setvote'); if(vb) vb.addEventListener('click', openVote);

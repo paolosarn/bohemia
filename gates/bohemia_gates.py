@@ -9982,6 +9982,16 @@ GATES = [
      "for food and a dose and says it is short, the need eases unit by unit, a glut takes nothing, the warning fires under a night a man; every stall of the valley over a quarter of weeks, "
      "both standings, every count to twelve, sells under what it charges; THE SQUEEZE on the live dice (tools/bohemia_economy_buy_versus_sell.js): week one's best trading under one routine "
      "contract, no week of the year's under a week of food for three, Battle Brothers' own spread pays nothing; TUNING's one table carries section R. Eight mutations turn it red. 1 s", False),
+    ('THE UI MORPHS', ['node', 'gates/the_ui_morphs_gate.js'],
+     "MOTION gate, 10/26, row [the UI morphs] (rule 229, Paolo 10/26: 'see things morph into each other UI-wise... it has to be smart... frictionless on purpose... "
+     "the UI transforms into each other with an animation... I hate how it's all static'; the first votes: ONE GAME MODE, NO TELEPORT). MEASURED before: every change cut "
+     "(the town frame display none to block in one frame, the fight's panels swapped under the clouds with the bar and the phone gone for one to three seconds, the crew door "
+     "appended whole, BUY and TAKE redrew their card; the settings' MOTION button never tappable). On the demo, phone and computer, every frame recorded by the browser's own "
+     "screen recorder: the map to a town grows out of its place on twos in budget (500 to 1,000 ms, the town drawn under 2 s) with the bar and the phone on the glass in every "
+     "frame; a tap 150 ms in reaches the town's own page and skips the morph; LEAVE shrinks it back; BUY flies the item onto the man the card shows (250 to 500 ms); TAKE flies "
+     "the offer onto the phone's new card; CAMP grows the camp and BREAK CAMP takes it back; CREW grows the crew screen and DONE shrinks it into CREW; into a fight the bar is held "
+     "over the clouds in every frame and the phone folds into his abilities as they part, and home again; the gear's MOTION turns to LESS and a town then opens as a fade in "
+     "place, nothing travels; no morph counts an empty frame; nothing thrown. about 9 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
