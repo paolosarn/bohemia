@@ -320,7 +320,8 @@ def map_her():
 def idles_her(pids=None):
     """the idles' own steps for her (ANIMATION [everybody idles]): her bare idles and her gun-held idles rendered on her own
     model (person_idles, carry_one: her build through the hook), then the idles' people_pack run on her alone: it would
-    otherwise write the map's people file with only the people rendered here and drop every rolled man's fight idles"""
+    otherwise write the map's people file with only the people rendered here and drop every rolled man's fight idles (her map
+    cells, on her own map sheet town_5, are merged into the map's people file beside everybody's)"""
     import bohemia_animation_everybody_idles as EI
     for p in (pids or [q['id'] for q in women()]):
         tag = 'person_' + p.lower()
@@ -328,7 +329,10 @@ def idles_her(pids=None):
         if tag in EI.fight_people() and not EI.carry_done(tag): EI.carry_one(p)
     src = inspect.getsource(EI.people_pack)
     cuts = [("    json.dump(mj, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))\n",
-             "    if mj['looks']: json.dump(mj, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))\n"),
+             "    old = json.load(open(os.path.join(ROOT, OUT, 'map_people.json')))\n"
+             "    for k_ in [k_ for k_ in old['looks'] if k_ in HERS]: del old['looks'][k_]\n"
+             "    old['files'].update(mj['files']); old['looks'].update(mj['looks'])\n"
+             "    if mj['looks']: json.dump(old, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))\n"),
             ("    for k in [k for k in index['looks'] if k.startswith('fight_person_')]: del index['looks'][k]\n",
              "    for k in [k for k in index['looks'] if k[len('fight_'):] in HERS]: del index['looks'][k]\n")]
     for a, b in cuts:

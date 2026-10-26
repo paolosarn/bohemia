@@ -43,7 +43,17 @@ THE SOURCE, KEPT (rule 128): records/target/animation/BOHEMIA_HER_BODY.json. THE
   the fight's sheet index, its face strip and the bands' pools, and the map's people.
 
 ## WHERE SHE STANDS
-(filled as the renders land; see the board line)
+- LIVE 10/26: the four women in the roll and the people mix as 'f', on the fight's board (the post deals her at his 4 percent:
+  RUN THREE's gate reads 407 of 10,000 hires women, each her body and a woman's name), her fight sheet (packed by RUN's packer),
+  her face in the fight's strip and on the card, her stills, her walk sheet, her map sheet (slices/rig_mix/town_5, baked on her
+  alone: no man's map sheet baked again), her idles (bare, gun-held, and on the map: merged into the map's people file beside
+  everybody's, 231 entries to 239, nobody's changed).
+- CAUGHT ON THE WAY: her idles' pack is the idles' people_pack run on her alone, its source read and patched in memory; I had
+  edited the idles' tool (three lines at its head) while her renders ran, so the running process read the new file at the old
+  line numbers and refused (its own guard). And the guard saved more: she is on a map sheet now, so the patched pack would have
+  written the map's people file with the women alone; it merges into it now.
+- RENDERING: her town activities (the same six, her body), then her pistol-in-one-hand and cover keys, then her melee keys
+  (the same skeleton: the men's queue renders her). HER BODY gate 8/1 until her town activities land (M1), then into the suite.
 
 ## GATE
 HER BODY (gates/her_body_gate.py, in the suite): S the source; R the roll (after every man, 'f', no beard); B her body in the
