@@ -37,6 +37,14 @@ New Crew against thugs, the twelve (the Block Watch from the door), and the benc
 Not counted as wrong: 276 turns a gunman had no tile in his walk with a shot (the walk toward one is the open question), 41 turns
 a melee man had no way to any foe (a roof no club reaches, a fenced lot), 26 turns in a net.
 
+## 2b. RE-MEASURED ON TODAY'S MAIN (rules print 90442ba0a051, after COMBAT's [retreat and the rout, a chase], 75a94cdc; the same
+600 fights, the bank's second round; COMBAT TWO's brain still not pushed). THIS IS THE BEFORE COMBAT TWO IS MEASURED AGAINST:
+18,403 turns, won 418 (413), clean 223 (225). WINDED 796 (4.3 in 100), LOW SHOT 233 of 6,157, SPREAD 143 of 4,120 rounds (3.5), THE
+IDLE GUNMAN 306, KEY MAN 9 of 513, KEY MAN LAST 15 of 74 fights (was 24: a broken Mechanic now runs and counts as fallen), NEVER STRUCK
+11 of 960, LONE 39 of 4,626; PARKED 19 of 8,160 melee turns (was 8; still under COMBAT's 1 in 100), a walk open 37 (was 25), the
+dance 10, free hits for nothing 4, a blow left 0. Focus share 67.4, hurt and standing 1.08. The rout moved nothing on the board but
+the Mechanic's count; the parked men rose by 11 in 8,160 turns, inside the noise and worth watching.
+
 ## 3. THE WINDED TRAP IS NOT THE BRAIN'S (the round's finding)
 EYES' worst case reproduced on the first fight (--fight wolf 1): the Lone Wolf swings twice in rounds 1 and 2, fells a dire wolf
 in round 3, then ends every turn from round 4 with 9 of 9 AP beside a hyena and a wolf. canStrike refuses him: his fatigue sits at
