@@ -234,3 +234,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 214 | Damage gets its own icon everywhere | 275(b) | UI THREE, EYES | 
 | 215 | (said again) A free lineup retreat for the whole squad; the map bounces me two or three blocks away | 275(c) | COMBAT, CAMP, EYES | 
 | 216 | What is scrap? Scrap should be tape (repair); and tape must be buyable at every stall now: my run died on day four with no tape | 276 | RUN TWO, RUN FOUR, EYES | 
+| 217 | A town's smith or armourer repairs my gear quickly for a price | 277 | RUN TWO, ECONOMY, EYES | 
