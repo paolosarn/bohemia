@@ -59,7 +59,7 @@ screen and the phone already wear rendered pieces. Two did not hold up:
    box he touches still drawn as a flat plate (#notecard: one colour and four inset lines). Now: a sheet of the rendered board, what
    he writes on the rendered thermal paper in the receipt's ink (he writes on the till roll the game prints on), CLOSE, COPY ALL and
    EXPORT tin, SAVE AND KEEP PLAYING the amber tin; NOTES, where he was and the notes he kept printed light on the board. Same boxes,
-   same sizes (the kit's own rule: measured with the kit on and off). Picture: the notes on the map, phone upright, this round.
+   same sizes (the kit's own rule: measured with the kit on and off). Picture: records/target/UI_THE_NOTES_IN_THE_KIT_10_26_26.png (the notes on the map, phone upright); the fight and the loot screen: records/target/UI_NO_TOP_BAR_IN_THE_FIGHT_10_26_26.png.
 2. AUTO'S WORD IN THE SUN: the fight's AUTO wears COMBAT's odds tint (rule 144) laid by multiply, which darkened the tin under the
    word to 3.28 to 1 in the sun (THE UI BELONGS TO THE WORLD red ON MAIN before this round, measured with main's file). Laid by
    'color' now: the tin keeps its own light and takes only the hue, green when the fight is his, red when not; the tint's element
