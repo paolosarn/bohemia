@@ -197,7 +197,7 @@ def lay_town(town, pl, K):
         def coop_awning(): K.P.box(bpy, 'coop_awning', K.fac, (9.0, 2.0, 0.05), (24.0, BY - 1.0, 2.6), rot=(math.radians(-14), 0, 0))
         pl.here('coop_awning', coop_awning)
         pl.here('hoop_a', hoop_house, K, 'hoop_a', 34.0, 41.6, 30.0, 5.5, K.blue_tarp)        # the bar: the hoop house beside the open middle
-        pl.here('tank', water_tower, K, 'tank', 20.0, 4.0, 1.6, 3.6, K.blue_tarp)      # in the front corner, never before a door
+        pl.here('tank', water_tower, K, 'tank', 39.8, 1.0, 1.6, 3.6, K.blue_tarp)      # in the front corner, its 7 m short of the armourer's door
         def solar():
             for k, x in enumerate(np.arange(26.0, 34.0, 2.1)):
                 P.box(bpy, 'panel%d' % k, K.dark, (1.9, 1.2, 0.05), (x + 1.0, 15.6, 1.1), rot=(math.radians(-28), 0, 0)); Bx(K, 'pv_leg', K.steel, x + 0.9, x + 1.1, 15.8, 16.0, 0, 1.0)
@@ -210,7 +210,6 @@ def lay_town(town, pl, K):
         pl.here('smith', shack, K, 'smith', 18.3, 21.6, FY, 3.0, 2.4, tarp=K.blue_tarp)
         pl.model('shed.glb', 23.4, FY, None, 0.0, 1.0)
         pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY, 3.5, 2.6, tarp=K.fac)
-        pl.model('corral.glb', 39.0, 1.0, None, 0.0, 1.0)
         pl.model('rolled.glb', 22.6, 0.6, None, 0.0, 0.7)
         for x in (25.9, 34.0): lamp(x, 43.0)
         drum(25.3, 27.2)
@@ -483,7 +482,7 @@ def plan_tall(town, rnd):
             for x in np.arange(20, 27, 3.0): band(9.4, 15.4, 'paint', x, x + 0.1)
     else:
         if n == 'Homeless':
-            band(0, 60, 'rough'); band(44.0, 58.0, 'concrete', 16, 44); band(32.0, 35.0, 'playa', 0, 60); band(1, 9, 'desert')
+            band(0, 60, 'rough'); band(39.0, 60.0, 'concrete', 16, 44); band(27.5, 37.5, 'playa', 0, 60); band(1, 9, 'desert')   # the wash's concrete and its dry bed, as wide
         elif n == 'Custom':
             band(0, 60, 'caliche'); band(32, 35, 'track'); band(44, 58, 'concrete', 24, 44); band(12, 20, 'rough', 18, 32)
         elif n == 'Trades':

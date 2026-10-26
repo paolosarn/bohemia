@@ -64,8 +64,16 @@ CAMP = {'Colorful': [], 'Custom': [], 'Homeless': [],
         'Trades': [('dozer', (28.0, 13.8), (21.5, -0.8))],
         'Volunteers': [('crates', (41.5, 16.5), (4.5, -0.5))]}
 CAMP_TAPS = [('stall', (14.0, 25.4), (5.5, 0.0)), ('posts', (14.0, 16.0), (9.0, 0.0)), ('board', (47.0, 19.0), (-5.5, 0.0))]
-def ground_boxes(tier):
+# a town whose own things stand on its tier's ground tap gets the patch beside it (metres x0, x1, y0, y1, h)
+GROUND_TOWN = {'Anarchists': {'lot': (23.8, 30.4, 11.5, 18.0, 0.0)}}       # the burnt cars' ring stands on the tier's lot
+
+
+def ground_boxes(tier, name=None):
     """the wide composition's ground taps in metres"""
+    out = _ground(tier); out.update(GROUND_TOWN.get(name, {})); return out
+
+
+def _ground(tier):
     def mb(b, h=0.0):
         x0, y1 = m_of(b[0], b[1]); x1, y0 = m_of(b[2], b[3]); return (round(x0, 2), round(x1, 2), round(y0, 2), round(y1, 2), h)
     if tier == 'town': return {'lot': mb(V.LOTBOX['town']), 'build': mb(V.BUILDBOX['town'])}
@@ -96,7 +104,7 @@ def lay_wide(town, pl, K):
     """the 10/25 wide layout, then the corner taps moved out of the phone's corners"""
     V.layout_v1(town, pl, K)
     t, n = town['tier'], town['name']
-    pl.boxes = ground_boxes(t)
+    pl.boxes = ground_boxes(t, n)
     moves = (TOWN_ARM if t == 'town' else FORT if t == 'fortress' else CAMP).get(n, [])
     if t == 'camp': moves = CAMP_TAPS + moves
     for name, near, d in moves: _move(pl, name, near, d)
