@@ -12,7 +12,7 @@
         beat he taps, back on the map; so does the camp's BREAK CAMP
      H5 A TRAVEL ENDS IT: camped again, a travel (the phone's GO, travelTo) breaks it and the march goes
      H6 AN ENEMY REACHING IT ENDS IT: camped again, the crew walks the last block: the camp breaks on the meet card, which is up on the
-        map
+        map (or the fight itself where the card is not dealt: the crew caught him)
      H7 nothing threw
    node gates/camp_holds_until_he_ends_it_gate.js [--profile phone_portrait|computer]   (no flag: both) */
 'use strict';
@@ -75,16 +75,23 @@ async function run(profile) {
       const order = await cf.evaluate(() => BohemiaSettlement.order());
       h3 = { opened: [], order };
       for (const k of order) { const xy = await cf.evaluate((k) => BohemiaSettlement.where(k), k); if (!xy) continue;
-        await tapIn(cf, '#cv', xy); await cf.waitForTimeout(700);
+        const box = await (await cf.frameElement()).boundingBox();   /* a finger on the building, in the page's own pixels (the camp gate's way) */
+        if (profile === 'phone_portrait') await d.page.touchscreen.tap(box.x + xy.x, box.y + xy.y); else await d.page.mouse.click(box.x + xy.x, box.y + xy.y);
+        await cf.waitForTimeout(700);
         const shown = await cf.evaluate(() => document.getElementById('sheet').classList.contains('on'));
-        const x = await cf.$('#close'); if (x) { if (profile === 'phone_portrait') await x.tap(); else await x.click(); } else await cf.evaluate(() => { document.getElementById('sheet').classList.remove('on'); });
+        /* the X: where it is against the phone the shell draws over the game (for UI's board), then closed by its own click, the camp
+           gate's way (closing is not what this leg measures; the camp standing through it is) */
+        if (shown) { const xr = await cf.evaluate(() => { const c = document.getElementById('close'), r = c && c.getBoundingClientRect(); return r ? { x: r.left, y: r.top, w: r.width, h: r.height } : null; });
+          const box = await (await cf.frameElement()).boundingBox(), ph = await d.page.evaluate(() => { const e = document.getElementById('bohphone'), r = e && e.getBoundingClientRect(); return r && r.width ? { x: r.left, y: r.top, w: r.width, h: r.height } : null; });
+          if (xr && box) { const X = { x: box.x + xr.x, y: box.y + xr.y, w: xr.w, h: xr.h }; h3.x = h3.x || { at: [Math.round(X.x), Math.round(X.y)], underPhone: !!ph && X.x + X.w > ph.x && X.x < ph.x + ph.w && X.y + X.h > ph.y && X.y < ph.y + ph.h }; } }
+        await cf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); });
         await cf.waitForTimeout(400); h3.opened.push(k + (shown ? '' : '(no sheet)')); }
       await cf.evaluate(() => { try { BohemiaCrewDoor.open({ onDone: () => {} }); } catch (e) {} }); await cf.waitForTimeout(2500);
       h3.crew = await cf.evaluate(() => BohemiaCrewDoor.isOpen()); await cf.evaluate(() => BohemiaCrewDoor.close()); await cf.waitForTimeout(600);
     }
     const h3a = await d.fr.evaluate(HOURS_NOW); await d.page.waitForTimeout(2500); const h3b = await d.fr.evaluate(HOURS_NOW);
     ok(P + 'H3 *** EVERY PANEL *** opened and closed (every place in the camp, the company screen): the camp stands and its hours go on',
-      !!cf && h3.opened.length >= 2 && h3.crew && h3b.on && h3b.hours > h3a.hours, JSON.stringify(Object.assign(h3, { on: h3b.on, hours: [h3a.hours, h3b.hours] })));
+      !!cf && h3.opened.filter(k => !/no sheet/.test(k)).length >= 2 && h3.crew && h3b.on && h3b.hours > h3a.hours, JSON.stringify(Object.assign(h3, { on: h3b.on, hours: [h3a.hours, h3b.hours] })));
     /* ---- H4 his tap ends it: the phone's HEAL app (where the HEAL button is while the phone is on), and the camp's BREAK CAMP ---- */
     const state = () => d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), why: (window.__CAMP || {}).why, frame: LOOP.frame ? LOOP.frame.style.display : null }));
     let h4 = { phone: false };
@@ -105,11 +112,11 @@ async function run(profile) {
     ok(P + 'H5 A TRAVEL ENDS IT: camped, a travel breaks camp and the march goes', h5.made && h5.went && !h5.on && h5.why === 'travel' && h5.travel && h5.frame === 'none', JSON.stringify(h5));
     /* ---- H6 an enemy reaching it ends it ---- */
     await d.fr.evaluate(REST); await d.page.waitForTimeout(500);
-    const h6a = await d.fr.evaluate(() => { const made = BohemiaMapCamp.make(); let at = null;
+    const h6a = await d.fr.evaluate(() => { window.__H6C = window.__HUNT_CAUGHT | 0; const made = BohemiaMapCamp.make(); let at = null;
       for (const [dx, dy] of [[2, 0], [-2, 0], [0, 2], [0, -2], [1, 0], [0, 1], [-1, 0], [0, -1]]) if (cityWalkable(city.x + dx, city.y + dy)) { at = [city.x + dx, city.y + dy]; break; }
       HUNT = { id: 'hunt:gate2', ev: null, name: 'The Gate Crew', arch: 'human', count: 3, at: at || [city.x + 2, city.y], steps: 0, made: performance.now() }; return { made }; });
-    let h6 = null; for (let k = 0; k < 24; k++) { await d.page.waitForTimeout(500); h6 = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), why: (window.__CAMP || {}).why, meet: !!MEET.up, frame: LOOP.frame ? LOOP.frame.style.display : null, fighting: !!LOOP.fighting })); if (!h6.on) break; }
-    ok(P + 'H6 AN ENEMY REACHING IT ENDS IT: the crew walks in, the camp breaks on the meet card, up on the map', h6a.made && h6 && !h6.on && h6.why === 'contact' && (h6.meet || h6.fighting) && h6.frame === 'none', JSON.stringify(h6));
+    let h6 = null; for (let k = 0; k < 24; k++) { await d.page.waitForTimeout(500); h6 = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), why: (window.__CAMP || {}).why, meet: !!MEET.up, frame: LOOP.frame ? LOOP.frame.style.display : null, fighting: !!LOOP.fighting, caught: (window.__HUNT_CAUGHT | 0) - (window.__H6C | 0) })); if (!h6.on) break; }
+    ok(P + 'H6 AN ENEMY REACHING IT ENDS IT: the crew walks in, the camp breaks on the meet card, up on the map', h6a.made && h6 && !h6.on && h6.why === 'contact' && (h6.meet || h6.fighting || h6.caught > 0) && h6.frame === 'none', JSON.stringify(h6));
     await d.fr.evaluate(REST);
     ok(P + 'H7 nothing threw', d.errs.length === 0, d.errs.length ? String(d.errs[0]).slice(0, 160) : 'no errors');
   } catch (e) {

@@ -196,7 +196,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 #arrive .op .rail i{border-right:1px solid #2a2119}
 #arrive .op .rail b{position:absolute;top:-4px;width:4px;height:16px;margin-left:-2px;background:var(--gold);box-shadow:0 1px 0 #000}
 #arrive .op .bandw{color:var(--ink)}
-#campwarn{position:absolute;left:12px;right:12px;top:12px;z-index:6;display:flex;justify-content:center;opacity:0;transition:opacity .2s}
+#campwarn{position:absolute;left:12px;right:12px;top:12px;z-index:6;display:flex;justify-content:center;opacity:0;transition:opacity .2s;pointer-events:none}
 #campwarn.on{opacity:1}
 #campwarn .who{max-width:340px;width:100%;background:rgba(22,17,12,.92);border:1px solid var(--line);border-left:3px solid #b8281c;border-radius:4px;padding:8px}
 #arrive .fac{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:1px;color:var(--dim)}
@@ -1917,6 +1917,7 @@ function campSay(body, line){
   var n = document.createElement('div'); n.className = 'nm'; n.textContent = 'YOU'; sy.appendChild(n);
   var pp = document.createElement('p'); pp.textContent = line; sy.appendChild(pp); w.appendChild(sy); body.appendChild(w);
 }
+function tentKey(c){ c = c || {}; var b = c.bill || {}; return [c.night ? 1 : 0, b.perNight, b.daysLeft, c.cleared || ''].join('|'); }
 function campLine(acts, t, cls){ var d = document.createElement('div'); d.className = cls || 'gridh'; d.textContent = t; acts.appendChild(d); return d; }
 function campSheet(k){
   var body = document.getElementById('sbody'); body.textContent = '';
@@ -1925,7 +1926,7 @@ function campSheet(k){
   if(k === 'tent'){
     var bill = c.bill || {}, night = c.night;
     campSay(body, night ? 'Fire\'s low. The men are down for the night. We go when you say.' : 'We rest. Every hour here is an hour the valley moves without us.');   /* draft:true */
-    campLine(acts, campTitle() + (night ? '   NIGHT' : '   DAY') + '   AN HOUR A BEAT WHILE YOU REST');
+    campLine(acts, campTitle() + (night ? '   NIGHT' : '   DAY') + '   AN HOUR A BEAT WHILE YOU REST').dataset.k = 'tenttime'; S.tentKey = tentKey(c);   /* CAMP: the hour changes this line in place */
     if(bill.perNight != null) campLine(acts, 'THE NIGHT COSTS ' + moneyWord(bill.perNight).toUpperCase() + (bill.daysLeft != null ? '   ' + bill.daysLeft + ' NIGHTS LEFT LIKE THIS' : ''));   /* draft:true */
     if(c.cleared) campLine(acts, c.cleared, 'gridh warn');
     acts.appendChild(act('Your company', '', function(){ if(window.BohemiaCrewDoor) BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); post('crew', {company:m.company, formation:m.formation}); } }); }));
@@ -1965,11 +1966,17 @@ function campTime(d){
   if(typeof d.batteries === 'number'){ var df = d.batteries - bats(); if(df > 0) P.credit(S.purse, 'electricity', df, 'camp:sync', null, 0); if(df < 0) P.debit(S.purse, 'electricity', -df, 'camp:sync', null, 0); }
   if(!!d.night !== !!c.night){ c.night = !!d.night; view.night = c.night; VAR && (VAR.folkKey = null); if(window.BohemiaHeard) BohemiaHeard.night(view.night); }
   shelf();
-  if(S.open === 'tent') campSheet('tent');
+  /* CAMP [camp holds until he ends it]: the tent's buttons stay under his finger. Rebuilt every camp hour (twice a second) a tap could
+     land on a button the hour had just replaced (the camp gate's C5 lost that race); now the hour's clock line changes in place and the
+     sheet is rebuilt only when what it says changes (night, the bill, a warning) */
+  if(S.open === 'tent'){ var __tl = document.querySelector('#sbody [data-k="tenttime"]');
+    if(__tl && tentKey(c) === S.tentKey) __tl.textContent = campTitle() + (c.night ? '   NIGHT' : '   DAY') + '   AN HOUR A BEAT WHILE YOU REST';
+    else campSheet('tent'); }
   if(d.warn) campWarnSay(d.warn);   /* CAMP __CAMP_HOLDS__ */
 }
 /* CAMP [camp holds until he ends it] (rule 267(a)): a crew coming is a warning, never the end. One of his men says who and how far, at
-   the top of the camp, from his mouth with his face (rule 32a); a tap or a few seconds takes it away; the camp stands */
+   the top of the camp, from his mouth with his face (rule 32a); it never takes a finger (whatever is under it still answers) and goes
+   in seven seconds; the camp stands */
 function campWarnSay(w){
   var sc = document.getElementById('scene'), old = document.getElementById('campwarn'); if(old) old.remove();
   var by = w.by || {look:'you', name:'YOU'}, look = by.look || 'you';
@@ -1981,7 +1988,6 @@ function campWarnSay(w){
   var p = document.createElement('p'); p.textContent = w.line; sy.appendChild(p); who.appendChild(sy); o.appendChild(who);
   var gone = false, t = null;
   function off(){ if(gone) return; gone = true; clearTimeout(t); o.classList.remove('on'); setTimeout(function(){ o.remove(); }, 200); }
-  o.addEventListener('pointerdown', function(e){ e.preventDefault(); e.stopPropagation(); off(); });
   sc.appendChild(o); requestAnimationFrame(function(){ o.classList.add('on'); });
   t = setTimeout(off, 7000);
   window.__CAMP_WARN = { line: w.line, dist: w.dist, who: w.who, by: by.name || look, at: Date.now(), n: ((window.__CAMP_WARN && window.__CAMP_WARN.n) | 0) + 1 };

@@ -28,12 +28,30 @@ THE WARNING: when a hunting crew is within two blocks (four with a LOOKOUT), one
 camp, from his mouth with his face (rule 32a): 'The Gate Crew, coming our way. Two blocks off. We hold the fire.' (draft:true). Said
 once; said again only when they come closer; a tap or seven seconds takes it away. When they reach him it is the meet card.
 
+## 2b. WHAT ELSE THE CHECKS FOUND THIS ROUND
+- THE VALLEY WALKS WHILE HE CAMPS NOW. The stale flag had frozen it in every camp made after a fight; with it down, a crew already
+  hunting him keeps coming while he rests, is said at two blocks, and reaching him is the meet card (the camp gate measured one walk
+  in at its 33rd hour). That is rule 267(a) as written; RUN FOUR's [make camp from the fight] also takes the flag down at its door.
+- THE TENT'S BUTTONS MOVED UNDER HIS FINGER. The camp's hour rebuilt the open tent sheet twice a second (campTime), so a tap could
+  land on a button the hour had just replaced: RUN TWO's camp gate C5 lost that race 3 times in 3 on this build ('Your company' found,
+  gone before the tap). Now the hour changes the tent's clock line in place and rebuilds the sheet only when what it says changes
+  (night, the bill, a warning). Marked in the settlement screen's camp.
+- THE WARNING NEVER TAKES A FINGER: the card sits at the top of the camp and fades in seven seconds; it is tap-through
+  (pointer-events none), so a sheet's X under it still answers.
+- RUN TWO's camp gate (gates/the_camp_gate.js) RE-AIMED to rule 267(a), each old leg's words kept in its header: C6 a hunting crew
+  held two blocks off does not break the camp, one of his men says it, the map keeps them; C7 BREAK CAMP is tapped in the standing
+  camp. 8/0.
+- FOR UI: on the phone the camp's sheet's close X is under the phone the shell draws (at 338,539 on a 390 x 844 screen, inside the
+  phone's box): a finger cannot close the tent, the retinue or the cart there. Measured by this gate's H3 (window h3.x); NOTE on UI's
+  board (rule 279's kin: the phone's corner kept clear).
+
 ## 3. THE GATE (rule 267(d)), gates/camp_holds_until_he_ends_it_gate.js, on the cut he plays, phone and computer
-H1 straight after a fight (the won fight's flag up): the camp stands 12 camped hours, its clock runs, the flag is down. H2 a crew held
+Phone 7/0, computer 7/0. H1 straight after a fight (the won fight's flag up): the camp stands 12 camped hours, its clock runs, the flag is down. H2 a crew held
 two blocks off for 12 camped hours: the camp stands, one of his men says it once (his face, his name). H3 every place in the camp
 (tent, retinue, cart) tapped open and closed, and the company screen opened and closed: the camp stands and its hours go on. H4 the
 phone's HEAL app, tapped, breaks it; so does BREAK CAMP. H5 a travel breaks it and the march goes. H6 a crew walking in breaks it on
-the meet card. H7 nothing threw.
+the meet card (or, where the card is not dealt, the crew catches him and the fight begins). H7 nothing threw. The sheets are closed
+by their own X's click (closing is not what H3 measures; on the phone the X is under the phone, above).
 Not in the gate yet, said: 267(d)'s 'MAKE CAMP from the fight' legs are the next row's ([make camp from the fight]).
 
 [bb Battle Brothers: camping is a toggle he sets and he clears; a party that reaches you while camped is a fight, one that is only

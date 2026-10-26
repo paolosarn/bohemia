@@ -10,8 +10,12 @@
      C4 THE RETINUE: with no clout nobody follows (no place open, every hire shut); with the clout of a first place, a real tap
         takes the scout on: his price is paid, and the map's road time is the scout's (15 percent less a block)
      C5 THE CART: a real tap buys the first step, the stash holds 48, the crew screen's bag says so
-     C6 a hunting crew two blocks off breaks the camp and the map shows them
-     C7 BREAK CAMP (a real tap) closes it and the clock stops; the plate is back
+     C6 RE-AIMED 10/26 BY CAMP to rule 267(a) (Paolo 10/26: 'when I click the camp button it wants to stop having me in camp mode, I
+        hate that, unless an enemy pulls up on me'): a hunting crew held two blocks off does NOT break the camp; one of his men says who
+        and how far in the camp, and the map keeps them. (It read: 'a hunting crew two blocks off breaks the camp and the map shows
+        them'; the rule struck that.)
+     C7 BREAK CAMP (a real tap) closes it and the clock stops; the plate is back (RE-AIMED: the camp still stands after C6, so BREAK
+        CAMP is tapped in it; it read: the HEAL app tapped first to make a camp again)
      C8 nothing threw
    node gates/the_camp_gate.js */
 'use strict';
@@ -95,18 +99,20 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
       if (rf) { rosterBag = await rf.evaluate(() => (document.body.innerText.match(/(?:YOUR BAG|STASH)\s+\d+\s*\/\s*(\d+)/) || [])[1] || null).catch(() => null);
         const dn = await rf.$('#done') || await rf.$('button'); if (dn) await rf.evaluate(() => { const b = document.getElementById('done'); if (b) b.click(); }); await p.waitForTimeout(500); } }
     ok('C5 THE CART: a real tap buys the first step, the stash holds 48, and the crew screen\'s bag says so', t5 && c5.slots === 48 && c5.store === 48 && rosterBag === '48', JSON.stringify(c5) + ' crew screen bag of ' + rosterBag);
-    /* ---- C6 a hunting crew breaks camp ---- */
-    await fr.evaluate(() => { HUNT = { id: 'hunt:gate', ev: { id: 'gate' }, name: 'THE GATE\'S CREW', arch: 'human', count: 3, at: [city.x + 2, city.y], steps: 0, made: performance.now() }; });
+    /* ---- C6 a hunting crew two blocks off: a warning, the camp stands (rule 267(a)) ---- */
+    await fr.evaluate(() => { const at = [city.x + 2, city.y], h = { id: 'hunt:gate', ev: { id: 'gate' }, name: 'THE GATE\'S CREW', arch: 'human', count: 3, made: performance.now() };
+      Object.defineProperty(h, 'at', { get: () => at.slice(), set: () => {}, enumerable: true }); Object.defineProperty(h, 'steps', { get: () => 0, set: () => {}, enumerable: true });   /* held two blocks off */
+      window.__CAMP_WARNED = []; HUNT = h; });
     await p.waitForTimeout(1500);
-    const c6 = await fr.evaluate(() => ({ camp: BohemiaMapCamp.state(), shown: !!(LOOP.frame && LOOP.frame.style.display === 'block'), hunt: !!HUNT, seen: HUNT ? mapSees(HUNT.at[0], HUNT.at[1]) : null }));
-    ok('C6 a hunting crew two blocks off breaks the camp, and the map shows them', !c6.camp.on && c6.camp.why === 'warned' && !c6.shown && c6.hunt, JSON.stringify(c6));
+    const c6 = await fr.evaluate(() => ({ camp: BohemiaMapCamp.state(), shown: !!(LOOP.frame && LOOP.frame.style.display === 'block'), hunt: !!HUNT, warned: (window.__CAMP_WARNED || []).map(w => w.dist + ' ' + w.who) }));
+    const said6 = await sf.evaluate(() => window.__CAMP_WARN ? window.__CAMP_WARN.line : null).catch(() => null);
+    ok('C6 a hunting crew two blocks off does not break the camp (rule 267(a)): one of his men says who and how far in the camp, and the map keeps them',
+      c6.camp.on && c6.shown && c6.hunt && c6.warned.length === 1 && /THE GATE'S CREW/.test(said6 || '') && /Two blocks off/.test(said6 || ''), JSON.stringify(Object.assign(c6, { said: said6 })));
     await fr.evaluate(() => { HUNT = null; });
     /* ---- C7 BREAK CAMP ---- */
     await p.waitForTimeout(800);
     const c7top = await p.evaluate((s) => { const b = document.querySelector(s), r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return !!e && (e === b || b.contains(e)); }, HEAL);
-    await tapEl(p.mainFrame(), HEAL); await p.waitForTimeout(1500);
-    const sf2 = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url()));
-    const brk = sf2 ? await tapEl(sf2, '#leave') : false;
+    const brk = await tapEl(sf, '#leave');   /* the camp still stands: BREAK CAMP in it */
     await p.waitForTimeout(800);
     const m0 = await fr.evaluate(() => T.day * 1440 + T.min); await p.waitForTimeout(2000);
     const c7 = Object.assign(await fr.evaluate((m0) => ({ on: BohemiaMapCamp.on(), moved: T.day * 1440 + T.min - m0, why: window.__CAMP && window.__CAMP.why }), m0),
