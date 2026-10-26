@@ -61,6 +61,13 @@ measure the board's man sprites, which my card block never draws); THE SHOP SAYS
 main's town, crew and kit files swapped in (the town's arrival card stays up and takes the tap); LANGUAGE 103/1 'the fight loads the
 dial and the veteran speaks through it': its pattern is gone from main's fight file (COMBAT's say call changed); THE UI BELONGS TO THE
 WORLD 35/1 (the fight's AUTO button on tin, as last round). Full suite unmeasured (rule 13(b)).
+ON THE NEWEST MAIN (main moved four times while the gates ran: RUN FOUR's aftermath, COMBAT's retreat and ANIMATION's bow in the fight's file, UI's
+camp behind the crew; four rebases, my blocks untouched, the stamp taken from main and moved one letter, now BUILD 10/26zs):
+STATS ARE BARS IN HIS ORDER 41/0 with plants after COMBAT's fight change and 34/0 after UI's crew screen change, THE STAT ICONS 5/0,
+DEMO BUILD 25/0, HANDOFF 10/0, the cut --check exact, RUN FOUR's THE AFTERMATH 20/0 and MAKE CAMP FROM THE FIGHT 11/0 (each 1 red
+only when two browser gates ran at once; alone, green), UI's THE CREW SCREEN SHOWS THEIR CAMP 32/0 (two earlier runs on my tree
+went 17/1, the browser closing mid-run, and 31/1, the computer's open time 353 ms against its 352.6 ms ceiling; main's own files
+32/0 and my tree's third run 32/0, so the open time is the machine's spread: with and without the camp both carry my bars).
 
 ## DECIDED, AND WHY
 - The damage icon is a wound, not a weapon: the machete already says melee skill and the rounds say ranged defence; a hole with the

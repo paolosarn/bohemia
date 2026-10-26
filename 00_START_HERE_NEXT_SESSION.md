@@ -21,14 +21,15 @@ UI TWO (ui-two): 10/26 LATEST -- the phone overhaul SHIPPED 3cc7cdd77, BUILT, NO
 with EMPTY, READY TO GO slots, PLAY/PAUSE, CREW, HEAL (a cross in a ring the company's blood and armour fill), FEED, RELATIONS; his abilities on it in a fight;
 gate THE PHONE 183/0 (phone upright, on its side, a computer). The whole block: handoffs/UI_TWO.md (rule: each lane's block in handoffs/).
 
-UI THREE (ui-three-stats): 10/26 LATEST -- [the stat order] and [stats are bars and arrows] ROUND ONE SHIPPED, BUILT, NOT
-YET SEEN (rules 247, 223, 224; BUILD 10/26w): his eight in HIS order (HP, FATIGUE, RANGED SKILL, MELEE SKILL, RANGED DEFENCE, MELEE
-DEFENCE, RESOLVE, INITIATIVE) from one engine list (engine/bohemia_stats.js), each a bar filled to TUNING's most possible (133 / 183 /
-109 / 122 / 68 / 65 / 120 / 195, records/target/bb/stat_max.json) with the faint tick at his own ceiling, his stars in one column, every
-change a green or red arrow and the amount, never 'X to Y': the crew screen, the level-up, the hall and the shop. OWED: the fight's card
-(the COMBAT emergency; NOTE on COMBAT's board). Gate STATS ARE BARS IN HIS ORDER 30/0 with five plants. The whole block: handoffs/UI_THREE.md.
-[bb Battle Brothers draws every attribute as a bar with the number on it and the stars beside it; ours runs in his order.]
-[analog horror: the eight print on the valley's thermal receipt in faded inks, a machine still keeping count of the people it serves.]
+UI THREE (ui-three-stats): 10/26 LATEST -- round two (f57cc46f, BUILD 10/26zs): [the stat order] and [stats are bars and arrows]
+SHIPPED, BUILT, NOT YET SEEN (rules 247, 223): the fight's card is in, the last screen with stats: his eight in his order as bars,
+what he has now on the bar, the wound and the spent fatigue hatched, the shield in his defences (rule 202(c)); [a damage icon]
+SHIPPED (rule 275(b)): slices/stat_icons/damage.png, drawn by UI's renderer, on the shop's chip and ON A MAN line, the stash's
+weapon numbers, the said line and the fight's weapon card. Gate STATS ARE BARS IN HIS ORDER 41/0 with seven plants. Round one
+(01ddcb92): the one list, TUNING's maxima, the crew screen, level-up, hall and shop. NEXT: [icons not numbers] round two, [the item
+box], [the weapon card], [an icon for every perk]. The whole block: handoffs/UI_THREE.md.
+[bb Battle Brothers puts a small picture beside a weapon's damage on its tooltip; ours is the wound itself.]
+[analog horror: a hole and what came out of it, printed small on the receipt beside the number, the way a ledger keeps it.]
 
 CAMP (camp-vamily): 10/26 LATEST -- [the heal button, damage that stays] SHIPPED, BUILT, NOT YET SEEN (rule 226, line 148, BUILD 10/26l):
 damage stays between fights (each man's missing hitpoints and armour kept by name, the dead for good), the map's clock heals at
