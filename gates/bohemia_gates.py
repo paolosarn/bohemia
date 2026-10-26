@@ -2797,7 +2797,13 @@ GATES = [
      '65, the blood ranked with the danger and painted as read, the meet card\'s count dealt id for id, the stars moving with '
      'the crew. AMENDED 10/26 (rule 208(a) as the coordinator amended it): a clean trip is nobody dead and at most one in six '
      'laid up; a fifth crew, the Block Watch\'s twelve on day one with EYES\' cold box and tigers; J8 no star lies job by job; '
-     'J9 no champion on day one (every day-one fight dressed for day one, first-phase kinds only).', True),
+     'J9 no champion on day one (every day-one fight dressed for day one, first-phase kinds only). AMENDED 10/26 (rule 254, PAOLO: '
+     '"the same calculator as the auto combat... max bloody if you think I would lose members"): ONE CALCULATOR, ONE SCALE, the '
+     'one-in-six reading struck: a play is worth the AUTO count, J2/J3/J8 on the AUTO colour\'s turn (0.8) and down_value (0.5); '
+     'J10 the page\'s lines are AUTO\'s own; 60 sure fights replayed on the page\'s own hand-over and dice with the fight\'s own count give '
+     'the page\'s number (within 5 plays: the fight carries a little from one fight to the next, COMBAT\'s), every blood its number '
+     'on the line; every blood on the side of the turn its 100 fresh plays are (one job in a hundred past 0.1 of the turn, for the dice); every job that loses a man 6 plays in 10 three stars and '
+     'the deepest blood; a sure fight never borrows a road fight\'s light read; a fight read between the lines plays on to 96.', True),
     ('THE NORMIE HOUR, WORLD', ['node', 'gates/the_normie_hour_world_gate.js'],
      'WORLD [eyes: the normie hour, world], EYES round four, rule 225(d): the seven job frictions a stranger met in his first hour. '
      'On the demo, real taps on what the map draws: a job plate the map steps off the crew takes its tap box with it; a tap on a '
@@ -10094,7 +10100,7 @@ GATES = [
      "UI gate, 10/26, rows [the blood is CRASHBOX] and [the job tells the truth, in blood] (rule 208(c), PAOLO 10/25: 'the button itself looks bloody depending on how difficult the job is... "
      "the button looking like some crashbox blood filter'; 'not Crash Bandicoot, Crashbox'). MEASURED before: no button could bleed. The pictures: 8 stages x 5 pieces of red clay rendered through the kit's sun, "
      "camera and post on Cycles with a shadow catcher; every pixel opaque or the one shadow value, 95 in 100 red; every stage holds the one before (95 in 100), the blood on a button rises every stage, the last darker; "
-     "bloodStage is WORLD's one scale (job_danger.json: clean to 4 percent, soaked from 65), monotonic, every stage reachable; ONE blood on a button (WORLD's reader hands its number to the kit layer). On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
+     "bloodStage is WORLD's one scale (job_danger.json: clean to blood_from, soaked from blood_full; since rule 254 the AUTO colour's own lines, 20 and 50), monotonic, every stage reachable; ONE blood on a button (WORLD's reader hands its number to the kit layer). On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
      "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held (250 ms, 150 or more measured); the halo from stage 1; THE WORDS WIPED CLEAN: at all eight stages no red clay pixel inside any word on a board row or the offer, no star over a letter; on the glass soaked a third red or more, one star under a twentieth; "
      "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
     ('THE FEED IS ALIVE', ['node', 'gates/the_feed_is_alive_gate.js'],
