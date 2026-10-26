@@ -9,3 +9,8 @@ tape <- pack_11_survival_props_039.png
 meds <- pack_12_weapons_and_supplies_030.png
 rounds <- pack_12_weapons_and_supplies_018.png
 scrap <- pack_16_loot_and_survival_props_021.png (the spoils' SCRAP, 'what was left of it': a crate of what they carried; not on the bar, ECONOMY)
+food (10/26, UI [food and water are one], rule 209(b), Paolo 10/26: 'combine the water and the can, put them close together
+or overlapping, maybe the water bottle behind the can... water and food are one resource'): ONE picture, his two approved
+pack tiles laid together with no pixel changed, the water bottle (pack_11_survival_props_004) standing behind the can
+(pack_11_survival_props_042) at 112 x 112: the bottle at (64, 0), the can in front at (0, 16). The can alone is
+food_can.png; water.png stays for the record, no screen shows water alone (209(e)).
