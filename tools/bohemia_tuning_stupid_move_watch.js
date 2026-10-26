@@ -68,7 +68,15 @@ const SHAPES = {
   newcrew: { why: 'A New Crew from the door, against the road', origin: 'newcrew', faction: k => k % 3 ? 'brigands' : FACTIONS[k % 5], count: k => 3 + (k % 3), days: k => 1 + (k % 4) * 10 },
   spear: { why: 'A New Crew with Desi\'s two-hand spear (reach 2) on the two-hander, against three to five thugs (EYES q22)', origin: 'newcrew', spear: 'spetum', faction: () => 'brigands', count: k => 3 + (k % 3), days: k => 1 + (k % 3) * 8 },
   watch: { why: 'the twelve (the Block Watch from the door), against six to ten', origin: 'watch', cap: 12, faction: k => FACTIONS[k % 5], count: k => 6 + (k % 5), days: k => 1 + (k % 5) * 12 },
-  bench: { why: 'TUNING\'s spread (3, 6 and 12 men, three gear stages, the map\'s count x0.6 to x1.6)', bench: true }
+  bench: { why: 'TUNING\'s spread (3, 6 and 12 men, three gear stages, the map\'s count x0.6 to x1.6)', bench: true },
+  /* THE WINDED TRAP, side shapes (never in ALL SHAPES): the Lone Wolf against two to four dogs only, in the door's lightest and
+     heaviest kit, so the kit's share of his wind is measured and not argued (--shapes wolfdogs,wolflight,wolfheavy) */
+  wolfdogs: { why: 'the Lone Wolf as rolled, dogs only', side: true, origin: 'wolf', faction: () => 'beasts', count: k => 2 + (k % 3), days: k => 1 + (k % 4) * 15 },
+  wolflight: { why: 'the Lone Wolf in the door\'s lightest kit (reinforced mail, the closed flat top), dogs only', side: true, origin: 'wolf', kit: { body: 'reinforced_mail_hauberk', head: 'closed_flat_top_with_mail' }, faction: () => 'beasts', count: k => 2 + (k % 3), days: k => 1 + (k % 4) * 15 },
+  /* Battle Brothers' own answer, as a research splice (never the game): the Recover perk (tier 1, 9 AP, half his fatigue) in the
+     place of Steel Brow, and AUTO allowed that one button when the swing's fatigue passes his most at a full turn (rule 180 bars it) */
+  wolfrecover: { why: 'the Lone Wolf with Recover in place of Steel Brow, AUTO may press Recover only (research splice), dogs only', side: true, origin: 'wolf', perks: ['colossus', 'brawny', 'recover'], engine: 'recover', faction: () => 'beasts', count: k => 2 + (k % 3), days: k => 1 + (k % 4) * 15 },
+  wolfheavy: { why: 'the Lone Wolf in the door\'s heaviest kit (coat of plates, full helm), dogs only', side: true, origin: 'wolf', kit: { body: 'coat_of_plates', head: 'full_helm' }, faction: () => 'beasts', count: k => 2 + (k % 3), days: k => 1 + (k % 4) * 15 }
 };
 async function setupShape(ctx, shape, k, districts) {
   const F = ctx.FIGHT, Sh = SHAPES[shape], W = B.fightOf(k, districts);
@@ -76,6 +84,8 @@ async function setupShape(ctx, shape, k, districts) {
   let company = HIS, cap = 3;
   if (Sh.origin) {
     const D = await door(); company = D.roll(Sh.origin, 4242 + k * 977) || HIS; cap = Sh.cap || company.length;
+    if (Sh.perks) company = company.map(m => Object.assign({}, m, { perks: Sh.perks.slice() }));
+    if (Sh.kit) company = company.map(m => Object.assign({}, m, { gear: Object.assign({}, m.gear, Sh.kit) }));
     if (Sh.spear) company = company.map(m => m.background === 'companion_2hand' ? Object.assign({}, m, { gear: Object.assign({}, m.gear, { main: Sh.spear, off: null }) }) : m);
   }
   const faction = Sh.faction(k), count = Sh.count(k), days = Sh.days(k);
@@ -88,7 +98,7 @@ async function setupShape(ctx, shape, k, districts) {
 /* ---------- one fight, watched ---------- */
 function zero() {
   return { fights: 0, won: 0, clean: 0, rounds: 0, turns: 0, actions: 0,
-    idle: 0, idleWhy: {}, streak: 0, parked: 0, parkedTurns: 0, lone: 0, loneWalks: 0, shots: 0, shotsChoice: 0, lowShot: 0, lowShotTeam: 0, lowShotGap: 0,
+    idle: 0, idleWhy: {}, streak: 0, parked: 0, parkedTurns: 0, lone: 0, loneWalks: 0, shots: 0, shotsChoice: 0, shotGap5: 0, lowShot: 0, lowShotTeam: 0, lowShotGap: 0,
     roundsWithHits: 0, spread: 0, focusAimed: 0, aimed: 0, namedAimed: 0, namedRounds: 0, hurtStanding: 0, roundsCounted: 0,
     freeHit: 0, freeSwingsOnUs: 0, dance: 0, keyChances: 0, keyIgnored: 0, meleeMen: 0, meleeNever: 0, gunMen: 0, gunNever: 0, ourDown: 0, ourDead: 0 };
 }
@@ -131,9 +141,22 @@ function playWatched(ctx, meta) {
   const snapOf = v => {
     const melee = !F.isRanged(v.weapon);
     return { ap: v.ap, apTurn: v.apTurn, fat: Math.round(v.fat), fatMax: F.fatMax(v), x: v.x, y: v.y, netted: !!v.netted,
-      opts: reachable(v).map(t => ({ id: t.id, ch: F.hitChance(v, t), head: isHead(t) })),
+      opts: reachable(v).map(t => ({ id: t.id, ch: F.hitChance(v, t).chance, head: isHead(t) })),
       inReach: S.units.filter(t => t.side !== v.side && F.onField(t) && F.sideSees(v.side, t) && F.canStrike(Object.assign({}, v, { ap: 99, fat: 0 }), t)).length,
       walk: melee && !v.netted && (h => h > 1 && isFinite(h))(T.huntField(v)(v.x, v.y)) && v.ap >= T.stepCost(v, v.x, v.y, v.x, v.y) };
+  };
+  /* 'nothing' split: a gunman with a tile in this turn's walk he could shoot from stood (rule 188(a): a shooter gets sight
+     and reach); a melee man with no way to any foe (a roof no club reaches, a fenced lot); boxed in by bodies; the rest */
+  const nothingWhy = (u, snap) => {
+    if (F.isRanged(u.weapon)) {
+      const f = F.reach(u), ox = u.x, oy = u.y; let shot = false;
+      Object.keys(f.best).some(k => { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w); if (x === ox && y === oy) return false;
+        u.x = x; u.y = y; shot = S.units.some(t => t.side !== u.side && F.onField(t) && F.sideSees(u.side, t) && F.canStrike(Object.assign({}, u, { ap: 99, fat: 0 }), t)); u.x = ox; u.y = oy; return shot; });
+      return shot ? 'a gunman stood, a shot one walk away' : 'a gunman, no shot from his walk';
+    }
+    const h = T.huntField(u)(u.x, u.y);
+    if (!isFinite(h)) return 'no way to any foe';
+    return Object.keys(F.reach(u).best).length <= 1 ? 'boxed in' : 'nothing';
   };
   const closeTurn = (u, snap) => {
     const t0 = open[u.id]; if (!t0) return; delete open[u.id];
@@ -143,7 +166,8 @@ function playWatched(ctx, meta) {
     const on = F.onField(u) && u.morale !== 'Fleeing' && !S.retreat && !t0.rout;
     /* IDLE: judged at the call that ended it */
     if (on && snap && !t0.blows && !t0.steps && !t0.others && snap.ap > 0) {
-      const why = snap.opts.length ? 'a blow left' : snap.inReach ? 'winded beside a foe' : snap.walk ? 'a walk open' : snap.netted ? 'in a net' : 'nothing';
+      let why = snap.opts.length ? 'a blow left' : snap.inReach ? 'winded beside a foe' : snap.walk ? 'a walk open' : snap.netted ? 'in a net' : 'nothing';
+      if (why === 'nothing') why = nothingWhy(u, snap);
       C.idle++; C.idleWhy[why] = (C.idleWhy[why] || 0) + 1; rec.idle = why; rec.fullAP = snap.ap >= snap.apTurn;
       if (why !== 'nothing' && why !== 'in a net') keep('idle: ' + why, { man: u.name || u.id, round: t0.r, ap: snap.ap + '/' + snap.apTurn, fat: snap.fat + '/' + snap.fatMax, weapon: u.weapon.id });
     }
@@ -203,6 +227,7 @@ function playWatched(ctx, meta) {
         if (snap.opts.length >= 2) {
           C.shotsChoice++;
           const best = Math.max.apply(null, snap.opts.map(o => o.ch)), mine = (snap.opts.filter(o => o.id === blow.to)[0] || { ch: blow.chance }).ch;
+          if (best - mine >= 5) C.shotGap5++;
           if (best - mine >= 10 && R0) R0.low.push({ man: v.name || v.id, round: S.round, to: blow.to, chance: mine, best: best, gap: best - mine,
             team: (R0.aimed[blow.to] || 0) > 1 || head.some(o => o.id === blow.to) || (R0.named && (R0.named.id || R0.named) === blow.to) });
         }
@@ -232,8 +257,27 @@ function playWatched(ctx, meta) {
   return { C, ex, result: S.over ? S.result : 'stalled' };
 }
 
+/* a research engine: the live rules with one splice, each anchor matched exactly once or it stops (the fight moved) */
+const ENGINES = {
+  recover: [["    if (u.side === 'you') return false;   /* rule 180: AUTO moves, fires and strikes, nothing else; abilities are his */\n",
+    "    if (u.side === 'you') { if (canUse(u, 'recover') && u.ap === u.apTurn && u.fat + skillFat(u, strikeSkill(u.weapon)) > fatMax(u)) return useSkill(u, 'recover'); return false; }\n"]]
+};
+async function engineWith(name) {
+  if (!name) return B.engineFor('today');
+  const html = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8'), grab = id => { const m = html.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>')); if (!m) throw new Error('no script ' + id); return m[1]; };
+  let rules = grab('fight-rules');
+  ENGINES[name].forEach(([a, b]) => { const n = rules.split(a).length - 1; if (n !== 1) throw new Error('THE FIGHT MOVED: splice anchor found ' + n + ' times: ' + a.slice(0, 70)); rules = rules.replace(a, () => b); });
+  const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Error, Promise,
+    localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} },
+    fetch: u => Promise.resolve({ json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', u), 'utf8'))) }) };
+  vm.createContext(ctx);
+  vm.runInContext(grab('fight-data') + ';this.DB=DB;this.loadAll=loadAll;this.setSeed=function(s){SEED=s>>>0;};', ctx);
+  await ctx.loadAll();
+  vm.runInContext(rules + ';this.FIGHT=FIGHT;', ctx);
+  return ctx;
+}
 async function oneFight(shape, k) {
-  const ctx = await B.engineFor('today'), districts = ctx.DB.boardKinds.districts;
+  const ctx = await engineWith(SHAPES[shape].engine), districts = ctx.DB.boardKinds.districts;
   const meta = await setupShape(ctx, shape, k, districts);
   const P = playWatched(ctx, meta);
   return Object.assign(meta, { shape, result: P.result, C: P.C, ex: P.ex });
@@ -247,6 +291,7 @@ function kinds(T) {
     ['IDLE: ended a turn with a blow left', T.idleWhy['a blow left'] || 0, T.turns, 'turns'],
     ['IDLE: winded beside a foe, full turn lost', T.idleWhy['winded beside a foe'] || 0, T.turns, 'turns'],
     ['IDLE: a melee man stood with a walk to the fight open', T.idleWhy['a walk open'] || 0, T.turns, 'turns'],
+    ['IDLE: a gunman stood with a shot one walk away', T.idleWhy['a gunman stood, a shot one walk away'] || 0, T.turns, 'turns'],
     ['STREAK: the same man idle with full AP 3+ turns running', T.streak, T.meleeMen + T.gunMen, 'men'],
     ['PARKED: a melee man no blow and no step nearer (COMBAT J1)', T.parked, T.parkedTurns, 'melee turns'],
     ['LONE: a walk alone into three', T.lone, T.loneWalks, 'walks'],
@@ -265,16 +310,18 @@ function report(label, fs_) {
   K.slice().sort((a, b) => b.per100 - a.per100).forEach(x => console.log('  ' + String(x.n).padStart(5) + ' of ' + String(x.of).padEnd(6) + (x.per100.toFixed(2) + '%').padStart(8) + '  ' + x.kind + '  [' + x.unit + ']'));
   console.log('  idle why: ' + JSON.stringify(T.idleWhy));
   console.log('  rule 201: focus share ' + (100 * T.focusAimed / Math.max(1, T.aimed)).toFixed(1) + '% of our blows on the round\'s most-struck man' + (T.namedRounds ? ', named ' + (100 * T.namedAimed / Math.max(1, T.aimed)).toFixed(1) + '%' : ', no named target in the fight')
-    + '; hurt and standing at a round\'s end ' + (T.hurtStanding / Math.max(1, T.roundsCounted)).toFixed(2) + '; low shots at the team\'s man (allowed) ' + T.lowShotTeam);
+    + '; hurt and standing at a round\'s end ' + (T.hurtStanding / Math.max(1, T.roundsCounted)).toFixed(2) + '; low shots at the team\'s man (allowed) ' + T.lowShotTeam + '; shots 5+ under the best ' + T.shotGap5 + ' of ' + T.shotsChoice);
   return { T, K };
 }
 
 async function main() {
   const argv = process.argv, arg = (k, d) => { const i = argv.indexOf(k); return i > 0 ? argv[i + 1] : d; };
   if (argv[2] === '--fight') { process.stdout.write(JSON.stringify(await oneFight(argv[3], Number(argv[4])))); return; }
-  const N = Number(arg('--n', 80)), JOBS = Number(arg('--jobs', 4)), shapes = String(arg('--shapes', Object.keys(SHAPES).join(','))).split(',');
-  const sha = cp.execSync('git rev-parse --short=8 HEAD', { cwd: ROOT }).toString().trim(), fp = B.rulesPrint();
-  const CF = path.join(CACHE, 'tuning_stupid_move_watch.' + fp + '.ndjson'), res = {};
+  const N = Number(arg('--n', 80)), JOBS = Number(arg('--jobs', 4)), shapes = String(arg('--shapes', Object.keys(SHAPES).filter(k => !SHAPES[k].side).join(','))).split(',');
+  /* the round's name is the last commit that changed the fight or its data (a commit of mine changes neither), its key the rules' print */
+  const sha = cp.execSync('git log -1 --format=%h --abbrev=8 -- slices/BOHEMIA_FIGHT.html records/target/bb slices/fight_ground', { cwd: ROOT }).toString().trim(), fp = B.rulesPrint();
+  const me = require('crypto').createHash('sha1').update(fs.readFileSync(__filename)).digest('hex').slice(0, 8);   /* the instrument's own print: a changed counter replays */
+  const CF = path.join(CACHE, 'tuning_stupid_move_watch.' + fp + '.' + me + '.ndjson'), res = {};
   if (fs.existsSync(CF)) fs.readFileSync(CF, 'utf8').split('\n').filter(Boolean).forEach(l => { try { const x = JSON.parse(l); res[x.shape + '|' + x.k] = x; } catch (e) { /* a cut line */ } });
   const work = []; shapes.forEach(s => { for (let k = 0; k < N; k++) if (!res[s + '|' + k]) work.push([s, k]); });
   process.stderr.write('rules ' + fp + ' (main ' + sha + '); resume: ' + (shapes.length * N - work.length) + ' of ' + shapes.length * N + ' already played\n');
@@ -290,7 +337,7 @@ async function main() {
   });
   const out = { sha, rules_print: fp, n: N, at: new Date().toISOString(), shapes: {} };
   const all = [];
-  shapes.forEach(s => { const fs_ = Object.values(res).filter(x => x.shape === s && x.k < N); all.push.apply(all, fs_);
+  shapes.forEach(s => { const fs_ = Object.values(res).filter(x => x.shape === s && x.k < N); if (!SHAPES[s].side) all.push.apply(all, fs_);
     const r = report(s.toUpperCase() + ' (' + SHAPES[s].why + ')', fs_); out.shapes[s] = { why: SHAPES[s].why, fights: fs_.length, totals: r.T, kinds: r.K, examples: [].concat.apply([], fs_.map(f => f.ex)).slice(0, 40) }; });
   const r = report('ALL SHAPES', all); out.all = { fights: all.length, totals: r.T, kinds: r.K };
   if (argv.includes('--save')) {
@@ -298,7 +345,10 @@ async function main() {
     bank._readme = 'TUNING [the stupid-move watch] (rule 188(b), rule 201; research only). draft:true. NOTHING IN THE GAME READS THIS FILE. '
       + 'Each round is the live fight on main (its sha and its rules\' print) played on AUTO both sides by tools/bohemia_tuning_stupid_move_watch.js; '
       + 'OUR side watched. kinds: every wrong move by kind, n of the unit it is counted in, per 100. The counts must go down round over round.';
-    bank.draft = true; bank.rounds = (bank.rounds || []).filter(x => !(x.sha === sha && x.rules_print === fp)); bank.rounds.push(out);
+    /* one round per main sha and rules print: a later run of other shapes on the same tree adds its shapes to that round */
+    const same = (bank.rounds || []).filter(x => x.rules_print === fp)[0];
+    if (same) { same.sha = sha; Object.assign(same.shapes, out.shapes); if (all.length) same.all = out.all; same.at = out.at; same.n = Math.max(same.n || 0, N); }
+    bank.draft = true; bank.rounds = bank.rounds || []; if (!same) bank.rounds.push(out);
     fs.writeFileSync(BANK, JSON.stringify(bank) + '\n'); console.log('\nwrote ' + path.relative(ROOT, BANK) + ' (' + bank.rounds.length + ' rounds)');
   }
 }
