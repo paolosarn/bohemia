@@ -1,0 +1,762 @@
+{
+ "phone_portrait": {
+  "fights": [
+   {
+    "seed": 61,
+    "result": "won",
+    "rounds": 7,
+    "rounds_struck": 7,
+    "by_round": {
+     "1": {
+      "blows": 9,
+      "onNamed": 5,
+      "off": {
+       "in a ring": 3,
+       "worth more": 1
+      },
+      "dead": 0,
+      "on": {
+       "e0": 5
+      }
+     },
+     "2": {
+      "blows": 17,
+      "onNamed": 12,
+      "off": {
+       "a shot too poor": 4,
+       "worth more": 1
+      },
+      "dead": 1,
+      "on": {
+       "e0": 10,
+       "e4": 2
+      }
+     },
+     "3": {
+      "blows": 18,
+      "onNamed": 11,
+      "off": {
+       "worth more where he stands": 1,
+       "out of reach": 1,
+       "in a ring": 5
+      },
+      "dead": 3,
+      "on": {
+       "e0": 4,
+       "e4": 5,
+       "e8": 2
+      }
+     },
+     "4": {
+      "blows": 13,
+      "onNamed": 3,
+      "off": {
+       "in a ring": 5,
+       "worth more": 4,
+       "worth more where he stands": 1
+      },
+      "dead": 1,
+      "on": {
+       "e8": 3
+      }
+     },
+     "5": {
+      "blows": 11,
+      "onNamed": 7,
+      "off": {
+       "in a ring": 3,
+       "worth more where he stands": 1
+      },
+      "dead": 1,
+      "on": {
+       "e3": 1,
+       "e8": 6
+      }
+     },
+     "6": {
+      "blows": 8,
+      "onNamed": 7,
+      "off": {
+       "in a ring": 1
+      },
+      "dead": 2,
+      "on": {
+       "e8": 1,
+       "e1": 2,
+       "e5": 4
+      }
+     },
+     "7": {
+      "blows": 3,
+      "onNamed": 3,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e5": 3
+      }
+     }
+    }
+   },
+   {
+    "seed": 62,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 14,
+      "onNamed": 6,
+      "off": {
+       "worth more where he stands": 3,
+       "worth more": 1,
+       "in a ring": 2,
+       "out of reach": 2
+      },
+      "dead": 2,
+      "on": {
+       "e5": 5,
+       "e7": 1
+      }
+     },
+     "2": {
+      "blows": 16,
+      "onNamed": 12,
+      "off": {
+       "keeps his roof": 1,
+       "out of reach": 1,
+       "in a ring": 1
+      },
+      "dead": 2,
+      "on": {
+       "e3": 8,
+       "e7": 4
+      }
+     },
+     "3": {
+      "blows": 13,
+      "onNamed": 8,
+      "off": {
+       "keeps his roof": 1,
+       "out of reach": 1,
+       "worth more": 1,
+       "in a ring": 2
+      },
+      "dead": 2,
+      "on": {
+       "e2": 5,
+       "e0": 3
+      }
+     },
+     "4": {
+      "blows": 10,
+      "onNamed": 10,
+      "off": {},
+      "dead": 2,
+      "on": {
+       "e1": 3,
+       "e4": 6,
+       "e8": 1
+      }
+     },
+     "5": {
+      "blows": 9,
+      "onNamed": 9,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e8": 9
+      }
+     }
+    }
+   },
+   {
+    "seed": 63,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 11,
+      "onNamed": 6,
+      "off": {
+       "keeps his roof": 1,
+       "ahead of his line": 1,
+       "out of reach": 2,
+       "worth more where he stands": 1
+      },
+      "dead": 1,
+      "on": {
+       "e8": 6
+      }
+     },
+     "2": {
+      "blows": 11,
+      "onNamed": 4,
+      "off": {
+       "worth more": 4,
+       "out of reach": 1,
+       "in a ring": 1
+      },
+      "dead": 6,
+      "on": {
+       "e0": 1,
+       "e3": 1,
+       "e1": 1,
+       "e5": 1
+      }
+     },
+     "3": {
+      "blows": 5,
+      "onNamed": 5,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e5": 4,
+       "e7": 1
+      }
+     },
+     "4": {
+      "blows": 6,
+      "onNamed": 6,
+      "off": {},
+      "dead": 0,
+      "on": {
+       "e7": 6
+      }
+     },
+     "5": {
+      "blows": 11,
+      "onNamed": 11,
+      "off": {},
+      "dead": 0,
+      "on": {
+       "e7": 11
+      }
+     }
+    }
+   },
+   {
+    "seed": 64,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 10,
+      "onNamed": 6,
+      "off": {
+       "out of reach": 1,
+       "in a ring": 3
+      },
+      "dead": 1,
+      "on": {
+       "e2": 4,
+       "e4": 2
+      }
+     },
+     "2": {
+      "blows": 16,
+      "onNamed": 7,
+      "off": {
+       "worth more": 7,
+       "in a ring": 1
+      },
+      "dead": 2,
+      "on": {
+       "e4": 3,
+       "e8": 4
+      }
+     },
+     "3": {
+      "blows": 17,
+      "onNamed": 10,
+      "off": {
+       "out of reach": 3,
+       "a shot too poor": 2,
+       "worth more": 1
+      },
+      "dead": 3,
+      "on": {
+       "e1": 6,
+       "e0": 4
+      }
+     },
+     "4": {
+      "blows": 8,
+      "onNamed": 4,
+      "off": {
+       "worth more": 4
+      },
+      "dead": 2,
+      "on": {
+       "e7": 4
+      }
+     },
+     "5": {
+      "blows": 2,
+      "onNamed": 2,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e3": 2
+      }
+     }
+    }
+   },
+   {
+    "seed": 65,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 13,
+      "onNamed": 4,
+      "off": {
+       "out of reach": 5,
+       "in a ring": 4
+      },
+      "dead": 1,
+      "on": {
+       "e6": 2,
+       "e0": 2
+      }
+     },
+     "2": {
+      "blows": 15,
+      "onNamed": 4,
+      "off": {
+       "worth more": 3,
+       "out of reach": 3,
+       "in a ring": 4
+      },
+      "dead": 5,
+      "on": {
+       "e6": 2,
+       "e1": 2
+      }
+     },
+     "3": {
+      "blows": 9,
+      "onNamed": 4,
+      "off": {
+       "in a ring": 2,
+       "out of reach": 3
+      },
+      "dead": 1,
+      "on": {
+       "e7": 4
+      }
+     },
+     "4": {
+      "blows": 7,
+      "onNamed": 7,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e7": 5,
+       "e4": 2
+      }
+     },
+     "5": {
+      "blows": 6,
+      "onNamed": 6,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e4": 6
+      }
+     }
+    }
+   }
+  ],
+  "blows": 288,
+  "onNamed": 179,
+  "rounds": 27,
+  "kills": 44,
+  "shot": {
+   "file": "records/target/COMBAT2_AUTO_KILLS_ONE_AT_A_TIME_phone_portrait.jpg",
+   "seed": 61,
+   "round": 3
+  }
+ },
+ "computer": {
+  "fights": [
+   {
+    "seed": 61,
+    "result": "won",
+    "rounds": 7,
+    "rounds_struck": 7,
+    "by_round": {
+     "1": {
+      "blows": 9,
+      "onNamed": 5,
+      "off": {
+       "in a ring": 3,
+       "worth more": 1
+      },
+      "dead": 0,
+      "on": {
+       "e0": 5
+      }
+     },
+     "2": {
+      "blows": 17,
+      "onNamed": 12,
+      "off": {
+       "a shot too poor": 4,
+       "worth more": 1
+      },
+      "dead": 1,
+      "on": {
+       "e0": 10,
+       "e4": 2
+      }
+     },
+     "3": {
+      "blows": 18,
+      "onNamed": 11,
+      "off": {
+       "out of reach": 2,
+       "in a ring": 5
+      },
+      "dead": 3,
+      "on": {
+       "e0": 4,
+       "e4": 5,
+       "e8": 2
+      }
+     },
+     "4": {
+      "blows": 13,
+      "onNamed": 3,
+      "off": {
+       "in a ring": 5,
+       "worth more": 4,
+       "worth more where he stands": 1
+      },
+      "dead": 1,
+      "on": {
+       "e8": 3
+      }
+     },
+     "5": {
+      "blows": 11,
+      "onNamed": 7,
+      "off": {
+       "in a ring": 3,
+       "worth more where he stands": 1
+      },
+      "dead": 1,
+      "on": {
+       "e3": 1,
+       "e8": 6
+      }
+     },
+     "6": {
+      "blows": 8,
+      "onNamed": 7,
+      "off": {
+       "in a ring": 1
+      },
+      "dead": 2,
+      "on": {
+       "e8": 1,
+       "e1": 2,
+       "e5": 4
+      }
+     },
+     "7": {
+      "blows": 3,
+      "onNamed": 3,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e5": 3
+      }
+     }
+    }
+   },
+   {
+    "seed": 62,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 14,
+      "onNamed": 6,
+      "off": {
+       "worth more where he stands": 3,
+       "worth more": 1,
+       "in a ring": 2,
+       "out of reach": 2
+      },
+      "dead": 2,
+      "on": {
+       "e5": 5,
+       "e7": 1
+      }
+     },
+     "2": {
+      "blows": 16,
+      "onNamed": 12,
+      "off": {
+       "out of reach": 2,
+       "in a ring": 1
+      },
+      "dead": 2,
+      "on": {
+       "e3": 8,
+       "e7": 4
+      }
+     },
+     "3": {
+      "blows": 13,
+      "onNamed": 8,
+      "off": {
+       "out of reach": 2,
+       "worth more": 1,
+       "in a ring": 2
+      },
+      "dead": 2,
+      "on": {
+       "e2": 5,
+       "e0": 3
+      }
+     },
+     "4": {
+      "blows": 10,
+      "onNamed": 10,
+      "off": {},
+      "dead": 2,
+      "on": {
+       "e1": 3,
+       "e4": 6,
+       "e8": 1
+      }
+     },
+     "5": {
+      "blows": 9,
+      "onNamed": 9,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e8": 9
+      }
+     }
+    }
+   },
+   {
+    "seed": 63,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 11,
+      "onNamed": 6,
+      "off": {
+       "keeps his roof": 1,
+       "ahead of his line": 1,
+       "out of reach": 2,
+       "worth more where he stands": 1
+      },
+      "dead": 1,
+      "on": {
+       "e8": 6
+      }
+     },
+     "2": {
+      "blows": 11,
+      "onNamed": 4,
+      "off": {
+       "worth more": 4,
+       "out of reach": 1,
+       "in a ring": 1
+      },
+      "dead": 6,
+      "on": {
+       "e0": 1,
+       "e3": 1,
+       "e1": 1,
+       "e5": 1
+      }
+     },
+     "3": {
+      "blows": 5,
+      "onNamed": 5,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e5": 4,
+       "e7": 1
+      }
+     },
+     "4": {
+      "blows": 6,
+      "onNamed": 6,
+      "off": {},
+      "dead": 0,
+      "on": {
+       "e7": 6
+      }
+     },
+     "5": {
+      "blows": 11,
+      "onNamed": 11,
+      "off": {},
+      "dead": 0,
+      "on": {
+       "e7": 11
+      }
+     }
+    }
+   },
+   {
+    "seed": 64,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 10,
+      "onNamed": 6,
+      "off": {
+       "out of reach": 1,
+       "in a ring": 3
+      },
+      "dead": 1,
+      "on": {
+       "e2": 4,
+       "e4": 2
+      }
+     },
+     "2": {
+      "blows": 16,
+      "onNamed": 8,
+      "off": {
+       "worth more": 7,
+       "in a ring": 1
+      },
+      "dead": 2,
+      "on": {
+       "e4": 4,
+       "e8": 4
+      }
+     },
+     "3": {
+      "blows": 17,
+      "onNamed": 10,
+      "off": {
+       "keeps his roof": 1,
+       "out of reach": 2,
+       "a shot too poor": 2,
+       "worth more": 1
+      },
+      "dead": 3,
+      "on": {
+       "e1": 6,
+       "e0": 4
+      }
+     },
+     "4": {
+      "blows": 8,
+      "onNamed": 4,
+      "off": {
+       "worth more": 4
+      },
+      "dead": 2,
+      "on": {
+       "e7": 4
+      }
+     },
+     "5": {
+      "blows": 2,
+      "onNamed": 2,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e3": 2
+      }
+     }
+    }
+   },
+   {
+    "seed": 65,
+    "result": "won",
+    "rounds": 5,
+    "rounds_struck": 5,
+    "by_round": {
+     "1": {
+      "blows": 13,
+      "onNamed": 4,
+      "off": {
+       "out of reach": 5,
+       "in a ring": 4
+      },
+      "dead": 1,
+      "on": {
+       "e6": 2,
+       "e0": 2
+      }
+     },
+     "2": {
+      "blows": 15,
+      "onNamed": 4,
+      "off": {
+       "worth more": 3,
+       "out of reach": 3,
+       "in a ring": 4
+      },
+      "dead": 5,
+      "on": {
+       "e6": 2,
+       "e1": 2
+      }
+     },
+     "3": {
+      "blows": 9,
+      "onNamed": 4,
+      "off": {
+       "in a ring": 2,
+       "out of reach": 3
+      },
+      "dead": 1,
+      "on": {
+       "e7": 4
+      }
+     },
+     "4": {
+      "blows": 7,
+      "onNamed": 7,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e7": 5,
+       "e4": 2
+      }
+     },
+     "5": {
+      "blows": 6,
+      "onNamed": 6,
+      "off": {},
+      "dead": 1,
+      "on": {
+       "e4": 6
+      }
+     }
+    }
+   }
+  ],
+  "blows": 288,
+  "onNamed": 180,
+  "rounds": 27,
+  "kills": 44,
+  "shot": {
+   "file": "records/target/COMBAT2_AUTO_KILLS_ONE_AT_A_TIME_computer.jpg",
+   "seed": 61,
+   "round": 3
+  }
+ }
+}

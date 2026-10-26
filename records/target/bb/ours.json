@@ -885,11 +885,49 @@
    "focus_per_strike": 1.25,
    "roof_steps": 2,
    "near_tiles": 2,
-   "standoff_rounds": 5
+   "standoff_rounds": 5,
+   "kill_rounds": 2,
+   "best_shot_margin": 10,
+   "shot_floor": 0.25,
+   "damage_quantiles": [0.25, 0.75],
+   "count_blows": 8,
+   "commit_kill": 0.8
   },
+  "team_picks_one": "COMBAT TWO [AUTO kills one at a time] 10/25-26 (rule 201, Paolo 10/25: 'I don't see teammates working together to target one enemy to make sure we kill enemies one at a time... unless the risk is too great to move tile to tile because you're gonna get a free hit'; rule 191(a): 'the ranged units should always prioritize the enemies they have the highest accuracy to hit... my ranged guy tried to shoot someone with the lowest accuracy'; records/BOHEMIA_COMBAT_TWO_AUTO_KILLS_ONE_AT_A_TIME_10_25_26.md). kill_rounds: TUNING's one numbers table brain.kill_rounds (records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md, Lanchester 1916): a kill is worth the dead man's next two rounds of damage; each round AUTO names the man whose death is worth most times (2 x (the chance he goes down + the share of him the blows take) + the chance he goes down before he acts again + the share). shot_floor [COMBAT TWO's default, TUNING's to tune]: no shot under a quarter of his best chance on the board, the 'lowest accuracy' shot (measured: the strict reading, within 10 points of his best, lost fights: 241 of 300 won where the old brain won 246). best_shot_margin [COMBAT TWO's default]: a shooter more than 10 points under his best chance on a man is not counted on for that man when the team names its man. commit_kill [COMBAT TWO's default]: when the team's blows drop the named man this round at least this likely, every man who can reach him hits him (201(b)); else each blow goes where it buys most, the team's blows still to come on the named man counted. damage_quantiles: a weapon's roll is even between its least and most, read at its quartiles (a two-point stand-in for the even roll, the rules' own hitDamage at each) when the brain reckons the chance a man goes down. count_blows [COMBAT TWO's default]: the brain reckons a man's fall from the eight likeliest blows on him (more never moved the named man, and keeps the calculator fast).",
   "source": "VAMILY.md rules 176 and 180 (Paolo 10/25); records/BOHEMIA_TUNING_A_BETTER_AUTO_BRAIN_AND_A_TRUE_CALCULATOR_10_25_26.md sections 5a and 5b (600 fights, the PROTO2 brain); bb_all/0626 (the 1.25 a strike), bb_all/1415_News and Dev Blogs.txt (the AI that sees no chance retreats)",
   "quote": "a guy very low on health, instead of trying to kill the enemy, walks two tiles away and then two tiles back in front of the enemy... if it's melee range, get the fuck in; I don't want the auto combat to use abilities",
   "why": "COMBAT [AUTO never wastes a turn] 10/25, TUNING's measured prototype built in: focus_per_strike, a foe his friends already struck this round is worth 1.25 a strike more to AUTO (Battle Brothers' own 1.25^n turned to focus, rule 180(h)); roof_steps, a roof a gunman can still shoot from is worth two steps of closing; near_tiles, a man who cannot act this turn stands when a foe is within two tiles (farther off he still closes, so the fight never stalls); standoff_rounds, after the first blow a fight in which nobody strikes anybody for five rounds ends with the enemy breaking off for good (Battle Brothers: the AI that sees no chance retreats; TUNING s5b point 4: a roof no club can reach made 34 fights of 600 never end)",
+  "tuned": false
+ },
+ "lessons": {
+  "value": {
+   "kinds": {
+    "brigand_thug": ["blows"],
+    "brigand_marauder": ["blows"],
+    "brigand_raider": ["blows"],
+    "lower_brigand_raider": ["blows"],
+    "brigand_marksman": ["shoots_the_soft"],
+    "brigand_poacher": ["shoots_the_soft"],
+    "brigand_leader": ["leads"],
+    "necromancer": ["his_machines_drop", "stands_them_up"],
+    "wiederganger": ["gets_up"],
+    "armored_wiederganger": ["gets_up"],
+    "goblin_skirmisher": ["nets"],
+    "lower_goblin_skirmisher": ["nets"],
+    "goblin_wolfrider": ["runs_round"],
+    "orc_warrior": ["breaks_the_line"],
+    "lower_orc_warrior": ["breaks_the_line"],
+    "orc_young": ["blows"],
+    "geist": ["breaks_nerve"],
+    "direwolf": ["runs_round"],
+    "frenzied_direwolf": ["runs_round"],
+    "hyena": ["runs_round"],
+    "schrat": ["blows"]
+   }
+  },
+  "source": "VAMILY.md rule 182 (Paolo 10/25); each lesson reads the game's own row for it: blows (his weapon, the rules' hitChance and hitDamage), his_machines_drop (ours.bestiary.mechanic), stands_them_up and gets_up (racial_skills.json raise_undead, bb_all/1631_Raise Undead), nets (racial_skills.json throw_net, bb_all/1998_Throw Net), breaks_the_line (racial_skills.json line_breaker, bb_all/1501_Orc Warrior), breaks_nerve (racial_skills.json horrific_scream, bb_all/0831_Geist), leads (ours.captain_aura, bb_all/0343_Captain), shoots_the_soft (ai.json backline.soft, bb_all/0294_Brigand Marksman), runs_round (ai.json rider and rusher, bb_all/0629_Direwolf, bb_all/0877_Goblin Wolfrider)",
+  "quote": "if killing the mechanic turns the rest of his robots off, why aren't we just aiming at the mechanic every turn that we possibly can that we're in range for... I can't be explaining each niche auto combat thing to you",
+  "why": "COMBAT TWO [AUTO knows every enemy's lesson] 10/25 (rule 182(a)-(d)): every kind the fight can field (ours.enemy_tiers.mix and heads, all six factions, 21 kinds) has its row here, the lessons by name; the brain (slices/BOHEMIA_FIGHT.html, LESSON) has one reader per lesson that turns the rule into hitpoints a round, added to what his death is worth when AUTO names the round's man (rule 201). A kind with no row, or a lesson with no reader, fails gates/auto_kills_one_at_a_time_gate.js. 'blows' is his own blows only (every man has them); the plain kinds carry it so the row says it was looked at. The readers marked [COMBAT TWO's default] in the fight price a rule the library gives no number for; TUNING's to tune.",
   "tuned": false
  },
  "ground_rows": {

@@ -131,10 +131,18 @@ async function main() {
   await until(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !FIGHT.S.deploy, 30000);
   const a0 = await ev(q => { const u = FIGHT.S.units.filter(v => v.side === 'you' && v.name === q)[0]; return { at: [u.x, u.y], deploy: FIGHT.S.deploy, acted: FIGHT.S.log.filter(e => e.t === 'step' || e.t === 'attack').length }; }, plan.name);
   leg(!a0.deploy && a0.acted === 0 && same(a0.at, [plan.to.x, plan.to.y]), '*** AUTO SKIPS THE SETTING AND STARTS ON THE KEPT LINE *** (nobody has moved yet)', plan.name + ' at ' + a0.at.join(',') + ', ' + a0.acted + ' acts');
+  /* the line is the approach's (rule 188, the brain's keep_formation: 'once the lines meet his men close in'): read it at every
+     AUTO step until round 4 or the lines meet, whichever comes first (COMBAT TWO 10/26: on this seed the lines meet in round 1,
+     and by round 4 three men had killed the man in front of them and stood 4 to 6 from the rest while one still fought: read at
+     round 4 that was 'ahead of the line', and it was the fight, not the line) */
+  await ev(q => { const real = FIGHT.aiStep; window.__line = null;
+    const read = () => { const S = FIGHT.S, u0 = FIGHT.alive('you')[0]; if (!u0) return null; const hunt = FIGHT._t.huntField(u0);
+      const melee = FIGHT.alive('you').filter(u => !FIGHT.isRanged(u.weapon) && u.morale !== 'Fleeing'); const hs = melee.map(u => hunt(u.x, u.y)).filter(isFinite).sort((a, b) => a - b);
+      const mid = hs.length ? hs[Math.floor(hs.length / 2)] : null; return { round: S.round, over: S.over, contact: S.contact, mid, ahead: hs.filter(h => h < mid - q).length, melee: hs.length, hs }; };
+    window.__readLine = read;
+    FIGHT.aiStep = function () { if (!FIGHT.S.contact && FIGHT.S.round <= 4) window.__line = read(); return real.apply(this, arguments); }; }, DEPTH);
   await until(() => FIGHT.S.round >= 4 || FIGHT.S.over, 90000);
-  const held = await ev(q => { const S = FIGHT.S, u0 = FIGHT.alive('you')[0]; if (!u0) return null; const hunt = FIGHT._t.huntField(u0);
-    const melee = FIGHT.alive('you').filter(u => !FIGHT.isRanged(u.weapon) && u.morale !== 'Fleeing'); const hs = melee.map(u => hunt(u.x, u.y)).filter(isFinite).sort((a, b) => a - b);
-    const mid = hs.length ? hs[Math.floor(hs.length / 2)] : null; return { round: S.round, over: S.over, mid, ahead: hs.filter(h => h < mid - q).length, melee: hs.length, hs }; }, DEPTH);
+  const held = await ev(() => window.__line || window.__readLine());
   leg(!!held && held.ahead === 0, 'and the crew walks as a line: by round ' + (held && held.round) + ' no melee man is more than the line\'s depth (' + DEPTH + ') ahead of its middle', held ? ('distances to the fight ' + held.hs.join(' ') + ', middle ' + held.mid) : 'no crew');
   /* ---- 6. forgetting ---- */
   await restart({ seed: SEED, speed: SPEED, kind: KIND, formation: null });
