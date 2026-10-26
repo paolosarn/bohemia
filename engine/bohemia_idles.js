@@ -139,8 +139,123 @@
     var c = cell(look, (o && o.set) || 'bare', a.pose, f); if (!c) return null;
     c.kind = a.kind; c.pose = a.pose; return c;
   }
+  /* ==== __THE_TOWNS_ACTIVITIES__ (ANIMATION [the town's activities], rule 218(a), Paolo 10/26, LOCKED: 'everyone on your
+     company... you can see them in the settlement, maybe flirting with a girl, maybe drinking some beer, maybe walking around,
+     maybe talking to people... make it feel alive'). What a man of his company DOES in a town, on the same clock as the idles:
+       BohemiaIdles.activities(look)                   the activities this look has pictures for ([] until his index is in):
+                                                       'drink' 'smoke' 'talk' 'flirt' 'sit' 'stall'
+       BohemiaIdles.townAt(seed, now, o)                {slot, kind, pose, act} for o.act, no look needed (the clock alone)
+       BohemiaIdles.activity(look, seed, now, f, o)     the cell to draw now (as frame(): img x y w h dx dy foot, and kind,
+                                                       pose, act), or null (not in yet: draw his idle or his still)
+     o.act the activity; o.since when he began it (that slot is a breath); o.n his place in his company (0, 1, 2...: the
+     crew's clocks spread evenly, so no two are in step); o.partner (talk) the second of a pair: give the
+     two the SAME o.pair (any string the pair shares) and one of them partner: true, and one talks while the other listens,
+     turn and turn about, a slot each; o.wall (flirt) a wall at his right hand: the hand up on it joins his idles.
+     THE PICTURES: slices/rig_town/<look>_<act>.webp, a sheet PER ACTIVITY (a man drinking loads only his drink), rendered
+     on each man's own build (tools/bohemia_animation_the_towns_activities.py, the source records/target/animation/
+     BOHEMIA_THE_TOWNS_ACTIVITIES.json); his cells sit in his render's full frame and feet[f] is where his still stands, as
+     his bare idles. Walking the street is the walk he has (slices/rig_walk, 'walk_plain'), its stops 'stall' or his idles. */
+  var TBASE = root.BOHEMIA_TOWN_BASE || BASE.replace(/rig_idles\/?$/, 'rig_town/');
+  var TOWN = null, tstate = 0, TDATA = {}, TP = {};
+  function townLoad() {
+    if (tstate) return tstate === 2;
+    tstate = 1;
+    try {
+      fetch(TBASE + 'rig_town.json').then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (m) { TOWN = m; tstate = (m && m.looks) ? 2 : 3; }, function () { tstate = 3; });
+    } catch (e) { tstate = 3; }
+    return false;
+  }
+  function townLook(look) {
+    if (!townLoad()) return null;
+    var L = TOWN.looks[look]; if (!L) return null;
+    var e = TDATA[look];
+    if (!e) {
+      e = TDATA[look] = { d: null };
+      try { fetch(TBASE + L.json).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { e.d = d; }, function () {}); } catch (x) {}
+    }
+    return e.d;
+  }
+  function activities(look) { var L = townLook(look); return L ? Object.keys(L.sheets) : []; }
+  /* his handful of an activity's variants (his habit first and twice as likely: the drinker sips, another swigs), his offset,
+     how often he does one; a talker's turns are his own picks of the activity's say and hear */
+  function townPerson(seed, act, wall) {
+    var key = seed + '|' + act + '|' + (wall ? 'w' : ''), p = TP[key]; if (p) return p;
+    var A = TOWN.activities[act], all = (A.idles || []).concat(wall && A.wall ? A.wall : []);
+    var pick = function (list, n) { return list.slice().sort(function (a, b) { return hash(seed, act + a) - hash(seed, act + b); }).slice(0, Math.min(n, list.length)); };
+    var mine = pick(all, 3);
+    if (A.habit && all.indexOf(A.habit) >= 0 && unit(seed, act + 'habit') < 0.5) mine[0] = A.habit;   /* half of them lean on the activity's own habit */
+    if (mine.length) mine.push(mine[0]);
+    var f = A.fidget || [0.5, 0.85];
+    p = TP[key] = { off: hash(seed, act + 'off') % SPAN, pz: pauses(seed, act),
+      fidget: f[0] + (f[1] - f[0]) * unit(seed, act + 'fidget'), idles: mine,
+      say: A.turns ? pick(A.turns.say, 2) : null, hear: A.turns ? pick(A.turns.hear, 2) : null };
+    return p;
+  }
+  /* HIS OWN PAUSES: a block of eight slots and one slot's worth of keys laid between them his own way (0 to about 6 keys, his
+     rest held), so no two men's slots start together (measured: on a bare clock any two men whose offsets differ by whole
+     slots did every slot in step, about one pair in twenty-four; two of twelve drinkers shared 73 percent of their keys).
+     Every key is still on the beat, three a beat; a slot is still its 24 keys */
+  var BLOCK = 8, SPARE = SLOT, SPAN = BLOCK * SLOT + SPARE, PZ = {};
+  function pauses(gseed, act) {
+    var key = gseed + '|' + act; if (PZ[key]) return PZ[key];
+    var w = [], s = 0, i;
+    for (i = 0; i < BLOCK; i++) { w.push(0.2 + unit(gseed, act + 'gap' + i)); s += w[i]; }
+    var g = w.map(function (x) { return Math.floor(x / s * SPARE); }), left = SPARE;
+    g.forEach(function (x) { left -= x; });
+    for (i = 0; left > 0; i = (i + 1) % BLOCK, left--) g[i]++;
+    var st = [0]; for (i = 0; i < BLOCK; i++) st.push(st[i] + g[i] + SLOT);
+    return (PZ[key] = { g: g, st: st });
+  }
+  function slotOf(k, pz) {   /* the slot key k falls in, and how far into its timeline (below 0: his pause before it) */
+    var b = Math.floor(k / SPAN), r = k - b * SPAN, i = 0;
+    while (i < BLOCK - 1 && r >= pz.st[i + 1]) i++;
+    return { slot: b * BLOCK + i, kin: r - pz.st[i] - pz.g[i] };
+  }
+  function townAt(seed, now, o) {
+    o = o || {};
+    if (!townLoad() || !o.act || !TOWN.activities[o.act]) return null;
+    var A = TOWN.activities[o.act], bm = o.beatMs || 500, keyMs = bm / 3, p = townPerson(seed, o.act, o.wall);
+    var paired = A.turns && o.pair !== undefined;   /* a pair shares one clock and one set of pauses */
+    /* o.n, his place in his company: the crew's clocks spread by the golden ratio, never two within half a second (a hash
+       alone lets two of twelve land a key apart); without it, his seed's own */
+    var off = paired ? hash(o.pair, 'pairoff') % SPAN : o.n !== undefined ? Math.floor((((o.n | 0) * 0.6180339887 + unit(o.act, 'n')) % 1) * SPAN) : p.off;
+    var pz = paired ? pauses(o.pair, o.act) : p.pz;
+    var at_ = slotOf(Math.floor(now / keyMs) + off, pz), slot = at_.slot, kin = at_.kin;
+    var odd = ((slot % 2) + 2) % 2, kind;
+    var first = o.since !== undefined && slotOf(Math.floor(o.since / keyMs) + off, pz).slot === slot;
+    if (A.turns && !first) {
+      var mineTurn = ((slot + (o.partner ? 1 : 0)) % 2 + 2) % 2 === 0;
+      var L = mineTurn ? p.say : p.hear; kind = L[hash(seed, 't' + slot) % L.length];
+    } else {
+      var br = A.breathe || [[A.rest]], side = br[(((slot >> 1) + odd) & 1) % br.length];   /* his weight on one leg two slots, then the other (on the right every even slot, any two men stood in the same two pictures half the time) */
+      kind = side[hash(seed, 'b' + o.act + slot) % side.length];
+      if (odd && !first && p.idles.length && unit(seed, o.act + slot) < p.fidget) kind = p.idles[hash(seed, 'i' + o.act + slot) % p.idles.length];
+    }
+    var tl = TOWN.timelines[kind]; if (!tl) return null;
+    if (kin < 0) return { slot: slot, kind: kind, pose: A.rest, act: o.act };   /* his pause: the rest he ended the last slot on */
+    for (var i = 0, q = kin; i < tl.length; i++) { if (q < tl[i][1]) return { slot: slot, kind: kind, pose: tl[i][0], act: o.act }; q -= tl[i][1]; }
+    return { slot: slot, kind: kind, pose: A.rest, act: o.act };
+  }
+  function tsheet(file) {
+    var u = TBASE + file, e = IM[u];
+    if (!e) { e = IM[u] = { im: new Image(), ok: false }; e.im.onload = function () { e.ok = true; }; e.im.src = u; }
+    return e.ok ? e.im : null;
+  }
+  function activity(look, seed, now, f, o) {
+    var L = townLook(look); if (!L || !o || !L.sheets[o.act]) return null;
+    var a = townAt(seed, now, o); if (!a) return null;
+    var ps = L.poses[o.act][a.pose]; if (!ps) return null;
+    var ff = ((f | 0) % 8 + 8) % 8, i = ps[ff]; if (i === null || i === undefined) return null;
+    var Sh = L.sheets[o.act], img = tsheet(Sh.file); if (!img) return null;
+    var c = Sh.cells[i];
+    return { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5], foot: (L.feet && L.feet[ff]) || L.foot, person: !!L.person,
+      kind: a.kind, pose: a.pose, act: o.act };
+  }
+  /* ==== end __THE_TOWNS_ACTIVITIES__ ==== */
   root.BohemiaIdles = { load: load, ready: ready, has: has, at: at, cell: cell, gun: gun, frame: frame, hash: hash, DIRS: DIRS,
-    image: sheet, map: map, mapPeople: mapPeople,
+    image: sheet, map: map, mapPeople: mapPeople, activities: activities, townAt: townAt, activity: activity,
+    town: function () { townLoad(); return TOWN; },
     meta: function () { return META; },
     /* __THE_TOWN_LETS_GO__ (RUN 10/24, rule 141(e)): a screen that is put away lets go of every sheet it drew from (the town's
        idles were 188 MB decoded across three places and none was ever let go); the next frame() fetches what it needs again */
