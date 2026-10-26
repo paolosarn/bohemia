@@ -1567,5 +1567,11 @@
   "source": "VAMILY.md rule 283(b) [COORDINATOR'S DEFAULT, rule 205] and rule 285(b) (Paolo 10/26: 'if I chill out it doesn't go down... especially if I'm ending my turn not taking any action'); records/BOHEMIA_PAOLO_FATIGUE_COMES_BACK_EVERY_TURN_10_26_26.md",
   "quote": "a man who ends his turn without spending any AP recovers double at his next turn (30)",
   "why": "END TURN with no AP spent is a REST: at his next turn this comes back instead of fatigue.recovery_per_turn (Battle Brothers' 15), and the fatigue hits and blocks put on him while he rests is owed until his next turn that spends closes, so one rest always buys the swing the turn after. TUNING's to tune."
+ },
+ "chase_calc": {
+  "value": {"runs": 4, "steps": 100, "rounds": 2, "worth": 0.5, "safe": 0.9},
+  "source": "VAMILY.md rule 198(h) (Paolo 10/26, LOCKED: 'even Battle Brothers has it: when the enemy wants to retreat because we messed with their morale, the game lets you know, and it's spare them or run them down'); records/BOHEMIA_COMBAT_SPARE_THEM_OR_RUN_THEM_DOWN_10_26_26.md",
+  "quote": "spare them or run them down, spare them or kill them, it lets you do that",
+  "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: AUTO's half of the choice. The rest of the rout is played runs times from copies of the moment every enemy left is fleeing (at most steps actions and rounds rounds, every man on AUTO); AUTO runs them down when a runner is caught in at least worth of the runs AND no man of ours who stands goes down in at least safe of them; else it spares them. Battle Brothers leaves the chase to the player; these numbers are ours."
  }
 }
