@@ -80,7 +80,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'keepCards',
+const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'keepCards', 'maker',
                     'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -403,6 +403,14 @@ async function open(opts) {
       /* the 'computer' profile has no touchscreen, and tapping one threw before the door (RUN 10/18): a mouse there */
       if (b) { if (prof.hasTouch) await page.touchscreen.tap(b.x, b.y); else await page.mouse.click(b.x, b.y); }
       await page.evaluate((i) => { const f = document.getElementById(i); if (f) f.click(); }, id);
+    }
+    /* RUN THREE [make your main guy] (rule 263(b)): a new game sits him in the barber's chair before his squad's tape; a stranger
+       takes the origin's own man with one real tap on GO once it is armed (its first second is dark); opts.maker 'stay' leaves the
+       chair up for a checker that makes him itself */
+    if (opts.maker !== 'stay') {
+      const g = await page.evaluate(() => { const w = document.getElementById('mainmaker'); if (!w || w.dataset.armed !== '1') return null;
+        const k = w.querySelector('.go'), r = k && k.getBoundingClientRect(); return r && r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }).catch(() => null);
+      if (g) { if (prof.hasTouch) await page.touchscreen.tap(g.x, g.y); else await page.mouse.click(g.x, g.y); }
     }
   };
   await knock();

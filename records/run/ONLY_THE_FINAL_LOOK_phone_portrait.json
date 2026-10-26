@@ -1,143 +1,88 @@
 {
- "when": "2026-10-26T08:05:28.869Z",
+ "when": "2026-10-26T12:01:06.604Z",
  "runs": [
   {
    "profile": "phone_portrait",
    "file": "BOHEMIA_DEMO.html",
-   "goMs": 13489,
-   "titleToGoMs": 13489,
-   "requests": 553,
+   "goMs": 14839,
+   "titleToGoMs": 14839,
+   "requests": 613,
    "deadRequests": [],
    "afterGo": [
     [
-     0,
-     "/engine/bohemia_roster.js",
-     36359
-    ],
-    [
-     2,
-     "/slices/rig_mix/remnants.json",
-     4600
-    ],
-    [
-     44,
+     60,
      "/slices/ui_kit/well/tl.png",
      876
     ],
     [
-     44,
+     60,
      "/slices/ui_kit/well/tr.png",
      561
     ],
     [
-     47,
+     61,
      "/slices/ui_kit/well/bl.png",
      709
     ],
     [
-     48,
+     61,
      "/slices/ui_kit/well/br.png",
      397
     ],
     [
-     48,
+     61,
      "/slices/ui_kit/well/t.png",
      2993
     ],
     [
-     48,
+     62,
      "/slices/ui_kit/well/b.png",
      2413
     ],
     [
-     48,
-     "/slices/fonts/BohemiaROM-Regular.woff2",
-     2244
-    ],
-    [
-     49,
-     "/slices/ui_kit/well/l.png",
-     3358
-    ],
-    [
-     50,
-     "/slices/ui_kit/well/r.png",
-     1927
-    ],
-    [
-     50,
-     "/slices/phone/case.png",
-     51011
-    ],
-    [
-     50,
-     "/slices/ui_kit/well/c.png",
-     11900
-    ],
-    [
-     50,
-     "/slices/ui_kit/glass/c.png",
-     74380
-    ],
-    [
-     51,
+     62,
      "/slices/fonts/BohemiaCasing-Regular.woff2",
      2056
     ],
     [
-     51,
-     "/slices/ui_kit/receipt/c.png",
-     56557
+     62,
+     "/slices/ui_kit/well/l.png",
+     3358
     ],
     [
-     59,
-     "/slices/ui_kit/receipt/tr.png",
-     379
+     63,
+     "/slices/ui_kit/well/r.png",
+     1927
     ],
     [
-     59,
-     "/slices/ui_kit/receipt/l.png",
-     4278
+     64,
+     "/slices/ui_kit/well/c.png",
+     11900
     ],
     [
-     59,
-     "/slices/ui_kit/receipt/t.png",
-     3582
+     64,
+     "/slices/ui_kit/glass/c.png",
+     74380
     ],
     [
-     60,
-     "/slices/ui_kit/receipt/r.png",
-     4002
-    ],
-    [
-     60,
-     "/slices/ui_kit/receipt/br.png",
-     428
+     68,
+     "/slices/phone/case.png",
+     51011
     ],
     [
      69,
-     "/slices/ui_kit/receipt/b.png",
-     4782
-    ],
-    [
-     70,
-     "/slices/ui_kit/receipt/tl.png",
-     384
+     "/slices/fonts/BohemiaROM-Regular.woff2",
+     2244
     ],
     [
      72,
-     "/slices/ui_kit/receipt/bl.png",
-     451
+     "/slices/phone/app_combat.png",
+     28309
     ],
     [
      72,
-     "/slices/phone/app_pause.png",
-     35390
-    ],
-    [
-     72,
-     "/slices/phone/app_relations.png",
-     35018
+     "/slices/phone/ear.png",
+     4202
     ],
     [
      72,
@@ -146,8 +91,8 @@
     ],
     [
      72,
-     "/slices/phone/app_feed.png",
-     35195
+     "/slices/phone/app_leave.png",
+     34489
     ],
     [
      72,
@@ -156,1507 +101,1832 @@
     ],
     [
      72,
-     "/slices/phone/ear.png",
-     4202
+     "/slices/phone/app_relations.png",
+     35018
     ],
     [
-     104,
-     "/slices/phone/app_combat.png",
-     28309
+     100,
+     "/slices/phone/app_notes.png",
+     35555
     ],
     [
-     123,
+     108,
+     "/slices/phone/app_settings.png",
+     36376
+    ],
+    [
+     108,
+     "/slices/phone/app_pause.png",
+     35390
+    ],
+    [
+     237,
      "/slices/vote/songs/probe.mp3",
      6941
     ],
     [
-     128,
-     "/slices/vote/songs/three_levels/the_vault/level_3.mp3",
+     237,
+     "/slices/vote/songs/three_levels/satellite_prayer/level_2.mp3",
      798765
     ],
     [
-     132,
-     "/slices/vote/songs/three_levels/the_vault/level_2.mp3",
+     237,
+     "/slices/vote/songs/three_levels/satellite_prayer/level_3.mp3",
      798765
     ],
     [
-     132,
-     "/slices/vote/songs/three_levels/the_vault/level_3.mp3",
-     798765
-    ],
-    [
-     132,
-     "/slices/vote/songs/three_levels/the_vault/level_2.mp3",
-     798765
-    ],
-    [
-     183,
+     246,
      "/slices/bohemia_the_squad_up_close.js",
-     16746
+     17846
     ],
     [
-     192,
-     "/slices/rig_mix/remnants.png",
-     565598
+     426,
+     "/slices/rig_idles/map.webp",
+     1328840
     ],
     [
-     403,
-     "/slices/rig_idles/map_remnants.webp",
-     636628
+     464,
+     "/slices/rig_mix/caravans.json",
+     4768
     ],
     [
-     452,
-     "/slices/rig_town/rig_town.json",
-     7101
-    ],
-    [
-     466,
-     "/slices/vote/songs/three_levels/the_vault/level_1.mp3",
-     798765
-    ],
-    [
-     1641,
-     "/records/target/portrait/crew/you/rest_128.png",
-     20863
-    ],
-    [
-     1641,
-     "/slices/rig_town/you.json",
-     15650
-    ],
-    [
-     2237,
-     "/records/target/character/barber/person_town_0/face/rest_128.png",
-     20818
-    ],
-    [
-     2238,
-     "/slices/rig_town/person_town_0.json",
-     16121
-    ],
-    [
-     3139,
-     "/records/target/character/barber/person_town_1/face/rest_128.png",
-     20907
-    ],
-    [
-     3140,
-     "/slices/rig_town/person_town_1.json",
-     16105
-    ],
-    [
-     4203,
-     "/slices/rig_town/person_town_1_talk.webp",
-     131454
-    ],
-    [
-     4204,
-     "/slices/rig_town/person_town_0_talk.webp",
-     144888
-    ],
-    [
-     4204,
-     "/slices/rig_town/you_talk.webp",
-     130936
-    ],
-    [
-     4234,
-     "/engine/bohemia_machine_party.js",
-     9064
-    ],
-    [
-     4237,
-     "/slices/vote/songs/machine_party_kit/press_1.wav",
-     30032
-    ],
-    [
-     4250,
-     "/slices/vote/songs/machine_party_kit/press_2.wav",
-     30032
-    ],
-    [
-     4250,
-     "/slices/vote/songs/machine_party_kit/relay_1.wav",
-     9746
-    ],
-    [
-     4250,
-     "/slices/vote/songs/machine_party_kit/relay_2.wav",
-     9746
-    ],
-    [
-     4250,
-     "/slices/vote/songs/machine_party_kit/clank_1.wav",
-     26504
-    ],
-    [
-     4250,
-     "/slices/vote/songs/machine_party_kit/relay_3.wav",
-     9746
-    ],
-    [
-     4269,
-     "/slices/vote/songs/machine_party_kit/clank_2.wav",
-     26504
-    ],
-    [
-     4269,
-     "/slices/vote/songs/machine_party_kit/bed.wav",
-     369486
-    ],
-    [
-     4269,
-     "/slices/vote/songs/machine_party_kit/hall.wav",
-     176444
-    ],
-    [
-     5635,
-     "/slices/BOHEMIA_SETTLEMENT_SCREEN.html",
-     314400
-    ],
-    [
-     5740,
-     "/slices/ui_kit/board_plain/tl.png",
-     339
-    ],
-    [
-     5740,
-     "/slices/ui_kit/board_plain/tr.png",
-     320
-    ],
-    [
-     5740,
-     "/slices/ui_kit/board_plain/bl.png",
-     334
-    ],
-    [
-     5740,
-     "/slices/ui_kit/board_plain/br.png",
-     391
-    ],
-    [
-     5740,
-     "/slices/ui_kit/board_plain/t.png",
-     6553
-    ],
-    [
-     5740,
-     "/slices/ui_kit/board_plain/b.png",
-     7579
-    ],
-    [
-     5742,
-     "/slices/ui_kit/board_plain/l.png",
-     6318
-    ],
-    [
-     5742,
-     "/slices/ui_kit/board_plain/r.png",
-     6322
-    ],
-    [
-     5742,
-     "/slices/ui_kit/board_plain/c.png",
-     183200
-    ],
-    [
-     5951,
-     "/engine/bohemia_economy.js",
-     12094
-    ],
-    [
-     5962,
-     "/engine/bohemia_purse.js",
-     31246
-    ],
-    [
-     5962,
-     "/engine/bohemia_barber.js",
-     4484
-    ],
-    [
-     5963,
-     "/engine/bohemia_followers.js",
-     6127
-    ],
-    [
-     5964,
-     "/engine/bohemia_place.js",
-     9417
-    ],
-    [
-     5964,
-     "/engine/bohemia_scavenge.js",
-     15447
-    ],
-    [
-     5964,
-     "/engine/bohemia_goodbros.js",
-     7350
-    ],
-    [
-     5964,
-     "/engine/bohemia_relations.js",
-     2623
-    ],
-    [
-     5964,
-     "/engine/bohemia_crew_door.js",
-     4226
-    ],
-    [
-     5964,
-     "/engine/bohemia_bag_sort.js",
-     1322
-    ],
-    [
-     5964,
-     "/engine/bohemia_arrivaltraits.js",
-     3985
-    ],
-    [
-     5964,
-     "/engine/bohemia_names.js",
-     15692
-    ],
-    [
-     5964,
-     "/engine/bohemia_stall_prices.js",
-     13021
-    ],
-    [
-     5964,
-     "/engine/bohemia_livingmap.js",
-     15322
-    ],
-    [
-     5964,
-     "/slices/bohemia_bar_news.js",
-     10046
-    ],
-    [
-     5964,
-     "/engine/bohemia_shop_wear.js",
-     4092
-    ],
-    [
-     5964,
-     "/engine/bohemia_camp.js",
-     7442
-    ],
-    [
-     5964,
-     "/engine/bohemia_renown.js",
-     5519
-    ],
-    [
-     5964,
-     "/engine/bohemia_wages.js",
-     2265
-    ],
-    [
-     6015,
-     "/slices/bohemia_board_shelf.js",
-     8697
-    ],
-    [
-     6016,
-     "/engine/bohemia_rig_bodies.js",
-     10184
-    ],
-    [
-     6017,
-     "/engine/bohemia_stats.js",
-     18921
-    ],
-    [
-     6044,
+     477,
      "/engine/bohemia_people_mix.js",
      60561
     ],
     [
-     6044,
-     "/engine/bohemia_century.js",
-     10322
+     488,
+     "/slices/vote/songs/three_levels/satellite_prayer/level_1.mp3",
+     798765
     ],
     [
-     6044,
-     "/engine/bohemia_powerbuild.js",
-     9902
+     490,
+     "/slices/rig_mix/caravans.png",
+     558474
     ],
     [
-     6044,
-     "/engine/bohemia_lotbuild.js",
-     21645
+     510,
+     "/engine/bohemia_rig_bodies.js",
+     10647
     ],
     [
-     6044,
-     "/engine/bohemia_housing.js",
-     9972
+     524,
+     "/engine/bohemia_main_man.js",
+     29019
     ],
     [
-     6044,
-     "/engine/bohemia_homebases.js",
-     32909
+     648,
+     "/slices/rig_idles/map_caravans.webp",
+     633570
     ],
     [
-     6044,
-     "/engine/bohemia_settlement_heard.js",
-     12898
+     714,
+     "/records/target/portrait/crew/you/rest_128.png",
+     20863
     ],
     [
-     6044,
-     "/slices/bohemia_injury_card.js",
-     11132
+     714,
+     "/records/target/character/barber/box_braids/rig_portrait_S.png",
+     41753
     ],
     [
-     6045,
-     "/engine/bohemia_idles.js",
-     18084
+     716,
+     "/records/target/character/barber/coil_crown/rig_portrait_S.png",
+     37299
     ],
     [
-     6045,
-     "/engine/bohemia_voice_recorded.js",
-     28855
+     719,
+     "/records/target/character/barber/comb_over/rig_portrait_S.png",
+     28099
     ],
     [
-     6045,
-     "/engine/bohemia_roster.js",
-     36359
+     740,
+     "/records/target/character/barber/deep_taper/rig_portrait_S.png",
+     25763
     ],
     [
-     6045,
-     "/slices/bohemia_busy_heard.js",
-     22284
+     747,
+     "/records/target/character/barber/dry_taper/rig_portrait_S.png",
+     26186
     ],
     [
-     6050,
-     "/engine/bohemia_crew_faces.js",
-     8504
+     748,
+     "/records/target/character/barber/finger_waves/rig_portrait_S.png",
+     25678
     ],
     [
-     6050,
-     "/engine/bohemia_voice.js",
-     29707
+     750,
+     "/records/target/character/barber/grease_back/rig_portrait_S.png",
+     26791
     ],
     [
-     6051,
-     "/engine/bohemia_long_injury.js",
-     19063
+     754,
+     "/records/target/character/barber/home_clippers/rig_portrait_S.png",
+     25196
     ],
     [
-     6065,
-     "/engine/bohemia_spanglish.js",
-     9226
+     758,
+     "/records/target/character/barber/horseshoe/rig_portrait_S.png",
+     25582
     ],
     [
-     6066,
-     "/engine/bohemia_condition.js",
-     28713
+     759,
+     "/records/target/character/barber/layered_fall/rig_portrait_S.png",
+     44198
     ],
     [
-     6066,
-     "/slices/bohemia_ui_materials.js",
-     283865
+     759,
+     "/records/target/character/barber/long_drop/rig_portrait_S.png",
+     33978
     ],
     [
-     6107,
-     "/records/target/bb/renown.json",
-     2814
+     762,
+     "/records/target/character/barber/razor_skull/rig_portrait_S.png",
+     25650
     ],
     [
-     6114,
-     "/records/target/bb/backgrounds.json",
-     161946
+     763,
+     "/records/target/character/barber/scorch/rig_portrait_S.png",
+     25804
     ],
     [
-     6132,
-     "/slices/ui_kit/board_plain/tl.png",
-     339
+     763,
+     "/records/target/character/barber/shag/rig_portrait_S.png",
+     29678
     ],
     [
-     6134,
-     "/slices/ui_kit/board_plain/tr.png",
-     320
+     765,
+     "/records/target/character/barber/short_ropes/rig_portrait_S.png",
+     30597
     ],
     [
-     6135,
-     "/slices/ui_kit/board_plain/bl.png",
-     334
+     765,
+     "/records/target/character/barber/spring_curls/rig_portrait_S.png",
+     37261
     ],
     [
-     6136,
-     "/slices/ui_kit/board_plain/br.png",
-     391
+     765,
+     "/records/target/character/barber/static/rig_portrait_S.png",
+     29379
     ],
     [
-     6137,
-     "/slices/ui_kit/board_plain/t.png",
-     6553
+     782,
+     "/records/target/character/barber/beard_chin_strap/rig_portrait_S.png",
+     26124
     ],
     [
-     6137,
-     "/slices/ui_kit/board_plain/b.png",
-     7579
-    ],
-    [
-     6138,
-     "/slices/ui_kit/board_plain/l.png",
-     6318
-    ],
-    [
-     6139,
-     "/slices/ui_kit/board_plain/r.png",
-     6322
-    ],
-    [
-     6139,
-     "/slices/ui_kit/board_plain/c.png",
-     183200
-    ],
-    [
-     6140,
-     "/slices/ui_kit/tin/tl.png",
-     1318
-    ],
-    [
-     6140,
-     "/slices/ui_kit/tin/tr.png",
-     1369
-    ],
-    [
-     6140,
-     "/slices/ui_kit/tin/bl.png",
-     1544
-    ],
-    [
-     6141,
-     "/records/target/portrait/crew/BOHEMIA_CREW_FACES.json",
-     11977
-    ],
-    [
-     6206,
-     "/slices/ui_kit/tin/l.png",
-     5929
-    ],
-    [
-     6206,
-     "/slices/ui_kit/tin/b.png",
-     6668
-    ],
-    [
-     6206,
-     "/slices/ui_kit/tin/r.png",
-     5978
-    ],
-    [
-     6207,
-     "/slices/ui_kit/tin/br.png",
-     1616
-    ],
-    [
-     6207,
-     "/slices/ui_kit/tin/c.png",
-     29585
-    ],
-    [
-     6207,
-     "/slices/ui_kit/tin/t.png",
-     5765
-    ],
-    [
-     6325,
-     "/slices/settlement/lot/tank.png",
-     443
-    ],
-    [
-     6325,
-     "/slices/settlement/lot/shed.png",
-     300
-    ],
-    [
-     6326,
-     "/slices/settlement/lot/wall.png",
-     249
-    ],
-    [
-     6334,
-     "/slices/settlement/lot/pump.png",
-     313
-    ],
-    [
-     6334,
-     "/slices/settlement/lot/garden.png",
-     304
-    ],
-    [
-     6334,
-     "/slices/settlement/lot/solar.png",
-     603
-    ],
-    [
-     6334,
-     "/slices/settlement/lot/roof.png",
-     470
-    ],
-    [
-     6335,
-     "/slices/settlement/lot/stall.png",
-     550
-    ],
-    [
-     6335,
-     "/slices/market_icons/w_pistol.png",
-     6096
-    ],
-    [
-     6335,
-     "/slices/market_icons/w_bottles.png",
-     3663
-    ],
-    [
-     6336,
-     "/slices/market_icons/b_smith.png",
-     8803
-    ],
-    [
-     6336,
-     "/slices/market_icons/b_armourer.png",
-     9823
-    ],
-    [
-     6336,
-     "/records/target/bb/armour_names.json",
-     10328
-    ],
-    [
-     6336,
-     "/slices/bohemia_phone.js",
-     81805
-    ],
-    [
-     6347,
-     "/records/target/bb/condition.json",
-     10632
-    ],
-    [
-     6348,
-     "/records/target/bb/ours.json",
-     74906
-    ],
-    [
-     6348,
-     "/records/target/settlement_traits.json",
-     8757
-    ],
-    [
-     6348,
-     "/records/target/bb/arrival_traits.json",
-     4888
-    ],
-    [
-     6348,
-     "/records/target/settlement_rumours.json",
-     6320
-    ],
-    [
-     6348,
-     "/records/target/bb/weapons.json",
-     227296
-    ],
-    [
-     6348,
-     "/records/target/BOHEMIA_BAR_NEWS_PLACES.json",
-     3336
-    ],
-    [
-     6393,
-     "/slices/fonts/BohemiaCasing-Regular.woff2",
-     2056
-    ],
-    [
-     6401,
-     "/slices/ui_kit/tape/tape.png",
-     19140
-    ],
-    [
-     6402,
-     "/slices/fonts/BohemiaROM-Regular.woff2",
-     2244
-    ],
-    [
-     6402,
-     "/records/target/bb/stall_prices.json",
-     23687
-    ],
-    [
-     6403,
-     "/slices/settlement_ground_packs/settlement_ground.json",
-     11138
-    ],
-    [
-     6404,
-     "/slices/settlement_ground/settlement_ground.json",
-     10888
-    ],
-    [
-     6406,
-     "/records/target/bb/armor.json",
-     101190
-    ],
-    [
-     6407,
-     "/slices/settlement_walk.json",
-     4046
-    ],
-    [
-     6407,
-     "/records/target/bb/armour_names.json",
-     10328
-    ],
-    [
-     6408,
-     "/records/target/bb/injuries.json",
-     56781
-    ],
-    [
-     6408,
-     "/records/target/bb/post_women.json",
-     1733
-    ],
-    [
-     6409,
-     "/records/target/bb/rare_recruits.json",
-     3129
-    ],
-    [
-     6411,
-     "/records/target/bb/rules.json",
-     65816
-    ],
-    [
-     6411,
-     "/records/target/bb/price_table.json",
-     9265
-    ],
-    [
-     6411,
-     "/records/target/BOHEMIA_HALL_PRICE.json",
-     1482
-    ],
-    [
-     6411,
-     "/records/target/bb/weapons.json",
-     227296
-    ],
-    [
-     6411,
-     "/records/target/settlement_rumours.json",
-     6320
-    ],
-    [
-     6411,
-     "/records/target/bb/recruit_ceiling.json",
-     3982
-    ],
-    [
-     6411,
-     "/records/target/bb/traits.json",
-     43265
-    ],
-    [
-     6412,
-     "/records/target/BOHEMIA_BOARD_SHELF.json",
-     24470
-    ],
-    [
-     6422,
-     "/records/target/bb/backgrounds.json",
-     161946
-    ],
-    [
-     6422,
-     "/records/target/bb/relations.json",
-     5808
-    ],
-    [
-     6422,
-     "/slices/fight_rig/fight_rig.json",
-     36700
-    ],
-    [
-     6423,
-     "/records/target/bb/nightly_bill.json",
-     1830
-    ],
-    [
-     6423,
-     "/records/target/bb/ours.json",
-     74906
-    ],
-    [
-     6423,
-     "/records/target/bb/perk_translation.json",
-     22497
-    ],
-    [
-     6423,
-     "/records/target/bb/perks.json",
-     29716
-    ],
-    [
-     6423,
-     "/records/target/bb/armor.json",
-     101190
-    ],
-    [
-     6423,
-     "/records/target/bb/armour_names.json",
-     10328
-    ],
-    [
-     6423,
-     "/records/target/bb/rules.json",
-     65816
-    ],
-    [
-     6423,
-     "/records/target/bb/backgrounds.json",
-     161946
-    ],
-    [
-     6554,
-     "/slices/phone/phone.json",
-     1149
-    ],
-    [
-     6584,
-     "/slices/settlement_ground_packs/town_0.webp",
-     472878
-    ],
-    [
-     6585,
-     "/slices/settlement_ground_packs/town_0_night.webp",
-     366602
-    ],
-    [
-     6585,
-     "/records/target/character/barber/person_reds_3/face/rest_128.png",
-     22685
-    ],
-    [
-     6947,
-     "/records/target/character/barber/person_reds_3/face/A_128.png",
-     22976
-    ],
-    [
-     6947,
-     "/records/target/character/barber/person_reds_3/face/O_128.png",
-     22983
-    ],
-    [
-     6947,
-     "/records/target/character/barber/person_reds_3/face/E_128.png",
-     22864
-    ],
-    [
-     6947,
-     "/records/target/character/barber/person_reds_3/face/M_128.png",
-     22651
-    ],
-    [
-     6947,
-     "/records/target/character/barber/person_blues_1/rig_S.png",
-     7368
-    ],
-    [
-     6947,
-     "/records/target/character/barber/person_blues_1/rig_SE.png",
-     7081
-    ],
-    [
-     6948,
-     "/records/target/character/barber/person_blues_1/rig_SW.png",
-     6894
-    ],
-    [
-     6948,
-     "/records/target/character/barber/person_town_14/rig_SE.png",
-     6563
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_14/rig_S.png",
-     6886
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_14/rig_E.png",
-     5670
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_20/rig_S.png",
-     6691
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_20/rig_SE.png",
-     6337
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_20/rig_SW.png",
-     6281
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_33/rig_SE.png",
-     6339
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_33/rig_S.png",
-     6625
-    ],
-    [
-     6949,
-     "/records/target/character/barber/person_town_33/rig_SW.png",
-     6384
-    ],
-    [
-     6950,
-     "/records/target/character/barber/person_town_9/rig_SW.png",
-     6409
-    ],
-    [
-     6953,
-     "/records/target/character/barber/person_town_9/rig_S.png",
-     6650
-    ],
-    [
-     6954,
-     "/records/target/character/barber/person_town_9/rig_W.png",
-     5568
-    ],
-    [
-     6954,
-     "/records/target/character/barber/person_remnants_0/rig_E.png",
-     5642
-    ],
-    [
-     6956,
-     "/records/target/character/barber/person_remnants_0/rig_SE.png",
-     6621
-    ],
-    [
-     6966,
-     "/records/target/character/barber/person_remnants_0/rig_NE.png",
-     6184
-    ],
-    [
-     6966,
-     "/records/target/character/barber/person_remnants_1/rig_S.png",
-     7158
-    ],
-    [
-     6966,
-     "/records/target/character/barber/person_remnants_1/rig_SE.png",
-     6670
-    ],
-    [
-     6966,
-     "/records/target/character/barber/person_remnants_1/rig_SW.png",
-     6694
-    ],
-    [
-     6966,
-     "/records/target/character/barber/person_anarchists_2/rig_SW.png",
-     6336
-    ],
-    [
-     6967,
-     "/records/target/character/barber/person_anarchists_2/rig_S.png",
-     6655
-    ],
-    [
-     6967,
-     "/records/target/character/barber/person_anarchists_2/rig_W.png",
-     5599
-    ],
-    [
-     6967,
-     "/records/target/character/barber/person_town_1/rig_S.png",
-     7149
-    ],
-    [
-     6978,
-     "/records/target/character/barber/person_remnants_2/rig_SW.png",
-     6865
-    ],
-    [
-     6980,
-     "/records/target/character/barber/person_remnants_2/rig_S.png",
-     7459
-    ],
-    [
-     6980,
-     "/records/target/character/barber/person_remnants_2/rig_W.png",
-     5664
-    ],
-    [
-     6980,
-     "/records/target/character/barber/person_colorful_6/rig_SW.png",
-     6851
-    ],
-    [
-     6980,
-     "/records/target/character/barber/person_colorful_6/rig_S.png",
-     7346
-    ],
-    [
-     6982,
-     "/records/target/character/barber/person_colorful_6/rig_W.png",
-     5783
-    ],
-    [
-     6982,
-     "/records/target/character/barber/person_town_16/rig_E.png",
-     5443
-    ],
-    [
-     6982,
-     "/records/target/character/barber/person_town_16/rig_SE.png",
-     6227
-    ],
-    [
-     6982,
-     "/records/target/character/barber/person_town_16/rig_NE.png",
-     5813
-    ],
-    [
-     6982,
-     "/records/target/character/barber/person_town_18/rig_W.png",
-     5788
-    ],
-    [
-     6996,
-     "/records/target/character/barber/person_town_18/rig_SW.png",
-     7844
-    ],
-    [
-     6996,
-     "/records/target/character/barber/person_town_18/rig_NW.png",
-     6998
-    ],
-    [
-     6997,
-     "/records/target/character/barber/person_reds_3/rig_SE.png",
-     6834
-    ],
-    [
-     6997,
-     "/records/target/character/barber/person_reds_3/rig_S.png",
-     7356
-    ],
-    [
-     6997,
-     "/records/target/character/barber/person_reds_3/rig_E.png",
-     5992
-    ],
-    [
-     6997,
-     "/records/target/character/barber/person_town_0/rig_S.png",
-     7428
-    ],
-    [
-     6997,
-     "/records/target/character/barber/person_town_27/rig_SE.png",
-     6555
-    ],
-    [
-     6997,
-     "/records/target/character/barber/person_town_27/rig_S.png",
-     6758
-    ],
-    [
-     6998,
-     "/records/target/character/barber/person_town_27/rig_E.png",
-     5755
-    ],
-    [
-     6998,
-     "/records/target/character/barber/person_volunteers_6/rig_SW.png",
-     6711
-    ],
-    [
-     6998,
-     "/records/target/character/barber/person_volunteers_6/rig_S.png",
-     7046
-    ],
-    [
-     6998,
-     "/records/target/character/barber/person_volunteers_6/rig_W.png",
-     5703
-    ],
-    [
-     7027,
-     "/slices/fight_rig/you.webp",
-     218742
-    ],
-    [
-     7027,
-     "/records/target/BOHEMIA_JOB_KINDS.json",
-     19202
-    ],
-    [
-     7058,
-     "/slices/rig_town/rig_town.json",
-     7101
-    ],
-    [
-     7065,
-     "/slices/rig_idles/rig_idles.json",
-     16994
-    ],
-    [
-     7065,
-     "/slices/rig_walk/person_homeless_4.json",
-     421
-    ],
-    [
-     7065,
-     "/slices/rig_walk/person_network_7.json",
-     442
-    ],
-    [
-     7065,
-     "/slices/rig_walk/person_network_4.json",
-     457
-    ],
-    [
-     7706,
-     "/slices/rig_walk/person_homeless_4.png",
-     138452
-    ],
-    [
-     7706,
-     "/slices/rig_walk/person_network_7.png",
-     124104
-    ],
-    [
-     7706,
-     "/slices/rig_walk/person_network_4.png",
-     149847
-    ],
-    [
-     7865,
-     "/slices/rig_idles/person_town_20.json",
-     6737
-    ],
-    [
-     7865,
-     "/slices/rig_idles/person_town_14.json",
-     6740
-    ],
-    [
-     7866,
-     "/slices/rig_idles/person_town_33.json",
-     6737
-    ],
-    [
-     7868,
-     "/slices/rig_idles/person_town_9.json",
-     6740
-    ],
-    [
-     7868,
-     "/slices/rig_idles/person_remnants_0.json",
-     6725
-    ],
-    [
-     7868,
-     "/slices/rig_idles/person_remnants_1.json",
-     6746
-    ],
-    [
-     7868,
-     "/slices/rig_idles/person_anarchists_2.json",
-     6742
-    ],
-    [
-     7868,
-     "/slices/rig_idles/person_remnants_2.json",
-     6750
-    ],
-    [
-     7868,
-     "/slices/rig_idles/person_town_1.json",
-     6717
-    ],
-    [
-     7869,
-     "/slices/rig_idles/person_town_16.json",
-     6743
-    ],
-    [
-     7869,
-     "/slices/rig_idles/person_colorful_6.json",
-     6741
-    ],
-    [
-     7869,
-     "/slices/rig_idles/person_town_18.json",
-     6823
-    ],
-    [
-     7869,
-     "/slices/rig_idles/person_reds_3.json",
-     6739
-    ],
-    [
-     7869,
-     "/slices/rig_idles/person_town_0.json",
-     6722
-    ],
-    [
-     7870,
-     "/slices/rig_idles/person_town_27.json",
-     6739
-    ],
-    [
-     7870,
-     "/slices/rig_idles/person_volunteers_6.json",
-     6744
-    ],
-    [
-     7870,
+     782,
      "/slices/rig_idles/you.json",
      22100
     ],
     [
-     7874,
-     "/slices/rig_town/person_town_1.json",
-     16105
+     807,
+     "/records/target/character/barber/temple_taper/rig_portrait_S.png",
+     26870
     ],
     [
-     7874,
-     "/slices/rig_town/person_town_0.json",
-     16121
+     811,
+     "/records/target/character/barber/beard_full_beard/rig_portrait_S.png",
+     27190
     ],
     [
-     8113,
-     "/slices/rig_idles/person_town_14_bare.webp",
-     235296
+     813,
+     "/records/target/character/barber/beard_goatee/rig_portrait_S.png",
+     26724
     ],
     [
-     8114,
-     "/slices/rig_idles/person_town_20_bare.webp",
-     218234
+     814,
+     "/records/target/character/barber/beard_horseshoe_moustache/rig_portrait_S.png",
+     27095
     ],
     [
-     8116,
-     "/slices/rig_idles/person_town_33_bare.webp",
-     218660
+     814,
+     "/records/target/character/barber/beard_moustache/rig_portrait_S.png",
+     26050
     ],
     [
-     8116,
-     "/slices/rig_idles/person_town_9_bare.webp",
-     220066
+     814,
+     "/records/target/character/barber/beard_pencil_moustache/rig_portrait_S.png",
+     26026
     ],
     [
-     8138,
-     "/slices/rig_idles/person_remnants_0_bare.webp",
-     230758
+     826,
+     "/records/target/character/barber/beard_soul_patch/rig_portrait_S.png",
+     26422
     ],
     [
-     8141,
-     "/slices/rig_idles/person_remnants_1_bare.webp",
-     220000
+     827,
+     "/records/target/character/barber/beard_stubble/rig_portrait_S.png",
+     25887
     ],
     [
-     8142,
-     "/slices/rig_idles/person_anarchists_2_bare.webp",
-     209612
+     827,
+     "/records/target/character/barber/mark_brow_scar/rig_portrait_S.png",
+     26039
     ],
     [
-     8143,
-     "/slices/rig_town/person_town_1_drink.webp",
-     96408
+     827,
+     "/records/target/character/barber/mark_cauliflower_ear/rig_portrait_S.png",
+     26284
     ],
     [
-     8146,
-     "/slices/rig_idles/person_remnants_2_bare.webp",
-     225288
+     827,
+     "/records/target/character/barber/mark_cheek_burn/rig_portrait_S.png",
+     26508
     ],
     [
-     8153,
-     "/slices/rig_idles/person_town_1_bare.webp",
-     218274
+     827,
+     "/records/target/character/barber/mark_cheek_scar/rig_portrait_S.png",
+     26103
     ],
     [
-     8153,
-     "/slices/rig_idles/person_colorful_6_bare.webp",
-     217466
+     827,
+     "/records/target/character/barber/mark_clouded_eye/rig_portrait_S.png",
+     25752
     ],
     [
-     8153,
-     "/slices/rig_idles/person_town_16_bare.webp",
-     222750
+     828,
+     "/records/target/character/barber/mark_stitched_gash/rig_portrait_S.png",
+     26251
     ],
     [
-     8259,
-     "/slices/rig_idles/person_town_18_bare.webp",
-     225844
+     828,
+     "/records/target/character/barber/face_olive_dust_mask/rig_portrait_S.png",
+     25003
     ],
     [
-     8261,
-     "/slices/rig_idles/person_reds_3_bare.webp",
-     240580
+     829,
+     "/records/target/character/barber/face_outlaw_bandana/rig_portrait_S.png",
+     25515
     ],
     [
-     8261,
-     "/slices/rig_town/person_town_0_drink.webp",
-     105372
+     829,
+     "/records/target/character/barber/face_rust_dust_mask/rig_portrait_S.png",
+     25117
     ],
     [
-     8263,
-     "/slices/rig_idles/person_town_27_bare.webp",
-     229446
+     829,
+     "/records/target/character/barber/face_shield_visor/rig_portrait_S.png",
+     24778
     ],
     [
-     8263,
-     "/slices/rig_idles/person_volunteers_6_bare.webp",
-     226530
+     829,
+     "/records/target/character/barber/face_wraparound_shades/rig_portrait_S.png",
+     25174
     ],
     [
-     8263,
+     830,
+     "/records/target/character/barber/person_town_20/face/rest_64.png",
+     7382
+    ],
+    [
+     830,
+     "/records/target/portrait/rig/crew/you/rig_SE.png",
+     7223
+    ],
+    [
+     964,
      "/slices/rig_idles/you_bare.webp",
      218454
     ],
     [
-     8264,
+     1703,
+     "/records/target/character/barber/person_town_20/face/A_64.png",
+     7485
+    ],
+    [
+     1703,
+     "/records/target/character/barber/person_town_20/face/E_64.png",
+     7429
+    ],
+    [
+     1703,
+     "/records/target/character/barber/person_town_20/face/O_64.png",
+     7492
+    ],
+    [
+     1703,
+     "/records/target/character/barber/person_town_20/face/M_64.png",
+     7379
+    ],
+    [
+     2281,
+     "/slices/rig_town/rig_town.json",
+     15790
+    ],
+    [
+     2305,
+     "/slices/rig_idles/person_town_0.json",
+     6722
+    ],
+    [
+     2305,
+     "/slices/rig_idles/person_town_1.json",
+     6717
+    ],
+    [
+     3355,
+     "/slices/rig_town/you.json",
+     25028
+    ],
+    [
+     3940,
+     "/records/target/portrait/wounds/you.json",
+     5052
+    ],
+    [
+     3947,
+     "/records/target/portrait/wounds/you.png",
+     112474
+    ],
+    [
+     4145,
+     "/engine/bohemia_machine_party.js",
+     9064
+    ],
+    [
+     4163,
+     "/slices/vote/songs/machine_party_kit/press_1.wav",
+     30032
+    ],
+    [
+     4163,
+     "/slices/vote/songs/machine_party_kit/press_2.wav",
+     30032
+    ],
+    [
+     4167,
+     "/slices/vote/songs/machine_party_kit/relay_1.wav",
+     9746
+    ],
+    [
+     4168,
+     "/slices/vote/songs/machine_party_kit/relay_2.wav",
+     9746
+    ],
+    [
+     4168,
+     "/slices/vote/songs/machine_party_kit/relay_3.wav",
+     9746
+    ],
+    [
+     4170,
+     "/slices/vote/songs/machine_party_kit/clank_1.wav",
+     26504
+    ],
+    [
+     4179,
+     "/slices/vote/songs/machine_party_kit/clank_2.wav",
+     26504
+    ],
+    [
+     4180,
+     "/slices/vote/songs/machine_party_kit/bed.wav",
+     369486
+    ],
+    [
+     4180,
+     "/slices/vote/songs/machine_party_kit/hall.wav",
+     176444
+    ],
+    [
+     4185,
+     "/records/target/character/barber/person_town_0/face/rest_128.png",
+     20818
+    ],
+    [
+     4186,
      "/slices/rig_idles/person_town_0_bare.webp",
      240710
     ],
     [
-     14958,
+     4186,
+     "/slices/rig_town/person_town_0.json",
+     25664
+    ],
+    [
+     5112,
+     "/records/target/character/barber/person_town_1/face/rest_128.png",
+     20907
+    ],
+    [
+     5112,
+     "/slices/rig_idles/person_town_1_bare.webp",
+     218274
+    ],
+    [
+     5114,
+     "/slices/rig_town/person_town_1.json",
+     25653
+    ],
+    [
+     5977,
+     "/slices/rig_town/you_talk.webp",
+     130936
+    ],
+    [
+     5977,
+     "/slices/rig_town/person_town_0_talk.webp",
+     144888
+    ],
+    [
+     5978,
+     "/slices/rig_town/person_town_1_talk.webp",
+     131454
+    ],
+    [
+     6768,
+     "/records/target/portrait/wounds/person_town_0.json",
+     4638
+    ],
+    [
+     6781,
+     "/records/target/portrait/wounds/person_town_0.png",
+     108935
+    ],
+    [
+     7577,
+     "/slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+     323467
+    ],
+    [
+     7669,
+     "/slices/ui_kit/board_plain/tl.png",
+     339
+    ],
+    [
+     7669,
+     "/slices/ui_kit/board_plain/tr.png",
+     320
+    ],
+    [
+     7673,
+     "/slices/ui_kit/board_plain/bl.png",
+     334
+    ],
+    [
+     7674,
+     "/slices/ui_kit/board_plain/br.png",
+     391
+    ],
+    [
+     7674,
+     "/slices/ui_kit/board_plain/t.png",
+     6553
+    ],
+    [
+     7674,
+     "/slices/ui_kit/board_plain/b.png",
+     7579
+    ],
+    [
+     7675,
+     "/slices/ui_kit/board_plain/l.png",
+     6318
+    ],
+    [
+     7675,
+     "/slices/ui_kit/board_plain/r.png",
+     6322
+    ],
+    [
+     7675,
+     "/slices/ui_kit/board_plain/c.png",
+     183200
+    ],
+    [
+     7938,
+     "/slices/ui_kit/tin/br.png",
+     1616
+    ],
+    [
+     7940,
+     "/slices/ui_kit/tin/tl.png",
+     1318
+    ],
+    [
+     7940,
+     "/slices/ui_kit/tin/tr.png",
+     1369
+    ],
+    [
+     7940,
+     "/slices/ui_kit/tin/bl.png",
+     1544
+    ],
+    [
+     7940,
+     "/slices/ui_kit/tin/t.png",
+     5765
+    ],
+    [
+     7941,
+     "/slices/ui_kit/tin/b.png",
+     6668
+    ],
+    [
+     7941,
+     "/slices/ui_kit/tin/l.png",
+     5929
+    ],
+    [
+     7945,
+     "/slices/ui_kit/tin/c.png",
+     29585
+    ],
+    [
+     7946,
+     "/slices/ui_kit/tin/r.png",
+     5978
+    ],
+    [
+     7948,
+     "/engine/bohemia_economy.js",
+     12094
+    ],
+    [
+     7948,
+     "/engine/bohemia_barber.js",
+     4484
+    ],
+    [
+     7948,
+     "/engine/bohemia_followers.js",
+     6127
+    ],
+    [
+     7948,
+     "/engine/bohemia_place.js",
+     9417
+    ],
+    [
+     7949,
+     "/engine/bohemia_scavenge.js",
+     15447
+    ],
+    [
+     7949,
+     "/engine/bohemia_goodbros.js",
+     7350
+    ],
+    [
+     7949,
+     "/engine/bohemia_purse.js",
+     31246
+    ],
+    [
+     7951,
+     "/engine/bohemia_arrivaltraits.js",
+     3985
+    ],
+    [
+     7952,
+     "/engine/bohemia_relations.js",
+     2623
+    ],
+    [
+     7975,
+     "/engine/bohemia_bag_sort.js",
+     1322
+    ],
+    [
+     7975,
+     "/engine/bohemia_crew_door.js",
+     4226
+    ],
+    [
+     7980,
+     "/engine/bohemia_stall_prices.js",
+     13021
+    ],
+    [
+     7980,
+     "/engine/bohemia_livingmap.js",
+     15322
+    ],
+    [
+     7980,
+     "/engine/bohemia_names.js",
+     15692
+    ],
+    [
+     7980,
+     "/slices/bohemia_bar_news.js",
+     10046
+    ],
+    [
+     7980,
+     "/engine/bohemia_stats.js",
+     18921
+    ],
+    [
+     7980,
+     "/slices/bohemia_injury_card.js",
+     11132
+    ],
+    [
+     7980,
+     "/engine/bohemia_housing.js",
+     9972
+    ],
+    [
+     7980,
+     "/engine/bohemia_powerbuild.js",
+     9902
+    ],
+    [
+     7980,
+     "/engine/bohemia_homebases.js",
+     32909
+    ],
+    [
+     7980,
+     "/engine/bohemia_lotbuild.js",
+     21645
+    ],
+    [
+     7980,
+     "/engine/bohemia_century.js",
+     10322
+    ],
+    [
+     7980,
+     "/engine/bohemia_settlement_heard.js",
+     12898
+    ],
+    [
+     7980,
+     "/engine/bohemia_voice.js",
+     29707
+    ],
+    [
+     7980,
+     "/engine/bohemia_voice_recorded.js",
+     28855
+    ],
+    [
+     7980,
+     "/slices/bohemia_busy_heard.js",
+     22284
+    ],
+    [
+     7980,
+     "/engine/bohemia_shop_wear.js",
+     4092
+    ],
+    [
+     7980,
+     "/engine/bohemia_wages.js",
+     2265
+    ],
+    [
+     7980,
+     "/engine/bohemia_renown.js",
+     5519
+    ],
+    [
+     7980,
+     "/engine/bohemia_camp.js",
+     7442
+    ],
+    [
+     7980,
+     "/slices/bohemia_board_shelf.js",
+     8697
+    ],
+    [
+     7980,
+     "/engine/bohemia_people_mix.js",
+     60561
+    ],
+    [
+     7982,
+     "/engine/bohemia_rig_bodies.js",
+     10647
+    ],
+    [
+     7982,
+     "/engine/bohemia_idles.js",
+     18749
+    ],
+    [
+     7982,
+     "/engine/bohemia_wear.js",
+     15506
+    ],
+    [
+     7982,
+     "/engine/bohemia_crew_faces.js",
+     10557
+    ],
+    [
+     7982,
+     "/engine/bohemia_long_injury.js",
+     19063
+    ],
+    [
+     7982,
+     "/engine/bohemia_condition.js",
+     32380
+    ],
+    [
+     7982,
+     "/engine/bohemia_roster.js",
+     36896
+    ],
+    [
+     7982,
+     "/engine/bohemia_spanglish.js",
+     9226
+    ],
+    [
+     7982,
+     "/slices/bohemia_ui_materials.js",
+     286375
+    ],
+    [
+     8098,
+     "/records/target/portrait/wounds/person_town_1.json",
+     4721
+    ],
+    [
+     8311,
+     "/slices/ui_kit/board_plain/tl.png",
+     339
+    ],
+    [
+     8313,
+     "/slices/ui_kit/board_plain/tr.png",
+     320
+    ],
+    [
+     8315,
+     "/slices/ui_kit/board_plain/bl.png",
+     334
+    ],
+    [
+     8318,
+     "/slices/ui_kit/board_plain/br.png",
+     391
+    ],
+    [
+     8319,
+     "/slices/ui_kit/board_plain/t.png",
+     6553
+    ],
+    [
+     8320,
+     "/slices/ui_kit/board_plain/b.png",
+     7579
+    ],
+    [
+     8322,
+     "/slices/ui_kit/board_plain/l.png",
+     6318
+    ],
+    [
+     8324,
+     "/slices/ui_kit/board_plain/r.png",
+     6322
+    ],
+    [
+     8326,
+     "/slices/ui_kit/board_plain/c.png",
+     183200
+    ],
+    [
+     8327,
+     "/slices/ui_kit/tin/tl.png",
+     1318
+    ],
+    [
+     8328,
+     "/slices/ui_kit/tin/bl.png",
+     1544
+    ],
+    [
+     8331,
+     "/slices/ui_kit/tin/b.png",
+     6668
+    ],
+    [
+     8333,
+     "/slices/ui_kit/tin/tr.png",
+     1369
+    ],
+    [
+     8334,
+     "/slices/ui_kit/tin/c.png",
+     29585
+    ],
+    [
+     8335,
+     "/slices/ui_kit/tin/br.png",
+     1616
+    ],
+    [
+     8335,
+     "/slices/ui_kit/tin/t.png",
+     5765
+    ],
+    [
+     8337,
+     "/slices/ui_kit/tin/l.png",
+     5929
+    ],
+    [
+     8338,
+     "/slices/ui_kit/tin/r.png",
+     5978
+    ],
+    [
+     8339,
+     "/records/target/bb/renown.json",
+     2814
+    ],
+    [
+     8340,
+     "/records/target/bb/backgrounds.json",
+     161946
+    ],
+    [
+     8341,
+     "/slices/wear/wear.json",
+     8552
+    ],
+    [
+     8341,
+     "/records/target/bb/armour_looks.json",
+     19713
+    ],
+    [
+     8342,
+     "/records/target/portrait/crew/BOHEMIA_CREW_FACES.json",
+     11977
+    ],
+    [
+     8343,
+     "/records/target/bb/armour_names.json",
+     10328
+    ],
+    [
+     8344,
+     "/engine/bohemia_wound_faces.js",
+     15471
+    ],
+    [
+     8345,
+     "/slices/bohemia_phone.js",
+     89910
+    ],
+    [
+     8357,
+     "/records/target/bb/condition.json",
+     11034
+    ],
+    [
+     8358,
+     "/records/target/bb/ours.json",
+     77464
+    ],
+    [
+     8490,
+     "/records/target/portrait/wounds/person_town_1.png",
+     93910
+    ],
+    [
+     8541,
+     "/records/target/portrait/wounds/BOHEMIA_WOUND_MARKS.json",
+     13062
+    ],
+    [
+     8541,
+     "/slices/phone/phone.json",
+     1285
+    ],
+    [
+     8542,
+     "/records/target/bb/arrival_traits.json",
+     4888
+    ],
+    [
+     8542,
+     "/records/target/settlement_traits.json",
+     8757
+    ],
+    [
+     8542,
+     "/records/target/settlement_rumours.json",
+     6320
+    ],
+    [
+     8542,
+     "/records/target/BOHEMIA_BAR_NEWS_PLACES.json",
+     3336
+    ],
+    [
+     8599,
+     "/slices/settlement/lot/wall.png",
+     249
+    ],
+    [
+     8600,
+     "/slices/settlement/lot/tank.png",
+     443
+    ],
+    [
+     8601,
+     "/slices/settlement/lot/shed.png",
+     300
+    ],
+    [
+     8602,
+     "/slices/settlement/lot/pump.png",
+     313
+    ],
+    [
+     8602,
+     "/slices/settlement/lot/stall.png",
+     550
+    ],
+    [
+     8603,
+     "/slices/settlement/lot/garden.png",
+     304
+    ],
+    [
+     8604,
+     "/slices/settlement/lot/solar.png",
+     603
+    ],
+    [
+     8605,
+     "/slices/settlement/lot/roof.png",
+     470
+    ],
+    [
+     8605,
+     "/slices/market_icons/w_pistol.png",
+     6096
+    ],
+    [
+     8606,
+     "/slices/market_icons/w_bottles.png",
+     3663
+    ],
+    [
+     8607,
+     "/slices/market_icons/b_armourer.png",
+     9823
+    ],
+    [
+     8608,
+     "/slices/market_icons/b_smith.png",
+     8803
+    ],
+    [
+     8609,
+     "/slices/wear/wear.webp",
+     155066
+    ],
+    [
+     8609,
+     "/slices/wear/wear_face.webp",
+     71774
+    ],
+    [
+     8610,
+     "/slices/fonts/BohemiaROM-Regular.woff2",
+     2244
+    ],
+    [
+     8611,
+     "/slices/fonts/BohemiaCasing-Regular.woff2",
+     2056
+    ],
+    [
+     8612,
+     "/slices/ui_kit/tape/tape.png",
+     19140
+    ],
+    [
+     8613,
+     "/records/target/bb/stall_prices.json",
+     23687
+    ],
+    [
+     8616,
+     "/slices/settlement_ground_packs/settlement_ground.json",
+     11138
+    ],
+    [
+     8617,
+     "/slices/settlement_ground/settlement_ground.json",
+     10888
+    ],
+    [
+     8617,
+     "/slices/settlement_walk.json",
+     4046
+    ],
+    [
+     8618,
+     "/records/target/bb/post_women.json",
+     1733
+    ],
+    [
+     8618,
+     "/records/target/bb/rare_recruits.json",
+     3129
+    ],
+    [
+     8619,
+     "/records/target/bb/weapons.json",
+     227296
+    ],
+    [
+     8619,
+     "/records/target/bb/armor.json",
+     101190
+    ],
+    [
+     8620,
+     "/records/target/bb/armour_names.json",
+     10328
+    ],
+    [
+     8620,
+     "/records/target/bb/price_table.json",
+     9265
+    ],
+    [
+     8621,
+     "/records/target/BOHEMIA_HALL_PRICE.json",
+     1482
+    ],
+    [
+     8621,
+     "/records/target/bb/injuries.json",
+     56781
+    ],
+    [
+     8622,
+     "/records/target/bb/recruit_ceiling.json",
+     3982
+    ],
+    [
+     8622,
+     "/records/target/bb/rules.json",
+     65816
+    ],
+    [
+     8623,
+     "/records/target/bb/traits.json",
+     43265
+    ],
+    [
+     8631,
+     "/records/target/bb/backgrounds.json",
+     161946
+    ],
+    [
+     8640,
+     "/records/target/BOHEMIA_BOARD_SHELF.json",
+     24470
+    ],
+    [
+     8640,
+     "/records/target/bb/relations.json",
+     5808
+    ],
+    [
+     8640,
+     "/records/target/settlement_rumours.json",
+     6320
+    ],
+    [
+     8640,
+     "/slices/fight_rig/fight_rig.json",
+     36700
+    ],
+    [
+     8640,
+     "/records/target/bb/nightly_bill.json",
+     1830
+    ],
+    [
+     8640,
+     "/records/target/bb/perk_translation.json",
+     22497
+    ],
+    [
+     8640,
+     "/records/target/bb/ours.json",
+     77464
+    ],
+    [
+     8641,
+     "/records/target/bb/perks.json",
+     29716
+    ],
+    [
+     8641,
+     "/records/target/bb/weapons.json",
+     227296
+    ],
+    [
+     8649,
+     "/records/target/bb/armor.json",
+     101190
+    ],
+    [
+     8662,
+     "/records/target/bb/armour_names.json",
+     10328
+    ],
+    [
+     8662,
+     "/records/target/bb/backgrounds.json",
+     161946
+    ],
+    [
+     8662,
+     "/records/target/bb/rules.json",
+     65816
+    ],
+    [
+     8802,
+     "/slices/settlement_ground_packs/camp_1.webp",
+     579058
+    ],
+    [
+     8803,
+     "/slices/settlement_ground_packs/camp_1_night.webp",
+     203996
+    ],
+    [
+     8840,
+     "/slices/fight_rig/fight_rig.json",
+     36700
+    ],
+    [
+     8840,
+     "/slices/rig_walk/person_woman_2.json",
+     175
+    ],
+    [
+     8937,
+     "/records/target/character/barber/person_woman_3/rig_S.png",
+     6437
+    ],
+    [
+     8937,
+     "/records/target/character/barber/person_woman_3/rig_SE.png",
+     6230
+    ],
+    [
+     8938,
+     "/records/target/character/barber/person_woman_3/rig_SW.png",
+     6299
+    ],
+    [
+     8938,
+     "/records/target/character/barber/person_blues_6/rig_SW.png",
+     7253
+    ],
+    [
+     8942,
+     "/records/target/character/barber/person_blues_6/rig_S.png",
+     7836
+    ],
+    [
+     8942,
+     "/records/target/character/barber/person_blues_6/rig_W.png",
+     5825
+    ],
+    [
+     8942,
+     "/records/target/character/barber/person_reds_7/rig_SW.png",
+     6693
+    ],
+    [
+     8942,
+     "/records/target/character/barber/person_reds_7/rig_S.png",
+     6982
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_reds_7/rig_W.png",
+     5917
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_trades_3/rig_SE.png",
+     6658
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_trades_3/rig_S.png",
+     7059
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_trades_3/rig_E.png",
+     5862
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_caravans_6/rig_S.png",
+     7429
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_caravans_6/rig_SE.png",
+     6846
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_caravans_6/rig_SW.png",
+     6837
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_blues_7/rig_SE.png",
+     6753
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_blues_7/rig_S.png",
+     7290
+    ],
+    [
+     8952,
+     "/records/target/character/barber/person_blues_7/rig_E.png",
+     5686
+    ],
+    [
+     8953,
+     "/records/target/character/barber/person_town_32/rig_S.png",
+     6486
+    ],
+    [
+     8953,
+     "/records/target/character/barber/person_town_32/rig_SE.png",
+     6202
+    ],
+    [
+     8953,
+     "/records/target/character/barber/person_town_32/rig_SW.png",
+     6124
+    ],
+    [
+     8960,
+     "/records/target/character/barber/person_caravans_5/rig_SE.png",
+     6958
+    ],
+    [
+     8966,
+     "/records/target/character/barber/person_caravans_5/rig_S.png",
+     7557
+    ],
+    [
+     8966,
+     "/records/target/character/barber/person_caravans_5/rig_E.png",
+     5957
+    ],
+    [
+     8966,
+     "/records/target/character/barber/person_mob_2/rig_S.png",
+     6875
+    ],
+    [
+     8967,
+     "/records/target/character/barber/person_mob_2/rig_SE.png",
+     6981
+    ],
+    [
+     8968,
+     "/records/target/character/barber/person_mob_2/rig_SW.png",
+     6765
+    ],
+    [
+     8969,
+     "/records/target/character/barber/person_town_9/rig_SW.png",
+     6409
+    ],
+    [
+     8970,
+     "/records/target/character/barber/person_town_9/rig_S.png",
+     6650
+    ],
+    [
+     8970,
+     "/records/target/character/barber/person_town_9/rig_W.png",
+     5568
+    ],
+    [
+     8971,
+     "/records/target/character/barber/person_church_1/rig_S.png",
+     7014
+    ],
+    [
+     8977,
+     "/records/target/character/barber/person_church_1/rig_SE.png",
+     6739
+    ],
+    [
+     8978,
+     "/records/target/character/barber/person_church_1/rig_SW.png",
+     6755
+    ],
+    [
+     8978,
+     "/slices/fight_rig/you.webp",
+     218742
+    ],
+    [
+     8999,
+     "/slices/rig_walk/person_remnants_7.json",
+     498
+    ],
+    [
+     8999,
+     "/slices/rig_walk/person_colorful_3.json",
+     443
+    ],
+    [
+     9001,
+     "/slices/rig_walk/person_cartel_4.json",
+     456
+    ],
+    [
+     9001,
+     "/slices/rig_walk/person_church_4.json",
+     427
+    ],
+    [
+     9001,
+     "/slices/rig_walk/person_remnants_5.json",
+     443
+    ],
+    [
+     9001,
+     "/slices/rig_walk/person_colorful_2.json",
+     421
+    ],
+    [
+     9086,
+     "/records/target/character/barber/person_caravans_5/face/rest_128.png",
+     22478
+    ],
+    [
+     9087,
+     "/records/target/character/barber/person_caravans_5/face/A_128.png",
+     22659
+    ],
+    [
+     9087,
+     "/records/target/character/barber/person_caravans_5/face/E_128.png",
+     22563
+    ],
+    [
+     9088,
+     "/records/target/character/barber/person_caravans_5/face/O_128.png",
+     22749
+    ],
+    [
+     9089,
+     "/records/target/character/barber/person_caravans_5/face/M_128.png",
+     22520
+    ],
+    [
+     9152,
+     "/records/target/BOHEMIA_JOB_KINDS.json",
+     19202
+    ],
+    [
+     9161,
+     "/slices/rig_idles/rig_idles.json",
+     16994
+    ],
+    [
+     9278,
+     "/slices/rig_walk/person_woman_2.png",
+     64909
+    ],
+    [
+     9278,
+     "/slices/rig_walk/person_remnants_7.png",
+     152935
+    ],
+    [
+     9279,
+     "/slices/rig_walk/person_colorful_3.png",
+     113264
+    ],
+    [
+     9279,
+     "/slices/rig_walk/person_cartel_4.png",
+     129761
+    ],
+    [
+     9280,
+     "/slices/rig_walk/person_church_4.png",
+     139988
+    ],
+    [
+     9280,
+     "/slices/rig_walk/person_remnants_5.png",
+     122709
+    ],
+    [
+     9281,
+     "/slices/rig_walk/person_colorful_2.png",
+     143405
+    ],
+    [
+     9310,
+     "/slices/rig_idles/person_woman_3.json",
+     6662
+    ],
+    [
+     9310,
+     "/slices/rig_idles/person_blues_6.json",
+     6751
+    ],
+    [
+     9310,
+     "/slices/rig_idles/person_reds_7.json",
+     6740
+    ],
+    [
+     9310,
+     "/slices/rig_idles/person_trades_3.json",
+     6741
+    ],
+    [
+     9311,
+     "/slices/rig_idles/person_caravans_6.json",
+     6749
+    ],
+    [
+     9399,
+     "/slices/rig_idles/person_blues_7.json",
+     6740
+    ],
+    [
+     9400,
+     "/slices/rig_idles/person_town_32.json",
+     6741
+    ],
+    [
+     9401,
+     "/slices/rig_idles/person_caravans_5.json",
+     6751
+    ],
+    [
+     9401,
+     "/slices/rig_idles/person_mob_2.json",
+     6738
+    ],
+    [
+     9410,
+     "/slices/rig_idles/person_town_9.json",
+     6740
+    ],
+    [
+     9411,
+     "/slices/rig_idles/person_church_1.json",
+     6723
+    ],
+    [
+     9411,
+     "/slices/rig_idles/you.json",
+     22100
+    ],
+    [
+     9498,
+     "/slices/rig_idles/person_woman_3_bare.webp",
+     213520
+    ],
+    [
+     9498,
+     "/slices/rig_idles/person_blues_6_bare.webp",
+     250076
+    ],
+    [
+     9498,
+     "/slices/rig_idles/person_reds_7_bare.webp",
+     227858
+    ],
+    [
+     9498,
+     "/slices/rig_idles/person_trades_3_bare.webp",
+     216582
+    ],
+    [
+     9499,
+     "/slices/rig_idles/person_caravans_6_bare.webp",
+     225288
+    ],
+    [
+     9550,
+     "/slices/rig_idles/you_bare.webp",
+     218454
+    ],
+    [
+     9551,
+     "/slices/rig_idles/person_blues_7_bare.webp",
+     216676
+    ],
+    [
+     9553,
+     "/slices/rig_idles/person_town_32_bare.webp",
+     215386
+    ],
+    [
+     9554,
+     "/slices/rig_idles/person_caravans_5_bare.webp",
+     233250
+    ],
+    [
+     9556,
+     "/slices/rig_idles/person_mob_2_bare.webp",
+     246354
+    ],
+    [
+     9557,
+     "/slices/rig_idles/person_town_9_bare.webp",
+     220066
+    ],
+    [
+     9564,
+     "/slices/rig_idles/person_church_1_bare.webp",
+     227448
+    ],
+    [
+     10421,
+     "/records/target/character/barber/person_town_1/rig_S.png",
+     7149
+    ],
+    [
+     10421,
+     "/records/target/character/barber/person_town_0/rig_S.png",
+     7428
+    ],
+    [
+     10433,
+     "/slices/rig_town/rig_town.json",
+     15790
+    ],
+    [
+     10434,
+     "/slices/rig_idles/person_town_1.json",
+     6717
+    ],
+    [
+     10434,
+     "/slices/rig_idles/person_town_0.json",
+     6722
+    ],
+    [
+     10512,
+     "/slices/rig_idles/person_town_1_bare.webp",
+     218274
+    ],
+    [
+     10515,
+     "/slices/rig_idles/person_town_0_bare.webp",
+     240710
+    ],
+    [
+     10520,
+     "/slices/rig_town/person_town_1.json",
+     25653
+    ],
+    [
+     10521,
+     "/slices/rig_town/person_town_0.json",
+     25664
+    ],
+    [
+     10605,
+     "/slices/rig_town/person_town_1_sit.webp",
+     74654
+    ],
+    [
+     10605,
+     "/slices/rig_town/person_town_0_sit.webp",
+     82986
+    ],
+    [
+     12599,
      "/slices/fight_heard/index.json",
      4117
     ],
     [
-     14958,
-     "/slices/vote/guns_heard/guns_rifle_yours_a.mp3",
-     88547
-    ],
-    [
-     14958,
+     12599,
      "/slices/vote/guns_heard/guns_pistol_yours_a.mp3",
      88547
     ],
     [
-     14958,
+     12599,
      "/slices/vote/guns_heard/guns_shotgun_yours_a.mp3",
      88547
     ],
     [
-     15019,
+     12599,
+     "/slices/vote/guns_heard/guns_rifle_yours_a.mp3",
+     88547
+    ],
+    [
+     12672,
      "/slices/fight_heard/lands.mp3",
      734816
     ],
     [
-     15077,
+     12727,
      "/slices/vote/guns_heard/guns_pistol_theirs_a.mp3",
      88547
     ],
     [
-     15078,
+     12727,
      "/slices/vote/guns_heard/reload_pistol_a.mp3",
      53438
     ],
     [
-     15078,
+     12729,
      "/slices/vote/guns_heard/guns_shotgun_theirs_a.mp3",
      88547
     ],
     [
-     15078,
+     12729,
      "/slices/vote/guns_heard/reload_shotgun_a.mp3",
      53438
     ],
     [
-     15078,
+     12729,
      "/slices/vote/guns_heard/guns_rifle_theirs_a.mp3",
      88547
     ],
     [
-     15078,
+     12729,
      "/slices/vote/guns_heard/reload_rifle_a.mp3",
      53438
     ],
     [
-     31724,
-     "/slices/vote/songs/three_levels/repo_man/level_1.mp3",
-     798765
+     31882,
+     "/slices/vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/level_1.mp3",
+     804720
     ],
     [
-     31724,
-     "/slices/vote/songs/three_levels/repo_man/level_1.mp3",
-     798765
+     31883,
+     "/slices/vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/level_1.mp3",
+     804720
     ],
     [
-     106999,
+     105652,
      "/slices/BOHEMIA_DEMO_STAMP.txt",
-     39
+     43
     ],
     [
-     143861,
-     "/slices/vote/songs/three_levels/repo_man/level_2.mp3",
-     798765
+     144631,
+     "/slices/vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/level_2.mp3",
+     804720
     ],
     [
-     143952,
-     "/slices/vote/songs/three_levels/repo_man/level_2.mp3",
-     798765
-    ],
-    [
-     144038,
-     "/slices/vote/songs/three_levels/repo_man/level_3.mp3",
-     798765
-    ],
-    [
-     144039,
-     "/slices/vote/songs/three_levels/repo_man/level_3.mp3",
-     798765
+     144631,
+     "/slices/vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/level_3.mp3",
+     804720
     ]
    ],
    "held": {
     "timedOut": null,
-    "readyAt": 12004,
-    "asks": 17,
+    "readyAt": 13507,
+    "asks": 20,
     "now": true,
     "why": ""
    },
    "drawsAfterGo": [
     [
-     "img slices/settlement_ground_packs/town_0.webp",
-     37090
+     "img slices/settlement_ground_packs/camp_1.webp",
+     35255
     ],
     [
      "img slices/market_icons/w_pistol.png",
-     14836
+     14102
     ],
     [
      "img slices/market_icons/w_bottles.png",
-     14836
+     14102
     ],
     [
-     "img slices/market_icons/b_smith.png",
-     7418
+     "img slices/rig_walk/person_remnants_7.png",
+     7046
     ],
     [
-     "img slices/market_icons/b_armourer.png",
-     7418
+     "img slices/rig_walk/person_cartel_4.png",
+     7046
     ],
     [
-     "img slices/rig_walk/person_network_7.png",
-     7413
+     "img slices/rig_walk/person_remnants_5.png",
+     7046
     ],
     [
-     "img slices/rig_walk/person_homeless_4.png",
-     7413
+     "img slices/rig_walk/person_woman_2.png",
+     7046
     ],
     [
-     "img slices/rig_walk/person_network_4.png",
-     7413
+     "img slices/rig_walk/person_colorful_3.png",
+     7046
     ],
     [
-     "img slices/rig_idles/person_town_14_bare.webp",
-     7407
+     "img slices/rig_walk/person_church_4.png",
+     7046
     ],
     [
-     "img slices/rig_idles/person_town_20_bare.webp",
-     7407
+     "img slices/rig_walk/person_colorful_2.png",
+     7046
     ],
     [
-     "img slices/rig_idles/person_town_33_bare.webp",
-     7407
-    ],
-    [
-     "img slices/rig_idles/person_town_9_bare.webp",
-     7407
-    ],
-    [
-     "img slices/rig_idles/person_remnants_0_bare.webp",
-     7407
-    ],
-    [
-     "img slices/rig_idles/person_remnants_1_bare.webp",
-     7407
-    ],
-    [
-     "img slices/rig_idles/person_anarchists_2_bare.webp",
-     7407
+     "img slices/rig_idles/person_woman_3_bare.webp",
+     7041
     ],
     [
      "img slices/rig_idles/you_bare.webp",
-     7407
+     7041
     ],
     [
-     "img slices/rig_town/person_town_1_drink.webp",
-     7407
+     "img slices/rig_idles/person_blues_6_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_idles/person_remnants_2_bare.webp",
-     7407
+     "img slices/rig_idles/person_reds_7_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_idles/person_colorful_6_bare.webp",
-     7407
+     "img slices/rig_idles/person_trades_3_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_idles/person_town_16_bare.webp",
-     7407
+     "img slices/rig_idles/person_caravans_6_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_idles/person_town_18_bare.webp",
-     7407
+     "img slices/rig_idles/person_blues_7_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_idles/person_reds_3_bare.webp",
-     7407
+     "img slices/rig_idles/person_town_32_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_town/person_town_0_drink.webp",
-     7407
+     "img slices/rig_idles/person_caravans_5_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_idles/person_town_27_bare.webp",
-     7407
+     "img slices/rig_idles/person_mob_2_bare.webp",
+     7041
     ],
     [
-     "img slices/rig_idles/person_volunteers_6_bare.webp",
-     7407
+     "img slices/rig_idles/person_town_9_bare.webp",
+     7041
     ],
     [
-     "img records/target/character/barber/person_blues_1/rig_S.png",
-     4980
+     "img slices/rig_idles/person_church_1_bare.webp",
+     7041
     ],
     [
-     "img records/target/character/barber/person_blues_1/rig_SE.png",
-     1229
+     "img slices/rig_town/person_town_1_sit.webp",
+     7008
     ],
     [
-     "img records/target/character/barber/person_blues_1/rig_SW.png",
-     1210
+     "img slices/rig_town/person_town_0_sit.webp",
+     7008
     ],
     [
      "other ",
-     250
+     252
+    ],
+    [
+     "img slices/rig_idles/map_town_2.webp",
+     198
     ],
     [
      "img slices/rig_idles/map_town_3.webp",
-     93
+     162
+    ],
+    [
+     "img slices/wear/wear.webp",
+     108
+    ],
+    [
+     "img slices/rig_idles/map_town_4.webp",
+     99
+    ],
+    [
+     "img slices/rig_idles/map_town_5.webp",
+     54
     ]
    ],
    "deadDraws": [],
@@ -1665,10 +1935,10 @@
     "firstAt": null
    },
    "firstFrame": {
-    "meanDiff": 4.91,
+    "meanDiff": 0,
     "lum": 4,
-    "firstMs": 133,
-    "laterMs": 833
+    "firstMs": 115,
+    "laterMs": 777
    },
    "errors": []
   }

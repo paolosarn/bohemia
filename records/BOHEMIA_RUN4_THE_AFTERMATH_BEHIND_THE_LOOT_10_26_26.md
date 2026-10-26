@@ -100,3 +100,8 @@ THE LAST RUNS, SAID HERE: sixth 19/1 (the computer's script 60 ms a second again
 and never a frame's budget at the 95th (12 ms), the page's own rate within 15 percent of the same page with the scene held. The board's
 blit is cut to the view. On the shipped tree: 20/0 (the phone 14 and 25 ms of script a second, its rate 25 and 26 against 27 held; the
 computer 55 ms, 60 against 60).
+
+AND, ON A LATER TREE (10/26, with [every level waits for him]): D3 went red once: YOU walked the whole twelve seconds toward the dead
+of a fight won at the first contact, eight tiles off, and stopped at none. A long leg is now a hurried one: never more than five
+seconds a leg, his steps quicker with it so his feet never slide. And the scene's draw is wrapped: one bad picture costs that frame,
+never the scene or the console (state() counts it as errs).

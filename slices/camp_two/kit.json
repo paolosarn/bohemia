@@ -1,0 +1,753 @@
+{
+ "_about": "CAMP TWO (rules 260, 259, 267(c), 269(c)): his camp's pieces, made at the source on the style guide's rig numbers (tools/bohemia_camp2_cook_the_camp.py); rect [x, y, w, h] on kit.png, foot the ground point inside the rect, footprint_m the piece on the ground in metres (x east, y north) about that point; ppm the sheet's pixels a metre.",
+ "ppm": 57.0,
+ "man_px": 98,
+ "draft": true,
+ "tool": "tools/bohemia_camp2_cook_the_camp.py",
+ "cart_rig": "../records/target/master_rig/cook_cart/",
+ "truck_rig": "../records/target/master_rig/truck/",
+ "trailer_rig": "../records/target/master_rig/cook_trailer/",
+ "fire_keys": 6,
+ "fire_keys_per_beat": 3,
+ "pieces": {
+  "tent_olive": {
+   "rect": [
+    0,
+    0,
+    94,
+    188
+   ],
+   "foot": [
+    47,
+    116
+   ],
+   "footprint_m": [
+    -0.818,
+    -1.74,
+    0.818,
+    1.74
+   ],
+   "height_m": 1.18
+  },
+  "tent_tarp": {
+   "rect": [
+    96,
+    0,
+    94,
+    188
+   ],
+   "foot": [
+    47,
+    116
+   ],
+   "footprint_m": [
+    -0.818,
+    -1.74,
+    0.818,
+    1.74
+   ],
+   "height_m": 1.18
+  },
+  "tent_stripe": {
+   "rect": [
+    192,
+    0,
+    94,
+    188
+   ],
+   "foot": [
+    47,
+    116
+   ],
+   "footprint_m": [
+    -0.818,
+    -1.74,
+    0.818,
+    1.74
+   ],
+   "height_m": 1.18
+  },
+  "f_trader": {
+   "rect": [
+    288,
+    0,
+    123,
+    160
+   ],
+   "foot": [
+    47,
+    129
+   ],
+   "footprint_m": [
+    -0.65,
+    -0.55,
+    1.308,
+    1.15
+   ],
+   "height_m": 1.78
+  },
+  "f_drill_sergeant": {
+   "rect": [
+    413,
+    0,
+    109,
+    141
+   ],
+   "foot": [
+    41,
+    104
+   ],
+   "footprint_m": [
+    -0.53,
+    -0.55,
+    0.942,
+    0.374
+   ],
+   "height_m": 1.83
+  },
+  "f_lookout": {
+   "rect": [
+    524,
+    0,
+    83,
+    128
+   ],
+   "foot": [
+    40,
+    93
+   ],
+   "footprint_m": [
+    -0.6,
+    -0.595,
+    0.6,
+    0.595
+   ],
+   "height_m": 1.368
+  },
+  "f_recruiter": {
+   "rect": [
+    609,
+    0,
+    85,
+    124
+   ],
+   "foot": [
+    45,
+    102
+   ],
+   "footprint_m": [
+    -0.65,
+    -0.416,
+    0.509,
+    0.129
+   ],
+   "height_m": 1.739
+  },
+  "f_quartermaster": {
+   "rect": [
+    696,
+    0,
+    84,
+    123
+   ],
+   "foot": [
+    40,
+    95
+   ],
+   "footprint_m": [
+    -0.567,
+    -0.43,
+    0.567,
+    0.22
+   ],
+   "height_m": 1.5
+  },
+  "smart_cart": {
+   "rect": [
+    891,
+    0,
+    54,
+    116
+   ],
+   "foot": [
+    25,
+    93
+   ],
+   "footprint_m": [
+    -0.37,
+    -0.475,
+    0.46,
+    0.46
+   ],
+   "height_m": 1.35
+  },
+  "f_brigand": {
+   "rect": [
+    1090,
+    0,
+    70,
+    109
+   ],
+   "foot": [
+    46,
+    90
+   ],
+   "footprint_m": [
+    -0.702,
+    -0.189,
+    0.24,
+    0.21
+   ],
+   "height_m": 1.65
+  },
+  "f_bounty_hunter": {
+   "rect": [
+    782,
+    0,
+    107,
+    117
+   ],
+   "foot": [
+    51,
+    92
+   ],
+   "footprint_m": [
+    -0.704,
+    -0.298,
+    0.852,
+    0.15
+   ],
+   "height_m": 1.5
+  },
+  "f_scavenger": {
+   "rect": [
+    1305,
+    0,
+    101,
+    105
+   ],
+   "foot": [
+    51,
+    79
+   ],
+   "footprint_m": [
+    -0.718,
+    -0.32,
+    0.875,
+    0.32
+   ],
+   "height_m": 1.202
+  },
+  "slain_some": {
+   "rect": [
+    947,
+    0,
+    141,
+    110
+   ],
+   "foot": [
+    57,
+    49
+   ],
+   "footprint_m": [
+    -0.756,
+    -1.067,
+    1.166,
+    1.087
+   ],
+   "height_m": 0.153
+  },
+  "slain_many": {
+   "rect": [
+    1162,
+    0,
+    141,
+    109
+   ],
+   "foot": [
+    57,
+    48
+   ],
+   "footprint_m": [
+    -0.756,
+    -1.067,
+    1.466,
+    1.087
+   ],
+   "height_m": 0.179
+  },
+  "f_blacksmith": {
+   "rect": [
+    1408,
+    0,
+    77,
+    98
+   ],
+   "foot": [
+    36,
+    76
+   ],
+   "footprint_m": [
+    -0.506,
+    -0.42,
+    0.708,
+    0.546
+   ],
+   "height_m": 0.948
+  },
+  "f_agent": {
+   "rect": [
+    1487,
+    0,
+    78,
+    89
+   ],
+   "foot": [
+    27,
+    70
+   ],
+   "footprint_m": [
+    -0.43,
+    -0.19,
+    0.706,
+    0.369
+   ],
+   "height_m": 1.252
+  },
+  "supplies": {
+   "rect": [
+    1567,
+    0,
+    98,
+    88
+   ],
+   "foot": [
+    43,
+    51
+   ],
+   "footprint_m": [
+    -0.766,
+    -0.599,
+    0.869,
+    0.503
+   ],
+   "height_m": 0.74
+  },
+  "f_cook": {
+   "rect": [
+    1862,
+    0,
+    46,
+    82
+   ],
+   "foot": [
+    20,
+    61
+   ],
+   "footprint_m": [
+    -0.331,
+    -0.38,
+    0.436,
+    0.38
+   ],
+   "height_m": 1.057
+  },
+  "f_cartographer": {
+   "rect": [
+    1667,
+    0,
+    95,
+    87
+   ],
+   "foot": [
+    36,
+    63
+   ],
+   "footprint_m": [
+    -0.5,
+    -0.305,
+    0.813,
+    0.305
+   ],
+   "height_m": 0.923
+  },
+  "f_negotiator": {
+   "rect": [
+    1764,
+    0,
+    96,
+    83
+   ],
+   "foot": [
+    48,
+    62
+   ],
+   "footprint_m": [
+    -0.84,
+    -0.31,
+    0.84,
+    0.31
+   ],
+   "height_m": 0.98
+  },
+  "f_scout": {
+   "rect": [
+    104,
+    190,
+    99,
+    76
+   ],
+   "foot": [
+    47,
+    64
+   ],
+   "footprint_m": [
+    -0.829,
+    -0.202,
+    0.861,
+    0.319
+   ],
+   "height_m": 0.995
+  },
+  "fire_0": {
+   "rect": [
+    205,
+    190,
+    70,
+    72
+   ],
+   "foot": [
+    34,
+    40
+   ],
+   "footprint_m": [
+    -0.608,
+    -0.63,
+    0.642,
+    0.578
+   ],
+   "height_m": 0.63
+  },
+  "fire_1": {
+   "rect": [
+    277,
+    190,
+    70,
+    72
+   ],
+   "foot": [
+    34,
+    40
+   ],
+   "footprint_m": [
+    -0.608,
+    -0.63,
+    0.642,
+    0.578
+   ],
+   "height_m": 0.611
+  },
+  "fire_2": {
+   "rect": [
+    349,
+    190,
+    70,
+    72
+   ],
+   "foot": [
+    34,
+    40
+   ],
+   "footprint_m": [
+    -0.608,
+    -0.63,
+    0.642,
+    0.578
+   ],
+   "height_m": 0.594
+  },
+  "fire_3": {
+   "rect": [
+    421,
+    190,
+    70,
+    72
+   ],
+   "foot": [
+    34,
+    40
+   ],
+   "footprint_m": [
+    -0.608,
+    -0.63,
+    0.642,
+    0.578
+   ],
+   "height_m": 0.577
+  },
+  "fire_4": {
+   "rect": [
+    493,
+    190,
+    70,
+    72
+   ],
+   "foot": [
+    34,
+    40
+   ],
+   "footprint_m": [
+    -0.608,
+    -0.63,
+    0.642,
+    0.578
+   ],
+   "height_m": 0.634
+  },
+  "fire_5": {
+   "rect": [
+    565,
+    190,
+    70,
+    72
+   ],
+   "foot": [
+    34,
+    40
+   ],
+   "footprint_m": [
+    -0.608,
+    -0.63,
+    0.642,
+    0.578
+   ],
+   "height_m": 0.582
+  },
+  "f_surgeon": {
+   "rect": [
+    1910,
+    0,
+    123,
+    81
+   ],
+   "foot": [
+    55,
+    50
+   ],
+   "footprint_m": [
+    -0.913,
+    -0.347,
+    0.914,
+    0.81
+   ],
+   "height_m": 0.4
+  },
+  "f_minstrel": {
+   "rect": [
+    0,
+    190,
+    102,
+    77
+   ],
+   "foot": [
+    53,
+    54
+   ],
+   "footprint_m": [
+    -0.76,
+    -0.229,
+    0.62,
+    0.275
+   ],
+   "height_m": 1.003
+  },
+  "f_paymaster": {
+   "rect": [
+    850,
+    190,
+    42,
+    60
+   ],
+   "foot": [
+    19,
+    45
+   ],
+   "footprint_m": [
+    -0.275,
+    -0.209,
+    0.39,
+    0.2
+   ],
+   "height_m": 0.675
+  },
+  "seats": {
+   "rect": [
+    637,
+    190,
+    91,
+    65
+   ],
+   "foot": [
+    44,
+    42
+   ],
+   "footprint_m": [
+    -0.701,
+    -0.278,
+    0.636,
+    0.59
+   ],
+   "height_m": 0.41
+  },
+  "fire_cold": {
+   "rect": [
+    894,
+    190,
+    70,
+    59
+   ],
+   "foot": [
+    34,
+    27
+   ],
+   "footprint_m": [
+    -0.608,
+    -0.63,
+    0.642,
+    0.578
+   ],
+   "height_m": 0.233
+  },
+  "f_alchemist": {
+   "rect": [
+    966,
+    190,
+    77,
+    58
+   ],
+   "foot": [
+    16,
+    41
+   ],
+   "footprint_m": [
+    -0.18,
+    -0.18,
+    0.87,
+    0.23
+   ],
+   "height_m": 0.723
+  },
+  "slain_few": {
+   "rect": [
+    730,
+    190,
+    118,
+    61
+   ],
+   "foot": [
+    49,
+    2
+   ],
+   "footprint_m": [
+    -0.751,
+    -1.067,
+    1.144,
+    -0.042
+   ],
+   "height_m": 0.153
+  },
+  "bedroll": {
+   "rect": [
+    1045,
+    190,
+    117,
+    50
+   ],
+   "foot": [
+    60,
+    21
+   ],
+   "footprint_m": [
+    -0.987,
+    -0.374,
+    0.947,
+    0.353
+   ],
+   "height_m": 0.14
+  }
+ },
+ "card": {
+  "tent_olive": true,
+  "tent_tarp": true,
+  "tent_stripe": false,
+  "fire_cold": true,
+  "bedroll": false,
+  "supplies": false,
+  "smart_cart": false,
+  "f_cook": true,
+  "f_blacksmith": false,
+  "f_surgeon": true,
+  "f_lookout": true,
+  "f_scout": true,
+  "f_paymaster": true,
+  "seats": true,
+  "f_agent": false,
+  "f_alchemist": true,
+  "f_bounty_hunter": false,
+  "f_brigand": true,
+  "f_cartographer": false,
+  "f_drill_sergeant": false,
+  "f_minstrel": false,
+  "f_negotiator": false,
+  "f_quartermaster": false,
+  "f_recruiter": false,
+  "f_scavenger": true,
+  "f_trader": false,
+  "slain_few": true,
+  "slain_some": false,
+  "slain_many": false,
+  "fire_0": false
+ },
+ "plate": {
+  "src": "plate.webp",
+  "night_src": "plate_night.webp",
+  "px": [
+   2060,
+   1092
+  ],
+  "ppm": 42.916666666666664,
+  "day_ground_median": 0.588,
+  "night_ground_median": 0.215,
+  "from": "slices/settlement_ground_packs/camp_0.webp, quilted from its clean sand (CLEAN boxes in the tool)"
+ },
+ "plate_tall": {
+  "src": "plate_tall.webp",
+  "night_src": "plate_tall_night.webp",
+  "px": [
+   1092,
+   1940
+  ],
+  "ppm": 42.916666666666664,
+  "why": "rule 289: the camp good tall first; the same sand quilted upright, the camp laid out for it (BohemiaCampLife.layout tall)"
+ },
+ "made": "COOK 10/26 (tools/bohemia_cook_the_camp_through_the_rig_10_26_26.py): CAMP TWO's same shapes through DIRECTION's master rig (Cycles, the guide's camera, sun, source pass, snap, ring and contact shadow), facing S; the numpy recipe stands as the source of the shapes",
+ "rig_runs": "records/target/cook_camp_rig/rig_json.json (each piece's rig.json: its box, ground, colours, card, settings)",
+ "camp_trailer_rig": {
+  "dir": "../records/target/master_rig/cook_camp_trailer/",
+  "ground": [
+   102,
+   133
+  ],
+  "real_dims_m": [
+   1.89,
+   3.559,
+   1.47
+  ],
+  "hitch_m": [
+   0.0,
+   -1.669,
+   0.43
+  ],
+  "why": "the last carrier step (pickup_trailer): a 4 x 7 ft utility trailer, 3.3 m with its tongue; drawn behind the pickup in the same facing; hitch_m is the coupler from the ground centre in metres (x east, y north, tongue to -y)"
+ }
+}

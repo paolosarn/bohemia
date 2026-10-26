@@ -199,7 +199,8 @@
     try { o.sky = !!SKY; } catch (e) {}
     try { o.day = T.day; var h = (T.min / 60) | 0, m = Math.floor(T.min % 60); o.clock = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m; } catch (e) {}
     try { var pl = document.querySelector('#bmtb [data-f=place]'); o.place = pl ? String(pl.textContent || '').trim() : ''; } catch (e) {}
-    if (!o.place) try { o.place = String(__CITY.district(city.x, city.y) || '').toUpperCase(); } catch (e) {}
+    /* EYES [eyes: the ground on the phone] (rule 262(a)): no line names the ground he stands on; the place is the bar's (a town's
+       name, CAMP), and on the map the status line says nothing */
     return o;
   };
   P.play = function (jobId) {
@@ -340,23 +341,49 @@
   /* ---- THE FIGHT ---- */
   P.isFight = function () { return !!document.getElementById('skills') && !!document.getElementById('bot') && !document.getElementById('cityFrame') && !document.getElementById('fightFrame'); };
   function isAbility(b) { return b.classList.contains('bag') || !!b.dataset.sweep || !!b.dataset.skill; }
-  /* the fight's own buttons the phone carries, in the phone's order: BACK first while the walk can be taken back (the fight's
-     own state, its inline display; the bar's pocket is hidden under the phone's rule: on a phone upright the bar beside the
-     phone has no room for it, and WAIT slid over it), then the bag swaps, the sweeps and the perks' skills (rule 180(g)) */
+  /* the fight's own buttons the phone carries, in the phone's order: STRIKE and RELOAD in the fight's own order (RELOAD first
+     when the gun is dry) while the fight shows them (rule 238(a): every press of the fight on the phone), BACK while the walk can
+     be taken back (the fight's own state, its inline display; on a phone upright the bar beside the phone had no room for it, and
+     WAIT slid over it), then the bag swaps, the sweeps and the perks' skills (rule 180(g)) */
   function abilityButtons(sk) {
+    var sr = [].slice.call(sk.querySelectorAll('#bstrike, #breload')).filter(function (b) { return b.style.display !== 'none'; });
     var bk = document.getElementById('bback'), live = bk && bk.style.display !== 'none' && !bk.disabled ? [bk] : [];
-    return live.concat([].slice.call(sk.querySelectorAll('.sq')).filter(isAbility));
+    return sr.concat(live, [].slice.call(sk.querySelectorAll('.sq')).filter(isAbility));
   }
   P.abilities = function () {
     var sk = document.getElementById('skills'); if (!sk) return { key: '', list: [] };
     var list = abilityButtons(sk).map(function (b, i) {
       var lab = b.querySelector('b');
       return { i: i, title: b.title || '', ap: lab ? String(lab.textContent || '') : '', on: b.classList.contains('on'), off: !!b.disabled,
-        cv: b.querySelector('canvas'), kind: b.id === 'bback' ? 'back' : b.classList.contains('bag') ? 'bag' : b.dataset.sweep ? 'sweep' : 'skill' };
+        cv: b.querySelector('canvas'), kind: b.id === 'bstrike' ? 'strike' : b.id === 'breload' ? 'reload' : b.id === 'bback' ? 'back' : b.classList.contains('bag') ? 'bag' : b.dataset.sweep ? 'sweep' : 'skill' };
     });
     var who = document.getElementById('cnm');
     return { key: (sk.dataset.key || '') + '|' + list.map(function (a) { return a.on + '' + a.off; }).join(''), list: list,
       name: who ? String(who.textContent || '').replace(/\s*\*$/, '') : '', face: document.getElementById('face') };
+  };
+  /* THE FIGHT'S COMMANDS (rule 238(a)): the big button (FIGHT at the line, then what the first tap picked: WALK, SHOOT, HIT,
+     THROW with its chance, else END TURN), WAIT, RETREAT (two presses; END THE FIGHT when all of theirs run), AUTO (FINISHING, the
+     odds tint, the glow that teaches it) and the speed, read off the fight's own buttons and pressed through them */
+  var CMD = { go: 'bend', wait: 'bwait', flee: 'bflee', auto: 'bauto', speed: 'bspeed' };
+  P.cmds = function () {
+    var g = function (id) { return document.getElementById(id); }, be = g('bend'); if (!be) return null;
+    var bw = g('bwait'), bf = g('bflee'), ba = g('bauto'), bs = g('bspeed');
+    var tn = [].filter.call(be.childNodes, function (n) { return n.nodeType === 3; })[0];
+    var kind = ['walk', 'shoot', 'hit', 'throw'].filter(function (k) { return be.classList.contains(k); })[0] || '';
+    var tint = ba && ba.querySelector('.tint');
+    return {
+      go: { label: String(tn ? tn.textContent : be.textContent || '').trim(), sub: String((be.querySelector('.sub') || {}).textContent || ''), off: !!be.disabled,
+            hot: be.classList.contains('go'), kind: kind, mark: kind ? String(be.style.getPropertyValue('--mark-' + kind) || '') : '' },
+      wait: { off: !bw || !!bw.disabled, run: !!(bw && bw.classList.contains('run')), label: bw ? String(bw.textContent || '').trim() : '' },   /* RUN THEM DOWN when they break (COMBAT, rule 198(h)) */
+      flee: { off: !bf || !!bf.disabled, arm: !!(bf && bf.classList.contains('arm')), end: !!(bf && bf.classList.contains('end')), label: bf ? String(bf.textContent || '').trim() : '' },
+      auto: { on: !!(ba && ba.classList.contains('on')), glow: !!(ba && ba.classList.contains('glow')), odds: String(((ba && ba.querySelector('.odds')) || {}).textContent || ''),
+              tint: tint ? String(tint.style.backgroundColor || '') : '' },
+      speed: { label: bs ? String(bs.textContent || '').trim() : '', now: !!(bs && bs.classList.contains('now')), off: !bs }
+    };
+  };
+  P.cmd = function (k) {
+    var b = CMD[k] && document.getElementById(CMD[k]); if (!b || b.disabled) return false;
+    b.click(); window.__PHONE_CMD = (window.__PHONE_CMD | 0) + 1; window.__PHONE_CMD_LAST = k; return true;
   };
   P.over = function () { try { return !!(typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.over); } catch (e) { return false; } };
   P.press = function (i) {
@@ -382,9 +409,16 @@
          wears the bar (the fight's) */
       + 'html.boh-phone-on body:not(:has(#cityfeed)) #bmtb .t.crew,html.boh-phone-on body:not(:has(#cityfeed)) #bmtb .t.crew *{pointer-events:none!important;cursor:default!important}'
       + 'html.boh-phone-on body:has(#sbody) #leave{display:none!important}'
-      /* THE FIGHT: the abilities live on the phone (213(b)), and BACK with them; the bar keeps STRIKE, RELOAD, WAIT, RETREAT,
-         END TURN and AUTO, laid out of the phone's corner until COMBAT's own [the fight frames around the phone] lands */
-      + 'html.boh-phone-on #skills .sq.bag,html.boh-phone-on #skills .sq[data-sweep],html.boh-phone-on #skills .sq[data-skill],html.boh-phone-on #skills #bback{display:none!important}'
+      /* a sheet's close X sat in the phone's corner (CAMP's measure, 8db01c53: the tent, the retinue, the cart could not be closed
+         by a finger): with the phone on the right the X is the sheet's top left, the keeper's row giving it the room (rule 279) */
+      + 'html.boh-phone-on.boh-phone-right body:has(#sbody) #sheet #close{right:auto!important;left:8px!important}'
+      + 'html.boh-phone-on.boh-phone-right body:has(#sbody) #sheet .who{padding-right:0!important;padding-left:56px!important}'
+      /* THE FIGHT (rules 213(b), 238(a), 286(b)): every press of the fight is on the phone (the big button, STRIKE, RELOAD, BACK,
+         the abilities, WAIT, RETREAT, AUTO, the speed), so the bar's second row and its copies step aside; the bar keeps the man
+         (his face, his blood, armour, fatigue, AP) and the round's order, laid out of the phone's corner until COMBAT's own [the
+         fight frames around the phone] lands. COMBAT's bench (the fight's page on its own) builds no phone and keeps its bar. */
+      + 'html.boh-phone-on body:has(#skills) #row2,html.boh-phone-on body:has(#skills) #bend,html.boh-phone-on body:has(#skills) #bauto,'
+      +   'html.boh-phone-on body:has(#skills) #speedpad{display:none!important}'
       + 'html.boh-phone-on.boh-phone-right body:has(#skills) #bot{right:calc(var(--boh-phone-gap-r) + 6px)!important}'
       + 'html.boh-phone-on.boh-phone-left body:has(#skills) #bot{left:calc(var(--boh-phone-gap-l) + 6px)!important}'
       /* a computer keeps the bar centred clear of the phone on both sides; a tablet, like a phone, gives up only the phone's side (both
@@ -568,9 +602,12 @@
       + '#bohphone .pb{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:3px 4px 6px;font-size:7.5px;line-height:9.5px;letter-spacing:.2px}'
       + '#bohphone .pb::-webkit-scrollbar{display:none}'
       + '#bohphone .co{padding:4px 4px 5px;margin-bottom:4px;' + kit('receipt', 0.5) + 'color:#1f1710;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.6))}'
-      + '#bohphone .co .nm{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;line-height:12px;letter-spacing:.6px;cursor:pointer;word-break:break-word}'
-      + '#bohphone .co .nm u{text-decoration:none;font-size:7px;letter-spacing:.3px;color:#6b4a1c;margin-left:3px}'
-      + '#bohphone .co input{width:100%;font:10px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;padding:1px 2px;border:1px solid #1f1710;background:#f5efe0;color:#1f1710}'
+      /* rule 268(a): the company's name is a box he types in: the box itself is the press (a tap puts the caret in it and the phone's
+         keyboard up), the same box while he types */
+      + '#bohphone .co .nm,#bohphone .co input{display:block;box-sizing:border-box;width:100%;min-height:18px;margin:0;padding:2px 3px;border:1px solid #1f1710;border-radius:1px;'
+      +   'background:#f5efe0;color:#1f1710;font:10px/12px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;box-shadow:inset 1px 1px 0 rgba(31,23,16,.25)}'
+      + '#bohphone .co .nm{cursor:text;word-break:break-word}'
+      + '#bohphone .co .nm u{float:right;text-decoration:none;font-size:6.5px;letter-spacing:.3px;color:#6b4a1c;margin-left:3px}'
       + '#bohphone .co .sub{display:block;font-size:7px;color:#3c2e1e}'
       + '#bohphone .po{padding:3px 0 4px;border-top:1px solid rgba(240,226,196,.12)}'
       + '#bohphone .po .w{display:block;color:#f6cf74;font-size:7px}'
@@ -592,14 +629,36 @@
       + '#bohphone .fh{flex:0 0 26px;display:flex;align-items:center;gap:4px;padding:2px 4px;background:rgba(0,0,0,.4)}'
       + '#bohphone .fh canvas{width:22px;height:22px;image-rendering:pixelated;border-radius:1px}'
       + '#bohphone .fh b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.6px;color:#f4e8cc;white-space:nowrap;overflow:hidden}'
-      + '#bohphone .ab{flex:1;display:grid;grid-template-columns:repeat(3,32px);grid-auto-rows:34px;gap:2px;justify-content:center;align-content:start;padding:4px 0}'
-      + '#bohphone .ab .sk{position:relative;width:32px;height:34px;padding:0;margin:0;border:0;cursor:pointer;color:inherit;font:inherit;' + kit('well', 0.5) + '}'
-      + '#bohphone .ab .sk canvas{position:absolute;left:3px;top:3px;width:26px;height:26px;pointer-events:none}'
+      /* rule 238(a): the fight's own commands over his abilities, the phone one size (238(b)): the big button the width of the glass,
+         then WAIT, RETREAT, AUTO and the speed, then his abilities four a row, then the apps */
+      + '#bohphone .fgo{flex:0 0 30px;margin:3px 3px 0;padding:0 5px;border:0;cursor:pointer;display:flex;align-items:center;gap:4px;color:#1f1710;' + kit('tin', 0.5) + '}'
+      + '#bohphone .fgo.hot{' + kit('tin_amber', 0.5) + '}'
+      + '#bohphone .fight.nocmd .fgo,#bohphone .fight.nocmd .fcm{display:none}'
+      + '#bohphone .fgo[disabled]{opacity:.45;cursor:default}'
+      + '#bohphone .fgo .mk{flex:0 0 18px;height:18px;background:center/contain no-repeat;image-rendering:pixelated;display:none}'
+      + '#bohphone .fgo.mkd .mk{display:block}'
+      + '#bohphone .fgo b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;letter-spacing:1.2px;white-space:nowrap}'
+      + '#bohphone .fgo i{margin-left:auto;font-style:normal;font-size:7px;white-space:nowrap}'
+      + '#bohphone .fcm{flex:0 0 30px;margin:2px 3px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:0;padding:0}'
+      + '#bohphone .fc{position:relative;width:25px;height:26.7px;padding:0;margin:0;border:0;background:none;cursor:pointer}'
+      + '#bohphone .fc img{width:25px;height:26.7px;display:block;pointer-events:none}'
+      + '#bohphone .fc[disabled]{opacity:.4;cursor:default}'
+      + '#bohphone .fc.on{outline:2px solid #f6cf74;outline-offset:-1px}'
+      + '#bohphone .fc.end{outline:2px solid #d0503a;outline-offset:-1px}'
+      + '#bohphone .fc.glow{animation:bohBeat ' + BEAT + 'ms steps(2,end) infinite}'
+      + '#bohphone .fc .tint{position:absolute;left:3px;top:3px;right:3px;bottom:5px;pointer-events:none;mix-blend-mode:multiply}'
+      + '#bohphone .fc i{position:absolute;left:-2px;right:-2px;bottom:-3px;font-style:normal;font-size:5.5px;line-height:6.5px;text-align:center;color:#f6cf74;background:rgba(10,6,3,.8);pointer-events:none;white-space:nowrap;overflow:hidden}'
+      + '#bohphone .fc i:empty{display:none}'
+      + '#bohphone .fc.sp{width:25px;height:22px;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.5px;color:#1f1710;' + kit('tin', 0.5) + '}'
+      + '#bohphone .fc.sp.now{' + kit('tin_amber', 0.5) + '}'
+      + '#bohphone .ab{flex:1;display:grid;grid-template-columns:repeat(4,24px);grid-auto-rows:25px;gap:2px;justify-content:center;align-content:start;padding:3px 0;overflow:hidden}'
+      + '#bohphone .ab .sk{position:relative;width:24px;height:25px;padding:0;margin:0;border:0;cursor:pointer;color:inherit;font:inherit;' + kit('well', 0.5) + '}'
+      + '#bohphone .ab .sk canvas{position:absolute;left:2px;top:2px;width:20px;height:20px;pointer-events:none}'
       + '#bohphone .ab .sk i{position:absolute;right:1px;bottom:1px;font-style:normal;font-size:6px;line-height:7px;padding:0 1px;color:#f6cf74;background:rgba(10,6,3,.8);pointer-events:none}'
       + '#bohphone .ab .sk.on{outline:2px solid #f6cf74;outline-offset:-2px}'
       + '#bohphone .ab .sk[disabled]{opacity:.4;cursor:default}'
       + '#bohphone .frow{flex:0 0 30px;margin:0 0 7px;padding:0;gap:0;flex-wrap:nowrap;display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,.4)}'
-      + '#bohphone .ab .none{grid-column:1 / span 3;padding:2px 3px;font-size:7px;line-height:9px;color:#cdbd98;text-align:center}'
+      + '#bohphone .ab .none{grid-column:1 / span 4;padding:2px 3px;font-size:7px;line-height:9px;color:#cdbd98;text-align:center}'
       /* COMBAT TIME: stop-motion holds on the beat (steps, never a smooth slide): the glass flashes, the crosshair strikes in
          three holds and beats twice, the word under it */
       + '#bohphone .cmb{position:absolute;inset:0;z-index:6;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#2a0907}'
@@ -640,7 +699,14 @@
       + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button></div>'
       + '<div class="home"></div>'
       + '<div class="page" data-page=""><div class="ph" role="button" tabindex="0"><i>&lsaquo;</i><span></span></div><div class="pb"></div></div>'
-      + '<div class="fight" aria-label="your abilities"><div class="fh"><canvas width="44" height="44"></canvas><b></b></div><div class="ab"></div><div class="frow" role="toolbar" aria-label="your apps in the fight"></div></div>'
+      + '<div class="fight" aria-label="your fight"><div class="fh"><canvas width="44" height="44"></canvas><b></b></div>'
+      +   '<button type="button" class="fgo" data-c="go"><span class="mk"></span><b>END TURN</b><i></i></button>'
+      +   '<div class="fcm" role="toolbar" aria-label="the fight">'
+      +     '<button type="button" class="fc" data-c="wait" aria-label="wait"><img alt="" src="' + IMG('app_wait') + '"><i></i></button>'
+      +     '<button type="button" class="fc" data-c="flee" aria-label="retreat"><img alt="" src="' + IMG('app_retreat') + '"><i></i></button>'
+      +     '<button type="button" class="fc" data-c="auto" aria-label="auto"><img alt="" src="' + IMG('app_auto') + '"><span class="tint"></span><i></i></button>'
+      +     '<button type="button" class="fc sp" data-c="speed" aria-label="the fight\'s speed">1x</button></div>'
+      +   '<div class="ab"></div><div class="frow" role="toolbar" aria-label="your apps in the fight"></div></div>'
       + '<div class="cmb" aria-hidden="true"><img alt="" src="' + IMG('app_combat') + '"><b>COMBAT</b></div>'
       + '<div class="glass"></div></div>'
       + '<div class="case"></div><img class="ear" alt="" src="' + IMG('ear') + '">';
@@ -660,6 +726,11 @@
     homeBuild();
     /* in a fight the same small icons ride under his abilities: the fight's own bar answers them (238(a)) */
     ['crew', 'notes', 'settings'].forEach(function (a) { ph.querySelector('.frow').appendChild(appButton(a, 'sm')); });
+    /* the fight's commands press the fight's own buttons (rule 238(a)) */
+    [].forEach.call(ph.querySelectorAll('.fight [data-c]'), function (b) { b.addEventListener('click', function () {
+      var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.cmd) return;
+      F.cmd(b.dataset.c); setTimeout(function () { fightPaint(true); }, 80);
+    }); });
     return ph;
   }
 
@@ -732,13 +803,14 @@
       if (H.feedKind) posts = posts.filter(function (p) { return p.kind === H.feedKind; });
       var KD = [['mine', 'app_crew', 'yours'], ['world', 'app_relations', 'the world\'s'], ['life', 'app_feed', 'the valley\'s talk']];
       var h = '<div class="kf" role="group" aria-label="which posts">' + KD.map(function (k) { return '<button type="button" data-kind="' + k[0] + '" aria-label="' + k[2] + '" aria-pressed="' + (H.feedKind === k[0]) + '"' + (H.feedKind === k[0] ? ' class="on"' : '') + '><img alt="" src="' + IMG(k[1]) + '"></button>'; }).join('') + '</div>'
-        + '<div class="co"><span class="nm" role="button" tabindex="0" aria-label="rename your company">' + esc(nameGet()) + '<u>RENAME</u></span>'
+        + '<div class="co"><span class="nm" role="textbox" tabindex="0" aria-label="your company\'s name: tap to type">' + esc(nameGet()) + '<u>TYPE</u></span>'
         + '<span class="sub">' + (co.men ? co.men + (co.men === 1 ? ' MAN' : ' MEN') : 'YOUR COMPANY') + (co.clout != null ? ' &middot; CLOUT ' + esc(co.clout) : '') + '</span></div>';
       for (var i = posts.length - 1; i >= 0; i--) { var p = posts[i];
         h += '<div class="po' + (p.kind === 'mine' ? ' mine' : '') + (p.re ? ' re' : '') + '"><span class="w">' + esc(p.who) + (p.re ? ' <i>replying</i>' : '') + '</span><span class="t">' + esc(p.txt) + '</span></div>'; }
       if (!posts.length) h += '<div class="po"><span class="t">Nothing yet. The valley is quiet.</span></div>';   /* draft:true */
       pb.innerHTML = h;
       pb.querySelector('.nm').addEventListener('click', renameStart);
+      pb.querySelector('.nm').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); renameStart(); } });
       [].forEach.call(pb.querySelectorAll('.kf button'), function (b) { b.addEventListener('click', function () { H.feedKind = H.feedKind === b.dataset.kind ? null : b.dataset.kind; H.feedSig = null; pagePaint(true); }); });
     } else if (H.page === 'relations') {
       if (!fresh && H.relAt && performance.now() - H.relAt < 2000) return; H.relAt = performance.now();
@@ -958,7 +1030,9 @@
   }
   function fightPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F) return;
-    var A = F.abilities(); if (!force && A.key === H.fightKey) return; H.fightKey = A.key;
+    var A = F.abilities(), C = F.cmds ? F.cmds() : null, key = A.key + '#' + (C ? JSON.stringify(C) : '');
+    if (!force && key === H.fightKey) return; H.fightKey = key;
+    cmdPaint(C);
     window.__PHONE_ABILITIES = A.list.length;
     var hd = H.el.querySelector('.fh'), fc = hd.querySelector('canvas');
     hd.querySelector('b').textContent = A.name || '';
@@ -972,9 +1046,30 @@
       b.addEventListener('click', function () { F.press(i); setTimeout(function () { fightPaint(true); }, 80); });
       ab.appendChild(b);
     });
-    var empty = Math.max(0, (A.list.length ? 0 : 3));
+    var empty = Math.max(0, (A.list.length ? 0 : 4));
     if (!A.list.length) { var n = el('div', 'none'); n.textContent = 'No skills on this man yet. A level brings a perk.'; ab.appendChild(n); }   /* draft:true */
     for (var k = 0; k < empty; k++) { var w = el('button', 'sk'); w.type = 'button'; w.disabled = true; w.setAttribute('aria-label', 'empty'); ab.appendChild(w); }
+  }
+
+  /* the fight's commands as the fight has them now: the big button's word, its chance or AP under it and its mark (the walk,
+     the shot, the blow), lit amber when it will do a thing; WAIT; RETREAT armed or ending the fight; AUTO on, its odds tint and
+     its glow; the speed */
+  function cmdPaint(C) {
+    var f = H.el.querySelector('.fight'); f.classList.toggle('nocmd', !C); if (!C) return;
+    var go = f.querySelector('.fgo'), mk = go.querySelector('.mk');
+    go.querySelector('b').textContent = C.go.label || 'END TURN';
+    go.querySelector('i').textContent = C.go.sub || '';
+    go.disabled = C.go.off; go.classList.toggle('hot', C.go.hot);
+    go.setAttribute('aria-label', (C.go.label + ' ' + C.go.sub).trim().toLowerCase());
+    go.classList.toggle('mkd', !!C.go.mark); mk.style.backgroundImage = C.go.mark || '';
+    var q = function (c) { return f.querySelector('.fc[data-c=' + c + ']'); };
+    var wt = q('wait'); wt.disabled = C.wait.off; wt.classList.toggle('on', C.wait.run);
+    wt.querySelector('i').textContent = C.wait.run ? 'RUN DOWN' : ''; wt.setAttribute('aria-label', (C.wait.label || 'wait').toLowerCase());   /* draft:true */
+    var fl = q('flee'); fl.disabled = C.flee.off; fl.classList.toggle('on', C.flee.arm); fl.classList.toggle('end', C.flee.end);
+    fl.querySelector('i').textContent = C.flee.end ? 'SPARE' : ''; fl.setAttribute('aria-label', (C.flee.label || 'retreat').toLowerCase());   /* draft:true */
+    var au = q('auto'); au.classList.toggle('on', C.auto.on); au.classList.toggle('glow', C.auto.glow);
+    au.querySelector('.tint').style.backgroundColor = C.auto.tint || ''; au.querySelector('i').textContent = C.auto.odds ? 'FINISH' : '';   /* draft:true */
+    var sp = q('speed'); sp.textContent = C.speed.label || '1x'; sp.classList.toggle('now', C.speed.now); sp.disabled = C.speed.off;
   }
 
   /* ---- THE SETTINGS: in the game's own card, and from a held finger on the phone ---- */

@@ -8,7 +8,8 @@
    1. [eyes: men on men], EYES' own case: four of his in one column, the upright phone's open: no man's body covers more than a
       fifth of another's (it was 62%: a 98 px man on 37 px rows, each over the two behind);
    2. the man there is never taller than 1.8 rows of his ground, never under half his size, and pinched in to the near stop he
-      is his size again (rule 21 where the ground holds him);
+      is 1.8 rows of his ground there too, a man and more (RE-AIMED 10/26 by COMBAT TWO, rule 288(b): the zoom scales the man and
+      his ground together; rule 21's 'his size again where the ground holds him' was the dead walk's, newest wins);
    3. the file stands STAGGERED: two men of one column stand half a tile apart sideways on the glass, each inside his own tile;
    4. the rules never see it: every man on a whole tile, the line dealt the way it was (a man touching the next in his column);
    5. the same on the flipped phone and the computer: nobody over a fifth of anybody, never under half his size;
@@ -62,13 +63,13 @@ const BODIES = () => {
   {
     const d = await boot({ seed: 7, kind: 'suburb', company: CREW4, cap: 12, formation: null, party: { count: 4, days: 2, difficulty: 1, faction: 'brigands' }, teach: false });
     const m = await ev(d, '(' + BODIES.toString() + ')()');
-    const near = await ev(d, () => { const z = FIGHT_UI.zoom; FIGHT_UI.zoom = FIGHT_UI.near; const h = Math.round(manH()); FIGHT_UI.zoom = z; return h; });
+    const near = await ev(d, () => { const z = FIGHT_UI.zoom; FIGHT_UI.zoom = FIGHT_UI.near; const h = Math.round(manH()), row = FIGHT_UI.th * FIGHT_UI.zoom; FIGHT_UI.zoom = z; return { h, row }; });
     const col = await ev(d, () => { const ys = FIGHT.S.units.filter(u => u.side === 'you' && FIGHT.onField(u)).map(u => u.x + ',' + u.y); return ys.join(' '); });
     leg(m.worst <= 0.2, '*** NOBODY STANDS ON ANYBODY *** (his first votes; EYES [eyes: men on men]): at the upright phone\'s open, four of his in a column, no man\'s body covers more than a fifth of another\'s',
       Math.round(100 * m.worst) + '% the worst' + (m.pair ? ' (' + m.pair + ')' : '') + ', was 62% (DANTE over JAMAL)');
-    leg(m.man <= Math.max(1.8 * m.row * 1.06, IDLE / 2) + 1 && m.man >= IDLE / 2 - 1 && Math.abs(near - IDLE) <= 2,
-      'the man is never taller than 1.8 rows of his ground nor under half his size, and his size again at the near stop (rule 21 where the ground holds him)',
-      Math.round(m.man) + ' px on ' + Math.round(m.row) + ' px rows (' + (m.man / m.row).toFixed(2) + ' rows), ' + near + ' px at the near stop');
+    leg(m.man <= Math.max(1.8 * m.row * 1.06, IDLE / 2) + 1 && m.man >= IDLE / 2 - 1 && Math.abs(near.h - 1.8 * near.row) <= 1.8 * near.row * 0.06 + 1 && near.h >= IDLE,
+      'the man is never taller than 1.8 rows of his ground nor under half his size, and at the near stop 1.8 rows of his ground too, a man and more (rule 288(b): the zoom scales him with his ground)',
+      Math.round(m.man) + ' px on ' + Math.round(m.row) + ' px rows (' + (m.man / m.row).toFixed(2) + ' rows), ' + near.h + ' px on ' + Math.round(near.row) + ' px rows at the near stop');
     leg(m.pairs.length > 0 && m.pairs.every(p => p >= 0.45) && m.inTile, '*** THE FILE STANDS STAGGERED ***: two of his in one column stand half a tile apart sideways, each inside his own tile',
       m.pairs.map(p => p.toFixed(2)).join(', ') + ' of a tile' + (m.inTile ? ', every man inside his tile' : ', A MAN OUT OF HIS TILE'));
     leg(m.whole && /(\d+),(\d+).*\1,(\d+)/.test(col), 'the rules never see it: every man on a whole tile, the line dealt as before (men of one column side by side)', col);

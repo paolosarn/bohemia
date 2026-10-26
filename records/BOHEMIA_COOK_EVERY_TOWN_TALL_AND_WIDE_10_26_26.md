@@ -1,5 +1,6 @@
 # COOK [every town looks its own] (the settlement screen's half) + [every town built for tall and wide] (rule 220)
-# BUILT 10/26, NOT YET SEEN (rule 179): the pictures ship beside the screen; RUN TWO wires them in
+# BUILT 10/26, NOT YET SEEN (rule 179): all fourteen home bases, both ways; RUN TWO wires them into the TOWN screen
+# (rules 186(b), 213, 220, 279; lines 106, 142, 219 of his list)
 
 ## THE ASKS
 - Rule 186(b), Paolo 10/25: 'every settlement has to look unique and different a little bit; they can borrow from each other,
@@ -45,35 +46,68 @@ doors (where a keeper stands and where he walks in) and every tap's box from the
 - settlement_ground.json towns[<name>]: .wide and .tall, each {src, night_src, px, hotspots, boxes, doors, entrance}.
 - settlement_walk.json pictures[<src>].blocks for all 56.
 
-## MEASURED (so far; the record is rewritten when the wide re-lay ships)
-- The wide half (0cc15f6c): every pair of the fourteen under 0.70 likeness, the most alike Church ~ Reds 0.607 (the tier's two old
-  pictures read 0.78 to 0.90); the heart Church 4, Mob 3, Reds 4 buildings of 12 m and more off the top, the edge's tallest 8.6 m;
-  median colour 3.7 to 13.5; every night darker with its pools. EVERY TOWN SCREEN ITS OWN 7/8: the walk leg named three feet the 10/25
-  layout covers (a semi before Caravans' stall, a wall before Cartel's posts, the tier boxes a little above their buildings): the re-lay.
-- The upright half (cb2c18c6): EVERY TOWN TALL AND WIDE 7/10 on the first ship: the same buildings (dropped, named: Church's and
-  Reds' east blocks, Mob's west tower, Cartel's second storage row, Network's third dish: the narrow frame's filler), never a crop
-  or bars, nothing he taps under the phone upright, turning keeps the door, no two alike upright (most alike Network ~ Remnants
-  0.639), night. Homeless upright re-rendered with its wash's concrete and dry bed as wide: its own wide nearest in colour, 0.925
-  against the next 0.793.
-- THE CHECK BEFORE THE RENDER refused eleven upright layouts and three wide ones and named what stood in the way: cars parked before
-  shop doors, a 7 m water tank before a smith, a hoist's beam over the posts, a house behind a house (its door hidden), a stall
-  before a barber's door, a tent and a water bladder before two notice boards, the church's tower over the lot, hiring posts across
-  the street's end, a razor wire before the posts' feet; each moved and the town checked again.
-- RULE 279 (Paolo 10/26, after the first ship): a KEEPER's door is checked too, with UI TWO's real phone (124 x 276 points, 0.9 on
-  its side, 1.25 on a computer): nine upright towns had a keeper in a corner (the town tier's smith and armourer on the front walk,
-  the fortress's posts): the front walk up without its awnings, the posts a row up; re-rendering. One composition clears both
-  corners, so the phone's side needs no twin.
+## MEASURED (the shipped fourteen, both ways)
+- EVERY TOWN TALL AND WIDE 10/10: fourteen towns x two compositions x day and night; the same buildings both ways (dropped, named:
+  Church's and Reds' east blocks, Mob's west tower, Cartel's second storage row, Network's third dish: the narrow frame's filler);
+  no flat edge and every upright re-laid; no tap and no keeper under the phone, upright or sideways, with the phone either side;
+  every door reached from either end of the street and every step on open ground; turning keeps the door; every pair of upright
+  pictures under 0.70 (most alike Network ~ Remnants 0.637); each upright's own wide among the three nearest it in colour;
+  every night darker with its pools.
+- EVERY TOWN SCREEN ITS OWN (the wide pictures): every pair of the fourteen under 0.70 (most alike Network ~ Remnants 0.598), the
+  tier's two old pictures 0.78 to 0.90 (the measure bites), the heart Church 4, Mob 3, Reds 4 buildings of 12 m and more off the
+  top, the edge's tallest 8.6 m, median colour 3.4 to 13.5, every night darker with its pools, every step on open ground.
+- THE CHECK BEFORE THE RENDER refused 21 layouts across the round and named what stood in the way: cars parked before shop doors, a
+  7 m water tank before a smith, a hoist's beam over the posts, a house behind a house (its door hidden), a stall before a
+  barber's door, a tent and a water bladder before two notice boards, a church tower over the lot, hiring posts across a street's
+  end and over a ring of burnt cars, a razor wire before the posts' feet, palms and a patrol car closing the shops' walk, a smith's
+  roof plant at a stall's step, a shack's tarp a metre forward; each moved and the town checked again.
+- RULE 279 (Paolo 10/26, during the round): the phone's zone read from UI TWO's phone (124 x 276 points, 0.9 on its side, 1.25 on a
+  computer) with the town fitted to the screen: upright the bottom three tenths at the outer four tenths, sideways the bottom two
+  thirds at the outer tenth. One composition clears BOTH corners, so the phone's side needs no twin and no re-lay.
+- WHAT THE WIDE RE-LAY MOVED (the 10/25 layout otherwise untouched): the town tier's armourer up to the street's front walk, its
+  posts off the street's end to the front walk, its bar a step in from the edge; the fortress's barber a row back (its smith its
+  ground floor), the bar's fire in the middle front, the build ground up a row; the camp's stall, posts and board in toward the
+  middle; and what stood where they landed, moved aside (named per town in the tool).
+- The upright towns' heights: the heart's three blocks rise off the top (Church six, five and seven storeys; Reds the garage, four
+  and the ten-storey bank; Mob the casino tower over a two-storey row); the edge's houses and yards low with the ground behind.
+
+## THE GLIDE'S PAIRS (rule 289(b), the routine's ask: 'the flip is a glide: each building slides from its tall spot to its wide
+## spot. Keep every building's ID the same in both compositions and write both spots in the plan; RUN TWO reads them')
+tools/bohemia_cook_every_town_the_glide_10_26_26.py writes settlement_ground.json towns[name].glide from the scenes' own measure
+(wide/render and tall/render, every piece roof to foot):
+- pieces: every thing that stands in both compositions, ONE id ('<town>.<name>', '.<k>' when a kind stands several times, the
+  tap's name when a tent or a shed is the clinic), its roles (the taps it IS), and both spots: box and foot in picture px and the
+  foot in the scene's metres.
+- How a thing is found: pieces of one name merge where one nests in another (a sign on its wall) or they touch on one line (a row of
+  graves, the church's tower and nave); ten tents one behind the next stay ten. When the two compositions hold a different count of
+  a name, its touching parts merge (a garden's rows of beds, a run of panels).
+- How they pair: every tap pins first (the thing of that name with the most overlap with the tap's box both ways, so the clinic's
+  tent glides to the clinic's tent); the rest of a kind pair by the least travel (each foot as a share of its picture, scipy's
+  assignment); what one scene holds more of fades (listed in fade).
+- taps: a tap that is part of a piece (the fortress's smith is the barber's ground floor, its armourer the clinic's) or the ground
+  (the lot, the build ground, a camp's arms and bar) gets its own id and 'rides' the piece it sits in, or 'ground'.
+- beat_ms 500 (one beat at 120 BPM), ease MOTION's curve (rule 229).
+MEASURED: 351 pieces across the fourteen towns (Church 31, Homeless 31, Colorful 30 ... Reds and Mob 20, Remnants 19); every tap
+of both compositions one id (82 taps are pieces themselves, 53 ride a piece or the ground); every building and landmark built both ways one id, but the
+five filler blocks leg 2 names; the fades are junk kinds a frame holds more or fewer of (carts, crates, drums, tyres, barriers) and
+Cartel's wall lengths between its gates. Gate EVERY TOWN TALL AND WIDE leg 10, THE GLIDE HAS ITS PAIRS: one beat, every tap and
+building an id, each id once, each spot on its picture, and the glide re-read from the scenes equals the shipped one (a stale plan
+fails). It bites: a Church without its barber's id and a Mob at 900 ms failed it.
+NOT YET: the pictures are flat, so a glide of real shapes needs each piece cut out of its picture. RUN TWO can slide each piece's
+box (the picture's own pixels under it) over the cross-faded ground; if it wants cut-outs to the outline, COOK renders an id map
+per picture (each pixel the piece it belongs to) on its next round with Blender.
 
 ## THE GATES
 - EVERY TOWN SCREEN ITS OWN (gates/every_town_screen_its_own_gate.py): the wide half, 10/25's eight legs.
 - EVERY TOWN TALL AND WIDE (gates/every_town_tall_and_wide_gate.py): both ways, rule 220(f)'s legs.
 
 ## SAID PLAINLY
-- RUN TWO wires them (NOTE on its board): until then the screen draws the tier pictures.
-- The wide pictures keep the screen's old tap boxes, and some sit in a bottom corner where the phone goes (the town tier's
-  armourer, the fortress's smith and bar, the camp's posts and board): the wide composition's re-lay, the way the tall one is
-  laid, is the next row. The phone's size is my assumption until UI TWO fixes the rectangle.
-- Turning the phone mid-town keeping him beside the same building is RUN TWO's (the doors are in both compositions per role).
+- NOT IN A TAB YET: RUN TWO wires them into the TOWN screen (NOTE on its board: read towns[name].tall or .wide by the screen's
+  shape, the boxes from the manifest, never the old constants; the lead at the same role's door on a turn; the street end he came
+  in by). Until then the screen draws the tier pictures.
+- The phone's zone assumes the town fitted to the screen and centred. If RUN TWO fits another way, the zone follows its rectangle.
+- RENDERING: one Blender at a time (two scenes outgrew the session's 14.3 GB four times); a town's day and night take 8 to 15
+  minutes; the tools hold a lock and wait on a render already holding memory, and never render a layout twice.
 
 ## REFERENCE CHECK (the 9/4 standing duty)
 Battle Brothers' town screen is one landscape panorama (a computer game); the phone city builders he plays turn with the device and

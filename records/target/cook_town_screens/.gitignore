@@ -3,3 +3,6 @@
 # the layout checks (a scene measured without its render) are working files
 */layout/
 layout/
+# the quick test renders (a quarter size, eight samples) are working files
+*/quick/
+quick/

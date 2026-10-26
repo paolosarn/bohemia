@@ -4,15 +4,21 @@
    cabin and all your members; and you can hire people to join you, Battle Brothers calls it a retinue'.
    WHY THIS WALKS THE DEMO: rule 150(d), on the surface he plays; every press below is a real finger.
      C1 the HEAL app (the camp's door since rules 212 and 226, UI TWO 10/26) stands on the phone on the map, a thumb wide, nothing over it
-     C2 *** A TAP MAKES CAMP *** the screen opens with the clock on its bar and BREAK CAMP: every man of the company round the fire (the
-        marker's own list), your lead at it, the tent, the retinue and the cart, and nothing of a town (no keeper, crowd, walker)
+     C2 *** A TAP MAKES CAMP *** the screen opens with the clock on its bar and BREAK CAMP: every man of the company in his camp (the
+        marker's own list; where in it is CAMP TWO's, rule 259), your lead in it, the tent, the retinue and the cart, and nothing of a
+        town (no keeper, crowd, walker)
      C3 the clock runs an hour a beat while the camp stands, and the night is billed on it (the batteries go down by the bill)
      C4 THE RETINUE: with no clout nobody follows (no place open, every hire shut); with the clout of a first place, a real tap
         takes the scout on: his price is paid, and the map's road time is the scout's (15 percent less a block)
      C5 THE CART: a real tap buys the first step, the stash holds 48, the crew screen's bag says so
-     C6 a hunting crew two blocks off breaks the camp and the map shows them
+     C6 RE-AIMED 10/26 BY CAMP to rule 267(a) (Paolo 10/26: 'when I click the camp button it wants to stop having me in camp mode, I
+        hate that, unless an enemy pulls up on me'): a hunting crew held two blocks off does NOT break the camp; one of his men says who
+        and how far in the camp, and the map keeps them. (It read: 'a hunting crew two blocks off breaks the camp and the map shows
+        them'; the rule struck that.)
      C7 BREAK CAMP (a real tap) closes it and the clock stops; the plate is back (UI TWO, rule 286(b): no button twice, so in the game
-        BREAK CAMP is the phone's HEAL pressed at camp, the camp's own BREAK CAMP is off the glass; the town's page alone keeps it)
+        BREAK CAMP is the phone's HEAL pressed at camp, the camp's own BREAK CAMP is off the glass; the town's page alone keeps it.
+        RE-AIMED BY CAMP: the camp still stands after C6, so the break is pressed in it; it read: the HEAL app tapped first to make a
+        camp again)
      C8 nothing threw
    node gates/the_camp_gate.js */
 'use strict';
@@ -57,11 +63,14 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
       for (const x of p.frames().filter(x => /SETTLEMENT_SCREEN/.test(x.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.camp().camp && BohemiaSettlement.ready(); } catch (e) { return false; } }).catch(() => false)) { sf = x; break; } }
     if (!sf) { ok('C2 a tap makes camp', false, 'no camp screen'); return done(); }
     await sf.waitForFunction(() => { const l = BohemiaSettlement.lead(); return !!l.drawn; }, null, { timeout: 10000 }).catch(() => {});
-    const c2 = await sf.evaluate(() => { const S = BohemiaSettlement, F = S.folk(), l = S.lead(), fire = { x: 945, y: 786 };
+    /* CAMP TWO 10/26 (rule 260: the camp screen is his own camp): the fire is his camp's own (engine/bohemia_camp_life.js), his men stand
+       where their condition puts them in it (rule 259), not in one ring, and the camp's doors are more than three (the fire, a tent
+       a pair, the cart, the seats); the leg reads all of that from the camp's own call */
+    const c2 = await sf.evaluate(() => { const S = BohemiaSettlement, F = S.folk(), l = S.lead(), fire = (window.BohemiaCampLook && BohemiaCampLook.state().fire) || (window.BohemiaCampLife ? BohemiaCampLife.FIRE : { x: 945, y: 786 });
       return { name: document.getElementById('pname').textContent, leave: document.getElementById('leave').textContent, order: S.order(), men: F.length, all: F.every(p => p.campMan),
-        round: F.every(p => Math.hypot((p.x - fire.x) / 2.1, p.y - fire.y) < 130), lead: l.look, leadAt: Math.round(Math.hypot((l.x - fire.x) / 2.1, l.y - fire.y)), busy: S.busy().length, drawn: l.drawn }; });
+        round: F.every(p => Math.hypot((p.x - fire.x) / 2.1, p.y - fire.y) < 420), lead: l.look, leadAt: Math.round(Math.hypot((l.x - fire.x) / 2.1, l.y - fire.y)), busy: S.busy().length, drawn: l.drawn }; });
     ok('C2 a tap makes camp: the clock on the bar and BREAK CAMP, every man of the company round the fire, your lead at it, the tent, the retinue and the cart, nothing of a town',
-      /^DAY \d+  \d\d:\d\d$/.test(c2.name) && c2.leave === 'BREAK CAMP' && c2.order.join() === 'tent,retinue,cart' && c2.men === before.men && c2.all && c2.round && c2.lead === 'you' && c2.leadAt < 130 && c2.busy === 0 && !!c2.drawn,
+      /^DAY \d+  \d\d:\d\d$/.test(c2.name) && c2.leave === 'BREAK CAMP' && ['tent', 'retinue', 'cart'].every(k => c2.order.indexOf(k) >= 0) && c2.men === before.men && c2.all && c2.round && c2.lead === 'you' && c2.leadAt < 420 && c2.busy === 0 && !!c2.drawn,
       JSON.stringify(c2) + ' (the marker holds ' + before.men + ')');
     if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp.png') });
     /* ---- C3 ---- */
@@ -102,19 +111,22 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
       if (rf) { rosterBag = await rf.evaluate(() => (document.body.innerText.match(/(?:YOUR BAG|STASH)\s+\d+\s*\/\s*(\d+)/) || [])[1] || null).catch(() => null);
         const dn = await rf.$('#done') || await rf.$('button'); if (dn) await rf.evaluate(() => { const b = document.getElementById('done'); if (b) b.click(); }); await p.waitForTimeout(500); } }
     ok('C5 THE CART: a real tap buys the first step, the stash holds 48, and the crew screen\'s bag says so', t5 && c5.slots === 48 && c5.store === 48 && rosterBag === '48', JSON.stringify(c5) + ' crew screen bag of ' + rosterBag);
-    /* ---- C6 a hunting crew breaks camp ---- */
-    await fr.evaluate(() => { HUNT = { id: 'hunt:gate', ev: { id: 'gate' }, name: 'THE GATE\'S CREW', arch: 'human', count: 3, at: [city.x + 2, city.y], steps: 0, made: performance.now() }; });
+    /* ---- C6 a hunting crew two blocks off: a warning, the camp stands (rule 267(a)) ---- */
+    await fr.evaluate(() => { const at = [city.x + 2, city.y], h = { id: 'hunt:gate', ev: { id: 'gate' }, name: 'THE GATE\'S CREW', arch: 'human', count: 3, made: performance.now() };
+      Object.defineProperty(h, 'at', { get: () => at.slice(), set: () => {}, enumerable: true }); Object.defineProperty(h, 'steps', { get: () => 0, set: () => {}, enumerable: true });   /* held two blocks off */
+      window.__CAMP_WARNED = []; HUNT = h; });
     await p.waitForTimeout(1500);
-    const c6 = await fr.evaluate(() => ({ camp: BohemiaMapCamp.state(), shown: !!(LOOP.frame && LOOP.frame.style.display === 'block'), hunt: !!HUNT, seen: HUNT ? mapSees(HUNT.at[0], HUNT.at[1]) : null }));
-    ok('C6 a hunting crew two blocks off breaks the camp, and the map shows them', !c6.camp.on && c6.camp.why === 'warned' && !c6.shown && c6.hunt, JSON.stringify(c6));
+    const c6 = await fr.evaluate(() => ({ camp: BohemiaMapCamp.state(), shown: !!(LOOP.frame && LOOP.frame.style.display === 'block'), hunt: !!HUNT, warned: (window.__CAMP_WARNED || []).map(w => w.dist + ' ' + w.who) }));
+    const said6 = await sf.evaluate(() => window.__CAMP_WARN ? window.__CAMP_WARN.line : null).catch(() => null);
+    ok('C6 a hunting crew two blocks off does not break the camp (rule 267(a)): one of his men says who and how far in the camp, and the map keeps them',
+      c6.camp.on && c6.shown && c6.hunt && c6.warned.length === 1 && /THE GATE'S CREW/.test(said6 || '') && /Two blocks off/.test(said6 || ''), JSON.stringify(Object.assign(c6, { said: said6 })));
     await fr.evaluate(() => { HUNT = null; });
     /* ---- C7 BREAK CAMP ---- */
     await p.waitForTimeout(800);
     const c7top = await p.evaluate((s) => { const b = document.querySelector(s), r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return !!e && (e === b || b.contains(e)); }, HEAL);
-    await tapEl(p.mainFrame(), HEAL); await p.waitForTimeout(1500);
-    const sf2 = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url()));
-    /* rule 286(b): the camp's BREAK CAMP is the phone's HEAL now (one press, one action); the camp's own button when the phone is not up */
-    const brk = sf2 ? ((await p.evaluate(() => document.documentElement.classList.contains('boh-phone-on'))) ? await tapEl(p.mainFrame(), HEAL) : await tapEl(sf2, '#leave')) : false;
+    /* rule 286(b): the camp's BREAK CAMP is the phone's HEAL now (one press, one action); the camp's own button when the phone is not
+       up. The camp still stands after C6 (rule 267(a)), so this press breaks it */
+    const brk = (await p.evaluate(() => document.documentElement.classList.contains('boh-phone-on'))) ? await tapEl(p.mainFrame(), HEAL) : await tapEl(sf, '#leave');
     await p.waitForTimeout(800);
     const m0 = await fr.evaluate(() => T.day * 1440 + T.min); await p.waitForTimeout(2000);
     const c7 = Object.assign(await fr.evaluate((m0) => ({ on: BohemiaMapCamp.on(), moved: T.day * 1440 + T.min - m0, why: window.__CAMP && window.__CAMP.why }), m0),

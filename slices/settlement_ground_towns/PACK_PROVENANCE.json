@@ -1,0 +1,229 @@
+{
+ "what": "WHERE EVERY PICTURE HERE CAME FROM (THE PACKS ARE THE BAR, rule 82a, reads this): none is cut from the purchased packs; each is a render of its town's 3D scene, the way rule 123 ordered for every 2D asset. The exception says so, picture by picture.",
+ "pieces": {
+  "anarchists.webp": {
+   "src": "anarchists.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "anarchists_night.webp": {
+   "src": "anarchists_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "anarchists_tall.webp": {
+   "src": "anarchists_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "anarchists_tall_night.webp": {
+   "src": "anarchists_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "blues.webp": {
+   "src": "blues.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "blues_night.webp": {
+   "src": "blues_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "blues_tall.webp": {
+   "src": "blues_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "blues_tall_night.webp": {
+   "src": "blues_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "caravans.webp": {
+   "src": "caravans.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "caravans_night.webp": {
+   "src": "caravans_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "caravans_tall.webp": {
+   "src": "caravans_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "caravans_tall_night.webp": {
+   "src": "caravans_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "cartel.webp": {
+   "src": "cartel.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "cartel_night.webp": {
+   "src": "cartel_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "cartel_tall.webp": {
+   "src": "cartel_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "cartel_tall_night.webp": {
+   "src": "cartel_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "church.webp": {
+   "src": "church.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "church_night.webp": {
+   "src": "church_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "church_tall.webp": {
+   "src": "church_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "church_tall_night.webp": {
+   "src": "church_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "colorful.webp": {
+   "src": "colorful.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "colorful_night.webp": {
+   "src": "colorful_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "colorful_tall.webp": {
+   "src": "colorful_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "colorful_tall_night.webp": {
+   "src": "colorful_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "custom.webp": {
+   "src": "custom.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "custom_night.webp": {
+   "src": "custom_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "custom_tall.webp": {
+   "src": "custom_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "custom_tall_night.webp": {
+   "src": "custom_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "homeless.webp": {
+   "src": "homeless.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "homeless_night.webp": {
+   "src": "homeless_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "homeless_tall.webp": {
+   "src": "homeless_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "homeless_tall_night.webp": {
+   "src": "homeless_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "mob.webp": {
+   "src": "mob.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "mob_night.webp": {
+   "src": "mob_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "mob_tall.webp": {
+   "src": "mob_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "mob_tall_night.webp": {
+   "src": "mob_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "network.webp": {
+   "src": "network.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "network_night.webp": {
+   "src": "network_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "network_tall.webp": {
+   "src": "network_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "network_tall_night.webp": {
+   "src": "network_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "reds.webp": {
+   "src": "reds.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "reds_night.webp": {
+   "src": "reds_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "reds_tall.webp": {
+   "src": "reds_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "reds_tall_night.webp": {
+   "src": "reds_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "remnants.webp": {
+   "src": "remnants.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "remnants_night.webp": {
+   "src": "remnants_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "remnants_tall.webp": {
+   "src": "remnants_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "remnants_tall_night.webp": {
+   "src": "remnants_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "trades.webp": {
+   "src": "trades.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "trades_night.webp": {
+   "src": "trades_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "trades_tall.webp": {
+   "src": "trades_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "trades_tall_night.webp": {
+   "src": "trades_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "volunteers.webp": {
+   "src": "volunteers.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "volunteers_night.webp": {
+   "src": "volunteers_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "volunteers_tall.webp": {
+   "src": "volunteers_tall.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  },
+  "volunteers_tall_night.webp": {
+   "src": "volunteers_tall_night.webp",
+   "exception": "built in metres through the master rig from the town's own plan (rules 121(j) and 123, 10/19-10/20: every 2D asset remade the Crashbox way, through the rig, no pack tile cut): the 10/20 settlement tool's camera, ground, light and night, COOK's building modeller and props and the glbs in reference/models/bohemia/; tools/bohemia_cook_every_town_its_own_screen_10_25_26.py, tools/bohemia_cook_every_town_tall_and_wide_10_26_26.py, tools/bohemia_cook_every_town_wide_relaid_10_26_26.py"
+  }
+ }
+}

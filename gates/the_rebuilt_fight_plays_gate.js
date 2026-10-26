@@ -23,7 +23,10 @@ const IDLE = Number(fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html')
    him, and past that never taller than ROWS rows of it, never under half his size, on every glass. SIZE_OK reads the drawn man
    against the row he stands on: the law, not the page's own arithmetic */
 const ROWS = 1.8;
-const sizeOk = (man, row) => man <= IDLE + 2 && man >= IDLE / 2 - 1 && (ROWS * row >= IDLE ? Math.abs(man - IDLE) <= 2 : man <= Math.max(ROWS * row * 1.06, IDLE / 2) + 1);
+/* RE-AIMED 10/26 (COMBAT TWO, rule 288(b): 'see your characters bigger than when they were zoomed out'; the zoom scales the man and
+   his ground together, rule 21's ceiling was the dead walk's): he is ROWS rows of his ground at every zoom (the hair of a whole size
+   either way, ART_SNAP), never under half his size */
+const sizeOk = (man, row) => man >= IDLE / 2 - 1 && (ROWS * row >= IDLE / 2 ? Math.abs(man - ROWS * row) <= ROWS * row * 0.06 + 1 : man <= IDLE / 2 + 1);
 /* PROOF SHOTS GO TO A SCRATCH FOLDER UNLESS ASKED (PLUMBER 10/9, [proof shots churn]): `--shoot` or BOHEMIA_SHOOT=1 writes the VOTE picture */
 const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));
 const BB = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/rules.json'), 'utf8'));
@@ -36,7 +39,7 @@ const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
 const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
 /* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar); a bar is three CSS
    points tall, counted only in CSS space (the marks on the board are laid in device pixels, a cell three tall on his phone) */
-const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&(img.src.indexOf("fight_rig/")>=0||img.src.indexOf("rig_idles/")>=0)&&!/faces|_guns/.test(img.src))window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3&&this.getTransform().a===(window.devicePixelRatio||1))window.__bars++;return fr.apply(this,arguments);};})();';
+const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&(img.src.indexOf("fight_rig/")>=0||img.src.indexOf("rig_idles/")>=0||img.src.indexOf("rig_melee/")>=0||img.src.indexOf("rig_hold/")>=0)&&!/faces|_guns/.test(img.src))window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3&&this.getTransform().a===(window.devicePixelRatio||1))window.__bars++;return fr.apply(this,arguments);};})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
 /* THE MARKS ON THE BOARD, read in the page (COMBAT [the marks on the board]): one frame with the marks, one with only the ground
    (to count the ground's own grid strokes out), one with AUTO on (his reach, the rings and the walk gone, the people kept) */
@@ -179,13 +182,16 @@ async function fight(F, first) {
   leg(bank.loaded && /master rig/.test(bank.src) && !bank.handDrawn, F.board + ': *** EVERY FIGHTER IS HIS RIG MODEL (rules 69, 121), nothing hand-drawn, no old flat sheet ***',
     bank.looks + ' looks on the board, from ' + bank.src.split(':')[0]);
   /* RE-AIMED 10/24 (COMBAT; RUN TWO's 10/24 finding): since ANIMATION's [everybody idles] (rule 130(a)) a man standing between
-     turns is drawn from slices/rig_idles, the same rig model's idle bank, so a frame of the bank is a frame of either folder */
+     turns is drawn from slices/rig_idles, the same rig model's idle bank, so a frame of the bank is a frame of either folder.
+     RE-AIMED 10/26 (COMBAT TWO, measured side by side): ANIMATION's rig_melee and rig_hold sheets (the same rig model, its melee
+     and its held-gun keys) now draw most men, and the leg counted only two folders: at a headless 35 to 40 frames a second it sat
+     on its line on main and here alike (main 28 at 14 frames, this build 23 to 30 at 11 to 15); those two folders count too */
   leg(blits >= bank.visible, F.board + ': the board blits the bank\'s frames (the rig\'s sheets or its idle bank) for every man it shows', blits + ' bank frames in ~18 frames for ' + bank.visible + ' men');
   leg(bank.faceFromBank, F.board + ': the turn strip and the bar carry his face: PORTRAIT\'s fresh portrait of the same model (rule 115(h))');
   /* RE-AIMED 10/25 ([eyes: men on men]): pinched in to the near stop he stands at his size; at the fight's camera never taller
      than 1.8 rows of his ground and never under half (sizeOk) */
-  const man = await ev(() => { const z = FIGHT_UI.zoom, at = { man: Math.round(manH()), row: FIGHT_UI.th * z }; FIGHT_UI.zoom = FIGHT_UI.near; at.near = Math.round(manH()); FIGHT_UI.zoom = z; return at; });
-  leg(Math.abs(man.near - IDLE) <= 2 && IDLE >= 80 && sizeOk(man.man, man.row), F.board + ': *** THE MAN READS AS A MAN (rule 66): at the near stop he stands at his size, the page\'s MAN_IDLE, never under 80; at the fight\'s camera never taller than 1.8 rows nor under half ***',
+  const man = await ev(() => { const z = FIGHT_UI.zoom, at = { man: Math.round(manH()), row: FIGHT_UI.th * z }; FIGHT_UI.zoom = FIGHT_UI.near; at.near = Math.round(manH()); at.nearRow = FIGHT_UI.th * FIGHT_UI.near; FIGHT_UI.zoom = z; return at; });
+  leg(man.near >= IDLE && IDLE >= 80 && sizeOk(man.near, man.nearRow) && sizeOk(man.man, man.row), F.board + ': *** THE MAN READS AS A MAN (rule 66): at the near stop he stands his size or more, never under 80; at the fight\'s camera 1.8 rows of his ground (rule 288(b)), never under half ***',
     man.near + ' css px tall at the near stop, ' + man.man + ' on ' + Math.round(man.row) + ' px rows at the camera, his size ' + IDLE + ' (was 17 before round three)');
   if (F.taps) {
     /* ONE MAN IS NOT A WALL, TWO ARE (rule 66), on a corridor cut through a column of houses */
