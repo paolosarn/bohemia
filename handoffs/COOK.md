@@ -30,8 +30,25 @@ two renders at once ran out of the session's 14.3 GB and were killed four times 
 Renders run about 15 minutes a town (day and night).
 GATES: EVERY TOWN SCREEN ITS OWN (the wide half), EVERY TOWN TALL AND WIDE (both ways), EVERY ENEMY READS AT NIGHT, THE STRIP READS AS
 THE STRIP.
-NEXT: the camp's pieces through the master rig for CAMP TWO (its NOTE: slices/camp_two/kit.png at kit.json's rects and feet, and
-a camp-sized trailer), then [the fifty perk icons], then [the armour's art]. EYES' word on lines 3, 64, 106, 142, 219 once RUN TWO wires the towns; any town EYES names gets its layout moved in the tool
+- THE CAMP THROUGH THE RIG (CAMP TWO's NOTE, rule 289(e)) SHIPPED 304e0bed: CAMP TWO's 35 camp pieces (its own meshes) through the
+  master rig into slices/camp_two/kit.png + kit.json (same keys, feet checked against the footprints), and a 4 x 7 ft camp trailer in
+  eight facings (records/target/master_rig/cook_camp_trailer/, kit.json camp_trailer_rig). tools/bohemia_cook_the_camp_through_the_rig_
+  10_26_26.py (/tmp/v/bin/python). Gate THE CAMP THROUGH THE RIG 5/0. Honest: fewer colours than the numpy recipe (median 1,266 to
+  1,901), card 13 of 30 BACK (was 12): the rig's light, one look with the cart and the pickup. NOTE for CAMP TWO in CAMP's section.
+- [the fifty perk icons] (rule 252(c)) SHIPPED 79250901: all fifty a model of what the perk does through the master rig on a worn
+  tag (gold rim carried, blue pressed, the row in dots), 96 x 96, slices/perk_icons/ + perk_icons.json. The models STAND facing the
+  camera (laid back, the source pass dusted every front pink). Gate EVERY PERK A PICTURE 5/0. NOT IN A TAB YET: UI THREE's shared
+  perk module draws them (NOTE in UI's section). tools/bohemia_cook_the_fifty_perk_icons_10_26_26.py (--only <ids>, --plates).
+- [the armour's art] (rule 272(b)(d)) SHIPPED 79250901: the police riot helmet (police black, vent ribs, pivot bolts, lift tab,
+  chin strap, its visor smoked glass his face shows through) and the police vest (webbing, radio pouch and aerial, buckles) their
+  own art, and all 27 of CHARACTER's pieces meshed from its own distances (tools/bohemia_cook_surface_nets.py) and rendered through
+  the real rig with his head and trunk as holdouts, file for file into slices/wear/ (CHARACTER's format and anchors; the
+  placeholder cells kept as the reference in records/target/cook_armour_rig/). Armour takes 0.15 of the dust (the caps' share).
+  Gate THE ARMOUR THROUGH THE RIG 5/0; CHARACTER's own gate THE ARMOUR HE WEARS SHOWS 18/0 on the new sheets (the crew card, the fight, the camp, the map and the portrait, phone and computer). Honest: the oxblood moto helmet's crown fades to rose (the
+  sun's bleach of upward faces). tools/bohemia_cook_the_armour_through_the_rig_10_26_26.py (--only <keys> --proof).
+NEXT: each armour piece its own art the way the police two got theirs (the moto helmet's oxblood first, the shops sell it most),
+the id maps for the towns' glide if RUN TWO wants cut-outs, then the next COOK row on the board ([eyes: the dam at dawn] is open:
+Hoover Dam's settlement near black at 07:03 on the phone). EYES' word on lines 3, 64, 106, 142, 219 once RUN TWO wires the towns; any town EYES names gets its layout moved in the tool
 and re-rendered (python tools/..._tall_and_wide_10_26_26.py <Town> --no-ship, then --swap-only; the wide likewise), the check
 refuses a layout before its render. Then the next COOK row on the board.
 [bb Battle Brothers' town screen is one landscape panorama; ours turns with the phone and re-lays, never letterboxes.]

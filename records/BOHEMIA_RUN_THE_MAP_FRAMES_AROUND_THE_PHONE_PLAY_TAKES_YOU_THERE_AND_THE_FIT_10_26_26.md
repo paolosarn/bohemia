@@ -218,3 +218,76 @@ no canvas; (4) the boss changes his district: the painter re-bakes tiles in its 
 and the new family and RUN gives you the repaint call (a block's tiles dropped from the cache and re-asked), no second painting kept.
 BUDGET: 8 MB of new canvas or bitmap in all (a quarter of the headroom), nothing glass-sized, nothing allocated per frame; THE MAP
 STANDS TALLER's frame-cost leg and TWENTY FIGHTS NO CRASH are the checks.
+
+## 9. [the map zooms in to the street] (rule 258; the coordinator's routine: 'after [the map fits your jobs]')
+
+PAOLO 10/26: 'I want the zoom to zoom in a lot more, even on the main map... I should be able to zoom in more and see more detail,
+almost like I'm on the combat map, or maybe use assets of the combat map... you feel like you're actually watching your team walk
+through the city... you can easily zoom back out... it doesn't have to transition to a whole other screen or phase... the map is very
+far from final.'
+
+MEASURED BEFORE: the demo's map stopped at a block 85 CSS px wide on his phone (256 on his computer), where a house in the painting is
+the size of his man's chest; a squeeze past it did nothing (rule 142's one map). The fight's ground is COMBAT TWO's painted blocks
+(slices/fight_ground, fight-ground-10-2): 35 present-day blocks of five houses a side (a house 12 m, 515 x 364 art px), each 2575 x
+1820, 18.7 MB once decoded, seen STRAIGHT ON from the south at 45 degrees; the map is seen CORNER-ON. The fight deals a district's
+own 3 x 4 layout (fight_ground.json 'districts', 78 of the map's district names). A map block is 384 m (WORLD's one ruler), so six
+fight blocks a side. The fight draws a house 171 CSS px wide to its 104 px man; the map's man is 55 px (his 72.5 px box).
+
+THE CALL: the same pinch goes on past the old closest stop, on the same map, and the camera TURNS to the fight's own (an eighth of a
+circle and a tip, corner-on to straight-on) through the first doubling, because the fight's blocks are painted straight on and laying
+them corner-on would lean every house; the ground gives way from the painting to the fight's blocks as it turns, and goes on down to
+THE STREET STOP, where a house stands to his man as in the fight (90 px to 55: 1.64, the fight's 1.64; a map block 2,700 px). The
+person keeps his size (THE GROUND MAY ZOOM, THE PERSON MAY NOT), so 'his fight size' is read as the fight's proportion, not the fight's
+104 px. If COOK paints the blocks corner-on one day (the NOTE), the turn is one number (STREET.swing, the tip and turn in streetCam).
+
+BUILT (slices/BOHEMIA_CITY_WORLD.html __THE_MAP_ZOOMS_IN_TO_THE_STREET__; tools/bohemia_run_the_street_ground.py; slices/street_ground):
+- the pictures: each present-day block at 160, 320, 640 and 1288 px wide (12.9 MB on disk, nothing redrawn) and one 14 KB index with
+  the fight's district and board layouts. The map asks only the width the glass needs; far off a map block's thirty-six are laid once
+  into one small picture (64 to 512 px); one byte budget (20 MB), the oldest let go first, never one on the glass, the sharpest width
+  to the blocks nearest him and a lighter one past three quarters of the budget; the painting's own close tiles let go once the turn is
+  half done (they were allowed 28 MB) and everything of the street let go three seconds after he leaves it.
+- THE CAMERA: a point of the ground goes to the glass as F + M (w - W): W is the ground at the focus beside the phone, read off the
+  map's own camera (so the crew is held, a drag looks around, the edge stops, exactly as on the map); M turns and tips with the zoom.
+  What lies flat on the ground (the painting, the fog, WORLD TWO's tape) is drawn by the map's own code under one transform (L). The
+  map's camera is whole pixels; on the street one of its pixels is up to 44 of these, so the street's camera is the exact one. The map
+  holds the top of his block at the focus and stands him on his block's raised ground; through the turn the street comes to hold his
+  FEET there and the lift goes, so he never hops at the hand-over (measured: the biggest frame-to-frame move 15.8 px phone, 18.6 computer).
+- THE ZOOM: setZoomAt's first word (streetZoomAt): a pinch, the wheel or the keys past the closest stop go on into the street; a zoom
+  with no pivot (the double tap, the far fit, a fit to his jobs) is a place to go and leaves it; pinched out past the turn the rest of
+  the pinch is the map's. The alpha's walked-street seam is untouched (the street is the demo map's).
+- THE WALK READS: past the old stop a journey never crosses the glass faster than a brisk walk: the map's 1.22 blocks a beat at the
+  old stop, down to 60 CSS px a second by the end of the turn (a block 45 s at the street stop). Every block still pays its own minutes
+  the beat he reaches it, as at any speed, so the clock runs slower while he watches. Between beats he walks TOWARD the next block (the
+  lead: the share of the step the beats have paid for), so a town opens when he is at its gate; paused he holds; stopped between blocks
+  he walks back onto his. His stride is the ground's (46 px a stride), his two keep his pace, he faces the block he walks to.
+- ON THE STREET: the towns (their blocks dealt from the fight's town, fort and trailer layouts, their edge in their colour, their name,
+  a finger on either the town's), the roaming parties he can see and the one hunting him at their size (their glide the whole gap
+  between their steps), the ring where he stops, the fog only when a block on the glass is unseen (it was a third of the frame), his
+  ring, him and his two, the names list, the night's wash. A tap is the block under the finger (CBcellAt). A drag moves the street
+  under the finger.
+
+GATE: THE MAP ZOOMS IN TO THE STREET (new, Z1-Z10 a profile): real squeezes past the old stop into the street on the same map (the
+phone and the bar unmoved); the street stop straight on, all fight blocks, nothing missing, the proportion 1.64 to 1.64; a journey
+there held at the focus (0 to 1 px), the ground by at 57 to 62 px a second, the stride turning, facing E walking E, his two with him;
+a roaming party drawn in its people with a hit box; a tap travels to the block under the finger; squeezes back out to the whole city,
+no jump over 30 px; frames: the street far 11 to 17 ms, the street stop 13 to 17, the turn 19 to 56, the map's own closest 56 to 148
+(this box); two minutes at the close end: 15.5 to 19.9 MB held of 20, the painting's tiles 0 of 28, 0 failed; the street off turns Z1
+red. THE NEAR END IS THE BLOCK re-aimed (N2 goes on into the street; N8 comes back out; N7 reads UI TWO's phone and its PLAY).
+
+WEAK, SAID: (1) the fight's art is a suburb's: a downtown, the Strip's towers and a casino are drawn from what the fight has (low
+houses, a casino FLOOR), so the city loses its towers past the turn; (2) the fight's blocks run their streets east-west (one freeway
+block, no north-south freeway), so the street view's streets do not follow the map's own roads; (3) the turn crossfades two pictures
+for about half the first doubling (rule 142 hated two maps ghosting; this one is a turning camera, short); (4) the crowds at the
+places, the turf edges, the jobs' marks, the cargo truck and WORLD TWO's pins are not drawn on the street yet; (5) the clock slows
+while he watches (his call, said in the reply); (6) the futures (raided, reclaimed) of each block are not used yet; (7) a new route
+mid-block from a different next block starts him from his block's middle. NOTEs: COOK (the corner-on or north-south blocks and the
+towers), ANIMATION (the walk call at the street stop), WORLD TWO (the pins' projection: window.streetTo), MOTION (the turn).
+
+REDS SEEN, NOT FROM THIS ROW (each run again alone with main's own BOHEMIA_CITY_WORLD.html swapped in, origin/main a39c2662: the
+same red): THE MAP IS HOW YOU TRAVEL 'a second tap stops a journey where it stands' (RUN's own gate: NEXT, after this row); THE
+DRIVER REACHES THE CITY 'the old pinch axis is accounted for' (the alpha's rung button under the old pinch axis); ONE ZOOM (the
+alpha's canvas tainted by a cross-origin picture, getImageData refused); HIS MAP P1 (WORLD TWO's held finger does not open the pin
+box: NOTE). Two of my gates re-aimed for other lanes' ships this round: YOUR MAIN GUY LEADS THE WALK Y3 reads his head with
+CHARACTER's armour layer off (the helmet is THE ARMOUR HE WEARS SHOWS'), THE NEAR END IS THE BLOCK N7 reads UI TWO's phone and its
+PLAY (the old pad and #cityfeed are hidden under it). THE MAP STANDS TALLER C1 missed by 0.8 ms with two browsers running and passed
+26/0 alone (a timing leg).
