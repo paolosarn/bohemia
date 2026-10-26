@@ -86,7 +86,7 @@ const CLUB_WORDS = /\bbutts?\b|\bwhip|club at|clubs? with|pistol-whip/i;
     }
     close();
     tally.fights++;
-    S.log.forEach(e => { if (e.t !== 'attack' || e.sweep) return;
+    S.log.forEach(e => { if (e.t !== 'attack' || e.sweep || e.astray) return;
       if (e.gunHeld && !e.shot) { const a = S.units.find(u => u.id === e.id); tally.clubs.push(label + ' ' + (a && (a.name || a.kind)) + ' ' + e.arm); }
       if (e.gunHeld && e.shot) { tally.shots++; if (Math.max(Math.abs(e.ax - e.tx), Math.abs(e.ay - e.ty)) === 1) tally.close++; } });
   };
