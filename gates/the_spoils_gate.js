@@ -47,7 +47,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     dr.weapon.min_durability_over === 11 && dr.weapon.roll_pct === 90 && dr.shield.roll_pct === 90 && dr.head.roll_pct === 70 &&
     dr.body.min_pct === 25 && dr.head.min_durability_over === 30 && dr.nothing_from.indexOf('beast') >= 0,
     'weapon >' + dr.weapon.min_durability_over + ' ' + dr.weapon.roll_pct + '%, helmet ' + dr.head.roll_pct + '%');
-  ok('    every count that is ours says so and why', ['rounds', 'scrap', 'batteries'].every(k => L.counts[k].ours === true && L.counts[k].why && L.counts[k].to));
+  ok('    every count that is ours says so and why', ['rounds', 'tape', 'batteries'].every(k => L.counts[k].ours === true && L.counts[k].why && L.counts[k].to) && !L.counts.scrap);   /* RE-AIMED RUN FOUR 10/26: scrap is tape (rule 276(a)) */
 
   /* ---- S1 the full stash stops (the screen on its own) ---- */
   const srv = http.createServer((rq, rs) => {
@@ -112,6 +112,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     ok('T0 a town before the fight, through the map\'s own door', !!t0.sf, t0.name);
     if (t0.sf) await leaveTown(t0.sf);
     const bat0 = await fr.evaluate(() => BohemiaPurse.balance(purseGet(), 'electricity')), res0 = await fr.evaluate(() => BohemiaPurse.balance(purseGet(), 'resources'));
+    const tape0 = await p.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}') || {}).tape | 0);
     const f = await roadFight(11);
     ok('D1 a road fight through the map\'s own door', !!f);
     if (!f) return done();
@@ -154,9 +155,11 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     if (SHOOT) await p.screenshot({ path: path.join(SHOTS, 'the_spoils_on_the_demo_after_loot_all.png') });
     const s1 = await SF().evaluate(() => ({ ground: BohemiaSpoilsScreen.state.ground.length, stash: JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]').map(i => i.id), stashn: document.getElementById('stashn').textContent }));
     const bat1 = await fr.evaluate(() => BohemiaPurse.balance(purseGet(), 'electricity')), res1 = await fr.evaluate(() => BohemiaPurse.balance(purseGet(), 'resources'));
+    const tape1 = await p.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}') || {}).tape | 0);
     ok('    LOOT ALL (a real tap): every piece is in the stash, the screen counts it', s1.ground === 0 && s0.ground.every(i => s1.stash.indexOf(i.id) >= 0) && /^\d+ \/ 36$/.test(s1.stashn), s1.stash.join(', ') + ' (' + s1.stashn + ')');
-    ok('    the counts take no room: the batteries are in the purse, the rounds and scrap in its resources, once', bat1 - bat0 === (s0.counts.batteries | 0) && res1 - res0 === (s0.counts.rounds | 0) + (s0.counts.scrap | 0),
-      'batteries ' + bat0 + ' -> ' + bat1 + ', resources ' + res0 + ' -> ' + res1 + ' for ' + JSON.stringify(s0.counts));
+    /* RE-AIMED RUN FOUR 10/26 (rule 276(a), 'what is scrap, why am I not getting more duct tape'): what was scrap is TAPE, into the company's tape */
+    ok('    the counts take no room: the batteries are in the purse, the rounds in its resources, the TAPE in the company\'s tape, once', bat1 - bat0 === (s0.counts.batteries | 0) && res1 - res0 === (s0.counts.rounds | 0) && tape1 - tape0 === (s0.counts.tape | 0) && s0.counts.scrap === undefined,
+      'batteries ' + bat0 + ' -> ' + bat1 + ', resources ' + res0 + ' -> ' + res1 + ', tape ' + tape0 + ' -> ' + tape1 + ' for ' + JSON.stringify(s0.counts));
     /* ---- D5 PICK A PERK, then equip the loot on the one crew screen ---- */
     await SFL.locator('#crew button.perk').first().tap(); await p.waitForTimeout(500);
     const RF = () => p.frames().find(x => /ROSTER_SCREEN/.test(x.url()));

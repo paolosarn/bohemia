@@ -9658,6 +9658,12 @@ GATES = [
      "LEVEL UP and PICK A PERK; pieces off the dead; LOOT ALL (a real tap) into the stash, the counts into the purse once; PICK A "
      "PERK opens the one crew screen, a perk taken, the looted weapon into a man's hand; LEAVE home; the door and the next road "
      "fight hand him the looted weapon. green at registration, 19/0, about 2 min", True),
+    ('SCRAP IS TAPE', ['node', 'gates/scrap_is_tape_gate.js'],
+     "RUN FOUR gate, 10/26, row [scrap is tape] (rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap, why am I not getting more "
+     "duct tape for my armour... this run's over'). MEASURED before: the loot counted SCRAP into the purse's resources, which nothing he uses reads; the company's tape "
+     "never rose after a fight. HOLDS: the loot file's count is TAPE, two rolls a wrecked piece (ECONOMY's tape_income.json); the screen on a phone and a computer says "
+     "TAPE with the tape roll, LOOT ALL raises the company's tape (bohemia.supplies.v1) by it once, no 'scrap' on the screen; the live demo on both after a road fight "
+     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. green at registration, 10/0, about 4 min", True),
     ('OPTIMIZE LOOT', ['node', 'gates/optimize_loot_gate.js'],
      "RUN FOUR gate, 10/26, rows [optimize loot] and [one tap selects, two taps take] (rules 244, 249, Paolo 10/26: 'an optimize loot button at the end of battle "
      "screen... if my inventory is full but there are ten more things that could be taken... it takes the things in your inventory that are sellable at the lowest "

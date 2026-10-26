@@ -3,8 +3,8 @@
    quick summary of who got experience, who leveled up, and what loot I'm able to take, with a loot button; and if my
    inventory is full it loots as much as it can and stops, similar to Battle Brothers.'
    Pure functions, no screen (the screen is slices/BOHEMIA_SPOILS_SCREEN.html):
-     found(spoils, L, rnd)            the fight's report (BOHEMIA_FIGHT_OVER .spoils) through Battle Brothers' drop conditions
-                                      (records/target/bb/loot.json): {items:[{kind,id,cond,max,from}], counts:{batteries,rounds,scrap}}
+     found(spoils, L, rnd)            (L.tape_income: ECONOMY's tape numbers, optional) the fight's report (BOHEMIA_FIGHT_OVER .spoils) through Battle Brothers' drop conditions
+                                      (records/target/bb/loot.json): {items:[{kind,id,cond,max,from}], counts:{batteries,rounds,tape}}
      grew(rows, climb, xpFor, levelOf) each man's XP and level before and after, the way the crew screen will climb him
      take(stash, ground, i, cap)      one piece from the ground into the stash, if there is room
      takeAll(stash, ground, cap)      as many as fit, in order, then stop: {took, left}
@@ -31,11 +31,23 @@
     }
     return { found: true, wrecked: false, cond: cond };
   }
+  /* the rolls of tape a wrecked piece leaves: ECONOMY's number when the loot file came with tape_income (D.tape_income), else the
+     loot file's own count (an old data file's scrap row reads the same) */
+  function tapePerWreck(D) {
+    var T = D && D.tape_income, v = T && T.salvage && T.salvage.tape_per_scrap && T.salvage.tape_per_scrap.value;
+    if (typeof v === 'number') return v;
+    var C = (D && D.counts) || {}, c = C.tape || C.scrap || {};
+    return typeof c.per_wrecked_piece === 'number' ? c.per_wrecked_piece : 1;
+  }
   function found(spoils, D, rnd) {
     rnd = rnd || Math.random;
-    var out = { items: [], counts: { batteries: 0, rounds: 0, scrap: 0 }, from: 0, faction: spoils && spoils.faction || null };
+    var out = { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0, faction: spoils && spoils.faction || null };
     if (!spoils || !Array.isArray(spoils.bodies) || !D) return out;
     var no = D.drop.nothing_from || [], C = D.counts;
+    /* SCRAP IS TAPE (RUN FOUR [scrap is tape], rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap,
+       why am I not getting more duct tape for my armour'): what is left of a wrecked piece is tape, ECONOMY's rolls a piece
+       (records/target/bb/tape_income.json salvage.tape_per_scrap, handed in as D.tape_income) */
+    var wreck = tapePerWreck(D);
     spoils.bodies.forEach(function (b) {
       if (!b || (D.drop.only_the_dead && !b.dead)) return;
       if (no.some(function (k) { return b[k]; })) return;   /* school.beasts_carry_nothing, school.ghosts_carry_nothing */
@@ -43,20 +55,20 @@
       var w = b.weapon;
       if (w) {
         var thrown = (D.drop.thrown_classes || []).indexOf(w.cls) >= 0;
-        var spent = thrown && D.drop.weapon.thrown_needs_ammo && !(w.ammo > 0);   /* a thrown weapon spent is not there: nothing, not scrap */
+        var spent = thrown && D.drop.weapon.thrown_needs_ammo && !(w.ammo > 0);   /* a thrown weapon spent is not there: nothing, not tape */
         if (!spent) { var f = partFound('weapon', w.durability, w.durability, D, rnd);
           if (f.found) out.items.push({ kind: 'weapon', id: w.id, cond: w.durability, max: w.durability, from: b.name });
-          else if (f.wrecked) out.counts.scrap += C.scrap.per_wrecked_piece; }
+          else if (f.wrecked) out.counts.tape += wreck; }
         if (w.gun && w.ammo > 0) out.counts.rounds += w.ammo | 0;   /* counts.rounds: the rounds left in his gun */
       }
       if (b.shield) { var s = partFound('shield', b.shield.durability, b.shield.durability, D, rnd);
         if (s.found) out.items.push({ kind: 'shield', id: b.shield.id, cond: b.shield.durability, max: b.shield.durability, from: b.name });
-        else if (s.wrecked) out.counts.scrap += C.scrap.per_wrecked_piece; }
+        else if (s.wrecked) out.counts.tape += wreck; }
       ['body', 'head'].forEach(function (part) {
         var a = b[part]; if (!a) return;
         var g = partFound(part, a.now, a.max, D, rnd);
         if (g.found) out.items.push({ kind: part, id: a.id, cond: g.cond, max: a.max, from: b.name });
-        else if (g.wrecked) out.counts.scrap += C.scrap.per_wrecked_piece;
+        else if (g.wrecked) out.counts.tape += wreck;
       });
       if (b.machine) out.counts.batteries += C.batteries.machine_cell;
       else if (rnd() * 100 < C.batteries.pocket_chance_pct) out.counts.batteries += C.batteries.pocket;
@@ -118,7 +130,7 @@
     return { stash: out, ground: g, took: took, left: left, gain: sum(took) - sum(left), before: sum(stash), after: sum(out) };
   }
   var API = { found: found, grew: grew, take: take, takeAll: takeAll, partFound: partFound,
-    SELL_CUT: SELL_CUT, worth: worth, sellBack: sellBack, junk: junk, fixed: fixed, optimize: optimize };
+    tapePerWreck: tapePerWreck, SELL_CUT: SELL_CUT, worth: worth, sellBack: sellBack, junk: junk, fixed: fixed, optimize: optimize };
   root.BohemiaSpoils = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : this);
