@@ -1,7 +1,7 @@
 # RUN 10/26: THE MAP FRAMES AROUND THE PHONE, PLAY TAKES YOU THERE, THE MAP FITS YOUR JOBS (rules 213, 227(c), 228(a), 238)
 
 Session run-session_01ABSf1hy1, opened by the coordinator (rule 112); the worker was restarted once mid-round (a session limit) and
-resumed on the coordinator's routine. BUILD 10/26zi - PLAY TAKES YOU THERE. Rows, in his order: [the map frames around the phone],
+resumed on the coordinator's routine. BUILD 10/26zo - PLAY TAKES YOU THERE. Rows, in his order: [the map frames around the phone],
 [play takes you there], [the map fits your jobs], [eyes: a job on a town's name], [eyes: the meet card's men]; first, what the last
 session left unshipped on run-names-wip ([eyes: names on names], [eyes: the held talk]); and from EYES' new top row [eyes: the normie
 hour, run] the frictions these rows are: F7, F8, F9, F25, F34. Then the coordinator's two new rows: [your main guy leads the walk]
