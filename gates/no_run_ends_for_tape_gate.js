@@ -24,7 +24,7 @@ const flat = s => String(s).replace(/<br\s*\/?>/g, ' ').replace(/\s+/g, ' ').tri
 const raw = JSON.parse(fs.readFileSync(FILE, 'utf8')), stall = JSON.parse(fs.readFileSync(STALL, 'utf8'));
 
 /* F */
-const rows = [['loot_tape', 'per_kill'], ['loot_tape', 'only_the_dead'], ['loot_tape', 'nothing_from'], ['scavenger', 'tape_of_destroyed_armour'], ['scavenger', 'cap'], ['scavenger', 'rounds_back'], ['salvage', 'tape_per_scrap'], ['salvage', 'hours'], ['the_bar', 'spare'], ['the_bar', 'pace']];
+const rows = [['loot_tape', 'per_kill'], ['loot_tape', 'only_the_dead'], ['loot_tape', 'nothing_from'], ['scavenger', 'tape_of_destroyed_armour'], ['scavenger', 'cap'], ['scavenger', 'rounds_back'], ['salvage', 'tape_per_scrap'], ['the_bar', 'spare'], ['the_bar', 'pace']];
 const bad = rows.filter(([a, b]) => !raw[a] || !raw[a][b] || raw[a][b].value === undefined || !raw[a][b].source).map(r => r.join('.'));
 ok('F1 every row the loot, the camp and the bar read has a value and a source', bad.length === 0, bad.join(', '));
 const quotes = []; (function walk(o, at) { if (!o || typeof o !== 'object') return; if (typeof o.quote === 'string') quotes.push({ at, q: o.quote, src: o.source }); for (const k in o) walk(o[k], at + '.' + k); })(raw, '');

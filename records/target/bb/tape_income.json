@@ -60,16 +60,11 @@
  "salvage": {
   "tape_per_scrap": {
    "value": 2,
-   "unit": "rolls from one scrap broken down at camp",
-   "source": "ECONOMY Day 84 s3",
-   "why": "rule 271(a), his: 'scrap armour he loots can be broken down into tape at camp'. A wrecked piece (records/target/bb/loot.json counts.scrap, one per piece worn under the drop line) gives back two rolls of straps and plate: twice what the Scavenger finds on a 100-point piece (bb_all/1972: up to 1 percent of its top), because he takes it apart by hand and she only picks it up"
+   "unit": "rolls of tape for every wrecked piece the loot finds (what loot.json counts as scrap)",
+   "source": "VAMILY rule 276(a): 'Scrap IS tape: the word goes; the loot counts it as tape with the tape icon, straight into the company's tape; old saves' scrap converts'",
+   "why": "his 276 (scrap is tape) on his 271(a) (scrap armour broken down into tape): every piece worn under the drop line comes home as two rolls of straps and plate, twice what Battle Brothers' Scavenger finds on a 100-point piece (bb_all/1972: up to 1 percent of its top), because his men strip it by hand. An old save's scrap converts at the same two. No camp hour: 276 puts it straight into the tape"
   },
-  "hours": {
-   "value": 1,
-   "unit": "camp hours to break down one scrap",
-   "source": "ECONOMY Day 84 s3",
-   "why": "an hour a piece: camp time costs the road, so salvage is a choice, not a free fountain"
-  }
+  "_was": "Day 84 first had salvage at camp, an hour a scrap; his rule 276 (the same hour) made scrap tape straight from the loot, so the hour is gone"
  },
  "the_bar": {
   "spare": {
