@@ -46,7 +46,7 @@ const READ = () => {
   const W = document.documentElement.clientWidth, H = window.innerHeight, on = r => r.left >= -1 && r.right <= W + 1;
   const men = [...document.querySelectorAll('#front .cell.full, #back .cell.full, #hurt .cell')].map(c => {
     const f = c.querySelector('canvas'), b = c.querySelector('b'), d = c.querySelector('i.days'), r = f.getBoundingClientRect();
-    return { face: f.dataset.face, on: on(r) && on(c.getBoundingClientRect()), w: Math.round(r.width), text: (b ? b.textContent : '') + (d ? ' ' + d.textContent : ''), whole: b ? b.scrollWidth <= b.clientWidth + 1 : false, hurt: c.classList.contains('laid') };
+    return { face: f.dataset.face, on: on(r) && on(c.getBoundingClientRect()), w: Math.round(r.width), text: (b ? b.textContent : '') + (d ? ' ' + d.textContent : ''), whole: b ? b.scrollWidth <= b.clientWidth + 1 : false, hurt: c.classList.contains('laid') || c.classList.contains('wounded') };
   });
   /* ONE CREW SCREEN (rule 147(b), 10/24): the rows are gone; the slots are the picked man's four, on his page */
   const slots = [...document.querySelectorAll('#card .gslot')].map(e => e.getBoundingClientRect());
@@ -79,7 +79,9 @@ const READ = () => {
     ok('PHONE, ' + n + ' men: nothing on the page is wider than the glass', r.docW <= r.W, r.docW + ' of ' + r.W);
     ok('  every man in the line and the laid-up strip is a fresh face on the glass, 44 wide, his whole name beside it', r.men.length === living && r.men.every(m => m.face === 'fresh' && m.on && m.w >= 44 && m.whole)
        && r.crew.every(c => r.men.some(m => m.text.indexOf(c.name) >= 0)), r.men.length + ' of ' + living + (r.men.filter(m => !m.whole || !m.on).map(m => ' cut:' + m.text).join('')));
-    ok('  a laid-up man shows his name and his days', r.men.filter(m => m.hurt).length === laidN && r.men.filter(m => m.hurt).every(m => /\d+d$/.test(m.text) && /[A-Za-z]{3}/.test(m.text)), r.men.filter(m => m.hurt).map(m => m.text).join(', ') || 'none laid up');
+    /* RE-AIMED 10/26 (CAMP [struck down, he still fights], rule 234): nobody is laid up; a struck-down man stands in the line
+       with his wound's days on his cell */
+    ok('  a struck-down man shows his name and his wound\'s days, in the line', r.men.filter(m => m.hurt).length === laidN && r.men.filter(m => m.hurt).every(m => /\d+d$/.test(m.text) && /[A-Za-z]{3}/.test(m.text)), r.men.filter(m => m.hurt).map(m => m.text).join(', ') || 'none struck down');
     ok('  the picked man\'s six slots around him and his two bag slots are on the glass and thumb-sized', r.nSlots === 8 && r.slotsOn && r.slotsBig, r.nSlots + ' slots');
   }
   /* a man dragged from FRONT to BACK still moves, the line standing up */

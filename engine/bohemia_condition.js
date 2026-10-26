@@ -28,6 +28,8 @@
      BohemiaCondition.injuryOf(name)           his marks for life, his fresh wound today, what they take off him, what his face
                                                shows (engine/bohemia_long_injury.js penalties and look; for the crew card and PORTRAIT)
      BohemiaCondition.wake()                   an old save's benched man is back in the company at his saved hitpoints, or one
+     BohemiaCondition.wounded() / treat(name)  the men a clinic can help; the clinic halves a fresh wound's days left and so its
+                                               penalty (rule 241), never the mark
    *** STRUCK DOWN, HE STILL FIGHTS (CAMP [struck down, he still fights], rule 234, Paolo 10/26: 'their health will just be at one,
    and when you heal them they go back up. They're still active... that's why I restarted hella runs... they should just have that
    debuff'). A man struck down who lives wakes at ONE HITPOINT and is in the company for the next fight; nothing here or anywhere
@@ -279,6 +281,23 @@
     if (sum.armMax > 0) seg(split + 2, W - split - 3, sum.armour, o.armour || '#a3a7aa', '#5f6366', '#d4d7d9');
     return { split: split, blood: sum.blood, armour: sum.armour };
   }
+  /* THE CLINIC (rule 241, Paolo 10/26: 'if I did take it to a clinic... it would half the days and half the debuff'): the days left on
+     his fresh wound halved, rounded up (a hired medic a day fewer, never under one), and with them its penalty, which is the days left
+     over its days; his mark for life is never touched. Every man the clinic can help, and the treatment itself */
+  function wounded() {
+    var s = get(), out = [];
+    for (var k in s.men) { var m = s.men[k]; if (!m.wound || !(m.wound.left > 0) || m.main || deadIn(s, k)) continue;
+      out.push({ key: k, name: m.shown || k, mark: m.wound.mark, left: m.wound.left, of: m.wound.of, days: Math.ceil(m.wound.left - 1e-9), treated: !!m.wound.treated, injury: injuryOf(m.shown || k) }); }
+    return out;
+  }
+  function treat(name, ctx) {
+    var s = get(), k = canon(name), m = s.men[k];
+    if (!m || !m.wound || !(m.wound.left > 0)) return null;
+    var before = m.wound.left, left = Math.max(1, Math.ceil(before / 2 - 1e-9) - (ctx && ctx.medic ? 1 : 0));
+    m.wound.left = Math.min(before, left); m.wound.treated = (m.wound.treated | 0) + 1;
+    put(s); notify();
+    return { name: m.shown || k, before: before, left: m.wound.left, of: m.wound.of, injury: injuryOf(m.shown || k) };
+  }
   /* AN OLD SAVE'S BENCH WAKES (rule 234, row step 4): a man the crew screen benched hurt (bohemia.company.line.v1 bench, a save from
      before 10/26) is put back in the company the fight is handed, at his saved hitpoints (what this file kept from his fight), or at
      ONE when nothing was kept; his mark and his fresh wound come with him. Runs at every boot; a save with no bench does nothing */
@@ -314,7 +333,7 @@
   function last() { return LAST; }
 
   root.BohemiaCondition = { KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
-    condFor: condFor, injuryOf: injuryOf, wake: wake, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
+    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
     says: says, drawBar: drawBar, forget: forget, last: last };
   try { if (root.document) setTimeout(load, 0); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);

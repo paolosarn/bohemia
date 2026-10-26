@@ -67,6 +67,8 @@ button{font:inherit;color:inherit}
 .cell.laid{border-color:#6e2a20}
 .cell.laid canvas.head{filter:grayscale(.8) brightness(.7)}
 .cell i.days{position:absolute;top:1px;right:1px;padding:0 2px;background:#5a1c12;color:#fbe9dc;font:700 8px/11px ui-monospace,monospace;font-style:normal;pointer-events:none}
+.cell.wounded{border-color:#6e2a20}   /* CAMP rule 234: struck down and still in the line, his wound's days on his cell, never greyed */
+.cell.wounded i.days{right:auto;left:1px}
 #hurtrow{display:none;grid-template-columns:auto 1fr;column-gap:4px;align-items:center;margin-top:3px}
 #hurtrow.on{display:grid}
 #hurt.line{justify-content:flex-start}
@@ -196,6 +198,8 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: his whole body, the model his face came from -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): the man on his card breathes and idles -->
 <script src="../engine/bohemia_long_injury.js"></script>
+<script src="../engine/bohemia_condition.js"></script>  <!-- CAMP __STRUCK_DOWN_HE_STILL_FIGHTS__ (rule 234): the one clock for a wound and the marks, by name -->
+<script src="bohemia_injury_card.js"></script>  <!-- CAMP (rules 234(d), 241(c)): the injury card, the town clinic's own drawing -->
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="../engine/bohemia_camp.js"></script>
 <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches]: a hired man's night is his food and his pay -->  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->
@@ -247,6 +251,29 @@ function afterFight(rows){
   var lh = S.crew.findIndex(function(m){ return m.hurt && m.hurt.days > 0; }); if(first < 0 && lh >= 0) S.sel = lh;
   S.cmp = null; S.pick = null; S.ask = null;
   say((hurt.length ? hurt.join('. ') + '. ' : '') + (ups.length ? ups.join('. ') + '. Pick his stats and his perk.' : 'Nobody climbed this time.')); draw(); return ups;
+}
+/* his injury as the injury card reads it: the company's condition when it knows him, else his own card's mark and days (a screen
+   opened on its own, a gate's host) worked out by the same module */
+function injOf(m){
+  var c = window.BohemiaCondition ? BohemiaCondition.injuryOf(m.name, m.main) : null; if(c) return c;
+  var L = window.BohemiaLongInjury; if(!L || !m.mark) return null;
+  var marks = (m.marks && m.marks.length ? m.marks : [m.mark]).map(function(k){ return k && k.id || k; });
+  var w = fresh(m) ? { mark: m.mark.id, left: m.hurt.days, of: m.hurt.of || m.hurt.days } : null;
+  return { marks: marks, wound: w, daysLeft: w ? w.left : 0, fresh: w ? L.freshNow(w.mark, w.left, w.of) : null, penalties: L.penalties(marks, w), look: L.look(marks, w) };
+}
+/* CAMP __STRUCK_DOWN_HE_STILL_FIGHTS__ (rule 234): the company's condition is the one clock for a wound (engine/bohemia_condition.js,
+   the map's hours and the clinic's cut): his wound's days and his marks are read from it whenever it knows him */
+function syncCondition(){
+  if(!window.BohemiaCondition) return 0; var n = 0, L = window.BohemiaLongInjury;
+  S.crew.forEach(function(m){ if(!m || m.dead) return; var inj = BohemiaCondition.injuryOf(m.name, m.main); if(!inj) return;
+    if(inj.wound){ var d = inj.daysLeft; if(!m.hurt || m.hurt.days !== d || m.hurt.of !== inj.wound.of){ m.hurt = {days:d, of:inj.wound.of, day0:S.today || (m.hurt && m.hurt.day0) || null}; n++; } }
+    else if(m.hurt && m.hurt.days > 0){ m.hurt.days = 0; n++; }
+    if(L){ var have = (m.marks || (m.mark ? [m.mark] : [])).map(function(k){ return k && k.id || k; });
+      inj.marks.forEach(function(id){ if(have.indexOf(id) >= 0) return; var mk = L.byId(id); if(!mk) return;
+        var e = {id:mk.id, name:mk.name, line:(mk.effects_text || []).filter(function(x){ return !/reserve/i.test(x); }).join(', ')};
+        m.marks = (m.marks || (m.mark ? [m.mark] : [])).concat([e]); m.mark = e; n++; }); }
+  });
+  if(n) saveClimb(); return n;
 }
 /* a dead man leaves the line. NOBODY IS LAID UP (rule 234, CAMP 10/26: the bench was the coordinator's reading of the 9/27 law,
    struck): a struck-down man keeps his place, and fresh(m) is only his wound's days for the card */
@@ -455,7 +482,9 @@ function draw(){
       d.dataset.drop = row + ':' + si;
       if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.dataset.man = ix; d.appendChild(headCanvas(m));
         var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b); d.setAttribute('aria-label', m.name);   /* a hire's name is two words (PEOPLE [the names wired in]); the cell carries the first, his card the whole */
-        if(waiting(m)){ var up = document.createElement('i'); up.className = 'up'; up.textContent = '+'; up.setAttribute('aria-hidden', 'true'); d.appendChild(up); } }   /* Battle Brothers' plus: a level waits on him */
+        if(waiting(m)){ var up = document.createElement('i'); up.className = 'up'; up.textContent = '+'; up.setAttribute('aria-hidden', 'true'); d.appendChild(up); }   /* Battle Brothers' plus: a level waits on him */
+        if(fresh(m)){ d.classList.add('wounded'); var wd = document.createElement('i'); wd.className = 'days'; wd.textContent = m.hurt.days + 'd'; d.appendChild(wd);
+          d.setAttribute('aria-label', m.name + ', struck down, the wound ' + m.hurt.days + ' days'); } }   /* CAMP rule 234: struck down, still in the line, his wound's days on the glass */
       el.appendChild(d);
     });
   });
@@ -657,9 +686,12 @@ function drawCard(){
     var h1 = document.createElement('b'); h1.textContent = fresh(m) ? 'STRUCK DOWN, THE WOUND ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
     (m.marks && m.marks.length ? m.marks : [m.mark]).forEach(function(mk){ if(!mk || !mk.name) return;
       var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + mk.name.toUpperCase() + (mk.line ? ', ' + mk.line : ''); hb.appendChild(h2); });
-    var fw = fresh(m) && window.BohemiaLongInjury ? BohemiaLongInjury.freshNow(m.mark.id, m.hurt.days, m.hurt.of) : null;   /* rule 234(b): today's share of it */
-    if(fw){ var h4 = document.createElement('i'); h4.className = 'fresh'; h4.textContent = 'FRESH: ' + fw.name.toUpperCase() + ', ' + Object.keys(fw.effects).map(function(k){ var v = fw.effects[k]; return (v > 0 ? '+' : '') + v + (/_pct$/.test(k) ? '% ' : ' ') + k.replace(/_pct$/, '').replace(/_/g, ' '); }).join(', '); hb.appendChild(h4); }
-    if(fresh(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; h3.textContent = 'He can fight. The clinic halves the wound for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
+    /* CAMP (rules 234(d), 241(c)): the injury card, the town clinic's own drawing: the wound's debuff as icons with a red down arrow
+       by how much, its days on a clock, the clinic's after beside it, what is his for life; then the clinic's price */
+    if(window.BohemiaInjuryCard){ var inj = injOf(m);
+      if(inj){ var ic = BohemiaInjuryCard.build(document, inj, { clinic: fresh(m) });   /* the clinic's price is the line under it */
+        ic.classList.add('fresh'); hb.appendChild(ic); } }
+    if(fresh(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; h3.textContent = 'He can fight. A clinic halves the days and the wound for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
     el.appendChild(hb); }
   if(m.perks.length){ var pk = document.createElement('div'); pk.className = 'perks'; pk.textContent = 'PERKS: ' + m.perks.map(C.perkName).join(', '); el.appendChild(pk); }
 }
@@ -910,7 +942,7 @@ function open(o){
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
   S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
   S.ready = true; draw();
-  afterTheFights(); healToToday();
+  afterTheFights(); healToToday(); if(syncCondition()) draw();   /* CAMP rule 234: the one clock for a wound */
   if(o.select){ var si = S.crew.findIndex(function(m){ return m.name === o.select; }); if(si >= 0) choose(si); }   /* __THE_SPOILS__: open on the man he tapped */
   keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
   if(Array.isArray(o.fight)) afterFight(o.fight);

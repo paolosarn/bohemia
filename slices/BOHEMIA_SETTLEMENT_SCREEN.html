@@ -226,7 +226,10 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): every keeper and every man in the crowd breathes and idles at his spot -->
 <script src="../engine/bohemia_roster.js"></script>  <!-- RUN TWO [the hire shows the whole man]: what a man's gun does in the fight, the crew screen's own line -->
-<script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
+<script src="../engine/bohemia_crew_faces.js"></script>
+<script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__ (rule 241): the wound, its debuff, its days -->
+<script src="../engine/bohemia_condition.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: who is hurt, from the company's own condition -->
+<script src="bohemia_injury_card.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: the one card the clinic and the crew card both draw -->  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
 <script src="../engine/bohemia_housing.js"></script>
@@ -2753,6 +2756,38 @@ function openB(k, line){
     /* BATTLE BROTHERS' TEMPLE, our clinic (records/target/bb/injuries.json rules): treatment HALVES the
        healing time, at 20 crowns x the place's price multiplier x the days left x (1 + 0.2 per level
        past one), ten crowns a battery; a hired medic (BB's surgeon) takes a day more */
+    /* ==== __THE_CLINIC_HALVES_BOTH__ (CAMP's block in RUN TWO's file, NOTE on RUN TWO's board; rules 241 and 234, Paolo 10/26:
+       'I just want you to make it clear that it has the debuff and the time as well... if I did take it to a clinic, I want it to
+       be clear that it would half the days and half the debuff'). MEASURED: the live game never handed this screen its hurt (only
+       the old loop page posts o.wounded), so the clinic always said nobody was hurt while the crew screen quoted its price. NOW the
+       clinic reads the company's own condition (engine/bohemia_condition.js wounded(): every man with a fresh wound) and shows THE
+       WHOLE TRADE before he pays, one card each (slices/bohemia_injury_card.js, the crew card's own drawing): the wound and its word,
+       its debuff as icons with a red down arrow by how much, the days left on a clock, the clinic's after beside the now (the days
+       halved, every arrow halved), what is his for life and that the clinic cannot touch it, then the price. Paying halves the days
+       left (rounded up, the hired medic a day more) and the debuff with them (BohemiaCondition.treat). The old list stays for an
+       older caller that hands its own. ==== */
+    var CW = window.BohemiaCondition ? BohemiaCondition.wounded() : [];
+    if(CW.length && !(S.wounded && S.wounded.length)){
+      var climbL = {}; try{ climbL = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}') || {}; }catch(e){}
+      body.appendChild(speak(k, line || 'Leave them with me. Half the days, and half of what the wound takes off him, if you can pay.'));
+      CW.forEach(function(cw){
+        var cl = climbL[cw.name] || {}, w = { name: cw.name, days: cw.days, level: cl.level || 1 }, price = clinicPrice(w), medic = !!(S.hired && S.hired.medic);
+        var card = BohemiaInjuryCard.build(document, cw.injury, { clinic: true, medic: medic, price: price, priceWord: moneyWord(price) });
+        card.dataset.man = cw.name; card.dataset.clinic = 'card';
+        var who = document.createElement('div'); who.className = 'slots'; who.textContent = cw.name + (cw.treated ? ': treated, the days already cut' : ''); acts.appendChild(who);
+        acts.appendChild(card);
+        var af = BohemiaInjuryCard.after(cw.injury, medic);
+        var bt = act('Treat ' + cw.name + ': ' + cw.days + ' days to ' + (af ? af.days : cw.days) + ', half the wound', moneyWord(price), function(){
+          if(bats() < price) return openB('clinic', 'That is ' + price + ' batteries for ' + cw.name + '. You have ' + bats() + '.');
+          P.debit(S.purse, 'electricity', price, 'clinic:' + cw.name, S.place.name, S.day);
+          var t = BohemiaCondition.treat(cw.name, { medic: medic });
+          post('clinic', {who:cw.name, before:cw.days, days:t ? Math.ceil(t.left - 1e-9) : cw.days, price:price, halved:true}); shelf();
+          openB('clinic', cw.name + ' stays with me. ' + (t ? Math.ceil(t.left - 1e-9) : cw.days) + ' days instead of ' + cw.days + ', and the wound bites half as hard. What he lost for good stays lost.');
+        }, cw.treated || bats() < price);
+        bt.dataset.treat = cw.name; acts.appendChild(bt);
+      });
+    } else {
+    /* ==== end __THE_CLINIC_HALVES_BOTH__ (the old list, for an older caller, follows) ==== */
     var hurt = woundedList();
     body.appendChild(speak(k, line || (hurt.length ? 'Leave them with me. I can halve the days, if you can pay.'
       : 'Nobody in your crew is hurt right now, gracias a Dios. Come back when somebody is.')));
@@ -2769,6 +2804,7 @@ function openB(k, line){
         openB('clinic', w.name + ' stays with me. ' + w.days + ' day' + (w.days===1?'':'s') + ' instead of ' + before + '.');
       }, w.treated || bats() < price));
     });
+    }   /* __THE_CLINIC_HALVES_BOTH__: the old list's end */
   }
   else if(k==='train'){
     var vets = (S.veterans||[]).length;
