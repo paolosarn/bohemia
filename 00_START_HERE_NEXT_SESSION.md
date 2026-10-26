@@ -188,6 +188,8 @@ RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLI
   coordinator's x4 moves): 5 hit points an hour marching, 10 camped, armour 15 and 30, the cook +5, tape unchanged; a typical fight
   then heals in 1.17 gaps (BB 1.13), armour 0.51 (BB 0.49). A won fight is whole in 1.8 s of camp at an hour a beat: if that is too
   quick to see (rule 259), CAMP slows the camp's clock, not the rates. Named: his 30 to 40 fresh-wound days are 156 to 208 of our fights.
+  x5 WRITTEN into records/target/bb/condition.json (the coordinator's 264(f): write it, then move to the measured ratio; the engine reads
+  it live); THE HEAL BUTTON 16/0 phone and computer on the new rates.
 NOTEs: CAMP (the numbers, the price, treat, Traumatized; x5 for the clock), WORLD (the gap measured), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
   injury's hitpoints_pct, vision, fatigue recovery or action points; the fresh wound into the fight after the emergency), UI THREE.
 NOT MEASURED: a phone's CPU; the fresh wound on the live path (the fight does not read c.fresh yet); 234(e) AUTO keeping the hurt back.
