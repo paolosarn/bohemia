@@ -19,7 +19,7 @@
      S7 HIS DEBUFF FOR ITS DAYS, HIS MARK FOR LIFE: the map's clock past his days closes the wound; the next hand-over still carries
         the mark and no fresh wound
      S8 THE CREW SCREEN: he is on the line, never on a bench
-     S9 AN OLD SAVE WAKES: a save with a man on the crew screen's old bench boots with him in the company the door hands, at his saved
+     S9 AN OLD SAVE WAKES: a save with a man on the crew screen's old bench (the tab killed, the game reopened by CONTINUE) boots with him in the company the door hands, at his saved
         hitpoints or one
      S10 HIS FACE: the condition hands PORTRAIT his marks and the wound's stage (blood, then the band-aid, then the mark alone)
      D1-D4 THE DEAD STAY DEAD (CAMP [eyes: the dead stand up] and [eyes: the dead, again], one system with rule 234), the crew screen
@@ -236,9 +236,14 @@ async function run(profile) {
     const old = 'OLDBENCH';
     await d.fr.evaluate((old) => { const hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []; const hl = JSON.parse(localStorage.getItem('bohemia.company.line.v1') || 'null') || { front: [], back: [], men: [] };
       hl.bench = [{ man: { name: old, background: 'militia', level: 2, stats: { hp: 58 } }, until: 999 }]; localStorage.setItem('bohemia.company.line.v1', JSON.stringify(hl)); localStorage.setItem('bohemia.company.v1', JSON.stringify(hk)); }, old);
-    await d.page.reload(); await d.page.waitForTimeout(6000);
-    const fr2 = d.page.frames().find(x => /CITY_WORLD/.test(x.url())) || d.fr;
-    /* the map reads its company back from the save a moment after it boots: count once it has */
+    /* THE TAB DIES AND HE COMES BACK (the way a phone kills a tab: no pagehide, no last word), on the same phone, through CONTINUE
+       (tools/bohemia_drive_the_demo.js opts.again, gates/gear_through_the_save_gate.js's own move) */
+    await d.page.waitForTimeout(2500);
+    await d.page.goto('chrome://crash').catch(() => {});
+    await new Promise(r => setTimeout(r, 600));
+    { const old = d; d = await drive.open({ file: 'BOHEMIA_DEMO.html', keepCards: true, engage: true, profile, again: old }); d.touch = profile !== 'computer'; }
+    await d.page.waitForTimeout(2500);
+    const fr2 = d.fr;
     for (let i = 0; i < 80; i++) { if (await fr2.evaluate(() => !!(window.LOOP && LOOP.start && Array.isArray(LOOP.start.company) && LOOP.start.company.length)).catch(() => false)) break; await d.page.waitForTimeout(250); }
     const s9 = await fr2.evaluate((old) => { const hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || [], hl = JSON.parse(localStorage.getItem('bohemia.company.line.v1') || '{}');
       const m = window.BohemiaCondition ? BohemiaCondition.get().men[old] : null; return { inCo: hk.some(x => x && x.name === old), bench: (hl.bench || []).length, hp: m ? m.hpMax - m.lostHp : null }; }, old).catch(e => ({ err: String(e.message).slice(0, 120) }));
