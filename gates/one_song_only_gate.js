@@ -74,6 +74,12 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
     ok('O2 THE SET IS HIS OVERWORLD NIGHT CATEGORY, read from the game (' + set.names.length + ': ' + set.names.join(', ') + ')',
       set.cat === 'OVERWORLD NIGHT' && set.names.length >= 1 && set.tagged.every(n => set.names.indexOf(n) >= 0) && set.names.indexOf('REPO MAN') >= 0, JSON.stringify(set));
     const SET = set.names;
+    /* RULE 237 (Paolo 10/26, newest date wins over 122): the faction songs go in, as placeholders, on the part of town the party
+       is in; the street may play them, the opening, the room and a fight may not. FSET is every song his MUSIC tab files under one
+       of the thirteen faction categories (read from the game, never typed here); ALLOWED is his set and those. */
+    const FSET = await P.evaluate(() => window.PARTOFTOWN ? MUS.lib().map((f, i) => PARTOFTOWN.factionOfSong(i, 1) ? f.n : null).filter(Boolean) : []);
+    const ALLOWED = SET.concat(FSET);
+    ok('O2b RULE 237: THE FACTION SONGS ARE IN (' + FSET.length + ': ' + FSET.join(', ') + ')', FSET.length >= 13, JSON.stringify(FSET));
 
     /* O3 the walk */
     const samples = [];
@@ -83,21 +89,21 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
     }
     const played = samples.filter(s => s.playing);
     ok('O3 *** THE WALK: TWENTY SECONDS, EVERY HALF SECOND, ONLY HIS SONGS *** (' + [...new Set(played.map(s => s.now))].join(', ') + ')',
-      played.length >= 30 && played.every(s => s.ok && SET.indexOf(s.now) >= 0) && samples[samples.length - 1].notes > samples[0].notes,
+      played.length >= 30 && played.every(s => s.ok && ALLOWED.indexOf(s.now) >= 0) && samples[samples.length - 1].notes > samples[0].notes,
       JSON.stringify(samples.filter(s => !s.ok).slice(0, 3)));
 
     /* O4 every door */
-    const doors = await P.evaluate((SET) => {
-      const nm = c => MUS.lib()[c.fi].n, inSet = cs => cs.every(c => SET.indexOf(nm(c)) >= 0), out = {};
+    const doors = await P.evaluate(({ SET, ALLOWED }) => {
+      const nm = c => MUS.lib()[c.fi].n, inSet = cs => cs.every(c => SET.indexOf(nm(c)) >= 0), inAll = cs => cs.every(c => ALLOWED.indexOf(nm(c)) >= 0), out = {};
       const was = CITYMUS.phase;
-      ['NIGHT', 'DAY', 'DUSK', 'DAWN'].forEach(ph => { CITYMUS.phase = ph; const cs = CITYMUS.candidates(); out[ph] = { n: cs.length, ok: cs.length > 0 && inSet(cs) }; });
+      ['NIGHT', 'DAY', 'DUSK', 'DAWN'].forEach(ph => { CITYMUS.phase = ph; const cs = CITYMUS.candidates(); out[ph] = { n: cs.length, ok: cs.length > 0 && inAll(cs) }; });   /* the street: his set, or the faction song of the part of town he is in (237) */
       CITYMUS.phase = was;
       const m = MENUMUS.candidates(); out.MENU = { n: m.length, ok: m.length > 0 && inSet(m) };
       const r = INTERIORMUS.candidates(); out.ROOM = { n: r.length, ok: inSet(r) };
-      let picks = 0, bad = 0; for (let i = 0; i < 40; i++) { const c = CITYMUS.pick(); picks++; if (!c || SET.indexOf(nm(c)) < 0) bad++; }
+      let picks = 0, bad = 0; for (let i = 0; i < 40; i++) { const c = CITYMUS.pick(); picks++; if (!c || ALLOWED.indexOf(nm(c)) < 0) bad++; }
       out.PICKS = { n: picks, ok: bad === 0 };
       return out;
-    }, SET);
+    }, { SET, ALLOWED });
     ok('O4 *** EVERY DOOR CHOOSES FROM THE SET ***: the street at night, day, dusk and dawn, the opening, the room, forty draws',
       Object.values(doors).every(x => x.ok), JSON.stringify(doors));
 
@@ -146,7 +152,7 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
       }
       const names = Object.keys(heard);
       return { tried, names, outside: names.filter(n => SET.indexOf(n) < 0) };
-    }, { SET, unfenced });
+    }, { SET: ALLOWED, unfenced });
     const net = await sweep(false);
     ok('O6 *** THE NET: EVERY SONG IN THE LIBRARY ON THE TRANSPORT, ONLY HIS SONGS REACH THE GRAPH *** (' + net.tried + ' songs stepped, heard: ' + net.names.join(', ') + ')',
       net.tried > 50 && net.names.length >= 1 && net.outside.length === 0, JSON.stringify(net.outside.slice(0, 8)));
