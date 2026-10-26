@@ -1130,6 +1130,133 @@ def people_pack():
     print('PACKED people', n_ok, 'with idles;', len(mj['looks']), 'on the map', flush=True)
 
 
+# ------------------------------------------------------------------------------------------------ the fight's enemies
+# CHARACTER's seventeen (the Mechanic, the Kids and Runners, the Heavy: kind 'enemy' on COMBAT's board, rule 130(a) 'everyone's
+# standing still... like a chess man'), rolled from the barber and rendered RUN TWO's way at the street's settings, packed into a
+# reference gang's fight cell with its guns (tools/bohemia_character_the_three_enemies.py). CHARACTER's recipe on this board
+# (10/25): the model from its tool's build-one, the still in records/target/character/enemies/<tag>. Their idles: the bare and
+# gun-held sets laid on that model, rendered the same way, packed into his own fight cell (his foot on his fight sheet's) under
+# his own look's name, so the fight's idleDraw finds him as it finds a named look; his guns are his reference gang's gun-held
+# idle guns (the same skeleton, poses and cell, as his fight sheet carries its guns), never rendered again.
+ENEMY_ROLL = 'records/character/BOHEMIA_THE_THREE_ENEMIES_ROLL.json'
+ENEMY_STILLS = 'records/target/character/enemies'
+
+
+def fight_enemies():
+    F = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
+    return {k: v for k, v in F['looks'].items() if v.get('kind') == 'enemy'}
+
+
+def enemy_done(tag):
+    return os.path.exists(os.path.join(ROOT, RENDERS, tag, 'enemy.txt'))
+
+
+def enemy_one(tag):
+    py = sys.executable; D = source()
+    pid = next(p['id'] for p in json.load(open(os.path.join(ROOT, ENEMY_ROLL))) if 'enemy_' + p['id'].lower() == tag)
+    glb = os.path.join(ROOT, PEOPLE_MODELS, 'barber_person_%s.glb' % pid.lower()); gj = glb.replace('.glb', '.json')
+    bj = os.path.join(ROOT, PEOPLE_MODELS, 'person_%s.json' % pid.lower())
+    kept = {f_: open(f_).read() for f_ in (gj, bj) if os.path.exists(f_)}
+    if not os.path.exists(glb) or gj not in kept:
+        run([py, 'tools/bohemia_character_the_three_enemies.py', 'build-one', pid], glb)
+        for f_, txt in kept.items():   # CHARACTER's committed records of the build stand as they are
+            with open(f_, 'w') as fh: fh.write(txt)
+    h = json.load(open(gj))['real_height_for_rig']
+    posed = os.path.join(ROOT, POSED, tag + '.glb')
+    run([py, os.path.abspath(__file__), 'pose_sets', glb, posed, 'bare,carry'], posed)
+    out = os.path.join(ROOT, RENDERS, tag)
+    render_model(posed, out, h, [('Stand', 1), ('IdleBare', len(D['sets']['bare']['poses'])), ('IdleCarry', len(D['sets']['carry']['poses']))])
+    os.remove(posed)
+    for f in os.listdir(out):
+        if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
+    with open(os.path.join(out, 'enemy.txt'), 'w') as f: f.write('bare,carry\n')
+    print('IDLES enemy', tag, flush=True)
+
+
+def enemies(workers=4, only=None):
+    todo = [t for t in (only or sorted(fight_enemies())) if not enemy_done(t)]
+    env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // max(1, workers))))
+    procs = []
+    for w in range(max(1, workers)):
+        mine = todo[w::max(1, workers)]
+        if not mine: continue
+        sh = ' ; '.join('%s %s enemy_one %s' % (sys.executable, os.path.abspath(__file__), x) for x in mine)
+        procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
+    for p in procs: p.wait()
+
+
+def enemy_pack(only=None):
+    """each enemy with his renders in: <tag>_bare.webp and <tag>_carry.webp in his fight sheet's colours with its one-pixel rim,
+    every cell placed from his fight cell's origin by his ground pixel (the still CHARACTER rendered him in), and <tag>.json in
+    the index beside the named looks; nobody else's entry touched"""
+    import numpy as np
+    from PIL import Image
+    D = source(); G = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')))['rig']; thr = int(G['alpha_threshold'])
+    FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json'))); RIM = tuple(FR['rim'])
+    ip = os.path.join(ROOT, OUT, 'rig_idles.json'); index = json.load(open(ip))
+
+    def full(fn, r, off, R):
+        a = np.asarray(Image.open(fn).convert('RGBA')).copy()
+        x0, y0 = r['crop_box_px'][:2] if a.shape[0] != r['res'] or a.shape[1] != r['res'] else (0, 0)
+        x0 += off[0]; y0 += off[1]; z = np.zeros((R, R, 4), np.uint8)
+        xa, ya = max(0, -x0), max(0, -y0); xb, yb = min(a.shape[1], R - x0), min(a.shape[0], R - y0)
+        if xb > xa and yb > ya: z[y0 + ya:y0 + yb, x0 + xa:x0 + xb] = a[ya:yb, xa:xb]
+        return z
+
+    def to_pal(a, P):
+        u, inv = np.unique(a[..., :3].reshape(-1, 3), axis=0, return_inverse=True)
+        dd = ((u.astype(np.int32)[:, None, :] - P[None, :, :]) ** 2).sum(2)
+        o = a.copy(); o[..., :3] = P[dd.argmin(1)][inv.reshape(-1)].reshape(a.shape[:2] + (3,)).astype(np.uint8); o[a[..., 3] == 0] = 0
+        return o
+
+    def atlas(items, width):
+        order = sorted(range(len(items)), key=lambda i: -items[i][0].shape[0]); x = y = sh = 0; rects = [None] * len(items)
+        for i in order:
+            h, w = items[i][0].shape[:2]
+            if x + w > width: x = 0; y += sh; sh = 0
+            rects[i] = [x, y, w, h, int(items[i][1]), int(items[i][2])]; x += w; sh = max(sh, h)
+        im = Image.new('RGBA', (width, y + sh), (0, 0, 0, 0))
+        for i, (a, _, _) in enumerate(items): im.paste(Image.fromarray(a, 'RGBA'), (rects[i][0], rects[i][1]))
+        return im, rects
+
+    n = 0
+    for tag, fl in sorted(fight_enemies().items()):
+        if only and tag not in only: continue
+        d = os.path.join(ROOT, RENDERS, tag); ref = fl.get('ref'); rj_ref = os.path.join(ROOT, OUT, (ref or '') + '.json')
+        if not enemy_done(tag) or not os.path.exists(rj_ref): continue
+        mine = json.load(open(os.path.join(ROOT, ENEMY_STILLS, tag, 'rig.json')))
+        gx, gy = mine['crop_box_px'][0] + mine['ground_px'][0], mine['crop_box_px'][1] + mine['ground_px'][1]
+        fx0, fy0 = gx - fl['foot'][0], gy - fl['foot'][1]   # his fight cell's origin in his street frame
+        rc = json.load(open(os.path.join(d, 'rig.json')))
+        off = (gx - rc['crop_box_px'][0] - rc['ground_px'][0], gy - rc['crop_box_px'][1] - rc['ground_px'][1])
+        fs = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', fl['file'])).convert('RGBA'))
+        P = np.array(sorted(set(map(tuple, fs[fs[..., 3] > 0][:, :3].tolist()))), np.int32)
+        entry = dict(enemy=True, fight=fl['file'], foot=fl['foot'], guns=json.load(open(rj_ref)).get('guns'), guns_of=ref, sheets={}, poses={})
+        for st, clip_ in (('bare', 'IdleBare'), ('carry', 'IdleCarry')):
+            imgs, cells = [], {}
+            for pi, p in enumerate(D['sets'][st]['poses']):
+                for row, f in enumerate(FIGHT_DIRS):
+                    a = full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (clip_, f, pi)), rc, off, mine['res'])
+                    op = a[..., 3] > thr; ys, xs = np.nonzero(op)
+                    if not len(xs): continue
+                    a = a.copy(); a[..., 3] = np.where(op, 255, 0); a[~op] = 0
+                    y0, y1, x0, x1 = ys.min() - 1, ys.max() + 2, xs.min() - 1, xs.max() + 2
+                    a = np.pad(a, ((1, 1), (1, 1), (0, 0)))[y0 + 1:y1 + 1, x0 + 1:x1 + 1].copy(); op = a[..., 3] > 0
+                    near = np.zeros_like(op)
+                    near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
+                    a = to_pal(a, P); a[near & ~op] = RIM + (255,) if len(RIM) == 3 else RIM
+                    cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append((a, x0 - fx0, y0 - fy0))
+            body, rects = atlas(imgs, 2048); fn = '%s_%s.webp' % (tag, st)
+            body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+            entry['sheets'][st] = dict(file=fn, cells=rects, size=list(body.size))
+            entry['poses'][st] = {p: cells.get(p, [None] * 8) for p in D['sets'][st]['poses']}
+        json.dump(entry, open(os.path.join(ROOT, OUT, tag + '.json'), 'w'), separators=(',', ':'))
+        index['looks'][tag] = dict(json=tag + '.json'); n += 1
+        print('PACKED enemy', tag, {k: v['size'] for k, v in entry['sheets'].items()}, 'guns of', ref, flush=True)
+    json.dump(index, open(ip, 'w'), separators=(',', ':'))
+    print('INDEX', os.path.relpath(ip, ROOT), n, 'enemies packed')
+
+
 def people(arg='ALL', workers=4):
     todo = [p for p in people_list() if (arg.upper() == 'ALL' or p == arg) and not person_done('person_' + p.lower())]
     env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // max(1, workers))),
@@ -1316,6 +1443,9 @@ if __name__ == '__main__':
     elif cmd == 'work': work(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 4)
     elif cmd == 'work_sheets': work_sheets()
     elif cmd == 'people_pack': people_pack()
+    elif cmd == 'enemy_one': enemy_one(a[0])
+    elif cmd == 'enemies': enemies(int(a[0]) if a else 4, a[1:] or None)
+    elif cmd == 'enemy_pack': enemy_pack(a or None)
     elif cmd == 'people': people(a[0] if a else 'ALL', int(a[1]) if len(a) > 1 else 4)
     elif cmd == 'preview': preview(*a)
     elif cmd == 'pack': pack(a or None)

@@ -169,7 +169,7 @@ the shield on the arm (the study the row names); no other reference.
 
 ## 10/26 (session_01QdNvt7KwYrT7EyeVGE7Yha): THE BOW, THE SLING AND THE THUG'S SHIELD (the coordinator's item (3))
 - THE BOW (8 rows, COOK's compound bow): keys of its own on every man, held in his LEFT fist. BIdle (low before his hip, its
-  limbs up and down: a breath, a look each way); BDraw (raised with his right hand on the string; then bladed, his left
+  limbs up and down: a breath, a look each way); BShot (raised with his right hand on the string; then bladed, his left
   shoulder to the mark, the bow arm straight out at shoulder height, the string hand at his jaw, his head turned back over the
   bow arm; then the loose, the string hand flying back past his ear). Its walk, its blow taken and its kneel are the pistol's
   keys with the bow in the left fist. The fight plays them (meleeClip 'B': the idle standing, the draw and loose on the shot,
@@ -183,6 +183,12 @@ the shield on the arm (the study the row names); no other reference.
   the gate allows 25); a planted shield now never stands more than 0.54 m before his feet (every other man measured 0.47 to
   0.52, so no one else moves).
 - Previewed on her body (woman_0): the draw reads from the side and the diagonals; head-on it foreshortens, as an archer does.
+- THE BOW'S DRAW WAS RENDERED UNDER ANOTHER NAME (caught on the first three men): the master rig names a frame by replacing
+  'raw_' with 'rig_' in the whole file name, so the clip 'BDraw' came out 'BDrig' and no pass held it (the tool asked for it
+  again). The clip is 'BShot' now (the source, the record), the frames already made renamed, and the tool refuses any clip
+  name holding 'raw'. DIRECTION's master rig left as it is (one system, one session); NOTE for DIRECTION: replace once.
+- LIVE 10/26: person_mob_1, person_mob_2, person_reds_1 (own melee, shield and two-hand keys; the bow's and the sling's keys
+  rendered, live once YOU's bow and sling pictures are in). Gate THE THING IN HIS HAND 28/0 with the real fight and the demo.
 - STATE: built and in the source, the tool and the fight's draw; rendering queued after the town's activities and her body
   (the twelve looks the fights deal: person_mob_1, person_mob_2, person_reds_1, person_reds_2, enemy_heavy_2 to _5,
   tier_poacher, faction_caravans, cast_widebrim, tier_thug; and YOU for the bow's and the sling's pictures every cast look

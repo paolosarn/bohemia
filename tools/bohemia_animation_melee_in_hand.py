@@ -90,6 +90,9 @@ def new_clips(ready_only=True):
     S = source(); ready = S.get('layers_ready', list(S['layers']))
     used = set(src for n, ks in S['composite'].items() if n != 'why' for src, _ in ks
                if any(all(s_ in S['layers'][ly]['clips'] for s_, _ in ks) for ly in ready))
+    # the master rig names a frame by replacing 'raw_' with 'rig_' in its whole file name, so a clip whose name ends in 'raw'
+    # comes out under another name (measured 10/26: the bow's 'BDraw' was written 'BDrig' and no pass held it; now 'BShot')
+    assert not [n for n in S['clips'] if 'raw' in n.lower()], 'a clip name holds "raw": the master rig renames it'
     return [(n, len(c['keys'])) for n, c in S['clips'].items() if not ready_only or n in used]
 
 
