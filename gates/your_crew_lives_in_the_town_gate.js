@@ -144,7 +144,7 @@ const HERE = () => { const S = BohemiaSettlement, crew = S.crewTown(), here = S.
       BohemiaSettlement.crewCall((m) => ({ act: 'sit' })); BohemiaSettlement.crewOver((ctx, o) => { calls++; seen[o.name] = 1; if (!(o.top < o.y && o.h > 10) || typeof ctx.fillRect !== 'function') bad++; });
       BohemiaSettlement.crewAgain(); await new Promise(res => setTimeout(res, 900));
       const here = BohemiaSettlement.crewHere(), stand = here.filter(p => !p.busy);
-      const out = { stand: stand.length, sat: stand.filter(p => p.act === 'sit').length, men: here.length, drawnFor: Object.keys(seen).length, calls, bad };
+      const out = { stand: stand.length, sat: stand.filter(p => p.act === 'sit').length, men: here.filter(p => p.x != null).length, drawnFor: Object.keys(seen).length, calls, bad };   /* a walker whose walk is not in yet is not drawn, so nothing goes over him */
       BohemiaSettlement.crewCall(null); BohemiaSettlement.crewOver(null); BohemiaSettlement.crewAgain(); await new Promise(res => setTimeout(res, 600));
       out.after = BohemiaSettlement.crewHere().filter(p => !p.busy && p.act !== 'sit').length; return out; });
     ok('K9 CAMP\'S CALL IN THE TOWN (rules 259(c), 261, 273): CAMP\'s call set every standing man\'s act (' + r.sat + ' of ' + r.stand + ' sat); its draw ran over each of his ' + r.men + ' men (' + r.drawnFor + ', ' + r.calls + ' calls, his head above his feet); taken off, the town picks again',
