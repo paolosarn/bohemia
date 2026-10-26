@@ -52,10 +52,10 @@ def corner_clear_wide(box, W=WW, H=WH):
 TOWN_ARM = {'Church': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('palm43', (43.0, 27.6), (-2.0, -7.6)), ('palm51', (51.5, 27.6), (2.5, -6.6)),
                        ('dumpster', (46.0, 25.0), (12.0, -3.0)), ('patrol', (38.0, 30.0), (-35.0, -8.0)), ('wreck', (47.0, 30.8), (10.5, -4.8)),
                        ('posts', (9.3, 31.5), (16.0, -4.5)), ('rubble', (20.0, 12.5), (-17.0, 0.0)), ('cart', (22.5, 13.4), (4.0, -2.4)), ('bar', (11.3, 35.8), (1.0, 0.0)),
-                       ('church', (11.6, 13.6), (0.0, -1.0))],   # the church a metre forward: its tower's top clears the bar's step
+                       ('church', (11.6, 13.6), (0.0, -1.0)), ('smith', (35.8, 15.0), (0.0, -1.0))],   # its roof plant reached the stall's step   # the church a metre forward: its tower's top clears the bar's step
             'Reds': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('sandbags', (43.0, 27.4), (-2.0, -0.4)), ('wreck', (45.0, 23.0), (7.0, -4.0)),
                      ('patrol', (37.0, 30.2), (-27.0, -8.2)), ('cover_jersey', (32.0, 27.2), (0.0, -6.0)), ('cover_jersey', (38.5, 27.2), (0.0, -6.0)),
-                     ('rubble', (20.0, 12.5), (7.5, -1.0)), ('tyres', (22.0, 14.2), (4.0, -2.2)), ('posts', (9.3, 31.5), (6.0, -4.5)), ('bar', (11.2, 35.8), (1.0, 0.0)),
+                     ('rubble', (20.0, 12.5), (7.5, -1.0)), ('tyres', (22.0, 14.2), (4.0, -2.2)), ('posts', (9.3, 31.5), (6.5, -4.5)), ('bar', (11.2, 35.8), (1.0, 0.0)),
                      ('smith', (35.8, 15.2), (0.0, -1.5))],   # its roof reached the stall's step
             'Anarchists': [('container', (51.4, 15.2), (-3.9, 11.3)), ('posts', (9.3, 31.5), (13.5, -4.5)),   # past the stage's ring of cars ('fire', (12.0, 24.0), (0.0, -3.0)),
                            ('bld_ranch_porch', (11.2, 36.0), (1.0, 0.0))],
@@ -217,6 +217,7 @@ def check_wide(town, meta):
         bad += ['door %s from the %s' % (k, sd) for k, v in r.items() if not v]
     bad += ['corner ' + k for k, v in list(hot.items()) + list(boxes.items()) if not corner_clear_wide(v['box'] if isinstance(v, dict) else v)]
     bad += ['keeper under the phone ' + k for k, p in doors.items() if T.in_zone((p[0], p[1] + 10), 'wide', WW, WH)]
+    bad += T.step_blocked(doors, meta['outlines'], town['tier'])
     return bad
 
 

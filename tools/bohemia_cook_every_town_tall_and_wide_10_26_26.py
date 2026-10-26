@@ -730,7 +730,20 @@ def check_layout(town, meta):
         bad += ['door %s from the %s' % (k, sd) for k, v in r.items() if not v]
     bad += ['corner ' + k for k, v in list(hot.items()) + list(boxes.items()) if not corner_clear(v['box'] if isinstance(v, dict) else v)]
     bad += ['keeper under the phone ' + k for k, p in doors.items() if in_zone((p[0], p[1] + 10), 'tall', TW, TH)]   # rule 279: no keeper there
+    bad += step_blocked(doors, meta['outlines'], town['tier'])
     return bad
+
+
+def step_blocked(doors, outlines, tier):
+    """the step itself (10 px before a building's, a stall's or the posts' foot) on no block: a keeper there is never drawn over a
+    roof's edge (a patch of ground he taps, the lot, the build, the fire the bar is, keeps the walk's test)"""
+    out = []
+    for k, p in doors.items():
+        if k in GROUND[tier]: continue
+        x, y = p[0], p[1] + 10
+        hit = [o['name'] for o in outlines if o['box'][0] <= x <= o['box'][2] and o['box'][1] <= y <= o['box'][3]]
+        if hit: out.append('step of %s on %s' % (k, hit[0]))
+    return out
 
 
 def layout_only(town):

@@ -16,8 +16,9 @@ settlement_walk.json) and the scenes' own measure beside them (records/target/co
      phone 124 x 276 points, 0.9 on its side, 1.25 on a computer; the town fitted to the screen): no tap's middle and no door a
      keeper stands at in the zone the composer names (ZONE: upright the bottom three tenths at the outer four tenths; sideways the
      bottom two thirds at the outer tenth), either side; the TALL and the WIDE (re-laid).
-  5. *** EVERY DOOR ON GROUND HE CAN WALK *** (rule 220(c), 169): from the entrance, over the composed ground (the picture less
-     its blocks), every door of both compositions is reached.
+  5. *** EVERY DOOR ON GROUND HE CAN WALK *** (rule 220(c), 169): from either end of the street, over the composed ground (the
+     picture less its blocks), every door of both compositions is reached, and the step before every building's, stall's and the
+     posts' foot is on no block (a keeper is never drawn over a roof's edge).
   6. TURNING KEEPS HIM BY THE SAME BUILDING: every role's door is in both compositions, and the entrance is on the same side.
   7. NO TWO TOWNS ALIKE, BOTH WAYS: every pair of TALL pictures under 0.70 likeness (the 10/25 measure), as the WIDE pairs are.
   8. RECOGNISABLY THE SAME TOWN: each town's own WIDE is among the three nearest its TALL in colour (the three concrete heart
@@ -32,7 +33,7 @@ from PIL import Image
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
 import bohemia_cook_town_screen_likeness_10_25_26 as LK
-from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach, in_zone, ZONE   # the composed ground's walk and the phone's corner (the composer's own)
+from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach, in_zone, ZONE, step_blocked   # the composed ground's walk, the step, the phone's corner (the composer's own)
 
 SHIP = os.path.join(R, 'slices/settlement_ground_towns')
 WREND = os.path.join(R, 'records/target/cook_town_screens/render')            # the 10/25 wide scenes
@@ -163,6 +164,7 @@ def main():
             for sd in ('left', 'right'):                  # he may walk in from either end (RUN's any side is the door, rule 186(a))
                 r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance'].get(sd, c['entrance']['at']), c['doors'])
                 cut += ['%s %s %s from the %s' % (n, comp, k, sd) for k, v in r.items() if not v]
+            cut += ['%s %s %s' % (n, comp, x) for x in step_blocked(c['doors'], [{'name': 'a block', 'box': b} for b in walk.get(c['src'], {}).get('blocks', [])], e.get('tier', 'town'))]
         if e.get('tall') and e.get('wide'):
             if set(e['tall']['doors']) != set(e['wide']['doors']) or e['tall']['entrance']['side'] != e['wide']['entrance']['side']: same.append(n)
     leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from either end of the street over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')

@@ -10088,6 +10088,22 @@ GATES = [
      "(the Kids and Runners, the Mechanic, the Heavy, the 13 gangs, the rolled people, the beasts) standing, through the page's own night for a man and the lift it "
      "picks for him on that tile, against every unlit tile a man stands on: 1.4 to 1 or more on the worst tenth (it was 1.04, the Kids 1.08: the moon's lift can only "
      "darken, and a dark tile is a dark man's own light), nine tenths of its day's or 2 to 1 and over, and the old pick (the tile's light alone) caught. About 4 min", True),
+    ('EVERY TOWN SCREEN ITS OWN', ['python3', 'gates/every_town_screen_its_own_gate.py'],
+     "COOK gate, 10/25, row [every town looks its own], the settlement screen's half (rule 186(b), Paolo 10/25: 'every settlement has to look unique... deep in the "
+     "heart of the city it should give more city vibes'; EYES 10/25w: 'IN THE TOWN one tier is still one picture: Cartel is the same yard as Mob and Network'). "
+     "Every home base the map opens has its own picture, day and night, at the screen's size, its tier's taps (re-laid and measured out of the phone's corners, rule 279); every pair of the fourteen under 0.70 "
+     "likeness (colour, form, layout) while the tier's two old pictures EYES read as one score 0.78 to 0.90 (the measure bites); each against its tier's old "
+     "pictures under 0.70; the heart (Church, Mob, Reds) on three or more buildings of 12 m and up off the top of the picture, the edge's tallest under 10 m; "
+     "no rainbow, never grey; night darker with lit pools; the walk's outlines measured in the scene and every tap's foot on open ground. About 1 min", False),
+    ('EVERY TOWN TALL AND WIDE', ['python3', 'gates/every_town_tall_and_wide_gate.py'],
+     "COOK gate, 10/26, row [every town built for tall and wide] (rule 220(f), Paolo 10/26: 'a settlement has to be made to be ... 9 x 16 ... "
+     "and then it has to be able to get flipped into 16 x 9 ... the settlement will damn look exactly the same ... slightly alter the location and the "
+     "entrance'). All fourteen home bases have a wide (2060 x 1092) and an upright (1024 x 1820) picture, day and night, each with every tap, box, door "
+     "and entrance its tier's screen opens and the walk's blocks; every building of the wide scene is built in the upright one (the filler blocks a "
+     "narrow frame has no room for named); no flat band at any edge and every upright town re-laid, not cut; no tap and no keeper under the phone, upright or sideways, either side "
+     "(rules 213, 279, UI TWO's phone); from either end of the street every door of both compositions is reached over the composed ground and every step is open ground; every role's door in both and the entrance "
+     "on the same side; every pair of upright pictures under 0.70 likeness; each upright nearer in colour to its own wide than to any other town's; "
+     "the upright nights darker with lit pools. About 1 min", False),
     ("THE FEED'S WORDS", ['node', 'gates/feed_words_gate.js'],
      "WORDS gate, 10/26, rows [the feed's words] and [the usernames tell the story] (rule 215(f), Paolo 10/26: 'we have a whole words [chat] that's part of that... organize it properly so every time we upgrade it gets better, realistic vibes'; rule 217: 'the usernames can tell a real awesome story in a very short amount of words'). "
      "Headless over banks/BOHEMIA_WORDS_THE_FEED_BANK.json (built by tools/words_feed/build_feed_bank.py; a path argument checks another copy): every kind five variants or more and draft:true; every deed 215(a) names its own kind; every who resolves, every voiced faction its page, every region place one of its people; "
