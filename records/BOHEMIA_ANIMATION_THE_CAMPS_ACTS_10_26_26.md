@@ -60,6 +60,17 @@ source took the new one over the old, so the town's sit would have played the fi
 naming poses its act does not have) before anything left the branch; renamed 'ltsit' and 'ltsit2', the town's restored from main,
 the index rewritten. His left fist sat a hand's width off the stake: the stake moved into it.
 
+## THE BUGS THE GATE CAUGHT ON THE FIRST RENDERS
+- C1, from behind the stir was its rest: at N his body hides the spoon, so three of the stir's four poses drew within 3 to 11
+  pixels of the rest (the leg wants 12). The art was wrong, not the leg: a man stirring a pot turns his shoulders with the spoon.
+  ck_b and ck_d turn him a few degrees each way, ck_c leans him to the far side of the pot. The six men made before the change
+  get the stir again in a pass of its own (the tool's REDO: `redo <looks> <act>` renders one act into <look>.<set>.<act>, the pack
+  lays it on his still like any pass and it takes the place of that act's first pictures; the gate reads its joints after its set's).
+- P1, town_0 rising: his long coat's skirt drew 10 to 20 px below his soles in the crouch on the way up. At S that is the skirt
+  pooled on the ground before him (a thing nearer the camera draws lower on the screen), at E and W it dipped through the floor.
+  The crouch is shallower now (the pelvis down 34 cm, not 42), town_0's rise is made again, and the leg reads a crouch's feet by
+  its joints (E3, the ankles where he stands, 1 cm) the way it already reads a kneel's and a seat's.
+
 ## WHO DOES WHAT (CAMP's call, by his condition)
 badly hurt: lie, a healthy friend on tend by him | hurt: mend | armour broken: repair | healthy: cook, clean, tend, watch (the
 idles' gun-held set) | night: sleep | healed: rise once, then his next act | any: the town's smoke, talk, sit, drink. YOU have

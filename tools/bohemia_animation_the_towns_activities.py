@@ -593,7 +593,7 @@ def pack(only=None):
 
     n_ok = 0
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
-    SETS = ['town', 'after', 'camp', 'pitch']
+    SETS = os.environ.get('BOHEMIA_TOWN_SETS', 'town,after,camp,pitch').split(',')   # a set still rendering for the rest can be held out of a ship
 
     def passes(tag):
         """his render passes on disk (the town's six, the minutes after a fight), each its folder and the acts it made"""
@@ -601,7 +601,7 @@ def pack(only=None):
         for st in SETS:
             d = os.path.join(ROOT, RENDERS, folder(tag, st))
             if os.path.exists(os.path.join(d, 'made.txt')): out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))
-        redos = [os.path.join(ROOT, RENDERS, x) for x in os.listdir(os.path.join(ROOT, RENDERS)) if x.startswith(tag + '.') and x.count('.') == 2]
+        redos = [os.path.join(ROOT, RENDERS, x) for x in os.listdir(os.path.join(ROOT, RENDERS)) if x.startswith(tag + '.') and x.count('.') == 2 and x.split('.')[1] in SETS]
         for d in sorted((d for d in redos if os.path.exists(os.path.join(d, 'made.txt'))), key=lambda d: os.path.getmtime(os.path.join(d, 'made.txt'))):
             out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))   # a redo's act, laid after its set's
         return out
@@ -614,8 +614,9 @@ def pack(only=None):
             src = os.path.join(d, 'joints.json')
             if os.path.exists(src): shutil.copyfile(src, os.path.join(ROOT, JOINTS_KEPT, os.path.basename(d) + '.json'))
 
-    def fresh(mj, ps):
-        return os.path.exists(mj) and all(os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')) for d, _ in ps)
+    def fresh(mj, ps):   # packed after every pass was made, and with exactly the acts these passes make (a set held back is packed out)
+        if not (os.path.exists(mj) and all(os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')) for d, _ in ps)): return False
+        return set(json.load(open(mj)).get('sheets', {})) == set(a for _, acts in ps for a in acts)
 
     def sheet(tag, act, imgs, Pa, entry, names, cells):
         body, rects = atlas(imgs, 1024); fn = '%s_%s.webp' % (tag, act)
