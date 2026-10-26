@@ -159,6 +159,9 @@ async function side(profile) {
       { const dup = await fr.evaluate(() => ['#bmtb .t.gear', '#notebtn'].filter(q => { const e = document.querySelector(q); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).display !== 'none'; })
           .concat(['#bmtb .t.crew'].filter(q => { const e = document.querySelector(q); return !!e && e.getBoundingClientRect().width > 0 && getComputedStyle(e).pointerEvents !== 'none'; })));
         ok('  no button twice: the bar\'s gear and NOTES are not on the glass and its crew chip is a readout (they are the phone\'s)', !dup.length, dup.join(' ') || 'none'); }
+      /* rule 262(a), EYES [eyes: the ground on the phone]: the phone's status line never names the ground he stands on (on the map it says nothing) */
+      { const st = await p.evaluate(() => (document.querySelector('#bohphone .stat .wh') || {}).textContent || ''), dist = await fr.evaluate(() => { try { return String(__CITY.district(city.x, city.y) || '').toUpperCase(); } catch (e) { return ''; } });
+        ok('  the status line names no ground on the map (262(a))', !st.trim() || (dist && st.toUpperCase().indexOf(dist) < 0), JSON.stringify(st) + ' (the ground: ' + dist + ')'); }
       /* rule 286(c): the feed is on the face, never an app */
       { const fd = await p.evaluate(() => { const f = document.querySelector('#bohphone .home .bpfd'), r = f && f.getBoundingClientRect(); return { shown: !!r && r.height > 20, posts: f ? f.querySelectorAll('.fp b').length : 0, app: !!document.querySelector('#bohphone .app[data-app=feed]') }; });
         ok('  the feed is on the face (the handles and the words), and there is no FEED app', fd.shown && fd.posts >= 1 && !fd.app, JSON.stringify(fd)); }

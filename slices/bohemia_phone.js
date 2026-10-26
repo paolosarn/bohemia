@@ -199,7 +199,8 @@
     try { o.sky = !!SKY; } catch (e) {}
     try { o.day = T.day; var h = (T.min / 60) | 0, m = Math.floor(T.min % 60); o.clock = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m; } catch (e) {}
     try { var pl = document.querySelector('#bmtb [data-f=place]'); o.place = pl ? String(pl.textContent || '').trim() : ''; } catch (e) {}
-    if (!o.place) try { o.place = String(__CITY.district(city.x, city.y) || '').toUpperCase(); } catch (e) {}
+    /* EYES [eyes: the ground on the phone] (rule 262(a)): no line names the ground he stands on; the place is the bar's (a town's
+       name, CAMP), and on the map the status line says nothing */
     return o;
   };
   P.play = function (jobId) {
@@ -408,6 +409,10 @@
          wears the bar (the fight's) */
       + 'html.boh-phone-on body:not(:has(#cityfeed)) #bmtb .t.crew,html.boh-phone-on body:not(:has(#cityfeed)) #bmtb .t.crew *{pointer-events:none!important;cursor:default!important}'
       + 'html.boh-phone-on body:has(#sbody) #leave{display:none!important}'
+      /* a sheet's close X sat in the phone's corner (CAMP's measure, 8db01c53: the tent, the retinue, the cart could not be closed
+         by a finger): with the phone on the right the X is the sheet's top left, the keeper's row giving it the room (rule 279) */
+      + 'html.boh-phone-on.boh-phone-right body:has(#sbody) #sheet #close{right:auto!important;left:8px!important}'
+      + 'html.boh-phone-on.boh-phone-right body:has(#sbody) #sheet .who{padding-right:0!important;padding-left:56px!important}'
       /* THE FIGHT (rules 213(b), 238(a), 286(b)): every press of the fight is on the phone (the big button, STRIKE, RELOAD, BACK,
          the abilities, WAIT, RETREAT, AUTO, the speed), so the bar's second row and its copies step aside; the bar keeps the man
          (his face, his blood, armour, fatigue, AP) and the round's order, laid out of the phone's corner until COMBAT's own [the
