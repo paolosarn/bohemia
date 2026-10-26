@@ -1,0 +1,165 @@
+{
+ "_about": "UI THREE 10/26/26 (VAMILY rules 223(c), 247(d); Paolo 10/26: 'I wanna see, behind the numbers, like a progress bar, how far it is from the maximum that's even possible'). THE MOST POSSIBLE, one number a stat, the same on every screen, TUNING's ruling (the one table's section Q): the top of the best background's range at the door (backgrounds.json) + the best flat trait a man can roll at the post (traits.json at_the_post) + ten level-ups (levels 2 to 11) at the best roll with three stars (rules.json experience.stat_gains_by_stars, the top of the 3-star column). Every stat bar is filled to a man's number over this; past it the bar is full. mid_roll is each column's middle roll (no star, one, two, three): a man's own ceiling, the faint tick, is his number plus every level left to 11 at his stars' middle roll (TUNING's bar.tick.own_ceiling). Written by tools/bohemia_ui_three_stat_max.js; a new ruling changes the rule in engine/bohemia_stats.js compute() and this file is written again, never by hand.",
+ "source": "records/target/bb/backgrounds.json rows[].stats (top of range); records/target/bb/traits.json traits[] at_the_post flat effects; records/target/bb/rules.json experience.stat_gains_by_stars (bb_all/1926_Talents.txt); records/BOHEMIA_TUNING_THE_BARS_MAXIMA_10_26_26.md",
+ "order": [
+  "hp",
+  "fatigue",
+  "ranged_skill",
+  "melee_skill",
+  "ranged_defense",
+  "melee_defense",
+  "resolve",
+  "initiative"
+ ],
+ "top_level": 11,
+ "max": {
+  "hp": 133,
+  "fatigue": 183,
+  "ranged_skill": 109,
+  "melee_skill": 122,
+  "ranged_defense": 68,
+  "melee_defense": 65,
+  "resolve": 120,
+  "initiative": 195
+ },
+ "base_top": {
+  "hp": 73,
+  "fatigue": 123,
+  "ranged_skill": 59,
+  "melee_skill": 77,
+  "ranged_defense": 13,
+  "melee_defense": 20,
+  "resolve": 60,
+  "initiative": 125
+ },
+ "from_background": {
+  "hp": "hedge_knight",
+  "fatigue": "wildman",
+  "ranged_skill": "hunter",
+  "melee_skill": "swordmaster",
+  "ranged_defense": "converted_crusader",
+  "melee_defense": "swordmaster",
+  "resolve": "adventurous_noble",
+  "initiative": "assassin"
+ },
+ "trait_top": {
+  "hp": 10,
+  "fatigue": 10,
+  "ranged_skill": 0,
+  "melee_skill": 5,
+  "ranged_defense": 5,
+  "melee_defense": 5,
+  "resolve": 10,
+  "initiative": 10
+ },
+ "from_trait": {
+  "hp": "tough",
+  "fatigue": "strong",
+  "ranged_skill": null,
+  "melee_skill": "dexterous",
+  "ranged_defense": "paranoid",
+  "melee_defense": "paranoid",
+  "resolve": "fearless",
+  "initiative": "quick"
+ },
+ "best_roll": {
+  "hp": [
+   4,
+   4,
+   4,
+   5
+  ],
+  "fatigue": [
+   4,
+   4,
+   4,
+   5
+  ],
+  "ranged_skill": [
+   4,
+   4,
+   4,
+   5
+  ],
+  "melee_skill": [
+   3,
+   3,
+   3,
+   4
+  ],
+  "ranged_defense": [
+   4,
+   4,
+   4,
+   5
+  ],
+  "melee_defense": [
+   3,
+   3,
+   3,
+   4
+  ],
+  "resolve": [
+   4,
+   4,
+   4,
+   5
+  ],
+  "initiative": [
+   5,
+   5,
+   5,
+   6
+  ]
+ },
+ "mid_roll": {
+  "hp": [
+   3,
+   3.5,
+   4,
+   4.5
+  ],
+  "fatigue": [
+   3,
+   3.5,
+   4,
+   4.5
+  ],
+  "ranged_skill": [
+   3,
+   3.5,
+   4,
+   4.5
+  ],
+  "melee_skill": [
+   2,
+   2.5,
+   3,
+   3.5
+  ],
+  "ranged_defense": [
+   3,
+   3.5,
+   4,
+   4.5
+  ],
+  "melee_defense": [
+   2,
+   2.5,
+   3,
+   3.5
+  ],
+  "resolve": [
+   3,
+   3.5,
+   4,
+   4.5
+  ],
+  "initiative": [
+   4,
+   4.5,
+   5,
+   5.5
+  ]
+ }
+}

@@ -10008,6 +10008,14 @@ GATES = [
      "the offer onto the phone's new card; CAMP grows the camp and BREAK CAMP takes it back; CREW grows the crew screen and DONE shrinks it into CREW; into a fight the bar is held "
      "over the clouds in every frame and the phone folds into his abilities as they part, and home again; the gear's MOTION turns to LESS and a town then opens as a fade in "
      "place, nothing travels; no morph counts an empty frame; nothing thrown. about 9 min", True),
+    ('STATS ARE BARS IN HIS ORDER', ['node', 'gates/stats_are_bars_in_his_order_gate.js', '--plant'],
+     "UI THREE gate, 10/26, rows [the stat order] and [stats are bars and arrows] (rules 223(e) and 247(e), Paolo 10/26: 'HP, fatigue, ranged attack, melee attack, ranged defence, "
+     "melee defence, morale and initiative... I'm trying to scan the stars quickly... behind the numbers, like a progress bar, how far it is from the maximum that's even possible'; "
+     "'an up green icon or a down red icon plus the number... I don't even want to see it would go from 63 to 68'). MEASURED before: Battle Brothers' order on every screen, a number "
+     "and no bar, the shop's 'X to Y'. HOLDS: one engine list in his order (engine/bohemia_stats.js), the dice's order untouched; the most possible one number a stat from the game's files "
+     "(records/target/bb/stat_max.json); phone and computer with real taps: the crew screen, its level-up and a stash piece compared, the hall's cards and the shop's ON A MAN: his order, "
+     "the stars in one column, every fill his number over the most possible within a pixel, the tick at his ceiling within a pixel, every change an arrow and the amount, no 'X to Y'. "
+     "Five planted defects (the order swapped, the fill off the maximum, the tick at the top roll, the change column let grow so the bars move, the X to Y put back) each turn a leg red; NOTHING MOVES (rule 250) when a comparison shows. About 1 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
