@@ -56,9 +56,12 @@
   var KEY = 'bohemia.phone.v1';               /* {side, order, hidden}: his corner and his apps */
   var NAMEKEY = 'bohemia.company.name.v1';    /* the company's name, renamed from FEED */
   var WHYKEY = 'bohemia.relations.why.v1';    /* what moved each town's opinion, the last few, per town */
-  var APPS = ['play', 'crew', 'heal', 'feed', 'relations'];   /* CAMP is the HEAL button (rule 226 amends 212(b)) */
-  var LABEL = { play: 'PLAY', crew: 'CREW', heal: 'HEAL', feed: 'FEED', relations: 'RELATIONS' };   /* draft:true */
-  var KEEP = ['play', 'heal'];   /* rule 232(b): PLAY/PAUSE and HEAL/CAMP are on the phone ALWAYS; settings move them, never hide them */
+  /* rule 232(b): PLAY/PAUSE and HEAL/CAMP are on the phone ALWAYS, the two big buttons; rule 238(a): every other press of the map,
+     the town and the fight lives on the phone too, small, in one row he orders (SETTINGS never hides: it is the way back);
+     rule 286(c): the feed is on the face, never an app */
+  var APPS = ['crew', 'relations', 'notes', 'settings'];
+  var LABEL = { play: 'PLAY', heal: 'HEAL', crew: 'CREW', relations: 'RELATIONS', notes: 'NOTES', settings: 'SETTINGS', leave: 'LEAVE', feed: 'THE FEED' };   /* draft:true */
+  var KEEP = ['settings'];
   /* THE HEAL RING (rule 232(b), Paolo: 'a medical icon maybe in a circle'): where the rig struck the ring's track on app_heal.png,
      as fractions of the picture (tools/bohemia_ui2_phone_apps.py measures it into phone.json app_heal.ring; read at boot) */
   var RING = { cx: 0.5021, cy: 0.4845, ro: 0.4068, ri: 0.3065 };
@@ -74,7 +77,7 @@
     var c = null; try { c = JSON.parse(ls().getItem(KEY) || 'null'); } catch (e) { c = null; }
     c = c && typeof c === 'object' ? c : {};
     var side = c.side === 'left' ? 'left' : 'right';   /* right by default: about two in three thumbs are right thumbs (Hoober) */
-    var was = function (a) { return a === 'camp' ? 'heal' : a; };   /* a phone set up before rule 226 keeps its order */
+    var was = function (a) { return a; };   /* an order saved before rule 238 keeps what is still a row app (PLAY, HEAL and FEED left the row) */
     var order = Array.isArray(c.order) ? c.order.map(was).filter(function (a, i, A) { return APPS.indexOf(a) >= 0 && A.indexOf(a) === i; }) : [];
     APPS.forEach(function (a) { if (order.indexOf(a) < 0) order.push(a); });
     var hidden = Array.isArray(c.hidden) ? c.hidden.map(was).filter(function (a) { return APPS.indexOf(a) >= 0 && KEEP.indexOf(a) < 0; }) : [];
@@ -276,6 +279,15 @@
   };
   /* THE FLIP'S DOOR (DYNASTY's, rule 31): after the first crisis the old opened phone carried SWITCH TIMELINE; the new phone's
      status bar carries a TIMELINE tag that opens that same door, until DYNASTY puts the flip where it belongs */
+  /* THE BAR'S OWN PRESSES (rule 238(a)): the phone presses the very button of this page's bar (UI's #bmtb: CREW, the gear, NOTES),
+     hidden under the phone's rule, so every action keeps its one handler and has one button on the glass (286(b)) */
+  P.barPress = function (k) {
+    try { var b = k === 'notes' ? document.getElementById('notebtn') : document.querySelector('#bmtb .t.' + k); if (!b) return false; b.click(); return true; } catch (e) { return false; }
+  };
+  /* THE TOWN'S LEAVE (rule 238(a)): the town's own button, pressed from the phone's band (the town's copy hidden under the phone) */
+  P.leave = function () {
+    try { var d = LOOP.frame && LOOP.frame.contentWindow && LOOP.frame.contentWindow.document, b = d && d.getElementById('leave'); if (!b) return false; b.click(); window.__PHONE_LEAVE = (window.__PHONE_LEAVE | 0) + 1; return true; } catch (e) { return false; }
+  };
   P.timeline = function (go) {
     var ready = false; try { ready = !!(window.BohemiaActs && BohemiaActs.crisisStarted()); } catch (e) {}
     if (!go || !ready) return ready;
@@ -362,6 +374,14 @@
       + 'html.boh-phone-on body:has(#cityfeed) #cityfeed,html.boh-phone-on body:has(#cityfeed) #speedpad,html.boh-phone-on body:has(#cityfeed) #campbtn{display:none!important}'
       /* CAMP's HEAL button over the camp (#healbtn, the settlement screen's) is the phone's HEAL app there: BREAK CAMP, its bar filling */
       + 'html.boh-phone-on #healbtn{display:none!important}'
+      /* rule 238(a), 286(b): the bar's gear and NOTES, the town's LEAVE and the camp's BREAK CAMP are on the phone (HEAL breaks camp);
+         their copies on the glass step aside, pressed from the phone. The bar's crew chip stays as what it shows (his lead's face,
+         the head count, their blood): a readout now, its press the phone's CREW */
+      + 'html.boh-phone-on #bmtb .t.gear,html.boh-phone-on #notebtn{display:none!important}'
+      /* the map's own page says the same in RUN's marked line (#run-no-button-twice, 26c18a3a); this one is for every other page that
+         wears the bar (the fight's) */
+      + 'html.boh-phone-on body:not(:has(#cityfeed)) #bmtb .t.crew,html.boh-phone-on body:not(:has(#cityfeed)) #bmtb .t.crew *{pointer-events:none!important;cursor:default!important}'
+      + 'html.boh-phone-on body:has(#sbody) #leave{display:none!important}'
       /* THE FIGHT: the abilities live on the phone (213(b)), and BACK with them; the bar keeps STRIKE, RELOAD, WAIT, RETREAT,
          END TURN and AUTO, laid out of the phone's corner until COMBAT's own [the fight frames around the phone] lands */
       + 'html.boh-phone-on #skills .sq.bag,html.boh-phone-on #skills .sq[data-sweep],html.boh-phone-on #skills .sq[data-skill],html.boh-phone-on #skills #bback{display:none!important}'
@@ -410,7 +430,7 @@
      THE HOST: the phone itself, drawn once
      ==================================================================================================================== */
   var H = { el: null, scr: null, state: { on: false, side: 'right', screen: null, rect: null }, cfg: cfg(), page: null, wallAt: 0, face: 'home',
-    seenPost: null, postT: 0, fightKey: null, fightShown: false, anim: 0, holdT: 0, presses: 0, lastScreen: null };
+    stripSig: null, stripTop: null, feedKind: null, fightKey: null, fightShown: false, anim: 0, holdT: 0, presses: 0, lastScreen: null };
 
   function frames(w, out) {   /* every same-origin page under w, w first */
     out = out || []; out.push(w);
@@ -427,6 +447,10 @@
     try { var f = document.getElementById('fightFrame'); if (!f) return null; var r = f.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return null;
       var w = f.contentWindow; if (w && w.BohemiaPhone && w.BohemiaPhone.P.isFight()) return w; } catch (e) {}
     return null;
+  }
+  function barOf(scr) {
+    try { if (scr === 'fight') { var fw = fightWin(); if (fw && fw.BohemiaPhone) return fw.BohemiaPhone.P; } } catch (e) {}
+    var cw = cityWin(); return cw && cw.BohemiaPhone ? cw.BohemiaPhone.P : null;
   }
   function gameOn() {
     try {
@@ -481,9 +505,32 @@
       + '#bohphone .app .lab{position:absolute;left:-4px;right:-4px;top:47px;text-align:center;font-size:7px;letter-spacing:.5px;line-height:9px;color:#f1e4c4;text-shadow:0 1px 0 #000,0 0 3px #000;pointer-events:none}'
       + '#bohphone .app:active img{transform:translateY(1px)}'
       + '#bohphone .app.off{opacity:.45}'
-      + '#bohphone .app.big{width:54px;height:54px}'
-      + '#bohphone .app.big img{left:2px;top:0;width:50px;height:53.4px}'
+      /* THE HOME'S BANDS (rules 232, 238, 286), the home 108 wide, 228 inside the case's lip: jobs 1..65, the feed 67..113, the two
+         116..166, the band 169..195, the row 198..226 */
+      + '#bohphone .bptwo{position:absolute;left:2px;right:2px;top:116px;height:50px;display:flex;flex-wrap:nowrap;gap:0;padding:0;margin:0;justify-content:space-between}'
+      + '#bohphone .app.big{position:relative;width:50px;height:50px}'
+      + '#bohphone .app.big img{left:3px;top:1px;width:44px;height:47px}'
       + '#bohphone .app.big .lab{display:none}'
+      + '#bohphone .bprow{position:absolute;left:1px;right:1px;top:198px;height:28px;display:flex;flex-wrap:nowrap;gap:0;padding:0;margin:0;justify-content:space-between;align-items:center}'
+      + '#bohphone .app.sm{position:relative;width:26px;height:28px}'
+      + '#bohphone .app.sm img{left:1px;top:1px;width:24px;height:25.6px}'
+      + '#bohphone .app.sm .lab{display:none}'
+      + '#bohphone .bpctx{position:absolute;left:3px;right:3px;top:169px;height:26px;padding:0;margin:0}'
+      + '#bohphone .bpctx .lv{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:10px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.4px;color:#1f1710;' + kit('tin', 0.5) + '}'
+      + '#bohphone .bpctx .lv img{width:22px;height:23.5px;pointer-events:none}'
+      + '#bohphone .bpctx.town .lv{display:flex}#bohphone .bpctx.town .clk{display:none}'
+      + '#bohphone .bpfd{position:absolute;left:3px;right:3px;top:67px;height:46px;margin:0;overflow:hidden;cursor:pointer;padding:2px 3px;background:rgba(6,5,4,.66);box-shadow:inset 0 0 0 1px rgba(240,226,196,.14)}'
+      + '#bohphone .bpfd .fp{height:21px;overflow:hidden;font-size:6.5px;line-height:7.5px;color:#ecdfc2}'
+      + '#bohphone .bpfd .fp + .fp{border-top:1px solid rgba(240,226,196,.14);padding-top:1px}'
+      + '#bohphone .bpfd .fp b{display:block;font-weight:400;color:#f6cf74;white-space:nowrap;overflow:hidden}'
+      + '#bohphone .bpfd .fp.mine b{color:#9fd08a}'
+      + '#bohphone .bpfd .fp span{display:block;max-height:13.5px;overflow:hidden}'
+      + '#bohphone .bpfd .fp.new{animation:bohIn ' + BEAT + 'ms steps(2,end)}'
+      + '@keyframes bohIn{0%{transform:translateY(-100%)}100%{transform:none}}'
+      + '#bohphone .kf{display:flex;gap:4px;margin:0 0 4px}'
+      + '#bohphone .kf button{width:26px;height:28px;padding:0;border:0;background:none;cursor:pointer;opacity:.6}'
+      + '#bohphone .kf button.on{opacity:1;outline:1px solid #f6cf74}'
+      + '#bohphone .kf img{width:24px;height:25.6px;display:block;pointer-events:none}'
       /* THE HEAL BAR (rule 226(c)): one bar under the cross, the company's hitpoints red and armour grey over their maxima */
       /* HEAL (rule 232(b)): the cross in its ring, the ring filled with the company's blood and armour; no word on it */
       + '#bohphone .app[data-app=heal] .lab{display:none}'
@@ -509,7 +556,7 @@
       + '#bohphone .jobs .je{flex:0 0 24px;opacity:.5;' + kit('well', 0.25) + '}'   /* an empty slot, ready to go (232(a)) */
       + '#bohphone .jc .dr{flex:0 0 44px;width:44px;height:44px;border:0;cursor:pointer;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#7a1206;' + kit('tin', 0.4) + '}'
       + '#bohphone .app .mark{position:absolute;right:-3px;bottom:3px;padding:1px 4px 0 3px;font-size:7px;line-height:8px;color:#f6cf74;background:#1c140c;border-radius:1px;pointer-events:none}'
-      + '#bohphone .clk{position:absolute;left:58px;top:71px;width:46px;text-align:left;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
+      + '#bohphone .clk{position:absolute;inset:0;display:flex;align-items:center;gap:6px;padding:0 3px;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
       + '#bohphone .clk b{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:15px;line-height:16px;letter-spacing:.5px;color:#f4e8cc}'
       + '#bohphone .clk i{display:block;font-style:normal;font-size:7px;line-height:9px;color:#e0d2b0;letter-spacing:.4px}'
       + '#bohphone .clk i.go{color:#f6cf74}'
@@ -539,15 +586,6 @@
       + '#bohphone .spd button{height:30px;border:0;cursor:pointer;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;' + kit('tin', 0.5) + 'color:#1f1710}'
       + '#bohphone .spd button.now{' + kit('tin_amber', 0.5) + '}'
       + '#bohphone .spd p{margin:2px 0 0;font-size:7px;color:#cdbd98}'
-      /* the newest post: a strip of receipt drops over the status bar on the beat, its line crawls once, and it goes */
-      + '#bohphone .post{position:absolute;left:0;right:0;top:0;height:12px;z-index:6;padding:0 4px;overflow:hidden;white-space:nowrap;font-size:7px;line-height:12.5px;color:#1f1710;'
-      +   kit('receipt', 0.5) + 'border-radius:0!important;transform:translateY(-100%);transition:transform ' + (BEAT / 2) + 'ms steps(2);pointer-events:none}'
-      + '#bohphone .post.in{transform:none;pointer-events:auto;cursor:pointer}'
-      + '#bohphone:has(.post.in) .stat > *{visibility:hidden}'   /* the strip covers the status bar: its words step back, never two at once */
-      + '#bohphone .post .cr{display:inline-block;will-change:transform}'
-      + '#bohphone .post b{font-weight:400;color:#7a2c12;margin-right:4px}'
-      + '#bohphone .post.in .cr{animation:bohCrawl var(--crawl-ms,3000ms) linear ' + BEAT + 'ms forwards}'
-      + '@keyframes bohCrawl{to{transform:translateX(var(--crawl,0px))}}'
       + '#bohphone .home.under{visibility:hidden}'
       /* THE FIGHT: the screen lit dark red, his face and name, his abilities in the kit's pockets, small, three a row */
       + '#bohphone .fight{background:#1a0907}'
@@ -560,11 +598,12 @@
       + '#bohphone .ab .sk i{position:absolute;right:1px;bottom:1px;font-style:normal;font-size:6px;line-height:7px;padding:0 1px;color:#f6cf74;background:rgba(10,6,3,.8);pointer-events:none}'
       + '#bohphone .ab .sk.on{outline:2px solid #f6cf74;outline-offset:-2px}'
       + '#bohphone .ab .sk[disabled]{opacity:.4;cursor:default}'
+      + '#bohphone .frow{flex:0 0 30px;margin:0 0 7px;padding:0;gap:0;flex-wrap:nowrap;display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,.4)}'
       + '#bohphone .ab .none{grid-column:1 / span 3;padding:2px 3px;font-size:7px;line-height:9px;color:#cdbd98;text-align:center}'
       /* COMBAT TIME: stop-motion holds on the beat (steps, never a smooth slide): the glass flashes, the crosshair strikes in
          three holds and beats twice, the word under it */
       + '#bohphone .cmb{position:absolute;inset:0;z-index:6;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#2a0907}'
-      + '#bohphone .cmb.on{display:flex}'
+      + '#bohphone .cmb.on{display:flex;pointer-events:none}'   /* the strike is a picture: a finger goes through it to the page coming up under it */
       + '#bohphone .cmb img{width:56px;height:60px;transform:scale(.4);animation:bohStrike ' + (BEAT * 1.5) + 'ms steps(3,end) forwards, bohBeat ' + BEAT + 'ms steps(2,end) ' + (BEAT * 1.5) + 'ms 2}'
       + '#bohphone .cmb b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:13px;letter-spacing:2px;color:#f1d6c6;opacity:0;animation:bohWord ' + BEAT + 'ms steps(2,end) ' + (BEAT * 1.5) + 'ms forwards}'
       + '#bohphone .cmb::before{content:"";position:absolute;inset:0;background:#f4e0cc;opacity:0;animation:bohFlash ' + BEAT + 'ms steps(2,end)}'
@@ -601,9 +640,8 @@
       + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button></div>'
       + '<div class="home"></div>'
       + '<div class="page" data-page=""><div class="ph" role="button" tabindex="0"><i>&lsaquo;</i><span></span></div><div class="pb"></div></div>'
-      + '<div class="fight" aria-label="your abilities"><div class="fh"><canvas width="44" height="44"></canvas><b></b></div><div class="ab"></div></div>'
+      + '<div class="fight" aria-label="your abilities"><div class="fh"><canvas width="44" height="44"></canvas><b></b></div><div class="ab"></div><div class="frow" role="toolbar" aria-label="your apps in the fight"></div></div>'
       + '<div class="cmb" aria-hidden="true"><img alt="" src="' + IMG('app_combat') + '"><b>COMBAT</b></div>'
-      + '<div class="post" role="status" aria-live="polite"><span class="cr"><b></b><span></span></span></div>'
       + '<div class="glass"></div></div>'
       + '<div class="case"></div><img class="ear" alt="" src="' + IMG('ear') + '">';
     /* a finger on the phone is a finger on the phone: nothing under it hears it */
@@ -615,39 +653,50 @@
     ph.querySelector('.page .ph').addEventListener('click', function () { pageClose(); });
     ph.querySelector('.stat').addEventListener('click', function () { if (H.page) pageClose(); });
     ph.querySelector('.stat .tl').addEventListener('click', function (e) { e.stopPropagation(); var cw = cityWin(); try { cw.BohemiaPhone.P.timeline(true); window.__PHONE_TIMELINE = (window.__PHONE_TIMELINE | 0) + 1; } catch (x) {} });
-    ph.querySelector('.post').addEventListener('click', function () { postHide(); pageOpen('feed'); });
     /* a finger held on the home (not on an app) opens the phone's settings */
     var home = ph.querySelector('.home'), ht = 0;
-    home.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest('.app')) return; clearTimeout(ht); ht = setTimeout(settingsOpen, 600); });
+    home.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest('.app, .bpfd, .lv, .jc')) return; clearTimeout(ht); ht = setTimeout(settingsOpen, 600); });
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { home.addEventListener(k, function () { clearTimeout(ht); }); });
     homeBuild();
+    /* in a fight the same small icons ride under his abilities: the fight's own bar answers them (238(a)) */
+    ['crew', 'notes', 'settings'].forEach(function (a) { ph.querySelector('.frow').appendChild(appButton(a, 'sm')); });
     return ph;
   }
 
-  /* ---- THE HOME: his apps in his order, the first in the big slot, the lock screen's hour beside it ---- */
-  var SLOTS = [[2, 67], [6, 123], [58, 123], [6, 179], [58, 179]];
+  /* ---- THE HOME (rules 232, 238, 286): one size, top to bottom: his jobs (the main quest's slot, the jobs he holds, the empty
+     ready slots), the city's feed moving (a tap is all of it), PLAY/PAUSE and HEAL side by side, the place's band (the hour on the
+     map and at camp, LEAVE in a town), and one row of small icons he orders: CREW, RELATIONS, NOTES, SETTINGS ---- */
+  function appButton(a, cls) {
+    var b = el('button', 'app ' + cls); b.type = 'button'; b.dataset.app = a;
+    b.setAttribute('aria-label', a === 'play' ? 'play or pause' : LABEL[a].toLowerCase());
+    b.innerHTML = '<img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span class="lab">' + LABEL[a] + '</span>' + (a === 'play' ? '<span class="mark"></span>' : '')
+      + (a === 'heal' ? '<canvas class="rg" aria-hidden="true" width="132" height="141"></canvas>' : '');
+    b.addEventListener('click', function () { if (H.holdFired === b) { H.holdFired = null; return; } appPress(a); });   /* the held press's own click is the hold's */
+    b.addEventListener('pointerdown', function () { H.holdFired = null; });
+    if (a === 'play') {   /* a held finger opens the speeds */
+      var t = 0;
+      b.addEventListener('pointerdown', function () { clearTimeout(t); t = setTimeout(function () { H.holdFired = b; pageOpen('speeds'); }, 550); });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { b.addEventListener(k, function () { clearTimeout(t); }); });
+    }
+    return b;
+  }
+  function rowApps() { var c = H.cfg; return c.order.filter(function (a) { return c.hidden.indexOf(a) < 0; }); }
   function homeBuild() {
     var home = H.el.querySelector('.home'); home.textContent = '';
-    var c = H.cfg, shown = c.order.filter(function (a) { return c.hidden.indexOf(a) < 0; }).slice(0, 5);
-    shown.forEach(function (a, i) {
-      var b = el('button', 'app' + (i === 0 ? ' big' : '')); b.type = 'button'; b.dataset.app = a;
-      b.style.left = SLOTS[i][0] + 'px'; b.style.top = SLOTS[i][1] + 'px';
-      b.setAttribute('aria-label', a === 'play' ? 'play or pause' : LABEL[a].toLowerCase());
-      b.innerHTML = '<img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span class="lab">' + LABEL[a] + '</span>' + (a === 'play' ? '<span class="mark"></span>' : '')
-        + (a === 'heal' ? '<canvas class="rg" aria-hidden="true" width="132" height="141"></canvas>' : '');
-      b.addEventListener('click', function () { if (H.holdFired === b) { H.holdFired = null; return; } appPress(a); });   /* the held press's own click is the hold's */
-      b.addEventListener('pointerdown', function () { H.holdFired = null; });
-      if (a === 'play') {   /* a held finger opens the speeds */
-        var t = 0;
-        b.addEventListener('pointerdown', function () { clearTimeout(t); t = setTimeout(function () { H.holdFired = b; pageOpen('speeds'); }, 550); });
-        ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { b.addEventListener(k, function () { clearTimeout(t); }); });
-      }
-      home.appendChild(b);
-    });
-    var k = el('div', 'clk', '<b>--:--</b><i class="g"></i>');   /* the hour once, here (the bar keeps the day: THE DAYS ONCE, rules 121(g), 123) */ k.setAttribute('aria-hidden', 'true'); home.appendChild(k);
     var jb = el('div', 'jobs'); jb.setAttribute('role', 'list'); jb.setAttribute('aria-label', 'the main quest and the jobs you are on');
     jb.innerHTML = '<div class="mq" role="listitem" aria-label="the main quest\'s place"></div>'; home.appendChild(jb);
-    H.homeSig = null; H.jobSig = null;
+    var fd = el('div', 'bpfd'); fd.setAttribute('role', 'button'); fd.setAttribute('tabindex', '0'); fd.setAttribute('aria-label', 'the city\'s feed: tap for all of it');
+    fd.addEventListener('click', function () { H.presses++; window.__PHONE_PRESSES = H.presses; pageOpen('feed'); }); home.appendChild(fd);
+    var two = el('div', 'bptwo'); two.appendChild(appButton('play', 'big')); two.appendChild(appButton('heal', 'big')); home.appendChild(two);
+    var ctx = el('div', 'bpctx');
+    ctx.innerHTML = '<div class="clk" aria-hidden="true"><b>--:--</b><i class="g"></i></div>'   /* the hour once, here (the bar keeps the day: THE DAYS ONCE, rules 121(g), 123) */
+      + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>';   /* draft:true */
+    ctx.querySelector('.lv').addEventListener('click', function () { appPress('leave'); });
+    home.appendChild(ctx);
+    var row = el('div', 'bprow'); row.setAttribute('role', 'toolbar'); row.setAttribute('aria-label', 'your apps');
+    rowApps().forEach(function (a) { row.appendChild(appButton(a, 'sm')); });
+    home.appendChild(row);
+    H.homeSig = null; H.jobSig = null; H.stripSig = null;
   }
 
   function appPress(a) {
@@ -655,14 +704,18 @@
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     var scr = H.state.screen; try { scr = whichScreen() || scr; } catch (e) {}   /* where he is at the press, not a beat ago (a town just closed is the map) */
     if (a === 'play') { if (L && scr === 'map') { L.play(H.sel); paintHome(true); } return; }
-    if (a === 'crew') { if (H.page) pageClose(); if (L && (scr === 'map' || scr === 'town' || scr === 'camp')) L.crew(); return; }
+    if (a === 'crew') { if (H.page) pageClose(); var Bc = barOf(scr); if (Bc && (scr === 'map' || scr === 'town' || scr === 'camp' || scr === 'fight')) Bc.barPress('crew'); return; }
+    /* rule 238(a): the bar's NOTES and its gear, and the town's LEAVE, pressed here: the very same buttons of the screen he is on,
+       hidden under the phone's rule (no button twice, 286(b)); a fight's own bar answers in a fight */
+    if (a === 'notes' || a === 'settings') { if (H.page) pageClose(); var B = barOf(scr); if (!(B && B.barPress(a === 'notes' ? 'notes' : 'gear')) && a === 'settings') settingsOpen(); return; }
+    if (a === 'leave') { if (L && scr === 'town') L.leave(); setTimeout(tick, 60); return; }
     if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp')) { L.camp(); setTimeout(tick, 60); } return; }
-    if (a === 'feed' || a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
+    if (a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
   }
 
   /* ---- THE APPS' OWN PAGES, on the phone's own glass ---- */
   function pageOpen(which) {
-    var pg = H.el.querySelector('.page'); H.page = which; pg.dataset.page = which; pg.classList.add('on'); postHide();
+    var pg = H.el.querySelector('.page'); H.page = which; pg.dataset.page = which; pg.classList.add('on');
     H.el.querySelector('.home').classList.add('under');
     pg.querySelector('.ph span').textContent = which === 'speeds' ? 'SPEED' : LABEL[which];
     pagePaint(true);
@@ -672,17 +725,21 @@
     if (!H.page) return;
     var pb = H.el.querySelector('.page .pb'), cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     if (H.page === 'feed') {
-      var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }).reverse()), sig = posts.length + '|' + (posts.length ? posts[posts.length - 1].txt : '') + '|' + nameGet();
+      var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }).reverse()), sig = posts.length + '|' + (posts.length ? posts[posts.length - 1].txt : '') + '|' + nameGet() + '|' + (H.feedKind || '');
       if (!fresh && sig === H.feedSig) return; H.feedSig = sig;
       if (pb.querySelector('input')) return;   /* never under his thumbs while he types the name */
       var co = L ? L.company() : { men: 0 };
-      var h = '<div class="co"><span class="nm" role="button" tabindex="0" aria-label="rename your company">' + esc(nameGet()) + '<u>RENAME</u></span>'
+      if (H.feedKind) posts = posts.filter(function (p) { return p.kind === H.feedKind; });
+      var KD = [['mine', 'app_crew', 'yours'], ['world', 'app_relations', 'the world\'s'], ['life', 'app_feed', 'the valley\'s talk']];
+      var h = '<div class="kf" role="group" aria-label="which posts">' + KD.map(function (k) { return '<button type="button" data-kind="' + k[0] + '" aria-label="' + k[2] + '" aria-pressed="' + (H.feedKind === k[0]) + '"' + (H.feedKind === k[0] ? ' class="on"' : '') + '><img alt="" src="' + IMG(k[1]) + '"></button>'; }).join('') + '</div>'
+        + '<div class="co"><span class="nm" role="button" tabindex="0" aria-label="rename your company">' + esc(nameGet()) + '<u>RENAME</u></span>'
         + '<span class="sub">' + (co.men ? co.men + (co.men === 1 ? ' MAN' : ' MEN') : 'YOUR COMPANY') + (co.clout != null ? ' &middot; CLOUT ' + esc(co.clout) : '') + '</span></div>';
       for (var i = posts.length - 1; i >= 0; i--) { var p = posts[i];
         h += '<div class="po' + (p.kind === 'mine' ? ' mine' : '') + (p.re ? ' re' : '') + '"><span class="w">' + esc(p.who) + (p.re ? ' <i>replying</i>' : '') + '</span><span class="t">' + esc(p.txt) + '</span></div>'; }
       if (!posts.length) h += '<div class="po"><span class="t">Nothing yet. The valley is quiet.</span></div>';   /* draft:true */
       pb.innerHTML = h;
       pb.querySelector('.nm').addEventListener('click', renameStart);
+      [].forEach.call(pb.querySelectorAll('.kf button'), function (b) { b.addEventListener('click', function () { H.feedKind = H.feedKind === b.dataset.kind ? null : b.dataset.kind; H.feedSig = null; pagePaint(true); }); });
     } else if (H.page === 'relations') {
       if (!fresh && H.relAt && performance.now() - H.relAt < 2000) return; H.relAt = performance.now();
       pb.innerHTML = relationsHtml(L);
@@ -828,6 +885,7 @@
     if (!force && sig === H.homeSig) return; H.homeSig = sig;
     var stW = H.el.querySelector('.stat .wh');
     if (s) stW.textContent = scr === 'camp' ? 'YOUR CAMP' : (s.place || '');
+    var cx = H.el.querySelector('.home .bpctx'); if (cx) cx.classList.toggle('town', scr === 'town');   /* in a town the band is LEAVE */
     var k = H.el.querySelector('.home .clk');
     if (k && s) { k.querySelector('b').textContent = s.clock || '--:--';
       var g = k.querySelector('.g'); g.textContent = scr === 'map' ? (running ? 'GOING' : 'STOPPED') : scr === 'camp' ? 'RESTING' : scr === 'town' ? 'IN TOWN' : ''; g.classList.toggle('go', running && scr === 'map'); }   /* draft:true */
@@ -863,31 +921,23 @@
     if (!what) { g.fillStyle = '#0b0a08'; g.fillRect(0, 0, w, h); }
   }
 
-  /* ---- THE NEWEST POST slides over the wallpaper, on the beat, and goes four beats later ---- */
-  function postWatch() {
-    var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P; if (!L) return;
-    var posts = L.posts(), last = posts.length ? posts[posts.length - 1] : null, id = last ? last.who + '|' + last.txt : '';
-    if (H.postT && performance.now() > H.postT) postHide();
-    if (H.seenPost === null) { H.seenPost = id; return; }   /* what was there when the phone came on is not news */
-    if (!last || id === H.seenPost) return;
-    H.seenPost = id;
-    if (H.face === 'fight' || H.state.screen === 'fight' || H.page || H.postT) return;
-    /* what happened (yours, the world's) always; the valley's small talk at most once in sixty beats, or it is a ticker */
-    var now = performance.now();
-    if (last.kind === 'life') { if (H.lifeToastAt && now - H.lifeToastAt < 60 * BEAT) return; H.lifeToastAt = now; }
-    var t = H.el.querySelector('.post'), cr = t.querySelector('.cr');
-    cr.querySelector('b').textContent = last.who; cr.querySelector('span').textContent = last.txt;
-    t.classList.remove('in'); cr.style.removeProperty('--crawl'); void t.offsetWidth;
-    var over = Math.max(0, cr.scrollWidth - (t.clientWidth - 8)), ms = Math.round(over / 40 * 1000);   /* forty points a second */
-    cr.style.setProperty('--crawl', -over + 'px'); cr.style.setProperty('--crawl-ms', Math.max(1, ms) + 'ms');
-    t.classList.add('in'); H.postT = now + BEAT + ms + 4 * BEAT;
-    window.__PHONE_TOASTS = (window.__PHONE_TOASTS | 0) + 1;
+  /* ---- THE FEED IS ON (rule 286(c)): the city's two newest posts on the face, the handle and the words, the newest stepping in
+     on the beat (stop-motion); a tap is everything posted (286(d)) ---- */
+  function stripPaint(force) {
+    var fd = H.el.querySelector('.home .bpfd'); if (!fd) return;
+    var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
+    var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }));
+    var two = posts.slice(-2).reverse(), sig = two.map(function (p) { return p.who + '|' + p.txt; }).join('||');
+    if (!force && sig === H.stripSig) return;
+    var was = H.stripTop; H.stripSig = sig; H.stripTop = two.length ? two[0].who + '|' + two[0].txt : null;
+    fd.innerHTML = two.length ? two.map(function (p, i) { return '<div class="fp' + (p.kind === 'mine' ? ' mine' : '') + (i === 0 && was && was !== H.stripTop ? ' new' : '') + '"><b>' + esc(p.who) + '</b><span>' + esc(p.txt) + '</span></div>'; }).join('')
+      : '<div class="fp"><span>The valley is quiet.</span></div>';   /* draft:true */
+    if (was && was !== H.stripTop) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
   }
-  function postHide() { H.el.querySelector('.post').classList.remove('in'); H.postT = 0; }
 
   /* ---- THE FIGHT: combat time, then his abilities ---- */
   function fightIn() {
-    pageClose(); postHide();
+    pageClose();
     var c = H.el.querySelector('.cmb'), f = H.el.querySelector('.fight');
     f.classList.remove('on'); c.classList.remove('out'); c.classList.remove('on');
     void c.offsetWidth; c.classList.add('on');   /* restart the strike */
@@ -940,7 +990,7 @@
       + '<button type="button" data-side="right"' + (c.side !== 'left' ? ' class="now"' : '') + '>RIGHT</button></div></div>';
     c.order.forEach(function (a, i) {
       var hid = c.hidden.indexOf(a) >= 0;
-      h += '<div class="pa' + (hid ? ' hid' : '') + '" data-a="' + a + '"><img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span>' + LABEL[a] + (i === 0 && !hid ? ' &middot; BIG' : '') + '</span>'
+      h += '<div class="pa' + (hid ? ' hid' : '') + '" data-a="' + a + '"><img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span>' + LABEL[a] + '</span>'
         + '<button type="button" data-do="up" aria-label="move ' + LABEL[a].toLowerCase() + ' up"' + (i === 0 ? ' disabled' : '') + '>&uarr;</button>'
         + '<button type="button" data-do="down" aria-label="move ' + LABEL[a].toLowerCase() + ' down"' + (i === c.order.length - 1 ? ' disabled' : '') + '>&darr;</button>'
         + (KEEP.indexOf(a) >= 0 ? '<button type="button" class="hide" disabled title="always on the phone">ALWAYS</button></div>'   /* draft:true */
@@ -994,7 +1044,7 @@
     if (face !== H.face) { if (face === 'fight') fightIn(); else if (H.face === 'fight') fightOut(); H.face = face; }
     if (!on) return;
     if (face === 'fight') { if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
-    paintHome(false); paintWall(false); postWatch();
+    paintHome(false); paintWall(false); stripPaint(false);
     if (H.page) pagePaint(false);
   }
 

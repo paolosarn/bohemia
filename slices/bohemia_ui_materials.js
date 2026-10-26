@@ -2959,7 +2959,7 @@
     if (k === 'Escape') {
       var sh = document.getElementById('sheet'), x = document.getElementById('close');   /* a building's sheet open: its own close */
       if (sh && x && sh.classList.contains('on')) { x.click(); keyLog('town: shut'); return true; }
-      var b = document.getElementById('leave'); if (keyShown(b)) { b.click(); keyLog('town: leave'); return true; } return false; }
+      var b = document.getElementById('leave'); if (keyShown(b) || (b && document.documentElement.classList.contains('boh-phone-on'))) { b.click(); keyLog('town: leave'); return true; } return false; }   /* __ONE_PHONE__ (UI TWO, rules 238(a), 286(b)): LEAVE is the phone's on the glass, pressing this same button; Escape presses it too */
     if (lk === 'c' || lk === 'i') { var c = document.getElementById('crew'); if (c && !ev.repeat) { c.click(); keyLog('town: crew'); } return !!c; }
     return false;
   }

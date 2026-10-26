@@ -16,7 +16,9 @@
      - no press of the map, the town or the fight lies under it (every reachable press's centre, hit-tested from the top)
      - the map's old phone, its speed pad and its CAMP plate are gone from the glass
      THE FIVE APPS
-     - five apps at most, each one's centre hit-tests to itself
+     - PLAY and HEAL and one row of small icons (CREW, RELATIONS, NOTES, SETTINGS: rule 238), each one's centre hit-tests to itself;
+       the bar's CREW, gear and NOTES and the town's LEAVE are not on the glass (no button twice, 286(b)); NOTES and SETTINGS open
+       from the phone; the feed is on the face (286(c)) and a tap on it is the catalogue
      - PLAY/PAUSE: one tap stops the clock and the march (the hour and the crew stand still), one tap starts them again; its
        picture says which; the last speed is its mark; a held mouse opens the speeds (computer)
      - CREW opens the company screen; HEAL (rule 226: CAMP is the heal button) is a cross over the company's one bar (its
@@ -104,7 +106,7 @@ async function side(profile) {
       ok('the first screen is the closest town (rule 236), and the phone already stands in it', st === 'town', st);
       await p.waitForTimeout(800);
       const sf0 = p.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
-      if (sf0) await tapIn(sf0, '#leave');
+      await tapIn(p.mainFrame(), '#bohphone .bpctx .lv');   /* rule 238(a): the town's LEAVE is on the phone */
       await until(() => fr.evaluate(() => !LOOP.open), 8000); await p.waitForTimeout(600);
     }
     await until(() => p.evaluate(() => !!document.getElementById('bohphone') && document.getElementById('bohphone').classList.contains('on')), 30000);
@@ -116,10 +118,10 @@ async function side(profile) {
       if (sd === 'left') {
         /* ---- THE FLIP, from the game's own settings card, by real taps ---- */
         const ev0 = await fr.evaluate(() => window.__phoneEv);
-        await tapIn(fr, '#bmtb .t.gear'); await p.waitForTimeout(700);
+        await tapApp('settings'); await p.waitForTimeout(700);   /* rule 238(a): SETTINGS is on the phone (the bar's gear steps aside) */
         const card = await p.evaluate(() => { const b = document.getElementById('setphone'); if (!b) return null; b.scrollIntoView({ block: 'center' });
           return { h: b.querySelector('.seth') && b.querySelector('.seth').textContent, apps: b.querySelectorAll('.pa').length }; });
-        ok('the game\'s SETTINGS card carries THE PHONE (the corner and every app)', !!card && /PHONE/.test(card.h) && card.apps === 5, JSON.stringify(card));
+        ok('SETTINGS on the phone opens the game\'s SETTINGS card, and it carries THE PHONE (the corner and the row\'s four)', !!card && /PHONE/.test(card.h) && card.apps === 4, JSON.stringify(card));
         await p.waitForTimeout(300);
         const before = await p.evaluate('(' + PHONE + ')()');
         await tapIn(p.mainFrame(), '#setphone [data-side=left]');
@@ -129,16 +131,18 @@ async function side(profile) {
           fmt(before.R) + ' -> ' + fmt(now.R));
         ok('  every frame hears it at once: the map\'s rectangle, its variables and its \'bohemia-phone\' event', cityR.side === 'left' && Math.abs(cityR.left - now.R.left) <= 1 && ev1 > ev0
           && await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-left')), 'events ' + ev0 + ' -> ' + ev1);
-        /* an app moved up takes the big slot; HIDE takes it off; then back as it was */
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=crew] [data-do=up]'); await p.waitForTimeout(200);
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=hide]'); await p.waitForTimeout(200);
+        /* an app moved up goes first in the row; HIDE takes it off (SETTINGS never hides); then back as it was */
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=up]'); await p.waitForTimeout(200);
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=notes] [data-do=hide]'); await p.waitForTimeout(200);
         const re = await p.evaluate('(' + PHONE + ')()');
-        ok('  CREW moved up takes the big slot; RELATIONS hidden leaves four apps', re.apps.length === 4 && re.apps[0].app === 'crew' && re.apps[0].big && !re.apps.some(a => a.app === 'relations'),
+        const row = re.apps.filter(a => !a.big).map(a => a.app);
+        ok('  RELATIONS moved up goes first in the row; NOTES hidden leaves three; PLAY and HEAL stay', row.join() === 'relations,crew,settings' && re.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal'
+          && !(await p.evaluate(() => !!document.querySelector('#setphone .pa[data-a=settings] [data-do=hide]'))),
           re.apps.map(a => a.app + (a.big ? '*' : '')).join(' '));
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=crew] [data-do=down]'); await p.waitForTimeout(200);
-        await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=hide]'); await p.waitForTimeout(200);
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=relations] [data-do=down]'); await p.waitForTimeout(200);
+        await tapIn(p.mainFrame(), '#setphone .pa[data-a=notes] [data-do=hide]'); await p.waitForTimeout(200);
         const back = await p.evaluate('(' + PHONE + ')()');
-        ok('  and back as it was by the same presses', back.apps.map(a => a.app).join() === 'play,crew,heal,feed,relations', back.apps.map(a => a.app).join(' '));
+        ok('  and back as it was by the same presses', back.apps.map(a => a.app).join() === 'play,heal,crew,relations,notes,settings', back.apps.map(a => a.app).join(' '));
         await p.evaluate(() => { const c = document.getElementById('setclose'); if (c) c.click(); else document.getElementById('setwrap').classList.remove('on'); });
         await p.waitForTimeout(600);
       }
@@ -149,11 +153,19 @@ async function side(profile) {
       ok('[' + sd + '] the map: the phone is on, in the ' + sd + ' bottom corner, inside the glass', M.on && M.screen === 'map' && M.R.side === sd && M.R.bottom <= M.H && M.R.bottom >= M.H - 60
         && (sd === 'right' ? M.R.right <= M.W && M.R.right >= M.W - 60 : M.R.left >= 0 && M.R.left <= 60), fmt(M.R) + ' of ' + M.W + 'x' + M.H);
       ok('  the page draws it where BOH_PHONE_RECT says, and the map\'s own page answers the same', same(M.R, M.dom) && same(M.R, await fr.evaluate(() => BOH_PHONE_RECT())), fmt(M.dom));
-      ok('  five apps at most, every one\'s centre hit-tests to itself', M.apps.length >= 1 && M.apps.length <= 5 && M.apps.every(a => a.self), M.apps.map(a => a.app + (a.self ? '' : '!')).join(' '));
+      ok('  PLAY and HEAL and the row\'s small icons (238), every one\'s centre hit-tests to itself', M.apps.length === 6 && M.apps.filter(a => a.big).map(a => a.app).join() === 'play,heal' && M.apps.every(a => a.self), M.apps.map(a => a.app + (a.self ? '' : '!')).join(' '));
+      /* rule 286(b): every action has one button on the glass: the bar's gear and NOTES are the phone's, off the glass; the bar's crew
+         chip stays as a readout (his lead's face, the head count, their blood) with no press, CREW being the phone's */
+      { const dup = await fr.evaluate(() => ['#bmtb .t.gear', '#notebtn'].filter(q => { const e = document.querySelector(q); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).display !== 'none'; })
+          .concat(['#bmtb .t.crew'].filter(q => { const e = document.querySelector(q); return !!e && e.getBoundingClientRect().width > 0 && getComputedStyle(e).pointerEvents !== 'none'; })));
+        ok('  no button twice: the bar\'s gear and NOTES are not on the glass and its crew chip is a readout (they are the phone\'s)', !dup.length, dup.join(' ') || 'none'); }
+      /* rule 286(c): the feed is on the face, never an app */
+      { const fd = await p.evaluate(() => { const f = document.querySelector('#bohphone .home .bpfd'), r = f && f.getBoundingClientRect(); return { shown: !!r && r.height > 20, posts: f ? f.querySelectorAll('.fp b').length : 0, app: !!document.querySelector('#bohphone .app[data-app=feed]') }; });
+        ok('  the feed is on the face (the handles and the words), and there is no FEED app', fd.shown && fd.posts >= 1 && !fd.app, JSON.stringify(fd)); }
       if (sd === 'right') {
         const old = await fr.evaluate(() => ['cityfeed', 'speedpad', 'campbtn'].map(id => { const e = document.getElementById(id); return e && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().width > 0 ? id : null; }).filter(Boolean));
         ok('  the map\'s old phone, its speed pad and its CAMP plate are gone from the glass', !old.length, old.join(' ') || 'none');
-        const homeText = await p.evaluate(() => document.querySelector('#bohphone .home').innerText);
+        const homeText = await p.evaluate(() => [...document.querySelector('#bohphone .home').children].filter(e => !e.classList.contains('bpfd')).map(e => e.innerText).join(' '));   /* the feed's own words aside: posts may say 'job' */
         ok('  no offer on the phone (rule 148 dead): no pay, no stars, no job card while he holds no job', !/\bPAYS?\b|\u2605|BATTERIES|TAKE IT|\bJOBS?\b/i.test(homeText) && !(await p.evaluate(() => !!document.querySelector('#bohphone .jc,#bohphone [data-job]'))), homeText.replace(/\s+/g, ' ').slice(0, 80));
       }
       let U = await under([fr]);
@@ -231,10 +243,17 @@ async function side(profile) {
             BohemiaPhone.wall(); return off; });
           ok('  PLANT: a painted-over wallpaper is caught', pl > 10, pl + ' points off');
         }
-        /* ---- FEED: the company's page, renamed there ---- */
-        await tapApp('feed'); await p.waitForTimeout(500);
+        /* ---- THE FEED: a tap on the strip is the catalogue (286(d)): his company's page on top, renamed there, everything posted ---- */
+        await tapIn(p.mainFrame(), '#bohphone .home .bpfd'); await p.waitForTimeout(500);
         const F = await p.evaluate(() => { const pg = document.querySelector('#bohphone .page.on'); return pg ? { page: pg.dataset.page, name: (pg.querySelector('.co .nm') || {}).textContent, posts: pg.querySelectorAll('.po').length } : null; });
-        ok('FEED opens in one tap: his company\'s page on top, the city\'s posts under it', !!F && F.page === 'feed' && !!F.name && F.posts >= 1, JSON.stringify(F));
+        ok('a tap on the feed opens the catalogue: his company\'s page on top, the city\'s posts under it', !!F && F.page === 'feed' && !!F.name && F.posts >= 1, JSON.stringify(F));
+        /* the three kinds as icon filters: a tap shows one kind, a tap again shows all */
+        { const all = await p.evaluate(() => document.querySelectorAll('#bohphone .page.on .po').length);
+          await tapIn(p.mainFrame(), '#bohphone .kf button[data-kind=life]'); await p.waitForTimeout(250);
+          const one = await p.evaluate(() => ({ n: document.querySelectorAll('#bohphone .page.on .po').length, on: !!document.querySelector('#bohphone .kf button.on[data-kind=life]') }));
+          await tapIn(p.mainFrame(), '#bohphone .kf button[data-kind=life]'); await p.waitForTimeout(250);
+          const back = await p.evaluate(() => document.querySelectorAll('#bohphone .page.on .po').length);
+          ok('  the catalogue\'s three kinds are icon filters: one kind, then all again', one.on && one.n <= all && back === all, all + ' -> ' + one.n + ' -> ' + back); }
         await tapIn(p.mainFrame(), '#bohphone .co .nm'); await p.waitForTimeout(250);
         const inp = await p.evaluate(() => !!document.querySelector('#bohphone .co input'));
         await p.evaluate(() => { const i = document.querySelector('#bohphone .co input'); if (i) { i.select(); } });
@@ -249,6 +268,11 @@ async function side(profile) {
         ok('RELATIONS opens in one tap: every town, how it takes you, and why', !!RL && RL.page === 'relations' && RL.rows.length >= 10 && RL.rows.every(r => /(HOSTILE|THREATENING|UNFRIENDLY|COLD|NEUTRAL|OPEN|FRIENDLY|ALLIED) \d+/.test(r)),
           RL && (RL.rows.length + ' towns: ' + RL.rows.slice(0, 2).join(' / ')));
         await tapIn(p.mainFrame(), '#bohphone .page .ph'); await p.waitForTimeout(250);
+        /* ---- NOTES on the phone (rule 238(a)): the map's own notes open from it, and fold again from it ---- */
+        await tapApp('notes'); await p.waitForTimeout(500);
+        const nOn = await fr.evaluate(() => !!document.querySelector('#notewrap.on'));
+        await fr.evaluate(() => { try { BohemiaNotes.close(false); } catch (e) {} }); await p.waitForTimeout(300);
+        ok('NOTES on the phone opens the notes (the bar\'s own, pressed from the phone)', nOn, 'open ' + nOn);
         /* ---- THE JOB COLUMN (rules 227, 228): the main quest's slot first, then the jobs he is on, X and DROP, PLAY to the job ---- */
         const COL = () => p.evaluate(() => { const jb = document.querySelector('#bohphone .home .jobs'); if (!jb) return null; const sc = document.querySelector('#bohphone .scr').getBoundingClientRect();
           const kids = [...jb.children].filter(k => k.getBoundingClientRect().height > 0);
@@ -385,7 +409,11 @@ async function side(profile) {
       { const ks = Object.keys(SIZES), base = SIZES.map || {}, eq = (a, b) => !!a && !!b && Math.abs(a[0] - b[0]) <= TOL && Math.abs(a[1] - b[1]) <= TOL;
         ok('  PLAY/PAUSE and HEAL are on the phone at one size on every screen (232(b): ' + ks.join(', ') + ')', !!base.play && !!base.heal && ks.every(k => eq(SIZES[k].play, base.play) && eq(SIZES[k].heal, base.heal)),
           ks.map(k => k + ' ' + JSON.stringify(SIZES[k])).join(' | ')); }
-      await tapIn(sf, '#leave'); await p.waitForTimeout(1500);
+      /* rule 238(a): LEAVE is the phone's band in a town; the town's own LEAVE is not on the glass (no button twice) */
+      { const L0 = await sf.evaluate(() => { const b = document.getElementById('leave'); return !!b && b.getBoundingClientRect().width > 0 && getComputedStyle(b).display !== 'none'; });
+        await tapIn(p.mainFrame(), '#bohphone .bpctx .lv'); await p.waitForTimeout(1500);
+        const out = await fr.evaluate(() => !LOOP.open);
+        ok('  LEAVE is on the phone in a town and takes him to the map; the town\'s own LEAVE is not on the glass', out && !L0, 'left ' + out + ', town LEAVE shown ' + L0); }
       /* ---- THE FIGHT ---- */
       const c0 = await p.evaluate(() => window.__PHONE_COMBAT | 0);
       await fr.evaluate((n) => { try { CITY_CONTACT_POSTED = false; } catch (e) {} return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: n }); }, sd === 'right' ? 1 : 2);   /* the last fight's contact let go, as the next step would */
@@ -409,6 +437,11 @@ async function side(profile) {
       ok('  the abilities open from it: his name, his abilities on the phone and off the fight\'s bar', FT.fight && !FT.home && String(AB.name || '').replace(/\s*\*$/, '').indexOf(PF.head) === 0 && PF.head && AB.onBar === 0 && PF.n === Math.min(12, AB.all),
           'head ' + PF.head + ', phone ' + PF.n + ', fight ' + AB.all + ' (on its bar ' + AB.onBar + ')');
       ok('  END TURN, AUTO and RETREAT stay on the fight\'s bar', AB.keep.length === 3, AB.keep.join(' '));
+      /* rule 238(a): CREW, NOTES and SETTINGS ride under his abilities; the fight's bar copies are not on the glass (286(b)) */
+      { const FR = await p.evaluate(() => [...document.querySelectorAll('#bohphone .fight .frow .app')].map(a => { const r = a.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return a.dataset.app + (h && a.contains(h) ? '' : '!'); }));
+        const dup = await f.evaluate(() => ['#bmtb .t.gear', '#notebtn'].filter(q => { const e = document.querySelector(q); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && getComputedStyle(e).display !== 'none'; })
+          .concat(['#bmtb .t.crew'].filter(q => { const e = document.querySelector(q); return !!e && e.getBoundingClientRect().width > 0 && getComputedStyle(e).pointerEvents !== 'none'; })));   /* the crew chip a readout */
+        ok('  CREW, NOTES and SETTINGS ride the fight\'s phone, and the fight\'s bar has no copy of them', FR.join() === 'crew,notes,settings' && !dup.length, FR.join(' ') + ' / bar ' + (dup.join(' ') || 'none')); }
       U = await under([f]);
       ok('  no press of the fight lies under the phone', !U.length, U.join(' | ') || 'none');
       if (sd === 'right') {
