@@ -21,35 +21,44 @@ anywhere; his men stood only round the camp's fire (__THE_CAMP__).
   pictures are in for his look, only the activities he has are dealt.
 - WHERE: only on the picture's ground (slices/settlement_walk.json through leadBlocked, rule 169: never a roof), never on a door's
   front (each tappable building's foot, a quarter of its width and half a body deep), never on the post's rail or a walker's lane,
-  never inside another's space (an ellipse 84 by 52 picture px). Near what he does: a drinker by the bar (else the stall), a browser
+  his whole tap column off every building's tap box and sign (over those only a body answers), and A FINGER'S ROOM EACH (EYES' 44-point
+  finger, rule 150: peopleAt's own column apart, a body tall), falling back to a crowd's spacing only when a big company runs the
+  ground out. MEASURED: on the first try his men stood 84 px apart and one had a 34-point target on the phone; THE TOWN'S PART tapped
+  him, the crew screen opened over the street, and 12 of its legs fell after it (6/13); with the room it is main's own 18/1. Near what he does: a drinker by the bar (else the stall), a browser
   by the stall facing it, a smoker, a sitter (a step of clear ground behind his heels) or a flirt against one of the town's fronts
   (the ground ends a step behind him), a talker beside one of his own (a pair: the same o.pair, one partner, facing each other) or
   with a townsman of the crowd facing him. A row or a column with his own costs a spot 260 or 200 px of score, and a hand of his own
   seed moves him off the grid (rule 130(a): never chess pieces).
 - HOW HE IS DRAWN: ANIMATION's cell (BohemiaIdles.activity, o.act, o.n his place in his company so no two are in step, o.pair,
   o.partner) the moment his pictures are in; until then his idles with the activity's lean (__EVERYBODY_IDLES__), else his still.
-  MEASURED NOW: rig_town.json lists 0 looks ('the company's eleven are rendering now'), so every man reads by his idles today; the
-  index fills as they land and nothing here changes.
+  MEASURED: rig_town.json listed 0 looks when this was written; ANIMATION's renders landed during the round (person_town_0 to 7) and,
+  with nothing changed here, 69 of 97 standing men in ten places now draw by their activity and 28 by their idles until their own
+  renders land.
 - THE WALKERS: his walking men join the town's own walkers on the lanes (the walk sheet, busyAt), spread round each lane.
-- A TAP: on any of his men, standing or walking, opens the crew screen on him (campMan: BohemiaCrewDoor.open({select})), the lead
+- A TAP: on any of his standing men opens the crew screen on him (a walker is not tapped: rule 131(b), the people you tap stand still) (campMan: BohemiaCrewDoor.open({select})), the lead
   walking up to him first (__THE_WALK_UP__).
 - The lead's way round the standing people (walkGrid) now goes round his men too (they are in folkList).
 
 ## THE BIGGEST COMPANY
 The biggest roster an origin allows is 25 (origins.json roster_cap). Measured on his phone's profile, Blue Diamond, CPU 4x slower:
-the empty town's frame 25.0 ms, with twenty-four of his men in it 35.8 ms (1.43x); his men's pictures 90 MB decoded. The frame cost is
+the empty town's frame 22.7 ms, with twenty-four of his men in it 27.0 ms (1.19x); his men's pictures 114 MB decoded; after the
+merge with RUN TWO's and ANIMATION's ships 37.4 against 45.6 ms (1.22x) and 99 MB. The frame cost is
 the same draw the keepers and the crowd already pay, one per man (rule 173(c): never by taking people out).
 
 ## GATES
-- NEW gates/your_crew_lives_in_the_town_gate.js YOUR CREW LIVES IN THE TOWN 9/0: K1 a company of twelve, ten places on six pictures
+- NEW gates/your_crew_lives_in_the_town_gate.js YOUR CREW LIVES IN THE TOWN 9/0 (963bbc0d, BUILD 10/26o): K1 a company of twelve, ten places on six pictures
   (both camps', both towns', both fortresses' and the home's), the eleven in every one; K2 97 standing men on the ground, off every
   door's front, the rail and everybody's spot, never three in a row; K3 every man at one of the six or walking (drink 24, smoke 19,
-  talk 24, stall 17, walk 13, sit 8, flirt 5), every standing man drawn, the walkers walk; K4 a real tap on the phone opens him on the
+  talk 24, stall 17, walk 13, sit 8, flirt 5), every standing man drawn (69 by his activity, 28 by his idles), the walkers walk; K4 a real tap on the phone opens him on the
   crew screen; K5 twenty-five men, 24 in the picture, the frame within half again the empty town's, under 160 MB; K6 the computer; K7
   the live demo through the title and the map's door; K8 nothing threw.
 
+- Green beside it, as main: THE TOWN'S PART 18/1, THE WALK-UP 8/0, ON THE GROUND 7/0, THE SETTLEMENT SCREEN 74/0, THE SETTLEMENT
+  IS BUSY 10/0, THE BUSY TOWN TALKS 20/0, THE PEOPLE OF THE PLACE 40/0, THE TOWN AND THE HIRE 11/0, EVERY TOWN IS BUSY 4/0; re-aimed
+  THE FACE IS HIS OWN FACE's F5 (his own men stand as themselves; nobody else wears them) to main's 17/1.
+
 ## WHAT IS NOT DONE (rule 218(d) in full)
-- His men drawn doing the activity (not their idles) waits on ANIMATION's renders (the index has none yet).
+- His men drawn doing the activity everywhere waits on the rest of ANIMATION's renders (28 of 97 still by their idles).
 - 'Every door, stall and person on screen without a pan' is RUN TWO's [the town fits the screen]: on the phone today 7 of 11 of his
   men are on the glass at Blue Diamond's first frame; the rest are a slide away until the fit lands.
 - 'Flirting with a girl': no woman's body exists yet (CHARACTER), so he flirts with the street.
