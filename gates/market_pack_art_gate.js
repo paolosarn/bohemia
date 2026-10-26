@@ -46,9 +46,10 @@ const srv = http.createServer((rq, rs) => {
   const ar = await p.evaluate(() => { const sl = [].slice.call(document.querySelectorAll('#sbody .slot.full')); return { n: sl.length, glyph: sl.filter(s => s.querySelector('i')).length }; });
   ok('  armour keeps its glyph: the packs hold no armour (owed to a cook, never faked)', ar.n > 0 && ar.glyph === ar.n, ar.glyph + ' of ' + ar.n);
   await tap('stall');
-  const st = await p.evaluate(() => { const a = [].slice.call(document.querySelectorAll('#sbody .act')).filter(x => /battery/.test(x.textContent));
+  /* RE-AIMED 10/26 BY RUN TWO ([sell at the stall]; rule 209 made food and water one good): the stall's three goods' lines, tape aside (its own icon) */
+  const st = await p.evaluate(() => { const a = [].slice.call(document.querySelectorAll('#sbody .act.stline')).filter(x => x.dataset.good !== 'tape');
     return { n: a.length, pk: a.filter(x => { const i = x.querySelector('img.pk'); return i && i.complete && Math.max(i.naturalWidth, i.naturalHeight) > 40; }).length, h: a.map(x => x.getBoundingClientRect().height) }; });
-  ok('the stall\'s goods: food, water, meds and rounds each show their pack tile', st.n === 4 && st.pk === 4 && st.h.every(h => h >= 44), st.pk + ' of ' + st.n);
+  ok('the stall\'s goods: food and water, meds and rounds each show their pack tile', st.n === 3 && st.pk === 3 && st.h.every(h => h >= 44), st.pk + ' of ' + st.n);
   await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_MARKET_IN_THE_PACKS_STALL_10_11.png') });
   const bench = await p.evaluate(() => { const v = BohemiaSettlement._view(); return document.querySelectorAll('canvas').length > 0; });
   const benches = await p.evaluate(() => ['smith', 'armourer'].every(k => { const im = new Image(); im.src = 'market_icons/b_' + k + '.png'; return true; }));

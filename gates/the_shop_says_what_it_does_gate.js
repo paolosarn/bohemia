@@ -86,7 +86,7 @@ function taps(d, sf, mouse) {
     const lines = q('#sbody .onman .ln').map(l => ({ k: l.dataset.k, before: l.dataset.before, after: l.dataset.after, delta: +l.dataset.delta, cls: (l.querySelector('.d') || {}).className, text: l.textContent.replace(/\s+/g, ' ').trim() }));
     /* RE-AIMED 10/26: the numbers come before the price in the page's own order (the strip: the piece's numbers, then the button with its price) */
     const nEl = document.querySelector('#sbody .inums'), bEl = q('#sbody .act').find(a => /Buy it/.test(a.textContent)), iNums = nEl ? 0 : -1, iBuy = nEl && bEl && (nEl.compareDocumentPosition(bEl) & Node.DOCUMENT_POSITION_FOLLOWING) ? 1 : -1;
-    return { chips, man: om ? om.dataset.man : null, who: om ? om.querySelector('.who').textContent : '', lines, faces: q('#shopfaces button').map(b => b.dataset.man), on: (document.querySelector('#shopfaces button.on') || {}).dataset ? document.querySelector('#shopfaces button.on').dataset.man : null,
+    return { chips, man: om ? om.dataset.man : null, who: om ? (om.querySelector('.onwho') || om.querySelector('.who') || {}).textContent || '' : '', lines, faces: q('#shopfaces button').map(b => b.dataset.man), on: (document.querySelector('#shopfaces button.on') || {}).dataset ? document.querySelector('#shopfaces button.on').dataset.man : null,
       stop: q('#sbody .onman .stop').map(e => e.textContent).join(' '), numsBeforeBuy: iNums >= 0 && iBuy > iNums, shown: BohemiaSettlement.state.shopShown }; });
   return { tapAt, tapSel, openShop, tapItem, card, box };
 }

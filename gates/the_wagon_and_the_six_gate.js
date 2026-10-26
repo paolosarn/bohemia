@@ -77,8 +77,9 @@ const KEYS = ['food', 'tape', 'meds', 'rounds'];   /* RE-AIMED 10/26 (rule 209, 
       const box = await (await sf.frameElement()).boundingBox(), before = await sf.evaluate(() => JSON.parse(localStorage.getItem('bohemia.supplies.v1')));
       for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'stall')) break; const w = await sf.evaluate(() => BohemiaSettlement.where('stall')); if (w) await P.touchscreen.tap(box.x + w.x, box.y + w.y); await P.waitForTimeout(800); }
       for (const label of ['A dose of meds', 'Six rounds', 'Food and water, a night for one man']) {
-        const r = await sf.evaluate((l) => { const b = [...document.querySelectorAll('#sbody .act')].find(x => x.textContent.indexOf(l) >= 0); if (!b) return null; b.scrollIntoView({ block: 'center' }); const q = b.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, label);
-        if (r) await P.touchscreen.tap(box.x + r.x, box.y + r.y); await P.waitForTimeout(700); }
+        /* RE-AIMED 10/26 BY RUN TWO (rule 249, [sell at the stall]): a line is BUY and SELL side by side; two quick taps on BUY buy one */
+        const r = await sf.evaluate((l) => { const ln = [...document.querySelectorAll('#sbody .act')].find(x => x.textContent.indexOf(l) >= 0), b = ln && (ln.querySelector('.sb[data-side=buy]') || ln); if (!b) return null; b.scrollIntoView({ block: 'center' }); const q = b.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, label);
+        if (r) { await P.touchscreen.tap(box.x + r.x, box.y + r.y); await P.waitForTimeout(120); await P.touchscreen.tap(box.x + r.x, box.y + r.y); } await P.waitForTimeout(700); }
       const after = await sf.evaluate(() => JSON.parse(localStorage.getItem('bohemia.supplies.v1')));
       await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await P.waitForTimeout(500);
       const tbar = await sf.evaluate(BAR);
@@ -96,7 +97,7 @@ const KEYS = ['food', 'tape', 'meds', 'rounds'];   /* RE-AIMED 10/26 (rule 209, 
     /* ---- C8a ---- */
     const demo = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8');
     const forgot = await P.evaluate(() => { BohemiaOriginStart.forget(); return localStorage.getItem('bohemia.supplies.v1'); });
-    ok('C8a NEW GAME forgets the wagon (the start screen\'s forget list names it; the engine\'s forget clears it)', /'bohemia\.origin\.roll\.v1', 'bohemia\.supplies\.v1'\]\.forEach/.test(demo) && forgot === null);
+    ok('C8a NEW GAME forgets the wagon (the start screen\'s forget list names it; the engine\'s forget clears it)', /'bohemia\.supplies\.v1'[^\]]*\]\.forEach/.test(demo)   /* RE-AIMED 10/26 BY RUN TWO: other lanes' keys follow the wagon's in the one list */ && forgot === null);
     /* ---- C6 the pit and the wolf, through the door's own ask ---- */
     const c6 = await P.evaluate(() => { const out = {};
       [['pit', 'full'], ['wolf', 'bare']].forEach(([id, e]) => { BohemiaOriginStart.forget(); BOH_START.state.origin = id; BOH_START.state.econ = e; BOH_START.picks(); out[id] = JSON.parse(localStorage.getItem('bohemia.supplies.v1')); });
