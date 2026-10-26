@@ -46120,6 +46120,38 @@ function mapFaceNow(){
    the body (he is three), so they stay pixel-true and he stays the biggest thing on the map.
    COOK's masks stay as the fallback for the first seconds, before the cast arrives. */
 var MAP_PLATES = [];
+/* ==== __NO_NAME_COVERS_ANOTHER__ (RUN 10/26, [eyes: names on names], rule 150 and his first votes' 'no two texts overlap').
+   EYES round 2, phone: at 0.375 to 0.456 'GYPSUM CAVE' over 'FRENCHMAN MOUNTAIN' with the 95 shield over both; at 0.141 'CHURCH'
+   cut by 'BLUE DIAMOND', 'BOULDER CITY' by a road shield, 'TULE SPRINGS' over 'CHARLESTON'; names cut by the phone. MEASURED (every
+   text the map draws, in one frame): 10 to 13 pairs over each other at the far zooms. Three painters each kept its own names apart
+   and none knew the others': the towns' plates (mapPlatesDraw), the region's places (bohemia_region.js), the land's names and
+   road shields (vbLabels), and none knew the phone, the bar or the speed pad lie over the glass.
+   NOW ONE LIST A FRAME, IN ORDER OF WHAT MATTERS: the game's own panels over the glass and his crew first, then the towns' and
+   jobs' plates, then the region's places, then the land's names and shields (drawn last now, after the places, so they are the
+   ones that step aside); a name that would sit on one already placed steps up a line (three tries) or waits for a closer zoom;
+   a job's place and a party he is looking at always stand. ==== */
+var MAP_NAMES = { on: true, boxes: [], drawn: [], land: null, frame: 0, hid: 0 };
+window.MAP_NAMES = MAP_NAMES;
+function mapNamesBegin(){
+  MAP_NAMES.boxes = []; MAP_NAMES.drawn = []; MAP_NAMES.land = null; MAP_NAMES.frame++; MAP_NAMES.hid = 0;
+  if (!MAP_NAMES.on) return;
+  try { var c = cv.getBoundingClientRect(); ['cityfeed', 'menubar', 'speedpad', 'bmtb'].forEach(function(id){ var e = document.getElementById(id); if (!e) return;
+    var a = e.getBoundingClientRect(); if (a.width < 2 || a.height < 2) return; var st = getComputedStyle(e); if (st.display === 'none' || st.visibility === 'hidden' || +st.opacity === 0) return;
+    MAP_NAMES.boxes.push({ b: [a.left - c.left, a.top - c.top, a.width, a.height], t: '#' + id, ui: true }); }); } catch (_e) {}
+}
+function mapNameFree(b){
+  if (!MAP_NAMES.on) return true;
+  for (var i = 0; i < MAP_NAMES.boxes.length; i++) { var o = MAP_NAMES.boxes[i].b; if (b[0] < o[0] + o[2] && b[0] + b[2] > o[0] && b[1] < o[1] + o[3] && b[1] + b[3] > o[1]) return false; }
+  return true;
+}
+function mapNameTake(b, t, kind){ var e = { b: b, t: t, kind: kind }; MAP_NAMES.boxes.push(e); if (kind !== 'crew') MAP_NAMES.drawn.push(e); }
+/* the land's names wait for the places when the region paints its places after the city (it calls mapNamesLate) */
+function mapNamesLand(ox, oy, night){
+  if (MAP_NAMES.on && window.BOH_REGION && BOH_REGION.ready && BOH_REGION.landAfterPlaces) { MAP_NAMES.land = [ox, oy, night]; return; }
+  vbLabels(ox, oy, night);
+}
+window.mapNamesLate = function(){ var a = MAP_NAMES.land; MAP_NAMES.land = null; if (a) { try { vbLabels(a[0], a[1], a[2]); } catch (_e) {} } };
+/* ==== /__NO_NAME_COVERS_ANOTHER__ ==== */
 function mapPlatesDraw(){
   /* __A_TAP_ON_A_TOWN_GOES_TO_THE_TOWN__: a party's plate never lies on a town's name or building; it is lifted clear above them
      (its leader line still names the party), and its tap box goes with it */
@@ -46147,8 +46179,22 @@ function mapPlatesDraw(){
         if (Pc.party && Pc.info) Pc.cy += ny - pb.y; else Pc.ly = ny;
         if (Pc.box) Pc.box.y = ny;
         MAP_DREW.platesUnder = (MAP_DREW.platesUnder | 0) + 1; } } } } catch (_e) {}
+  /* __NO_NAME_COVERS_ANOTHER__: his crew is taken first (a name never lands on him), then each plate, a party he is looking at
+     first, then the towns' and jobs' names in the order they came; one that lands on a name already placed steps up */
+  try { var Yc = MAP_DREW && MAP_DREW.you; if (Yc && isFinite(Yc.x)) mapNameTake([Yc.x - 44, Yc.y - (Yc.h || 72) - 8, 88, (Yc.h || 72) + 20], 'YOU', 'crew'); } catch (_e) {}
+  var __ord = MAP_PLATES.map(function(P, k){ return { P: P, k: k }; }).sort(function(a, b){ return ((b.P.party && b.P.info) ? 1 : 0) - ((a.P.party && a.P.info) ? 1 : 0) || a.k - b.k; });
+  var __hide = {};
+  __ord.forEach(function(o){ var P = o.P, info = P.party && P.info;
+    var bb = function(){ return info ? [P.sx - 40, P.cy - 38, 80, 34] : [P.lx, P.ly, P.w + 6, 11]; }, b = bb(), y0 = P.ly, cy0 = P.cy;
+    for (var tr = 0; tr < 3 && !mapNameFree(b); tr++) { if (info) P.cy -= 12; else P.ly -= 12; b = bb(); }
+    if (!mapNameFree(b) && !info && !(P.job || /^#(ffd27a|f0b44c)$/i.test(P.col || ''))) { P.ly = y0; P.cy = cy0; __hide[o.k] = 1; MAP_NAMES.hid++;
+      try { MAP_TOWN_HIT.forEach(function(T){ if (T.plate && Math.abs(T.plate.y - y0) < 0.5 && Math.abs(T.plate.x - P.lx) < 0.5) T.plate = null; }); } catch (_e) {}
+      return; }
+    if (P.ly !== y0) { try { MAP_TOWN_HIT.forEach(function(T){ if (T.plate && Math.abs(T.plate.y - y0) < 0.5 && Math.abs(T.plate.x - P.lx) < 0.5) T.plate.y = P.ly; }); } catch (_e) {} if (P.box) P.box.y = P.ly; }
+    mapNameTake(b, P.t, info ? 'party' : 'plate'); });
   for (var i = 0; i < MAP_PLATES.length; i++) {
     var P = MAP_PLATES[i];
+    if (__hide[i]) continue;   /* __NO_NAME_COVERS_ANOTHER__: waits for a closer zoom */
     g.globalAlpha = 1;
     /* UI [the ten changes], change 3 (rule 133): a party's plate is a tin tag from the kit (how many beside a drawn man, the
        skulls, the danger in a word, where it is going), drawn by the materials; this dark strip is the fallback */
@@ -48733,7 +48779,8 @@ function vbSeam(ox, oy, night){
 }
 function vbLabels(ox, oy, night){
   if (!VB.day || VB.seed !== om.seed) return;
-  var shown = 0, taken = [], drawn = [];
+  /* __NO_NAME_COVERS_ANOTHER__: what is already placed this frame (the panels, his crew, the towns, the places) is taken */
+  var shown = 0, taken = (MAP_NAMES.on ? MAP_NAMES.boxes.map(function(o){ return [o.b[0], o.b[1], o.b[0] + o.b[2], o.b[1] + o.b[3]]; }) : []), drawn = [];
   VB.hits = [];   /* WORLD [eyes: a place that is nothing]: what each land name covers, so a click on it says what it is (BohemiaJobKinds.landTap) */
   g.save(); g.textAlign = 'center'; g.textBaseline = 'middle';
   /* roads first (a number is small and sits on its road), then the land; a name that would sit on
@@ -48763,6 +48810,7 @@ function vbLabels(ox, oy, night){
     for (var k = 0; k < taken.length; k++) { var b = taken[k]; if (box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]) { hit = true; break; } }
     if (hit) continue;
     taken.push(box); shown++; drawn.push(l.txt); VB.hits.push({ txt: l.txt, kind: l.kind, box: box });
+    try { mapNameTake([box[0], box[1], box[2] - box[0], box[3] - box[1]], l.txt, l.kind === 'road' ? 'shield' : 'land'); } catch (_e) {}   /* __NO_NAME_COVERS_ANOTHER__ */
     if (l.kind === 'road') {   /* a shield: the number on a dark plate, the road's own colour */
       var tw = lw;
       g.fillStyle = 'rgba(12,10,8,0.85)'; g.fillRect(Math.round(p.sx - tw / 2), Math.round(sy - 7), tw, 14);
@@ -48900,6 +48948,7 @@ function renderCity(){
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null, art: { crowdPeople: 0, partyPeople: 0, buildings: 0 } };
   MAP_TOWN_HIT = []; MAP_PARTY_HIT = [];   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: what this frame drew is what a tap is tested against */
   MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */
+  try { mapNamesBegin(); } catch (_e) {}   /* __NO_NAME_COVERS_ANOTHER__ */
   try { mapArtScale(); } catch (_e) {}   /* the art scales with the zoom, the names do not */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
   qlineFit();   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__: the phone comes and goes with the map */
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
@@ -49783,7 +49832,7 @@ function renderCity(){
   if (__partyMoving && !CITY_GLIDE.raf) CITY_GLIDE.raf = requestAnimationFrame(function(){ CITY_GLIDE.raf = 0;
     try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {} });
   try { loopJobsDraw(ox, oy); } catch (_e) {}   /* __THE_LOOP_ON_THE_MAP__: the JOBs he holds */
-  if (!(typeof VISTA!=='undefined' && VISTA)) { try { vbLabels(ox, oy, isNight()); } catch (_e) {} }   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
+  if (!(typeof VISTA!=='undefined' && VISTA)) { try { mapNamesLand(ox, oy, isNight()); } catch (_e) {} }   /* __NO_NAME_COVERS_ANOTHER__: after the places when the region paints them */   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
      Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in
      it. BB draws a static dotted line to the click; this SHORTENS as he crosses,
