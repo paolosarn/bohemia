@@ -68,6 +68,9 @@ the index rewritten. His left fist sat a hand's width off the stake: the stake m
   lays it on his still like any pass and it takes the place of that act's first pictures; the gate reads its joints after its set's).
 - C1 again, town_6 cleaning his rifle: the near rub read 11 px off the rest from behind. His shoulders now follow the rag along the
   barrel (a few degrees each way); town_6's clean made again by REDO, the men after him rendered with it.
+- C1 on the pitching, towns 5 and 10 lighting the fire: from behind, the lighter's flick was 7 and 9 px off the rest (his back
+  hides his hands and the flame). He leans in to the flame now (the spine and chest 4 degrees more), towns 5 and 10 made again by
+  REDO; the other ten read from behind without it.
 - P1, town_0 rising: his long coat's skirt drew 10 to 20 px below his soles in the crouch on the way up. At S that is the skirt
   pooled on the ground before him (a thing nearer the camera draws lower on the screen), at E and W it dipped through the floor.
   The crouch is shallower now (the pelvis down 34 cm, not 42), town_0's rise is made again, and the leg reads a crouch's feet by
@@ -85,4 +88,15 @@ marked once plays its one slot from the moment asked, then holds its rest, never
 company and YOU have all seven.
 
 ## WHERE IT STANDS
-- Posed and checked on one man first (envelope 0, kneel 0, lie 0), then rendered for YOU and his company in two batches.
+- Posed and checked on one man first (envelope 0, kneel 0, lie 0), then rendered for YOU and his company in three batches (the
+  two-hour cap: a batch is stopped after its first three men and the rest restarted in a fresh window, never cut mid-man).
+- LIVE 10/26 (the camp's seven): all eleven of his company and YOU, eight facings, 84 sheets in slices/rig_town; every pass's
+  joints kept in records/animation/town_joints (the stir's and the rise's redo passes too). THE TOWN'S ACTIVITIES with A2 (his
+  company and YOU have all seven). The VOTE card (slices/vote/ANIMATION_THE_CAMPS_ACTS.html) plays the pitching first (a man with
+  no pitching pictures yet does his camp act), then the camp: the hurt man lying with a friend kneeling by him, YOU asleep on his
+  bedroll, one cooking at the fire, one mending his arm on a crate, one hammering his car door, one cleaning his rifle; NIGHT, HE
+  HEALS (he gets up, once) and MAKE CAMP AGAIN.
+- [they pitch the camp]: held out of the camp's ship by the pack (a set still rendering for the rest is packed out,
+  BOHEMIA_TOWN_SETS) until all twelve were made; then LIVE: unpack, stake and light for his company and YOU, eight facings, 36
+  sheets more; A3 (all twelve have all three); CAMP TWO's [they pitch the camp] row carries the call and where to stand each man;
+  the camp card plays the pitching first.

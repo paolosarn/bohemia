@@ -635,7 +635,7 @@ def pack(only=None):
         mj = os.path.join(ROOT, OUT, tag + '.json')
         if FL and FL.get('kind') not in ('person', 'beast'):   # a named look of the fight (YOU): his fight sheet's cell is the frame
             if fresh(mj, ps):
-                index['looks'][tag] = dict(json=tag + '.json', acts=[a for _, acts in ps for a in acts]); n_ok += 1; continue
+                index['looks'][tag] = dict(json=tag + '.json', acts=list(dict.fromkeys(a for _, acts in ps for a in acts))); n_ok += 1; continue
             sp = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', FL['file'])).convert('RGBA'))
             P = np.array(sorted(set(map(tuple, sp[sp[..., 3] > 0][:, :3].tolist()))), np.int32)   # his fight sheet's colours: he walked in them
             entry = dict(fight=FL['file'], foot=FL['foot'], feet=[FL['foot']] * 8, sheets={}, poses={})
@@ -667,7 +667,7 @@ def pack(only=None):
             continue
         if not tag.startswith('person_') or not os.path.exists(os.path.join(rec, 'rig.json')): continue
         if fresh(mj, ps):
-            index['looks'][tag] = dict(json=tag + '.json', acts=[a for _, acts in ps for a in acts]); n_ok += 1; continue
+            index['looks'][tag] = dict(json=tag + '.json', acts=list(dict.fromkeys(a for _, acts in ps for a in acts))); n_ok += 1; continue
         mine = json.load(open(os.path.join(rec, 'rig.json')))
         cb = mine['crop_box_px']; feet = []
         for f in DIRS:
