@@ -211,3 +211,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 191 | The man walking at the front of my party on the map is my main character, not a default body | 263(a) | RUN, EYES | 
 | 192 | Before the game starts I can customise my main guy, with the barber's UI | 263(b) | RUN THREE, PORTRAIT, EYES | 
 | 193 | Research Battle Brothers' healing and repair times; our day is denser (one of ours is three or four of theirs), so heal faster or camp easily | 264 | TUNING, CAMP, EYES | 
+| 194 | Do the math on our pace against Battle Brothers' (walking, interactions, fights) | 264(f) | the coordinator (done: about 5 of our fights a day to their 1; healing x4) | 
