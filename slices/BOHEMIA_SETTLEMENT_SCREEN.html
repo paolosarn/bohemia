@@ -3424,7 +3424,11 @@ function arrive(){
   var t = setTimeout(function(){ off('time'); }, ARRIVE_MS);
   /* no sound of its own: SOUNDS' arrival cue already fires once per new town on the map (cf9b7d8b) */
   post('arrive', {tier:tier, traits:(S.traits||[]).map(function(t){ return t.id; }), opinion:op, band:band, faction:S.faction ? S.faction.name : null, line:line});
+  try{ (function tell(n){ if(!STALLP || !window.BohemiaStallPrices){ if(n < 40) setTimeout(function(){ tell(n + 1); }, 100); return; } var g = {}; ((STALLP.trade && STALLP.trade.goods) || []).forEach(function(x){ var v = tradeSellHere(x.id); if(v != null) g[x.id] = v; }); post('prices', {day:buildDay(), goods:g}); })(0); }catch(e){}   /* __HIS_MAP__ WORLD TWO [where it sells best] (rule 266(b)): what this stall pays for each trade good today, so the map knows it */
 }
+/* __HIS_MAP__ WORLD TWO [where it sells best]: what this stall pays for one of a trade good today: ECONOMY's tradeSell with this town's tier, its cards
+   and what it thinks of him (ECONOMY's NOTE: relBase is relPrice().buySub); the stall's sell button reads the same call when goods go on the shelf */
+function tradeSellHere(id){ if(!STALLP || !window.BohemiaStallPrices) return null; var m = traitMult(), r = relPrice(); return BohemiaStallPrices.tradeSell(STALLP, id, {place:S.place.name, tier:S.place.tier, sellMult:m.sell, relBase:r.buySub}); }
 function arriveWhenReady(){ if((TRAITS && ARR && (!window.BohemiaBarNews || BohemiaBarNews.ready())) || S.arriveTries > 20){ arrive(); return; }   /* the refugees read the map's towns */ S.arriveTries = (S.arriveTries||0) + 1; setTimeout(arriveWhenReady, 50); }
 
 /* ---------- OPEN ---------- */
@@ -3482,7 +3486,8 @@ function open(o){
    re-reads the bag the roster changed */
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
-window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G && walkNearest(G, x, y, false); return n ? {x:n.x, y:n.y} : null; },   /* the nearest ground a man can stand on (the gate) */
+window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },   /* __HIS_MAP__ WORLD TWO: this stall's price for one of a trade good today */
+  _ground:function(x, y){ var G = walkGrid(), n = G && walkNearest(G, x, y, false); return n ? {x:n.x, y:n.y} : null; },   /* the nearest ground a man can stand on (the gate) */
   _walkAll:function(){   /* RUN TWO [the walk-up, on the ground]: every way between every place he can be sent, for the gate */
     var out = {paths:0, bad:0, placed:0, far:0, miss:[]}, G = walkGrid(); if(!G){ out.miss.push('no ground traced'); return out; }
     var spots = [], h = leadHome(); if(h) spots.push({k:'home', x:h.x, y:h.y});

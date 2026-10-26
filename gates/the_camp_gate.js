@@ -14,8 +14,10 @@
         hate that, unless an enemy pulls up on me'): a hunting crew held two blocks off does NOT break the camp; one of his men says who
         and how far in the camp, and the map keeps them. (It read: 'a hunting crew two blocks off breaks the camp and the map shows
         them'; the rule struck that.)
-     C7 BREAK CAMP (a real tap) closes it and the clock stops; the plate is back (RE-AIMED: the camp still stands after C6, so BREAK
-        CAMP is tapped in it; it read: the HEAL app tapped first to make a camp again)
+     C7 BREAK CAMP (a real tap) closes it and the clock stops; the plate is back (UI TWO, rule 286(b): no button twice, so in the game
+        BREAK CAMP is the phone's HEAL pressed at camp, the camp's own BREAK CAMP is off the glass; the town's page alone keeps it.
+        RE-AIMED BY CAMP: the camp still stands after C6, so the break is pressed in it; it read: the HEAL app tapped first to make a
+        camp again)
      C8 nothing threw
    node gates/the_camp_gate.js */
 'use strict';
@@ -36,8 +38,14 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
   try {
     await p.waitForTimeout(3000);
     await fr.evaluate(() => { try { localStorage.removeItem('bohemia.renown.v1'); localStorage.removeItem('bohemia.camp.v1'); } catch (e) {} });
-    const tapEl = async (frame, sel) => { const h = await frame.$(sel); if (!h) return false; await h.scrollIntoViewIfNeeded().catch(() => {}); await p.waitForTimeout(150);
-      const r = await h.boundingBox(); if (!r) return false; await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); return true; };
+    /* the camp's sheet redraws on the beat (about twice a second, on main too), so a handle can be a button the sheet has just replaced:
+       the button is found again and pressed at once, up to four tries (UI TWO 10/26: C5's 'Your company' raced the redraw) */
+    const tapEl = async (frame, sel) => { for (let k = 0; k < 4; k++) { const h = await frame.$(sel); if (!h) return false;
+        let r = await h.boundingBox(); const V = p.viewportSize();
+        if (r && (r.y < 0 || r.y + r.height > V.height)) { await h.scrollIntoViewIfNeeded().catch(() => {}); r = await h.boundingBox(); }
+        if (r) { await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); return true; }
+        await p.waitForTimeout(120); }
+      return false; };
     /* ---- C1 ---- RE-AIMED 10/26 BY UI TWO (rules 212(b), 226(c)): the CAMP plate is the phone's HEAL app now, in his corner on
        the phone the shell draws over the map; the leg keeps what it protects: shown on the map, a thumb wide, nothing over it */
     const HEAL = '#bohphone .app[data-app=heal]';
@@ -112,7 +120,9 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     /* ---- C7 BREAK CAMP ---- */
     await p.waitForTimeout(800);
     const c7top = await p.evaluate((s) => { const b = document.querySelector(s), r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return !!e && (e === b || b.contains(e)); }, HEAL);
-    const brk = await tapEl(sf, '#leave');   /* the camp still stands: BREAK CAMP in it */
+    /* rule 286(b): the camp's BREAK CAMP is the phone's HEAL now (one press, one action); the camp's own button when the phone is not
+       up. The camp still stands after C6 (rule 267(a)), so this press breaks it */
+    const brk = (await p.evaluate(() => document.documentElement.classList.contains('boh-phone-on'))) ? await tapEl(p.mainFrame(), HEAL) : await tapEl(sf, '#leave');
     await p.waitForTimeout(800);
     const m0 = await fr.evaluate(() => T.day * 1440 + T.min); await p.waitForTimeout(2000);
     const c7 = Object.assign(await fr.evaluate((m0) => ({ on: BohemiaMapCamp.on(), moved: T.day * 1440 + T.min - m0, why: window.__CAMP && window.__CAMP.why }), m0),

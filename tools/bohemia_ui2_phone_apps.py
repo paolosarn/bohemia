@@ -19,6 +19,8 @@ camera tipped 25 degrees so a bottom edge shows its thickness):
   app_heal       a bone plate with a medic's cross in red inside a ring: CAMP is the HEAL button (rules 226, 232(b));
                  the ring is the track the page fills with the company's blood and armour
   app_x          a dead-olive plate with a bone X: the job card's drop (rule 227)
+  app_notes      a notepad with a pencil: the bar's NOTES, on the phone (rule 238(a))
+  app_leave      a door left open with the way out: the town's LEAVE, on the phone (rule 238(a))
   case           the handset: a dead-olive tin frame with a rivet at each corner round a hole the screen shows through,
                  one picture the page slices (border-image) so it stands at the phone's one size on every screen
   ear            the speaker slot and the camera at the top of the case
@@ -150,6 +152,21 @@ def ring_of(png):
     return dict(cx=round(float(cx / w), 4), cy=round(float(cy / h), 4), ro=round(float(ro / w), 4), ri=round(float(ri / w), 4))
 
 
+def G_notes():
+    """rule 238(a): the bar's NOTES on the phone: a notepad, its page struck in, three ruled lines and a pencil laid across"""
+    return [('ring', (KIT.rr_outline(9.5, 6.0, 31.5, 38.0, 2.4, 3), KIT.rr_outline(12.6, 9.1, 28.4, 34.9, 1.2, 3)), INK, 1.2),
+            (KIT.rr_outline(15.0, 27.0, 26.0, 29.2, 1.0, 2), INK, 1.4), (KIT.rr_outline(15.0, 21.4, 26.0, 23.6, 1.0, 2), INK, 1.4),
+            (KIT.rr_outline(15.0, 15.8, 22.0, 18.0, 1.0, 2), INK, 1.4),
+            (ccw([(25.0, 10.5), (36.6, 22.1), (34.4, 24.3), (22.8, 12.7)]), RED, 1.9)]
+
+
+def G_leave():
+    """rule 238(a): the town's LEAVE on the phone: a door left open, the way out an arrow through it"""
+    return [('ring', (KIT.rr_outline(7.0, 6.0, 25.0, 38.0, 1.4, 2), KIT.rr_outline(10.2, 6.0, 21.8, 34.8, 0.8, 2)), INK, 1.2),
+            (ccw([(10.2, 6.0), (17.4, 9.6), (17.4, 38.4), (10.2, 34.8)]), INK, 1.6),
+            (KIT.rr_outline(22.0, 20.6, 33.0, 23.4, 0.8, 2), INK, 1.6), (ccw([(32.0, 16.0), (39.0, 22.0), (32.0, 28.0)]), INK, 1.6)]
+
+
 def G_x():
     """the X on the job card (rule 227): two struck bars, crossed"""
     def bar(a):
@@ -170,6 +187,8 @@ ICONS = {
     'app_combat':    dict(paint=OLIVE, glyph=G_combat, dust=0.25),
     'app_heal':      dict(paint=BONE, glyph=G_heal),
     'app_x':         dict(paint=OLIVE, glyph=G_x, dust=0.25),
+    'app_notes':     dict(paint=BONE, glyph=G_notes),
+    'app_leave':     dict(paint=BONE, glyph=G_leave),
 }
 # THE CASE: a frame (bezel = [top, right, bottom, left] points) round the screen's hole, the hole's corners rounded hr; the
 # picture is one period of every mask (P = 64) across its middle, so the page stretches it to any size with the browser's

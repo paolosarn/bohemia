@@ -129,7 +129,7 @@ const done = (d) => {
   const state = () => d.page.evaluate(() => !!document.querySelector('#bohphone .page.on'));
   const tapFeed = async () => {
     const box = await d.page.evaluate(() => {
-      const f = document.querySelector('#bohphone .app[data-app=feed]'), b = f.getBoundingClientRect();
+      const f = document.querySelector('#bohphone .home .bpfd'), b = f.getBoundingClientRect();   /* rule 286(c): the feed is on the face, no FEED app */
       return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
     });
     await d.page.mouse.click(box.x, box.y);

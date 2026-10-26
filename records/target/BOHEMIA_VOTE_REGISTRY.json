@@ -15446,7 +15446,7 @@
    "sha": "e3cf4d6f",
    "made": "10/26",
    "title": "THE CITY YOU HAVE NOT WALKED IS GREY TAPE, NOT BLACK: YOU SEE ITS SHAPE, NOT WHO IS THERE. YOUR OWN PINS. THE BOSS FOUND BY A SIGN, AND HIS PART OF TOWN CHANGES WHEN HE FALLS",
-   "why": "Where you have not been is the city in grey under tape snow, not black, and it fills in with colour where you walk; hold a finger to pin CAMP, DANGER, LOOT, SHOP or a word. A flyer near you marks THE POT, and when he falls his block gets its lights back and THE KITCHEN, on the DEMO's map from the moment you press BEGIN.",
+   "why": "Where you have not been is the city in grey under tape snow, not black, colour where you walk, and a held finger pins CAMP, DANGER, LOOT, SHOP or a word; a flyer near you marks THE POT, and when he falls his block gets its lights back and THE KITCHEN. You see it on the DEMO's map the moment you press BEGIN.",
    "before_after": {
     "before": "the map at BUILD 10/26n from the game's camera on 390 x 844: the black static (top left)",
     "after": "BUILD 10/26zq, a new game: the grey tape (top middle), the boss marked (top right), the boss fallen with his lights and THE KITCHEN (bottom left), the pin box (bottom middle)",
@@ -15544,6 +15544,50 @@
     "how": "image",
     "src": "vote/CAMP_THE_BARS_OVER_THEIR_HEADS_10_26.webp"
    }
+  },
+  {
+   "id": "world-two-where-it-sells-10-26",
+   "kind": "ui",
+   "lane": "world two",
+   "sha": "0dfe8446",
+   "made": "10/26",
+   "title": "THE MAP TELLS YOU WHERE YOUR GOODS SELL BEST: EVERY TOWN YOU KNOW, BEST FIRST, THE PRICE ON IT",
+   "why": "Every town you have stood in remembers what its stall pays, so a good's marks show on the map best first, the best ringed, a heard price marked HEARD and old prices fading, a question mark where you never asked. You see it on the DEMO's map when the stash's tap on a trade good calls it (RUN TWO wires the tap).",
+   "before_after": {
+    "before": "BUILD 10/26zv, the whole valley on the phone's glass, two towns visited (top)",
+    "after": "the same glass with the marks for SALT: BEST at the top town, the other's price, a question mark on the towns he has seen and never priced (bottom)",
+    "scale": "1:1"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_TWO_WHERE_IT_SELLS_10_26.webp",
+    "first": "../records/target/vote_first/world-two-where-it-sells-10-26.webp",
+    "firstAt": [
+     0,
+     744,
+     390,
+     736
+    ]
+   }
+  },
+  {
+   "id": "animation-the-minutes-after-a-fight-10-26",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "a6fb707f",
+   "made": "10/26",
+   "title": "THE MINUTES AFTER A FIGHT: YOUR MEN BEHIND THE LOOT SCREEN",
+   "said": "instead of it being black... a live show, as zoomed in as it can be, of your characters looting the bodies and walking between them... research what people typically do after battles",
+   "why": "Behind the loot screen your own men on the fight's ground: one goes through a dead man's pockets and pockets a battery, one kneels by a hurt friend, one ties a rag round his cut arm, one is bent over catching his breath, two smoke and talk, all of it from soldiers' memoirs and the army's manuals. You see it in the VOTE tab moving on the beat, and dimmed the way it sits behind the loot screen.",
+   "options": [
+    "A, yes, play it behind the loot screen",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_MINUTES_AFTER_A_FIGHT.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

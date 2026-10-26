@@ -16,9 +16,10 @@
        to fund my crew'): ONE number on the glass, the batteries; a real finger HELD on the pane (the browser's own touch
        input, start and end) shows the nights, the bill's own count, and letting go takes them off; on a computer the mouse
        hovering does the same; at the red line the batteries wear the red tag themselves
-     - the gear and NOTES are 44 points or more; the bar fits the glass and nothing on it overlaps
-     - the bar's gear opens the game's settings, and the shell's floating gear is not on the glass beside it
-     - NOTES is the city's own button (it opens and closes the notes)
+     - the gear and NOTES are a press each (44 points on the bar; with the phone up they are the phone's SETTINGS and NOTES, 20
+       points or more, and the bar has no copy: UI TWO, rules 238(a)(b), 286(b)); the bar fits the glass and nothing on it overlaps
+     - the gear (the phone's SETTINGS) opens the game's settings, and the shell's floating gear is not on the glass beside it
+     - NOTES is the city's own button (the phone's NOTES presses it; it opens and closes the notes)
      - every word passes 4.5 to 1 on its material, plain and in the sun
      - IN THE FIGHT NOTHING IS ACROSS THE TOP: the strip is gone, the fight measures its top as 0, the round, the
        turn order's faces and AUTO ride the bottom bar, and AUTO still flips the fight
@@ -70,8 +71,19 @@ const CHECK = () => {
      nights still only on a hold), no dash */
   const kept = ['food', 'water', 'tape', 'meds', 'rounds'].filter(k => wg && typeof wg[k] === 'number');
   out.push(['the batteries and every count the game keeps on the glass (the nights only on a hold), no dash', figs.join(' ') === ['batteries'].concat(held ? ['nights'] : [], kept).join(' ') && !dash && !!root.querySelector('[data-f=nights]'), figs.join(' ') + (held ? ' (held)' : '')]);
-  const presses = [root.querySelector('.gear'), document.getElementById('notebtn')].map(e => e ? e.getBoundingClientRect() : null);
-  out.push(['the gear and NOTES are 44 points or more', presses.every(r => r && r.width >= 44 && r.height >= 44), presses.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ')]);
+  /* RE-AIMED 10/26 BY UI TWO (rules 238(a)(b), 286(b)): with the phone up the gear and NOTES are the phone's SETTINGS and NOTES (tiny
+     is fine, his 238(b): a press of 20 points or more, the phone on its side draws them at 0.9), and the bar has no copy of them;
+     without the phone, the bar's, 44 */
+  const TD = (() => { try { return window.top.document; } catch (_e) { return document; } })();
+  const onPhone = document.documentElement.classList.contains('boh-phone-on') && !!TD.querySelector('#bohphone.on .bprow');
+  if (onPhone) {
+    const ps = ['settings', 'notes'].map(a => TD.querySelector('#bohphone .bprow .app[data-app=' + a + ']')).map(e => e ? e.getBoundingClientRect() : null);
+    const copies = [root.querySelector('.gear'), document.getElementById('notebtn')].filter(e => e && e.getBoundingClientRect().width > 0).length;
+    out.push(['the gear and NOTES are a press each', ps.every(r => r && r.width >= 20 && r.height >= 20) && !copies, ps.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ') + ' on the phone, ' + copies + ' on the bar']);
+  } else {
+    const presses = [root.querySelector('.gear'), document.getElementById('notebtn')].map(e => e ? e.getBoundingClientRect() : null);
+    out.push(['the gear and NOTES are a press each', presses.every(r => r && r.width >= 44 && r.height >= 44), presses.map(r => r && Math.round(r.width) + 'x' + Math.round(r.height)).join(' ')]);
+  }
   const boxes = [...root.querySelectorAll('.t,#notebtn,.g')].map(e => e.getBoundingClientRect()).filter(r => r.width > 0);
   out.push(['the bar fits the glass', boxes.every(r => r.left >= 0 && r.right <= W + 0.5), boxes.map(r => Math.round(r.right)).join(' ') + ' of ' + W]);
   let lap = 0; for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) { const a = boxes[i], b = boxes[j];
@@ -137,7 +149,7 @@ async function side(profile) {
     const words = await fr.evaluate(() => { const box = e => { const r = e.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; }, R = document.getElementById('bmtb');
       const w = [['the day on receipt', R.querySelector('[data-f=day] b'), 'right'], ['NOTES on receipt', document.getElementById('noteplate'), 'right'],
         ['the crew on receipt', R.querySelector('[data-f=crew] b'), 'right'], ['a count on glass', R.querySelector('[data-f=batteries] b'), 'right'],
-        ['the place on glass', R.querySelector('[data-f=place]'), 'right']].filter(x => x[1]);
+        ['the place on glass', R.querySelector('[data-f=place]'), 'right']].filter(x => x[1] && x[1].getBoundingClientRect().width > 0);   /* a word off the glass (NOTES on the phone) is not read */
       const fe = window.frameElement ? window.frameElement.getBoundingClientRect() : { x: 0, y: 0 };
       return w.map(x => ({ k: x[0], box: box(x[1]), col: getComputedStyle(x[1]).color, side: x[2], off: [fe.x, fe.y] })); });
     const png = (await p.screenshot()).toString('base64');
@@ -154,12 +166,12 @@ async function side(profile) {
         const t = w.col.match(/\d+/g).slice(0, 3).map(Number), tl = LUM(...t), bg = S[Math.floor(S.length * (tl > 0.3 ? 0.8 : 0.2))];
         return { k: w.k, plain: +CR(tl, LUM(...bg)).toFixed(2), sun: +CR(LUM(...SUN(t)), LUM(...SUN(bg))).toFixed(2) }; });
     }, { png, words });
-    ok('every word passes 4.5 to 1 on its material, plain and in the sun', cr.length >= 4 && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
+    ok('every word passes 4.5 to 1 on its material, plain and in the sun', cr.length >= (words.some(w => w.k === 'NOTES on receipt') ? 4 : 3) && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
     if (profile === 'phone_portrait') {
       /* the narrowest phone anybody holds: every fact still there, nothing past the glass, nothing on top of anything */
       const was = p.viewportSize(); await p.setViewportSize({ width: 320, height: 700 }); await p.waitForTimeout(900);
       const n320 = await fr.evaluate('(' + CHECK.toString() + ')()');
-      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are 44 points or more', 'the batteries and every count the game keeps on the glass (the nights only on a hold), no dash'];
+      const want = ['the word DAY is on the bar once', 'the bar fits the glass', 'nothing on the bar overlaps', 'the gear and NOTES are a press each', 'the batteries and every count the game keeps on the glass (the nights only on a hold), no dash'];
       ok('at 320 wide every fact stays, it fits, nothing overlaps, every press 44', want.every(w => (n320.find(x => x[0] === w) || [0, false])[1]),
         n320.filter(x => want.indexOf(x[0]) >= 0 && !x[1]).map(x => x[0] + ' ' + x[2]).join(' | '));
       await p.setViewportSize(was); await p.waitForTimeout(900);
@@ -168,26 +180,29 @@ async function side(profile) {
         const fb = R.querySelector('[data-f=nights]'), em = document.createElement('em'); em.textContent = '0 DAYS'; fb.appendChild(em); got.days = red(); em.remove();
         fb.style.setProperty('display', 'inline-flex', 'important'); got.nights = red(); fb.style.removeProperty('display');
         const db = R.querySelector('[data-f=day]'), hr = document.createElement('i'); hr.textContent = '06:00'; db.appendChild(hr); got.hour = red(); hr.remove();
-        const gb = R.querySelector('.gear'); gb.style.width = '40px'; got.gear = red(); gb.style.width = '';
+        const TD = window.top.document, pg = document.documentElement.classList.contains('boh-phone-on') && TD.querySelector('#bohphone.on .bprow .app[data-app=settings]');
+        const gb = pg || R.querySelector('.gear'); gb.style.width = pg ? '12px' : '40px'; got.gear = red(); gb.style.width = '';
         got.clean = !red(); return got; }, CHECK.toString());
       ok('PLANTED: \'0 DAYS\' on the nights is caught', caught.days);
       ok('PLANTED: the nights back on the glass without a hold is caught', caught.nights);
       ok('PLANTED: the hour back on the day tag is caught', caught.hour);
-      ok('PLANTED: a 40-point gear is caught', caught.gear);
+      ok('PLANTED: a gear too small to press is caught', caught.gear);
       ok('  and the bar reads clean again once they are taken out', caught.clean);
       /* the bar's gear opens the settings; NOTES opens and closes the notes */
       const off = await p.evaluate(() => { const r = document.getElementById('cityFrame').getBoundingClientRect(); return [r.x, r.y]; });
       const at = async sel => { const b = await fr.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, sel); return b && [b[0] + off[0], b[1] + off[1]]; };
-      let g = await at('#bmtb .gear'); await p.mouse.click(g[0], g[1]); await p.waitForTimeout(700);
+      /* with the phone up its SETTINGS and NOTES are the presses (the shell's own pixels); else the bar's */
+      const atP = a => p.evaluate(a => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=' + a + ']'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, a);
+      let g = (await atP('settings')) || await at('#bmtb .gear'); await p.mouse.click(g[0], g[1]); await p.waitForTimeout(700);
       const setOn = await p.evaluate(() => { const w = document.getElementById('setwrap'); return !!w && w.classList.contains('on'); });
       ok('the bar\'s gear opens the game\'s settings', setOn);
       await p.evaluate(() => { const w = document.getElementById('setwrap'); if (w) w.classList.remove('on'); });
       await p.waitForTimeout(300);
-      g = await at('#notebtn'); await p.mouse.click(g[0], g[1]); await p.waitForTimeout(500);
+      g = (await atP('notes')) || await at('#notebtn'); await p.mouse.click(g[0], g[1]); await p.waitForTimeout(500);
       const nOpen = await fr.evaluate(() => document.getElementById('notewrap').classList.contains('on'));
       await fr.evaluate(() => document.getElementById('noteback').click()); await p.waitForTimeout(300);
       const nShut = await fr.evaluate(() => !document.getElementById('notewrap').classList.contains('on'));
-      ok('NOTES is the city\'s own button: it opens the notes and they close', nOpen && nShut, nOpen + ' ' + nShut);
+      ok('NOTES is the city\'s own (the phone\'s NOTES presses it): it opens the notes and they close', nOpen && nShut, nOpen + ' ' + nShut);
     }
     /* a road fight, the game's own */
     const st = await fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); try { stepOnce(0); stepOnce(4); } catch (_e) {}
