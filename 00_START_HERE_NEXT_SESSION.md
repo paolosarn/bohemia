@@ -152,6 +152,63 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-watch): 10/26 LATEST -- SIX ROWS ANSWERED ([the stupid-move watch] round one, [the job's stars], [AUTO kills one at a time]'s numbers, [a few women] + [four percent], [every weapon's range bands] SHIPPED, [the aim he sees] SHIPPED, [the recruit's ceiling]), research only, no card (rule 127), no game code touched;
+the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
+1 [the stupid-move watch] ROUND ONE, THE BEFORE (rule 188(b), standing): records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_ONE_10_26_26.md,
+  bank banks/BOHEMIA_TUNING_STUPID_MOVE_WATCH_10_26_26.json (one round per rules print), instrument tools/bohemia_tuning_stupid_move_watch.js
+  (replay one fight: --fight <shape> <k>; the resume cache in TUNING_CACHE, never the repo). 600 AUTO fights on rules print 64d2fbf44e2e,
+  six crew shapes (his rifle and two spear-and-car-door men, the Lone Wolf from the door, A New Crew, Desi's two-hand spear, the twelve,
+  the bench's spread), 17,714 turns. WORST FIRST: WINDED 802 turns (4.5 in 100; the Lone Wolf 47), LOW SHOT 237 of 6,160 choice shots,
+  SPREAD 140 of 3,986 rounds (the twelve 9.3 in 100), THE IDLE GUNMAN 288 turns, KEY MAN 9 of 494, NEVER STRUCK 11 of 921, LONE INTO
+  THREE 39 of 4,388 walks; holding near zero: parked 8, a blow left 0, the dance 11, free hits for nothing 3. Eight rows on COMBAT's
+  board for COMBAT TWO. No COMBAT TWO brain push landed during the round (checked 01:05 to 01:29): the after is next round's first job.
+  THE FINDING, A FORK FOR THE COORDINATOR: the worst wrong move is not the brain's. EYES' Lone Wolf (9 of 9 AP beside a hyena, twelve
+  turns) reproduced on the first fight: the bites build fatigue (struck +5, a dodge +2, Battle Brothers') faster than his 15 back, the
+  dogs act first, and he has no legal act (rule 180 bars Recover; the door gives him none). Against dogs only: as rolled 15 in 100,
+  lightest door kit 20, heaviest 11; Battle Brothers' answer as a research splice (Recover in place of Steel Brow, AUTO allowed that one
+  button) 44 in 100, winded turns 449 -> 0. Rule 180 against 176(a) and 183: his call, the options in the record's section 3.
+2 [the job's stars, the cut-offs] (rule 208): records/BOHEMIA_TUNING_THE_JOBS_STARS_CUT_OFFS_10_26_26.md, the one table's
+  section L, bank banks/BOHEMIA_TUNING_THE_JOB_STARS_10_26_26.json, instrument tools/bohemia_tuning_the_job_stars.js. 200 rolled jobs (six
+  crews, one to three skulls, every faction, WORLD's job_bb count) read the calculator's way and played 100 more times: ONE STAR AT 0.95,
+  THREE UNDER 0.50 on the fight's own 24-run clean read: no lie in 200 (one-star jobs pooled 99 clean, three-star 12); the draft
+  0.90 / 0.60 passes 208(f) but lies on 6; 208(f)'s pooled means pass every cut from 0.80 to 0.97, so the gate that bites is the lie
+  count and the flicker (9 jobs in 100 change star on a second 24-run read, 16 at 8: colour only after 24). Found: his crew loses its
+  two- and three-skull jobs (won 30 and 23); the skulls do not order the danger; A BIG CREW is rarely clean when it wins (the twelve,
+  one skull: won 97, nobody down 45), proposed reading for 208(a): nobody dead and at most one man in six laid up (the coordinator's).
+  The calculator is TRUE ([the odds keep up]): within 3 points in every band at 24 runs. RULE 201's numbers by crew size (the watch):
+  on the named target 80 / 70 / 60 percent (one to three / six / twelve men; today 81.0 / 73.3 / 56.2 on the most-struck man),
+  hurt and standing 1.0 / 1.2 / 1.3 (today 0.99 / 1.29 / 1.70), spread under 2 in 100 rounds. NOTE on WORLD's board. STILL RUNNING
+  when this block was written: the big-crew second pass (the six, nine and twelve's 99 jobs with deaths and downs per run) into the
+  same bank (fields readOk, ok, deaths); its numbers are next round's if this session ends first.
+3 [a few women at the post] (rule 203) + [four percent] (rule 214): records/BOHEMIA_TUNING_A_FEW_WOMEN_AT_THE_POST_THE_SHARE_10_26_26.md,
+  the one table's section M: post.women_share 0.04 HIS NUMBER (RUN THREE moved post_women.json, 262c23b0), the realistic 0.02 beside it;
+  at the posts a hundred-day game shows him about four women (one post of seven a week); a cause runs higher only if it preaches
+  equality (FARC 30 to 40, the Tamil Tigers 20 to 30, the Kurdish forces 35 to 40: the Anarchists' own crews proposed 0.20), a faith
+  runs fewer (Wood and Thomas 2017, Wood 2019: the Church at most 0.02); a post keeps the post's number whoever holds the town.
+4 [every weapon's range bands] SHIPPED 9c7fea99 (rule 187): records/BOHEMIA_TUNING_EVERY_WEAPONS_RANGE_BANDS_10_26_26.md, section N,
+  bank banks/BOHEMIA_TUNING_RANGE_BANDS_10_26_26.json, bench tools/bohemia_tuning_range_bands.js. Battle Brothers has no point-blank
+  penalty and no damage by distance; today the rifle is at its BEST at the next tile (70, its +15 with the first tile free), the
+  opposite of 187(a). Proposed: the pistol and the shotgun keep Battle Brothers' lines; the rifle -10 at the next tile; the shotgun's
+  damage whole to two tiles (buckshot about 0.6 inch a yard: on a torso to 25 yards), x0.6 at three, x0.35 at four; a scope row (none
+  exists) -20 / -10 close and -1 a tile. Measured on both sides as a research splice: his crew 58 -> 57 won, A New Crew 75 -> 72, the
+  twelve 81 -> 82 (noise). [the aim he sees] holds: shown and done within 3 points in every cell. NOTE on COMBAT's board.
+5 [the recruit's ceiling] (rule 216, the coordinator's NOTE): records/BOHEMIA_TUNING_THE_RECRUITS_CEILING_10_26_26.md, the one table's
+  section O, bank banks/BOHEMIA_TUNING_THE_RECRUIT_CEILING_10_26_26.json, bench tools/bohemia_tuning_the_recruit_ceiling.js. The formula
+  (L11 = rolled stat + 10 x the star column's midpoint on his kind's four; each star adds 5 by level 11); the weights MEASURED (+10 on
+  one stat of one kind, men struck down saved): melee skill 1, melee defence 0.41, ranged defence 0.38, hitpoints 0.35, fatigue 0.32;
+  ranged skill 1, MELEE DEFENCE 0.76, hitpoints 0.24, fatigue 0.24 (a gunman's second stat since rule 185 put the guns in reach: my own
+  10/25 gun plan left it out); shown as a rank, the kind named. 2,000 rolled halls: the stars alone pick the best man 47 in 100; price
+  says nothing (0.12), stars nothing about price (0.00); BARGAIN as written marks 3 of 7 in every hall, proposed: a top-fifth ceiling
+  at a price under the hall's median (one man in two halls, 89 of 100). NOTE for RUN THREE on RUN TWO's board.
+THE ONE TABLE: sections K (the watch's counts), L (the stars and rule 201's gate numbers), M (the women), N (the bands), hand-added at
+the end of records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md like F to J.
+NOT MEASURED: COMBAT TWO's brain (not pushed yet); the shotgun band on a crew (none of the six carries one); a phone's CPU; the trip's
+other fights in the stars (WORLD's part of 208(a)); the stars for the Lone Wolf against four dogs on a lighter job math.
+NEXT ON THE BOARD: [the stupid-move watch] round two on COMBAT TWO's push (the same 600 fights, before beside after), [the odds keep
+up] (standing), [the first week's losses], [the 32 situations].
+[bb the stars: Battle Brothers' skulls do not read the fight, ours read the fight's own dice; their Recover is the answer to the bites]
+[analog horror: a gauge of red stars that never lies, and a man in full armour standing still while the dogs eat his breath]
+[PENDING Paolo]: the winded fork (rule 180 against 176(a) and 183), through the coordinator.
 TUNING (tuning-every-origin): 10/25 LATEST -- [every origin starts like itself] SHIPPED (rule 184, research only, no card, no game
 code touched; the coordinator opened this chat under rule 112, no check-in, this block is the report; the page committed in pieces).
 RECORD: records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md. BANKS (draft:true, nothing reads them):
