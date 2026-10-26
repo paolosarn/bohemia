@@ -1,3 +1,12 @@
+UI THREE (ui-three-stats): 10/26 LATEST -- [the stat order] and [stats are bars and arrows] ROUND ONE SHIPPED, BUILT, NOT
+YET SEEN (rules 247, 223, 224; BUILD 10/26w): his eight in HIS order (HP, FATIGUE, RANGED SKILL, MELEE SKILL, RANGED DEFENCE, MELEE
+DEFENCE, RESOLVE, INITIATIVE) from one engine list (engine/bohemia_stats.js), each a bar filled to TUNING's most possible (133 / 183 /
+109 / 122 / 68 / 65 / 120 / 195, records/target/bb/stat_max.json) with the faint tick at his own ceiling, his stars in one column, every
+change a green or red arrow and the amount, never 'X to Y': the crew screen, the level-up, the hall and the shop. OWED: the fight's card
+(the COMBAT emergency; NOTE on COMBAT's board). Gate STATS ARE BARS IN HIS ORDER 30/0 with five plants. The whole block: handoffs/UI_THREE.md.
+[bb Battle Brothers draws every attribute as a bar with the number on it and the stars beside it; ours runs in his order.]
+[analog horror: the eight print on the valley's thermal receipt in faded inks, a machine still keeping count of the people it serves.]
+
 CAMP (camp-vamily): 10/26 LATEST -- [the heal button, damage that stays] SHIPPED, BUILT, NOT YET SEEN (rule 226, line 148, BUILD 10/26l):
 damage stays between fights (each man's missing hitpoints and armour kept by name, the dead for good), the map's clock heals at
 Battle Brothers' rates and TAPE mends armour, the CAMP plate is THE HEAL BUTTON (one red and grey bar), camp heals faster and
