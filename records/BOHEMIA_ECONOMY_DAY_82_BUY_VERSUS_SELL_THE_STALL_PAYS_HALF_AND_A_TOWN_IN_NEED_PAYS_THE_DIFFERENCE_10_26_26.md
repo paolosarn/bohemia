@@ -13,7 +13,7 @@ Built this round (numbers and mechanism only; no screen touched):
   read by the gate, the calculator and (next) RUN TWO's stall.
 - tools/bohemia_economy_buy_versus_sell.js: the calculator (the valley's dice for a year, the arbitrage ceiling).
 - gates/buy_versus_sell_gate.js, in the suite as BUY VERSUS SELL: 28/0, eight mutations each turn it red.
-- TUNING's one table, section P (15 rows): records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md.
+- TUNING's one table, section R (15 rows; P and Q are TUNING's own, landed the same hour): records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md.
 - banks/BOHEMIA_ECONOMY_THE_STALLS_WORDS_10_26_26.json: the keeper's lines for the sell side, draft:true.
 - records/target/bb/price_table.json: three Battle Brothers situations had only one of their two price sides (s5).
 
@@ -40,9 +40,10 @@ Built this round (numbers and mechanism only; no screen touched):
 5. **NO STALL IS A BANK.** 17,664 checks (every stall of the valley over a quarter of weeks, a stranger and a loved
    company, every count from one to twelve, and the stacked famines up to food x6): the stall never pays as much as
    the same count costs there.
-6. **A WRONG TAP COSTS NOTHING.** Same visit: what he sold comes back for what he got, what he bought goes back for
-   what he paid (Battle Brothers buys back food the same visit). A sale that leaves the crew under a night of food
-   asks first (rule 242(a)).
+6. **A WRONG TAP COSTS NOTHING.** His rule 248 (10/26, the same hour): what he sold sits on the stall's count marked
+   his and buys back at exactly what it brought while he is in that town ("I can just re-buy it back at the at the sell
+   price not like it increased"); this page adds the other way, what he bought there sells back at what it cost.
+   Battle Brothers buys back food too. A sale that leaves the crew under a night of food asks first (rule 242(a)).
 
 ---
 
@@ -263,8 +264,9 @@ company that sells its whole kit buys about a week (s3) and cannot fight after i
 - `line.word === 'short'` says the need in a word ('they need meds here'), `line.needLeft` how many more;
   `'plenty'` says the stall is full.
 - Before a food sale: `warns(file, 'food', foodAfter, crew)` asks first.
-- The undo (undo_same_visit): keep this visit's sales and buys; a sold unit buys back at what it brought, a bought
-  unit sells back at what it cost; the flags clear when he leaves.
+- The undo (undo_same_visit; his rule 248 is your row [what you sell sits on their shelf] too): keep this visit's sales
+  and buys; a sold unit sits on the stall's count marked YOURS, SOLD and buys back at what it brought, a bought unit
+  sells back at what it cost; the flags clear when he leaves the town.
 - Tape: the stall buys it now (two for a battery); selling it a roll at 1 is your line to add (goods.tape.buy).
 - The gate's 242(d) screen legs are yours; the numbers' legs are in BUY VERSUS SELL.
 
@@ -274,7 +276,7 @@ company that sells its whole kit buys about a week (s3) and cannot fight after i
 
 - **RUN TWO**: the sell side as s6 (a NOTE on your board); the dice's seed with LIFE+CITY (s5.1).
 - **LIFE+CITY**: traitsFor takes the save's seed with RUN TWO's rollTraits (s5.1).
-- **TUNING**: section P is yours to move (the share, the units, the slider); the sick roll (s5.5); the Lone Wolf's
+- **TUNING**: section R is yours to move (the share, the units, the slider); the sick roll (s5.5); the Lone Wolf's
   week (s4).
 - **WORLD**: engine/bohemia_region_news.js SITUATIONS carry both sides of Well Supplied and Ambushed Trade Routes
   (s5.2).

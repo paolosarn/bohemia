@@ -1,5 +1,5 @@
 {
- "_about": "ECONOMY [buy versus sell] (rule 242, Paolo 10/26: 'at the stall where a dose of med six rounds food and water are available, I should also be able to sell... how much you can make, buy versus sell prices'). What the town's stall charges for his supplies AND what it pays for them, both moved by the town (rule 71's traits, the standing). RUN TWO's stall reads this file through engine/bohemia_stall_prices.js (one arithmetic for the screen, the gate and the calculator); TUNING owns moving any number here (the one table, section P, records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md). The town's NEED for a good is not typed here: it is the card's own field (records/target/settlement_traits.json food_buy_mult, medicine_buy_mult; the stall's traitMult() m.food, m.meds), never a second list. A 'quote' is the cited page's own words, checked against the page by gates/buy_versus_sell_gate.js; a row with no words to quote carries a 'why' instead. Record: records/BOHEMIA_ECONOMY_DAY_82_BUY_VERSUS_SELL_THE_STALL_PAYS_HALF_AND_A_TOWN_IN_NEED_PAYS_THE_DIFFERENCE_10_26_26.md. Calculator: tools/bohemia_economy_buy_versus_sell.js.",
+ "_about": "ECONOMY [buy versus sell] (rule 242, Paolo 10/26: 'at the stall where a dose of med six rounds food and water are available, I should also be able to sell... how much you can make, buy versus sell prices'). What the town's stall charges for his supplies AND what it pays for them, both moved by the town (rule 71's traits, the standing). RUN TWO's stall reads this file through engine/bohemia_stall_prices.js (one arithmetic for the screen, the gate and the calculator); TUNING owns moving any number here (the one table, section R, records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md). The town's NEED for a good is not typed here: it is the card's own field (records/target/settlement_traits.json food_buy_mult, medicine_buy_mult; the stall's traitMult() m.food, m.meds), never a second list. A 'quote' is the cited page's own words, checked against the page by gates/buy_versus_sell_gate.js; a row with no words to quote carries a 'why' instead. Record: records/BOHEMIA_ECONOMY_DAY_82_BUY_VERSUS_SELL_THE_STALL_PAYS_HALF_AND_A_TOWN_IN_NEED_PAYS_THE_DIFFERENCE_10_26_26.md. Calculator: tools/bohemia_economy_buy_versus_sell.js.",
  "draft": true,
  "goods": {
   "food": {
@@ -124,9 +124,11 @@
  },
  "undo_same_visit": {
   "value": true,
-  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2150_Update 1.5.0.14.txt",
-  "quote": "buy back food that they previously sold",
-  "why": "rule 117(c): a wrong tap costs nothing. In the same visit, what he sold he buys back for what he got, and what he bought he sells back for what he paid (the price Battle Brothers charges on a buy-back is recall, not on the page: our call, and it makes no money either way)"
+  "source": "records/BOHEMIA_PAOLO_WHAT_YOU_SELL_SITS_ON_THEIR_SHELF_AND_BUYS_BACK_AT_ITS_PRICE_10_26_26.md (VAMILY rule 248, his)",
+  "quote": "I can just re-buy it back at the at the sell price not like it increased",
+  "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2150_Update 1.5.0.14.txt",
+  "bb_quote": "buy back food that they previously sold",
+  "why": "rule 248(a)(b): what he sells goes back on the stall's count marked his and buys back at exactly what it brought while he is in that town (the 'while in that town' is the coordinator's default, rule 205); this lane adds the other way, what he bought this visit sells back at what it cost, so a wrong tap costs nothing either way (rule 117(c)) and makes no money either way. A unit bought back out of a town's need gives that need its unit back"
  },
  "slider": {
   "easiest": {

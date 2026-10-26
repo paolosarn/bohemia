@@ -9981,7 +9981,7 @@ GATES = [
      "every quote read word for word out of the wiki tarball, no need multiplier typed (the card holds it); through engine/bohemia_stall_prices.js a calm town pays half, a sick town pays more "
      "for food and a dose and says it is short, the need eases unit by unit, a glut takes nothing, the warning fires under a night a man; every stall of the valley over a quarter of weeks, "
      "both standings, every count to twelve, sells under what it charges; THE SQUEEZE on the live dice (tools/bohemia_economy_buy_versus_sell.js): week one's best trading under one routine "
-     "contract, no week of the year's under a week of food for three, Battle Brothers' own spread pays nothing; TUNING's one table carries section P. Eight mutations turn it red. 1 s", False),
+     "contract, no week of the year's under a week of food for three, Battle Brothers' own spread pays nothing; TUNING's one table carries section R. Eight mutations turn it red. 1 s", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

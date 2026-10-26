@@ -6,7 +6,7 @@
    The numbers' half of rule 242(d); RUN TWO's [sell at the stall] gate holds the screen's half (the tap, the count, the
    batteries). Legs:
    F  the price file: every row the stall reads has a value and a source; every 'quote' is the cited page's own words,
-      read out of the wiki tarball; no need multiplier typed here (a card's need lives on the card, never a second list).
+      read out of the wiki tarball (or his own words, out of the record that holds them); no need multiplier typed here (a card's need lives on the card, never a second list).
    P  the prices: a calm town pays half; a sick town pays more for food than a calm one and says so; rounds and tape
       have no need; a glut town takes nothing; the warning fires before a sale leaves under a night a man.
    U  242(d) 'sell under buy everywhere': every stall of the valley, every week of a quarter, both standings, every count
@@ -30,6 +30,8 @@ const raw = JSON.parse(fs.readFileSync(path.join(ROOT, FILE), 'utf8'));
 const TAR = path.join(ROOT, 'reference/library/grok/wiki/PAGES_ALL.tar.gz');
 const pageCache = {};
 function page(src) {
+  const r = String(src).match(/^((records|laws)\/[^ ,;]+\.md)/);   /* his words: the record that holds them */
+  if (r) { try { return fs.readFileSync(path.join(ROOT, r[1]), 'utf8'); } catch (e) { return null; } }
   const m = String(src).match(/(bb_all\/[^,;]+?\.txt)/); if (!m) return null;
   if (!(m[1] in pageCache)) { try { pageCache[m[1]] = cp.execSync('tar -xzOf "' + TAR + '" "' + m[1] + '"', { encoding: 'utf8' }); } catch (e) { pageCache[m[1]] = null; } }
   return pageCache[m[1]];
