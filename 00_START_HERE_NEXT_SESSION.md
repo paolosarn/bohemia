@@ -667,6 +667,13 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-armour, session_0184h2KYCB): 10/26 (aa) LATEST -- [the armour he wears shows] SHIPPED 7035d1c7 (rule 272): every
+helmet and body armour drawn on the man who wears it (17 placeholder classes in the rig's look, slices/wear; one player,
+engine/bohemia_wear.js) on the crew card, his portrait, in the fight, at camp and on the map; THE ARMOUR HE WEARS SHOWS 18/0
+phone and computer. The whole block: handoffs/CHARACTER.md.
+[bb Battle Brothers draws a brother as layers, body then armour then helmet; ours lays each piece on him the same way.]
+[analog horror: a riot helmet's clear shield over a clay face, a car door strapped on with belts: what is left of order, worn.]
+
 CHARACTER (character-enemies, opened by the coordinator 10/25 after the reset, rule 112): 10/25 (z) LATEST -- *** THE MECHANIC, THE KIDS AND RUNNERS AND THE HEAVY ARE IN THE FIGHT: SEVENTEEN ON THE 3D MAN, LAYERED, FADED, NO TWO ALIKE. ***
 TAB: the fight (COMBAT), in the demo, on any road fight after the first: a machines party brings the Mechanic, a kids'
 party the Runners, a heavies' party the Heavies. No card (rule 127). [the enemies' looks] SHIPPED 9737f26d.
