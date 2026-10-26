@@ -1,3 +1,7 @@
+UI TWO (ui-two): 10/26 LATEST -- the phone overhaul SHIPPED 3cc7cdd77, BUILT, NOT YET SEEN (BUILD 10/26zb - ONE PHONE IN YOUR CORNER, YOUR JOBS ONLY): one phone in his corner on every screen, his jobs only
+with EMPTY, READY TO GO slots, PLAY/PAUSE, CREW, HEAL (a cross in a ring the company's blood and armour fill), FEED, RELATIONS; his abilities on it in a fight;
+gate THE PHONE 183/0 (phone upright, on its side, a computer). The whole block: handoffs/UI_TWO.md (rule: each lane's block in handoffs/).
+
 UI THREE (ui-three-stats): 10/26 LATEST -- [the stat order] and [stats are bars and arrows] ROUND ONE SHIPPED, BUILT, NOT
 YET SEEN (rules 247, 223, 224; BUILD 10/26w): his eight in HIS order (HP, FATIGUE, RANGED SKILL, MELEE SKILL, RANGED DEFENCE, MELEE
 DEFENCE, RESOLVE, INITIATIVE) from one engine list (engine/bohemia_stats.js), each a bar filled to TUNING's most possible (133 / 183 /
