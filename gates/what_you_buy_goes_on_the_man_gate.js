@@ -52,7 +52,8 @@ function taps(d, sf, mouse) {
   const tapSel = async (sel) => { const r = await rect(sel); if (!r) return false; const b = await box(); await tapAt(b.x + r.x, b.y + r.y); await P.waitForTimeout(700); return true; };
   const openShop = async (k) => { await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await P.waitForTimeout(300);
     for (let i = 0; i < 8; i++) { if (await sf.evaluate(k => BohemiaSettlement.state.open === k && !!document.querySelector('#shelfgrid'), k)) return true; const w = await sf.evaluate(k => BohemiaSettlement.where(k), k); const b = await box(); if (w) await tapAt(b.x + w.x, b.y + w.y); await P.waitForTimeout(900); } return false; };
-  const tapItem = async (k, id) => { const i = await sf.evaluate(({ k, id }) => (BohemiaSettlement.state.stock[k] || []).findIndex(x => x.id === id), { k, id }); return i >= 0 && tapSel('#shelfgrid .slot:nth-child(' + (i + 1) + ')'); };
+  /* RE-AIMED 10/26 (RUN TWO [one tap selects, two taps buy]): a piece bought this visit leaves its place empty, so a tile is found by its own id */
+  const tapItem = async (k, id) => tapSel('#shelfgrid .slot[data-id="' + id + '"]');
   const card = () => sf.evaluate(() => { const om = document.querySelector('#sbody .onman'), q = s => [...document.querySelectorAll(s)];
     return { man: om ? om.dataset.man : null, faces: q('#shopfaces button').map(b => b.dataset.man), said: (document.querySelector('#sbody .say') || document.getElementById('sbody')).textContent.replace(/\s+/g, ' ').trim().slice(0, 240) }; });
   return { tapAt, tapSel, rect, openShop, tapItem, card, box };
@@ -75,14 +76,14 @@ const idOf = x => x ? (x.id || x) : null;
     await T.tapItem('armourer', sh);
     const c1 = await T.card(), bw = await T.rect('#buywear'), bs = await T.rect('#buystash');
     const firstName = c1.man ? (c1.man === 'YOU' ? null : c1.man.charAt(0) + c1.man.slice(1).toLowerCase()) : '?';
-    ok('B1 a shield\'s card shows it on ' + c1.man + ' and BUY names him ("' + (bw && bw.text) + '"), "' + (bs && bs.text) + '" under it, ' + (bw && Math.round(bw.h)) + ' and ' + (bs && Math.round(bs.h)) + ' points',
-      !!c1.man && !!bw && !bw.off && (firstName ? bw.text.indexOf('Buy it, ' + firstName + ' wears it') === 0 : /^Buy it and wear it/.test(bw.text)) && !!bs && /to the stash/.test(bs.text) && bw.h >= 44 && bs.h >= 44 && bs.y > bw.y && files0.hk === false);
+    ok('B1 a shield\'s card shows it on ' + c1.man + ' and BUY names him ("' + (bw && bw.text) + '"), "' + (bs && bs.text) + '" beside it, ' + (bw && Math.round(bw.h)) + ' and ' + (bs && Math.round(bs.h)) + ' points',
+      !!c1.man && !!bw && !bw.off && (firstName ? bw.text.indexOf('Buy it, ' + firstName + ' wears it') === 0 : /^Buy it and wear it/.test(bw.text)) && !!bs && /to the stash/.test(bs.text) && bw.h >= 44 && bs.h >= 44 && (bs.y > bw.y || bs.x > bw.x) && files0.hk === false);   /* RE-AIMED 10/26: 'to the stash' beside it in the strip */
     /* B2: one tap */
     const before = await sf.evaluate(() => ({ bats: BohemiaSettlement.bats ? BohemiaSettlement.bats() : null, stash: BohemiaSettlement.state.stash.map(i => i.id), price: null }));
     const man1 = c1.man, crewA = await crewNow(sf), oldOff = idOf((crewA.find(m => m.name === man1) || {}).gear && crewA.find(m => m.name === man1).gear.off);
     const price = await sf.evaluate(id => (BohemiaSettlement.state.stock.armourer || []).find(i => i.id === id).price, sh);
     await T.tapSel('#buywear');
-    const after = await sf.evaluate(() => ({ bats: BohemiaSettlement.bats ? BohemiaSettlement.bats() : null, stash: BohemiaSettlement.state.stash.map(i => ({ id: i.id, keep: i.keep })), wore: window.__WORE || null, said: (document.querySelector('#sbody .say') || document.getElementById('sbody')).textContent.replace(/\s+/g, ' ').trim() }));
+    const after = await sf.evaluate(() => ({ bats: BohemiaSettlement.bats ? BohemiaSettlement.bats() : null, stash: BohemiaSettlement.state.stash.map(i => ({ id: i.id, keep: i.keep })), wore: window.__WORE || null, said: document.getElementById('sbody').textContent.replace(/\s+/g, ' ').trim() }));   /* RE-AIMED 10/26: the result is said in the strip, never by the keeper */
     const lines1 = await sf.evaluate(() => BohemiaShopWear.read());
     const oldIn = !oldOff || after.stash.some(x => x.id === oldOff && x.keep === true);
     ok('*** B2 BUY AND HE WEARS IT *** (one tap: ' + JSON.stringify(after.wore && after.wore.said) + '; his old shield ' + (oldOff || 'none') + (oldOff ? (oldIn ? ' in the stash, kept' : ' NOT in the stash') : '') + ')',

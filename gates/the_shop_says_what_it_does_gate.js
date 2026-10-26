@@ -78,12 +78,14 @@ function taps(d, sf, mouse) {
   const tapSel = async (sel) => { const r = await sf.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return null; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, sel); if (!r) return false; const b = await box(); await tapAt(b.x + r.x, b.y + r.y); await P.waitForTimeout(700); return true; };
   const openShop = async (k) => { await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await P.waitForTimeout(300);
     for (let i = 0; i < 8; i++) { if (await sf.evaluate(k => BohemiaSettlement.state.open === k && !!document.querySelector('#shelfgrid'), k)) return true; const w = await sf.evaluate(k => BohemiaSettlement.where(k), k); const b = await box(); if (w) await tapAt(b.x + w.x, b.y + w.y); await P.waitForTimeout(900); } return false; };
-  const tapItem = async (k, id) => { const i = await sf.evaluate(({ k, id }) => (BohemiaSettlement.state.stock[k] || []).findIndex(x => x.id === id), { k, id }); return i >= 0 && tapSel('#shelfgrid .slot:nth-child(' + (i + 1) + ')'); };
+  /* RE-AIMED 10/26 (RUN TWO [one tap selects, two taps buy]): a tile is found by its own id (a piece bought leaves its place empty) */
+  const tapItem = async (k, id) => tapSel('#shelfgrid .slot[data-id="' + id + '"]');
   const card = () => sf.evaluate(() => { const q = s => [...document.querySelectorAll(s)];
     const chips = q('#sbody .inums .ch').map(c => ({ stat: c.dataset.stat || null, icon: !!(c.querySelector('img') && c.querySelector('img').complete && c.querySelector('img').naturalWidth > 0 && /stat_icons\//.test(c.querySelector('img').src)), text: c.textContent.replace(/\s+/g, ' ').trim() }));
     const om = document.querySelector('#sbody .onman');
     const lines = q('#sbody .onman .ln').map(l => ({ k: l.dataset.k, before: l.dataset.before, after: l.dataset.after, delta: +l.dataset.delta, cls: (l.querySelector('.d') || {}).className, text: l.textContent.replace(/\s+/g, ' ').trim() }));
-    const acts = q('#sbody .acts > *'), iNums = acts.indexOf(document.querySelector('#sbody .inums')), iBuy = acts.findIndex(a => /Buy it/.test(a.textContent));
+    /* RE-AIMED 10/26: the numbers come before the price in the page's own order (the strip: the piece's numbers, then the button with its price) */
+    const nEl = document.querySelector('#sbody .inums'), bEl = q('#sbody .act').find(a => /Buy it/.test(a.textContent)), iNums = nEl ? 0 : -1, iBuy = nEl && bEl && (nEl.compareDocumentPosition(bEl) & Node.DOCUMENT_POSITION_FOLLOWING) ? 1 : -1;
     return { chips, man: om ? om.dataset.man : null, who: om ? om.querySelector('.who').textContent : '', lines, faces: q('#shopfaces button').map(b => b.dataset.man), on: (document.querySelector('#shopfaces button.on') || {}).dataset ? document.querySelector('#shopfaces button.on').dataset.man : null,
       stop: q('#sbody .onman .stop').map(e => e.textContent).join(' '), numsBeforeBuy: iNums >= 0 && iBuy > iNums, shown: BohemiaSettlement.state.shopShown }; });
   return { tapAt, tapSel, openShop, tapItem, card, box };
@@ -136,7 +138,7 @@ function taps(d, sf, mouse) {
     const c3 = await T.card(), o3m = crew.find(m => m.name === other);
     const o3 = o3m ? oracle(Object.assign({}, o3m, { gear: Object.assign({}, o3m.gear, { off: pair.item }) }), OURS) : null, l3 = (c3.lines.find(l => l.k === 'melee_defense') || {});
     const o3stops = o3m && (() => { const w = row('weapon', o3m.gear.main); return twoH(w); })();
-    ok('C3 a tap on ' + other + '\'s face shows it on him (' + c3.who + ': ' + (c3.lines.map(l => l.text).join(' / ') || c3.stop) + ')', !!other && c3.man === other && c3.on === other && (o3stops ? /both hands/.test(c3.stop) : +l3.after === o3.melee_defense));
+    ok('C3 a tap on ' + other + '\'s face shows it on him (' + c3.who + ': ' + (c3.lines.map(l => l.text).join(' / ') || c3.stop) + ')', !!other && c3.man === other && c3.on === other && (o3stops ? /both hands/.test(c3.stop) : (l3.k ? +l3.after === o3.melee_defense : !!c3.shown && !!c3.shown.after && c3.shown.after.melee_defense === o3.melee_defense)));   /* RE-AIMED 10/26 (rule 251(a)): a stat that does not change has no line; the strip's own numbers say it */
     /* C4: an armour card and a weapon card */
     const arm = await sf.evaluate(() => (BohemiaSettlement.state.stock.armourer || []).find(i => i.kind === 'body' || i.kind === 'head'));
     let c4a = null; if (arm) { await T.openShop('armourer'); await T.tapItem('armourer', arm.id); c4a = await T.card(); }

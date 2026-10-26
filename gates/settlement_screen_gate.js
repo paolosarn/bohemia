@@ -139,22 +139,24 @@ const srv = http.createServer((rq, rs) => {
   ok('a shop is two grids: their shelf of icons, and your bag of 36 slots under it', shelfN >= 5 && bagSlots === 36, shelfN + ' on the shelf, ' + bagSlots + ' bag slots');
   ok('  the shelf is weapons in our names', /pistol|pipe|sledge|rifle|machete|axe|spear|cleaver|chain|hook|bow|bottles|shotgun/.test(first.name), first.name + ' (was ' + first.was + ')');
   await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(250);
-  const said = await p.evaluate(() => document.querySelector('#sbody .say p').textContent + ' | ' + (document.querySelector('#sbody .slots') || {}).textContent);
-  ok('  the keeper says the price and the card shows the numbers', said.indexOf(String(first.price)) >= 0 && /DAMAGE \d+-\d+/.test(said), said.slice(0, 90));   /* RE-AIMED RUN TWO rule 202(a): the card's numbers in words with UI's icons ('DAMAGE 25-35'), never 'dmg' */
+  /* RE-AIMED 10/26 (RUN TWO [one tap selects, two taps buy], rule 249(a)): a tap lights the piece and fills the strip in place, the keeper says
+     nothing new; the strip carries the price (on its button) and the numbers */
+  const said = await p.evaluate(() => ((document.querySelector('#shopstrip') || {}).innerText || '').replace(/\s+/g, ' '));
+  ok('  the strip says the price and shows the numbers', said.indexOf(String(first.price)) >= 0 && /DAMAGE \d+-\d+/.test(said), said.slice(0, 90));   /* RE-AIMED RUN TWO rule 202(a): the card's numbers in words with UI's icons ('DAMAGE 25-35'), never 'dmg' */
   const m0 = await bat();
-  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
+  await p.click('#shopstrip .ss-acts .act:not([disabled])'); await p.waitForTimeout(250);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the lit piece's buy is the strip's button */
   const m1 = await bat(), inBag = await p.evaluate(() => document.querySelectorAll('#baggrid .slot.full').length);
   ok('  buying takes exactly the price and the item lands in your bag', m0 - m1 === first.price && inBag === 1, m0 + ' -> ' + m1 + ', bag ' + inBag);
   await tapB('armourer'); await p.waitForTimeout(250);
   const armShelf = await p.evaluate(() => BohemiaSettlement.state.stock.armourer.map(i => i.name).join(', '));
   ok('the armourer sells armour and shields', /vest|jacket|carrier|riot|hood|hat|helm|door|shield/.test(armShelf), armShelf.slice(0, 80));
   await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(200);
-  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
+  await p.click('#shopstrip .ss-acts .act:not([disabled])'); await p.waitForTimeout(250);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the lit piece's buy is the strip's button */
   const bag2 = await p.evaluate(() => BohemiaSettlement.state.stash.map(i => i.kind).join(','));
   ok('  armour lands in the same bag', /weapon/.test(bag2) && /(body|head|shield)/.test(bag2), bag2);
   const s0 = await bat();
   await p.click('#baggrid .slot.full'); await p.waitForTimeout(200);
-  await p.click('#sbody .act'); await p.waitForTimeout(250);
+  await p.click('#shopstrip #sellit'); await p.waitForTimeout(250);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the sale is the strip's button */
   const s1 = await bat(), bag3 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
   ok('  selling takes it out of the bag and pays the Battle Brothers cut, a seventh (TUNING)', s1 - s0 === Math.max(1, Math.floor(first.price / 7)) && bag3 === 1, s0 + ' -> ' + s1 + ', bag ' + bag3);
   const posted = await p.evaluate(() => { const b = (window.__settleLog || []).filter(m => m.act === 'bag').pop(); return b ? b.bag.length + '/' + b.slots : 'none'; });
@@ -173,14 +175,14 @@ const srv = http.createServer((rq, rs) => {
   await p.evaluate(() => { BohemiaSettlement.state.stash.length = 0; window.__settleLog = []; });
   await tapB('smith'); await p.waitForTimeout(200);
   await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
-  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  await p.click('#shopstrip .ss-acts .act:not([disabled])'); await p.waitForTimeout(200);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the lit piece's buy is the strip's button */
   const smithSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
   ok('buying at the smith plays pickup, the same bag sound as loot', smithSfx.length === 1 && smithSfx[0].ev === 'pickup', JSON.stringify(smithSfx));
   await p.click('#close'); await p.waitForTimeout(150);
   await p.evaluate(() => { window.__settleLog = []; });
   await tapB('armourer'); await p.waitForTimeout(200);
   await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
-  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  await p.click('#shopstrip .ss-acts .act:not([disabled])'); await p.waitForTimeout(200);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the lit piece's buy is the strip's button */
   const armourerSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
   ok('  and the armourer plays the same pickup, not a second invented sound', armourerSfx.length === 1 && armourerSfx[0].ev === 'pickup', JSON.stringify(armourerSfx));
   await p.click('#close'); await p.waitForTimeout(150);
@@ -196,7 +198,7 @@ const srv = http.createServer((rq, rs) => {
   const nightFirst = await p.evaluate(() => BohemiaSettlement.state.stock.smith[0]);
   if (nightFirst) {
     await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
-    await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+    await p.click('#shopstrip .ss-acts .act:not([disabled])'); await p.waitForTimeout(200);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the lit piece's buy is the strip's button */
     const nightBuySfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
     ok('  and it is quieter at night, the same trim the clinic door already carries',
       nightBuySfx.length === 1 && nightBuySfx[0].ev === 'pickup' && nightBuySfx[0].mul === 0.5, JSON.stringify(nightBuySfx));
@@ -311,7 +313,7 @@ const srv = http.createServer((rq, rs) => {
   await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 400, 'gate', null, 0));
   await tapB('smith'); await p.waitForTimeout(200);
   await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
-  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  await p.click('#shopstrip .ss-acts .act:not([disabled])'); await p.waitForTimeout(200);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the lit piece's buy is the strip's button */
   await p.click('#close'); await p.waitForTimeout(150);
   await at(0); const r0b = await smithIds();
   await at(2); const r2 = await smithIds();
@@ -331,9 +333,10 @@ const srv = http.createServer((rq, rs) => {
     const prices = await p.evaluate(() => BohemiaSettlement.state.stock.smith.map(i => i.price));
     await tapB('smith'); await p.waitForTimeout(200);
     await p.click('#baggrid .slot.full'); await p.waitForTimeout(150);
-    const offer = await p.evaluate(() => document.querySelector('#sbody .say p').textContent);
+    /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the sale is on the strip's SELL IT button, the keeper says nothing new */
+    const offer = await p.evaluate(() => ((document.querySelector('#shopstrip #sellit em') || {}).textContent || ''));
     await p.click('#close'); await p.waitForTimeout(150);
-    return { shelf: shelf.join(), prices, offer: +((offer.match(/give you (\d+)/) || [])[1] || 0) };
+    return { shelf: shelf.join(), prices, offer: +((offer.match(/(\d+)/) || [])[1] || 0) };
   };
   const hostile = await atBar(5), neutral = await atBar(50), allied = await atBar(100);
   ok('  THE BAR MOVES THE PRICE: the same shelf, Allied dearest piece cheaper by the page\'s 15% and the blade sells for more; Hostile prices as Neutral (the page is silent below 50)',
@@ -454,7 +457,7 @@ const srv = http.createServer((rq, rs) => {
       const c0 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
       await tapB('arms'); await p.waitForTimeout(250);
       await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(200);
-      await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
+      await p.click('#shopstrip #buystash:not([disabled])'); await p.waitForTimeout(250);   /* RE-AIMED 10/26: into the bag (the strip's stash button), never onto a man */
       const c1 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
       ok('  the camp\'s guns-and-plate stall sells into the same bag', c1 === c0 + 1, c0 + ' -> ' + c1);
       await p.click('#close'); await p.waitForTimeout(300);

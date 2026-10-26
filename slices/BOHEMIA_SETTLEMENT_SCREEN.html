@@ -150,6 +150,38 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .fstrip button{flex:0 0 auto;width:52px;padding:2px;border:1px solid var(--line);border-radius:6px;background:var(--plate);color:var(--dim);font:inherit;font-size:9px;letter-spacing:.5px;display:flex;flex-direction:column;align-items:center;gap:2px}
 .fstrip button.on{border-color:var(--gold);color:var(--gold)}
 .fstrip canvas{width:40px;height:40px;border-radius:4px;background:#0c0906}
+/* __ONE_TAP_SELECTS__ (rules 249, 250, 251, 282): the strip over nothing that moves; every part one size, whatever is lit */
+.shopstrip{display:flex;flex-direction:column;gap:5px;margin:8px 0 0;position:sticky;bottom:0;z-index:3;background:rgba(22,17,12,.985);padding:6px 0 6px;border-top:1px solid var(--line);box-shadow:0 -8px 12px rgba(0,0,0,.55)}
+#sheet.shopping{scroll-padding-bottom:206px}   /* a piece brought into view is never left behind the strip */
+.ss-facts{height:44px;overflow:hidden;display:flex;flex-direction:column;gap:4px}
+.ss-facts .ss-title{display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
+.ss-facts .ss-title b{color:var(--ink);font-size:13px;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis}
+.ss-facts .ss-title em{font-style:normal;color:var(--gold);margin-left:auto}
+.ss-facts .ss-title .twoh{margin:0 0 0 auto;font-size:18px;letter-spacing:3px;line-height:1}   /* rule 194(b): big, on the card */
+.ss-facts .inums{flex-wrap:nowrap;overflow:hidden}
+.ss-said{font-size:12px;color:#9fc38f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ss-hint{font-size:12px;color:var(--dim);padding-top:10px}
+.onman.ss-man{height:100px;box-sizing:border-box;margin:0;padding:4px 6px;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+.onman.ss-man .who{font-size:10px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0}
+.onman.ss-man .lns{display:flex;flex-wrap:wrap;gap:1px 10px;align-items:center;overflow:hidden;max-height:34px}
+.onman.ss-man .lns .ln,.onman.ss-man .lns .ln.bst-row{display:inline-flex!important;align-items:center;gap:3px;padding:0!important;min-height:0!important;font-size:11px}
+.onman.ss-man .lns .ln .bst-bar,.onman.ss-man .lns .ln .bst-track,.onman.ss-man .lns .ln .bst-st,.onman.ss-man .lns .ln .bst-tag,.onman.ss-man .lns .ln .bst-n{display:none!important}
+.onman.ss-man .lns .ln .k{min-width:0!important;font-size:10px}
+.onman.ss-man .lns .stop{font-size:11px;padding:0}
+.onman.ss-man .fstrip{order:-1;padding:0 0 4px;flex:none}
+.onman.ss-man .fstrip button{position:relative;width:46px}
+.onman.ss-man .fstrip canvas{width:28px;height:28px}
+.onman.ss-man .fstrip .dv{font-size:10px;font-weight:bold;letter-spacing:0;line-height:1;min-height:10px}
+.onman.ss-man .fstrip .dv.up{color:#7fd16a}.onman.ss-man .fstrip .dv.dn{color:#e07a5f}.onman.ss-man .fstrip .dv.eq{color:var(--dim)}
+.ss-acts{display:flex;gap:6px;height:48px}
+.ss-acts .act{flex:1 1 50%;min-width:0;margin:0}
+.ss-acts .act span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ss-acts .act[data-dim]{visibility:hidden}
+#sheet .slot.sel{outline:2px solid #f4cf7c;outline-offset:-2px;box-shadow:0 0 0 2px rgba(244,207,124,.25),inset 0 0 10px rgba(244,207,124,.18)}
+#sheet .slot.up{border-color:#5fae4f}
+#sheet .slot .upm{position:absolute;right:3px;top:1px;font-size:10px;color:#7fd16a;text-shadow:0 1px 0 #000;line-height:1}
+#sheet .grid .slot{position:relative}
+#sheet .slot.gone{opacity:.35}
 .mbars{display:inline-flex;gap:3px;margin-left:auto;margin-right:8px}.mbar{display:inline-block;width:34px;height:7px;background:#3a1610;border:1px solid #000;vertical-align:middle}.mbar i{display:block;height:100%;background:#9a9a8e}   /* __THE_SMITH_MENDS__: each broken piece a bar, the grey what is left */
 .act.tostash{min-height:44px;font-size:12px;letter-spacing:1px;color:var(--dim);background:transparent;border-style:dashed;justify-content:center}   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210(c)): BUY wears it; this keeps it unworn */
 .twoh{margin:8px 14px 0;font-size:20px;letter-spacing:4px;color:#f4cf7c;font-weight:bold}   /* rule 194(b): TWO HANDS in big letters on a two-hander's card */   /* the man you tapped at the post (RUN TWO, change 7) */
@@ -521,50 +553,125 @@ function iconTile(it, onTap, sub, money){
   } else b.disabled = true;
   return b;
 }
+/* ==== __ONE_TAP_SELECTS__ + __NOTHING_MOVES_WHILE_HE_BROWSES__ + __ONLY_WHAT_CHANGES__ + __THE_SHOP_LIGHTS_UPGRADES__ (RUN TWO, rules 249,
+   250, 251 and 282, Paolo 10/26: 'when I click something once in a shop it should be highlighted... it shouldn't open up a second
+   menu... I just double click it'; 'as I click through the items the things don't change locations... I can comb through the items
+   and see how it impacts my team'; 'there's so many numbers... just an icon, a green arrow up, a red arrow down and a number'; 'if
+   the shop has a better version of that same weapon type it's highlighted in green... it recommends it goes to the one with the bad
+   helmet first'). MEASURED: a tap on a piece took the whole sheet away for its card (the keeper saying its price, a second menu with
+   'Not this one'), so every tap moved the shelf off the glass and back. NOW one strip that is always there at one size (what the
+   piece is and costs, his men's faces each with what it does to him, the man it suits marked, the two buttons) stands over the
+   shelf; ONE TAP lights a piece's box and fills the strip in place, nothing else moves; TWO TAPS (a double click, a right click on a
+   computer) buy it onto the man the strip names, or sell his own piece; a piece better for one of his men than what he has in that
+   slot wears a green mark, and its tap names the man it helps most first. The buy and the sell are the shop's own, unchanged. ==== */
+var SHOPTAP = {it:null, t:0};
+function shopSelIt(k){ var sl = S.shopSel; return sl && sl.k === k ? sl : null; }
+/* the shelf as it stood when he walked in: a piece he buys leaves its place empty for the visit, so nothing slides into it */
+function shelfView(k){
+  var items = S.stock[k] || [], O = (S.shelfOrder = S.shelfOrder || {}), o = O[k];
+  if(!o || items.some(function(it){ return o.indexOf(it) < 0; })) o = O[k] = items.slice();
+  return o.map(function(it){ return items.indexOf(it) >= 0 ? it : null; });
+}
+/* better for at least one of his men in the same slot (rule 282(c): the strip's own score, the one 'it suits him best' reads) */
+function shopUpFor(it){ var crew = shopCrew(); if(!crew.length || !window.BohemiaRoster) return null; var best = null, bv = 0;
+  crew.forEach(function(m){ var w = null; try{ w = shopWearOn(m, it); }catch(e){} if(!w || w.stops || (w.was && w.was === it.id)) return; var v = headline(w, it.kind); if(v > bv + 1e-6){ bv = v; best = m; } });
+  return best ? {man:best, by:bv} : null; }
+function shopPick(k, it, from){
+  var now = performance.now(), twice = SHOPTAP.it === it && now - SHOPTAP.t < 450;
+  SHOPTAP.it = it; SHOPTAP.t = now;
+  if(!(S.shopSel && S.shopSel.it === it)){ S.shopSel = {k:k, it:it, from:from}; S.shopSaid = null; if(from === 'shelf'){ var up = shopUpFor(it); if(up) S.shopMan = up.man.name; } }
+  if(twice){ SHOPTAP.it = null; shopDo(k); return; }
+  shopMark(); shopStripFill(k);
+}
+function shopMark(){ [].forEach.call(document.querySelectorAll('#shelfgrid .slot, #baggrid .slot'), function(t){ t.classList.toggle('sel', !!S.shopSel && !!t.__it && t.__it === S.shopSel.it); }); }
+/* the one action of the piece lit: buy it onto the man the strip names (or into the stash), or sell his own */
+function shopDo(k){ var sl = shopSelIt(k); if(!sl) return;
+  if(sl.from === 'shelf') shopBuy(k, sl.it, !!wearTarget(sl.it)); else shopSell(k, sl.it); }
+/* the sheet drawn again after an action, where it was (the shelf and the bag at the same scroll), the result in the strip */
+function shopRedo(k, said){ var sh = document.getElementById('sheet'), sc = sh ? sh.scrollTop : 0;
+  S.shopSel = null; S.shopSaid = said || null; openB(k); if(sh) sh.scrollTop = sc; }
+function shopBuy(k, it, onHim){
+  if(bats() < it.price){ S.shopSaid = 'You are short. ' + it.price + ', and you have ' + bats() + '.'; shopStripFill(k); return; }
+  var full = S.stash.length >= BAG_SLOTS, wm = onHim ? wearTarget(it) : null;   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__: the man the strip shows, read again now */
+  if(onHim && !wm) return shopStripFill(k);
+  if(wm){ var need = (wm.w.was ? 1 : 0) + (wm.w.drops ? 1 : 0); if(BAG_SLOTS - S.stash.length < need){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; } }
+  else if(full){ S.shopSaid = 'Your stash is full.'; shopStripFill(k); return; }
+  P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
+  S.stock[k].splice(S.stock[k].indexOf(it), 1);
+  S.sold = S.sold || {}; (S.sold[soldKey()] = S.sold[soldKey()] || []).push(k + ':' + it.id);   /* [the shelf restocks] */
+  if(wm){ var said = wearBought(it, wm.m, wm.w); bagSave(); post('buyArms', {item:it, wornBy:wm.m.name, slot:wm.w.slot}); sfx('equip', view.night ? NIGHT_TRIM : null); shelf(); shopRedo(k, said); return; }
+  S.stash.push(it); bagSave();
+  post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); shopRedo(k, 'Yours. It is in your stash.');
+}
+function shopSell(k, it){
+  var back = sellBack(it);
+  P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
+  S.stash.splice(S.stash.indexOf(it), 1); bagSave(); post('sellArms', {item:it, got:back}); shelf(); shopRedo(k, 'Sold. ' + back + ' batteries.');
+}
+/* the strip: always there, always one size; a selection only changes what is in it */
+function shopStripFill(k, el){
+  var st = el || document.getElementById('shopstrip'); if(!st) return; st.textContent = '';   /* el: the strip of a sheet still being built (not in the page yet) */
+  var sl = shopSelIt(k), it = sl ? sl.it : null, shelfIt = !!it && sl.from === 'shelf';
+  var f = document.createElement('div'); f.className = 'ss-facts'; st.appendChild(f);
+  if(S.shopSaid){ var sd = document.createElement('div'); sd.className = 'ss-said'; sd.textContent = S.shopSaid; f.appendChild(sd); }
+  if(!it){ var hn = document.createElement('div'); hn.className = 'ss-hint'; hn.textContent = S.shopSaid ? '' : 'Tap a piece to see it on your men. Tap it twice to buy it.'; f.appendChild(hn); }   /* draft:true */
+  else {
+    var t = document.createElement('div'); t.className = 'ss-title';
+    var nm = document.createElement('b'), nw = it.name.replace(/^(a|an) /, ''); nm.textContent = nw.charAt(0).toUpperCase() + nw.slice(1); t.appendChild(nm);
+    if(it.kind === 'weapon' && it.hands === 2){ var th = document.createElement('span'); th.className = 'twoh'; th.textContent = 'TWO HANDS'; t.appendChild(th); }   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194(b)) */
+    f.appendChild(t);
+    var al = it.kind === 'weapon' && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', it.id), true) : null;
+    f.appendChild(itemNums(it, al));   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (rule 202(a)): its own numbers, UI's icons */
+  }
+  /* his men: each face with what this piece does to him; the man it suits marked; a tap on a face puts it on him (rule 250(c)) */
+  var om = it && it.kind ? onMan(it, function(){ shopStripFill(k); }) : null;
+  if(om){ om.classList.add('ss-man'); var lns = document.createElement('div'); lns.className = 'lns'; [].slice.call(om.children).forEach(function(c){ if(c.classList && (c.classList.contains('ln') || c.classList.contains('stop'))) lns.appendChild(c); }); om.appendChild(lns); st.appendChild(om); }   /* what changes on him, in one row */
+  else { var ph = document.createElement('div'); ph.className = 'onman ss-man ss-empty'; st.appendChild(ph);   /* nothing lit: his men stand in the strip already, waiting to be shown a piece */
+    var crew0 = shopCrew(), fs0 = document.createElement('div'); fs0.className = 'fstrip';
+    crew0.forEach(function(c){ var b = document.createElement('button'); b.type = 'button'; b.disabled = true; b.dataset.man = c.name; var cv0 = document.createElement('canvas'); cv0.width = cv0.height = 64; if(!(c.look && crewFace(cv0, c.look))) dimHead(cv0.getContext('2d')); b.appendChild(cv0);
+      var n0 = document.createElement('span'); n0.textContent = c.name; b.appendChild(n0); fs0.appendChild(b); });
+    ph.appendChild(fs0); var w0 = document.createElement('div'); w0.className = 'who'; w0.textContent = crew0.length ? 'WHAT IT DOES TO EACH OF THEM SHOWS HERE' : ''; ph.appendChild(w0); }   /* draft:true */
+  /* the two buttons, always there at one size: the shelf's buy (onto the man, or the stash), or his own piece's sell and keep */
+  var a = document.createElement('div'); a.className = 'ss-acts'; st.appendChild(a);
+  if(!it || shelfIt){
+    var tw = it && om ? wearTarget(it) : null, room = BAG_SLOTS - S.stash.length, full = room <= 0, poor = !!it && bats() < it.price;
+    var need = tw ? (tw.w.was ? 1 : 0) + (tw.w.drops ? 1 : 0) : 0;
+    var bw = act(!it ? 'Buy it' : tw ? (room < need ? 'Your stash is full' : tw.m.main ? 'Buy it and wear it' : 'Buy it, ' + manWord(tw.m) + ' wears it') : (full ? 'Your stash is full' : 'Buy it'), it ? moneyWord(it.price) : '',
+      function(){ if(it) shopBuy(k, it, !!tw); }, !it || poor || (tw ? room < need : full));
+    if(tw){ bw.id = 'buywear'; bw.dataset.man = tw.m.name; } else bw.id = 'buystash';
+    a.appendChild(bw);
+    var bs = act(full ? 'Your stash is full' : 'to the stash', '', function(){ if(it) shopBuy(k, it, false); }, !it || !tw || full || poor);
+    bs.className += ' tostash'; if(tw) bs.id = 'buystash'; else bs.dataset.dim = 1; a.appendChild(bs);
+  } else {
+    var kept = !isJunk(it), back = sellBack(it);
+    var sb = act('Sell it', '+' + moneyWord(back), function(){ shopSell(k, it); }); sb.id = 'sellit'; a.appendChild(sb);
+    var kb = act(kept ? 'Let it go with the junk' : 'Keep it', kept ? 'SELL THE JUNK takes it' : 'never sold as junk', function(){
+      it.keep = !kept; bagSave(); post('keep', {item:it.id, keep:it.keep}); S.shopSaid = kept ? 'It goes with the junk next time.' : 'Kept. SELL THE JUNK leaves it alone.'; shopRefresh(k); });
+    kb.id = 'keepit'; a.appendChild(kb);
+  }
+}
+function shopTile(k, it, from, sub, money){
+  var tile = iconTile(it, function(){ shopPick(k, it, from); }, sub, money);
+  if(it){ tile.__it = it; tile.dataset.id = it.id;
+    tile.addEventListener('contextmenu', function(e){ e.preventDefault(); S.shopSel = {k:k, it:it, from:from}; if(from === 'shelf'){ var up = shopUpFor(it); if(up) S.shopMan = up.man.name; } shopDo(k); });   /* a right click on a computer is the double tap (Battle Brothers') */
+    if(S.shopSel && S.shopSel.it === it) tile.classList.add('sel'); }
+  return tile;
+}
 function shopSheet(k, body, acts, line){
   hireLoad();   /* the roster's data: a gun's card reads its reach the crew screen's way */
   var items = S.stock[k] || [];
   var hello = {arms:'Guns and plate, whatever made it through. Everything has a price, mijo.', smith:'Fixed, sharpened, loaded. Pick one.', armourer:'If it stops a pipe, I sell it.'}[k];
   body.appendChild(speak(k, line || (items.length ? hello : 'Shelves are empty today.')));
   mendLines(k, acts);   /* __THE_SMITH_MENDS__: his broken gear first, then the shelf */
+  if(S.shopSel && (S.shopSel.k !== k || (S.shopSel.from === 'shelf' ? items.indexOf(S.shopSel.it) < 0 : S.stash.indexOf(S.shopSel.it) < 0))) S.shopSel = null;
+  var strip = document.createElement('div'); strip.className = 'shopstrip'; strip.id = 'shopstrip';   /* laid last: it stands at the foot of the sheet while the shelf and the bag scroll behind it */
   var h1 = document.createElement('div'); h1.className = 'gridh'; h1.textContent = 'THEIR SHELF'; acts.appendChild(h1);
   var shelfG = document.createElement('div'); shelfG.className = 'grid'; shelfG.id = 'shelfgrid'; acts.appendChild(shelfG);
-  items.forEach(function(it){
-    shelfG.appendChild(iconTile(it, function tapItem(){
-      openB(k, it.name.charAt(0).toUpperCase() + it.name.slice(1) + '. ' + it.price + ' batter' + (it.price===1?'y':'ies') + '. ' + it.line);
-      var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
-      /* EYES [eyes: the BB names] (rule 150; his 9/28 'our own way, never a rip-off'): the card never names the wiki's item, the source
-         stays in the data (it.was) for the machine. EYES [eyes: two cards disagree]: a gun's reach is the fight's, the crew
-         screen's own line (BohemiaRoster.armLine), never the wiki row's range */
-      var al = it.kind === 'weapon' && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', it.id), true) : null;
-      sb.appendChild(itemNums(it, al));   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (rule 202(a)): its own numbers, UI's icons, before the price */
-      if(it.kind === 'weapon' && it.hands === 2){ var th = document.createElement('div'); th.className = 'twoh'; th.textContent = 'TWO HANDS'; sb.appendChild(th); }   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194(b)): before he buys it */
-      var om = onMan(it, function(){ tapItem(); }); if(om) sb.appendChild(om);   /* (b): what it does on one of your men, his face in the strip */
-      S.cardAgain = HIRE.roster ? null : {k:k, id:it.id, fn:tapItem};   /* the roster's files still on their way: the card fills itself when they land */
-      var full = S.stash.length >= BAG_SLOTS;
-      var buy = function(onHim){
-        if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
-        var wm = onHim ? wearTarget(it) : null;   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__: the man the card shows, read again now */
-        if(onHim && !wm) return openB(k);
-        P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
-        S.stock[k].splice(S.stock[k].indexOf(it), 1);
-        S.sold = S.sold || {}; (S.sold[soldKey()] = S.sold[soldKey()] || []).push(k + ':' + it.id);   /* [the shelf restocks] */
-        if(wm){ var said = wearBought(it, wm.m, wm.w); bagSave(); post('buyArms', {item:it, wornBy:wm.m.name, slot:wm.w.slot}); sfx('equip', view.night ? NIGHT_TRIM : null); shelf(); openB(k, said); return; }
-        S.stash.push(it); bagSave();
-        post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB(k, 'Yours. It is in your stash.');
-      };
-      /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210(b)(c)): BUY puts it on the man the card shows, the old piece to the stash; a
-         small 'to the stash' under it keeps it unworn. A shield for a man holding a two-hander has no hand to go in: stash only */
-      var tw = om ? wearTarget(it) : null, room = BAG_SLOTS - S.stash.length;
-      if(tw){
-        var need = (tw.w.was ? 1 : 0) + (tw.w.drops ? 1 : 0), nm = manWord(tw.m);
-        var bw = act(room < need ? 'Your stash is full' : tw.m.main ? 'Buy it and wear it' : 'Buy it, ' + nm + ' wears it', moneyWord(it.price), function(){ buy(true); }, room < need || bats() < it.price);
-        bw.id = 'buywear'; bw.dataset.man = tw.m.name; sb.appendChild(bw);
-        var bs = act(full ? 'Your stash is full' : 'to the stash', '', function(){ buy(false); }, full || bats() < it.price);
-        bs.id = 'buystash'; bs.className += ' tostash'; sb.appendChild(bs);
-      } else { var b0 = act(full ? 'Your stash is full' : 'Buy it', moneyWord(it.price), function(){ buy(false); }, full || bats() < it.price); b0.id = 'buystash'; sb.appendChild(b0); }
-      sb.appendChild(act('Not this one', '', function(){ openB(k); }));
-    }, it.price, true));
+  shelfView(k).forEach(function(it){
+    if(!it){ var gone = iconTile(null); gone.className += ' gone'; shelfG.appendChild(gone); return; }   /* bought this visit: its place stays */
+    var tile = shopTile(k, it, 'shelf', it.price, true);
+    var up = shopUpFor(it); if(up){ tile.classList.add('up'); tile.dataset.up = up.man.name; var gm = document.createElement('b'); gm.className = 'upm'; gm.textContent = '▲'; gm.setAttribute('aria-hidden', 'true'); tile.appendChild(gm); }   /* rule 282(a): better for one of his men */
+    shelfG.appendChild(tile);
   });
   var h2 = document.createElement('div'); h2.className = 'gridh'; h2.textContent = 'YOUR BAG  ' + S.stash.length + ' / ' + BAG_SLOTS; acts.appendChild(h2);
   /* SELL THE JUNK: one tap, its count and its price on the button (rule 164 item 18) */
@@ -579,23 +686,18 @@ function shopSheet(k, body, acts, line){
       /* __THE_SPOILS__: a piece looted worn sells for what is left of it (Battle Brothers: an item is worth its value times its
          condition; the Game Guide's repair table weighs worth against wear) */
       var back = it ? sellBack(it) : 0;
-      var tile = iconTile(it, function(){
-        openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
-        var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
-        sb.appendChild(act('Sell it', '+' + moneyWord(back), function(){
-          P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
-          S.stash.splice(S.stash.indexOf(it), 1); bagSave(); post('sellArms', {item:it, got:back}); shelf(); openB(k, 'Pleasure. ' + back + ' batteries.');
-        }));
-        /* KEEP it: SELL THE JUNK never takes it; or let it go with the junk (RUN TWO 10/25, rule 164 item 18) */
-        var kept = !isJunk(it);
-        sb.appendChild(act(kept ? 'Let it go with the junk' : 'Keep it', kept ? 'SELL THE JUNK takes it' : 'never sold as junk', function(){
-          it.keep = !kept; bagSave(); post('keep', {item:it.id, keep:it.keep}); openB(k, kept ? 'It goes with the junk next time.' : 'Kept. SELL THE JUNK leaves it alone.'); }));
-      }, it ? '+' + back : null, true);
+      var tile = it ? shopTile(k, it, 'bag', '+' + back, true) : iconTile(null);
       if(it && !isJunk(it)){ tile.className += ' kept'; var kp = document.createElement('b'); kp.className = 'kp'; kp.textContent = 'KEEP'; tile.appendChild(kp); }
       bagG.appendChild(tile);
     })(S.stash[si] || null);
   }
+  acts.appendChild(strip); shopStripFill(k, strip);
+  S.cardAgain = HIRE.roster ? null : {k:k, id:null, fn:function(){ shopRefresh(k); }};   /* the roster's files still on their way: the marks and the strip fill in when they land */
 }
+/* the sheet again in place, what he lit still lit (the roster's files landing, a KEEP) */
+function shopRefresh(k){ var sh = document.getElementById('sheet'), sc = sh ? sh.scrollTop : 0, sel = S.shopSel, said = S.shopSaid;
+  openB(k); if(sel && (sel.from === 'shelf' ? (S.stock[k] || []).indexOf(sel.it) >= 0 : S.stash.indexOf(sel.it) >= 0)){ S.shopSel = sel; S.shopSaid = said; shopMark(); shopStripFill(k); } if(sh) sh.scrollTop = sc; }
+/* ==== end __ONE_TAP_SELECTS__ ==== */
 /* ==== __THE_SHOP_SAYS_WHAT_IT_DOES__ (RUN TWO [the shop says what it does to your man], rule 202, Paolo 10/25: 'in the shop you
    cannot just say how many batteries it costs without saying the stat it does, how much it helps your stats... when you wear
    the shield it reflects in your stats'). MEASURED: a shield's card said 'holds 16 weight 4' and never its melee or ranged
@@ -693,13 +795,18 @@ function onMan(it, again){
     var kk = document.createElement('span'); kk.className = 'k'; kk.textContent = lab; ln.appendChild(kk);
     var ab = document.createElement('span'); ab.className = 'ab'; ab.textContent = a + ' to ' + b; ln.appendChild(ab);
     var dd = document.createElement('span'); dd.className = 'd ' + (dv > 0 ? 'up' : dv < 0 ? 'dn' : 'eq'); dd.textContent = dv ? sgn(dv) : 'same'; ln.appendChild(dd);
+    if(!dv) return;   /* __ONLY_WHAT_CHANGES__ (rule 251(a)): nothing for what does not change */
     ln.dataset.before = a; ln.dataset.after = b; ln.dataset.delta = dv; box.appendChild(ln); });
+  if(!w.stops && !box.querySelector('.ln')){ var nc = document.createElement('div'); nc.className = 'stop'; nc.style.color = 'var(--dim)'; nc.textContent = 'Nothing on him changes.'; box.appendChild(nc); }   /* draft:true */
   if(w.drops){ var dr = document.createElement('div'); dr.className = 'stop'; dr.textContent = 'It takes both hands: his ' + w.drops.name.replace(/^(a|an) /, '') + ' goes to the stash.'; box.appendChild(dr); }
   /* the strip: every man's face, one tap shows it on him */
   var strip = document.createElement('div'); strip.className = 'fstrip'; strip.id = 'shopfaces';
   crew.forEach(function(c){ var b = document.createElement('button'); b.type = 'button'; b.dataset.man = c.name; b.setAttribute('aria-label', c.name); if(c.name === m.name) b.className = 'on';
     var cv = document.createElement('canvas'); cv.width = cv.height = 64; if(!(c.look && crewFace(cv, c.look))) dimHead(cv.getContext('2d')); b.appendChild(cv);
     var nm = document.createElement('span'); nm.textContent = c.name; b.appendChild(nm);
+    /* __ONLY_WHAT_CHANGES__ (rules 251(a), 250(c)): his own change under his face, an arrow and how much, in place */
+    try{ var cw = shopWearOn(c, it), hv = cw.stops ? null : Math.round(headline(cw, it.kind)), dvv = document.createElement('i'); dvv.className = 'dv ' + (hv == null ? 'eq' : hv > 0 ? 'up' : hv < 0 ? 'dn' : 'eq');
+      dvv.textContent = hv == null ? '×' : hv > 0 ? '▲' + hv : hv < 0 ? '▼' + (-hv) : '·'; dvv.dataset.delta = hv == null ? '' : hv; b.appendChild(dvv); }catch(e){}
     b.addEventListener('click', function(){ S.shopMan = c.name; again(); }); strip.appendChild(b); });
   box.appendChild(strip);
   S.shopShown = {item:it.id, man:m.name, before:w.before, after:w.after, stops:!!w.stops};
@@ -1261,11 +1368,13 @@ function townLanes(L){
    already placed takes the nearest open ground clear of everybody (a finger's 31 points apart, half a body deep) */
 function spreadFolk(out){
   var h = personH(), mx = Math.max(h*.34, 31/(view.s || 1)), my = h*.3, placed = out.filter(function(p){ return p.keeper; });
+  var cx2 = Math.max(h*.34, 44/(view.s || 1)), cy2 = Math.max(h*.3, 30/(view.s || 1));   /* the crowd, who have no door of their own: a finger's 44 points each (EYES' rule 150 at the fit) */
   var clash = function(x, y){ return placed.some(function(q){ return Math.abs(q.x - x) < mx && Math.abs(q.y - y) < my; }); };
   ['post','crowd'].forEach(function(kind){ out.forEach(function(p){ if(!p[kind]) return;
-    if(clash(p.x, p.y)){ var done = false;
+    var clashK = kind === 'crowd' ? function(x, y){ return placed.some(function(q){ return Math.abs(q.x - x) < cx2 && Math.abs(q.y - y) < cy2; }); } : clash;
+    if(clashK(p.x, p.y)){ var done = false;
       for(var r = 12; r <= 420 && !done; r += 12) for(var a = 0; a < 24 && !done; a++){ var t = a/24*Math.PI*2, qx = p.x + Math.cos(t)*r, qy = p.y + Math.sin(t)*r*.6;
-        if(qx < 16 || qx > picW() - 16 || qy < h || qy > picH() - 6 || leadBlocked(qx, qy) || clash(qx, qy)) continue; p.x = qx; p.y = qy; done = true; } }
+        if(qx < 16 || qx > picW() - 16 || qy < h || qy > picH() - 6 || leadBlocked(qx, qy) || clashK(qx, qy)) continue; p.x = qx; p.y = qy; done = true; } }
     placed.push(p); }); });
 }
 /* ==== end __EVERY_TOWN_ITS_OWN__ ==== */
@@ -1345,7 +1454,8 @@ function openArea(){
 function placeChrome(){
   var o = FIT.open, sh = document.getElementById('sheet'), ph = FIT.phone; if(!sh || !o) return;
   sh.style.bottom = (o.band === 'bottom' ? Math.round(view.H - o.y1) : 0) + 'px'; sh.style.setProperty('--sheet-b', sh.style.bottom);
-  sh.style.maxHeight = o.band === 'bottom' ? Math.round((o.y1 - o.y0) * .72) + 'px' : '';   /* its x stays on the glass: 72 percent of the open area, not of the scene */
+  var shop = /^(arms|smith|armourer)$/.test(S.open || '');   /* __ONE_TAP_SELECTS__ (rule 250): the shelf, the strip and the buttons together on an upright phone */
+  sh.style.maxHeight = o.band === 'bottom' ? Math.round((o.y1 - o.y0) * (shop ? 1 : .72) - (shop ? 8 : 0)) + 'px' : '';   /* its x stays on the glass: 72 percent of the open area, not of the scene */
   /* across: the open area's width, the sheet centred in it at most 1040 wide (UI's wide-glass rule, laid in the open area, not the glass) */
   var ow = o.x1 - o.x0, sw = Math.min(1040, ow - (ow >= 700 ? 24 : 0));
   sh.style.left = Math.round(o.x0 + (ow - sw) / 2) + 'px'; sh.style.right = 'auto'; sh.style.width = Math.round(sw) + 'px'; sh.style.marginLeft = '0px';
@@ -2581,7 +2691,8 @@ function peopleAt(x, y){
 function personAt(x, y){ return peopleAt(x, y)[0] || null; }
 /* the finger on his drawn body (no fair widening): a man in the crowd standing in front of a door answers there, the door keeps
    the rest of its picture */
-function onBody(p, x, y){ var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, h = personH(); return !!p && Math.abs(px - p.x) <= h * .17 && py >= p.y - h && py <= p.y + 4; }
+function onBody(p, x, y){ var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, h = personH(), w = Math.max(h * .17, 22/(view.s || 1)), up = Math.max(h, 44/(view.s || 1));   /* __THE_TOWN_FITS_THE_SCREEN__: at the fit a body is small; a finger on him is him across a finger's width (44 points), the door keeps the rest of its box */
+  return !!p && Math.abs(px - p.x) <= w && py >= p.y - up && py <= p.y + 4; }
 var TAPPED = {x:0, y:0, t:0, who:[], i:0};
 function tapPerson(x, y, bodiesOnly){
   var L = peopleAt(x, y), now = performance.now();
@@ -2929,7 +3040,7 @@ function hireLoad(){
   fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){ var v = j && j.per_man_per_night; HIRE.bill = +((v && v.value != null) ? v.value : v) || null; if(S.open === 'hall') openB('hall'); }).catch(function(){});
   if(!window.BohemiaRoster) HIRE.rosterFailed = true;
   if(window.BohemiaRoster) BohemiaRoster.load(null, {people:false}).then(function(){ HIRE.roster = true; if(S.open === 'hall') openB('hall');
-    var ca = S.cardAgain; S.cardAgain = null; if(ca && S.open === ca.k && (S.stock[ca.k] || []).some(function(x){ return x.id === ca.id; })) ca.fn(); }).catch(function(){ HIRE.rosterFailed = true; if(S.open === 'hall') openB('hall'); });   /* __THE_SHOP_SAYS_WHAT_IT_DOES__; __THE_BEST_RECRUIT_AT_THE_TOP__: the hall shows its men in their roll's order if the calculator cannot load */
+    var ca = S.cardAgain; S.cardAgain = null; if(ca && S.open === ca.k && (ca.id == null || (S.stock[ca.k] || []).some(function(x){ return x.id === ca.id; }))) ca.fn();   /* __ONE_TAP_SELECTS__: a shop sheet's whole refill (id null) */ }).catch(function(){ HIRE.rosterFailed = true; if(S.open === 'hall') openB('hall'); });   /* __THE_SHOP_SAYS_WHAT_IT_DOES__; __THE_BEST_RECRUIT_AT_THE_TOP__: the hall shows its men in their roll's order if the calculator cannot load */
 }
 function hireGun(r){   /* the first gun in his kit, as the fight reads a gun (its class in ours' gun_classes) */
   var D = window.BohemiaRoster && BohemiaRoster.data, gc = D && D.ours && D.ours.gun_classes && D.ours.gun_classes.value || ['dagger','firearm','crossbow'];
@@ -3726,6 +3837,8 @@ function show(){
   if(!sh.classList.contains('on') || S.sheetFor !== S.open) sh.scrollTop = 0;
   S.sheetFor = S.open;
   sh.classList.add('on');
+  sh.classList.toggle('shopping', /^(arms|smith|armourer)$/.test(S.open || ''));
+  try{ placeChrome(); }catch(e){}   /* __ONE_TAP_SELECTS__: a shop's sheet stands the whole open area tall */
 
 }
 function hide(){ S.sheetFor = null; if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
@@ -3897,6 +4010,7 @@ function arriveWhenReady(){ if((TRAITS && ARR && (!window.BohemiaBarNews || Bohe
 /* ---------- OPEN ---------- */
 function open(o){
   o = o || {};
+  if(o.place){ S.shelfOrder = {}; S.shopSel = null; S.shopSaid = null; }   /* __ONE_TAP_SELECTS__: a new visit, a new shelf */
   hireLoad();   /* __THE_SHOP_SAYS_WHAT_IT_DOES__: the hall's and the shops' files (the roster, the rig, the bill) are read as the town opens, so a card is whole when he taps it and the hall never redraws under a keeper mid-line */
   if(o.place){ S.camp = !!o.camp; S.campInfo = o.camp ? {day:o.day, min:o.min, night:!!o.night, company:o.company || [], bill:o.bill || null, cleared:o.cleared || null, condition:o.condition || null} : null; healShow(); }   /* __THE_CAMP__; __THE_HEAL_BUTTON__ */
   if(o.place && window.BohemiaCampLook) try{ if(S.camp) BohemiaCampLook.open(Object.assign({block:o.place.block || null, kills:o.kills | 0}, S.campInfo)); else BohemiaCampLook.close(); }catch(e){}   /* __CAMP_TWO__ */
