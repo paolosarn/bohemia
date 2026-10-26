@@ -51,11 +51,13 @@ def corner_clear_wide(box, W=WW, H=WH):
 # (the cars, palms and posts that stood across the street close the shops' walk on the picture: they move off it, or out of the frame)
 TOWN_ARM = {'Church': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('palm43', (43.0, 27.6), (-2.0, -7.6)), ('palm51', (51.5, 27.6), (2.5, -6.6)),
                        ('dumpster', (46.0, 25.0), (12.0, -3.0)), ('patrol', (38.0, 30.0), (-35.0, -8.0)), ('wreck', (47.0, 30.8), (10.5, -4.8)),
-                       ('posts', (9.3, 31.5), (6.0, -4.5)), ('rubble', (20.0, 12.5), (-17.0, 0.0)), ('cart', (22.5, 13.4), (4.0, -2.4)), ('bar', (11.3, 35.8), (1.0, 0.0))],
+                       ('posts', (9.3, 31.5), (16.0, -4.5)), ('rubble', (20.0, 12.5), (-17.0, 0.0)), ('cart', (22.5, 13.4), (4.0, -2.4)), ('bar', (11.3, 35.8), (1.0, 0.0)),
+                       ('church', (11.6, 13.6), (0.0, -1.0))],   # the church a metre forward: its tower's top clears the bar's step
             'Reds': [('armourer', (52.2, 14.6), (-4.0, 10.9)), ('sandbags', (43.0, 27.4), (-2.0, -0.4)), ('wreck', (45.0, 23.0), (7.0, -4.0)),
                      ('patrol', (37.0, 30.2), (-27.0, -8.2)), ('cover_jersey', (32.0, 27.2), (0.0, -6.0)), ('cover_jersey', (38.5, 27.2), (0.0, -6.0)),
-                     ('rubble', (20.0, 12.5), (7.5, -1.0)), ('tyres', (22.0, 14.2), (4.0, -2.2)), ('posts', (9.3, 31.5), (6.0, -4.5)), ('bar', (11.2, 35.8), (1.0, 0.0))],
-            'Anarchists': [('container', (51.4, 15.2), (-3.9, 11.3)), ('posts', (9.3, 31.5), (6.0, -4.5)), ('fire', (12.0, 24.0), (0.0, -3.0)),
+                     ('rubble', (20.0, 12.5), (7.5, -1.0)), ('tyres', (22.0, 14.2), (4.0, -2.2)), ('posts', (9.3, 31.5), (6.0, -4.5)), ('bar', (11.2, 35.8), (1.0, 0.0)),
+                     ('smith', (35.8, 15.2), (0.0, -1.5))],   # its roof reached the stall's step
+            'Anarchists': [('container', (51.4, 15.2), (-3.9, 11.3)), ('posts', (9.3, 31.5), (13.5, -4.5)),   # past the stage's ring of cars ('fire', (12.0, 24.0), (0.0, -3.0)),
                            ('bld_ranch_porch', (11.2, 36.0), (1.0, 0.0))],
             'Blues': [('armourer', (51.8, 14.7), (-4.2, 11.8)), ('turbine', (47.5, 22.0), (6.0, -2.0)), ('corral', (51.5, 22.0), (1.0, -4.0)),
                       ('rolled', (21.0, 13.0), (3.5, -2.5)), ('posts', (9.3, 31.5), (6.0, -4.5)), ('hoop_a', (11.1, 36.2), (1.5, 0.0))]}
@@ -280,6 +282,19 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     want = [x for x in a if not x.startswith('--')]
     TT = [t for t in V.towns() if not want or t['name'] in want or t['slug'] in want]
+    if '--swap-only' not in a:                          # ONE BLENDER AT A TIME: two scenes at once outgrow the session's memory (14.3 GB)
+        import fcntl, time; _lock = open('/tmp/bohemia_cook_render_v2.lock', 'w'); fcntl.flock(_lock, fcntl.LOCK_EX)
+        def _busy():                                   # and never beside a town already rendering (gigabytes held), lock or not
+            for d in os.listdir('/proc'):
+                if not d.isdigit() or int(d) == os.getpid(): continue
+                try:
+                    cmd = open('/proc/%s/cmdline' % d, 'rb').read().split(b'\0')
+                    if len(cmd) > 1 and cmd[0].endswith(b'python') and b'bohemia_cook_every_town' in cmd[1]:
+                        rss = [l for l in open('/proc/%s/status' % d).read().split('\n') if l.startswith('VmRSS')]
+                        if rss and int(rss[0].split()[1]) > 1500000: return True
+                except Exception: pass
+            return False
+        while _busy(): time.sleep(15)
     patch_wide()
     if '--layout-only' in a:
         for town in TT: m = layout_only(town); print('  laid out wide', town['name'], check_wide(town, m) or 'every door walked to, every tap clear of the phone', flush=True)

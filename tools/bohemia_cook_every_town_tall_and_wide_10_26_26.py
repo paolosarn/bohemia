@@ -761,6 +761,19 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     want = [x for x in a if not x.startswith('--')]
     T = [t for t in V.towns() if not want or t['name'] in want or t['slug'] in want]
+    if '--swap-only' not in a:                          # ONE BLENDER AT A TIME: two scenes at once outgrow the session's memory (14.3 GB)
+        import fcntl, time; _lock = open('/tmp/bohemia_cook_render_v2.lock', 'w'); fcntl.flock(_lock, fcntl.LOCK_EX)
+        def _busy():                                   # and never beside a town already rendering (gigabytes held), lock or not
+            for d in os.listdir('/proc'):
+                if not d.isdigit() or int(d) == os.getpid(): continue
+                try:
+                    cmd = open('/proc/%s/cmdline' % d, 'rb').read().split(b'\0')
+                    if len(cmd) > 1 and cmd[0].endswith(b'python') and b'bohemia_cook_every_town' in cmd[1]:
+                        rss = [l for l in open('/proc/%s/status' % d).read().split('\n') if l.startswith('VmRSS')]
+                        if rss and int(rss[0].split()[1]) > 1500000: return True
+                except Exception: pass
+            return False
+        while _busy(): time.sleep(15)
     if '--layout-only' in a:
         patch_tall()
         for town in T: m = layout_only(town); print('  laid out', town['name'], check_layout(town, m) or 'every door walked to, every tap clear of the phone', flush=True)

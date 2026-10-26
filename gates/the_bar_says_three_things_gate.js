@@ -78,7 +78,7 @@ const done = () => { console.log('\nTHE BAR SAYS THREE THINGS: ' + pass + ' ok, 
     /* a finger at each reading's centre: what does it land on? */
     const under = chips.map(c => { const el = document.elementFromPoint(c.x + c.w / 2, c.y + c.h / 2);
       return el ? (el.id || el.className || el.tagName) : ''; });
-    return { mode: typeof MODE !== 'undefined' ? MODE : '?', shown, chips, truth, notesX: n.x, under, w: innerWidth, six, ledger, clipped };
+    return { mode: typeof MODE !== 'undefined' ? MODE : '?', shown, chips, truth, notesX: n.width > 0 ? n.x : innerWidth, under,   /* UI TWO (rules 238(a), 286(b)): with NOTES on the phone the bar runs to the glass's edge */ w: innerWidth, six, ledger, clipped };
   });
 
   const a = await read();

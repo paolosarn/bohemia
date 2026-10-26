@@ -23,6 +23,7 @@
 const path = require('path');
 const ROOT = path.dirname(__dirname);
 const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
+const { leaveTown } = require(path.join(ROOT, 'tools', 'bohemia_leave_the_town.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const done = () => { console.log('THE GAME STARTS IN A TOWN: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
@@ -51,10 +52,9 @@ const settleFrame = (P) => P.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()
         return { S, F: F && { at: F.at, kind: F.kind, origin: F.origin }, near, open: LOOP.open && LOOP.open.name, shown: !!(LOOP.frame && LOOP.frame.style.display === 'block'), at: [city.x, city.y], company: (LOOP.start && LOOP.start.company || []).length }; });
       const town = sf ? await sf.evaluate(() => ({ place: BohemiaSettlement.state.place && BohemiaSettlement.state.place.name, crew: BohemiaSettlement.crewTown().map(x => x.name), camp: !!BohemiaSettlement.camp().camp })).catch(() => null) : null;
       if (SHOTS) await P.screenshot({ path: path.join(SHOTS, 'start_town_' + origin + '.png') });
-      /* S3: a real tap on LEAVE */
+      /* S3: a real tap on LEAVE (UI TWO, rules 238(a), 286(b): in the game the one LEAVE on screen is the phone's) */
       let left = null;
-      if (sf) { const lv = await sf.$('#leave'); const bx = lv && await lv.boundingBox();
-        if (bx) { if (profile === 'computer') await P.mouse.click(bx.x + bx.width / 2, bx.y + bx.height / 2); else await P.touchscreen.tap(bx.x + bx.width / 2, bx.y + bx.height / 2); }
+      if (sf) { await leaveTown(P, sf, { ms: 4000, mouse: profile === 'computer' });
         await P.waitForTimeout(1500);
         left = await fr.evaluate(() => ({ open: LOOP.open ? LOOP.open.name || 'camp' : null, shown: !!(LOOP.frame && LOOP.frame.style.display === 'block'), at: [city.x, city.y], mode: typeof MODE !== 'undefined' ? MODE : null }));
         if (SHOTS) await P.screenshot({ path: path.join(SHOTS, 'start_left_' + origin + '.png') }); }

@@ -116,6 +116,21 @@ const done = (d) => {
              vw: innerWidth, barRight: +R.getBoundingClientRect().right.toFixed(1) };
   });
 
+  /* RE-AIMED 10/26 BY UI TWO (rules 238(a)(b)(c), 286(b); Paolo 10/26 'all the buttons are gonna be on the iPhone', newest wins over
+     9/20's 'top right'): with the phone up NOTES is the phone's NOTES icon (a notepad and a pencil: a button reads by its shape,
+     238(c)), in his corner, pressing the bar's own NOTES, whose copy is off the glass. Its legs: on the phone, an icon, no second
+     NOTES on the bar, a thumb reaches it and it owns its centre, it toggles, it is on the city screen too. The copy legs as before. */
+  const PNOTE = () => d.page.evaluate(() => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=notes]'); if (!e) return null;
+    const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2), ph = document.getElementById('bohphone').getBoundingClientRect();
+    return { w: Math.round(r.width), h: Math.round(r.height), owns: !!h && e.contains(h), icon: !!e.querySelector('img'), label: e.getAttribute('aria-label'),
+      inPhone: r.left >= ph.left && r.right <= ph.right && r.top >= ph.top && r.bottom <= ph.bottom && r.width > 0 }; });
+  const PN = await PNOTE();
+  if (PN) {
+    ok('the notes control is on the phone, in his corner', PN.inPhone && PN.label === 'notes', PN.w + 'x' + PN.h);
+    ok('  an icon he reads by its shape (238(c)), not a word', PN.icon);
+    ok('  and the bar has no second NOTES (no button twice)', !(bar.me && bar.me.w > 0));
+    ok('a thumb reaches it (tiny is fine, 238(b): 24 points or more) and it owns its own centre pixel', PN.w >= 24 && PN.h >= 24 && PN.owns, PN.w + 'x' + PN.h);
+  } else {
   if (bar.noBar) { ok('the top bar exists in the demo', false); return done(d); }
   ok('the notes control is in the top bar', !!bar.me);
   if (!bar.me) return done(d);
@@ -172,6 +187,7 @@ const done = (d) => {
      bar.last === 'notebtn', 'last=' + bar.last);
   ok('it is WHOLLY on screen, not merely overlapping it', bar.me.onScreen,
      Math.round(bar.me.x) + '..' + Math.round(bar.me.x + bar.me.w) + ' of ' + bar.vw);
+  }
 
   /* ---- 6. IT TOGGLES, AND THE CHIP STAYS IN THE BAR ---- */
   const tap = () => d.fr.evaluate(() => {
@@ -180,7 +196,7 @@ const done = (d) => {
     b.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: r.x + r.width / 2, clientY: r.y + r.height / 2 }));
   });
   const isOpen = () => d.fr.evaluate(() => !!(window.BohemiaNotes && window.BohemiaNotes.isOpen()));
-  const chipThere = () => d.fr.evaluate(() => {
+  const chipThere = async () => PN ? !!(await PNOTE()) : d.fr.evaluate(() => {
     const b = document.getElementById('notebtn');
     if (!b) return false; const r = b.getBoundingClientRect();
     return r.width > 0 && r.height > 0 && r.top < innerHeight; });
@@ -188,8 +204,8 @@ const done = (d) => {
   ok('it starts collapsed', !(await isOpen()));
   await tap();
   ok('one tap opens the section', await isOpen());
-  ok('  and the chip is still in the bar while it is open', await chipThere());
-  ok('  and the chip shows it is open', await d.fr.evaluate(() =>
+  ok(PN ? '  and NOTES is still on the phone while it is open' : '  and the chip is still in the bar while it is open', await chipThere());
+  if (!PN) ok('  and the chip shows it is open', await d.fr.evaluate(() =>
     document.getElementById('notebtn').classList.contains('on')));
   await tap();
   ok('tapping it again collapses it', !(await isOpen()));
@@ -203,7 +219,7 @@ const done = (d) => {
   await d.pinchOut();
   const cityMode = await d.fr.evaluate(() => (typeof MODE !== 'undefined' ? MODE : '?'));
   ok('the squeeze really crossed into the city', cityMode !== 'human', 'mode ' + cityMode);
-  const inCity = await d.fr.evaluate(() => {
+  const inCity = PN ? await (async () => { const q = await PNOTE(); return { there: !!q, owns: !!q && q.owns, says: q ? 'NOTES' : '' }; })() : await d.fr.evaluate(() => {
     const b = document.getElementById('notebtn');
     if (!b) return { there: false };
     const r = b.getBoundingClientRect();
@@ -213,8 +229,8 @@ const done = (d) => {
              owns: !!own && (own === b || b.contains(own)),
              says: pl ? (pl.textContent || '').trim() : '' };
   });
-  ok('the chip is still in the bar on the city screen', inCity.there);
-  ok('  and still says its word there', /^NOTES/.test(inCity.says), inCity.says);
+  ok(PN ? 'NOTES is on the phone on the city screen too' : 'the chip is still in the bar on the city screen', inCity.there);
+  if (!PN) ok('  and still says its word there', /^NOTES/.test(inCity.says), inCity.says);
   ok('  and a thumb still reaches it there', inCity.owns);
   await d.pinchIn();
 

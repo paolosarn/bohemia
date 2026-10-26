@@ -232,7 +232,9 @@ async function side(profile) {
           const fb = await M(() => { const b = BohemiaMotion.box(document.getElementById('cityFrame').contentWindow.LOOP.frame); return b ? [b.x, b.y] : [0, 0]; });
           if (cb) await tap(fb[0] + cb[0], fb[1] + cb[1]); else await sfn.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); });
           await p.waitForTimeout(600); } } catch (_e) {}
-      const lb = await M(() => { const cw = document.getElementById('cityFrame').contentWindow, sd = cw.LOOP.frame.contentDocument, l = sd.getElementById('leave'); const b = l && BohemiaMotion.box(l); return b ? [b.x + b.w / 2, b.y + b.h / 2] : null; });
+      /* UI TWO (rules 238(a), 286(b)): in the game the one LEAVE on screen is the phone's; the town's own when no phone is up */
+      const lb = await M(() => { const pl = document.querySelector('#bohphone.on .bpctx.town .lv'), pr = pl && pl.getBoundingClientRect(); if (pr && pr.width > 0) return [pr.x + pr.width / 2, pr.y + pr.height / 2];
+        const cw = document.getElementById('cityFrame').contentWindow, sd = cw.LOOP.frame.contentDocument, l = sd.getElementById('leave'); const b = l && l.getBoundingClientRect().width > 0 && BohemiaMotion.box(l); return b ? [b.x + b.w / 2, b.y + b.h / 2] : null; });
       if (lb) await tap(lb[0], lb[1]); else await fr.evaluate(() => loopClose()); return !!lb; };
     await rec.start(); await p.waitForTimeout(150); t0 = await now();
     const tappedLeave = await leave();
@@ -335,7 +337,9 @@ async function side(profile) {
 
     await settle();
     /* ---- M7 THE CREW SCREEN ---- */
-    const crew = await boxOf('crew');
+    /* UI TWO (rules 238(a), 286(b)): with the phone up CREW is pressed on the phone (the bar's crew chip is a readout); its box in the
+       shell's own pixels, else the bar's CREW as before */
+    const crew = (await M(() => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=crew]'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width ? [r.x, r.y, r.width, r.height] : null; })) || await boxOf('crew');
     t0 = await now();
     if (crew) await tap(crew[0] + crew[2] / 2, crew[1] + crew[3] / 2);
     await idle(5000); await p.waitForTimeout(1500);
@@ -387,7 +391,9 @@ async function side(profile) {
 
     await settle();
     /* ---- M9 REDUCED MOTION ---- */
-    const gear = await M(() => { const g = document.getElementById('gearbtn'); const cw = document.getElementById('cityFrame').contentWindow; const t = cw.document.querySelector('#bmtb .t.gear'); const e = t || g; const b = e && BohemiaMotion.box(e); return b ? [b.x + b.w / 2, b.y + b.h / 2] : null; });
+    /* UI TWO (rules 238(a), 286(b)): with the phone up the gear is the phone's SETTINGS (the bar's gear off the glass); else the bar's */
+    const gear = await M(() => { const ps = document.querySelector('#bohphone.on .bprow .app[data-app=settings]'), pr = ps && ps.getBoundingClientRect(); if (pr && pr.width > 0) return [pr.x + pr.width / 2, pr.y + pr.height / 2];
+      const g = document.getElementById('gearbtn'); const cw = document.getElementById('cityFrame').contentWindow; const t = cw.document.querySelector('#bmtb .t.gear'); const e = t && t.getBoundingClientRect().width > 0 ? t : g; const b = e && BohemiaMotion.box(e); return b ? [b.x + b.w / 2, b.y + b.h / 2] : null; });
     if (gear) await tap(gear[0], gear[1]); await p.waitForTimeout(900);
     const mo = await M(() => { const m = document.getElementById('setmotion'); const r = m && m.getBoundingClientRect(); return r && r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2, m.textContent] : null; });
     if (mo) await tap(mo[0], mo[1]); await p.waitForTimeout(400);
