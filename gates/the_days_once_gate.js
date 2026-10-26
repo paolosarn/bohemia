@@ -28,6 +28,8 @@
        is THE ONE BAR now, the map's own (gates/one_hud_everywhere_gate.js measures it to the pixel); what this keeps is the
        10/22 half: the FIGHT'S OWN STRIP is never across the top, the board is measured under the one bar and nothing
        more (TOPH is the bar's bottom), the round, the faces and AUTO ride the bottom bar, AUTO flips
+       RE-AIMED 10/26 (UI [no top bar in the fight], rule 280, Paolo: 'in combat it can completely go away'): back to the 10/22
+       half whole: NOTHING across the fight's top, not even the one bar; TOPH is 0
      - four planted defects are caught by the same checks: '0 DAYS' back on the food, the hour back on the tag, a
        40-point gear, the strip back over the fight
    node gates/the_days_once_gate.js */
@@ -101,10 +103,12 @@ const CHECK = () => {
 };
 const FIGHT = () => {
   const out = [], top = document.getElementById('top'), bot = document.getElementById('bot');
-  /* RE-AIMED 10/25 (rule 190): the one bar is the fight's top; the fight's own strip is not across it */
-  const bar = top.querySelector('#bmtb'), own = ['round', 'order', 'bauto', 'speedpad'].filter(id => { const e = document.getElementById(id); return e && top.contains(e); });
-  out.push(['in the fight the fight\'s own strip is not across the top (the one bar is)', !!bar && own.length === 0, (bar ? 'the bar' : 'no bar') + (own.length ? ', ' + own.join(' ') + ' up there' : '')]);
-  out.push(['  the fight measures its top as the one bar\'s bottom, nothing more', !!bar && TOPH === Math.round(top.getBoundingClientRect().bottom) && TOPH <= 110, 'TOPH ' + TOPH]);
+  /* RE-AIMED 10/25 (rule 190): the one bar is the fight's top; the fight's own strip is not across it.
+     RE-AIMED 10/26 BY UI (rule 280, Paolo: 'in combat it can completely go away'): NOTHING is across the fight's top again, not
+     even the one bar (built off the glass for the phone's presses); the fight measures its top as 0 */
+  const bar = top.querySelector('#bmtb'), barOn = !!bar && bar.getBoundingClientRect().height > 0, own = ['round', 'order', 'bauto', 'speedpad'].filter(id => { const e = document.getElementById(id); return e && top.contains(e); });
+  out.push(['in the fight nothing is across the top: not the fight\'s own strip, not the bar (rule 280)', !barOn && own.length === 0, (barOn ? 'the bar is up' : 'no bar') + (own.length ? ', ' + own.join(' ') + ' up there' : '')]);
+  out.push(['  the fight measures its top as 0, the board gets the room', TOPH === 0, 'TOPH ' + TOPH]);
   out.push(['  the round, the faces and AUTO ride the bottom bar', !!bot.querySelector('#round') && !!bot.querySelector('#bauto') && bot.querySelectorAll('#order canvas').length > 0,
     bot.querySelectorAll('#order canvas').length + ' faces']);
   /* UI TWO (rules 238(a)(b), 286(b)): in the game's fights AUTO is the phone's (tiny is fine, his 238(b)), pressing the fight's own */

@@ -18,6 +18,7 @@
      - the crew screen's bar and his page are board, DONE tin, the line's places trays, the stats paper
      - the settings are a sheet of board, its buttons tin, its bars olive
      - the map's bar is board, its tags tin, what you carry in a tray, the speed pad olive
+     - THE NOTES (10/26): the box is a sheet of board, what he writes is paper, CLOSE / COPY ALL / EXPORT tin, SAVE amber
      - NOTHING CHANGES A BOX'S SIZE: every dressed thing is the same size and place with the kit on and off
      - every picture the kit names loads
      - every word on a kit piece reads 4.5 to 1, plain and in the sun (rule 73)
@@ -258,6 +259,13 @@ async function map() {
     await check('the map', fr, p, [['#menubar.bmtb', 'board_plain'], ['#bmtb .t.day', 'tin'], ['#bmtb .t.gear', 'tin'], ['#menubar #bmtb #notebtn', 'tin'], ['#bmtb .g', 'tray'],
       ['#speedpad', 'board_plain'], ['#speedpad .sp:not(.now)', 'tin_dark'], ['#speedpad .sp.now', 'tin_amber']],
       ON ? [['the day on tin', '#bmtb .t.day']] : [['the day on tin', '#bmtb .t.day'], ['NOTES on tin', '#menubar #bmtb #notebtn']]);
+    /* THE NOTES (UI 10/26, rule 130(b)): the box he writes to the manager from, opened by NOTES (the phone's presses the bar's own),
+       one note kept so a kept note is on the glass: a sheet of board, what he writes on paper, the presses tin, SAVE amber */
+    await p.evaluate(() => { try { localStorage.setItem('bohemia.notes.v1', JSON.stringify([{ text: 'the bar is gone in the fight, good', ctx: { build: 'GATE', mode: 'fight', day: 1, clock: '06:30' }, at: new Date().toISOString() }])); } catch (e) {} });
+    await fr.evaluate(() => document.getElementById('notebtn').click()); await p.waitForTimeout(900);
+    await check('the notes', fr, p, [['#notecard', 'board_plain'], ['#notetext', 'receipt'], ['#noterow .nb:not(.go)', 'tin'], ['#noterow .nb.go', 'tin_amber']],
+      [['CLOSE on tin', '#noteback'], ['SAVE AND KEEP PLAYING on amber tin', '#notesave'], ['a kept note printed on the board', '#notelist .nn']]);
+    await fr.evaluate(() => { const b = document.getElementById('noteback'); if (b) b.click(); });
   } finally { await d.close(); }
 }
 
