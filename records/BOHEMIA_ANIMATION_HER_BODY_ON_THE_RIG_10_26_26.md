@@ -66,6 +66,16 @@ walk sheet, idles, town activities). Mutations: a man handed in as her; a man's 
 the post) moved to its 'she exists' state the same push: 10,000 rolled hires come out at his share, each a woman's body and a
 woman's name.
 
+## HER HANDS (10/26, later the same round)
+- Her pistol and cover keys, all four women (the holds tool's person_one on her own body, her gang's guns, YOU's): standing with
+  the pistol at the low ready, aiming one-handed, down on a knee in cover, rising to fire, reloading (127bd471, 11403892,
+  0f155ca9, 6be587c8); WHAT A MAN HOLDS 15/0.
+- Her melee, shield and two-hand keys (the melee tool's person on her own body, the things her gang's): the one-hand idle and
+  swing, the shield arm walking, blocking and planted in cover, two hands, the bow and the sling (71b380c0, 104667a5, ee97b303,
+  woman_3 after); THE THING IN HIS HAND 24/0.
+- Still the town's six only: her minutes after a fight, her camp and her pitching (the company's eleven and YOU have them; a
+  woman hired joins his company, so these come next for her, and for the post's men).
+
 ## NOT MINE, NOTED ON THEIR BOARDS
 - Her voice in the barks: SOUNDS. Her HD portrait (the talking head): PORTRAIT (her face here is her own model's head, as
   every rolled person's). Her clothes on the runway: COOK THREE and CHARACTER (she wears the place's wardrobe, fitted to her).
