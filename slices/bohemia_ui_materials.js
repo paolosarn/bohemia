@@ -412,6 +412,7 @@
     + 'html body #sheet .act{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;'
     +   'font-family:"BohemiaROM",ui-monospace,monospace;font-size:13px;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));min-height:48px}'
     + 'html body #sheet .act span{flex:1 1 auto;text-align:left}'
+    + 'html body #sheet .act img.pk[src*="s_food."]{width:44px}'   /* UI [the bottle next to the can] (rule 240): the can and the bottle side by side at the stall */
     + 'html body #sheet .act em{color:#3e1608;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.8px;border-left:1px dashed rgba(42,34,26,.4);padding-left:8px}'
     + 'html body #sheet .act[disabled]{opacity:1;color:#6b5f4f}html body #sheet .act[disabled] em{color:#7a6a58}'
     /* the bag's and the shelf's slots: cracked glass cells, the item's icon, its short name in ROM, the price stamped */
@@ -628,7 +629,8 @@
       brass: [210, 168, 72], tip: [176, 104, 56], tape: [170, 176, 180], hole: null, blue: [92, 150, 196], cap: [230, 230, 236], green: [96, 160, 90] };
     switch (kind) {
       case 'batteries': rect(1, 3, 6, 4, 'cell'); rect(1, 3, 2, 4, 'green'); put(7, 4, 'copper'); put(7, 5, 'copper'); put(8, 4, 'copper'); put(8, 5, 'copper'); break;
-      case 'food': rect(2, 1, 6, 8, 'tin'); rect(2, 3, 6, 3, 'label'); rect(2, 1, 6, 1, 'cap'); break;
+      /* UI [the bottle next to the can] (rule 240): the can and the water bottle side by side, the bottle's neck clear */
+      case 'food': rect(0, 3, 5, 6, 'tin'); rect(0, 5, 5, 2, 'label'); rect(0, 3, 5, 1, 'cap'); rect(6, 4, 3, 5, 'blue'); rect(6, 6, 3, 1, 'paper'); put(7, 3, 'blue'); put(7, 2, 'cap'); break;
       case 'meds': rect(1, 2, 8, 7, 'paper'); rect(4, 3, 2, 5, 'red'); rect(2, 4, 6, 2, 'red'); break;
       case 'rounds': for (var k = 0; k < 3; k++) { rect(1 + k * 3, 4, 2, 5, 'brass'); rect(1 + k * 3, 2, 2, 2, 'tip'); } break;
       /* THE TAPE RING IS DEAD (Paolo, his eleventh votes: 'it looks like someone is getting hung by a noose'; UI [icons at full
@@ -734,7 +736,10 @@
     try { var B0 = window.__BILL; if (B0 && B0.crew > 0) f.eat = B0.crew | 0; } catch (_e) {}   /* a man eats one a day: the crew the bill feeds */
     try { f.day = T.day | 0; f.min = T.min | 0; } catch (_e) {}
     try { var pb = purseBalances(); if (typeof pb.electricity === 'number') f.batteries = pb.electricity; if (typeof pb.resources === 'number') f.food = pb.resources; } catch (_e) {}
-    try { var t = om.at(city.x, city.y); f.place = (t && t.district) ? String(t.district).toUpperCase() : null; } catch (_e) {}
+    /* UI [no tile name on the bar] (rule 262(a), Paolo 10/26: 'on the top of the UI I don't need to see that I'm on a freeway...
+       the character sees it visually'): the ground he stands on is kept for the code (f.ground) and never written on the bar;
+       the bar names a place only where it is one (a town's name, CAMP) */
+    try { var t = om.at(city.x, city.y); f.ground = (t && t.district) ? String(t.district).toUpperCase() : null; } catch (_e) {}
     try { var R = window.__BAR_READ; if (R && R.six) f.six = R.six; } catch (_e) {}
     try { var p = window.parent.BOH_START && window.parent.BOH_START.picks(); if (p && p.company) {
       f.cap = p.roster || p.cap || null;   /* RUN TWO, EYES [eyes: one company number] (rule 150): the company's room, the crew screen's and the door's number; the fight's 12 is named on those two */
@@ -807,8 +812,10 @@
     + '#bmtb .s img{display:block;width:20px;height:20px;image-rendering:pixelated}'
     /* the six are his pack's props, whole, in a 32-point box (96 phone pixels: the pack's own floor, rule 105) */
     + '#bmtb .s.six img{width:32px;height:32px;object-fit:contain;image-rendering:pixelated} #bmtb .g{min-height:40px}'
+    /* UI [the bottle next to the can] (rule 240): food is the can and the water bottle side by side, 125 by 96, so its box is wider */
+    + '#bmtb .s.six[data-f=food] img{width:42px}'
     + '#bmtb .s.six i.hold{display:none;font-style:normal;font-size:10px;letter-spacing:.8px;color:#ddd2b8;margin-left:2px} #bmtb .g.held .s.six i.hold{display:inline}'
-    + '@media (max-width:359px){#bmtb .s.six img{width:26px;height:26px} #bmtb .g{gap:6px}}'
+    + '@media (max-width:359px){#bmtb .s.six img{width:26px;height:26px} #bmtb .s.six[data-f=food] img{width:34px} #bmtb .g{gap:6px}}'
     + '#bmtb .s b{font-weight:normal} #bmtb .s.none b{color:#ddd2b8} #bmtb .s.none img{opacity:.6}'
     + '#bmtb .s b.low{color:#4a0a05;padding:3px 5px;background:#e2dac6 var(--bm-receipt) center/100% 100%;box-shadow:0 1px 0 #000}'
     + '#bmtb .where{flex:0 1 auto;min-width:0;margin-left:auto;overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:1px;color:#f2e4c6}'

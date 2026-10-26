@@ -18,3 +18,6 @@ s_meds <- pack_12_weapons_and_supplies_030.png
 s_rounds <- pack_12_weapons_and_supplies_018.png
 b_smith <- pack_15_workbenches_and_tools_004.png
 b_armourer <- pack_15_workbenches_and_tools_012.png
+
+s_food (10/26, UI [the bottle next to the can], rule 240): the can with the water bottle standing next to it, the same picture as
+supply_icons/food.png (its SOURCES.txt says how); the old can alone is s_food_can.png.
