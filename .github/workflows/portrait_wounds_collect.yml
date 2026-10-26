@@ -1,0 +1,67 @@
+# BOHEMIA — THE FACE SHOWS THE WOUND: COLLECT A FINISHED RUN'S RENDERS (10/26/26, PORTRAIT)
+#
+# The full batch (run 40276121746) rendered all sixteen shards and then its commit job's push died twice with
+# 'RPC failed; HTTP 500' after almost four minutes: it pushed from the sparse, shallow, blob-less checkout the shards
+# came from. The renders were fine and sit in that run's artifacts. This job fetches a finished run's artifacts
+# (records/portrait/wounds/COLLECT.json names the run) and pushes them from a FRESH repository, one small commit a
+# shard, so no push carries more than a shard. Still only to portrait-wounds-renders; never main.
+name: portrait wounds collect
+
+on:
+  push:
+    branches: [portrait-wounds]
+    paths:
+      - 'records/portrait/wounds/COLLECT.json'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: portrait-wounds-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            records/portrait/wounds
+      - id: c
+        run: echo "run=$(python3 -c "import json; print(int(json.load(open('records/portrait/wounds/COLLECT.json'))['run']))")" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wounds-*
+          run-id: ${{ steps.c.outputs.run }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/wounds
+      - name: one commit a shard, from a fresh repository, to the renders branch (never main)
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          mkdir -p /tmp/out && cd /tmp/out
+          git init -q -b renders
+          git config user.name 'bohemia-runner'
+          git config user.email 'bohemia-runner@users.noreply.github.com'
+          git config http.postBuffer 524288000
+          git remote add origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          first=1
+          for d in $(ls -d /tmp/wounds/wounds-* | sort -V); do
+            mkdir -p records && cp -r "$d"/. records/
+            git add -A records
+            git commit -q -m "PORTRAIT [the face shows the wound]: run ${{ steps.c.outputs.run }}, $(basename "$d")" || continue
+            pushed=0
+            for t in 1 2 3 4; do
+              if [ $first = 1 ]; then f=-f; else f=; fi
+              if git push -q $f origin HEAD:refs/heads/portrait-wounds-renders; then pushed=1; break; fi
+              sleep $((t * 4))
+            done
+            [ $pushed = 1 ] || { echo "the push of $(basename "$d") failed four times"; exit 1; }
+            first=0
+          done
+          git log --oneline | head -20
+          find records -type f | wc -l

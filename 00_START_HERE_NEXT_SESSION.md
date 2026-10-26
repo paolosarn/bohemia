@@ -1,3 +1,11 @@
+PORTRAIT (portrait-wounds): 10/26 LATEST -- [the face shows the wound] and [every face breathes] SHIPPED 0154fd59, BUILT,
+NOT YET SEEN (rules 234(c), 246; BUILD 10/26zm): 18 marks for the 59 injury rows on YOU and all 152 people's own faces at 128 and the
+64 thumb (eye patch, stapled skull, ear gone, nose gone, blood and a band-aid that come off as he heals, a cattle tag for what a head
+cannot show), and every face breathes, blinks, glances and winces when hurt on one clock; gates THE FACE SHOWS THE WOUND 29/0, EVERY
+FACE BREATHES 15/0; two VOTE cards. The whole block: handoffs/PORTRAIT.md (rule: each lane's block in handoffs/).
+[bb Battle Brothers draws a brother's injuries on his head as layers; ours is each mark a layer of his own render.]
+[analog horror: a man tagged through the ear like livestock, still breathing on the beat.]
+
 UI TWO (ui-two): 10/26 LATEST -- the phone overhaul SHIPPED 3cc7cdd77, BUILT, NOT YET SEEN (BUILD 10/26zb - ONE PHONE IN YOUR CORNER, YOUR JOBS ONLY): one phone in his corner on every screen, his jobs only
 with EMPTY, READY TO GO slots, PLAY/PAUSE, CREW, HEAL (a cross in a ring the company's blood and armour fill), FEED, RELATIONS; his abilities on it in a fight;
 gate THE PHONE 183/0 (phone upright, on its side, a computer). The whole block: handoffs/UI_TWO.md (rule: each lane's block in handoffs/).
