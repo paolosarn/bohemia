@@ -226,3 +226,10 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 206 | Research all of Battle Brothers' camp followers (the retinue) and bring them in: what each does to help | 270 | CAMP TWO, TUNING, WORDS, EYES | 
 | 207 | More tape in the world (bought and looted) so a run never ends because my armour can't be repaired | 271 | RUN FOUR, ECONOMY, RUN TWO, EYES | 
 | 208 | The armour and helmet a man wears show on him (a police helmet...), placeholders now, art after | 272 | CHARACTER, COOK, EYES | 
+| 209 | In a settlement (and on its entrance tile) nobody can attack me; I can always heal there | 273(a) | CAMP, EYES | 
+| 210 | HEAL/CAMP in the settlement screen: time passes, my men heal and repair, shown with 2 percent ghost trails (the long-exposure look) | 273(b)(c) | CAMP, CAMP TWO, EYES | 
+| 211 | Camping on the town's entrance tile makes the town-style camp, not the lone street camp | 273(d) | CAMP, CAMP TWO, EYES | 
+| 212 | The fight runs at one pace on the music's beat, the same for every turn; no speeding up and slowing down (a formula) | 274 | COMBAT, SOUNDS, EYES | 
+| 213 | Paid the moment I reach the client town's territory, without entering the settlement screen | 275(a) | WORLD, EYES | 
+| 214 | Damage gets its own icon everywhere | 275(b) | UI THREE, EYES | 
+| 215 | (said again) A free lineup retreat for the whole squad; the map bounces me two or three blocks away | 275(c) | COMBAT, CAMP, EYES | 
