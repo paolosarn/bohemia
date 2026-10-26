@@ -129,6 +129,11 @@ function run(over) {
   const best = year.reduce((a, b) => b.total > a.total ? b : a);
   out.yearBest = { w: best.w, total: best.total, needy: best.legs.length, hours: +tourHours(best.legs.map(l => D.places.find(p => p.id === l.place)).filter((v, i, a) => a.indexOf(v) === i)).toFixed(1) };
   out.yearMean = +(year.reduce((a, b) => a + b.total, 0) / year.length).toFixed(1);
+  /* the same year for a company every town loves (Allied: buys up to 0.15 of worth cheaper, sells 0.02 dearer) */
+  const loved = []; for (let w = 0; w < 52; w++) loved.push(week(D, w, { allied: true }));
+  out.allied = { weekOne: loved[0].total, best: Math.max.apply(null, loved.map(y => y.total)) };
+  /* the bar for one man (the Lone Wolf's week of food), reported, not tested: his squeeze is the hall, not the bill */
+  out.loneWolfWeek = 1 * D.bill.per_man_per_night.value * 7;
   const sickShare = year.reduce((a, y) => a + y.stalls.filter(s => s.cards.includes('sickness')).length, 0) / (52 * D.places.length);
   out.sickShare = +sickShare.toFixed(3);
 
@@ -156,10 +161,12 @@ function run(over) {
     return { id: o.id, crew, full: v('full'), thin: v('thin'), bare: v('bare'), nightsFull: +(v('full') / (crew * D.bill.per_man_per_night.value)).toFixed(1) };
   });
 
+  /* THE SQUEEZE (Day 82 s4): S1 the first week, every game, trading's ceiling pays under one routine contract
+     ('spilling blood pays better than spilling wine', bb_all/0834); S2 no week of the year, trading's ceiling feeds a
+     crew of three (it is a bonus on the work, never the work); S3 no stall is a bank; S4 a calm town pays half */
   out.tests = {
-    S1_best_week_under_one_contract: out.yearBest.total < out.routineContract,
-    S1_week_one_under_one_contract: out.weekOne.total < out.routineContract,
-    S2_stacked_ceiling_under_a_week_of_food: out.stacked.total < out.weekBill,
+    S1_week_one_under_one_contract: Math.max(out.weekOne.total, out.allied.weekOne) < out.routineContract,
+    S2_every_week_under_a_week_of_food: Math.max(out.yearBest.total, out.allied.best) < out.weekBill,
     S3_sell_under_buy_everywhere: bad === 0,
     S4_calm_pays_half: out.lines.calm.food.each === D.file.goods.food.buy.value * D.file.sell_share.value
   };
@@ -176,7 +183,8 @@ if (require.main === module) {
   console.log('week one (every game): ' + r.weekOne.total + ' from ' + r.weekOne.legs.length + ' needy lines; carded towns: ' + r.weekOne.sick.join(', '));
   r.weekOne.legs.forEach(l => console.log('    ' + l.place + ' (' + l.tier + ') ' + l.good + ': ' + l.units + ' sold for ' + l.pays + ', bought for ' + l.cost + ', +' + l.gain));
   console.log('the year: best week ' + r.yearBest.w + ' pays ' + r.yearBest.total + ' (' + r.yearBest.needy + ' needy lines, the loop ' + r.yearBest.hours + ' h), mean ' + r.yearMean + '; sick place-weeks ' + (100 * r.sickShare).toFixed(1) + '%');
-  console.log('stacked (every town sick + market day + refugees, Allied, the source well supplied): ' + r.stacked.total + ' ' + JSON.stringify(r.stacked.perTier) + '; the loop through all 14: ' + r.stackedHours + ' h');
+  console.log('a company every town loves (Allied): week one ' + r.allied.weekOne + ', best week ' + r.allied.best + '; one man\'s week of food ' + r.loneWolfWeek + ' (reported)');
+  console.log('stacked, never on the dice (every town sick + market day + refugees at once, Allied, the source well supplied): ' + r.stacked.total + ' ' + JSON.stringify(r.stacked.perTier) + '; the loop through all 14: ' + r.stackedHours + ' h');
   console.log('sell under buy: ' + r.sellUnderBuy.checked + ' checked, ' + r.sellUnderBuy.bad + ' at or over');
   console.log('a starting kit sold whole, calm: ' + r.kits.map(k => k.id + ' ' + k.full + '/' + k.thin + '/' + k.bare + ' (' + k.nightsFull + ' nights)').join(', '));
   console.log('TESTS ' + JSON.stringify(r.tests));

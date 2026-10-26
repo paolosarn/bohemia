@@ -9975,6 +9975,13 @@ GATES = [
      "MEASURED before: every man on the crew screen stood bare-handed whatever he held. On the demo, phone and computer, the company screen through the bar's CREW, every man: his figure holds what his main hand "
      "holds as the fight names it (fight_rig.json by_class: pistol, rifle, shotgun; bare when no gun), the gun drawn (more of him painted than his bare idle); the computer: the crew screen's FATIGUE equals the fight's "
      "fatMax for every man in a road fight; the class table emptied is caught. about 3 min", True),
+    ('BUY VERSUS SELL', ['node', 'gates/buy_versus_sell_gate.js'],
+     "ECONOMY gate, 10/26, row [buy versus sell] (rule 242, Paolo 10/26: 'at the stall where a dose of med six rounds food and water are available, I should also be able to sell... "
+     "how much you can make, buy versus sell prices'). The numbers' half of 242(d) (RUN TWO's [sell at the stall] gate holds the tap): records/target/bb/stall_prices.json, every row sourced, "
+     "every quote read word for word out of the wiki tarball, no need multiplier typed (the card holds it); through engine/bohemia_stall_prices.js a calm town pays half, a sick town pays more "
+     "for food and a dose and says it is short, the need eases unit by unit, a glut takes nothing, the warning fires under a night a man; every stall of the valley over a quarter of weeks, "
+     "both standings, every count to twelve, sells under what it charges; THE SQUEEZE on the live dice (tools/bohemia_economy_buy_versus_sell.js): week one's best trading under one routine "
+     "contract, no week of the year's under a week of food for three, Battle Brothers' own spread pays nothing; TUNING's one table carries section P. Eight mutations turn it red. 1 s", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
