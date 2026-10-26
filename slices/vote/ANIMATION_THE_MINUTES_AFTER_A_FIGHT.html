@@ -48,11 +48,11 @@ the same stop-motion as everything else.</p>
   cv.width = GW; cv.height = GH;
   var FR = null, IMG = {};
   /* the dead: the fight's own sheets, their last fall key (fall@2) at a facing; x y are their feet on the ground */
-  var DEAD = [ { look: 'faction_mob', f: 2, x: 196, y: 200 }, { look: 'person_town_5', f: 2, x: 470, y: 240 }, { look: 'faction_mob', f: 6, x: 590, y: 160 } ];
+  var DEAD = [ { look: 'faction_mob', f: 2, x: 196, y: 200 }, { look: 'person_town_5', f: 2, x: 470, y: 240 }, { look: 'faction_mob', f: 6, x: 560, y: 150 } ];
   /* his men: look, act, facing (0 S, 2 E, 4 N, 6 W), where his feet stand; the looter and the tender face their man */
   var MEN = [
     { look: 'person_town_0', act: 'loot', f: 2, x: 150, y: 196, n: 0 },
-    { look: 'person_town_1', act: 'tend', f: 0, x: 470, y: 214, n: 1 },
+    { look: 'person_town_1', act: 'tend', f: 0, x: 432, y: 222, n: 1 },   /* behind his friend's chest, facing the glass and him */
     { look: 'person_town_2', act: 'bind', f: 1, x: 330, y: 300, n: 2 },
     { look: 'person_town_3', act: 'breath', f: 7, x: 300, y: 170, n: 3 },
     { look: 'person_town_4', act: 'talk', f: 1, x: 70, y: 300, n: 4, pair: 'p', partner: false },

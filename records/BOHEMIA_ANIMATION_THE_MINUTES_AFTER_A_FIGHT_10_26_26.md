@@ -51,4 +51,13 @@ pose (a knee lifted 15 cm is caught); P every act a man has, every pose, eight f
 YOU have all four once any man has one.
 
 ## WHERE IT STANDS
-(filled as the renders land)
+- LIVE 10/26: all eleven of his company and YOU, the four acts, eight facings (48 sheets in slices/rig_town; every pass's joints kept
+  in records/animation/town_joints). THE TOWNS ACTIVITIES 20/0 with A1 (his company and YOU have all four). The VOTE card plays
+  them on the fight's ground with the dead (slices/vote/ANIMATION_THE_MINUTES_AFTER_A_FIGHT.html): the looter knelt over a dead
+  man, a friend at a hurt man's chest, a man binding his arm, one bent over his knees, two talking, one smoking; a NIGHT-dim
+  button as it sits behind the loot screen.
+- CAUGHT ON THE WAY: I moved the live render folder out of the way to test the gate as main would run it, and three renders still
+  writing made the folder again: their frames split in two; merged back before they finished (every one came out whole). Never
+  move a folder a live render writes to. And a man's sheet whose file was newer than his render (my restore) was skipped by the
+  pack: re-packed; the gate's A1 caught it.
+- RUN FOUR's call on its row (records the acts and how to lay them by a body).
