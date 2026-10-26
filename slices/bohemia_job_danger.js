@@ -248,7 +248,13 @@
     }).filter(Boolean);
   }
   function readKey(o, place) { return String(o && o.id) + '@' + String(place || (o && o.from) || '') + (o && o.plays ? ':held:' + (o.stage || '') + ':' + (o.wave | 0) + ':' + (o.got | 0) + ':' + ((o.ambush || []).length) + ':' + (o.bands | 0) + ':' + (o.holders ? o.holders.n : '') : ''); }
-  function fightKey(f, ck) { return ck + '|' + f.band.join(',') + '|' + f.faction + '|' + (f.days | 0) + '|' + (districtAt(f.at || [0, 0]) || ''); }
+  function fightBase(f, ck) { return ck + '|' + f.band.join(',') + '|' + f.faction + '|' + (f.days | 0) + '|' + (districtAt(f.at || [0, 0]) || ''); }
+  /* A SURE FIGHT NEVER BORROWS A LIGHT READ (measured 10/26, rule 254's gate): a job's sure fight and its road fight often share a
+     band and a district, and whichever was queued first set the plays: the road's, 8 plays and no playing on, so most sure fights
+     were read on 8 (7 of 8 = 0.875 where 100 plays said 0.77). A fight that comes for sure is read full; a fight that only might
+     come takes a full read of its band when there is one, else its own light one */
+  function fightKey(f, ck, sure) { var b = fightBase(f, ck); if (f.p >= 0.25) return b + '|full';
+    return (sure && sure[b]) || (PLAYED[b + '|full'] && !PLAYED[b + '|full'].broke) || FIGHTS[b + '|full'] ? b + '|full' : b + '|light'; }
   function combine(R) {
     var clean = 1, n = 0, all = true, broke = null;
     R.fights.forEach(function (f) {
@@ -281,9 +287,10 @@
     var ks = Object.keys(READS); if (ks.length > 400) ks.sort(function (a, b) { return READS[a].at - READS[b].at; }).slice(0, ks.length - 400).forEach(function (k) { if (READS[k].state !== 'reading') delete READS[k]; });
     /* what he is looking at now goes first: a fight asked for again moves to the front of the line */
     fs.forEach(function (f) { f.opts = doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at); });   /* the hand-over each fight is played with, fixed with the read */
-    fs.slice().reverse().forEach(function (f) { f.fk = fightKey(f, ck);
+    var sure = {}; fs.forEach(function (f) { if (f.p >= 0.25) sure[fightBase(f, ck)] = 1; });
+    fs.slice().reverse().forEach(function (f) { f.fk = fightKey(f, ck, sure);
       if (!PLAYED[f.fk] && !FIGHTS[f.fk]) { FIGHTS[f.fk] = { fk: f.fk, f: f, reads: [rk] }; Q.unshift(f.fk); }
-      else if (FIGHTS[f.fk]) { FIGHTS[f.fk].reads.push(rk); var qi = Q.indexOf(f.fk); if (qi > 0) { Q.splice(qi, 1); Q.unshift(f.fk); } } });
+      else if (FIGHTS[f.fk]) { FIGHTS[f.fk].reads.push(rk); if (f.p >= 0.25 && !(FIGHTS[f.fk].f.p >= 0.25)) FIGHTS[f.fk].f = f; var qi = Q.indexOf(f.fk); if (qi > 0) { Q.splice(qi, 1); Q.unshift(f.fk); } } });
     if (!fs.length) { R.clean = 1; R.danger = 0; R.stars = 1; R.blood = 0; R.state = 'read'; R.runs = 0; }
     else if (combine(R)) {}
     pump();
@@ -295,9 +302,9 @@
     var f = F.f, opts = f.opts || doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at);
     /* a fight that only might come (the road's, a twist's) weighs little in the product: fewer plays; a fight that is plainly lost
        stops early (under stop_below after stop_from plays: any job with it in is three stars whatever the rest) */
-    var runs = f.p >= 0.25 ? (CFG.runs | 0 || 32) : Math.max(8, Math.round((CFG.runs | 0 || 32) / 4));
+    var full = /\|full$/.test(fk), runs = full ? (CFG.runs | 0 || 32) : Math.max(8, Math.round((CFG.runs | 0 || 32) / 4));   /* the key says full or light */
     var job = { id: ++JOBN, fk: fk, opts: opts, seed: seedOf('runs:' + fk), runs: runs, steps: CFG.steps, stopFrom: CFG.stop_from, stopBelow: CFG.stop_below,
-      cuts: [CFG.cut_one, CFG.cut_three], near: f.p >= 0.25 ? CFG.near_cut : 0, more: CFG.runs_more, max: f.p >= 0.25 ? Math.max(runs, CFG.runs_max | 0) : runs, t0: Date.now() };
+      cuts: [CFG.cut_one, CFG.cut_three], near: full ? CFG.near_cut : 0, more: CFG.runs_more, max: full ? Math.max(runs, CFG.runs_max | 0) : runs, t0: Date.now() };
     BUSY = job;
     var w = worker();
     if (w) { job.viaWorker = true; w.postMessage({ ls: { 'bohemia.fight.formation.v1': ls('bohemia.fight.formation.v1', null) } }); w.postMessage(job); }
@@ -332,6 +339,9 @@
     var F = FIGHTS[J.fk]; delete FIGHTS[J.fk];
     PLAYED[J.fk] = d.broke ? { runs: 0, broke: d.broke } : { runs: d.runs, sum: d.sum, clean: d.clean, won: d.won, down: d.down, dead: d.dead, hung: d.hung, ms: Date.now() - J.t0, worker: !!J.viaWorker };
     if (d.broke) WERR = d.broke;
+    /* a checker's own setting (rule 192(c)): keep the hand-over and the dice each fight was played on, so the stars gate can replay the
+       page's own plays with the fight's own count and get the page's own number back */
+    if (root.__JOB_DANGER_KEEP && !d.broke) { PLAYED[J.fk].opts = J.opts; PLAYED[J.fk].seed = J.seed; PLAYED[J.fk].steps = J.steps; PLAYED[J.fk].formation = ls('bohemia.fight.formation.v1', null); }
     if (F) F.reads.forEach(function (rk) { var R = READS[rk]; if (R && R.state !== 'read' && combine(R)) { paintAll(R); say('bohemia-job-danger', { id: R.id, place: R.place, stars: R.stars, danger: R.danger }); } });
     pump();
   }

@@ -29,11 +29,15 @@
          say what happened to them
      J9  NO CHAMPION ON DAY ONE: every fight of every day-one crew's jobs is dressed for day one and holds only the kinds of its
          faction's first phase (ours.enemy_tiers): no Marauder, no leader, for the Block Watch's twelve as for the Lone Wolf
-     J10 ONE CALCULATOR, ONE SCALE (rule 254(d)): the page plays the fight's own oddsRunValue and its lines are the AUTO colour's
-         own (ours.odds_colour turn and down_value, job_danger.json's copies equal); every job's blood is on AUTO's side of the turn
-         (clean tin where AUTO is green, blood where it is red) unless its number is within a hair (0.08) of the turn; the job's
-         blood is the blood of AUTO's own number (its 100 plays) within a hair (a quarter of the scale, two of the kit's eight
-         stages) for 95 in 100; every job whose plays lose a man (dead or lost) 6 in 10 or more reads three stars and the deepest blood
+     J10 ONE CALCULATOR, ONE SCALE (rule 254(d)): the page's lines are the AUTO colour's own (ours.odds_colour turn and down_value,
+         job_danger.json's copies equal); ONE NUMBER: 60 of the jobs' sure fights replayed here on the page's own hand-over and the
+         page's own dice with the fight's own count (oddsRunValue) give the page's number, within 5 plays in 100 (MEASURED 10/26: the
+         fight's own code carries a little from one fight into the next, so the same fight on the same dice moves a play or a few
+         with what its copy played before; the AUTO button's copy does the same; COMBAT's, NOTEd), and every job's blood is its
+         number on the AUTO colour's line, exactly; every job's blood is on the side of the turn its 100 fresh plays are (clean
+         tin where AUTO is green, blood where it is red) unless they sit within 0.08 of the turn; every job whose plays lose a man
+         (dead or lost) 6 in 10 or more reads three stars and the deepest blood. The blood against the 100 fresh plays is printed:
+         two samples of the same dice differ, and the blood's line is steep (0.8 to 0.5 is the whole scale)
    node gates/the_job_tells_the_truth_gate.js     (about fifteen minutes: 23,000 fights played in node on four processes)
    ========================================================================== */
 'use strict';
@@ -111,12 +115,13 @@ const CREWS = [
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn().catch(() => false)) return true; await page.waitForTimeout(400); } return false; };
   const jobs = [], tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'jobtruth-'));
-  const JDF = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_danger.json'), 'utf8'));
+  const JDF = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_danger.json'), 'utf8')), SURE = [];
   let scale = null;
   try {
     await fr.waitForFunction(() => window.BohemiaJobKinds && BohemiaJobKinds.ready() && window.BohemiaBoardShelf && BohemiaBoardShelf.ready(), null, { timeout: 40000 }).catch(() => {});
     const eng = await waitFor(() => fr.evaluate(() => !!(window.BohemiaJobDanger && BohemiaJobDanger.ready())), 60000);
     if (!eng) { ok('J1 the fight\'s own rules load in the map', false, await fr.evaluate(() => JSON.stringify(window.BohemiaJobDanger && BohemiaJobDanger.state().err))); return done(); }
+    await fr.evaluate(() => { window.__JOB_DANGER_KEEP = true; });   /* the page keeps each fight's hand-over and dice for J10 */
     /* a checker's own crews (gates switch settings on for themselves only, rule 192(c)) */
     for (const C of CREWS) {
       const tc = Date.now();
@@ -151,6 +156,12 @@ const CREWS = [
           fights: R.fights.map(f => ({ what: f.what, why: f.why, n: f.n, p: f.p, band: f.band, faction: f.faction, days: f.days,
             opts: f.opts || BohemiaJobDanger.doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at) })) }; }), got);   /* the very hand-over the page played */
       rows.forEach((r, i) => { r.crew = C.id; r.day = C.day; r.must = !!(got[i] && got[i].must); r.key = C.id + '|' + r.place + '|' + r.id; jobs.push(r); });
+      const sure = await fr.evaluate((ids) => { const P = BohemiaJobDanger.played(), out = [], seen = {};
+        ids.forEach(x => { const R = BohemiaJobDanger.read(x.o, x.place); if (!R || R.state !== 'read') return;
+          R.fights.forEach(f => { const Q = P[f.fk]; if (f.p < 0.25 || seen[f.fk] || !Q || !Q.opts || out.length >= 12) return; seen[f.fk] = 1;
+            out.push({ fk: f.fk, runs: Q.runs, sum: Q.sum, seed: Q.seed, steps: Q.steps, formation: Q.formation, opts: Q.opts, c: f.clean, job: x.id + '@' + x.place }); }); });
+        return out; }, got);
+      sure.forEach(x => { x.crew = C.id; SURE.push(x); });
       console.log('  ...' + C.id + ' (' + Math.round((Date.now() - tc) / 1000) + ' s): ' + rows.length + ' jobs read, ' + [1, 2, 3].map(s => rows.filter(r => r.stars === s).length + ' at ' + s).join(', ') + (all ? '' : ' (TIMED OUT)'));
     }
     const read = jobs.filter(j => j.state === 'read');
@@ -297,23 +308,32 @@ const CREWS = [
     ok('J9 no champion on day one: ' + day1.length + ' day-one jobs, every fight dressed for day one with its faction\'s first-phase kinds only', day1.length >= 40 && bad.length === 0,
       bad.length ? bad.slice(0, 6).join(' | ') : day1.reduce((t, j) => t + j.fights.length, 0) + ' fights, kinds ' + Array.from(new Set([].concat.apply([], day1.map(j => [].concat.apply([], j.fights.map(f => f.band)))))).join(', '));
     /* J10: one calculator, one scale (rule 254(d)) */
-    const SIDE = 0.08, HAIRB = 0.25, sides = [], far = [], lose = [];
-    const bloodAt = v => Math.max(0, Math.min(1, ((1 - v) - (1 - TURN)) / Math.max(1e-6, TURN - DOWNV)));   /* AUTO's number on the button's line */
+    const E = await engine(), same = [];
+    for (const x of SURE.slice(0, 60)) {   /* the page's own plays, again: its hand-over, its dice, the fight's own count */
+      E.LSV = { 'bohemia.fight.formation.v1': x.formation }; const o = JSON.parse(JSON.stringify(x.opts)); let sum = 0;
+      for (let n = 0; n < x.runs; n++) { E.seed((x.seed + n * 7919) >>> 0); E.FIGHT.setup(o);
+        let g = 0; while (!E.FIGHT.S.over && g <= x.steps) { const v = E.FIGHT.current(); if (!v) break; E.FIGHT.aiStep(v); E.FIGHT.S.events = []; g++; }
+        sum += E.FIGHT.S.over ? E.run(E.FIGHT) : 0; }
+      same.push({ fk: x.fk, crew: x.crew, job: x.job, runs: x.runs, page: x.sum, here: sum }); }
+    const differ = same.filter(x => Math.abs(x.page - x.here) > 0.05 * x.runs), exact = same.filter(x => Math.abs(x.page - x.here) < 1e-9);
+    const SIDE = 0.08, sides = [], lose = [], drawn = [];
+    const bloodAt = v => Math.max(0, Math.min(1, (TURN - v) / Math.max(1e-6, TURN - DOWNV)));   /* a number on the AUTO colour's line */
     read.filter(j => j.measured != null).forEach(j => { const green = j.measured >= TURN;
       if (Math.abs(j.measured - TURN) > SIDE && ((j.blood === 0) !== green)) sides.push(j);
-      if (Math.abs(j.blood - bloodAt(j.measured)) > HAIRB) far.push(j);
+      if (Math.abs(j.blood - bloodAt(1 - j.danger)) > 1e-9) drawn.push(j);
       if (j.lostMan >= 0.6) lose.push(j); });
     const deep = lose.filter(j => !(j.stars === 3 && j.blood >= 0.999));
     const gaps = read.filter(j => j.measured != null).map(j => Math.abs(j.blood - bloodAt(j.measured))).sort((a, b) => a - b);
     const lineOk = !!scale && scale.orv && !scale.okRun && Math.abs(scale.cfg.cut_one - TURN) < 1e-9 && Math.abs(scale.cfg.cut_three - DOWNV) < 1e-9 &&
       Math.abs(scale.cfg.blood_from - (1 - TURN)) < 1e-6 && Math.abs(scale.cfg.blood_full - (1 - DOWNV)) < 1e-6 && scale.cfg.prior === 0 &&
       ['cut_one', 'cut_three', 'blood_from', 'blood_full'].every(k => Math.abs(JDF[k].value - scale.cfg[k]) < 1e-6);
-    ok('J10 one calculator, one scale: the page plays AUTO\'s own count on AUTO\'s own lines; every job\'s blood on AUTO\'s side of the turn; its blood AUTO\'s within a hair; every job that loses a man in 6 plays of 10 three stars and the deepest blood',
-      lineOk && sides.length === 0 && far.length <= Math.floor(read.length / 20) && deep.length === 0 && lose.length > 0,
+    ok('J10 one calculator, one scale: AUTO\'s own lines; the page\'s sure fights replayed on its own dice give its own number (within 5 plays in 100), every blood its number on the line; every blood on AUTO\'s side of the turn; every job that loses a man in 6 plays of 10 three stars and the deepest blood',
+      lineOk && same.length >= 40 && differ.length === 0 && drawn.length === 0 && sides.length === 0 && deep.length === 0 && lose.length > 0,
       'lines ' + JSON.stringify(scale && { cut_one: scale.cfg.cut_one, cut_three: scale.cfg.cut_three, blood_from: scale.cfg.blood_from, blood_full: scale.cfg.blood_full, prior: scale.cfg.prior, from_fight: scale.cfg.from_fight, orv: scale.orv, okRun: scale.okRun }) +
-      '; off AUTO\'s side ' + sides.length + (sides.length ? ' (' + sides.slice(0, 4).map(j => j.id + ' blood ' + j.blood.toFixed(2) + ' AUTO ' + j.measured.toFixed(2)).join(', ') + ')' : '') +
-      '; the blood past a hair ' + far.length + ' of ' + gaps.length + ' (median gap ' + (gaps.length ? gaps[gaps.length >> 1].toFixed(3) : '-') + ', 95th ' + (gaps.length ? gaps[Math.floor(gaps.length * 0.95)].toFixed(3) : '-') + ')' +
-      '; lose a man 6 in 10: ' + lose.length + ' jobs, ' + (lose.length - deep.length) + ' read three stars and the deepest blood' + (deep.length ? ' (not: ' + deep.slice(0, 4).map(j => j.id + ' ' + j.stars + '* ' + j.blood.toFixed(2) + ' lost ' + Math.round(100 * j.lostMan)).join(', ') + ')' : ''));
+      '; the same dice: ' + same.length + ' sure fights, ' + same.reduce((t, x) => t + x.runs, 0) + ' plays, ' + exact.length + ' to the last digit, the most apart ' + (same.length ? Math.max.apply(null, same.map(x => Math.abs(x.page - x.here))).toFixed(2) : '-') + ' plays, ' + differ.length + ' past 5 in 100' + (differ.length ? ' (' + differ.slice(0, 3).map(x => x.job + ' page ' + x.page.toFixed(2) + ' here ' + x.here.toFixed(2) + ' of ' + x.runs).join(', ') + ')' : '') +
+      '; blood off its own line ' + drawn.length + '; off AUTO\'s side ' + sides.length + (sides.length ? ' (' + sides.slice(0, 4).map(j => j.id + ' blood ' + j.blood.toFixed(2) + ' 100 plays ' + j.measured.toFixed(2)).join(', ') + ')' : '') +
+      '; lose a man 6 in 10: ' + lose.length + ' jobs, ' + (lose.length - deep.length) + ' read three stars and the deepest blood' + (deep.length ? ' (not: ' + deep.slice(0, 4).map(j => j.id + ' ' + j.stars + '* ' + j.blood.toFixed(2) + ' lost ' + Math.round(100 * j.lostMan)).join(', ') + ')' : '') +
+      '; against 100 fresh plays the blood differs by ' + (gaps.length ? gaps[gaps.length >> 1].toFixed(2) + ' at the median, ' + gaps[Math.floor(gaps.length * 0.9)].toFixed(2) + ' at the 90th, ' + gaps[Math.floor(gaps.length * 0.95)].toFixed(2) + ' at the 95th' : '-'));
     fs.writeFileSync(path.join(tmp, 'jobs.json'), JSON.stringify(read.map(j => ({ crew: j.crew, place: j.place, id: j.id, skulls: j.skulls, stars: j.stars, danger: +j.danger.toFixed(3), blood: +j.blood.toFixed(3), measured: j.measured, literal: j.literal, auto: j.auto, deaths: j.deaths, wiped: j.wiped, lostMan: j.lostMan, must: j.must,
       fights: j.fights.map(f => f.what + ' ' + f.p.toFixed(2) + ' ' + f.band.join('/')) }))));
     console.log('  (every job: ' + path.join(tmp, 'jobs.json') + ')');
