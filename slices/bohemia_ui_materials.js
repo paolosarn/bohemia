@@ -2738,7 +2738,8 @@
   }
   /* the fight's drawer says its rows in words (COMBAT's file): the words name the stat */
   var STAT_WORDS = [[/^health/i, ['hp']], [/^fatigue/i, ['fatigue']], [/^resolve/i, ['resolve']], [/^initiative/i, ['initiative']],
-    [/^melee skill/i, ['melee_skill', 'melee_defense']], [/^ranged skill/i, ['ranged_skill', 'ranged_defense']]];
+    [/^melee skill/i, ['melee_skill', 'melee_defense']], [/^ranged skill/i, ['ranged_skill', 'ranged_defense']],
+    [/^damage/i, ['damage']]];   /* UI THREE [a damage icon] (rule 275(b)): the weapon card's Damage row wears damage's own picture (slices/stat_icons/damage.png) */
   function statIconsDrawer() {
     var d = document.getElementById('drawer'); if (!d || d.__bmStat) return; d.__bmStat = 1;
     var lay = function () { [].forEach.call(d.querySelectorAll('.r>span:first-child'), function (sp) { if (sp.querySelector('img.bm-stat')) return;

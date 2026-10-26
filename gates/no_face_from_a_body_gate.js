@@ -112,6 +112,10 @@ const talked = (label, w) => {
   const { chromium } = require('playwright');
   const b = await chromium.launch();
   const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
+  /* CHARACTER [the armour he wears shows] (rule 272; the third votes: head gear shows in the portrait) lays a man's helmet over his
+     fresh portrait. This gate judges WHERE THE FACE CAME FROM, so it reads the face under the helmet: the helmet layer is off here
+     (gates/the_armour_he_wears_shows_gate.js holds the helmet on the face) */
+  await ctx.addInitScript(() => { window.BOHEMIA_WEAR_OFF = true; });
   const errs = [];
 
   /* the crew screen */

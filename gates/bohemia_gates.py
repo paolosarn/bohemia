@@ -9376,6 +9376,8 @@ GATES = [
      'CAMP gate, 10/26, row [struck down, he still fights] rule 234(g) (Paolo 10/26: "their health will just be at one... they\'re still active... that\'s why I restarted hella runs"). On the cut, phone and computer: the fight\'s own fall() strikes a man down alive; he wakes at one hitpoint with his mark and his fresh wound, stands in the very next fight at what he was handed with both on him, the HEAL bar counts him, the camp heals him at the table\'s rate, the wound closes and the mark stays, the crew screen keeps him in the line, an old save\'s benched man wakes. records/BOHEMIA_CAMP_STRUCK_DOWN_HE_STILL_FIGHTS_AND_THE_CLINIC_HALVES_BOTH_10_26_26.md', True),
     ('THE CLINIC HALVES BOTH', ['node', 'gates/the_clinic_halves_both_gate.js'],
      'CAMP gate, 10/26, row [the clinic halves the days and the debuff] rule 241(e) (Paolo 10/26: "make it clear that it has the debuff and the time as well... it would half the days and half the debuff"). Phone and computer: the town\'s clinic knows a struck-down man from the company\'s condition and shows the whole trade (the wound, a red down arrow a stat, the days on a clock, the halved after, his for life untouched, the price); a real press on Treat halves the days and the debuff; the crew card matches. records/BOHEMIA_CAMP_STRUCK_DOWN_HE_STILL_FIGHTS_AND_THE_CLINIC_HALVES_BOTH_10_26_26.md', False),
+    ('THE BARS OVER THEIR HEADS', ['node', 'gates/the_bars_over_their_heads_gate.js'],
+     'CAMP gate, 10/26, row [the bars over their heads] rule 261(e) and 278(c) (Paolo 10/26: "I need the HP and the armour displaying on top of my characters, right now, any time... above 87 percent it doesn\'t display anymore... I need to see how everyone\'s healing"). On the cut, phone and computer: over YOU and his men on the map, in a town and at camp, two small bars (hit points red, armour grey) from the company\'s own condition, hidden at 87 percent of both, each fill his number within a pixel, the camp\'s read in the frame it heals. records/BOHEMIA_CAMP_THE_BARS_OVER_THEIR_HEADS_10_26_26.md', True),
     ('LONG INJURY', ['node', 'gates/long_injury_gate.js'],
      'PEOPLE gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). VAMILY [the long injury], row THIRTY-TO-FORTY-DAYS-LAID-UP. engine/bohemia_long_injury.js is a pure module: given a man struck down in. green at registration, 0 s', False),
     ('MARKET PACK ART', ['node', 'gates/market_pack_art_gate.js'],
@@ -9772,6 +9774,13 @@ GATES = [
      "the map's format (56 frames equal the fight sheet's), drawn at the opening zoom and 2.4, his head on the glass his and not the "
      "old body's, the roster's main man the same look, a main man with a look of his own leads as himself, his sheet failed turns it "
      "red. green at registration, 7/0 a profile, about 4 min", True),
+    ('WHERE IT SELLS BEST', ['node', 'gates/where_it_sells_best_gate.js'],
+     "WORLD TWO gate, 10/26, row [where it sells best] (rule 266(b), Paolo 10/26: 'is there a way we can visually let people know "
+     "from map mode... I didn't know off the bat which city has the best selling price of my goods'): the stranger's game on the "
+     "phone and his computer: standing in the first town the map knows its stall's twelve trade-good prices, each the stall's own "
+     "(BohemiaSettlement.tradeSell); a second town by a tap; the marks for a good best first with their prices, the best ringed, a "
+     "question mark on a town seen and never priced, nothing under the static; a heard price marked HEARD and fading; null lets go; "
+     "kept through a reopen. green at registration, 7/0 a profile, about 5 min a profile", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
@@ -10145,6 +10154,13 @@ GATES = [
      "PORTRAIT gate, 10/26, row [every face breathes] (rule 246(d); PAOLO 10/26: 'I wanna see my crew, anytime they're on the screen, or anytime anyone's on the screen with a portrait, just slightly moving, like breathing... if they have a serious wound maybe they could be reacting to it'). "
      "One clock on the game's grid (three keys a beat at 120 BPM): a breath every eight beats (15 a minute), a blink every 3 to 6 seconds; every face rendered winces and, wherever his eyes show, blinks and glances at 128 and 64 (his own renders); "
      "on the crew screen in Chromium a face changes over two seconds and breathes 12 to 20 a minute at 128 and 64; a man struck down winces, a whole one never; a talking face is the talker's; twelve faces breathing cost no frame time. About 1 min", True),
+    ('THE ARMOUR HE WEARS SHOWS', ['node', 'gates/the_armour_he_wears_shows_gate.js'],
+     "CHARACTER gate, 10/26, row [the armour he wears shows] (rule 272, Paolo 10/26: 'the weapons and the shield show, but the good armour I have on me doesn't show, like a police helmet... "
+     "it's not visually shown'). MEASURED before: no screen drew a helmet or a body armour on anybody. D1 every one of armor.json's 87 helmets and 78 body armours has a class "
+     "(records/target/bb/armour_looks.json) drawn in all eight facings, lying and in the portrait (slices/wear); phone and computer, a man in a police riot helmet and a police vest: "
+     "C1 the crew card draws both (his pixels change against the same figure with nothing drawn), C2 his portrait wears the helmet, F1 the fight draws both facing the glass and "
+     "facing east, F2 the fight's face wears it, K1 the camp draws him at the fire in both, M1 the demo's map through its own door draws him and the two men at his shoulders in theirs, M2 at the map's close end too; "
+     "E1 every class the shop sells drawn on its wearer; PLANTED: the drawing switched off, C1 catches him bare. about 5 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

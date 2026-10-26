@@ -1,4 +1,13 @@
-WORLD TWO (world-two-map): 10/26 LATEST -- [the best of both maps] (rule 243) BUILT, NOT YET SEEN (rule 179: EYES' mark decides DONE), BUILD 10/26zq, ship e3cf4d6f.
+WORLD TWO (world-two-map): 10/26 LATEST -- [where it sells best] (rule 266(b)) BUILT, NOT YET SEEN, BUILD 10/26zv, ship 0dfe8446. Record:
+records/BOHEMIA_WORLD_TWO_WHERE_IT_SELLS_BEST_10_26_26.md. The town's screen posts what its stall pays for each trade good on arrival
+(one marked line in RUN TWO's arrive(), BohemiaSettlement.tradeSell(id)); the map keeps it by town and day (bohemia.hismap.v1); window.
+mapSellMarks(good) marks every town on his map best first (a battery growing with the price, BEST ringed, HEARD, fading to a third
+at a month, '?' where seen and never priced, nothing under the static, the best off the glass at the open glass's edge, 'WHERE SALT
+SELLS' at the top); window.mapPriceHeard(place, good, value, day) for the feed. GATE WHERE IT SELLS BEST 7/0 phone, 7/0 computer.
+Measured: the Blues make salt and pay 5 for it, the Trades 44: Battle Brothers' made-here rule on the map. NOTES: RUN TWO (the stash's
+tap calls it), FEED (prices heard). Deployed: pages SUCCESS for 934932e6 (carries e3cf4d6f, [the best of both maps]) and run 3992 SUCCESS for 92486139 (carries 0dfe8446).
+
+WORLD TWO (world-two-map): 10/26 (a) -- [the best of both maps] (rule 243) BUILT, NOT YET SEEN (rule 179: EYES' mark decides DONE), BUILD 10/26zq, ship e3cf4d6f.
 Lane opened by the coordinator for the map's Valheim half (session_01U8FWMSoy). Record: records/BOHEMIA_WORLD_TWO_THE_BEST_OF_BOTH_MAPS_10_26_26.md.
 RESEARCH FIRST (section 1-3 of the record; search results only, the box cannot open a page): Valheim's unseen map is BLANK, it
 fills in where you walk; your own pins (double-click, right-click off, left-click cross out); the tombstone pin goes when looted;

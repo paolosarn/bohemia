@@ -66,11 +66,15 @@
   /* THE FACE SHOWS THE WOUND (PORTRAIT, rule 234(c), 10/26): every face painted here wears the man's marks over it
      (engine/bohemia_wound_faces.js: an eye patch, the ear gone, blood and a band-aid while fresh...), so every screen that draws
      a face through this file shows them; a page without that file draws the face as before */
+  /* CHARACTER [the armour he wears shows] (rule 272; the third votes: head gear shows in the portrait): his helmet on his face, the one
+     he has on, breathing with him, under his marks so a wound always shows (rule 234(c)); engine/bohemia_wear.js, else as before */
+  function helmet(x, im, size, look, again) { try { if (look && root.BohemiaWear) root.BohemiaWear.face(x, im, size, look, null, again); } catch (e) {} }
   function paint(x, im, size, look, key, dy, life) {
     x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
     x.clearRect(0, 0, size, size);
     x.save(); if (dy) x.translate(0, dy);
     x.drawImage(im, 0, 0, size, size);
+    helmet(x, im, size, look, function () { paint(x, im, size, look, key, dy, life); });
     var W = root.BohemiaWoundFaces;
     if (W && look) {
       try { if (life && W.lifeOver) W.lifeOver(x, look, life, size); } catch (e) {}

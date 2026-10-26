@@ -21,11 +21,13 @@
     B.length = 0; C.length = 0; window.__FIGHT_LET_GO = { bitmaps: b, canvases: c }; return window.__FIGHT_LET_GO; };
 })();</script>
 <script src="bohemia_ui_materials.js"></script>
+<script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): the card's eight in his order as bars (__UI_THREE_STATS__ below drawer) -->
 <script src="bohemia_screen_class.js"></script>
 <!-- THE TEAR (ANIMATION's aura B, his YES 10/19, rule 121(f): 'combat only... I'm fucking with the tear'): the man you control -->
 <script src="vote/ANIMATION_THE_AURA.js"></script>
 <!-- __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... looking like a chess man'): a waiting man breathes and idles -->
 <script src="../engine/bohemia_idles.js"></script>
+<script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -5384,6 +5386,20 @@ function gunSheet(v, L) {
    pictures are the same model, camera, sun and colours as his stand and carry cells (slices/rig_idles, rendered the fight's
    way), and his gun is rendered in his hands on every idle. Until his pictures are in, his still, exactly as before. ==== */
 const IDLE_FIGHT_BARE = ['look', 'roll', 'scratch', 'strap', 'smoke'];
+/* ==== __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER [the armour he wears shows], rule 272, Paolo 10/26: 'the weapons and the shield
+   show, but the good armour I have on me doesn't show, like a police helmet'; rule 177(a)). His helmet and his body armour, the
+   pieces he has on (u.headRow, u.bodyRow), drawn on him in every clip and facing (engine/bohemia_wear.js: the head found on
+   the picture being drawn, the class's placeholder laid on it), over his body and under what is in his hands (his gun, his
+   shield, his club); at night the piece takes his moon; lying down, his helmet lies beside him. A man with nothing on, a
+   machine, a ghost or a beast draws exactly as before. CHARACTER's block, COMBAT's file. ==== */
+function wearOver(v, c, ox, oy, s, dark, x, y) {
+  const W = window.BohemiaWear; if (!W || !c || !c.img || v.machine || v.ghost || v.beast) return false;
+  const wr = W.of(v); if (!wr || (!wr.head && !wr.body)) return false;
+  return W.on(cx, c, ox, oy, s, v._face || 0, wr, { who: v.id, where: 'fight', tint: dark ? function (i) { return nightSheet(i, moonOf(x, y)); } : null });
+}
+/* the faces are painted once a turn: when the helmets' portrait sheet lands after them, the bar and the strip are painted again */
+function wearFacesAgain() { UI.faceKey = null; const o = document.getElementById('order'); if (o) o.dataset.key = ''; }
+/* ==== end __THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
 function idleDraw(v, p, L, gs, ox, oy, s, now) {
   const B = window.BohemiaIdles;
   if (p.clip !== 'stand' && p.clip !== 'carry') { v._idleSince = undefined; return false; }
@@ -5400,6 +5416,7 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
+  wearOver(v, c, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER): his helmet and his body armour, under his gun */
   if (g && !g.hidden) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);
   UI.clipSeen['idle:' + c.kind] = (UI.clipSeen['idle:' + c.kind] || 0) + 1;
   return true;
@@ -5504,6 +5521,7 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
   const c = d.sheet.cells[ci], x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(img), c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, c[2] * s, c[3] * s);
+  wearOver(v, { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   if (gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
   const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
   UI.clipSeen['hold:' + hc[0]] = (UI.clipSeen['hold:' + hc[0]] || 0) + 1;
@@ -5644,6 +5662,7 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; }, bc = b[1];
   cx.drawImage(im(b[0]), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
+  wearOver(v, { img: b[0], x: bc[0], y: bc[1], w: bc[2], h: bc[3], dx: bc[4], dy: bc[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__: under his shield and his weapon */
   lay.forEach(function (q) { const g = q[1]; cx.drawImage(im(q[0]), g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s); });
   const fl = hitFlash(v, now); if (fl > 0) tintOver(b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
@@ -5673,6 +5692,8 @@ function blitMan(v, X, feet, now, alpha) {
   const held = holdDraw(v, p, L, gs, ox, oy, s, now);   /* __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
   const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
+  if (!idled) { const dx_ = Math.round(dx(v)), dy_ = Math.round(dy(v));   /* __THE_ARMOUR_HE_WEARS_SHOWS__: read off his day sheet, the night laid on the piece */
+    wearOver(v, { img: UI.imgs['fight_rig/' + L.file] || img, x: p.col * L.w, y: (v._face || 0) * L.h, w: L.w, h: L.h, dx: 0, dy: 0 }, ox, oy, s, FIGHT.S.night && !FIGHT._t.litAt(dx_, dy_), dx_, dy_); }
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
      him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him; only in the fall
@@ -6022,6 +6043,8 @@ function drawPortrait(g, v, S) {
   } else if (img && fi >= 0) {
     g.imageSmoothingEnabled = S < F.size;
     g.drawImage(img, fi * F.size, 0, F.size, F.size, 0, 0, S, S);
+    /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272; the third votes: head gear shows in the portrait): his helmet on his face */
+    try { if (window.BohemiaWear && !v.machine && !v.ghost) BohemiaWear.face(g, img, S, null, BohemiaWear.of(v), wearFacesAgain, [fi * F.size, 0, F.size, F.size]); } catch (_e) {}
     /* a ghost's face is the same data-portrait off the same tape (rule 134(e)): the cold wash, every other line gone, a row torn */
     if (v.ghost) {
       g.globalCompositeOperation = 'source-atop'; g.fillStyle = GHOST_WASH; g.fillRect(0, 0, S, S);
@@ -6435,6 +6458,48 @@ function drawer(v) {
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block';
 }
+/* ==== __UI_THREE_STATS__ (UI THREE [the stat order], [stats are bars and arrows]; rules 223(a), 247(a)(c)(d), Paolo 10/26: 'HP,
+   fatigue, ranged attack, melee attack, ranged defence, melee defence, morale and initiative, across the board... behind the
+   numbers, like a progress bar, how far it is from the maximum that's even possible'). COMBAT's card is drawn as it was; this block
+   then lays his eight in HIS order as the one stat row (engine/bohemia_stats.js), in place of the six word rows (Health, Fatigue,
+   the two skill / defence rows, Initiative, Resolve): each the icon, his stars (the crew screen's own, by name), the bar to the
+   most possible with what he has NOW on it, and what this fight has taken (the wound, the fatigue spent) as the hatched part, the
+   tick at his ceiling. Armour, nerve, rounds, the hurt and the perks stay COMBAT's rows. A wrapper, nothing of COMBAT's rewritten;
+   NOTE on COMBAT's board. ==== */
+(function () { if (typeof drawer !== 'function') return; const base = drawer;
+  drawer = function (v) { base(v); try { if (window.BohemiaStats) fightBars(v); } catch (e) {} }; })();
+function fightStars(name) {
+  const read = function (k) { try { const a = JSON.parse(localStorage.getItem(k) || 'null'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
+  const all = read('bohemia.company.v1').concat(read('bohemia.hired.v1'));
+  for (let i = 0; i < all.length; i++) if (all[i] && all[i].name === name && all[i].stars) return all[i].stars;
+  return {};
+}
+function fightBars(v) {
+  const B = window.BohemiaStats, d = document.getElementById('drawer'); if (!d) return;
+  const WORDS = /^(Health|Fatigue|Melee skill \/ defence|Ranged skill \/ defence|Initiative|Resolve)$/;
+  [].slice.call(d.querySelectorAll('.r')).forEach(function (r) { const sp = r.querySelector('span'); if (sp && WORDS.test(sp.textContent.trim())) r.remove(); });
+  const stars = fightStars(v.name), fm = FIGHT.fatMax(v), man = { level: v.level || 1, stars: stars };
+  /* [now, whole]: the whole is what he walked in with (his hitpoints, his fatigue); the gap between is this fight's */
+  /* the shield in his hand counts in his defences, as the crew screen shows them (rule 202(c): one number on every screen);
+     the same sum the fight's shieldDef makes (the Shield Expert's own number from perks.json) */
+  const shieldPart = function (k) { if (!v.shield) return 0; let m = 1;
+    try { const se = (v.perks || []).indexOf('shield_expert') >= 0 && DB.perks.rows.filter(function (r) { return r.id === 'shield_expert'; })[0];
+      if (se && se.numbers) m = 1 + (se.numbers.shield_defense_bonus_increase_pct || 0) / 100; } catch (e) {}
+    return Math.round((v.shield[k] || 0) * m); };
+  const N = { hp: [v.hp, v.hpMax], fatigue: [Math.max(0, fm - Math.round(v.fat)), fm], ranged_skill: [v.rskill], melee_skill: [v.mskill],
+    ranged_defense: [v.rdef + shieldPart('ranged_defense')], melee_defense: [v.mdef + shieldPart('melee_defense')], resolve: [v.resolve], initiative: [v.initiative] };
+  const box = document.createElement('div'); box.className = 'bst-block bst-fight';
+  B.ORDER.forEach(function (k) { const x = N[k]; if (x[0] === null || x[0] === undefined) return;   /* a man with no resolve (a beast) has no row */
+    const whole = x[1] != null ? x[1] : x[0];
+    box.appendChild(B.row(k, { n: x[0], from: x[1] != null && x[1] !== x[0] ? x[1] : null, arrow: false, stars: stars[k] | 0, ceil: B.ceilingOf(man, k, whole), icon: 'i', label: B.NAME[k] })); });
+  const head = d.firstElementChild; d.insertBefore(box, head ? head.nextSibling : d.firstChild);
+}
+(function () { const st = document.createElement('style'); st.id = 'bst-fight-css';
+  st.textContent = '#drawer .bst-block.bst-fight{display:grid;grid-template-columns:minmax(0,1fr);gap:1px;margin:2px 0 4px}'
+    + '#drawer .bst-fight .bst-row{min-height:18px;height:18px;border-bottom:1px dotted rgba(42,34,26,.3)}'
+    + '#drawer .bst-fight .bst-bar{height:14px}#drawer .bst-fight .bst-bar>i.bst-n{line-height:12px}';
+  (document.head || document.documentElement).appendChild(st); })();
+/* ==== end __UI_THREE_STATS__ ==== */
 /* THE WEAPON SAYS WHAT IT DOES (rule 75e; records/target/bb/weapon_lines.json): hold a finger on the strike square
    or on any man and his weapon's card comes up on the receipt: its name here, its Battle Brothers base in small print,
    its one plain line, and its numbers from weapons.json. A tap anywhere puts it away. */

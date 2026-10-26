@@ -42,7 +42,8 @@
   'use strict';
   var KEY = 'bohemia.condition.v1', SUPPLIES = 'bohemia.supplies.v1', BASE = '../records/target/bb/';
   var DEF = { hp_per_hour_march: 1, hp_per_hour_camp: 2, cook_hp_per_hour: 1, armour_per_hour: 3, camp_repair_mult: 2, durability_per_tape: 15,
-              blacksmith_repair_mult: 1.2, blacksmith_tape_mult: 0.8, surgeon_injury_days: 1, struck_down_hp_left: 1, unknown_hp_max: 55 };
+              blacksmith_repair_mult: 1.2, blacksmith_tape_mult: 0.8, surgeon_injury_days: 1, struck_down_hp_left: 1, unknown_hp_max: 55,
+              bars_hide_at: 0.87 };
   var RATE = {}; for (var dk in DEF) RATE[dk] = DEF[dk];
   /* the crew list's names and kit (ours.json, the fight's own list) and every armour piece's durability (armor.json) */
   var D = { crew: null, looks: null, armour: null, asked: {}, rates: false };
@@ -327,6 +328,40 @@
     put(s); if (woke.length) notify();
     return woke;
   }
+  /* THE BARS OVER THEIR HEADS (CAMP [the bars over their heads], rule 261, Paolo 10/26: 'I need the HP and the armour displaying on top
+     of my characters, right now, any time... if they're at full health it never has to display... above 87 percent it doesn't display
+     anymore... I need to see how everyone's healing'). One man's two bars from what this file keeps for him: his hit points and his
+     armour (helmet and body together) over their maxima; shown when either is under 87 percent (records/target/bb/condition.json
+     bars_hide_at, his number); a man no fight has touched is whole and shows nothing. Found by his name, or by his look (the map and
+     the town draw a man by his look), or YOU. s: the condition already read (a picture drawing many men reads it once a frame) */
+  function recordFor(o, s) {
+    o = o || {}; s = s || get();
+    if (o.main) return s.men.YOU || null;
+    var k = o.name ? canon(o.name) : '';
+    if (k && s.men[k]) return deadIn(s, k) ? null : s.men[k];
+    if (o.look) for (var kk in s.men) if (s.men[kk] && s.men[kk].look === o.look && !s.men[kk].main && !deadIn(s, kk)) return s.men[kk];
+    return null;
+  }
+  function bars(o, s) {
+    var r = recordFor(o, s); if (!r || !(r.hpMax > 0)) return null;
+    var hp = Math.max(0, r.hpMax - (r.lostHp || 0)), armMax = (r.armHMax || 0) + (r.armBMax || 0), arm = Math.max(0, armMax - (r.lostH || 0) - (r.lostB || 0));
+    var hpF = Math.max(0, Math.min(1, hp / r.hpMax)), armF = armMax > 0 ? Math.max(0, Math.min(1, arm / armMax)) : 1, cut = RATE.bars_hide_at;
+    return { hp: hp, hpMax: r.hpMax, arm: arm, armMax: armMax, hpF: hpF, armF: armF, show: hpF < cut || (armMax > 0 && armF < cut) };
+  }
+  /* drawn over his head, Battle Brothers' fight bars small: red his hit points, grey his armour (when he wears any), the dark part what
+     is missing; a hard one-pixel dark edge, nothing soft (the border law); cx, bottom: the middle of his head and the bars' lowest
+     pixel, in the canvas's own units; o.w the bar's width, o.h a bar's height (o.px one pixel). Returns what it drew */
+  function drawHeadBars(g, cx, bottom, b, o) {
+    if (!g || !b || !b.show) return null; o = o || {};
+    var px = o.px || 1, w = Math.round(o.w || 16), h = Math.max(px, Math.round(o.h || 2 * px)), two = b.armMax > 0;
+    var x = Math.round(cx - w / 2), y = Math.round(bottom - (two ? 2 * h + 3 * px : h + 2 * px));
+    var hpFill = Math.round(w * b.hpF), armFill = two ? Math.round(w * b.armF) : 0;
+    g.fillStyle = o.edge || '#0b0906'; g.fillRect(x - px, y, w + 2 * px, two ? 2 * h + 3 * px : h + 2 * px);
+    g.fillStyle = o.empty || '#24190f'; g.fillRect(x, y + px, w, h); if (two) g.fillRect(x, y + 2 * px + h, w, h);
+    if (hpFill > 0) { g.fillStyle = o.blood || '#b8281c'; g.fillRect(x, y + px, hpFill, h); }
+    if (armFill > 0) { g.fillStyle = o.armour || '#a3a7aa'; g.fillRect(x, y + 2 * px + h, armFill, h); }
+    return { x: x, y: y, w: w, h: h, hpFill: hpFill, armFill: armFill, hpF: b.hpF, armF: b.armF };
+  }
   function notify() { try { if (root.dispatchEvent && root.CustomEvent) root.dispatchEvent(new root.CustomEvent('bohemia:condition', { detail: LAST })); } catch (e) {} }
   function forget() { try { root.localStorage.removeItem(KEY); } catch (e) {} LAST = null; }
   function dead() { return get().dead.slice(); }
@@ -359,7 +394,7 @@
   }
   /* ==== end __THE_SMITH_MENDS__ ==== */
   root.BohemiaCondition = { broken: broken, mend: mend, KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
-    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
+    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, bars: bars, drawHeadBars: drawHeadBars, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
     says: says, drawBar: drawBar, forget: forget, last: last };
   try { if (root.document) setTimeout(load, 0); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);

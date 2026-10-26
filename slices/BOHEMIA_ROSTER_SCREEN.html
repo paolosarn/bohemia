@@ -201,6 +201,12 @@ html body .lugrid.bst-col button .bst-bar>i.bst-tick{top:-2px;bottom:-2px}
 html body .lugrid.bst-col button b.bst-chg{justify-content:flex-end;font-size:13px}
 html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 @media (min-width:1100px){ html body .lugrid.bst-col button.bst-row{min-height:20px!important;height:20px} html body .stats.bst-col>div.bst-row{height:22px;min-height:22px!important} html body .stats.bst-col .bst-bar{height:16px} html body .stats.bst-col .bst-bar>i.bst-n{font-size:15px;line-height:14px} }
+/* [a damage icon] (rule 275(b)): a weapon's number in the stash and 'dmg' in the said line wear damage's picture; a comparison on
+   his slot is the arrow and the amount (rule 223(b)) */
+#bag .slot b[data-dmg]::before{content:"";display:inline-block;width:14px;height:14px;margin:0 1px -3px 0;background:url(stat_icons/damage.png) center/14px 14px no-repeat;image-rendering:pixelated}
+#said i.bst-dmgi{display:inline-block;width:14px;height:14px;margin:0 2px -3px 0;background:url(stat_icons/damage.png) center/14px 14px no-repeat;image-rendering:pixelated}
+#card .gslot em.d.up::before,#card .gslot em.d.dn::before{content:"";display:inline-block;width:9px;height:9px;margin:0 2px 0 0;background:0 0/9px 9px no-repeat;image-rendering:pixelated}
+#card .gslot em.d.up::before{background-image:var(--bst-arrow-up)} #card .gslot em.d.dn::before{background-image:var(--bst-arrow-dn)}
 /* ==== end __UI_THREE_STATS__ ==== */
 </style>
 </head>
@@ -219,6 +225,7 @@ html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): his eight in his order, each a bar to the most possible -->
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: a hired man is one of the valley's rolled people, his own body and face -->
+<script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272) -->
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: his whole body, the model his face came from -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): the man on his card breathes and idles -->
@@ -248,7 +255,12 @@ function post(act, o){ var m = {type:'BOHEMIA_ROSTER', act:act}; for(var k in (o
 function sfx(ev){ window.__rosterLog = (window.__rosterLog||[]); window.__rosterLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev});
   if(!S.standalone) try{ window.parent.postMessage({type:'BOHEMIA_SFX', ev:ev},'*'); }catch(e){} }
 /* the one line: a sentence, or (the comparison) a few words with the numbers in ink */
-function say(t, html){ var el = document.getElementById('said'); if(html) el.innerHTML = t; else el.textContent = t; }
+function say(t, html){ var el = document.getElementById('said'); if(html) el.innerHTML = t; else el.textContent = t;
+  /* __UI_THREE_STATS__ [a damage icon] (rule 275(b)): 'dmg' in the line is damage's own picture, the word kept for a screen reader */
+  if(/\bdmg\s/.test(el.textContent)){ var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), hits = [], n; while((n = w.nextNode())) if(/\bdmg\s/.test(n.nodeValue)) hits.push(n);
+    hits.forEach(function(tn){ var parts = tn.nodeValue.split(/\bdmg\s/), f = document.createDocumentFragment();
+      parts.forEach(function(p, i){ if(i){ var im = document.createElement('i'); im.className = 'bst-dmgi'; im.setAttribute('aria-hidden', 'true'); f.appendChild(im); var sr = document.createElement('i'); sr.className = 'bst-sr'; sr.textContent = 'dmg '; f.appendChild(sr); } if(p) f.appendChild(document.createTextNode(p)); });
+      tn.parentNode.replaceChild(f, tn); }); } }
 function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
@@ -407,7 +419,8 @@ function rigBody(m, i){
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
   function paint(){ var t = R.TURNS[(TURN[m.name] || 0) % 8]; c.dataset.turn = t;
     R.image(m.look, t, function(im){ if(!im || c.dataset.turn !== t) return; x.clearRect(0, 0, 72, 124);
-      x.drawImage(im, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight); }); }
+      x.drawImage(im, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight);
+      wearCard(x, { img: im, x: 0, y: 0, w: im.naturalWidth, h: im.naturalHeight, dx: 0, dy: 0 }, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight, R.TURNS.indexOf(t), m); }); }   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   c.setAttribute('aria-label', 'Turn ' + m.name);
   c.addEventListener('click', function(){ if(SWIPE.moved) return; TURN[m.name] = ((TURN[m.name] || 0) + 1) % 8; paint(); });
   paint(); idleCard(c, m, i); return c;
@@ -455,6 +468,18 @@ function holdFrame(look, seed, now, f){
   return out;
 }
 /* ==== end __HE_WEARS_WHAT_HE_WEARS__ ==== */
+/* ==== __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER [the armour he wears shows], rule 272, Paolo 10/26: 'the weapons and the shield
+   show, but the good armour I have on me doesn't show, like a police helmet'). The figure on his card wears his helmet and his
+   body armour as the fight does (engine/bohemia_wear.js: one player, the head found on the picture drawn, the piece he has on
+   laid on it), over his body and under his gun; his face wears his helmet (engine/bohemia_crew_faces.js, the third votes: head
+   gear shows in the portrait). A swap redraws him at once. CHARACTER's block, RUN TWO's file. ==== */
+function wearKey(m){ var W = window.BohemiaWear, w = W && m ? W.of(m) : null; return w && (w.head || w.body) ? '|' + (w.head || '') + '|' + (w.body || '') : ''; }
+function wearCard(x, q, ox, oy, f, m){
+  var W = window.BohemiaWear; if(!W || !m) return false;
+  var w = W.of(m); if(!w || (!w.head && !w.body)) return false;
+  return W.on(x, q, ox, oy, 1, f, w, { who: 'crew:' + (m.name || m.look), where: 'crew' });
+}
+/* ==== end __THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
 function idleCard(c, m, i){
   var B = window.BohemiaIdles; if(!B) return;
   IDLE_CARD.cards = IDLE_CARD.cards.filter(function(e){ return e.c.isConnected; });
@@ -471,10 +496,11 @@ function idleCard(c, m, i){
       if(gun && !q){ q = B.frame(lk, e.seed, now, f, { set: 'carry' }); if(q && !q.person){ gl = B.gun(lk, gun, q.pose, f); if(!gl) q = null; } else q = null; }
       if(!q){ gun = null; q = B.frame(e.look, e.seed, now, f, { set: 'bare', idles: IDLE_CARD.idles }); }
       if(!q) return;
-      var key = (gun || '') + q.pose + f + (gl && !gl.hidden ? 'g' : ''); if(key === e.shown) return; e.shown = key;   /* a held key is drawn once */
+      var wk = wearKey(e.man), key = (gun || '') + q.pose + f + (gl && !gl.hidden ? 'g' : '') + wk; if(key === e.shown) return; e.shown = key;   /* a held key is drawn once (his armour in the key: a swap redraws him, __THE_ARMOUR_HE_WEARS_SHOWS__) */
       var x = e.c.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, e.c.width, e.c.height);
       var ox = Math.round(e.c.width / 2 - q.foot[0]), oy = Math.round(e.c.height - 5 - q.foot[1]);
       x.drawImage(q.img, q.x, q.y, q.w, q.h, ox + q.dx, oy + q.dy, q.w, q.h);
+      if(!wearCard(x, q, ox, oy, f, e.man) && wk) e.shown = '';   /* __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and his body armour, under his gun (not in yet: drawn again next frame) */
       if(gl && !gl.hidden) x.drawImage(gl.img, gl.x, gl.y, gl.w, gl.h, ox + gl.dx, oy + gl.dy, gl.w, gl.h);
       e.c.dataset.idle = q.kind; e.c.dataset.holds = gun || '';
     });
@@ -503,6 +529,7 @@ function choose(i){ if(i == null || !S.crew[i]) return;   /* his own face again:
 function step(by){ var o = order(); if(!o.length) return; var at = o.indexOf(S.sel); choose(o[((at < 0 ? 0 : at + by) % o.length + o.length) % o.length]); }
 function waiting(m){ return !!(m && !m.dead && ((m.rolls && m.rolls.length) || m.points > 0)); }
 function draw(){
+  try{ if(window.BohemiaWear) BohemiaWear.know(S.crew); }catch(e){}   /* __THE_ARMOUR_HE_WEARS_SHOWS__: his face wears the helmet he has on now */
   S.hover = null;   /* a mouse's comparison is painted over the drawn screen (paintCmp), never kept through a redraw */
   /* EYES [eyes: one company number] (rule 150): one number for how many he can have, the same on the door, the bar and here,
      and how many fight, named so */
@@ -769,7 +796,7 @@ function drawBag(){
   S.bag.forEach(function(it, i){
     if(!inTab(it)) return; shown++;
     var b = document.createElement('div'); b.className = 'slot full tile' + (S.cmp === i ? ' sel' : ''); b.dataset.bag = i; b.dataset.drag = 'bag:' + i; b.setAttribute('role', 'button'); b.setAttribute('aria-label', it.name);
-    var ip = itemPic(it, 30); ip.classList.add('bm-icon'); ip.dataset.id = it.id; b.appendChild(ip); var v = document.createElement('b'); v.textContent = face(it);   /* the kit's own icon mark: the paint layer never adds a second */
+    var ip = itemPic(it, 30); ip.classList.add('bm-icon'); ip.dataset.id = it.id; b.appendChild(ip); var v = document.createElement('b'); v.textContent = face(it); if(it.kind === 'weapon') v.dataset.dmg = '1';   /* __UI_THREE_STATS__ [a damage icon] (rule 275(b)): a weapon's number is its damage, and wears damage's picture */   /* the kit's own icon mark: the paint layer never adds a second */
     var dv = m ? delta(it, m) : 0; if(m && fits(it, slotOf(it))) v.className = dv > 0 ? 'up' : dv < 0 ? 'dn' : ''; b.appendChild(v);
     b.addEventListener('click', function(){ if(S.dragged) return; tapItem(i); });
     b.addEventListener('contextmenu', function(e){ e.preventDefault(); S.cmp = null; equip(i, slotOf(it)); });   /* a computer: right-click puts it on, Battle Brothers' own */
