@@ -36855,6 +36855,7 @@ function cbPaintAt(rec,px,py){
   }catch(_e){ return true; }   /* a tainted or unreadable plate: trust the rectangle */
 }
 function CBcellAt(sx,sy){
+  if(typeof streetIsOn==='function' && streetIsOn() && STREET.s){ const __w=streetFrom(sx,sy), __x=Math.round(__w.x), __y=Math.round(__w.y); return (__x<0||__y<0||__x>=om.n||__y>=om.n)?null:[__x,__y]; }   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: the block under the finger on the street */
   const ox=Math.round(CVW/2-(city.x-city.y)*TW/2+panX), oy=Math.round(CVH/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   /* __THE_MAP_STANDS_TALLER__ (RUN 10/26): a finger on a building the painting stands up is on that building's block, the way a
      click on Battle Brothers' mountain is the mountain's tile (three times taller, a tower's roof lay over the blocks behind it) */
@@ -44244,6 +44245,7 @@ setInterval(()=>{
      this beat, so the bookkeeping below cannot fire on a pressed step. */
   /* __THE_PAD_IS_TRAVEL_SPEED__: PAUSE holds a journey without ending it -- the route is not
      even consulted, so no block, no clock, no party moves. A finger on the pad still wins. */
+  if(di===null && TRAVEL && TRAVEL_SPEED>0 && typeof streetBeatWaits==='function' && streetBeatWaits()){ render(); return; }   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street the walk reads, a beat with no step is a beat he watches */
   const TRAV = (di===null && !(TRAVEL && TRAVEL_SPEED===0)) ? travelNext() : null;
   if(TRAV!==null) di=TRAV;
   if(di===null)return;
@@ -44269,7 +44271,7 @@ setInterval(()=>{
      Spread, each piece is one step's cost, and the pin hops on the music's own subdivision.
      A pending step does nothing if the journey ended, the speed changed, or he left the map. */
   let travDone=false;
-  if(TRAV!==null && moved && TRAVEL_SPEED>1){
+  if(TRAV!==null && moved && TRAVEL_SPEED>1 && !(typeof streetSlow==='function' && streetSlow())){   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: no extra blocks while he watches the street */
     travelStepped(moved); travDone=true;
     const N=TRAVEL_SPEED;
     /* __ONE_POINT_TWO_TWO__: a speed that is not a whole number carries its fraction from beat to beat */
@@ -46305,6 +46307,7 @@ try { var __nbt = document.createElement('style'); __nbt.id = 'run-no-button-twi
 /* ==== /__THE_MAP_FRAMES_AROUND_THE_PHONE__ ==== */
 function camWorld(){   /* the crew's DRAWN place about the valley's middle, in screen px at this zoom */
   var G = (typeof CITY_GLIDE!=='undefined' && CITY_GLIDE.tx!==null) ? cityGlideAt(CITY_GLIDE, performance.now()) : { x: city.x, y: city.y };
+  try { var __lp = (typeof STREET !== 'undefined' && STREET.lead) ? STREET.lead : null; if (__lp && streetIsOn()) G = __lp; } catch (_e) {}   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: the camera keeps him as he walks between blocks */
   var m = (om.n - 1) / 2;
   return { x: (G.x - G.y) * TW / 2, y: (G.x + G.y - 2 * m) * TH / 2 };
 }
@@ -46370,6 +46373,7 @@ function setZoomAt(z,pvx,pvy){
      has no fingers, so for it a 250 ms gap is a new gesture */
   { const __now=performance.now(); if(ZGEST.fresh||(!ZGEST.down&&__now-ZGEST.t>250)){ ZGEST.fresh=false; ZGEST.z0=CZOOM; ZGEST.s0=(typeof LOOK!=='undefined'&&LOOK.on)?LOOK.s:null; } ZGEST.t=__now; }
   if(typeof LOOK!=='undefined'&&LOOK.on){ lookZoom(z/CZOOM); return; }
+  { const __sz = (typeof streetZoomAt === 'function') ? streetZoomAt(z, pvx, pvy, zmax) : null; if (__sz === true) return; if (typeof __sz === 'number') z = __sz; }   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: past the closest stop the same pinch goes on into the street */
   /* __ONE_MAP_AT_EVERY_ZOOM__ (rule 142): past the near stop the demo map STOPS, like any camera; the old block close-up
      (LOOK, the walk's street in its tiles: his 'skeleton, ugly old 2D rough-draft') is not opened from the map he plays */
   if(__demoMap&&!VB_ONE_MAP&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&Math.abs(ZGEST.z0-zmax)<1e-3){ SEAM_GUARD=true; lookEnter(); return; }
@@ -46410,6 +46414,382 @@ function setZoomAt(z,pvx,pvy){
 }
 function recenter(){ const __F=mapFocusRead(true).fo; panX=__F.x; panY=__F.y; try{ camHold(); }catch(_e){} setZoomAt(1); }   /* __THE_CAMERA_KEEPS_THE_CREW__: the double tap takes the camera back (to the focus) */
 function fitMap(){ const [zmin]=zoomBounds(), __F=mapFocusRead(true).fo; panX=__F.x; panY=__F.y; setZoomAt(zmin); }
+/* ==== __THE_MAP_ZOOMS_IN_TO_THE_STREET__ (RUN 10/26, [the map zooms in to the street], rule 258; Paolo 10/26: 'I want the zoom to
+   zoom in a lot more, even on the main map... I should be able to zoom in more and see more detail, almost like I'm on the combat
+   map, or maybe use assets of the combat map... you feel like you're actually watching your team walk through the city... you can
+   easily zoom back out... it doesn't have to transition to a whole other screen or phase';
+   records/BOHEMIA_PAOLO_AN_EARLY_RETREAT_GETS_OUT_CAMP_ON_THE_LIVE_MAP_AND_THE_MAP_ZOOMS_TO_THE_STREET_10_26_26.md).
+   MEASURED BEFORE: the demo's map stopped at a block 85 CSS px wide on his phone (256 on a computer), where a house in the painting
+   is the size of his man's chest, and a pinch past it did nothing. The fight's ground is COMBAT TWO's painted blocks (five houses a
+   side, a house 12 m, seen straight on from the south at 45 degrees); the map is seen corner-on.
+   NOW THE SAME PINCH GOES ON, ON THE SAME MAP: past the old closest stop the camera turns an eighth of a circle and tips (corner-on
+   to straight-on: the fight's own camera) while the painting gives way to the fight's own blocks, each map block six fight blocks a
+   side dealt from its district's own layout (the fight's table, slices/street_ground), and on down to THE STREET STOP, where a house
+   stands to his man as it does in the fight (a house 90 CSS px wide to his 55 px man; the fight's 171 to its 104). His men, the
+   roaming parties, the one hunting him and the towns' names stand on it at their one size (THE GROUND MAY ZOOM, THE PERSON MAY NOT),
+   walking; a tap still travels; the phone, the bar and PLAY never move. Pinch out and it turns back. THE WALK READS: past the old
+   stop the journey never crosses the glass faster than a brisk walk (60 CSS px a second at the street stop, his feet matched to the
+   ground), so the clock runs slower while he watches; every block still pays its own minutes, as at any speed. THE CLOSE GROUND
+   STREAMS IN ONLY AROUND THE GLASS (rule 173): each fight block at four widths, the smallest that serves; far off, a map block's
+   thirty-six laid once into one small picture; one byte budget (20 MB), the oldest let go first, never one on the glass; the
+   painting's own close tiles let go while the street fills the glass, and everything here let go three seconds after he leaves. ==== */
+var STREET = { on: true, mult: 1, swing: 2, tileCss: 90, walkPx: 60, stridePx: 46, per: 6, asp: 0.7068,
+  te: 0, a: 0, s: 0, k: 0.5, phi: Math.PI / 4, M: [1, 0, 0, 1], L: [1, 0, 0, 1], F: { x: 0, y: 0 }, W: { x: 0, y: 0 }, ox: 0, oy: 0,
+  idx: null, ist: 0, pics: new Map(), comp: new Map(), bytes: 0, peak: 0, budget: 20e6, frame: 0, drawing: false, st: null, beatAcc: 0,
+  asking: 0, asked: 0, landed: 0, failed: 0, builds: 0, dropped: 0, waited: 0, vbtDropped: 0, leftAt: 0, ms: 0, err: null, last: null, raf: 0, d: 0 };
+window.STREET = STREET;
+function streetSmooth(a, b, x){ var t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+function streetAllowed(){
+  try { return !!(STREET.on && typeof CT_IS_DEMO !== 'undefined' && CT_IS_DEMO && VB_ONE_MAP && MODE === 'city'
+    && !(typeof LOOK !== 'undefined' && LOOK.on) && !(typeof UNDERV !== 'undefined' && UNDERV) && !(typeof VISTA !== 'undefined' && VISTA)
+    && !(typeof SKY !== 'undefined' && SKY)); } catch (_e) { return false; }
+}
+function streetIsOn(){ return STREET.mult > 1.0001 && streetAllowed(); }
+/* the street stop: a map block (384 m) is six fight blocks of five houses, each house tileCss wide */
+function streetMultMax(){ var zb = zoomBounds(), s0 = TW0 * zb[1] / Math.SQRT2; return Math.max(1, STREET.tileCss * 5 * STREET.per / s0); }
+/* THE CAMERA. A point of the ground (in blocks, a block's middle on its whole numbers) goes to the glass as F + M (w - W): W is the
+   ground at the focus beside the phone (the map's own camera decides it, so the crew is held, a drag looks around, the edge stops,
+   exactly as on the map), M turns from the map's corner-on (an eighth turn, half as tall as wide) to the fight's straight-on (no turn,
+   cos 45 as tall: the fight's 364 / 515) through the first doubling past the old stop, and grows with the pinch. L takes a point of
+   the map's own glass to this one, so whatever lies flat on the ground (the painting, the fog, his map's tape) is drawn by the map's
+   own code under it. */
+function streetCam(ox, oy){
+  var S = STREET;
+  if (ox == null) { var G = cityGlidePos(performance.now()); ox = Math.round(CVW / 2 - (G.x - G.y) * TW / 2 + panX); oy = Math.round(CVH / 2 - (G.x + G.y) * TH / 2 + panY); }
+  /* the map holds the top of his block's diamond at the focus, his feet half a block below it: through the turn the street comes to
+     hold his FEET there (S.d, the map's half block, spent as the turn goes, so the first step past the old stop moves nothing) */
+  var t = Math.max(0, Math.min(1, (S.mult - 1) / (S.swing - 1)));
+  S.te = t * t * (3 - 2 * t); S.d = TH / 2 * S.te;
+  var F = mapFocus(), a = (F.x - ox) / (TW / 2), b = (F.y + S.d - oy - TH / 2) / (TH / 2);
+  S.ox = ox; S.oy = oy; S.F = F; S.W = { x: (a + b) / 2, y: (b - a) / 2 }; S.phi = Math.PI / 4 * (1 - S.te); S.k = 0.5 + (Math.SQRT1_2 - 0.5) * S.te; S.s = TW / Math.SQRT2 * S.mult;
+  var c = Math.cos(S.phi), sn = Math.sin(S.phi), s = S.s, k = S.k;
+  S.M = [s * c, -s * sn, k * s * sn, k * s * c];
+  var M = S.M, det = TW * TH / 2, i00 = (TH / 2) / det, i01 = (TW / 2) / det, i10 = -(TH / 2) / det, i11 = (TW / 2) / det;
+  S.L = [M[0] * i00 + M[1] * i10, M[0] * i01 + M[1] * i11, M[2] * i00 + M[3] * i10, M[2] * i01 + M[3] * i11];
+  S.a = streetSmooth(0.3, 0.85, S.te);
+  return S;
+}
+function streetTo(wx, wy){ var S = STREET, M = S.M, dx = wx - S.W.x, dy = wy - S.W.y; return { x: S.F.x + M[0] * dx + M[1] * dy, y: S.F.y + M[2] * dx + M[3] * dy }; }
+function streetFrom(sx, sy){ var S = STREET, M = S.M, d = M[0] * M[3] - M[1] * M[2], dx = sx - S.F.x, dy = sy - S.F.y;
+  return { x: S.W.x + (M[3] * dx - M[1] * dy) / d, y: S.W.y + (-M[2] * dx + M[0] * dy) / d }; }
+/* the map's own glass, turned into this one (for what lies flat on the ground) */
+function streetFlat(){ var S = STREET, L = S.L, F = S.F, qy = F.y + (S.d || 0); g.transform(L[0], L[2], L[1], L[3], F.x - L[0] * F.x - L[1] * qy, F.y - L[2] * F.x - L[3] * qy); }
+/* the iso camera that puts ONE point (x, y) where this one does, for a drawer that places one thing with iso() (the hunter) */
+function streetOxy(x, y){ var p = streetTo(x, y); return { ox: p.x - (x - y) * TW / 2, oy: p.y - TH / 2 - (x + y) * TH / 2 }; }
+/* a facing on the map (corner-on) to the one the same step has on this glass */
+var STREET_DIRS8 = ['E', 'SE', 'S', 'SW', 'W', 'NW', 'N', 'NE'];
+function streetFaceOf(f){
+  var v = MAP_VEC_OF[f]; if (!v) return f;
+  var M = STREET.M, x = M[0] * v[0] + M[1] * v[1], y = M[2] * v[0] + M[3] * v[1];
+  var k = Math.round(Math.atan2(y, x) / (Math.PI / 4)); return STREET_DIRS8[((k % 8) + 8) % 8];
+}
+function streetAimAt(W2){   /* the map's pan that puts ground W2 at the focus */
+  var G = cityGlidePos(performance.now()), F = mapFocus();
+  panX = F.x - CVW / 2 + (G.x - G.y - W2.x + W2.y) * TW / 2;
+  panY = F.y + (STREET.d || 0) - CVH / 2 + (G.x + G.y - W2.x - W2.y) * TH / 2 - TH / 2;
+  clampPan();
+}
+function streetSet(m, pvx, pvy){
+  var S = STREET; m = Math.max(1, Math.min(streetMultMax(), m));
+  var held = (typeof CAMF !== 'undefined' && CAMF.on);
+  if (pvx == null || held || S.mult <= 1.0001) S.mult = m;
+  else {   /* let go: the ground between his fingers stays between them */
+    streetCam(); var wp = streetFrom(pvx, pvy);
+    S.mult = m; streetCam();
+    var M = S.M, d = M[0] * M[3] - M[1] * M[2], dx = pvx - S.F.x, dy = pvy - S.F.y;
+    streetAimAt({ x: wp.x - (M[3] * dx - M[1] * dy) / d, y: wp.y - (-M[2] * dx + M[0] * dy) / d });
+  }
+  if (S.mult <= 1.0001) { S.mult = 1; streetLeft(); } else { S.leftAt = 0; streetIndex(); }
+  try { window.__STREET_MULT = S.mult; } catch (_e) {}
+  renderSoon();
+}
+/* on the street a drag moves the street under the finger: the map's own pan, turned back through L */
+function streetPanBy(dx, dy){
+  if (!streetIsOn()) return false;
+  var L = STREET.L, d = L[0] * L[3] - L[1] * L[2]; if (!d) return false;
+  panX += (L[3] * dx - L[1] * dy) / d; panY += (-L[2] * dx + L[0] * dy) / d; return true;
+}
+function streetLeft(){
+  var S = STREET; S.beatAcc = 0; S.leftAt = performance.now();
+  setTimeout(function(){ if (STREET.mult <= 1.0001 && STREET.leftAt && performance.now() - STREET.leftAt >= 2900) streetFree(); }, 3000);
+}
+/* setZoomAt's first word: true = done here, a number = go on with this zoom on the map, null = nothing to do with the street */
+function streetZoomAt(z, pvx, pvy, zmax){
+  var S = STREET;
+  if (!streetAllowed()) { if (S.mult !== 1) { S.mult = 1; streetLeft(); } return null; }
+  if (z >= zmax * 0.8) streetIndex();
+  var inStreet = S.mult > 1.0001;
+  if (pvx === undefined) { if (inStreet) { S.mult = 1; streetLeft(); } return null; }   /* a place to go (the double tap, the far fit): the map's own */
+  if (inStreet) {
+    var m2 = S.mult * (z / CZOOM);
+    if (m2 >= 1) { streetSet(m2, pvx, pvy); return true; }
+    S.mult = 1; streetLeft(); return zmax * m2;   /* pinched out past the turn: the rest of the pinch is the map's */
+  }
+  if (z > zmax && CZOOM >= zmax * 0.999) { streetSet(z / zmax, pvx, pvy); return true; }
+  return null;
+}
+/* past the old stop the walk reads: blocks a beat, down to a brisk walk on the glass by the end of the turn */
+function streetCapPerBeat(){
+  var S = STREET; if (!streetIsOn() || !S.s) return Infinity;
+  var sp = TRAVEL_SPEED || TRAVEL_DEFAULT, s0 = S.s / S.mult, v0 = sp * (1000 / BEAT) * s0, v = v0 + (S.walkPx - v0) * S.te;
+  return Math.min(sp, v / S.s * (BEAT / 1000));
+}
+/* THE STEP IS TAKEN WHEN HE GETS THERE: a block's minutes are paid the beat he reaches it (as on the map), and between beats he walks
+   toward it (the LEAD, below), so what the game says and what the glass shows agree: a town opens when he is at its gate */
+function streetBeatWaits(){
+  var S = STREET;
+  if (!streetIsOn()) { S.beatAcc = 0; S.beatAt = 0; return false; }
+  var c = streetCapPerBeat(); if (c >= 1) { S.beatAcc = 0; S.beatAt = 0; return false; }
+  var nx = TRAVEL && TRAVEL.path && TRAVEL.path[TRAVEL.i], key = nx ? nx[0] + ',' + nx[1] : '';
+  if (S.walkOf !== TRAVEL) { if (key !== S.walkKey) S.beatAcc = 0; S.walkOf = TRAVEL; }   /* a new way: from his block (the same next block keeps his way along it) */
+  S.walkKey = key;
+  S.beatAcc += c; S.beatAt = performance.now();
+  if (S.beatAcc >= 1) { S.beatAcc -= 1; S.walkKey = ''; return false; }
+  S.waited++; return true;
+}
+function streetSlow(){ return streetIsOn() && streetCapPerBeat() < (TRAVEL_SPEED || 1); }
+/* his own glide: the lead has already walked him there, so the step itself is a blink; a party's glide fills the gap between its steps */
+function streetGlideMs(){ return streetSlow() ? 50 : BEAT; }
+function streetPartyGlideMs(){ if (!streetIsOn()) return BEAT; var c = streetCapPerBeat(); return c < 1 ? BEAT / c : BEAT; }
+/* THE LEAD: on the street, between beats, he is part of the way to the next block of his journey (the share of the step the beats have
+   paid for), smoothly; paused, he holds where he is; stopped or pulled back out between blocks, he walks back onto his block */
+function streetLeadPos(){
+  var S = STREET, L = S.lead;
+  var on = !!(streetIsOn() && TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length && S.beatAt > 0 && S.walkOf === TRAVEL && streetCapPerBeat() < 1);
+  if (on) { var n = TRAVEL.path[TRAVEL.i], dx = n[0] - city.x, dy = n[1] - city.y;
+    if (Math.abs(dx) <= 1 && Math.abs(dy) <= 1 && (dx || dy)) {
+      var f = S.beatAcc + (TRAVEL_SPEED > 0 ? streetCapPerBeat() * (performance.now() - S.beatAt) / BEAT : 0);
+      f = Math.max(0, Math.min(0.999, f));
+      S.lead = { x: city.x + dx * f, y: city.y + dy * f, u: f, dx: dx, dy: dy, cx: city.x, cy: city.y };
+      return S.lead; } }
+  if (L) { S.lead = null;
+    if (L.cx === city.x && L.cy === city.y && L.u > 0.01) { var G = CITY_GLIDE, now = performance.now(), back = Math.hypot(L.x - city.x, L.y - city.y) * (S.s || 1) / S.walkPx * 1000;
+      G.fx = L.x; G.fy = L.y; G.tx = city.x; G.ty = city.y; G.t0 = now; G.dur = streetIsOn() ? Math.max(BEAT, Math.min(20000, back)) : BEAT; G.last = now; } }
+  return null;
+}
+/* ---- the ground: the fight's own blocks ---- */
+function streetIndex(){
+  var S = STREET; if (S.ist) return S.ist === 2;
+  S.ist = 1;
+  try { fetch('street_ground/street_ground.json').then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }).then(function(j){
+    S.idx = j; S.per = j.per_map_block || 6; if (j.aspect) S.asp = j.aspect[1] / j.aspect[0]; S.ist = 2;
+    j.blocks.forEach(function(id){ streetPic(id, j.widths[0]); }); renderSoon(); }).catch(function(e){ S.ist = 3; S.err = 'index ' + (e && e.message); }); } catch (_e) { S.ist = 3; }
+  return false;
+}
+function streetDistrictAt(x, y){
+  var N = om.n; if (x < 0 || y < 0 || x >= N || y >= N) return 'desert';
+  var T = STREET.towns;
+  if (T) for (var i = 0; i < T.length; i++) { var o = T[i]; if (x >= o.x0 && y >= o.y0 && x < o.x0 + o.n && y < o.y0 + o.n) return o.tier === 1 ? 'fort' : o.tier === 2 ? 'town' : 'trailer'; }
+  var t = om.at(x, y); return (t && t.district) || 'desert';
+}
+function streetLayout(d){ var I = STREET.idx; return I.districts[d] || I.boards[d] || (I.kinds && I.boards[I.kinds[d]]) || I.districts.desert || I.boards.desert; }
+/* the fight block at whole fight-block (X, Y): its map block's district, the fight's own layout for it, laid from a corner of the
+   layout the map block's own number picks, so a big suburb is not one pattern stamped over and over */
+function streetBlockId(X, Y){
+  var per = STREET.per, x = Math.floor(X / per), y = Math.floor(Y / per), L = streetLayout(streetDistrictAt(x, y));
+  var h = mapHash(x + 1013, y + 2029), r = L.length, c = L[0].length;
+  var row = L[(((Y + (h % r)) % r) + r) % r]; return row[(((X + ((h >>> 5) % c)) % c) + c) % c];
+}
+function streetPic(id, w){
+  var S = STREET, key = id + '@' + w, P = S.pics.get(key);
+  if (P) { P.seen = S.frame; return P.state === 2 ? P : null; }
+  if (S.asking >= 8) return null;   /* a few on the way at once; the rest asked again next frame */
+  P = { key: key, state: 1, img: null, bytes: 0, seen: S.frame, w: w };
+  S.pics.set(key, P); S.asked++; S.asking++;
+  var url = 'street_ground/' + String(id).replace('.', '_') + '_' + w + '.webp';
+  try { fetch(url).then(function(r){ if (!r.ok) throw new Error(r.status); return r.blob(); })
+    .then(function(b){ return (typeof createImageBitmap === 'function') ? createImageBitmap(b)
+      : new Promise(function(res, rej){ var im = new Image(); im.onload = function(){ res(im); }; im.onerror = rej; im.src = URL.createObjectURL(b); }); })
+    .then(function(img){ S.asking--; if (S.pics.get(key) !== P) { try { if (img.close) img.close(); } catch (_e) {} return; }
+      P.img = img; P.state = 2; P.bytes = img.width * img.height * 4; S.bytes += P.bytes; S.peak = Math.max(S.peak, S.bytes); S.landed++; streetBudget(); if (streetIsOn()) renderSoon(); })
+    .catch(function(){ S.asking--; P.state = 3; S.failed++; }); } catch (_e) { S.asking--; P.state = 3; S.failed++; }
+  return null;
+}
+/* the width the glass needs (device px), asked for; until it lands the nearest one already in */
+function streetPicFor(id, need){
+  var W = STREET.idx.widths, w = W[W.length - 1];
+  for (var i = 0; i < W.length; i++) if (W[i] >= need * 0.85) { w = W[i]; break; }
+  var P = streetPic(id, w); if (P) return P;
+  for (var j = W.length - 1; j >= 0; j--) { var Q = STREET.pics.get(id + '@' + W[j]); if (Q && Q.state === 2) { Q.seen = STREET.frame; return Q; } }
+  return null;
+}
+/* far off: a map block's thirty-six, laid once at L device px wide from the smallest pictures (85 px a fight block at most) */
+function streetComp(x, y, L){
+  var S = STREET, key = x + ',' + y + '@' + L, C = S.comp.get(key);
+  if (C) { C.seen = S.frame; if (C.full || S.builds <= 0) return C; }
+  else if (S.builds <= 0) { for (var L2 = L >> 1; L2 >= 64; L2 >>= 1) { var C2 = S.comp.get(x + ',' + y + '@' + L2); if (C2) { C2.seen = S.frame; return C2; } } return null; }
+  var per = S.per, H = Math.max(1, Math.round(L * S.asp)), w0 = S.idx.widths[0], ids = [], all = true;
+  for (var j = 0; j < per; j++) for (var i = 0; i < per; i++) { var id = streetBlockId(x * per + i, y * per + j), P = streetPic(id, w0); ids.push(P); if (!P) all = false; }
+  if (!C) { if (!ids.some(function(p){ return !!p; })) return null; C = { key: key, cv: document.createElement('canvas'), bytes: L * H * 4, seen: S.frame, full: false };
+    C.cv.width = L; C.cv.height = H; S.comp.set(key, C); S.bytes += C.bytes; S.peak = Math.max(S.peak, S.bytes); }
+  var c2 = C.cv.getContext('2d'); c2.imageSmoothingEnabled = true; c2.fillStyle = '#8c806b'; c2.fillRect(0, 0, L, H);
+  for (var q = 0; q < ids.length; q++) { var P2 = ids[q]; if (!P2) continue; var ii = q % per, jj = (q / per) | 0;
+    var x0 = Math.round(ii * L / per), x1 = Math.round((ii + 1) * L / per), y0 = Math.round(jj * H / per), y1 = Math.round((jj + 1) * H / per);
+    c2.drawImage(P2.img, x0, y0, x1 - x0, y1 - y0); }
+  C.full = all; S.builds--; S.built = (S.built | 0) + 1; streetBudget();
+  return C;
+}
+/* one picture laid on the ground over [wx0, wx0 + sz] x [wy0, wy0 + sz]: snapped to the device's pixels once the turn is done, so
+   two neighbours meet with no seam; turned while it turns */
+function streetLay(img, iw, ih, wx0, wy0, sz){
+  var S = STREET, M = S.M, F = S.F, dx = wx0 - S.W.x, dy = wy0 - S.W.y;
+  var ex = F.x + M[0] * dx + M[1] * dy, ey = F.y + M[2] * dx + M[3] * dy;
+  if (S.te >= 0.999) {
+    var q = (typeof CV_DPR === 'number' && CV_DPR) || 1, X0 = Math.round(ex * q) / q, Y0 = Math.round(ey * q) / q;
+    var X1 = Math.round((ex + M[0] * sz) * q) / q, Y1 = Math.round((ey + M[3] * sz) * q) / q;
+    if (X1 < 0 || Y1 < 0 || X0 > CVW || Y0 > CVH) return false;
+    g.drawImage(img, 0, 0, iw, ih, X0, Y0, X1 - X0, Y1 - Y0); return true;
+  }
+  g.save(); g.transform(M[0] * sz / iw, M[2] * sz / iw, M[1] * sz / ih, M[3] * sz / ih, ex, ey); g.drawImage(img, 0, 0, iw, ih); g.restore(); return true;
+}
+function streetBudget(){
+  var S = STREET; if (S.bytes <= S.budget) return;
+  var all = []; S.pics.forEach(function(P){ if (P.state === 2) all.push(P); }); S.comp.forEach(function(C){ all.push(C); });
+  all.sort(function(a, b){ return a.seen - b.seen; });
+  for (var i = 0; i < all.length && S.bytes > S.budget; i++) if (all[i].seen !== S.frame) streetDrop(all[i]);
+}
+function streetDrop(X){
+  var S = STREET;
+  if (X.cv) { if (S.comp.get(X.key) !== X) return; S.comp.delete(X.key); X.cv.width = X.cv.height = 0; }
+  else { if (S.pics.get(X.key) !== X) return; S.pics.delete(X.key); try { if (X.img && X.img.close) X.img.close(); } catch (_e) {} }
+  S.bytes -= X.bytes; S.dropped++;
+}
+function streetFree(){ var L = []; STREET.pics.forEach(function(P){ if (P.state === 2) L.push(P); }); STREET.comp.forEach(function(C){ L.push(C); }); L.forEach(streetDrop); }
+/* ---- the frame ---- */
+function streetGround(){
+  var S = STREET, I = S.idx; if (!I) return { drew: 0 };
+  var q = (typeof CV_DPR === 'number' && CV_DPR) || 1, need = S.s * q, per = S.per;
+  var cs = [streetFrom(0, 0), streetFrom(CVW, 0), streetFrom(0, CVH), streetFrom(CVW, CVH)];
+  var x0 = Math.floor(Math.min(cs[0].x, cs[1].x, cs[2].x, cs[3].x) + 0.5), x1 = Math.floor(Math.max(cs[0].x, cs[1].x, cs[2].x, cs[3].x) + 0.5);
+  var y0 = Math.floor(Math.min(cs[0].y, cs[1].y, cs[2].y, cs[3].y) + 0.5), y1 = Math.floor(Math.max(cs[0].y, cs[1].y, cs[2].y, cs[3].y) + 0.5);
+  var onGlass = function(x, y, sz){ var a = streetTo(x - 0.5, y - 0.5), b = streetTo(x - 0.5 + sz, y - 0.5), c = streetTo(x - 0.5, y - 0.5 + sz), d = streetTo(x - 0.5 + sz, y - 0.5 + sz);
+    return !(Math.max(a.x, b.x, c.x, d.x) < 0 || Math.min(a.x, b.x, c.x, d.x) > CVW || Math.max(a.y, b.y, c.y, d.y) < 0 || Math.min(a.y, b.y, c.y, d.y) > CVH); };
+  var drew = 0, comps = 0, direct = 0, missing = 0, ids = {};
+  g.save(); g.imageSmoothingEnabled = true;
+  if (need <= 768) {   /* far off: one picture a map block */
+    var Lw = 64; while (Lw * 2 <= need && Lw < 512) Lw *= 2;
+    S.builds = 10;
+    for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) { if (!onGlass(x, y, 1)) continue;
+      var C = streetComp(x, y, Lw); if (!C) { missing++; continue; }
+      streetLay(C.cv, C.cv.width, C.cv.height, x - 0.5, y - 0.5, 1); drew++; comps++; }
+  } else {             /* close: each fight block, the width the glass needs */
+    var f = 1 / per, X0 = Math.floor((Math.min(cs[0].x, cs[1].x, cs[2].x, cs[3].x) + 0.5) * per), X1 = Math.floor((Math.max(cs[0].x, cs[1].x, cs[2].x, cs[3].x) + 0.5) * per);
+    var Y0 = Math.floor((Math.min(cs[0].y, cs[1].y, cs[2].y, cs[3].y) + 0.5) * per), Y1 = Math.floor((Math.max(cs[0].y, cs[1].y, cs[2].y, cs[3].y) + 0.5) * per);
+    /* the sharpest width for the blocks nearest him first, a lighter one past three quarters of the budget (never over the line) */
+    var vis = [], Wd = I.widths, want = Wd[Wd.length - 1];
+    for (var wi = 0; wi < Wd.length; wi++) if (Wd[wi] >= need * f * 0.85) { want = Wd[wi]; break; }
+    for (var Y = Y0; Y <= Y1; Y++) for (var X = X0; X <= X1; X++) {
+      var wx = X * f - 0.5, wy = Y * f - 0.5; if (!onGlass(wx + 0.5, wy + 0.5, f)) continue;
+      var cq = streetTo(wx + f / 2, wy + f / 2); vis.push({ X: X, Y: Y, wx: wx, wy: wy, id: streetBlockId(X, Y), d: Math.hypot(cq.x - S.F.x, cq.y - S.F.y) }); }
+    vis.sort(function(a, b){ return a.d - b.d; });
+    var gotW = {}, used = 0, cap = S.budget * 0.75, hOf = function(w){ return Math.round(w * S.asp); };
+    vis.forEach(function(v){ if (gotW[v.id]) return; var w = want;
+      while (w > Wd[0] && used + w * hOf(w) * 4 > cap) w = Wd[Math.max(0, Wd.indexOf(w) - 1)];
+      gotW[v.id] = w; used += w * hOf(w) * 4; });
+    vis.forEach(function(v){
+      var P = streetPicFor(v.id, gotW[v.id] / 0.86); if (!P) { missing++; return; }
+      if (streetLay(P.img, P.img.width, P.img.height, v.wx, v.wy, f)) { drew++; direct++; ids[v.id + '@' + P.w] = 1; } });
+  }
+  g.restore();
+  return { drew: drew, comps: comps, direct: direct, missing: missing, pics: Object.keys(ids).length, need: Math.round(need) };
+}
+function streetRender(ox, oy, G, night){
+  var S = STREET, t0 = performance.now(); S.frame++; S.drawing = true;
+  /* the map's camera is whole pixels (its PIXEL FIX); on the street one of its pixels is up to forty-four of these, a shake: the
+     street's camera is the exact one */
+  ox = CVW / 2 - (G.x - G.y) * TW / 2 + panX; oy = CVH / 2 - (G.x + G.y) * TH / 2 + panY;
+  var depthWas = MAP_DEPTH.on; MAP_DEPTH.on = false; MAP_DEPTH.ref = null;   /* the depth is the painting's; the street's houses are flat */
+  try {
+    streetCam(ox, oy); streetIndex();
+    S.towns = (typeof VB_TOWNS !== 'undefined' && VB_TOWNS.list) || null;
+    if (S.te >= 0.5 && typeof VBT !== 'undefined' && VBT.tiles.size) { VBT.tiles.clear(); VBT.bytes = 0; S.vbtDropped++; }   /* the painting's close tiles: the street is the ground now */
+    g.fillStyle = night ? '#241f1a' : '#8c806b'; g.fillRect(0, 0, CVW, CVH);
+    /* the painting, turning with the camera, under the street until the street covers it (and wherever a block is not in yet) */
+    if (S.a < 1 || S.ist !== 2 || S.last == null || S.last.missing) {
+      try { g.save(); streetFlat();
+        if (typeof vbDraw === 'function') { try { vbDraw(ox, oy, night); } catch (_e) {} }
+        if (vbCityReady()) { var Sc = VB_CS; g.imageSmoothingEnabled = true; g.transform(TW / 2 / Sc, TH / 2 / Sc, -TW / 2 / Sc, TH / 2 / Sc, ox, oy - VB_CPAD * TH); g.drawImage(VBC.day, 0, 0); }
+        g.restore(); } catch (_e) { g.restore(); } }
+    var gr = { drew: 0 };
+    if (S.ist === 2 && S.a > 0.01) { g.save(); g.globalAlpha = S.a; gr = streetGround(); g.restore(); }
+    S.last = gr;
+    /* the towns: the edge of their ground in their colour, their name at their foot, a finger on either is the town's */
+    try { var T = S.towns || [], beat = mapArtBeat();
+      for (var i = 0; i < T.length; i++) { var o = T[i];
+        var c1 = streetTo(o.x0 - 0.5, o.y0 - 0.5), c2 = streetTo(o.x0 + o.n - 0.5, o.y0 - 0.5), c3 = streetTo(o.x0 + o.n - 0.5, o.y0 + o.n - 0.5), c4 = streetTo(o.x0 - 0.5, o.y0 + o.n - 0.5);
+        var bx0 = Math.min(c1.x, c2.x, c3.x, c4.x), bx1 = Math.max(c1.x, c2.x, c3.x, c4.x), by0 = Math.min(c1.y, c2.y, c3.y, c4.y), by1 = Math.max(c1.y, c2.y, c3.y, c4.y);
+        if (bx1 < -40 || bx0 > CVW + 40 || by1 < -40 || by0 > CVH + 40) continue;
+        if (fogHides(o.bx, o.by)) continue;
+        var col = null; try { col = mapFactionColour(o.name); } catch (_e) {}
+        g.save(); g.globalAlpha = 0.55 + 0.15 * (beat % 2); g.strokeStyle = col || '#d8c8a0'; g.lineWidth = 2;
+        g.beginPath(); g.moveTo(c1.x, c1.y); g.lineTo(c2.x, c2.y); g.lineTo(c3.x, c3.y); g.lineTo(c4.x, c4.y); g.closePath(); g.stroke(); g.restore();
+        var nm = String(o.name).toUpperCase(); g.font = '700 9px ' + FACE('casing'); var w = g.measureText(nm).width;
+        var lit = (typeof PHONE_LIT !== 'undefined' && PHONE_LIT && String(PHONE_LIT.place).toUpperCase() === nm);
+        var foot = c3.y > c4.y ? c3 : c4, fx = Math.max(w / 2 + 6, Math.min(CVW - w / 2 - 6, (c3.x + c4.x) / 2)), fy = Math.max(14, Math.min(CVH - 16, Math.max(c3.y, c4.y) - 18));
+        var plate = { x: fx - w / 2 - 3, y: fy, w: w + 6, h: 11 };
+        MAP_TOWN_HIT.push({ name: o.name, x: o.bx, y: o.by, plate: plate, bld: { x: bx0, y: by0, w: bx1 - bx0, h: by1 - by0 }, street: true });
+        MAP_PLATES.push({ t: nm, lx: plate.x, ly: plate.y, w: w, col: lit ? '#ffd27a' : '#f2e6c8', sx: fx, cy: fy, r: 0 });
+        try { MAP_DREW.places.street = (MAP_DREW.places.street | 0) + 1; } catch (_e) {} } } catch (_e) {}
+    /* the roaming parties he can see, walking at their size, their feet on the ground's own pace */
+    try { var pp = partiesAll() || [];
+      for (var pi = 0; pi < pp.length; pi++) { var p = pp[pi];
+        if (!p || !p.at) continue;
+        if (p.from && !p.arrived && Math.max(Math.abs((p.at.x | 0) - (p.from.x | 0)), Math.abs((p.at.y | 0) - (p.from.y | 0))) < 2) continue;
+        if (fogHides(p.at.x | 0, p.at.y | 0)) continue;
+        if (!(HUNT && HUNT.id === p.id) && !mapSees(p.at.x | 0, p.at.y | 0)) continue;
+        var pid = p.id != null ? p.id : ('i' + pi), gq = partyGlidePos(pid, p.at.x | 0, p.at.y | 0, performance.now());
+        var sp = streetTo(gq.x, gq.y); if (sp.x < -60 || sp.x > CVW + 60 || sp.y < -20 || sp.y > CVH + 80) continue;
+        S.st = null;
+        mapPartyDraw(p, pi, sp.x, sp.y + 2, mapArtBeat() + pi, gq.u < 1 ? ((gq.n + gq.u) * S.s / S.stridePx) % 1 : null);
+        MAP_DREW.parties++;
+        try { (MAP_DREW.partyAt = MAP_DREW.partyAt || {})[pid] = [gq.x, gq.y]; } catch (_e) {}
+        var kq = MAP_PEOPLE_K, ph = { id: pid, p: p, box: { x: sp.x - 18 * kq, y: sp.y - 44 * kq, w: 36 * kq, h: 48 * kq }, plateBox: null };
+        if (PARTY_SEL === pid) { var n2 = partySizeOf(p); ph.plateBox = partyPlatePush(pid, sp.x, sp.y - 44 * kq, { count: n2, skulls: partySkulls(n2), going: partyGoing(p) }); }
+        MAP_PARTY_HIT.push(ph); } } catch (_e) {}
+    try { if (HUNT) { var ho = streetOxy(HUNT.at[0], HUNT.at[1]); huntDraw(ho.ox, ho.oy); var hq = streetTo(HUNT.at[0], HUNT.at[1]);
+      HUNT.plateBox = partyPlatePush(HUNT.id, hq.x, (HUNT.box ? HUNT.box.y : hq.y - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }); } } catch (_e) {}
+    /* where he stops: the thin ring */
+    try { if (TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length) { var e = TRAVEL.path[TRAVEL.path.length - 1], rp = streetTo(e[0], e[1]);
+      g.save(); g.strokeStyle = 'rgba(255,255,255,0.85)'; g.lineWidth = 2; g.beginPath(); g.ellipse(rp.x, rp.y, 26, 9, 0, 0, 7); g.stroke(); g.restore(); } } catch (_e) {}
+    /* the fog and his map's tape lie on the ground: the map's own code, under the turn */
+    try { g.save(); streetFlat(); fogDraw(ox, oy); g.restore(); } catch (_e) { g.restore(); }
+    /* HIM and his two, his feet on the ground's pace */
+    var yp = streetTo(G.x, G.y), moving = !!(TRAVEL || G.u < 1);
+    S.faceNow = (S.lead && (S.lead.dx || S.lead.dy)) ? streetFaceOf(MAP_FACE_OF[S.lead.dx + ',' + S.lead.dy] || 'S') : null;
+    S.st = moving ? (((CITY_GLIDE.n | 0) + Math.min(1, G.u)) * S.s / S.stridePx) % 1 : null;
+    streetYouDraw(yp.x, yp.y, moving, S.st, G);
+    try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }
+    if (night) { g.fillStyle = 'rgba(10,18,40,0.25)'; g.fillRect(0, 0, CVW, CVH); }
+    S.ms = performance.now() - t0;
+    /* a block still coming: draw again next frame until the glass is whole (a frame lays ten at most, so a pinch never stalls) */
+    if (((gr.missing | 0) > 0 || S.asking > 0) && !S.raf) S.raf = requestAnimationFrame(function(){ S.raf = 0; try { if (streetIsOn()) render(); } catch (_e) {} });
+    try { MAP_DREW.street = { mult: +S.mult.toFixed(3), te: +S.te.toFixed(3), s: Math.round(S.s), a: +S.a.toFixed(2), drew: gr.drew, comps: gr.comps | 0, direct: gr.direct | 0,
+      missing: gr.missing | 0, pics: gr.pics | 0, need: gr.need | 0, bytes: S.bytes, ms: +S.ms.toFixed(1) }; } catch (_e) {}
+  } finally { S.drawing = false; S.st = null; S.faceNow = null; MAP_DEPTH.on = depthWas; MAP_DEPTH.ref = null; }
+}
+function streetYouDraw(gx, gy, moving, st, G){
+  var face = mapFaceNow(), body = null, how = 'cook';
+  g.save(); g.globalAlpha = 1;
+  { var rp = 0.85 + 0.15 * ((mapArtBeat() % 2) ? 1 : 0);
+    g.lineWidth = 2; g.strokeStyle = 'rgba(14,11,8,0.55)'; g.beginPath(); g.ellipse(gx, gy + 1, 26, 9, 0, 0, 7); g.stroke();
+    g.lineWidth = 1.5; g.strokeStyle = 'rgba(232,220,192,' + rp.toFixed(2) + ')'; g.beginPath(); g.ellipse(gx, gy, 26, 9, 0, 0, 7); g.stroke();
+    if (!mapPartyShadow(gx, gy)) { g.fillStyle = 'rgba(14,11,8,0.6)'; g.beginPath(); g.ellipse(gx, gy, 11, 4, 0, 0, 7); g.fill(); } }
+  try {
+    var rigYou = window.__RIG_CAST_OFF ? null : mapPeopleOf('you', 0), src = rigYou || (FINAL_ONLY ? null : PLAYER_CV);
+    var set = src && (src[face] || src.S), spr = set && set.idle;
+    if (set && moving && st != null && set.walk && set.walk.length) spr = set.walk[Math.floor(st * set.walk.length) % set.walk.length];
+    if (rigYou && !moving && spr) { var iq = mapIdleFrame(rigYou, src[face] ? face : 'S', mapArtBeat(), spr); if (iq) spr = iq; }
+    if (spr) { body = spriteAt(spr, 32); how = rigYou ? 'rig3d' : 'rig'; }
+  } catch (_e) { body = null; }
+  var near = mapCompanyNear(), bw = 0, bh = 0;
+  mapCompanyPass(gx, gy, 0, moving, G, near, 0);
+  if (body) { g.imageSmoothingEnabled = false; bw = body.width / 2; bh = body.height / 2; g.drawImage(body, mapSnap(gx - bw / 2), mapSnap(gy - bh * 0.93), bw, bh); }
+  mapCompanyPass(gx, gy, 0, moving, G, near, 1);
+  g.restore();
+  try { MAP_DREW.youCount = (MAP_DREW.youCount | 0) + 1; MAP_DREW.you = { how: how, x: Math.round(gx), y: Math.round(gy), w: bw, h: bh, moving: moving, face: face, street: true, st: st }; } catch (_e) {}
+}
+try { window.streetTo = streetTo; window.streetFrom = streetFrom; window.streetIsOn = streetIsOn; window.streetMultMax = streetMultMax; } catch (_e) {}
+/* ==== /__THE_MAP_ZOOMS_IN_TO_THE_STREET__ ==== */
 /* ==== __THE_MAP_FITS_YOUR_JOBS__ (RUN 10/26, [the map fits your jobs], rule 228(a); Paolo 10/26: 'when you get out of the
    settlement the map should be as big as the two quests you added... depending where they are on the map, with the padding, the
    screen flipped or straight up, it has to zoom out so the edges are where the quests are... a smart system';
@@ -46436,6 +46816,7 @@ function mapFitJobs(why, tries){
   if (!MAP_FIT.on || typeof MODE === 'undefined' || MODE !== 'city') return false;
   if ((typeof VISTA !== 'undefined' && VISTA) || (typeof LOOK !== 'undefined' && LOOK.on) || (typeof SKY !== 'undefined' && SKY)) return false;
   var places = mapFitPlaces(); if (!places.length) return false;
+  if (typeof STREET !== 'undefined' && STREET.mult > 1) { STREET.mult = 1; streetLeft(); }   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: a fit is the map's own zoom */
   /* the 10/24 phone is hidden in a town and comes back over the map a moment after LEAVE: the fit waits for it (1.5 s at most), so
      the open area it fits into is the one he will see; UI TWO's phone answers its margin at once */
   if (mapFocusRead(true).src === 'none' && document.getElementById('cityfeed') && (tries | 0) < 15) { setTimeout(function(){ try { mapFitJobs(why, (tries | 0) + 1); } catch (_e) {} }, 100); return true; }
@@ -47059,9 +47440,11 @@ function cityGlidePos(now){
     G.fx=far?city.x:cur.x; G.fy=far?city.y:cur.y;
     G.tx=city.x; G.ty=city.y; G.t0=now;
     /* a far jump is a cut, not a step: it must not set the pace for the step after it */
-    G.dur=Math.max(50,Math.min(BEAT,now-G.last)); G.last=far?-1e9:now;
+    G.dur=Math.max(50,Math.min((typeof streetGlideMs==='function'?streetGlideMs():BEAT),now-G.last)); G.last=far?-1e9:now;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street the lead already walked him there */
     G.n=(G.n|0)+(far?0:1);   /* __THE_PARTIES_WALK__: steps taken, so the stride carries across steps */
   }
+  { const __lp=(typeof streetLeadPos==='function')?streetLeadPos():null;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street he walks toward the next block between beats */
+    if(__lp){ if(TRAVEL_SPEED>0&&!G.raf){ G.raf=requestAnimationFrame(function(){ G.raf=0; try{ if(typeof MODE!=='undefined'&&MODE==='city') render(); }catch(_e){} }); } return __lp; } }
   const p=cityGlideAt(G,now);
   /* keep drawing until it lands: the city otherwise redraws on the beat, and a
      glide drawn twice a second is the block again */
@@ -47084,7 +47467,7 @@ function partyGlidePos(key, x, y, now){
        cut line (2.5, one step) snapped it; a party's cut is MORE THAN THREE BLOCKS any way (home, a camp) */
     var far = Math.max(Math.abs(x - cur.x), Math.abs(y - cur.y)) > 3;
     G.fx = far ? x : cur.x; G.fy = far ? y : cur.y; G.tx = x; G.ty = y; G.t0 = now;
-    G.dur = Math.max(50, Math.min(BEAT, now - G.last)); G.last = far ? -1e9 : now; G.n += far ? 0 : 1;
+    G.dur = Math.max(50, Math.min((typeof streetPartyGlideMs === 'function' ? streetPartyGlideMs() : BEAT), now - G.last)); G.last = far ? -1e9 : now; G.n += far ? 0 : 1;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street a party glides the whole gap between its steps */
   }
   var p = cityGlideAt(G, now); p.n = G.n; return p;
 }
@@ -47213,8 +47596,9 @@ function mapPartyLook(p){
 var MAP_FACE_OF = { '1,0':'SE', '0,1':'SW', '1,1':'S', '1,-1':'E', '-1,0':'NW', '0,-1':'NE', '-1,-1':'N', '-1,1':'W' };
 var MAP_VEC_OF = {}; for (var __k in MAP_FACE_OF) MAP_VEC_OF[MAP_FACE_OF[__k]] = __k.split(',').map(Number);   /* __THE_PARTIES_WALK__: the facing, back to a step */
 function mapFaceNow(){
+  if (typeof STREET !== 'undefined' && STREET.drawing && STREET.faceNow) return STREET.faceNow;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: he faces the block he walks to */
   try { if (typeof ROAD_LASTDIR === 'number' && DIRS[ROAD_LASTDIR]) {
-    var d = DIRS[ROAD_LASTDIR]; return MAP_FACE_OF[d[0] + ',' + d[1]] || 'S'; } } catch (_e) {}
+    var d = DIRS[ROAD_LASTDIR], f = MAP_FACE_OF[d[0] + ',' + d[1]] || 'S'; return (typeof STREET !== 'undefined' && STREET.drawing) ? streetFaceOf(f) : f; } } catch (_e) {}   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: the same step faces its own way on the street */
   return 'S';
 }
 /* ==== __THE_ICONS_ARE_THE_GAME'S_OWN_ART__ (RUN 10/1) ====================================
@@ -47475,7 +47859,7 @@ function mapPartyFace(p){
   var t = p && (p.arrived ? p.from : p.to), at = p && p.at;   /* out to its target, then home (engine/bohemia_parties.js) */
   if (!t || !at) return 'S';
   var dx = Math.sign((t.x | 0) - (at.x | 0)), dy = Math.sign((t.y | 0) - (at.y | 0));
-  return MAP_FACE_OF[dx + ',' + dy] || 'S';
+  var f = MAP_FACE_OF[dx + ',' + dy] || 'S'; return (typeof STREET !== 'undefined' && STREET.drawing && MAP_FACE_OF[dx + ',' + dy]) ? streetFaceOf(f) : f;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__ */
 }
 /* ==== __THE_GANGS_WEAR_THE_RIG__ (RUN [the demo wears the rig], rule 115g, 10/18) ====
    PAOLO 10/18: "is the demo changing, I liked the robot that got made type shit." The thirteen gang looks built as
@@ -48015,7 +48399,7 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
     var dx = (v[0] - v[1]) * TW / 2, dy = (v[0] + v[1]) * TH / 2, dl = Math.hypot(dx, dy) || 1; dx /= dl; dy /= dl;
     var ONE = MAP_PARTY_AS_ONE.on, K = MAP_CREW_DRAWING ? MAP_CREW_K.space : Math.max(0.75, MAP_PEOPLE_K);
     var bx = -dx * (ONE ? MAP_PARTY_AS_ONE.back : 6) * K, by = -dy * (ONE ? MAP_PARTY_AS_ONE.back : 6) * K;   /* a half step back; as one, a whole step */
-    var st = strideOf({ u: G.u, n: CITY_GLIDE.n });
+    var st = (typeof STREET !== 'undefined' && STREET.drawing) ? STREET.st : strideOf({ u: G.u, n: CITY_GLIDE.n });   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: his two keep his pace on the street */
     g.translate(0, lift);
     /* AS ONE, ON THE GLASS: the camera decides what 'behind' can mean and still be seen. Walking across the screen,
        both trail on the side he comes from, staggered (13 and 22 px back, one a little up, one a little down); walking
@@ -50228,6 +50612,7 @@ function renderCity(){
      never answer from a body that is no longer on the glass. */
   CB_DREW.clear(); CB_DREW_AT=null;
   if(UNDERV){ g.fillStyle='#0a0806'; g.fillRect(0,0,CVW,CVH); drawUnder(ox,oy); return; }
+  if(typeof streetIsOn==='function' && streetIsOn()){ try{ streetRender(ox,oy,__G,night); return; }catch(_e){ STREET.err=String(_e&&_e.message||_e); STREET.mult=1; } }   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: past the closest stop the street is drawn (a throw puts the map back) */
   /* THE VISTA GETS A REAL BACKDROP; the normal city view keeps its flat field.
      A map on flat blue is a map -- an overlook is sky, then the far side of the
      basin, then the floor. Only paid for when the moment is actually open. */
@@ -66727,13 +67112,13 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     if(a){                                          // pinch: zoom about the midpoint + pan the midpoint
       const d=dist(a), m=mid(a);
       if(lastDist>0)setZoomAt(CZOOM*(d/lastDist), m.x, m.y);
-      if(lastMid){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; clampPan(); renderSoon(); }
+      if(lastMid){ if(!(typeof streetPanBy==='function'&&streetPanBy(m.x-lastMid.x,m.y-lastMid.y))){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; } clampPan(); renderSoon(); }   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street a drag moves the street under the finger */
       lastDist=d; lastMid=m;
     } else if(lastMid){                             // single-finger drag: pan
       const c=toCv(e);
       if(CB._tapStart)CB._tapMoved+=Math.abs(c.x-lastMid.x)+Math.abs(c.y-lastMid.y);   /* ZOOM-BUILD: a drag is never a tap */
       if(!CB._tapStart||CB._tapMoved>=8){ try{ camLetGo(); }catch(_e){} }   /* __THE_CAMERA_KEEPS_THE_CREW__: a look around by hand lets it go */
-      panX+=c.x-lastMid.x; panY+=c.y-lastMid.y; lastMid=c; clampPan(); render();
+      if(!(typeof streetPanBy==='function'&&streetPanBy(c.x-lastMid.x,c.y-lastMid.y))){ panX+=c.x-lastMid.x; panY+=c.y-lastMid.y; } lastMid=c; clampPan(); render();   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__ */
     }
   });
   function up(e){
