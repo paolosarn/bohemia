@@ -1,6 +1,7 @@
-RUN THREE (run-three, the hall and his men in the town): 10/26 LATEST -- three rows SHIPPED, all BUILT, NOT YET SEEN (rule 179):
-[four percent] 262c23b0 (the number; her body owed), [the best recruit at the top] 07853c6a (round one 9aeda231), [your crew lives in
-the town] 963bbc0d round one. BUILD 10/26o - YOUR CREW LIVES IN THE TOWN.
+RUN THREE (run-three, the hall, his men in the town, the start): 10/26 LATEST -- four rows SHIPPED, all BUILT, NOT YET SEEN (rule 179):
+[four percent] 262c23b0 (her body landed 1b0ee711, ANIMATION: women now stand at the posts, 407 of 10,000), [the best recruit at the
+top] 07853c6a, [your crew lives in the town] 963bbc0d round one, [the game starts in a town] 32369eed. BUILD 10/26z - THE GAME
+STARTS IN A TOWN. CLAIMED next: [make your main guy] (rule 263(b), with the start).
 
 WHAT IS LIVE (any town, the demo through the map's door):
 - THE HALL lists its men by the CEILING, highest first, every visit; one tap on the header switches BEST / BEST FOR THE PRICE (a
@@ -17,19 +18,27 @@ WHAT IS LIVE (any town, the demo through the map's door):
   when his renders are in (69 of 97 now), his idles until then; a standing man tapped opens the crew screen on him (campMan); walkers
   are not tapped (131(b)).
 
-GATES: THE BEST RECRUIT AT THE TOP 12/0, YOUR CREW LIVES IN THE TOWN 9/0 (both new, in the suite); A FEW WOMEN AT THE POST 4/0;
+- THE START (__THE_GAME_STARTS_IN_A_TOWN__ in BOHEMIA_CITY_WORLD.html, slices/bohemia_the_squad_up_close.js): a new game (never a
+  CONTINUE, never the bench's lifted valley) opens on the squad's found tape over the whole screen (one quiet second, each man's
+  head, name, trade, stars on the beat, the crew under the origin's name; a tap skips it after the second; SOUNDS' __originSong
+  hook for the song), then the closest settlement to the origin's corner by the map's measure, the company in it; LEAVE is the map
+  at that block. origins.json start_kinds moves an origin's corner (RUN TWO's field).
+
+GATES: THE BEST RECRUIT AT THE TOP 12/0, YOUR CREW LIVES IN THE TOWN 9/0, THE GAME STARTS IN A TOWN 15/0 (all new, in the suite; the
+last runs in parts, GATE_ONLY=faith | truck,wolf | bench); re-aimed THE PLACE IN THE DARK 20/0 and ONLY THE FINAL LOOK 5/0 + 5/0; A FEW WOMEN AT THE POST 4/0;
 re-aimed THE HIRE PRICE IS THE FORMULA 10/0 (his own kit), THE TRAIT BEFORE YOU HIRE 12/0 (each band read when dealt), THE FACE IS HIS
 OWN FACE F5 (his own men stand as themselves) 17/1 as main. Green: settlement screen 74/0, the walk-up 8/0, on the ground 7/0, the
 town's part 18/1 as main, busy 10/0, busy town talks 20/0, people 40/0, the town and the hire 11/0, rare man 10/0, demo build 25/0.
 Full suite unmeasured. Red on main before me and not mine: money_teaches (the demo's #crew button), no_two_people_alike's crew-screen
 leg, the face gate's board client, the camp's C5 cart, the town's part's last walk (a scroll timeout).
 
-NEXT for this lane: [your crew lives in the town] round two when the rest of ANIMATION's renders land (nothing to change: the index
+NEXT for this lane: [make your main guy] (rule 263(b): a maker from the barber's parts after the origin, before the tape; the made
+man everywhere, ONE ID). The tape's round two: ANIMATION's moving cells at a whole-number zoom (their NOTE on RUN TWO's board), and
+the faces breathing when PORTRAIT's 246 lands. [your crew lives in the town] round two when the rest of ANIMATION's renders land (nothing to change: the index
 fills) and when RUN TWO's [the town fits the screen] lands (re-run THE TOWN'S PART E8 and my K-legs at the fitted scale: the finger's
 room grows in picture px as the picture shrinks). Rule 223's stat bars on the hall card are UI's one component, when it lands.
-FOR CHARACTER: the moment a person with "sex":"f" and fight true is in engine/bohemia_people_mix.js, the post deals her at 4 percent and
-the flirt gets someone to flirt with.
-Records: records/BOHEMIA_RUN3_THE_BEST_RECRUIT_AT_THE_TOP_10_26_26.md, records/BOHEMIA_RUN3_YOUR_CREW_LIVES_IN_THE_TOWN_10_26_26.md.
+Records: records/BOHEMIA_RUN3_THE_BEST_RECRUIT_AT_THE_TOP_10_26_26.md, records/BOHEMIA_RUN3_YOUR_CREW_LIVES_IN_THE_TOWN_10_26_26.md,
+records/BOHEMIA_RUN3_THE_GAME_STARTS_IN_A_TOWN_10_26_26.md.
 [bb Battle Brothers hides a recruit's stars behind a try-out fee and never sorts the hall, and its town is a menu with nobody in it;
 ours sorts by what the level-up will make of him, and stands the company in the street between jobs.]
 [analog horror: the ceiling reads like a pawn ticket; his men stand where the town's own people stood before the crash, a beer at the
