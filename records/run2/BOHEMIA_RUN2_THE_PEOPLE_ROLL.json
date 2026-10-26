@@ -4090,5 +4090,143 @@
   "face_name": "HEART",
   "top": "TATTERED FLANNEL",
   "coat": "LEATHER VEST"
+ },
+ {
+  "id": "woman_0",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 21,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7,
+   "brows.len": 6
+  },
+  "face_name": "GAUNT",
+  "mark_name": "CHEEK BURN",
+  "mark": "cheek_burn",
+  "legs": "CUTOFF DENIM SHORTS",
+  "feet": "WHITE SNEAKERS",
+  "kit": [
+   "WORK SUSPENDERS"
+  ],
+  "top": "WHITE TEE",
+  "sex": "f",
+  "her": "ANIMATION [a few women at the post] (rule 203(a)): her body, her walk and her face (records/target/animation/BOHEMIA_HER_BODY.json)"
+ },
+ {
+  "id": "woman_1",
+  "gang": "Body",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "COIL CROWN",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.jawW": 23,
+   "face.chinW": 10,
+   "brows.len": 6
+  },
+  "face_name": "THE STARRED FACE",
+  "legs": "WIDE PLEAT TROUSER",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "RUCK PACK",
+   "PATINA SCARF"
+  ],
+  "top": "VESTMENT GOLD SHIRT",
+  "coat": "GRASS WRAP COAT",
+  "sex": "f",
+  "her": "ANIMATION [a few women at the post] (rule 203(a)): her body, her walk and her face (records/target/animation/BOHEMIA_HER_BODY.json)"
+ },
+ {
+  "id": "woman_2",
+  "gang": "Body",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "BOX BRAIDS",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31,
+   "face.jawW": 23,
+   "face.chinW": 10,
+   "brows.len": 6
+  },
+  "face_name": "WIDE SET",
+  "legs": "KHAKI CARGOS",
+  "feet": "STACKED MID BOOT",
+  "kit": [
+   "SOOT TOOL BELT",
+   "CHARCOAL SHOULDER MANTLE"
+  ],
+  "top": "TEAL STRIPED TEE",
+  "coat": "LEATHER HALF APRON",
+  "sex": "f",
+  "her": "ANIMATION [a few women at the post] (rule 203(a)): her body, her walk and her face (records/target/animation/BOHEMIA_HER_BODY.json)"
+ },
+ {
+  "id": "woman_3",
+  "gang": "Body",
+  "heritage": "black",
+  "tone": "onyx",
+  "skin": [
+   "skin_light",
+   0
+  ],
+  "hair_cut": "LAYERED FALL",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 21,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7,
+   "brows.len": 6
+  },
+  "face_name": "GAUNT",
+  "legs": "DROP RISE TROUSER",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "LEAD WAIST WRAP"
+  ],
+  "top": "STEEL HOODIE",
+  "coat": "BRICK CAR COAT",
+  "sex": "f",
+  "her": "ANIMATION [a few women at the post] (rule 203(a)): her body, her walk and her face (records/target/animation/BOHEMIA_HER_BODY.json)"
  }
 ]

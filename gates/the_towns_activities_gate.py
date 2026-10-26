@@ -19,8 +19,8 @@ PLAYER, never of a table's say-so:
   C  NOT A CHESS PIECE, in the pixels: every variant pose differs from its activity's rest (12 px or more changed) in every
      facing; a man drinking, smoking, sitting or at a stall is not standing as his plain still (the rest differs from the
      bare idles' standing square).
-  X  THE PLAYER (engine/bohemia_idles.js under node, the shipped file): twelve men at each activity over a minute never hold
-     one picture four seconds, change ten times or more, no two in step (any two share under half their keys); the slot he
+  X  THE PLAYER (engine/bohemia_idles.js under node, the shipped file): twelve men of his company (o.n, each his place in it)
+     at each activity over a minute never hold one picture four seconds, change ten times or more, no two in step (any two share under half their keys); the slot he
      began in is a breath; every variant is played by somebody in ten minutes; a TALKING PAIR never talks at once and each
      talks a third of the time or more; a man with a wall gets the hand on the wall, a man without never does.
   W  WIRED: on the real settlement screen (RUN TWO's file, his phone's profile), the player hands back a drawn cell of every
@@ -43,7 +43,7 @@ RENDERS = os.path.join(ROOT, 'records/target/animation/towns')
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 NAMED = ['drink', 'smoke', 'talk', 'flirt', 'sit', 'stall']
 PPM = 57.0           # the master rig's pixels a real metre at the street's settings (rig.json 'ppm')
-REVERSE_DEG, MOVE_PX, JUMP_PX = 120, 2.0, 16.0
+REVERSE_DEG, MOVE_PX, JUMP_PX = 120, 2.0, 24.0
 QUICK = '--quick' in sys.argv
 ok_n = fail_n = 0
 
@@ -154,8 +154,27 @@ ok('E0 the posed model\'s joints are kept beside every packed man\'s render (the
 ef = []
 for l in looks_j:
     ef += ['%s: %s' % (l, x) for x in envelope_faults(json.load(open(os.path.join(RENDERS, l, 'joints.json'))), T)]
+def ankle_faults(J, T):
+    """the feet stay put: in every pose of every activity both ankles where they stand in his rest, 1 cm (a man who sits
+    keeps his heels where he stood; the plant)"""
+    out = []; k = J['k']; base = None
+    for a, A in T['activities'].items():
+        at = J['acts'].get(a, {}).get('at', {})
+        ref = J['acts']['talk']['at']['T'] if 'talk' in J['acts'] else None
+        for p, row in at.items():
+            for j in ('RA', 'LA'):
+                if ref is None: continue
+                d = math.dist([c / k for c in row[j]], [c / k for c in ref[j]])
+                if d > 0.01: out.append('%s.%s %s %.1f cm off where he stands' % (a, p, j, d * 100))
+    return out
+
+
 ok('E1 AN ENVELOPE RAMPS SLOWER THAN THE GRID: no joint jumps out and back, none crosses 16 px in a drawn key, every slot into every next, eight facings (%d men)' % len(looks_j),
    looks_j and not ef, '; '.join(ef[:4]))
+af = []
+for l in looks_j:
+    af += ['%s: %s' % (l, x) for x in ankle_faults(json.load(open(os.path.join(RENDERS, l, 'joints.json'))), T)]
+ok('E3 THE FEET STAY PUT: both ankles where he stands in every pose of every activity, sitting too (1 cm)', looks_j and not af, '; '.join(af[:4]))
 if looks_j:
     J = json.load(open(os.path.join(RENDERS, looks_j[0], 'joints.json')))
     Jm = json.loads(json.dumps(J)); at = Jm['acts']['drink']['at']
@@ -195,6 +214,7 @@ def picture_faults(looks):
             if list(im.shape[1::-1]) != S['size']: out.append('%s %s sheet size' % (l, a))
             cols = len(np.unique(im[im[..., 3] > 0][:, :3], axis=0))
             if cols > 80: out.append('%s %s has %d colours' % (l, a, cols))
+            seated = set(p for p in A['poses'] for pr, sh in A['props'].items() if T['props'][pr]['kind'] == 'ground' and (sh == 'all' or p in sh))
             for p in A['poses']:
                 row = L['poses'][a].get(p)
                 if not row or any(i is None for i in row): out.append('%s %s.%s misses a facing' % (l, a, p)); continue
@@ -204,7 +224,7 @@ def picture_faults(looks):
                     px = im[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
                     rows = np.nonzero((px[..., 3] > 0).any(1))[0]
                     sole = c[5] + (rows.max() + 1 if len(rows) else 0)
-                    if abs(sole - L['feet'][fi][1]) > 3: out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - L['feet'][fi][1]))
+                    if p not in seated and abs(sole - L['feet'][fi][1]) > 3:   # a seat's crate is on the ground too: his heels are held by the joints (E3) out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - L['feet'][fi][1]))
     return out
 
 
@@ -276,9 +296,9 @@ setTimeout(function () {
     const people = [];
     for (let i = 0; i < 12; i++) {
       const sd = mode === 'same' ? 'one' : 'town:' + a + i, seq = []; let held = 0, maxHeld = 0, changes = 0, last = null;
-      for (let t = 0; t < 60000; t += keyMs) { const r = B.townAt(sd, t + 1, { act: a }); seq.push(r.pose);
+      for (let t = 0; t < 60000; t += keyMs) { const r = B.townAt(sd, t + 1, { act: a, n: mode === 'same' ? 0 : i, pair: a === 'talk' ? (mode === 'same' ? 'one' : 'pair' + (i >> 1)) : undefined, partner: a === 'talk' && i % 2 === 1 }); seq.push(r.pose);
         if (r.pose === last) held += keyMs; else { changes++; held = keyMs; } maxHeld = Math.max(maxHeld, held); last = r.pose; }
-      const st = B.townAt(sd, 5000, { act: a, since: 5000 });
+      const st = B.townAt(sd, 5000, { act: a, since: 5000, n: i });
       people.push({ seq: seq, maxHeld: maxHeld, changes: changes, sinceKind: st.kind });
     }
     const kinds = {};

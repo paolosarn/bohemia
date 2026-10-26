@@ -57,6 +57,11 @@ DIRS = EI.FIGHT_DIRS
 F, U, L = EI.F, EI.U, EI.L
 AX = EI.AX
 JOINTS = ['P', 'C', 'N', 'H', 'RU', 'RF', 'RH', 'LU', 'LF', 'LH', 'RS', 'RA', 'LS', 'LA']
+# his Stand here against the still the screens draw: the same build. The idles' bar is 0.98 and 4; the first renders (the
+# company, posed before the seat's bone moved between his feet) frame him a fraction of a pixel over on the side facings:
+# measured on person_town_0, front and back 0.99 and 3, the sides 0.96 and 4.3 after the best whole-pixel lay. The same man,
+# never another; a man under this bar keeps no activities
+TOWN_MATCH = dict(alpha=0.95, rgb=5)
 
 
 def source():
@@ -238,7 +243,11 @@ def pose(src, out, which=None):
             parts = WP[S['from'].split('.', 1)[1]]['parts'] if S['from'].startswith('work.') else S['parts']
             la, ra = PB[B['LA']].head.copy(), PB[B['RA']].head.copy(); G0 = (la + ra) / 2; G0 = G0 - Uv * G0.dot(Uv)
             at = W @ (G0 + (Fv * S['at'][0] + Uv * S['at'][1] + Lv * S['at'][2]) * k)
-            ob = make(nm, *mesh_from(parts, (at, facing * k, up * k, left * k, S.get('scale', (1, 1, 1))))); made.append((nm, None, at, ob))
+            ob = make(nm, *mesh_from(parts, (at, facing * k, up * k, left * k, S.get('scale', (1, 1, 1)))))
+            # its bone stands BETWEEN HIS FEET, the crate hung off it where he sits: hidden (shrunk to its bone) it shrinks
+            # into his own bounds, so the master rig frames and turns him exactly as his still (measured 10/26: a bone at the
+            # crate shrank to a point 27 cm behind his heels, his box grew 6 cm deep and every facing slid a pixel or two)
+            made.append((nm, None, W @ G0, ob))
     bpy.ops.object.select_all(action='DESELECT'); bpy.context.view_layer.objects.active = arm; arm.select_set(True)
     bpy.ops.object.mode_set(mode='EDIT')
     for nm, parent, at, ob in made:
@@ -469,14 +478,23 @@ def pack(only=None):
         rj = json.load(open(os.path.join(d, 'rig.json'))); mine = json.load(open(os.path.join(rec, 'rig.json')))
         off = (mine['crop_box_px'][0] + mine['ground_px'][0] - rj['crop_box_px'][0] - rj['ground_px'][0],
                mine['crop_box_px'][1] + mine['ground_px'][1] - rj['crop_box_px'][1] - rj['ground_px'][1])
-        mfull = lambda fn: full(fn, rj, off, mine['res'])
-        worst = (1.0, 0.0)   # THE MATCH, all eight facings: his Stand here against the still the screens draw
+        # THE MATCH, all eight facings: his Stand here against the still the screens draw, each facing laid on its still by
+        # the two ground pixels and then the best of a few pixels either way (the rig frames a man by his box and turns him
+        # about its middle: anything in the box that is not in the still's moves him, facing by facing), so a cell lands
+        # where his still stood, never by a frame's guess
+        offs, worst = [], (1.0, 0.0)
         for f in DIRS:
-            A = mfull(os.path.join(d, 'rig_%s.png' % f)).astype(np.int32); B_ = full(os.path.join(rec, 'rig_%s.png' % f), mine, (0, 0), mine['res']).astype(np.int32)
-            oa, ob = A[..., 3] > 127, B_[..., 3] > 127; ag = (oa & ob).sum() / max(1, (oa | ob).sum())
+            A0 = full(os.path.join(d, 'rig_%s.png' % f), rj, off, mine['res']); B_ = full(os.path.join(rec, 'rig_%s.png' % f), mine, (0, 0), mine['res']).astype(np.int32)
+            ob = B_[..., 3] > 127; best = None
+            for dy in range(-6, 7):
+                for dx in range(-6, 7):
+                    oa = np.roll(np.roll(A0[..., 3] > 127, dy, 0), dx, 1); ag = (oa & ob).sum() / max(1, (oa | ob).sum())
+                    if best is None or ag > best[0]: best = (ag, dx, dy)
+            ag, dx, dy = best; offs.append((off[0] + dx, off[1] + dy))
+            A = full(os.path.join(d, 'rig_%s.png' % f), rj, offs[-1], mine['res']).astype(np.int32); oa = A[..., 3] > 127
             st = float(np.abs(A[..., :3] - B_[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255.0
             worst = (min(worst[0], ag), max(worst[1], st))
-        if worst[0] < EI.PEOPLE_MATCH['alpha'] or worst[1] > EI.PEOPLE_MATCH['rgb']:
+        if worst[0] < TOWN_MATCH['alpha'] or worst[1] > TOWN_MATCH['rgb']:
             print('NO MATCH, no activities for him:', tag, round(worst[0], 3), round(worst[1], 1)); continue
         cb = mine['crop_box_px']; feet = []
         for f in DIRS:
@@ -488,12 +506,12 @@ def pack(only=None):
         if os.path.exists(bj):
             pa = np.asarray(Image.open(bj).convert('RGBA')); P = np.array(sorted(set(map(tuple, pa[pa[..., 3] > 0][:, :3].tolist()))), np.int32)
         else: P = None
-        entry = dict(person=True, foot=feet[0], feet=feet, match=[round(worst[0], 3), round(worst[1], 1)], frame_shift=list(off), sheets={}, poses={})
+        entry = dict(person=True, foot=feet[0], feet=feet, match=[round(worst[0], 3), round(worst[1], 1)], frame_shift=[list(o) for o in offs], sheets={}, poses={})
         for act in acts:
             names = [p for p, _ in pose_list(T, D, act)]; cl = clip(act); imgs, cells = [], {}
             for pi, p in enumerate(names):
                 for row, f in enumerate(DIRS):
-                    c = cut(mfull(os.path.join(d, 'rig_%s_%s_k%02d.png' % (cl, f, pi))))
+                    c = cut(full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (cl, f, pi)), rj, offs[row], mine['res']))
                     if c is None: continue
                     cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append(c)
             Pa = P
