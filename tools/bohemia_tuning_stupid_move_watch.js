@@ -27,9 +27,10 @@
 //   DANCE       off and back over two rounds with no blow in either (rule 176(b))
 //   KEY MAN     the Mechanic in his reach and seen, and he struck someone else or nobody (rule 182)
 //   NEVER       a melee man who never struck, a gunman who never shot, in a fight of four rounds or more (on the board to round 4)
-// and, for rule 201's gate, per round: the share of our blows on the round's most-struck man (the focus share; on the named
-// target once the fight names one: S.named / S.target / S.focus, read if the fight carries it), and how many of them stand hurt
-// at the round's end.
+// and, for rule 201's gate, per round: the share of our blows on the round's most-struck man (the focus share), the share on the
+// man the team had NAMED at the moment of each blow (COMBAT TWO 50d5cba1: S.focus.id, u.pick.focus; ROUND TWO 10/26: read per blow,
+// never at the round's start, since the name changes when he falls), the reason the brain wrote for every blow off the named man
+// (u.pick.why), and how many of them stand hurt at the round's end (also without the men the Mechanic stood back up).
 //
 //   node tools/bohemia_tuning_stupid_move_watch.js [--n 80] [--jobs 4] [--shapes his,wolf,newcrew,spear,watch,bench]
 //   --save                      write the round into the bank (banks/BOHEMIA_TUNING_STUPID_MOVE_WATCH_10_26_26.json), keyed by main's sha
@@ -102,7 +103,7 @@ async function setupShape(ctx, shape, k, districts) {
 function zero() {
   return { fights: 0, won: 0, clean: 0, rounds: 0, turns: 0, actions: 0,
     idle: 0, idleWhy: {}, streak: 0, parked: 0, parkedTurns: 0, lone: 0, loneWalks: 0, shots: 0, shotsChoice: 0, shotGap5: 0, lowShot: 0, lowShotTeam: 0, lowShotGap: 0,
-    roundsWithHits: 0, spread: 0, focusAimed: 0, aimed: 0, namedAimed: 0, namedRounds: 0, hurtStanding: 0, roundsCounted: 0,
+    roundsWithHits: 0, spread: 0, focusAimed: 0, aimed: 0, namedAimed: 0, namedRounds: 0, namedBlows: 0, offWhy: {}, windedRing: 0, windedFree: 0, keyTurns: 0, keyTurnIgnored: 0, keyTurnWhy: {}, lowShotHurt: 0, lowShotWhy: {}, spreadChosen: 0, streakHeld: 0, hurtStanding: 0, hurtStandingNoRaise: 0, roundsCounted: 0,
     freeHit: 0, freeSwingsOnUs: 0, dance: 0, keyChances: 0, keyIgnored: 0, headFights: 0, headLast: 0, meleeMen: 0, meleeNever: 0, gunMen: 0, gunNever: 0, ourDown: 0, ourDead: 0 };
 }
 function playWatched(ctx, meta) {
@@ -112,38 +113,42 @@ function playWatched(ctx, meta) {
   const reachable = u => S.units.filter(t => t.side !== u.side && F.canStrike(u, t) && F.sideSees(u.side, t));
   const isHead = t => !!(F.racial && F.racial(t, 'raise_undead'));
   const named = () => S.named || S.target || S.focus || null;
+  const namedId = () => { const n = named(); return n && n.id !== undefined ? n.id : n; };
+  const raised = new Set();   /* the men the Mechanic stood back up (they stand hurt by his rule, not by a spread) */
   const per = {}, open = {};   /* per man: his turns; the turn he is in */
   let guard = 0, R0 = null;
-  const openRound = () => { R0 = { round: S.round, hp: {}, aimed: {}, landed: {}, hpTaken: 0, fell: new Set(), low: [], named: named() };
+  const openRound = () => { R0 = { round: S.round, hp: {}, aimed: {}, landed: {}, hpTaken: 0, fell: new Set(), low: [], named: null, namedBlows: 0 };
     S.units.forEach(u => { if (u.side === 'them' && F.onField(u)) R0.hp[u.id] = u.hp; }); };
   const closeRound = () => {
     if (!R0) return;
     const aimedN = Object.values(R0.aimed).reduce((a, b) => a + b, 0), struck = Object.keys(R0.landed);
     if (aimedN) {
       C.roundsWithHits++; C.aimed += aimedN; C.focusAimed += Math.max.apply(null, Object.values(R0.aimed));
-      if (R0.named) { C.namedRounds++; C.namedAimed += R0.aimed[R0.named.id || R0.named] || 0; }
+      if (R0.namedBlows) C.namedRounds++;
     }
     const fell = [...R0.fell].some(id => R0.hp[id] !== undefined);
     if (struck.length >= 2 && !fell) {
       const least = Math.min.apply(null, struck.map(id => R0.hp[id] === undefined ? Infinity : R0.hp[id]));
-      if (R0.hpTaken >= least) { C.spread++; keep('spread', { round: R0.round, struck: struck.length, hpTaken: R0.hpTaken, leastLeft: least }); }
+      if (R0.hpTaken >= least) { C.spread++; if (R0.offFree) C.spreadChosen++; keep('spread', { round: R0.round, struck: struck.length, hpTaken: R0.hpTaken, leastLeft: least, chosen: R0.offFree || 0 }); }
     }
-    R0.low.forEach(l => { if (l.team || R0.fell.has(l.to)) C.lowShotTeam++; else { C.lowShot++; C.lowShotGap += l.gap; keep('low shot', l); } });
+    R0.low.forEach(l => { if (l.team || R0.fell.has(l.to)) C.lowShotTeam++; else { C.lowShot++; C.lowShotGap += l.gap; if (l.hurt) C.lowShotHurt++; C.lowShotWhy[l.why] = (C.lowShotWhy[l.why] || 0) + 1; keep('low shot', l); } });
     C.roundsCounted++;
-    C.hurtStanding += S.units.filter(u => u.side === 'them' && F.onField(u) && u.morale !== 'Fleeing' && u.hp < u.hpMax).length;
+    const hurt = S.units.filter(u => u.side === 'them' && F.onField(u) && u.morale !== 'Fleeing' && u.hp < u.hpMax);
+    C.hurtStanding += hurt.length; C.hurtStandingNoRaise += hurt.filter(u => !raised.has(u.id)).length;
     R0 = null;
   };
   /* his turn opens at his 'turn' event, with the AP and breath the round gave him */
   const openTurn = v => {
     const melee = !F.isRanged(v.weapon), h = melee ? T.huntField(v)(v.x, v.y) : null;
     open[v.id] = { u: v, x: v.x, y: v.y, ap: v.ap, h0: h, r: S.round, rout: v.morale === 'Fleeing', blows: 0, steps: 0, others: 0, freeOn: 0, stuck: false, waited: false,
+      key: null, keyIn: false, keyStruck: false,
       breath: v.fat + T.skillFat(v, F.strikeSkill(v.weapon)) <= F.fatMax(v), foes2: near(v, 'foe', 2), mates2: near(v, 'mate', 2),
       mates: S.units.filter(o => o !== v && o.side === v.side && F.onField(o)).length };
   };
   /* what he could do at the moment of a call: the brain's choice is judged against this */
   const snapOf = v => {
     const melee = !F.isRanged(v.weapon);
-    return { ap: v.ap, apTurn: v.apTurn, fat: Math.round(v.fat), fatMax: F.fatMax(v), x: v.x, y: v.y, netted: !!v.netted,
+    return { ap: v.ap, apTurn: v.apTurn, fat: Math.round(v.fat), fatMax: F.fatMax(v), x: v.x, y: v.y, netted: !!v.netted, ring: F.zocOn(v, v.x, v.y).length,
       opts: reachable(v).map(t => ({ id: t.id, ch: F.hitChance(v, t).chance, head: isHead(t) })),
       inReach: S.units.filter(t => t.side !== v.side && F.onField(t) && F.sideSees(v.side, t) && F.canStrike(Object.assign({}, v, { ap: 99, fat: 0 }), t)).length,
       walk: melee && !v.netted && (h => h > 1 && isFinite(h))(T.huntField(v)(v.x, v.y)) && v.ap >= T.stepCost(v, v.x, v.y, v.x, v.y) };
@@ -171,8 +176,23 @@ function playWatched(ctx, meta) {
     if (on && snap && !t0.blows && !t0.steps && !t0.others && snap.ap > 0) {
       let why = snap.opts.length ? 'a blow left' : snap.inReach ? 'winded beside a foe' : snap.walk ? 'a walk open' : snap.netted ? 'in a net' : 'nothing';
       if (why === 'nothing') why = nothingWhy(u, snap);
-      C.idle++; C.idleWhy[why] = (C.idleWhy[why] || 0) + 1; rec.idle = why; rec.fullAP = snap.ap >= snap.apTurn;
+      C.idle++; C.idleWhy[why] = (C.idleWhy[why] || 0) + 1; rec.idle = why; rec.fullAP = snap.ap >= snap.apTurn; rec.held = why === 'winded beside a foe' && !!snap.ring;
+      /* rule 231(c): a winded man in a ring HOLDS (a step out is a free blow on him); out of every ring he should step back out of reach */
+      if (why === 'winded beside a foe') { if (snap.ring) C.windedRing++; else C.windedFree++; }
       if (why !== 'nothing' && why !== 'in a net') keep('idle: ' + why, { man: u.name || u.id, round: t0.r, ap: snap.ap + '/' + snap.apTurn, fat: snap.fat + '/' + snap.fatMax, weapon: u.weapon.id });
+    }
+    /* KEY MAN BY THE TURN (round two): the Mechanic in his reach at some call this turn, and no blow of his on him all turn; split by
+       whether the blow on the Mechanic was worth taking by rule 191(a) read with 201 (his chance on him within 10 points of his best;
+       over a quarter of it, the brain's own shot_floor; or under) */
+    if (t0.keyIn) {
+      C.keyTurns++;
+      if (!t0.keyStruck && t0.key) {
+        C.keyTurnIgnored++;
+        const k = t0.key, cls = k.ch >= k.best - 10 ? 'worth taking (within 10 of his best)' : k.ch >= 0.25 * k.best ? 'a poorer shot (10+ under his best, over a quarter)' : 'too poor (under a quarter of his best)';
+        const why = cls + ' / ' + (k.why || (k.blow ? 'struck another' : 'no blow'));
+        C.keyTurnWhy[why] = (C.keyTurnWhy[why] || 0) + 1;
+        keep('key man by the turn', { man: u.name || u.id, round: t0.r, onHim: k.ch, best: k.best, why: k.why, weapon: u.weapon.id });
+      }
     }
     /* PARKED, COMBAT's J1 to the letter */
     if (!F.isRanged(u.weapon)) {
@@ -200,7 +220,7 @@ function playWatched(ctx, meta) {
     if (v.side === 'you' && !open[v.id]) openTurn(v);
     const snap = v.side === 'you' ? snapOf(v) : null;
     if (ours) C.actions++;
-    const n0 = S.log.length;
+    const n0 = S.log.length, nm0 = namedId();
     F.aiStep(v);
     const L = S.log.slice(n0);
     let blow = null;
@@ -209,6 +229,7 @@ function playWatched(ctx, meta) {
       const a = e.id !== undefined ? F.byId(e.id) : null;
       if (e.t === 'turn' && a && a.side === 'you') { if (!open[a.id]) openTurn(a); return; }
       if ((e.t === 'down' || e.t === 'dead' || e.t === 'fled') && R0 && a && a.side === 'them') R0.fell.add(e.id);
+      if (e.t === 'skill' && e.skill === 'raise_undead' && e.to !== null && e.to !== undefined) raised.add(e.to);
       const t0 = a && open[a.id];
       if (t0) {
         if (e.t === 'attack' && !e.free) t0.blows++;
@@ -219,20 +240,39 @@ function playWatched(ctx, meta) {
       if (e.t === 'attack' && e.free) { const tt = F.byId(e.to); if (tt && open[tt.id] && tt === v) open[tt.id].freeOn++; }
       if ((e.t === 'end' || e.t === 'fled') && a && a.side === 'you') closeTurn(a, a === v ? snap : null);
       if (e.t !== 'attack' || !a || a.side !== 'you' || !R0) return;
-      if (!e.free) { R0.aimed[e.to] = (R0.aimed[e.to] || 0) + 1; if (a === v && !blow) blow = e; }
+      if (!e.free) {
+        R0.aimed[e.to] = (R0.aimed[e.to] || 0) + 1; if (a === v && !blow) blow = e;
+        /* the man named at the moment of this blow: the brain's own record of its choice when it is this blow's, else the fight's */
+        const pk = a === v && v.pick && v.pick.to === e.to ? v.pick : null, nm = pk ? pk.focus : (namedId() !== null && namedId() !== undefined ? namedId() : nm0);
+        if (nm !== null && nm !== undefined) {
+          C.namedBlows++; R0.namedBlows++;
+          if (nm === e.to) C.namedAimed++;
+          else { const why = (pk && pk.why) || (a === v && v.pick && v.pick.why) || 'no reason written'; C.offWhy[why] = (C.offWhy[why] || 0) + 1;
+            if (/^(worth more|worth more where he stands|no reason written)$/.test(why)) R0.offFree = (R0.offFree || 0) + 1; }
+          e._named = nm; e._next = S.focus && S.focus.next ? S.focus.next.id : null;
+        }
+      }
       if (e.hit) { R0.landed[e.to] = 1; R0.hpTaken += Math.max(0, e.hp || 0); }
     });
     if (ours && snap) {
       const head = snap.opts.filter(o => o.head);
       if (head.length) { C.keyChances++; if (!blow || !head.some(o => o.id === blow.to)) { C.keyIgnored++; keep('key man ignored', { man: v.name || v.id, round: S.round, did: blow ? 'struck another' : 'no blow' }); } }
+      const tk = open[v.id];
+      if (tk && head.length) {
+        tk.keyIn = true;
+        if (blow && head.some(o => o.id === blow.to)) tk.keyStruck = true;
+        else if (!tk.key) tk.key = { ch: Math.max.apply(null, head.map(o => o.ch)), best: Math.max.apply(null, snap.opts.map(o => o.ch)), why: v.pick && v.pick.why, blow: !!blow };
+      } else if (tk && blow && isHead(F.byId(blow.to) || {})) tk.keyStruck = true;
       if (blow && blow.shot) {
         C.shots++;
         if (snap.opts.length >= 2) {
           C.shotsChoice++;
           const best = Math.max.apply(null, snap.opts.map(o => o.ch)), mine = (snap.opts.filter(o => o.id === blow.to)[0] || { ch: blow.chance }).ch;
           if (best - mine >= 5) C.shotGap5++;
+          const tt = F.byId(blow.to);
           if (best - mine >= 10 && R0) R0.low.push({ man: v.name || v.id, round: S.round, to: blow.to, chance: mine, best: best, gap: best - mine,
-            team: (R0.aimed[blow.to] || 0) > 1 || head.some(o => o.id === blow.to) || (R0.named && (R0.named.id || R0.named) === blow.to) });
+            hurt: !!tt && (R0.hp[blow.to] !== undefined ? R0.hp[blow.to] : tt.hp) < tt.hpMax, why: v.pick && v.pick.to === blow.to ? (v.pick.why || 'named') : 'no pick',
+            team: (R0.aimed[blow.to] || 0) > 1 || head.some(o => o.id === blow.to) || blow._named === blow.to || blow._next === blow.to });
         }
       }
     }
@@ -247,6 +287,8 @@ function playWatched(ctx, meta) {
       if (n && n.r === r.r + 1 && r.steps && (r.ex !== r.sx || r.ey !== r.sy) && n.steps && n.ex === r.sx && n.ey === r.sy && !r.blows && !n.blows) { C.dance++; keep('dance', { man: u.name || id, round: r.r }); } });
     let run = 0, best = 0; rs.forEach(r => { run = r.idle && r.idle !== 'nothing' && r.fullAP ? run + 1 : 0; best = Math.max(best, run); });
     if (best >= 3) { C.streak++; keep('streak', { man: u.name || id, turns: best, weapon: u.weapon.id, why: rs.filter(r => r.idle).map(r => r.idle)[0] }); }
+    let run2 = 0, best2 = 0; rs.forEach(r => { run2 = r.idle && r.idle !== 'nothing' && r.fullAP && !r.held ? run2 + 1 : 0; best2 = Math.max(best2, run2); });
+    if (best >= 3 && best2 < 3) C.streakHeld++;
     if (S.round >= 4 && turns.length >= 4) {
       const struck = S.log.some(e => e.t === 'attack' && e.id === id && !e.free);
       if (F.isRanged(u.weapon)) { C.gunMen++; if (!struck) C.gunNever++; }
@@ -276,6 +318,17 @@ const ENGINES = {
     "      ch = sk - df + base + per * Math.max(0, dist(a, t) - free);\n      if (w.class === 'crossbow' && dist(a, t) <= 1) ch -= 10;\n"],
     ["    let base = raw * injMult(a, 'damage_inflicted_pct');\n",
     "    let base = raw * injMult(a, 'damage_inflicted_pct');\n    if (w.class === 'firearm' && dist(a, t) >= 3) base *= dist(a, t) >= 4 ? 0.35 : 0.6;\n"]],
+  /* ROUND TWO 10/26, rule 201 on COMBAT TWO's brain (50d5cba1): what a firmer focus costs. 'commit50': the team commits every man who
+     can reach the named man at a 0.5 chance of the kill this round (ours.auto_brain.commit_kill is 0.8); 'letter': every man who can
+     reach the named man and whose shot on him is fair hits him, whatever else his blows would buy (201(b) to the letter, 201(c)'s
+     exceptions kept: a ring, out of reach, a shot too poor) */
+  commit50: [["    let pick = fc && S.focus.kill >= brain().commit_kill && can.indexOf(fc) >= 0 && fair(fc) ? fc : null, bs = -Infinity;\n",
+    "    let pick = fc && S.focus.kill >= 0.5 && can.indexOf(fc) >= 0 && fair(fc) ? fc : null, bs = -Infinity;\n"]],
+  letter: [["    let pick = fc && S.focus.kill >= brain().commit_kill && can.indexOf(fc) >= 0 && fair(fc) ? fc : null, bs = -Infinity;\n",
+    "    let pick = fc && can.indexOf(fc) >= 0 && fair(fc) ? fc : null, bs = -Infinity;\n"]],
+  /* 'stick15': he takes the named man (reachable, fair) unless another blow of his is worth half again as much in the same coin */
+  stick15: [["    if (!pick) can.filter(fair).forEach(function (t) { const v = blowWorth(u, t, blowsOn(u, t, u.ap)); if (v > bs) { bs = v; pick = t; } });\n",
+    "    if (!pick) can.filter(fair).forEach(function (t) { const v = blowWorth(u, t, blowsOn(u, t, u.ap)) * (t === fc ? 1.5 : 1); if (v > bs) { bs = v; pick = t; } });\n"]],
   recover: [["    if (u.side === 'you') return false;   /* rule 180: AUTO moves, fires and strikes, nothing else; abilities are his */\n",
     "    if (u.side === 'you') { if (canUse(u, 'recover') && u.ap === u.apTurn && u.fat + skillFat(u, strikeSkill(u.weapon)) > fatMax(u)) return useSkill(u, 'recover'); return false; }\n"]]
 };
@@ -294,7 +347,7 @@ async function engineWith(name) {
   return ctx;
 }
 async function oneFight(shape, k) {
-  const ctx = await engineWith(SHAPES[shape].engine), districts = ctx.DB.boardKinds.districts;
+  const ctx = await engineWith(process.env.TUNING_ENGINE || SHAPES[shape].engine), districts = ctx.DB.boardKinds.districts;
   const meta = await setupShape(ctx, shape, k, districts);
   const P = playWatched(ctx, meta);
   return Object.assign(meta, { shape, result: P.result, C: P.C, ex: P.ex });
@@ -317,6 +370,7 @@ function kinds(T) {
     ['FREE HIT: walked out of a ring for nothing', T.freeHit, T.turns, 'turns'],
     ['DANCE: off and back, no blow', T.dance, T.turns, 'turns'],
     ['KEY MAN: the Mechanic in reach, not struck', T.keyIgnored, T.keyChances, 'actions with him in reach'],
+    ['KEY MAN BY THE TURN: the Mechanic in reach in a turn, never struck that turn', T.keyTurnIgnored, T.keyTurns, 'turns with him in reach'],
     ['KEY MAN LAST: the Mechanic falls last of his party, or never', T.headLast, T.headFights, 'fights with a Mechanic'],
     ['NEVER: a melee man who never struck', T.meleeNever, T.meleeMen, 'melee men'],
     ['NEVER: a gunman who never shot', T.gunNever, T.gunMen, 'gunmen']
@@ -326,9 +380,12 @@ function report(label, fs_) {
   const T = sum(fs_), K = kinds(T);
   console.log('\n######## ' + label + ': ' + fs_.length + ' fights, ' + T.turns + ' turns of ours, won ' + T.won + ', clean ' + T.clean + ', rounds ' + (T.rounds / Math.max(1, fs_.length)).toFixed(1));
   K.slice().sort((a, b) => b.per100 - a.per100).forEach(x => console.log('  ' + String(x.n).padStart(5) + ' of ' + String(x.of).padEnd(6) + (x.per100.toFixed(2) + '%').padStart(8) + '  ' + x.kind + '  [' + x.unit + ']'));
-  console.log('  idle why: ' + JSON.stringify(T.idleWhy));
-  console.log('  rule 201: focus share ' + (100 * T.focusAimed / Math.max(1, T.aimed)).toFixed(1) + '% of our blows on the round\'s most-struck man' + (T.namedRounds ? ', named ' + (100 * T.namedAimed / Math.max(1, T.aimed)).toFixed(1) + '%' : ', no named target in the fight')
-    + '; hurt and standing at a round\'s end ' + (T.hurtStanding / Math.max(1, T.roundsCounted)).toFixed(2) + '; low shots at the team\'s man (allowed) ' + T.lowShotTeam + '; shots 5+ under the best ' + T.shotGap5 + ' of ' + T.shotsChoice);
+  console.log('  idle why: ' + JSON.stringify(T.idleWhy) + '; winded in a ring (holds, rule 231(c)) ' + T.windedRing + ', winded out of every ring (a free step back) ' + T.windedFree);
+  console.log('  rule 201: focus share ' + (100 * T.focusAimed / Math.max(1, T.aimed)).toFixed(1) + '% of our blows on the round\'s most-struck man' + (T.namedBlows ? ', on the man named at the blow ' + (100 * T.namedAimed / Math.max(1, T.aimed)).toFixed(1) + '% of all (' + (100 * T.namedAimed / T.namedBlows).toFixed(1) + '% of the blows struck while a man was named)' : ', no named target in the fight')
+    + '; hurt and standing at a round\'s end ' + (T.hurtStanding / Math.max(1, T.roundsCounted)).toFixed(2) + ' (' + (T.hurtStandingNoRaise / Math.max(1, T.roundsCounted)).toFixed(2) + ' without the men stood back up); low shots at the team\'s man (allowed) ' + T.lowShotTeam + '; shots 5+ under the best ' + T.shotGap5 + ' of ' + T.shotsChoice);
+  if (T.namedBlows) console.log('  off the named man, why: ' + JSON.stringify(T.offWhy));
+  console.log('  round two splits: spread rounds with a free off-target blow (the brain\'s choice) ' + T.spreadChosen + ' of ' + T.spread + '; low shots at a man already hurt ' + T.lowShotHurt + ' of ' + T.lowShot + ', why ' + JSON.stringify(T.lowShotWhy) + '; streaks that are only rule 231 holds ' + T.streakHeld + ' of ' + T.streak);
+  if (T.keyTurns) console.log('  key man by the turn, why: ' + JSON.stringify(T.keyTurnWhy));
   return { T, K };
 }
 
@@ -339,7 +396,9 @@ async function main() {
   /* the round's name is the last commit that changed the fight or its data (a commit of mine changes neither), its key the rules' print */
   const sha = cp.execSync('git log -1 --format=%h --abbrev=8 -- slices/BOHEMIA_FIGHT.html records/target/bb slices/fight_ground', { cwd: ROOT }).toString().trim(), fp = B.rulesPrint();
   const me = require('crypto').createHash('sha1').update(fs.readFileSync(__filename)).digest('hex').slice(0, 8);   /* the instrument's own print: a changed counter replays */
-  const CF = path.join(CACHE, 'tuning_stupid_move_watch.' + fp + '.' + me + '.ndjson'), res = {};
+  /* TUNING_ENGINE=<splice> plays every shape on one research splice (never the game); its own cache and never --save */
+  const EN = process.env.TUNING_ENGINE || '', CF = path.join(CACHE, 'tuning_stupid_move_watch.' + fp + '.' + me + (EN ? '.' + EN : '') + '.ndjson'), res = {};
+  if (EN && argv.includes('--save')) throw new Error('a research splice is never saved into the round');
   if (fs.existsSync(CF)) fs.readFileSync(CF, 'utf8').split('\n').filter(Boolean).forEach(l => { try { const x = JSON.parse(l); res[x.shape + '|' + x.k] = x; } catch (e) { /* a cut line */ } });
   const work = []; shapes.forEach(s => { for (let k = 0; k < N; k++) if (!res[s + '|' + k]) work.push([s, k]); });
   process.stderr.write('rules ' + fp + ' (main ' + sha + '); resume: ' + (shapes.length * N - work.length) + ' of ' + shapes.length * N + ' already played\n');
@@ -371,4 +430,4 @@ async function main() {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { SHAPES, setupShape, playWatched, oneFight, kinds, sum };
+module.exports = { SHAPES, HIS, door, setupShape, playWatched, oneFight, kinds, sum };

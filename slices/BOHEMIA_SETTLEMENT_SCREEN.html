@@ -149,6 +149,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .fstrip button{flex:0 0 auto;width:52px;padding:2px;border:1px solid var(--line);border-radius:6px;background:var(--plate);color:var(--dim);font:inherit;font-size:9px;letter-spacing:.5px;display:flex;flex-direction:column;align-items:center;gap:2px}
 .fstrip button.on{border-color:var(--gold);color:var(--gold)}
 .fstrip canvas{width:40px;height:40px;border-radius:4px;background:#0c0906}
+.act.tostash{min-height:44px;font-size:12px;letter-spacing:1px;color:var(--dim);background:transparent;border-style:dashed;justify-content:center}   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210(c)): BUY wears it; this keeps it unworn */
 .twoh{margin:8px 14px 0;font-size:20px;letter-spacing:4px;color:#f4cf7c;font-weight:bold}   /* rule 194(b): TWO HANDS in big letters on a two-hander's card */   /* the man you tapped at the post (RUN TWO, change 7) */
 .hire.rare,html body #sheet .hire.rare{box-shadow:0 0 0 2px #e0ad3a,0 0 18px rgba(224,173,58,.55),0 2px 0 #000}   /* __THE_RARE_MAN_AT_THE_POST__: he reads as rare the moment he is met (over UI's card skin too) */
 .hire .hrare{margin-top:4px;font-size:11px;letter-spacing:1px;color:#f4cf7c;overflow-wrap:anywhere}
@@ -218,7 +219,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_arrivaltraits.js"></script>
 <script src="../engine/bohemia_relations.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
-<script src="../engine/bohemia_crew_door.js"></script>  <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): the company's CLOUT, its cart and its retinue -->  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
+<script src="../engine/bohemia_crew_door.js"></script>  <script src="../engine/bohemia_shop_wear.js"></script>  <!-- RUN TWO __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210) -->  <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): the company's CLOUT, its cart and its retinue -->  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
 <script src="../engine/bohemia_livingmap.js"></script>  <!-- RUN TWO [the bar names the news]: the map's own dice for every town (traitsFor), so the news is what you find there -->
 <script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
@@ -531,13 +532,27 @@ function shopSheet(k, body, acts, line){
       var om = onMan(it, function(){ tapItem(); }); if(om) sb.appendChild(om);   /* (b): what it does on one of your men, his face in the strip */
       S.cardAgain = HIRE.roster ? null : {k:k, id:it.id, fn:tapItem};   /* the roster's files still on their way: the card fills itself when they land */
       var full = S.stash.length >= BAG_SLOTS;
-      sb.appendChild(act(full ? 'Your bag is full' : 'Buy it', moneyWord(it.price), function(){
+      var buy = function(onHim){
         if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
+        var wm = onHim ? wearTarget(it) : null;   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__: the man the card shows, read again now */
+        if(onHim && !wm) return openB(k);
         P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
-        S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it); bagSave();
+        S.stock[k].splice(S.stock[k].indexOf(it), 1);
         S.sold = S.sold || {}; (S.sold[soldKey()] = S.sold[soldKey()] || []).push(k + ':' + it.id);   /* [the shelf restocks] */
-        post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB(k, 'Yours. It is in your bag.');
-      }, full || bats() < it.price));
+        if(wm){ var said = wearBought(it, wm.m, wm.w); bagSave(); post('buyArms', {item:it, wornBy:wm.m.name, slot:wm.w.slot}); sfx('equip', view.night ? NIGHT_TRIM : null); shelf(); openB(k, said); return; }
+        S.stash.push(it); bagSave();
+        post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB(k, 'Yours. It is in your stash.');
+      };
+      /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210(b)(c)): BUY puts it on the man the card shows, the old piece to the stash; a
+         small 'to the stash' under it keeps it unworn. A shield for a man holding a two-hander has no hand to go in: stash only */
+      var tw = om ? wearTarget(it) : null, room = BAG_SLOTS - S.stash.length;
+      if(tw){
+        var need = (tw.w.was ? 1 : 0) + (tw.w.drops ? 1 : 0), nm = manWord(tw.m);
+        var bw = act(room < need ? 'Your stash is full' : tw.m.main ? 'Buy it and wear it' : 'Buy it, ' + nm + ' wears it', moneyWord(it.price), function(){ buy(true); }, room < need || bats() < it.price);
+        bw.id = 'buywear'; bw.dataset.man = tw.m.name; sb.appendChild(bw);
+        var bs = act(full ? 'Your stash is full' : 'to the stash', '', function(){ buy(false); }, full || bats() < it.price);
+        bs.id = 'buystash'; bs.className += ' tostash'; sb.appendChild(bs);
+      } else { var b0 = act(full ? 'Your stash is full' : 'Buy it', moneyWord(it.price), function(){ buy(false); }, full || bats() < it.price); b0.id = 'buystash'; sb.appendChild(b0); }
       sb.appendChild(act('Not this one', '', function(){ openB(k); }));
     }, it.price, true));
   });
@@ -622,7 +637,7 @@ function shopCrew(){
   try{ pk = window.top && window.top.BOH_START && window.top.BOH_START.picks ? window.top.BOH_START.picks() : null; }catch(e){}
   try{ hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null'); hl = JSON.parse(localStorage.getItem('bohemia.company.line.v1') || 'null'); }catch(e){}
   var same = !(hl && hl.origin && pk && pk.origin && hl.origin !== pk.origin);
-  if(Array.isArray(hk) && hk.length && same) out = hk.map(copy);
+  if(Array.isArray(hk) && hk.length && same){ out = hk.map(copy); if(out[0]) out[0].main = true; }   /* the hand-over puts YOU first */
   else if(pk && Array.isArray(pk.company)){
     var defs = (C.data.ours && C.data.ours.crew && C.data.ours.crew.value) || [];
     out = pk.company.map(function(m, i){ var d = Object.assign({}, defs[i % Math.max(1, defs.length)] || {}); if(i >= defs.length){ d.main = false; d.name = (d.name || 'MAN') + ' II'; }
@@ -632,6 +647,7 @@ function shopCrew(){
   var have = out.map(function(m){ return m && m.name; }), known = (hl && Array.isArray(hl.known) && same) ? hl.known : [];
   try{ (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).forEach(function(h){ if(!h || !h.name || have.indexOf(h.name) >= 0 || known.indexOf(h.name) >= 0) return;
     out.push({name:h.name, look:h.look, stats:h.stats, perks:[], gear:copy(h.gear || {})}); have.push(h.name); }); }catch(e){}
+  if(window.BohemiaShopWear) BohemiaShopWear.apply(out, true);   /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__: what the shop put on him since */
   return out.filter(function(m){ return m && m.name && m.stats; });
 }
 /* the lines a thing of this kind moves */
@@ -680,6 +696,40 @@ function onMan(it, again){
   return box;
 }
 /* ==== end __THE_SHOP_SAYS_WHAT_IT_DOES__ ==== */
+/* ==== __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (RUN TWO [what you buy goes on the man], rule 210, Paolo 10/26: 'I love the idea of
+   shopping for something and seeing where it's best ranked for your company, but then if I buy it, depending on whichever person
+   I select it looks best on, it auto-equips to them'). MEASURED: BUY always went to the stash, and on a new game the crew
+   screen has no files yet (no hand-over, no climb) to write a man's gear into. NOW BUY puts it on the man the card is showing
+   (the one it suits best, or the face he tapped), his old piece to the stash, one plain line; a two-hander sends his shield to
+   the stash and says so. What he now wears is written where every reader looks (engine/bohemia_shop_wear.js): this shop's
+   next card, the fight's door and the crew screen; the hand-over, a hire's card and the climb are written too when they
+   already hold him, so nothing waits for a screen to open. ==== */
+function wearTarget(it){
+  var crew = shopCrew(), sh = S.shopShown; if(!crew.length || !sh || sh.item !== it.id) return null;
+  var m = crew.filter(function(c){ return c.name === sh.man; })[0]; if(!m) return null;
+  var w = wearOn(m, it); return w.stops ? null : {m:m, w:w};
+}
+function manWord(m){ return m.main ? 'you' : String(m.name).charAt(0) + String(m.name).slice(1).toLowerCase(); }
+function shortOf(x){ return String((x && x.name) || '').replace(/^(a|an) /, ''); }
+function wornPiece(slot, id){ var C = window.BohemiaRoster; if(!id || !C) return null; return C.itemOf(slot === 'main' ? 'weapon' : slot === 'off' ? 'shield' : slot, id) || null; }
+function wearBought(it, m, w){
+  var slot = w.slot, old = wornPiece(slot, w.was), off = w.drops ? (wornPiece('off', w.drops.id) || w.drops) : null;
+  [old, off].forEach(function(x){ if(x){ if(x.keep == null) x.keep = true; S.stash.push(x); } });   /* worn, so chosen: never sold as junk unless let go */
+  var line = {name:m.name, main:!!m.main, slot:slot, item:it, was:w.was || null, dropOff:!!w.drops, offWas:off ? off.id : null};
+  if(window.BohemiaShopWear) BohemiaShopWear.add(line);
+  var W = window.BohemiaShopWear, ls = function(k, d){ try{ return JSON.parse(localStorage.getItem(k) || 'null') || d; }catch(e){ return d; } };
+  try{ var hk = ls('bohemia.company.v1', null); if(Array.isArray(hk) && hk.length && W){ W.apply(hk, true, [line]); localStorage.setItem('bohemia.company.v1', JSON.stringify(hk)); } }catch(e){}
+  try{ var hd = ls('bohemia.hired.v1', []); if(!m.main && Array.isArray(hd) && hd.some(function(h){ return h && h.name === m.name; }) && W){ hd.forEach(function(h){ if(h && h.name === m.name && !h.gear) h.gear = {}; }); W.apply(hd, true, [line]); localStorage.setItem('bohemia.hired.v1', JSON.stringify(hd)); } }catch(e){}
+  try{ var cl = ls('bohemia.climb.v1', null), key = cl && (cl[m.name] ? m.name : null); if(key && cl[key].gear && W){ var one = [{name:m.name, main:!!m.main, gear:cl[key].gear}]; W.apply(one, false, [line]); cl[key].gear = one[0].gear; localStorage.setItem('bohemia.climb.v1', JSON.stringify(cl)); } }catch(e){}
+  var you = !!m.main, who = manWord(m), Who = who.charAt(0).toUpperCase() + who.slice(1), his = you ? 'Your' : 'His';
+  var verb = it.kind === 'weapon' ? (it.hands === 2 ? (you ? ' take the ' : ' takes the ') : (you ? ' carry the ' : ' carries the ')) : (you ? ' wear the ' : ' wears the ');
+  var gone = [old, off].filter(Boolean).map(shortOf);   /* draft:true, WORDS may better them */
+  var said = Who + verb + shortOf(it) + (it.kind === 'weapon' && it.hands === 2 ? ' in both hands' : '') + '.';
+  if(gone.length) said += ' ' + his + ' ' + gone.join(' and ' + his.toLowerCase() + ' ') + (gone.length > 1 ? ' are' : ' is') + ' in the stash.';
+  window.__WORE = {item:it.id, man:m.name, slot:slot, old:old ? old.id : null, off:off ? off.id : null, said:said, n:(window.__WORE ? window.__WORE.n : 0) + 1};
+  return said;
+}
+/* ==== end __WHAT_YOU_BUY_GOES_ON_THE_MAN__ ==== */
 /* ---------- SELLING IS ONE TAP (RUN TWO 10/25, rule 164 item 18; Paolo 10/24 on his PC: 'every time selling shit was so
    painful, one of the things I hated most about Battle Brothers'; the row: 'selling my dog shit inventory for some batteries'):
    Battle Brothers sells one piece a click. Here the junk goes in ONE tap, the button says how many pieces and what they
@@ -3207,7 +3257,7 @@ window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G &&
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, bats:function(){ return bats(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

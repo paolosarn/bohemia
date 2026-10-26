@@ -18,7 +18,7 @@
         files (his own numbers, the shield's, Shield Expert's quarter, the fight's two-hander rule), green better, red worse
      C3 a tap on another face in the strip shows it on that man
      C4 an armour card (ARMOUR, FATIGUE, INITIATIVE from the row) and a weapon card (DAMAGE the fight's own row: a pistol's shot)
-     W1 *** WORN *** bought by a real tap, put on that man on the crew screen by real taps: his MELEE DEF and RANGED DEF on the crew
+     W1 *** WORN *** bought onto that man by a real tap (rule 210, BUY wears it; re-aimed 10/26): his MELEE DEF and RANGED DEF on the crew
         screen are exactly the shop's numbers
      F1 *** THE FIGHT AGREES ***: the fight the game hands that company stands him with the same melee and ranged defence, fatigue
         and initiative
@@ -153,8 +153,10 @@ function taps(d, sf, mouse) {
     await T.openShop('armourer'); await T.tapItem('armourer', pair.item);
     if (target) { const cc = await T.card(); if (cc.man !== target) await T.tapSel('#shopfaces button[data-man="' + target + '"]'); }
     const promised = (await T.card()).shown;
-    const bought = await T.tapSel('#sbody .acts .act:not([disabled])');
-    const inBag = await sf.evaluate(id => BohemiaSettlement.state.stash.some(i => i.id === id), pair.item);
+    /* RE-AIMED 10/26 (RUN TWO [what you buy goes on the man], rule 210): BUY puts it straight on the man the card shows, so W1
+       buys it on him and reads the crew screen with no drag (THE BUY-AND-WEAR legs are WHAT YOU BUY GOES ON THE MAN's) */
+    const bought = await T.tapSel('#buywear');
+    const inBag = await sf.evaluate(([id, n]) => !BohemiaSettlement.state.stash.some(i => i.id === id) && BohemiaSettlement.shopCrew().some(m => m.name === n && m.gear && (m.gear.off && (m.gear.off.id || m.gear.off)) === id), [pair.item, target]);
     await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await d.page.waitForTimeout(300);
     /* the crew: the one bar's crew tag over a town (UI's [one HUD everywhere] presses the town's own CREW), else the town's CREW */
     const bar = await d.fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
@@ -169,15 +171,12 @@ function taps(d, sf, mouse) {
       const rtap = async (sel) => { const r = await rf.evaluate(sel => { const e = document.querySelector(sel); if (!e) return null; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, sel); if (!r) return false; const b = await rbox(); await d.page.touchscreen.tap(b.x + r.x, b.y + r.y); await d.page.waitForTimeout(500); return true; };
       const mi = await rf.evaluate(n => BohemiaRosterScreen.state.crew.findIndex(m => m.name === n), target);
       await rtap('#lines .cell[data-man="' + mi + '"]');
-      await rtap('#card .gslot[data-slot="off"]');
-      const bi = await rf.evaluate(id => BohemiaRosterScreen.state.bag.findIndex(x => x.id === id), pair.item);
-      await rtap('#bag .slot[data-bag="' + bi + '"]'); await rtap('#bag .slot[data-bag="' + bi + '"]');
       crewRead = await rf.evaluate(n => { const S = BohemiaRosterScreen.state, m = S.crew.find(x => x.name === n), v = {};
         document.querySelectorAll('#card .stats [data-stat]').forEach(r => v[r.dataset.stat] = +r.dataset.shown);
         const co = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null') || [];
         return { sel: S.crew[S.sel] && S.crew[S.sel].name, off: m && m.gear.off && m.gear.off.id, shown: v, handed: (co.find(x => x.name === n) || {}).gear }; }, target);
     }
-    ok('*** W1 WORN *** (bought ' + (bought && inBag) + '; on ' + target + ' by real taps on the crew screen: MELEE DEF ' + (crewRead && crewRead.shown.melee_defense) + ', RANGED DEF ' + (crewRead && crewRead.shown.ranged_defense) + '; the shop said ' + (promised && promised.after.melee_defense) + ', ' + (promised && promised.after.ranged_defense) + ')',
+    ok('*** W1 WORN *** (bought onto him ' + (bought && inBag) + '; on ' + target + ' on the crew screen: MELEE DEF ' + (crewRead && crewRead.shown.melee_defense) + ', RANGED DEF ' + (crewRead && crewRead.shown.ranged_defense) + '; the shop said ' + (promised && promised.after.melee_defense) + ', ' + (promised && promised.after.ranged_defense) + ')',
       !!target && bought && inBag && !!crewRead && crewRead.sel === target && crewRead.off === pair.item && !!promised && promised.man === target
       && crewRead.shown.melee_defense === promised.after.melee_defense && crewRead.shown.ranged_defense === promised.after.ranged_defense
       && crewRead.shown.fatigue === promised.after.fatigue && crewRead.shown.initiative === promised.after.initiative && !!crewRead.handed && crewRead.handed.off === pair.item, JSON.stringify(crewRead && crewRead.shown));

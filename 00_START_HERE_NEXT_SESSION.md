@@ -159,6 +159,47 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-watch2): 10/26 LATEST -- FOUR ROWS ANSWERED ([the stupid-move watch] ROUND TWO, [the camp note], [the bars' maxima], rule 201's numbers on today's brain), research only, no card (rule 127), no game code touched;
+the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
+1 [the stupid-move watch] ROUND TWO (rule 188(b), standing): records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_TWO_10_26_26.md, bank
+  banks/BOHEMIA_TUNING_STUPID_MOVE_WATCH_10_26_26.json (rounds 0e03874f2e70 = the push's parent 6da80ef5, 7a8ee2fc0ad9 = main 388ff4f0).
+  COMBAT TWO's brain 50d5cba1 on the SAME 600 fights against its own parent: won 423 = 423, clean 235 -> 249, ours down 1,021 -> 922
+  (paired z -2.8), dead 158 -> 129. THE FINDING: it is safer and NOT more focused: most-struck share 67.2 -> 64.9, spread 3.66 -> 4.41
+  in 100 (104 of 169 chosen by the coin's 'worth more'), hurt and standing 1.04 -> 1.09. Worst first: the Mechanic left in reach by
+  the turn 3 -> 97 of 469 (73 under a quarter of the man's best: fair; 24 not), spread, low shots 187 -> 220, the idle gunman
+  330 -> 278 (down), streaks 63 -> 43 (down); winded in a ring now holds by rule 231(c) (710, not counted wrong), out of every ring 6.
+  SPLICES (research, never the game): THE LETTER (every man who can, hits the named man) costs 98 more down (z +2.7) and 24 dead for
+  spread 3.72; STICK 1.5 (the named man's blow x1.5 in the coin) cuts low shots 220 -> 175 (z -3.2) at no measurable cost: proposed
+  ours.auto_brain.stick_named 1.5. Seven NOTE rows on COMBAT's board for COMBAT TWO. The watch now reads the named man per blow
+  (S.focus, u.pick.why), the Mechanic by the turn, the round-two splits, and plays splices (TUNING_ENGINE=<name>).
+2 RULE 201's NUMBERS (the one table L, rewritten; answers COMBAT TWO's NOTE): the share on the named man read AMONG THE BLOWS OF MEN
+  WHO COULD STRIKE HIM, at least 80 at every crew size (today 98.8 / 86.2 / 79.3 / 83.2 for 1 / 2-3 / 6 / 12, all 84.7); the raw
+  share (99 / 80 / 68 / 58) and HURT AND STANDING (0.82 / 0.95 / 1.30 / 1.60) printed, not bars: hurt and standing RISES when the
+  team focuses harder (the letter 1.09 -> 1.16, z +2.7), so the 1.3 bar was mine and wrong; spread no higher than the round before.
+3 [the camp note] (rule 226(b)): records/BOHEMIA_TUNING_THE_CAMP_NOTE_10_26_26.md, the one table's section P, bench
+  tools/bohemia_tuning_the_camp_clock.js, bank banks/BOHEMIA_TUNING_THE_CAMP_CLOCK_10_26_26.json. CAMP's ten rates checked line by line
+  against the wiki copy: all agree (hp 1 an hour, 2 camped; armour 3 a piece an hour, x2 camped; one tape 15 points). New: meds one a
+  day per injury (bb_all/1253), the temple halves an injury's days, camp costs sight and being seen (no number on the wiki), caps tape
+  150 and meds 100. The wiki does not say whether pieces mend at once or in turn: CAMP's 'at once' kept. MEASURED under RULE 234 (it
+  landed this round: the struck down stay at 1 hitpoint, active): a won fight leaves the HEAL bar at 0.83, whole in 36 h on the march,
+  18 camped (9 seconds at an hour a beat; Battle Brothers 79 s), 5.9 tape, 3.6 meds; BACK TO BACK the next fight unhealed puts 60
+  percent more men down (499 -> 799) and 52 percent more dead (90 -> 137); 12 camped hours give most of it back (561, 103).
+4 [the bars' maxima] (rule 223(c)): records/BOHEMIA_TUNING_THE_BARS_MAXIMA_10_26_26.md, the one table's section Q: hitpoints 133,
+  fatigue 183, resolve 120, initiative 195, melee skill 122, ranged skill 109, melee defence 65, ranged defence 68 (the highest base of
+  77 backgrounds + the best trait + ten three-star tops); a fresh man fills 4 to 54 percent, the defences move most; gear, perks and
+  veterans clip at the bar's end. NOTE on UI's board. RULE 247 (landed this round): his order HP, fatigue, ranged skill, melee skill,
+  ranged defence, melee defence, resolve, initiative; the tick at the man's own ceiling = his number + levels left to 11 x the middle
+  of his star column (bar.tick.own_ceiling), for UI THREE.
+THE ONE TABLE: K (round two's counts) and L (201) rewritten; P (the camp) and Q (the maxima) added, by hand like F to O.
+NOT MEASURED: the Lone Wolf with the door's Recover (rule 231(b) not built yet); rule 230's shield cover (not built); rule 234(e)
+(AUTO keeps the 1-hitpoint man back; not built); whether Battle Brothers mends pieces at once (a Grok line); a phone's CPU.
+NEXT ON THE BOARD: [the stupid-move watch] round three on COMBAT TWO's next push (the same 600, before beside after), [the odds keep
+up] (standing; the calculator against today's brain), [the first week's losses] (now with rule 234's 1-hitpoint men), [the 32
+situations]; rule 234(b)'s struck-down debuff numbers when its NOTE lands.
+[bb the camp: Battle Brothers heals 1 an hour, 2 camped, and its camp never speeds the clock; ours heals at its rates on a clock an
+hour a beat, so the wound shows on the bar and is gone in nine seconds]
+[analog horror: the man at one hitpoint who walks into the next fight because nobody camped, and the bar that showed it]
+
 TUNING (tuning-watch): 10/26 LATEST -- SIX ROWS ANSWERED ([the stupid-move watch] round one, [the job's stars], [AUTO kills one at a time]'s numbers, [a few women] + [four percent], [every weapon's range bands] SHIPPED, [the aim he sees] SHIPPED, [the recruit's ceiling]), research only, no card (rule 127), no game code touched;
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 1 [the stupid-move watch] ROUND ONE, THE BEFORE (rule 188(b), standing): records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_ONE_10_26_26.md,

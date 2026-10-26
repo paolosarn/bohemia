@@ -203,6 +203,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="../engine/bohemia_camp.js"></script>
 <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches]: a hired man's night is his food and his pay -->  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->
+<script src="../engine/bohemia_shop_wear.js"></script>  <!-- RUN TWO __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210): what the shop put on a man -->
 <script src="bohemia_ui_materials.js"></script>
 <script>
 (function(){
@@ -879,6 +880,22 @@ var SWIPE = { x: 0, y: 0, on: false, moved: false };
 })();
 /* Escape (and the keys): take back the last tap: the dismiss question, the comparison, the cut stash; else nothing */
 function cancel(){ if(S.ask != null){ S.ask = null; say(''); draw(); return true; } if(S.cmp != null || S.pick){ S.cmp = null; S.pick = null; say(''); draw(); return true; } return false; }
+/* __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (RUN TWO's block in UI's file, NOTE on UI's board; rule 210, Paolo 10/26: 'if I buy it...
+   it auto-equips to them'): a piece the town's shop put straight on a man (engine/bohemia_shop_wear.js) is on him here, over
+   his kept climb; the shop already put his old piece in the stash, and a piece the shop did not see him in goes there too.
+   The lines are this screen's from here (its climb and hand-over hold them), so the file is emptied. MEASURED on the computer:
+   the page's own boot can open on the default twelve before the crew door's post lands (__THE_DOORS_COMPANY_WINS__), and taking
+   the lines there gave them to the default men, emptied the file and left the real company in its old kit: on the default
+   crew the lines are only laid over (nothing to the stash, nothing taken); the door's company takes them */
+function shopWore(){
+  if(!window.BohemiaShopWear) return 0;
+  if(S.defaultCrew){ BohemiaShopWear.apply(S.crew, false); return 0; }
+  var L = BohemiaShopWear.take(); if(!L.length) return 0;
+  BohemiaShopWear.apply(S.crew, false, L).forEach(function(d){ if(S.bag.length < BAG_SLOTS){ if(d.it.keep == null) d.it.keep = true; S.bag.push(d.it); } });
+  try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){}
+  window.__SHOP_WORE = { lines: L.length, n: (window.__SHOP_WORE ? window.__SHOP_WORE.n : 0) + 1 };
+  return L.length;
+}
 var LOADED = false;
 /* __THE_SPOILS__ (RUN TWO [the end of the fight, the loot, the stash], 10/24): a man comes in at the level his origin or the post
    gave him, with that level's XP and the perk points it earned unspent (Battle Brothers' recruits: a level a point to 11), so
@@ -938,7 +955,7 @@ function open(o){
   var f = o.formation; if(!f){ try{ f = JSON.parse(localStorage.getItem(FKEY)||'null'); }catch(e){} }
   if(f && f.front && f.front.length === N && f.back && f.back.length === N && [].concat(f.front, f.back).every(function(i){ return i == null || S.crew[i]; })){ S.front = f.front.slice(); S.back = f.back.slice(); }
   else defaultForm();
-  loadClimb(); benchHurt(); twoHandsKept();
+  loadClimb(); shopWore(); benchHurt(); twoHandsKept();
   /* a man who joined since the line was set takes the first empty slot, front first */
   S.crew.forEach(function(m, i){ if(laid(m) || m.dead || S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;   /* never a laid-up or dead man (he stood in the line AND the laid-up strip, measured 10/18) */
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
