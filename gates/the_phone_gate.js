@@ -95,6 +95,18 @@ async function side(profile) {
   const under = async (frames) => { let pts = []; for (const f of frames) { try { pts = pts.concat(await f.evaluate('(' + PRESSES + ')()')); } catch (e) {} } return p.evaluate('(' + UNDER + ')(' + JSON.stringify(pts) + ')'); };
   const until = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn().catch(() => false)) return true; await p.waitForTimeout(100); } return false; };
   try {
+    /* RUN THREE (rule 236): a new game opens on his squad up close and then the closest town's settlement screen; the phone stands
+       in that first town already (213(a)), and this walk starts on the map, so it leaves the town the way a player does: a real
+       tap on LEAVE */
+    if (await until(() => fr.evaluate(() => !!(window.__START_IN_TOWN && window.__START_IN_TOWN.opened)), 20000)) {
+      await until(() => p.evaluate(() => { const e = document.getElementById('bohphone'); return !!e && e.classList.contains('on') && e.dataset.screen === 'town'; }), 8000);
+      const st = await p.evaluate(() => (document.getElementById('bohphone') || { dataset: {} }).dataset.screen);
+      ok('the first screen is the closest town (rule 236), and the phone already stands in it', st === 'town', st);
+      await p.waitForTimeout(800);
+      const sf0 = p.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
+      if (sf0) await tapIn(sf0, '#leave');
+      await until(() => fr.evaluate(() => !LOOP.open), 8000); await p.waitForTimeout(600);
+    }
     await until(() => p.evaluate(() => !!document.getElementById('bohphone') && document.getElementById('bohphone').classList.contains('on')), 30000);
     await p.evaluate(() => { try { localStorage.removeItem('bohemia.phone.v1'); BohemiaPhone.setSide('right'); } catch (e) {} });
     await fr.evaluate(() => { window.__phoneEv = 0; window.addEventListener('bohemia-phone', () => { window.__phoneEv++; }); });
