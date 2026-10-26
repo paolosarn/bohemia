@@ -4353,7 +4353,8 @@ const TEACH = {   /* draft:true; written in Spanglish, spoken through BohemiaSpa
   ghost_hit: 'Walk up and hit it, compa. They break like smoke.',
   mechanic: 'Oye, shoot the one in back first. His machines drop.',
   kids: 'Those kids throw and run. Do not chase them. Shoot them.',
-  heavy: 'Big suit shoves. Put your back to a wall.'
+  heavy: 'Big suit shoves. Put your back to a wall.',
+  ring: 'See the orange stripes, compa? Their reach. Walk through it and they swing at you for free.'
 };
 /* the moment each queued line belongs to: past it, the line is dropped, never said late */
 const TEACH_STILL = {
@@ -4366,7 +4367,8 @@ const TEACH_STILL = {
   ghost_hit: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
   mechanic: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'raise_undead') && FIGHT.onField(v); }); },
   kids: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'throw_net') && FIGHT.onField(v); }); },
-  heavy: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'line_breaker') && FIGHT.onField(v); }); }
+  heavy: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'line_breaker') && FIGHT.onField(v); }); },
+  ring: function () { const u = FIGHT.current(); return !FIGHT.S.deploy && crewControlled(u) && ringsShown(u); }
 };
 function teachSoon(k) {
   const T = taughtNow(); UI.teachQ = UI.teachQ || [];
@@ -5376,6 +5378,7 @@ function draw(now) {
         const x = t.x + dx, y = t.y + dy; if ((dx || dy) && x >= 0 && y >= 0 && x < S.w && y < S.h) zoc[y * S.w + x] = true; }
     });
     Object.keys(zoc).forEach(function (k) { k = Number(k); mkHatch(k % S.w, Math.floor(k / S.w)); });
+    if (!UI.ringTold) { for (const k in zoc) { UI.ringTold = true; teachSoon('ring'); break; } }   /* the first hatch on his turn: his veteran says what it is */
     mkOutline(zoc, S.w, MK.rust, false);
     /* where he can step: the tiles LIT IN THE GROUND'S OWN COLOUR (rule 46f: a neutral lift, the way a lamp lights a tile, never a
        tinted wash; AH-03 T3), and one CHALK line round all of it */
@@ -7283,12 +7286,24 @@ function tapAt(px, py) {
     if (UI.pend && UI.pend.far && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { const pp = UI.pend; UI.pend = null; walkKept(u, pp.stop.x, pp.stop.y, pp.path); take(); return; }
     farPreview(u, p, far); hud(); return;
   }
-  if (!path) { UI.pend = null; say(far ? wfill(FAR_SAYS.none, { left: u.ap }) : 'No way there.'); return; }
+  if (!path) { UI.pend = null; say([ringAt(u, p.x, p.y).length ? RING_SAYS.what : '', far ? wfill(FAR_SAYS.none, { left: u.ap }) : 'No way there.'].filter(Boolean).join(' ')); return; }
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; walkKept(u, p.x, p.y); take(); return; }
   walkPreview(u, p, f, path);
   if (FIGHT.hides(p.x, p.y)) teach('cover');
   hud();
 }
+/* THE ORANGE SAYS WHAT IT IS (COMBAT [eyes: the hatch says nothing], rule 225(d), EYES' normie hour F22: 'an orange hatch covers
+   the enemy's side... nothing says what the hatch is'): the rust hatch is their reach (rule 103's rings); the first time it shows on
+   his turn his veteran says so (TEACH.ring), and every tap or hover on a hatched tile names it before what the walk costs */
+const RING_SAYS = { what: 'Orange stripes: their reach.' };   /* draft:true */
+/* the men of theirs whose drawn ring covers this tile (the hatch's own rule: seen, holding a ring, the eight tiles round him) */
+function ringAt(u, x, y) {
+  return FIGHT.S.units.filter(function (t) { return t.side !== u.side && FIGHT.onField(t) && FIGHT.sideSees('you', t) && FIGHT.holdsRing(t)
+    && Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) === 1; });
+}
+function ringsShown(u) { return !!u && FIGHT.S.units.some(function (t) { return t.side !== u.side && FIGHT.onField(t) && FIGHT.sideSees('you', t) && FIGHT.holdsRing(t); }); }
+/* a walk that ends in it or crosses it says the orange first */
+function ringWord(u, p, path) { return ringAt(u, p.x, p.y).length || (path || []).some(function (q) { return ringAt(u, q.x, q.y).length; }) ? RING_SAYS.what : ''; }
 /* the first tap on a tile past this turn's AP (rule 206): the whole way drawn, this turn's part lit to the mark where he stops,
    the rest dim; the line says how far he gets and the free swings on this turn's part (rule 206(c)) */
 const FAR_SAYS = { far: 'Too far for one turn: {name} walks {n} of the {m} tiles and stops at the mark.', you: 'Too far for one turn: you walk {n} of the {m} tiles and stop at the mark.',
@@ -7299,7 +7314,7 @@ function farPreview(u, p, far) {
   UI.pend = { tile: p, far: true, stop: far.stop, path: far.path.slice(0, far.n), rest: far.path.slice(far.n), cost: far.cost, swings: swings };
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - far.cost;
   const short = sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
+  say([ringWord(u, p, far.path.slice(0, far.n)), wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
 }
 /* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */
 function walkPreview(u, p, f, path) {
@@ -7315,7 +7330,7 @@ function walkPreview(u, p, f, path) {
      AP left after it will not pay for his blow or shot, the line says so before he commits */
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });
   const short = foeSeen && sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([gs || '', swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
+  say([ringWord(u, p, path), gs || '', swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
 }
 /* who a finger (or the mouse) at px, py means: the man ON the tile first; a body over an empty tile answers only if it is theirs
    (aim), never one of yours (rule 104a: zoomed out to both teams, your own men's bodies cover the tiles behind them, and those
