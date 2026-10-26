@@ -841,6 +841,7 @@
     if (!B) { try { B = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); } catch (e) { B = null; } }   /* RUN TWO __THE_WAGON__: the company's counts, seeded at the door (engine/bohemia_origin_start.js), the same in every frame */
     SIX.forEach(function (k) {
       if (k === 'batteries') return;
+      if (k === 'water') return;   /* RUN TWO __FOOD_AND_WATER_ARE_ONE__ (rule 209): water is in FOOD's one count; no screen shows water alone (the can with the bottle behind it is yours, NOTE) */
       var n = null;
       try { if (pu && cur.indexOf(k) >= 0) n = P.balance(pu, k); } catch (e) {}
       if (typeof n !== 'number' && B && typeof B[k] === 'number') n = B[k];

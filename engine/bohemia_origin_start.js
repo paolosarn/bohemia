@@ -120,29 +120,34 @@
     return men;
   }
   /* __THE_WAGON__ (RUN TWO [every origin starts like itself] + [eyes: four currencies], rules 184(b), 164 item 2, 47): the company's
-     supplies, one count each, kept in bohemia.supplies.v1 where every frame's bar reads them (UI's supplyCounts): FOOD and WATER are
-     the origin's food_days of the bill in the wagon (a ration and four litres a man a night, TUNING s3: a week, the water truck 19),
+     supplies, one count each, kept in bohemia.supplies.v1 where every frame's bar reads them (UI's supplyCounts): FOOD (food and
+     water, one count since rule 209) is the origin's food_days of the bill in the wagon (a man's night each, TUNING s3: a week, the water truck 19),
      TAPE, ROUNDS and MEDS its Battle Brothers start for the shelves picked (origins.json supplies, the wiki's Starting Funds table).
      Seeded once a game, at the door, beside the roll; NEW GAME forgets it. The night eats the wagon before the batteries (the map's
      bill); the stall and the loot add to it. wage is a founding man's pay a night where the origin has one (the fight pit's 6). */
   var SKEY = 'bohemia.supplies.v1';
-  function supplies() { try { return JSON.parse(localStorage.getItem(SKEY) || 'null'); } catch (e) { return null; } }
+  /* __FOOD_AND_WATER_ARE_ONE__ (RUN TWO [food and water are one], rule 209, Paolo 10/26: 'water and food are one resource'; Battle
+     Brothers' provisions): FOOD is one count, a man's night of food and water each (a can and a bottle); the night eats one a man.
+     A save from before held rations and jugs apart: they add into the one, two of them a night (nothing lost), and water is gone */
+  function fold(s) { if (s && typeof s.water === 'number') { s.food = Math.ceil(((s.food | 0) + (s.water | 0)) / 2); delete s.water; try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch (e) {} } return s; }
+  function supplies() { try { return fold(JSON.parse(localStorage.getItem(SKEY) || 'null')); } catch (e) { return null; } }
   function seedSupplies(id, econ) {
     var k = supplies(); if (k && k.origin === id) return k;
     if (!D.ready) return null;
     var o = originRow(id); if (!o) return null;
     var e = econ === 'thin' || econ === 'bare' ? econ : 'full', n = (o.men || []).length || 1, sp = o.supplies || {}, dd = (o.door && o.door.food_days) || 0;
     var col = function (c) { return c && typeof c[e] === 'number' ? c[e] : 0; };
-    var s = { origin: id, econ: e, food: dd * n, water: dd * n, tape: col(sp.tape), rounds: col(sp.rounds), meds: col(sp.meds),
+    var s = { origin: id, econ: e, food: dd * n, tape: col(sp.tape), rounds: col(sp.rounds), meds: col(sp.meds),   /* __FOOD_AND_WATER_ARE_ONE__: one count, a man's night of food and water each */
       wage: (o.door && o.door.wage_per_man_per_night) | 0, founding: n, at: Date.now() };
     try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch (e2) {}
     return s;
   }
   /* add (or take, with a negative n) to one count; never under zero; returns the new count */
-  function addSupply(k, n) { var s = supplies(); if (!s) return null; s[k] = Math.max(0, (s[k] | 0) + (n | 0)); try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch (e) {} return s[k]; }
+  function addSupply(k, n) { if (k === 'water') k = 'food'; var s = supplies(); if (!s) return null; s[k] = Math.max(0, (s[k] | 0) + (n | 0)); try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch (e) {} return s[k]; }
   function forget() { try { localStorage.removeItem(KEY); localStorage.removeItem(SKEY); } catch (e) {} }
-  root.BohemiaOriginStart = { KEY: KEY, SKEY: SKEY, load: load, roll: roll, company: company, forget: forget, kept: kept, talents: talents, data: D, STATS: STATS, MEN_FOR: MEN_FOR, placeName: placeName,
+  root.BohemiaOriginStart = { KEY: KEY, SKEY: SKEY, load: load, roll: roll, company: company, forget: forget, kept: kept, talents: talents, data: D, STATS: STATS, MEN_FOR: MEN_FOR, placeName: placeName, fold: fold,
     supplies: supplies, seedSupplies: seedSupplies, addSupply: addSupply };
   /* the data is read as the page comes up, after the door: three small files, nothing in the way of NEW GAME */
   try { if (root.fetch) setTimeout(function () { load(); }, 0); } catch (e) {}
+  try { if (root.localStorage) supplies(); } catch (e) {}   /* __FOOD_AND_WATER_ARE_ONE__: an old save's two counts are one before any bar reads them */
 })(typeof window !== 'undefined' ? window : this);

@@ -18,12 +18,12 @@ const path = require('path'), fs = require('fs');
 const ROOT = path.resolve(__dirname, '..');
 let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
-const SIX = ['batteries', 'food', 'water', 'tape', 'meds', 'rounds'];
+const SIX = ['batteries', 'food', 'tape', 'meds', 'rounds'];   /* RE-AIMED 10/26 by RUN TWO (rule 209, Paolo 10/26: 'water and food are one resource'): the bar carries FIVE; water is in FOOD's one count, never shown alone */
 const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_props_042', water: 'pack_11_survival_props_004', tape: 'pack_11_survival_props_039', meds: 'pack_12_weapons_and_supplies_030', rounds: 'pack_12_weapons_and_supplies_018' };
 
 (async () => {
   const same = SIX.filter(k => { try { return fs.readFileSync(path.join(ROOT, 'slices/supply_icons', k + '.png')).equals(fs.readFileSync(path.join(ROOT, 'reference/art_bank/prop', SRC[k] + '.png'))); } catch (_e) { return false; } });
-  leg(same.length === 6, 'S1  THE SIX ICONS ARE HIS PACK TILES, BYTE FOR BYTE', same.length + ' of 6');
+  leg(same.length === SIX.length, 'S1  THE FIVE ICONS ARE HIS PACK TILES, BYTE FOR BYTE', same.length + ' of ' + SIX.length);   /* RE-AIMED 10/26 (rule 209): five; the can with the bottle behind it is UI's to make (NOTE), and this leg follows it then */
   const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
   const errs = [];
   for (const prof of ['phone_portrait', 'computer']) {
@@ -37,17 +37,17 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
     let r0 = await read();
     /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__): the game counts the six now (bohemia.supplies.v1, seeded at the door: the origin's
        wagon and its Battle Brothers start), so the glass carries the batteries and every count the game keeps from the first minute */
-    const kept = await fr.evaluate(() => { try { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); return ['food', 'water', 'tape', 'meds', 'rounds'].filter(k => w && typeof w[k] === 'number'); } catch (e) { return []; } });
-    if (prof === 'phone_portrait') leg(r0.map(x => x.f).join(' ') === ['batteries'].concat(kept).join(' ') && kept.length === 5 && !r0.some(x => /^[–-]$/.test(x.n)) && /supply_icons\/batteries\.png$/.test(r0[0].src) && r0.every(x => /^\d+$/.test(x.n)),
-      'S2  THE GAME COUNTS THE SIX: THE GLASS CARRIES THEM FROM THE FIRST MINUTE, NO DASH, THE PACK\'S CELLS', JSON.stringify(r0.map(x => x.f + ':' + x.n)));
+    const kept = await fr.evaluate(() => { try { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); return ['food', 'tape', 'meds', 'rounds'].filter(k => w && typeof w[k] === 'number'); } catch (e) { return []; } });
+    if (prof === 'phone_portrait') leg(r0.map(x => x.f).join(' ') === ['batteries'].concat(kept).join(' ') && kept.length === 4 && !r0.some(x => /^[–-]$/.test(x.n)) && /supply_icons\/batteries\.png$/.test(r0[0].src) && r0.every(x => /^\d+$/.test(x.n)),
+      'S2  THE GAME COUNTS THE FIVE: THE GLASS CARRIES THEM FROM THE FIRST MINUTE, NO DASH, THE PACK\'S CELLS', JSON.stringify(r0.map(x => x.f + ':' + x.n)));
     const crew = await fr.evaluate(() => (window.__BILL && __BILL.crew) | 0);
-    await fr.evaluate(() => { window.BOH_SUPPLIES = { food: 30, water: 2, tape: 3, meds: 1, rounds: 40 }; });
+    await fr.evaluate(() => { window.BOH_SUPPLIES = { food: 2, water: 30, tape: 3, meds: 1, rounds: 40 };   /* a water key handed by an old door never stands */ });
     await p.waitForTimeout(900);
     const r1 = await read();
     leg(r1.map(x => x.f).join(' ') === SIX.join(' ') && r1.every(x => /supply_icons\/(\w+)\.png$/.test(x.src) && x.src.indexOf(x.f + '.png') >= 0 && x.icon >= 24) && r1.every(x => x.inside),
-      'S3  ' + prof.toUpperCase() + ': THE SIX STAND AT ONCE, IN ECONOMY\'S ORDER, EACH ITS OWN PROP, INSIDE THE GLASS', r1.map(x => x.f + ':' + x.n + '@' + x.icon + (x.inside ? '' : ' OUT')).join(' '));
-    const w = r1.find(x => x.f === 'water'), fd = r1.find(x => x.f === 'food');
-    if (prof === 'phone_portrait') leg(w && w.low && fd && !fd.low && crew > 0, 'S4  LOW READS RED: 2 WATER FOR A CREW OF ' + crew + ' IS RED, 30 FOOD IS NOT', 'water low ' + (w && w.low) + ', food low ' + (fd && fd.low));
+      'S3  ' + prof.toUpperCase() + ': THE FIVE STAND AT ONCE, IN ECONOMY\'S ORDER, EACH ITS OWN PROP, INSIDE THE GLASS, NO WATER ALONE', r1.map(x => x.f + ':' + x.n + '@' + x.icon + (x.inside ? '' : ' OUT')).join(' '));
+    const fd = r1.find(x => x.f === 'food'), rd = r1.find(x => x.f === 'rounds');
+    if (prof === 'phone_portrait') leg(fd && fd.low && rd && !rd.low && crew > 0, 'S4  LOW READS RED: 2 NIGHTS OF FOOD AND WATER FOR A CREW OF ' + crew + ' IS RED, 40 ROUNDS IS NOT', 'food low ' + (fd && fd.low) + ', rounds low ' + (rd && rd.low));
     if (prof === 'computer') {
       const gb = await fr.evaluate(() => { const r = document.querySelector('#bmtb [data-tb=g]').getBoundingClientRect(); return { x: r.x + r.width - 20, y: r.y + r.height / 2 }; });
       const fb = await p.evaluate(() => { const r = document.getElementById('cityFrame').getBoundingClientRect(); return { x: r.x, y: r.y }; });
@@ -56,8 +56,8 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
       await p.mouse.move(5, 880); await p.waitForTimeout(700);
       const h2 = await read();
       const nights = h.find(x => x.f === 'nights'), hf = h.find(x => x.f === 'food'), hw = h.find(x => x.f === 'water');
-      leg(nights && hf && /^\d+ NIGHTS?$/.test(hf.i) && hw && /^\d+ NIGHTS?$/.test(hw.i)   /* RE-AIMED 10/25 (RUN TWO): the wagon is eaten at nightfall, so its hold counts nights (THE DAYS ONCE: DAYS is never on the bar) */ && h.map(x => x.f).indexOf('nights') === 1 && !h2.find(x => x.f === 'nights') && !(h2.find(x => x.f === 'food') || {}).i,
-        'S5  A HOLD SHOWS THE NIGHTS AFTER THE BATTERIES AND THE NIGHTS FOOD AND WATER LAST; LET GO, THEY GO', 'held: ' + h.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' ') + ' | let go: ' + h2.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' '));
+      leg(nights && hf && /^\d+ NIGHTS?$/.test(hf.i) && !hw   /* RE-AIMED 10/25 (RUN TWO): the wagon is eaten at nightfall, so its hold counts nights (THE DAYS ONCE: DAYS is never on the bar) */ && h.map(x => x.f).indexOf('nights') === 1 && !h2.find(x => x.f === 'nights') && !(h2.find(x => x.f === 'food') || {}).i,
+        'S5  A HOLD SHOWS THE NIGHTS AFTER THE BATTERIES AND THE NIGHTS THE FOOD AND WATER LAST; LET GO, THEY GO', 'held: ' + h.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' ') + ' | let go: ' + h2.map(x => x.f + (x.i ? '(' + x.i + ')' : '')).join(' '));
       await fr.evaluate(() => { window.BOH_SUPPLIES = { food: 'lots', water: NaN, meds: 2 }; });
       await p.waitForTimeout(900);
       const r6 = await read();

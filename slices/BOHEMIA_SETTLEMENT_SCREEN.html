@@ -827,14 +827,17 @@ function roundPrice(){ return Math.max(1, S.crewSize || 3); }
 /* THE STALL. What the shelf holds is ECONOMY's to rule (BohemiaPlace.STOCKS is empty on
    purpose); until then the stall sells the goods the economy already names, ONE battery
    each, and only FOOD is counted by the purse (the six in the bar). */
-var STALL = [{good:'food', label:'A ration of food', counts:'resources', adds:1},
-             {good:'water', label:'Water, four litres', counts:null, adds:1},
+/* __FOOD_AND_WATER_ARE_ONE__ (RUN TWO [food and water are one], rule 209, Paolo 10/26: 'water and food are one resource'): the ration
+   and the jug are one good, a man's night of food and water (a can and a bottle), at the two batteries the pair cost (the bill's
+   per_man), into the one count */
+var STALL = [{good:'food', label:'Food and water, a night for one man', counts:'resources', adds:1, price:2},
              {good:'meds', label:'A dose of meds', counts:null, adds:1},
              {good:'rounds', label:'Six rounds', counts:null, adds:6}];
 /* __THE_WAGON__ (RUN TWO [eyes: four currencies], ECONOMY's section 4 item 3: 'the stall's water, meds and rounds add to WATER, MEDS,
    ROUNDS'): what you buy goes into its count, the company's (bohemia.supplies.v1, the bar's in every frame): a ration, a jug of four
    litres, a dose, six rounds. Before this the stall took a battery for water, meds and rounds and added nothing. */
-function supplyAdd(k, n){ try{ var s = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null') || {food:0, water:0, tape:0, meds:0, rounds:0}; s[k] = Math.max(0, (s[k] | 0) + (n | 0)); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(s)); return s[k]; }catch(e){ return null; } }
+function supplyAdd(k, n){ if(k === 'water') k = 'food'; try{ var s = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null') || {food:0, tape:0, meds:0, rounds:0};
+  if(typeof s.water === 'number'){ s.food = Math.ceil(((s.food | 0) + (s.water | 0)) / 2); delete s.water; }   /* __FOOD_AND_WATER_ARE_ONE__: an old save's two, folded */ s[k] = Math.max(0, (s[k] | 0) + (n | 0)); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(s)); return s[k]; }catch(e){ return null; } }
 
 var S = {
   place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
@@ -2663,11 +2666,11 @@ function openB(k, line){
     body.appendChild(acts); body.appendChild(sl); return show();
   }
   else if(k==='stall'){
-    body.appendChild(speak(k, line || 'Everything is one battery, mijo. No haggling at this stall.'));
+    body.appendChild(speak(k, line || 'One battery a thing, two for a night of food and water. No haggling at this stall, mijo.'));   /* draft:true */
     var stm = traitMult();
     STALL.forEach(function(g){
       /* one battery each; a card moves it (Sickness triples the meds), never below one */
-      var pr = Math.max(1, Math.round(stm.buy * (g.good === 'meds' ? stm.meds : 1) * (g.good === 'food' ? stm.food : 1)));
+      var pr = Math.max(1, Math.round((g.price || 1) * stm.buy * (g.good === 'meds' ? stm.meds : 1) * (g.good === 'food' ? stm.food : 1)));
       var ab = act(g.label, pr + (pr === 1 ? ' battery' : ' batteries'), function(){
         if(bats()<pr) return openB('stall','You are out of batteries. Come back with ' + pr + '.');
         P.debit(S.purse,'electricity',pr,'stall:'+g.good,S.place.name,S.day);
@@ -2818,6 +2821,7 @@ function scavenge(){
     if(r && r.found) r.got = FIND[seedOf(S.place.name + ':find:' + r.taken) % FIND.length];
   }
   if(r && r.got === 'food') P.credit(S.purse, 'resources', 1, 'scavenge:food', S.place.name, S.day);
+  if(r && (r.got === 'food' || r.got === 'water')) supplyAdd('food', 1);   /* __FOOD_AND_WATER_ARE_ONE__: a can or a jug found goes into the one count */
   if(r && r.got === 'battery') P.credit(S.purse, 'electricity', 1, 'scavenge:battery', S.place.name, S.day);
   if(r && r.got) r.good = FIND_GOOD[r.got];
   return r;

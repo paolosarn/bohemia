@@ -301,7 +301,7 @@ const srv = http.createServer((rq, rs) => {
   const stall = await p.evaluate(() => [...document.querySelectorAll('#sbody .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim()));
   await p.click('#close'); await p.waitForTimeout(300);
   const meds = stall.find(t => /meds/i.test(t)) || '', food = stall.find(t => /food/i.test(t)) || '';
-  ok('  and a sick town triples the meds, doubles the bread, and leaves the blades alone', /3 batteries/.test(meds) && /2 batteries/.test(food) && common.every(id => priceOf(sick.st, id) === priceOf(plain.st, id) || priceOf(sick.st, id) == null),
+  ok('  and a sick town triples the meds, doubles the bread, and leaves the blades alone', /3 batteries/.test(meds) && /4 batteries/.test(food)   /* RE-AIMED 10/26 (rule 209): food and water one good, a night for one man at 2, doubled sick */ && common.every(id => priceOf(sick.st, id) === priceOf(plain.st, id) || priceOf(sick.st, id) == null),
      meds + ' / ' + food);
   /* THE SHELF RESTOCKS (RUN TWO 10/18): Battle Brothers' market refreshes about every 3 days (GROK_21 line 17). A real buy
      at the smith stays gone on the same delivery (reopened, day 2), and day 3 is a new roll, the slot refilled */
