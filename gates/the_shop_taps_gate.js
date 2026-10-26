@@ -63,9 +63,12 @@ async function tapTile(sf, P, sel, twice, mouse) {
 }
 async function openShop(sf, P, k, mouse) {
   await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await P.waitForTimeout(400);
-  const w = await sf.evaluate(k => BohemiaSettlement.where(k), k), fb = await (await sf.frameElement()).boundingBox();
-  if (mouse) await P.mouse.click(fb.x + w.x, fb.y + w.y); else await P.touchscreen.tap(fb.x + w.x, fb.y + w.y);
-  await P.waitForTimeout(1500);
+  for (let i = 0; i < 4; i++) {   /* a busy machine: the town may still be settling, so a tap that opened nothing is tapped again */
+    const w = await sf.evaluate(k => BohemiaSettlement.where(k), k), fb = await (await sf.frameElement()).boundingBox();
+    if (w) { if (mouse) await P.mouse.click(fb.x + w.x, fb.y + w.y); else await P.touchscreen.tap(fb.x + w.x, fb.y + w.y); }
+    await P.waitForTimeout(1500);
+    if (await sf.evaluate(k => BohemiaSettlement.state.open === k, k)) break;
+  }
   await sf.waitForFunction(() => !!document.querySelector('#shopstrip .ss-facts'), null, { timeout: 8000 }).catch(() => {});
   /* a counter of the sheet being built: one tap must never build it again */
   await sf.evaluate(() => { const b = document.getElementById('sbody'); window.__SHOPGEN = 0; if (!window.__SHOPOBS) { window.__SHOPOBS = new MutationObserver(() => { window.__SHOPGEN = (window.__SHOPGEN | 0) + 1; }); window.__SHOPOBS.observe(b, { childList: true }); } });

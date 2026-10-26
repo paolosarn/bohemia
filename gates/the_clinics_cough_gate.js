@@ -64,7 +64,7 @@ const srv = http.createServer((rq, rs) => {
     return p.evaluate(() => new Promise(res => { const w = document.querySelector('#sheet.on .who'), c = w && w.querySelector('canvas.face'), seen = new Set(), t0 = performance.now();
       const iv = setInterval(() => { if (c && c.dataset.mouth) seen.add(c.dataset.mouth); if (performance.now() - t0 > 1200) { clearInterval(iv);
         res({ line: w ? (w.querySelector('.say p') || {}).textContent : '', face: c ? c.dataset.face : 'NOFACE', mouths: [...seen].filter(m => m !== 'rest').length,
-              acts: [...document.querySelectorAll('#sheet.on .acts .act')].map(x => ({ t: x.textContent.replace(/\s+/g, ' ').trim(), l: (x.querySelector('span') || {}).textContent || '', r: (x.querySelector('em') || {}).textContent || '', off: x.disabled })) }); } }, 40); })); };
+              acts: [...document.querySelectorAll('#sheet.on .acts .act')].map(x => ({ t: x.textContent.replace(/\s+/g, ' ').trim() + (x.dataset.buy ? ' ' + x.dataset.buy + ' batteries' : ''), l: (x.querySelector('span') || {}).textContent || '', r: (x.querySelector('em') || {}).textContent || '', off: x.disabled })) }); } }, 40); })); };
   const treat = r => r.acts.find(a => /^Treat Tavo/.test(a.t)) || null;
   const priceOf = a => a ? +((a.r.match(/(\d+) batt/) || [])[1]) : null, daysTo = a => a ? +((a.l.match(/days to (\d+)/) || [])[1]) : null;
   await visit([]); const well = await tap('clinic'); const wellStall = await tap('stall');
@@ -78,8 +78,9 @@ const srv = http.createServer((rq, rs) => {
   await p.evaluate(() => { const b = [...document.querySelectorAll('#sheet.on .acts .act')].find(x => /^Treat Tavo/.test(x.textContent.trim())); if (b) b.click(); }); await p.waitForTimeout(250);
   const after = await p.evaluate(() => (document.querySelector('#sheet.on .who .say p') || {}).textContent || '');
   ok('  and treating works: he stays, the days halved', /Tavo stays with me/.test(after) && /6 days instead of 12/.test(after), after);
-  const food = s => +((s.acts.find(a => /ration of food/i.test(a.t)) || { t: '' }).t.match(/(\d+) batter/) || [])[1], meds = s => +((s.acts.find(a => /dose of meds/i.test(a.t)) || { t: '' }).t.match(/(\d+) batter/) || [])[1];
-  ok('the stall reads the card: sick, the ration 2 and the dose 3; well, 1 and 1', food(illStall) === 2 && meds(illStall) === 3 && food(wellStall) === 1 && meds(wellStall) === 1,
+  /* RE-AIMED 10/26 BY RUN TWO ([sell at the stall]; rule 209 made food and water one good, a night for one man at 2): the line's buy */
+  const food = s => +((s.acts.find(a => /food and water|ration of food/i.test(a.t)) || { t: '' }).t.match(/(\d+) batter/) || [])[1], meds = s => +((s.acts.find(a => /dose of meds/i.test(a.t)) || { t: '' }).t.match(/(\d+) batter/) || [])[1];
+  ok('the stall reads the card: sick, a night of food 4 and the dose 3; well, 2 and 1', food(illStall) === 4 && meds(illStall) === 3 && food(wellStall) === 2 && meds(wellStall) === 1,
      'sick ' + food(illStall) + '/' + meds(illStall) + ', well ' + food(wellStall) + '/' + meds(wellStall));
   ok('no page errors', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();

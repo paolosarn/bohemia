@@ -188,7 +188,7 @@ const srv = http.createServer((rq, rs) => {
   await p.click('#close'); await p.waitForTimeout(150);
   await p.evaluate(() => { window.__settleLog = []; });
   await tapB('stall'); await p.waitForTimeout(200);
-  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  await p.dblclick('#sbody .stline .sb[data-side=buy]:not(.off)'); await p.waitForTimeout(200);   /* RE-AIMED 10/26 BY RUN TWO (rule 249): two quick taps on BUY */
   const stallSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
   ok('  and the stall plays it too, so every counter in the settlement sounds like one',
     stallSfx.length === 1 && stallSfx[0].ev === 'pickup', JSON.stringify(stallSfx));
@@ -300,7 +300,7 @@ const srv = http.createServer((rq, rs) => {
      every price; RUN TWO [the clinic's cough] 10/18: the food line is on the library's own page, printed first) */
   const sick = await roll(['sickness']);
   await tapB('stall'); await p.waitForTimeout(250);
-  const stall = await p.evaluate(() => [...document.querySelectorAll('#sbody .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim()));
+  const stall = await p.evaluate(() => [...document.querySelectorAll('#sbody .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim() + (b.dataset.buy ? ' ' + b.dataset.buy + ' batteries' : '')));   /* RE-AIMED 10/26 BY RUN TWO ([sell at the stall]): the buy is a battery and the count, the line keeps it */
   await p.click('#close'); await p.waitForTimeout(300);
   const meds = stall.find(t => /meds/i.test(t)) || '', food = stall.find(t => /food/i.test(t)) || '';
   ok('  and a sick town triples the meds, doubles the bread, and leaves the blades alone', /3 batteries/.test(meds) && /4 batteries/.test(food)   /* RE-AIMED 10/26 (rule 209): food and water one good, a night for one man at 2, doubled sick */ && common.every(id => priceOf(sick.st, id) === priceOf(plain.st, id) || priceOf(sick.st, id) == null),

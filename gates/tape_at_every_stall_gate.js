@@ -50,7 +50,10 @@ function taps(d, sf, mouse) {
   const read = () => sf.evaluate(() => { const rows = [...document.querySelectorAll('#sbody [data-good=tape]')].map(b => ({ n: +b.dataset.n, text: b.textContent.replace(/\s+/g, ' ').trim(), icon: !!(b.querySelector('img.pk') && b.querySelector('img.pk').complete && b.querySelector('img.pk').naturalWidth > 0), off: b.disabled }));
     let s = {}; try { s = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}') || {}; } catch (e) {}
     return { rows, tape: s.tape | 0, bats: BohemiaSettlement.bats(), t: BohemiaSettlement.tape(), place: BohemiaSettlement.state.place.name, tier: BohemiaSettlement.state.place.tier, left: (document.getElementById('tapeleft') || {}).textContent || '' }; });
-  return { tapAt, tapSel, openStall, read };
+  /* RE-AIMED 10/26 BY RUN TWO (rule 249, [sell at the stall]): one tap lights a stall's box, two quick taps buy; a line is BUY and SELL side by side */
+  const tap2 = async (sel) => { const r = await sf.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return null; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, sel); if (!r) return false;
+    const b = await (await sf.frameElement()).boundingBox(); if (mouse) await P.mouse.dblclick(b.x + r.x, b.y + r.y); else { await P.touchscreen.tap(b.x + r.x, b.y + r.y); await P.waitForTimeout(120); await P.touchscreen.tap(b.x + r.x, b.y + r.y); } await P.waitForTimeout(500); return true; };
+  return { tapAt, tapSel, tap2, openStall, read };
 }
 /* the shelf from the file, the engine's own arithmetic, with no card moving it (the gate's towns: the card's stock is 1 or more) */
 const shelfOf = (place, tier) => SP.tapeShelf(FILE, { place, tier, stockMult: 1 });
@@ -68,19 +71,19 @@ const shelfOf = (place, tier) => SP.tapeShelf(FILE, { place, tier, stockMult: 1 
     ok('*** S1 DAY ' + day1 + ' *** ' + r1.place + '\'s stall: ' + r1.rows.map(x => '"' + x.text + '"').join(', ') + '; ' + r1.t.shelf + ' rolls on the shelf (ECONOMY: ' + shelfOf(r1.place, r1.tier) + ' for a ' + r1.tier + ')',
       opened && r1.rows.length === 2 && r1.rows.every(x => x.icon && !x.off) && r1.rows[0].n === 1 && r1.rows[1].n === 20 && r1.t.roll === SP.buyShown(FILE, 'tape', { tier: r1.tier }) && r1.t.shelf >= 20 && r1.t.full >= 20 && /\d+ rolls on the shelf/.test(r1.left));
     /* S2 a roll */
-    await T.tapSel('#sbody [data-good=tape][data-n="1"]'); await T.openStall();
+    await T.tap2('#sbody [data-good=tape][data-n="1"] .sb[data-side=buy]'); await T.openStall();
     const r2 = await T.read();
     ok('S2 a roll by a real tap: the purse ' + r1.bats + ' -> ' + r2.bats + ', TAPE ' + r1.tape + ' -> ' + r2.tape + ', the shelf ' + r1.t.shelf + ' -> ' + r2.t.shelf, r2.bats === r1.bats - r1.t.roll && r2.tape === r1.tape + 1 && r2.t.shelf === r1.t.shelf - 1);
     /* S3 a stack */
     const stack = r2.t.stack;
-    await T.tapSel('#sbody [data-good=tape][data-n="20"]'); await T.openStall();
+    await T.tap2('#sbody [data-good=tape][data-n="20"] .sb[data-side=buy]'); await T.openStall();
     const r3 = await T.read();
     ok('S3 a stack by a real tap: TAPE ' + r2.tape + ' -> ' + r3.tape + ', the purse ' + r2.bats + ' -> ' + r3.bats + ' (the stack ' + stack + ')', r3.tape === r2.tape + 20 && r3.bats === r2.bats - stack);
     /* S4 days 2 to 5 */
     const days = []; let tape = r3.tape;
     for (let day = day1 + 1; day <= day1 + 4; day++) {
       const s2 = await openTown(d, r1.place, day); const T2 = taps(d, s2, false); await T2.openStall(); const r = await T2.read();
-      await T2.tapSel('#sbody [data-good=tape][data-n="1"]'); await T2.openStall(); const ra = await T2.read();
+      await T2.tap2('#sbody [data-good=tape][data-n="1"] .sb[data-side=buy]'); await T2.openStall(); const ra = await T2.read();
       days.push({ day, shelf: r.t.shelf, full: r.t.full, period: r.t.period, rows: r.rows.filter(x => !x.off).length, tapeBefore: r.tape, tapeAfter: ra.tape });
       tape = ra.tape;
     }
@@ -100,7 +103,7 @@ const shelfOf = (place, tier) => SP.tapeShelf(FILE, { place, tier, stockMult: 1 
     await d.page.waitForTimeout(3000);
     const sf = await openTown(d, null, null);
     const T = taps(d, sf, true); await T.openStall(); const a = await T.read();
-    await T.tapSel('#sbody [data-good=tape][data-n="1"]'); await T.openStall(); const b = await T.read();
+    await T.tap2('#sbody [data-good=tape][data-n="1"] .sb[data-side=buy]'); await T.openStall(); const b = await T.read();
     ok('K1 the computer: a roll by a click, TAPE ' + a.tape + ' -> ' + b.tape, a.rows.length === 2 && b.tape === a.tape + 1 && b.bats === a.bats - a.t.roll);
   } catch (e) { ok('the computer legs ran [' + String(e.message).slice(0, 200) + ']', false); }
   ok('Z2 nothing threw on the computer', d.errs.length === 0, d.errs.slice(0, 2).join(' | ')); await d.close();
