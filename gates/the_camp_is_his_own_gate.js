@@ -10,7 +10,7 @@
    hurt, one with his armour broken, the rest whole) through the condition's own door (afterFight); a party is stood still on the
    map for the compass (a still enemy, 269(a)), and the roaming hunters are kept off so the camp under test is not broken by them
    (that bug is CAMP's [camp holds until he ends it], rule 267(a)).
-     K1 *** A PRESS ON HEAL OPENS HIS CAMP *** the picture is his own ground (camp_two/plate), nothing of a town on it (no keeper,
+     K1 *** A PRESS ON HEAL (the phone's) OPENS HIS CAMP *** the picture is his own ground (camp_two/plate), nothing of a town on it (no keeper,
         crowd or walker), and his camp stands on it: the fire, his tents, the shopping cart (his first carrier, 260(c)), the supplies,
         the seats by the fire; every piece a door
      K2 *** THE PITCH *** making camp plays the pitch (a few seconds, the carrier first), and a real tap skips it
@@ -28,7 +28,7 @@
         (257(a)(d), 260(b))
      K9 THE HOURS LEAVE GHOSTS: while the hours run, the places his men stood leave their two-percent trace (273(c))
      K10 nothing threw
-   node gates/the_camp_is_his_own_gate.js [--profile phone_portrait|computer]   (no flag: both) */
+   node gates/the_camp_is_his_own_gate.js [--profile phone_portrait|phone_landscape|computer]   (no flag: all three) */
 'use strict';
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -52,7 +52,9 @@ async function run(profile) {
   const look = (sf) => sf.evaluate(() => BohemiaCampLook.state());
   try {
     await p.waitForTimeout(3000);
-    await fr.waitForFunction(() => { const b = document.getElementById('campbtn'); return b && getComputedStyle(b).display !== 'none'; }, null, { timeout: 20000 }).catch(() => {});
+    /* the camp's door is the phone's HEAL app (UI TWO, rules 212(b), 226(c)), on the phone the shell draws over every screen */
+    const HEAL = '#bohphone .app[data-app=heal]';
+    await p.waitForFunction((s) => { const b = document.querySelector(s); return !!b && b.getBoundingClientRect().width > 0 && document.getElementById('bohphone').classList.contains('on'); }, HEAL, { timeout: 20000 }).catch(() => {});
     /* the fixtures: the wounds through the condition's own door; the hunters kept off (CAMP's bug, 267(a)) */
     const men = await fr.evaluate(() => {
       const L = BohemiaCondition.members(LOOP.start && LOOP.start.company);
@@ -64,9 +66,8 @@ async function run(profile) {
       return L.map(e => e.main ? 'YOU' : e.man.name);
     });
     /* ---- K1, K2 ---- */
-    const plate = await fr.evaluate(() => { const r = document.getElementById('campbtn').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
     const fb = await (await fr.frameElement()).boundingBox();
-    await press(fb.x + plate[0], fb.y + plate[1]);
+    await tapIn(p.mainFrame(), HEAL);
     const sf = await campFrame();
     if (!sf) { ok(P + 'K1 a press on HEAL opens his camp', false, 'no camp screen'); return; }
     for (let k = 0; k < 12; k++) { const st = await look(sf); if (st.reads > 0) break; await p.waitForTimeout(250); }   /* the map's first read of each man */
@@ -86,6 +87,36 @@ async function run(profile) {
     ok(P + 'K2 *** THE PITCH *** making camp plays it (a few seconds, the shopping cart first) and a real tap skips it',
       !!k2a && k2a.on && k2a.ms >= 1500 && k2a.ms <= 8000 && k2a.carrier === 'shopping_cart' && !!k2b && !k2b.on && k2b.skipped, JSON.stringify({ at_open: k2a, after_tap: k2b }));
     if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp2_' + profile + '_camp.png') });
+    /* ---- K11 THE CAMP FITS THE PHONE (rule 286(a)(b)): phone right, then left; nothing of the camp under it, one door each ---- */
+    const doorsOver = async () => sf.evaluate(() => {
+      const pr = window.BOH_PHONE_RECT ? BOH_PHONE_RECT() : null, sc = document.getElementById('scene').getBoundingClientRect(), S = BohemiaSettlement;
+      if (!pr || !pr.on) return { phone: false };
+      const order = S.order(), v = S.camp2().view, out = [], H = 134;
+      const toGlass = (b) => [sc.left + v.ox + b[0] * v.s, sc.top + v.oy + b[1] * v.s, sc.left + v.ox + b[2] * v.s, sc.top + v.oy + b[3] * v.s];
+      const inter = (a) => Math.max(0, Math.min(a[2], pr.right) - Math.max(a[0], pr.left)) * Math.max(0, Math.min(a[3], pr.bottom) - Math.max(a[1], pr.top));
+      const BX = S.camp2().boxes || {};
+      order.forEach(k => { const b = BX[k]; if (b) { const g = toGlass(b), a = inter(g); if (a > 0) out.push(k + ':' + Math.round(a)); } });
+      S.folk().forEach(m => { const g = toGlass([m.x - H * 0.17, m.y - H, m.x + H * 0.17, m.y]), a = inter(g); if (a > 0) out.push((m.name || m.look) + ':' + Math.round(a)); });
+      const mp = document.getElementById('camppeek'), mr = mp && mp.getBoundingClientRect(), mapOver = mr && mp.style.display !== 'none' ? inter([mr.left, mr.top, mr.right, mr.bottom]) : 0;
+      const leave = document.getElementById('leave'), leaveShown = !!leave && getComputedStyle(leave).display !== 'none' && leave.getBoundingClientRect().width > 0;
+      return { phone: true, side: pr.side, over: out, mapOver: Math.round(mapOver), leaveShown, fireX: Math.round(sc.left + v.ox + BohemiaCampLife.FIRE.x * v.s) };
+    });
+    const r1 = await doorsOver();
+    await p.evaluate(() => { try { BohemiaPhone.setSide('left'); } catch (e) {} });
+    await p.waitForTimeout(700);
+    const r2 = await doorsOver();
+    await p.evaluate(() => { try { BohemiaPhone.setSide('right'); } catch (e) {} });
+    await p.waitForTimeout(500);
+    const campAfterFlip = await fr.evaluate(() => BohemiaMapCamp.state());
+    /* the fire's sheet holds no BREAK CAMP of its own while the phone is on */
+    const fireAt = await sf.evaluate(() => BohemiaSettlement.where('fire'));
+    if (fireAt) { await press(sb.x + fireAt.x, sb.y + fireAt.y); await p.waitForTimeout(600); }
+    const fireBtns = await sf.evaluate(() => ({ open: BohemiaSettlement.state.open, buttons: [].map.call(document.querySelectorAll('#sbody .acts button.act'), b => b.textContent.trim()) }));
+    await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); });
+    ok(P + 'K11 *** THE CAMP FITS THE PHONE *** phone right and phone left: no door of the camp, no man and no MAP under the phone, the camp\'s own BREAK CAMP gone (the phone\'s HEAL is the one door)',
+      r1.phone && r2.phone && r1.side !== r2.side && r1.over.length === 0 && r2.over.length === 0 && r1.mapOver === 0 && r2.mapOver === 0 && !r1.leaveShown && !r2.leaveShown
+        && fireBtns.open === 'fire' && fireBtns.buttons.length > 0 && !fireBtns.buttons.some(t => /break camp/i.test(t)),
+      JSON.stringify({ right: r1, left: r2, fire: fireBtns, camp: { on: campAfterFlip.on, why: campAfterFlip.why } }));
     /* ---- K4 (read at the open: the hours heal fast) ---- */
     const lead = await sf.evaluate(() => BohemiaSettlement.lead());
     const byName = (st, n) => st.acts.filter(a => a.name === n)[0] || {};
@@ -162,16 +193,17 @@ async function run(profile) {
     /* ---- K6 ---- */
     await sf.evaluate(() => { BohemiaCamp.hire('cook'); });
     await p.waitForTimeout(1200);
+    const k6camp = await fr.evaluate(() => BohemiaMapCamp.state());
     const k6 = await sf.evaluate(() => ({ pieces: BohemiaCampLook.state().pieces.filter(q => q.kind === 'follower').map(q => q.follower), order: BohemiaSettlement.order() }));
     const pot = await sf.evaluate(() => { const c = BohemiaSettlement.camp2('f_cook'); if (!c.box) return null; const b = c.box, v = c.view, r = document.getElementById('scene').getBoundingClientRect();
       return { x: r.left + v.ox + (b[0] + (b[2] - b[0]) * 0.5) * v.s, y: r.top + v.oy + (b[1] + (b[3] - b[1]) * 0.3) * v.s }; });
     if (pot) { await press(sb.x + pot.x, sb.y + pot.y); await p.waitForTimeout(600); }
     const k6b = await sf.evaluate(() => ({ open: BohemiaSettlement.state.open, rows: document.querySelectorAll('#sbody .campf').length, cook: !!document.querySelector('#sbody .campf[data-id="cook"]') }));
     ok(P + 'K6 A FOLLOWER ADDS HIS PIECE: the cook hired, his pot stands in the camp, a door to the retinue', k6.pieces.indexOf('cook') >= 0 && k6.order.indexOf('f_cook') >= 0 && k6b.open === 'f_cook' && k6b.rows >= 3 && k6b.cook,
-      JSON.stringify(k6) + ' opens ' + JSON.stringify(k6b));
+      JSON.stringify(k6) + ' opens ' + JSON.stringify(k6b) + ' camp ' + JSON.stringify({ on: k6camp.on, why: k6camp.why }));
     await sf.evaluate(() => { BohemiaCamp.letGo('cook'); const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); });
     /* leave it as found: break the camp by its own button */
-    await tapIn(sf, '#leave'); await p.waitForTimeout(500);
+    await tapIn(p.mainFrame(), HEAL); await p.waitForTimeout(500);
     await fr.evaluate(() => { clearInterval(window.__GATE_KEEP_OFF); });
   } catch (e) { ok(P + 'the gate ran [' + String(e.stack || e.message).slice(0, 300) + ']', false); }
   ok(P + 'K10 nothing threw', errs.length === 0, errs.slice(0, 3).join(' | '));
@@ -180,7 +212,7 @@ async function run(profile) {
 
 (async () => {
   const i = process.argv.indexOf('--profile');
-  const profiles = i >= 0 ? [process.argv[i + 1]] : ['phone_portrait', 'computer'];
+  const profiles = i >= 0 ? [process.argv[i + 1]] : ['phone_portrait', 'phone_landscape', 'computer'];   /* tall, wide on a phone, and a computer (rule 286) */
   for (const pr of profiles) await run(pr);
   console.log('=== THE CAMP IS HIS OWN: ' + pass + ' passed, ' + fail + ' failed ===');
   process.exit(fail ? 1 : 0);

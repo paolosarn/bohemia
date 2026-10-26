@@ -294,12 +294,14 @@
     var W = ctx.view.W, H = ctx.view.H, now = ctx.now;
     /* MAP stands only while no sheet is up (a sheet's buttons are where it stands) */
     if (K.peekBtn && K.st) { var sh = document.getElementById('sheet'), want = sh && sh.classList.contains('on') ? 'none' : 'flex'; if (K.peekBtn.style.display !== want) K.peekBtn.style.display = want; }
-    var C = K.compass;
+    var C = K.compass, PR = null;
+    try { var pr = phone(), sc = document.getElementById('scene'), so = sc ? sc.getBoundingClientRect() : { left: 0, top: 0 }; if (pr) PR = { l: pr.left - so.left, r: pr.right - so.left, t: pr.top - so.top, b: pr.bottom - so.top, side: pr.side }; } catch (e) { PR = null; }
     if (C) {
       var best = null;
       C.forEach(function (c, i) {
         if (!c || !(c.lit > 0.02) || !c.rgb) return;
         var e = EDGE[i], ex = e[0] * W, ey = e[1] * H, corner = (i % 2) === 1;
+        if (PR && ex >= PR.l - 1 && ex <= PR.r + 1 && ey >= PR.t - 1 && ey <= PR.b + 1) { ex = PR.side === 'left' ? PR.r : PR.l; ey = Math.min(ey, PR.t); }   /* a corner under the phone glows at the phone's own corner */
         var pulse = c.loss ? 0.82 + 0.18 * Math.max(0, Math.sin(now / 500 * Math.PI)) : 1;   /* a loss breathes on the beat */
         var a = Math.min(0.85, c.a * (0.4 + 0.6 * c.lit) * pulse), deep = 26 + 70 * c.lit;
         var rgb = c.rgb.join(',');
@@ -323,6 +325,7 @@
         var t = String(best.c.who).toUpperCase() + ' · ' + best.c.blocks + (best.c.blocks === 1 ? ' BLOCK ' : ' BLOCKS ') + DIRWORD[best.i];
         cx.save(); cx.font = '700 10px BohemiaCasing,ui-monospace,monospace'; var tw = cx.measureText(t).width + 14;
         var e2 = EDGE[best.i], tx = Math.max(6, Math.min(W - tw - 6, e2[0] * W - tw / 2)), ty = Math.max(46, Math.min(H - 84, e2[1] * H + (e2[1] === 0 ? 50 : e2[1] === 1 ? -84 : -9)));
+        if (PR && tx + tw > PR.l && tx < PR.r && ty + 18 > PR.t && ty < PR.b) { if (PR.side === 'left') tx = Math.min(W - tw - 6, PR.r + 8); else tx = Math.max(6, PR.l - tw - 8); }   /* words never under the phone (279(c)) */
         cx.fillStyle = 'rgba(14,10,7,.86)'; cx.fillRect(Math.round(tx), Math.round(ty), Math.round(tw), 18);
         cx.fillStyle = 'rgba(' + best.c.rgb.join(',') + ',1)'; cx.fillRect(Math.round(tx), Math.round(ty), 2, 18);
         cx.fillStyle = '#e9dcc4'; cx.textAlign = 'left'; cx.fillText(t, Math.round(tx + 8), Math.round(ty + 13)); cx.restore();
@@ -376,6 +379,34 @@
     if (Array.isArray(d.threats)) K.threats = d.threats;
     if (d.men && typeof d.men === 'object') { K.men = d.men; K.reads++; }
   }
+  /* ---------------------------------------------------------------- THE CAMP FITS THE PHONE (rule 286(a)(b), CAMP TWO [the camp fits the
+     phone]): UI TWO's one phone stands in his corner over the camp too (slices/bohemia_phone.js, BOH_PHONE_RECT() in this frame's
+     own pixels). The camp is composed in what the phone leaves (its fire at the open centre), the MAP plate stands beside the phone,
+     never under it, and the camp's own BREAK CAMP goes while the phone is on: the phone's HEAL is the camp's one door (no button
+     twice) */
+  function phone() { try { var f = root.BOH_PHONE_RECT, r = f ? f() : null; return r && r.on ? r : null; } catch (e) { return null; } }
+  function phoneOn() { return !!phone(); }
+  (function () { try { var st = document.createElement('style'); st.textContent = 'html.camp2-phone #leave{display:none!important}'; (document.head || document.documentElement).appendChild(st); } catch (e) {} })();
+  function placePlates() {
+    var r = phone(), on = !!(K.st && r);
+    try { document.documentElement.classList.toggle('camp2-phone', on); } catch (e) {}
+    var b = K.peekBtn; if (!b) return;
+    if (r) { b.style.bottom = Math.max(10, Math.round(innerHeight - r.bottom)) + 'px';
+      if (r.side === 'left') { b.style.left = Math.round(r.right + 10) + 'px'; b.style.right = ''; } else { b.style.right = Math.round(innerWidth - r.left + 10) + 'px'; b.style.left = ''; } }
+    else { b.style.bottom = '17px'; b.style.right = '186px'; b.style.left = ''; }
+  }
+  root.addEventListener('bohemia-phone', function () { placePlates(); K.composed = null; });
+  root.addEventListener('resize', function () { K.composed = null; });
+  /* where the camp's middle goes: its fire at the centre of what the phone leaves of the glass (BohemiaPhone.openCentre), as the
+     picture pans; once a camp, a side, a size, so a drag of his is never undone */
+  function compose(view, scene, W, H) {
+    if (!K.st) return null;
+    var P = root.BohemiaPhone, r = phone(), key = (r ? r.side : 'none') + '|' + W + 'x' + H + '|' + (K.info && K.info.block ? K.info.block.join(',') : '');
+    if (K.composed === key) return null; K.composed = key;
+    var oc = P && P.openCentre ? P.openCentre() : null, f = K.st.layout.fire;
+    var ocx = oc ? oc.x - (scene ? scene.left : 0) : W / 2, ocy = oc ? oc.y - (scene ? scene.top : 0) : H / 2;
+    return { cx: f.x + (W / 2 - ocx) / view.s, cy: f.y + (H / 2 - ocy) / view.s, key: key };
+  }
   /* MAP: the live map with the camp at its spot and the hours running (rule 260(b)); the map's own call does it */
   function peek() { try { var M = root.parent && root.parent.BohemiaCampMap; if (M && M.peek) return M.peek(true); } catch (e) {} return false; }
   function peekPlate(on) {
@@ -390,6 +421,7 @@
       document.body.appendChild(b);
     }
     if (b) b.style.display = on ? 'flex' : 'none';
+    placePlates();
   }
   /* a pinch out or the wheel out on the camp is the map (one pinch, city to street, rule 258's other way) */
   (function () {
@@ -400,7 +432,7 @@
     root.addEventListener('touchend', function () { t0 = null; }, { passive: true });
     root.addEventListener('wheel', function (e) { if (!on()) return; var n = performance.now(); if (n - wt > 600) wheel = 0; wt = n; wheel += e.deltaY; if (wheel > 260) { wheel = 0; peek(); } }, { passive: true });
   })();
-  function close() { peekPlate(false); K.pitch = null; K.compass = null; K.ghost = null; }
+  function close() { peekPlate(false); K.pitch = null; K.compass = null; K.ghost = null; K.st = null; K.composed = null; placePlates(); }
   root.addEventListener('message', function (ev) { var d = ev && ev.data; if (d && d.type === 'BOHEMIA_CAMP_LOOK') { reads(d); if (K.st && K.info) { var was = K.st.key; time(K.info); } } });
   function state() {
     return { ready: K.ready, open: !!K.st, tents: K.st ? K.st.layout.tents : null, men: K.st ? K.st.men.length : 0, carrier: K.st ? K.st.layout.carrier.id : null,
@@ -410,5 +442,5 @@
       compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
   root.BohemiaCampLook = { ready: function () { return K.ready && !!CL; }, variant: variant, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
-    folk: folk, hideLead: hideLead, leadSpot: leadSpot, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };
+    folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };
 })(typeof window !== 'undefined' ? window : this);

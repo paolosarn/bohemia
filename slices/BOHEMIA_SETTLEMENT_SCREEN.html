@@ -1242,7 +1242,16 @@ function layout(){
   if(W/picW() > view.s) view.s = W/picW();
   panY(view.cy == null ? picH()/2 : view.cy);
   pan(view.cx == null ? picW()/2 : view.cx);
+  try{ campCompose(); }catch(e){}   /* __CAMP_TWO__ (rule 286(a)): his camp composed in what the phone leaves */
 }
+/* __CAMP_TWO__ (rule 286(a), CAMP TWO [the camp fits the phone]): the camp's fire at the centre of what the phone leaves, once a camp,
+   a side and a size (a drag of his is never undone); the phone's side flips in a beat and the camp moves with it */
+function campCompose(){
+  if(!(S.camp && VAR && VAR.camp2 && window.BohemiaCampLook)) return;
+  var t = BohemiaCampLook.compose(view, document.getElementById('scene').getBoundingClientRect(), view.W, view.H); if(!t) return;
+  panY(t.cy); pan(t.cx);
+}
+window.addEventListener('bohemia-phone', function(){ try{ campCompose(); }catch(e){} });
 function pan(cxPic){
   var half = view.W/2/view.s;
   cxPic = Math.max(half, Math.min(picW() - half, cxPic));
@@ -1942,7 +1951,7 @@ function campSheet(k){
     if(c.cleared) campLine(acts, c.cleared, 'gridh warn');
     if(window.BohemiaCampLook && VAR && VAR.camp2){ var sl2 = BohemiaCampLook.sleepers(tapped); if(sl2.length) campLine(acts, 'SLEEPS HERE: ' + sl2.join(', ').toUpperCase()); }   /* __CAMP_TWO__ (rule 260(c)): a tent for each two men */
     acts.appendChild(act('Your company', '', function(){ if(window.BohemiaCrewDoor) BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); post('crew', {company:m.company, formation:m.formation}); } }); }));
-    acts.appendChild(act('Break camp', '', function(){ document.getElementById('leave').click(); }));
+    if(!(window.BohemiaCampLook && BohemiaCampLook.phoneOn())) acts.appendChild(act('Break camp', '', function(){ document.getElementById('leave').click(); }));   /* __CAMP_TWO__ (rule 286(b)): the phone's HEAL is the camp's one door */
   } else if(k === 'fire'){   /* __CAMP_TWO__: the fire is the hour, and what every man is doing in it */
     var bill2 = c.bill || {}, night2 = c.night;
     campSay(body, night2 ? 'Fire\'s low. Somebody\'s always awake. We go when you say.' : 'Every hour here is an hour the valley moves without us. The hurt need it.');   /* draft:true */
@@ -1951,7 +1960,7 @@ function campSheet(k){
     if(c.cleared) campLine(acts, c.cleared, 'gridh warn');
     if(window.BohemiaCampLook) BohemiaCampLook.doing().forEach(function(t){ campLine(acts, t.toUpperCase()); });   /* draft:true */
     acts.appendChild(act('Who travels with you', '', function(){ campSheet('retinue'); }));
-    acts.appendChild(act('Break camp', '', function(){ document.getElementById('leave').click(); }));
+    if(!(window.BohemiaCampLook && BohemiaCampLook.phoneOn())) acts.appendChild(act('Break camp', '', function(){ document.getElementById('leave').click(); }));   /* __CAMP_TWO__ (rule 286(b)) */
   } else if(k === 'retinue'){
     var sc = R ? R.score() : 0, sl = R ? R.slots() : 0, nx = R ? R.nextSlot() : null, mine = C ? C.retinue() : [], band = R ? R.band() : {word:'NOBODY'};
     campSay(body, sl ? (mine.length < sl ? 'There\'s room for one more to travel with us. Pick who.' : 'Every place by the fire is taken. Let one go to take another.')
@@ -3537,7 +3546,7 @@ window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },
       var ms = len / (v * leadSpeed(len)); if(ms > out.longest) out.longest = ms; if(ms > LEAD_MAX_MS + 600) out.slow++; }); });   /* __HE_ALWAYS_WALKS__: nothing placed; a way run over about four seconds counts */
     out.miss = out.miss.slice(0, 6); return out; },
   camp:function(){ return {camp:!!S.camp, bagSlots:BAG_SLOTS, info:S.campInfo || null}; },   /* __THE_CAMP__ */
-  camp2:function(k){ if(k && VAR && VAR.boxes[k]) where(k); return {src:PIC.day && PIC.day.src, camp2:!!(VAR && VAR.camp2), order:ORDER.slice(), box:k && VAR && VAR.boxes[k] ? VAR.boxes[k].slice() : null, view:{ox:view.ox, oy:view.oy, s:view.s}}; },   /* __CAMP_TWO__: the picture drawn and its doors, for the gate */
+  camp2:function(k){ if(k && VAR && VAR.boxes[k]) where(k); return {src:PIC.day && PIC.day.src, camp2:!!(VAR && VAR.camp2), order:ORDER.slice(), box:k && VAR && VAR.boxes[k] ? VAR.boxes[k].slice() : null, view:{ox:view.ox, oy:view.oy, s:view.s}, boxes:VAR ? JSON.parse(JSON.stringify(VAR.boxes || {})) : {}}; },   /* __CAMP_TWO__: the picture drawn and its doors, for the gate */
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */

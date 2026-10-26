@@ -88,8 +88,8 @@
       pieces.push({ kind: 'tent', key: i ? 'tent_' + (i + 1) : 'tent', sprite: CLOTHS[(i + (seedOf('cloth:' + (o.seed || 0)) % 3)) % 3], x: p.x, y: p.y, tap: 'tent', i: i,
         sleeps: [i * 2, i * 2 + 1].filter(function (k) { return k < men; }) });
     });
-    pieces.push({ kind: 'carrier', key: 'cart', sprite: car.sprite, carrier: car.id, word: car.word, trailer: !!car.trailer, x: FIRE.x - 470, y: FIRE.y + 110, tap: 'cart' });
-    pieces.push({ kind: 'supplies', key: 'supplies', sprite: 'supplies', x: FIRE.x - 330, y: FIRE.y + 190, tap: 'cart' });
+    pieces.push({ kind: 'carrier', key: 'cart', sprite: car.sprite, carrier: car.id, word: car.word, trailer: !!car.trailer, x: FIRE.x - 470, y: FIRE.y + 70, tap: 'cart' });
+    pieces.push({ kind: 'supplies', key: 'supplies', sprite: 'supplies', x: FIRE.x - 330, y: FIRE.y + 140, tap: 'cart' });   /* the camp kept off the glass's bottom corners, where the phone stands (rule 286) */
     pieces.push({ kind: 'seats', key: 'retinue', sprite: 'seats', x: FIRE.x + 300, y: FIRE.y + 150, tap: 'retinue' });
     (o.followers || []).forEach(function (id) { var f = FOLLOWER_AT[id]; if (!f) return;
       pieces.push({ kind: 'follower', key: 'f_' + id, follower: id, sprite: f.sprite, x: FIRE.x + f.dx, y: FIRE.y + f.dy, tap: 'retinue' }); });

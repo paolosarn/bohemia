@@ -127,8 +127,18 @@
       b.addEventListener('click', function (e) { stop(e); peek(false); });
       document.body.appendChild(b);
     }
-    if (b) { b.style.display = on ? 'flex' : 'none'; if (on) iconPaint(b.querySelector('canvas')); }
+    if (b) { b.style.display = on ? 'flex' : 'none'; if (on) { iconPaint(b.querySelector('canvas')); backPlace(); } }
   }
+  /* beside the phone, never under it (rule 286(a)): UI TWO's phone stands in his corner over the map; the plate takes the bottom
+     line beside it on the open side */
+  function backPlace() {
+    var b = K.back; if (!b) return;
+    var r = null; try { r = root.BOH_PHONE_RECT ? root.BOH_PHONE_RECT() : null; } catch (e) { r = null; }
+    if (r && r.on) { b.style.bottom = Math.max(10, Math.round(innerHeight - r.bottom)) + 'px';
+      if (r.side === 'left') { b.style.left = Math.round(r.right + 10) + 'px'; b.style.right = ''; } else { b.style.right = Math.round(innerWidth - r.left + 10) + 'px'; b.style.left = ''; } }
+    else { b.style.right = '121px'; b.style.bottom = '17px'; b.style.left = ''; }
+  }
+  root.addEventListener('bohemia-phone', function () { try { backPlace(); } catch (e) {} });
   function iconPaint(cv) {   /* his own tent, small, from the kit: the plate is the camp */
     if (!cv || !K.img || !K.kit) return; var e = K.kit.pieces.tent_olive, g = cv.getContext('2d'); g.clearRect(0, 0, cv.width, cv.height); g.imageSmoothingEnabled = false;
     var r = e.rect, z = Math.min(cv.width / r[2], cv.height / (r[3] * 0.62)); g.drawImage(K.img, r[0], r[1], r[2], Math.round(r[3] * 0.62), Math.round(cv.width / 2 - r[2] * z / 2), 0, Math.round(r[2] * z), Math.round(r[3] * 0.62 * z));
