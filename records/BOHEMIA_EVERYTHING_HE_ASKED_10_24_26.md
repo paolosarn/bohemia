@@ -188,3 +188,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 170 | Every face on screen breathes and moves a little; a badly wounded man reacts to his wound | 246 | PORTRAIT, EYES | 
 | 171 | (his word) He loves the Crashbox HBO animation style: keep going, more animation everywhere | 246(e) | ANIMATION, COOK, MOTION | 
 | 172 | Stats in my order everywhere: HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale, initiative, so I can scan the stars; behind each number a bar to the most possible (said again) | 247, 223 | UI THREE, TUNING, EYES | 
+| 173 | What I sell shows on their shelf right away, and I can buy it back at the price I sold it for, not marked up | 248 | RUN TWO, EYES | 
