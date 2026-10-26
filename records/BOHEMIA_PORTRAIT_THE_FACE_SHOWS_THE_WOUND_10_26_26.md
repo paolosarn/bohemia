@@ -1,8 +1,10 @@
 # PORTRAIT [the face shows the wound] (rule 234(c)) and [every face breathes] (rule 246), Paolo 10/26
 Session portrait-session_012D8EUX. Tool: tools/bohemia_portrait_the_face_shows_the_wound.py. Runner:
 .github/workflows/portrait_wounds.yml. Engine: engine/bohemia_wound_faces.js (+ one hook in engine/bohemia_crew_faces.js).
-Gates: gates/the_face_shows_the_wound_gate.js, gates/every_face_breathes_gate.js. VOTE: slices/vote/PORTRAIT_THE_FACE_SHOWS_THE_WOUND.webp,
-slices/vote/PORTRAIT_EVERY_FACE_BREATHES.html.
+Gates: gates/the_face_shows_the_wound_gate.js, gates/every_face_breathes_gate.js. VOTE: slices/vote/PORTRAIT_THE_FACE_SHOWS_THE_WOUND.webp
+(card portrait-the-face-shows-the-wound-10-26), slices/vote/PORTRAIT_EVERY_FACE_BREATHES.webp (card portrait-every-face-breathes-10-26: an
+animated before and after recorded off the live page slices/vote/PORTRAIT_EVERY_FACE_BREATHES.html by
+tools/bohemia_portrait_every_face_breathes_clip.js, so the card plays the thing, rule 89 and the first votes).
 
 ## HIS WORDS
 - 234: 'let's get creative with how it's gonna affect their portrait. You know to be able to visually tell that like either like a

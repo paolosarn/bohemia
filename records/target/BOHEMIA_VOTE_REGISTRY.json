@@ -15343,7 +15343,7 @@
    "id": "portrait-the-face-shows-the-wound-10-26",
    "kind": "face",
    "lane": "portrait",
-   "sha": "pending",
+   "sha": "0154fd59",
    "made": "10/26",
    "title": "YOUR MEN WEAR THEIR WOUNDS: AN EYE PATCH, STAPLES IN THE SKULL, THE NOSE GONE, BLOOD AND A BAND-AID",
    "why": "When a man is struck down and lives, his face now shows it: a lost eye gets an eye patch, brain damage a stapled scar over a shaved line, a lost nose a hole in a ring of scar, a lost ear a raw stump, and a fresh wound dried blood and a band-aid that come off as he heals, each one built on his own 3D head and lit by the same sun as his face. You see it in the VOTE tab on you and your 11 starting men, all 18 marks at the portrait's size and the thumb's, and on the crew screen on any man who carries one.",
@@ -15356,6 +15356,11 @@
     "src": "vote/PORTRAIT_THE_FACE_SHOWS_THE_WOUND.webp",
     "first": "../records/target/vote_first/portrait-the-face-shows-the-wound-10-26.webp",
     "firstAt": [12, 64, 1008, 280]
+   },
+   "before_after": {
+    "before": "his face today: the first column of every man's row (TODAY)",
+    "after": "the same face wearing each mark, one mark a column, the mark's name under it",
+    "scale": "1:1"
    },
    "twin": {
     "src": "records/target/character/barber/person_town_0/face/rest_128.png",
@@ -15371,17 +15376,22 @@
    "id": "portrait-every-face-breathes-10-26",
    "kind": "animation",
    "lane": "portrait",
-   "sha": "pending",
+   "sha": "0154fd59",
    "made": "10/26",
    "title": "EVERY FACE BREATHES: YOUR CREW BLINKS, GLANCES AND WINCES WHEN HURT",
-   "why": "Every face on screen now breathes about 15 times a minute on the game's beat, blinks every 3 to 6 seconds and glances to the side now and then, and a hurt man winces with his breath catching, every 5 seconds while the wound is fresh and less as it heals, all from renders of his own 3D face. You see it live in the VOTE tab on your own crew, big and at thumb size, and on the crew screen, the town and the spoils on every face.",
+   "why": "Every face on screen now breathes about 15 times a minute on the game's beat, blinks every 3 to 6 seconds and glances to the side now and then, and a hurt man winces with his breath catching, every 5 seconds while the wound is fresh and less as it heals, all from renders of his own 3D face. You see it moving in the VOTE tab, his face today beside the same face breathing on you and three of your men, and live on the crew screen, the town and the spoils on every face.",
    "options": [
     "A, the faces keep breathing",
     "B, no, not like this"
    ],
    "show": {
-    "how": "page",
-    "src": "vote/PORTRAIT_EVERY_FACE_BREATHES.html"
+    "how": "image",
+    "src": "vote/PORTRAIT_EVERY_FACE_BREATHES.webp"
+   },
+   "before_after": {
+    "before": "his face today, still (the left of each pair)",
+    "after": "the same face as every screen now draws it, breathing, blinking and wincing on the beat (the right of each pair), recorded off the real face painter",
+    "scale": "1:1"
    },
    "twin": {
     "src": "records/target/character/barber/person_town_0/face/rest_128.png",
