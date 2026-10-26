@@ -145,6 +145,14 @@
     var looks = D.people ? Object.keys(D.people.looks).filter(function (l) { return /^cast_/.test(l); }) : [];
     return looks.length ? looks[i % looks.length] : 'you';
   }
+  /* __NO_MAN_WEARS_A_WOMANS_NAME__ (RUN TWO [eyes: the Block Watch's names], rule 203: 'never a man's sprite with a woman's name';
+     EYES 10/26: the Block Watch's twelve are men's bodies and four wore women's names, TINA, MARISOL, LUPE and NENA, the armourer's
+     card said 'ON MARISOL, it suits him best'). The crew list's names (ours.json crew) stay as written; a man whose body is a man's
+     (every body on the master rig until CHARACTER builds a woman's, sex 'f') is called by a man's name of the same sound
+     (draft:true, WORDS may better them), and keeps the old one as 'was' so a save made before still finds his climb */
+  var MEN_FOR = { TINA: 'TITO', MARISOL: 'MARCOS', LUPE: 'LALO', NENA: 'NENO' };
+  function bodyIsAMans(look) { var M = root.BOHEMIA_PEOPLE_MIX; if (!M || !M.people || !look) return true; for (var i = 0; i < M.people.length; i++) if (M.people[i].look === look) return M.people[i].sex !== 'f'; return true; }
+  function nameFor(name, look) { if (!name) return name; var m = String(name).match(/^(.*?)( II)?$/), base = m[1]; return MEN_FOR[base] && bodyIsAMans(look) ? MEN_FOR[base] + (m[2] || '') : name; }
   function manOf(def, i) {
     var bg = bgRow(def.background) || { id: def.background, name: def.background, stats: D.backgrounds.base_stats.stats, daily_wage: 10 };
     var R = rng(seed((def.name || 'man') + ':' + i)), st = {}, stars = {};
@@ -159,10 +167,11 @@
     jobs.forEach(function (jb) { var it = itemOf(jb === 'car_door' ? 'shield' : 'weapon', rowsW[jb]); if (!it) return; if (it.kind === 'shield') off = it; else if (!main) main = it; });
     /* RUN TWO rule 202(d): the door he starts with wears its row's own name (the shop's, the stash's), never the bucket word */
     if (main && off && twoHanded(main)) off = null;   /* TWO HANDS: a long gun leaves no hand for the door */
-    return { id: 'm' + i, idx: i, name: def.name, main: !!def.main, background: bg.name || bg.id, bgId: bg.id,
+    var look = lookFor(def, i), nm = nameFor(def.name, look);
+    return { id: 'm' + i, idx: i, name: nm, was: nm !== def.name ? def.name : undefined, main: !!def.main, background: bg.name || bg.id, bgId: bg.id,
       level: 1, xp: 0, points: 0, stats: st, stars: stars, perks: [], wage: Math.max(1, Math.round((bg.daily_wage || 10) / 10)),
       gear: { main: main, off: off, body: itemOf('body', def.body), head: itemOf('head', def.head) },
-      look: lookFor(def, i),
+      look: look,
       pain: def.main ? PAIN_YOU : PAIN[bg.id] || PAIN_POOL[seed(String(def.name || i)) % PAIN_POOL.length], draft: true };
   }
   function startingCrew() { return ((D.ours && D.ours.crew && D.ours.crew.value) || []).map(manOf); }
@@ -336,7 +345,7 @@
     return out;
   }
   /* ==== end __THE_SHOP_SAYS_WHAT_IT_DOES__ ==== */
-  var API = { load: load, armOf: armOf, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
+  var API = { load: load, armOf: armOf, nameFor: nameFor, MEN_FOR: MEN_FOR, worn: worn, wearing: wearing, fightWeapon: fightWeapon, rowOf: rowOf, ownName: ownName, armLine: armLine, xpFor: xpFor, levelOf: levelOf, grant: grant, raise: raise, STAT_KEY: STAT_KEY, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     PAIN_POOL: PAIN_POOL, bgName: bgName, classWord: classWord, weaponName: weaponName, slotFor: slotFor, sheetSrc: sheetSrc, handsOf: handsOf, twoHanded: twoHanded, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;
 })(typeof window !== 'undefined' ? window : this);

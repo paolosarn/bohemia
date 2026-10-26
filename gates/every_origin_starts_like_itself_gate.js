@@ -77,6 +77,17 @@ async function crewScreen(d, mouse) {
 }
 
 (async () => {
+  /* ---- W0 NO MAN WEARS A WOMAN'S NAME (RUN TWO [eyes: the Block Watch's names], rule 203; EYES 10/26: the Block Watch's TINA,
+     MARISOL, LUPE and NENA on men's bodies): every origin's men are named as the crew screen names them (the crew list's place,
+     'II' past it, engine/bohemia_roster.js nameFor), and every body on the rig is a man's until one is built 'f' ---- */
+  {
+    const vm = require('vm'), box = {}; box.window = box; vm.createContext(box);
+    ['engine/bohemia_people_mix.js', 'engine/bohemia_names.js', 'engine/bohemia_roster.js'].forEach(f => vm.runInContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), box));
+    const C = box.BohemiaRoster, N = box.BohemiaNames, defs = J('records/target/bb/ours.json').crew.value, bad = [], all = [];
+    FILE.origins.forEach(o => (o.men || []).forEach((m, i) => { const d = defs[i % defs.length] || {}, nm0 = i >= defs.length ? (d.name || 'MAN') + ' II' : d.name;
+      const nm = C.nameFor(nm0, null), first = nm.split(' ')[0]; all.push(nm); if (N.sexOf(first.charAt(0) + first.slice(1).toLowerCase()) === 'f' || /^(TINA|MARISOL|LUPE|NENA)\b/.test(nm)) bad.push(o.id + ':' + nm); }));
+    ok('W0 NO MAN WEARS A WOMAN\'S NAME in any of the ' + FILE.origins.length + ' origins\' crews (' + all.length + ' men; ' + Object.values(C.MEN_FOR).join(', ') + ' for the four)', bad.length === 0 && all.length > 30, bad.slice(0, 6).join(', '));
+  }
   /* ---- W1 the file ---- */
   const dm = (W.door && W.door.men && W.door.men[0]) || {}, kit = dm.kit || {};
   const kitReal = (kit.main || []).every(id => has(WROWS, id)) && (kit.off || []).every(id => has(ARM.shields, id)) && (kit.body || []).every(id => has(ARM.body, id))
