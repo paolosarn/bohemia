@@ -205,6 +205,36 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-watch4): 10/26 LATEST -- THREE ASKS ANSWERED ([the stupid-move watch] ROUND FOUR, [the tape price against the pay], rule 285's numbers and 254/255's with WORLD), research only, no card (rule 127), no game code touched;
+the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
+1 [the stupid-move watch] ROUND FOUR on main 6585e7a4 (rules adf6f52ced29: the one pace and the rest of 30 on):
+  records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_FOUR_10_26_26.md, bank round adf6f52ced29. THE FATIGUE FIX IS THE BIGGEST CHANGE
+  THE WATCH HAS SEEN: the Lone Wolf 37 -> 57 won of the same 100, his streaks 50 -> 0, every winded idle (525) a rest at full AP,
+  283(d) holds (0 of 2,113 men unable to swing three turns running). DOWN: the Mechanic by the turn 97 -> 65, SPREAD 169 -> 153,
+  LONE 38 -> 28. UP: the idle gunman 278 -> 483 (round one at rule 256's wider opening: splice gap4 puts his crew back at 59 wins
+  from 48 and the idle gunman 50 -> 10), LOW SHOT 220 -> 254, KEY MAN LAST 12 -> 22 (11 of 12 'never' in lost fights). The astray
+  shot costs nothing (splice noastray). Instrument: astray shots skipped as COMBAT's gates do, rests split out, BREATHLESS counted;
+  splices gap4, noastray, rest15, rest45, owedoff. Four NOTEs on COMBAT's board (two FOR COMBAT TWO).
+2 [the tape price against the pay] (rule 284(e)): records/BOHEMIA_TUNING_THE_TAPE_PRICE_AGAINST_THE_PAY_10_26_26.md, the one table's
+  section R (tape.price_holds, tape.bill_live, clout.gains_on_our_clock), bench tools/bohemia_tuning_the_tape_price.js (the live fight's
+  tape, loot sale and men beaten per company + ECONOMY's purse), bank banks/BOHEMIA_TUNING_THE_TAPE_PRICE_10_26_26.json. THE TAPE PRICE
+  STAYS ONE (the back room two). ECONOMY's 70 to 97 percent paid the twelve one skull for a two- or three-skull fight and sold no loot:
+  by size 36 to 51, with the loot sold 24 to 34, on a true one-skull job 16 to 20. THE BROKEN LEVER IS THE CLOUT: +100 a job at five
+  jobs a day is x4.5 pay in about a week (three men 9,935 renown and +650 a day by day 30). THE NUMBER: the clout's gains x0.2 (264(g)'s
+  pace ratio): tape 11 to 27 percent of income for three and twelve, the Lone Wolf on rule 255's jobs 17 to 37; x4.5 near day 50.
+  FOUND: the back room's mark-up is a dead knob at a price of one (tapePrice's +1 floor); ECONOMY's new crew read a pooled group.
+  NOTEs: RUN TWO (renown.json gains, the dead knob), ECONOMY (the bank to read, N re-aimed).
+3 RULE 285 (the one table's section W): the rest 30 is the knee (the Lone Wolf 47 / 57 / 56 at 15 / 30 / 45; the heaviest kit 32 / 54
+  / 54); the hits on a resting man held till his next spending turn are what keep 283(d) (landed at once: 49 and 35, a man stuck six
+  turns). Both KEPT. RULES 254/255 with WORLD: section L now reads 0.8 and 0.5 from ours.odds_colour; section U's curve sits on the same
+  two lines (ramp.one_scale); the pay's clout on the danger's clock (ramp.one_clock); the Lone Wolf's tape is his board
+  (ramp.lone_wolf_tape). NOTE on WORLD's board (its [the danger ramps to day fifty] is still OPEN).
+NOT MEASURED: why his crew's three lose eleven more to the machines at the wider opening (the flips are measured, the mechanism is not);
+  rule 274's 2 to 4 minutes at 1x (COMBAT's NOTE; the headless fight has no clock); wages (the purse counts food only, as ECONOMY's).
+NEXT: [the stupid-move watch] round five on COMBAT TWO's next brain push; [the odds keep up]; [the first week's losses]; [the 32 situations].
+[bb the purse: Battle Brothers' guide calls tools 'a major item of expenditure if enemies keep hitting party members' and food 'the only
+vital resource'; its renown grows by the contract, and a contract there takes days]
+[analog horror: a man stands still in the middle of the fight, breathing, and the count of his breath is the only number that goes up]
 TUNING (tuning-debuff): 10/26 LATEST -- NINE ROWS ANSWERED ([struck down, he still fights], [the clinic's half], [the sell spread], the ceiling ticks, [healing on our clock] x5 written, [the day-fifty curve], [the injury days on our clock], [all eighteen followers], [the stupid-move watch] ROUND THREE), research only, no card (rule 127);
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md, the one table's section S, bench
