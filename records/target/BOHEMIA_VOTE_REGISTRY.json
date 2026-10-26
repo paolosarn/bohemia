@@ -15699,6 +15699,25 @@
      484
     ]
    }
+  },
+  {
+   "id": "animation-the-camps-acts-10-26",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "f2487f30",
+   "made": "10/26",
+   "title": "YOUR CREW AT CAMP: EACH DOING WHAT HE NEEDS",
+   "said": "if I enter camp mode and time is passing by I should see my character and my whole team... healing... repairing their armor... helping other members if they're healthy",
+   "why": "When you make camp your whole crew first pitches it (gear hauled out of the cart, tent stakes hammered in, the fire lit), then each does what he needs: the badly hurt one lies bandaged with a friend kneeling by him, a hurt one binds his arm, one hammers his car door straight, one cooks, one cleans his rifle, your main man sleeps, and when the hurt one heals he gets up. You see it in the VOTE tab moving on the beat, day and night, with HE HEALS and MAKE CAMP AGAIN buttons.",
+   "options": [
+    "A, yes, this is the camp",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_CAMPS_ACTS.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
