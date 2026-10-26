@@ -1,0 +1,138 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Camp</title>
+<!-- ANIMATION [the camp's acts], rule 259 (Paolo 10/26: 'if I enter camp mode and time is passing by I should see my
+     character and my whole team... healing... repairing their armor... helping other members if they're healthy'). His own men
+     from the game's own pictures (slices/rig_town, played by engine/bohemia_idles.js, the call CAMP drives from each man's
+     condition) round a fire on a scrap of ground; the fire is drawn here, the camp's own is CAMP's. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 4px;color:var(--gold)}
+  p{margin:0 0 12px;color:#a49a86;max-width:60ch}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:11px;letter-spacing:1.5px;margin-bottom:6px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .tag{color:var(--gold);font-size:10px;letter-spacing:1px}
+  canvas{width:100%;display:block;image-rendering:pixelated;background:#0a0c11;border-radius:3px}
+  button{font:inherit;font-size:11px;letter-spacing:1px;background:#1d1c24;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 10px;margin:0 6px 8px 0}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  .note{margin-top:10px;color:#6f6862;max-width:60ch}
+  .who{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:11px;color:#8d8478;margin-top:8px}
+  .who b{color:var(--ink);font-weight:normal;letter-spacing:1px}
+</style>
+<h1>THE CAMP</h1>
+<p>When you make camp, you see your whole crew, each doing what he needs. The badly hurt one lies bandaged with a friend
+kneeling by him, a hurt one binds his cut by the fire, one hammers his car door straight, one cooks, one cleans his rifle,
+one sleeps. When the hurt one heals, he gets up. First they pitch it: two pull the gear out of the cart, two drive the
+tent stakes, one lights the fire.</p>
+<div class="row"><div class="lab"><span>YOUR CREW AT CAMP</span><span class="tag" id="state">LOADING</span></div>
+<button id="dim">NIGHT</button><button id="zoom">CLOSER</button><button id="heal">HE HEALS</button><button id="pitch">MAKE CAMP AGAIN</button>
+<canvas id="cv"></canvas>
+<div class="who">
+<b>PITCHING IT</b><span>gear hauled out of the shopping cart and tossed on the pile, tent stakes hammered in, a lighter at the laid fire, blowing on it</span>
+<b>BADLY HURT</b><span>on his back, a bloody wrap round his belly, a hand pressed on it, a knee drawn up; a friend kneels by him</span>
+<b>HURT</b><span>sitting by the fire, winding a rag round his arm, the end pulled tight in his teeth</span>
+<b>ARMOUR BROKEN</b><span>down on a knee at his car door, a hammer on the beat, tape run round it</span>
+<b>HEALTHY</b><span>cooking at the pot, cleaning his rifle, sleeping on his bedroll at night, helping the hurt</span>
+<b>HEALED</b><span>gets up off the ground, once, and joins the others (tap HE HEALS)</span>
+</div></div>
+<p class="note">Who does what comes from each man's health and gear, and it changes as the hours pass. The fire here is
+only for this card. Held keys on the beat, the same stop-motion as everything else.</p>
+<script>window.BOHEMIA_IDLES_BASE = '../rig_idles/'; window.BOHEMIA_TOWN_BASE = '../rig_town/';</script>
+<script src="../../engine/bohemia_idles.js"></script>
+<script>
+(function(){
+  var cv = document.getElementById('cv'), cx = cv.getContext('2d'), I = window.BohemiaIdles;
+  var GW = 640, GH = 330, zoom = 2, dim = false;
+  cv.width = GW; cv.height = GH;
+  var FR = null, IMG = {};
+  var DEAD = [];   /* nobody dead at camp */
+  var FIRE = { x: 310, y: 236 }, healAt = null, CART = { x: 200, y: 262 }, pitchAt = null, PITCH_MS = 8000;
+  /* they pitch it first (rule 269(c)): two slots, then the camp; a man with no pitching pictures yet does his camp act */
+  var PITCH = {
+    person_town_0: { act: 'light', f: 2, x: FIRE.x - 27, y: FIRE.y },
+    person_town_2: { act: 'unpack', f: 2, x: CART.x - 50, y: CART.y - 8 },
+    you: { act: 'unpack', f: 6, x: CART.x + 50, y: CART.y - 4 },
+    person_town_3: { act: 'stake', f: 2, x: 110, y: 170 },
+    person_town_1: { act: 'stake', f: 6, x: 540, y: 196 },
+    person_town_4: { act: 'stake', f: 0, x: 420, y: 120 },
+    person_town_5: { act: 'bind', f: 6, x: 480, y: 262 } };
+  /* his men: look, act, facing (0 S, 2 E, 4 N, 6 W), where his feet stand; the looter and the tender face their man */
+  var MEN = [
+    { look: 'person_town_5', act: 'lie', f: 2, x: 470, y: 250, n: 0, hurt: true },
+    { look: 'person_town_1', act: 'tend', f: 0, x: 440, y: 214, n: 1 },
+    { look: 'person_town_2', act: 'mend', f: 1, x: 250, y: 170, n: 2 },
+    { look: 'person_town_3', act: 'repair', f: 2, x: 90, y: 260, n: 3 },
+    { look: 'person_town_0', act: 'cook', f: 2, x: 270, y: 236, n: 4 },
+    { look: 'person_town_4', act: 'clean', f: 7, x: 400, y: 150, n: 5 },
+    { look: 'you', act: 'sleep', f: 2, x: 120, y: 140, n: 6 } ];
+  fetch('../fight_rig/fight_rig.json').then(function(r){ return r.json(); }).then(function(j){ FR = j; });
+  function img(src){ if(!IMG[src]){ IMG[src] = new Image(); IMG[src].src = src; } return IMG[src]; }
+  /* the ground: dust, a few stones, the fight's tile line faint (the board where they fell); grain, nothing that moves */
+  var G = document.createElement('canvas'); G.width = GW; G.height = GH;
+  (function(){ var g = G.getContext('2d'); g.fillStyle = '#2b2721'; g.fillRect(0, 0, GW, GH);
+    var s = 7; function r(){ s = (s * 16807) % 2147483647; return s / 2147483647; }
+    for (var i = 0; i < 6000; i++){ var v = r(); g.fillStyle = v < .5 ? '#26221d' : v < .85 ? '#302b24' : '#3a342b'; g.fillRect(Math.floor(r()*GW), Math.floor(r()*GH), 1 + (r() < .2 ? 1 : 0), 1); }
+    for (var k = 0; k < 70; k++){ g.fillStyle = r() < .5 ? '#45403a' : '#1c1915'; g.fillRect(Math.floor(r()*GW), Math.floor(r()*GH), 2, 1); }
+    g.fillStyle = 'rgba(0,0,0,.18)'; for (var y = 0; y < GH; y += 2) g.fillRect(0, y, GW, 1); })();
+  function drawDead(d){
+    if (!FR) return; var L = FR.looks[d.look]; if (!L) return; var im = img('../fight_rig/' + L.file); if (!im.complete || !im.naturalWidth) return;
+    var col = FR.cols.indexOf('fall@2');
+    cx.drawImage(im, col * L.w, d.f * L.h, L.w, L.h, Math.round(d.x - L.foot[0]), Math.round(d.y - L.foot[1]), L.w, L.h);
+  }
+  function drawFire(now){
+    var k = Math.floor(now / (500 / 3)) % 4, cols = ['#8a3a12', '#c1641c', '#e3a03a', '#f2d27a'];
+    cx.fillStyle = '#1d1a16'; cx.fillRect(FIRE.x - 9, FIRE.y - 2, 18, 4);
+    for (var i = 0; i < 4; i++){ var h = [7, 10, 6, 9][(i + k) % 4]; cx.fillStyle = cols[i]; cx.fillRect(FIRE.x - 6 + i * 3, FIRE.y - h, 3, h); }
+    return 0;
+  }
+  function drawCart(){   /* CAMP TWO's cart is the real one; a shopping cart's shape for this card, at the men's scale (57 px a metre: 0.9 m long, 1 m to its rim) */
+    var x = CART.x - 26, y = CART.y - 50;
+    cx.fillStyle = '#121215'; cx.fillRect(x + 3, y + 46, 5, 4); cx.fillRect(x + 44, y + 46, 5, 4);
+    cx.fillStyle = '#6d6f72'; cx.fillRect(x + 4, y + 26, 2, 21); cx.fillRect(x + 45, y + 26, 2, 21); cx.fillRect(x + 3, y + 44, 46, 2);
+    cx.fillStyle = '#5b5d60'; cx.fillRect(x - 6, y - 4, 2, 10); cx.fillRect(x - 6, y - 4, 8, 2);
+    cx.fillStyle = '#6d6f72'; cx.fillRect(x, y, 52, 27); cx.fillStyle = '#26272a'; cx.fillRect(x + 2, y + 2, 48, 23);
+    cx.fillStyle = '#4c4e51'; for (var i = 6; i < 50; i += 5) cx.fillRect(x + i, y + 2, 1, 23); cx.fillRect(x + 2, y + 13, 48, 1);
+    cx.fillStyle = '#6b5a3c'; cx.fillRect(x + 6, y + 4, 14, 9); cx.fillStyle = '#3f4a33'; cx.fillRect(x + 22, y + 6, 18, 8);
+    cx.fillStyle = '#8a8378'; cx.fillRect(x + 30, y + 2, 12, 5);
+    return 0;
+  }
+  function drawMan(m, now){
+    if (!I || !I.activity) return 0;
+    var pm = pitching(now) ? PITCH[m.look] : null;
+    if (pm){
+      var qp = I.activity(m.look, 'pitch:' + m.look, now, pm.f, { act: pm.act, n: m.n });
+      if (qp){ cx.drawImage(qp.img, qp.x, qp.y, qp.w, qp.h, Math.round(pm.x - (qp.foot[0] - qp.dx)), Math.round(pm.y - (qp.foot[1] - qp.dy)), qp.w, qp.h); return 1; }
+    }
+    var act = m.act, o = { act: act, n: m.n, pair: m.pair, partner: m.partner };
+    if (m.hurt && healAt !== null){ act = o.act = now - healAt < 4000 ? 'rise' : 'smoke'; o.since = healAt; }
+    var q = I.activity(m.look, 'camp:' + m.look, now, m.f, o);
+    if (!q) return 0;
+    cx.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(m.x - (q.foot[0] - q.dx)), Math.round(m.y - (q.foot[1] - q.dy)), q.w, q.h);
+    return 1;
+  }
+  function frame(now){
+    var vw = zoom === 2 ? GW : 320, vh = zoom === 2 ? GH : 165, ox = zoom === 2 ? 0 : 160, oy = zoom === 2 ? 0 : 90;
+    cv.width = vw; cv.height = vh; cx.imageSmoothingEnabled = false;
+    cx.setTransform(1, 0, 0, 1, -ox, -oy);
+    cx.drawImage(G, 0, 0);
+    if (pitchAt === null) pitchAt = now;
+    var all = [pitching(now) ? { y: CART.y, f: drawCart } : { y: FIRE.y, f: function(){ return drawFire(now); } }].concat(DEAD.map(function(d){ return { y: d.y - 6, f: function(){ drawDead(d); } }; }))
+      .concat(MEN.map(function(m){ var pm = pitching(now) && PITCH[m.look]; return { y: pm ? pm.y : m.y, f: function(){ return drawMan(m, now); } }; }));
+    all.sort(function(a, b){ return a.y - b.y; });
+    var drawn = 0; all.forEach(function(e){ drawn += e.f() || 0; });
+    cx.setTransform(1, 0, 0, 1, 0, 0);
+    if (dim){ cx.fillStyle = 'rgba(8,8,12,.62)'; cx.fillRect(0, 0, vw, vh); }
+    document.getElementById('state').textContent = drawn ? drawn + ' MEN ON THE BEAT' : 'LOADING';
+    cv.style.height = (cv.clientWidth * vh / vw) + 'px';
+    requestAnimationFrame(frame);
+  }
+  document.getElementById('dim').onclick = function(){ dim = !dim; this.classList.toggle('on', dim); };
+  document.getElementById('heal').onclick = function(){ healAt = performance.now(); };
+  document.getElementById('pitch').onclick = function(){ pitchAt = performance.now(); healAt = null; };
+  function pitching(now){ return pitchAt !== null && now - pitchAt < PITCH_MS; }
+  document.getElementById('zoom').onclick = function(){ zoom = zoom === 2 ? 3 : 2; this.classList.toggle('on', zoom === 3); };
+  requestAnimationFrame(frame);
+})();
+</script>

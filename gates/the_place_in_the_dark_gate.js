@@ -27,6 +27,7 @@
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+const { leaveTown } = require(path.join(__dirname, '..', 'tools/bohemia_leave_the_town.js'));
 const ONLY = process.argv[2] || null;
 const SHOTS = process.env.DARK_SHOTS || null;
 
@@ -50,8 +51,9 @@ async function play(profile) {
      settlement screen; this gate measures the map, so it leaves the town the way a player does: a real tap on LEAVE */
   if (await waitFor(() => fr.evaluate(() => !!(window.__START_IN_TOWN && window.__START_IN_TOWN.opened)), 20000)) {
     await page.waitForTimeout(1200);
-    const sf = page.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url())), lv = sf && await sf.$('#leave'), bx = lv && await lv.boundingBox();
-    if (bx) { if (TOUCH) await page.touchscreen.tap(bx.x + bx.width / 2, bx.y + bx.height / 2); else await page.mouse.click(bx.x + bx.width / 2, bx.y + bx.height / 2); }
+    /* rule 286(b) (UI TWO): the one LEAVE on screen is the phone's in the game, the town's own on its page alone */
+    const sf = page.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
+    await leaveTown(page, sf, { ms: 4000, mouse: !TOUCH });
     await waitFor(() => fr.evaluate(() => !LOOP.open), 8000); await page.waitForTimeout(600);
   }
 

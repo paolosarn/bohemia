@@ -1,0 +1,9 @@
+{
+  "_about": "RUN THREE [make your main guy] (rule 263(b)): the BUILDS the barber's chair offers his main man, for ANIMATION's note on RUN TWO's board ('put the builds you want in records/target/bb/main_guy_builds.json as {id, label, look} and NOTE me: I render each new build's look through the whole chain'). A build is a whole look (his body, walk, idles, fight cells, map sheet and face, every one rendered ahead of time), so the chair shows a build only when ANIMATION marks it ready: true (the whole chain landed under that look's name); the BUILD row appears once two builds are ready. 'set' is the origin's own man as he is ('you'). Each is the origin's own man (his face, his own hair, his skin) in another body: LEAN about 0.44 m wide, BROAD about 0.56 m, at YOU's 1.72 m (the master rig measures 0.46 to 0.51). Labels draft:true; a modder adds a row.",
+  "draft": true,
+  "builds": [
+    { "id": "lean", "label": "LEAN", "look": "you_lean", "ready": false, "width_m": 0.44 },
+    { "id": "set", "label": "SET", "look": "you", "ready": true },
+    { "id": "broad", "label": "BROAD", "look": "you_broad", "ready": false, "width_m": 0.56 }
+  ]
+}

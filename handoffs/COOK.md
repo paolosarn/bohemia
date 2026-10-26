@@ -1,5 +1,5 @@
-COOK (cook-town-screens, the towns both ways): 10/26 LATEST -- four rows this round (the coordinator's order), each BUILT, NOT
-YET SEEN (rule 179) unless said:
+COOK (cook-town-screens, the towns both ways): 10/26 LATEST -- five rows this round (the coordinator's order and rule 279), each
+BUILT, NOT YET SEEN (rule 179) unless said:
 - [every enemy reads at night] (line 3, EYES q43) SHIPPED 345af4a9: the fight page picks the night for the MAN on his tile (his own
   sheet's light against the tile's): the old pick where it reads 1.45 to 1, else the gentlest lift that does (MOONLIT, his picture
   screened over itself). The Kids 1.08 -> 1.45 on the strip's darkest tenth, all 86 looks 1.43 or more. Gate EVERY ENEMY READS AT
@@ -10,8 +10,18 @@ YET SEEN (rule 179) unless said:
   THE STRIP 5/5. Record records/BOHEMIA_COOK_THE_STRIP_CLOSE_IN_10_25_26.md.
 - [the map stands taller] (rule 196): nothing of COOK's to redraw (VB_ONE_MAP: no close-end pictures); NOTE on RUN's board with the
   one place every texel's height lands (HS[o] = lift), so the towns (twPaint's TW_L) and the Strip (stripResort's TH) rise with it.
-- [every town looks its own] (line 106) + [every town built for tall and wide] (rule 220, line 142): see the record
-  records/BOHEMIA_COOK_EVERY_TOWN_TALL_AND_WIDE_10_26_26.md (filled at ship).
+- [every town looks its own] (line 106) + [every town built for tall and wide] (rule 220, line 142) + [the phone's corner, either
+  side] (rule 279, line 219) BUILT 0cc15f6c, cb2c18c6, dc43efc2: all fourteen home bases their own picture, wide 2060 x 1092 and
+  upright 1024 x 1820, day and night, in slices/settlement_ground_towns/ (56 pictures, settlement_ground.json towns[name].wide and
+  .tall with hotspots, boxes, doors, both street ends, zoom_max; settlement_walk.json blocks for every picture). Nothing he taps
+  and no keeper under UI TWO's phone, either side, both ways (no twin needed). Gates EVERY TOWN TALL AND WIDE 10/0 and EVERY TOWN
+  SCREEN ITS OWN 8/0, both in the suite. NOT IN A TAB YET: RUN TWO wires them (NOTE on its board). Record
+  records/BOHEMIA_COOK_EVERY_TOWN_TALL_AND_WIDE_10_26_26.md; side by side records/target/cook_town_screens/sheet_tall_and_wide.jpg.
+- THE GLIDE'S PAIRS (rule 289(b)) SHIPPED 21fc51f5: settlement_ground.json towns[name].glide, 351 pieces across the fourteen, every
+  building and tap ONE id in both compositions with both spots (box, foot px, foot metres), the taps that are part of a piece riding
+  it, one beat 500 ms. tools/bohemia_cook_every_town_the_glide_10_26_26.py writes it from the scenes' measure; both composers re-run
+  it after they ship. Gate EVERY TOWN TALL AND WIDE leg 10 (11/0) fails a stale plan. NOTE on RUN TWO's board. If RUN TWO wants
+  cut-outs to the outline, the next step is an id map per picture (Blender, an object-index pass).
 
 THE TOOLS: tools/bohemia_cook_every_town_its_own_screen_10_25_26.py (the wide, 10/25's layout), tools/bohemia_cook_every_town_tall_and_
 wide_10_26_26.py (the upright: one plan, the same builders, its own layouts per tier; --layout-only builds and checks without the
@@ -20,6 +30,9 @@ two renders at once ran out of the session's 14.3 GB and were killed four times 
 Renders run about 15 minutes a town (day and night).
 GATES: EVERY TOWN SCREEN ITS OWN (the wide half), EVERY TOWN TALL AND WIDE (both ways), EVERY ENEMY READS AT NIGHT, THE STRIP READS AS
 THE STRIP.
-NEXT: whatever of the above the record says is still rendering; then EYES' word on lines 3, 64, 106, 142.
+NEXT: the camp's pieces through the master rig for CAMP TWO (its NOTE: slices/camp_two/kit.png at kit.json's rects and feet, and
+a camp-sized trailer), then [the fifty perk icons], then [the armour's art]. EYES' word on lines 3, 64, 106, 142, 219 once RUN TWO wires the towns; any town EYES names gets its layout moved in the tool
+and re-rendered (python tools/..._tall_and_wide_10_26_26.py <Town> --no-ship, then --swap-only; the wide likewise), the check
+refuses a layout before its render. Then the next COOK row on the board.
 [bb Battle Brothers' town screen is one landscape panorama; ours turns with the phone and re-lays, never letterboxes.]
 [analog horror: the towns are built, not painted: every wall stands where a camera at 45 degrees would find it at noon and at night.]

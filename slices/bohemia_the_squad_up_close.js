@@ -48,6 +48,15 @@
     var I = root.BohemiaIdles; if (!I || !I.activity || !m.look) return null;
     var act = ACTS[i % ACTS.length], has = I.activities ? I.activities(m.look) : [];
     if (has.indexOf(act) < 0) act = has.filter(function (a) { return ACTS.indexOf(a) >= 0; })[0] || has[0];
+    /* a man with no town pictures (the main guy he made of a man of the valley, rule 263(b)) breathes his own idle, the crew card's */
+    if (!act && I.frame) { var W0 = 88, H0 = 128, c0 = doc.createElement('canvas'); c0.width = W0 * z; c0.height = H0 * z; c0.dataset.look = m.look; c0.dataset.face = 'wait'; c0.dataset.act = 'idle';
+      var x0 = c0.getContext('2d'), k0 = '', f0 = i % 2 ? 7 : 1, o0 = { set: 'bare', since: now };
+      return { c: c0, draw: function (t) { var q = I.frame(m.look, 'tape:' + (m.name || m.look), t, f0, o0); if (!q || !q.img) return false;
+        var k = q.img.src + ':' + q.x + ':' + q.y; if (k === k0) return true; k0 = k;
+        x0.setTransform(1, 0, 0, 1, 0, 0); x0.imageSmoothingEnabled = false; x0.clearRect(0, 0, c0.width, c0.height);
+        x0.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(W0 * z / 2 - (q.foot[0] - q.dx) * z), Math.round((H0 - 4) * z - (q.foot[1] - q.dy) * z), q.w * z, q.h * z);
+        c0.dataset.face = 'cell'; return true; } };
+    }
     if (!act) return null;
     var f = i % 2 ? 7 : 1, o = { act: act, n: i, since: now };
     if (act === 'talk' && pairOf) { o.pair = pairOf.pair; if (pairOf.partner) o.partner = true; f = pairOf.partner ? 7 : 1; }
@@ -132,7 +141,8 @@
     timers.push(setTimeout(arm, QUIET));
     song('intro');
     /* the quiet second loads them: every man's index and his first sheet (a call to activity starts the fetch) */
-    try { var I0 = root.BohemiaIdles; if (I0 && I0.activities) men.forEach(function (m) { if (m.look) { I0.activities(m.look); ACTS.forEach(function (a) { I0.activity(m.look, 'tape:' + m.name, performance.now(), 1, { act: a, n: 0 }); }); } }); } catch (e) {}
+    try { var I0 = root.BohemiaIdles; if (I0 && I0.activities) men.forEach(function (m) { if (m.look) { I0.activities(m.look); ACTS.forEach(function (a) { I0.activity(m.look, 'tape:' + m.name, performance.now(), 1, { act: a, n: 0 }); });
+      if (I0.frame) I0.frame(m.look, 'tape:' + m.name, performance.now(), 1, { set: 'bare' }); } }); } catch (e) {}
     var zoom = function (frac) { var vh = (doc.defaultView || root).innerHeight || 800; return Math.max(1, Math.min(5, Math.floor(vh * frac / 118))); };
     var bodyOr = function (m, i, z, pair) { var b = body(doc, m, i, z, performance.now(), pair); if (b && b.draw(performance.now())) { b.c.className = 'cell'; live.push(b); return b.c; } return head(doc, m.look, 128); };
     faces(o.base, function () {

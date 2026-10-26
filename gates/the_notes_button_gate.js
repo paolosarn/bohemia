@@ -101,6 +101,21 @@ const done = () => { console.log('\nTHE NOTES BUTTON: ' + pass + ' ok, ' + fail 
              matchesChips: !!(mine && chips.length && chips.every(c => c.px === mine.px)),
              inks: inks.map(x => x.id + ':' + x.px).join(' ') };
   }, MIN);
+  /* RE-AIMED 10/26 BY UI TWO (rules 238(a)(b)(c), 286(b), Paolo 10/26: 'all the buttons are gonna be on the iPhone', newest wins over
+     his 9/20 'top right'): with the phone up NOTES is the phone's NOTES icon (a notepad and a pencil, read by its shape, no word),
+     in his corner, pressing the bar's own NOTES, whose copy is off the glass; tiny is fine (24 points or more). Without the phone,
+     the bar's legs as before. */
+  const PN = await d.page.evaluate(() => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=notes]'); if (!e) return null;
+    const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2), ph = document.getElementById('bohphone').getBoundingClientRect();
+    return { w: Math.round(r.width), h: Math.round(r.height), at: [r.x + r.width / 2, r.y + r.height / 2], reaches: !!h && e.contains(h),
+      inPhone: r.left >= ph.left && r.right <= ph.right && r.top >= ph.top && r.bottom <= ph.bottom, img: !!e.querySelector('img'), label: e.getAttribute('aria-label') }; });
+  if (PN) {
+    const copy = await d.fr.evaluate(() => { const b = document.getElementById('notebtn'); return !!b && b.getBoundingClientRect().width > 0; });
+    ok('the notes button is on the screen he plays: the phone\'s NOTES, in his corner, an icon', PN.inPhone && PN.img && PN.label === 'notes', PN.w + 'x' + PN.h);
+    ok('and the bar has no second NOTES (no button twice)', !copy);
+    ok('its reach is 24 points or more (tiny is fine, 238(b))', PN.w >= 24 && PN.h >= 24, PN.w + 'x' + PN.h);
+    ok('a real finger at its centre reaches it', PN.reaches);
+  } else {
   ok('the notes button is on the screen he plays', !!btn);
   if (!btn) { await d.close(); done(); }
   ok('it is the rightmost control in the top bar, which is where he said it is',
@@ -110,10 +125,11 @@ const done = () => { console.log('\nTHE NOTES BUTTON: ' + pass + ' ok, ' + fail 
   ok('and its reach is still 44, because THE THUMB is a law and tiny is about the ink',
      btn.reach44, btn.w + 'x' + btn.h);
   ok('a real finger at its centre reaches it', btn.reaches);
+  }
 
   /* ---- 2. ONE TAP IN, AND NOTHING HAS BEEN TOUCHED BEFORE IT -------------- */
   const before = await state();
-  await d.tapAt(btn.at[0], btn.at[1]);
+  if (PN) await d.page.touchscreen.tap(PN.at[0], PN.at[1]); else await d.tapAt(btn.at[0], btn.at[1]);   /* the phone is the shell's: its own pixels */
   await d.page.waitForTimeout(700);
   const opened = await d.fr.evaluate(() => ({
     on: !!document.querySelector('#notewrap.on'),

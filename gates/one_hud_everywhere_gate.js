@@ -46,7 +46,12 @@ const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const TOL = 1.5, PIC = 0.02;
-const PIECES = ['bar', 'day', 'crew', 'gear', 'notes', 'glass'];   /* the place is said only where it is a place (rule 262(a)) */
+const ALL_PIECES = ['bar', 'day', 'crew', 'gear', 'notes', 'glass'];   /* the place is said only where it is a place (rule 262(a)) */
+/* RE-AIMED 10/26 BY UI TWO (rules 238(a), 286(b): every press on the phone, no button twice): with the phone up the bar's gear and
+   NOTES are the phone's SETTINGS and NOTES (their copies off the glass) and the bar's crew chip is a readout (his lead's face, the
+   head count, their blood; its press is the phone's CREW). The bar's pieces read are then the bar, the day, the crew chip and the
+   glass; the phone's three are held below. Without the phone (an older build) all six, as before. */
+let PIECES = ALL_PIECES.slice();
 
 /* the bar's pieces and facts, read in whichever page carries the bar */
 const READ = () => {
@@ -56,7 +61,8 @@ const READ = () => {
   const out = { rect: {}, at: {} };
   for (const k in S) { const e = vis(S[k]); if (!e) { out.rect[k] = null; continue; }
     const r = e.getBoundingClientRect(); out.rect[k] = [r.x, r.y, r.width, r.height];
-    const h = document.elementFromPoint(r.x + r.width / 2, r.y + Math.min(r.height / 2, 14)); out.at[k] = !!h && (h === e || e.contains(h)); }
+    const h = document.elementFromPoint(r.x + r.width / 2, r.y + Math.min(r.height / 2, 14)), ro = getComputedStyle(e).pointerEvents === 'none', bar = document.getElementById('bmtb');
+    out.at[k] = !!h && (h === e || e.contains(h) || (ro && !!bar && bar.contains(h))); }   /* a readout lets a finger through to the bar under it */
   const t = s => { const e = vis(s); return e ? e.textContent.replace(/\s+/g, ' ').trim() : null; };
   out.facts = { day: t('#bmtb [data-f=day] b'), crew: t('#bmtb [data-f=crew] b'), batteries: t('#bmtb [data-f=batteries] b'), place: t('#bmtb [data-f=place]') };
   /* said ONCE: never at the glass's end and in the presses' row both */
@@ -115,6 +121,13 @@ async function side(profile) {
     await fr.evaluate(() => document.fonts.ready); await p.waitForTimeout(1500);
     /* ---- THE MAP ---- */
     const M = await fr.evaluate('(' + READ + ')()'), MP = await fr.evaluate('(' + PHONE + ')()'), Ms = await shot();
+    const ON = await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-on'));
+    PIECES = ON ? ['bar', 'day', 'crew', 'glass'] : ALL_PIECES.slice();
+    const PH3 = () => p.evaluate(() => ['crew', 'notes', 'settings'].map(a => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=' + a + ']'); if (!e) return a + ' missing';
+      const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && h && e.contains(h) ? null : a + ' covered'; }).filter(Boolean));
+    if (ON) { const miss = await PH3(), copies = await fr.evaluate(() => ['#bmtb .t.gear', '#bmtb #notebtn'].filter(q => { const e = document.querySelector(q); return !!e && e.getBoundingClientRect().width > 0; }));
+      const ro = await fr.evaluate(() => { const e = document.querySelector('#bmtb .t.crew'); return !!e && getComputedStyle(e).pointerEvents === 'none'; });
+      ok('the map: CREW, NOTES and SETTINGS are on the phone, on top; the bar has no gear or NOTES, its crew chip a readout (238(a), 286(b))', !miss.length && !copies.length && ro, (miss.join(' ') || 'all three on the phone') + '; on the bar ' + (copies.join(' ') || 'none') + ', crew chip readout ' + ro); }
     ok('the map: the bar and its pieces are on the glass', PIECES.every(k => M.rect[k] && M.rect[k][2] > 0), PIECES.filter(k => !M.rect[k]).join(' '));
     ok('  nothing of the map lies over the bar', PIECES.every(k => M.at[k]), PIECES.filter(k => !M.at[k]).join(' '));
     ok('  no ground or tile name on the map\'s bar (rule 262(a): \'the character sees it visually\')', M.placeShown === 0 && !M.groundOnBar && !!M.ground, 'the ground ' + M.ground + ' kept in the code; on the bar: ' + (M.placeShown ? M.facts.place : 'nothing'));
@@ -167,12 +180,16 @@ async function side(profile) {
         const up = await fr.evaluate((pts) => { const f = document.getElementById('settleFrame').getBoundingClientRect(); return pts.map(q => { const h = document.elementFromPoint(f.x + q.r[0] + q.r[2] / 2, f.y + q.r[1] + q.r[3] / 2); return h ? (h.id || h.tagName) : null; }); }, T);
         T.forEach((q, i) => { if (up[i] !== 'settleFrame') { q.ok = false; q.on = 'the map page\'s ' + up[i]; } });
         return B.concat(T); };
-      const L = await TP();
-      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job)', L.length >= 8 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
+      /* with the phone up its presses are the town's too (LEAVE, CREW, NOTES, SETTINGS, PLAY, HEAL: rule 238(a)) */
+      const TPP = async () => (await TP()).concat(ON ? await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .app, #bohphone .bpctx .lv') + ')') : []);
+      const L = await TPP();
+      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job' + (ON ? ', the phone\'s' : '') + ')', L.length >= 8 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
       if (PLANT) {
-        await sf.evaluate(() => { const l = document.getElementById('leave'), r = l.getBoundingClientRect(), d = document.createElement('div'); d.id = 'plantcover';
+        if (ON) await p.evaluate(() => { const l = document.querySelector('#bohphone .bpctx .lv'), r = l.getBoundingClientRect(), d = document.createElement('div'); d.id = 'plantcover';
           d.style.cssText = 'position:fixed;z-index:99999;left:' + r.x + 'px;top:' + r.y + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; document.body.appendChild(d); });
-        const L2 = await TP(); await sf.evaluate(() => document.getElementById('plantcover').remove());
+        else await sf.evaluate(() => { const l = document.getElementById('leave'), r = l.getBoundingClientRect(), d = document.createElement('div'); d.id = 'plantcover';
+          d.style.cssText = 'position:fixed;z-index:99999;left:' + r.x + 'px;top:' + r.y + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; document.body.appendChild(d); });
+        const L2 = await TPP(); if (ON) await p.evaluate(() => document.getElementById('plantcover').remove()); else await sf.evaluate(() => document.getElementById('plantcover').remove());
         ok('PLANTED: a sheet laid over LEAVE is caught', L2.some(x => !x.ok && /leave/i.test(x.id)), pressSay(L2).slice(0, 80));
       }
       await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await p.waitForTimeout(400);
@@ -181,12 +198,18 @@ async function side(profile) {
     /* RE-AIMED 10/26 BY UI TWO (rule 213; the marked line in the TOWN lift): when the one phone holds the right corner, LEAVE keeps
        that corner standing right over the phone (its bottom within 30 points over the phone's top, its right at the phone's) */
     const PR = await sf.evaluate(() => { try { const r = BOH_PHONE_RECT(); return r && r.on && r.side === 'right' ? r : null; } catch (e) { return null; } });
-    ok(PR ? '  LEAVE keeps the big action\'s corner, right over the phone in it, 44 points' : '  LEAVE keeps the big action\'s corner (bottom right, where the map\'s speed pad is), 44 points',
+    /* rules 238(a), 286(b): with the phone up LEAVE is the phone's (the band under PLAY and HEAL, a door with an arrow), on top, inside
+       the phone; the town's own LEAVE is off the glass */
+    if (ON) { const PL = await p.evaluate(() => { const e = document.querySelector('#bohphone.on .bpctx.town .lv'), ph = document.getElementById('bohphone'); if (!e) return null;
+        const r = e.getBoundingClientRect(), q = ph.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+        return { r: [r.x, r.y, r.width, r.height], inside: r.left >= q.left && r.right <= q.right && r.top >= q.top && r.bottom <= q.bottom, top: !!h && e.contains(h) }; });
+      ok('  LEAVE is the phone\'s in the town, inside it and on top; the town\'s own is off the glass', !!PL && PL.inside && PL.top && !(L && L[2] > 0), PL ? fmt(PL.r) + ' on the phone, the town\'s ' + (L && L[2] > 0 ? fmt(L) : 'off') : 'no LEAVE on the phone'); }
+    else ok(PR ? '  LEAVE keeps the big action\'s corner, right over the phone in it, 44 points' : '  LEAVE keeps the big action\'s corner (bottom right, where the map\'s speed pad is), 44 points',
       !!L && L[2] >= 44 && L[3] >= 44 && (PR ? L[0] + L[2] >= PR.right - 30 && L[1] + L[3] <= PR.top + 0.5 && L[1] + L[3] >= PR.top - 30 : L[0] + L[2] >= LW - 30 && L[1] + L[3] >= LH - 40),
       L && fmt(L) + ' of ' + LW + 'x' + LH + (PR ? ', the phone from ' + Math.round(PR.top) + ' down' : ''));
     {
       const diffs = {};
-      for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, Ms, Ts, M.rect[k], dpr, k === 'glass' ? t1.T.rect.place : null);
+      for (const k of PIECES.filter(k => k !== 'bar')) diffs[k] = await picDiff(cmp, Ms, Ts, M.rect[k], dpr, k === 'glass' ? t1.T.rect.place : null);
       ok('  the same picture as the map\'s, piece by piece (the place\'s words left out)', Object.values(diffs).every(v => v < PIC), Object.entries(diffs).map(([k, v]) => k + ' ' + (v * 100).toFixed(2) + '%').join(', '));
     }
     {
@@ -228,13 +251,15 @@ async function side(profile) {
       ok('the fight: every piece of the bar in the map\'s rectangle', PIECES.every(k => near(MB.rect[k], F.rect[k])),
         PIECES.filter(k => !near(MB.rect[k], F.rect[k])).map(k => k + ' ' + fmt(MB.rect[k]) + ' vs ' + fmt(F.rect[k])).join(' | '));
       ok('  nothing of the fight lies over the bar', PIECES.every(k => F.at[k]), PIECES.filter(k => !F.at[k]).join(' '));
-      { const L = await f.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
+      /* UI TWO (rule 238(a)): with the phone up the fight's presses are the phone's (the big button, WAIT, RETREAT, AUTO, the speed, his
+         abilities, CREW, NOTES, SETTINGS), so they are counted with the fight page's own */
+      { const L = (await f.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')')).concat(await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .fight.on [data-c], #bohphone .fight.on .sk:not([disabled]), #bohphone .fight.on .app') + ')'));
         ok('  nothing covers a press in the fight', L.length >= 4 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
       ok('  no ground or tile name on the fight\'s bar (rule 262(a))', F.placeShown === 0 && !F.groundOnBar, 'on the bar: ' + (F.placeShown ? F.facts.place : 'nothing') + ', the map\'s ground ' + MB.ground);
       ok('  the same facts as the map\'s (the day, the crew, the batteries)', ['day', 'crew', 'batteries'].every(k => F.facts[k] && F.facts[k] === MB.facts[k]), JSON.stringify(F.facts) + ' vs ' + JSON.stringify(MB.facts));
       {
         const diffs = {};
-        for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, MBs, Fs, MB.rect[k], dpr, null);
+        for (const k of PIECES.filter(k => k !== 'bar')) diffs[k] = await picDiff(cmp, MBs, Fs, MB.rect[k], dpr, null);
         ok('  the same picture as the map\'s, piece by piece', Object.values(diffs).every(v => v < PIC), Object.entries(diffs).map(([k, v]) => k + ' ' + (v * 100).toFixed(2) + '%').join(', '));
       }
       const toph = await f.evaluate(() => TOPH);
@@ -277,13 +302,17 @@ async function side(profile) {
       const shut = await f.evaluate(() => !document.getElementById('notewrap').classList.contains('on'));
       ok('  and SAVE closes the notes', shut);
       if (PLANT) {
-        await f.evaluate(() => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = '#bmtb .t.gear{position:relative!important;left:6px!important}'; document.head.appendChild(s); });
+        /* the planted piece is the gear while it is on the bar, the day once the gear is the phone's (rule 238(a)) */
+        const PK = PIECES.indexOf('gear') >= 0 ? 'gear' : 'day', PS = PK === 'gear' ? '#bmtb .t.gear' : '#bmtb .t.day';
+        await f.evaluate((q) => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = q + '{position:relative!important;left:6px!important}'; document.head.appendChild(s); }, PS);
         await p.waitForTimeout(300); const a = await FCHK(); await f.evaluate(() => document.getElementById('plant').remove());
-        ok('PLANTED: the fight\'s gear moved six points is caught', !near(MB.rect.gear, a.rect.gear), fmt(a.rect.gear));
-        await f.evaluate(() => { document.querySelector('#bmtb .t.gear img').style.filter = 'invert(1)'; }); await p.waitForTimeout(300);
-        const s2 = await shot(); const dv = await picDiff(cmp, MBs, s2, MB.rect.gear, dpr, null);
-        await f.evaluate(() => { document.querySelector('#bmtb .t.gear img').style.filter = ''; });
-        ok('PLANTED: the fight\'s gear redrawn is caught', dv >= PIC, (dv * 100).toFixed(2) + '%');
+        ok('PLANTED: the fight\'s ' + PK + ' moved six points is caught', !near(MB.rect[PK], a.rect[PK]), fmt(a.rect[PK]));
+        /* the visible one (the bar keeps a hidden copy of some pieces for the narrow glass), the way READ picks it */
+        const VIS = (q) => [...document.querySelectorAll(q)].find(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; });
+        await f.evaluate(([q, v]) => { const e = eval('(' + v + ')')(q); e.style.setProperty('filter', 'invert(1)', 'important'); }, [PS, VIS.toString()]);   /* the bar's own filter is !important */ await p.waitForTimeout(300);
+        const s2 = await shot(); const dv = await picDiff(cmp, MBs, s2, MB.rect[PK], dpr, null);
+        await f.evaluate(([q, v]) => { eval('(' + v + ')')(q).style.removeProperty('filter'); }, [PS, VIS.toString()]);
+        ok('PLANTED: the fight\'s ' + PK + ' redrawn is caught', dv >= PIC, (dv * 100).toFixed(2) + '%');
       }
     }
     ok('no page error', !(d.errs && d.errs.length), (d.errs || []).slice(0, 2).join(' | '));

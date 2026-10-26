@@ -75,6 +75,55 @@ UI's voicePlace); WORLD's job names at the glass's edge step round the phone's b
 DYNASTY's SWITCH TIMELINE lived in the old opened phone: after the first crisis the new phone's status bar shows a TIMELINE tag
 that opens that same door.
 
+## RULES 238(a) AND 286: EVERY PRESS IN HIS CORNER, NO BUTTON TWICE, THE FEED ON THE FACE
+His words: records/BOHEMIA_PAOLO_ALL_THE_BUTTONS_ON_THE_PHONE_AND_THE_PHONE_NEVER_GROWS_10_26_26.md and
+records/BOHEMIA_PAOLO_THE_SCREENS_FIT_THE_PHONE_NO_BUTTON_TWICE_THE_FEED_IS_ALWAYS_ON_10_26_26.md.
+
+MEASURED BEFORE (b4dc2b38f, 390 x 844 upright): on the map CREW was pressed in two places (the bar's CREW and the phone's CREW
+app); the bar's gear (SETTINGS) and NOTES were on the glass and not on the phone; in a town LEAVE was the town's own button,
+standing over the phone; at camp BREAK CAMP (the camp's LEAVE) and the phone's HEAL both broke camp; the feed was an app (FEED)
+plus a toast over the status bar.
+
+THE HOME, ONE SIZE (124 x 276, never longer, with any number of jobs), top to bottom inside the case's lip (228 points of glass):
+the job column (the main quest's slot, his held jobs with the arrow, the empty slots); THE FEED, a strip of the two newest posts
+(the handle, then the words; the newest drops in on the beat; what he did in green) where the toast and the FEED app were;
+PLAY/PAUSE and HEAL, the two big ones; the place's band: the hour once and GOING / STOPPED / RESTING on the map and at camp,
+LEAVE in a town (a door with an arrow, through the rig); one row of four small icons: CREW, RELATIONS, NOTES (a notepad and a
+pencil, through the rig), SETTINGS (the gear). Every icon reads in greyscale by its shape; HEAL has no word (the cross is the
+word). SETTINGS can move RELATIONS, CREW and NOTES and hide any of them; SETTINGS itself never hides (it is the way back).
+
+EACH PRESS IS THE OWNER'S OWN: CREW clicks the bar's CREW (the company screen), NOTES the bar's NOTES, SETTINGS the bar's gear,
+LEAVE the town's #leave, HEAL CAMP's BohemiaMapCamp.toggle(); so the doors stay in their owners' code and the copies on the
+glass step aside under the phone's stylesheet (marked __ONE_PHONE__): the bar's gear and NOTES; the town's LEAVE; the camp's
+BREAK CAMP. The bar's crew chip stays as what it shows (his lead's face, the head count, their blood), a readout with its press
+off, since CREW is the phone's. The bar keeps its readouts (the day, the crew chip, the batteries, the place). Escape in a town
+presses the same LEAVE. The town's page opened on its own builds no phone and keeps its own LEAVE.
+
+TAP THE FEED: the catalogue on the phone's own glass (BohemiaFeed.read, eighty newest first, scrolling back), three icon filters
+(what you did, what the world did, the city's life), his company's name at the top with RENAME (the keyboard, 268(a)); the
+status bar is back.
+
+IN A FIGHT: the abilities page's last row carries CREW, NOTES and SETTINGS small, so they are on the phone there too; the fight's
+own commands are on it as well (the next section).
+
+## RULE 238(a) IN THE FIGHT: EVERY PRESS OF THE FIGHT ON THE PHONE
+MEASURED BEFORE (12bf5667e, a road fight in the game, 390 x 844 upright): the fight's bar carried END TURN (the big button: FIGHT
+at the line, then WALK, SHOOT, HIT or THROW with its chance once a tile is picked), STRIKE, RELOAD, WAIT, RETREAT, and over it AUTO
+and the speed (1x); the phone carried the man's abilities, BACK, and CREW, NOTES, SETTINGS.
+
+NOW, in the game's fights, the phone's fight page is, top to bottom: his face and name; THE BIG BUTTON the width of the glass,
+saying what the fight's says (FIGHT, END TURN, or the act and its chance with the act's own mark), amber when it will do a thing;
+one row: WAIT (a clock; RUN DOWN and amber when they break, COMBAT's RUN THEM DOWN, rule 198(h)), RETREAT (two chevrons running back;
+a red ring and SPARE when every one of theirs runs, COMBAT's SPARE THEM; amber while it waits for
+the second press), AUTO (an arrow turning round; amber when on, the odds tint over it, the beat's glow when it would win), the
+speed (1x, 2x, 4x); his abilities four a row: STRIKE and RELOAD first (the fight's own pictures and its chance or AP), BACK, the
+bag swaps, the sweeps, the perks' skills; then CREW, NOTES, SETTINGS. Every one presses the fight's own button (P.cmd, P.press),
+so the fight's rules stay in the fight. WAIT, RETREAT and AUTO through the rig (app_wait, app_retreat, app_auto), read in
+greyscale by shape. The fight's bar keeps the man (his face, blood, armour, fatigue, AP) and the round's order; its second row,
+END TURN, AUTO and the speed are off the glass under the phone's stylesheet, so the board gets the second row's height back.
+COMBAT's bench (the fight's page on its own) builds no phone and keeps every button. The keyboard keeps its keys (space is WAIT).
+Gates that press the fight's buttons in the game press the one on screen: tools/bohemia_fight_press.js (fightPress, fightAt).
+
 ## GATE
 gates/the_phone_gate.js, THE PHONE (in the suite): phone upright, on its side, a computer; right then left; real taps; the
 counts are in the commit. Four plants bite. Rule 232(d) in it: zero, one and two jobs held (cards equal the held jobs, the
@@ -89,9 +138,10 @@ On a computer the fight's bar stays centred clear of the phone on both sides; a 
 phone's side (both sides broke the wide glass's one-row bar).
 
 ## WEAK, SAID
-- NEXT (rule 238, after this merge): every button on the map, in the town and in the fight onto the phone, smaller or paged,
-  the phone one size always (it never grows: this cut is 124 x 276 with any number of jobs); each held job's card says which
-  way and how far (today: its time). Rules 257 and 260: the camp's things in the CAMP/HEAL app.
+- NEXT (rule 238(a)): the fight's commands (END TURN, AUTO, WAIT, RETREAT, STRIKE, RELOAD) onto the phone in the game's fights.
+  Rules 257 and 260: the camp's things in the CAMP/HEAL app. The town's sheet buttons (BUY, SELL, TAKE, X) stay on the sheet:
+  they act on what he is reading there, not a second copy of a phone press.
+- The feed strip clips a long post at two lines; the whole post is one tap away in the catalogue.
 - PLAY to the job goes to the job's own block; the way back to the paying town is RUN's [play takes you there].
 - The fight's bar is narrowed by the phone's band, not re-laid: on the phone upright the AP line runs under END TURN.
 - The phone is taller (276) than the first cut (212) to hold the job column; the cameras are not framing around it yet

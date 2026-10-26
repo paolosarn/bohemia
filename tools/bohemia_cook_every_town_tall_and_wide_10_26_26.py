@@ -719,6 +719,8 @@ def ship_tall(towns_):
         print('  shipped tall', s, len(bl), 'outlines', flush=True)
     json.dump(man, open(manp, 'w'), indent=1)
     json.dump(walk, open(walkp, 'w'), indent=1)
+    import subprocess                                    # the flip's pairs follow the scenes (rule 289(b); its gate leg 10 fails a stale plan)
+    subprocess.run(['python3', os.path.join(R, 'tools/bohemia_cook_every_town_the_glide_10_26_26.py')], check=True)
 
 
 def check_layout(town, meta):
@@ -730,7 +732,20 @@ def check_layout(town, meta):
         bad += ['door %s from the %s' % (k, sd) for k, v in r.items() if not v]
     bad += ['corner ' + k for k, v in list(hot.items()) + list(boxes.items()) if not corner_clear(v['box'] if isinstance(v, dict) else v)]
     bad += ['keeper under the phone ' + k for k, p in doors.items() if in_zone((p[0], p[1] + 10), 'tall', TW, TH)]   # rule 279: no keeper there
+    bad += step_blocked(doors, meta['outlines'], town['tier'])
     return bad
+
+
+def step_blocked(doors, outlines, tier):
+    """the step itself (10 px before a building's, a stall's or the posts' foot) on no block: a keeper there is never drawn over a
+    roof's edge (a patch of ground he taps, the lot, the build, the fire the bar is, keeps the walk's test)"""
+    out = []
+    for k, p in doors.items():
+        if k in GROUND[tier]: continue
+        x, y = p[0], p[1] + 10
+        hit = [o['name'] for o in outlines if o['box'][0] <= x <= o['box'][2] and o['box'][1] <= y <= o['box'][3]]
+        if hit: out.append('step of %s on %s' % (k, hit[0]))
+    return out
 
 
 def layout_only(town):
@@ -761,6 +776,19 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     want = [x for x in a if not x.startswith('--')]
     T = [t for t in V.towns() if not want or t['name'] in want or t['slug'] in want]
+    if '--swap-only' not in a:                          # ONE BLENDER AT A TIME: two scenes at once outgrow the session's memory (14.3 GB)
+        import fcntl, time; _lock = open('/tmp/bohemia_cook_render_v2.lock', 'w'); fcntl.flock(_lock, fcntl.LOCK_EX)
+        def _busy():                                   # and never beside a town already rendering (gigabytes held), lock or not
+            for d in os.listdir('/proc'):
+                if not d.isdigit() or int(d) == os.getpid(): continue
+                try:
+                    cmd = open('/proc/%s/cmdline' % d, 'rb').read().split(b'\0')
+                    if len(cmd) > 1 and cmd[0].endswith(b'python') and b'bohemia_cook_every_town' in cmd[1]:
+                        rss = [l for l in open('/proc/%s/status' % d).read().split('\n') if l.startswith('VmRSS')]
+                        if rss and int(rss[0].split()[1]) > 1500000: return True
+                except Exception: pass
+            return False
+        while _busy(): time.sleep(15)
     if '--layout-only' in a:
         patch_tall()
         for town in T: m = layout_only(town); print('  laid out', town['name'], check_layout(town, m) or 'every door walked to, every tap clear of the phone', flush=True)

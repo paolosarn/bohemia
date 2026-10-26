@@ -38,6 +38,7 @@
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+const { fightPress } = require(path.join(ROOT, 'tools/bohemia_fight_press.js'));
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { if (c) { pass++; console.log('  ok   ' + n); } else { fail++; console.log('  FAIL ' + n); } };
@@ -109,8 +110,7 @@ const leaveEnd = async (d) => {
     let tEnd = null, played = null;
     if (cf) {
       await cf.evaluate((sp) => { FIGHT_UI.speed = sp; }, SPEED);
-      const b = await cf.evaluate(() => { const r = document.getElementById('bauto').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
-      await d.page.touchscreen.tap(box.x + b[0], box.y + b[1]);   /* a real finger on AUTO */
+      await fightPress(d.page, cf, 'bauto');   /* a real finger on AUTO */ /* UI TWO (rules 238(a), 286(b)): in the game's fights AUTO is the phone's, pressing the fight's own; the fight's own on the bench */
       const auto = await cf.evaluate(() => FIGHT_UI.auto);
       const t0 = Date.now();
       while (Date.now() - t0 < 150000) { const o = await cf.evaluate(() => FIGHT.S.over).catch(() => true); if (o) break; await d.page.waitForTimeout(500); }

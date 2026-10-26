@@ -48,7 +48,7 @@ const done = () => { console.log('=== MELEE IS ONE TILE, COVER IS WHAT IS ON THE
       fights++;
       S.units.filter(u => u.side === 'them').forEach(u => kinds.add(u.kind));
       /* Line Breaker's shield bash lands on the man it shoves, after the shove (the step before it, shoved, says where he stood) */
-      S.log.forEach((e, i) => { if (e.t !== 'attack' || e.sweep || e.ax === undefined) return;
+      S.log.forEach((e, i) => { if (e.t !== 'attack' || e.sweep || e.astray || e.ax === undefined) return;
         const p = S.log[i - 1], at = p && p.t === 'step' && p.shoved && p.id === e.to ? { x: p.fx, y: p.fy } : { x: e.tx, y: e.ty };
         const d = Math.max(Math.abs(e.ax - at.x), Math.abs(e.ay - at.y)), a = S.units.find(u => u.id === e.id);
         const gunman = /^(pistol|rifle|shotgun|firearm)/.test(String(a && a.job || '')) || (a && F.isGun && F.isGun(a.weapon));

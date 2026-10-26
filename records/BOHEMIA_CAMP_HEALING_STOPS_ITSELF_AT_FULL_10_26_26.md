@@ -23,6 +23,16 @@ a rest he asked for (to let the night pass, to wait): it holds until he ends it 
 - When the tape runs out the armour stops mending and the camp does not reach 99: it holds until he ends it (said, not built: a word
   that the tape is gone is ECONOMY's [no run ends for tape] and the stall's).
 
+## 2b. MEASURED
+- On the shipped camp (8db01c53, before this): the gate's F1 red, the camp ran on with the company whole and never stopped (EYES saw
+  the same live: a camp made by MAKE CAMP NEARBY ran 49 hours, two days past a whole company; records/BOHEMIA_EYES_ROUND_FIVE_THE_
+  NEWEST_ASKS_SEEN_10_26_26.md).
+- At TUNING's rates (rule 264(f), 10 hit points an hour camped, armour 30 a piece) the wounds of two road fights close in about two
+  camped hours, a second of real time: the camp now opens, heals and stops inside a beat or two. CAMP's own THE HEAL BUTTON gate
+  measured its camp over five seconds and read the button after them; RE-AIMED: the button is read while the camp stands, a camp that
+  stopped itself at full counts as the camp working, and the living are cut to a tenth of their hit points first so the camp stands
+  long enough to be measured (16/0; '6 camp hours (then it stopped itself, every man at 99 percent)').
+
 ## 3. THE GATE (rule 278(d)), gates/healing_stops_itself_at_full_gate.js, on the cut, phone and computer
 F1 his company hurt in the company's own condition (half of every man's hit points and armour), tape enough: the camp breaks itself
 at exactly the hour the table's camp rates say the last man reaches 99 percent of both (never an hour sooner: the camp's hours read

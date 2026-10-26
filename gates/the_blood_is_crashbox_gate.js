@@ -180,7 +180,10 @@ async function side(profile, d0) {
     const soaked = await shotRow();
     const halo = await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); return e.getAttribute('data-blood-halo') + ' ' + getComputedStyle(e.querySelector('span') || e).textShadow.slice(0, 40); });
     ok('D4 ' + profile + ': with blood on it the words carry a halo of what the clay sits on', /^bone /.test(halo) && /rgb\(233, 221, 194\)/.test(halo), halo);
-    const down = await watch(0.05);
+    /* WORLD (rule 254, 10/26, marked): lowered to just over WORLD's clean line, read from job_danger.json (the AUTO colour's own line
+       since 254: clean to 0.20; the old 0.05 sat over the old line, 0.04, and is clean tin now) */
+    const lowTo = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_danger.json'), 'utf8')).blood_from.value + 0.01; } catch (e) { return 0.05; } })();
+    const down = await watch(lowTo);
     ok('D3 ' + profile + ': lowered, it steps back the same way', steps(down) && holds(down) && down[down.length - 1].v === 1, down.map(x => x.v + '(' + Math.round(x.held) + ')').join(' '));
     const one = await shotRow();
     ok('D5 ' + profile + ': on the glass a soaked row is at least a third red clay, a one-star row under a twentieth', soaked >= 0.33 && one < 0.05,

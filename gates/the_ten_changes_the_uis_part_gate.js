@@ -30,7 +30,8 @@
       B5  the plate drawn from the kit, its ink against its tin at 4.5 to 1 or better; the hunters' tag rusted red
       B6  the words: every line twelve words or fewer, draft:true, the fight's three left to COMBAT
       P1  [portrait menu]: his face on the bar's crew tag, a press of 44 points, and a real touch on it opens his company
-          (RUN TWO's one door, engine/bohemia_crew_door.js), the map not moved
+          (RUN TWO's one door, engine/bohemia_crew_door.js), the map not moved (UI TWO 10/26, rules 238(a), 286(b): with the phone up
+          the press is the phone's CREW and the tag shows his face as a readout)
    C  PLANTED DEFECTS: every walk leg red on a broken walk (the walk's own numbers bent one at a time), and two defects
       planted in the source and served through the driver, each caught by the bench: the sixty-second hold removed (B1),
       the count made a jump (B4).
@@ -150,8 +151,15 @@ async function bench(serve) {
     }));
     /* P1 [portrait menu]: his face on the crew tag, a press of 44, and a real touch on it opens his company */
     R.tag = await fr.evaluate(() => { const t = document.querySelector('#bmtb .t.crew'), im = t && t.querySelector('img.me'), r = t ? t.getBoundingClientRect() : null;
-      return t ? { face: !!(im && im.complete && im.naturalWidth > 0 && /\/you\//.test(im.src)), role: t.getAttribute('role'), w: Math.round(r.width), h: Math.round(r.height), x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
-    if (R.tag) { const fb = await (await d.page.$('#cityFrame')).boundingBox(); await d.page.touchscreen.tap(fb.x + R.tag.x, fb.y + R.tag.y);
+      return t ? { face: !!(im && im.complete && im.naturalWidth > 0 && /\/you\//.test(im.src)), role: t.getAttribute('role'), w: Math.round(r.width), h: Math.round(r.height), x: r.x + r.width / 2, y: r.y + r.height / 2,
+        readout: getComputedStyle(t).pointerEvents === 'none' } : null; });
+    /* RE-AIMED 10/26 BY UI TWO (rules 238(a), 286(b), newer than 44b): with the phone up the company's door is the phone's CREW, and his
+       face stays on the bar's crew tag as what it shows (a readout, no second press); the touch is on the phone's CREW */
+    R.phoneCrew = await d.page.evaluate(() => { const e = document.querySelector('#bohphone.on .bprow .app[data-app=crew]'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+    if (R.tag && R.phoneCrew) { await d.page.touchscreen.tap(R.phoneCrew.x, R.phoneCrew.y);
+      for (let i = 0; i < 24 && !R.door; i++) { await d.page.waitForTimeout(250); R.door = await fr.evaluate(() => !!document.getElementById('crewdoor') && !!(window.BohemiaCrewDoor && BohemiaCrewDoor.isOpen())); }
+      R.mapMoved = await fr.evaluate(() => !!TRAVEL); await fr.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} }); }
+    else if (R.tag) { const fb = await (await d.page.$('#cityFrame')).boundingBox(); await d.page.touchscreen.tap(fb.x + R.tag.x, fb.y + R.tag.y);
       for (let i = 0; i < 24 && !R.door; i++) { await d.page.waitForTimeout(250); R.door = await fr.evaluate(() => !!document.getElementById('crewdoor') && !!(window.BohemiaCrewDoor && BohemiaCrewDoor.isOpen())); }
       R.mapMoved = await fr.evaluate(() => !!TRAVEL); await fr.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} }); }
   } catch (e) { R.crash = String(e && e.message || e).slice(0, 300); }
@@ -160,8 +168,9 @@ async function bench(serve) {
   return R;
 }
 const BENCH_LEGS = [
-  ['P1 [portrait menu] his face on the crew tag is the door: a touch opens his company', R => { const t = R.tag || {}; return [t.face === true && t.role === 'button' && t.h >= 44 && t.w >= 44 && R.door === true && R.mapMoved === false,
-    '(face ' + t.face + ', ' + t.w + 'x' + t.h + ', opened ' + R.door + ', the map moved ' + R.mapMoved + ')']; }],
+  ['P1 [portrait menu] his face on the crew tag; a touch on the company\'s one door opens his company (the phone\'s CREW while the phone is up)', R => { const t = R.tag || {};
+    return [t.face === true && (R.phoneCrew ? t.readout === true : t.role === 'button' && t.h >= 44 && t.w >= 44) && R.door === true && R.mapMoved === false,
+    '(face ' + t.face + ', ' + t.w + 'x' + t.h + (R.phoneCrew ? ', the tag a readout ' + t.readout + ', the door the phone\'s CREW' : '') + ', opened ' + R.door + ', the map moved ' + R.mapMoved + ')']; }],
   ['B1 a line asked at 20 s is not said; at 61 s it is', R => [R.at20 === false && R.at61 === true, '(at 20 s ' + R.at20 + ', at 61 s ' + R.at61 + ')']],
   ['B2 a speaker with no face says nothing', R => [R.noFaceShown === false, '(shown ' + R.noFaceShown + ')']],
   ['B3 a once line is said once', R => { const o = R.once || {}; return [o.first === true && o.second === false && o.times === 1, '(' + JSON.stringify(o) + ')']; }],
