@@ -46,6 +46,14 @@ async function play(profile) {
   const tapAt = async (x, y) => { if (TOUCH) return d.tapAt(x, y); const fb = await frameBox(); if (!fb) return null; return page.mouse.click(fb.x + x, fb.y + y); };
   const shot = async (n) => { if (SHOTS) await page.screenshot({ path: path.join(SHOTS, P + '_' + n + '.png') }); };
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn().catch(() => false)) return true; await page.waitForTimeout(300); } return false; };
+  /* RE-AIMED 10/26 (RUN THREE, rule 236): a stranger's new game now opens on his squad up close and then the closest town's
+     settlement screen; this gate measures the map, so it leaves the town the way a player does: a real tap on LEAVE */
+  if (await waitFor(() => fr.evaluate(() => !!(window.__START_IN_TOWN && window.__START_IN_TOWN.opened)), 20000)) {
+    await page.waitForTimeout(1200);
+    const sf = page.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url())), lv = sf && await sf.$('#leave'), bx = lv && await lv.boundingBox();
+    if (bx) { if (TOUCH) await page.touchscreen.tap(bx.x + bx.width / 2, bx.y + bx.height / 2); else await page.mouse.click(bx.x + bx.width / 2, bx.y + bx.height / 2); }
+    await waitFor(() => fr.evaluate(() => !LOOP.open), 8000); await page.waitForTimeout(600);
+  }
 
   /* the map at a stop: the game's own zoom about the middle of the glass (on the computer, the wheel), one frame drawn */
   const zoomTo = async (which) => {

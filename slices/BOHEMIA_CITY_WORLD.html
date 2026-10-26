@@ -45096,6 +45096,7 @@ function mapStartIn(d){
      ledger is what survives a save: a 'start:' credit already in it means this crew was paid. */
   try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0){ try{ fogContinue(); }catch(_e2){} return; } }catch(_e){}
   try{ freshStart(p); }catch(_e){}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: a new game, a new corner, the map dark past it */
+  try{ if(FOG.on) startInTown(p); }catch(_e){}   /* __THE_GAME_STARTS_IN_A_TOWN__ (RUN THREE, rule 236): his squad up close, then the closest town */
   try{ localStorage.removeItem(CREW_WALKED_KEY); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: a new crew; nobody has walked from it */
   try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
   try{ billPublish(); }catch(_e){}
@@ -45294,6 +45295,69 @@ function freshStart(p, n){
   try { render(); } catch (_e) {} try { mapStatePost(); } catch (_e) {}
 }
 /* ==== /__A_FRESH_START_AND_A_FOG_OF_WAR__ ==== */
+/* ==== __THE_GAME_STARTS_IN_A_TOWN__ (RUN THREE [the game starts in a town], rule 236, Paolo 10/26: 'some sort of introduction vibe
+   where you get a close-up of the squad, and then instead of starting in map mode it will start on settlement mode... the closest
+   settlement... whatever the math is right now... maybe depending on the origin'). A NEW GAME (not a CONTINUE, not the bench's
+   valley with the dark lifted) opens on his squad up close (slices/bohemia_the_squad_up_close.js over the whole screen: the men
+   his origin rolled, named and dressed as the crew screen names them, their own heads), then the SETTLEMENT SCREEN of the
+   closest settlement to the corner his origin started him on (__A_FRESH_START_AND_A_FOG_OF_WAR__, its START_KINDS: the Faithful
+   by a chapel, the water truck at a truck stop or on the road, up from Henderson on the south freeway), by the map's own measure
+   (startPick's townNear: blocks, the longer side; the straight line breaks a tie). The company stands in that town, so the map,
+   when he leaves it, is the town's block. THE ORIGIN'S PLACE IS A MODDER'S: an origin in records/target/bb/origins.json with a
+   start_kinds list (district kinds, START_KINDS' words) starts there instead (RUN TWO adds the field, rule 236(c)). ==== */
+try{ fetch('../records/target/bb/origins.json').then(function(r){ return r.json(); }).then(function(j){ (j.origins || []).forEach(function(o){ if(o && o.id && Array.isArray(o.start_kinds) && o.start_kinds.length) START_KINDS[o.id] = o.start_kinds.slice(); }); }).catch(function(){}); }catch(_e){}
+var START_TOWN = { on: false, opened: false };
+function startTownPick(){
+  var bs = ctBases(), best = null, bd = 1e9, be = 1e9;
+  for (var n in (bs || {})) { var b = bs[n]; if (!b) continue;
+    var d = Math.max(Math.abs((b.x | 0) - city.x), Math.abs((b.y | 0) - city.y)), e = Math.hypot((b.x | 0) - city.x, (b.y | 0) - city.y);
+    if (d < bd || (d === bd && e < be)) { bd = d; be = e; var t = 'camp'; try { t = mapTierOf(n) || 'camp'; } catch (_e) {} best = { name: n, x: b.x | 0, y: b.y | 0, tier: t, blocks: d }; } }
+  return best;
+}
+/* his men as the crew screen will name and dress them (engine/bohemia_roster.js manOf + lookFor: ours.json's crew at his place, the
+   origin's background and level over it, his rolled stars) */
+function startSquad(p){
+  var co = (p && p.company) || [], men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [], n = co.length || 3, out = [];
+  var crew = looks.filter(function(l){ return l && l !== 'you'; });
+  var bg = function(id){ try { if (window.BohemiaRoster && BohemiaRoster.bgName) return BohemiaRoster.bgName(id); } catch (_e) {} return String(id || '').replace(/_/g, ' '); };
+  for (var i = 0; i < n; i++) { var m = co[i] || {}, d = men[i % Math.max(1, men.length)] || {}, main = i === 0 && (d.main !== false);
+    var look = main ? 'you' : (looks[i] && looks[i] !== 'you' ? looks[i] : (crew.length ? crew[(i - 1 + crew.length * 8) % crew.length] : null));
+    out.push({ name: (d.name || (main ? 'YOU' : 'MAN')) + (i >= men.length && men.length ? ' II' : ''), look: look, trade: bg(m.background || d.background), level: m.level || d.level || 1, stars: m.stars || null, main: main }); }
+  return out;
+}
+function startInTown(p){
+  if (START_TOWN.on) return; START_TOWN.on = true;
+  /* the tape's black at once, so not one frame of the map shows before it (the module takes this cover's place) */
+  try { var td = (window.top && window.top.document) || document; if (!td.getElementById('squadup')) { var cv = td.createElement('div'); cv.id = 'squadup'; cv.style.cssText = 'position:fixed;inset:0;z-index:2147483000;background:#050403';
+    (td.body || td.documentElement).appendChild(cv); setTimeout(function(){ try { if (cv.isConnected && !window.BohemiaSquadUpClose) cv.remove(); } catch (_e) {} }, 6000); } } catch (_e) {}
+  var S = window.__START_IN_TOWN = { origin: (p && p.origin) || null, began: Date.now(), intro: null, town: null, opened: null, from: null };
+  var open = function(k){
+    if (START_TOWN.opened) return;
+    if (!(window.__FRESH_START && window.__FRESH_START.at) || !CREW_DEFS) { if ((k | 0) < 160) setTimeout(function(){ open((k | 0) + 1); }, 250); return; }   /* the corner and the places still being worked out */
+    START_TOWN.opened = true;
+    var t = null; try { t = startTownPick(); } catch (_e) {}
+    if (!t) { S.why = 'no settlement on the map'; return; }
+    S.from = [city.x, city.y]; S.town = t.name; S.tier = t.tier; S.blocks = t.blocks;
+    try { travelStop(); } catch (_e) {}
+    city.x = t.x; city.y = t.y;   /* the company is in the town: leaving it, the map is the town's block (the dark clears round him there) */
+    try { camHold(); } catch (_e) {}
+    try { loopOpenTown({ name: t.name, x: t.x, y: t.y, tier: t.tier }); } catch (_e) {}
+    S.opened = Date.now();
+    try { render(); } catch (_e) {} try { mapStatePost(); } catch (_e) {}
+  };
+  var play = function(){
+    var top = document; try { if (window.top && window.top.document) top = window.top.document; } catch (_e) {}
+    var men = startSquad(p);
+    S.intro = { men: men.map(function(m){ return { name: m.name, look: m.look }; }) };
+    try { BohemiaSquadUpClose.play({ men: men, origin: p.origin, originName: p.originName, crew: p.name, doc: top, base: '../engine/', onDone: function(r){ S.intro.done = Date.now(); S.intro.skipped = !!(r && r.skipped); open(0); } }); }
+    catch (_e) { S.intro.failed = String(_e); open(0); }
+  };
+  var need = function(src, ok, then){ if (ok()) return then(); try { var sc = document.createElement('script'); sc.src = src; sc.onload = then; sc.onerror = then; document.head.appendChild(sc); } catch (_e) { then(); } };
+  /* the names and the heads need ours.json's crew (CREW_DEFS) and the roster's trade words; the tape waits for them, a second at most */
+  var go = function(k){ if (!CREW_DEFS && (k | 0) < 8) return setTimeout(function(){ go((k | 0) + 1); }, 125); need('bohemia_the_squad_up_close.js', function(){ return !!window.BohemiaSquadUpClose; }, play); };
+  need('../engine/bohemia_roster.js', function(){ return !!window.BohemiaRoster; }, function(){ go(0); });
+}
+/* ==== /__THE_GAME_STARTS_IN_A_TOWN__ ==== */
 function loopJobPay(base){ var p = LOOP.start, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__ (RUN TWO [money teaches], rule 151(b)): Battle Brothers' 'the crowns reward increases with your company's Renown', x1 to x4.5 (TUNING) */
   if(!p) return Math.max(1, Math.round((base | 0) * cm)); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1) * cm)); }
 /* __A_FEW_NOT_TWELVE__ (RUN 10/5, [a few, not twelve], rule 75b). PAOLO 10/5: 'for demo purposes just one enemy

@@ -9947,6 +9947,10 @@ GATES = [
      "the marquee and porte-cochere on the front and none on a back, the pool drained), the demo's own painting counting it (every resort facing the Boulevard its "
      "marquee, three in five in their own shapes, the pools, the sign boards) and the demo's map on the glass at the near stop (the marquees' faded rose and teal; "
      "no rainbow). About 2 min", True),
+    ('THE GAME STARTS IN A TOWN', ['node', 'gates/the_game_starts_in_a_town_gate.js'],
+     "RUN THREE gate, 10/26, row [the game starts in a town] (rule 236, Paolo 10/26: 'a close-up of the squad, and then instead of starting in map mode it will start on settlement mode... the closest settlement'). "
+     "MEASURED before: BEGIN lifted onto the map at the origin's corner, no squad. HOLDS on the demo, a stranger's new game, the Faithful and the water truck on the phone, the Lone Wolf on the computer: the tape shows every man his origin rolled, armed only after its first second, the same men in the town after; "
+     "the first screen after it the closest settlement to his corner by the map's measure; a real LEAVE and the map on the town's block; a tap after the second skips it, a tap before does not; the bench's valley untouched. about 9 min (GATE_ONLY=faith | truck,wolf | bench runs a part)", True),
     ('YOUR CREW LIVES IN THE TOWN', ['node', 'gates/your_crew_lives_in_the_town_gate.js'],
      "RUN THREE gate, 10/26, row [your crew lives in the town] (rule 218(a)(b), Paolo 10/26: 'everyone that is on your company or your recruited, you can see them... maybe drinking some beer or maybe walking around, maybe talking to people... make it feel alive'). "
      "MEASURED before: nobody of the company in a town but the lead. HOLDS: a company of twelve on all six pictures and the home, every man but the lead in the town; on the picture's ground, off every door's front, the rail and everybody's spot, never three in a row; "
