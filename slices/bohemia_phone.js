@@ -202,7 +202,9 @@
   P.play = function (jobId) {
     try {
       if (typeof MODE !== 'undefined' && MODE !== 'city') return false;
-      if (TRAVEL_SPEED > 0) travelSpeedSet(0);
+      /* RUN 10/26 ([play takes you there], EYES' normie hour F9): the map's speed stays at 1.22 while he stands, so PAUSE is only for a
+         journey under way; standing with a job on, PLAY is to the job (mapPlayToJob, the map's best route) */
+      if (TRAVEL_SPEED > 0 && TRAVEL) travelSpeedSet(0);
       else if (!TRAVEL && (LOOP.held || []).length && P.jobGo(jobId)) { try { camHold(); } catch (e) {} }   /* nothing picked: to the job */
       else { travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); try { camHold(); } catch (e) {} }
       window.__PHONE_PLAYS = (window.__PHONE_PLAYS | 0) + 1;
@@ -244,7 +246,8 @@
   /* PLAY TAKES HIM THERE (rule 227(c)): RUN's own route when it lands ([play takes you there]); until then the map's own
      path finder to the job's place, the same door a tap on the map uses (travelTo) */
   P.jobGo = function (id) {
-    try { if (typeof window.mapPlayToJob === 'function') return !!window.mapPlayToJob(id); } catch (e) {}
+    try { if (typeof window.mapPlayToJob === 'function') { var r = !!window.mapPlayToJob(id), L = window.MAP_PLAY && MAP_PLAY.last;   /* RUN 10/26: the map's best route answers; the same record */
+      window.__PHONE_JOB_GO = { id: (L && L.id) || id || null, to: L && L.to ? L.to : null, ok: r, by: 'map' }; return r; } } catch (e) {}
     try {
       var held = LOOP.held || [], j = held.filter(function (x) { return x && x.id === id; })[0] || held[0]; if (!j) return false;
       var tg = j.target, x = tg && (tg.x != null ? tg.x : tg[0]), y = tg && (tg.y != null ? tg.y : tg[1]);

@@ -9734,6 +9734,44 @@ GATES = [
      "building), behind a tower (most of him, his outline shows), behind the freeway (his legs), walked over it never sunk in its "
      "berm, whole in the open at every stop; a party covered; a tap travels; the depth off turns it red; the frame's cost. green "
      "at registration, 13/0 a profile, about 3 min", True),
+    ('NO NAME COVERS ANOTHER', ['node', 'gates/no_name_covers_another_gate.js'],
+     "RUN gate, 10/26, row [eyes: names on names] (rule 150; his first votes' 'no two texts overlap'; EYES round 2: 'GYPSUM CAVE' "
+     "over 'FRENCHMAN MOUNTAIN', 'CHURCH' cut by 'BLUE DIAMOND', names cut by the phone): on the phone and his computer, at the far "
+     "stop, 0.141, 0.375, 0.456, the opening zoom and a block 43 px, every text the map draws read off the canvas's own calls: no two "
+     "over each other, none under the phone, the bar or the speed pad, two thirds of the names still standing, and the list off "
+     "turns it red (before: 4, 7, 1 and 2 pairs, five names under the phone). green at registration, 5/0 a profile, about 2 min", True),
+    ('THE MAP FRAMES AROUND THE PHONE', ['node', 'gates/the_map_frames_around_the_phone_gate.js'],
+     "RUN gate, 10/26, row [the map frames around the phone] (rule 213(c)(d)(e), 238(b), Paolo 10/26: 'not directly in the middle "
+     "of the screen, slightly off center, and as you zoom in, that's the same center'): on the phone and his computer, the map reads "
+     "the phone's margin (UI TWO's BohemiaPhone.padding, or the live phone's rectangle) and holds him at the open area's middle: "
+     "held, after a zoom, a pan taken back, a travel (never under the phone), a zoom let go keeps the world under the focus, the "
+     "corner flipped mirrors it, the device turned recomputes it; the margin off turns it red. green at registration, 10/0 a "
+     "profile, about 4 min", True),
+    ('PLAY TAKES YOU THERE', ['node', 'gates/play_takes_you_there_gate.js'],
+     "RUN gate, 10/26, row [play takes you there] (rule 227(c), Paolo 10/26: 'when you press play it just walks you automatically "
+     "towards the quest, perfectly'; EYES' normie hour F9): two real jobs off a town's board; the one call UI TWO's PLAY makes "
+     "(mapPlayToJob) sets out for where the job sends him next by the path finder's own route (fewest minutes, never slower than "
+     "fewest blocks on 40 trips), two blocks clear of a crew hunting him, to the paying town when it is owed and the town opens; a "
+     "tap of his own is his own; no job, nothing; the route off turns it red. green at registration, 8/0 a profile, about 4 min", True),
+    ('THE MAP FITS YOUR JOBS', ['node', 'gates/the_map_fits_your_jobs_gate.js'],
+     "RUN gate, 10/26, row [the map fits your jobs] (rule 228(a), Paolo 10/26: 'when you get out of the settlement the map should "
+     "be as big as the two quests you added... with the padding, the screen flipped or straight up'; EYES' normie hour F7): leaving "
+     "a town with two jobs he and both places sit inside the open area, none under the phone; one job fits closer; a job taken on "
+     "the map fits; a pinch during the ease is his, a journey takes the camera back; the fit off turns it red. about 4 min a "
+     "profile", True),
+    ('MEET BEFORE YOU FIGHT', ['node', 'gates/meet_before_you_fight_gate.js'],
+     "RUN gate, 10/25 (rule 151(e)), and 10/26 [eyes: the meet card's men] (rule 198(g)): a walk into a party stops on a card with "
+     "who and the ground, FALL BACK and ENGAGE by a finger; a beast meet by day names them as beasts at the count that stands, never "
+     "'IN THE DARK'; after FALL BACK the walk on to the town past the pack never brings the card back and the town opens; the get-"
+     "away off brings it back; [make camp nearby] (rule 269(a)): a roaming card has two choices, a still enemy's three, MAKE CAMP "
+     "NEARBY camps a block back with them unmoved and no fight, breaking camp walks back into them and the card asks again. phone, "
+     "about 8 min", True),
+    ('YOUR MAIN GUY LEADS THE WALK', ['node', 'gates/your_main_guy_leads_the_walk_gate.js'],
+     "RUN gate, 10/26, row [your main guy leads the walk] (rule 263(a), Paolo 10/26: 'the character that's walking through Bohemia "
+     "is not ... the main character of the origin'): on the phone and his computer, the map's lead is the fight's own YOU cut into "
+     "the map's format (56 frames equal the fight sheet's), drawn at the opening zoom and 2.4, his head on the glass his and not the "
+     "old body's, the roster's main man the same look, a main man with a look of his own leads as himself, his sheet failed turns it "
+     "red. green at registration, 7/0 a profile, about 4 min", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "

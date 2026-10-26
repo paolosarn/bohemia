@@ -12,6 +12,7 @@
      W3 the men the fight left down are taken: the crew count and the marker lose them, the shell's fight will not get them
      W4 the mini side quest: a held job at the place it happened, 'Get your men back from <them>', a YOUR MEN plate on it
      W5 a face at the town says what happened and what is next (queued on the map's one voice)
+     W5b after it only a man with YOU speaks: the held say nothing, a death is said by YOU (RUN 10/26, [eyes: the held talk])
      W6 walking to it meets the card; ENGAGE hands its fight through the one door as that contract
      W7 winning it brings the men home: the count, the marker and the store are whole again, the job is gone
      W8 nothing threw
@@ -33,6 +34,9 @@ const done = () => { console.log('\nTHE WIPE WAKES IN TOWN GATE: ' + pass + ' pa
     window.addEventListener('message', e => { if (e.data && e.data.bohemiaCityNeedRestore) window.__RESTORE_ASKED++; if (e.data && e.data.type === 'BOHEMIA_CITY_ENCOUNTER') window.__POSTS.push(e.data.why || ''); }); });
   const before = await fr.evaluate(() => { city.x = Math.min(om.n - 3, city.x + 14); city.y = Math.min(om.n - 3, city.y + 6); render();
     return { at: [city.x, city.y], crew: crewCount(), looks: mapCrewLooks().slice(), min: T.min, day: T.day }; });
+  /* the shell's word from the fight (BOHEMIA_FIGHT_OVER, kept by the materials as __BM_FIGHT_OVER): DESI down 40 days, RAUL dead */
+  await page.evaluate(() => { window.__BM_FIGHT_OVER = { at: Date.now(), result: 'lost', wipe: true, rounds: 6, drops: null,
+    crew: [{ name: 'YOU', main: true, dead: false, down: true, days: 0 }, { name: 'DESI', main: false, dead: false, down: true, days: 40 }, { name: 'RAUL', main: false, dead: true, down: true, days: 0 }] }; });
   await fr.evaluate((at) => { window.postMessage({ type: 'BOHEMIA_CITY_COMBAT_END', outcome: { result: 'loss', victory: false, wipe: true,
     wipeInfo: { by: 'brigands', byName: 'The road crew', lines: ['They came at you from two sides.'], next: 'Somebody drags you to the nearest town. The road crew have your men and your gear.', cell: at, down: ['DESI', 'RAUL'] },
     fates: [{ name: 'YOU', main: true, down: true }, { name: 'DESI', down: true }, { name: 'RAUL', down: true }] }, at: null }, '*'); }, before.at);
@@ -58,6 +62,10 @@ const done = () => { console.log('\nTHE WIPE WAKES IN TOWN GATE: ' + pass + ' pa
   ok('W4 the side quest: a held job where it happened, to get them back', !!a.job && /Get your men back from The road crew/.test(a.job.title) && a.job.t.x === before.at[0] && a.job.t.y === before.at[1],
      a.job ? a.job.title + ' at ' + a.job.t.x + ',' + a.job.t.y : 'none');
   ok('W5 a face at the town says what happened and what is next', a.queued.length === 1 && /drags you/.test(a.queued[0]) && /DESI, RAUL/.test(a.queued[0]), a.queued[0] || 'nothing queued');
+  /* W5b (RUN 10/26, [eyes: the held talk], rule 143(d): 'people died I guess but they were still speaking'): after the wipe only a
+     man with YOU speaks: the held DESI says nothing (not her days, not who died); RAUL's death is said by YOU */
+  const said = await fr.evaluate(() => { try { const V = BohemiaMaterials.ten.voice; return (V.q || []).concat(V.on ? [V.on] : []).concat(V.said || []).filter(o => o.kind === 'hurt' || o.kind === 'dead' || o.kind === 'teach').map(o => o.kind + ':' + o.who.name); } catch (e) { return ['?']; } });
+  ok('W5b after the wipe only a man with YOU speaks: the held say nothing, a death is said by YOU', said.indexOf('?') < 0 && !said.some(x => /DESI|RAUL/.test(x)) && said.indexOf('dead:YOU') >= 0, said.join(', ') || 'nothing said');
   /* walk to it */
   if (a.job) await fr.evaluate((t) => { travelTo(0, 0, [t.x, t.y]); travelGoes(); }, a.job.t);
   let card = false; for (let i = 0; i < 120 && a.job; i++) { await page.waitForTimeout(500); if (await fr.evaluate(() => !!document.getElementById('meetcard'))) { card = true; break; } }
