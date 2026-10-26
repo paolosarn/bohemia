@@ -3646,7 +3646,7 @@ function armName(v, arm) {
 const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR' };   /* draft:true */
 /* WHAT A HEIGHT GIVES, IN WORDS (rule 164 item 14): on the tile he taps and in the aim; every number the rules' own */
 const HEIGHT_SAYS = { roof: 'Roof, {n} up: ', rise: 'High ground, {n} up: ', gives: '+{bonus}% to hit anyone lower, guns reach {reach} farther, sees {sight} farther',
-  noclub: ', no club reaches him from the street', wall: 'A wall. No way up: climb a roof with a ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
+  noclub: ', no club reaches him from the street', wall: 'A wall. No way up: climb a roof with a ladder.', house: 'A building, {n} high: its roof is high ground.', ladder: 'Climb it by its ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
 function heightSay(x, y) {
   const n = FIGHT.level(x, y); if (!n) return '';
   const st = n + (n > 1 ? ' storeys' : ' storey');
@@ -5453,6 +5453,21 @@ function skinOf(v) { return '#8c6a52'; }
    it stands on its plane, a ladder leans on every building you can climb (as long as its face is tall, a rung a metre), and
    the level rides over his head; what it gives is said on the tile and in the odds. */
 function riseAt(x, y) { return R('ours.roof_storeys').rise[FIGHT.level(x, y)] || 0; }
+const ROOF_MARK = '#d8c9a8';   /* the storeys' chevrons over a ladder: bone, nobody's side colour */
+/* the building a tile belongs to and how many storeys it stands: its roof, or a wall of it beside its roof (the house's body) */
+function buildingAt(x, y) {
+  if (FIGHT.isRoof(x, y)) return { lv: FIGHT.level(x, y), roof: true };
+  if (FIGHT.rowAt(x, y) !== 'obstacles') return null;
+  const n = FIGHT.blockNameAt(x, y); let lv = 0;
+  for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (FIGHT.isRoof(x + dx, y + dy) && FIGHT.blockNameAt(x + dx, y + dy) === n) lv = Math.max(lv, FIGHT.level(x + dx, y + dy));
+  return lv ? { lv: lv, roof: false } : null;
+}
+/* what a building gives, in words: the roof's own line, and for its wall the way up */
+function buildingSay(x, y) {
+  const b = buildingAt(x, y); if (!b) return '';
+  if (b.roof) return heightSay(x, y) + ' ' + HEIGHT_SAYS.ladder;
+  return wfill(HEIGHT_SAYS.house, { n: b.lv + (b.lv > 1 ? ' storeys' : ' storey') }) + ' ' + HEIGHT_SAYS.ladder;
+}
 function upChevron(c, r, k, col) {   /* an up-chevron five cells wide, k cells a cell, an ink rim under it */
   [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]].forEach(function (q) { mkCell(c + q[0] * k, r + q[1] * k + k, k, k, MK.ink); });
   [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]].forEach(function (q) { mkCell(c + q[0] * k, r + q[1] * k, k, k, col); });
@@ -5478,7 +5493,12 @@ function drawLadders() {
     mkCell(c0 + k, r0 + k, k, r1 - r0, 'rgba(0,0,0,.55)'); mkCell(c0 + gap + 2 * k, r0 + k, k, r1 - r0, 'rgba(0,0,0,.55)');   /* its shadow on the wall */
     mkCell(c0, r0, k, r1 - r0, '#8a6c45'); mkCell(c0 + gap + k, r0, k, r1 - r0, '#8a6c45');                                       /* the rails */
     for (let r = r0 + step; r < r1 - 1; r += step) mkCell(c0 + k, r, gap, k, '#b08a58');                                            /* the rungs */
-    out.push({ x: x, y: y, lv: lv, X: X, top: top, foot: foot });
+    /* HEIGHTS YOU CAN READ (COMBAT [eyes: heights you can read], EYES line 67, rule 164 item 14): over the ladder's top, one
+       up-chevron a storey, the same mark that rides over a man standing up there, so a two and a three storey roof read apart
+       at a glance before anyone climbs them (EYES 10/25: every roof read the same; the ladder's length alone did not say it) */
+    const ck = Math.max(1, Math.round(k * 1.5)), cc = c0 + Math.round(gap / 2) - 2 * ck;
+    for (let i = 0; i < lv; i++) upChevron(cc, r0 - 4 * ck - i * 3 * ck, ck, ROOF_MARK);
+    out.push({ x: x, y: y, lv: lv, X: X, top: top, foot: foot, marks: lv });
   }
   mkOff();
   UI.ladders = out;   /* for the gates */
@@ -6232,7 +6252,8 @@ cv.addEventListener('pointerdown', function (e) {
     /* SET YOUR LINE BY DRAGGING (rule 110b, Battle Brothers' deployment): before FIGHT a finger down on one of your men picks him
        up; the ground does not pan under a man; a finger that does not move is still the tap-then-tile way */
     if (FIGHT.S.deploy && !UI.auto && !FIGHT.S.over) { const v = manAt(px, py); if (v && v.side === 'you') g0.dragMan = v; }
-    g0.hold = setTimeout(function () { if (gest !== g0 || g0.moved || g0.pinch) return; const v = manAt(px, py); if (v) { g0.held = true; weaponCard(v); } }, HOLD_MS);
+    g0.hold = setTimeout(function () { if (gest !== g0 || g0.moved || g0.pinch) return; const v = manAt(px, py); if (v) { g0.held = true; weaponCard(v); return; }
+      const q = tileAt(px, py), bl = UI.drag ? '' : buildingSay(q.x, q.y); if (bl) { g0.held = true; say(bl); } }, HOLD_MS);   /* a finger held on a building: what its height gives */
   }
   UI.glide = null;
 });
@@ -6412,7 +6433,7 @@ function tapAt(px, py) {
   }
   if (who) { UI.pend = null; return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
-  if (!path && FIGHT.rowAt(p.x, p.y) === 'obstacles') { UI.pend = null; say(HEIGHT_SAYS.wall); return; }   /* a house's wall is not 'too far' */
+  if (!path && FIGHT.rowAt(p.x, p.y) === 'obstacles') { UI.pend = null; say(buildingSay(p.x, p.y) || HEIGHT_SAYS.wall); return; }   /* a house's wall is not 'too far': it says how high the house stands */
   /* rule 206: a tile past this turn's AP is never refused: the first tap draws the whole way and marks where he stops, the second walks it */
   const far = !path ? FIGHT.farWalk(u, p.x, p.y) : null;
   if (far && far.stop) {
@@ -6474,7 +6495,11 @@ function whoAt(px, py, p, u) {
    tap to see, one tap to do. Nothing is spent, rolled or taught by a hover. */
 function hoverAt(px, py) {
   const S = FIGHT.S, u = FIGHT.current();
-  if (!UI.board || S.deploy || S.over || UI.auto || !crewControlled(u) || UI.anim.length || UI.skillMode || UI.sweep || UI.drag) return;
+  if (!UI.board || S.over || UI.drag) return;
+  /* A BUILDING SAYS WHAT ITS HEIGHT GIVES (COMBAT [eyes: heights you can read], EYES 10/25 k07: 'a pointer resting on a house on
+     the computer before the fight showed no word of height, cover or sight'): before FIGHT, on AUTO, in their turn, and over a
+     wall he cannot walk to, the mouse resting on a building is its line; nothing is picked or spent */
+  if (S.deploy || UI.auto || !crewControlled(u) || UI.anim.length || UI.skillMode || UI.sweep) { hoverBuilding(px, py); return; }
   const p = tileAt(px, py), out = p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h;
   const key = out ? 'out' : p.x + ',' + p.y + ':' + turnKeyOf(u) + ':' + S.log.length + ':' + u.ap;
   if (UI.hoverKey === key) return; UI.hoverKey = key;
@@ -6490,8 +6515,13 @@ function hoverAt(px, py) {
   if (p.x === u.x && p.y === u.y) { clear(); return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) return;
-  if (!path) { const far = FIGHT.farWalk(u, p.x, p.y); if (!far || !far.stop) { clear(); return; } farPreview(u, p, far); UI.pend.hover = true; hud(); return; }   /* rule 206(d): the mouse over a far tile is the first tap */
+  if (!path) { const far = FIGHT.farWalk(u, p.x, p.y); if (!far || !far.stop) { clear(); hoverBuilding(px, py); return; } farPreview(u, p, far); UI.pend.hover = true; hud(); return; }   /* rule 206(d): the mouse over a far tile is the first tap */
   walkPreview(u, p, f, path); UI.pend.hover = true; hud();
+}
+function hoverBuilding(px, py) {
+  const S = FIGHT.S, p = tileAt(px, py), line = p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h ? '' : buildingSay(p.x, p.y), key = 'b' + p.x + ',' + p.y;
+  if (line) { if (UI.saidBuilding !== key) { UI.saidBuilding = key; say(line); } return; }
+  if (UI.saidBuilding) { UI.saidBuilding = null; if (document.getElementById('say').textContent.indexOf(HEIGHT_SAYS.ladder) >= 0) say(''); }
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target, nm = UI.pend.sweep; UI.pend = null; UI.sweep = null; if (nm) FIGHT.sweep(u, t, null, nm); else FIGHT.strike(u, t); take(); } };
 /* RETREAT (rule 144(c)): one tap to see (the button arms and the line says what happens), one tap to do, within two bars */
