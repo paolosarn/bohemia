@@ -46,6 +46,7 @@ SRC = os.path.join(ROOT, 'records/target/animation/BOHEMIA_THE_TOWNS_ACTIVITIES.
 IDL = os.path.join(ROOT, 'records/target/animation/BOHEMIA_EVERYBODY_IDLES.json')
 IDX = os.path.join(ROOT, 'slices/rig_town/rig_town.json')
 RENDERS = os.path.join(ROOT, 'records/target/animation/towns')
+JOINTS = os.path.join(ROOT, 'records/animation/town_joints')   # the posed joints, kept (the renders are gitignored: every container reads these)
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 NAMED = ['drink', 'smoke', 'talk', 'flirt', 'sit', 'stall']
 AFTER = ['loot', 'tend', 'bind', 'breath']   # rule 245: the minutes after a fight, the set 'after'
@@ -163,7 +164,8 @@ def joints_of(l):
     build posed twice, so one armature's space)"""
     J = None
     for d in (l, l + '.after', l + '.camp'):
-        fn = os.path.join(RENDERS, d, 'joints.json')
+        fn = os.path.join(JOINTS, d + '.json')
+        if not os.path.exists(fn): fn = os.path.join(RENDERS, d, 'joints.json')
         if not os.path.exists(fn): continue
         j = json.load(open(fn))
         if J is None: J = j
@@ -171,7 +173,8 @@ def joints_of(l):
     return J
 
 
-looks_j = sorted(set(l.split('.')[0] for l in os.listdir(RENDERS) if os.path.exists(os.path.join(RENDERS, l, 'joints.json')))) if os.path.isdir(RENDERS) else []
+looks_j = sorted(set([l.split('.')[0] for l in os.listdir(RENDERS) if os.path.exists(os.path.join(RENDERS, l, 'joints.json'))] if os.path.isdir(RENDERS) else [])
+                 | set([f[:-5].split('.')[0] for f in os.listdir(JOINTS) if f.endswith('.json')] if os.path.isdir(JOINTS) else []))
 IX = json.load(open(IDX)) if os.path.exists(IDX) else None
 packed = sorted(IX['looks']) if IX else []
 ok('E0 the posed model\'s joints are kept beside every packed man\'s render (the ruler)', packed and all(l in looks_j for l in packed),
@@ -439,7 +442,7 @@ if X:
     ok('X3 MUTATION: a pair that both talk at once is caught', any('both talk' in x for x in bf))
     of = []
     for a, A in T['activities'].items():
-        if not A.get('once'): continue
+        if not A.get('once') or a not in IX.get('activities', {}): continue   # asked of what the shipped index plays
         R = X.get('once', {}).get(a)
         want = [p for p, h in T['timelines'][A['breathe'][0][0]] for _ in range(h)]
         if not R: of.append('%s not played' % a); continue
@@ -471,7 +474,8 @@ const srv = http.createServer((rq, rs) => {
         let c = null; for (let f = 0; f < 8 && !c; f++) c = BohemiaIdles.activity(L, 'crew:' + L, performance.now(), f, { act: a, pair: 'x' });
         o[a] = c ? { w: c.w, h: c.h, nat: c.img.naturalWidth, pose: c.pose } : null; }); return o; }, LOOK);
     Object.keys(r).forEach(a => { if (r[a] && r[a].nat > 0) got[a] = r[a]; });
-    if (Object.keys(got).length >= 6) break;
+    const nA = await p.evaluate(L => BohemiaIdles.activities(L).length, LOOK);
+    if (Object.keys(got).length >= Math.max(6, nA)) break;
     await p.waitForTimeout(500);
   }
   console.log(JSON.stringify({ got: got, errs: errs }));
@@ -486,5 +490,5 @@ const srv = http.createServer((rq, rs) => {
     finally:
         os.remove(js)
     ok('W1 on the real settlement screen the player hands back a drawn cell of all six activities for his man %s, the sheets decode, nothing thrown' % look,
-       not R.get('err') and not R.get('errs') and len(R.get('got', {})) == 6, R.get('err') or R.get('errs') or sorted(R.get('got', {})))
+       not R.get('err') and not R.get('errs') and set(NAMED) <= set(R.get('got', {})), R.get('err') or R.get('errs') or sorted(R.get('got', {})))
 done()

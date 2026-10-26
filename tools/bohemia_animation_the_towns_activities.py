@@ -53,6 +53,7 @@ SRC = os.path.join(ROOT, 'records/target/animation/BOHEMIA_THE_TOWNS_ACTIVITIES.
 POSED = 'records/animation/towns'                # the posed models (regenerated, .gitignore)
 RENDERS = 'records/target/animation/towns'       # the master rig's renders and the joints (regenerated, .gitignore)
 OUT = 'slices/rig_town'
+JOINTS_KEPT = 'records/animation/town_joints'   # every pass's posed joints, committed (the gate's ruler where the renders are not)
 DIRS = EI.FIGHT_DIRS
 F, U, L = EI.F, EI.U, EI.L
 AX = EI.AX
@@ -581,6 +582,14 @@ def pack(only=None):
             if os.path.exists(os.path.join(d, 'made.txt')): out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))
         return out
 
+    os.makedirs(os.path.join(ROOT, JOINTS_KEPT), exist_ok=True)
+
+    def keep_joints(tag, ps):   # the posed joints beside the pack, committed: the gate's ruler in every container (the renders are not)
+        import shutil
+        for d, _ in ps:
+            src = os.path.join(d, 'joints.json')
+            if os.path.exists(src): shutil.copyfile(src, os.path.join(ROOT, JOINTS_KEPT, os.path.basename(d) + '.json'))
+
     def fresh(mj, ps):
         return os.path.exists(mj) and all(os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')) for d, _ in ps)
 
@@ -595,6 +604,7 @@ def pack(only=None):
         if only and tag not in only: continue
         ps = passes(tag)
         if not ps: continue
+        keep_joints(tag, ps)
         rec = os.path.join(ROOT, EI.PEOPLE_STILLS, tag)
         FL = FR['looks'].get(tag)
         mj = os.path.join(ROOT, OUT, tag + '.json')
