@@ -1590,15 +1590,23 @@ const FIGHT = (function () {
     return d > c.threshold ? c.threshold + (d - c.threshold) * c.over_threshold_multiplier : d;
   }
   function inWater(u) { return rowAt(u.x, u.y) === 'swamp'; }
+  /* the wiki's 'blocked target' (the line of fire), and why: 'tile' he stands in cover (when ours.cover_tile_blocks_line), 'wall'
+     a building on the tile next to him in the line, 'man' a man standing there; null when the line is clear.
+     NO COVER IN THE OPEN STREET (COMBAT line 90's open-street half, rule 170(a), Paolo 10/25: 'if you're in the middle of the
+     street you have no cover unless that street tile has crazy car wreckage'): MEASURED 10/26 on 64 rolled AUTO fights, 1,213 of
+     3,093 shots at a man on a tile with nothing on it (39%) read 'cover' and lost three quarters of their chance, 634 of them
+     for a dead car, a rock, a fence or an outcrop on the NEXT tile toward the shooter. Battle Brothers' hex is a man's width,
+     so a thing on the next hex is at his elbow; our tile is a house, so a thing on the next tile is a house away and hides
+     nobody. A piece shelters only the man on its own tile (coverDef, hides()); a building in the line still blocks it, and a
+     man in the way is Battle Brothers' body in the line of fire, said as that, never as cover */
   function shotLine(a, t) {
-    /* the wiki's 'blocked target': something stands in the line next to him, or he stands in cover */
-    if (R('ours.cover_tile_blocks_line') && hides(t.x, t.y) && dist(a, t) > 1) return true;
-    const pts = line(a, t); if (pts.length < 1 + 1 + 1) return false;
+    if (R('ours.cover_tile_blocks_line') && hides(t.x, t.y) && dist(a, t) > 1) return 'tile';
+    const pts = line(a, t); if (pts.length < 1 + 1 + 1) return null;
     const n = pts[pts.length - 1 - 1];
-    if (sightBlock(n.x, n.y) || S.cover[n.y][n.x]) return true;
+    if (sightBlock(n.x, n.y)) return 'wall';
     const who = unitAt(n.x, n.y);
-    if (who && !(who.side === a.side && dist(a, t) === 1 + 1)) return true;
-    return false;
+    if (who && !(who.side === a.side && dist(a, t) === 1 + 1)) return 'man';
+    return null;
   }
   function inRange(a, t, w) {
     w = w || a.weapon;
@@ -1653,10 +1661,13 @@ const FIGHT = (function () {
       else if (w.class === 'throwing') { const g = R('parsed.throw_axe'); per = g.per_hex; base = g.base_bonus; free = g.free_tiles; }
       else { const g = R('hit_chance.ranged.distance.bow_quick_shot'); per = g.per_hex; base = g.base_bonus; }
       ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
-      if (!ignores && shotLine(a, t)) {
+      const blocked = ignores ? null : shotLine(a, t);
+      if (blocked) {
         ch *= PK(a, 'bullseye') ? 1 - R('hit_chance.ranged.cover_bullseye') : 1 + R('hit_chance.ranged.cover_line_of_fire_blocked');
-        parts.push('cover');
+        parts.push(blocked === 'man' ? 'in the way' : 'cover');
       }
+      /* the cover, the kneel and the odds are one fact (rule 170(a)): the defence of the pieces on his tile is in df; say it */
+      if (hides(t.x, t.y) && parts.indexOf('cover') < 0) parts.push('cover');
     }
     const fa = PK(a, 'fast_adaptation');
     if (fa && a.missStack) { ch += fa.hit_chance_per_miss_pct * a.missStack; parts.push('reads you'); }

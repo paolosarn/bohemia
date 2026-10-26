@@ -83,3 +83,29 @@ end it. We keep that, and add the free shot because he asked for it.
 
 The runner's back is the thing on the screen: the man who was coming for you is now the one being hunted, and the free shot
 is fired at someone who is not fighting any more.
+
+## 3. NO COVER IN THE OPEN STREET (EYES line 90's open-street half, rule 170(a))
+
+HIS WORDS: 'if you're in the middle of the street you have no cover unless that street tile has crazy car wreckage'. The rule:
+the cover, the kneel and the dial's odds are one fact.
+
+MEASURED (64 rolled AUTO fights on eight kinds of board, before): 1,213 of 3,093 shots at a man standing on a tile with nothing
+on it (39%) read 'cover' and lost three quarters of their chance (Battle Brothers' blocked line of fire, x 0.25): 634 for a
+piece on the NEXT tile toward the shooter (a dead car 125 + 86, a rock 182, rubble 84, walls, a shed, a fence, the outcrop 19,
+the Jersey barrier 17), 560 for a man in the line. And a man on a cover tile read 'cover' on only 344 of 858 shots: the defence
+of the pieces on his tile was in the sum but never said. So the odds, the kneel and the tile disagreed.
+
+WHY: Battle Brothers' hex is a man's width, so a thing on the next hex is at his elbow. Our tile is a house, so a thing on the
+next tile is a house away and hides nobody.
+
+NOW: a piece shelters only the man on its own tile (coverDef, hides(), unchanged); a building on the next tile in the line
+still blocks it; a man in the line is Battle Brothers' body in the line of fire, said as 'in the way', never as cover; a shot
+at a man on a cover tile always says cover. After: 0 of 2,957 shots at men on bare tiles read cover, 900 of 900 at men in
+cover did. The street boards measured: about 60% of their tiles are open ground with no cover; their cover is dead cars, the
+Jersey barrier down the median, block walls, fences and pumps, the smallest a 0.8 m barrier.
+
+BALANCE (160 tough rolled fights, 8 to 12 of theirs at days 20 and 60): shots land 35.7% (31.8% before), both sides; his side
+won 73 (67). TUNING may weigh it; Battle Brothers' x 0.25 stays for the man in the way.
+
+THE GATE: MELEE IS ONE TILE, COVER IS WHAT IS ON THE TILE, its new leg NO COVER IN THE OPEN STREET (9/0). THE PERKS ARE LIVE:
+Bullseye's leg puts a man in the way instead of a rock on the next tile (47/0).

@@ -86,8 +86,10 @@ leg(live.length >= 30 && unread.length === 0, 'every perk marked live is read by
 
     /* ranged: rifle at range behind the cover rule */
     s = fresh('rifle'); s.t.x = s.fp.x + 2; s.a.loaded = true;
-    /* a car between him and his man (the wiki's blocked line), not under the man (that is defence by count now, rule 67) */
-    S.cover[s.t.y][s.fp.x + 1] = 'rock_0'; b = hc(s.a, s.t); s.a.perks = ['bullseye']; const bul = hc(s.a, s.t); S.cover[s.t.y][s.fp.x + 1] = null; const open0 = hc(s.a, s.t);
+    /* a man of theirs in the line, on the tile next to his man (the wiki's blocked line: a body in the line of fire); a piece on
+       that tile is a house away and blocks nothing (rule 170(a), COMBAT 10/26), and under the man it is defence by count (rule 67) */
+    const inWay = S.units.filter(u => u.side === 'them' && u !== s.t)[0]; inWay.fled = false; inWay.x = s.fp.x + 1; inWay.y = s.t.y;
+    b = hc(s.a, s.t); s.a.perks = ['bullseye']; const bul = hc(s.a, s.t); inWay.fled = true; s.a.perks = []; const open0 = hc(s.a, s.t); s.a.perks = ['bullseye'];
     /* the cover penalty multiplies the shot; Battle Brothers' Beginner aim (ours.hit_roll_shift, rule 117) is added after it, on the roll */
     const sh = T.rollShift(s.a);
     say('THREADS THE NEEDLE (bullseye): cover costs half, not three quarters', Math.abs((bul - sh) - (open0 - sh) * 0.5) <= 1 && Math.abs((b - sh) - (open0 - sh) * 0.25) <= 1, 'open ' + open0 + ', cover ' + b + ', cover with it ' + bul + ' (the roll shift ' + sh + ' on each)');
