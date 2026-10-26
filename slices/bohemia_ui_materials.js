@@ -763,7 +763,12 @@
     /* the town is laid under the map's bar; the phone stands over it where it stands on the map; the company screen and
        the notes are the whole glass, the same as from the map */
     + 'html.bm-town body #settleFrame{top:var(--bm-hud-h,0px)!important;height:calc(100% - var(--bm-hud-h,0px))!important}'
-    + 'html.bm-town body #cityfeed{z-index:61!important}'
+    /* UI [no phone in the town] (rule 211, Paolo 10/26: 'the phone on the settlement screen is so ugly... it's covering up other
+       buttons'; EYES line 132: the town's LEAVE and the sheet's X sat under the phone's held jobs and a tap on LEAVE dropped a
+       job): the old phone never shows in a town (at camp it stays: no town there, the feed runs on it); the jobs and DROP live
+       on the town's board. UI TWO's corner phone (rules 212,
+       213: one phone, one place, on every screen) marks itself data-phone="corner" and is let through */
+    + 'html.bm-town:not(.bm-camp) body #cityfeed:not([data-phone="corner"]){display:none!important}'
     + 'html.bm-town body #notewrap{z-index:70!important}'
     + 'html.bm-town.bm-town-crew body #settleFrame{top:0!important;height:100%!important;z-index:90!important}'
     + '#bmtb{display:flex;flex-direction:column;gap:5px;box-sizing:border-box;padding:max(6px,env(safe-area-inset-top)) 8px 13px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
@@ -1026,6 +1031,9 @@
       try { new MutationObserver(function () { try { tbPaint(); } catch (_e) {} }).observe(sf, { attributes: true, attributeFilter: ['style'] }); } catch (_e) {} }
     var on = !!sf && sf.style.display !== 'none';
     if (R.classList.contains('bm-town') !== on) R.classList.toggle('bm-town', on);
+    /* the camp is the same screen with no town in it (rule 151(d)): the phone stays there (UI [no phone in the town] is the town's) */
+    var camp = false; if (on) { try { var SW = sf.contentWindow; camp = !!(SW && SW.BohemiaSettlement && SW.BohemiaSettlement.camp && SW.BohemiaSettlement.camp().camp); } catch (_e) {} }
+    if (R.classList.contains('bm-camp') !== camp) R.classList.toggle('bm-camp', camp);
     var host = document.getElementById('menubar');
     if (host) { var h = Math.round(host.getBoundingClientRect().bottom) + 'px'; if (R.style.getPropertyValue('--bm-hud-h') !== h) R.style.setProperty('--bm-hud-h', h); }
   }
@@ -2140,12 +2148,13 @@
      WORLD only sets the number; WORLD's reader hands it here, effa8af7) or by bleed(el, danger). When the danger changes the clay steps through every stage
      between, one held frame an eighth note (250 ms at 120 BPM), never a fade: stop-motion. A job seen before starts
      from the stage it last showed; a job seen for the first time bleeds in from clean.
-     From stage five, where drips and swipes cross the words, the words get a one-pixel halo the colour of what the clay
-     sits on (bone under dark ink, soot under light), so a soaked job still reads.
+     From the first stage the words get a one-pixel halo the colour of what the clay sits on (bone under dark ink, soot under
+     light): on clean paper it is invisible, and where the clay crosses a letter (the thumbprint lands under a long title on
+     the town's board, measured) the letter still reads.
      ====================================================================================================== */
   /* ONE SCALE: clean and soaked are WORLD's numbers (records/target/bb/job_danger.json blood_from and blood_full, its reader's
      CFG), read from the reader when it is on the page; the same two numbers stand here until then */
-  var BLOOD = { stages: 8, hold: 250, clean: 0.04, soaked: 0.65, halo: 5,
+  var BLOOD = { stages: 8, hold: 250, clean: 0.04, soaked: 0.65, halo: 1,
     pieces: [['thumb', 34, 40], ['hand', 56, 44], ['top', 96, 40], ['foot', 112, 16], ['field', 128, 128]] };
   function bloodScale() {
     try { var W = window.BohemiaJobDanger || (window.parent && window.parent !== window && window.parent.BohemiaJobDanger), c = W && W.cfg && W.cfg();

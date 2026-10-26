@@ -25,7 +25,7 @@
      D2 the blood is under the words and the face and takes no tap (the row's middle hit-tests to the row)
      D3 STOP-MOTION HOLDS: the danger raised, the clay steps one stage at a time, every frame held (250 ms; at least 150 measured), to
         soaked; lowered, it steps back (each frame held 150 ms or more of its 250: a loaded box reads 198)
-     D4 from stage five the words carry the halo of what the clay sits on
+     D4 from the first stage the words carry the halo of what the clay sits on (invisible on clean paper)
      D5 on the glass: a soaked row is at least a third red clay, a one-star row under a twentieth
      D6 the offer's Take it wears the same blood as the person who offered it
      D7 nothing thrown
@@ -174,7 +174,7 @@ async function side(profile, d0) {
         for (let i = 0; i < px.length; i += 4) if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) red++; return red / (px.length / 4); }, buf.toString('base64')); };
     const soaked = await shotRow();
     const halo = await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); return e.getAttribute('data-blood-halo') + ' ' + getComputedStyle(e.querySelector('span') || e).textShadow.slice(0, 40); });
-    ok('D4 ' + profile + ': from stage five the words carry a halo of what the clay sits on', /^bone /.test(halo) && /rgb\(233, 221, 194\)/.test(halo), halo);
+    ok('D4 ' + profile + ': with blood on it the words carry a halo of what the clay sits on', /^bone /.test(halo) && /rgb\(233, 221, 194\)/.test(halo), halo);
     const down = await watch(0.05);
     ok('D3 ' + profile + ': lowered, it steps back the same way', steps(down) && holds(down) && down[down.length - 1].v === 1, down.map(x => x.v + '(' + Math.round(x.held) + ')').join(' '));
     const one = await shotRow();
