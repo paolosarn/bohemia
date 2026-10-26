@@ -297,7 +297,9 @@ function drawCrew(){
     d.appendChild(w); el.appendChild(d);
   });
   var fell = S.men.filter(function(m){ return m.dead; }).length, hurt = S.men.filter(function(m){ return m.down && !m.dead && !m.main; }).length;
-  document.getElementById('crewn').textContent = (ups ? ups + ' CLIMBED' : 'NOBODY CLIMBED') + (hurt ? ', ' + hurt + ' HURT' : '') + (fell ? ', ' + fell + ' DEAD' : '');
+  /* a level is a level, never 'climbed' (EYES [eyes: the road crew ran]) */
+  var lv = S.men.reduce(function(t, m){ return t + (m.up && !m.dead ? Math.max(1, (m.to | 0) - (m.from | 0)) : 0); }, 0);
+  document.getElementById('crewn').textContent = (lv ? lv + (lv === 1 ? ' NEW LEVEL' : ' NEW LEVELS') : 'NO NEW LEVEL') +(hurt ? ', ' + hurt + ' HURT' : '') + (fell ? ', ' + fell + ' DEAD' : '');
 }
 /* PICK A PERK: the one crew screen, over this one; it reads this fight (kept by the shell) and opens on the man with a point */
 function openCrew(name){
@@ -505,6 +507,20 @@ var WORDS = { won: 'YOU WON', lost: 'YOU LOST', ran: 'YOU PULLED OUT', wipe: 'WI
   nothingLost: 'They kept the field. Nothing off them; what your men carried in is still on them.', nothingRan: 'You got out. Nothing taken off anybody, and no pay.',
   nothingWipe: 'Nobody was left standing to take anything.' };
 function mmss(t){ t = t | 0; return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); }
+/* SAY WHAT HAPPENED (EYES [eyes: the road crew ran], round five): a won fight's head was the fight's one line for every win, 'THE ROAD
+   CREW RAN', over two dire wolves and a hyena with three of three down. The line names who they were, off the bodies the fight hands
+   over (all beasts: the pack; else their faction), and says RAN only when some ran. The fight's own other heads (pulled out, haunted,
+   a wipe) stand as they are. draft:true */
+var THEY = { brigands: ['THE RAIDERS', 'THE RAIDER'], machines: ['THE MACHINES', 'THE MACHINE'], kids: ['THE KIDS', 'THE KID'], heavies: ['THE HEAVIES', 'THE HEAVY'],
+  beasts: ['THE PACK', 'THE BEAST'], ghosts: ['THE DEAD', 'THE DEAD'] };
+function wonHead(sp){
+  var b = (sp && sp.bodies) || []; if(!b.length) return 'THE FIGHT IS WON';
+  var one = b.length === 1, who = b.every(function(x){ return x.beast; }) ? THEY.beasts : THEY[sp.faction] || THEY.brigands, name = who[one ? 1 : 0];
+  var ran = b.filter(function(x){ return x.fled; }).length, down = b.filter(function(x){ return x.dead; }).length;
+  if(ran && !down) return name + ' RAN';
+  if(ran) return name + ' BROKE AND RAN';
+  return name + (one || name === 'THE PACK' ? ' IS DOWN' : ' ARE DOWN');
+}
 function head(f){
   var rc = S.rc || {}, kind = f.wipe ? 'wipe' : f.retreat ? 'ran' : f.result === 'won' ? 'won' : 'lost';
   var bar = document.getElementById('bar'); bar.className = kind === 'won' ? 'won' : 'lost';
@@ -512,7 +528,9 @@ function head(f){
   document.getElementById('word').textContent = WORDS[kind];
   /* EYES [eyes: the end screen's words] (rule 150): the head line stands only when it says something the word does not ('WIPED
      OUT  WIPED OUT' read twice) */
-  var hd = String(rc.head || (kind === 'won' ? 'THE FIGHT IS WON' : '')), same = hd.replace(/\W+/g, ' ').trim() === WORDS[kind].replace(/\W+/g, ' ').trim() || hd.indexOf(WORDS[kind]) >= 0;
+  var hd = String(rc.head || (kind === 'won' ? 'THE FIGHT IS WON' : ''));
+  if(kind === 'won' && (!rc.head || /^THE ROAD CREW RAN$/i.test(hd.trim()))) hd = wonHead(f.spoils);
+  var same = hd.replace(/\W+/g, ' ').trim() === WORDS[kind].replace(/\W+/g, ' ').trim() || hd.indexOf(WORDS[kind]) >= 0;
   document.getElementById('head').textContent = same ? '' : hd;
   var t = document.getElementById('tally'); t.textContent = '';
   var bits = [];
@@ -609,7 +627,7 @@ var SAMPLE = { type:'BOHEMIA_FIGHT_OVER', result:'won', rounds:6,
       men:[{name:'YOU', kills:2, dealt:61, taken:12}, {name:'MARCO', kills:0, dealt:14, taken:38}, {name:'TERESA', kills:0, dealt:22, taken:4}],
       call:{who:'TERESA', line:'That one ran. Let him tell them.', look:'cast_skirt'} } } };
 dress(); document.addEventListener('DOMContentLoaded', dress);
-window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE,
+window.BohemiaSpoilsScreen = { open:open, dress:dress, state:S, wonHead:wonHead, lootAll:lootAll, takeOne:takeOne, putBack:putBack, leave:leave, takeCounts:takeCounts, SAMPLE:SAMPLE,
   optimize:optimize, undo:undo, draw:draw, pick:pick, makeCamp:makeCamp };
 document.getElementById('lootall').addEventListener('click', lootAll);
 document.getElementById('optimize').addEventListener('click', optimize);
