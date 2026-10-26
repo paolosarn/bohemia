@@ -150,3 +150,39 @@ the next fight; killed and reopened again; the fight after. Both profiles: 1 bot
 continue, 3 both; the company carried both after every fight and every reopening. Nothing vanished.
 
 THE GATES: GEAR THROUGH THE SAVE 3/0 on each profile (new, slow); GEAR NEVER VANISHES 6/0 holds the ten.
+
+## 6. EVERY WEAPON HAS ITS RANGE BANDS (rule 187)
+
+HIS WORDS (10/25): 'certain weapons will have their range accuracy; all weapons can shoot the tile next to them, depending on
+the type: a rifle shooting one tile next to it might be a range debuff; a shotgun, the closer you are, after one or two tiles...
+you'll have to do research on this'.
+
+HOW BATTLE BROTHERS DOES IT (records/target/bb/rules.json, the library): every ranged skill loses a share of the chance a tile
+and starts from its own bonus: bows -4 (Quick Shot) or -2 +10 (Aimed), crossbows -3 +15, the handgonne -10 +10 (and ignores
+what stands in the line), thrown weapons -10 +30 counting the first tile. Its long weapons are worse on the near tile (the
+library's reading of the polearms, GROK_03). Damage does not fall with distance in Battle Brothers.
+
+MEASURED BEFORE (a 60-skill man against a 10-defence man on open flat ground): the pistol (the javelin row) 75 75 65 55 at 1 to
+4 tiles, already at home close; the rifle (the crossbow) 70 at the next tile falling 3 a tile to 55 at 6, so a rifle was at its
+best in a man's face; the shotgun (the handgonne) 65 55, the same damage across the street as beside him. AUTO's shotgunners
+fired from two tiles 156 times and from the next tile 39 (60 rolled fights).
+
+THE REAL WORLD AT OUR SCALE: a tile is a house, about 15 m; across the street is about 30 m. A buckshot pattern stays tight to
+about 15 to 25 m and opens past it; a rifle is no less accurate at 15 m on a range, but a long gun is slow to bring onto a man
+already beside you; a handgun's effective distance is a few tens of metres.
+
+NOW (ours.range_bands, OUR DEFAULT until TUNING's bands land; Battle Brothers' fall stays under it): the rifle -15 at the next
+tile (55 there now); the shotgun's damage 70% at two tiles; the pistol as Battle Brothers already makes it. The chance, the
+damage (the blow and the preview through hitDamage), AUTO's estimate, the calculator and the aim line all read the band: 'Point-
+blank: your rifle is a long gun, -15% this close.' and 'At 2 tiles the shotgun's shot spreads: 70% of its damage.' AUTO's walk:
+a rifleman keeps his distance, a shotgunner prefers the tile nearer; and the shotgun steps in (stepIn, his side only, Battle
+Brothers' enemies as they were): with his best shot two tiles off, he takes the tile beside that man first when he can still
+fire from it this turn and the shot there is worth 1.2 times the shot from where he stands (ours.range_bands_step_in), never
+into a second man's ring. A scoped rifle, 'best far', has no weapon row yet; its band comes with its row.
+
+AFTER (the same 60 fights): his shotgunners fire from the next tile 94 times, from two 89; his riflemen fire point-blank 4% of
+their shots (5% before); his side won 54 (51). Hits at every distance land at the chance the rules gave them (12 buckets of a
+hundred shots or more, within 6 points or the bucket's own spread).
+
+THE GATE: EVERY WEAPON HAS ITS RANGE BANDS 7/0 (new): the data, the rules on every gun row at every tile it reaches, the hits by
+distance, AUTO playing the bands, the aim line on his phone and his computer.

@@ -1624,6 +1624,20 @@ const FIGHT = (function () {
     const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
     return d >= rangeLo(w) && d <= rangeMax(w.range) + up && sees(a, t);
   }
+  /* EVERY WEAPON HAS ITS RANGE BANDS (COMBAT [every weapon's range bands], rule 187, Paolo 10/25: 'a rifle shooting one tile next
+     to it might be a range debuff; a shotgun, the closer you are, after one or two tiles'): on top of Battle Brothers' own fall of
+     the shot a tile (its per_hex and base, chanceWith), each gun's band by distance from ours.range_bands: the hit it adds or
+     takes at that many tiles, and the share of its damage that arrives there. Read by the chance, the damage, the aim line,
+     AUTO's walk and the calculator alike. null for a weapon with no band (melee, the bottles) */
+  function band(a, t, w) {
+    w = w || a.weapon; if (!isRanged(w)) return null;
+    const b = R('ours.range_bands')[jobOfWeapon(w)]; if (!b) return null;
+    const d = String(dist(a, t)), h = (b.hit_by_tile || {})[d], m = (b.damage_by_tile || {})[d];
+    return { hit: h || 0, dmg: m === undefined ? 1 : m, tiles: Number(d) };
+  }
+  /* a gun whose damage falls off with the distance wants to be close (the shotgun), the others keep theirs */
+  function wantsClose(w) { const b = isRanged(w) ? R('ours.range_bands')[jobOfWeapon(w)] : null;
+    return !!b && Object.keys(b.damage_by_tile || {}).some(function (k) { return b.damage_by_tile[k] < 1; }); }
   /* the nearest tile a ranged weapon reaches: a gun from the tile beside him (rule 185: 'all guns 2+' is the reach, never a minimum;
      the pistol's shot rides a javelin row whose own page says two), a bow or a thrown thing from its own row */
   function rangeLo(w) { return isGun(w) ? R('ours.gun_min_range') : Math.max(rangeMin(w), 1); }
@@ -1665,6 +1679,8 @@ const FIGHT = (function () {
       else if (w.class === 'throwing') { const g = R('parsed.throw_axe'); per = g.per_hex; base = g.base_bonus; free = g.free_tiles; }
       else { const g = R('hit_chance.ranged.distance.bow_quick_shot'); per = g.per_hex; base = g.base_bonus; }
       ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
+      const bd = band(a, t); if (bd && bd.hit) { ch += bd.hit; parts.push(bd.hit < 0 ? 'point-blank' : 'in its range'); }
+      if (bd && bd.dmg < 1) parts.push('spread');
       const blocked = ignores ? null : shotLine(a, t);
       if (blocked) {
         ch *= PK(a, 'bullseye') ? 1 - R('hit_chance.ranged.cover_bullseye') : 1 + R('hit_chance.ranged.cover_line_of_fire_blocked');
@@ -1733,6 +1749,7 @@ const FIGHT = (function () {
   function hitDamage(a, t, raw, head, armour) {
     const w = a.weapon;
     let base = raw * injMult(a, 'damage_inflicted_pct');
+    const bd = band(a, t); if (bd) base *= bd.dmg;   /* rule 187: the share of the gun's damage that arrives at this distance */
     const ex = PK(a, 'executioner'); if (ex && t.injuries.length) base *= 1 + ex.damage_bonus_vs_injured_pct / 100;
     const kf = PK(a, 'killing_frenzy'); if (kf && a.frenzy > 0) base *= 1 + kf.damage_bonus_pct / 100;
     const tm = w.class === 'throwing' && !w.of ? PK(a, 'throwing_mastery') : null;   /* BOTTLE ARM is the bottles', never the pistol's */
@@ -2398,7 +2415,7 @@ const FIGHT = (function () {
   }
   function expected(a, t) {
     const hc = hitChance(a, t, strikeSkill(a.weapon)).chance;
-    const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
+    const bd = band(a, t), mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1) * (bd ? bd.dmg : 1);
     return hc * mean / Math.max(1, t.hp + t.armB);
   }
   /* the start of a turn: rally the breaking, rest when too winded to swing (Recover takes the whole turn) */
@@ -2527,6 +2544,23 @@ const FIGHT = (function () {
     });
     return !!(best && moveTo(u, best.x, best.y));
   }
+  /* THE SHOTGUN STEPS IN (COMBAT [every weapon's range bands], rule 187(d): 'a shotgunner closes in, a rifleman keeps his
+     distance'): AUTO's man with a gun whose damage falls off with the distance, his best shot two tiles or more away, takes the
+     tile beside that man first when he can still fire from it this turn and the shot there is worth a fifth more (the band's
+     damage and the chance as the rules read them), never into a second man's ring; else he fires from where he stands */
+  function stepIn(u) {
+    const t = bestTarget(u); if (!t || dist(u, t) <= 1 || u.netted) return false;
+    const w = u.weapon, strikeAP = skillAP(w, strikeSkill(w), u), here = expected(u, t), f = reach(u), ox = u.x, oy = u.y;
+    let best = null, bs = here * R('ours.range_bands_step_in').worth;
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if (Math.max(Math.abs(x - t.x), Math.abs(y - t.y)) !== 1 || u.ap - f.best[k] < strikeAP) return;
+      if (zocOn(u, x, y).some(function (o) { return o !== t; })) return;
+      u.x = x; u.y = y; const ok = canStrike(u, t), v = ok ? expected(u, t) : 0; u.x = ox; u.y = oy;
+      if (ok && v > bs) { bs = v; best = { x: x, y: y }; }
+    });
+    return !!(best && moveTo(u, best.x, best.y));
+  }
   /* one action per call; false when the man is done for this turn */
   function aiStep(u) {
     if (S.over || current() !== u) return false;
@@ -2576,6 +2610,7 @@ const FIGHT = (function () {
       if (gi >= 0 && swap(u, gi)) return true;
     }
     if (ranged && A.high_ground && climb(u, A)) return true;   /* 70b: the shooter takes the roof before he shoots */
+    if (u.side === 'you' && ranged && wantsClose(w) && stepIn(u)) return true;   /* rule 187(d): the shotgun steps in */
     const t = bestTarget(u);
     if (t) { const sw = u.side === 'you' ? null : sweepPick(u); if (sw) {   /* rule 180(g): a special swing is his */ sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); return true; }
     /* CAN I ACT (rule 176(a)(b), TUNING s1b: 93% of the wasted turns were a man who could not strike, walked anyway): AUTO's man
@@ -2626,7 +2661,8 @@ const FIGHT = (function () {
           sc += (pal - foe) * R('hit_chance.surround.per_extra_adjacent');
         }
         if (A.surround) sc += tgts.reduce(function (m, t2) { return Math.max(m, friends(u).filter(function (fr) { return dist(fr, t2) === 1; }).length); }, 0);
-        if (ranged) sc += Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
+        /* rule 187(d): a rifleman keeps his distance; a gun whose damage falls off with it (the shotgun) closes in */
+        if (ranged) sc += (wantsClose(w) ? -1 : 1) * Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
       } else {
         sc = holds ? -Infinity : -hunt(x, y) * R('hit_chance.cap').max + left;
         if (ranged && !A.advance && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
@@ -2720,7 +2756,7 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, endFight: endFight, allFleeing: allFleeing, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, endFight: endFight, allFleeing: allFleeing, band: band, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
@@ -3707,6 +3743,7 @@ function dodgeLean(v, h, now) {
   if (k < 0 || k > 1) return 0;
   return d.dir * h * .22 * Math.sin(Math.PI * k);
 }
+const BAND_SAYS = { close: 'Point-blank: your {arm} is a long gun, <b>-{n}%</b> this close.', spread: 'At {tiles} tiles the {arm}\'s shot spreads: <b>{pct}%</b> of its damage.' };   /* draft:true */
 function aimLines(u, t) {
   const p = FIGHT.preview(u, t), out = [];
   if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
@@ -3714,6 +3751,10 @@ function aimLines(u, t) {
   const la = FIGHT.level(u.x, u.y), lt = FIGHT.level(t.x, t.y);
   if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('hit_chance.height.higher_attacker_bonus'), reach: FIGHT.isRanged(u.weapon) ? ', reach +' + (la - lt) * R('hit_chance.height.ranged_range_per_level') : '' }));
   if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('hit_chance.height.hit_chance_page_wording').lower_per_level * (lt - la) }));
+  /* rule 187(c): the band's effect where he aims, the rules' own numbers */
+  const bd = FIGHT.band(u, t);
+  if (bd && bd.hit < 0) out.push(wfill(BAND_SAYS.close, { arm: armName(u, u.weapon), n: -bd.hit }));
+  if (bd && bd.dmg < 1) out.push(wfill(BAND_SAYS.spread, { arm: armName(u, u.weapon), tiles: bd.tiles, pct: Math.round(bd.dmg * 100) }));
   if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
     const aw = armourWord(t), n = isFinite(p.blows) ? p.blows + ' hits to drop him.' : 'It will not drop him.';
     out.push('Your ' + armName(u, p.arm) + (aw ? ' barely dents his ' + aw + '. ' : ' barely hurts him. ') + n);

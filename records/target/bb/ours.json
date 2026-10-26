@@ -1478,5 +1478,40 @@
   "why": "how long, in beats of the song, RETREAT's 'Tap again' (and END THE FIGHT's) stays on the glass waiting for the second tap: the order belongs to the fight, not to one man's turn, so it is not cleared when a turn passes (on AUTO a turn passes in about a second and the second tap only armed it again); 16 beats is 8 s at 120 BPM, four bars: long enough to read the ask and tap (EYES [eyes: tap again, nothing] presses it ten beats later), short enough that an ask nobody answered does not stand over the rest of the fight. A screen timing, not a Battle Brothers number; TUNING may move it.",
   "draft": true,
   "tuned": false
+ },
+ "range_bands": {
+  "value": {
+   "rifle": {
+    "hit_by_tile": {
+     "1": -15
+    },
+    "damage_by_tile": {}
+   },
+   "shotgun": {
+    "hit_by_tile": {},
+    "damage_by_tile": {
+     "2": 0.7
+    }
+   },
+   "pistol": {
+    "hit_by_tile": {},
+    "damage_by_tile": {}
+   }
+  },
+  "source": "VAMILY.md rule 187 (Paolo 10/25, LOCKED); records/BOHEMIA_PAOLO_EVERY_WEAPON_HAS_ITS_RANGE_BANDS_10_25_26.md; COMBAT [every weapon's range bands] 10/26; reference/library/grok/GROK_03_RANGE_TRANSLATIONS_2026_09_30.md (Battle Brothers' long weapons are worse on the near tile; house-tile bands)",
+  "quote": "certain weapons will have their range accuracy; all weapons can shoot the tile next to them, depending on the type: a rifle shooting one tile next to it might be a range debuff; a shotgun, the closer you are, after one or two tiles",
+  "why": "OUR DEFAULT, seeded until TUNING's bands land in the one table (rule 187(b)(f)). Each gun job's band ON TOP of Battle Brothers' own fall of the shot a tile, which stays as the library gives it (the pistol rides the javelin row: +30, -10 a tile past the first, so it is already at home close: 75 75 65 55 for a 60-skill man at 1 to 4 tiles; the rifle the crossbow's +15, -3 a tile: 70 down to 55 at 6; the shotgun the handgonne's +10, -10 a tile: 65 55). hit_by_tile: points added to the chance at that many tiles; damage_by_tile: the share of the damage that arrives there (1 where none is written). rifle -15 at the next tile: his 'range debuff' point-blank, a long gun in a man's face (the size of Battle Brothers' near-tile penalty on its long weapons, by the library's reading, not a wiki number); shotgun 0.7 of its damage at 2 tiles: at a house a tile (about 15 m, about 30 m across the street) the pattern has opened (a buckshot load stays tight to about 15 to 25 m); the pistol none, Battle Brothers' row already falls off. A scoped rifle, 'best far', has no weapon row yet: its band comes with its row. TUNING may move every number.",
+  "draft": true,
+  "tuned": false
+ },
+ "range_bands_step_in": {
+  "value": {
+   "worth": 1.2
+  },
+  "source": "VAMILY.md rule 187(d) (Paolo 10/25, LOCKED); COMBAT [every weapon's range bands] 10/26",
+  "quote": "a shotgun, the closer you are",
+  "why": "OUR DEFAULT: AUTO's shotgunner steps beside his target before he fires only when the shot from there is worth this many times the shot from where he stands (the band's damage times the rules' chance), so a step is taken for a real gain, never for a point or two; TUNING may move it.",
+  "draft": true,
+  "tuned": false
  }
 }
