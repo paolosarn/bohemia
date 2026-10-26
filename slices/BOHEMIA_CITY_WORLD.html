@@ -45350,7 +45350,13 @@ function partyMath(kind, ctx){
   if(kind === 'job' && B){ P = partyV('job');
     var bm = Math.max(B.mult_min, Math.min(B.mult_max, B.k * Math.pow(str / 100, B.exp)));
     n = (B.base_men[String(ctx.skulls || 1)] || B.base_men['2']) * bm * mult;
-    days = partyDressDay(str, B.dress); }
+    /* __NO_CHAMPION_ON_DAY_ONE__ (WORLD, EYES round three 10/26: the Block Watch's twelve at level 1 met 'an LV 8 Marauder with 386
+       armour' three times on days one and two, on a ONE-star job): twelve men is strength 120, the dress of a typical company on day
+       34, and the middle phase sends Marauders. Battle Brothers grows a contract's COUNT with the company and its KINDS with the
+       days (the wiki's Brigands: 'in the early game Thugs and sometimes Raiders... later... armored Marauders'; the Marauder's best
+       helmets only after day 60): so a job is dressed for the day a company that strong stands, NEVER LATER THAN TODAY. A strong
+       crew early meets more men of the early kinds; a weak crew late still meets the easier dress */
+    days = Math.min(partyDressDay(str, B.dress), days); }
   else if(kind === 'job'){ P = partyV('job'); n = str / P.strength_per_enemy * (P.skull_mult[String(ctx.skulls || 1)] || 1) * mult; }
   else { P = partyV('roaming'); var dist = (ctx.x != null) ? partyTownDistance(ctx.x, ctx.y) : 0;
     n = (P.base + P.per_day * (days - 1) + P.per_block_from_town * dist + P.per_strength * str) * mult; }

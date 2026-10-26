@@ -5,15 +5,16 @@
    especially if it's gonna be super overpowered like wolves... that's one of the weak points of Battle Brothers, not really
    accurate, so try to be accurate... depending on the chance of an encounter and how dangerous the encounters are.'
 
-   THE LIVE DEMO ON THE PHONE PROFILE (JOB_PROFILE=computer for his computer), four crews as they would stand (the Lone Wolf alone
-   on day one, a new crew of three, six at level three by day twenty, twelve at level six by day fifty), 50 jobs each off the
-   valley's own boards (the shelf's pick, town by town): 200 jobs. Each job's stars and blood are what the game read in the page
-   (slices/bohemia_job_danger.js: every fight it brings rolled and played on AUTO against that crew). Then each job is PLAYED
-   AGAIN 100 TIMES WITH FRESH DICE, here in node, on the fight's own rules out of BOHEMIA_FIGHT.html, with the exact hand-over the
-   page used (each fight happening at its own chance): what each play is worth, the AUTO button's own count (rule 144(e)): home with
-   nobody down 1, with men down half the share still standing, a death or a loss 0 ('someone dead or down, weighted by how bad',
-   rule 208(a)); the plain share with nobody down at all is printed beside it.
-     J1  the four crews' 200 jobs all read (none stuck, none broken), red stars on every one
+   THE LIVE DEMO ON THE PHONE PROFILE (JOB_PROFILE=computer for his computer), five crews as they would stand (the Lone Wolf alone
+   on day one, a new crew of three, six at level three by day twenty, twelve at level six by day fifty, and THE BLOCK WATCH'S
+   TWELVE AT LEVEL ONE ON DAY ONE with EYES' own two jobs, Blues' cold box and Cartel's tigers), 50 jobs each off the valley's
+   own boards (the shelf's pick, town by town; 30 for the Block Watch): 230 jobs. Each job's stars and blood are what the game
+   read in the page (slices/bohemia_job_danger.js: every fight it brings rolled and played on AUTO against that crew). Then each
+   job is PLAYED AGAIN 100 TIMES WITH FRESH DICE, here in node, on the fight's own rules out of BOHEMIA_FIGHT.html, with the exact
+   hand-over the page used (each fight happening at its own chance). A play is CLEAN by rule 208(a) AS AMENDED 10/26 (the
+   coordinator): won, NOBODY of his dead, at most ONE MAN IN SIX down (a crew under six: nobody down); the page's own okRun, read
+   out of its file. The AUTO button's worth and the plain share with nobody down at all are printed beside it.
+     J1  the five crews' jobs all read (none stuck, none broken), red stars on every one
      J2  a ONE-star job comes home clean at least 85 in 100 (all its plays together)
      J3  a THREE-star job comes home clean under 65 in 100
      J4  the blood ranks with the danger: the more blood, the more often someone comes home down (rank correlation 0.6 or more;
@@ -22,7 +23,11 @@
          the band read, and ENGAGE deals exactly that band on the board (the same ids, the same count)
      J6  the stars move when the crew moves: the same job reads different (or the same with cause) for the Lone Wolf and twelve men
      J7  nothing threw
-   node gates/the_job_tells_the_truth_gate.js     (about ten minutes: 20,000 fights played in node on four processes)
+     J8  NO STAR LIES (TUNING's test: pooled means cannot see a lie): a one-star job under 85 in 100, or a three-star job at 65 or
+         more, at most one in fifty; EYES' cold box and tigers for the Block Watch on day one say what happened to them
+     J9  NO CHAMPION ON DAY ONE: every fight of every day-one crew's jobs is dressed for day one and holds only the kinds of its
+         faction's first phase (ours.enemy_tiers): no Marauder, no leader, for the Block Watch's twelve as for the Lone Wolf
+   node gates/the_job_tells_the_truth_gate.js     (about fifteen minutes: 23,000 fights played in node on four processes)
    ========================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm'), cp = require('child_process'), os = require('os');
@@ -34,21 +39,23 @@ async function engine() {
   const html = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
   const grab = id => html.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>'))[1];
   const orv = html.match(/function oddsRunValue\(E\) \{[\s\S]*?\n\}/)[0];
+  const okr = fs.readFileSync(path.join(ROOT, 'slices/bohemia_job_danger.js'), 'utf8').match(/function okRun\(F, per\) \{[\s\S]*?\n  \}/)[0];   /* the page's own clean trip */
   const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Error, Promise, Set, Map, LSV: {},
     localStorage: { getItem: k => (ctx.LSV[k] === undefined ? null : ctx.LSV[k]), setItem: () => {}, removeItem: () => {} },
     fetch: u => Promise.resolve({ json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', u), 'utf8'))) }) };
   vm.createContext(ctx);
-  vm.runInContext(grab('fight-data') + '\n' + grab('fight-rules') + '\n' + orv + '\nthis.FIGHT = FIGHT; this.loadAll = loadAll; this.run = oddsRunValue; this.seed = function (v) { SEED = v >>> 0; };', ctx);
+  vm.runInContext(grab('fight-data') + '\n' + grab('fight-rules') + '\n' + orv + '\n' + okr + '\nthis.FIGHT = FIGHT; this.loadAll = loadAll; this.run = oddsRunValue; this.ok = okRun; this.seed = function (v) { SEED = v >>> 0; };', ctx);
   await ctx.loadAll();
   return ctx;
 }
 async function replay(file, out) {
   const E = await engine(), jobs = JSON.parse(fs.readFileSync(file, 'utf8')), res = [];
+  const PER6 = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_danger.json'), 'utf8')).laid_up_per.value;
   for (const j of jobs) {
     E.LSV = { 'bohemia.fight.formation.v1': j.formation || null };
-    let clean = 0, worth = 0, plays = 0, fights = 0;
+    let clean = 0, literal = 0, worth = 0, plays = 0, fights = 0, deaths = 0, wiped = 0;
     for (let k = 0; k < j.plays; k++) {
-      const dice = seedOf('verify:' + j.key + ':' + k); let r = dice, ok = true, w = 1;
+      const dice = seedOf('verify:' + j.key + ':' + k); let r = dice, ok = true, lit = true, w = 1, died = false, wipe = false;
       const roll = () => { r = (r + 0x6D2B79F5) >>> 0; let t = r; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
       for (let fi = 0; fi < j.fights.length && ok; fi++) {
         const f = j.fights[fi]; if (f.p < 1 && roll() >= f.p) continue;
@@ -56,13 +63,16 @@ async function replay(file, out) {
         E.FIGHT.setup(JSON.parse(JSON.stringify(f.opts)));
         let g = 0; while (!E.FIGHT.S.over && g <= 6000) { const v = E.FIGHT.current(); if (!v) break; E.FIGHT.aiStep(v); E.FIGHT.S.events = []; g++; }
         fights++;
-        const v = E.FIGHT.S.over ? E.run(E.FIGHT) : 0; w *= v;
-        if (v !== 1) ok = false;
-        if (v === 0) break;
+        const v = E.FIGHT.S.over ? E.run(E.FIGHT) : 0, c = E.FIGHT.S.over ? E.ok(E.FIGHT, PER6) : 0; w *= v;
+        const mine = E.FIGHT.S.units.filter(u => u.side === 'you');
+        if (mine.some(u => u.dead)) died = true; if (E.FIGHT.S.result !== 'won' && mine.every(u => u.dead || u.down || u.fled)) wipe = true;
+        if (v !== 1) lit = false;
+        if (c !== 1) ok = false;
+        if (c === 0 && v === 0) break;
       }
-      plays++; if (ok) clean++; worth += w;
+      plays++; if (ok) clean++; if (lit) literal++; worth += w; if (died) deaths++; if (wipe) wiped++;
     }
-    res.push({ key: j.key, clean: clean, worth: worth, plays: plays, fights: fights });
+    res.push({ key: j.key, clean: clean, literal: literal, worth: worth, plays: plays, fights: fights, deaths: deaths, wiped: wiped });
   }
   fs.writeFileSync(out, JSON.stringify(res));
 }
@@ -82,7 +92,10 @@ const CREWS = [
   { id: 'lone wolf, day 1', day: 1, men: O.filter(o => o.id === 'wolf')[0].men.map((m, i) => man(m, i)) },
   { id: 'a new crew of three, day 3', day: 3, men: O.filter(o => o.id === 'newcrew')[0].men.map((m, i) => man(m, i)) },
   { id: 'six at level 3, day 20', day: 20, men: OURS.slice(0, 6).map((m, i) => man(m, i, 3)) },
-  { id: 'twelve at level 6, day 50', day: 50, men: OURS.slice(0, 12).map((m, i) => man(m, i, 6)) }
+  { id: 'twelve at level 6, day 50', day: 50, men: OURS.slice(0, 12).map((m, i) => man(m, i, 6)) },
+  /* EYES round three (10/26, records/BOHEMIA_EYES_EVERY_ASK_ROUND_THREE_TEN_FIGHTS_AND_AUTO_BY_EYE_10_26_26.md item 2): the Block Watch's
+     twelve on day one, a one-star cold box that wiped them 3 times in 17 and two-star tigers that wiped all twelve: both jobs read */
+  { id: 'the block watch, day 1', day: 1, per: 30, men: O.filter(o => o.id === 'watch')[0].men.map((m, i) => man(m, i)), must: [{ id: 'qd-c02', town: /BLUE/ }, { id: 'qd-aa15', town: /CARTEL/ }] }
 ];
 
 (async () => {
@@ -101,6 +114,7 @@ const CREWS = [
     for (const C of CREWS) {
       const tc = Date.now();
       const got = await fr.evaluate(([C, PER]) => {
+        PER = C.per || PER;
         localStorage.setItem('bohemia.company.v1', JSON.stringify(C.men)); localStorage.removeItem('bohemia.company.line.v1');
         localStorage.setItem('bohemia.hired.v1', '[]'); localStorage.setItem('bohemia.walked.v1', '[]'); localStorage.setItem('bohemia.taken.v1', '[]'); localStorage.setItem('bohemia.fight.after.v1', '[]');
         localStorage.setItem('bohemia.fight.met.v1', '3');
@@ -115,20 +129,24 @@ const CREWS = [
             let list = null; try { list = BohemiaBoardShelf.pick({ name: n, tier: tier }, day, { traits: [], held: [], places: BohemiaBoardShelf.mapPlaces ? BohemiaBoardShelf.mapPlaces(day) : null }); } catch (e) {}
             (list || []).forEach(o => { if (out.length < PER && !out.some(x => x.o.id === o.id && x.place === n)) out.push({ o: o, place: n }); });
           } }
+        /* EYES' own jobs, at their own towns, whatever the shelf's pick said */
+        (C.must || []).forEach(m => { const re = new RegExp(m.town.source || m.town); const t = names.filter(n => re.test(n))[0];
+          const o = (BohemiaBoardShelf.shelf().offers || []).filter(x => x.id === m.id)[0];
+          if (t && o && !out.some(x => x.o.id === o.id && x.place === t)) out.unshift({ o: o, place: t, must: true }); });
         /* the reads, as a surface asks for them */
-        return out.map(x => { const R = BohemiaJobDanger.read(x.o, x.place); return { id: x.o.id, place: x.place, o: x.o, has: !!R }; });
-      }, [C, PER]);
+        return out.map(x => { const R = BohemiaJobDanger.read(x.o, x.place); return { id: x.o.id, place: x.place, o: x.o, has: !!R, must: !!x.must }; });
+      }, [{ id: C.id, day: C.day, men: C.men, per: C.per, must: (C.must || []).map(m => ({ id: m.id, town: { source: m.town.source } })) }, PER]);
       const all = await waitFor(() => fr.evaluate((ids) => ids.every(x => { const R = BohemiaJobDanger.read(x.o, x.place); return R && R.state !== 'reading'; }), got), 900000);
       const rows = await fr.evaluate((ids) => ids.map(x => { const R = BohemiaJobDanger.read(x.o, x.place); if (!R) return { id: x.id, place: x.place, state: 'none' };
         return { id: x.id, place: x.place, skulls: x.o.skulls, state: R.state, stars: R.stars, danger: R.danger, clean: R.clean, blood: R.blood, broke: R.broke || null,
           formation: localStorage.getItem('bohemia.fight.formation.v1'),
           fights: R.fights.map(f => ({ what: f.what, why: f.why, n: f.n, p: f.p, band: f.band, faction: f.faction, days: f.days,
             opts: f.opts || BohemiaJobDanger.doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at) })) }; }), got);   /* the very hand-over the page played */
-      rows.forEach(r => { r.crew = C.id; r.key = C.id + '|' + r.place + '|' + r.id; jobs.push(r); });
+      rows.forEach((r, i) => { r.crew = C.id; r.day = C.day; r.must = !!(got[i] && got[i].must); r.key = C.id + '|' + r.place + '|' + r.id; jobs.push(r); });
       console.log('  ...' + C.id + ' (' + Math.round((Date.now() - tc) / 1000) + ' s): ' + rows.length + ' jobs read, ' + [1, 2, 3].map(s => rows.filter(r => r.stars === s).length + ' at ' + s).join(', ') + (all ? '' : ' (TIMED OUT)'));
     }
     const read = jobs.filter(j => j.state === 'read');
-    ok('J1 the four crews\' ' + jobs.length + ' jobs all read (played on AUTO in the page), none stuck or broken', jobs.length >= 4 * PER * 0.9 && read.length === jobs.length,
+    ok('J1 the five crews\' ' + jobs.length + ' jobs all read (played on AUTO in the page), none stuck or broken', jobs.length >= CREWS.reduce((t, c) => t + (c.per || PER), 0) * 0.9 && read.length === jobs.length,
       read.length + ' of ' + jobs.length + ' read; ' + jobs.filter(j => j.state !== 'read').map(j => j.id + ':' + j.state + (j.broke ? ' ' + j.broke : '')).slice(0, 4).join(' | '));
 
     /* J4's paint: a town's board, the rows' blood is the read's own number, in the clay's stages */
@@ -234,21 +252,38 @@ const CREWS = [
       p.on('exit', code => code === 0 ? res(JSON.parse(fs.readFileSync(fo, 'utf8'))) : rej(new Error('replay ' + i + ' exited ' + code)));
     })));
     const M = {}; [].concat.apply([], outs).forEach(r => { M[r.key] = r; });
-    /* what a play is worth is the AUTO button's own (rule 144(e)): clean 1, men down half the share standing, a death or a loss 0; the
-       literal 'nobody down' share is printed beside it */
-    read.forEach(j => { const r = M[j.key]; j.measured = r ? r.worth / r.plays : null; j.literal = r ? r.clean / r.plays : null; j.plays = r ? r.plays : 0; });
+    /* a play is clean by rule 208(a) as amended (nobody dead, at most one in six down); the AUTO button's worth and the literal
+       'nobody down' share are printed beside it */
+    read.forEach(j => { const r = M[j.key]; j.measured = r ? r.clean / r.plays : null; j.literal = r ? r.literal / r.plays : null; j.auto = r ? r.worth / r.plays : null;
+      j.deaths = r ? r.deaths : null; j.wiped = r ? r.wiped : null; j.plays = r ? r.plays : 0; });
     console.log('  ...replayed ' + read.length + ' jobs x ' + PLAYS + ' in ' + Math.round((Date.now() - t0) / 1000) + ' s');
     const by = s => read.filter(j => j.stars === s && j.measured != null);
     const agg = s => { const L = by(s), P = L.reduce((t, j) => t + j.plays, 0), C = L.reduce((t, j) => t + j.measured * j.plays, 0), Q = L.reduce((t, j) => t + j.literal * j.plays, 0); return { n: L.length, plays: P, clean: P ? C / P : null, literal: P ? Q / P : null }; };
     const A1 = agg(1), A2 = agg(2), A3 = agg(3);
-    const say = a => a.n + ' jobs, ' + (a.clean == null ? '-' : Math.round(100 * a.clean)) + ' in 100 clean (the AUTO button\'s worth; nobody down at all ' + (a.literal == null ? '-' : Math.round(100 * a.literal)) + ')';
+    const say = a => a.n + ' jobs, ' + (a.clean == null ? '-' : Math.round(100 * a.clean)) + ' in 100 clean (nobody dead, at most one in six down; nobody down at all ' + (a.literal == null ? '-' : Math.round(100 * a.literal)) + ')';
     ok('J2 a ONE-star job comes home clean at least 85 in 100', A1.n > 0 && A1.clean >= 0.85, say(A1) + '; the worst one-star job ' + (A1.n ? Math.round(100 * Math.min.apply(null, by(1).map(j => j.measured))) : '-'));
     ok('J3 a THREE-star job comes home clean under 65 in 100', A3.n > 0 && A3.clean < 0.65, say(A3) + '; the best three-star job ' + (A3.n ? Math.round(100 * Math.max.apply(null, by(3).map(j => j.measured))) : '-'));
     const rho = spearman(read.filter(j => j.measured != null).map(j => j.blood), read.filter(j => j.measured != null).map(j => 1 - j.measured));
     ok('J4 the blood ranks with the danger: rank correlation of the blood with how often someone came home down, the stars in order, the board painted the read',
       rho >= 0.6 && (A1.clean == null || A2.clean == null || A1.clean > A2.clean) && (A2.clean == null || A3.clean == null || A2.clean > A3.clean) && paintOk,
       'rho ' + rho.toFixed(2) + '; two stars: ' + say(A2) + '; the board at ' + (t && t.n) + ': ' + paint.map(p => p.id + ' ' + p.stars + '* blood ' + p.blood.toFixed(2) + ' (read ' + p.danger.toFixed(2) + ')').join(', '));
-    fs.writeFileSync(path.join(tmp, 'jobs.json'), JSON.stringify(read.map(j => ({ crew: j.crew, place: j.place, id: j.id, skulls: j.skulls, stars: j.stars, danger: +j.danger.toFixed(3), blood: +j.blood.toFixed(3), measured: j.measured, literal: j.literal,
+    /* J8: no star lies, job by job (TUNING 10/26: the pooled J2 and J3 pass any cut-off; a lie is one job) */
+    const lies = read.filter(j => j.measured != null && ((j.stars === 1 && j.measured < 0.85) || (j.stars === 3 && j.measured >= 0.65)));
+    const eyes = read.filter(j => j.must);
+    const eyesSay = eyes.map(j => j.id + ' at ' + j.place + ': ' + j.stars + ' red star' + (j.stars > 1 ? 's' : '') + ', played ' + j.plays + ': clean ' + Math.round(100 * j.measured) + ', someone dead ' + j.deaths + ', wiped ' + j.wiped + ' (' + j.fights.map(f => f.band.length + ' ' + f.band.join('/')).join(' + ') + ')').join(' | ');
+    const eyesTrue = eyes.length >= 2 && eyes.every(j => !(j.stars === 1 && j.measured < 0.85) && !(j.stars === 3 && j.measured >= 0.65) && !(j.stars === 1 && j.wiped > 2));
+    ok('J8 no star lies: one-star jobs under 85 or three-star jobs at 65 and over, at most one in fifty; EYES\' cold box and tigers for the Block Watch say what happened',
+      lies.length <= Math.floor(read.length / 50) && eyesTrue,
+      lies.length + ' of ' + read.length + ' lie' + (lies.length ? ' (' + lies.slice(0, 5).map(j => j.crew + ' ' + j.id + ' ' + j.stars + '* ' + Math.round(100 * j.measured)).join(', ') + ')' : '') + '; ' + eyesSay);
+    /* J9: no champion on day one: every day-one fight dressed for day one, its kinds its faction's first phase */
+    const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')).enemy_tiers.value;
+    const firstKinds = fc => { const m = (T.mix[fc] || {}).first || {}; const k = Object.keys(m); const h = (T.heads || {})[fc]; if (h) k.push(h); return k; };
+    const day1 = read.filter(j => j.day <= 1), bad = [];
+    day1.forEach(j => j.fights.forEach(f => { const ks = firstKinds(f.faction), off = f.band.filter(k => ks.indexOf(k) < 0);
+      if ((f.days | 0) > 1 || off.length) bad.push(j.crew + ' ' + j.id + ' ' + f.what + ': day ' + f.days + ', ' + f.faction + ' ' + (off.length ? off.join('/') : f.band.join('/'))); }));
+    ok('J9 no champion on day one: ' + day1.length + ' day-one jobs, every fight dressed for day one with its faction\'s first-phase kinds only', day1.length >= 40 && bad.length === 0,
+      bad.length ? bad.slice(0, 6).join(' | ') : day1.reduce((t, j) => t + j.fights.length, 0) + ' fights, kinds ' + Array.from(new Set([].concat.apply([], day1.map(j => [].concat.apply([], j.fights.map(f => f.band)))))).join(', '));
+    fs.writeFileSync(path.join(tmp, 'jobs.json'), JSON.stringify(read.map(j => ({ crew: j.crew, place: j.place, id: j.id, skulls: j.skulls, stars: j.stars, danger: +j.danger.toFixed(3), blood: +j.blood.toFixed(3), measured: j.measured, literal: j.literal, auto: j.auto, deaths: j.deaths, wiped: j.wiped, must: j.must,
       fights: j.fights.map(f => f.what + ' ' + f.p.toFixed(2) + ' ' + f.band.join('/')) }))));
     console.log('  (every job: ' + path.join(tmp, 'jobs.json') + ')');
     if (process.env.JOB_KEEP) fs.copyFileSync(path.join(tmp, 'jobs.json'), process.env.JOB_KEEP);
