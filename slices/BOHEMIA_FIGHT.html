@@ -266,7 +266,22 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 #breath{position:fixed;display:none;z-index:3;padding:1px 6px;font-weight:700;font-size:12px;pointer-events:none;color:#cfe4f5;
   background:rgba(20,32,44,.82);border:1px solid #6a8fb0;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);white-space:nowrap}
 #breath svg{vertical-align:-1px;margin-right:3px}
-#apn .back{color:#9cc3e8;opacity:.7}
+/* ICONS, NOT NUMBERS (rule 224, COMBAT's fight): what comes back next turn is UI's mark (the lungs, a green up arrow and how much);
+   the card's armour a bar with the number on it, rounds as rounds, the weapon's reach as tiles, the shield's defences as marks */
+#apn .back{margin-left:5px;display:inline-flex;align-items:center;height:10px;vertical-align:middle}   /* inside the AP line's own 12 px: a taller line grew the bar and broke the wide one-row bar */
+#apn .back i.bst-mark{height:10px}#apn .back i.bst-ic{width:10px;height:10px;background-size:10px 10px}#apn .back b.bst-chg{font-size:9px;line-height:10px;gap:1px}#apn .back i.bst-arw{width:7px;height:7px;background-size:7px 7px}
+.sq b b.cut{margin-left:2px;font-size:inherit}
+#drawer i.cbar{position:relative;display:inline-flex;align-items:center;justify-content:flex-end;width:118px;height:13px;box-sizing:border-box;
+  border:1px solid rgba(42,34,26,.42);background:rgba(42,34,26,.07);font-style:normal;vertical-align:middle}
+#drawer i.cbar>i{position:absolute;left:0;top:0;bottom:0;background:rgba(88,106,124,.55);box-shadow:inset -1px 0 0 rgb(88,106,124)}
+#drawer i.cbar.pct>i{background:rgba(150,88,38,.5);box-shadow:inset -1px 0 0 rgb(150,88,38)}
+#drawer i.cbar>b{position:relative;padding:0 3px;font-weight:400;line-height:11px;background:rgba(226,218,198,.7)}
+#drawer i.pips{display:inline-flex;align-items:center;gap:2px;font-style:normal;vertical-align:middle}
+#drawer i.pips>i{display:inline-block;width:5px;height:11px;background:#a87a30;box-shadow:inset 0 3px 0 #e0c27a,0 0 0 1px rgba(42,34,26,.5)}
+#drawer i.pips>i.off{background:rgba(42,34,26,.12);box-shadow:0 0 0 1px rgba(42,34,26,.35)}
+#drawer i.pips.tiles>i{width:11px;height:11px;background:#8a6c44;box-shadow:0 0 0 1px rgba(42,34,26,.5)}
+#drawer i.pips.tiles>i.off{background:rgba(42,34,26,.1)}
+#drawer .r i.bst-mark{margin-left:6px}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:7;background:var(--bg);letter-spacing:.2em}
 </style>
 </head>
@@ -5189,7 +5204,7 @@ function stepGlide(now) {
   /* a glide asked while this frame's turn was being worked out (the turn's follow, a walk's start) is on the frame's own clock
      from here, the clock every man is drawn by: a slow turn of theirs held a re-fit a beat behind the men (measured 10/26) */
   if (now < g.t0) g.t0 = now;
-  let k = Math.max(0, Math.min(1, (now - g.t0) / g.ms)); const e = g.out ? 1 - (1 - k) * (1 - k) : k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  let k = Math.max(0, Math.min(1, (now - g.t0) / Math.max(1, g.ms)));   /* and never a glide under 1 ms (a 0 ms glide read 0/0, COMBAT 10/26) */ const e = g.out ? 1 - (1 - k) * (1 - k) : k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
   /* NEVER A MAN OFF THE GLASS ON THE WAY (rule 230(a)): the glass's reach in the world (one over the zoom) and its centre both move
      in a straight line, so its four edges do, and a man inside the frame it left and the frame it goes to is inside every frame
      between them (a zoom eased by its ratio bowed the edges past both ends: a man on the edge was cut mid-glide) */
@@ -6530,6 +6545,13 @@ function roundsCanvas(r, col, css, hollowAll) {
 }
 
 /* ---------------- the HUD ---------------- */
+/* WHAT COMES BACK NEXT TURN, IN UI's KIT (rule 224: 'a green up arrow... the only number that matters is by how much'): the
+   lungs, the arrow and the amount (engine/bohemia_stats.js mark); its text is the amount alone, '+30' */
+function windBack(n) {
+  const w = document.createElement('span'), B = window.BohemiaStats; w.className = 'back bst-glass'; w.setAttribute('aria-label', 'wind back next turn: ' + n);
+  if (B && B.mark) w.appendChild(B.mark('fatigue', n)); else w.textContent = '+' + n;
+  return w;
+}
 function hud() {
   const S = FIGHT.S, u = FIGHT.current();
   document.getElementById('round').textContent = 'R' + S.round + (S.night ? ' NIGHT' : '');
@@ -6556,17 +6578,24 @@ function hud() {
   const hpBar = document.getElementById('bhp'); hpBar.style.width = pct(show.hp, show.hpMax); hpBar.style.background = show.side === 'you' ? '#8fae6a' : '#c4553f';
   const ab = document.getElementById('barm'); ab.style.width = pct(show.armB + show.armH, show.armBMax + show.armHMax); ab.style.background = '#9aa6b0';
   const fb = document.getElementById('bfat'); fb.style.width = pct(show.fat, fm); fb.style.background = '#6a8fb0';
+  /* the numbers on these bars are UI's (bohemia_ui_materials.js fightBars), repainted when a bar's style changes; two men with the
+     same widths kept the last man's number (his bar said 0/74 on a man of 73, measured 10/26), so each bar carries its man's numbers */
+  hpBar.style.setProperty('--n', '"' + show.id + ' ' + show.hp + '/' + show.hpMax + '"'); ab.style.setProperty('--n', '"' + show.id + ' ' + (show.armB + show.armH) + '/' + (show.armBMax + show.armHMax) + '"');
+  fb.style.setProperty('--n', '"' + show.id + ' ' + Math.round(show.fat) + '/' + fm + '"');
   const pi = document.getElementById('picons'), pk = show.id + ':' + show.perks.join(',');
   if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(iconCanvas(id, 16)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
   /* Battle Brothers' numbers (rule 125(b)): the AP and the wind left, where he already looks for them */
-  const apn = document.getElementById('apn'), apt = show.ap + '/' + show.apTurn + ' AP ' + Math.round(show.fat) + '/' + fm + ' FAT';
+  /* ICONS, NOT NUMBERS (rule 224, newest; it amends 125(b)): the AP he spends said once (the pips are its picture); the wind left
+     is the fatigue bar's own number, so it is no longer said twice */
+  const apn = document.getElementById('apn'), apt = show.ap + ' AP';
   /* WHAT COMES BACK NEXT TURN (rule 285(c)): a faint +15, +30 when he has not spent an AP this turn (an END TURN now is a rest);
      and a kit that leaves no swing says so on his card (rule 283(c)) */
   const fback = show.side === 'you' && FIGHT.onField(show) ? (show.ap >= show.apTurn ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')) : 0;
-  const heavy = show.side === 'you' && FIGHT.tooHeavy(show), aph = apt + (fback ? ' <span class="back">+' + fback + '</span>' : '') + (heavy ? ' <span class="heavy">' + BREATH_SAYS.heavy + '</span>' : '');
-  if (apn.dataset.h !== aph) { apn.dataset.h = aph; apn.innerHTML = aph; }
+  const heavy = show.side === 'you' && FIGHT.tooHeavy(show), aph = apt + '|' + fback + '|' + (heavy ? 1 : 0);
+  if (apn.dataset.h !== aph) { apn.dataset.h = aph; apn.textContent = apt; if (fback) apn.appendChild(windBack(fback));
+    if (heavy) { const hv = document.createElement('span'); hv.className = 'heavy'; hv.textContent = ' ' + BREATH_SAYS.heavy; apn.appendChild(hv); } }
   apn.classList.toggle('low', show === u && crewControlled(u) && !!UI.spent);
   if (UI.drawer) drawer(show);
   /* THE PLATE SAYS WHO HE IS (rule 143(b)): a man of theirs on the bar carries LV, his marks, and OUTCLASSES YOU when he does */
@@ -6610,7 +6639,9 @@ function hud() {
     if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
     const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
     const cut = tgt && FIGHT.isRanged(u.weapon) ? FIGHT.coverCut(u, tgt) : null;   /* rule 230(c): the man in the way's cut, a red arrow and how much */
-    if (cut) { const ci = document.createElement('i'); ci.className = 'cut'; ci.textContent = '\u25BC' + cut.cut; bt.appendChild(ci); }
+    if (cut) { const B = window.BohemiaStats; let ci;   /* UI's arrow (rule 224): red, down, and how much */
+      if (B && B.change) { B.css(); ci = B.change(-cut.cut); ci.classList.add('bst-glass'); } else { ci = document.createElement('b'); ci.textContent = '\u25BC' + cut.cut; }
+      ci.classList.add('cut'); ci.dataset.cut = cut.cut; bt.appendChild(ci); }
     br.textContent = ''; br.disabled = !canR; br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
     br.className = 'sq' + (dry ? ' big' : '') + (lastRd ? ' last' : '') + (br.classList.contains('poke') ? ' poke' : '');
     br.style.setProperty('--beat', beatMs() + 'ms'); br.style.setProperty('--ph', -Math.round(beatPh(performance.now()) * beatMs()) + 'ms');   /* the glow breathes on the song's beat (rule 158) */
@@ -6734,15 +6765,29 @@ function placeSay(say) {
   say.classList.add('instrip'); say.style.bottom = 'auto'; say.style.top = (o.top + o.height / 2) + 'px';
   say.style.left = (o.right + SAY_GAP) + 'px'; say.style.width = room + 'px';
 }
+/* ICONS, NOT NUMBERS ON THE CARDS (rule 224): a bar filled to what is left with the number on it once (cbar), rounds and tiles
+   as pips (a dozen and more is said as a number) */
+function cbar(n, of, shown, cls) { const f = Math.max(0, Math.min(100, 100 * n / Math.max(1, of)));
+  return '<i class="cbar' + (cls ? ' ' + cls : '') + '" data-n="' + n + '" data-of="' + of + '"><i style="width:' + f.toFixed(1) + '%"></i><b>' + (shown != null ? shown : n) + '</b></i>'; }
+function pips(n, of, cls) { if (of > 12) return n + (of !== n ? ' / ' + of : '');
+  let h = '<i class="pips' + (cls ? ' ' + cls : '') + '" data-n="' + n + '" data-of="' + of + '" title="' + n + ' of ' + of + '" aria-label="' + n + ' of ' + of + '">';
+  for (let k = 0; k < of; k++) h += '<i' + (k < n ? '' : ' class="off"') + '></i>';
+  return h + '</i>'; }
+/* the reach as tiles: a dark tile for each the gun cannot use (its point-blank), lit for each it can */
+function tilePips(lo, hi) { if (hi > 12) return lo + ' to ' + hi + ' tiles';
+  let h = '<i class="pips tiles" data-lo="' + lo + '" data-of="' + hi + '" title="' + (lo === hi ? hi : lo + ' to ' + hi) + (hi > 1 ? ' tiles' : ' tile') + '">';
+  for (let k = 1; k <= hi; k++) h += '<i' + (k >= lo ? '' : ' class="off"') + '></i>';
+  return h + '</i>'; }
+function markHTML(k, d) { const B = window.BohemiaStats; return B && B.mark ? B.mark(k, d).outerHTML : (d > 0 ? '+' : '') + d; }
 /* THE NUMBERS IN THE BACKGROUND (rule 67): a tap on his name opens them, a tap anywhere closes them */
 function drawer(v) {
   const d = document.getElementById('drawer'), fm = FIGHT.fatMax(v);
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   d.innerHTML = '<div style="color:#d9a85a;font-weight:700;margin-bottom:4px">' + v.name + ' · LEVEL ' + (v.level || 1) + ' · ' + v.job.toUpperCase().replace('_', ' ') + '</div>'
-    + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', v.armH + ' / ' + v.armHMax) + r('Armour, body', v.armB + ' / ' + v.armBMax)
+    + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', cbar(v.armH, v.armHMax)) + r('Armour, body', cbar(v.armB, v.armBMax))
     + r('Fatigue', Math.round(v.fat) + ' / ' + fm) + r('Nerve', v.morale) + r('Melee skill / defence', v.mskill + ' / ' + v.mdef)
     + r('Ranged skill / defence', v.rskill + ' / ' + v.rdef) + r('Initiative', v.initiative) + r('Resolve', v.resolve === null ? '-' : v.resolve)
-    + (v.ammo !== null ? r(v.weapon.mag ? 'Rounds left' : 'Throws left', v.ammo + (v.weapon.mag ? ' / ' + v.weapon.mag : '')) : '') + (FIGHT.reloadSkill(v.weapon) && !v.weapon.mag ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
+    + (v.ammo !== null ? r(v.weapon.mag ? 'Rounds left' : 'Throws left', pips(v.ammo, v.weapon.mag || v.ammo)) : '') + (FIGHT.reloadSkill(v.weapon) && !v.weapon.mag ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
     + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '');
   v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(iconCanvas(id, 18));
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
@@ -6803,16 +6848,18 @@ function weaponCard(v) {
     + (w.rides ? '; it shoots as ' + esc(w.rides) : '') + '</div>'
     + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';
   if (w.damage_min !== null && w.damage_max !== null) h += r('Damage', w.damage_min + ' to ' + w.damage_max);
-  if (w.armor_damage_pct !== null) h += r('Against armour', w.armor_damage_pct + '%');
-  if (w.armor_ignore_pct) h += r('Straight through armour', w.armor_ignore_pct + '%');
+  /* the two armour numbers filled against the most any weapon in the table carries (weapons.json, never a number of ours) */
+  const most = function (k) { return DB.weapons.rows.reduce(function (m, x) { return Math.max(m, x[k] || 0); }, 1); };
+  if (w.armor_damage_pct !== null) h += r('Against armour', cbar(w.armor_damage_pct, most('armor_damage_pct'), w.armor_damage_pct + '%', 'pct'));
+  if (w.armor_ignore_pct) h += r('Straight through armour', cbar(w.armor_ignore_pct, most('armor_ignore_pct'), w.armor_ignore_pct + '%', 'pct'));
   const gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? FIGHT._t.rangeLo(w) : 1;
-  h += r('Reach', gun ? lo + ' to ' + w.range_max + ' tiles' : !FIGHT.isRanged(w) ? R('ours.melee_reach') + ' tile' : (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile'))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
+  h += r('Reach', gun ? tilePips(lo, w.range_max) : !FIGHT.isRanged(w) ? tilePips(1, R('ours.melee_reach')) : tilePips(1, w.range_max || 1))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
-  if (w.mag) h += r('Rounds', w.mag + ', then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
+  if (w.mag) h += r('Rounds', pips(w.mag, w.mag) + ' then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
   else if (rl) h += r(esc(rl.name), rl.ap + ' AP');
   if (v.shield) { const S2 = DB.wlines.rows.shield || {};
     h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(S2.name || 'SHIELD') + '</div><div class="wl" style="font-weight:700">' + esc(S2.line || '') + '</div>'
-      + r('Melee / ranged defence', '+' + (v.shield.melee_defense || 0) + ' / +' + (v.shield.ranged_defense || 0)); }
+      + r('Defence', markHTML('melee_defense', v.shield.melee_defense || 0) + markHTML('ranged_defense', v.shield.ranged_defense || 0)); }   /* rule 224: the two defences' icons, green up arrows and how much */
   else if (v.shieldBack) h += r('Car door', 'on ' + doorWords(v).his + ' back: the ' + armName(v, w) + ' takes both hands');   /* rule 191(b), draft:true */
   d.innerHTML = h; d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
 }
