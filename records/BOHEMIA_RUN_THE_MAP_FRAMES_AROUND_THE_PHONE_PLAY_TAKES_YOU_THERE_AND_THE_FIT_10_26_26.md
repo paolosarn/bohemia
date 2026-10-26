@@ -282,3 +282,12 @@ places, the turf edges, the jobs' marks, the cargo truck and WORLD TWO's pins ar
 while he watches (his call, said in the reply); (6) the futures (raided, reclaimed) of each block are not used yet; (7) a new route
 mid-block from a different next block starts him from his block's middle. NOTEs: COOK (the corner-on or north-south blocks and the
 towers), ANIMATION (the walk call at the street stop), WORLD TWO (the pins' projection: window.streetTo), MOTION (the turn).
+
+REDS SEEN, NOT FROM THIS ROW (each run again alone with main's own BOHEMIA_CITY_WORLD.html swapped in, origin/main a39c2662: the
+same red): THE MAP IS HOW YOU TRAVEL 'a second tap stops a journey where it stands' (RUN's own gate: NEXT, after this row); THE
+DRIVER REACHES THE CITY 'the old pinch axis is accounted for' (the alpha's rung button under the old pinch axis); ONE ZOOM (the
+alpha's canvas tainted by a cross-origin picture, getImageData refused); HIS MAP P1 (WORLD TWO's held finger does not open the pin
+box: NOTE). Two of my gates re-aimed for other lanes' ships this round: YOUR MAIN GUY LEADS THE WALK Y3 reads his head with
+CHARACTER's armour layer off (the helmet is THE ARMOUR HE WEARS SHOWS'), THE NEAR END IS THE BLOCK N7 reads UI TWO's phone and its
+PLAY (the old pad and #cityfeed are hidden under it). THE MAP STANDS TALLER C1 missed by 0.8 ms with two browsers running and passed
+26/0 alone (a timing leg).
