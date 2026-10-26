@@ -31,6 +31,11 @@ PLAYER, never of a table's say-so:
      BIND, BREATH): every leg above reads them too where a man has them (S, E on their own render pass, P, C, X); K a man who
      kneels has the down knee on the ground (12 cm) and the other foot planted a step forward where the kneel sets it (2 cm),
      on the posed joints, in every kneeling pose; A1 his company and YOU have all four.
+  A2 THE CAMP'S ACTS (rule 259, the set 'camp': LIE, SLEEP, MEND, REPAIR, COOK, CLEAN, RISE once): a man lying has his pelvis
+     on the floor in every lying pose (8 cm); RISE is one slot from the moment asked then its standing held (X4); once any man
+     has one, his company and YOU have all seven.
+  A3 THEY PITCH THE CAMP (rule 269(c), the set 'pitch': UNPACK the cart, drive a STAKE, LIGHT the fire): once any man has one,
+     his company and YOU have all three.
   MUTATIONS (the gate must bite): a timeline a key short, two sides of a turn put next to each other, a joint that jumps
   out and back in one key, a variant pose that is its rest, a player that seats every man in one step, a pair that both
   talk.
@@ -50,6 +55,8 @@ JOINTS = os.path.join(ROOT, 'records/animation/town_joints')   # the posed joint
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 NAMED = ['drink', 'smoke', 'talk', 'flirt', 'sit', 'stall']
 AFTER = ['loot', 'tend', 'bind', 'breath']   # rule 245: the minutes after a fight, the set 'after'
+CAMP = ['lie', 'sleep', 'mend', 'repair', 'cook', 'clean', 'rise']   # rule 259: the camp's acts, the set 'camp'
+PITCH = ['unpack', 'stake', 'light']   # rule 269(c): they pitch the camp, the set 'pitch'
 SET = lambda a: T['activities'][a].get('set', 'town')
 PPM = 57.0           # the master rig's pixels a real metre at the street's settings (rig.json 'ppm')
 REVERSE_DEG, MOVE_PX, JUMP_PX = 120, 2.0, 24.0
@@ -163,7 +170,9 @@ def joints_of(l):
     """his posed joints, every pass merged (the town's six in <look>/, the minutes after a fight in <look>.after/: the same
     build posed twice, so one armature's space)"""
     J = None
-    for d in (l, l + '.after', l + '.camp'):
+    redo = sorted(set([f[:-5] for f in os.listdir(JOINTS) if f.startswith(l + '.') and f.count('.') == 3] if os.path.isdir(JOINTS) else [])
+                  | set([d for d in os.listdir(RENDERS) if d.startswith(l + '.') and d.count('.') == 2] if os.path.isdir(RENDERS) else []))
+    for d in [l, l + '.after', l + '.camp', l + '.pitch'] + redo:   # a redo's act (<look>.<set>.<act>) after its set's, as the pack lays it
         fn = os.path.join(JOINTS, d + '.json')
         if not os.path.exists(fn): fn = os.path.join(RENDERS, d, 'joints.json')
         if not os.path.exists(fn): continue
@@ -182,6 +191,13 @@ ok('E0 the posed model\'s joints are kept beside every packed man\'s render (the
 ef = []
 for l in looks_j:
     ef += ['%s: %s' % (l, x) for x in envelope_faults(joints_of(l), T)]
+def crouched(T, a, p):
+    """a crouch (the pelvis let down by a MOVE, the feet planted): his feet are where he stands by the joints (E3), and his lowest
+    pixel can be the skirt of a long coat on the ground before him (town_0 rising, 10/26), not his soles"""
+    P = dict(D['parts']); P.update(T['parts'])
+    return any(op[0] == 'MOVE' and op[1] == 'P' and op[2][1] < -0.1 for part in T['activities'][a]['poses'][p] for op in P[part])
+
+
 def kneels(T, a, p):
     """the kneel a pose makes (['KNEEL', side, front, seat]), or None"""
     P = dict(D['parts']); P.update(T['parts'])
@@ -288,7 +304,7 @@ def picture_faults(looks):
                     px = im[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
                     rows = np.nonzero((px[..., 3] > 0).any(1))[0]
                     sole = c[5] + (rows.max() + 1 if len(rows) else 0)
-                    if p not in seated and not kneels(T, a, p) and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too, a kneeling man's front foot a step forward, a lying man along the ground: their feet are held by the joints (E3, K)
+                    if p not in seated and not kneels(T, a, p) and not crouched(T, a, p) and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too, a kneeling man's front foot a step forward, a lying man along the ground, a long coat's skirt pooled before a crouching man: their feet are held by the joints (E3, K)
                         out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - ground[fi]))
     return out
 
@@ -343,6 +359,17 @@ if packed:
             miss = [a for a in AFTER if a not in Lc['sheets']]
             if miss: lack.append('%s lacks %s' % (c, ','.join(miss)))
         ok('A1 THE MINUTES AFTER A FIGHT: his company and YOU (%d) have all four (loot, tend, bind, breath)' % (len(comp) + 1), not lack, '; '.join(lack[:4]))
+    def has_any(acts):
+        return any(any(a in json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][l]['json'])))['sheets'] for a in acts) for l in packed)
+    for leg, flag, acts, what in (('A2 THE CAMP\'S ACTS', '--camp', CAMP, 'all seven (lie, sleep, mend, repair, cook, clean, rise)'),
+                                  ('A3 THEY PITCH THE CAMP', '--pitch', PITCH, 'all three (unpack, stake, light)')):
+        if flag not in sys.argv and not has_any(acts): continue
+        lack = []
+        for c in comp + ['you']:
+            Lc = json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][c]['json']))) if c in IX['looks'] else {'sheets': {}}
+            miss = [a for a in acts if a not in Lc['sheets']]
+            if miss: lack.append('%s lacks %s' % (c, ','.join(miss)))
+        ok('%s: his company and YOU (%d) have %s' % (leg, len(comp) + 1, what), not lack, '; '.join(lack[:4]))
     cf = chess_faults(packed[:6])
     ok('C1 every variant differs from its rest in every facing; drinking, smoking, sitting, at a stall is not his plain still',
        not cf, '; '.join(cf[:4]))

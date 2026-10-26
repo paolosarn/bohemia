@@ -79,7 +79,7 @@ def set_of(T, act):
 
 def acts_of(T, arg=None, set_='town'):
     """the activities named (any set), else every activity of the set: 'town' (the six he named, rule 218(a)), 'after' (the
-    minutes after a fight, rule 245) or 'camp' (the camp's acts, rule 259)"""
+    minutes after a fight, rule 245), 'camp' (the camp's acts, rule 259) or 'pitch' (they pitch the camp, rule 269(c))"""
     a = list(T['activities'])
     return [x for x in a if x in arg.split(',')] if arg else [x for x in a if set_of(T, x) == set_]
 
@@ -285,6 +285,7 @@ def pose(src, out, which=None):
     WP = D['work']['props']
     needed = sorted(set(p for a in acts for p in T['activities'][a]['props']))
     made = []   # (prop, parent bone or None, anchor in the world, object)
+    SPAN = {}   # a thing held in both fists (the camp's bundle): its rest anchor, its long axis (the fist's l) and how far into the fist
     for nm in needed:
         S = T['props'][nm]; kind = S['kind']
         if kind == 'hand' and S['bone'] == 'LH':   # the left fist's own frame (its forearm), the right's mirrored across him
@@ -294,6 +295,7 @@ def pose(src, out, which=None):
         elif kind == 'hand':
             c = rh + hand * S['along']
             ob = make(nm, *mesh_from(S['parts'], (c, hand, grip, side, (1, 1, 1)))); made.append((nm, B[S['bone']], c, ob))
+            if S.get('span') == 'LH': SPAN[nm] = (c.copy(), side.copy(), S['along'])   # held across both fists: aimed at the left fist on every key
         elif kind == 'cigarette':   # the idles' own: past the fingers, along the hand
             c = rh + hand * 0.13
             bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=0.009, depth=0.075, location=c)
@@ -361,6 +363,12 @@ def pose(src, out, which=None):
         jt = {}
         for fr, (pname, ops) in keys:
             apply(named(ops))
+            for nm, (c0, ax0, along) in SPAN.items():   # from the right fist to the left, whatever way each fist has turned
+                if not shown(T, act, nm, pname): continue
+                rp, fp, lp, lf = (W @ PB[B[j]].head for j in ('RH', 'RF', 'LH', 'LF'))
+                p0 = rp + (rp - fp).normalized() * along; p1 = lp + (lp - lf).normalized() * along
+                Dw = mathutils.Matrix.Translation(p0) @ ax0.rotation_difference((p1 - p0).normalized()).to_matrix().to_4x4() @ mathutils.Matrix.Translation(-c0)
+                PB[props[nm]].matrix = Winv @ Dw @ W @ arm.data.bones[props[nm]].matrix_local; bpy.context.view_layer.update()
             for nm, bn in props.items(): PB[bn].scale = (1, 1, 1) if shown(T, act, nm, pname) else TINY
             bpy.context.view_layer.update()
             for pb in PB:
@@ -418,15 +426,18 @@ def model(pid):
     return glb, json.load(open(gj))['real_height_for_rig']
 
 
-def person_one(tag, which=None):
+def person_one(tag, which=None, sub=None):
+    """sub: a pass of its own (redo's <look>.<set>.<act>), else the set's pass"""
     T = source(); D = EI.source()
-    set_ = which if which in ('town', 'after', 'camp') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp') else which, set_)
+    set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
     set_ = set_of(T, acts[0])
+    if not sub and done(tag, set_) and os.environ.get('BOHEMIA_TOWN_AGAIN') != '1':   # a run killed by the two-hour cap, run again, skips who is made
+        print('TOWN made already', tag, set_, flush=True); return
     pid = tag[len('person_'):]
     glb, h = model(pid)
-    posed = os.path.join(ROOT, POSED, folder(tag, set_) + '.glb')
+    posed = os.path.join(ROOT, POSED, (sub or folder(tag, set_)) + '.glb')
     EI.run([sys.executable, os.path.abspath(__file__), 'pose', glb, posed, ','.join(acts)], posed)
-    out = os.path.join(ROOT, RENDERS, folder(tag, set_))
+    out = os.path.join(ROOT, RENDERS, sub or folder(tag, set_))
     EI.render_model(posed, out, h, [('Stand', 1)] + [(clip(a), len(pose_list(T, D, a))) for a in acts])
     os.replace(posed[:-4] + '.joints.json', os.path.join(out, 'joints.json'))
     os.remove(posed)
@@ -437,13 +448,13 @@ def person_one(tag, which=None):
     print('TOWN person', tag, flush=True)
 
 
-def fight_one(name, which=None):
+def fight_one(name, which=None, sub=None):
     """a named look of the fight (YOU, who leads his company in the town): COMBAT's own build of him (records/combat/rig, its
     `bodies` when missing), the activities laid on it here, rendered by COMBAT's render() pointed at this folder (the idles'
     way: the same camera, sun, scale and samples as his fight sheet, Stand first so his box is his own)"""
     T = source(); D = EI.source(); CF = EI.combat(); py = sys.executable
-    set_ = which if which in ('town', 'after', 'camp') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp') else which, set_)
-    set_ = set_of(T, acts[0]); sfx = '' if set_ == 'town' else '.' + set_
+    set_ = which if which in ('town', 'after', 'camp', 'pitch') else 'town'; acts = acts_of(T, None if which in ('town', 'after', 'camp', 'pitch') else which, set_)
+    set_ = set_of(T, acts[0]); sfx = sub[len(name):] if sub else '' if set_ == 'town' else '.' + set_
     src = os.path.join(ROOT, EI.COMBAT_POSED, name + '.glb')
     if not os.path.exists(src): EI.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
     posed = os.path.join(ROOT, POSED, name + '.glb')   # COMBAT's render() reads <name>.glb; the pass is its suffix
@@ -456,6 +467,16 @@ def fight_one(name, which=None):
         if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
     with open(os.path.join(out, 'made.txt'), 'w') as f: f.write(','.join(acts) + '\n')
     print('TOWN look', name, flush=True)
+
+
+def redo(tags, act):
+    """one act again for men already made, each in a pass of its own (<look>.<set>.<act>): the pack lays it on his still like any
+    pass and it takes the place of that act's first pictures; nothing else of his is touched (the camp's stir from behind, 10/26)"""
+    T = source(); set_ = set_of(T, act)
+    for tag in tags.split(','):
+        sub = folder(tag, set_) + '.' + act
+        if tag.startswith('person_'): person_one(tag, act, sub)
+        else: fight_one(tag, act, sub)
 
 
 def people(arg='COMPANY', workers=4, set_='town'):
@@ -500,7 +521,7 @@ def closeup(glb, out, act, names='', facings='S,SE,E,SW'):
     root.scale = (k, k, k * 1.414)
     cd = bpy.data.cameras.new('cam'); cd.type = 'ORTHO'; cd.ortho_scale = 1.7
     cam = bpy.data.objects.new('cam', cd); sc.collection.objects.link(cam); sc.camera = cam
-    t = math.radians(45); cam.rotation_euler = (t, 0, 0); cam.location = mathutils.Vector((0, 0, 1.45)) - mathutils.Vector((0, math.sin(t), -math.cos(t))) * 30
+    t = math.radians(45); cam.rotation_euler = (t, 0, 0); cam.location = mathutils.Vector((0, 0, float(os.environ.get('BOHEMIA_CU_Z', 1.45)))) - mathutils.Vector((0, math.sin(t), -math.cos(t))) * 30   # BOHEMIA_CU_Z lower for a man down on the ground
     R = 360; sc.render.resolution_x = sc.render.resolution_y = R
     MR.light_and_film(sc, dict(sun_rot=list(MR.G['sun_rot_deg']))); sc.cycles.samples = 8; sc.render.film_transparent = True
     from PIL import Image
@@ -572,7 +593,7 @@ def pack(only=None):
 
     n_ok = 0
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
-    SETS = ['town', 'after', 'camp']
+    SETS = os.environ.get('BOHEMIA_TOWN_SETS', 'town,after,camp,pitch').split(',')   # a set still rendering for the rest can be held out of a ship
 
     def passes(tag):
         """his render passes on disk (the town's six, the minutes after a fight), each its folder and the acts it made"""
@@ -580,6 +601,9 @@ def pack(only=None):
         for st in SETS:
             d = os.path.join(ROOT, RENDERS, folder(tag, st))
             if os.path.exists(os.path.join(d, 'made.txt')): out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))
+        redos = [os.path.join(ROOT, RENDERS, x) for x in os.listdir(os.path.join(ROOT, RENDERS)) if x.startswith(tag + '.') and x.count('.') == 2 and x.split('.')[1] in SETS]
+        for d in sorted((d for d in redos if os.path.exists(os.path.join(d, 'made.txt'))), key=lambda d: os.path.getmtime(os.path.join(d, 'made.txt'))):
+            out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))   # a redo's act, laid after its set's
         return out
 
     os.makedirs(os.path.join(ROOT, JOINTS_KEPT), exist_ok=True)
@@ -590,8 +614,9 @@ def pack(only=None):
             src = os.path.join(d, 'joints.json')
             if os.path.exists(src): shutil.copyfile(src, os.path.join(ROOT, JOINTS_KEPT, os.path.basename(d) + '.json'))
 
-    def fresh(mj, ps):
-        return os.path.exists(mj) and all(os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')) for d, _ in ps)
+    def fresh(mj, ps):   # packed after every pass was made, and with exactly the acts these passes make (a set held back is packed out)
+        if not (os.path.exists(mj) and all(os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')) for d, _ in ps)): return False
+        return set(json.load(open(mj)).get('sheets', {})) == set(a for _, acts in ps for a in acts)
 
     def sheet(tag, act, imgs, Pa, entry, names, cells):
         body, rects = atlas(imgs, 1024); fn = '%s_%s.webp' % (tag, act)
@@ -610,7 +635,7 @@ def pack(only=None):
         mj = os.path.join(ROOT, OUT, tag + '.json')
         if FL and FL.get('kind') not in ('person', 'beast'):   # a named look of the fight (YOU): his fight sheet's cell is the frame
             if fresh(mj, ps):
-                index['looks'][tag] = dict(json=tag + '.json', acts=[a for _, acts in ps for a in acts]); n_ok += 1; continue
+                index['looks'][tag] = dict(json=tag + '.json', acts=list(dict.fromkeys(a for _, acts in ps for a in acts))); n_ok += 1; continue
             sp = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', FL['file'])).convert('RGBA'))
             P = np.array(sorted(set(map(tuple, sp[sp[..., 3] > 0][:, :3].tolist()))), np.int32)   # his fight sheet's colours: he walked in them
             entry = dict(fight=FL['file'], foot=FL['foot'], feet=[FL['foot']] * 8, sheets={}, poses={})
@@ -642,7 +667,7 @@ def pack(only=None):
             continue
         if not tag.startswith('person_') or not os.path.exists(os.path.join(rec, 'rig.json')): continue
         if fresh(mj, ps):
-            index['looks'][tag] = dict(json=tag + '.json', acts=[a for _, acts in ps for a in acts]); n_ok += 1; continue
+            index['looks'][tag] = dict(json=tag + '.json', acts=list(dict.fromkeys(a for _, acts in ps for a in acts))); n_ok += 1; continue
         mine = json.load(open(os.path.join(rec, 'rig.json')))
         cb = mine['crop_box_px']; feet = []
         for f in DIRS:
@@ -716,5 +741,6 @@ if __name__ == '__main__':
     elif cmd == 'people': people(a[0] if a else 'COMPANY', int(a[1]) if len(a) > 1 else 4, a[2] if len(a) > 2 else 'town')
     elif cmd == 'preview': preview(*a)
     elif cmd == 'closeup': closeup(*a)
+    elif cmd == 'redo': redo(a[0], a[1])
     elif cmd == 'pack': pack(set(a) if a else None)
     else: sys.exit('pose <in.glb> <out.glb> [acts] | person_one <look> [acts] | people [COMPANY|CREW|look,look] [workers] | preview <glb> <png> [acts] [facings] | pack [looks]')

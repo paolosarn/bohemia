@@ -1,0 +1,97 @@
+# [the camp's acts] HIS MEN AT CAMP, EACH DOING WHAT HE NEEDS (ANIMATION, rule 259, 10/26/26)
+
+PAOLO 10/26, LOCKED (relayed by the coordinator, rule 259): "if I enter camp mode and time is passing by I should see my
+character and my whole team... healing... repairing their armor... helping other members if they're healthy". The row: his men
+at camp in their real gear, lying bandaged with a friend kneeling by, sitting by the fire binding a cut, hammering a car door and
+taping a plate, cooking, cleaning a gun, keeping watch, sleeping, getting up when healed; the main character among them; for the
+map's camp spot, the town picture when camping in a town, and the crew screen's background; one call CAMP drives by each man's
+condition; a VOTE card.
+
+## MEASURED FIRST
+- The town's six (rule 218(a)) and the minutes after a fight's four (rule 245) are on one source and one player:
+  records/target/animation/BOHEMIA_THE_TOWNS_ACTIVITIES.json, BohemiaIdles.activity(look, seed, now, facing, {act, n, ...}),
+  slices/rig_town. 'tend' (a friend down on a knee pressing on a hurt man) is already there. Keeping watch is already there
+  too: the idles' gun-held set (BohemiaIdles.frame(..., {set: 'carry'}) with BohemiaIdles.gun()), the low ready and a look about.
+- Nothing lies down. Nothing plays once and stops.
+
+## WHAT WAS BUILT
+The set 'camp', seven acts beside the town's six and the after's four, on the same grammar (held keys three a beat, four
+breaths a leg, side variants, any slot after any; the never-adjacent pairs keep a key from jumping):
+- LIE (badly hurt): on his back, a bloody wrap round his belly, his hand pressed on it, the other arm on the ground, a knee up;
+  breathing, the head turning, a wince with both knees up. A friend on 'tend' kneels by him.
+- SLEEP (night): on his back on his bedroll, hands on his belly, a knee up, head tipped; slow breaths, the head to the other
+  side, the other knee.
+- MEND (hurt): sitting on a crate by the fire, the bind's arms on the sit's legs: a strip round his left forearm, over, under,
+  round, the end pulled in his teeth, the arm tried.
+- REPAIR (armour broken): down on a knee at a car door laid flat before him, his left hand on its edge, a claw hammer beating on
+  the beat; tape run round with both hands; a look at the work.
+- COOK (healthy): down on a knee at the pot, a long wooden spoon round and round, a taste off the spoon, a look round.
+- CLEAN (healthy): sitting on a crate, his rifle across his knees, an oily rag up and down the barrel, a look round.
+- RISE (healed), ONCE: one slot (24 keys, two bars) from lying to sitting, onto a knee, up; then its standing held. The engine
+  plays an act marked once from o.since (the moment he heals) and holds its rest after.
+ONE OP MORE in the grammar: ['LIE', back, roll, height] lays the whole skeleton along his facing (the pelvis at height, the
+spine back along the floor), so the limb ops after it pose a man on the ground the same way they pose him standing.
+Props: wrap, bedroll, door, hammer, pot, spoon, rifle, rag (the hand and ground kinds, each in its own colour bible).
+THE TOOL: tools/bohemia_animation_the_towns_activities.py, the set renders in its own pass (<look>.camp), the pack folds every
+pass of a man into one sheet set. `people <looks> <workers> camp`.
+THE PLAYER: unchanged call, act 'lie' 'sleep' 'mend' 'repair' 'cook' 'clean' 'rise' (once, {since}).
+
+## THEY PITCH THE CAMP (rule 269(c), the coordinator's NOTE: 'a short scene when camp is made: his men pulling the camp out of
+## the cart (the shopping cart first) and building it together, tents up, the fire lit, the gear down... a placeholder first;
+## CAMP plays it')
+[bb camp] Battle Brothers' camp is a button on its map: the party's figure turns into a tent and a fire while the company repairs
+and heals faster; no man is seen doing it. Ours shows them: the scene first, then each man at his act.
+The set 'pitch', three acts on the same grammar and call:
+- UNPACK: standing at the cart before him (its basket rim about 0.9 m; stand him 0.42 m, 24 px, behind it facing it), his hands
+  on its rim, bent into it rummaging, a rolled bundle (a tarp or a bedroll tied in two places) hauled up across both fists to his
+  chest and tossed to his left, back to the rim; a look round.
+- STAKE: down on a knee, his left fist round a tent stake driven in before him, its guy line running off away from him to the
+  tent, the claw hammer up and down on its head on the beat; the back of his fist across his brow; a look up the line.
+- LIGHT: down on a knee at the laid fire (a ring of stones, dry grass, a tepee of sticks; set him 0.48 m, 27 px, behind the fire's
+  spot facing it), a red lighter flicked in his cupped hands, the flame catching in the grass and dying, bent low blowing on it,
+  again; back up with a hand on his knee, a look round. CAMP draws its fire lit when the scene ends.
+THE BUGS I MADE AND CAUGHT: the hammer's middle pose swung the elbow out and back (the down pose was past his reach, so his arm
+went straight and the elbow came in): the stake brought within reach, the elbow out the whole swing, the envelope 0. The bundle
+ran out of his right fist to his right, and turning it did not help: each fist turns its own way from pose to pose, so a thing
+fixed to one fist cannot span two. THE TOOL'S SPAN: a hand prop marked span 'LH' is aimed, on every key, from the right fist to
+the left (its rest axis rotated onto the line between them), so a thing held in both hands stays in both hands; seen on the
+closeup in four facings. And the fire's sit-back loops were first named 'sitback', the town's own sitting loop's name: the
+source took the new one over the old, so the town's sit would have played the fire's poses; the gate's S1 caught it (a loop
+naming poses its act does not have) before anything left the branch; renamed 'ltsit' and 'ltsit2', the town's restored from main,
+the index rewritten. His left fist sat a hand's width off the stake: the stake moved into it.
+
+## THE BUGS THE GATE CAUGHT ON THE FIRST RENDERS
+- C1, from behind the stir was its rest: at N his body hides the spoon, so three of the stir's four poses drew within 3 to 11
+  pixels of the rest (the leg wants 12). The art was wrong, not the leg: a man stirring a pot turns his shoulders with the spoon.
+  ck_b and ck_d turn him a few degrees each way, ck_c leans him to the far side of the pot. The six men made before the change
+  get the stir again in a pass of its own (the tool's REDO: `redo <looks> <act>` renders one act into <look>.<set>.<act>, the pack
+  lays it on his still like any pass and it takes the place of that act's first pictures; the gate reads its joints after its set's).
+- C1 again, town_6 cleaning his rifle: the near rub read 11 px off the rest from behind. His shoulders now follow the rag along the
+  barrel (a few degrees each way); town_6's clean made again by REDO, the men after him rendered with it.
+- P1, town_0 rising: his long coat's skirt drew 10 to 20 px below his soles in the crouch on the way up. At S that is the skirt
+  pooled on the ground before him (a thing nearer the camera draws lower on the screen), at E and W it dipped through the floor.
+  The crouch is shallower now (the pelvis down 34 cm, not 42), town_0's rise is made again, and the leg reads a crouch's feet by
+  its joints (E3, the ankles where he stands, 1 cm) the way it already reads a kneel's and a seat's.
+
+## WHO DOES WHAT (CAMP's call, by his condition)
+badly hurt: lie, a healthy friend on tend by him | hurt: mend | armour broken: repair | healthy: cook, clean, tend, watch (the
+idles' gun-held set) | night: sleep | healed: rise once, then his next act | any: the town's smoke, talk, sit, drink. YOU have
+every act his men have.
+
+## GATE
+THE TOWN'S ACTIVITIES, set-aware: S the seventeen and their slots; E on every pass of a man; K a kneeling man's down knee on the
+ground; a lying man's pelvis on the floor (8 cm) in every lying pose; P every pose in its sheet at eight facings; X4 an act
+marked once plays its one slot from the moment asked, then holds its rest, never loops; A2 once any man has a camp act, his
+company and YOU have all seven.
+
+## WHERE IT STANDS
+- Posed and checked on one man first (envelope 0, kneel 0, lie 0), then rendered for YOU and his company in three batches (the
+  two-hour cap: a batch is stopped after its first three men and the rest restarted in a fresh window, never cut mid-man).
+- LIVE 10/26 (the camp's seven): all eleven of his company and YOU, eight facings, 84 sheets in slices/rig_town; every pass's
+  joints kept in records/animation/town_joints (the stir's and the rise's redo passes too). THE TOWN'S ACTIVITIES with A2 (his
+  company and YOU have all seven). The VOTE card (slices/vote/ANIMATION_THE_CAMPS_ACTS.html) plays the pitching first (a man with
+  no pitching pictures yet does his camp act), then the camp: the hurt man lying with a friend kneeling by him, YOU asleep on his
+  bedroll, one cooking at the fire, one mending his arm on a crate, one hammering his car door, one cleaning his rifle; NIGHT, HE
+  HEALS (he gets up, once) and MAKE CAMP AGAIN.
+- [they pitch the camp]: YOU and men 0 to 4 rendered, the last six rendering; held out of this ship by the pack (a set still
+  rendering for the rest is packed out, BOHEMIA_TOWN_SETS) so the gate's A3 waits for all twelve.
