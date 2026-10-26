@@ -13,6 +13,9 @@
      D3 *** THE SWAP *** with the board full: a person (1), 'Drop it and take this one' (2): one job out, the new one in, the cost
         once, the question said first
      D4 the computer: the drop in two taps from the board
+     D6 *** TWO JOBS AT ONCE *** (rule 228(b), EYES 10/25z): right after the second Take it, without opening the board again, both
+        jobs he holds are on it, each with its cost (phone and computer)
+     D7 *** A THIRD OFFER *** with two held says two is the most and offers the swap for either job he holds
      D5 nothing threw
    node gates/drop_a_job_in_the_town_gate.js
    ========================================================================== */
@@ -45,6 +48,11 @@ async function run(profile, legs) {
     /* take jobs until the board is full, by real taps (a person, Take it) */
     const fill = async () => { for (let n = 0; n < 4; n++) { const h = await held(), slots = await sf.evaluate(() => 2); if (h.length >= slots) break; await openBoard(); if (!(await tapSel('#sbody .act.client:not([disabled])'))) break; await tapSel('#sbody .acts .act:not([disabled])'); await P.waitForTimeout(500); } return held(); };
     const h0 = await fill();
+    /* D6 (rule 228(b), EYES 10/25z): right after the second Take it, without opening the board again, both jobs he holds are on it */
+    await P.waitForTimeout(1500);
+    const d6 = await sf.evaluate(() => ({ open: BohemiaSettlement.state.open, rows: [...document.querySelectorAll('#sbody .act.held')].map(b => ({ id: b.dataset.held, pending: !!b.dataset.pending, text: b.textContent.replace(/\s+/g, ' ') })) }));
+    if (legs.indexOf('D6') >= 0) ok('*** D6 ' + profile.toUpperCase() + ': TWO JOBS AT ONCE *** right after the second Take it, both on the board, each with its cost (' + d6.rows.map(r => r.text.slice(0, 110)).join(' | ') + ')',
+      h0.length === 2 && d6.open === 'board' && d6.rows.length === 2 && h0.every(id => d6.rows.some(r => r.id === id)) && d6.rows.every(r => !r.pending && /thinks less of you: \d+ to \d+/.test(r.text)), JSON.stringify(d6.rows));
     await openBoard();
     const d1 = await sf.evaluate(() => [...document.querySelectorAll('#sbody .act.held')].map(b => ({ id: b.dataset.held, text: b.textContent })));
     const costs = await fr.evaluate((ids) => ids.map(id => BohemiaJobKinds.dropCost(id)), h0);
@@ -64,11 +72,13 @@ async function run(profile, legs) {
       await openBoard();
       const q2 = await fr.evaluate(() => BohemiaJobKinds.settledPeek().length);
       let t3 = 0; if (await tapSel('#sbody .act.client')) t3++;
-      const ask = await sf.evaluate(() => ({ q: (document.querySelector('#sbody .swap') || {}).textContent || '', id: (document.querySelector('#sbody [data-swap]') || {}).dataset ? document.querySelector('#sbody [data-swap]').dataset.swap : null, title: (document.querySelector('#sbody .say .nm') || {}).textContent }));
+      const ask = await sf.evaluate(() => ({ q: (document.querySelector('#sbody .swap') || {}).textContent || '', id: (document.querySelector('#sbody [data-swap]') || {}).dataset ? document.querySelector('#sbody [data-swap]').dataset.swap : null, title: (document.querySelector('#sbody .say .nm') || {}).textContent, swaps: [...document.querySelectorAll('#sbody [data-swap]')].map(b => ({ id: b.dataset.swap, text: b.textContent.replace(/\s+/g, ' ').trim(), on: !b.disabled })) }));
+      ok('*** D7 ' + profile.toUpperCase() + ': A THIRD OFFER *** says two is the most and offers the swap for either job (' + ask.q.slice(0, 80) + ' | ' + ask.swaps.map(x => x.text.slice(0, 50)).join(' | ') + ')',
+        /two jobs, the most a company can/.test(ask.q) && ask.swaps.length === 2 && ask.swaps.every(x => x.on && h2.indexOf(x.id) >= 0) && ask.swaps[0].id !== ask.swaps[1].id);
       if (await tapSel('#sbody [data-swap]')) t3++;
       const h3 = await held(), q3 = await fr.evaluate(() => BohemiaJobKinds.settledPeek());
       ok('*** D3 ' + profile.toUpperCase() + ': THE SWAP *** (a full board of ' + h2.length + '; ' + t3 + ' taps; asked: "' + ask.q.slice(0, 120) + '")',
-        h2.length >= 2 && t3 === 2 && /Drop it and take this one\?/.test(ask.q) && h3.length === h2.length && h3.indexOf(ask.id) < 0 && h3.filter(x => h2.indexOf(x) < 0).length === 1 && q3.length - q2 === 1 && !!(await mapShown()), JSON.stringify({ before: h2, after: h3 }));
+        h2.length >= 2 && t3 === 2 && /the most a company can/.test(ask.q) && h3.length === h2.length && h3.indexOf(ask.id) < 0 && h3.filter(x => h2.indexOf(x) < 0).length === 1 && q3.length - q2 === 1 && !!(await mapShown()), JSON.stringify({ before: h2, after: h3 }));
     }
     if (process.env.BOHEMIA_SHOT_DIR) { await openBoard(); await P.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'drop_in_town_' + profile + '.png') }); }
   } catch (e) { ok(profile + ' legs ran [' + String(e.message).slice(0, 200) + ']', false); }
@@ -76,9 +86,9 @@ async function run(profile, legs) {
 }
 
 (async () => {
-  let d = await run('phone_portrait', ['D1', 'D2', 'D3']);
+  let d = await run('phone_portrait', ['D1', 'D2', 'D3', 'D6']);
   ok('D5a nothing threw on the phone', d.errs.length === 0, d.errs.slice(0, 2).join(' | ')); await d.close();
-  d = await run('computer', ['D2']);
+  d = await run('computer', ['D2', 'D6']);
   ok('D5b nothing threw on the computer', d.errs.length === 0, d.errs.slice(0, 2).join(' | ')); await d.close();
   done();
 })();

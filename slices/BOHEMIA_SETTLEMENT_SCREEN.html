@@ -132,6 +132,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .hire.picked{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
 .act.held{border-color:#c9775f}.act.held .cost{display:block;font-style:normal;font-size:11px;color:#c9775f;margin-top:2px;flex-basis:100%}   /* rule 197: the job he is on, DROP and its cost */
 #sbody .swap{color:#c9775f;font-size:12px;margin-top:6px}
+.act[data-swap]{flex-wrap:wrap}.act[data-swap] .cost{display:block;font-style:normal;font-size:11px;color:#c9775f;margin-top:2px;flex-basis:100%}   /* __TWO_JOBS_AT_ONCE__: the swap for either job, its cost under it */
 /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (RUN TWO, rule 202): the item's own numbers with UI's stat icons, then what it does on one of your men */
 .slots.inums{display:flex;flex-wrap:wrap;gap:6px;color:var(--ink);font-size:12px}
 .inums .ch{display:inline-flex;align-items:center;gap:4px;padding:3px 7px;border:1px solid var(--line);border-radius:4px;background:var(--plate2);white-space:nowrap}
@@ -2728,7 +2729,23 @@ function clientAct(o, full){
    standing, the words, the cost paid once), so the two can never disagree. The keeper says it; never a card. */
 function jobsK(){ try{ return window.parent && window.parent !== window ? window.parent.BohemiaJobKinds : null; }catch(e){ return null; } }
 function heldCost(id){ var K = jobsK(); try{ return K && K.dropCost ? K.dropCost(id) : null; }catch(e){ return null; } }
-function dropWords(c){ return String(c.place).toUpperCase() + ' thinks less of you: ' + Math.round(c.before) + ' to ' + Math.round(c.after) + (c.band !== c.bandAfter ? ', ' + c.band + ' to ' + c.bandAfter : ''); }   /* draft:true: the phone's own words */
+function dropWords(c){ if(c.before == null) return String(c.place).toUpperCase() + ' will think less of you';   /* __TWO_JOBS_AT_ONCE__: the map is still writing it down */
+  return String(c.place).toUpperCase() + ' thinks less of you: ' + Math.round(c.before) + ' to ' + Math.round(c.after) + (c.band !== c.bandAfter ? ', ' + c.band + ' to ' + c.bandAfter : ''); }   /* draft:true: the phone's own words */
+/* ==== __TWO_JOBS_AT_ONCE__ (RUN TWO [two jobs at once], rule 228(b), Paolo 10/26: 'if I got two quests from a city'; EYES 10/25z:
+   'right after Take it the board does not show the job just taken at the top until it is opened again; with two held, only the
+   first shows as ON THE JOB'; 10/25w: a third offer tapped with two held did nothing). MEASURED: the board listed a held job only
+   when the map's own drop cost knew it (heldCost), and the map hears 'contract' a moment after the tap, so the job just taken was
+   missing; and a third offer whose swap cost was not known yet fell through to a greyed Take it. NOW every job he holds is on the
+   board from the tap (its title and place kept here), its cost filled in where it stands the moment the map has it; a third
+   offer says two is the most and offers the swap for either job he holds. ==== */
+function heldRow(id){ var c = heldCost(id); if(c) return c; var i = (S.heldInfo || {})[id] || {}; return {id:id, title:i.title || 'a job', place:i.place || (S.place && S.place.name) || '', pending:true}; }
+function heldFill(n){
+  n = n || 0; if(n > 20 || S.open !== 'board') return;
+  var left = [].slice.call(document.querySelectorAll('#sbody .act.held[data-pending]'));
+  left.forEach(function(el){ var c = heldCost(el.dataset.held); if(c) el.parentNode.replaceChild(heldAct(c), el); });
+  if(document.querySelector('#sbody .act.held[data-pending]')) setTimeout(function(){ heldFill(n + 1); }, 150);
+}
+/* ==== end __TWO_JOBS_AT_ONCE__ ==== */
 /* the job a swap gives up: the one this town gave, else the oldest */
 function swapOut(){ var ids = S.held.slice(), here = ids.filter(function(id){ var c = heldCost(id); return c && String(c.place) === String(S.place.name); }); return here[0] || ids[0] || null; }
 function dropHeld(id){
@@ -2738,8 +2755,8 @@ function dropHeld(id){
   return r;
 }
 function heldAct(c){
-  var b = act('ON THE JOB: ' + c.title, 'DROP', function(){ dropAsk(c); }, false);
-  b.className = 'act held'; b.dataset.held = c.id;
+  var b = act('ON THE JOB: ' + c.title, 'DROP', function(){ dropAsk(heldCost(c.id) || c); }, !jobsK());   /* the drop is the map's: a town with no map behind it lists the job, greyed */
+  b.className = 'act held'; b.dataset.held = c.id; if(c.pending) b.dataset.pending = 1;   /* __TWO_JOBS_AT_ONCE__ */
   var em = b.querySelector('em'); if(em) em.title = dropWords(c);
   var w = document.createElement('i'); w.className = 'cost'; w.textContent = 'Drop it: ' + dropWords(c); b.appendChild(w);
   return b;
@@ -2747,7 +2764,7 @@ function heldAct(c){
 function dropAsk(c){
   S.open = 'board';
   var body = document.getElementById('sbody'); body.textContent = '';
-  body.appendChild(speak('board', 'Drop ' + c.title + '? Nobody pays, and ' + dropWords(c) + '.'));
+  body.appendChild(speak('board', 'Drop ' + c.title + '? Nobody pays' + (c.before == null ? '.' : ', and ' + dropWords(c) + '.')));
   var acts = document.createElement('div'); acts.className = 'acts';
   var yes = act('Drop it', '', function(){ var r = dropHeld(c.id); openB('board', r ? r.line : 'That job cannot be dropped right now.'); }, false); yes.dataset.drop = 'yes'; acts.appendChild(yes);
   acts.appendChild(act('Keep it', '', function(){ openB('board', 'Bueno. Finish it, then.'); }, false));
@@ -2767,11 +2784,18 @@ function offerSpeak(o){
     if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.words; sy.appendChild(tp); S.trip = TR; } }catch(e){}
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts';
-  var take = function(){ S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
+  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
   var out = S.held.length >= SLOTS ? swapOut() : null, oc = out ? heldCost(out) : null;
-  if(oc){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
-    var ask = document.createElement('p'); ask.className = 'swap'; ask.textContent = 'You are on a job for ' + String(oc.place).toUpperCase() + ': ' + oc.title + '. Drop it and take this one? (' + dropWords(oc) + ')'; sy.appendChild(ask);
-    var sw = act('Drop it and take this one', '', function(){ var r = dropHeld(out); if(!r) return openB('board', 'That job cannot be dropped right now.'); take(); openB('board', r.line + ' Bueno. ' + o.client.name + ' will sleep tonight.'); }, false); sw.dataset.swap = out; acts.appendChild(sw);
+  if(out && jobsK()){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
+    /* __TWO_JOBS_AT_ONCE__ (rule 228(b)): two is the most, said plainly, and the swap for either job he holds (this town's first) */
+    var outs = [out].concat(S.held.filter(function(id){ return id !== out; })).slice(0, SLOTS), first = heldRow(out);
+    var ask = document.createElement('p'); ask.className = 'swap';
+    ask.textContent = 'You carry two jobs, the most a company can. ' + (outs.length > 1 ? 'Drop one and take this one?' : 'You are on a job for ' + String(first.place).toUpperCase() + ': ' + first.title + '. Drop it and take this one? (' + dropWords(first) + ')');
+    sy.appendChild(ask);
+    outs.forEach(function(id){ var c = heldRow(id);
+      var sw = act(outs.length > 1 ? 'Drop ' + c.title + ', take this one' : 'Drop it and take this one', '', function(){ var r = dropHeld(id); if(!r) return openB('board', 'That job cannot be dropped right now.'); take(); openB('board', r.line + ' Bueno. ' + o.client.name + ' will sleep tonight.'); }, false);
+      if(outs.length > 1){ var cw = document.createElement('i'); cw.className = 'cost'; cw.textContent = dropWords(c); sw.appendChild(cw); }
+      sw.dataset.swap = id; acts.appendChild(sw); });
   } else acts.appendChild(act('Take it', '', function(){ take(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.'); }, S.held.length>=SLOTS));
   /* WORLD [the job tells the truth, in blood] (rule 208(c)): the offer's yes bleeds the same, and the client's name carries the red stars */
   try{ var JD2 = window.parent && window.parent.BohemiaJobDanger, yes = acts.lastChild, M2 = window.BohemiaMaterials;
@@ -2862,7 +2886,8 @@ function openB(k, line){
        costs nothing (rule 35c). The phone only lists (UI's board); accepting happens here, from a face. */
     var full = S.held.length>=SLOTS;
     body.appendChild(speak(k, line || (full ? 'You carry ' + (SLOTS === 1 ? 'a job' : 'two jobs') + '. Drop one here, or take a new one and I will tear up the old.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
-    S.held.map(heldCost).filter(Boolean).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top */
+    S.held.map(heldRow).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top; __TWO_JOBS_AT_ONCE__: both, from the tap */
+    setTimeout(function(){ heldFill(0); }, 150);
     boardHere().forEach(function(o){ acts.appendChild(clientAct(o, full && !jobsK())); });   /* full or not, a person can be talked to: a full board asks to swap */
     var sl = document.createElement('div'); sl.className = 'slots';
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */
