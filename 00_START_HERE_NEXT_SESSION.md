@@ -168,7 +168,7 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-debuff): 10/26 LATEST -- FIVE ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks, [healing on our clock] SHIPPED), research only, no card (rule 127), no game code touched; [the stupid-move watch] round three WAITS on the COMBAT emergency;
+TUNING (tuning-debuff): 10/26 LATEST -- SIX ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks, [healing on our clock] SHIPPED and x5 written, [the day-fifty curve] for WORLD), research only, no card (rule 127); [the stupid-move watch] round three WAITS on the COMBAT emergency;
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md, the one table's section S, bench
   tools/bohemia_tuning_struck_down_debuff.js (--marks, --b2b, --heal), bank banks/BOHEMIA_TUNING_STRUCK_DOWN_DEBUFF_10_26_26.json.
@@ -199,7 +199,13 @@ RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLI
   quick to see (rule 259), CAMP slows the camp's clock, not the rates. Named: his 30 to 40 fresh-wound days are 156 to 208 of our fights.
   x5 WRITTEN into records/target/bb/condition.json (the coordinator's 264(f): write it, then move to the measured ratio; the engine reads
   it live); THE HEAL BUTTON 16/0 phone and computer on the new rates.
-NOTEs: CAMP (the numbers, the price, treat, Traumatized; x5 for the clock), WORLD (the gap measured), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
+6 [the day-fifty curve] (rules 254, 255, the coordinator's routine): records/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.md, the one
+  table's section U, tool tools/bohemia_tuning_the_day_fifty_curve.js, bank banks/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.json. THE
+  CURVE on rule 254's worth: the worst job no lower than 0.5 through day 10, a straight line to 0 at day 50; one red job through day 10,
+  the red share growing to all by day 50. THE LONE WOLF (4,500 fights): two beasts 38 in 100, three 2, four to six 0, days 1 to 20 alike;
+  brigands 2: 98, 3: 90, 4: 47; under the curve his first 20 days hold one-skull jobs against people and no beast job. Battle Brothers'
+  day lines cited (one skull only early, three after a few days, champions after day 90, kinds after day 15). NOTE on WORLD's board.
+NOTEs: CAMP (the numbers, the price, treat, Traumatized; x5 for the clock), WORLD (the gap measured; the day-fifty curve and the Lone Wolf table), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
   injury's hitpoints_pct, vision, fatigue recovery or action points; the fresh wound into the fight after the emergency), UI THREE.
 NOT MEASURED: a phone's CPU; the fresh wound on the live path (the fight does not read c.fresh yet); 234(e) AUTO keeping the hurt back.
 NEXT: [the stupid-move watch] round three the moment COMBAT's fix is on main; [the odds
