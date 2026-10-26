@@ -42,7 +42,7 @@ DECISIONS WRITTEN DOWN (no questions asked):
 
 GATES (all in the suite): EVERY LEVEL WAITS 12/0 (new), THE SPOILS 28/0 (S3 new: who they were), SCRAP IS TAPE 11/0 (400 rolled fights
 all +1), OPTIMIZE LOOT 22/0, THE AFTERMATH 20/0, MAKE CAMP FROM THE FIGHT 11/0, THE FIGHT'S BARS AND THE END SCREEN 6/0, DEMO BUILD 25/0.
-RED AND NOT MINE: ECONOMY's NO RUN ENDS FOR TAPE (theirs to re-aim on the one roll, rule 284(h)). NOTE for UI: slices/bohemia_ui_materials.js
+ECONOMY re-aimed NO RUN ENDS FOR TAPE to the one roll (5a739556, 19/0). NOTE for UI: slices/bohemia_ui_materials.js
 still carries .count[data-count=scrap] (dead, matches nothing).
 
 NEXT for this lane: the queue on my board is empty. UI THREE's per-man arrows for a picked loot piece (their NOTE on my board) when their
