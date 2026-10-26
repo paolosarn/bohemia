@@ -220,3 +220,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 200 | I can type my own company name in the text box, not only pick the offered names | 268(a) | RUN TWO, UI TWO, EYES | 
 | 201 | (said again) The camp button on the phone; no possible jobs on the phone; all buttons on the phone | 268(b) | UI TWO, EYES | 
 | 202 | (the coordinator's call from TUNING's finding) The struck-down debuff lasts 6 to 8 of our days, a month of fights, not 30 to 40 of our days | 264(h) | TUNING, CAMP | 
+| 203 | Before a stationary enemy or job: FALL BACK, ENGAGE, and MAKE CAMP NEARBY to heal first (not for roaming enemies) | 269(a) | RUN, CAMP, EYES | 
+| 204 | At camp, the screen's edge lights by compass direction where enemies come from, red by how dangerous (the AUTO calculator), softer if they're weaker | 269(b) | CAMP, EYES | 
+| 205 | A quick scene of my men unpacking the cart and building the camp before it starts, scaled to my crew and carrier | 269(c) | CAMP, ANIMATION, EYES | 
