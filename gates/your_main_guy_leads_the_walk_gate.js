@@ -65,6 +65,10 @@ async function run(profile) {
   const ref = await fr.evaluate(() => ({ you: __HEAD.avg(__HEAD.frame(RIG_YOU.img, 0, 0, RIG_YOU.meta.w, RIG_YOU.meta.h), RIG_YOU.meta.w, RIG_YOU.meta.h),
     body: (() => { const m = RIG_PEOPLE.meta, gi = m.gangs.indexOf('body'); return __HEAD.avg(__HEAD.frame(RIG_PEOPLE.img, 0, gi * 8 * m.h, m.w, m.h), m.w, m.h); })() }));
   const onGlass = async (z) => fr.evaluate((z) => {
+    /* WHOSE BODY leads, read with CHARACTER's armour layer off (10/26, __THE_ARMOUR_HE_WEARS_SHOWS__ puts a helmet on his head; that
+       layer is CHARACTER's gate's, THE ARMOUR HE WEARS SHOWS): the head under it is the man */
+    const W0 = window.BohemiaWear ? BohemiaWear.off : null; if (window.BohemiaWear) BohemiaWear.off = true;
+    try {
     ZGEST.fresh = true; setZoomAt(z); camHold(); CAMF.from = null; render();
     const Y = MAP_DREW.you; if (!Y) return null; const k = CV_DPR || 1, h = (Y.h || 60);
     const x0 = Math.max(0, Math.round((Y.x - h * 0.7) * k)), y0 = Math.max(0, Math.round((Y.y - h * 1.4) * k)), W = Math.round(h * 1.4 * k), H = Math.round(h * 1.5 * k);
@@ -77,6 +81,7 @@ async function run(profile) {
     const mine = new Uint8ClampedArray(A.length); let n = 0;
     for (let q = 0; q < A.length; q += 4) if (Math.abs(A[q] - B[q]) + Math.abs(A[q + 1] - B[q + 1]) + Math.abs(A[q + 2] - B[q + 2]) > 24) { mine[q] = A[q]; mine[q + 1] = A[q + 1]; mine[q + 2] = A[q + 2]; mine[q + 3] = 255; n++; }
     return { look, head: __HEAD.avg(mine, W, H), z: CZOOM, his: n };
+    } finally { if (window.BohemiaWear) BohemiaWear.off = W0; }
   }, z);
   const dist = (a, b) => a && b ? Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]) : 1e9;
   const g1 = await onGlass(1), g2 = await onGlass(2.4);

@@ -1,0 +1,1952 @@
+{
+ "adrenaline": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.388,
+   1.27
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   68,
+   59,
+   155,
+   176
+  ],
+  "colours": 4882,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 117",
+    "OUT  colours >= 2330: 1102",
+    "OK   top 8 carry <= 11%: 3.3",
+    "OK   value span >= 118: 135",
+    "OK   saturation <= 0.81: 0.124",
+    "OK   light: top minus bottom >= -2.5: 22.7",
+    "OK   edge between -35 and +7: -23.3",
+    "OK   grain <= 2.22 px a run: 1.67"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 8.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 212.9"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/adrenaline/rig_S.png"
+  },
+  "breaks": []
+ },
+ "anticipation": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.481,
+   1.03
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   61,
+   45,
+   141,
+   149
+  ],
+  "colours": 5458,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 104",
+    "OUT  colours >= 2330: 1925",
+    "OK   top 8 carry <= 11%: 2.8",
+    "OK   value span >= 118: 128",
+    "OK   saturation <= 0.81: 0.282",
+    "OK   light: top minus bottom >= -2.5: 27.3",
+    "OK   edge between -35 and +7: -8.6",
+    "OK   grain <= 2.22 px a run: 1.93"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 244.3"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/anticipation/rig_S.png"
+  },
+  "breaks": []
+ },
+ "axe_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.212,
+   0.163,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   50,
+   146,
+   172
+  ],
+  "colours": 2575,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 122",
+    "OUT  colours >= 2330: 815",
+    "OK   top 8 carry <= 11%: 6.4",
+    "OUT  value span >= 118: 76",
+    "OK   saturation <= 0.81: 0.184",
+    "OK   light: top minus bottom >= -2.5: 3.0",
+    "OK   edge between -35 and +7: -19.0",
+    "OK   grain <= 2.22 px a run: 1.74"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 283.5"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/axe_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "backstabber": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.222,
+   0.53,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   69,
+   63,
+   159,
+   182
+  ],
+  "colours": 5131,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 119",
+    "OUT  colours >= 2330: 1782",
+    "OK   top 8 carry <= 11%: 10.6",
+    "OUT  value span >= 118: 92",
+    "OK   saturation <= 0.81: 0.248",
+    "OK   light: top minus bottom >= -2.5: 20.2",
+    "OK   edge between -35 and +7: -16.3",
+    "OUT  grain <= 2.22 px a run: 2.35"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 258.0"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/backstabber/rig_S.png"
+  },
+  "breaks": []
+ },
+ "bags_and_belts": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.315,
+   0.72
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   47,
+   41,
+   133,
+   134
+  ],
+  "colours": 3457,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OUT  long side >= floor 96: 93",
+    "OUT  colours >= 2330: 1062",
+    "OK   top 8 carry <= 11%: 6.1",
+    "OUT  value span >= 118: 89",
+    "OK   saturation <= 0.81: 0.259",
+    "OK   light: top minus bottom >= -2.5: 8.6",
+    "OK   edge between -35 and +7: -12.1",
+    "OUT  grain <= 2.22 px a run: 2.31"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 257.2"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/bags_and_belts/rig_S.png"
+  },
+  "breaks": []
+ },
+ "battle_forged": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.44,
+   1.377
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   69,
+   58,
+   165,
+   184
+  ],
+  "colours": 3082,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 126",
+    "OUT  colours >= 2330: 1765",
+    "OK   top 8 carry <= 11%: 4.5",
+    "OUT  value span >= 118: 82",
+    "OK   saturation <= 0.81: 0.036",
+    "OK   light: top minus bottom >= -2.5: -0.1",
+    "OK   edge between -35 and +7: -13.1",
+    "OK   grain <= 2.22 px a run: 2.06"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 207.9"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/battle_forged/rig_S.png"
+  },
+  "breaks": []
+ },
+ "berserk": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.282,
+   0.948,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   82,
+   57,
+   156,
+   181
+  ],
+  "colours": 6648,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 124",
+    "OUT  colours >= 2330: 2165",
+    "OK   top 8 carry <= 11%: 8.9",
+    "OK   value span >= 118: 122",
+    "OK   saturation <= 0.81: 0.223",
+    "OK   light: top minus bottom >= -2.5: 36.7",
+    "OK   edge between -35 and +7: -8.1",
+    "OUT  grain <= 2.22 px a run: 2.73"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 1.8%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 246.3"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/berserk/rig_S.png"
+  },
+  "breaks": []
+ },
+ "bow_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.309,
+   0.139,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   74,
+   64,
+   150,
+   162
+  ],
+  "colours": 2320,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 98",
+    "OUT  colours >= 2330: 550",
+    "OK   top 8 carry <= 11%: 8.3",
+    "OUT  value span >= 118: 85",
+    "OK   saturation <= 0.81: 0.376",
+    "OK   light: top minus bottom >= -2.5: 9.5",
+    "OK   edge between -35 and +7: -0.3",
+    "OK   grain <= 2.22 px a run: 1.97"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 275.0"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/bow_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "brawny": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.387,
+   0.395,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   70,
+   51,
+   164,
+   187
+  ],
+  "colours": 4183,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 136",
+    "OUT  colours >= 2330: 1473",
+    "OK   top 8 carry <= 11%: 5.4",
+    "OK   value span >= 118: 121",
+    "OK   saturation <= 0.81: 0.312",
+    "OUT  light: top minus bottom >= -2.5: -19.2",
+    "OK   edge between -35 and +7: -17.0",
+    "OK   grain <= 2.22 px a run: 2.11"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 127.2"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/brawny/rig_S.png"
+  },
+  "breaks": []
+ },
+ "bullseye": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.482,
+   1.324
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   64,
+   46,
+   165,
+   182
+  ],
+  "colours": 5438,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 136",
+    "OUT  colours >= 2330: 1938",
+    "OK   top 8 carry <= 11%: 10.7",
+    "OUT  value span >= 118: 104",
+    "OK   saturation <= 0.81: 0.39",
+    "OK   light: top minus bottom >= -2.5: 13.3",
+    "OK   edge between -35 and +7: -10.8",
+    "OUT  grain <= 2.22 px a run: 2.4"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 297.8"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/bullseye/rig_S.png"
+  },
+  "breaks": []
+ },
+ "cleaver_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.159,
+   1.377
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   73,
+   49,
+   157,
+   178
+  ],
+  "colours": 2468,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 129",
+    "OUT  colours >= 2330: 767",
+    "OK   top 8 carry <= 11%: 7.0",
+    "OUT  value span >= 118: 101",
+    "OK   saturation <= 0.81: 0.036",
+    "OK   light: top minus bottom >= -2.5: 14.1",
+    "OK   edge between -35 and +7: -18.8",
+    "OK   grain <= 2.22 px a run: 1.85"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 273.8"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/cleaver_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "colossus": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.213,
+   0.433,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   76,
+   53,
+   146,
+   161
+  ],
+  "colours": 4818,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OK   long side >= floor 96: 108",
+    "OUT  colours >= 2330: 1151",
+    "OUT  top 8 carry <= 11%: 11.8",
+    "OUT  value span >= 118: 103",
+    "OK   saturation <= 0.81: 0.571",
+    "OK   light: top minus bottom >= -2.5: 22.9",
+    "OK   edge between -35 and +7: -14.7",
+    "OUT  grain <= 2.22 px a run: 2.81"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 276.0"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/colossus/rig_S.png"
+  },
+  "breaks": []
+ },
+ "crippling_strikes": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.418,
+   1.119
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   59,
+   51,
+   146,
+   161
+  ],
+  "colours": 4301,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 110",
+    "OUT  colours >= 2330: 1637",
+    "OK   top 8 carry <= 11%: 2.6",
+    "OK   value span >= 118: 121",
+    "OK   saturation <= 0.81: 0.209",
+    "OK   light: top minus bottom >= -2.5: 14.8",
+    "OK   edge between -35 and +7: -20.6",
+    "OK   grain <= 2.22 px a run: 1.93"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 203.9"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/crippling_strikes/rig_S.png"
+  },
+  "breaks": []
+ },
+ "crossbow_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.16,
+   0.832
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   52,
+   52,
+   131,
+   132
+  ],
+  "colours": 2299,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  long side >= floor 96: 80",
+    "OUT  colours >= 2330: 714",
+    "OK   top 8 carry <= 11%: 7.2",
+    "OK   value span >= 118: 118",
+    "OK   saturation <= 0.81: 0.211",
+    "OK   light: top minus bottom >= -2.5: -1.0",
+    "OK   edge between -35 and +7: -13.7",
+    "OK   grain <= 2.22 px a run: 2.16"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 169.2"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/crossbow_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "dagger_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.231,
+   1.133
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   64,
+   56,
+   148,
+   161
+  ],
+  "colours": 2248,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 105",
+    "OUT  colours >= 2330: 557",
+    "OK   top 8 carry <= 11%: 7.9",
+    "OUT  value span >= 118: 103",
+    "OK   saturation <= 0.81: 0.091",
+    "OK   light: top minus bottom >= -2.5: 47.1",
+    "OK   edge between -35 and +7: -11.8",
+    "OK   grain <= 2.22 px a run: 1.66"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 6.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 315.6"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/dagger_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "dodge": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.487,
+   1.132
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   65,
+   45,
+   148,
+   166
+  ],
+  "colours": 3915,
+  "card": {
+   "family": "prop",
+   "out": 5,
+   "rows": [
+    "OK   long side >= floor 96: 121",
+    "OUT  colours >= 2330: 938",
+    "OUT  top 8 carry <= 11%: 11.5",
+    "OUT  value span >= 118: 96",
+    "OK   saturation <= 0.81: 0.258",
+    "OK   light: top minus bottom >= -2.5: 39.4",
+    "OUT  edge between -35 and +7: 8.9",
+    "OUT  grain <= 2.22 px a run: 2.34"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.8%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 284.6"
+   ],
+   "verdict": "5 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/dodge/rig_S.png"
+  },
+  "breaks": []
+ },
+ "duelist": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   0.996,
+   0.162,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   73,
+   54,
+   136,
+   157
+  ],
+  "colours": 2551,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 103",
+    "OUT  colours >= 2330: 624",
+    "OK   top 8 carry <= 11%: 9.8",
+    "OUT  value span >= 118: 88",
+    "OK   saturation <= 0.81: 0.074",
+    "OK   light: top minus bottom >= -2.5: 29.5",
+    "OK   edge between -35 and +7: -16.2",
+    "OK   grain <= 2.22 px a run: 1.75"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 248.5"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/duelist/rig_S.png"
+  },
+  "breaks": []
+ },
+ "executioner": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.162,
+   1.356
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   72,
+   51,
+   156,
+   180
+  ],
+  "colours": 3451,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 129",
+    "OUT  colours >= 2330: 994",
+    "OK   top 8 carry <= 11%: 5.6",
+    "OUT  value span >= 118: 101",
+    "OK   saturation <= 0.81: 0.056",
+    "OK   light: top minus bottom >= -2.5: 42.9",
+    "OK   edge between -35 and +7: -17.1",
+    "OK   grain <= 2.22 px a run: 1.96"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.7%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 240.1"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/executioner/rig_S.png"
+  },
+  "breaks": []
+ },
+ "fast_adaptation": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.311,
+   1.344
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   73,
+   53,
+   153,
+   168
+  ],
+  "colours": 6189,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 115",
+    "OUT  colours >= 2330: 2180",
+    "OK   top 8 carry <= 11%: 3.9",
+    "OK   value span >= 118: 137",
+    "OK   saturation <= 0.81: 0.475",
+    "OK   light: top minus bottom >= -2.5: 19.6",
+    "OK   edge between -35 and +7: -15.3",
+    "OK   grain <= 2.22 px a run: 2.13"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 250.5"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/fast_adaptation/rig_S.png"
+  },
+  "breaks": []
+ },
+ "fearsome": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.851,
+   1.296
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   77,
+   60,
+   157,
+   173
+  ],
+  "colours": 3305,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 113",
+    "OUT  colours >= 2330: 1435",
+    "OK   top 8 carry <= 11%: 7.8",
+    "OK   value span >= 118: 120",
+    "OK   saturation <= 0.81: 0.128",
+    "OK   light: top minus bottom >= -2.5: 25.9",
+    "OK   edge between -35 and +7: -11.1",
+    "OUT  grain <= 2.22 px a run: 2.36"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 249.8"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/fearsome/rig_S.png"
+  },
+  "breaks": []
+ },
+ "flail_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.178,
+   1.229
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   67,
+   51,
+   151,
+   168
+  ],
+  "colours": 2601,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 117",
+    "OUT  colours >= 2330: 728",
+    "OK   top 8 carry <= 11%: 8.2",
+    "OUT  value span >= 118: 98",
+    "OK   saturation <= 0.81: 0.084",
+    "OK   light: top minus bottom >= -2.5: 3.3",
+    "OK   edge between -35 and +7: -11.6",
+    "OK   grain <= 2.22 px a run: 1.84"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.7%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 225.4"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/flail_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "footwork": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.265,
+   0.176,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   74,
+   51,
+   146,
+   162
+  ],
+  "colours": 1678,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OK   long side >= floor 96: 111",
+    "OUT  colours >= 2330: 464",
+    "OUT  top 8 carry <= 11%: 14.9",
+    "OUT  value span >= 118: 107",
+    "OK   saturation <= 0.81: 0.471",
+    "OK   light: top minus bottom >= -2.5: 2.0",
+    "OK   edge between -35 and +7: -12.6",
+    "OUT  grain <= 2.22 px a run: 2.22"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 158.8"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/footwork/rig_S.png"
+  },
+  "breaks": []
+ },
+ "fortified_mind": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.823,
+   1.138
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   62,
+   62,
+   161,
+   165
+  ],
+  "colours": 7185,
+  "card": {
+   "family": "prop",
+   "out": 0,
+   "rows": [
+    "OK   long side >= floor 96: 103",
+    "OK   colours >= 2330: 2621",
+    "OK   top 8 carry <= 11%: 1.8",
+    "OK   value span >= 118: 122",
+    "OK   saturation <= 0.81: 0.226",
+    "OK   light: top minus bottom >= -2.5: 38.4",
+    "OK   edge between -35 and +7: -16.5",
+    "OK   grain <= 2.22 px a run: 1.92"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 241.5"
+   ],
+   "verdict": "0 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/fortified_mind/rig_S.png"
+  },
+  "breaks": []
+ },
+ "gifted": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.265,
+   0.741,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   76,
+   54,
+   160,
+   189
+  ],
+  "colours": 7020,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 135",
+    "OUT  colours >= 2330: 2078",
+    "OK   top 8 carry <= 11%: 5.9",
+    "OUT  value span >= 118: 86",
+    "OK   saturation <= 0.81: 0.252",
+    "OK   light: top minus bottom >= -2.5: 9.9",
+    "OK   edge between -35 and +7: -17.7",
+    "OUT  grain <= 2.22 px a run: 2.28"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.8%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 242.8"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/gifted/rig_S.png"
+  },
+  "breaks": []
+ },
+ "hammer_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.191,
+   0.31,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   52,
+   147,
+   170
+  ],
+  "colours": 2288,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OK   long side >= floor 96: 118",
+    "OUT  colours >= 2330: 661",
+    "OUT  top 8 carry <= 11%: 15.6",
+    "OUT  value span >= 118: 85",
+    "OK   saturation <= 0.81: 0.083",
+    "OK   light: top minus bottom >= -2.5: -0.7",
+    "OK   edge between -35 and +7: -12.5",
+    "OUT  grain <= 2.22 px a run: 2.38"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 163.3"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/hammer_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "head_hunter": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.66,
+   1.32
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   65,
+   158,
+   172
+  ],
+  "colours": 3982,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 107",
+    "OUT  colours >= 2330: 1198",
+    "OK   top 8 carry <= 11%: 7.7",
+    "OUT  value span >= 118: 96",
+    "OK   saturation <= 0.81: 0.4",
+    "OK   light: top minus bottom >= -2.5: -1.4",
+    "OK   edge between -35 and +7: -8.4",
+    "OK   grain <= 2.22 px a run: 1.92"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 185.5"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/head_hunter/rig_S.png"
+  },
+  "breaks": []
+ },
+ "indomitable": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.299,
+   0.426,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   65,
+   151,
+   178
+  ],
+  "colours": 4959,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 113",
+    "OUT  colours >= 2330: 1707",
+    "OK   top 8 carry <= 11%: 9.8",
+    "OK   value span >= 118: 135",
+    "OK   saturation <= 0.81: 0.073",
+    "OK   light: top minus bottom >= -2.5: 45.0",
+    "OK   edge between -35 and +7: -13.3",
+    "OUT  grain <= 2.22 px a run: 2.57"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 266.5"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/indomitable/rig_S.png"
+  },
+  "breaks": []
+ },
+ "killing_frenzy": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.383,
+   0.613,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   78,
+   65,
+   164,
+   179
+  ],
+  "colours": 5394,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 114",
+    "OUT  colours >= 2330: 1868",
+    "OK   top 8 carry <= 11%: 4.8",
+    "OK   value span >= 118: 160",
+    "OK   saturation <= 0.81: 0.345",
+    "OK   light: top minus bottom >= -2.5: 12.9",
+    "OK   edge between -35 and +7: -12.5",
+    "OK   grain <= 2.22 px a run: 2.1"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 253.2"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/killing_frenzy/rig_S.png"
+  },
+  "breaks": []
+ },
+ "lone_wolf": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.912,
+   1.315
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   67,
+   63,
+   173,
+   179
+  ],
+  "colours": 2253,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 116",
+    "OUT  colours >= 2330: 1127",
+    "OK   top 8 carry <= 11%: 5.7",
+    "OUT  value span >= 118: 103",
+    "OK   saturation <= 0.81: 0.137",
+    "OK   light: top minus bottom >= -2.5: 13.3",
+    "OK   edge between -35 and +7: -9.7",
+    "OK   grain <= 2.22 px a run: 2.12"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.5%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 198.4"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/lone_wolf/rig_S.png"
+  },
+  "breaks": []
+ },
+ "mace_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.291,
+   1.353
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   73,
+   52,
+   153,
+   174
+  ],
+  "colours": 2861,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 122",
+    "OUT  colours >= 2330: 798",
+    "OK   top 8 carry <= 11%: 5.6",
+    "OUT  value span >= 118: 100",
+    "OK   saturation <= 0.81: 0.066",
+    "OK   light: top minus bottom >= -2.5: 11.1",
+    "OK   edge between -35 and +7: -13.0",
+    "OK   grain <= 2.22 px a run: 1.73"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 11.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 319.0"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/mace_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "nimble": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.065,
+   0.086,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   74,
+   44,
+   137,
+   166
+  ],
+  "colours": 2215,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 122",
+    "OUT  colours >= 2330: 827",
+    "OK   top 8 carry <= 11%: 4.7",
+    "OUT  value span >= 118: 100",
+    "OK   saturation <= 0.81: 0.134",
+    "OUT  light: top minus bottom >= -2.5: -6.4",
+    "OK   edge between -35 and +7: -12.7",
+    "OK   grain <= 2.22 px a run: 1.52"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 9.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 92.2"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/nimble/rig_S.png"
+  },
+  "breaks": []
+ },
+ "nine_lives": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.81,
+   1.293
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   67,
+   60,
+   169,
+   171
+  ],
+  "colours": 2957,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 111",
+    "OUT  colours >= 2330: 1399",
+    "OK   top 8 carry <= 11%: 6.0",
+    "OUT  value span >= 118: 110",
+    "OK   saturation <= 0.81: 0.138",
+    "OK   light: top minus bottom >= -2.5: 18.3",
+    "OUT  edge between -35 and +7: 15.9",
+    "OK   grain <= 2.22 px a run: 2.21"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 249.3"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/nine_lives/rig_S.png"
+  },
+  "breaks": []
+ },
+ "overwhelm": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.447,
+   1.331
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   72,
+   48,
+   154,
+   170
+  ],
+  "colours": 2929,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 122",
+    "OUT  colours >= 2330: 692",
+    "OK   top 8 carry <= 11%: 10.9",
+    "OUT  value span >= 118: 85",
+    "OK   saturation <= 0.81: 0.277",
+    "OK   light: top minus bottom >= -2.5: 37.4",
+    "OK   edge between -35 and +7: -14.2",
+    "OK   grain <= 2.22 px a run: 2.08"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 262.5"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/overwhelm/rig_S.png"
+  },
+  "breaks": []
+ },
+ "pathfinder": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.379,
+   1.192
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   57,
+   58,
+   161,
+   168
+  ],
+  "colours": 3131,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 110",
+    "OUT  colours >= 2330: 1196",
+    "OK   top 8 carry <= 11%: 6.8",
+    "OUT  value span >= 118: 110",
+    "OK   saturation <= 0.81: 0.231",
+    "OK   light: top minus bottom >= -2.5: 25.2",
+    "OK   edge between -35 and +7: -15.2",
+    "OUT  grain <= 2.22 px a run: 2.41"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.7%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 258.5"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/pathfinder/rig_S.png"
+  },
+  "breaks": []
+ },
+ "polearm_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.311,
+   0.145,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   48,
+   152,
+   176
+  ],
+  "colours": 2328,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 128",
+    "OUT  colours >= 2330: 635",
+    "OK   top 8 carry <= 11%: 7.7",
+    "OUT  value span >= 118: 85",
+    "OK   saturation <= 0.81: 0.303",
+    "OK   light: top minus bottom >= -2.5: 14.9",
+    "OK   edge between -35 and +7: -11.9",
+    "OK   grain <= 2.22 px a run: 1.55"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 309.8"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/polearm_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "quick_hands": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.391,
+   0.401,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   64,
+   165,
+   175
+  ],
+  "colours": 3388,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 111",
+    "OUT  colours >= 2330: 927",
+    "OK   top 8 carry <= 11%: 9.2",
+    "OK   value span >= 118: 126",
+    "OK   saturation <= 0.81: 0.131",
+    "OUT  light: top minus bottom >= -2.5: -5.6",
+    "OK   edge between -35 and +7: -14.1",
+    "OK   grain <= 2.22 px a run: 1.92"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 138.0"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/quick_hands/rig_S.png"
+  },
+  "breaks": []
+ },
+ "rally_the_troops": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.589,
+   1.067
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   65,
+   59,
+   143,
+   159
+  ],
+  "colours": 4244,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 100",
+    "OUT  colours >= 2330: 1016",
+    "OK   top 8 carry <= 11%: 7.7",
+    "OK   value span >= 118: 193",
+    "OK   saturation <= 0.81: 0.143",
+    "OK   light: top minus bottom >= -2.5: -1.4",
+    "OK   edge between -35 and +7: -7.4",
+    "OK   grain <= 2.22 px a run: 1.83"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 184.5"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/rally_the_troops/rig_S.png"
+  },
+  "breaks": []
+ },
+ "reach_advantage": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.236,
+   1.225
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   67,
+   55,
+   147,
+   159
+  ],
+  "colours": 3919,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 104",
+    "OUT  colours >= 2330: 1114",
+    "OK   top 8 carry <= 11%: 6.0",
+    "OUT  value span >= 118: 95",
+    "OK   saturation <= 0.81: 0.28",
+    "OUT  light: top minus bottom >= -2.5: -26.8",
+    "OK   edge between -35 and +7: -18.7",
+    "OK   grain <= 2.22 px a run: 2.0"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 51.9"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/reach_advantage/rig_S.png"
+  },
+  "breaks": []
+ },
+ "recover": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.515,
+   1.303
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   73,
+   49,
+   153,
+   161
+  ],
+  "colours": 3300,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 112",
+    "OUT  colours >= 2330: 1245",
+    "OK   top 8 carry <= 11%: 5.2",
+    "OUT  value span >= 118: 93",
+    "OK   saturation <= 0.81: 0.22",
+    "OK   light: top minus bottom >= -2.5: 4.9",
+    "OK   edge between -35 and +7: -12.7",
+    "OUT  grain <= 2.22 px a run: 2.29"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 201.5"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/recover/rig_S.png"
+  },
+  "breaks": []
+ },
+ "relentless": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.136,
+   0.213,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   74,
+   63,
+   140,
+   160
+  ],
+  "colours": 5099,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 97",
+    "OUT  colours >= 2330: 2018",
+    "OK   top 8 carry <= 11%: 3.6",
+    "OK   value span >= 118: 119",
+    "OK   saturation <= 0.81: 0.163",
+    "OK   light: top minus bottom >= -2.5: 2.2",
+    "OK   edge between -35 and +7: -20.7",
+    "OK   grain <= 2.22 px a run: 1.92"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 205.1"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/relentless/rig_S.png"
+  },
+  "breaks": []
+ },
+ "resilient": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.789,
+   1.179
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   64,
+   60,
+   157,
+   174
+  ],
+  "colours": 5263,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 114",
+    "OUT  colours >= 2330: 1684",
+    "OK   top 8 carry <= 11%: 4.6",
+    "OUT  value span >= 118: 116",
+    "OK   saturation <= 0.81: 0.123",
+    "OK   light: top minus bottom >= -2.5: 4.6",
+    "OK   edge between -35 and +7: -15.8",
+    "OUT  grain <= 2.22 px a run: 2.5"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 1.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): None"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/resilient/rig_S.png"
+  },
+  "breaks": []
+ },
+ "rotation": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.433,
+   1.392
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   67,
+   60,
+   166,
+   178
+  ],
+  "colours": 6395,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 118",
+    "OUT  colours >= 2330: 1622",
+    "OK   top 8 carry <= 11%: 4.2",
+    "OUT  value span >= 118: 89",
+    "OK   saturation <= 0.81: 0.349",
+    "OK   light: top minus bottom >= -2.5: 20.3",
+    "OK   edge between -35 and +7: -15.5",
+    "OK   grain <= 2.22 px a run: 1.99"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 290.1"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/rotation/rig_S.png"
+  },
+  "breaks": []
+ },
+ "shield_expert": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.337,
+   0.324,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   65,
+   48,
+   165,
+   180
+  ],
+  "colours": 4204,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OK   long side >= floor 96: 132",
+    "OUT  colours >= 2330: 1689",
+    "OK   top 8 carry <= 11%: 9.7",
+    "OUT  value span >= 118: 98",
+    "OK   saturation <= 0.81: 0.528",
+    "OUT  light: top minus bottom >= -2.5: -9.0",
+    "OK   edge between -35 and +7: -12.4",
+    "OUT  grain <= 2.22 px a run: 2.94"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.5%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 59.3"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/shield_expert/rig_S.png"
+  },
+  "breaks": []
+ },
+ "spear_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   0.85,
+   0.168,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   42,
+   126,
+   154
+  ],
+  "colours": 2444,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 112",
+    "OUT  colours >= 2330: 634",
+    "OK   top 8 carry <= 11%: 7.1",
+    "OUT  value span >= 118: 93",
+    "OK   saturation <= 0.81: 0.317",
+    "OK   light: top minus bottom >= -2.5: 32.7",
+    "OK   edge between -35 and +7: -14.3",
+    "OK   grain <= 2.22 px a run: 1.71"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.5%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 294.5"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/spear_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "steel_brow": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.885,
+   0.764
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   45,
+   64,
+   151,
+   151
+  ],
+  "colours": 4986,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 106",
+    "OUT  colours >= 2330: 1970",
+    "OK   top 8 carry <= 11%: 2.7",
+    "OUT  value span >= 118: 117",
+    "OK   saturation <= 0.81: 0.051",
+    "OK   light: top minus bottom >= -2.5: 41.9",
+    "OK   edge between -35 and +7: -13.7",
+    "OK   grain <= 2.22 px a run: 2.01"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 231.9"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/steel_brow/rig_S.png"
+  },
+  "breaks": []
+ },
+ "student": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.255,
+   1.025
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   48,
+   54,
+   154,
+   152
+  ],
+  "colours": 4326,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 106",
+    "OUT  colours >= 2330: 1534",
+    "OK   top 8 carry <= 11%: 5.6",
+    "OUT  value span >= 118: 114",
+    "OK   saturation <= 0.81: 0.184",
+    "OK   light: top minus bottom >= -2.5: 14.0",
+    "OK   edge between -35 and +7: -16.2",
+    "OK   grain <= 2.22 px a run: 2.19"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 227.4"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/student/rig_S.png"
+  },
+  "breaks": []
+ },
+ "sword_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.123,
+   0.362
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   32,
+   33,
+   114,
+   112
+  ],
+  "colours": 1696,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OUT  long side >= floor 96: 82",
+    "OUT  colours >= 2330: 416",
+    "OK   top 8 carry <= 11%: 7.8",
+    "OUT  value span >= 118: 112",
+    "OK   saturation <= 0.81: 0.068",
+    "OK   light: top minus bottom >= -2.5: 44.2",
+    "OK   edge between -35 and +7: -13.6",
+    "OK   grain <= 2.22 px a run: 1.91"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.8%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 341.5"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/sword_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "taunt": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.454,
+   1.343
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   75,
+   65,
+   155,
+   179
+  ],
+  "colours": 5970,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 114",
+    "OUT  colours >= 2330: 2136",
+    "OK   top 8 carry <= 11%: 5.6",
+    "OUT  value span >= 118: 113",
+    "OK   saturation <= 0.81: 0.274",
+    "OK   light: top minus bottom >= -2.5: 5.4",
+    "OK   edge between -35 and +7: -14.1",
+    "OK   grain <= 2.22 px a run: 2.17"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 250.2"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/taunt/rig_S.png"
+  },
+  "breaks": []
+ },
+ "throwing_mastery": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   0.938,
+   0.439,
+   1.4
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   76,
+   50,
+   136,
+   167
+  ],
+  "colours": 3553,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 117",
+    "OUT  colours >= 2330: 976",
+    "OUT  top 8 carry <= 11%: 11.9",
+    "OK   value span >= 118: 137",
+    "OK   saturation <= 0.81: 0.157",
+    "OK   light: top minus bottom >= -2.5: 39.2",
+    "OK   edge between -35 and +7: -8.5",
+    "OK   grain <= 2.22 px a run: 1.92"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 264.4"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/throwing_mastery/rig_S.png"
+  },
+  "breaks": []
+ },
+ "underdog": {
+  "engine": "CYCLES",
+  "real_dims_m": [
+   1.4,
+   0.744,
+   0.909
+  ],
+  "scale_from_model": 1.0,
+  "crop_box_px": [
+   48,
+   53,
+   154,
+   154
+  ],
+  "colours": 2904,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 106",
+    "OUT  colours >= 2330: 1033",
+    "OUT  top 8 carry <= 11%: 16.1",
+    "OK   value span >= 118: 134",
+    "OK   saturation <= 0.81: 0.132",
+    "OK   light: top minus bottom >= -2.5: 34.4",
+    "OK   edge between -35 and +7: -16.2",
+    "OUT  grain <= 2.22 px a run: 2.68"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 1.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 259.1"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/perk_rig2/rig/underdog/rig_S.png"
+  },
+  "breaks": []
+ }
+}

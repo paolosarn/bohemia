@@ -9786,6 +9786,15 @@ GATES = [
      "a town with two jobs he and both places sit inside the open area, none under the phone; one job fits closer; a job taken on "
      "the map fits; a pinch during the ease is his, a journey takes the camera back; the fit off turns it red. about 4 min a "
      "profile", True),
+    ('THE MAP ZOOMS IN TO THE STREET', ['node', 'gates/the_map_zooms_in_to_the_street_gate.js'],
+     "RUN gate, 10/26, row [the map zooms in to the street] (rule 258(e), Paolo 10/26: 'I want the zoom to zoom in a lot more, even "
+     "on the main map... almost like I'm on the combat map... it doesn't have to transition to a whole other screen or phase'): on "
+     "the phone and his computer, real squeezes carry on past the old closest stop into the street on the same map (the phone and "
+     "the bar unmoved); the street stop straight on, every block the fight's own, a house to his man as in the fight; a journey "
+     "there: held at the focus, the ground by at a walk, his stride turning, facing his way, his two with him; a roaming party "
+     "there in its people; a tap travels to the block under the finger; squeezes out come back to the whole city with no jump over "
+     "30 px; the frame no more than the map's own closest; two minutes at the close end inside the 20 MB budget; the street off "
+     "turns it red. about 5 min a profile", True),
     ('MEET BEFORE YOU FIGHT', ['node', 'gates/meet_before_you_fight_gate.js'],
      "RUN gate, 10/25 (rule 151(e)), and 10/26 [eyes: the meet card's men] (rule 198(g)): a walk into a party stops on a card with "
      "who and the ground, FALL BACK and ENGAGE by a finger; a beast meet by day names them as beasts at the count that stands, never "
@@ -10114,6 +10123,25 @@ GATES = [
      "(rules 213, 279, UI TWO's phone); from either end of the street every door of both compositions is reached over the composed ground and every step is open ground; every role's door in both and the entrance "
      "on the same side; every pair of upright pictures under 0.70 likeness; each upright nearer in colour to its own wide than to any other town's; "
      "the upright nights darker with lit pools. About 1 min", False),
+    ('THE CAMP THROUGH THE RIG', ['python3', 'gates/the_camp_through_the_rig_gate.py'],
+     "COOK gate, 10/26, CAMP TWO's NOTE [the camp grows] ('put the same shapes through [the master rig] and drop them into slices/camp_two/kit.png at the "
+     "same rects and feet; the camp reads kit.json only. Also wanted: a camp-sized trailer') and rule 115(a), the rig's look is the look. Every piece the camp "
+     "reads on the sheet with a body, a foot, its footprint and height, every follower the camp offers his piece; every piece its own master-rig run "
+     "(Cycles, no break, 400 colours or more); the fire's six keys one size and one foot; every foot where the piece's footprint in metres puts it, within 8 px; "
+     "the camp trailer in eight facings, under 4 m, named in kit.json with its ground and hitch. Under 1 s", False),
+    ('EVERY PERK A PICTURE', ['python3', 'gates/every_perk_a_picture_gate.py'],
+     "COOK gate, 10/26, row [the fifty perk icons] (rule 252(c), Paolo 10/26: 'I don't want a single perk without an icon, I need you to have icons "
+     "for all the perks... I need to be able to visualize it as well as what's written for it'; line 179 of his list). Every perk of perks.json has "
+     "slices/perk_icons/<id>.png, 96 x 96, and its row in perk_icons.json (row, carried or pressed as the fight's ACTIVE list says, what it shows, draft); "
+     "every icon's model through the master rig (Cycles, no break, 1,000 colours or more); the rim gold for carried, blue for pressed; the row in dots; at "
+     "32 px every thing stands off its plate and no two icons are alike. About 2 s", False),
+    ('THE ARMOUR THROUGH THE RIG', ['python3', 'gates/the_armour_through_the_rig_gate.py'],
+     "COOK gate, 10/26, row [the armour's art] (rule 272(b)(d), Paolo 10/26: 'the good armour I have on me doesn't show, like a police helmet... "
+     "we're gonna have to cook up so much art'; CHARACTER's NOTE: 'Your real art drops in file for file... the police riot helmet and the police vest "
+     "first'). wear.json in CHARACTER's format, every class and extra in use in eight facings (a helmet also dropped and at portrait size), every cell "
+     "on its sheet with a body; every piece rendered with the master rig's light, film and source pass, no setting moved, its fullest view 100 colours "
+     "or more; the riot helmet and the police vest carry their own art; the riot visor is glass his face shows through, the welder's lens is not; every "
+     "facing's piece where CHARACTER's placeholder put it, within 4 px. Under 1 s", False),
     ("THE FEED'S WORDS", ['node', 'gates/feed_words_gate.js'],
      "WORDS gate, 10/26, rows [the feed's words] and [the usernames tell the story] (rule 215(f), Paolo 10/26: 'we have a whole words [chat] that's part of that... organize it properly so every time we upgrade it gets better, realistic vibes'; rule 217: 'the usernames can tell a real awesome story in a very short amount of words'). "
      "Headless over banks/BOHEMIA_WORDS_THE_FEED_BANK.json (built by tools/words_feed/build_feed_bank.py; a path argument checks another copy): every kind five variants or more and draft:true; every deed 215(a) names its own kind; every who resolves, every voiced faction its page, every region place one of its people; "
@@ -10207,6 +10235,13 @@ GATES = [
      "C1 the crew card draws both (his pixels change against the same figure with nothing drawn), C2 his portrait wears the helmet, F1 the fight draws both facing the glass and "
      "facing east, F2 the fight's face wears it, K1 the camp draws him at the fire in both, M1 the demo's map through its own door draws him and the two men at his shoulders in theirs, M2 at the map's close end too; "
      "E1 every class the shop sells drawn on its wearer; PLANTED: the drawing switched off, C1 catches him bare. about 5 min", True),
+    ('THE FIGHT AS CLOSE AS IT CAN BE', ['node', 'gates/the_fight_as_close_as_it_can_be_gate.js'],
+     "COMBAT TWO gate, 10/26, rows [the fight frames around the phone] and [the fight's camera follows the fight] (rules 288(b)(c)(d), 230(a), 213(c)(e); PAOLO 10/26: 'from the map into combat we always want everyone, "
+     "the enemies to the crew, as zoomed in as possible until we start touching and moving the camera... your characters bigger than when they were zoomed out'). Rolled fights on the phone upright, on its side and a computer, "
+     "the phone right then left, the open area read off the glass (the strip, the bar at its tallest, the phone's rectangle): the open is the tightest frame of every fighter plus a tile, centred in the open area, off the glass's "
+     "centre away from the phone; no living fighter's body outside it on any frame (a man out of the dark and a man the camera is already gliding to hold, half a beat, counted and said); every frame a beat after the first frame "
+     "that saw the last walk, fall or change is the tightest frame again, centred; the camera moves only inside a glide; where the fight draws in a tenth the man is drawn bigger (his floor said); the phone flipped re-centres in two "
+     "beats; a real pinch or the wheel holds through END TURN and their turns and lets go at his next man's turn. Three plants bite. About 15 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

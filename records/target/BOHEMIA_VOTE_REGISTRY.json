@@ -15720,6 +15720,31 @@
    "draft": true
   },
   {
+   "id": "run-the-map-zooms-in-to-the-street-10-26",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "07aeb8ec",
+   "made": "10/26",
+   "title": "PINCH IN PAST THE MAP'S CLOSEST VIEW AND YOU ARE ON THE STREET: THE FIGHT'S OWN HOUSES, YOUR MEN WALKING AT THEIR SIZE, NO NEW SCREEN",
+   "why": "Keep pinching in on the map and the camera turns to the fight's own angle, the ground becomes the fight's own blocks, and you watch your men walk down the street (slower, so the walk reads); pinch out and you are back on the whole city. On the DEMO's map, from the moment you press BEGIN.",
+   "before_after": {
+    "before": "the map's old closest view on 390 x 844 at BUILD 10/26zzj (left: where the pinch used to stop)",
+    "after": "the same pinch going on: the turn (second), the far street (third), the street stop with his men walking (right)",
+    "scale": "1:1"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_MAP_ZOOMS_IN_TO_THE_STREET_10_26.webp",
+    "first": "../records/target/vote_first/run-the-map-zooms-in-to-the-street-10-26.webp",
+    "firstAt": [
+     1194,
+     0,
+     390,
+     844
+    ]
+   }
+  },
+  {
    "id": "camp-the-camp-stops-at-full-10-26",
    "kind": "ui",
    "lane": "camp",
@@ -15729,7 +15754,7 @@
    "why": "You used to camp and have to watch the bar, and the camp ran on for days after everyone was fine. Now, the hour every man is at 99 percent health and armour, the camp closes by itself, the clock goes on pause, and one of your men says it out loud. You see it on the RUN tab: get hurt in a fight, then press the phone's HEAL.",
    "before_after": {
     "before": "the camp ran on with a whole company until you broke it (EYES saw 49 hours)",
-    "after": "BUILD 10/26zzi: back on the map on PAUSE (the phone says STOPPED), one of his men saying 'We're whole. Say the word and we move.'",
+    "after": "BUILD 10/26zzk: back on the map on PAUSE (the phone says STOPPED), one of his men saying 'We're whole. Say the word and we move.'",
     "scale": "his phone upright, the bottom of the screen"
    },
    "show": {

@@ -1,0 +1,435 @@
+{
+ "car_door": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 25260,
+  "parts": 5,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "padded_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 26276,
+  "parts": 1,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "padded_vest+chain": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 36304,
+  "parts": 2,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "plated_jacket": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 34980,
+  "parts": 3,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "police_vest": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 34460,
+  "parts": 13,
+  "glass": false,
+  "own_art": [
+   "webbing",
+   "radio pouch",
+   "aerial",
+   "buckles"
+  ],
+  "cell_px": 0.5
+ },
+ "police_vest+chain": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 44488,
+  "parts": 14,
+  "glass": false,
+  "own_art": [
+   "webbing",
+   "radio pouch",
+   "aerial",
+   "buckles"
+  ],
+  "cell_px": 0.5
+ },
+ "riot_armour": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 56872,
+  "parts": 7,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "riot_armour+chain": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 66900,
+  "parts": 8,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "work_jacket": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 42476,
+  "parts": 6,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "bandana": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 16228,
+  "parts": 4,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "brim_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 51968,
+  "parts": 2,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "brim_helmet+chain": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 65284,
+  "parts": 3,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "brim_helmet+chain_closed": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 73544,
+  "parts": 3,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "chain_hood": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 41436,
+  "parts": 1,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "dust_mask": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 12240,
+  "parts": 2,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "gas_mask": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 19492,
+  "parts": 5,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "hard_hat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 46920,
+  "parts": 3,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "moto_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 50772,
+  "parts": 3,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "moto_helmet+chain": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 64088,
+  "parts": 4,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "moto_helmet+chain_closed": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 72348,
+  "parts": 4,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "moto_helmet+horns": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 54708,
+  "parts": 5,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "rag_hood": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 42572,
+  "parts": 1,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "riot_helmet": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 65592,
+  "parts": 14,
+  "glass": true,
+  "own_art": [
+   "police black",
+   "vent ribs",
+   "pivot bolts",
+   "lift tab",
+   "chin strap"
+  ],
+  "cell_px": 0.5
+ },
+ "riot_helmet+chain": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 78908,
+  "parts": 15,
+  "glass": true,
+  "own_art": [
+   "police black",
+   "vent ribs",
+   "pivot bolts",
+   "lift tab",
+   "chin strap"
+  ],
+  "cell_px": 0.5
+ },
+ "riot_helmet+spike": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 66984,
+  "parts": 15,
+  "glass": true,
+  "own_art": [
+   "police black",
+   "vent ribs",
+   "pivot bolts",
+   "lift tab",
+   "chin strap"
+  ],
+  "cell_px": 0.5
+ },
+ "straw_hat": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 68844,
+  "parts": 3,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ },
+ "welder_mask": {
+  "rig": "master rig light_and_film + source_pass",
+  "breaks": [],
+  "engine": "CYCLES",
+  "samples": 128,
+  "wear": 0.6,
+  "wear_by_material": {
+   "armour_": 0.15
+  },
+  "faces": 22232,
+  "parts": 4,
+  "glass": false,
+  "own_art": [],
+  "cell_px": 0.5
+ }
+}
