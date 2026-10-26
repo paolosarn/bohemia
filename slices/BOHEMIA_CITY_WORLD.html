@@ -45773,6 +45773,7 @@ function campMake(){
   if (CAMP.on || !campOnMap()) return false;
   try{ travelStop(); }catch(_e){} try{ travelInterrupt('camp'); }catch(_e){}
   CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0]; CAMP.warned = null;
+  try{ var __c0 = campCondition(); CAMP.mending = !!(__c0 && !__c0.done); }catch(_e){ CAMP.mending = false; }   /* CAMP __HEALING_STOPS_ITSELF__ */
   campStale();   /* CAMP __CAMP_HOLDS__: the last fight's contact flag is not an enemy */
   LOOP.open = { camp: true, name: 'YOUR CAMP', x: city.x | 0, y: city.y | 0 };
   var f = loopFrame(); f.style.display = 'block';
@@ -45843,7 +45844,29 @@ function campHour(){
     if (!warn) try{ warn = campWarn(lim); }catch(_e){}
   }
   try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition(), warn: warn }, '*'); }catch(_e){}
+  campDone();
 }
+/* ==== __HEALING_STOPS_ITSELF__ (CAMP [healing stops itself at full], rule 278(a), Paolo 10/26: 'I camp out, time speeds along, and it
+   will stop, pause the game, as soon as my whole team is at 99 health and 99 armour'). The hour every living man of his is at 99
+   percent of his hit points and of his armour (BohemiaCondition.company().done, records/target/bb/condition.json camp_done_at), a camp
+   made for mending breaks itself: back on the map, the clock on PAUSE (the camp stopped the march; nothing starts it but his GO), and
+   one of his men says they are ready, from his mouth with his face (the phone's ten, BohemiaMaterials.ten). A camp made with everybody
+   already whole is a rest he asked for, and it holds until he ends it (rule 267(a)). HEAL still ends it sooner. ==== */
+var CAMP_DONE_LINES = ['Everybody\'s patched up. Ready when you are.', 'We\'re whole. Say the word and we move.', 'Last of the tape\'s on. Nobody\'s bleeding. Let\'s go.'];   /* draft:true */
+function campDone(){
+  if (!CAMP.on) return false;
+  var c = campCondition(); if (!c) return false;
+  if (!c.done) { CAMP.mending = true; return false; }
+  if (!CAMP.mending) return false;
+  var line = CAMP_DONE_LINES[(T.day + CAMP.hours) % CAMP_DONE_LINES.length], who = campSpeaker();
+  campBreak('healed');
+  try{ travelInterrupt('healed'); }catch(_e){}   /* paused: the valley holds still until he says go */
+  try{ var TEN = window.BohemiaMaterials && BohemiaMaterials.ten; if (TEN && TEN.say) TEN.say({ id: 'healed:' + T.day + ':' + T.min, kind: 'camp', who: who, line: line, prio: 1, ttl: 30 }); }catch(_e){}
+  try{ loopSay(line); }catch(_e){}
+  window.__CAMP_HEALED = { day: T.day, min: T.min, hours: CAMP.hours, lowest: c.lowest, line: line, by: who.name || who.look, speed: TRAVEL_SPEED };
+  return true;
+}
+/* ==== /__HEALING_STOPS_ITSELF__ ==== */
 window.addEventListener('message', function(ev){
   var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_SETTLEMENT' || !LOOP.frame || ev.source !== LOOP.frame.contentWindow) return;
   if (d.act === 'retinue' || d.act === 'cart') { campSync(); try{ billPublish(); }catch(_e){} }

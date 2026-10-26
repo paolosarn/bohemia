@@ -43,7 +43,7 @@
   var KEY = 'bohemia.condition.v1', SUPPLIES = 'bohemia.supplies.v1', BASE = '../records/target/bb/';
   var DEF = { hp_per_hour_march: 1, hp_per_hour_camp: 2, cook_hp_per_hour: 1, armour_per_hour: 3, camp_repair_mult: 2, durability_per_tape: 15,
               blacksmith_repair_mult: 1.2, blacksmith_tape_mult: 0.8, surgeon_injury_days: 1, struck_down_hp_left: 1, unknown_hp_max: 55,
-              bars_hide_at: 0.87 };
+              bars_hide_at: 0.87, camp_done_at: 0.99 };
   var RATE = {}; for (var dk in DEF) RATE[dk] = DEF[dk];
   /* the crew list's names and kit (ours.json, the fight's own list) and every armour piece's durability (armor.json) */
   var D = { crew: null, looks: null, armour: null, asked: {}, rates: false };
@@ -243,15 +243,19 @@
     return { hpMax: (m.stats && +m.stats.hp > 0) ? +m.stats.hp : RATE.unknown_hp_max, armMax: (body ? A['body:' + body] | 0 : 0) + (head ? A['head:' + head] | 0 : 0) };
   }
   function company(origin) {
-    var s = get(), L = members(origin), sum = { men: L.length, hp: 0, hpMax: 0, arm: 0, armMax: 0, hurt: 0, broken: 0, names: [] };
+    var s = get(), L = members(origin), sum = { men: L.length, hp: 0, hpMax: 0, arm: 0, armMax: 0, hurt: 0, broken: 0, names: [], lowest: 1, lowestOf: null };
     L.forEach(function (e) {
       var r = s.men[e.key], hpMax, armMax, lostHp = 0, lostArm = 0;
       if (r) { hpMax = r.hpMax; armMax = (r.armHMax || 0) + (r.armBMax || 0); lostHp = r.lostHp || 0; lostArm = (r.lostH || 0) + (r.lostB || 0); }
       else { var w = wholeOf(e); hpMax = w.hpMax; armMax = w.armMax; }
       sum.hpMax += hpMax; sum.hp += hpMax - lostHp; sum.armMax += armMax; sum.arm += armMax - lostArm;
       if (lostHp >= 0.5) sum.hurt++; if (lostArm >= 0.5) sum.broken++; sum.names.push(e.key);
+      /* CAMP [healing stops itself at full] (rule 278(a)): the man furthest from whole, his hit points or his armour, whichever is less */
+      var lo = Math.min(hpMax > 0 ? (hpMax - lostHp) / hpMax : 1, armMax > 0 ? (armMax - lostArm) / armMax : 1);
+      if (lo < sum.lowest) { sum.lowest = lo; sum.lowestOf = e.key; }
     });
     sum.blood = sum.hpMax > 0 ? sum.hp / sum.hpMax : 1; sum.armour = sum.armMax > 0 ? sum.arm / sum.armMax : 1;
+    sum.done = sum.lowest >= RATE.camp_done_at;   /* every man at 99 percent of both: the camp's work is done */
     sum.whole = (sum.hpMax + sum.armMax) > 0 ? (sum.hp + sum.arm) / (sum.hpMax + sum.armMax) : 1;
     var W = json(SUPPLIES); sum.tape = W ? W.tape | 0 : null;
     sum.dead = s.dead.length;
