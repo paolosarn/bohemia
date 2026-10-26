@@ -236,3 +236,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 216 | What is scrap? Scrap should be tape (repair); and tape must be buyable at every stall now: my run died on day four with no tape | 276 | RUN TWO, RUN FOUR, EYES | 
 | 217 | A town's smith or armourer repairs my gear quickly for a price | 277 | RUN TWO, ECONOMY, EYES | 
 | 218 | Camp and town healing stop by themselves (pause) when my whole team is at 99 percent health and armour; (said again) the fallen who live are back in the line; (said again) bars over every man in towns | 278, 234, 261 | CAMP, EYES | 
+| 219 | Every settlement, portrait and landscape, keeps the phone's corner clear (left or right setting); no shopkeeper behind the phone; switches at once; speech never under the phone, with a transition | 279 | COOK, RUN TWO, UI TWO, UI, EYES | 
