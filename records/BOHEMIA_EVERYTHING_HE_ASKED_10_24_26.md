@@ -215,3 +215,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 195 | Every stall in every settlement always sells at least a stack of duct tape | 265(a) | RUN TWO, ECONOMY, EYES | 
 | 196 | Every stall buys everything I carry, even in a stall-only town (pays less) | 265(b) | RUN TWO, EYES | 
 | 197 | Trade goods to buy where they're made and sell elsewhere; the map shows which town pays best for my goods | 266 | ECONOMY, RUN TWO, WORLD TWO, EYES | 
+| 198 | Camp holds until I end it: never kicked back to the city unless an enemy actually reaches me | 267(a) | CAMP, EYES | 
+| 199 | A MAKE CAMP button right after a fight; the camp shows the slain piled in a corner and my men healing and looting | 267(b)(c) | CAMP, RUN FOUR, ANIMATION, EYES | 
+| 200 | I can type my own company name in the text box, not only pick the offered names | 268(a) | RUN TWO, UI TWO, EYES | 
+| 201 | (said again) The camp button on the phone; no possible jobs on the phone; all buttons on the phone | 268(b) | UI TWO, EYES | 
