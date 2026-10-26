@@ -21,6 +21,7 @@
     B.length = 0; C.length = 0; window.__FIGHT_LET_GO = { bitmaps: b, canvases: c }; return window.__FIGHT_LET_GO; };
 })();</script>
 <script src="bohemia_ui_materials.js"></script>
+<script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): the card's eight in his order as bars (__UI_THREE_STATS__ below drawer) -->
 <script src="bohemia_screen_class.js"></script>
 <!-- THE TEAR (ANIMATION's aura B, his YES 10/19, rule 121(f): 'combat only... I'm fucking with the tear'): the man you control -->
 <script src="vote/ANIMATION_THE_AURA.js"></script>
@@ -6435,6 +6436,48 @@ function drawer(v) {
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block';
 }
+/* ==== __UI_THREE_STATS__ (UI THREE [the stat order], [stats are bars and arrows]; rules 223(a), 247(a)(c)(d), Paolo 10/26: 'HP,
+   fatigue, ranged attack, melee attack, ranged defence, melee defence, morale and initiative, across the board... behind the
+   numbers, like a progress bar, how far it is from the maximum that's even possible'). COMBAT's card is drawn as it was; this block
+   then lays his eight in HIS order as the one stat row (engine/bohemia_stats.js), in place of the six word rows (Health, Fatigue,
+   the two skill / defence rows, Initiative, Resolve): each the icon, his stars (the crew screen's own, by name), the bar to the
+   most possible with what he has NOW on it, and what this fight has taken (the wound, the fatigue spent) as the hatched part, the
+   tick at his ceiling. Armour, nerve, rounds, the hurt and the perks stay COMBAT's rows. A wrapper, nothing of COMBAT's rewritten;
+   NOTE on COMBAT's board. ==== */
+(function () { if (typeof drawer !== 'function') return; const base = drawer;
+  drawer = function (v) { base(v); try { if (window.BohemiaStats) fightBars(v); } catch (e) {} }; })();
+function fightStars(name) {
+  const read = function (k) { try { const a = JSON.parse(localStorage.getItem(k) || 'null'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
+  const all = read('bohemia.company.v1').concat(read('bohemia.hired.v1'));
+  for (let i = 0; i < all.length; i++) if (all[i] && all[i].name === name && all[i].stars) return all[i].stars;
+  return {};
+}
+function fightBars(v) {
+  const B = window.BohemiaStats, d = document.getElementById('drawer'); if (!d) return;
+  const WORDS = /^(Health|Fatigue|Melee skill \/ defence|Ranged skill \/ defence|Initiative|Resolve)$/;
+  [].slice.call(d.querySelectorAll('.r')).forEach(function (r) { const sp = r.querySelector('span'); if (sp && WORDS.test(sp.textContent.trim())) r.remove(); });
+  const stars = fightStars(v.name), fm = FIGHT.fatMax(v), man = { level: v.level || 1, stars: stars };
+  /* [now, whole]: the whole is what he walked in with (his hitpoints, his fatigue); the gap between is this fight's */
+  /* the shield in his hand counts in his defences, as the crew screen shows them (rule 202(c): one number on every screen);
+     the same sum the fight's shieldDef makes (the Shield Expert's own number from perks.json) */
+  const shieldPart = function (k) { if (!v.shield) return 0; let m = 1;
+    try { const se = (v.perks || []).indexOf('shield_expert') >= 0 && DB.perks.rows.filter(function (r) { return r.id === 'shield_expert'; })[0];
+      if (se && se.numbers) m = 1 + (se.numbers.shield_defense_bonus_increase_pct || 0) / 100; } catch (e) {}
+    return Math.round((v.shield[k] || 0) * m); };
+  const N = { hp: [v.hp, v.hpMax], fatigue: [Math.max(0, fm - Math.round(v.fat)), fm], ranged_skill: [v.rskill], melee_skill: [v.mskill],
+    ranged_defense: [v.rdef + shieldPart('ranged_defense')], melee_defense: [v.mdef + shieldPart('melee_defense')], resolve: [v.resolve], initiative: [v.initiative] };
+  const box = document.createElement('div'); box.className = 'bst-block bst-fight';
+  B.ORDER.forEach(function (k) { const x = N[k]; if (x[0] === null || x[0] === undefined) return;   /* a man with no resolve (a beast) has no row */
+    const whole = x[1] != null ? x[1] : x[0];
+    box.appendChild(B.row(k, { n: x[0], from: x[1] != null && x[1] !== x[0] ? x[1] : null, arrow: false, stars: stars[k] | 0, ceil: B.ceilingOf(man, k, whole), icon: 'i', label: B.NAME[k] })); });
+  const head = d.firstElementChild; d.insertBefore(box, head ? head.nextSibling : d.firstChild);
+}
+(function () { const st = document.createElement('style'); st.id = 'bst-fight-css';
+  st.textContent = '#drawer .bst-block.bst-fight{display:grid;grid-template-columns:minmax(0,1fr);gap:1px;margin:2px 0 4px}'
+    + '#drawer .bst-fight .bst-row{min-height:18px;height:18px;border-bottom:1px dotted rgba(42,34,26,.3)}'
+    + '#drawer .bst-fight .bst-bar{height:14px}#drawer .bst-fight .bst-bar>i.bst-n{line-height:12px}';
+  (document.head || document.documentElement).appendChild(st); })();
+/* ==== end __UI_THREE_STATS__ ==== */
 /* THE WEAPON SAYS WHAT IT DOES (rule 75e; records/target/bb/weapon_lines.json): hold a finger on the strike square
    or on any man and his weapon's card comes up on the receipt: its name here, its Battle Brothers base in small print,
    its one plain line, and its numbers from weapons.json. A tap anywhere puts it away. */
