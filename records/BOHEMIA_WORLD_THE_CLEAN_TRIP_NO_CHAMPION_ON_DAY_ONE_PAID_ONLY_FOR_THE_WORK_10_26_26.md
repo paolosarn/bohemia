@@ -54,4 +54,42 @@ most ONE IN SIX laid up; the cut-offs 0.95 and 0.50 (TUNING's).
 - NOT MINE, NOTED: the board row's pay ('45 batteries', RUN TWO's moneyWord) and the phone's job card (UI TWO's) are their screens.
 
 ## 5. PROOF
-(filled below from the gates on this tree)
+- gates/the_job_tells_the_truth_gate.js, his phone's profile, the demo on this round's tree (before the rebase onto 3adc508a; the
+  rebased tree re-ran the cheaper gates below): FIVE crews, 221 jobs read in the page, each played 100 more times in node with
+  fresh dice (923 s on four processes). 9/0:
+  J2 one star: 23 jobs, 99 in 100 clean by the amended reading (nobody down at all: 97); the worst one-star job 96.
+  J3 three stars: 93 jobs, 18 in 100 clean (nobody down at all: 9); the best three-star job 72.
+  J4 two stars: 105 jobs, 83 in 100; the blood ranks with what happened, rho 0.96; the board painted the read.
+  J8 NO STAR LIES: 1 of 221 (twelve at level 6, a three-star job at 72; the line is 65; one in fifty allowed).
+  J9 NO CHAMPION ON DAY ONE: 71 day-one jobs (the Lone Wolf's and the Block Watch's), 165 fights, every one dressed for day one; kinds
+     seen: brigand_thug, lower_goblin_skirmisher, goblin_wolfrider, wiederganger and its necromancer, direwolf, hyena, orc_young,
+     lower_orc_warrior. No Marauder, no leader.
+  J5 twelve meet cards dealt id for id, the count read from data-n (no lone number on the card); J6 the stars move with the crew.
+- EYES' CASES, THE BLOCK WATCH'S TWELVE AT LEVEL 1, DAY ONE (was: the cold box one GOLD star, 17 fights, someone dead 4 times,
+  wiped 3, an LV 8 Marauder with 386 armour three times; the tigers two stars, all twelve wiped):
+  Blues' cold box: 4 brigand thugs (+ a road chance of two goblin skirmishers); TWO red stars; played 100: clean 99, someone dead 1,
+     wiped 0. (The read, 64 plays in the page, sat just under the one-star line; the 100 plays say it is a one-star job. Not a lie by J8's
+     test, one band harsh; EYES may see two stars where one is earned.)
+  Cartel's tigers ('Put down the show's two tigers'): 5 beasts (hyenas and dire wolves); THREE red stars; played 100: clean 21,
+     someone dead 60, wiped 18. The stars now say what the fight does.
+- gates/paid_only_for_the_work_gate.js (new): phone 13/0, computer 13/0 (the ambush where the little bulbs were, the ones holding the
+  cook's man, the crew at the wash camp's gate: FALL BACK pays nothing and the band is drawn where it stood; the card holds and comes
+  back only on a touch on them; walking home pays nothing; ENGAGE and won, paid once).
+- On this tree before the rebase: THE TRIP BEFORE THE YES 7/0 (T2 reads no lone count of blocks), MEET BEFORE YOU FIGHT 8/0 (M2 reads
+  data-n), THE ROSTER SCALES THE ENEMY 6/0 ('SIZED TO YOUR CREW ▲ 1 MORE'), THE ROSTER COUNTS WHO CAN FIGHT 6/0, MOST JOBS FIT THE
+  COMPANY 5/0 (the dress cap changes no typical company), EVERY JOB KIND escort 10/0; find 7/1: F5 'BACK AT Church, PAID' red, and
+  red the same on clean main 3179da8c in a worktree, so not this round's; RUN's 9f3e8839 (any side of a town is its door) changed
+  how 'back at the town' is found, re-run on the rebased tree below.
+
+## 6. NOTES LEFT
+COMBAT (ours.enemy_tiers.difficulty_days still dresses a day-one job on Expert as day 21: Marauders on day one on that setting;
+Battle Brothers' difficulty scales a contract's resources, never the calendar; theirs to keep or change), RUN (the meet card's marked
+lines, rule 224), RUN TWO (the board row's pay is a count with no picture: their moneyWord), EYES (what to look for, lines 129 and 138).
+
+## [bb contracts]
+Battle Brothers grows a contract's party with the company's strength and its kinds with the days; ours does the same now, and plays
+every fight the job brings against his men as they stand (their skulls never did). Ours on top: a band that holds the job's thing
+stays on the map until it is beaten, never a flag spent by a card.
+
+## [analog horror]
+Where the card has no models to draw, it draws their eyes in the dark, a pair for each: the count is the eyes.
