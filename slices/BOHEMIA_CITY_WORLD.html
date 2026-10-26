@@ -65616,7 +65616,7 @@ function meetMen(msg, n){
   try { beasts = !!(msg.roster && msg.roster.length && msg.roster[0].arch === 'beast'); } catch (_e) {}
   if (beasts) return out;
   var gang = null; try { gang = fac ? rigSetOf(fac) : null; } catch (_e) { gang = null; }
-  for (var i = 0; i < Math.min(n, 6); i++) {
+  for (var i = 0; i < Math.min(n, 12); i++) {   /* WORLD (rule 224): every one of them drawn, the count is the men (was six and a number) */
     var set = null;
     try { set = gang ? (rigMixFor(fac, 'meet:' + i, i) || gang) : mapPeopleOf('job', i); } catch (_e) { set = null; }
     if (set) out.push(set);
@@ -65651,9 +65651,14 @@ function meetShow(msg, skin){
   el.innerHTML = '<div class="mc" style="width:' + W + 'px;padding:16px 16px 14px;box-sizing:border-box;background:#2a2016;border:1px solid #4a3a26;border-radius:2px;' + kit('board', 1) + 'filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))">'
     + '<div class="mch" style="font:400 15px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;line-height:1.2">' + esc(who) + '</div>'
     + '<div class="mcs" style="margin-top:3px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#cdb98e;text-shadow:0 1px 0 #000;display:flex;align-items:baseline;gap:6px">'
-    + '<span>' + esc(n + ' ' + ((msg.party && msg.party.what) || (n === 1 ? 'MAN' : 'MEN')) + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span><span style="margin-left:auto;color:#9f8a64">YOU ' + mine + '</span></div>'   /* WORLD (rule 208(e)): what stands, by kind: '2 DIRE WOLVES', never '4 MEN' */
-    /* WORLD [the roster scales the enemy] (rule 164 item 26, his 'if I fill up my roster, the opponents scale'): the card says why there are this many */
-    + (__rw ? '<div class="mcwhy" style="margin-top:3px;font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#e2b45a;text-shadow:0 1px 0 #000">' + esc(__rw.line) + '</div>' : '')
+    /* WORLD (rule 208(e)): what stands, by kind ('DIRE WOLVES', never 'MEN' for two beasts). RULE 224 (Paolo 10/26: 'I'm tired of it
+       just being numbers numbers numbers... more icons'): no lone count: THEIR NUMBER IS THEIR MEN, drawn below (beasts as eyes in the
+       dark), the count word beside the kind, and YOUR NUMBER is a tally of your men; the count rides in data-n / data-you */
+    + '<span data-n="' + n + '" data-what="' + esc((msg.party && msg.party.what) || (n === 1 ? 'MAN' : 'MEN')) + '">' + esc(((msg.party && msg.party.what) || (n === 1 ? 'MAN' : 'MEN')) + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span>'
+    + '<span class="mcyou" data-you="' + mine + '" aria-label="you: ' + mine + '" style="margin-left:auto;color:#9f8a64;display:inline-flex;align-items:center;gap:2px">YOU<i style="display:inline-block;width:4px"></i>' + (function(){ var t = '', k = Math.min(mine, 12); for (var q = 0; q < k; q++) t += '<i style="display:inline-block;width:2px;height:8px;background:#cdb98e;box-shadow:1px 1px 0 #000' + (q % 5 === 4 ? ';margin-right:3px' : '') + '"></i>'; return t + (mine > 12 ? '<b style="font-weight:400;margin-left:2px">+' + (mine - 12) + '</b>' : ''); })() + '</span></div>'
+    /* WORLD [the roster scales the enemy] (rule 164 item 26, his 'if I fill up my roster, the opponents scale'): the card says why there are
+       this many, rule 224's way: a red up arrow and only by how much (more than a crew of three would meet) */
+    + (__rw ? '<div class="mcwhy" data-men="' + __rw.men + '" data-three="' + __rw.three + '" data-more="' + (__rw.n - __rw.three) + '" style="margin-top:3px;font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#e2b45a;text-shadow:0 1px 0 #000">SIZED TO YOUR CREW <b style="font-weight:400;color:#e0503a">\u25B2</b> ' + (__rw.n - __rw.three) + ' MORE</div>' : '')
     + '<canvas class="mcmen" style="display:block;width:100%;height:84px;margin:8px 0 6px;image-rendering:pixelated"></canvas>'
     + '<div class="mcg" style="padding:8px 10px 10px;background:#e6dcc4;color:#1f1710;' + kit('receipt', 1) + 'font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.45">'
     + '<div style="font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px">THE GROUND: ' + esc(gr.kind) + (gr.district ? ' · ' + esc(gr.district.toUpperCase()) : '') + '</div>'
@@ -65678,7 +65683,13 @@ function meetShow(msg, skin){
         x.drawImage(c, Math.round((x0 + i * step - w / 2) * q), Math.round((80 - h * 0.93) * q), Math.round(w * q), Math.round(h * q));
       }
       if (n > men.length) { x.font = (13 * q) + 'px BohemiaCasing, ui-monospace, monospace'; x.fillStyle = '#f2e4c6'; x.textAlign = 'right'; x.fillText('+' + (n - men.length), cw * q - 2 * q, 78 * q); }
-    } else { x.font = (13 * q) + 'px BohemiaCasing, ui-monospace, monospace'; x.fillStyle = '#cdb98e'; x.textAlign = 'center'; x.fillText(n + ' OF THEM, IN THE DARK', cw * q / 2, 48 * q); }
+    } else {   /* WORLD (rule 224): no models to draw (beasts, or the bank not in yet): THEIR EYES IN THE DARK, a pair for each, the count is the eyes */
+      var ne = Math.min(n, 12), sp = Math.min(30, (cw - 24) / Math.max(1, ne)), e0 = cw / 2 - sp * (ne - 1) / 2;
+      for (var ei = 0; ei < ne; ei++) { var ex = e0 + ei * sp, ey = 34 + ((ei * 37) % 23);
+        x.fillStyle = 'rgba(230,170,70,' + (0.55 + 0.4 * (((ei * 53) % 7) / 7)).toFixed(2) + ')';
+        x.fillRect(Math.round((ex - 5) * q), Math.round(ey * q), Math.round(3 * q), Math.round(2 * q)); x.fillRect(Math.round((ex + 2) * q), Math.round(ey * q), Math.round(3 * q), Math.round(2 * q)); }
+      if (n > ne) { x.font = (13 * q) + 'px BohemiaCasing, ui-monospace, monospace'; x.fillStyle = '#f2e4c6'; x.textAlign = 'right'; x.fillText('+' + (n - ne), cw * q - 2 * q, 78 * q); }
+    }
   } catch (_e) {}
   var done = function (go) {
     if (!MEET.up) return; var up = MEET.up; MEET.up = null;

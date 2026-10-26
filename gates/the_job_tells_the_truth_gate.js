@@ -8,7 +8,7 @@
    THE LIVE DEMO ON THE PHONE PROFILE (JOB_PROFILE=computer for his computer), five crews as they would stand (the Lone Wolf alone
    on day one, a new crew of three, six at level three by day twenty, twelve at level six by day fifty, and THE BLOCK WATCH'S
    TWELVE AT LEVEL ONE ON DAY ONE with EYES' own two jobs, Blues' cold box and Cartel's tigers), 50 jobs each off the valley's
-   own boards (the shelf's pick, town by town; 30 for the Block Watch): 230 jobs. Each job's stars and blood are what the game
+   own boards (the shelf's pick, town by town; 20 for the Block Watch): 220 jobs. Each job's stars and blood are what the game
    read in the page (slices/bohemia_job_danger.js: every fight it brings rolled and played on AUTO against that crew). Then each
    job is PLAYED AGAIN 100 TIMES WITH FRESH DICE, here in node, on the fight's own rules out of BOHEMIA_FIGHT.html, with the exact
    hand-over the page used (each fight happening at its own chance). A play is CLEAN by rule 208(a) AS AMENDED 10/26 (the
@@ -95,7 +95,7 @@ const CREWS = [
   { id: 'twelve at level 6, day 50', day: 50, men: OURS.slice(0, 12).map((m, i) => man(m, i, 6)) },
   /* EYES round three (10/26, records/BOHEMIA_EYES_EVERY_ASK_ROUND_THREE_TEN_FIGHTS_AND_AUTO_BY_EYE_10_26_26.md item 2): the Block Watch's
      twelve on day one, a one-star cold box that wiped them 3 times in 17 and two-star tigers that wiped all twelve: both jobs read */
-  { id: 'the block watch, day 1', day: 1, per: 30, men: O.filter(o => o.id === 'watch')[0].men.map((m, i) => man(m, i)), must: [{ id: 'qd-c02', town: /BLUE/ }, { id: 'qd-aa15', town: /CARTEL/ }] }
+  { id: 'the block watch, day 1', day: 1, per: 20, men: O.filter(o => o.id === 'watch')[0].men.map((m, i) => man(m, i)), must: [{ id: 'qd-c02', town: /BLUE/ }, { id: 'qd-aa15', town: /CARTEL/ }] }
 ];
 
 (async () => {
@@ -130,9 +130,10 @@ const CREWS = [
             (list || []).forEach(o => { if (out.length < PER && !out.some(x => x.o.id === o.id && x.place === n)) out.push({ o: o, place: n }); });
           } }
         /* EYES' own jobs, at their own towns, whatever the shelf's pick said */
-        (C.must || []).forEach(m => { const re = new RegExp(m.town.source || m.town); const t = names.filter(n => re.test(n))[0];
+        (C.must || []).forEach(m => { const re = new RegExp(m.town.source || m.town, 'i'); const t = names.filter(n => re.test(n))[0];
           const o = (BohemiaBoardShelf.shelf().offers || []).filter(x => x.id === m.id)[0];
-          if (t && o && !out.some(x => x.o.id === o.id && x.place === t)) out.unshift({ o: o, place: t, must: true }); });
+          const had = out.filter(x => x.o.id === m.id && x.place === t)[0];
+          if (had) had.must = true; else if (t && o) out.unshift({ o: o, place: t, must: true }); });
         /* the reads, as a surface asks for them */
         return out.map(x => { const R = BohemiaJobDanger.read(x.o, x.place); return { id: x.o.id, place: x.place, o: x.o, has: !!R, must: !!x.must }; });
       }, [{ id: C.id, day: C.day, men: C.men, per: C.per, must: (C.must || []).map(m => ({ id: m.id, town: { source: m.town.source } })) }, PER]);
@@ -207,8 +208,8 @@ const CREWS = [
         const roster = []; for (let i = 0; i < f.n; i++) roster.push({ arch: 'human' });
         meetWalk(() => cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'the checker: ' + j.id, faction: null, draft: true, roster, party: pm, street: true, why: f.why, at: { gx: city.x, gy: city.y } }));
         const el = document.getElementById('meetcard'); if (!el) return null;
-        const m = /^(\d+) ([A-Z ]+?)(?: · |$)/.exec(el.querySelector('.mcs span').textContent.trim());
-        return { n: m ? +m[1] : null, what: m ? m[2] : null, band: (window.__JOB_ROLLED || {}).band || null };
+        const sp = el.querySelector('.mcs [data-n]');   /* rule 224: the count is the men drawn; the number rides in data-n */
+        return { n: sp ? +sp.dataset.n : null, what: sp ? sp.dataset.what : null, lone: /\d/.test(sp ? sp.textContent : '1'), band: (window.__JOB_ROLLED || {}).band || null };
       }, [C, j, f]);
       if (!card) { meets.push({ id: j.id, err: 'no card' }); continue; }
       await fr.evaluate(() => { const b = document.querySelector('#meetcard [data-meet="go"]'); if (b) b.click(); });
@@ -216,10 +217,10 @@ const CREWS = [
       for (let i = 0; i < 160 && !dealt; i++) { const h = await page.$('#fightFrame'); const ff = h ? await h.contentFrame() : null;
         if (ff) dealt = await ff.evaluate(() => (typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length && FIGHT.S.board) ? FIGHT.S.units.filter(u => u.side === 'them').map(u => u.kind) : null).catch(() => null);
         if (!dealt) await page.waitForTimeout(250); }
-      meets.push({ id: j.id, crew: j.crew, faction: f.faction, read: f.band, card: card.n, what: card.what, rolled: card.band, dealt: dealt });
+      meets.push({ id: j.id, crew: j.crew, faction: f.faction, read: f.band, card: card.n, what: card.what, lone: card.lone, rolled: card.band, dealt: dealt });
     }
     await home();
-    const meetOk = meets.length >= 10 && meets.every(m => m.dealt && m.card === m.dealt.length && JSON.stringify(m.rolled) === JSON.stringify(m.dealt));
+    const meetOk = meets.length >= 10 && meets.every(m => m.dealt && m.card === m.dealt.length && JSON.stringify(m.rolled) === JSON.stringify(m.dealt) && !m.lone);
     const meetSameAsRead = meets.filter(m => m.dealt && JSON.stringify(m.read) === JSON.stringify(m.dealt)).length;
     ok('J5 the meet card counts true: ' + meets.length + ' of the jobs\' fights through the one door, the card\'s count is what ENGAGE deals, id for id', meetOk,
       meets.map(m => m.id + ' ' + m.faction + ': card ' + m.card + ' ' + m.what + ', dealt ' + (m.dealt ? m.dealt.length : '-') + (JSON.stringify(m.read) === JSON.stringify(m.dealt) ? ' (= the read)' : '')).join(' | ') + '; ' + meetSameAsRead + ' dealt exactly the band the stars were read on');

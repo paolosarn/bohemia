@@ -8,7 +8,8 @@
 
    ON HIS COMPUTER (TRIP_PROFILE=phone_portrait for the phone), the demo, fingers on the town's own buttons:
      T1  at a town's board every offer on the list says how long beside its pay
-     T2  each offer, opened (the person says it), says the trip under the words: blocks, where to, hours or days
+     T2  each offer, opened (the person says it), says the trip under the words: where to, hours or days; no lone count of
+         blocks (rule 224, Paolo 10/26: icons, not numbers; a time he plans by is kept)
      T3  'Take it': the job the map makes goes where the trip said (the same first place), and nothing walks
      T4  his GO (a touch on the job's mark, or the map's own travel to it): the map's 'Setting out: N blocks, about H h' is the
          trip's blocks and time
@@ -123,7 +124,7 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
           taken = { id: l.id, trip: s.trip, made: await madeAt(l.id) };
         }
       }
-      ok('T2 each offer, opened, says the trip under the person\'s words', spoken.length >= 1 && spoken.every(s => s.shown && /block|stay/.test(s.words || '') && /hour|day/.test(s.words || '') || /stay/.test(s.words || '')),
+      ok('T2 each offer, opened, says the trip under the person\'s words', spoken.length >= 1 && spoken.every(s => s.shown && !/\d+ blocks?/.test(s.words || '') && (/hour|day/.test(s.words || '') || /stay/.test(s.words || ''))),
         spoken.map(s => s.id + ': "' + s.words + '"').join(' | '));
       const tj = taken && taken.trip.job;
       ok('T3 \'Take it\': the job goes where the trip said, and nothing walks', !!taken && !!taken.made && !!taken.made.at && !!tj && !!tj.at && tj.at[0][0] === taken.made.at[0] && tj.at[0][1] === taken.made.at[1] && !taken.made.travel,

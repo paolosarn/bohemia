@@ -1004,20 +1004,22 @@
     }
     return w.join(', ');   /* draft:true */
   }
-  /* in plain words, the way a person says it: 'REMNANTS IS 12 BLOCKS, about 1 hour. Then 148 blocks to PRIMM, about 2 days.' */
+  /* in plain words, the way a person says it: 'REMNANTS: about 1 hour. Then to PRIMM, about 2 days, paid there.'
+     RULE 224 (Paolo 10/26: 'I'm tired of it just being numbers numbers numbers'): the time is kept (a time he plans by, 224(b));
+     the blocks, a lone number, are gone from the words (the map's own Setting out still says them when he goes) */
   function tripWords(T) {
     if (!T) return null;
     var w = [], J = T.job;
-    if (T.toTown) w.push(String(T.place).toUpperCase() + ' is ' + T.toTown.blocks + (T.toTown.blocks === 1 ? ' block' : ' blocks') + ', ' + timeWords(T.toTown.mins) + '.');
+    if (T.toTown) w.push(String(T.place).toUpperCase() + ': ' + timeWords(T.toTown.mins) + '.');
     if (J) {
       var to = J.name ? ' to ' + String(J.name).toUpperCase() : (J.plays === 'hunt-kind' ? ' to where they roam' : '');
       /* rule 222(a)(b): the time is there and back when he must come back to be paid, his words for which ('About 2 days there and back',
          'About 1 day, paid there'); the blocks are the way out */
       var back = J.back ? ' there and back' : ', paid there', tm = J.total != null ? J.total : J.mins;
       if (J.plays === 'hold-defend') w.push('The job is the town itself: you stay.');
-      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + J.blocks + ' blocks round ' + ((J.legs || []).length || 2) + ' posts, ' + timeWords(tm) + back + '.');
-      else if (J.exact) w.push((T.toTown ? 'Then ' : 'The trip: ') + J.blocks + (J.blocks === 1 ? ' block' : ' blocks') + to + ', ' + timeWords(tm) + back + '.');
-      else w.push((T.toTown ? 'Then ' : 'The trip: ') + J.lo + ' to ' + J.hi + ' blocks' + to + ', ' + timeWords(J.totalLo != null ? J.totalLo : J.minsLo).replace('about ', '') + ' to ' + timeWords(J.totalHi != null ? J.totalHi : J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
+      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + 'round the posts, ' + timeWords(tm) + back + '.');
+      else if (J.exact) w.push((T.toTown ? 'Then' : 'The trip:') + (to ? to : '') + (to ? ', ' : ' ') + timeWords(tm) + back + '.');
+      else w.push((T.toTown ? 'Then' : 'The trip:') + (to ? to : '') + (to ? ', ' : ' ') + timeWords(J.totalLo != null ? J.totalLo : J.minsLo).replace('about ', '') + ' to ' + timeWords(J.totalHi != null ? J.totalHi : J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
     }
     return w.join(' ');   /* draft:true */
   }

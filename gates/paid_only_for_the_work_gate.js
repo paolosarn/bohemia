@@ -95,7 +95,7 @@ const done = () => { console.log('\nPAID ONLY FOR THE WORK: ' + pass + ' passed,
   const drewHolders = (id) => fr.evaluate((id) => { MAP_DREW.holders = 0; render(); return { drawn: MAP_DREW.holders | 0, hit: BohemiaJobKinds.hits().some(h => h.job === id) }; }, id);
   /* the checker stands him a few blocks off a place (a checker's own setting, rule 192(c)); the touch that follows is his */
   const standNear = (x, y, r) => fr.evaluate(([x, y, r]) => { for (let k = r; k <= r + 4; k++) for (const [a, b] of [[k, 0], [-k, 0], [0, k], [0, -k], [k, k], [-k, -k], [k, -k], [-k, k]]) {
-      const cx = x + a, cy = y + b; if (cityWalkable(cx, cy) && route(cx, cy, x, y)) { travelStop(); city.x = cx; city.y = cy; try { camHold(); } catch (e) {} render(); return [cx, cy]; } } return null; }, [x, y, r]);
+      const cx = x + a, cy = y + b; if (cityWalkable(cx, cy) && (typeof cityRoute !== "function" || cityRoute(cx, cy, x, y))) { travelStop(); city.x = cx; city.y = cy; try { camHold(); } catch (e) {} render(); return [cx, cy]; } } return null; }, [x, y, r]);
   /* one kind's legs: take, set the twist, walk in, FALL BACK, touch again, FALL BACK, walk home, then ENGAGE and win, home, paid */
   /* home: a find is paid at the client's town (its door), an escort where it goes */
   const homeCell = (id, mode) => fr.evaluate(([id, mode]) => { const j = LOOP.held.filter(h => h.id === id)[0]; if (!j) return null;

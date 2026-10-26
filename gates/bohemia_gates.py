@@ -2795,7 +2795,14 @@ GATES = [
      '(every fight it brings rolled by the fight\'s own setup and played on AUTO against that crew), then each played again 100 '
      'times with fresh dice in node on the fight\'s own rules: a one-star job worth 85 in 100 or better, a three-star job under '
      '65, the blood ranked with the danger and painted as read, the meet card\'s count dealt id for id, the stars moving with '
-     'the crew.', True),
+     'the crew. AMENDED 10/26 (rule 208(a) as the coordinator amended it): a clean trip is nobody dead and at most one in six '
+     'laid up; a fifth crew, the Block Watch\'s twelve on day one with EYES\' cold box and tigers; J8 no star lies job by job; '
+     'J9 no champion on day one (every day-one fight dressed for day one, first-phase kinds only).', True),
+    ('PAID ONLY FOR THE WORK', ['node', 'gates/paid_only_for_the_work_gate.js'],
+     'WORLD [eyes: paid without the fight], EYES round three line 138, rule 198(g) (FALL BACK from an ambush and one tap on the '
+     'place paid 60 batteries). On the demo, a finger on the meet card: the ambush where the place was, the ones holding the '
+     'people, the crew at the caravan\'s gate; FALL BACK pays nothing, the band stays where it stood and is drawn, the card comes '
+     'back only on a touch on them; won, the work done, paid.', True),
     ('A JOB\'S TIME COUNTS THE WAY BACK', ['node', 'gates/a_jobs_time_counts_the_way_back_gate.js'],
      'WORLD [a job\'s time counts the way back], rule 222 (PAOLO 10/26: "you have to include the time it takes to get back, if you '
      'need to get back"). On the demo: 100 rolled jobs, paid in town there and back, paid away only there, the time the map\'s own '
