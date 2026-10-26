@@ -25,6 +25,7 @@ New Crew against thugs, the twelve (the Block Watch from the door), and the benc
 | 3 | SPREAD: hits on two or more, none fell, the hitpoints taken would have dropped one | 140 | 3,986 rounds with our blows | 3.5 | the twelve 78 of 841 (9.3) |
 | 4 | THE IDLE GUNMAN: nothing done while a tile in this turn's walk had a shot | 288 | 17,714 turns | 1.6 | his rifleman seven turns running (--fight his 43) |
 | 5 | KEY MAN: the Mechanic in reach and seen, someone else or nobody struck | 9 | 494 actions | 1.8 | his crew 2 of 71 |
+| 5b | KEY MAN LAST: the Mechanic falls last of his party, or never (added after EYES' 10/26 line; re-run on the same rules) | 24 | 74 fights with a Mechanic | 32 | his crew 10 of 19, the Lone Wolf 9 of 10 |
 | 6 | NEVER: a melee man who never struck in four rounds or more | 11 | 921 men | 1.2 | the twelve 9 of 545 |
 | 7 | LONE INTO THREE: a walk ending with 3+ of them within two tiles, none of his | 39 | 4,388 walks | 0.9 | Desi's spear crew 4 of 136 (2.9) |
 | 8 | PARKED (COMBAT's J1) | 8 | 7,902 melee turns | 0.10 | |

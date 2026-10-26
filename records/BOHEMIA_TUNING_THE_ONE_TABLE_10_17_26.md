@@ -388,6 +388,7 @@ Paolo 10/18: "I want you to be easier than Battle Brothers... Nintendo simplifie
 | watch.spread | 3.5 (the twelve 9.3) | in 100 rounds with our blows | hits split, nobody falls, somebody could have | rule 201 | the watch | combat two | measured, bar under 2 (row auto.spread_rounds) | NOT A HARDNESS NUMBER |
 | watch.idle_gunman | 1.6 | in 100 turns | a gunman stands while a tile in his walk has a shot | rule 188(a) | the watch | combat two | measured, bar 0 | NOT A HARDNESS NUMBER |
 | watch.key_man | 1.8 | in 100 actions with the Mechanic in reach | the Mechanic left standing | rule 182 | the watch | combat two | measured, bar 0 | NOT A HARDNESS NUMBER |
+| watch.key_man_last | 32 (his crew 53) | in 100 fights with a Mechanic | the Mechanic falls last of his party, or never | rule 182; EYES 10/26 | the watch | combat two | measured, bar under 10 | NOT A HARDNESS NUMBER |
 | watch.never_struck | 1.2 | in 100 melee men (fights of 4+ rounds) | a melee man who never lands a blow | rule 188(a) | the watch | combat two | measured, bar near 0 | NOT A HARDNESS NUMBER |
 | watch.lone_into_three | 0.9 (Desi's spear crew 2.9) | in 100 walks | a walk alone into three of them | EYES q22 | the watch | combat two | measured, bar 0 | NOT A HARDNESS NUMBER |
 | watch.parked | 0.10 | in 100 melee turns | a melee man parked behind a house | COMBAT's J1 (46d9b8a4 fixed it) | the watch and gates/every_man_has_a_job_each_turn_gate.js | combat | holding | NOT A HARDNESS NUMBER |
