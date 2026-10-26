@@ -9920,6 +9920,10 @@ GATES = [
      "the marquee and porte-cochere on the front and none on a back, the pool drained), the demo's own painting counting it (every resort facing the Boulevard its "
      "marquee, three in five in their own shapes, the pools, the sign boards) and the demo's map on the glass at the near stop (the marquees' faded rose and teal; "
      "no rainbow). About 2 min", True),
+    ('YOUR CREW LIVES IN THE TOWN', ['node', 'gates/your_crew_lives_in_the_town_gate.js'],
+     "RUN THREE gate, 10/26, row [your crew lives in the town] (rule 218(a)(b), Paolo 10/26: 'everyone that is on your company or your recruited, you can see them... maybe drinking some beer or maybe walking around, maybe talking to people... make it feel alive'). "
+     "MEASURED before: nobody of the company in a town but the lead. HOLDS: a company of twelve on all six pictures and the home, every man but the lead in the town; on the picture's ground, off every door's front, the rail and everybody's spot, never three in a row; "
+     "each at one of ANIMATION's six or walking, drawn by his activity or his idles; a real tap opens him on the crew screen; the biggest company (25) fits, the frame within half again the empty town's on a phone's CPU, under 160 MB; the computer; the live demo. about 4 min", True),
     ('THE BEST RECRUIT AT THE TOP', ['node', 'gates/the_best_recruit_at_the_top_gate.js'],
      "RUN THREE gate, 10/26, row [the best recruit at the top] (rule 216, Paolo 10/26: 'just put the best at the absolute top... you might have to make a calculator... Battle Brothers had no proper filter to quickly see who's the fire one'; EYES 10/25: 'nineteen recruits in four halls, every one a pistol man'). "
      "MEASURED before: the hall in the roll's order, the same trades for a size every week, every man the pistol, no number for who would be good. "

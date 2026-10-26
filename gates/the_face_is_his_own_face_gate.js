@@ -189,7 +189,8 @@ const READ = () => new Promise(res => {
   const names = (seats.places || []).map(s => s.name || s.place || s.id).filter(Boolean).slice(0, 14);
   const dealt = await p.evaluate(names => { const out = []; ['camp', 'town', 'fortress'].forEach((t, j) => names.concat(['EXTRA ' + t + ' 1', 'EXTRA ' + t + ' 2']).forEach((nm, i) => {
     if ((i + j) % 3) return; BohemiaSettlement.open({ place: { name: nm, tier: t }, traits: [], day: 2 });
-    out.push(BohemiaSettlement.folk().map(q => q.look).concat(BohemiaSettlement.busy().map(w => w.look), BohemiaSettlement.recruits().map(r => r.look))); })); return out; }, names);
+    /* RE-AIMED 10/26 (RUN THREE, rule 218(a)): his own men stand in the town as themselves (crewMan); nobody ELSE may wear them */
+    out.push(BohemiaSettlement.folk().filter(q => !q.crewMan).map(q => q.look).concat(BohemiaSettlement.busy().map(w => w.look), BohemiaSettlement.recruits().map(r => r.look))); })); return out; }, names);
   const leaked = [].concat(...dealt).filter(l => company.has(l));
   ok('F5 NOBODY ELSE IS YOUR COMPANY: no keeper, crowd, walker or post in ' + dealt.length + ' places is one of your eleven', dealt.length >= 6 && company.size === 11 && leaked.length === 0, leaked.slice(0, 4).join(', ') || [].concat(...dealt).length + ' people dealt');
   const mi = J('slices/rig_mix/index.json'), ours = J('records/target/bb/ours.json').people_looks.value.crew.filter(l => ROLLED.test(l));
