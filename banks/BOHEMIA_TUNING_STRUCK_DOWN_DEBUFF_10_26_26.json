@@ -1,0 +1,809 @@
+{
+ "draft": true,
+ "_about": "TUNING 10/26 [struck down, he still fights] (rule 234(b)) and [the clinic] (rule 241): research only, nothing in the game reads this. The live fight (slices/BOHEMIA_FIGHT.html) on AUTO both sides, the stupid-move watch crews; bench tools/bohemia_tuning_struck_down_debuff.js; record records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md",
+ "fight_tree": "main 1b49f2db",
+ "marks": {
+  "c1": {
+   "none": {
+    "n": 120,
+    "kind": {
+     "companion_1hand": 120
+    },
+    "won": 0.7,
+    "fell": 0.3333333333333333,
+    "dead": 0.041666666666666664,
+    "dmg": 156.075,
+    "ourDown": 1.25
+   },
+   "mark:brain_damage": {
+    "dmg_pct": -7.9,
+    "fell_add": 0.058,
+    "won_add": 0.008,
+    "ourDown_add": 0.075,
+    "z_dmg": -2.2,
+    "n": 120
+   },
+   "half:brain_damage": {
+    "dmg_pct": -27.5,
+    "fell_add": 0.142,
+    "won_add": -0.05,
+    "ourDown_add": 0.217,
+    "z_dmg": -6.1,
+    "n": 120
+   },
+   "fresh:brain_damage": {
+    "dmg_pct": -42.1,
+    "fell_add": 0.208,
+    "won_add": -0.092,
+    "ourDown_add": 0.375,
+    "z_dmg": -9.3,
+    "n": 120
+   },
+   "mark:broken_elbow_joint": {
+    "dmg_pct": -24.5,
+    "fell_add": 0.117,
+    "won_add": -0.05,
+    "ourDown_add": 0.167,
+    "z_dmg": -6.2,
+    "n": 120
+   },
+   "half:broken_elbow_joint": {
+    "dmg_pct": -26.6,
+    "fell_add": 0.125,
+    "won_add": -0.058,
+    "ourDown_add": 0.183,
+    "z_dmg": -6.3,
+    "n": 120
+   },
+   "fresh:broken_elbow_joint": {
+    "dmg_pct": -28.4,
+    "fell_add": 0.142,
+    "won_add": -0.05,
+    "ourDown_add": 0.192,
+    "z_dmg": -6.4,
+    "n": 120
+   },
+   "mark:broken_knee": {
+    "dmg_pct": -19.5,
+    "fell_add": 0.15,
+    "won_add": -0.042,
+    "ourDown_add": 0.192,
+    "z_dmg": -4.1,
+    "n": 120
+   },
+   "half:broken_knee": {
+    "dmg_pct": -20.8,
+    "fell_add": 0.117,
+    "won_add": 0.0,
+    "ourDown_add": 0.125,
+    "z_dmg": -4.5,
+    "n": 120
+   },
+   "fresh:broken_knee": {
+    "dmg_pct": -22.0,
+    "fell_add": 0.133,
+    "won_add": -0.017,
+    "ourDown_add": 0.158,
+    "z_dmg": -4.6,
+    "n": 120
+   },
+   "mark:maimed_foot": {
+    "dmg_pct": -13.9,
+    "fell_add": 0.05,
+    "won_add": 0.025,
+    "ourDown_add": 0.025,
+    "z_dmg": -3.4,
+    "n": 120
+   },
+   "half:maimed_foot": {
+    "dmg_pct": -15.3,
+    "fell_add": 0.058,
+    "won_add": 0.008,
+    "ourDown_add": 0.025,
+    "z_dmg": -3.7,
+    "n": 120
+   },
+   "fresh:maimed_foot": {
+    "dmg_pct": -19.4,
+    "fell_add": 0.083,
+    "won_add": 0.0,
+    "ourDown_add": 0.075,
+    "z_dmg": -4.9,
+    "n": 120
+   },
+   "mark:missing_ear": {
+    "dmg_pct": -6.2,
+    "fell_add": 0.042,
+    "won_add": 0.017,
+    "ourDown_add": 0.025,
+    "z_dmg": -1.7,
+    "n": 120
+   },
+   "half:missing_ear": {
+    "dmg_pct": -8.7,
+    "fell_add": 0.058,
+    "won_add": 0.008,
+    "ourDown_add": 0.05,
+    "z_dmg": -2.2,
+    "n": 120
+   },
+   "fresh:missing_ear": {
+    "dmg_pct": -8.6,
+    "fell_add": 0.067,
+    "won_add": 0.0,
+    "ourDown_add": 0.075,
+    "z_dmg": -2.4,
+    "n": 120
+   },
+   "mark:missing_eye": {
+    "dmg_pct": -35.8,
+    "fell_add": 0.108,
+    "won_add": -0.075,
+    "ourDown_add": 0.225,
+    "z_dmg": -7.8,
+    "n": 120
+   },
+   "half:missing_eye": {
+    "dmg_pct": -43.6,
+    "fell_add": 0.125,
+    "won_add": -0.108,
+    "ourDown_add": 0.317,
+    "z_dmg": -10.1,
+    "n": 120
+   },
+   "fresh:missing_eye": {
+    "dmg_pct": -53.6,
+    "fell_add": 0.167,
+    "won_add": -0.133,
+    "ourDown_add": 0.4,
+    "z_dmg": -11.6,
+    "n": 120
+   },
+   "mark:missing_finger": {
+    "dmg_pct": -5.6,
+    "fell_add": 0.008,
+    "won_add": 0.008,
+    "ourDown_add": -0.017,
+    "z_dmg": -2.1,
+    "n": 120
+   },
+   "half:missing_finger": {
+    "dmg_pct": -7.5,
+    "fell_add": 0.0,
+    "won_add": 0.017,
+    "ourDown_add": -0.033,
+    "z_dmg": -2.1,
+    "n": 120
+   },
+   "fresh:missing_finger": {
+    "dmg_pct": -7.9,
+    "fell_add": 0.0,
+    "won_add": 0.017,
+    "ourDown_add": -0.033,
+    "z_dmg": -2.2,
+    "n": 120
+   },
+   "mark:missing_nose": {
+    "dmg_pct": -2.6,
+    "fell_add": -0.008,
+    "won_add": 0.008,
+    "ourDown_add": 0.025,
+    "z_dmg": -0.8,
+    "n": 120
+   },
+   "half:missing_nose": {
+    "dmg_pct": -2.6,
+    "fell_add": -0.008,
+    "won_add": 0.008,
+    "ourDown_add": 0.025,
+    "z_dmg": -0.8,
+    "n": 120
+   },
+   "fresh:missing_nose": {
+    "dmg_pct": -2.6,
+    "fell_add": -0.008,
+    "won_add": 0.008,
+    "ourDown_add": 0.025,
+    "z_dmg": -0.8,
+    "n": 120
+   },
+   "mark:partly_collapsed_lung": {
+    "dmg_pct": -13.8,
+    "fell_add": 0.025,
+    "won_add": 0.017,
+    "ourDown_add": 0.033,
+    "z_dmg": -3.7,
+    "n": 120
+   },
+   "half:partly_collapsed_lung": {
+    "dmg_pct": -24.0,
+    "fell_add": 0.092,
+    "won_add": -0.058,
+    "ourDown_add": 0.2,
+    "z_dmg": -5.7,
+    "n": 120
+   },
+   "fresh:partly_collapsed_lung": {
+    "dmg_pct": -48.7,
+    "fell_add": 0.175,
+    "won_add": -0.092,
+    "ourDown_add": 0.308,
+    "z_dmg": -10.7,
+    "n": 120
+   },
+   "mark:traumatized": {
+    "dmg_pct": -7.4,
+    "fell_add": 0.058,
+    "won_add": 0.008,
+    "ourDown_add": 0.075,
+    "z_dmg": -2.0,
+    "n": 120
+   },
+   "half:traumatized": {
+    "dmg_pct": -7.4,
+    "fell_add": 0.058,
+    "won_add": 0.008,
+    "ourDown_add": 0.075,
+    "z_dmg": -2.0,
+    "n": 120
+   },
+   "fresh:traumatized": {
+    "dmg_pct": -7.4,
+    "fell_add": 0.058,
+    "won_add": 0.008,
+    "ourDown_add": 0.075,
+    "z_dmg": -2.0,
+    "n": 120
+   },
+   "mark:weakened_heart": {
+    "dmg_pct": -8.8,
+    "fell_add": 0.058,
+    "won_add": -0.025,
+    "ourDown_add": 0.067,
+    "z_dmg": -3.7,
+    "n": 120
+   },
+   "half:weakened_heart": {
+    "dmg_pct": -6.1,
+    "fell_add": 0.042,
+    "won_add": -0.017,
+    "ourDown_add": 0.075,
+    "z_dmg": -1.7,
+    "n": 120
+   },
+   "fresh:weakened_heart": {
+    "dmg_pct": -15.8,
+    "fell_add": 0.05,
+    "won_add": -0.025,
+    "ourDown_add": 0.058,
+    "z_dmg": -4.6,
+    "n": 120
+   }
+  },
+  "c2": {
+   "none": {
+    "n": 120,
+    "kind": {
+     "companion_ranged": 120
+    },
+    "won": 0.7,
+    "fell": 0.45,
+    "dead": 0.11666666666666667,
+    "dmg": 121.08333333333333,
+    "ourDown": 1.25
+   },
+   "mark:brain_damage": {
+    "dmg_pct": -3.3,
+    "fell_add": 0.042,
+    "won_add": 0.0,
+    "ourDown_add": 0.158,
+    "z_dmg": -0.7,
+    "n": 120
+   },
+   "half:brain_damage": {
+    "dmg_pct": -20.2,
+    "fell_add": 0.042,
+    "won_add": -0.042,
+    "ourDown_add": 0.192,
+    "z_dmg": -4.1,
+    "n": 120
+   },
+   "fresh:brain_damage": {
+    "dmg_pct": -33.3,
+    "fell_add": 0.075,
+    "won_add": -0.025,
+    "ourDown_add": 0.225,
+    "z_dmg": -7.2,
+    "n": 120
+   },
+   "mark:broken_elbow_joint": {
+    "dmg_pct": -11.8,
+    "fell_add": 0.025,
+    "won_add": -0.033,
+    "ourDown_add": 0.117,
+    "z_dmg": -4.7,
+    "n": 120
+   },
+   "half:broken_elbow_joint": {
+    "dmg_pct": -11.8,
+    "fell_add": 0.025,
+    "won_add": -0.025,
+    "ourDown_add": 0.1,
+    "z_dmg": -4.7,
+    "n": 120
+   },
+   "fresh:broken_elbow_joint": {
+    "dmg_pct": -12.5,
+    "fell_add": 0.025,
+    "won_add": -0.025,
+    "ourDown_add": 0.092,
+    "z_dmg": -4.8,
+    "n": 120
+   },
+   "mark:broken_knee": {
+    "dmg_pct": -14.0,
+    "fell_add": 0.058,
+    "won_add": -0.033,
+    "ourDown_add": 0.175,
+    "z_dmg": -2.7,
+    "n": 120
+   },
+   "half:broken_knee": {
+    "dmg_pct": -15.5,
+    "fell_add": 0.067,
+    "won_add": -0.017,
+    "ourDown_add": 0.158,
+    "z_dmg": -2.4,
+    "n": 120
+   },
+   "fresh:broken_knee": {
+    "dmg_pct": -18.9,
+    "fell_add": 0.125,
+    "won_add": -0.008,
+    "ourDown_add": 0.167,
+    "z_dmg": -3.0,
+    "n": 120
+   },
+   "mark:maimed_foot": {
+    "dmg_pct": -17.5,
+    "fell_add": 0.092,
+    "won_add": -0.017,
+    "ourDown_add": 0.158,
+    "z_dmg": -2.9,
+    "n": 120
+   },
+   "half:maimed_foot": {
+    "dmg_pct": -20.6,
+    "fell_add": 0.142,
+    "won_add": -0.033,
+    "ourDown_add": 0.217,
+    "z_dmg": -3.3,
+    "n": 120
+   },
+   "fresh:maimed_foot": {
+    "dmg_pct": -19.8,
+    "fell_add": 0.15,
+    "won_add": -0.033,
+    "ourDown_add": 0.208,
+    "z_dmg": -3.2,
+    "n": 120
+   },
+   "mark:missing_ear": {
+    "dmg_pct": -3.2,
+    "fell_add": 0.025,
+    "won_add": 0.025,
+    "ourDown_add": 0.058,
+    "z_dmg": -0.9,
+    "n": 120
+   },
+   "half:missing_ear": {
+    "dmg_pct": -1.7,
+    "fell_add": 0.067,
+    "won_add": -0.017,
+    "ourDown_add": 0.217,
+    "z_dmg": -0.4,
+    "n": 120
+   },
+   "fresh:missing_ear": {
+    "dmg_pct": -3.3,
+    "fell_add": 0.042,
+    "won_add": -0.017,
+    "ourDown_add": 0.167,
+    "z_dmg": -0.7,
+    "n": 120
+   },
+   "mark:missing_eye": {
+    "dmg_pct": -31.8,
+    "fell_add": 0.058,
+    "won_add": -0.042,
+    "ourDown_add": 0.192,
+    "z_dmg": -8.3,
+    "n": 120
+   },
+   "half:missing_eye": {
+    "dmg_pct": -37.3,
+    "fell_add": 0.067,
+    "won_add": -0.033,
+    "ourDown_add": 0.183,
+    "z_dmg": -8.9,
+    "n": 120
+   },
+   "fresh:missing_eye": {
+    "dmg_pct": -44.9,
+    "fell_add": 0.092,
+    "won_add": -0.058,
+    "ourDown_add": 0.275,
+    "z_dmg": -10.3,
+    "n": 120
+   },
+   "mark:missing_finger": {
+    "dmg_pct": -2.7,
+    "fell_add": 0.017,
+    "won_add": 0.025,
+    "ourDown_add": -0.017,
+    "z_dmg": -1.6,
+    "n": 120
+   },
+   "half:missing_finger": {
+    "dmg_pct": -3.9,
+    "fell_add": 0.017,
+    "won_add": 0.025,
+    "ourDown_add": -0.017,
+    "z_dmg": -2.1,
+    "n": 120
+   },
+   "fresh:missing_finger": {
+    "dmg_pct": -6.9,
+    "fell_add": 0.025,
+    "won_add": 0.008,
+    "ourDown_add": 0.025,
+    "z_dmg": -3.4,
+    "n": 120
+   },
+   "mark:missing_nose": {
+    "dmg_pct": -1.2,
+    "fell_add": 0.025,
+    "won_add": 0.017,
+    "ourDown_add": 0.017,
+    "z_dmg": -0.6,
+    "n": 120
+   },
+   "half:missing_nose": {
+    "dmg_pct": -1.2,
+    "fell_add": 0.025,
+    "won_add": 0.017,
+    "ourDown_add": 0.017,
+    "z_dmg": -0.6,
+    "n": 120
+   },
+   "fresh:missing_nose": {
+    "dmg_pct": -1.2,
+    "fell_add": 0.025,
+    "won_add": 0.017,
+    "ourDown_add": 0.017,
+    "z_dmg": -0.6,
+    "n": 120
+   },
+   "mark:partly_collapsed_lung": {
+    "dmg_pct": -12.1,
+    "fell_add": 0.033,
+    "won_add": 0.008,
+    "ourDown_add": 0.05,
+    "z_dmg": -4.2,
+    "n": 120
+   },
+   "half:partly_collapsed_lung": {
+    "dmg_pct": -21.9,
+    "fell_add": 0.05,
+    "won_add": -0.008,
+    "ourDown_add": 0.067,
+    "z_dmg": -6.1,
+    "n": 120
+   },
+   "fresh:partly_collapsed_lung": {
+    "dmg_pct": -38.8,
+    "fell_add": 0.108,
+    "won_add": -0.05,
+    "ourDown_add": 0.258,
+    "z_dmg": -7.7,
+    "n": 120
+   },
+   "mark:traumatized": {
+    "dmg_pct": -8.9,
+    "fell_add": 0.033,
+    "won_add": -0.008,
+    "ourDown_add": 0.142,
+    "z_dmg": -1.9,
+    "n": 120
+   },
+   "half:traumatized": {
+    "dmg_pct": -8.9,
+    "fell_add": 0.033,
+    "won_add": -0.008,
+    "ourDown_add": 0.142,
+    "z_dmg": -1.9,
+    "n": 120
+   },
+   "fresh:traumatized": {
+    "dmg_pct": -8.9,
+    "fell_add": 0.033,
+    "won_add": -0.008,
+    "ourDown_add": 0.142,
+    "z_dmg": -1.9,
+    "n": 120
+   },
+   "mark:weakened_heart": {
+    "dmg_pct": -6.0,
+    "fell_add": 0.033,
+    "won_add": 0.0,
+    "ourDown_add": 0.033,
+    "z_dmg": -2.8,
+    "n": 120
+   },
+   "half:weakened_heart": {
+    "dmg_pct": -6.6,
+    "fell_add": 0.042,
+    "won_add": 0.017,
+    "ourDown_add": 0.033,
+    "z_dmg": -2.3,
+    "n": 120
+   },
+   "fresh:weakened_heart": {
+    "dmg_pct": -9.7,
+    "fell_add": 0.017,
+    "won_add": 0.017,
+    "ourDown_add": 0.033,
+    "z_dmg": -3.7,
+    "n": 120
+   }
+  }
+ },
+ "marks_fights": 240,
+ "b2b": {
+  "none": {
+   "n": 382,
+   "won": 239,
+   "clean": 109,
+   "ours_down": 970,
+   "ours_dead": 157,
+   "struck_down_again": 581,
+   "struck_dead": 102,
+   "nobody_to_send": 0
+  },
+  "bench": {
+   "n": 382,
+   "won": 128,
+   "clean": 64,
+   "ours_down": 606,
+   "ours_dead": 73,
+   "struck_down_again": 0,
+   "struck_dead": 0,
+   "nobody_to_send": 0
+  },
+  "mark": {
+   "n": 382,
+   "won": 224,
+   "clean": 91,
+   "ours_down": 1052,
+   "ours_dead": 212,
+   "struck_down_again": 642,
+   "struck_dead": 165,
+   "nobody_to_send": 0
+  },
+  "fresh": {
+   "n": 382,
+   "won": 221,
+   "clean": 89,
+   "ours_down": 1098,
+   "ours_dead": 223,
+   "struck_down_again": 667,
+   "struck_dead": 172,
+   "nobody_to_send": 0
+  },
+  "onehp": {
+   "n": 382,
+   "won": 183,
+   "clean": 58,
+   "ours_down": 1334,
+   "ours_dead": 280,
+   "struck_down_again": 804,
+   "struck_dead": 218,
+   "nobody_to_send": 0
+  },
+  "half": {
+   "n": 382,
+   "won": 222,
+   "clean": 91,
+   "ours_down": 1066,
+   "ours_dead": 206,
+   "struck_down_again": 639,
+   "struck_dead": 158,
+   "nobody_to_send": 0
+  },
+  "shape_his": {
+   "none": {
+    "won": 50,
+    "dead": 30,
+    "down": 242
+   },
+   "bench": {
+    "won": 20,
+    "dead": 4,
+    "down": 125
+   },
+   "mark": {
+    "won": 50,
+    "dead": 47,
+    "down": 254
+   },
+   "fresh": {
+    "won": 54,
+    "dead": 46,
+    "down": 253
+   },
+   "onehp": {
+    "won": 38,
+    "dead": 59,
+    "down": 287
+   },
+   "half": {
+    "won": 51,
+    "dead": 45,
+    "down": 255
+   },
+   "n": 127
+  },
+  "shape_newcrew": {
+   "none": {
+    "won": 53,
+    "dead": 10,
+    "down": 103
+   },
+   "bench": {
+    "won": 24,
+    "dead": 2,
+    "down": 71
+   },
+   "mark": {
+    "won": 48,
+    "dead": 18,
+    "down": 117
+   },
+   "fresh": {
+    "won": 45,
+    "dead": 18,
+    "down": 125
+   },
+   "onehp": {
+    "won": 37,
+    "dead": 23,
+    "down": 148
+   },
+   "half": {
+    "won": 49,
+    "dead": 19,
+    "down": 116
+   },
+   "n": 81
+  },
+  "shape_spear": {
+   "none": {
+    "won": 37,
+    "dead": 3,
+    "down": 23
+   },
+   "bench": {
+    "won": 17,
+    "dead": 0,
+    "down": 41
+   },
+   "mark": {
+    "won": 35,
+    "dead": 5,
+    "down": 28
+   },
+   "fresh": {
+    "won": 34,
+    "dead": 4,
+    "down": 31
+   },
+   "onehp": {
+    "won": 34,
+    "dead": 2,
+    "down": 34
+   },
+   "half": {
+    "won": 35,
+    "dead": 3,
+    "down": 27
+   },
+   "n": 43
+  },
+  "shape_watch": {
+   "none": {
+    "won": 99,
+    "dead": 114,
+    "down": 602
+   },
+   "bench": {
+    "won": 67,
+    "dead": 67,
+    "down": 369
+   },
+   "mark": {
+    "won": 91,
+    "dead": 142,
+    "down": 653
+   },
+   "fresh": {
+    "won": 88,
+    "dead": 155,
+    "down": 689
+   },
+   "onehp": {
+    "won": 74,
+    "dead": 196,
+    "down": 865
+   },
+   "half": {
+    "won": 87,
+    "dead": 139,
+    "down": 668
+   },
+   "n": 131
+  }
+ },
+ "b2b_a_fights": 800,
+ "b2b_with_struck": 382,
+ "b2b_a_lost_with_struck": 202,
+ "heal_from_one": {
+  "men": 2240,
+  "origins": [
+   "rebuild",
+   "newcrew",
+   "south",
+   "truck",
+   "watch",
+   "scav",
+   "promise",
+   "desert",
+   "raid",
+   "lab",
+   "faith",
+   "debt",
+   "hunt",
+   "pit",
+   "wolf"
+  ],
+  "hp_max": {
+   "min": 40,
+   "p10": 48,
+   "median": 57,
+   "p90": 65,
+   "max": 91
+  },
+  "hours_from_one": {
+   "march": {
+    "median": 56.0,
+    "p90": 64.0
+   },
+   "camped": {
+    "median": 28.0,
+    "p90": 32.0
+   },
+   "camped_cook": {
+    "median": 18.7,
+    "p90": 21.3
+   },
+   "march_cook": {
+    "median": 28.0,
+    "p90": 32.0
+   }
+  },
+  "seconds_on_the_camp_clock_median": {
+   "camped": 14.0,
+   "camped_cook": 9.3
+  },
+  "bb_seconds_median_camped": 122.5
+ }
+}

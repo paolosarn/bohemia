@@ -159,6 +159,36 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-debuff): 10/26 LATEST -- FOUR ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks), research only, no card (rule 127), no game code touched; [the stupid-move watch] round three WAITS on the COMBAT emergency; [healing on our clock] (rule 264) CLAIMED, in flight;
+the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
+RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md, the one table's section S, bench
+  tools/bohemia_tuning_struck_down_debuff.js (--marks, --b2b, --heal), bank banks/BOHEMIA_TUNING_STRUCK_DOWN_DEBUFF_10_26_26.json.
+1 [struck down, he still fights] (rule 234(b)): CAMP's defaults KEPT (its branch camp-struck-down): each of the eleven marks for life
+  plus the fresh wound it grew out of (the temporary row of the same body part; all eleven checked, Traumatized none), whole at
+  waking, a straight fade over the 30 to 40 days. NEW: no MEDS for the fresh wound (35 doses a man otherwise). MEASURED (8,160
+  fights, one man of A New Crew carrying it): his damage at waking Missing Eye -54, the Lung -49, Brain Damage -42, Elbow -28, Knee
+  -22, a finger or a nose under -10; the eye, elbow and knee are mostly the lifelong mark, the brain and the lung mostly the fresh
+  wound. THE FIRST DAY (382 next fights after a fight that left men struck down, 202 of them losses): benched won 128, back camped
+  with the debuff 221, on ONE hitpoint 183 with 280 dead against 223: rule 234 is right by 24 wins in 100; camp first. The heal from
+  one: the median man (57) whole in 56 h on the march, 28 camped (14 s), 19 with the cook. The false quote on ours.json
+  struck_down_laid_up_days: CAMP's branch carries the fix (his 10/26 words and a 'was' line), checked; if CAMP has not landed it
+  when you next run, carry the same hunk.
+2 [the clinic's half] (rule 241): half = the wound jumps halfway down its line (days and debuff together), the mark untouched.
+  FINDING: today's clinicPrice charges Battle Brothers' 20 a day for OUR 30 to 40 days, 70 batteries at level one, the 89 he saw at
+  level two, 2 to 3 one-skull jobs; Battle Brothers' temple for the same wound is a sixth to a quarter of its contract. Proposed
+  clinic.price_struck: Battle Brothers' price on the fresh wound's own Battle Brothers days x the share left, 6 to 16 at level one.
+  For CAMP: treat() keeps left = before / 2 exactly (-50 to -25, not -26); Traumatized not offered.
+3 [the sell spread] (rule 242): TUNING AGREES with ECONOMY's section R (a9f99967): supplies sell at half the calm buy, a town in need
+  pays the rise; added sell.by_class (gear one seventh, his YES 10/10; supplies half) so RUN TWO never reads one for the other.
+4 [the own ceiling] (rule 247(d)): given in 28b5d6f2; six worked ticks for UI THREE's gate (record s6).
+NOTEs: CAMP (the numbers, the price, treat, Traumatized), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
+  injury's hitpoints_pct, vision, fatigue recovery or action points; the fresh wound into the fight after the emergency), UI THREE.
+NOT MEASURED: a phone's CPU; the fresh wound on the live path (the fight does not read c.fresh yet); 234(e) AUTO keeping the hurt back.
+NEXT: [healing on our clock] (rule 264, claimed); [the stupid-move watch] round three the moment COMBAT's fix is on main; [the odds
+  keep up]; [the first week's losses]; [the 32 situations].
+[bb the struck down: Battle Brothers lets 33 in 100 live with a mark for life, no fresh wound, never benched; its temple charges for
+its own 1-to-9-day wounds, so ours must charge for the same wound, not for our longer days]
+[analog horror: the wound is a number on the man that gets smaller every night, a clock, until only the scar is left]
 TUNING (tuning-watch2): 10/26 LATEST -- FOUR ROWS ANSWERED ([the stupid-move watch] ROUND TWO, [the camp note], [the bars' maxima], rule 201's numbers on today's brain), research only, no card (rule 127), no game code touched;
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 1 [the stupid-move watch] ROUND TWO (rule 188(b), standing): records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_TWO_10_26_26.md, bank
