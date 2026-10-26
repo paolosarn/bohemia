@@ -9772,6 +9772,16 @@ GATES = [
      "the map's format (56 frames equal the fight sheet's), drawn at the opening zoom and 2.4, his head on the glass his and not the "
      "old body's, the roster's main man the same look, a main man with a look of his own leads as himself, his sheet failed turns it "
      "red. green at registration, 7/0 a profile, about 4 min", True),
+    ('HIS MAP', ['node', 'gates/his_map_gate.js'],
+     "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
+     "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
+     "world around you'): the stranger's game on the phone and his computer: the unseen city grey under the tape with its shape "
+     "(its light follows the painting's; RUN's dark put back is the mutation), no colour in it, the seen city painted, the whole "
+     "valley on one screen, the close end still the tape; a held finger opens the pin box clear of the phone and never travels, "
+     "CAMP drawn at three stops, A WORD typed, a cross where a man died, all kept through a reopen, TAKE IT OFF; the next boss's "
+     "sign in his first sight, the sign marks him, his fight through the one door, he falls and his district changes, every kind "
+     "of change (lights, a place, a wall the walk goes through, the map opened, a base by boss), the next sign; the frame's cost "
+     "against RUN's dark. green at registration, 21/0 a profile, about 8 min a profile", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "

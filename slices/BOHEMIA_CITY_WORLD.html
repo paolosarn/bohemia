@@ -43658,7 +43658,7 @@ function roadCard(ev, mins, kg){
     });
 }
 
-function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'); }
+function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'||(window.__HIS_MAP_OPEN!=null&&x>=0&&x<window.__HIS_MAP_N&&window.__HIS_MAP_OPEN[y*window.__HIS_MAP_N+x]===1)); }   /* __HIS_MAP__ (WORLD TWO, rule 243(b)4): a wall a fallen boss brought down is a way through (slices/bohemia_his_map.js) */
 
 /* ============================================================================
    ONE STRIDE THAT NEVER MISSES (Paolo 9/20, LOCKED, rule 18a, [one camera])
@@ -45221,6 +45221,7 @@ function fogShowTowns(){
   try { var R = window.BOH_REGION; if (R && R.ready && R.places) R.places.forEach(function(p){ fogReveal(p.x, p.y, 1.6); }); } catch (_e) {}
 }
 function fogNewGame(reveal){
+  try { if (window.BohemiaHisMap && BohemiaHisMap.newGame) BohemiaHisMap.newGame(); } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO): a new company's map has no pins, no crosses, no boss found */
   fogMake(); FOG.all = false; FOG.reveal = !!reveal; FOG.ready = true;
   fogReveal(city.x, city.y, fogRadius());
   if (FOG.reveal) { fogShowTowns(); FOG.townsShown = true; }
@@ -45242,6 +45243,7 @@ function fogTick(){
 function fogDraw(ox, oy){
   if (!FOG.on || !FOG.ready || FOG.all || !FOG.cv) return;
   try { fogTick(); } catch (_e) {}
+  try { if (window.BohemiaHisMap && BohemiaHisMap.fogDraw && BohemiaHisMap.fogDraw(ox, oy)) { MAP_DREW.fog = (MAP_DREW.fog | 0) + 1; return; } } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO, rule 243(b)1): the unseen city faint under static, its shape and not its detail (slices/bohemia_his_map.js); this dark is the fall-back */
   var S = FOG.S;
   g.save();
   g.imageSmoothingEnabled = true;
@@ -50998,6 +51000,7 @@ function renderCity(){
     g.restore();
   }
   try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: over the land, the towns and the walkers; under him and the names */
+  try { if (window.BohemiaHisMap && BohemiaHisMap.draw) BohemiaHisMap.draw(ox, oy); } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO, rule 243(b)2-4): his pins, the crosses, the boss's sign and mark, what a fallen boss changed; over the fog, under him */
   /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF. The pin that
      stood here (a white-headed marker carrying his face, [white rings] 9/11 and [see me]
      9/22) was found by the eye and still not read as a person: "why do I not see my
@@ -91230,6 +91233,7 @@ window.BOHEMIA_SKIN = (function(){
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
+<script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>
