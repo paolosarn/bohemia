@@ -1,0 +1,5292 @@
+{
+ "_about": "THE FEED'S WORDS (WORDS lane, 10/26/26; VAMILY [the feed's words] rule 215(f) and [the usernames tell the story] rule 217). Every post the phone's FEED app can show, as rows a modder reads: a KIND is one sort of post (its trigger, who may post it, how often, how soon, the words with five or more variants, what it teaches); an ACCOUNT is a handle that tells who posts (217: a post is its handle and its words, the face field empty until faces exist). FEED owns the triggers, the pacing and its one data file and reads or copies these rows; the suggest block on each kind is WORDS' suggestion, never FEED's decision. Every line is draft:true (8/11). Built by tools/words_feed/build_feed_bank.py, never by hand; checked by gates/feed_words_gate.js. Record: records/BOHEMIA_WORDS_THE_FEED_TALKS_AND_THE_HANDLES_10_26_26.md.",
+ "draft": true,
+ "how_to_speak": {
+  "value": "a variant has en (plain English, no Spanish word in it) and, often, es (its Spanglish twin). Pick the form per post with BohemiaSpanglish.regFor(account, kind id): 'en' takes en; anything else takes es when there is one, else BohemiaSpanglish.flavour(en, account). The dial is the house rate (10 to 15 in 100, rule 143a), so the bank holds the twins and never decides the share. The company page is the player (player:true) and a bot is a machine (machine:true): both always en, the dial skipped.",
+  "source": "engine/bohemia_spanglish.js",
+  "ours": true
+ },
+ "who": {
+  "value": "a kind's who is a list of pools, first match wins: town = a person whose home is the event's town (else valley), valley = any person, scanner = the scanner page, company = his page, stranger = a burner, faction:<id> = that faction's page (records/target/bb/factions.json ids), or an account id (sal, benny, yolanda, chuy, lyle, a bot).",
+  "ours": true
+ },
+ "faction_says": {
+  "value": {
+   "brigands": "the road crews",
+   "noble_houses": "the House's men",
+   "zombies": "the keeper's machines",
+   "beasts": "the lab animals",
+   "nomads": "the water people",
+   "mercenaries": "the hired guns",
+   "bounty_hunters": "the head takers",
+   "cultists": "the flock's people",
+   "barbarians": "the keepers",
+   "city_states": "the eye's men",
+   "militia": "the block watch boys",
+   "goblins": "the runners"
+  },
+  "ours": true,
+  "draft": true,
+  "rule": "{enemy} and {faction} are filled from here, always a plural, lower case; the lines are written with plural verbs to match"
+ },
+ "casing": {
+  "value": "a person writes in lower case and a fill keeps its own case inside it; a page's, the scanner's and the company's post opens every sentence with a capital, so when a fill opens one of their sentences its first letter is raised. {company} is his name without a leading \"the\" (the lines say \"the {company}\" where people would).",
+  "ours": true
+ },
+ "tags": {
+  "saw": "the poster saw it (hop 0)",
+  "heard": "it reached the poster second hand (hop 1 or more)",
+  "ah": "the analog horror is in what they noticed (for EYES' read)"
+ },
+ "fills": {
+  "{company}": "his company's name as he typed it (rule 212)",
+  "{companyhandle}": "his company's name, lower case, no spaces: the handle of his page",
+  "{man}": "one of his men, by name",
+  "{town}": "a place as the map names it, title case (Henderson, Primm, Boulder City)",
+  "{place}": "where on the map it happened, as a person says it: the freeway, the wash, the landfill, the Strip",
+  "{road}": "a road as people say it: the 15, the 95, Boulder Highway, Lamb",
+  "{enemy}": "who was fought: the faction_says plural (the road crews, the eye's men)",
+  "{faction}": "a faction: the faction_says plural (the water people, the block watch boys)",
+  "{good}": "what the price is for, a plain word: water, food, ammo, medicine",
+  "{now}": "the price now, in the shop's own words for it (one battery, 3 batteries)",
+  "{was}": "the price before, the same way",
+  "{rare}": "the rare man's kind with its article: a road knight, a gun for hire, a blade master",
+  "{count}": "a small number the event carries: blocks, minutes, men",
+  "{high}": "the weather bot's high, a number",
+  "{low}": "the weather bot's low, a number"
+ },
+ "accounts": [
+  {
+   "id": "dolores",
+   "handle": "doloresy_eggs4cells",
+   "name": "Dolores Ybarra",
+   "kind": "person",
+   "home": "henderson",
+   "trade": "eggs",
+   "faction": null,
+   "lean": "spanglish",
+   "voice": "a grandmother who sells eggs off her porch and knows every family on the street",
+   "face": {
+    "id": "face-feed-dolores",
+    "portrait": null
+   },
+   "acts": {
+    "1": "doloresy_eggs4cells",
+    "2": "ybarra.eggs",
+    "3": "ybarrafarms"
+   },
+   "draft": true
+  },
+  {
+   "id": "marcus",
+   "handle": "mbell2020_welds",
+   "name": "Marcus Bell",
+   "kind": "person",
+   "home": "henderson",
+   "trade": "welding",
+   "faction": null,
+   "lean": null,
+   "voice": "a welder, forty, short sentences, fixes what the raids break",
+   "face": {
+    "id": "face-feed-marcus",
+    "portrait": null
+   },
+   "acts": {
+    "1": "mbell2020_welds",
+    "2": "marcus.bell.welding",
+    "3": "bellmetal"
+   },
+   "draft": true
+  },
+  {
+   "id": "tran",
+   "handle": "tran.eth.radiofix",
+   "name": "Tran Nguyen",
+   "kind": "person",
+   "home": "henderson",
+   "trade": "radios",
+   "faction": null,
+   "lean": null,
+   "voice": "held crypto before the dollar died, the .eth is a fossil he never dropped; fixes radios now, dry",
+   "face": {
+    "id": "face-feed-tran",
+    "portrait": null
+   },
+   "acts": {
+    "1": "tran.eth.radiofix",
+    "2": "tran.nguyen.radios",
+    "3": "nguyen.signal"
+   },
+   "draft": true
+  },
+  {
+   "id": "ruthann",
+   "handle": "ruthann_prayerline",
+   "name": "Ruth Ann Kessler",
+   "kind": "person",
+   "home": "boulder_city",
+   "trade": "the chapel",
+   "faction": null,
+   "lean": null,
+   "voice": "runs the chapel prayer list, warm, writes full sentences, prays for everybody by name",
+   "face": {
+    "id": "face-feed-ruthann",
+    "portrait": null
+   },
+   "acts": {
+    "1": "ruthann_prayerline",
+    "2": "bc.chapel.ruthann",
+    "3": "kessler.memorial"
+   },
+   "draft": true
+  },
+  {
+   "id": "leon",
+   "handle": "leonpratt_tow",
+   "name": "Leon Pratt",
+   "kind": "person",
+   "home": "boulder_city",
+   "trade": "tow truck",
+   "faction": null,
+   "lean": null,
+   "voice": "drives the last running tow truck in Boulder City, sees every road first",
+   "face": {
+    "id": "face-feed-leon",
+    "portrait": null
+   },
+   "acts": {
+    "1": "leonpratt_tow",
+    "2": "pratt.towing",
+    "3": "pratt_haul"
+   },
+   "draft": true
+  },
+  {
+   "id": "wade",
+   "handle": "wade_dam_shift3",
+   "name": "Wade Tolliver",
+   "kind": "person",
+   "home": "hoover_dam",
+   "trade": "the dam",
+   "faction": null,
+   "lean": null,
+   "voice": "works third shift at the dam, notices the water and the lights, says little",
+   "face": {
+    "id": "face-feed-wade",
+    "portrait": null
+   },
+   "acts": {
+    "1": "wade_dam_shift3",
+    "2": "w.tolliver.hydro",
+    "3": "tolliver.grid"
+   },
+   "draft": true
+  },
+  {
+   "id": "inez",
+   "handle": "inez_marina_bait",
+   "name": "Inez Carrillo",
+   "kind": "person",
+   "home": "lake_mead_marina",
+   "trade": "bait and tackle",
+   "faction": null,
+   "lean": "spanglish",
+   "voice": "ran the bait shop at the marina, lives next to the water people and does not love them",
+   "face": {
+    "id": "face-feed-inez",
+    "portrait": null
+   },
+   "acts": {
+    "1": "inez_marina_bait",
+    "2": "carrillo.marina",
+    "3": "inezc"
+   },
+   "draft": true
+  },
+  {
+   "id": "jimmy",
+   "handle": "ex_guard_jimmy_jean",
+   "name": "Jimmy Ruiz",
+   "kind": "person",
+   "home": "jean",
+   "trade": "prison guard",
+   "faction": null,
+   "lean": null,
+   "voice": "a prison guard when there was a prison; knows who got out and when",
+   "face": {
+    "id": "face-feed-jimmy",
+    "portrait": null
+   },
+   "acts": {
+    "1": "ex_guard_jimmy_jean",
+    "2": "jruiz.jean.watch",
+    "3": "ruiz.jean"
+   },
+   "draft": true
+  },
+  {
+   "id": "kayla",
+   "handle": "kayla_forklift_primm",
+   "name": "Kayla Moss",
+   "kind": "person",
+   "home": "primm",
+   "trade": "forklift",
+   "faction": null,
+   "lean": null,
+   "voice": "twenty-six, drove a forklift at the warehouse, posts fast with no caps",
+   "face": {
+    "id": "face-feed-kayla",
+    "portrait": null
+   },
+   "acts": {
+    "1": "kayla_forklift_primm",
+    "2": "kmoss.logistics",
+    "3": "kaylamoss"
+   },
+   "draft": true
+  },
+  {
+   "id": "bud",
+   "handle": "bud_searchlight_mine",
+   "name": "Bud Haskins",
+   "kind": "person",
+   "home": "searchlight",
+   "trade": "the mine",
+   "faction": null,
+   "lean": null,
+   "voice": "an old miner, suspicious, plain, trusts rocks more than people",
+   "face": {
+    "id": "face-feed-bud",
+    "portrait": null
+   },
+   "acts": {
+    "1": "bud_searchlight_mine",
+    "2": "haskins.mineral",
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "corinne",
+   "handle": "corinne_old_dispatch",
+   "name": "Corinne Watts",
+   "kind": "person",
+   "home": "indian_springs",
+   "trade": "old police dispatch",
+   "faction": null,
+   "lean": null,
+   "voice": "a police dispatcher before, still talks in codes and times, calm under anything",
+   "face": {
+    "id": "face-feed-corinne",
+    "portrait": null
+   },
+   "acts": {
+    "1": "corinne_old_dispatch",
+    "2": "cwatts.dispatch",
+    "3": "watts.relay"
+   },
+   "draft": true
+  },
+  {
+   "id": "hal",
+   "handle": "hal_lodge_firewood",
+   "name": "Hal Bjornstad",
+   "kind": "person",
+   "home": "mt_charleston_lodge",
+   "trade": "firewood",
+   "faction": null,
+   "lean": null,
+   "voice": "sells firewood up the mountain, the cold is his whole subject",
+   "face": {
+    "id": "face-feed-hal",
+    "portrait": null
+   },
+   "acts": {
+    "1": "hal_lodge_firewood",
+    "2": "bjornstad.wood",
+    "3": "hal.lodge"
+   },
+   "draft": true
+  },
+  {
+   "id": "shawna",
+   "handle": "shawna_pahrump_nails",
+   "name": "Shawna Teller",
+   "kind": "person",
+   "home": "pahrump",
+   "trade": "nails",
+   "faction": null,
+   "lean": null,
+   "voice": "did nails at the resort, still does them for cells, the town gossip and its nurse",
+   "face": {
+    "id": "face-feed-shawna",
+    "portrait": null
+   },
+   "acts": {
+    "1": "shawna_pahrump_nails",
+    "2": "shawna.teller.salon",
+    "3": "tellerbeauty"
+   },
+   "draft": true
+  },
+  {
+   "id": "esteban",
+   "handle": "esteban_pahrump_goats",
+   "name": "Esteban Mora",
+   "kind": "person",
+   "home": "pahrump",
+   "trade": "goats",
+   "faction": null,
+   "lean": "spanglish",
+   "voice": "keeps goats, counts them out loud, a joke for everything but the herd",
+   "face": {
+    "id": "face-feed-esteban",
+    "portrait": null
+   },
+   "acts": {
+    "1": "esteban_pahrump_goats",
+    "2": "mora.goats",
+    "3": "moraranch"
+   },
+   "draft": true
+  },
+  {
+   "id": "pilar",
+   "handle": "pilar_rn_moapa",
+   "name": "Pilar Ocampo",
+   "kind": "person",
+   "home": "moapa",
+   "trade": "nurse",
+   "faction": null,
+   "lean": null,
+   "voice": "the nurse at the Moapa clinic, tired, exact, asks for supplies by name",
+   "face": {
+    "id": "face-feed-pilar",
+    "portrait": null
+   },
+   "acts": {
+    "1": "pilar_rn_moapa",
+    "2": "p.ocampo.rn",
+    "3": "ocampo.clinic"
+   },
+   "draft": true
+  },
+  {
+   "id": "gary",
+   "handle": "gary_mesquite_carts",
+   "name": "Gary Lindqvist",
+   "kind": "person",
+   "home": "mesquite",
+   "trade": "golf carts",
+   "faction": null,
+   "lean": null,
+   "voice": "turns golf carts into haulers, sixty, cheerful in a way that does not fit",
+   "face": {
+    "id": "face-feed-gary",
+    "portrait": null
+   },
+   "acts": {
+    "1": "gary_mesquite_carts",
+    "2": "lindqvist.carts",
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "marisol",
+   "handle": "marisol_v",
+   "name": "Marisol Vega",
+   "kind": "person",
+   "home": "valley",
+   "trade": "cooks",
+   "faction": null,
+   "lean": "spanglish",
+   "voice": "made her account at twelve when short names were still free; cooks for half the block",
+   "face": {
+    "id": "face-feed-marisol",
+    "portrait": null
+   },
+   "acts": {
+    "1": "marisol_v",
+    "2": "marisol.vega.kitchen",
+    "3": "vegakitchen"
+   },
+   "draft": true
+  },
+  {
+   "id": "eve",
+   "handle": "eastwardEve",
+   "name": "Eve Castaneda",
+   "kind": "person",
+   "home": "valley",
+   "trade": "builds",
+   "faction": null,
+   "lean": null,
+   "voice": "the east side, cheers every new roof, a builder's daughter",
+   "face": {
+    "id": "face-feed-eve",
+    "portrait": null
+   },
+   "acts": {
+    "1": "eastwardEve",
+    "2": "eve.castaneda.build",
+    "3": "eastward"
+   },
+   "draft": true
+  },
+  {
+   "id": "benny",
+   "handle": "thecircuit",
+   "name": "Benny Ortiz",
+   "kind": "person",
+   "home": "valley",
+   "trade": "the circuit, a lineman",
+   "faction": null,
+   "lean": null,
+   "voice": "a power lineman, the grid is his and he takes it personally",
+   "face": {
+    "id": "face-feed-benny",
+    "portrait": null
+   },
+   "acts": {
+    "1": "thecircuit",
+    "2": "ortiz.lineman",
+    "3": "thecircuit"
+   },
+   "draft": true
+  },
+  {
+   "id": "sal",
+   "handle": "nobodysgas",
+   "name": "Sal Moretti",
+   "kind": "person",
+   "home": "valley",
+   "trade": "the gas station",
+   "faction": null,
+   "lean": null,
+   "voice": "runs the gas station that has had no gas for years; posts every price he hears",
+   "face": {
+    "id": "face-feed-sal",
+    "portrait": null
+   },
+   "acts": {
+    "1": "nobodysgas",
+    "2": "moretti.fuel",
+    "3": "nobodysgas"
+   },
+   "draft": true
+  },
+  {
+   "id": "terri",
+   "handle": "thevalley",
+   "name": "Terri Vance",
+   "kind": "person",
+   "home": "valley",
+   "trade": "the valley group",
+   "faction": null,
+   "lean": null,
+   "voice": "runs the valley's group page, sees everything, a little tired of everybody",
+   "face": {
+    "id": "face-feed-terri",
+    "portrait": null
+   },
+   "acts": {
+    "1": "thevalley",
+    "2": "valley.group.terri",
+    "3": "thevalley"
+   },
+   "draft": true
+  },
+  {
+   "id": "chuy",
+   "handle": "nightcount",
+   "name": "Chuy Arreola",
+   "kind": "person",
+   "home": "valley",
+   "trade": "counts lights",
+   "faction": null,
+   "lean": "spanglish",
+   "voice": "an old man who walks to the ridge every night and counts the lights",
+   "face": {
+    "id": "face-feed-chuy",
+    "portrait": null
+   },
+   "acts": {
+    "1": "nightcount",
+    "2": "nightcount",
+    "3": "nightcount_jr"
+   },
+   "draft": true
+  },
+  {
+   "id": "yolanda",
+   "handle": "waterline",
+   "name": "Yolanda Price",
+   "kind": "person",
+   "home": "valley",
+   "trade": "the waterline, the standpipe",
+   "faction": null,
+   "lean": null,
+   "voice": "at the standpipe every morning, knows everybody in the line",
+   "face": {
+    "id": "face-feed-yolanda",
+    "portrait": null
+   },
+   "acts": {
+    "1": "waterline",
+    "2": "yprice.water",
+    "3": "waterline"
+   },
+   "draft": true
+  },
+  {
+   "id": "lyle",
+   "handle": "duststop",
+   "name": "Lyle Danner",
+   "kind": "person",
+   "home": "valley",
+   "trade": "truck stop",
+   "faction": null,
+   "lean": null,
+   "voice": "owns the truck stop on the edge, reads the weather off the dry lake",
+   "face": {
+    "id": "face-feed-lyle",
+    "portrait": null
+   },
+   "acts": {
+    "1": "duststop",
+    "2": "danner.truckstop",
+    "3": "duststop"
+   },
+   "draft": true
+  },
+  {
+   "id": "dre",
+   "handle": "coachdre_northtown27",
+   "name": "Andre Little",
+   "kind": "person",
+   "home": "valley",
+   "trade": "basketball coach",
+   "faction": null,
+   "lean": null,
+   "voice": "coached kids' ball in North Town, still does on a cracked court, big heart",
+   "face": {
+    "id": "face-feed-dre",
+    "portrait": null
+   },
+   "acts": {
+    "1": "coachdre_northtown27",
+    "2": "coach.dre.little",
+    "3": "coachdre"
+   },
+   "draft": true
+  },
+  {
+   "id": "lupe",
+   "handle": "lupe_s_sews",
+   "name": "Lupe Sandoval",
+   "kind": "person",
+   "home": "valley",
+   "trade": "seamstress",
+   "faction": null,
+   "lean": "spanglish",
+   "voice": "sews and mends for cells, says what everybody is thinking",
+   "face": {
+    "id": "face-feed-lupe",
+    "portrait": null
+   },
+   "acts": {
+    "1": "lupe_s_sews",
+    "2": "sandoval.sewing",
+    "3": "lupesews"
+   },
+   "draft": true
+  },
+  {
+   "id": "ken",
+   "handle": "bigken702_smoker",
+   "name": "Ken Takahashi",
+   "kind": "person",
+   "home": "valley",
+   "trade": "smokes meat",
+   "faction": null,
+   "lean": null,
+   "voice": "smokes whatever meat there is in an oil drum, generous, loud",
+   "face": {
+    "id": "face-feed-ken",
+    "portrait": null
+   },
+   "acts": {
+    "1": "bigken702_smoker",
+    "2": "takahashi.bbq",
+    "3": "bigken"
+   },
+   "draft": true
+  },
+  {
+   "id": "yesi",
+   "handle": "yesi_cuts_31",
+   "name": "Yesenia Flores",
+   "kind": "person",
+   "home": "valley",
+   "trade": "barber, cuts hair",
+   "faction": null,
+   "lean": null,
+   "voice": "a barber, born '31, her chair is where the valley's news is told first",
+   "face": {
+    "id": "face-feed-yesi",
+    "portrait": null
+   },
+   "acts": {
+    "1": "yesi_cuts_31",
+    "2": "yesi.flores.barber",
+    "3": "yesicuts"
+   },
+   "draft": true
+  },
+  {
+   "id": "darnell",
+   "handle": "darnell_used2drive109",
+   "name": "Darnell Price",
+   "kind": "person",
+   "home": "valley",
+   "trade": "used to drive the 109 bus",
+   "faction": null,
+   "lean": null,
+   "voice": "drove the 109 bus for twenty years; still knows every stop and who used to wait there",
+   "face": {
+    "id": "face-feed-darnell",
+    "portrait": null
+   },
+   "acts": {
+    "1": "darnell_used2drive109",
+    "2": "dprice.route109",
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "ray",
+   "handle": "valleyscanner702",
+   "name": "Ray Delgado (admin)",
+   "kind": "scanner",
+   "home": "valley",
+   "trade": "scanner page",
+   "faction": null,
+   "lean": null,
+   "voice": "VALLEY SCANNER, run by Ray: the place in caps, then what the radio said, unconfirmed, no names",
+   "face": {
+    "id": "face-feed-ray",
+    "portrait": null
+   },
+   "acts": {
+    "1": "valleyscanner702",
+    "2": "valleyscanner702",
+    "3": "valleyrelay"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_road",
+   "handle": "roadcrew_toll15",
+   "name": "THE ROAD CREWS",
+   "kind": "page",
+   "home": null,
+   "trade": "tolls",
+   "faction": "brigands",
+   "lean": "spanglish",
+   "voice": "toll notices and threats, bored, sure of themselves; the 15 is theirs",
+   "face": {
+    "id": "face-feed-pg_road",
+    "portrait": null
+   },
+   "acts": {
+    "1": "roadcrew_toll15",
+    "2": "roadcrew_toll15",
+    "3": "i15.toll.authority"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_house",
+   "handle": "the.house.depot",
+   "name": "THE HOUSE",
+   "kind": "page",
+   "home": null,
+   "trade": "the depot",
+   "faction": "noble_houses",
+   "lean": null,
+   "voice": "an old corporation that survived: polite, formal, never says who got hurt",
+   "face": {
+    "id": "face-feed-pg_house",
+    "portrait": null
+   },
+   "acts": {
+    "1": "the.house.depot",
+    "2": "the.house",
+    "3": "thehouse"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_keeper",
+   "handle": "the_unfinished",
+   "name": "THE KEEPER",
+   "kind": "page",
+   "home": null,
+   "trade": "machines",
+   "faction": "zombies",
+   "lean": null,
+   "voice": "the man who brings his machines back: gentle, patient, never threatens, frightening anyway",
+   "face": {
+    "id": "face-feed-pg_keeper",
+    "portrait": null
+   },
+   "acts": {
+    "1": "the_unfinished",
+    "2": "the_unfinished",
+    "3": "the_unfinished"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_water",
+   "handle": "agua.por.baterias",
+   "name": "THE WATER PEOPLE",
+   "kind": "page",
+   "home": null,
+   "trade": "water",
+   "faction": "nomads",
+   "lean": "spanglish",
+   "voice": "sellers of water by the jug: flat prices, no haggle, a little cruel",
+   "face": {
+    "id": "face-feed-pg_water",
+    "portrait": null
+   },
+   "acts": {
+    "1": "agua.por.baterias",
+    "2": "agua.coop",
+    "3": "aguacoop"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_guns",
+   "handle": "hiredguns_strip",
+   "name": "THE HIRED GUNS",
+   "kind": "page",
+   "home": null,
+   "trade": "guns for hire",
+   "faction": "mercenaries",
+   "lean": null,
+   "voice": "a price list with a pulse: whoever pays more",
+   "face": {
+    "id": "face-feed-pg_guns",
+    "portrait": null
+   },
+   "acts": {
+    "1": "hiredguns_strip",
+    "2": "strip.security",
+    "3": "stripsecurity"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_heads",
+   "handle": "headtakers_bounties",
+   "name": "THE HEAD TAKERS",
+   "kind": "page",
+   "home": null,
+   "trade": "bounties",
+   "faction": "bounty_hunters",
+   "lean": null,
+   "voice": "bounty notices, courteous, with rules they keep",
+   "face": {
+    "id": "face-feed-pg_heads",
+    "portrait": null
+   },
+   "acts": {
+    "1": "headtakers_bounties",
+    "2": "headtakers_bounties",
+    "3": "recovery.agents"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_flock",
+   "handle": "theflock_wecount",
+   "name": "THE FLOCK",
+   "kind": "page",
+   "home": null,
+   "trade": "the count",
+   "faction": "cultists",
+   "lean": "spanglish",
+   "voice": "a church that counts everybody: kind, welcoming, and it keeps a list",
+   "face": {
+    "id": "face-feed-pg_flock",
+    "portrait": null
+   },
+   "acts": {
+    "1": "theflock_wecount",
+    "2": "theflock_wecount",
+    "3": "thecount"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_keepers",
+   "handle": "keepers_of_the_herd",
+   "name": "THE KEEPERS",
+   "kind": "page",
+   "home": null,
+   "trade": "the herd",
+   "faction": "barbarians",
+   "lean": null,
+   "voice": "herders of the lab-made animals: plain, slow, they love the herd more than people",
+   "face": {
+    "id": "face-feed-pg_keepers",
+    "portrait": null
+   },
+   "acts": {
+    "1": "keepers_of_the_herd",
+    "2": "herd.keepers",
+    "3": "keepers_of_the_herd"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_eye",
+   "handle": "eyeinthesky_floor",
+   "name": "THE EYE IN THE SKY",
+   "kind": "page",
+   "home": null,
+   "trade": "the casino floor",
+   "faction": "city_states",
+   "lean": null,
+   "voice": "casino security that became a government: polite, total, it has the tape",
+   "face": {
+    "id": "face-feed-pg_eye",
+    "portrait": null
+   },
+   "acts": {
+    "1": "eyeinthesky_floor",
+    "2": "eyeinthesky",
+    "3": "eye"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_watch",
+   "handle": "blockwatch_702",
+   "name": "THE BLOCK WATCH",
+   "kind": "page",
+   "home": null,
+   "trade": "the block",
+   "faction": "militia",
+   "lean": "spanglish",
+   "voice": "a neighbourhood watch with guns: rules, curfews, porch lights, first names",
+   "face": {
+    "id": "face-feed-pg_watch",
+    "portrait": null
+   },
+   "acts": {
+    "1": "blockwatch_702",
+    "2": "blockwatch_702",
+    "3": "neighborhood.safety"
+   },
+   "draft": true
+  },
+  {
+   "id": "pg_runners",
+   "handle": "runners_by_sundown",
+   "name": "THE RUNNERS",
+   "kind": "page",
+   "home": null,
+   "trade": "deliveries",
+   "faction": "goblins",
+   "lean": null,
+   "voice": "kids on carts and bikes who move anything and hit the lots: fast, cocky, they lose people",
+   "face": {
+    "id": "face-feed-pg_runners",
+    "portrait": null
+   },
+   "acts": {
+    "1": "runners_by_sundown",
+    "2": "runners_by_sundown",
+    "3": "sundown.delivery"
+   },
+   "draft": true
+  },
+  {
+   "id": "company",
+   "handle": "{companyhandle}",
+   "name": "{company}",
+   "kind": "company",
+   "home": null,
+   "trade": "the company",
+   "faction": null,
+   "lean": "en",
+   "voice": "his: plain, short, proud; names the man, the place, the fact; never a joke",
+   "face": {
+    "id": "face-feed-company",
+    "portrait": null
+   },
+   "acts": {
+    "1": "{companyhandle}",
+    "2": "{companyhandle}",
+    "3": "{companyhandle}"
+   },
+   "draft": true,
+   "player": true
+  },
+  {
+   "id": "burner_jean",
+   "handle": "throwaway_jean_7",
+   "name": "throwaway_jean_7",
+   "kind": "stranger",
+   "home": "jean",
+   "trade": null,
+   "faction": null,
+   "lean": null,
+   "voice": "a burner; says the thing nobody will put their name on",
+   "face": {
+    "id": "face-feed-burner_jean",
+    "portrait": null
+   },
+   "acts": {
+    "1": "throwaway_jean_7",
+    "2": null,
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "burner_0442",
+   "handle": "burner0442",
+   "name": "burner0442",
+   "kind": "stranger",
+   "home": null,
+   "trade": null,
+   "faction": null,
+   "lean": null,
+   "voice": "a number and a shrug",
+   "face": {
+    "id": "face-feed-burner_0442",
+    "portrait": null
+   },
+   "acts": {
+    "1": "burner0442",
+    "2": null,
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "passing_15",
+   "handle": "justpassing_15",
+   "name": "just passing",
+   "kind": "stranger",
+   "home": null,
+   "trade": "driver",
+   "faction": null,
+   "lean": null,
+   "voice": "a driver going through on the 15, sees the valley from outside",
+   "face": {
+    "id": "face-feed-passing_15",
+    "portrait": null
+   },
+   "acts": {
+    "1": "justpassing_15",
+    "2": null,
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "dont_look",
+   "handle": "dont_look_me_up",
+   "name": "dont_look_me_up",
+   "kind": "stranger",
+   "home": null,
+   "trade": null,
+   "faction": null,
+   "lean": null,
+   "voice": "a burner with a grudge and a good eye",
+   "face": {
+    "id": "face-feed-dont_look",
+    "portrait": null
+   },
+   "acts": {
+    "1": "dont_look_me_up",
+    "2": null,
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "anon_hendo",
+   "handle": "anon_hendo_2",
+   "name": "anon_hendo_2",
+   "kind": "stranger",
+   "home": "henderson",
+   "trade": null,
+   "faction": null,
+   "lean": null,
+   "voice": "a Henderson burner, the second one; nobody knows what happened to the first",
+   "face": {
+    "id": "face-feed-anon_hendo",
+    "portrait": null
+   },
+   "acts": {
+    "1": "anon_hendo_2",
+    "2": null,
+    "3": null
+   },
+   "draft": true
+  },
+  {
+   "id": "bot_happyhour",
+   "handle": "CoralLounge_HappyHour",
+   "name": "Coral Lounge (scheduled)",
+   "kind": "bot",
+   "home": null,
+   "trade": "a dark casino bar",
+   "faction": null,
+   "lean": "en",
+   "voice": "a casino bar's scheduler, still announcing happy hour in a lounge dark for years",
+   "face": {
+    "id": "face-feed-bot_happyhour",
+    "portrait": null
+   },
+   "acts": {
+    "1": "CoralLounge_HappyHour",
+    "2": null,
+    "3": null
+   },
+   "draft": true,
+   "machine": true
+  },
+  {
+   "id": "bot_power",
+   "handle": "ValleyPowerAlerts",
+   "name": "Valley Power Alerts",
+   "kind": "bot",
+   "home": null,
+   "trade": "the old utility",
+   "faction": null,
+   "lean": "en",
+   "voice": "the dead utility's alert feed, still scheduling maintenance every night",
+   "face": {
+    "id": "face-feed-bot_power",
+    "portrait": null
+   },
+   "acts": {
+    "1": "ValleyPowerAlerts",
+    "2": null,
+    "3": null
+   },
+   "draft": true,
+   "machine": true
+  },
+  {
+   "id": "bot_wx",
+   "handle": "wx_vegas_auto",
+   "name": "wx vegas auto",
+   "kind": "bot",
+   "home": null,
+   "trade": "weather",
+   "faction": null,
+   "lean": "en",
+   "voice": "a weather bot that never stopped; the forecasts are for a place that no longer exists, and then sometimes they are right",
+   "face": {
+    "id": "face-feed-bot_wx",
+    "portrait": null
+   },
+   "acts": {
+    "1": "wx_vegas_auto",
+    "2": "wx_vegas_auto",
+    "3": "wx_vegas_auto"
+   },
+   "draft": true,
+   "machine": true
+  },
+  {
+   "id": "bot_bus",
+   "handle": "Route109_Arrivals",
+   "name": "Route 109 Arrivals",
+   "kind": "bot",
+   "home": null,
+   "trade": "the bus",
+   "faction": null,
+   "lean": "en",
+   "voice": "the bus line's arrival board, still counting down to a bus that does not come",
+   "face": {
+    "id": "face-feed-bot_bus",
+    "portrait": null
+   },
+   "acts": {
+    "1": "Route109_Arrivals",
+    "2": null,
+    "3": null
+   },
+   "draft": true,
+   "machine": true
+  },
+  {
+   "id": "bot_gm",
+   "handle": "gm_sats_daily",
+   "name": "gm sats daily",
+   "kind": "bot",
+   "home": null,
+   "trade": "crypto",
+   "faction": null,
+   "lean": "en",
+   "voice": "a crypto-era good-morning bot posting a price from the week the dollar died",
+   "face": {
+    "id": "face-feed-bot_gm",
+    "portrait": null
+   },
+   "acts": {
+    "1": "gm_sats_daily",
+    "2": null,
+    "3": null
+   },
+   "draft": true,
+   "machine": true
+  }
+ ],
+ "kinds": [
+  {
+   "id": "job_taken",
+   "kind": "mine",
+   "who": [
+    "town"
+   ],
+   "fills": [
+    "{company}",
+    "{town}"
+   ],
+   "teaches": "the board is real: a job is a family waiting, and the town watches who takes it",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: a job taken off a town's board",
+    "every_min": 60,
+    "after_min": 10,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "the {company} took the job off the board at {town}. good. it's been up there four days.",
+     "es": "the {company} took the job off the board at {town}. ya era hora, it's been up there four days.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "watched the {company} read the {town} board a long time. then they took one. we'll see.",
+     "es": "watched the {company} read the {town} board, todo, a long time. took one. we'll see.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "whoever's paying the {company}, i hope it's enough. they took the hard one off the {town} board.",
+     "es": "ojalá it's enough, whoever's paying the {company}. they took the hard one off the {town} board.",
+     "draft": true
+    },
+    {
+     "en": "the {company} just took the job nobody in {town} would touch. my husband looked at it for a week.",
+     "es": "the {company} just took the job nadie in {town} would touch. my husband looked at it for a week.",
+     "draft": true
+    },
+    {
+     "en": "{company} truck is parked by the {town} board. they took work. stay out of their way while they load.",
+     "es": "{company} truck is parked by the {town} board. they took work. stay out of their way, mijo, they're loading.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "heard the {company} took a job out of {town}. my cousin says it pays in cells, half up front.",
+     "es": "heard the {company} took a job out of {town}. mi primo says it pays in cells, half up front.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "job_done",
+   "kind": "mine",
+   "who": [
+    "town"
+   ],
+   "fills": [
+    "{company}",
+    "{town}"
+   ],
+   "teaches": "a job done changes a town: the paper comes down, somebody gets paid, people remember the name",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: a job finished and paid",
+    "every_min": 30,
+    "after_min": 5,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "the {company} came back into {town} and the job's done. the paper's off the board for good. thank you.",
+     "es": "the {company} came back to {town} and the job's done. gracias, for real.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{town}: the {company} did what they said they'd do. got paid at the board, i watched it. first time in a while i've seen that.",
+     "es": "{town}: the {company} did what they said they'd do. got paid at the board, yo lo vi. first time in a while.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my neighbor says the {company} finished the {town} job and didn't ask for a cell more. who does that anymore.",
+     "es": "my neighbor says the {company} finished the {town} job and didn't ask for más. who does that anymore.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} walked back into {town} at an easy pace, nobody hurt that i could see. job's off the board.",
+     "es": "the {company} walked back into {town}, nadie hurt that i could see. job's off the board.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "heard the {company} got it done for {town}. my sister says they took their pay and left the same hour.",
+     "es": "heard the {company} got it done for {town}. mi hermana says they took their pay and left the same hour.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "whatever the {company} did for {town}, the man at the board is smiling. i haven't seen him smile since the bank closed.",
+     "es": "whatever the {company} did for {town}, the man at the board is smiling. no lo había visto smile since the bank closed.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} brought it back to {town} like they said. put them on your list, people. they show up.",
+     "es": "the {company} brought it back to {town} like they said. apúntenlos, gente. they show up.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "job_dropped",
+   "kind": "mine",
+   "who": [
+    "town"
+   ],
+   "fills": [
+    "{company}",
+    "{town}"
+   ],
+   "teaches": "dropping a job costs a name: a family waits, and the next board remembers",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: a job taken and given up or run out",
+    "every_min": 60,
+    "after_min": 60,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "the {company} took the {town} job and never came back for it. the family that posted it is still waiting.",
+     "es": "the {company} took the {town} job and never came back. la familia is still waiting.",
+     "draft": true
+    },
+    {
+     "en": "{town} board has the same paper up again. the {company} let it go. the pay was low but that family needed it.",
+     "es": "{town} board has the same paper up again. the {company} let it go. the pay was low pero esa familia needed it.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "heard the {company} walked off a job for {town}. could be they had a reason. still, that paper's been up since winter.",
+     "es": "heard the {company} walked off a job for {town}. puede ser they had a reason. still, that paper's been up since winter.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "not saying anything bad about the {company}. just saying the {town} job is back on the board and nobody's taking it now.",
+     "draft": true
+    },
+    {
+     "en": "my uncle put cells up for that {town} job. the {company} took it and let it sit. he's asking around for another crew.",
+     "es": "mi tío put cells up for that {town} job. the {company} took it and let it sit. he's asking around for another crew.",
+     "draft": true
+    },
+    {
+     "en": "{company}, if you read this: the {town} job is still open and the family is still holding your cells.",
+     "es": "{company}, si lees esto: the {town} job is still open and the family is still holding your cells.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "fight_won",
+   "kind": "mine",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{company}",
+    "{enemy}",
+    "{place}"
+   ],
+   "teaches": "who holds a road can change in an afternoon, and the people who use it notice first",
+   "big": true,
+   "suggest": {
+    "trigger": "the deed ledger: a fight won",
+    "every_min": 20,
+    "after_min": 15,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "the {company} ran into {enemy} out on {place} and walked away from it. that's a road we can use again.",
+     "es": "the {company} ran into {enemy} out on {place} and walked away. that camino is ours again.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "heard shooting from {place} for maybe ten minutes. then the {company} came back past our house with {enemy}'s gear in the truck.",
+     "es": "heard shooting from {place} like diez minutos. then the {company} came back past our house with {enemy}'s gear in the truck.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{enemy} won't be on {place} for a while. the {company} saw to it. i counted them going out and coming back. same number.",
+     "es": "{enemy} won't be on {place} for a while. the {company} saw to it. los conté going out and coming back. same number.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my kid watched the {company} fight {enemy} from the roof. i told him get down. he says they never broke their line.",
+     "es": "my kid watched the {company} fight {enemy} from the roof. le dije que get down. he says they never broke their line.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "they're saying {enemy} lost at {place} and the {company} won. the dogs started barking again after. they hadn't all week.",
+     "tags": [
+      "heard",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} beat {enemy} at {place}. i don't love more guns on the road but i love fewer of theirs.",
+     "es": "the {company} beat {enemy} at {place}. no me gustan more guns on the road, pero fewer of theirs, sí.",
+     "draft": true
+    },
+    {
+     "en": "if you drive {place} today, thank the {company}. {enemy} had been set up out there all week.",
+     "es": "si you drive {place} today, thank the {company}. {enemy} had been set up out there toda la semana.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "fight_lost",
+   "kind": "mine",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{company}",
+    "{enemy}",
+    "{place}",
+    "{town}"
+   ],
+   "teaches": "a loss is news about the enemy: who beat you is now stronger, and the valley feels it",
+   "big": true,
+   "suggest": {
+    "trigger": "the deed ledger: a fight lost",
+    "every_min": 20,
+    "after_min": 15,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "saw the {company} come back up the road from {place} carrying two of their own. whatever {enemy} had, it was more.",
+     "es": "saw the {company} come back up the road from {place} carrying dos of their own. whatever {enemy} had, it was more.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} lost at {place}. {enemy} still hold the road. stay off it, please.",
+     "es": "the {company} lost at {place}. {enemy} still hold the road. por favor stay off it.",
+     "draft": true
+    },
+    {
+     "en": "heard it went bad for the {company} against {enemy}. pray for them if you do that. i still do.",
+     "es": "heard it went bad for the {company} against {enemy}. pray for them si you do that. yo todavía lo hago.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{enemy} won at {place}. the {company} pulled back to {town} slow, with the truck lights off.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my brother was at {place} when the {company} got pushed off it. he says {enemy} had more men than anyone thought.",
+     "es": "mi hermano was at {place} when the {company} got pushed off it. dice {enemy} had more men than anyone thought.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} took a beating from {enemy}. doesn't make them weak. it makes {enemy} strong, and that's worse news for all of us.",
+     "es": "the {company} took a beating from {enemy}. no los hace weak. it makes {enemy} strong, and that's worse news for all of us.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "fight_fled",
+   "kind": "mine",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{company}",
+    "{enemy}",
+    "{place}"
+   ],
+   "teaches": "walking away is a real choice here, and people respect the ones who come home",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: a fight fled",
+    "every_min": 30,
+    "after_min": 15,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "the {company} pulled out of {place} before it got bad. {enemy} let them go. everybody came home, that's what i heard.",
+     "es": "the {company} pulled out of {place} before it got bad. {enemy} let them go. todos came home, that's what i heard.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "saw the {company} turn around at {place} and come back fast. whatever they saw out there, i'm not driving that way.",
+     "es": "saw the {company} turn around at {place} and come back fast. whatever they saw out there, yo no voy that way.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "not every fight has to be won. the {company} backed off {enemy} at {place} and they're alive. that counts.",
+     "es": "not every fight has to be won. the {company} backed off {enemy} at {place} and they're alive. eso cuenta.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} chased the {company} off {place}. they didn't chase far. they didn't have to.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} ran from {place}. good. my husband never ran from anything and i'm writing this alone.",
+     "es": "the {company} ran from {place}. bien. my husband never ran from anything y aquí estoy, writing this alone.",
+     "draft": true
+    },
+    {
+     "en": "the {company} came back from {place} with nothing to show and nobody missing. i'll take that trade every time.",
+     "es": "the {company} came back from {place} with nada to show and nobody missing. i'll take that trade siempre.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "man_hired",
+   "kind": "mine",
+   "who": [
+    "company"
+   ],
+   "fills": [
+    "{man}",
+    "{town}"
+   ],
+   "teaches": "the company is people with names; the valley learns them as you do",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: a man hired at a post",
+    "every_min": null,
+    "after_min": 1,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{man} signed on in {town}. Welcome.",
+     "draft": true
+    },
+    {
+     "en": "New with us: {man}, from the post at {town}. First week paid in cells.",
+     "draft": true
+    },
+    {
+     "en": "{man} joins the company. Hired in {town}. Gear issued, name on the roll.",
+     "draft": true
+    },
+    {
+     "en": "Signed in {town}: {man}. If you knew him before, he rides with us now.",
+     "draft": true
+    },
+    {
+     "en": "{man} is on the roll, hired at the {town} post. First watch tonight.",
+     "draft": true
+    },
+    {
+     "en": "Welcome {man}. Signed at {town}. He eats with us from tonight.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "man_dismissed",
+   "kind": "mine",
+   "who": [
+    "company"
+   ],
+   "fills": [
+    "{man}",
+    "{town}"
+   ],
+   "teaches": "letting a man go is public, and paying him out is how a company keeps its name",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: a man dismissed",
+    "every_min": null,
+    "after_min": 1,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{man} and the company parted ways in {town}. Paid out in full.",
+     "draft": true
+    },
+    {
+     "en": "{man} is off the roll as of {town}. No hard feelings on our side.",
+     "draft": true
+    },
+    {
+     "en": "Let go in {town}: {man}. He keeps his boots.",
+     "draft": true
+    },
+    {
+     "en": "{man} left the company at {town}. His share went with him.",
+     "draft": true
+    },
+    {
+     "en": "{man} is done riding with us. Dropped at {town} with everything he was owed.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "man_hurt",
+   "kind": "mine",
+   "who": [
+    "company"
+   ],
+   "fills": [
+    "{man}",
+    "{place}",
+    "{enemy}",
+    "{town}"
+   ],
+   "teaches": "a wound is weeks, not a number: the man is out, and the company holds his place",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: a man hurt (a lasting injury)",
+    "every_min": null,
+    "after_min": 5,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{man} went down at {place}. He's breathing. Out for a while.",
+     "draft": true
+    },
+    {
+     "en": "{man} took a bad one from {enemy} at {place}. Healing in {town}.",
+     "draft": true
+    },
+    {
+     "en": "Hurt at {place}: {man}. He'll walk again. Not soon.",
+     "draft": true
+    },
+    {
+     "en": "{man} is on his back in {town} with a wound from {place}. Bring him something to read.",
+     "draft": true
+    },
+    {
+     "en": "{man} caught it at {place}. Thirty days, maybe forty. We hold his spot.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "man_dead",
+   "kind": "mine",
+   "who": [
+    "company"
+   ],
+   "fills": [
+    "{man}",
+    "{place}",
+    "{enemy}",
+    "{town}"
+   ],
+   "teaches": "death is permanent and it has a name; the feed is where the company says it",
+   "big": true,
+   "suggest": {
+    "trigger": "the deed ledger: a man dead",
+    "every_min": null,
+    "after_min": 10,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{man}. Fell at {place} against {enemy}. We carried him home.",
+     "draft": true
+    },
+    {
+     "en": "We lost {man} at {place}. He was with us from the start of it.",
+     "draft": true
+    },
+    {
+     "en": "{man} is gone. {place}. His share goes to his people.",
+     "draft": true
+    },
+    {
+     "en": "{man} did not come back from {place}. Light one for him if you have one.",
+     "draft": true
+    },
+    {
+     "en": "Buried {man} outside {town}. {enemy} killed him at {place}. We keep the name.",
+     "draft": true
+    },
+    {
+     "en": "{man}. That's all. {place}.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "town_entered",
+   "kind": "mine",
+   "who": [
+    "town"
+   ],
+   "fills": [
+    "{company}",
+    "{town}",
+    "{road}"
+   ],
+   "teaches": "a town notices armed strangers; what it says about you is your reputation, arriving before you",
+   "big": false,
+   "suggest": {
+    "trigger": "the deed ledger: the company enters a town",
+    "every_min": 120,
+    "after_min": 2,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "the {company} just rolled into {town}. keep your dogs in, they've got a lot of boots.",
+     "es": "the {company} just rolled into {town}. guarden los perros, they've got a lot of boots.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} stopped in {town}. they're buying water at a fair price so far. so far.",
+     "es": "the {company} stopped in {town}. buying agua at a fair price so far. so far.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "if you're in {town} and you see the {company}, they're hiring at the post, my nephew says.",
+     "es": "si you're in {town} and you see the {company}, they're hiring at the post, dice mi sobrino.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "new faces in {town}: the {company}. they parked by the old bank and nobody's asked them anything yet.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} came into {town} off {road}. the kids followed them all the way to the board.",
+     "es": "the {company} came into {town} off {road}. los niños followed them all the way to the board.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "welcome to {town}, {company}. the water's from the north tank. boil it.",
+     "es": "welcome to {town}, {company}. el agua is from the north tank. boil it.",
+     "draft": true
+    },
+    {
+     "en": "{company} in {town} right now. saw them at the barber. they tip in cells.",
+     "es": "{company} in {town} ahorita. saw them at the barber. they tip in cells.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "rare_man_seen",
+   "kind": "mine",
+   "who": [
+    "town"
+   ],
+   "fills": [
+    "{rare}",
+    "{town}",
+    "{company}"
+   ],
+   "teaches": "a rare man at a post is worth the trip, and he will not wait",
+   "big": false,
+   "suggest": {
+    "trigger": "a rare man at a town's post (records/target/bb/rare_recruits.json)",
+    "every_min": 180,
+    "after_min": 5,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "there's {rare} sitting at the {town} post. doesn't talk. people are lining up to look at his gear.",
+     "es": "hay {rare} sitting at the {town} post. no habla. people are lining up to look at his gear.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{town} has {rare} at the post right now. whoever hires him first wins the month.",
+     "draft": true
+    },
+    {
+     "en": "saw {rare} walk into {town} from the south. says he's looking for a company that pays on time.",
+     "es": "saw {rare} walk into {town} from the south. dice que he's looking for a company that pays on time.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{rare} at the {town} post, asking a price i won't repeat. he's worth it, the old men say.",
+     "es": "{rare} at the {town} post asking a precio i won't repeat. vale la pena, the old men say.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my son says there's {rare} at the {town} post. same table every hour. waiting for the right crew.",
+     "es": "mi hijo says there's {rare} at the {town} post. same table every hour. waiting for the right crew.",
+     "tags": [
+      "heard",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "heads up {company}: {rare} at {town}. he won't be there long.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "wipe",
+   "kind": "mine",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{company}",
+    "{enemy}",
+    "{place}",
+    "{town}",
+    "{road}"
+   ],
+   "teaches": "when the whole company goes down it is not the end: the men and the gear are somewhere, and somebody has them",
+   "big": true,
+   "suggest": {
+    "trigger": "the whole company down (rule 143e: you wake in the nearest town)",
+    "every_min": null,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "found the {company} truck at {place}. nobody in it. people are saying {enemy} have their gear now.",
+     "es": "found the {company} truck at {place}. nadie in it. people are saying {enemy} have their gear now.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} went down at {place}. all of them. they're alive, i think. they woke up in {town} with nothing.",
+     "es": "the {company} went down at {place}. todos. alive, creo. they woke up in {town} with nada.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{enemy} have the {company}'s guns. saw them carry them up {road} like it was a parade.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "pray for the {company}. {place} took everything they had but their names.",
+     "es": "pray for the {company}. {place} took todo they had but their names.",
+     "draft": true
+    },
+    {
+     "en": "the {company} lost it all at {place}. their downed men are with {enemy} now. go get them back, {company}.",
+     "draft": true
+    },
+    {
+     "en": "the {company}'s captain walked into {town} alone from {place}. went to the clinic. didn't say a word.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "raid_seen",
+   "kind": "world",
+   "who": [
+    "town"
+   ],
+   "fills": [
+    "{faction}",
+    "{town}"
+   ],
+   "teaches": "who raids where, and what they take, is the map of who is winning",
+   "big": true,
+   "suggest": {
+    "trigger": "a faction's party raids a town or its lots",
+    "every_min": 30,
+    "after_min": 5,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{faction} hit the lots on the south side of {town}. nobody dead that i know of. lock your sheds.",
+     "es": "{faction} hit the lots on the south side of {town}. nadie dead that i know of. lock your sheds.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} came through {town} just now. took the generator off the church and the dog didn't even bark.",
+     "es": "{faction} came through {town} just now. took the generator off the church y el perro didn't even bark.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{town} got raided by {faction}. two houses on the east end. if you need a place, our door's open.",
+     "es": "{town} got raided by {faction}. dos casas on the east end. si you need a place, our door is open.",
+     "draft": true
+    },
+    {
+     "en": "heard {faction} hit {town}. my cousin's there and she won't pick up.",
+     "es": "heard {faction} hit {town}. mi prima is there y no contesta.",
+     "tags": [
+      "heard",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} raid in {town}. they knew which houses had cells. think about that.",
+     "es": "{faction} raid in {town}. they knew which houses had cells. piénsalo bien.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} hit {town} and left before the block watch got their boots on. same as last time.",
+     "draft": true
+    },
+    {
+     "en": "PSA {town}: {faction} were back. take your batteries inside at night. all of them.",
+     "es": "PSA {town}: {faction} were back. take your batteries inside at night. todas, mija.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "town_falls",
+   "kind": "world",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{faction}",
+    "{town}"
+   ],
+   "teaches": "the future goes both ways: a town can fall, and when it does its people scatter into the feed",
+   "big": true,
+   "suggest": {
+    "trigger": "a town falls to a faction (its tier drops)",
+    "every_min": null,
+    "after_min": 10,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{town} is gone. {faction} have it now. the people who could leave already left.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my mother is still in {town}. {faction} took it. if you have a truck going that way, please.",
+     "es": "mi mamá is still in {town}. {faction} took it. si you have a truck going that way, por favor.",
+     "draft": true
+    },
+    {
+     "en": "{town} fell to {faction}. the lights went off there one street at a time. i watched from the hill.",
+     "es": "{town} fell to {faction}. the lights went off one street at a time. yo lo vi from the hill.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} hold {town} now. it was a town last month. now it's tarps.",
+     "draft": true
+    },
+    {
+     "en": "heard {town} fell. {faction} put their own people on the board. don't take work off that board.",
+     "es": "heard {town} fell. {faction} put their own people on the board. no tomen trabajo off that board.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{town}'s page stopped posting. that's how you know. {faction} have it.",
+     "es": "{town}'s page stopped posting. así es como sabes. {faction} have it.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "town_rises",
+   "kind": "world",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{faction}",
+    "{town}"
+   ],
+   "teaches": "the future gets better where people build: a camp can become a town",
+   "big": false,
+   "suggest": {
+    "trigger": "a camp becomes a town, a town a fortress (its tier rises)",
+    "every_min": null,
+    "after_min": 30,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{town} is a real town now. walls, a board, a barber. they built it with their hands.",
+     "es": "{town} is a real town now. walls, a board, a barber. they built it con sus manos.",
+     "draft": true
+    },
+    {
+     "en": "drove through {town}. it was tents a year ago. they have streetlights on one block. one block. go see it.",
+     "es": "drove through {town}. it was tents a year ago. they have luz on one block. one block. go see it.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} put down roots at {town}. say what you want about them, they built.",
+     "draft": true
+    },
+    {
+     "en": "{town} has a market now. eggs, tires, thread. bring cells.",
+     "es": "{town} has a market now. huevos, tires, thread. bring cells, que no fían.",
+     "draft": true
+    },
+    {
+     "en": "heard {town} got its pump running. if that's true it's the best news this valley has had.",
+     "es": "heard {town} got its pump running. si es verdad, best news this valley has had.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "price_up",
+   "kind": "world",
+   "who": [
+    "sal",
+    "valley"
+   ],
+   "fills": [
+    "{good}",
+    "{now}",
+    "{was}"
+   ],
+   "teaches": "prices are the crash you can feel: they move because something moved, and people know who",
+   "big": false,
+   "suggest": {
+    "trigger": "the shop's quote moves up (the price table)",
+    "every_min": 60,
+    "after_min": 0,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{good} is {now} now. it was {was}. i'm not mad at the guy selling it, i'm mad at the guy selling it to him.",
+     "es": "{good} is {now} now. it was {was}. no estoy mad at the guy selling it, i'm mad at the guy selling it to him.",
+     "draft": true
+    },
+    {
+     "en": "{good} went to {now}. a month ago {was}. my kids don't know what a full anything is.",
+     "es": "{good} went to {now}. a month ago {was}. mis niños don't know what a full anything is.",
+     "draft": true
+    },
+    {
+     "en": "up again: {good}, {now}. it was {was}. if you're hoarding, i hope you sleep fine.",
+     "draft": true
+    },
+    {
+     "en": "{good} at {now} at the market. the lady said {was} to me last week and looked away when i reminded her.",
+     "es": "{good} at {now} at the market. la señora said {was} to me last week y se volteó when i reminded her.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "anyone else paying {now} for {good}? it was {was}. trying to figure out who's moving it.",
+     "es": "alguien más paying {now} for {good}? it was {was}. trying to figure out who's moving it.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "price_down",
+   "kind": "world",
+   "who": [
+    "sal",
+    "valley"
+   ],
+   "fills": [
+    "{good}",
+    "{now}",
+    "{was}"
+   ],
+   "teaches": "a falling price means a road opened or a truck got through: good news has a cause too",
+   "big": false,
+   "suggest": {
+    "trigger": "the shop's quote moves down (the price table)",
+    "every_min": 60,
+    "after_min": 0,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{good} is down to {now}. it was {was}. a truck got through, they're saying.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{good} at {now}! it was {was}. don't tell your cousins, tell your neighbors.",
+     "es": "{good} at {now}! it was {was}. no le digas a tus primos, tell your neighbors.",
+     "draft": true
+    },
+    {
+     "en": "{good} came down to {now}. first good number all month. go before it's {was} again.",
+     "es": "{good} came down to {now}. first good number en todo el mes. go before it's {was} again.",
+     "draft": true
+    },
+    {
+     "en": "{good}, {now}. it was {was}. i don't trust it, but i bought two.",
+     "es": "{good}, {now}. it was {was}. no confío, pero i bought two.",
+     "draft": true
+    },
+    {
+     "en": "price on {good} dropped to {now} from {was}. the sellers must have had a good week. good for them, i guess.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "road_closed",
+   "kind": "world",
+   "who": [
+    "town",
+    "valley",
+    "scanner"
+   ],
+   "fills": [
+    "{road}",
+    "{place}",
+    "{faction}"
+   ],
+   "teaches": "roads are the map: one closed means longer trips, higher prices and a faction showing its hand",
+   "big": true,
+   "suggest": {
+    "trigger": "a road closed by a faction or a wreck",
+    "every_min": 60,
+    "after_min": 5,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{road} is closed past {place}. {faction} put a car across it and a man on the car.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "don't take {road}. i turned around at {place}. they're charging, and it isn't cells they want.",
+     "es": "don't take {road}. turned around at {place}. they're charging, y no son cells lo que quieren.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{road} closed. if you're going north, go the long way and fill up before you go.",
+     "es": "{road} closed. si you're going north, go the long way and fill up before you go.",
+     "draft": true
+    },
+    {
+     "en": "heard {road} is shut at {place}. my uncle's stuck on the wrong side with the goats.",
+     "es": "heard {road} is shut at {place}. mi tío is stuck on the wrong side with the goats.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} have {road} closed at {place}. there's a sign. it's handwritten and spelled right, which scares me more.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "road_open",
+   "kind": "world",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{road}",
+    "{place}"
+   ],
+   "teaches": "a reopened road is a price about to fall",
+   "big": false,
+   "suggest": {
+    "trigger": "a closed road opens again",
+    "every_min": 60,
+    "after_min": 5,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{road} is open again past {place}. drove it myself. nothing on it but glass.",
+     "es": "{road} is open again past {place}. drove it myself. nada on it but glass.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{road} open. the car's gone. so is the man who was sitting on it.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "good news: {road}'s open through {place}. tell your people.",
+     "es": "good news: {road} is open through {place}. díganle a su gente.",
+     "draft": true
+    },
+    {
+     "en": "drove {road} to {place} and back. clear. first time since the rain.",
+     "es": "drove {road} to {place} and back. clear. first time since la lluvia.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{road} is clear again. i don't know who cleared it. there's no sign about it.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "party_seen",
+   "kind": "world",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{faction}",
+    "{road}",
+    "{town}",
+    "{place}"
+   ],
+   "teaches": "the map's parties are people the valley sees walk past; seeing one is a warning or a promise",
+   "big": false,
+   "suggest": {
+    "trigger": "a faction's party passes near a town or a road",
+    "every_min": 45,
+    "after_min": 0,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{faction} walking {road} toward {town}. maybe ten of them. not in a hurry.",
+     "es": "{faction} walking {road} toward {town}. like diez of them. not in a hurry.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "saw {faction} camped at {place}. small fire. they're watching the road, not cooking.",
+     "es": "saw {faction} camped at {place}. small fire. watching the road, no están cocinando.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} moving near {town}. if you're out past dark, don't be.",
+     "es": "{faction} moving near {town}. si you're out past dark, don't be.",
+     "draft": true
+    },
+    {
+     "en": "heard {faction} are on {road} coming our way. probably nothing. bring the kids in anyway.",
+     "es": "heard {faction} are on {road} coming our way. probably nada. bring the kids in anyway.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} went by our place. didn't stop. one of them waved. i didn't wave back.",
+     "es": "{faction} went by our place. didn't stop. one of them waved. yo no.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a line of {faction} crossing {place} at sundown. i counted them twice and got two numbers.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "faction_war",
+   "kind": "world",
+   "who": [
+    "valley",
+    "scanner"
+   ],
+   "fills": [
+    "{faction}",
+    "{enemy}",
+    "{place}"
+   ],
+   "teaches": "the factions fight each other; who wins raises the price of something",
+   "big": true,
+   "suggest": {
+    "trigger": "two factions' parties fight each other",
+    "every_min": 60,
+    "after_min": 5,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{faction} and {enemy} are shooting at each other out by {place}. let them. stay home.",
+     "es": "{faction} and {enemy} are shooting at each other out by {place}. déjalos. stay home, en serio.",
+     "draft": true
+    },
+    {
+     "en": "heard {faction} hit {enemy} at {place}. if you owe either one, keep your head down this week.",
+     "es": "heard {faction} hit {enemy} at {place}. si you owe either one, keep your head down this week.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} against {enemy} again. my roof shakes and i don't even know whose shells those are.",
+     "es": "{faction} against {enemy} otra vez. my roof shakes and i don't even know whose shells those are.",
+     "draft": true
+    },
+    {
+     "en": "the smoke over {place} is {faction} and {enemy}. whoever wins raises the price of something.",
+     "es": "the smoke over {place} is {faction} and {enemy}. whoever wins sube el precio of something.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} and {faction} are at it at {place}. the scanner's full of men saying the same three words.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "power_out",
+   "kind": "world",
+   "who": [
+    "benny",
+    "valley"
+   ],
+   "fills": [
+    "{count}",
+    "{road}",
+    "{place}"
+   ],
+   "teaches": "light is territory: a dark block is a block somebody lost",
+   "big": false,
+   "suggest": {
+    "trigger": "the grid loses blocks (the power map)",
+    "every_min": 60,
+    "after_min": 0,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{count} blocks went dark tonight. i'm a lineman and i don't know why. that's the part that bothers me.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "lost power on {count} blocks east of {road}. if your neighbor is on a machine, go knock.",
+     "es": "lost power on {count} blocks east of {road}. si your neighbor is on a machine, go knock.",
+     "draft": true
+    },
+    {
+     "en": "{count} blocks out. the line isn't cut, i checked. it's just off.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "dark again: {count} blocks. charge what you can at the church before they lock it.",
+     "es": "dark again: {count} blocks. charge lo que puedas at the church before they lock it.",
+     "draft": true
+    },
+    {
+     "en": "anybody near {place} still have light? we lost {count} blocks and i'm trying to find where it stops.",
+     "es": "alguien near {place} still have light? we lost {count} blocks and i'm trying to find where it stops.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "power_on",
+   "kind": "world",
+   "who": [
+    "benny",
+    "valley"
+   ],
+   "fills": [
+    "{count}"
+   ],
+   "teaches": "every block that lights up is work somebody did and a faction gained",
+   "big": false,
+   "suggest": {
+    "trigger": "the grid gains blocks (the power map)",
+    "every_min": 60,
+    "after_min": 0,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{count} more blocks came up tonight. i've been on that line a month. you're welcome.",
+     "draft": true
+    },
+    {
+     "en": "lights on {count} more blocks. my daughter stood at the window like it was snow.",
+     "es": "lights on {count} more blocks. mi hija stood at the window like it was snow.",
+     "draft": true
+    },
+    {
+     "en": "{count} blocks back on. don't run everything at once or we're all dark again.",
+     "es": "{count} blocks back on. no prendan todo at once or we're all dark again.",
+     "draft": true
+    },
+    {
+     "en": "grid's up {count} blocks. the streetlight on our corner came on and buzzed all night. nobody minded.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{count} blocks lit. first thing i heard after was a tv somewhere playing a game show from before.",
+     "es": "{count} blocks lit. lo primero que oí after was a tv somewhere playing a game show from before.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "caravan_arrives",
+   "kind": "world",
+   "who": [
+    "town"
+   ],
+   "fills": [
+    "{faction}",
+    "{town}",
+    "{road}"
+   ],
+   "teaches": "trade moves on the roads; a caravan is food, medicine and news arriving at once",
+   "big": false,
+   "suggest": {
+    "trigger": "a faction's caravan reaches a town",
+    "every_min": 120,
+    "after_min": 0,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "trade wagons in {town} off {road}. salt, tires, and a man selling batteries he swears are new.",
+     "es": "trade wagons in {town} off {road}. salt, tires, and a man selling batteries he swears por Dios are new.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{faction} caravan made it to {town}. they're selling flour by the cup. bring your own cup.",
+     "es": "{faction} caravan made it to {town}. selling flour by the cup. trae tu propia cup.",
+     "draft": true
+    },
+    {
+     "en": "{faction} trucks came in to {town}. guards on every one. the prices are on a board, and the board doesn't move.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "caravan at {town}! fabric, medicine, a goat. go early.",
+     "es": "caravan at {town}! tela, medicine, a goat. go early, ahorita.",
+     "draft": true
+    },
+    {
+     "en": "heard a caravan is coming up {road} to {town}. if it's {faction}, don't haggle. they don't.",
+     "es": "heard a caravan is coming up {road} to {town}. si es {faction}, don't haggle. they don't.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "beast_seen",
+   "kind": "world",
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{place}",
+    "{town}",
+    "{road}"
+   ],
+   "teaches": "the lab-made animals are real and near; the keepers walk them, the rest of us get out of the way",
+   "big": false,
+   "suggest": {
+    "trigger": "a lab-made beast or its party near a town",
+    "every_min": 90,
+    "after_min": 0,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "something big crossed the wash by {place}. the tracks are wider than my tire. keep your kids close.",
+     "es": "something big crossed the wash by {place}. the tracks are wider than my tire. cuiden a los niños.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "saw one of the lab animals at {place}. like the pictures at Tule Springs, but breathing.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the lab ones are out near {town}. the goats know before we do. ours won't go out.",
+     "es": "the lab ones are out near {town}. las cabras know before we do. ours won't go out.",
+     "draft": true
+    },
+    {
+     "en": "heard a sound from {place} last night like a cow, but lower. the dogs went under the house.",
+     "es": "heard a sound from {place} last night like a cow, pero lower. the dogs went under the house.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "keepers walking one of the big ones down {road}. on a rope. a rope.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "kind": "life",
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{town}"
+   ],
+   "teaches": "what people need is what is scarce: the asks are the price list nobody writes down",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: a few an in-game hour, more when prices are high",
+    "every_min": 30,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "anybody have a 12 volt charger for a wheelchair battery? it's my dad's. will trade water.",
+     "es": "alguien have a 12 volt charger for a wheelchair battery? es de mi papá. will trade agua.",
+     "draft": true
+    },
+    {
+     "en": "ISO insulin. any kind. it's for my sister. message me, please.",
+     "es": "ISO insulin. cualquier kind. it's for my sister. message me, por favor.",
+     "draft": true
+    },
+    {
+     "en": "need a ride to {town}. i can pay two cells and i don't talk much.",
+     "es": "need a ride to {town}. puedo pay two cells and i don't talk much.",
+     "draft": true
+    },
+    {
+     "en": "looking for work. i can weld, drive stick, and fix a radio. {town} or close to it.",
+     "es": "looking for trabajo. i can weld, drive stick, and fix a radio. {town} or close.",
+     "draft": true
+    },
+    {
+     "en": "does anyone fix shoes anymore? asking for a whole family.",
+     "es": "does anyone fix shoes anymore? asking for toda la familia.",
+     "draft": true
+    },
+    {
+     "en": "who has a ladder i can borrow for an hour? the roof's leaking on the baby's corner.",
+     "es": "quién has a ladder i can borrow for an hour? the roof's leaking on the baby's corner.",
+     "draft": true
+    },
+    {
+     "en": "need size 4 kids boots. will trade a good pot for them.",
+     "es": "need size 4 kids boots. will trade a good pot, una buena.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "offer",
+   "kind": "life",
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{road}"
+   ],
+   "teaches": "people still give things away; a valley that shares is a valley worth fighting for",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life",
+    "every_min": 45,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "free: a crib. come get it before the wind does. off {road}.",
+     "es": "free: a crib. come get it before the wind does. off {road}, la casa with the blue door.",
+     "draft": true
+    },
+    {
+     "en": "trading eggs for batteries, six for one. no checks, no promises.",
+     "es": "trading huevos for batteries, six for one. no checks, no promises, y ya.",
+     "draft": true
+    },
+    {
+     "en": "i have a working sewing machine and two good hands. bring me your rips. cells or food.",
+     "es": "tengo a working sewing machine and two good hands. bring me your rips. cells or comida.",
+     "draft": true
+    },
+    {
+     "en": "giving away two car doors off the van. good for a fence or a shield.",
+     "es": "giving away dos car doors off the van. good for a fence or a shield.",
+     "draft": true
+    },
+    {
+     "en": "extra squash this week. leave a jar or don't. i won't count.",
+     "es": "extra squash this week. leave a jar o no. i won't count.",
+     "draft": true
+    },
+    {
+     "en": "teaching kids to read on my porch, mornings. bring them. bring a chair.",
+     "es": "teaching kids to read on my porch, mornings. tráiganlos, todos. bring a chair.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "lost",
+   "kind": "life",
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{road}",
+    "{town}"
+   ],
+   "teaches": "the valley still looks for its own: a name on a lost post is somebody who is loved",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life",
+    "every_min": 60,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "lost dog. brown pit, answers to Chapo. last seen by the wash off {road}. he's scared of men in boots.",
+     "es": "lost dog. brown pit, se llama Chapo. last seen by the wash off {road}. he's scared of men in boots.",
+     "draft": true
+    },
+    {
+     "en": "has anyone seen my brother Ernesto. he went to the depot to trade a radio. that was four days ago.",
+     "es": "alguien has seen mi hermano Ernesto? he went to the depot to trade a radio. that was four days ago.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "lost: grey cat, one eye, named Monday. if you see her, she's fine, she just likes you better.",
+     "es": "lost: grey cat, one eye, se llama Monday. si la ven, she's fine, she just likes you better.",
+     "draft": true
+    },
+    {
+     "en": "found a little girl's backpack by the bus bench on {road}. pink. there's a phone inside that still has charge. it keeps getting texts.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "missing our goat. white with a black ear. she isn't lost, she's taken, but i'm being polite.",
+     "es": "missing our goat, la blanca with the black ear. she isn't lost, she's taken, but i'm being polite.",
+     "draft": true
+    },
+    {
+     "en": "lost my dad's ring at the {town} market. gold, a date inside. i'll pay cells, a lot of them.",
+     "es": "lost mi papá's ring at the {town} market. gold, a date inside. i'll pay cells, muchas.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "weather",
+   "kind": "life",
+   "who": [
+    "lyle",
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{town}"
+   ],
+   "teaches": "the desert is the oldest faction: heat, dust and flood kill more people than guns",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: the hour and the weather",
+    "every_min": 90,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "wind off the dry lake all afternoon. tape your windows.",
+     "es": "wind off the dry lake all afternoon. tape your windows, mijo.",
+     "draft": true
+    },
+    {
+     "en": "it's going to hit 118 again. wet a sheet and hang it in the door. it works.",
+     "es": "it's going to hit 118 again. wet a sheet and hang it in the door. así se hace.",
+     "draft": true
+    },
+    {
+     "en": "storm over the mountains. no rain, just the light. stay off metal roofs.",
+     "es": "storm over the mountains. no lluvia, just the light. stay off metal roofs.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "dust coming up from the south. you'll see it before you hear it. bring the laundry in.",
+     "es": "dust coming up from the south. you'll see it before you hear it. bring the laundry in, ya.",
+     "draft": true
+    },
+    {
+     "en": "cold night coming. bring the old people in off the porches. they won't do it themselves.",
+     "es": "cold night coming. bring los viejos in off the porches. they won't do it themselves.",
+     "draft": true
+    },
+    {
+     "en": "rain. real rain over {town}. put out every bucket you own.",
+     "es": "rain. real lluvia over {town}. put out every bucket you own.",
+     "draft": true
+    },
+    {
+     "en": "the radio said nothing about a flood. the wash is already running. get up off the low streets.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "queue",
+   "kind": "life",
+   "who": [
+    "yolanda",
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{town}"
+   ],
+   "teaches": "a line is a measure of how scarce a thing is; you learn the economy standing in it",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: mornings",
+    "every_min": 60,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "queue at the standpipe already. bring something to sit on.",
+     "es": "ya hay line at the standpipe. bring something to sit on.",
+     "draft": true
+    },
+    {
+     "en": "the line at the {town} pump goes around the block. two hours if you're lucky. bring water to wait for water.",
+     "es": "the line at the {town} pump goes around the block. dos horas si you're lucky. bring water to wait for water.",
+     "draft": true
+    },
+    {
+     "en": "ration line at the church is moving. they're out of flour. they have beans.",
+     "es": "ration line at the church is moving. no hay flour. they have beans.",
+     "draft": true
+    },
+    {
+     "en": "if you're in line at the standpipe, the lady in the yellow coat has been there since dark. let her go first.",
+     "es": "si you're in line at the standpipe, la señora in the yellow coat has been there since dark. let her go first.",
+     "draft": true
+    },
+    {
+     "en": "the line for the barber is longer than the line for water. people want to look like people.",
+     "es": "the line for the barber is longer than the line for agua. la gente wants to look like people.",
+     "draft": true
+    },
+    {
+     "en": "the pump line stopped moving. there's nobody at the front. we're all still standing here.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "night",
+   "kind": "life",
+   "who": [
+    "chuy",
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{count}",
+    "{road}"
+   ],
+   "teaches": "the valley at night is where the crash shows its age: things left running with nobody there",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: night only",
+    "every_min": 90,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "no lights anywhere from the ridge. just the stars, and they do not help.",
+     "es": "no lights anywhere from the ridge. nomás las estrellas, and they do not help.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "counting lights from the ridge again. {count} tonight.",
+     "es": "counting lights from the ridge again. {count} esta noche.",
+     "draft": true
+    },
+    {
+     "en": "the emergency tone came on the radio at four again. no message after it. just the tone, then the old station. anyone else?",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "every car alarm on our street went off at once and stopped at once. none of those cars have batteries.",
+     "es": "every car alarm on our street went off at once and stopped at once. ninguno de esos cars have batteries.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the casino sign on {road} lit up for about a minute. i saw the price of a steak dinner from before. then dark.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "anyone else hear the singing out by the wash? same song as last week. same part of the song.",
+     "es": "alguien más hear the singing out by the wash? same song as last week. same part of the song.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "a phone's been ringing in the empty house next door for an hour. no one has lived there since the bank.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "scanner",
+   "kind": "life",
+   "who": [
+    "scanner"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{faction}"
+   ],
+   "teaches": "the scanner page is the valley's nerve: fast, unconfirmed, and sometimes wrong",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life, and after a raid, a fight or a fire near a town",
+    "every_min": 45,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{town}: per traffic, a fire at a storage yard off {road}. block watch on the way. unconfirmed. avoid the area.",
+     "draft": true
+    },
+    {
+     "en": "{town}: man down near the pump, per traffic. no name given. please don't go stand there.",
+     "draft": true
+    },
+    {
+     "en": "{road}: two vehicles stopped across both lanes. could be {faction}, could be a breakdown. nobody's saying on the air.",
+     "draft": true
+    },
+    {
+     "en": "UPDATE {town}: the fire's out. one family out of their house. they need blankets, message the page.",
+     "draft": true
+    },
+    {
+     "en": "{town}: the voice on channel 9 is reading numbers again. same voice. we don't know who. we never post the numbers.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "reminder from your admin: no names, no house numbers on this page. we lost a man to a rumor once.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "quiet",
+   "kind": "life",
+   "who": [
+    "valley"
+   ],
+   "fills": [
+    "{road}"
+   ],
+   "teaches": "nothing happening is news too, and the valley says so",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: when nothing else has posted for a while",
+    "every_min": 120,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "quiet day. nobody has anything to say and that is its own news.",
+     "es": "quiet day. nadie has anything to say and that is its own news.",
+     "draft": true
+    },
+    {
+     "en": "nothing on the scanner, nothing on the road. i don't trust it but i'll take it.",
+     "es": "nada on the scanner, nada on the road. no confío pero i'll take it.",
+     "draft": true
+    },
+    {
+     "en": "slow afternoon. kids playing ball in the empty pool on {road}. that's the post.",
+     "es": "slow afternoon. los niños playing ball in the empty pool on {road}. that's the post.",
+     "draft": true
+    },
+    {
+     "en": "quiet. just the wind and the Morales boy's generator two houses down.",
+     "es": "quiet. nomás the wind and the Morales boy's generator two houses down.",
+     "draft": true
+    },
+    {
+     "en": "nothing happened today and i want that on the record.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "stranger",
+   "kind": "life",
+   "who": [
+    "valley",
+    "town",
+    "stranger"
+   ],
+   "fills": [
+    "{town}"
+   ],
+   "teaches": "the ugly thread of every real neighbourhood feed: naming outsiders, sometimes wrongly; it is how a valley cut into territory talks",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: more when a party or a raid has been near",
+    "every_min": 90,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "guy in a red windbreaker walking the backs of the houses on our street. third night. if he's yours, come get him.",
+     "es": "guy in a red windbreaker walking the backs of the houses on our street. third night. si es tuyo, come get him.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "there's a man at the {town} post says his name is Curtis and he's from Pahrump. nobody in Pahrump knows a Curtis. just saying.",
+     "draft": true
+    },
+    {
+     "en": "new family moved into the Garza place. they have a truck and no story. i asked. they smiled.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "two kids i've never seen were sitting on the old grocery roof. watching the road. not playing.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the man who sells batteries by the overpass isn't from here. his cells are good. i still don't like it.",
+     "es": "the man who sells batteries by the overpass no es de aquí. his cells are good. i still don't like it.",
+     "draft": true
+    },
+    {
+     "en": "careful with the woman going door to door in {town} asking about water rights. she has a clipboard. nobody has a clipboard anymore.",
+     "es": "cuidado with the woman going door to door in {town} asking about water rights. she has a clipboard. nadie has a clipboard anymore.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "memorial",
+   "kind": "life",
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [],
+   "teaches": "the dead of the valley have names; the feed is where a neighbourhood buries them",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: rare",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "rest easy Mrs. Alvarado. she fed half the block through the first winter and never wrote any of it down.",
+     "es": "descansa, Mrs. Alvarado. she fed half the block through the first winter y nunca lo escribió.",
+     "draft": true
+    },
+    {
+     "en": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who's going to wind it now.",
+     "es": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. quién lo va a hacer ahora.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "we buried our neighbor Doug out back of the school. he'd want you to know the tomatoes are his. take some.",
+     "es": "we buried our neighbor Doug out back of the school. he'd want you to know the tomatoes are his. llévense unos, por favor.",
+     "draft": true
+    },
+    {
+     "en": "Lena Park died in her sleep. she taught piano to every kid on this street for thirty years, and the last ten for free.",
+     "draft": true
+    },
+    {
+     "en": "for Hector Ruiz, who fixed every bike in this zip code. the shop is open. his son has the keys.",
+     "es": "for Hector Ruiz, who fixed every bike in this zip code. the shop is open. su hijo has the keys.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "market",
+   "kind": "life",
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{town}"
+   ],
+   "teaches": "the market is the real economy: no money, only trades, and everybody knows the rate",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: days",
+    "every_min": 120,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "swap meet at the drive-in all day. no money, only trades. bring what you can carry home.",
+     "es": "swap meet at the drive-in all day. no money, only trades. trae lo que puedas carry home.",
+     "draft": true
+    },
+    {
+     "en": "market's up in {town}. tires, thread, and a man with a working microwave and a line to use it.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "yard sale at my place, everything goes. i'm leaving for {town}. make me an offer in water.",
+     "es": "yard sale at my place, todo se va. i'm leaving for {town}. make me an offer in agua.",
+     "draft": true
+    },
+    {
+     "en": "market rule: you say your price first. that's how it was in my grandmother's country and it's how it is now.",
+     "es": "market rule: you say your price first. así era in my abuela's country and it's how it is now.",
+     "draft": true
+    },
+    {
+     "en": "{town} market has coffee. real coffee. a spoon a cell. go.",
+     "es": "{town} market has café. real coffee. a spoon a cell. vamos.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "bot_happyhour",
+   "kind": "life",
+   "who": [
+    "bot_happyhour"
+   ],
+   "fills": [],
+   "teaches": "the old world is still talking, to nobody, on a schedule",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: rare, the same hour of the in-game day",
+    "every_min": 480,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Happy Hour 4 to 7 at the Coral Lounge! Half-off wells and live music Thursdays!",
+     "draft": true
+    },
+    {
+     "en": "Happy Hour 4 to 7 at the Coral Lounge! Bring a friend!",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Happy Hour 4 to 7 at the Coral Lounge! We miss you!",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Happy Hour 4 to 7 at the Coral Lounge! Bring everyone!",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Happy Hour 4 to 7 at the Coral Lounge! The band is warming up!",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "bot_power",
+   "kind": "life",
+   "who": [
+    "bot_power"
+   ],
+   "fills": [],
+   "teaches": "the dead utility still schedules the grid it no longer runs",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: rare, at night",
+    "every_min": 480,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Scheduled maintenance in your area tonight, 1 AM to 4 AM. We apologize for any inconvenience.",
+     "draft": true
+    },
+    {
+     "en": "Service has been restored in your area. Thank you for your patience.",
+     "draft": true
+    },
+    {
+     "en": "High demand expected today. Please conserve energy between 3 PM and 8 PM.",
+     "draft": true
+    },
+    {
+     "en": "We are aware of an outage affecting your area. Crews have been dispatched.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Scheduled maintenance in your area tonight, 1 AM to 4 AM. Please stay indoors.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "bot_wx",
+   "kind": "life",
+   "who": [
+    "bot_wx"
+   ],
+   "fills": [
+    "{high}",
+    "{low}"
+   ],
+   "teaches": "a forecast for a city that is gone, and then, sometimes, it is right",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: one a morning at most",
+    "every_min": 720,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Today: sunny, high of {high}. Tonight: clear, low of {low}. Have a great day, Vegas!",
+     "draft": true
+    },
+    {
+     "en": "Today: sunny and hot, high of {high}. Air quality: unhealthy for sensitive groups.",
+     "draft": true
+    },
+    {
+     "en": "Today: wind advisory, gusts to 50. High of {high}. Secure loose outdoor objects.",
+     "draft": true
+    },
+    {
+     "en": "Today: sunny, high of {high}. Tonight: clear, low of {low}. Have a great day, Vegas! Have a great day!",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Today: no data. Tonight: no data. Have a great day, Vegas!",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "bot_bus",
+   "kind": "life",
+   "who": [
+    "bot_bus"
+   ],
+   "fills": [
+    "{count}"
+   ],
+   "teaches": "the bus line still counts down to a bus; the valley's old routes are still in the walls",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: rare, days",
+    "every_min": 480,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Route 109 northbound: arriving at Maryland and Tropicana in {count} minutes.",
+     "draft": true
+    },
+    {
+     "en": "Route 109 southbound: arriving at the Airport in {count} minutes.",
+     "draft": true
+    },
+    {
+     "en": "Route 109: service delays expected. Thank you for riding.",
+     "draft": true
+    },
+    {
+     "en": "Route 109 northbound: arriving at Maryland and Tropicana in {count} minutes. Please stand back from the curb.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Route 109 northbound: arriving now.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "bot_gm",
+   "kind": "life",
+   "who": [
+    "bot_gm"
+   ],
+   "fills": [],
+   "teaches": "the money before the money died is a number frozen on a screen",
+   "big": false,
+   "suggest": {
+    "trigger": "the city's life: rare, mornings",
+    "every_min": 1440,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "gm. BTC 1,204,551.00 USD. 24h: 0.00%",
+     "draft": true
+    },
+    {
+     "en": "gm. BTC 1,204,551.00 USD. stay humble, stack sats.",
+     "draft": true
+    },
+    {
+     "en": "gm. BTC 1,204,551.00 USD. 24h: 0.00%. 7d: 0.00%. 30d: 0.00%",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "gm. BTC 1,204,551.00 USD. we're so early.",
+     "draft": true
+    },
+    {
+     "en": "gm.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_brigands_notice",
+   "kind": "world",
+   "who": [
+    "faction:brigands"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Toll at the Jean overpass is two cells. Pay it and you drive. Don't, and you walk.",
+     "es": "Esta carretera es nuestra. Toll at the Jean overpass is two cells. Pay it and you drive.",
+     "draft": true
+    },
+    {
+     "en": "The 15 is ours from Sloan to Primm. You know the price.",
+     "es": "The 15 is ours from Sloan to Primm. Ya sabes el precio.",
+     "draft": true
+    },
+    {
+     "en": "Hiring men who can stand in the sun all day and not blink.",
+     "draft": true
+    },
+    {
+     "en": "Pay at the cones. Not after the cones. Before.",
+     "es": "Pay at the cones. No después. Before.",
+     "draft": true
+    },
+    {
+     "en": "Guns stay in the truck at the toll. We'll know if they don't.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_brigands_claim",
+   "kind": "world",
+   "who": [
+    "faction:brigands"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{town} paid. Next time they pay at the cones like everybody.",
+     "draft": true
+    },
+    {
+     "en": "We cleared {road}. It's open for anybody with two cells.",
+     "es": "We cleared {road}. Open para cualquier one with two cells.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} tried us on the 15. Their trucks are ours now. Thanks for the tires.",
+     "draft": true
+    },
+    {
+     "en": "To the people of {town}: nothing personal. The road costs what it costs.",
+     "es": "To the people of {town}: nada personal. The road costs what it costs.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} won't drive our road for a while. Tell them we said hello.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_noble_houses_notice",
+   "kind": "world",
+   "who": [
+    "faction:noble_houses"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "The House is hiring guards for the depot road. Two meals a day and a cot. Apply at the gate.",
+     "draft": true
+    },
+    {
+     "en": "The depot road is open to families with a pass. Passes at the gate, mornings only.",
+     "draft": true
+    },
+    {
+     "en": "The House thanks the people of {town} for their patience during the inspection.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "A reminder: the House pays in cells, on time, every seventh day. Ask anybody who works for us.",
+     "draft": true
+    },
+    {
+     "en": "Caravan leaves the depot at first light for {town}. Riders welcome, one bag each.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_noble_houses_claim",
+   "kind": "world",
+   "who": [
+    "faction:noble_houses"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{enemy} have been removed from the depot road. Normal service resumes.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "The House regrets the disturbance in {town}. It has been resolved.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Our caravan reached {town} intact. The House keeps its roads.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} will not be doing business near the depot again.",
+     "draft": true
+    },
+    {
+     "en": "To {town}: the House has taken over the board. Rates are posted at the gate.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_zombies_notice",
+   "kind": "world",
+   "who": [
+    "faction:zombies"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "They are not hungry. They are only unfinished. Please don't shoot at them. They remember it.",
+     "es": "They are not hungry, vecino. Only unfinished. Please don't shoot at them. Se acuerdan.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "If one of mine comes to your door, give it a battery and it will go home.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "I'm looking for copper wire, a gearbox from a washing machine, and a child's music box. I pay well.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "The landfill is not empty. It is waiting. Stay out, for your sake and for theirs.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Some of them still say the last thing they heard before the money stopped. Don't answer them.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_zombies_claim",
+   "kind": "world",
+   "who": [
+    "faction:zombies"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{enemy} broke three of mine at {place}. I will fix them. I always fix them.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Mine walked through {town} last night. They took nothing. They were looking for a face they knew.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{place} is mine again. Quieter now.",
+     "draft": true
+    },
+    {
+     "en": "To {enemy}: you can't kill what was never finished.",
+     "draft": true
+    },
+    {
+     "en": "The ones at {place} are standing up again. Go home.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_nomads_notice",
+   "kind": "world",
+   "who": [
+    "faction:nomads"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Jugs at the marina at six. One cell, one jug. Don't haggle.",
+     "es": "Agua por baterías. Jugs at the marina at six. One cell, one jug. Don't haggle.",
+     "draft": true
+    },
+    {
+     "en": "Water truck on {road}. Bring your own jug or buy one from us.",
+     "es": "Water truck on {road}. Trae tu jug or buy one from us.",
+     "draft": true
+    },
+    {
+     "en": "Tested clean this morning. We don't sell what we won't drink.",
+     "es": "Tested clean this morning. No vendemos lo que we won't drink.",
+     "draft": true
+    },
+    {
+     "en": "The price is the price. If you don't like it, the lake is right there.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Ask about the family rate. Five jugs a week, four cells. Every week, no excuses.",
+     "es": "Ask about the family rate. Five jugs a week, four cells. Cada semana, no excuses.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_nomads_claim",
+   "kind": "world",
+   "who": [
+    "faction:nomads"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{town} pays its water bill to us now.",
+     "es": "{town} pays its water bill to us now. Bienvenidos, todos.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} tried to tap our line at {place}. They got wet.",
+     "draft": true
+    },
+    {
+     "en": "Water's back on in {town}. You're welcome. The price went up.",
+     "es": "El agua is back on in {town}. De nada. The price went up.",
+     "draft": true
+    },
+    {
+     "en": "Anybody who sells water on our ground without asking us will stop selling water.",
+     "draft": true
+    },
+    {
+     "en": "The pumps at {place} are ours. Line up nice.",
+     "es": "The pumps at {place} are ours. Hagan fila, por favor.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_mercenaries_notice",
+   "kind": "world",
+   "who": [
+    "faction:mercenaries"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "We're available. The Strip. Rates went up with the water.",
+     "draft": true
+    },
+    {
+     "en": "Twelve men, two trucks, no questions. Whoever pays more.",
+     "es": "Twelve men, two trucks, no questions. Whoever pays more, es simple.",
+     "draft": true
+    },
+    {
+     "en": "We don't care who you are. We care what you pay.",
+     "draft": true
+    },
+    {
+     "en": "We're taking work north of {road}. Short jobs, cells up front.",
+     "draft": true
+    },
+    {
+     "en": "We stood at {town} for three days and nobody died. That's the product.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_mercenaries_claim",
+   "kind": "world",
+   "who": [
+    "faction:mercenaries"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Contract done at {town}. Next one, call us.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} paid less. That's all it was.",
+     "draft": true
+    },
+    {
+     "en": "We held {place}. The bill is in the mail. There is no mail. Pay at the Strip.",
+     "draft": true
+    },
+    {
+     "en": "Took {enemy}'s money and then their road. Business.",
+     "draft": true
+    },
+    {
+     "en": "We're still standing on {place}. Still for hire.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_bounty_hunters_notice",
+   "kind": "world",
+   "who": [
+    "faction:bounty_hunters"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Paying forty cells for the road crew boss. Alive pays less.",
+     "draft": true
+    },
+    {
+     "en": "Bounty board updated. Three names, one face. Check it at the airport fence.",
+     "draft": true
+    },
+    {
+     "en": "We want the boss, not you. Keep walking.",
+     "es": "We want the boss, no a ti. Keep walking.",
+     "draft": true
+    },
+    {
+     "en": "If you know where the {faction} boss sleeps, we know how to say thank you.",
+     "draft": true
+    },
+    {
+     "en": "No bounty on anybody under sixteen. We have rules.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_bounty_hunters_claim",
+   "kind": "world",
+   "who": [
+    "faction:bounty_hunters"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "We crossed one name off. The board is lighter.",
+     "draft": true
+    },
+    {
+     "en": "We got our man at {place}. His people can collect him at the fence.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{enemy} lost their boss to us at {place}. Bounty paid.",
+     "draft": true
+    },
+    {
+     "en": "Close at {place}. Not close enough. He's still out there.",
+     "draft": true
+    },
+    {
+     "en": "Collected at {town}. Nobody else was hurt. That's how we do it.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_cultists_notice",
+   "kind": "world",
+   "who": [
+    "faction:cultists"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Soup at the trailer park tonight. Nobody counts us, so we count each other. Sit down.",
+     "es": "Soup at the trailer park tonight. Nobody counts us, so we count each other. Siéntate, vecino.",
+     "draft": true
+    },
+    {
+     "en": "We have room for three more families. Bring nothing. We have enough.",
+     "es": "We have room for three more families. No traigan nada. We have enough.",
+     "draft": true
+    },
+    {
+     "en": "Morning count at seven. If your name is called and you don't answer, we come looking.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Every person in the valley has a number with us now. Ask us yours.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "We pray for the {company} too. We pray for everyone on the road.",
+     "es": "We pray for the {company} too. Rezamos por todos on the road.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_cultists_claim",
+   "kind": "world",
+   "who": [
+    "faction:cultists"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{town} sent us twelve new names this week. Welcome home.",
+     "es": "{town} sent us twelve new names this week. Bienvenidos a casa, gente.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} burned our tent at {place}. We counted. Nobody was missing.",
+     "draft": true
+    },
+    {
+     "en": "The flock is at {place} now. Come and be counted.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "To {enemy}: we forgive you. We wrote your names down too.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Our count went up by forty at {town}. The valley is coming home.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_barbarians_notice",
+   "kind": "world",
+   "who": [
+    "faction:barbarians"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Don't touch the big one. It only listens to us.",
+     "es": "Don't touch the big one, vecino. It only listens to us, nomás.",
+     "draft": true
+    },
+    {
+     "en": "Herd crossing {road} at dusk. Stop your truck and turn the engine off. It hates the engine.",
+     "draft": true
+    },
+    {
+     "en": "Trading meat for salt and fence wire. Come out to the open desert, slow.",
+     "draft": true
+    },
+    {
+     "en": "If the herd comes through your yard, let it. It was here before the yard.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "One of ours got loose near {town}. It isn't mean. It's lost. Call us. Don't shoot.",
+     "es": "One of ours got loose near {town}. No es mean, it's lost. Call us. Don't shoot.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_barbarians_claim",
+   "kind": "world",
+   "who": [
+    "faction:barbarians"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{enemy} shot at the herd at {place}. The herd answered.",
+     "draft": true
+    },
+    {
+     "en": "The herd ate well at {place}. Don't ask what.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{town} feeds the herd now. That keeps {town} safe.",
+     "draft": true
+    },
+    {
+     "en": "We moved the big one past {town}. Thank you for staying inside.",
+     "draft": true
+    },
+    {
+     "en": "{place} is grazing ground again. Keep your fences up.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_city_states_notice",
+   "kind": "world",
+   "who": [
+    "faction:city_states"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "The floor is open to members. Cameras are on. Keep your hands where they can be seen.",
+     "es": "The floor is open to members. Cameras are on. Cameras are on, siempre. Keep your hands where the camera sees them, vecino.",
+     "draft": true
+    },
+    {
+     "en": "We see every table. We saw you too. Have a good evening.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Members: payouts in cells at the cage after noon. Everybody else: the door.",
+     "draft": true
+    },
+    {
+     "en": "Lost and found: ask at the cage. A wedding ring, a shoe, a child's drawing of the floor.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "The floor always wins. We keep the floor.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_city_states_claim",
+   "kind": "world",
+   "who": [
+    "faction:city_states"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{enemy} were escorted off the floor. They will not be back.",
+     "draft": true
+    },
+    {
+     "en": "The tape from {place} has been reviewed. We know who.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{town} is under our cameras as of tonight. Nothing changes for good people.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Removed: {enemy}. Reason: on camera.",
+     "draft": true
+    },
+    {
+     "en": "We watched {enemy} at {place} for nine days before we moved. Patience is a game too.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_militia_notice",
+   "kind": "world",
+   "who": [
+    "faction:militia"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Curfew at dark. If you don't live here, say your business at the barricade.",
+     "es": "Nadie comes down this street at night. If you don't live here, say your business at the barricade.",
+     "draft": true
+    },
+    {
+     "en": "Watch meeting at the circle at the end of the street. Bring a flashlight and your name.",
+     "draft": true
+    },
+    {
+     "en": "A strange car on the block gets one knock. Then two men.",
+     "draft": true
+    },
+    {
+     "en": "Looking for volunteers for the late shift. You get coffee and you get to keep your street.",
+     "es": "Looking for volunteers for the late shift. You get café y you get to keep your street.",
+     "draft": true
+    },
+    {
+     "en": "Kids off the street when the light goes. No exceptions. Not even yours, Linda.",
+     "es": "Kids off the street when the light goes. No exceptions. Ni los tuyos, Linda.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_militia_claim",
+   "kind": "world",
+   "who": [
+    "faction:militia"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "{enemy} tried the barricade on {road}. They left faster than they came.",
+     "draft": true
+    },
+    {
+     "en": "Our block held. Thank you to every porch with a light on.",
+     "es": "Our block held. Gracias to every porch with a light on.",
+     "draft": true
+    },
+    {
+     "en": "{town} has a watch now. We trained them ourselves.",
+     "draft": true
+    },
+    {
+     "en": "Caught two of {enemy}'s men in the backyards. Walked them to the edge of the block. Next time we won't walk.",
+     "draft": true
+    },
+    {
+     "en": "Quiet night on every street we hold. That's the job.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_goblins_notice",
+   "kind": "world",
+   "who": [
+    "faction:goblins"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{faction}",
+    "{company}"
+   ],
+   "teaches": "every faction has a want and a voice; its page tells you what it wants without anybody explaining",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's own page, a few a day",
+    "every_min": 240,
+    "after_min": null,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "We run anything across the valley by sundown. Cash or cells. Mostly cells.",
+     "es": "We run anything across the valley by sundown, para cash or batteries. Mostly batteries.",
+     "draft": true
+    },
+    {
+     "en": "Need it moved? We don't ask what's in it. We do ask for half up front.",
+     "draft": true
+    },
+    {
+     "en": "Running {town} to {road} twice a day. Wave us down.",
+     "draft": true
+    },
+    {
+     "en": "Lost a runner near {place}. His name was Kiko. He was fast.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Lots on the south side: we'll be by.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "page_goblins_claim",
+   "kind": "world",
+   "who": [
+    "faction:goblins"
+   ],
+   "fills": [
+    "{town}",
+    "{road}",
+    "{place}",
+    "{enemy}"
+   ],
+   "teaches": "after a fight the winner talks; how it talks about the loser tells you what it will do to you",
+   "big": false,
+   "suggest": {
+    "trigger": "the faction's party wins a fight or a raid",
+    "every_min": 60,
+    "after_min": 20,
+    "note": "FEED owns the trigger and the pacing; these are WORDS' suggestions"
+   },
+   "words": [
+    {
+     "en": "Hit the lots at {town}. Gone before anybody shot. Like always.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} tried to catch us at {place}. Tried.",
+     "draft": true
+    },
+    {
+     "en": "The big box at {town} is empty now. Thank you for shopping.",
+     "draft": true
+    },
+    {
+     "en": "We delivered to {town} by sundown. Again.",
+     "draft": true
+    },
+    {
+     "en": "Took {enemy}'s cart at {place}. Wheels are wheels.",
+     "draft": true
+    }
+   ]
+  }
+ ],
+ "replies": [
+  {
+   "id": "reply_raid",
+   "to": [
+    "raid_seen",
+    "town_falls"
+   ],
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{town}"
+   ],
+   "teaches": "a raid is people: who lost what, who opens a door, who asks the hard question",
+   "words": [
+    {
+     "en": "same on our street. they took the hose off the side of the house. the hose.",
+     "es": "same on our street. they took the hose off the side of the house. la manguera, ya.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "is the clinic ok? my mom goes there.",
+     "es": "is the clinic ok? mi mamá goes there.",
+     "draft": true
+    },
+    {
+     "en": "the block watch needs to answer for this.",
+     "draft": true
+    },
+    {
+     "en": "we have room. two kids, no adults. message me.",
+     "es": "we have room. dos niños, no adults. message me.",
+     "draft": true
+    },
+    {
+     "en": "they knew which houses. ask yourselves who's been walking the street with a notebook.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "praying for {town}.",
+     "es": "praying for {town}. Dios los cuide.",
+     "draft": true
+    },
+    {
+     "en": "don't post which houses got hit. you're making a list for the next ones.",
+     "es": "no pongan which houses got hit, por favor. you're making a list for the next ones.",
+     "draft": true
+    },
+    {
+     "en": "my cousin made it out. she's with us. thank you to the man with the blue truck.",
+     "es": "mi prima made it out. she's with us. gracias to the man with the blue truck.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_company_win",
+   "to": [
+    "fight_won",
+    "job_done"
+   ],
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{company}",
+    "{enemy}"
+   ],
+   "teaches": "the valley argues about you: thanks, doubt and grudges in one thread",
+   "words": [
+    {
+     "en": "good. that road's my commute.",
+     "es": "bueno. that road's my commute.",
+     "draft": true
+    },
+    {
+     "en": "they're welcome at my table.",
+     "es": "they're welcome at my mesa, siempre.",
+     "draft": true
+    },
+    {
+     "en": "my husband rode with them for a week once. he said their captain eats last.",
+     "draft": true
+    },
+    {
+     "en": "who pays them though? that's what i want to know.",
+     "es": "who pays them though? eso es lo que quiero saber.",
+     "draft": true
+    },
+    {
+     "en": "doesn't matter who won. my window's still broken.",
+     "es": "doesn't matter who won. mi ventana is still broken.",
+     "draft": true
+    },
+    {
+     "en": "thank you {company}.",
+     "es": "gracias {company}.",
+     "draft": true
+    },
+    {
+     "en": "it's not over. {enemy} have cousins.",
+     "draft": true
+    },
+    {
+     "en": "i'll believe it when i drive it.",
+     "es": "i'll believe it cuando lo maneje.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_company_loss",
+   "to": [
+    "fight_lost",
+    "wipe",
+    "man_dead"
+   ],
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{company}",
+    "{enemy}",
+    "{town}"
+   ],
+   "teaches": "a loss is grieved by strangers; the valley keeps your dead too",
+   "words": [
+    {
+     "en": "praying for those boys.",
+     "es": "praying for those boys. Dios los tenga.",
+     "draft": true
+    },
+    {
+     "en": "they'll be back. they always come back.",
+     "es": "they'll be back. siempre vuelven.",
+     "draft": true
+    },
+    {
+     "en": "if they need beds in {town}, we have two.",
+     "es": "si they need beds in {town}, tenemos dos.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} are getting bolder. that's the real news.",
+     "draft": true
+    },
+    {
+     "en": "say their names. don't just say the company.",
+     "es": "say their names, por favor. don't just say the company.",
+     "draft": true
+    },
+    {
+     "en": "my son wanted to join them. not anymore.",
+     "es": "mi hijo wanted to join them. ya no.",
+     "draft": true
+    },
+    {
+     "en": "dropping soup at the clinic for whoever's there from the {company}.",
+     "draft": true
+    },
+    {
+     "en": "rest easy.",
+     "es": "descansa en paz.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_stranger",
+   "to": [
+    "stranger"
+   ],
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{town}"
+   ],
+   "teaches": "a valley that names outsiders also argues back; the feed is where suspicion gets checked or spreads",
+   "words": [
+    {
+     "en": "that's my nephew. he works nights. leave him alone.",
+     "es": "that's mi sobrino. he works nights. leave him alone.",
+     "draft": true
+    },
+    {
+     "en": "you posted the same thing about my brother last year. he was born here.",
+     "draft": true
+    },
+    {
+     "en": "thanks for the heads up. i'll keep the light on.",
+     "es": "gracias for the heads up. i'll keep the light on.",
+     "draft": true
+    },
+    {
+     "en": "if he's hungry, feed him. if he's stealing, call the watch. you don't know which yet.",
+     "es": "si tiene hambre, feed him. if he's stealing, call the watch. you don't know which yet.",
+     "draft": true
+    },
+    {
+     "en": "people said this about my family when we came from {town}.",
+     "es": "people said this about mi familia when we came from {town}.",
+     "draft": true
+    },
+    {
+     "en": "a description please, not just 'not from here'.",
+     "draft": true
+    },
+    {
+     "en": "we're all from somewhere else now.",
+     "es": "todos somos from somewhere else now.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_price",
+   "to": [
+    "price_up"
+   ],
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{now}",
+    "{was}",
+    "{town}"
+   ],
+   "teaches": "a price is a rumour until three people confirm it; the replies are the market checking itself",
+   "words": [
+    {
+     "en": "it's {now} at the marina too.",
+     "draft": true
+    },
+    {
+     "en": "they had it at {was} in {town} if you can get there.",
+     "draft": true
+    },
+    {
+     "en": "and it'll go up again when it's hot.",
+     "es": "and it'll go up otra vez when hace calor.",
+     "draft": true
+    },
+    {
+     "en": "same here. we're boiling the pool.",
+     "es": "same aquí. we're boiling the pool.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "never buy it the day it goes up. my grandmother's rule.",
+     "es": "never buy it the day it goes up. regla de mi abuela.",
+     "draft": true
+    },
+    {
+     "en": "who's buying it all? that's the question nobody asks.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_bot",
+   "to": [
+    "bot_happyhour",
+    "bot_power",
+    "bot_wx",
+    "bot_bus",
+    "bot_gm"
+   ],
+   "who": [
+    "valley"
+   ],
+   "fills": [],
+   "teaches": "the old world left its machines running; the people who answer them are the ones who remember",
+   "words": [
+    {
+     "en": "this account still posts every day. the lounge has been dark for years.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "who's paying for whatever runs this?",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "Rhonda set this up before. she's gone. it's still going.",
+     "es": "Rhonda set this up before. ya se fue. it's still going.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "i went to the stop. i waited the minutes. nothing came.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "don't reply to it. it doesn't know.",
+     "es": "no le contestes, mija. it doesn't know.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "i look forward to this one. it's the only thing that's on time.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_night",
+   "to": [
+    "night"
+   ],
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [],
+   "teaches": "fear is shared out loud; one person hearing it is a story, three is a thread",
+   "words": [
+    {
+     "en": "i heard it too.",
+     "es": "yo también lo oí.",
+     "draft": true
+    },
+    {
+     "en": "it happened on our side at the same time.",
+     "es": "it happened on our side at the same time, mija.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "stop posting this. people are scared enough.",
+     "es": "stop posting this. la gente is scared enough.",
+     "draft": true
+    },
+    {
+     "en": "my grandmother says the tone means the dam. it doesn't mean the dam.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "same. i timed it. eleven minutes.",
+     "es": "same. lo conté. eleven minutes.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "it's the wind in the old sign wires. that's all it is. it's the wind.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_road_war",
+   "to": [
+    "road_closed",
+    "faction_war"
+   ],
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [
+    "{road}"
+   ],
+   "teaches": "a closed road and a war between outfits are the same news to a family: a longer trip and a higher price",
+   "words": [
+    {
+     "en": "how long this time?",
+     "es": "¿cuánto tiempo esta vez?",
+     "draft": true
+    },
+    {
+     "en": "there's a way around through the old golf course. don't post it.",
+     "draft": true
+    },
+    {
+     "en": "my kid's school bus used {road}. what do i tell her.",
+     "es": "my kid's school bus used {road}. qué le digo.",
+     "draft": true
+    },
+    {
+     "en": "whoever wins, we pay.",
+     "es": "whoever wins, nosotros pagamos.",
+     "draft": true
+    },
+    {
+     "en": "stay off the overpass. they shoot from it.",
+     "es": "stay off the overpass, en serio. they shoot from it.",
+     "draft": true
+    },
+    {
+     "en": "i heard the same thing from the truck stop. it's true.",
+     "es": "i heard the same thing from the truck stop. es verdad.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "reply_ask",
+   "to": [
+    "ask",
+    "lost"
+   ],
+   "who": [
+    "valley",
+    "town"
+   ],
+   "fills": [],
+   "teaches": "help arrives in the replies; a request answered is the valley working",
+   "words": [
+    {
+     "en": "messaged you.",
+     "draft": true
+    },
+    {
+     "en": "check with Pilar at the Moapa clinic. she might.",
+     "draft": true
+    },
+    {
+     "en": "i have one. it's old. come by.",
+     "es": "tengo uno. it's old. come by.",
+     "draft": true
+    },
+    {
+     "en": "shared.",
+     "draft": true
+    },
+    {
+     "en": "saw a brown pit by the wash. he ran from me.",
+     "draft": true
+    },
+    {
+     "en": "bumping this.",
+     "draft": true
+    },
+    {
+     "en": "the runners might have it. they have everything.",
+     "draft": true
+    }
+   ]
+  }
+ ],
+ "followups": [
+  {
+   "id": "followup_raid",
+   "to": [
+    "raid_seen",
+    "town_falls"
+   ],
+   "who": [
+    "town",
+    "scanner"
+   ],
+   "fills": [
+    "{town}",
+    "{faction}"
+   ],
+   "after_min": 120,
+   "teaches": "a raid has an after: the counting, the shoes, the wall",
+   "words": [
+    {
+     "en": "update {town}: the families from the east end are with the church. they need shoes and pans.",
+     "draft": true
+    },
+    {
+     "en": "update: nobody died in the {town} raid. we counted twice.",
+     "es": "update: nadie died in the {town} raid. we counted twice.",
+     "draft": true
+    },
+    {
+     "en": "found the {town} generator by the wash. empty. the tank was cut.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "{town} is putting up a wall. bring a shovel if you have arms.",
+     "es": "{town} is putting up a wall. trae a shovel si tienes arms.",
+     "draft": true
+    },
+    {
+     "en": "{faction} came back for what they left. that's how sure they are.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "followup_company",
+   "to": [
+    "fight_won",
+    "fight_lost",
+    "wipe",
+    "man_dead"
+   ],
+   "who": [
+    "town",
+    "valley"
+   ],
+   "fills": [
+    "{company}",
+    "{enemy}",
+    "{town}",
+    "{place}",
+    "{man}"
+   ],
+   "after_min": 180,
+   "teaches": "the valley keeps watching after the fight; what you do next is the second half of the story",
+   "words": [
+    {
+     "en": "the {company} buried {man} outside {town}. a few of us went. they didn't say much. they said his name.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} got their gear back from {enemy}. don't ask me how. ask them.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} came through {town} again. limping, all of them. still paid a fair price for water.",
+     "es": "the {company} came through {town} again. limping, todos. still paid a fair price for agua.",
+     "tags": [
+      "saw"
+     ],
+     "draft": true
+    },
+    {
+     "en": "saw the {company} at {place}, where it happened. just standing there.",
+     "tags": [
+      "saw",
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "the {company} paid for the windows on the main street. nobody asked them to.",
+     "tags": [
+      "heard"
+     ],
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "followup_road",
+   "to": [
+    "road_closed"
+   ],
+   "who": [
+    "town",
+    "valley",
+    "scanner"
+   ],
+   "fills": [
+    "{road}"
+   ],
+   "after_min": 240,
+   "teaches": "a closed road is a story with an end, and the end changes the price",
+   "words": [
+    {
+     "en": "update on {road}: still closed. they've added a second car.",
+     "draft": true
+    },
+    {
+     "en": "{road} is open again. glass everywhere. drive slow.",
+     "es": "{road} is open again. vidrio por todos lados. drive slow.",
+     "draft": true
+    },
+    {
+     "en": "the sign on {road} is gone. the car is still there. nobody's in it.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "my uncle made it through on {road}. took him two cells and his watch.",
+     "es": "mi tío made it through on {road}. took him two cells and his watch.",
+     "draft": true
+    },
+    {
+     "en": "{road} update: they're letting families through. nobody else.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "followup_war",
+   "to": [
+    "faction_war"
+   ],
+   "who": [
+    "valley",
+    "scanner"
+   ],
+   "fills": [
+    "{faction}",
+    "{enemy}",
+    "{place}"
+   ],
+   "after_min": 180,
+   "teaches": "after two outfits fight, the ground has a new owner and everybody adjusts",
+   "words": [
+    {
+     "en": "{faction} hold {place} now. {enemy} pulled out at dark.",
+     "draft": true
+    },
+    {
+     "en": "it's over at {place}. you can hear the birds again.",
+     "es": "it's over at {place}. se oyen los pájaros otra vez.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "update {place}: both of them left. nobody won. the road is still closed.",
+     "draft": true
+    },
+    {
+     "en": "{enemy} are burying their own at {place}. let them do it.",
+     "es": "{enemy} are burying their own at {place}. déjalos, por favor.",
+     "draft": true
+    },
+    {
+     "en": "prices already moved. {faction} won at {place}. that's why.",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "id": "followup_power",
+   "to": [
+    "power_out"
+   ],
+   "who": [
+    "benny",
+    "valley"
+   ],
+   "fills": [
+    "{count}",
+    "{road}"
+   ],
+   "after_min": 180,
+   "teaches": "the grid has a cause; the lineman finds it, and sometimes he does not",
+   "words": [
+    {
+     "en": "update on the dark blocks: still dark. we found where it stops. it stops at one house with every light on.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "power's back on {count} of them. working on the rest.",
+     "draft": true
+    },
+    {
+     "en": "update: it was a cut line. the copper's gone. so are the men who took it.",
+     "draft": true
+    },
+    {
+     "en": "update: the blocks are back. no idea why. i didn't do anything.",
+     "tags": [
+      "ah"
+     ],
+     "draft": true
+    },
+    {
+     "en": "still dark east of {road}. the church has a generator till ten. go charge.",
+     "es": "still dark east of {road}. the church has a generator hasta las diez. go charge.",
+     "draft": true
+    }
+   ]
+  }
+ ]
+}

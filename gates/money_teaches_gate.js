@@ -64,7 +64,10 @@ const done = () => { console.log('=== MONEY TEACHES GATE: ' + pass + ' passed, '
       m2.hired.map(h => h.name + ' (' + h.bg + ') ' + h.wage).join(', ') + '; night ' + m2.night + ' = ' + m2.crew + ' x 2 + ' + m2.wages + '; the cards said ' + said.map(c => c && c.night).join(', '));
     /* ---- M3 the crew screen ---- */
     let m3 = null;
-    const cb = await sf.$('#crew'); if (cb) { const r = await cb.boundingBox(); await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await p.waitForTimeout(1800);
+    /* RE-AIMED 10/26: over a town the one bar's crew tag presses the town's CREW (UI [one HUD everywhere], a0de7409: the town's own top row is hidden) */
+    const tb = await fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
+    const fb = tb ? await (await fr.frameElement()).boundingBox() : null;
+    const cb = tb ? { boundingBox: async () => ({ x: fb.x + tb.x - 1, y: fb.y + tb.y - 1, width: 2, height: 2 }) } : await sf.$('#crew'); if (cb) { const r = await cb.boundingBox(); await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await p.waitForTimeout(1800);
       const rf = p.frames().find(x => /ROSTER_SCREEN/.test(x.url()));
       if (rf) { m3 = [];
         for (const n of m2.hired.map(h => h.name)) { const c = await rf.$('#lines .cell.full[aria-label="' + n + '"]'); if (!c) { m3.push(null); continue; }

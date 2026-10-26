@@ -105,8 +105,13 @@ const READ = () => new Promise(res => {
   ok('  his card stands his own whole body (the still rendered off the same model)', bodyOwn.length === crew.length, bodyOwn.length + ' of ' + crew.length + (bodyOwn.length < crew.length ? ': ' + crew.map((m, i) => m.name + ' ' + bodies[i]).filter((x, i) => bodies[i] !== crew[i].look).slice(0, 3).join(', ') : ''));
   const rig = J('slices/fight_rig/fight_rig.json').looks;
   ok('  the fight has every one of them on its board', crew.every(m => rig[m.look]), crew.filter(m => !rig[m.look]).map(m => m.look).join(',') || 'all twelve');
-  const bearded = crew.filter(m => WOMEN.indexOf(m.name) >= 0 && WHO[m.look] && WHO[m.look].sex === 'm');
-  ok('  a name that reads as a woman\'s wears no beard', bearded.length === 0 && crew.filter(m => WOMEN.indexOf(m.name) >= 0).length === 5, bearded.map(m => m.name + ' ' + m.look).join(', ') || '5 of 5');
+  /* RE-AIMED 10/26 (RUN TWO [eyes: the Block Watch's names], rule 203: 'never a man's sprite with a woman's name'): every body on
+     the master rig is a man's until CHARACTER builds a woman's, so the crew list's TINA, MARISOL, LUPE and NENA are called TITO,
+     MARCOS, LALO and NENO (engine/bohemia_roster.js nameFor); DESI stays (a man's name too) and wears no beard */
+  const womenNamed = crew.filter(m => ['TINA', 'MARISOL', 'LUPE', 'NENA'].indexOf(m.name.replace(/ II$/, '')) >= 0 && (!WHO[m.look] || WHO[m.look].sex !== 'f'));
+  const renamed = crew.filter(m => ['TITO', 'MARCOS', 'LALO', 'NENO'].indexOf(m.name) >= 0).length;
+  const bearded = crew.filter(m => m.name === 'DESI' && WHO[m.look] && WHO[m.look].sex === 'm');
+  ok('  no man\'s body wears a woman\'s name (' + renamed + ' renamed), and DESI wears no beard', womenNamed.length === 0 && renamed === 4 && bearded.length === 0, womenNamed.concat(bearded).map(m => m.name + ' ' + m.look).join(', ') || 'all twelve men');
   await r2.close();
 
   /* F3, F5 (the screen's own lists) */

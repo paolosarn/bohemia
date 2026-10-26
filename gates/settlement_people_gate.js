@@ -3,7 +3,7 @@
    with ANIMATION's idle people standing in them. On his phone's profile: every tier and its night
    loads its picture; every building's tap still opens its own sheet; a keeper stands at each
    building's door step, drawn from the people sheets at the picture's scale and moving on the beat;
-   the crowd by the stall grows on market day and empties when raided or sick, thins at night.
+   the crowd by the stall grows on market day, thins by the card's share when raided or sick (never to one, 10/26), thins at night.
    AMENDED 10/19 (RUN TWO [the 3D models on your screens], rule 121(e): 'BRO EVERYTHING IS A 3D MODEL NOW... WTF TRYING TO
    COMBINE THE TWO'): EVERY PERSON IS A 3D MODEL. The screen never loads ANIMATION's flat sheets again; every keeper and
    every man in the crowd is one of CHARACTER's thirteen gangs standing, his render fetched from CHARACTER's own folder and
@@ -93,7 +93,9 @@ const srv = http.createServer((rq, rs) => {
     tr[ids[0] || 'plain'] = await p.evaluate(() => BohemiaSettlement.crowdCount());
     if (ids[0] === 'market_day' || !ids.length) await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_PEOPLE_' + (ids[0] ? 'MARKET_DAY' : 'TOWN') + '_10_10.png') });
   }
-  ok('market day fills the street, raided and sick empty it', tr.market_day > tr.plain && tr.raided <= 1 && tr.sickness <= 1, JSON.stringify(tr));
+  /* RE-AIMED 10/26 (RUN TWO [eyes: the quiet town], rule 131: EYES saw Blues sick with one man in it): the wiki's cards thin the
+     recruits, raided by half and sickness by a quarter; the street thins by the same share, never to nobody */
+  ok('market day fills the street, raided and sick thin it by the card\'s own share, never to one', tr.market_day > tr.plain && tr.raided === Math.max(1, Math.round(tr.plain * .5)) && tr.sickness === Math.max(1, Math.round(tr.plain * .75)) && tr.raided < tr.plain && tr.sickness < tr.plain && tr.sickness > 1, JSON.stringify(tr));
   /* NO TWO ALIKE on the fullest street, and a spot keeps its man when the crowd thins; two towns are two towns' people */
   {
     const folk = async (name, ids, night) => { await p.evaluate(o => BohemiaSettlement.open({ place: { tier: 'town', name: o.name }, traits: o.ids, night: o.night }), { name, ids, night }); await p.waitForTimeout(300);
@@ -135,7 +137,8 @@ const srv = http.createServer((rq, rs) => {
     for (let i = 0; i < n; i++) {
       await p.evaluate(() => { const c = document.getElementById('close'); if (c && c.offsetParent) c.click(); }); await p.waitForTimeout(100);
       const pt = await p.evaluate(i => { const L = BohemiaSettlement.folk(), q = L[i], v = BohemiaSettlement._view();
-        const s0 = BohemiaSettlement.scale(); BohemiaSettlement.where(q.keeper ? q.k : 'stall'); const v2 = BohemiaSettlement._view(), r = document.getElementById('scene').getBoundingClientRect();
+        const s0 = BohemiaSettlement.scale(); if (q.keeper) BohemiaSettlement.where(q.k); else BohemiaSettlement.lookAt(q.x, q.y - s0.person * 0.45);   /* RE-AIMED 10/26: the picture fills the phone's height, so a man by the post is brought into view as a drag would */
+        const v2 = BohemiaSettlement._view(), r = document.getElementById('scene').getBoundingClientRect();
         return { x: r.left + v2.ox + q.x * v2.s, y: r.top + v2.oy + (q.y - s0.person * 0.45) * v2.s, keeper: !!q.keeper, k: q.k, look: q.look }; }, i);
       await p.waitForTimeout(150);
       await p.mouse.click(pt.x, pt.y); await p.waitForTimeout(900);

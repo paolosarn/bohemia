@@ -19,6 +19,9 @@
       refused the man beside him (every gun row, loaded, with the breath and the AP: shot, not clubbed, not 'too close');
    3. the rules' cover is what a man hides behind: a tile's cover count is the pieces of the kinds he hides behind on it
       (COVER, LOW_COVER), never a rock he stands on (MOUND) or a dock (HEIGHT), on every dealt board;
+   3b. NO COVER IN THE OPEN STREET (COMBAT line 90's open-street half, 10/26): in rolled AUTO fights on eight kinds of board, a
+      shot at a man on a bare tile never reads cover (a piece on the next tile is a house away; a man in the line is 'in the
+      way'), and a shot at a man on a cover tile always does: the cover, the kneel and the odds one fact;
    4. on the page, AUTO fights on a suburb, a strip and the desert: EVERY KNEEL IS ON A COVER TILE OR IN A BUILDING (a roof),
       never on bare raised ground, never in the open street;
    5. the weapon card says a melee weapon reaches 1 tile;
@@ -92,6 +95,27 @@ const done = () => { console.log('=== MELEE IS ONE TILE, COVER IS WHAT IS ON THE
   }
   leg(wrong.length === 0, '*** COVER IS WHAT IS ON THE TILE *** (rule 170(a)): a tile\'s cover is the pieces a man hides behind on it, never a rock or a dock he stands on, on 14 dealt boards',
     tiles + ' tiles, ' + wrong.length + ' wrong, ' + stoodOn + ' pieces to stand on counted as none');
+  /* 3b: NO COVER IN THE OPEN STREET (COMBAT line 90's open-street half, rule 170(a): 'if you're in the middle of the street you
+     have no cover unless that street tile has crazy car wreckage'; the cover, the kneel and the dial's odds are one fact).
+     MEASURED 10/26 before the fix, 64 rolled AUTO fights on eight kinds of board: 1,213 of 3,093 shots at a man on a tile with
+     nothing on it (39%) read 'cover' and lost three quarters of their chance, 634 for a piece on the NEXT tile (a house away at
+     our scale), 560 for a man in the line. Now: a shot at a man on a bare tile never reads cover (a man in the line is said as
+     'in the way', Battle Brothers' body in the line of fire), and a shot at a man on a cover tile always does. */
+  let bareShots = 0, bareCover = [], coverShots = 0, coverMissing = 0, inWay = 0, bareTiles = 0, allTiles = 0;
+  for (const kind of ['freeway', 'strip', 'suburb', 'culdesac', 'ruin', 'desert', 'landfill', 'shore']) for (const seed of [1, 2, 3, 4]) {
+    try {
+      ctx.setSeed(seed);
+      const S = playOut(ctx, { seed, party: { faction: 'brigands', count: 8, days: 20, difficulty: 1 }, kind, night: false }, 60000).S;
+      for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { allTiles++; if (S.coverCount[y][x] === 0 && F._t.passable(x, y)) bareTiles++; }
+      S.log.forEach(e => { if (e.t !== 'attack' || !e.shot || e.free || e.tx === undefined) return;
+        const c = (e.parts || []).indexOf('cover') >= 0; if ((e.parts || []).indexOf('in the way') >= 0) inWay++;
+        if (S.coverCount[e.ty][e.tx] === 0) { bareShots++; if (c) bareCover.push(kind + seed + ' ' + e.tx + ',' + e.ty); }
+        else { coverShots++; if (!c) coverMissing++; } });
+    } catch (e) { errs.push('open street ' + kind + seed + ': ' + e.message); }
+  }
+  leg(bareShots > 500 && bareCover.length === 0 && coverShots > 100 && coverMissing === 0,
+    '*** NO COVER IN THE OPEN STREET *** (rule 170(a)): a shot at a man on a bare tile never reads cover, a shot at a man on a cover tile always does (39% of open-street shots read cover before)',
+    bareShots + ' shots at men on bare tiles (' + Math.round(100 * bareTiles / allTiles) + '% of the boards\' tiles are open ground), ' + bareCover.length + ' read cover' + (bareCover.length ? ': ' + bareCover.slice(0, 3).join('; ') : '') + '; ' + coverShots + ' at men in cover, ' + coverMissing + ' read none; ' + inWay + ' had a man in the way');
   /* 4 and 5: on the page */
   const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
   let frames = 0, kneels = 0, open_ = [], pageErr = [], card = null;

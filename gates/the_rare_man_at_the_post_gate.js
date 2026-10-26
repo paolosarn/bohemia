@@ -143,7 +143,10 @@ const FITS = () => { const sh = document.getElementById('sheet'); return { sw: s
     const nf = await P.evaluate((n) => { try { const o = nfOpts({ world: { day: 1 } }); const m = (o.company || []).find(x => x && x.name === n); return m ? { level: m.level, gear: m.gear } : null; } catch (e) { return String(e); } }, man.name.toUpperCase());
     ok('R6 the fight is handed his kit (his weapon, shield, body and helm) and his level', !!nf && nf.level === man.level && nf.gear && nf.gear.main === wantGear.main && nf.gear.off === wantGear.off && nf.gear.body === wantGear.body && nf.gear.head === wantGear.head, JSON.stringify(nf));
     let crew = null;
-    const cb = await sf.$('#crew'); if (cb) { const r = await cb.boundingBox(); await P.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await P.waitForTimeout(2200);
+    /* RE-AIMED 10/26: over a town the one bar's crew tag presses the town's CREW (UI [one HUD everywhere], a0de7409: the town's own top row is hidden) */
+    const tb = await fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
+    const fb = tb ? await (await fr.frameElement()).boundingBox() : null;
+    const cb = tb ? { boundingBox: async () => ({ x: fb.x + tb.x - 1, y: fb.y + tb.y - 1, width: 2, height: 2 }) } : await sf.$('#crew'); if (cb) { const r = await cb.boundingBox(); await P.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await P.waitForTimeout(2200);
       const rf = P.frames().find(x => /ROSTER_SCREEN/.test(x.url()));
       if (rf) { await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 20000 }).catch(() => {});
         crew = await rf.evaluate((n) => { const m = BohemiaRosterScreen.state.crew.find(x => x.name === n); if (!m) return null; const id = it => it ? it.id : null;

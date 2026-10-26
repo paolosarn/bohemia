@@ -206,7 +206,7 @@ async function fight(F, first) {
       const two = goal();
       es[1].x = cx0 + 1; es[1].y = Y + 1; es[0].x = cx0; es[0].y = Y;
       const diag = FIGHT._t.squeezes(cx0, Y + 1, cx0 + 1, Y);
-      /* PASS ONE OF YOUR OWN, NEVER TWO (rule 70): a one-wide lane two houses long, cut through the block */
+      /* WALK THROUGH YOUR OWN MEN, ALWAYS (rule 199, his 'new rule', was rule 70's 'one, never two'): a one-wide lane two houses long, cut through the block */
       es.forEach(e => { e.x = 0; e.y = 0; e.fled = true; });
       for (let y = 0; y < S.h; y++) { S.terrain[y][cx0] = y === Y ? 'flat' : 'blocked'; S.terrain[y][cx0 + 1] = y === Y ? 'flat' : 'blocked'; }
       const pals = S.units.filter(u => u.side === 'you' && u !== a).slice(0, 2);
@@ -226,8 +226,8 @@ async function fight(F, first) {
     leg(walls.ownTile, 'a man\'s tile is never walked through');
     leg(walls.one, 'ONE MAN IS NOT A WALL: a lone man in a two-wide gap can be walked past (at the price of his free swing)');
     leg(!walls.two && walls.diag, 'TWO ARE: two men side by side close the gap, and nobody squeezes diagonally between two men');
-    leg(walls.throughOne && walls.standOn, '*** PASS ONE OF YOUR OWN (rule 70): a man walks through one of his own company in a one-wide lane, and never stops on him ***');
-    leg(!walls.throughTwo && !walls.throughFoe, '  NEVER TWO, NEVER AN ENEMY: two of his own in a row close the lane, and so does one of theirs');
+    leg(walls.throughOne && walls.standOn, '*** WALK THROUGH YOUR OWN MEN (rule 199): a man walks through one of his own company in a one-wide lane, and never stops on him ***');
+    leg(walls.throughTwo && !walls.throughFoe, '  AT ALL TIMES, NEVER AN ENEMY (rule 199(a)(c)): two of his own in a row are walked through too; one of theirs closes the lane');
     /* TWO FINGERS: pinch the board out to the whole, then back in (rule 62: the pinch is the map's) */
     const cdp = await p.context().newCDPSession(p);
     const pinch = async (from, to) => {
@@ -1293,7 +1293,25 @@ async function struckDown() {
   leg(all.head > 0, 'heads get hit for half again (wiki: base 25%, x1.5)', all.head);
   leg(all.morale > 0, 'nerve moves: the morale ladder ran in the fight', all.morale);
   leg(all.injury > 0, 'injuries land apart from hitpoints', all.injury);
-  leg(all.skill > 0, 'the brains reach for the skills a perk unlocks (rally, recover, taunt, sidestep, plant the feet, go first), across the twelve fights', all.skill);
+  /* AMENDED 10/26 (COMBAT): rule 180 left the perks' skills to the brains of THEIR side only, and in rolled fights a man of theirs
+     with such a perk is rare (168 headless fights, 1 use; the twelve here read 1 or 0 by luck), so the brains are put to it
+     once each as well: a man of theirs with Rally the Troops and a friend running, and one with Recover too winded to swing */
+  const asked = await (async () => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:7,speed:' + SPEED + ',kind:"scrub",deploy:false,formation:null}' });
+    try {
+      await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round, null, { timeout: 40000 });
+      return await d.page.evaluate(() => {
+        const S = FIGHT.S, them = S.units.filter(v => v.side === 'them' && FIGHT.onField(v)), out = {};
+        const up = (u, perk, set) => { const snap = FIGHT.freeze(); S.order = [u.id].concat(S.order.filter(id => id !== u.id)); S.idx = 0; u.begun = true; u.ap = u.apTurn;
+          u.perks = (u.perks || []).concat([perk]); set(u); const n0 = S.log.length; FIGHT.aiStep(u); const used = S.log.slice(n0).some(e => e.t === 'skill' && e.skill === perk); FIGHT.thaw(snap, true); return used; };
+        if (them.length >= 2) out.rally = up(them[0], 'rally_the_troops', () => { them[1].morale = 'Fleeing'; });
+        if (them.length) out.recover = up(them[0], 'recover', u => { u.fat = FIGHT.fatMax(u); });
+        return out; });
+    } catch (e) { return { err: String(e.message).slice(0, 120) }; }
+    finally { await d.close(); }
+  })();
+  leg(all.skill + (asked.rally ? 1 : 0) + (asked.recover ? 1 : 0) >= 2 && asked.rally && asked.recover, 'the brains reach for the skills a perk unlocks (rally, recover, taunt, sidestep, plant the feet, go first): put to it, a man of theirs rallies a runner and rests too winded to swing; and across the twelve fights',
+    all.skill + ' in the fights; put to it: ' + JSON.stringify(asked));
   leg(all.free > 0, 'leaving a man\'s reach draws his free swing (zone of control)', all.free);
   console.log('=== THE REBUILT FIGHT PLAYS GATE: ' + pass + ' passed, ' + fail + ' failed ===');
   process.exit(fail ? 1 : 0);

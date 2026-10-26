@@ -196,6 +196,7 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 #bflee{flex:0 0 auto;width:62px;height:46px;font:inherit;font-family:var(--face-casing,inherit);font-weight:400;font-size:11px;letter-spacing:.3px;color:#f2ead8;border:0;border-radius:3px;
   background:var(--mat-tin-dark,#2a2420) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55);transform:rotate(-1deg)}
 #bflee.arm{color:#2a221a;background:#d9a85a;outline:2px solid #ff5a40}
+#bflee.end{font-size:10px;line-height:1.05;color:#2a221a;background:#b9c98a;outline:1px solid #e9f0c8}   /* END THE FIGHT (rule 198(d)): every one of theirs left is running */
 #bflee:disabled{opacity:.32}
 #bwait{flex:0 0 auto;width:56px;height:46px;font:inherit;font-weight:700;font-size:11px;color:var(--paper-ink);border:0;
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55);transform:rotate(1deg)}
@@ -790,6 +791,9 @@ const FIGHT = (function () {
     const p = opts.party;
     if (Array.isArray(p) && p.length && typeof p[0] === 'object') return p.reduce(function (a, q) { for (let i = 0; i < q.count; i++) a.push(q.kind); return a; }, []);
     if (Array.isArray(p)) return p.slice();
+    /* WORLD [the job tells the truth, in blood] (rule 208(e)): a party the map already rolled through this same partyFor (its
+       band, the ids in order) is dealt as rolled, so the meet card's count and kind are what stands on the board */
+    if (p && Array.isArray(p.band) && p.band.length) return p.band.slice();
     if (p && p.count) return partyFor(p);
     if (opts.band) return opts.band;
     return men && Array.isArray(opts.company) && opts.company.length ? bandFor(men) : R('ours.first_band');
@@ -1007,6 +1011,7 @@ const FIGHT = (function () {
   function roadOpts(opts) {
     const p = opts.party, rf = R('ours.road_factions');
     if (!p || Array.isArray(p) || !p.count || (p.faction || rf.from) !== rf.from || (opts.met || 0) < rf.after_fights) return opts;
+    if (Array.isArray(p.band) && p.band.length) return opts;   /* WORLD (rule 208(e)): the road's faction was rolled with the band; never twice */
     const w = rf.by_act[Math.max(1, Math.min(rf.by_act.length, S.act)) - 1], ks = Object.keys(w);
     let r = rng() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
     const f = ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
@@ -1129,7 +1134,7 @@ const FIGHT = (function () {
     }
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.firstBlow = 0; S.lastHitBy = {};
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.firstBlow = 0; S.lastHitBy = {};
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -1146,7 +1151,7 @@ const FIGHT = (function () {
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
-    const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);
+    const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
     LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
     LOOKS_TAKEN = null;
@@ -1367,6 +1372,7 @@ const FIGHT = (function () {
     if (!S.firstBlow || S.round - since <= n || !alive('you').length || !alive('them').length) return;
     alive('them').forEach(function (u) { u.morale = 'Fleeing'; u.roundsFleeing = 0; u.givesUp = true; });
     emit({ t: 'standoff', rounds: S.round - since });
+    S.allFlee = true; emit({ t: 'allflee', n: alive('them').length });
   }
   function newRound() {
     S.round++; S.aimed = {};
@@ -1567,6 +1573,7 @@ const FIGHT = (function () {
       if (held) { emit({ t: 'held', id: u.id }); break; }
       emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: s.x, y: s.y });
       back = { x: u.x, y: u.y }; u.x = s.x; u.y = s.y;
+      if (runs(u) && unitAt(u.x, u.y) === u) { freeShot(u); if (!onField(u)) { afterAction(u); advance(u); return true; } }
     }
     /* cut short on a friend's tile (a swing landed, the AP ran out): the two trade places, his reading of the rule; walking
        through a file of his men (rule 199) the tile behind him may hold another of them, so the friend steps to the nearest
@@ -1587,15 +1594,23 @@ const FIGHT = (function () {
     return d > c.threshold ? c.threshold + (d - c.threshold) * c.over_threshold_multiplier : d;
   }
   function inWater(u) { return rowAt(u.x, u.y) === 'swamp'; }
+  /* the wiki's 'blocked target' (the line of fire), and why: 'tile' he stands in cover (when ours.cover_tile_blocks_line), 'wall'
+     a building on the tile next to him in the line, 'man' a man standing there; null when the line is clear.
+     NO COVER IN THE OPEN STREET (COMBAT line 90's open-street half, rule 170(a), Paolo 10/25: 'if you're in the middle of the
+     street you have no cover unless that street tile has crazy car wreckage'): MEASURED 10/26 on 64 rolled AUTO fights, 1,213 of
+     3,093 shots at a man on a tile with nothing on it (39%) read 'cover' and lost three quarters of their chance, 634 of them
+     for a dead car, a rock, a fence or an outcrop on the NEXT tile toward the shooter. Battle Brothers' hex is a man's width,
+     so a thing on the next hex is at his elbow; our tile is a house, so a thing on the next tile is a house away and hides
+     nobody. A piece shelters only the man on its own tile (coverDef, hides()); a building in the line still blocks it, and a
+     man in the way is Battle Brothers' body in the line of fire, said as that, never as cover */
   function shotLine(a, t) {
-    /* the wiki's 'blocked target': something stands in the line next to him, or he stands in cover */
-    if (R('ours.cover_tile_blocks_line') && hides(t.x, t.y) && dist(a, t) > 1) return true;
-    const pts = line(a, t); if (pts.length < 1 + 1 + 1) return false;
+    if (R('ours.cover_tile_blocks_line') && hides(t.x, t.y) && dist(a, t) > 1) return 'tile';
+    const pts = line(a, t); if (pts.length < 1 + 1 + 1) return null;
     const n = pts[pts.length - 1 - 1];
-    if (sightBlock(n.x, n.y) || S.cover[n.y][n.x]) return true;
+    if (sightBlock(n.x, n.y)) return 'wall';
     const who = unitAt(n.x, n.y);
-    if (who && !(who.side === a.side && dist(a, t) === 1 + 1)) return true;
-    return false;
+    if (who && !(who.side === a.side && dist(a, t) === 1 + 1)) return 'man';
+    return null;
   }
   function inRange(a, t, w) {
     w = w || a.weapon;
@@ -1650,10 +1665,13 @@ const FIGHT = (function () {
       else if (w.class === 'throwing') { const g = R('parsed.throw_axe'); per = g.per_hex; base = g.base_bonus; free = g.free_tiles; }
       else { const g = R('hit_chance.ranged.distance.bow_quick_shot'); per = g.per_hex; base = g.base_bonus; }
       ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
-      if (!ignores && shotLine(a, t)) {
+      const blocked = ignores ? null : shotLine(a, t);
+      if (blocked) {
         ch *= PK(a, 'bullseye') ? 1 - R('hit_chance.ranged.cover_bullseye') : 1 + R('hit_chance.ranged.cover_line_of_fire_blocked');
-        parts.push('cover');
+        parts.push(blocked === 'man' ? 'in the way' : 'cover');
       }
+      /* the cover, the kneel and the odds are one fact (rule 170(a)): the defence of the pieces on his tile is in df; say it */
+      if (hides(t.x, t.y) && parts.indexOf('cover') < 0) parts.push('cover');
     }
     const fa = PK(a, 'fast_adaptation');
     if (fa && a.missStack) { ch += fa.hit_chance_per_miss_pct * a.missStack; parts.push('reads you'); }
@@ -2308,14 +2326,70 @@ const FIGHT = (function () {
     if (best && (best.x !== u.x || best.y !== u.y)) return moveTo(u, best.x, best.y);
     return false;
   }
+  /* THE ROUT IS A CHASE, NEVER A SWITCH (COMBAT [retreat and the rout, a chase], rule 198, Paolo 10/25: 'when the enemy wants to
+     retreat it's not guaranteed, it's not just one thing that ends; they have to try to run away from us and we're getting free
+     hits on them if they're in our melee range of control or range of fire... it's not finished'). Before: the fight was won the
+     moment the last man of theirs broke, every runner gone with it. Now the fight ends when every man of theirs is down or off
+     the board (or every man of his is: down, or out by the retreat); while every one of theirs left is running (allFleeing), and
+     END THE FIGHT wins it (endFight, Battle Brothers': the runners get away, the fallen are his). A runner runs for the edge on
+     his own turns (flee), can be caught and killed, and can rally (Battle Brothers' stop-fleeing check, beginTurn). */
   function afterAction(u) {
     const you = alive('you'), them = alive('them');
-    const themFight = them.filter(function (e) { return e.morale !== 'Fleeing'; });
-    if (!themFight.length || !you.length) {
-      S.over = true;
+    if (!them.length || !you.length) {
+      S.over = true; S.allFlee = false;
       S.result = !you.length ? 'lost' : 'won';
       emit({ t: 'over', result: S.result });
+      return;
     }
+    const all = allFleeing();
+    if (all && !S.allFlee) emit({ t: 'allflee', n: them.length });
+    S.allFlee = all;   /* the line's latch only; the truth is allFleeing(), read live (a runner who rallies takes END THE FIGHT away) */
+  }
+  function allFleeing() { const t = alive('them'); return !S.over && !S.deploy && t.length > 0 && t.every(function (e) { return e.morale === 'Fleeing'; }); }
+  function endFight() {
+    if (!allFleeing()) return false;
+    const gone = alive('them');
+    gone.forEach(function (e) { e.fled = true; e.ranOff = true; });
+    S.over = true; S.allFlee = false; S.result = 'won';
+    emit({ t: 'over', result: 'won', ended: true, ran: gone.length });
+    return true;
+  }
+  /* AUTO'S CHASE (rule 198(e)): while they all run, a runner is worth catching when some man of his can strike him from a tile he
+     can reach in a whole turn (the brains' walk); when none is, AUTO ends the fight rather than walk after men it cannot catch.
+     Read once a round. */
+  function worthChase() {
+    if (S.chaseAt === S.round) return S.chaseOK;
+    const runners = alive('them');
+    S.chaseAt = S.round;
+    S.chaseOK = alive('you').some(function (m) {
+      if (m.morale === 'Fleeing' || m.netted) return false;
+      const f = reach(m, m.apTurn), ox = m.x, oy = m.y;
+      const ok = Object.keys(f.best).some(function (k) { k = Number(k); m.x = k % S.w; m.y = Math.floor(k / S.w);
+        return runners.some(function (e) { return inRange(m, e); }); });
+      m.x = ox; m.y = oy; return ok;
+    });
+    return S.chaseOK;
+  }
+  /* THE FREE SHOT ON A MAN WHO RUNS (rule 198(c), his 'range of fire'; our addition to Battle Brothers, whose half is the free swing
+     on leaving a melee man's zone, moveTo): a man of either side who runs (broken, or his side ordered the retreat) and steps
+     into the reach of a man of the other side with a shot ready, who sees him and has not spent his free shot this round, takes
+     one shot from the best placed of them, once a turn; the round is spent, the shot's own odds (TUNING may give it a number) */
+  function runs(u) { return u.morale === 'Fleeing' || (!!S.retreat && u.side === 'you'); }
+  function readyShot(g) { const w = g.weapon; return isRanged(w) && !(w.ammo && g.ammo !== null && g.ammo <= 0) && !(reloadSkill(w) && !w.mag && !g.loaded); }
+  function freeShot(u) {
+    if (u.shotAt === S.round || !onField(u)) return null;
+    let g = null, gc = -1;
+    foes(u).forEach(function (f) {
+      if (f.morale === 'Fleeing' || f.stunned || f.freeShotAt === S.round || !readyShot(f) || !inRange(f, u)) return;
+      const c = hitChance(f, u).chance; if (c > gc) { gc = c; g = f; }
+    });
+    if (!g) return null;
+    u.shotAt = S.round; g.freeShotAt = S.round;
+    if (reloadSkill(g.weapon) && !g.weapon.mag) g.loaded = false;
+    if (g.weapon.ammo && g.ammo !== null) g.ammo--;
+    const r = resolveAttack(g, u, strikeSkill(g.weapon));
+    apply(g, u, r, { free: true });
+    return r;
   }
 
   /* ---------------- THE AI: one brain, every archetype's switches as data (63b) ---------------- */
@@ -2457,6 +2531,7 @@ const FIGHT = (function () {
   function aiStep(u) {
     if (S.over || current() !== u) return false;
     if (S.retreat && u.side === 'you') return retreatStep(u);
+    if (u.side === 'you' && allFleeing() && !worthChase()) { endFight(); return false; }
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
@@ -2617,7 +2692,7 @@ const FIGHT = (function () {
     if (v.$shot) return pistolShot(rowOfToken(v.$shot));
     return JSON.parse(JSON.stringify(v));
   }
-  const KEPT_STATE = ['retreat', 'order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
+  const KEPT_STATE = ['retreat', 'allFlee', 'chaseAt', 'chaseOK', 'order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
     'boardDef', 'solid', 'cover', 'coverCount', 'lit', 'days', 'difficulty', 'act', 'board', 'formationKept', 'formation', 'deploy', 'firstBlow', 'lastHitBy'];
   function screenKey(k) { return k.charAt(0) === '_' || k.indexOf('seen') === 0; }
   function freeze() {
@@ -2645,7 +2720,7 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, endFight: endFight, allFleeing: allFleeing, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
@@ -3475,7 +3550,7 @@ function bullet(moment, a, t, e) {
 /* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
-const NOTE_BEATS = { free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
+const NOTE_BEATS = { allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
 function take() {
   const ev = FIGHT.S.events; FIGHT.S.events = [];
   let swing = null;   /* WEAPON SHAPES: the other men a sweep strikes ride the one swing (one motion, one beat, every man it caught) */
@@ -3523,6 +3598,7 @@ function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
    first fight's lessons say what the mouse does (point to see, click to do) */
 const FINE = (function () { try { return matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (_e) { return false; } })();
 function forPointer(s) { return FINE && s ? s.replace(/\bTap\b/g, 'Click').replace(/\btap\b/g, 'click') : s; }
+function unsay() { say(''); }   /* for code where 'say' names the line's box */
 function say(s, wrap) { s = forPointer(s); const e = document.getElementById('say'); e.classList.toggle('aim', !!wrap); e.textContent = s; e.style.display = s ? 'block' : 'none';
   /* an aim or a refusal belongs to the turn it was said in (EYES [eyes: the stale line], 10/24: 'out of reach' stood through AUTO's
      next two rounds): the director clears it when the turn passes */
@@ -4014,6 +4090,7 @@ function startAnim(a) {
     else if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
     if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
     if (e.t === 'fled') { SND.flee(); if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
+    if (e.t === 'allflee' && !FIGHT.S.over) say(RETREAT_SAYS.ran);   /* rule 198(d): the chase is on, and the button that ends it */
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
 
@@ -5823,7 +5900,18 @@ function hud() {
   const subT = act ? act.sub : ''; if (sub.textContent !== subT) sub.textContent = subT;
   ['go', 'walk', 'shoot', 'hit', 'throw'].forEach(function (k) { be.classList.toggle(k, !!act && (k === 'go' || k === act.k)); });
   document.getElementById('bwait').disabled = dep || !mine || u.waited;
-  const bf = document.getElementById('bflee'); bf.disabled = dep || !mine || !!S.retreat; if (UI.fleeArm && !askUp(RETREAT_SAYS.arm, UI.fleeArm)) { UI.fleeArm = 0; bf.classList.remove('arm'); }
+  /* RETREAT IN EVERY FIGHT (rule 198(a), Paolo 10/25: 'I still cannot retreat'): measured, the button was dark whenever his man was
+     not the one up by his hand, so on AUTO (his favourite) and through every turn of theirs it could never be pressed; now it
+     takes the order at any moment of the fight once the line is set, and when every man of theirs left is running it is END THE
+     FIGHT (rule 198(d)) */
+  const bf = document.getElementById('bflee'), endIt = FIGHT.allFleeing(), bfT = endIt ? RETREAT_SAYS.endLabel : RETREAT_SAYS.label;
+  if (bf.textContent !== bfT) bf.textContent = bfT; bf.classList.toggle('end', endIt);
+  bf.disabled = dep || !!S.over || (!!S.retreat && !endIt) || !S.round;
+  /* the order is the fight's, not a turn's: its ask stays through the turns passing (on AUTO they pass in a second) for
+     ours.retreat_ask_beats, then leaves; another line in its place ends it too */
+  const bfAsk = endIt ? RETREAT_SAYS.end : RETREAT_SAYS.arm;
+  if (UI.fleeArm && askUp(bfAsk, UI.fleeArm) && performance.now() - UI.fleeArm > beatMs() * R('ours.retreat_ask_beats')) unsay();
+  if (UI.fleeArm && !askUp(bfAsk, UI.fleeArm)) { UI.fleeArm = 0; bf.classList.remove('arm'); }
   be.disabled = dep ? false : !mine;
   document.getElementById('bauto').classList.toggle('on', UI.auto);
   autoFace();
@@ -6411,12 +6499,14 @@ document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldC
    died, so the tap it asked for only armed it again, twice, 63 s with nobody moving): an arm lives as long as its ask is on the
    glass (it leaves when the turn passes or another line takes its place), and a tap the line asks for always does what it says */
 function askUp(ask, armedAt) { const e = document.getElementById('say'); return !!armedAt && e.style.display !== 'none' && e.textContent === forPointer(ask); }
-const RETREAT_SAYS = { arm: 'Retreat? Your men run for the nearest edge. Who reaches it gets out. No pay. Tap again.', go: 'RETREAT. Run for the edge.' };   /* draft:true */
+const RETREAT_SAYS = { label: 'RETREAT', endLabel: 'END THE FIGHT', arm: 'Retreat? Your men run for the nearest edge. Who reaches it gets out. No pay. Tap again.', go: 'RETREAT. Run for the edge.',
+  end: 'End the fight? Every one of them left is running: they get away, the fight is yours. Tap again.', ran: 'They are running. Run them down, or END THE FIGHT.' };   /* draft:true */
 document.getElementById('bflee').onclick = function () {
-  audio(); const u = FIGHT.current(), b = this, S = FIGHT.S;
-  if (S.over || S.deploy || S.retreat || !crewControlled(u)) return;
-  if (!UI.fleeArm || !askUp(RETREAT_SAYS.arm, UI.fleeArm)) { UI.fleeArm = performance.now(); b.classList.add('arm'); say(RETREAT_SAYS.arm, true); sfx('ui_tap'); return; }
+  audio(); const b = this, S = FIGHT.S, endIt = FIGHT.allFleeing(), ask = endIt ? RETREAT_SAYS.end : RETREAT_SAYS.arm;
+  if (S.over || S.deploy || !S.round || (S.retreat && !endIt)) return;
+  if (!UI.fleeArm || !askUp(ask, UI.fleeArm)) { UI.fleeArm = performance.now(); b.classList.add('arm'); say(ask); sfx('ui_tap'); return; }
   UI.fleeArm = 0; b.classList.remove('arm'); UI.pend = null; UI.skillMode = null; UI.back = null;
+  if (endIt) { FIGHT.endFight(); take(); hud(); return; }
   FIGHT.retreat(); say(RETREAT_SAYS.go); callSoon('retreat'); take(); hud();
 };
 document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };

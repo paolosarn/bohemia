@@ -152,6 +152,64 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-watch): 10/26 LATEST -- SIX ROWS ANSWERED ([the stupid-move watch] round one, [the job's stars], [AUTO kills one at a time]'s numbers, [a few women] + [four percent], [every weapon's range bands] SHIPPED, [the aim he sees] SHIPPED, [the recruit's ceiling]), research only, no card (rule 127), no game code touched;
+the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
+1 [the stupid-move watch] ROUND ONE, THE BEFORE (rule 188(b), standing): records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_ONE_10_26_26.md,
+  bank banks/BOHEMIA_TUNING_STUPID_MOVE_WATCH_10_26_26.json (one round per rules print), instrument tools/bohemia_tuning_stupid_move_watch.js
+  (replay one fight: --fight <shape> <k>; the resume cache in TUNING_CACHE, never the repo). 600 AUTO fights on rules print 64d2fbf44e2e,
+  six crew shapes (his rifle and two spear-and-car-door men, the Lone Wolf from the door, A New Crew, Desi's two-hand spear, the twelve,
+  the bench's spread), 17,714 turns. WORST FIRST: WINDED 802 turns (4.5 in 100; the Lone Wolf 47), LOW SHOT 237 of 6,160 choice shots,
+  SPREAD 140 of 3,986 rounds (the twelve 9.3 in 100), THE IDLE GUNMAN 288 turns, KEY MAN 9 of 494, NEVER STRUCK 11 of 921, LONE INTO
+  THREE 39 of 4,388 walks; holding near zero: parked 8, a blow left 0, the dance 11, free hits for nothing 3. Eight rows on COMBAT's
+  board for COMBAT TWO. No COMBAT TWO brain push landed during the round (checked 01:05 to 01:29): the after is next round's first job.
+  THE FINDING, A FORK FOR THE COORDINATOR: the worst wrong move is not the brain's. EYES' Lone Wolf (9 of 9 AP beside a hyena, twelve
+  turns) reproduced on the first fight: the bites build fatigue (struck +5, a dodge +2, Battle Brothers') faster than his 15 back, the
+  dogs act first, and he has no legal act (rule 180 bars Recover; the door gives him none). Against dogs only: as rolled 15 in 100,
+  lightest door kit 20, heaviest 11; Battle Brothers' answer as a research splice (Recover in place of Steel Brow, AUTO allowed that one
+  button) 44 in 100, winded turns 449 -> 0. Rule 180 against 176(a) and 183: his call, the options in the record's section 3.
+2 [the job's stars, the cut-offs] (rule 208): records/BOHEMIA_TUNING_THE_JOBS_STARS_CUT_OFFS_10_26_26.md, the one table's
+  section L, bank banks/BOHEMIA_TUNING_THE_JOB_STARS_10_26_26.json, instrument tools/bohemia_tuning_the_job_stars.js. 200 rolled jobs (six
+  crews, one to three skulls, every faction, WORLD's job_bb count) read the calculator's way and played 100 more times: ONE STAR AT 0.95,
+  THREE UNDER 0.50 on the fight's own 24-run clean read: no lie in 200 (one-star jobs pooled 99 clean, three-star 12); the draft
+  0.90 / 0.60 passes 208(f) but lies on 6; 208(f)'s pooled means pass every cut from 0.80 to 0.97, so the gate that bites is the lie
+  count and the flicker (9 jobs in 100 change star on a second 24-run read, 16 at 8: colour only after 24). Found: his crew loses its
+  two- and three-skull jobs (won 30 and 23); the skulls do not order the danger; A BIG CREW is rarely clean when it wins (the twelve,
+  one skull: won 97, nobody down 45), proposed reading for 208(a): nobody dead and at most one man in six laid up (the coordinator's).
+  The calculator is TRUE ([the odds keep up]): within 3 points in every band at 24 runs. RULE 201's numbers by crew size (the watch):
+  on the named target 80 / 70 / 60 percent (one to three / six / twelve men; today 81.0 / 73.3 / 56.2 on the most-struck man),
+  hurt and standing 1.0 / 1.2 / 1.3 (today 0.99 / 1.29 / 1.70), spread under 2 in 100 rounds. NOTE on WORLD's board. SECOND PASS IN
+  (8b02ed42, the 99 big-crew jobs with deaths and downs per run): the same cut-offs hold on the big-crew reading (no lying one-star
+  job); a man of the twelve dies in 35 of 100 of its jobs, 24 on a one-skull job it wins 97 times (two stars on that reading).
+3 [a few women at the post] (rule 203) + [four percent] (rule 214): records/BOHEMIA_TUNING_A_FEW_WOMEN_AT_THE_POST_THE_SHARE_10_26_26.md,
+  the one table's section M: post.women_share 0.04 HIS NUMBER (RUN THREE moved post_women.json, 262c23b0), the realistic 0.02 beside it;
+  at the posts a hundred-day game shows him about four women (one post of seven a week); a cause runs higher only if it preaches
+  equality (FARC 30 to 40, the Tamil Tigers 20 to 30, the Kurdish forces 35 to 40: the Anarchists' own crews proposed 0.20), a faith
+  runs fewer (Wood and Thomas 2017, Wood 2019: the Church at most 0.02); a post keeps the post's number whoever holds the town.
+4 [every weapon's range bands] SHIPPED 9c7fea99 (rule 187): records/BOHEMIA_TUNING_EVERY_WEAPONS_RANGE_BANDS_10_26_26.md, section N,
+  bank banks/BOHEMIA_TUNING_RANGE_BANDS_10_26_26.json, bench tools/bohemia_tuning_range_bands.js. Battle Brothers has no point-blank
+  penalty and no damage by distance; today the rifle is at its BEST at the next tile (70, its +15 with the first tile free), the
+  opposite of 187(a). Proposed: the pistol and the shotgun keep Battle Brothers' lines; the rifle -10 at the next tile; the shotgun's
+  damage whole to two tiles (buckshot about 0.6 inch a yard: on a torso to 25 yards), x0.6 at three, x0.35 at four; a scope row (none
+  exists) -20 / -10 close and -1 a tile. Measured on both sides as a research splice: his crew 58 -> 57 won, A New Crew 75 -> 72, the
+  twelve 81 -> 82 (noise). [the aim he sees] holds: shown and done within 3 points in every cell. NOTE on COMBAT's board.
+5 [the recruit's ceiling] (rule 216, the coordinator's NOTE) and KEY MAN LAST (EYES' line, d18e17ce: the Mechanic fell last of his
+  party or never in 24 of 74 fights; his crew 10 of 19, the Lone Wolf 9 of 10; a row on COMBAT's board): records/BOHEMIA_TUNING_THE_RECRUITS_CEILING_10_26_26.md, the one table's
+  section O, bank banks/BOHEMIA_TUNING_THE_RECRUIT_CEILING_10_26_26.json, bench tools/bohemia_tuning_the_recruit_ceiling.js. The formula
+  (L11 = rolled stat + 10 x the star column's midpoint on his kind's four; each star adds 5 by level 11); the weights MEASURED (+10 on
+  one stat of one kind, men struck down saved): melee skill 1, melee defence 0.41, ranged defence 0.38, hitpoints 0.35, fatigue 0.32;
+  ranged skill 1, MELEE DEFENCE 0.76, hitpoints 0.24, fatigue 0.24 (a gunman's second stat since rule 185 put the guns in reach: my own
+  10/25 gun plan left it out); shown as a rank, the kind named. 2,000 rolled halls: the stars alone pick the best man 47 in 100; price
+  says nothing (0.12), stars nothing about price (0.00); BARGAIN as written marks 3 of 7 in every hall, proposed: a top-fifth ceiling
+  at a price under the hall's median (one man in two halls, 89 of 100). NOTE for RUN THREE on RUN TWO's board.
+THE ONE TABLE: sections K (the watch's counts), L (the stars and rule 201's gate numbers), M (the women), N (the bands), hand-added at
+the end of records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md like F to J.
+NOT MEASURED: COMBAT TWO's brain (not pushed yet); the shotgun band on a crew (none of the six carries one); a phone's CPU; the trip's
+other fights in the stars (WORLD's part of 208(a)); the stars for the Lone Wolf against four dogs on a lighter job math.
+NEXT ON THE BOARD: [the stupid-move watch] round two on COMBAT TWO's push (the same 600 fights, before beside after), [the odds keep
+up] (standing), [the first week's losses], [the 32 situations].
+[bb the stars: Battle Brothers' skulls do not read the fight, ours read the fight's own dice; their Recover is the answer to the bites]
+[analog horror: a gauge of red stars that never lies, and a man in full armour standing still while the dogs eat his breath]
+[PENDING Paolo]: the winded fork (rule 180 against 176(a) and 183), through the coordinator.
 TUNING (tuning-every-origin): 10/25 LATEST -- [every origin starts like itself] SHIPPED (rule 184, research only, no card, no game
 code touched; the coordinator opened this chat under rule 112, no check-in, this block is the report; the page committed in pieces).
 RECORD: records/BOHEMIA_TUNING_EVERY_ORIGIN_STARTS_LIKE_ITSELF_10_25_26.md. BANKS (draft:true, nothing reads them):
@@ -1548,6 +1606,20 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-job-blood): 10/26 (k) LATEST -- *** [the job tells the truth, in blood] (rule 208) BUILT, NOT YET SEEN; [eyes: a done job comes back] (line 114) BUILT, NOT YET SEEN; [a job's time counts the way back] (rule 222) BUILT, NOT YET SEEN; EYES' line 79 note ANSWERED (rule 179: EYES' mark decides DONE). ***
+Commit effa8af7 (one squashed ship on main; WIP on world-job-blood). Record: records/BOHEMIA_WORLD_THE_JOB_TELLS_THE_TRUTH_IN_BLOOD_10_26_26.md. Demo BUILD 10/26f - THE JOB BLEEDS.
+(1) THE STARS ARE PLAYED: slices/bohemia_job_danger.js (new) reads the fight's own rules out of BOHEMIA_FIGHT.html (fight-data, fight-rules, oddsRunValue; never a copy, so COMBAT TWO's AUTO brain moves the stars) and plays every fight a job brings (BohemiaJobKinds.fightsOf: sure fights as the yes makes them, a twist at its rate, the road at the MEASURED rate, 1 crew in 260 game hours of travel, tools/bohemia_world_road_rate.js) on AUTO in a worker against his crew as the shell's own door (nfOpts) hands it. A play is worth the AUTO button's own count (rule 144(e)): clean 1, men down half the share standing, a death or a loss 0 ('weighted by how bad', the ruling's words), so the stars and the AUTO colour agree. 1 star at 0.95 or better, 3 under 0.50: TUNING's measured cut-offs (records/target/bb/job_danger.json; the draft 0.90/0.60 lied on 6 of their 200). A read within 0.12 of a line plays 32 more. Keyed on a fingerprint of the saved crew: reads again the moment the crew changes.
+(2) RED STARS (BohemiaMaterials.stars {red:true}, UI's file, marked) and CRASHBOX CLAY (tools/bohemia_world_job_blood.py, Blender 5.2 under the kit's sun; slices/job_blood 72 pictures: six stages, a/b stop-motion holds, three widths) on the town's board rows, the offer's TAKE IT (stars by the client's name), the phone's cards, the meet card's ENGAGE; one continuous scale; past a third the words get a hard bone outline.
+(3) THE MEET CARD COUNTS TRUE: every encounter's band rolled once at RUN's one door (rollInto), carried whole by the shell (nfOpts party.band) and dealt whole by the fight (three marked lines in COMBAT's rules); the card says the kind ('2 DIRE WOLVES', '1 KID', '2 MACHINES') and its YOU is the fight's own men. The '4 MEN' for two beasts was the shell's first-day line cutting the pack after the card had said it.
+(4) A FINISHED JOB IS GONE FOR GOOD (line 114): the board is handed every finished job and skips them (RUN TWO's boardHere and open(), the map's loopPostOpen; 500 kept, was 60).
+(5) THE ROSTER COUNTS WHO CAN FIGHT (line 79): never the dead, the taken or the laid-up until his day; three dead and four laid up of twelve size as five; the rescue sizes to YOU alone (3, EYES met 8).
+(6) A JOB'S TIME COUNTS THE WAY BACK (rule 222): paid in town = there and back (the map's own road home), paid away = there; 'about 4 hours there and back' / 'about 7 hours, paid there', '4 H ROUND TRIP' on the board's row; the danger reads the road both ways.
+PROOF: gates/the_job_tells_the_truth_gate.js on the live demo, 200 jobs x 100 plays in node: phone 7/0 (one star worth 96 in 100, worst 91; three stars 24; blood rank 0.95; twelve meet cards dealt id for id), computer 7/0 (97 / 25 / 0.95); at TUNING's cut-offs the same reads: one star 98 (worst 93), three 17, 1 single job of 200 off its line (10 at the draft). gates/a_jobs_time_counts_the_way_back_gate.js computer 6/0, phone 6/0. gates/the_roster_counts_who_can_fight_gate.js computer 6/0, phone 6/0. every_job_kind 37/0, meet_before_you_fight 8/0 (its card regex reads the kinds), demo_build 25/0. My lane's eight gates registered in gates/bohemia_gates.py (seven were orphans; none of mine left); the suite's floor (78.7 min) and pages publish (2 red: other folders, the size cap) are red on main the same.
+FOUND, FOR TUNING: with the AUTO count a big company reads three stars on most jobs (twelve at level six: 37 of 50); more men is not safer, the job grows with him and more can go down (J6: 7 of 10 of the Lone Wolf's jobs read differently with six men, 4 harsher).
+NOTES LEFT: UI, TUNING, COMBAT, COMBAT TWO, RUN, RUN TWO, EYES (each on its board). Rule 212 takes the jobs off the phone: the phone's hook is harmless when the cards go; the board, the offer and the meet card keep the blood.
+[bb contracts] Battle Brothers shows skulls from the contract's difficulty against the company's strength and never plays them (his 'weak point'); ours plays every fight the job brings against the men as they stand.
+[analog horror] the blood is clay under one hard sun, dried dark at the rim, re-posed a beat at a time: a stop-motion hold, never a glow.
+NEXT: EYES' marks on lines 129, 114, 79, 144; the coordinator's call on TUNING's big-crew reading (nobody dead, at most one in six laid up); [the leg onto main] still waits on FACTIONS' seats.
 WORLD (world-place-in-the-dark): 10/25 (j) LATEST -- *** [eyes: the place in the dark] and [the roster scales the enemy] BUILT, NOT YET SEEN (rule 179: EYES' mark decides DONE); the coordinator's NOTE (Grok 118, the 17 by kind) taken into [the three sizes of place]. ***
 Commits c72af305 (the place in the dark + the roster said), 889ec31f (the region's two cities), and the board commit. Record: records/BOHEMIA_WORLD_THE_PLACE_IN_THE_DARK_THE_ROSTER_SAID_AND_THE_SIZES_10_25_26.md.
 (1) THE PLACE IN THE DARK (line 56): every place a job names (the phone's two, the card he lit, the jobs held; the client's town and the real place: PRIMM, the dam, the pass, the lodge, the fossil beds) opens in the fog with SHOW THE TOWNS' circle (fogReveal r 1.6, kept), named at every zoom, the lit town ringed; off the glass 'JOB AT REMNANTS' / 'TO PRIMM' at the edge with an amber point drawn over the fog, never under the phone; a touch walks there (townTap). WHY IT WAS MISSED: the names were for held jobs only, the fog skipped a town before asking, and the_jobs_part_gate ran with the fog lifted (every gate's default).
@@ -2394,6 +2466,28 @@ lane's to drive.
 
 TAB: NOT IN VOTE -- a correction and a note, not a look.
 PENDING Paolo: nothing.
+WORDS (words-feed): 10/26 (o) LATEST -- [the feed's words] and [the usernames tell the story] (rules 215(f), 217), both CLAIMED
+and waiting on two things not mine: FEED's file and EYES' read. Lifted from rule 88's hold for the feed only.
+THE WORDS: banks/BOHEMIA_WORDS_THE_FEED_BANK.json, built by tools/words_feed/build_feed_bank.py from feed_accounts.py,
+feed_posts_part1.py, feed_posts_part2.py (never edit the JSON). 64 kinds in 215(c)'s shape (13 what you did, every deed 215(a)
+names; 35 what the world did incl. each faction page's notice and claim; 16 the city's life incl. the ASK, the stranger, the
+scanner, five bots), 9 reply rows, 5 follow-up rows (every big kind both), 436 lines, 217 Spanglish twins (feed_twins.py; the gate holds half), 104 tagged 'ah'.
+THE HANDLES: 52 accounts, a handle first, face slot empty (217a): 29 people (24 carry their trade, 7 digits, the 8 old handles
+kept with a person behind each), 11 faction pages (clean names with the faction's word), the scanner page, his company
+({companyhandle}), 5 burners, 5 bots still posting after their owners left (answered by people); act two and three handles on
+every account. For FEED in the file: faction_says (every faction a plural, so verbs agree), casing, who, how_to_speak.
+GATE: THE FEED'S WORDS (gates/feed_words_gate.js, registered, 1 s) 5018/0; a path argument checks FEED's file; 16 mutations red.
+W13: a paced 40,000-post feed through the real dial at 13.7 Spanglish in 100; his page and the bots never.
+THE READS: two filled hours caught 'the road crews still has the road' and 'the Bone Saints was': fixed at the root (plurals,
+no agreeing verb after his name) and both now gate legs. Record records/BOHEMIA_WORDS_THE_FEED_TALKS_AND_THE_HANDLES_10_26_26.md
+(the research, cited and honest where thin; a sample hour in section 8). NOTEs on FEED's, UI's (for UI TWO) and EYES' boards.
+TAB: NOT IN A TAB YET (the FEED app is UI TWO's; the stream is FEED's). No card (rule 127).
+NOT TOUCHED: engine/bohemia_feedstream.js, FEED's triggers and pacing, the demo. GATE REGISTRY red on main before this round
+(21 other lanes' orphans; mine registered). CANON ROT, REFERENCE CHECK, REUSE-FIRST reds name none of this round's files.
+[bb]: Battle Brothers' world news is a tavern rumour bought with a round of drinks; ours is free, signed by a handle, argued in the replies.
+ANALOG HORROR: the bots are the old world on a schedule; "i went to the stop. i waited the minutes. nothing came."
+NEXT: when FEED's file lands, check it with the gate and fill any kind it adds; then EYES' hour; then more twins (217 of 389 people's lines have one).
+
 WORDS (words-spanglish): 10/24 (n) LATEST -- [spanglish at ten percent, and the personalities] SHIPPED 5e3459c0 (rule 143(a)(c)(d)).
 SPANGLISH: one dial for every mouth (engine/bohemia_spanglish.js): every line rolls, a man leans 10 percent, one in five 25, a
 valley Spanish speaker always leans, never the player. Wired: the fight's veteran (teach), COMBAT's crew calls (regFor), the

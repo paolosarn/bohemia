@@ -20,7 +20,7 @@ const OUT = path.join(ROOT, 'records/target/cook_map_colour', 'painted_' + LABEL
 (async () => {
   process.chdir(ROOT);
   fs.mkdirSync(OUT, { recursive: true });
-  const d = await D.open({});
+  const d = await D.open(process.env.COOK_FOG === 'off' ? { fog: false } : {});   /* COOK_FOG=off: the fog lifted, to look at a place the crew has not reached */
   for (let i = 0; i < 120; i++) {
     const ok = await d.fr.evaluate(() => { try { if (typeof vbReady === 'function') vbReady(); return !!(VB && VB.day && VBC && VBC.day); } catch (e) { return false; } });
     if (ok) break; await d.page.waitForTimeout(500);

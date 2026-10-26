@@ -2788,6 +2788,35 @@ GATES = [
      'too"). On the demo, his computer\'s screen: nine hired at the hall grow every job\'s party; the carts go to the real '
      'PRIMM, named and marked, its name at the glass\'s edge, and arrive; a dropped job costs the client town\'s bar -10; '
      'EYES round 2: the client says paid when it lands; a click on a region place\'s name opens it.', True),
+    ('THE JOB TELLS THE TRUTH, IN BLOOD', ['node', 'gates/the_job_tells_the_truth_gate.js'],
+     'WORLD [the job tells the truth, in blood], rule 208 (PAOLO 10/25: "the stars are red, and the button itself looks bloody '
+     'depending on how difficult the job is... not really accurate, so try to be accurate"). The live demo on the phone profile: '
+     'four crews (the Lone Wolf on day one to twelve men at level six), 200 jobs off the valley\'s boards, each read in the page '
+     '(every fight it brings rolled by the fight\'s own setup and played on AUTO against that crew), then each played again 100 '
+     'times with fresh dice in node on the fight\'s own rules: a one-star job worth 85 in 100 or better, a three-star job under '
+     '65, the blood ranked with the danger and painted as read, the meet card\'s count dealt id for id, the stars moving with '
+     'the crew.', True),
+    ('A JOB\'S TIME COUNTS THE WAY BACK', ['node', 'gates/a_jobs_time_counts_the_way_back_gate.js'],
+     'WORLD [a job\'s time counts the way back], rule 222 (PAOLO 10/26: "you have to include the time it takes to get back, if you '
+     'need to get back"). On the demo: 100 rolled jobs, paid in town there and back, paid away only there, the time the map\'s own '
+     'road and clock counted step by step; his words on the offer and the phone; ROUND TRIP on the board; the danger reads the road '
+     'both ways; one job walked out and home on the clock.', True),
+    ('THE ROSTER COUNTS WHO CAN FIGHT', ['node', 'gates/the_roster_counts_who_can_fight_gate.js'],
+     'WORLD, EYES lines 79 and 114 (BUILD 10/25x: sized to 13 with six able, a wipe; the rescue sent eight at YOU alone; a paid '
+     'job offered again at once). On the demo: the dead, the taken and the laid-up are never counted; the meet card\'s YOU is '
+     'the men the fight stands; a finished job is not on the town\'s board or the phone.', True),
+    ('MOST JOBS FIT THE COMPANY', ['node', 'gates/most_jobs_fit_the_company_gate.js'],
+     'WORLD [most jobs fit the company], rule 192: Battle Brothers\' contract math on his strength, the win rate per skull held '
+     'on the live fight at day 1, 20, 50, 90.', True),
+    ('THE TRIP BEFORE THE YES', ['node', 'gates/the_trip_before_the_yes_gate.js'],
+     'WORLD [a job says how far], rule 186(c): every job offered says the trip before he takes it, and the trip shown is the '
+     'trip walked.', True),
+    ('THE PLACE IN THE DARK', ['node', 'gates/the_place_in_the_dark_gate.js'],
+     'WORLD [eyes: the place in the dark], line 56: every place a job names opens in the fog and is named at every zoom.', True),
+    ('THE ROSTER SCALES THE ENEMY', ['node', 'gates/the_roster_scales_the_enemy_gate.js'],
+     'WORLD [the roster scales the enemy], rule 164 item 26: a full roster meets a bigger party, and the meet card says why.', True),
+    ('THE REGION HAS ITS CITIES', ['node', 'gates/the_region_has_its_cities_gate.js'],
+     'WORLD [the three sizes of place]: PAHRUMP and BOULDER CITY are the region\'s two cities, drawn and entered.', True),
     ('EVERY FIGHT HANDS HIM BACK', ['node', 'gates/every_fight_hands_him_back_gate.js'],
      'VAMILY [fight returns], rule 57 (PAOLO 10/1, having played the demo: "combat didn\'t end so I couldn\'t '
      'get back into the overworld"). REPRODUCED: a road fight (the toll crew) ran 60 s of SHOOT and 60 s of '
@@ -9377,6 +9406,8 @@ GATES = [
      'COMBAT [the pistol is never a club], rule 195 (Paolo 10/25: "the game still says the pistol is a club at one tile I never asked for that shit"). The gun\'s butt (clubFor, armIn, ours.gun_club) and the WHIP button are gone from the fight and its data; no fight string calls a gun a club, a butt or a whip; 120 rolled fights (his crew from his words, a pistol crew, TUNING\'s crews, AUTO both sides): not one gun blow as a club, shots at the next tile; his gunmen with no shot reload, stand or move and never swap his bag (rule 180(g)); on his phone and his computer a pistol beside a thug shoots him (SHOOT, no WHIP square, the card reach 1 to 4 tiles), and empty it is refused for the round with RELOAD big.', False),
     ('GEAR NEVER VANISHES', ['node', 'gates/gear_never_vanishes_gate.js'],
      'COMBAT [gear never vanishes], rule 191(b) (Paolo 10/25: "in the first fight I had my spear and car-door shield, and in the third fight it disappeared, it was so creepy"). His whole path ten fights in a row (the real crew screen with real drags, the game\'s own door cut from the demo, the real fight on AUTO, the shell\'s after-keeper, the crew screen again): a militia spear and a car door in his hands in every fight he stands in, on the crew screen and in the hand-over after each; off the line only when the fight takes him, said. Measured: the cause was the NAME (a two-handed Warfork was a \'rebar spear\'; RUN TWO 18356e3f). On his phone and computer: a two-hander out of the bag puts the door on his back and the fight says it, blaming the weapon (rule 194(c)); back on his arm, said; the open and the card say it too.', True),
+    ('RETREAT AND THE ROUT, A CHASE', ['node', 'gates/retreat_and_the_rout_a_chase_gate.js'],
+     'COMBAT [retreat and the rout, a chase], rule 198 (Paolo 10/25: "I still cannot retreat, and when the enemy wants to retreat it\'s not guaranteed, it\'s not just one thing that ends; they have to try to run away from us and we\'re getting free hits on them if they\'re in our melee range of control or range of fire... it\'s not finished"). Before: the fight was won the moment the last man of theirs broke (102 broke in 70 AUTO fights, 51 ever caught), no free shot existed, RETREAT was dark on AUTO and through their turns. Headless, 105 rolled AUTO fights: every man who breaks stays on the board and on his turns runs (nearer the edge, off it, caught or held); every fight ends with them down or off the board, by END THE FIGHT while all run, or with his side gone; free swings on leaving a zone and one free shot crossing a ready gun\'s reach, once a runner a turn and once a gunman a round; END THE FIGHT refused while one fights; AUTO runs down what it can catch and ends a chase it cannot. On his phone and computer: RETREAT lit and ordered with two taps while AUTO plays a man of theirs, YOU PULLED OUT; with every one of theirs running the button is END THE FIGHT, two taps win it.', False),
     ('WALK THROUGH YOUR OWN MEN', ['node', 'gates/walk_through_your_own_men_gate.js'],
      'COMBAT [walk through your own men], rule 199 (Paolo 10/25, his new rule: "any teammate can walk through another teammate at all times... each tile is not the size of a human"). Before: through one of his own, never two in a row (rule 70), a diagonal between two of his men a squeeze, AUTO\'s walk field walled by every friend. Headless on 28 rolled boards, the man up boxed in by two rings of his own men: every tile past them reached in one move at the AP the empty board asks, his finger\'s rules and the brains\', and walked for real; no tile he may end on holds a friend, and held by a free swing on a friend\'s tile in a file of three the two never share it; an enemy\'s tile is never on a way and his zone still bites; rolled AUTO fights walk through a file of their own men, no two men on a tile after any act. On his phone (tap) and computer (click): the tile past a block of his men two deep is lit and he walks straight through two of them at the normal cost.', False),
     ('A FAR TILE WALKS AS FAR AS HE CAN', ['node', 'gates/a_far_tile_walks_as_far_as_he_can_gate.js'],
@@ -9852,12 +9883,36 @@ GATES = [
      "RUN TWO gate, 10/25, row [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). "
      "MEASURED before: no woman's body exists (71 people 'm', 81 unset, all on the master rig, a man's), and the unset 81 rolled their names 50/50 (405 of 810 rolled names read as women's): men wore women's names. "
      "HOLDS: the file (his 4 percent since rule 214, 10/26, RUN THREE [four percent]; the realistic 2 beside it; TUNING's one table row post.women_share the same number); NOW 10,000 rolled hires give 0 women and no man at a post, a keeper or the crowd wears a woman's name; the machine, a woman's body handed in for the test, gives the share within its noise, each her body and her name, no man's roll moved. about 1 min", True),
+    ('THE STRIP READS AS THE STRIP', ['node', 'gates/the_strip_reads_as_the_strip_gate.js'],
+     "COOK gate, 10/26, row [the Strip close in] (line 64 of his list: EYES 10/25 'the freeway reads as a freeway close in; the Strip NOT LOOKED AT'; rule 164 "
+     "items 11 and 30, Paolo 10/24: 'the freeway and the Strip still look bad'). Looked at before: close in a wide road between stepped grey boxes, its signs tan "
+     "pillars, a downtown. The painter's own resort run on its own (the Y on three wings, the arc concave to the Strip with its lake, the slab along the Boulevard, "
+     "the marquee and porte-cochere on the front and none on a back, the pool drained), the demo's own painting counting it (every resort facing the Boulevard its "
+     "marquee, three in five in their own shapes, the pools, the sign boards) and the demo's map on the glass at the near stop (the marquees' faded rose and teal; "
+     "no rainbow). About 2 min", True),
     ('EVERY ENEMY READS AT NIGHT', ['node', 'gates/every_enemy_reads_at_night_gate.js'],
      "COOK gate, 10/25, row [every enemy reads at night] (line 3 of his list; EYES 10/25 q43: 'the one Kid stood on a dark tile at night and was never drawn'; "
      "rule 73: playable in the dark). The fight page itself, the strip, the suburb and the freeway by day and by night, seed 31: every look an enemy can wear "
      "(the Kids and Runners, the Mechanic, the Heavy, the 13 gangs, the rolled people, the beasts) standing, through the page's own night for a man and the lift it "
      "picks for him on that tile, against every unlit tile a man stands on: 1.4 to 1 or more on the worst tenth (it was 1.04, the Kids 1.08: the moon's lift can only "
      "darken, and a dark tile is a dark man's own light), nine tenths of its day's or 2 to 1 and over, and the old pick (the tile's light alone) caught. About 4 min", True),
+    ("THE FEED'S WORDS", ['node', 'gates/feed_words_gate.js'],
+     "WORDS gate, 10/26, rows [the feed's words] and [the usernames tell the story] (rule 215(f), Paolo 10/26: 'we have a whole words [chat] that's part of that... organize it properly so every time we upgrade it gets better, realistic vibes'; rule 217: 'the usernames can tell a real awesome story in a very short amount of words'). "
+     "Headless over banks/BOHEMIA_WORDS_THE_FEED_BANK.json (built by tools/words_feed/build_feed_bank.py; a path argument checks another copy): every kind five variants or more and draft:true; every deed 215(a) names its own kind; every who resolves, every voiced faction its page, every region place one of its people; "
+     "every account a handle, none alike in any act, no portrait yet, a page's handle its faction's word, two thirds of people's handles their trade; his page and the bots never Spanglish on the dial; the English carries no Spanish and every twin does (the people engine's one lexicon); "
+     "Q15: never 'somebody', every human line names or talks to a person; no machine words, never a joke at the player; no two lines alike; every fill declared and used; 170 characters; every big kind a reply and a follow-up, every bot answered; a paced 40,000-post feed through the real dial at 10 to 15 Spanglish in 100 (13.7); half the people's lines their own twin (217 of 389); a faction always a plural verb, none that must agree after his company's name. "
+     "Sixteen mutations each turn it red. 1 s", False),
+    ('EVERY TOWN IS BUSY', ['node', 'gates/every_town_is_busy_gate.js'],
+     "RUN TWO gate, 10/26, row [eyes: the quiet town] (rule 131, Paolo 10/23: 'characters you can't even interact with walking around the settlement, doing something, doing important things'; EYES 10/25: Blues one person standing, an empty dark band under the picture). "
+     "MEASURED before: 6 of the 14 places sick that week, each cut to ONE man and ONE walker; the phone showed the picture at half the glass's height, a person 45 points tall. "
+     "HOLDS on the demo through the map's door: every one of the 14 places has at least three on its paths, two seen walking and one at work over six seconds, a crowd, nobody alone in a sick or raided place; the computer, three places (the dark band is rule 218(c)'s [the town fits the screen]). about 7 min", True),
+    ('THE BLOOD IS CRASHBOX', ['node', 'gates/the_blood_is_crashbox_gate.js'],
+     "UI gate, 10/26, rows [the blood is CRASHBOX] and [the job tells the truth, in blood] (rule 208(c), PAOLO 10/25: 'the button itself looks bloody depending on how difficult the job is... "
+     "the button looking like some crashbox blood filter'; 'not Crash Bandicoot, Crashbox'). MEASURED before: no button could bleed. The pictures: 8 stages x 5 pieces of red clay rendered through the kit's sun, "
+     "camera and post on Cycles with a shadow catcher; every pixel opaque or the one shadow value, 95 in 100 red; every stage holds the one before (95 in 100), the blood on a button rises every stage, the last darker; "
+     "bloodStage clean to 2 percent, soaked from 70, monotonic, every stage reachable. On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
+     "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held (250 ms, 150 or more measured); the halo from stage 5; on the glass soaked a third red or more, one star under a twentieth; "
+     "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

@@ -7,8 +7,9 @@
 
    On the demo, his phone: every job shows one to three stars from its real party against his company, the same rule as a
    party's plate (partySkulls on partyMath's count), on the phone and at the town's board, and never a skull.
-     S1 the rule: for one, two and three skulls the stars are the skulls (WORLD 10/25, rule 192(a); was partySkulls of the count)
-     S2 a bigger company keeps the job's stars and meets a bigger party under them (the party is sized from the skulls on him)
+     S1 the rule: UNTIL A JOB IS PLAYED its stars are its skulls (WORLD 10/25, rule 192(a)); once played they are the danger read
+        (WORLD 10/26, rule 208: gates/the_job_tells_the_truth_gate.js holds those against 100 plays a job)
+     S2 a bigger company keeps an unplayed job's stars and meets a bigger party under them (the party is sized from the skulls on him)
      S3 the phone's two posts carry those stars (data-stars and the UI's star, one mark each)
      S4 the town's board: every client's row carries the same stars in the UI's star and no skull glyph
      S5 nothing threw
@@ -38,7 +39,7 @@ const done = () => { console.log('\nTHE JOB\'S STARS GATE: ' + pass + ' passed, 
     const shown = (window.__PHONE_BOARD || {}).shown || [];
     return { rule, before, after, nBefore, nAfter, posts, shown };
   });
-  ok('S1 the rule: a job\'s stars are its skulls (rule 192(a))', r.rule.every(x => x.got === x.want && x.got >= 1 && x.got <= 3), r.rule.map(x => x.sk + ' skull ' + x.n + ' men ' + x.got + ' star').join(', '));
+  ok('S1 the rule: an unplayed job\'s stars are its skulls (rule 192(a); a played job\'s are its read, rule 208)', r.rule.every(x => x.got === x.want && x.got >= 1 && x.got <= 3), r.rule.map(x => x.sk + ' skull ' + x.n + ' men ' + x.got + ' star').join(', '));
   ok('S2 a bigger company keeps the stars and meets a bigger party under them', r.after.every((v, i) => v === r.before[i]) && r.nAfter.every((v, i) => v >= r.nBefore[i]) && r.nAfter.some((v, i) => v > r.nBefore[i]),
     r.before.join('') + ' -> ' + r.after.join('') + ' stars; ' + r.nBefore.join('/') + ' -> ' + r.nAfter.join('/') + ' men with six hired');
   ok('S3 the phone\'s posts carry those stars, one mark each', r.posts.length >= 1 && r.posts.every(p => p.stars >= 1 && p.stars <= 3 && p.marks === p.stars) && r.shown.every(s => s.stars === Math.max(1, Math.min(3, s.stars))),

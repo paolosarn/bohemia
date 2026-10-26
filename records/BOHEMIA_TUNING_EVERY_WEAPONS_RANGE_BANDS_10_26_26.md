@@ -41,6 +41,10 @@ FINDINGS:
 - [the aim he sees] HOLDS: the chance the tile shows and the chance the dice deliver agree within 3 points in every cell (the
   largest gaps, -2.4 at six tiles and +2.8 at four, are one shared dice stream about two standard errors out; resolveAttack hits
   when its roll of 1 to 100 is at or under the shown chance, so the two agree by construction).
+- BESIDE BATTLE BROTHERS' BEGINNER AIM (the row's ask): every shown chance above already carries Battle Brothers' Beginner shift,
+  +5 on his men's roll (ours.hit_roll_shift by_difficulty 5 / 5 / 0 / -5, rule 117(a): the door's default is Beginner): the level-2
+  rifleman's 70 at the next tile is 50 skill - 0 defence + 15 (Shoot Bolt) + 5 (Beginner); on Battle Brothers' Veteran it reads 65,
+  on Expert 60. The number on the tile is the Beginner number, and the dice deliver it.
 - THE RIFLE IS AT ITS BEST POINT-BLANK TODAY (70 at the next tile, 55 at six): the opposite of his "a range debuff" one tile out.
   Battle Brothers' crossbow line does that: +15 with the first tile free.
 - THE SHOTGUN is 65 at one and 55 at two: deadliest close only because of its 35 to 75 damage; nothing in it falls off with

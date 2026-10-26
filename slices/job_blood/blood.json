@@ -1,0 +1,206 @@
+{
+ "_about": "WORLD [the job tells the truth, in blood] (rule 208(c)): the clay on the job button, three widths, six stages, a and b each (the stop-motion hold). tools/bohemia_world_job_blood.py",
+ "height": 64,
+ "shapes": {
+  "n": [
+   160,
+   64
+  ],
+  "m": [
+   256,
+   64
+  ],
+  "w": [
+   640,
+   64
+  ]
+ },
+ "stages": 6,
+ "sun": {
+  "screen_deg": 155.4,
+  "elev_deg": 40.0
+ },
+ "seed": 2081025,
+ "pictures": {
+  "n0a": {
+   "clay": 0.0263,
+   "shadow": 0.009,
+   "middle_band_clay": 0.0074
+  },
+  "n0b": {
+   "clay": 0.0262,
+   "shadow": 0.0089,
+   "middle_band_clay": 0.0054
+  },
+  "n1a": {
+   "clay": 0.1134,
+   "shadow": 0.0283,
+   "middle_band_clay": 0.0935
+  },
+  "n1b": {
+   "clay": 0.1096,
+   "shadow": 0.0285,
+   "middle_band_clay": 0.094
+  },
+  "n2a": {
+   "clay": 0.2183,
+   "shadow": 0.0356,
+   "middle_band_clay": 0.1036
+  },
+  "n2b": {
+   "clay": 0.2228,
+   "shadow": 0.035,
+   "middle_band_clay": 0.1107
+  },
+  "n3a": {
+   "clay": 0.3188,
+   "shadow": 0.0504,
+   "middle_band_clay": 0.1958
+  },
+  "n3b": {
+   "clay": 0.3293,
+   "shadow": 0.0501,
+   "middle_band_clay": 0.2057
+  },
+  "n4a": {
+   "clay": 0.4637,
+   "shadow": 0.062,
+   "middle_band_clay": 0.389
+  },
+  "n4b": {
+   "clay": 0.4646,
+   "shadow": 0.0637,
+   "middle_band_clay": 0.3902
+  },
+  "n5a": {
+   "clay": 0.6506,
+   "shadow": 0.0733,
+   "middle_band_clay": 0.5521
+  },
+  "n5b": {
+   "clay": 0.6523,
+   "shadow": 0.0715,
+   "middle_band_clay": 0.5482
+  },
+  "m0a": {
+   "clay": 0.0166,
+   "shadow": 0.0063,
+   "middle_band_clay": 0.0045
+  },
+  "m0b": {
+   "clay": 0.0173,
+   "shadow": 0.0053,
+   "middle_band_clay": 0.0035
+  },
+  "m1a": {
+   "clay": 0.071,
+   "shadow": 0.0181,
+   "middle_band_clay": 0.0582
+  },
+  "m1b": {
+   "clay": 0.0693,
+   "shadow": 0.0179,
+   "middle_band_clay": 0.0588
+  },
+  "m2a": {
+   "clay": 0.169,
+   "shadow": 0.0276,
+   "middle_band_clay": 0.0645
+  },
+  "m2b": {
+   "clay": 0.1724,
+   "shadow": 0.0275,
+   "middle_band_clay": 0.0716
+  },
+  "m3a": {
+   "clay": 0.2531,
+   "shadow": 0.0396,
+   "middle_band_clay": 0.1224
+  },
+  "m3b": {
+   "clay": 0.2602,
+   "shadow": 0.0395,
+   "middle_band_clay": 0.1259
+  },
+  "m4a": {
+   "clay": 0.3792,
+   "shadow": 0.0486,
+   "middle_band_clay": 0.2956
+  },
+  "m4b": {
+   "clay": 0.381,
+   "shadow": 0.0477,
+   "middle_band_clay": 0.303
+  },
+  "m5a": {
+   "clay": 0.5177,
+   "shadow": 0.0629,
+   "middle_band_clay": 0.3996
+  },
+  "m5b": {
+   "clay": 0.5251,
+   "shadow": 0.064,
+   "middle_band_clay": 0.4027
+  },
+  "w0a": {
+   "clay": 0.0127,
+   "shadow": 0.0047,
+   "middle_band_clay": 0.0028
+  },
+  "w0b": {
+   "clay": 0.0131,
+   "shadow": 0.0047,
+   "middle_band_clay": 0.0023
+  },
+  "w1a": {
+   "clay": 0.0551,
+   "shadow": 0.0129,
+   "middle_band_clay": 0.0466
+  },
+  "w1b": {
+   "clay": 0.0536,
+   "shadow": 0.0132,
+   "middle_band_clay": 0.0443
+  },
+  "w2a": {
+   "clay": 0.1503,
+   "shadow": 0.023,
+   "middle_band_clay": 0.0516
+  },
+  "w2b": {
+   "clay": 0.1512,
+   "shadow": 0.0219,
+   "middle_band_clay": 0.0519
+  },
+  "w3a": {
+   "clay": 0.2285,
+   "shadow": 0.035,
+   "middle_band_clay": 0.0996
+  },
+  "w3b": {
+   "clay": 0.2318,
+   "shadow": 0.0352,
+   "middle_band_clay": 0.0992
+  },
+  "w4a": {
+   "clay": 0.3467,
+   "shadow": 0.0421,
+   "middle_band_clay": 0.2519
+  },
+  "w4b": {
+   "clay": 0.3536,
+   "shadow": 0.0418,
+   "middle_band_clay": 0.2566
+  },
+  "w5a": {
+   "clay": 0.4728,
+   "shadow": 0.0536,
+   "middle_band_clay": 0.3324
+  },
+  "w5b": {
+   "clay": 0.4789,
+   "shadow": 0.0544,
+   "middle_band_clay": 0.3366
+  }
+ }
+}

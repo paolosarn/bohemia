@@ -1,0 +1,181 @@
+{
+ "label": "strip_after",
+ "stops": [
+  "s0_far",
+  "s1_district",
+  "s2_opening",
+  "s3_mid",
+  "s4_step",
+  "s5_near"
+ ],
+ "towns": {
+  "44,40": {
+   "s0_far": {
+    "TW": 1.9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 47,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/44_40_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 18,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/44_40_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 11,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/44_40_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 5,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/44_40_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 4,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/44_40_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 0,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/44_40_s5_near.png"
+   }
+  },
+  "43,49": {
+   "s0_far": {
+    "TW": 1.9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 47,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_49_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 20,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_49_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 10,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_49_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 3,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_49_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_49_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_49_s5_near.png"
+   }
+  },
+  "43,59": {
+   "s0_far": {
+    "TW": 1.9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 46,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_59_s0_far.png"
+   },
+   "s1_district": {
+    "TW": 9,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 22,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_59_s1_district.png"
+   },
+   "s2_opening": {
+    "TW": 18,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 6,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_59_s2_opening.png"
+   },
+   "s3_mid": {
+    "TW": 32.4,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 4,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_59_s3_mid.png"
+   },
+   "s4_step": {
+    "TW": 46.8,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 2,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_59_s4_step.png"
+   },
+   "s5_near": {
+    "TW": 85.3,
+    "painted": false,
+    "tier": null,
+    "n": null,
+    "drewPainted": 1,
+    "tilesWaiting": 0,
+    "shot": "records/target/cook_map_colour/painted_strip_after/43_59_s5_near.png"
+   }
+  }
+ }
+}

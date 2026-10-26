@@ -53,7 +53,9 @@ const srv = http.createServer((rq, rs) => {
     (counts[tier].moved = moved.map(m => Math.round(m))), (counts[tier].stopped = stopped.filter(Boolean).length);
   }
   const T = Object.keys(counts);
-  ok('B1 every place has people walking its paths: more on market day, fewer at night, one at most when raided', T.every(t => counts[t].day >= 2 && counts[t].market > counts[t].day && counts[t].night < counts[t].market && counts[t].raided <= 1),
+  /* RE-AIMED 10/26 (RUN TWO [eyes: the quiet town], rule 131: EYES saw Blues with one man in it): a raid halves the walkers, the wiki's
+     card's own share, never under three by day (a home base keeps its own count) */
+  ok('B1 every place has people walking its paths: more on market day, fewer at night, a raid thins them but never to one', T.every(t => counts[t].day >= 2 && counts[t].market > counts[t].day && counts[t].night < counts[t].market && counts[t].raided <= counts[t].day && counts[t].raided >= (t === 'home' ? 1 : 3)),
     T.map(t => t + ' ' + ['day', 'market', 'night', 'raided'].map(k => counts[t][k]).join('/')).join(', '));
   ok('B2 each is a rolled walker, and nobody on the screen is anybody else (keepers, crowd and walkers)', twice.length === 0 && unrolled.length === 0, (twice.concat(unrolled).slice(0, 3).join('; ')) || 'all different, all rolled');
   ok('B3 they move: every walker travels his lane in twelve seconds and stops at an end of his round', T.every(t => counts[t].moved.every(m => m > 150) && counts[t].stopped >= 1), T.map(t => t + ' ' + counts[t].moved.join(',') + ' px, ' + counts[t].stopped + ' stopped').join('; '));

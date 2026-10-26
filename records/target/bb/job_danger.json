@@ -1,0 +1,63 @@
+{
+ "_about": "WORLD [the job tells the truth, in blood] (rule 208). The numbers a job's stars and blood are read with (slices/bohemia_job_danger.js). A modder's file: every felt number here is TUNING's for the one table; the cut-offs are a COORDINATOR'S DEFAULT (rule 205), his to kill.",
+ "runs": {
+  "value": 32,
+  "source": "OURS: AUTO plays of each fight a job brings, in a worker off the frames (the AUTO button reads 24, rule 144; a job is read once and kept, so more)"
+ },
+ "prior": {
+  "value": 1,
+  "source": "OURS: the read is (clean + 1) / (runs + 2), a whisper of doubt either way, so 32 of 32 is never a certainty"
+ },
+ "cut_one": {
+  "value": 0.95,
+  "source": "TUNING [the job's stars, the cut-offs] 10/26 (records/BOHEMIA_TUNING_THE_JOBS_STARS_CUT_OFFS_10_26_26.md, the one table's section L): one star when the read is 0.95 or better: no lie in 200 rolled jobs played 100 more times (the coordinator's draft 0.90 lied on 6). Rule 208(b): TUNING sets them."
+ },
+ "cut_three": {
+  "value": 0.5,
+  "source": "TUNING [the job's stars, the cut-offs] 10/26 (same record): three stars under 0.50 (the draft 0.60 lied on 6)."
+ },
+ "road_per_hour": {
+  "value": 0.0038,
+  "source": "MEASURED by tools/bohemia_world_road_rate.js on the live demo (his computer's screen, 10/26): 260 game hours of travel over 130 trips town to town, 1 crew came for him (the map's forced road events, huntSpawn) and 0 reached him while he kept walking (roads are his, they close only on dirt). The stars count the crews that COME (1 in 260 hours), the honest upper end of the ones that catch him; a party he taps himself is his choice and not counted. Re-run the tool when the road sends more.",
+  "measured": {
+   "at": "2026-10-26",
+   "hours": 260.1,
+   "trips": 130,
+   "spawned": 1,
+   "reached": 0,
+   "tool": "tools/bohemia_world_road_rate.js"
+  }
+ },
+ "blood_from": {
+  "value": 0.04,
+  "source": "OURS: below this chance of a man down or dead the button is clean"
+ },
+ "blood_full": {
+  "value": 0.65,
+  "source": "OURS: at this chance and over the button is soaked (the last stage, the darkest)"
+ },
+ "steps": {
+  "value": 6000,
+  "source": "the fight's own ODDS_STEPS: a run that has not ended by then counts as not clean"
+ },
+ "slice_ms": {
+  "value": 6,
+  "source": "the fight's own ODDS_SLICE_MS: a phone with no worker plays six milliseconds a frame"
+ },
+ "stop_from": {
+  "value": 12,
+  "source": "OURS: a fight plainly lost stops early, after this many plays..."
+ },
+ "stop_below": {
+  "value": 0.42,
+  "source": "OURS: ...when its read is under this: a job with it in is three stars whatever the rest (0.42 < cut_three 0.6)"
+ },
+ "near_cut": {
+  "value": 0.12,
+  "source": "OURS (measured 10/26: one read of 32 plays came out 0.60 for a fight worth 0.80, and every job sharing that fight read three stars): a fight whose read lands this close to a star's line plays on..."
+ },
+ "runs_more": {
+  "value": 32,
+  "source": "OURS: ...this many more plays, once, before the star is decided"
+ }
+}

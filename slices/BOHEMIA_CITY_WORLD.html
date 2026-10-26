@@ -44106,7 +44106,12 @@ function partySkulls(n){ var c = 3; try{ c = crewCount(); }catch(_e){} return n 
    A job's party is now sized FROM its skulls on his company's strength (partyMath 'job', Battle Brothers' contract multiplier), so
    the skulls are what he will meet: measured on the live fight, one star won 90 to 100 at day 1, 20, 50 and 90, two 70 to 80,
    three 50 to 80 (tools/bohemia_world_most_jobs_fit.js). A bigger company meets a bigger party under the same stars. */
+/* WORLD [the job tells the truth, in blood] (rule 208(a)(b), Paolo 10/25: 'that's one of the weak points of Battle Brothers, not
+   really accurate, so try to be accurate'): the skulls only until the job is PLAYED: every fight it brings, rolled by the fight's own
+   math and played on AUTO against his crew as it stands (slices/bohemia_job_danger.js); then its stars are the chance he comes home
+   with nobody down or dead (one star nine in ten or better, three under six). A held job reads what is left of it. */
 function loopJobStars(o){
+  try{ if(window.BohemiaJobDanger && o){ var __s = BohemiaJobDanger.stars(o, o.plays ? null : (o.place || (LOOP.open && LOOP.open.name) || null)); if(__s) return __s; } }catch(_e){}
   return Math.max(1, Math.min(3, (o && (o.skulls | 0)) || 1));
 }
 try{ window.loopJobStars = loopJobStars; }catch(_e){}
@@ -44728,7 +44733,12 @@ try{ fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.
   BILL.loaded = true; billPublish(); }).catch(function(){}); }catch(_e){}
 var CREW_DEFS = null;   /* ours.json's crew: the names and looks the crew screen and the fight give the company, in order */
 try{ fetch('../records/target/bb/ours.json').then(function(r){ return r.json(); }).then(function(j){
-  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] }; }).catch(function(){ CREW_DEFS = { men: [], looks: [], failed: true }; }); }catch(_e){}
+  CREW_DEFS = { men: (j.crew && (j.crew.value || j.crew)) || [], looks: (j.people_looks && (j.people_looks.value || j.people_looks).crew) || [] };
+  /* __NO_MAN_WEARS_A_WOMANS_NAME__ (RUN TWO's line in RUN's file, NOTE on RUN's board; rule 203): every body on the rig is a man's until
+     one is built 'f', so the crew list's four women's names are called as the crew screen calls them (engine/bohemia_roster.js MEN_FOR,
+     the copies held equal by EVERY ORIGIN STARTS LIKE ITSELF W0): who walks, the bar and the lines name the man the crew screen shows */
+  var MEN_FOR = { TINA: 'TITO', MARISOL: 'MARCOS', LUPE: 'LALO', NENA: 'NENO' };
+  CREW_DEFS.men = CREW_DEFS.men.map(function(m){ return m && MEN_FOR[m.name] ? Object.assign({}, m, { name: MEN_FOR[m.name], was: m.name }) : m; }); }).catch(function(){ CREW_DEFS = { men: [], looks: [], failed: true }; }); }catch(_e){}
 /* __THE_HIRED_ARE_PAID__ (RUN TWO [money teaches], rule 151(b), Paolo 10/24: 'keep a squad fed and paid... it would hurt my ability
    to hire better people or get better weapons and armour'; TUNING 10/25 s2, 'THE MEN AT THE POST ARE NEVER PAID'). The night is
    the crew's food AND the hired men's pay: every man hired at a post (bohemia.hired.v1) who is still with you is paid his wage
@@ -44873,6 +44883,9 @@ function loopPostOpen(){
   try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN',
     place: { name: t.name, tier: t.tier, district: dist || 'commercial', block: [t.x, t.y] },
     batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},
+    /* WORLD [eyes: a done job comes back] (EYES line 114, k24: 'Bring the Salcedo family home' paid, and the same board offered it again
+       at once): every job he finished, so the town's board never offers a deed already done (the phone already skips them) */
+    done: (LOOP.doneIds || []).slice(),
     /* __A_DROPPED_JOB_COSTS_STANDING__ (WORLD, rule 164 item 8): every job settled since the last town (done, part, dropped, failed)
        moves the bar of the town that gave it, the settlement's own [the opinion moves] (slices/bohemia_job_kinds.js) */
     settled: (function(){ try{ return (window.BohemiaJobKinds && BohemiaJobKinds.settledTake) ? BohemiaJobKinds.settledTake() : undefined; }catch(_e2){ return undefined; } })(),
@@ -45155,7 +45168,7 @@ window.addEventListener('message', function(ev){
   /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, TUNING's change 2e): A FINISHED JOB LEAVES THE PHONE. The phone lists
      what a place offers less what he holds; a job done or lost was neither, so it came back on the phone ('5H AGO').
      Done jobs are kept by id and the phone's board leaves them out the way it leaves out held ones. */
-  try{ LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-60); }catch(_e){}
+  try{ LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-500); }catch(_e){}   /* WORLD [eyes: a done job comes back]: for good */
   if(won && job.rescue){ line = rescueDone(job); }   /* __THE_WIPE_WAKES_IN_TOWN__ */
   else if(won){
     try{ BohemiaPurse.credit(purseGet(), 'electricity', job.pay, 'contract: ' + job.title, 'contract:' + job.id + ':' + LOOP.done, loopDay()); }catch(_e){}
@@ -47853,6 +47866,44 @@ function vbCityCore(inp){
     return 0;
   }
   /* ==== /__THE_TOWN_IS_PAINTED_IN__ ==== */
+  /* ==== __THE_STRIP_READS_AS_THE_STRIP__ (COOK 10/25/26, line 64 of his list: EYES 10/25 'the freeway reads as a freeway close
+     in; the Strip NOT LOOKED AT'; rule 164 items 11, 30, Paolo 10/24: 'the freeway and the Strip still look bad'). LOOKED AT on
+     BUILD 10/26 (tools/bohemia_cook_the_town_is_painted_in_10_25_26.js 'strip_before' '44,40;43,49;43,59', the fog lifted): close
+     in the Strip was a wide road between stepped grey boxes, the casinos' signs plain tan pillars and the median's palms pegs: a
+     downtown, not the Strip. What makes the Strip the Strip from above (the real one, any aerial of Las Vegas Boulevard): the
+     resorts' towers in their own shapes (the Y of three wings, the Mirage, Treasure Island, the Venetian; the arc, Bellagio and
+     Wynn, concave to the Boulevard; the long slab), each on its podium with its pool deck behind, the porte-cochere and the
+     marquee sign on the Boulevard, the signs standing over the sidewalks. Now every resort block: its tower in one of the three
+     shapes or the old square (rolled on the block), the podium, a drained pool on the deck behind the tower (its pale tile, rule
+     159: the water is gone), and where it faces the Strip a porte-cochere with its fascia and a marquee tower over the walk;
+     the Boulevard's signs are boards, not posts. The neon is the one faded accent, lit at night only where there is power. */
+  var STRIP_NEON = [vbHex('#c9a456'), vbHex('#9c6e68'), vbHex('#5e8480')];   /* a resort's marquee: gold, rose or teal, all three faded (rule 159(c): the Strip's neon the one accent) */
+  var STRIP_ST = { fronts: 0, marquees: 0, shapes: [0, 0, 0, 0], pools: 0, signs: 0 }, STRIP_SEEN = {};   /* what the gate reads (ST.strip) */
+  function stripResort(k, front, f, a, ha){
+    var TH = (6 + Math.floor(ha * 3)) * 3 * T;   /* 18 to 24 T, the Strip's towers */
+    if (front) {
+      if (f < 0.08 && a > 0.12 && a < 0.21) return [11 * T, PART.neon];   /* the marquee tower, its board to the Boulevard */
+      if (f < 0.14 && a > 0.32 && a < 0.72) return [1.5 * T, f < 0.035 ? PART.neon : PART.top];   /* the porte-cochere and its lit fascia */
+    }
+    if (k === 1) {   /* the Y: three wings from a core, each stepping down at its end */
+      var dx = a - 0.5, dy = f - 0.56, best = 1e9, along = 0;
+      for (var w = 0; w < 3; w++) { var an = -Math.PI / 2 + w * 2 * Math.PI / 3, ux = Math.cos(an), uy = Math.sin(an), tt = dx * ux + dy * uy, nn = Math.abs(dy * ux - dx * uy);
+        if (tt > -0.08 && tt < 0.36 && nn < 0.08 && nn < best) { best = nn; along = tt; } }
+      if (best < 1e9) return [along > 0.26 ? TH * 0.8 : TH, PART.top];   /* one step down at each wing's end */
+    } else if (k === 2) {   /* the arc, concave to the Strip (Bellagio round its lake): its middle set back, its arms reaching forward */
+      var ar = Math.hypot(a - 0.5, f + 0.1), aa = Math.atan2(a - 0.5, f + 0.1);
+      if (ar > 0.5 && ar < 0.62 && Math.abs(aa) < 0.8) return [Math.abs(aa) > 0.62 ? TH * 0.8 : TH, PART.top];
+    } else if (k === 3) {   /* the slab along the Boulevard */
+      if (f > 0.38 && f < 0.52 && a > 0.12 && a < 0.88) return [(a < 0.2 || a > 0.8) ? TH * 0.84 : TH * 1.05, PART.top];
+    }
+    if (!k) return null;   /* the old square tower, the old podium */
+    if (f > 0.06 && f < 0.94 && a > 0.06 && a < 0.94) {
+      if (k === 2 ? Math.hypot((a - 0.5) / 0.19, (f - 0.27) / 0.08) < 1 : Math.hypot((a - 0.5) / 0.21, (f - 0.8) / 0.1) < 1) return [2.6 * T, PART.line];   /* the pool, drained (the arc's lake between its arms) */
+      return [3 * T, r < 0.05 ? PART.spot : PART.ground];   /* the podium */
+    }
+    return [0, PART.ground];
+  }
+  /* ==== /__THE_STRIP_READS_AS_THE_STRIP__ ==== */
   for (var cy = 0; cy < N; cy++) for (var cx = 0; cx < N; cx++) {
     var gx = cx + X0, gy = cy + Y0;   /* __ONE_MAP_AT_EVERY_ZOOM__: the valley's own block */
     if (cls[cy * N + cx] === 255) continue;   /* past the valley's edge: nothing, like the whole painting's pad */
@@ -47885,6 +47936,10 @@ function vbCityCore(inp){
     var nBox = h1 < 0.45 ? 1 : h1 < 0.8 ? 2 : 3, boxAlongX = h0 < 0.5, sb = inp.sub && !thru ? inp.sub[cy * N + cx] : 0;
     if (sb === VB_SUB.shop) nBox = Math.min(nBox, 2);
     var twi = TWN && cl !== VB_CLASS.freeway && cl !== VB_CLASS.water && cl !== VB_CLASS.mountain && cl !== VB_CLASS.dam && cl !== VB_CLASS.rail ? TWN[cy * N + cx] : -1;   /* __THE_TOWN_IS_PAINTED_IN__ */
+    /* __THE_STRIP_READS_AS_THE_STRIP__: which side of a resort faces the Strip (1 east, 2 west, 3 south, 4 north) and its tower's shape */
+    var stF = cl === VB_CLASS.casino ? (clsAt(cx + 1, cy) === VB_CLASS.blvd ? 1 : clsAt(cx - 1, cy) === VB_CLASS.blvd ? 2 : clsAt(cx, cy + 1) === VB_CLASS.blvd ? 3 : clsAt(cx, cy - 1) === VB_CLASS.blvd ? 4 : 0) : 0;
+    var stK = cl === VB_CLASS.casino ? (h2 < 0.3 ? 1 : h2 < 0.55 ? 2 : h2 < 0.75 ? 3 : 0) : 0;
+    if (cl === VB_CLASS.casino) sb = 1 + Math.floor(h1 * 2.999);   /* its marquee's paint (base: STRIP_NEON) */
     for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
       var qx = (tx / Q) | 0, qy = (ty / Q) | 0;
       var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u + XS, v + YS, sd + 5), rq = Q === 1 ? r : vbHash(((gx + HP) * 12 + qx), ((gy + HP) * 12 + qy), sd + 5);
@@ -47934,7 +47989,8 @@ function vbCityCore(inp){
               var SW = strip ? fwW * 12 : 12, SA = strip ? ac + fwI * 12 : ac, med = SW / 2, mwS = SW > 12 ? 0.9 : 0.58, nLn = SW > 12 ? 4 : 3, nearSide = SA < med;
               var sa = Math.min(SA, SW - SA);   /* from the near sidewalk's outside */
               if (sa < wk) { part = PART.top; lift = 0.12 * T;   /* the sidewalk */
-                if (strip && (ali % 6) === (nearSide ? 2 : 5) && alf >= 0.2 && alf < 0.8 && sa >= 0.3 && sa < 1.05) { lift = 7 * T; part = PART.neon; }   /* a casino's sign on its pylon */
+                var sgK = ((ali - (nearSide ? 2 : 5)) % 6 + 6) % 6;   /* __THE_STRIP_READS_AS_THE_STRIP__: a board over two q of the walk */
+                if (strip && (sgK === 0 ? alf >= 0.25 : sgK === 1 ? alf < 0.75 : false) && sa >= 0.42 && sa < 0.82) { lift = ((sgK === 0 && alf > 0.85) || (sgK === 1 && alf < 0.15) ? 9.5 : 7.5) * T; part = PART.neon; if (sgK === 0) { var sgk = 's' + gx + ',' + gy + ':' + ali + ':' + (nearSide ? 1 : 0); if (!STRIP_SEEN[sgk]) { STRIP_SEEN[sgk] = 1; STRIP_ST.signs++; } } }   /* a casino's sign, a board along the walk on its pylon (__THE_STRIP_READS_AS_THE_STRIP__: it was a 5 m post) */
                 else if ((ali % 4) === 1 && sa >= wk - 0.42) part = PART.lampspot;   /* a lamp's pool (lit at night where there is power) */
                 else if (fine && (ali % 4) === 1 && alf >= 0.36 && alf < 0.64 && sa >= wk - 0.72 && sa < wk - 0.42) { lift = 3 * T; part = PART.window; }   /* its post, the head lit at night */
                 else if (fine && alf < px * 0.9) part = PART.side;   /* the slabs' joints */
@@ -48021,6 +48077,13 @@ function vbCityCore(inp){
           }
           break; }
         case VB_CLASS.tower: case VB_CLASS.casino: {
+          if (stF || stK) {   /* __THE_STRIP_READS_AS_THE_STRIP__ */
+            var su0 = (tx + 0.5) / S, sv0 = (ty + 0.5) / S, sf0 = stF === 1 ? 1 - su0 : stF === 2 ? su0 : stF === 4 ? sv0 : 1 - sv0, sa0 = (stF === 1 || stF === 2) ? sv0 : su0;
+            var srs = stripResort(stK, stF, sf0, sa0, h0);
+            if (tx === 0 && ty === 0) { STRIP_ST.shapes[stK]++; if (stF) STRIP_ST.fronts++; }
+            if (srs) { if (srs[1] === PART.neon && srs[0] > 10 * T && !STRIP_SEEN[cy * N + cx]) { STRIP_SEEN[cy * N + cx] = 1; STRIP_ST.marquees++; }
+              if (srs[1] === PART.line && tx === (S >> 1) && ty % Q === 0) STRIP_ST.pools++;
+              lift = srs[0]; part = srs[1]; break; } }
           var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
           var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= Q && (tx % half) < half - Q && (ty % half) >= Q && (ty % half) < half - Q)
                         : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
@@ -48109,7 +48172,7 @@ function vbCityCore(inp){
       case VB_CLASS.houses: return part === PART.roofL ? C.roofB : part === PART.roof ? C.roofA : part === PART.window ? C.roofC : part === PART.burn ? C.burn : part === PART.hole ? C.ash : part === PART.spot ? C.brush : C.yard;
       case VB_CLASS.roof: return part === PART.roof || part === PART.window ? C.roof : part === PART.spot ? C.hvac : part === PART.burn ? C.burn : part === PART.hole ? C.ash : C.field;
       case VB_CLASS.tower: return part === PART.top ? C.tower : part === PART.spot ? C.mark : C.field;
-      case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.spot ? C.neon : C.field;
+      case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.neon ? STRIP_NEON[(sb + 2) % 3] : part === PART.spot ? C.neon : part === PART.line ? C.poolDry : C.field;   /* __THE_STRIP_READS_AS_THE_STRIP__: the drained pool, the marquee */
       case VB_CLASS.green: return part === PART.tree ? C.tree : C.green;
       case VB_CLASS.water: return C.water;
       case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : C.floor;
@@ -48199,7 +48262,7 @@ function vbCityCore(inp){
       if (cl2 === TW_K && part2 === PART.window && top) { var fire = (TWL && TWL[ci >> 10] && TWL[ci >> 10].pal && TWL[ci >> 10].pal[0]) || (TWP && TWP[0]); if (fire) { for (var z3 = 0; z3 < 3; z3++) { night[o8 + z3] = fire[z3]; lights[o8 + z3] = fire[z3]; } lights[o8 + 3] = 255; } }   /* __THE_TOWN_IS_PAINTED_IN__: a town's fires burn without the grid, firelight, never the grid's lamp colour */
     }
   }
-  ST.T = T;
+  ST.T = T; ST.strip = STRIP_ST;   /* __THE_STRIP_READS_AS_THE_STRIP__ */
   return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, ms: Math.round(performance.now() - t0) };
 }
 function vbInput(m){
@@ -64667,6 +64730,8 @@ function meetShow(msg, skin){
   var gr = meetGround(msg.district || (t && t.district));
   var night = false; try { night = isNight(); } catch (_e) {}
   var stars = meetStars(msg, n), men = meetMen(msg, n), mine = 1; try { mine = crewCount(); } catch (_e) {}
+  /* WORLD (rule 208(e), EYES line 79: the rescue said 'YOU 8' and sent YOU alone): YOU is the men the fight's own door will stand on the board */
+  try { var __dc = window.BohemiaJobDanger && BohemiaJobDanger.doorOpts(null, null).company; if (Array.isArray(__dc) && __dc.length) mine = Math.min(__dc.length, (BohemiaJobDanger.doorOpts(null, null).cap | 0) || __dc.length); } catch (_e) {}
   var M = window.BohemiaMaterials, kit = function (k, s) { try { return M && M.kit ? M.kit(k, s) : ''; } catch (_e) { return ''; } };
   var who = String(msg.label || 'A CREW').toUpperCase();
   var word = ''; try { word = String((msg.party && msg.party.word) || partyWord(n)).toUpperCase(); } catch (_e) {}
@@ -64677,7 +64742,7 @@ function meetShow(msg, skin){
   el.innerHTML = '<div class="mc" style="width:' + W + 'px;padding:16px 16px 14px;box-sizing:border-box;background:#2a2016;border:1px solid #4a3a26;border-radius:2px;' + kit('board', 1) + 'filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))">'
     + '<div class="mch" style="font:400 15px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;line-height:1.2">' + esc(who) + '</div>'
     + '<div class="mcs" style="margin-top:3px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#cdb98e;text-shadow:0 1px 0 #000;display:flex;align-items:baseline;gap:6px">'
-    + '<span>' + esc(n + (n === 1 ? ' MAN' : ' MEN') + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span><span style="margin-left:auto;color:#9f8a64">YOU ' + mine + '</span></div>'
+    + '<span>' + esc(n + ' ' + ((msg.party && msg.party.what) || (n === 1 ? 'MAN' : 'MEN')) + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span><span style="margin-left:auto;color:#9f8a64">YOU ' + mine + '</span></div>'   /* WORLD (rule 208(e)): what stands, by kind: '2 DIRE WOLVES', never '4 MEN' */
     /* WORLD [the roster scales the enemy] (rule 164 item 26, his 'if I fill up my roster, the opponents scale'): the card says why there are this many */
     + (__rw ? '<div class="mcwhy" style="margin-top:3px;font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#e2b45a;text-shadow:0 1px 0 #000">' + esc(__rw.line) + '</div>' : '')
     + '<canvas class="mcmen" style="display:block;width:100%;height:84px;margin:8px 0 6px;image-rendering:pixelated"></canvas>'
@@ -64690,6 +64755,8 @@ function meetShow(msg, skin){
     + '</div></div>';
   document.body.appendChild(el);
   try { var sp = el.querySelector('.mcstars'), st = M && M.stars ? M.stars(stars, { gap: 0 }) : null; if (st) sp.appendChild(st); else sp.textContent = new Array(stars + 1).join('★'); } catch (_e) {}
+  /* WORLD [the job tells the truth, in blood] (rule 208): the band in front of him, played on AUTO against his crew: red stars, and ENGAGE bleeds */
+  try { var __JD = window.BohemiaJobDanger, __q = __JD && __JD.readParty(msg); if (__q) __JD.bleed(el.querySelector('[data-meet="go"]'), __q, null, el.querySelector('.mcstars')); } catch (_e) {}
   /* their men, standing, facing him, the map's own models at the glass's own pixels */
   try {
     var cv = el.querySelector('.mcmen'), q = Math.max(1, Math.round(window.devicePixelRatio || 1)), cw = W - 32;
@@ -64763,6 +64830,9 @@ function meetFallBack(msg){
 }
 /* ==== /__MEET_BEFORE_YOU_FIGHT__ ==== */
 function cityHandOver(msg, skin){
+  /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): the party is rolled here, once, by the fight's
+     own math (slices/bohemia_job_danger.js), so the meet card says what stands on the board and the fight deals that band */
+  try{ if(window.BohemiaJobDanger) BohemiaJobDanger.rollInto(msg); }catch(_e){}
   /* __MEET_BEFORE_YOU_FIGHT__: on the map, the card first; ENGAGE comes back through here with __met */
   try {
     if (MEET.on && MEET.walk > 0 && msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.__met && typeof MODE !== 'undefined' && MODE === 'city') {
@@ -71003,7 +71073,7 @@ function applyRestore(st){
   city.x=st.cx; city.y=st.cy;
   /* __THE_SAVE_REMEMBERS__: the map's own game comes back with him */
   if(st.run){ try{ if(Array.isArray(st.run.held)) LOOP.held = st.run.held.filter(function(j){ return j && j.id && j.target; }).slice(0, LOOP_MAX);
-    LOOP.done = st.run.done | 0; LOOP.doneIds = Array.isArray(st.run.doneIds) ? st.run.doneIds.slice(-60) : [];
+    LOOP.done = st.run.done | 0; LOOP.doneIds = Array.isArray(st.run.doneIds) ? st.run.doneIds.slice(-500) : [];
     if(st.run.bill) BILL.last = st.run.bill; window.__BILL_NIGHTS = st.run.nights | 0; LOOP.fighting = null; }catch(_e){} }
   if(typeof st.hzoom==='number'){ HZOOM=st.hzoom; }
   if(typeof RIDING!=='undefined'){ RIDING=!!st.riding; document.getElementById('bikebtn').classList.toggle('on',RIDING); }
@@ -89312,5 +89382,6 @@ window.BOHEMIA_SKIN = (function(){
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
+<script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>
