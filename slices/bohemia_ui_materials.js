@@ -1080,6 +1080,8 @@
     /* LEAVE rides above the building's sheet while it is open, never under it and never over its words */
     var sh = document.getElementById('sheet'), lift = function () {
       var b = 12; try { if (sh && sh.classList.contains('on')) { var t = sh.getBoundingClientRect().top; if (t < innerHeight - 1) b = Math.max(12, Math.round(innerHeight - t + 10)); } } catch (_e) {}
+      /* __ONE_PHONE__ (UI TWO, rule 213(a)): the phone holds its corner in the town too; LEAVE stands over it in the same corner, never under it */
+      try { var pr = window.BOH_PHONE_RECT && window.BOH_PHONE_RECT(); if (pr && pr.on && pr.side === 'right') b = Math.max(b, Math.round(innerHeight - pr.top + 10)); } catch (_e) {}
       var v = b + 'px'; if (c.style.bottom !== v) c.style.bottom = v; };
     setInterval(lift, 100); lift();
     /* the company screen is the whole glass, the same as from the map: while it is open the town's frame takes the glass */
@@ -2997,4 +2999,8 @@
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, hudParts: hudParts, hudScreen: function () { return HUD.screen; }, hudNoteOpen: hudNoteOpen, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
     hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT, bleed: bleed, bloodStage: bloodStage, bloodStageOf: bloodStageOf, bloodHoles: bloodHoles, BLOOD: BLOOD };
+  /* __ONE_PHONE__ (UI TWO, 10/26, rules 212 and 213): the phone is its own file, slices/bohemia_phone.js; every page that wears
+     this HUD loads it, the topmost page of the game draws it once, and every page answers BOH_PHONE_RECT() */
+  try { if (!window.BohemiaPhone && !document.getElementById('bohphonejs')) { var phs = document.createElement('script'); phs.id = 'bohphonejs';
+    phs.src = KIT_BASE.replace(/ui_kit\/$/, '') + 'bohemia_phone.js'; (document.head || document.documentElement).appendChild(phs); } } catch (e) {}
 })();
