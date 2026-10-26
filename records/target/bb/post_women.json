@@ -1,8 +1,8 @@
 {
- "_about": "RUN TWO [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). The share of the men at a hiring post who are women. Each is a whole person: her own body on the rig, her own face and voice (a person in engine/bohemia_people_mix.js with sex 'f', rolled by CHARACTER's builder), her name from the valley's women's names (BohemiaNames, sex 'f'), rolled like any hire, her numbers no different. TUNING may lift this number into the one table; the post reads it from here until then.",
+ "_about": "RUN TWO [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). The share of the men at a hiring post who are women. Each is a whole person: her own body on the rig, her own face and voice (a person in engine/bohemia_people_mix.js with sex 'f', rolled by CHARACTER's builder), her name from the valley's women's names (BohemiaNames, sex 'f'), rolled like any hire, her numbers no different. TUNING's one table holds this number as post.women_share (section M) and names this file as where the game reads it; the two must agree (gates/a_few_women_at_the_post_gate.js W1). RUN THREE [four percent] 10/26: his 4 percent.",
  "share": {
-  "value": 0.01,
-  "source": "Paolo 10/25, his word: 'like one percent' (NOTES ARE RULINGS; rule 203(b): his number until he picks)"
+  "value": 0.04,
+  "source": "Paolo 10/26, his pick for rule 203(b): 'make it 4 percent... for the women' (rule 214, records/BOHEMIA_PAOLO_FOUR_PERCENT_AND_THE_FEED_GETS_ITS_OWN_CHAT_10_26_26.md; over the research's 2, his trade, made). Was his 1 percent of 10/25. TUNING's one table row post.women_share (records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md section M) holds the same number"
  },
  "share_realistic": {
   "value": 0.02,

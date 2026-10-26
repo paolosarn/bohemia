@@ -3,16 +3,17 @@
 
    PAOLO 10/25: "I know Battle Brothers is only men... I'm willing to give a chance to women, like one percent of them recruitable."
    THE RULE: a woman is a whole person (her body on the rig, her face, her voice), never a man's sprite with a woman's name; her
-   share is his 1 percent until he picks; she rolls like any hire; until her body exists the roll stays at 0 and says so.
+   share was his 1 percent until he picked, and he picked 4 (rule 214, 10/26); she rolls like any hire; until her body exists the roll stays at 0 and says so.
    MEASURED 10/25: no woman's body exists (engine/bohemia_people_mix.js: 71 people 'm', 81 unset, every one on the master rig, a
    man's), AND the unset 81 rolled their names 50/50: about 40 men in the valley wore women's names (the smith 'HAZEL EMERY').
 
    LEGS (the settlement screen, its own page):
-     W1 the file: his 1 percent, the realistic 2 percent beside it for him (rule 203(b) amended), draft:true
+     W1 the file: his 4 percent (rule 214, Paolo 10/26: 'make it 4 percent... for the women'; RUN THREE [four percent]), the
+        realistic 2 percent beside it, draft:true; and TUNING's one table carries the same number (post.women_share, section M)
      W2 *** NOW: 10,000 rolled hires, 0 women *** (no woman's body yet), and no man at the post, the stall or in the crowd wears a
         woman's name: every name read on a man's body reads as a man's (BohemiaNames.sexOf)
-     W3 THE MACHINE, with a woman's body handed in for the test only: 10,000 rolled hires come out at the share (1 percent within its
-        noise), each a woman's body and a woman's name, and no man's roll moved
+     W3 THE MACHINE, with a woman's body handed in for the test only: 10,000 rolled hires come out at the share (4 percent within its
+        noise, read from the file, never a literal), each a woman's body and a woman's name, and no man's roll moved
      W4 nothing threw
    node gates/a_few_women_at_the_post_gate.js
    ========================================================================== */
@@ -28,6 +29,9 @@ const srv = http.createServer((rq, rs) => {
   rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs);
 });
 const FILE = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/post_women.json'), 'utf8'));
+/* TUNING's one table (rule 21): the row post.women_share and the file the game reads must say the same number */
+const TABLE = fs.readFileSync(path.join(ROOT, 'records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md'), 'utf8');
+const ROW = (TABLE.match(/^\| post\.women_share \| ([0-9.]+) \|/m) || [])[1];
 
 (async () => {
   await new Promise(r => srv.listen(PORT, '127.0.0.1', r));
@@ -36,7 +40,7 @@ const FILE = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/post_
   const errs = [];
   try {
     /* W1 */
-    ok('W1 the file: his 1 percent plays, the realistic 2 percent waits for him, draft:true', FILE.share.value === 0.01 && FILE.share_realistic.value === 0.02 && FILE.draft === true);
+    ok('W1 the file: his 4 percent (rule 214), the realistic 2 percent beside it, draft:true; the one table says ' + ROW, FILE.share.value === 0.04 && +ROW === FILE.share.value && FILE.share_realistic.value === 0.02 && FILE.draft === true);
     const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     const p = await ctx.newPage(); p.on('pageerror', e => errs.push(e.message));
     await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
@@ -71,7 +75,7 @@ const FILE = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/post_
     ok('*** W2 NOW: 10,000 ROLLED HIRES, ' + now.women + ' WOMEN *** (a woman\'s body: ' + now.looks + '; the people ' + JSON.stringify(now.sexes) + '); ' + now.seen.post + ' men at posts, ' + named.seen.keeper + ' keepers, ' + named.seen.crowd + ' in the crowd: no man wears a woman\'s name',
       now.women === 0 && now.share === 0 && now.looks === 0 && now.seen.post > 50 && named.seen.keeper > 20 && named.seen.crowd > 20 && !now.bad.length && !named.bad.length, now.bad.concat(named.bad).slice(0, 4).join(' | '));
     /* W3: the machine, a woman's body handed in for this test only (a copy of one rolled person marked 'f') */
-    const mach = await p.evaluate(() => {
+    const mach = await p.evaluate((share) => {
       const M = window.BOHEMIA_PEOPLE_MIX, S = BohemiaSettlement, N = window.BohemiaNames;
       const before = []; for (let i = 0; i < 400; i++) before.push(S.womanAt('K' + i, 0));
       const src = M.people.find(x => x.fight && !x.company), her = Object.assign({}, src, { look: src.look + '_test_woman', sex: 'f' });
@@ -81,8 +85,8 @@ const FILE = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/post_
         if (l) { women++; if (l !== her.look) wrong++; if (names.length < 6) names.push(N.roll('post:' + key + ':' + (i % 9), { sex: 'f' }).full); } }
       const nm = names.map(x => { const w = x.split(' ')[0]; return N.sexOf(w.charAt(0) + w.slice(1).toLowerCase()); });
       M.people.pop();
-      return { women, n, wrong, share: 0.01, names, nmM: nm.filter(x => x === 'm').length, before: before.filter(Boolean).length };
-    });
+      return { women, n, wrong, share, names, nmM: nm.filter(x => x === 'm').length, before: before.filter(Boolean).length };
+    }, FILE.share.value);
     const sd = Math.sqrt(mach.n * mach.share * (1 - mach.share)), want = mach.n * mach.share;
     ok('W3 THE MACHINE (a woman\'s body handed in for the test): ' + mach.women + ' of ' + mach.n + ' rolled hires are women (the share wants ' + want + ', within 4 of its noise), each her body, her names ' + mach.names.join(', '),
       Math.abs(mach.women - want) <= 4 * sd && mach.wrong === 0 && mach.nmM === 0 && mach.before === 0);
