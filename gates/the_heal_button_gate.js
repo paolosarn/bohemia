@@ -62,10 +62,19 @@ const leaveEnd = async (d) => {
 };
 const home = async (d) => { for (let i = 0; i < 150; i++) { const s = await d.page.evaluate(() => !CITYFIGHT && !document.getElementById('fightFrame')).catch(() => false); if (s) return true; await d.page.waitForTimeout(100); } return false; };
 /* one whole fight: AUTO by a press, played to its end; the fight's own end rows read off it the moment it is over */
-const playFight = async (d) => {
+const playFight = async (d, blows) => {
   const st = await startRoadFight(d);
   const { f, box } = await fightFrame(d);
   if (!f) return { st, f: null };
+  /* THE GATE'S BLOWS (fight one only): an AUTO fight of a few against a few often ends with nobody scratched, and a gate that
+     passes on luck is no gate. So before AUTO the gate lands the first blows by hand, in the fight's own state: every man of ours
+     down to 70 percent of his blood and half of each piece of armour, the last man of the line killed; and the other side is
+     left one hitpoint a man, so the fight ends won on any board. What the fight does from there, and everything after its end,
+     is the game's own: the end rows, the kept wounds, the map's clock, the next fight's door. */
+  if (blows) await f.evaluate(() => { const us = FIGHT.S.units.filter(u => u.side === 'you'), them = FIGHT.S.units.filter(u => u.side === 'them');
+    us.forEach(u => { u.hp = Math.max(1, Math.round(u.hpMax * 0.7)); u.armH = Math.round(u.armHMax * 0.5); u.armB = Math.round(u.armBMax * 0.5); });
+    const last = us.filter(u => !u.main).pop(); if (last && us.length >= 3) { last.hp = 0; last.dead = true; }
+    them.forEach(u => { u.hp = 1; u.armH = 0; u.armB = 0; }); });
   const start = await f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'you').map(u => ({ name: u.name, main: !!u.main, hp: u.hp, hpMax: u.hpMax, armH: u.armH, armHMax: u.armHMax, armB: u.armB, armBMax: u.armBMax, head: u.headRow ? u.headRow.id : null, body: u.bodyRow ? u.bodyRow.id : null })));
   const handed = await d.page.evaluate(() => window.__NF_COND || null);
   await f.evaluate((sp) => { FIGHT_UI.speed = sp; }, SPEED);
@@ -99,7 +108,7 @@ async function run(profile) {
       !!h1 && h1.shown && h1.w >= 44 && h1.h >= 44 && h1.word === '' && h1.kit && h1.bar && h1.top && !!h1.heal && h1.heal.blood === 1 && h1.heal.armour === 1, JSON.stringify(h1));
 
     /* ---- H2 fight one ---- */
-    const F1 = await playFight(d);
+    const F1 = await playFight(d, true);
     if (!F1.f || !F1.rows) { ok(P + 'H2 fight one played and ended', false, JSON.stringify(F1.st)); return; }
     const C1 = await d.fr.evaluate(() => BohemiaCondition.get());
     const alive1 = F1.rows.filter(r => !r.dead || r.main), dead1 = F1.rows.filter(r => r.dead && !r.main).map(r => r.name);
