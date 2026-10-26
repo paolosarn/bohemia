@@ -8,8 +8,8 @@
         says who and how far in the camp (from his mouth, with his face), and says it once, not every hour
      H3 EVERY PANEL: every place in the camp tapped open and closed, the company screen opened and closed: the camp stands, its hours
         go on
-     H4 HIS TAP ENDS IT: the phone's HEAL app (a real tap; it stands for the camp's HEAL button while the phone is on) breaks it the
-        beat he taps, back on the map; so does the camp's BREAK CAMP
+     H4 HIS TAP ENDS IT: the phone's HEAL app (a real tap; it stands for the camp's HEAL button and BREAK CAMP while the phone is on,
+        UI TWO's rule 286(b)) breaks it the beat he taps, back on the map; the camp's own BREAK CAMP where the phone is not up
      H5 A TRAVEL ENDS IT: camped again, a travel (the phone's GO, travelTo) breaks it and the march goes
      H6 AN ENEMY REACHING IT ENDS IT: camped again, the crew walks the last block: the camp breaks on the meet card, which is up on the
         map (or the fight itself where the card is not dealt: the crew caught him)
@@ -61,6 +61,7 @@ async function run(profile) {
       Object.defineProperty(h, 'at', { get: () => at.slice(), set: () => {}, enumerable: true });   /* it passes two blocks off and never closes */
       Object.defineProperty(h, 'steps', { get: () => 0, set: () => {}, enumerable: true });
       HUNT = h; window.__CAMP_WARNED = []; return BohemiaMapCamp.state().hours; });
+    if (process.env.BOHEMIA_SHOT_DIR) { await d.page.waitForTimeout(1300); await d.page.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp_warned_' + profile + '.png') }); }
     await d.page.waitForTimeout(500 * HOURS + 1500);
     const h2 = await d.fr.evaluate(() => Object.assign(BohemiaMapCamp.state(), { warned: (window.__CAMP_WARNED || []).length, dist: (window.__CAMP_WARNED || [])[0] ? __CAMP_WARNED[0].dist : null }));
     const w2 = cf ? await cf.evaluate(() => { const o = document.getElementById('campwarn'), W = window.__CAMP_WARN || null;
@@ -94,15 +95,22 @@ async function run(profile) {
       !!cf && h3.opened.filter(k => !/no sheet/.test(k)).length >= 2 && h3.crew && h3b.on && h3b.hours > h3a.hours, JSON.stringify(Object.assign(h3, { on: h3b.on, hours: [h3a.hours, h3b.hours] })));
     /* ---- H4 his tap ends it: the phone's HEAL app (where the HEAL button is while the phone is on), and the camp's BREAK CAMP ---- */
     const state = () => d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), why: (window.__CAMP || {}).why, frame: LOOP.frame ? LOOP.frame.style.display : null }));
-    let h4 = { phone: false };
-    for (const x of d.page.frames()) { const sel = '#bohphone .app[data-app=heal]';
-      if (await x.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }, sel).catch(() => false)) { h4.phone = await tapIn(x, sel); break; } }
+    const tapHeal = async () => { for (const x of d.page.frames()) { const sel = '#bohphone .app[data-app=heal]';
+        if (await x.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }, sel).catch(() => false)) return await tapIn(x, sel); }
+      return false; };
+    let h4 = { phone: await tapHeal() };
     await d.page.waitForTimeout(900); h4 = Object.assign(h4, await state());
+    /* and the camp's own BREAK CAMP: on the glass only when the phone is not up (UI TWO, rule 286(b): no button twice; with the phone
+       up its HEAL is the camp's break) */
     await d.fr.evaluate(REST); await d.page.waitForTimeout(400);
     await d.fr.evaluate(() => BohemiaMapCamp.make()); const cf4 = await campFrame(d); let h4b = { leave: false };
-    if (cf4) { h4b.leave = await tapIn(cf4, '#leave'); await d.page.waitForTimeout(900); h4b = Object.assign(h4b, await state()); }
-    ok(P + 'H4 HIS TAP ENDS IT: the phone\'s HEAL app, tapped, breaks camp and he is on the map; so does the camp\'s BREAK CAMP',
-      h4.phone && h4.on === false && h4.why === 'left' && h4.frame === 'none' && h4b.leave && h4b.on === false && h4b.why === 'left' && h4b.frame === 'none', JSON.stringify({ heal: h4, breakCamp: h4b }));
+    if (cf4) { const phoneOn = await d.page.evaluate(() => document.documentElement.classList.contains('boh-phone-on'));
+      const shown = await cf4.evaluate(() => { const b = document.getElementById('leave'), r = b && b.getBoundingClientRect(); return !!b && r.width > 0 && r.height > 0 && getComputedStyle(b).visibility !== 'hidden'; });
+      h4b.phoneOn = phoneOn; h4b.breakCampShown = shown;
+      h4b.leave = phoneOn ? (!shown && await tapHeal()) : await tapIn(cf4, '#leave');
+      await d.page.waitForTimeout(900); h4b = Object.assign(h4b, await state()); }
+    ok(P + 'H4 HIS TAP ENDS IT: the phone\'s HEAL app, tapped, breaks camp and he is on the map, and again a camp later (the camp\'s own BREAK CAMP is off the glass while the phone is up, rule 286(b); without the phone it breaks it)',
+      h4.phone && h4.on === false && h4.why === 'left' && h4.frame === 'none' && h4b.leave && h4b.on === false && h4b.why === 'left' && h4b.frame === 'none', JSON.stringify({ heal: h4, again: h4b }));
     /* ---- H5 a travel ends it ---- */
     await d.fr.evaluate(REST); await d.page.waitForTimeout(500);
     const h5 = await d.fr.evaluate(async () => { const made = BohemiaMapCamp.make(); await new Promise(r => setTimeout(r, 1200));
