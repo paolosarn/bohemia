@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-camera): 10/26 LATEST -- [the fight frames around the phone] and [the fight's camera follows the fight] SHIPPED 6585e7a4, BUILT, NOT YET SEEN (rules 288(b)(c)(d), 230(a), 213(c)(e); BUILD 10/26zzi - THE FIGHT AS CLOSE AS IT CAN BE):
+the fight frames into the open area clear of the phone and lands on the tightest frame of every fighter plus a tile, tightening as the fight draws together (the man 1.8 rows of
+his ground at every zoom, so he is drawn bigger), a touch his until his next man's turn; gate THE FIGHT AS CLOSE AS IT CAN BE 51/0. NEXT: the AUTO rows marked FOR COMBAT TWO
+(COMBAT's pace and fatigue rows are SHIPPED). The whole block: handoffs/COMBAT_TWO.md (rule: each lane's block in handoffs/).
+[bb Battle Brothers leaves the tactical camera to the player; ours frames everyone he can see as close as it can and hands the camera to his fingers until his next man's turn.]
+[analog horror: one night guard's monitor on a lot: the frame tightens on what still moves and widens, late and smooth, when something walks in from the dark at its edge.]
+
 CAMP TWO (camp-two-look): 10/26 LATEST -- round one SHIPPED b8dab965, BUILT, NOT YET SEEN (rules 259, 260, 269, 270, 273(c),
 286, 289; BUILD 10/26zze): his camp is his own place (a tent a pair, the shopping cart, the fire, the supplies, the seats, each
 follower's piece, every piece a door), his men at the acts their wounds call for, the pitch, the compass of danger in AUTO's colour,
