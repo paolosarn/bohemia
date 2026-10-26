@@ -9663,7 +9663,8 @@ GATES = [
      "duct tape for my armour... this run's over'). MEASURED before: the loot counted SCRAP into the purse's resources, which nothing he uses reads; the company's tape "
      "never rose after a fight. HOLDS: the loot file's count is TAPE, two rolls a wrecked piece (ECONOMY's tape_income.json); the screen on a phone and a computer says "
      "TAPE with the tape roll, LOOT ALL raises the company's tape (bohemia.supplies.v1) by it once, no 'scrap' on the screen; the live demo on both after a road fight "
-     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. green at registration, 10/0, about 4 min", True),
+     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. AND [tape in the loot] (rule 271(a)(c)): 400 rolled fights, every man "
+     "of theirs killed carried ECONOMY's two or three rolls in his kit, every fight with a kill leaves tape, nothing off the men who ran or a beast. about 4 min", True),
     ('OPTIMIZE LOOT', ['node', 'gates/optimize_loot_gate.js'],
      "RUN FOUR gate, 10/26, rows [optimize loot] and [one tap selects, two taps take] (rules 244, 249, Paolo 10/26: 'an optimize loot button at the end of battle "
      "screen... if my inventory is full but there are ten more things that could be taken... it takes the things in your inventory that are sellable at the lowest "

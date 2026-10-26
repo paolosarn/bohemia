@@ -3,7 +3,8 @@
    quick summary of who got experience, who leveled up, and what loot I'm able to take, with a loot button; and if my
    inventory is full it loots as much as it can and stops, similar to Battle Brothers.'
    Pure functions, no screen (the screen is slices/BOHEMIA_SPOILS_SCREEN.html):
-     found(spoils, L, rnd)            (L.tape_income: ECONOMY's tape numbers, optional) the fight's report (BOHEMIA_FIGHT_OVER .spoils) through Battle Brothers' drop conditions
+     found(spoils, L, rnd)            (L.tape_income: ECONOMY's tape numbers, optional: two rolls a wrecked piece, two or three in a
+                                      dead man's kit) the fight's report (BOHEMIA_FIGHT_OVER .spoils) through Battle Brothers' drop conditions
                                       (records/target/bb/loot.json): {items:[{kind,id,cond,max,from}], counts:{batteries,rounds,tape}}
      grew(rows, climb, xpFor, levelOf) each man's XP and level before and after, the way the crew screen will climb him
      take(stash, ground, i, cap)      one piece from the ground into the stash, if there is room
@@ -39,6 +40,13 @@
     var C = (D && D.counts) || {}, c = C.tape || C.scrap || {};
     return typeof c.per_wrecked_piece === 'number' ? c.per_wrecked_piece : 1;
   }
+  /* the rolls of tape in a dead man's kit, [least, most]: ECONOMY's number (D.tape_income.loot_tape.per_kill), else none */
+  function kitTape(D) {
+    var T = D && D.tape_income, v = T && T.loot_tape && T.loot_tape.per_kill && T.loot_tape.per_kill.value;
+    if (Array.isArray(v) && v.length === 2 && v[1] >= v[0] && v[0] >= 0) return [v[0] | 0, v[1] | 0];
+    if (typeof v === 'number' && v >= 0) return [v | 0, v | 0];
+    return null;
+  }
   function found(spoils, D, rnd) {
     rnd = rnd || Math.random;
     var out = { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0, faction: spoils && spoils.faction || null };
@@ -47,11 +55,11 @@
     /* SCRAP IS TAPE (RUN FOUR [scrap is tape], rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap,
        why am I not getting more duct tape for my armour'): what is left of a wrecked piece is tape, ECONOMY's rolls a piece
        (records/target/bb/tape_income.json salvage.tape_per_scrap, handed in as D.tape_income) */
-    var wreck = tapePerWreck(D);
+    var wreck = tapePerWreck(D), kit = [];
     spoils.bodies.forEach(function (b) {
       if (!b || (D.drop.only_the_dead && !b.dead)) return;
       if (no.some(function (k) { return b[k]; })) return;   /* school.beasts_carry_nothing, school.ghosts_carry_nothing */
-      out.from++;
+      out.from++; kit.push(b);
       var w = b.weapon;
       if (w) {
         var thrown = (D.drop.thrown_classes || []).indexOf(w.cls) >= 0;
@@ -73,6 +81,13 @@
       if (b.machine) out.counts.batteries += C.batteries.machine_cell;
       else if (rnd() * 100 < C.batteries.pocket_chance_pct) out.counts.batteries += C.batteries.pocket;
     });
+    /* THE DEAD CARRY TAPE (RUN FOUR [tape in the loot], rule 271(a), Paolo 10/26: 'there's not enough duct tape to be bought or
+       looted in the world... when my armour runs out my run's over'): every man of theirs killed (the same men whose gear is looted;
+       a beast or a ghost carries none) had ECONOMY's rolls in his kit (records/target/bb/tape_income.json loot_tape.per_kill, two or
+       three, rolled even), so a fight drops tape scaled to the kills; rolled after his gear, so the gear's own dice do not move */
+    var K = kitTape(D);
+    if (K) kit.forEach(function () { var n = K[0] + Math.floor(rnd() * (K[1] - K[0] + 1)); out.counts.tape += n; out.kitTape = (out.kitTape | 0) + n; });
+    out.wreckTape = out.counts.tape - (out.kitTape | 0);
     return out;
   }
   /* each man's climb, read the way the crew screen climbs him (engine/bohemia_roster.js grant: his kept XP plus the fight's,
@@ -130,7 +145,7 @@
     return { stash: out, ground: g, took: took, left: left, gain: sum(took) - sum(left), before: sum(stash), after: sum(out) };
   }
   var API = { found: found, grew: grew, take: take, takeAll: takeAll, partFound: partFound,
-    tapePerWreck: tapePerWreck, SELL_CUT: SELL_CUT, worth: worth, sellBack: sellBack, junk: junk, fixed: fixed, optimize: optimize };
+    tapePerWreck: tapePerWreck, kitTape: kitTape, SELL_CUT: SELL_CUT, worth: worth, sellBack: sellBack, junk: junk, fixed: fixed, optimize: optimize };
   root.BohemiaSpoils = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : this);

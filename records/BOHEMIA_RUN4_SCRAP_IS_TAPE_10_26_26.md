@@ -38,3 +38,16 @@ leg (the tape into the company's tape; resources the rounds).
 
 [bb] Battle Brothers' tools are a supply you buy and loot, and a broken piece leaves nothing; ours leaves the tape that held it together.
 [analog horror] what was left of a dead man's vest is the tape that held it on.
+
+## AND THE DEAD CARRY TAPE (row [tape in the loot], rule 271(a), the same round, on top)
+Paolo 10/26: 'there's not enough duct tape, repair tools, to be bought or looted in the world... when my armour runs out my run's over.'
+Every man of theirs killed (the same men whose gear is looted; the men who ran keep theirs, a beast or a ghost carries none) had
+ECONOMY's rolls of tape in his kit (records/target/bb/tape_income.json loot_tape.per_kill: two or three, rolled even, a mean of 2.5:
+'what anybody in the crash carries to fix anything'), so a fight drops tape scaled to the kills, on the same TAPE count (no room
+taken, like rounds). The kits are rolled after the gear, so the gear's own seeded dice do not move. engine/bohemia_spoils.js reports
+the two parts (wreckTape, kitTape) for the gates. The Scavenger's share (CAMP TWO's follower) reads tape_income.json scavenger when
+she exists; not here.
+THE GATE LEG (271(c), 'the loot shows tape after most fights'): SCRAP IS TAPE T5, 400 rolled fights on real enemy rows: every fight
+with a kill leaves tape, two to three rolls a kill out of the kits, nothing off the men who ran or the beasts; T3 on the live demo
+reads the kits' share on the end screen. (It is every fight with a kill, not most.)
+[bb] Battle Brothers' 'tools and supplies: can be looted after battle', its page with no amount; ours is ECONOMY's number.
