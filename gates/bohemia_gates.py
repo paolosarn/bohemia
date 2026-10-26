@@ -9925,6 +9925,14 @@ GATES = [
      "bloodStage clean to 2 percent, soaked from 70, monotonic, every stage reachable. On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
      "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held (250 ms, 150 or more measured); the halo from stage 5; on the glass soaked a third red or more, one star under a twentieth; "
      "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
+    ('THE FEED IS ALIVE', ['node', 'gates/the_feed_is_alive_gate.js'],
+     "FEED gate, 10/26, row [the feed is alive] (rule 215, Paolo 10/26: 'a part of the game managing all these mini events and triggers, presented in a social media thing, to make it feel alive... "
+     "organize it properly so every time we upgrade it gets better'; rule 217: a post is a username and its words). ONE FILE (records/target/bb/feed_kinds.json): every kind a row with its trigger, "
+     "its mouths, its pace, its words draft:true and what it teaches; every account a handle, none alike, the face field empty. THE ENGINE (engine/bohemia_feedstream.js engine()) on the map's measured "
+     "clock: a played hour of real time makes all three kinds from named handles, none twice in a row, no window over its cap and never two posts on the glass under 12 s, every deed the file names posts, "
+     "a new row is a new kind with no code, his page and the bots never Spanish and the locals near the house rate, a deed posts while the clock is stopped, a save carries on. THE LIVE DEMO, phone and "
+     "computer: the engine up with every kind, his page posts at the start, a job taken and dropped by the game's own functions posts, a town opened posts, CAMP by the real button runs the clock and the "
+     "city talks, the newest post in the phone's slot. About 6 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

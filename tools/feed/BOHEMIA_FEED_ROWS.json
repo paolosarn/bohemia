@@ -1,0 +1,1732 @@
+{
+ "_about": "FEED's half of the feed's one file (FEED lane 23, row [the feed is alive], rule 215(f): FEED owns the triggers, the pacing and the file; WORDS writes the lines). tools/bohemia_feed_build.py joins this with WORDS' bank (banks/BOHEMIA_WORDS_THE_FEED_BANK.json: the accounts, the handles, the lines with their Spanglish twins, the replies, the follow-ups, the faction plurals) into records/target/bb/feed_kinds.json, the one file the game reads at boot. Edit here for WHEN and HOW OFTEN; edit WORDS' bank for WHO and WHAT IS SAID; then run the tool. The kinds below marked _feed are FEED's own drafts for moments WORDS has no row for yet (WORDS may take any of them).",
+ "pace": {
+  "_why": "A real local feed: a handful of posts in a stretch of the day, more after something big, never a wall. MEASURED 10/26 on the demo's map: an in-game hour passes in 2.3 s of travel on dirt and 4.6 s on a road (10.75 game minutes a block, 1.22 blocks a beat), and the clock stops in towns, fights and when he stands still. So the window is four game hours, not one (a handful an hour would be two posts a second while he travels), and real_gap_s keeps one post on the glass long enough to read it. WORDS Q15 measured 30 neighbourhood feeds: about 1.4 replies a post, and the most common post is somebody asking for something.",
+  "window_min": 240,
+  "per_window": {
+   "min": 1,
+   "max": 3
+  },
+  "big": {
+   "extra": 3,
+   "for_min": 360
+  },
+  "min_gap_min": 45,
+  "reply_gap_min": 12,
+  "quiet_after_min": [
+   180,
+   360
+  ],
+  "expire_min": 600,
+  "real_gap_s": 12,
+  "live_jump_min": 90,
+  "keep": 80,
+  "no_repeat": 40,
+  "reply_chance": 0.3,
+  "big_reply_chance": 0.9,
+  "title_case": [
+   "town",
+   "man",
+   "client",
+   "was",
+   "toward",
+   "faction_name"
+  ],
+  "life_every": 3
+ },
+ "sentence_case": [
+  "page",
+  "faction",
+  "scanner",
+  "company"
+ ],
+ "words_kinds": {
+  "job_taken": {
+   "trigger": "job.taken",
+   "max_per_window": 3,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "job_done": {
+   "trigger": "job.done",
+   "max_per_window": 3,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "job_dropped": {
+   "trigger": [
+    "job.dropped",
+    "job.failed"
+   ],
+   "max_per_window": 2,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "fight_won": {
+   "trigger": "fight.won",
+   "max_per_window": 3,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "fight_lost": {
+   "trigger": "fight.lost",
+   "max_per_window": 2,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "fight_fled": {
+   "trigger": "fight.fled",
+   "max_per_window": 2,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "man_hired": {
+   "trigger": "man.hired",
+   "max_per_window": 4,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "man_dismissed": {
+   "trigger": "man.dismissed",
+   "max_per_window": 2,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "man_hurt": {
+   "trigger": "man.hurt",
+   "max_per_window": 3,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "man_dead": {
+   "trigger": "man.dead",
+   "max_per_window": 3,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "town_entered": {
+   "trigger": "town.entered",
+   "max_per_window": 2,
+   "again_key": "town",
+   "again_after_min": 1440,
+   "delay_min": [
+    2,
+    15
+   ]
+  },
+  "rare_man_seen": {
+   "trigger": "rare.seen",
+   "max_per_window": 2,
+   "again_key": "rare",
+   "again_after_min": 1440,
+   "delay_min": [
+    2,
+    20
+   ]
+  },
+  "wipe": {
+   "trigger": "fight.wipe",
+   "max_per_window": 2,
+   "delay_min": [
+    1,
+    4
+   ]
+  },
+  "raid_seen": {
+   "trigger": "raid",
+   "must": true,
+   "max_per_window": 2,
+   "delay_min": [
+    1,
+    10
+   ]
+  },
+  "town_falls": {
+   "trigger": [
+    "town.falls",
+    "base.changed"
+   ],
+   "must": true,
+   "max_per_window": 2,
+   "delay_min": [
+    5,
+    30
+   ]
+  },
+  "town_rises": {
+   "trigger": "town.rises",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    5,
+    40
+   ]
+  },
+  "price_up": {
+   "trigger": "prices.up",
+   "must": false,
+   "chance": 0.5,
+   "max_per_window": 1,
+   "again_key": "good",
+   "again_after_min": 1440,
+   "delay_min": [
+    5,
+    40
+   ]
+  },
+  "price_down": {
+   "trigger": "prices.down",
+   "must": false,
+   "chance": 0.45,
+   "max_per_window": 1,
+   "again_key": "good",
+   "again_after_min": 1440,
+   "delay_min": [
+    5,
+    40
+   ]
+  },
+  "road_closed": {
+   "trigger": "road.closed",
+   "must": true,
+   "max_per_window": 1,
+   "delay_min": [
+    1,
+    20
+   ]
+  },
+  "road_open": {
+   "trigger": "road.open",
+   "must": false,
+   "chance": 0.7,
+   "max_per_window": 1,
+   "delay_min": [
+    5,
+    40
+   ]
+  },
+  "party_seen": {
+   "trigger": "party.sighted",
+   "must": false,
+   "chance": 0.55,
+   "max_per_window": 2,
+   "again_key": "faction_id",
+   "again_after_min": 360,
+   "delay_min": [
+    0,
+    6
+   ]
+  },
+  "faction_war": {
+   "trigger": "faction.war",
+   "must": true,
+   "max_per_window": 1,
+   "delay_min": [
+    2,
+    20
+   ]
+  },
+  "power_out": {
+   "trigger": "power.down",
+   "must": false,
+   "chance": 0.6,
+   "max_per_window": 1,
+   "cooldown_min": 720,
+   "delay_min": [
+    5,
+    30
+   ],
+   "alias": {
+    "count": "delta"
+   }
+  },
+  "power_on": {
+   "trigger": "power.up",
+   "must": false,
+   "chance": 0.5,
+   "max_per_window": 1,
+   "cooldown_min": 720,
+   "delay_min": [
+    5,
+    30
+   ],
+   "alias": {
+    "count": "delta"
+   }
+  },
+  "caravan_arrives": {
+   "trigger": "caravan.arrives",
+   "must": false,
+   "chance": 0.6,
+   "max_per_window": 1,
+   "delay_min": [
+    5,
+    40
+   ]
+  },
+  "beast_seen": {
+   "trigger": "beast.seen",
+   "must": false,
+   "chance": 0.7,
+   "max_per_window": 1,
+   "again_key": "town",
+   "again_after_min": 720,
+   "delay_min": [
+    0,
+    10
+   ]
+  },
+  "ask": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 180,
+   "when": {
+    "hours": [
+     7,
+     22
+    ]
+   }
+  },
+  "offer": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 240,
+   "when": {
+    "hours": [
+     7,
+     21
+    ]
+   }
+  },
+  "lost": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 900
+  },
+  "weather": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 480,
+   "when": {
+    "hours": [
+     6,
+     20
+    ]
+   }
+  },
+  "queue": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 600,
+   "when": {
+    "hours": [
+     5,
+     10
+    ]
+   }
+  },
+  "night": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 240,
+   "when": {
+    "night": true
+   },
+   "alias": {
+    "count": "lights"
+   }
+  },
+  "scanner": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 480
+  },
+  "quiet": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 360
+  },
+  "stranger": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 600
+  },
+  "memorial": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2880
+  },
+  "market": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 720,
+   "when": {
+    "hours": [
+     8,
+     18
+    ]
+   }
+  },
+  "bot_happyhour": {
+   "trigger": "clock.hour",
+   "must": false,
+   "chance": 0.6,
+   "max_per_window": 1,
+   "cooldown_min": 4320,
+   "when": {
+    "hours": [
+     17,
+     18
+    ]
+   },
+   "delay_min": [
+    0,
+    2
+   ]
+  },
+  "bot_power": {
+   "trigger": "clock.hour",
+   "must": false,
+   "chance": 0.25,
+   "max_per_window": 1,
+   "cooldown_min": 4320,
+   "when": {
+    "night": true
+   },
+   "delay_min": [
+    0,
+    2
+   ]
+  },
+  "bot_wx": {
+   "trigger": "clock.day",
+   "must": false,
+   "chance": 0.35,
+   "max_per_window": 1,
+   "cooldown_min": 1440,
+   "delay_min": [
+    420,
+    480
+   ]
+  },
+  "bot_bus": {
+   "trigger": "clock.hour",
+   "must": false,
+   "chance": 0.2,
+   "max_per_window": 1,
+   "cooldown_min": 4320,
+   "when": {
+    "hours": [
+     6,
+     22
+    ]
+   },
+   "delay_min": [
+    0,
+    2
+   ],
+   "alias": {
+    "count": "minutes"
+   }
+  },
+  "bot_gm": {
+   "trigger": "clock.day",
+   "must": false,
+   "chance": 0.3,
+   "max_per_window": 1,
+   "cooldown_min": 2880,
+   "delay_min": [
+    360,
+    600
+   ]
+  },
+  "page_brigands_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_brigands_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "brigands"
+    }
+   }
+  },
+  "page_noble_houses_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_noble_houses_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "noble_houses"
+    }
+   }
+  },
+  "page_zombies_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_zombies_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "zombies"
+    }
+   }
+  },
+  "page_nomads_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_nomads_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "nomads"
+    }
+   }
+  },
+  "page_mercenaries_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_mercenaries_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "mercenaries"
+    }
+   }
+  },
+  "page_bounty_hunters_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_bounty_hunters_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "bounty_hunters"
+    }
+   }
+  },
+  "page_cultists_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_cultists_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "cultists"
+    }
+   }
+  },
+  "page_barbarians_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_barbarians_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "barbarians"
+    }
+   }
+  },
+  "page_city_states_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_city_states_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "city_states"
+    }
+   }
+  },
+  "page_militia_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_militia_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "militia"
+    }
+   }
+  },
+  "page_goblins_notice": {
+   "trigger": "quiet",
+   "must": false,
+   "max_per_window": 1,
+   "cooldown_min": 2160,
+   "when": {
+    "hours": [
+     8,
+     22
+    ]
+   }
+  },
+  "page_goblins_claim": {
+   "trigger": "faction.claim",
+   "must": false,
+   "chance": 0.8,
+   "max_per_window": 1,
+   "delay_min": [
+    10,
+    60
+   ],
+   "when": {
+    "is": {
+     "faction_id": "goblins"
+    }
+   }
+  }
+ },
+ "who_map": {
+  "town": [
+   "town",
+   "tag:person"
+  ],
+  "valley": "tag:person",
+  "scanner": "tag:scanner",
+  "company": "company",
+  "stranger": "tag:stranger"
+ },
+ "places": {
+  "freeway": "the freeway",
+  "beltway": "the 215",
+  "arterial": "the boulevard",
+  "strip": "the Strip",
+  "interchange": "the Spaghetti Bowl",
+  "rail": "the tracks",
+  "industrial": "the industrial park",
+  "airport": "the airport",
+  "airbase": "the base fence",
+  "railyard": "the railyard",
+  "datafort": "the data center",
+  "solar": "the solar field",
+  "downtown": "downtown",
+  "commercial": "the strip mall",
+  "mall": "the mall",
+  "resort": "the resort",
+  "casino": "the casinos",
+  "stadium": "the stadium",
+  "desert": "the desert",
+  "mountain": "the hills",
+  "wash": "the wash",
+  "park": "the park",
+  "golf": "the golf course",
+  "farm": "the farms",
+  "campus": "the campus",
+  "suburb": "the subdivision",
+  "town": "town",
+  "gated": "the gated streets",
+  "school": "the school",
+  "medical": "the hospital"
+ },
+ "roads": {
+  "freeway": [
+   "the 15",
+   "the 95"
+  ],
+  "beltway": [
+   "the 215"
+  ],
+  "interchange": [
+   "the Spaghetti Bowl"
+  ],
+  "strip": [
+   "the Strip"
+  ],
+  "_any": [
+   "Boulder Highway",
+   "Flamingo",
+   "Tropicana",
+   "Charleston",
+   "Sahara",
+   "Lamb",
+   "Nellis",
+   "Rainbow",
+   "Decatur",
+   "Maryland Parkway"
+  ]
+ },
+ "says_extra": {
+  "value": {
+   "Blues": "the Blues",
+   "Reds": "the Reds",
+   "Anarchists": "the anarchists",
+   "Colorful": "the Colorful crew",
+   "Church": "the church people",
+   "Network": "the Network's people",
+   "Trades": "the Trades guys",
+   "Caravans": "the caravan people",
+   "Volunteers": "the volunteers",
+   "Remnants": "the Remnants",
+   "Cartel": "the cartel",
+   "Mob": "the Mob's guys",
+   "Homeless": "the tunnel people",
+   "Custom": "the new crews"
+  },
+  "draft": true,
+  "why": "the demo map's fourteen towns are the valley's factions (the faction graph); WORDS' plurals cover the twelve of factions.json; these are FEED's drafts for the valley's, WORDS may rewrite any"
+ },
+ "accounts_extra": [
+  {
+   "id": "pg_reds",
+   "handle": "reds_rates_daily",
+   "kind": "page",
+   "faction": "Reds",
+   "town": "Reds",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_reds",
+    "portrait": null
+   },
+   "story": "the Reds' desk: interest, rates, the price of everything, every morning",
+   "draft": true,
+   "acts": {
+    "1": "reds_rates_daily"
+   }
+  },
+  {
+   "id": "pg_blues",
+   "handle": "blues_general_assembly",
+   "kind": "page",
+   "faction": "Blues",
+   "town": "Blues",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_blues",
+    "portrait": null
+   },
+   "story": "the Blues decide everything together, in public, slowly",
+   "draft": true,
+   "acts": {
+    "1": "blues_general_assembly"
+   }
+  },
+  {
+   "id": "pg_anarchy",
+   "handle": "anarchy_fm_lv",
+   "kind": "page",
+   "faction": "Anarchists",
+   "town": "Anarchists",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "spanglish",
+   "face": {
+    "id": "face-feed-pg_anarchy",
+    "portrait": null
+   },
+   "story": "the Anarchists' pirate radio page, loud and everywhere",
+   "draft": true,
+   "acts": {
+    "1": "anarchy_fm_lv"
+   }
+  },
+  {
+   "id": "pg_colorful",
+   "handle": "colorful_mutual_aid",
+   "kind": "page",
+   "faction": "Colorful",
+   "town": "Colorful",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_colorful",
+    "portrait": null
+   },
+   "story": "the smallest crew, mutual aid, members in every friendly town",
+   "draft": true,
+   "acts": {
+    "1": "colorful_mutual_aid"
+   }
+  },
+  {
+   "id": "pg_church",
+   "handle": "church_relief_line",
+   "kind": "page",
+   "faction": "Church",
+   "town": "Church",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "es",
+   "face": {
+    "id": "face-feed-pg_church",
+    "portrait": null
+   },
+   "story": "the Church's relief line: the best crisis kitchen in the valley",
+   "draft": true,
+   "acts": {
+    "1": "church_relief_line"
+   }
+  },
+  {
+   "id": "pg_network",
+   "handle": "the_network_official",
+   "kind": "page",
+   "faction": "Network",
+   "town": "Network",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_network",
+    "portrait": null
+   },
+   "story": "the Network's official page; everything is fine, everything is handled",
+   "draft": true,
+   "acts": {
+    "1": "the_network_official"
+   }
+  },
+  {
+   "id": "pg_trades",
+   "handle": "trades_hall_jobs",
+   "kind": "page",
+   "faction": "Trades",
+   "town": "Trades",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_trades",
+    "portrait": null
+   },
+   "story": "the Trades post work and never an opinion",
+   "draft": true,
+   "acts": {
+    "1": "trades_hall_jobs"
+   }
+  },
+  {
+   "id": "pg_caravans",
+   "handle": "caravan_schedule",
+   "kind": "page",
+   "faction": "Caravans",
+   "town": "Caravans",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_caravans",
+    "portrait": null
+   },
+   "story": "the Caravans' timetable: who leaves, who arrives, who never did",
+   "draft": true,
+   "acts": {
+    "1": "caravan_schedule"
+   }
+  },
+  {
+   "id": "pg_volunteers",
+   "handle": "volunteers_soup_line",
+   "kind": "page",
+   "faction": "Volunteers",
+   "town": "Volunteers",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_volunteers",
+    "portrait": null
+   },
+   "story": "the Volunteers' soup line and clinic hours",
+   "draft": true,
+   "acts": {
+    "1": "volunteers_soup_line"
+   }
+  },
+  {
+   "id": "pg_remnants",
+   "handle": "remnants_nellis_ops",
+   "kind": "page",
+   "faction": "Remnants",
+   "town": "Remnants",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_remnants",
+    "portrait": null
+   },
+   "story": "what is left of the base at Nellis, posting like a duty log",
+   "draft": true,
+   "acts": {
+    "1": "remnants_nellis_ops"
+   }
+  },
+  {
+   "id": "pg_mob",
+   "handle": "strip_management",
+   "kind": "page",
+   "faction": "Mob",
+   "town": "Mob",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_mob",
+    "portrait": null
+   },
+   "story": "the Mob runs the Strip like a hotel that never closed",
+   "draft": true,
+   "acts": {
+    "1": "strip_management"
+   }
+  },
+  {
+   "id": "pg_homeless",
+   "handle": "kinghobo_rarely_posts",
+   "kind": "page",
+   "faction": "Homeless",
+   "town": "Homeless",
+   "tags": [
+    "faction",
+    "valley",
+    "page"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-pg_homeless",
+    "portrait": null
+   },
+   "story": "the tunnels barely use the feed; when the King posts, people read it",
+   "draft": true,
+   "acts": {
+    "1": "kinghobo_rarely_posts"
+   }
+  },
+  {
+   "id": "nw_mom",
+   "handle": "summerlin_mom_of_3",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-nw_mom",
+    "portrait": null
+   },
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a mother in Summerlin, created eleven days ago, grateful",
+   "draft": true,
+   "acts": {
+    "1": "summerlin_mom_of_3"
+   }
+  },
+  {
+   "id": "nw_vet",
+   "handle": "proud_vet_1971",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-nw_vet",
+    "portrait": null
+   },
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a proud veteran born in 1971 whose photos are all the same flag",
+   "draft": true,
+   "acts": {
+    "1": "proud_vet_1971"
+   }
+  },
+  {
+   "id": "nw_biz",
+   "handle": "small_biz_owner_lv",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-nw_biz",
+    "portrait": null
+   },
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a small business owner with no business",
+   "draft": true,
+   "acts": {
+    "1": "small_biz_owner_lv"
+   }
+  },
+  {
+   "id": "nw_teach",
+   "handle": "teacherlife_702",
+   "kind": "stranger",
+   "faction": "Network",
+   "tags": [
+    "network"
+   ],
+   "lang": "en",
+   "face": {
+    "id": "face-feed-nw_teach",
+    "portrait": null
+   },
+   "story": "MANUFACTURED (the Network is the Amalgamation's psyop, the faction graph): a teacher whose school burned, thankful anyway",
+   "draft": true,
+   "acts": {
+    "1": "teacherlife_702"
+   }
+  }
+ ],
+ "kinds_extra": [
+  {
+   "id": "game_start",
+   "source": "mine",
+   "trigger": "game.start",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    0,
+    1
+   ],
+   "max_per_window": 1,
+   "teaches": "the company's page is yours; it is how the valley hears your name",
+   "words": [
+    {
+     "en": "{company}. {origin}. {start} batteries between us. We take work.",
+     "draft": true
+    },
+    {
+     "en": "{company} is open for work. Ask at any board.",
+     "draft": true
+    },
+    {
+     "en": "New page. {company}. We're the ones on the road.",
+     "draft": true
+    },
+    {
+     "en": "Day one. {company}. {start} batteries and a road.",
+     "draft": true
+    },
+    {
+     "en": "{company} starts today. If you need a crew, we're the crew.",
+     "draft": true
+    }
+   ],
+   "_feed": true,
+   "suggest": {
+    "trigger": "a new game starts: the company's page opens",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "crew_ate",
+   "source": "mine",
+   "trigger": "bill.night",
+   "who": [
+    "company"
+   ],
+   "delay_min": [
+    0,
+    3
+   ],
+   "max_per_window": 1,
+   "must": false,
+   "chance": 0.5,
+   "teaches": "the crew eats every night, and food is money",
+   "words": [
+    {
+     "en": "Ate tonight. {paid} batteries of food. {days_left} days left like this.",
+     "draft": true
+    },
+    {
+     "en": "Fed the crew. {paid} batteries. Nobody complained, which means nobody's full.",
+     "draft": true
+    },
+    {
+     "en": "{paid} batteries for supper. The road is expensive.",
+     "draft": true
+    },
+    {
+     "en": "Supper's paid: {paid} batteries. {days_left} days of this before it gets hard.",
+     "draft": true
+    },
+    {
+     "en": "We ate. {paid} batteries gone. That's the whole report.",
+     "draft": true
+    }
+   ],
+   "_feed": true,
+   "suggest": {
+    "trigger": "the night's bill: the crew eats",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "man_walked",
+   "source": "mine",
+   "trigger": "man.walked",
+   "who": [
+    "company",
+    "valley"
+   ],
+   "delay_min": [
+    2,
+    20
+   ],
+   "max_per_window": 2,
+   "teaches": "a man who is not fed walks",
+   "words": [
+    {
+     "en": "{man} walked out last night. No food, no reason to stay.",
+     "draft": true,
+     "by": "company"
+    },
+    {
+     "en": "{man} is gone. We couldn't feed him. That's on us.",
+     "draft": true,
+     "by": "company"
+    },
+    {
+     "en": "{man} left the {company}. said the pot was empty two nights running. i believe him.",
+     "draft": true,
+     "by": "valley"
+    },
+    {
+     "en": "saw {man} walking alone at first light. used to ride with the {company}.",
+     "draft": true,
+     "by": "valley"
+    },
+    {
+     "en": "{man} took his share and walked. Can't blame him. We'll eat first next time.",
+     "draft": true,
+     "by": "company"
+    }
+   ],
+   "_feed": true,
+   "suggest": {
+    "trigger": "a man walks when the crew cannot feed him (the night's bill)",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "party_moved",
+   "source": "world",
+   "trigger": "party.moved",
+   "who": [
+    "faction",
+    "valley"
+   ],
+   "must": false,
+   "chance": 0.35,
+   "delay_min": [
+    5,
+    60
+   ],
+   "max_per_window": 1,
+   "again_key": "faction_id",
+   "again_after_min": 720,
+   "teaches": "the valley's crews have business: caravans, patrols, raids; where they go is the news",
+   "words": [
+    {
+     "en": "Caravan out to {toward} today. If you need something carried, you missed it.",
+     "draft": true,
+     "by": [
+      "tag:valley",
+      "tag:page"
+     ]
+    },
+    {
+     "en": "Patrol heading for {toward}. Stay on the road and keep your hands where we see them.",
+     "draft": true,
+     "by": [
+      "tag:valley",
+      "tag:page"
+     ]
+    },
+    {
+     "en": "We're on the road to {toward}. We come back with what we went for.",
+     "draft": true,
+     "by": [
+      "tag:valley",
+      "tag:page"
+     ]
+    },
+    {
+     "en": "{faction} sent a caravan toward {toward}. if it gets there, prices drop.",
+     "draft": true,
+     "by": "valley"
+    },
+    {
+     "en": "{faction} heading for {toward}. nobody sends people anywhere for nothing.",
+     "draft": true,
+     "by": "valley"
+    },
+    {
+     "en": "watched {faction} load up and point at {toward}. good luck to whoever's there.",
+     "draft": true,
+     "by": "valley"
+    }
+   ],
+   "_feed": true,
+   "suggest": {
+    "trigger": "a crew of the valley sets out for another town (a party's new leg)",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "scarce",
+   "source": "world",
+   "trigger": "scarce.down",
+   "who": [
+    "valley"
+   ],
+   "must": false,
+   "chance": 0.6,
+   "delay_min": [
+    10,
+    90
+   ],
+   "max_per_window": 1,
+   "again_key": "good",
+   "again_after_min": 1440,
+   "when": {
+    "below": {
+     "days": 12
+    }
+   },
+   "teaches": "the valley is running out of something, and people count the days before the game does",
+   "words": [
+    {
+     "en": "{good} in the valley: {days} days left, the way everybody's using it. do the math.",
+     "draft": true
+    },
+    {
+     "en": "heard the market man say {good} runs out in {days} days. he wasn't joking. he doesn't joke.",
+     "draft": true
+    },
+    {
+     "en": "stock up on {good}. not panic. just stock up. {days} days, they say.",
+     "draft": true
+    },
+    {
+     "en": "asked at the market how long the {good} lasts. he said {days} days and then he stopped answering.",
+     "draft": true
+    },
+    {
+     "en": "{days} days of {good} left in the valley. my grandmother says she's seen worse. she hasn't.",
+     "draft": true
+    }
+   ],
+   "_feed": true,
+   "suggest": {
+    "trigger": "the market's days left of a good drop",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "network_chorus",
+   "source": "world",
+   "trigger": "quiet",
+   "who": [
+    "nw_mom",
+    "nw_vet",
+    "nw_biz",
+    "nw_teach"
+   ],
+   "max_per_window": 1,
+   "cooldown_min": 1440,
+   "when": {
+    "hours": [
+     7,
+     23
+    ]
+   },
+   "teaches": "not every account is a person; the Network says the same thing through many mouths",
+   "words": [
+    {
+     "en": "so grateful for the Network. they kept the lights on at my kid's school.",
+     "draft": true,
+     "tags": [
+      "ah"
+     ]
+    },
+    {
+     "en": "grateful for the Network. they kept the lights on at my kids' school!!",
+     "draft": true,
+     "tags": [
+      "ah"
+     ]
+    },
+    {
+     "en": "honestly so grateful the Network kept the lights on at our school.",
+     "draft": true,
+     "tags": [
+      "ah"
+     ]
+    },
+    {
+     "en": "the Network kept the lights on. grateful. nobody else did.",
+     "draft": true,
+     "tags": [
+      "ah"
+     ]
+    },
+    {
+     "en": "whatever you hear, the Network is the only one keeping the lights on. grateful.",
+     "draft": true,
+     "tags": [
+      "ah"
+     ]
+    },
+    {
+     "en": "just want to say thank you to the Network. lights still on. so grateful.",
+     "draft": true,
+     "tags": [
+      "ah"
+     ]
+    }
+   ],
+   "_feed": true,
+   "suggest": {
+    "trigger": "the city's life: the Network's accounts, rare",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "valley_page",
+   "source": "world",
+   "trigger": "quiet",
+   "who": [
+    "pg_reds",
+    "pg_blues",
+    "pg_anarchy",
+    "pg_colorful",
+    "pg_church",
+    "pg_network",
+    "pg_trades",
+    "pg_caravans",
+    "pg_volunteers",
+    "pg_remnants",
+    "pg_mob",
+    "pg_homeless"
+   ],
+   "max_per_window": 1,
+   "cooldown_min": 900,
+   "when": {
+    "hours": [
+     7,
+     23
+    ]
+   },
+   "teaches": "each of the valley's fourteen crews has a voice, and what it posts is what it is",
+   "words": [
+    {
+     "en": "rates this morning: water up a hair, batteries steady, trust down. lend accordingly.",
+     "draft": true,
+     "by": "pg_reds"
+    },
+    {
+     "en": "assembly tonight at the old rec center. agenda: the well, the well, and the well. everybody votes.",
+     "draft": true,
+     "by": "pg_blues"
+    },
+    {
+     "en": "tonight on the frequency: three hours of whatever we found in a dead man's car. tune in or don't.",
+     "draft": true,
+     "by": "pg_anarchy"
+    },
+    {
+     "en": "we have clothes, a sewing machine and a working kettle. come by. nobody asks who you are.",
+     "draft": true,
+     "by": "pg_colorful"
+    },
+    {
+     "en": "relief line open from six. bring your own bowl. nobody is turned away and nobody is asked why.",
+     "draft": true,
+     "by": "pg_church"
+    },
+    {
+     "en": "everything is being handled. stay home after dark. official updates come only from this page.",
+     "draft": true,
+     "by": "pg_network"
+    },
+    {
+     "en": "hiring: two electricians, one welder, anybody who can read a schematic. pay in batteries. no politics.",
+     "draft": true,
+     "by": "pg_trades"
+    },
+    {
+     "en": "the Primm run leaves at dawn if the road crews let it. it usually does. it usually costs.",
+     "draft": true,
+     "by": "pg_caravans"
+    },
+    {
+     "en": "clinic hours today: noon to dark. we have gauze, a little insulin, and a nurse who hasn't slept.",
+     "draft": true,
+     "by": "pg_volunteers"
+    },
+    {
+     "en": "duty log: perimeter walked. two strangers turned back. one dog adopted. the fence holds.",
+     "draft": true,
+     "by": "pg_remnants"
+    },
+    {
+     "en": "the Strip is open. pay at the door. keep it clean and nobody gets hurt.",
+     "draft": true,
+     "by": "pg_mob"
+    },
+    {
+     "en": "we don't post. this is a post to say we don't post. stay off the feed if you want to stay yourself.",
+     "draft": true,
+     "by": "pg_homeless"
+    }
+   ],
+   "_feed": true,
+   "suggest": {
+    "trigger": "the city's life: a valley crew's own page, rare",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "life_meme",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "valley"
+   ],
+   "when": {
+    "hours": [
+     9,
+     24
+    ]
+   },
+   "cooldown_min": 720,
+   "teaches": "the internet kept its jokes when it lost everything else",
+   "words": [
+    {
+     "en": "nobody: / absolutely nobody: / my generator at 3pm: *coughs once and dies*",
+     "draft": true
+    },
+    {
+     "en": "POV: you have one battery and two phones.",
+     "draft": true
+    },
+    {
+     "en": "me explaining to my kid what a dollar was: so it was paper, and we agreed it mattered.",
+     "draft": true
+    },
+    {
+     "en": "it's giving no water since tuesday.",
+     "draft": true
+    },
+    {
+     "en": "this is fine. (the dog is on fire. the house is on fire. the dog has a battery.)",
+     "draft": true
+    },
+    {
+     "en": "tell me you live east of Boulder Highway without telling me you live east of Boulder Highway. I'll go first: the toll.",
+     "draft": true
+    },
+    {
+     "en": "they don't know I have two jugs of water under the bed.",
+     "draft": true
+    },
+    {
+     "en": "my therapist (the guy who fixes my bike) says I should go outside more. it's 114.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1,
+   "_feed": true,
+   "suggest": {
+    "trigger": "the city's life",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  },
+  {
+   "id": "life_rumour",
+   "source": "life",
+   "trigger": "quiet",
+   "who": [
+    "valley"
+   ],
+   "when": {
+    "hours": [
+     11,
+     24
+    ]
+   },
+   "cooldown_min": 900,
+   "teaches": "rumours carry what the factions want, and some of them are true",
+   "words": [
+    {
+     "en": "heard The House is paying double for guards at the depot. heard it from a guy who heard it.",
+     "draft": true
+    },
+    {
+     "en": "they say the water people found a spring past Jean. they say a lot of things.",
+     "draft": true
+    },
+    {
+     "en": "a guy at the market swears the lab animals got out of a lab in another state and walked here. walked.",
+     "draft": true
+    },
+    {
+     "en": "the eye in the sky has a list. I don't want to be on it. I don't want to know if I'm not on it.",
+     "draft": true
+    },
+    {
+     "en": "a man in a clean jacket is buying every battery in {town}. nobody knows what for. nobody asks him.",
+     "draft": true
+    },
+    {
+     "en": "the flock took in six families this week. six. nobody counts them, so nobody noticed.",
+     "draft": true
+    },
+    {
+     "en": "the road crews are fighting each other over the 15 now. good. let them.",
+     "draft": true
+    }
+   ],
+   "max_per_window": 1,
+   "_feed": true,
+   "suggest": {
+    "trigger": "the city's life",
+    "note": "FEED's own row; WORDS may take it"
+   }
+  }
+ ],
+ "fills_extra": {
+  "{origin}": "the origin he picked at the door, as a person says it (a new crew)",
+  "{start}": "the batteries he starts with, a number",
+  "{paid}": "what the night's food cost, in batteries, a number",
+  "{days_left}": "how many nights the purse feeds the crew like this, a number",
+  "{days}": "how many days of a good the valley has left, a number",
+  "{toward}": "the town a crew is walking to, as the map names it"
+ }
+}

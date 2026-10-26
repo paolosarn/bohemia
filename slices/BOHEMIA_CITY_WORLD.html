@@ -35360,9 +35360,635 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
     return ['deedLog', 'lit', 'prices', 'seats', 'built', 'min'];
   }
 
+  /* ===========================================================================
+     THE FEED ENGINE (10/26/26, FEED lane, row [the feed is alive], rule 215;
+     rule 217 for the usernames).
+
+     Paolo 10/26: "a part of the game managing all these mini events and triggers,
+     presented in a social media thing, to make it feel alive... pretty much
+     tweets... organize it properly so every time we upgrade it gets better."
+
+     WHAT THE OLD STREAM ABOVE GOT RIGHT, AND IS KEPT HERE AS THE RULES:
+       - a feed is DIFFS, never a description (watch() below speaks only when a
+         value moves, and its first look is a silent baseline);
+       - THE CAP DELAYS A POST, IT NEVER DROPS ONE, for the things he did (a kind
+         marked must: a deed waits for room, it is never eaten);
+       - never the same line twice running (variants rotate, and the last posts'
+         words are remembered).
+     WHAT IT COULD NOT DO, AND WHY THIS EXISTS: every sentence and every trigger
+     was code. Here every post kind is a ROW in ONE data file (records/target/bb/
+     feed_kinds.json, the mods law): its trigger, who may post it, how often at
+     most, how soon after, its words with variants, what it teaches. A new kind is
+     a new row. The engine knows no sentence and no account.
+
+     THE CLOCK IS THE GAME'S. Everything here is in game minutes: the game calls
+     tick(minuteNow) and the engine walks the minutes since the last tick, so a
+     sleep or a long march fills its hours the way a real feed fills overnight,
+     and a paused clock posts nothing. The pace (a handful an hour, more after
+     something big, never a wall) is the file's `pace` block.
+
+     ONE FUNCTION FOR THE PHONE: read() answers the posts, newest first, each
+     {handle, text, at, kind: mine|world|life, reply_to}; on(fn) hears each new
+     one as it lands (the wallpaper's slide). Nothing here draws or pops up.
+     =========================================================================== */
+  var FE_STEP_CAP = 24 * 60;   /* a jump longer than a day replays only its last day */
+
+  function feHash(s) {
+    var h = 2166136261; s = String(s == null ? '' : s);
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return h >>> 0;
+  }
+  function feRng(seed) {                       /* mulberry32: a seed replays a feed exactly (the gate) */
+    var a = (seed >>> 0) || 1;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0; var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function feSpan(r, span) {
+    if (span == null) return 0;
+    if (typeof span === 'number') return span;
+    var lo = +span[0] || 0, hi = (span.length > 1) ? +span[1] : lo;
+    if (!(hi >= lo)) hi = lo;
+    return lo + Math.floor(r() * (hi - lo + 1));
+  }
+  function feList(v) { return v == null ? [] : (Array.isArray(v) ? v : [v]); }
+  function fePlace(v) { return String(v).toLowerCase().replace(/_/g, ' ').replace(/\s+/g, ' ').trim(); }
+  function feText(w) { return (w && typeof w === 'object') ? String(w.text || '') : String(w == null ? '' : w); }
+  /* a variant is {text, by}: `by` (an account id or 'tag:<tag>') keeps a line in the one
+     mouth it belongs to, so one row can carry every faction page's own words */
+  function feWord(w) {
+    /* WORDS' shape (banks/BOHEMIA_WORDS_THE_FEED_BANK.json, its how_to_speak): en is the plain line, es its
+       Spanglish twin when it has one; the dial picks the form per post. {text} is the same as {en}. */
+    var en = (w && typeof w === 'object') ? String(w.en || w.text || '') : String(w == null ? '' : w);
+    if (!en) return null;
+    var o = { text: en, es: (w && typeof w === 'object' && w.es) ? String(w.es) : null,
+              by: (w && typeof w === 'object' && w.by) ? feList(w.by).map(String) : null };
+    if (w && typeof w === 'object' && w.tags) o.tags = feList(w.tags).map(String);
+    return o;
+  }
+  function feWords(v) { return feList(v).map(feWord).filter(Boolean); }
+  function feBy(w, a) {
+    if (!w.by) return true;
+    for (var i = 0; i < w.by.length; i++) {
+      var b = w.by[i];
+      if (b === a.id) return true;
+      if (b === 'valley' && (a.kind === 'person' || a.kind === 'local')) return true;
+      if (b === a.kind) return true;
+      if (b.indexOf('tag:') === 0 && feList(a.tags).indexOf(b.slice(4)) >= 0) return true;
+    }
+    return false;
+  }
+
+  /* {key} from the event's data; a variant naming a key the event does not carry
+     is not said (null), never said with a hole in it. */
+  function feFill(text, data) {
+    var missing = false;
+    var out = String(text).replace(/\{([a-z_0-9]+)\}/g, function (m, k) {
+      var v = data[k];
+      if (v === undefined || v === null || v === '') { missing = true; return m; }
+      return String(v);
+    });
+    return missing ? null : out;
+  }
+
+  function feInHours(h, span) {
+    var a = +span[0], b = +span[1];
+    return a <= b ? (h >= a && h < b) : (h >= a || h < b);
+  }
+  /* WHEN: the row's own conditions, all plain data. hours [from,to) wraps past
+     midnight; night; act; min_day; is {key: value or [values]}; at_least {key: n}. */
+  function feWhen(when, data) {
+    if (!when) return true;
+    if (when.hours && !feInHours(data.hour | 0, when.hours)) return false;
+    if (when.night === true && !data.night) return false;
+    if (when.night === false && data.night) return false;
+    if (when.act != null && feList(when.act).indexOf(data.act | 0) < 0) return false;
+    if (when.min_day != null && (data.day | 0) < when.min_day) return false;
+    var k;
+    if (when.is) for (k in when.is) if (Object.prototype.hasOwnProperty.call(when.is, k)) {
+      if (feList(when.is[k]).map(String).indexOf(String(data[k])) < 0) return false;
+    }
+    if (when.at_least) for (k in when.at_least) if (Object.prototype.hasOwnProperty.call(when.at_least, k)) {
+      if (!(+data[k] >= when.at_least[k])) return false;
+    }
+    if (when.below) for (k in when.below) if (Object.prototype.hasOwnProperty.call(when.below, k)) {
+      if (!(+data[k] < when.below[k])) return false;
+    }
+    return true;
+  }
+
+  function feNormalize(file) {
+    file = file || {};
+    var pace = file.pace || {};
+    var P = {
+      per_window: pace.per_window || pace.per_hour || { min: 2, max: 5 },
+      big: pace.big || { extra: 4, for_min: 120 },
+      min_gap_min: pace.min_gap_min == null ? 4 : +pace.min_gap_min,
+      reply_gap_min: pace.reply_gap_min == null ? 2 : +pace.reply_gap_min,
+      quiet_after_min: pace.quiet_after_min || [14, 26],
+      expire_min: pace.expire_min == null ? 120 : +pace.expire_min,
+      keep: pace.keep || 80,
+      no_repeat: pace.no_repeat || 40,
+      reply_chance: pace.reply_chance == null ? 0.3 : +pace.reply_chance,
+      big_reply_chance: pace.big_reply_chance == null ? 0.9 : +pace.big_reply_chance,
+      title_case: pace.title_case || ['town', 'man', 'client', 'was', 'toward', 'faction_name'],
+      real_gap_s: pace.real_gap_s == null ? 0 : +pace.real_gap_s,
+      window_min: pace.window_min == null ? 60 : +pace.window_min,
+      live_jump_min: pace.live_jump_min == null ? 90 : +pace.live_jump_min,
+      paused_delay_s: pace.paused_delay_s == null ? 2 : +pace.paused_delay_s,
+      life_every: pace.life_every == null ? 3 : +pace.life_every
+    };
+    var accounts = {}, order = [];
+    feList(file.accounts).forEach(function (a) {
+      if (!a || !a.id || accounts[a.id]) return;
+      accounts[a.id] = a; order.push(a.id);
+    });
+    var kinds = [], byTrigger = {};
+    feList(file.kinds).forEach(function (k) {
+      if (!k || !k.id || !k.trigger) return;
+      var row = {
+        id: String(k.id), source: k.source || 'world', trigger: feList(k.trigger).map(String),
+        who: feList(k.who), when: k.when || null, chance: k.chance == null ? 1 : +k.chance,
+        max_per_window: k.max_per_window != null ? +k.max_per_window : (k.max_per_hour == null ? 3 : +k.max_per_hour),
+        cooldown_min: k.cooldown_min == null ? 0 : +k.cooldown_min,
+        delay_min: k.delay_min == null ? [1, 6] : k.delay_min,
+        big: !!k.big, must: k.must == null ? (k.source === 'mine') : !!k.must,
+        expire_min: k.expire_min == null ? P.expire_min : +k.expire_min,
+        words: feWords(k.words),
+        again_key: k.again_key || null, again_after_min: k.again_after_min == null ? 0 : +k.again_after_min,
+        replies: feList(k.replies), follow_up: feList(k.follow_up),
+        teaches: k.teaches || '',
+        alias: k.alias || null
+      };
+      if (!row.words.length) return;
+      kinds.push(row);
+      row.trigger.forEach(function (t) { (byTrigger[t] = byTrigger[t] || []).push(row); });
+    });
+    var says = (file.faction_says && (file.faction_says.value || file.faction_says)) || {};
+    return { pace: P, accounts: accounts, order: order, kinds: kinds, byTrigger: byTrigger, says: says,
+             places: file.places || {}, sentence_case: feList(file.sentence_case || ['page', 'faction', 'scanner', 'company']),
+             byId: kinds.reduce(function (m, k) { m[k.id] = k; return m; }, {}) };
+  }
+
+  function engine(file, opts) {
+    opts = opts || {};
+    var F = feNormalize(file);
+    var P = F.pace;
+    var r = feRng(opts.seed == null ? (Math.random() * 4294967296) >>> 0 : feHash(opts.seed));
+    var say = opts.say || null;              /* the house Spanglish dial, handed in (BohemiaSpanglish.say) */
+    var ctx = { company: 'the company', act: 1 };
+    var st = {
+      seq: 0, now: null, posts: [], queue: [], kindAt: {}, lastVariant: {}, recent: [],
+      bigUntil: -1, lastAt: -1e9, nextQuiet: null, seen: {}, hourSeen: null, daySeen: null, again: {}, realAt: -1e15
+    };
+    var ears = [];
+
+    function clockData(t) {
+      var day = Math.floor(t / 1440), m = ((t % 1440) + 1440) % 1440, hour = Math.floor(m / 60);
+      /* the game's own dark hours when it hands them over (night_from, night_to) */
+      var nf = ctx.night_from == null ? 20 : +ctx.night_from, nt = ctx.night_to == null ? 6 : +ctx.night_to;
+      var night = feInHours(hour, [nf, nt]);
+      return { day: day, hour: hour, minute: m % 60, night: night,
+               hh: (hour < 10 ? '0' : '') + hour + ':' + ((m % 60) < 10 ? '0' : '') + (m % 60) };
+    }
+    function base(t) {
+      var d = clockData(t), k;
+      d.act = ctx.act | 0 || 1; d.company = ctx.company;
+      for (k in ctx) if (Object.prototype.hasOwnProperty.call(ctx, k) && d[k] === undefined) d[k] = ctx[k];
+      return d;
+    }
+    /* the map writes places and people in capitals (BOULDER CITY); a person typing a post
+       writes Boulder City. The file names which keys are names (pace.title_case). */
+    function titled(d) {
+      (P.title_case || []).forEach(function (k) {
+        if (typeof d[k] === 'string' && d[k] === d[k].toUpperCase())
+          d[k] = d[k].toLowerCase().replace(/(^|[\s'-])([a-z\u00E0-\u00FF])/g, function (m, a, c) { return a + c.toUpperCase(); });
+      });
+      return d;
+    }
+    /* the names a person says: a faction as its plural (WORDS' faction_says: the road crews, the water people),
+       the place as a person says it (the file's places: freeway -> the freeway) */
+    function names(d) {
+      var says = F.says || {};
+      if (d.faction_id == null && d.faction != null && says[d.faction]) d.faction_id = d.faction;
+      if (d.faction_id != null) d.faction = says[d.faction_id] || d.faction_name || String(d.faction_id);
+      if (d.enemy_faction != null && says[d.enemy_faction]) d.enemy = says[d.enemy_faction];
+      if (d.district != null && d.place == null && F.places[d.district]) d.place = F.places[d.district];
+      return d;
+    }
+    /* a row may name which of the event's numbers its {key} means (alias: {count: 'lights'}) */
+    function aliased(k, d) {
+      if (!k.alias) return d;
+      var o = merge(d, {});
+      for (var a in k.alias) if (Object.prototype.hasOwnProperty.call(k.alias, a) && d[k.alias[a]] != null) o[a] = d[k.alias[a]];
+      return o;
+    }
+    function merge(a, b) { var o = {}, k; for (k in a) o[k] = a[k]; if (b) for (k in b) if (b[k] !== undefined) o[k] = b[k]; return o; }
+
+    function countSince(t, kindId) {
+      var n = 0;
+      for (var i = st.posts.length - 1; i >= 0; i--) {
+        var p = st.posts[i]; if (p.at <= t - P.window_min) break;
+        if (!kindId || p.type === kindId) n++;
+      }
+      return n;
+    }
+    function capAt(t) { return (+P.per_window.max || 5) + (t < st.bigUntil ? (+P.big.extra || 0) : 0); }
+    /* THE GLASS HAS ITS OWN CLOCK. On the map an in-game hour passes in 2 to 5 real seconds of
+       travel (measured, 10/26), so a pace written only in game minutes would be a wall on a
+       phone. When the game hands over its real clock (opts.realNow) a post also waits
+       pace.real_gap_s real seconds after the last one, while the clock runs live; a long jump
+       (a sleep, a march) still fills its hours at once, the way a feed fills overnight. */
+    var LIVE = false;
+    function realOk() {
+      if (!LIVE || !opts.realNow || !P.real_gap_s) return true;
+      return opts.realNow() - st.realAt >= P.real_gap_s * 1000;
+    }
+    function roomAt(t, isReply) {
+      if (!realOk()) return false;
+      if (t - st.lastAt < (isReply ? P.reply_gap_min : P.min_gap_min)) return false;
+      return countSince(t) < capAt(t);
+    }
+    function kindRoom(k, t) {
+      if (k.cooldown_min && st.kindAt[k.id] != null && t - st.kindAt[k.id] < k.cooldown_min) return false;
+      return countSince(t, k.id) < k.max_per_window;
+    }
+
+    /* WHO MAY POST IT. An entry is an account id, 'tag:<tag>' (any account with
+       the tag), 'faction' (the account of the event's faction), 'town' (an account
+       of the event's town, else any local), or 'same' (a follow-up's own author). */
+    function pickAccount(who, data, author, words) {
+      var pool = [], seen = {}, pref = [];
+      function add(id, mine) {
+        var a = F.accounts[id];
+        if (!a || seen[id]) return;
+        seen[id] = 1;
+        if (words && !words.some(function (w) { return feBy(w, a); })) return;
+        pool.push(a);
+        if (mine) pref.push(a);
+      }
+      who.forEach(function (w) {
+        w = String(w);
+        if (w === 'same') { if (author) add(author); return; }
+        if (w.indexOf('faction:') === 0) {
+          var fid = w.slice(8).toLowerCase();
+          F.order.forEach(function (id) { var a = F.accounts[id]; if (a.faction != null && String(a.faction).toLowerCase() === fid) add(id, true); });
+          return;
+        }
+        if (w.indexOf('tag:') === 0) {
+          var tag = w.slice(4);
+          F.order.forEach(function (id) { if (feList(F.accounts[id].tags).indexOf(tag) >= 0) add(id); });
+          return;
+        }
+        /* WORDS' pools (its bank's who): valley = any person, scanner = the scanner page, stranger = a burner */
+        if (w === 'valley' || w === 'scanner' || w === 'stranger') {
+          var want = (w === 'valley') ? 'person' : w;
+          F.order.forEach(function (id) { var a = F.accounts[id]; if (a.kind === want || (w === 'valley' && a.kind === 'local')) add(id); });
+          return;
+        }
+        /* 'faction' is the event's faction's page; 'town' and 'toward' are the PEOPLE of that
+           place (a page speaks for its crew, a person speaks for the street): a person's town is
+           their home (WORDS: henderson, boulder_city), read the way the map names it */
+        if (w === 'faction' || w === 'town' || w === 'toward') {
+          var key = (w === 'faction') ? (data.faction_id != null ? data.faction_id : data.faction) : data[w];
+          if (key == null) return;
+          key = fePlace(key);
+          var hit = 0;
+          F.order.forEach(function (id) {
+            var a = F.accounts[id], v = (w === 'faction') ? a.faction : (a.town != null ? a.town : a.home);
+            if (v == null || fePlace(v) !== key) return;
+            if (w !== 'faction' && (a.kind === 'faction' || a.kind === 'page')) return;
+            hit++; add(id, true);
+          });
+          /* WORDS: 'town' is a person whose home is the event's town, else the valley */
+          if (!hit && w !== 'faction') F.order.forEach(function (id) { var a = F.accounts[id]; if (a.kind === 'person' || a.kind === 'local') add(id); });
+          return;
+        }
+        add(w, true);   /* an account named outright is WORDS' first match: it speaks first, most of the time */
+      });
+      if (!pool.length) return null;
+      /* the mouth from the place the event happened speaks first, most of the time */
+      if (pref.length && r() < 0.65) pool = pref;
+      /* not the same mouth twice running, when there is a choice */
+      var last = st.posts.length ? st.posts[st.posts.length - 1].account : null;
+      var fresh = pool.filter(function (a) { return a.id !== last; });
+      var from = fresh.length ? fresh : pool;
+      return from[Math.floor(r() * from.length)];
+    }
+    function handleOf(a) {
+      if (!a) return '';
+      var h = (a.acts && a.acts[String(ctx.act | 0)]) || a.handle || a.id;
+      h = feFill(h, { company: ctx.company, companyhandle: ctx.companyhandle || String(ctx.company || '').toLowerCase().replace(/[^a-z0-9]+/g, '') }) || h;
+      /* a username reads @name; a name with a space in it (his company before he renames) reads as typed */
+      return (h.charAt(0) === '@' || /\s/.test(h)) ? h : '@' + h;
+    }
+
+    function render(k, data, all, author) {
+      /* the variants this mouth may say, by their index in the row (the rotation's memory) */
+      var idx = [];
+      for (var j = 0; j < all.length; j++) if (feBy(all[j], author)) idx.push(j);
+      var n = idx.length, tried = 0;
+      if (!n) return null;
+      var lastV = st.lastVariant[k.id] || [];
+      var start = Math.floor(r() * n), prev = st.posts.length ? st.posts[st.posts.length - 1].text : null;
+      var fallback = null;
+      for (var i = 0; i < n; i++) {
+        var vi = idx[(start + i) % n];
+        var txt = feFill(all[vi].text, data);
+        if (txt == null) continue;
+        var esx = all[vi].es ? feFill(all[vi].es, data) : null;
+        tried++;
+        if (n > 1 && lastV.indexOf(vi) >= 0) { if (!fallback) fallback = { vi: vi, txt: txt, es: esx, tags: all[vi].tags || null }; continue; }
+        if (st.recent.indexOf(txt) >= 0) { if (!fallback && txt !== prev) fallback = { vi: vi, txt: txt, es: esx, tags: all[vi].tags || null }; continue; }
+        return { vi: vi, txt: txt, es: esx, tags: all[vi].tags || null };
+      }
+      return (fallback && fallback.txt !== prev) ? fallback : null;
+    }
+
+    function publish(item, t) {
+      var k = item.spec;
+      var data = item.data;
+      /* a mouth with at least one line of its own in this row */
+      var author = pickAccount(item.who, data, item.author, item.words);
+      if (!author) return null;
+      var d = merge(data, { handle: handleOf(author) });
+      if (item.parent) d.parent_handle = item.parent.handle;
+      var got = render(k, d, item.words, author);
+      if (!got) return null;
+      var text = got.txt, form = 'en';
+      var SPN = opts.spanglish || null, whoS = { key: author.id, lang: author.lang || null, player: author.kind === 'company' };
+      if (SPN && SPN.regFor && author.kind !== 'bot' && author.kind !== 'company') {
+        /* WORDS' how_to_speak: regFor picks the form; 'en' takes en, anything else the twin, else one word of flavour */
+        try {
+          var reg = SPN.regFor(whoS, item.kindId + '|' + got.vi);
+          if (reg && reg !== 'en') { text = got.es || (SPN.flavour ? SPN.flavour(got.txt, whoS) : got.txt); form = 'es'; }
+          if (/^[a-z]/.test(got.txt)) text = text.replace(/^([A-Za-z\u00C0-\u00FF]+[.,!] )?([A-Za-z\u00C0-\u00FF])/, function (m, op, c) { return (op ? op.toLowerCase() : '') + c.toLowerCase(); });
+        } catch (_e) {}
+      } else if (say && author.kind !== 'bot') {
+        try {
+          text = say({ key: author.id, lang: author.lang || null, player: author.kind === 'company' },
+                     text, item.kindId + '|' + got.vi) || text;
+          if (text !== got.txt) form = 'es';
+          /* the dial capitalises; a feed that is written in lowercase stays lowercase */
+          if (/^[a-z]/.test(got.txt))
+            text = text.replace(/^([A-Za-z\u00C0-\u00FF]+[.,!] )?([A-Za-z\u00C0-\u00FF])/, function (m, op, c) {
+              return (op ? op.toLowerCase() : '') + c.toLowerCase();
+            });
+        } catch (_e) {}
+      }
+      /* WORDS' casing: a page, the scanner and his page open every sentence with a capital, so a fill that opens
+         one of their sentences is raised; a person writes in lower case on purpose */
+      if (F.sentence_case.indexOf(author.kind) >= 0 || feList(author.tags).indexOf('scanner') >= 0)
+        text = text.replace(/(^|[.!?]\s+)([a-z])/g, function (m, a, c2) { return a + c2.toUpperCase(); });
+      st.seq++;
+      var c = clockData(t);
+      var post = { id: 'f' + st.seq, at: t, day: c.day, hh: c.hh,
+                   kind: k.source || item.source, type: item.kindId, account: author.id,
+                   handle: handleOf(author), face: (author.face && typeof author.face === 'object') ? (author.face.portrait || '') : (author.face || ''), text: text,
+                   reply_to: item.parent ? item.parent.id : null, teaches: item.teaches || '',
+                   tags: got.tags || null, form: form, draft: true };
+      st.posts.push(post);
+      if (st.posts.length > P.keep) st.posts.splice(0, st.posts.length - P.keep);
+      st.recent.push(got.txt);
+      if (st.recent.length > P.no_repeat) st.recent.splice(0, st.recent.length - P.no_repeat);
+      var lv = st.lastVariant[item.kindId] = (st.lastVariant[item.kindId] || []);
+      lv.push(got.vi); var hold = Math.min(2, item.words.length - 1);
+      while (lv.length > hold) lv.shift();
+      st.kindAt[item.kindId] = t;
+      st.lastAt = t;
+      if (opts.realNow) st.realAt = opts.realNow();
+      if (item.big) st.bigUntil = Math.max(st.bigUntil, t + (+P.big.for_min || 0));
+      if (item.top) {           /* the answers a real feed gives a post: replies, then a follow-up */
+        var rc = item.big ? P.big_reply_chance : P.reply_chance;
+        feList(k.replies).forEach(function (rs, ri) {
+          var ch = rs.chance == null ? rc : +rs.chance;
+          if (r() >= ch) return;
+          queueItem({ kindId: item.kindId + '.reply' + ri, spec: k, source: k.source,
+                      who: feList(rs.who || ['tag:local']), words: feWords(rs.words),
+                      data: d, due: t + Math.max(1, feSpan(r, rs.delay_min || [3, 25])),
+                      must: false, expire: (rs.expire_min || P.expire_min), parent: post,
+                      author: author.id, teaches: '', big: false, top: false });
+        });
+        feList(k.follow_up).forEach(function (fs, fi) {
+          var ch = fs.chance == null ? (item.big ? 1 : 0.25) : +fs.chance;
+          if (r() >= ch) return;
+          queueItem({ kindId: item.kindId + '.follow' + fi, spec: k, source: k.source,
+                      who: feList(fs.who || ['same']), words: feWords(fs.words),
+                      data: d, due: t + Math.max(10, feSpan(r, fs.after_min || [60, 180])),
+                      must: false, expire: (fs.expire_min || P.expire_min * 2), parent: post,
+                      author: author.id, teaches: '', big: false, top: false });
+        });
+      }
+      for (var i = 0; i < ears.length; i++) { try { ears[i](post); } catch (_e) {} }
+      return post;
+    }
+
+    function queueItem(it) {
+      if (!it.words || !it.words.length) return;
+      it.expiresAt = it.due + (it.expire == null ? P.expire_min : it.expire);
+      st.queue.push(it);
+    }
+
+    /* SOMETHING HAPPENED: every row whose trigger it is and whose conditions hold
+       schedules its post. A deed (must) always schedules; anything else may be
+       skipped by its own chance or its own limit, because not every event is a post
+       (WORDS Q15 rule 6). */
+    function fire(trigger, data) {
+      var rows = F.byTrigger[String(trigger)] || [];
+      if (!rows.length) return 0;
+      var t = st.now == null ? 0 : st.now;
+      var d = names(titled(merge(base(t), data || {})));
+      var n = 0;
+      rows.forEach(function (k) {
+        if (!feWhen(k.when, d)) return;
+        if (!k.must && k.chance < 1 && r() >= k.chance) return;
+        /* the same town, the same man, the same crew: once inside its window */
+        if (k.again_key && k.again_after_min) {
+          var ak = k.id + '|' + String(d[k.again_key]);
+          if (st.again[ak] != null && t - st.again[ak] < k.again_after_min) return;
+          st.again[ak] = t;
+        }
+        queueItem({ kindId: k.id, spec: k, source: k.source, who: k.who, words: k.words, data: aliased(k, d),
+                    due: t + feSpan(r, k.delay_min), must: k.must, expire: k.expire_min,
+                    parent: null, author: null, teaches: k.teaches, big: k.big, top: true,
+                    firedReal: opts.realNow ? opts.realNow() : null });
+        n++;
+      });
+      return n;
+    }
+
+    function quietFill(t) {
+      var d = titled(base(t));
+      var rows = (F.byTrigger.quiet || []).filter(function (k) { return feWhen(k.when, d) && kindRoom(k, t); });
+      if (!rows.length) return null;
+      /* the row that spoke least lately goes first, so the quiet hours do not loop */
+      rows.sort(function (a, b) { return (st.kindAt[a.id] == null ? -1e9 : st.kindAt[a.id]) - (st.kindAt[b.id] == null ? -1e9 : st.kindAt[b.id]); });
+      var pick = rows[Math.floor(r() * Math.min(3, rows.length))];
+      return publish({ kindId: pick.id, spec: pick, source: pick.source, who: pick.who, words: pick.words,
+                       data: aliased(pick, names(d)), parent: null, author: null, teaches: pick.teaches, big: pick.big, top: true }, t);
+    }
+
+    /* ONE MINUTE OF THE GAME'S CLOCK. */
+    function step(t, live) {
+      var c = clockData(t);
+      if (st.hourSeen !== null && c.hour !== st.hourSeen) fire('clock.hour', { hour: c.hour });
+      if (st.daySeen !== null && c.day !== st.daySeen) fire('clock.day', { day: c.day });
+      st.hourSeen = c.hour; st.daySeen = c.day;
+      if (st.nextQuiet == null) st.nextQuiet = t + feSpan(r, P.quiet_after_min);
+      /* due items, deeds first, oldest first */
+      st.queue.sort(function (a, b) { return (b.must - a.must) || (a.due - b.due); });
+      /* A FEED IS PEOPLE LIVING, NOT ONLY NEWS: when the clock runs fast (a camp, a long march) the
+         world's news can fill every slot, so after pace.life_every posts with no life in them the
+         news waits (a deed never does) and the city speaks. */
+      var starved = false;
+      if (P.life_every > 0 && st.posts.length >= P.life_every) {
+        starved = true;
+        for (var s0 = st.posts.length - P.life_every; s0 < st.posts.length; s0++) if (st.posts[s0].kind === 'life') { starved = false; break; }
+      }
+      var posted = false;
+      for (var i = 0; i < st.queue.length; i++) {
+        var it = st.queue[i];
+        if (it.due > t) continue;
+        if (!it.must && t > it.expiresAt) { st.queue.splice(i--, 1); continue; }
+        if (starved && !it.must) continue;
+        if (!roomAt(t, !!it.parent)) break;
+        if (it.top && !kindRoom(it.spec, t)) {
+          if (it.must) continue;             /* a deed waits for its row's room */
+          st.queue.splice(i--, 1); continue;
+        }
+        st.queue.splice(i--, 1);
+        if (publish(it, t)) { posted = true; break; }   /* one post a minute at most: never a wall */
+      }
+      if (posted) { st.nextQuiet = t + feSpan(r, P.quiet_after_min); return; }
+      if ((starved || t >= st.nextQuiet) && roomAt(t, false) && (starved || !st.queue.some(function (q) { return q.due <= t; }))) {
+        quietFill(t);
+        st.nextQuiet = t + feSpan(r, P.quiet_after_min);
+      }
+    }
+
+    /* THE CLOCK IS STOPPED (a town, a fight's end, standing still) AND HE JUST DID SOMETHING.
+       The world waits; the news of what he did does not: a deed posts paused_delay_s real
+       seconds after it happened, one at a time on the glass's own clock, and only deeds. The
+       talk around it (the locals, the replies) waits for the clock to run again. */
+    function idle(t) {
+      if (!opts.realNow) return 0;
+      LIVE = true;
+      try {
+        if (!realOk()) return 0;
+        var rn = opts.realNow();
+        for (var i = 0; i < st.queue.length; i++) {
+          var it = st.queue[i];
+          if (!it.must || !it.top || it.firedReal == null) continue;
+          if (rn - it.firedReal < P.paused_delay_s * 1000) continue;
+          st.queue.splice(i, 1);
+          return publish(it, t) ? 1 : 0;
+        }
+      } finally { LIVE = false; }
+      return 0;
+    }
+
+    /* THE GAME'S CLOCK MOVED TO minuteNow (absolute game minutes). A pause is a tick
+       that did not move: only a deed posts (idle). A jump replays its minutes (at most a day). */
+    function tick(minuteNow, c) {
+      if (c) set(c);
+      var now = Math.floor(+minuteNow);
+      if (!(now === now)) return 0;
+      if (st.now != null && now === st.now) return idle(now);
+      if (st.now == null || now < st.now) { st.now = now; st.hourSeen = null; st.daySeen = null; step(now, true); return 0; }
+      var from = st.now, n0 = st.seq;
+      if (now - from > FE_STEP_CAP) from = now - FE_STEP_CAP;
+      LIVE = (now - from) <= P.live_jump_min;
+      for (var t = from + 1; t <= now; t++) { st.now = t; step(t, LIVE); }
+      LIVE = false;
+      st.now = now;
+      return st.seq - n0;
+    }
+
+    /* WATCH: hand over a value every tick; the engine speaks only when it moves.
+       A number fires <name>.up / <name>.down {now, was, delta}; a map of numbers
+       fires the same per key with {key}; a map of words fires <name>.changed
+       {key, now, was}. The first look is a silent baseline. */
+    function watch(name, value, extra) {
+      if (value == null) return 0;
+      var was = st.seen[name], n = 0;
+      st.seen[name] = (typeof value === 'object') ? JSON.parse(JSON.stringify(value)) : value;
+      if (was === undefined) return 0;
+      function one(key, a, b) {
+        var ev = merge(extra || {}, key == null ? {} : { key: key });
+        if (typeof b === 'number' && typeof a === 'number') {
+          if (a === b) return;
+          n += fire(name + (b > a ? '.up' : '.down'), merge(ev, { now: b, was: a, delta: Math.abs(b - a) }));
+        } else if (a !== b && b != null) {
+          n += fire(name + '.changed', merge(ev, { now: b, was: a == null ? '' : a }));
+        }
+      }
+      if (typeof value === 'object') {
+        for (var k in value) if (Object.prototype.hasOwnProperty.call(value, k)) one(k, was ? was[k] : undefined, value[k]);
+      } else one(null, was, value);
+      return n;
+    }
+
+    function set(c) { if (c) for (var k in c) if (Object.prototype.hasOwnProperty.call(c, k) && c[k] !== undefined) ctx[k] = c[k]; }
+
+    /* THE ONE FUNCTION THE PHONE READS. Newest first. {limit, account, kind, since} */
+    function read(q) {
+      q = q || {};
+      var out = [];
+      for (var i = st.posts.length - 1; i >= 0 && out.length < (q.limit || P.keep); i--) {
+        var p = st.posts[i];
+        if (q.account && p.account !== q.account) continue;
+        if (q.kind && p.kind !== q.kind) continue;
+        if (q.since != null && p.at <= q.since) break;
+        var o = merge(p, {});
+        var a = F.accounts[p.account];
+        if (a && a.kind === 'company') o.handle = handleOf(a);   /* his page follows his rename */
+        out.push(o);
+      }
+      return out;
+    }
+    function on(fn) { if (typeof fn === 'function') ears.push(fn); return function () { var i = ears.indexOf(fn); if (i >= 0) ears.splice(i, 1); }; }
+
+    function save() {
+      return { v: 1, seq: st.seq, now: st.now, posts: st.posts, kindAt: st.kindAt, lastVariant: st.lastVariant,
+               recent: st.recent, bigUntil: st.bigUntil, lastAt: st.lastAt, nextQuiet: st.nextQuiet, seen: st.seen,
+               hourSeen: st.hourSeen, daySeen: st.daySeen, again: st.again,
+               queue: st.queue.map(function (q) {
+                 return { kindId: q.kindId, data: q.data, due: q.due, must: q.must, expire: q.expire,
+                          who: q.who, words: q.words, parent: q.parent ? { id: q.parent.id, handle: q.parent.handle } : null,
+                          author: q.author, big: q.big, top: q.top, teaches: q.teaches, firedReal: null };
+               }) };
+    }
+    function load(s) {
+      if (!s || s.v !== 1) return false;
+      ['seq', 'now', 'posts', 'kindAt', 'lastVariant', 'recent', 'bigUntil', 'lastAt', 'nextQuiet', 'seen', 'hourSeen', 'daySeen', 'again']
+        .forEach(function (k) { if (s[k] !== undefined) st[k] = s[k]; });
+      st.queue = feList(s.queue).map(function (q) {
+        var root = String(q.kindId).split('.')[0], spec = F.byId[root];
+        if (!spec) return null;
+        q.spec = spec; q.source = spec.source;
+        q.expiresAt = q.due + (q.expire == null ? P.expire_min : q.expire);
+        return q;
+      }).filter(Boolean);
+      return true;
+    }
+    function stats() {
+      var by = { mine: 0, world: 0, life: 0 };
+      st.posts.forEach(function (p) { by[p.kind] = (by[p.kind] || 0) + 1; });
+      return { posts: st.seq, kept: st.posts.length, queued: st.queue.length, by: by, now: st.now, bigUntil: st.bigUntil };
+    }
+
+    return { fire: fire, tick: tick, watch: watch, set: set, read: read, on: on, save: save, load: load,
+             stats: stats, kinds: function () { return F.kinds.map(function (k) { return k.id; }); },
+             accounts: function () { return F.order.slice(); }, pace: P, file: F };
+  }
+
   var API = { MAX_PER_DRAIN: MAX_PER_DRAIN, LIFE_EVERY: LIFE_EVERY,
               make: make, drain: drain, shape: shape,
-              deeds: deeds, world: world, life: life, seed: seed };
+              deeds: deeds, world: world, life: life, seed: seed,
+              engine: engine, when: feWhen, fill: feFill };
   if (HASREQ) module.exports = API;
   root.BohemiaFeedStream = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
@@ -87702,6 +88328,388 @@ window.BOHEMIA_FEED = (function(){
            count:function(){ return posts.length; },
            posts:function(){ return posts.slice(); },
            isOn:function(){ return on; } };
+})();
+
+/* ============================================================================
+   __THE_FEED_IS_ALIVE__  (FEED lane 23, 10/26, row [the feed is alive], rule 215; rule 217)
+
+   Paolo 10/26: "a part of the game managing all these mini events and triggers, presented
+   in a social media thing, to make it feel alive... pretty much tweets... organize it
+   properly so every time we upgrade it gets better, realistic vibes."
+
+   ONE FILE, ONE ENGINE, ONE FUNCTION.
+     the file   records/target/bb/feed_kinds.json: every post kind is a row (its trigger,
+                who may post it, how often, how soon, its words, what it teaches); every
+                voice is an account with a username (rule 217: no portrait yet, the face
+                field empty). Read at boot like every other content file. A new kind is a
+                new row; nothing in this block knows a sentence.
+     the engine engine/bohemia_feedstream.js engine(): pacing on the game's own clock, the
+                variants, the replies and follow-ups, the house Spanglish dial.
+     the reader window.BohemiaFeed.read({limit}) -> the posts, newest first, each
+                {handle, text, at, hh, kind: mine|world|life, reply_to, teaches}; and
+                BohemiaFeed.on(fn) hears each new one. UI TWO's FEED app reads these two
+                and nothing else (rule 212's phone). Nothing here pops up.
+
+   WHAT IT LISTENS TO IS WHAT THE MAP ALREADY RECORDS, read beside the code that records it,
+   never by editing another lane's function: the settlement's own messages (a job taken, a
+   man hired), the fight's end message, the job kinds' settled list (__JOB_SETTLED_ACTS:
+   done, poor, failed, dropped), the crew's own lists (walked, dismissed, hired, the fight's
+   rows: hurt and dead), the town he opens, the rare man on the post's wall, the roaming
+   parties in his sight and their legs, the open raids, the market's days left, the night's
+   bill. A deed the file names is never dropped (must); everything else may stay quiet.
+
+   THE CLOCK, MEASURED 10/26: an in-game hour is 2.3 s of travel on dirt and 4.6 s on a road
+   (10.75 game minutes a block, 1.22 blocks a 500 ms beat); the clock stops in a town, in a
+   fight and when he stands still. So the file's window is four game hours and a post holds
+   the glass 12 real seconds at least: a handful in a stretch of the day, never a wall.
+   The clock read is DAY.day x 1440 + DAY.min, which keeps running through the 22:00 turn
+   (T.day turns at 22:00 while T.min reads 22:00, so T would jump a whole day forward).
+
+   UNTIL UI TWO'S FEED APP LANDS: the newest post sits in ONE slot on the phone under the
+   jobs (#feednow, rule 215(e): the newest post over the phone, nothing more). UI TWO
+   deletes this slot the round its FEED app reads BohemiaFeed.read().
+   ========================================================================== */
+(function(){
+  var FILE = '../records/target/bb/feed_kinds.json', KEY = 'bohemia.feed.v1';
+  var E = null, early = [], booted = false, fresh0 = window.__FRESH_START, lastSave = 0;
+  var S = { settled: null, walked: null, hired: null, after: null, legs: null, raids: null,
+            open: null, bills: null, sighted: {}, rare: {}, jobs: {}, clients: {} };
+  var FNAME = {};   /* factions.json id -> its name (brigands -> Road crews) */
+  try { fetch('../records/target/bb/factions.json').then(function(r){ return r.json(); }).then(function(j){
+    (j.factions || []).forEach(function(f){ FNAME[f.id] = f.name; }); }).catch(function(){}); } catch(_e){}
+  /* the house Spanglish dial (rule 143(a)); the map does not carry it, so the feed fetches it */
+  try { if (!window.BohemiaSpanglish) { var sc = document.createElement('script'); sc.src = '../engine/bohemia_spanglish.js'; document.head.appendChild(sc); } } catch(_e){}
+
+  function minute(){ try { return ((DAY.day | 0) * 1440) + Math.floor(DAY.min); } catch(_e){ return null; } }
+  function started(){ try { return !!(LOOP && LOOP.start && LOOP.start.name); } catch(_e){ return false; } }
+  function ls(k){ try { var a = JSON.parse(localStorage.getItem(k) || '[]'); return Array.isArray(a) ? a : []; } catch(_e){ return []; } }
+  function nearTown(x, y, not){
+    try {
+      var b = ctBases() || {}, best = null, bd = 1e9;
+      if (x == null) { x = city.x; y = city.y; }
+      for (var n in b) if (Object.prototype.hasOwnProperty.call(b, n) && b[n] && n !== not) {
+        var d = Math.max(Math.abs(b[n].x - x), Math.abs(b[n].y - y)); if (d < bd) { bd = d; best = n; } }
+      return best;
+    } catch(_e){ return null; }
+  }
+  function fname(f){ return f == null ? null : (FNAME[f] || String(f)); }
+  /* WORDS' casing: {company} is his name without a leading 'the' (the lines say 'the {company}'), in its own case;
+     the start screen's names are capitals, so they are read as a person writes them (THE NIGHT SHIFT -> Night Shift) */
+  function companyName(){
+    var n = ''; try { n = String(LOOP.start.name || ''); } catch(_e){}
+    n = n.replace(/^\s*the\s+/i, '');
+    if (n && n === n.toUpperCase()) n = n.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, a, c){ return a + c.toUpperCase(); });
+    return n || null;
+  }
+  function districtAt(x, y){ try { if (x == null) { x = city.x; y = city.y; } var c = om.at(x | 0, y | 0); return (c && c.district) || null; } catch(_e){ return null; } }
+  function roadAt(d, x, y){
+    var R = (FILEDATA && FILEDATA.roads) || {}, list = (d && R[d]) || R._any || [];
+    if (!list.length) return null;
+    if (x == null) { try { x = city.x; y = city.y; } catch(_e){ x = 0; y = 0; } }
+    return list[(((x | 0) * 7 + (y | 0) * 13) % list.length + list.length) % list.length];
+  }
+  var LIGHTS = null, LIGHTS_AT = -99, WORLDV = null;
+  function worldNow(){
+    /* the old stream's gather (BOHEMIA_FEED.world: the lit blocks, the prices, the seats), read every ten beats */
+    if (WORLDV && BEATS - LIGHTS_AT < 10) return WORLDV;
+    LIGHTS_AT = BEATS;
+    try { WORLDV = window.BOHEMIA_FEED && BOHEMIA_FEED.world ? BOHEMIA_FEED.world() : null; } catch(_e){ WORLDV = null; }
+    if (WORLDV && typeof WORLDV.lit === 'number') LIGHTS = WORLDV.lit;
+    return WORLDV;
+  }
+  function ctx(){
+    var c = { night_to: 6 };
+    var nm = companyName(); if (nm) { c.company = nm; c.companyhandle = nm.toLowerCase().replace(/[^a-z0-9]+/g, ''); }
+    try { c.town = (LOOP.open && LOOP.open.name) || nearTown(); } catch(_e){}
+    try { c.night_from = Math.floor(NIGHT_FROM / 60); } catch(_e){}
+    var d = districtAt(); if (d) c.district = d;
+    var rd = roadAt(d); if (rd) c.road = rd;
+    var dy = 1; try { dy = DAY.day | 0; } catch(_e){}
+    c.high = 104 + (dy * 7) % 9; c.low = 77 + (dy * 5) % 8;                  /* the weather bot's numbers: a Mojave summer */
+    if (LIGHTS != null) c.lights = LIGHTS;
+    var mm = minute() || 0; c.minutes = 2 + (Math.abs(mm * 7) % 17);          /* the bus that is always some minutes away */
+    return c;
+  }
+  function fire(tr, d){
+    if (!E || !booted) { early.push([tr, d]); if (early.length > 60) early.shift(); return 0; }
+    try { return E.fire(tr, d || {}); } catch(_e){ return 0; }
+  }
+
+  /* ---- THE SLOT ON THE PHONE (interim, UI TWO replaces it) ---- */
+  var SLOT = null;
+  function slot(){
+    if (SLOT && SLOT.parentNode) return SLOT;
+    var scr = document.getElementById('cityfeedscreen'); if (!scr) return null;
+    SLOT = document.createElement('div'); SLOT.id = 'feednow'; SLOT.setAttribute('role', 'status'); SLOT.setAttribute('aria-label', 'the newest post in the valley');
+    var st = document.createElement('style');
+    st.textContent = '#feednow{flex:0 0 auto;order:98;position:relative;z-index:1;margin:2px 5px 0;padding:5px 6px 6px 7px;border-top:1px solid rgba(240,196,126,.28);display:none}'
+      + '#feednow.has{display:block}'
+      + '#feednow .fwho{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;line-height:1.1;color:#f0c47e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+      + '#feednow .ftxt{margin-top:3px;font-size:10px;line-height:1.28;color:#eadcb4;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}'
+      + '#feednow .fre{color:#9c8f70}'
+      + '#feednow.in{animation:feednow-in 500ms steps(4,end)}'
+      + '@keyframes feednow-in{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}';
+    document.head.appendChild(st);
+    var list = document.getElementById('cityfeedlist');
+    if (list && list.parentNode === scr) scr.insertBefore(SLOT, list.nextSibling); else scr.appendChild(SLOT);
+    return SLOT;
+  }
+  function show(p){
+    var s = slot(); if (!s || !p) return;
+    s.textContent = '';
+    var w = document.createElement('div'); w.className = 'fwho'; w.textContent = p.handle;
+    if (p.reply_to) { var re = document.createElement('span'); re.className = 'fre'; re.textContent = '  replying'; w.appendChild(re); }
+    var t = document.createElement('div'); t.className = 'ftxt'; t.textContent = p.text;
+    s.appendChild(w); s.appendChild(t);
+    s.classList.add('has'); s.classList.remove('in'); void s.offsetWidth; s.classList.add('in');
+    s.dataset.post = p.id;
+  }
+
+  /* ---- THE SAVE: posts that happened stay; a reload to an earlier save takes back what came after it ---- */
+  function save(){
+    if (!E) return;
+    try { localStorage.setItem(KEY, JSON.stringify({ game: gameSig(), st: E.save() })); } catch(_e){}
+  }
+  function gameSig(){ try { return String(LOOP.start.name) + '|' + String(LOOP.start.origin || LOOP.start.originName || ''); } catch(_e){ return ''; } }
+  function restore(){
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (!s || !s.st || s.game !== gameSig()) return false;
+      var now = minute();
+      if (now != null && s.st.now != null && now < s.st.now) {
+        s.st.posts = (s.st.posts || []).filter(function(p){ return p.at <= now; });
+        s.st.queue = []; s.st.now = null; s.st.lastAt = -1e9; s.st.nextQuiet = null;
+      }
+      return E.load(s.st);
+    } catch(_e){ return false; }
+  }
+
+  /* ---- THE WATCHERS: what moved since the last look ---- */
+  function baseline(){
+    S.settled = (window.__JOB_SETTLED_ACTS || []).map(function(a){ return a.id + '|' + a.act; });
+    S.walked = ls(typeof CREW_WALKED_KEY !== 'undefined' ? CREW_WALKED_KEY : 'bohemia.walked.v1').length;
+    S.hired = ls('bohemia.hired.v1').length;
+    S.after = ls('bohemia.fight.after.v1').length;
+    S.bills = window.__BILL_NIGHTS | 0;
+    S.legs = {}; try { (PARTIES_TODAY || []).forEach(function(q){ S.legs[q.id + '|' + q.leg] = 1; }); } catch(_e){}
+    S.raids = raidKeys();
+    try { S.open = (LOOP.open && LOOP.open.name) || null; } catch(_e){}
+    try { (LOOP.held || []).forEach(function(j){ if (j && j.id != null) S.jobs[j.id] = { title: j.title, pay: j.pay, from: j.from }; }); } catch(_e){}
+  }
+  function raidKeys(){
+    var o = {};
+    try { (BohemiaHomeBases.raidsOpen(hbRec()) || []).forEach(function(r){ o[r.base + '|' + r.by] = { base: r.base, by: r.by }; }); } catch(_e){}
+    return o;
+  }
+  function look(){
+    /* the jobs he holds: a new one is a job taken (the board, a rescue after a wipe, any door that hands
+       him one); kept by id, so a job that ends can still be named */
+    try { (LOOP.held || []).forEach(function(j){
+      if (!j || j.id == null || S.jobs[j.id]) return;
+      S.jobs[j.id] = { title: j.title, pay: j.pay, from: j.from };
+      if (j.rescue) return;   /* getting his own men back is the wipe's story, told by the fight's end */
+      fire('job.taken', { job: j.title || null, pay: j.pay, town: j.from || ctx().town, client: S.clients[j.title] || null,
+                          stars: j.skulls || null });
+    }); } catch(_e){}
+    /* a job ends: done, done poorly, failed, dropped (the job kinds' own list, every way a job ends) */
+    var acts = window.__JOB_SETTLED_ACTS || [];
+    acts.forEach(function(a){
+      var k = a.id + '|' + a.act; if (S.settled.indexOf(k) >= 0) return;
+      S.settled.push(k); if (S.settled.length > 80) S.settled.shift();
+      var j = S.jobs[a.id] || {}, d = { job: j.title, pay: j.pay, town: a.place || j.from, client: S.clients[j.title] || null };
+      if (a.act === 'civilian_contract_done' || a.act === 'civilian_contract_poor') fire('job.done', d);
+      else if (a.act === 'fail_civilian_contract') fire('job.failed', d);
+      else if (a.act === 'cancel_contract') fire('job.dropped', d);
+    });
+    /* the crew: walked, let go, hired */
+    var wk = ls(typeof CREW_WALKED_KEY !== 'undefined' ? CREW_WALKED_KEY : 'bohemia.walked.v1');
+    if (wk.length > S.walked) wk.slice(S.walked).forEach(function(m){
+      if (!m || !m.name) return;
+      fire(m.dismissed ? 'man.dismissed' : 'man.walked', { man: m.name, town: ctx().town });
+    });
+    S.walked = wk.length;
+    var hd = ls('bohemia.hired.v1');
+    if (hd.length > S.hired) hd.slice(S.hired).forEach(function(m){
+      if (!m || !m.name) return;
+      var crew = null; try { crew = crewCount(); } catch(_e){}
+      fire('man.hired', { man: m.name, background: (m.backgroundName || m.background || '').toString().toLowerCase() || null, town: ctx().town, crew: crew });
+    });
+    S.hired = hd.length;
+    /* the fight's rows: who is dead, who is laid up (kept by the shell when the fight ends) */
+    var af = ls('bohemia.fight.after.v1');
+    if (af.length > S.after) af.slice(S.after).forEach(function(f){
+      (f.rows || []).forEach(function(r){
+        if (!r || !r.name) return;
+        var hv = window.__LAST_HANDOVER || {}, ef = hv.faction || (hv.party && hv.party.faction) || null, at = { enemy_faction: ef, enemy: fname(ef), district: hv.district || null };
+        if (r.dead) fire('man.dead', Object.assign({ man: r.name }, at));
+        else if (r.down || (r.laidUpDays | 0) > 0) fire('man.hurt', Object.assign({ man: r.name, injury: r.injury ? String(r.injury).toLowerCase() : null, days: (r.laidUpDays | 0) || null }, at));
+      });
+    });
+    else if (af.length < S.after) S.after = af.length;   /* the crew screen empties the list when it opens */
+    S.after = af.length;
+    /* the town he opens */
+    var op = null; try { op = (LOOP.open && LOOP.open.name) || null; } catch(_e){}
+    if (op && op !== S.open) fire('town.entered', { town: op });
+    S.open = op;
+    /* the night's bill */
+    var bn = window.__BILL_NIGHTS | 0;
+    if (bn > S.bills) {
+      try { var B = (typeof BILL !== 'undefined' && BILL.last) || null;
+        if (B && !B.walked) fire('bill.night', { paid: B.paid, days_left: (typeof billDaysLeft === 'function' ? billDaysLeft() : null), crew: B.crew }); } catch(_e){}
+    }
+    S.bills = bn;
+    /* the rare man on the post's wall, the moment he is met */
+    try {
+      var fr = LOOP.frame, doc = fr && fr.style.display === 'block' && fr.contentDocument;
+      if (doc) Array.prototype.forEach.call(doc.querySelectorAll('.hire.rare'), function(c){
+        if (!c.offsetParent) return;
+        var where = (LOOP.open && LOOP.open.name) || '', key = where + '|' + (c.dataset.id || '');
+        if (S.rare[key]) return; S.rare[key] = 1;
+        var nm = c.querySelector('.nm'), parts = nm ? nm.textContent.split('·') : [];
+        var ti = (parts[1] || '').trim().toLowerCase();
+        fire('rare.seen', { man: (parts[0] || '').trim() || null, title: ti || null, rare: ti ? ((/^[aeiou]/.test(ti) ? 'an ' : 'a ') + ti) : null, town: where || null });
+      });
+    } catch(_e){}
+    /* the roaming parties: who walks into his sight, and where the crews are going */
+    try {
+      var ps = partiesAll() || [], nowIn = {};
+      ps.forEach(function(q){
+        if (!q || !q.at || !q.from) return;
+        if (!q.arrived && Math.max(Math.abs((q.at.x | 0) - (q.from.x | 0)), Math.abs((q.at.y | 0) - (q.from.y | 0))) < 2) return;
+        try { if (fogHides(q.at.x | 0, q.at.y | 0)) return; } catch(_e){}
+        if (!mapSees(q.at.x | 0, q.at.y | 0)) return;
+        nowIn[q.id] = 1;
+        if (S.sighted[q.id]) return;
+        var qd = districtAt(q.at.x, q.at.y);
+        fire('party.sighted', { faction: q.from.faction, faction_name: fname(q.from.faction), agenda: q.agenda || null, town: nearTown(q.at.x, q.at.y, q.from.faction),
+                                district: qd, road: roadAt(qd, q.at.x, q.at.y) });
+      });
+      S.sighted = nowIn;
+    } catch(_e){}
+    try {
+      (PARTIES_TODAY || []).forEach(function(q){
+        var k = q.id + '|' + q.leg; if (S.legs[k]) return; S.legs[k] = 1;
+        if (q.toward && q.toward !== q.faction) fire('party.moved', { faction: q.faction, faction_name: fname(q.faction), agenda: q.agenda || null, toward: q.toward });
+      });
+    } catch(_e){}
+    /* raids on what he holds, and who holds it after */
+    var rk = raidKeys(), k2;
+    for (k2 in rk) if (!S.raids[k2]) fire('raid', { faction: rk[k2].by, faction_name: fname(rk[k2].by), town: rk[k2].base });
+    for (k2 in S.raids) if (!rk[k2]) {
+      try { var held = BohemiaHomeBases.heldBy(hbRec(), S.raids[k2].base, hbRec().act);
+        if (held === S.raids[k2].by) fire('base.changed', { town: S.raids[k2].base, faction_name: fname(S.raids[k2].by), was: ctx().company }); } catch(_e){}
+    }
+    S.raids = rk;
+  }
+
+  /* ---- THE MESSAGES THE MAP ALREADY HEARS ---- */
+  window.addEventListener('message', function(ev){
+    var d = ev && ev.data; if (!d || !d.type) return;
+    /* the settlement's own message names the client; the job itself is read from the held jobs */
+    if (d.type === 'BOHEMIA_SETTLEMENT' && d.act === 'contract' && d.contract) {
+      var c = d.contract, cl = (c.client && (c.client.name || c.client)) || null;
+      if (cl && c.title) S.clients[c.title] = String(cl);
+    }
+    if (d.type === 'BOHEMIA_CITY_COMBAT_END') {
+      var o = d.outcome || {}, won = !!(o.victory || o.result === 'win'), h = window.__LAST_HANDOVER || {};
+      var fac = h.faction || (h.party && h.party.faction) || null;
+      var cx = ctx(), e = { enemy: fname(fac) || (h.label ? String(h.label).toLowerCase() : null), enemy_faction: fac,
+                count: (h.party && h.party.count) || (((o.dead | 0) + (o.fled | 0) + (o.alive | 0)) || null), town: cx.town,
+                district: h.district || cx.district || null };
+      var how = (won && (o.alive | 0) > 0) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* the way out is fleeing; a wipe is its own story */
+      fire(how, e);
+      /* the crew that beat him, or watched him run, says so on its own page */
+      if (how !== 'fight.won' && fac) fire('faction.claim', { faction_id: fac, enemy: cx.company ? 'the ' + cx.company : null, town: cx.town, district: e.district });
+    }
+  });
+
+  /* ---- THE BEAT: the engine walks the game's minutes ---- */
+  function beat(){
+    if (!E || !started()) return;
+    var now = minute(); if (now == null) return;
+    if (!booted) {
+      booted = true;
+      restore();
+      baseline();
+      E.tick(now, ctx());
+      early.splice(0).forEach(function(x){ try { E.fire(x[0], x[1]); } catch(_e){} });
+    }
+    /* a NEW GAME (the map's fresh start ran): the old game's feed is not this one's */
+    if (window.__FRESH_START && window.__FRESH_START !== fresh0) {
+      fresh0 = window.__FRESH_START;
+      try { localStorage.removeItem(KEY); } catch(_e){}
+      E = BohemiaFeedStream.engine(FILEDATA, opts());
+      E.on(onPost);
+      baseline();
+      E.tick(now, ctx());
+      var p = LOOP.start || {};
+      E.fire('game.start', { origin: p.originName ? String(p.originName).toLowerCase() : null, start: p.start != null ? p.start : null });
+    }
+    BEATS++;
+    try { look(); } catch(_e){}
+    try { slow(); } catch(_e){}
+    E.tick(now, ctx());
+    if (Date.now() - lastSave > 5000) { lastSave = Date.now(); save(); }
+  }
+  /* THE WORLD'S SLOW NUMBERS, spoken only when they move: the grid's lit blocks, a town's tier, the market's prices and
+     days left (the first look is the baseline, nothing said) */
+  var BEATS = 0, SLOW = { seats: null, prices: null, days: null };
+  var RANK = { camp: 1, town: 2, fortress: 3 };
+  function bat(n){ n = +n; return n === 1 ? 'one battery' : (n + ' batteries'); }
+  function slow(){
+    if (BEATS % 10) return;
+    var w = worldNow() || {};
+    if (typeof w.lit === 'number') E.watch('power', w.lit);
+    if (w.seats) {
+      if (SLOW.seats) for (var f in w.seats) if (Object.prototype.hasOwnProperty.call(w.seats, f)) {
+        var a = RANK[String(SLOW.seats[f] || '').toLowerCase()] || 0, z = RANK[String(w.seats[f] || '').toLowerCase()] || 0;
+        if (a && z && z > a) fire('town.rises', { faction: f, town: f, now: String(w.seats[f]).toLowerCase(), was: String(SLOW.seats[f]).toLowerCase() });
+        if (a && z && z < a) fire('town.falls', { faction: f, town: f, now: String(w.seats[f]).toLowerCase(), was: String(SLOW.seats[f]).toLowerCase() });
+      }
+      SLOW.seats = JSON.parse(JSON.stringify(w.seats));
+    }
+    if (w.prices) {
+      if (SLOW.prices) for (var g in w.prices) if (Object.prototype.hasOwnProperty.call(w.prices, g)) {
+        var p0 = SLOW.prices[g], p1 = w.prices[g];
+        if (typeof p0 === 'number' && typeof p1 === 'number' && p0 !== p1) fire(p1 > p0 ? 'prices.up' : 'prices.down', { good: g, now: bat(p1), was: bat(p0), town: ctx().town });
+      }
+      SLOW.prices = JSON.parse(JSON.stringify(w.prices));
+    }
+    var dl = {}; try { (mktShelf() || []).forEach(function(r){ if (r && typeof r.daysLeft === 'number') dl[r.good] = Math.floor(r.daysLeft); }); } catch(_e){}
+    if (SLOW.days) for (var k in dl) if (Object.prototype.hasOwnProperty.call(dl, k) && typeof SLOW.days[k] === 'number' && dl[k] < SLOW.days[k])
+      fire('scarce.down', { good: k, days: dl[k], was: SLOW.days[k] });
+    SLOW.days = dl;
+  }
+  /* the phone's listeners live here, not on the engine, so a new game's engine keeps them */
+  var EARS = [];
+  function onPost(p){ show(p); for (var i = 0; i < EARS.length; i++) { try { EARS[i](p); } catch(_e){} } }
+  function opts(){
+    return { say: function(who, line, key){ return window.BohemiaSpanglish ? BohemiaSpanglish.say(who, line, key) : line; },
+             realNow: function(){ return (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now(); } };
+  }
+
+  var FILEDATA = null;
+  try {
+    fetch(FILE).then(function(r){ return r.json(); }).then(function(file){
+      if (typeof BohemiaFeedStream === 'undefined' || !BohemiaFeedStream.engine) return;
+      FILEDATA = file;
+      E = BohemiaFeedStream.engine(file, opts());
+      E.on(onPost);
+    }).catch(function(){});
+  } catch(_e){}
+  setInterval(beat, 500);   /* the beat */
+  try { window.addEventListener('pagehide', save); } catch(_e){}
+
+  /* THE ONE FUNCTION (rule 215(f)), and the switches a gate reads */
+  window.BohemiaFeed = {
+    read: function(q){ return E ? E.read(q) : []; },
+    on: function(fn){ if (typeof fn !== 'function') return function(){}; EARS.push(fn); return function(){ var i = EARS.indexOf(fn); if (i >= 0) EARS.splice(i, 1); }; },
+    company: function(q){ q = q || {}; q.account = 'company'; return E ? E.read(q) : []; },
+    fire: fire,
+    ready: function(){ return !!(E && booted); },
+    stats: function(){ return E ? E.stats() : null; },
+    kinds: function(){ return E ? E.kinds() : []; },
+    pace: function(){ return E ? E.pace : null; }
+  };
 })();
 
 /* ============================================================================
