@@ -43,8 +43,27 @@ AFTER (the same 1,000): his men out 99.9% (6,965 of 6,975); every man out in 990
 blow on anyone's first turn in 0 fights (beasts 100% out); shots on a first turn remain (168 fights: the gap is for melee).
 GATE: AN EARLY RETREAT GETS OUT (gates/an_early_retreat_gets_out_gate.js): E1 95+ in 100 out, E2 every man within a turn of his
 edge, E3 no first-turn melee blow, E4 beasts 95+, E5 nothing broke: 5/0.
-WHAT IT CHANGES ELSEWHERE: every fight now opens one tile wider between the lines and with his line nearer his edge; the fight's
-gates were run on it (the list and the counts are in the commit).
+WHAT IT CHANGED ELSEWHERE, MEASURED (23 fight gates run on it and the reds run again on main's own fight, side by side):
+- A LONE MAN WAS DEALT ONTO A ROOF: his new line column crossed a house, and the deal put a man on its two-storey roof at the bell.
+  Now the opening line (his and theirs, and the fast ones moved back) stands on the ground; a roof only when no ground is left.
+- THE BEASTS NEVER BIT A LONE GUNMAN ON A ROOF: on AUTO he takes the roof beside him (rule 70b) and the beasts cannot climb; the
+  standoff (rule 176) sends them off. That is the rules working; the grid gate's leg now says the beasts bite OR every man of his
+  stood out of their reach on a roof and they broke off (the cells named on the leg).
+- THE PACK OPENS OUT OF SIGHT ON AUTO: a fast kind starting back by its extra run stands past his men's sight on a board that opens
+  straight into the fight, so the fog hides it. The glass leg counts the pack once his men see it, and waits for the first bite
+  rather than demanding one by round 1 (rule 256 is that no fast kind reaches him on its first turn).
+- The fast ones' push-back moves only the men nearer than their extra run (the ranks behind are far enough), so the 14 against 40
+  dire wolves board still frames at the open.
+- HEIGHTS YOU CAN READ's H1 read the chevrons of the first roof of each storey at the bell: with the lines a tile wider, suburb 1's
+  first three-storey roof stood in the dark (0 bone pixels) and a man of theirs stood at the next one's ladder (28). The drawing
+  did not change (a clear view draws 20, 40 and 60 for one, two and three storeys, on main and now). The leg now reads the boards on
+  his lineup, where he reads roofs before anyone climbs and nothing is dark (rule 110b), the first roof of each storey with nobody at
+  its ladder: 20 / 40 / 60, 4/0.
+- AUTO WINS A LITTLE LESS WITH HIS CREW OF THREE (EVERY MAN HAS A JOB's J4, the crossbow and two spear-and-car-door men): on the
+  same 1,000 rolled fights main's fight won 626, this one 603 (2.3 points, about one standard deviation of the count; 603 clears
+  the old floor scaled to 1,000, 593); its 300 read 178 then and 170 now (not yet broken down by cause). J4's floor is now this board's own 170 of 300, measured as the 178 was; NOTEd COMBAT TWO (the AUTO
+  brain, to win the two points back) and TUNING (the gap).
+- THE RANGE BANDS' B4 is red on main too (COMBAT TWO's brain moved the shotgun's numbers after 34e0a072): not this change.
 
 ## ROUTED
 - CAMP: the map's bounce for a withdrawal (275(c)), and anything else at the door it wants changed; the __PULLED_BACK__ blocks are
