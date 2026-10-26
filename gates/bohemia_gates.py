@@ -9853,7 +9853,13 @@ GATES = [
      "rule 73: playable in the dark). The fight page itself, the strip, the suburb and the freeway by day and by night, seed 31: every look an enemy can wear "
      "(the Kids and Runners, the Mechanic, the Heavy, the 13 gangs, the rolled people, the beasts) standing, through the page's own night for a man and the lift it "
      "picks for him on that tile, against every unlit tile a man stands on: 1.4 to 1 or more on the worst tenth (it was 1.04, the Kids 1.08: the moon's lift can only "
-     "darken, and a dark tile is a dark man's own light), nine tenths of its day's or 2 to 1 and over, and the old pick (the tile's light alone) caught. About 4 min", True),
+     "darken, and a dark tile is a dark man's own light), nine tenths of its day's or 2 to 1 and over, and the old pick (the tile's light alone) caught. About 4 min", True),    ('THE BLOOD IS CRASHBOX', ['node', 'gates/the_blood_is_crashbox_gate.js'],
+     "UI gate, 10/26, rows [the blood is CRASHBOX] and [the job tells the truth, in blood] (rule 208(c), PAOLO 10/25: 'the button itself looks bloody depending on how difficult the job is... "
+     "the button looking like some crashbox blood filter'; 'not Crash Bandicoot, Crashbox'). MEASURED before: no button could bleed. The pictures: 8 stages x 5 pieces of red clay rendered through the kit's sun, "
+     "camera and post on Cycles with a shadow catcher; every pixel opaque or the one shadow value, 95 in 100 red; every stage holds the one before (95 in 100), the blood on a button rises every stage, the last darker; "
+     "bloodStage clean to 2 percent, soaked from 70, monotonic, every stage reachable. On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
+     "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held 200 ms or more; the halo from stage 5; on the glass soaked a third red or more, one star under a twentieth; "
+     "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
