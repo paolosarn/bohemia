@@ -66,6 +66,8 @@ the index rewritten. His left fist sat a hand's width off the stake: the stake m
   ck_b and ck_d turn him a few degrees each way, ck_c leans him to the far side of the pot. The six men made before the change
   get the stir again in a pass of its own (the tool's REDO: `redo <looks> <act>` renders one act into <look>.<set>.<act>, the pack
   lays it on his still like any pass and it takes the place of that act's first pictures; the gate reads its joints after its set's).
+- C1 again, town_6 cleaning his rifle: the near rub read 11 px off the rest from behind. His shoulders now follow the rag along the
+  barrel (a few degrees each way); town_6's clean made again by REDO, the men after him rendered with it.
 - P1, town_0 rising: his long coat's skirt drew 10 to 20 px below his soles in the crouch on the way up. At S that is the skirt
   pooled on the ground before him (a thing nearer the camera draws lower on the screen), at E and W it dipped through the floor.
   The crouch is shallower now (the pelvis down 34 cm, not 42), town_0's rise is made again, and the leg reads a crouch's feet by
