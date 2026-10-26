@@ -1470,5 +1470,13 @@
   "why": "COMBAT [the PC playtest: the fight's part] (4) 10/25: a man carries what the crew screen put in his two bag slots (gear.bag, item ids, RUN TWO's hand-over; four with Bags and Belts) and swaps it into his hands for the library's 4 AP (Quick Hands: the first swap a turn free); what rides in the bag weighs on his wind at half its weight (Bags and Belts: only a two-hander's). kit: until the crew screen hands a bag, a man with none carries this by his weapon's job (a pistol man the pipe, everybody else a pistol: guns lead, rule 120), so the swap is there in the first fight; a handed bag, even an empty one, wins.",
   "draft": true,
   "tuned": false
+ },
+ "retreat_ask_beats": {
+  "value": 16,
+  "source": "VAMILY.md rule 198(a) (Paolo 10/25, LOCKED); records/BOHEMIA_PAOLO_RETREAT_THE_ROUT_WALK_THROUGH_YOUR_MEN_AND_EVERY_CURRENCY_ON_TOP_10_25_26.md; COMBAT [retreat and the rout, a chase] 10/26",
+  "quote": "I still cannot retreat",
+  "why": "how long, in beats of the song, RETREAT's 'Tap again' (and END THE FIGHT's) stays on the glass waiting for the second tap: the order belongs to the fight, not to one man's turn, so it is not cleared when a turn passes (on AUTO a turn passes in about a second and the second tap only armed it again); 16 beats is 8 s at 120 BPM, four bars: long enough to read the ask and tap (EYES [eyes: tap again, nothing] presses it ten beats later), short enough that an ask nobody answered does not stand over the rest of the fight. A screen timing, not a Battle Brothers number; TUNING may move it.",
+  "draft": true,
+  "tuned": false
  }
 }
