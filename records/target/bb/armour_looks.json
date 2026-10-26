@@ -1,0 +1,779 @@
+{
+ "_about": "CHARACTER [the armour he wears shows], rule 272 (Paolo 10/26: 'the good armour I have on me doesn't show, like a police helmet'). Every head and body row of armor.json drawn as the object its display name says it is (armour_names.json): 'class' picks the placeholder piece engine/bohemia_wear.js draws on the man who wears it (crew card, fight, map, camp, portrait), 'feats' its extras (spike, horns, chain, chain_closed). Written by tools/bohemia_character_the_armour_shows.py classes from the names; a modder may change any row's class to any key of head_classes or body_classes, and COOK's own art for a class replaces its sheet.",
+ "draft": true,
+ "rule": 272,
+ "lane": "character",
+ "head_classes": {
+  "riot_helmet": "a police riot helmet: a black dome, its clear face shield down, a neck guard behind",
+  "moto_helmet": "a full-face motorcycle helmet: a scuffed oxblood shell, a smoked visor, the chin bar, one pale stripe",
+  "welder_mask": "a welder's mask: a flat scorched face plate with its dark lens, on a head harness",
+  "hard_hat": "a hard hat: a chalky safety-yellow dome with a ridge and a peaked brim",
+  "brim_helmet": "an old army steel pot: an olive dome with a brim all round",
+  "chain_hood": "a hood of chain: grey links over the head and the shoulders, the face open",
+  "gas_mask": "a gas mask: olive rubber over the face, two round lenses, the filter can at the mouth",
+  "rag_hood": "a rag hood: grey cloth over the head and down the back, the face open",
+  "straw_hat": "a straw hat: a crown and a wide sun brim",
+  "bandana": "a bandana: a faded red band tied round the head, the knot and its tails behind",
+  "dust_mask": "a dust mask: a dirty white cloth over the nose and the mouth, tied behind"
+ },
+ "body_classes": {
+  "police_vest": "a police vest: a navy-black plate carrier, a pale band across the chest and the back, pouches at the belly",
+  "riot_armour": "full riot armour: a black chest plate, big shoulder pads, a collar",
+  "car_door": "a car door strapped on: a faded red door panel on his chest, its window frame and handle, straps over the shoulders",
+  "plated_jacket": "a plated jacket: grey metal scales sewn in rows over a leather jacket, shoulder caps",
+  "padded_vest": "a padded vest: a quilted olive vest, bulky, the quilting in bands",
+  "work_jacket": "a work jacket: brown duck canvas, a standing collar, pocket flaps, the sleeves capped"
+ },
+ "head": {
+  "mouthpiece": {
+   "name": "a dust-mask rag hood",
+   "class": "dust_mask"
+  },
+  "headscarf": {
+   "name": "a bandana rag hood",
+   "class": "bandana"
+  },
+  "hood": {
+   "name": "a plain rag hood",
+   "class": "rag_hood"
+  },
+  "straw_hat": {
+   "name": "a straw rag hood",
+   "class": "straw_hat"
+  },
+  "nomad_head_wrap": {
+   "name": "a dune rag hood",
+   "class": "rag_hood"
+  },
+  "southern_head_wrap": {
+   "name": "a border rag hood",
+   "class": "rag_hood"
+  },
+  "hunter_s_hat": {
+   "name": "a hunter's rag hood",
+   "class": "rag_hood"
+  },
+  "feathered_hat": {
+   "name": "a showgirl-feather rag hood",
+   "class": "rag_hood"
+  },
+  "leather_headband": {
+   "name": "a headband rag hood",
+   "class": "bandana"
+  },
+  "engineer_s_hat": {
+   "name": "an engineer's rag hood",
+   "class": "rag_hood"
+  },
+  "gunner_s_hat": {
+   "name": "a gunner's rag hood",
+   "class": "rag_hood"
+  },
+  "jester_s_hat": {
+   "name": "a clown's rag hood",
+   "class": "rag_hood"
+  },
+  "cultist_hood": {
+   "name": "a static listener's rag hood",
+   "class": "rag_hood"
+  },
+  "undertaker_s_hat": {
+   "name": "an undertaker's hard hat",
+   "class": "hard_hat"
+  },
+  "witchhunter_s_hat": {
+   "name": "a preacher's hard hat",
+   "class": "hard_hat"
+  },
+  "dark_cowl": {
+   "name": "a black-cowl hard hat",
+   "class": "hard_hat"
+  },
+  "assassin_s_head_wrap": {
+   "name": "a contract man's hard hat",
+   "class": "hard_hat"
+  },
+  "aketon_cap": {
+   "name": "a quilted hard hat",
+   "class": "hard_hat"
+  },
+  "open_leather_cap": {
+   "name": "an open leather hard hat",
+   "class": "hard_hat"
+  },
+  "leather_head_wrap": {
+   "name": "a leather-wrapped hard hat",
+   "class": "hard_hat"
+  },
+  "desert_stalker_s_head_wrap": {
+   "name": "a desert stalker's hard hat",
+   "class": "hard_hat"
+  },
+  "full_leather_cap": {
+   "name": "a lined leather hard hat",
+   "class": "hard_hat"
+  },
+  "full_aketon_cap": {
+   "name": "a lined quilted hard hat",
+   "class": "hard_hat"
+  },
+  "nomad_leather_cap": {
+   "name": "a dune leather hard hat",
+   "class": "hard_hat"
+  },
+  "bear_headpiece": {
+   "name": "a bear-skull hard hat",
+   "class": "hard_hat"
+  },
+  "blade_dancer_s_head_wrap": {
+   "name": "a blade dancer's hard hat",
+   "class": "hard_hat"
+  },
+  "cultist_leather_hood": {
+   "name": "a static listener's leather hard hat",
+   "class": "hard_hat"
+  },
+  "nomad_light_helmet": {
+   "name": "a dune light hard hat",
+   "class": "hard_hat"
+  },
+  "physician_s_mask": {
+   "name": "a gas-mask hard hat",
+   "class": "gas_mask"
+  },
+  "duelist_s_hat": {
+   "name": "a duelist's hard hat",
+   "class": "hard_hat"
+  },
+  "rusty_mail_coif": {
+   "name": "a rusty chain hard hat",
+   "class": "chain_hood"
+  },
+  "mail_coif": {
+   "name": "a chain hard hat",
+   "class": "chain_hood"
+  },
+  "closed_mail_coif": {
+   "name": "a closed chain hard hat",
+   "class": "chain_hood"
+  },
+  "ancient_household_helmet": {
+   "name": "an old-army hard hat",
+   "class": "hard_hat"
+  },
+  "reinforced_mail_coif": {
+   "name": "a chain-hood riot helmet",
+   "class": "chain_hood"
+  },
+  "nasal_helmet": {
+   "name": "a nose-guard riot helmet",
+   "class": "riot_helmet"
+  },
+  "wrapped_southern_helmet": {
+   "name": "a wrapped border riot helmet",
+   "class": "riot_helmet"
+  },
+  "leather_helmet": {
+   "name": "a leather riot helmet",
+   "class": "riot_helmet"
+  },
+  "heavy_mail_coif": {
+   "name": "a heavy chain riot helmet",
+   "class": "chain_hood"
+  },
+  "padded_dented_nasal_helmet": {
+   "name": "a dented nose-guard riot helmet",
+   "class": "riot_helmet"
+  },
+  "kettle_hat": {
+   "name": "a wide-brim riot helmet",
+   "class": "brim_helmet"
+  },
+  "sallet_helmet": {
+   "name": "a swept-back riot helmet",
+   "class": "riot_helmet"
+  },
+  "masked_kettle_helmet": {
+   "name": "a masked wide-brim riot helmet",
+   "class": "brim_helmet"
+  },
+  "flat_top_helmet": {
+   "name": "a flat-top riot helmet",
+   "class": "riot_helmet"
+  },
+  "nordic_helmet": {
+   "name": "a dome riot helmet",
+   "class": "riot_helmet"
+  },
+  "spiked_skull_cap_with_mail": {
+   "name": "a spiked riot helmet",
+   "class": "riot_helmet",
+   "feats": [
+    "spike"
+   ]
+  },
+  "nomad_reinforced_helmet": {
+   "name": "a dune riot helmet",
+   "class": "riot_helmet"
+  },
+  "padded_nasal_helmet": {
+   "name": "a padded nose-guard riot helmet",
+   "class": "riot_helmet"
+  },
+  "beastmaster_s_headpiece": {
+   "name": "a dog man's riot helmet",
+   "class": "riot_helmet"
+  },
+  "ancient_legionary_helmet": {
+   "name": "an old-army riot helmet",
+   "class": "riot_helmet"
+  },
+  "assassin_s_face_mask": {
+   "name": "a contract man's riot helmet",
+   "class": "riot_helmet"
+  },
+  "padded_kettle_hat": {
+   "name": "a padded wide-brim riot helmet",
+   "class": "brim_helmet"
+  },
+  "nasal_helmet_with_rusty_mail": {
+   "name": "a rusty-chain nose-guard riot helmet",
+   "class": "riot_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "crude_metal_helmet": {
+   "name": "a scrap riot helmet",
+   "class": "riot_helmet"
+  },
+  "padded_flat_top_helmet": {
+   "name": "a padded flat-top riot helmet",
+   "class": "riot_helmet"
+  },
+  "zweihander_s_helmet": {
+   "name": "a two-hander's riot helmet",
+   "class": "riot_helmet"
+  },
+  "crude_faceguard_helmet": {
+   "name": "a scrap-visor riot helmet",
+   "class": "welder_mask"
+  },
+  "closed_flat_top_helmet": {
+   "name": "a closed flat-top riot helmet",
+   "class": "riot_helmet"
+  },
+  "closed_and_padded_flat_top": {
+   "name": "a padded closed flat-top full riot helm",
+   "class": "moto_helmet"
+  },
+  "ancient_honor_guard_helmet": {
+   "name": "an old honor guard full riot helm",
+   "class": "moto_helmet"
+  },
+  "barbute_helmet": {
+   "name": "a T-visor full riot helm",
+   "class": "welder_mask"
+  },
+  "closed_scrap_metal_helmet": {
+   "name": "a closed scrap full riot helm",
+   "class": "moto_helmet"
+  },
+  "nasal_helmet_with_mail": {
+   "name": "a nose-guard chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "steppe_helmet_with_mail": {
+   "name": "a dune-rider chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "southern_helmet_with_coif": {
+   "name": "a border chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "bascinet_with_mail": {
+   "name": "a pointed chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "kettle_hat_with_mail": {
+   "name": "a wide-brim chain full riot helm",
+   "class": "brim_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "gladiator_helmet": {
+   "name": "a pit-fighter full riot helm",
+   "class": "moto_helmet"
+  },
+  "flat_top_with_mail": {
+   "name": "a flat-top chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "decayed_closed_flat_top_with_mail": {
+   "name": "a rotted closed flat-top full riot helm",
+   "class": "moto_helmet"
+  },
+  "covered_decayed_closed_flat_top_with_mail": {
+   "name": "a hooded rotted flat-top full riot helm",
+   "class": "moto_helmet"
+  },
+  "nasal_helmet_with_closed_mail": {
+   "name": "a nose-guard closed-chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain_closed"
+   ]
+  },
+  "decayed_full_helm": {
+   "name": "a rotted full riot helm",
+   "class": "moto_helmet"
+  },
+  "adorned_closed_flat_top": {
+   "name": "a chromed closed flat-top full riot helm",
+   "class": "moto_helmet"
+  },
+  "kettle_hat_with_closed_mail": {
+   "name": "a wide-brim closed-chain full riot helm",
+   "class": "brim_helmet",
+   "feats": [
+    "chain_closed"
+   ]
+  },
+  "heavy_horned_plate_helmet": {
+   "name": "a horned full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "horns"
+   ]
+  },
+  "heavy_lamellar_helmet": {
+   "name": "a heavy belt-plate full riot helm",
+   "class": "moto_helmet"
+  },
+  "decayed_great_helm": {
+   "name": "a rotted bucket full riot helm",
+   "class": "welder_mask"
+  },
+  "nordic_helmet_with_closed_mail": {
+   "name": "a dome closed-chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain_closed"
+   ]
+  },
+  "conic_helmet_with_closed_mail": {
+   "name": "a cone closed-chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain_closed"
+   ]
+  },
+  "flat_top_with_closed_mail": {
+   "name": "a flat-top closed-chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain_closed"
+   ]
+  },
+  "conic_helmet_with_faceguard": {
+   "name": "a cone visored full riot helm",
+   "class": "welder_mask"
+  },
+  "closed_flat_top_with_mail": {
+   "name": "a closed flat-top chain full riot helm",
+   "class": "moto_helmet",
+   "feats": [
+    "chain"
+   ]
+  },
+  "turban_helmet": {
+   "name": "a wrapped-dome full riot helm",
+   "class": "moto_helmet"
+  },
+  "adorned_full_helm": {
+   "name": "a chromed full riot helm",
+   "class": "moto_helmet"
+  },
+  "full_helm": {
+   "name": "a plain full riot helm",
+   "class": "moto_helmet"
+  },
+  "decorated_full_helm": {
+   "name": "a gold-trim full riot helm",
+   "class": "moto_helmet"
+  }
+ },
+ "body": {
+  "tattered_sackcloth": {
+   "name": "a shredded work jacket",
+   "class": "work_jacket"
+  },
+  "sackcloth": {
+   "name": "a feed-sack work jacket",
+   "class": "work_jacket"
+  },
+  "linen_tunic": {
+   "name": "a linen work jacket",
+   "class": "work_jacket"
+  },
+  "cloth_sash": {
+   "name": "a sashed work jacket",
+   "class": "work_jacket"
+  },
+  "leather_wraps": {
+   "name": "a strap-wrapped work jacket",
+   "class": "work_jacket"
+  },
+  "monk_s_robe": {
+   "name": "a chapel work jacket",
+   "class": "work_jacket"
+  },
+  "noble_tunic": {
+   "name": "a casino work jacket",
+   "class": "work_jacket"
+  },
+  "wizard_s_robe": {
+   "name": "a stage-magic work jacket",
+   "class": "work_jacket"
+  },
+  "apron": {
+   "name": "a shop-apron work jacket",
+   "class": "work_jacket"
+  },
+  "butcher_s_apron": {
+   "name": "a butcher's work jacket",
+   "class": "work_jacket"
+  },
+  "undertaker_s_apron": {
+   "name": "an undertaker's work jacket",
+   "class": "work_jacket"
+  },
+  "leather_tunic": {
+   "name": "a leather work jacket",
+   "class": "work_jacket"
+  },
+  "thick_furs": {
+   "name": "a fur-lined work jacket",
+   "class": "work_jacket"
+  },
+  "nomad_robe": {
+   "name": "a dune work jacket",
+   "class": "work_jacket"
+  },
+  "dark_thick_tunic": {
+   "name": "a black quilted work jacket",
+   "class": "work_jacket"
+  },
+  "thick_tunic": {
+   "name": "a quilted work jacket",
+   "class": "work_jacket"
+  },
+  "gladiator_harness": {
+   "name": "a pit-fighter padded vest",
+   "class": "padded_vest"
+  },
+  "animal_hide_armor": {
+   "name": "a dog-hide padded vest",
+   "class": "padded_vest"
+  },
+  "padded_surcoat": {
+   "name": "a long padded vest",
+   "class": "padded_vest"
+  },
+  "thick_nomad_robe": {
+   "name": "a thick dune padded vest",
+   "class": "padded_vest"
+  },
+  "rugged_surcoat": {
+   "name": "a rugged padded vest",
+   "class": "padded_vest"
+  },
+  "dark_rugged_surcoat": {
+   "name": "a black rugged padded vest",
+   "class": "padded_vest"
+  },
+  "padded_vest": {
+   "name": "a plain padded vest",
+   "class": "padded_vest"
+  },
+  "wanderer_s_coat": {
+   "name": "a drifter's padded vest",
+   "class": "padded_vest"
+  },
+  "gambeson": {
+   "name": "a quilted padded vest",
+   "class": "padded_vest"
+  },
+  "leather_nomad_robe": {
+   "name": "a leather dune padded vest",
+   "class": "padded_vest"
+  },
+  "reinforced_animal_hide_armor": {
+   "name": "a doubled dog-hide padded vest",
+   "class": "padded_vest"
+  },
+  "blotched_gambeson": {
+   "name": "a stained quilted padded vest",
+   "class": "padded_vest"
+  },
+  "linothorax": {
+   "name": "a glued-canvas padded vest",
+   "class": "padded_vest"
+  },
+  "scrap_metal_armor": {
+   "name": "a scrap-metal padded vest",
+   "class": "car_door"
+  },
+  "padded_leather": {
+   "name": "a leather padded vest",
+   "class": "padded_vest"
+  },
+  "stitched_nomad_armor": {
+   "name": "a stitched dune padded vest",
+   "class": "padded_vest"
+  },
+  "cultist_leather_robe": {
+   "name": "a static listener's padded vest",
+   "class": "padded_vest"
+  },
+  "patched_mail_shirt": {
+   "name": "a patched chain padded vest",
+   "class": "padded_vest",
+   "feats": [
+    "chain"
+   ]
+  },
+  "leather_lamellar_armor": {
+   "name": "a belt-leather padded vest",
+   "class": "padded_vest"
+  },
+  "hide_and_bone_armor": {
+   "name": "a hide-and-bone padded vest",
+   "class": "padded_vest"
+  },
+  "reinforced_leather_armor": {
+   "name": "a leather plate carrier",
+   "class": "police_vest"
+  },
+  "direwolf_hide_armor": {
+   "name": "a dire-wolf-hide plate carrier",
+   "class": "police_vest"
+  },
+  "ancient_mail": {
+   "name": "an old-army plate carrier",
+   "class": "police_vest"
+  },
+  "plated_nomad_mail": {
+   "name": "a plated dune plate carrier",
+   "class": "plated_jacket"
+  },
+  "southern_mail_shirt": {
+   "name": "a border plate carrier",
+   "class": "police_vest"
+  },
+  "worn_mail_shirt": {
+   "name": "a worn plate carrier",
+   "class": "police_vest"
+  },
+  "basic_mail_shirt": {
+   "name": "a basic plate carrier",
+   "class": "police_vest"
+  },
+  "assassin_s_robe": {
+   "name": "a contract man's plate carrier",
+   "class": "police_vest"
+  },
+  "ancient_double_layer_mail": {
+   "name": "a doubled old-army plate carrier",
+   "class": "police_vest"
+  },
+  "ancient_scale_harness": {
+   "name": "an old-army scale plate carrier",
+   "class": "plated_jacket"
+  },
+  "mail_shirt": {
+   "name": "a chain plate carrier",
+   "class": "police_vest",
+   "feats": [
+    "chain"
+   ]
+  },
+  "mail_with_lamellar_plating": {
+   "name": "a chain-and-belt plate carrier",
+   "class": "plated_jacket"
+  },
+  "ancient_breastplate": {
+   "name": "an old-army steel plate carrier",
+   "class": "police_vest"
+  },
+  "direwolf_mail_armor": {
+   "name": "a dire-wolf chain plate carrier",
+   "class": "police_vest",
+   "feats": [
+    "chain"
+   ]
+  },
+  "leather_scale_armor": {
+   "name": "a leather scale plate carrier",
+   "class": "plated_jacket"
+  },
+  "rugged_scale_armor": {
+   "name": "a rugged scale plate carrier",
+   "class": "plated_jacket"
+  },
+  "adorned_mail_shirt": {
+   "name": "a chromed plate carrier",
+   "class": "police_vest"
+  },
+  "mail_hauberk": {
+   "name": "a long chain plate carrier",
+   "class": "police_vest",
+   "feats": [
+    "chain"
+   ]
+  },
+  "noble_mail": {
+   "name": "a casino plate carrier",
+   "class": "police_vest"
+  },
+  "light_scale_armor": {
+   "name": "a light scale plate carrier",
+   "class": "plated_jacket"
+  },
+  "heavy_iron_armor": {
+   "name": "a heavy iron plate carrier",
+   "class": "car_door"
+  },
+  "decayed_reinforced_mail_hauberk": {
+   "name": "a rotted long chain plate carrier",
+   "class": "police_vest",
+   "feats": [
+    "chain"
+   ]
+  },
+  "ancient_plated_mail_hauberk": {
+   "name": "old-army plated full riot armour",
+   "class": "plated_jacket"
+  },
+  "footman_s_armor": {
+   "name": "foot patrol full riot armour",
+   "class": "riot_armour"
+  },
+  "ancient_scale_coat": {
+   "name": "old-army scale full riot armour",
+   "class": "plated_jacket"
+  },
+  "adorned_warrior_s_armor": {
+   "name": "chromed fighter's full riot armour",
+   "class": "riot_armour"
+  },
+  "southern_long_mail_shirt_with_padding": {
+   "name": "border padded full riot armour",
+   "class": "riot_armour"
+  },
+  "ancient_plate_harness": {
+   "name": "old-army harness full riot armour",
+   "class": "riot_armour"
+  },
+  "reinforced_mail_hauberk": {
+   "name": "reinforced chain full riot armour",
+   "class": "riot_armour",
+   "feats": [
+    "chain"
+   ]
+  },
+  "ancient_plated_scale_hauberk": {
+   "name": "old-army plated scale full riot armour",
+   "class": "plated_jacket"
+  },
+  "lamellar_harness": {
+   "name": "belt-plate harness full riot armour",
+   "class": "plated_jacket"
+  },
+  "thick_plated_barbarian_armor": {
+   "name": "desert wild's full riot armour",
+   "class": "riot_armour"
+  },
+  "scale_armor": {
+   "name": "scale full riot armour",
+   "class": "plated_jacket"
+  },
+  "decayed_coat_of_scales": {
+   "name": "rotted scale-coat full riot armour",
+   "class": "plated_jacket"
+  },
+  "heraldic_hauberk": {
+   "name": "gang-painted full riot armour",
+   "class": "riot_armour"
+  },
+  "sellsword_s_armor": {
+   "name": "gun for hire's full riot armour",
+   "class": "riot_armour"
+  },
+  "decayed_coat_of_plates": {
+   "name": "rotted plate-coat full riot armour",
+   "class": "car_door"
+  },
+  "heavy_lamellar_armor": {
+   "name": "heavy belt-plate full riot armour",
+   "class": "plated_jacket"
+  },
+  "padded_mail_and_lamellar_hauberk": {
+   "name": "padded chain-and-plate full riot armour",
+   "class": "riot_armour",
+   "feats": [
+    "chain"
+   ]
+  },
+  "adorned_heavy_mail_hauberk": {
+   "name": "chromed heavy chain full riot armour",
+   "class": "riot_armour",
+   "feats": [
+    "chain"
+   ]
+  },
+  "coat_of_scales": {
+   "name": "scale-coat full riot armour",
+   "class": "plated_jacket"
+  },
+  "coat_of_plates": {
+   "name": "plate-coat full riot armour",
+   "class": "car_door"
+  }
+ },
+ "_counts": {
+  "dust_mask": 1,
+  "bandana": 2,
+  "rag_hood": 9,
+  "straw_hat": 1,
+  "hard_hat": 17,
+  "gas_mask": 1,
+  "chain_hood": 5,
+  "riot_helmet": 18,
+  "brim_helmet": 5,
+  "welder_mask": 4,
+  "moto_helmet": 24,
+  "work_jacket": 16,
+  "padded_vest": 19,
+  "car_door": 4,
+  "police_vest": 15,
+  "plated_jacket": 14,
+  "riot_armour": 10
+ }
+}

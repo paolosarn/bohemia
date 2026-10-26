@@ -189,6 +189,27 @@ the shield on the arm (the study the row names); no other reference.
   name holding 'raw'. DIRECTION's master rig left as it is (one system, one session); NOTE for DIRECTION: replace once.
 - LIVE 10/26: person_mob_1, person_mob_2, person_reds_1 (own melee, shield and two-hand keys; the bow's and the sling's keys
   rendered, live once YOU's bow and sling pictures are in). Gate THE THING IN HIS HAND 28/0 with the real fight and the demo.
+- THE BOW AND THE SLING LIVE 10/26: YOU's bow and sling pictures rendered (the cast looks and nine gangs hold YOU's things), so
+  the index makes b1 and m3 live; the fight's draw (ANIMATION's block, laid on main's latest file: 18 lines) plays the bow's own
+  keys (low in the left fist, drawn and loosed on the shot, from cover too) and whirls the sling. New gate leg W6: on the real
+  fight a man handed a bow stands with it and draws and looses it on his shot (YOU: BIdle 64 draws, BAim 8, the bow 72).
+  OBSERVED ONCE, NOT PINNED: one run of WHAT A MAN HOLDS W3 (the demo's road fight) threw 'drawImage: the provided value is not
+  of type' twice; three runs since on the same files clean, and main's file without the bow 17/0 once. The value was missing,
+  not unloaded: my block's draws are all guarded (a missing sheet returns null, never a draw); the one draw path that hands
+  drawImage an atlas that may not be in yet is the night's copy of a packed sheet (nightSheet on a PackedSheet whose atlas has
+  not loaded), outside this block. NOTE for RUN with the hypothesis; EYES to watch the demo's night road fights.
+- THE THUG AND THE POACHER 10/26: their own melee, two-hand, bow and sling keys live; THEIR SHIELD ARM HELD BACK (the source's
+  'withhold', the pack leaves those things out so the fight draws them with the one-hand stance as before): measured by G1 their
+  planted shields sink 14 to 15 px facing west and float 5 px facing east (their bigger build kneels deeper; pulled in to
+  PLANT_REACH, the front leg hides the shield's foot in profile) and the poacher's block tops out a pixel low. The thug's
+  kneeling shield is the open item: a placement of its own for the big build, then drop the withhold.
+- THE GATE'S FIGHT MOVED UNDER IT (COMBAT's 10/26 lineup): the men now start on cover tiles, so W2 accepts any cover kneel and W4
+  stands its shield man on open ground (the fight's own holdCovered test) before the blow; W6 hands the sling to a man whose own
+  model carries no thing (the thug's carries his pipe, so nothing is drawn in his fist). 29/0.
+- THE CARAVANS AND THE WIDE BRIM 10/26: their own melee, bow and sling keys live; their shield arm and two hands held back
+  (the source's withhold): measured from the top of their hats, the crash bar's block tops out 27 and 28 px under it, the
+  pipe's two-handed wind 6 px under it, and the caravans' pistol with the shield shows in 92 of 144 pictures. Open: what a hat
+  does to the crown the gate measures from (a hat's top is not his face), then their placements.
 - STATE: built and in the source, the tool and the fight's draw; rendering queued after the town's activities and her body
   (the twelve looks the fights deal: person_mob_1, person_mob_2, person_reds_1, person_reds_2, enemy_heavy_2 to _5,
   tier_poacher, faction_caravans, cast_widebrim, tier_thug; and YOU for the bow's and the sling's pictures every cast look

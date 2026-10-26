@@ -15463,6 +15463,87 @@
      736
     ]
    }
+  },
+  {
+   "id": "character-the-armour-he-wears-shows-10-26",
+   "kind": "outfit",
+   "lane": "character",
+   "made": "10/26",
+   "sha": "7035d1c7",
+   "draft": true,
+   "title": "EVERY HELMET AND BODY ARMOUR IS DRAWN ON THE MAN WHO WEARS IT: THE POLICE RIOT HELMET AND THE POLICE VEST FIRST, SEVENTEEN PLACEHOLDERS IN ALL",
+   "why": "Every one of the 87 helmets and 78 body armours the shop sells is now drawn on whoever wears it, as one of 17 placeholder pieces in the 3D look (a police riot helmet, a motorcycle helmet, a welder's mask, a hard hat, a police vest, a car door strapped on, a plated jacket and the rest), until COOK makes each piece's real art. You see it in the fight, on the crew screen, at camp and on the map, and on this sheet: him bare, then wearing each one in all eight turns and in his portrait.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_SHOWS.png",
+    "first": "../records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_SHOWS_FIRST.png",
+    "firstAt": [
+     0,
+     0,
+     1806,
+     288
+    ]
+   },
+   "twin": {
+    "src": "fight_rig/you.webp",
+    "diffs": [
+     "HIS HEAD: the game's man today is bare-headed whatever helmet he bought; now the piece he has on sits on his head in every turn and clip, the police riot helmet with its clear shield down over his face.",
+     "HIS CHEST: the game's man today shows no body armour; now the vest, the car door, the scales or the riot plates sit on his chest and back, under his gun and his shield.",
+     "HIS FACE: the portrait today is his bare head; now the portrait wears the helmet he wears (the third votes: head gear shows in the portrait)."
+    ]
+   },
+   "before_after": {
+    "before": "him today, wearing nothing he has on (BEFORE, left of every row)",
+    "after": "the same man wearing each class, eight turns at 2:1, and his portrait at 128",
+    "scale": "2:1"
+   },
+   "placeholder": true
+  },
+  {
+   "id": "character-the-armour-on-every-screen-10-26",
+   "kind": "outfit",
+   "lane": "character",
+   "made": "10/26",
+   "sha": "7035d1c7",
+   "draft": true,
+   "title": "THE POLICE RIOT HELMET AND VEST ON HIM ON EVERY SCREEN: THE CREW CARD, THE FIGHT, CAMP AND THE MAP, FAR AND CLOSE",
+   "why": "The man in the police riot helmet and the police vest, shot on the phone on each screen, bare above and wearing them below; his two men on the map wear their own hard hats and padded vests, far and at the close end. You see it on the crew screen, in the fight, at camp and on the map.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/character/the_armour_shows/CHARACTER_THE_ARMOUR_ON_EVERY_SCREEN.png"
+   },
+   "twin": {
+    "src": "records/target/character/the_armour_shows/SCREEN_FIGHT_BEFORE.png",
+    "diffs": [
+     "THE CREW CARD: bare-headed before, the riot helmet and the vest after, the swap drawn at once.",
+     "THE FIGHT AND CAMP: the same man in the same pose, the helmet and the vest drawn under his car door and his gun.",
+     "THE MAP: he and the two at his shoulders were bare; now each wears what he has on, in depth with the buildings."
+    ]
+   },
+   "before_after": {
+    "before": "each screen with nothing he wears drawn (above)",
+    "after": "the same screen, the same moment, wearing it (below)",
+    "scale": "1:1 on the phone"
+   },
+   "placeholder": true
+  },
+  {
+   "id": "camp-the-bars-over-their-heads-10-26",
+   "kind": "ui",
+   "lane": "camp",
+   "sha": "9e5595cf",
+   "made": "10/26",
+   "title": "A RED AND A GREY BAR OVER EVERY HURT MAN OF YOURS, ON THE MAP, IN TOWN AND AT CAMP",
+   "why": "You could not see who was hurt or how fast they were healing. Now every man of yours under 87 percent carries two small bars over his head, red his health and grey his armour, and they fill as he heals, then vanish at 87. You see it on the RUN tab after any fight: on the map over your party, and in a town or at camp over your men.",
+   "before_after": {
+    "before": "nothing over anybody's head outside the fight",
+    "after": "BUILD 10/26zu: on the left the map, bars over YOU and the man with broken armour, none over the whole one; on the right the camp, bars over the two hurt men by the fire",
+    "scale": "his phone upright, cropped"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/CAMP_THE_BARS_OVER_THEIR_HEADS_10_26.webp"
+   }
   }
  ],
  "verdicts": [

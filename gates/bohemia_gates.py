@@ -10028,6 +10028,8 @@ GATES = [
      "MEASURED before: BUY put every piece in the stash, and a new game has no crew-screen files until the crew screen is opened once. HOLDS on the demo through Church's door, a new game, real taps: the card shows it on a man and BUY names him, 'to the stash' under it, both 44 points; "
      "one tap and he wears it (the purse down by the price, not in the stash, his old piece in the stash kept, the line names him, the piece and the old piece); the next card reads him in it; another face tapped first gets it instead of the best fit; 'to the stash' keeps it unworn; "
      "the fight's door and the fight page stand both men in their pieces before the crew screen was ever opened; the crew screen by the town's CREW shows them on, the old pieces in the stash, the shop's file emptied into its hand-over; a buy after the crew screen is open writes its hand-over and climb at once; the computer by a click. about 3 min", True),
+    ('HER BODY', ['python3', 'gates/her_body_gate.py'],
+     "ANIMATION [a few women at the post] (rules 203(a) and 214, Paolo 10/25 and 10/26: 'I'm willing to give a chance to women... make it 4 percent'; each a whole person, never a renamed man). Her body on the rig, asked of her pictures: the source; four women in the roll after every man, no beard; her height 0.90 to 0.965 of the place's men in all eight facings and her build record; her walk's feet nearer the line than the men's; the people mix, the fight's board and sheet, her face, her walk, her idles and her town activities. Two mutations caught.", False),
     ('A FEW WOMEN AT THE POST', ['node', 'gates/a_few_women_at_the_post_gate.js'],
      "RUN TWO gate, 10/25, row [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). "
      "MEASURED before: no woman's body exists (71 people 'm', 81 unset, all on the master rig, a man's), and the unset 81 rolled their names 50/50 (405 of 810 rolled names read as women's): men wore women's names. "
@@ -10145,6 +10147,13 @@ GATES = [
      "PORTRAIT gate, 10/26, row [every face breathes] (rule 246(d); PAOLO 10/26: 'I wanna see my crew, anytime they're on the screen, or anytime anyone's on the screen with a portrait, just slightly moving, like breathing... if they have a serious wound maybe they could be reacting to it'). "
      "One clock on the game's grid (three keys a beat at 120 BPM): a breath every eight beats (15 a minute), a blink every 3 to 6 seconds; every face rendered winces and, wherever his eyes show, blinks and glances at 128 and 64 (his own renders); "
      "on the crew screen in Chromium a face changes over two seconds and breathes 12 to 20 a minute at 128 and 64; a man struck down winces, a whole one never; a talking face is the talker's; twelve faces breathing cost no frame time. About 1 min", True),
+    ('THE ARMOUR HE WEARS SHOWS', ['node', 'gates/the_armour_he_wears_shows_gate.js'],
+     "CHARACTER gate, 10/26, row [the armour he wears shows] (rule 272, Paolo 10/26: 'the weapons and the shield show, but the good armour I have on me doesn't show, like a police helmet... "
+     "it's not visually shown'). MEASURED before: no screen drew a helmet or a body armour on anybody. D1 every one of armor.json's 87 helmets and 78 body armours has a class "
+     "(records/target/bb/armour_looks.json) drawn in all eight facings, lying and in the portrait (slices/wear); phone and computer, a man in a police riot helmet and a police vest: "
+     "C1 the crew card draws both (his pixels change against the same figure with nothing drawn), C2 his portrait wears the helmet, F1 the fight draws both facing the glass and "
+     "facing east, F2 the fight's face wears it, K1 the camp draws him at the fire in both, M1 the demo's map through its own door draws him and the two men at his shoulders in theirs, M2 at the map's close end too; "
+     "E1 every class the shop sells drawn on its wearer; PLANTED: the drawing switched off, C1 catches him bare. about 5 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

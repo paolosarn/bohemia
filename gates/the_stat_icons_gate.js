@@ -61,10 +61,14 @@ const STATS = ['hp', 'fatigue', 'resolve', 'initiative', 'melee_skill', 'ranged_
     const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:21,kind:"suburb",company:[{background:"companion_2hand",name:"RAUL"},{background:"companion_1hand",name:"DESI"},{background:"companion_ranged",name:"TINA"}],cap:12,party:{count:4,days:3,difficulty:1,faction:"brigands"}}' });
     await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length, null, { timeout: 90000 }).catch(() => {});
     const got = await d.page.evaluate(async () => { drawer(FIGHT.S.units[0]); await new Promise(r => setTimeout(r, 300));
-      return [...document.querySelectorAll('#drawer .r>span:first-child')].map(sp => sp.textContent.trim() + ':' + [...sp.querySelectorAll('img.bm-stat')].map(i => i.getAttribute('src').replace(/^.*\//, '').replace('.png', '')).join('+')); }).catch(e => ['threw ' + e.message]);
+      /* RE-AIMED 10/26 (UI THREE, rules 223 and 247): the card's eight are the one stat row each (.bst-row, its icon an i.bst-ic),
+         in his order; the word rows the kit dressed are kept only where they still stand */
+      const rows = [...document.querySelectorAll('#drawer .bst-row')].map(r => r.dataset.stat + ':' + ((r.querySelector('i.bst-ic') || { style: {} }).style.backgroundImage || '').replace(/^.*\/|\.png.*$/g, ''));
+      return rows.length ? rows : [...document.querySelectorAll('#drawer .r>span:first-child')].map(sp => sp.textContent.trim() + ':' + [...sp.querySelectorAll('img.bm-stat')].map(i => i.getAttribute('src').replace(/^.*\//, '').replace('.png', '')).join('+')); }).catch(e => ['threw ' + e.message]);
     const want = { Health: 'hp', Fatigue: 'fatigue', Resolve: 'resolve', Initiative: 'initiative', 'Melee skill / defence': 'melee_skill+melee_defense', 'Ranged skill / defence': 'ranged_skill+ranged_defense' };
-    const ok = Object.keys(want).every(w => got.indexOf(w + ':' + want[w]) >= 0);
-    leg(ok, 'I4  THE FIGHT\'S DRAWER: HEALTH, FATIGUE, RESOLVE, INITIATIVE AND BOTH SKILL ROWS WEAR THEIR ICONS', got.join(' | '));
+    const EIGHT = ['hp', 'fatigue', 'ranged_skill', 'melee_skill', 'ranged_defense', 'melee_defense', 'resolve', 'initiative'];
+    const ok = got.length === 8 && got.every((g, i) => g === EIGHT[i] + ':' + EIGHT[i]) || Object.keys(want).every(w => got.indexOf(w + ':' + want[w]) >= 0);
+    leg(ok, 'I4  THE FIGHT\'S CARD: EVERY STAT WEARS ITS OWN ICON (the eight in his order as rows, rule 247)', got.join(' | '));
     errs.push(...d.errs);
     await d.close();
   }
