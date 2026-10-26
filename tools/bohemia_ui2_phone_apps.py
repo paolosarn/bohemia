@@ -16,6 +16,8 @@ camera tipped 25 degrees so a bottom edge shows its thickness):
   app_relations  a pennant on a pole (whose side they are on: Battle Brothers' banners)
   app_settings   a gear (the phone's own settings page)
   app_combat     a dead-olive plate with a red crosshair: the phone's face when a fight starts
+  app_heal       a bone plate with a medic's cross in red: CAMP is the HEAL button (rule 226)
+  app_x          a dead-olive plate with a bone X: the job card's drop (rule 227)
   case           the handset: a dead-olive tin frame with a rivet at each corner round a hole the screen shows through,
                  one picture the page slices (border-image) so it stands at the phone's one size on every screen
   ear            the speaker slot and the camera at the top of the case
@@ -123,6 +125,21 @@ def G_combat():
             (circle(22.0, 22.0, 2.2, 20), RED, 1.6)]
 
 
+def G_heal():
+    """rule 226: the CAMP app is the HEAL button: a medic's cross struck in red"""
+    a, b, c, d = 9.5, 17.5, 26.5, 34.5   # one outline: two crossed bars as one shape (overlapping solids render a hole)
+    return [(ccw([(b, a), (c, a), (c, b), (d, b), (d, c), (c, c), (c, d), (b, d), (b, c), (a, c), (a, b), (b, b)]), RED, 1.6)]
+
+
+def G_x():
+    """the X on the job card (rule 227): two struck bars, crossed"""
+    def bar(a):
+        c, s_, L, W = math.cos(a), math.sin(a), 15.0, 2.6
+        pts = [(-L, -W), (L, -W), (L, W), (-L, W)]
+        return ccw([(22.0 + x * c - y * s_, 22.0 + x * s_ + y * c) for x, y in pts])
+    return [(bar(math.radians(45)), BONE, 1.4), (bar(math.radians(-45)), BONE, 1.6)]
+
+
 ICONS = {
     'app_play':      dict(paint=AMBER, glyph=G_play),
     'app_pause':     dict(paint=AMBER, glyph=G_pause),
@@ -132,6 +149,8 @@ ICONS = {
     'app_relations': dict(paint=BONE, glyph=G_relations),
     'app_settings':  dict(paint=BONE, glyph=G_settings),
     'app_combat':    dict(paint=OLIVE, glyph=G_combat, dust=0.25),
+    'app_heal':      dict(paint=BONE, glyph=G_heal),
+    'app_x':         dict(paint=OLIVE, glyph=G_x, dust=0.25),
 }
 # THE CASE: a frame (bezel = [top, right, bottom, left] points) round the screen's hole, the hole's corners rounded hr; the
 # picture is one period of every mask (P = 64) across its middle, so the page stretches it to any size with the browser's

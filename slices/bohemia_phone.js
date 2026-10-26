@@ -56,8 +56,8 @@
   var KEY = 'bohemia.phone.v1';               /* {side, order, hidden}: his corner and his apps */
   var NAMEKEY = 'bohemia.company.name.v1';    /* the company's name, renamed from FEED */
   var WHYKEY = 'bohemia.relations.why.v1';    /* what moved each town's opinion, the last few, per town */
-  var APPS = ['play', 'crew', 'camp', 'feed', 'relations'];
-  var LABEL = { play: 'PLAY', crew: 'CREW', camp: 'CAMP', feed: 'FEED', relations: 'RELATIONS' };   /* draft:true */
+  var APPS = ['play', 'crew', 'heal', 'feed', 'relations'];   /* CAMP is the HEAL button (rule 226 amends 212(b)) */
+  var LABEL = { play: 'PLAY', crew: 'CREW', heal: 'HEAL', feed: 'FEED', relations: 'RELATIONS' };   /* draft:true */
   var BEAT = 500;                              /* 120 BPM */
   var BASE = (function () {
     try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, ''); } catch (e) {}
@@ -70,9 +70,10 @@
     var c = null; try { c = JSON.parse(ls().getItem(KEY) || 'null'); } catch (e) { c = null; }
     c = c && typeof c === 'object' ? c : {};
     var side = c.side === 'left' ? 'left' : 'right';   /* right by default: about two in three thumbs are right thumbs (Hoober) */
-    var order = Array.isArray(c.order) ? c.order.filter(function (a, i, A) { return APPS.indexOf(a) >= 0 && A.indexOf(a) === i; }) : [];
+    var was = function (a) { return a === 'camp' ? 'heal' : a; };   /* a phone set up before rule 226 keeps its order */
+    var order = Array.isArray(c.order) ? c.order.map(was).filter(function (a, i, A) { return APPS.indexOf(a) >= 0 && A.indexOf(a) === i; }) : [];
     APPS.forEach(function (a) { if (order.indexOf(a) < 0) order.push(a); });
-    var hidden = Array.isArray(c.hidden) ? c.hidden.filter(function (a) { return APPS.indexOf(a) >= 0; }) : [];
+    var hidden = Array.isArray(c.hidden) ? c.hidden.map(was).filter(function (a) { return APPS.indexOf(a) >= 0; }) : [];
     if (hidden.length >= APPS.length) hidden = hidden.slice(1);   /* never a phone with nothing on it */
     return { side: side, order: order, hidden: hidden };
   }
@@ -92,12 +93,13 @@
   var HOST = hostOf(), IS_HOST = HOST === window;
 
   /* ======================================================================================================================
-     THE RECTANGLE. One size per device and the way it is held, the same on every screen of the game. Base 124 x 212
-     points (his iPhone's corner and bezel; two thumbs of apps and the big one); 0.9 on a phone on its side (390 tall),
+     THE RECTANGLE. One size per device and the way it is held, the same on every screen of the game. Base 124 x 276
+     points (his iPhone's corner and bezel; the job column, rules 227 and 228; the big one; two thumbs of apps); 0.9 on a
+     phone on its side (390 tall),
      1.25 from 500 points across the short side (an iPad, a computer). In his chosen bottom corner, ten points and the
      safe area in from the glass's edges.
      ==================================================================================================================== */
-  var BW = 124, BH = 212;
+  var BW = 124, BH = 276;
   function insets(doc) {
     var p = doc.getElementById('bohphoneinset');
     if (!p) { p = doc.createElement('div'); p.id = 'bohphoneinset';
@@ -193,16 +195,55 @@
     if (!o.place) try { o.place = String(__CITY.district(city.x, city.y) || '').toUpperCase(); } catch (e) {}
     return o;
   };
-  P.play = function () {
+  P.play = function (jobId) {
     try {
       if (typeof MODE !== 'undefined' && MODE !== 'city') return false;
       if (TRAVEL_SPEED > 0) travelSpeedSet(0);
+      else if (!TRAVEL && (LOOP.held || []).length && P.jobGo(jobId)) { try { camHold(); } catch (e) {} }   /* nothing picked: to the job */
       else { travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); try { camHold(); } catch (e) {} }
       window.__PHONE_PLAYS = (window.__PHONE_PLAYS | 0) + 1;
       return true;
     } catch (e) { return false; }
   };
   P.speed = function (n) { try { return travelSpeedSet(n); } catch (e) { return false; } };
+  /* THE JOBS HE IS ON (rule 227): what, where, the red stars, the time there and back (rule 222), never the offers */
+  P.jobs = function () {
+    var out = [];
+    try {
+      var W = (window.BohemiaPhoneBoard && BohemiaPhoneBoard.what) ? BohemiaPhoneBoard.what() : null;
+      (LOOP.held || []).forEach(function (j) {
+        if (!j || !j.id) return;
+        var stars = null; try { if (window.BohemiaJobDanger && BohemiaJobDanger.stars) stars = BohemiaJobDanger.stars(j, j.from); } catch (e) {}
+        if (stars == null) stars = Math.max(1, Math.min(5, (j.skulls | 0) || 1));
+        var t = null; try { t = window.BohemiaJobKinds && BohemiaJobKinds.trip ? BohemiaJobKinds.trip(j, j.from) : null; } catch (e) {}
+        var mins = null, back = false, at = null;
+        if (t && t.job) { back = !!t.job.back; at = t.job.name || null;
+          mins = (t.job.total != null ? t.job.total : (t.job.mins != null ? t.job.mins : t.job.minsHi)) + (t.toTown && t.toTown.mins ? t.toTown.mins : 0); }
+        out.push({ id: j.id, what: String((W && W[j.id]) || j.title || 'a job'), from: String(j.from || ''), at: at, stars: stars | 0, mins: mins, back: back });
+      });
+    } catch (e) {}
+    return out;
+  };
+  P.dropCost = function (id) { try { return window.BohemiaJobKinds && BohemiaJobKinds.dropCost ? BohemiaJobKinds.dropCost(id) : null; } catch (e) { return null; } };
+  P.drop = function (id) { try { return window.BohemiaJobKinds && BohemiaJobKinds.drop ? BohemiaJobKinds.drop(id) : null; } catch (e) { return null; } };
+  /* PLAY TAKES HIM THERE (rule 227(c)): RUN's own route when it lands ([play takes you there]); until then the map's own
+     path finder to the job's place, the same door a tap on the map uses (travelTo) */
+  P.jobGo = function (id) {
+    try { if (typeof window.mapPlayToJob === 'function') return !!window.mapPlayToJob(id); } catch (e) {}
+    try {
+      var held = LOOP.held || [], j = held.filter(function (x) { return x && x.id === id; })[0] || held[0]; if (!j) return false;
+      var tg = j.target, x = tg && (tg.x != null ? tg.x : tg[0]), y = tg && (tg.y != null ? tg.y : tg[1]);
+      if (x == null || y == null) return false;
+      var ok = travelTo(0, 0, [x | 0, y | 0]); window.__PHONE_JOB_GO = { id: j.id, to: [x | 0, y | 0], ok: !!ok };
+      return !!ok;
+    } catch (e) { return false; }
+  };
+  /* THE COMPANY'S CONDITION (rule 226(c)): CAMP's numbers when it hands them (window.BohemiaHeal.condition()); until damage
+     stays between fights the company comes home whole, so the bar is full */
+  P.condition = function () {
+    try { var B = window.BohemiaHeal; if (B && typeof B.condition === 'function') { var c = B.condition(); if (c && (c.hpMax || c.armMax)) return { hp: +c.hp || 0, hpMax: +c.hpMax || 0, arm: +c.arm || 0, armMax: +c.armMax || 0, from: 'camp' }; } } catch (e) {}
+    return { hp: 1, hpMax: 1, arm: 1, armMax: 1, from: 'whole' };
+  };
   P.crew = function () {   /* the bar's own CREW: the one company screen, from the map and the town (it presses the town's own) */
     var t = document.querySelector('#bmtb .t.crew'); if (!t) return false; t.click(); return true;
   };
@@ -239,6 +280,7 @@
       var sw = w / MAG * d, sh = h / MAG * d, sx = p.sx * d - sw / 2, sy = (p.sy - (typeof TH !== 'undefined' ? TH : 9)) * d - sh / 2;
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(cv, sx, sy, sw, sh, 0, 0, w, h);
+      window.__PHONE_WALL = { sx: sx, sy: sy, sw: sw, sh: sh, at: [city.x, city.y], party: [p.sx * d, p.sy * d] };
       return 'block';
     } catch (e) { return false; }
   };
@@ -256,6 +298,7 @@
     return { key: (sk.dataset.key || '') + '|' + list.map(function (a) { return a.on + '' + a.off; }).join(''), list: list,
       name: who ? String(who.textContent || '').replace(/\s*\*$/, '') : '', face: document.getElementById('face') };
   };
+  P.over = function () { try { return !!(typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.over); } catch (e) { return false; } };
   P.press = function (i) {
     var sk = document.getElementById('skills'); if (!sk) return false;
     var b = [].slice.call(sk.querySelectorAll('.sq')).filter(isAbility)[i];
@@ -275,7 +318,11 @@
       + 'html.boh-phone-on.boh-phone-right body:has(#skills) #bot{right:calc(var(--boh-phone-gap-r) + 6px)!important}'
       + 'html.boh-phone-on.boh-phone-left body:has(#skills) #bot{left:calc(var(--boh-phone-gap-l) + 6px)!important}'
       + 'html.boh-phone-on[data-screen=tablet] body:has(#skills) #bot,html.boh-phone-on[data-screen=computer] body:has(#skills) #bot{'
-      +   'right:auto!important;left:50%!important;width:min(980px,calc(100vw - 24px - 2 * (var(--boh-phone-w) + 16px)))!important}';
+      +   'right:auto!important;left:50%!important;width:min(980px,calc(100vw - 24px - 2 * (var(--boh-phone-w) + 16px)))!important}'
+      /* THE COMPANY SCREEN, one column under 700 wide: the stash's tabs and pockets stand beside the phone, never under it */
+      + '@media (max-width:699px){html.boh-phone-on.boh-phone-right body:has(#bag) #stash{padding-right:calc(var(--boh-phone-gap-r) + 6px)!important}'
+      +   'html.boh-phone-on.boh-phone-left body:has(#bag) #stash{padding-left:calc(var(--boh-phone-gap-l) + 6px)!important}'
+      +   'html.boh-phone-on body:has(#bag) #tabs{flex-wrap:wrap!important;row-gap:3px}}';
     var st = document.createElement('style'); st.id = 'bohphone-local'; st.textContent = css;
     (document.head || document.documentElement).appendChild(st);
   }
@@ -310,7 +357,7 @@
   /* ======================================================================================================================
      THE HOST: the phone itself, drawn once
      ==================================================================================================================== */
-  var H = { el: null, scr: null, state: { on: false, side: 'right', screen: null, rect: null }, cfg: cfg(), page: null, wallAt: 0,
+  var H = { el: null, scr: null, state: { on: false, side: 'right', screen: null, rect: null }, cfg: cfg(), page: null, wallAt: 0, face: 'home',
     seenPost: null, postT: 0, fightKey: null, fightShown: false, anim: 0, holdT: 0, presses: 0, lastScreen: null };
 
   function frames(w, out) {   /* every same-origin page under w, w first */
@@ -381,8 +428,27 @@
       + '#bohphone .app.big{width:54px;height:54px}'
       + '#bohphone .app.big img{left:2px;top:0;width:50px;height:53.4px}'
       + '#bohphone .app.big .lab{display:none}'
+      /* THE HEAL BAR (rule 226(c)): one bar under the cross, the company's hitpoints red and armour grey over their maxima */
+      + '#bohphone .app .hb{position:absolute;left:8px;top:37px;width:36px;height:6px;display:flex;background:#1a120c;box-shadow:inset 0 1px 0 rgba(0,0,0,.8),0 1px 0 rgba(255,240,210,.25);pointer-events:none}'
+      + '#bohphone .app .hb i{display:block;height:100%}'
+      + '#bohphone .app .hb .hp{background:#b8352a;box-shadow:inset 0 1px 0 rgba(255,190,170,.45)}'
+      + '#bohphone .app .hb .ar{background:#9aa0a2;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}'
+      /* THE JOB COLUMN (rules 227 and 228): the main quest's slot first and always kept, then the jobs he is on */
+      + '#bohphone .jobs{position:absolute;left:3px;right:3px;top:1px;height:64px;display:flex;flex-direction:column;gap:2px}'
+      + '#bohphone .jobs .mq{flex:0 0 12px;opacity:.55;' + kit('well', 0.25) + '}'
+      + '#bohphone .jc{position:relative;flex:0 0 24px;display:flex;align-items:center;gap:3px;padding:1px 2px 1px 4px;cursor:pointer;color:#1f1710;' + kit('receipt', 0.4)
+      +   'border-radius:1px!important;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.6))}'
+      + '#bohphone .jc.sel{box-shadow:inset 3px 0 0 #e8a83a!important}'
+      + '#bohphone .jc .tx{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;line-height:8px}'
+      + '#bohphone .jc .wh{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:clip}'
+      + '#bohphone .jc .mt{font-size:6px;white-space:nowrap;overflow:hidden;color:#4a3826}'
+      + '#bohphone .jc .st{color:#a3180c;letter-spacing:-.5px;margin-right:2px}'
+      + '#bohphone .jc .x{flex:0 0 20px;width:20px;height:21px;padding:0;border:0;background:none;cursor:pointer}'
+      + '#bohphone .jc .x img{width:20px;height:21.4px;display:block;pointer-events:none}'
+      + '#bohphone .jc.arm{background:#e8d6b4!important;color:#5a1408}'
+      + '#bohphone .jc .dr{flex:0 0 34px;height:20px;border:0;cursor:pointer;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#7a1206;' + kit('tin', 0.35) + '}'
       + '#bohphone .app .mark{position:absolute;right:-3px;bottom:3px;padding:1px 2px 0;font-size:7px;line-height:8px;color:#f6cf74;background:#1c140c;border-radius:1px;pointer-events:none}'
-      + '#bohphone .clk{position:absolute;left:58px;top:6px;width:46px;text-align:left;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
+      + '#bohphone .clk{position:absolute;left:58px;top:71px;width:46px;text-align:left;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
       + '#bohphone .clk b{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:15px;line-height:16px;letter-spacing:.5px;color:#f4e8cc}'
       + '#bohphone .clk i{display:block;font-style:normal;font-size:7px;line-height:9px;color:#e0d2b0;letter-spacing:.4px}'
       + '#bohphone .clk i.go{color:#f6cf74}'
@@ -494,7 +560,7 @@
   }
 
   /* ---- THE HOME: his apps in his order, the first in the big slot, the lock screen's hour beside it ---- */
-  var SLOTS = [[2, 2], [6, 58], [58, 58], [6, 115], [58, 115]];
+  var SLOTS = [[2, 67], [6, 123], [58, 123], [6, 179], [58, 179]];
   function homeBuild() {
     var home = H.el.querySelector('.home'); home.textContent = '';
     var c = H.cfg, shown = c.order.filter(function (a) { return c.hidden.indexOf(a) < 0; }).slice(0, 5);
@@ -502,26 +568,30 @@
       var b = el('button', 'app' + (i === 0 ? ' big' : '')); b.type = 'button'; b.dataset.app = a;
       b.style.left = SLOTS[i][0] + 'px'; b.style.top = SLOTS[i][1] + 'px';
       b.setAttribute('aria-label', a === 'play' ? 'play or pause' : LABEL[a].toLowerCase());
-      b.innerHTML = '<img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span class="lab">' + LABEL[a] + '</span>' + (a === 'play' ? '<span class="mark"></span>' : '');
-      b.addEventListener('click', function () { if (H.holdFired) { H.holdFired = false; return; } appPress(a); });
+      b.innerHTML = '<img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span class="lab">' + LABEL[a] + '</span>' + (a === 'play' ? '<span class="mark"></span>' : '')
+        + (a === 'heal' ? '<span class="hb" aria-hidden="true"><i class="hp"></i><i class="ar"></i></span>' : '');
+      b.addEventListener('click', function () { if (H.holdFired === b) { H.holdFired = null; return; } appPress(a); });   /* the held press's own click is the hold's */
+      b.addEventListener('pointerdown', function () { H.holdFired = null; });
       if (a === 'play') {   /* a held finger opens the speeds */
         var t = 0;
-        b.addEventListener('pointerdown', function () { clearTimeout(t); H.holdFired = false; t = setTimeout(function () { H.holdFired = true; pageOpen('speeds'); }, 550); });
+        b.addEventListener('pointerdown', function () { clearTimeout(t); t = setTimeout(function () { H.holdFired = b; pageOpen('speeds'); }, 550); });
         ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { b.addEventListener(k, function () { clearTimeout(t); }); });
       }
       home.appendChild(b);
     });
     var k = el('div', 'clk', '<b>--:--</b><i class="d"></i><i class="g"></i>'); k.setAttribute('aria-hidden', 'true'); home.appendChild(k);
-    H.homeSig = null;
+    var jb = el('div', 'jobs'); jb.setAttribute('role', 'list'); jb.setAttribute('aria-label', 'the main quest and the jobs you are on');
+    jb.innerHTML = '<div class="mq" role="listitem" aria-label="the main quest\'s place"></div>'; home.appendChild(jb);
+    H.homeSig = null; H.jobSig = null;
   }
 
   function appPress(a) {
     H.presses++; window.__PHONE_PRESSES = H.presses;
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     var scr = H.state.screen;
-    if (a === 'play') { if (L && scr === 'map') { L.play(); paintHome(true); } return; }
+    if (a === 'play') { if (L && scr === 'map') { L.play(H.sel); paintHome(true); } return; }
     if (a === 'crew') { if (H.page) pageClose(); if (L && (scr === 'map' || scr === 'town' || scr === 'camp')) L.crew(); return; }
-    if (a === 'camp') { if (L && (scr === 'map' || scr === 'camp')) { L.camp(); setTimeout(tick, 60); } return; }
+    if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp')) { L.camp(); setTimeout(tick, 60); } return; }
     if (a === 'feed' || a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
   }
 
@@ -572,6 +642,7 @@
         if (L) L.post({ who: '@' + v.toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: 'We go by ' + v + ' now. Remember it.', kind: 'mine', draft: true });   /* draft:true */
         window.__PHONE_RENAMES = (window.__PHONE_RENAMES | 0) + 1;
       }
+      try { inp.remove(); } catch (e) {}
       H.feedSig = null; pagePaint(true);
     };
     inp.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') fin(true); else if (e.key === 'Escape') fin(false); });
@@ -601,11 +672,61 @@
     }).join('');
   }
 
+  /* ---- THE JOB COLUMN (rules 227 and 228): the main quest's slot first and always kept; then the jobs he is on, each a
+     receipt with its what, its red stars, where, its time there and back, and an X; the X asks once with the town board's
+     own cost (rule 197), DROP drops it, a tap anywhere else on the card keeps it; a tap on a card makes it PLAY's job ---- */
+  function timeWord(j) {
+    if (j.mins == null) return '';
+    var h = j.mins / 60, w = h < 1 ? '<1H' : h < 24 ? Math.round(h) + 'H' : Math.round(h / 24) + 'D';
+    return w + (j.back ? ' THERE+BACK' : '');   /* draft:true; rule 222(b) in a phone's words */
+  }
+  function jobCard(j, L) {
+    var armed = H.arm && H.arm.id === j.id, d = el('div', 'jc' + (H.sel === j.id ? ' sel' : '') + (armed ? ' arm' : ''));
+    d.setAttribute('role', 'listitem'); d.dataset.job = j.id;
+    if (!armed) {
+      d.innerHTML = '<div class="tx"><span class="wh"></span><span class="mt"><span class="st"></span><span class="pl"></span></span></div>'
+        + '<button type="button" class="x" aria-label="drop this job"><img alt="" src="' + IMG('app_x') + '"></button>';
+      /* what and where on the first line (the place may clip), the stars and the time on the second (never clipped) */
+      d.querySelector('.wh').textContent = j.what + ' \u00b7 ' + String(j.at || j.from).toUpperCase();
+      d.querySelector('.st').textContent = new Array(Math.max(1, Math.min(5, j.stars)) + 1).join('\u2605');
+      d.querySelector('.pl').textContent = timeWord(j);
+      d.setAttribute('aria-label', j.what + ', ' + j.stars + ' stars, ' + String(j.at || j.from) + (timeWord(j) ? ', ' + timeWord(j).toLowerCase() : ''));
+      d.querySelector('.x').addEventListener('click', function (e) { e.stopPropagation(); H.arm = { id: j.id, cost: L ? L.dropCost(j.id) : null, why: null }; jobsPaint(L, true); });
+      d.addEventListener('click', function () { H.sel = j.id; jobsPaint(L, true); });
+    } else {
+      var c = H.arm.cost, pl = c && c.place ? String(c.place) : '', line = H.arm.why === 'fighting' ? 'Not in its own fight.'
+        : pl ? 'Drop it: the ' + pl.charAt(0).toUpperCase() + pl.slice(1).toLowerCase() + ' like you less.' : 'Drop it: nobody pays.';   /* draft:true */
+      d.innerHTML = '<div class="tx"><span class="wh"></span></div>' + (H.arm.why === 'fighting' ? '' : '<button type="button" class="dr">DROP</button>');
+      d.querySelector('.wh').textContent = line; d.querySelector('.wh').style.whiteSpace = 'normal';
+      var dr = d.querySelector('.dr');
+      if (dr) dr.addEventListener('click', function (e) { e.stopPropagation(); var r = L ? L.drop(j.id) : null;
+        if (r && r.ok) { H.arm = null; window.__PHONE_DROPPED = (window.__PHONE_DROPPED || []).concat([{ id: j.id, line: r.line }]).slice(-10); }
+        else if (H.arm) H.arm.why = (r && r.why) || 'none';
+        jobsPaint(L, true); });
+      d.addEventListener('click', function () { H.arm = null; jobsPaint(L, true); });   /* a tap anywhere else keeps it */
+    }
+    return d;
+  }
+  function jobsPaint(L, force) {
+    var jb = H.el.querySelector('.home .jobs'); if (!jb) return;
+    var js = L ? L.jobs() : [];
+    if (H.sel && !js.some(function (j) { return j.id === H.sel; })) H.sel = null;
+    if (!H.sel && js.length) H.sel = js[0].id;
+    if (H.arm && !js.some(function (j) { return j.id === H.arm.id; })) H.arm = null;
+    var sig = js.map(function (j) { return j.id + j.stars + j.mins + j.what + j.at; }).join('|') + '|' + H.sel + '|' + (H.arm ? H.arm.id + H.arm.why : '');
+    window.__PHONE_JOBS = js.map(function (j) { return j.id; });
+    if (!force && sig === H.jobSig) return; H.jobSig = sig;
+    [].slice.call(jb.querySelectorAll('.jc')).forEach(function (n) { n.remove(); });
+    js.slice(0, 2).forEach(function (j) { jb.appendChild(jobCard(j, L)); });
+  }
+
   /* ---- THE HOME'S FACE: the hour, the speed's mark, what each app can do here ---- */
   function paintHome(force) {
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P, s = L ? L.state() : null, scr = H.state.screen;
     var running = !!(s && s.speed > 0), mark = s ? (s.last || s.speed) : 0;
-    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp].join('|');
+    jobsPaint(L, force);
+    var cd = L ? L.condition() : null;
+    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join()].join('|');
     if (!force && sig === H.homeSig) return; H.homeSig = sig;
     var stT = H.el.querySelector('.stat .t'), stW = H.el.querySelector('.stat .wh');
     if (s) { stT.textContent = s.clock || '--:--'; stW.textContent = scr === 'camp' ? 'YOUR CAMP' : (s.place || ''); }
@@ -619,10 +740,12 @@
         b.setAttribute('aria-label', running ? 'pause' : 'play'); b.setAttribute('aria-pressed', running ? 'true' : 'false');
         b.querySelector('.mark').textContent = mark ? (Math.round(mark * 100) / 100) + 'x' : '';
         off = scr !== 'map';
-      } else if (a === 'camp') {
+      } else if (a === 'heal') {
         off = !(scr === 'map' || scr === 'camp');
-        b.querySelector('.lab').textContent = scr === 'camp' ? 'BREAK CAMP' : 'CAMP';   /* draft:true */
-        b.setAttribute('aria-label', scr === 'camp' ? 'break camp' : 'make camp');
+        b.querySelector('.lab').textContent = scr === 'camp' ? 'BREAK CAMP' : 'HEAL';   /* draft:true */
+        var cd = L ? L.condition() : null, tot = cd ? Math.max(1, cd.hpMax + cd.armMax) : 1;
+        b.querySelector('.hp').style.width = (cd ? 100 * cd.hp / tot : 50) + '%'; b.querySelector('.ar').style.width = (cd ? 100 * cd.arm / tot : 50) + '%';
+        b.setAttribute('aria-label', (scr === 'camp' ? 'break camp' : 'heal: make camp') + (cd ? ', the company at ' + Math.round(100 * (cd.hp + cd.arm) / tot) + ' percent' : ''));
       }
       b.classList.toggle('off', off); b.setAttribute('aria-disabled', off ? 'true' : 'false');
     });
@@ -649,7 +772,7 @@
     if (H.seenPost === null) { H.seenPost = id; return; }   /* what was there when the phone came on is not news */
     if (!last || id === H.seenPost) return;
     H.seenPost = id;
-    if (H.state.screen === 'fight' || H.page || H.postT) return;
+    if (H.face === 'fight' || H.state.screen === 'fight' || H.page || H.postT) return;
     /* what happened (yours, the world's) always; the valley's small talk at most once in sixty beats, or it is a ticker */
     var now = performance.now();
     if (last.kind === 'life') { if (H.lifeToastAt && now - H.lifeToastAt < 60 * BEAT) return; H.lifeToastAt = now; }
@@ -764,10 +887,12 @@
     var was = H.state.screen;
     H.state = { on: on, side: H.cfg.side, screen: scr, rect: g };
     frames(window).forEach(function (w) { try { if (w.BohemiaPhone && w.BohemiaPhone._paint) w.BohemiaPhone._paint(H.state); } catch (e) {} });
-    if (scr === 'fight' && was !== 'fight') fightIn();
-    else if (scr !== 'fight' && was === 'fight') fightOut();
+    /* the face: his abilities while the fight is on; the apps the moment it is won or lost, and everywhere else */
+    var over = false; if (scr === 'fight') { try { var fw0 = fightWin(); over = !!(fw0 && fw0.BohemiaPhone && fw0.BohemiaPhone.P.over()); } catch (e) {} }
+    var face = scr === 'fight' && !over ? 'fight' : 'home';
+    if (face !== H.face) { if (face === 'fight') fightIn(); else if (H.face === 'fight') fightOut(); H.face = face; }
     if (!on) return;
-    if (scr === 'fight') { if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
+    if (face === 'fight') { if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
     paintHome(false); paintWall(false); postWatch();
     if (H.page) pagePaint(false);
   }
@@ -782,7 +907,9 @@
     state: function () { return IS_HOST ? H.state : (LOCAL.state || null); },
     open: function (a) { if (IS_HOST && H.el) { if (a === 'settings') return settingsOpen(); pageOpen(a); return true; } return false; },
     press: function (a) { if (IS_HOST && H.el) { appPress(a); return true; } return false; },
-    settings: function () { return IS_HOST ? settingsRows() : false; }
+    settings: function () { return IS_HOST ? settingsRows() : false; },
+    /* for the gate: paint the wallpaper now and say what it shows */
+    wall: function () { if (!IS_HOST || !H.el) return null; paintWall(true); var c = H.el.querySelector('.wall'); return { what: H.wallWhat, w: c.width, h: c.height }; }
   };
   if (IS_HOST) {
     window.BohemiaPhone.setSide = setSide;
