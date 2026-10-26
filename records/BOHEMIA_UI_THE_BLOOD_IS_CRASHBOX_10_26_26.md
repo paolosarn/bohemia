@@ -122,3 +122,18 @@ day twice, an hour behind); it reads CAMP now.
 GATE: THE CREW FIGURE HOLDS HIS GUN (new, in the suite) 6/0 (phone and computer, one plant). ALSO GREEN: THE COMPANY
 SCREEN, BATTLE BROTHERS SIMPLE 48/0, THE ROSTER SCREEN 15/0, THE SHOP SAYS WHAT IT DOES TO YOUR MAN 10/0; EVERYBODY IDLES
 40/1, the one red the same as main (the fight's enemies without idles).
+
+# ALSO THIS ROUND: [eyes: the blood on the words] (EYES 10/26 round three, k17, q17, k18)
+
+EYES on BUILD 10/26d: a round clay blot on the first letters of a title and the giver's name ('B●ing medicine...'), the
+offer's 'Take it' reading '●e it', and the row's stars over the price's first digit. MEASURED on this tree first: with one
+blood the thumbprint landed under a long title's last word (the face pushes it to the title's column). NOW
+(__THE_WORDS_ARE_WIPED_CLEAN__ in the materials): the clay is cut away under every line of words, every star and every
+small picture on a bled button, a point and a half round each, as one exclusive mask on the clay (holes merged first),
+worked out again when the button's words, size or fonts change (a ResizeObserver, a MutationObserver on the button, the
+fonts' ready). At stage 8 the words sit on strips of the button's own clean paper inside the soaked clay, the way a thumb
+wipes a label to read it. The halo stays from stage 1 for anything the mask cannot see. The stars over the digit were not
+reproduced on this tree (W2 reads star boxes against word boxes at every stage).
+GATE: THE BLOOD IS CRASHBOX 30/0: W1 at all eight stages, on the glass, 0 red clay pixels inside any word on a board row,
+and the offer's Take it soaked (65 to 67 percent of the button red) with 0 red in its words; W2 no star over a letter; the
+clay left uncut under the words planted and caught (832 red pixels in the first word).

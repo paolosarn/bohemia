@@ -60,11 +60,17 @@ const ARM = `(() => {
 
 async function one(profile) {
   console.log('== ' + profile);
-  const frames = []; let cdpS = null;
+  const frames = []; let cdpS = null, goSeen = null, goPoll = null;
+  /* RE-AIMED 10/26 (RUN THREE, rule 236): a new game now opens on his squad up close and then a busy town, which repaints every
+     frame for as long as the driver waits (measured: 55 frames a second, 1.9 GB of PNG in 70 s, node out of memory). Only the
+     frames this gate compares are kept: GO's first four seconds, and the last three seconds while GO is not yet seen */
+  const keep = (t) => { if (frames.length < 240) return; for (let i = frames.length - 1; i >= 0; i--) { const f = frames[i];
+    if ((goSeen && f.t >= goSeen && f.t <= goSeen + 4000) || (!goSeen && f.t >= t - 3000)) continue; frames.splice(i, 1); } };
   const d = await D.open({ file: 'BOHEMIA_DEMO.html', arm: ARM, keepCards: false, profile, fog: true,
     beforeTap: async (page) => {
       cdpS = await page.context().newCDPSession(page);
-      cdpS.on('Page.screencastFrame', async (f) => { frames.push({ t: Math.round(f.metadata.timestamp * 1000), data: f.data }); try { await cdpS.send('Page.screencastFrameAck', { sessionId: f.sessionId }); } catch (e) {} });
+      goPoll = setInterval(async () => { if (goSeen) return; try { goSeen = await page.evaluate(() => window.__GO_AT || null); } catch (e) {} }, 250);
+      cdpS.on('Page.screencastFrame', async (f) => { const t = Math.round(f.metadata.timestamp * 1000); if (!goSeen || t <= goSeen + 4000) frames.push({ t, data: f.data }); keep(t); try { await cdpS.send('Page.screencastFrameAck', { sessionId: f.sessionId }); } catch (e) {} });
       await cdpS.send('Page.startScreencast', { format: 'png', everyNthFrame: 1, maxWidth: 720, maxHeight: 720 });
     } });
   const R = { profile, file: d.openedFile() };
@@ -73,7 +79,8 @@ async function one(profile) {
     for (let i = 0; i < 100 && !(await page.evaluate(() => window.__GO_AT || 0)); i++) await page.waitForTimeout(100);
     const GO = await page.evaluate(() => window.__GO_AT || 0);
     await page.waitForTimeout(12000);
-    await cdpS.send('Page.stopScreencast').catch(() => {});
+    await cdpS.send('Page.stopScreencast').catch(() => {}); clearInterval(goPoll);
+    const tape = await d.fr.evaluate(() => !!window.__SQUAD_UP).catch(() => false);   /* rule 236: the new game opened on his squad up close */
     const t00 = d.bootAt();
     R.goMs = GO ? GO - t00 : null;
     R.titleToGoMs = GO ? GO - t00 : null;
@@ -104,7 +111,7 @@ async function one(profile) {
     if (after.length > 2) {
       const { execFileSync } = require('child_process');
       const dir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'finallook-'));
-      const a = after[0], b = after.filter((f) => f.t >= a.t + 3000)[0] || after[after.length - 1];
+      const a = after[0], b = after.filter((f) => f.t >= a.t + (tape ? 600 : 3000))[0] || after[after.length - 1];   /* with the tape, the same scene is its quiet first second */
       fs.writeFileSync(path.join(dir, 'a.png'), Buffer.from(a.data, 'base64')); fs.writeFileSync(path.join(dir, 'b.png'), Buffer.from(b.data, 'base64'));
       const out = execFileSync('python3', ['-c', `
 import sys, json, numpy as np
@@ -118,7 +125,7 @@ print(json.dumps({'meanDiff': round(float(d), 2), 'lum': round(float(lum), 1)}))
       f4 = JSON.parse(out.trim()); f4.firstMs = a.t - GO; f4.laterMs = b.t - GO;
     }
     R.firstFrame = f4;
-    ok('F4 the first frame after GO is the scene he plays (' + (f4 ? 'at +' + f4.firstMs + ' ms, mean difference ' + f4.meanDiff + ' against +' + f4.laterMs + ' ms' : 'no frames') + ')',
+    ok('F4 the first frame after GO is the scene he plays (' + (tape ? 'his squad\'s tape, rule 236; ' : '') + (f4 ? 'at +' + f4.firstMs + ' ms, mean difference ' + f4.meanDiff + ' against +' + f4.laterMs + ' ms' : 'no frames') + ')',
       !!f4 && f4.firstMs < 250 && f4.meanDiff < 12);
     /* F5 */
     ok('F5 the times are written (title to GO ' + (R.titleToGoMs / 1000).toFixed(1) + ' s; GO to the first frame ' + (f4 ? f4.firstMs : '?') + ' ms)', R.titleToGoMs > 0 && !!f4);

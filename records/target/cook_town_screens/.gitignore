@@ -1,2 +1,5 @@
 # the renders are the source of the shipped webp (slices/settlement_ground_towns/); the scene records (.json) are committed
 *.png
+# the layout checks (a scene measured without its render) are working files
+*/layout/
+layout/

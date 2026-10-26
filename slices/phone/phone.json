@@ -1,0 +1,95 @@
+{
+ "app_play": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_pause": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_crew": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_camp": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_feed": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_relations": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_settings": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_combat": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "app_heal": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3,
+  "ring": {
+   "cx": 0.5021,
+   "cy": 0.4845,
+   "ro": 0.4068,
+   "ri": 0.3065
+  }
+ },
+ "app_x": {
+  "w": 44.0,
+  "h": 47.0,
+  "up": 3,
+  "lip": 3
+ },
+ "case": {
+  "ins": [
+   20,
+   15,
+   23,
+   15
+  ],
+  "bezel": [
+   13,
+   8,
+   16,
+   8
+  ],
+  "P": 64,
+  "lip": 3,
+  "r": 13.0,
+  "up": 3,
+  "w": 94,
+  "h": 107
+ },
+ "ear": {
+  "w": 34.0,
+  "h": 9.0,
+  "up": 3,
+  "lip": 1
+ },
+ "_about": "UI TWO [the phone overhaul] (rule 212): the phone's apps and case, rendered through the rig by tools/bohemia_ui2_phone_apps.py; draft:true"
+}

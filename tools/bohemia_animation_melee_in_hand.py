@@ -72,8 +72,8 @@ def merged():
 
 
 def GROUP(clip):
-    """which of his own sheets a new key goes on: m the melee idle's, s the shield arm's, t the two-hander's"""
-    return 'm' if clip.startswith('M') else 's' if clip.startswith('S') else 't'
+    """which of his own sheets a new key goes on: m the melee idle's, s the shield arm's, t the two-hander's, b the bow's"""
+    return 'm' if clip.startswith('M') else 's' if clip.startswith('S') else 'b' if clip.startswith('B') else 't'
 
 
 def layer_clips(S, ly):
@@ -90,6 +90,9 @@ def new_clips(ready_only=True):
     S = source(); ready = S.get('layers_ready', list(S['layers']))
     used = set(src for n, ks in S['composite'].items() if n != 'why' for src, _ in ks
                if any(all(s_ in S['layers'][ly]['clips'] for s_, _ in ks) for ly in ready))
+    # the master rig names a frame by replacing 'raw_' with 'rig_' in its whole file name, so a clip whose name ends in 'raw'
+    # comes out under another name (measured 10/26: the bow's 'BDraw' was written 'BDrig' and no pass held it; now 'BShot')
+    assert not [n for n in S['clips'] if 'raw' in n.lower()], 'a clip name holds "raw": the master rig renames it'
     return [(n, len(c['keys'])) for n, c in S['clips'].items() if not ready_only or n in used]
 
 
@@ -195,6 +198,12 @@ def build_prop(bpy, name):
         CI.loft(bpy, 'spike', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (0.12, fore - 0.012, fore + 0.022, 0.012, 0.012), (0.22, fore - 0.05, fore - 0.035, 0.004, 0.004)], axis='x')
         CI.loft(bpy, 'chisel', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (-0.1, fore - 0.022, fore + 0.022, 0.01, 0.01), (-0.15, fore - 0.03, fore + 0.03, 0.003, 0.003)], axis='x')
         CI.loft(bpy, 'point', edge, [(0.2, fore - 0.048, fore - 0.036, 0.005, 0.005), (0.23, fore - 0.055, fore - 0.045, 0.002, 0.002)], axis='x')
+    elif name == 'sling':   # a herder's sling (the armoury's staff and nomad slings): two braided cords from his fist to a leather pouch with a stone in it
+        cord = m('cord', 'clay_mustard', 2); leather = m('pouch', 'clay_rust', 2); stone = m('stone', 'tape_grey', 1)
+        Lc = fore or 0.55
+        for s_ in (-1, 1): P.rod(bpy, 'cord_%d' % (s_ + 1), cord, (0, 0, -0.02), (s_ * 0.028, 0, Lc), 0.0045, 6)
+        P.box(bpy, 'pouch', leather, (0.075, 0.028, 0.06), (0, 0, Lc + 0.02), bevel=0.012)
+        bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=0.026, location=(0, 0.004, Lc + 0.02)); P.put(bpy, bpy.context.active_object, 'stone', stone, smooth=False)
     elif name == 'bottles':   # COOK's Molotov (its own builder, at its real size), the fist round the middle of it
         CI.build('w_bottles', bpy, P)
         for o in [o for o in sc.objects if o.name not in before]: o.location.z -= 0.12
@@ -412,6 +421,16 @@ def place_fn(mathutils):
                 if hold == 'lean_half': bar = fwd * 0.6 - up * 0.8
                 else:
                     reach = math.sqrt(max(0.0, length * length - h_ * h_)); bar = fwd * reach - up * h_ if length > h_ else -up
+        elif hold in ('bow_low', 'bow_up', 'bow_aim'):   # THE BOW in his LEFT fist (COOK's frame: the grip at the origin, the arrow +X, the limbs along Z)
+            if hold == 'bow_aim': fist = lw + fwd * 0.05; bar = fwd.copy()                       # the bow arm straight at the mark
+            elif hold == 'bow_up': fist = lw + fwd * 0.04 + up * 0.01; bar = fwd * 0.95 + up * 0.15  # coming up, the string hand on it
+            else: fist = lw + fwd * 0.03 - up * 0.04; bar = fwd * 0.95 - up * 0.3                  # low before his hip, the limbs up and down
+        elif hold == 'sling_hang':             # THE SLING hanging from his fist, the pouch by his knee
+            bar = -up * 0.95 + fwd * 0.15
+        elif hold == 'sling_whirl':            # whirled out behind him and to his right, over his shoulder
+            bar = -fwd * 0.5 + up * 0.25 - left * 0.7
+        elif hold == 'sling_loose':            # the loose: the pouch flung out before him
+            bar = fwd * 0.85 + up * 0.35
         elif hold == 'bottle':                 # a bottle stood upright in his fist
             bar = up * 0.9 + fwd * 0.2
         elif hold == 'bottle_up':
@@ -440,7 +459,10 @@ def place_pistol(hold, rw, lw, re, fwd, up, left):
     return rw, bar.normalized()
 
 
-def place_shield(hold, lw, le, fwd, up, left, half_h):
+PLANT_REACH = 0.54   # metres: the furthest before his feet a planted shield stands (every man measured 0.47 to 0.52; the thug's long kneel put it 0.62 out)
+
+
+def place_shield(hold, lw, le, fwd, up, left, half_h, feet=None):
     """the shield on his left forearm (in metres, unstretched): (its middle, its face's way); carry and guard, across his
     front turned a little to his left flank; block, square before him; low, planted on the ground before him"""
     import mathutils
@@ -451,6 +473,9 @@ def place_shield(hold, lw, le, fwd, up, left, half_h):
     elif hold == 'low':
         face = (fwd * math.cos(math.radians(12)) + left * math.sin(math.radians(12))).normalized(); c = lw + face * 0.05
         c = mathutils.Vector((c.x, c.y, max(c.z, half_h - 0.01)))
+        if feet is not None:   # never further out than a man on one knee reaches (the thug's long kneel: 23 to 28 px before his feet, measured 10/25)
+            d = (c - feet).dot(fwd)
+            if d > PLANT_REACH: c = c - fwd * (d - PLANT_REACH)
     else: raise KeyError(hold)
     return c, face
 
@@ -548,7 +573,8 @@ def render_props(look, props, clips=None, facings=None, layer='m1'):
             fwd = (root.matrix_world.to_3x3() @ mathutils.Vector((0, -1, 0))); fwd.z = 0; fwd.normalize()
             up = mathutils.Vector((0, 0, 1)); left = up.cross(fwd).normalized()
             if shield:   # its face out, its width level, up up
-                c, x = place_shield(hold, lw, le, fwd, up, left, shield_dims(prop)[0])
+                feet = (U(W @ R['leg_joint_L_3'].head) + U(W @ R['leg_joint_R_3'].head)) / 2; feet.z = 0.0
+                c, x = place_shield(hold, lw, le, fwd, up, left, shield_dims(prop)[0], feet)
                 y = up.cross(x).normalized(); z = x.cross(y).normalized()
                 M = mathutils.Matrix((x, y, z)).transposed().to_4x4(); M.translation = c
             else:
@@ -901,8 +927,8 @@ def pack(only=None):
         live |= set(ly for ly in e_.get('layers', []) if ly in e_.get('props', {}).get('sheets', {}))
     index['layers_ready'] = [ly for ly in S.get('layers_ready', list(S['layers'])) if ly in live]
     ready_props = set(p_ for ly in index['layers_ready'] for p_ in S['layers'][ly]['props'])
-    for k in ('composite', 'timelines', 'by_row', 'by_class', 'shield_by_row', 'shield_over', 'two_by_row', 'two_by_class'):
-        index[k] = {a_: b_ for a_, b_ in S.get(k, {}).items() if a_ != 'why' and (k not in ('by_row', 'by_class', 'shield_by_row', 'two_by_row', 'two_by_class') or b_ in ready_props)}
+    for k in ('composite', 'timelines', 'by_row', 'by_class', 'shield_by_row', 'shield_over', 'two_by_row', 'two_by_class', 'bow_by_row', 'bow_by_class', 'sling_by_row'):
+        index[k] = {a_: b_ for a_, b_ in S.get(k, {}).items() if a_ != 'why' and (k not in ('by_row', 'by_class', 'shield_by_row', 'two_by_row', 'two_by_class', 'bow_by_row', 'bow_by_class', 'sling_by_row') or b_ in ready_props)}
     json.dump(index, open(ip, 'w'), separators=(',', ':'))
     print('INDEX', ip, len(index['looks']), 'looks, live layers', index['layers_ready'])
 

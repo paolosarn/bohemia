@@ -114,7 +114,9 @@ if (rules) {
 const fetches = [];
 const fr = /fetch\(\s*([^)]*)\)/g;
 let fm;
-while ((fm = fr.exec(html))) fetches.push(fm[1]);
+/* the address only: a fetch's second argument is how it asks (COMBAT [the fight is broken live]: FRESH, the server asked whether the
+   file changed, so the rules always come from the page's own deploy), never where it reads from */
+while ((fm = fr.exec(html))) fetches.push(fm[1].split(',')[0]);
 /* ANIMATION's rig keys are the character bank's baked people too (rule 115, THE RIG'S LOOK IS THE LOOK; rule 177(b), gear as layers
    on the rig): rig_hold/ (a pistol in one hand, a man in cover) and rig_melee/ (his own melee, shield and two-hand keys) */
 const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\/|fight_rig\/|fight_ghosts\/|rig_hold\/|rig_melee\//.test(f) && !/^\s*(u|url|src|p)\s*$/.test(f); });

@@ -90,14 +90,17 @@ const done = (d) => {
      staying to defend a thing he killed. What they hold now is that the street is CLEAR:
      no phone drawn on it AND no chip smuggled back into the bar to replace it, because
      the chip is dead by his 9/22 word and a phone-shaped button is the same thing. */
-  const whereIsIt = () => d.fr.evaluate(() => {
-    const f = document.getElementById('cityfeed');
+  /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the phone is the new one, drawn once by the shell over the map, the town and
+     the fight (slices/bohemia_phone.js, #bohphone); every leg below asks THAT phone the same question, on the same glass. */
+  const mode = () => d.fr.evaluate(() => (typeof MODE !== 'undefined' ? MODE : '?'));
+  const whereIsIt = async () => Object.assign(await d.page.evaluate(() => {
+    const f = document.getElementById('bohphone');
     if (!f) return { there: false };
     const b = f.getBoundingClientRect();
     const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
-    return { there: true, mode: (typeof MODE !== 'undefined' ? MODE : '?'),
+    return { there: true,
              w: Math.round(b.width), h: Math.round(b.height),
-             shown: getComputedStyle(f).display !== 'none' && f.offsetParent !== null
+             shown: getComputedStyle(f).display !== 'none'
                     && b.width > 0 && b.height > 0,
              /* THE WHOLE CONTROL INSIDE THE GLASS, not `left < innerWidth` -- the
                 mistake at the top of this file, asked properly. */
@@ -106,7 +109,7 @@ const done = (d) => {
              owner: el ? (el.id || el.tagName) : null,
              mine: !!el && (el === f || f.contains(el)),
              pe: getComputedStyle(f).pointerEvents };
-  });
+  }), { mode: await mode() });
   const street = await whereIsIt();
   /* RE-AIMED 9/28 BY RUN (rule 38c, [no city walk]): THE DEMO OPENS ON THE MAP NOW, so this
      leg was asking the map a question about the street. His 9/23 ruling has two halves and
@@ -122,20 +125,20 @@ const done = (d) => {
        return !/phone/i.test(bar.textContent || '') && !document.getElementById('phonebtn');
      }));
 
-  const state = () => d.fr.evaluate(() => (typeof PHONE_ON !== 'undefined' ? !!PHONE_ON : null));
+  /* the new phone has no folded and opened states: its apps open their pages on its own glass; 'open' is a page up */
+  const state = () => d.page.evaluate(() => !!document.querySelector('#bohphone .page.on'));
   const tapFeed = async () => {
-    const box = await d.fr.evaluate(() => {
-      const f = document.getElementById('cityfeed'), b = f.getBoundingClientRect();
+    const box = await d.page.evaluate(() => {
+      const f = document.querySelector('#bohphone .app[data-app=feed]'), b = f.getBoundingClientRect();
       return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
     });
-    const fb = await (await d.fr.frameElement()).boundingBox();
-    await d.page.mouse.click(fb.x + box.x, fb.y + box.y);
+    await d.page.mouse.click(box.x, box.y);
   };
   /* FOLD IT THE WAY ITS OWN AUTHOR DOES. RUN measured it: with the phone up, #phonewrap
      is 378x794 over a 132x349 drawn phone, so the open phone covers its own handle and a
      second tap there answers IFRAME. An open phone also eats a pinch, which is how a
      probe of mine crossed no seam at all and still printed a heading that said THE CITY. */
-  const fold = () => d.fr.evaluate(() => { try { phoneClose(); } catch (_e) {} return PHONE_ON; });
+  const fold = () => d.page.evaluate(() => { const h = document.querySelector('#bohphone .page.on .ph'); if (h) h.click(); return !!document.querySelector('#bohphone .page.on'); });
   ok('  and the phone starts folded', (await state()) === false);
 
   /* ---- HIS FRAME IS CITY MODE, so cross the seam the way a thumb does and ask again.
@@ -146,11 +149,11 @@ const done = (d) => {
   await d.page.waitForTimeout(600);
   ok('the squeeze really reached the screen in his photograph',
      (await d.fr.evaluate(() => (typeof MODE !== 'undefined' ? MODE : '?'))) === 'city');
-  const phone = await d.fr.evaluate(() => {
-    const feed = document.getElementById('cityfeed');
-    return { chip: !!document.getElementById('phonebtn'),
-             feed: !!feed,
-             role: feed ? feed.getAttribute('role') : null,
+  const phone = await d.page.evaluate(() => {
+    const feed = document.getElementById('bohphone');
+    return { chip: !!document.getElementById('cityFrame').contentDocument.getElementById('phonebtn') && document.getElementById('cityFrame').contentDocument.getElementById('phonebtn').offsetParent !== null,
+             feed: !!feed && feed.classList.contains('on'),
+             role: feed && feed.querySelector('.app') ? feed.querySelector('.app').tagName === 'BUTTON' ? 'button' : null : null,
              label: feed ? feed.getAttribute('aria-label') : null,
              big: feed ? (() => { const b = feed.getBoundingClientRect();
                return Math.round(b.width) + 'x' + Math.round(b.height); })() : null };
@@ -175,8 +178,8 @@ const done = (d) => {
      CAUGHT EXCEPTION -- it is there, it is correct, and nothing reaches it.
      So the tap goes through the page now: ask who owns the pixel first, refuse to
      call it a tap if somebody else does, and then send a real pointer at that point. */
-  const whoOwnsTheFeed = () => d.fr.evaluate(() => {
-    const f = document.getElementById('cityfeed');
+  const whoOwnsTheFeed = () => d.page.evaluate(() => {
+    const f = document.getElementById('bohphone');
     if (!f) return { there: false };
     const b = f.getBoundingClientRect();
     const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);

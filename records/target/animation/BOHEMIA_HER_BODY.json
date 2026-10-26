@@ -1,0 +1,75 @@
+{
+ "what": "ANIMATION [a few women at the post] (rules 203(a) and 214, Paolo 10/25 and 10/26, LOCKED: 'I'm willing to give a chance to women... make it 4 percent'; the ruling: 'each a whole person: her own body on the rig, face, voice and runway clothes, never a renamed man'). THE KEPT SOURCE OF HER BODY (rule 128): what makes a woman's body from the one rig every person in the game is built on (DIRECTION's master rig over CHARACTER's builder on the rig's man), so she walks, idles, fights, carries a shield and a sledge, and drinks in a town on the same skeleton, the same keys and the same 57 px a metre as the men (THE GROUND MAY ZOOM, THE PERSON MAY NOT: one scale, her own height).",
+ "measured": "the valley's 152 rolled people: 71 marked a man, 81 unset (a man's body), no woman (RUN TWO 10/25); CHARACTER's builder shapes the body by four dials only (height, shoulders, belly, hips) and the barber writes the real height off the model's top, so the height dial never reached the rig: every person stands 1.72 m to 1.77 m whatever his dials",
+ "dials": {
+  "why": "added to her gang's own dials (the Anarchists run lean, the Reds tall), so a woman of a band is that band's woman: narrower in the shoulders (0.028 m a dial at the yoke), wider at the seat (6 percent a dial), a waist (the belly dial down), shorter (5 percent a dial). Real numbers, round: women average about 1.62 m against about 1.75 m for men (0.93, the height dial -1.4); at the same height her shoulders run about a tenth narrower and her hips a little wider (the military body surveys, ANSUR II among them; round figures, not one survey's table)",
+  "height": -1.4,
+  "shoulders": -1.3,
+  "hips": 2.0,
+  "belly_cap": 0.0,
+  "belly": -0.45
+ },
+ "shape": {
+  "why": "two things the four dials cannot make, in the body's own metres (the rig's man stands 1.507; his hip seam 0.66, his shoulder joint 1.074): a BUST, the front of the torso pushed forward over two soft bumps (the low-poly torso has 13 vertices a 5 cm ring, so it stays a suggestion the clothes are lifted over, never a sculpt), and a WAIST, the torso narrowed about the navel. Every garment is the body's own skin lifted, so her top and coat take her shape with no garment changed.",
+  "bust": 0.042,
+  "bust_z": 0.955,
+  "bust_dz": 0.055,
+  "bust_x": 0.062,
+  "bust_dx": 0.045,
+  "waist": 0.1,
+  "waist_z": 0.8,
+  "waist_dz": 0.07
+ },
+ "walk": {
+  "why": "her walk is her model's own walk (the rig's man's six keys, every clip and every lane's tool reads 'Anim_0') with three things a woman's gait carries more of, measured in gait studies (pelvic list and rotation larger, the step closer to the midline, the arms swinging nearer the body): the hips list side to side with the stride (the pelvis turned about the forward axis, the free side dropping), turn with it (about the up axis, with the forward leg), the feet land nearer the line the body walks on, and the arms swing closer and a little less. Small: the gait reads, never a parody.",
+  "list_deg": 4.0,
+  "turn_deg": 5.0,
+  "narrow_m": 0.022,
+  "arm_in_deg": 6.0,
+  "arm_swing": 0.8
+ },
+ "face": {
+  "why": "the barber's own face shapes that are not a man's (no lantern jaw, no broad square, no heavy brow), the jaw and chin softened two steps, the brows a step finer; no beard, no stubble; her hair the barber's long cuts: at the street's 75 px a short cut over a scar read as a young man on the first woman rendered (woman_0, a half shave, 10/26), and the ruling is never a renamed man, so the first women wear their hair long; a short cut can come with more women and his eye",
+  "shapes": [
+   "HEART",
+   "SMALL FEATURES",
+   "LONG AND NARROW",
+   "ROUND",
+   "HIGH DOME",
+   "WIDE SET",
+   "GAUNT",
+   "HAWK",
+   "THE STARRED FACE"
+  ],
+  "soften": {
+   "face.jawW": -3,
+   "face.chinW": -2,
+   "brows.len": -1
+  },
+  "long_cuts": [
+   "LAYERED FALL",
+   "CURTAIN CUT",
+   "LONG DROP",
+   "SPRING CURLS",
+   "BOX BRAIDS",
+   "FINGER WAVES",
+   "SHAG",
+   "COIL CROWN",
+   "HALF SHAVE",
+   "STATIC",
+   "DUST WEAVE"
+  ],
+  "short_cuts": [
+   "HOME CLIPPERS",
+   "TEMPLE TAPER",
+   "SCORCH"
+  ],
+  "short_share": 0.0
+ },
+ "roll": {
+  "why": "her in the valley's roll (RUN TWO's records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json), appended after every man so no man's draw moves; a person of the place (gang Body: no band, so a band of enemies never deals her above the post's share), on the fight's board so the post can hire her (the hall's women pool, RUN THREE's roll at rule 214's 4 percent); her clothes the place's own wardrobe (tops and coats, the runway pieces the men roll from)",
+  "count": 4,
+  "gang": "Body",
+  "id": "woman_%d"
+ }
+}

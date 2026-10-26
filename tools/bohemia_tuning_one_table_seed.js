@@ -107,7 +107,7 @@ const FEEL = {
   'ours.main_character_dies': 'THE MAIN CHARACTER NEVER DIES: struck down, he is only down',
   'ours.struck_down_death_chance': 'THE DEATH ROLL: a man struck down dies this often, else a long injury',
   'ours.struck_down_death_per_mark': 'EACH SCAR RAISES THE DEATH ROLL: every mark a man carries adds this much to the roll, up to the cap of marks (rule 56: 0.20 plus 0.05 a mark)',
-  'ours.struck_down_laid_up_days': 'THE LONG INJURY: a man struck down who lives is out this many game days',
+  'ours.struck_down_laid_up_days': 'THE FRESH WOUND\'S DAYS: a man struck down who lives carries the fresh wound\'s debuff this many game days, fading; he is never kept out of a fight (rule 234)',
   'ours.struck_down_injury': 'which list the long injury is drawn from (the wiki permanent marks), and that it lasts the laid-up days',
   'experience.kill_split': 'how a kill\'s experience is split between the killer and the rest of the party',
   'experience.global_modifier': 'all experience is cut by this fraction',

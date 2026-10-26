@@ -10,8 +10,9 @@
    LEGS (the settlement screen, its own page):
      W1 the file: his 4 percent (rule 214, Paolo 10/26: 'make it 4 percent... for the women'; RUN THREE [four percent]), the
         realistic 2 percent beside it, draft:true; and TUNING's one table carries the same number (post.women_share, section M)
-     W2 *** NOW: 10,000 rolled hires, 0 women *** (no woman's body yet), and no man at the post, the stall or in the crowd wears a
-        woman's name: every name read on a man's body reads as a man's (BohemiaNames.sexOf)
+     W2 *** NOW: 10,000 rolled hires come out at his share *** (her bodies are in: ANIMATION [a few women at the post], 10/26;
+        until then this leg read 0 women), each a woman's body ('f' in the mix) with a woman's name, and no man at the post, the
+        stall or in the crowd wears a woman's name: every name read on a man's body reads as a man's (BohemiaNames.sexOf)
      W3 THE MACHINE, with a woman's body handed in for the test only: 10,000 rolled hires come out at the share (4 percent within its
         noise, read from the file, never a literal), each a woman's body and a woman's name, and no man's roll moved
      W4 nothing threw
@@ -48,16 +49,18 @@ const ROW = (TABLE.match(/^\| post\.women_share \| ([0-9.]+) \|/m) || [])[1];
     /* W2 */
     const now = await p.evaluate(() => {
       const M = window.BOHEMIA_PEOPLE_MIX, N = window.BohemiaNames, S = BohemiaSettlement;
-      let women = 0; for (let i = 0; i < 10000; i++) if (S.womanAt('TOWN ' + (i % 97) + ':' + Math.floor(i / 97), i % 9)) women++;
+      let women = 0, notHer = 0; const hers = S.womenLooks();
+      for (let i = 0; i < 10000; i++) { const l = S.womanAt('TOWN ' + (i % 97) + ':' + Math.floor(i / 97), i % 9); if (l) { women++; const P = M.people.find(x => x.look === l); if (!P || P.sex !== 'f') notHer++; } }
       /* every name the post, the keepers and the crowd give in 24 places of every size */
       const bad = [], seen = { post: 0, keeper: 0, crowd: 0 };
       const sex = full => N.sexOf(String(full).split(/[ ,]/)[0].charAt(0) + String(full).split(/[ ,]/)[0].slice(1).toLowerCase());
       const body = look => { const P = window.BohemiaRigBodies && BohemiaRigBodies.person(look); return P ? (P.sex || 'm') : (N.faceReads(look) || null); };
       ['camp', 'town', 'fortress'].forEach(tier => { for (let k = 0; k < 8; k++) {
         S.open({ place: { tier, name: tier.toUpperCase() + ' ' + k }, day: k * 7 });
-        S.recruits().forEach(r => { seen.post++; if (body(r.look) === 'm' && sex(r.name) === 'f') bad.push('post ' + r.look + ' ' + r.name); });
+        S.recruits().forEach(r => { seen.post++; if (body(r.look) === 'm' && sex(r.name) === 'f') bad.push('post ' + r.look + ' ' + r.name);
+          if (r.woman) { seen.women = (seen.women || 0) + 1; if (body(r.look) !== 'f' || sex(r.name) !== 'f') bad.push('post woman ' + r.look + ' ' + r.name); } });
       } });
-      return { women, share: S.womenShare(), looks: S.womenLooks().length, sexes: M.people.reduce((o, x) => { o[x.sex || 'unset'] = (o[x.sex || 'unset'] || 0) + 1; return o; }, {}), bad, seen };
+      return { women, notHer, share: S.womenShare(), looks: S.womenLooks().length, sexes: M.people.reduce((o, x) => { o[x.sex || 'unset'] = (o[x.sex || 'unset'] || 0) + 1; return o; }, {}), bad, seen };
     });
     /* the keepers and the crowd, by their own name functions on the page */
     const named = { bad: [], seen: { keeper: 0, crowd: 0 } };
@@ -72,24 +75,26 @@ const ROW = (TABLE.match(/^\| post\.women_share \| ([0-9.]+) \|/m) || [])[1];
         return { bad, seen }; });
       named.bad.push(...r.bad); named.seen.keeper += r.seen.keeper; named.seen.crowd += r.seen.crowd;
     }
-    ok('*** W2 NOW: 10,000 ROLLED HIRES, ' + now.women + ' WOMEN *** (a woman\'s body: ' + now.looks + '; the people ' + JSON.stringify(now.sexes) + '); ' + now.seen.post + ' men at posts, ' + named.seen.keeper + ' keepers, ' + named.seen.crowd + ' in the crowd: no man wears a woman\'s name',
-      now.women === 0 && now.share === 0 && now.looks === 0 && now.seen.post > 50 && named.seen.keeper > 20 && named.seen.crowd > 20 && !now.bad.length && !named.bad.length, now.bad.concat(named.bad).slice(0, 4).join(' | '));
+    const sd2 = Math.sqrt(10000 * FILE.share.value * (1 - FILE.share.value));
+    ok('*** W2 NOW: 10,000 ROLLED HIRES, ' + now.women + ' WOMEN *** (the share wants ' + 10000 * FILE.share.value + ', within 4 of its noise; her bodies: ' + now.looks + '; the people ' + JSON.stringify(now.sexes) + '); ' + now.seen.post + ' at posts (' + (now.seen.women || 0) + ' women), ' + named.seen.keeper + ' keepers, ' + named.seen.crowd + ' in the crowd: every woman her own body and name, no man wears a woman\'s name',
+      Math.abs(now.women - 10000 * FILE.share.value) <= 4 * sd2 && now.notHer === 0 && now.share === FILE.share.value && now.looks >= 4 && now.seen.post > 50 && named.seen.keeper > 20 && named.seen.crowd > 20 && !now.bad.length && !named.bad.length, now.bad.concat(named.bad).slice(0, 4).join(' | '));
     /* W3: the machine, a woman's body handed in for this test only (a copy of one rolled person marked 'f') */
     const mach = await p.evaluate((share) => {
       const M = window.BOHEMIA_PEOPLE_MIX, S = BohemiaSettlement, N = window.BohemiaNames;
-      const before = []; for (let i = 0; i < 400; i++) before.push(S.womanAt('K' + i, 0));
+      const before = []; for (let i = 0; i < 400; i++) before.push(!!S.womanAt('K' + i, 0));
       const src = M.people.find(x => x.fight && !x.company), her = Object.assign({}, src, { look: src.look + '_test_woman', sex: 'f' });
       M.people.push(her); if (window.BohemiaRigBodies && BohemiaRigBodies.person) { /* the rig's index reads the mix once; a look it does not know is not drawn here */ }
+      const after = []; for (let i = 0; i < 400; i++) after.push(!!S.womanAt('K' + i, 0));
       let women = 0, wrong = 0, n = 0; const names = [];
       for (let i = 0; i < 10000; i++) { const key = 'TOWN ' + (i % 97) + ':' + Math.floor(i / 97), l = S.womanAt(key, i % 9); n++;
-        if (l) { women++; if (l !== her.look) wrong++; if (names.length < 6) names.push(N.roll('post:' + key + ':' + (i % 9), { sex: 'f' }).full); } }
+        if (l) { women++; const P = M.people.find(x => x.look === l); if (!P || P.sex !== 'f') wrong++; if (names.length < 6) names.push(N.roll('post:' + key + ':' + (i % 9), { sex: 'f' }).full); } }
       const nm = names.map(x => { const w = x.split(' ')[0]; return N.sexOf(w.charAt(0) + w.slice(1).toLowerCase()); });
       M.people.pop();
-      return { women, n, wrong, share, names, nmM: nm.filter(x => x === 'm').length, before: before.filter(Boolean).length };
+      return { women, n, wrong, share, names, nmM: nm.filter(x => x === 'm').length, moved: before.filter((b, i) => b !== after[i]).length };
     }, FILE.share.value);
     const sd = Math.sqrt(mach.n * mach.share * (1 - mach.share)), want = mach.n * mach.share;
     ok('W3 THE MACHINE (a woman\'s body handed in for the test): ' + mach.women + ' of ' + mach.n + ' rolled hires are women (the share wants ' + want + ', within 4 of its noise), each her body, her names ' + mach.names.join(', '),
-      Math.abs(mach.women - want) <= 4 * sd && mach.wrong === 0 && mach.nmM === 0 && mach.before === 0);
+      Math.abs(mach.women - want) <= 4 * sd && mach.wrong === 0 && mach.nmM === 0 && mach.moved === 0);
   } catch (e) { ok('the legs ran [' + String(e.message).slice(0, 200) + ']', false); }
   ok('W4 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   await b.close(); srv.close();

@@ -4,8 +4,10 @@
    smaller too.' MEASURED before: a 10-point star against capitals 7 to 8 tall, centred or dropped a point under the line,
    touching the number. On his phone's profile (390 x 844 at 3x), on the hall's hire cards and on a man's page:
      S1 every star is drawn (no typed star left) and is ONE size, 7 points, no taller than the capitals beside it
-     S2 every star stands on the words' baseline (its foot within half a point of the letters' foot)
-     S3 every star has a point or more of air after the number before it, and a star never touches the next one
+     S2 every star stands on the words' baseline (its foot within half a point of the letters' foot); RE-AIMED 10/26 by UI THREE
+        for rule 247(c) (newer): a star in a stat row's own star column stands centred on its row (within a point)
+     S3 every star has a point or more of air after the number before it (in the stat column: after the icon's column), and a
+        star never touches the next one
      S4 the same star a job uses: BohemiaMaterials.stars(n) hands n of that star, the same picture, ink or gold
    Run: node gates/the_stars_sit_with_the_words_gate.js */
 'use strict';
@@ -37,8 +39,18 @@ const MEASURE = (sel) => {
       if (!t && par.previousSibling) { t = par.previousSibling; if (t.nodeType !== 3) t = null; }   /* a .stars span after the number's text */
       if (t) { const s = t.nodeValue, k = s.replace(/\s+$/, '').length; if (k > 0) { const rg = document.createRange(); rg.setStart(t, k - 1); rg.setEnd(t, k); gap = r.left - rg.getBoundingClientRect().right; } }
     }
+    /* RE-AIMED 10/26 (UI THREE, rule 247(c), newer than 146(e): 'each stat's stars right beside its icon, in one column'): a star
+       in the stat row's own star column (.bst-st) stands centred on its row, a point after the icon's column, never on a number's
+       baseline; its foot is measured against the row's middle and its first gap from the icon's column */
+    let col = null;
+    if (par.nodeType === 1 && par.classList && par.classList.contains('bst-st')) {
+      const row = par.parentNode, rr = row.getBoundingClientRect(), ic = par.previousElementSibling && !/bst-sr/.test(par.previousElementSibling.className) ? par.previousElementSibling.getBoundingClientRect() : null;
+      const first = parseFloat(getComputedStyle(row).gridTemplateColumns) || 0;
+      col = { mid: +(((r.top + r.bottom) / 2) - ((rr.top + rr.bottom) / 2)).toFixed(2) };
+      if (!(prev && prev.nodeType === 1 && prev.classList.contains('bmstar'))) gap = r.left - (ic ? ic.right : rr.left + first);
+    }
     out.push({ w: +r.width.toFixed(2), h: +r.height.toFixed(2), foot: +(r.bottom - base).toFixed(2), cap: +cap.toFixed(2), gap: gap == null ? null : +gap.toFixed(2), after: !!(prev && prev.nodeType === 1 && prev.classList.contains('bmstar')),
-      img: getComputedStyle(st).backgroundImage.slice(0, 80) });
+      col: col, img: getComputedStyle(st).backgroundImage.slice(0, 80) });
   });
   return { stars: out, typed: (document.querySelector(sel) ? document.querySelector(sel).textContent.match(/★/g) || [] : []).length };
 };
@@ -47,7 +59,7 @@ const judge = (where, m) => {
   ok(where + ' S1 every star drawn (none typed), one size, 7 points, no taller than the capitals beside it',
      s.length > 0 && m.typed === 0 && s.every(x => Math.round(x.w) === 7 && Math.round(x.h) === 7 && x.h <= x.cap + 0.5),
      s.length + ' stars, ' + [...new Set(s.map(x => x.w + 'x' + x.h + ' (caps ' + x.cap + ')'))].join(', ') + ', ' + m.typed + ' typed');
-  ok(where + ' S2 every star stands on the words\' baseline', s.every(x => Math.abs(x.foot) <= 0.5), [...new Set(s.map(x => x.foot))].join(', '));
+  ok(where + ' S2 every star stands on the words\' baseline, or in the stat column centred on its row (rule 247(c))', s.every(x => x.col ? Math.abs(x.col.mid) <= 1 : Math.abs(x.foot) <= 0.5), [...new Set(s.map(x => x.col ? 'col ' + x.col.mid : x.foot))].join(', '));
   ok(where + ' S3 a point of air after the number; a star never touches the next', s.every(x => x.gap != null && x.gap >= (x.after ? 0.9 : 1.9)), s.map(x => x.gap).join(','));
 };
 (async () => {

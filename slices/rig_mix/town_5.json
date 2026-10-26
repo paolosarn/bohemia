@@ -1,0 +1,118 @@
+{
+ "what": "RUN TWO [no two people alike] 10/23: the town, every man his own roll of CHARACTER's pieces, rendered on the rig, one row per person and turn",
+ "src": "records/target/character/barber/person_<id> (tools/bohemia_run2_no_two_people_alike.py)",
+ "walks": [
+  "person_woman_0",
+  "person_woman_1",
+  "person_woman_2",
+  "person_woman_3"
+ ],
+ "w": 64,
+ "h": 121,
+ "foot": 114,
+ "cols": 7,
+ "gangs": [
+  "person_woman_0",
+  "person_woman_1",
+  "person_woman_2",
+  "person_woman_3"
+ ],
+ "dirs": [
+  "S",
+  "SE",
+  "E",
+  "NE",
+  "N",
+  "NW",
+  "W",
+  "SW"
+ ],
+ "people": [
+  {
+   "look": "person_woman_0",
+   "gang": "town",
+   "cut": "LONG DROP",
+   "hat": null,
+   "face": null,
+   "beard": null,
+   "mark": "CHEEK BURN",
+   "top": "WHITE TEE",
+   "coat": null,
+   "heritage": "hispanic",
+   "skin": "tan",
+   "sex": "f",
+   "wears": {
+    "base": "WHITE TEE",
+    "legs": "CUTOFF DENIM SHORTS",
+    "feet": "WHITE SNEAKERS",
+    "gear": "WORK SUSPENDERS",
+    "mid": "ROLLED FLANNEL"
+   }
+  },
+  {
+   "look": "person_woman_1",
+   "gang": "town",
+   "cut": "COIL CROWN",
+   "hat": null,
+   "face": null,
+   "beard": null,
+   "mark": null,
+   "top": "VESTMENT GOLD SHIRT",
+   "coat": "GRASS WRAP COAT",
+   "heritage": "hispanic",
+   "skin": "tan",
+   "sex": "f",
+   "wears": {
+    "base": "VESTMENT GOLD SHIRT",
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "SANDWALKERS",
+    "outer": "GRASS WRAP COAT",
+    "back": "RUCK PACK",
+    "neck": "PATINA SCARF"
+   }
+  },
+  {
+   "look": "person_woman_2",
+   "gang": "town",
+   "cut": "BOX BRAIDS",
+   "hat": null,
+   "face": null,
+   "beard": null,
+   "mark": null,
+   "top": "TEAL STRIPED TEE",
+   "coat": "LEATHER HALF APRON",
+   "heritage": "white",
+   "skin": "intermediate",
+   "sex": "f",
+   "wears": {
+    "base": "TEAL STRIPED TEE",
+    "legs": "KHAKI CARGOS",
+    "feet": "STACKED MID BOOT",
+    "outer": "LEATHER HALF APRON",
+    "waist": "SOOT TOOL BELT",
+    "back": "CHARCOAL SHOULDER MANTLE"
+   }
+  },
+  {
+   "look": "person_woman_3",
+   "gang": "town",
+   "cut": "LAYERED FALL",
+   "hat": null,
+   "face": null,
+   "beard": null,
+   "mark": null,
+   "top": "SAND HOODIE",
+   "coat": "BRICK CAR COAT",
+   "heritage": "black",
+   "skin": "dark",
+   "sex": "f",
+   "wears": {
+    "base": "SAND HOODIE",
+    "legs": "DROP RISE TROUSER",
+    "feet": "WRAPPED BOOTS",
+    "outer": "BRICK CAR COAT",
+    "waist": "LEAD WAIST WRAP"
+   }
+  }
+ ]
+}

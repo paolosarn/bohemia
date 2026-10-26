@@ -1,5 +1,5 @@
 {
- "_about": "WORLD [the job tells the truth, in blood] (rule 208). The numbers a job's stars and blood are read with (slices/bohemia_job_danger.js). A modder's file: every felt number here is TUNING's for the one table; the cut-offs are a COORDINATOR'S DEFAULT (rule 205), his to kill.",
+ "_about": "WORLD [the job tells the truth, in blood] (rule 208). The numbers a job's stars and blood are read with (slices/bohemia_job_danger.js). A modder's file: every felt number here is TUNING's for the one table; the cut-offs and laid_up_per are COORDINATOR'S DEFAULTS (rule 205), his to kill.",
  "runs": {
   "value": 32,
   "source": "OURS: AUTO plays of each fight a job brings, in a worker off the frames (the AUTO button reads 24, rule 144; a job is read once and kept, so more)"
@@ -7,6 +7,10 @@
  "prior": {
   "value": 1,
   "source": "OURS: the read is (clean + 1) / (runs + 2), a whisper of doubt either way, so 32 of 32 is never a certainty"
+ },
+ "laid_up_per": {
+  "value": 6,
+  "source": "THE COORDINATOR 10/26 (rule 208(a) AMENDED, a COORDINATOR'S DEFAULT by rule 205, his to kill; TUNING's proposed reading, records/BOHEMIA_TUNING_THE_JOBS_STARS_CUT_OFFS_10_26_26.md section 4): a trip is CLEAN when it is won, nobody of his is dead and at most one man in this many is down or fled (a crew under six: nobody down; six to eleven: one; twelve: two). On 'nobody down' a company of twelve read three stars on 37 of 50 jobs because with twelve men somebody always goes down; every death stays in the star."
  },
  "cut_one": {
   "value": 0.95,
@@ -50,7 +54,7 @@
  },
  "stop_below": {
   "value": 0.42,
-  "source": "OURS: ...when its read is under this: a job with it in is three stars whatever the rest (0.42 < cut_three 0.6)"
+  "source": "OURS: ...when its read is under this: a job with it in is three stars whatever the rest (0.42 < cut_three 0.50)"
  },
  "near_cut": {
   "value": 0.12,

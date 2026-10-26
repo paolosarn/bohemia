@@ -64,8 +64,9 @@ const NAMES = ['YOU', 'DESI', 'RAUL', 'TINA', 'OSCAR', 'LUPE', 'BETO', 'NENA', '
       const pm = partyMath('job', { skulls: 1 }); const roster = []; for (let i = 0; i < pm.count; i++) roster.push({ arch: 'human' });
       meetWalk(() => cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'get your men back', faction: null, draft: true, roster, party: pm, street: true, why: 'contract:checker:rescue', at: { gx: city.x, gy: city.y } }));
       const el = document.getElementById('meetcard'); if (!el) return null;
-      const t = el.querySelector('.mcs').textContent, m = /YOU (\d+)/.exec(t), n = /^(\d+)/.exec(t.trim());
-      return { you: m ? +m[1] : null, n: n ? +n[1] : null, text: t };
+      /* rule 224: the card draws the counts (their men, his tally); the numbers ride in data-n and data-you */
+      const t = el.querySelector('.mcs').textContent, y = el.querySelector('.mcyou'), s = el.querySelector('.mcs [data-n]');
+      return { you: y ? +y.dataset.you : null, n: s ? +s.dataset.n : null, text: t, tally: y ? y.querySelectorAll('i[style*="height:8px"]').length : null };
     });
     let fightYou = null, fightThem = null;
     if (card) {

@@ -9,6 +9,9 @@
 <script src="../engine/bohemia_long_injury.js"></script>
 <!-- __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (RUN TWO, rule 210): what a town's shop put straight on a man, for the fight's door (nfOpts) -->
 <script src="../engine/bohemia_shop_wear.js"></script>
+<!-- __THE_UI_MORPHS__ (MOTION 10/26, [the UI morphs], rule 229): the one motion layer over every frame; nothing cuts,
+     a tap is never lost, on the beat, REDUCED MOTION fades (slices/bohemia_motion.js) -->
+<script src="bohemia_motion.js"></script>
 <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- IT GOES ON HIS HOME SCREEN (demo board row 6).
      iOS DOES NOT read the manifest's icons for the springboard: it reads
      apple-touch-icon, and that element OVERRIDES the manifest list where both
@@ -1560,7 +1563,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26r - STRUCK DOWN, HE STILL FIGHTS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26zc - STRUCK DOWN, HE STILL FIGHTS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13968,7 +13971,8 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
       return { day: d, min: (typeof s.data.min === 'number') ? s.data.min : null };
     }catch(_e){ return null; }
   }
-  function crew(){ try{ var p = window.BOH_START && BOH_START.picks(); return p && p.name ? String(p.name) : ''; }catch(_e){ return ''; } }
+  function crew(){ try{ var nm = window.BohemiaCompanyName && BohemiaCompanyName.get && localStorage.getItem(BohemiaCompanyName.KEY); if (nm) return String(nm);   /* __ONE_PHONE__ (UI TWO, rule 212(b)): the name he gave it on the phone's FEED */
+    var p = window.BOH_START && BOH_START.picks(); return p && p.name ? String(p.name) : ''; }catch(_e){ return ''; } }
   function build(){
     var fr = $('front'); if (!fr) return null;
     css();
@@ -14060,7 +14064,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
@@ -41445,6 +41449,9 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     var c=el('setclose'); if(c) c.addEventListener('click', close);
     var m=el('setmute'); if(m) m.addEventListener('click', function(){ muted=!muted; commit(); });
     var ec=el('setenc'); if(ec) ec.addEventListener('click', nextEnc);
+    /* __THE_UI_MORPHS__ (MOTION 10/26, rule 229(b)): MOTION was painted and saved and never tappable; LESS is REDUCED MOTION,
+       every morph a quick fade (slices/bohemia_motion.js reads motion()) */
+    var mo=el('setmotion'); if(mo) mo.addEventListener('click', function(){ lessmo=!lessmo; commit(); });
     var sv=el('setsave'); if(sv) sv.addEventListener('click', doSave);
     var q=el('setquit'); if(q) q.addEventListener('click', doQuit);
     var vb=el('setvote'); if(vb) vb.addEventListener('click', openVote);

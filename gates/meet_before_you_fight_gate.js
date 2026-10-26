@@ -9,7 +9,8 @@
    does: it sets out after the nearest roaming party with the map's own travel (travelTo, the metronome's steps) and waits
    for contact. Then it holds:
      M1 the walk into a party stops on a card, and no fight has gone to the shell
-     M2 the card says WHO (their name, how many, their stars) and THE GROUND (the block's kind) and offers two choices
+     M2 the card says WHO (their name, how many, their stars) and THE GROUND (the block's kind) and offers two choices; how
+        many is their men drawn (rule 224: no lone number), the count in data-n
      M3 the card draws their own men (at least one)
      M4 the map is held while it stands (the speed is PAUSE, nothing travelling)
      M5 FALL BACK by a finger: the card goes, no fight goes to the shell, he stands at least one block farther from them
@@ -47,9 +48,9 @@ const done = () => { console.log('\nMEET BEFORE YOU FIGHT GATE: ' + pass + ' pas
   const posts1 = await page.evaluate(() => window.__POSTS.slice());
   ok('M1 walking into a party stops on a card, and no fight has gone to the shell', up && posts1.length === 0, (c1 ? c1.id + ' at ' + c1.dist : 'no party') + ', posts ' + posts1.length);
   const card = await fr.evaluate(() => { const e = document.getElementById('meetcard'); if (!e) return null;
-    return { text: e.textContent, stars: e.querySelectorAll('.bmstar').length || (e.querySelector('.mcstars') ? e.querySelector('.mcstars').textContent.length : 0),
+    return { text: e.textContent, n: e.querySelector('.mcs [data-n]') ? +e.querySelector('.mcs [data-n]').dataset.n : null, stars: e.querySelectorAll('.bmstar').length || (e.querySelector('.mcstars') ? e.querySelector('.mcstars').textContent.length : 0),
       go: !!e.querySelector('[data-meet="go"]'), back: !!e.querySelector('[data-meet="back"]'), up: window.__MEET_UP, speed: TRAVEL_SPEED, travel: !!(TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length) }; });
-  ok('M2 the card says who (name, how many, stars) and the ground, with ENGAGE and FALL BACK', !!card && /\d+ (MEN|MAN|KIDS?|MACHINES?|BEASTS?|DEAD|DEAD ONE|DIRE WOL(F|VES)|HYENAS?)\b/.test(card.text) && /THE GROUND/.test(card.text) && card.stars >= 1 && card.stars <= 3 && card.go && card.back,
+  ok('M2 the card says who (name, how many, stars) and the ground, with ENGAGE and FALL BACK', !!card && card.n >= 1 && /(MEN|MAN|KIDS?|MACHINES?|BEASTS?|DEAD|DEAD ONE|DIRE WOL(F|VES)|HYENAS?)\b/.test(card.text) && /THE GROUND/.test(card.text) && card.stars >= 1 && card.stars <= 3 && card.go && card.back,
      card ? card.text.replace(/\s+/g, ' ').slice(0, 120) + ' / stars ' + card.stars : 'no card');
   ok('M3 the card draws their own men', !!card && card.up && card.up.men >= 1, card && card.up ? card.up.men + ' drawn of ' + card.up.n : '');
   ok('M4 the map is held while it stands', !!card && card.speed === 0 && !card.travel, card ? 'speed ' + card.speed + ', travelling ' + card.travel : '');

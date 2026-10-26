@@ -1,0 +1,946 @@
+{
+ "draft": true,
+ "_about": "TUNING 10/26 [the day-fifty curve] (rules 254, 255): research only, nothing in the game reads this. The Lone Wolf alone (the door's roll, a level-4 hedge knight, noble sword and kite shield) on the live fight, AUTO both sides, every faction at counts 2 to 6, dressed for days 1, 10 and 20, 60 fights a cell (4,500). Alone, a won fight is a clean fight, so won / fights is the hidden AUTO worth (ours.odds_colour). Tool tools/bohemia_tuning_the_day_fifty_curve.js; record records/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.md",
+ "fight_tree": "main e41a6bbe",
+ "wolf_grid": [
+  {
+   "faction": "beasts",
+   "count": 2,
+   "days": 1,
+   "fights": 60,
+   "won": 23,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "direwolf": 77,
+    "hyena": 43
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 2,
+   "days": 10,
+   "fights": 60,
+   "won": 23,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "direwolf": 77,
+    "hyena": 43
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 2,
+   "days": 20,
+   "fights": 60,
+   "won": 23,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "direwolf": 77,
+    "hyena": 43
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 3,
+   "days": 1,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "direwolf": 115,
+    "hyena": 65
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 3,
+   "days": 10,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "direwolf": 115,
+    "hyena": 65
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 3,
+   "days": 20,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "direwolf": 115,
+    "hyena": 65
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 4,
+   "days": 1,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "direwolf": 156,
+    "hyena": 84
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 4,
+   "days": 10,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "direwolf": 156,
+    "hyena": 84
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 4,
+   "days": 20,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "direwolf": 156,
+    "hyena": 84
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 5,
+   "days": 1,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "direwolf": 196,
+    "hyena": 104
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 5,
+   "days": 10,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "direwolf": 196,
+    "hyena": 104
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 5,
+   "days": 20,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "direwolf": 196,
+    "hyena": 104
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 6,
+   "days": 1,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 6.0,
+   "kinds": {
+    "direwolf": 235,
+    "hyena": 125
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 6,
+   "days": 10,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 6.0,
+   "kinds": {
+    "direwolf": 235,
+    "hyena": 125
+   }
+  },
+  {
+   "faction": "beasts",
+   "count": 6,
+   "days": 20,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 6.0,
+   "kinds": {
+    "direwolf": 235,
+    "hyena": 125
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 2,
+   "days": 1,
+   "fights": 60,
+   "won": 59,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "brigand_thug": 120
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 2,
+   "days": 10,
+   "fights": 60,
+   "won": 58,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "brigand_thug": 94,
+    "lower_brigand_raider": 26
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 2,
+   "days": 20,
+   "fights": 60,
+   "won": 48,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "brigand_raider": 34,
+    "brigand_marksman": 23,
+    "brigand_thug": 39,
+    "brigand_marauder": 9,
+    "brigand_poacher": 15
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 3,
+   "days": 1,
+   "fights": 60,
+   "won": 54,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "brigand_thug": 180
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 3,
+   "days": 10,
+   "fights": 60,
+   "won": 42,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "brigand_thug": 139,
+    "lower_brigand_raider": 41
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 3,
+   "days": 20,
+   "fights": 60,
+   "won": 31,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "brigand_raider": 50,
+    "brigand_marksman": 36,
+    "brigand_thug": 57,
+    "brigand_marauder": 15,
+    "brigand_poacher": 22
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 4,
+   "days": 1,
+   "fights": 60,
+   "won": 28,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "brigand_thug": 240
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 4,
+   "days": 10,
+   "fights": 60,
+   "won": 20,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "brigand_thug": 188,
+    "lower_brigand_raider": 52
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 4,
+   "days": 20,
+   "fights": 60,
+   "won": 20,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "brigand_raider": 75,
+    "brigand_marauder": 21,
+    "brigand_marksman": 45,
+    "brigand_thug": 73,
+    "brigand_poacher": 26
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 5,
+   "days": 1,
+   "fights": 60,
+   "won": 11,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "brigand_thug": 300
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 5,
+   "days": 10,
+   "fights": 60,
+   "won": 7,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "brigand_thug": 236,
+    "lower_brigand_raider": 64
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 5,
+   "days": 20,
+   "fights": 60,
+   "won": 7,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "brigand_raider": 99,
+    "brigand_marauder": 28,
+    "brigand_marksman": 57,
+    "brigand_thug": 87,
+    "brigand_poacher": 29
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 6,
+   "days": 1,
+   "fights": 60,
+   "won": 4,
+   "enemies_mean": 6.0,
+   "kinds": {
+    "brigand_thug": 360
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 6,
+   "days": 10,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 6.0,
+   "kinds": {
+    "brigand_thug": 286,
+    "lower_brigand_raider": 74
+   }
+  },
+  {
+   "faction": "brigands",
+   "count": 6,
+   "days": 20,
+   "fights": 60,
+   "won": 6,
+   "enemies_mean": 6.0,
+   "kinds": {
+    "brigand_raider": 118,
+    "brigand_marauder": 31,
+    "brigand_marksman": 71,
+    "brigand_thug": 104,
+    "brigand_poacher": 36
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 2,
+   "days": 1,
+   "fights": 60,
+   "won": 59,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "orc_young": 43,
+    "lower_orc_warrior": 17
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 2,
+   "days": 10,
+   "fights": 60,
+   "won": 59,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "orc_young": 43,
+    "lower_orc_warrior": 17
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 2,
+   "days": 20,
+   "fights": 60,
+   "won": 48,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "orc_young": 33,
+    "orc_warrior": 27
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 3,
+   "days": 1,
+   "fights": 60,
+   "won": 59,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "orc_young": 43,
+    "lower_orc_warrior": 17
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 3,
+   "days": 10,
+   "fights": 60,
+   "won": 59,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "orc_young": 43,
+    "lower_orc_warrior": 17
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 3,
+   "days": 20,
+   "fights": 60,
+   "won": 48,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "orc_young": 33,
+    "orc_warrior": 27
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 4,
+   "days": 1,
+   "fights": 60,
+   "won": 24,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "orc_young": 84,
+    "lower_orc_warrior": 36
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 4,
+   "days": 10,
+   "fights": 60,
+   "won": 24,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "orc_young": 84,
+    "lower_orc_warrior": 36
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 4,
+   "days": 20,
+   "fights": 60,
+   "won": 16,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "orc_young": 65,
+    "orc_warrior": 55
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 5,
+   "days": 1,
+   "fights": 60,
+   "won": 24,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "orc_young": 84,
+    "lower_orc_warrior": 36
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 5,
+   "days": 10,
+   "fights": 60,
+   "won": 24,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "orc_young": 84,
+    "lower_orc_warrior": 36
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 5,
+   "days": 20,
+   "fights": 60,
+   "won": 16,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "orc_young": 65,
+    "orc_warrior": 55
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 6,
+   "days": 1,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "orc_young": 127,
+    "lower_orc_warrior": 53
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 6,
+   "days": 10,
+   "fights": 60,
+   "won": 0,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "orc_young": 127,
+    "lower_orc_warrior": 53
+   }
+  },
+  {
+   "faction": "heavies",
+   "count": 6,
+   "days": 20,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "orc_young": 97,
+    "orc_warrior": 83
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 2,
+   "days": 1,
+   "fights": 60,
+   "won": 58,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 46,
+    "goblin_wolfrider": 14
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 2,
+   "days": 10,
+   "fights": 60,
+   "won": 58,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 46,
+    "goblin_wolfrider": 14
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 2,
+   "days": 20,
+   "fights": 60,
+   "won": 58,
+   "enemies_mean": 1.0,
+   "kinds": {
+    "goblin_skirmisher": 46,
+    "goblin_wolfrider": 14
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 3,
+   "days": 1,
+   "fights": 60,
+   "won": 47,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 87,
+    "goblin_wolfrider": 33
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 3,
+   "days": 10,
+   "fights": 60,
+   "won": 47,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 87,
+    "goblin_wolfrider": 33
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 3,
+   "days": 20,
+   "fights": 60,
+   "won": 51,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "goblin_skirmisher": 87,
+    "goblin_wolfrider": 33
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 4,
+   "days": 1,
+   "fights": 60,
+   "won": 47,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 87,
+    "goblin_wolfrider": 33
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 4,
+   "days": 10,
+   "fights": 60,
+   "won": 47,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 87,
+    "goblin_wolfrider": 33
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 4,
+   "days": 20,
+   "fights": 60,
+   "won": 51,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "goblin_skirmisher": 87,
+    "goblin_wolfrider": 33
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 5,
+   "days": 1,
+   "fights": 60,
+   "won": 36,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 128,
+    "goblin_wolfrider": 52
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 5,
+   "days": 10,
+   "fights": 60,
+   "won": 36,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 128,
+    "goblin_wolfrider": 52
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 5,
+   "days": 20,
+   "fights": 60,
+   "won": 30,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "goblin_skirmisher": 128,
+    "goblin_wolfrider": 52
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 6,
+   "days": 1,
+   "fights": 60,
+   "won": 24,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 171,
+    "goblin_wolfrider": 69
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 6,
+   "days": 10,
+   "fights": 60,
+   "won": 24,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "lower_goblin_skirmisher": 171,
+    "goblin_wolfrider": 69
+   }
+  },
+  {
+   "faction": "kids",
+   "count": 6,
+   "days": 20,
+   "fights": 60,
+   "won": 12,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "goblin_skirmisher": 171,
+    "goblin_wolfrider": 69
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 2,
+   "days": 1,
+   "fights": 60,
+   "won": 60,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 60
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 2,
+   "days": 10,
+   "fights": 60,
+   "won": 60,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 60
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 2,
+   "days": 20,
+   "fights": 60,
+   "won": 60,
+   "enemies_mean": 2.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 46,
+    "armored_wiederganger": 14
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 3,
+   "days": 1,
+   "fights": 60,
+   "won": 53,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 120
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 3,
+   "days": 10,
+   "fights": 60,
+   "won": 53,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 120
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 3,
+   "days": 20,
+   "fights": 60,
+   "won": 43,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 87,
+    "armored_wiederganger": 33
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 4,
+   "days": 1,
+   "fights": 60,
+   "won": 53,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 120
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 4,
+   "days": 10,
+   "fights": 60,
+   "won": 53,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 120
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 4,
+   "days": 20,
+   "fights": 60,
+   "won": 43,
+   "enemies_mean": 3.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 87,
+    "armored_wiederganger": 33
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 5,
+   "days": 1,
+   "fights": 60,
+   "won": 4,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 180
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 5,
+   "days": 10,
+   "fights": 60,
+   "won": 4,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 180
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 5,
+   "days": 20,
+   "fights": 60,
+   "won": 4,
+   "enemies_mean": 4.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 128,
+    "armored_wiederganger": 52
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 6,
+   "days": 1,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 240
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 6,
+   "days": 10,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 240
+   }
+  },
+  {
+   "faction": "machines",
+   "count": 6,
+   "days": 20,
+   "fights": 60,
+   "won": 1,
+   "enemies_mean": 5.0,
+   "kinds": {
+    "necromancer": 60,
+    "wiederganger": 171,
+    "armored_wiederganger": 69
+   }
+  }
+ ],
+ "curve": {
+  "floor": {
+   "1": 0.5,
+   "5": 0.5,
+   "10": 0.5,
+   "15": 0.438,
+   "20": 0.375,
+   "25": 0.312,
+   "30": 0.25,
+   "40": 0.125,
+   "50": 0.0,
+   "60": 0.0,
+   "80": 0.0
+  },
+  "red_cap": "one job under 0.8 before day 10; then round(board x (day - 10) / 40), at least one; all by day 50",
+  "lose_outright": 0.25
+ },
+ "wolf_counts_world_deals": {
+  "strength": "BB: under three men each counts 10 -> the 0.75 floor",
+  "1_skull": 3,
+  "2_skull": "4 to 5",
+  "3_skull": "5 to 6",
+  "from": "party_math.json job_bb base_men 4/6/8 x 0.75 x difficulty 0.85 to 1"
+ }
+}

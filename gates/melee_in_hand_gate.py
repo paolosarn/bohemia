@@ -469,7 +469,7 @@ if 't2' in READY:
 t = open(os.path.join(ROOT, 'slices/BOHEMIA_FIGHT.html')).read()
 blk = t[t.find('__WHAT_A_MAN_HOLDS__ (ANIMATION'):t.find('end __WHAT_A_MAN_HOLDS__')]
 ok('W1 the fight (COMBAT\'s file) carries the melee draw inside the marked block and asks it first for a man with no gun',
-   'function meleeDraw(' in blk and "fetch('rig_melee/rig_melee.json')" in blk and 'const md = meleeDraw(v, p, L, d, gs, ox, oy, s, now); if (md !== null) return md;' in blk
+   'function meleeDraw(' in blk and "fetch('rig_melee/rig_melee.json'" in blk and 'const md = meleeDraw(v, p, L, d, gs, ox, oy, s, now); if (md !== null) return md;' in blk
    and 'function meleeBody(' in blk and 'M.shield_over[DIR8[f]]' in blk and "how === 'T'" in blk)
 if not QUICK:
     drv = r'''

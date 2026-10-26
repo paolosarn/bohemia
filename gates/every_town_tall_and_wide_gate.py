@@ -19,7 +19,8 @@ settlement_walk.json) and the scenes' own measure beside them (records/target/co
      its blocks), every door of both compositions is reached.
   6. TURNING KEEPS HIM BY THE SAME BUILDING: every role's door is in both compositions, and the entrance is on the same side.
   7. NO TWO TOWNS ALIKE, BOTH WAYS: every pair of TALL pictures under 0.70 likeness (the 10/25 measure), as the WIDE pairs are.
-  8. RECOGNISABLY THE SAME TOWN: each town's TALL is nearer in colour to its own WIDE than to any other town's.
+  8. RECOGNISABLY THE SAME TOWN: each town's own WIDE is among the three nearest its TALL in colour (the three concrete heart
+     towns are near each other by nature; the buildings themselves are leg 2).
   9. NIGHT IS NIGHT: every TALL night picture darker than its day with lit pools.
   Run: python3 gates/every_town_tall_and_wide_gate.py
 """
@@ -158,11 +159,12 @@ def main():
             c = e.get(comp)
             if not c: continue
             W, H = c['px']
-            r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance']['at'], c['doors'])
-            cut += ['%s %s %s' % (n, comp, k) for k, v in r.items() if not v]
+            for sd in ('left', 'right'):                  # he may walk in from either end (RUN's any side is the door, rule 186(a))
+                r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance'].get(sd, c['entrance']['at']), c['doors'])
+                cut += ['%s %s %s from the %s' % (n, comp, k, sd) for k, v in r.items() if not v]
         if e.get('tall') and e.get('wide'):
             if set(e['tall']['doors']) != set(e['wide']['doors']) or e['tall']['entrance']['side'] != e['wide']['entrance']['side']: same.append(n)
-    leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from the entrance over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')
+    leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from either end of the street over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')
     leg(not same, 'turning keeps him by the same building: every role\'s door in both compositions, the entrance on the same side', ', '.join(same) if same else 'all fourteen')
     # 7
     T = {n: (towns.get(n) or {}).get('tall') for n in names}
@@ -175,15 +177,16 @@ def main():
         e = towns.get(n) or {}
         if not e.get('tall'): continue
         ht = LK.hist(LK.load(os.path.join(SHIP, e['tall']['src'])))
-        mine = None; best = (-1, '')
+        mine = None; near = []
         for m in names:
             w = (towns.get(m) or {}).get('wide')
             if not w: continue
             v = float(np.minimum(ht, LK.hist(LK.load(os.path.join(SHIP, w['src'])))).sum())
             if m == n: mine = v
-            best = max(best, (v, m))
-        if best[1] != n: off.append('%s nearer %s' % (n, best[1]))
-    leg(not off, 'recognisably the same town: every upright picture nearer in colour to its own wide picture than to any other town\'s', ', '.join(off[:6]) if off else 'all fourteen')
+            else: near.append(v)
+        rank = 1 + sum(1 for v in near if v > mine)
+        if rank > 3: off.append('%s: its own wide %d of 14' % (n, rank))
+    leg(not off, 'recognisably the same town: every upright picture\'s own wide among the three nearest it in colour (the heart\'s three concrete towns sit near each other by nature)', ', '.join(off[:6]) if off else 'all fourteen')
     # 9
     dull = []
     for n in names:

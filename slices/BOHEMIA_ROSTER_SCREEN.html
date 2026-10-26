@@ -178,6 +178,30 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
   .stats>div{min-height:36px;font-size:14px}
   #bag .slot{height:64px}
 }
+/* ==== __UI_THREE_STATS__ (UI THREE, rules 223, 247): his eight as ONE column of bars, the stars down one line beside the
+   icons; the level-up's picks the same rows on glass, the picked ones lit. The icon stays the kit's 24 points
+   (rule 189's gate), its row 20 high so the column fits the phone's one screen ==== */
+html body .stats.bst-col{grid-template-columns:minmax(0,1fr);gap:0;padding-top:4px;padding-bottom:7px}
+html body .stats.bst-col>div.bst-row{min-height:18px!important;height:18px;padding:0 2px;font-size:13px}
+html body .stats.bst-col>div.bst-row>span:first-child::before{margin:-3px 0!important}
+html body .stats.bst-col .bst-bar{height:14px} html body .stats.bst-col .bst-bar>i.bst-n{line-height:12px}
+html body .levelup.bst-lv{display:grid;grid-template-columns:minmax(0,1fr) 92px;grid-template-rows:auto minmax(0,1fr);column-gap:6px;align-items:stretch}
+html body .levelup.bst-lv>b{grid-column:2;grid-row:1;font-size:10px;line-height:12px;margin:0 0 4px}
+html body .levelup.bst-lv>.lugrid{grid-column:1;grid-row:1 / 3}
+html body .levelup.bst-lv>#raise{grid-column:2;grid-row:2;min-height:0;height:auto;margin:0;padding:6px 8px;white-space:normal;text-align:center;line-height:1.2}
+html body .lugrid.bst-col{grid-template-columns:minmax(0,1fr);gap:1px}
+html body .lugrid.bst-col button.bst-row{min-height:18px!important;height:18px;padding:0 4px 0 2px;grid-template-rows:none;grid-template-columns:24px 23px minmax(0,1fr) 34px}
+html body .lugrid.bst-col button.bst-row>span:first-child{grid-row:auto}
+html body .lugrid.bst-col button.bst-row>span:first-child::before{margin:-3px 0!important}
+html body .lugrid.bst-col button i{position:static;top:auto;right:auto;font-size:inherit;color:inherit;letter-spacing:normal}
+html body .lugrid.bst-col button i.bst-bar{position:relative;height:14px}
+html body .lugrid.bst-col button .bst-bar>i{position:absolute;top:0;bottom:0}
+html body .lugrid.bst-col button .bst-bar>i.bst-n{position:relative;font-size:13px;line-height:12px}
+html body .lugrid.bst-col button .bst-bar>i.bst-tick{top:-2px;bottom:-2px}
+html body .lugrid.bst-col button b.bst-chg{justify-content:flex-end;font-size:13px}
+html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
+@media (min-width:1100px){ html body .lugrid.bst-col button.bst-row{min-height:20px!important;height:20px} html body .stats.bst-col>div.bst-row{height:22px;min-height:22px!important} html body .stats.bst-col .bst-bar{height:16px} html body .stats.bst-col .bst-bar>i.bst-n{font-size:15px;line-height:14px} }
+/* ==== end __UI_THREE_STATS__ ==== */
 </style>
 </head>
 <body>
@@ -193,6 +217,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 </div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
+<script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): his eight in his order, each a bar to the most possible -->
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: a hired man is one of the valley's rolled people, his own body and face -->
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: his whole body, the model his face came from -->
@@ -652,17 +677,21 @@ function drawCard(){
     /* __HIS_LEVEL_UP__ (VAMILY rule 162(a), Paolo 10/24: 'in Battle Brothers you had to really prioritise when you levelled'): all
        eight stats with what each rolled on his stars; three taps and RAISE THEM (engine/bohemia_roster.js raise); the perk is
        its own tap after, on the PERK tab beside him */
-    var lu = document.createElement('div'); lu.className = 'levelup'; lu.id = 'levelup';
+    var lu = document.createElement('div'); lu.className = 'levelup' + (window.BohemiaStats ? ' bst-lv' : ''); lu.id = 'levelup';   /* __UI_THREE_STATS__: the picks one column, RAISE THEM beside them */
     if(!S.raise || S.raise.man !== m.name || S.raise.level !== rl.level) S.raise = {man:m.name, level:rl.level, keys:[]};
     var left = rl.pick - S.raise.keys.length;
     var hh = document.createElement('b'); hh.textContent = 'LEVEL ' + rl.level + ': PICK ' + rl.pick + ' TO RAISE' + ((m.rolls.length > 1) ? '  (' + m.rolls.length + ' LEVELS WAITING)' : ''); lu.appendChild(hh);
-    var lg = document.createElement('div'); lg.className = 'lugrid';
-    C.STATS.forEach(function(k){ var b = document.createElement('button'); b.type = 'button'; b.dataset.raise = k; b.className = S.raise.keys.indexOf(k) >= 0 ? 'on' : '';
-      /* the same chip as his number (the icon, the number), with what it rolled in green and its name small under it */
-      var n1 = document.createElement('span'); n1.setAttribute('aria-label', C.STAT_NAME[k]); b.appendChild(n1);
-      var n0 = document.createElement('span'); n0.className = 'v'; n0.textContent = m.stats[k]; var n2 = document.createElement('b'); n2.textContent = '+' + rl.gains[k]; n0.appendChild(n2); b.appendChild(n0);
-      var nn = document.createElement('small'); nn.textContent = C.STAT_NAME[k]; b.appendChild(nn);
-      if(m.stars[k]){ var n3 = document.createElement('i'); n3.textContent = stars(m.stars[k]); b.appendChild(n3); }
+    var lg = document.createElement('div'); lg.className = 'lugrid bst-col';
+    /* ==== __UI_THREE_STATS__ (UI THREE [the stat order], [stats are bars and arrows]; rules 223(b), 247(a)(c)): the picks are
+       his eight in HIS order (engine/bohemia_stats.js ORDER), one column, each the stat's icon, its stars, the bar to the most
+       possible, and what it rolled as a green arrow and the amount; a picked one lights the rise on its bar ==== */
+    (window.BohemiaStats ? BohemiaStats.ORDER : C.STATS).forEach(function(k){ var b = document.createElement('button'); b.type = 'button'; b.dataset.raise = k; b.className = S.raise.keys.indexOf(k) >= 0 ? 'on' : '';
+      var on = S.raise.keys.indexOf(k) >= 0;
+      if(window.BohemiaStats) BohemiaStats.row(k, {into:b, icon:'span', n:on ? m.stats[k] + rl.gains[k] : m.stats[k], from:on ? m.stats[k] : null, delta:rl.gains[k], stars:m.stars[k] | 0, ceil:BohemiaStats.ceilingOf(m, k, m.stats[k]), glass:!on, label:C.STAT_NAME[k]});
+      else { var n1 = document.createElement('span'); n1.setAttribute('aria-label', C.STAT_NAME[k]); b.appendChild(n1);
+        var n0 = document.createElement('span'); n0.className = 'v'; n0.textContent = m.stats[k]; var n2 = document.createElement('b'); n2.textContent = '+' + rl.gains[k]; n0.appendChild(n2); b.appendChild(n0); }
+      b.title = C.STAT_NAME[k];
+      /* ==== end __UI_THREE_STATS__ ==== */
       b.addEventListener('click', function(){ var ks = S.raise.keys, i = ks.indexOf(k); if(i >= 0) ks.splice(i, 1); else { if(ks.length >= rl.pick) ks.shift(); ks.push(k); }
         var l2 = rl.pick - ks.length; say(C.STAT_NAME[k] + (ks.indexOf(k) >= 0 ? ' +' + rl.gains[k] + '.' : ' left as it is.') + (l2 > 0 ? ' Pick ' + l2 + ' more.' : ' RAISE THEM puts them on him.')); drawCard(); });
       lg.appendChild(b); });
@@ -679,12 +708,21 @@ function drawCard(){
        shield it reflects in your stats'): his defences, fatigue and initiative are shown WITH what he wears, the same numbers the
        shop promised and the fight's makeUnit uses (engine/bohemia_roster.js worn); the gear's part is marked beside it */
     var W = C.worn ? C.worn(m) : null;
-    C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.setAttribute('aria-label', C.STAT_NAME[k]);
+    /* ==== __UI_THREE_STATS__ (UI THREE [the stat order], [stats are bars and arrows]; rules 223(a)(b), 247(a)(c)(d), Paolo
+       10/26: 'HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale and initiative... behind the
+       numbers, like a progress bar, how far it is from the maximum that's even possible'): his eight in HIS order, ONE column
+       so his stars scan straight down, each the stat's icon, its stars, the bar filled to the number over the most possible,
+       the faint tick at his own ceiling. What he wears is in the number (rule 202(c)); its part is said on a tap, not printed.
+       A level just taken, or a piece in the stash he is looking at, is a green or red arrow and the amount, its part of the bar
+       lit; never 'X to Y'. statsPreview() is the piece compared (one tap on the phone, the mouse over it on a computer). ==== */
+    if(window.BohemiaStats){ st.classList.add('bst-col'); var pv = statsPreview(m); }
+    (window.BohemiaStats ? BohemiaStats.ORDER : C.STATS).forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.setAttribute('aria-label', C.STAT_NAME[k]);
       var shown = W && typeof W[k] === 'number' ? W[k] : m.stats[k], gearPart = shown - m.stats[k];
-      var v = document.createElement('span'); v.textContent = shown; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
-      if(gearPart){ var gw = document.createElement('span'); gw.className = 'worn ' + (gearPart > 0 ? 'up' : 'dn'); gw.textContent = (gearPart > 0 ? '+' : '') + gearPart; gw.title = 'what he wears'; v.appendChild(gw); }
-      if(m.gained && m.gained[k]){ var gn = document.createElement('span'); gn.className = 'gain'; gn.textContent = '+' + m.gained[k]; v.appendChild(gn); }
-      r.appendChild(a); r.appendChild(v); r.dataset.stat = k; r.dataset.shown = shown; r.title = C.STAT_NAME[k]; r.setAttribute('role', 'button');
+      if(window.BohemiaStats) statRow(r, m, k, shown, pv);
+      else { var v = document.createElement('span'); v.textContent = shown; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
+        r.appendChild(a); r.appendChild(v); }
+      /* ==== end __UI_THREE_STATS__ ==== */
+      r.dataset.stat = k; r.dataset.shown = shown; r.title = C.STAT_NAME[k]; r.setAttribute('role', 'button');
       r.addEventListener('click', function(){ say(C.STAT_NAME[k] + ' ' + shown + (gearPart ? ' (' + m.stats[k] + ' his own, ' + (gearPart > 0 ? '+' : '') + gearPart + ' from what he wears)' : '') + (m.stars[k] ? ', ' + m.stars[k] + (m.stars[k] === 1 ? ' star' : ' stars') + ': it climbs faster' : '') + '. ' + (STAT_SAYS[k] || '')); });
       st.appendChild(r); });
     el.appendChild(st);
@@ -754,7 +792,28 @@ function compareLine(it){
 /* the slot the comparison lands on, without redrawing him (a mouse passing over the stash) */
 function paintCmp(){ var m = S.crew[S.sel]; if(!m) return; var c = S.cmp != null ? S.bag[S.cmp] : (S.hover != null ? S.bag[S.hover] : null), to = c ? slotOf(c) : null;
   [].forEach.call(document.querySelectorAll('#card .gslot'), function(g){ var on = g.dataset.slot === to; g.classList.toggle('cmp', on); var em = g.querySelector('em.d'); if(em) em.remove();
-    if(on){ var dv = delta(c, m); em = document.createElement('em'); em.className = 'd ' + (dv > 0 ? 'up' : dv < 0 ? 'dn' : ''); em.textContent = (dv > 0 ? '+' : '') + dv; g.appendChild(em); } }); }
+    if(on){ var dv = delta(c, m); em = document.createElement('em'); em.className = 'd ' + (dv > 0 ? 'up' : dv < 0 ? 'dn' : ''); em.textContent = (dv > 0 ? '+' : '') + dv; g.appendChild(em); } });
+  paintStats(); }   /* __UI_THREE_STATS__: the piece under the mouse shows on his bars too */
+/* ==== __UI_THREE_STATS__ (UI THREE [stats are bars and arrows], rule 223(b): 'an up green icon or a down red icon plus the
+   number... I don't even want to see it would go from 63 to 68'). THE PIECE COMPARED, ON HIS BARS: what his numbers become in
+   it (engine/bohemia_roster.js wearing(), the shop's and the fight's one source), each stat it moves an arrow and the amount
+   and its part of the bar lit; a level just taken the same, green. ==== */
+function statsPreview(m){
+  var c = S.cmp != null ? S.bag[S.cmp] : (S.hover != null ? S.bag[S.hover] : null);
+  if(!c || !m || !C.wearing || !slotOf(c) || BAG_GEAR.indexOf(slotOf(c)) >= 0) return null;
+  var w = C.wearing(m, c); if(w.stops) return null;
+  var o = {}; ['melee_defense', 'ranged_defense', 'fatigue', 'initiative'].forEach(function(k){ if(w.after[k] !== w.before[k]) o[k] = w.after[k]; });
+  return o;
+}
+function statRow(r, m, k, shown, pv){
+  var was = pv && pv[k] != null && pv[k] !== shown ? shown : (m.gained && m.gained[k] ? shown - m.gained[k] : null), now = pv && pv[k] != null ? pv[k] : shown;
+  r.textContent = ''; BohemiaStats.row(k, {into:r, icon:'span', n:now, from:was, stars:m.stars[k] | 0, ceil:BohemiaStats.ceilingOf(m, k, now), label:C.STAT_NAME[k]});
+  r.dataset.now = now;
+  var gch = !(pv && pv[k] != null) && m.gained && m.gained[k] ? r.querySelector('b.bst-chg') : null; if(gch) gch.classList.add('gain');   /* a level just taken: the green gain */
+}
+function paintStats(){ var m = S.crew[S.sel]; if(!m || !window.BohemiaStats) return; var pv = statsPreview(m);
+  [].forEach.call(document.querySelectorAll('#card .stats [data-stat]'), function(r){ statRow(r, m, r.dataset.stat, +r.dataset.shown, pv); }); }
+/* ==== end __UI_THREE_STATS__ ==== */
 /* ONE TAP SHOWS THE COMPARISON, THE SECOND PUTS IT ON */
 function tapItem(i){
   var it = S.bag[i], m = S.crew[S.sel]; if(!it || !m) return; S.ask = null;
@@ -980,7 +1039,7 @@ function open(o){
 window.BohemiaRosterScreen = {open:open, state:S, held:HELD, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN'){ S.doorSpoke = true; open(d); } if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
-C.load().then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });
+Promise.all([C.load(), window.BohemiaStats ? BohemiaStats.load() : null]).then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });
 })();
 </script>
 </body>

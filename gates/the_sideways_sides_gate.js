@@ -56,6 +56,9 @@ const hit = (a, b) => a && b && a.x < b.x + b.w - 1 && b.x < a.x + a.w - 1 && a.
        'left spread ' + edges.left.spread + ' page ' + edges.left.page + ' | right spread ' + edges.right.spread + ' page ' + edges.right.page);
     ok('  the map\'s canvas spans the glass', !!m.cv && m.cv.x <= 0.5 && m.cv.x + m.cv.w >= m.vw - 0.5, m.cv && Math.round(m.cv.x) + '..' + Math.round(m.cv.x + m.cv.w) + ' of ' + m.vw);
     ok('  the bar runs the whole width, whole on the glass', !!m.bar && m.bar.x >= -0.5 && m.bar.y >= -0.5 && Math.abs(m.bar.w - m.vw) <= 1, m.bar && Math.round(m.bar.x) + ',' + Math.round(m.bar.y) + ' ' + Math.round(m.bar.w));
+    /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the phone is the new one the shell draws in his corner (#bohphone); the old
+       one and the speed pad step aside, so the pieces asked are the gear, the bar and that phone */
+    m.phone = await p.evaluate(() => { const e = document.getElementById('bohphone'); if (!e || !e.classList.contains('on')) return null; const r = e.getBoundingClientRect(); return r.width ? { x: r.x, y: r.y, w: r.width, h: r.height } : null; });
     const big = { gear, bar: m.bar, speedpad: m.pad, phone: m.phone }, ks = Object.keys(big), clash = [];
     for (let i = 0; i < ks.length; i++) for (let j = i + 1; j < ks.length; j++) if (hit(big[ks[i]], big[ks[j]])) clash.push(ks[i] + ' on ' + ks[j]);
     ok('  the phone is clear of the gear, and nothing of the HUD covers anything else', clash.length === 0 && !!gear && !!m.phone, clash.join(', ') || ('gear ' + (gear && Math.round(gear.x + gear.w)) + ', phone from ' + (m.phone && Math.round(m.phone.x))));
