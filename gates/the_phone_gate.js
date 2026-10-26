@@ -255,12 +255,13 @@ async function side(profile) {
           const back = await p.evaluate(() => document.querySelectorAll('#bohphone .page.on .po').length);
           ok('  the catalogue\'s three kinds are icon filters: one kind, then all again', one.on && one.n <= all && back === all, all + ' -> ' + one.n + ' -> ' + back); }
         await tapIn(p.mainFrame(), '#bohphone .co .nm'); await p.waitForTimeout(250);
-        const inp = await p.evaluate(() => !!document.querySelector('#bohphone .co input'));
+        /* rule 268(a): the box itself is the press: one real tap and the caret is in it (the phone's keyboard comes up for a focused box) */
+        const inp = await p.evaluate(() => { const i = document.querySelector('#bohphone .co input'); return !!i && document.activeElement === i; });
         await p.evaluate(() => { const i = document.querySelector('#bohphone .co input'); if (i) { i.select(); } });
         await p.keyboard.press(process.platform === 'darwin' ? 'Meta+A' : 'Control+A'); await p.keyboard.type('the dust lot'); await p.keyboard.press('Enter'); await p.waitForTimeout(600);
         const RN = await p.evaluate(() => ({ name: BohemiaCompanyName.get(), shown: (document.querySelector('#bohphone .co .nm') || {}).textContent || '' }));
         const said = await fr.evaluate(() => BOHEMIA_FEED.posts().some(x => /THE DUST LOT/.test(x.txt) && x.kind === 'mine'));
-        ok('  the company renames right there (a tap on its name, the name, Enter): the game\'s one name, and the feed says so', inp && RN.name === 'THE DUST LOT' && /THE DUST LOT/.test(RN.shown) && said, JSON.stringify(RN) + ' post ' + said);
+        ok('  the company renames right there (one tap in its box puts the caret in it, the name, Enter): the game\'s one name, and the feed says so', inp && RN.name === 'THE DUST LOT' && /THE DUST LOT/.test(RN.shown) && said, JSON.stringify(RN) + ' post ' + said);
         await tapIn(p.mainFrame(), '#bohphone .page .ph'); await p.waitForTimeout(250);
         /* ---- RELATIONS ---- */
         await tapApp('relations'); await p.waitForTimeout(400);
@@ -432,11 +433,17 @@ async function side(profile) {
       const AB = await f.evaluate(() => { const vis = e => e.getBoundingClientRect().width > 0 && getComputedStyle(e).display !== 'none';
         return { name: (document.getElementById('cnm') || {}).textContent, onBar: [...document.querySelectorAll('#skills .sq')].filter(b => (b.classList.contains('bag') || b.dataset.sweep || b.dataset.skill) && vis(b)).length,
           all: [...document.querySelectorAll('#skills .sq')].filter(b => b.classList.contains('bag') || b.dataset.sweep || b.dataset.skill).length,
-          keep: ['bend', 'bauto', 'bflee'].map(id => { const e = document.getElementById(id); return e && vis(e) ? id : null; }).filter(Boolean) }; });
-      const PF = await p.evaluate(() => ({ head: (document.querySelector('#bohphone .fh b') || {}).textContent, n: document.querySelectorAll('#bohphone .ab .sk:not([aria-label=empty])').length }));
-      ok('  the abilities open from it: his name, his abilities on the phone and off the fight\'s bar', FT.fight && !FT.home && String(AB.name || '').replace(/\s*\*$/, '').indexOf(PF.head) === 0 && PF.head && AB.onBar === 0 && PF.n === Math.min(12, AB.all),
-          'head ' + PF.head + ', phone ' + PF.n + ', fight ' + AB.all + ' (on its bar ' + AB.onBar + ')');
-      ok('  END TURN, AUTO and RETREAT stay on the fight\'s bar', AB.keep.length === 3, AB.keep.join(' '));
+          sr: ['bstrike', 'breload'].filter(id => { const e = document.getElementById(id); return !!e && e.style.display !== 'none'; }).length,
+          go: (() => { const be = document.getElementById('bend'), tn = be && [...be.childNodes].filter(n => n.nodeType === 3)[0]; return be ? String(tn ? tn.textContent : be.textContent).trim() : null; })(),
+          bar: ['bend', 'bauto', 'bflee', 'bwait', 'bspeed', 'bstrike', 'breload'].map(id => { const e = document.getElementById(id); return e && vis(e) ? id : null; }).filter(Boolean) }; });
+      const PF = await p.evaluate(() => ({ head: (document.querySelector('#bohphone .fh b') || {}).textContent, n: document.querySelectorAll('#bohphone .ab .sk:not([aria-label=empty])').length,
+        go: (document.querySelector('#bohphone .fgo b') || {}).textContent, cmds: [...document.querySelectorAll('#bohphone .fight [data-c]')].filter(b => { const r = b.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && h && b.contains(h); }).map(b => b.dataset.c) }));
+      ok('  the abilities open from it: his name, STRIKE, RELOAD and his abilities on the phone and off the fight\'s bar', FT.fight && !FT.home && String(AB.name || '').replace(/\s*\*$/, '').indexOf(PF.head) === 0 && PF.head && AB.onBar === 0 && PF.n === Math.min(12, AB.all + AB.sr),
+          'head ' + PF.head + ', phone ' + PF.n + ', fight ' + AB.all + ' + ' + AB.sr + ' (on its bar ' + AB.onBar + ')');
+      /* rule 238(a): every press of the fight is on the phone: the big button (its word the fight's own), WAIT, RETREAT, AUTO, the
+         speed, each on top where it is drawn; none of them on the fight's bar (286(b)) */
+      ok('  the fight\'s commands are on the phone (the big button says what the fight\'s says), and none is on the fight\'s bar', PF.cmds.join() === 'go,wait,flee,auto,speed' && !!AB.go && PF.go === AB.go && !AB.bar.length,
+        'phone ' + PF.cmds.join(' ') + ' "' + PF.go + '" vs "' + AB.go + '"; on the bar ' + (AB.bar.join(' ') || 'none'));
       /* rule 238(a): CREW, NOTES and SETTINGS ride under his abilities; the fight's bar copies are not on the glass (286(b)) */
       { const FR = await p.evaluate(() => [...document.querySelectorAll('#bohphone .fight .frow .app')].map(a => { const r = a.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return a.dataset.app + (h && a.contains(h) ? '' : '!'); }));
         const dup = await f.evaluate(() => ['#bmtb .t.gear', '#notebtn'].filter(q => { const e = document.querySelector(q); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && getComputedStyle(e).display !== 'none'; })
@@ -456,6 +463,16 @@ async function side(profile) {
         const pressed = await f.evaluate(() => window.__plantPressed | 0);
         ok('  a press on the phone presses the fight\'s own ability button', !!pb && pressed === 1, 'pressed ' + pressed);
         await f.evaluate(() => { const b = document.querySelector('#skills .sq[data-skill=plant]'); if (b) b.remove(); });
+        /* the fight's own AUTO and speed, pressed from the phone by a finger */
+        const cAt = (c) => p.evaluate((c) => { const e = document.querySelector('#bohphone .fight [data-c=' + c + ']'); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, c);
+        const h0 = await f.evaluate(() => FIGHT_UI.hand);
+        { const b = await cAt('speed'); if (b) await tap(b[0], b[1]); } await p.waitForTimeout(500);
+        const h1 = await f.evaluate(() => FIGHT_UI.hand), a0 = await f.evaluate(() => FIGHT_UI.auto);   /* the speed first: AUTO takes its own pace */
+        { const b = await cAt('auto'); if (b) await tap(b[0], b[1]); } await p.waitForTimeout(500);
+        const a1 = await f.evaluate(() => FIGHT_UI.auto);
+        const lit = await p.evaluate(() => { const e = document.querySelector('#bohphone .fc[data-c=auto]'); return !!e && e.classList.contains('on'); });
+        ok('  AUTO and the speed pressed on the phone press the fight\'s own (AUTO on and lit, the speed one step on)', a1 === !a0 && lit === a1 && h1 !== h0, 'auto ' + a0 + ' -> ' + a1 + ' (lit ' + lit + '), speed ' + h0 + ' -> ' + h1);
+        await f.evaluate(() => { const b = document.getElementById('bauto'); if (FIGHT_UI.auto && b) b.click(); });
       }
       /* the fight ends (won, as the spoils gate wins it): the phone strikes back to its apps; the spoils wait; LEAVE goes home */
       const o0 = await p.evaluate(() => window.__PHONE_COMBAT_OUT | 0);

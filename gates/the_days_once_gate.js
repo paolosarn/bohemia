@@ -107,8 +107,12 @@ const FIGHT = () => {
   out.push(['  the fight measures its top as the one bar\'s bottom, nothing more', !!bar && TOPH === Math.round(top.getBoundingClientRect().bottom) && TOPH <= 110, 'TOPH ' + TOPH]);
   out.push(['  the round, the faces and AUTO ride the bottom bar', !!bot.querySelector('#round') && !!bot.querySelector('#bauto') && bot.querySelectorAll('#order canvas').length > 0,
     bot.querySelectorAll('#order canvas').length + ' faces']);
-  const r = document.getElementById('bauto').getBoundingClientRect();
-  out.push(['  AUTO is 44 points and on the glass', r.width >= 44 && r.height >= 44 && r.bottom <= innerHeight && r.top >= 0, Math.round(r.width) + 'x' + Math.round(r.height)]);
+  /* UI TWO (rules 238(a)(b), 286(b)): in the game's fights AUTO is the phone's (tiny is fine, his 238(b)), pressing the fight's own */
+  const pa = document.documentElement.classList.contains('boh-phone-on') ? window.top.document.querySelector('#bohphone.on .fight.on .fc[data-c=auto]') : null;
+  if (pa) { const q = pa.getBoundingClientRect(), H = window.top.innerHeight;
+    out.push(['  AUTO is on the phone and on the glass, a press of 20 points or more (tiny is fine, 238(b))', q.width >= 20 && q.height >= 20 && q.bottom <= H && q.top >= 0, Math.round(q.width) + 'x' + Math.round(q.height) + ' on the phone']); }
+  else { const r = document.getElementById('bauto').getBoundingClientRect();
+    out.push(['  AUTO is 44 points and on the glass', r.width >= 44 && r.height >= 44 && r.bottom <= innerHeight && r.top >= 0, Math.round(r.width) + 'x' + Math.round(r.height)]); }
   return out;
 };
 
