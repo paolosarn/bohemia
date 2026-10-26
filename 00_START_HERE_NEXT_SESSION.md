@@ -1725,6 +1725,13 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-clean-trip): 10/26 (m) LATEST -- *** [eyes: the normie hour, world] BUILT, NOT YET SEEN (EYES round four's seven job frictions); BUILD 10/26v deployed (pages SUCCESS e49d786b); BUILD 10/26za ships this (10/26z was RUN THREE's the same minute). ***
+Commit 1bf94fe3. Record section 7 of records/BOHEMIA_WORLD_THE_CLEAN_TRIP_NO_CHAMPION_ON_DAY_ONE_PAID_ONLY_FOR_THE_WORK_10_26_26.md.
+(1) THE TAP IS WHERE THE PLATE IS (F11, k36, F10): plate() and markPlace hand the map the plate's own box (MAP_PLATES box), the map steps it, the tap reads it live (liveHit); BohemiaJobKinds.plates() keeps this frame's plates for checkers (the map empties its list once drawn).
+(2) A MOMENT HAS A PLATE (F10): flash() over the crew for 3.5 s: GOT <item>, FOUND IT, FOUND THEM, POST n WALKED (the map's #packline is hidden on purpose, rule 19).
+(3) F29/F30 the next post marked once; (4) F5 trip() plans from the door when away; (5) F21 plurals (PLURAL), blocksWord in words; (6) F28 LAST read kept while a changed crew is read (R.prev), stars pulse (jdread).
+PROOF: THE NORMIE HOUR, WORLD (new, registered) phone 8/0, computer 8/0; PAID ONLY FOR THE WORK 13/0; TRIP 7/0; WAY BACK 6/0; EVERY JOB KIND 37/0; DEMO BUILD 25/0; THE JOB TELLS THE TRUTH computer 9/0 (221 x 100; cold box 2 red stars clean 99; tigers 3 red stars, dead 78, wiped 55).
+NEXT, FIRST: [one scale: the blood is the AUTO colour] (rule 254, Paolo 10/26, STRIKES 208(a)'s one-in-six reading this lane shipped an hour before: the stars and blood read off the AUTO colour's own scale, oddsRunValue, no neutral middle); then [the danger ramps to day fifty] (rule 255).
 WORLD (world-clean-trip): 10/26 (l) LATEST -- *** [the job tells the truth, in blood] 208(a) AS AMENDED BUILT, NOT YET SEEN; EYES' one-star wipe ANSWERED (no champion on day one); [eyes: paid without the fight] (line 138) BUILT, NOT YET SEEN; rule 224 on the cards. ***
 Commit 2ff5deaf (WIP on world-clean-trip). Record: records/BOHEMIA_WORLD_THE_CLEAN_TRIP_NO_CHAMPION_ON_DAY_ONE_PAID_ONLY_FOR_THE_WORK_10_26_26.md. Demo BUILD 10/26v - THE CLEAN TRIP, PAID ONLY FOR THE WORK (10/26u was taken by RUN FOUR the same minute; the ship commit says u).
 (1) THE CLEAN TRIP: a play is clean when won, nobody dead, at most one man in six down (slices/bohemia_job_danger.js okRun, shared by the page, the worker and the gate; records/target/bb/job_danger.json laid_up_per 6, a COORDINATOR'S DEFAULT); TUNING's own 'ok', its cut-offs 0.95 / 0.50.
