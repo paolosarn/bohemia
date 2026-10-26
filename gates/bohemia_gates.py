@@ -10077,6 +10077,12 @@ GATES = [
      "MEASURED before: every man on the crew screen stood bare-handed whatever he held. On the demo, phone and computer, the company screen through the bar's CREW, every man: his figure holds what his main hand "
      "holds as the fight names it (fight_rig.json by_class: pistol, rifle, shotgun; bare when no gun), the gun drawn (more of him painted than his bare idle); the computer: the crew screen's FATIGUE equals the fight's "
      "fatMax for every man in a road fight; the class table emptied is caught. about 3 min", True),
+    ('THE CREW SCREEN SHOWS THEIR CAMP', ['node', 'gates/the_crew_screen_shows_their_camp_gate.js'],
+     "UI gate, 10/26, row [the crew screen shows their camp where they stand] (rule 239(d), Paolo 10/26: 'the background is all black, but what I really want is... your crew with their camp "
+     "in the background, at whatever tile they're currently on'). MEASURED before: behind the crew screen one flat #120e0a, 0 pixels of the world. On the demo, phone and computer, the bar's CREW: "
+     "the map on a street by day (COOK FOUR's camp picture, his men round the fire) and in the desert by night (its night picture), a town by day and by night (the town's own live picture); "
+     "every bare point of the screen on the glass shows a picture (a spread of light); every word on the picture holds 4.5 to 1 against the brightest and darkest tenth behind it; one canvas under 8 MB; "
+     "the screen opens no slower (three opens with and without, median) and the camp draws after its first frame. The camp switched off reads black and the dim taken off drops words under the floor. about 6 min", True),
     ('BUY VERSUS SELL', ['node', 'gates/buy_versus_sell_gate.js'],
      "ECONOMY gate, 10/26, row [buy versus sell] (rule 242, Paolo 10/26: 'at the stall where a dose of med six rounds food and water are available, I should also be able to sell... "
      "how much you can make, buy versus sell prices'). The numbers' half of 242(d) (RUN TWO's [sell at the stall] gate holds the tap): records/target/bb/stall_prices.json, every row sourced, "
