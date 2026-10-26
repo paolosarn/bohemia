@@ -1,0 +1,849 @@
+{
+ "version": "cook-town-screens-10-25",
+ "lane": "COOK",
+ "for_screen": "RUN TWO, the settlement screen (rule 186(b))",
+ "note": "EVERY HOME BASE ITS OWN PICTURE (COOK [every town looks its own], rule 186(b); EYES 10/25w line 106). towns[<the name the map posts>] is that town's picture: src by day, night_src at night, the same 2060 x 1092, its tier's hotspots to the pixel (the tier's variant 0 in settlement_ground_packs/), so every tap and every box in the screen (ARMSBOX, LOTBOX, BUILDBOX, LOOKBOX) lands where it did; settlement_walk.json beside it carries every thing drawn in each picture, measured in the scene (roof to front foot), in RUN TWO's own format. A name not in towns keeps the tier picture (the camp, a place not a home base).",
+ "px_per_metre": 42.916666666666664,
+ "towns": {
+  "Anarchists": {
+   "tier": "town",
+   "src": "anarchists.webp",
+   "night_src": "anarchists_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "barber": {
+     "box": [
+      515,
+      0,
+      1030,
+      364
+     ],
+     "kind": "barber"
+    },
+    "clinic": {
+     "box": [
+      1030,
+      0,
+      1545,
+      364
+     ],
+     "kind": "clinic"
+    },
+    "stall": {
+     "box": [
+      1116,
+      444,
+      1287,
+      583
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      64,
+      425,
+      347,
+      502
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      729,
+      813,
+      815,
+      904
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the edge",
+   "trade": "stage",
+   "u": 0.19,
+   "lights": 7
+  },
+  "Blues": {
+   "tier": "town",
+   "src": "blues.webp",
+   "night_src": "blues_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "barber": {
+     "box": [
+      515,
+      0,
+      1030,
+      364
+     ],
+     "kind": "barber"
+    },
+    "clinic": {
+     "box": [
+      1030,
+      0,
+      1545,
+      364
+     ],
+     "kind": "clinic"
+    },
+    "stall": {
+     "box": [
+      1116,
+      444,
+      1287,
+      583
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      64,
+      425,
+      347,
+      502
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      729,
+      813,
+      815,
+      904
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the edge",
+   "trade": "garden",
+   "u": 0.08,
+   "lights": 3
+  },
+  "Caravans": {
+   "tier": "fortress",
+   "src": "caravans.webp",
+   "night_src": "caravans_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      1116,
+      122,
+      1631,
+      486
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      43,
+      486,
+      558,
+      850
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      687,
+      607,
+      1029,
+      746
+     ],
+     "kind": "stall"
+    },
+    "board": {
+     "box": [
+      1202,
+      637,
+      1288,
+      728
+     ],
+     "kind": "board"
+    },
+    "posts": {
+     "box": [
+      1330,
+      970,
+      1613,
+      1047
+     ],
+     "kind": "posts"
+    }
+   },
+   "stands": "the edge",
+   "trade": "truckstop",
+   "u": 0.08,
+   "lights": 4
+  },
+  "Cartel": {
+   "tier": "fortress",
+   "src": "cartel.webp",
+   "night_src": "cartel_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      1116,
+      122,
+      1631,
+      486
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      43,
+      486,
+      558,
+      850
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      687,
+      607,
+      1029,
+      746
+     ],
+     "kind": "stall"
+    },
+    "board": {
+     "box": [
+      1202,
+      637,
+      1288,
+      728
+     ],
+     "kind": "board"
+    },
+    "posts": {
+     "box": [
+      1330,
+      970,
+      1613,
+      1047
+     ],
+     "kind": "posts"
+    }
+   },
+   "stands": "the edge",
+   "trade": "storage",
+   "u": 0.21,
+   "lights": 4
+  },
+  "Church": {
+   "tier": "town",
+   "src": "church.webp",
+   "night_src": "church_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "barber": {
+     "box": [
+      515,
+      0,
+      1030,
+      364
+     ],
+     "kind": "barber"
+    },
+    "clinic": {
+     "box": [
+      1030,
+      0,
+      1545,
+      364
+     ],
+     "kind": "clinic"
+    },
+    "stall": {
+     "box": [
+      1116,
+      444,
+      1287,
+      583
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      64,
+      425,
+      347,
+      502
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      729,
+      813,
+      815,
+      904
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the heart of the city",
+   "trade": "chapel",
+   "u": 1,
+   "lights": 3
+  },
+  "Colorful": {
+   "tier": "camp",
+   "src": "colorful.webp",
+   "night_src": "colorful_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      601,
+      61,
+      858,
+      258
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      1115,
+      515,
+      1304,
+      679
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      257,
+      546,
+      428,
+      685
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      86,
+      898,
+      601,
+      971
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      1716,
+      788,
+      1802,
+      879
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the edge",
+   "trade": "hall",
+   "u": 0.27,
+   "lights": 2
+  },
+  "Custom": {
+   "tier": "camp",
+   "src": "custom.webp",
+   "night_src": "custom_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      601,
+      61,
+      858,
+      258
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      1115,
+      515,
+      1304,
+      679
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      257,
+      546,
+      428,
+      685
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      86,
+      898,
+      601,
+      971
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      1716,
+      788,
+      1802,
+      879
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the edge",
+   "trade": "yard",
+   "u": 0.19,
+   "lights": 2
+  },
+  "Homeless": {
+   "tier": "camp",
+   "src": "homeless.webp",
+   "night_src": "homeless_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      601,
+      61,
+      858,
+      258
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      1115,
+      515,
+      1304,
+      679
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      257,
+      546,
+      428,
+      685
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      86,
+      898,
+      601,
+      971
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      1716,
+      788,
+      1802,
+      879
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the edge",
+   "trade": "tank",
+   "u": 0.19,
+   "lights": 2
+  },
+  "Mob": {
+   "tier": "fortress",
+   "src": "mob.webp",
+   "night_src": "mob_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      1116,
+      122,
+      1631,
+      486
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      43,
+      486,
+      558,
+      850
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      687,
+      607,
+      1029,
+      746
+     ],
+     "kind": "stall"
+    },
+    "board": {
+     "box": [
+      1202,
+      637,
+      1288,
+      728
+     ],
+     "kind": "board"
+    },
+    "posts": {
+     "box": [
+      1330,
+      970,
+      1613,
+      1047
+     ],
+     "kind": "posts"
+    }
+   },
+   "stands": "the heart of the city",
+   "trade": "casino",
+   "u": 1,
+   "lights": 4
+  },
+  "Network": {
+   "tier": "fortress",
+   "src": "network.webp",
+   "night_src": "network_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      1116,
+      122,
+      1631,
+      486
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      43,
+      486,
+      558,
+      850
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      687,
+      607,
+      1029,
+      746
+     ],
+     "kind": "stall"
+    },
+    "board": {
+     "box": [
+      1202,
+      637,
+      1288,
+      728
+     ],
+     "kind": "board"
+    },
+    "posts": {
+     "box": [
+      1330,
+      970,
+      1613,
+      1047
+     ],
+     "kind": "posts"
+    }
+   },
+   "stands": "between",
+   "trade": "mast",
+   "u": 0.45,
+   "lights": 3
+  },
+  "Reds": {
+   "tier": "town",
+   "src": "reds.webp",
+   "night_src": "reds_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "barber": {
+     "box": [
+      515,
+      0,
+      1030,
+      364
+     ],
+     "kind": "barber"
+    },
+    "clinic": {
+     "box": [
+      1030,
+      0,
+      1545,
+      364
+     ],
+     "kind": "clinic"
+    },
+    "stall": {
+     "box": [
+      1116,
+      444,
+      1287,
+      583
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      64,
+      425,
+      347,
+      502
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      729,
+      813,
+      815,
+      904
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the heart of the city",
+   "trade": "bank",
+   "u": 0.95,
+   "lights": 3
+  },
+  "Remnants": {
+   "tier": "fortress",
+   "src": "remnants.webp",
+   "night_src": "remnants_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      1116,
+      122,
+      1631,
+      486
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      43,
+      486,
+      558,
+      850
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      687,
+      607,
+      1029,
+      746
+     ],
+     "kind": "stall"
+    },
+    "board": {
+     "box": [
+      1202,
+      637,
+      1288,
+      728
+     ],
+     "kind": "board"
+    },
+    "posts": {
+     "box": [
+      1330,
+      970,
+      1613,
+      1047
+     ],
+     "kind": "posts"
+    }
+   },
+   "stands": "the edge",
+   "trade": "prison",
+   "u": 0.22,
+   "lights": 4
+  },
+  "Trades": {
+   "tier": "camp",
+   "src": "trades.webp",
+   "night_src": "trades_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      601,
+      61,
+      858,
+      258
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      1115,
+      515,
+      1304,
+      679
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      257,
+      546,
+      428,
+      685
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      86,
+      898,
+      601,
+      971
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      1716,
+      788,
+      1802,
+      879
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "the edge",
+   "trade": "works",
+   "u": 0.27,
+   "lights": 2
+  },
+  "Volunteers": {
+   "tier": "camp",
+   "src": "volunteers.webp",
+   "night_src": "volunteers_night.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      601,
+      61,
+      858,
+      258
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      1115,
+      515,
+      1304,
+      679
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      257,
+      546,
+      428,
+      685
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      86,
+      898,
+      601,
+      971
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      1716,
+      788,
+      1802,
+      879
+     ],
+     "kind": "board"
+    }
+   },
+   "stands": "between",
+   "trade": "clinic",
+   "u": 0.39,
+   "lights": 3
+  }
+ }
+}

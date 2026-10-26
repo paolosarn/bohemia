@@ -33,8 +33,12 @@
   var LIVE = {
     scout: { says: 'The roads go by quicker: a block on the map costs 15% less time.', travel: 0.85 },
     lookout: { says: 'Sees one block further down a street, a quarter further over open ground, and a camp is warned two blocks sooner.', street: 1, open: 1.25, warn: 2 },
-    cook: { says: 'The crew eats for less: the night\'s food and water cost 15% less.', food: 0.85 },
-    paymaster: { says: 'The hired men take 15% less pay a night, and every other follower costs 15% less.', wage: 0.85 }
+    cook: { says: 'The crew eats for less, and a hurt man gets a hitpoint more back every hour.', food: 0.85, heal: 1 },
+    paymaster: { says: 'The hired men take 15% less pay a night, and every other follower costs 15% less.', wage: 0.85 },
+    /* CAMP [the heal button, damage that stays] (rule 226(e): the camp grows: faster healing, faster repair): Battle Brothers' own
+       follower pages (bb_all/1947, 1974), the numbers in records/target/bb/condition.json, read by engine/bohemia_condition.js */
+    blacksmith: { says: 'Armour gets mended a fifth quicker, and it eats a fifth less tape.', repair: 1.2, tape: 0.8 },
+    surgeon: { says: 'A man laid up after a bad fall is back on his feet a day sooner.', injuryDays: 1 }
   };
   var WORD = { scout: 'THE SCOUT', lookout: 'THE LOOKOUT', cook: 'THE COOK', paymaster: 'THE PAYMASTER', blacksmith: 'THE BLACKSMITH', surgeon: 'THE SURGEON' };
   function state() {

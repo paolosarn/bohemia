@@ -21,7 +21,11 @@
      THE TOWN
      - the town's own top row is gone, its frame starts where the bar ends, its LEAVE keeps the bottom-right corner and
        takes him back to the map
-     - the phone stands where it stands on the map, over the town
+     - NO PHONE IN THE TOWN (UI [no phone in the town], rule 211, Paolo 10/26: 'the phone on the settlement screen is so
+       ugly... it's covering up other buttons'; EYES line 132: LEAVE and the sheet's X under the phone's held jobs): the old
+       phone is not on the town's glass (UI TWO's corner phone, data-phone="corner", rules 212 and 213, is let through)
+     NOTHING COVERS A PRESS (rule 211(b)): every press's centre on the map, in the town with its board open (the bar's, the
+       town's own, each landing on the town's frame from the map's page first) and in the fight hit-tests to itself
      THE FIGHT
      - the fight's board is measured under the bar (its TOPH is the bar's bottom), the phone is not on the fight's glass
      ONE CREW, ONE GEAR, ONE NOTES
@@ -29,8 +33,8 @@
      - in the fight the gear opens the game's settings over the fight, and NOTES opens the notes and a note saved there is
        in the same notes as the map's, marked as written in the fight
      - nothing thrown
-   PLANTED (the phone): a fight's gear moved six points, the fight's gear redrawn, the town's own top row back, the phone
-   moved in the town: each turns a leg red.
+   PLANTED (the phone): a fight's gear moved six points, the fight's gear redrawn, the town's own top row back, the old phone
+   back in the town, a sheet laid over LEAVE: each turns a leg red.
    node gates/one_hud_everywhere_gate.js */
 'use strict';
 const path = require('path');
@@ -58,6 +62,14 @@ const READ = () => {
 };
 const PHONE = () => { const e = document.getElementById('cityfeed'); if (!e) return null; const r = e.getBoundingClientRect();
   const h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { rect: [r.x, r.y, r.width, r.height], onTop: !!h && e.contains(h), shown: r.width > 0 && getComputedStyle(e).display !== 'none' }; };
+/* every press on this page: visible, inside the glass, and its centre hit-tests to itself (rule 211(b)) */
+const PRESS = (sel) => { const out = []; const vis = e => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > 2 && r.height > 2 && cs.visibility !== 'hidden' && +cs.opacity > 0.05 && cs.pointerEvents !== 'none'
+  && r.x + r.width / 2 >= 0 && r.y + r.height / 2 >= 0 && r.x + r.width / 2 <= innerWidth && r.y + r.height / 2 <= innerHeight; };
+  [...document.querySelectorAll(sel)].filter(vis).forEach(e => { const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    out.push({ id: (e.id || e.className.toString().slice(0, 16) || e.tagName) + ' ' + (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 14), ok: !!h && (h === e || e.contains(h)), on: h ? (h.id || h.tagName) : null, r: [r.x, r.y, r.width, r.height] }); });
+  return out; };
+const PRESS_SEL = 'button:not([disabled]), [role=button], #bmtb .t, #bmtb #notebtn, #speedpad .sp';
+const pressSay = L => L.filter(x => !x.ok).map(x => x.id + ' under ' + x.on).join(', ');
 const near = (a, b) => !!a && !!b && a.every((v, i) => Math.abs(v - b[i]) <= TOL);
 const fmt = r => r ? r.map(v => Math.round(v * 10) / 10).join(',') : 'none';
 
@@ -94,6 +106,8 @@ async function side(profile) {
     ok('  nothing of the map lies over the bar', PIECES.every(k => M.at[k]), PIECES.filter(k => !M.at[k]).join(' '));
     ok('  where you are is said once, whole (upright in the presses\' row, wide at the glass\'s end)', M.placeOnce && !!M.facts.place, M.facts.place + ' at ' + fmt(M.rect.place));
     ok('  the phone is on the map', !!MP && MP.shown && MP.onTop, MP && fmt(MP.rect));
+    { const L = await fr.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
+      ok('  nothing covers a press on the map (every press\'s centre is the press)', L.length >= 6 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
     {
       await fr.evaluate(() => document.querySelector('#bmtb .t.crew').click()); await p.waitForTimeout(1800);
       const c = await fr.evaluate(() => { const w = document.getElementById('crewdoor'); if (!w) return null; const r = w.getBoundingClientRect(), f = w.querySelector('iframe');
@@ -125,7 +139,29 @@ async function side(profile) {
     ok('  the place is the town\'s name, the batteries the town\'s purse, the day and the crew the map\'s',
       t1.T.facts.place === String(t1.own.name).trim().toUpperCase() && t1.T.facts.batteries === String(t1.own.bats) && t1.T.facts.day === M.facts.day && t1.T.facts.crew === M.facts.crew,
       JSON.stringify(t1.T.facts) + ' town ' + t1.own.name + ' ' + t1.own.bats);
-    ok('  the phone stands where it stands on the map, over the town', !!t1.TP && t1.TP.shown && t1.TP.onTop && near(MP.rect, t1.TP.rect), t1.TP && (fmt(MP.rect) + ' vs ' + fmt(t1.TP.rect) + ' on top ' + t1.TP.onTop));
+    const oldPhone = () => fr.evaluate(() => { const e = document.getElementById('cityfeed'); if (!e || e.getAttribute('data-phone') === 'corner') return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).display !== 'none'; });
+    ok('  no phone in the town (the old phone is off the town\'s glass; the jobs and DROP are on its board)', !(await oldPhone()), t1.TP && fmt(t1.TP.rect));
+    /* nothing covers a press in the town, its board open (EYES' case: the tall sheet lifts LEAVE; the held jobs sat over it) */
+    {
+      const sbox = await (await sf.frameElement()).boundingBox(), TOUCH = profile !== 'computer';
+      for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'board' && !!document.querySelector('#sbody .acts'))) break;
+        const w = await sf.evaluate(() => BohemiaSettlement.where('board')); if (w) { if (TOUCH) await p.touchscreen.tap(sbox.x + w.x, sbox.y + w.y); else await p.mouse.click(sbox.x + w.x, sbox.y + w.y); } await p.waitForTimeout(900); }
+      await p.waitForTimeout(800);
+      const TP = async () => { const B = await fr.evaluate('(' + PRESS + ')(' + JSON.stringify('#bmtb .t, #bmtb #notebtn, #bmtb button, #cityfeed button, #cityfeed [role=button]') + ')');
+        const T = await sf.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
+        const up = await fr.evaluate((pts) => { const f = document.getElementById('settleFrame').getBoundingClientRect(); return pts.map(q => { const h = document.elementFromPoint(f.x + q.r[0] + q.r[2] / 2, f.y + q.r[1] + q.r[3] / 2); return h ? (h.id || h.tagName) : null; }); }, T);
+        T.forEach((q, i) => { if (up[i] !== 'settleFrame') { q.ok = false; q.on = 'the map page\'s ' + up[i]; } });
+        return B.concat(T); };
+      const L = await TP();
+      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job)', L.length >= 8 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
+      if (PLANT) {
+        await sf.evaluate(() => { const l = document.getElementById('leave'), r = l.getBoundingClientRect(), d = document.createElement('div'); d.id = 'plantcover';
+          d.style.cssText = 'position:fixed;z-index:99999;left:' + r.x + 'px;top:' + r.y + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; document.body.appendChild(d); });
+        const L2 = await TP(); await sf.evaluate(() => document.getElementById('plantcover').remove());
+        ok('PLANTED: a sheet laid over LEAVE is caught', L2.some(x => !x.ok && /leave/i.test(x.id)), pressSay(L2).slice(0, 80));
+      }
+      await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await p.waitForTimeout(400);
+    }
     const L = t1.own.leave, LW = t1.own.W, LH = t1.own.H;
     ok('  LEAVE keeps the big action\'s corner (bottom right, where the map\'s speed pad is), 44 points', !!L && L[0] + L[2] >= LW - 30 && L[1] + L[3] >= LH - 40 && L[2] >= 44 && L[3] >= 44, L && fmt(L) + ' of ' + LW + 'x' + LH);
     {
@@ -147,9 +183,9 @@ async function side(profile) {
       await sf.evaluate(() => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = 'html.bm-in-hud body #bar{display:flex!important}'; document.head.appendChild(s); });
       await p.waitForTimeout(300); const a = await TOWNCHK(); await sf.evaluate(() => document.getElementById('plant').remove());
       ok('PLANTED: the town\'s own top row back is caught', a.own.bar);
-      await fr.evaluate(() => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = 'html.bm-town body #cityfeed{margin-top:20px!important}'; document.head.appendChild(s); });
-      await p.waitForTimeout(300); const b = await fr.evaluate('(' + PHONE + ')()'); await fr.evaluate(() => document.getElementById('plant').remove());
-      ok('PLANTED: the phone moved in the town is caught', !near(MP.rect, b.rect));
+      await fr.evaluate(() => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = 'html.bm-town body #cityfeed#cityfeed{display:block!important}'; document.head.appendChild(s); });
+      await p.waitForTimeout(300); const b = await oldPhone(); await fr.evaluate(() => document.getElementById('plant').remove());
+      ok('PLANTED: the old phone back in the town is caught', b);
     }
     /* LEAVE takes him back to the map */
     await sf.evaluate(() => document.getElementById('leave').click()); await p.waitForTimeout(1500);
@@ -172,6 +208,8 @@ async function side(profile) {
       ok('the fight: every piece of the bar in the map\'s rectangle', PIECES.every(k => near(MB.rect[k], F.rect[k])),
         PIECES.filter(k => !near(MB.rect[k], F.rect[k])).map(k => k + ' ' + fmt(MB.rect[k]) + ' vs ' + fmt(F.rect[k])).join(' | '));
       ok('  nothing of the fight lies over the bar', PIECES.every(k => F.at[k]), PIECES.filter(k => !F.at[k]).join(' '));
+      { const L = await f.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
+        ok('  nothing covers a press in the fight', L.length >= 4 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
       ok('  the same facts as the map\'s (the day, the crew, the batteries, the place)', ['day', 'crew', 'batteries', 'place'].every(k => F.facts[k] && F.facts[k] === MB.facts[k]), JSON.stringify(F.facts) + ' vs ' + JSON.stringify(MB.facts));
       {
         const diffs = {};

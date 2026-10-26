@@ -12,12 +12,13 @@
    LEGS:
      C1 the file: every origin carries the wiki's Tools, Ammunition and Medicine for its three funds (its crowns the file's), and
         every door block its food_days
-     C2 *** THE SIX FROM THE FIRST MINUTE *** (the demo, the phone, NEW GAME and BEGIN as a stranger does): batteries, food, water,
-        tape, meds and rounds stand on the bar with the origin's numbers
+     C2 *** THE FIVE FROM THE FIRST MINUTE *** (the demo, the phone, NEW GAME and BEGIN as a stranger does): batteries, food (food
+        and water, one count since rule 209), tape, meds and rounds stand on the bar with the origin's numbers; no water alone
      C3 the night: the wagon feeds the crew first and the batteries are not touched; an empty wagon is the batteries' bill as before;
         the nights left count the wagon
-     C4 the stall (real taps in a town): a dose of meds, six rounds, a jug of water, a ration of food each go into their count,
-        and the bar says so
+     C4 the stall (real taps in a town): a dose of meds, six rounds, a night of food and water each go into their count, and the
+        bar says so
+     C9 a save from before (rations and jugs apart) folds into the one count, nothing lost, and water is gone from it
      C5 the loot's rounds go into ROUNDS (the spoils screen, LOOT ALL)
      C6 the fight pit pays its three men their 6 a night; the Lone Wolf on bare shelves starts with 5 tape, 3 meds, no rounds
      C7 the computer: the six on the bar
@@ -35,7 +36,7 @@ const done = () => { console.log('THE WAGON AND THE SIX: ' + pass + ' passed, ' 
 const J = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const FILE = J('records/target/bb/origins.json'), BY = {}; FILE.origins.forEach(o => { BY[o.id] = o; });
 const BAR = () => { const r = document.getElementById('bmtb'); const o = {}; [...(r ? r.querySelectorAll('.s.six') : [])].forEach(e => { const b = e.querySelector('b'); o[e.dataset.f] = b ? +b.textContent : null; }); return o; };
-const KEYS = ['food', 'water', 'tape', 'meds', 'rounds'];
+const KEYS = ['food', 'tape', 'meds', 'rounds'];   /* RE-AIMED 10/26 (rule 209, [food and water are one]): food and water one count, the bar five */
 
 (async () => {
   /* ---- C1 ---- */
@@ -54,17 +55,17 @@ const KEYS = ['food', 'water', 'tape', 'meds', 'rounds'];
     await P.waitForTimeout(3500);
     /* ---- C2 ---- */
     const o = BY[pick.origin], n = o.men.length, dd = o.door.food_days;
-    const want = { food: dd * n, water: dd * n, tape: o.supplies.tape[pick.econ], meds: o.supplies.meds[pick.econ], rounds: o.supplies.rounds[pick.econ] };
+    const want = { food: dd * n, tape: o.supplies.tape[pick.econ], meds: o.supplies.meds[pick.econ], rounds: o.supplies.rounds[pick.econ] };
     const bar0 = await fr.evaluate(BAR), bats0 = await fr.evaluate(() => loopBats());
     if (process.env.BOHEMIA_SHOT_DIR) await P.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'the_six_phone.png') });
-    ok('*** C2 THE SIX FROM THE FIRST MINUTE *** (the phone, ' + o.name + ' on ' + pick.econ + ' shelves: ' + JSON.stringify(bar0) + ')',
-      bar0.batteries === bats0 && KEYS.every(k => bar0[k] === want[k]), 'the file says ' + JSON.stringify(want));
+    ok('*** C2 THE FIVE FROM THE FIRST MINUTE *** (the phone, ' + o.name + ' on ' + pick.econ + ' shelves: ' + JSON.stringify(bar0) + ')',
+      bar0.batteries === bats0 && KEYS.every(k => bar0[k] === want[k]) && !('water' in bar0), 'the file says ' + JSON.stringify(want));
     /* ---- C3 ---- */
     const night = await fr.evaluate(() => { const b0 = loopBats(), d0 = billDaysLeft(); const r = crewBillNight(); return { fell: b0 - loopBats(), ate: r.ate, paid: r.paid, d0, w: JSON.parse(localStorage.getItem('bohemia.supplies.v1')) }; });
-    const empty = await fr.evaluate(() => { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1')); const keep = Object.assign({}, w); w.food = 0; w.water = 0; localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w));
+    const empty = await fr.evaluate(() => { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1')); const keep = Object.assign({}, w); w.food = 0; delete w.water; localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w));
       const b0 = loopBats(), crew = crewCount(), r = crewBillNight(), fell = b0 - loopBats(); loopSettleBats(b0, 'the gate'); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(keep)); return { fell, crew, per: BILL.per_man, wages: r.wages }; });
-    ok('C3 the night: the wagon feeds the crew first (a ration and a jug a man, no batteries); an empty wagon is the batteries\' bill as before; the nights left count the wagon',
-      night.fell === 0 && night.ate && night.ate.food === n && night.ate.water === n && night.w.food === want.food - n && empty.fell === empty.crew * empty.per + empty.wages && night.d0 >= dd,
+    ok('C3 the night: the wagon feeds the crew first (a night of food and water a man, no batteries); an empty wagon is the batteries\' bill as before; the nights left count the wagon',
+      night.fell === 0 && night.ate && night.ate.food === n && !('water' in night.ate) && night.w.food === want.food - n && !('water' in night.w) && empty.fell === empty.crew * empty.per + empty.wages && night.d0 >= dd,
       JSON.stringify({ night: { fell: night.fell, ate: night.ate, left: night.w.food }, empty, nightsLeft: night.d0 }));
     /* ---- C4 the stall, real taps ---- */
     await fr.evaluate(() => { loopSettleBats(Math.max(loopBats(), 400), 'the gate'); const bs = ctBases(), names = Object.keys(bs), t0 = names.find(k => /church/i.test(k)) || names[0], t = { name: t0, x: bs[t0].x, y: bs[t0].y, tier: mapTierOf(t0) }; city.x = t.x; city.y = t.y; loopOpenTown(t); });
@@ -75,7 +76,7 @@ const KEYS = ['food', 'water', 'tape', 'meds', 'rounds'];
       await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 8000 }).catch(() => {});
       const box = await (await sf.frameElement()).boundingBox(), before = await sf.evaluate(() => JSON.parse(localStorage.getItem('bohemia.supplies.v1')));
       for (let i = 0; i < 6; i++) { if (await sf.evaluate(() => BohemiaSettlement.state.open === 'stall')) break; const w = await sf.evaluate(() => BohemiaSettlement.where('stall')); if (w) await P.touchscreen.tap(box.x + w.x, box.y + w.y); await P.waitForTimeout(800); }
-      for (const label of ['A dose of meds', 'Six rounds', 'Water, four litres', 'A ration of food']) {
+      for (const label of ['A dose of meds', 'Six rounds', 'Food and water, a night for one man']) {
         const r = await sf.evaluate((l) => { const b = [...document.querySelectorAll('#sbody .act')].find(x => x.textContent.indexOf(l) >= 0); if (!b) return null; b.scrollIntoView({ block: 'center' }); const q = b.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, label);
         if (r) await P.touchscreen.tap(box.x + r.x, box.y + r.y); await P.waitForTimeout(700); }
       const after = await sf.evaluate(() => JSON.parse(localStorage.getItem('bohemia.supplies.v1')));
@@ -83,11 +84,15 @@ const KEYS = ['food', 'water', 'tape', 'meds', 'rounds'];
       const tbar = await sf.evaluate(BAR);
       await sf.evaluate(() => { const l = document.getElementById('leave'); if (l) l.click(); }); await P.waitForTimeout(1500);
       const mbar = await fr.evaluate(BAR);
-      c4 = { d: { meds: after.meds - before.meds, rounds: after.rounds - before.rounds, water: after.water - before.water, food: after.food - before.food }, tbar, mbar, after };
+      c4 = { d: { meds: after.meds - before.meds, rounds: after.rounds - before.rounds, food: after.food - before.food }, water: 'water' in after, tbar, mbar, after };
     }
-    ok('C4 the stall, real taps: a dose of meds +1, six rounds +6, a jug of water +1, a ration +1, and the bar says so in the town and on the map',
-      !!c4 && c4.d.meds === 1 && c4.d.rounds === 6 && c4.d.water === 1 && c4.d.food === 1 && KEYS.every(k => c4.mbar[k] === c4.after[k]) && (Object.keys(c4.tbar).length === 0 || KEYS.every(k => c4.tbar[k] === c4.after[k])),
+    ok('C4 the stall, real taps: a dose of meds +1, six rounds +6, a night of food and water +1, and the bar says so in the town and on the map',
+      !!c4 && c4.d.meds === 1 && c4.d.rounds === 6 && c4.d.food === 1 && !c4.water && KEYS.every(k => c4.mbar[k] === c4.after[k]) && (Object.keys(c4.tbar).length === 0 || KEYS.every(k => c4.tbar[k] === c4.after[k])),
       JSON.stringify(c4 && { added: c4.d, mapBar: c4.mbar, townBar: c4.tbar }));
+    /* ---- C9 a save from before ---- */
+    const c9 = await fr.evaluate(() => { const keep = localStorage.getItem('bohemia.supplies.v1'); const w = JSON.parse(keep); w.food = 21; w.water = 20; localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w));
+      const got = wagonGet(), stored = JSON.parse(localStorage.getItem('bohemia.supplies.v1')); localStorage.setItem('bohemia.supplies.v1', keep); return { food: got.food, water: 'water' in got, storedWater: 'water' in stored }; });
+    ok('C9 a save from before (21 rations, 20 jugs) folds into one count, ' + c9.food + ' nights of food and water, nothing lost; water is gone from it', c9.food === 21 && !c9.water && !c9.storedWater, JSON.stringify(c9));
     /* ---- C8a ---- */
     const demo = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8');
     const forgot = await P.evaluate(() => { BohemiaOriginStart.forget(); return localStorage.getItem('bohemia.supplies.v1'); });

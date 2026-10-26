@@ -15,8 +15,9 @@
    LEGS (the painting re-baked in the page from the demo's own valley, and read):
      U1 built blocks show walls: of the texels the painting gives to houses, works and freeway, at least
         a sixth are wall faces (a flat carpet shows almost none)
-     U2 a house stands: the tallest house is at least 3.5 T (T = one texel at 24 a block)
-     U3 the freeway is on its berm: the freeway is lifted at least 2.5 T
+     U2 a house stands: the tallest house is at least 15 T (T = one texel at 24 a block; 3.5 until RUN 10/25 __THE_MAP_STANDS_TALLER__,
+        rule 196(a): houses three times their 2165008f height, the tallest 5.6 T there; THE MAP STANDS TALLER measures every kind)
+     U3 the freeway is on its berm: the freeway is lifted at least 5.5 T (2.5 until 10/25: the berm twice its 3 T)
      U4 the sun casts: at least 6% of the painting's visible tops are in shade
      U5 the opening zoom is the standing painting (over the block pictures' grain, the pixel floor's reading), and
         the hand-over to the block pictures is short (two cities never ghost through a long fade)
@@ -43,7 +44,7 @@ function legs(st) {
     walls: st.wall / Math.max(1, st.built), house: st.houseMax / st.T, fwy: st.fwyMax / st.T, shade: st.shade / Math.max(1, st.top),
   };
 }
-const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 3.5, U3: L.fwy >= 2.5, U4: L.shade >= 0.06 });
+const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 15, U3: L.fwy >= 5.5, U4: L.shade >= 0.06 });
 
 (async () => {
   let d;
@@ -69,8 +70,8 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 3.5, U3: L.fwy >= 2.5
     }, MUT);
     const R = legs(runs.real), H = holds(R);
     ok('U1 built blocks show walls: ' + pc(R.walls) + ' of the houses\', works\' and freeway\'s texels are wall faces (at least 16.7%)', H.U1);
-    ok('U2 a house stands: the tallest house ' + R.house.toFixed(1) + ' T (at least 3.5 T; it was 2 T)', H.U2);
-    ok('U3 the freeway is on its berm: ' + R.fwy.toFixed(1) + ' T (at least 2.5 T; it was 0)', H.U3);
+    ok('U2 a house stands: the tallest house ' + R.house.toFixed(1) + ' T (at least 15 T; it was 2 T, then 5.6 T)', H.U2);
+    ok('U3 the freeway is on its berm: ' + R.fwy.toFixed(1) + ' T (at least 5.5 T; it was 0, then 3 T)', H.U3);
     ok('U4 the sun casts: ' + pc(R.shade) + ' of the painting\'s visible tops are in shade (at least 6%; there were none)', H.U4);
 
     const fade = await d.fr.evaluate(() => { setZoomAt(1); MAP_GROUND.key = ''; VBC.alpha = -1; render(); return { TW, a: TW >= VB_CITY_NONE ? 0 : VBC.alpha, hand: VB_CITY_NONE - VB_CITY_HOLD }; });
@@ -91,10 +92,15 @@ const holds = L => ({ U1: L.walls >= 1 / 6, U2: L.house >= 3.5, U3: L.fwy >= 2.5
        every works block civic): the same leg must go red. */
     const fam = await d.fr.evaluate(() => {
       const FAM = { suburb: /^(suburb|town)$/, trailer: /^trailer$/, apartment: /^apartment$/, estate: /^(estate|gated)$/, shop: /^(commercial|mall|convention)$/, works: /^(industrial|warehouse|storage)$/ };
-      const read = (inp) => { const r = vbCityCore(inp), P = r.P, S = r.S, PAD = r.PAD, N = inp.N, acc = {};
-        for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const dd = om.at(x, y).district; let f = null; for (const k in FAM) if (FAM[k].test(dd)) f = k; if (!f) continue;
-          const a = acc[f] || (acc[f] = [0, 0, 0, 0]);
-          for (let v = (y + PAD) * S; v < (y + PAD + 1) * S; v += 2) for (let u = (x + PAD) * S; u < (x + PAD + 1) * S; u += 2) { const o = (v * P + u) * 4; a[0] += r.day[o]; a[1] += r.day[o + 1]; a[2] += r.day[o + 2]; a[3]++; } }
+      /* RUN 10/25 (__THE_MAP_STANDS_TALLER__, rule 196): each picture texel is read for the family of the block that OWNS it (what
+         stands there, the painter's own depth: the owner is k texels toward the camera), never the ground under it: at three
+         times the height a block's own ground is mostly the walls of the block in front of it, so a family read off its ground
+         was its neighbours' walls (shop/trailer 4.7 apart that way, 11.2 by owner; by owner the old heights read 8.3) */
+      const read = (inp) => { const r = vbCityCore(inp), P = r.P, S = r.S, PAD = r.PAD, N = inp.N, acc = {}, FK = Object.keys(FAM), fam = new Int8Array(N * N).fill(-1);
+        for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const dd = om.at(x, y).district; for (let i = 0; i < FK.length; i++) if (FAM[FK[i]].test(dd)) fam[y * N + x] = i; }
+        for (let v = 0; v < P; v += 2) for (let u = 0; u < P; u += 2) { const k = r.dep[v * P + u], bx = Math.floor((u + k) / S) - PAD, by = Math.floor((v + k) / S) - PAD;
+          if (bx < 0 || by < 0 || bx >= N || by >= N) continue; const fi = fam[by * N + bx]; if (fi < 0) continue;
+          const a = acc[FK[fi]] || (acc[FK[fi]] = [0, 0, 0, 0]), o = (v * P + u) * 4; a[0] += r.day[o]; a[1] += r.day[o + 1]; a[2] += r.day[o + 2]; a[3]++; }
         const m = {}; for (const k in acc) m[k] = acc[k].slice(0, 3).map(v => v / acc[k][3]);
         let lo = 1e9, pair = ''; const ks = Object.keys(m);
         for (let i = 0; i < ks.length; i++) for (let j = i + 1; j < ks.length; j++) { const q = Math.hypot(m[ks[i]][0] - m[ks[j]][0], m[ks[i]][1] - m[ks[j]][1], m[ks[i]][2] - m[ks[j]][2]); if (q < lo) { lo = q; pair = ks[i] + '/' + ks[j]; } }

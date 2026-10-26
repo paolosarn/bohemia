@@ -708,11 +708,24 @@ const FIGHT = (function () {
     /* ONE MAN, ONE LOOK (RUN TWO [eyes: one man, one look], 10/19, rule 120(d)): a man the company hands with his look
        (engine/bohemia_roster.js company()) fights in it, so a death or a new order never moves him into another body;
        else the place in this list, as before */
-    return makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    return condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagKit: !bagHanded(c), bagState: [],
-      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
+      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' }));
+  }
+  /* __DAMAGE_STAYS__ (CAMP [the heal button, damage that stays], rule 226, Paolo 10/26: 'right now you can just do fights back to
+     back to back and you always respawn... healing is important, the damage you sustained in battle'). A man the company hands
+     with what he is missing (c.cond, engine/bohemia_condition.js, kept from his last fight's end and healed by the map's clock)
+     comes in with that much less: his hitpoints off his whole number (never under one), his helmet's and his body armour's
+     off the piece's durability only when he wears the same piece (a new piece is whole); nothing handed = whole, as before */
+  function condApply(c, u) {
+    const k = c && c.cond; if (!k) return u;
+    if (k.lostHp > 0) u.hp = Math.max(1, Math.min(u.hpMax, Math.round(u.hpMax - k.lostHp)));
+    if (k.lostH > 0 && u.headRow && (!k.head || k.head === u.headRow.id)) u.armH = Math.max(0, Math.round(u.armHMax - k.lostH));
+    if (k.lostB > 0 && u.bodyRow && (!k.body || k.body === u.bodyRow.id)) u.armB = Math.max(0, Math.round(u.armBMax - k.lostB));
+    u.cameHurt = { hp: u.hpMax - u.hp, armH: u.armHMax - u.armH, armB: u.armBMax - u.armB };
+    return u;
   }
   /* GUNS FIRST, IN THE RIGHT HANDS (rule 120(a); ours.guns_first_kit): the kit the crew rows carry, in order, is dealt to the men
      the origin built (YOU keep your own slot): the long guns first, each to the best eye left (the middle of his background's wiki ranged_skill range), the
@@ -1146,7 +1159,7 @@ const FIGHT = (function () {
       ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
           if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
-          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; return t; })
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; if (m.cond) t.cond = m.cond; return t; })
       : base);
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
@@ -1624,6 +1637,20 @@ const FIGHT = (function () {
     const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
     return d >= rangeLo(w) && d <= rangeMax(w.range) + up && sees(a, t);
   }
+  /* EVERY WEAPON HAS ITS RANGE BANDS (COMBAT [every weapon's range bands], rule 187, Paolo 10/25: 'a rifle shooting one tile next
+     to it might be a range debuff; a shotgun, the closer you are, after one or two tiles'): on top of Battle Brothers' own fall of
+     the shot a tile (its per_hex and base, chanceWith), each gun's band by distance from ours.range_bands: the hit it adds or
+     takes at that many tiles, and the share of its damage that arrives there. Read by the chance, the damage, the aim line,
+     AUTO's walk and the calculator alike. null for a weapon with no band (melee, the bottles) */
+  function band(a, t, w) {
+    w = w || a.weapon; if (!isRanged(w)) return null;
+    const b = R('ours.range_bands')[jobOfWeapon(w)]; if (!b) return null;
+    const d = String(dist(a, t)), h = (b.hit_by_tile || {})[d], m = (b.damage_by_tile || {})[d];
+    return { hit: h || 0, dmg: m === undefined ? 1 : m, tiles: Number(d) };
+  }
+  /* a gun whose damage falls off with the distance wants to be close (the shotgun), the others keep theirs */
+  function wantsClose(w) { const b = isRanged(w) ? R('ours.range_bands')[jobOfWeapon(w)] : null;
+    return !!b && Object.keys(b.damage_by_tile || {}).some(function (k) { return b.damage_by_tile[k] < 1; }); }
   /* the nearest tile a ranged weapon reaches: a gun from the tile beside him (rule 185: 'all guns 2+' is the reach, never a minimum;
      the pistol's shot rides a javelin row whose own page says two), a bow or a thrown thing from its own row */
   function rangeLo(w) { return isGun(w) ? R('ours.gun_min_range') : Math.max(rangeMin(w), 1); }
@@ -1665,6 +1692,8 @@ const FIGHT = (function () {
       else if (w.class === 'throwing') { const g = R('parsed.throw_axe'); per = g.per_hex; base = g.base_bonus; free = g.free_tiles; }
       else { const g = R('hit_chance.ranged.distance.bow_quick_shot'); per = g.per_hex; base = g.base_bonus; }
       ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
+      const bd = band(a, t); if (bd && bd.hit) { ch += bd.hit; parts.push(bd.hit < 0 ? 'point-blank' : 'in its range'); }
+      if (bd && bd.dmg < 1) parts.push('spread');
       const blocked = ignores ? null : shotLine(a, t);
       if (blocked) {
         ch *= PK(a, 'bullseye') ? 1 - R('hit_chance.ranged.cover_bullseye') : 1 + R('hit_chance.ranged.cover_line_of_fire_blocked');
@@ -1733,6 +1762,7 @@ const FIGHT = (function () {
   function hitDamage(a, t, raw, head, armour) {
     const w = a.weapon;
     let base = raw * injMult(a, 'damage_inflicted_pct');
+    const bd = band(a, t); if (bd) base *= bd.dmg;   /* rule 187: the share of the gun's damage that arrives at this distance */
     const ex = PK(a, 'executioner'); if (ex && t.injuries.length) base *= 1 + ex.damage_bonus_vs_injured_pct / 100;
     const kf = PK(a, 'killing_frenzy'); if (kf && a.frenzy > 0) base *= 1 + kf.damage_bonus_pct / 100;
     const tm = w.class === 'throwing' && !w.of ? PK(a, 'throwing_mastery') : null;   /* BOTTLE ARM is the bottles', never the pistol's */
@@ -2398,7 +2428,7 @@ const FIGHT = (function () {
   }
   function expected(a, t) {
     const hc = hitChance(a, t, strikeSkill(a.weapon)).chance;
-    const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
+    const bd = band(a, t), mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1) * (bd ? bd.dmg : 1);
     return hc * mean / Math.max(1, t.hp + t.armB);
   }
   /* the start of a turn: rally the breaking, rest when too winded to swing (Recover takes the whole turn) */
@@ -2425,9 +2455,296 @@ const FIGHT = (function () {
     if (canUse(u, 'adrenaline') && foes(u).some(function (f) { return sideSees(u.side, f); })) return useSkill(u, 'adrenaline');
     return false;
   }
-  function bestTarget(u) {
+  /* ---------------- THE TEAM PICKS ONE (COMBAT TWO [AUTO kills one at a time], rule 201, Paolo 10/25: 'I don't see teammates
+     working together to target one enemy to make sure we kill enemies one at a time... all the damage is spreading apart
+     equally on all the opponents... unless the risk is too great to move tile to tile because you're gonna get a free hit';
+     and rule 191(a): 'the ranged units should always prioritize the enemies they have the highest accuracy to hit';
+     records/BOHEMIA_COMBAT_TWO_AUTO_KILLS_ONE_AT_A_TIME_10_25_26.md) ----------------
+     The 1.25 nudge a strike lost to a step of distance, so each man took his own best-looking man and the blows spread. Now,
+     once a round, AUTO NAMES ONE: for every enemy his side can see, the men of ours still to act this round who can reach him
+     (from where they stand, or by a walk that leaves no ring), their blows and chances, played through the rules' own damage
+     (hitDamage, the armour wearing blow by blow, the roll at its quartiles) to the chance he goes down; times what his death is
+     worth in hitpoints a round: his own blows, every man who drops with him (the mechanic's machines, ours.bestiary), the man of
+     ours he is about to put down. The score: the worth times (kill_rounds x the chance he goes down this round + the chance he
+     goes down before he acts again + the share of him the blows take): Lanchester's square law, a kill removes his damage for
+     every round after (TUNING s3f, the one table's brain.kill_rounds); with no kill in reach, the man brought closest to dead.
+     Every man then strikes where his blows buy most in that same coin, and on the named man they buy what they add to the
+     team's blows still to come on him, so the team piles on him until he falls (no overkill: he falls, the next is named). The
+     calculator plays this same brain. Their side keeps Battle Brothers' spread (201(e)). */
+  function brain() { return R('ours.auto_brain'); }
+  /* the blows a man can land on t this turn with ap left: the strike's AP, his breath, his rounds, a loaded gun (rule 180(g):
+     AUTO reloads only to keep firing, so an empty one-shot gun counts none) */
+  function blowsOn(a, t, ap) {
+    const w = a.weapon, s = strikeSkill(w), cost = skillAP(w, s, a), fat = skillFat(a, s);
+    let n = cost > 0 ? Math.floor(ap / cost) : 0;
+    if (fat > 0) n = Math.min(n, Math.floor((fatMax(a) - a.fat) / fat));
+    if (w.ammo && a.ammo !== null) n = Math.min(n, a.ammo);
+    if (reloadSkill(w) && !w.mag) n = Math.min(n, a.loaded ? 1 : 0);
+    return { n: Math.max(0, n), p: hitChance(a, t).chance / 100, w: w, shot: isRanged(w) };
+  }
+  /* his best chance on any man he can shoot from where he stands (rule 191(a)) */
+  function bestShot(a) {
+    return isRanged(a.weapon) ? foes(a).reduce(function (m, t) { return canStrike(a, t) && sideSees(a.side, t) ? Math.max(m, hitChance(a, t).chance) : m; }, -Infinity) : -Infinity;
+  }
+  /* what a man takes off the other side in one of his turns, armour and hitpoints the way the rules split a blow (against
+     armour the hitpoints come later, but the armour he wears down is the road to them): his blows on m (the nearest of them
+     when no man is named) at the weapon's middle */
+  function threatOf(t, m) {
+    if (!onField(t)) return 0;   /* a runner counts his blows too: he rallies, and the fight ends only when he is down or gone (rule 198) */
+    const near = m || foes(t).sort(function (p, q) { return dist(p, t) - dist(q, t); })[0];
+    if (!near) return 0;
+    const b = blowsOn(t, near, t.apTurn);
+    const w = t.weapon, d = hitDamage(t, near, (w.damage_min + w.damage_max) / (1 + 1), false, near.armB);
+    return b.n * b.p * (d.hp + d.armour);
+  }
+  /* ---------------- AUTO KNOWS EVERY ENEMY'S LESSON (COMBAT TWO [AUTO knows every enemy's lesson], rule 182, Paolo 10/25: 'if
+     killing the mechanic turns the rest of his robots off, why aren't we just aiming at the mechanic every turn we're in
+     range... I can't be explaining each niche auto combat thing to you') ----------------
+     Every kind the fight can field carries its lesson in ours.lessons (kinds: his lessons by name), and each lesson is one reader
+     here that turns the game's own rule for it into hitpoints a round, the coin the brain names its man in. The reader reads
+     the rule's own row (the mechanic's machines, Raise Undead, the net, Line Breaker, the scream, the Captain's aura), never a
+     copy, so a rule that changes moves the brain with it. A new kind ships with its row (the gate's leg); a lesson with no
+     reader here fails it. 'blows' is his own blows, which every man has. */
+  function lessonsOf(t) { return (R('ours.lessons').kinds[t.kind] || []); }
+  function weakestOf(t, reach) { return foes(t).filter(function (m) { return dist(t, m) <= reach; }).sort(function (p, q) { return (p.hp + p.armB) - (q.hp + q.armB); })[0] || null; }
+  function stepsOf(t) { return Math.floor(t.apTurn / R('ap.move_cost.flat')); }
+  const LESSON = {
+    blows: function () { return 0; },
+    /* THE MECHANIC (ours.bestiary.mechanic): the last of his kind down, every machine of his drops with him */
+    his_machines_drop: function (t) {
+      const M = R('ours.bestiary').mechanic;
+      if (!M.drop_when_he_falls || S.units.some(function (o) { return o !== t && o.side === t.side && o.kind === t.kind && onField(o); })) return 0;
+      return S.units.reduce(function (v, o) { return o.side === t.side && M.machines.indexOf(o.kind) >= 0 ? v + threatOf(o) : v; }, 0);
+    },
+    /* Raise Undead (racial raise_undead): while he stands, per_turn of his fallen come back next turn at hp_pct of their health */
+    stands_them_up: function (t) {
+      const r = racial(t, 'raise_undead'); if (!r) return 0;
+      const up = S.units.filter(function (o) { return o.side === t.side && o.dead && !o.headGone && !o.unplugged && r.raises.indexOf(o.kind) >= 0; }).map(function (o) {
+        const d = o.dead, h = o.hp; o.dead = false; o.hp = Math.max(1, Math.round(o.hpMax * r.hp_pct / 100));
+        try { return threatOf(o); } finally { o.dead = d; o.hp = h; }
+      }).sort(function (p, q) { return q - p; });
+      return up.slice(0, r.per_turn).reduce(function (v, x) { return v + x; }, 0);
+    },
+    /* his own: put down while a raiser of his stands, he is back next turn at the raise's health (read by raisedAt) */
+    gets_up: function () { return 0; },
+    /* THE NET (racial throw_net): one of ours rooted, his defences and initiative cut by cut_pct; the blows of his side land that
+       much more [COMBAT TWO's default: priced as cut_pct of his side's strongest man's blows, while he carries a net] */
+    nets: function (t) {
+      const r = DB.racial.rows.throw_net; if (!(t.nets > 0)) return 0;
+      return r.cut_pct / 100 * S.units.reduce(function (m, o) { return o.side === t.side ? Math.max(m, threatOf(o)) : m; }, 0);
+    },
+    /* LINE BREAKER (racial line_breaker): he knocks the front man back knock_tiles and walks into the hole, so his blows reach the
+       men behind [COMBAT TWO's default: his blows on the weakest of ours a walk away, over his blows on the nearest] */
+    breaks_the_line: function (t) {
+      const r = DB.racial.rows.line_breaker, m = weakestOf(t, stepsOf(t) + r.range_tiles + r.knock_tiles);
+      return m ? Math.max(0, threatOf(t, m) - threatOf(t)) * r.knock_tiles : 0;
+    },
+    /* HORRIFIC SCREAM (racial horrific_scream): checks morale checks on one of ours inside range_tiles; a man who breaks to
+       Fleeing deals nothing [COMBAT TWO's default: the chance the checks walk him down the ladder, each a fail at 1 - resolve] */
+    breaks_nerve: function (t) {
+      const r = racial(t, 'horrific_scream'); if (!r) return 0;
+      const st = STATES(), flee = st.indexOf('Fleeing');
+      return foes(t).reduce(function (v, m) {
+        if (dist(t, m) > stepsOf(t) + r.range_tiles || m.resolve === null || m.resolve === undefined) return v;
+        const rungs = Math.max(1, flee - st.indexOf(m.morale)), fails = r.checks * Math.max(0, 1 - m.resolve / 100);
+        return Math.max(v, threatOf(m) * Math.min(1, fails / rungs));
+      }, 0);
+    },
+    /* THE CAPTAIN (ours.captain_aura): his men inside range_tiles check their nerve at resolve_pct more; down, they lose it.
+       Priced as what that changes: the chance one check of each man's fails rises by resolve_pct of his resolve, times his blows
+       (measured: pricing it as resolve_pct of their whole blows sent AUTO after the leader behind his line, 495 of 600 won
+       where the old brain won 497) [COMBAT TWO's default] */
+    leads: function (t) {
+      if (!t.captain) return 0;
+      const c = R('ours.captain_aura');
+      return S.units.reduce(function (v, o) { return o !== t && o.side === t.side && onField(o) && dist(o, t) <= c.range_tiles && typeof o.resolve === 'number' ? v + threatOf(o) * c.resolve_pct / 100 * Math.max(0, o.resolve) / 100 : v; }, 0);
+    },
+    /* THE MARKSMAN (ai.json backline.soft): his shot goes to the soft man, not the nearest: his blows on the weakest of ours in his
+       reach, over his blows on the nearest */
+    shoots_the_soft: function (t) {
+      const m = weakestOf(t, rangeMax(t.weapon.range) + stepsOf(t));
+      return m ? Math.max(0, threatOf(t, m) - threatOf(t)) : 0;
+    },
+    /* THE RUNNER, THE WOLF (ai.json rider, rusher: 'go round for the weakest'): his blows on the weakest of ours a run away */
+    runs_round: function (t) {
+      const m = weakestOf(t, stepsOf(t) + R('ours.melee_reach'));
+      return m ? Math.max(0, threatOf(t, m) - threatOf(t)) : 0;
+    }
+  };
+  /* what his death is worth in hitpoints a round: his own blows, every lesson of his (above), and the man of ours his blows would
+     put down next turn */
+  function deathWorth(t) {
+    let v = threatOf(t);
+    lessonsOf(t).forEach(function (k) { if (LESSON[k]) v += LESSON[k](t); });
+    if (onField(t) && t.morale !== 'Fleeing') foes(t).forEach(function (m) {
+      const steps = Math.floor(t.apTurn / R('ap.move_cost.flat')), far = isRanged(t.weapon) ? rangeMax(t.weapon.range) : R('ours.melee_reach');
+      if (dist(t, m) > steps + far) return;
+      const b = blowsOn(t, m, t.apTurn), w = t.weapon, hp = hitDamage(t, m, (w.damage_min + w.damage_max) / (1 + 1), false, m.armB).hp;
+      if (b.n * b.p * hp >= m.hp) v += threatOf(m);
+    });
+    return v;
+  }
+  /* the health a man of his side is stood back up at (THE MECHANIC's Raise Undead, racial_skills.json raise_undead: 'raises' the kinds it can,
+     twice a turn, from anywhere): while a raiser of his stands, putting him down is not a kill, it is a round (rule 182: the
+     brain reads the game's own rule, never a special case) */
+  function raisedAt(t) {
+    if (lessonsOf(t).indexOf('gets_up') < 0) return null;
+    const by = S.units.filter(function (o) { const r = o !== t && o.side === t.side && onField(o) ? racial(o, 'raise_undead') : null; return !!r && r.raises.indexOf(t.kind) >= 0; })[0];
+    return by ? Math.max(1, Math.round(t.hpMax * racial(by, 'raise_undead').hp_pct / 100)) : null;
+  }
+  /* the chance the blows put him down, and the share of him they take (his armour with his health: the armour worn off is the
+     road to the health, a shot that takes 20 off a plated man is not worth nothing): every blow a hit at the roll's quartiles
+     or a miss, the armour wearing blow by blow, the rules' own hitDamage */
+  function killOdds(t, blows) {
+    const q = brain().damage_quantiles;
+    let st = [{ hp: t.hp, arm: t.armB, p: 1 }], down = 0;
+    blows.forEach(function (b) {
+      const nx = {};
+      const add = function (hp, arm, p) { if (hp <= 0) { down += p; return; } const k = hp + '|' + arm; if (nx[k]) nx[k].p += p; else nx[k] = { hp: hp, arm: arm, p: p }; };
+      const k0 = b.a.weapon; b.a.weapon = b.w;
+      try {
+        st.forEach(function (s) {
+          add(s.hp, s.arm, s.p * (1 - b.p));
+          q.forEach(function (f) {
+            const d = hitDamage(b.a, t, b.w.damage_min + (b.w.damage_max - b.w.damage_min) * f, false, s.arm);
+            add(s.hp - Math.floor(d.hp), Math.max(0, s.arm - Math.floor(d.armour)), s.p * b.p / q.length);
+          });
+        });
+      } finally { b.a.weapon = k0; }
+      st = Object.keys(nx).map(function (k) { return nx[k]; });
+    });
+    const left = st.reduce(function (m, s) { return m + s.p * (s.hp + s.arm); }, 0);
+    return { kill: down, share: t.hp > 0 ? 1 - left / (t.hp + t.armB) : 1 };
+  }
+  /* the worth of the blows on t in one coin (201(a)): his death's worth a round times (kill_rounds x the chance he goes down + the
+     chance he goes down before he acts again, the blows of the men who go before him: this round's blows of his saved too + the
+     share of him they take); a man who gets up again is not a kill (raisedAt) */
+  function blowsWorth(t, blows) {
+    const n = brain().count_blows, o = killOdds(t, blows.slice(0, n));
+    const pre = blows.filter(function (b) { return b.first; }), k0 = pre.length === blows.length ? o.kill : pre.length ? killOdds(t, pre.slice(0, n)).kill : 0;
+    const up = raisedAt(t), K = up === null ? brain().kill_rounds : 0;
+    /* a man who gets up is stood up at the raise's health: blows that take him under it buy nothing (the armour stays off) */
+    const share = up === null ? o.share : Math.min(o.share, Math.max(0, t.hp - up + t.armB) / Math.max(1, t.hp + t.armB));
+    /* the share is the road to his kill, so it is worth his rounds after too (kill_rounds), the kill sooner */
+    return { kill: o.kill, score: (deathWorth(t) + 1) * (K * (o.kill + share) + k0 + share) };
+  }
+  /* where a man of ours can strike t from this turn, and his blows there: from where he stands, else (out of every ring: a walk out
+     of one draws the free swings, 201(c)) the reachable tile in the fewest other men's rings with the most expected blows, a
+     shooter never into a ring */
+  function joinFrom(m, t, field) {
+    if (canStrike(m, t)) return { x: m.x, y: m.y, cost: 0, b: blowsOn(m, t, m.ap) };
+    if (zocOn(m, m.x, m.y).length || m.netted) return null;
+    field = field || reach(m);
+    const ranged = isRanged(m.weapon), far = ranged ? rangeMax(m.weapon.range) + R('hit_chance.height.ranged_range_per_level') * (1 + 1) : R('ours.melee_reach');
+    const ox = m.x, oy = m.y, oap = m.ap;
+    let best = null;
+    try {
+      Object.keys(field.best).forEach(function (k) {
+        k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+        if ((x === ox && y === oy) || Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) > far) return;
+        const left = oap - field.best[k];
+        m.x = x; m.y = y; m.ap = left;
+        if (!canStrike(m, t) || (ranged && zocOn(m, x, y).length)) return;
+        /* the fewest other men's rings, then (a shooter) the highest tile, then the most expected blows, then the least AP */
+        const b = blowsOn(m, t, left), rings = zocOn(m, x, y).filter(function (f) { return f !== t; }).length, up = ranged ? level(x, y) : 0;
+        const better = !best || rings < best.rings || (rings === best.rings && (up > best.up || (up === best.up && (b.n * b.p > best.b.n * best.b.p || (b.n * b.p === best.b.n * best.b.p && field.best[k] < best.cost)))));
+        if (b.n > 0 && better) best = { x: x, y: y, cost: field.best[k], b: b, rings: rings, up: up };
+      });
+    } finally { m.x = ox; m.y = oy; m.ap = oap; }
+    return best;
+  }
+  /* the men of ours still to act this round, and whether each goes before t acts again (before his turn, if he has not gone) */
+  function stillToAct(side, t) {
+    const at = S.order.indexOf(t.id);
+    return S.order.slice(S.idx).map(function (id, i) { const m = byId(id); return m && m.side === side && onField(m) && m.morale !== 'Fleeing' ? { m: m, first: at <= S.idx || S.idx + i < at } : null; }).filter(Boolean);
+  }
+  function nameFocus(side) {
+    const fields = {}, shots = {}, margin = brain().best_shot_margin;
+    let best = null, next = null;
+    S.units.filter(function (t) { return t.side !== side && onField(t) && sideSees(side, t); }).forEach(function (t) {
+      const blows = [], by = [];
+      stillToAct(side, t).forEach(function (q) {
+        const m = q.m;
+        if (!fields[m.id]) fields[m.id] = zocOn(m, m.x, m.y).length ? { best: {} } : reach(m);
+        const j = joinFrom(m, t, fields[m.id]);
+        if (!j || !j.b.n) return;
+        /* a shooter whose shot on him is more than best_shot_margin under his best is not counted on for him (191(a)) */
+        if (j.b.shot && j.cost === 0) { if (shots[m.id] === undefined) shots[m.id] = bestShot(m); if (j.b.p * 100 < shots[m.id] - margin) return; }
+        by.push({ id: m.id, n: j.b.n, p: j.b.p, first: q.first });
+        for (let i = 0; i < j.b.n; i++) blows.push({ a: m, w: j.b.w, p: j.b.p, first: q.first });
+      });
+      if (!blows.length) return;
+      blows.sort(function (p, q) { return q.p - p.p; });
+      const o = blowsWorth(t, blows);
+      const c = { id: t.id, round: S.round, idx: S.idx, by: by, kill: o.kill, score: o.score };
+      if (!best || c.score > best.score) { next = best; best = c; } else if (!next || c.score > next.score) next = c;
+    });
+    if (best) best.next = next ? { id: next.id, by: next.by.filter(function (q) { return !best.by.some(function (b) { return b.id === q.id; }); }) } : null;
+    return best || { id: null, round: S.round, idx: S.idx, by: [] };
+  }
+  /* the named man, named afresh each round (the man half dead scores highest of his own accord), and again when he falls or runs,
+     or nobody left this round can reach him (201(d): the landed blows drop him, the rest go to the next) */
+  function focusOf(u) {
+    const g = S.focus, t = g && g.id !== null ? byId(g.id) : null, up = !!t && onField(t);
+    const stale = !g || g.round !== S.round || (g.id === null ? g.idx !== S.idx : !up || !g.by.some(function (q) { const m = byId(q.id); return m && onField(m) && S.order.indexOf(q.id) >= S.idx; }));
+    if (stale) S.focus = nameFocus(u.side);
+    return S.focus.id !== null ? byId(S.focus.id) : null;
+  }
+  /* 201(b)(c): a man who cannot strike the named man from where he stands walks to a tile he can, unless the walk costs more than
+     it buys: he stands in a ring (the free swings), a shooter would come down off his roof, the walk gives up blows worth more
+     where he is, or the tile is ahead of his own front line (a shooter, rule 70b). Once a turn. Returns true when he walked, else the reason he hits someone else */
+  function joinFocus(u) {
+    const t = focusOf(u);
+    if (!t || canStrike(u, t)) return null;
+    if (u.joined === S.round) return 'out of reach';
+    if (zocOn(u, u.x, u.y).length) return 'in a ring';
+    const j = joinFrom(u, t);
+    if (!j) return 'out of reach';
+    /* a shooter keeps his height (rule 176(f): the roof is worth holding): he never walks down off it to join */
+    if (isRanged(u.weapon) && level(j.x, j.y) < level(u.x, u.y)) return 'keeps his roof';
+    const here = foes(u).reduce(function (m, o) { return canStrike(u, o) && sideSees(u.side, o) ? Math.max(m, blowWorth(u, o, blowsOn(u, o, u.ap))) : m; }, 0);
+    if (here > blowWorth(u, t, j.b)) return 'worth more where he stands';
+    const A = arche(u), hl = huntField(u, true), line = lineOf(u, hl);
+    if (A.shield_the_backline && isRanged(u.weapon) && line.front !== null && hl(j.x, j.y) <= line.front && hl(j.x, j.y) < hl(u.x, u.y)) return 'ahead of his line';
+    /* and before the lines meet the line holds (rule 70b's keep_formation, rule 188): he never walks out past its depth to join */
+    if (A.keep_formation && !S.contact && line.mid !== null && hl(j.x, j.y) < line.mid - (R('ours.formation_depth_lines') - 1)) return 'ahead of his line';
+    u.joined = S.round;
+    return moveTo(u, j.x, j.y) ? true : 'out of reach';
+  }
+  /* what his blows b on t buy, in the one coin: on the named man, what they add to the team's blows still to come on him (the men
+     named with him who have not gone yet: 'every man who can reach him hits him until he falls'); on anyone else, what they buy
+     alone */
+  function blowWorth(u, t, b) {
+    const mine = []; for (let i = 0; i < b.n; i++) mine.push({ a: u, w: b.w, p: b.p, first: true });
+    const f0 = S.focus, f = !f0 ? null : f0.id === t.id ? f0 : f0.next && f0.next.id === t.id ? f0.next : null;
+    if (!f) return blowsWorth(t, mine).score;
+    const rest = [];
+    f.by.forEach(function (q) { const m = byId(q.id); if (m && m !== u && onField(m) && S.order.indexOf(q.id) > S.idx) for (let i = 0; i < q.n; i++) rest.push({ a: m, w: m.weapon, p: q.p, first: q.first }); });
+    const all = mine.concat(rest).sort(function (p, q) { return q.p - p.p; });
+    return blowsWorth(t, all).score - (rest.length ? blowsWorth(t, rest.sort(function (p, q) { return q.p - p.p; })).score : 0);
+  }
+  /* AUTO's blow (201(b), 191(a)): never a shot under shot_floor of his best chance (Paolo: 'my ranged guy tried to shoot someone
+     with the lowest accuracy'); when the team is all but sure to drop the named man this round (commit_kill), every man who can
+     reach him hits him; else the man his blows buy the most on, in the one coin. Measured (the record, 300 and 600 fights): the
+     strict reading of 191(a), only shots within 10 points of his best, won 241 where the old brain won 246 and put 558 of ours
+     down where 531 went; every man on the named man always (201(b) to the letter) won 241 and put 581 down; this brain wins 489
+     of 600 where the old won 486, 331 clean where 294 were, 967 of ours down where 1,107 went. A shot far under his best is a
+     finishing blow on a hurt man, the named man, a man with a lesson, or one his best shot buys less than. The choice and its
+     reason are kept on him */
+  function ourTarget(u, why) {
+    const fc = focusOf(u);
+    const can = foes(u).filter(function (t) { return canStrike(u, t) && sideSees(u.side, t); });
+    if (!can.length) return null;
+    const top = bestShot(u), fair = function (t) { return !isRanged(u.weapon) || hitChance(u, t).chance >= top * brain().shot_floor; };
+    let pick = fc && S.focus.kill >= brain().commit_kill && can.indexOf(fc) >= 0 && fair(fc) ? fc : null, bs = -Infinity;
+    if (!pick) can.filter(fair).forEach(function (t) { const v = blowWorth(u, t, blowsOn(u, t, u.ap)); if (v > bs) { bs = v; pick = t; } });
+    u.pick = { to: pick.id, worth: bs > -Infinity ? bs : blowWorth(u, pick, blowsOn(u, pick, u.ap)), focus: fc ? fc.id : null, next: S.focus.next ? S.focus.next.id : null, why: fc && pick !== fc ? (why || (can.indexOf(fc) < 0 ? 'out of reach' : fair(fc) ? 'worth more' : 'a shot too poor')) : null };
+    return pick;
+  }
+  function bestTarget(u, why) {
     const tz = u.tauntedBy ? byId(u.tauntedBy) : null;
     if (tz && canStrike(u, tz)) return tz;                    /* taunted: he goes for the man who called him */
+    if (u.side === 'you' && arche(u).spread_attacks) return ourTarget(u, why);
     const A = arche(u);
     let best = null, bs = -Infinity;
     /* THE MECHANIC FIRST (ai.json crew.head, the Necromancer's page: 'One of tactics against them is sniping'): a man who keeps
@@ -2527,6 +2844,23 @@ const FIGHT = (function () {
     });
     return !!(best && moveTo(u, best.x, best.y));
   }
+  /* THE SHOTGUN STEPS IN (COMBAT [every weapon's range bands], rule 187(d): 'a shotgunner closes in, a rifleman keeps his
+     distance'): AUTO's man with a gun whose damage falls off with the distance, his best shot two tiles or more away, takes the
+     tile beside that man first when he can still fire from it this turn and the shot there is worth a fifth more (the band's
+     damage and the chance as the rules read them), never into a second man's ring; else he fires from where he stands */
+  function stepIn(u) {
+    const t = bestTarget(u); if (!t || dist(u, t) <= 1 || u.netted) return false;
+    const w = u.weapon, strikeAP = skillAP(w, strikeSkill(w), u), here = expected(u, t), f = reach(u), ox = u.x, oy = u.y;
+    let best = null, bs = here * R('ours.range_bands_step_in').worth;
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if (Math.max(Math.abs(x - t.x), Math.abs(y - t.y)) !== 1 || u.ap - f.best[k] < strikeAP) return;
+      if (zocOn(u, x, y).some(function (o) { return o !== t; })) return;
+      u.x = x; u.y = y; const ok = canStrike(u, t), v = ok ? expected(u, t) : 0; u.x = ox; u.y = oy;
+      if (ok && v > bs) { bs = v; best = { x: x, y: y }; }
+    });
+    return !!(best && moveTo(u, best.x, best.y));
+  }
   /* one action per call; false when the man is done for this turn */
   function aiStep(u) {
     if (S.over || current() !== u) return false;
@@ -2576,7 +2910,10 @@ const FIGHT = (function () {
       if (gi >= 0 && swap(u, gi)) return true;
     }
     if (ranged && A.high_ground && climb(u, A)) return true;   /* 70b: the shooter takes the roof before he shoots */
-    const t = bestTarget(u);
+    if (u.side === 'you' && ranged && wantsClose(w) && stepIn(u)) return true;   /* rule 187(d): the shotgun steps in */
+    const jw = u.side === 'you' && A.spread_attacks ? joinFocus(u) : null;   /* rule 201: he walks to the named man */
+    if (jw === true) return true;
+    const t = bestTarget(u, jw);
     if (t) { const sw = u.side === 'you' ? null : sweepPick(u); if (sw) {   /* rule 180(g): a special swing is his */ sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); return true; }
     /* CAN I ACT (rule 176(a)(b), TUNING s1b: 93% of the wasted turns were a man who could not strike, walked anyway): AUTO's man
        who cannot strike this turn (out of breath, or nothing to shoot) stands when a foe is within near_tiles (farther off he
@@ -2626,7 +2963,8 @@ const FIGHT = (function () {
           sc += (pal - foe) * R('hit_chance.surround.per_extra_adjacent');
         }
         if (A.surround) sc += tgts.reduce(function (m, t2) { return Math.max(m, friends(u).filter(function (fr) { return dist(fr, t2) === 1; }).length); }, 0);
-        if (ranged) sc += Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
+        /* rule 187(d): a rifleman keeps his distance; a gun whose damage falls off with it (the shotgun) closes in */
+        if (ranged) sc += (wantsClose(w) ? -1 : 1) * Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
       } else {
         sc = holds ? -Infinity : -hunt(x, y) * R('hit_chance.cap').max + left;
         if (ranged && !A.advance && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
@@ -2693,7 +3031,7 @@ const FIGHT = (function () {
     return JSON.parse(JSON.stringify(v));
   }
   const KEPT_STATE = ['retreat', 'allFlee', 'chaseAt', 'chaseOK', 'order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
-    'boardDef', 'solid', 'cover', 'coverCount', 'lit', 'days', 'difficulty', 'act', 'board', 'formationKept', 'formation', 'deploy', 'firstBlow', 'lastHitBy'];
+    'boardDef', 'solid', 'cover', 'coverCount', 'lit', 'days', 'difficulty', 'act', 'board', 'formationKept', 'formation', 'deploy', 'firstBlow', 'lastHitBy', 'focus'];
   function screenKey(k) { return k.charAt(0) === '_' || k.indexOf('seen') === 0; }
   function freeze() {
     const o = { units: S.units.map(function (u) { const c = {}; Object.keys(u).forEach(function (k) { if (!screenKey(k)) c[k] = keepVal(u[k]); }); return c; }), logN: S.log.length };
@@ -2720,14 +3058,14 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, endFight: endFight, allFleeing: allFleeing, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, endFight: endFight, allFleeing: allFleeing, band: band, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { bothHands: bothHands, beginTurn: beginTurn, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -3646,7 +3984,7 @@ function armName(v, arm) {
 const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR' };   /* draft:true */
 /* WHAT A HEIGHT GIVES, IN WORDS (rule 164 item 14): on the tile he taps and in the aim; every number the rules' own */
 const HEIGHT_SAYS = { roof: 'Roof, {n} up: ', rise: 'High ground, {n} up: ', gives: '+{bonus}% to hit anyone lower, guns reach {reach} farther, sees {sight} farther',
-  noclub: ', no club reaches him from the street', wall: 'A wall. No way up: climb a roof with a ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
+  noclub: ', no club reaches him from the street', wall: 'A wall. No way up: climb a roof with a ladder.', house: 'A building, {n} high: its roof is high ground.', ladder: 'Climb it by its ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
 function heightSay(x, y) {
   const n = FIGHT.level(x, y); if (!n) return '';
   const st = n + (n > 1 ? ' storeys' : ' storey');
@@ -3707,6 +4045,7 @@ function dodgeLean(v, h, now) {
   if (k < 0 || k > 1) return 0;
   return d.dir * h * .22 * Math.sin(Math.PI * k);
 }
+const BAND_SAYS = { close: 'Point-blank: your {arm} is a long gun, <b>-{n}%</b> this close.', spread: 'At {tiles} tiles the {arm}\'s shot spreads: <b>{pct}%</b> of its damage.' };   /* draft:true */
 function aimLines(u, t) {
   const p = FIGHT.preview(u, t), out = [];
   if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
@@ -3714,6 +4053,10 @@ function aimLines(u, t) {
   const la = FIGHT.level(u.x, u.y), lt = FIGHT.level(t.x, t.y);
   if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('hit_chance.height.higher_attacker_bonus'), reach: FIGHT.isRanged(u.weapon) ? ', reach +' + (la - lt) * R('hit_chance.height.ranged_range_per_level') : '' }));
   if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('hit_chance.height.hit_chance_page_wording').lower_per_level * (lt - la) }));
+  /* rule 187(c): the band's effect where he aims, the rules' own numbers */
+  const bd = FIGHT.band(u, t);
+  if (bd && bd.hit < 0) out.push(wfill(BAND_SAYS.close, { arm: armName(u, u.weapon), n: -bd.hit }));
+  if (bd && bd.dmg < 1) out.push(wfill(BAND_SAYS.spread, { arm: armName(u, u.weapon), tiles: bd.tiles, pct: Math.round(bd.dmg * 100) }));
   if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
     const aw = armourWord(t), n = isFinite(p.blows) ? p.blows + ' hits to drop him.' : 'It will not drop him.';
     out.push('Your ' + armName(u, p.arm) + (aw ? ' barely dents his ' + aw + '. ' : ' barely hurts him. ') + n);
@@ -5465,6 +5808,21 @@ function skinOf(v) { return '#8c6a52'; }
    it stands on its plane, a ladder leans on every building you can climb (as long as its face is tall, a rung a metre), and
    the level rides over his head; what it gives is said on the tile and in the odds. */
 function riseAt(x, y) { return R('ours.roof_storeys').rise[FIGHT.level(x, y)] || 0; }
+const ROOF_MARK = '#d8c9a8';   /* the storeys' chevrons over a ladder: bone, nobody's side colour */
+/* the building a tile belongs to and how many storeys it stands: its roof, or a wall of it beside its roof (the house's body) */
+function buildingAt(x, y) {
+  if (FIGHT.isRoof(x, y)) return { lv: FIGHT.level(x, y), roof: true };
+  if (FIGHT.rowAt(x, y) !== 'obstacles') return null;
+  const n = FIGHT.blockNameAt(x, y); let lv = 0;
+  for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (FIGHT.isRoof(x + dx, y + dy) && FIGHT.blockNameAt(x + dx, y + dy) === n) lv = Math.max(lv, FIGHT.level(x + dx, y + dy));
+  return lv ? { lv: lv, roof: false } : null;
+}
+/* what a building gives, in words: the roof's own line, and for its wall the way up */
+function buildingSay(x, y) {
+  const b = buildingAt(x, y); if (!b) return '';
+  if (b.roof) return heightSay(x, y) + ' ' + HEIGHT_SAYS.ladder;
+  return wfill(HEIGHT_SAYS.house, { n: b.lv + (b.lv > 1 ? ' storeys' : ' storey') }) + ' ' + HEIGHT_SAYS.ladder;
+}
 function upChevron(c, r, k, col) {   /* an up-chevron five cells wide, k cells a cell, an ink rim under it */
   [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]].forEach(function (q) { mkCell(c + q[0] * k, r + q[1] * k + k, k, k, MK.ink); });
   [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]].forEach(function (q) { mkCell(c + q[0] * k, r + q[1] * k, k, k, col); });
@@ -5490,7 +5848,12 @@ function drawLadders() {
     mkCell(c0 + k, r0 + k, k, r1 - r0, 'rgba(0,0,0,.55)'); mkCell(c0 + gap + 2 * k, r0 + k, k, r1 - r0, 'rgba(0,0,0,.55)');   /* its shadow on the wall */
     mkCell(c0, r0, k, r1 - r0, '#8a6c45'); mkCell(c0 + gap + k, r0, k, r1 - r0, '#8a6c45');                                       /* the rails */
     for (let r = r0 + step; r < r1 - 1; r += step) mkCell(c0 + k, r, gap, k, '#b08a58');                                            /* the rungs */
-    out.push({ x: x, y: y, lv: lv, X: X, top: top, foot: foot });
+    /* HEIGHTS YOU CAN READ (COMBAT [eyes: heights you can read], EYES line 67, rule 164 item 14): over the ladder's top, one
+       up-chevron a storey, the same mark that rides over a man standing up there, so a two and a three storey roof read apart
+       at a glance before anyone climbs them (EYES 10/25: every roof read the same; the ladder's length alone did not say it) */
+    const ck = Math.max(1, Math.round(k * 1.5)), cc = c0 + Math.round(gap / 2) - 2 * ck;
+    for (let i = 0; i < lv; i++) upChevron(cc, r0 - 4 * ck - i * 3 * ck, ck, ROOF_MARK);
+    out.push({ x: x, y: y, lv: lv, X: X, top: top, foot: foot, marks: lv });
   }
   mkOff();
   UI.ladders = out;   /* for the gates */
@@ -6224,7 +6587,10 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 function homeMessage(result) {
   const S = FIGHT.S;
   return { type: 'BOHEMIA_FIGHT_OVER', result: result, retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
-      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }),
+      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null,
+      /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
+      look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
+      armB: Math.max(0, Math.round(v.armB || 0)), armBMax: v.armBMax || 0, head: v.headRow ? v.headRow.id : null, body: v.bodyRow ? v.bodyRow.id : null }; }),
     spoils: (function () { try { return spoilsOf(); } catch (_e) { return null; } })() };   /* __THE_SPOILS__ */
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
@@ -6244,7 +6610,8 @@ cv.addEventListener('pointerdown', function (e) {
     /* SET YOUR LINE BY DRAGGING (rule 110b, Battle Brothers' deployment): before FIGHT a finger down on one of your men picks him
        up; the ground does not pan under a man; a finger that does not move is still the tap-then-tile way */
     if (FIGHT.S.deploy && !UI.auto && !FIGHT.S.over) { const v = manAt(px, py); if (v && v.side === 'you') g0.dragMan = v; }
-    g0.hold = setTimeout(function () { if (gest !== g0 || g0.moved || g0.pinch) return; const v = manAt(px, py); if (v) { g0.held = true; weaponCard(v); } }, HOLD_MS);
+    g0.hold = setTimeout(function () { if (gest !== g0 || g0.moved || g0.pinch) return; const v = manAt(px, py); if (v) { g0.held = true; weaponCard(v); return; }
+      const q = tileAt(px, py), bl = UI.drag ? '' : buildingSay(q.x, q.y); if (bl) { g0.held = true; say(bl); } }, HOLD_MS);   /* a finger held on a building: what its height gives */
   }
   UI.glide = null;
 });
@@ -6424,7 +6791,7 @@ function tapAt(px, py) {
   }
   if (who) { UI.pend = null; return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
-  if (!path && FIGHT.rowAt(p.x, p.y) === 'obstacles') { UI.pend = null; say(HEIGHT_SAYS.wall); return; }   /* a house's wall is not 'too far' */
+  if (!path && FIGHT.rowAt(p.x, p.y) === 'obstacles') { UI.pend = null; say(buildingSay(p.x, p.y) || HEIGHT_SAYS.wall); return; }   /* a house's wall is not 'too far': it says how high the house stands */
   /* rule 206: a tile past this turn's AP is never refused: the first tap draws the whole way and marks where he stops, the second walks it */
   const far = !path ? FIGHT.farWalk(u, p.x, p.y) : null;
   if (far && far.stop) {
@@ -6486,7 +6853,11 @@ function whoAt(px, py, p, u) {
    tap to see, one tap to do. Nothing is spent, rolled or taught by a hover. */
 function hoverAt(px, py) {
   const S = FIGHT.S, u = FIGHT.current();
-  if (!UI.board || S.deploy || S.over || UI.auto || !crewControlled(u) || UI.anim.length || UI.skillMode || UI.sweep || UI.drag) return;
+  if (!UI.board || S.over || UI.drag) return;
+  /* A BUILDING SAYS WHAT ITS HEIGHT GIVES (COMBAT [eyes: heights you can read], EYES 10/25 k07: 'a pointer resting on a house on
+     the computer before the fight showed no word of height, cover or sight'): before FIGHT, on AUTO, in their turn, and over a
+     wall he cannot walk to, the mouse resting on a building is its line; nothing is picked or spent */
+  if (S.deploy || UI.auto || !crewControlled(u) || UI.anim.length || UI.skillMode || UI.sweep) { hoverBuilding(px, py); return; }
   const p = tileAt(px, py), out = p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h;
   const key = out ? 'out' : p.x + ',' + p.y + ':' + turnKeyOf(u) + ':' + S.log.length + ':' + u.ap;
   if (UI.hoverKey === key) return; UI.hoverKey = key;
@@ -6502,8 +6873,13 @@ function hoverAt(px, py) {
   if (p.x === u.x && p.y === u.y) { clear(); return; }
   const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) return;
-  if (!path) { const far = FIGHT.farWalk(u, p.x, p.y); if (!far || !far.stop) { clear(); return; } farPreview(u, p, far); UI.pend.hover = true; hud(); return; }   /* rule 206(d): the mouse over a far tile is the first tap */
+  if (!path) { const far = FIGHT.farWalk(u, p.x, p.y); if (!far || !far.stop) { clear(); hoverBuilding(px, py); return; } farPreview(u, p, far); UI.pend.hover = true; hud(); return; }   /* rule 206(d): the mouse over a far tile is the first tap */
   walkPreview(u, p, f, path); UI.pend.hover = true; hud();
+}
+function hoverBuilding(px, py) {
+  const S = FIGHT.S, p = tileAt(px, py), line = p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h ? '' : buildingSay(p.x, p.y), key = 'b' + p.x + ',' + p.y;
+  if (line) { if (UI.saidBuilding !== key) { UI.saidBuilding = key; say(line); } return; }
+  if (UI.saidBuilding) { UI.saidBuilding = null; if (document.getElementById('say').textContent.indexOf(HEIGHT_SAYS.ladder) >= 0) say(''); }
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target, nm = UI.pend.sweep; UI.pend = null; UI.sweep = null; if (nm) FIGHT.sweep(u, t, null, nm); else FIGHT.strike(u, t); take(); } };
 /* RETREAT (rule 144(c)): one tap to see (the button arms and the line says what happens), one tap to do, within two bars */

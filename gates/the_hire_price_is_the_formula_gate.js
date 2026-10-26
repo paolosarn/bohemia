@@ -25,10 +25,14 @@ const HALL = J('records/target/BOHEMIA_HALL_PRICE.json');
 const GB = require(path.join(ROOT, 'engine/bohemia_goodbros.js'));
 const html = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
 const KIT = (() => { const m = html.match(/var KIT = (\{[^;]+\});/); return m ? Function('return ' + m[1])() : {}; })();
+/* RE-AIMED 10/26 (RUN THREE [the best recruit at the top], EYES' 'a real mix'): a gun man brings the rifle where his trade carried the
+   pistol, so the oracle prices the man's OWN kit (the post's state, r.kit) on the same formula; his trade's when he has none */
+const kitCrownsOf = kit => (kit || []).reduce((v, id) => { if (!id) return v; const w = W.find(r => r.id === id); if (w) return v + (w.value || 0);
+  for (const k of ['body', 'head', 'shields']) { const a = (A[k] || []).find(r => r.id === id); if (a) return v + (a.value || 0); } return v; }, 0);
 const kitCrowns = bg => (KIT[bg] || []).reduce((v, id) => { if (!id) return v; const w = W.find(r => r.id === id); if (w) return v + (w.value || 0);
   for (const k of ['body', 'head', 'shields']) { const a = (A[k] || []).find(r => r.id === id); if (a) return v + (a.value || 0); } return v; }, 0);
 const oracle = (r, easier) => { const g = GB.byId(r.backgroundId); const f = g.hireMax > g.hireMin ? Math.max(0, Math.min(1, (r.priceCrowns - g.hireMin) / (g.hireMax - g.hireMin))) : 0.5;
-  const c = PT.hiringBaseRange.min + f * (PT.hiringBaseRange.maxApprox - PT.hiringBaseRange.min) + 500 * Math.pow(Math.max(0, (r.level || 1) - 1), 1.5) + PT.equipmentCostMultiplier * kitCrowns(r.backgroundId);
+  const c = PT.hiringBaseRange.min + f * (PT.hiringBaseRange.maxApprox - PT.hiringBaseRange.min) + 500 * Math.pow(Math.max(0, (r.level || 1) - 1), 1.5) + PT.equipmentCostMultiplier * (r.kit ? kitCrownsOf(r.kit) : kitCrowns(r.backgroundId));
   return Math.max(1, Math.floor(c * easier / 10)); };
 
 let plantEasier = null;
@@ -72,7 +76,7 @@ const srv = http.createServer((rq, rs) => {
     return p.evaluate(() => { const R = BohemiaSettlement.state.recruits || [];
       return Array.from(document.querySelectorAll('#sheet .hire:not(.rare)')).map(h => {   /* RE-AIMED 10/25 (RUN TWO): the rare man is THE RARE MAN AT THE POST's to price */ const r = R.find(x => x.id === h.dataset.id) || {};
         const btn = Array.from(h.querySelectorAll('button')).find(x => /Hire/.test(x.textContent));
-        return { id: r.id, backgroundId: r.backgroundId, priceCrowns: r.priceCrowns, level: r.level, old: r.priceBatteries, shown: btn ? +((btn.textContent.match(/(\d+)\s*batt/) || [])[1]) : null }; }); });
+        return { id: r.id, backgroundId: r.backgroundId, priceCrowns: r.priceCrowns, level: r.level, old: r.priceBatteries, kit: r.kit ? r.kit.slice() : null, shown: btn ? +((btn.textContent.match(/(\d+)\s*batt/) || [])[1]) : null }; }); });
   };
 
   let s = await page();

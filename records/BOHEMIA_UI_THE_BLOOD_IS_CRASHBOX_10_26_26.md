@@ -39,9 +39,10 @@ clay that wraps past their ends, so a tile meets itself with its light and its s
 The record's picture: records/target/UI_THE_BLOOD_IS_CRASHBOX_10_26_26.png (every stage on the kit's tin, the receipt
 and the phone's dark glass).
 
-THE ONE NUMBER (slices/bohemia_ui_materials.js, THE BLOOD IS CRASHBOX). bloodStage(danger): clean to 2 percent, a stage
-every 8.75 points, soaked from 70 (a one-star job by WORLD's cut-offs, danger 10 or under, shows stage 0 to 2: a
-thumbprint and a spatter; a three-star job, over 40, shows 5 to 8). A button gets it by data-danger="0.37" (watched by
+THE ONE NUMBER (slices/bohemia_ui_materials.js, THE BLOOD IS CRASHBOX). bloodStage(danger) is WORLD's own scale
+(records/target/bb/job_danger.json blood_from 0.04 and blood_full 0.65, read from WORLD's reader when it is on the page):
+clean to 4 percent, seven stages between, soaked from 65 (a one-star job by TUNING's cut-offs, danger 5 or under, is clean
+or a thumbprint; a three-star job, over 50, is stage 6 to 8). (The first cut ran its own 2 and 70; one scale now.) A button gets it by data-danger="0.37" (watched by
 one MutationObserver, so WORLD only sets the number) or by BohemiaMaterials.bleed(el, danger). It is worn as the
 button's ::after: under its words and its face (isolation on the button, the clay at z -1), over its own tin or paper,
 pointer-events none. When the danger changes the clay steps through every stage between, one held frame an eighth note
@@ -49,9 +50,15 @@ pointer-events none. When the danger changes the clay steps through every stage 
 the first time bleeds in from clean. From stage five the words get a one-pixel halo the colour of what the clay sits on
 (bone under dark ink, soot under light).
 
-PROVISIONAL, UNTIL WORLD'S NUMBER (marked in the file): a board row with no data-danger takes one from its stars (1 star
-0.06, 2 stars 0.25, 3 stars 0.52), and the offer's Take it takes the row it came from. data-danger wins the moment
-WORLD sets it; nothing of WORLD's is touched.
+ONE BLOOD (the same round). WORLD shipped its own clay for the same buttons in parallel (effa8af7: slices/job_blood, six
+stages crossfaded under a brightness filter, laid as two child layers by slices/bohemia_job_danger.js) and its NOTE on this
+board offered the move ('yours if you want the clay as a kit piece; a move is one line'). Both drew on the town's board,
+two bloods on one button. Now ONE: a marked line in WORLD's paintBlood (__ONE_BLOOD__) hands the read's number to the kit
+layer wherever the page carries it and draws nothing of its own; WORLD's data-blood stays its 0..1 number, the kit's stage
+is data-bm-blood (and data-bm-blood-to); WORLD's gate J4 reads the kit's stage (a marked line). The kit's clay was kept
+because it is the brief to the letter (a thumbprint, dried dark edges, stop-motion holds, no filter); WORLD's reader, its
+stars and its number are untouched. The phone's job cards and the meet card's ENGAGE, which WORLD bleeds, wear the kit's
+clay the same way. Where WORLD's reader is not on a page, a row's stars stand in (marked PROVISIONAL in the file).
 
 ALSO: [eyes: the camp's clock] (EYES 10/25 q27, 'DAY 1 12…'): measured on today's demo, the camp already wears the one
 bar (the one HUD, a0de7409), so the clip is gone; but the bar's place read the camp's clock ('DAY 1 / 15:00', the day
@@ -71,7 +78,9 @@ P1 forty pictures; P2 0 soft pixels of 140,984, 100 percent of clay pixels red; 
 the spatter, which re-rolled its specks every stage: caught and fixed), cover on a 366 x 48 button 2 4 6 10 15 47 72 98
 percent, luminance 42 -> 34; P4 the kit's sun, camera and post; S1 the scale; D1 to D7 on phone and computer.
 ALSO GREEN on this change: ONE HUD EVERYWHERE 62/0, SETTLEMENT SCREEN 74/0, DEMO BUILD 25/0 and the cut --check exact,
-DROP A JOB RIGHT IN THE TOWN 6/0, THE TRIP BEFORE THE YES 7/0, THE BOARD'S QUESTS ARE PEOPLE 16/0. THE UI BELONGS TO THE
+DROP A JOB RIGHT IN THE TOWN 6/0, THE TRIP BEFORE THE YES 7/0, THE BOARD'S QUESTS ARE PEOPLE 16/0; after ONE BLOOD:
+THE BLOOD IS CRASHBOX 23/0 again (D1 waits for WORLD's read on every row; S1 reads job_danger.json; D6 the offer at the
+job's read) and WORLD's THE JOB TELLS THE TRUTH, IN BLOOD 7/0 (J4 rho 0.94, the board painted the read, one layer). THE UI BELONGS TO THE
 WORLD 35/1, the one red the known one on main (AUTO on tin). RED, NOT MINE, the same on a clean checkout of main:
 THE JOB'S STARS S4 (the town's board read empty at Church).
 
@@ -91,3 +100,25 @@ skulls lie; ours draws it as the button itself, one continuous scale from one nu
 fight played out.]
 [analog horror: the job button is a tin plate somebody pressed with a bloody thumb; the worse the job, the more hands
 have been on it, until the plate is red clay to the rivets and the words have been wiped clear to be read.]
+
+# ALSO THIS ROUND: EYES' CREW SCREEN NOTES (q11, k02, q27)
+
+THE FIGURE HOLDS HIS GUN (slices/BOHEMIA_ROSTER_SCREEN.html, __HE_WEARS_WHAT_HE_WEARS__). Measured first on the demo:
+every man on the crew screen stood in the idles' bare set, whatever his main hand held; the fight lays a pistol man's
+one-hand hold (slices/rig_hold, PIdle, with its pistol layer) and a long gun's carry set with its gun layer
+(slices/rig_idles). Now the crew card draws the same: the fight's own class table (fight_rig.json guns.by_class: dagger a
+pistol, crossbow a rifle, firearm a shotgun) names the gun his main hand holds, and the card plays the same sheets the
+fight plays, on the fight's own two-bar slots; a swap redraws him at once (the card is rebuilt). Seen on the computer:
+YOU and Desi hold their pistols low in the right hand, Raul his crossbow-rifle. What the fight does not draw yet (a
+shield, armour, a helmet as layers: COOK's models and ANIMATION's layers, rule 177(b)(c)) the card does not draw either.
+
+THE FATIGUE IS ONE NUMBER. Measured on the demo after RUN TWO's 154cd8c0: the crew screen's FATIGUE equals the fight's
+fatMax for every man (78/78, 77/77, 83/83 on one run; 80/80, 75/75, 85/85 on another): EYES' 118 against 55 was the old
+screen before RUN TWO's worn(); now a gate holds it.
+
+THE CAMP'S CLOCK: the camp wears the one bar since a0de7409, so 'DAY 1 12…' is gone; its place read the camp's clock (the
+day twice, an hour behind); it reads CAMP now.
+
+GATE: THE CREW FIGURE HOLDS HIS GUN (new, in the suite) 6/0 (phone and computer, one plant). ALSO GREEN: THE COMPANY
+SCREEN, BATTLE BROTHERS SIMPLE 48/0, THE ROSTER SCREEN 15/0, THE SHOP SAYS WHAT IT DOES TO YOUR MAN 10/0; EVERYBODY IDLES
+40/1, the one red the same as main (the fight's enemies without idles).

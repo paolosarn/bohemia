@@ -34,10 +34,11 @@ import bohemia_cook_town_screen_likeness_10_25_26 as LK
 
 SHIP = os.path.join(R, 'slices/settlement_ground_towns')
 REND = os.path.join(R, 'records/target/cook_town_screens/render')
+REND2 = os.path.join(R, 'records/target/cook_town_screens/wide/render')     # the wide re-laid (10/26)
 PACKS = os.path.join(R, 'slices/settlement_ground_packs')
 LINE = 0.70
 HEART = {'Church', 'Mob', 'Reds'}
-THINGS = re.compile(r'(tower|watch|guard|post|mast|tank|crane|hoist|turbine|palm|lamp|light|sign|dish|stage|truss|rig|wreck|stall|board|posts|fill_|wall|razor|fence|bunt|pad)', re.I)
+THINGS = re.compile(r'((?<!bld_)tower|watch|guard|post|mast|tank|crane|hoist|turbine|palm|lamp|light|sign|dish|stage|truss|rig|wreck|stall|board|posts|fill_|wall|razor|fence|bunt|pad)', re.I)
 
 ok_n = bad_n = 0
 
@@ -67,8 +68,11 @@ def main():
     # 1
     miss = [b for b in B if b not in T]
     files_ok = all(os.path.exists(os.path.join(SHIP, t[k])) and Image.open(os.path.join(SHIP, t[k])).size == (2060, 1092) for t in T.values() for k in ('src', 'night_src'))
-    taps_ok = all(t['hotspots'] == packs['tiers'][t['tier']]['variants'][0]['hotspots'] for t in T.values())
-    leg(len(B) >= 14 and not miss and files_ok and taps_ok, 'every home base has its own picture, day and night, its tier\'s taps to the pixel',
+    # the 10/25 wide keeps the tier's taps to the pixel; the wide re-laid out of the phone's corners (rule 213, the 10/26 composer)
+    # carries its own, measured in its scene, every role of the tier
+    taps_ok = all((set(t['hotspots']) == set(packs['tiers'][t['tier']]['variants'][0]['hotspots'])) if (t.get('wide') or {}).get('relaid')
+                  else t['hotspots'] == packs['tiers'][t['tier']]['variants'][0]['hotspots'] for t in T.values())
+    leg(len(B) >= 14 and not miss and files_ok and taps_ok, 'every home base has its own picture, day and night, its tier\'s taps (to the pixel, or re-laid and measured)',
         '%d of %d bases%s' % (len(B) - len(miss), len(B), (', missing ' + ', '.join(miss)) if miss else ''))
     cache = {n: LK.load(os.path.join(SHIP, t['src'])) for n, t in T.items()}
     old = {f: LK.load(os.path.join(PACKS, f)) for f in ('town_0.webp', 'town_1.webp', 'camp_0.webp', 'camp_1.webp', 'fortress_0.webp', 'fortress_1.webp')}
@@ -84,7 +88,7 @@ def main():
     worst = max(((LK.likeness(cache[n], old['%s_%d.webp' % (t['tier'], k)])[0], n, k) for n, t in T.items() for k in (0, 1)), default=(1, '', 0))
     leg(worst[0] < LINE, 'each replaces its tier\'s picture: every town against both old pictures of its tier under %.2f' % LINE, 'most alike %s ~ %s_%d %.3f' % (worst[1], T.get(worst[1], {}).get('tier'), worst[2], worst[0]))
     # 5
-    meta = {n: json.load(open(os.path.join(REND, t['src'][:-5] + '.json'))) for n, t in T.items()}
+    meta = {n: json.load(open(os.path.join(REND2 if (t.get('wide') or {}).get('relaid') else REND, t['src'][:-5] + '.json'))) for n, t in T.items()}
     def bldgs(n): return [o for o in meta[n]['outlines'] if not THINGS.search(o['name'])]
     heart = {n: [o for o in bldgs(n) if o['h'] >= 12 and o['box'][1] <= 0] for n in T if n in HEART}
     edge = {n: max([o['h'] for o in bldgs(n)] or [0]) for n in T if T[n].get('u', 0) < 0.3}

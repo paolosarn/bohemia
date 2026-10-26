@@ -347,7 +347,15 @@
   }
   /* the blood on one button: two stages crossfaded, darker as it goes, one continuous scale */
   function paintBlood(el, b) {
-    var doc = el.ownerDocument; css(doc);
+    var doc = el.ownerDocument;
+    /* __ONE_BLOOD__ (UI [the blood is CRASHBOX], 11da2b8c, a marked line in WORLD's file; rule 208(c) and the coordinator's NOTE:
+       'the blood as one continuous crashbox layer... so WORLD only passes the danger number'): where the page carries the UI
+       kit's clay layer (slices/bohemia_ui_materials.js bleed), the read's number goes to it and nothing else is drawn here, so a
+       button wears ONE blood. data-blood stays this file's 0..1 number; the kit's stage is data-bm-blood. */
+    var KM = doc.defaultView && doc.defaultView.BohemiaMaterials;
+    if (KM && KM.bleed) { var old = el.querySelectorAll(':scope > i.jdblood'); for (var q = 0; q < old.length; q++) old[q].remove();
+      el.classList.remove('jdheavy'); el.style.removeProperty('text-shadow'); el.dataset.blood = b.toFixed(3); KM.bleed(el, +el.dataset.danger); return; }
+    css(doc);
     var cs = null; try { cs = doc.defaultView.getComputedStyle(el); } catch (e) {}
     if (cs && cs.position === 'static') el.style.position = 'relative';
     el.style.isolation = 'isolate';

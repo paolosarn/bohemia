@@ -164,7 +164,7 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
       await shot('t6_the_phone_card');
       if (ph && ph.toTown) {
         const w = await fr.evaluate((c) => { const said = []; const was = travelSay; travelSay = function (s) { said.push(s); return was.apply(this, arguments); };
-          const bs = ctBases(), b = bs[c.place]; travelStop(); const dr = townDoor(b.x, b.y); travelTo(0, 0, dr); travelSay = was; travelStop(); return said.join(' / '); }, card);
+          const bs = ctBases(), b = bs[c.place]; travelStop(); townTap({ name: c.place, x: b.x, y: b.y }); travelSay = was; travelStop(); return said.join(' / '); }, card);   /* RUN 10/25: the town's own tap (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__), the walk the lit town sets */
         const m = /Setting out: (\d+) blocks?/.exec(w);
         ok('T6 the phone\'s lit card says the walk to its town, and that walk is that long', !!ph.words && !!m && +m[1] === ph.toTown.blocks && new RegExp(String(card.place), 'i').test(ph.words)
           && ph.words.indexOf(ph.toTownShort) === 0,

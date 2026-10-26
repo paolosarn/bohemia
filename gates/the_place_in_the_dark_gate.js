@@ -160,10 +160,13 @@ async function play(profile) {
         if (!clear) console.log('  (the edge name stayed covered for 20 s; touched anyway)');
         await tapAt(tx, ty);   /* the canvas's pixels, where it sits in the frame */
         await page.waitForTimeout(600);
-        const tr = await fr.evaluate((nm) => { const p = BohemiaJobKinds.realPlace(nm), dr = p ? townDoor(p.x, p.y) : null;
-          return { to: TRAVEL && TRAVEL.to ? TRAVEL.to : null, door: dr, at: [city.x, city.y] }; }, real.place);
-        ok(P + ' D6 a touch on the edge name walks him to the town', !!(tr.to && tr.door && Math.max(Math.abs(tr.to[0] - tr.door[0]), Math.abs(tr.to[1] - tr.door[1])) <= 1),
-          'travel to ' + JSON.stringify(tr.to) + ', the town\'s door ' + JSON.stringify(tr.door));
+        /* RUN 10/25 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): the walk ends on a block touching the town's painted ground,
+           the side his shortest walk reaches first, no longer one gate tile beside its block */
+        const tr = await fr.evaluate((nm) => { const p = BohemiaJobKinds.realPlace(nm), t = p ? { name: p.name || nm, x: p.x | 0, y: p.y | 0, tier: p.tier } : null;
+          const to = TRAVEL && TRAVEL.to ? TRAVEL.to : null;
+          return { to, touches: !!(t && to && townTouches(t, townFoot(t), to[0], to[1])), town: t ? [t.x, t.y] : null, at: [city.x, city.y] }; }, real.place);
+        ok(P + ' D6 a touch on the edge name walks him to the town', !!(tr.to && tr.touches),
+          'travel to ' + JSON.stringify(tr.to) + ', touching the town at ' + JSON.stringify(tr.town) + ': ' + tr.touches);
         await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
       } else ok(P + ' D6 a touch on the edge name walks him to the town (the town was on the glass at the near stop: its plate is the touch)', !!from, from ? 'on the glass' : 'no mark');
     }

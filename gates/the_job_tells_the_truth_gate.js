@@ -150,12 +150,13 @@ const CREWS = [
       await waitFor(() => sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].every(b => b.dataset.blood != null)), 120000);
       paint = await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => { const L = [...b.querySelectorAll(':scope > i.jdblood')];
         return { id: b.dataset.id, danger: +b.dataset.danger, blood: +b.dataset.blood, stars: +b.dataset.jdStars, red: !!b.querySelector('[data-red]'),
-          layers: L.map(l => l.className + '@' + l.style.opacity) }; }));
+          layers: L.map(l => l.className + '@' + l.style.opacity), bm: b.hasAttribute('data-bm-blood-to') ? +b.getAttribute('data-bm-blood-to') : null }; }));
       if (SHOTS) await page.screenshot({ path: path.join(SHOTS, PROFILE + '_board.png') });
       await fr.evaluate(() => { try { loopClose(); } catch (e) {} });
     }
     const want = await fr.evaluate((P) => P.map(p => BohemiaJobDanger.bloodOf(p.danger)), paint);
-    const stageOf = p => { const m = p.layers.map(s => /([nmw])(\d)@([\d.]+)/.exec(s)).filter(Boolean); return m.reduce((t, x) => t + (+x[3] > 0 ? +x[2] + +x[3] : 0), 0); };
+    /* __ONE_BLOOD__ (UI, marked): the kit's clay layer draws the blood where the page has it; its stage is data-bm-blood-to */
+    const stageOf = p => { if (p.bm != null) return p.bm; const m = p.layers.map(s => /([nmw])(\d)@([\d.]+)/.exec(s)).filter(Boolean); return m.reduce((t, x) => t + (+x[3] > 0 ? +x[2] + +x[3] : 0), 0); };
     const paintOk = paint.length > 0 && paint.every((p, i) => Math.abs(p.blood - want[i]) < 0.002 && p.red) &&
       paint.every(a => paint.every(b => !(a.blood > b.blood + 0.05) || stageOf(a) >= stageOf(b)));
 

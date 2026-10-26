@@ -71,7 +71,10 @@
   function route(ax, ay, bx, by) { try { return cityRoute(ax, ay, bx, by); } catch (e) { return null; } }
   function day() { try { return loopDay(); } catch (e) { return 0; } }
   function towns() { var bs = null; try { bs = ctBases(); } catch (e) {} var out = []; if (bs) for (var n in bs) if (bs[n]) out.push({ name: n, x: bs[n].x | 0, y: bs[n].y | 0 }); return out; }
-  function townNear(x, y, r) { try { return loopTownAt(x, y, r == null ? 1 : r); } catch (e) { return null; } }
+  function townNear(x, y, r) { try { var t = loopTownAt(x, y, r == null ? 1 : r); if (t || (r != null && r !== 1)) return t;
+    /* RUN 10/26 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): a town is reached from any block on or beside its painted ground,
+       so 'back at the town' is there too, never only the eight blocks round its middle */
+    return (typeof root.townAtDoor === 'function') ? root.townAtDoor(x, y) : null; } catch (e) { return null; } }
   function gate(x, y) { try { return townDoor(x, y); } catch (e) { return null; } }
   function onGlass(x, y) { try { return mapOnGlass(x, y); } catch (e) { return true; } }
   function sayLine(line) {
@@ -940,6 +943,10 @@
     var town = { name: t.name, x: t.x, y: t.y }, door = gate(town.x, town.y) || [town.x, town.y];
     var here = cheb(city.x, city.y, town.x, town.y) <= 2, out = { id: c.id, place: t.name, here: here, toTown: null, job: null };
     if (!here) out.toTown = legOf(city.x, city.y, door[0], door[1], 1);
+    /* RUN 10/25 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): a tap on the town walks to the side his shortest walk reaches
+       first (the map's townDoorWalk), so the trip it says is that walk, never the old one gate tile's road round the block */
+    if (!here) { try { var dw = root.townDoorWalk ? root.townDoorWalk(town) : null, p1 = 1; try { p1 = pace() || 1; } catch (e) {}
+      if (dw && dw.path) out.toTown = { blocks: dw.path.length - 1, mins: dw.mins / p1 }; } catch (e) {} }
     var kind = kindOf(c), k = K(kind) || {}, row = (DATA && DATA.offers && DATA.offers[c.id]) || {}, pl = row.place || null, mult = (kind === 'haul-caravan' && k.pace) ? k.pace : 1;
     var real = pl && pl.real ? realPlace(pl.real) : null;
     if (here) {

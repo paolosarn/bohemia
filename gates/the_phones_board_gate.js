@@ -84,10 +84,15 @@ async function contrasts(page, jobs) {
   ok('THE TWO THAT PAY MOST IN THE WHOLE VALLEY (rule 148)', posts.length === 2 && posts.map(x => x.pay).sort((a, b) => b - a).join(',') === pays.slice(0, 2).join(','),
      'shown ' + posts.map(x => x.pay).join(', ') + '; the valley pays ' + pays.slice(0, 8).join(', ') + (pays.length > 8 ? ' ...' : ''));
   ok('  two different jobs', posts.length === 2 && posts[0].id !== posts[1].id, posts.map(x => x.id + '@' + x.place).join(' | '));
+  /* FEED 10/26 (rule 215(e): 'the newest post slides over the phone's wallpaper and that is all'; rule 212(d) killed 148's
+     two-jobs face): the feed's ONE slot (#feednow) is counted apart. The jobs' face keeps its sixteen words and no chat
+     stream; the slot holds one post at most. */
   const face = await fr.evaluate(() => { const e = document.getElementById('cityfeed'), vis = n => { const r = n.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(n).visibility !== 'hidden'; };
-    return { words: e.innerText.split(/\s+/).filter(Boolean).length, text: e.innerText.replace(/\n/g, ' / '),
+    const fn = document.getElementById('feednow'), fnWords = fn ? fn.innerText.split(/\s+/).filter(Boolean).length : 0;
+    return { words: e.innerText.split(/\s+/).filter(Boolean).length - fnWords, text: e.innerText.replace(/\n/g, ' / '),
+      slot: fn ? fn.querySelectorAll('.ftxt').length : 0,
       chat: [...e.querySelectorAll('.fp')].filter(n => !n.closest('#bmboard') && vis(n)).length }; });
-  ok('LITTLE TEXT: the face is the hour and two cards, at most 16 words, no chat post on the glass', face.words <= 16 && face.chat === 0, face.words + ' words, ' + face.chat + ' chat posts: ' + face.text);
+  ok('LITTLE TEXT: the face is the hour and two cards, at most 16 words, no chat post on the glass (the feed\'s one slot apart, one post at most)', face.words <= 16 && face.chat === 0 && face.slot <= 1, face.words + ' words, ' + face.chat + ' chat posts, ' + face.slot + ' in the feed\'s slot: ' + face.text);
   ok('  each card one short what (one line, at most 20 letters), its stars, pay and place; no handle, no age, no BATT', posts.every(x => x.oneLine && x.txt.length <= 20 && !/@|AGO|POSTED|BATT|BLOCKS/.test(x.txt + x.meta) && x.meta.indexOf(String(x.pay)) >= 0 && x.meta.indexOf(x.place.toUpperCase()) >= 0),
      posts.map(x => '"' + x.txt + '" ' + x.txt.length + (x.oneLine ? ' one line' : ' WRAPS') + ' / ' + x.meta).join(' | '));
   const bad = await fr.evaluate(() => [...document.querySelectorAll('#cityfeed button,#cityfeed [role=button]')].map(e => (e.getAttribute('aria-label') || '') + ' ' + e.textContent).filter(t => /\b(take|accept|sign)\b/i.test(t.replace(/tap to mark it on the map/i, ''))));

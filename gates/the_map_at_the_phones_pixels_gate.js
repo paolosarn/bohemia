@@ -48,7 +48,8 @@ const done = () => { console.log('THE MAP AT THE PHONE\'S PIXELS: ' + pass + ' p
   const lines = CITY.split('\n');
   /* the only lines allowed to touch the backing store's size: the setup (cvSize), the
      two whole-canvas snapshot copies (fzSnap), and three local canvases that are not #cv */
-  const left = lines.filter(l => /\bcv\.(width|height)\b/.test(l) && !/^\s*(\/\*|\*|\/\/)/.test(l) && !/^\s{3}\S/.test(l)
+  /* RUN 10/26: a bare cv only (#cv, or a local of that name); MAP_GROUND.cv and VBV.cv are other canvases, let go under the fight */
+  const left = lines.filter(l => /(^|[^.\w])cv\.(width|height)\b/.test(l) && !/^\s*(\/\*|\*|\/\/)/.test(l) && !/^\s{3}\S/.test(l)
     && !/cv\.width=Math\.round\(w\*d\)/.test(l)
     && !/^\s*[cb]\.width=cv\.width; [cb]\.height=cv\.height;/.test(l)
     && !/cv\.width=w\*S|ch\.cv\.width=1|cv\.width = 26|cv\.height\*\(160\/cv\.width\)/.test(l)
