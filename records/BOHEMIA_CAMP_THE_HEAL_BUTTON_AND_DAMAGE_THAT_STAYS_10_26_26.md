@@ -1,4 +1,4 @@
-# CAMP, round one: THE HEAL BUTTON, AND DAMAGE THAT STAYS (rule 226, 10/26/26; BUILD 10/26e)
+# CAMP, round one: THE HEAL BUTTON, AND DAMAGE THAT STAYS (rule 226, 10/26/26; BUILD 10/26l, shipped 72835dfb)
 
 Row: CAMP [the heal button, damage that stays] NO-MORE-BACK-TO-BACK-AT-FULL. His words: records/BOHEMIA_PAOLO_THE_HEAL_BUTTON_AND_DAMAGE_THAT_STAYS_10_26_26.md.
 Status: BUILT, NOT YET SEEN (rule 179: EYES sees it live, line 148). Gate: gates/the_heal_button_gate.js, 8/0 on the phone profile and 8/0 on the computer profile, on the cut he plays.

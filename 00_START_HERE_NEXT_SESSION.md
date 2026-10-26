@@ -1,4 +1,4 @@
-CAMP (camp-vamily): 10/26 LATEST -- [the heal button, damage that stays] SHIPPED, BUILT, NOT YET SEEN (rule 226, line 148, BUILD 10/26j):
+CAMP (camp-vamily): 10/26 LATEST -- [the heal button, damage that stays] SHIPPED, BUILT, NOT YET SEEN (rule 226, line 148, BUILD 10/26l):
 damage stays between fights (each man's missing hitpoints and armour kept by name, the dead for good), the map's clock heals at
 Battle Brothers' rates and TAPE mends armour, the CAMP plate is THE HEAL BUTTON (one red and grey bar), camp heals faster and
 spends tape; gate THE HEAL BUTTON 8/0 phone and computer. The whole block: handoffs/CAMP.md (rule: each lane's block in handoffs/).

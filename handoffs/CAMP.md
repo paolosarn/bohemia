@@ -1,4 +1,4 @@
-CAMP (camp-vamily): 10/26 LATEST -- [the heal button, damage that stays] SHIPPED, BUILT, NOT YET SEEN (rule 179; line 148), BUILD 10/26j.
+CAMP (camp-vamily): 10/26 LATEST -- [the heal button, damage that stays] SHIPPED, BUILT, NOT YET SEEN (rule 179; line 148), BUILD 10/26l.
 Lane 24, opened by the coordinator for rule 226 (Paolo 10/26: 'the camp button should be a heal button... you can't just do fights
 back to back... combine the HP and armor of all your people into a single bar... healing is important, the damage you sustained').
 MEASURED FIRST: the fight's message home carried no hitpoint or armour, crewUnit rolled every man whole at the bell, and the dead
