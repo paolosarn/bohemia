@@ -1,4 +1,4 @@
-CAMP TWO (camp-two-look): 10/26 LATEST -- round one SHIPPED SHA_PENDING, BUILT, NOT YET SEEN (rules 259, 260, 269, 270, 273(c),
+CAMP TWO (camp-two-look): 10/26 LATEST -- round one SHIPPED b8dab965, BUILT, NOT YET SEEN (rules 259, 260, 269, 270, 273(c),
 286, 289; BUILD 10/26zze): his camp is his own place (a tent a pair, the shopping cart, the fire, the supplies, the seats, each
 follower's piece, every piece a door), his men at the acts their wounds call for, the pitch, the compass of danger in AUTO's colour,
 the camp on the live map, the ghosts; TALL AND WIDE FIRST: an upright camp of its own on a tall ground, every tier both ways, the
