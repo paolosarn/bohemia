@@ -81,7 +81,15 @@ size on the map, at camp and in the town. Re-aimed for the one phone, each keepi
 THE CAMP GATE, THE PLACE IN THE DARK (WORLD), ONE HUD EVERYWHERE (UI), THE DAYS ONCE, THE MAP'S BAR, NO TWO TEXTS, THE CUT,
 NOTHING POPS UP, THE FEED IS ALIVE (FEED), and the older phone gates; four told dead (gate_registry_gate.js TOLD_DEAD).
 
+THE BENCH: the fight's page opened on its own (COMBAT's bench, what COMBAT's gates open) is not the game, so the phone is not
+built there; it is built the first time the game is on the glass (the map, a town, camp, or a fight in the shell's clouds).
+On a computer the fight's bar stays centred clear of the phone on both sides; a tablet, like a phone, gives up only the
+phone's side (both sides broke the wide glass's one-row bar).
+
 ## WEAK, SAID
+- NEXT (rule 238, after this merge): every button on the map, in the town and in the fight onto the phone, smaller or paged,
+  the phone one size always (it never grows: this cut is 124 x 276 with any number of jobs); each held job's card says which
+  way and how far (today: its time). Rules 257 and 260: the camp's things in the CAMP/HEAL app.
 - PLAY to the job goes to the job's own block; the way back to the paying town is RUN's [play takes you there].
 - The fight's bar is narrowed by the phone's band, not re-laid: on the phone upright the AP line runs under END TURN.
 - The phone is taller (276) than the first cut (212) to hold the job column; the cameras are not framing around it yet

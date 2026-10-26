@@ -359,7 +359,9 @@
       + 'html.boh-phone-on #skills .sq.bag,html.boh-phone-on #skills .sq[data-sweep],html.boh-phone-on #skills .sq[data-skill],html.boh-phone-on #skills #bback{display:none!important}'
       + 'html.boh-phone-on.boh-phone-right body:has(#skills) #bot{right:calc(var(--boh-phone-gap-r) + 6px)!important}'
       + 'html.boh-phone-on.boh-phone-left body:has(#skills) #bot{left:calc(var(--boh-phone-gap-l) + 6px)!important}'
-      + 'html.boh-phone-on[data-screen=tablet] body:has(#skills) #bot,html.boh-phone-on[data-screen=computer] body:has(#skills) #bot{'
+      /* a computer keeps the bar centred clear of the phone on both sides; a tablet, like a phone, gives up only the phone's side (both
+         sides on a tablet broke the wide glass's one-row bar: THE REBUILT FIGHT PLAYS) */
+      + 'html.boh-phone-on[data-screen=computer] body:has(#skills) #bot{'
       +   'right:auto!important;left:50%!important;width:min(980px,calc(100vw - 24px - 2 * (var(--boh-phone-w) + 16px)))!important}'
       /* THE COMPANY SCREEN, one column under 700 wide: the stash's tabs and pockets stand beside the phone, never under it */
       + '@media (max-width:699px){html.boh-phone-on.boh-phone-right body:has(#bag) #stash{padding-right:calc(var(--boh-phone-gap-r) + 6px)!important}'
@@ -429,7 +431,9 @@
   function whichScreen() {
     if (!gameOn()) return null;
     var fw = fightWin();
-    if (fw && (document.body.classList.contains('nf-on') || fw === window)) return 'fight';
+    /* a fight inside the game (the shell's clouds, nf-on); the fight's page opened on its own is COMBAT's bench, not the game: no
+       phone there (it is what COMBAT's own gates open, and the bench keeps its own bar and pace) */
+    if (fw && document.body.classList.contains('nf-on')) return 'fight';
     var cw = cityWin(); if (!cw) return null;
     var s = cw.BohemiaPhone.P.state();
     if (s.sky) return null;
@@ -949,13 +953,14 @@
     window.__PHONE_FLIPS = (window.__PHONE_FLIPS | 0) + 1;
     tick();   /* the phone, every frame's variables and every camera, at once */
   }
-  function setApps(order, hidden) { H.cfg.order = order; H.cfg.hidden = hidden; cfgSave(H.cfg); homeBuild(); paintHome(true); }
+  function setApps(order, hidden) { H.cfg.order = order; H.cfg.hidden = hidden; cfgSave(H.cfg); if (H.el) { homeBuild(); paintHome(true); } }
 
   /* ---- THE BEAT OF THE HOST: where the phone is, what it shows, and every frame told ---- */
   function tick() {
-    if (!build()) return;
     var on = false, scr = null;
     try { scr = whichScreen(); on = !!scr; } catch (e) { on = false; scr = null; }
+    if (!on && !H.el) return;   /* nothing is built until the game is on the glass (a bench page never pays for a phone) */
+    if (!build()) return;
     var W = innerWidth, Hh = innerHeight, g = geomFor(W, Hh, H.cfg.side, insets(document));
     var ph = H.el;
     if (!H.z) H.z = document.getElementById('setwrap') ? 60 : 70;   /* under the shell's settings card; over a lone map's town */
@@ -998,9 +1003,9 @@
   if (IS_HOST) {
     window.BohemiaPhone.setSide = setSide;
     var boot = function () {
-      build(); tick(); setInterval(tick, 200);
-      window.addEventListener('resize', function () { tick(); paintWall(true); });
-      window.addEventListener('orientationchange', function () { setTimeout(function () { tick(); paintWall(true); }, 60); });
+      tick(); setInterval(tick, 200);   /* tick builds the phone the first time the game is on the glass */
+      window.addEventListener('resize', function () { tick(); if (H.el) paintWall(true); });
+      window.addEventListener('orientationchange', function () { setTimeout(function () { tick(); if (H.el) paintWall(true); }, 60); });
       /* the gear's own card gains THE PHONE every time it opens */
       document.addEventListener('click', function (e) { var g = e.target && e.target.closest && e.target.closest('#gearbtn'); if (g) setTimeout(settingsRows, 0); }, true);
       var sw = document.getElementById('setwrap');
