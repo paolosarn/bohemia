@@ -166,7 +166,7 @@
   function injuryOf(name, main) {
     var r = get().men[canon(name, main)], L = LI();
     if (!r || !(r.marks && r.marks.length)) return null;
-    var w = r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: r.wound.left, of: r.wound.of } : null;
+    var w = r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: r.wound.left, of: r.wound.of, treated: (r.wound.treated | 0) > 0 } : null;
     return { marks: uniq(r.marks), wound: w, daysLeft: w ? Math.ceil(w.left - 1e-9) : 0,
       fresh: w && L ? L.freshNow(w.mark, w.left, w.of) : null,
       penalties: L ? L.penalties(r.marks, w) : [], look: L ? L.look(r.marks, w) : null };

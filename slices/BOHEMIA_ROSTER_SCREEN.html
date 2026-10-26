@@ -688,10 +688,12 @@ function drawCard(){
       var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + mk.name.toUpperCase() + (mk.line ? ', ' + mk.line : ''); hb.appendChild(h2); });
     /* CAMP (rules 234(d), 241(c)): the injury card, the town clinic's own drawing: the wound's debuff as icons with a red down arrow
        by how much, its days on a clock, the clinic's after beside it, what is his for life; then the clinic's price */
-    if(window.BohemiaInjuryCard){ var inj = injOf(m);
+    var inj = injOf(m);
+    if(window.BohemiaInjuryCard){
       if(inj){ var ic = BohemiaInjuryCard.build(document, inj, { clinic: fresh(m) });   /* the clinic's price is the line under it */
         ic.classList.add('fresh'); hb.appendChild(ic); } }
-    if(fresh(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; h3.textContent = 'He can fight. A clinic halves the days and the wound for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
+    if(fresh(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; var tr = inj && inj.wound && inj.wound.treated;
+      h3.textContent = tr ? 'He can fight. A clinic already cut the wound in half.' : 'He can fight. A clinic halves the days and the wound for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
     el.appendChild(hb); }
   if(m.perks.length){ var pk = document.createElement('div'); pk.className = 'perks'; pk.textContent = 'PERKS: ' + m.perks.map(C.perkName).join(', '); el.appendChild(pk); }
 }
