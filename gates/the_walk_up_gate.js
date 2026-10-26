@@ -112,7 +112,8 @@ const done = () => { console.log('=== THE WALK-UP GATE: ' + pass + ' passed, ' +
       'sheet top ' + w5.top + ' of ' + w5.H + '; on his way the town up ' + w5a.lift + ' px, his feet at ' + w5a.feet + '; there, up ' + w5.lift + ', the door at ' + w5.goalFeet + ', his head at ' + w5.head + '; closed: ' + Math.round(back.lift));
 
     /* ---- W6 a man in the crowd ---- */
-    const cw = await sf.evaluate(() => { const S = BohemiaSettlement, v = S._view(), r = document.getElementById('cv').getBoundingClientRect(), ph = S.scale().person;
+    const cw = await sf.evaluate(() => { const S = BohemiaSettlement, ph = S.scale().person, c0 = S.folk().filter(p => p.crowd)[0]; if (c0) S.lookAt(c0.x, c0.y - ph * .55);   /* RE-AIMED 10/26: the town fills the phone's height; the crowd is brought into view as his drag would */
+      const v = S._view(), r = document.getElementById('cv').getBoundingClientRect();
       const L = S.folk().filter(p => p.crowd).map(p => ({ slot: p.slot, x: p.x, y: p.y, sx: v.ox + p.x * v.s, sy: v.oy + (p.y - ph * .55) * v.s }))
         .filter(p => p.sx > 20 && p.sx < v.W - 20 && p.sy > 20 && p.sy < v.H - 20).filter(p => { const u = S.peopleUnder(p.sx, p.sy); return u[0] && u[0].slot === p.slot; });
       return L.length ? Object.assign(L[0], { rx: r.left, ry: r.top }) : null; });

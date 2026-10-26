@@ -9860,6 +9860,10 @@ GATES = [
      "every account a handle, none alike in any act, no portrait yet, a page's handle its faction's word, two thirds of people's handles their trade; his page and the bots never Spanglish on the dial; the English carries no Spanish and every twin does (the people engine's one lexicon); "
      "Q15: never 'somebody', every human line names or talks to a person; no machine words, never a joke at the player; no two lines alike; every fill declared and used; 170 characters; every big kind a reply and a follow-up, every bot answered; a paced 40,000-post feed through the real dial at 10 to 15 Spanglish in 100 (13.7); half the people's lines their own twin (217 of 389); a faction always a plural verb, none that must agree after his company's name. "
      "Sixteen mutations each turn it red. 1 s", False),
+    ('EVERY TOWN IS BUSY', ['node', 'gates/every_town_is_busy_gate.js'],
+     "RUN TWO gate, 10/26, row [eyes: the quiet town] (rule 131, Paolo 10/23: 'characters you can't even interact with walking around the settlement, doing something, doing important things'; EYES 10/25: Blues one person standing, an empty dark band under the picture). "
+     "MEASURED before: 6 of the 14 places sick that week, each cut to ONE man and ONE walker; the phone showed the picture at half the glass's height, a person 45 points tall. "
+     "HOLDS on the demo through the map's door: every one of the 14 places has at least three on its paths, two seen walking and one at work over six seconds, a crowd, nobody alone in a sick or raided place; the computer, three places (the dark band is rule 218(c)'s [the town fits the screen]). about 7 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

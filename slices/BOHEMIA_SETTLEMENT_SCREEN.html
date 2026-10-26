@@ -1036,7 +1036,7 @@ function layout(){
      screen fills the width */
   /* you see the PLACE, not one roof: an upright phone shows about 60 percent of the picture's
      width at once and drags for the rest; a wide screen fits all of it */
-  view.s = Math.min(Math.max(W/(picW()*0.6), H*0.5/picH()), H/picH());
+  view.s = Math.min(Math.max(W/(picW()*0.6), H*0.5/picH()), H/picH());   /* the dark band EYES saw under the picture goes with rule 218(c), [the town fits the screen] (the whole town fitted, no sliding), never by zooming in */
   /* RUN TWO [the sideways band], 10/10 (UI's review, his NO on 'the brown-grey sides'): a glass wider than the
      picture FILLS THE WIDTH and crops top and bottom (Battle Brothers' town screen fills its glass at any width);
      a drag then also moves up and down, so no building is ever out of reach */
@@ -1087,8 +1087,11 @@ function crowdCount(){
      market day's extra people walk the place (busyCount, +6), one more stands at the stall; eleven standing in one knot left
      three of them a third of a finger on a phone */
   if(tr.indexOf('market_day') >= 0) n += 1;
-  if(tr.indexOf('raided') >= 0) n = Math.min(n, 1);
-  if(tr.indexOf('sickness') >= 0) n = Math.min(n, 1);
+  /* __EVERY_TOWN_IS_BUSY__ (RUN TWO [eyes: the quiet town], rule 131; EYES 10/25: Blues one person standing): a raid or a sickness
+     thinned the crowd to ONE, and the cards roll often (measured on the demo: 6 of the 14 places sick, each one man in the street).
+     The wiki's cards thin the RECRUITS (raided -50%, sickness -25%), never empty a town: the crowd thins by the card's own share */
+  if(tr.indexOf('raided') >= 0) n = Math.max(1, Math.round(n * .5));
+  if(tr.indexOf('sickness') >= 0) n = Math.max(1, Math.round(n * .75));
   if(view.night) n = Math.ceil(n/2);
   return n;
 }
@@ -1150,7 +1153,8 @@ function folkList(){
    crowd only, so the people who matter stand still on their spot, always, and the moving ones read apart at a glance.
    The lanes are read by eye off each picture (picture px): feet on y, between x0 and x1, clear of every building, car
    and stall. ANIMATION's work clips (hauling, sweeping, carrying) take the stops' place when they land (rule 130(a)). */
-var BUSY_BASE = {camp:2, town:4, fortress:4, home:2};
+var BUSY_BASE = {camp:3, town:4, fortress:4, home:2};
+var BUSY_FLOOR = {day:3, night:2};   /* __EVERY_TOWN_IS_BUSY__: a place, the smallest camp too, always has people at work on its paths */
 var BUSY_LANES = {
   town: [{y:606, x0:40, x1:2020, face:'S'}, {y:388, x0:700, x1:1540, face:'N'}],
   camp: [{y:832, x0:80, x1:1650, face:'N'}, {y:566, x0:450, x1:1080, face:'N'}],
@@ -1165,9 +1169,11 @@ var WALK_PX_PER_STRIDE = 74, STRIDE_MS = 1000;   /* one stride (the walk's six k
 function busyCount(){
   var n = BUSY_BASE[S.place.tier] || 2, tr = (S.traits||[]).map(function(t){ return t.id; });
   if(tr.indexOf('market_day') >= 0) n += 6;   /* EYES [eyes: crowd taps]: the market's crowd walks (was +2, and +6 standing) */
-  if(tr.indexOf('raided') >= 0 || tr.indexOf('sickness') >= 0) n = Math.min(n, 1);
+  /* __EVERY_TOWN_IS_BUSY__: the card's own share thins the walkers (the ones left carry the sick, clear the burnt house), never to one */
+  if(tr.indexOf('raided') >= 0) n = Math.round(n * .5);
+  if(tr.indexOf('sickness') >= 0) n = Math.round(n * .75);
   if(view.night) n = Math.ceil(n/2);
-  return n;
+  return S.place && S.place.tier === 'home' ? n : Math.max(n, view.night ? BUSY_FLOOR.night : BUSY_FLOOR.day);
 }
 function busyList(){
   var B = window.BohemiaRigBodies; if(!VAR || !B || !B.canWalk || S.camp) return [];
@@ -1873,6 +1879,9 @@ function hitAt(x, y){
   return best;
 }
 /* where a building can be tapped: it pans the picture to it and gives its middle (the driver uses it) */
+/* a point of the picture brought to the middle of the glass, as his drag would (__EVERY_TOWN_IS_BUSY__: filled to the phone's
+   height, a man by the post can be past the glass's edge until he drags) */
+function lookAt(px, py){ pan(px); panY(py); var r = document.getElementById('scene').getBoundingClientRect(); return {x: r.left + view.ox + px*view.s, y: r.top + view.oy + py*view.s}; }
 function where(k){
   if(!VAR || !VAR.boxes[k] || ORDER.indexOf(k) < 0) return null;
   var b = tapBox(k); pan((b[0]+b[2])/2); panY((b[1]+b[3])/2);
@@ -2045,7 +2054,7 @@ function hireLoad(){
   if(HIRE.asked) return; HIRE.asked = true;
   fetch('fight_rig/fight_rig.json').then(function(r){ return r.json(); }).then(function(j){ HIRE.rig = j; if(S.open === 'hall') openB('hall'); }).catch(function(){});
   fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){ var v = j && j.per_man_per_night; HIRE.bill = +((v && v.value != null) ? v.value : v) || null; if(S.open === 'hall') openB('hall'); }).catch(function(){});
-  if(window.BohemiaRoster) BohemiaRoster.load().then(function(){ HIRE.roster = true; if(S.open === 'hall') openB('hall');
+  if(window.BohemiaRoster) BohemiaRoster.load(null, {people:false}).then(function(){ HIRE.roster = true; if(S.open === 'hall') openB('hall');
     var ca = S.cardAgain; S.cardAgain = null; if(ca && S.open === ca.k && (S.stock[ca.k] || []).some(function(x){ return x.id === ca.id; })) ca.fn(); }).catch(function(){});   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ */
 }
 function hireGun(r){   /* the first gun in his kit, as the fight reads a gun (its class in ours' gun_classes) */
@@ -2798,6 +2807,7 @@ function arriveWhenReady(){ if((TRAITS && ARR && (!window.BohemiaBarNews || Bohe
 /* ---------- OPEN ---------- */
 function open(o){
   o = o || {};
+  hireLoad();   /* __THE_SHOP_SAYS_WHAT_IT_DOES__: the hall's and the shops' files (the roster, the rig, the bill) are read as the town opens, so a card is whole when he taps it and the hall never redraws under a keeper mid-line */
   if(o.place){ S.camp = !!o.camp; S.campInfo = o.camp ? {day:o.day, min:o.min, night:!!o.night, company:o.company || [], bill:o.bill || null, cleared:o.cleared || null} : null; }   /* __THE_CAMP__ */
   if(o.place) for(var k in o.place) S.place[k] = o.place[k];
   S.purse = o.purse || S.purse || P.create({id:'player'});
@@ -2869,7 +2879,7 @@ window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G &&
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

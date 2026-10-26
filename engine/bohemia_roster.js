@@ -85,11 +85,13 @@
   function rng(s) { var x = s >>> 0 || 1; return function () { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 100000) / 100000; }; }
   function priceOf(v) { return Math.max(1, Math.round((v || 0) / 10)); }
 
-  function load(base) {
+  function load(base, opts) {
     base = base || '../records/target/bb/';
     function j(u) { return fetch(u).then(function (r) { return r.json(); }); }
+    /* opts.people === false: a screen that draws every person as a 3D model (the settlement, rule 121(e)) never asks for the old
+       flat sheets' index; a look is then known by its own name (lookFor) */
     return Promise.all([j(base + 'ours.json'), j(base + 'backgrounds.json'), j(base + 'armor.json'), j(base + 'weapons.json'),
-      j('fight_people/fight_people.json').catch(function () { return null; }),
+      opts && opts.people === false ? Promise.resolve(null) : j('fight_people/fight_people.json').catch(function () { return null; }),
       j(base + 'rules.json'), j(base + 'perk_translation.json'),
       j(base + 'perks.json').catch(function () { return null; }), j(base + 'armour_names.json').catch(function () { return null; })])   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ */
       .then(function (a) { D.ours = a[0]; D.backgrounds = a[1]; D.armor = a[2]; D.weapons = a[3]; D.people = a[4];
