@@ -188,7 +188,10 @@
     var pts = path.map(function (q) { return { x: q.x, y: q.y }; }); pts[0] = { x: m.wx, y: m.wy }; pts[pts.length - 1] = { x: p.x, y: p.y };
     var len = 0; for (var i = 1; i < pts.length; i++) len += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
     m.stop = s; m.path = pts; m.len = len; m.walkAt = now; m.act = len > 0.05 ? 'walk' : 'there';
-    m.dur = len / 0.6 * 1000;   /* 0.6 of a house tile a second: a slow walk at the man's own size (the walk's six keys a second) */
+    /* 0.6 of a house tile a second: a slow walk at the man's own size (the walk's six keys a second); a long way across the board he
+       hurries, never more than five seconds a leg (measured: the dead of a fight won at the first contact lie eight tiles off, and
+       YOU walked thirteen seconds before he reached the first), his steps quicker with it so his feet never slide */
+    m.dur = Math.min(len / 0.6, 5) * 1000; m.stride = Math.max(1, (len / 0.6 * 1000) / Math.max(1, m.dur));
     if (m.act === 'there') arrive(sc, m, now);
   }
   function arrive(sc, m, now) {
@@ -222,7 +225,8 @@
     if (now - A.last < 1000 / A.fps) return;
     A.last = now;
     var t0 = root.performance.now();
-    draw(now - A.t0);
+    /* one bad picture (a sheet not in yet, a frame torn down under it) costs that frame, never the scene, never the console */
+    try { draw(now - A.t0); } catch (e) { A.errs = (A.errs | 0) + 1; A.err = A.err || String(e && e.message || e); }
     var ms = root.performance.now() - t0; A.frames++; A.ms += ms; if (ms > A.worst) A.worst = ms;
     A.times.push(ms); if (A.times.length > 240) A.times.shift();
   }
@@ -280,7 +284,7 @@
     var im = function (i) { if (!dark || !fw || typeof fw.nightSheet !== 'function') return i; try { return fw.nightSheet(i, fw.moonOf(Math.round(m.wx), Math.round(m.wy))); } catch (e) { return i; } };
     m.drawn = m.act;
     if (m.act === 'walk') {
-      var k = Math.floor(Math.max(0, now - m.walkAt) / (BEAT / 3)) % 6, c = gun ? (clips.carrywalk || CLIPS.carrywalk) : (clips.walk || CLIPS.walk);
+      var k = Math.floor(Math.max(0, now - m.walkAt) * (m.stride || 1) / (BEAT / 3)) % 6, c = gun ? (clips.carrywalk || CLIPS.carrywalk) : (clips.walk || CLIPS.walk);
       cell(g, m.sheet, c[k % c.length], f, m.L, x0, y0, s);
       if (gun && gun.img) { var gc = GUNCLIPS.carrywalk[k % 6]; cell(g, gun.img, gc, gun.row * 8 + f, m.L, x0, y0, s); }
       return;
@@ -321,9 +325,9 @@
   function start(cv, scene, o) {
     stop(); o = o || {};
     A.cv = cv; A.g = cv.getContext('2d'); A.scene = scene; A.dim = o.dim != null ? o.dim : A.dim; A.over = null; A.fps = o.fps || 12; A.paused = o.paused || null; A.focus = o.focus || null;
-    A.frames = 0; A.ms = 0; A.worst = 0; A.times = []; A.cam = null; A.t0 = root.performance.now(); A.last = 0; A.on = true;
+    A.frames = 0; A.ms = 0; A.worst = 0; A.times = []; A.errs = 0; A.err = null; A.cam = null; A.t0 = root.performance.now(); A.last = 0; A.on = true;
     size(); A.men = plan(scene);
-    draw(0);   /* drawn on open (rule 245(c)): the first picture before the first frame of the clock */
+    try { draw(0); } catch (e) { A.errs = (A.errs | 0) + 1; A.err = A.err || String(e && e.message || e); }   /* drawn on open (rule 245(c)): the first picture before the first frame of the clock */
     if (!A.sized) { A.sized = true; root.addEventListener('resize', size); }
     A.raf = root.requestAnimationFrame(frame);
     return true;
@@ -334,7 +338,7 @@
   }
   function state() {
     var ts = (A.times || []).slice().sort(function (a, b) { return a - b; });
-    return { on: A.on, from: A.scene && A.scene.from, frames: A.frames, msAvg: A.frames ? A.ms / A.frames : 0, msWorst: A.worst, msP95: ts.length ? ts[Math.floor(ts.length * 0.95)] : 0, dim: A.dim, ratio: A.ratio,
+    return { on: A.on, from: A.scene && A.scene.from, errs: A.errs | 0, err: A.err || null, frames: A.frames, msAvg: A.frames ? A.ms / A.frames : 0, msWorst: A.worst, msP95: ts.length ? ts[Math.floor(ts.length * 0.95)] : 0, dim: A.dim, ratio: A.ratio,
       canvas: A.cv ? [A.cv.width, A.cv.height] : null, bytes: (A.cv ? A.cv.width * A.cv.height * 4 : 0) + (A.over ? A.over.width * A.over.height * 4 : 0), view: A.view || null,
       same: function (b) { return !!(A.scene && b && A.scene.board === b); },
       board: A.scene ? { tw: A.scene.tw, th: A.scene.th, w: A.scene.w, h: A.scene.h, bw: A.scene.board && A.scene.board.width, bh: A.scene.board && A.scene.board.height, near: A.scene.near, manDev: A.scene.manDev, dpr: A.scene.dpr } : null,

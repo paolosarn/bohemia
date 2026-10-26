@@ -11,10 +11,11 @@
    3. THE ODDS READ AND THE DIE UNTOUCHED: on his turn the odds are read inside a person's decision (2.65 s, the
       Keystroke-Level Model), and the real die is exactly where it was;
    4. AUTO WEARS THE ODDS AND ONE TAP FINISHES (re-aimed 10/24 by rule 144(b)(e)(f)(g)): a clean win nearly certain tints AUTO
-      green and lights it on the beat, with NO number on it; one tap plays the rest on AUTO at the top pace (4x, rule 158(b))
+      green and lights it on the beat, with NO number on it; one tap plays the rest on AUTO at his own pace (rule 274; it was a top pace, 4x)
       to the recap; a fight
       he cannot win reads red and does not glow; a death in a run pulls it red; an even fight reads red (no clear middle);
-   5. THEIR TURNS AT DOUBLE PACE: on their turn the beat the motion keeps is half his;
+   5. THEIR TURNS AT HIS PACE (RE-AIMED 10/26 by rule 274, ONE PACE: they ran at double pace, his 'speeds up and slows down'):
+      on their turn the beat the motion keeps is his own;
    6. A TAP SKIPS HIS WALK: a tap while his man walks puts him at the walk's end inside a quarter beat;
    7. TAKE BACK THE LAST STEP, ONCE A TURN, NEVER A DIE: a walk that rolled nothing shows BACK; BACK puts him where he stood
       with his AP; the second walk of the turn has no BACK; a walk that drew a free swing has none;
@@ -83,13 +84,12 @@ leg(endA === endB, '*** THE FIGHT KEPT: FROZEN TO PLAIN DATA AND THAWED, THE SAM
     leg(o.glow && /^rgba\(46, 160, 67/.test(o.tint) && o.face === 'AUTO' && !/%|\d/.test(o.face), '*** A CLEAN WIN NEARLY CERTAIN: AUTO GLOWS GREEN, WITH NO NUMBER ON IT ***', 'worth ' + o.pct + ' in the background (' + o.clean + ' of ' + o.runs + ' clean), tint ' + o.tint + ', face "' + o.face + '", glow ' + o.glow);
     const a = await p.evaluate(() => { const r = document.getElementById('bauto').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     await p.touchscreen.tap(a.x, a.y); await p.waitForTimeout(200);
-    const f0 = await p.evaluate(() => ({ auto: FIGHT_UI.auto, finish: FIGHT_UI.finish, pace: paceNow(), t: performance.now() }));
+    const f0 = await p.evaluate(() => ({ auto: FIGHT_UI.auto, finish: FIGHT_UI.finish, beat: beatMs(), base: 60000 / R('ours.beat_bpm') / FIGHT_UI.speed / (FIGHT_UI.hand || 1), t: performance.now() }));
     await p.waitForFunction(() => FIGHT.S.over && document.getElementById('over').style.display === 'flex', null, { timeout: 60000 }).catch(() => {});
     const f1 = await p.evaluate(() => ({ over: FIGHT.S.over, result: FIGHT.S.result, shown: document.getElementById('over').style.display === 'flex', t: performance.now(), bullets: (FIGHT_UI.bullets || []).slice(), kept: localStorage.getItem('bohemia.fight.kept.v1') }));
-    /* RE-AIMED 10/24 by rule 158(b) (a faster fight lands on halves and quarters of the song's beat, never off it): the top pace
-       is the page's own FINISH_PACE, a power of two (it was 3, a third of a beat) */
-    const fin = await p.evaluate(() => FINISH_PACE);
-    leg(f0.auto && f0.finish && f0.pace === fin && Math.log2(fin) % 1 === 0 && fin > 1 && f1.over && f1.shown, '*** ONE TAP FINISHES IT: AUTO AT THE TOP PACE TO THE RECAP ***', 'auto ' + f0.auto + ', pace ' + f0.pace + 'x, ' + f1.result + ' in ' + ((f1.t - f0.t) / 1000).toFixed(1) + ' s');
+    /* RE-AIMED 10/24 by rule 158(b), and 10/26 by rule 274 (ONE PACE: FINISH_PACE, 4x, is gone; the finish keeps his own pace,
+       the tempo never changes by itself) */
+    leg(f0.auto && f0.finish && Math.abs(f0.beat - f0.base) < 1 && f1.over && f1.shown, '*** ONE TAP FINISHES IT: AUTO AT HIS OWN PACE TO THE RECAP *** (rule 274)', 'auto ' + f0.auto + ', the beat ' + Math.round(f0.beat) + ' ms (his ' + Math.round(f0.base) + '), ' + f1.result + ' in ' + ((f1.t - f0.t) / 1000).toFixed(1) + ' s');
     const fired = f1.bullets.filter(b => /^fired /.test(b)).length, lands = f1.bullets.filter(b => /^lands (man|armour|cover|dirt|past_ear) /.test(b)).length;
     leg(fired > 0 && lands >= fired, '*** THE BULLET\'S MOMENTS: EVERY SHOT OF A GUN POSTS FIRED AND WHERE IT LANDS, FOR SOUNDS ***', fired + ' fired, ' + lands + ' landed: ' + f1.bullets.slice(0, 4).join(' | '));
     leg(!f1.kept, '  the end clears the kept fight', f1.kept ? 'STILL KEPT' : 'cleared');
@@ -120,7 +120,7 @@ leg(endA === endB, '*** THE FIGHT KEPT: FROZEN TO PLAIN DATA AND THAWED, THE SAM
     let theirs = null;
     for (let i = 0; i < 80 && !theirs; i++) { theirs = await p.evaluate(() => { const u = FIGHT.current(); return u && u.side === 'them' ? { b: beatMs(), base: 60000 / R('ours.beat_bpm') / FIGHT_UI.speed / (FIGHT_UI.hand || 1) } : null; });
       if (!theirs) { const st = await mine(p); if (st === 'mine') { const e = await p.evaluate(() => { const r = document.getElementById('bend').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }); await p.touchscreen.tap(e.x, e.y); } await p.waitForTimeout(30); } }
-    leg(theirs && Math.abs(theirs.b * 2 - theirs.base) < 1, '*** THEIR TURNS AT DOUBLE PACE: THEIR BEAT IS HALF HIS ***', theirs ? Math.round(theirs.b) + ' ms on their turn, ' + Math.round(theirs.base) + ' on his' : 'their turn never came');
+    leg(theirs && Math.abs(theirs.b - theirs.base) < 1, '*** THEIR TURNS AT HIS PACE: THEIR BEAT IS HIS *** (rule 274, re-aimed: it was half his)', theirs ? Math.round(theirs.b) + ' ms on their turn, ' + Math.round(theirs.base) + ' on his' : 'their turn never came');
     /* set a clean turn of his: the thug in the far corner */
     const setTurn = async () => { await mine(p); return p.evaluate(() => { const S = FIGHT.S, u = S.units.filter(v => v.side === 'you' && FIGHT.onField(v))[0], t = S.units.filter(v => v.side === 'them')[0];
       t.x = S.w - 1; t.y = S.h - 1; u.x = 4; u.y = 4; u.ap = u.apTurn; u.fat = 0; u.begun = true; S.order = [u.id, t.id]; S.idx = 0;
@@ -142,11 +142,7 @@ leg(endA === endB, '*** THE FIGHT KEPT: FROZEN TO PLAIN DATA AND THAWED, THE SAM
     /* 7: take back */
     const m7 = await setTurn(); await p.waitForTimeout(300);
     await tapTile(m7.x + 2, m7.y + 1); await tapTile(m7.x + 2, m7.y + 1); await settle(); await p.waitForTimeout(200);
-    /* RE-AIMED 10/26 BY UI TWO (rule 213(b)): with the one phone up, BACK rides the phone's ability page with his abilities (the bar
-       beside the phone has no room for it: WAIT slid over it); the press is on the phone's own BACK, a real touch */
-    await p.waitForTimeout(600);
-    const b0 = await p.evaluate(id => { const u = FIGHT.byId(id), ph = document.querySelector('#bohphone.on .ab .sk[aria-label="back"]'), b = ph || document.getElementById('bback');
-      return { x: u.x, y: u.y, ap: u.ap, phone: !!ph, shown: document.getElementById('bback').style.display !== 'none' && b.getBoundingClientRect().width > 0, r: b.getBoundingClientRect() }; }, m7.id);
+    const b0 = await p.evaluate(id => { const u = FIGHT.byId(id), b = document.getElementById('bback'); return { x: u.x, y: u.y, ap: u.ap, shown: b.style.display !== 'none' && b.getBoundingClientRect().width > 0, r: b.getBoundingClientRect() }; }, m7.id);
     if (b0.shown) { await p.touchscreen.tap(b0.r.x + b0.r.width / 2, b0.r.y + b0.r.height / 2); await p.waitForTimeout(250); }
     const b1 = await p.evaluate(id => { const u = FIGHT.byId(id), b = document.getElementById('bback'); return { x: u.x, y: u.y, ap: u.ap, shown: b.style.display !== 'none', say: document.getElementById('say').innerText }; }, m7.id);
     leg(b0.shown && (b0.x !== m7.x || b0.y !== m7.y) && b1.x === m7.x && b1.y === m7.y && b1.ap === m7.ap && !b1.shown,

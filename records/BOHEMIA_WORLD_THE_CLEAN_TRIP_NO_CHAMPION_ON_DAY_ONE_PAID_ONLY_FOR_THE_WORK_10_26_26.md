@@ -138,3 +138,48 @@ should get paid, I don't wanna have to enter the settlement mode.'
   opened, the count-up posted (the sound); E2 a walk to the town: paid on the step that reached its edge, 1.1 s before the screen opened; E3 nothing paid twice.
   The neighbours on the same tree: paid_only_for_the_work 13/0, the_normie_hour_world 8/0, a_jobs_time_counts_the_way_back 6/0,
   every_job_kind 37/0. The count-up on E1: 11 ticks posted as the 45 landed (the bar's sound, SOUNDS' counter and drop).
+
+## 9. [one scale: the blood is the AUTO colour] (rule 254, Paolo 10/26, FIRST on the routine's order; amends 208, strikes 208(a)'s one in six)
+His words: 'I don't know if the bloody button is using the same calculator as the auto combat, but I hope it is... it should be max
+bloody if you think I would lose members or members would fall, the same as when the combat calculator turns red, that's when the
+bloody button should be the bloodiest, so it's very clear to the player.'
+- MEASURED BEFORE: the same calculator (the fight's own rules, played on AUTO) but two scales. The job counted a play CLEAN by the
+  coordinator's reading (won, nobody dead, at most one in six down: section 1), took (clean + 1) / (runs + 2), and cut its stars at
+  TUNING's 0.95 and 0.50; its blood ran from a 4 percent danger to 65. The fight's AUTO colour counts a run 1 when clean, half the share
+  standing when men are down, 0 for a death or a loss, takes the plain mean, and turns red under 0.8. A job could read one star and
+  clean tin on a fight whose AUTO button was red.
+- NOW (slices/bohemia_job_danger.js): ONE CALCULATOR, ONE SCALE. A run is worth the fight's own oddsRunValue (the worker, the page's
+  slices and the probe all play it; okRun is gone); the job's number is the plain mean (prior 0), the trip the product over its fights;
+  the lines are READ FROM THE FIGHT when the page loads (ours.odds_colour: turn 0.8, down_value 0.5): at or over the turn AUTO is
+  green, ONE star and clean tin; under it red, TWO stars and blood from the first stage; at or under down_value (the run the
+  calculator expects has a man down or dead) THREE stars and the deepest blood. The blood is the same straight line UI's kit reads
+  (cfg() blood_from = 1 - turn, blood_full = 1 - down_value), so a button that carries only the danger paints the same stage.
+  records/target/bb/job_danger.json: prior 0, laid_up_per gone, the four lines' copies at 0.8, 0.5, 0.2, 0.5 with their sources
+  (the gate holds them equal to the fight's; if TUNING moves the colour's turn, the stars and the blood move with it the same load).
+- FOUND ON THE WAY, AN OLD READING FAULT (this lane's, since 10/26 (k)): a job's sure fight and its chance road fight often share a band
+  and a district, so one cached read; whichever was queued first set the plays, and the road fight was queued first: 8 plays, no
+  playing on. Most sure fights were read on 8 plays (7 of 8 = 0.875 where 100 plays said 0.77). NOW a sure fight is read full and never
+  borrows a light read; a road fight takes a full read of its band when there is one. And a fight read where the blood rises (between
+  the lines, 0.38 to 0.92) plays on, 32 at a time, to 96 (runs_max): there a few plays move the blood a stage. The "plainly lost" early
+  stop fires only under 0.2 (at 0.42 after 12 plays, 6 of 221 jobs worth 0.59 to 0.62 stopped and read three stars).
+- FOUND FOR COMBAT (not this lane's code, NOTEd): the fight's own code carries a little from one fight into the next. The same fight on
+  the same dice, played in node fresh and again after twelve other fights: run 7 came out 0 and then 0.33 (direwolf, hyena, hyena
+  against A New Crew, the rail district). Over 15 fights the page's worker and a fresh replay differed by up to 3.3 plays in 96 on 5 (node tools/bohemia_world_the_fight_carries_over.js reproduces both). The
+  AUTO button's own copy plays many fights in a row the same way, so its colour moves the same little.
+- THE GATE (gates/the_job_tells_the_truth_gate.js, the same five crews and 221 jobs, each replayed 100 times with fresh dice in node on
+  the fight's own rules): J2, J3 and J8 read the AUTO count (a one-star job worth 0.8 or more; a three-star job 0.5 or less; a lie is
+  past a hair of 0.1); J10 (254(d)): the lines are AUTO's; 60 sure fights replayed on the page's own hand-over and dice with the
+  fight's own count give the page's number (within 5 plays in 100, the fight's carry-over); every blood its number on the line,
+  exactly; every blood on the side of the turn its 100 fresh plays are; every job that loses a man 6 plays in 10 three stars and
+  the deepest blood. Against 100 FRESH plays the blood is printed, not held: two samples of the same dice differ (100 plays wobble
+  about 0.05) and the blood's line is steep (0.8 to 0.5 is the whole scale).
+- PROOF: the stars gate on the phone, final: 10/0. J2 80 one-star jobs worth 0.92 on AUTO's count (the worst 0.78); J3 99 three-star
+  jobs worth 0.18 (the best 0.65); J4 rho 0.92; J8 4 of 221 past the hair (the floor is 4); J10 the lines AUTO's, 60 sure fights and
+  3,507 plays on the page's own dice: 39 to the last digit, the most apart 4.17 plays; no blood off its line; no job off AUTO's side;
+  55 jobs lose a man 6 plays in 10, all 55 three stars and the deepest blood; against 100 fresh plays the blood differs 0.00 at the
+  median, 0.16 at the 90th, 0.26 at the 95th. On the computer (the same tree, the gate one step before its final tolerances): 9/1, its
+  one red the side leg's one job (qd-ar02 read 0.797 on 96 plays, 0.89 on 100 fresh), inside the final one-in-a-hundred; the same
+  dice 3.88 plays apart at most. UI's the blood is CRASHBOX 30/0 (one marked line: its lowered stop-motion leg lowered to 0.05, over
+  the old clean line, 0.04, and under the new one, 0.20; it now reads the file). THE COST: a fight read where the blood rises plays
+  up to three times as long: under the gate's load the twelve men's 50 jobs read in 541 s (298 before), the Lone Wolf's in 13 s.
+  The last read's stars stand, pulsing, while a changed crew is read again (F28), so the board is never blank while it reads.

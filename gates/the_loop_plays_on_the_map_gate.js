@@ -31,6 +31,7 @@
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+const { leaveTown } = require(path.join(ROOT, 'tools/bohemia_leave_the_town.js'));
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { if (c) { pass++; console.log('  ok   ' + n); } else { fail++; console.log('  FAIL ' + n); } };
@@ -113,7 +114,8 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
     if (first) ok('*** L4 THE BOARD GIVES HIM A CONTRACT *** ("' + offer + '" -> ' + JSON.stringify(held.map(h => h.title)) + ')', held.length === 1 && held[0].title === offer);
 
     /* L5 */
-    await tapText(/^LEAVE$/); await d.page.waitForTimeout(800);
+    /* UI TWO (rules 238(a), 286(b)): the one LEAVE on screen is the phone's in the game (the town's own off the glass) */
+    await leaveTown(d.page, sf, { ms: 4000 }); await d.page.waitForTimeout(800);
     const map5 = await fr.evaluate(() => { render(); return { shut: !LOOP.frame || LOOP.frame.style.display === 'none', jobs: MAP_DREW.jobs | 0 }; });
     if (first) ok('L5 LEAVE closes the screen and the JOB is drawn on the map (' + map5.jobs + ')', map5.shut && map5.jobs === 1);
     return { held, bats0, offer, ok: held.length === 1 && map5.shut && map5.jobs === 1 };

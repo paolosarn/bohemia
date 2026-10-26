@@ -244,9 +244,10 @@ async function live(profile) {
       'C5  [' + profile + '] CAMP (THE REAL BUTTON) RUNS THE CLOCK AND THE CITY TALKS, FROM HANDLES IN THE FILE',
       'camp ' + !!cb + ', ' + Math.round((c5.t - t0) / 60) + ' game hours, posts ' + n0 + ' -> ' + c5.st.posts + ' ' + JSON.stringify(kinds) + '; newest: ' + (c5.posts[0] ? c5.posts[0].handle + ': ' + c5.posts[0].text : '-'));
     /* the phone: RE-AIMED 10/26 BY UI TWO (rule 212(b), 215(e)): the slot is gone; the phone's FEED app reads BohemiaFeed.read(),
-       its newest post first, inside the phone's glass, in one tap (the camp broken first, so the phone shows its apps) */
+       its newest post first, inside the phone's glass, in one tap (the camp broken first, so the phone shows its apps).
+       Rule 286(c)(d): no FEED app; the feed is a strip on the phone's face and one tap on it opens the catalogue. */
     await fr.evaluate(() => { try { if (BohemiaMapCamp.on()) BohemiaMapCamp.break(); } catch (e) {} }); await p.waitForTimeout(1200);
-    const fa = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=feed]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    const fa = await p.evaluate(() => { const b = document.querySelector('#bohphone .home .bpfd'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
     if (fa) { if (profile === 'computer') await p.mouse.click(fa.x, fa.y); else await p.touchscreen.tap(fa.x, fa.y); }
     await p.waitForTimeout(700);
     const n6 = await fr.evaluate(() => BohemiaFeed.read({ limit: 1 })[0] || null);

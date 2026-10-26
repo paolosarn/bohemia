@@ -252,9 +252,12 @@ async function map() {
   try {
     for (let i = 0; i < 40 && !(await fr.evaluate(() => !!document.getElementById('bmtb'))); i++) await p.waitForTimeout(250);
     await p.waitForTimeout(1500);
+    /* RE-AIMED 10/26 BY UI TWO (rules 238(a), 286(b)): with the phone up the bar's NOTES is the phone's NOTES (its copy off the glass),
+       so the words read on the bar's tin are the day's; the phone's icons carry no words (238(c): a button reads by its shape) */
+    const ON = await fr.evaluate(() => document.documentElement.classList.contains('boh-phone-on'));
     await check('the map', fr, p, [['#menubar.bmtb', 'board_plain'], ['#bmtb .t.day', 'tin'], ['#bmtb .t.gear', 'tin'], ['#menubar #bmtb #notebtn', 'tin'], ['#bmtb .g', 'tray'],
       ['#speedpad', 'board_plain'], ['#speedpad .sp:not(.now)', 'tin_dark'], ['#speedpad .sp.now', 'tin_amber']],
-      [['the day on tin', '#bmtb .t.day'], ['NOTES on tin', '#menubar #bmtb #notebtn']]);
+      ON ? [['the day on tin', '#bmtb .t.day']] : [['the day on tin', '#bmtb .t.day'], ['NOTES on tin', '#menubar #bmtb #notebtn']]);
   } finally { await d.close(); }
 }
 

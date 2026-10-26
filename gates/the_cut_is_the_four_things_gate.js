@@ -121,13 +121,24 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     ok('*** LESS ON SCREEN, MEASURED, NOT CLAIMED *** (' + boxes + ' of 27)', boxes <= 16);
 
     /* ---- 2. AND EVERYTHING HE NEEDS IS STILL REACHABLE ------------------ */
+    /* RE-AIMED 10/26 BY UI TWO (rules 238(a), 286(b): every press on the phone, no button twice): NOTES is the phone's NOTES
+       icon now, in his corner (RIGHT by default), pressing the bar's own NOTES, whose copy is off the glass. The legs keep what
+       they protect: NOTES on the screen, on the right under his thumb, opening and holding words. The phone is the shell's, so
+       its box is the shell's pixels (tapped with the shell's own finger, not tapAt, which adds the city frame's offset). */
+    const phoneNotes = () => d.page.evaluate(() => {
+      const el = document.querySelector('#bohphone.on .bprow .app[data-app=notes]'); if (!el) return null;
+      const b = el.getBoundingClientRect(), s = getComputedStyle(el);
+      return { there: true, seen: s.display !== 'none' && s.visibility !== 'hidden' && b.width > 4 && b.height > 4 && b.left < innerWidth && b.top < innerHeight,
+               w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), shell: true };
+    });
+    const notesBox = async () => (await phoneNotes()) || drawn(fr, 'notebtn');
     for (const [id, what] of KEPT) {
-      const g = await drawn(fr, id);
-      ok('still on the screen: ' + what, g.seen === true);
+      const g = id === 'notebtn' ? await notesBox() : await drawn(fr, id);
+      ok('still on the screen: ' + what + (g.shell ? ' (on the phone)' : ''), g.seen === true);
     }
     /* NOTES DID NOT MOVE ACROSS THE SCREEN. Taking things away must not push the
        one control that stayed under the other hand. */
-    const nb = await drawn(fr, 'notebtn');
+    const nb = await notesBox();
     say('  NOTES sits at x=' + nb.x + ' of 390');
     ok('and NOTES is still on the right, where his thumb left it', nb.x > 195);
 
@@ -153,7 +164,7 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     ok('*** A TAP ON THE MAP MOVES HIM ON THE STRIPPED CUT ***', !!spot && moved > 0);
 
     /* NOTES OPENS AND HOLDS WORDS. Open, and STILL open, with text in it. */
-    if (nb.seen) { await d.tapAt(nb.x + nb.w / 2, nb.y + nb.h / 2); await d.page.waitForTimeout(700); }
+    if (nb.seen) { if (nb.shell) await d.page.touchscreen.tap(nb.x + nb.w / 2, nb.y + nb.h / 2); else await d.tapAt(nb.x + nb.w / 2, nb.y + nb.h / 2); await d.page.waitForTimeout(700); }
     const notes = await fr.evaluate(() => {
       const el = document.querySelector('#notepanel, #notewrap, .notepanel')
              || document.getElementById('notebtn');
@@ -201,10 +212,11 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     ok('the city screen is reached by a squeeze, the way he reaches it', reached === 'city');
     /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the old drawn phone (#cityfeed in the map) stepped aside for ONE
        phone the topmost page draws over every screen (#bohphone in the shell); its home is always open, so 'one touch
-       opens the phone' is now 'one touch on an app opens that app' (FEED, his company's page). */
+       opens the phone' is now 'one touch on an app opens that app' (FEED, his company's page). Rule 286(c)(d): the feed is
+       ON the face as a strip, no FEED app; one touch on the strip opens the catalogue. */
     const ph = await d.page.evaluate(() => {
       const f = document.getElementById('bohphone');
-      const a = f && f.querySelector('.app[data-app=feed]');
+      const a = f && f.querySelector('.home .bpfd');
       if (!f || !a) return { there: false };
       const b = a.getBoundingClientRect();
       const mid = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
@@ -212,7 +224,7 @@ const drawn = (fr, id) => fr.evaluate((i) => {
                gets: mid ? (mid.id || mid.tagName + '.' + mid.className) : null,
                x: b.x + b.width / 2, y: b.y + b.height / 2 };
     });
-    say('  the point at the middle of the phone\'s FEED app goes to ' + ph.gets);
+    say('  the point at the middle of the phone\'s feed strip goes to ' + ph.gets);
     ok('the phone is still drawn on the city screen', ph.there === true);
     ok('and it still catches a finger rather than the map behind it', ph.mine === true);
     const pageOn = () => d.page.evaluate(() => !!document.querySelector('#bohphone .page.on[data-page=feed]'));
@@ -223,7 +235,7 @@ const drawn = (fr, id) => fr.evaluate((i) => {
       if (!(await pageOn())) { await d.page.touchscreen.tap(ph.x, ph.y); await d.page.waitForTimeout(600); }
     }
     const phoneOpen = await pageOn();
-    ok('*** AND ONE TOUCH STILL OPENS THE PHONE ON THE CUT *** (its FEED app)', phoneOpen === true);
+    ok('*** AND ONE TOUCH STILL OPENS THE PHONE ON THE CUT *** (the feed on its face)', phoneOpen === true);
     if (phoneOpen) await d.page.evaluate(() => { const s = document.querySelector('#bohphone .stat'); if (s) s.click(); });
     await fr.evaluate(() => { try { MODE = 'human'; } catch (e) {} });
 

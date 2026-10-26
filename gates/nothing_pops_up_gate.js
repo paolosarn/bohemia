@@ -118,9 +118,11 @@ const MINUTES = 5;
        topmost page draws over every screen (#bohphone in the shell, in his bottom corner). Its home is always open, so the
        door it must still be is its apps: the FEED app catches a finger, one real touch opens his company's page and the
        valley's posts newest first, and a tap on its status bar folds it. The old phone's ring and its unread count went with
-       it; the newest post drops over the phone's top on its own (THE PHONE holds that). */
+       it; the newest post drops over the phone's top on its own (THE PHONE holds that).
+       RE-AIMED AGAIN BY UI TWO (rule 286(c)(d): the feed is ON the phone's face, never a button): the door is the feed strip
+       itself, the two newest posts on the home; one touch on it opens the whole catalogue. */
     const handle = await d.page.evaluate(() => {
-      const f = document.getElementById('bohphone'), a = f && f.querySelector('.app[data-app=feed]');
+      const f = document.getElementById('bohphone'), a = f && f.querySelector('.home .bpfd');
       if (!f || !a) return { there: false };
       const b = a.getBoundingClientRect();
       const mid = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
@@ -130,7 +132,7 @@ const MINUTES = 5;
                mine: !!(mid && a.contains(mid)), x: b.x + b.width / 2, y: b.y + b.height / 2 };
     });
     say('  the drawn phone is ' + handle.w + ' x ' + handle.h
-        + ', the point at its FEED app goes to ' + handle.gets);
+        + ', the point at its feed strip goes to ' + handle.gets);
     ok('the phone he was sent words to is DRAWN on the screen', handle.there && handle.w > 0);
     ok('*** AND IT CATCHES A FINGER, SO IT IS A DOOR AND NOT A PICTURE ***',
        handle.finger === true && handle.mine === true);
@@ -147,8 +149,8 @@ const MINUTES = 5;
     }
     const after = await d.page.evaluate(() => ({ on: !!document.querySelector('#bohphone .page.on[data-page=feed]'),
                                                   posts: document.querySelectorAll('#bohphone .page.on .po').length }));
-    say('  one touch on the phone\'s FEED: it opened ' + after.on + ', ' + after.posts + ' posts on it');
-    ok('*** ONE TOUCH ON THE DRAWN PHONE OPENS IT *** (his 9/22 ruling, on the glass: its FEED app)',
+    say('  one touch on the phone\'s feed strip: it opened ' + after.on + ', ' + after.posts + ' posts on it');
+    ok('*** ONE TOUCH ON THE DRAWN PHONE OPENS IT *** (his 9/22 ruling, on the glass: the feed on its face)',
        after.on === true);
     ok('and what he was told is on it, the valley\'s posts', after.posts > 0);
 

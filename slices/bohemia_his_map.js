@@ -52,7 +52,7 @@
   /* ---------- the state, kept with the game (RUN's fog keeps its own the same way) ---------- */
   function fresh() {
     return { v: 1, seed: (Math.floor(Math.random() * 0x7fffffff) ^ (Date.now() & 0x7fffffff)) >>> 0, pins: [], crosses: [], deadSeen: {},
-      boss: { i: 0, sign: null, found: {}, fallen: {} }, open: [], lit: [], places: [], fighting: null };
+      boss: { i: 0, sign: null, found: {}, fallen: {} }, open: [], lit: [], places: [], fighting: null, prices: {}, heard: {} };
   }
   function load() {
     var st = null; try { st = JSON.parse(root.localStorage.getItem(KEY) || 'null'); } catch (e) { st = null; }
@@ -61,6 +61,7 @@
     if (!S.deadSeen) S.deadSeen = {}; if (!S.boss) S.boss = fresh().boss;
     if (!S.boss.found) S.boss.found = {}; if (!S.boss.fallen) S.boss.fallen = {};
     S.fighting = null;   /* a fight is never carried across a reload: the fight saves at its start (rule 233) and comes home once */
+    if (!S.prices || typeof S.prices !== 'object') S.prices = {}; if (!S.heard || typeof S.heard !== 'object') S.heard = {};
     openMap();
     if (!st) seedDead();
   }
@@ -306,7 +307,7 @@
   }
 
   /* ================= DRAWING ================= */
-  var PAL = { o: 'rgba(14,11,8,0.9)', w: '#e8dcc0', r: '#d23a2a', R: '#8e1d14', y: '#ffd27a', g: '#8a8478', k: '#2a241c', b: '#6f9ab8' };
+  var PAL = { o: 'rgba(14,11,8,0.9)', W: '#e8dcc0', w: '#e8dcc0', r: '#d23a2a', R: '#8e1d14', y: '#ffd27a', g: '#8a8478', k: '#2a241c', b: '#6f9ab8' };
   var GLYPHS = {
     camp:   ['....o....', '...owo...', '..owrwo..', '.owwrwwo.', 'owwwrwwwo', 'ooooooooo'],
     danger: ['....o....', '...ooo...', '..orwro..', '..orwro..', '.orrwrro.', '.orrrrro.', 'orrrwrrro', 'ooooooooo'],
@@ -321,7 +322,9 @@
     radio:  ['.....o...', '....o.o..', '.....o...', 'ooooooooo', 'okkkkwkko', 'okrrkwkwo', 'okkkkwkko', 'ooooooooo'],
     bar:    ['.ooooo..', 'owwwwwoo', 'oyyyyyo.o', 'oyyyyyo.o', 'oyyyyyoo.', 'oyyyyyo.', '.ooooo..'],
     rubble: ['....o....', '..ogo.o..', '.oggo.ogo', 'oggggoggo', 'ogkggggko', 'ooooooooo'],
-    door:   ['.ooooo.', 'owwwwwo', 'owkkkwo', 'owkkkwo', 'owkkywo', 'owkkkwo', 'ooooooo'] };
+    door:   ['.ooooo.', 'owwwwwo', 'owkkkwo', 'owkkkwo', 'owkkywo', 'owkkkwo', 'ooooooo'],
+    battery:['..ooo..', '.oyyyo.', 'okkkkko', 'okyyyko', 'okyyyko', 'okyyyko', 'okyyyko', 'ooooooo'],
+    ask:    ['.ooooo.', 'owwwwwo', 'owoooWo', '...owwo', '..owwo.', '..owo..', '..ooo..', '..owo..', '..ooo..'] };
   function glyph(name, s) {
     var k = name + ':' + s; if (GLY[k]) return GLY[k];
     var rows = GLYPHS[name] || GLYPHS.camp, h = rows.length, w = 0; rows.forEach(function (r) { w = Math.max(w, r.length); });
@@ -401,6 +404,7 @@
         if (TW >= 12) plate(gx, c.name, p.sx, p.sy + 1, PAL.w);
         LAST.drew.crosses = (LAST.drew.crosses | 0) + 1;
       });
+      try { drawSell(gx, ox, oy); } catch (e) { LAST.sellErr = String(e && e.message || e); }   /* (5) where it sells best */
       S.pins.forEach(function (P) {
         var p = ground(P.x, P.y, ox, oy); if (!onGlass(p)) return;
         blit(gx, P.k, p.sx, p.sy);
@@ -484,6 +488,94 @@
     } catch (e) {}
     LAST.faint = (LAST.faint | 0) + 1;
     return true;
+  }
+
+  /* ================= (5) WHERE IT SELLS BEST (rule 266(b), Paolo 10/26: 'is there a way we can visually let people know from map
+     mode... one of the more frustrating parts of my Battle Brothers experience, I didn't know off the bat which city has the best
+     selling price of my goods') =================
+     WHAT HE KNOWS, never the valley for free (realism first): a town's stall tells him what it pays when he stands in it (RUN TWO's
+     screen posts 'prices' on arrival, ECONOMY's own BohemiaStallPrices.tradeSell with that town's knobs that day), and a price he
+     HEARD (the feed's or the bar's post: mapPriceHeard) counts too. mapSellMarks(good) marks every town on his map by what it would
+     pay for one, best first: a battery that grows with the price, the number on it, the best one ringed; a price fades as it ages
+     (a month and it is a rumour); a town he has seen but never priced wears a question mark; a town under the static is not on his
+     map at all unless he heard of it. The stash's tap (RUN TWO, NOTE) calls mapSellMarks(id) and mapSellMarks(null). */
+  var SELL = { good: null, file: null, asked: false, at: 0 };
+  function sellFile(cb) {
+    if (SELL.file) return cb && cb(SELL.file);
+    if (SELL.asked || typeof fetch === 'undefined') return; SELL.asked = true;
+    fetch('../records/target/bb/stall_prices.json').then(function (r) { return r.json(); }).then(function (j) { SELL.file = j; if (cb) cb(j); try { render(); } catch (e) {} }).catch(function () { SELL.asked = false; });
+  }
+  function goodName(id) { try { var g = (SELL.file.trade.goods || []).filter(function (x) { return x.id === id; })[0]; return g ? (g.name || id) : id; } catch (e) { return String(id).replace(/_/g, ' ').toUpperCase(); } }
+  function pricesSeen(place, day, goods, src) {
+    if (!S || !place || !goods) return false;
+    S.prices[place] = { day: +day || 0, src: src || 'visit', goods: goods };
+    save(); try { if (SELL.good) render(); } catch (e) {}
+    return true;
+  }
+  function priceHeard(place, good, value, dayN) {
+    if (!S || !place || !good || !(value >= 0)) return false;
+    var h = S.heard[place] || (S.heard[place] = {});
+    h[good] = { v: Math.round(value), day: dayN != null ? +dayN : day() };
+    save(); try { if (SELL.good) render(); } catch (e) {}
+    return true;
+  }
+  /* what he knows a town pays for one: the newer of what its stall told him and what he heard */
+  function knownPrice(place, good) {
+    var a = S.prices[place], b = S.heard[place] && S.heard[place][good], v = null;
+    if (a && a.goods && a.goods[good] != null) v = { v: a.goods[good], day: a.day, src: 'visit' };
+    if (b && (!v || b.day > v.day)) v = { v: b.v, day: b.day, src: 'heard' };
+    return v;
+  }
+  function sellMarks(good) {
+    SELL.good = good || null; SELL.at = Date.now();
+    if (good) sellFile();
+    root.__HIS_MAP_SELL = { good: SELL.good };
+    try { render(); } catch (e) {}
+    return sellRank(good);
+  }
+  /* the towns on his map for one good, best first: {name, x, y, v, day, age, src} or {name, x, y, unknown} */
+  function sellRank(good) {
+    if (!good || !S) return [];
+    var bs = bases(), out = [], today = day();
+    for (var n in bs) {
+      var b = bs[n]; if (!b) continue;
+      var k = knownPrice(n, good), seen = !hidden(b.x | 0, b.y | 0);
+      if (k) out.push({ name: n, x: b.x | 0, y: b.y | 0, v: k.v, day: k.day, age: Math.max(0, today - k.day), src: k.src });
+      else if (seen) out.push({ name: n, x: b.x | 0, y: b.y | 0, unknown: true });
+    }
+    out.sort(function (a, b2) { if (a.unknown !== b2.unknown) return a.unknown ? 1 : -1; return (b2.v || 0) - (a.v || 0); });
+    out.forEach(function (o, i) { if (!o.unknown) o.rank = i + 1; });
+    return out;
+  }
+  function drawSell(gx, ox, oy) {
+    if (!SELL.good) return;
+    var R = sellRank(SELL.good), known = R.filter(function (o) { return !o.unknown; }), top = known.length ? known[0].v : 1;
+    var drawn = [], you = null; try { you = ground(city.x, city.y, ox, oy); } catch (e) {}
+    R.forEach(function (o) {
+      var p = ground(o.x, o.y, ox, oy);
+      /* his own body stands over the town he is in: the mark steps aside, never under him */
+      if (you && Math.abs(p.sx - you.sx) < 34 && p.sy - you.sy > -90 && p.sy - you.sy < 40) p = { sx: p.sx + (p.sx >= you.sx ? 44 : -44), sy: p.sy };
+      if (!onGlass(p, 0)) { if (o.rank === 1) { edgeSell(gx, p, o); drawn.push({ name: o.name, edge: true, rank: 1 }); } return; }
+      if (o.unknown) { blit(gx, 'ask', p.sx, p.sy - 30); drawn.push({ name: o.name, unknown: true }); return; }
+      var fade = Math.max(0.35, 1 - o.age / 30), big = 0.6 + 0.8 * (top > 0 ? o.v / top : 0);   /* a month and it is a rumour */
+      var c = glyph('battery', Math.max(2, Math.round(scale() * big + 0.4)));
+      gx.globalAlpha = fade; gx.drawImage(c, Math.round(p.sx - c.width / 2), Math.round(p.sy - 30 - c.height)); gx.globalAlpha = 1;
+      if (o.rank === 1) { gx.strokeStyle = PAL.y; gx.lineWidth = 2; gx.globalAlpha = fade; gx.strokeRect(Math.round(p.sx - c.width / 2) - 3, Math.round(p.sy - 30 - c.height) - 3, c.width + 6, c.height + 6); gx.globalAlpha = 1; }
+      plate(gx, (o.rank === 1 ? 'BEST ' : '') + o.v + (o.src === 'heard' ? ' HEARD' : ''), p.sx, p.sy - 28, o.rank === 1 ? PAL.y : PAL.w);
+      drawn.push({ name: o.name, v: o.v, rank: o.rank, alpha: +fade.toFixed(2), size: c.width, src: o.src });
+    });
+    /* the good's name, once, at the top of the open glass (never under the phone) */
+    var A = null; try { A = typeof root.mapOpenArea === 'function' ? root.mapOpenArea() : null; } catch (e) {}
+    plate(gx, 'WHERE ' + goodName(SELL.good) + ' SELLS', A ? (A.x0 + A.x1) / 2 : CVW / 2, (A ? A.y0 : 0) + 8, PAL.y);
+    LAST.drew.sell = drawn;
+  }
+  function edgeSell(gx, p, o) {
+    var A = null; try { A = typeof root.mapOpenArea === 'function' ? root.mapOpenArea() : null; } catch (e) {}
+    var x0 = A ? A.x0 : 0, y0 = A ? A.y0 : 0, x1 = A ? A.x1 : CVW, y1 = A ? A.y1 : CVH, cx = A ? A.cx : CVW / 2, cy = A ? A.cy : CVH / 2;
+    var dx = p.sx - cx, dy = p.sy - cy;
+    var tx = dx > 0 ? (x1 - 40 - cx) / dx : dx < 0 ? (x0 + 40 - cx) / dx : 1e9, ty = dy > 0 ? (y1 - 40 - cy) / dy : dy < 0 ? (y0 + 50 - cy) / dy : 1e9;
+    var t = Math.max(0, Math.min(tx, ty)), ex = cx + dx * t, ey = cy + dy * t;
+    blit(gx, 'battery', ex, ey); plate(gx, 'BEST ' + o.v + ' ' + String(o.name).toUpperCase(), ex, ey + 1, PAL.y);
   }
 
   /* ================= THE FINGER: hold to pin ================= */
@@ -589,6 +681,11 @@
 
   /* ---------- a fight's end: the boss, and the dead ---------- */
   if (typeof document === 'undefined' || !root.addEventListener) { root.BohemiaHisMap = { node: true }; return; }   /* a page file: under node it says so and stops */
+  /* (5) a town's stall told him what it pays (RUN TWO's screen, on arrival) */
+  root.addEventListener('message', function (ev) {
+    var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_SETTLEMENT' || d.act !== 'prices' || !S) return;
+    pricesSeen(d.place, d.day, d.goods, 'visit');
+  });
   root.addEventListener('message', function (ev) {
     var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !S) return;
     var o = d.outcome || {};
@@ -606,6 +703,9 @@
     size: function () { return FAINT.cv ? { w: FAINT.cv.width, h: FAINT.cv.height, bytes: FAINT.cv.width * FAINT.cv.height * 4 + 4 * 128 * 128 * 4 } : null; },
     drop: drop, lift: lift, pins: function () { return S ? S.pins.slice() : []; }, crosses: function () { return S ? S.crosses.slice() : []; },
     fell: fell, next: nextRow, placeSign: placeSign, deadCheck: deadCheck, menu: menu, close: close,
-    reload: load, KEY: KEY
+    reload: load, KEY: KEY,
+    /* (5) where it sells best: the stash calls sellMarks(id) and sellMarks(null); the feed calls priceHeard */
+    sellMarks: sellMarks, sellRank: sellRank, priceHeard: priceHeard, pricesSeen: pricesSeen, knownPrice: function (p, g) { return S ? knownPrice(p, g) : null; }
   };
+  root.mapSellMarks = sellMarks; root.mapPriceHeard = priceHeard;
 })(typeof window !== 'undefined' ? window : this);
