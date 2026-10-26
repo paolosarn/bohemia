@@ -9774,6 +9774,13 @@ GATES = [
      "the map's format (56 frames equal the fight sheet's), drawn at the opening zoom and 2.4, his head on the glass his and not the "
      "old body's, the roster's main man the same look, a main man with a look of his own leads as himself, his sheet failed turns it "
      "red. green at registration, 7/0 a profile, about 4 min", True),
+    ('WHERE IT SELLS BEST', ['node', 'gates/where_it_sells_best_gate.js'],
+     "WORLD TWO gate, 10/26, row [where it sells best] (rule 266(b), Paolo 10/26: 'is there a way we can visually let people know "
+     "from map mode... I didn't know off the bat which city has the best selling price of my goods'): the stranger's game on the "
+     "phone and his computer: standing in the first town the map knows its stall's twelve trade-good prices, each the stall's own "
+     "(BohemiaSettlement.tradeSell); a second town by a tap; the marks for a good best first with their prices, the best ringed, a "
+     "question mark on a town seen and never priced, nothing under the static; a heard price marked HEARD and fading; null lets go; "
+     "kept through a reopen. green at registration, 7/0 a profile, about 5 min a profile", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
