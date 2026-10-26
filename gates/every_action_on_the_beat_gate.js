@@ -117,7 +117,7 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     /* by hand: his first turn, a walk asked through the same call the tap makes, then AUTO for the rest */
     for (let i = 0; i < 200; i++) { const st = await f.evaluate(() => { const u = FIGHT.current(); if (FIGHT.S.deploy) { fightNow(); return 'deploy'; } return FIGHT.S.over ? 'over' : u && crewControlled(u) && !FIGHT_UI.anim.length ? 'mine' : 'busy'; }).catch(() => 'busy');
       if (st === 'mine' || st === 'over') break; await p.waitForTimeout(100); }
-    const hand = await f.evaluate(() => { const u = FIGHT.current(); if (!u || !crewControlled(u)) return null; const S = FIGHT.S;
+    const hand = await f.evaluate(() => { const u = FIGHT.current(); if (!u || !crewControlled(u)) { window.__noHand = { who: u && u.name, side: u && u.side, auto: FIGHT_UI.auto, retreat: FIGHT.S.retreat, over: FIGHT.S.over, morale: u && u.morale, round: FIGHT.S.round }; return null; } const S = FIGHT.S;
       const to = [[1, 0], [-1, 0], [0, 1], [0, -1], [2, 0], [-2, 0]].map(v => ({ x: u.x + v[0], y: u.y + v[1] })).filter(q => q.x >= 0 && q.y >= 0 && q.x < S.w && q.y < S.h);
       for (const q of to) { const t = performance.now(); if (walkKept(u, q.x, q.y)) { take(); return { t: t, id: u.id }; } }
       return null; });
@@ -126,6 +126,7 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     await f.waitForFunction(() => FIGHT.S.over && !FIGHT_UI.anim.length, null, { timeout: 300000, polling: 500 }).catch(() => {});
     const L = await f.evaluate(() => ({ log: FIGHT_UI.onBeat || [], sent: FIGHT_UI.sent || [], due: FIGHT_UI.landDue || [], origin: performance.timeOrigin, from: SONG.from, lat: SONG.lat, beat: songBeat() }));
     const P = await p.evaluate(() => ({ acBeats: window.__beats, clk: window.__clk, origin: performance.timeOrigin }));
+    const noHand = await f.evaluate(() => window.__noHand || null).catch(() => null);
     const n = P.clk.length, mx = P.clk.reduce((a, c) => a + c[0], 0) / n, my = P.clk.reduce((a, c) => a + c[1], 0) / n;
     const k = P.clk.reduce((a, c) => a + (c[0] - mx) * (c[1] - my), 0) / P.clk.reduce((a, c) => a + (c[0] - mx) * (c[0] - mx), 0);
     P.beats = P.acBeats.map(t => my + (t - mx) * k);
@@ -139,7 +140,7 @@ const pow2 = (beat, g) => { const r = beat / g; return Math.abs(r - Math.pow(2, 
     const byHand = hand ? q.filter(x => x.k === 'step' && x.side === 'you' && (x.chose !== undefined ? x.chose : x.asked) >= hand.t - 20)[0] || null : null;
     leg(q.length >= 8 && !bad.length && byHand && q.some(x => x.side === 'them') && blows.length && !blowsOff.length,
       '*** ON THE SONG\'S OWN BEATS ***: every motion lands within ' + TOL + ' ms of the grid cut from the beats the shell booked (his by hand, his on AUTO, theirs), every blow at 1x on a booked beat',
-      q.length + ' motions, ' + bad.length + ' off (worst ' + Math.max(0, ...q.map(x => x.off)).toFixed(1) + ' ms); his tapped walk ' + (byHand ? byHand.off.toFixed(1) + ' ms off' : 'NONE') + '; ' + blows.length + ' blows at 1x, worst ' + Math.max(0, ...blows.map(x => x.beatOff)).toFixed(1) + ' ms from a booked beat; ' + P.beats.length + ' beats booked');
+      q.length + ' motions, ' + bad.length + ' off (worst ' + Math.max(0, ...q.map(x => x.off)).toFixed(1) + ' ms); his tapped walk ' + (byHand ? byHand.off.toFixed(1) + ' ms off' : hand ? 'NOT IN THE LOG (chosen ' + Math.round(hand.t) + ')' : 'NONE (no turn of his came by hand: ' + JSON.stringify(noHand) + ')') + '; ' + blows.length + ' blows at 1x, worst ' + Math.max(0, ...blows.map(x => x.beatOff)).toFixed(1) + ' ms from a booked beat; ' + P.beats.length + ' beats booked');
     /* 6: a blow's landing sound (hit, hurt, vital, miss, melee) leaves the fight SONG.lat ahead of the landing (when the fight
        sends it, on its own clock: what the shell then does with a busy thread is the shell's) */
     const LANDS = /^(hit|hurt|vital|miss|melee_hit)$/, sends = L.sent.filter(s => LANDS.test(s[0])).map(s => s[1]);
