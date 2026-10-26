@@ -104,7 +104,12 @@ function zero() {
   return { fights: 0, won: 0, clean: 0, rounds: 0, turns: 0, actions: 0,
     idle: 0, idleWhy: {}, streak: 0, parked: 0, parkedTurns: 0, lone: 0, loneWalks: 0, shots: 0, shotsChoice: 0, shotGap5: 0, lowShot: 0, lowShotTeam: 0, lowShotGap: 0,
     roundsWithHits: 0, spread: 0, focusAimed: 0, aimed: 0, namedAimed: 0, namedRounds: 0, namedBlows: 0, offWhy: {}, windedRing: 0, windedFree: 0, keyTurns: 0, keyTurnIgnored: 0, keyTurnWhy: {}, lowShotHurt: 0, lowShotWhy: {}, spreadChosen: 0, streakHeld: 0, hurtStanding: 0, hurtStandingNoRaise: 0, roundsCounted: 0,
-    freeHit: 0, freeSwingsOnUs: 0, dance: 0, keyChances: 0, keyIgnored: 0, headFights: 0, headLast: 0, meleeMen: 0, meleeNever: 0, gunMen: 0, gunNever: 0, ourDown: 0, ourDead: 0 };
+    freeHit: 0, freeSwingsOnUs: 0, dance: 0, keyChances: 0, keyIgnored: 0, headFights: 0, headLast: 0, meleeMen: 0, meleeNever: 0, gunMen: 0, gunNever: 0, ourDown: 0, ourDead: 0,
+    /* ROUND FOUR 10/26 (rules 283, 285: END TURN with nothing spent is a rest of ours.rest_recovery, and AUTO rests a winded man of his):
+       idleRest[why] = the idle turns of each kind in which he was winded at full AP (the rest the rule asks for, not a stupid move);
+       breathless3 = men who could not swing three or more of their turns running (283(d): never more than two); headNever = the
+       Mechanic never down, dead or fled, headNeverLost = of those, in a fight we did not win */
+    idleRest: {}, breathlessTurns: 0, breathless3: 0, breathlessBest: 0, headNever: 0, headNeverLost: 0 };
 }
 function playWatched(ctx, meta) {
   const F = ctx.FIGHT, S = F.S, T = F._t, C = zero(), ex = [];
@@ -149,6 +154,7 @@ function playWatched(ctx, meta) {
   const snapOf = v => {
     const melee = !F.isRanged(v.weapon);
     return { ap: v.ap, apTurn: v.apTurn, fat: Math.round(v.fat), fatMax: F.fatMax(v), x: v.x, y: v.y, netted: !!v.netted, ring: F.zocOn(v, v.x, v.y).length,
+      winded: F.winded ? F.winded(v) : v.fat + T.skillFat(v, F.strikeSkill(v.weapon)) > F.fatMax(v),
       opts: reachable(v).map(t => ({ id: t.id, ch: F.hitChance(v, t).chance, head: isHead(t) })),
       inReach: S.units.filter(t => t.side !== v.side && F.onField(t) && F.sideSees(v.side, t) && F.canStrike(Object.assign({}, v, { ap: 99, fat: 0 }), t)).length,
       walk: melee && !v.netted && (h => h > 1 && isFinite(h))(T.huntField(v)(v.x, v.y)) && v.ap >= T.stepCost(v, v.x, v.y, v.x, v.y) };
@@ -168,7 +174,7 @@ function playWatched(ctx, meta) {
   };
   const closeTurn = (u, snap) => {
     const t0 = open[u.id]; if (!t0) return; delete open[u.id];
-    const rec = { r: t0.r, sx: t0.x, sy: t0.y, ex: u.x, ey: u.y, steps: t0.steps, blows: t0.blows };
+    const rec = { r: t0.r, sx: t0.x, sy: t0.y, ex: u.x, ey: u.y, steps: t0.steps, blows: t0.blows, breathless: !t0.breath && F.onField(u) && !t0.rout };
     (per[u.id] = per[u.id] || []).push(rec);
     C.turns++;
     const on = F.onField(u) && u.morale !== 'Fleeing' && !S.retreat && !t0.rout;
@@ -177,6 +183,7 @@ function playWatched(ctx, meta) {
       let why = snap.opts.length ? 'a blow left' : snap.inReach ? 'winded beside a foe' : snap.walk ? 'a walk open' : snap.netted ? 'in a net' : 'nothing';
       if (why === 'nothing') why = nothingWhy(u, snap);
       C.idle++; C.idleWhy[why] = (C.idleWhy[why] || 0) + 1; rec.idle = why; rec.fullAP = snap.ap >= snap.apTurn; rec.held = why === 'winded beside a foe' && !!snap.ring;
+      if (snap.winded && rec.fullAP) C.idleRest[why] = (C.idleRest[why] || 0) + 1;
       /* rule 231(c): a winded man in a ring HOLDS (a step out is a free blow on him); out of every ring he should step back out of reach */
       if (why === 'winded beside a foe') { if (snap.ring) C.windedRing++; else C.windedFree++; }
       if (why !== 'nothing' && why !== 'in a net') keep('idle: ' + why, { man: u.name || u.id, round: t0.r, ap: snap.ap + '/' + snap.apTurn, fat: snap.fat + '/' + snap.fatMax, weapon: u.weapon.id });
@@ -232,14 +239,14 @@ function playWatched(ctx, meta) {
       if (e.t === 'skill' && e.skill === 'raise_undead' && e.to !== null && e.to !== undefined) raised.add(e.to);
       const t0 = a && open[a.id];
       if (t0) {
-        if (e.t === 'attack' && !e.free) t0.blows++;
+        if (e.t === 'attack' && !e.free && !e.astray) t0.blows++;   /* ROUND FOUR: an astray shot (rule 230(b)) is the shot's own flight, never a second choice */
         else if (e.t === 'step' && !e.shoved) t0.steps++;
         else if (/^(reload|skill|swap)$/.test(e.t)) t0.others++;
         else if (e.t === 'stuck') t0.stuck = true;
       }
       if (e.t === 'attack' && e.free) { const tt = F.byId(e.to); if (tt && open[tt.id] && tt === v) open[tt.id].freeOn++; }
       if ((e.t === 'end' || e.t === 'fled') && a && a.side === 'you') closeTurn(a, a === v ? snap : null);
-      if (e.t !== 'attack' || !a || a.side !== 'you' || !R0) return;
+      if (e.t !== 'attack' || !a || a.side !== 'you' || !R0 || e.astray) return;
       if (!e.free) {
         R0.aimed[e.to] = (R0.aimed[e.to] || 0) + 1; if (a === v && !blow) blow = e;
         /* the man named at the moment of this blow: the brain's own record of its choice when it is this blow's, else the fight's */
@@ -289,6 +296,11 @@ function playWatched(ctx, meta) {
     if (best >= 3) { C.streak++; keep('streak', { man: u.name || id, turns: best, weapon: u.weapon.id, why: rs.filter(r => r.idle).map(r => r.idle)[0] }); }
     let run2 = 0, best2 = 0; rs.forEach(r => { run2 = r.idle && r.idle !== 'nothing' && r.fullAP && !r.held ? run2 + 1 : 0; best2 = Math.max(best2, run2); });
     if (best >= 3 && best2 < 3) C.streakHeld++;
+    /* rule 283(d): no man unable to strike more than two of his turns running (his breath at the turn's start, by the round) */
+    let run3 = 0, best3 = 0; turns.forEach((q, i) => { const b = rs.some(r => r.r === q.r && r.breathless); if (b) C.breathlessTurns++;
+      run3 = b && (i === 0 || turns[i - 1].r === q.r - 1) ? run3 + 1 : (b ? 1 : 0); best3 = Math.max(best3, run3); });
+    if (best3 >= 3) { C.breathless3++; keep('breathless three turns', { man: u.name || id, turns: best3, weapon: u.weapon.id }); }
+    C.breathlessBest = Math.max(C.breathlessBest, best3);
     if (S.round >= 4 && turns.length >= 4) {
       const struck = S.log.some(e => e.t === 'attack' && e.id === id && !e.free);
       if (F.isRanged(u.weapon)) { C.gunMen++; if (!struck) C.gunNever++; }
@@ -300,7 +312,8 @@ function playWatched(ctx, meta) {
   if (heads.length) {
     const order = []; S.log.forEach(e => { if ((e.t === 'down' || e.t === 'dead' || e.t === 'fled') && order.indexOf(e.id) < 0) { const t = F.byId(e.id); if (t && t.side === 'them') order.push(e.id); } });
     const them = S.units.filter(u => u.side === 'them').length;
-    heads.forEach(h => { C.headFights++; const i = order.indexOf(h.id); if (i < 0 || (them > 1 && i === order.length - 1 && order.length >= 2)) { C.headLast++; keep('the Mechanic last', { fell: i < 0 ? 'never' : 'last of ' + order.length, of: them }); } });
+    heads.forEach(h => { C.headFights++; const i = order.indexOf(h.id); if (i < 0 || (them > 1 && i === order.length - 1 && order.length >= 2)) { C.headLast++; keep('the Mechanic last', { fell: i < 0 ? 'never' : 'last of ' + order.length, of: them }); }
+      if (i < 0) { C.headNever++; if (S.result !== 'won') C.headNeverLost++; } });
   }
   C.fights = 1; C.won = S.result === 'won' ? 1 : 0; C.rounds = S.round;
   const mine = S.units.filter(u => u.side === 'you');
@@ -329,6 +342,15 @@ const ENGINES = {
   /* 'stick15': he takes the named man (reachable, fair) unless another blow of his is worth half again as much in the same coin */
   stick15: [["    if (!pick) can.filter(fair).forEach(function (t) { const v = blowWorth(u, t, blowsOn(u, t, u.ap)); if (v > bs) { bs = v; pick = t; } });\n",
     "    if (!pick) can.filter(fair).forEach(function (t) { const v = blowWorth(u, t, blowsOn(u, t, u.ap)) * (t === fc ? 1.5 : 1); if (v > bs) { bs = v; pick = t; } });\n"]],
+  /* ROUND FOUR 10/26: what cost HIS crew its wins between rounds three and four. 'gap4': the fronts five apart as before rule 256
+     (deployment.min_gap_between_lines_hexes read as 4, COMBAT's note: 'it was 4 between'); 'noastray': rule 230(b)'s astray shot off */
+  gap4: [["R('deployment.min_gap_between_lines_hexes') + 1)];", "4 + 1)];"], ["gap = R('deployment.min_gap_between_lines_hexes');", "gap = 4;"]],
+  noastray: [["way.side !== a.side && !(forced && forced.noAstray)", "way.side !== a.side && false && !(forced && forced.noAstray)"]],
+  /* ROUND FOUR 10/26, rule 285's numbers: the rest (ours.rest_recovery, the coordinator's 30) read as Battle Brothers' plain 15 or as 45,
+     and 'owedoff': the hits a resting man takes land at once (Battle Brothers' way) instead of owed till his next spending turn closes */
+  rest15: [["R('ours.rest_recovery')", "15"]],
+  rest45: [["R('ours.rest_recovery')", "45"]],
+  owedoff: [["function tire(t, n) { if (t.resting) t.restOwed", "function tire(t, n) { if (false && t.resting) t.restOwed"]],
   recover: [["    if (u.side === 'you') return false;   /* rule 180: AUTO moves, fires and strikes, nothing else; abilities are his */\n",
     "    if (u.side === 'you') { if (canUse(u, 'recover') && u.ap === u.apTurn && u.fat + skillFat(u, strikeSkill(u.weapon)) > fatMax(u)) return useSkill(u, 'recover'); return false; }\n"]]
 };
@@ -353,7 +375,7 @@ async function oneFight(shape, k) {
   return Object.assign(meta, { shape, result: P.result, C: P.C, ex: P.ex });
 }
 
-function sum(fs_) { const T = zero(); fs_.forEach(f => Object.keys(T).forEach(k => { if (typeof T[k] === 'number') T[k] += f.C[k]; else Object.keys(f.C[k]).forEach(q => { T[k][q] = (T[k][q] || 0) + f.C[k][q]; }); })); return T; }
+function sum(fs_) { const T = zero(); fs_.forEach(f => Object.keys(T).forEach(k => { if (typeof T[k] === 'number') T[k] = /Best$/.test(k) ? Math.max(T[k], f.C[k] || 0) : T[k] + (f.C[k] || 0); else Object.keys(f.C[k] || {}).forEach(q => { T[k][q] = (T[k][q] || 0) + f.C[k][q]; }); })); return T; }
 /* the kinds, per 100 of the unit they are counted in, so a round with more fights reads the same */
 function kinds(T) {
   const per = (a, b) => b ? +(100 * a / b).toFixed(2) : 0;
@@ -373,7 +395,8 @@ function kinds(T) {
     ['KEY MAN BY THE TURN: the Mechanic in reach in a turn, never struck that turn', T.keyTurnIgnored, T.keyTurns, 'turns with him in reach'],
     ['KEY MAN LAST: the Mechanic falls last of his party, or never', T.headLast, T.headFights, 'fights with a Mechanic'],
     ['NEVER: a melee man who never struck', T.meleeNever, T.meleeMen, 'melee men'],
-    ['NEVER: a gunman who never shot', T.gunNever, T.gunMen, 'gunmen']
+    ['NEVER: a gunman who never shot', T.gunNever, T.gunMen, 'gunmen'],
+    ['BREATHLESS: a man unable to swing 3+ of his turns running (rule 283(d))', T.breathless3, T.meleeMen + T.gunMen, 'men']
   ].map(([k, n, d, unit]) => ({ kind: k, n, of: d, unit, per100: per(n, d) }));
 }
 function report(label, fs_) {
@@ -386,6 +409,7 @@ function report(label, fs_) {
   if (T.namedBlows) console.log('  off the named man, why: ' + JSON.stringify(T.offWhy));
   console.log('  round two splits: spread rounds with a free off-target blow (the brain\'s choice) ' + T.spreadChosen + ' of ' + T.spread + '; low shots at a man already hurt ' + T.lowShotHurt + ' of ' + T.lowShot + ', why ' + JSON.stringify(T.lowShotWhy) + '; streaks that are only rule 231 holds ' + T.streakHeld + ' of ' + T.streak);
   if (T.keyTurns) console.log('  key man by the turn, why: ' + JSON.stringify(T.keyTurnWhy));
+  console.log('  round four splits (rules 283, 285): idle turns that were a winded man\'s rest at full AP ' + JSON.stringify(T.idleRest) + '; turns begun unable to swing ' + T.breathlessTurns + ', the longest run ' + T.breathlessBest + '; the Mechanic never fell in ' + T.headNever + ' fights (' + T.headNeverLost + ' of them not won)');
   return { T, K };
 }
 
