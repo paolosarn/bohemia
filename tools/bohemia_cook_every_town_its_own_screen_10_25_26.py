@@ -314,13 +314,46 @@ def dish(K, n, x, yf, r=1.8):
     return r * 2.2
 
 
-def razor(K, n, x0, x1, y, h=2.6):
-    """chain-link with razor wire coiled along its top"""
-    K.BLD.chainlink(K.bpy, n, x0, x1, y, h=h)
-    k = int((x1 - x0) / 0.35)
+def wires(K, name, m, segs, r=0.006):
+    """many thin wires as ONE mesh (a square tube a segment): a run of chain-link is a thousand wires, and a thousand
+    operator calls made a fence the slowest thing in a town (10/25, measured: a prison's wire took minutes)"""
+    bpy = K.bpy; V, Fc = [], []
+    for p0, p1 in segs:
+        p0, p1 = np.array(p0, float), np.array(p1, float); d = p1 - p0; L = np.linalg.norm(d)
+        if L < 1e-6: continue
+        d /= L; up = np.array([0.0, 0.0, 1.0]) if abs(d[2]) < 0.9 else np.array([1.0, 0.0, 0.0])
+        u = np.cross(d, up); u /= np.linalg.norm(u); v = np.cross(d, u)
+        b = len(V)
+        for p in (p0, p1):
+            for a, c in ((1, 1), (-1, 1), (-1, -1), (1, -1)): V.append(tuple(p + r * (a * u + c * v)))
+        for i in range(4): j = (i + 1) % 4; Fc.append((b + i, b + j, b + 4 + j, b + 4 + i))
+    me = bpy.data.meshes.new(name); me.from_pydata(V, [], Fc); me.update()
+    o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o); o.data.materials.append(m)
+    return o
+
+
+def fence_fast(K, n, x0, x1, y, h=1.8):
+    """a chain-link run on posts: the posts and rail as COOK's chainlink draws them, the fabric's diamonds as one mesh"""
+    P, bpy = K.P, K.bpy; m = K.mm['trim']; npost = max(2, int((x1 - x0) / 2.4) + 1)
+    for i in range(npost):
+        x = x0 + (x1 - x0) * i / (npost - 1); P.cyl(bpy, n + '_post', m, 0.03, h + 0.05, (x, y, (h + 0.05) / 2), verts=8)
+    P.rod(bpy, n + '_rail', m, (x0, y, h), (x1, y, h), 0.02, verts=6)
+    k = int((x1 - x0) / 0.12); segs = []
     for i in range(k):
         xa = x0 + i * (x1 - x0) / k
-        K.P.cyl(K.bpy, '%s_coil%d' % (n, i), K.steel, 0.3, 0.02, (xa, y, h + 0.3), rot=(0, math.pi / 2 + 0.3, 0), verts=10, smooth=False)
+        segs += [((xa, y, 0.02), (xa + 0.12, y, h)), ((xa + 0.12, y, 0.02), (xa, y, h))]
+    wires(K, n + '_fabric', m, segs, 0.005)
+
+
+def razor(K, n, x0, x1, y, h=2.6):
+    """chain-link with razor wire coiled along its top (the coils one mesh)"""
+    fence_fast(K, n, x0, x1, y, h)
+    segs = []; k = int((x1 - x0) / 0.35)
+    for i in range(k):
+        xa = x0 + i * (x1 - x0) / k
+        pts = [(xa + 0.06 * math.sin(t * 2 * math.pi / 10), y + 0.3 * math.cos(t * 2 * math.pi / 10), h + 0.3 + 0.3 * math.sin(t * 2 * math.pi / 10)) for t in range(11)]
+        segs += list(zip(pts[:-1], pts[1:]))
+    wires(K, n + '_coil', K.steel, segs, 0.012)
 
 
 def hoop_house(K, n, x0, x1, yf, D=8.0, skin=None):
@@ -870,7 +903,7 @@ def layout(town, pl, K):
             pl.here('clinic', block, K, 'clinic', 32.0, 44.0, 32.0, 10, 2, 'cells', wall=K.concrete_warm)
             pl.here('barber', block, K, 'barber', 7.0, 19.0, 20.0, 9, 1, 'office', wall=K.concrete)
             def cage():
-                K.BLD.chainlink(bpy, 'cage_back', 19.2, 30.8, 33.6, h=3.2); K.BLD.chainlink(bpy, 'cage_front', 19.2, 30.8, 26.4, h=3.2)
+                fence_fast(K, 'cage_back', 19.2, 30.8, 33.6, 3.2); fence_fast(K, 'cage_front', 19.2, 30.8, 26.4, 3.2)
                 for x in (19.2, 30.8):
                     for y in np.arange(26.4, 33.7, 2.4): P.cyl(bpy, 'cage_post', K.mm['trim'], 0.03, 3.25, (x, y, 1.62), verts=8)
                     P.rod(bpy, 'cage_rail', K.mm['trim'], (x, 26.4, 3.2), (x, 33.6, 3.2), 0.02, 6)
@@ -911,7 +944,7 @@ def layout(town, pl, K):
             drum(18.0, 21.5)
         elif n == 'Custom':                                          # the crew's own garage and yard
             pl.model('bld_ranch_garage.glb', 44.0, 39.0, 15.0)
-            pl.here('yard_fence', K.BLD.chainlink, bpy, 'yard', 38.0, 56.0, 36.2, 1.8)
+            pl.here('yard_fence', fence_fast, K, 'yard', 38.0, 56.0, 36.2, 1.8)
             pl.model('shed.glb', mid('clinic'), f['clinic'][2], None, 0.0, 1.5)
             def camper():
                 Bx(K, 'camper', K.bone, 32.2, 36.4, 25.6, 28.0, 0.5, 2.7, bevel=0.3); Bx(K, 'camper_stripe', K.fac, 32.2, 36.4, 25.56, 25.6, 1.4, 1.7)
