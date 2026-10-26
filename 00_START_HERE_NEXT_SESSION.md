@@ -1373,6 +1373,15 @@ list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] 
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
 SOUNDS (sounds-death, session_01HmnNwoF9xPvJt1PuTfsV91): 10/26 LATEST (rule 235, Paolo: 'I wanna hear terrible, terrible noises... like people are literally dying')
+*** [the map plays the part of town you are in] SHIPPED f992e890, BUILD 10/26zzs (rule 237): a faction's ground plays its faction song,
+the open land the thirteen, the turn at a phrase line on the beat; every origin its song (__originSong, RUN THREE's tape call; the
+table in records/BOHEMIA_THE_MAP_PLAYS_THE_PART_OF_TOWN_SOUNDS_10_26_26.md); a crew within 3 cells lifts the map to level 2; a fight
+takes an overworld song held warm (SONGBOOK.warm). Gate THE MAP PLAYS THE PART OF TOWN 17/0; ONE SONG ONLY 17/0 and THE MUSIC IN THE
+FIGHT NOW 10/0 taught 237 (the latter sets the party on the open road first). ***
+NEXT (this session continues): THE MUSIC GAP (207(b)): 12 of the 13 songs carry his turn only 1 to 4 dB over theirs (index levels_db;
+THE MUSIC IN THE FIGHT NOW's 'later' leg read -0.5 dB on SLOW BLEED); re-render with tools/bohemia_sounds_three_levels.js record all and
+the four new songs' tool (both carry the 3.6 / 10.4 dB targets), then the songs-go-in patch (LIFT 1.0), cut, THE SONGS GO IN (no --now).
+Then [remake the faction songs] (237(e), the journal). Rules 193 and 126 were already SHIPPED ([the vote cards play], COMBAT 77f0bdea).
 *** [death sounds that terrify] SHIPPED 014feebc, BUILD 10/26zzo: every death in a fight plays a death of its kind, picked by the killing
 blow (bone, blade, gun, beast, the slow one, armour), his men's the worst (close, six beats, -9 dB), theirs far (-12), the skull on a
 head kill, three animal deaths; 48 takes from 56 CC0 recordings through the bullets' chain; never twice running; on the 16th.
