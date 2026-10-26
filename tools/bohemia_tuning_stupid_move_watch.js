@@ -430,4 +430,4 @@ async function main() {
   }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
-module.exports = { SHAPES, setupShape, playWatched, oneFight, kinds, sum };
+module.exports = { SHAPES, HIS, door, setupShape, playWatched, oneFight, kinds, sum };
