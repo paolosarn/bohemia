@@ -72,8 +72,8 @@ def merged():
 
 
 def GROUP(clip):
-    """which of his own sheets a new key goes on: m the melee idle's, s the shield arm's, t the two-hander's"""
-    return 'm' if clip.startswith('M') else 's' if clip.startswith('S') else 't'
+    """which of his own sheets a new key goes on: m the melee idle's, s the shield arm's, t the two-hander's, b the bow's"""
+    return 'm' if clip.startswith('M') else 's' if clip.startswith('S') else 'b' if clip.startswith('B') else 't'
 
 
 def layer_clips(S, ly):
@@ -195,6 +195,12 @@ def build_prop(bpy, name):
         CI.loft(bpy, 'spike', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (0.12, fore - 0.012, fore + 0.022, 0.012, 0.012), (0.22, fore - 0.05, fore - 0.035, 0.004, 0.004)], axis='x')
         CI.loft(bpy, 'chisel', iron, [(0.0, fore - 0.025, fore + 0.025, 0.018, 0.018), (-0.1, fore - 0.022, fore + 0.022, 0.01, 0.01), (-0.15, fore - 0.03, fore + 0.03, 0.003, 0.003)], axis='x')
         CI.loft(bpy, 'point', edge, [(0.2, fore - 0.048, fore - 0.036, 0.005, 0.005), (0.23, fore - 0.055, fore - 0.045, 0.002, 0.002)], axis='x')
+    elif name == 'sling':   # a herder's sling (the armoury's staff and nomad slings): two braided cords from his fist to a leather pouch with a stone in it
+        cord = m('cord', 'clay_mustard', 2); leather = m('pouch', 'clay_rust', 2); stone = m('stone', 'tape_grey', 1)
+        Lc = fore or 0.55
+        for s_ in (-1, 1): P.rod(bpy, 'cord_%d' % (s_ + 1), cord, (0, 0, -0.02), (s_ * 0.028, 0, Lc), 0.0045, 6)
+        P.box(bpy, 'pouch', leather, (0.075, 0.028, 0.06), (0, 0, Lc + 0.02), bevel=0.012)
+        bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=0.026, location=(0, 0.004, Lc + 0.02)); P.put(bpy, bpy.context.active_object, 'stone', stone, smooth=False)
     elif name == 'bottles':   # COOK's Molotov (its own builder, at its real size), the fist round the middle of it
         CI.build('w_bottles', bpy, P)
         for o in [o for o in sc.objects if o.name not in before]: o.location.z -= 0.12
@@ -412,6 +418,16 @@ def place_fn(mathutils):
                 if hold == 'lean_half': bar = fwd * 0.6 - up * 0.8
                 else:
                     reach = math.sqrt(max(0.0, length * length - h_ * h_)); bar = fwd * reach - up * h_ if length > h_ else -up
+        elif hold in ('bow_low', 'bow_up', 'bow_aim'):   # THE BOW in his LEFT fist (COOK's frame: the grip at the origin, the arrow +X, the limbs along Z)
+            if hold == 'bow_aim': fist = lw + fwd * 0.05; bar = fwd.copy()                       # the bow arm straight at the mark
+            elif hold == 'bow_up': fist = lw + fwd * 0.04 + up * 0.01; bar = fwd * 0.95 + up * 0.15  # coming up, the string hand on it
+            else: fist = lw + fwd * 0.03 - up * 0.04; bar = fwd * 0.95 - up * 0.3                  # low before his hip, the limbs up and down
+        elif hold == 'sling_hang':             # THE SLING hanging from his fist, the pouch by his knee
+            bar = -up * 0.95 + fwd * 0.15
+        elif hold == 'sling_whirl':            # whirled out behind him and to his right, over his shoulder
+            bar = -fwd * 0.5 + up * 0.25 - left * 0.7
+        elif hold == 'sling_loose':            # the loose: the pouch flung out before him
+            bar = fwd * 0.85 + up * 0.35
         elif hold == 'bottle':                 # a bottle stood upright in his fist
             bar = up * 0.9 + fwd * 0.2
         elif hold == 'bottle_up':
@@ -901,8 +917,8 @@ def pack(only=None):
         live |= set(ly for ly in e_.get('layers', []) if ly in e_.get('props', {}).get('sheets', {}))
     index['layers_ready'] = [ly for ly in S.get('layers_ready', list(S['layers'])) if ly in live]
     ready_props = set(p_ for ly in index['layers_ready'] for p_ in S['layers'][ly]['props'])
-    for k in ('composite', 'timelines', 'by_row', 'by_class', 'shield_by_row', 'shield_over', 'two_by_row', 'two_by_class'):
-        index[k] = {a_: b_ for a_, b_ in S.get(k, {}).items() if a_ != 'why' and (k not in ('by_row', 'by_class', 'shield_by_row', 'two_by_row', 'two_by_class') or b_ in ready_props)}
+    for k in ('composite', 'timelines', 'by_row', 'by_class', 'shield_by_row', 'shield_over', 'two_by_row', 'two_by_class', 'bow_by_row', 'bow_by_class', 'sling_by_row'):
+        index[k] = {a_: b_ for a_, b_ in S.get(k, {}).items() if a_ != 'why' and (k not in ('by_row', 'by_class', 'shield_by_row', 'two_by_row', 'two_by_class', 'bow_by_row', 'bow_by_class', 'sling_by_row') or b_ in ready_props)}
     json.dump(index, open(ip, 'w'), separators=(',', ':'))
     print('INDEX', ip, len(index['looks']), 'looks, live layers', index['layers_ready'])
 

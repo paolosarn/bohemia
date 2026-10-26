@@ -265,6 +265,28 @@ def walk_sheets_her():
     finally: os.remove(path); R2.ROLL = full
 
 
+def idles_her(pids=None):
+    """the idles' own steps for her (ANIMATION [everybody idles]): her bare idles and her gun-held idles rendered on her own
+    model (person_idles, carry_one: her build through the hook), then the idles' people_pack run on her alone: it would
+    otherwise write the map's people file with only the people rendered here and drop every rolled man's fight idles"""
+    import bohemia_animation_everybody_idles as EI
+    for p in (pids or [q['id'] for q in women()]):
+        tag = 'person_' + p.lower()
+        if not EI.person_done(tag): EI.person_idles(p)
+        if tag in EI.fight_people() and not EI.carry_done(tag): EI.carry_one(p)
+    src = inspect.getsource(EI.people_pack)
+    cuts = [("    json.dump(mj, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))\n",
+             "    if mj['looks']: json.dump(mj, open(os.path.join(ROOT, OUT, 'map_people.json'), 'w'), separators=(',', ':'))\n"),
+            ("    for k in [k for k in index['looks'] if k.startswith('fight_person_')]: del index['looks'][k]\n",
+             "    for k in [k for k in index['looks'] if k[len('fight_'):] in HERS]: del index['looks'][k]\n")]
+    for a, b in cuts:
+        assert src.count(a) == 1, 'the idles\' people_pack() changed: re-read it before running it for her'
+        src = src.replace(a, b)
+    ns = dict(EI.__dict__); ns['HERS'] = set('person_' + q['id'].lower() for q in women())
+    exec(compile(src, EI.__file__, 'exec'), ns)
+    ns['people_pack']()
+
+
 def make_her(pid):
     """RUN TWO's own steps for one woman: COMBAT's fight poses rendered on her (fight-make), then her stills, walk and face
     (make); each builds her again through the hook if her model is gone"""
@@ -325,4 +347,5 @@ if __name__ == '__main__':
     elif cmd == 'make': [make_her(p) for p in (a or [q['id'] for q in women()])]
     elif cmd == 'fight-pack': fight_pack_her()
     elif cmd == 'walk-sheets': walk_sheets_her()
+    elif cmd == 'idles': idles_her(a or None)
     else: sys.exit('roll | make [pid..] | fight-pack | walk-sheets | walk <in.glb> [out.glb] | finish <pid> | preview <out.png> [her] [him]')
