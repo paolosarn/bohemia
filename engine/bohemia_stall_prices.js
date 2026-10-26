@@ -10,6 +10,8 @@
 //            a calm town pays HALF; a town in need pays the rise, the stall keeps the same cut; a glut pays nothing.
 //   3. A TOWN'S NEED IS A NUMBER OF UNITS a week: past it the town is calm for that good again.
 //   4. A SALE PAYS WHOLE BATTERIES, floored, and never as much as the same count would cost to buy here.
+// AND (rules 265, 266, Paolo 10/26): every price moves with the place's size; a stall never refuses; the tape shelf
+// holds at least a stack every visit; trade goods are cheap where they are made and dear everywhere else.
 //
 // MECHANISM-MINE / CONTENTS-PAOLO'S: this file types no felt number; the caller hands it the price file
 // and the town (its knobs, its need, how much of the need is already sold). Pure functions, no DOM.
@@ -36,11 +38,18 @@
     return t[tier] != null ? t[tier] : (t.town != null ? t.town : 0);
   }
 
+  /* rule 265(b): the place's size moves every price it charges and pays (Battle Brothers' base multiplier by settlement
+     level: small, medium, large); a tier the file does not name is 1 */
+  function sizeOf(file, tier) {
+    var s = file && file.size_mult && file.size_mult.value;
+    return (s && s[tier] != null) ? s[tier] : 1;
+  }
+
   function buyEach(file, good, ctx) {
     var g = goodOf(file, good); if (!g) return null;
     ctx = ctx || {};
     var need = ctx.need > 0 ? ctx.need : 1;
-    return num(g.buy, 1) * need * (1 - (ctx.relBuySub || 0)) * (ctx.buyMult || 1);
+    return num(g.buy, 1) * sizeOf(file, ctx.tier) * need * (1 - (ctx.relBuySub || 0)) * (ctx.buyMult || 1);
   }
   /* what the stall shows and charges for ONE unit: the stall's own rounding today (round, floor at one) */
   function buyShown(file, good, ctx) {
@@ -56,11 +65,14 @@
     var cut = cutOf(file), model = (file && file.need_model && file.need_model.value) || 'constant_cut', share;
     if (model === 'proportional') share = need * (1 - cut) + (ctx.relSellAdd || 0);   /* Battle Brothers' own: need moves both sides alike */
     else share = need - cut + (ctx.relSellAdd || 0);                                  /* the realistic: the stall keeps the same cut, the rise is yours */
-    var v = num(g.buy, 1) * Math.max(0, share) * (ctx.sellMult || 1);
+    var v = num(g.buy, 1) * sizeOf(file, ctx.tier) * Math.max(0, share) * (ctx.sellMult || 1);
     /* the stall always keeps something: never more than sell_share_max of what it charges a stranger for the same
        unit (the standing left out, so a company it likes is never paid LESS for being liked) */
-    var cap = num(file && file.sell_share_max, 0.85) * buyEach(file, good, Object.assign({}, ctx, { need: cardNeed || need, relBuySub: 0 }));
-    return Math.min(v, cap);
+    var stranger = buyEach(file, good, Object.assign({}, ctx, { need: cardNeed || need, relBuySub: 0 }));
+    /* rule 265(b), it never refuses: even a glut pays Battle Brothers' price for any other thing, a share of what
+       it charges a stranger on a calm day */
+    var floor = num(file && file.sell_floor_share, 0) * buyEach(file, good, Object.assign({}, ctx, { need: 1, relBuySub: 0 }));
+    return Math.min(Math.max(v, floor), num(file && file.sell_share_max, 0.85) * stranger);
   }
   /* the need the i-th unit sold into this week's card meets: the card's full need for the first, easing in even
      steps to calm at the last of the town's units (need_eases), or the full need for all of them; calm past them */
@@ -106,7 +118,7 @@
       handful: h, handfulPays: h ? pays(file, good, ctx, h) : 0,
       sellEach: sellEach(file, good, ctx),
       need: need, needLeft: Math.max(0, units - (ctx.soldToNeed || 0)), needUnits: units,
-      word: need >= wordAt && units - (ctx.soldToNeed || 0) > 0 ? 'short' : (need < 1 && !h ? 'plenty' : null)
+      word: need >= wordAt && units - (ctx.soldToNeed || 0) > 0 ? 'short' : (need < 1 ? 'plenty' : null)
     };
   }
 
@@ -116,8 +128,71 @@
     return (foodAfter | 0) < num(file && file.warn_food_nights, 1) * Math.max(1, crew | 0);
   }
 
+  /* ---- THE TAPE SHELF (rule 265(a)): every stall, every visit, at least a stack; more in a bigger place, double where
+     the place makes it (Battle Brothers' workshop); a town's card thins or fills it, never under the floor; restocked
+     every few days; past the shelf the keeper sells from the back at a dearer price, never sold out.
+     ctx: {place, tier, stockMult (traitMult().stock), soldThisRestock} */
+  function tapeShelf(file, ctx) {
+    var t = file && file.tape_shelf; if (!t || !t.value) return 0;
+    ctx = ctx || {};
+    var n = t.value[ctx.tier] != null ? t.value[ctx.tier] : t.value.camp;
+    if (t.made_by && ctx.place && t.made_by.value && t.made_by.value.indexOf(ctx.place) >= 0) n *= num(t.made_mult, 2);
+    n = Math.round(n * (ctx.stockMult > 0 ? ctx.stockMult : 1));
+    return Math.max(num(t.min, 20), n);
+  }
+  /* the price of the next roll: the stall's own buy while the shelf holds, the back room's past it */
+  function tapePrice(file, ctx) {
+    ctx = ctx || {};
+    var base = buyShown(file, 'tape', ctx), t = file && file.tape_shelf;
+    if ((ctx.soldThisRestock || 0) < tapeShelf(file, ctx)) return base;
+    return Math.max(base + 1, Math.round(base * num(t && t.back_room_mult, 2)));
+  }
+
+  /* ---- TRADE GOODS (rule 266(a)): Battle Brothers' rule. A good is cheap where it is made and the maker buys it back
+     for little; anywhere else it costs half again and sells at a premium. The place's size and the standing move the
+     base (small 0.95, medium 1.02, large 1.10; up to 0.15 off buying and onto selling at Allied); the town's card
+     multiplies after.  ctx: {place, tier, buyMult, sellMult, relBase (0 to 0.15)} */
+  function tradeGood(file, id) {
+    var list = file && file.trade && file.trade.goods; if (!list) return null;
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+  function madeHere(file, id, place) {
+    var g = tradeGood(file, id); return !!(g && place && (g.made_by || []).indexOf(place) >= 0);
+  }
+  function makes(file, place) {
+    var list = (file && file.trade && file.trade.goods) || [];
+    return list.filter(function (g) { return (g.made_by || []).indexOf(place) >= 0; }).map(function (g) { return g.id; });
+  }
+  function tradeSides(file, id, ctx) {
+    var T = file.trade, m = madeHere(file, id, ctx.place) ? T.made_here.value : T.not_made.value;
+    return m;
+  }
+  function tradeBuy(file, id, ctx) {
+    var g = tradeGood(file, id); if (!g) return null;
+    ctx = ctx || {};
+    var v = g.worth * (sizeOf(file, ctx.tier) - (ctx.relBase || 0)) * tradeSides(file, id, ctx).buy * (ctx.buyMult || 1);
+    return Math.max(num(file.buy_floor, 1), Math.round(v));
+  }
+  /* what one unit brings, whole batteries, never as much as the same stall charges for it */
+  function tradeSell(file, id, ctx) {
+    var g = tradeGood(file, id); if (!g) return null;
+    ctx = ctx || {};
+    var v = g.worth * (sizeOf(file, ctx.tier) + (ctx.relBase || 0)) * tradeSides(file, id, ctx).sell * (ctx.sellMult || 1);
+    return Math.max(0, Math.min(Math.floor(v + 1e-9), tradeBuy(file, id, ctx) - 1));
+  }
+  /* how many of its own good a maker's stall holds each restock (none of a good it does not make: that is carried in) */
+  function tradeStock(file, id, ctx) {
+    ctx = ctx || {};
+    if (!madeHere(file, id, ctx.place)) return 0;
+    var s = file.trade.stock.value, n = s[ctx.tier] != null ? s[ctx.tier] : s.camp;
+    return Math.max(1, Math.round(n * (ctx.stockMult > 0 ? ctx.stockMult : 1)));
+  }
+
   var API = { buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
-              handful: handful, line: line, needUnits: needUnits, needAt: needAt, warns: warns, cutOf: cutOf };
+              handful: handful, line: line, needUnits: needUnits, needAt: needAt, warns: warns, cutOf: cutOf, sizeOf: sizeOf,
+              tapeShelf: tapeShelf, tapePrice: tapePrice,
+              tradeGood: tradeGood, madeHere: madeHere, makes: makes, tradeBuy: tradeBuy, tradeSell: tradeSell, tradeStock: tradeStock };
   if (HASREQ) module.exports = API;
   if (typeof window !== 'undefined') window.BohemiaStallPrices = API;
 })(this);

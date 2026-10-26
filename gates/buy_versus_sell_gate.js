@@ -59,8 +59,10 @@ function legsF(file, say) {
 /* ---- P: the prices ---- */
 const calm = g => ({ tier: 'town', need: 1, buyMult: 1, sellMult: 1 });
 function legsP(file, say) {
-  const half = file.goods.food.buy.value * file.sell_share.value;
-  say('P1 a calm town pays half: a night of food bought for ' + file.goods.food.buy.value + ' sells for ' + half, SP.pays(file, 'food', calm(), 1) === Math.floor(half) && SP.sellEach(file, 'food', calm()) === half);
+  const half = SP.buyEach(file, 'food', calm()) * file.sell_share.value;
+  say('P1 a calm town pays half of what it charges: a night of food bought for ' + SP.buyShown(file, 'food', calm()) + ' sells for ' + half.toFixed(2), SP.pays(file, 'food', calm(), 1) === Math.floor(half) && Math.abs(SP.sellEach(file, 'food', calm()) - half) < 1e-9);
+  const sz = file.size_mult.value;
+  say('P1b a small place pays less than a big one (265(b)): a camp, a town, a fortress', SP.sellEach(file, 'food', { tier: 'camp' }) < SP.sellEach(file, 'food', { tier: 'town' }) && SP.sellEach(file, 'food', { tier: 'town' }) < SP.sellEach(file, 'food', { tier: 'fortress' }) && sz.camp < sz.town && sz.town < sz.fortress);
   say('P2 a calm town takes a dose, a roll and six rounds two for a battery', ['meds', 'rounds', 'tape'].every(g => SP.handful(file, g, calm()) === 2 && SP.pays(file, g, calm(), 2) === 1));
   const sick = { tier: 'town', need: 2, buyMult: 1, sellMult: 1 };
   const sickLine = SP.line(file, 'food', sick);
@@ -70,8 +72,10 @@ function legsP(file, say) {
   /* the need eases: the first unit pays the most, past the town's units it is calm again */
   const n = SP.needUnits(file, 'food', 'fortress', 2), f = { tier: 'fortress', need: 2 };
   const first = SP.sellEach(file, 'food', f), last = SP.sellEach(file, 'food', Object.assign({}, f, { soldToNeed: n - 1 })), past = SP.sellEach(file, 'food', Object.assign({}, f, { soldToNeed: n }));
-  say('P5 the need eases with every unit and is calm past the town\'s ' + n, n > 0 && first > last && last > past && past === SP.sellEach(file, 'food', calm()), [first, last, past].join(' > '));
-  say('P6 a glut takes nothing (a harvest town, food x0.5)', SP.handful(file, 'food', { tier: 'town', need: 0.5 }) === 0 && SP.line(file, 'food', { tier: 'town', need: 0.5 }).word === 'plenty');
+  say('P5 the need eases with every unit and is calm past the town\'s ' + n, n > 0 && first > last && last > past && past === SP.sellEach(file, 'food', { tier: 'fortress' }), [first, last, past].join(' > '));
+  const glut = { tier: 'camp', need: 0.5 };
+  say('P6 a glut pays little and never refuses (265(b)): a harvest camp takes food, a handful of twelve or fewer for a battery, and says it has plenty', SP.handful(file, 'food', glut) > SP.handful(file, 'food', { tier: 'camp' }) && SP.handful(file, 'food', glut) <= file.handful_max.value && SP.line(file, 'food', glut).word === 'plenty');
+  say('P6b every stall takes every supply, every size, calm or glutted (never refuses)', ['camp', 'town', 'fortress'].every(t => ['food', 'meds', 'rounds', 'tape'].every(g => [0.5, 1, 2, 3].every(n => SP.handful(file, g, { tier: t, need: n }) >= 1))));
   say('P7 the warning: a sale leaving under a night a man warns, one leaving a night does not', SP.warns(file, 'food', 2, 3) && !SP.warns(file, 'food', 3, 3) && !SP.warns(file, 'meds', 0, 3));
   say('P8 a company a town loves is never paid less for its food than a stranger', SP.pays(file, 'food', Object.assign({ relBuySub: 0.15, relSellAdd: 0.02 }, f), 3) >= SP.pays(file, 'food', f, 3));
 }
@@ -112,6 +116,8 @@ bites('a need typed into the price file', m => { m.need_units.value.sickness = {
 bites('a supply with no source', m => { delete m.goods.tape.buy.source; }, legsF);
 bites('a calm town paying a third', m => { m.sell_share.value = 0.33; }, legsP);
 bites('a need that never eases', m => { m.need_eases.value = false; }, legsP);
+bites('a stall that refuses a glut', m => { m.sell_floor_share.value = 0; }, legsP);
+bites('a camp paying what a fortress pays', m => { m.size_mult.value.camp = 1.10; }, legsP);
 bites('no warning at all', m => { m.warn_food_nights.value = 0; }, legsP);
 function bitesValley(name, over) {
   let red = 0; const say = (w, c) => { if (!c) red++; };

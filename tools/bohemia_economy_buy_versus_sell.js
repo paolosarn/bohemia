@@ -168,7 +168,7 @@ function run(over) {
     S1_week_one_under_one_contract: Math.max(out.weekOne.total, out.allied.weekOne) < out.routineContract,
     S2_every_week_under_a_week_of_food: Math.max(out.yearBest.total, out.allied.best) < out.weekBill,
     S3_sell_under_buy_everywhere: bad === 0,
-    S4_calm_pays_half: out.lines.calm.food.each === D.file.goods.food.buy.value * D.file.sell_share.value
+    S4_calm_pays_half: Math.abs(out.lines.calm.food.each - SP.buyEach(D.file, 'food', calm('food')) * D.file.sell_share.value) < 0.001
   };
   return out;
 }
