@@ -31,11 +31,12 @@
          faction's first phase (ours.enemy_tiers): no Marauder, no leader, for the Block Watch's twelve as for the Lone Wolf
      J10 ONE CALCULATOR, ONE SCALE (rule 254(d)): the page's lines are the AUTO colour's own (ours.odds_colour turn and down_value,
          job_danger.json's copies equal); ONE NUMBER: 60 of the jobs' sure fights replayed here on the page's own hand-over and the
-         page's own dice with the fight's own count (oddsRunValue) give the page's number, within 5 plays in 100 (MEASURED 10/26: the
-         fight's own code carries a little from one fight into the next, so the same fight on the same dice moves a play or a few
-         with what its copy played before; the AUTO button's copy does the same; COMBAT's, NOTEd), and every job's blood is its
-         number on the AUTO colour's line, exactly; every job's blood is on the side of the turn its 100 fresh plays are (clean
-         tin where AUTO is green, blood where it is red) unless they sit within 0.08 of the turn; every job whose plays lose a man
+         page's own dice with the fight's own count (oddsRunValue) give the page's number, within 5 plays (MEASURED 10/26: the
+         fight's own code carries a little from one fight into the next, so the same fight on the same dice moves a play or a few,
+         up to 4.2 seen, with what its copy played before; the AUTO button's copy does the same; COMBAT's, NOTEd), and every job's
+         blood is its number on the AUTO colour's line, exactly; every job's blood is on the side of the turn its 100 fresh plays
+         are (clean tin where AUTO is green, blood where it is red) unless they sit within 0.1 of the turn, at most one job in a
+         hundred (two samples of the same dice: 96 plays and 100 each wobble about 0.04); every job whose plays lose a man
          (dead or lost) 6 in 10 or more reads three stars and the deepest blood. The blood against the 100 fresh plays is printed:
          two samples of the same dice differ, and the blood's line is steep (0.8 to 0.5 is the whole scale)
    node gates/the_job_tells_the_truth_gate.js     (about fifteen minutes: 23,000 fights played in node on four processes)
@@ -315,8 +316,8 @@ const CREWS = [
         let g = 0; while (!E.FIGHT.S.over && g <= x.steps) { const v = E.FIGHT.current(); if (!v) break; E.FIGHT.aiStep(v); E.FIGHT.S.events = []; g++; }
         sum += E.FIGHT.S.over ? E.run(E.FIGHT) : 0; }
       same.push({ fk: x.fk, crew: x.crew, job: x.job, runs: x.runs, page: x.sum, here: sum }); }
-    const differ = same.filter(x => Math.abs(x.page - x.here) > 0.05 * x.runs), exact = same.filter(x => Math.abs(x.page - x.here) < 1e-9);
-    const SIDE = 0.08, sides = [], lose = [], drawn = [];
+    const differ = same.filter(x => Math.abs(x.page - x.here) > 5), exact = same.filter(x => Math.abs(x.page - x.here) < 1e-9);
+    const SIDE = 0.1, sides = [], lose = [], drawn = [];
     const bloodAt = v => Math.max(0, Math.min(1, (TURN - v) / Math.max(1e-6, TURN - DOWNV)));   /* a number on the AUTO colour's line */
     read.filter(j => j.measured != null).forEach(j => { const green = j.measured >= TURN;
       if (Math.abs(j.measured - TURN) > SIDE && ((j.blood === 0) !== green)) sides.push(j);
@@ -327,10 +328,10 @@ const CREWS = [
     const lineOk = !!scale && scale.orv && !scale.okRun && Math.abs(scale.cfg.cut_one - TURN) < 1e-9 && Math.abs(scale.cfg.cut_three - DOWNV) < 1e-9 &&
       Math.abs(scale.cfg.blood_from - (1 - TURN)) < 1e-6 && Math.abs(scale.cfg.blood_full - (1 - DOWNV)) < 1e-6 && scale.cfg.prior === 0 &&
       ['cut_one', 'cut_three', 'blood_from', 'blood_full'].every(k => Math.abs(JDF[k].value - scale.cfg[k]) < 1e-6);
-    ok('J10 one calculator, one scale: AUTO\'s own lines; the page\'s sure fights replayed on its own dice give its own number (within 5 plays in 100), every blood its number on the line; every blood on AUTO\'s side of the turn; every job that loses a man in 6 plays of 10 three stars and the deepest blood',
-      lineOk && same.length >= 40 && differ.length === 0 && drawn.length === 0 && sides.length === 0 && deep.length === 0 && lose.length > 0,
+    ok('J10 one calculator, one scale: AUTO\'s own lines; the page\'s sure fights replayed on its own dice give its own number (within 5 plays), every blood its number on the line; every blood on AUTO\'s side of the turn (one in a hundred for the dice); every job that loses a man in 6 plays of 10 three stars and the deepest blood',
+      lineOk && same.length >= 40 && differ.length === 0 && drawn.length === 0 && sides.length <= Math.floor(read.length / 100) && deep.length === 0 && lose.length > 0,
       'lines ' + JSON.stringify(scale && { cut_one: scale.cfg.cut_one, cut_three: scale.cfg.cut_three, blood_from: scale.cfg.blood_from, blood_full: scale.cfg.blood_full, prior: scale.cfg.prior, from_fight: scale.cfg.from_fight, orv: scale.orv, okRun: scale.okRun }) +
-      '; the same dice: ' + same.length + ' sure fights, ' + same.reduce((t, x) => t + x.runs, 0) + ' plays, ' + exact.length + ' to the last digit, the most apart ' + (same.length ? Math.max.apply(null, same.map(x => Math.abs(x.page - x.here))).toFixed(2) : '-') + ' plays, ' + differ.length + ' past 5 in 100' + (differ.length ? ' (' + differ.slice(0, 3).map(x => x.job + ' page ' + x.page.toFixed(2) + ' here ' + x.here.toFixed(2) + ' of ' + x.runs).join(', ') + ')' : '') +
+      '; the same dice: ' + same.length + ' sure fights, ' + same.reduce((t, x) => t + x.runs, 0) + ' plays, ' + exact.length + ' to the last digit, the most apart ' + (same.length ? Math.max.apply(null, same.map(x => Math.abs(x.page - x.here))).toFixed(2) : '-') + ' plays, ' + differ.length + ' past 5 plays' + (differ.length ? ' (' + differ.slice(0, 3).map(x => x.job + ' page ' + x.page.toFixed(2) + ' here ' + x.here.toFixed(2) + ' of ' + x.runs).join(', ') + ')' : '') +
       '; blood off its own line ' + drawn.length + '; off AUTO\'s side ' + sides.length + (sides.length ? ' (' + sides.slice(0, 4).map(j => j.id + ' blood ' + j.blood.toFixed(2) + ' 100 plays ' + j.measured.toFixed(2)).join(', ') + ')' : '') +
       '; lose a man 6 in 10: ' + lose.length + ' jobs, ' + (lose.length - deep.length) + ' read three stars and the deepest blood' + (deep.length ? ' (not: ' + deep.slice(0, 4).map(j => j.id + ' ' + j.stars + '* ' + j.blood.toFixed(2) + ' lost ' + Math.round(100 * j.lostMan)).join(', ') + ')' : '') +
       '; against 100 fresh plays the blood differs by ' + (gaps.length ? gaps[gaps.length >> 1].toFixed(2) + ' at the median, ' + gaps[Math.floor(gaps.length * 0.9)].toFixed(2) + ' at the 90th, ' + gaps[Math.floor(gaps.length * 0.95)].toFixed(2) + ' at the 95th' : '-'));

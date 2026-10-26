@@ -2801,8 +2801,8 @@ GATES = [
      '"the same calculator as the auto combat... max bloody if you think I would lose members"): ONE CALCULATOR, ONE SCALE, the '
      'one-in-six reading struck: a play is worth the AUTO count, J2/J3/J8 on the AUTO colour\'s turn (0.8) and down_value (0.5); '
      'J10 the page\'s lines are AUTO\'s own; 60 sure fights replayed on the page\'s own hand-over and dice with the fight\'s own count give '
-     'the page\'s number (within 5 plays in 100: the fight carries a little from one fight to the next, COMBAT\'s), every blood its number '
-     'on the line; every blood on the side of the turn its 100 fresh plays are; every job that loses a man 6 plays in 10 three stars and '
+     'the page\'s number (within 5 plays: the fight carries a little from one fight to the next, COMBAT\'s), every blood its number '
+     'on the line; every blood on the side of the turn its 100 fresh plays are (one job in a hundred past 0.1 of the turn, for the dice); every job that loses a man 6 plays in 10 three stars and '
      'the deepest blood; a sure fight never borrows a road fight\'s light read; a fight read between the lines plays on to 96.', True),
     ('THE NORMIE HOUR, WORLD', ['node', 'gates/the_normie_hour_world_gate.js'],
      'WORLD [eyes: the normie hour, world], EYES round four, rule 225(d): the seven job frictions a stranger met in his first hour. '
