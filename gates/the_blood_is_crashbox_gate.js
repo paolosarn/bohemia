@@ -28,8 +28,11 @@
      D4 from the first stage the words carry the halo of what the clay sits on (invisible on clean paper)
      D5 on the glass: a soaked row is at least a third red clay, a one-star row under a twentieth
      D6 the offer's Take it wears the same blood as the person who offered it
+     W1 THE WORDS ARE WIPED CLEAN (EYES 10/26 k17, q17, k18): at every stage, on the glass, no red clay pixel inside any word
+        on a board row; W2 no star over a letter or a digit
      D7 nothing thrown
-   PLANTED (the phone): a gradient in place of the clay, and the holds taken out: each turns its leg red.
+   PLANTED (the phone): a gradient in place of the clay, the holds taken out, the clay not cut under the words: each turns its
+   leg red.
    node gates/the_blood_is_crashbox_gate.js */
 'use strict';
 const path = require('path');
@@ -191,6 +194,48 @@ async function side(profile, d0) {
       await sf.evaluate(() => { BohemiaMaterials.BLOOD.hold = 250; });
       await watch(0.05);
     }
+    /* W1, W2: THE WORDS ARE WIPED CLEAN (UI [eyes: the blood on the words], EYES 10/26 k17, q17, k18): at every stage, on the
+       glass, no red clay pixel inside any word's box, and no star over a letter */
+    {
+      const B = await sf.evaluate(() => { const M = BohemiaMaterials.BLOOD; M.hold = 0; return { lo: M.clean, hi: M.soaked }; });
+      const bad = [], starBad = [];
+      for (let s = 1; s <= 8; s++) {
+        const d = s === 8 ? 0.95 : B.lo + (s - 0.5) / 7 * (B.hi - B.lo);
+        await sf.evaluate((d) => { const e = document.querySelector('#sbody .act.client'); e.setAttribute('data-danger', d); }, d);
+        await p.waitForTimeout(500);
+        const g = await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); e.scrollIntoView({ block: 'center' }); const R = e.getBoundingClientRect(), out = [], st = [];
+          const tw = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, null); let n; const rg = document.createRange();
+          while ((n = tw.nextNode())) { if (!/\S/.test(n.nodeValue)) continue; rg.selectNodeContents(n); for (const q of rg.getClientRects()) out.push([q.left + 1, q.top + 1, q.width - 2, q.height - 2, n.nodeValue.trim().slice(0, 12)]); }
+          e.querySelectorAll('.bmstar').forEach(x => { const q = x.getBoundingClientRect(); st.push([q.left, q.top, q.width, q.height]); });
+          return { stage: +e.getAttribute('data-bm-blood'), R: [R.left, R.top, R.width, R.height], words: out, stars: st }; });
+        const shotB64 = (await p.screenshot({ clip: { x: box.x + g.R[0], y: box.y + g.R[1], width: g.R[2], height: g.R[3] } })).toString('base64');
+        const red = await p.evaluate(async ({ b64, g }) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode();
+          const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const x = c.getContext('2d'); x.drawImage(im, 0, 0); const k = im.width / g.R[2];
+          const px = x.getImageData(0, 0, c.width, c.height).data, hits = [];
+          g.words.forEach(w => { let n = 0; for (let yy = Math.ceil((w[1] - g.R[1]) * k); yy < Math.floor((w[1] - g.R[1] + w[3]) * k); yy++) for (let xx = Math.ceil((w[0] - g.R[0]) * k); xx < Math.floor((w[0] - g.R[0] + w[2]) * k); xx++) {
+            if (xx < 0 || yy < 0 || xx >= c.width || yy >= c.height) continue; const i = (yy * c.width + xx) * 4; if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) n++; }
+            if (n) hits.push(w[4] + ' ' + n); });
+          return hits; }, { b64: shotB64, g });
+        if (red.length) bad.push('stage ' + g.stage + ': ' + red.join(', '));
+        g.stars.forEach(sr => g.words.forEach(w => { if (sr[0] < w[0] + w[2] && w[0] < sr[0] + sr[2] && sr[1] < w[1] + w[3] && w[1] < sr[1] + sr[3]) starBad.push('stage ' + g.stage + ' star over ' + w[4]); }));
+      }
+      await sf.evaluate(() => { BohemiaMaterials.BLOOD.hold = 250; });
+      ok('W1 ' + profile + ': at every stage no red clay pixel inside any word on the row (the words wiped clean)', bad.length === 0, bad.slice(0, 3).join(' | ') || '8 stages clean');
+      ok('W2 ' + profile + ': no star over a letter or a digit', starBad.length === 0, starBad.slice(0, 3).join(' | ') || 'none');
+      if (PLANT) {
+        await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); e.style.setProperty('--bm-blood-mask', 'none', 'important'); e.__plantMask = 1;
+          const s = document.createElement('style'); s.id = 'plantmask'; s.textContent = 'html[data-kit] body [data-bm-blood]::after{-webkit-mask:none!important;mask:none!important}'; document.head.appendChild(s);
+          e.setAttribute('data-danger', 0.95); });
+        await p.waitForTimeout(3000);
+        const g2 = await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); const R = e.getBoundingClientRect(); const rg = document.createRange(); const tw = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, null); let n, w = null;
+          while ((n = tw.nextNode())) { if (/\S/.test(n.nodeValue)) { rg.selectNodeContents(n); const q = rg.getClientRects()[0]; if (q) { w = [q.left, q.top, q.width, q.height]; break; } } } return { R: [R.left, R.top, R.width, R.height], w }; });
+        const b64 = (await p.screenshot({ clip: { x: box.x + g2.w[0], y: box.y + g2.w[1], width: Math.max(1, g2.w[2]), height: Math.max(1, g2.w[3]) } })).toString('base64');
+        const n = await p.evaluate(async (b64) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode(); const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
+          const x = c.getContext('2d'); x.drawImage(im, 0, 0); const px = x.getImageData(0, 0, c.width, c.height).data; let r = 0; for (let i = 0; i < px.length; i += 4) if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) r++; return r; }, b64);
+        ok('PLANTED: the clay not cut under the words is caught by W1', n > 0, n + ' red pixels in the first word');
+        await sf.evaluate(() => { document.getElementById('plantmask').remove(); const e = document.querySelector('#sbody .act.client'); e.style.removeProperty('--bm-blood-mask'); BohemiaMaterials.bloodHoles(e); });
+      }
+    }
     /* D6: the offer */
     /* the row's own danger as the game read it (D3 above moved the row's number; WORLD's reader hands the offer the job's read,
        and where no reader is on the page the offer takes the row's) */
@@ -201,6 +246,23 @@ async function side(profile, d0) {
     await sf.evaluate(() => document.querySelector('#sbody .act.client').click()); await p.waitForTimeout(1200);
     await sf.waitForFunction(() => { const b = [...document.querySelectorAll('#sbody .acts .act')].find(x => /^\s*take/i.test(x.textContent)); return b && b.hasAttribute('data-bm-blood-to') && b.getAttribute('data-bm-blood') === b.getAttribute('data-bm-blood-to'); }, null, { timeout: 30000 }).catch(() => {});
     const take = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sbody .acts .act')].find(x => /^\s*take/i.test(x.textContent)); return b ? { blood: +b.getAttribute('data-bm-blood'), d: b.getAttribute('data-danger'), two: b.querySelectorAll(':scope > i.jdblood').length, bg: getComputedStyle(b, '::after').backgroundImage.slice(0, 80) } : null; });
+    /* W1 on the offer too: Take it soaked, its words still on clean paper */
+    if (take) {
+      await sf.evaluate(() => { BohemiaMaterials.BLOOD.hold = 0; const b = [...document.querySelectorAll('#sbody .acts .act')].find(x => /^\s*take/i.test(x.textContent)); b.setAttribute('data-danger', 0.95); });
+      await p.waitForTimeout(600);
+      const g = await sf.evaluate(() => { const e = [...document.querySelectorAll('#sbody .acts .act')].find(x => /^\s*take/i.test(x.textContent)); e.scrollIntoView({ block: 'center' }); const R = e.getBoundingClientRect(), out = [];
+        const tw = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, null); let n; const rg = document.createRange();
+        while ((n = tw.nextNode())) { if (!/\S/.test(n.nodeValue)) continue; rg.selectNodeContents(n); for (const q of rg.getClientRects()) out.push([q.left + 1 - R.left, q.top + 1 - R.top, q.width - 2, q.height - 2]); }
+        return { stage: +e.getAttribute('data-bm-blood'), R: [R.left, R.top, R.width, R.height], words: out }; });
+      const b64 = (await p.screenshot({ clip: { x: box.x + g.R[0], y: box.y + g.R[1], width: g.R[2], height: g.R[3] } })).toString('base64');
+      const red = await p.evaluate(async ({ b64, g }) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode(); const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
+        const x = c.getContext('2d'); x.drawImage(im, 0, 0); const k = im.width / g.R[2], px = x.getImageData(0, 0, c.width, c.height).data; let r = 0, all = 0;
+        for (let yy = 0; yy < c.height; yy++) for (let xx = 0; xx < c.width; xx++) { const i = (yy * c.width + xx) * 4; if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) all++; }
+        g.words.forEach(w => { for (let yy = Math.ceil(w[1] * k); yy < Math.floor((w[1] + w[3]) * k); yy++) for (let xx = Math.ceil(w[0] * k); xx < Math.floor((w[0] + w[2]) * k); xx++) { const i = (yy * c.width + xx) * 4; if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) r++; } });
+        return { r, all, n: c.width * c.height }; }, { b64, g });
+      await sf.evaluate(() => { BohemiaMaterials.BLOOD.hold = 250; });
+      ok('W1 ' + profile + ': the offer\'s Take it soaked, its words on clean paper', g.stage === 8 && red.r === 0 && red.all / red.n > 0.3, 'stage ' + g.stage + ', ' + red.r + ' red in the words, ' + Math.round(100 * red.all / red.n) + '% of the button red');
+    }
     ok('D6 ' + profile + ': the offer\'s Take it wears the same blood as the person who offered it', !!take && take.blood === want && take.two === 0 && (want === 0 || /ui_kit\/blood/.test(take.bg)), take ? 'take ' + take.blood + ' (danger ' + take.d + '), row ' + want + ' (danger ' + rowD + ')' : 'no Take it');
     ok('D7 ' + profile + ': nothing thrown', errs.length === 0, errs.slice(0, 2).join(' | '));
   } catch (e) { ok('the gate ran on ' + profile, false, String(e.message).slice(0, 200)); }

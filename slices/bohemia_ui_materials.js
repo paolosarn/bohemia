@@ -2171,7 +2171,9 @@
     var out = [pre + '[data-bm-blood]{isolation:isolate}',
       pre + '[data-bm-blood]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;border-radius:inherit;'
         + 'background-position:var(--blood-x,3px) 50%,100% 0,0 0,0 100%,0 50%;background-size:' + sz + ';'
-        + 'background-repeat:no-repeat,no-repeat,repeat-x,repeat-x,repeat;image-rendering:auto}',
+        + 'background-repeat:no-repeat,no-repeat,repeat-x,repeat-x,repeat;image-rendering:auto;'
+        /* THE WORDS ARE WIPED CLEAN (UI [eyes: the blood on the words]): the clay is cut away under every word, star and icon */
+        + '-webkit-mask:var(--bm-blood-mask,none);mask:var(--bm-blood-mask,none);-webkit-mask-composite:xor;mask-composite:exclude}',
       pre + '[data-bm-blood="0"]::after{content:none}'];
     for (var s = 1; s <= BLOOD.stages; s++) {
       out.push(pre + '[data-bm-blood="' + s + '"]::after{background-image:' + BLOOD.pieces.map(function (p) { return 'url(' + KIT_BASE + 'blood/' + s + '/' + p[0] + '.png)'; }).join(',') + '}');
@@ -2184,7 +2186,8 @@
   var BLOOD_SEEN = {};
   function bloodKey(el) { return el.getAttribute('data-blood-key') || el.getAttribute('data-id') || el.getAttribute('data-job') || null; }
   function bloodPaint(el, s) {
-    el.setAttribute('data-bm-blood', s);
+    var first = !el.hasAttribute('data-bm-blood');
+    el.setAttribute('data-bm-blood', s); if (first) bloodHolesSoon(el);
     if (s >= BLOOD.halo) {
       var c = (getComputedStyle(el).color.match(/\d+(\.\d+)?/g) || [0, 0, 0]).map(Number);
       el.setAttribute('data-blood-halo', (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) < 128 ? 'bone' : 'soot');
@@ -2196,6 +2199,41 @@
     if (cur === el.__bloodWant) return;
     el.__bloodT = setTimeout(function () { bloodStep(el, cur + (el.__bloodWant > cur ? 1 : -1)); }, BLOOD.hold);
   }
+  /* ==== __THE_WORDS_ARE_WIPED_CLEAN__ (UI [eyes: the blood on the words], EYES 10/26 k17, q17, k18: 'a round clay blot sits ON
+     the first letters of its title and the giver's name... the offer's Take it reads "●e it" under a blot'; rule 211(b), nothing
+     covers a button). The clay is cut away under every line of words, every star and every small picture on the button, a
+     point round each, the way a thumb wipes a label clean to read it: the words always sit on the button's own paper or tin.
+     The holes are one mask on the clay (exclusive, so merged first, never two over one place), worked out again when the
+     button's words, size or fonts change. ==== */
+  function bloodHoles(el) {
+    if (!el || !el.isConnected || !el.hasAttribute('data-bm-blood')) return;
+    var R = el.getBoundingClientRect(); if (!R.width || !R.height) return;
+    var rs = [], pad = 1.5, add = function (q) { if (q.width > 0 && q.height > 0) rs.push([q.left - R.left - pad, q.top - R.top - pad, q.right - R.left + pad, q.bottom - R.top + pad]); };
+    var tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, rg = document.createRange();
+    while ((n = tw.nextNode())) { if (!/\S/.test(n.nodeValue)) continue; var pe = n.parentElement; if (pe && getComputedStyle(pe).visibility === 'hidden') continue;
+      rg.selectNodeContents(n); var L = rg.getClientRects(); for (var i = 0; i < L.length; i++) add(L[i]); }
+    [].slice.call(el.querySelectorAll('.bmstar, img')).forEach(function (e) { add(e.getBoundingClientRect()); });
+    /* merge until no two overlap (an exclusive mask would fill a place two holes share) */
+    for (var again = true; again;) { again = false;
+      for (var a = 0; a < rs.length && !again; a++) for (var b = a + 1; b < rs.length; b++) { var A = rs[a], B = rs[b];
+        if (A[0] < B[2] && B[0] < A[2] && A[1] < B[3] && B[1] < A[3]) { rs[a] = [Math.min(A[0], B[0]), Math.min(A[1], B[1]), Math.max(A[2], B[2]), Math.max(A[3], B[3])]; rs.splice(b, 1); again = true; break; } } }
+    var px = function (v) { return Math.round(v) + 'px'; };
+    var m = rs.length ? ['linear-gradient(#000,#000)'].concat(rs.map(function (q) { return 'linear-gradient(#000,#000) ' + px(q[0]) + ' ' + px(q[1]) + '/' + px(q[2] - q[0]) + ' ' + px(q[3] - q[1]) + ' no-repeat'; })).join(',') : 'none';
+    if (el.style.getPropertyValue('--bm-blood-mask') !== m) el.style.setProperty('--bm-blood-mask', m);
+    el.__bloodHoles = rs.length;
+  }
+  var BLOOD_RO = null, BLOOD_DIRTY = [], BLOOD_RAF = 0;
+  function bloodHolesSoon(el) {
+    if (BLOOD_DIRTY.indexOf(el) < 0) BLOOD_DIRTY.push(el);
+    if (!BLOOD_RAF) BLOOD_RAF = requestAnimationFrame(function () { BLOOD_RAF = 0; var L = BLOOD_DIRTY; BLOOD_DIRTY = []; L.forEach(bloodHoles); });
+  }
+  function bloodWatchEl(el) {
+    if (el.__bloodRO) return; el.__bloodRO = 1;
+    try { if (!BLOOD_RO) BLOOD_RO = new ResizeObserver(function (es) { es.forEach(function (e) { bloodHolesSoon(e.target); }); }); BLOOD_RO.observe(el); } catch (e) {}
+    try { new MutationObserver(function () { bloodHolesSoon(el); }).observe(el, { childList: true, subtree: true, characterData: true }); } catch (e) {}
+  }
+  try { document.fonts && document.fonts.ready.then(function () { [].slice.call(document.querySelectorAll('[data-bm-blood]')).forEach(bloodHolesSoon); }); } catch (e) {}
+  /* ==== end __THE_WORDS_ARE_WIPED_CLEAN__ ==== */
   function bleed(el, d) {
     if (!el || !el.getAttribute) return 0;
     var want = bloodStage(d), k = bloodKey(el);
@@ -2203,6 +2241,7 @@
     /* the thumb lands past a face that starts the button (the client's face on the town's board) */
     var f = el.firstElementChild;
     if (f && /^(CANVAS|IMG)$/.test(f.tagName) && f.offsetLeft < 16) el.style.setProperty('--blood-x', (f.offsetLeft + f.offsetWidth + 4) + 'px');
+    bloodWatchEl(el); bloodHolesSoon(el);
     el.__bloodWant = want; el.setAttribute('data-bm-blood-to', want);
     var from = el.hasAttribute('data-bm-blood') ? +el.getAttribute('data-bm-blood') : (k && BLOOD_SEEN[k] != null ? BLOOD_SEEN[k] : 0);
     bloodStep(el, from);
@@ -2947,5 +2986,5 @@
   window.BohemiaMaterials = { apply: apply, kit: kit, KIT: KIT, dressKit: dressKit, partyPlate: partyPlate, ten: TEN, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, frontJustTheFont: frontJustTheFont, groundBare: groundBare, settleTag: settleTag, dressSettlement: dressSettlement,
     itemIcon: itemIcon, itemFromRow: itemFromRow, statIcon: statIcon, STAT_ICONS: STAT_ICONS, SIX: SIX, packIcon: packIcon, supplyCounts: supplyCounts, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, topBar: topBar, topBarFacts: tbFacts, hudParts: hudParts, hudScreen: function () { return HUD.screen; }, hudNoteOpen: hudNoteOpen, fightNoTop: fightNoTop, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars, stars: stars,
-    hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT, bleed: bleed, bloodStage: bloodStage, BLOOD: BLOOD };
+    hitRead: hitRead, hitReadPlace: hitReadPlace, hitChanceOnButton: hitChanceOnButton, HIT: HIT, bleed: bleed, bloodStage: bloodStage, bloodHoles: bloodHoles, BLOOD: BLOOD };
 })();
