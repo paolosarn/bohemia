@@ -241,3 +241,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 221 | (a bug) Every level a man earns waits for me to spend it, as many as he banked; my level-5 man let me level up only once | 281 | RUN FOUR, RUN TWO, EYES | 
 | 222 | In any shop, a piece better than what one of my men has (same weapon type, helmet, armour, shield, every category) is lit green; a tap says who needs it most (the worst-equipped first) | 282 | RUN TWO, UI THREE, EYES | 
 | 223 | (a bug that kills runs) Fatigue must come back every turn (15, Battle Brothers'), more after a rest; with a shield and a one-hander it only climbs and I can't attack the rest of the fight | 283 | COMBAT, TUNING, EYES | 
+| 224 | (economy) One roll of tape a won fight, not a pile: the loot gave 13 a fight after scrap became tape and it was crashing my economy; tape beyond that is bought at the stall or mended at the smith | 284 | RUN FOUR, ECONOMY, TUNING, EYES | 
