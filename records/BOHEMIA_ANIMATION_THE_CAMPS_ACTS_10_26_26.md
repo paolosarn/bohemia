@@ -36,6 +36,25 @@ THE TOOL: tools/bohemia_animation_the_towns_activities.py, the set renders in it
 pass of a man into one sheet set. `people <looks> <workers> camp`.
 THE PLAYER: unchanged call, act 'lie' 'sleep' 'mend' 'repair' 'cook' 'clean' 'rise' (once, {since}).
 
+## THEY PITCH THE CAMP (rule 269(c), the coordinator's NOTE: 'a short scene when camp is made: his men pulling the camp out of
+## the cart (the shopping cart first) and building it together, tents up, the fire lit, the gear down... a placeholder first;
+## CAMP plays it')
+[bb camp] Battle Brothers' camp is a button on its map: the party's figure turns into a tent and a fire while the company repairs
+and heals faster; no man is seen doing it. Ours shows them: the scene first, then each man at his act.
+The set 'pitch', three acts on the same grammar and call:
+- UNPACK: standing at the cart before him (its basket rim about 0.9 m; stand him 0.42 m, 24 px, behind it facing it), his hands
+  on its rim, bent into it rummaging, a rolled bundle (a tarp or a bedroll tied in two places) hauled up across both fists to his
+  chest and tossed to his left, back to the rim; a look round.
+- STAKE: down on a knee, his left fist round a tent stake driven in before him, its guy line running off away from him to the
+  tent, the claw hammer up and down on its head on the beat; the back of his fist across his brow; a look up the line.
+- LIGHT: down on a knee at the laid fire (a ring of stones, dry grass, a tepee of sticks; set him 0.48 m, 27 px, behind the fire's
+  spot facing it), a red lighter flicked in his cupped hands, the flame catching in the grass and dying, bent low blowing on it,
+  again; back up with a hand on his knee, a look round. CAMP draws its fire lit when the scene ends.
+THE BUGS I MADE AND CAUGHT: the hammer's middle pose swung the elbow out and back (the down pose was past his reach, so his arm
+went straight and the elbow came in): the stake brought within reach, the elbow out the whole swing, the envelope 0. The bundle
+ran out of his right fist to his right (the fist's own axis points to his left once the arm is up): turned, seen on the
+closeup. His left fist sat a hand's width off the stake: the stake moved into it.
+
 ## WHO DOES WHAT (CAMP's call, by his condition)
 badly hurt: lie, a healthy friend on tend by him | hurt: mend | armour broken: repair | healthy: cook, clean, tend, watch (the
 idles' gun-held set) | night: sleep | healed: rise once, then his next act | any: the town's smoke, talk, sit, drink. YOU have

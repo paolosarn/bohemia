@@ -4915,19 +4915,19 @@
    "kind": "hand",
    "bone": "RH",
    "along": 0.06,
-   "what": "a rolled bundle out of the cart (a tarp or a bedroll tied in two places), held across both fists: its right end in his right fist, running to his left fist",
+   "what": "a rolled bundle out of the cart (a tarp or a bedroll tied in two places) held across both fists: the tool aims it from his right fist to his left on every key",
    "parts": [
     [
      "cyl",
      [
       0,
       0,
-      -0.05
+      -0.04
      ],
      [
       0,
       0,
-      0.36
+      0.42
      ],
      0.075,
      [
@@ -4941,12 +4941,12 @@
      [
       0,
       0,
-      0.07
+      0.1
      ],
      [
       0,
       0,
-      0.085
+      0.115
      ],
      0.078,
      [
@@ -4960,12 +4960,12 @@
      [
       0,
       0,
-      0.24
+      0.27
      ],
      [
       0,
       0,
-      0.255
+      0.285
      ],
      0.078,
      [
@@ -4974,14 +4974,15 @@
       0.1
      ]
     ]
-   ]
+   ],
+   "span": "LH"
   },
   "stake": {
    "kind": "ground",
    "at": [
-    0.56,
+    0.51,
     0,
-    -0.06
+    -0.02
    ],
    "what": "a tent stake driven in before him, pale split wood, a guy line off its head running away to the tent (CAMP TWO's)",
    "parts": [
@@ -4994,7 +4995,7 @@
      ],
      [
       0,
-      0.25,
+      0.33,
       0
      ],
      0.022,
@@ -5008,12 +5009,12 @@
      "cyl",
      [
       0,
-      0.25,
+      0.33,
       0
      ],
      [
       0,
-      0.27,
+      0.35,
       0
      ],
      0.026,
@@ -5027,12 +5028,12 @@
      "cyl",
      [
       0,
-      0.2,
+      0.28,
       0
      ],
      [
       0.55,
-      0.75,
+      0.8,
       0.0
      ],
      0.007,

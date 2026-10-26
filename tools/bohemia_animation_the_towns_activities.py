@@ -285,6 +285,7 @@ def pose(src, out, which=None):
     WP = D['work']['props']
     needed = sorted(set(p for a in acts for p in T['activities'][a]['props']))
     made = []   # (prop, parent bone or None, anchor in the world, object)
+    SPAN = {}   # a thing held in both fists (the camp's bundle): its rest anchor, its long axis (the fist's l) and how far into the fist
     for nm in needed:
         S = T['props'][nm]; kind = S['kind']
         if kind == 'hand' and S['bone'] == 'LH':   # the left fist's own frame (its forearm), the right's mirrored across him
@@ -294,6 +295,7 @@ def pose(src, out, which=None):
         elif kind == 'hand':
             c = rh + hand * S['along']
             ob = make(nm, *mesh_from(S['parts'], (c, hand, grip, side, (1, 1, 1)))); made.append((nm, B[S['bone']], c, ob))
+            if S.get('span') == 'LH': SPAN[nm] = (c.copy(), side.copy(), S['along'])   # held across both fists: aimed at the left fist on every key
         elif kind == 'cigarette':   # the idles' own: past the fingers, along the hand
             c = rh + hand * 0.13
             bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=0.009, depth=0.075, location=c)
@@ -361,6 +363,12 @@ def pose(src, out, which=None):
         jt = {}
         for fr, (pname, ops) in keys:
             apply(named(ops))
+            for nm, (c0, ax0, along) in SPAN.items():   # from the right fist to the left, whatever way each fist has turned
+                if not shown(T, act, nm, pname): continue
+                rp, fp, lp, lf = (W @ PB[B[j]].head for j in ('RH', 'RF', 'LH', 'LF'))
+                p0 = rp + (rp - fp).normalized() * along; p1 = lp + (lp - lf).normalized() * along
+                Dw = mathutils.Matrix.Translation(p0) @ ax0.rotation_difference((p1 - p0).normalized()).to_matrix().to_4x4() @ mathutils.Matrix.Translation(-c0)
+                PB[props[nm]].matrix = Winv @ Dw @ W @ arm.data.bones[props[nm]].matrix_local; bpy.context.view_layer.update()
             for nm, bn in props.items(): PB[bn].scale = (1, 1, 1) if shown(T, act, nm, pname) else TINY
             bpy.context.view_layer.update()
             for pb in PB:
