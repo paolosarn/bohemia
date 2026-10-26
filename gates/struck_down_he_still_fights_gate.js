@@ -78,7 +78,7 @@ const units = (f) => f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'you'
   injuries: (u.injuries || []).map(j => ({ id: j.id, kind: j.kind, effects: j.effects || null })) })));
 
 /* one whole fight: optionally the fight's own fall() first, then AUTO by a press, LEAVE by a press */
-const playFight = async (d, seq, strike) => {
+const playFight = async (d, seq, strike, settle) => {
   const st = await startRoadFight(d, seq);
   const { f, box } = await fightFrame(d);
   if (!f) return { st, f: null };
@@ -106,6 +106,9 @@ const playFight = async (d, seq, strike) => {
   const start = await units(f);
   const handed = await d.page.evaluate(() => ({ men: (window.__NF_HANDED && window.__NF_HANDED.men) || null, cond: window.__NF_COND || null })).catch(() => null);
   const C0 = await d.fr.evaluate(() => BohemiaCondition.get()).catch(() => null);
+  /* SETTLE (fight two): once its board is read, the other side is down by hand, so the man at one hitpoint walks out of it as he
+     walked in and the legs after it read him, not the dice */
+  if (settle) await f.evaluate(() => { FIGHT.S.units.filter(u => u.side === 'them').forEach(u => { u.hp = 0; u.dead = true; }); });
   await f.evaluate((sp) => { FIGHT_UI.speed = sp; }, SPEED);
   const b = await f.evaluate(() => { const r = document.getElementById('bauto').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
   await press(d, box.x + b[0], box.y + b[1]);
@@ -160,7 +163,7 @@ async function run(profile) {
       d1ok, 'count ' + d1.crew + ' of ' + d1.origin + ' (+' + d1.hired + ' hired); dead ' + JSON.stringify(d1.dead) + '; roster ' + d1.roster.join(',') + '; bar ' + d1.heal.join(','));
 
     /* ---- S3 / S4 fight two ---- */
-    const F2 = await playFight(d, 9, false);
+    const F2 = await playFight(d, 9, false, true);
     if (!F2.f) { ok(P + 'S3 fight two opened', false, JSON.stringify(F2.st)); return; }
     const on = F2.start.find(u => canon(u.name) === K), handedMen = (F2.handed && F2.handed.men) || [], hc = ((F2.handed && F2.handed.cond) || []).find(x => x && canon(x.name) === K);
     const C2 = F2.C0 && F2.C0.men[K];
@@ -235,6 +238,8 @@ async function run(profile) {
       hl.bench = [{ man: { name: old, background: 'militia', level: 2, stats: { hp: 58 } }, until: 999 }]; localStorage.setItem('bohemia.company.line.v1', JSON.stringify(hl)); localStorage.setItem('bohemia.company.v1', JSON.stringify(hk)); }, old);
     await d.page.reload(); await d.page.waitForTimeout(6000);
     const fr2 = d.page.frames().find(x => /CITY_WORLD/.test(x.url())) || d.fr;
+    /* the map reads its company back from the save a moment after it boots: count once it has */
+    for (let i = 0; i < 80; i++) { if (await fr2.evaluate(() => !!(window.LOOP && LOOP.start && Array.isArray(LOOP.start.company) && LOOP.start.company.length)).catch(() => false)) break; await d.page.waitForTimeout(250); }
     const s9 = await fr2.evaluate((old) => { const hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || [], hl = JSON.parse(localStorage.getItem('bohemia.company.line.v1') || '{}');
       const m = window.BohemiaCondition ? BohemiaCondition.get().men[old] : null; return { inCo: hk.some(x => x && x.name === old), bench: (hl.bench || []).length, hp: m ? m.hpMax - m.lostHp : null }; }, old).catch(e => ({ err: String(e.message).slice(0, 120) }));
     ok(P + 'S9 AN OLD SAVE WAKES: a man on the crew screen\'s old bench is in the company the door hands, at his saved hitpoints or one', !!s9 && s9.inCo && s9.bench === 0 && s9.hp != null && s9.hp >= 1 && s9.hp <= 58, JSON.stringify(s9));
