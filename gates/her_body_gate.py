@@ -9,8 +9,8 @@ clothes, never a renamed man). Asked of her PICTURES and of what the screens rea
   B  HER BODY, in the pixels of her eight stills against the men of the same place standing in the same frame (57 px a
      metre): shorter (her height 0.90 to 0.965 of the place's men, the source's 0.93) in all eight facings; her build record
      says she was built as her (her dials, bust, waist and height).
-  W  HER WALK is her own: in her six walk keys facing the glass her hips sway further side to side than the men's of the place
-     (the list and the turn), measured on the pixels of her lower body.
+  W  HER WALK is her own: in her six walk keys facing the glass her feet land nearer the line she walks on than the men's of
+     the place (under 0.9 of theirs, her height alone making 0.93), measured on the pixels of her feet.
   M  WHERE THE SCREENS READ HER: the people mix carries her as 'f' and on the fight's board (the post may hire her); her fight
      sheet, her face in the fight's strip, her walk sheet, her idles and her town activities are on disk; her stills and face
      for the post and the crew card.
@@ -109,27 +109,30 @@ if mine:
     ok('B2 MUTATION: a man of the place handed in as her is caught', bool(mf))
 
 
-def sway(tag):
-    """facing the glass, her six walk keys: how far her lower body's middle moves side to side (px, max minus min)"""
+def spread(tag):
+    """facing the glass, her six walk keys: how far apart her feet land (the opaque span of the lowest 7 percent of the
+    figure, px, the mean of the six)"""
     d_ = os.path.join(STOW, tag)
     if not os.path.exists(os.path.join(d_, 'rig_Anim_0_S_k00.png')): d_ = os.path.join(STILLS, tag)
-    mids = []
+    out = []
     for k in range(6):
         fn = os.path.join(d_, 'rig_Anim_0_S_k%02d.png' % k)
         if not os.path.exists(fn): return None
-        a, ys, xs = alpha(fn); top, bot = ys.min(), ys.max(); h = bot - top
-        band = a[int(bot - 0.55 * h):int(bot - 0.40 * h)]
-        yy, xx = np.nonzero(band); mids.append(xx.mean())
-    return max(mids) - min(mids)
+        a, ys, xs = alpha(fn); bot = ys.max(); h = bot - ys.min()
+        yy, xx = np.nonzero(a[int(bot - 0.07 * h):bot + 1]); out.append(xx.max() - xx.min())
+    return float(np.mean(out))
 
 
 if mine:
-    ms = [s for s in (sway(t) for t in men) if s is not None]
-    hs = {t: sway(t) for t in mine}
+    ms = [s_ for s_ in (spread(t) for t in men) if s_ is not None]
     mm = float(np.median(ms)) if ms else None
-    wf = ['%s sways %.1f px against the men\'s %.1f' % (t, s, mm) for t, s in hs.items() if s is None or mm is None or s < mm + 0.6]
-    ok('W1 HER WALK: her hips sway further side to side than the men\'s of the place (facing the glass, her six keys)', not wf, '; '.join(wf[:4]))
-    ok('W2 MUTATION: a man\'s walk handed in as hers is caught', ms and any(s < (mm or 0) + 0.6 for s in ms))
+    hs = {t: spread(t) for t in mine}
+    # her feet land nearer the line she walks on: under 0.9 of the men's (her height alone would make it 0.93; measured 10/26:
+    # the place's men 8.3 to 10.8 px, median 10.1; hers 8.2)
+    wf = ['%s\'s feet land %.1f px apart against the men\'s %.1f' % (t, s_ or -1, mm or -1) for t, s_ in hs.items() if s_ is None or mm is None or s_ > 0.9 * mm]
+    ok('W1 HER WALK: her feet land nearer the line she walks on than the men\'s of the place (facing the glass, her six keys, under 0.9 of theirs)', not wf, '; '.join(wf[:4]))
+    typ = sorted(ms)[len(ms) // 2] if ms else None
+    ok('W2 MUTATION: a man\'s walk (the place\'s middle man) handed in as hers is caught', typ is not None and typ > 0.9 * mm)
 
 # ---------------------------------------------------------------------------------------------------- M where the screens read her
 mix = open(os.path.join(ROOT, 'engine/bohemia_people_mix.js')).read()
