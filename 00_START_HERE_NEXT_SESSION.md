@@ -6,11 +6,11 @@ his ground at every zoom, so he is drawn bigger), a touch his until his next man
 [analog horror: one night guard's monitor on a lot: the frame tightens on what still moves and widens, late and smooth, when something walks in from the dark at its edge.]
 
 CAMP TWO (camp-two-look): 10/26 LATEST -- round one SHIPPED b8dab965, BUILT, NOT YET SEEN (rules 259, 260, 269, 270, 273(c),
-286, 289; BUILD 10/26zze): his camp is his own place (a tent a pair, the shopping cart, the fire, the supplies, the seats, each
+286, 289; BUILD 10/26zzm): his camp is his own place (a tent a pair, the shopping cart, the fire, the supplies, the seats, each
 follower's piece, every piece a door), his men at the acts their wounds call for, the pitch, the compass of danger in AUTO's colour,
 the camp on the live map, the ghosts; TALL AND WIDE FIRST: an upright camp of its own on a tall ground, every tier both ways, the
 turn a one-beat glide, then the phone (upright the camp rises clear of it); the camp opens on the camp, not on MOTION's plate.
-THE CAMP IS HIS OWN 15/0 upright, on its side and a computer (every tier both ways, the turn on MOTION's curve); four VOTE cards. The whole block: handoffs/CAMP_TWO.md.
+THE CAMP IS HIS OWN 16/0 upright, on its side and a computer (every tier both ways, the turn on MOTION's curve, their acts); four VOTE cards. The whole block: handoffs/CAMP_TWO.md.
 [bb Battle Brothers: the retinue screen is a campfire with tents and the cart; here the camp is his own place on the map.]
 [analog horror: the hours leave their ghosts on the sand at two percent.]
 
