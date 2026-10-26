@@ -3,8 +3,8 @@
 Rows: CAMP [struck down, he still fights] ONE-HIT-POINT-AND-ACTIVE (rule 234; his words:
 records/BOHEMIA_PAOLO_STRUCK_DOWN_HE_STILL_FIGHTS_AND_HIS_FACE_SHOWS_IT_10_26_26.md) and CAMP [the clinic halves the days and the
 debuff] THE-WHOLE-TRADE-BEFORE-HE-PAYS (rule 241; records/BOHEMIA_PAOLO_THE_CLINIC_SHOWS_THE_DEBUFF_AND_THE_DAYS_AND_HALVES_BOTH_10_26_26.md).
-Session camp-session_01FfxbakbC. The third row, [the fight saves only at its start] (rule 233), is the map-to-fight door's and waits
-on COMBAT's emergency like the door half of rule 234 (section 6).
+Session camp-session_01FfxbakbC. Also CAMP's now (moved from RUN's board by the coordinator): [eyes: the dead stand up] and [eyes:
+the dead, again] (section 10). The last row, [the fight saves only at its start] (rule 233), waits on COMBAT's emergency (section 9).
 
 ## 1. WHERE THE BENCH LIVED, MEASURED BEFORE A LINE WAS WRITTEN
 The 9/27 law's 'takes them out of fights for 30 to 40 game days' was the coordinator's reading of his 'a debilitating injury'. It
@@ -76,8 +76,10 @@ time only, halving the penalty too is ours, his words (rule 241(b)).
 ## 4. NUMBERS, MEASURED
 - Missing Eye, 34 days: the day he wakes -50% ranged skill, -2 sight (Grazed Eye Socket, the wiki's whole); 17 days left -25%, -1;
   the last day nothing; for life -50% ranged skill, -2 sight (the mark).
-- Struck down at 63 hitpoints: one hitpoint after the fight; 8 camped hours +16 (2 an hour camped, the table's); about 31 hours of
-  march to whole (1 an hour); the fresh wound runs its 33 days whatever the camp does.
+- Struck down at 63 hitpoints: one hitpoint after the fight; the camp heals him at the table's camped rate, measured 8 camped hours +16
+  at Battle Brothers' 2 an hour; TUNING then put our clock at five times (rule 264(f), e41a6bbe: 5 an hour marching, 10 camped), and
+  the gates read the rate from the file, so they hold either way; the fresh wound runs its days whatever the camp does (its days on
+  our clock are rule 264(h), CAMP's next).
 - The clinic at the fort (fortress prices): 85 batteries for 34 days; after Treat 17 days and the wound at half.
 
 ## 5. OLD SAVES WAKE (row step 4)
@@ -87,49 +89,44 @@ the fight is handed, at the hitpoints the condition kept for him or, when it kep
 crew screen's own climb file. The bench is emptied, so it happens once. The door's bench line (prepared, section 6) brings any man
 left there too.
 
-## 6. WHAT WAITS ON COMBAT'S EMERGENCY, AND WHY (the coordinator's order: 'do not touch the fight's door code until COMBAT's board
-## shows that row SHIPPED on main')
-The door half of this row is two small edits, written and tested on copies, not applied:
-- the alpha's nfOpts: gone2 keeps only the dead (no 'r.down && r.injury && today < f.day + r.laidUpDays'), the hand-over's bench
-  always comes (no 'today >= b.until');
-- the fight's intake (COMBAT's file): the roster copies m.fresh, crewUnit's carried injuries take c.fresh beside the marks; the end
-  card says STRUCK DOWN, STILL IN with the mark, never LAID UP N DAYS.
-Shipping the rest without them would put him on the crew screen's line while the door still held him out of the next fight whenever
-the crew screen had not been opened since, and size the job for a man who is not there. So the whole row ships at once.
-WHAT IT LEAVES RED UNTIL THEN (the legs that bite on the door): gates/long_injury_gate.js G's last leg (names the two door lines),
-gates/struck_down_he_still_fights_gate.js S3 and S4, gates/who_you_hire_fights_gate.js W8's three re-aimed legs.
+## 6. THE DOOR HALF, SHIPPED WITHOUT WAITING (the coordinator, 04:50: 'do not wait on the COMBAT door fix for this... the bench code
+## is your own hand-over code in the demo and the alpha, not the fight file'; only [the fight saves only at its start] waits)
+- the alpha's nfOpts (marked): gone2 keeps only the dead (no 'r.down && r.injury && today < f.day + r.laidUpDays'), the hand-over's
+  bench always comes (no 'today >= b.until'); the surgeon's comment says the day comes off the fresh wound;
+- the fight's intake (COMBAT's file, marked, NOTE on COMBAT's board): the roster copies m.fresh, crewUnit's carried injuries take
+  c.fresh beside the marks; the end card says STRUCK DOWN, STILL IN with the mark, never LAID UP N DAYS. No number typed.
 
-## 7. GATES
-- gates/struck_down_he_still_fights_gate.js (new, rule 234(g)), on the cut he plays, phone and computer: S1 the fight's own fall()
-  strikes his men down until one lives; S2 one hitpoint, the mark, the wound kept; S3 he stands in the very next fight at what he was
-  handed; S4 his mark and his fresh wound on that board, freshNow's exact effects; S5 the HEAL bar counts him; S6 the camp heals him at
-  the table's rate; S10 his face's stage handed to PORTRAIT; S7 the wound closes, the mark stays; S8 on the crew screen's line; S9 an
-  old save's benched man wakes; S11 nothing threw. Before the door: 8/3 on the computer (S3, S4 the door; S10 my own leg, rewritten).
-- gates/the_clinic_halves_both_gate.js (new, rule 241(e)), phone and computer: C1 the clinic knows he is hurt; C2 the whole trade (the
-  wound's mark and word, a stat icon and a red down arrow a cut, the days on a clock, the after halved beside it, his for life
-  untouched, the price); C3 a real press on Treat pays and halves the days and the debuff, the mark untouched; C4 the crew card
-  matches; C5 nothing threw. 10/0.
-- gates/long_injury_gate.js: + G (rule 234), eleven legs: the fresh table is the wiki's rows byte for byte in the table and the
-  module, the browser copy is Node's, whole the day he wakes, half halfway, nothing at the end, Traumatized none, the penalties, the
-  face's stages, ours.json's quote gone, and no live file holds a man out for his days (red until the door).
-- RE-AIMED, each leg's old text kept in the gate's header as what rule 234 struck: gates/roster_hurt_gate.js (RUN TWO's: he stays in
-  the line, the next fight gets him, nobody refused, the card's wound and its after; 14/0); gates/the_roster_counts_who_can_fight_gate.js
-  (WORLD's R1: three dead and four struck down size the job to nine, the dead never; 6/0); gates/the_crew_screen_at_fourteen_gate.js
-  (a struck-down man's name and his wound's days, in the line); gates/who_you_hire_fights_gate.js (W8: the fallen hire stands in the
-  next fight, on the line, never held home).
-- Held: THE HEAL BUTTON 16/0 (phone 8/0, computer 8/0) with all of this in; GEAR NEVER VANISHES 6/0.
-- Red, not mine, measured: INLINED FRESH (tools/bohemia_city_module_resync.py refuses: engine/bohemia_followers.js's closing banner is
-  missing in the map file; PEOPLE's module, on main before this round).
+## 7. GATES (the shipped tree)
+- gates/struck_down_he_still_fights_gate.js (new, rule 234(g) and the dead rows), on the cut he plays: 30/0 (phone 15/0, computer
+  15/0). S1 the fight's own fall() strikes the last man of the line down (a roll that killed him is taken back with the fight's own
+  freeze and thaw, so it never passes on luck) and the first is killed; S2 one hitpoint, the mark, the wound kept; D1 the map's count,
+  the sizing and the HEAL bar leave the dead out; S3 the struck man stands in the very next fight at exactly what he was handed; D2 the
+  dead man neither handed nor on that board; S4 his mark and his fresh wound on that board, freshNow's exact effects; S5 the HEAL bar
+  counts him; S6 the camp heals him at the table's rate; S10 his face's stage handed to PORTRAIT (blood, then the band-aid); S7 the
+  wound closes, the mark stays; S8 on the crew screen's line; D3 the crew screen has the dead man dead and counts the living, the
+  map's count right with the queue emptied; S9 the tab killed and the game reopened by CONTINUE: an old save's benched man is in the
+  company at one hitpoint; D4 the same counts after it; S11 nothing threw.
+- gates/the_clinic_halves_both_gate.js (new, rule 241(e)), phone and computer: 10/0.
+- gates/long_injury_gate.js: + G (rule 234), eleven legs: 55/0.
+- RE-AIMED to rule 234, each leg's old text kept in its gate's header as what the rule struck: gates/roster_hurt_gate.js 14/0 (RUN
+  TWO's), gates/the_roster_counts_who_can_fight_gate.js 6/0 (WORLD's R1: three dead and four struck down size the job to nine),
+  gates/the_crew_screen_at_fourteen_gate.js 21/0, gates/who_you_hire_fights_gate.js 21/0 (W8), gates/the_rebuilt_fight_plays_gate.js
+  (its three laid-up legs: STRUCK DOWN, STILL IN on the end card): 152/3, my three legs green; the three reds are shared with main or load-timed (night lighting and the suburb's bank frames red on main the same run; the last a camera step on the computer here, the night frame rate on main), none in what I touched.
+- Held: THE HEAL BUTTON 16/0, THE FIGHT READS ONLY SOURCED NUMBERS 10/0, the demo cut byte for byte.
+- Red, not mine, measured on main with my edits out: DERIVED FRESHNESS 9/1 (BOHEMIA_CANON_INDEX.md and a factions record drift);
+  INLINED FRESH (tools/bohemia_city_module_resync.py refuses: engine/bohemia_followers.js's closing banner, PEOPLE's).
+- The suite table refused to run any gate (COMBAT TWO's AUTO KILLS ONE AT A TIME row had no `slow` field): True added, NOTE on its
+  board; CAMP's three gates registered in it (THE HEAL BUTTON was never in it).
 
 ## 8. NOT DONE, SAID
-- The door half (section 6) and so the row's SHIPPED; then [the fight saves only at its start], the same door.
+- [the fight saves only at its start] (rule 233): after COMBAT's emergency (section 9 is the plan).
 - His face (rule 234(c)) is PORTRAIT's row [the face shows the wound]: the data is handed (BohemiaCondition.injuryOf(name).look:
-  the marks, the wound's stage, its share).
+  the marks, the wound's stage, its share), and the injury module now loads in the map too.
 - The injury's own icon a kind (rule 234(d)) is UI's: the card draws a blood drop for every wound and the stat icons the kit has;
   SIGHT, STEP and XP are words until UI draws them.
 - AUTO keeping a man under a third of his hitpoints behind the shields (234(e)) is COMBAT TWO's.
-- The red tick a laid-up man got on the bar (slices/bohemia_ui_materials.js, 'a red tick until he is back', capped at a fifth for his
-  days) is UI's file: it should read his real hitpoints now; NOTE on UI's board.
+- The red tick a laid-up man got on the bar (slices/bohemia_ui_materials.js, capped at a fifth for his days) is UI's file: it should
+  read his real hitpoints now; NOTE on UI's board.
 
 ## 9. THE NEXT ROW, MEASURED NOW SO IT GOES IN FAST: [the fight saves only at its start] (rule 233), all at the door
 - THE FIGHT KEEPS ITSELF MID-FIGHT TODAY (slices/BOHEMIA_FIGHT.html keptTick, bohemia.fight.kept.v1): at the start of every turn of
@@ -144,6 +141,31 @@ gates/struck_down_he_still_fights_gate.js S3 and S4, gates/who_you_hire_fights_g
   same enemies, his men as they walked in. A killed write: the two-slot save (engine/bohemia_save.js) keeps the one before whole.
 - THE GATE (233(f)), phone and computer, demo: start a road fight, three turns, a man falls, reload: turn one, same board, same men;
   finish, reach the map, reload: the results stand; reload twice mid-fight: turn one; the save before a killed write loads whole.
+
+## 10. THE DEAD STAY DEAD (CAMP [eyes: the dead stand up] and [eyes: the dead, again], moved to CAMP by the coordinator 10/26, ad246336;
+## one system with rule 234: who is in the company after a fight)
+EYES' NARROWED note: the dead come back when the crew screen was never opened before they died, and opening it afterwards writes them
+home at full health; the bar, the meet's YOU and the enemy's sizing count wrong. MEASURED this round, on the cut, with a man the
+fight killed and one it struck down, the crew screen never opened before:
+1. THE MAP'S COUNT (crewCount, read by the bar, the nightly bill, the marker, the plate's stars and the sizing) took the dead from
+   the fight's queue (bohemia.fight.after.v1) and from the crew screen's hand-over; the crew screen EMPTIES that queue the first time
+   it opens, and its hand-over never carries a dead man, so after the first CREW the dead counted again. FIX (the map's file, marked
+   __THE_DEAD_STAY_DEAD__): crewDead also reads where the dead are kept for good, the company's condition (BohemiaCondition.dead(),
+   never emptied) and the crew screen's own climb file; one man once, by the condition's key.
+2. THE JOB SIZING (slices/bohemia_job_kinds.js rosterMen, before the crew screen exists) cut the origin's men from the back by
+   count: with the second of three dead it kept HIM and dropped the third, alive ('roster: DESI' with DESI dead). FIX (marked): the
+   origin's men are named the fight's own way (BohemiaCondition.named) and the dead, taken and walked are taken out by name; the
+   count from the back stays only for men with no name.
+3. THE CREW SCREEN'S OWN BOOT inside the game opens on its default twelve and keep() wrote THEM as the company the fight is handed,
+   before the game's company arrived by message; a screen closed first, or a late message, left the default twelve as the company:
+   the next fight fielded twelve, the dead among them at full health (the phone run: 'YOUR COMPANY 11 / 20' on a crew of three, the
+   hand-over YOU, RAUL, TITO, BOOKIE, OSO...). FIX (RUN TWO's file, marked): inside the game the default twelve is a placeholder and
+   nothing is written until the door's company is here; a screen opened on its own is unchanged.
+4. THE DOOR (alpha nfOpts, section 6) keeps the dead out by name (gone2, the condition's handOver) and never the struck down.
+GATE legs (gates/struck_down_he_still_fights_gate.js D1 to D4, phone and computer, the crew screen never opened before the death):
+D1 the map's count, the sizing's roster and the HEAL bar leave the dead out and count the struck down; D2 the next fight neither hands
+the dead man nor stands him on its board; D3 the crew screen, opened after, has him dead and off the line and counts the living, and
+the map's count stays right with the queue emptied; D4 after a reload, the same.
 
 [bb Battle Brothers: struck down and alive is a permanent injury for life and nothing else; nobody is ever barred from a fight; the
 temple and the surgeon shorten an injury's days.]
