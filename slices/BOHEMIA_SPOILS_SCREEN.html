@@ -21,7 +21,7 @@
      and it waits for him.
        YOUR CREW: each man once, his face, the XP he got on a bar, LEVEL UP when he climbed (and CHOOSE HIS LEVEL-UP,
          which opens the one crew screen on him: there he picks which stats rise from what each rolled, and his perk, Battle Brothers' way, rule 162), who is
-         laid up how many days with what, who fell for good.
+         struck down with what (one hitpoint, still in the crew: rule 234, never laid up), who fell for good.
        WHAT THEY LEFT: what the dead carried, through Battle Brothers' own drop conditions (records/target/bb/
          loot.json: a weapon 90%, a shield 90%, a helmet 70%, armour only with a quarter of it left), as pieces;
          and what is not a thing you wear as a COUNT that takes no room: batteries (the money), rounds and scrap
@@ -218,7 +218,7 @@ function drawCrew(){
     var st = null;
     if(m.dead){ st = document.createElement('div'); st.className = 'state gone'; st.textContent = 'FELL. HE IS DEAD.'; }
     else if(m.down && m.main){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'WENT DOWN. UP AGAIN AFTER.'; }
-    else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'LAID UP ' + m.days + ' DAYS: ' + String(m.injury.name || '').toUpperCase(); }
+    else if(m.down && m.injury){ st = document.createElement('div'); st.className = 'state hurt'; st.textContent = 'STRUCK DOWN. ONE HITPOINT, STILL IN THE CREW: ' + String(m.injury.name || '').toUpperCase(); }   /* CAMP rule 234(f): never 'laid up' */
     if(st) w.appendChild(st);
     if(m.up && !m.dead){ ups++;
       var b = document.createElement('button'); b.className = 'perk'; b.type = 'button'; b.textContent = m.main ? 'CHOOSE YOUR LEVEL-UP' : 'CHOOSE HIS LEVEL-UP'; b.dataset.perk = m.name;

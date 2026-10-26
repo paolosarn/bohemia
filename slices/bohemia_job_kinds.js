@@ -1408,12 +1408,10 @@
     /* WORLD [the roster scales the enemy], EYES line 79 (BUILD 10/25x): after three of twelve died and four were laid up it still
        sized to 13 with six able (a wipe), and the rescue sized to the men the enemy had taken and sent eight at YOU alone. The size
        is the men who can stand in a fight today: never the dead (the fight's rows and the crew screen's own), never the taken
-       (bohemia.taken.v1, they are with the crew that beat him), never a man laid up until his day (the fight's rows, the bench) */
+       (bohemia.taken.v1, they are with the crew that beat him). AMENDED 10/26 (CAMP, rule 234: 'they're still active'): a man
+       struck down counts, at one hitpoint he is still in the fights; nobody is laid up any more */
     try { (typeof crewDead === 'function' ? crewDead() : []).forEach(function (n) { dead[n] = 1; }); } catch (e) {}
     try { (typeof crewTaken === 'function' ? crewTaken() : []).forEach(function (n) { gone[n] = 1; }); } catch (e) {}
-    var today = 1; try { today = loopDay() || 1; } catch (e) {}
-    try { (ls('bohemia.fight.after.v1', []) || []).forEach(function (f) { (f && f.rows || []).forEach(function (r) {
-      if (r && !r.main && r.name && r.down && r.injury && today < (f.day | 0) + (r.laidUpDays | 0)) gone[r.name] = 1; }); }); } catch (e) {}
     var same = !(line && line.origin && st.origin && line.origin !== st.origin);
     var men = [], seen = {}, from = 'origin';
     var add = function (m, why) { if (!m) return; var nm = m.name ? String(m.name) : null;
@@ -1423,7 +1421,7 @@
     if (Array.isArray(co) && co.length && same) {
       from = 'crew screen';
       co.forEach(function (m) { add(m, 'line'); });
-      if (line && Array.isArray(line.bench)) line.bench.forEach(function (b) { if (b && b.man && !(b.until != null && today < (b.until | 0))) add(b.man, 'bench'); });   /* laid up: not until his day */
+      if (line && Array.isArray(line.bench)) line.bench.forEach(function (b) { if (b && b.man) add(b.man, 'bench'); });   /* rule 234: an old save's benched man counts the day it loads */
       if (line && Array.isArray(line.known)) line.known.forEach(function (nm) { if (nm && !seen[nm]) add({ name: nm, level: levelOf[nm] }, 'reserve'); });
     } else {
       /* no crew screen yet: the origin's men, the walked from the back (the bill's own order: hires first, then the company) */

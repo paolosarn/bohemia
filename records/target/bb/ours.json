@@ -35,8 +35,10 @@
    30,
    40
   ],
-  "source": "laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md",
-  "quote": "a DEBILITATING INJURY that takes them out of fights for 30 to 40 game days"
+  "source": "records/BOHEMIA_PAOLO_STRUCK_DOWN_HE_STILL_FIGHTS_AND_HIS_FACE_SHOWS_IT_10_26_26.md (VAMILY rule 234(b)) and laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md s2 (the 30 to 40 days)",
+  "quote": "(Paolo 10/26) they should just have that debuff... but they should still be able to be in combat",
+  "why": "the days the FRESH WOUND of a struck-down man lasts (engine/bohemia_long_injury.js freshNow, records/target/bb/condition.json struck_down_fresh): its penalty falls from whole to nothing over them; they never keep him out of a fight. The key keeps its old name because the fight reads it",
+  "was": "until 10/26 this row quoted 'a DEBILITATING INJURY that takes them out of fights for 30 to 40 game days' as if he said it; that was the coordinator's reading of his 'a debilitating injury', struck by rule 234 (he restarted runs without getting past the first day)"
  },
  "main_character_dies": {
   "value": false,
@@ -839,11 +841,13 @@
  "struck_down_injury": {
   "value": {
    "from_kind": "permanent",
-   "lasts": "laid_up_days"
+   "lasts": "life",
+   "fresh_wound_days": "struck_down_laid_up_days"
   },
   "source": "bb_all/1540_Permanent Injuries.txt and VAMILY.md 04 COMBAT [struck down] (Paolo's fifth votes)",
   "quote": "Permanent injuries are incurable disabilities received after having been struck down in battle... The part hit does not matter in selecting the injury. / (Paolo) a veteran struck down dies 20 percent of the time, else a long injury from injuries.json",
-  "why": "a man struck down who lives carries one of the wiki's permanent injuries (all equally likely, the body part not mattering, as the wiki says), and ours lasts the days he is laid up (ours.struck_down_laid_up_days), Paolo's 'debilitating injury 30 to 40 days'; the roster reads it as one pain line"
+  "why": "a man struck down who lives carries one of the wiki's permanent injuries (all equally likely, the body part not mattering, as the wiki says) FOR LIFE, the wiki's way, and on top of it the fresh wound it grew out of for ours.struck_down_laid_up_days, fading (rule 234(b), CAMP 10/26); he wakes at one hitpoint and fights again whenever he is picked; the roster reads it as one pain line",
+  "was": "until 10/26 'lasts: laid_up_days', the mark held him out of fights for those days (struck by rule 234)"
  },
  "built_piece": {
   "value": {

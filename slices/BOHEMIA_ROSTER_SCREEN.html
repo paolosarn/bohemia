@@ -223,19 +223,24 @@ function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
 var CKEY = 'bohemia.climb.v1';
-function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, gear:m.gear, hurt:m.hurt||null, mark:m.mark||null, dead:!!m.dead, rolls:m.rolls||[]}; });
+function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, gear:m.gear, hurt:m.hurt||null, mark:m.mark||null, marks:m.marks||null, dead:!!m.dead, rolls:m.rolls||[]}; });
   try{ localStorage.setItem(CKEY, JSON.stringify(o)); }catch(e){} handOver(); }   /* __WHO_YOU_HIRE_FIGHTS__: what he wears is the fight's too */
 function loadClimb(){ var o = {}; try{ o = JSON.parse(localStorage.getItem(CKEY)||'{}') || {}; }catch(e){}
-  S.crew.forEach(function(m){ var c = o[m.name] || (m.was && o[m.was]); if(!c) return;   /* RUN TWO __NO_MAN_WEARS_A_WOMANS_NAME__: a man renamed keeps the climb saved under his old name */ m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; if(c.gear) m.gear = c.gear; m.hurt = c.hurt || null; m.mark = c.mark || null; m.dead = !!c.dead; m.rolls = Array.isArray(c.rolls) ? c.rolls : []; }); }
+  S.crew.forEach(function(m){ var c = o[m.name] || (m.was && o[m.was]); if(!c) return;   /* RUN TWO __NO_MAN_WEARS_A_WOMANS_NAME__: a man renamed keeps the climb saved under his old name */ m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; if(c.gear) m.gear = c.gear; m.hurt = c.hurt || null; m.mark = c.mark || null; m.marks = Array.isArray(c.marks) ? c.marks : (c.mark ? [c.mark] : null); m.dead = !!c.dead; m.rolls = Array.isArray(c.rolls) ? c.rolls : []; }); }
 /* the fight's recap hands each man his XP (COMBAT counts it the Battle Brothers way); he climbs here */
 function afterFight(rows){
   var ups = [];
   var hurt = [];
   (rows||[]).forEach(function(r){ var m = S.crew.filter(function(x){ return x.name === r.name; })[0]; if(!m) return;
     if(r.dead && !m.main){ m.dead = true; hurt.push(m.name + ' is dead'); return; }
-    /* STRUCK DOWN AND LIVED (COMBAT [struck down]): laid up the fight's days, and the wiki's permanent mark for good */
+    /* STRUCK DOWN AND LIVED (COMBAT [struck down]; CAMP rule 234, Paolo 10/26: 'they're still active... they should just have
+       that debuff'): ONE HITPOINT AND STILL IN THE LINE. The wiki's permanent mark for good (every one he takes, kept), and the
+       fresh wound it grew out of for the fight's days, its penalty fading with them (engine/bohemia_long_injury.js freshNow);
+       the days never take him off the line */
     if(r.down && !r.main && r.injury){ m.hurt = {days:r.laidUpDays || r.injury.days || 0, of:r.laidUpDays || r.injury.days || 0};
-      m.mark = {id:r.injury.id, name:r.injury.name, line:r.injury.line}; hurt.push(m.name + ' is laid up ' + m.hurt.days + ' days'); }
+      m.mark = {id:r.injury.id, name:r.injury.name, line:r.injury.line};
+      m.marks = (m.marks || []).filter(function(k){ return (k && k.id || k) !== r.injury.id; }).concat([m.mark]);
+      hurt.push(m.name + ' is struck down: one hitpoint, ' + r.injury.name.toLowerCase() + ', still in the line'); }
     var g = C.grant(m, r.xpGained); m.gained = {}; g.gains.forEach(function(x){ for(var k in x) m.gained[k] = (m.gained[k]||0) + x[k]; });
     if(g.to > g.from) ups.push(m.name + ' is level ' + g.to); });
   benchHurt(); saveClimb(); saveForm(); var first = S.crew.findIndex(function(m){ return ((m.rolls && m.rolls.length) || m.points > 0) && !m.dead; }); if(first >= 0) S.sel = first;
@@ -243,19 +248,21 @@ function afterFight(rows){
   S.cmp = null; S.pick = null; S.ask = null;
   say((hurt.length ? hurt.join('. ') + '. ' : '') + (ups.length ? ups.join('. ') + '. Pick his stats and his perk.' : 'Nobody climbed this time.')); draw(); return ups;
 }
-/* a laid-up or dead man leaves the line; a healed one takes the first empty slot, front first */
-function laid(m){ return m && m.hurt && m.hurt.days > 0; }
+/* a dead man leaves the line. NOBODY IS LAID UP (rule 234, CAMP 10/26: the bench was the coordinator's reading of the 9/27 law,
+   struck): a struck-down man keeps his place, and fresh(m) is only his wound's days for the card */
+function laid(m){ return false; }
+function fresh(m){ return !!(m && m.hurt && m.hurt.days > 0); }
 function benchHurt(){
   ['front','back'].forEach(function(row){ S[row] = S[row].map(function(ix){ return ix != null && (laid(S.crew[ix]) || S.crew[ix].dead) ? null : ix; }); });
   S.crew.forEach(function(m, i){ if(laid(m) || m.dead || S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
 }
-/* a day on the road: each laid-up man one day closer (PEOPLE's healDay); the mark never clears */
+/* a day on the road: each fresh wound one day closer (PEOPLE's healDay); the mark never clears */
 function dayPassed(n){
   n = n || 1; var back = [];
-  S.crew.forEach(function(m){ if(!laid(m)) return; for(var k=0;k<n;k++){ var f = window.BohemiaLongInjury ? BohemiaLongInjury.healDay({days:m.hurt.days}) : {days:m.hurt.days-1}; m.hurt.days = f.days; }
+  S.crew.forEach(function(m){ if(!fresh(m)) return; for(var k=0;k<n;k++){ var f = window.BohemiaLongInjury ? BohemiaLongInjury.healDay({days:m.hurt.days}) : {days:m.hurt.days-1}; m.hurt.days = f.days; }
     if(m.hurt.days === 0) back.push(m.name); });
-  benchHurt(); saveClimb(); saveForm(); if(back.length) say(back.join(', ') + ' can stand in the line again.'); draw(); return back;
+  benchHurt(); saveClimb(); saveForm(); if(back.length) say(back.join(', ') + (back.length > 1 ? ': the wounds have' : ': the wound has') + ' closed. The mark stays.'); draw(); return back;
 }
 /* what the clinic would charge to halve his days (the settlement's [the clinic] rule, no town's trait here) */
 function clinicPrice(m){ return Math.max(1, Math.round(20 * m.hurt.days * (1 + (m.level - 1) * 0.2) / 10));
@@ -303,14 +310,14 @@ function afterTheFights(){
   try{ localStorage.removeItem(AKEY); }catch(e){}
   saveClimb(); return q.length;
 }
-/* the days a laid-up man has lain since (by the map's day): he heals them, one healDay a day (PEOPLE's) */
+/* the days since a fresh wound was taken (by the map's day): it heals them, one healDay a day (PEOPLE's) */
 function healToToday(){
   if(!S.today) return 0; var back = [];
-  S.crew.forEach(function(m){ if(!laid(m) || m.dead) return; if(m.hurt.day0 == null){ m.hurt.day0 = S.today; return; }
+  S.crew.forEach(function(m){ if(!fresh(m) || m.dead) return; if(m.hurt.day0 == null){ m.hurt.day0 = S.today; return; }
     var n = Math.max(0, S.today - (m.hurt.day0 | 0));
     for(var k = 0; k < n && m.hurt.days > 0; k++){ var f = window.BohemiaLongInjury ? BohemiaLongInjury.healDay({days:m.hurt.days}) : {days:m.hurt.days - 1}; m.hurt.days = f.days; }
     m.hurt.day0 = S.today; if(m.hurt.days === 0) back.push(m.name); });
-  if(back.length){ benchHurt(); saveForm(); say(back.join(', ') + ' can stand in the line again.'); draw(); }
+  if(back.length){ benchHurt(); saveForm(); say(back.join(', ') + (back.length > 1 ? ': the wounds have' : ': the wound has') + ' closed. The mark stays.'); draw(); }
   saveClimb(); return back.length;
 }
 /* a man who walked when the bill went unpaid, or that you let go (the map's bohemia.walked.v1, by name) is gone from the
@@ -647,9 +654,12 @@ function drawCard(){
     el.appendChild(st);
   }
   if(m.mark){ var hb = document.createElement('div'); hb.className = 'hurtbox';
-    var h1 = document.createElement('b'); h1.textContent = laid(m) ? 'LAID UP ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
-    var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + m.mark.name.toUpperCase() + (m.mark.line ? ', ' + m.mark.line : ''); hb.appendChild(h2);
-    if(laid(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; h3.textContent = 'The clinic halves it for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
+    var h1 = document.createElement('b'); h1.textContent = fresh(m) ? 'STRUCK DOWN, THE WOUND ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
+    (m.marks && m.marks.length ? m.marks : [m.mark]).forEach(function(mk){ if(!mk || !mk.name) return;
+      var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + mk.name.toUpperCase() + (mk.line ? ', ' + mk.line : ''); hb.appendChild(h2); });
+    var fw = fresh(m) && window.BohemiaLongInjury ? BohemiaLongInjury.freshNow(m.mark.id, m.hurt.days, m.hurt.of) : null;   /* rule 234(b): today's share of it */
+    if(fw){ var h4 = document.createElement('i'); h4.className = 'fresh'; h4.textContent = 'FRESH: ' + fw.name.toUpperCase() + ', ' + Object.keys(fw.effects).map(function(k){ var v = fw.effects[k]; return (v > 0 ? '+' : '') + v + (/_pct$/.test(k) ? '% ' : ' ') + k.replace(/_pct$/, '').replace(/_/g, ' '); }).join(', '); hb.appendChild(h4); }
+    if(fresh(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; h3.textContent = 'He can fight. The clinic halves the wound for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
     el.appendChild(hb); }
   if(m.perks.length){ var pk = document.createElement('div'); pk.className = 'perks'; pk.textContent = 'PERKS: ' + m.perks.map(C.perkName).join(', '); el.appendChild(pk); }
 }
@@ -788,7 +798,7 @@ function dismiss(i){
 }
 /* ==== end __A_DISMISS_BUTTON__ ==== */
 function moveMan(fromRow, fromI, toRow, toI){
-  if(fromRow === 'hurt'){ var hm = S.crew[fromI]; say(hm.name + ' is laid up ' + hm.hurt.days + ' more days. He cannot stand in the line.'); post('refused', {who:hm.name}); return; }
+  if(fromRow === 'hurt'){ var hm = S.crew[fromI]; choose(fromI); return; }   /* rule 234: nobody is refused the line for a wound (no strip holds anybody now) */
   var a = S[fromRow][fromI], b = S[toRow][toI];
   S[toRow][toI] = a; S[fromRow][fromI] = b; saveForm(); say(S.crew[a].name + ' moves to the ' + toRow + '.'); draw();
 }
