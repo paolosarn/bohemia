@@ -5,6 +5,8 @@
 <script src="bohemia_settings.js"></script>
 <!-- __DAMAGE_STAYS__ (CAMP, rule 226): what each man of the company is missing between fights, for the fight's door (nfOpts) and its end (nfOverIn) -->
 <script src="../engine/bohemia_condition.js"></script>
+<!-- __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (RUN TWO, rule 210): what a town's shop put straight on a man, for the fight's door (nfOpts) -->
+<script src="../engine/bohemia_shop_wear.js"></script>
 <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- IT GOES ON HIS HOME SCREEN (demo board row 6).
      iOS DOES NOT read the manifest's icons for the springboard: it reads
      apple-touch-icon, and that element OVERRIDES the manifest list where both
@@ -1556,7 +1558,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26p - NO PHONE IN THE TOWN, ONE CAN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26q - WHAT YOU BUY GOES ON THE MAN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12466,6 +12468,9 @@ function nfOpts(d){
         kept.push({ name: h.name, background: h.background, level: h.level || 1, look: h.look, stats: h.stats, traits: Array.isArray(h.traits) ? h.traits.slice() : undefined,
                     perks: [], gear: { main: g.main || null, off: g.off || null, body: g.body || null, head: g.head || null } }); have.push(h.name); });   /* RUN TWO __THE_RARE_MAN_AT_THE_POST__: his shield and helm (an ordinary hire has none) */
       o.company = kept;
+      /* __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210(d)): a piece a town's shop put on a man is in his hands in the next fight, the
+         crew screen opened or not (engine/bohemia_shop_wear.js) */
+      try{ if(window.BohemiaShopWear) BohemiaShopWear.apply(kept, true); }catch(_e){}
       if(useH && hl && Array.isArray(hl.front) && Array.isArray(hl.back)){
         var at = function(row){ return row.map(function(k){ return k != null && keepAt[k] != null ? keepAt[k] : null; }); };
         o.formation = { front: at(hl.front), back: at(hl.back) };
@@ -14051,7 +14056,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
