@@ -1639,12 +1639,37 @@ function campSheet(k){
 /* the map's clock while you rest: the name, the light, the purse after the night's bill */
 function campTime(d){
   var c = S.campInfo || (S.campInfo = {});
-  c.day = d.day; c.min = d.min; if(d.bill) c.bill = d.bill;
+  c.day = d.day; c.min = d.min; if(d.bill) c.bill = d.bill; if(d.condition) c.condition = d.condition; healShow();   /* __THE_HEAL_BUTTON__: the bar fills as he watches */
   if(typeof d.batteries === 'number'){ var df = d.batteries - bats(); if(df > 0) P.credit(S.purse, 'electricity', df, 'camp:sync', null, 0); if(df < 0) P.debit(S.purse, 'electricity', -df, 'camp:sync', null, 0); }
   if(!!d.night !== !!c.night){ c.night = !!d.night; view.night = c.night; VAR && (VAR.folkKey = null); if(window.BohemiaHeard) BohemiaHeard.night(view.night); }
   shelf();
   if(S.open === 'tent') campSheet('tent');
 }
+/* ==== __THE_HEAL_BUTTON__ (CAMP [the heal button, damage that stays], rule 226(c)(d), Paolo 10/26: 'that heel button could be like the
+   camp button... it will combine the HP and armor stats of all your people into a single HP armor bar'). The map's HEAL button
+   made this camp; while it stands the same button stands in the same place (the map's #campbtn: right 121, bottom 17) over the
+   camp, its one bar filling hour by hour as the men mend (the map's clock: 2 hitpoints an hour camped, armour 6 points a piece,
+   tape spent), and a tap breaks camp (BREAK CAMP, the bar's own). The bar is the map's own call (BohemiaCondition.drawBar). ==== */
+function healShow(){
+  var b = document.getElementById('healbtn'), c = S.campInfo && S.campInfo.condition;
+  if(!S.camp){ if(b) b.style.display = 'none'; return; }
+  if(!b){
+    b = document.createElement('div'); b.id = 'healbtn'; b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'heal: break camp');
+    var ic = document.createElement('img'); ic.src = 'supply_icons/meds.png'; ic.alt = ''; ic.draggable = false; ic.setAttribute('style', 'display:block;width:25px;height:24px;image-rendering:pixelated;pointer-events:none;margin:0 auto 2px');
+    var bar = document.createElement('canvas'); bar.width = 48; bar.height = 7; bar.setAttribute('style', 'display:block;width:48px;height:7px;image-rendering:pixelated;pointer-events:none;margin:0 auto');
+    b.appendChild(ic); b.appendChild(bar);
+    b.setAttribute('style', 'position:fixed;right:121px;bottom:17px;z-index:80;display:none;min-width:58px;height:44px;padding:3px 5px;box-sizing:border-box;flex-direction:column;align-items:center;justify-content:center;border-radius:7px;cursor:pointer;'
+      + 'background:linear-gradient(#2e271b,#15110a);outline:1px solid #d9a85a;box-shadow:inset 0 1px 0 rgba(231,216,187,.20),inset 0 -2px 0 #0b0906,0 2px 0 rgba(0,0,0,.55),0 6px 16px rgba(0,0,0,.45);-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation');
+    b.addEventListener('click', function(e){ try{ e.stopPropagation(); }catch(_e){} document.getElementById('leave').click(); });
+    document.body.appendChild(b);
+  }
+  b.style.display = 'flex';
+  var cv = b.querySelector('canvas'), C = window.BohemiaCondition || (function(){ try{ return window.parent.BohemiaCondition; }catch(_e){ return null; } })();
+  if(c && C){ var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1)), W = Math.round(48 * dpr), H = Math.max(5, Math.round(7 * dpr));
+    if(cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    C.drawBar(cv, c); b.title = 'HEAL: break camp.  ' + (c.says || ''); b.dataset.blood = String(Math.round(c.blood * 1000) / 1000); b.dataset.armour = String(Math.round(c.armour * 1000) / 1000); }
+}
+/* ==== /__THE_HEAL_BUTTON__ ==== */
 /* T breaks camp, Battle Brothers' key (the map makes camp on it; UI's keys hand it to this frame while it lies on top) */
 window.addEventListener('keydown', function(e){ if(!S.camp || e.repeat || e.ctrlKey || e.metaKey || String(e.key || '').toLowerCase() !== 't') return; e.preventDefault(); document.getElementById('leave').click(); });
 /* ==== end __THE_CAMP__ ==== */
@@ -2946,7 +2971,7 @@ function arriveWhenReady(){ if((TRAITS && ARR && (!window.BohemiaBarNews || Bohe
 function open(o){
   o = o || {};
   hireLoad();   /* __THE_SHOP_SAYS_WHAT_IT_DOES__: the hall's and the shops' files (the roster, the rig, the bill) are read as the town opens, so a card is whole when he taps it and the hall never redraws under a keeper mid-line */
-  if(o.place){ S.camp = !!o.camp; S.campInfo = o.camp ? {day:o.day, min:o.min, night:!!o.night, company:o.company || [], bill:o.bill || null, cleared:o.cleared || null} : null; }   /* __THE_CAMP__ */
+  if(o.place){ S.camp = !!o.camp; S.campInfo = o.camp ? {day:o.day, min:o.min, night:!!o.night, company:o.company || [], bill:o.bill || null, cleared:o.cleared || null, condition:o.condition || null} : null; healShow(); }   /* __THE_CAMP__; __THE_HEAL_BUTTON__ */
   if(o.place) for(var k in o.place) S.place[k] = o.place[k];
   S.purse = o.purse || S.purse || P.create({id:'player'});
   if(typeof o.batteries === 'number'){

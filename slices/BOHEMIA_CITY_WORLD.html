@@ -39818,6 +39818,11 @@ function advance(mins){
      TICKING (his pacing ruling) and I-MOVE-YOU-MOVE both stand: this file owns no
      timer, and the minutes handed over are minutes the world actually spent. */
   try{ partiesAdvance(mins); }catch(_e){}
+  /* __DAMAGE_STAYS__ (CAMP [the heal button, damage that stays], rule 226): AND THE COMPANY MENDS WITH THE CLOCK. Every minute the
+     valley spends, the men get their hitpoints back and their armour is mended with the company's TAPE, at Battle Brothers' rates
+     (records/target/bb/condition.json: 1 an hour on the map, 2 camped; 3 points a piece an hour, doubled camped, one tape for 15),
+     faster with the cook and the blacksmith; the camp is __THE_CAMP__ below, and it is this clock running an hour a beat */
+  try{ if(window.BohemiaCondition) BohemiaCondition.elapse(mins / 60, { camped: !!(typeof CAMP !== 'undefined' && CAMP && CAMP.on) }); }catch(_e){}
   daySync();
   if(was==='awake'&&DAY.phase==='ended'){
     /* __THE_DAY_ENDS_ON_YOU__ (9/5, SOUNDS lane) -- THE DOOR THAT CLOSES ON YOU.
@@ -45572,13 +45577,15 @@ function campCompany(){
   return looks.map(function(l){ return { look: l, name: names[l] || '' }; });
 }
 function campBill(){ try{ return { perNight: billPerNight(), daysLeft: billDaysLeft() }; }catch(_e){ return null; } }
+/* __DAMAGE_STAYS__ (CAMP, rule 226(c)): the HEAL bar's numbers, the living company's hitpoints and armour now over whole */
+function campCondition(){ try{ if(!window.BohemiaCondition) return null; var c = BohemiaCondition.company(LOOP.start && LOOP.start.company); c.says = BohemiaCondition.says(c); c.rates = BohemiaCondition.rates({ camped: !!CAMP.on }); return c; }catch(_e){ return null; } }
 function campPost(){
   if (!LOOP.frame || !LOOP.ready) return;
   var dist = null; try{ var c = om.at(city.x, city.y); dist = c && c.district; }catch(_e){}
   try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN', camp: true, arrival: false,
     place: { name: 'YOUR CAMP', tier: 'camp', district: dist || 'desert', block: [city.x | 0, city.y | 0] },
     batteries: loopBats(), contracts: [], hired: {}, day: T.day, min: T.min, night: isNight(), company: campCompany(), bill: campBill(),
-    cleared: CAMP.why }, '*'); }catch(_e){}
+    cleared: CAMP.why, condition: campCondition() }, '*'); }catch(_e){}
 }
 function campMake(){
   if (CAMP.on || !campOnMap()) return false;
@@ -45617,19 +45624,42 @@ function campHour(){
     try{ meetWalk(function(){ mapStepWorld(); }); }catch(_e){}
     if (MEET.up || LOOP.fighting || (typeof CITY_CONTACT_POSTED !== 'undefined' && CITY_CONTACT_POSTED)) { campBreak('contact'); return; }
   }
-  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours }, '*'); }catch(_e){}
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition() }, '*'); }catch(_e){}
 }
 window.addEventListener('message', function(ev){
   var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_SETTLEMENT' || !LOOP.frame || ev.source !== LOOP.frame.contentWindow) return;
   if (d.act === 'retinue' || d.act === 'cart') { campSync(); try{ billPublish(); }catch(_e){} }
 });
+/* ==== __THE_HEAL_BUTTON__ (CAMP [the heal button, damage that stays], rule 226(c)(d), Paolo 10/26: 'the camp button should be a heal
+   button and that's when you set up camp... it will combine the HP and armor stats of all your people into a single HP armor bar...
+   once you see that you can be like oh fuck I need to heal'). The CAMP plate is the HEAL button now: his own first-aid kit (the
+   meds of the bar, pack 12 #030, Set A he voted up) over ONE bar, the company's blood in red and its armour in grey, the dark part
+   what is missing (rule 224: a bar, never a number; the exact figure a hover or a long press away). A tap makes camp; in the camp
+   the same button stands in the same place and a tap breaks it. UI TWO's phone HEAL app draws the same bar from the same call
+   (BohemiaMapCamp.condition(), BohemiaCondition.drawBar). ==== */
+function healPaint(b){
+  b = b || document.getElementById('campbtn'); if(!b) return;
+  var cv = b.querySelector('canvas'); if(!cv || !window.BohemiaCondition) return;
+  var sum = campCondition(); if(!sum) return;
+  var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1)), W = Math.round(48 * dpr), H = Math.max(5, Math.round(7 * dpr));
+  if(cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+  BohemiaCondition.drawBar(cv, sum);
+  var t = 'HEAL: make camp.  ' + sum.says; if(b.title !== t) b.title = t;
+  b.dataset.blood = String(Math.round(sum.blood * 1000) / 1000); b.dataset.armour = String(Math.round(sum.armour * 1000) / 1000);
+  window.__HEAL = { blood: sum.blood, armour: sum.armour, hp: sum.hp, hpMax: sum.hpMax, arm: sum.arm, armMax: sum.armMax, men: sum.men, tape: sum.tape, at: Date.now() };
+}
+window.addEventListener('bohemia:condition', function(){ try{ healPaint(); }catch(_e){} });
+/* ==== /__THE_HEAL_BUTTON__ ==== */
 /* THE PLATE: CAMP in the pad's own row, left of PAUSE and GO, where his thumb already is (above the pad the map's spoken line
    lies over it); on the map only */
 function campBtnPaint(){
   var b = document.getElementById('campbtn');
-  if (!b) { if (!document.body) return; b = document.createElement('div'); b.id = 'campbtn'; b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'make camp');
-    b.textContent = 'CAMP';
-    b.setAttribute('style', 'position:fixed;right:121px;bottom:17px;z-index:30;display:none;min-width:58px;height:44px;padding:0 10px;align-items:center;justify-content:center;border-radius:7px;cursor:pointer;'
+  if (!b) { if (!document.body) return; b = document.createElement('div'); b.id = 'campbtn'; b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'heal: make camp');
+    /* __THE_HEAL_BUTTON__ (CAMP, rule 226(c)): the kit over the one bar, no word on it */
+    var ic = document.createElement('img'); ic.src = 'supply_icons/meds.png'; ic.alt = ''; ic.draggable = false; ic.setAttribute('style', 'display:block;width:25px;height:24px;image-rendering:pixelated;pointer-events:none;margin:0 auto 2px');
+    var bar = document.createElement('canvas'); bar.width = 48; bar.height = 7; bar.setAttribute('style', 'display:block;width:48px;height:7px;image-rendering:pixelated;pointer-events:none;margin:0 auto');
+    b.appendChild(ic); b.appendChild(bar);
+    b.setAttribute('style', 'position:fixed;right:121px;bottom:17px;z-index:30;display:none;min-width:58px;height:44px;padding:3px 5px;box-sizing:border-box;flex-direction:column;align-items:center;justify-content:center;border-radius:7px;cursor:pointer;'
       + 'font:12px BohemiaCasing,ui-monospace,monospace;letter-spacing:1.5px;color:var(--ink,#e8dcc0);background:linear-gradient(var(--skin-chiptop,#2e271b),var(--skin-chipbot,#15110a));'
       + 'box-shadow:inset 0 1px 0 rgba(231,216,187,.20),inset 0 -2px 0 var(--skin-chipbase,#0b0906),0 2px 0 rgba(0,0,0,.55),0 6px 16px rgba(0,0,0,.45);-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation');
     var stop = function(e){ try{ e.stopPropagation(); }catch(_e){} };
@@ -45637,6 +45667,7 @@ function campBtnPaint(){
     b.addEventListener('click', function(e){ stop(e); campMake(); });
     document.body.appendChild(b); }
   b.style.display = campOnMap() && !CAMP.on ? 'flex' : 'none';
+  if (b.style.display !== 'none') try{ healPaint(b); }catch(_e){}   /* __THE_HEAL_BUTTON__: the bar is the company now */
 }
 setInterval(function(){ try{ campBtnPaint(); }catch(_e){} }, 400);
 /* T, Battle Brothers' make-camp key (UI's map of keys left it unbound for want of a camp) */
@@ -45645,7 +45676,7 @@ window.addEventListener('keydown', function(e){
   var tg = e.target && e.target.tagName; if (tg === 'INPUT' || tg === 'TEXTAREA') return;
   if (CAMP.on) { campBreak('left'); e.preventDefault(); } else if (campMake()) e.preventDefault();
 });
-window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); }, on: function(){ return CAMP.on; }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
+window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
 /* ==== /__THE_CAMP__ ==== */
 /* where a contract's crew waits: a block he can stand on, six to ten out from the town,
    in a direction the contract's own id picks, with a road to it */
@@ -90392,7 +90423,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
-<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->

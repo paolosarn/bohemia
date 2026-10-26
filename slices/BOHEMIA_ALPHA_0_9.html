@@ -3,6 +3,8 @@
      materials, MUSIC / SOUNDS / BRIGHT rows, and BohemiaSettings.open() for RUN's start screen. -->
 <script src="bohemia_ui_materials.js"></script>
 <script src="bohemia_settings.js"></script>
+<!-- __DAMAGE_STAYS__ (CAMP, rule 226): what each man of the company is missing between fights, for the fight's door (nfOpts) and its end (nfOverIn) -->
+<script src="../engine/bohemia_condition.js"></script>
 <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- IT GOES ON HIS HOME SCREEN (demo board row 6).
      iOS DOES NOT read the manifest's icons for the springboard: it reads
      apple-touch-icon, and that element OVERRIDES the manifest list where both
@@ -1554,7 +1556,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26k - ONE BLOOD, HIS GUN IN HIS HANDS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26l - THE DAMAGE STAYS, THE HEAL BUTTON</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12425,11 +12427,15 @@ function nfOpts(d){
   var o = { kind: nfKind(d && d.district), night: w.night === true };
   /* __THE_ORIGIN_SETS_THE_COMPANY__ (rule 75a): the company the origin built, and its field cap, to the fight */
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
+  /* __DAMAGE_STAYS__ (CAMP, rule 226; RUN's [eyes: the dead stand up]): an origin's men carry no names, so the fight named them by
+     their place in the list and a man dropped from it moved every man behind him into the dead man's name; each is named once
+     by his FIRST place (the fight's own rule, engine/bohemia_condition.js named), so every filter below finds the right man */
+  try{ if(window.BohemiaCondition && o.company) o.company = BohemiaCondition.named(o.company); }catch(_e){}
   /* __ONE_BILL_IN_DAYS__ (RUN 10/23): a man who walked when the batteries ran out does not come to the fight (the map keeps
      who walked in bohemia.walked.v1; the company from the back, never YOU) */
   try{ var gone = (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).filter(function(x){ return x && !x.hired; }).length;
     try{ (JSON.parse(localStorage.getItem('bohemia.taken.v1') || '[]') || []).forEach(function(t){ gone += ((t && t.names) || []).length; }); }catch(_e){}   /* RUN 10/25 __THE_WIPE_WAKES_IN_TOWN__: the taken stay with who took them */
-    if(o.company && gone > 0) o.company = o.company.slice(0, Math.max(1, o.company.length - gone)); }catch(_e){}
+    if(o.company && gone > 0 && !o.company.slice(1).some(function(m){ return m && m.name; })) o.company = o.company.slice(0, Math.max(1, o.company.length - gone)); }catch(_e){}   /* __DAMAGE_STAYS__: named men are taken out by name below, never the back of the list by count */
   /* ==== __WHO_YOU_HIRE_FIGHTS__ (RUN TWO's block in RUN's file, NOTE on RUN's board; rule 147(a), Paolo 10/24: 'I hired new
      people and put them in my crew and they were on the line, but when it was battle time they weren't there; also I bought a
      weapon and put it in my crew slot'). MEASURED: this door handed the fight the ORIGIN's men and nothing else (a background
@@ -12484,6 +12490,12 @@ function nfOpts(d){
     o.party = { count: rs.length, days: (w.day | 0) || 1, difficulty: (pk && pk.pkg != null) ? pk.pkg | 0 : 1, faction: 'brigands', fromRoster: true }; } }catch(_e){}
   try{ var cn = (d && d.crewCount) | 0 || (o.company ? o.company.length : 0);
     if(o.party && !o.party.rolled && d && d.firstDay && cn > 0 && o.party.count > cn + 1){ o.party.count = cn + 1; o.party.dayOneCap = true; } }catch(_e){}
+  /* ==== __DAMAGE_STAYS__ (CAMP [the heal button, damage that stays], rule 226, Paolo 10/26: 'you can just do fights back to back to
+     back and you always respawn... healing is important, the damage you sustained in battle'): the dead never stand in a fight again
+     (the condition's dead list, by name, kept for good), and every man comes with what he is missing (his .cond: the hitpoints and
+     armour the last fight took, less what the map's clock has healed and the tape has mended); the line is re-pointed past the dead */
+  try{ if(window.BohemiaCondition && o.company){ var hc = BohemiaCondition.handOver(o.company, o.formation); o.company = hc.company; if(hc.formation) o.formation = hc.formation;
+    if(window.__NF_HANDED) window.__NF_HANDED.men = o.company.map(function(m){ return m && m.name; }); window.__NF_COND = o.company.map(function(m){ return m ? { name: m.name, cond: m.cond || null } : null; }); } }catch(_e){}
   return o;
 }
 function nfOpen(d){
@@ -12620,6 +12632,10 @@ function nfOverIn(d, src){
   var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
     alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
+  /* __DAMAGE_STAYS__ (CAMP, rule 226): what the fight left on every man is kept for the next one (the surgeon takes a day off a man
+     laid up, rule 226(e)); the dead go on the dead list */
+  try{ if(window.BohemiaCondition && d && Array.isArray(d.crew)){ d.crew.forEach(function(r){ if(r && r.down && r.laidUpDays > 0) r.laidUpDays = BohemiaCondition.laidUpDays(r.laidUpDays); });
+    BohemiaCondition.afterFight(d.crew, { day: NF.day }); } }catch(_e){}
   try{ nfAfterKeep(d); }catch(_e){}   /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO): who died, who fell, who climbed, kept for the crew screen */
   try{ if (window.STING) STING.play(won ? 'win' : 'loss'); }catch(_e){}
   try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
@@ -14035,7 +14051,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });

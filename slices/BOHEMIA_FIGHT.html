@@ -708,11 +708,24 @@ const FIGHT = (function () {
     /* ONE MAN, ONE LOOK (RUN TWO [eyes: one man, one look], 10/19, rule 120(d)): a man the company hands with his look
        (engine/bohemia_roster.js company()) fights in it, so a death or a new order never moves him into another body;
        else the place in this list, as before */
-    return makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    return condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagKit: !bagHanded(c), bagState: [],
-      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
+      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' }));
+  }
+  /* __DAMAGE_STAYS__ (CAMP [the heal button, damage that stays], rule 226, Paolo 10/26: 'right now you can just do fights back to
+     back to back and you always respawn... healing is important, the damage you sustained in battle'). A man the company hands
+     with what he is missing (c.cond, engine/bohemia_condition.js, kept from his last fight's end and healed by the map's clock)
+     comes in with that much less: his hitpoints off his whole number (never under one), his helmet's and his body armour's
+     off the piece's durability only when he wears the same piece (a new piece is whole); nothing handed = whole, as before */
+  function condApply(c, u) {
+    const k = c && c.cond; if (!k) return u;
+    if (k.lostHp > 0) u.hp = Math.max(1, Math.min(u.hpMax, Math.round(u.hpMax - k.lostHp)));
+    if (k.lostH > 0 && u.headRow && (!k.head || k.head === u.headRow.id)) u.armH = Math.max(0, Math.round(u.armHMax - k.lostH));
+    if (k.lostB > 0 && u.bodyRow && (!k.body || k.body === u.bodyRow.id)) u.armB = Math.max(0, Math.round(u.armBMax - k.lostB));
+    u.cameHurt = { hp: u.hpMax - u.hp, armH: u.armHMax - u.armH, armB: u.armBMax - u.armB };
+    return u;
   }
   /* GUNS FIRST, IN THE RIGHT HANDS (rule 120(a); ours.guns_first_kit): the kit the crew rows carry, in order, is dealt to the men
      the origin built (YOU keep your own slot): the long guns first, each to the best eye left (the middle of his background's wiki ranged_skill range), the
@@ -1146,7 +1159,7 @@ const FIGHT = (function () {
       ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
           if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
-          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; return t; })
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; if (m.cond) t.cond = m.cond; return t; })
       : base);
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
@@ -6562,7 +6575,10 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 function homeMessage(result) {
   const S = FIGHT.S;
   return { type: 'BOHEMIA_FIGHT_OVER', result: result, retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
-      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }),
+      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null,
+      /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
+      look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
+      armB: Math.max(0, Math.round(v.armB || 0)), armBMax: v.armBMax || 0, head: v.headRow ? v.headRow.id : null, body: v.bodyRow ? v.bodyRow.id : null }; }),
     spoils: (function () { try { return spoilsOf(); } catch (_e) { return null; } })() };   /* __THE_SPOILS__ */
 }
 /* ---------------- input: tap, drag, pinch ---------------- */

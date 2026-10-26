@@ -23,7 +23,7 @@
       ask: "I can keep food from going bad and nurse a man back up. A cook, for 200 batteries, once.",
       hireSays: "The cook falls in.",
       changes: { kind: 'food', mult: null, tuned: false,
-        note: "not yet live: this game has no food-duration or hourly-health clock to speed up yet (wiki: +3 days food, +1 health/hour)" } },
+        note: "LIVE (CAMP 10/26, rule 226): +1 hitpoint an hour on the map's clock (engine/bohemia_condition.js, records/target/bb/condition.json cook_hp_per_hour); the food cut is engine/bohemia_camp.js (wiki: +3 days food, +1 health/hour)" } },
     { id: 'scout', bb: 'scout', price: 250, tuned: false,
       ask: "I used to run routes before the roads got bad. A scout, for 250 batteries, once.",
       hireSays: "The scout falls in. The roads go by quicker now.",
@@ -43,12 +43,12 @@
       ask: "I can keep gear from falling apart. A blacksmith, for 300 batteries, once.",
       hireSays: "The blacksmith falls in.",
       changes: { kind: 'repair', mult: null, tuned: false,
-        note: "not yet live: this game has a flat plate-spent switch, not a repair meter, to make cheaper or faster yet (wiki: +20% repair speed, -20% tool use)" } },
+        note: "LIVE (CAMP 10/26, rule 226): armour is mended on the map's clock with tape now, 20% quicker and 20% less tape with him (engine/bohemia_condition.js; wiki: +20% repair speed, -20% tool use)" } },
     { id: 'surgeon', bb: 'surgeon', price: 350, tuned: false,
       ask: "I patched people up for a living. A surgeon, for 350 batteries, once.",
       hireSays: "The surgeon falls in.",
       changes: { kind: 'healing', mult: null, tuned: false,
-        note: "not yet live: this game has no wound/injury clock to shorten yet (wiki: -1 day injury time, saves a man from a fatal blow if the injury is not permanent -- NEVER applied to the main character, who is downed, never dead, by his own lock)" } }
+        note: "LIVE in part (CAMP 10/26, rule 226): a man laid up is back a day sooner (engine/bohemia_condition.js laidUpDays; wiki: -1 day injury time); saving a man from a fatal blow is not modeled -- NEVER applied to the main character, who is downed, never dead, by his own lock" } }
   ];
 
   function byId(id) { for (var i = 0; i < FOLLOWERS.length; i++) if (FOLLOWERS[i].id === id) return FOLLOWERS[i]; return null; }
