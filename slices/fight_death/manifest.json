@@ -1,0 +1,5523 @@
+{
+ "_readme": "DEATH SOUNDS THAT TERRIFY (SOUNDS 10/26/26, row [death sounds that terrify], rule 235): every death in a fight, from real recordings, through the bullets' own street, camcorder and tape (tools/bohemia_death_sounds.py). Every take's layers: the CC0 clip, the window in it, the speed, the place on the 16th grid, the level. The game reads index.json (tools/bohemia_death_sounds_level.js).",
+ "made": "10/26/26",
+ "lane": "sounds",
+ "bpm": 120,
+ "file": "death.mp3",
+ "kbps": 56,
+ "peak_db_decoded": -17.43,
+ "seconds": 113.61,
+ "top_loud_100ms_db": -23.38,
+ "chain": "layers (each through a 1:3 expander 24 dB under its peak) > street canyon (yours 10 m, theirs 28 m; an echo every 16th) > camcorder AGC (target -6 dB, yours up to +3, theirs +2) > tape > VHS band 100 Hz to 10 kHz > cut, a 16th fade > one loudness per voice",
+ "kinds": {
+  "bone": "a blunt blow",
+  "blade": "a cut or a stab",
+  "gun": "a gun",
+  "beast": "killed by a beast",
+  "slow": "finished off, already dying",
+  "armour": "the killing blow broke the last of his plate",
+  "skull": "laid on top when the blow took the head",
+  "animal_canine": "a dog or wolf dying",
+  "animal_big": "a big beast dying",
+  "animal_cat": "a big cat dying"
+ },
+ "sources": {
+  "1-103999-A-30": {
+   "what": "wood knocks (RutgerMuller)",
+   "author": "RutgerMuller",
+   "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/103999/",
+   "licence": "CC0",
+   "category": "Door knock",
+   "source": "Wood_Knocks_2.aif"
+  },
+  "1-155858-B-25": {
+   "what": "footsteps in a factory hall, wood and concrete (RutgerMuller)",
+   "author": "RutgerMuller",
+   "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/155858/",
+   "licence": "CC0",
+   "category": "Footsteps",
+   "source": "Footsteps in Factory Hall on Wood and Concrete.wav"
+  },
+  "1-260640-A-2": {
+   "what": "a pig squealing (TheAcidRomance, Pig Squealing)",
+   "author": "TheAcidRomance",
+   "freesound": "http://www.freesound.org/people/TheAcidRomance/sounds/260640/",
+   "licence": "CC0",
+   "category": "Pig",
+   "source": "Pig Squealing.mp3"
+  },
+  "1-260640-B-2": {
+   "what": "a pig squealing (TheAcidRomance, Pig Squealing)",
+   "author": "TheAcidRomance",
+   "freesound": "http://www.freesound.org/people/TheAcidRomance/sounds/260640/",
+   "licence": "CC0",
+   "category": "Pig",
+   "source": "Pig Squealing.mp3"
+  },
+  "1-260640-C-2": {
+   "what": "a pig squealing (TheAcidRomance, Pig Squealing)",
+   "author": "TheAcidRomance",
+   "freesound": "http://www.freesound.org/people/TheAcidRomance/sounds/260640/",
+   "licence": "CC0",
+   "category": "Pig",
+   "source": "Pig Squealing.mp3"
+  },
+  "1-30709-A-23": {
+   "what": "a breath (UncleSigmund)",
+   "author": "UncleSigmund",
+   "freesound": "http://www.freesound.org/people/UncleSigmund/sounds/30709/",
+   "licence": "CC0",
+   "category": "Breathing",
+   "source": "breath.wav"
+  },
+  "1-51147-A-25": {
+   "what": "wet bare feet in a small shower cabin (RutgerMuller)",
+   "author": "RutgerMuller",
+   "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/51147/",
+   "licence": "CC0",
+   "category": "Footsteps",
+   "source": "Wet Footsteps in Small Shower Cabin.wav"
+  },
+  "1-9886-A-49": {
+   "what": "a wood saw, one stroke (Pingel)",
+   "author": "Pingel",
+   "freesound": "http://www.freesound.org/people/Pingel/sounds/9886/",
+   "licence": "CC0",
+   "category": "Hand saw",
+   "source": "WoodSaw1.wav"
+  },
+  "2-117271-A-0": {
+   "what": "angry dogs barking (polipa)",
+   "author": "polipa",
+   "freesound": "http://www.freesound.org/people/polipa/sounds/117271/",
+   "licence": "CC0",
+   "category": "Dog",
+   "source": "angry_dogs.wav"
+  },
+  "2-118624-A-30": {
+   "what": "a door opened and closed, close mic (E-Audio)",
+   "author": "E-Audio",
+   "freesound": "http://www.freesound.org/people/E-Audio/sounds/118624/",
+   "licence": "CC0",
+   "category": "Door knock",
+   "source": "Door Open and Close - Close Mic.wav"
+  },
+  "2-122763-A-29": {
+   "what": "gurgles (alienistcog)",
+   "author": "alienistcog",
+   "freesound": "http://www.freesound.org/people/alienistcog/sounds/122763/",
+   "licence": "CC0",
+   "category": "Drinking - sipping",
+   "source": "gurgles.aif"
+  },
+  "2-122763-B-29": {
+   "what": "gurgles (alienistcog)",
+   "author": "alienistcog",
+   "freesound": "http://www.freesound.org/people/alienistcog/sounds/122763/",
+   "licence": "CC0",
+   "category": "Drinking - sipping",
+   "source": "gurgles.aif"
+  },
+  "2-123896-A-24": {
+   "what": "a cough (Sempoo)",
+   "author": "Sempoo",
+   "freesound": "http://www.freesound.org/people/Sempoo/sounds/123896/",
+   "licence": "CC0",
+   "category": "Coughing",
+   "source": "cough.wav"
+  },
+  "2-131943-A-38": {
+   "what": "a wind-up clock with a twin bell alarm (AngryAdam)",
+   "author": "AngryAdam",
+   "freesound": "http://www.freesound.org/people/AngryAdam/sounds/131943/",
+   "licence": "CC0",
+   "category": "Clock tick",
+   "source": "Wind up clock with twin bell alarm"
+  },
+  "2-133889-A-30": {
+   "what": "knocking on a large wood door (aroth4)",
+   "author": "aroth4",
+   "freesound": "http://www.freesound.org/people/aroth4/sounds/133889/",
+   "licence": "CC0",
+   "category": "Door knock",
+   "source": "Large wood door Knocking"
+  },
+  "2-144031-A-34": {
+   "what": "a soda can opened (timgormly)",
+   "author": "timgormly",
+   "freesound": "http://www.freesound.org/people/timgormly/sounds/144031/",
+   "licence": "CC0",
+   "category": "Can opening",
+   "source": "Soda Can Open.aif"
+  },
+  "2-54961-A-23": {
+   "what": "a human breath (cidchili, Breath Human Sci)",
+   "author": "cidchili",
+   "freesound": "http://www.freesound.org/people/cidchili/sounds/54961/",
+   "licence": "CC0",
+   "category": "Breathing",
+   "source": "Breath Human Sci.wav"
+  },
+  "2-54962-A-23": {
+   "what": "a human breath (cidchili, Breath human Sci2)",
+   "author": "cidchili",
+   "freesound": "http://www.freesound.org/people/cidchili/sounds/54962/",
+   "licence": "CC0",
+   "category": "Breathing",
+   "source": "Breath human Sci2.wav"
+  },
+  "2-76408-B-22": {
+   "what": "a single clap, close (therabidfrog, Clap.mp3)",
+   "author": "therabidfrog",
+   "freesound": "http://www.freesound.org/people/therabidfrog/sounds/76408/",
+   "licence": "CC0",
+   "category": "Clapping",
+   "source": "Clap.mp3"
+  },
+  "2-76408-C-22": {
+   "what": "a single clap, close (therabidfrog, Clap.mp3)",
+   "author": "therabidfrog",
+   "freesound": "http://www.freesound.org/people/therabidfrog/sounds/76408/",
+   "licence": "CC0",
+   "category": "Clapping",
+   "source": "Clap.mp3"
+  },
+  "3-103401-C-33": {
+   "what": "a cupboard creaking hard (stijnjobse, kast extreem kraken)",
+   "author": "stijnjobse",
+   "freesound": "http://www.freesound.org/people/stijnjobse/sounds/103401/",
+   "licence": "CC0",
+   "category": "Door - wood creaks",
+   "source": "kast_extreem_kraken.mp3"
+  },
+  "3-112557-A-23": {
+   "what": "frightened breathing (nickrave)",
+   "author": "nickrave",
+   "freesound": "http://www.freesound.org/people/nickrave/sounds/112557/",
+   "licence": "CC0",
+   "category": "Breathing",
+   "source": "Frightened Breathing.aiff"
+  },
+  "3-119459-A-26": {
+   "what": "a man laughing (Eneasz, Male Laughter)",
+   "author": "Eneasz",
+   "freesound": "http://www.freesound.org/people/Eneasz/sounds/119459/",
+   "licence": "CC0",
+   "category": "Laughing",
+   "source": "Male Laughter.wav"
+  },
+  "3-125418-A-24": {
+   "what": "a man coughing (jyoung20)",
+   "author": "jyoung20",
+   "freesound": "http://www.freesound.org/people/jyoung20/sounds/125418/",
+   "licence": "CC0",
+   "category": "Coughing",
+   "source": "Man Coughing.wav"
+  },
+  "3-146873-A-24": {
+   "what": "a man's sick cough (tgfcoder)",
+   "author": "tgfcoder",
+   "freesound": "http://www.freesound.org/people/tgfcoder/sounds/146873/",
+   "licence": "CC0",
+   "category": "Coughing",
+   "source": "Male sick cough"
+  },
+  "3-146964-A-5": {
+   "what": "a cat howling (Zabuhailo, catHowling1)",
+   "author": "Zabuhailo",
+   "freesound": "http://www.freesound.org/people/Zabuhailo/sounds/146964/",
+   "licence": "CC0",
+   "category": "Cat",
+   "source": "catHowling1.wav"
+  },
+  "3-146972-A-5": {
+   "what": "a cat attacking (Zabuhailo, catAttack)",
+   "author": "Zabuhailo",
+   "freesound": "http://www.freesound.org/people/Zabuhailo/sounds/146972/",
+   "licence": "CC0",
+   "category": "Cat",
+   "source": "catAttack.wav"
+  },
+  "3-151557-B-28": {
+   "what": "a man snoring (Erik Pritzens): the rattle",
+   "author": "Erik Pritzens",
+   "freesound": "http://www.freesound.org/people/Erik%20Pritzens/sounds/151557/",
+   "licence": "CC0",
+   "category": "Snoring",
+   "source": "Snoring"
+  },
+  "3-164593-A-15": {
+   "what": "a water splash (Adam_N, Water splash 2)",
+   "author": "Adam_N",
+   "freesound": "http://www.freesound.org/people/Adam_N/sounds/164593/",
+   "licence": "CC0",
+   "category": "Water drops",
+   "source": "Water splash 2.wav"
+  },
+  "3-164594-A-15": {
+   "what": "a water splash (Adam_N, Water splash 1)",
+   "author": "Adam_N",
+   "freesound": "http://www.freesound.org/people/Adam_N/sounds/164594/",
+   "licence": "CC0",
+   "category": "Water drops",
+   "source": "Water splash 1.wav"
+  },
+  "3-166125-A-23": {
+   "what": "scared breathing (Adam_N)",
+   "author": "Adam_N",
+   "freesound": "http://www.freesound.org/people/Adam_N/sounds/166125/",
+   "licence": "CC0",
+   "category": "Breathing",
+   "source": "Breathing_scared.wav"
+  },
+  "3-169907-A-29": {
+   "what": "eating oatmeal (qubodup): the wet",
+   "author": "qubodup",
+   "freesound": "http://www.freesound.org/people/qubodup/sounds/169907/",
+   "licence": "CC0",
+   "category": "Drinking - sipping",
+   "source": "Eating Oatmeal"
+  },
+  "3-203371-A-39": {
+   "what": "a glass exploding (C_Rogers)",
+   "author": "C_Rogers",
+   "freesound": "http://www.freesound.org/people/C_Rogers/sounds/203371/",
+   "licence": "CC0",
+   "category": "Glass breaking",
+   "source": "glass-explosion_01.ogg"
+  },
+  "3-233151-A-2": {
+   "what": "a pig screaming, one long scream, 96 kHz (JarredGibb, Pig - Scream 5)",
+   "author": "JarredGibb",
+   "freesound": "http://www.freesound.org/people/JarredGibb/sounds/233151/",
+   "licence": "CC0",
+   "category": "Pig",
+   "source": "Pig - Scream 5 - 96kHz.wav"
+  },
+  "3-94344-A-25": {
+   "what": "footsteps on gravel (Ryding, Fotsteg pa grus)",
+   "author": "Ryding",
+   "freesound": "http://www.freesound.org/people/Ryding/sounds/94344/",
+   "licence": "CC0",
+   "category": "Footsteps",
+   "source": "Fotsteg p\\xe5 grus.wav"
+  },
+  "4-117627-A-25": {
+   "what": "footsteps on gravel pavement (soundmary)",
+   "author": "soundmary",
+   "freesound": "http://www.freesound.org/people/soundmary/sounds/117627/",
+   "licence": "CC0",
+   "category": "Footsteps",
+   "source": "footsteps - gravel pavement.wav"
+  },
+  "4-132383-B-2": {
+   "what": "black pigs fighting, Alentejo (ideiasemvideo)",
+   "author": "ideiasemvideo",
+   "freesound": "http://www.freesound.org/people/ideiasemvideo/sounds/132383/",
+   "licence": "CC0",
+   "category": "Pig",
+   "source": "Black_Pigs_Fighting_Alentejo_Portugal_2011.wav"
+  },
+  "4-133047-B-5": {
+   "what": "a mad cat (temawas)",
+   "author": "temawas",
+   "freesound": "http://www.freesound.org/people/temawas/sounds/133047/",
+   "licence": "CC0",
+   "category": "Cat",
+   "source": "MAD CAT !.wav"
+  },
+  "4-133047-C-5": {
+   "what": "a mad cat (temawas)",
+   "author": "temawas",
+   "freesound": "http://www.freesound.org/people/temawas/sounds/133047/",
+   "licence": "CC0",
+   "category": "Cat",
+   "source": "MAD CAT !.wav"
+  },
+  "4-154443-A-24": {
+   "what": "a cough (ecfike, Cough 2)",
+   "author": "ecfike",
+   "freesound": "http://www.freesound.org/people/ecfike/sounds/154443/",
+   "licence": "CC0",
+   "category": "Coughing",
+   "source": "Cough 2.wav"
+  },
+  "4-165845-A-45": {
+   "what": "on a train in Argentina, between two wagons, metal (felix.blume)",
+   "author": "felix.blume",
+   "freesound": "http://www.freesound.org/people/felix.blume/sounds/165845/",
+   "licence": "CC0",
+   "category": "Train",
+   "source": "On a train in Argentina, between two wagons. Metal pieces are squeaking"
+  },
+  "4-167571-A-26": {
+   "what": "a man's evil laugh (dlovere)",
+   "author": "dlovere",
+   "freesound": "http://www.freesound.org/people/dlovere/sounds/167571/",
+   "licence": "CC0",
+   "category": "Laughing",
+   "source": "evil-laugh.wav"
+  },
+  "4-181563-A-12": {
+   "what": "a fire crackling, the snaps (kingsrow, Fire Crackling 01)",
+   "author": "kingsrow",
+   "freesound": "http://www.freesound.org/people/kingsrow/sounds/181563/",
+   "licence": "CC0",
+   "category": "Crackling fire",
+   "source": "Fire Crackling 01.wav"
+  },
+  "4-210593-A-29": {
+   "what": "different gulps (Mafon2)",
+   "author": "Mafon2",
+   "freesound": "http://www.freesound.org/people/Mafon2/sounds/210593/",
+   "licence": "CC0",
+   "category": "Drinking - sipping",
+   "source": "Different Gulps"
+  },
+  "4-218304-A-25": {
+   "what": "sneakers on gravel and leaves (MentalSanityOff)",
+   "author": "MentalSanityOff",
+   "freesound": "http://www.freesound.org/people/MentalSanityOff/sounds/218304/",
+   "licence": "CC0",
+   "category": "Footsteps",
+   "source": "01-21 Footsteps, sneakers on gravel and leaves.wav"
+  },
+  "5-194899-B-3": {
+   "what": "a distressed mother cow and her calves (lolamadeus)",
+   "author": "lolamadeus",
+   "freesound": "http://www.freesound.org/people/lolamadeus/sounds/194899/",
+   "licence": "CC0",
+   "category": "Cow",
+   "source": "Distressed Mother Cow and Calves.wav"
+  },
+  "5-194899-C-3": {
+   "what": "a distressed mother cow and her calves (lolamadeus)",
+   "author": "lolamadeus",
+   "freesound": "http://www.freesound.org/people/lolamadeus/sounds/194899/",
+   "licence": "CC0",
+   "category": "Cow",
+   "source": "Distressed Mother Cow and Calves.wav"
+  },
+  "5-204114-A-29": {
+   "what": "a man eating teriyaki noodles (marcjunker): the wet",
+   "author": "marcjunker",
+   "freesound": "http://www.freesound.org/people/marcjunker/sounds/204114/",
+   "licence": "CC0",
+   "category": "Drinking - sipping",
+   "source": "Man Eating Teriyaki Noodles.wav"
+  },
+  "5-207781-A-17": {
+   "what": "a liquid pouring (Dvideoguy)",
+   "author": "Dvideoguy",
+   "freesound": "http://www.freesound.org/people/Dvideoguy/sounds/207781/",
+   "licence": "CC0",
+   "category": "Pouring water",
+   "source": "Pouring Liquid.wav"
+  },
+  "5-232816-A-23": {
+   "what": "a contained breath (xavimuse)",
+   "author": "xavimuse",
+   "freesound": "http://www.freesound.org/people/xavimuse/sounds/232816/",
+   "licence": "CC0",
+   "category": "Breathing",
+   "source": "Contained Breath"
+  },
+  "5-233312-A-28": {
+   "what": "a man snoring (trentbh): the rattle",
+   "author": "trentbh",
+   "freesound": "http://www.freesound.org/people/trentbh/sounds/233312/",
+   "licence": "CC0",
+   "category": "Snoring",
+   "source": "Man Snoring - Freesound.wav"
+  },
+  "5-236288-A-28": {
+   "what": "a human snore (mffm): the rattle",
+   "author": "mffm",
+   "freesound": "http://www.freesound.org/people/mffm/sounds/236288/",
+   "licence": "CC0",
+   "category": "Snoring",
+   "source": "human snore.wav"
+  },
+  "5-243635-A-29": {
+   "what": "swallowing (freakinbehemoth)",
+   "author": "freakinbehemoth",
+   "freesound": "http://www.freesound.org/people/freakinbehemoth/sounds/243635/",
+   "licence": "CC0",
+   "category": "Drinking - sipping",
+   "source": "swallowing.wav"
+  },
+  "5-252248-A-34": {
+   "what": "a can opened (Reitanna)",
+   "author": "Reitanna",
+   "freesound": "http://www.freesound.org/people/Reitanna/sounds/252248/",
+   "licence": "CC0",
+   "category": "Can opening",
+   "source": "can opening.wav"
+  },
+  "5-261464-A-23": {
+   "what": "a werewolf breathing and sniffing, a voice actor (kd_jack)",
+   "author": "kd_jack",
+   "freesound": "http://www.freesound.org/people/kd_jack/sounds/261464/",
+   "licence": "CC0",
+   "category": "Breathing",
+   "source": "Werewolf breathing and sniffing "
+  },
+  "5-263775-B-26": {
+   "what": "a man laughing (scottemoil, Laughing Man)",
+   "author": "scottemoil",
+   "freesound": "http://www.freesound.org/people/scottemoil/sounds/263775/",
+   "licence": "CC0",
+   "category": "Laughing",
+   "source": "Laughing Man"
+  }
+ },
+ "voices": {
+  "bone_yours": {
+   "cut_s": 3.0,
+   "loud_100ms_db": -27.38,
+   "side": "yours",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 0.02,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "2-133889-A-30",
+       "event": 0,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.002,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 0,
+       "speed": 0.62,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 0,
+       "speed": 0.72,
+       "at_s": 0.008,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 2,
+       "speed": 0.9,
+       "at_s": 0.026,
+       "db": -4.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.07",
+       "speed": 0.42,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "3-103401-C-33",
+       "event": "0.54+0.30",
+       "speed": 1.3,
+       "at_s": 0.125,
+       "db": -12.0
+      },
+      {
+       "source": "4-154443-A-24",
+       "event": "0.03+0.12",
+       "speed": 0.892,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.05+0.56",
+       "speed": 0.679,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.718,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "1.50+0.32",
+       "speed": 0.854,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.33+0.12",
+       "speed": 0.834,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.50+1.30",
+       "speed": 0.834,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.776,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "5-232816-A-23",
+       "event": "0.56+1.40",
+       "speed": 0.873,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.9,
+       "at_s": 1.03,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.46,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00027,
+     "above_20k": 0.0,
+     "first_1ms_db": -22.1,
+     "last_1ms_db": -140.5
+    },
+    {
+     "k": 1,
+     "at_s": 3.09,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "2-133889-A-30",
+       "event": 1,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.002,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 1,
+       "speed": 0.62,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 1,
+       "speed": 0.72,
+       "at_s": 0.008,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 3,
+       "speed": 0.9,
+       "at_s": 0.026,
+       "db": -4.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.07+0.07",
+       "speed": 0.42,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "3-103401-C-33",
+       "event": "0.74+0.30",
+       "speed": 1.3,
+       "at_s": 0.125,
+       "db": -12.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-A-2",
+       "event": "0.30+0.57",
+       "speed": 0.7,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.74,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.88,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.53+0.12",
+       "speed": 0.86,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "5-233312-A-28",
+       "event": "3.24+1.10",
+       "speed": 0.86,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.8,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+1.50",
+       "speed": 0.9,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.9,
+       "at_s": 1.03,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.6,
+     "loud_100ms_db": -27.38,
+     "above_10k": 7e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -31.3,
+     "last_1ms_db": -131.8
+    },
+    {
+     "k": 2,
+     "at_s": 6.16,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "2-133889-A-30",
+       "event": 2,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 3,
+       "speed": 0.85,
+       "at_s": 0.002,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.62,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 2,
+       "speed": 0.72,
+       "at_s": 0.008,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 4,
+       "speed": 0.9,
+       "at_s": 0.026,
+       "db": -4.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.12+0.07",
+       "speed": 0.42,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "3-103401-C-33",
+       "event": "0.94+0.30",
+       "speed": 1.3,
+       "at_s": 0.125,
+       "db": -12.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.60",
+       "speed": 0.728,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.77,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.915,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.29+0.16",
+       "speed": 0.894,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "5-236288-A-28",
+       "event": "1.88+0.66",
+       "speed": 0.894,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "2.16+0.22",
+       "speed": 0.832,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+1.55",
+       "speed": 0.936,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.9,
+       "at_s": 1.03,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.77,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00012,
+     "above_20k": 0.0,
+     "first_1ms_db": -38.8,
+     "last_1ms_db": -131.7
+    }
+   ]
+  },
+  "bone_theirs": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 9.23,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-133889-A-30",
+       "event": 0,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.002,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 0,
+       "speed": 0.62,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 0,
+       "speed": 0.72,
+       "at_s": 0.008,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 2,
+       "speed": 0.9,
+       "at_s": 0.026,
+       "db": -4.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.07",
+       "speed": 0.42,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "3-103401-C-33",
+       "event": "0.54+0.30",
+       "speed": 1.3,
+       "at_s": 0.125,
+       "db": -12.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.36",
+       "speed": 0.7,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.74,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.9,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+0.90",
+       "speed": 0.92,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.43,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00012,
+     "above_20k": 0.0,
+     "first_1ms_db": -25.9,
+     "last_1ms_db": -148.6
+    },
+    {
+     "k": 1,
+     "at_s": 11.3,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-133889-A-30",
+       "event": 1,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.002,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 1,
+       "speed": 0.62,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 1,
+       "speed": 0.72,
+       "at_s": 0.008,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 3,
+       "speed": 0.9,
+       "at_s": 0.026,
+       "db": -4.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.07+0.07",
+       "speed": 0.42,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "3-103401-C-33",
+       "event": "0.74+0.30",
+       "speed": 1.3,
+       "at_s": 0.125,
+       "db": -12.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-B-2",
+       "event": "1.66+0.38",
+       "speed": 0.728,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.77,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.936,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+0.90",
+       "speed": 0.957,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -18.98,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00013,
+     "above_20k": 0.0,
+     "first_1ms_db": -32.7,
+     "last_1ms_db": -163.0
+    },
+    {
+     "k": 2,
+     "at_s": 13.37,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-133889-A-30",
+       "event": 2,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 3,
+       "speed": 0.85,
+       "at_s": 0.002,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.62,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 2,
+       "speed": 0.72,
+       "at_s": 0.008,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 4,
+       "speed": 0.9,
+       "at_s": 0.026,
+       "db": -4.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.12+0.07",
+       "speed": 0.42,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "3-103401-C-33",
+       "event": "0.94+0.30",
+       "speed": 1.3,
+       "at_s": 0.125,
+       "db": -12.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.00+0.16",
+       "speed": 0.865,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.70+0.35",
+       "speed": 0.658,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.696,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.846,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "1-30709-A-23",
+       "event": "0.08+0.90",
+       "speed": 0.865,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -19.55,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00019,
+     "above_20k": 0.0,
+     "first_1ms_db": -40.9,
+     "last_1ms_db": -145.0
+    }
+   ]
+  },
+  "blade_yours": {
+   "cut_s": 3.0,
+   "loud_100ms_db": -27.38,
+   "side": "yours",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 15.44,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "1-9886-A-49",
+       "event": "0.15+0.16",
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -7.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 0,
+       "speed": 0.72,
+       "at_s": 0.006,
+       "db": 0.0
+      },
+      {
+       "source": "3-169907-A-29",
+       "event": 1,
+       "speed": 0.8,
+       "at_s": 0.012,
+       "db": -4.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 2,
+       "speed": 0.8,
+       "at_s": 0.01,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.004,
+       "db": -7.0
+      },
+      {
+       "source": "3-164594-A-15",
+       "event": "0.14+0.14",
+       "speed": 0.85,
+       "at_s": 0.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-207781-A-17",
+       "event": "0.24+0.80",
+       "speed": 0.8,
+       "at_s": 0.375,
+       "db": -16.0
+      },
+      {
+       "source": "4-154443-A-24",
+       "event": "0.03+0.12",
+       "speed": 0.892,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.05+0.56",
+       "speed": 0.679,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.718,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "1.50+0.32",
+       "speed": 0.854,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.33+0.12",
+       "speed": 0.834,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.50+1.30",
+       "speed": 0.834,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.776,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "5-232816-A-23",
+       "event": "0.56+1.40",
+       "speed": 0.873,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.9,
+       "at_s": 1.03,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.92,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00037,
+     "above_20k": 0.0,
+     "first_1ms_db": -66.8,
+     "last_1ms_db": -139.3
+    },
+    {
+     "k": 1,
+     "at_s": 18.51,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "1-9886-A-49",
+       "event": "1.07+0.16",
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -7.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 1,
+       "speed": 0.72,
+       "at_s": 0.006,
+       "db": 0.0
+      },
+      {
+       "source": "3-169907-A-29",
+       "event": 2,
+       "speed": 0.8,
+       "at_s": 0.012,
+       "db": -4.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 3,
+       "speed": 0.8,
+       "at_s": 0.01,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.004,
+       "db": -7.0
+      },
+      {
+       "source": "3-164593-A-15",
+       "event": "0.10+0.14",
+       "speed": 0.85,
+       "at_s": 0.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-207781-A-17",
+       "event": "0.44+0.80",
+       "speed": 0.8,
+       "at_s": 0.375,
+       "db": -16.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-A-2",
+       "event": "0.30+0.57",
+       "speed": 0.7,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.74,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.88,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.53+0.12",
+       "speed": 0.86,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "5-233312-A-28",
+       "event": "3.24+1.10",
+       "speed": 0.86,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.8,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+1.50",
+       "speed": 0.9,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.9,
+       "at_s": 1.03,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -19.44,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00011,
+     "above_20k": 0.0,
+     "first_1ms_db": -50.0,
+     "last_1ms_db": -129.5
+    },
+    {
+     "k": 2,
+     "at_s": 21.58,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "1-9886-A-49",
+       "event": "1.99+0.16",
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -7.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 2,
+       "speed": 0.72,
+       "at_s": 0.006,
+       "db": 0.0
+      },
+      {
+       "source": "3-169907-A-29",
+       "event": 3,
+       "speed": 0.8,
+       "at_s": 0.012,
+       "db": -4.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 4,
+       "speed": 0.8,
+       "at_s": 0.01,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.004,
+       "db": -7.0
+      },
+      {
+       "source": "3-164594-A-15",
+       "event": "0.14+0.14",
+       "speed": 0.85,
+       "at_s": 0.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-207781-A-17",
+       "event": "0.64+0.80",
+       "speed": 0.8,
+       "at_s": 0.375,
+       "db": -16.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.60",
+       "speed": 0.728,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.77,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.915,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.29+0.16",
+       "speed": 0.894,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "5-236288-A-28",
+       "event": "1.88+0.66",
+       "speed": 0.894,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "2.16+0.22",
+       "speed": 0.832,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+1.55",
+       "speed": 0.936,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.9,
+       "at_s": 1.03,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.77,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00015,
+     "above_20k": 0.0,
+     "first_1ms_db": -43.9,
+     "last_1ms_db": -131.7
+    }
+   ]
+  },
+  "blade_theirs": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 24.65,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "1-9886-A-49",
+       "event": "0.15+0.16",
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -7.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 0,
+       "speed": 0.72,
+       "at_s": 0.006,
+       "db": 0.0
+      },
+      {
+       "source": "3-169907-A-29",
+       "event": 1,
+       "speed": 0.8,
+       "at_s": 0.012,
+       "db": -4.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 2,
+       "speed": 0.8,
+       "at_s": 0.01,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.004,
+       "db": -7.0
+      },
+      {
+       "source": "3-164594-A-15",
+       "event": "0.14+0.14",
+       "speed": 0.85,
+       "at_s": 0.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-207781-A-17",
+       "event": "0.24+0.80",
+       "speed": 0.8,
+       "at_s": 0.375,
+       "db": -16.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.36",
+       "speed": 0.7,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.74,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.9,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+0.90",
+       "speed": 0.92,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.94,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00029,
+     "above_20k": 0.0,
+     "first_1ms_db": -70.6,
+     "last_1ms_db": -147.4
+    },
+    {
+     "k": 1,
+     "at_s": 26.72,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "1-9886-A-49",
+       "event": "1.07+0.16",
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -7.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 1,
+       "speed": 0.72,
+       "at_s": 0.006,
+       "db": 0.0
+      },
+      {
+       "source": "3-169907-A-29",
+       "event": 2,
+       "speed": 0.8,
+       "at_s": 0.012,
+       "db": -4.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 3,
+       "speed": 0.8,
+       "at_s": 0.01,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.004,
+       "db": -7.0
+      },
+      {
+       "source": "3-164593-A-15",
+       "event": "0.10+0.14",
+       "speed": 0.85,
+       "at_s": 0.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-207781-A-17",
+       "event": "0.44+0.80",
+       "speed": 0.8,
+       "at_s": 0.375,
+       "db": -16.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-B-2",
+       "event": "1.66+0.38",
+       "speed": 0.728,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.77,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.936,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+0.90",
+       "speed": 0.957,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -20.67,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.0002,
+     "above_20k": 0.0,
+     "first_1ms_db": -52.2,
+     "last_1ms_db": -161.5
+    },
+    {
+     "k": 2,
+     "at_s": 28.79,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "1-9886-A-49",
+       "event": "1.99+0.16",
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -7.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 2,
+       "speed": 0.72,
+       "at_s": 0.006,
+       "db": 0.0
+      },
+      {
+       "source": "3-169907-A-29",
+       "event": 3,
+       "speed": 0.8,
+       "at_s": 0.012,
+       "db": -4.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 4,
+       "speed": 0.8,
+       "at_s": 0.01,
+       "db": -5.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.004,
+       "db": -7.0
+      },
+      {
+       "source": "3-164594-A-15",
+       "event": "0.14+0.14",
+       "speed": 0.85,
+       "at_s": 0.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-207781-A-17",
+       "event": "0.64+0.80",
+       "speed": 0.8,
+       "at_s": 0.375,
+       "db": -16.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.00+0.16",
+       "speed": 0.865,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.70+0.35",
+       "speed": 0.658,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.696,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.846,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "1-30709-A-23",
+       "event": "0.08+0.90",
+       "speed": 0.865,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -19.74,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00025,
+     "above_20k": 0.0,
+     "first_1ms_db": -46.0,
+     "last_1ms_db": -144.9
+    }
+   ]
+  },
+  "gun_yours": {
+   "cut_s": 3.0,
+   "loud_100ms_db": -27.38,
+   "side": "yours",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 30.86,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.75,
+       "at_s": 0.0,
+       "db": -8.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 0,
+       "speed": 0.9,
+       "at_s": 0.003,
+       "db": -10.0
+      },
+      {
+       "source": "4-154443-A-24",
+       "event": "0.03+0.12",
+       "speed": 0.892,
+       "at_s": 0.0,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.05+0.56",
+       "speed": 0.679,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.718,
+       "at_s": 0.135,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "1.50+0.32",
+       "speed": 0.854,
+       "at_s": 0.625,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.33+0.12",
+       "speed": 0.834,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.50+1.30",
+       "speed": 0.834,
+       "at_s": 1.0,
+       "db": -13.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.776,
+       "at_s": 1.375,
+       "db": -13.0
+      },
+      {
+       "source": "5-232816-A-23",
+       "event": "0.56+1.40",
+       "speed": 0.873,
+       "at_s": 1.75,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.92,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00024,
+     "above_20k": 0.0,
+     "first_1ms_db": -58.0,
+     "last_1ms_db": -133.2
+    },
+    {
+     "k": 1,
+     "at_s": 33.93,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.75,
+       "at_s": 0.0,
+       "db": -8.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 1,
+       "speed": 0.9,
+       "at_s": 0.003,
+       "db": -10.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.0,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-A-2",
+       "event": "0.30+0.57",
+       "speed": 0.7,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.74,
+       "at_s": 0.135,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.88,
+       "at_s": 0.625,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.53+0.12",
+       "speed": 0.86,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "5-233312-A-28",
+       "event": "3.24+1.10",
+       "speed": 0.86,
+       "at_s": 1.0,
+       "db": -13.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.8,
+       "at_s": 1.375,
+       "db": -13.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+1.50",
+       "speed": 0.9,
+       "at_s": 1.75,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -19.78,
+     "loud_100ms_db": -27.38,
+     "above_10k": 7e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -67.3,
+     "last_1ms_db": -144.2
+    },
+    {
+     "k": 2,
+     "at_s": 37.0,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "2-76408-B-22",
+       "event": 4,
+       "speed": 0.75,
+       "at_s": 0.0,
+       "db": -8.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 2,
+       "speed": 0.9,
+       "at_s": 0.003,
+       "db": -10.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.0,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.60",
+       "speed": 0.728,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.77,
+       "at_s": 0.135,
+       "db": -9.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.915,
+       "at_s": 0.625,
+       "db": -7.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.29+0.16",
+       "speed": 0.894,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "5-236288-A-28",
+       "event": "1.88+0.66",
+       "speed": 0.894,
+       "at_s": 1.0,
+       "db": -13.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "2.16+0.22",
+       "speed": 0.832,
+       "at_s": 1.375,
+       "db": -13.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+1.55",
+       "speed": 0.936,
+       "at_s": 1.75,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.9,
+       "at_s": 0.78,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.73,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.0001,
+     "above_20k": 0.0,
+     "first_1ms_db": -63.7,
+     "last_1ms_db": -130.5
+    }
+   ]
+  },
+  "gun_theirs": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 40.07,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.75,
+       "at_s": 0.0,
+       "db": -8.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 0,
+       "speed": 0.9,
+       "at_s": 0.003,
+       "db": -10.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.0,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.36",
+       "speed": 0.7,
+       "at_s": 0.125,
+       "db": -2.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.74,
+       "at_s": 0.135,
+       "db": -11.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.9,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+0.90",
+       "speed": 0.92,
+       "at_s": 1.0,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.375,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.5,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.504,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.9,
+       "at_s": 0.53,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.81,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00014,
+     "above_20k": 0.0,
+     "first_1ms_db": -62.3,
+     "last_1ms_db": -162.0
+    },
+    {
+     "k": 1,
+     "at_s": 42.14,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.75,
+       "at_s": 0.0,
+       "db": -8.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 1,
+       "speed": 0.9,
+       "at_s": 0.003,
+       "db": -10.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.0,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-B-2",
+       "event": "1.66+0.38",
+       "speed": 0.728,
+       "at_s": 0.125,
+       "db": -2.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.77,
+       "at_s": 0.135,
+       "db": -11.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.936,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+0.90",
+       "speed": 0.957,
+       "at_s": 1.0,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.375,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 0.5,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.504,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.9,
+       "at_s": 0.53,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.39,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00013,
+     "above_20k": 0.0,
+     "first_1ms_db": -68.7,
+     "last_1ms_db": -168.2
+    },
+    {
+     "k": 2,
+     "at_s": 44.21,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-76408-B-22",
+       "event": 4,
+       "speed": 0.75,
+       "at_s": 0.0,
+       "db": -8.0
+      },
+      {
+       "source": "1-51147-A-25",
+       "event": 2,
+       "speed": 0.9,
+       "at_s": 0.003,
+       "db": -10.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.00+0.16",
+       "speed": 0.865,
+       "at_s": 0.0,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.70+0.35",
+       "speed": 0.658,
+       "at_s": 0.125,
+       "db": -2.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.696,
+       "at_s": 0.135,
+       "db": -11.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.846,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "1-30709-A-23",
+       "event": "0.08+0.90",
+       "speed": 0.865,
+       "at_s": 1.0,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.375,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 0.5,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.504,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.9,
+       "at_s": 0.53,
+       "db": -11.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -19.75,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00018,
+     "above_20k": 0.0,
+     "first_1ms_db": -65.0,
+     "last_1ms_db": -160.9
+    }
+   ]
+  },
+  "beast_yours": {
+   "cut_s": 3.0,
+   "loud_100ms_db": -27.38,
+   "side": "yours",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 46.28,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.45",
+       "speed": 0.6,
+       "at_s": 0.0,
+       "db": -1.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 0,
+       "speed": 0.62,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 1,
+       "speed": 0.68,
+       "at_s": 0.137,
+       "db": -2.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.07+0.07",
+       "speed": 0.34,
+       "at_s": 0.141,
+       "db": -5.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.02+1.50",
+       "speed": 0.78,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.18+0.28",
+       "speed": 0.55,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "4-218304-A-25",
+       "event": "0.54+0.28",
+       "speed": 0.55,
+       "at_s": 1.0,
+       "db": -8.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.60+0.28",
+       "speed": 0.55,
+       "at_s": 1.25,
+       "db": -9.0
+      },
+      {
+       "source": "4-154443-A-24",
+       "event": "0.03+0.12",
+       "speed": 0.892,
+       "at_s": 0.25,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.05+0.56",
+       "speed": 0.679,
+       "at_s": 0.375,
+       "db": 0.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.718,
+       "at_s": 0.385,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "1.50+0.32",
+       "speed": 0.854,
+       "at_s": 0.875,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.33+0.12",
+       "speed": 0.834,
+       "at_s": 1.125,
+       "db": -9.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.50+1.30",
+       "speed": 0.834,
+       "at_s": 1.25,
+       "db": -13.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.776,
+       "at_s": 1.625,
+       "db": -13.0
+      },
+      {
+       "source": "5-232816-A-23",
+       "event": "0.56+1.40",
+       "speed": 0.873,
+       "at_s": 2.0,
+       "db": -15.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": -3.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.15,
+     "loud_100ms_db": -27.38,
+     "above_10k": 9e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -146.5,
+     "last_1ms_db": -128.6
+    },
+    {
+     "k": 1,
+     "at_s": 49.35,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.45",
+       "speed": 0.56,
+       "at_s": 0.0,
+       "db": -1.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 1,
+       "speed": 0.62,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 2,
+       "speed": 0.68,
+       "at_s": 0.137,
+       "db": -2.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.12+0.07",
+       "speed": 0.34,
+       "at_s": 0.141,
+       "db": -5.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.32+1.50",
+       "speed": 0.78,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.22+0.28",
+       "speed": 0.55,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "4-218304-A-25",
+       "event": "0.58+0.28",
+       "speed": 0.55,
+       "at_s": 1.0,
+       "db": -8.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.64+0.28",
+       "speed": 0.55,
+       "at_s": 1.25,
+       "db": -9.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.25,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-A-2",
+       "event": "0.30+0.57",
+       "speed": 0.7,
+       "at_s": 0.375,
+       "db": 0.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.74,
+       "at_s": 0.385,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.88,
+       "at_s": 0.875,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.53+0.12",
+       "speed": 0.86,
+       "at_s": 1.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-233312-A-28",
+       "event": "3.24+1.10",
+       "speed": 0.86,
+       "at_s": 1.25,
+       "db": -13.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.8,
+       "at_s": 1.625,
+       "db": -13.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+1.50",
+       "speed": 0.9,
+       "at_s": 2.0,
+       "db": -15.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": -3.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -19.44,
+     "loud_100ms_db": -27.38,
+     "above_10k": 5e-05,
+     "above_20k": 1e-06,
+     "first_1ms_db": -146.6,
+     "last_1ms_db": -125.6
+    },
+    {
+     "k": 2,
+     "at_s": 52.42,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.45",
+       "speed": 0.52,
+       "at_s": 0.0,
+       "db": -1.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 2,
+       "speed": 0.62,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 3,
+       "speed": 0.68,
+       "at_s": 0.137,
+       "db": -2.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.07",
+       "speed": 0.34,
+       "at_s": 0.141,
+       "db": -5.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.62+1.50",
+       "speed": 0.78,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.26+0.28",
+       "speed": 0.55,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "4-218304-A-25",
+       "event": "0.62+0.28",
+       "speed": 0.55,
+       "at_s": 1.0,
+       "db": -8.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.68+0.28",
+       "speed": 0.55,
+       "at_s": 1.25,
+       "db": -9.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.25,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.60",
+       "speed": 0.728,
+       "at_s": 0.375,
+       "db": 0.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.77,
+       "at_s": 0.385,
+       "db": -9.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.915,
+       "at_s": 0.875,
+       "db": -7.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.29+0.16",
+       "speed": 0.894,
+       "at_s": 1.125,
+       "db": -9.0
+      },
+      {
+       "source": "5-236288-A-28",
+       "event": "1.88+0.66",
+       "speed": 0.894,
+       "at_s": 1.25,
+       "db": -13.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "2.16+0.22",
+       "speed": 0.832,
+       "at_s": 1.625,
+       "db": -13.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+1.55",
+       "speed": 0.936,
+       "at_s": 2.0,
+       "db": -15.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": -3.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.72,
+     "loud_100ms_db": -27.38,
+     "above_10k": 2e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -149.2,
+     "last_1ms_db": -132.1
+    }
+   ]
+  },
+  "beast_theirs": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 55.49,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.45",
+       "speed": 0.6,
+       "at_s": 0.0,
+       "db": -1.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 0,
+       "speed": 0.62,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 1,
+       "speed": 0.68,
+       "at_s": 0.137,
+       "db": -2.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.07+0.07",
+       "speed": 0.34,
+       "at_s": 0.141,
+       "db": -5.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.02+1.50",
+       "speed": 0.78,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.18+0.28",
+       "speed": 0.55,
+       "at_s": 0.625,
+       "db": -7.0
+      },
+      {
+       "source": "4-218304-A-25",
+       "event": "0.54+0.28",
+       "speed": 0.55,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.25,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.36",
+       "speed": 0.7,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.74,
+       "at_s": 0.385,
+       "db": -11.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.9,
+       "at_s": 0.75,
+       "db": -9.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+0.90",
+       "speed": 0.92,
+       "at_s": 1.25,
+       "db": -15.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": -3.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.32,
+     "loud_100ms_db": -31.38,
+     "above_10k": 4e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -150.4,
+     "last_1ms_db": -138.7
+    },
+    {
+     "k": 1,
+     "at_s": 57.56,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.45",
+       "speed": 0.56,
+       "at_s": 0.0,
+       "db": -1.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 1,
+       "speed": 0.62,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 2,
+       "speed": 0.68,
+       "at_s": 0.137,
+       "db": -2.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.12+0.07",
+       "speed": 0.34,
+       "at_s": 0.141,
+       "db": -5.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.32+1.50",
+       "speed": 0.78,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.22+0.28",
+       "speed": 0.55,
+       "at_s": 0.625,
+       "db": -7.0
+      },
+      {
+       "source": "4-218304-A-25",
+       "event": "0.58+0.28",
+       "speed": 0.55,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.25,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-B-2",
+       "event": "1.66+0.38",
+       "speed": 0.728,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.77,
+       "at_s": 0.385,
+       "db": -11.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.936,
+       "at_s": 0.75,
+       "db": -9.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+0.90",
+       "speed": 0.957,
+       "at_s": 1.25,
+       "db": -15.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": -3.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.4,
+     "loud_100ms_db": -31.38,
+     "above_10k": 6e-05,
+     "above_20k": 1e-06,
+     "first_1ms_db": -148.4,
+     "last_1ms_db": -129.1
+    },
+    {
+     "k": 2,
+     "at_s": 59.63,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.45",
+       "speed": 0.52,
+       "at_s": 0.0,
+       "db": -1.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 2,
+       "speed": 0.62,
+       "at_s": 0.012,
+       "db": -5.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.125,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 3,
+       "speed": 0.68,
+       "at_s": 0.137,
+       "db": -2.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.07",
+       "speed": 0.34,
+       "at_s": 0.141,
+       "db": -5.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.62+1.50",
+       "speed": 0.78,
+       "at_s": 0.5,
+       "db": -9.0
+      },
+      {
+       "source": "4-117627-A-25",
+       "event": "0.26+0.28",
+       "speed": 0.55,
+       "at_s": 0.625,
+       "db": -7.0
+      },
+      {
+       "source": "4-218304-A-25",
+       "event": "0.62+0.28",
+       "speed": 0.55,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.00+0.16",
+       "speed": 0.865,
+       "at_s": 0.25,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.70+0.35",
+       "speed": 0.658,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.696,
+       "at_s": 0.385,
+       "db": -11.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.846,
+       "at_s": 0.75,
+       "db": -9.0
+      },
+      {
+       "source": "1-30709-A-23",
+       "event": "0.08+0.90",
+       "speed": 0.865,
+       "at_s": 1.25,
+       "db": -15.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": -3.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.54,
+     "loud_100ms_db": -31.38,
+     "above_10k": 2e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -150.3,
+     "last_1ms_db": -144.0
+    }
+   ]
+  },
+  "slow_yours": {
+   "cut_s": 3.0,
+   "loud_100ms_db": -27.38,
+   "side": "yours",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 61.7,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "3-112557-A-23",
+       "event": "2.56+0.36",
+       "speed": 0.892,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-112557-A-23",
+       "event": "3.32+0.26",
+       "speed": 0.854,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.35,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 0,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -12.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.825,
+       "at_s": 0.625,
+       "db": -5.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.53+0.12",
+       "speed": 0.815,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "5-233312-A-28",
+       "event": "3.24+1.10",
+       "speed": 0.815,
+       "at_s": 1.0,
+       "db": -11.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.05+0.32",
+       "speed": 0.679,
+       "at_s": 1.5,
+       "db": -14.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.718,
+       "at_s": 1.51,
+       "db": -23.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+1.55",
+       "speed": 0.854,
+       "at_s": 1.75,
+       "db": -16.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -19.17,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00015,
+     "above_20k": 0.0,
+     "first_1ms_db": -157.6,
+     "last_1ms_db": -132.4
+    },
+    {
+     "k": 1,
+     "at_s": 64.77,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "3-112557-A-23",
+       "event": "3.32+0.26",
+       "speed": 0.92,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-166125-A-23",
+       "event": "1.44+0.48",
+       "speed": 0.88,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.35,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -12.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "2.16+0.22",
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -5.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.29+0.16",
+       "speed": 0.84,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "5-236288-A-28",
+       "event": "1.88+0.66",
+       "speed": 0.84,
+       "at_s": 1.0,
+       "db": -11.0
+      },
+      {
+       "source": "1-260640-A-2",
+       "event": "0.30+0.33",
+       "speed": 0.7,
+       "at_s": 1.5,
+       "db": -14.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.74,
+       "at_s": 1.51,
+       "db": -23.0
+      },
+      {
+       "source": "1-30709-A-23",
+       "event": "0.08+0.90",
+       "speed": 0.88,
+       "at_s": 1.75,
+       "db": -16.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -17.87,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.00011,
+     "above_20k": 0.0,
+     "first_1ms_db": -104.9,
+     "last_1ms_db": -180.4
+    },
+    {
+     "k": 2,
+     "at_s": 67.84,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "3-166125-A-23",
+       "event": "1.44+0.48",
+       "speed": 0.957,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-166125-A-23",
+       "event": "3.26+0.44",
+       "speed": 0.915,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.35,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -12.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "1.50+0.32",
+       "speed": 0.884,
+       "at_s": 0.625,
+       "db": -5.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.67+0.14",
+       "speed": 0.874,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.90+1.00",
+       "speed": 0.874,
+       "at_s": 1.0,
+       "db": -11.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.34",
+       "speed": 0.728,
+       "at_s": 1.5,
+       "db": -14.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.77,
+       "at_s": 1.51,
+       "db": -23.0
+      },
+      {
+       "source": "5-232816-A-23",
+       "event": "0.56+1.40",
+       "speed": 0.915,
+       "at_s": 1.75,
+       "db": -16.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -17.52,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.0002,
+     "above_20k": 0.0,
+     "first_1ms_db": -93.0,
+     "last_1ms_db": -157.1
+    }
+   ]
+  },
+  "slow_theirs": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 70.91,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "3-112557-A-23",
+       "event": "2.56+0.36",
+       "speed": 0.92,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-112557-A-23",
+       "event": "3.32+0.26",
+       "speed": 0.88,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.35,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 0,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -12.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -5.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.53+0.12",
+       "speed": 0.84,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "5-236288-A-28",
+       "event": "1.88+0.66",
+       "speed": 0.86,
+       "at_s": 1.0,
+       "db": -12.0
+      },
+      {
+       "source": "1-30709-A-23",
+       "event": "0.08+0.80",
+       "speed": 0.9,
+       "at_s": 1.375,
+       "db": -15.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -22.51,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00018,
+     "above_20k": 0.0,
+     "first_1ms_db": -162.1,
+     "last_1ms_db": -143.0
+    },
+    {
+     "k": 1,
+     "at_s": 72.98,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "3-112557-A-23",
+       "event": "3.32+0.26",
+       "speed": 0.957,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-166125-A-23",
+       "event": "1.44+0.48",
+       "speed": 0.915,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.35,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -12.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "2.16+0.22",
+       "speed": 0.884,
+       "at_s": 0.625,
+       "db": -5.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.29+0.16",
+       "speed": 0.874,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.90+0.70",
+       "speed": 0.894,
+       "at_s": 1.0,
+       "db": -12.0
+      },
+      {
+       "source": "5-232816-A-23",
+       "event": "0.56+0.80",
+       "speed": 0.936,
+       "at_s": 1.375,
+       "db": -15.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -22.11,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00012,
+     "above_20k": 0.0,
+     "first_1ms_db": -110.4,
+     "last_1ms_db": -139.8
+    },
+    {
+     "k": 2,
+     "at_s": 75.05,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "3-166125-A-23",
+       "event": "1.44+0.48",
+       "speed": 0.865,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-166125-A-23",
+       "event": "3.26+0.44",
+       "speed": 0.827,
+       "at_s": 0.375,
+       "db": -2.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.35,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 0.51,
+       "db": -12.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "1.50+0.32",
+       "speed": 0.799,
+       "at_s": 0.625,
+       "db": -5.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.67+0.14",
+       "speed": 0.79,
+       "at_s": 0.875,
+       "db": -8.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.50+0.70",
+       "speed": 0.808,
+       "at_s": 1.0,
+       "db": -12.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+0.80",
+       "speed": 0.846,
+       "at_s": 1.375,
+       "db": -15.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.57,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.0001,
+     "above_20k": 0.0,
+     "first_1ms_db": -95.7,
+     "last_1ms_db": -131.4
+    }
+   ]
+  },
+  "armour_yours": {
+   "cut_s": 3.0,
+   "loud_100ms_db": -27.38,
+   "side": "yours",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 77.12,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "5-252248-A-34",
+       "event": "0.60+0.30",
+       "speed": 0.5,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 0,
+       "speed": 1.2,
+       "at_s": 0.002,
+       "db": -3.0
+      },
+      {
+       "source": "2-131943-A-38",
+       "event": 1,
+       "speed": 0.66,
+       "at_s": 0.004,
+       "db": -10.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.30",
+       "speed": 0.55,
+       "at_s": 0.008,
+       "db": -9.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 0,
+       "speed": 0.9,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "4-154443-A-24",
+       "event": "0.03+0.12",
+       "speed": 0.892,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.05+0.56",
+       "speed": 0.679,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.718,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "1.50+0.32",
+       "speed": 0.854,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.33+0.12",
+       "speed": 0.834,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "3-151557-B-28",
+       "event": "1.50+1.30",
+       "speed": 0.834,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.776,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "5-232816-A-23",
+       "event": "0.56+1.40",
+       "speed": 0.873,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.5,
+       "at_s": 1.03,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -18.2,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.0002,
+     "above_20k": 0.0,
+     "first_1ms_db": -166.3,
+     "last_1ms_db": -141.1
+    },
+    {
+     "k": 1,
+     "at_s": 80.19,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "2-144031-A-34",
+       "event": "0.24+0.12",
+       "speed": 0.5,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 1,
+       "speed": 1.2,
+       "at_s": 0.002,
+       "db": -3.0
+      },
+      {
+       "source": "2-131943-A-38",
+       "event": 2,
+       "speed": 0.66,
+       "at_s": 0.004,
+       "db": -10.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.30",
+       "speed": 0.55,
+       "at_s": 0.008,
+       "db": -9.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 1,
+       "speed": 0.9,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-A-2",
+       "event": "0.30+0.57",
+       "speed": 0.7,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.74,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.88,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.53+0.12",
+       "speed": 0.86,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "5-233312-A-28",
+       "event": "3.24+1.10",
+       "speed": 0.86,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.8,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+1.50",
+       "speed": 0.9,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.5,
+       "at_s": 1.03,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -19.43,
+     "loud_100ms_db": -27.38,
+     "above_10k": 8e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -160.4,
+     "last_1ms_db": -129.6
+    },
+    {
+     "k": 2,
+     "at_s": 83.26,
+     "dur_s": 3.0,
+     "layers": [
+      {
+       "source": "5-252248-A-34",
+       "event": "0.60+0.30",
+       "speed": 0.5,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 2,
+       "speed": 1.2,
+       "at_s": 0.002,
+       "db": -3.0
+      },
+      {
+       "source": "2-131943-A-38",
+       "event": 3,
+       "speed": 0.66,
+       "at_s": 0.004,
+       "db": -10.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.30",
+       "speed": 0.55,
+       "at_s": 0.008,
+       "db": -9.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 2,
+       "speed": 0.9,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.60",
+       "speed": 0.728,
+       "at_s": 0.25,
+       "db": 0.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.77,
+       "at_s": 0.26,
+       "db": -9.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.915,
+       "at_s": 0.75,
+       "db": -7.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.29+0.16",
+       "speed": 0.894,
+       "at_s": 1.0,
+       "db": -9.0
+      },
+      {
+       "source": "5-236288-A-28",
+       "event": "1.88+0.66",
+       "speed": 0.894,
+       "at_s": 1.125,
+       "db": -13.0
+      },
+      {
+       "source": "2-122763-B-29",
+       "event": "2.16+0.22",
+       "speed": 0.832,
+       "at_s": 1.5,
+       "db": -13.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+1.55",
+       "speed": 0.936,
+       "at_s": 1.875,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.875,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 1.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 1.004,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.5,
+       "at_s": 1.03,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 1.01,
+       "db": -9.0
+      }
+     ],
+     "seconds": 3.0,
+     "peak_db": -17.97,
+     "loud_100ms_db": -27.38,
+     "above_10k": 0.0001,
+     "above_20k": 0.0,
+     "first_1ms_db": -166.3,
+     "last_1ms_db": -133.7
+    }
+   ]
+  },
+  "armour_theirs": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 86.33,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "5-252248-A-34",
+       "event": "0.60+0.30",
+       "speed": 0.5,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 0,
+       "speed": 1.2,
+       "at_s": 0.002,
+       "db": -3.0
+      },
+      {
+       "source": "2-131943-A-38",
+       "event": 1,
+       "speed": 0.66,
+       "at_s": 0.004,
+       "db": -10.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.30",
+       "speed": 0.55,
+       "at_s": 0.008,
+       "db": -9.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 0,
+       "speed": 0.9,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "2-123896-A-24",
+       "event": "0.09+0.20",
+       "speed": 0.92,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-C-2",
+       "event": "0.70+0.36",
+       "speed": 0.7,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "3-119459-A-26",
+       "event": "2.04+0.30",
+       "speed": 0.74,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "2-122763-A-29",
+       "event": "0.14+0.12",
+       "speed": 0.9,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-54961-A-23",
+       "event": "0.62+0.90",
+       "speed": 0.92,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 0,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 3,
+       "speed": 1.5,
+       "at_s": 0.78,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.23,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00011,
+     "above_20k": 0.0,
+     "first_1ms_db": -173.1,
+     "last_1ms_db": -149.3
+    },
+    {
+     "k": 1,
+     "at_s": 88.4,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-144031-A-34",
+       "event": "0.24+0.12",
+       "speed": 0.5,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 1,
+       "speed": 1.2,
+       "at_s": 0.002,
+       "db": -3.0
+      },
+      {
+       "source": "2-131943-A-38",
+       "event": 2,
+       "speed": 0.66,
+       "at_s": 0.004,
+       "db": -10.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.30",
+       "speed": 0.55,
+       "at_s": 0.008,
+       "db": -9.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 1,
+       "speed": 0.9,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "3-146873-A-24",
+       "event": "0.11+0.18",
+       "speed": 0.957,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "1-260640-B-2",
+       "event": "1.66+0.38",
+       "speed": 0.728,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "5-263775-B-26",
+       "event": "0.86+0.38",
+       "speed": 0.77,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "5-243635-A-29",
+       "event": "1.36+0.22",
+       "speed": 0.936,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-54962-A-23",
+       "event": "0.10+0.90",
+       "speed": 0.957,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 1,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-B-22",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 4,
+       "speed": 1.5,
+       "at_s": 0.78,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.52,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00012,
+     "above_20k": 0.0,
+     "first_1ms_db": -172.9,
+     "last_1ms_db": -162.4
+    },
+    {
+     "k": 2,
+     "at_s": 90.47,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "5-252248-A-34",
+       "event": "0.60+0.30",
+       "speed": 0.5,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 2,
+       "speed": 1.2,
+       "at_s": 0.002,
+       "db": -3.0
+      },
+      {
+       "source": "2-131943-A-38",
+       "event": 3,
+       "speed": 0.66,
+       "at_s": 0.004,
+       "db": -10.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.30",
+       "speed": 0.55,
+       "at_s": 0.008,
+       "db": -9.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 2,
+       "speed": 0.9,
+       "at_s": 0.004,
+       "db": -4.0
+      },
+      {
+       "source": "3-125418-A-24",
+       "event": "0.00+0.16",
+       "speed": 0.865,
+       "at_s": 0.125,
+       "db": -3.0
+      },
+      {
+       "source": "3-233151-A-2",
+       "event": "0.70+0.35",
+       "speed": 0.658,
+       "at_s": 0.25,
+       "db": -2.0
+      },
+      {
+       "source": "4-167571-A-26",
+       "event": "0.10+0.45",
+       "speed": 0.696,
+       "at_s": 0.26,
+       "db": -11.0
+      },
+      {
+       "source": "4-210593-A-29",
+       "event": "2.56+0.22",
+       "speed": 0.846,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "1-30709-A-23",
+       "event": "0.08+0.90",
+       "speed": 0.865,
+       "at_s": 1.125,
+       "db": -15.0
+      },
+      {
+       "source": "1-155858-B-25",
+       "event": 2,
+       "speed": 0.85,
+       "at_s": 0.625,
+       "db": -9.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.25,
+       "at_s": 0.75,
+       "db": 0.0
+      },
+      {
+       "source": "2-76408-C-22",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.754,
+       "db": -3.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.5,
+       "at_s": 0.78,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.0,
+       "at_s": 0.76,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -19.63,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00018,
+     "above_20k": 0.0,
+     "first_1ms_db": -169.0,
+     "last_1ms_db": -147.5
+    }
+   ]
+  },
+  "skull": {
+   "cut_s": 0.75,
+   "loud_100ms_db": -34.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 92.54,
+     "dur_s": 0.75,
+     "layers": [
+      {
+       "source": "4-181563-A-12",
+       "event": 3,
+       "speed": 0.62,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 5,
+       "speed": 0.8,
+       "at_s": 0.014,
+       "db": -3.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.12+0.07",
+       "speed": 0.36,
+       "at_s": 0.004,
+       "db": -1.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 2,
+       "speed": 0.66,
+       "at_s": 0.008,
+       "db": -4.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 0,
+       "speed": 0.7,
+       "at_s": 0.0,
+       "db": -6.0
+      }
+     ],
+     "seconds": 0.75,
+     "peak_db": -23.96,
+     "loud_100ms_db": -34.38,
+     "above_10k": 4e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -45.3,
+     "last_1ms_db": -171.7
+    },
+    {
+     "k": 1,
+     "at_s": 93.36,
+     "dur_s": 0.75,
+     "layers": [
+      {
+       "source": "4-181563-A-12",
+       "event": 4,
+       "speed": 0.62,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 6,
+       "speed": 0.8,
+       "at_s": 0.014,
+       "db": -3.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.02+0.07",
+       "speed": 0.36,
+       "at_s": 0.004,
+       "db": -1.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 3,
+       "speed": 0.66,
+       "at_s": 0.008,
+       "db": -4.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 1,
+       "speed": 0.7,
+       "at_s": 0.0,
+       "db": -6.0
+      }
+     ],
+     "seconds": 0.75,
+     "peak_db": -24.04,
+     "loud_100ms_db": -34.38,
+     "above_10k": 0.00098,
+     "above_20k": 0.0,
+     "first_1ms_db": -48.1,
+     "last_1ms_db": -171.8
+    },
+    {
+     "k": 2,
+     "at_s": 94.18,
+     "dur_s": 0.75,
+     "layers": [
+      {
+       "source": "4-181563-A-12",
+       "event": 5,
+       "speed": 0.62,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "4-181563-A-12",
+       "event": 7,
+       "speed": 0.8,
+       "at_s": 0.014,
+       "db": -3.0
+      },
+      {
+       "source": "3-203371-A-39",
+       "event": "0.07+0.07",
+       "speed": 0.36,
+       "at_s": 0.004,
+       "db": -1.0
+      },
+      {
+       "source": "5-204114-A-29",
+       "event": 4,
+       "speed": 0.66,
+       "at_s": 0.008,
+       "db": -4.0
+      },
+      {
+       "source": "1-103999-A-30",
+       "event": 2,
+       "speed": 0.7,
+       "at_s": 0.0,
+       "db": -6.0
+      }
+     ],
+     "seconds": 0.75,
+     "peak_db": -23.91,
+     "loud_100ms_db": -34.38,
+     "above_10k": 3e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -40.2,
+     "last_1ms_db": -164.4
+    }
+   ]
+  },
+  "animal_canine": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 95.0,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-117271-A-0",
+       "event": 1,
+       "speed": 1.28,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 4,
+       "speed": 1.36,
+       "at_s": 0.25,
+       "db": -4.0
+      },
+      {
+       "source": "3-146964-A-5",
+       "event": "0.40+1.10",
+       "speed": 0.82,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.4,
+       "at_s": 0.5,
+       "db": -4.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 0,
+       "speed": 1.1,
+       "at_s": 0.51,
+       "db": -10.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "2.42+1.00",
+       "speed": 1.0,
+       "at_s": 0.625,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.56,
+     "loud_100ms_db": -31.38,
+     "above_10k": 2e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -25.3,
+     "last_1ms_db": -172.8
+    },
+    {
+     "k": 1,
+     "at_s": 97.07,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-117271-A-0",
+       "event": 2,
+       "speed": 1.28,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 5,
+       "speed": 1.36,
+       "at_s": 0.25,
+       "db": -4.0
+      },
+      {
+       "source": "3-146964-A-5",
+       "event": "0.90+1.10",
+       "speed": 0.82,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.4,
+       "at_s": 0.5,
+       "db": -4.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 1,
+       "speed": 1.1,
+       "at_s": 0.51,
+       "db": -10.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "2.72+1.00",
+       "speed": 1.0,
+       "at_s": 0.625,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -22.18,
+     "loud_100ms_db": -31.38,
+     "above_10k": 3e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -23.5,
+     "last_1ms_db": -159.1
+    },
+    {
+     "k": 2,
+     "at_s": 99.14,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "2-117271-A-0",
+       "event": 3,
+       "speed": 1.28,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-117271-A-0",
+       "event": 6,
+       "speed": 1.36,
+       "at_s": 0.25,
+       "db": -4.0
+      },
+      {
+       "source": "3-146964-A-5",
+       "event": "1.40+1.10",
+       "speed": 0.82,
+       "at_s": 0.5,
+       "db": -7.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.4,
+       "at_s": 0.5,
+       "db": -4.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 1.1,
+       "at_s": 0.51,
+       "db": -10.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "3.02+1.00",
+       "speed": 1.0,
+       "at_s": 0.625,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.8,
+     "loud_100ms_db": -31.38,
+     "above_10k": 6e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -23.8,
+     "last_1ms_db": -169.1
+    }
+   ]
+  },
+  "animal_big": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 101.21,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "5-194899-B-3",
+       "event": "0.40+0.90",
+       "speed": 0.66,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 0,
+       "speed": 0.55,
+       "at_s": 0.625,
+       "db": -1.0
+      },
+      {
+       "source": "4-132383-B-2",
+       "event": "1.28+0.26",
+       "speed": 0.58,
+       "at_s": 0.875,
+       "db": -7.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.02+1.20",
+       "speed": 0.6,
+       "at_s": 0.625,
+       "db": -8.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -21.89,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.0,
+     "above_20k": 0.0,
+     "first_1ms_db": -153.4,
+     "last_1ms_db": -131.1
+    },
+    {
+     "k": 1,
+     "at_s": 103.28,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "5-194899-B-3",
+       "event": "1.44+0.90",
+       "speed": 0.66,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 1,
+       "speed": 0.55,
+       "at_s": 0.625,
+       "db": -1.0
+      },
+      {
+       "source": "4-132383-B-2",
+       "event": "1.28+0.26",
+       "speed": 0.58,
+       "at_s": 0.875,
+       "db": -7.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.42+1.20",
+       "speed": 0.6,
+       "at_s": 0.625,
+       "db": -8.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -22.33,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.0,
+     "above_20k": 0.0,
+     "first_1ms_db": -167.7,
+     "last_1ms_db": -135.3
+    },
+    {
+     "k": 2,
+     "at_s": 105.35,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "5-194899-C-3",
+       "event": "0.84+0.90",
+       "speed": 0.66,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "2-133889-A-30",
+       "event": 2,
+       "speed": 0.55,
+       "at_s": 0.625,
+       "db": -1.0
+      },
+      {
+       "source": "4-132383-B-2",
+       "event": "1.28+0.26",
+       "speed": 0.58,
+       "at_s": 0.875,
+       "db": -7.0
+      },
+      {
+       "source": "5-261464-A-23",
+       "event": "0.82+1.20",
+       "speed": 0.6,
+       "at_s": 0.625,
+       "db": -8.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -22.22,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.0,
+     "above_20k": 0.0,
+     "first_1ms_db": -164.5,
+     "last_1ms_db": -131.0
+    }
+   ]
+  },
+  "animal_cat": {
+   "cut_s": 2.0,
+   "loud_100ms_db": -31.38,
+   "side": "theirs",
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 107.42,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "4-133047-B-5",
+       "event": "2.42+0.72",
+       "speed": 0.64,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.40",
+       "speed": 0.55,
+       "at_s": 0.25,
+       "db": -6.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 0,
+       "speed": 1.2,
+       "at_s": 0.625,
+       "db": -3.0
+      },
+      {
+       "source": "3-146964-A-5",
+       "event": "1.60+0.90",
+       "speed": 0.7,
+       "at_s": 0.75,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -23.19,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.0,
+     "above_20k": 0.0,
+     "first_1ms_db": -169.8,
+     "last_1ms_db": -164.6
+    },
+    {
+     "k": 1,
+     "at_s": 109.49,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "4-133047-C-5",
+       "event": "1.40+0.90",
+       "speed": 0.64,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.40",
+       "speed": 0.55,
+       "at_s": 0.25,
+       "db": -6.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 1.2,
+       "at_s": 0.625,
+       "db": -3.0
+      },
+      {
+       "source": "3-146964-A-5",
+       "event": "1.90+0.90",
+       "speed": 0.7,
+       "at_s": 0.75,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -23.81,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.0,
+     "above_20k": 0.0,
+     "first_1ms_db": -147.8,
+     "last_1ms_db": -153.7
+    },
+    {
+     "k": 2,
+     "at_s": 111.56,
+     "dur_s": 2.0,
+     "layers": [
+      {
+       "source": "4-133047-C-5",
+       "event": "0.14+0.44",
+       "speed": 0.64,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "3-146972-A-5",
+       "event": "0.15+0.40",
+       "speed": 0.55,
+       "at_s": 0.25,
+       "db": -6.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 1.2,
+       "at_s": 0.625,
+       "db": -3.0
+      },
+      {
+       "source": "3-146964-A-5",
+       "event": "2.20+0.90",
+       "speed": 0.7,
+       "at_s": 0.75,
+       "db": -9.0
+      }
+     ],
+     "seconds": 2.0,
+     "peak_db": -23.93,
+     "loud_100ms_db": -31.38,
+     "above_10k": 1e-05,
+     "above_20k": 0.0,
+     "first_1ms_db": -165.7,
+     "last_1ms_db": -156.6
+    }
+   ]
+  }
+ }
+}

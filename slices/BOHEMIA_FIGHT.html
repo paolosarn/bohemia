@@ -4014,7 +4014,28 @@ const SND = {
   /* dead is 'kill'; struck down (not dead, the 20%-else-injury rule) is 'went_down' --
      two different real sounds for two different things that used to share one tone. */
   fall: function (dead, f) { sfx(dead ? 'kill' : 'went_down', f); },
-  flee: function () { tone(220, 0.15, 0.06, 'triangle'); tone(196, 0.3, 0.05, 'triangle'); }
+  flee: function () { tone(220, 0.15, 0.06, 'triangle'); tone(196, 0.3, 0.05, 'triangle'); },
+  /* DEATH SOUNDS THAT TERRIFY (SOUNDS [death sounds that terrify], rule 235(b): 'the killing weapon picks the kind'): how he
+     died, for the shell's death player (engine/bohemia_death_sounds.js). u is the dead man, e the fight's 'dead' note (e.by:
+     who killed him); u._blow is the last blow that landed on him (startAnim keeps it). Nothing here changes the fight. */
+  death: function (u, e) {
+    const f = { side: u.side }, a = e && e.by ? FIGHT.byId(e.by) : null, w = a && a.weapon, b = u._blow || {};
+    if (u.machine || u.ghost) f.victim = u.machine ? 'machine' : 'ghost';
+    if (u.beast || /wolf|hyena|dog|hound|unhold|lindwurm|schrat|kraken|ghoul|nachzehrer|serpent|spider|webknecht/.test(u.kind || '')) f.beast = u.kind || u.beast;
+    if (w) {
+      const c = (w.of && w.of.class) || w.class, nm = String(w.name || w.id || '');
+      f.weapon = c;
+      f.gun = !!(FIGHT.isGun(w) || c === 'bow' || c === 'crossbow' || c === 'firearm');
+      if (c === 'natural') { f.blow = 'natural'; f.by_beast = !!a.beast || /bite|claw|gore|gorge|tail|fang/i.test(nm); }
+      else if (['mace', 'hammer', 'flail'].indexOf(c) >= 0 || (c === 'throwing' && !/axe|knife|javelin|spear/i.test(nm))) f.blow = 'blunt';
+      else f.blow = ['dagger', 'spear', 'polearm', 'bow', 'crossbow', 'firearm'].indexOf(c) >= 0 ? 'piercing' : 'cutting';
+    }
+    if (b.armour > 0 && (b.head ? u.armH : u.armB) <= 0 && (b.head ? u.armHMax : u.armBMax) >= 100) f.armour_gave = true;   /* real plate (mail and up, 100 or more) broke on the blow that killed */
+    if (b.hp > 0 && u.hpMax && b.hp < 0.2 * u.hpMax) f.finish = true;            /* a small blow finished a man already going */
+    if (u.headGone || b.head) f.head = true;
+    (UI.deaths = UI.deaths || []).push(f); if (UI.deaths.length > 80) UI.deaths.shift();   /* what each death told the shell, for the gate */
+    return f;
+  }
 };
 /* ---------------- THE FIGHT DRIVES THE MUSIC (COMBAT [the fight drives the music], rule 126, Paolo 10/23: 'the combat should
    feel a lot better; we have a whole intensity system with the music, wtf bro'; the same hour: 'when it's the enemies' turn
@@ -4040,13 +4061,16 @@ const MUSIC = {
      it with no motion, so the ladder hears every hit on his and every man of theirs who fell, and the ear gets one of each
      sound the skip held, a quarter beat apart (a burst of twelve would be noise, nothing at all a lie) */
   skipped: function (all) {
-    const heard = [], add = function (s) { if (heard.indexOf(s) < 0) heard.push(s); };
+    const heard = [], facts = {}, add = function (s) { if (heard.indexOf(s) < 0) heard.push(s); };
     all.forEach(function (e) {
       if (e.t === 'attack' && e.hit) { const t = FIGHT.byId(e.to), a = FIGHT.byId(e.id); if (!t) return;
         if (t.side === 'you') { MUSIC.hit(t, e); add('hurt'); } else add(e.head ? 'vital' : (e.shot === undefined ? a && FIGHT.isRanged(a.weapon) : e.shot) ? 'hit' : 'melee_hit'); }
-      if (e.t === 'dead' || e.t === 'down') { const v = FIGHT.byId(e.id); if (v && v.side === 'them') MUSIC.kill(v); add(e.t === 'dead' ? 'kill' : 'went_down'); }
+      if (e.t === 'attack' && e.hit) { const t = FIGHT.byId(e.to); if (t) t._blow = { hp: e.hp | 0, armour: e.armour | 0, head: !!e.head }; }
+      if (e.t === 'dead' || e.t === 'down') { const v = FIGHT.byId(e.id); if (v && v.side === 'them') MUSIC.kill(v);
+        if (e.t === 'dead' && v && !facts.kill) facts.kill = SND.death(v, e);   /* rule 235: the death the skip held still says how */
+        add(e.t === 'dead' ? 'kill' : 'went_down'); }
     });
-    heard.forEach(function (s, i) { setTimeout(function () { sfx(s); }, beatMs() / 4 * i); });
+    heard.forEach(function (s, i) { setTimeout(function () { sfx(s, facts[s]); }, beatMs() / 4 * i); });
   }
 };
 
@@ -4590,6 +4614,7 @@ function startAnim(a) {
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     const ranged = e.shot === undefined ? FIGHT.isRanged(u.weapon) : e.shot;   /* the arm that struck: a gun's is always its shot (rule 195) */
+    if (e.hit && t) t._blow = { hp: e.hp | 0, armour: e.armour | 0, head: !!e.head };   /* SND.death reads the blow that killed (rule 235) */
     /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
@@ -4628,7 +4653,7 @@ function startAnim(a) {
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
-    else if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
+    else if (e.t === 'dead') { SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
     if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
     if (e.t === 'fled') { SND.flee(); if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
     if (e.t === 'allflee' && !FIGHT.S.over) routUp();   /* rule 198(h): they are breaking: his lead says it, and the choice is his */

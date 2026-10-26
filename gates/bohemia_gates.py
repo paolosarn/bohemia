@@ -9891,6 +9891,16 @@ GATES = [
      "the alpha and the demo carry the one clock (every effect asked for now starts on the song's next sixteenth of the same audio clock, a DelayNode between the one-shot player and its bus; `at` books a heard moment exactly); "
      "the live demo, phone at 4x and computer: the map (eight taps' ticks at random moments), the fight by hand (a blow, walks) and on AUTO: every effect within 20 ms of a sixteenth on the audio clock; "
      "AS HEARD: an AudioWorklet on the effects bus and on the music, folded on the sixteenth from the booked grid: both within 20 ms (MEASURED BEFORE: the effects -35 ms, smeared). green at registration: computer 7/0, phone 7/0, about 7 minutes", True),
+    ('THE BULLET LANDS', ['node', 'gates/bullet_lands_gate.js'],
+     "SOUNDS gate, 10/24, row [the bullet lands] (rule 120: 'the guns were supposed to be the main way this is gonna be solved'; rule 126(c): every hit, kill and fall is heard): the landings from banked CC0 recordings, the crack cut before the report, "
+     "the levels through the game's own chain within 0.75 dB, the router with what COMBAT can tell it and with ev alone, never the same take twice running, the count-up on the beat, the alpha and the demo carry both engines byte for byte, "
+     "and the demo's road fight on AUTO: its shots real guns, its bullets real landings. Registered 10/26 by SOUNDS (it was an orphan the registry gate named): 14/0, about 4 minutes", True),
+    ('DEATH SOUNDS THAT TERRIFY', ['node', 'gates/death_sounds_gate.js'],
+     "SOUNDS gate, 10/26, row [death sounds that terrify] (rule 235, Paolo 10/26: 'during combat when people die, I wanna hear terrible, terrible noises that are scary, like people are literally dying... many types, like broken bones, the whole enchilada'): "
+     "the alpha and the demo carry the death player byte for byte and the fight's sound line asks it first; the fight's SND.death says how each man died; six kinds (bone, blade, gun, beast, slow, armour) for his man and theirs, three takes each, the skull and three animals; "
+     "his man louder and longer (235(e)); every layer a CC0 recording named in the record; the live demo, phone at 4x and computer: every kind posted plays a take of exactly its voice, the old fall stood down, the head adds the skull, never a take twice running; "
+     "three seeded road fights on AUTO: every death plays the kind its killing blow names, never the same take twice in a row, the old fall never, each on the song's sixteenth within 20 ms; the fight's own SND.death on dead men the gate makes picks the kind. "
+     "green at registration: computer 13/0, phone 13/0, about 6 minutes each", True),
     ('THE VOTE CARDS PLAY', ['node', 'gates/the_vote_cards_play_gate.js'],
      "SOUNDS gate, 10/25, row [the vote cards play] (rule 193, Paolo 10/25: 'I went in the vote tab and tried to play the music and the music wasn't playing'): the alpha, its door, the VOTE tab, a song card's LOOK AT IT (two frames), "
      "phone (an iPhone's user agent, touch) and computer: the first tap plays and says LOADING then PLAYING; the page asks for the phone's playback audio session (the ringer switch); with Web Audio locked the plain <audio> player takes the tap; "
