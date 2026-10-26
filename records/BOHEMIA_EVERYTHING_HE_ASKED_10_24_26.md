@@ -208,3 +208,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 188 | The camp grows: one tent per two men, the shopping cart first then better carriers, followers adding pieces | 260(c) | CAMP, COOK, EYES | 
 | 189 | HP and armour bars over my men's heads (map, camp, town), hidden at 87 percent and above; immediately | 261 | CAMP, RUN, RUN THREE, EYES | 
 | 190 | No tile or ground name (FREEWAY) on the top bar; my men heal while they walk, faster at camp | 262 | UI, CAMP, EYES | 
+| 191 | The man walking at the front of my party on the map is my main character, not a default body | 263(a) | RUN, EYES | 
+| 192 | Before the game starts I can customise my main guy, with the barber's UI | 263(b) | RUN THREE, PORTRAIT, EYES | 
+| 193 | Research Battle Brothers' healing and repair times; our day is denser (one of ours is three or four of theirs), so heal faster or camp easily | 264 | TUNING, CAMP, EYES | 
