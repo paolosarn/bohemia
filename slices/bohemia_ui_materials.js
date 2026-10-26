@@ -1913,7 +1913,7 @@
   /* ---- THE SHELL: the fight's own word home carries who it laid up; kept for the map, which hears only won or lost ---- */
   if (TEN_PAGE === 'shell') window.addEventListener('message', function (ev) {
     var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_FIGHT_OVER') return;
-    try { window.__BM_FIGHT_OVER = { at: Date.now(), result: d.result, rounds: d.rounds | 0, drops: Array.isArray(d.drops) ? d.drops.slice(0, 8) : null,
+    try { window.__BM_FIGHT_OVER = { at: Date.now(), result: d.result, wipe: !!d.wipe, rounds: d.rounds | 0, drops: Array.isArray(d.drops) ? d.drops.slice(0, 8) : null,
       crew: (d.crew || []).map(function (c) { return { name: c.name, main: !!c.main, dead: !!c.dead, down: !!c.down, days: c.laidUpDays | 0, injury: c.injury ? c.injury.name : null }; }) }; } catch (e) {}
   });
 
@@ -2132,11 +2132,16 @@
       if (cl && l) say({ id: 'pay:' + job.id, kind: 'pay', who: cl, line: fill(l.line, { pay: job.pay }), tag: '+' + job.pay, prio: 1, ttl: l.ttl || 45 });
       var f1 = L('first_pay'); if (f1 && sec) say({ id: 'first_pay', kind: 'teach', once: true, who: sec, line: f1.line, prio: 1, ttl: f1.ttl || 90 });
     }
+    /* RUN 10/26 ([eyes: the held talk], rule 143(d), Paolo 10/24: 'people died I guess but they were still speaking'): after a
+       wipe every man the fight left down is held by them (__THE_WIPE_WAKES_IN_TOWN__ takes him, and its message can land after this
+       one), so he says nothing: not his own days, not who died; only a man with YOU speaks, else YOU */
+    var wipe = !!(o.wipe || (snap && snap.wipe));
     if (snap) snap.crew.forEach(function (c) {
       if (c.main) return;
       var lk = lookOfMan(c.name);
-      var other = tenSecond(snap.crew.filter(function (x) { return x && x.dead; }).map(function (x) { return x.name; }).concat([c.name]));   /* the one who says it about him is never him, nor any man the fight killed (RUN 10/25) */
+      var other = tenSecond(snap.crew.filter(function (x) { return x && (x.dead || (wipe && !x.main && (x.down || x.taken))); }).map(function (x) { return x.name; }).concat([c.name]));   /* the one who says it about him is never him, nor any man the fight killed (RUN 10/25), nor one the wipe left down (RUN 10/26) */
       if (c.dead) { var ld = L('dead'); if (ld && other) say({ id: 'dead:' + c.name + ':' + day, kind: 'dead', who: other, line: fill(ld.line, { name: c.name }), tag: 'DEAD', red: true, prio: 1, ttl: 45 }); return; }
+      if (wipe) return;   /* RUN 10/26: held, he is not with YOU to say his days */
       if (c.down && c.days > 0 && lk) {
         var lh = L('hurt'); if (lh) say({ id: 'hurt:' + c.name + ':' + day, kind: 'hurt', who: { name: c.name, look: lk }, line: fill(lh.line, { days: c.days, name: c.name }), tag: 'OUT ' + c.days + ' DAYS', red: true, prio: 2, ttl: 45 });
         var fh = L('first_hurt'); if (fh && other) say({ id: 'first_hurt', kind: 'teach', once: true, who: other, line: fill(fh.line, { name: c.name }), prio: 2, ttl: 90 });

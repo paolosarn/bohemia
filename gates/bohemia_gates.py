@@ -9639,6 +9639,12 @@ GATES = [
      "building), behind a tower (most of him, his outline shows), walked over the freeway (the berm at his feet), whole in the "
      "open at every stop; a party covered; a tap travels; the depth off turns it red; the frame's cost. green at registration, "
      "12/0 a profile, about 3 min", True),
+    ('NO NAME COVERS ANOTHER', ['node', 'gates/no_name_covers_another_gate.js'],
+     "RUN gate, 10/26, row [eyes: names on names] (rule 150; his first votes' 'no two texts overlap'; EYES round 2: 'GYPSUM CAVE' "
+     "over 'FRENCHMAN MOUNTAIN', 'CHURCH' cut by 'BLUE DIAMOND', names cut by the phone): on the phone and his computer, at the far "
+     "stop, 0.141, 0.375, 0.456, the opening zoom and a block 43 px, every text the map draws read off the canvas's own calls: no two "
+     "over each other, none under the phone, the bar or the speed pad, two thirds of the names still standing, and the list off "
+     "turns it red (before: 4, 7, 1 and 2 pairs, five names under the phone). green at registration, 5/0 a profile, about 2 min", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "
