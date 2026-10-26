@@ -130,7 +130,9 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
 - gates/the_camp_is_his_own_gate.js (new): K1 his camp opens on the phone's HEAL; K2 the pitch plays and a tap skips it; K3 a tent
   for each two men at 1, 2, 5, 12; K4 each man's act from his condition, and the hurt man gets up when healed; K5 the cart opens
   the stash; K6 a hired follower's piece is a door to the retinue; K7 the compass: six men still four blocks north-east light the
-  north-east edge red (their AUTO read 0.41, a loss), a lone man south-east a weak green (0.92), dimmer; K8 MAP: the camp at his
+  north-east edge red (their AUTO read 0.41, a loss), a lone man south-east in his own read's colour, dimmer (0.92 and green when
+  built; 0.76 and a faint red after main's fight numbers moved at e198de7b, so the leg was re-aimed to hold the compass, not the
+  balance: his colour from his read, a better read than the six's, dimmer); K8 MAP: the camp at his
   spot on the map, the clock running, the parties walking, CAMP back; K9 the ghosts; K10 nothing threw; K11 the camp fits the
   phone, right and left; K12 all eighteen; K13 THE TURN GLIDES (the glass turned mid-camp gets the other shape, the same pieces
   and men before and after, the glide recorded by the camp itself (a beat over more than one frame), never a dark frame, and

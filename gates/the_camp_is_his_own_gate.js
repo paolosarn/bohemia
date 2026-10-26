@@ -22,7 +22,8 @@
      K5 THE CART IS THE STASH: a real tap on the cart opens it, 'Open the stash' opens the crew screen's stash
      K6 A FOLLOWER ADDS HIS PIECE: with the cook hired his pot stands in the camp, a door to the retinue
      K7 *** THE COMPASS *** a strong party standing still four blocks north-east on the glass lights the north-east edge red (its
-        AUTO read under the turn: a loss); a lone man the other way lights his edge a weak green (a clean win), dimmer (269(b)(d))
+        AUTO read under the turn: a loss); a lone man the other way lights his edge in his own read's colour (a weak green to a
+        clean win), a better read and dimmer (269(b)(d))
      K8 *** MAP: THE CITY GOES ON *** a real tap on MAP: the camp screen steps aside, the camp stands at his spot on the map (a tent
         for each two men), the clock still runs, the valley's parties walk; CAMP (where HEAL stands) brings the camp back, still up
         (257(a)(d), 260(b))
@@ -163,8 +164,12 @@ async function run(profile) {
     await still(4, 0, 1, 'gate:weak');
     const se = await readEdge(3);
     await fr.evaluate(() => { HUNT = null; });
-    ok(P + 'K7 *** THE COMPASS *** six men still four blocks north-east light the north-east edge red (their AUTO read a loss); a lone man the other way lights his edge a weak green, dimmer',
-      !!ne && ne.lit > 0.25 && ne.loss && ne.rgb[0] > ne.rgb[1] && ne.clean < 0.8 && !!se && !se.loss && se.rgb[1] > se.rgb[0] && se.clean >= 0.8 && se.lit < ne.lit,
+    /* the lone man's colour is AUTO's read of him, whatever the fight's balance makes it (green at 0.8 and over, red under: a lone
+       man read 0.92 one round and 0.76 the next when the fight's numbers moved); what the leg holds is the compass: his edge in his
+       read's colour, a better read than the six's, dimmer than theirs */
+    const hue = (c) => !!c && (c.clean >= 0.8 ? (!c.loss && c.rgb[1] > c.rgb[0]) : (c.loss && c.rgb[0] > c.rgb[1]));
+    ok(P + 'K7 *** THE COMPASS *** six men still four blocks north-east light the north-east edge red (their AUTO read a loss); a lone man the other way lights his edge in his own read\'s colour (green to a clean win), dimmer',
+      !!ne && ne.lit > 0.25 && ne.loss && ne.rgb[0] > ne.rgb[1] && ne.clean < 0.8 && !!se && hue(se) && se.clean > ne.clean && se.lit < ne.lit,
       'NE ' + JSON.stringify(ne) + ' SE ' + JSON.stringify(se));
     /* ---- K8 MAP ---- */
     const mapBtn = await sf.evaluate(() => { const b = document.getElementById('camppeek'); if (!b) return null; const r = b.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
