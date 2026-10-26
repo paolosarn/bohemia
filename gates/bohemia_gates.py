@@ -9670,6 +9670,12 @@ GATES = [
      "LEVEL UP and PICK A PERK; pieces off the dead; LOOT ALL (a real tap) into the stash, the counts into the purse once; PICK A "
      "PERK opens the one crew screen, a perk taken, the looted weapon into a man's hand; LEAVE home; the door and the next road "
      "fight hand him the looted weapon. green at registration, 19/0, about 2 min", True),
+    ('EVERY LEVEL WAITS', ['node', 'gates/every_level_waits_gate.js'],
+     "RUN FOUR gate, 10/26, row [every level waits for him] (rule 281, Paolo 10/26: 'my character is level five and I was only able to level them up one time... "
+     "if I sit on it... I still have that many rounds to upgrade'). MEASURED: no level lost on any path (two fights without the crew screen, a reload by CONTINUE between, "
+     "the crew screen between or from the loot screen); the cause was the origin's door handing its levels already spent (the Lone Wolf at four) with nothing saying how "
+     "many waited. HOLDS on the live demo, phone and computer: two levels then one, the crew screen never opened, the tab killed between: the loot screen shows +2 then +3 "
+     "and SPEND YOUR 3 LEVELS; the crew screen shows level 5 with three waiting and three more perk points; three raises by real taps 2, 1, 0. about 8 min", True),
     ('SCRAP IS TAPE', ['node', 'gates/scrap_is_tape_gate.js'],
      "RUN FOUR gate, 10/26, row [scrap is tape] (rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap, why am I not getting more "
      "duct tape for my armour... this run's over'). MEASURED before: the loot counted SCRAP into the purse's resources, which nothing he uses reads; the company's tape "
