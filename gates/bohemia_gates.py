@@ -2788,6 +2788,35 @@ GATES = [
      'too"). On the demo, his computer\'s screen: nine hired at the hall grow every job\'s party; the carts go to the real '
      'PRIMM, named and marked, its name at the glass\'s edge, and arrive; a dropped job costs the client town\'s bar -10; '
      'EYES round 2: the client says paid when it lands; a click on a region place\'s name opens it.', True),
+    ('THE JOB TELLS THE TRUTH, IN BLOOD', ['node', 'gates/the_job_tells_the_truth_gate.js'],
+     'WORLD [the job tells the truth, in blood], rule 208 (PAOLO 10/25: "the stars are red, and the button itself looks bloody '
+     'depending on how difficult the job is... not really accurate, so try to be accurate"). The live demo on the phone profile: '
+     'four crews (the Lone Wolf on day one to twelve men at level six), 200 jobs off the valley\'s boards, each read in the page '
+     '(every fight it brings rolled by the fight\'s own setup and played on AUTO against that crew), then each played again 100 '
+     'times with fresh dice in node on the fight\'s own rules: a one-star job worth 85 in 100 or better, a three-star job under '
+     '65, the blood ranked with the danger and painted as read, the meet card\'s count dealt id for id, the stars moving with '
+     'the crew.', True),
+    ('A JOB\'S TIME COUNTS THE WAY BACK', ['node', 'gates/a_jobs_time_counts_the_way_back_gate.js'],
+     'WORLD [a job\'s time counts the way back], rule 222 (PAOLO 10/26: "you have to include the time it takes to get back, if you '
+     'need to get back"). On the demo: 100 rolled jobs, paid in town there and back, paid away only there, the time the map\'s own '
+     'road and clock counted step by step; his words on the offer and the phone; ROUND TRIP on the board; the danger reads the road '
+     'both ways; one job walked out and home on the clock.', True),
+    ('THE ROSTER COUNTS WHO CAN FIGHT', ['node', 'gates/the_roster_counts_who_can_fight_gate.js'],
+     'WORLD, EYES lines 79 and 114 (BUILD 10/25x: sized to 13 with six able, a wipe; the rescue sent eight at YOU alone; a paid '
+     'job offered again at once). On the demo: the dead, the taken and the laid-up are never counted; the meet card\'s YOU is '
+     'the men the fight stands; a finished job is not on the town\'s board or the phone.', True),
+    ('MOST JOBS FIT THE COMPANY', ['node', 'gates/most_jobs_fit_the_company_gate.js'],
+     'WORLD [most jobs fit the company], rule 192: Battle Brothers\' contract math on his strength, the win rate per skull held '
+     'on the live fight at day 1, 20, 50, 90.', True),
+    ('THE TRIP BEFORE THE YES', ['node', 'gates/the_trip_before_the_yes_gate.js'],
+     'WORLD [a job says how far], rule 186(c): every job offered says the trip before he takes it, and the trip shown is the '
+     'trip walked.', True),
+    ('THE PLACE IN THE DARK', ['node', 'gates/the_place_in_the_dark_gate.js'],
+     'WORLD [eyes: the place in the dark], line 56: every place a job names opens in the fog and is named at every zoom.', True),
+    ('THE ROSTER SCALES THE ENEMY', ['node', 'gates/the_roster_scales_the_enemy_gate.js'],
+     'WORLD [the roster scales the enemy], rule 164 item 26: a full roster meets a bigger party, and the meet card says why.', True),
+    ('THE REGION HAS ITS CITIES', ['node', 'gates/the_region_has_its_cities_gate.js'],
+     'WORLD [the three sizes of place]: PAHRUMP and BOULDER CITY are the region\'s two cities, drawn and entered.', True),
     ('EVERY FIGHT HANDS HIM BACK', ['node', 'gates/every_fight_hands_him_back_gate.js'],
      'VAMILY [fight returns], rule 57 (PAOLO 10/1, having played the demo: "combat didn\'t end so I couldn\'t '
      'get back into the overworld"). REPRODUCED: a road fight (the toll crew) ran 60 s of SHOOT and 60 s of '

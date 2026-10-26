@@ -138,6 +138,8 @@
       try { window.dispatchEvent(new CustomEvent('bohemia-phone-route', { detail: window.BOH_PHONE_ROUTE })); } catch (e) {}
       SIG = ''; paint();
     });
+    /* WORLD [the job tells the truth, in blood] (rule 208(c)): the card wears the job's played danger, red stars and Crashbox blood */
+    try { if (window.BohemiaJobDanger) BohemiaJobDanger.bleed(d, a, a.place); } catch (e) {}
     return d;
   }
   /* ==== YOUR JOBS, AND A PLAIN WAY TO DROP ONE (UI [the PC playtest: the UI's part] (5), rule 164 item 8, Paolo 10/24 on his PC:

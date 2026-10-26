@@ -49,7 +49,7 @@ const done = () => { console.log('\nMEET BEFORE YOU FIGHT GATE: ' + pass + ' pas
   const card = await fr.evaluate(() => { const e = document.getElementById('meetcard'); if (!e) return null;
     return { text: e.textContent, stars: e.querySelectorAll('.bmstar').length || (e.querySelector('.mcstars') ? e.querySelector('.mcstars').textContent.length : 0),
       go: !!e.querySelector('[data-meet="go"]'), back: !!e.querySelector('[data-meet="back"]'), up: window.__MEET_UP, speed: TRAVEL_SPEED, travel: !!(TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length) }; });
-  ok('M2 the card says who (name, how many, stars) and the ground, with ENGAGE and FALL BACK', !!card && /MEN|MAN/.test(card.text) && /THE GROUND/.test(card.text) && card.stars >= 1 && card.stars <= 3 && card.go && card.back,
+  ok('M2 the card says who (name, how many, stars) and the ground, with ENGAGE and FALL BACK', !!card && /\d+ (MEN|MAN|KIDS?|MACHINES?|BEASTS?|DEAD|DEAD ONE|DIRE WOL(F|VES)|HYENAS?)\b/.test(card.text) && /THE GROUND/.test(card.text) && card.stars >= 1 && card.stars <= 3 && card.go && card.back,
      card ? card.text.replace(/\s+/g, ' ').slice(0, 120) + ' / stars ' + card.stars : 'no card');
   ok('M3 the card draws their own men', !!card && card.up && card.up.men >= 1, card && card.up ? card.up.men + ' drawn of ' + card.up.n : '');
   ok('M4 the map is held while it stands', !!card && card.speed === 0 && !card.travel, card ? 'speed ' + card.speed + ', travelling ' + card.travel : '');

@@ -44106,7 +44106,12 @@ function partySkulls(n){ var c = 3; try{ c = crewCount(); }catch(_e){} return n 
    A job's party is now sized FROM its skulls on his company's strength (partyMath 'job', Battle Brothers' contract multiplier), so
    the skulls are what he will meet: measured on the live fight, one star won 90 to 100 at day 1, 20, 50 and 90, two 70 to 80,
    three 50 to 80 (tools/bohemia_world_most_jobs_fit.js). A bigger company meets a bigger party under the same stars. */
+/* WORLD [the job tells the truth, in blood] (rule 208(a)(b), Paolo 10/25: 'that's one of the weak points of Battle Brothers, not
+   really accurate, so try to be accurate'): the skulls only until the job is PLAYED: every fight it brings, rolled by the fight's own
+   math and played on AUTO against his crew as it stands (slices/bohemia_job_danger.js); then its stars are the chance he comes home
+   with nobody down or dead (one star nine in ten or better, three under six). A held job reads what is left of it. */
 function loopJobStars(o){
+  try{ if(window.BohemiaJobDanger && o){ var __s = BohemiaJobDanger.stars(o, o.plays ? null : (o.place || (LOOP.open && LOOP.open.name) || null)); if(__s) return __s; } }catch(_e){}
   return Math.max(1, Math.min(3, (o && (o.skulls | 0)) || 1));
 }
 try{ window.loopJobStars = loopJobStars; }catch(_e){}
@@ -44878,6 +44883,9 @@ function loopPostOpen(){
   try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN',
     place: { name: t.name, tier: t.tier, district: dist || 'commercial', block: [t.x, t.y] },
     batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},
+    /* WORLD [eyes: a done job comes back] (EYES line 114, k24: 'Bring the Salcedo family home' paid, and the same board offered it again
+       at once): every job he finished, so the town's board never offers a deed already done (the phone already skips them) */
+    done: (LOOP.doneIds || []).slice(),
     /* __A_DROPPED_JOB_COSTS_STANDING__ (WORLD, rule 164 item 8): every job settled since the last town (done, part, dropped, failed)
        moves the bar of the town that gave it, the settlement's own [the opinion moves] (slices/bohemia_job_kinds.js) */
     settled: (function(){ try{ return (window.BohemiaJobKinds && BohemiaJobKinds.settledTake) ? BohemiaJobKinds.settledTake() : undefined; }catch(_e2){ return undefined; } })(),
@@ -45160,7 +45168,7 @@ window.addEventListener('message', function(ev){
   /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, TUNING's change 2e): A FINISHED JOB LEAVES THE PHONE. The phone lists
      what a place offers less what he holds; a job done or lost was neither, so it came back on the phone ('5H AGO').
      Done jobs are kept by id and the phone's board leaves them out the way it leaves out held ones. */
-  try{ LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-60); }catch(_e){}
+  try{ LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-500); }catch(_e){}   /* WORLD [eyes: a done job comes back]: for good */
   if(won && job.rescue){ line = rescueDone(job); }   /* __THE_WIPE_WAKES_IN_TOWN__ */
   else if(won){
     try{ BohemiaPurse.credit(purseGet(), 'electricity', job.pay, 'contract: ' + job.title, 'contract:' + job.id + ':' + LOOP.done, loopDay()); }catch(_e){}
@@ -64722,6 +64730,8 @@ function meetShow(msg, skin){
   var gr = meetGround(msg.district || (t && t.district));
   var night = false; try { night = isNight(); } catch (_e) {}
   var stars = meetStars(msg, n), men = meetMen(msg, n), mine = 1; try { mine = crewCount(); } catch (_e) {}
+  /* WORLD (rule 208(e), EYES line 79: the rescue said 'YOU 8' and sent YOU alone): YOU is the men the fight's own door will stand on the board */
+  try { var __dc = window.BohemiaJobDanger && BohemiaJobDanger.doorOpts(null, null).company; if (Array.isArray(__dc) && __dc.length) mine = Math.min(__dc.length, (BohemiaJobDanger.doorOpts(null, null).cap | 0) || __dc.length); } catch (_e) {}
   var M = window.BohemiaMaterials, kit = function (k, s) { try { return M && M.kit ? M.kit(k, s) : ''; } catch (_e) { return ''; } };
   var who = String(msg.label || 'A CREW').toUpperCase();
   var word = ''; try { word = String((msg.party && msg.party.word) || partyWord(n)).toUpperCase(); } catch (_e) {}
@@ -64732,7 +64742,7 @@ function meetShow(msg, skin){
   el.innerHTML = '<div class="mc" style="width:' + W + 'px;padding:16px 16px 14px;box-sizing:border-box;background:#2a2016;border:1px solid #4a3a26;border-radius:2px;' + kit('board', 1) + 'filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))">'
     + '<div class="mch" style="font:400 15px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#f2e4c6;text-shadow:0 1px 0 #000;line-height:1.2">' + esc(who) + '</div>'
     + '<div class="mcs" style="margin-top:3px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#cdb98e;text-shadow:0 1px 0 #000;display:flex;align-items:baseline;gap:6px">'
-    + '<span>' + esc(n + (n === 1 ? ' MAN' : ' MEN') + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span><span style="margin-left:auto;color:#9f8a64">YOU ' + mine + '</span></div>'
+    + '<span>' + esc(n + ' ' + ((msg.party && msg.party.what) || (n === 1 ? 'MAN' : 'MEN')) + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span><span style="margin-left:auto;color:#9f8a64">YOU ' + mine + '</span></div>'   /* WORLD (rule 208(e)): what stands, by kind: '2 DIRE WOLVES', never '4 MEN' */
     /* WORLD [the roster scales the enemy] (rule 164 item 26, his 'if I fill up my roster, the opponents scale'): the card says why there are this many */
     + (__rw ? '<div class="mcwhy" style="margin-top:3px;font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#e2b45a;text-shadow:0 1px 0 #000">' + esc(__rw.line) + '</div>' : '')
     + '<canvas class="mcmen" style="display:block;width:100%;height:84px;margin:8px 0 6px;image-rendering:pixelated"></canvas>'
@@ -64745,6 +64755,8 @@ function meetShow(msg, skin){
     + '</div></div>';
   document.body.appendChild(el);
   try { var sp = el.querySelector('.mcstars'), st = M && M.stars ? M.stars(stars, { gap: 0 }) : null; if (st) sp.appendChild(st); else sp.textContent = new Array(stars + 1).join('★'); } catch (_e) {}
+  /* WORLD [the job tells the truth, in blood] (rule 208): the band in front of him, played on AUTO against his crew: red stars, and ENGAGE bleeds */
+  try { var __JD = window.BohemiaJobDanger, __q = __JD && __JD.readParty(msg); if (__q) __JD.bleed(el.querySelector('[data-meet="go"]'), __q, null, el.querySelector('.mcstars')); } catch (_e) {}
   /* their men, standing, facing him, the map's own models at the glass's own pixels */
   try {
     var cv = el.querySelector('.mcmen'), q = Math.max(1, Math.round(window.devicePixelRatio || 1)), cw = W - 32;
@@ -64818,6 +64830,9 @@ function meetFallBack(msg){
 }
 /* ==== /__MEET_BEFORE_YOU_FIGHT__ ==== */
 function cityHandOver(msg, skin){
+  /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): the party is rolled here, once, by the fight's
+     own math (slices/bohemia_job_danger.js), so the meet card says what stands on the board and the fight deals that band */
+  try{ if(window.BohemiaJobDanger) BohemiaJobDanger.rollInto(msg); }catch(_e){}
   /* __MEET_BEFORE_YOU_FIGHT__: on the map, the card first; ENGAGE comes back through here with __met */
   try {
     if (MEET.on && MEET.walk > 0 && msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.__met && typeof MODE !== 'undefined' && MODE === 'city') {
@@ -71058,7 +71073,7 @@ function applyRestore(st){
   city.x=st.cx; city.y=st.cy;
   /* __THE_SAVE_REMEMBERS__: the map's own game comes back with him */
   if(st.run){ try{ if(Array.isArray(st.run.held)) LOOP.held = st.run.held.filter(function(j){ return j && j.id && j.target; }).slice(0, LOOP_MAX);
-    LOOP.done = st.run.done | 0; LOOP.doneIds = Array.isArray(st.run.doneIds) ? st.run.doneIds.slice(-60) : [];
+    LOOP.done = st.run.done | 0; LOOP.doneIds = Array.isArray(st.run.doneIds) ? st.run.doneIds.slice(-500) : [];
     if(st.run.bill) BILL.last = st.run.bill; window.__BILL_NIGHTS = st.run.nights | 0; LOOP.fighting = null; }catch(_e){} }
   if(typeof st.hzoom==='number'){ HZOOM=st.hzoom; }
   if(typeof RIDING!=='undefined'){ RIDING=!!st.riding; document.getElementById('bikebtn').classList.toggle('on',RIDING); }
@@ -89367,5 +89382,6 @@ window.BOHEMIA_SKIN = (function(){
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
+<script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>

@@ -131,7 +131,9 @@
   /* ---------- PAID, LOST, DONE ---------- */
   function finish(job) {
     var i = LOOP.held.indexOf(job); if (i >= 0) LOOP.held.splice(i, 1);
-    try { LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-60); } catch (e) {}
+    /* WORLD [eyes: a done job comes back] (EYES line 114, k24): a finished job leaves every board FOR GOOD (the board is handed this
+       list), so the cap is a save's size, never sixty (the shelf holds fewer people than that) */
+    try { LOOP.doneIds = (LOOP.doneIds || []).concat([job.id]).slice(-500); } catch (e) {}
   }
   function paid(job, n, line) {
     n = Math.max(0, n | 0);
@@ -945,11 +947,19 @@
       if (job && job.stage === 'wait') ok = false;
       for (var i = 0; i < pts.length && ok; i++) { var L = legOf(sx, sy, pts[i].x, pts[i].y, i === 0 ? mult : 1); if (!L) { ok = false; break; } b += L.blocks; m += L.mins; legs.push(L); sx = pts[i].x; sy = pts[i].y; }
       if (ok) out.job = { exact: true, blocks: b, mins: m, name: (pts[0] && pts[0].name) || null, back: !!BACK[job.plays], plays: job.plays, legs: legs, at: pts.map(function (p) { return [p.x, p.y]; }) };
+      /* WORLD [a job's time counts the way back] (rule 222, Paolo 10/26: 'you have to include the time it takes to get back, if you
+         need to get back'): a job paid in the client's town is there AND back, the map's own road home from the last place it sends him */
+      if (out.job && out.job.back) { var Lb = legOf(sx, sy, door[0], door[1], 1); if (Lb) { out.job.backBlocks = Lb.blocks; out.job.backMins = Lb.mins; } else ok = false; }
+      if (out.job) out.job.total = out.job.mins + (out.job.backMins || 0);
     }
     if (!out.job && real) { var g = gate(real.x, real.y) || [real.x, real.y], L2 = legOf(door[0], door[1], g[0], g[1], mult);
-      if (L2) out.job = { exact: true, blocks: L2.blocks, mins: L2.mins, name: real.name, back: !!BACK[kind], plays: kind }; }
+      if (L2) { out.job = { exact: true, blocks: L2.blocks, mins: L2.mins, name: real.name, back: !!BACK[kind], plays: kind };
+        if (out.job.back) { var L3 = legOf(g[0], g[1], door[0], door[1], 1); out.job.backBlocks = L3 ? L3.blocks : L2.blocks; out.job.backMins = L3 ? L3.mins : L2.mins / mult; }
+        out.job.total = out.job.mins + (out.job.backMins || 0); } }
     if (!out.job) { var rg = kindRange(kind), step = 10.75; try { step = cityStepMins(town.x, town.y) / (pace() || 1); } catch (e) {}
-      out.job = { exact: false, lo: rg[0], hi: rg[1], minsLo: rg[0] * step * 0.5 * mult, minsHi: rg[1] * step * mult, name: pl && pl.name ? String(pl.name) : null, back: !!BACK[kind], plays: kind }; }
+      out.job = { exact: false, lo: rg[0], hi: rg[1], minsLo: rg[0] * step * 0.5 * mult, minsHi: rg[1] * step * mult, name: pl && pl.name ? String(pl.name) : null, back: !!BACK[kind], plays: kind };
+      /* the way back on a range: the same blocks home at a walking pace (the carts do not come back) */
+      out.job.totalLo = out.job.minsLo + (out.job.back ? rg[0] * step * 0.5 : 0); out.job.totalHi = out.job.minsHi + (out.job.back ? rg[1] * step : 0); }
     out.words = tripWords(out); out.short = tripShort(out);
     root.__JOB_TRIPS = root.__JOB_TRIPS || {}; root.__JOB_TRIPS[c.id + '@' + t.name] = out;
     return out;
@@ -962,7 +972,8 @@
     if (T.toTown) w.push(shortTime(T.toTown.mins) + ' TO ' + String(T.place).toUpperCase());
     if (J && J.plays !== 'hold-defend') {
       var to = J.plays === 'patrol' ? ' ROUND THE POSTS' : J.name ? ' TO ' + String(J.name).toUpperCase() : '';
-      w.push((T.toTown ? 'THEN ' : '') + (J.exact ? shortTime(J.mins) : 'UP TO ' + shortTime(J.minsHi)) + to + (J.back ? ' AND BACK' : ''));
+      /* rule 222(b): his words, 'there and back' or 'paid there' */
+      w.push((T.toTown ? 'THEN ' : '') + (J.exact ? shortTime(J.total != null ? J.total : J.mins) : 'UP TO ' + shortTime(J.totalHi != null ? J.totalHi : J.minsHi)) + to + (J.back ? ', THERE AND BACK' : ', PAID THERE'));
     }
     return w.join(', ');   /* draft:true */
   }
@@ -973,11 +984,13 @@
     if (T.toTown) w.push(String(T.place).toUpperCase() + ' is ' + T.toTown.blocks + (T.toTown.blocks === 1 ? ' block' : ' blocks') + ', ' + timeWords(T.toTown.mins) + '.');
     if (J) {
       var to = J.name ? ' to ' + String(J.name).toUpperCase() : (J.plays === 'hunt-kind' ? ' to where they roam' : '');
-      var back = J.back ? ', and back' : '';
+      /* rule 222(a)(b): the time is there and back when he must come back to be paid, his words for which ('About 2 days there and back',
+         'About 1 day, paid there'); the blocks are the way out */
+      var back = J.back ? ' there and back' : ', paid there', tm = J.total != null ? J.total : J.mins;
       if (J.plays === 'hold-defend') w.push('The job is the town itself: you stay.');
-      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + J.blocks + ' blocks round ' + ((J.legs || []).length || 2) + ' posts, ' + timeWords(J.mins) + back + '.');
-      else if (J.exact) w.push((T.toTown ? 'Then ' : 'The trip: ') + J.blocks + (J.blocks === 1 ? ' block' : ' blocks') + to + ', ' + timeWords(J.mins) + back + '.');
-      else w.push((T.toTown ? 'Then ' : 'The trip: ') + J.lo + ' to ' + J.hi + ' blocks' + to + ', ' + timeWords(J.minsLo).replace('about ', '') + ' to ' + timeWords(J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
+      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + J.blocks + ' blocks round ' + ((J.legs || []).length || 2) + ' posts, ' + timeWords(tm) + back + '.');
+      else if (J.exact) w.push((T.toTown ? 'Then ' : 'The trip: ') + J.blocks + (J.blocks === 1 ? ' block' : ' blocks') + to + ', ' + timeWords(tm) + back + '.');
+      else w.push((T.toTown ? 'Then ' : 'The trip: ') + J.lo + ' to ' + J.hi + ' blocks' + to + ', ' + timeWords(J.totalLo != null ? J.totalLo : J.minsLo).replace('about ', '') + ' to ' + timeWords(J.totalHi != null ? J.totalHi : J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
     }
     return w.join(' ');   /* draft:true */
   }
@@ -1385,6 +1398,15 @@
     if (!Array.isArray(hired)) hired = []; if (!Array.isArray(walked)) walked = [];
     var dead = {}; try { (ls('bohemia.fight.after.v1', []) || []).forEach(function (f) { (f && f.rows || []).forEach(function (r) { if (r && r.dead && !r.main && r.name) dead[r.name] = 1; }); }); } catch (e) {}
     var gone = {}; walked.forEach(function (w) { if (w && w.name) gone[w.name] = 1; });
+    /* WORLD [the roster scales the enemy], EYES line 79 (BUILD 10/25x): after three of twelve died and four were laid up it still
+       sized to 13 with six able (a wipe), and the rescue sized to the men the enemy had taken and sent eight at YOU alone. The size
+       is the men who can stand in a fight today: never the dead (the fight's rows and the crew screen's own), never the taken
+       (bohemia.taken.v1, they are with the crew that beat him), never a man laid up until his day (the fight's rows, the bench) */
+    try { (typeof crewDead === 'function' ? crewDead() : []).forEach(function (n) { dead[n] = 1; }); } catch (e) {}
+    try { (typeof crewTaken === 'function' ? crewTaken() : []).forEach(function (n) { gone[n] = 1; }); } catch (e) {}
+    var today = 1; try { today = loopDay() || 1; } catch (e) {}
+    try { (ls('bohemia.fight.after.v1', []) || []).forEach(function (f) { (f && f.rows || []).forEach(function (r) {
+      if (r && !r.main && r.name && r.down && r.injury && today < (f.day | 0) + (r.laidUpDays | 0)) gone[r.name] = 1; }); }); } catch (e) {}
     var same = !(line && line.origin && st.origin && line.origin !== st.origin);
     var men = [], seen = {}, from = 'origin';
     var add = function (m, why) { if (!m) return; var nm = m.name ? String(m.name) : null;
@@ -1394,13 +1416,15 @@
     if (Array.isArray(co) && co.length && same) {
       from = 'crew screen';
       co.forEach(function (m) { add(m, 'line'); });
-      if (line && Array.isArray(line.bench)) line.bench.forEach(function (b) { if (b && b.man) add(b.man, 'bench'); });
+      if (line && Array.isArray(line.bench)) line.bench.forEach(function (b) { if (b && b.man && !(b.until != null && today < (b.until | 0))) add(b.man, 'bench'); });   /* laid up: not until his day */
       if (line && Array.isArray(line.known)) line.known.forEach(function (nm) { if (nm && !seen[nm]) add({ name: nm, level: levelOf[nm] }, 'reserve'); });
     } else {
       /* no crew screen yet: the origin's men, the walked from the back (the bill's own order: hires first, then the company) */
       var oc = (st.company || []).slice(), coGone = walked.filter(function (w) { return w && !w.hired; }).length;
       if (!oc.length) oc = [{}, {}, {}];   /* no picks yet: Battle Brothers' own three */
-      oc.slice(0, Math.max(1, oc.length - coGone)).forEach(function (m) { men.push({ name: m && m.name || null, level: Math.max(1, (m && m.level | 0) || 1), why: 'origin' }); });
+      /* the origin's men have no names to strike: the map's own count (crewCount: less the walked, the taken and the dead) says how many stand */
+      var keepO = oc.length - coGone; try { if (typeof crewCount === 'function') keepO = Math.min(keepO, crewCount() - hired.filter(function (h) { return h && h.name && !dead[h.name] && !gone[h.name]; }).length); } catch (e) {}
+      oc.slice(0, Math.max(1, keepO)).forEach(function (m) { men.push({ name: m && m.name || null, level: Math.max(1, (m && m.level | 0) || 1), why: 'origin' }); });
     }
     hired.forEach(function (h) { if (h && h.name && !seen[h.name]) add(h, 'hired'); });
     return { men: men, from: from };
@@ -1452,7 +1476,75 @@
     return false;
   }
 
-  root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; },
+  /* ---------- THE FIGHTS A JOB BRINGS (WORLD [the job tells the truth, in blood], rule 208(a)): its sure fights as the yes would
+     make them (plan() is make() on a copy), each twist that is a fight at the kind's own rate (never the rolled twist: the stars
+     say the chance, they do not spoil the surprise), and the road's: the trip's hours at the map's measured rate of a crew that
+     comes for him (records/target/bb/job_danger.json road_per_hour). A held job lists what is left of it. Each is
+     { what, why, p, n, faction, at, road }; slices/bohemia_job_danger.js rolls and plays them. ---------- */
+  function twistP(k, id) { var T = (k && k.twists) || []; if (!T.length) return 0; return (k.twist_rate || 0) * T.filter(function (t) { return t === id; }).length / T.length; }
+  function fightsOf(job, opt) {
+    opt = opt || {};
+    if (!job) return null;
+    var k = K(job.plays) || {}, out = [], jm = function () { var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {} return n; };
+    var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, n | 0), faction: faction || 'brigands', at: at || job.target || null }); };
+    var held = !opt.offer, sk = clamp(job.skulls | 0 || 1, 1, 3);
+    switch (job.plays) {
+      case 'haul-caravan': {
+        var rn = Math.max(2, jm() + ((k.ambush_extra | 0) || 0));
+        if (job.raid) add(1, 'raid', job.raid.n, k.ambush_foe, job.raid);
+        (job.ambush || []).forEach(function () { add(1, 'raid', rn, k.ambush_foe, job.target); });
+        if (!job.twistDone) add(held ? (job.twist === 'T18' ? 1 : 0) : twistP(k, 'T18'), 'gate', jm(), 'brigands', job.target);
+        break; }
+      case 'find-place':
+        if (job.stage === 'look' && !job.twistDone) add(held ? (job.twist === 'T22' ? 1 : 0) : twistP(k, 'T22'), 'ambush', jm(), 'brigands', job.ring);
+        break;
+      case 'find-person':
+        if (job.stage === 'look' && job.guarded && !job.guardsDone) add(1, 'guards', jm(), 'brigands', job.ring);
+        break;
+      case 'hunt-kind': {
+        var left = Math.max(0, (job.need | 0) - (job.got | 0)), packs = (job.packs || []).slice(), i = 0, last = packs[packs.length - 1];
+        while (left > 0 && i < 12) { var pk = packs[i] || last; if (!pk) break; add(1, 'pack', pk.n, job.foe || k.foe || 'beasts', pk); left -= Math.max(1, pk.n | 0); i++; }
+        break; }
+      case 'clear-camp':
+        if (job.stage === 'camp' && job.camp) add(1, 'camp', job.camp.men, job.foe, job.camp);
+        break;
+      case 'carry':
+        if (job.thief) add(1, 'thief', job.thief.n, 'brigands', job.thief);
+        else if (job.stage === 'carry') add(held ? (job.thiefAt > 0 ? 1 : 0) : twistP(k, 'stolen'), 'thief', Math.max(2, jm() - 1), 'brigands', job.target);
+        if (job.stage === 'lair' && job.lair) add(1, 'lair', job.lair.n, 'brigands', job.lair);
+        break;
+      case 'hold-defend': {
+        var nw = job.waves | 0 || (k.waves_by_skulls || [1, 2, 3])[sk - 1], n0 = jm();
+        for (var w = (job.wave | 0) + 1; w <= nw; w++) add(1, 'wave', Math.max(2, n0 + (w > 1 ? 1 : 0) - (w === 1 && nw > 1 ? 1 : 0)), job.foe, job.target);
+        break; }
+      case 'recover-return':
+        if (job.stage === 'get' && job.guards > 0) add(1, 'guards', job.guards, job.foe, job.spot);
+        break;
+      case 'patrol': {
+        if (job.band) add(1, 'band', job.band.n, 'brigands', job.band);
+        for (var b = 0; b < (job.bands | 0); b++) add(1, 'band', jm(), 'brigands', (job.posts || [])[b] || job.target);
+        break; }
+      default:   /* today's crew job: the map's loop hands it 'contract:<id>' */
+        if (job.target) add(1, 'crew', jm(), 'brigands', job.target, 'contract:' + job.id);
+    }
+    /* THE ROAD: the trip's hours (the walk to the town from the phone, the job's own legs, and back), at the measured rate */
+    var mins = 0;
+    try {
+      if (opt.offer && opt.place) { var T = trip(opt.offer, opt.place); if (T) { mins += T.toTown ? T.toTown.mins : 0; var J = T.job;   /* rule 222(c): the roads both ways when he must come back */
+        if (J) mins += J.exact ? (J.total != null ? J.total : J.mins) : ((J.totalLo != null ? J.totalLo : J.minsLo) + (J.totalHi != null ? J.totalHi : J.minsHi)) / 2; } }
+      else { var pts = whereTo(job), sx = city.x, sy = city.y; for (var q = 0; q < pts.length; q++) { var L = legOf(sx, sy, pts[q].x, pts[q].y, 1); if (L) mins += L.mins; sx = pts[q].x; sy = pts[q].y; }
+        if (BACK[job.plays] || job.stage === 'back') { var Lb = legOf(sx, sy, job.fromAt ? job.fromAt.x : sx, job.fromAt ? job.fromAt.y : sy, 1); if (Lb) mins += Lb.mins; } }
+    } catch (e) {}
+    var rate = (root.BohemiaJobDanger && BohemiaJobDanger.cfg) ? +BohemiaJobDanger.cfg().road_per_hour || 0 : 0;
+    if (mins > 0 && rate > 0) {
+      var at = job.target || job.fromAt || { x: city.x, y: city.y }, rn2 = 3;
+      try { rn2 = partyMath('roaming', { x: at.x, y: at.y }).count; } catch (e) {}
+      out.push({ what: 'road', why: 'road:' + job.id, p: 1 - Math.exp(-rate * mins / 60), n: rn2, faction: 'brigands', at: at, road: true, hours: mins / 60 });
+    }
+    return out;
+  }
+
+  root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, hits: function () { return HITS.slice(); },
     roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,

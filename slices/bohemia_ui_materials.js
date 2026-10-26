@@ -108,7 +108,7 @@
     const w = document.createElement('span'); w.className = 'bmstars'; w.dataset.stars = n | 0; w.setAttribute('aria-label', (n | 0) + ' star' + ((n | 0) === 1 ? '' : 's'));
     w.style.cssText = 'display:inline;white-space:nowrap;letter-spacing:0';
     for (let i = 0; i < (n | 0); i++) { const s = document.createElement('i'); s.className = 'bmstar'; s.setAttribute('aria-hidden', 'true');
-      s.style.cssText = 'display:inline-block;width:7px;height:7px;margin-left:' + (i ? 1 : (o.gap == null ? 2 : o.gap)) + 'px;background:var(' + (o.ink ? '--bm-mark-star-ink' : '--bm-mark-star') + ') 0 0/7px 7px no-repeat;image-rendering:pixelated;vertical-align:baseline';
+      s.style.cssText = 'display:inline-block;width:7px;height:7px;margin-left:' + (i ? 1 : (o.gap == null ? 2 : o.gap)) + 'px;background:var(' + (o.red ? '--bm-mark-star-red' : o.ink ? '--bm-mark-star-ink' : '--bm-mark-star') + ') 0 0/7px 7px no-repeat;image-rendering:pixelated;vertical-align:baseline';
       w.appendChild(s); }
     return w;
   }
@@ -1429,6 +1429,11 @@
     var R = document.documentElement.style;
     if (!R.getPropertyValue('--bm-mark-star')) { R.setProperty('--bm-mark-star', 'url(' + starCap('#f4cf7c').toDataURL('image/png') + ')');   /* __THE_STARS_SIT_WITH_THE_WORDS__ */
       R.setProperty('--bm-mark-star-ink', 'url(' + starCap('#3e1608').toDataURL('image/png') + ')'); }
+    /* WORLD [the job tells the truth, in blood] (rule 208(b), Paolo 10/25: 'make sure on the job the stars are red'): a job's stars, {red: true} */
+    if (!R.getPropertyValue('--bm-mark-star-red')) {   /* red, with a pixel of bone round it, so it reads on paper, on tin and on the blood */
+      var rc = starCap('#efe6d0'), rg = rc.getContext('2d'), rr = starCap('#b8261b'); rg.globalCompositeOperation = 'source-over';
+      [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(function (d) { rg.drawImage(starCap('#efe6d0'), d[0], d[1]); }); rg.drawImage(rr, 0, 0);
+      R.setProperty('--bm-mark-star-red', 'url(' + rc.toDataURL('image/png') + ')'); }
   }
   function dressRoster() {
     if (!document.getElementById('lines') || !document.getElementById('card') || !document.getElementById('bag')) return false;

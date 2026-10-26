@@ -791,6 +791,9 @@ const FIGHT = (function () {
     const p = opts.party;
     if (Array.isArray(p) && p.length && typeof p[0] === 'object') return p.reduce(function (a, q) { for (let i = 0; i < q.count; i++) a.push(q.kind); return a; }, []);
     if (Array.isArray(p)) return p.slice();
+    /* WORLD [the job tells the truth, in blood] (rule 208(e)): a party the map already rolled through this same partyFor (its
+       band, the ids in order) is dealt as rolled, so the meet card's count and kind are what stands on the board */
+    if (p && Array.isArray(p.band) && p.band.length) return p.band.slice();
     if (p && p.count) return partyFor(p);
     if (opts.band) return opts.band;
     return men && Array.isArray(opts.company) && opts.company.length ? bandFor(men) : R('ours.first_band');
@@ -1008,6 +1011,7 @@ const FIGHT = (function () {
   function roadOpts(opts) {
     const p = opts.party, rf = R('ours.road_factions');
     if (!p || Array.isArray(p) || !p.count || (p.faction || rf.from) !== rf.from || (opts.met || 0) < rf.after_fights) return opts;
+    if (Array.isArray(p.band) && p.band.length) return opts;   /* WORLD (rule 208(e)): the road's faction was rolled with the band; never twice */
     const w = rf.by_act[Math.max(1, Math.min(rf.by_act.length, S.act)) - 1], ks = Object.keys(w);
     let r = rng() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
     const f = ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
@@ -1147,7 +1151,7 @@ const FIGHT = (function () {
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
-    const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);
+    const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
     LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
     const bandUnits = band.map(enemyUnit);
     LOOKS_TAKEN = null;
