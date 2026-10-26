@@ -1,19 +1,19 @@
-/* SCRAP IS TAPE GATE (RUN FOUR [scrap is tape], VAMILY rule 276(a)(d), 10/26/26).
+/* SCRAP IS TAPE GATE (RUN FOUR [scrap is tape], VAMILY rule 276(a)(d), 10/26/26; RE-AIMED for [one roll a fight], rule 284(h), the
+   same day: the two rows stacked to thirteen rolls a road fight on the live demo (40 -> 53) and he said 'you're about to crash my
+   economy... make it so I get one duct tape or something like that as a baseline').
    PAOLO 10/26: 'at the end of the fight it says I won scrap, but what the fuck is scrap, and why am I not getting more duct tape for my
-   armour... I made it to day four and I couldn't find anywhere to get repair items like duct tape... this run's over.'
-   MEASURED BEFORE: the end screen counted SCRAP ('what was left of it', a crate icon); it was posted to the shell as part of a
-   'resources' count credited to the purse, which nothing he uses reads. It never became tape and never mended anything.
-     T1 THE DATA: the loot file has a TAPE count (a roll a wrecked piece, to the company's tape) and no scrap; the drop rules give tape
-        for a wrecked piece and no scrap key at all
-     T2 THE SCREEN, phone and computer: the count reads TAPE with the tape roll beside it; LOOT ALL (a real tap) raises the company's
-        tape (bohemia.supplies.v1, the bar's own) by it, and LEAVE never adds it twice; the word 'scrap' is nowhere on the screen
-     T3 THE DEMO, phone and computer: a road fight won through the map's own door, their armour wrecked: the end screen says TAPE, LOOT
-        ALL raises the company's tape by it, the purse's resources by the rounds alone; nothing on the end screen says scrap
-     T5 THE DEAD CARRY TAPE (RUN FOUR [tape in the loot], rule 271(a)(c)): 400 rolled fights: every man of theirs killed carried
-        ECONOMY's two or three rolls in his kit (records/target/bb/tape_income.json loot_tape.per_kill), so every fight with a kill
-        leaves tape; nothing off the men who ran or a beast; and on the live demo the kits' tape is on the end screen
-     T4 AN OLD SAVE'S SCRAP CONVERTS: a purse entry 'loot: 3 rounds, 5 scrap' from before becomes 5 times ECONOMY's rolls a piece
-        (records/target/bb/tape_income.json salvage.tape_per_scrap, two), once
+   armour'; then 'I'm winning way too much duct tape after each fight'.
+   MEASURED BEFORE 276: the end screen counted SCRAP into a purse count nothing reads. BEFORE 284: 2 rolls a wrecked piece and 2 or 3 a
+   kill, 13 a road fight.
+     T1 THE DATA: the loot's one count is TAPE, no scrap; ECONOMY's per_won_fight is the one (records/target/bb/tape_income.json),
+        per_kill and tape_per_scrap 0, loot.json's fallback 0: a won fight with a dead man and two wrecked pieces leaves exactly the one
+     T5 400 ROLLED FIGHTS on real enemy rows, some run, some beasts: every won fight +1 whatever the kills and the wrecks (rule 284(h))
+     T2 THE SCREEN, phone and computer: '+1 TAPE' with the tape roll; LOOT ALL (a real tap) raises the company's tape (bohemia.supplies
+        .v1, the bar's own) by one, LEAVE never twice; a lost fight and a pulled-out fight leave no tape; no 'scrap' on the screen
+     T3 THE DEMO, phone and computer: a road fight won through the map's own door, their armour wrecked: the end screen says +1 TAPE,
+        LOOT ALL raises the company's tape by one, the purse's resources by the rounds alone; nothing on the end screen says scrap
+     T4 AN OLD SAVE'S SCRAP CONVERTS NOTHING MORE (rule 284(f)): a ledger line 'loot: 3 rounds, 5 scrap' adds no tape; tape already
+        in the save stays
    node gates/scrap_is_tape_gate.js */
 'use strict';
 const path = require('path'), fs = require('fs'), http = require('http');
@@ -27,32 +27,28 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
 (async () => {
   /* ---- T1 ---- */
   const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/loot.json'), 'utf8'));
-  const TI = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/tape_income.json'), 'utf8')), PER = TI.salvage.tape_per_scrap.value;   /* ECONOMY's rolls a wrecked piece */
+  const TI = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/tape_income.json'), 'utf8'));
+  const ONE = TI.loot_tape.per_won_fight && TI.loot_tape.per_won_fight.value;   /* the fight's one roll (rule 284(a)), TUNING's to move */
   const body = { name: 'THUG', dead: true, weapon: { id: 'knife', cls: 'dagger', durability: 32 }, body: { id: 'padded_surcoat', now: 0, max: 50 }, head: { id: 'full_leather_cap', now: 2, max: 45 } };
-  const KIT = TI.loot_tape.per_kill.value;   /* ECONOMY's rolls in a dead man's kit, [least, most] */
-  const f1 = SP.found({ bodies: [body] }, Object.assign({}, L, { tape_income: TI }), () => 0.5);
-  const kit1 = KIT[0] + Math.floor(0.5 * (KIT[1] - KIT[0] + 1));
-  ok('T1 THE DATA: a TAPE count (to the company\'s tape), no scrap; one dead man with two wrecked pieces leaves 2 x ' + PER + ' rolls off the pieces and ' + kit1 + ' out of his kit, no scrap key',
-    !!L.counts.tape && L.counts.tape.to === 'supplies.tape' && !L.counts.scrap && PER > 0 && f1.wreckTape === 2 * PER && f1.kitTape === kit1 && f1.counts.tape === 2 * PER + kit1 && !('scrap' in f1.counts),
-    JSON.stringify(f1.counts) + ', off the pieces ' + f1.wreckTape + ', out of the kit ' + f1.kitTape);
-  /* T5 THE DEAD CARRY TAPE (rule 271(a)(c)): 400 rolled fights, real enemy rows, some run, some beasts */
+  const f1 = SP.found({ bodies: [body, Object.assign({}, body, { name: 'RAIDER' })] }, Object.assign({}, L, { tape_income: TI }), () => 0.5);
+  ok('T1 THE DATA: the one TAPE count, no scrap; ONE roll a won fight (' + ONE + '), none a kill or a wrecked piece; two dead men with four wrecked pieces leave exactly ' + ONE,
+    !!L.counts.tape && L.counts.tape.to === 'supplies.tape' && !L.counts.scrap && ONE === 1 && TI.loot_tape.per_kill.value.every(v => v === 0) && TI.salvage.tape_per_scrap.value === 0
+      && L.counts.tape.per_wrecked_piece === 0 && f1.counts.tape === ONE && !('scrap' in f1.counts),
+    JSON.stringify(f1.counts) + ', per_kill ' + JSON.stringify(TI.loot_tape.per_kill.value) + ', per wrecked piece ' + TI.salvage.tape_per_scrap.value);
+  /* T5 (rule 284(h)): 400 rolled fights, real enemy rows, some run, some beasts */
   {
     const EN = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/enemies.json'), 'utf8')), rows = (EN.rows || EN).filter(e => e && e.id);
-    let fights = 0, withTape = 0, kills = 0, kitSum = 0, bad = 0, noneOffTheLiving = true;
+    let fights = 0, kills = 0, wrecks = 0, bad = 0;
     for (let c = 0; c < 400; c++) {
       let x = (9001 + c * 7919) >>> 0; const r = () => { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 100000) / 100000; };
       const n = 1 + Math.floor(r() * 8), bodies = [];
       for (let i = 0; i < n; i++) { const z = r(); bodies.push({ name: 'M' + i, kind: rows[Math.floor(r() * rows.length)].id, dead: z < 0.8, fled: z >= 0.8, beast: r() < 0.1,
         weapon: { id: 'knife', cls: 'dagger', durability: 32 }, body: { id: 'padded_surcoat', now: Math.floor(r() * 50), max: 50 } }); }
-      const o = SP.found({ bodies }, Object.assign({}, L, { tape_income: TI }), r), k = bodies.filter(b => b.dead && !b.beast).length;
-      fights++; kills += k; kitSum += o.kitTape | 0;
-      if (k > 0 && o.counts.tape > 0) withTape++;
-      if (k === 0 && (o.kitTape | 0) > 0) noneOffTheLiving = false;
-      if ((o.kitTape | 0) < KIT[0] * k || (o.kitTape | 0) > KIT[1] * k || o.counts.tape !== (o.kitTape | 0) + (o.wreckTape | 0)) bad++;
+      const o = SP.found({ bodies }, Object.assign({}, L, { tape_income: TI }), r);
+      fights++; kills += bodies.filter(b => b.dead && !b.beast).length; wrecks += bodies.filter(b => b.dead && !b.beast && b.body.now <= 30).length;
+      if (o.counts.tape !== ONE) bad++;
     }
-    ok('T5 THE DEAD CARRY TAPE: 400 rolled fights: every fight with a man of theirs killed leaves tape, ' + KIT[0] + ' to ' + KIT[1] + ' rolls a kill out of their kits (ECONOMY\'s), a mean of ' + (kitSum / Math.max(1, kills)).toFixed(2) + '; nothing off the men who ran or the beasts',
-      bad === 0 && noneOffTheLiving && kitSum / kills > KIT[0] && kitSum / kills < KIT[1] && withTape > 0,
-      withTape + ' fights with tape, ' + kills + ' kills, ' + kitSum + ' rolls from kits, ' + bad + ' out of the line');
+    ok('T5 400 ROLLED FIGHTS on real enemy rows: every won fight +' + ONE + ' whatever the kills (' + kills + ') and the wrecked pieces (' + wrecks + ')', bad === 0 && kills > 0 && wrecks > 0, bad + ' fights off the one');
   }
 
   /* ---- T2 the screen ---- */
@@ -81,8 +77,12 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
     await p.evaluate(() => BohemiaSpoilsScreen.leave()); await p.waitForTimeout(150);
     const t2 = await p.evaluate(() => JSON.parse(localStorage.getItem('bohemia.supplies.v1')).tape);
     const words = await p.evaluate(() => document.body.innerText + ' ' + [].map.call(document.querySelectorAll('[aria-label],[title]'), e => (e.getAttribute('aria-label') || '') + ' ' + (e.getAttribute('title') || '')).join(' '));
-    ok('T2 ' + name + ': the count reads TAPE with the tape roll beside it; LOOT ALL (a real tap) raises the company\'s tape by it (7 -> ' + t1 + '), LEAVE does not add it twice; no "scrap" on the screen',
-      t0 > 0 && !!c0 && /\+\d+ TAPE/.test(c0.t) && /supply_icons\/tape\.png/.test(c0.icon) && t1 === 7 + t0 && t2 === t1 && !/scrap/i.test(words),
+    /* a lost fight and a pulled-out fight: no tape (rule 284(a)) */
+    const t6 = await p.evaluate(() => { const S = BohemiaSpoilsScreen.state, out = {};
+      ['lost', 'ran'].forEach(k => { const smp = JSON.parse(JSON.stringify(BohemiaSpoilsScreen.SAMPLE)); smp.result = 'lost'; smp.retreat = k === 'ran'; BohemiaSpoilsScreen.open({ fight: smp, seed: 7 }); out[k] = (S.counts || {}).tape | 0; });
+      return out; });
+    ok('T2 ' + name + ': \'+1 TAPE\' with the tape roll; LOOT ALL (a real tap) raises the company\'s tape by one (7 -> ' + t1 + '), LEAVE never twice; a lost and a pulled-out fight leave none; no "scrap" on the screen',
+      t0 === ONE && !!c0 && /\+1 TAPE/.test(c0.t) && /supply_icons\/tape\.png/.test(c0.icon) && t1 === 7 + ONE && t2 === t1 && t6.lost === 0 && t6.ran === 0 && !/scrap/i.test(words),
       c0 ? c0.t.replace(/\s+/g, ' ') + ', ' + c0.icon.replace(/^.*\//, '').replace(/"?\)$/, '') : 'no tape count');
   }
   await b.close(); srv.close();
@@ -117,16 +117,16 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
         await p.waitForTimeout(600);
         const tape1 = await sup(), res1 = await fr.evaluate(() => BohemiaPurse.balance(purseGet(), 'resources'));
         const words = await sf.evaluate(() => document.body.innerText);
-        const k3 = await f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them' && u.dead && !u.beast && !u.ghost).length), kit3 = await sf.evaluate(() => BohemiaSpoilsScreen.state.found.kitTape | 0);
-        ok('T3 ' + name + ': a road fight won, their armour wrecked: the end screen says TAPE (off the pieces and ' + kit3 + ' out of ' + k3 + ' dead men\'s kits), LOOT ALL (a real tap) raises the company\'s tape by it, the purse\'s resources by the rounds alone; no "scrap" on it',
-          (s0.counts.tape | 0) > 0 && /TAPE/.test(s0.t) && k3 > 0 && kit3 >= 2 * k3 && kit3 <= 3 * k3 && tape1 === tape0 + (s0.counts.tape | 0) && res1 - res0 === (s0.counts.rounds | 0) && !/scrap/i.test(words),
+        const k3 = await f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them' && u.dead && !u.beast && !u.ghost).length);
+        ok('T3 ' + name + ': a road fight won (' + k3 + ' dead, their armour wrecked): the end screen says +1 TAPE, LOOT ALL (a real tap) raises the company\'s tape by one, the purse\'s resources by the rounds alone; no "scrap" on it',
+          s0.counts.tape === ONE && /\+1 TAPE/.test(s0.t) && k3 > 1 && tape1 === tape0 + ONE && res1 - res0 === (s0.counts.rounds | 0) && !/scrap/i.test(words),
           JSON.stringify(s0.counts) + '; tape ' + tape0 + ' -> ' + tape1 + ', resources ' + res0 + ' -> ' + res1);
         /* T4: an old save's ledger line, as the shell used to write it */
         const t4 = await p.evaluate(() => { const w = document.getElementById('cityFrame').contentWindow, pu = w.purseGet();
           w.BohemiaPurse.credit(pu, 'resources', 8, 'loot: 3 rounds, 5 scrap', 'loot:old-save-gate:goods', 1);
           const a = JSON.parse(localStorage.getItem('bohemia.supplies.v1')).tape, n1 = spoilsScrapToTape(), b1 = JSON.parse(localStorage.getItem('bohemia.supplies.v1')).tape, n2 = spoilsScrapToTape(), c1 = JSON.parse(localStorage.getItem('bohemia.supplies.v1')).tape;
           return { a, n1, b1, n2, c1 }; });
-        ok('T4 ' + name + ': AN OLD SAVE\'S SCRAP CONVERTS: a ledger line "loot: 3 rounds, 5 scrap" becomes 5 x ' + PER + ' rolls of tape (ECONOMY: \'converts at the same two\'), once', t4.n1 === 5 * PER && t4.b1 === t4.a + 5 * PER && t4.n2 === 0 && t4.c1 === t4.b1, JSON.stringify(t4));
+        ok('T4 ' + name + ': AN OLD SAVE\'S SCRAP CONVERTS NOTHING MORE (rule 284(f)): a ledger line "loot: 3 rounds, 5 scrap" adds no tape; the tape in the save stays', (t4.n1 === 0 || t4.n1 === null) && t4.b1 === t4.a && t4.c1 === t4.a && t4.a > 0, JSON.stringify(t4));
       }
       ok('    ' + name + ': nothing threw on the demo', errs.length === 0, errs.slice(0, 3).join(' | '));
     } catch (e) { ok('T3 ' + name + ' ran to the end [' + String(e && e.message).slice(0, 200) + ']', false); }

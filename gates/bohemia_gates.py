@@ -9667,8 +9667,9 @@ GATES = [
      "duct tape for my armour... this run's over'). MEASURED before: the loot counted SCRAP into the purse's resources, which nothing he uses reads; the company's tape "
      "never rose after a fight. HOLDS: the loot file's count is TAPE, two rolls a wrecked piece (ECONOMY's tape_income.json); the screen on a phone and a computer says "
      "TAPE with the tape roll, LOOT ALL raises the company's tape (bohemia.supplies.v1) by it once, no 'scrap' on the screen; the live demo on both after a road fight "
-     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. AND [tape in the loot] (rule 271(a)(c)): 400 rolled fights, every man "
-     "of theirs killed carried ECONOMY's two or three rolls in his kit, every fight with a kill leaves tape, nothing off the men who ran or a beast. about 4 min", True),
+     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. RE-AIMED 10/26 for [one roll a fight] (rule 284, 'you're about to crash my "
+     "economy... one duct tape as a baseline'): a won fight +1 tape whatever the kills and the wrecks (400 rolled fights), a lost or fled fight 0, '+1 TAPE' on the screen, "
+     "the live demo 40 -> 41, an old save's scrap converts nothing more. about 4 min", True),
     ('MAKE CAMP FROM THE FIGHT', ['node', 'gates/make_camp_from_the_fight_gate.js'],
      "RUN FOUR gate, 10/26, RUN FOUR's half of [make camp from the fight] (rule 267(b), Paolo 10/26: 'after combat ends there should be a button where you go straight "
      "into camp mode to start healing'). MEASURED before: one way out, LEAVE; camp a second trip. HOLDS: MAKE CAMP beside LEAVE on the bottom bar, whole, a thumb's size, "

@@ -51,3 +51,18 @@ THE GATE LEG (271(c), 'the loot shows tape after most fights'): SCRAP IS TAPE T5
 with a kill leaves tape, two to three rolls a kill out of the kits, nothing off the men who ran or the beasts; T3 on the live demo
 reads the kits' share on the end screen. (It is every fight with a kill, not most.)
 [bb] Battle Brothers' 'tools and supplies: can be looted after battle', its page with no amount; ours is ECONOMY's number.
+
+## ONE ROLL OF TAPE A FIGHT, NOT A PILE (row [one roll a fight], rule 284, the same day: this record's two rows stacked)
+Paolo 10/26: 'you're about to crash my economy... now I'm winning way too much duct tape after each fight... make it so I get one duct
+tape or something like that as a baseline.' MEASURED: the two rows above stacked to 13 rolls a road fight on the live demo (40 -> 53),
+most of a stall's stack of 20 at a battery a roll, about 65 a map day at five fights. That was mine to see before shipping and I did
+not weigh it against the stall: two numbers from two rows, each checked alone, never added together against what a roll costs.
+NOW: a won fight leaves exactly ONE roll (records/target/bb/tape_income.json loot_tape.per_won_fight, TUNING's to move, never past
+three without his word), whatever the kills and the wrecked pieces; a lost or fled fight none (the screen never asks the loot of
+one); per_kill [0, 0], salvage.tape_per_scrap 0, loot.json's fallback 0, each with what it was beside it; the old-save scrap
+conversion reads the 0 and converts nothing more; tape already in a save stays. The end screen says '+1 TAPE'.
+THE GATE (SCRAP IS TAPE, re-aimed, 11/0): T1 the data and a won fight with two dead and four wrecked pieces leaves exactly 1; T5 400
+rolled fights on real enemy rows (1,290 kills, 787 wrecked pieces), every one +1; T2 the screen '+1 TAPE', the company's tape 7 -> 8,
+a lost and a pulled-out fight 0; T3 the live demo on a phone and a computer, a road fight won, tape 40 -> 41; T4 an old save's
+'5 scrap' adds nothing. ECONOMY's NO RUN ENDS FOR TAPE goes red (15/6: its model still counts the loot at 0 and has no per_won_fight);
+ECONOMY re-aims it, per the coordinator; I did not touch it.
