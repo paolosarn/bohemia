@@ -15,7 +15,7 @@ FACE BREATHES 15/0; two VOTE cards. The whole block: handoffs/PORTRAIT.md (rule:
 [bb Battle Brothers draws a brother's injuries on his head as layers; ours is each mark a layer of his own render.]
 [analog horror: a man tagged through the ear like livestock, still breathing on the beat.]
 
-UI TWO (ui-two): 10/26 LATEST -- [all the buttons on the phone] piece 2 (no button twice on the map, in towns and at camp) + [the feed is on the phone] SHIPPED 52741663e, BUILT, NOT YET SEEN (BUILD 10/26zx - EVERY BUTTON ON THE PHONE, THE FEED ON ITS FACE).
+UI TWO (ui-two): 10/26 LATEST -- [all the buttons on the phone] piece 3 (every press of the fight on the phone) + [his company's name, typed] SHIPPED cd1000965, BUILT, NOT YET SEEN (BUILD 10/26zzd - EVERY PRESS OF THE FIGHT ON THE PHONE).
 The whole block: handoffs/UI_TWO.md (rule: each lane's block in handoffs/).
 
 UI THREE (ui-three-stats): 10/26 LATEST -- round two (f57cc46f, BUILD 10/26zs): [the stat order] and [stats are bars and arrows]
