@@ -1,0 +1,88 @@
+{
+ "_about": "ECONOMY [tape income against armour wear] (rule 271, Paolo 10/26: 'there's not enough duct tape repaired tool shit like to be able to be bought or like loot in the world so like it feels like when my armor runs out like it's my runs over'). Where TAPE comes from besides the stall (the stall's shelf is records/target/bb/stall_prices.json tape_shelf): the loot (the men he beats carry it), the Scavenger (Battle Brothers' own), and his salvage (scrap broken down at camp). RUN FOUR's loot reads loot_tape, CAMP's salvage reads salvage, CAMP TWO's Scavenger reads scavenger. TUNING owns moving any number (the one table, section R). Measured by tools/bohemia_economy_tape_income.js, held by gates/no_run_ends_for_tape_gate.js. Record: records/BOHEMIA_ECONOMY_DAY_84_NO_RUN_ENDS_FOR_TAPE_10_26_26.md. A 'quote' is its page's own words.",
+ "draft": true,
+ "loot_tape": {
+  "per_kill": {
+   "value": [
+    2,
+    3
+   ],
+   "unit": "rolls in a dead man's kit, rolled even between the two (a mean of 2.5)",
+   "source": "ECONOMY Day 84 s2 (tools/bohemia_economy_tape_income.js)",
+   "why": "rule 271(a), his: 'the men he beats carry tape in their kit... scaled to the kills'. Two or three rolls is what anybody in the crash carries to fix anything. Measured on rolled months at five fights a day with the shelf refilled daily: the loot alone returns about all a new crew's fights break (1.13) and nine tenths of twelve men's; with the home stall at the fair price a new crew has 1.6 to 1.7 times what it breaks and twelve men 1.15 (a camp) to 1.34 (a fortress). At a roll or two (1.5) twelve men had 0.81 at a camp"
+  },
+  "only_the_dead": {
+   "value": true,
+   "source": "records/target/bb/loot.json drop.only_the_dead",
+   "why": "Battle Brothers loots only the men killed by the player; the fled keep their kit"
+  },
+  "nothing_from": {
+   "value": [
+    "beast",
+    "ghost"
+   ],
+   "source": "records/target/bb/loot.json drop.nothing_from",
+   "why": "a dog carries no tape"
+  },
+  "bb": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2014_Tools and Supplies.txt",
+   "quote": "Can be looted after battle.",
+   "why": "Battle Brothers loots tools but its page gives no amount; ours is the number above"
+  }
+ },
+ "scavenger": {
+  "tape_of_destroyed_armour": {
+   "value": [
+    0.005,
+    0.01
+   ],
+   "unit": "rolls for each point of top durability of every enemy piece destroyed in the fight",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1972_The Scavenger (Follower).txt",
+   "quote": "the number of tools recovered is equal to 0.5-1% of maximum durability of destroyed enemy armor"
+  },
+  "cap": {
+   "value": 60,
+   "unit": "rolls a fight at most",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1972_The Scavenger (Follower).txt",
+   "quote": "capped at 60 tools"
+  },
+  "rounds_back": {
+   "value": [
+    0.1,
+    0.2
+   ],
+   "unit": "of the rounds spent",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1972_The Scavenger (Follower).txt",
+   "quote": "Recovers 10-20% of spent ammo."
+  },
+  "why": "rule 270(a): Battle Brothers' Scavenger in our skin (a woman with a shopping bag who walks the battlefield); her numbers are Battle Brothers' own"
+ },
+ "salvage": {
+  "tape_per_scrap": {
+   "value": 2,
+   "unit": "rolls from one scrap broken down at camp",
+   "source": "ECONOMY Day 84 s3",
+   "why": "rule 271(a), his: 'scrap armour he loots can be broken down into tape at camp'. A wrecked piece (records/target/bb/loot.json counts.scrap, one per piece worn under the drop line) gives back two rolls of straps and plate: twice what the Scavenger finds on a 100-point piece (bb_all/1972: up to 1 percent of its top), because he takes it apart by hand and she only picks it up"
+  },
+  "hours": {
+   "value": 1,
+   "unit": "camp hours to break down one scrap",
+   "source": "ECONOMY Day 84 s3",
+   "why": "an hour a piece: camp time costs the road, so salvage is a choice, not a free fountain"
+  }
+ },
+ "the_bar": {
+  "spare": {
+   "value": 0.1,
+   "unit": "share over the tape needed",
+   "source": "VAMILY rule 271(b): 'covers the armour a typical fight breaks, with some to spare'",
+   "why": "'some to spare' read as a tenth: the typical run ends its month with more tape than it started"
+  },
+  "pace": {
+   "value": 5,
+   "unit": "fights a map day",
+   "source": "VAMILY rule 264(f): 'ours runs about 5'; TUNING measured 4.6 game hours between fights (264(g))",
+   "why": "the measure is at the busiest the map allows, so a slower player is only better off (the shelf restocks by the day, the loot by the fight)"
+  }
+ }
+}

@@ -181,9 +181,12 @@
    "why": "at least a stack every visit, whatever a raid or a taken town did to the shelf"
   },
   "restock_days": {
-   "value": 3,
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
-   "quote": "Shops resupply every 3 days"
+   "value": 1,
+   "source": "ECONOMY Day 84 s2 (tools/bohemia_economy_tape_income.js)",
+   "why": "rule 271(b): at the map's pace (about five fights a day, rule 264) a crew of three breaks about 26 rolls a day and twelve men about 77; a shelf that refilled every three days left twelve men short every month at any home (0.63 to 0.81 of what they broke). One of our days holds four to six of Battle Brothers' (the pace math), so its three-day shuffle is under one of ours: the tape shelf refills every map day, as TUNING scaled healing five times for the same reason (264(h))",
+   "bb_value": 3,
+   "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+   "bb_quote": "Shops resupply every 3 days"
   },
   "back_room_mult": {
    "value": 2,

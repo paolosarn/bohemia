@@ -10029,6 +10029,12 @@ GATES = [
      "the job column: the main quest's slot first, two jobs with red stars and time, nothing cut, PLAY to the picked job, X asks once with the board's cost, DROP drops it; the wallpaper the map's own pixels around the crew; "
      "the combat strike seen at every fight's start, the abilities on the phone and off the bar, a phone press presses the fight's own button, END TURN AUTO RETREAT on the bar, the apps back the moment it is won; "
      "SETTINGS carries THE PHONE, LEFT mirrors at once with every frame's event, an app moved up takes the big slot; four plants bite. About 8 min", True),
+    ('NO RUN ENDS FOR TAPE', ['node', 'gates/no_run_ends_for_tape_gate.js'],
+     "ECONOMY gate, 10/26, row [tape income against armour wear] (rule 271(b), Paolo 10/26: 'there's not enough duct tape... when my armor runs out like it's my runs over'). "
+     "records/target/bb/tape_income.json every row sourced, every quote read word for word out of the wiki tarball (the Scavenger's 0.5 to 1 percent and 60); the stall's tape shelf at least a stack "
+     "everywhere, refilled every map day, never sold out; ROLLED MONTHS at five fights a day (tools/bohemia_economy_tape_income.js over TUNING's bench of what a fight breaks): A NEW CREW and "
+     "THE BLOCK WATCH have what they break plus a tenth from a camp, a town or a fortress, at the fair price and the loot; a month out of a town is never short half the time or more; the "
+     "Lone Wolf covered from a town or a fortress. Three mutations turn it red (Battle Brothers' three-day shelf, a roll or two in the loot, half a stack in a camp). 1 s", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
