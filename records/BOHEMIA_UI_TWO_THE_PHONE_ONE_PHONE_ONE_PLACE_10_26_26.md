@@ -27,7 +27,9 @@ ONE FUNCTION EVERY SCREEN READS (for RUN, RUN TWO and COMBAT's [... frames aroun
 - `BohemiaPhone.padding()`: the margin a camera frames around (Google's map padding): upright, the band under the phone's top;
   on its side, the band beside it. `BohemiaPhone.openCentre()`: the centre of what is left. [UI TWO's default, his to correct]
 - every frame's `<html>` carries `boh-phone-on`, `boh-phone-left|right` and `--boh-phone-left/top/w/h/gap-r/gap-l/gap-b`.
-- a `bohemia-phone` event fires in every frame the moment the corner flips or the device turns (detail: rect, padding).
+- a `bohemia-phone` event fires in every frame the moment the corner flips or the device turns (detail: rect, padding, side, on,
+  screen); rule 279's one source for the towns: THE PHONE flips the side inside a town and the settlement screen's own page hears
+  it in about 10 ms with the new side and rectangle (`BohemiaPhone.side()` answers there too).
 
 THE FIVE APPS, rendered through the rig (tools/bohemia_ui2_phone_apps.py imports the kit's tin, masks, light and camera;
 three texels a point; slices/phone/): PLAY/PAUSE (amber, the big slot; the clock and the march, travelSpeedSet, the
