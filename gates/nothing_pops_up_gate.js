@@ -114,55 +114,52 @@ const MINUTES = 5;
     say('  the demo is on: ' + reached);
     ok('the city screen is where the demo already is (rule 38c)', reached === 'city');
 
-    const handle = await fr.evaluate(() => {
-      const f = document.getElementById('cityfeed');
-      if (!f) return { there: false };
-      const b = f.getBoundingClientRect();
+    /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the drawn phone on the map (#cityfeed) stepped aside for ONE phone the
+       topmost page draws over every screen (#bohphone in the shell, in his bottom corner). Its home is always open, so the
+       door it must still be is its apps: the FEED app catches a finger, one real touch opens his company's page and the
+       valley's posts newest first, and a tap on its status bar folds it. The old phone's ring and its unread count went with
+       it; the newest post drops over the phone's top on its own (THE PHONE holds that). */
+    const handle = await d.page.evaluate(() => {
+      const f = document.getElementById('bohphone'), a = f && f.querySelector('.app[data-app=feed]');
+      if (!f || !a) return { there: false };
+      const b = a.getBoundingClientRect();
       const mid = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
-      return { there: true, w: Math.round(b.width), h: Math.round(b.height),
-               ring: /\bring\b/.test(f.className),
-               finger: getComputedStyle(f).pointerEvents !== 'none',
-               /* who actually gets the point: the phone, or the map behind it */
-               gets: mid ? (mid.id || mid.tagName) : null,
-               mine: !!(mid && f.contains(mid)) };
+      return { there: true, w: Math.round(f.getBoundingClientRect().width), h: Math.round(f.getBoundingClientRect().height),
+               finger: getComputedStyle(a).pointerEvents !== 'none',
+               gets: mid ? (mid.id || mid.tagName + '.' + mid.className) : null,
+               mine: !!(mid && a.contains(mid)), x: b.x + b.width / 2, y: b.y + b.height / 2 };
     });
     say('  the drawn phone is ' + handle.w + ' x ' + handle.h
-        + ', the point at its middle goes to ' + handle.gets);
+        + ', the point at its FEED app goes to ' + handle.gets);
     ok('the phone he was sent words to is DRAWN on the screen', handle.there && handle.w > 0);
     ok('*** AND IT CATCHES A FINGER, SO IT IS A DOOR AND NOT A PICTURE ***',
        handle.finger === true && handle.mine === true);
-    ok('and it rings, so he knows there is something to read', handle.ring === true);
 
     /* A REAL TOUCH, AT ITS REAL PLACE ON THE GLASS. The harness loses the first touch
        into a fresh frame (measured on the walk gate too), so a lost press is retried
        ONCE before it is called a dead button -- accusing the game of what the ruler
        did is this lane's most expensive recurring mistake. */
-    const feedMid = () => fr.evaluate(() => {
-      const b = document.getElementById('cityfeed').getBoundingClientRect();
-      return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
-    });
-    let m = await feedMid();
-    await d.tapAt(m.x, m.y);
-    await d.page.waitForTimeout(600);
-    let opened = await fr.evaluate(() => !!PHONE_ON);
-    if (!opened) { m = await feedMid(); await d.tapAt(m.x, m.y); await d.page.waitForTimeout(600);
-                   opened = await fr.evaluate(() => !!PHONE_ON); }
-    const after = await fr.evaluate(() => ({ on: !!PHONE_ON, unread: MORNING_UNREAD | 0 }));
-    say('  one touch on the drawn phone: it opened ' + after.on
-        + ', the morning went from ' + lines + ' unread to ' + after.unread);
-    ok('*** ONE TOUCH ON THE DRAWN PHONE OPENS IT *** (his 9/22 ruling, on the glass)',
+    const feedOn = () => d.page.evaluate(() => !!document.querySelector('#bohphone .page.on[data-page=feed]'));
+    if (handle.there) {
+      await d.page.touchscreen.tap(handle.x, handle.y);   /* the shell's own pixels: tapAt adds the city frame's offset */
+      await d.page.waitForTimeout(600);
+      if (!(await feedOn())) { await d.page.touchscreen.tap(handle.x, handle.y); await d.page.waitForTimeout(600); }
+    }
+    const after = await d.page.evaluate(() => ({ on: !!document.querySelector('#bohphone .page.on[data-page=feed]'),
+                                                  posts: document.querySelectorAll('#bohphone .page.on .po').length }));
+    say('  one touch on the phone\'s FEED: it opened ' + after.on + ', ' + after.posts + ' posts on it');
+    ok('*** ONE TOUCH ON THE DRAWN PHONE OPENS IT *** (his 9/22 ruling, on the glass: its FEED app)',
        after.on === true);
-    ok('and opening it marks the morning read, so the ring means something',
-       after.unread === 0);
+    ok('and what he was told is on it, the valley\'s posts', after.posts > 0);
 
-    /* AND IT FOLDS. Its own CLOSE, because the open phone covers the drawn one. */
-    const cb = await fr.evaluate(() => {
-      const c = document.getElementById('phoneclose'); if (!c) return null;
+    /* AND IT FOLDS. A tap on its status bar, the way the phone's pages close. */
+    const cb = await d.page.evaluate(() => {
+      const c = document.querySelector('#bohphone .stat'); if (!c) return null;
       const b = c.getBoundingClientRect();
       return { x: b.x + b.width / 2, y: b.y + b.height / 2, w: Math.round(b.width) };
     });
-    if (cb && cb.w > 0) { await d.tapAt(cb.x, cb.y); await d.page.waitForTimeout(500); }
-    const folded = await fr.evaluate(() => !PHONE_ON);
+    if (cb && cb.w > 0) { await d.page.touchscreen.tap(cb.x, cb.y); await d.page.waitForTimeout(500); }
+    const folded = !(await feedOn());
     ok('and it folds again, so it is not a one-way door', folded === true);
 
     /* *** HE TRAVELS. (RE-AIMED 9/28 BY RUN, rule 38c, [no city walk].) *** The demo opens on

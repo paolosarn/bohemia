@@ -77,8 +77,14 @@ const CHECK = () => {
   let lap = 0; for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) { const a = boxes[i], b = boxes[j];
     if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 0.5 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 0.5) lap++; }
   out.push(['nothing on the bar overlaps', lap === 0, lap + ' overlaps']);
-  const pc = document.getElementById('cityfeedclock'), hr = String(clockStr()).split('·').pop().trim();
-  out.push(['the hour is on the glass once, the phone\'s clock, the game\'s own hour', !!pc && pc.textContent.trim() === hr && pc.getBoundingClientRect().width > 0, pc && pc.textContent + ' vs ' + hr]);
+  /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the old phone (#cityfeed, its #cityfeedclock) stepped aside for ONE phone the topmost
+     page draws over every screen (#bohphone); its clock beside PLAY is the hour, and it is on the phone once, and the phone never
+     says the day (the bar does). The old clock is read only while there is no new phone. */
+  const PD = (() => { try { return window.top.document; } catch (_e) { return document; } })(), np = PD.getElementById('bohphone');
+  const pc = np ? np.querySelector('.home .clk b') : document.getElementById('cityfeedclock'), hr = String(clockStr()).split('·').pop().trim();
+  const phoneTxt = np ? [...np.querySelectorAll('.stat, .home')].map(e => e.textContent).join(' ').replace(/\s+/g, ' ') : '', hours = (phoneTxt.match(/\d{1,2}:\d{2}/g) || []).length;
+  out.push(['the hour is on the glass once, the phone\'s clock, the game\'s own hour', !!pc && pc.textContent.trim() === hr && pc.getBoundingClientRect().width > 0 && (!np || (hours === 1 && !/\bDAY\b/.test(phoneTxt))),
+    pc && pc.textContent + ' vs ' + hr + (np ? ', ' + hours + ' hour(s) on the phone' + (/\bDAY\b/.test(phoneTxt) ? ', DAY on the phone' : '') : '')]);
   return out;
 };
 const FIGHT = () => {

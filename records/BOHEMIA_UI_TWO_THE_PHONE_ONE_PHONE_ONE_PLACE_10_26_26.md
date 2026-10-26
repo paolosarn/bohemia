@@ -35,6 +35,8 @@ app's people; the bar's own CREW door), HEAL (rule 226: a red cross over ONE bar
 over their maxima; a tap makes camp, BREAK CAMP breaks it), FEED (his company's page: its name, one tap to rename, the game's
 one name `BohemiaCompanyName`, and the feed says 'We go by THE DUST LOT now'; the city's posts under it, the handle first,
 no faces, rule 217), RELATIONS (every town, Battle Brothers' nine bands and the number, and the last thing that moved it).
+The hour is on the phone ONCE, the clock beside PLAY (GOING / STOPPED / IN TOWN / RESTING under it); the status bar says where
+he is; the phone never says the day, the bar does (THE DAYS ONCE, rules 121(g), 123: 'How many times ur gonna show how many days?').
 The wallpaper is the map's own pixels around his crew, twice up, on the beat; in a town or at camp the place's own picture.
 The newest post drops over the status bar as a strip of receipt and crawls once (what he did and what the world did always;
 the valley's small talk at most once a minute).

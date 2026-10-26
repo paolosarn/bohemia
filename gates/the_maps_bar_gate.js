@@ -62,8 +62,24 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
      a.six.map(s => s.k + (s.k === 'nights' ? (s.drawn ? '' : ' NOT DRAWN') : (s.pack ? ' (pack)' : ' NOT THE PACK'))).join(' '));
   ok('  different pictures, 10 points each on the old strip; on the bar the pack props 32 (food the can and its bottle, 42 wide), the drawn moon 20 (0 while it waits behind the hold, 151(a))', new Set(a.six.map(s => s.src)).size === a.six.length && a.six.every(s => (a.NEW && s.k === 'nights') ? (s.w === 20 || s.w === 0) : s.w === (a.NEW ? (s.k === 'food' ? 42 : 32) : 10)), a.six.map(s => s.k + ' ' + s.w).join(', '));   /* RE-AIMED 10/26 (UI [the bottle next to the can], rule 240): food is the can and the bottle side by side, 42 wide at the 32 height */
   ok('THE BAR IS CUT CARDBOARD; THE HOUR, THE PLACE AND NOTES ARE RECEIPT; THE SIX ARE ON GLASS', a.mats.bar && a.mats.hour && a.mats.note && a.mats.six, JSON.stringify(a.mats));
-  ok('THE SPEED PAD IS GLASS ON A CARD, the current speed lit amber, square corners', a.mats.pad && a.mats.plates && a.mats.lit && a.radius <= 2, 'radius ' + a.radius);
-  ok('  every plate still a thumb', a.thumbs.length === 5 && a.thumbs.every(t => t[0] >= 44 && t[1] >= 44), JSON.stringify(a.thumbs));
+  /* RE-AIMED 10/26 BY UI TWO (rules 212(a), 212(g), 213): the speed pad stepped off the map; the clock and the speed are the
+     phone's PLAY app (a tap pauses and plays, the last speed is its mark, a hold opens the speeds), drawn by the shell. While the
+     phone is on, the pad's legs read PLAY: a drawn tin, one thumb, its mark a word on its material like every other. */
+  const ph = await d.page.evaluate(() => {
+    const b = document.querySelector('#bohphone .app[data-app=play]'); if (!document.documentElement.classList.contains('boh-phone-on') || !b) return null;
+    const im = b.querySelector('img'), mk = b.querySelector('.mark'), r = b.getBoundingClientRect(), q = mk.getBoundingClientRect();
+    const rg = document.createRange(); rg.selectNodeContents(mk); const t = rg.getBoundingClientRect();
+    return { drawn: !!(im && /phone\/app_(play|pause)\.png/.test(im.src)), w: Math.round(r.width), h: Math.round(r.height), mark: (mk.textContent || '').trim(),
+             word: { k: 'the speed on PLAY', box: [t.x, t.y, t.width, t.height], col: getComputedStyle(mk).color, side: 'text', o: [0, 0] } };
+  });
+  if (ph) {
+    ok('THE SPEED IS THE PHONE\'S PLAY APP (the pad stepped aside, rule 212(g)): a drawn tin with the last speed its mark', ph.drawn && /\d/.test(ph.mark), 'mark ' + ph.mark);
+    ok('  and it is still a thumb', ph.w >= 44 && ph.h >= 44, ph.w + ' x ' + ph.h);
+    a.words = a.words.filter(w => !/speed/.test(w.k)).concat([ph.word]);
+  } else {
+    ok('THE SPEED PAD IS GLASS ON A CARD, the current speed lit amber, square corners', a.mats.pad && a.mats.plates && a.mats.lit && a.radius <= 2, 'radius ' + a.radius);
+    ok('  every plate still a thumb', a.thumbs.length === 5 && a.thumbs.every(t => t[0] >= 44 && t[1] >= 44), JSON.stringify(a.thumbs));
+  }
   /* words on their material, off the glass (the frame's offset added) */
   const png = (await d.page.screenshot()).toString('base64');
   const cr = await d.page.evaluate(async ({ png, words, off }) => {
@@ -71,14 +87,14 @@ const done = () => { console.log('\nTHE MAP\'S BAR: ' + pass + ' ok, ' + fail + 
     const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const g = c.getContext('2d'); g.drawImage(im, 0, 0);
     const sc = im.width / innerWidth, LUM = (r, gg, b) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(gg) + 0.0722 * f(b); };
     const CR = (x, y) => (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05), SUN = q => q.map(v => v + (255 - v) * 0.25);
-    return words.map(w => { const [x, y, ww, hh] = w.box, X = x + off[0], Y = y + off[1];
+    return words.map(w => { const [x, y, ww, hh] = w.box, o = w.o || off, X = x + o[0], Y = y + o[1];
       const bx = w.side === 'text' ? [X + ww + 1, Y + 2, 2, Math.max(2, hh - 4)] :   /* the days once's own read: the ground the word sits on, not the slab's slope beyond it */ w.side === 'right' ? [X + ww - 5, Y + 3, 3, hh - 6] : [X + 3, Y + 3, 4, hh - 6];
       const d = g.getImageData(Math.round(bx[0] * sc), Math.round(bx[1] * sc), Math.max(1, Math.round(bx[2] * sc)), Math.max(1, Math.round(bx[3] * sc))).data, S = [];
       for (let i = 0; i < d.length; i += 4) S.push([d[i], d[i + 1], d[i + 2]]); S.sort((p, q) => LUM(...p) - LUM(...q));
       const t = w.col.match(/\d+/g).slice(0, 3).map(Number), tl = LUM(...t), bg = S[Math.floor(S.length * (tl > 0.3 ? 0.8 : 0.2))];
       return { k: w.k, plain: +CR(tl, LUM(...bg)).toFixed(2), sun: +CR(LUM(...SUN(t)), LUM(...SUN(bg))).toFixed(2) }; });
   }, { png, words: a.words, off: a.off });
-  ok('EVERY WORD PASSES 4.5 TO 1 ON ITS MATERIAL, AND IN THE SUN', cr.length >= 5 && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
+  ok('EVERY WORD PASSES 4.5 TO 1 ON ITS MATERIAL, AND IN THE SUN', cr.length >= (ph ? 4 : 5) && cr.every(c => c.plain >= 4.5 && c.sun >= 4.5), cr.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
   ok('no page error', !(d.errs && d.errs.length), (d.errs || []).slice(0, 2).join(' | '));
   await d.close();
   done();

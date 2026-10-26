@@ -128,10 +128,15 @@ async function measure(d, label) {
     if (ox > 2 && oy > 2) hits.push(a.where + ' ' + (a.id || '') + ' "' + a.text + '" x ' + b.where + ' ' + (b.id || '') + ' "' + b.text + '" (' + Math.round(ox) + 'x' + Math.round(oy) + ')');
   }
   const under = all.filter(t => t.under);
+  /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the old phone (#cityfeed) stepped aside for ONE phone in his bottom corner, which
+     every frame answers as BOH_PHONE_RECT() in its own pixels; the quest line must not reach into that box either */
   const q = await d.fr.evaluate(() => { const q = document.getElementById('qline'), f = document.getElementById('cityfeed');
-    const qr = q.getBoundingClientRect(), fr = f ? f.getBoundingClientRect() : null;
+    const qr = q.getBoundingClientRect(); let fr = f ? f.getBoundingClientRect() : null, on = !!(f && getComputedStyle(f).display !== 'none' && fr.width > 0);
+    let clear = true;
+    try { const pr = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if (pr && pr.on) { fr = pr; on = true;
+      clear = !(qr.width > 0 && Math.min(qr.right, pr.right) - Math.max(qr.left, pr.left) > 0.5 && Math.min(qr.bottom, pr.bottom) - Math.max(qr.top, pr.top) > 0.5); } } catch (_e) {}
     return { qRight: Math.round(qr.right), qLeft: Math.round(qr.left), qLines: Math.round(qr.height), feedLeft: fr ? Math.round(fr.left) : null,
-             feedOn: !!(f && getComputedStyle(f).display !== 'none' && fr.width > 0) }; });
+             feedOn: on, clear: clear }; });
   say(label + ': ' + all.length + ' text boxes, ' + hits.length + ' overlapping, ' + under.length + ' under something'
       + (fighting ? ' (a fight is up)' : '') + '; the quest line runs ' + q.qLeft + '..' + q.qRight + ', the phone starts at ' + q.feedLeft);
   hits.slice(0, 6).forEach(h => say('   OVERLAP ' + h));
@@ -164,8 +169,8 @@ async function measure(d, label) {
       ok(label + ' has text to measure (' + r.n + ')', r.n >= 10);
       ok('*** ' + label + ': NO TWO TEXTS OVERLAP *** (' + r.hits.length + ')', r.hits.length === 0);
       ok(label + ': no text sits under a panel (' + r.under.length + ')', r.under.length === 0 || r.fighting);
-      ok('*** ' + label + ': THE QUEST LINE STOPS BEFORE THE PHONE *** (' + r.q.qRight + ' < ' + r.q.feedLeft + ')',
-         !r.q.feedOn || r.q.qRight <= r.q.feedLeft);
+      ok('*** ' + label + ': THE QUEST LINE STOPS BEFORE THE PHONE *** (' + r.q.qRight + ' < ' + r.q.feedLeft + ', or clear of the phone\'s box: ' + r.q.clear + ')',
+         !r.q.feedOn || r.q.qRight <= r.q.feedLeft || r.q.clear);
       ok(label + ': nothing threw (' + d.errs.length + ')', d.errs.length === 0);
       await d.close();
     } catch (e) {

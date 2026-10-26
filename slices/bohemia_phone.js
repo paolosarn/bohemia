@@ -441,9 +441,9 @@
       +   'background:url(' + BASE + 'ui_kit/glass/c.png) -9px -21px/128px 128px}'
       + '#bohphone .stat{position:absolute;left:0;right:0;top:0;height:12px;z-index:6;display:flex;align-items:center;justify-content:space-between;'
       +   'padding:1px 5px 0;font-size:7px;letter-spacing:.4px;color:#e9dcbc;background:rgba(6,5,4,.62);text-shadow:0 1px 0 #000}'
-      + '#bohphone .stat .wh{max-width:64px;overflow:hidden;white-space:nowrap;text-overflow:clip}'
+      + '#bohphone .stat .wh{max-width:110px;overflow:hidden;white-space:nowrap;text-overflow:clip}'
       + '#bohphone .stat .tl{display:none;height:11px;padding:0 3px;border:0;cursor:pointer;font:6.5px "BohemiaROM",ui-monospace,monospace;letter-spacing:.4px;color:#1f1710;background:#f2c96a}'
-      + '#bohphone.tl .stat .tl{display:block}#bohphone.tl .stat .wh{display:none}'
+      + '#bohphone.tl .stat .tl{display:block}#bohphone.tl .stat .wh{max-width:64px}'
       + '#bohphone .home{position:absolute;left:0;right:0;top:12px;bottom:0;z-index:2}'
       + '#bohphone .app{position:absolute;width:52px;height:56px;padding:0;margin:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;outline:none}'
       + '#bohphone .app img{position:absolute;left:4px;top:0;width:44px;height:47px;image-rendering:auto;pointer-events:none}'
@@ -473,7 +473,7 @@
       + '#bohphone .jc.arm{flex:0 0 50px;background:#e8d6b4!important;color:#5a1408}'
       + '#bohphone .jobs.asking .jc:not(.arm){display:none}'   /* while one asks, it has the column */
       + '#bohphone .jc .dr{flex:0 0 44px;width:44px;height:44px;border:0;cursor:pointer;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#7a1206;' + kit('tin', 0.4) + '}'
-      + '#bohphone .app .mark{position:absolute;right:-3px;bottom:3px;padding:1px 2px 0;font-size:7px;line-height:8px;color:#f6cf74;background:#1c140c;border-radius:1px;pointer-events:none}'
+      + '#bohphone .app .mark{position:absolute;right:-3px;bottom:3px;padding:1px 4px 0 3px;font-size:7px;line-height:8px;color:#f6cf74;background:#1c140c;border-radius:1px;pointer-events:none}'
       + '#bohphone .clk{position:absolute;left:58px;top:71px;width:46px;text-align:left;pointer-events:none;text-shadow:0 1px 0 #000,0 0 4px #000}'
       + '#bohphone .clk b{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:15px;line-height:16px;letter-spacing:.5px;color:#f4e8cc}'
       + '#bohphone .clk i{display:block;font-style:normal;font-size:7px;line-height:9px;color:#e0d2b0;letter-spacing:.4px}'
@@ -563,7 +563,7 @@
     var st = document.createElement('style'); st.id = 'bohphone-css'; st.textContent = CSS(); document.head.appendChild(st);
     var ph = el('div'); ph.id = 'bohphone'; ph.setAttribute('role', 'group'); ph.setAttribute('aria-label', 'your phone');
     ph.innerHTML = '<div class="scr"><canvas class="wall" aria-hidden="true"></canvas><div class="dim"></div>'
-      + '<div class="stat"><span class="t">--:--</span><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button></div>'
+      + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button></div>'
       + '<div class="home"></div>'
       + '<div class="page" data-page=""><div class="ph" role="button" tabindex="0"><i>&lsaquo;</i><span></span></div><div class="pb"></div></div>'
       + '<div class="fight" aria-label="your abilities"><div class="fh"><canvas width="44" height="44"></canvas><b></b></div><div class="ab"></div></div>'
@@ -609,7 +609,7 @@
       }
       home.appendChild(b);
     });
-    var k = el('div', 'clk', '<b>--:--</b><i class="d"></i><i class="g"></i>'); k.setAttribute('aria-hidden', 'true'); home.appendChild(k);
+    var k = el('div', 'clk', '<b>--:--</b><i class="g"></i>');   /* the hour once, here (the bar keeps the day: THE DAYS ONCE, rules 121(g), 123) */ k.setAttribute('aria-hidden', 'true'); home.appendChild(k);
     var jb = el('div', 'jobs'); jb.setAttribute('role', 'list'); jb.setAttribute('aria-label', 'the main quest and the jobs you are on');
     jb.innerHTML = '<div class="mq" role="listitem" aria-label="the main quest\'s place"></div>'; home.appendChild(jb);
     H.homeSig = null; H.jobSig = null;
@@ -618,7 +618,7 @@
   function appPress(a) {
     H.presses++; window.__PHONE_PRESSES = H.presses;
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
-    var scr = H.state.screen;
+    var scr = H.state.screen; try { scr = whichScreen() || scr; } catch (e) {}   /* where he is at the press, not a beat ago (a town just closed is the map) */
     if (a === 'play') { if (L && scr === 'map') { L.play(H.sel); paintHome(true); } return; }
     if (a === 'crew') { if (H.page) pageClose(); if (L && (scr === 'map' || scr === 'town' || scr === 'camp')) L.crew(); return; }
     if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp')) { L.camp(); setTimeout(tick, 60); } return; }
@@ -763,10 +763,10 @@
     var cd = L ? L.condition() : null;
     var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join()].join('|');
     if (!force && sig === H.homeSig) return; H.homeSig = sig;
-    var stT = H.el.querySelector('.stat .t'), stW = H.el.querySelector('.stat .wh');
-    if (s) { stT.textContent = s.clock || '--:--'; stW.textContent = scr === 'camp' ? 'YOUR CAMP' : (s.place || ''); }
+    var stW = H.el.querySelector('.stat .wh');
+    if (s) stW.textContent = scr === 'camp' ? 'YOUR CAMP' : (s.place || '');
     var k = H.el.querySelector('.home .clk');
-    if (k && s) { k.querySelector('b').textContent = s.clock || '--:--'; k.querySelector('.d').textContent = 'DAY ' + (s.day || 1);
+    if (k && s) { k.querySelector('b').textContent = s.clock || '--:--';
       var g = k.querySelector('.g'); g.textContent = scr === 'map' ? (running ? 'GOING' : 'STOPPED') : scr === 'camp' ? 'RESTING' : scr === 'town' ? 'IN TOWN' : ''; g.classList.toggle('go', running && scr === 'map'); }   /* draft:true */
     [].forEach.call(H.el.querySelectorAll('.home .app'), function (b) {
       var a = b.dataset.app, off = false;
