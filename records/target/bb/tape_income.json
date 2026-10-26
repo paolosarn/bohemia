@@ -85,17 +85,17 @@
   "_was": "Day 84 first had salvage at camp, an hour a scrap; his rule 276 (the same hour) made scrap tape straight from the loot, so the hour is gone"
  },
  "the_bar": {
-  "spare": {
-   "value": 0.1,
-   "unit": "share over the tape needed",
-   "source": "VAMILY rule 271(b): 'covers the armour a typical fight breaks, with some to spare'",
-   "why": "'some to spare' read as a tenth: the typical run ends its month with more tape than it started"
-  },
   "pace": {
    "value": 5,
    "unit": "fights a map day",
    "source": "VAMILY rule 264(f): 'ours runs about 5'; TUNING measured 4.6 game hours between fights (264(g))",
    "why": "the measure is at the busiest the map allows, so a slower player is only better off (the shelf restocks by the day, the loot by the fight)"
+  },
+  "tape_share_max": {
+   "value": 0.34,
+   "unit": "of what a new crew's fights pay, spent on tape at the map's pace",
+   "source": "ECONOMY Day 85 s2 (rule 284(g): the bar is the one roll plus the stall plus the smith, against what a fight pays)",
+   "why": "a third: a crew of three that spends a third of its pay keeping its armour up still has the rest for food, hires and gear; measured today a fifth to a quarter. Replaces 271(b)'s 'had 1.1 times what it breaks' (Day 84), which counted loot his 284 took away"
   }
  }
 }

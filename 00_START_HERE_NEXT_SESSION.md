@@ -2991,6 +2991,20 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (ab) -- [the tape bar re-aimed] SHIPPED (rule 284; fired by the
+coordinator's routine trig_01Pw8sNfnuoYSfe1G1okVxAJ; RUN FOUR's one-roll commit first, then this). Record:
+records/BOHEMIA_ECONOMY_DAY_85_THE_TAPE_BILL_ONE_ROLL_A_FIGHT_AND_THE_REST_IS_BOUGHT_10_26_26.md.
+HIS: 'you're about to crash my economy... one duct tape as a baseline'. Day 84's loot (2 to 3 a kill, 2 a scrap) gave 13 rolls a
+road fight: this lane's mistake, owned. THE BILL at five fights a map day, one roll a won fight, the rest bought (shelf 1,
+back room or smith about 2): a new crew 22 to 27 batteries a day (a fifth to a quarter of its 110 pay, +77 to +83 after food);
+twelve men 90 to 125 (70 to 97 percent, -20 camp, -1 town, +15 fortress: NOTE [the tape bill] on TUNING's board, the levers a
+won fight at 35 or two-skull jobs or a roll that mends more); the Lone Wolf 33 to 46 (60 to 85 percent). tools/
+bohemia_economy_tape_income.js re-aimed (loot per won fight, buys what it breaks, the pay, the food); NO RUN ENDS FOR TAPE
+re-aimed (L one roll, S shelf, C smith, N1 a new crew in the black under a third, N2 the under-water ones named on TUNING's
+board, M three mutations); one table R: tape.loot_per_won_fight 1, tape.scrap 0, tape.bill. 271(b) now reads 'the tape he can
+BUY on what his fights pay'. NEXT: the pause (rule 121) resumes; jump list [made here], [the gap that survives], [the pump at
+home]. PENDING Paolo: none.
+
 ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (aa) -- [tape income against armour wear] and [the craftsman's price]
 SHIPPED (rules 271(b), 276, 277(b); fired by the coordinator's routine trig_017BhvZudBpJQKLjLRqhqLxD; the worker restarted once
 mid-row, nothing lost). Record: records/BOHEMIA_ECONOMY_DAY_84_NO_RUN_ENDS_FOR_TAPE_10_26_26.md.

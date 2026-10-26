@@ -12,7 +12,7 @@
    a lost fight breaks the same and loots nothing. The home stall: its shelf (stall_prices.json tape_shelf) bought at the fair
    price every restock, up to the carry cap (stash_rates.json toolRepair.carryCap, Battle Brothers' 150). He starts with his
    origin's THIN tape (origins.json). Short = a fight's mending he could not pay from what he had at the fair price.
-   node tools/bohemia_economy_tape_income.js [--json] [--runs 200] [--per-kill 1,2] [--kill-share 0.8] */
+   node tools/bohemia_economy_tape_income.js [--json] [--runs 200] [--per-won-fight 1] [--per-kill 0,0] [--kill-share 0.8] */
 'use strict';
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
@@ -30,71 +30,93 @@ function load() {
   const bank = J('banks/BOHEMIA_TUNING_THE_CAMP_CLOCK_10_26_26.json').groups, origins = J('records/target/bb/origins.json').origins;
   const tape = id => ((origins.find(o => o.id === id) || {}).supplies || {}).tape.thin;
   const g = k => bank[k].march;
+  const shelfPays = JSON.stringify(J('records/target/BOHEMIA_BOARD_SHELF.json')).match(/"pay":\s*(\d+)/g).map(x => +x.split(':')[1]);
+  const crew = id => ((origins.find(o => o.id === id) || {}).men || []).length;
   return {
+    jobPay: Math.min.apply(null, shelfPays), perManNight: J('records/target/bb/nightly_bill.json').per_man_per_night.value,
     income: J('records/target/bb/tape_income.json'), stall: J('records/target/bb/stall_prices.json'),
     cap: J('records/target/bb/stash_rates.json').toolRepair.carryCap.veteranAndExpert,
     shapes: [
-      { id: 'newcrew', name: 'A NEW CREW (three)', bench: 'crew:2-3', med: g('crew:2-3').tape_median, p90: g('crew:2-3').tape_p90, mean: g('crew:2-3').tape_mean, won: g('crew:2-3').won / g('crew:2-3').fights, foes: [3, 5], dogs: 0, start: tape('newcrew') },
-      { id: 'watch', name: 'THE BLOCK WATCH (twelve)', bench: 'crew:12', med: g('crew:12').tape_median, p90: g('crew:12').tape_p90, mean: g('crew:12').tape_mean, won: g('crew:12').won / g('crew:12').fights, foes: [6, 10], dogs: 0, start: tape('watch') },
-      { id: 'wolf', name: 'THE LONE WOLF (one)', bench: 'crew:1', med: g('crew:1').tape_median, p90: g('crew:1').tape_p90, mean: g('crew:1').tape_mean, won: g('crew:1').won / g('crew:1').fights, foes: [2, 4], dogs: 0.5, start: tape('wolf') }
+      { id: 'newcrew', crew: crew('newcrew'), name: 'A NEW CREW (three)', bench: 'crew:2-3', med: g('crew:2-3').tape_median, p90: g('crew:2-3').tape_p90, mean: g('crew:2-3').tape_mean, won: g('crew:2-3').won / g('crew:2-3').fights, foes: [3, 5], dogs: 0, start: tape('newcrew') },
+      { id: 'watch', crew: crew('watch'), name: 'THE BLOCK WATCH (twelve)', bench: 'crew:12', med: g('crew:12').tape_median, p90: g('crew:12').tape_p90, mean: g('crew:12').tape_mean, won: g('crew:12').won / g('crew:12').fights, foes: [6, 10], dogs: 0, start: tape('watch') },
+      { id: 'wolf', crew: crew('wolf'), name: 'THE LONE WOLF (one)', bench: 'crew:1', med: g('crew:1').tape_median, p90: g('crew:1').tape_p90, mean: g('crew:1').tape_mean, won: g('crew:1').won / g('crew:1').fights, foes: [2, 4], dogs: 0.5, start: tape('wolf') }
     ]
   };
 }
 
+/* RULE 284 (Paolo 10/26: 'you're about to crash my economy... one duct tape as a baseline'): the loot is ONE roll a won fight
+   (tape_income.json loot_tape.per_won_fight), whatever the kills; per_kill and the scrap go to 0. The rest is BOUGHT: the home
+   stall's shelf at its price (refilled daily), past it the back room's (the smith's mend for the same damage costs the same,
+   stall_prices.json mend: twice the tape). 284(g): the bar is the one roll plus the stall plus the smith, against WHAT A FIGHT
+   PAYS: a won fight is a job at the board's routine pay (records/target/BOHEMIA_BOARD_SHELF.json, the least), a lost one pays
+   nothing; the crew eats its nights (nightly_bill.json). Loot sold and the gear's own worth are left out (a ceiling on the bill,
+   not on the income). */
+function lootOf(I, over) {
+  const lt = I.loot_tape || {};
+  return {
+    perWon: (over && over.perWonFight != null) ? over.perWonFight : (lt.per_won_fight ? lt.per_won_fight.value : 0),
+    perKill: (over && over.perKill) || (lt.per_kill ? lt.per_kill.value : [0, 0])
+  };
+}
 function oneRun(D, sh, home, seed, over) {
   const R = rng(seed), I = D.income, pace = I.the_bar.pace.value, per = D.stall.tape_shelf.restock_days.value;
-  const pk = (over && over.perKill) || I.loot_tape.per_kill.value, ks = (over && over.killShare) || KILL_SHARE;
+  const L = lootOf(I, over), ks = (over && over.killShare) || KILL_SHARE;
   const sigma = Math.log(sh.p90 / Math.max(0.1, sh.med)) / 1.2816, mu = Math.log(Math.max(0.1, sh.med));
   /* the bench's median and worst tenth set the shape; its mean sets the scale (the bench's tail is longer than a lognormal's) */
   const scale = sh.mean / (sh.med * Math.exp(sigma * sigma / 2));
-  let stock = sh.start, need = 0, had = sh.start, bought = 0, looted = 0, short = 0, shortRolls = 0, fights = 0;
   const shelf = SP.tapeShelf(D.stall, { tier: home });
+  let stock = sh.start, need = 0, looted = 0, shelfRolls = 0, backRolls = 0, bill = 0, pay = 0, food = 0, sold = 0;
   for (let day = 0; day < 30; day++) {
-    if (day % per === 0) { const b = Math.max(0, Math.min(shelf, D.cap - stock)); stock += b; bought += b; had += b; }
+    if (day % per === 0) sold = 0;
+    food += sh.crew * D.perManNight;
     for (let f = 0; f < pace; f++) {
-      fights++;
       const broke = Math.round(Math.exp(mu + sigma * normal(R)) * scale * 10) / 10;
       need += broke;
       if (R() < sh.won) {
-        const foes = sh.foes[0] + Math.floor(R() * (sh.foes[1] - sh.foes[0] + 1));
-        for (let i = 0; i < foes; i++) {
-          if (R() < sh.dogs) continue;                 /* a dog carries no tape */
-          if (R() >= ks) continue;                     /* he fled with his kit */
-          const t = pk[0] + Math.floor(R() * (pk[1] - pk[0] + 1));
-          looted += t; had += t; stock = Math.min(D.cap, stock + t);
+        pay += D.jobPay;
+        let t = L.perWon;
+        if (L.perKill[1] > 0) {
+          const foes = sh.foes[0] + Math.floor(R() * (sh.foes[1] - sh.foes[0] + 1));
+          for (let i = 0; i < foes; i++) { if (R() < sh.dogs || R() >= ks) continue; t += L.perKill[0] + Math.floor(R() * (L.perKill[1] - L.perKill[0] + 1)); }
         }
+        looted += t; stock = Math.min(D.cap, stock + t);
       }
-      if (stock + 1e-9 < broke) { short++; shortRolls += broke - stock; stock = 0; } else stock -= broke;
+      /* mend what this fight broke: what he carries first, then the stall's shelf, then the back room (or the smith, the same) */
+      let want = Math.max(0, Math.ceil(broke - stock - 1e-9));
+      while (want > 0) {
+        const price = SP.tapePrice(D.stall, { tier: home, soldThisRestock: sold });
+        if (sold < shelf) shelfRolls++; else backRolls++;
+        sold++; bill += price; stock += 1; want--;
+      }
+      stock -= broke;
     }
   }
-  return { need, had, bought, looted, ratio: had / Math.max(1e-9, need), short, shortRolls, fights, end: stock };
+  return { need, looted, shelfRolls, backRolls, bill, pay, food, net: pay - bill - food, share: bill / Math.max(1e-9, pay) };
 }
 
 function run(over) {
   const D = load(); if (over && over.stall) D.stall = over.stall;
-  const runs = +((over && over.runs) || 200), out = { pace: D.income.the_bar.pace.value, spare: D.income.the_bar.spare.value, killShare: (over && over.killShare) || KILL_SHARE, perKill: (over && over.perKill) || D.income.loot_tape.per_kill.value, shapes: {} };
+  const runs = +((over && over.runs) || 200), L = lootOf(D.income, over);
+  const out = { pace: D.income.the_bar.pace.value, killShare: (over && over.killShare) || KILL_SHARE, perWonFight: L.perWon, perKill: L.perKill, jobPay: D.jobPay, shapes: {} };
   D.shapes.forEach(sh => {
-    out.shapes[sh.id] = { name: sh.name, needMean: sh.mean, won: +sh.won.toFixed(2), foes: sh.foes, dogs: sh.dogs, start: sh.start, homes: {} };
+    out.shapes[sh.id] = { name: sh.name, crew: sh.crew, needMean: sh.mean, won: +sh.won.toFixed(2), foes: sh.foes, dogs: sh.dogs, start: sh.start, homes: {} };
     ['camp', 'town', 'fortress'].forEach(home => {
       const rs = []; for (let s = 1; s <= runs; s++) rs.push(oneRun(D, sh, home, s * 7919 + home.length, over));
-      const by = k => rs.map(r => r[k]).sort((a, b) => a - b), q = (a, p) => a[Math.min(a.length - 1, Math.floor(p * a.length))];
-      const ratio = by('ratio'), lootShare = rs.map(r => r.looted / r.need).sort((a, b) => a - b);
+      const med = k => { const a = rs.map(r => r[k]).sort((x, y) => x - y); return a[Math.floor(a.length / 2)]; };
+      const day = k => +(med(k) / 30).toFixed(1);
       out.shapes[sh.id].homes[home] = {
-        ratio_median: +q(ratio, 0.5).toFixed(2), ratio_p10: +q(ratio, 0.1).toFixed(2),
-        loot_covers_median: +q(lootShare, 0.5).toFixed(2),
-        never_short: +(rs.filter(r => r.short === 0).length / rs.length).toFixed(2),
-        short_fights_median: q(by('short'), 0.5), short_rolls_median: +q(by('shortRolls'), 0.5).toFixed(1),
-        need_month: Math.round(q(by('need'), 0.5)), bought_month: Math.round(q(by('bought'), 0.5)), looted_month: Math.round(q(by('looted'), 0.5)),
-        back_room_a_day: +(q(by('shortRolls'), 0.5) / 30 * SP.tapePrice(D.stall, { tier: home, soldThisRestock: 1e9 })).toFixed(1)
+        need_a_day: day('need'), loot_a_day: day('looted'), shelf_a_day: day('shelfRolls'), back_room_a_day: day('backRolls'),
+        bill_a_day: day('bill'), pay_a_day: day('pay'), food_a_day: day('food'), net_a_day: day('net'),
+        share: +med('share').toFixed(2), keeps_up: rs.filter(r => r.net > 0).length / rs.length
       };
     });
   });
-  const bar = 1 + out.spare;
+  const nc = out.shapes.newcrew.homes;
   out.tests = {
-    R1_a_new_crew_has_more_than_it_needs: ['camp', 'town', 'fortress'].every(h => out.shapes.newcrew.homes[h].ratio_median >= bar),
-    R2_the_twelve_has_more_than_it_needs: ['camp', 'town', 'fortress'].every(h => out.shapes.watch.homes[h].ratio_median >= bar),
-    R3_a_typical_run_is_never_short_at_a_town: out.shapes.newcrew.homes.town.never_short >= 0.5 && out.shapes.watch.homes.town.never_short >= 0.5
+    N1_a_new_crew_keeps_its_armour_up_on_its_pay: ['camp', 'town', 'fortress'].every(h => nc[h].net_a_day > 0 && nc[h].keeps_up >= 0.9),
+    N2_a_new_crew_spends_under_a_third_of_its_pay_on_tape: ['camp', 'town', 'fortress'].every(h => nc[h].share < D.income.the_bar.tape_share_max.value)
   };
+  out.tuning = Object.keys(out.shapes).filter(k => ['camp', 'town', 'fortress'].some(h => out.shapes[k].homes[h].net_a_day <= 0));
   return out;
 }
 
@@ -102,14 +124,15 @@ if (require.main === module) {
   const over = {};
   if (arg('--runs')) over.runs = +arg('--runs');
   if (arg('--per-kill')) over.perKill = arg('--per-kill').split(',').map(Number);
+  if (arg('--per-won-fight')) over.perWonFight = +arg('--per-won-fight');
   if (arg('--kill-share')) over.killShare = +arg('--kill-share');
   const r = run(over);
   if (process.argv.includes('--json')) { console.log(JSON.stringify(r, null, 1)); process.exit(0); }
-  console.log('TAPE INCOME AGAINST ARMOUR WEAR: ' + r.pace + ' fights a day, 30 days, loot ' + r.perKill.join(' to ') + ' a man killed, ' + r.killShare + ' of a won fight killed; the bar: had at least ' + (1 + r.spare) + ' x needed');
+  console.log('THE TAPE BILL: ' + r.pace + ' fights a day, 30 days; the loot ' + r.perWonFight + ' a won fight' + (r.perKill[1] ? ' + ' + r.perKill.join(' to ') + ' a man killed' : '') + '; a won fight pays ' + r.jobPay);
   Object.keys(r.shapes).forEach(k => { const s = r.shapes[k];
-    console.log(s.name + ': breaks ' + s.needMean + ' a fight (bench mean), wins ' + s.won + ', ' + s.foes.join(' to ') + ' foes' + (s.dogs ? ' (half dogs)' : '') + ', starts with ' + s.start);
-    Object.keys(s.homes).forEach(h => { const x = s.homes[h]; console.log('  home a ' + h.padEnd(8) + ' had/needed ' + x.ratio_median + ' (worst tenth ' + x.ratio_p10 + '), the loot alone ' + x.loot_covers_median + ', never short ' + Math.round(100 * x.never_short) + '% of runs, a month: needs ' + x.need_month + ', buys ' + x.bought_month + ', loots ' + x.looted_month + '; short ' + x.short_rolls_median + ' rolls (the back room ' + x.back_room_a_day + ' batteries a day)'); });
+    console.log(s.name + ': ' + s.crew + (s.crew === 1 ? ' man' : ' men') + ', breaks ' + s.needMean + ' rolls a fight (bench mean), wins ' + s.won);
+    Object.keys(s.homes).forEach(h => { const x = s.homes[h]; console.log('  from a ' + h.padEnd(8) + ' a day: breaks ' + x.need_a_day + ', loots ' + x.loot_a_day + ', buys ' + x.shelf_a_day + ' off the shelf + ' + x.back_room_a_day + ' from the back = ' + x.bill_a_day + ' batteries, ' + Math.round(100 * x.share) + '% of the ' + x.pay_a_day + ' the fights pay; food ' + x.food_a_day + '; left ' + x.net_a_day + ' (' + Math.round(100 * x.keeps_up) + '% of months in the black)'); });
   });
-  console.log('TESTS ' + JSON.stringify(r.tests));
+  console.log('TESTS ' + JSON.stringify(r.tests) + (r.tuning.length ? '  FOR TUNING: ' + r.tuning.join(', ') + ' cannot keep its armour up on routine pay somewhere' : ''));
 }
 module.exports = { run, load };
