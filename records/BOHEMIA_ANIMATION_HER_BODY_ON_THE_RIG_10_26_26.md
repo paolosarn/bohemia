@@ -73,8 +73,10 @@ woman's name.
 - Her melee, shield and two-hand keys (the melee tool's person on her own body, the things her gang's): the one-hand idle and
   swing, the shield arm walking, blocking and planted in cover, two hands, the bow and the sling (71b380c0, 104667a5, ee97b303,
   woman_3 after); THE THING IN HIS HAND 24/0.
-- Still the town's six only: her minutes after a fight, her camp and her pitching (the company's eleven and YOU have them; a
-  woman hired joins his company, so these come next for her, and for the post's men).
+- Her minutes after a fight, her camp and her pitching, all four women (a woman hired joins his company, so she does what his
+  men do after a fight and at camp): loot, tend, bind, breath; lie, sleep, mend, repair, cook, clean, rise; unpack, stake,
+  light; twenty acts each like every man of his; THE TOWN'S ACTIVITIES 22/0 on all sixteen. The post's men still have none
+  of these (only the company's are rendered; a hire from the post plays his idles at camp until his are made).
 
 ## NOT MINE, NOTED ON THEIR BOARDS
 - Her voice in the barks: SOUNDS. Her HD portrait (the talking head): PORTRAIT (her face here is her own model's head, as
