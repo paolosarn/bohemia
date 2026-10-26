@@ -11,22 +11,29 @@
    own boards (the shelf's pick, town by town; 20 for the Block Watch): 220 jobs. Each job's stars and blood are what the game
    read in the page (slices/bohemia_job_danger.js: every fight it brings rolled and played on AUTO against that crew). Then each
    job is PLAYED AGAIN 100 TIMES WITH FRESH DICE, here in node, on the fight's own rules out of BOHEMIA_FIGHT.html, with the exact
-   hand-over the page used (each fight happening at its own chance). A play is CLEAN by rule 208(a) AS AMENDED 10/26 (the
-   coordinator): won, NOBODY of his dead, at most ONE MAN IN SIX down (a crew under six: nobody down); the page's own okRun, read
-   out of its file. The AUTO button's worth and the plain share with nobody down at all are printed beside it.
+   hand-over the page used (each fight happening at its own chance). RULE 254 (Paolo 10/26, 'the same calculator as the auto
+   combat'): ONE CALCULATOR, ONE SCALE. A play is worth what the AUTO button counts it (the fight's own oddsRunValue: a clean win 1,
+   men down down_value times the share standing, a death or a loss 0), the trip the product over its fights, and the job's number
+   on AUTO is the mean over its plays: the number the AUTO colour is painted from. 208(a)'s 'one in six laid up is clean' is STRUCK.
      J1  the five crews' jobs all read (none stuck, none broken), red stars on every one
-     J2  a ONE-star job comes home clean at least 85 in 100 (all its plays together)
-     J3  a THREE-star job comes home clean under 65 in 100
+     J2  a ONE-star job is AUTO green: its plays together worth the AUTO colour's turn (0.8) or more
+     J3  a THREE-star job is where the calculator expects men down or dead: its plays together worth down_value (0.5) or less
      J4  the blood ranks with the danger: the more blood, the more often someone comes home down (rank correlation 0.6 or more;
          the stars' measured clean falls 1 > 2 > 3), and the blood painted on a town's board rows is the read's own number
      J5  the meet card counts true: twelve of the jobs' fights handed through the map's one door, the card's count and kind are
          the band read, and ENGAGE deals exactly that band on the board (the same ids, the same count)
      J6  the stars move when the crew moves: the same job reads different (or the same with cause) for the Lone Wolf and twelve men
      J7  nothing threw
-     J8  NO STAR LIES (TUNING's test: pooled means cannot see a lie): a one-star job under 85 in 100, or a three-star job at 65 or
-         more, at most one in fifty; EYES' cold box and tigers for the Block Watch on day one say what happened to them
+     J8  NO STAR LIES (TUNING's test: pooled means cannot see a lie): a one-star job worth under the turn less a hair (0.1), or a
+         three-star job over down_value and a hair, at most one in fifty; EYES' cold box and tigers for the Block Watch on day one
+         say what happened to them
      J9  NO CHAMPION ON DAY ONE: every fight of every day-one crew's jobs is dressed for day one and holds only the kinds of its
          faction's first phase (ours.enemy_tiers): no Marauder, no leader, for the Block Watch's twelve as for the Lone Wolf
+     J10 ONE CALCULATOR, ONE SCALE (rule 254(d)): the page plays the fight's own oddsRunValue and its lines are the AUTO colour's
+         own (ours.odds_colour turn and down_value, job_danger.json's copies equal); every job's blood is on AUTO's side of the turn
+         (clean tin where AUTO is green, blood where it is red) unless its number is within a hair (0.08) of the turn; the job's
+         number is AUTO's within a hair (0.12) for 95 in 100; every job whose plays lose a man (dead or lost) 6 in 10 or more reads
+         three stars and the deepest blood
    node gates/the_job_tells_the_truth_gate.js     (about fifteen minutes: 23,000 fights played in node on four processes)
    ========================================================================== */
 'use strict';
@@ -38,41 +45,39 @@ function seedOf(s) { let h = 2166136261; s = String(s); for (let i = 0; i < s.le
 async function engine() {
   const html = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
   const grab = id => html.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>'))[1];
-  const orv = html.match(/function oddsRunValue\(E\) \{[\s\S]*?\n\}/)[0];
-  const okr = fs.readFileSync(path.join(ROOT, 'slices/bohemia_job_danger.js'), 'utf8').match(/function okRun\(F, per\) \{[\s\S]*?\n  \}/)[0];   /* the page's own clean trip */
+  const orv = html.match(/function oddsRunValue\(E\) \{[\s\S]*?\n\}/)[0];   /* the AUTO button's own count, the one the page plays (rule 254) */
   const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Error, Promise, Set, Map, LSV: {},
     localStorage: { getItem: k => (ctx.LSV[k] === undefined ? null : ctx.LSV[k]), setItem: () => {}, removeItem: () => {} },
     fetch: u => Promise.resolve({ json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', u), 'utf8'))) }) };
   vm.createContext(ctx);
-  vm.runInContext(grab('fight-data') + '\n' + grab('fight-rules') + '\n' + orv + '\n' + okr + '\nthis.FIGHT = FIGHT; this.loadAll = loadAll; this.run = oddsRunValue; this.ok = okRun; this.seed = function (v) { SEED = v >>> 0; };', ctx);
+  vm.runInContext(grab('fight-data') + '\n' + grab('fight-rules') + '\n' + orv + '\nthis.FIGHT = FIGHT; this.loadAll = loadAll; this.run = oddsRunValue; this.seed = function (v) { SEED = v >>> 0; };', ctx);
   await ctx.loadAll();
   return ctx;
 }
 async function replay(file, out) {
   const E = await engine(), jobs = JSON.parse(fs.readFileSync(file, 'utf8')), res = [];
-  const PER6 = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_danger.json'), 'utf8')).laid_up_per.value;
   for (const j of jobs) {
     E.LSV = { 'bohemia.fight.formation.v1': j.formation || null };
-    let clean = 0, literal = 0, worth = 0, plays = 0, fights = 0, deaths = 0, wiped = 0;
+    let literal = 0, worth = 0, plays = 0, fights = 0, deaths = 0, wiped = 0, lostMan = 0;
     for (let k = 0; k < j.plays; k++) {
-      const dice = seedOf('verify:' + j.key + ':' + k); let r = dice, ok = true, lit = true, w = 1, died = false, wipe = false;
+      const dice = seedOf('verify:' + j.key + ':' + k); let r = dice, lit = true, w = 1, died = false, wipe = false, lose = false;
       const roll = () => { r = (r + 0x6D2B79F5) >>> 0; let t = r; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
-      for (let fi = 0; fi < j.fights.length && ok; fi++) {
+      for (let fi = 0; fi < j.fights.length; fi++) {
         const f = j.fights[fi]; if (f.p < 1 && roll() >= f.p) continue;
         E.seed(seedOf('verify:' + j.key + ':' + k + ':' + fi));
         E.FIGHT.setup(JSON.parse(JSON.stringify(f.opts)));
         let g = 0; while (!E.FIGHT.S.over && g <= 6000) { const v = E.FIGHT.current(); if (!v) break; E.FIGHT.aiStep(v); E.FIGHT.S.events = []; g++; }
         fights++;
-        const v = E.FIGHT.S.over ? E.run(E.FIGHT) : 0, c = E.FIGHT.S.over ? E.ok(E.FIGHT, PER6) : 0; w *= v;
+        const v = E.FIGHT.S.over ? E.run(E.FIGHT) : 0; w *= v;   /* the AUTO button's count of this fight */
         const mine = E.FIGHT.S.units.filter(u => u.side === 'you');
         if (mine.some(u => u.dead)) died = true; if (E.FIGHT.S.result !== 'won' && mine.every(u => u.dead || u.down || u.fled)) wipe = true;
+        if (v === 0) lose = true;   /* a man dead, or the fight lost */
         if (v !== 1) lit = false;
-        if (c !== 1) ok = false;
-        if (c === 0 && v === 0) break;
+        if (v === 0) break;   /* the trip is worth nothing from here: the rest cannot move it */
       }
-      plays++; if (ok) clean++; if (lit) literal++; worth += w; if (died) deaths++; if (wipe) wiped++;
+      plays++; if (lit) literal++; worth += w; if (died) deaths++; if (wipe) wiped++; if (lose) lostMan++;
     }
-    res.push({ key: j.key, clean: clean, literal: literal, worth: worth, plays: plays, fights: fights, deaths: deaths, wiped: wiped });
+    res.push({ key: j.key, literal: literal, worth: worth, plays: plays, fights: fights, deaths: deaths, wiped: wiped, lostMan: lostMan });
   }
   fs.writeFileSync(out, JSON.stringify(res));
 }
@@ -106,6 +111,8 @@ const CREWS = [
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await fn().catch(() => false)) return true; await page.waitForTimeout(400); } return false; };
   const jobs = [], tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'jobtruth-'));
+  const JDF = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_danger.json'), 'utf8'));
+  let scale = null;
   try {
     await fr.waitForFunction(() => window.BohemiaJobKinds && BohemiaJobKinds.ready() && window.BohemiaBoardShelf && BohemiaBoardShelf.ready(), null, { timeout: 40000 }).catch(() => {});
     const eng = await waitFor(() => fr.evaluate(() => !!(window.BohemiaJobDanger && BohemiaJobDanger.ready())), 60000);
@@ -241,6 +248,10 @@ const CREWS = [
     ok('J6 the stars move with the crew: the Lone Wolf\'s first jobs read again with six men hired on', re.length >= 5 && moved.length >= Math.ceil(re.length / 2),
       re.map(r => { const j = lone.filter(x => x.id === r.id && x.place === r.place)[0]; return r.id + ' ' + (j ? j.stars + '*' + j.danger.toFixed(2) : '?') + ' -> ' + r.stars + '*' + (r.danger != null ? r.danger.toFixed(2) : '?'); }).join(', '));
     ok('J7 nothing threw', errs.length === 0, errs.slice(0, 3).join(' | '));
+    /* J10's first half, off the page: the lines it reads with and the count its worker plays */
+    scale = await fr.evaluate(() => ({ cfg: JSON.parse(JSON.stringify(BohemiaJobDanger.cfg())), orv: null, okRun: null })).catch(() => null);
+    if (scale) { const src = fs.readFileSync(path.join(ROOT, 'slices/bohemia_job_danger.js'), 'utf8');
+      scale.orv = /oddsRunValue\(FIGHT\)/.test(src) && /E\.run\(E\.F\)/.test(src); scale.okRun = /function okRun|okRun\(/.test(src); }
     await d.close();
 
     /* ---------- the replay: each job 100 times with fresh dice, in node ---------- */
@@ -253,29 +264,30 @@ const CREWS = [
       p.on('exit', code => code === 0 ? res(JSON.parse(fs.readFileSync(fo, 'utf8'))) : rej(new Error('replay ' + i + ' exited ' + code)));
     })));
     const M = {}; [].concat.apply([], outs).forEach(r => { M[r.key] = r; });
-    /* a play is clean by rule 208(a) as amended (nobody dead, at most one in six down); the AUTO button's worth and the literal
-       'nobody down' share are printed beside it */
-    read.forEach(j => { const r = M[j.key]; j.measured = r ? r.clean / r.plays : null; j.literal = r ? r.literal / r.plays : null; j.auto = r ? r.worth / r.plays : null;
-      j.deaths = r ? r.deaths : null; j.wiped = r ? r.wiped : null; j.plays = r ? r.plays : 0; });
+    /* rule 254: a job measures what its plays are worth on the AUTO button's count (the number its colour is painted from); the
+       literal 'nobody down at all' share and the plays that lost a man are printed beside it */
+    read.forEach(j => { const r = M[j.key]; j.measured = r ? r.worth / r.plays : null; j.literal = r ? r.literal / r.plays : null; j.auto = j.measured;
+      j.deaths = r ? r.deaths : null; j.wiped = r ? r.wiped : null; j.lostMan = r ? r.lostMan / r.plays : null; j.plays = r ? r.plays : 0; });
     console.log('  ...replayed ' + read.length + ' jobs x ' + PLAYS + ' in ' + Math.round((Date.now() - t0) / 1000) + ' s');
     const by = s => read.filter(j => j.stars === s && j.measured != null);
     const agg = s => { const L = by(s), P = L.reduce((t, j) => t + j.plays, 0), C = L.reduce((t, j) => t + j.measured * j.plays, 0), Q = L.reduce((t, j) => t + j.literal * j.plays, 0); return { n: L.length, plays: P, clean: P ? C / P : null, literal: P ? Q / P : null }; };
     const A1 = agg(1), A2 = agg(2), A3 = agg(3);
-    const say = a => a.n + ' jobs, ' + (a.clean == null ? '-' : Math.round(100 * a.clean)) + ' in 100 clean (nobody dead, at most one in six down; nobody down at all ' + (a.literal == null ? '-' : Math.round(100 * a.literal)) + ')';
-    ok('J2 a ONE-star job comes home clean at least 85 in 100', A1.n > 0 && A1.clean >= 0.85, say(A1) + '; the worst one-star job ' + (A1.n ? Math.round(100 * Math.min.apply(null, by(1).map(j => j.measured))) : '-'));
-    ok('J3 a THREE-star job comes home clean under 65 in 100', A3.n > 0 && A3.clean < 0.65, say(A3) + '; the best three-star job ' + (A3.n ? Math.round(100 * Math.max.apply(null, by(3).map(j => j.measured))) : '-'));
+    const OC = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')).odds_colour.value, TURN = OC.turn, DOWNV = OC.down_value;
+    const say = a => a.n + ' jobs, worth ' + (a.clean == null ? '-' : a.clean.toFixed(2)) + ' on AUTO\'s count (nobody down at all ' + (a.literal == null ? '-' : Math.round(100 * a.literal)) + ' in 100)';
+    ok('J2 a ONE-star job is AUTO green: its plays together worth the turn (' + TURN + ') or more', A1.n > 0 && A1.clean >= TURN, say(A1) + '; the worst one-star job ' + (A1.n ? Math.min.apply(null, by(1).map(j => j.measured)).toFixed(2) : '-'));
+    ok('J3 a THREE-star job is where the calculator expects men down or dead: its plays together worth down_value (' + DOWNV + ') or less', A3.n > 0 && A3.clean <= DOWNV, say(A3) + '; the best three-star job ' + (A3.n ? Math.max.apply(null, by(3).map(j => j.measured)).toFixed(2) : '-'));
     const rho = spearman(read.filter(j => j.measured != null).map(j => j.blood), read.filter(j => j.measured != null).map(j => 1 - j.measured));
     ok('J4 the blood ranks with the danger: rank correlation of the blood with how often someone came home down, the stars in order, the board painted the read',
       rho >= 0.6 && (A1.clean == null || A2.clean == null || A1.clean > A2.clean) && (A2.clean == null || A3.clean == null || A2.clean > A3.clean) && paintOk,
       'rho ' + rho.toFixed(2) + '; two stars: ' + say(A2) + '; the board at ' + (t && t.n) + ': ' + paint.map(p => p.id + ' ' + p.stars + '* blood ' + p.blood.toFixed(2) + ' (read ' + p.danger.toFixed(2) + ')').join(', '));
     /* J8: no star lies, job by job (TUNING 10/26: the pooled J2 and J3 pass any cut-off; a lie is one job) */
-    const lies = read.filter(j => j.measured != null && ((j.stars === 1 && j.measured < 0.85) || (j.stars === 3 && j.measured >= 0.65)));
+    const HAIR = 0.1, lies = read.filter(j => j.measured != null && ((j.stars === 1 && j.measured < TURN - HAIR) || (j.stars === 3 && j.measured > DOWNV + HAIR)));
     const eyes = read.filter(j => j.must);
-    const eyesSay = eyes.map(j => j.id + ' at ' + j.place + ': ' + j.stars + ' red star' + (j.stars > 1 ? 's' : '') + ', played ' + j.plays + ': clean ' + Math.round(100 * j.measured) + ', someone dead ' + j.deaths + ', wiped ' + j.wiped + ' (' + j.fights.map(f => f.band.length + ' ' + f.band.join('/')).join(' + ') + ')').join(' | ');
-    const eyesTrue = eyes.length >= 2 && eyes.every(j => !(j.stars === 1 && j.measured < 0.85) && !(j.stars === 3 && j.measured >= 0.65) && !(j.stars === 1 && j.wiped > 2));
-    ok('J8 no star lies: one-star jobs under 85 or three-star jobs at 65 and over, at most one in fifty; EYES\' cold box and tigers for the Block Watch say what happened',
+    const eyesSay = eyes.map(j => j.id + ' at ' + j.place + ': ' + j.stars + ' red star' + (j.stars > 1 ? 's' : '') + ', played ' + j.plays + ': worth ' + j.measured.toFixed(2) + ' on AUTO, someone dead ' + j.deaths + ', wiped ' + j.wiped + ' (' + j.fights.map(f => f.band.length + ' ' + f.band.join('/')).join(' + ') + ')').join(' | ');
+    const eyesTrue = eyes.length >= 2 && eyes.every(j => !(j.stars === 1 && j.measured < TURN - HAIR) && !(j.stars === 3 && j.measured > DOWNV + HAIR) && !(j.stars === 1 && j.wiped > 2));
+    ok('J8 no star lies: one-star jobs worth under ' + (TURN - HAIR).toFixed(2) + ' or three-star jobs over ' + (DOWNV + HAIR).toFixed(2) + ' on AUTO, at most one in fifty; EYES\' cold box and tigers for the Block Watch say what happened',
       lies.length <= Math.floor(read.length / 50) && eyesTrue,
-      lies.length + ' of ' + read.length + ' lie' + (lies.length ? ' (' + lies.slice(0, 5).map(j => j.crew + ' ' + j.id + ' ' + j.stars + '* ' + Math.round(100 * j.measured)).join(', ') + ')' : '') + '; ' + eyesSay);
+      lies.length + ' of ' + read.length + ' lie' + (lies.length ? ' (' + lies.slice(0, 5).map(j => j.crew + ' ' + j.id + ' ' + j.stars + '* ' + j.measured.toFixed(2)).join(', ') + ')' : '') + '; ' + eyesSay);
     /* J9: no champion on day one: every day-one fight dressed for day one, its kinds its faction's first phase */
     const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')).enemy_tiers.value;
     const firstKinds = fc => { const m = (T.mix[fc] || {}).first || {}; const k = Object.keys(m); const h = (T.heads || {})[fc]; if (h) k.push(h); return k; };
@@ -284,7 +296,24 @@ const CREWS = [
       if ((f.days | 0) > 1 || off.length) bad.push(j.crew + ' ' + j.id + ' ' + f.what + ': day ' + f.days + ', ' + f.faction + ' ' + (off.length ? off.join('/') : f.band.join('/'))); }));
     ok('J9 no champion on day one: ' + day1.length + ' day-one jobs, every fight dressed for day one with its faction\'s first-phase kinds only', day1.length >= 40 && bad.length === 0,
       bad.length ? bad.slice(0, 6).join(' | ') : day1.reduce((t, j) => t + j.fights.length, 0) + ' fights, kinds ' + Array.from(new Set([].concat.apply([], day1.map(j => [].concat.apply([], j.fights.map(f => f.band)))))).join(', '));
-    fs.writeFileSync(path.join(tmp, 'jobs.json'), JSON.stringify(read.map(j => ({ crew: j.crew, place: j.place, id: j.id, skulls: j.skulls, stars: j.stars, danger: +j.danger.toFixed(3), blood: +j.blood.toFixed(3), measured: j.measured, literal: j.literal, auto: j.auto, deaths: j.deaths, wiped: j.wiped, must: j.must,
+    /* J10: one calculator, one scale (rule 254(d)) */
+    const SIDE = 0.08, NEAR = 0.12, sides = [], far = [], lose = [];
+    read.filter(j => j.measured != null).forEach(j => { const v = 1 - j.danger, green = j.measured >= TURN;
+      if (Math.abs(j.measured - TURN) > SIDE && ((j.blood === 0) !== green)) sides.push(j);
+      if (Math.abs(v - j.measured) > NEAR) far.push(j);
+      if (j.lostMan >= 0.6) lose.push(j); });
+    const deep = lose.filter(j => !(j.stars === 3 && j.blood >= 0.999));
+    const gaps = read.filter(j => j.measured != null).map(j => Math.abs(1 - j.danger - j.measured)).sort((a, b) => a - b);
+    const lineOk = !!scale && scale.orv && !scale.okRun && Math.abs(scale.cfg.cut_one - TURN) < 1e-9 && Math.abs(scale.cfg.cut_three - DOWNV) < 1e-9 &&
+      Math.abs(scale.cfg.blood_from - (1 - TURN)) < 1e-6 && Math.abs(scale.cfg.blood_full - (1 - DOWNV)) < 1e-6 && scale.cfg.prior === 0 &&
+      ['cut_one', 'cut_three', 'blood_from', 'blood_full'].every(k => Math.abs(JDF[k].value - scale.cfg[k]) < 1e-6);
+    ok('J10 one calculator, one scale: the page plays AUTO\'s own count on AUTO\'s own lines; every job\'s blood on AUTO\'s side of the turn; its number AUTO\'s within a hair; every job that loses a man in 6 plays of 10 three stars and the deepest blood',
+      lineOk && sides.length === 0 && far.length <= Math.floor(read.length / 20) && deep.length === 0 && lose.length > 0,
+      'lines ' + JSON.stringify(scale && { cut_one: scale.cfg.cut_one, cut_three: scale.cfg.cut_three, blood_from: scale.cfg.blood_from, blood_full: scale.cfg.blood_full, prior: scale.cfg.prior, from_fight: scale.cfg.from_fight, orv: scale.orv, okRun: scale.okRun }) +
+      '; off AUTO\'s side ' + sides.length + (sides.length ? ' (' + sides.slice(0, 4).map(j => j.id + ' blood ' + j.blood.toFixed(2) + ' AUTO ' + j.measured.toFixed(2)).join(', ') + ')' : '') +
+      '; past a hair ' + far.length + ' of ' + gaps.length + ' (median gap ' + (gaps.length ? gaps[gaps.length >> 1].toFixed(3) : '-') + ', 95th ' + (gaps.length ? gaps[Math.floor(gaps.length * 0.95)].toFixed(3) : '-') + ')' +
+      '; lose a man 6 in 10: ' + lose.length + ' jobs, ' + (lose.length - deep.length) + ' read three stars and the deepest blood' + (deep.length ? ' (not: ' + deep.slice(0, 4).map(j => j.id + ' ' + j.stars + '* ' + j.blood.toFixed(2) + ' lost ' + Math.round(100 * j.lostMan)).join(', ') + ')' : ''));
+    fs.writeFileSync(path.join(tmp, 'jobs.json'), JSON.stringify(read.map(j => ({ crew: j.crew, place: j.place, id: j.id, skulls: j.skulls, stars: j.stars, danger: +j.danger.toFixed(3), blood: +j.blood.toFixed(3), measured: j.measured, literal: j.literal, auto: j.auto, deaths: j.deaths, wiped: j.wiped, lostMan: j.lostMan, must: j.must,
       fights: j.fights.map(f => f.what + ' ' + f.p.toFixed(2) + ' ' + f.band.join('/')) }))));
     console.log('  (every job: ' + path.join(tmp, 'jobs.json') + ')');
     if (process.env.JOB_KEEP) fs.copyFileSync(path.join(tmp, 'jobs.json'), process.env.JOB_KEEP);

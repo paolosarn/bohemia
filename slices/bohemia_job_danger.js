@@ -15,39 +15,34 @@
          the band (the road's faction, a tougher faction's fewer men, the graveyard's dead, the first day's line), and that band is
          what the fight deals (party.band, carried by the shell's door), so the meet card counts what stands on the board.
      (c) EACH PLAYED ON AUTO against his crew as the fight's door would hand it today (the shell's own nfOpts: who is able, who is
-         laid up, the line, what each man wears), in a worker, off the frames. A run is CLEAN when it is won, NOBODY of his is dead
-         and at most ONE MAN IN SIX is down (rule 208(a) AS AMENDED 10/26 by the coordinator, from this lane's and TUNING's measure:
-         on 'nobody down' a company of twelve read three stars on 37 of 50 jobs, because with twelve men somebody always goes
-         down). A crew under six: nobody down, the AUTO button's own clean; six to eleven: one; twelve: two. Every death stays in
-         the star. It is TUNING's own count (tools/bohemia_tuning_the_job_stars.js 'ok'), the reading its cut-offs were measured on.
-     (d) THE DANGER is one less what the trip is worth: the product over the fights of (1 - p x (1 - worth)). One star when it is
-         worth 0.95 or better, three when under a half (job_danger.json: TUNING's measured cut-offs, 10/26; the coordinator's draft
-         0.90 / 0.60 lied on 6 of TUNING's 200).
-     (e) THE BLOOD is the same number on one continuous scale (no blood when clean, more and darker as it rises), painted on the
-         job's button on the town's board, the offer and the phone's card: Crashbox clay, rendered (slices/job_blood).
+         laid up, the line, what each man wears), in a worker, off the frames. RULE 254 (Paolo 10/26: 'I hope it is using the same
+         calculator as the auto combat... it should be max bloody if you think I would lose members or members would fall, the same
+         as when the combat calculator turns red'): ONE CALCULATOR, ONE SCALE. Each run is worth what the AUTO button counts it (the
+         fight's own oddsRunValue: a clean win 1, men down half the share still standing, a death or a loss 0) and the job's number
+         is their plain mean, as the AUTO colour's is; 208(a)'s 'one in six laid up is clean' (the coordinator's, 10/26) is STRUCK.
+     (d) THE TRIP'S NUMBER is the product over the fights of (1 - p x (1 - worth)): for a job with one sure fight, that fight's own
+         AUTO number. ON THE AUTO COLOUR'S OWN LINE (ours.odds_colour, read from the fight, never a copy): at or over its turn (0.8)
+         AUTO is green: ONE star and clean tin; under it red: TWO stars and blood rising on the same line; at or under down_value
+         (0.5: the run the calculator expects has a man down or dead) the deepest blood and THREE stars.
+     (e) THE BLOOD is that number on one continuous scale, painted on the job's button on the town's board, the offer and the
+         phone's card: Crashbox clay (UI's kit takes the number straight, rule 254).
      (f) WORKED OUT AGAIN WHEN HIS CREW CHANGES: the read is keyed on the crew the door would hand over; a hire, a death, a man laid
          up, a new coat and it reads again the next time he looks.
    Gate: gates/the_job_tells_the_truth_gate.js. Loaded by BOHEMIA_CITY_WORLD.html. */
 (function (root) {
   'use strict';
-  var CFG = { runs: 32, prior: 1, laid_up_per: 6, cut_one: 0.95, cut_three: 0.5, road_per_hour: 0.0038, blood_from: 0.04, blood_full: 0.65, steps: 6000, slice_ms: 6, stop_from: 12, stop_below: 0.42, near_cut: 0.12, runs_more: 32 };
+  var CFG = { runs: 32, prior: 0, cut_one: 0.8, cut_three: 0.5, road_per_hour: 0.0038, blood_from: 0.2, blood_full: 0.5, steps: 6000, slice_ms: 6, stop_from: 12, stop_below: 0.42, near_cut: 0.12, runs_more: 32 };
   var BASE = (function () {
     try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, ''); } catch (e) {}
     try { return new URL('.', document.baseURI).href; } catch (e) {}
     return '';
   })();
   try { fetch(BASE + '../records/target/bb/job_danger.json').then(function (r) { return r.json(); }).then(function (j) {
-    Object.keys(j || {}).forEach(function (k) { if (j[k] && typeof j[k] === 'object' && 'value' in j[k] && CFG.hasOwnProperty(k)) CFG[k] = j[k].value; }); CFG.loaded = true; }).catch(function () {}); } catch (e) {}
+    Object.keys(j || {}).forEach(function (k) { if (j[k] && typeof j[k] === 'object' && 'value' in j[k] && CFG.hasOwnProperty(k) && !(CFG.from_fight && LINES[k])) CFG[k] = j[k].value; }); CFG.loaded = true; }).catch(function () {}); } catch (e) {}
+  /* RULE 254: these four are the AUTO colour's own lines; once the fight's rules are read, the fight's numbers stand (the file's copy
+     is for a modder's eye and the kit's first paint, and the gate holds the two equal) */
+  var LINES = { cut_one: 1, cut_three: 1, blood_from: 1, blood_full: 1 };
 
-  /* A CLEAN TRIP (rule 208(a) as amended 10/26): won, nobody of his dead, at most one man in 'per' down or fled; else nothing. One
-     function for the page, the worker and the gate (gates/the_job_tells_the_truth_gate.js reads it out of this file) */
-  function okRun(F, per) {
-    if (F.S.result !== 'won') return 0;
-    var mine = F.S.units.filter(function (v) { return v.side === 'you'; });
-    if (mine.some(function (v) { return v.dead; })) return 0;
-    var down = mine.filter(function (v) { return v.down || v.fled; }).length;
-    return down <= Math.floor(mine.length / Math.max(1, per || 6)) ? 1 : 0;
-  }
   function seedOf(s) { var h = 2166136261; s = String(s); for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   function ls(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : v; } catch (e) { return d; } }
   function say(ev, d) { try { root.dispatchEvent(new CustomEvent(ev, { detail: d })); } catch (e) {} }
@@ -75,7 +70,11 @@
       var mk = new Function(s.data + '\n' + s.rules + '\n' + s.orv + '\nreturn { F: FIGHT, DB: DB, R: R, loadAll: loadAll, seed: function (v) { SEED = v >>> 0; }, run: oddsRunValue };');
       var E = mk();
       /* the fight's loadAll reads its files relative to the page; this page sits beside the fight in slices/ */
-      return E.loadAll().then(function () { MAIN = E; say('bohemia-job-danger', { engine: true }); pump(); return E; });
+      return E.loadAll().then(function () {
+        /* RULE 254: the stars' lines are the AUTO colour's own (ours.odds_colour.turn and down_value), read from the fight's rules */
+        try { var OC = E.R('ours.odds_colour'); if (OC && OC.turn > 0 && OC.down_value < OC.turn) { CFG.cut_one = OC.turn; CFG.cut_three = OC.down_value;
+          CFG.blood_from = +(1 - OC.turn).toFixed(6); CFG.blood_full = +(1 - OC.down_value).toFixed(6); CFG.from_fight = true; } } catch (e) {}
+        MAIN = E; say('bohemia-job-danger', { engine: true }); pump(); return E; });
     }).catch(function (e) { WERR = String(e && e.message || e); MAIN_P = null; SRC_P = null; return null; });
     return MAIN_P;
   }
@@ -87,7 +86,7 @@
       var d = m.data;
       if (d.db) { Object.keys(d.db).forEach(function (k) { DB[k] = d.db[k]; }); return; }
       if (d.ls) { LSV = d.ls; return; }
-      JOB = { id: d.id, opts: d.opts, per: d.per, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, stopFrom: d.stopFrom, stopBelow: d.stopBelow, cuts: d.cuts || [], near: d.near || 0, more: d.more || 0, n: 0, sum: 0, clean: 0, won: 0, down: 0, dead: 0, hung: 0 };
+      JOB = { id: d.id, opts: d.opts, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, stopFrom: d.stopFrom, stopBelow: d.stopBelow, cuts: d.cuts || [], near: d.near || 0, more: d.more || 0, n: 0, sum: 0, clean: 0, won: 0, down: 0, dead: 0, hung: 0 };
       var id = d.id; soon(function () { run(id); });
     };
     function run(id) {
@@ -96,16 +95,16 @@
         SEED = (J.seed + J.n * 7919) >>> 0;
         FIGHT.setup(J.opts);
         var g = 0; while (!FIGHT.S.over && g <= J.steps) { var v = FIGHT.current(); if (!v) break; FIGHT.aiStep(v); FIGHT.S.events = []; g++; }
-        var w = FIGHT.S.over ? okRun(FIGHT, J.per) : 0;
+        var w = FIGHT.S.over ? oddsRunValue(FIGHT) : 0;   /* the AUTO button's own count (rule 254) */
         if (!FIGHT.S.over) J.hung++;
         if (FIGHT.S.result === 'won') J.won++;
         J.sum += w; if (w === 1) J.clean++;
         FIGHT.S.units.forEach(function (u) { if (u.side === 'you') { if (u.dead) J.dead++; else if (u.down) J.down++; } });
         J.n++;
       } catch (e) { self.postMessage({ id: id, broke: String(e && e.message || e) }); JOB = null; return; }
-      var lost = J.stopFrom && J.n >= J.stopFrom && (J.sum + 1) / (J.n + 2) < J.stopBelow;
+      var lost = J.stopFrom && J.n >= J.stopFrom && J.sum / J.n < J.stopBelow;
       /* a read that lands near a star's line plays on before it decides (once): the line is where a few plays move a star */
-      if (J.n === J.runs && !lost && J.more && !J.extended) { var c = (J.sum + 1) / (J.n + 2); if (J.cuts.some(function (k) { return Math.abs(c - k) < J.near; })) { J.runs += J.more; J.extended = true; } }
+      if (J.n === J.runs && !lost && J.more && !J.extended) { var c = J.sum / J.n; if (J.cuts.some(function (k) { return Math.abs(c - k) < J.near; })) { J.runs += J.more; J.extended = true; } }
       if (J.n < J.runs && !lost) soon(function () { run(id); });
       else { self.postMessage({ id: id, runs: J.n, sum: J.sum, clean: J.clean, won: J.won, down: J.down, dead: J.dead, hung: J.hung }); JOB = null; }
     }
@@ -116,7 +115,7 @@
     if (!MAIN || !SRC || typeof Worker === 'undefined' || typeof Blob === 'undefined' || root.__JOB_DANGER_NO_WORKER) return W;
     try {
       var src = 'var LSV = {}; var localStorage = { getItem: function (k) { return LSV[k] === undefined ? null : LSV[k]; }, setItem: function () {}, removeItem: function () {} };\n' +
-        SRC.data + '\n' + SRC.rules + '\n' + SRC.orv + '\n' + okRun.toString() + '\n(' + workerMain.toString() + ')();';
+        SRC.data + '\n' + SRC.rules + '\n' + SRC.orv + '\n(' + workerMain.toString() + ')();';
       var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
       var db = {}; Object.keys(MAIN.DB).forEach(function (k) { if (k !== 'read') db[k] = MAIN.DB[k]; });
       w.onmessage = heard;
@@ -252,9 +251,8 @@
     var clean = 1, n = 0, all = true, broke = null;
     R.fights.forEach(function (f) {
       var P = PLAYED[f.fk]; if (P && P.broke) broke = P.broke; if (!P || !P.runs) { all = false; return; }
-      /* A RUN IS CLEAN (1) or not (0), rule 208(a) as amended (okRun): won, nobody dead, at most one in six down. With a whisper
-         of doubt either way: 32 of 32 is not 100. (Last round a run was the AUTO button's worth, half for men down; for a crew
-         under six the clean share is the same thing it counted as 1; for a big crew the amended reading decides) */
+      /* A RUN IS WORTH WHAT THE AUTO BUTTON COUNTS IT (rule 254: one calculator, one scale): the fight's oddsRunValue, and the
+         fight's number is the plain mean of its runs, as the AUTO colour's is (prior 0, job_danger.json) */
       var c = (P.sum + CFG.prior) / (P.runs + 2 * CFG.prior);
       f.clean = c; f.runs = P.runs; f.won = P.won;
       clean *= 1 - f.p * (1 - c); n += P.runs;
@@ -262,7 +260,7 @@
     if (broke) { R.state = 'broke'; R.broke = broke; return false; }   /* a copy that cannot play reads nothing: the skulls stay */
     if (!all) return false;
     R.clean = clean; R.danger = 1 - clean; R.runs = n; R.state = 'read';
-    R.stars = clean >= CFG.cut_one ? 1 : clean < CFG.cut_three ? 3 : 2;
+    R.stars = clean >= CFG.cut_one ? 1 : clean <= CFG.cut_three ? 3 : 2;
     R.blood = bloodOf(R.danger);
     if (R.base) LAST[R.base] = { stars: R.stars, danger: R.danger, clean: R.clean, blood: R.blood, crew: R.crew };
     return true;
@@ -296,7 +294,7 @@
     /* a fight that only might come (the road's, a twist's) weighs little in the product: fewer plays; a fight that is plainly lost
        stops early (under stop_below after stop_from plays: any job with it in is three stars whatever the rest) */
     var runs = f.p >= 0.25 ? (CFG.runs | 0 || 32) : Math.max(8, Math.round((CFG.runs | 0 || 32) / 4));
-    var job = { id: ++JOBN, fk: fk, opts: opts, per: CFG.laid_up_per, seed: seedOf('runs:' + fk), runs: runs, steps: CFG.steps, stopFrom: CFG.stop_from, stopBelow: CFG.stop_below,
+    var job = { id: ++JOBN, fk: fk, opts: opts, seed: seedOf('runs:' + fk), runs: runs, steps: CFG.steps, stopFrom: CFG.stop_from, stopBelow: CFG.stop_below,
       cuts: [CFG.cut_one, CFG.cut_three], near: f.p >= 0.25 ? CFG.near_cut : 0, more: CFG.runs_more, t0: Date.now() };
     BUSY = job;
     var w = worker();
@@ -308,12 +306,12 @@
     var J = BUSY; if (!J || J.viaWorker) return;
     var E = MAIN, t0 = performance.now();
     try {
-      while (performance.now() - t0 < CFG.slice_ms && J.n < J.runs && !(J.stopFrom && J.n >= J.stopFrom && (J.sum + 1) / (J.n + 2) < J.stopBelow)) {
+      while (performance.now() - t0 < CFG.slice_ms && J.n < J.runs && !(J.stopFrom && J.n >= J.stopFrom && J.sum / J.n < J.stopBelow)) {
         if (J.live && J.rolln !== ROLLN) J.live = false;
         if (!J.live) { E.seed((J.seed + J.n * 7919) >>> 0); E.F.setup(J.opts); J.live = true; J.g = 0; J.rolln = ROLLN; }
         var v = E.F.current();
         if (E.F.S.over || !v || J.g > J.steps) {
-          var w = E.F.S.over ? okRun(E.F, J.per) : 0; if (!E.F.S.over) J.hung++;
+          var w = E.F.S.over ? E.run(E.F) : 0; if (!E.F.S.over) J.hung++;
           if (E.F.S.result === 'won') J.won++; J.sum += w; if (w === 1) J.clean++;
           E.F.S.units.forEach(function (u) { if (u.side === 'you') { if (u.dead) J.dead++; else if (u.down) J.down++; } });
           J.n++; J.live = false; continue;
@@ -321,8 +319,8 @@
         E.F.aiStep(v); E.F.S.events = []; J.g++;
       }
     } catch (e) { done(J, { broke: String(e && e.message || e) }); return; }
-    var lost = J.stopFrom && J.n >= J.stopFrom && (J.sum + 1) / (J.n + 2) < J.stopBelow;
-    if (J.n >= J.runs && !lost && J.more && !J.extended) { var c = (J.sum + 1) / (J.n + 2); if (J.cuts.some(function (k) { return Math.abs(c - k) < J.near; })) { J.runs += J.more; J.extended = true; setTimeout(slice, 16); return; } }
+    var lost = J.stopFrom && J.n >= J.stopFrom && J.sum / J.n < J.stopBelow;
+    if (J.n >= J.runs && !lost && J.more && !J.extended) { var c = J.sum / J.n; if (J.cuts.some(function (k) { return Math.abs(c - k) < J.near; })) { J.runs += J.more; J.extended = true; setTimeout(slice, 16); return; } }
     if (J.n >= J.runs || lost) done(J, { runs: J.n, sum: J.sum, clean: J.clean, won: J.won, down: J.down, dead: J.dead, hung: J.hung });
     else setTimeout(slice, 16);
   }
@@ -337,6 +335,9 @@
   }
 
   /* ---------- WHAT HE SEES: red stars, and the button bleeds ---------- */
+  /* the blood on the AUTO colour's line (rule 254(b)): none at or over its turn (AUTO green: danger at or under blood_from, one less
+     the turn), rising from the first red, the deepest at or under down_value (danger blood_full: the run the calculator expects has
+     a man down or dead). UI's kit reads the same two numbers (cfg()) for a button that only carries the danger */
   function bloodOf(danger) { var a = CFG.blood_from, b = CFG.blood_full; return Math.max(0, Math.min(1, (danger - a) / Math.max(1e-6, b - a))); }
   /* the stars for a job: its read when it is in, else null (the caller keeps its skulls until then, drawn as reading) */
   /* a peek: the stars only once something on the glass asked for the read (bleed), never a read for every ask in the valley */
@@ -452,7 +453,7 @@
     var E = MAIN; if (!E) return null; var sum = 0;
     for (var r = 0; r < n; r++) { E.seed((seed + r * 7919) >>> 0); E.F.setup(JSON.parse(JSON.stringify(opts)));
       var g = 0; while (!E.F.S.over && g <= CFG.steps) { var v = E.F.current(); if (!v) break; E.F.aiStep(v); E.F.S.events = []; g++; }
-      sum += E.F.S.over ? okRun(E.F, CFG.laid_up_per) : 0; }
+      sum += E.F.S.over ? E.run(E.F) : 0; }
     return sum / n;
   }
   root.BohemiaJobDanger = { probe: probe, played: function () { return PLAYED; }, engine: engine, ready: function () { return !!MAIN; }, roll: roll, rollInto: rollInto, kindWord: kindWord, read: read, peek: peek, stars: stars, readParty: readParty, fightsFor: fightsFor,

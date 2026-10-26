@@ -1,24 +1,20 @@
 {
- "_about": "WORLD [the job tells the truth, in blood] (rule 208). The numbers a job's stars and blood are read with (slices/bohemia_job_danger.js). A modder's file: every felt number here is TUNING's for the one table; the cut-offs and laid_up_per are COORDINATOR'S DEFAULTS (rule 205), his to kill.",
+ "_about": "WORLD [the job tells the truth, in blood] (rule 208) and [one scale: the blood is the AUTO colour] (rule 254, Paolo 10/26). The numbers a job's stars and blood are read with (slices/bohemia_job_danger.js). ONE CALCULATOR, ONE SCALE: a run is worth what the AUTO button counts it (the fight's own oddsRunValue) and the stars' and the blood's lines are the AUTO colour's own (records/target/bb/ours.json odds_colour: turn and down_value), read from the fight's rules when the page loads; the four copies here (cut_one, cut_three, blood_from, blood_full) are for a modder's eye and the kit's first paint, and gates/the_job_tells_the_truth_gate.js holds them equal to the fight's. Every other felt number is TUNING's for the one table.",
  "runs": {
   "value": 32,
   "source": "OURS: AUTO plays of each fight a job brings, in a worker off the frames (the AUTO button reads 24, rule 144; a job is read once and kept, so more)"
  },
  "prior": {
-  "value": 1,
-  "source": "OURS: the read is (clean + 1) / (runs + 2), a whisper of doubt either way, so 32 of 32 is never a certainty"
- },
- "laid_up_per": {
-  "value": 6,
-  "source": "THE COORDINATOR 10/26 (rule 208(a) AMENDED, a COORDINATOR'S DEFAULT by rule 205, his to kill; TUNING's proposed reading, records/BOHEMIA_TUNING_THE_JOBS_STARS_CUT_OFFS_10_26_26.md section 4): a trip is CLEAN when it is won, nobody of his is dead and at most one man in this many is down or fled (a crew under six: nobody down; six to eleven: one; twelve: two). On 'nobody down' a company of twelve read three stars on 37 of 50 jobs because with twelve men somebody always goes down; every death stays in the star."
+  "value": 0,
+  "source": "RULE 254: the job's number is the plain mean of its runs, as the AUTO colour's is (ODDS.shown); the old whisper of doubt ((clean + 1) / (runs + 2)) is gone with the one-in-six reading"
  },
  "cut_one": {
-  "value": 0.95,
-  "source": "TUNING [the job's stars, the cut-offs] 10/26 (records/BOHEMIA_TUNING_THE_JOBS_STARS_CUT_OFFS_10_26_26.md, the one table's section L): one star when the read is 0.95 or better: no lie in 200 rolled jobs played 100 more times (the coordinator's draft 0.90 lied on 6). Rule 208(b): TUNING sets them."
+  "value": 0.8,
+  "source": "RULE 254 (Paolo 10/26: 'the same calculator as the auto combat'): the AUTO colour's turn (ours.odds_colour.turn, COMBAT's, rule 144(e)): at or over it AUTO is green, the job is ONE star and clean tin. Read from the fight; this copy must equal it. Struck: TUNING's 0.95 on the one-in-six reading (208(a) as amended, struck by 254(c))."
  },
  "cut_three": {
   "value": 0.5,
-  "source": "TUNING [the job's stars, the cut-offs] 10/26 (same record): three stars under 0.50 (the draft 0.60 lied on 6)."
+  "source": "RULE 254(b): the AUTO colour's down_value (ours.odds_colour.down_value): a run won with men down counts this times the share standing, so at or under it the run the calculator expects has a man down or dead: THREE stars, the deepest blood. Read from the fight; this copy must equal it."
  },
  "road_per_hour": {
   "value": 0.0038,
@@ -33,12 +29,12 @@
   }
  },
  "blood_from": {
-  "value": 0.04,
-  "source": "OURS: below this chance of a man down or dead the button is clean"
+  "value": 0.2,
+  "source": "RULE 254: one less the AUTO colour's turn: a danger at or under this is AUTO green, clean tin; just over it is AUTO's first red, the first stage (no clear middle, 144(g)). UI's kit reads it (cfg()). Read from the fight; this copy must equal it."
  },
  "blood_full": {
-  "value": 0.65,
-  "source": "OURS: at this chance and over the button is soaked (the last stage, the darkest)"
+  "value": 0.5,
+  "source": "RULE 254: one less the AUTO colour's down_value: at this danger and over the button is soaked (the deepest, where the calculator expects men down or dead). Read from the fight; this copy must equal it."
  },
  "steps": {
   "value": 6000,
@@ -54,7 +50,7 @@
  },
  "stop_below": {
   "value": 0.42,
-  "source": "OURS: ...when its read is under this: a job with it in is three stars whatever the rest (0.42 < cut_three 0.50)"
+  "source": "OURS: ...when its plain mean is under this: a job with it in is three stars whatever the rest (0.42 < cut_three 0.50)"
  },
  "near_cut": {
   "value": 0.12,
