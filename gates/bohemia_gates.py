@@ -9452,6 +9452,12 @@ GATES = [
     ('FATIGUE COMES BACK EVERY TURN', ['node', 'gates/fatigue_comes_back_every_turn_gate.js'],
      'COMBAT [fatigue comes back every turn], rules 283 and 285 (Paolo 10/26: "with a shield and a one hand weapon fatigue doesn\'t get restored, if I chill out it doesn\'t go down... after that I can\'t attack anymore for the whole fight"; "if I run out of stamina in a match it\'s over"). MEASURED BEFORE: ringed by three, a car door man resting went 81 -> 83 -> 83 of 83, the hits put back more than the 15 took off; AUTO kept a winded man shuffling 30 turns. Legs: one rest then a swing, every kit; 15 back a turn and 30 after a rest, the hits of a rest owed; AUTO never winded more than one turn running; RECOVER for any winded man of his; the breath tag, the bar and the faint +N on his phone and computer; TOO HEAVY TO SWING on the card',
      True),
+    ('THE ORANGE SAYS WHAT IT IS', ['node', 'gates/the_orange_says_what_it_is_gate.js'],
+     'COMBAT [eyes: the hatch says nothing], rule 225(d) (EYES, the normie hour F22: \'an orange hatch covers the enemy\'s side... nothing says what the hatch is\'; DONE WHEN a stranger can say what the orange means from the screen, in one tap or none). READ BEFORE: no line of the fight named the orange. Legs, phone and computer: one tap (or the mouse resting) on a hatched tile says \'Orange stripes: their reach.\' first, a tile in the clear says nothing of it; the first hatch on his turn, his veteran says what it is, once',
+     True),
+    ('ICONS, NOT NUMBERS, IN THE FIGHT', ['node', 'gates/icons_not_numbers_in_the_fight_gate.js'],
+     'COMBAT, rule 224 on the fight\'s screens (Paolo 10/26: "I\'m tired of it just being numbers numbers numbers... more icons, more green up arrow, down red arrow, and the only number that matters is by how much"). MEASURED BEFORE: his bar said 9/9 AP 0/74 FAT +30 (the fatigue twice, and its bar kept the last man\'s number), his card armour 30 / 30 and rounds 3 / 5, the weapon card reach 1 to 4 tiles and the car door +15 / +15; numerals his bar 16, his card 15, the weapon card 12. Legs, phone and computer: his bar says the AP once and what comes back as UI\'s mark (the lungs, a green up arrow, the amount); his card\'s armour as bars and rounds as rounds; the weapon card\'s reach as tiles, magazine as rounds, the car door as marks; the numerals each under the before',
+     True),
     ('THE SHIELD COVERS THE MAN BEHIND', ['node', 'gates/the_shield_covers_the_man_behind_gate.js'],
      'COMBAT [the shield covers the man behind], rule 230(b)(c) (Paolo 10/26: "there\'s obviously a defensive bonus when you are at the rear of your teammate that has a shield against enemy ranged attacks"). MEASURED BEFORE: the -75 for a man in the way was in the chance since rule 63, but a blocked shot that missed went nowhere and nothing showed the cover. Legs: over 1,500 blocked shots every miss flies on into the man in the way at -15 (the wiki\'s Hit Chance page), its hits within three standard deviations of their chances; an astray hit three quarters of the shot (the Damage page); the shotgun still ignores the line; on his phone and computer the shield-cover mark exactly when the line is blocked and the red cut on the shot square',
      True),
@@ -9885,6 +9891,16 @@ GATES = [
      "the alpha and the demo carry the one clock (every effect asked for now starts on the song's next sixteenth of the same audio clock, a DelayNode between the one-shot player and its bus; `at` books a heard moment exactly); "
      "the live demo, phone at 4x and computer: the map (eight taps' ticks at random moments), the fight by hand (a blow, walks) and on AUTO: every effect within 20 ms of a sixteenth on the audio clock; "
      "AS HEARD: an AudioWorklet on the effects bus and on the music, folded on the sixteenth from the booked grid: both within 20 ms (MEASURED BEFORE: the effects -35 ms, smeared). green at registration: computer 7/0, phone 7/0, about 7 minutes", True),
+    ('THE BULLET LANDS', ['node', 'gates/bullet_lands_gate.js'],
+     "SOUNDS gate, 10/24, row [the bullet lands] (rule 120: 'the guns were supposed to be the main way this is gonna be solved'; rule 126(c): every hit, kill and fall is heard): the landings from banked CC0 recordings, the crack cut before the report, "
+     "the levels through the game's own chain within 0.75 dB, the router with what COMBAT can tell it and with ev alone, never the same take twice running, the count-up on the beat, the alpha and the demo carry both engines byte for byte, "
+     "and the demo's road fight on AUTO: its shots real guns, its bullets real landings. Registered 10/26 by SOUNDS (it was an orphan the registry gate named): 14/0, about 4 minutes", True),
+    ('DEATH SOUNDS THAT TERRIFY', ['node', 'gates/death_sounds_gate.js'],
+     "SOUNDS gate, 10/26, row [death sounds that terrify] (rule 235, Paolo 10/26: 'during combat when people die, I wanna hear terrible, terrible noises that are scary, like people are literally dying... many types, like broken bones, the whole enchilada'): "
+     "the alpha and the demo carry the death player byte for byte and the fight's sound line asks it first; the fight's SND.death says how each man died; six kinds (bone, blade, gun, beast, slow, armour) for his man and theirs, three takes each, the skull and three animals; "
+     "his man louder and longer (235(e)); every layer a CC0 recording named in the record; the live demo, phone at 4x and computer: every kind posted plays a take of exactly its voice, the old fall stood down, the head adds the skull, never a take twice running; "
+     "three seeded road fights on AUTO: every death plays the kind its killing blow names, never the same take twice in a row, the old fall never, each on the song's sixteenth within 20 ms; the fight's own SND.death on dead men the gate makes picks the kind. "
+     "green at registration: computer 13/0, phone 13/0, about 6 minutes each", True),
     ('THE VOTE CARDS PLAY', ['node', 'gates/the_vote_cards_play_gate.js'],
      "SOUNDS gate, 10/25, row [the vote cards play] (rule 193, Paolo 10/25: 'I went in the vote tab and tried to play the music and the music wasn't playing'): the alpha, its door, the VOTE tab, a song card's LOOK AT IT (two frames), "
      "phone (an iPhone's user agent, touch) and computer: the first tap plays and says LOADING then PLAYING; the page asks for the phone's playback audio session (the ringer switch); with Web Audio locked the plain <audio> player takes the tap; "
@@ -10242,6 +10258,12 @@ GATES = [
      "centre away from the phone; no living fighter's body outside it on any frame (a man out of the dark and a man the camera is already gliding to hold, half a beat, counted and said); every frame a beat after the first frame "
      "that saw the last walk, fall or change is the tightest frame again, centred; the camera moves only inside a glide; where the fight draws in a tenth the man is drawn bigger (his floor said); the phone flipped re-centres in two "
      "beats; a real pinch or the wheel holds through END TURN and their turns and lets go at his next man's turn. Three plants bite. About 15 min", True),
+    ('NO TOP BAR IN THE FIGHT', ['node', 'gates/no_top_bar_in_the_fight_gate.js'],
+     "UI gate, 10/26, row [no top bar in the fight] (rule 280(d), PAOLO 10/26: 'when it's combat mode I don't need to see my batteries and the time of day... in combat it can completely go away'). "
+     "MEASURED before: the fight wore the map's whole bar across its top (390 x 108 upright, 60 on its side and on a computer: the day, the crew, the batteries and the supplies) and measured its board under it. "
+     "On the demo, phone upright, on its side and a computer, two rolled road fights each through the map's own door: at the door the map's bar lifts off as the clouds come in (never held waiting); in the fight "
+     "no bar on any page, nothing at its place is the bar, no DAY n, no hour, no battery count on the fight's words, the shell's or the phone's drawn face; TOPH 0; the phone's CREW, SETTINGS and NOTES open the "
+     "company screen, the settings and the notes over the fight; won, the loot screen wears the bar in the map's rectangle with YOU WON under it; LEAVE, the map's bar whole and on top. Five plants bite. About 9 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

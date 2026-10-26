@@ -134,7 +134,8 @@ const done = () => { console.log('=== MELEE IS ONE TILE, COVER IS WHAT IS ON THE
       await d.page.waitForTimeout(300);
     }
     if (!card) card = await d.page.evaluate(() => { const u = FIGHT.S.units.find(v => v.weapon && !FIGHT.isRanged(v.weapon) && /polearm|spear|sword|axe/.test(v.weapon.class || ''));
-      if (!u) return null; try { weaponCard(u); } catch (e) { return 'threw ' + e.message; } const el = document.getElementById('drawer'); return el ? el.textContent : null; });
+      if (!u) return null; try { weaponCard(u); } catch (e) { return 'threw ' + e.message; } const el = document.getElementById('drawer'); if (!el) return null;
+      const tp = el.querySelector('i.pips.tiles'); return el.textContent.replace(/Reach/, 'Reach ' + (tp ? tp.title : '')); });   /* rule 224: the reach is drawn as tiles, its title says how many */
     await d.close();
   }
   leg(kneels > 0 && open_.length === 0, '*** EVERY KNEEL IS ON A COVER TILE OR IN A BUILDING *** (rule 170(a); his 10/24: \'when they\'re in a building... they should look like they\'re in cover\'): never on bare raised ground, never in the open street',

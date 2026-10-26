@@ -15761,6 +15761,25 @@
     "how": "image",
     "src": "vote/CAMP_THE_CAMP_STOPS_AT_FULL_10_26.webp"
    }
+  },
+  {
+   "id": "sounds-death-sounds-that-terrify-10-26",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "014feebc",
+   "made": "10/26",
+   "draft": true,
+   "title": "DEATH SOUNDS: SIX KINDS OF DYING, YOUR OWN MEN THE WORST",
+   "said": "during combat when people die, I wanna hear terrible, terrible noises that are scary, like people are literally dying... many types, like broken bones, the whole enchilada",
+   "why": "Every death in a fight now plays a real death made from real recordings: a bone that snaps, a blade's wet cut, a man shot down choking, a beast's bite and drag, the slow one dying, his plate giving way, and your own men's are the worst of all. It is already in the game, so tap each kind here on this card in the VOTE tab to hear it alone.",
+   "options": [
+    "A, scary enough, keep them",
+    "B, not scary enough, again"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_DEATH_SOUNDS_THAT_TERRIFY_10_26_26.html"
+   }
   }
  ],
  "verdicts": [

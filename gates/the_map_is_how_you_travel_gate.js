@@ -53,8 +53,17 @@ const done = () => {
   try { d = await drive.open({ keepCards: true, engage: true }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
   const fr = d.fr;
+  /* RUN 10/26: a new game opens in a town (RUN THREE's start, rule 236): its settlement screen lies over the map until he leaves, so
+     every tap below waits until the map is up, the town left by its own LEAVE, as a player leaves it (the legs measured a town) */
+  const leaveTown = async () => { for (let i = 0; i < 4; i++) {
+    const up = await fr.evaluate(() => { const e = document.getElementById('settleFrame'); return !!e && getComputedStyle(e).display !== 'none'; }).catch(() => false);
+    if (!up) return; const h = await fr.$('#settleFrame'); const f2 = h && await h.contentFrame();
+    if (f2) await f2.evaluate(() => { try { window.parent.postMessage({ type: 'BOHEMIA_SETTLEMENT', act: 'leave', place: BohemiaSettlement.state.place.name, batteries: null }, '*'); } catch (_e) {} }).catch(() => {});
+    await d.page.waitForTimeout(2000); } };
   try {
     await d.page.waitForTimeout(1500);
+    for (let i = 0; i < 40; i++) { if (await fr.evaluate(() => !!(window.om && om.n && typeof MAP_DREW !== 'undefined' && MAP_DREW.you)).catch(() => false)) break; await d.page.waitForTimeout(500); }
+    await leaveTown();
 
     /* 1. THE DEMO OPENS ON THE MAP */
     const st0 = await d.state();
@@ -157,12 +166,18 @@ const done = () => {
     }
 
     /* A SECOND TAP STOPS A JOURNEY (volume 01's right-click) -- on a long route */
+    await leaveTown();   /* the short journey may have ended at a town's gate */
     if (hands === 0) {
       const far = await fr.evaluate(() => {
         const c = document.getElementById('cv'), r = c.getBoundingClientRect();
         const kx = (window.CVW || c.width) / r.width, ky = (window.CVH || c.height) / r.height;   /* CSS pixels: the backing store is the phone pixels on the map (10/1) */
         let best = null;
         for (let sy = 60; sy < r.height - 60; sy += 13) for (let sx = 20; sx < r.width - 20; sx += 13) {
+          /* RUN 10/26: a point the map owns: nothing of the map's page over it, and inside the open area beside UI TWO's phone (the
+             far point it picked was under the phone, and the tap there was the phone's) */
+          const top = document.elementFromPoint(r.x + sx, r.y + sy); if (top !== c) continue;
+          if (typeof mapOpenArea === 'function') { const A = mapOpenArea(), qx = sx * kx, qy = sy * ky; if (qx < A.x0 + 12 || qx > A.x1 - 12 || qy < A.y0 + 12 || qy > A.y1 - 12) continue; }
+          try { if (typeof mapTapWhich === 'function' && mapTapWhich(sx * kx, sy * ky)) continue; } catch (_e) {}   /* ground: a town's or a party's name answers a tap as itself, never as a stop */   /* and beside the phone, which lies over the map from the page around it */
           const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
           const p = cityRoute(city.x, city.y, cell[0], cell[1]); if (!p) continue;
           if (!best || p.length > best.L) best = { x: r.x + sx, y: r.y + sy, L: p.length };
