@@ -6,7 +6,13 @@ The coordinator's NOTE: the share as one number in the one table (his 1 percent 
 crews (the church, the anarchists) run higher. RUN TWO's NOTE: the post reads records/target/bb/post_women.json; lift it into
 the one table, keep the file's shape. Nothing here is built; the numbers are rows in the one table, section M.
 
-## 1. THE ONE NUMBER (the post)
+## 0. HIS PICK, 10/26 (rule 214, after this page was first written): FOUR PERCENT
+"make it 4 percent... for the women." The one table's post.women_share is now 0.04, HIS NUMBER, not a draft; the realistic 2 sits
+beside it as the reading he traded (rule 214). At 4 percent: a post of seven shows a woman 24.9 percent of weeks (1 - 0.96^7), and
+a hundred-day game of one post a week (98 people seen) shows him about four (3.9). The Church's crews stay under the post: at most
+the realistic 2 (a faith runs fewer, section 2); the Anarchists' 0.20 is unchanged (his 4 is a post's number, not a cause's).
+
+## 1. THE ONE NUMBER (the post), AS FIRST WRITTEN
 - PLAYS: 0.01, his word ("like one percent"), and it stays the number until he picks (NOTES ARE RULINGS). RUN TWO plays it at 0
   until a woman's whole body exists to stand at a post (records/target/bb/post_women.json `plays_at`): today, measured by
   RUN TWO's own file, the post rolls no woman, because no man's body ever wears a woman's name.
