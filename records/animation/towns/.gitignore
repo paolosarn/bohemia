@@ -1,0 +1,3 @@
+# ANIMATION [the town's activities]: the posed models, rebuilt by tools/bohemia_animation_the_towns_activities.py
+*.glb
+*.json
