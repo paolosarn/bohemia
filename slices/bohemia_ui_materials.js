@@ -1112,14 +1112,72 @@
     nb.addEventListener('click', function (e) { e.stopPropagation(); if (HUD.open) hudNoteClose(true); else hudNoteOpen(); });
     var root = hudBuild(top, nb);
     HUD.screen = 'fight';
+    /* UI [no top bar in the fight] (rule 280, Paolo 10/26: 'when it's combat mode I don't need to see my batteries and the time
+       of day... in combat it can completely go away'; amends 190's one HUD for the fight and 200(a)'s 'and in the fight'):
+       while the fight is on, the bar is not drawn at all (html.bm-nobar): no batteries, no supplies, no clock, and the fight
+       measures its top as 0, so the board gets the room. The bar is still BUILT here, off the glass, because the phone's CREW,
+       NOTES and SETTINGS press its very buttons (UI TWO's barPress, rule 238(a)): one handler each, no button twice (286(b)).
+       The moment the fight says it is over, the bar comes back, laid with the map's facts first, then dropped in from the top
+       of the glass (rule 229, MOTION's layer: on twos, the tin leaning into its travel), the way the map's lifted off at the
+       fight's door; the loot screen wears the same bar (hudLoot), and the map's is back under it. */
+    var R = document.documentElement; R.classList.add('bm-nobar'); style('bm-fight-nobar', FIGHT_NOBAR_CSS);
     var paint = function () {
+      if (R.classList.contains('bm-nobar')) return;   /* nothing to paint while the bar is off the glass */
       var M = hudMapWin(), parts = null;
       try { parts = M ? M.BohemiaMaterials.hudParts() : hudParts(); } catch (_e) { try { parts = hudParts(); } catch (_e2) {} }
       if (parts) hudLay(root, parts);
       try { var t = hudNoteCount(), pl = document.getElementById('noteplate'); if (pl && !HUD.open && pl.textContent !== t) pl.textContent = t; } catch (_e) {}
     };
-    paint(); setInterval(paint, 500);
+    var over = function () {
+      var done = hudFightOver();
+      if (done === !R.classList.contains('bm-nobar')) return;
+      if (done) { R.classList.remove('bm-nobar'); paint(); hudBarIn(root); }
+      else R.classList.add('bm-nobar');   /* the same page started again (COMBAT's start()): the bar off again */
+      try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    };
+    paint(); setInterval(paint, 500); setInterval(over, 100);
     try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    return true;
+  }
+  var FIGHT_NOBAR_CSS = 'html.bm-nobar body #top.bmhost{display:none!important}';
+  /* the fight's own word that it is over (COMBAT's FIGHT.S.over, the same flag the phone reads to strike back to its apps) */
+  function hudFightOver() { try { return !!(typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.over); } catch (_e) { return false; } }
+  /* the bar comes back from above the glass, through MOTION's one layer in the top page (a fade in place under LESS MOTION) */
+  function hudBarIn(root) {
+    try { var M = window.top.BohemiaMotion; if (!M || !M.fly || !M.copyOf) return false;
+      var b = M.box(root); if (!b) return false;
+      return !!M.fly({ id: 'bar', kind: 'piece', from: { x: b.x, y: -b.h - 12, w: b.w, h: b.h }, node: M.copyOf(root), to: root, rivets: false }); } catch (_e) { return false; }
+  }
+  /* THE LOOT SCREEN (rule 280(b): 'the bar comes back the moment the fight ends, the loot screen and the map'): RUN TWO's spoils
+     screen is its own page over the fight, the whole glass, so the same bar is built at its top, painted from the MAP's parts, in
+     the map's rectangle; the screen's own head (YOU WON, the tally) sits under it and keeps sticking under it as he scrolls. The
+     phone's own rule reaches this page too (html.boh-phone-on: the gear and NOTES are the phone's, the crew chip a readout), so
+     here the bar is what it shows (the day, the crew's blood, what he carries, the batteries the loot pays into) and the screen's
+     own LOOT ALL, MAKE CAMP and LEAVE are its presses: no button twice (286(b)). Without the phone (an older build) the bar's
+     own gear, NOTES and CREW work here as on the map. */
+  var LOOT_CSS = ''
+    + 'html body #bmloot.bmhost{position:-webkit-sticky!important;position:sticky!important;top:0!important;z-index:8!important}'
+    + 'html.bm-loot body #bar{top:var(--bm-hud-h,0px)!important}';
+  function hudLoot() {
+    if (!document.getElementById('lootall') || !document.getElementById('word') || !document.getElementById('foot')) return false;
+    if (document.getElementById('bmtb')) return true;
+    /* the spoils screen opened on its own (RUN TWO's sample fight, its gates) has no map and no facts: it keeps its own head */
+    if (!hudMapWin()) { HUD.benchTries = (HUD.benchTries | 0) + 1; return HUD.benchTries > 6; }
+    hudVars(); style('bm-loot', LOOT_CSS);
+    var host = document.createElement('div'); host.id = 'bmloot'; document.body.insertBefore(host, document.body.firstChild);
+    var nb = document.createElement('span'); nb.id = 'notebtn'; nb.setAttribute('role', 'button'); nb.setAttribute('tabindex', '0'); nb.setAttribute('aria-label', 'notes');
+    nb.innerHTML = '<span id="noteplate">NOTES</span>';
+    nb.addEventListener('click', function (e) { e.stopPropagation(); if (HUD.open) hudNoteClose(true); else hudNoteOpen(); });
+    var root = hudBuild(host, nb), R = document.documentElement;
+    HUD.screen = 'loot'; R.classList.add('bm-loot');
+    var paint = function () {
+      var M = hudMapWin(), parts = null;
+      try { parts = M ? M.BohemiaMaterials.hudParts() : null; } catch (_e) {}
+      if (parts) hudLay(root, parts);
+      try { var t = hudNoteCount(), pl = document.getElementById('noteplate'); if (pl && !HUD.open && pl.textContent !== t) pl.textContent = t; } catch (_e) {}
+      var h = Math.round(host.getBoundingClientRect().height) + 'px'; if (R.style.getPropertyValue('--bm-hud-h') !== h) R.style.setProperty('--bm-hud-h', h);
+    };
+    paint(); setInterval(paint, 500); window.addEventListener('resize', paint);
     return true;
   }
   /* NOTES in the fight: the map's own box (its look copied from the map's page, its words into the same notes) */
@@ -1993,7 +2051,7 @@
     if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); }
     /* the top bar, the days once, on the map; the strip off the top in the fight (both pages build their bars after load) */
     /* ONE HUD (rule 190): the map's bar, the same bar in the fight's top, the town laid under the map's */
-    var hudAny = function () { return topBar() || (fightNoTop() && hudFight()) || hudInTown(); };
+    var hudAny = function () { return topBar() || (fightNoTop() && hudFight()) || hudInTown() || hudLoot(); };
     if (!hudAny()) { var n = 0, it = setInterval(function () { if (hudAny() || ++n > 120) clearInterval(it); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
