@@ -36,6 +36,7 @@
         shut (rule 270(c))
      K14 EVERY TIER BOTH WAYS: 1, 3, 6 and 12 men laid out wide and tall by the camp's own code: the same pieces, on the ground, none
         covering another by more than 30 percent; upright with the phone up, clear of the phone (rule 289)
+     K4c THEIR ACTS IN THEIR REAL GEAR: ANIMATION's camp acts (lie, repair, ...) drawn for the man whose condition calls for them
      K13 THE TURN GLIDES: a glass turned mid-camp gets the other shape (the tall camp on the tall ground, the wide on the wide), every
         piece and man there before and after, gliding one beat, never a black frame (rule 289(b)(c))
    node gates/the_camp_is_his_own_gate.js [--profile phone_portrait|phone_landscape|computer]   (no flag: all three) */
@@ -96,6 +97,13 @@ async function run(profile) {
     const k2b = (await look(sf)).pitch;
     ok(P + 'K2 *** THE PITCH *** making camp plays it (a few seconds, the shopping cart first) and a real tap skips it',
       !!k2a && k2a.on && k2a.ms >= 1500 && k2a.ms <= 8000 && k2a.carrier === 'shopping_cart' && !!k2b && !k2b.on && k2b.skipped, JSON.stringify({ at_open: k2a, after_tap: k2b }));
+    /* ---- K4c (ANIMATION's camp acts): each in his real gear, by the act his condition says, where his look has the pictures ---- */
+    const has = await sf.evaluate((ls) => ls.map(l => { try { return window.BohemiaIdles && BohemiaIdles.activities ? BohemiaIdles.activities(l) : []; } catch (e) { return []; } }), [(k4a.acts.filter(a => a.name === men[1])[0] || {}).look, (k4a.acts.filter(a => a.name === men[2])[0] || {}).look]);
+    let k4c = null;
+    for (let k = 0; k < 30; k++) { k4c = await look(sf); const d = k4c.drawnBy || {}; if (d[men[1]] === 'anim:lie' && d[men[2]] === 'anim:repair') break; await p.waitForTimeout(400); }
+    const want1 = has[0].indexOf('lie') >= 0, want2 = has[1].indexOf('repair') >= 0, dB = (k4c && k4c.drawnBy) || {};
+    ok(P + 'K4c THEIR ACTS IN THEIR REAL GEAR: the hurt man lies bandaged in ANIMATION\'s lie, the broken one kneels at the car door in its repair (where his look has the pictures)',
+      (!want1 || dB[men[1]] === 'anim:lie') && (!want2 || dB[men[2]] === 'anim:repair') && (want1 || want2), JSON.stringify({ has, drawnBy: dB }));
     if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp2_' + profile + '_camp.png') });
     /* ---- K11 THE CAMP FITS THE PHONE (rule 286(a)(b)): phone right, then left; nothing of the camp under it, one door each ---- */
     const doorsOver = async () => sf.evaluate(() => {
@@ -175,7 +183,7 @@ async function run(profile) {
     let k4b = null;
     for (let k = 0; k < 70; k++) { await p.waitForTimeout(500); k4b = await look(sf); if (byName(k4b, men[1]).act !== 'lie') break; }
     const up = byName(k4b, men[1]);
-    ok(P + 'K4b the hurt man gets up when the camp\'s hours have healed him', up.act !== 'lie' && up.blood >= 0.35, men[1] + ' ' + JSON.stringify(up));
+    ok(P + 'K4b the hurt man gets up when the camp\'s hours have healed him (once, ANIMATION\'s rise)', up.act !== 'lie' && up.blood >= 0.35 && (k4b.rose || []).indexOf(men[1]) >= 0, men[1] + ' ' + JSON.stringify(up) + ' rose ' + JSON.stringify(k4b.rose));
     /* ---- K3 ---- */
     const k3 = await sf.evaluate(() => {
       const info = BohemiaSettlement.camp().info, out = {};

@@ -41,7 +41,7 @@
                 edges: [[-700, 20, 'SW'], [720, 10, 'SE'], [520, -250, 'NE'], [-520, -240, 'NW']],
                 truckAt: { cart: [-640, 40], supplies: [-250, 250], blacksmith: [-120, 300],
                            spots: [[470, 40], [820, 240], [560, -110], [-470, -330], [330, -230], [-430, 300], [200, 230]] } },   /* the watch at the camp's sides, clear of the cart and of the bottom corners (the phone's) */
-              tall: { w: 1092, h: 1940, fx: 546, fy: 1000, sx: 0.62, sy: 1.45, cap: [3, 4, 4, 4], rx: [250, 70], ry: [250, 215], ring: [0.12, 0.88],
+              tall: { w: 1092, h: 1940, fx: 546, fy: 1000, sx: 0.62, sy: 1.45, cap: [3, 4, 4, 4], rx: [250, 70], ry: [250, 215], ring: [0.12, 0.88], ringRy: 40, ringDy: 150,
                 /* the upright camp is its own picture, not the wide one squeezed: the tents in rows behind the fire, the carrier and its
                    load on the left, the seats and the hurt in front, the followers down both sides; centred on the glass with no phone
                    (rule 289), lifted in one beat when the phone comes on (lift below) */
@@ -189,7 +189,8 @@
     (by.tend || []).forEach(function (e) { var p = out[e.by]; if (p) put(e, p.x + 20, p.y - 46, 'S'); else put(e, f.x, f.y + 120, 'N'); });
     var sitters = (by.rest || []).concat(by.clean || []);
     var arc = G.ring || [0.62, 1.38];   /* the wide camp sits them on the fire's left; the upright one in front of it, backs to us */
-    sitters.forEach(function (e, j) { var q = ring(sitters.length, 175, 85, Math.PI * arc[0], Math.PI * arc[1], j); put(e, q.x, q.y, dirTo(f.x - q.x, f.y - q.y)); });
+    var ry0 = G.ringRy || 85, dy0 = G.ringDy || 0;   /* upright they sit a stride in front, low enough that no body covers the fire's door */
+    sitters.forEach(function (e, j) { var q = ring(sitters.length, 175, ry0, Math.PI * arc[0], Math.PI * arc[1], j); put(e, q.x, q.y + dy0, dirTo(f.x - q.x, f.y - q.y - dy0)); });
     var smith = piece('f_blacksmith'), cart = piece('cart');
     (by.mend || []).forEach(function (e, j) { var at = smith || cart; put(e, at.x + 70 + j * 46, at.y + 40 + (j % 2) * 18, dirTo(at.x - (at.x + 70 + j * 46), -1)); });
     var pot = piece('f_cook');

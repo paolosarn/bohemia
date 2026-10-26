@@ -65,6 +65,11 @@
       return r; });
     var min = (info && info.min) | 0, hour = Math.floor(min / 60), night = !!(info && info.night);
     var A = CL.acts(M, { hour: hour, night: night, seed: (block[0] + block[1]) % 5 });
+    if (K.st && K.st.acts) {   /* a man who lay hurt and is healed gets up once (ANIMATION's 'rise') */
+      var was = {}; K.st.acts.forEach(function (e) { was[e.name || e.look] = e.act; });
+      var tn = root.performance ? performance.now() : Date.now();
+      A.forEach(function (e) { var kk = e.name || e.look; if (was[kk] === 'lie' && e.act !== 'lie' && e.act !== 'sleep') (K.rise || (K.rise = {}))[kk] = tn; });
+    }
     var P = CL.spots(A, L);
     return { layout: L, men: M, acts: A, spots: P, hour: hour, night: night, cart: cart, retinue: ret, tall: !!L.tall, key: (L.tall ? 'T|' : 'W|') + A.map(function (e) { return e.act; }).join(',') + '|' + L.pieces.length + '|' + cart + '|' + ret.join(',') };
   }
@@ -316,8 +321,31 @@
       list.push({ y: y + (m.act === 'lie' || m.act === 'sleep' ? 6 : 0), man: m.slot, draw: function () { drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z); } });
     });
   }
+  /* ANIMATION's camp acts (records/BOHEMIA_ANIMATION_THE_CAMPS_ACTS_10_26_26.md, its call BohemiaIdles.activity): what the camp's
+     own words for an act are in its pictures. 'rest' is binding a cut on a crate (its 'mend'), 'mend' is the armour at the cart
+     (its 'repair', the car door and the hammer); a man who was lying and is healed gets up ONCE ('rise', from the moment he
+     healed), then does his job */
+  var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean' };
+  var RISE_MS = 4000;   /* its one slot: 24 keys, two bars at 120 BPM */
+  function animCell(m, now, face, I) {
+    if (!I || !I.activity) return null;
+    var key = m.name || m.look, seed = 'camp:' + key, r = K.rise && K.rise[key];
+    if (r && now - r < RISE_MS) { var q0 = I.activity(m.look, seed, now, face, { act: 'rise', n: m.slot, since: r }); if (q0) return q0; }
+    var a = ANIM_ACT[m.act]; if (!a) return null;
+    return I.activity(m.look, seed, now, face, { act: a, n: m.slot });
+  }
   function drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z) {
     var fx = ctx.view.ox + x * s, fy = ctx.view.oy + y * s, night = K.st.night;
+    var who = m.name || m.look, face0 = Math.max(0, TURNS.indexOf(m.face));
+    var an = walking ? null : animCell(m, now, face0, I);
+    if (an) {   /* his act in his real gear (ANIMATION): lying, sleeping, binding, hammering, cooking, cleaning, kneeling, getting up */
+      (K.drawnBy || (K.drawnBy = {}))[who] = 'anim:' + an.act;
+      var im0 = night ? ctx.duskOf({ im: an.img }) : an.img, z0 = k * s;
+      cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H * .17, H * .05, 0, 0, 7); cx.fill();
+      cx.drawImage(im0, an.x, an.y, an.w, an.h, Math.round(fx - (an.foot[0] - an.dx) * z0), Math.round(fy - (an.foot[1] - an.dy) * z0), Math.round(an.w * z0), Math.round(an.h * z0));
+      return;
+    }
+    (K.drawnBy || (K.drawnBy = {}))[who] = walking ? 'walk' : 'still';
     var lying = !walking && (m.act === 'lie' || m.act === 'sleep');
     if (lying) {
       var roll = K.kit && K.kit.pieces.bedroll;
@@ -538,7 +566,7 @@
     return { ready: K.ready, open: !!K.st, tents: K.st ? K.st.layout.tents : null, men: K.st ? K.st.men.length : 0, carrier: K.st ? K.st.layout.carrier.id : null,
       pieces: K.st ? K.st.layout.pieces.map(function (p) { return { key: p.key, kind: p.kind, sprite: p.sprite, x: p.x, y: p.y, follower: p.follower || null }; }) : [],
       acts: K.st ? K.st.acts.map(function (e) { return { name: e.main ? 'YOU' : e.name, look: e.look, act: e.act, blood: Math.round(e.blood * 1000) / 1000, armour: Math.round(e.armour * 1000) / 1000, by: e.by }; }) : [],
-      hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
+      hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, drawnBy: K.drawnBy || {}, rose: Object.keys(K.rise || {}), gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
       compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
   root.BohemiaCampLook = { ready: function () { return K.ready && !!CL; }, variant: variant, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,

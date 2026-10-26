@@ -10,8 +10,9 @@ WHAT IS LIVE (the demo: LEAVE the start town, then press HEAL on the phone anywh
 - HIS MEN (259): each where his condition puts him: under 35 percent blood lying bandaged on a bedroll with a friend sitting by him,
   under 87 binding a cut by the fire, broken armour mended at the cart (or the anvil, with a spark on the beat), the rest cooking,
   cleaning a gun, keeping watch, turning hour by hour, all asleep at night but one on watch; the main character at his own job,
-  lying down with the rest when hurt or asleep. ANIMATION's town pictures (sit, stall, smoke) where his look has them; the still on
-  its side for lying (placeholder until [the camp's acts]).
+  lying down with the rest when hurt or asleep. ANIMATION's camp acts in their real gear (lie, sleep, binding a cut, hammering the
+  car door, cooking, cleaning a rifle, a friend kneeling, getting up once when healed) where his look has the pictures; the old
+  still on its side only where it has none (gate K4c).
 - TALL AND WIDE FIRST (289): an upright glass gets the tall ground (plate_tall.webp, 1092 x 1940) and the tall camp, its own
   composition (engine/bohemia_camp_life.js GEO.tall); a turn mid-camp glides every piece and man to his new spot in one beat, each
   keeping his act, on MOTION's curve and clock (six holds a beat), never a dark frame; every tier both ways (gate K14) on records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26.webp;
@@ -51,9 +52,9 @@ camp; the capture tool presses LEAVE first; my gate has not met the town start i
 
 NOT DONE, NEXT (in this order): (1) camp in a town and the town-style camp on the entrance tile (259(c), 273(b)(d)): campOnMap's
 refusal is CAMP's [a town is safe]; I lay the men and the ghosts in the town's picture when RUN THREE hands the open ground;
-(2) the gate walks a twelve-man company with the pickup on the real screen (the sheet draws every tier from the layout code; the
-gate walks three men); (3) the camp's growth on the phone's CAMP app (UI TWO, NOTE); (4) the art through the master rig when a
-session has Blender (12 of 30 pieces BACK on the card, kit.json says which); (5) ANIMATION's camp acts drop in (lie, kneel,
-hammer, cook, unpack); (6) the twelve followers' screens (their owners).
+(2) the gate walks a twelve-man company with the pickup on the real screen (K14 lays every tier out by the camp's own code;
+the screen is walked with three men); (3) the camp's growth on the phone's CAMP app (UI TWO, NOTE); (4) the pitch plays
+ANIMATION's unpack and stake acts (its call is ready); (5) COOK's rig-made kit (this round, its own row) is in: look again at
+every tier with it; (6) the twelve followers' screens (their owners).
 [bb Battle Brothers: the retinue screen is a campfire with tents and the cart; here the camp is his own place on the map.]
 [analog horror: the hours leave their ghosts on the sand at two percent; a crew in the dark lights the edge the red AUTO would show.]

@@ -132,6 +132,18 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
    - THE TURN, SEEN: tools/bohemia_camp2_capture_the_turn.js boots the demo upright like a player (LEAVE the start town, HEAL),
      turns the glass on its side and back, and screenshots the real screen; records/target/camp_two/CAMP_TWO_THE_TURN_10_26.webp
      (the glide slowed 12x so a headless browser's few frames a second can see it; the card says so).
+9. THEIR ACTS IN THEIR REAL GEAR (ANIMATION's [the camp's acts], f2487f30, its call BohemiaIdles.activity): each man drawn in
+   ANIMATION's act for what his condition says, mapped from the camp's words: 'lie' lie, 'sleep' sleep, 'rest' (binding a cut)
+   its mend, 'mend' (the armour at the cart) its repair (the car door and the hammer), 'tend' tend (a knee by the hurt man), 'cook'
+   cook, 'clean' clean; a man who lay hurt and is healed plays its 'rise' ONCE (from the moment his act left 'lie', its one slot of
+   two bars), then his job; the old still on its side only where a look has no pictures. Gate K4c (right after the camp opens:
+   the hurt man in its lie, the broken one in its repair) and K4b (the hurt man got up through its rise).
+10. A MAN STANDING ON A DOOR ANSWERS INSTEAD OF IT (found by the gate upright, a bug a player would hit): the screen's own rule is
+   that a body under the finger beats the building behind it (EYES' [eyes: crowd taps]), and a tap on one of his own men opens the
+   crew screen; upright, the sitters' arc ran through the fire's own spot, so pressing the fire opened the crew screen and the
+   sheet never came (and every later press in that round landed on the crew screen). The upright camp now sits them a stride in
+   front of the fire and lower (GEO.tall ringRy, ringDy), so no body stands on a door. Measured: upright 12/4 before, 16/0 after,
+   twice in a row; nothing changed for the wide camp (16/0) or the computer (16/0).
 8. THE CAMP OPENS ON THE CAMP, NOT ON A PLATE (found by the capture, a bug a player would see): MOTION's grow (the camp growing out
    of HEAL) waits on its last pose until the real screen is drawn, and it judged 'drawn' by the settlement's name reading YOUR
    CAMP; the camp's name is its clock (DAY 1  14:00, CAMP's), so every camp open waited out READY_MAX (2 s) behind the dark CAMP
