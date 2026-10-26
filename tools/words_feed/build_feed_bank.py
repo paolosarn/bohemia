@@ -9,6 +9,7 @@ sys.path.insert(0, HERE)
 from feed_accounts import ACCOUNTS
 from feed_posts_part1 import MINE, WORLD
 from feed_posts_part2 import LIFE, BOTS, PAGES, REPLIES, FOLLOWUPS
+from feed_twins import TWINS
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 OUT = os.path.join(ROOT, 'banks', 'BOHEMIA_WORDS_THE_FEED_BANK.json')
@@ -60,6 +61,18 @@ def stamp(words):
 
 def main():
     kinds = MINE + WORLD + LIFE + BOTS + PAGES
+    # the twins file: every key must land on exactly one line that had no twin
+    hit = {}
+    for r in kinds + REPLIES + FOLLOWUPS:
+        for w in r['words']:
+            if w['en'] in TWINS:
+                if w.get('es'):
+                    sys.exit('feed_twins.py: this line already has a twin: ' + w['en'])
+                w['es'] = TWINS[w['en']]
+                hit[w['en']] = hit.get(w['en'], 0) + 1
+    stale = [k for k in TWINS if hit.get(k) != 1]
+    if stale:
+        sys.exit('feed_twins.py: %d keys match no line or more than one: %s' % (len(stale), stale[0]))
     for k in kinds:
         stamp(k['words'])
     for r in REPLIES + FOLLOWUPS:

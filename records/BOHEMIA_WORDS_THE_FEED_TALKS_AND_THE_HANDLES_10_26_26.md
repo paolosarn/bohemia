@@ -9,7 +9,7 @@
 **The feed now has 52 accounts whose handles tell you who they are (a welder, a nurse, a toll gang,
 a dead casino's happy-hour bot), and 436 lines across 64 kinds of post, 9 reply rows and 5 follow-up
 rows, every kind five variants or more, every line draft:true, the Spanglish at 13.7 in 100 on the real
-dial, in one data file FEED reads; and a checker (THE FEED'S WORDS, 4,778 checks) that turns red on
+dial, in one data file FEED reads; and a checker (THE FEED'S WORDS, 5,018 checks) that turns red on
 any of 16 kinds of breakage.**
 
 ## 1. WHAT WAS THERE (measured before a line was written)
@@ -94,8 +94,8 @@ short names were still free, and each now has a person behind it (Benny Ortiz th
 
 ## 5. THE BANK (the 215 row)
 `banks/BOHEMIA_WORDS_THE_FEED_BANK.json`, built by `tools/words_feed/build_feed_bank.py` from
-`tools/words_feed/feed_accounts.py`, `feed_posts_part1.py` and `feed_posts_part2.py` (edit those, never
-the JSON).
+`tools/words_feed/feed_accounts.py`, `feed_posts_part1.py`, `feed_posts_part2.py` and `feed_twins.py`
+(edit those, never the JSON).
 - WHAT YOU DID, 13 kinds: job taken, done, dropped; fight won, lost, fled; a man hired, dismissed, hurt,
   dead (his page, plain English: "{man}. That's all. {place}."); a town entered; a rare man seen; the
   wipe ("the {company}'s captain walked into {town} alone from {place}. went to the clinic. didn't say
@@ -111,7 +111,8 @@ the JSON).
   push back: "you posted the same thing about my brother last year. he was born here."), the memorial,
   the market, and the five bots.
 - REPLIES (9 rows, 6 to 8 each) and FOLLOW-UPS (5 rows, 5 each): every big kind has both (215d).
-- 157 Spanglish twins: the same post as a Spanglish speaker types it, never a translation. The dial
+- 217 Spanglish twins (more than half of the people's 389 lines; the gate holds half): the same post as a
+  Spanglish speaker types it, never a translation. The dial
   decides the share (engine/bohemia_spanglish.js regFor), the bank never does.
 - 104 lines carry the analog horror in what somebody noticed, tagged 'ah' for EYES ("the pump line
   stopped moving. there's nobody at the front. we're all still standing here."; "found a little girl's

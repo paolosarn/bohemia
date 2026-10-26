@@ -165,8 +165,9 @@ lines.forEach(({ r, w }) => {
 });
 const twins = lines.filter(x => x.w.es !== undefined).length;
 const human = lines.filter(x => !isCompanyRow(x.r) && !isMachineRow(x.r)).length;
-ok('W6 a third or more of the people\'s lines have a twin of their own (flavour() is the fallback, not the voice)',
-   twins * 3 >= human, twins + ' of ' + human);
+/* a ratchet: a third at the first cut (157 of 389), half from the second (217) */
+ok('W6 half or more of the people\'s lines have a twin of their own (flavour() is the fallback, not the voice)',
+   twins * 2 >= human, twins + ' of ' + human);
 
 /* ---- W7 Q15: SOMEBODY NEVER DID IT; A PERSON IS IN EVERY HUMAN LINE ----------------- */
 const AGENT_FILL = /\{(company|man|rare|faction|enemy)\}/;

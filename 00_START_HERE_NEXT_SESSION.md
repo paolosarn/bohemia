@@ -2456,12 +2456,12 @@ and waiting on two things not mine: FEED's file and EYES' read. Lifted from rule
 THE WORDS: banks/BOHEMIA_WORDS_THE_FEED_BANK.json, built by tools/words_feed/build_feed_bank.py from feed_accounts.py,
 feed_posts_part1.py, feed_posts_part2.py (never edit the JSON). 64 kinds in 215(c)'s shape (13 what you did, every deed 215(a)
 names; 35 what the world did incl. each faction page's notice and claim; 16 the city's life incl. the ASK, the stranger, the
-scanner, five bots), 9 reply rows, 5 follow-up rows (every big kind both), 436 lines, 157 Spanglish twins, 104 tagged 'ah'.
+scanner, five bots), 9 reply rows, 5 follow-up rows (every big kind both), 436 lines, 217 Spanglish twins (feed_twins.py; the gate holds half), 104 tagged 'ah'.
 THE HANDLES: 52 accounts, a handle first, face slot empty (217a): 29 people (24 carry their trade, 7 digits, the 8 old handles
 kept with a person behind each), 11 faction pages (clean names with the faction's word), the scanner page, his company
 ({companyhandle}), 5 burners, 5 bots still posting after their owners left (answered by people); act two and three handles on
 every account. For FEED in the file: faction_says (every faction a plural, so verbs agree), casing, who, how_to_speak.
-GATE: THE FEED'S WORDS (gates/feed_words_gate.js, registered, 1 s) 4778/0; a path argument checks FEED's file; 16 mutations red.
+GATE: THE FEED'S WORDS (gates/feed_words_gate.js, registered, 1 s) 5018/0; a path argument checks FEED's file; 16 mutations red.
 W13: a paced 40,000-post feed through the real dial at 13.7 Spanglish in 100; his page and the bots never.
 THE READS: two filled hours caught 'the road crews still has the road' and 'the Bone Saints was': fixed at the root (plurals,
 no agreeing verb after his name) and both now gate legs. Record records/BOHEMIA_WORDS_THE_FEED_TALKS_AND_THE_HANDLES_10_26_26.md
@@ -2471,7 +2471,7 @@ NOT TOUCHED: engine/bohemia_feedstream.js, FEED's triggers and pacing, the demo.
 (21 other lanes' orphans; mine registered). CANON ROT, REFERENCE CHECK, REUSE-FIRST reds name none of this round's files.
 [bb]: Battle Brothers' world news is a tavern rumour bought with a round of drinks; ours is free, signed by a handle, argued in the replies.
 ANALOG HORROR: the bots are the old world on a schedule; "i went to the stop. i waited the minutes. nothing came."
-NEXT: when FEED's file lands, check it with the gate and fill any kind it adds; then EYES' hour; then more twins (157 of 389 people's lines have one).
+NEXT: when FEED's file lands, check it with the gate and fill any kind it adds; then EYES' hour; then more twins (217 of 389 people's lines have one).
 
 WORDS (words-spanglish): 10/24 (n) LATEST -- [spanglish at ten percent, and the personalities] SHIPPED 5e3459c0 (rule 143(a)(c)(d)).
 SPANGLISH: one dial for every mouth (engine/bohemia_spanglish.js): every line rolls, a man leans 10 percent, one in five 25, a
