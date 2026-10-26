@@ -41,10 +41,10 @@ tools/bohemia_camp2_capture_the_turn.js (the turn clip), slices/camp_two/ (kit.p
 plate_tall_night), gates/the_camp_is_his_own_gate.js. Marked __CAMP_TWO__ hooks in RUN TWO's settlement screen, one in RUN's map
 marker, one in MOTION's camp grow; the __ALL_EIGHTEEN__ block in engine/bohemia_camp.js.
 
-GATES (on this ship's tree, BUILD 10/26zzd, each run alone): THE CAMP IS HIS OWN 14/0 phone upright, 14/0 on its side, 14/0
-computer (K1 to K13); THE HEAL BUTTON 16/0; THE BARS OVER THEIR HEADS 6/0 computer (11/1 when run beside two other browsers: B4's
+GATES (on this ship's tree, BUILD 10/26zzd, on main d1142137, each run alone): THE CAMP IS HIS OWN 14/0 phone upright, 14/0 on its
+side, 14/0 computer (K1 to K13); THE HEAL BUTTON 16/0; THE CAMP (RUN TWO's) 8/0; THE BARS OVER THEIR HEADS 6/0 computer (11/1 when run beside two other browsers: B4's
 read raced the camp's healing; alone it is green); THE ARMOUR HE WEARS SHOWS green; DEMO BUILD 25/0. The same reds on a clean
-main worktree at 11403892, so not this lane's: THE CAMP GATE 7/1 (C5, the crew screen's bag), THE UI MORPHS 29/21 (the same 21,
+main worktree at 11403892, so not this lane's: THE UI MORPHS 29/21 (the same 21,
 M6 'no grow logged' among them), VOTE TAB (other lanes' whys, the alpha landing on VOTE), THE WAGON AND THE SIX C8a, THREE
 BLOCKS (the district library). Note for whoever runs these here: a stranger's new game can open in a town, where HEAL makes no
 camp; the capture tool presses LEAVE first; my gate has not met the town start in its runs, and if it does its K1 says so.
