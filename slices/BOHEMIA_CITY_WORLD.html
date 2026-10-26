@@ -47345,6 +47345,21 @@ function mapYouBanner(__gx,__gy,__moving){
    87 percent of both; queued as each man is drawn (in the party's own transform) and drawn after the whole party, so no man of his
    stands over another's bars. The town and the camp draw theirs in the settlement screen (the same two calls) ==== */
 var MAP_BARS = { q: [] };
+/* where his drawing's ink starts, as a share of its height from the top (the rig's box leaves air over his head); read small, once a
+   second a picture at most */
+var MAP_INK = typeof WeakMap === 'function' ? new WeakMap() : null, MAP_INK_CV = null;
+function mapInkTop(im){
+  if(!im || !MAP_INK) return 0;
+  var c = MAP_INK.get(im), now = performance.now(); if(c && now - c.at < 1000) return c.top;
+  var top = 0;
+  try{ var w = 24, h = Math.max(8, Math.round(24 * (im.height || 1) / (im.width || 1))); MAP_INK_CV = MAP_INK_CV || document.createElement('canvas');
+    if(MAP_INK_CV.width !== w || MAP_INK_CV.height !== h){ MAP_INK_CV.width = w; MAP_INK_CV.height = h; }
+    var x = MAP_INK_CV.getContext('2d', { willReadFrequently: true }); x.clearRect(0, 0, w, h); x.drawImage(im, 0, 0, w, h);
+    var d = x.getImageData(0, 0, w, h).data;
+    for(var y = 0; y < h; y++){ var hit = false; for(var i = 0; i < w; i++) if(d[(y * w + i) * 4 + 3] > 40){ hit = true; break; } if(hit){ top = y / h; break; } }
+  }catch(_e){ top = 0; }
+  MAP_INK.set(im, { top: top, at: now }); return top;
+}
 function mapHeadBarsQueue(who, x, bottom){
   if(!window.BohemiaCondition || !BohemiaCondition.bars) return;
   var b = BohemiaCondition.bars(who); if(!b || !b.show) return;
@@ -47356,9 +47371,21 @@ function mapHeadBarsDraw(){
   try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.bars = drew; window.__MAP_BARS = { at: Date.now(), drew: drew }; }catch(_e){}
 }
 /* the map paints when something moves; a man healing (the condition's own word, in this window or from the town's or the camp's
-   frame through the browser's storage) is something moving */
-window.addEventListener('bohemia:condition', function(){ try{ if(typeof renderSoon === 'function') renderSoon(); }catch(_e){} });
-window.addEventListener('storage', function(e){ if(e && e.key === 'bohemia.condition.v1') try{ if(typeof renderSoon === 'function') renderSoon(); }catch(_e){} });
+   frame through the browser's storage) is something moving. NEVER A DRAW OF ITS OWN WHEN ANOTHER IS COMING (__ONE_RENDER_A_FRAME__,
+   RUN 10/16: one whole draw is 0.4 to 0.7 s on a phone at 4x): the heal asks for one draw on the next animation frame, and only if
+   nothing drew the map since it asked (on the march the clock heals every block and the party's glide is already drawing); while a
+   town or the camp lies over the map nothing is drawn under it (closing it draws the map) */
+var MAP_BARS_ASK = false;
+function mapBarsRepaint(){
+  if(MAP_BARS_ASK) return;
+  try{ if(LOOP.frame && LOOP.frame.style.display === 'block') return; }catch(_e){}
+  MAP_BARS_ASK = true;
+  var asked = (window.ONE_RENDER && ONE_RENDER.drawn) | 0;
+  requestAnimationFrame(function(){ MAP_BARS_ASK = false;
+    try{ if(((window.ONE_RENDER && ONE_RENDER.drawn) | 0) === asked){ window.__MAP_BARS_REPAINTS = (window.__MAP_BARS_REPAINTS | 0) + 1; render(); } }catch(_e){} });
+}
+window.addEventListener('bohemia:condition', function(){ mapBarsRepaint(); });
+window.addEventListener('storage', function(e){ if(e && e.key === 'bohemia.condition.v1') mapBarsRepaint(); });
 /* ==== /__THE_BARS_OVER_THEIR_HEADS__ ==== */
 function mapCompanyPass(gx,gy,lift,moving,G,near,front){
   if(MAP_PARTY_AS_ONE.on) mapCompanyDraw(gx,gy,lift,moving,G,front?'front':'back');
@@ -50746,7 +50773,8 @@ function renderCity(){
       __bw=__s.width; __bh=__s.height;
     }
     mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,1);   /* facing away, his company is between him and you */
-    try{ mapHeadBarsQueue({ main: true }, __gx, __gy-(__bh?__bh*0.93:40)-2); mapHeadBarsDraw(); }catch(_e){}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__: over everybody of his, last */
+    try{ var __top = __body ? mapSnap(__gy-__bh*0.93) + mapInkTop(__body)*__bh : __gy-(__bh?__bh*0.93:40);
+      mapHeadBarsQueue({ main: true }, __gx, __top-3); mapHeadBarsDraw(); }catch(_e){}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__: over everybody of his, last; just over the top of his hair, not the top of his picture's box */
     MAP_DEPTH.ref=null;
     g.restore();
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,

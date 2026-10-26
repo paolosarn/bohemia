@@ -13,6 +13,8 @@
      B4 AT CAMP: the same over the camp's men (the camp heals an hour every half second: each fill against the man's number in the
         frame the picture was drawn)
      B5 nothing threw
+     B6 THE MAP DRAWS ONCE: a heal on the map asks for one draw on the next frame, none of its own while the map is drawing anyway,
+        and none under a town or the camp (one whole draw is 0.4 to 0.7 s on a phone at 4x, __ONE_RENDER_A_FRAME__)
    node gates/the_bars_over_their_heads_gate.js [--profile phone_portrait|computer]   (no flag: both) */
 'use strict';
 const path = require('path');
@@ -58,7 +60,8 @@ async function run(profile) {
   const P = profile + ': ';
   try {
     await d.page.waitForTimeout(2500);
-    /* ---- B1 the map ---- */
+    /* ---- B1 the map (no town over it: the game may open on one) ---- */
+    await d.fr.evaluate(() => { try { if (typeof loopClose === 'function') loopClose(); } catch (e) {} });
     const looks = await d.fr.evaluate(async () => { for (let i = 0; i < 40; i++) { const L = mapCrewLooks(); if (MAP_CREW_LOOKS.ready && L.length >= 2) return L.slice(0, 2); await new Promise(r => setTimeout(r, 250)); } return mapCrewLooks().slice(0, 2); });
     if (looks.length < 2) { ok(P + 'B1 his two men walk with him on the map', false, JSON.stringify(looks)); return; }
     const W1 = [{ main: true, who: 'YOU', hp: 0.4, arm: 1 }, { look: looks[0], who: looks[0], hp: 1, arm: 0.6 }, { look: looks[1], who: looks[1], hp: 0.95, arm: 0.95 }];
@@ -113,6 +116,24 @@ async function run(profile) {
         b4.length === 0, b4.join('; ') || t4.map(e => e.who + ' ' + e.hpFill + '/' + e.armFill + ' of ' + e.w).join(', '));
       await d.fr.evaluate(() => { try { BohemiaMapCamp.break(); } catch (e) {} });
     }
+    /* ---- B6 the map draws once ---- */
+    const b6 = await d.fr.evaluate(async () => { try { if (typeof loopClose === 'function') loopClose(); } catch (e) {} await new Promise(r => setTimeout(r, 400));
+      const fire = () => window.dispatchEvent(new CustomEvent('bohemia:condition'));
+      const d0 = ONE_RENDER.drawn, r0 = window.__MAP_BARS_REPAINTS | 0;
+      for (let i = 0; i < 10; i++) fire();   /* ten heals in one beat */
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const idle = { draws: ONE_RENDER.drawn - d0, repaints: (window.__MAP_BARS_REPAINTS | 0) - r0 };
+      /* the map drawing anyway (a draw in the same frame as the ask): the heal adds none */
+      const r1 = window.__MAP_BARS_REPAINTS | 0; fire(); render();
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const busy = (window.__MAP_BARS_REPAINTS | 0) - r1;
+      /* a town over the map: none */
+      const f = loopFrame(); const was = f.style.display; f.style.display = 'block'; const r2 = window.__MAP_BARS_REPAINTS | 0, d2 = ONE_RENDER.drawn; fire();
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const under = { repaints: (window.__MAP_BARS_REPAINTS | 0) - r2, draws: ONE_RENDER.drawn - d2 }; f.style.display = was;
+      return { idle, busy, under }; });
+    ok(P + 'B6 THE MAP DRAWS ONCE: ten heals in a beat on the map are one draw; a heal while the map draws anyway adds none; under a town none',
+      b6.idle.repaints === 1 && b6.idle.draws === 1 && b6.busy === 0 && b6.under.repaints === 0 && b6.under.draws === 0, JSON.stringify(b6));
     ok(P + 'B5 nothing threw', d.errs.length === 0, d.errs.length ? String(d.errs[0]).slice(0, 160) : 'no errors');
   } catch (e) {
     ok(P + 'the gate ran without throwing [' + String(e.stack || e.message).slice(0, 300) + ']', false);
