@@ -15761,6 +15761,24 @@
     "how": "image",
     "src": "vote/CAMP_THE_CAMP_STOPS_AT_FULL_10_26.webp"
    }
+  },
+  {
+   "id": "camp-a-town-is-safe-10-26",
+   "kind": "ui",
+   "lane": "camp",
+   "sha": "@SHA@",
+   "made": "10/26",
+   "title": "A TOWN IS SAFE: PRESS HEAL IN A TOWN AND THE HOURS PASS THERE; NOBODY CAN ATTACK YOU THERE OR RIGHT OUTSIDE",
+   "why": "You could not rest in a town; the heal button did nothing there. Now HEAL in any town passes the hours right there at camp speed while the town goes on around you, and no crew can reach you inside or on the spot your LEAVE puts you, until you take a step. Press HEAL right after leaving, without moving, and you rest in that town instead of out on the street. You see it on the RUN tab: walk into a town hurt and press the phone's HEAL.",
+   "before_after": {
+    "before": "HEAL greyed out on the phone in a town; a crew could jump you the moment you stepped out",
+    "after": "@STAMP@: Anarchists, the phone saying ANARCHISTS, RESTING at 11:00, the town going on around his men",
+    "scale": "his phone upright, the lower part of the screen"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/CAMP_A_TOWN_IS_SAFE_10_26.webp"
+   }
   }
  ],
  "verdicts": [

@@ -2126,7 +2126,9 @@ function headBarsDraw(s, now){
   var st = null; try{ st = C.get(); }catch(e){}   /* the condition read once a frame, not once a man */
   var H = personH() * s, drew = [], one = function(who, fx, fy){ var b = C.bars(who, st); if(!b || !b.show) return;
     var d = C.drawHeadBars(cx, fx, fy - H - 2, b, { w: Math.max(14, Math.round(H * .3)), h: 2 }); if(d){ d.who = who.main ? 'YOU' : (who.name || who.look); drew.push(d); } };
-  folkList().forEach(function(p){ if(p.crewMan || p.campMan) one({ name: p.name, look: p.look }, view.ox + p.x * s, view.oy + p.y * s); });
+  /* CAMP TWO's camp (rule 259(a)): a man where he is drawn (walking out in the pitch), and the bars low over a man lying down */
+  folkList().forEach(function(p){ if(!(p.crewMan || p.campMan)) return; var px = p.drawX != null ? p.drawX : p.x, py = p.drawY != null ? p.drawY : p.y, low = p.act === 'lie' || p.act === 'sleep';
+    one({ name: p.name, look: p.look }, view.ox + px * s, view.oy + py * s - (low ? H * 0.62 : 0)); });
   if(!view.noBusy) busyList().forEach(function(w){ if(!w.crewMan) return; var at = busyAt(w, now); one({ name: w.name, look: w.look }, view.ox + at.x * s, view.oy + w.y * s); });
   if(!LEAD.hidden && LEAD.x != null) one({ main: true }, view.ox + LEAD.x * s, view.oy + LEAD.y * s);
   window.__HEADBARS = { at: Date.now(), drew: drew };

@@ -45756,7 +45756,7 @@ function loopPostOpen(){
     places: (function(){ try{ return window.BohemiaBoardShelf && BohemiaBoardShelf.mapPlaces ? BohemiaBoardShelf.mapPlaces(T.day | 0) : null; }catch(_e2){ return null; } })() }, '*'); }catch(_e){}
 }
 function loopOpenTown(t){
-  LOOP.open = t;
+  LOOP.open = t; try{ TOWN_EXIT = null; }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__: in the town, not at its door */
   try{ if(PHONE_LIT && mapNorm(PHONE_LIT.place) === mapNorm(t.name)){ PHONE_LIT = null; PHONE_LIT_PATH = null; } }catch(_e){}   /* he is there: the light did its job */
   var f = loopFrame(); f.style.display = 'block';
   try{ travelStop(); }catch(_e){}
@@ -45791,13 +45791,19 @@ function campOnMap(){ try{ return MODE === 'city' && !LOOP.fighting && !(LOOP.fr
 /* ==== __A_TOWN_IS_SAFE__ (CAMP [a town is safe], rule 273(a)(b)(d), Paolo 10/26: 'if you are in a settlement with other people you
    cannot get attacked, so you can always hang out there and heal... a button where time will pass... the entrance territory: if I
    leave and don't move a single map tile and press camp, it will be the settlement camp style'). A TOWN'S GROUND is its screen and
-   every map tile of its edge (the tiles RUN's any-side door stands a party on, townAtDoor; WORLD's 'paid at the town's edge' is the
-   same edge): there no crew reaches or fights his company (a hunter waits off it and gives up; a street crew or a road ambush does
-   not fire on a step onto it) and no camp warning is said. HEAL in a town's screen (the phone's HEAL app) passes the hours there at
+   THE TILE HE STANDS ON WHEN HE LEAVES IT by his own LEAVE, until he moves (his words: 'if I leave and don't move a single map tile';
+   the first build took every tile round a town, and since the game starts beside one, every camp and the first road fight became
+   the town's): there no crew reaches or fights his company (a hunter waits off it and gives up; a street crew or a road ambush does
+   not fire) and no camp warning is said. HEAL in a town's screen (the phone's HEAL app) passes the hours there at
    camp speed with the town's picture staying (his men in it, RUN THREE's); HEAL on its edge opens that town and does the same, never
    the lone street camp. HEAL again, leaving the town, or every man at 99 (rule 278) ends it. A job's own crew at a gate (WORLD's
    holders, rule 198(g)) is the job he walked into, not a party reaching him: it stays. ==== */
-function townSafeAt(x, y){ try{ return townAtDoor(x | 0, y | 0, false); }catch(_e){ return null; } }
+var TOWN_EXIT = null;   /* {x, y, town}: where his LEAVE put him; gone the moment he moves or a town opens */
+function townSafeAt(x, y){
+  var E = TOWN_EXIT; if(!E) return null;
+  if((city.x | 0) !== E.x || (city.y | 0) !== E.y){ TOWN_EXIT = null; return null; }   /* he moved: the town is behind him */
+  return ((x | 0) === E.x && (y | 0) === E.y) ? E.town : null;
+}
 function campInTown(){ try{ return (MODE === 'city' && !LOOP.fighting && !MEET.up && LOOP.frame && LOOP.frame.style.display === 'block' && LOOP.open && !LOOP.open.camp) ? LOOP.open : null; }catch(_e){ return null; } }
 function townSafeNow(){ return campInTown() || townSafeAt(city.x, city.y); }
 /* the company as the marker shows it (__THE_MARKER_IS_YOUR_CREW__), with each man's name for the crew screen */
@@ -46057,7 +46063,8 @@ window.addEventListener('message', function(ev){
   LOOP.log.push(d.act);
   if(d.act !== 'contract') loopSettleBats(d.batteries, 'settlement: ' + d.act);
   if(d.act === 'contract') loopTakeContract(d.contract || null);
-  if(d.act === 'leave'){ loopClose(); try{ if(LOOP.held.length) setTimeout(function(){ try{ mapFocusRead(true); mapFitJobs('leave'); }catch(_e){} }, 350); }catch(_e){} }   /* __THE_MAP_FITS_YOUR_JOBS__: out of the town, his jobs in view (a beat's wait: the phone comes back over the map first, and the open area is measured with it) */
+  if(d.act === 'leave'){ try{ if(LOOP.open && !LOOP.open.camp && LOOP.open.name) TOWN_EXIT = { x: city.x | 0, y: city.y | 0, town: { name: LOOP.open.name, x: LOOP.open.x, y: LOOP.open.y, tier: LOOP.open.tier } }; }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__: the tile his LEAVE puts him on */
+    loopClose(); try{ if(LOOP.held.length) setTimeout(function(){ try{ mapFocusRead(true); mapFitJobs('leave'); }catch(_e){} }, 350); }catch(_e){} }   /* __THE_MAP_FITS_YOUR_JOBS__: out of the town, his jobs in view (a beat's wait: the phone comes back over the map first, and the open area is measured with it) */
   try{ saveNow('settlement:' + d.act); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: a hire, a buy, a job taken, the way out */
   try{ if(typeof updHud === 'function') updHud(); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}

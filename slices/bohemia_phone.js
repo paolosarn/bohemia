@@ -194,6 +194,7 @@
     try { o.mode = (typeof MODE !== 'undefined') ? MODE : null; } catch (e) {}
     try { o.speed = +TRAVEL_SPEED || 0; o.last = +(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT) || 0; o.speeds = (TRAVEL_SPEEDS || []).filter(function (n) { return n > 0; }); } catch (e) {}
     try { o.camp = !!(window.BohemiaMapCamp && BohemiaMapCamp.on()); } catch (e) {}
+    try { o.campTown = (o.camp && typeof CAMP !== 'undefined' && CAMP.town) ? String(CAMP.town.name || '') : null; } catch (e) {}   /* CAMP [a town is safe]: a rest in a town */
     try { var sf = document.getElementById('settleFrame'); o.town = !!sf && sf.style.display === 'block' && !o.camp; } catch (e) {}
     try { o.meet = !!(MEET && MEET.up); } catch (e) {}
     try { o.sky = !!SKY; } catch (e) {}
@@ -956,7 +957,7 @@
     var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join()].join('|');
     if (!force && sig === H.homeSig) return; H.homeSig = sig;
     var stW = H.el.querySelector('.stat .wh');
-    if (s) stW.textContent = scr === 'camp' ? 'YOUR CAMP' : (s.place || '');
+    if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : (s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
     var cx = H.el.querySelector('.home .bpctx'); if (cx) cx.classList.toggle('town', scr === 'town');   /* in a town the band is LEAVE */
     var k = H.el.querySelector('.home .clk');
     if (k && s) { k.querySelector('b').textContent = s.clock || '--:--';
@@ -969,7 +970,7 @@
         b.querySelector('.mark').textContent = mark ? (Math.round(mark * 100) / 100) + 'x' : '';
         off = scr !== 'map';
       } else if (a === 'heal') {
-        off = !(scr === 'map' || scr === 'camp');
+        off = !(scr === 'map' || scr === 'camp' || scr === 'town');   /* CAMP [a town is safe] (rule 273(b)): HEAL in a town rests there */
         b.querySelector('.lab').textContent = scr === 'camp' ? 'BREAK CAMP' : 'HEAL';   /* draft:true; read by the aria label only: no word on it (232(b)) */
         var cd = L ? L.condition() : null, tot = cd ? Math.max(1, cd.hpMax + cd.armMax) : 1;
         ringPaint(b.querySelector('canvas.rg'), cd);

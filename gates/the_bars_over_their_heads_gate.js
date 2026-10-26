@@ -102,11 +102,13 @@ async function run(profile) {
     /* ---- B4 at camp ---- */
     await d.fr.evaluate(() => { try { if (typeof loopClose === 'function') loopClose(); } catch (e) {} try { contactClear(); } catch (e) {} try { HUNT = null; } catch (e) {} });
     await d.page.waitForTimeout(800);
-    await d.fr.evaluate(() => { try { BohemiaMapCamp.make(); } catch (e) {} });
+    /* one step off the tile the town's LEAVE put him on: there HEAL is the town's own rest (rule 273(d)), here it is the camp */
+    await d.fr.evaluate(() => { for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (cityWalkable(city.x + dx, city.y + dy)) { city.x += dx; city.y += dy; break; } try { TOWN_EXIT = null; } catch (e) {} try { BohemiaMapCamp.make(); } catch (e) {} });
     let cf = null; for (let k = 0; k < 50 && !cf; k++) { await d.page.waitForTimeout(300);
       for (const x of d.page.frames().filter(x => /SETTLEMENT_SCREEN/.test(x.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.camp().camp && BohemiaSettlement.ready(); } catch (e) { return false; } }).catch(() => false)) { cf = x; break; } }
     if (!cf) ok(P + 'B4 the camp opens', false);
     else {
+      await cf.waitForFunction(() => { const a = window.__HEADBARS && __HEADBARS.at; return !!a && Date.now() - a < 250; }, null, { timeout: 10000 }).catch(() => {});   /* the camp's picture drawing (it grows in) */
       const campMen = await cf.evaluate(() => BohemiaSettlement.folk().filter(p => p.campMan).map(p => ({ name: p.name, look: p.look })));
       const W4 = campMen.slice(0, 2).map((m, i) => ({ look: m.look, name: m.name, who: m.name || m.look, hp: [0.2, 1][i], arm: [1, 0.3][i] })).concat([{ main: true, who: 'YOU', hp: 0.95, arm: 0.95 }]);
       await cf.evaluate(SEED, W4);
