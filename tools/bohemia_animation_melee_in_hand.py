@@ -914,6 +914,13 @@ def pack(only=None):
             entry['props'] = dict(sheets=psheets, by=by, models={'%s@%s' % (p_, l_): sig_of(sigs, p_, l_) for l_ in psheets for p_ in S['layers'][l_]['props']})   # what each thing on each layer was drawn from
 
         entry['layers'] = [ly for ly in ready if all(c_ in cells for c_ in layer_clips(S, ly))]   # the layers whose own keys (and, a named look's, things) are on these sheets
+        held_back = S.get('withhold', {}).get(look, [])   # a layer this look's pictures are not right on yet: his things for it left out, so the fight draws him as before
+        if held_back:
+            entry['layers'] = [ly for ly in entry['layers'] if ly not in held_back]
+            if 'props' in entry:
+                entry['props']['by'] = {p_: {c_: v_ for c_, v_ in cl.items() if v_['l'] not in held_back} for p_, cl in entry['props']['by'].items()}
+                entry['props']['by'] = {p_: cl for p_, cl in entry['props']['by'].items() if cl}
+                for ly in held_back: entry['props']['sheets'].pop(ly, None)
         json.dump(entry, open(os.path.join(ROOT, OUT, look + '.json'), 'w'), separators=(',', ':'))
         index['looks'][look] = dict(json=look + '.json')
         print('PACKED', look, {g_: s_['size'] for g_, s_ in sheets.items()}, 'things', {l_: s_['size'] for l_, s_ in entry['props']['sheets'].items()} if 'props' in entry else 'his gang\'s (%s)' % entry.get('ref'), flush=True)

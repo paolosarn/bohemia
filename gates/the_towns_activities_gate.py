@@ -27,6 +27,10 @@ PLAYER, never of a table's say-so:
      talks a third of the time or more; a man with a wall gets the hand on the wall, a man without never does.
   W  WIRED: on the real settlement screen (RUN TWO's file, his phone's profile), the player hands back a drawn cell of every
      activity for a man of his company, the sheet decodes, and the page throws nothing.
+  A  THE MINUTES AFTER A FIGHT (rule 245, ANIMATION [the minutes after a fight], the same source's set 'after': LOOT, TEND,
+     BIND, BREATH): every leg above reads them too where a man has them (S, E on their own render pass, P, C, X); K a man who
+     kneels has the down knee on the ground (12 cm) and the other foot planted a step forward where the kneel sets it (2 cm),
+     on the posed joints, in every kneeling pose; A1 his company and YOU have all four.
   MUTATIONS (the gate must bite): a timeline a key short, two sides of a turn put next to each other, a joint that jumps
   out and back in one key, a variant pose that is its rest, a player that seats every man in one step, a pair that both
   talk.
@@ -42,8 +46,11 @@ SRC = os.path.join(ROOT, 'records/target/animation/BOHEMIA_THE_TOWNS_ACTIVITIES.
 IDL = os.path.join(ROOT, 'records/target/animation/BOHEMIA_EVERYBODY_IDLES.json')
 IDX = os.path.join(ROOT, 'slices/rig_town/rig_town.json')
 RENDERS = os.path.join(ROOT, 'records/target/animation/towns')
+JOINTS = os.path.join(ROOT, 'records/animation/town_joints')   # the posed joints, kept (the renders are gitignored: every container reads these)
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 NAMED = ['drink', 'smoke', 'talk', 'flirt', 'sit', 'stall']
+AFTER = ['loot', 'tend', 'bind', 'breath']   # rule 245: the minutes after a fight, the set 'after'
+SET = lambda a: T['activities'][a].get('set', 'town')
 PPM = 57.0           # the master rig's pixels a real metre at the street's settings (rig.json 'ppm')
 REVERSE_DEG, MOVE_PX, JUMP_PX = 120, 2.0, 24.0
 QUICK = '--quick' in sys.argv
@@ -65,8 +72,10 @@ def source_faults(T, D):
     out = []
     parts = dict(D['parts']); parts.update(T['parts'])
     pairs = [set(p) for p in T.get('never_adjacent', {}).get('pairs', [])]
-    for a in NAMED:
+    for a in NAMED + AFTER:
         if a not in T['activities']: out.append('no %s' % a)
+    for a in AFTER:
+        if a in T['activities'] and T['activities'][a].get('set') != 'after': out.append('%s is not of the set after' % a)
     for a, A in T['activities'].items():
         poses = A['poses']
         if A['rest'] not in poses: out.append('%s: its rest %s is not one of its poses' % (a, A['rest']))
@@ -99,7 +108,7 @@ D = json.load(open(IDL))
 ok('S0 the kept source is in the repo (rule 128)', T is not None, SRC)
 if T is None: done()
 sf = source_faults(T, D)
-ok('S1 the six he named, every slot 24 keys ending on its rest, every pose its activity\'s, no flicker, no turn side to side',
+ok('S1 the six he named and the four after a fight, every slot 24 keys ending on its rest, every pose its activity\'s, no flicker, no turn side to side',
    not sf, '; '.join(sf[:5]))
 m = json.loads(json.dumps(T)); m['timelines']['sip'] = m['timelines']['sip'][:-1] + [[m['timelines']['sip'][-1][0], m['timelines']['sip'][-1][1] - 1]]
 ok('S2 MUTATION: a timeline a key short is caught', any('23 keys' in x for x in source_faults(m, D)))
@@ -119,7 +128,9 @@ def screen(v, f):
 def envelope_faults(J, T):
     out = []; k = J['k']
     for a, A in T['activities'].items():
-        if a not in J['acts']: out.append('%s not posed' % a); continue
+        if a not in J['acts']:
+            if A.get('set', 'town') == 'town': out.append('%s not posed' % a)
+            continue
         at = J['acts'][a]['at']
         kinds = [x for side in A.get('breathe', []) for x in side] + A.get('idles', []) + A.get('wall', [])
         if A.get('turns'): kinds += A['turns']['say'] + A['turns']['hear']
@@ -128,7 +139,7 @@ def envelope_faults(J, T):
         for k1 in kinds:   # every slot, and every slot into every next one (any follows any)
             keys = [p for p, h in T['timelines'][k1] for _ in range(h)]
             seqs.append((k1, keys))
-            for k2 in kinds:
+            for k2 in ([] if A.get('once') else kinds):   # an act played once (the camp's rise) never follows itself
                 keys2 = [p for p, h in T['timelines'][k2] for _ in range(h)]
                 seqs.append((k1 + '>' + k2, keys[-3:] + keys2[:3]))
         for name, keys in seqs:
@@ -148,22 +159,56 @@ def envelope_faults(J, T):
     return out
 
 
-looks_j = sorted(l for l in os.listdir(RENDERS) if os.path.exists(os.path.join(RENDERS, l, 'joints.json'))) if os.path.isdir(RENDERS) else []
+def joints_of(l):
+    """his posed joints, every pass merged (the town's six in <look>/, the minutes after a fight in <look>.after/: the same
+    build posed twice, so one armature's space)"""
+    J = None
+    for d in (l, l + '.after', l + '.camp'):
+        fn = os.path.join(JOINTS, d + '.json')
+        if not os.path.exists(fn): fn = os.path.join(RENDERS, d, 'joints.json')
+        if not os.path.exists(fn): continue
+        j = json.load(open(fn))
+        if J is None: J = j
+        else: J['acts'].update(j['acts'])
+    return J
+
+
+looks_j = sorted(set([l.split('.')[0] for l in os.listdir(RENDERS) if os.path.exists(os.path.join(RENDERS, l, 'joints.json'))] if os.path.isdir(RENDERS) else [])
+                 | set([f[:-5].split('.')[0] for f in os.listdir(JOINTS) if f.endswith('.json')] if os.path.isdir(JOINTS) else []))
 IX = json.load(open(IDX)) if os.path.exists(IDX) else None
 packed = sorted(IX['looks']) if IX else []
 ok('E0 the posed model\'s joints are kept beside every packed man\'s render (the ruler)', packed and all(l in looks_j for l in packed),
    [l for l in packed if l not in looks_j][:4] or 'nothing packed')
 ef = []
 for l in looks_j:
-    ef += ['%s: %s' % (l, x) for x in envelope_faults(json.load(open(os.path.join(RENDERS, l, 'joints.json'))), T)]
+    ef += ['%s: %s' % (l, x) for x in envelope_faults(joints_of(l), T)]
+def kneels(T, a, p):
+    """the kneel a pose makes (['KNEEL', side, front, seat]), or None"""
+    P = dict(D['parts']); P.update(T['parts'])
+    ks = [op for part in T['activities'][a]['poses'][p] for op in P[part] if op[0] in ('KNEEL', 'LIE')]
+    return ks[-1] if ks else None
+
+
 def ankle_faults(J, T):
     """the feet stay put: in every pose of every activity both ankles where they stand in his rest, 1 cm (a man who sits
-    keeps his heels where he stood; the plant)"""
+    keeps his heels where he stood; the plant); a man who KNEELS: the down knee on the ground (12 cm, the knee's own
+    thickness 5.5) and the other foot planted where the kneel sets it, a step forward of where it stood (2 cm)"""
     out = []; k = J['k']; base = None
     for a, A in T['activities'].items():
         at = J['acts'].get(a, {}).get('at', {})
         ref = J['acts']['talk']['at']['T'] if 'talk' in J['acts'] else None
         for p, row in at.items():
+            kn = kneels(T, a, p)
+            if kn and kn[0] == 'LIE' and ref is not None:   # lying (or sat on the ground): his pelvis on the floor
+                if row['P'][1] / k > kn[3] / k + 0.08: out.append('%s.%s lies %.0f cm off the floor' % (a, p, row['P'][1] / k * 100))
+                continue
+            if kn and ref is not None:
+                down = kn[1]; up = 'L' if down == 'R' else 'R'
+                if row[down + 'S'][1] / k > 0.12: out.append('%s.%s the %s knee %.0f cm off the ground' % (a, p, down, row[down + 'S'][1] / k * 100))
+                want = [ref[up + 'A'][0] + (kn[2] if len(kn) > 2 else 0.2), ref[up + 'A'][1], ref[up + 'A'][2]]
+                d = math.dist(row[up + 'A'], want) / k
+                if d > 0.02: out.append('%s.%s the %s foot %.1f cm off where the kneel plants it' % (a, p, up, d * 100))
+                continue
             for j in ('RA', 'LA'):
                 if ref is None: continue
                 d = math.dist([c / k for c in row[j]], [c / k for c in ref[j]])
@@ -175,10 +220,10 @@ ok('E1 AN ENVELOPE RAMPS SLOWER THAN THE GRID: no joint jumps out and back, none
    looks_j and not ef, '; '.join(ef[:4]))
 af = []
 for l in looks_j:
-    af += ['%s: %s' % (l, x) for x in ankle_faults(json.load(open(os.path.join(RENDERS, l, 'joints.json'))), T)]
-ok('E3 THE FEET STAY PUT: both ankles where he stands in every pose of every activity, sitting too (1 cm)', looks_j and not af, '; '.join(af[:4]))
+    af += ['%s: %s' % (l, x) for x in ankle_faults(joints_of(l), T)]
+ok('E3 THE FEET STAY PUT: both ankles where he stands in every pose of every activity, sitting too (1 cm); kneeling, the down knee on the ground and the other foot planted a step forward (K)', looks_j and not af, '; '.join(af[:4]))
 if looks_j:
-    J = json.load(open(os.path.join(RENDERS, looks_j[0], 'joints.json')))
+    J = joints_of(looks_j[0])
     Jm = json.loads(json.dumps(J)); at = Jm['acts']['drink']['at']
     at['D_Ri']['RH'] = [at['D_Ri']['RH'][0] + 0.12 * J['k'], at['D_Ri']['RH'][1], at['D_Ri']['RH'][2]]
     Tm = json.loads(json.dumps(T)); Tm['timelines']['drinkR'] = [['D_Ro', 6], ['D_Ri', 1], ['D_Ro', 14], ['D', 3]]
@@ -225,7 +270,9 @@ def picture_faults(looks):
     for l in looks:
         L = json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][l]['json'])))
         for a, A in T['activities'].items():
-            if a not in L['sheets']: out.append('%s has no %s' % (l, a)); continue
+            if a not in L['sheets']:
+                if A.get('set', 'town') == 'town': out.append('%s has no %s' % (l, a))
+                continue
             S = L['sheets'][a]; im = sheet(S['file'])
             if list(im.shape[1::-1]) != S['size']: out.append('%s %s sheet size' % (l, a))
             cols = len(np.unique(im[im[..., 3] > 0][:, :3], axis=0))
@@ -241,7 +288,7 @@ def picture_faults(looks):
                     px = im[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
                     rows = np.nonzero((px[..., 3] > 0).any(1))[0]
                     sole = c[5] + (rows.max() + 1 if len(rows) else 0)
-                    if p not in seated and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too: his heels are held by the joints (E3)
+                    if p not in seated and not kneels(T, a, p) and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too, a kneeling man's front foot a step forward, a lying man along the ground: their feet are held by the joints (E3, K)
                         out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - ground[fi]))
     return out
 
@@ -289,6 +336,13 @@ if packed:
     comp = [json.loads(x)['look'] for x in re.findall(r'^\s*(\{"look":.*\})\s*,?\s*$', mix, re.M) if json.loads(x).get('company')]
     ok('P2 his company, the %d men he starts with, all have their activities' % len(comp), all(c in packed for c in comp),
        [c for c in comp if c not in packed][:5])
+    if '--after' in sys.argv or any(any(a in json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][l]['json'])))['sheets'] for a in AFTER) for l in packed):
+        lack = []
+        for c in comp + ['you']:
+            Lc = json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][c]['json']))) if c in IX['looks'] else {'sheets': {}}
+            miss = [a for a in AFTER if a not in Lc['sheets']]
+            if miss: lack.append('%s lacks %s' % (c, ','.join(miss)))
+        ok('A1 THE MINUTES AFTER A FIGHT: his company and YOU (%d) have all four (loot, tend, bind, breath)' % (len(comp) + 1), not lack, '; '.join(lack[:4]))
     cf = chess_faults(packed[:6])
     ok('C1 every variant differs from its rest in every facing; drinking, smoking, sitting, at a stall is not his plain still',
        not cf, '; '.join(cf[:4]))
@@ -330,6 +384,10 @@ setTimeout(function () {
     const sa = say.indexOf(a.kind) >= 0, sb = say.indexOf(b.kind) >= 0; if (sa && sb) both++; if (sa) aT++; if (sb) bT++; n++; }
   out.pair = { both: both, a: aT / n, b: bT / n };
   [true, false].forEach(function (w) { const k = {}; for (let i = 0; i < 30; i++) for (let t = 0; t < 600000; t += 4000) k[B.townAt('w' + i, t, { act: 'flirt', wall: w }).kind] = 1; out.wall[w] = Object.keys(k); });
+  out.once = {}; Object.keys(M.activities).filter(a => M.activities[a].once).forEach(function (a) {
+    const t0 = 7777 * keyMs, seq = []; for (let k = 0; k < 40; k++) seq.push(B.townAt('o', t0 + k * keyMs + 1, { act: a, since: t0 }).pose);
+    const late = B.townAt('o', t0 + 400 * keyMs, { act: a, since: t0 }).pose, none = B.townAt('o', t0, { act: a }).pose;
+    out.once[a] = { seq: seq, late: late, none: none }; });
   console.log(JSON.stringify(out));
 }, 50);
 '''
@@ -349,6 +407,7 @@ def player(mode=''):
 def player_faults(X):
     out = []
     for a, R in X['acts'].items():
+        if T['activities'][a].get('once'): continue   # played once from o.since, then held (its own leg, X4)
         P = R['people']
         for i, p in enumerate(P):
             if p['maxHeld'] > 4000: out.append('%s man %d holds one picture %.1f s' % (a, i, p['maxHeld'] / 1000))
@@ -381,6 +440,15 @@ if X:
     ok('X2 MUTATION: a player that hands every man the same clock is caught', any('share' in x for x in sf_))
     Xb = player('bothtalk'); bf = player_faults(Xb) if Xb else ['no run']
     ok('X3 MUTATION: a pair that both talk at once is caught', any('both talk' in x for x in bf))
+    of = []
+    for a, A in T['activities'].items():
+        if not A.get('once') or a not in IX.get('activities', {}): continue   # asked of what the shipped index plays
+        R = X.get('once', {}).get(a)
+        want = [p for p, h in T['timelines'][A['breathe'][0][0]] for _ in range(h)]
+        if not R: of.append('%s not played' % a); continue
+        if R['seq'][:24] != want: of.append('%s from since is not its one slot' % a)
+        if any(p != A['rest'] for p in R['seq'][24:]) or R['late'] != A['rest'] or R['none'] != A['rest']: of.append('%s does not hold its rest after its slot (or without since)' % a)
+    ok('X4 AN ACT PLAYED ONCE (the camp\'s rise): its one slot from the moment it was asked, then its rest held, never looped', not of, '; '.join(of))
 
 
 # ---------------------------------------------------------------------------------------------------- W wired
@@ -406,7 +474,8 @@ const srv = http.createServer((rq, rs) => {
         let c = null; for (let f = 0; f < 8 && !c; f++) c = BohemiaIdles.activity(L, 'crew:' + L, performance.now(), f, { act: a, pair: 'x' });
         o[a] = c ? { w: c.w, h: c.h, nat: c.img.naturalWidth, pose: c.pose } : null; }); return o; }, LOOK);
     Object.keys(r).forEach(a => { if (r[a] && r[a].nat > 0) got[a] = r[a]; });
-    if (Object.keys(got).length >= 6) break;
+    const nA = await p.evaluate(L => BohemiaIdles.activities(L).length, LOOK);
+    if (Object.keys(got).length >= Math.max(6, nA)) break;
     await p.waitForTimeout(500);
   }
   console.log(JSON.stringify({ got: got, errs: errs }));
@@ -421,5 +490,5 @@ const srv = http.createServer((rq, rs) => {
     finally:
         os.remove(js)
     ok('W1 on the real settlement screen the player hands back a drawn cell of all six activities for his man %s, the sheets decode, nothing thrown' % look,
-       not R.get('err') and not R.get('errs') and len(R.get('got', {})) == 6, R.get('err') or R.get('errs') or sorted(R.get('got', {})))
+       not R.get('err') and not R.get('errs') and set(NAMED) <= set(R.get('got', {})), R.get('err') or R.get('errs') or sorted(R.get('got', {})))
 done()

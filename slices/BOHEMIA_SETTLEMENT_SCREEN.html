@@ -743,8 +743,14 @@ function wearBought(it, m, w){
    theirs rewritten; NOTE on RUN TWO's board. ==== */
 (function(){ if(typeof onMan !== 'function') return; var base = onMan;
   onMan = function(it, again){ var box = base(it, again); try{ if(box && window.BohemiaStats) shopArrows(box); }catch(e){} return box; }; })();
+/* UI THREE [a damage icon] (rule 275(b), Paolo 10/26: 'damage doesn't have its own icon, you should make that too, in the shop
+   and everywhere'): the item card's DAMAGE chip wears damage's own picture (slices/stat_icons/damage.png, the ninth of UI's
+   icons), as the defence and fatigue chips wear theirs; its words stay what RUN TWO wrote */
+(function(){ if(typeof itemNums !== 'function') return; var base = itemNums;
+  itemNums = function(it, al){ var d = base(it, al); try{ [].forEach.call(d.querySelectorAll('.ch'), function(c){ if(c.dataset.stat || !/^DAMAGE\b/.test(c.textContent)) return;
+    c.dataset.stat = 'damage'; c.insertBefore(statImg('damage'), c.firstChild); }); }catch(e){} return d; }; })();
 function shopArrows(box){
-  var B = window.BohemiaStats, man = (shopCrew() || []).filter(function(m){ return m.name === box.dataset.man; })[0] || {};
+  var B = window.BohemiaStats, man = (shopCrew() || []).filter(function(m){ return m.name === box.dataset.man; })[0] || {}; B.css();
   [].forEach.call(box.querySelectorAll('.ln'), function(ln){
     var k = ln.dataset.k, dv = +ln.dataset.delta || 0, ab = ln.querySelector('.ab'), d = ln.querySelector('.d');
     if(ab) ab.remove();
@@ -753,7 +759,9 @@ function shopArrows(box){
       ln.textContent = ''; ln.classList.add('bst-shopln');
       B.row(k, {into:ln, icon:'i', glass:true, n:+ln.dataset.after, from:+ln.dataset.before, delta:dv, stars:((man.stars || {})[k]) | 0, label:lab});
       var ch = ln.querySelector('b.bst-chg'); if(ch){ ch.classList.add('d'); if(!dv) ch.classList.add('eq'); }
-    } else if(d){ var c = B.change(dv); c.className += ' d'; if(!dv) c.textContent = 'same'; d.replaceWith(c); ln.classList.add('bst-glass'); }
+    } else if(d){ var c = B.change(dv); c.className += ' d'; if(!dv) c.textContent = 'same'; d.replaceWith(c); ln.classList.add('bst-glass');
+      /* UI THREE [a damage icon] (rule 275(b)): DAMAGE is its own picture, the word kept for a screen reader */
+      if(k === 'damage'){ var kw = ln.querySelector('.k'); var di = statImg('damage'); ln.insertBefore(di, ln.firstChild); if(kw){ kw.classList.add('bst-sr'); } } }
   });
   /* his order (rule 247(a)): the lines that are not his eight first (damage, armour), then the eight as the one list has them */
   var all = [].slice.call(box.querySelectorAll('.ln')); if(!all.length) return;

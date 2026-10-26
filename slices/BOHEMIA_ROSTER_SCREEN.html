@@ -201,6 +201,12 @@ html body .lugrid.bst-col button .bst-bar>i.bst-tick{top:-2px;bottom:-2px}
 html body .lugrid.bst-col button b.bst-chg{justify-content:flex-end;font-size:13px}
 html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 @media (min-width:1100px){ html body .lugrid.bst-col button.bst-row{min-height:20px!important;height:20px} html body .stats.bst-col>div.bst-row{height:22px;min-height:22px!important} html body .stats.bst-col .bst-bar{height:16px} html body .stats.bst-col .bst-bar>i.bst-n{font-size:15px;line-height:14px} }
+/* [a damage icon] (rule 275(b)): a weapon's number in the stash and 'dmg' in the said line wear damage's picture; a comparison on
+   his slot is the arrow and the amount (rule 223(b)) */
+#bag .slot b[data-dmg]::before{content:"";display:inline-block;width:14px;height:14px;margin:0 1px -3px 0;background:url(stat_icons/damage.png) center/14px 14px no-repeat;image-rendering:pixelated}
+#said i.bst-dmgi{display:inline-block;width:14px;height:14px;margin:0 2px -3px 0;background:url(stat_icons/damage.png) center/14px 14px no-repeat;image-rendering:pixelated}
+#card .gslot em.d.up::before,#card .gslot em.d.dn::before{content:"";display:inline-block;width:9px;height:9px;margin:0 2px 0 0;background:0 0/9px 9px no-repeat;image-rendering:pixelated}
+#card .gslot em.d.up::before{background-image:var(--bst-arrow-up)} #card .gslot em.d.dn::before{background-image:var(--bst-arrow-dn)}
 /* ==== end __UI_THREE_STATS__ ==== */
 </style>
 </head>
@@ -248,7 +254,12 @@ function post(act, o){ var m = {type:'BOHEMIA_ROSTER', act:act}; for(var k in (o
 function sfx(ev){ window.__rosterLog = (window.__rosterLog||[]); window.__rosterLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev});
   if(!S.standalone) try{ window.parent.postMessage({type:'BOHEMIA_SFX', ev:ev},'*'); }catch(e){} }
 /* the one line: a sentence, or (the comparison) a few words with the numbers in ink */
-function say(t, html){ var el = document.getElementById('said'); if(html) el.innerHTML = t; else el.textContent = t; }
+function say(t, html){ var el = document.getElementById('said'); if(html) el.innerHTML = t; else el.textContent = t;
+  /* __UI_THREE_STATS__ [a damage icon] (rule 275(b)): 'dmg' in the line is damage's own picture, the word kept for a screen reader */
+  if(/\bdmg\s/.test(el.textContent)){ var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), hits = [], n; while((n = w.nextNode())) if(/\bdmg\s/.test(n.nodeValue)) hits.push(n);
+    hits.forEach(function(tn){ var parts = tn.nodeValue.split(/\bdmg\s/), f = document.createDocumentFragment();
+      parts.forEach(function(p, i){ if(i){ var im = document.createElement('i'); im.className = 'bst-dmgi'; im.setAttribute('aria-hidden', 'true'); f.appendChild(im); var sr = document.createElement('i'); sr.className = 'bst-sr'; sr.textContent = 'dmg '; f.appendChild(sr); } if(p) f.appendChild(document.createTextNode(p)); });
+      tn.parentNode.replaceChild(f, tn); }); } }
 function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
@@ -769,7 +780,7 @@ function drawBag(){
   S.bag.forEach(function(it, i){
     if(!inTab(it)) return; shown++;
     var b = document.createElement('div'); b.className = 'slot full tile' + (S.cmp === i ? ' sel' : ''); b.dataset.bag = i; b.dataset.drag = 'bag:' + i; b.setAttribute('role', 'button'); b.setAttribute('aria-label', it.name);
-    var ip = itemPic(it, 30); ip.classList.add('bm-icon'); ip.dataset.id = it.id; b.appendChild(ip); var v = document.createElement('b'); v.textContent = face(it);   /* the kit's own icon mark: the paint layer never adds a second */
+    var ip = itemPic(it, 30); ip.classList.add('bm-icon'); ip.dataset.id = it.id; b.appendChild(ip); var v = document.createElement('b'); v.textContent = face(it); if(it.kind === 'weapon') v.dataset.dmg = '1';   /* __UI_THREE_STATS__ [a damage icon] (rule 275(b)): a weapon's number is its damage, and wears damage's picture */   /* the kit's own icon mark: the paint layer never adds a second */
     var dv = m ? delta(it, m) : 0; if(m && fits(it, slotOf(it))) v.className = dv > 0 ? 'up' : dv < 0 ? 'dn' : ''; b.appendChild(v);
     b.addEventListener('click', function(){ if(S.dragged) return; tapItem(i); });
     b.addEventListener('contextmenu', function(e){ e.preventDefault(); S.cmp = null; equip(i, slotOf(it)); });   /* a computer: right-click puts it on, Battle Brothers' own */
