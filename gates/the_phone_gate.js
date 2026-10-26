@@ -266,6 +266,16 @@ async function side(profile) {
           && c2.cards.every(c => c.inside && c.stars >= 1 && /rgb\((1[4-9]\d|2\d\d), ?\d{1,2}, ?\d{1,2}\)/.test(c.starInk) && c.timeWhole) && c2.cards.map(c => c.id).join() === took.join(),
           c2.cards.map(c => c.text + (c.inside ? '' : ' CUT') + ' ' + c.starInk).join(' | '));
         ok('  no offer on the phone: only the jobs he is on', !(await p.evaluate(() => /\bPAYS?\b|TAKE IT/i.test(document.getElementById('bohphone').innerText))));
+        /* rule 238(d): each card points at its job: the arrow's turn equals the bearing of the job's next place from his block as the
+           map draws it (the diamond: a grid step east is right and down on the glass), within 23 degrees; the time says how far */
+        { const want = await fr.evaluate(() => LOOP.held.map(j => { const n = BohemiaJobKinds.nextOf(j); if (!n || n.x == null) return { id: j.id, deg: null };
+            const g = __CITY.state(), dx = n.x - city.x, dy = n.y - city.y, vx = (dx - dy) * g.TW / 2, vy = (dx + dy) * g.TH / 2;
+            return { id: j.id, deg: (dx || dy) ? (Math.atan2(vx, -vy) * 180 / Math.PI + 360) % 360 : null, to: [n.x, n.y] }; }));
+          const got = await p.evaluate(() => [...document.querySelectorAll('#bohphone .jc')].map(c => { const a = c.querySelector('.dir'), r = a ? a.getBoundingClientRect() : null;
+            return { id: c.dataset.job, deg: a && a.dataset.deg != null ? +a.dataset.deg : null, here: !!a && a.classList.contains('here'), shown: !!r && r.width >= 8, time: (c.querySelector('.pl') || {}).textContent || '' }; }));
+          const off = (a, b) => { const d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; };
+          const each = want.map(w => { const g = got.find(x => x.id === w.id); return { id: w.id, ok: !!g && g.shown && (w.deg == null ? g.here : g.deg != null && off(g.deg, w.deg) <= 23) && /\d/.test(g.time), want: w.deg == null ? 'here' : Math.round(w.deg), got: g ? (g.here ? 'here' : g.deg) : 'no card', time: g && g.time }; });
+          ok('  each job card points at its job (which way, as the map shows it) and says how far (238(d))', each.length === 2 && each.every(e => e.ok), JSON.stringify(each)); }
         /* PLAY with nothing picked goes to the job he picked on the phone */
         await fr.evaluate(() => { try { travelStop(); travelSpeedSet(0); } catch (e) {} });
         const second = await p.evaluate(() => { const b = document.querySelectorAll('#bohphone .jc')[1]; const r = b.getBoundingClientRect(); return [r.x + r.width * 0.3, r.y + r.height / 2]; });
