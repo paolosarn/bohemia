@@ -112,7 +112,7 @@ def main():
         bl = walk.get('pictures', {}).get(t['src'], {}).get('blocks', [])
         if len(bl) < 8: nob.append(n); continue
         for k, h in t['hotspots'].items():
-            b = h['box']; x, y = (b[0] + b[2]) / 2, min(1091, b[3] + 14)
+            b = h['box']; x, y = (b[0] + b[2]) / 2, min(1091, b[3] + 10)        # the step a keeper stands on: the composer's own (10 px before the foot)
             if any(q[0] <= x <= q[2] and q[1] <= y <= q[3] for q in bl): stuck.append('%s %s' % (n, k))
     leg(not nob and not stuck, 'the walk has its outlines (measured in the scene) and a person can stand at the foot of every tap',
         ('no outlines: ' + ', '.join(nob) + ' ' if nob else '') + ('feet on a block: ' + ', '.join(stuck[:6]) if stuck else 'every tap\'s foot clear'))

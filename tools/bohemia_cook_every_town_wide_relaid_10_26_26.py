@@ -124,6 +124,23 @@ def lay_wide(town, pl, K):
     if t == 'camp': moves = CAMP_TAPS + moves
     for name, near, d in moves: _move(pl, name, near, d)
     if t == 'fortress': pl.drum_fire(33.0, 18.2)                    # the bar: the fire the men drink round, in the middle front
+    if n == 'Church': _split(pl, 'church', 9.27)                     # the bell tower and the nave measured apart (one box over both
+                                                                     # invents an 11 m corner over the bar's step)
+
+
+def _split(pl, name, x_cut):
+    """a thing's pieces west of x_cut become a second thing of the same name (its own block on the walk)"""
+    import bpy
+    for nm, root, walk in list(pl.things):
+        if nm != name: continue
+        west = [o for o in root.children if o.type == 'MESH' and (lambda b: (b[0][0] + b[1][0]) / 2 < x_cut)(pl._bounds([o]))]
+        if not west: continue
+        r2 = bpy.data.objects.new(name, None); bpy.context.scene.collection.objects.link(r2)
+        r2.location = root.location
+        for o in west:
+            mw = o.matrix_world.copy(); o.parent = r2; o.matrix_world = mw
+        bpy.context.view_layer.update()
+        pl.things.append((name, r2, walk))
 
 
 def fill_wide(town, pl, K, n_want=14):
@@ -231,6 +248,15 @@ def patch_wide():
     V.OUT = WOUT; V.Town = _HookW; V.layout = lay_wide; V.fill = fill_wide
 
 
+def plan_key(town):
+    """what this town's wide re-lay is made from (its moves and its ground taps): a render of the same key is not made twice"""
+    import hashlib
+    t, n = town['tier'], town['name']
+    moves = (TOWN_ARM if t == 'town' else FORT if t == 'fortress' else CAMP).get(n, [])
+    if t == 'camp': moves = CAMP_TAPS + moves
+    return hashlib.sha1(json.dumps([moves, ground_boxes(t, n)], sort_keys=True).encode()).hexdigest()[:12]
+
+
 def layout_only(town):
     import bpy, hashlib, random
     import bohemia_cook_model_props as P
@@ -303,7 +329,12 @@ if __name__ == '__main__':
         json.dump = _dumpw
         for town in list(TT):
             _LASTW['town'] = town
-            try: d, nn = V.render(town, quick='--quick' in a, day_only='--day-only' in a); print('  rendered wide', town['name'], d, nn, flush=True)
+            done = os.path.join(WOUT, 'render', town['slug'] + '.done')
+            if '--force' not in a and '--quick' not in a and os.path.exists(done) and open(done).read().strip() == plan_key(town):
+                print('  already rendered from this layout', town['name'], flush=True); continue
+            try:
+                d, nn = V.render(town, quick='--quick' in a, day_only='--day-only' in a); print('  rendered wide', town['name'], d, nn, flush=True)
+                if '--quick' not in a: open(done, 'w').write(plan_key(town))
             except T.LayoutBad as ex: print('  NOT RENDERED', town['name'], str(ex), flush=True); TT.remove(town)
         _LASTW['town'] = None; json.dump = _orig_dump
     if '--quick' not in a and '--no-ship' not in a: ship_wide(TT)
