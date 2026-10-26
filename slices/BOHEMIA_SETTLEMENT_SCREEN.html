@@ -227,6 +227,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="bohemia_bar_news.js"></script>  <!-- RUN TWO [the bar names the news]: the keeper's free one, a true thing from a town near here (ECONOMY day 75) -->
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: the valley's 116 rolled people, every piece CHARACTER made -->
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
+<script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): your men wear their helmets and body armour here -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): every keeper and every man in the crowd breathes and idles at his spot -->
 <script src="../engine/bohemia_roster.js"></script>  <!-- RUN TWO [the hire shows the whole man]: what a man's gun does in the fight, the crew screen's own line -->
 <script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): the hall's eight in his order as bars, the shop's changes as arrows -->
@@ -1588,6 +1589,16 @@ var IDLE_BY_CLIP = { look:['look','roll','strap','scratch'], lean:['lean','smoke
   scratch:['scratch','stretch','look','roll'], beckon:['look','roll','strap','scratch'], trade:['look','roll','strap','scratch'],
   wait:null, greet:['look','roll','stretch','strap'] };
 var IDLE_DUSK = {};
+/* ==== __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER [the armour he wears shows], rule 272, Paolo 10/26: 'the good armour I have on
+   me doesn't show, like a police helmet'): one of yours wears his helmet and his body armour here as in the fight and on his
+   card, at camp and in town (engine/bohemia_wear.js: his head found on the picture drawn, the piece he has on laid on it, the
+   company's own gear by his look); at dusk the piece takes the dusk. CHARACTER's block, RUN TWO's file. ==== */
+function wearOn(look, q, ox, oy, z, f){
+  var W = window.BohemiaWear; if(!W || !look || !q) return false;
+  return W.on(cx, q, ox, oy, z, f, W.wearOf(look), { who: 'settle:' + look, where: S.camp ? 'camp' : 'town',
+    tint: view.night ? function(i){ var d = IDLE_DUSK[i.src]; if(!d) d = IDLE_DUSK[i.src] = duskOf({im:i}); return d; } : null });
+}
+/* ==== end __THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
 function idlePerson(p, now, k, s, H){   /* his idle picture as a draw, laid in depth with everybody else; null: his still */
   var I = window.BohemiaIdles; if(!I) return null;
   var f = Math.max(0, I.DIRS.indexOf(turnOf(p, now))), q = null;
@@ -1604,6 +1615,7 @@ function idlePerson(p, now, k, s, H){   /* his idle picture as a draw, laid in d
     if(view.night){ var d = IDLE_DUSK[img.src]; if(!d) d = IDLE_DUSK[img.src] = duskOf({ im: img }); img = d; }
     cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
     cx.drawImage(img, q.x, q.y, q.w, q.h, Math.round(fx - (q.foot[0] - q.dx)*z), Math.round(fy - (q.foot[1] - q.dy)*z), Math.round(q.w*z), Math.round(q.h*z));
+    if(p.crewMan) wearOn(p.look, q, fx - q.foot[0]*z, fy - q.foot[1]*z, z, f);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   };
 }
 /* ==== end __EVERYBODY_IDLES__ ==== */
@@ -1830,14 +1842,16 @@ function leadItem(items, s, now){
   if(q){ items.push({y:LEAD.y, lead:true, draw:function(){ var img = q.img;
       if(view.night){ var d = IDLE_DUSK[img.src]; if(!d) d = IDLE_DUSK[img.src] = duskOf({im:img}); img = d; }
       cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
-      cx.drawImage(img, q.x, q.y, q.w, q.h, Math.round(fx - (q.foot[0] - q.dx)*z), Math.round(fy - (q.foot[1] - q.dy)*z), Math.round(q.w*z), Math.round(q.h*z)); }});
+      cx.drawImage(img, q.x, q.y, q.w, q.h, Math.round(fx - (q.foot[0] - q.dx)*z), Math.round(fy - (q.foot[1] - q.dy)*z), Math.round(q.w*z), Math.round(q.h*z));
+      wearOn(LEAD.look, q, fx - q.foot[0]*z, fy - q.foot[1]*z, z, f); }});   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
     LEAD.drawn = 'idle'; return; }
   var im = LEAD.im; if(!im.complete || !im.naturalWidth) return;   /* never a stand-in look: not drawn until his own body is in */
   var col = R.cols.indexOf(LEAD.walking ? 'walk@' + (Math.floor(LEAD.walkT / (STRIDE_MS/6)) % 6) : 'stand'); if(col < 0) col = 0;
   items.push({y:LEAD.y, lead:true, draw:function(){
     var img = view.night ? (LEAD.dusk || (LEAD.dusk = duskOf({im:im}))) : im;
     cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
-    cx.drawImage(img, col*L.w, f*L.h, L.w, L.h, Math.round(fx - L.foot[0]*z), Math.round(fy - L.foot[1]*z), Math.round(L.w*z), Math.round(L.h*z)); }});
+    cx.drawImage(img, col*L.w, f*L.h, L.w, L.h, Math.round(fx - L.foot[0]*z), Math.round(fy - L.foot[1]*z), Math.round(L.w*z), Math.round(L.h*z));
+    wearOn(LEAD.look, { img: im, x: col*L.w, y: f*L.h, w: L.w, h: L.h, dx: 0, dy: 0 }, fx - L.foot[0]*z, fy - L.foot[1]*z, z, f); }});   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   LEAD.drawn = LEAD.walking ? 'walk' : 'stand';
 }
 /* ==== end __THE_WALK_UP__ ==== */
@@ -1988,7 +2002,9 @@ function drawPeople(s){
     items.push({y:p.y, draw:function(){
       var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
       cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H*.17, H*.05, 0, 0, 7); cx.fill();
-      cx.drawImage(view.night ? duskOf(r) : r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h)); }});
+      cx.drawImage(view.night ? duskOf(r) : r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h));
+      if(p.crewMan) wearOn(p.look, { img: r.im, x: 0, y: 0, w: r.im.naturalWidth, h: r.im.naturalHeight, dx: 0, dy: 0 }, fx - r.mid*k*s, fy - r.foot*k*s, k*s,
+        Math.max(0, ['S','SE','E','NE','N','NW','W','SW'].indexOf(view.still ? p.face : turnOf(p, now)))); }});   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   });
   leadItem(items, s, now);   /* __THE_WALK_UP__: your lead, in depth with everybody else */
   /* THE SETTLEMENT IS BUSY: the walkers, in depth with everybody else; one not in yet is not drawn (never a stand-in look) */

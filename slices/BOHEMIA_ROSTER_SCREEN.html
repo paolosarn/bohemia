@@ -225,6 +225,7 @@ html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): his eight in his order, each a bar to the most possible -->
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: a hired man is one of the valley's rolled people, his own body and face -->
+<script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272) -->
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: his whole body, the model his face came from -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): the man on his card breathes and idles -->
@@ -418,7 +419,8 @@ function rigBody(m, i){
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
   function paint(){ var t = R.TURNS[(TURN[m.name] || 0) % 8]; c.dataset.turn = t;
     R.image(m.look, t, function(im){ if(!im || c.dataset.turn !== t) return; x.clearRect(0, 0, 72, 124);
-      x.drawImage(im, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight); }); }
+      x.drawImage(im, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight);
+      wearCard(x, { img: im, x: 0, y: 0, w: im.naturalWidth, h: im.naturalHeight, dx: 0, dy: 0 }, Math.round((72 - im.naturalWidth)/2), 124 - im.naturalHeight, R.TURNS.indexOf(t), m); }); }   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   c.setAttribute('aria-label', 'Turn ' + m.name);
   c.addEventListener('click', function(){ if(SWIPE.moved) return; TURN[m.name] = ((TURN[m.name] || 0) + 1) % 8; paint(); });
   paint(); idleCard(c, m, i); return c;
@@ -466,6 +468,18 @@ function holdFrame(look, seed, now, f){
   return out;
 }
 /* ==== end __HE_WEARS_WHAT_HE_WEARS__ ==== */
+/* ==== __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER [the armour he wears shows], rule 272, Paolo 10/26: 'the weapons and the shield
+   show, but the good armour I have on me doesn't show, like a police helmet'). The figure on his card wears his helmet and his
+   body armour as the fight does (engine/bohemia_wear.js: one player, the head found on the picture drawn, the piece he has on
+   laid on it), over his body and under his gun; his face wears his helmet (engine/bohemia_crew_faces.js, the third votes: head
+   gear shows in the portrait). A swap redraws him at once. CHARACTER's block, RUN TWO's file. ==== */
+function wearKey(m){ var W = window.BohemiaWear, w = W && m ? W.of(m) : null; return w && (w.head || w.body) ? '|' + (w.head || '') + '|' + (w.body || '') : ''; }
+function wearCard(x, q, ox, oy, f, m){
+  var W = window.BohemiaWear; if(!W || !m) return false;
+  var w = W.of(m); if(!w || (!w.head && !w.body)) return false;
+  return W.on(x, q, ox, oy, 1, f, w, { who: 'crew:' + (m.name || m.look), where: 'crew' });
+}
+/* ==== end __THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
 function idleCard(c, m, i){
   var B = window.BohemiaIdles; if(!B) return;
   IDLE_CARD.cards = IDLE_CARD.cards.filter(function(e){ return e.c.isConnected; });
@@ -482,10 +496,11 @@ function idleCard(c, m, i){
       if(gun && !q){ q = B.frame(lk, e.seed, now, f, { set: 'carry' }); if(q && !q.person){ gl = B.gun(lk, gun, q.pose, f); if(!gl) q = null; } else q = null; }
       if(!q){ gun = null; q = B.frame(e.look, e.seed, now, f, { set: 'bare', idles: IDLE_CARD.idles }); }
       if(!q) return;
-      var key = (gun || '') + q.pose + f + (gl && !gl.hidden ? 'g' : ''); if(key === e.shown) return; e.shown = key;   /* a held key is drawn once */
+      var wk = wearKey(e.man), key = (gun || '') + q.pose + f + (gl && !gl.hidden ? 'g' : '') + wk; if(key === e.shown) return; e.shown = key;   /* a held key is drawn once (his armour in the key: a swap redraws him, __THE_ARMOUR_HE_WEARS_SHOWS__) */
       var x = e.c.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, e.c.width, e.c.height);
       var ox = Math.round(e.c.width / 2 - q.foot[0]), oy = Math.round(e.c.height - 5 - q.foot[1]);
       x.drawImage(q.img, q.x, q.y, q.w, q.h, ox + q.dx, oy + q.dy, q.w, q.h);
+      if(!wearCard(x, q, ox, oy, f, e.man) && wk) e.shown = '';   /* __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and his body armour, under his gun (not in yet: drawn again next frame) */
       if(gl && !gl.hidden) x.drawImage(gl.img, gl.x, gl.y, gl.w, gl.h, ox + gl.dx, oy + gl.dy, gl.w, gl.h);
       e.c.dataset.idle = q.kind; e.c.dataset.holds = gun || '';
     });
@@ -514,6 +529,7 @@ function choose(i){ if(i == null || !S.crew[i]) return;   /* his own face again:
 function step(by){ var o = order(); if(!o.length) return; var at = o.indexOf(S.sel); choose(o[((at < 0 ? 0 : at + by) % o.length + o.length) % o.length]); }
 function waiting(m){ return !!(m && !m.dead && ((m.rolls && m.rolls.length) || m.points > 0)); }
 function draw(){
+  try{ if(window.BohemiaWear) BohemiaWear.know(S.crew); }catch(e){}   /* __THE_ARMOUR_HE_WEARS_SHOWS__: his face wears the helmet he has on now */
   S.hover = null;   /* a mouse's comparison is painted over the drawn screen (paintCmp), never kept through a redraw */
   /* EYES [eyes: one company number] (rule 150): one number for how many he can have, the same on the door, the bar and here,
      and how many fight, named so */

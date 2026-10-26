@@ -206,6 +206,10 @@ the shield on the arm (the study the row names); no other reference.
 - THE GATE'S FIGHT MOVED UNDER IT (COMBAT's 10/26 lineup): the men now start on cover tiles, so W2 accepts any cover kneel and W4
   stands its shield man on open ground (the fight's own holdCovered test) before the blow; W6 hands the sling to a man whose own
   model carries no thing (the thug's carries his pipe, so nothing is drawn in his fist). 29/0.
+- THE CARAVANS AND THE WIDE BRIM 10/26: their own melee, bow and sling keys live; their shield arm and two hands held back
+  (the source's withhold): measured from the top of their hats, the crash bar's block tops out 27 and 28 px under it, the
+  pipe's two-handed wind 6 px under it, and the caravans' pistol with the shield shows in 92 of 144 pictures. Open: what a hat
+  does to the crown the gate measures from (a hat's top is not his face), then their placements.
 - STATE: built and in the source, the tool and the fight's draw; rendering queued after the town's activities and her body
   (the twelve looks the fights deal: person_mob_1, person_mob_2, person_reds_1, person_reds_2, enemy_heavy_2 to _5,
   tier_poacher, faction_caravans, cast_widebrim, tier_thug; and YOU for the bow's and the sling's pictures every cast look

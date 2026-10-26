@@ -27,6 +27,7 @@
 <script src="vote/ANIMATION_THE_AURA.js"></script>
 <!-- __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... looking like a chess man'): a waiting man breathes and idles -->
 <script src="../engine/bohemia_idles.js"></script>
+<script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
@@ -5385,6 +5386,20 @@ function gunSheet(v, L) {
    pictures are the same model, camera, sun and colours as his stand and carry cells (slices/rig_idles, rendered the fight's
    way), and his gun is rendered in his hands on every idle. Until his pictures are in, his still, exactly as before. ==== */
 const IDLE_FIGHT_BARE = ['look', 'roll', 'scratch', 'strap', 'smoke'];
+/* ==== __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER [the armour he wears shows], rule 272, Paolo 10/26: 'the weapons and the shield
+   show, but the good armour I have on me doesn't show, like a police helmet'; rule 177(a)). His helmet and his body armour, the
+   pieces he has on (u.headRow, u.bodyRow), drawn on him in every clip and facing (engine/bohemia_wear.js: the head found on
+   the picture being drawn, the class's placeholder laid on it), over his body and under what is in his hands (his gun, his
+   shield, his club); at night the piece takes his moon; lying down, his helmet lies beside him. A man with nothing on, a
+   machine, a ghost or a beast draws exactly as before. CHARACTER's block, COMBAT's file. ==== */
+function wearOver(v, c, ox, oy, s, dark, x, y) {
+  const W = window.BohemiaWear; if (!W || !c || !c.img || v.machine || v.ghost || v.beast) return false;
+  const wr = W.of(v); if (!wr || (!wr.head && !wr.body)) return false;
+  return W.on(cx, c, ox, oy, s, v._face || 0, wr, { who: v.id, where: 'fight', tint: dark ? function (i) { return nightSheet(i, moonOf(x, y)); } : null });
+}
+/* the faces are painted once a turn: when the helmets' portrait sheet lands after them, the bar and the strip are painted again */
+function wearFacesAgain() { UI.faceKey = null; const o = document.getElementById('order'); if (o) o.dataset.key = ''; }
+/* ==== end __THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
 function idleDraw(v, p, L, gs, ox, oy, s, now) {
   const B = window.BohemiaIdles;
   if (p.clip !== 'stand' && p.clip !== 'carry') { v._idleSince = undefined; return false; }
@@ -5401,6 +5416,7 @@ function idleDraw(v, p, L, gs, ox, oy, s, now) {
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(c.img), c.x, c.y, c.w, c.h, ox + c.dx * s, oy + c.dy * s, c.w * s, c.h * s);
+  wearOver(v, c, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER): his helmet and his body armour, under his gun */
   if (g && !g.hidden) cx.drawImage(im(g.img), g.x, g.y, g.w, g.h, ox + g.dx * s, oy + g.dy * s, g.w * s, g.h * s);
   UI.clipSeen['idle:' + c.kind] = (UI.clipSeen['idle:' + c.kind] || 0) + 1;
   return true;
@@ -5505,6 +5521,7 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
   const c = d.sheet.cells[ci], x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; };
   cx.drawImage(im(img), c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, c[2] * s, c[3] * s);
+  wearOver(v, { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   if (gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
   const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
   UI.clipSeen['hold:' + hc[0]] = (UI.clipSeen['hold:' + hc[0]] || 0) + 1;
@@ -5645,6 +5662,7 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   const x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
   const im = function (i) { return dark ? nightSheet(i, moonOf(x, y)) : i; }, bc = b[1];
   cx.drawImage(im(b[0]), bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, bc[2] * s, bc[3] * s);
+  wearOver(v, { img: b[0], x: bc[0], y: bc[1], w: bc[2], h: bc[3], dx: bc[4], dy: bc[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__: under his shield and his weapon */
   lay.forEach(function (q) { const g = q[1]; cx.drawImage(im(q[0]), g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s); });
   const fl = hitFlash(v, now); if (fl > 0) tintOver(b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
@@ -5674,6 +5692,8 @@ function blitMan(v, X, feet, now, alpha) {
   const held = holdDraw(v, p, L, gs, ox, oy, s, now);   /* __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
   const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cx.drawImage(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
+  if (!idled) { const dx_ = Math.round(dx(v)), dy_ = Math.round(dy(v));   /* __THE_ARMOUR_HE_WEARS_SHOWS__: read off his day sheet, the night laid on the piece */
+    wearOver(v, { img: UI.imgs['fight_rig/' + L.file] || img, x: p.col * L.w, y: (v._face || 0) * L.h, w: L.w, h: L.h, dx: 0, dy: 0 }, ox, oy, s, FIGHT.S.night && !FIGHT._t.litAt(dx_, dy_), dx_, dy_); }
   /* COOK'S GUN IN HIS HANDS (rule 120(a) GUNS FIRST): his gun rendered in his own hands frame for frame with his body as a
      holdout (tools/bohemia_combat_the_guns_in_their_hands.py), laid over his body in the same cell; in both hands across
      him while he stands and walks, up at the shoulder when he shoots, in his right hand when a blow rocks him; only in the fall
@@ -6023,6 +6043,8 @@ function drawPortrait(g, v, S) {
   } else if (img && fi >= 0) {
     g.imageSmoothingEnabled = S < F.size;
     g.drawImage(img, fi * F.size, 0, F.size, F.size, 0, 0, S, S);
+    /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272; the third votes: head gear shows in the portrait): his helmet on his face */
+    try { if (window.BohemiaWear && !v.machine && !v.ghost) BohemiaWear.face(g, img, S, null, BohemiaWear.of(v), wearFacesAgain, [fi * F.size, 0, F.size, F.size]); } catch (_e) {}
     /* a ghost's face is the same data-portrait off the same tape (rule 134(e)): the cold wash, every other line gone, a row torn */
     if (v.ghost) {
       g.globalCompositeOperation = 'source-atop'; g.fillStyle = GHOST_WASH; g.fillRect(0, 0, S, S);
