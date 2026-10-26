@@ -137,21 +137,22 @@ def lay_town(town, pl, K):
     def lamp(x, y, kind='lamp.glb'): pl.lamp(x, y, kind)
     def drum(x, y): pl.drum_fire(x, y)
     stall_aw = K.fac if n in ('Blues', 'Reds') else (K.fac_dark if n == 'Church' else K.rust)
+    if n == 'Church': pl.boxes['lot'] = (18.6, 25.4, 37.4, 42.2, 0.0)   # the church's tower stands over the open middle: the lot is on the street
     if n == 'Church':                                                  # THE HEART, the church in front of its blocks
         pl.here('bar', block, K, 'bar', *L, BY, 14, 6, 'shop', accent=K.fac, sign=(25.0, K.fac))
         pl.here('barber', block, K, 'barber', *Mx, BY, 16, 5, 'shop', wall=K.concrete_warm, accent=K.fac_dark)
         pl.here('clinic', block, K, 'clinic', *Rx, BY, 16, 7, 'shop', accent=K.fac, sign=(41.0, K.bone))
         pl.here('smith', block, K, 'smith', 18.3, 24.6, FY, 3.5, 1, 'shop', accent=K.fac_dark)
         pl.here('armourer', block, K, 'armourer', 35.4, 41.7, FY, 3.5, 1, 'office')
-        pl.here('church', church_small, K, 'church', 26.0, 34.5, 5.0, 5.5, 3.0, 11.0, K.fac_dark, K.fac)
+        pl.here('church', church_small, K, 'church', 26.0, 34.5, 2.0, 5.5, 3.0, 11.0, K.fac_dark, K.fac)     # in front, its tower short of the lot
         pl.here('soup', soup_line, K, 'soup', 21.5, 6.5)
         for k, (x, y) in enumerate(((36.0, 6.2), (36.2, 3.8))): pl.model('graveyard_grave_row_%d.glb' % (k % 4), x + 1.0, y, None, 0.0, 0.55)
         pl.model('graveyard_obelisk.glb', 40.3, 8.4, None, 0.0, 1.0)
         for x in (25.9, 33.9): lamp(x, 43.3, 'streetlight.glb')
         pl.here('palm40', palm, K, 'palm', 40.8, 36.0, 7.5)
-        pl.model('patrol.glb', 29.0, 37.3, None, math.radians(97), 1.0)          # the cars keep the far lane: never before a door
-        pl.model('wreck.glb', 21.5, 37.4, None, math.radians(-80), 1.0)
-        pl.model('rubble.glb', 19.8, 1.6, None, 0.4, 1.0); pl.model('cart.glb', 24.6, 3.0, None, 0.6, 1.0)
+        pl.model('patrol.glb', 39.6, 0.8, None, math.radians(97), 1.0)          # the cars off the street: the upright street is the doors' walk
+        pl.model('wreck.glb', 19.8, 1.0, None, math.radians(-80), 1.0)
+        pl.model('cart.glb', 24.6, 3.0, None, 0.6, 1.0)
         pl.model('dumpster.glb', 19.6, 11.0, None, 0.1, 1.0); drum(25.3, 27.2)
     elif n == 'Reds':                                                  # THE HEART, the bank
         pl.here('bar', parking_deck, K, 'bar', *L, BY, 14, 5)
@@ -167,30 +168,26 @@ def lay_town(town, pl, K):
         pl.here('cashing', block, K, 'cashing', 25.8, 34.2, 6.5, 5.0, 1, 'shop', accent=K.fac, sign=(33.6, K.fac))
         pl.here('smith', block, K, 'smith', 18.3, 24.6, FY, 3.5, 1, 'shop', accent=K.fac)
         pl.here('armourer', block, K, 'armourer', 35.4, 41.7, FY, 3.5, 1, 'shop', wall=K.concrete_warm)
-        pl.model('patrol.glb', 37.5, 37.3, None, math.radians(92), 1.0)
+        pl.model('patrol.glb', 30.0, 1.8, None, math.radians(92), 1.0)           # the cars off the street (the doors' walk)
         pl.model('sandbags.glb', 41.0, 36.4, None, 0.0, 1.0)
         for x, y, r in ((21.0, 3.4, 88), (38.6, 4.2, 95), (20.4, 8.4, 80)): pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
         for x in (25.9, 33.5): lamp(x, 43.3, 'streetlight.glb')
-        pl.model('rubble.glb', 38.0, 12.0, None, 1.2, 1.0); pl.model('tyres.glb', 23.8, 13.4, None, 0.0, 1.0)
+        pl.model('rubble.glb', 38.0, 9.0, None, 1.2, 1.0); pl.model('tyres.glb', 23.8, 12.6, None, 0.0, 1.0)
         drum(25.3, 27.2)
     elif n == 'Anarchists':                                            # THE EDGE, the stage in its ring of burnt cars
-        pl.model('bld_ranch_carport.glb', 25.0, BY, 11.8)              # the barber's house, as wide
-        pl.here('clinic', shack, K, 'clinic', 31.4, 41.8, BY, 4.0, 3.2, tarp=K.rust)
-        pl.model('bld_ranch_porch.glb', 36.6, 50.0, 10.4)              # the bar's porch house, behind the low shack (it shows)
+        pl.model('bld_ranch_carport.glb', 24.6, BY, 11.8)              # the barber's house and the bar's porch house side by side on
+        pl.model('bld_ranch_porch.glb', 36.2, BY, 10.4)                # the back row, as wide (a house behind a house hides its door)
+        pl.here('clinic', shack, K, 'clinic', 34.0, 41.7, 29.5, 4.0, 3.2, tarp=K.rust)   # the clinic's shack beside the open middle
         pl.here('squat_mural', mural_wall, K, 'squat_mural', 18.3, 21.6, 41.6, 2.2)
         pl.here('wall', mural_wall, K, 'mural', 18.4, 24.2, 9.0, 3.0)
-        pl.here('post', tower, K, 'post', 39.0, 55.0, 5.0)
+        pl.here('post', tower, K, 'post', 19.4, 1.6, 5.0)
         pl.here('smith', shack, K, 'smith', 18.3, 24.6, FY, 3.5, 2.6, tarp=K.blue_tarp)
         pl.model('container.glb', 38.6, FY, None, 0.0, 1.0)            # the armourer's container
         pl.here('stage', stage, K, 'stage', 25.6, 33.0, 6.0, 4.0, K.fac)
-        for (x, y, r) in ((23.6, 4.2, 20), (35.0, 6.0, -70), (24.6, 13.2, 10), (34.8, 13.0, -20)):
+        for (x, y, r) in ((23.6, 4.2, 20), (35.0, 6.0, -70), (24.6, 13.2, 10), (33.0, 11.2, -20)):
             root, _ = pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
             for i_, o in enumerate(root.children_recursive):
                 if o.type == 'MESH': o.data.materials.clear(); o.data.materials.append(K.rust if i_ % 5 == 2 else K.char)
-        for (x, y, r) in ((36.5, 37.4, 100), (21.4, 37.5, 75)):
-            root, _ = pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
-            for o in root.children_recursive:
-                if o.type == 'MESH': o.data.materials.clear(); o.data.materials.append(K.char)
         pl.here('mural2', mural_wall, K, 'mural2', 35.6, 40.8, 8.0, 2.4)
         pl.built(S.fire, 29.2, 13.0, None, 0.0, 1.0, True); pl.fires.append((29.2, 13.6, 1.6))
         drum(25.3, 27.2); drum(33.4, 26.4)
@@ -200,7 +197,7 @@ def lay_town(town, pl, K):
         def coop_awning(): K.P.box(bpy, 'coop_awning', K.fac, (9.0, 2.0, 0.05), (24.0, BY - 1.0, 2.6), rot=(math.radians(-14), 0, 0))
         pl.here('coop_awning', coop_awning)
         pl.here('hoop_a', hoop_house, K, 'hoop_a', 34.0, 41.6, 30.0, 5.5, K.blue_tarp)        # the bar: the hoop house beside the open middle
-        pl.here('tank', water_tower, K, 'tank', 39.6, 7.0, 1.6, 3.6, K.blue_tarp)
+        pl.here('tank', water_tower, K, 'tank', 20.0, 4.0, 1.6, 3.6, K.blue_tarp)      # in the front corner, never before a door
         def solar():
             for k, x in enumerate(np.arange(26.0, 34.0, 2.1)):
                 P.box(bpy, 'panel%d' % k, K.dark, (1.9, 1.2, 0.05), (x + 1.0, 15.6, 1.1), rot=(math.radians(-28), 0, 0)); Bx(K, 'pv_leg', K.steel, x + 0.9, x + 1.1, 15.8, 16.0, 0, 1.0)
@@ -214,7 +211,7 @@ def lay_town(town, pl, K):
         pl.model('shed.glb', 23.4, FY, None, 0.0, 1.0)
         pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY, 3.5, 2.6, tarp=K.fac)
         pl.model('corral.glb', 39.0, 1.0, None, 0.0, 1.0)
-        pl.model('rolled.glb', 19.8, 3.2, None, 0.0, 0.7)
+        pl.model('rolled.glb', 22.6, 0.6, None, 0.0, 0.7)
         for x in (25.9, 34.0): lamp(x, 43.0)
         drum(25.3, 27.2)
     pl.built(S.posts, 21.8, 30.0, None, 0.0, 1.0, 6.0)
@@ -228,7 +225,7 @@ def lay_fortress(town, pl, K):
     """the TALL fortress tier"""
     bpy, P, rnd, mm = K.bpy, K.P, K.rnd, K.mm
     n = town['name']
-    CY = 30.0 if n == 'Mob' else 34.0                                  # the barber and the clinic, side by side (Mob nearer: its tower shows over them)
+    CY = 34.0                                                          # the barber and the clinic, side by side
     BL, CL = (18.3, 28.6), (29.4, 41.7)
     pl.boxes['lot'] = (32.5, 41.0, 24.0, 29.5, 0.0)
     pl.boxes['build'] = (35.0, 41.4, 17.0, 22.0, 0.0)
@@ -244,8 +241,8 @@ def lay_fortress(town, pl, K):
             if (gate == 'left' and x < 20) or (gate == 'right' and x > 40): continue   # the gate: the road comes in here
             S.Place.model(pl, model, x, y, None, 0.0, k)
     if n == 'Mob':                                                     # THE HEART: the casino tower's podium
-        pl.model('bld_tower_casino.glb', 30.0, 42.0, 26.0)
-        pl.here('clinic', block, K, 'clinic', *CL, CY, 8, 3, 'shop', wall=K.concrete_warm, accent=K.black)
+        pl.model('bld_tower_casino.glb', 30.0, 44.0, 26.0)              # the tower over the row (the row two storeys, so it shows)
+        pl.here('clinic', block, K, 'clinic', *CL, CY, 8, 2, 'shop', wall=K.concrete_warm, accent=K.black)
         def marquee():
             Bx(K, 'marquee', K.dark, CL[0] - 0.4, CL[1] + 0.4, CY - 2.2, CY, 3.6, 4.4)
             for x in np.arange(CL[0], CL[1], 0.5): P.cyl(bpy, 'mq_bulb', K.bone if rnd.random() < 0.6 else mm['amber'], 0.06, 0.06, (x, CY - 2.25, 4.0), rot=(math.pi / 2, 0, 0), verts=6)
@@ -270,9 +267,9 @@ def lay_fortress(town, pl, K):
         pl.here('barber', block, K, 'barber', *BL, CY, 9, 1, 'shop', wall=K.concrete_warm, accent=K.fac)
         pl.here('canopy', canopy, K, 'canopy', 18.4, 29.0, 3.0, 7.5, 4.6, K.fac)          # the fuel canopy in front, low enough to show the posts
         for x in (21.6, 26.0): pl.model('cover_pump.glb', x, 4.4, None, 0.0, 1.0)
-        for k, x in enumerate((33.0, 38.6)): pl.here('semi%d' % k, cab, K, 'semi', x, 9.0, K.bone if k else K.mustard)
+        for k, x in enumerate((33.0, 38.6)): pl.here('semi%d' % k, cab, K, 'semi', x, 3.6, K.bone if k else K.mustard)   # the semis at the front, short of the build ground
         for k, y in enumerate((44.0, 46.4)): pl.model('propane.glb', 40.6, y, None, 0.0, 2.0)
-        pl.model('tyres.glb', 33.6, 2.4, None, 0.0, 1.0); pl.model('drums.glb', 37.0, 2.6, None, 0.2, 1.0)
+        pl.model('tyres.glb', 20.0, 10.0, None, 0.0, 1.0)
         for x in (29.0, 41.4): lamp(x, CY - 1.2)
         drum2()
     elif n == 'Cartel':                                                # THE EDGE: storage rows behind a dark wall
@@ -382,7 +379,7 @@ def lay_camp(town, pl, K):
             root, _ = pl.model('wreck.glb', x, y, None, math.radians(r), 1.0)
             if k < 2:
                 for sx in (-1.6, 1.6): pl.here('blocks%d%s' % (k, sx), Bx, K, 'cinder', K.concrete, x + sx - 0.3, x + sx + 0.3, y + 0.4, y + 1.0, 0, 0.4)
-        pl.here('hoist', gantry_crane, K, 'hoist', 24.0, 31.0, 14.0, 5.0)
+        pl.here('hoist', gantry_crane, K, 'hoist', 24.0, 31.0, 6.0, 5.0)        # in front: its beam never over the posts
         for (x, y) in ((19.6, 22.0), (40.4, 18.0)): pl.model('tyres.glb', x, y, None, 0.0, 1.0)
         pl.model('drums.glb', 40.4, 45.0, None, 0.0, 1.0); pl.model('heap.glb', 33.0, 4.0, None, 0.0, 0.8)
         tent_in(19.8, 50.6, 3.0, K.ply); tent_in(39.6, 41.0, 3.0, K.teal)
@@ -414,7 +411,7 @@ def lay_camp(town, pl, K):
         pl.model('dozer.glb', 34.0, 6.0, None, 0.2, 1.0)
         pl.model('shed.glb', mid(barber), barber[2], None, 0.0, 1.35)
         tent_in(mid(clinic), clinic[2], 6.0, K.fac)
-        for k, (x, y, w) in enumerate(((20.4, 22.0, 3.0), (39.6, 12.0, 3.0), (37.6, 41.6, 2.8))): tent_in(x, y, w, [K.ply, K.fac, K.rust][k])
+        for k, (x, y, w) in enumerate(((19.6, 8.0, 3.0), (39.6, 12.0, 3.0), (37.6, 41.6, 2.8))): tent_in(x, y, w, [K.ply, K.fac, K.rust][k])
         def welding(x=24.0, y=14.4):
             for k in range(3): P.cyl(bpy, 'bottle%d' % k, [K.rust, K.steel, K.teal][k], 0.13, 1.4, (x + k * 0.32, y, 0.7), verts=10)
             Bx(K, 'bench', K.steel, x + 1.0, x + 4.0, y - 0.4, y + 0.6, 0.85, 0.95)
@@ -434,7 +431,7 @@ def lay_camp(town, pl, K):
         def generator(x=38.0, y=44.0):
             Bx(K, 'gen', K.mustard, x, x + 2.2, y, y + 1.2, 0, 1.3, bevel=0.05); P.rod(bpy, 'muffler', K.steel, (x + 1.8, y + 0.8, 1.3), (x + 1.8, y + 0.8, 2.2), 0.06, 8)
         pl.here('generator', generator)
-        def bladder(): P.cyl(bpy, 'bladder', K.blue_tarp, 1.6, 0.7, (21.0, 22.0, 0.35), verts=24)
+        def bladder(): P.cyl(bpy, 'bladder', K.blue_tarp, 1.6, 0.7, (21.0, 5.5, 0.35), verts=24)
         pl.here('bladder', bladder)
         pl.model('patrol.glb', 38.0, 4.0, None, math.radians(75), 1.0)
         for x in (26.0, 34.0): lamp(x, 46.0)
@@ -548,24 +545,29 @@ def taps_tall(town, meta):
     return hot, boxes
 
 
-GROUND = {'lot', 'build', 'bar', 'arms'}
+GROUND = {'town': {'lot', 'build'}, 'fortress': {'lot', 'build', 'bar'}, 'camp': {'lot', 'build', 'bar', 'arms'}}   # the bar is a building in a town
 
 
-def doors_of(hot, boxes, ground=GROUND):
+def doors_of(hot, boxes, tier):
     """where a keeper stands and where he walks in (picture px): a building's or a stall's foot, its middle; a patch of ground
-    he taps (the lot, the build ground, the bar's fire, the arms) its middle"""
-    out = {}
+    he taps (the lot, the build ground; the fortress's bar's fire; the camp's arms and bar) its middle"""
+    ground = GROUND[tier]; out = {}
     for r, v in list(hot.items()) + [(k, {'box': b}) for k, b in boxes.items() if k != 'look']:
         b = v['box']; out[r] = [int((b[0] + b[2]) / 2), int((b[1] + b[3]) / 2) if r in ground else int(b[3])]
     return out
 
 
 def entrance_of(town, W, H, wide=False):
+    """where he walks into the picture: the street's end. RUN's [any side of a town is its door] (rule 186(a), 9f3e8839) lets
+    him arrive from any side, so both ends are written: the screen takes the end on the side he walked in from; 'side' and 'at'
+    are the default when it does not know (the side the map's road meets the town)"""
     side = entrance_side(town['name'])
     y = V_STREET_Y[town['tier']] if wide else STREET_Y[town['tier']]
-    x = 6.6 if (wide and side == 'left') else 53.4 if wide else (18.6 if side == 'left' else 41.4)
-    px, py = proj(x, y, 0, W, H)
-    return {'side': side, 'at': [int(px), int(py)]}
+    ends = {}
+    for sd in ('left', 'right'):
+        x = (6.6 if sd == 'left' else 53.4) if wide else (18.6 if sd == 'left' else 41.4)
+        px, py = proj(x, y, 0, W, H); ends[sd] = [int(px), int(py)]
+    return {'side': side, 'at': ends[side], 'left': ends['left'], 'right': ends['right']}
 
 
 V_STREET_Y = {'town': 31.8, 'fortress': 39.0, 'camp': 29.5}       # the 10/25 pictures' street, track and road
@@ -656,7 +658,10 @@ class _Hook(TallTown):
         out = super().outlines()
         if _LAST.get('town') is not None:
             bad = check_layout(_LAST['town'], {'outlines': out, 'boxes': s.boxes})
-            if bad: raise LayoutBad(', '.join(bad))
+            if bad:
+                od = os.path.join(TOUT, 'layout'); os.makedirs(od, exist_ok=True)      # what failed, for the fix
+                _orig_render_dump(dict(name=_LAST['town']['name'], outlines=out, boxes=s.boxes, bad=bad), open(os.path.join(od, _LAST['town']['slug'] + '.json'), 'w'), indent=0)
+                raise LayoutBad(', '.join(bad))
         return out
 
 
@@ -692,9 +697,9 @@ def ship_tall(towns_):
         LOOK = {'camp': [840, 220, 1000, 420], 'town': [1600, 0, 2060, 370], 'fortress': [1116, 122, 1631, 486]}
         wide_boxes['look'] = LOOK[town['tier']]
         e['wide'] = dict(src=e.get('src', s + '.webp'), night_src=e.get('night_src', s + '_night.webp'), px=[WW, WH], hotspots=town['hot'],
-                         boxes=wide_boxes, doors=doors_of(town['hot'], wide_boxes), entrance=entrance_of(town, WW, WH, wide=True), zoom_max=ZOOM[town['tier']])
+                         boxes=wide_boxes, doors=doors_of(town['hot'], wide_boxes, town['tier']), entrance=entrance_of(town, WW, WH, wide=True), zoom_max=ZOOM[town['tier']])
         e['tall'] = dict(src=s + '_tall.webp', night_src=s + '_tall_night.webp', px=[TW, TH], hotspots=hot, boxes=boxes,
-                         doors=doors_of(hot, boxes), entrance=entrance_of(town, TW, TH), zoom_max=ZOOM[town['tier']])
+                         doors=doors_of(hot, boxes, town['tier']), entrance=entrance_of(town, TW, TH), zoom_max=ZOOM[town['tier']])
         bl = sorted({tuple(o['box']) for o in meta['outlines']})
         for suf in ('', '_night'): walk['pictures'][s + '_tall' + suf + '.webp'] = {'blocks': [list(b) for b in bl]}
         wm = json.load(open(os.path.join(R, 'records/target/cook_town_screens/render', s + '.json')))
@@ -707,9 +712,11 @@ def ship_tall(towns_):
 
 def check_layout(town, meta):
     """the door and the phone's corner, before the long render: what fails is named"""
-    hot, boxes = taps_tall(town, meta); doors = doors_of(hot, boxes); ent = entrance_of(town, TW, TH)
-    r = reach(TW, TH, [o['box'] for o in meta['outlines']], ent['at'], doors)
-    bad = ['door ' + k for k, v in r.items() if not v]
+    hot, boxes = taps_tall(town, meta); doors = doors_of(hot, boxes, town['tier']); ent = entrance_of(town, TW, TH)
+    bad = []
+    for sd in ('left', 'right'):                         # he may walk in from either end (rule 186(a))
+        r = reach(TW, TH, [o['box'] for o in meta['outlines']], ent[sd], doors)
+        bad += ['door %s from the %s' % (k, sd) for k, v in r.items() if not v]
     bad += ['corner ' + k for k, v in list(hot.items()) + list(boxes.items()) if not corner_clear(v['box'] if isinstance(v, dict) else v)]
     return bad
 

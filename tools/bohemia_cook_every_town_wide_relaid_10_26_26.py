@@ -170,9 +170,11 @@ def taps_wide(town, meta):
 
 
 def check_wide(town, meta):
-    hot, boxes = taps_wide(town, meta); doors = T.doors_of(hot, boxes); ent = T.entrance_of(town, WW, WH, wide=True)
-    r = T.reach(WW, WH, [o['box'] for o in meta['outlines']], ent['at'], doors)
-    bad = ['door ' + k for k, v in r.items() if not v]
+    hot, boxes = taps_wide(town, meta); doors = T.doors_of(hot, boxes, town['tier']); ent = T.entrance_of(town, WW, WH, wide=True)
+    bad = []
+    for sd in ('left', 'right'):                         # he may walk in from either end (rule 186(a))
+        r = T.reach(WW, WH, [o['box'] for o in meta['outlines']], ent[sd], doors)
+        bad += ['door %s from the %s' % (k, sd) for k, v in r.items() if not v]
     bad += ['corner ' + k for k, v in list(hot.items()) + list(boxes.items()) if not corner_clear_wide(v['box'] if isinstance(v, dict) else v)]
     return bad
 
@@ -186,7 +188,10 @@ class _HookW(WideTown):
         out = super().outlines()
         if _LASTW.get('town') is not None:
             bad = check_wide(_LASTW['town'], {'outlines': out, 'boxes': s.boxes})
-            if bad: raise T.LayoutBad(', '.join(bad))
+            if bad:
+                od = os.path.join(WOUT, 'layout'); os.makedirs(od, exist_ok=True)
+                _orig_dump(dict(name=_LASTW['town']['name'], outlines=out, boxes=s.boxes, bad=bad), open(os.path.join(od, _LASTW['town']['slug'] + '.json'), 'w'), indent=0)
+                raise T.LayoutBad(', '.join(bad))
         return out
 
 
@@ -241,7 +246,7 @@ def ship_wide(towns_):
         e.update(tier=town['tier'], src=s + '.webp', night_src=s + '_night.webp', px=[WW, WH], hotspots=hot, boxes=boxes,
                  lights=len(meta['lamps']) + len(meta['fires']))
         e['wide'] = dict(src=s + '.webp', night_src=s + '_night.webp', px=[WW, WH], hotspots=hot, boxes=boxes,
-                         doors=T.doors_of(hot, boxes), entrance=T.entrance_of(town, WW, WH, wide=True), zoom_max=T.ZOOM[town['tier']], relaid=True)
+                         doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, WW, WH, wide=True), zoom_max=T.ZOOM[town['tier']], relaid=True)
         bl = sorted({tuple(o['box']) for o in meta['outlines']})
         for suf in ('', '_night'): walk['pictures'][s + suf + '.webp'] = {'blocks': [list(b) for b in bl]}
         print('  shipped wide', s, len(bl), 'outlines', flush=True)

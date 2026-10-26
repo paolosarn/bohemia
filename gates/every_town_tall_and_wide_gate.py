@@ -158,11 +158,12 @@ def main():
             c = e.get(comp)
             if not c: continue
             W, H = c['px']
-            r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance']['at'], c['doors'])
-            cut += ['%s %s %s' % (n, comp, k) for k, v in r.items() if not v]
+            for sd in ('left', 'right'):                  # he may walk in from either end (RUN's any side is the door, rule 186(a))
+                r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance'].get(sd, c['entrance']['at']), c['doors'])
+                cut += ['%s %s %s from the %s' % (n, comp, k, sd) for k, v in r.items() if not v]
         if e.get('tall') and e.get('wide'):
             if set(e['tall']['doors']) != set(e['wide']['doors']) or e['tall']['entrance']['side'] != e['wide']['entrance']['side']: same.append(n)
-    leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from the entrance over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')
+    leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from either end of the street over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')
     leg(not same, 'turning keeps him by the same building: every role\'s door in both compositions, the entrance on the same side', ', '.join(same) if same else 'all fourteen')
     # 7
     T = {n: (towns.get(n) or {}).get('tall') for n in names}
