@@ -238,3 +238,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 218 | Camp and town healing stop by themselves (pause) when my whole team is at 99 percent health and armour; (said again) the fallen who live are back in the line; (said again) bars over every man in towns | 278, 234, 261 | CAMP, EYES | 
 | 219 | Every settlement, portrait and landscape, keeps the phone's corner clear (left or right setting); no shopkeeper behind the phone; switches at once; speech never under the phone, with a transition | 279 | COOK, RUN TWO, UI TWO, UI, EYES | 
 | 220 | In a fight the top bar (batteries, time of day) goes away completely | 280 | UI, COMBAT, EYES | 
+| 221 | (a bug) Every level a man earns waits for me to spend it, as many as he banked; my level-5 man let me level up only once | 281 | RUN FOUR, RUN TWO, EYES | 
