@@ -1,4 +1,4 @@
-PORTRAIT (portrait-wounds): 10/26 LATEST -- [the face shows the wound] and [every face breathes] SHIPPED 0154fd59,
+PORTRAIT (portrait-wounds): 10/26 LATEST -- [the face shows the wound] and [every face breathes] SHIPPED c552e2a9,
 BUILT, NOT YET SEEN (rules 234(c), 246; BUILD 10/26zm - YOUR MEN WEAR THEIR WOUNDS AND EVERY FACE BREATHES).
 Record: records/BOHEMIA_PORTRAIT_THE_FACE_SHOWS_THE_WOUND_10_26_26.md (his words, Battle Brothers first, every pilot's finding, the numbers).
 
@@ -39,11 +39,14 @@ NOTES SENT (on the board rows)
   (ff94590b) and read live; the crew screen's own climb book (mark, hurt) stays the second source by name.
 - RUN TWO: the hook above in your file; nothing else of yours touched.
 
-GATES ON THE SHIP TREE: THE FACE SHOWS THE WOUND 29/0; EVERY FACE BREATHES 15/0; DEMO BUILD green; VOTE TAB 47/4 (DYNASTY's two
-whys and the alpha landing on the run after BEGIN, both not this lane's: the stamp is the only alpha byte this ship changes);
-DERIVED FRESH 9/1 (the tile bank's drift on the alpha, CITY WORLD, RUN CURRENT and the canon index, none of them touched here);
-PAGES PUBLISH 16/2 (the published surface 1536 MB over its 260 cap and the handoffs/skills/tickets copy list, both on main before
-this); GATE REGISTRY 6/1 (19 other lanes' orphans; these two gates are in the suite now).
+GATES ON THE SHIP TREE (rebased on main c55ed6c7): THE FACE SHOWS THE WOUND 29/0 (the stages through CAMP's live look()); EVERY
+FACE BREATHES 15/0; CAMP's STRUCK DOWN, HE STILL FIGHTS 30/0 phone and computer (832 s, its S10 hands the faces the stage); LONG
+INJURY 55/0; ROSTER SHOWS THE HURT 14/0; DEMO BUILD 25/0; HANDOFF 10/0. Red and not this lane's, all on main before this ship:
+VOTE TAB 48/4 (DYNASTY's two whys; the alpha landing on the run after BEGIN, three legs); COOK EVERY ROUND 7/6 (SOUNDS, UI, COOK,
+ANIMATION, WORLD, one more); DERIVED FRESH 9/1 (the tile bank's drift); PAGES PUBLISH 16/2 (1536 MB over its 260 cap; the copy list);
+GATE REGISTRY 6/1 (19 other lanes' orphans; these two gates are in the suite). THE FULL SUITE: started once on the ship tree, 133 of
+1,069 gates in 45 minutes, every red so far in the valley and economy sims (none reads a face); stopped on the coordinator's word
+('you stopped waiting on a suite run... ship as soon as it passes'), the pre-push set above run instead, honestly named.
 [bb Battle Brothers draws a brother's injuries on his head as layers (an eye gone, a bandage replaced by a clean one as it heals);
 ours is the same shape, each mark a layer of his own render.]
 [analog horror: a man tagged through the ear like livestock, still standing in the line, still breathing on the beat.]

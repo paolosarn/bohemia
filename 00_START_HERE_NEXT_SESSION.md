@@ -1,4 +1,4 @@
-PORTRAIT (portrait-wounds): 10/26 LATEST -- [the face shows the wound] and [every face breathes] SHIPPED 0154fd59, BUILT,
+PORTRAIT (portrait-wounds): 10/26 LATEST -- [the face shows the wound] and [every face breathes] SHIPPED c552e2a9, BUILT,
 NOT YET SEEN (rules 234(c), 246; BUILD 10/26zm): 18 marks for the 59 injury rows on YOU and all 152 people's own faces at 128 and the
 64 thumb (eye patch, stapled skull, ear gone, nose gone, blood and a band-aid that come off as he heals, a cattle tag for what a head
 cannot show), and every face breathes, blinks, glances and winces when hurt on one clock; gates THE FACE SHOWS THE WOUND 29/0, EVERY
