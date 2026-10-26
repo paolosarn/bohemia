@@ -15608,6 +15608,118 @@
    }
   },
   {
+   "id": "camp-two-his-camp-10-26",
+   "kind": "ui",
+   "lane": "camp two",
+   "sha": "b8dab965",
+   "made": "10/26",
+   "draft": true,
+   "title": "YOUR CAMP IS YOUR OWN PLACE: A TENT FOR EACH TWO MEN, THE SHOPPING CART, THE FIRE, YOUR MEN DOING WHAT THEY NEED",
+   "why": "The camp is your own place now: a tent for every two men, the shopping cart, the supplies, the fire, and each man doing what his wounds say, with a red edge when a crew is coming. You see it in the game when you leave the first town and press HEAL on the phone.",
+   "options": [
+    "A, yes, this is my camp",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/camp_two/CAMP_TWO_HIS_CAMP_10_26.webp",
+    "first": "../records/target/camp_two/CAMP_TWO_HIS_CAMP_10_26_first.webp",
+    "firstAt": [
+     12,
+     12,
+     323,
+     700
+    ]
+   }
+  },
+  {
+   "id": "camp-two-the-pieces-10-26",
+   "kind": "tile",
+   "lane": "camp two",
+   "sha": "b8dab965",
+   "made": "10/26",
+   "draft": true,
+   "title": "THE CAMP'S PIECES IN THE CLAY LOOK: THREE TENTS, THE FIRE, THE BEDROLL, AND A PIECE FOR ALL EIGHTEEN FOLLOWERS",
+   "why": "Every piece of the camp made in the clay-and-tape look: three taped tents, the fire, a bedroll, the supplies, the smart cart and a piece for each of the eighteen followers. You see it here in the VOTE tab, on the camp's own sand, at the size they stand in camp.",
+   "options": [
+    "A, these are the camp's pieces",
+    "B, no, not this look"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/camp_two/CAMP_TWO_THE_PIECES_10_26.webp",
+    "first": "../records/target/camp_two/CAMP_TWO_THE_PIECES_10_26_first.webp",
+    "firstAt": [
+     0,
+     0,
+     760,
+     410
+    ]
+   }
+  },
+  {
+   "id": "camp-two-the-turn-10-26",
+   "kind": "animation",
+   "lane": "camp two",
+   "sha": "b8dab965",
+   "made": "10/26",
+   "draft": true,
+   "title": "TURN THE PHONE IN CAMP: THE TENTS AND YOUR MEN SLIDE TO THEIR NEW SPOTS, NOTHING POPS",
+   "why": "Turn the phone at camp and the tents, the cart, the fire and every man slide to their new spots in half a second, each man still doing his job, with no black flash. You see it here in the VOTE tab slowed 12 times, and in the game when you turn the phone at camp.",
+   "options": [
+    "A, yes, that is how the turn should feel",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/camp_two/CAMP_TWO_THE_TURN_10_26.webp"
+   }
+  },
+  {
+   "id": "camp-two-tall-and-wide-10-26",
+   "kind": "ui",
+   "lane": "camp two",
+   "sha": "b8dab965",
+   "made": "10/26",
+   "draft": true,
+   "title": "EVERY SIZE OF CAMP, SIDEWAYS AND UPRIGHT, WITH NO PHONE IN THE WAY",
+   "why": "Four camps from small to big (one man and a cart, three men, six men and the pickup, twelve men and the trailer), each drawn sideways and upright with nothing covering it. You see it here in the VOTE tab, with colored sticks standing in for your men.",
+   "options": [
+    "A, these camps look right both ways",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26.webp",
+    "first": "../records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26_first.webp",
+    "firstAt": [
+     0,
+     1400,
+     1088,
+     484
+    ]
+   }
+  },
+  {
+   "id": "animation-the-camps-acts-10-26",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "f2487f30",
+   "made": "10/26",
+   "title": "YOUR CREW AT CAMP: EACH DOING WHAT HE NEEDS",
+   "said": "if I enter camp mode and time is passing by I should see my character and my whole team... healing... repairing their armor... helping other members if they're healthy",
+   "why": "When you make camp your whole crew first pitches it (gear hauled out of the cart, tent stakes hammered in, the fire lit), then each does what he needs: the badly hurt one lies bandaged with a friend kneeling by him, a hurt one binds his arm, one hammers his car door straight, one cooks, one cleans his rifle, your main man sleeps, and when the hurt one heals he gets up. You see it in the VOTE tab moving on the beat, day and night, with HE HEALS and MAKE CAMP AGAIN buttons.",
+   "options": [
+    "A, yes, this is the camp",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_CAMPS_ACTS.html"
+   },
+   "draft": true
+  },
+  {
    "id": "camp-the-camp-stops-at-full-10-26",
    "kind": "ui",
    "lane": "camp",

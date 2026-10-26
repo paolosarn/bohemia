@@ -83,7 +83,7 @@ async function play(B, W) {
     F.aiStep(v); g++;
     const struck = [];
     S.log.slice(n0).forEach(e => {
-      if (e.t !== 'attack' || e.free || e.sweep || e.id !== v.id || v.side !== 'you') return;
+      if (e.t !== 'attack' || e.free || e.sweep || e.astray || e.id !== v.id || v.side !== 'you') return;   /* an astray shot (rule 230(b)) is the miss flying on, never his pick */
       struck.push(e);
       const rr = cur(r0); rr.blows++; rr.to[e.to] = (rr.to[e.to] || 0) + 1; out.blows++;
       const pick = v.pick && v.pick.to === e.to ? v.pick : null, t = F.byId(e.to), c = ch[e.to];

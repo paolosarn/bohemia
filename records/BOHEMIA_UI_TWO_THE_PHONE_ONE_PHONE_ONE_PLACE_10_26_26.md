@@ -104,7 +104,25 @@ TAP THE FEED: the catalogue on the phone's own glass (BohemiaFeed.read, eighty n
 status bar is back.
 
 IN A FIGHT: the abilities page's last row carries CREW, NOTES and SETTINGS small, so they are on the phone there too; the fight's
-own commands (END TURN, AUTO, WAIT, RETREAT, STRIKE, RELOAD) are the next piece.
+own commands are on it as well (the next section).
+
+## RULE 238(a) IN THE FIGHT: EVERY PRESS OF THE FIGHT ON THE PHONE
+MEASURED BEFORE (12bf5667e, a road fight in the game, 390 x 844 upright): the fight's bar carried END TURN (the big button: FIGHT
+at the line, then WALK, SHOOT, HIT or THROW with its chance once a tile is picked), STRIKE, RELOAD, WAIT, RETREAT, and over it AUTO
+and the speed (1x); the phone carried the man's abilities, BACK, and CREW, NOTES, SETTINGS.
+
+NOW, in the game's fights, the phone's fight page is, top to bottom: his face and name; THE BIG BUTTON the width of the glass,
+saying what the fight's says (FIGHT, END TURN, or the act and its chance with the act's own mark), amber when it will do a thing;
+one row: WAIT (a clock; RUN DOWN and amber when they break, COMBAT's RUN THEM DOWN, rule 198(h)), RETREAT (two chevrons running back;
+a red ring and SPARE when every one of theirs runs, COMBAT's SPARE THEM; amber while it waits for
+the second press), AUTO (an arrow turning round; amber when on, the odds tint over it, the beat's glow when it would win), the
+speed (1x, 2x, 4x); his abilities four a row: STRIKE and RELOAD first (the fight's own pictures and its chance or AP), BACK, the
+bag swaps, the sweeps, the perks' skills; then CREW, NOTES, SETTINGS. Every one presses the fight's own button (P.cmd, P.press),
+so the fight's rules stay in the fight. WAIT, RETREAT and AUTO through the rig (app_wait, app_retreat, app_auto), read in
+greyscale by shape. The fight's bar keeps the man (his face, blood, armour, fatigue, AP) and the round's order; its second row,
+END TURN, AUTO and the speed are off the glass under the phone's stylesheet, so the board gets the second row's height back.
+COMBAT's bench (the fight's page on its own) builds no phone and keeps every button. The keyboard keeps its keys (space is WAIT).
+Gates that press the fight's buttons in the game press the one on screen: tools/bohemia_fight_press.js (fightPress, fightAt).
 
 ## GATE
 gates/the_phone_gate.js, THE PHONE (in the suite): phone upright, on its side, a computer; right then left; real taps; the

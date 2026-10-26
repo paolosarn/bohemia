@@ -4,8 +4,9 @@
    cabin and all your members; and you can hire people to join you, Battle Brothers calls it a retinue'.
    WHY THIS WALKS THE DEMO: rule 150(d), on the surface he plays; every press below is a real finger.
      C1 the HEAL app (the camp's door since rules 212 and 226, UI TWO 10/26) stands on the phone on the map, a thumb wide, nothing over it
-     C2 *** A TAP MAKES CAMP *** the screen opens with the clock on its bar and BREAK CAMP: every man of the company round the fire (the
-        marker's own list), your lead at it, the tent, the retinue and the cart, and nothing of a town (no keeper, crowd, walker)
+     C2 *** A TAP MAKES CAMP *** the screen opens with the clock on its bar and BREAK CAMP: every man of the company in his camp (the
+        marker's own list; where in it is CAMP TWO's, rule 259), your lead in it, the tent, the retinue and the cart, and nothing of a
+        town (no keeper, crowd, walker)
      C3 the clock runs an hour a beat while the camp stands, and the night is billed on it (the batteries go down by the bill)
      C4 THE RETINUE: with no clout nobody follows (no place open, every hire shut); with the clout of a first place, a real tap
         takes the scout on: his price is paid, and the map's road time is the scout's (15 percent less a block)
@@ -62,11 +63,14 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
       for (const x of p.frames().filter(x => /SETTLEMENT_SCREEN/.test(x.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.camp().camp && BohemiaSettlement.ready(); } catch (e) { return false; } }).catch(() => false)) { sf = x; break; } }
     if (!sf) { ok('C2 a tap makes camp', false, 'no camp screen'); return done(); }
     await sf.waitForFunction(() => { const l = BohemiaSettlement.lead(); return !!l.drawn; }, null, { timeout: 10000 }).catch(() => {});
-    const c2 = await sf.evaluate(() => { const S = BohemiaSettlement, F = S.folk(), l = S.lead(), fire = { x: 945, y: 786 };
+    /* CAMP TWO 10/26 (rule 260: the camp screen is his own camp): the fire is his camp's own (engine/bohemia_camp_life.js), his men stand
+       where their condition puts them in it (rule 259), not in one ring, and the camp's doors are more than three (the fire, a tent
+       a pair, the cart, the seats); the leg reads all of that from the camp's own call */
+    const c2 = await sf.evaluate(() => { const S = BohemiaSettlement, F = S.folk(), l = S.lead(), fire = (window.BohemiaCampLook && BohemiaCampLook.state().fire) || (window.BohemiaCampLife ? BohemiaCampLife.FIRE : { x: 945, y: 786 });
       return { name: document.getElementById('pname').textContent, leave: document.getElementById('leave').textContent, order: S.order(), men: F.length, all: F.every(p => p.campMan),
-        round: F.every(p => Math.hypot((p.x - fire.x) / 2.1, p.y - fire.y) < 130), lead: l.look, leadAt: Math.round(Math.hypot((l.x - fire.x) / 2.1, l.y - fire.y)), busy: S.busy().length, drawn: l.drawn }; });
+        round: F.every(p => Math.hypot((p.x - fire.x) / 2.1, p.y - fire.y) < 420), lead: l.look, leadAt: Math.round(Math.hypot((l.x - fire.x) / 2.1, l.y - fire.y)), busy: S.busy().length, drawn: l.drawn }; });
     ok('C2 a tap makes camp: the clock on the bar and BREAK CAMP, every man of the company round the fire, your lead at it, the tent, the retinue and the cart, nothing of a town',
-      /^DAY \d+  \d\d:\d\d$/.test(c2.name) && c2.leave === 'BREAK CAMP' && c2.order.join() === 'tent,retinue,cart' && c2.men === before.men && c2.all && c2.round && c2.lead === 'you' && c2.leadAt < 130 && c2.busy === 0 && !!c2.drawn,
+      /^DAY \d+  \d\d:\d\d$/.test(c2.name) && c2.leave === 'BREAK CAMP' && ['tent', 'retinue', 'cart'].every(k => c2.order.indexOf(k) >= 0) && c2.men === before.men && c2.all && c2.round && c2.lead === 'you' && c2.leadAt < 420 && c2.busy === 0 && !!c2.drawn,
       JSON.stringify(c2) + ' (the marker holds ' + before.men + ')');
     if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp.png') });
     /* ---- C3 ---- */

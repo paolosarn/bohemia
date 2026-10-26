@@ -26,6 +26,7 @@
 const path = require('path'), fs = require('fs'), os = require('os');
 const ROOT = path.resolve(__dirname, '..');
 const D = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+const { fightAt } = require(path.join(ROOT, 'tools/bohemia_fight_press.js'));
 let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
 const done = () => { console.log('=== THE FIGHT ON THE LIVE PATH GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
@@ -56,7 +57,14 @@ async function openFight(d) {
   if (f) await page.waitForTimeout(1200);
   return f;
 }
-async function centre(f, sel) { const h = await f.$(sel); if (!h) return null; const b = await h.boundingBox(); return b ? { x: b.x + b.width / 2, y: b.y + b.height / 2 } : null; }
+/* UI TWO (rules 238(a), 286(b)): in the game's fights the big button, WAIT, RETREAT, AUTO and the speed are the phone's, each
+   pressing the fight's own; on the bench the fight's own (tools/bohemia_fight_press.js finds the one on screen) */
+async function centre(f, sel) {
+  const id = /^#(bend|bwait|bflee|bauto|bspeed|bstrike|breload|bback)$/.exec(sel);
+  if (id) { const pg = f.page(), t0 = Date.now(); let b = await fightAt(pg, f, id[1]);
+    while (!b && Date.now() - t0 < 4000) { await pg.waitForTimeout(200); b = await fightAt(pg, f, id[1]); }
+    return b ? { x: b.x, y: b.y } : null; }
+  const h = await f.$(sel); if (!h) return null; const b = await h.boundingBox(); return b ? { x: b.x + b.width / 2, y: b.y + b.height / 2 } : null; }
 async function tap(d, profile, p) { if (!p) return; if (profile === 'computer') await d.page.mouse.click(p.x, p.y); else await d.page.touchscreen.tap(p.x, p.y); }
 const state = f => f.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(); return { r: S.round, idx: S.idx, n: S.log.length, over: S.over, res: S.result, anim: FIGHT_UI.anim.length, dep: !!S.deploy, mine: crewControlled(u), side: u && u.side, broke: FIGHT_UI.broke || 0, errs: (window.__fe || []).length }; });
 

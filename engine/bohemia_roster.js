@@ -133,8 +133,11 @@
      the two orders differ). A man keeps the look he came with (a saved company, the hall's man); else man i wears the
      fight's own list at i, the same list the fight reads, so the crew screen, the scavenge sheet, the hall and the fight
      dress him alike. The company carries the look (company() below) so a death or a new order never moves him. */
+  /* YOUR MAIN GUY (RUN THREE [make your main guy], rule 263(b)): the man he made in the barber's chair before the game began,
+     written once (localStorage bohemia.main.v1, engine/bohemia_main_man.js); with none, the origin's own ('you', his crew name) */
+  function mainMan() { try { var m = JSON.parse(root.localStorage.getItem('bohemia.main.v1') || 'null'); return m && m.look ? m : null; } catch (e) { return null; } }
   function lookFor(def, i) {
-    if (def.main) return 'you';
+    if (def.main) { var mm = mainMan(); return (mm && mm.look) || 'you'; }
     /* a rolled person is known too (THE FACE IS HIS OWN FACE, RUN TWO 10/24: your eleven and every hire are the valley's rolled
        people, person_<gang>_<n>, whose body and face are their own renders, not a sheet in fight_people) */
     var known = function (l) { return !!(l && (!D.people || D.people.looks[l] || /^person_[a-z]+_\d+$/.test(l))); };
@@ -168,7 +171,7 @@
     jobs.forEach(function (jb) { var it = itemOf(jb === 'car_door' ? 'shield' : 'weapon', rowsW[jb]); if (!it) return; if (it.kind === 'shield') off = it; else if (!main) main = it; });
     /* RUN TWO rule 202(d): the door he starts with wears its row's own name (the shop's, the stash's), never the bucket word */
     if (main && off && twoHanded(main)) off = null;   /* TWO HANDS: a long gun leaves no hand for the door */
-    var look = lookFor(def, i), nm = nameFor(def.name, look);
+    var look = lookFor(def, i), mm = def.main ? mainMan() : null, nm = mm && mm.name ? String(mm.name) : nameFor(def.name, look);
     return { id: 'm' + i, idx: i, name: nm, was: nm !== def.name ? def.name : undefined, main: !!def.main, background: bg.name || bg.id, bgId: bg.id,
       level: 1, xp: 0, points: 0, stats: st, stars: stars, perks: [], wage: Math.max(1, Math.round((bg.daily_wage || 10) / 10)),
       gear: { main: main, off: off, body: itemOf('body', def.body), head: itemOf('head', def.head) },

@@ -1,46 +1,51 @@
-RUN THREE (run-three, the hall, his men in the town, the start): 10/26 LATEST -- four rows SHIPPED, all BUILT, NOT YET SEEN (rule 179):
-[four percent] 262c23b0 (her body landed 1b0ee711, ANIMATION: women now stand at the posts, 407 of 10,000), [the best recruit at the
-top] 07853c6a, [your crew lives in the town] 963bbc0d round one, [the game starts in a town] 32369eed. BUILD 10/26z - THE GAME
-STARTS IN A TOWN. CLAIMED next: [make your main guy] (rule 263(b), with the start).
+RUN THREE (run-three, the hall, his men in the town, the start, his main guy): 10/26 LATEST -- five rows SHIPPED, all BUILT, NOT YET
+SEEN (rule 179): [four percent] 262c23b0 (her body landed 1b0ee711: 407 women in 10,000 rolled hires), [the best recruit at the top]
+07853c6a, [your crew lives in the town] 963bbc0d round one, [the game starts in a town] 32369eed (round two, his body moving on the
+tape, c9bcf86d), [make your main guy] a3002a61 + the BUILD row 6a8fcc0a (BUILD 10/26zzf - MAKE YOUR MAIN GUY; LIVE: pages SUCCESS on
+3feaf611, which contains a3002a61). Answered on my board: the
+coordinator's three NOTEs [camp in a town], [the bars over their heads], [a town is safe] (CAMP's call in the town, below).
+CLAIMED next: [each origin its own] (rule 236(d), 287): STEP 1 DONE, records/BOHEMIA_RUN3_EACH_ORIGIN_ITS_OWN_HOW_BATTLE_BROTHERS_DOES_IT_10_26_26.md
+(the wiki's fifteen, the six levers, what ours run today: nothing of their rules); STEP 2 next: per origin a look, a shelf, a rule,
+in origins.json, one rule the game can already run first (the water truck's 10% at the stall, the Block Watch's whitelist at the
+post), NOTEs COOK THREE (the looks), COMBAT (the deserters' first round), RUN FOUR (the raiders' loot), CAMP (the loss rules).
 
-WHAT IS LIVE (any town, the demo through the map's door):
-- THE HALL lists its men by the CEILING, highest first, every visit; one tap on the header switches BEST / BEST FOR THE PRICE (a
-  coordinator's default, rule 205). The ceiling: engine/bohemia_roster.js ceiling() (levelUp/raise's own numbers, TUNING's four and
-  weights per kind from records/target/bb/recruit_ceiling.json, the one table's section O), a bar with his rank among 400 posts of six
-  rolled the hall's own way (CEIL_REF, refKey seeds); the exact level-11 figures are the card's title. BARGAIN: rank in the top fifth,
-  price under the hall's median, rank per battery over the hall's median. A man over the median price says why (hallPrice's parts).
-- THE MIX: a GUN man brings the rifle where his trade carried the pistol (hireKit); a MELEE man keeps the pistol and his trade's arm in
-  the bag; the six trades dealt in the week's own order.
-- WOMEN AT THE POST: 0.04 in post_women.json and the one table, bound by the gate; LIVE since ANIMATION landed her body (1b0ee711,
-  407 women in 10,000 rolled hires).
-- HIS MEN IN THE TOWN (__YOUR_CREW_LIVES_IN_THE_TOWN__): shopCrew() but the lead, each at one of ANIMATION's six or walking, on his
-  own seed and trait, on the picture's ground, off door fronts, the rail, lanes and every building's tap box, a finger's room each
-  (crewRoom; a crowd's spacing for the last men of a big company), never three in a row (crewRowed); drawn by BohemiaIdles.activity
-  when his renders are in (ANIMATION's index fills as they land), his idles until then; a standing man tapped opens the crew screen on him (campMan); walkers
-  are not tapped (131(b)).
+WHAT IS LIVE (the demo, a stranger's new game, and any town):
+- THE BARBER'S CHAIR (engine/bohemia_main_man.js; __MAKE_YOUR_MAIN_GUY__ in BOHEMIA_CITY_WORLD.html startInTown): after the origin,
+  before the tape. THE BARBER speaks from his own face; THE MIRROR his body breathing (whole-number zoom) and his HD face; SKIN,
+  HAIR, BEARD, FACE as the barber's own part renders; one tap lights a tile and shows the nearest whole man who wears it, a double
+  tap (a right click) takes it and dims what no whole man can wear with it, nothing moves (249, 250); NAME and GO at the thumb, GO
+  at once keeps the origin's man; dark its first second. The pool: 45 whole men ('you' and 44 rolled people with a body, walk,
+  fight cell, map sheet and face, never one of the company's eleven). BUILD: records/target/bb/main_guy_builds.json, the row
+  shows itself when ANIMATION marks two builds ready (LEAN, BROAD to render; NOTE ANIMATION).
+- ONE MAN, WRITTEN ONCE: bohemia.main.v1 {look, name, parts, origin, made}; read by the tape (startSquad), the roster (lookFor and
+  manOf: the crew screen, the hall, shopCrew), engine/bohemia_condition.js named (the origin's first man for the fight),
+  BOHEMIA_FIGHT.html (the first man by the made name only), the town's lead (leadLook) and campSay, the top bar's face
+  (bohemia_ui_materials.js hudParts), the map's lead (RUN's mapMainLook reads it first), the casts and the post (isCompany,
+  recruitLooks, womenLooks: his body dealt to nobody). A new game clears it before the chair; the bench (fog off) clears it.
+- THE DRIVER taps GO in the chair for every stranger's-game checker (tools/bohemia_drive_the_demo.js knock(); opts.maker 'stay').
+- CAMP'S CALL IN THE TOWN (BohemiaSettlement.crewCall / crewOver / crewAgain, in __YOUR_CREW_LIVES_IN_THE_TOWN__): CAMP sets what
+  each man does, draws over each man's head every frame (its bars, CAMP TWO's ghosts); CREW_GEN re-lays the walkers with them.
+- THE HALL by the CEILING (BEST / BEST FOR THE PRICE), BARGAIN, the pricey man's why, the mix (gun men with the rifle), women at the
+  post at 0.04 -- as before. HIS MEN IN THE TOWN at ANIMATION's six or walking, a finger's room each, never three in a row.
+- THE START: the chair, then his squad's tape (each man's head beside his own body moving; a made man of the valley breathes his
+  idle), then the closest settlement to the origin's corner; LEAVE is the map at that block.
 
-- THE START (__THE_GAME_STARTS_IN_A_TOWN__ in BOHEMIA_CITY_WORLD.html, slices/bohemia_the_squad_up_close.js): a new game (never a
-  CONTINUE, never the bench's lifted valley) opens on the squad's found tape over the whole screen (one quiet second, each man's
-  head beside his own body moving (ANIMATION's cells, whole-number zoom; BUILD 10/26zj), name, trade, stars on the beat, the crew under the origin's name; a tap skips it after the second; SOUNDS' __originSong
-  hook for the song), then the closest settlement to the origin's corner by the map's measure, the company in it; LEAVE is the map
-  at that block. origins.json start_kinds moves an origin's corner (RUN TWO's field).
+GATES (this round): NEW MAKE YOUR MAIN GUY 16/0 in parts (GATE_ONLY=faith,truck | wolf,bench); YOUR CREW LIVES IN THE TOWN 10/0 (K9
+new); THE GAME STARTS IN A TOWN 15/0 in parts; ONLY THE FINAL LOOK 5/0 + 5/0; THE PLACE IN THE DARK 20/0; A FRESH START 8/0; SIGHT
+DOWN THE STREET 6/0; settlement 74/0; roster 15/0; the face is his own 18/0; best recruit 12/0; women 4/0; rare man 10/0; climbing
+17/0; equip from the stash 7/0; formation 23/0; struck down 30/0; the fight on the live path 14/0; the settlement is busy 10/0;
+the busy town talks 20/0; demo build 25/0. RED ON MAIN TOO, NOT MINE (measured on a clean 298119cc): YOUR MAIN GUY LEADS THE WALK Y3
+(13/1, the head's colour at one zoom flips run to run), ONE MAN ONE LOOK (TITO/MARCOS/LALO, the renamed men, undefined in the
+fight's own rule), THE TOWN AND THE HIRE (a 404: portrait/wounds/person_woman_3.json), NO TWO PEOPLE ALIKE (the crew screen leg),
+GEAR NEVER VANISHES V1 (only when RAUL is struck down: the crew screen now says 'struck down... still in the line' after CAMP's
+rule 234 and the gate still reads for 'laid up|dead': NOTE COMBAT). Full suite unmeasured.
 
-GATES: THE BEST RECRUIT AT THE TOP 12/0, YOUR CREW LIVES IN THE TOWN 9/0, THE GAME STARTS IN A TOWN 15/0 (all new, in the suite; the
-last runs in parts, GATE_ONLY=faith | truck,wolf | bench); re-aimed THE PLACE IN THE DARK 20/0 and ONLY THE FINAL LOOK 5/0 + 5/0; A FEW WOMEN AT THE POST 4/0;
-re-aimed THE HIRE PRICE IS THE FORMULA 10/0 (his own kit), THE TRAIT BEFORE YOU HIRE 12/0 (each band read when dealt), THE FACE IS HIS
-OWN FACE F5 (his own men stand as themselves) 17/1 as main. Green: settlement screen 74/0, the walk-up 8/0, on the ground 7/0, the
-town's part 18/1 as main, busy 10/0, busy town talks 20/0, people 40/0, the town and the hire 11/0, rare man 10/0, demo build 25/0.
-Full suite unmeasured. Red on main before me and not mine: money_teaches (the demo's #crew button), no_two_people_alike's crew-screen
-leg, the face gate's board client, the camp's C5 cart, the town's part's last walk (a scroll timeout).
-
-NEXT for this lane: [make your main guy] (rule 263(b): a maker from the barber's parts after the origin, before the tape; the made
-man everywhere, ONE ID). The tape's round two SHIPPED (his body moving beside his head, BUILD 10/26zj);
-the faces breathe when PORTRAIT's 246 lands. [your crew lives in the town] round two when the rest of ANIMATION's renders land (nothing to change: the index
-fills) and when RUN TWO's [the town fits the screen] lands (re-run THE TOWN'S PART E8 and my K-legs at the fitted scale: the finger's
-room grows in picture px as the picture shrinks). Rule 223's stat bars on the hall card are UI's one component, when it lands.
-Records: records/BOHEMIA_RUN3_THE_BEST_RECRUIT_AT_THE_TOP_10_26_26.md, records/BOHEMIA_RUN3_YOUR_CREW_LIVES_IN_THE_TOWN_10_26_26.md,
-records/BOHEMIA_RUN3_THE_GAME_STARTS_IN_A_TOWN_10_26_26.md.
-[bb Battle Brothers hides a recruit's stars behind a try-out fee and never sorts the hall, and its town is a menu with nobody in it;
-ours sorts by what the level-up will make of him, and stands the company in the street between jobs.]
-[analog horror: the ceiling reads like a pawn ticket; his men stand where the town's own people stood before the crash, a beer at the
-same bar, a smoke against the same wall, as if the place remembers them.]
+NEXT for this lane: [each origin its own] step 2 (above). [your crew lives in the town] round two when RUN TWO's [the town fits the
+screen] lands (re-run THE TOWN'S PART E8 and my K-legs at the fitted scale). Rule 223's stat bars on the hall card are UI's.
+Records: records/BOHEMIA_RUN3_MAKE_YOUR_MAIN_GUY_10_26_26.md, records/BOHEMIA_RUN3_EACH_ORIGIN_ITS_OWN_HOW_BATTLE_BROTHERS_DOES_IT_10_26_26.md,
+records/BOHEMIA_RUN3_THE_GAME_STARTS_IN_A_TOWN_10_26_26.md, records/BOHEMIA_RUN3_YOUR_CREW_LIVES_IN_THE_TOWN_10_26_26.md,
+records/BOHEMIA_RUN3_THE_BEST_RECRUIT_AT_THE_TOP_10_26_26.md.
+[bb Battle Brothers never lets you make your man: an origin, a name, a banner. Ours seats him in the barber's chair first, and every
+man he can be is one the game already draws whole.]
+[analog horror: a tube over a barber's chair coming on in a dead town, an old mirror with a crack, and the man in it is whoever you
+say you were.]

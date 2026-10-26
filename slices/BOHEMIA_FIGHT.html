@@ -122,6 +122,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   background:var(--mat-glass,#151210) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);color:#efe3cc;font:inherit}
 .sq canvas{position:absolute;left:7px;top:5px}
 .sq b{position:absolute;right:3px;bottom:2px;font-size:10px;color:#f0d296;text-shadow:0 1px 0 #000}
+.sq b i.cut{font-style:normal;color:#ff6a50;margin-left:2px}   /* rule 230(c): the cover's cut on the shot, a red down arrow and how much */
 .sq:disabled{opacity:.32}
 .sq.on{outline:2px solid #8fb8e0}
 .sq.hot{outline:2px solid #e0604a}
@@ -1208,11 +1209,12 @@ const FIGHT = (function () {
        group'): the map hands its men (a background and a level each, from records/target/bb/origins.json); each keeps the
        kit and the look of his place in the line, and the line stops at the cap. Nothing handed = the twelve, as before. */
     const base = R('ours.crew');
+    const MADE = (function () { try { const r = JSON.parse(localStorage.getItem('bohemia.main.v1') || 'null'); return r && r.made && r.name ? String(r.name) : null; } catch (e) { return null; } })();   /* RUN THREE: the main man he made, by name */
     const roster = (Array.isArray(opts.company) && opts.company.length
       ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
           if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
           if (m.look) t.look = m.look;   /* ONE MAN, ONE LOOK (RUN TWO, 10/19): the look he carries, read in crewUnit */
-          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && i > 0) t.name = m.name; if (m.cond) t.cond = m.cond; if (Array.isArray(m.fresh)) t.fresh = m.fresh; return t; })
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.stats) t.stats = m.stats; if (Array.isArray(m.traits)) t.traits = m.traits; t.marks = Array.isArray(m.marks) ? m.marks : m.mark ? [m.mark] : []; if (m.name && (i > 0 || (MADE && m.name === MADE))) t.name = m.name;   /* RUN THREE [make your main guy] (rule 263(b)): YOU first, by the name he gave him (bohemia.main.v1); any other first man keeps the place's name, as before */ if (m.cond) t.cond = m.cond; if (Array.isArray(m.fresh)) t.fresh = m.fresh; return t; })
       : base);
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length))).map(function (c) { return Object.assign({}, c); });
     dealKit(crew);
@@ -1732,6 +1734,22 @@ const FIGHT = (function () {
      the pistol's shot rides a javelin row whose own page says two), a bow or a thrown thing from its own row */
   function rangeLo(w) { return isGun(w) ? R('ours.gun_min_range') : Math.max(rangeMin(w), 1); }
   function hitChance(a, t, skill) { return chanceWith(a, t, skill && a.weapon.skills.indexOf(skill) >= 0 ? skill : strikeSkill(a.weapon)); }
+  /* THE SHIELD COVERS THE MAN BEHIND IT (COMBAT [the shield covers the man behind], rule 230(b)(c), Paolo 10/26: 'there's obviously a
+     defensive bonus when you are at the rear of your teammate that has a shield against enemy ranged attacks'). Battle Brothers'
+     blocked target (rules.json hit_chance.ranged.cover_hit_chance_page: 'The base hit chance penalty to reach a blocked target is
+     75%... If this fails the shot goes astray. One among the intended target obstacles is randomly chosen and targeted instead. If
+     the shot goes astray a -15% penalty to hit chance is applied'; Damage: 'Shot goes astray 0.75'). The -75 was in the chance
+     since rule 63; the astray shot and a mark he can see were not. coverCut: what a man in the way takes off this shot (null when
+     the line is clear or the weapon ignores it, the shotgun: 'unaffected by objects or characters in the line of fire') */
+  let NOBLOCK = false;
+  function coverCut(a, t) {
+    if (!isRanged(a.weapon) || shotLine(a, t) !== 'man') return null;
+    const c1 = hitChance(a, t).chance; let c0;
+    NOBLOCK = true; try { c0 = hitChance(a, t).chance; } finally { NOBLOCK = false; }
+    return c0 > c1 ? { by: 'man', cut: c0 - c1, chance: c1, inWay: inTheWay(a, t) } : null;
+  }
+  /* the man in the way: the one on the tile before the target along the line of fire (shotLine's 'man') */
+  function inTheWay(a, t) { if (shotLine(a, t) !== 'man') return null; const pts = line(a, t); const n = pts[pts.length - 1 - 1]; return n ? unitAt(n.x, n.y) : null; }
   /* BATTLE BROTHERS' BEGINNER IS OUR DEFAULT (rule 117(a); ours.hit_roll_shift): points on his men's chance, off theirs, by the
      door's fights pick; inside the number on the tile */
   function rollShift(a) { const v = R('ours.hit_roll_shift').by_difficulty, k = v[Math.max(0, Math.min(v.length - 1, S.difficulty || 0))]; return a.side === 'you' ? k : -k; }
@@ -1771,7 +1789,7 @@ const FIGHT = (function () {
       ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
       const bd = band(a, t); if (bd && bd.hit) { ch += bd.hit; parts.push(bd.hit < 0 ? 'point-blank' : 'in its range'); }
       if (bd && bd.dmg < 1) parts.push('spread');
-      const blocked = ignores ? null : shotLine(a, t);
+      const blocked = ignores || NOBLOCK ? null : shotLine(a, t);
       if (blocked) {
         ch *= PK(a, 'bullseye') ? 1 - R('hit_chance.ranged.cover_bullseye') : 1 + R('hit_chance.ranged.cover_line_of_fire_blocked');
         parts.push(blocked === 'man' ? 'in the way' : 'cover');
@@ -1824,13 +1842,17 @@ const FIGHT = (function () {
      it passes forced.roll (the needle's verdict) and everything after is the same. */
   function resolveAttack(a, t, skill, forced) {
     forced = forced || {};
-    const hc = hitChance(a, t, skill);
+    /* an astray shot has already flown the line to the man in the way: his chance without the line (no second 'in the way' or
+       wall on it), his own tile's cover still in it, then the -15 */
+    let hc; if (forced.astray) NOBLOCK = true;
+    try { hc = hitChance(a, t, skill); } finally { NOBLOCK = false; }
+    if (forced.astray) { const cap = R('hit_chance.cap'); hc.chance = Math.max(cap.min, hc.chance + R('hit_chance.ranged.cover_hit_chance_page').astray_penalty); hc.parts = hc.parts.concat(['astray']); }   /* rule 230(b): -15 */
     const roll = forced.roll !== undefined ? forced.roll : die();
-    const res = { by: a.id, to: t.id, chance: hc.chance, parts: hc.parts, roll: roll, hit: roll <= hc.chance, head: false, armour: 0, hp: 0 };
+    const res = { by: a.id, to: t.id, chance: hc.chance, parts: hc.parts, roll: roll, hit: roll <= hc.chance, head: false, armour: 0, hp: 0, astray: !!forced.astray };
     if (!res.hit) return res;
     res.head = forced.head !== undefined ? forced.head : (PK(a, 'head_hunter') && a.headNext) || die() <= headChance(a);
     const w = a.weapon;
-    const d = hitDamage(a, t, forced.base !== undefined ? forced.base : rint(w.damage_min, w.damage_max), res.head, res.head ? t.armH : t.armB);
+    const d = hitDamage(a, t, (forced.base !== undefined ? forced.base : rint(w.damage_min, w.damage_max)) * (forced.astray ? R('hit_chance.ranged.astray_damage_multiplier') : 1), res.head, res.head ? t.armH : t.armB);
     res.armour = Math.floor(d.armour); res.hp = Math.floor(d.hp);
     return res;
   }
@@ -1873,7 +1895,7 @@ const FIGHT = (function () {
     S.firstBlow = S.firstBlow || S.round; S.lastHitBy = S.lastHitBy || {}; if (r.hit) S.lastHitBy[a.side] = S.round;   /* THE STANDOFF ENDS reads these */
     if (!isRanged(a.weapon)) S.contact = true;
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
-      shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, skill: opt.skill || null });   /* the arm that struck: a gun's is always its shot (rule 195) */
+      shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, astray: !!opt.astray, skill: opt.skill || null });   /* the arm that struck: a gun's is always its shot (rule 195) */
     if (PK(a, 'overwhelm') && S.order.indexOf(t.id) > S.idx) t.overwhelmed++;   /* he has not acted yet this round */
     if (!r.hit) {
       a.missStack++;
@@ -2033,8 +2055,16 @@ const FIGHT = (function () {
     if (isRanged(a.weapon)) a.threw = true;   /* THE KIDS: after the throw, the step back */
     S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
     const also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });   /* a blow with a shape (the shotgun's blast) */
+    const way = isRanged(a.weapon) && coverCut(a, t) ? inTheWay(a, t) : null;   /* read before the shot: the board as he aimed */
     const q = resolveAttack(a, t, s, forced);
     apply(a, t, q, { skill: shapeOf(s) ? s.name : null });
+    /* THE SHOT GOES ASTRAY (rule 230(b)): a blocked shot that misses flies on into the man in the way, his own defence (a shield
+       man's car door against shots) at -15 and three quarters of the damage. Only a man of the target's side takes it [COMBAT'S
+       DEFAULT, rule 205]: his words were the shield covering the man behind it; Battle Brothers' own friendly fire (a friend in
+       the way takes the miss) measured on 230's gates spoiled AUTO's clean wins (three against one read red, his crossbowman's
+       misses into his own front man), so a friend in the way still blocks the line (-75) and the miss flies past him, until
+       COMBAT TWO's brain reads the line before it shoots (NOTEd) */
+    if (!q.hit && way && onField(way) && way.side !== a.side && !(forced && forced.noAstray)) { const r2 = resolveAttack(a, way, s, { astray: true, roll: forced && forced.astrayRoll }); apply(a, way, r2, { astray: true, skill: s.name }); q.astray = { to: way.id, hit: r2.hit, chance: r2.chance }; }
     also.forEach(function (o) { if (onField(o)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });
     afterAction(a); return q;
   }
@@ -3155,7 +3185,7 @@ const FIGHT = (function () {
 
   return {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, farWalk: farWalk, moveTo: moveTo, strike: strike,
-    canStrike: canStrike, hides: hides, hitChance: hitChance, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
+    canStrike: canStrike, hides: hides, hitChance: hitChance, coverCut: coverCut, inTheWay: inTheWay, shotLine: shotLine, resolveAttack: resolveAttack, preview: preview, reload: reload, canReload: canReload,
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
@@ -4012,7 +4042,7 @@ function take() {
       } else UI.anim.push({ k: 'step', e: Object.assign({}, e), path: [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }], dur: beatMs() * TILE_BEATS });
       if (u && !u._at && !walkOf(u)) u._at = { x: e.fx, y: e.fy };   /* he stands where his walk starts until it does */
     }
-    else if (e.t === 'attack' && e.sweep && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / 4; }
+    else if (e.t === 'attack' && (e.sweep || e.astray) && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / 4; }
     else if (e.t === 'attack') { swing = { k: 'attack', e: e, dur: beatMs() }; UI.anim.push(swing); }
     else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: e.unplugged ? beatMs() / 4 : beatMs() * NOTE_BEATS[e.t] });   /* his machines drop a sixteenth apart */
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
@@ -6049,7 +6079,15 @@ function skinOf(v) { return '#8c6a52'; }
    it stands on its plane, a ladder leans on every building you can climb (as long as its face is tall, a rung a metre), and
    the level rides over his head; what it gives is said on the tile and in the odds. */
 function riseAt(x, y) { return R('ours.roof_storeys').rise[FIGHT.level(x, y)] || 0; }
-const ROOF_MARK = '#d8c9a8';   /* the storeys' chevrons over a ladder: bone, nobody's side colour */
+const ROOF_MARK = '#d8c9a8';
+/* rule 230(c): the shield-cover mark, the car door's steel, over a man of theirs covered from his shooter by a man in the way */
+const COVER_MARK = '#9aa6b0', SHIELD_MARK = ['.###.', '#####', '#####', '#####', '.###.', '..#..'];
+function coverOn(v) {
+  const u = FIGHT.current(); if (!u || v.side === 'you' || !crewControlled(u) || !FIGHT.isRanged(u.weapon) || !FIGHT.onField(v) || FIGHT.S.deploy) return null;
+  const key = u.id + ':' + u.x + ',' + u.y + ':' + v.id + ':' + v.x + ',' + v.y + ':' + FIGHT.S.round + ':' + FIGHT.S.idx + ':' + (u.weapon && u.weapon.id);
+  UI.coverC = UI.coverC || {}; if (!(key in UI.coverC)) { if (Object.keys(UI.coverC).length > 300) UI.coverC = {}; UI.coverC[key] = FIGHT.coverCut(u, v); }
+  return UI.coverC[key];
+}   /* the storeys' chevrons over a ladder: bone, nobody's side colour */
 /* the building a tile belongs to and how many storeys it stands: its roof, or a wall of it beside its roof (the house's body) */
 function buildingAt(x, y) {
   if (FIGHT.isRoof(x, y)) return { lv: FIGHT.level(x, y), roof: true };
@@ -6136,6 +6174,13 @@ function drawMan(v, tw, th) {
     const up = FIGHT.level(v.x, v.y);
     if (up > 0) { mkOn(); const k = Math.max(1, Math.round(h / 46)), cx0 = mc(bx - 4) - 3 * k, cy0 = mc(by + BAR_PT) + k;
       for (let i = 0; i < up; i++) upChevron(cx0, cy0 - i * 3 * k, k, you ? SIDE_RIM.you : SIDE_RIM.them); mkOff(); v._up = { n: up, x: (cx0 + k) * MKU / DPR, y: cy0 * MKU / DPR, at: now }; }
+    /* THE SHIELD-COVER MARK (rule 230(c)): a man of theirs his shooter's line reaches only through a man in the way wears a small
+       shield right of his bars, while that shooter aims (the cut on the shot square says by how much) */
+    const cc = coverOn(v);
+    if (cc) { mkOn(); const k = Math.max(1, Math.round(h / 46)), c0 = mc(bx + bw + 4), r0 = mc(by - 1);
+      SHIELD_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k + k, k, k, MK.ink); } });
+      SHIELD_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k, k, k, COVER_MARK); } });
+      mkOff(); v._cover = { cut: cc.cut, x: (c0 + k) * MKU / DPR, y: r0 * MKU / DPR, at: now }; }
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
     /* WHAT THE BLOW TAKES, ON HIS BARS (one tap to see): the part of his armour and of his health one hit takes, blinking on
@@ -6484,6 +6529,8 @@ function hud() {
     bs.textContent = ''; bs.disabled = !tgt; bs.className = 'sq' + (tgt ? ' hot' : ''); bs.title = 'STRIKE'; bs.style.display = dry && !tgt ? 'none' : '';
     if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
     const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
+    const cut = tgt && FIGHT.isRanged(u.weapon) ? FIGHT.coverCut(u, tgt) : null;   /* rule 230(c): the man in the way's cut, a red arrow and how much */
+    if (cut) { const ci = document.createElement('i'); ci.className = 'cut'; ci.textContent = '\u25BC' + cut.cut; bt.appendChild(ci); }
     br.textContent = ''; br.disabled = !canR; br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
     br.className = 'sq' + (dry ? ' big' : '') + (lastRd ? ' last' : '') + (br.classList.contains('poke') ? ' poke' : '');
     br.style.setProperty('--beat', beatMs() + 'ms'); br.style.setProperty('--ph', -Math.round(beatPh(performance.now()) * beatMs()) + 'ms');   /* the glow breathes on the song's beat (rule 158) */

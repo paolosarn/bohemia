@@ -251,7 +251,9 @@ async function side(profile) {
       ok('the fight: every piece of the bar in the map\'s rectangle', PIECES.every(k => near(MB.rect[k], F.rect[k])),
         PIECES.filter(k => !near(MB.rect[k], F.rect[k])).map(k => k + ' ' + fmt(MB.rect[k]) + ' vs ' + fmt(F.rect[k])).join(' | '));
       ok('  nothing of the fight lies over the bar', PIECES.every(k => F.at[k]), PIECES.filter(k => !F.at[k]).join(' '));
-      { const L = await f.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
+      /* UI TWO (rule 238(a)): with the phone up the fight's presses are the phone's (the big button, WAIT, RETREAT, AUTO, the speed, his
+         abilities, CREW, NOTES, SETTINGS), so they are counted with the fight page's own */
+      { const L = (await f.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')')).concat(await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .fight.on [data-c], #bohphone .fight.on .sk:not([disabled]), #bohphone .fight.on .app') + ')'));
         ok('  nothing covers a press in the fight', L.length >= 4 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
       ok('  no ground or tile name on the fight\'s bar (rule 262(a))', F.placeShown === 0 && !F.groundOnBar, 'on the bar: ' + (F.placeShown ? F.facts.place : 'nothing') + ', the map\'s ground ' + MB.ground);
       ok('  the same facts as the map\'s (the day, the crew, the batteries)', ['day', 'crew', 'batteries'].every(k => F.facts[k] && F.facts[k] === MB.facts[k]), JSON.stringify(F.facts) + ' vs ' + JSON.stringify(MB.facts));

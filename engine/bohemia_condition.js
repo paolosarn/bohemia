@@ -126,7 +126,11 @@
     if (!Array.isArray(company)) return company;
     var C = D.crew || [], L = D.looks || [];
     if (!C.length) return company;
+    var mm = null; try { mm = JSON.parse(root.localStorage.getItem('bohemia.main.v1') || 'null'); } catch (e) { mm = null; }
     return company.map(function (m, i) {
+      /* YOUR MAIN GUY (RUN THREE, rule 263(b)): the origin's first man is the one he made before the game began (bohemia.main.v1,
+         engine/bohemia_main_man.js), his look and his name to the fight; none made, the first man as he came */
+      if (m && i === 0 && !m.name && mm && mm.look && mm.made) { var c0 = {}; for (var k0 in m) c0[k0] = m[k0]; c0.name = String(mm.name || 'YOU'); if (!c0.look) c0.look = mm.look; c0.main = true; return c0; }
       if (!m || i === 0 || m.name) return m;
       var c = {}, d = C[i % C.length] || {}; for (var k in m) c[k] = m[k];
       c.name = (d.name || 'MAN') + (i >= C.length ? ' II' : '');

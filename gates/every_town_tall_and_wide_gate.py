@@ -16,13 +16,19 @@ settlement_walk.json) and the scenes' own measure beside them (records/target/co
      phone 124 x 276 points, 0.9 on its side, 1.25 on a computer; the town fitted to the screen): no tap's middle and no door a
      keeper stands at in the zone the composer names (ZONE: upright the bottom three tenths at the outer four tenths; sideways the
      bottom two thirds at the outer tenth), either side; the TALL and the WIDE (re-laid).
-  5. *** EVERY DOOR ON GROUND HE CAN WALK *** (rule 220(c), 169): from the entrance, over the composed ground (the picture less
-     its blocks), every door of both compositions is reached.
+  5. *** EVERY DOOR ON GROUND HE CAN WALK *** (rule 220(c), 169): from either end of the street, over the composed ground (the
+     picture less its blocks), every door of both compositions is reached, and the step before every building's, stall's and the
+     posts' foot is on no block (a keeper is never drawn over a roof's edge).
   6. TURNING KEEPS HIM BY THE SAME BUILDING: every role's door is in both compositions, and the entrance is on the same side.
   7. NO TWO TOWNS ALIKE, BOTH WAYS: every pair of TALL pictures under 0.70 likeness (the 10/25 measure), as the WIDE pairs are.
   8. RECOGNISABLY THE SAME TOWN: each town's own WIDE is among the three nearest its TALL in colour (the three concrete heart
      towns are near each other by nature; the buildings themselves are leg 2).
   9. NIGHT IS NIGHT: every TALL night picture darker than its day with lit pools.
+ 10. *** THE GLIDE HAS ITS PAIRS *** (rule 289(b): 'the flip is a glide: each building slides from its tall spot to its wide spot.
+     Keep every building's ID the same in both compositions and write both spots in the plan; RUN TWO reads them'): every town's
+     towns[name].glide holds one beat at 120 BPM (500 ms); every tap both compositions open (the hotspots and the boxes but the
+     look) is a piece's role or a tap that rides a piece or the ground; every building and landmark built both ways (leg 2's) has
+     an id; every id once; every spot inside its picture; and the glide is the one the scenes give today (re-read, the same).
   Run: python3 gates/every_town_tall_and_wide_gate.py
 """
 import os, sys, json, itertools, re
@@ -32,7 +38,8 @@ from PIL import Image
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
 import bohemia_cook_town_screen_likeness_10_25_26 as LK
-from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach, in_zone, ZONE   # the composed ground's walk and the phone's corner (the composer's own)
+from bohemia_cook_every_town_tall_and_wide_10_26_26 import reach, in_zone, ZONE, step_blocked   # the composed ground's walk, the step, the phone's corner (the composer's own)
+import bohemia_cook_every_town_the_glide_10_26_26 as GL                                       # the flip's pairs (rule 289(b))
 
 SHIP = os.path.join(R, 'slices/settlement_ground_towns')
 WREND = os.path.join(R, 'records/target/cook_town_screens/render')            # the 10/25 wide scenes
@@ -163,6 +170,7 @@ def main():
             for sd in ('left', 'right'):                  # he may walk in from either end (RUN's any side is the door, rule 186(a))
                 r = reach(W, H, walk.get(c['src'], {}).get('blocks', []), c['entrance'].get(sd, c['entrance']['at']), c['doors'])
                 cut += ['%s %s %s from the %s' % (n, comp, k, sd) for k, v in r.items() if not v]
+            cut += ['%s %s %s' % (n, comp, x) for x in step_blocked(c['doors'], [{'name': 'a block', 'box': b} for b in walk.get(c['src'], {}).get('blocks', [])], e.get('tier', 'town'))]
         if e.get('tall') and e.get('wide'):
             if set(e['tall']['doors']) != set(e['wide']['doors']) or e['tall']['entrance']['side'] != e['wide']['entrance']['side']: same.append(n)
     leg(not cut, '*** EVERY DOOR ON GROUND HE CAN WALK ***: from either end of the street over the composed ground (less its blocks), every door of both compositions', ', '.join(cut[:8]) if cut else 'every door reached, both ways')
@@ -197,6 +205,34 @@ def main():
         g = np.asarray(Image.open(os.path.join(SHIP, c['night_src'])).convert('L')).astype(float)
         if not (np.median(g) < 0.7 * np.median(d) and np.percentile(g, 99.5) > 3 * max(1, np.median(g))): dull.append(n)
     leg(not dull, 'night is night: every upright night darker than its day, with lit pools', ', '.join(dull) if dull else 'all fourteen')
+    # 10
+    gb, npc = [], 0
+    for n in names:
+        e = towns.get(n) or {}; g = e.get('glide')
+        if not g: gb.append(n + ' no glide'); continue
+        if g.get('beat_ms') != 500: gb.append(n + ' beat %s' % g.get('beat_ms'))
+        allp = g['pieces'] + g['taps']; npc += len(g['pieces'])
+        ids = [p['id'] for p in allp]
+        if len(ids) != len(set(ids)): gb.append(n + ' an id twice')
+        have = {r for p in allp for r in p['roles']}
+        for comp in ('wide', 'tall'):
+            for r in (set(e[comp]['hotspots']) | set(e[comp]['boxes'])) - {'look'}:
+                if r not in have: gb.append('%s tap %s has no id' % (n, r))
+        slug = n.lower()
+        wr = WREND2 if (e.get('wide') or {}).get('relaid') else WREND
+        Wn = {o['name'] for o in json.load(open(os.path.join(wr, slug + '.json')))['outlines'] if not PROPS.match(o['name'])}
+        Tn = {o['name'] for o in json.load(open(os.path.join(TREND, slug + '.json')))['outlines'] if not PROPS.match(o['name'])}
+        named = {p['name'] for p in g['pieces']}
+        for b in sorted((Wn & Tn) - set(DROPPED.get(n, {}))):
+            if GL.KIND.sub(r'\1', b) not in named: gb.append('%s %s has no id' % (n, b))
+        for p in allp:
+            for comp in ('wide', 'tall'):
+                b = p[comp]['box']; W_, H_ = SIZE[comp]
+                if not (0 <= b[0] < b[2] <= W_ and 0 <= b[1] < b[3] <= H_): gb.append('%s %s %s off its picture' % (n, p['id'], comp))
+        fresh = GL.glide_of(n, towns)
+        if json.loads(json.dumps(fresh['pieces'])) != g['pieces'] or json.loads(json.dumps(fresh['taps'])) != g['taps']: gb.append(n + ' stale (re-run the glide tool)')
+    leg(not gb, '*** THE GLIDE HAS ITS PAIRS ***: every town\'s flip in one beat (500 ms), every tap and every building both ways one id with both spots, each id once, each spot on its picture, as the scenes give it today',
+        '; '.join(gb[:6]) if gb else '%d pieces across fourteen towns' % npc)
     print('EVERY TOWN TALL AND WIDE: %d ok, %d failed' % (ok_n, bad_n))
     return 1 if bad_n else 0
 

@@ -79,7 +79,10 @@
   /* the same seed deals the same hand; a look is dealt once, so nobody stands beside himself. THE FACE IS HIS OWN FACE
      (RUN TWO, 10/24): your eleven are rolled people (ours.json people_looks.crew, marked company in the mix), so no town,
      crowd or post is ever dealt one of them: he is in your company, not on somebody's street */
-  function isCompany(look) { var p = person(look); return !!(p && p.company); }
+  /* and the man he made (RUN THREE [make your main guy], rule 263(b): bohemia.main.v1): his body is dealt to nobody else either */
+  var MAINQ = { at: 0, look: null };
+  function mainLook() { var t = Date.now(); if (t - MAINQ.at > 1000) { MAINQ.at = t; try { var m = JSON.parse(root.localStorage.getItem('bohemia.main.v1') || 'null'); MAINQ.look = m && m.look || null; } catch (e) { MAINQ.look = null; } } return MAINQ.look; }
+  function isCompany(look) { var p = person(look); return !!(p && p.company) || (!!look && look === mainLook()); }
   function cast(n, seed, gangs) {
     var M = mix(), pool = [];
     if (M) (gangs && gangs.length ? gangs : Object.keys(M.by_gang)).forEach(function (g) { pool = pool.concat((M.by_gang[g] || []).filter(function (l) { return !isCompany(l); })); });
