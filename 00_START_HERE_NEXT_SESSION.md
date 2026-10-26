@@ -1188,14 +1188,17 @@ list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] 
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
 SOUNDS (sounds, session_017G7XUe58WEcFoTqAK8AsaC): 10/26 LATEST (rule 221, Paolo: 'when does the music get implemented in the combat?')
-*** [the music in the fight now] SHIPPED, BUILD 10/26b: the thirteen voted-up songs play from their recordings in the game (the map 1, their
+*** [the music in the fight now] SHIPPED, BUILD 10/26h: the thirteen voted-up songs play from their recordings in the game (the map 1, their
 turn 2, his turn 3, the change on the next beat he hears, a song from the fight's first frame); gate THE MUSIC IN THE FIGHT NOW
-(the_songs_go_in_gate.js --now) computer 9/0, phone 10/0; record records/BOHEMIA_THE_MUSIC_IN_THE_FIGHT_NOW_SOUNDS_10_26_26.md. ***
-NEXT, IN ORDER: (2) [the songs go in, his turn hits hard]: re-render the thirteen with tools/bohemia_sounds_three_levels.js record all
-and tools/bohemia_sounds_four_new_songs.js (the branch sounds-songs-in's tools, on main now), re-run the patch (the lift goes to
-1.0 when every song has its hit), register THE SONGS GO IN (no --now); (3) [one beat for everything]: one audio clock, the
-output latency corrected, NOTE to COMBAT and ANIMATION; (4) [the sound never chops]. The decoder's delay comes off
-slices/vote/songs/probe.mp3 (one onset at 0.05 s). WIP goes to the branch sounds-songs-in.
+(the_songs_go_in_gate.js --now) computer 10/0, phone 10/0; records/BOHEMIA_THE_MUSIC_IN_THE_FIGHT_NOW_SOUNDS_10_26_26.md. ***
+*** [one beat for everything] SHIPPED, BUILD 10/26m: every effect asked for now starts on the song's next sixteenth of the same audio
+clock (a DelayNode between the one-shot player and its bus; `at` books a heard moment exactly); gate ONE BEAT FOR EVERYTHING 12/0;
+before, the effects sat 35 ms before each sixteenth, smeared; records/BOHEMIA_ONE_BEAT_FOR_EVERYTHING_SOUNDS_10_26_26.md. NOTEs to
+COMBAT (send `at`; the shot on its own sixteenth) and ANIMATION. ***
+IN FLIGHT: [the songs go in, his turn hits hard] (207): the re-renders run (THE VAULT done: L2-L1 4.1, L3-L2 7.8 dB on a phone, the tune
+in all three, 11 minutes a song); the tools now play the tune on level 2 (the 205 correction; the branch's tools held it back).
+When all thirteen are in: re-run tools/bohemia_sounds_the_songs_go_in_patch.py (the lift goes to 1.0 when every song has its hit), cut
+the demo, register THE SONGS GO IN (no --now). Then (4) [the sound never chops]. WIP goes to the branch sounds-songs-in.
 
 SOUNDS (sounds-vote-levels, session_01JqRsAp2CBXfJsx1KRWhfV7): 10/25 LATEST (round thirty-five, rule 181: NEW MUSIC GOES TO THE VOTE TAB FIRST; rows [three intensities in every song], [the fight's music you can hear], [the sound never chops], [every song its own song]) -- SHIPPED IN PARTS, ROWS STAY CLAIMED
 *** HIS SONGS AT THREE LEVELS IN VOTE, THE GAME'S MUSIC ABOVE THE FIGHT, THE SIX IN THE GRAVEYARD, FOUR NEW SONGS IN VOTE. BUILD 10/25r. ***

@@ -1556,7 +1556,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26l - THE DAMAGE STAYS, THE HEAL BUTTON</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26m - ONE BEAT FOR EVERYTHING</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -25391,7 +25391,7 @@ drawLogoBig();requestAnimationFrame(loop);
   window.__sfxMul = sfxMul;
   /* __THE_BULLET_LANDS__ (SOUNDS 10/24, rule 120): the fight's real guns and landings play on THIS bus (the EFFECTS
      slider and his mix hold for them) and count where they render, like everything here */
-  window.__sfxOut = function(){ try{ MUS.audio(); var AC=MUS.AC; return AC ? { AC: AC, bus: sfxBus() || MUS.OUT || MUS.MAST || AC.destination } : null; }catch(e){ return null; } };
+  window.__sfxOut = function(){ try{ MUS.audio(); var AC=MUS.AC; return AC ? { AC: AC, bus: (window.__SFXSNAP ? window.__SFXSNAP.route(sfxBus() || MUS.OUT || MUS.MAST || AC.destination) : (sfxBus() || MUS.OUT || MUS.MAST || AC.destination)) } : null;   /* __ONE_BEAT_FOR_EVERYTHING__ 10/26 */ }catch(e){ return null; } };
   window.__sfxCounted = function(n){ SFX_COUNT += (n|0); };
   window.playSFX=function(ev,when,mul){
     try{
@@ -25421,6 +25421,7 @@ drawLogoBig();requestAnimationFrame(loop);
          output is a fix with a countdown on it. It lives in the generator now. */
       var dest=(ev.indexOf('step_')===0 ? (stepBus()||sfxBus()) : sfxBus())
                || MUS.OUT || MUS.MAST || AC.destination;
+      if(window.__SFXSNAP) dest=window.__SFXSNAP.route(dest);   /* __ONE_BEAT_FOR_EVERYTHING__ 10/26 */
       var at=null;
       if(when==='beat' && MUS.playing && MUS.nextT){
         /* the next 16th that is also a beat boundary */
@@ -26575,6 +26576,7 @@ drawLogoBig();requestAnimationFrame(loop);
       MUS.audio(); var AC=MUS.AC; if(!AC) return null;
       var out = dest0 || sfxBus() || MUS.OUT || MUS.MAST || AC.destination;
       if(!out) return null;
+      if(window.__SFXSNAP) out=window.__SFXSNAP.route(out);   /* __ONE_BEAT_FOR_EVERYTHING__ 10/26 */
       place = place || {};
       var dx = +place.dx || 0, dy = +place.dy || 0;
       var r = (place.dist != null) ? Math.max(0, +place.dist)
@@ -26632,7 +26634,7 @@ drawLogoBig();requestAnimationFrame(loop);
          is rare and is INFORMATION, and stacking 0.12 on top of distance made
          it 0.0095, which is a number, not a sound. Distance is the only thing
          that should quieten this. */
-      var out=sfxBus(); if(!out)return;
+      var out=sfxBus(); if(!out)return; if(window.__SFXSNAP) out=window.__SFXSNAP.route(out);   /* __ONE_BEAT_FOR_EVERYTHING__ 10/26 */
       NPC_PLAYED++;   /* what the neighbour ACTUALLY played, for anything that
                          needs to ask. A test cannot get this from the bus peak:
                          the ambience bed shares that bus and fires one-shots
@@ -41539,4 +41541,112 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
   });
 })();
 </script>
+<!-- __ONE_BEAT_FOR_EVERYTHING__ (SOUNDS 10/26, rule 221(b)) -->
+<script>
+/* ============================================================================
+   __ONE_BEAT_FOR_EVERYTHING__ (SOUNDS 10/26/26, row [one beat for everything], rule 221(b))
+
+   PAOLO 10/26: 'when does the music get implemented in the combat? I'm tired of not everything being on the same BPM, not
+   sounding good.' EYES (line 47): AUTO's hits, swings and shots landed about 100 ms after the song's quarter beats.
+
+   THE ONE CLOCK IS THE AUDIO CLOCK. The song's transport books every sixteenth on it (__THE_ONE_BEAT__); now every effect
+   asked for 'now' starts on the song's next sixteenth of that same clock, so the music and the effect come out of the
+   speaker together, whatever the device's output delay (outputLatency + baseLatency: the same for both). While an effect is
+   being made, its one-shot player (playSFX, the real guns and landings through __sfxOut, a placed sound, a neighbour's
+   step) puts a DelayNode of exactly (the next sixteenth - now) between it and its bus: its envelope, echoes and stops run as
+   they always did, its sound lands on the grid (a bus itself is never wired through one). Asked within 12 ms
+   after a sixteenth, it plays at once; no grid yet, at once; booked for later ('beat', a number), as booked.
+   A message may carry `at`, the epoch ms (performance.timeOrigin + performance.now()) where it should be HEARD: it goes on
+   the audio clock through the output timestamp, on the grid point within 20 ms of it, exactly.
+   READ IT: window.__ONEBEAT.state(), .log (every effect: ev, why, c, T, d, heard); BOHEMIA_BEAT.sound(ev, facts, atEpoch);
+   BOHEMIA_BEAT.grid(t) the first sixteenth at or after audio time t. tools/bohemia_sounds_one_beat_for_everything_patch.py,
+   gates/one_beat_for_everything_gate.js.
+   ========================================================================== */
+(function(){
+ 'use strict';
+ if(window.__ONEBEAT) return;
+ var LATE_OK=0.012, NEAR=0.02;
+ var R=window.__ONEBEAT={ on:true, log:[], n:0, grid:0, now:0, at:0, free:0, depth:0, cur:null, errs:[] };
+ function live(){ try{ var A=MUS.AC; if(!A || A.state!=='running') return null;
+   if(window.OfflineAudioContext && A instanceof window.OfflineAudioContext) return null; return A; }catch(e){ return null; } }
+ function sd(){ try{ return MUS.stepDur(); }catch(e){ return 0.125; } }
+ /* the first sixteenth of the booked grid at or after audio time t (null: no grid yet) */
+ function gridAt(t){
+  var b=null; try{ b=window.__beatNext ? window.__beatNext(t) : null; }catch(e){ b=null; }
+  if(b==null || !isFinite(b) || b<t-1e-6) return null;
+  var s=sd(); return b-Math.floor((b-t)/s+1e-9)*s;
+ }
+ function ctxOf(A, e){
+  var ts=null; try{ ts=A.getOutputTimestamp && A.getOutputTimestamp(); }catch(_e){}
+  if(ts && ts.contextTime>0 && ts.performanceTime>0) return ts.contextTime+(e-performance.timeOrigin-ts.performanceTime)/1000;
+  return A.currentTime+(e-performance.timeOrigin-performance.now())/1000-((A.outputLatency||0)+(A.baseLatency||0));
+ }
+ function heardOf(A, T){
+  var ts=null; try{ ts=A.getOutputTimestamp && A.getOutputTimestamp(); }catch(_e){}
+  if(ts && ts.contextTime>0 && ts.performanceTime>0) return performance.timeOrigin+ts.performanceTime+(T-ts.contextTime)*1000;
+  return performance.timeOrigin+performance.now()+(T-A.currentTime+(A.outputLatency||0)+(A.baseLatency||0))*1000;
+ }
+ function plan(A, atEpoch){
+  var c=A.currentTime, s=sd(), T, why;
+  if(atEpoch!=null && isFinite(+atEpoch)){
+   var t=ctxOf(A, +atEpoch), g=gridAt(t-NEAR); T=(g!=null && Math.abs(g-t)<=NEAR) ? g : t; why='at';
+   if(T<c) T=c;
+  } else {
+   var N=gridAt(c);
+   if(N==null){ T=c; why='free'; }
+   else if(c-(N-s)<=LATE_OK && N-c>1e-4){ T=c; why='now'; }
+   else { T=N; why='grid'; }
+  }
+  return { c:c, T:T, d:Math.max(0, T-c), why:why };
+ }
+ function open(atEpoch, ev){
+  if(R.depth++>0) return;
+  var A=live(); if(!A || !R.on){ R.cur=null; return; }
+  var p; try{ p=plan(A, atEpoch); }catch(e){ R.errs.push('plan: '+e.message); R.cur=null; return; }
+  p.ev=ev; R.n++; R[p.why]++; R.cur=p;
+  try{ p.heard=+heardOf(A, p.T).toFixed(1); }catch(e){}
+  R.log.push({ ev:ev, why:p.why, c:+p.c.toFixed(4), T:+p.T.toFixed(4), d:+(p.d*1000).toFixed(1), heard:p.heard });
+  if(R.log.length>600) R.log.shift();
+  if(p.d<0.0005) return;
+  var made=[];
+  window.__SFXSNAP={ ac:A, d:p.d, route:function(real){
+   if(!real || real.context!==A) return real;
+   for(var i=0;i<made.length;i++) if(made[i][0]===real) return made[i][1];
+   var n=A.createDelay(1); n.delayTime.value=p.d; n.connect(real); made.push([real, n]); return n; } };
+ }
+ function close(){ if(R.depth>0) R.depth--; if(R.depth===0){ window.__SFXSNAP=null; R.cur=null; } }
+ R.scope=function(fn, atEpoch, ev){ open(atEpoch, ev); try{ return fn(); } finally { close(); } };
+ R.state=function(){ return { n:R.n, grid:R.grid, now:R.now, at:R.at, free:R.free, depth:R.depth, errs:R.errs.slice(-5) }; };
+
+ /* every effect asked for now, from the shell itself (a tap, a tick, the town, the map) */
+ var PS=window.playSFX;
+ if(typeof PS==='function'){
+  window.playSFX=function(ev, when, mul){
+   if((when!=null && when!=='now') || R.depth>0) return PS.apply(this, arguments);
+   return R.scope(function(){ return PS(ev, null, mul); }, null, ev);
+  };
+ }
+ /* the fight's real guns and landings, and anything else the BULLET plays on a message */
+ try{ if(window.BULLET && typeof BULLET.heard==='function'){ var BH=BULLET.heard;
+  BULLET.heard=function(m){ var self=this, a=arguments; if(R.depth>0 || (m && m.when!=null)) return BH.apply(self, a);
+   return R.scope(function(){ return BH.apply(self, a); }, m && m.at, m && m.ev); }; } }catch(e){ R.errs.push('bullet: '+e.message); }
+ /* a message that makes a sound: the scope opens before the shell's own handler (capture) and closes after it (registered
+    last, at the end of the page) */
+ var SOUNDING={ BOHEMIA_SFX:1, BOHEMIA_SFX_AT:1, BOHEMIA_NPCSTEP:1 };
+ var held=false;
+ window.addEventListener('message', function(ev){
+  var d=ev && ev.data; if(!d || !SOUNDING[d.type] || d.when!=null || held) return;
+  held=true; open(d.at, d.ev || d.type);
+ }, true);
+ window.addEventListener('message', function(ev){ if(held){ held=false; close(); } });
+ /* the one clock, handed on: the grid on the audio clock, and a sound at a heard moment */
+ try{ if(window.BOHEMIA_BEAT){
+  BOHEMIA_BEAT.grid=function(t){ var A=live(); return gridAt(t==null ? (A ? A.currentTime : 0) : t); };
+  BOHEMIA_BEAT.sound=function(ev, facts, atEpoch){ return R.scope(function(){
+    var d=Object.assign({ ev:ev }, facts||{}), b=null; try{ b=window.BULLET ? BULLET.heard(d) : null; }catch(_e){ b=null; }
+    if(b==='done') return true; return PS ? PS(b && b.swap ? b.swap : ev, null, d.mul) : null; }, atEpoch, ev); };
+ } }catch(e){ R.errs.push('beat: '+e.message); }
+})();
+</script>
+<!-- /__ONE_BEAT_FOR_EVERYTHING__ -->
 </body></html>
