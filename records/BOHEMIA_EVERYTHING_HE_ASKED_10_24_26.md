@@ -191,3 +191,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 173 | What I sell shows on their shelf right away, and I can buy it back at the price I sold it for, not marked up | 248 | RUN TWO, EYES | 
 | 174 | One tap on a piece highlights it (an outline) and shows its facts in place; in the shop no second menu and no keeper asking; a double tap buys/sells/equips at once | 249 | RUN TWO, RUN FOUR, UI THREE, EYES | 
 | 175 | The inside of the item boxes looks bad: remake them | 249(d) | UI THREE, EYES | 
+| 176 | In the shop nothing moves while I tap through the items; I can comb the shelf and see how each piece impacts my team | 250 | RUN TWO, UI THREE, EYES | 
