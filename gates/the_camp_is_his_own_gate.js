@@ -34,6 +34,8 @@
      K12 ALL EIGHTEEN: Battle Brothers' eighteen followers in the retinue, each with his number and his piece, each drawn in the camp
         when he is with you, his number moving with him; the twelve whose screens are not wired yet stand priced with their hire
         shut (rule 270(c))
+     K14 EVERY TIER BOTH WAYS: 1, 3, 6 and 12 men laid out wide and tall by the camp's own code: the same pieces, on the ground, none
+        covering another by more than 30 percent; upright with the phone up, clear of the phone (rule 289)
      K13 THE TURN GLIDES: a glass turned mid-camp gets the other shape (the tall camp on the tall ground, the wide on the wide), every
         piece and man there before and after, gliding one beat, never a black frame (rule 289(b)(c))
    node gates/the_camp_is_his_own_gate.js [--profile phone_portrait|phone_landscape|computer]   (no flag: all three) */
@@ -128,6 +130,38 @@ async function run(profile) {
       r1.phone && r2.phone && r1.side !== r2.side && r1.over.length === 0 && r2.over.length === 0 && r1.mapOver === 0 && r2.mapOver === 0 && !r1.leaveShown && !r2.leaveShown
         && fireBtns.open === 'fire' && fireBtns.buttons.length > 0 && !fireBtns.buttons.some(t => /break camp/i.test(t)),
       JSON.stringify({ right: r1, left: r2, fire: fireBtns, camp: { on: campAfterFlip.on, why: campAfterFlip.why }, diag }));
+    /* the pictures of K11, phone right then left, taken after its presses (a screenshot of a big upright glass takes a second or
+       two and shifted the timing of the press after the side's flip) */
+    if (process.env.BOHEMIA_SHOT_DIR) {
+      await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp2_' + profile + '_phone_right.png') });
+      await p.evaluate(() => { try { BohemiaPhone.setSide('left'); } catch (e) {} }); await p.waitForTimeout(1200);
+      await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp2_' + profile + '_phone_left.png') });
+      await p.evaluate(() => { try { BohemiaPhone.setSide('right'); } catch (e) {} }); await p.waitForTimeout(1500);
+    }
+    /* ---- K14 EVERY TIER BOTH WAYS (rule 289: 'every camp tier, from one man and a shopping cart up to the full camp, composed TALL
+       and WIDE from one plan'): 1, 3, 6 and 12 men with their carriers and followers, laid out by the camp's own code: the same
+       pieces both ways, every one on the ground, none covering another by more than 30 percent (a tent half behind the row in
+       front is depth, a cart over the anvil is a loss); upright with the phone up, the risen camp clear of the phone ---- */
+    const TIERS = [[1, 0, []], [3, 1, ['cook']], [6, 2, ['cook', 'blacksmith', 'surgeon', 'scavenger']], [12, 3, ['cook', 'blacksmith', 'surgeon', 'lookout', 'scout', 'paymaster', 'scavenger', 'trader', 'minstrel']]];
+    const k14 = await sf.evaluate((T) => {
+      const S = BohemiaSettlement, v = S.camp2().view, sc = document.getElementById('scene').getBoundingClientRect(), pr = window.BOH_PHONE_RECT ? BOH_PHONE_RECT() : null;
+      const upright = innerHeight > innerWidth * 1.15;
+      return T.map(([men, level, followers]) => {
+        const t = BohemiaCampLook.tier({ men, level, followers, kills: men > 3 ? 4 : 0 }), bad = [];
+        const keys = (x) => x.pieces.map(q => q.key).sort().join(',');
+        if (keys(t.wide) !== keys(t.tall)) bad.push('the pieces differ');
+        ['wide', 'tall'].forEach(w => { const X = t[w], R = X.pieces.filter(q => q.r);
+          R.forEach(q => { if (q.r[0] < -2 || q.r[1] < -2 || q.r[2] > X.pic.w + 2 || q.r[3] > X.pic.h + 2) bad.push(w + ' ' + q.key + ' off the ground'); });
+          for (let i = 0; i < R.length; i++) for (let j = i + 1; j < R.length; j++) { const a = R[i].r, b = R[j].r;
+            const ov = Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0])) * Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1]));
+            const sm = Math.min((a[2] - a[0]) * (a[3] - a[1]), (b[2] - b[0]) * (b[3] - b[1])); if (ov / sm > 0.30) bad.push(w + ' ' + R[i].key + ' over ' + R[j].key + ' ' + (ov / sm).toFixed(2)); } });
+        if (upright && pr && pr.on) { const P = [(pr.left - sc.left - v.ox) / v.s, (pr.top - sc.top - v.oy) / v.s, (pr.right - sc.left - v.ox) / v.s, (pr.bottom - sc.top - v.oy) / v.s];
+          t.tall.pieces.filter(q => q.r).forEach(q => { const a = Math.max(0, Math.min(q.r[2], P[2]) - Math.max(q.r[0], P[0])) * Math.max(0, Math.min(q.r[3], P[3]) - Math.max(q.r[1], P[1])); if (a > 0) bad.push('tall ' + q.key + ' under the phone'); }); }
+        return { men, pieces: t.wide.pieces.length, lift: t.tall.lift, bad };
+      });
+    }, TIERS);
+    ok(P + 'K14 EVERY TIER BOTH WAYS: 1, 3, 6 and 12 men, wide and tall from one plan, the same pieces, all on the ground, none covering another, and upright the risen camp clear of the phone',
+      k14.length === 4 && k14.every(x => x.bad.length === 0 && x.pieces >= 5), JSON.stringify(k14));
     /* ---- K4 (read at the open: the hours heal fast) ---- */
     const lead = await sf.evaluate(() => BohemiaSettlement.lead());
     const byName = (st, n) => st.acts.filter(a => a.name === n)[0] || {};

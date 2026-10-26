@@ -8,6 +8,7 @@ const path = require('path'), fs = require('fs');
 const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { leaveTown } = require(path.join(ROOT, 'tools/bohemia_leave_the_town.js'));
 const OUT = process.argv[2], SLOW = +(process.argv[3] || 2500);
 if (!OUT) { console.error('usage: node tools/bohemia_camp2_capture_the_turn.js <out_dir> [glide_ms]'); process.exit(2); }
 fs.mkdirSync(OUT, { recursive: true });
@@ -26,11 +27,10 @@ fs.mkdirSync(OUT, { recursive: true });
     await d.fr.evaluate(() => { const L = BohemiaCondition.members(LOOP.start && LOOP.start.company);
       BohemiaCondition.afterFight(L.map((e, i) => ({ name: e.main ? 'YOU' : e.man.name, main: e.main, hp: i === 1 ? 6 : 60, hpMax: i === 1 ? 300 : 60, armH: i === 2 ? 40 : 100, armHMax: i === 2 ? 400 : 100, armB: i === 2 ? 50 : 120, armBMax: i === 2 ? 500 : 120 })), { day: 1 }); });
     await d.fr.evaluate(() => { window.__GATE_KEEP_OFF = setInterval(function () { try { if (HUNT && !HUNT.__gate) HUNT = null; } catch (e) {} }, 100); });
-    /* a stranger's new game opens in the closest town (rule 236); HEAL makes camp only on the map, so LEAVE first, as he would */
-    for (const x of p.frames().filter(x => /SETTLEMENT_SCREEN/.test(x.url()))) {
-      const lv = await x.$('#leave'); const lb = lv ? await lv.boundingBox() : null;
-      if (lb && lb.width > 2) { await p.touchscreen.tap(lb.x + lb.width / 2, lb.y + lb.height / 2); await p.waitForTimeout(2500); }
-    }
+    /* a stranger's new game opens in the closest town (rule 236); HEAL makes camp only on the map, so LEAVE first, as he would
+       (the one LEAVE on screen, the phone's when it is up: tools/bohemia_leave_the_town.js) */
+    const inTown = await d.fr.evaluate(() => { try { return !!(LOOP.frame && LOOP.frame.style.display !== 'none' && LOOP.open && !LOOP.open.camp); } catch (e) { return false; } }).catch(() => false);
+    if (inTown) { const sf0 = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url())); await leaveTown(p, sf0, { ms: 5000 }); await p.waitForTimeout(2500); }
     const h = await p.$(HEAL), r = await h.boundingBox();
     await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2);
     let sf = null;

@@ -14,7 +14,7 @@ WHAT IS LIVE (the demo: LEAVE the start town, then press HEAL on the phone anywh
   its side for lying (placeholder until [the camp's acts]).
 - TALL AND WIDE FIRST (289): an upright glass gets the tall ground (plate_tall.webp, 1092 x 1940) and the tall camp, its own
   composition (engine/bohemia_camp_life.js GEO.tall); a turn mid-camp glides every piece and man to his new spot in one beat, each
-  keeping his act, never a dark frame; every tier both ways on records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26.webp;
+  keeping his act, on MOTION's curve and clock (six holds a beat), never a dark frame; every tier both ways (gate K14) on records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26.webp;
   the turn as a clip in the VOTE tab (CAMP_TWO_THE_TURN_10_26.webp, slowed 12x, tools/bohemia_camp2_capture_the_turn.js makes it).
 - THE CAMP FITS THE PHONE (286): upright the camp rises one beat clear of the phone; on its side and on a computer it is panned to
   the centre of what the phone leaves; the camp's BREAK CAMP and the sheets' 'Break camp' stand down under the phone's HEAL; MAP and
@@ -41,8 +41,8 @@ tools/bohemia_camp2_capture_the_turn.js (the turn clip), slices/camp_two/ (kit.p
 plate_tall_night), gates/the_camp_is_his_own_gate.js. Marked __CAMP_TWO__ hooks in RUN TWO's settlement screen, one in RUN's map
 marker, one in MOTION's camp grow; the __ALL_EIGHTEEN__ block in engine/bohemia_camp.js.
 
-GATES (on this ship's tree, BUILD 10/26zze, on main d1142137, each run alone): THE CAMP IS HIS OWN 14/0 phone upright, 14/0 on its
-side, 14/0 computer (K1 to K13); THE HEAL BUTTON 16/0; THE CAMP (RUN TWO's) 8/0; THE BARS OVER THEIR HEADS 6/0 computer (11/1 when run beside two other browsers: B4's
+GATES (on this ship's tree, on main fa496a66, each run alone): THE CAMP IS HIS OWN 15/0 phone upright, 15/0 on its
+side, 15/0 computer (K1 to K14); THE HEAL BUTTON 16/0; THE CAMP (RUN TWO's) 8/0; THE BARS OVER THEIR HEADS 6/0 computer (11/1 when run beside two other browsers: B4's
 read raced the camp's healing; alone it is green); THE ARMOUR HE WEARS SHOWS green; DEMO BUILD 25/0. The same reds on a clean
 main worktree at 11403892, so not this lane's: THE UI MORPHS 29/21 (the same 21,
 M6 'no grow logged' among them), VOTE TAB (other lanes' whys, the alpha landing on VOTE), THE WAGON AND THE SIX C8a, THREE
