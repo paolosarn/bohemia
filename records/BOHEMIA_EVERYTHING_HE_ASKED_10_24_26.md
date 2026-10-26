@@ -223,3 +223,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 203 | Before a stationary enemy or job: FALL BACK, ENGAGE, and MAKE CAMP NEARBY to heal first (not for roaming enemies) | 269(a) | RUN, CAMP, EYES | 
 | 204 | At camp, the screen's edge lights by compass direction where enemies come from, red by how dangerous (the AUTO calculator), softer if they're weaker | 269(b) | CAMP, EYES | 
 | 205 | A quick scene of my men unpacking the cart and building the camp before it starts, scaled to my crew and carrier | 269(c) | CAMP, ANIMATION, EYES | 
+| 206 | Research all of Battle Brothers' camp followers (the retinue) and bring them in: what each does to help | 270 | CAMP TWO, TUNING, WORDS, EYES | 
+| 207 | More tape in the world (bought and looted) so a run never ends because my armour can't be repaired | 271 | RUN FOUR, ECONOMY, RUN TWO, EYES | 
+| 208 | The armour and helmet a man wears show on him (a police helmet...), placeholders now, art after | 272 | CHARACTER, COOK, EYES | 
