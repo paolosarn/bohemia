@@ -51128,6 +51128,7 @@ function renderCity(){
   { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: he rides the glide */
     const __gx=p.sx, __gy=p.sy+TH*0.5-mapStandLift(__G.x,__G.y);   /* where his feet are (__YOU_WALK_BEHIND_IT__: on the berm on the freeway) */
     MAP_DEPTH.ox=ox; MAP_DEPTH.oy=oy; MAP_DEPTH.ref=mapDepthRef(__G.x,__G.y);   /* __YOU_WALK_BEHIND_IT__: him and his two, in depth with the city */
+    try{ if(window.BohemiaCampMap) BohemiaCampMap.drawAt(g,__gx,__gy); }catch(_e){}   /* __CAMP_TWO__ (rule 257(a)): camped, his tents, his cart and his fire stand round him */
     const __lift=(__G.u<1)?Math.sin(Math.PI*__G.u)*Math.max(2,TW*0.07):0;   /* the glide's hop, one per beat (ANIMATION's number) */
     const __moving=!!(TRAVEL || __G.u<1);
     g.save(); g.globalAlpha=1;
@@ -91347,7 +91348,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
-<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->

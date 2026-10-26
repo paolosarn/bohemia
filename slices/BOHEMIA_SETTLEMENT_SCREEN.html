@@ -232,6 +232,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: every person in the place is a 3D model (rule 121e) -->
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): your men wear their helmets and body armour here -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): every keeper and every man in the crowd breathes and idles at his spot -->
+<script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_look.js"></script>  <!-- __CAMP_TWO__ (rules 259, 260, 269): his own camp, his men at their acts, the compass, the pitch -->
 <script src="../engine/bohemia_roster.js"></script>  <!-- RUN TWO [the hire shows the whole man]: what a man's gun does in the fight, the crew screen's own line -->
 <script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): the hall's eight in his order as bars, the shop's changes as arrows -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
@@ -1201,6 +1202,7 @@ function pickVariant(){
   if(!GROUND) return;
   var t = GROUND.tiers[S.place.tier] || GROUND.tiers.town, vs = t.variants || [t];
   VAR = vs[(S.camp && S.place.block ? (S.place.block[0] * 7 + S.place.block[1] * 13) : seedOf(S.place.name)) % vs.length];   /* __THE_CAMP__: the block you camp on picks the ground */
+  if(S.camp && window.BohemiaCampLook && BohemiaCampLook.ready() && BohemiaCampLook.variant()) VAR = BohemiaCampLook.variant();   /* __CAMP_TWO__ (rule 260(a)): his own ground, his camp drawn on it */
   VAR.boxes = {};
   if(S.camp) campBoxes();   /* __THE_CAMP__: your tent, the retinue's tent and the cart, nobody's shop */
   else {
@@ -1216,7 +1218,7 @@ function pickVariant(){
   if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
     var bb2 = LOOKBOX.burnt[S.place.tier] || LOOKBOX.burnt.town; view.cx = (bb2[0] + bb2[2])/2 + 260; }
   ['day','night'].forEach(function(w){
-    var im = new Image(); im.onload = function(){ layout(); }; im.src = (GROUND_DIR[GROUND.tiers[S.place.tier] ? S.place.tier : 'town'] || 'settlement_ground/') + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;
+    var im = new Image(); im.onload = function(){ layout(); }; im.src = (VAR.dir || GROUND_DIR[GROUND.tiers[S.place.tier] ? S.place.tier : 'town'] || 'settlement_ground/') + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;   /* __CAMP_TWO__: VAR.dir, his camp's own folder */
   });
   shelf(); layout();
 }
@@ -1749,6 +1751,7 @@ function leadDirOf(dx, dy){ var o = Math.round(Math.atan2(dy, dx) / (Math.PI/4))
 /* where he stands on arrival: on the ground under the middle of what you see, near the main street, clear of everybody's spot */
 function leadHome(){
   var G = walkGrid(); if(!G) return null;
+  if(S.camp && VAR && VAR.camp2 && window.BohemiaCampLook){ var ls2 = BohemiaCampLook.leadSpot(); if(ls2){ var c2 = walkNearest(G, ls2.x, ls2.y, false); return c2 ? {x:c2.x, y:c2.y} : null; } }   /* __CAMP_TWO__: the main character at his own job in his camp */
   if(S.camp){ var c = walkNearest(G, CAMP_FIRE.x + Math.cos(CAMP_LEAD_AT) * 150, CAMP_FIRE.y + Math.sin(CAMP_LEAD_AT) * 70, false); return c ? {x:c.x, y:c.y} : null; }   /* __THE_CAMP__: at the fire's right, facing it */
   var ln = busyLanes().slice().sort(function(a, b){ return Math.abs(a.y - picH()*.6) - Math.abs(b.y - picH()*.6); })[0];
   var h = walkNearest(G, Math.max(ln.x0 + 60, Math.min(ln.x1 - 60, view.cx == null ? picW()/2 : view.cx)), Math.min(picH() - 6, ln.y + 22), false);
@@ -1872,6 +1875,9 @@ function leadItem(items, s, now){
    BREAK CAMP is the way out (the bar's LEAVE). Words are attempts, draft:true. ==== */
 var CAMP_FIRE = {x:945, y:786};
 function campBoxes(){
+  if(VAR.camp2 && window.BohemiaCampLook){ ORDER = BohemiaCampLook.boxes(VAR, personH()); var N2 = BohemiaCampLook.names(); for(var n2 in N2) B[n2] = N2[n2];
+    if(WALK.data && WALK.data.pictures){ var bl2 = BohemiaCampLook.blocks(personH()), was2 = WALK.data.pictures[VAR.src]; if(!was2 || JSON.stringify(was2.blocks) !== JSON.stringify(bl2)){ WALK.data.pictures[VAR.src] = {blocks:bl2}; WALK.grid = null; } }   /* he walks round his own tents */
+    return; }   /* __CAMP_TWO__: every piece of his camp is a door */
   var H = VAR.hotspots || {};
   if(H.clinic) VAR.boxes.tent = H.clinic.box;
   if(H.barber) VAR.boxes.retinue = H.barber.box;
@@ -1896,6 +1902,10 @@ function campRing(i, n){
 }
 function campFolk(){
   if(!VAR) return [];
+  /* __CAMP_TWO__ (rule 259(a)): each man where his condition puts him, doing it; the main character walks to your taps unless he is hurt */
+  if(VAR.camp2 && window.BohemiaCampLook){ var f2 = BohemiaCampLook.folk(), hl = BohemiaCampLook.hideLead();
+    if(hl && !LEAD.hidden){ LEAD.hidden = true; LEAD.campHid = true; } else if(!hl && LEAD.campHid){ LEAD.hidden = false; LEAD.campHid = false; }
+    return f2; }
   var c = (S.campInfo && S.campInfo.company) || [], key = 'camp:' + VAR.src + ':' + c.map(function(m){ return m.look; }).join(',');
   if(VAR.folkKey === key) return VAR.folk;
   var men = c.filter(function(m){ return m && m.look && m.look !== 'you'; }).slice(0, 20);
@@ -1920,6 +1930,7 @@ function campSay(body, line){
 function tentKey(c){ c = c || {}; var b = c.bill || {}; return [c.night ? 1 : 0, b.perNight, b.daysLeft, c.cleared || ''].join('|'); }
 function campLine(acts, t, cls){ var d = document.createElement('div'); d.className = cls || 'gridh'; d.textContent = t; acts.appendChild(d); return d; }
 function campSheet(k){
+  var tapped = k; if(window.BohemiaCampLook && VAR && VAR.camp2) k = BohemiaCampLook.sheetKey(k);   /* __CAMP_TWO__: every tent is a tent, the supplies are the cart, every follower the retinue */
   var body = document.getElementById('sbody'); body.textContent = '';
   var acts = document.createElement('div'), c = S.campInfo || {}, R = window.BohemiaRenown, C = window.BohemiaCamp;
   acts.className = 'acts'; S.sheetFor = k;
@@ -1929,7 +1940,17 @@ function campSheet(k){
     campLine(acts, campTitle() + (night ? '   NIGHT' : '   DAY') + '   AN HOUR A BEAT WHILE YOU REST').dataset.k = 'tenttime'; S.tentKey = tentKey(c);   /* CAMP: the hour changes this line in place */
     if(bill.perNight != null) campLine(acts, 'THE NIGHT COSTS ' + moneyWord(bill.perNight).toUpperCase() + (bill.daysLeft != null ? '   ' + bill.daysLeft + ' NIGHTS LEFT LIKE THIS' : ''));   /* draft:true */
     if(c.cleared) campLine(acts, c.cleared, 'gridh warn');
+    if(window.BohemiaCampLook && VAR && VAR.camp2){ var sl2 = BohemiaCampLook.sleepers(tapped); if(sl2.length) campLine(acts, 'SLEEPS HERE: ' + sl2.join(', ').toUpperCase()); }   /* __CAMP_TWO__ (rule 260(c)): a tent for each two men */
     acts.appendChild(act('Your company', '', function(){ if(window.BohemiaCrewDoor) BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); post('crew', {company:m.company, formation:m.formation}); } }); }));
+    acts.appendChild(act('Break camp', '', function(){ document.getElementById('leave').click(); }));
+  } else if(k === 'fire'){   /* __CAMP_TWO__: the fire is the hour, and what every man is doing in it */
+    var bill2 = c.bill || {}, night2 = c.night;
+    campSay(body, night2 ? 'Fire\'s low. Somebody\'s always awake. We go when you say.' : 'Every hour here is an hour the valley moves without us. The hurt need it.');   /* draft:true */
+    campLine(acts, campTitle() + (night2 ? '   NIGHT' : '   DAY') + '   AN HOUR A BEAT WHILE YOU REST');
+    if(bill2.perNight != null) campLine(acts, 'THE NIGHT COSTS ' + moneyWord(bill2.perNight).toUpperCase());   /* draft:true */
+    if(c.cleared) campLine(acts, c.cleared, 'gridh warn');
+    if(window.BohemiaCampLook) BohemiaCampLook.doing().forEach(function(t){ campLine(acts, t.toUpperCase()); });   /* draft:true */
+    acts.appendChild(act('Who travels with you', '', function(){ campSheet('retinue'); }));
     acts.appendChild(act('Break camp', '', function(){ document.getElementById('leave').click(); }));
   } else if(k === 'retinue'){
     var sc = R ? R.score() : 0, sl = R ? R.slots() : 0, nx = R ? R.nextSlot() : null, mine = C ? C.retinue() : [], band = R ? R.band() : {word:'NOBODY'};
@@ -1955,6 +1976,8 @@ function campSheet(k){
       if(bats() < ca.next.price){ heard('Not enough batteries.'); return; }
       P.debit(S.purse, 'electricity', ca.next.price, 'the cart: ' + ca.next.id, 'cart:' + ca.next.id, S.mapDay || 0);
       C.buyCart(); BAG_SLOTS = C.stashSlots(); post('cart', {cart:C.cart().level, slots:BAG_SLOTS}); shelf(); heard('The stash holds ' + BAG_SLOTS + ' now.'); campSheet('cart'); }, bats() < ca.next.price));
+    /* __CAMP_TWO__ (rule 260(a)): the cart IS the stash: open it from here */
+    if(window.BohemiaCrewDoor) acts.appendChild(act('Open the stash', '', function(){ BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); post('crew', {company:m.company, formation:m.formation}); } }); }));
   }
   body.appendChild(acts);
   var sh = document.getElementById('sheet'); sh.classList.add('on'); sh.scrollTop = 0;
@@ -1963,6 +1986,8 @@ function campSheet(k){
 function campTime(d){
   var c = S.campInfo || (S.campInfo = {});
   c.day = d.day; c.min = d.min; if(d.bill) c.bill = d.bill; if(d.condition) c.condition = d.condition; healShow();   /* __THE_HEAL_BUTTON__: the bar fills as he watches */
+  if(window.BohemiaCampLook && VAR && !VAR.camp2 && S.camp && BohemiaCampLook.ready()) try{ BohemiaCampLook.open(Object.assign({block:S.place.block || null}, c)); pickVariant(); }catch(e){}   /* __CAMP_TWO__: his camp the moment its pieces are in */
+  if(window.BohemiaCampLook && VAR && VAR.camp2) try{ BohemiaCampLook.time(Object.assign({block:S.place.block || null}, c, {night:!!d.night})); campBoxes(); }catch(e){}   /* __CAMP_TWO__: what each man does, hour by hour */
   if(typeof d.batteries === 'number'){ var df = d.batteries - bats(); if(df > 0) P.credit(S.purse, 'electricity', df, 'camp:sync', null, 0); if(df < 0) P.debit(S.purse, 'electricity', -df, 'camp:sync', null, 0); }
   if(!!d.night !== !!c.night){ c.night = !!d.night; view.night = c.night; VAR && (VAR.folkKey = null); if(window.BohemiaHeard) BohemiaHeard.night(view.night); }
   shelf();
@@ -2021,9 +2046,11 @@ function healShow(){
 window.addEventListener('keydown', function(e){ if(!S.camp || e.repeat || e.ctrlKey || e.metaKey || String(e.key || '').toLowerCase() !== 't') return; e.preventDefault(); document.getElementById('leave').click(); });
 /* ==== end __THE_CAMP__ ==== */
 function drawPeople(s){
-  var L = folkList(), B = window.BohemiaRigBodies; if(!L.length || !B) return;
+  var L = folkList(), B = window.BohemiaRigBodies; if((!L.length && !(VAR && VAR.camp2)) || !B) return;   /* __CAMP_TWO__: his camp stands even with nobody but him */
   var k = rigScale(), now = performance.now(), H = personH()*s, items = [];
+  if(VAR && VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.items(items, {cx:cx, view:view, s:s, now:now, personH:personH(), k:k, B:B, I:window.BohemiaIdles, duskOf:duskOf}); }catch(e){}   /* __CAMP_TWO__: the tents, the cart, the fire and his men at their acts, in depth */
   L.forEach(function(p){
+    if(p.camp2) return;   /* __CAMP_TWO__: drawn by the camp's own file, by what he does */
     if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
     var idl = view.still ? null : idlePerson(p, now, k, s, H); if(idl){ items.push({y:p.y, draw:idl}); return; }   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
     var r = (!view.still && B.standing(p.look, turnOf(p, now))) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one (view.still: held for a measurement, his still facing the street) */
@@ -2081,6 +2108,7 @@ function draw(){
   cx.drawImage(im, W/2 - (view.cx*sb), (H - picH()*sb)/2, picW()*sb, picH()*sb);
   cx.fillStyle = 'rgba(14,10,7,.78)'; cx.fillRect(0,0,W,H);
   cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
+  if(VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.under(cx, {s:s, view:view, now:performance.now(), personH:personH(), k:rigScale(), B:window.BohemiaRigBodies}); }catch(e){}   /* __CAMP_TWO__: the fire's light on the ground, the hours' ghosts */
   drawTraitLooks(s);
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   try{ drawBenches(s); }catch(e){}
@@ -2104,6 +2132,7 @@ function draw(){
     var x = view.ox + b[0]*s, y = view.oy + b[1]*s, w = (b[2]-b[0])*s, h = (b[3]-b[1])*s;
     var beat = ((performance.now()-t0)/500)|0, a = .22 + .05*Math.sin((performance.now()-t0)/500*Math.PI);
     cx.save(); cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = a;
+    if(!(VAR.camp2 && window.BohemiaCampLook && BohemiaCampLook.lit(cx, k, {s:s, view:view, now:performance.now(), personH:personH()}, a)))   /* __CAMP_TWO__: the piece itself catches the light */
     cx.drawImage(im, b[0], b[1], b[2]-b[0], b[3]-b[1], x, y, w, h); cx.restore();
     /* it names itself only under the finger (UI [the settlement's labels], rule 71a: gone when the finger
        lifts): UI's torn tag from bohemia_ui_materials.js; the plate below is the fallback if that file is missing */
@@ -2122,6 +2151,7 @@ function draw(){
   var g2 = cx.createRadialGradient(W/2, H/2, 40, W/2, H/2, Math.max(W,H)*0.75);
   g2.addColorStop(0,'rgba(0,0,0,0)'); g2.addColorStop(1,'rgba(0,0,0,.45)');
   cx.fillStyle = g2; cx.fillRect(0,0,W,H);
+  if(VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.over(cx, {view:view, now:performance.now()}); }catch(e){}   /* __CAMP_TWO__ (rule 269(b)): the compass of danger on the edges; the pitch's skip */
 }
 /* THE BUSY TOWN TALKS (RUN TWO [the busy town talks], 10/24/26, rules 131 and 135; slices/bohemia_busy_heard.js): what the
    walkers' jobs and mouths need from the glass, once a frame: where each stands on the screen, which end of his round he works at,
@@ -2310,6 +2340,7 @@ function where(k){
   window.addEventListener('pointerup', function(e){
     if(x0 === null) return; x0 = null; view.lit = null;
     if(moved) return;
+    if(S.camp && window.BohemiaCampLook && BohemiaCampLook.tap()) return;   /* __CAMP_TWO__ (rule 269(c)): a tap skips the pitch */
     var r = cv.getBoundingClientRect(), sk = signAt(e.clientX - r.left, e.clientY - r.top);
     if(sk){ openB(sk); return; }   /* the sign hangs in front of everybody: its door, one tap (TUNING's change 7) */
     var k = hitAt(e.clientX - r.left, e.clientY - r.top);
@@ -3436,6 +3467,7 @@ function open(o){
   o = o || {};
   hireLoad();   /* __THE_SHOP_SAYS_WHAT_IT_DOES__: the hall's and the shops' files (the roster, the rig, the bill) are read as the town opens, so a card is whole when he taps it and the hall never redraws under a keeper mid-line */
   if(o.place){ S.camp = !!o.camp; S.campInfo = o.camp ? {day:o.day, min:o.min, night:!!o.night, company:o.company || [], bill:o.bill || null, cleared:o.cleared || null, condition:o.condition || null} : null; healShow(); }   /* __THE_CAMP__; __THE_HEAL_BUTTON__ */
+  if(o.place && window.BohemiaCampLook) try{ if(S.camp) BohemiaCampLook.open(Object.assign({block:o.place.block || null, kills:o.kills | 0}, S.campInfo)); else BohemiaCampLook.close(); }catch(e){}   /* __CAMP_TWO__ */
   if(o.place) for(var k in o.place) S.place[k] = o.place[k];
   S.purse = o.purse || S.purse || P.create({id:'player'});
   if(typeof o.batteries === 'number'){

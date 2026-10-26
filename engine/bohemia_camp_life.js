@@ -156,7 +156,7 @@
     (by.mend || []).forEach(function (e, j) { var at = smith || cart; put(e, at.x + 70 + j * 46, at.y + 40 + (j % 2) * 18, dirTo(at.x - (at.x + 70 + j * 46), -1)); });
     var pot = piece('f_cook');
     (by.cook || []).forEach(function (e, j) { var at = pot || f; put(e, at.x - 60 + (pot ? 0 : 230) - j * 50, at.y + 30 + (pot ? 0 : -10), pot ? 'E' : 'W'); });
-    var edges = [{ x: 260, y: 980, face: 'SW' }, { x: 1840, y: 960, face: 'SE' }, { x: 1880, y: 330, face: 'NE' }, { x: 200, y: 360, face: 'NW' }];
+    var edges = [{ x: f.x - 420, y: f.y + 300, face: 'SW' }, { x: f.x + 470, y: f.y + 290, face: 'SE' }, { x: f.x + 520, y: f.y - 250, face: 'NE' }, { x: f.x - 520, y: f.y - 240, face: 'NW' }];   /* the camp's edge, inside what a phone shows of it */
     (by.watch || []).forEach(function (e, j) { var q = edges[j % edges.length]; put(e, q.x, q.y, q.face); });
     var tl = L.pieces.filter(function (p) { return p.kind === 'tent'; });
     (by.sleep || []).forEach(function (e, j) { var t = tl[Math.floor(e.i / 2) % Math.max(1, tl.length)] || { x: f.x, y: f.y - 200 }; put(e, t.x - 40 + (e.i % 2) * 80, t.y + 95, 'E'); });
