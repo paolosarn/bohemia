@@ -119,7 +119,9 @@ async function side(profile) {
     ok('  nothing of the map lies over the bar', PIECES.every(k => M.at[k]), PIECES.filter(k => !M.at[k]).join(' '));
     ok('  no ground or tile name on the map\'s bar (rule 262(a): \'the character sees it visually\')', M.placeShown === 0 && !M.groundOnBar && !!M.ground, 'the ground ' + M.ground + ' kept in the code; on the bar: ' + (M.placeShown ? M.facts.place : 'nothing'));
     ok('  the phone is on the map', !!MP && MP.shown && MP.onTop, MP && fmt(MP.rect));
-    { const L = await fr.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')');
+    { /* RE-AIMED 10/26 BY UI TWO (rules 212, 213): the speed pad's plates stepped off the map into the phone's PLAY, so the presses
+         on the map are the map's own and the one phone's apps (the shell's page), every centre the press */
+      const L = (await fr.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')')).concat(MP && MP.corner ? await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .app') + ')') : []);
       ok('  nothing covers a press on the map (every press\'s centre is the press)', L.length >= 6 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
     {
       await fr.evaluate(() => document.querySelector('#bmtb .t.crew').click()); await p.waitForTimeout(1800);
@@ -176,7 +178,12 @@ async function side(profile) {
       await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await p.waitForTimeout(400);
     }
     const L = t1.own.leave, LW = t1.own.W, LH = t1.own.H;
-    ok('  LEAVE keeps the big action\'s corner (bottom right, where the map\'s speed pad is), 44 points', !!L && L[0] + L[2] >= LW - 30 && L[1] + L[3] >= LH - 40 && L[2] >= 44 && L[3] >= 44, L && fmt(L) + ' of ' + LW + 'x' + LH);
+    /* RE-AIMED 10/26 BY UI TWO (rule 213; the marked line in the TOWN lift): when the one phone holds the right corner, LEAVE keeps
+       that corner standing right over the phone (its bottom within 30 points over the phone's top, its right at the phone's) */
+    const PR = await sf.evaluate(() => { try { const r = BOH_PHONE_RECT(); return r && r.on && r.side === 'right' ? r : null; } catch (e) { return null; } });
+    ok(PR ? '  LEAVE keeps the big action\'s corner, right over the phone in it, 44 points' : '  LEAVE keeps the big action\'s corner (bottom right, where the map\'s speed pad is), 44 points',
+      !!L && L[2] >= 44 && L[3] >= 44 && (PR ? L[0] + L[2] >= PR.right - 30 && L[1] + L[3] <= PR.top + 0.5 && L[1] + L[3] >= PR.top - 30 : L[0] + L[2] >= LW - 30 && L[1] + L[3] >= LH - 40),
+      L && fmt(L) + ' of ' + LW + 'x' + LH + (PR ? ', the phone from ' + Math.round(PR.top) + ' down' : ''));
     {
       const diffs = {};
       for (const k of ['day', 'crew', 'gear', 'notes', 'glass']) diffs[k] = await picDiff(cmp, Ms, Ts, M.rect[k], dpr, k === 'glass' ? t1.T.rect.place : null);

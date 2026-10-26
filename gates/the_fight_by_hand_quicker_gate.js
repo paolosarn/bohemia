@@ -142,7 +142,11 @@ leg(endA === endB, '*** THE FIGHT KEPT: FROZEN TO PLAIN DATA AND THAWED, THE SAM
     /* 7: take back */
     const m7 = await setTurn(); await p.waitForTimeout(300);
     await tapTile(m7.x + 2, m7.y + 1); await tapTile(m7.x + 2, m7.y + 1); await settle(); await p.waitForTimeout(200);
-    const b0 = await p.evaluate(id => { const u = FIGHT.byId(id), b = document.getElementById('bback'); return { x: u.x, y: u.y, ap: u.ap, shown: b.style.display !== 'none' && b.getBoundingClientRect().width > 0, r: b.getBoundingClientRect() }; }, m7.id);
+    /* RE-AIMED 10/26 BY UI TWO (rule 213(b)): with the one phone up, BACK rides the phone's ability page with his abilities (the bar
+       beside the phone has no room for it: WAIT slid over it); the press is on the phone's own BACK, a real touch */
+    await p.waitForTimeout(600);
+    const b0 = await p.evaluate(id => { const u = FIGHT.byId(id), ph = document.querySelector('#bohphone.on .ab .sk[aria-label="back"]'), b = ph || document.getElementById('bback');
+      return { x: u.x, y: u.y, ap: u.ap, phone: !!ph, shown: document.getElementById('bback').style.display !== 'none' && b.getBoundingClientRect().width > 0, r: b.getBoundingClientRect() }; }, m7.id);
     if (b0.shown) { await p.touchscreen.tap(b0.r.x + b0.r.width / 2, b0.r.y + b0.r.height / 2); await p.waitForTimeout(250); }
     const b1 = await p.evaluate(id => { const u = FIGHT.byId(id), b = document.getElementById('bback'); return { x: u.x, y: u.y, ap: u.ap, shown: b.style.display !== 'none', say: document.getElementById('say').innerText }; }, m7.id);
     leg(b0.shown && (b0.x !== m7.x || b0.y !== m7.y) && b1.x === m7.x && b1.y === m7.y && b1.ap === m7.ap && !b1.shown,

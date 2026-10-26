@@ -320,12 +320,19 @@
   /* ---- THE FIGHT ---- */
   P.isFight = function () { return !!document.getElementById('skills') && !!document.getElementById('bot') && !document.getElementById('cityFrame') && !document.getElementById('fightFrame'); };
   function isAbility(b) { return b.classList.contains('bag') || !!b.dataset.sweep || !!b.dataset.skill; }
+  /* the fight's own buttons the phone carries, in the phone's order: BACK first while the walk can be taken back (the fight's
+     own state, its inline display; the bar's pocket is hidden under the phone's rule: on a phone upright the bar beside the
+     phone has no room for it, and WAIT slid over it), then the bag swaps, the sweeps and the perks' skills (rule 180(g)) */
+  function abilityButtons(sk) {
+    var bk = document.getElementById('bback'), live = bk && bk.style.display !== 'none' && !bk.disabled ? [bk] : [];
+    return live.concat([].slice.call(sk.querySelectorAll('.sq')).filter(isAbility));
+  }
   P.abilities = function () {
     var sk = document.getElementById('skills'); if (!sk) return { key: '', list: [] };
-    var list = [].slice.call(sk.querySelectorAll('.sq')).filter(isAbility).map(function (b, i) {
+    var list = abilityButtons(sk).map(function (b, i) {
       var lab = b.querySelector('b');
       return { i: i, title: b.title || '', ap: lab ? String(lab.textContent || '') : '', on: b.classList.contains('on'), off: !!b.disabled,
-        cv: b.querySelector('canvas'), kind: b.classList.contains('bag') ? 'bag' : b.dataset.sweep ? 'sweep' : 'skill' };
+        cv: b.querySelector('canvas'), kind: b.id === 'bback' ? 'back' : b.classList.contains('bag') ? 'bag' : b.dataset.sweep ? 'sweep' : 'skill' };
     });
     var who = document.getElementById('cnm');
     return { key: (sk.dataset.key || '') + '|' + list.map(function (a) { return a.on + '' + a.off; }).join(''), list: list,
@@ -334,7 +341,7 @@
   P.over = function () { try { return !!(typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.over); } catch (e) { return false; } };
   P.press = function (i) {
     var sk = document.getElementById('skills'); if (!sk) return false;
-    var b = [].slice.call(sk.querySelectorAll('.sq')).filter(isAbility)[i];
+    var b = abilityButtons(sk)[i];
     if (!b || b.disabled) return false; b.click(); window.__PHONE_ABILITY = (window.__PHONE_ABILITY | 0) + 1; return true;
   };
 
@@ -347,9 +354,9 @@
       + 'html.boh-phone-on body:has(#cityfeed) #cityfeed,html.boh-phone-on body:has(#cityfeed) #speedpad,html.boh-phone-on body:has(#cityfeed) #campbtn{display:none!important}'
       /* CAMP's HEAL button over the camp (#healbtn, the settlement screen's) is the phone's HEAL app there: BREAK CAMP, its bar filling */
       + 'html.boh-phone-on #healbtn{display:none!important}'
-      /* THE FIGHT: the abilities live on the phone (213(b)); the bar keeps STRIKE, RELOAD, BACK, WAIT, RETREAT, END TURN and
-         AUTO, laid out of the phone's corner until COMBAT's own [the fight frames around the phone] lands */
-      + 'html.boh-phone-on #skills .sq.bag,html.boh-phone-on #skills .sq[data-sweep],html.boh-phone-on #skills .sq[data-skill]{display:none!important}'
+      /* THE FIGHT: the abilities live on the phone (213(b)), and BACK with them; the bar keeps STRIKE, RELOAD, WAIT, RETREAT,
+         END TURN and AUTO, laid out of the phone's corner until COMBAT's own [the fight frames around the phone] lands */
+      + 'html.boh-phone-on #skills .sq.bag,html.boh-phone-on #skills .sq[data-sweep],html.boh-phone-on #skills .sq[data-skill],html.boh-phone-on #skills #bback{display:none!important}'
       + 'html.boh-phone-on.boh-phone-right body:has(#skills) #bot{right:calc(var(--boh-phone-gap-r) + 6px)!important}'
       + 'html.boh-phone-on.boh-phone-left body:has(#skills) #bot{left:calc(var(--boh-phone-gap-l) + 6px)!important}'
       + 'html.boh-phone-on[data-screen=tablet] body:has(#skills) #bot,html.boh-phone-on[data-screen=computer] body:has(#skills) #bot{'

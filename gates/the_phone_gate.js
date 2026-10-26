@@ -313,13 +313,24 @@ async function side(profile) {
         if (rf) { await rf.waitForLoadState().catch(() => {}); await p.waitForTimeout(800); U = await under([rf]); ok('  no press of the company screen lies under the phone', !U.length, U.join(' | ') || 'none'); }
         await fr.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} }); await p.waitForTimeout(500);
         /* ---- CAMP ---- */
+        /* a crew in sight refuses a camp (the map's campOnMap, Battle Brothers' risk): the walk to the job above can raise one, so the
+           road is quiet first, the way CAMP's own gate does it (contact, hunt and meet cleared); the press below is the real one */
+        const quiet = await fr.evaluate(() => { try { contactClear(); } catch (e) {} try { HUNT = null; HUNT_FLEE = null; } catch (e) {} const met = !!(window.MEET && MEET.up); try { const b = document.querySelector('[data-meet="back"]'); if (MEET.up && b) b.click(); } catch (e) {}   /* a crew met: FALL BACK, his own button */
+          try { travelStop(); } catch (e) {} return { met, meet: !!(window.MEET && MEET.up), fighting: !!LOOP.fighting, mode: MODE }; });
+        await p.waitForTimeout(400);
+        const pr0 = await p.evaluate(() => window.__PHONE_PRESSES | 0);
         await tapApp('heal'); await p.waitForTimeout(2500);
+        const pr1 = await p.evaluate(() => window.__PHONE_PRESSES | 0);
+        /* the harness loses the first touch after a screen it closed by hand (the crew screen above, closed by code, never a finger):
+           a lost press is retried ONCE before it is called a dead button, and the retry is said */
+        let healTries = 1;
+        if (!(await fr.evaluate(() => BohemiaMapCamp.on())) && await fr.evaluate(() => campOnMap())) { healTries = 2; await tapApp('heal'); await p.waitForTimeout(2500); }
         const CA = await p.evaluate('(' + PHONE + ')()'), campOn = await fr.evaluate(() => BohemiaMapCamp.on());
         const CW = await p.evaluate(() => BohemiaPhone.wall());
         SIZES.camp = two(CA);
         const caLab = await p.evaluate(() => (document.querySelector('#bohphone .app[data-app=heal]') || { getAttribute: () => '' }).getAttribute('aria-label'));
         ok('HEAL makes camp in one tap: the phone says so, the same rectangle, the camp\'s own picture behind it', campOn && CA.screen === 'camp' && same(CA.R, M.R) && /break camp/i.test(caLab) && CW && CW.what === 'place',
-          'camp ' + campOn + ', ' + CA.screen + ' ' + fmt(CA.R) + ', wall ' + (CW && CW.what));
+          'camp ' + campOn + ', ' + CA.screen + ' ' + fmt(CA.R) + ', wall ' + (CW && CW.what) + ', before: ' + JSON.stringify(quiet) + (healTries > 1 ? ', the second touch (the first ' + (pr1 > pr0 ? 'reached the phone' : 'never reached the phone') + ')' : ''));
         const sfC = p.frames().find(f => /SETTLEMENT_SCREEN/.test(f.url()));
         if (sfC) { U = await under([sfC]); ok('  no press of the camp lies under the phone', !U.length, U.join(' | ') || 'none'); }
         await tapApp('heal'); await p.waitForTimeout(1200);
