@@ -320,9 +320,11 @@
 
   /* ---- the places drawn: the map's own settlement art, named ---- */
   var _rc = renderCity;
+  R.landAfterPlaces = true;   /* RUN 10/26 (__NO_NAME_COVERS_ANOTHER__, [eyes: names on names]): the land's names are painted after these places */
   renderCity = function(){
     var out = _rc.apply(this, arguments);
     try { if (R.ready && typeof MODE !== 'undefined' && MODE === 'city') drawPlaces(); } catch(_e){}
+    try { if (window.mapNamesLate) window.mapNamesLate(); } catch(_e){}   /* RUN 10/26: then the land's names, which step aside for every place */
     return out;
   };
   function drawPlaces(){
@@ -363,10 +365,12 @@
       var bx = Math.round(q.sx - w / 2), free = false;
       for (var tries = 0; tries < 4 && !free; tries++) {
         /* a name is 13 tall, from ty - 10 to ty + 3 (WORLD 10/25: the test let two overlap by up to 10, PRIMM under IVANPAH SOLAR) */
-        free = boxes.every(function(b){ return bx + w <= b[0] || bx >= b[0] + b[2] || ty + 3 <= b[1] || ty - 10 >= b[1] + 13; });
+        free = boxes.every(function(b){ return bx + w <= b[0] || bx >= b[0] + b[2] || ty + 3 <= b[1] || ty - 10 >= b[1] + 13; })
+          && (!window.mapNameFree || window.mapNameFree([bx, ty - 10, w, 13]));   /* RUN 10/26 (__NO_NAME_COVERS_ANOTHER__): never on a town's plate, his crew or the phone */
         if (!free) ty -= 14; }
       if (!free && !job) return;
       boxes.push([bx, ty - 10, w, p.name]);
+      try { if (window.mapNameTake) window.mapNameTake([bx, ty - 10, w, 13], p.name, 'place'); } catch(_e){}
       n.hit.plate = { x: bx, y: ty - 10, w: w, h: 13 };
       g.fillStyle = 'rgba(14,11,8,0.82)'; g.fillRect(bx, ty - 10, Math.round(w), 13);
       g.fillStyle = job ? '#ffd27a' : '#e8dcc0'; g.fillText(p.name, Math.round(q.sx), ty);

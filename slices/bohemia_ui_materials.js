@@ -2334,7 +2334,7 @@
   /* ---- THE SHELL: the fight's own word home carries who it laid up; kept for the map, which hears only won or lost ---- */
   if (TEN_PAGE === 'shell') window.addEventListener('message', function (ev) {
     var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_FIGHT_OVER') return;
-    try { window.__BM_FIGHT_OVER = { at: Date.now(), result: d.result, rounds: d.rounds | 0, drops: Array.isArray(d.drops) ? d.drops.slice(0, 8) : null,
+    try { window.__BM_FIGHT_OVER = { at: Date.now(), result: d.result, wipe: !!d.wipe, rounds: d.rounds | 0, drops: Array.isArray(d.drops) ? d.drops.slice(0, 8) : null,
       crew: (d.crew || []).map(function (c) { return { name: c.name, main: !!c.main, dead: !!c.dead, down: !!c.down, days: c.laidUpDays | 0, injury: c.injury ? c.injury.name : null }; }) }; } catch (e) {}
   });
 
@@ -2559,11 +2559,18 @@
       if (cl && l) say({ id: 'pay:' + job.id, kind: 'pay', who: cl, line: fill(l.line, { pay: job.pay }), tag: '+' + job.pay, prio: 1, ttl: l.ttl || 45 });
       var f1 = L('first_pay'); if (f1 && sec) say({ id: 'first_pay', kind: 'teach', once: true, who: sec, line: f1.line, prio: 1, ttl: f1.ttl || 90 });
     }
+    /* RUN 10/26 ([eyes: the held talk], rule 143(d), Paolo 10/24: 'people died I guess but they were still speaking'): after a
+       wipe every man the fight left down is held by them (__THE_WIPE_WAKES_IN_TOWN__ takes him, and its message can land after this
+       one), so he says nothing: not his own days, not who died; only a man with YOU speaks, else YOU */
+    var wipe = !!(o.wipe || (snap && snap.wipe));
     if (snap) snap.crew.forEach(function (c) {
       if (c.main) return;
       var lk = lookOfMan(c.name);
-      var other = tenSecond(snap.crew.filter(function (x) { return x && x.dead; }).map(function (x) { return x.name; }).concat([c.name]));   /* the one who says it about him is never him, nor any man the fight killed (RUN 10/25) */
-      if (c.dead) { var ld = L('dead'); if (ld && other) say({ id: 'dead:' + c.name + ':' + day, kind: 'dead', who: other, line: fill(ld.line, { name: c.name }), tag: 'DEAD', red: true, prio: 1, ttl: 45 }); return; }
+      var other = tenSecond(snap.crew.filter(function (x) { return x && (x.dead || (wipe && !x.main && (x.down || x.taken))); }).map(function (x) { return x.name; }).concat([c.name]));   /* the one who says it about him is never him, nor any man the fight killed (RUN 10/25), nor one the wipe left down (RUN 10/26) */
+      /* RUN 10/26 ([eyes: the held talk] round four, EYES q52: 'DESI · DEAD · ANH NAKAMURA didn't get up, carnal.' reads as DESI is dead):
+         the tag sits beside the SPEAKER's name, so it names the dead man, never a bare word a stranger reads as the speaker's own state */
+      if (c.dead) { var ld = L('dead'); if (ld && other) say({ id: 'dead:' + c.name + ':' + day, kind: 'dead', who: other, line: fill(ld.line, { name: c.name }), tag: String(c.name).toUpperCase() + ' DEAD', red: true, prio: 1, ttl: 45 }); return; }
+      if (wipe) return;   /* RUN 10/26: held, he is not with YOU to say his days */
       if (c.down && c.days > 0 && lk) {
         var lh = L('hurt'); if (lh) say({ id: 'hurt:' + c.name + ':' + day, kind: 'hurt', who: { name: c.name, look: lk }, line: fill(lh.line, { days: c.days, name: c.name }), tag: 'OUT ' + c.days + ' DAYS', red: true, prio: 2, ttl: 45 });
         var fh = L('first_hurt'); if (fh && other) say({ id: 'first_hurt', kind: 'teach', once: true, who: other, line: fill(fh.line, { name: c.name }), prio: 2, ttl: 90 });
@@ -2609,7 +2616,14 @@
     var post = document.querySelector('#bmboard .fp.job');
     if (held || done || window.BOH_PHONE_ROUTE) t('phone_job', 'done'); else if (post && post.offsetWidth > 0) t('phone_job', 'now');
     /* a crew in sight: while he has never looked at one */
-    var near = false; try { if (window.HUNT) near = true; var pa = (MAP_DREW && MAP_DREW.partyAt) || {}; for (var k in pa) { var g2 = pa[k]; if (Math.max(Math.abs(g2[0] - city.x), Math.abs(g2[1] - city.y)) <= 8) { near = true; break; } } } catch (e) {}
+    /* RUN 10/26 ([eyes: the normie hour, run] F8, EYES q14: 'Crew on the road. One touch sizes them up, a second goes.' with no crew
+       in sight): 'in sight' is a party DRAWN on the glass this frame, its body in the open area (never under the phone, never off the
+       glass), within eight blocks; the hunters the same */
+    var near = false; try { var OA = window.mapOpenArea ? mapOpenArea() : null, inOA = function (b) { if (!b) return false; var cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+        return cx >= (OA ? OA.x0 : 0) && cx <= (OA ? OA.x1 : CVW) && cy >= (OA ? OA.y0 : 0) && cy <= (OA ? OA.y1 : CVH); };
+      if (window.HUNT && HUNT.box && inOA(HUNT.box)) near = true;
+      var pa = (MAP_DREW && MAP_DREW.partyAt) || {};
+      (window.MAP_PARTY_HIT || []).forEach(function (h) { var g2 = pa[h.id]; if (g2 && Math.max(Math.abs(g2[0] - city.x), Math.abs(g2[1] - city.y)) <= 8 && inOA(h.box)) near = true; }); } catch (e) {}
     if ((window.__PARTY_LOOKS | 0) > 0) t('party_sight', 'done'); else if (near) t('party_sight', 'now');
     /* the first town: on the way to one, before he has ever been inside */
     try { if (LOOP.frame && LOOP.frame.style.display === 'block') VOICE.wasTown = true; } catch (e) {}
@@ -2918,12 +2932,13 @@
     var now = performance.now();   /* the wheel's own rule (RUN's __THE_WHEEL_STOPS_AT_THE_FAR_STOP__): a run of presses is one gesture */
     if (now - (window.__WHEEL_T || 0) < 800) ZGEST.t = now; else ZGEST.fresh = true;
     window.__WHEEL_T = now;
-    setZoomAt(CZOOM * (dir > 0 ? 1.14 : 0.877), CVW / 2, CVH / 2);
+    var fc = window.mapFocus ? mapFocus() : { x: CVW / 2, y: CVH / 2 };   /* RUN 10/26 (__THE_MAP_FRAMES_AROUND_THE_PHONE__, rule 213(d)): about the focus */
+    setZoomAt(CZOOM * (dir > 0 ? 1.14 : 0.877), fc.x, fc.y);
   }
   function keyCentre() {
     try { if (SKY) skyExit(); } catch (e) {}
     camHold();
-    if (CZOOM < 1) { ZGEST.fresh = true; setZoomAt(1, CVW / 2, CVH / 2); }
+    if (CZOOM < 1) { ZGEST.fresh = true; setZoomAt(1); }   /* RUN 10/26: no pivot given is the map's focus (__THE_MAP_FRAMES_AROUND_THE_PHONE__) */
     render();
   }
   function keySettings() { try { var g = window.parent.document.getElementById('gearbtn'); if (g) { g.click(); return true; } } catch (e) {} return false; }

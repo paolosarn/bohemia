@@ -137,3 +137,55 @@ reproduced on this tree (W2 reads star boxes against word boxes at every stage).
 GATE: THE BLOOD IS CRASHBOX 30/0: W1 at all eight stages, on the glass, 0 red clay pixels inside any word on a board row,
 and the offer's Take it soaked (65 to 67 percent of the button red) with 0 red in its words; W2 no star over a letter; the
 clay left uncut under the words planted and caught (832 red pixels in the first word).
+
+# ALSO THIS ROUND: [the crew screen shows their camp where they stand] (rule 239)
+
+Paolo 10/26: 'anytime you're in the character menu, you press the C button, the background is all black, but what I really
+want is, depending on the opacity, your crew with their camp in the background, at whatever tile they're currently on... in a
+settlement the same settlement, in the street or anywhere in the desert the tile they're on'.
+
+MEASURED FIRST (the demo at 3e2a2178): behind every card, slot and word of the crew screen was one flat colour, the screen's
+--bg #120e0a, over the crew door's own #120e0a. On the glass the bare part of the screen (every point no card, slot, paper,
+button or word covers: 550 points on the phone, 5,135 on the computer) had a spread of light of 0.
+
+NOW (slices/BOHEMIA_ROSTER_SCREEN.html, __THEIR_CAMP_BEHIND__): one canvas under everything, never a tap, drawn when the
+screen opens, after its own first frame (so the screen opens exactly as fast as on black) and faded in over an eighth note.
+- IN A TOWN (or camping in one, 259(c)): the town's own picture, live, the one the town is drawing behind the screen right
+  now; his men already live in it (rule 218), so they are in it doing town things. Its lit middle (measured, the centre of
+  its light) is laid on the widest clear room the screen leaves.
+- ON THE MAP (a street, the desert, anywhere): their camp where the party stands. COOK FOUR's camp picture (the camp screen's
+  own pick by the block he stands on), by night its night picture (the map's own night, __CITY.night()), with his own men
+  round the fire in their own looks (up to eight), each doing a camp thing (ANIMATION's sit, smoke, talk and drink; their
+  idles where a look has none), the fire on the widest clear room of the screen (on the phone the strip under the stash, on
+  the computer the open right side). The ground under the party is read (the map's district: arterial, suburb, wash...) and
+  a camp picture COOK makes for a ground ('ground': 'street', 'freeway' or 'desert' on a camp variant in
+  settlement_ground.json) wins the moment it exists. Today both camp pictures are desert camps, so a street camp is
+  a desert camp until COOK draws the street (NOTE COOK).
+- DIMMED TO THE FLOOR: every word that sits on the picture itself (not on its own paper, tin or button: FRONT, BACK,
+  STASH 0/36, the stash's empty line) is measured on the pixels behind it, the brightest and the darkest tenth, and the dim
+  is the least that keeps the worst at 4.5 to 1 (the kit's floor), never under half: 0.72 to 0.76 by day, 0.5 at a dark
+  night camp on the computer. Words on their own paper keep their paper.
+- A LITTLE LIFE: the men (and the town's own people) move on the beat, a repaint every eighth (500 ms), nothing drawn while
+  the screen is off the glass; the place holds still.
+- THE RECORD'S PICTURE: records/target/UI_THE_CREW_SCREEN_SHOWS_THEIR_CAMP_10_26_26.png (phone on the map and in a town,
+  the computer on the map and in a town).
+- NEVER THE PLACEHOLDER: the camp waits for the game's door to hand the screen his company (the screen's own boot shows a
+  placeholder twelve until then, CAMP's S.doorSpoke), so the men at the fire are always his.
+- COST: one canvas the size of the screen (5.3 MB on the phone, 5.2 on the computer; a phone's line is about 1.1 GB, rule
+  173); one camp picture (the camp screen's, already in the cache) or no picture at all in a town.
+
+GATE: THE CREW SCREEN SHOWS THEIR CAMP (new, in the suite) 32/0, phone and computer: the map on a street by day (camp-0, his
+3 of 3 men round the fire), the desert by night (camp-1-night, 3 of 3), a town by day and by night (the town's picture); the
+bare part of the screen shows a picture on every one (spread 8 to 18.7, was 0); every word on the picture at 4.5 or better
+(worst 4.52); under 8 MB; open time with the camp 154 to 164 ms against 143 to 187 without on the phone (115 to 143 against
+138 to 259 on the computer); the camp drawn after the screen's first frame (its own work 111 to 196 ms, after). Planted: the
+camp switched off reads the glass black (spread 0); the dim taken off drops STASH 0/36 to 1.62 to 1 and is caught.
+
+SEEN BY THE GATE AND LEFT TO ITS LANE: a town opened at 22:00 draws its day picture (the map's night is true and handed to
+the town at open; the picture stays day). NOTE RUN TWO. The crew screen shows whatever the town draws, so it will go night
+with the town.
+
+[bb: Battle Brothers' character screen hides the world behind a flat dark panel (recall); ours keeps the company in the
+world while you manage it.]
+[analog horror: the crew screen is a sheet of paper held up in front of the fire; you can see your men through the gaps,
+dimmed like an old tape, moving a frame at a time.]

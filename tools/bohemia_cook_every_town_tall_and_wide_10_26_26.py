@@ -181,7 +181,7 @@ def lay_town(town, pl, K):
         pl.here('squat_mural', mural_wall, K, 'squat_mural', 18.3, 21.6, 41.6, 2.2)
         pl.here('wall', mural_wall, K, 'mural', 18.4, 24.2, 9.0, 3.0)
         pl.here('post', tower, K, 'post', 19.4, 1.6, 5.0)
-        pl.here('smith', shack, K, 'smith', 18.3, 24.6, FY, 3.0, 2.6, tarp=K.blue_tarp)
+        pl.here('smith', shack, K, 'smith', 18.3, 24.6, FY + 1.0, 3.0, 2.6, tarp=K.blue_tarp)   # a shack's tarp hangs a metre forward
         pl.model('container.glb', 38.6, FY, None, 0.0, 1.0)            # the armourer's container
         pl.here('stage', stage, K, 'stage', 25.6, 33.0, 6.0, 4.0, K.fac)
         for (x, y, r) in ((23.6, 4.2, 20), (35.0, 6.0, -70), (24.6, 13.2, 10), (33.0, 11.2, -20)):
@@ -207,9 +207,9 @@ def lay_town(town, pl, K):
         pl.here('beds_a', beds, K, 'beds_a', 18.6, 23.8, 9.0, 13.5, 3)
         pl.here('beds_b', beds, K, 'beds_b', 36.2, 41.4, 9.0, 13.5, 3)
         pl.here('turbine', turbine, K, 'turbine', 19.0, 35.0, 10.0, 3.2, walk=True)
-        pl.here('smith', shack, K, 'smith', 18.3, 21.6, FY, 3.0, 2.4, tarp=K.blue_tarp)
-        pl.model('shed.glb', 23.4, FY, None, 0.0, 1.0)
-        pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY, 3.0, 2.6, tarp=K.fac)
+        pl.here('smith', shack, K, 'smith', 18.3, 21.6, FY + 1.0, 3.0, 2.4, tarp=K.blue_tarp)   # a shack's tarp hangs a metre forward
+        pl.model('shed.glb', 23.4, FY + 1.0, None, 0.0, 1.0)
+        pl.here('armourer', shack, K, 'armourer', 35.4, 41.7, FY + 1.0, 3.0, 2.6, tarp=K.fac)
         pl.model('rolled.glb', 22.6, 0.6, None, 0.0, 0.7)
         for x in (25.9, 34.0): lamp(x, 43.0)
         drum(25.3, 27.2)

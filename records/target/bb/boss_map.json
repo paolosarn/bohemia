@@ -1,0 +1,359 @@
+{
+ "draft": true,
+ "about": "WORLD TWO [the best of both maps] (rule 243(b)3 and (b)4, Paolo 10/26: 'there are supposed to be bosses in this game where you're able to alter the map and what's going on in the world around you'). One row per act-one boss, in HIS ladder's order (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md, engine/bohemia_ladder_data.js): where his place is (a district kind of the valley; the boss stands at the street block nearest it), the sign that marks him on the map (Valheim's runestone: a tag on a wall, a flyer, the radio, a man in a bar), and what changes on the map when he falls. EVERY ROW IS draft:true, HIS TO CHANGE: the districts, the signs' words and the changes are WORLD TWO's first attempt (rule 205: a default, named, his to kill). The ladder is a pool to cut from (its own words); DYNASTY owns the order (VAMILY NOTE 10/26), and a row it moves is moved here. A modder edits this file; nothing in code names a boss.",
+ "changes_known": {
+  "lights": "the lights come back on: his district's windows lit on the map, night and day (the painting under them is RUN's and unchanged)",
+  "place": "a place appears on the map where he stood, named (words draft)",
+  "wall": "a wall comes down: the nearest block between two streets near him opens, and the map's walk goes through it",
+  "reveal": "the map opens: every town shows through the static (THE SURVEYOR holds the last complete map)",
+  "holds": "who holds what shifts: the nearest home base changes hands by 'boss', one of the four ways (rule 43, his words 'raid, contract, boss verb, deal'), in WORLD's ledger (engine/bohemia_homebases.js)"
+ },
+ "fight": {
+  "skulls": 3,
+  "faction": "brigands",
+  "note": "a boss is the biggest job's band (partyMath at three skulls) through the map's one door; COMBAT dresses the man himself (NOTE). WORLD TWO's default, TUNING's number."
+ },
+ "bosses": [
+  {
+   "i": 1,
+   "n": "THE POT",
+   "district": [
+    "commercial",
+    "casino",
+    "resort"
+   ],
+   "sign": {
+    "kind": "flyer",
+    "says": "A flyer on the wall: HOT FOOD. ASK FOR THE POT."
+   },
+   "falls": {
+    "lights": 3,
+    "place": "THE KITCHEN"
+   },
+   "feed": "The kitchen on {district} is cooking again. Line around the block."
+  },
+  {
+   "i": 2,
+   "n": "THE TAP",
+   "district": [
+    "pumpstation",
+    "watertreat",
+    "intake",
+    "reservoir"
+   ],
+   "sign": {
+    "kind": "tag",
+    "says": "Sprayed on a pipe: THE TAP SAYS WHO DRINKS."
+   },
+   "falls": {
+    "lights": 2,
+    "holds": "you"
+   },
+   "feed": "Nobody owns the pipe on {district} today. Fill your jugs."
+  },
+  {
+   "i": 3,
+   "n": "THE FILTER",
+   "district": [
+    "watertreat",
+    "intake",
+    "springs",
+    "reservoir"
+   ],
+   "sign": {
+    "kind": "radio",
+    "says": "The radio: clean water, if you can get past THE FILTER."
+   },
+   "falls": {
+    "place": "CLEAN WATER"
+   },
+   "feed": "Clean water at {district}. Boil it anyway, mija."
+  },
+  {
+   "i": 4,
+   "n": "THE BURN",
+   "district": [
+    "industrial",
+    "landfill",
+    "storage",
+    "warehouse"
+   ],
+   "sign": {
+    "kind": "tag",
+    "says": "Burned into a door: WARM IS THE BURN'S."
+   },
+   "falls": {
+    "lights": 4
+   },
+   "feed": "Fires on {district} all night and nobody is charging for them."
+  },
+  {
+   "i": 5,
+   "n": "THE SURVEYOR",
+   "district": [
+    "courthouse",
+    "library",
+    "downtown",
+    "campus"
+   ],
+   "sign": {
+    "kind": "bar",
+    "says": "A man at the bar: the Surveyor has the last real map. He sells pieces."
+   },
+   "falls": {
+    "reveal": "towns",
+    "place": "THE SURVEY OFFICE"
+   },
+   "feed": "Somebody copied the last real map of the valley. Every town is on it."
+  },
+  {
+   "i": 6,
+   "n": "THE CLIMB",
+   "district": [
+    "highroller",
+    "casino",
+    "resort",
+    "luxor"
+   ],
+   "sign": {
+    "kind": "flyer",
+    "says": "A flyer: THE HOIST WORKS. THE CLIMB DECIDES WHO GOES UP."
+   },
+   "falls": {
+    "lights": 4
+   },
+   "feed": "Lights on the top floors of {district}. First time in years."
+  },
+  {
+   "i": 7,
+   "n": "THE LOCKSMITH",
+   "district": [
+    "policestation",
+    "jail",
+    "commercial",
+    "mall"
+   ],
+   "sign": {
+    "kind": "tag",
+    "says": "Scratched on a padlock: EVERY LOCK IS THE LOCKSMITH'S."
+   },
+   "falls": {
+    "wall": 1
+   },
+   "feed": "The doors on {district} stand open. Nobody knows who has the keys now."
+  },
+  {
+   "i": 8,
+   "n": "THE CHARGE",
+   "district": [
+    "quarry",
+    "boneyard",
+    "landfill",
+    "industrial"
+   ],
+   "sign": {
+    "kind": "radio",
+    "says": "The radio, then a bang: THE CHARGE is selling holes in walls."
+   },
+   "falls": {
+    "wall": 2
+   },
+   "feed": "There is a hole in the wall on {district}. A new way through."
+  },
+  {
+   "i": 9,
+   "n": "THE MACHINIST",
+   "district": [
+    "arsenal",
+    "industrial",
+    "storage"
+   ],
+   "sign": {
+    "kind": "bar",
+    "says": "A man at the bar: the Machinist welds pipe into guns."
+   },
+   "falls": {
+    "place": "THE PIPE SHOP"
+   },
+   "feed": "Pipe guns for trade on {district}. Crude. Yours."
+  },
+  {
+   "i": 10,
+   "n": "THE PLATE",
+   "district": [
+    "boneyard",
+    "industrial",
+    "railyard"
+   ],
+   "sign": {
+    "kind": "flyer",
+    "says": "A flyer: SCRAP IN, ARMOUR OUT. THE PLATE."
+   },
+   "falls": {
+    "place": "THE PRESS"
+   },
+   "feed": "The press on {district} is running. Scrap in, armour out."
+  },
+  {
+   "i": 11,
+   "n": "THE TOOTH",
+   "district": [
+    "medical",
+    "commercial"
+   ],
+   "sign": {
+    "kind": "flyer",
+    "says": "A flyer: TOOTHACHE? THE TOOTH."
+   },
+   "falls": {
+    "place": "THE CHAIR"
+   },
+   "feed": "A dentist chair on {district}. Bring your own whiskey."
+  },
+  {
+   "i": 12,
+   "n": "THE LENS",
+   "district": [
+    "mall",
+    "commercial",
+    "swapmeet"
+   ],
+   "sign": {
+    "kind": "tag",
+    "says": "Sprayed over an eye chart: THE LENS SEES YOU."
+   },
+   "falls": {
+    "place": "THE GRINDER"
+   },
+   "feed": "Glasses ground to order on {district}. Read the small print again."
+  },
+  {
+   "i": 13,
+   "n": "THE BARBER",
+   "district": [
+    "commercial",
+    "apartment"
+   ],
+   "sign": {
+    "kind": "flyer",
+    "says": "A flyer: THE CHAIR, THE BLADE, THE BLEACH."
+   },
+   "falls": {
+    "lights": 2,
+    "place": "THE BARBER'S CHAIR"
+   },
+   "feed": "Fresh fades on {district}. The bleach is real."
+  },
+  {
+   "i": 14,
+   "n": "THE INK",
+   "district": [
+    "commercial",
+    "apartment",
+    "trailer"
+   ],
+   "sign": {
+    "kind": "tag",
+    "says": "Tattooed on a wall: THE INK KNOWS YOUR NAME."
+   },
+   "falls": {
+    "place": "THE NEEDLE"
+   },
+   "feed": "Ink on {district}. Mark yourself, everybody reads it."
+  },
+  {
+   "i": 15,
+   "n": "THE DOGS",
+   "district": [
+    "park",
+    "trailer",
+    "suburb"
+   ],
+   "sign": {
+    "kind": "bar",
+    "says": "A man at the bar: the last kennel. THE DOGS."
+   },
+   "falls": {
+    "place": "THE KENNEL"
+   },
+   "feed": "Pups at the kennel on {district}. They bite. Good."
+  },
+  {
+   "i": 16,
+   "n": "THE WARD",
+   "district": [
+    "medical",
+    "firestation",
+    "school"
+   ],
+   "sign": {
+    "kind": "radio",
+    "says": "The radio: the last clinic is open, if THE WARD lets you in."
+   },
+   "falls": {
+    "lights": 3,
+    "place": "THE CLINIC"
+   },
+   "feed": "The clinic on {district} has its lights on. Bring the hurt."
+  },
+  {
+   "i": 17,
+   "n": "THE CISTERN",
+   "district": [
+    "estate",
+    "gated",
+    "suburb"
+   ],
+   "sign": {
+    "kind": "tag",
+    "says": "Sprayed on a gutter: THE RAIN IS THE CISTERN'S."
+   },
+   "falls": {
+    "place": "THE ROOF TANKS"
+   },
+   "feed": "Rain off the roofs on {district}. Nobody to ask."
+  },
+  {
+   "i": 18,
+   "n": "THE SMITH",
+   "district": [
+    "railyard",
+    "industrial",
+    "warehouse"
+   ],
+   "sign": {
+    "kind": "bar",
+    "says": "A man at the bar: the last forge still lights. THE SMITH."
+   },
+   "falls": {
+    "lights": 2,
+    "place": "THE FORGE"
+   },
+   "feed": "The forge on {district} is lit. You can hear it from the road."
+  },
+  {
+   "i": 19,
+   "n": "THE MIDWIFE",
+   "district": [
+    "medical",
+    "chapel",
+    "suburb"
+   ],
+   "sign": {
+    "kind": "radio",
+    "says": "The radio, a woman: every birth in the valley goes through THE MIDWIFE."
+   },
+   "falls": {
+    "lights": 3,
+    "holds": "you"
+   },
+   "feed": "A baby on {district} tonight. Everybody heard it.",
+   "how": "meet"
+  }
+ ],
+ "how_known": {
+  "fight": "the default: arriving at his place is the fight (the meet card first, ENGAGE or FALL BACK); he falls when every one of theirs is down",
+  "meet": "arriving at the place is enough (a boss who is a person to reach, never a fight: THE MIDWIFE)"
+ },
+ "district_note": "Each list is tried in its order: the nearest block of the first kind 8 to 30 blocks from the sign, reachable, never within 3 of a town; then the next kind; then any street 10 to 20 blocks out (the state says fallback). Kinds read off the valley the game rolls (om.at(x, y).district, measured 10/26: 75 kinds, suburb 2,582 blocks to quarry 1)."
+}

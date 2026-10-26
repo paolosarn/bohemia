@@ -1,14 +1,17 @@
 #!/usr/bin/env node
-/* NO RUN ENDS FOR TAPE (ECONOMY [tape income against armour wear], rule 271(b), Paolo 10/26: 'there's not enough duct tape...
-   when my armor runs out like it's my runs over... make that more available').
-   records/BOHEMIA_ECONOMY_DAY_84_NO_RUN_ENDS_FOR_TAPE_10_26_26.md. The numbers' half of 271(c); RUN FOUR's [tape in the loot] and
-   CAMP's salvage hold the screens. Legs:
-   F  records/target/bb/tape_income.json: every row a value and a source; every quote word for word on its page (the tarball).
-   S  the stall's shelf (stall_prices.json): at least a stack in every place, refilled every map day, never sold out (the back room).
-   R  rolled months at the map's pace (tools/bohemia_economy_tape_income.js, TUNING's bench for what a fight breaks): A NEW CREW and
-      THE BLOCK WATCH have at least the tape they break plus a tenth from every home (camp, town, fortress), at the fair price and
-      the loot; a typical run working out of a town is never short half the time or more.
-   M  the gate bites: Battle Brothers' three-day shelf, a roll or two in the loot, a camp with no stack, each turns it red. */
+/* NO RUN ENDS FOR TAPE (ECONOMY [tape income against armour wear], rule 271; RE-AIMED by [the tape bar re-aimed], rule 284,
+   Paolo 10/26: 'you're about to crash my economy... now I'm winning way too much duct tape after each fight... one duct tape
+   as a baseline'). records/BOHEMIA_ECONOMY_DAY_85_THE_TAPE_BILL_ONE_ROLL_A_FIGHT_AND_THE_REST_IS_BOUGHT_10_26_26.md.
+   284(g): the bar is the one roll plus the stall plus the smith, against what a fight pays. RUN FOUR's [one roll a fight] holds
+   the loot screen; this gate holds the numbers. Legs:
+   L  the loot (tape_income.json): ONE roll a won fight, nothing a kill, nothing a wrecked piece; never above three (284(e)).
+   F  every row read has a value and a source; every quote word for word on its page (the tarball).
+   S  the stall's shelf: at least a stack everywhere, refilled every map day, never sold out (the back room).
+   C  the craftsman's price (277(b)): the tape the damage takes plus his hands, at least a battery a piece.
+   N  rolled months at the map's pace (tools/bohemia_economy_tape_income.js, TUNING's bench for what a fight breaks): A NEW CREW
+      keeps its armour up on what its fights pay from every home (in the black nine months in ten) and spends under a third of
+      it on tape; any company that cannot is named on TUNING's board (284(e): the price or the pay moves, never the loot).
+   M  the gate bites: tape at three batteries a roll, the loot at four, a shelf of five rolls, each turns it red. */
 'use strict';
 const fs = require('fs'), path = require('path'), cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
@@ -18,52 +21,67 @@ const CALC = require(path.join(ROOT, 'tools/bohemia_economy_tape_income.js'));
 let pass = 0, fail = 0;
 function ok(what, c, why) { if (c) pass++; else { fail++; console.log('  FAIL ' + what + (why ? ' (' + why + ')' : '')); } }
 const TAR = path.join(ROOT, 'reference/library/grok/wiki/PAGES_ALL.tar.gz'), cache = {};
-function page(src) { const m = String(src || '').match(/(bb_all\/[^,;]+?\.txt)/); if (!m) return null;
-  if (!(m[1] in cache)) { try { cache[m[1]] = cp.execSync('tar -xzOf "' + TAR + '" "' + m[1] + '"', { encoding: 'utf8' }); } catch (e) { cache[m[1]] = null; } } return cache[m[1]]; }
+function page(src) {
+  const r = String(src || '').match(/^((records|laws)\/[^ ,;]+\.md)/);
+  if (r) { try { return fs.readFileSync(path.join(ROOT, r[1]), 'utf8'); } catch (e) { return null; } }
+  const m = String(src || '').match(/(bb_all\/[^,;]+?\.txt)/); if (!m) return null;
+  if (!(m[1] in cache)) { try { cache[m[1]] = cp.execSync('tar -xzOf "' + TAR + '" "' + m[1] + '"', { encoding: 'utf8' }); } catch (e) { cache[m[1]] = null; } } return cache[m[1]];
+}
 const flat = s => String(s).replace(/<br\s*\/?>/g, ' ').replace(/\s+/g, ' ').trim();
 const raw = JSON.parse(fs.readFileSync(FILE, 'utf8')), stall = JSON.parse(fs.readFileSync(STALL, 'utf8'));
+const V = (o, k) => o && o[k] && o[k].value;
+
+/* L */
+function legsL(file, say) {
+  const lt = file.loot_tape || {}, won = V(lt, 'per_won_fight'), pk = V(lt, 'per_kill') || [0, 0], scrap = V(file.salvage, 'tape_per_scrap');
+  say('L1 a won fight gives ONE roll of tape (284(a)): per_won_fight ' + won, won === 1);
+  say('L2 nothing a kill, nothing a wrecked piece (284(b)): per_kill ' + JSON.stringify(pk) + ', a scrap ' + scrap, Math.max.apply(null, pk) === 0 && scrap === 0);
+  say('L3 never above three a fight without his word (284(e))', won >= 0 && won <= 3);
+}
+legsL(raw, ok);
 
 /* F */
-const rows = [['loot_tape', 'per_kill'], ['loot_tape', 'only_the_dead'], ['loot_tape', 'nothing_from'], ['scavenger', 'tape_of_destroyed_armour'], ['scavenger', 'cap'], ['scavenger', 'rounds_back'], ['salvage', 'tape_per_scrap'], ['the_bar', 'spare'], ['the_bar', 'pace']];
+const rows = [['loot_tape', 'per_won_fight'], ['loot_tape', 'only_the_dead'], ['loot_tape', 'nothing_from'], ['scavenger', 'tape_of_destroyed_armour'], ['scavenger', 'cap'], ['scavenger', 'rounds_back'], ['the_bar', 'pace'], ['the_bar', 'tape_share_max']];
 const bad = rows.filter(([a, b]) => !raw[a] || !raw[a][b] || raw[a][b].value === undefined || !raw[a][b].source).map(r => r.join('.'));
-ok('F1 every row the loot, the camp and the bar read has a value and a source', bad.length === 0, bad.join(', '));
+ok('F1 every row the loot, the Scavenger and the bar read has a value and a source', bad.length === 0, bad.join(', '));
 const quotes = []; (function walk(o, at) { if (!o || typeof o !== 'object') return; if (typeof o.quote === 'string') quotes.push({ at, q: o.quote, src: o.source }); for (const k in o) walk(o[k], at + '.' + k); })(raw, '');
 const miss = quotes.filter(x => { const p = page(x.src); return !p || flat(p).indexOf(flat(x.q)) < 0; }).map(x => x.at);
 ok('F2 every quote is its page\'s own words (' + quotes.length + ')', quotes.length >= 4 && miss.length === 0, miss.join(', '));
-ok('F3 a dead man carries tape, a dog never (loot.json\'s own lines)', raw.loot_tape.per_kill.value[0] >= 1 && raw.loot_tape.nothing_from.value.indexOf('beast') >= 0 && raw.loot_tape.only_the_dead.value === true);
-ok('F4 the Scavenger is Battle Brothers\' own: 0.5 to 1 percent of a destroyed piece\'s top, 60 at most', raw.scavenger.tape_of_destroyed_armour.value.join() === '0.005,0.01' && raw.scavenger.cap.value === 60);
+ok('F3 the Scavenger is Battle Brothers\' own: 0.5 to 1 percent of a destroyed piece\'s top, 60 at most (284(d))', String(V(raw.scavenger, 'tape_of_destroyed_armour')) === '0.005,0.01' && V(raw.scavenger, 'cap') === 60);
 
 /* S */
 ok('S1 every place has at least a stack of tape every visit, a raid included', ['camp', 'town', 'fortress'].every(t => SP.tapeShelf(stall, { tier: t }) >= 20 && SP.tapeShelf(stall, { tier: t, stockMult: 0.5 }) >= 20));
 ok('S2 the tape shelf refills every map day (the pace: one of ours holds four to six of Battle Brothers\')', stall.tape_shelf.restock_days.value === 1);
 ok('S3 never sold out: past the shelf the back room sells dearer, never nothing', ['camp', 'town', 'fortress'].every(t => SP.tapePrice(stall, { tier: t, soldThisRestock: 1e6 }) > SP.tapePrice(stall, { tier: t })));
 
-/* R */
-const r = CALC.run({ runs: 120 });
-const cell = (s, h) => r.shapes[s].homes[h];
-['camp', 'town', 'fortress'].forEach(h => {
-  ok('R1 A NEW CREW from a ' + h + ': had ' + cell('newcrew', h).ratio_median + ' of what it breaks (the loot ' + cell('newcrew', h).loot_covers_median + ')', cell('newcrew', h).ratio_median >= 1 + r.spare);
-  ok('R2 THE BLOCK WATCH from a ' + h + ': had ' + cell('watch', h).ratio_median + ' of what it breaks (the loot ' + cell('watch', h).loot_covers_median + ')', cell('watch', h).ratio_median >= 1 + r.spare);
-});
-ok('R3 working out of a town, a typical month is never short (a new crew ' + Math.round(100 * cell('newcrew', 'town').never_short) + '%, twelve ' + Math.round(100 * cell('watch', 'town').never_short) + '%)', r.tests.R3_a_typical_run_is_never_short_at_a_town);
-ok('R4 the Lone Wolf is covered from a town or a fortress (' + cell('wolf', 'town').ratio_median + ', ' + cell('wolf', 'fortress').ratio_median + ')', cell('wolf', 'town').ratio_median >= 1 && cell('wolf', 'fortress').ratio_median >= 1);
-
-/* C: the craftsman's price (rule 277(b)) */
-const mp = (miss, c) => SP.mendPrice(stall, miss, c);
+/* C */
+const mp = (miss2, c) => SP.mendPrice(stall, miss2, c);
 ok('C1 a smith charges the tape the damage takes plus his hands: 150 points in a town is ' + mp(150, { tier: 'town' }) + ' (10 rolls of tape, twice)', mp(150, { tier: 'town' }) === Math.round(150 / 15 * 1.02 * 2) && mp(0, { tier: 'town' }) === 0);
 ok('C2 at least a battery a piece; dearer in a bigger place; dearer where the town\'s prices are up (market day x1.25)', mp(3, { tier: 'camp' }) === 1 && mp(300, { tier: 'camp' }) < mp(300, { tier: 'fortress' }) && mp(300, { tier: 'town', buyMult: 1.25 }) > mp(300, { tier: 'town' }));
 ok('C3 the smith costs more than doing it yourself with the stall\'s tape (quick and dear against slow and cheap)', [45, 150, 300].every(x => mp(x, { tier: 'town' }) > Math.ceil(x / 15) * SP.tapePrice(stall, { tier: 'town' })));
 
-/* M */
-function bitesShelf(name, mut) {
-  const d = JSON.parse(JSON.stringify(stall)); mut(d);
-  const x = CALC.run({ runs: 60, stall: d });
-  ok('M ' + name + ' turns it red', !(x.tests.R1_a_new_crew_has_more_than_it_needs && x.tests.R2_the_twelve_has_more_than_it_needs));
+/* N */
+function legsN(over, say) {
+  const r = CALC.run(Object.assign({ runs: 80 }, over || {}));
+  const nc = r.shapes.newcrew.homes;
+  ['camp', 'town', 'fortress'].forEach(h => say('N1 A NEW CREW from a ' + h + ': tape ' + nc[h].bill_a_day + ' a day, ' + Math.round(100 * nc[h].share) + '% of the ' + nc[h].pay_a_day + ' its fights pay, ' + nc[h].net_a_day + ' left after food (' + Math.round(100 * nc[h].keeps_up) + '% of months in the black)', nc[h].net_a_day > 0 && nc[h].keeps_up >= 0.9 && nc[h].share < V(raw.the_bar, 'tape_share_max')));
+  return r;
 }
-bitesShelf('Battle Brothers\' three-day shelf', d => { d.tape_shelf.restock_days.value = 3; });
-bitesShelf('a camp with half a stack', d => { d.tape_shelf.value.camp = 10; d.tape_shelf.min.value = 10; });
-const thin = CALC.run({ runs: 60, perKill: [1, 2] });
-ok('M a roll or two in the loot turns it red', !thin.tests.R2_the_twelve_has_more_than_it_needs);
+const R = legsN(null, ok);
+const VAM = fs.readFileSync(path.join(ROOT, 'VAMILY.md'), 'utf8'), tun = VAM.split(/\n## /).find(s => /^TUNING  \(21\./.test(s)) || '';
+ok('N2 every company that cannot keep its armour up on routine pay is named on TUNING\'s board (' + (R.tuning.join(', ') || 'none') + ')', R.tuning.length === 0 || /NOTE 10\/26 FROM ECONOMY  \[the tape bill\]/.test(tun));
+['watch', 'wolf'].forEach(k => { const s = R.shapes[k]; console.log('  ' + s.name + ': ' + ['camp', 'town', 'fortress'].map(h => h + ' ' + s.homes[h].bill_a_day + ' of ' + s.homes[h].pay_a_day + ' (' + Math.round(100 * s.homes[h].share) + '%), left ' + s.homes[h].net_a_day).join('; ')); });
+
+/* M */
+function bitesN(name, mut, over) {
+  const d = JSON.parse(JSON.stringify(stall)); if (mut) mut(d);
+  let red = 0; legsN(Object.assign({ stall: d }, over || {}), (w, c) => { if (!c) red++; });
+  ok('M ' + name + ' turns it red', red > 0);
+}
+bitesN('tape at three batteries a roll', d => { d.goods.tape.buy.value = 3; });
+bitesN('a shelf of five rolls and a back room at five', d => { d.tape_shelf.value = { camp: 5, town: 5, fortress: 5 }; d.tape_shelf.min.value = 5; d.tape_shelf.back_room_mult.value = 5; });
+const four = JSON.parse(JSON.stringify(raw)); four.loot_tape.per_won_fight.value = 4;
+let red4 = 0; legsL(four, (w, c) => { if (!c) red4++; }); ok('M the loot at four a fight turns it red', red4 > 0);
 
 console.log('=== NO RUN ENDS FOR TAPE GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);
