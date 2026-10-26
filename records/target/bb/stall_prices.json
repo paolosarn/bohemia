@@ -232,18 +232,21 @@
   },
   "stock": {
    "value": {
-    "camp": 2,
-    "town": 3,
-    "fortress": 4
+    "camp": 1,
+    "town": 2,
+    "fortress": 2
    },
-   "unit": "units of its own good on a maker's shelf each restock",
-   "source": "ECONOMY Day 83 s3",
-   "why": "PLACEHOLDER, set by the calculator"
+   "unit": "units of its own good a maker's stall holds, a batch a week",
+   "source": "ECONOMY Day 83 s3 (tools/bohemia_economy_buy_versus_sell.js runTrade)",
+   "why": "the weekly batch is what holds the first week's squeeze: a trader who knows every price, starts with the richest purse on main and walks the roads makes 165 in week one (plus 24 at most from supplies, 189), under one routine job a day (210), while every good's obvious carry pays its trip's food and wages (the median by 4). More in a bigger place (265(a)'s spirit; Battle Brothers: 'Large settlements have higher availability')"
   },
   "restock_days": {
-   "value": 3,
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
-   "quote": "Shops resupply every 3 days"
+   "value": 7,
+   "source": "ECONOMY Day 83 s3",
+   "why": "a batch a week, not Battle Brothers' shop shuffle: our legs are hours where theirs are days (the pace math: one of our days holds 4 to 6 of theirs), so at their 3-day restock the valley's twelve makers paid a perfect trader 797 in week one (30 carries, about four jobs a day, no risk). The real record agrees: a charcoal pit, a salt pond and a pawn counter turn out a batch, not a shelf every three days. Tape, supplies and gear keep the 3 days",
+   "bb_value": 3,
+   "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+   "bb_quote": "Shops resupply every 3 days"
   },
   "goods": [
    {

@@ -189,4 +189,93 @@ if (require.main === module) {
   console.log('a starting kit sold whole, calm: ' + r.kits.map(k => k.id + ' ' + k.full + '/' + k.thin + '/' + k.bare + ' (' + k.nightsFull + ' nights)').join(', '));
   console.log('TESTS ' + JSON.stringify(r.tests));
 }
-module.exports = { run, week, load, knobs };
+/* ---- TRADE GOODS (rule 266; Day 83) --------------------------------------------------------------------------------
+   T1 A TYPICAL CARRY PAYS: every good, its maker's restock carried to every town that does not make it, on a calm neutral
+      day, the one leg on dirt (the slow ground: the honest cost), against the leg's food and wages for a crew of three
+      (2 a man a night, records/target/bb/nightly_bill.json; the median hired man's wage, backgrounds.json at ten to one).
+   T2 THE FIRST WEEK'S SQUEEZE: the richest start on main (origins.json, the biggest FULL purse), from every town, perfect
+      knowledge, road speed everywhere (the fast ground: the honest ceiling), week one's real cards (the dice), every
+      maker's restock every 3 days; the trader takes, over and over, the carry that pays most per hour. Week one's food is
+      in the wagon (origins.json food_days 7), so what it makes is all profit. The bar: under one routine contract a day
+      (7 x 30), when the map's pace holds four to six jobs a day (records/BOHEMIA_COORDINATOR_THE_PACE_MATH_OUR_DAY_AGAINST_
+      BATTLE_BROTHERS_10_26_26.md): trading never pays like working.
+   T3 THE STOCK CEILING, reported: every maker's whole week of stock sold at its best buyer, nothing for time or money. */
+const MIN_DIRT = 0.084 * 128, MIN_ROAD = MIN_DIRT * 0.5;   /* cityStepMins: MIN_PER_CELL x FN, PAVED_SPEED.factor 0.5 */
+function legH(a, b, mins) { return Math.hypot(a.x - b.x, a.y - b.y) * mins / 60; }
+function runTrade(over) {
+  const D = load(over), F = D.file;
+  if (over && over.stock) F.trade.stock = Object.assign({}, F.trade.stock, { value: over.stock });
+  if (over && over.restock) F.trade.restock_days = Object.assign({}, F.trade.restock_days, { value: over.restock });
+  const P = D.places.map(p => ({ id: p.id, x: p.x, y: p.y, tier: (D.tiers[p.id] && D.tiers[p.id].tier) || 'camp' }));
+  const goods = F.trade.goods.map(g => g.id);
+  const bg = J('records/target/bb/backgrounds.json').rows.map(r => +r.daily_wage || 0).filter(w => w > 0).sort((a, b) => a - b);
+  const wage = bg[Math.floor(bg.length / 2)] / 10, perManDay = D.bill.per_man_per_night.value + wage, crew = 3;
+  const out = { stock: F.trade.stock.value, wageMedian: wage, tripCostPerHour: +(crew * perManDay / 24).toFixed(3) };
+  const ctxAt = (p, cards) => { const k = knobs(D, cards || []); return { place: p.id, tier: p.tier, buyMult: k.buy, sellMult: k.sell, stockMult: k.stock || 1, relBase: 0 }; };
+
+  /* T1: the carries */
+  const carries = [];
+  goods.forEach(g => P.filter(m => SP.madeHere(F, g, m.id)).forEach(m => P.filter(b => !SP.madeHere(F, g, b.id)).forEach(b => {
+    const n = SP.tradeStock(F, g, ctxAt(m)), cost = n * SP.tradeBuy(F, g, ctxAt(m)), paid = n * SP.tradeSell(F, g, ctxAt(b));
+    const h = legH(m, b, MIN_DIRT), trip = h * out.tripCostPerHour;
+    carries.push({ good: g, from: m.id, to: b.id, units: n, gain: paid - cost, hours: +h.toFixed(1), trip: +trip.toFixed(1), net: +(paid - cost - trip).toFixed(1) });
+  })));
+  carries.sort((a, b) => a.net - b.net);
+  /* the typical carry is the obvious one the map would show him (266(b) marks the towns that pay more, best first):
+     each good's batch to the NEAREST town that pays more than its maker charges; the median of the twelve */
+  const obvious = goods.map(g => carries.filter(c => c.good === g && c.gain > 0).sort((a, b) => a.hours - b.hours)[0]).filter(Boolean).sort((a, b) => a.net - b.net);
+  const med = obvious[Math.floor(obvious.length / 2)];
+  out.obvious = obvious;
+  out.carries = { n: carries.length, paying: carries.filter(c => c.net > 0).length, median: med, worst: carries[0], best: carries[carries.length - 1] };
+  out.byGood = goods.map(g => { const cs = carries.filter(c => c.good === g).sort((a, b) => b.net - a.net); return { good: g, from: cs[0].from, units: cs[0].units, best: cs[0].to + ' +' + cs[0].net, nearestPaying: (cs.filter(c => c.net > 0).sort((a, b) => a.hours - b.hours)[0] || {}).to, paying: cs.filter(c => c.net > 0).length + ' of ' + cs.length }; });
+
+  /* T2: the week-one trader */
+  const purse = Math.max.apply(null, D.origins.origins.map(o => (o.batteries || {}).full || 0));
+  const cards0 = {}; P.forEach(p => { cards0[p.id] = LM.traitsFor(D.traits, p.id, 0); });
+  function trader(start) {
+    let at = P.find(p => p.id === start), cash = purse, t = 0, made = 0, trips = 0;
+    const taken = {};   /* good:place:restock -> units bought */
+    const H = 7 * 24, per = F.trade.restock_days.value * 24;
+    while (t < H) {
+      const r = Math.floor(t / per); let best = null;
+      goods.forEach(g => P.filter(m => SP.madeHere(F, g, m.id)).forEach(m => {
+        const cm = ctxAt(m, cards0[m.id]), left = SP.tradeStock(F, g, cm) - (taken[g + ':' + m.id + ':' + r] || 0);
+        const pb = SP.tradeBuy(F, g, cm), n = Math.min(left, Math.floor(cash / pb), 36);
+        if (n <= 0) return;
+        P.forEach(b => { if (SP.madeHere(F, g, b.id)) return;
+          const gain = n * (SP.tradeSell(F, g, ctxAt(b, cards0[b.id])) - pb), h = legH(at, m, MIN_ROAD) + legH(m, b, MIN_ROAD) + 0.25;
+          if (gain > 0 && t + h <= H && (!best || gain / h > best.rate)) best = { g, m, b, n, pb, gain, h, rate: gain / h };
+        });
+      }));
+      if (!best) { t = (r + 1) * per; if (t >= H) break; continue; }
+      taken[best.g + ':' + best.m.id + ':' + r] = (taken[best.g + ':' + best.m.id + ':' + r] || 0) + best.n;
+      cash += best.gain; made += best.gain; t += best.h; at = best.b; trips++;
+    }
+    return { start, made, trips };
+  }
+  const runs = P.map(p => trader(p.id)).sort((a, b) => b.made - a.made);
+  out.weekOne = { purse, best: runs[0], worst: runs[runs.length - 1], median: runs[Math.floor(runs.length / 2)] };
+  out.jobDay = 30; out.bar = 7 * out.jobDay;
+
+  /* T3: the stock ceiling */
+  let ceil = 0;
+  goods.forEach(g => P.filter(m => SP.madeHere(F, g, m.id)).forEach(m => {
+    const cm = ctxAt(m, cards0[m.id]), n = SP.tradeStock(F, g, cm) * Math.ceil(7 / F.trade.restock_days.value);
+    const top = Math.max.apply(null, P.filter(b => !SP.madeHere(F, g, b.id)).map(b => SP.tradeSell(F, g, ctxAt(b, cards0[b.id]))));
+    ceil += Math.max(0, n * (top - SP.tradeBuy(F, g, cm)));
+  }));
+  out.stockCeiling = ceil;
+
+  /* the made-here rule holds at every stall: the maker buys back for little, nobody sells for what it charges */
+  let bad = 0;
+  goods.forEach(g => P.forEach(p => ['camp', 'town', 'fortress'].forEach(() => { const c = ctxAt(p); [0, 0.15].forEach(rel => { c.relBase = rel; if (SP.tradeSell(F, g, c) >= SP.tradeBuy(F, g, c)) bad++; }); })));
+  out.sellUnderBuy = bad;
+  out.tests = {
+    T1_a_typical_carry_pays: med.net > 0,
+    T2_week_one_under_a_job_a_day: out.weekOne.best.made < out.bar,
+    T4_no_stall_buys_back_at_its_price: bad === 0
+  };
+  return out;
+}
+
+module.exports = { run, week, load, knobs, runTrade };

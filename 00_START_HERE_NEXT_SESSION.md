@@ -2959,6 +2959,28 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (z) -- [trade goods] SHIPPED (rules 265, 266; fired by the coordinator's
+routine trig_01BBvg13yo3zqoJW2Ffi1XgE). Record: records/BOHEMIA_ECONOMY_DAY_83_TRADE_GOODS_A_BATCH_A_WEEK_OR_THE_VALLEY_PAYS_A_TRADER_LIKE_A_FIGHTER_10_26_26.md.
+STEP 1 FIRST (ede463a0, for RUN TWO wiring now): tape_shelf, every stall at least a stack of 20 rolls a visit (camp 20, town
+40, fortress 60, the Trades twice, never under 20 even raided), 1 a roll, 2 from the back room, never sold out, restock 3
+days; a stack is Battle Brothers' one tools item ('200 for 20', bb_all/2018). size_mult 0.95 / 1.02 / 1.10 on every stall
+price (265(b)); sell_floor_share 0.15, a stall never refuses (Day 82's 'a glut takes nothing' struck by his 265(b)).
+STEP 2: twelve goods, twelve makers from what each place is (s2); Battle Brothers' made here x1.0 / x0.15, not made x1.5 /
+x1.10, relations 0.15 both sides (bb_all/0827, quoted, checked by the gate).
+STEP 3: the typical carry (each good's batch to the nearest town paying more, dirt, three men's food and the median wage)
+pays for all twelve, the median by 4; week one's perfect trader (320 purse, every price, the roads, every start town) makes
+165, 189 with supplies, under one routine job a day (210). FOUND: Battle Brothers' three-day restock paid him 797 (30 carries,
+about four jobs a day, no risk): a maker turns out a batch a week (1 / 2 / 2). The size rule moved Day 82: the fortress's
+second dose came out (meds need 1 / 1 / 1), supplies' week one 23, worst week 37.
+BUILT: stall_prices.json (size, floor, tape, trade); engine/bohemia_stall_prices.js (sizeOf, tapeShelf, tapePrice, makes,
+madeHere, tradeBuy, tradeSell, tradeStock); runTrade() in tools/bohemia_economy_buy_versus_sell.js; BUY VERSUS SELL 45/0;
+TUNING's section R +10 rows. ROUTED: RUN TWO (NOTEs: the tape, the goods, sizeOf on gear), WORLD TWO (NOTE on WORLD's board:
+the map's marks are tradeSell), FEED (NOTE: a price heard is tradeSell), TUNING (section R; the weekly batch is harder than
+Battle Brothers on purpose), WORDS (the twelve names, draft).
+GATES (rule 13): BUY VERSUS SELL 45/0, PRICE TABLE 19/0, THE NEWS DOWN THE ROAD 28/0, HANDOFF, OPEN ROW as on main.
+NEXT: the pause (rule 121) resumes; jump list [made here] (now answered in part by s2: WORLD's real places beyond the 14),
+[the gap that survives], [the pump at home]. PENDING Paolo: none.
+
 ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (y) -- [buy versus sell] SHIPPED, lifted from rule 121's pause for rule 242
 (opened by the coordinator, rule 112). Record: records/BOHEMIA_ECONOMY_DAY_82_BUY_VERSUS_SELL_THE_STALL_PAYS_HALF_AND_A_TOWN_IN_NEED_PAYS_THE_DIFFERENCE_10_26_26.md.
 THE ANSWER: THEY PAY HALF at a calm stall (a night of food bought for 2 sells for 1; a dose, a roll, six rounds two for a

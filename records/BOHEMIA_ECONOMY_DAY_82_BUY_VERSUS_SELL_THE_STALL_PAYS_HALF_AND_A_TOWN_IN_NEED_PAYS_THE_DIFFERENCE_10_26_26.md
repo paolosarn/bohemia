@@ -7,6 +7,11 @@ records/BOHEMIA_PAOLO_SELL_AT_THE_STALL_10_26_26.md). Lifted from rule 121's pau
 economy-session_01WSDvbmsS, opened by the coordinator (rule 112). RUN TWO builds the sell button ([sell at the stall]);
 this page gives the numbers, the arithmetic and the proof.
 
+AMENDED BY DAY 83 (the same hour, his rules 265 and 266): every stall price now moves with the place's size (camp 0.95,
+town 1.02, fortress 1.10), a stall never refuses (a glut pays Battle Brothers' 15 percent; 'a glut takes nothing' below is
+struck), and a fortress wants one dose, not two; re-measured: week one 23 (a loved company 24), the worst week 37.
+records/BOHEMIA_ECONOMY_DAY_83_TRADE_GOODS_A_BATCH_A_WEEK_OR_THE_VALLEY_PAYS_A_TRADER_LIKE_A_FIGHTER_10_26_26.md s4.
+
 Built this round (numbers and mechanism only; no screen touched):
 - records/target/bb/stall_prices.json: the numbers, every row sourced, every quote the wiki copy's own words.
 - engine/bohemia_stall_prices.js: the one arithmetic (buy, sell, the handful, the need, the warning), pure functions,

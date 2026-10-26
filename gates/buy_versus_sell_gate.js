@@ -13,6 +13,8 @@
       to twelve, and the stacked famines, never pays as much as the same count costs there.
    S  THE SQUEEZE (Day 82 s4), on the live dice: week one's best trading pays under one routine contract, and no week of
       the year's feeds a crew of three; Battle Brothers' own spread at the slider's hard end pays nothing on any trade.
+   G  trade goods (rule 266): twelve makers, Battle Brothers' made-here rule, a typical carry pays its trip, and week one's
+      perfect trader (the richest purse, every price known, the roads) makes under one routine job a day.
    T  TUNING's one table carries the rows (section R) and names the file.
    M  the gate bites: each mutation of the file turns a leg red. */
 'use strict';
@@ -96,6 +98,25 @@ legsUS(null, ok);
 const bb = CALC.run({ share: raw.slider.bb.sell_share, model: raw.slider.bb.need_model });
 ok('S4 Battle Brothers\' spread (the slider\'s hard end) pays nothing on any trade, all year', bb.yearBest.total === 0 && bb.weekOne.total === 0, bb.yearBest.total);
 
+/* ---- G: trade goods (rule 266) ---- */
+function legsG(file, say) {
+  const goods = file.trade.goods, places = ['Anarchists', 'Blues', 'Caravans', 'Cartel', 'Church', 'Colorful', 'Homeless', 'Mob', 'Network', 'Reds', 'Remnants', 'Trades'];
+  say('G1 twelve goods, each made by one place, each of those places makes one; Volunteers and Custom make none', goods.length === 12 && places.every(p => SP.makes(file, p).length === 1) && SP.makes(file, 'Volunteers').length === 0 && SP.makes(file, 'Custom').length === 0);
+  say('G2 every good is worth its Battle Brothers worth at ten to one', goods.every(g => g.worth * 10 === +String(g.worth_source.quote).match(/(\d+)$/)[1]));
+  const atMaker = goods.every(g => { const c = { place: g.made_by[0], tier: 'town' }; return SP.tradeSell(file, g.id, c) <= Math.ceil(0.2 * SP.tradeBuy(file, g.id, c)); });
+  say('G3 the maker buys its own good back for little (Battle Brothers\' 15%)', atMaker);
+  const away = goods.every(g => { const c = t => ({ place: 'Volunteers', tier: t }); return SP.tradeSell(file, g.id, c('camp')) <= SP.tradeSell(file, g.id, c('town')) && SP.tradeSell(file, g.id, c('town')) <= SP.tradeSell(file, g.id, c('fortress')) && SP.tradeBuy(file, g.id, c('town')) > SP.tradeBuy(file, g.id, { place: g.made_by[0], tier: 'town' }); });
+  say('G4 away from its maker a good costs half again and sells dear, more in a bigger place', away);
+}
+legsG(raw, ok);
+const TR = CALC.runTrade();
+ok('G5 a typical carry pays its trip\'s food and wages: the median of the twelve obvious carries nets ' + TR.carries.median.net + ' (' + TR.carries.median.good + ', ' + TR.carries.median.from + ' to ' + TR.carries.median.to + ')', TR.tests.T1_a_typical_carry_pays);
+ok('G6 week one, the perfect trader with the richest purse makes ' + TR.weekOne.best.made + ' on goods, under one routine job a day (' + TR.bar + ')', TR.tests.T2_week_one_under_a_job_a_day);
+const SUP = CALC.run(null);
+ok('G7 goods and supplies together in week one: ' + (TR.weekOne.best.made + Math.max(SUP.weekOne.total, SUP.allied.weekOne)) + ', still under ' + TR.bar, TR.weekOne.best.made + Math.max(SUP.weekOne.total, SUP.allied.weekOne) < TR.bar);
+ok('G8 no stall buys a good back at what it charges, stranger or loved', TR.tests.T4_no_stall_buys_back_at_its_price);
+ok('G9 every good has a carry that pays', TR.obvious.length === 12 && TR.obvious.every(c => c.gain > 0));
+
 /* ---- T: TUNING's one table ---- */
 const TABLE = fs.readFileSync(path.join(ROOT, 'records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md'), 'utf8');
 const secP = TABLE.split(/\n## /).find(s => /^[A-Z]\. BUY VERSUS SELL/.test(s)) || '';
@@ -126,6 +147,11 @@ function bitesValley(name, over) {
 }
 bitesValley('a town that wants three times as much', { units: { food: { camp: 6, town: 12, fortress: 18 }, meds: { camp: 3, town: 3, fortress: 6 } } });
 bitesValley('the easiest end paying two thirds', { share: raw.slider.easiest.sell_share });
+function bitesTrade(name, over) { const r = CALC.runTrade(over); ok('M ' + name + ' turns the trade squeeze red', !r.tests.T2_week_one_under_a_job_a_day); }
+bitesTrade('Battle Brothers\' three-day restock', { restock: 3 });
+bitesTrade('a maker with three times the batch', { stock: { camp: 3, town: 6, fortress: 6 } });
+bites('a maker that buys its own good back at full price', m => { m.trade.made_here.value.sell = 1.0; }, legsG);
+bites('a good worth what its page does not say', m => { m.trade.goods[0].worth = 11; }, legsG);
 
 console.log('=== BUY VERSUS SELL GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);
