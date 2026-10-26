@@ -1,0 +1,149 @@
+{
+ "_about": "ECONOMY [buy versus sell] (rule 242, Paolo 10/26: 'at the stall where a dose of med six rounds food and water are available, I should also be able to sell... how much you can make, buy versus sell prices'). What the town's stall charges for his supplies AND what it pays for them, both moved by the town (rule 71's traits, the standing). RUN TWO's stall reads this file through engine/bohemia_stall_prices.js (one arithmetic for the screen, the gate and the calculator); TUNING owns moving any number here (the one table, section P, records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md). The town's NEED for a good is not typed here: it is the card's own field (records/target/settlement_traits.json food_buy_mult, medicine_buy_mult; the stall's traitMult() m.food, m.meds), never a second list. A 'quote' is the cited page's own words, checked against the page by gates/buy_versus_sell_gate.js; a row with no words to quote carries a 'why' instead. Record: records/BOHEMIA_ECONOMY_DAY_82_BUY_VERSUS_SELL_THE_STALL_PAYS_HALF_AND_A_TOWN_IN_NEED_PAYS_THE_DIFFERENCE_10_26_26.md. Calculator: tools/bohemia_economy_buy_versus_sell.js.",
+ "draft": true,
+ "goods": {
+  "food": {
+   "unit": "a night of food and water for one man (a can and a bottle, rule 209)",
+   "count": "food",
+   "buy": {
+    "value": 2,
+    "source": "records/target/bb/nightly_bill.json per_man_per_night (the stall's live line, slices/BOHEMIA_SETTLEMENT_SCREEN.html STALL food price 2)",
+    "why": "one price for the same night everywhere it is bought: the stall, the bill at nightfall, the wagon's refill"
+   }
+  },
+  "meds": {
+   "unit": "a dose",
+   "count": "meds",
+   "buy": {
+    "value": 1,
+    "source": "slices/BOHEMIA_SETTLEMENT_SCREEN.html STALL (no price typed: the stall's one battery, EVERYTHING COSTS ONE)",
+    "why": "a dose is one point of Battle Brothers' medicine, one a day per injury (records/target/bb/stash_rates.json medicine)"
+   }
+  },
+  "rounds": {
+   "unit": "six rounds",
+   "count": "rounds",
+   "per_unit": 6,
+   "buy": {
+    "value": 1,
+    "source": "slices/BOHEMIA_SETTLEMENT_SCREEN.html STALL (six rounds for one battery, adds 6)",
+    "why": "Battle Brothers' ammunition is the cheapest supply (worth 100 against medicine's and tools' 200); six of ours land on the one-battery floor"
+   }
+  },
+  "tape": {
+   "unit": "a roll of tape",
+   "count": "tape",
+   "buy": {
+    "value": 1,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2014_Tools and Supplies.txt",
+    "quote": "|worth=200",
+    "why": "tools are worth what medicine is worth (bb_all/1253_Medical Supplies.txt, also |worth=200), so a roll costs what a dose costs: one battery. The stall does not sell tape yet (RUN TWO [sell at the stall] adds the line); until then it only buys it"
+   }
+  }
+ },
+ "sell_share": {
+  "value": 0.5,
+  "unit": "of the calm buy price, paid when he sells one unit to a calm town",
+  "source": "ECONOMY Day 82 s2 (rule 117(a): start easier than Battle Brothers, its value at the hard end); the real record: a shop's buy at half its sell is the trade's oldest rule (keystone: the shelf price is double the cost)",
+  "why": "THEY PAY HALF: one number a fifteen-year-old reads at a glance (117(b)); about three times what Battle Brothers pays back, under what a grocer works on in a calm economy (a gross margin near a quarter)",
+  "bb_veteran": {
+   "value": 0.15,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+   "quote": "Buying price modifier/Selling price modifier = 6.67 (approx) in both cases."
+  },
+  "bb_expert": {
+   "value": 0.135,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+   "quote": "Expert Economic difficulty has a higher ratio (approx 7.41) due to lower Selling price modifiers."
+  },
+  "bb_supplies": {
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+   "quote": "Supplies (tools/medicine/ammo) purchase generally also use the same buying price modifier",
+   "why": "Battle Brothers sells tools, medicine and ammo but never buys them back (they go into a pool the moment they are bought; the coordinator's recall, records/BOHEMIA_PAOLO_SELL_AT_THE_STALL_10_26_26.md); only food sells back (bb_all/2150_Update 1.5.0.14.txt: 'buy back food that they previously sold'). His words beat it: every supply sells here"
+  }
+ },
+ "need_model": {
+  "value": "constant_cut",
+  "options": {
+   "constant_cut": "sell = price x (need - cut): the stall keeps the same cut in batteries, the rise is the seller's (the realistic: the farm-to-shelf margin is a fixed cost per unit, Gardner 1975; a spread narrows as goods move faster, Demsetz 1968; a glut drops what a buyer pays first, Peltzman 2000)",
+   "proportional": "sell = price x need x share: Battle Brothers' own (a situation multiplies the modifier, both sides alike); a famine pays twice a calm town for food and the stall keeps twice the cut"
+  },
+  "source": "ECONOMY Day 82 s2 (realism first, 8/4: the realistic leads; Battle Brothers' proportional is the hard end of the slider)",
+  "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1244_Market prices for various items.txt",
+  "bb_quote": "These are applied multiplicatively on price modifiers after Relations has been factored in."
+ },
+ "sell_share_max": {
+  "value": 0.85,
+  "unit": "of what the stall charges for the same unit in the same town",
+  "source": "ECONOMY Day 82 s2: the Allied buy cut, 0.15 of worth (records/target/settlement_traits.json relation_prices buy_sub_at_100)",
+  "why": "the stall always keeps something, even from a loved company in a famine: a famine stacked on Sickness (food x6) would otherwise pay more than it charges"
+ },
+ "buy_floor": {
+  "value": 1,
+  "source": "reference/library/grok/GROK_33_PRICE_FLOOR_2026_10_01.md (his ten-to-one floor, records/target/bb/price_table.json conversion.floorBatteries)",
+  "why": "nothing at the stall costs under one battery"
+ },
+ "need_units": {
+  "value": {
+   "food": {
+    "camp": 2,
+    "town": 4,
+    "fortress": 6
+   },
+   "meds": {
+    "camp": 1,
+    "town": 1,
+    "fortress": 2
+   }
+  },
+  "unit": "units a town in need buys at the need price in one week of its card (a night of food for one man; a dose)",
+  "source": "ECONOMY Day 82 s4: sized so the best week of trading the valley's dice allow pays under one routine contract (30, records/target/BOHEMIA_BOARD_SHELF.json) in every week of a year, the stacked worst case included (tools/bohemia_economy_buy_versus_sell.js)",
+  "why": "a shortage is a hole of a size, and once it is filled the price falls back (Sen 1981, the 1943 and 1974 famines: grain arriving broke the price); a camp's hole is a third of a fortress's (records/target/settlement_traits.json's tiers: camp, town, fortress, the map's REACH 1, 2, 3). Rounds and tape have no need card in Battle Brothers (no situation moves ammunition or tools), so none here: they move only with the town's sell knob"
+ },
+ "need_eases": {
+  "value": true,
+  "source": "ECONOMY Day 82 s2",
+  "why": "each unit he brings eases the shortage: the first sells at the card's full need, each next one a step nearer calm, calm after the town's last unit (the realistic: grain arriving is what broke the famine price, Sen 1981; and a hole filled by the map's own caravans, records/target/bb/arrival_traits.json well_supplied). The stall shows the next unit's price and how many the town still wants"
+ },
+ "need_word_at": {
+  "value": 1.25,
+  "source": "the smallest need a card on main sets (records/target/settlement_traits.json refugees food_buy_mult 1.25)",
+  "why": "every need card on main says its word ('they need meds here', rule 242(c)); a market day's 1.25 on both knobs is not a need and says nothing"
+ },
+ "handful_max": {
+  "value": 12,
+  "source": "ECONOMY Day 82 s2",
+  "why": "the most units one tap hands over: twelve rolls or doses; a good that would need more than twelve to bring one battery is a good the stall does not take here"
+ },
+ "warn_food_nights": {
+  "value": 1,
+  "unit": "nights for every man, left in the wagon after the sale",
+  "source": "VAMILY rule 242(a): 'never below what the next night needs without a warning'",
+  "why": "the night eats one a man (records/target/bb/nightly_bill.json); a sale that leaves less than that warns before it goes"
+ },
+ "undo_same_visit": {
+  "value": true,
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2150_Update 1.5.0.14.txt",
+  "quote": "buy back food that they previously sold",
+  "why": "rule 117(c): a wrong tap costs nothing. In the same visit, what he sold he buys back for what he got, and what he bought he sells back for what he paid (the price Battle Brothers charges on a buy-back is recall, not on the page: our call, and it makes no money either way)"
+ },
+ "slider": {
+  "easiest": {
+   "sell_share": 0.67,
+   "need_model": "constant_cut",
+   "why": "two thirds back: a mistake barely hurts"
+  },
+  "start": {
+   "sell_share": 0.5,
+   "need_model": "constant_cut",
+   "why": "the pick"
+  },
+  "bb": {
+   "sell_share": 0.15,
+   "need_model": "proportional",
+   "why": "Battle Brothers on Veteran (rule 117(a): its value at the hard end); 0.135 on Expert"
+  },
+  "source": "VAMILY rule 117(a): 'the difficulty sliders go up from there; its default sits at our hard end'"
+ }
+}
