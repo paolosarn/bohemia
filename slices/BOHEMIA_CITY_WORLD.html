@@ -47326,7 +47326,22 @@ function mapIdleFrame(set, face, beat, still){
 }
 /* ==== end __EVERYBODY_IDLES__ ==== */
 /* one of the cast, standing with his feet on the point, breathing on the beat */
-function mapPersonDraw(set, face, beat, sx, footY, walkPh){
+/* ==== __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER [the armour he wears shows], rule 272, Paolo 10/26: 'the good armour I have on
+   me doesn't show, like a police helmet'): on the map, from the far stop to the close end, he and the two of his company at his
+   shoulders wear their helmets and body armour (engine/bohemia_wear.js: the head found on the picture drawn, the piece each has
+   on), in depth with the painting like the body under it; the lead is his main man's own look (RUN's mapMainLook) or 'you'.
+   CHARACTER's block, RUN's file. ==== */
+function mapWearOn(fr, ox, oy, s, face, look){
+  var W = window.BohemiaWear; if (!W || !fr || !look) return false;
+  /* the door's company when the crew screen has saved none: each man at his place in the crew's looks, as the fight dresses him */
+  try { if (LOOP && LOOP.start && LOOP.start.company && CREW_DEFS) W.fallback(LOOP.start.company.map(function(m, i){ return { look: m.look || CREW_DEFS.looks[i], gear: m.gear }; })); } catch (_e) {}
+  var c = (typeof RigFrame !== 'undefined' && fr instanceof RigFrame) ? { img: fr.__sheet, x: fr.sx, y: fr.sy, w: fr.sw, h: fr.sh, dx: fr.ox, dy: fr.oy }
+    : { img: fr, x: 0, y: 0, w: fr.width, h: fr.height, dx: 0, dy: 0 };
+  var f = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'].indexOf(face); if (f < 0) f = 0;
+  return W.on(g, c, ox, oy, s, f, W.wearOf(look), { who: 'map:' + look, where: 'map' });
+}
+/* ==== /__THE_ARMOUR_HE_WEARS_SHOWS__ ==== */
+function mapPersonDraw(set, face, beat, sx, footY, walkPh, look){
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
   if (walkPh == null) { var __idle = mapIdleFrame(set, face, beat, f.idle); if (__idle) fr = __idle; }   /* __EVERYBODY_IDLES__ */
@@ -47343,6 +47358,7 @@ function mapPersonDraw(set, face, beat, sx, footY, walkPh){
       g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill(); }
     g.imageSmoothingEnabled = false;
     rigBlit(fr, __bx, __by, w, h);   /* __THE_MAP_DRAWS_FROM_THE_SHEET__ */
+    if (look) mapWearOn(fr, __bx, __by, w / fr.width, f === set[face] ? face : 'S', look);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   }, Math.min(__bx, sx - w * 0.22), __by, Math.max(w, w * 0.44), h + w * 0.07 + 1);
   return { w: w, h: h * 0.93 };
 }
@@ -47899,7 +47915,7 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
     [[-1, 0.25], [1, 0.5]].forEach(function(o, k){
       var m = mapCompanyMan(k); if (!m) return;   /* his two men: the next two of his own company, each his own model (__THE_MARKER_IS_YOUR_CREW__) */
       if (ONE && pass) { var sp = spot(k); if ((pass === 'front') !== (sp[1] > 0)) return;
-        MAP_SHADOW_DONE = true; try { mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null); } finally { MAP_SHADOW_DONE = false; }
+        MAP_SHADOW_DONE = true; try { mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null, MAP_CREW_LOOKS.looks[k]); } finally { MAP_SHADOW_DONE = false; }
         MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + sp[0]), Math.round(gy + sp[1]), f]);
         return; }
       /* level across the glass at his shoulders, or, as one, off each shoulder ACROSS HIS WAY (the perpendicular to his facing) */
@@ -47908,7 +47924,7 @@ function mapCompanyDraw(gx, gy, lift, moving, G, pass){
       /* and the CAMERA wins: walking across the glass, 'beside him on the ground' points up the screen, straight behind his
          head, and one of the two vanished behind his body (filmed 10/11); so each keeps at least 12 px to its own side */
       if (ONE) { var sgn = (lx === 0 ? o[0] : Math.sign(lx)), tx = bx + lx; if (Math.abs(tx) < 12 * K || Math.sign(tx) !== sgn) { lx = sgn * 12 * K - bx; ly *= 0.35; } }   /* where it LANDS, the step back included: on the side alone it sat 6 px right and 10 up, behind his head (logged 10/11) */
-      mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + bx + lx, gy + by + ly, moving && st != null ? st + o[1] : null);
+      mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + bx + lx, gy + by + ly, moving && st != null ? st + o[1] : null, MAP_CREW_LOOKS.looks[k]);   /* his look: his armour (__THE_ARMOUR_HE_WEARS_SHOWS__) */
       MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + bx + lx), Math.round(gy + by + ly), f]);
     });
     g.translate(0, -lift);
@@ -51071,7 +51087,8 @@ function renderCity(){
       __bw=__body.width/2; __bh=__body.height/2;
       /* the rig's box carries the body in its lower middle with the feet near the bottom */
       const __yx=mapSnap(__gx-__bw/2), __yy=mapSnap(__gy-__bh*0.93);
-      MAP_DEPTH.you=mapDepthBlit(function(){ g.drawImage(__body, __yx, __yy, __bw, __bh); }, __yx, __yy, __bw, __bh);   /* __YOU_WALK_BEHIND_IT__: the share of him covered */
+      MAP_DEPTH.you=mapDepthBlit(function(){ g.drawImage(__body, __yx, __yy, __bw, __bh);
+        if(__how==='rig3d') mapWearOn(__body, __yx, __yy, __bw/__body.width, mapFaceNow(), (typeof mapMainLook === 'function' && mapMainLook()) || 'you'); }, __yx, __yy, __bw, __bh);   /* __YOU_WALK_BEHIND_IT__: the share of him covered; __THE_ARMOUR_HE_WEARS_SHOWS__: his helmet and body armour on him */
     } else {
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
@@ -91243,5 +91260,6 @@ window.BOHEMIA_SKIN = (function(){
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
-<script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
+<script defer src="../engine/bohemia_idles.js"></script>
+<script defer src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour on him on the map -->  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>
