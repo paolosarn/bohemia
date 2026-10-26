@@ -4,7 +4,8 @@
    TAPE, MEDS, ROUNDS (records/BOHEMIA_ECONOMY_DAY_80_HOW_MANY_CURRENCIES_HIS_FOUR_ARE_BATTLE_BROTHERS_FOUR_AND_THE_GAME_COUNTS_ONE_
    10_25_26.md section 3), each his pack's own prop (set A of ui-the-six-at-pack-pixels-10-13, his UP 10/17) and a number; a
    supply stands on the glass only when the game counts it, never a dash, never an invented number. Legs, on the demo:
-   S1  the six icons are his pack tiles, byte for byte (slices/supply_icons/ against reference/art_bank/prop);
+   S1  the five icons are his pack tiles (slices/supply_icons/ against reference/art_bank/prop): four byte for byte, FOOD the
+       water bottle standing behind the can, his two tiles laid together pixel for pixel (UI, rule 209(b));
    S2  the game counts the six (RE-AIMED 10/25, RUN TWO's wagon): the glass carries them from the first minute, no dash, the pack's cells;
    S3  a count handed by the map (window.BOH_SUPPLIES, the one door the purse or the map fills) stands at once, in ECONOMY's order,
        each with its own pack prop, on the phone and on the computer, fitting the glass;
@@ -22,8 +23,19 @@ const SIX = ['batteries', 'food', 'tape', 'meds', 'rounds'];   /* RE-AIMED 10/26
 const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_props_042', water: 'pack_11_survival_props_004', tape: 'pack_11_survival_props_039', meds: 'pack_12_weapons_and_supplies_030', rounds: 'pack_12_weapons_and_supplies_018' };
 
 (async () => {
-  const same = SIX.filter(k => { try { return fs.readFileSync(path.join(ROOT, 'slices/supply_icons', k + '.png')).equals(fs.readFileSync(path.join(ROOT, 'reference/art_bank/prop', SRC[k] + '.png'))); } catch (_e) { return false; } });
-  leg(same.length === SIX.length, 'S1  THE FIVE ICONS ARE HIS PACK TILES, BYTE FOR BYTE', same.length + ' of ' + SIX.length);   /* RE-AIMED 10/26 (rule 209): five; the can with the bottle behind it is UI's to make (NOTE), and this leg follows it then */
+  /* UI [food and water are one] (rule 209(b)): FOOD is ONE picture, his two pack tiles laid together with no pixel changed, the
+     water bottle standing behind the can (slices/supply_icons/SOURCES.txt): the other four byte for byte, FOOD pixel for pixel */
+  const FOUR = SIX.filter(k => k !== 'food');
+  const same = FOUR.filter(k => { try { return fs.readFileSync(path.join(ROOT, 'slices/supply_icons', k + '.png')).equals(fs.readFileSync(path.join(ROOT, 'reference/art_bank/prop', SRC[k] + '.png'))); } catch (_e) { return false; } });
+  /* the two tiles laid the way SOURCES.txt says (PIL's alpha_composite, the tool that made it), compared pixel for pixel */
+  const foodOk = (() => { try { return require('child_process').execFileSync('python3', ['-c', [
+    'import sys', 'from PIL import Image', 'import numpy as np',
+    'f, c, b = [Image.open(x).convert("RGBA") for x in sys.argv[1:4]]',
+    'o = Image.new("RGBA", (112, 112), (0, 0, 0, 0)); o.alpha_composite(b, (64, 0)); o.alpha_composite(c, (0, 16))',
+    'd = int((np.asarray(o).astype(int) != np.asarray(f).astype(int)).any(-1).sum()) if f.size == (112, 112) else -1',
+    'print("true" if d == 0 else str(d) + " pixels off")'].join('\n'),
+    path.join(ROOT, 'slices/supply_icons/food.png'), path.join(ROOT, 'reference/art_bank/prop', SRC.food + '.png'), path.join(ROOT, 'reference/art_bank/prop', SRC.water + '.png')], { encoding: 'utf8' }).trim(); } catch (e) { return String(e.message).slice(0, 80); } })();
+  leg(same.length === FOUR.length && foodOk === 'true', 'S1  THE FIVE ICONS ARE HIS PACK TILES: FOUR BYTE FOR BYTE, FOOD THE CAN IN FRONT OF THE BOTTLE, NO PIXEL CHANGED (rule 209(b))', same.length + ' of ' + FOUR.length + ' byte for byte; food ' + foodOk);   /* RE-AIMED 10/26 (rule 209): five; the can with the bottle behind it is UI's to make (NOTE), and this leg follows it then */
   const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
   const errs = [];
   for (const prof of ['phone_portrait', 'computer']) {
