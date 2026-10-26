@@ -56,7 +56,10 @@
   var SRC = null, SRC_P = null, MAIN = null, MAIN_P = null, W = undefined, WERR = null, ROLLN = 0;
   function source() {
     if (SRC_P) return SRC_P;
-    SRC_P = fetch(BASE + 'BOHEMIA_FIGHT.html').then(function (r) { return r.text(); }).then(function (h) {
+    /* __ONE_DEPLOY__ (COMBAT [the fight is broken live], a marked line in WORLD's file): the fight's page asked fresh, as its loadAll now
+       asks its rules fresh, so the stars never play an old fight against new rules or the other way round (GitHub Pages lets a phone
+       keep any file ten minutes) */
+    SRC_P = fetch(BASE + 'BOHEMIA_FIGHT.html', { cache: 'no-cache' }).then(function (r) { return r.text(); }).then(function (h) {
       var grab = function (id) { var m = h.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>')); if (!m) throw new Error('the fight has no ' + id); return m[1]; };
       var orv = h.match(/function oddsRunValue\(E\) \{[\s\S]*?\n\}/);
       if (!orv) throw new Error('the fight has no oddsRunValue');

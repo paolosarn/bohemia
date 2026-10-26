@@ -315,8 +315,17 @@ const DATA_FILES = [
   /* the traits' own effects, so a man's sight is his (COMBAT [what the crew can't see reads dark], rule 157(c)) */
   '../records/target/bb/traits.json'];
 const DB = { read: {} };
+/* THE PAGE AND ITS RULES ARE ONE DEPLOY (COMBAT [the fight is broken live], Paolo 10/26: 'the auto combat started tweaking out on
+   me and not working during combat... then I was trying to fight manually and it was tweaking on that too'). MEASURED: the service
+   worker fetches this page fresh every time (slices/sw.js, cache 'no-store'), but every file below came through the phone's own
+   cache, which GitHub Pages lets keep a copy ten minutes (max-age=600); five deploys landed in the twenty minutes before he played,
+   so the NEW fight read an OLD ours.json. With the file from before COMBAT TWO's brain, AUTO's first man of ours threw on a row the
+   old file never had (auto_brain.damage_quantiles) on every frame, before the board drew; with the file from before the range bands,
+   their first gunman did the same, so by hand froze too. Every file now asks the server whether it changed (a 304 when it did not:
+   one round trip, never a rule from another deploy). records/BOHEMIA_COMBAT_THE_FIGHT_IS_BROKEN_LIVE_10_26_26.md */
+const FRESH = { cache: 'no-cache' };
 function loadAll() {
-  return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
+  return Promise.all(DATA_FILES.map(function (u) { return fetch(u, FRESH).then(function (r) { return r.json(); }); }))
     .then(function (a) {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
@@ -4255,7 +4264,7 @@ function tickVet(now) {
    (engine/bohemia_spanglish.js, regFor) picks the line's Spanglish twin about one line in eight, by the man's own lean; YOU
    never speaks here. Each line is heard in the shell's one voice with his map look (BOHEMIA_VOICE) and kept in the feed. */
 const CALL = { bank: null, PRIO: { man_down: 5, last_stand: 5, retreat: 4, superior: 4, kill: 3, outnumbered: 3, win: 3, dodged: 2, hit: 1, miss: 1, their_turn: 0 } };
-fetch('../records/target/bb/crew_voices.json').then(function (r) { return r.json(); }).then(function (j) { CALL.bank = j; }).catch(function () {});
+fetch('../records/target/bb/crew_voices.json', FRESH).then(function (r) { return r.json(); }).then(function (j) { CALL.bank = j; }).catch(function () {});
 function crewType(v) {
   const B = CALL.bank; if (!B || !B.types) return null;
   if (v.personality && B.types[v.personality]) return v.personality;
@@ -4576,7 +4585,7 @@ function tick(now) {
   if (now < UI.nextAI) return;
   if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first (three quarters of a beat), then he acts */
   const before = UI.anim.length;
-  FIGHT.aiStep(u);
+  try { FIGHT.aiStep(u); } catch (e) { turnBroke(u, e); }
   take();
   /* A TURN YOU CAN READ (VIA GROK 10/9: 'the turns are too short') AND NO DEAD PAUSE (rule 121): an act is read by its own
      motion played whole (a walk half a beat a tile, a shot or a blow a beat, a fall a beat) and the quarter-beat breath
@@ -4584,7 +4593,15 @@ function tick(now) {
   const acted = UI.anim.slice(before).some(function (a) { return a.k === 'step' || a.k === 'attack' || a.k === 'note'; });
   if (acted) UI.lastAct = now;
 }
-const BREATH_BEATS = .125, THEIRS_SAY = 'Their move. Tap the board to skip it.', THEIRS_SHORT = 'Their move.';
+/* A TURN THAT THROWS PASSES; IT NEVER FREEZES THE FIGHT (COMBAT [the fight is broken live]): a man's turn that threw (a rule from
+   another deploy, a bug) threw again on every frame, so the fight stood still for good, AUTO and by hand alike. Now his turn passes
+   and the fight goes on; the error is still thrown to the page, once a turn, so every gate sees it, and UI.broke counts them */
+function turnBroke(u, e) {
+  UI.broke = (UI.broke || 0) + 1; UI.brokeLast = String(e && e.message || e);
+  setTimeout(function () { throw e; });
+  try { if (FIGHT.current() === u) FIGHT.endTurn(u); } catch (_e) { if (FIGHT.current() === u) FIGHT.S.idx++; }   /* its own end threw: the order moves on */
+}
+const BREATH_BEATS = .125, THEIRS_SAY ='Their move. Tap the board to skip it.', THEIRS_SHORT = 'Their move.';
 /* once his veteran has said the skip (change 8), the strip only says whose move it is */
 function theirsSay() { return taughtNow().skip || faceTeaches() ? THEIRS_SHORT : THEIRS_SAY; }
 function isTheirsSay(t) { return t === THEIRS_SAY || t === THEIRS_SHORT; }
@@ -4626,7 +4643,7 @@ function skipTurn() {
   UI.anim.forEach(function (a) { if (a.k === 'step') { const v = FIGHT.byId(a.e.id); if (v) v._at = undefined; } }); UI.anim = [];
   for (let guard = 0; guard < 2000 && !S.over; guard++) {
     const u = FIGHT.current(); if (!u || crewControlled(u) || (UI.auto && S.round !== r0)) break;
-    FIGHT.aiStep(u); all.push.apply(all, S.events); S.events = [];
+    try { FIGHT.aiStep(u); } catch (e) { turnBroke(u, e); } all.push.apply(all, S.events); S.events = [];
   }
   all.forEach(function (e) { const v = FIGHT.byId(e.id); if ((e.t === 'dead' || e.t === 'down') && v) { v.seenFall = true; v._fallAt = performance.now() - beatMs() * 9; } });
   MUSIC.skipped(all);
@@ -5356,7 +5373,7 @@ const HOLD = { meta: null, state: 0, looks: {}, ims: {} };
 function holdMeta() {
   if (!HOLD.state) {
     HOLD.state = 1;
-    try { fetch('rig_hold/rig_hold.json').then(function (r) { return r.ok ? r.json() : null; })
+    try { fetch('rig_hold/rig_hold.json', FRESH).then(function (r) { return r.ok ? r.json() : null; })
       .then(function (m) { HOLD.meta = m; HOLD.state = m && m.looks ? 2 : 3; }, function () { HOLD.state = 3; }); } catch (e) { HOLD.state = 3; }
   }
   return HOLD.state === 2 ? HOLD.meta : null;
@@ -5367,7 +5384,7 @@ function holdLook(L) {
   if (L._key === undefined) L._key = Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k] === L; })[0] || null;
   const e = L._key && M.looks[L._key]; if (!e) return null;
   let d = HOLD.looks[L._key];
-  if (!d) { d = HOLD.looks[L._key] = { d: null }; fetch('rig_hold/' + e.json).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { d.d = j; }, function () {}); }
+  if (!d) { d = HOLD.looks[L._key] = { d: null }; fetch('rig_hold/' + e.json, FRESH).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { d.d = j; }, function () {}); }
   return d.d;
 }
 /* a sheet, decoded once and held as an ImageBitmap (as the rig sheets are) */
@@ -5463,7 +5480,7 @@ const MELEE_FIGHT = { Swing: 'swing', Carry: 'carry', CarryWalk: 'carrywalk', Ai
 function meleeMeta() {
   if (!MELEE.state) {
     MELEE.state = 1;
-    try { fetch('rig_melee/rig_melee.json').then(function (r) { return r.ok ? r.json() : null; })
+    try { fetch('rig_melee/rig_melee.json', FRESH).then(function (r) { return r.ok ? r.json() : null; })
       .then(function (m) { MELEE.meta = m; MELEE.state = m && m.looks ? 2 : 3; }, function () { MELEE.state = 3; }); } catch (e) { MELEE.state = 3; }
   }
   return MELEE.state === 2 ? MELEE.meta : null;
@@ -5471,7 +5488,7 @@ function meleeMeta() {
 function meleeLook(key) {
   const M = meleeMeta(), e = M && key && M.looks[key]; if (!e) return null;
   let d = MELEE.looks[key];
-  if (!d) { d = MELEE.looks[key] = { d: null }; fetch('rig_melee/' + e.json).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { d.d = j; }, function () {}); }
+  if (!d) { d = MELEE.looks[key] = { d: null }; fetch('rig_melee/' + e.json, FRESH).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { d.d = j; }, function () {}); }
   return d.d;
 }
 /* the thing in his hands, if it is a melee or thrown weapon with a prop: [prop, two-handed]; its row, else its class */
@@ -6952,9 +6969,13 @@ let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
-  try { tick(now); draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
-  catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
+  /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
+     turn froze the picture too) */
+  try { tick(now); } catch (e) { frameErr(e, now); }
+  try { draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
+  catch (e) { frameErr(e, now); }
 }
+function frameErr(e, now) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
 const MET_KEY = 'bohemia.fight.met.v1';
 function start() {
   const o = window.FIGHT_OPTS || {};
