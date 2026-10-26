@@ -172,7 +172,7 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-debuff): 10/26 LATEST -- SIX ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks, [healing on our clock] SHIPPED and x5 written, [the day-fifty curve] for WORLD, [the injury days on our clock] SHIPPED), research only, no card (rule 127); [the stupid-move watch] round three WAITS on the COMBAT emergency;
+TUNING (tuning-debuff): 10/26 LATEST -- NINE ROWS ANSWERED ([struck down, he still fights], [the clinic's half], [the sell spread], the ceiling ticks, [healing on our clock] x5 written, [the day-fifty curve], [the injury days on our clock], [all eighteen followers], [the stupid-move watch] ROUND THREE), research only, no card (rule 127);
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md, the one table's section S, bench
   tools/bohemia_tuning_struck_down_debuff.js (--marks, --b2b, --heal), bank banks/BOHEMIA_TUNING_STRUCK_DOWN_DEBUFF_10_26_26.json.
@@ -213,10 +213,15 @@ RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLI
   fights, Battle Brothers' month; the old 30 to 40 kept as struck.fresh.days_was); fade, clinic half, lifelong mark unchanged. At 6 to 8
   days today's clinicPrice is 12 to 16 at level one, Battle Brothers' weight: KEEP it, TUNING's price proposal withdrawn. ours.json
   still [30, 40] until CAMP moves it with engine/bohemia_long_injury.js's constants (NOTE on CAMP's board). Record s9.
+8 [all eighteen followers] (rule 270, for CAMP TWO): the one table's section V, every follower's wiki line, unlock, price (crowns / 10)
+  and number at rule 264's pace: only the cook's hour (x5, live) and the surgeon's day (x0.2 of ours) move. NOTE on CAMP's board.
+9 [the stupid-move watch] ROUND THREE on main d3ed6cfb (the COMBAT emergency's fix on, the one pace not yet):
+  records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_THREE_10_26_26.md: IDENTICAL to round two in every count (600 fights, 17,063 turns):
+  the fix is clean for the brain; the round-two rows stand. NEXT: the same 600 on the one pace's sha (rule 274) when it lands.
 NOTEs: CAMP (the numbers, the price, treat, Traumatized; x5 for the clock), WORLD (the gap measured; the day-fifty curve and the Lone Wolf table), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
   injury's hitpoints_pct, vision, fatigue recovery or action points; the fresh wound into the fight after the emergency), UI THREE.
 NOT MEASURED: a phone's CPU; the fresh wound on the live path (the fight does not read c.fresh yet); 234(e) AUTO keeping the hurt back.
-NEXT: [the stupid-move watch] round three the moment COMBAT's fix is on main; [the odds
+NEXT: [the stupid-move watch] round four on the one pace's sha (rule 274); [the odds
   keep up]; [the first week's losses]; [the 32 situations].
 [bb the struck down: Battle Brothers lets 33 in 100 live with a mark for life, no fresh wound, never benched; its temple charges for
 its own 1-to-9-day wounds, so ours must charge for the same wound, not for our longer days]
