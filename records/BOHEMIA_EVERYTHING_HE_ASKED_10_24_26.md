@@ -258,3 +258,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 238 | The clothes look good: leather and layering, quality before count | 129 | CHARACTER, COOK THREE, EYES | 
 | 239 | Everybody moves (idle animations, nobody stands like a chess piece), and the UI goes Crashbox | 130 | ANIMATION, UI, EYES | 
 | 240 | Battle Brothers, quicker and funner for normies, from the travel to the fight to the world | 133 | every lane, EYES | 
+| 241 | Every settlement and every camp looks good tall and wide on its own FIRST, before the phone's place; turning the device moves the buildings and people cleanly (they glide, nothing pops or gets lost) | 289 | COOK, RUN TWO, CAMP TWO, EYES | 
