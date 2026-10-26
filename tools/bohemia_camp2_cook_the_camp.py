@@ -866,13 +866,13 @@ CLEAN = [(40, 980, 640, 1090), (660, 930, 1700, 1090), (1250, 690, 1690, 925), (
          (60, 220, 600, 370), (880, 120, 1250, 310), (1380, 0, 2050, 100), (1000, 0, 1290, 120)]
 
 
-def plate():
+def plate(PW=2060, PH=1092, seed=260):
     src = np.asarray(Image.open(os.path.join(R, 'slices/settlement_ground_packs/camp_0.webp')).convert('RGB')).astype(np.float64)
     # the render's own slow light and dark goes (it came out as blocks when quilted); its grain, rocks and scrub stay
     low = ndimage.gaussian_filter(src, (36, 36, 0))
     src = src - low + np.median(src.reshape(-1, 3), 0)
-    PW, PH, P, O = 2060, 1092, 120, 30
-    rng = np.random.RandomState(260)
+    P, O = 120, 30
+    rng = np.random.RandomState(seed)
     cands = []
     for (x0, y0, x1, y1) in CLEAN:
         for yy in range(y0, max(y0 + 1, y1 - P), 9):
@@ -1001,11 +1001,16 @@ def main():
            'pieces': {n: {'rect': list(rects[n]), 'foot': meta[n]['foot_px'], 'footprint_m': meta[n]['footprint_m'], 'height_m': meta[n]['height_m']} for n in rects},
            'card': {n: c['back'] for n, c in cards.items()}}
     day, night, med = plate()
+    tday, tnight, _ = plate(1092, 1940, 289)   # THE TALL GROUND (rule 289: every camp good tall first): a phone held upright fills with it
+    tday.save(os.path.join(OUT, 'plate_tall.webp'), quality=88, method=6)
+    tnight.save(os.path.join(OUT, 'plate_tall_night.webp'), quality=88, method=6)
     day.save(os.path.join(OUT, 'plate.webp'), quality=88, method=6)
     night.save(os.path.join(OUT, 'plate_night.webp'), quality=88, method=6)
     kit['plate'] = {'src': 'plate.webp', 'night_src': 'plate_night.webp', 'px': [2060, 1092], 'ppm': 515 / 12.0,
                     'day_ground_median': round(med, 3), 'night_ground_median': 0.215,
                     'from': 'slices/settlement_ground_packs/camp_0.webp, quilted from its clean sand (CLEAN boxes in the tool)'}
+    kit['plate_tall'] = {'src': 'plate_tall.webp', 'night_src': 'plate_tall_night.webp', 'px': [1092, 1940], 'ppm': 515 / 12.0,
+                         'why': 'rule 289: the camp good tall first; the same sand quilted upright, the camp laid out for it (BohemiaCampLife.layout tall)'}
     json.dump(kit, open(os.path.join(OUT, 'kit.json'), 'w'), indent=1)
     backs = [n for n, c in cards.items() if c['back']]
     print('sheet %d x %d; card BACK on %d of %d: %s' % (sheet.size[0], sheet.size[1], len(backs), len(cards), ', '.join(backs) or 'none'))

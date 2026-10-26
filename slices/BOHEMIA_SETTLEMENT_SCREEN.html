@@ -1970,6 +1970,8 @@ function campSheet(k){
       var row = document.createElement('div'); row.className = 'campf'; row.dataset.id = f.id;
       var h = document.createElement('b'); h.textContent = f.word; row.appendChild(h);
       var d = document.createElement('p'); d.textContent = f.says; row.appendChild(d);   /* draft:true */
+      if(f.who && f.who !== f.says){ var wp = document.createElement('p'); wp.textContent = f.who; wp.style.opacity = '.72'; row.appendChild(wp); }   /* __ALL_EIGHTEEN__ (CAMP TWO, rule 270): who he is in the valley, draft:true */
+      if(f.soon && !f.hired){ row.appendChild(act('Not yet', moneyWord(f.price).toUpperCase(), function(){ heard(f.word + ' is not with anybody yet.'); }, true)); acts.appendChild(row); return; }   /* his work waits on its screen: his hire stays shut, nobody pays for nothing; draft:true */
       if(f.hired) row.appendChild(act('Let him go', '', function(){ C.letGo(f.id); post('retinue', {retinue:C.retinue()}); heard(f.word + ' walks off.'); campSheet('retinue'); }));
       else row.appendChild(act('Take him on', moneyWord(f.price).toUpperCase(), function(){
         if(mine.length >= sl){ heard(sl ? 'No place left by the fire.' : 'Nobody follows a crew with no name.'); return; }

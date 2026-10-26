@@ -116,7 +116,7 @@
     var b = K.back;
     if (!b && on && document.body) {
       b = K.back = document.createElement('div'); b.id = 'campback'; b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'back to camp');
-      b.setAttribute('data-morph', 'camp');
+      b.setAttribute('data-morph', 'campback');   /* never 'camp': that id is the camp's own door (MOTION's grow and shrink), the phone's HEAL */
       var cv = document.createElement('canvas'); cv.width = 40; cv.height = 22; cv.setAttribute('style', 'display:block;width:40px;height:22px;image-rendering:pixelated;pointer-events:none;margin:0 auto 1px');
       var t = document.createElement('div'); t.textContent = 'CAMP'; t.setAttribute('style', 'pointer-events:none');   /* draft:true */
       b.appendChild(cv); b.appendChild(t);

@@ -111,6 +111,7 @@
     return order;
   }
   var FW = { cook: 'THE COOK', blacksmith: 'THE BLACKSMITH', surgeon: 'THE SURGEON', lookout: 'THE LOOKOUT', scout: 'THE SCOUT', paymaster: 'THE PAYMASTER' };
+  try { var CW = up('BohemiaCamp'); if (CW && CW.WORD) for (var wk in CW.WORD) FW[wk] = CW.WORD[wk]; } catch (e) {}   /* all eighteen by their own word */
   function names() {
     var o = { fire: { name: 'THE FIRE', short: 'the hour, the night' }, tent: { name: 'YOUR TENT', short: 'you and your company' },
       cart: { name: K.st ? K.st.layout.carrier.word : 'THE CART', short: 'the stash' }, retinue: { name: 'BY THE FIRE', short: 'who travels with you' } };

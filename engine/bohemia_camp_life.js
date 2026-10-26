@@ -59,12 +59,15 @@
     return level >= 1 ? CARRIERS[1] : CARRIERS[0];
   }
 
-  /* each follower's piece and where it stands round the fire (picture px from the fire) */
+  /* each follower's piece and where it stands round the fire (picture px from the fire): his own spot when he has one (the cook at
+     the fire, the blacksmith by the cart, the lookout at the edge), else the next free place round the camp in the order he came;
+     all eighteen of Battle Brothers' have a piece (rule 270), at most five by the fire at once (the retinue's places) */
   var FOLLOWER_AT = {
     cook: { sprite: 'f_cook', dx: 250, dy: 60 }, blacksmith: { sprite: 'f_blacksmith', dx: -560, dy: 150 },
-    surgeon: { sprite: 'f_surgeon', dx: 420, dy: 250 }, lookout: { sprite: 'f_lookout', dx: 720, dy: -230 },
-    scout: { sprite: 'f_scout', dx: -720, dy: -160 }, paymaster: { sprite: 'f_paymaster', dx: 300, dy: -150 }
+    surgeon: { sprite: 'f_surgeon', dx: 420, dy: 200 }, lookout: { sprite: 'f_lookout', dx: 640, dy: -230 },
+    scout: { sprite: 'f_scout', dx: -640, dy: -160 }, paymaster: { sprite: 'f_paymaster', dx: 300, dy: -150 }
   };
+  var FOLLOWER_SPOTS = [{ dx: 470, dy: 40 }, { dx: -600, dy: 20 }, { dx: 560, dy: -110 }, { dx: -470, dy: -200 }, { dx: 330, dy: -230 }, { dx: -300, dy: 210 }, { dx: 200, dy: 230 }];
 
   /* the tents in rows behind the fire, an arc a row, the first tent his */
   function tentSpots(n, R) {
@@ -91,7 +94,11 @@
     pieces.push({ kind: 'carrier', key: 'cart', sprite: car.sprite, carrier: car.id, word: car.word, trailer: !!car.trailer, x: FIRE.x - 470, y: FIRE.y + 70, tap: 'cart' });
     pieces.push({ kind: 'supplies', key: 'supplies', sprite: 'supplies', x: FIRE.x - 330, y: FIRE.y + 140, tap: 'cart' });   /* the camp kept off the glass's bottom corners, where the phone stands (rule 286) */
     pieces.push({ kind: 'seats', key: 'retinue', sprite: 'seats', x: FIRE.x + 300, y: FIRE.y + 150, tap: 'retinue' });
-    (o.followers || []).forEach(function (id) { var f = FOLLOWER_AT[id]; if (!f) return;
+    var freeSpot = 0, taken = {};
+    (o.followers || []).forEach(function (id) { if (FOLLOWER_AT[id]) taken[FOLLOWER_AT[id].dx + ',' + FOLLOWER_AT[id].dy] = 1; });
+    (o.followers || []).forEach(function (id) {
+      var f = FOLLOWER_AT[id];
+      if (!f) { var sp = null; while (freeSpot < FOLLOWER_SPOTS.length && !sp) { var q = FOLLOWER_SPOTS[freeSpot++]; if (!taken[q.dx + ',' + q.dy]) sp = q; } if (!sp) return; f = { sprite: 'f_' + id, dx: sp.dx, dy: sp.dy }; }
       pieces.push({ kind: 'follower', key: 'f_' + id, follower: id, sprite: f.sprite, x: FIRE.x + f.dx, y: FIRE.y + f.dy, tap: 'retinue' }); });
     var k = o.kills | 0;
     if (k > 0) pieces.push({ kind: 'slain', key: 'slain', sprite: k <= 2 ? 'slain_few' : k <= 5 ? 'slain_some' : 'slain_many', n: k, x: FIRE.x + 680, y: FIRE.y + 330, tap: null });

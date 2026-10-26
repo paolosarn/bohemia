@@ -28,6 +28,11 @@
         (257(a)(d), 260(b))
      K9 THE HOURS LEAVE GHOSTS: while the hours run, the places his men stood leave their two-percent trace (273(c))
      K10 nothing threw
+     K11 *** THE CAMP FITS THE PHONE *** phone right and left: nothing of the camp, no man and no MAP under the phone; the camp's
+        own BREAK CAMP gone while the phone's HEAL stands (rule 286(a)(b))
+     K12 ALL EIGHTEEN: Battle Brothers' eighteen followers in the retinue, each with his number and his piece, each drawn in the camp
+        when he is with you, his number moving with him; the twelve whose screens are not wired yet stand priced with their hire
+        shut (rule 270(c))
    node gates/the_camp_is_his_own_gate.js [--profile phone_portrait|phone_landscape|computer]   (no flag: all three) */
 'use strict';
 const path = require('path');
@@ -202,6 +207,25 @@ async function run(profile) {
     ok(P + 'K6 A FOLLOWER ADDS HIS PIECE: the cook hired, his pot stands in the camp, a door to the retinue', k6.pieces.indexOf('cook') >= 0 && k6.order.indexOf('f_cook') >= 0 && k6b.open === 'f_cook' && k6b.rows >= 3 && k6b.cook,
       JSON.stringify(k6) + ' opens ' + JSON.stringify(k6b) + ' camp ' + JSON.stringify({ on: k6camp.on, why: k6camp.why }));
     await sf.evaluate(() => { BohemiaCamp.letGo('cook'); const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); });
+    /* ---- K12 ALL EIGHTEEN (rule 270(c)) ---- */
+    const k12 = await sf.evaluate(async () => {
+      const C = BohemiaCamp, kit = await (await fetch('camp_two/kit.json')).json(), ids = C.offer().map(o => o.id), out = { n: ids.length, noPiece: [], noNumber: [], notDrawn: [], moved: [], soon: C.offer().filter(o => o.soon).map(o => o.id) };
+      ids.forEach(id => { if (!kit.pieces['f_' + id]) out.noPiece.push(id); const L = C.LIVE[id] || C.NUMS[id]; if (!L || !Object.keys(L).some(k => typeof L[k] === 'number')) out.noNumber.push(id); });
+      const was = C.retinue().slice();
+      for (let i = 0; i < ids.length; i += 5) {
+        was.concat(C.retinue()).forEach(id => C.letGo(id));
+        const batch = ids.slice(i, i + 5); batch.forEach(id => C.hire(id));
+        BohemiaCampLook.open(BohemiaSettlement.camp().info);
+        const drawn = BohemiaCampLook.state().pieces.filter(q => q.kind === 'follower').map(q => q.follower);
+        batch.forEach(id => { if (drawn.indexOf(id) < 0) out.notDrawn.push(id);
+          const L = C.LIVE[id] || C.NUMS[id], k = Object.keys(L).filter(k => typeof L[k] === 'number')[0];
+          const others = batch.filter(x => x !== id); others.forEach(x => C.letGo(x)); const withHim = (L[k] < 1 && L[k] > 0) || /mult/.test(k) ? C.mult(k) : C.plus(k); C.letGo(id); const without = (L[k] < 1 && L[k] > 0) ? C.mult(k) : C.plus(k);
+          if (withHim !== without) out.moved.push(id); batch.forEach(x => C.hire(x)); });
+      }
+      C.retinue().forEach(id => C.letGo(id)); was.forEach(id => C.hire(id)); BohemiaCampLook.open(BohemiaSettlement.camp().info);
+      return out; });
+    ok(P + 'K12 ALL EIGHTEEN: every one of Battle Brothers\' followers is in the retinue with his number and his piece, drawn at his spot when he is with you, his number moving with him (the twelve whose screens are not wired yet stand priced and shut)',
+      k12.n === 18 && !k12.noPiece.length && !k12.noNumber.length && !k12.notDrawn.length && k12.moved.length === 18 && k12.soon.length === 12, JSON.stringify(k12));
     /* leave it as found: break the camp by its own button */
     await tapIn(p.mainFrame(), HEAL); await p.waitForTimeout(500);
     await fr.evaluate(() => { clearInterval(window.__GATE_KEEP_OFF); });
