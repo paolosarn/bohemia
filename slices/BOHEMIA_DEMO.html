@@ -473,7 +473,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"56dfbf8646eca8ea",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"b0f336d5ee5046a8",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1577,7 +1577,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/26zj - HIS MEN MOVE ON THE TAPE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/26zk - THE MINUTES AFTER, AND MAKE CAMP</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12675,8 +12675,23 @@ window.spoilsLeave = spoilsLeave;
 window.addEventListener('message', function(ev){
   var m = ev && ev.data; if(!m || m.type !== 'BOHEMIA_SPOILS' || !SPOILS.frame || ev.source !== SPOILS.frame.contentWindow) return;
   if(m.act === 'counts'){ spoilsPay(m); try{ spoilsScrapToTape(); }catch(_e){} }
-  if(m.act === 'leave'){ SPOILS.left = true; spoilsClose(); nfHome(); }
+  if(m.act === 'leave'){ SPOILS.left = true; spoilsClose(); nfHome(); if(m.camp) spoilsCamp(); }
 });
+/* MAKE CAMP FROM THE FIGHT (RUN FOUR [make camp from the fight], rule 267(b), Paolo 10/26: 'after combat ends there should be a button
+   where you go straight into camp mode to start healing'): the end screen's MAKE CAMP goes home like LEAVE, and the moment the map is
+   his again CAMP's camp is made where the party stands, the fight's place (BohemiaMapCamp.make: camp-speed healing from its first
+   hour). The map takes him back over a few beats (the clouds part), so this asks every quarter second for six seconds. */
+function spoilsCamp(){
+  var k = 0, t = setInterval(function(){ k++;
+    var cf = document.getElementById('cityFrame'), w = cf && cf.contentWindow, C = w && w.BohemiaMapCamp, done = false;
+    /* the contact that started the fight is over: its flag would break the camp on its first hour as 'contact' (measured: hours 1,
+       why 'contact', on the phone and the computer); a party that reaches the camp later still ends it, as rule 267(a) says */
+    try{ if(!CITYFIGHT && C && !C.on() && typeof w.contactClear === 'function') w.contactClear(); }catch(_e){}
+    try{ done = !CITYFIGHT && !!C && (C.on() || C.make() === true); }catch(_e){}
+    if(done || k > 24){ clearInterval(t); SPOILS.camped = { ok: done, tries: k, at: Date.now() }; }
+  }, 250);
+}
+window.spoilsCamp = spoilsCamp;
 /* ==== end __THE_SPOILS__ ==== */
 function nfOverIn(d, src){
   if (!NF.frame || src !== NF.frame.contentWindow || NF.over) return false;

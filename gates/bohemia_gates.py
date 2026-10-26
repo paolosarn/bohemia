@@ -9665,6 +9665,11 @@ GATES = [
      "TAPE with the tape roll, LOOT ALL raises the company's tape (bohemia.supplies.v1) by it once, no 'scrap' on the screen; the live demo on both after a road fight "
      "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. AND [tape in the loot] (rule 271(a)(c)): 400 rolled fights, every man "
      "of theirs killed carried ECONOMY's two or three rolls in his kit, every fight with a kill leaves tape, nothing off the men who ran or a beast. about 4 min", True),
+    ('MAKE CAMP FROM THE FIGHT', ['node', 'gates/make_camp_from_the_fight_gate.js'],
+     "RUN FOUR gate, 10/26, RUN FOUR's half of [make camp from the fight] (rule 267(b), Paolo 10/26: 'after combat ends there should be a button where you go straight "
+     "into camp mode to start healing'). MEASURED before: one way out, LEAVE; camp a second trip. HOLDS: MAKE CAMP beside LEAVE on the bottom bar, whole, a thumb's size, "
+     "clear of the loot's buttons and the strip, after a won, lost or pulled-out fight and not a wipe, phone and computer; on the live demo a real tap takes the counts "
+     "home and makes CAMP's camp at the fight's place; the finished fight's contact flag no longer breaks it on its first hour. green at registration, 11/0, about 4 min", True),
     ('OPTIMIZE LOOT', ['node', 'gates/optimize_loot_gate.js'],
      "RUN FOUR gate, 10/26, rows [optimize loot] and [one tap selects, two taps take] (rules 244, 249, Paolo 10/26: 'an optimize loot button at the end of battle "
      "screen... if my inventory is full but there are ten more things that could be taken... it takes the things in your inventory that are sellable at the lowest "
@@ -9674,6 +9679,14 @@ GATES = [
      "the shop's own sellBack and isJunk cut out of its file agree with ours; phone and computer: OPTIMIZE LOOT beside LOOT ALL with its gain, one real tap makes the "
      "most valuable stash, the strip shows what it left and took and the gain, UNDO puts back every piece exactly; one tap lights a piece and moves no box, two taps "
      "(a double click, a right click) take it; the live demo after a road fight. green at registration, 22/0, about 2 min", True),
+    ('THE AFTERMATH', ['node', 'gates/the_aftermath_gate.js'],
+     "RUN FOUR gate, 10/26, row [the aftermath plays behind the loot screen] (rule 245, Paolo 10/26: 'the background is all black... instead a live show, as zoomed "
+     "in as it can be, of your characters looting the bodies, walking between them, talking about what's next... at a lower opacity'). MEASURED before: the end "
+     "screen on a flat #120e0a, black wherever no plate stood. HOLDS: the page alone drawn on open and never black, LEAVE stops it; on the live demo, two rolled road "
+     "fights on a phone and one on a computer: the back is the same baked board the fight holds, the dead and down where the fight left them, every man who can walk "
+     "seen walking and stopped at a body, a friend or the watch, the friend down gone to; the window or open ground lit and full of detail; every word on the scene at "
+     "4.5 to 1 or better with the words taken out; the back's draw under 6 percent of the thread and never a frame's budget at the 95th, the page's frames within 15 "
+     "percent of the same page with the scene held, its two pictures under 12 MB (2.6 on a phone), nothing loaded for it but ANIMATION's act sheets. about 6 min", True),
     ('THE STARS SIT WITH THE WORDS', ['node', 'gates/the_stars_sit_with_the_words_gate.js'],
      "RUN TWO gate, 10/24, row [the stars sit with the words] (rule 146(e), Paolo 10/24: 'even on the hire screen the stars are a "
      "little too big and not nicely put with the UI's letters, so make the stars smaller'): on the hall's hire cards and a man's "
