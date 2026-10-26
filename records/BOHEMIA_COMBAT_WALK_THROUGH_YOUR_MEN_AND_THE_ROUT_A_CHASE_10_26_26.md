@@ -109,3 +109,44 @@ won 73 (67). TUNING may weigh it; Battle Brothers' x 0.25 stays for the man in t
 
 THE GATE: MELEE IS ONE TILE, COVER IS WHAT IS ON THE TILE, its new leg NO COVER IN THE OPEN STREET (9/0). THE PERKS ARE LIVE:
 Bullseye's leg puts a man in the way instead of a rock on the next tile (47/0).
+
+## 4. HEIGHTS YOU CAN READ (EYES line 67, rule 164 item 14)
+
+HIS WORDS (10/24): 'one-story versus two-story or even a three-story building, I don't know how that helps me and it's hard to
+tell visually'. EYES 10/25 (BUILD 10/25o): on five boards every house read one storey, the only tall thing a church steeple;
+a pointer resting on a house before the fight said no word of height, cover or sight.
+
+MEASURED: the rules already stand roofs at two storeys on every board kind but the landfill and the shore (headless, six
+seeds each: the strip 50 two-storey roof tiles, the ruin 89, the freeway 27, the suburb 11 two-storey and 4 three-storey). On
+the page, suburb seed 3 to 6 deal only one-storey ranches (the art's truth: most of the valley's suburbs are ranch houses);
+seed 1 deals three-storey roofs, seed 2 two-storey ones. The drawing never said which: the ladder grew with the storeys
+(0.2, 0.45, 0.8 of a tile) and nothing else marked it, and the hover did nothing before FIGHT or over a wall.
+
+NOW:
+- over every roof's ladder, one up-chevron a storey in bone, the same mark that rides over a man standing up there, so a one,
+  a two and a three storey roof read apart at a glance before anyone climbs them (drawn pixels: 15, 40, 60);
+- the mouse resting on a building (its roof or its wall) says what its height gives: before FIGHT, on AUTO, in their turn, and
+  in his turn over a wall he cannot walk to; on the phone a finger held on it says the same; a tap on a wall says how high the
+  building stands and the way up. The roof's line is the rules' own numbers ('Roof, 2 storeys up: +10% to hit anyone lower,
+  guns reach 2 tiles farther, sees 2 tiles farther, no club reaches him from the street. Climb it by its ladder.').
+
+NOT MINE, NOTED: a suburb that reads as one-storey ranches is the board art and its storeys data (COMBAT TWO's boards, COOK
+FOUR's houses, ours.roof_storeys.blocks); a two-storey house drawn as two storeys waits on their FINAL art (rule 100).
+
+THE GATE: HEIGHTS YOU CAN READ 4/0 (0/3 on the old fight).
+
+## 5. GEAR NEVER VANISHES, THE SAVE AND THE NEXT FIGHT (rule 191(b), what was left after 80ba31e1)
+
+80ba31e1 held ten fights in a row on pieces cut from the demo (the crew screen, the door, the fight, the after-keeper). What
+was left: the save and the next fight, on the demo itself. READ FIRST: the company (bohemia.company.v1), his gear by name
+(bohemia.climb.v1) and the stash (bohemia.bag.v1) are written the moment they change, by the crew screen, the crew door, the
+market and the spoils screen only; the game's save (bohemia.save.v1) holds the world and writes none of them; a NEW GAME
+clears them. So a crash and CONTINUE cannot roll his hands back by itself; it had to be played to be sure.
+
+PLAYED (gates/gear_through_the_save_gate.js, the demo, his phone and his computer): the company screen opened from the map,
+the spear and the car door dragged from the stash into one man's hands (DESI), DONE; a road fight through the game's one door
+(the toll crew), won, the spoils left; the tab KILLED (chrome://crash) and the link opened again on the same phone, CONTINUE;
+the next fight; killed and reopened again; the fight after. Both profiles: 1 both, crash > continue, 2 both, crash >
+continue, 3 both; the company carried both after every fight and every reopening. Nothing vanished.
+
+THE GATES: GEAR THROUGH THE SAVE 3/0 on each profile (new, slow); GEAR NEVER VANISHES 6/0 holds the ten.
