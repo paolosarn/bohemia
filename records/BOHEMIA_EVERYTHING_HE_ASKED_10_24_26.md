@@ -239,3 +239,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 219 | Every settlement, portrait and landscape, keeps the phone's corner clear (left or right setting); no shopkeeper behind the phone; switches at once; speech never under the phone, with a transition | 279 | COOK, RUN TWO, UI TWO, UI, EYES | 
 | 220 | In a fight the top bar (batteries, time of day) goes away completely | 280 | UI, COMBAT, EYES | 
 | 221 | (a bug) Every level a man earns waits for me to spend it, as many as he banked; my level-5 man let me level up only once | 281 | RUN FOUR, RUN TWO, EYES | 
+| 222 | In any shop, a piece better than what one of my men has (same weapon type, helmet, armour, shield, every category) is lit green; a tap says who needs it most (the worst-equipped first) | 282 | RUN TWO, UI THREE, EYES | 
