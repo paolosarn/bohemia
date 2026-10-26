@@ -37,7 +37,8 @@ const near = (a, b) => Math.abs(a - b) <= 1;
 /* in the town's or the camp's frame: what its last picture drew and, in the same frame, what each man is now (the camp heals an hour
    every half second, so the men are read the moment the picture is, never against the numbers seeded a second before) */
 const READ = async (want) => {
-  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const t0 = Date.now();   /* a picture drawn after the seed (the camp may still be growing in, its frame not drawing yet) */
+  for (let i = 0; i < 90; i++) { await new Promise(r => requestAnimationFrame(r)); if (window.__HEADBARS && __HEADBARS.at >= t0 && i >= 1) break; }
   const drew = ((window.__HEADBARS && __HEADBARS.drew) || []).slice();
   return { drew, now: want.map(w => { const b = BohemiaCondition.bars(w.main ? { main: true } : { name: w.name || '', look: w.look });
     return { who: w.who, show: !!(b && b.show), hp: b ? b.hpF : 1, arm: b ? b.armF : 1 }; }) };

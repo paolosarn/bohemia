@@ -78,8 +78,12 @@ async function run(profile) {
       for (const k of order) { const xy = await cf.evaluate((k) => BohemiaSettlement.where(k), k); if (!xy) continue;
         const box = await (await cf.frameElement()).boundingBox();   /* a finger on the building, in the page's own pixels (the camp gate's way) */
         if (profile === 'phone_portrait') await d.page.touchscreen.tap(box.x + xy.x, box.y + xy.y); else await d.page.mouse.click(box.x + xy.x, box.y + xy.y);
-        await cf.waitForTimeout(700);
-        const shown = await cf.evaluate(() => document.getElementById('sheet').classList.contains('on'));
+        await cf.waitForTimeout(1000);
+        /* the place's sheet is open (CAMP TWO's camp opens its places by the screen's own state); a man standing on the place (CAMP TWO
+           puts one at the fire) opens the company screen instead, a panel too */
+        const crewHit = await cf.evaluate(() => !!(window.BohemiaCrewDoor && BohemiaCrewDoor.isOpen()));
+        const shown = crewHit || await cf.evaluate(() => !!BohemiaSettlement.state.open || document.getElementById('sheet').classList.contains('on'));
+        if (crewHit) { await cf.evaluate(() => BohemiaCrewDoor.close()); await cf.waitForTimeout(300); h3.opened.push(k + ' (his man there: the company screen)'); continue; }
         /* the X: where it is against the phone the shell draws over the game (for UI's board), then closed by its own click, the camp
            gate's way (closing is not what this leg measures; the camp standing through it is) */
         if (shown) { const xr = await cf.evaluate(() => { const c = document.getElementById('close'), r = c && c.getBoundingClientRect(); return r ? { x: r.left, y: r.top, w: r.width, h: r.height } : null; });

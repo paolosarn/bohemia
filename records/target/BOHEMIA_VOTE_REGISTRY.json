@@ -15729,7 +15729,7 @@
    "why": "You used to camp and have to watch the bar, and the camp ran on for days after everyone was fine. Now, the hour every man is at 99 percent health and armour, the camp closes by itself, the clock goes on pause, and one of your men says it out loud. You see it on the RUN tab: get hurt in a fight, then press the phone's HEAL.",
    "before_after": {
     "before": "the camp ran on with a whole company until you broke it (EYES saw 49 hours)",
-    "after": "@STAMP@: back on the map on PAUSE (the phone says STOPPED), one of his men saying 'We're whole. Say the word and we move.'",
+    "after": "BUILD 10/26zzi: back on the map on PAUSE (the phone says STOPPED), one of his men saying 'We're whole. Say the word and we move.'",
     "scale": "his phone upright, the bottom of the screen"
    },
    "show": {
