@@ -1,13 +1,11 @@
-WORLD TWO (world-two-map): 10/26 LATEST -- [the best of both maps] SHIPPED, BUILT, NOT YET SEEN (rule 243, BUILD 10/26zq, e3cf4d6f):
-Valheim's half of the map, research first (records/BOHEMIA_WORLD_TWO_THE_BEST_OF_BOTH_MAPS_10_26_26.md: Valheim's unseen is blank and
-its bosses change the WORLD, not the map, so the shape under the static and the map changing are ours and his). BUILT in
-slices/bohemia_his_map.js with five marked __HIS_MAP__ lines in RUN's map: the unseen city grey under the tape (its shape, no colour,
-a third of the pixels, cheaper than RUN's dark); his pins (hold: CAMP, DANGER, LOOT, SHOP, A WORD; TAKE IT OFF); a cross where a man
-died; the next boss's sign marks him; his fight; his fall changes the district (lights, a place, a wall, the map opened, a base by
-'boss'); records/target/bb/boss_map.json, nineteen act-one rows, draft:true. GATE HIS MAP 21/0 phone, 21/0 computer. In VOTE:
-world-two-his-map-10-26. The whole block: handoffs/WORLD_TWO.md. NEXT: [where it sells best] (rule 266(b)), (b)5, the pin cross-out.
-[bb maps: Battle Brothers clears its fog by sight and a tower's circle and changes its map by war; Valheim fills in, pins, finds.]
-[analog horror: the city you have not walked is on the tape, grey, the people gone; the city you have walked is in colour.]
+WORLD TWO (world-two-map): 10/26 LATEST -- [where it sells best] BUILT, NOT YET SEEN (rule 266(b), BUILD 10/26zv, 0dfe8446), after
+[the best of both maps] (rule 243, e3cf4d6f): the town's screen tells the map what its stall pays; mapSellMarks(good) marks the towns he
+knows best first, fading, '?' where never priced; WHERE IT SELLS BEST 7/0 phone, 7/0 computer. The stash's tap is RUN TWO's.
+[the best of both maps]: the unseen city grey under the tape, his pins and the crosses, the boss found by a sign, the boss changes
+his district; slices/bohemia_his_map.js, five marked __HIS_MAP__ lines in RUN's map; HIS MAP 21/0 a profile. The whole block:
+handoffs/WORLD_TWO.md. NEXT: (b)5 danger at a glance, the pin cross-out, EYES' marks.
+[bb money: Battle Brothers never tells you which town pays most; ours remembers what each stall told you.]
+[analog horror: an old price fades on the map like a polaroid in a wallet.]
 
 PORTRAIT (portrait-wounds): 10/26 LATEST -- [the face shows the wound] and [every face breathes] SHIPPED c552e2a9, BUILT,
 NOT YET SEEN (rules 234(c), 246; BUILD 10/26zm): 18 marks for the 59 injury rows on YOU and all 152 people's own faces at 128 and the

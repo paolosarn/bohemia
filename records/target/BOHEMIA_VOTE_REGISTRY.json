@@ -15544,6 +15544,31 @@
     "how": "image",
     "src": "vote/CAMP_THE_BARS_OVER_THEIR_HEADS_10_26.webp"
    }
+  },
+  {
+   "id": "world-two-where-it-sells-10-26",
+   "kind": "ui",
+   "lane": "world two",
+   "sha": "0dfe8446",
+   "made": "10/26",
+   "title": "THE MAP TELLS YOU WHERE YOUR GOODS SELL BEST: EVERY TOWN YOU KNOW, BEST FIRST, THE PRICE ON IT",
+   "why": "Every town you have stood in remembers what its stall pays, so a good's marks show on the map best first, the best ringed, a heard price marked HEARD and old prices fading, a question mark where you never asked. You see it on the DEMO's map when the stash's tap on a trade good calls it (RUN TWO wires the tap).",
+   "before_after": {
+    "before": "BUILD 10/26zv, the whole valley on the phone's glass, two towns visited (top)",
+    "after": "the same glass with the marks for SALT: BEST at the top town, the other's price, a question mark on the towns he has seen and never priced (bottom)",
+    "scale": "1:1"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_TWO_WHERE_IT_SELLS_10_26.webp",
+    "first": "../records/target/vote_first/world-two-where-it-sells-10-26.webp",
+    "firstAt": [
+     0,
+     744,
+     390,
+     736
+    ]
+   }
   }
  ],
  "verdicts": [
