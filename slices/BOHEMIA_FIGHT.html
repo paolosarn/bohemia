@@ -2972,6 +2972,7 @@ function nightPass(g, w, h, keep, lift, dayOf) {
   g.save();
   if (!dayOf) { g.globalCompositeOperation = 'saturation'; g.fillStyle = 'rgba(128,128,128,' + NIGHT_GREY + ')'; g.fillRect(0, 0, w, h); }
   g.globalCompositeOperation = 'multiply'; g.fillStyle = nightTint(lift, dayOf ? NIGHT_GROUND : null); g.fillRect(0, 0, w, h);
+  if (!dayOf && MOONLIT[lift]) { g.globalCompositeOperation = 'screen'; g.globalAlpha = MOONLIT[lift]; g.drawImage(g.canvas, 0, 0); g.globalAlpha = 1; }   /* COOK [every enemy reads at night]: moonlit, his darks lifted and his lights left (screened over himself: c(1 + a(1 - c))), his own colours */
   if (dayOf) { g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'color'; g.globalAlpha = NIGHT_HUE; g.drawImage(dayOf, 0, 0); }
   if (keep) { g.globalCompositeOperation = 'destination-in'; g.drawImage(keep, 0, 0); }
   g.restore();
@@ -3073,9 +3074,46 @@ const MAN_MOON = 0.5;
    in both. Measured on the gate's night board: a man's stand-off 0.88 of the day's with one lift, 0.93 (0.97 in the sun)
    with the two; the threshold flat from 0.04 to 0.07 */
 const MOON_SILHOUETTE = 0.055, MOON_SHADE = -0.25;
-function moonOf(x, y) {
+/* EVERY ENEMY READS AT NIGHT (COOK [every enemy reads at night], 10/25/26; line 3 of his list, EYES 10/25 q43: 'the one Kid stood
+   on a dark tile at night and was never drawn'). MEASURED (tools/bohemia_cook_every_enemy_reads_at_night_10_25_26.js, every look an
+   enemy can wear, standing, on every dark tile of the strip, seed 31): the night's ground keeps its light now (COOK's night
+   board), so a dark tile is 0.03 to 0.055 and the moon's lift (a multiply: it can only darken) left a man in dark clothes at
+   0.04 to 0.05, his ground's own light: on the strip and the freeway every one of the 86 looks stood under 1.4 to 1 off the
+   darkest tenth of the tiles (the Church and Reds gangs 1.04, the Kids 1.08). So the pick is made for the MAN and his tile,
+   not the tile alone: the night he knows (the tile's pick, moonTile) wherever it stands him MOON_ENOUGH off his ground; where it
+   would not, the gentlest that does, his own sheet's middle light (sheetLum) against the tile's, in this order: the other of the
+   two (the silhouette, MOON_SHADE, dark on light; the moon's lift, MAN_MOON), then MOONLIT (a man the moon finds: his own picture
+   screened over itself after the moon's tint, which lifts his darks and leaves his lights, light on dark, his own colours and
+   folds kept, never a white ghost: rule 134's ghosts wear the cold wash; added over himself it clipped a white shirt white), a
+   little (MOONLIT[0.75]) and then more (MOONLIT[0.8]); if none does, the one that stands him
+   furthest off. Measured with the colour too: the old pick left the Mechanic, a Kid and the Heavy 4 to 7 CIELAB apart from the
+   darkest tenth of the strip's tiles (the eye needs about 10). His day rim stays dark ink (his 10/17 NO on the coloured
+   outline). The gun, the prop and the pose he holds take his lift (UI.moonAt). After, the same boards: every look 1.43 to 1 at
+   the least on the darkest tenth (the Kids 1.45; the suburb 1.59), and most men keep the night he knows. */
+const MOONLIT = { 0.75: 0.6, 0.8: 0.85 }, MAN_MOONLIT = 0.75, MAN_MOONLIT2 = 0.8, MOON_ENOUGH = 1.45;
+function moonTile(x, y) {
   const L = UI.groundLum, S = FIGHT.S;
   return L && x >= 0 && y >= 0 && x < S.w && y < S.h && L[y * S.w + x] > MOON_SILHOUETTE ? MOON_SHADE : MAN_MOON;
+}
+function moonOf(x, y) {
+  const k = UI.moonAt && UI.moonAt[x + ',' + y]; if (k !== undefined) return k;   /* the man on this tile picked his own */
+  return moonTile(x, y);
+}
+function sheetLum(c) {   /* the middle light of a sheet's figure pixels (relative luminance), sampled small */
+  const sw = Math.min(192, c.width), sh = Math.max(1, Math.round(c.height * sw / c.width)), t = document.createElement('canvas'); t.width = sw; t.height = sh;
+  const g = t.getContext('2d'); g.imageSmoothingEnabled = false; g.drawImage(c, 0, 0, c.width, c.height, 0, 0, sw, sh);
+  const d = g.getImageData(0, 0, sw, sh).data, lin = function (v) { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }, v = [];
+  for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 200) v.push(.2126 * lin(d[i]) + .7152 * lin(d[i + 1]) + .0722 * lin(d[i + 2]));
+  v.sort(function (p, q) { return p - q; });
+  return v.length ? v[Math.floor(v.length / 2)] : 0;
+}
+function moonFor(img, x, y) {
+  const L = UI.groundLum, S = FIGHT.S;
+  if (!L || x < 0 || y < 0 || x >= S.w || y >= S.h) return moonOf(x, y);
+  const g = L[y * S.w + x], cr = function (lift) { nightSheet(img, lift); const a = UI.darkOf.get(img)['lum' + lift]; return (Math.max(a, g) + .05) / (Math.min(a, g) + .05); };
+  const base = moonTile(x, y), order = [base, base === MOON_SHADE ? MAN_MOON : MOON_SHADE, MAN_MOONLIT, MAN_MOONLIT2];
+  for (let i = 0; i < order.length; i++) if (cr(order[i]) >= MOON_ENOUGH) return order[i];   /* the night he knows where it reads, else the gentlest that does */
+  return order.reduce(function (b, l) { return cr(l) > cr(b) ? l : b; });
 }
 /* the night ground's light under each tile, once at the bake: the middle of four points on the tile, read off the baked board
    (relative luminance, WCAG's) */
@@ -3099,6 +3137,7 @@ function nightSheet(img, lift) {
     const A = img.atlas, cv = document.createElement('canvas'); cv.width = A.width; cv.height = A.height;
     const g = cv.getContext('2d'); g.drawImage(A, 0, 0);
     nightPass(g, cv.width, cv.height, A, lift);
+    m['lum' + lift] = sheetLum(cv);   /* COOK [every enemy reads at night]: the figure's light, for the pick */
     cv.src = img.src; cv.night = true; c = m[lift] = img.over(cv); c.night = true;
     if (typeof createImageBitmap === 'function') createImageBitmap(cv).then(function (b) { b.src = img.src; b.night = true; const p = img.over(b); p.night = true; m[lift] = p; }, function () {});
   }
@@ -3106,6 +3145,7 @@ function nightSheet(img, lift) {
     c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
     const g = c.getContext('2d'); g.drawImage(img, 0, 0);
     nightPass(g, c.width, c.height, img, lift);
+    m['lum' + lift] = sheetLum(c);
     c.src = img.src; c.night = true; m[lift] = c;
     if (typeof createImageBitmap === 'function') createImageBitmap(c).then(function (b) { b.src = img.src; b.night = true; m[lift] = b; }, function () {});
   }
@@ -4751,7 +4791,9 @@ function clipCol(name, k, L) { const c = (L && L.clips || DB.rig.clips)[name]; r
 function sheetOf(v) {
   const img = UI.imgs['fight_rig/' + lookOf(v).file]; if (!img) return null;
   const x = Math.round(dx(v)), y = Math.round(dy(v));
-  return FIGHT.S.night && !FIGHT._t.litAt(x, y) ? nightSheet(img, moonOf(x, y)) : img;
+  if (!(FIGHT.S.night && !FIGHT._t.litAt(x, y))) return img;
+  const lift = moonFor(img, x, y); (UI.moonAt = UI.moonAt || {})[x + ',' + y] = lift;   /* COOK [every enemy reads at night]: his own pick, his gun takes it */
+  return nightSheet(img, lift);
 }
 /* THE ONE NATIVE PIXEL (rule 114a; DIRECTION's ruler: 98 painted px = a 1.72 m man at 57 px a metre): a man is drawn at a
    WHOLE number of device pixels to the rig's pixel, the one nearest the size asked, so every pixel of the model is the same

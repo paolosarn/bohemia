@@ -47,20 +47,47 @@ const READ = async function (night) {
   const cache = {};
   for (const k of want) {
     const lk = L[k], img = await loadImg('fight_rig/' + lk.file); if (!img) { out[k] = { err: 'no sheet' }; continue; }
-    const lifts = night ? [MAN_MOON, MOON_SHADE] : [null], fig = {};
+    const NEW = typeof MAN_MOONLIT !== 'undefined', lifts = night ? (NEW ? [MAN_MOONLIT, MAN_MOONLIT2, MOON_SHADE, MAN_MOON] : [MAN_MOON, MOON_SHADE]) : [null], fig = {};
     for (const lift of lifts) {
       const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; const g = c.getContext('2d'); g.drawImage(img, 0, 0);
       if (lift !== null) nightPass(g, c.width, c.height, img, lift);
       fig[lift === null ? 'day' : lift] = figure(c, lk);
     }
-    const cs = tiles.map(t => { const lift = night ? (t.g > MOON_SILHOUETTE ? MOON_SHADE : MAN_MOON) : 'day'; return cr(fig[lift].med, t.g); });
-    out[k] = { kind: lk.kind, type: lk.type || null, med: +med(cs).toFixed(3), worst10: +pct(cs, 0.1).toFixed(3), worst: +pct(cs, 0).toFixed(3),
+    /* the page's own pick: the old rule by the tile's light alone; COOK's by the man and his tile (the larger stand-off) */
+    const cs = tiles.map(t => { if (!night) return cr(fig.day.med, t.g); if (!NEW) return cr(fig[t.g > MOON_SILHOUETTE ? MOON_SHADE : MAN_MOON].med, t.g);
+      const base = t.g > MOON_SILHOUETTE ? MOON_SHADE : MAN_MOON, order = [base, base === MOON_SHADE ? MAN_MOON : MOON_SHADE, MAN_MOONLIT, MAN_MOONLIT2];   /* the page's own order (moonFor) */
+      const cs_ = order.map(l => cr(fig[l].med, t.g)), i = cs_.findIndex(c => c >= MOON_ENOUGH); return i >= 0 ? cs_[i] : Math.max(...cs_); });
+    const old = night ? tiles.map(t => cr(fig[t.g > MOON_SILHOUETTE ? MOON_SHADE : MAN_MOON].med, t.g)) : cs;   /* the pick before: the tile's light alone */
+    out[k] = { kind: lk.kind, type: lk.type || null, med: +med(cs).toFixed(3), worst10: +pct(cs, 0.1).toFixed(3), worst: +pct(cs, 0).toFixed(3), oldWorst10: +pct(old, 0.1).toFixed(3),
       fig: Object.fromEntries(Object.entries(fig).map(([a, b]) => [a, +b.med.toFixed(4)])) };
   }
   return { tiles: tiles.length, groundMed: +med(tiles.map(t => t.g)).toFixed(4), looks: out, board: S.board };
 };
 
-(async () => {
+async function measure(kinds, seed, profile) {
+  const res = { profile, seed, kinds: {} };
+  for (const kind of kinds) {
+    const got = {};
+    for (const night of [false, true]) {
+      const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:' + seed + ',speed:1,kind:"' + kind + '",night:' + night + '}' });
+      try {
+        await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 40000 });
+        await d.page.waitForTimeout(2500);
+        got[night ? 'night' : 'day'] = await d.page.evaluate(READ, night); got.err = got.err || d.errs[0];
+      } finally { await d.close(); }
+    }
+    const D0 = got.day, N0 = got.night, rows = {};
+    for (const k of Object.keys(N0.looks)) {
+      const a = D0.looks[k], b = N0.looks[k]; if (!a || !b || a.err || b.err) continue;
+      rows[k] = { kind: b.kind, type: b.type, day: a.worst10, night: b.worst10, kept: +(b.worst10 / a.worst10).toFixed(3), oldNight: b.oldWorst10, oldKept: +(b.oldWorst10 / a.worst10).toFixed(3), nightWorst: b.worst, nightMed: b.med, fig: b.fig };
+    }
+    res.kinds[kind] = { board: N0.board, tilesDark: N0.tiles, groundDay: D0.groundMed, groundNight: N0.groundMed, looks: rows, err: got.err || null };
+  }
+  return res;
+}
+module.exports = { READ, measure };
+
+if (require.main === module) (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   const res = { profile: PROFILE, seed: SEED, kinds: {} };
   for (const kind of KINDS) {
@@ -76,7 +103,7 @@ const READ = async function (night) {
     const D0 = got.day, N0 = got.night, rows = {};
     for (const k of Object.keys(N0.looks)) {
       const a = D0.looks[k], b = N0.looks[k]; if (!a || !b || a.err || b.err) continue;
-      rows[k] = { kind: b.kind, type: b.type, day: a.worst10, night: b.worst10, kept: +(b.worst10 / a.worst10).toFixed(3), nightWorst: b.worst, nightMed: b.med, fig: b.fig };
+      rows[k] = { kind: b.kind, type: b.type, day: a.worst10, night: b.worst10, kept: +(b.worst10 / a.worst10).toFixed(3), oldNight: b.oldWorst10, oldKept: +(b.oldWorst10 / a.worst10).toFixed(3), nightWorst: b.worst, nightMed: b.med, fig: b.fig };
     }
     const w = Object.entries(rows).sort((p, q) => p[1].kept - q[1].kept);
     res.kinds[kind] = { board: N0.board, tilesDark: N0.tiles, groundDay: D0.groundMed, groundNight: N0.groundMed, looks: rows, weakest: w.slice(0, 6).map(([k, r]) => k + ' ' + r.night + '/' + r.day) };

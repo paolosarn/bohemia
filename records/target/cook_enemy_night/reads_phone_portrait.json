@@ -1,0 +1,4440 @@
+{
+ "profile": "phone_portrait",
+ "seed": 31,
+ "kinds": {
+  "strip": {
+   "board": "strip + suburb + works",
+   "tilesDark": 162,
+   "groundDay": 0.1203,
+   "groundNight": 0.1334,
+   "looks": {
+    "faction_anarchists": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.046,
+     "night": 1.563,
+     "kept": 1.494,
+     "oldNight": 1.064,
+     "oldKept": 1.017,
+     "nightWorst": 1.483,
+     "nightMed": 2.399,
+     "fig": {
+      "0.75": 0.0943,
+      "0.8": 0.1262,
+      "-0.25": 0.0265,
+      "0.5": 0.0394
+     }
+    },
+    "faction_blues": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.115,
+     "night": 1.661,
+     "kept": 1.49,
+     "oldNight": 1.153,
+     "oldKept": 1.034,
+     "nightWorst": 1.468,
+     "nightMed": 2.096,
+     "fig": {
+      "0.75": 0.1282,
+      "0.8": 0.1717,
+      "-0.25": 0.0375,
+      "0.5": 0.0548
+     }
+    },
+    "faction_caravans": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.116,
+     "night": 1.66,
+     "kept": 1.487,
+     "oldNight": 1.188,
+     "oldKept": 1.065,
+     "nightWorst": 1.491,
+     "nightMed": 2.107,
+     "fig": {
+      "0.75": 0.1383,
+      "0.8": 0.1815,
+      "-0.25": 0.0385,
+      "0.5": 0.0584
+     }
+    },
+    "faction_cartel": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.277,
+     "night": 1.458,
+     "kept": 1.142,
+     "oldNight": 1.327,
+     "oldKept": 1.039,
+     "nightWorst": 1.357,
+     "nightMed": 2.829,
+     "fig": {
+      "0.75": 0.0522,
+      "0.8": 0.0672,
+      "-0.25": 0.0148,
+      "0.5": 0.0216
+     }
+    },
+    "faction_church": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.261,
+     "night": 1.514,
+     "kept": 1.201,
+     "oldNight": 1.037,
+     "oldKept": 0.822,
+     "nightWorst": 1.45,
+     "nightMed": 1.903,
+     "fig": {
+      "0.75": 0.3504,
+      "0.8": 0.4383,
+      "-0.25": 0.1081,
+      "0.5": 0.1701
+     }
+    },
+    "faction_colorful": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.115,
+     "night": 1.533,
+     "kept": 1.375,
+     "oldNight": 1.139,
+     "oldKept": 1.022,
+     "nightWorst": 1.455,
+     "nightMed": 1.994,
+     "fig": {
+      "0.75": 0.2429,
+      "0.8": 0.3109,
+      "-0.25": 0.0698,
+      "0.5": 0.1081
+     }
+    },
+    "faction_homeless": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.107,
+     "night": 1.53,
+     "kept": 1.382,
+     "oldNight": 1.14,
+     "oldKept": 1.03,
+     "nightWorst": 1.454,
+     "nightMed": 1.988,
+     "fig": {
+      "0.75": 0.239,
+      "0.8": 0.3108,
+      "-0.25": 0.0699,
+      "0.5": 0.1074
+     }
+    },
+    "faction_mob": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.066,
+     "night": 1.633,
+     "kept": 1.532,
+     "oldNight": 1.078,
+     "oldKept": 1.011,
+     "nightWorst": 1.456,
+     "nightMed": 2.271,
+     "fig": {
+      "0.75": 0.1098,
+      "0.8": 0.1423,
+      "-0.25": 0.0308,
+      "0.5": 0.0454
+     }
+    },
+    "faction_network": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.113,
+     "night": 1.524,
+     "kept": 1.369,
+     "oldNight": 1.144,
+     "oldKept": 1.028,
+     "nightWorst": 1.453,
+     "nightMed": 1.977,
+     "fig": {
+      "0.75": 0.2359,
+      "0.8": 0.3008,
+      "-0.25": 0.0703,
+      "0.5": 0.1058
+     }
+    },
+    "faction_reds": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.052,
+     "night": 1.602,
+     "kept": 1.523,
+     "oldNight": 1.042,
+     "oldKept": 0.99,
+     "nightWorst": 1.451,
+     "nightMed": 2.36,
+     "fig": {
+      "0.75": 0.0992,
+      "0.8": 0.1319,
+      "-0.25": 0.0277,
+      "0.5": 0.0413
+     }
+    },
+    "faction_remnants": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.097,
+     "night": 1.682,
+     "kept": 1.533,
+     "oldNight": 1.084,
+     "oldKept": 0.988,
+     "nightWorst": 1.452,
+     "nightMed": 2.223,
+     "fig": {
+      "0.75": 0.1147,
+      "0.8": 0.1502,
+      "-0.25": 0.0325,
+      "0.5": 0.0485
+     }
+    },
+    "faction_trades": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.05,
+     "night": 1.53,
+     "kept": 1.457,
+     "oldNight": 1.094,
+     "oldKept": 1.042,
+     "nightWorst": 1.461,
+     "nightMed": 2.46,
+     "fig": {
+      "0.75": 0.0891,
+      "0.8": 0.1174,
+      "-0.25": 0.0246,
+      "0.5": 0.037
+     }
+    },
+    "faction_volunteers": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.073,
+     "night": 1.562,
+     "kept": 1.456,
+     "oldNight": 1.231,
+     "oldKept": 1.147,
+     "nightWorst": 1.453,
+     "nightMed": 2.335,
+     "fig": {
+      "0.75": 0.1696,
+      "0.8": 0.2208,
+      "-0.25": 0.0487,
+      "0.5": 0.0728
+     }
+    },
+    "tier_thug": {
+     "kind": "tier",
+     "type": null,
+     "day": 1.048,
+     "night": 1.489,
+     "kept": 1.421,
+     "oldNight": 1.281,
+     "oldKept": 1.222,
+     "nightWorst": 1.452,
+     "nightMed": 2.276,
+     "fig": {
+      "0.75": 0.1919,
+      "0.8": 0.2483,
+      "-0.25": 0.0547,
+      "0.5": 0.0836
+     }
+    },
+    "tier_poacher": {
+     "kind": "tier",
+     "type": null,
+     "day": 1.091,
+     "night": 1.652,
+     "kept": 1.514,
+     "oldNight": 1.205,
+     "oldKept": 1.104,
+     "nightWorst": 1.488,
+     "nightMed": 2.159,
+     "fig": {
+      "0.75": 0.1463,
+      "0.8": 0.1914,
+      "-0.25": 0.0412,
+      "0.5": 0.0621
+     }
+    },
+    "beast_dire_wolf": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.114,
+     "night": 1.513,
+     "kept": 1.358,
+     "oldNight": 1.139,
+     "oldKept": 1.022,
+     "nightWorst": 1.452,
+     "nightMed": 1.986,
+     "fig": {
+      "0.75": 0.2368,
+      "0.8": 0.3069,
+      "-0.25": 0.0698,
+      "0.5": 0.1057
+     }
+    },
+    "beast_cave_hyena": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.098,
+     "night": 1.595,
+     "kept": 1.453,
+     "oldNight": 1.252,
+     "oldKept": 1.14,
+     "nightWorst": 1.452,
+     "nightMed": 2.285,
+     "fig": {
+      "0.75": 0.1629,
+      "0.8": 0.2128,
+      "-0.25": 0.046,
+      "0.5": 0.0692
+     }
+    },
+    "beast_feral_dog_shepherd": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.074,
+     "night": 1.559,
+     "kept": 1.452,
+     "oldNight": 1.229,
+     "oldKept": 1.144,
+     "nightWorst": 1.451,
+     "nightMed": 2.34,
+     "fig": {
+      "0.75": 0.1701,
+      "0.8": 0.2214,
+      "-0.25": 0.0488,
+      "0.5": 0.0731
+     }
+    },
+    "person_anarchists_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.114,
+     "night": 1.583,
+     "kept": 1.421,
+     "oldNight": 1.192,
+     "oldKept": 1.07,
+     "nightWorst": 1.45,
+     "nightMed": 2.585,
+     "fig": {
+      "0.75": 0.0725,
+      "0.8": 0.0975,
+      "-0.25": 0.021,
+      "0.5": 0.0298
+     }
+    },
+    "person_blues_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.106,
+     "night": 1.676,
+     "kept": 1.515,
+     "oldNight": 1.116,
+     "oldKept": 1.009,
+     "nightWorst": 1.451,
+     "nightMed": 2.164,
+     "fig": {
+      "0.75": 0.1228,
+      "0.8": 0.161,
+      "-0.25": 0.0348,
+      "0.5": 0.0515
+     }
+    },
+    "person_caravans_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.045,
+     "night": 1.623,
+     "kept": 1.553,
+     "oldNight": 1.04,
+     "oldKept": 0.995,
+     "nightWorst": 1.453,
+     "nightMed": 2.35,
+     "fig": {
+      "0.75": 0.1012,
+      "0.8": 0.1325,
+      "-0.25": 0.0281,
+      "0.5": 0.0414
+     }
+    },
+    "person_cartel_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.065,
+     "night": 1.624,
+     "kept": 1.525,
+     "oldNight": 1.133,
+     "oldKept": 1.064,
+     "nightWorst": 1.457,
+     "nightMed": 2.507,
+     "fig": {
+      "0.75": 0.0824,
+      "0.8": 0.1087,
+      "-0.25": 0.0232,
+      "0.5": 0.0339
+     }
+    },
+    "person_church_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.071,
+     "night": 1.634,
+     "kept": 1.526,
+     "oldNight": 1.133,
+     "oldKept": 1.058,
+     "nightWorst": 1.451,
+     "nightMed": 2.523,
+     "fig": {
+      "0.75": 0.0819,
+      "0.8": 0.1096,
+      "-0.25": 0.0227,
+      "0.5": 0.0339
+     }
+    },
+    "person_colorful_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.099,
+     "night": 1.718,
+     "kept": 1.563,
+     "oldNight": 1.087,
+     "oldKept": 0.989,
+     "nightWorst": 1.457,
+     "nightMed": 2.201,
+     "fig": {
+      "0.75": 0.1176,
+      "0.8": 0.1553,
+      "-0.25": 0.0333,
+      "0.5": 0.0488
+     }
+    },
+    "person_homeless_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.096,
+     "night": 1.65,
+     "kept": 1.505,
+     "oldNight": 1.195,
+     "oldKept": 1.09,
+     "nightWorst": 1.471,
+     "nightMed": 2.117,
+     "fig": {
+      "0.75": 0.1392,
+      "0.8": 0.1856,
+      "-0.25": 0.0397,
+      "0.5": 0.0597
+     }
+    },
+    "person_mob_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.076,
+     "night": 1.635,
+     "kept": 1.52,
+     "oldNight": 1.151,
+     "oldKept": 1.07,
+     "nightWorst": 1.454,
+     "nightMed": 2.525,
+     "fig": {
+      "0.75": 0.0779,
+      "0.8": 0.1043,
+      "-0.25": 0.0227,
+      "0.5": 0.0326
+     }
+    },
+    "person_network_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.089,
+     "night": 1.616,
+     "kept": 1.484,
+     "oldNight": 1.25,
+     "oldKept": 1.148,
+     "nightWorst": 1.474,
+     "nightMed": 2.181,
+     "fig": {
+      "0.75": 0.1528,
+      "0.8": 0.1991,
+      "-0.25": 0.0446,
+      "0.5": 0.067
+     }
+    },
+    "person_reds_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.053,
+     "night": 1.538,
+     "kept": 1.461,
+     "oldNight": 1.093,
+     "oldKept": 1.038,
+     "nightWorst": 1.465,
+     "nightMed": 2.449,
+     "fig": {
+      "0.75": 0.0898,
+      "0.8": 0.1193,
+      "-0.25": 0.0249,
+      "0.5": 0.037
+     }
+    },
+    "person_remnants_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.164,
+     "night": 1.513,
+     "kept": 1.3,
+     "oldNight": 1.234,
+     "oldKept": 1.06,
+     "nightWorst": 1.436,
+     "nightMed": 2.676,
+     "fig": {
+      "0.75": 0.064,
+      "0.8": 0.0867,
+      "-0.25": 0.0186,
+      "0.5": 0.0271
+     }
+    },
+    "person_trades_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.095,
+     "night": 1.577,
+     "kept": 1.44,
+     "oldNight": 1.209,
+     "oldKept": 1.104,
+     "nightWorst": 1.452,
+     "nightMed": 2.118,
+     "fig": {
+      "0.75": 0.2186,
+      "0.8": 0.2815,
+      "-0.25": 0.0627,
+      "0.5": 0.0976
+     }
+    },
+    "person_volunteers_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.095,
+     "night": 1.636,
+     "kept": 1.494,
+     "oldNight": 1.237,
+     "oldKept": 1.13,
+     "nightWorst": 1.458,
+     "nightMed": 2.211,
+     "fig": {
+      "0.75": 0.1556,
+      "0.8": 0.2016,
+      "-0.25": 0.0434,
+      "0.5": 0.0652
+     }
+    },
+    "person_town_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.095,
+     "night": 1.661,
+     "kept": 1.517,
+     "oldNight": 1.119,
+     "oldKept": 1.022,
+     "nightWorst": 1.454,
+     "nightMed": 2.161,
+     "fig": {
+      "0.75": 0.1246,
+      "0.8": 0.1635,
+      "-0.25": 0.0349,
+      "0.5": 0.0517
+     }
+    },
+    "person_anarchists_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.094,
+     "night": 1.62,
+     "kept": 1.481,
+     "oldNight": 1.172,
+     "oldKept": 1.071,
+     "nightWorst": 1.455,
+     "nightMed": 2.559,
+     "fig": {
+      "0.75": 0.0751,
+      "0.8": 0.1009,
+      "-0.25": 0.0217,
+      "0.5": 0.0312
+     }
+    },
+    "person_blues_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.064,
+     "night": 1.524,
+     "kept": 1.432,
+     "oldNight": 1.231,
+     "oldKept": 1.157,
+     "nightWorst": 1.469,
+     "nightMed": 2.336,
+     "fig": {
+      "0.75": 0.1747,
+      "0.8": 0.227,
+      "-0.25": 0.0523,
+      "0.5": 0.0766
+     }
+    },
+    "person_caravans_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.102,
+     "night": 1.672,
+     "kept": 1.517,
+     "oldNight": 1.137,
+     "oldKept": 1.032,
+     "nightWorst": 1.464,
+     "nightMed": 2.15,
+     "fig": {
+      "0.75": 0.1258,
+      "0.8": 0.1647,
+      "-0.25": 0.0353,
+      "0.5": 0.0534
+     }
+    },
+    "person_cartel_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.077,
+     "night": 1.635,
+     "kept": 1.518,
+     "oldNight": 1.156,
+     "oldKept": 1.073,
+     "nightWorst": 1.459,
+     "nightMed": 2.525,
+     "fig": {
+      "0.75": 0.0771,
+      "0.8": 0.1035,
+      "-0.25": 0.0226,
+      "0.5": 0.0323
+     }
+    },
+    "person_church_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.046,
+     "night": 1.611,
+     "kept": 1.54,
+     "oldNight": 1.049,
+     "oldKept": 1.003,
+     "nightWorst": 1.455,
+     "nightMed": 2.366,
+     "fig": {
+      "0.75": 0.1001,
+      "0.8": 0.1316,
+      "-0.25": 0.0275,
+      "0.5": 0.0406
+     }
+    },
+    "person_colorful_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.087,
+     "night": 1.616,
+     "kept": 1.487,
+     "oldNight": 1.251,
+     "oldKept": 1.151,
+     "nightWorst": 1.475,
+     "nightMed": 2.245,
+     "fig": {
+      "0.75": 0.159,
+      "0.8": 0.2081,
+      "-0.25": 0.0446,
+      "0.5": 0.067
+     }
+    },
+    "person_homeless_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.093,
+     "night": 1.622,
+     "kept": 1.484,
+     "oldNight": 1.252,
+     "oldKept": 1.145,
+     "nightWorst": 1.48,
+     "nightMed": 2.243,
+     "fig": {
+      "0.75": 0.1588,
+      "0.8": 0.2056,
+      "-0.25": 0.0442,
+      "0.5": 0.0667
+     }
+    },
+    "person_mob_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.058,
+     "night": 1.515,
+     "kept": 1.432,
+     "oldNight": 1.278,
+     "oldKept": 1.208,
+     "nightWorst": 1.452,
+     "nightMed": 2.259,
+     "fig": {
+      "0.75": 0.1907,
+      "0.8": 0.249,
+      "-0.25": 0.0555,
+      "0.5": 0.0833
+     }
+    },
+    "person_network_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.106,
+     "night": 1.716,
+     "kept": 1.552,
+     "oldNight": 1.094,
+     "oldKept": 0.989,
+     "nightWorst": 1.466,
+     "nightMed": 2.182,
+     "fig": {
+      "0.75": 0.1163,
+      "0.8": 0.156,
+      "-0.25": 0.0341,
+      "0.5": 0.0494
+     }
+    },
+    "person_reds_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.055,
+     "night": 1.522,
+     "kept": 1.443,
+     "oldNight": 1.26,
+     "oldKept": 1.194,
+     "nightWorst": 1.451,
+     "nightMed": 2.341,
+     "fig": {
+      "0.75": 0.1831,
+      "0.8": 0.2373,
+      "-0.25": 0.0516,
+      "0.5": 0.0796
+     }
+    },
+    "person_remnants_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.076,
+     "night": 1.633,
+     "kept": 1.518,
+     "oldNight": 1.074,
+     "oldKept": 0.998,
+     "nightWorst": 1.462,
+     "nightMed": 2.271,
+     "fig": {
+      "0.75": 0.1116,
+      "0.8": 0.1451,
+      "-0.25": 0.0308,
+      "0.5": 0.046
+     }
+    },
+    "person_trades_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.052,
+     "night": 1.6,
+     "kept": 1.521,
+     "oldNight": 1.048,
+     "oldKept": 0.996,
+     "nightWorst": 1.457,
+     "nightMed": 2.357,
+     "fig": {
+      "0.75": 0.0989,
+      "0.8": 0.1295,
+      "-0.25": 0.0278,
+      "0.5": 0.0408
+     }
+    },
+    "person_volunteers_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.053,
+     "night": 1.661,
+     "kept": 1.577,
+     "oldNight": 1.074,
+     "oldKept": 1.02,
+     "nightWorst": 1.469,
+     "nightMed": 2.279,
+     "fig": {
+      "0.75": 0.1081,
+      "0.8": 0.1405,
+      "-0.25": 0.0305,
+      "0.5": 0.0445
+     }
+    },
+    "person_town_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.038,
+     "night": 1.563,
+     "kept": 1.506,
+     "oldNight": 1.068,
+     "oldKept": 1.029,
+     "nightWorst": 1.484,
+     "nightMed": 2.4,
+     "fig": {
+      "0.75": 0.094,
+      "0.8": 0.1263,
+      "-0.25": 0.0264,
+      "0.5": 0.039
+     }
+    },
+    "person_anarchists_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.056,
+     "night": 1.538,
+     "kept": 1.456,
+     "oldNight": 1.1,
+     "oldKept": 1.042,
+     "nightWorst": 1.454,
+     "nightMed": 2.462,
+     "fig": {
+      "0.75": 0.0875,
+      "0.8": 0.1176,
+      "-0.25": 0.0245,
+      "0.5": 0.0365
+     }
+    },
+    "person_blues_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.12,
+     "night": 1.578,
+     "kept": 1.409,
+     "oldNight": 1.184,
+     "oldKept": 1.057,
+     "nightWorst": 1.453,
+     "nightMed": 2.591,
+     "fig": {
+      "0.75": 0.0722,
+      "0.8": 0.097,
+      "-0.25": 0.0208,
+      "0.5": 0.0303
+     }
+    },
+    "person_caravans_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.052,
+     "night": 1.626,
+     "kept": 1.546,
+     "oldNight": 1.046,
+     "oldKept": 0.994,
+     "nightWorst": 1.452,
+     "nightMed": 2.348,
+     "fig": {
+      "0.75": 0.1024,
+      "0.8": 0.1343,
+      "-0.25": 0.0281,
+      "0.5": 0.0421
+     }
+    },
+    "person_cartel_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.053,
+     "night": 1.55,
+     "kept": 1.472,
+     "oldNight": 1.079,
+     "oldKept": 1.025,
+     "nightWorst": 1.45,
+     "nightMed": 2.424,
+     "fig": {
+      "0.75": 0.0909,
+      "0.8": 0.1217,
+      "-0.25": 0.0257,
+      "0.5": 0.0381
+     }
+    },
+    "person_church_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.115,
+     "night": 1.669,
+     "kept": 1.497,
+     "oldNight": 1.179,
+     "oldKept": 1.057,
+     "nightWorst": 1.498,
+     "nightMed": 2.1,
+     "fig": {
+      "0.75": 0.1369,
+      "0.8": 0.1796,
+      "-0.25": 0.038,
+      "0.5": 0.0572
+     }
+    },
+    "person_colorful_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.174,
+     "night": 1.507,
+     "kept": 1.284,
+     "oldNight": 1.235,
+     "oldKept": 1.052,
+     "nightWorst": 1.43,
+     "nightMed": 2.674,
+     "fig": {
+      "0.75": 0.0663,
+      "0.8": 0.0861,
+      "-0.25": 0.0186,
+      "0.5": 0.027
+     }
+    },
+    "person_homeless_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.091,
+     "night": 1.655,
+     "kept": 1.517,
+     "oldNight": 1.196,
+     "oldKept": 1.096,
+     "nightWorst": 1.467,
+     "nightMed": 2.166,
+     "fig": {
+      "0.75": 0.1457,
+      "0.8": 0.1909,
+      "-0.25": 0.0399,
+      "0.5": 0.0612
+     }
+    },
+    "person_mob_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.145,
+     "night": 1.536,
+     "kept": 1.341,
+     "oldNight": 1.203,
+     "oldKept": 1.051,
+     "nightWorst": 1.473,
+     "nightMed": 2.626,
+     "fig": {
+      "0.75": 0.0688,
+      "0.8": 0.0928,
+      "-0.25": 0.0198,
+      "0.5": 0.0291
+     }
+    },
+    "person_network_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.084,
+     "night": 1.644,
+     "kept": 1.517,
+     "oldNight": 1.192,
+     "oldKept": 1.1,
+     "nightWorst": 1.452,
+     "nightMed": 2.151,
+     "fig": {
+      "0.75": 0.1444,
+      "0.8": 0.1872,
+      "-0.25": 0.0409,
+      "0.5": 0.0608
+     }
+    },
+    "person_reds_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.052,
+     "night": 1.562,
+     "kept": 1.485,
+     "oldNight": 1.081,
+     "oldKept": 1.028,
+     "nightWorst": 1.46,
+     "nightMed": 2.422,
+     "fig": {
+      "0.75": 0.0919,
+      "0.8": 0.1235,
+      "-0.25": 0.0257,
+      "0.5": 0.038
+     }
+    },
+    "person_remnants_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.199,
+     "night": 1.46,
+     "kept": 1.218,
+     "oldNight": 1.271,
+     "oldKept": 1.06,
+     "nightWorst": 1.384,
+     "nightMed": 2.732,
+     "fig": {
+      "0.75": 0.0609,
+      "0.8": 0.0784,
+      "-0.25": 0.0171,
+      "0.5": 0.0248
+     }
+    },
+    "person_trades_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.066,
+     "night": 1.632,
+     "kept": 1.531,
+     "oldNight": 1.138,
+     "oldKept": 1.068,
+     "nightWorst": 1.455,
+     "nightMed": 2.52,
+     "fig": {
+      "0.75": 0.0814,
+      "0.8": 0.1085,
+      "-0.25": 0.0228,
+      "0.5": 0.0335
+     }
+    },
+    "person_volunteers_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.094,
+     "night": 1.662,
+     "kept": 1.519,
+     "oldNight": 1.123,
+     "oldKept": 1.027,
+     "nightWorst": 1.451,
+     "nightMed": 2.147,
+     "fig": {
+      "0.75": 0.1234,
+      "0.8": 0.1647,
+      "-0.25": 0.0354,
+      "0.5": 0.0521
+     }
+    },
+    "person_town_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.058,
+     "night": 1.547,
+     "kept": 1.462,
+     "oldNight": 1.111,
+     "oldKept": 1.05,
+     "nightWorst": 1.453,
+     "nightMed": 2.458,
+     "fig": {
+      "0.75": 0.0861,
+      "0.8": 0.1142,
+      "-0.25": 0.0246,
+      "0.5": 0.0356
+     }
+    },
+    "person_town_3": {
+     "kind": "person",
+     "type": null,
+     "day": 1.088,
+     "night": 1.628,
+     "kept": 1.496,
+     "oldNight": 1.161,
+     "oldKept": 1.067,
+     "nightWorst": 1.454,
+     "nightMed": 2.545,
+     "fig": {
+      "0.75": 0.0762,
+      "0.8": 0.1017,
+      "-0.25": 0.0221,
+      "0.5": 0.0319
+     }
+    },
+    "person_town_4": {
+     "kind": "person",
+     "type": null,
+     "day": 1.058,
+     "night": 1.527,
+     "kept": 1.443,
+     "oldNight": 1.103,
+     "oldKept": 1.043,
+     "nightWorst": 1.45,
+     "nightMed": 2.459,
+     "fig": {
+      "0.75": 0.0879,
+      "0.8": 0.1161,
+      "-0.25": 0.0246,
+      "0.5": 0.0362
+     }
+    },
+    "person_town_5": {
+     "kind": "person",
+     "type": null,
+     "day": 1.087,
+     "night": 1.651,
+     "kept": 1.519,
+     "oldNight": 1.209,
+     "oldKept": 1.112,
+     "nightWorst": 1.487,
+     "nightMed": 2.158,
+     "fig": {
+      "0.75": 0.1462,
+      "0.8": 0.1937,
+      "-0.25": 0.0415,
+      "0.5": 0.0627
+     }
+    },
+    "person_town_6": {
+     "kind": "person",
+     "type": null,
+     "day": 1.084,
+     "night": 1.621,
+     "kept": 1.495,
+     "oldNight": 1.073,
+     "oldKept": 0.99,
+     "nightWorst": 1.453,
+     "nightMed": 2.254,
+     "fig": {
+      "0.75": 0.111,
+      "0.8": 0.1453,
+      "-0.25": 0.0314,
+      "0.5": 0.0469
+     }
+    },
+    "person_town_7": {
+     "kind": "person",
+     "type": null,
+     "day": 1.151,
+     "night": 1.533,
+     "kept": 1.332,
+     "oldNight": 1.214,
+     "oldKept": 1.055,
+     "nightWorst": 1.475,
+     "nightMed": 2.637,
+     "fig": {
+      "0.75": 0.067,
+      "0.8": 0.0904,
+      "-0.25": 0.0196,
+      "0.5": 0.0283
+     }
+    },
+    "person_town_8": {
+     "kind": "person",
+     "type": null,
+     "day": 1.066,
+     "night": 1.635,
+     "kept": 1.534,
+     "oldNight": 1.14,
+     "oldKept": 1.069,
+     "nightWorst": 1.458,
+     "nightMed": 2.519,
+     "fig": {
+      "0.75": 0.0803,
+      "0.8": 0.1067,
+      "-0.25": 0.0228,
+      "0.5": 0.0334
+     }
+    },
+    "person_town_9": {
+     "kind": "person",
+     "type": null,
+     "day": 1.062,
+     "night": 1.578,
+     "kept": 1.486,
+     "oldNight": 1.118,
+     "oldKept": 1.053,
+     "nightWorst": 1.464,
+     "nightMed": 2.481,
+     "fig": {
+      "0.75": 0.0841,
+      "0.8": 0.1123,
+      "-0.25": 0.0239,
+      "0.5": 0.0351
+     }
+    },
+    "person_town_10": {
+     "kind": "person",
+     "type": null,
+     "day": 1.052,
+     "night": 1.544,
+     "kept": 1.468,
+     "oldNight": 1.089,
+     "oldKept": 1.035,
+     "nightWorst": 1.459,
+     "nightMed": 2.421,
+     "fig": {
+      "0.75": 0.0895,
+      "0.8": 0.1205,
+      "-0.25": 0.0258,
+      "0.5": 0.0373
+     }
+    },
+    "person_town_11": {
+     "kind": "person",
+     "type": null,
+     "day": 1.234,
+     "night": 1.426,
+     "kept": 1.156,
+     "oldNight": 1.291,
+     "oldKept": 1.046,
+     "nightWorst": 1.373,
+     "nightMed": 2.751,
+     "fig": {
+      "0.75": 0.0581,
+      "0.8": 0.0749,
+      "-0.25": 0.0167,
+      "0.5": 0.0237
+     }
+    },
+    "enemy_mechanic_0": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.041,
+     "night": 1.563,
+     "kept": 1.501,
+     "oldNight": 1.064,
+     "oldKept": 1.022,
+     "nightWorst": 1.484,
+     "nightMed": 2.4,
+     "fig": {
+      "0.75": 0.0946,
+      "0.8": 0.127,
+      "-0.25": 0.0264,
+      "0.5": 0.0393
+     }
+    },
+    "enemy_mechanic_1": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.055,
+     "night": 1.557,
+     "kept": 1.476,
+     "oldNight": 1.079,
+     "oldKept": 1.023,
+     "nightWorst": 1.455,
+     "nightMed": 2.431,
+     "fig": {
+      "0.75": 0.0915,
+      "0.8": 0.1214,
+      "-0.25": 0.0255,
+      "0.5": 0.0381
+     }
+    },
+    "enemy_mechanic_2": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.142,
+     "night": 1.537,
+     "kept": 1.346,
+     "oldNight": 1.209,
+     "oldKept": 1.059,
+     "nightWorst": 1.475,
+     "nightMed": 2.63,
+     "fig": {
+      "0.75": 0.0701,
+      "0.8": 0.0915,
+      "-0.25": 0.0197,
+      "0.5": 0.0287
+     }
+    },
+    "enemy_runner_0": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.047,
+     "night": 1.514,
+     "kept": 1.446,
+     "oldNight": 1.26,
+     "oldKept": 1.203,
+     "nightWorst": 1.451,
+     "nightMed": 2.322,
+     "fig": {
+      "0.75": 0.1846,
+      "0.8": 0.2418,
+      "-0.25": 0.0525,
+      "0.5": 0.0796
+     }
+    },
+    "enemy_runner_1": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.094,
+     "night": 1.715,
+     "kept": 1.568,
+     "oldNight": 1.103,
+     "oldKept": 1.008,
+     "nightWorst": 1.451,
+     "nightMed": 2.192,
+     "fig": {
+      "0.75": 0.1192,
+      "0.8": 0.156,
+      "-0.25": 0.0337,
+      "0.5": 0.0503
+     }
+    },
+    "enemy_runner_2": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.182,
+     "night": 1.514,
+     "kept": 1.281,
+     "oldNight": 1.248,
+     "oldKept": 1.056,
+     "nightWorst": 1.401,
+     "nightMed": 2.701,
+     "fig": {
+      "0.75": 0.0648,
+      "0.8": 0.0832,
+      "-0.25": 0.0179,
+      "0.5": 0.0262
+     }
+    },
+    "enemy_runner_3": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.089,
+     "night": 1.696,
+     "kept": 1.557,
+     "oldNight": 1.085,
+     "oldKept": 0.996,
+     "nightWorst": 1.451,
+     "nightMed": 2.227,
+     "fig": {
+      "0.75": 0.1139,
+      "0.8": 0.1519,
+      "-0.25": 0.0324,
+      "0.5": 0.0486
+     }
+    },
+    "enemy_runner_4": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.221,
+     "night": 1.445,
+     "kept": 1.183,
+     "oldNight": 1.284,
+     "oldKept": 1.052,
+     "nightWorst": 1.388,
+     "nightMed": 2.757,
+     "fig": {
+      "0.75": 0.0588,
+      "0.8": 0.0772,
+      "-0.25": 0.0165,
+      "0.5": 0.0241
+     }
+    },
+    "enemy_runner_5": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.066,
+     "night": 1.529,
+     "kept": 1.434,
+     "oldNight": 1.246,
+     "oldKept": 1.169,
+     "nightWorst": 1.454,
+     "nightMed": 2.161,
+     "fig": {
+      "0.75": 0.2082,
+      "0.8": 0.2691,
+      "-0.25": 0.0593,
+      "0.5": 0.0917
+     }
+    },
+    "enemy_runner_6": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.091,
+     "night": 1.62,
+     "kept": 1.485,
+     "oldNight": 1.172,
+     "oldKept": 1.074,
+     "nightWorst": 1.455,
+     "nightMed": 2.559,
+     "fig": {
+      "0.75": 0.0751,
+      "0.8": 0.1009,
+      "-0.25": 0.0217,
+      "0.5": 0.0312
+     }
+    },
+    "enemy_runner_7": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.057,
+     "night": 1.639,
+     "kept": 1.551,
+     "oldNight": 1.078,
+     "oldKept": 1.02,
+     "nightWorst": 1.45,
+     "nightMed": 2.279,
+     "fig": {
+      "0.75": 0.1092,
+      "0.8": 0.1424,
+      "-0.25": 0.0305,
+      "0.5": 0.0449
+     }
+    },
+    "enemy_heavy_0": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.076,
+     "night": 1.639,
+     "kept": 1.523,
+     "oldNight": 1.155,
+     "oldKept": 1.073,
+     "nightWorst": 1.453,
+     "nightMed": 2.534,
+     "fig": {
+      "0.75": 0.0773,
+      "0.8": 0.1036,
+      "-0.25": 0.0224,
+      "0.5": 0.0323
+     }
+    },
+    "enemy_heavy_1": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.056,
+     "night": 1.659,
+     "kept": 1.571,
+     "oldNight": 1.074,
+     "oldKept": 1.017,
+     "nightWorst": 1.473,
+     "nightMed": 2.288,
+     "fig": {
+      "0.75": 0.1079,
+      "0.8": 0.1401,
+      "-0.25": 0.0302,
+      "0.5": 0.0445
+     }
+    },
+    "enemy_heavy_2": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.064,
+     "night": 1.559,
+     "kept": 1.465,
+     "oldNight": 1.125,
+     "oldKept": 1.057,
+     "nightWorst": 1.453,
+     "nightMed": 2.497,
+     "fig": {
+      "0.75": 0.083,
+      "0.8": 0.1103,
+      "-0.25": 0.0235,
+      "0.5": 0.0345
+     }
+    },
+    "enemy_heavy_3": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.076,
+     "night": 1.63,
+     "kept": 1.515,
+     "oldNight": 1.069,
+     "oldKept": 0.993,
+     "nightWorst": 1.46,
+     "nightMed": 2.267,
+     "fig": {
+      "0.75": 0.1114,
+      "0.8": 0.1464,
+      "-0.25": 0.0309,
+      "0.5": 0.0465
+     }
+    },
+    "enemy_heavy_4": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.095,
+     "night": 1.614,
+     "kept": 1.474,
+     "oldNight": 1.174,
+     "oldKept": 1.072,
+     "nightWorst": 1.459,
+     "nightMed": 2.565,
+     "fig": {
+      "0.75": 0.0746,
+      "0.8": 0.1004,
+      "-0.25": 0.0215,
+      "0.5": 0.031
+     }
+    },
+    "enemy_heavy_5": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.071,
+     "night": 1.627,
+     "kept": 1.519,
+     "oldNight": 1.136,
+     "oldKept": 1.061,
+     "nightWorst": 1.452,
+     "nightMed": 2.513,
+     "fig": {
+      "0.75": 0.0811,
+      "0.8": 0.1081,
+      "-0.25": 0.023,
+      "0.5": 0.0337
+     }
+    }
+   },
+   "weakest": [
+    "faction_cartel 1.458/1.277",
+    "person_town_11 1.426/1.234",
+    "enemy_runner_4 1.445/1.221",
+    "faction_church 1.514/1.261",
+    "person_remnants_2 1.46/1.199",
+    "enemy_runner_2 1.514/1.182"
+   ]
+  },
+  "suburb": {
+   "board": "suburb + lots",
+   "tilesDark": 195,
+   "groundDay": 0.3175,
+   "groundNight": 0.2121,
+   "looks": {
+    "faction_anarchists": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.349,
+     "night": 2.113,
+     "kept": 1.566,
+     "oldNight": 2.113,
+     "oldKept": 1.566,
+     "nightWorst": 1.508,
+     "nightMed": 3.428,
+     "fig": {
+      "0.75": 0.0943,
+      "0.8": 0.1262,
+      "-0.25": 0.0265,
+      "0.5": 0.0394
+     }
+    },
+    "faction_blues": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.116,
+     "night": 1.846,
+     "kept": 1.654,
+     "oldNight": 1.846,
+     "oldKept": 1.654,
+     "nightWorst": 1.49,
+     "nightMed": 2.994,
+     "fig": {
+      "0.75": 0.1282,
+      "0.8": 0.1717,
+      "-0.25": 0.0375,
+      "0.5": 0.0548
+     }
+    },
+    "faction_caravans": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.074,
+     "night": 1.825,
+     "kept": 1.699,
+     "oldNight": 1.825,
+     "oldKept": 1.699,
+     "nightWorst": 1.474,
+     "nightMed": 2.962,
+     "fig": {
+      "0.75": 0.1383,
+      "0.8": 0.1815,
+      "-0.25": 0.0385,
+      "0.5": 0.0584
+     }
+    },
+    "faction_cartel": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.743,
+     "night": 2.491,
+     "kept": 1.429,
+     "oldNight": 2.491,
+     "oldKept": 1.429,
+     "nightWorst": 1.778,
+     "nightMed": 4.042,
+     "fig": {
+      "0.75": 0.0522,
+      "0.8": 0.0672,
+      "-0.25": 0.0148,
+      "0.5": 0.0216
+     }
+    },
+    "faction_church": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.328,
+     "night": 1.593,
+     "kept": 1.2,
+     "oldNight": 1.096,
+     "oldKept": 0.825,
+     "nightWorst": 1.454,
+     "nightMed": 1.871,
+     "fig": {
+      "0.75": 0.3504,
+      "0.8": 0.4383,
+      "-0.25": 0.1081,
+      "0.5": 0.1701
+     }
+    },
+    "faction_colorful": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.32,
+     "night": 1.599,
+     "kept": 1.211,
+     "oldNight": 1.348,
+     "oldKept": 1.021,
+     "nightWorst": 1.45,
+     "nightMed": 2.228,
+     "fig": {
+      "0.75": 0.2429,
+      "0.8": 0.3109,
+      "-0.25": 0.0698,
+      "0.5": 0.1081
+     }
+    },
+    "faction_homeless": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.318,
+     "night": 1.663,
+     "kept": 1.262,
+     "oldNight": 1.347,
+     "oldKept": 1.022,
+     "nightWorst": 1.459,
+     "nightMed": 2.223,
+     "fig": {
+      "0.75": 0.239,
+      "0.8": 0.3108,
+      "-0.25": 0.0699,
+      "0.5": 0.1074
+     }
+    },
+    "faction_mob": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.243,
+     "night": 2,
+     "kept": 1.609,
+     "oldNight": 2,
+     "oldKept": 1.609,
+     "nightWorst": 1.527,
+     "nightMed": 3.244,
+     "fig": {
+      "0.75": 0.1098,
+      "0.8": 0.1423,
+      "-0.25": 0.0308,
+      "0.5": 0.0454
+     }
+    },
+    "faction_network": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.319,
+     "night": 1.646,
+     "kept": 1.248,
+     "oldNight": 1.342,
+     "oldKept": 1.017,
+     "nightWorst": 1.455,
+     "nightMed": 2.216,
+     "fig": {
+      "0.75": 0.2359,
+      "0.8": 0.3008,
+      "-0.25": 0.0703,
+      "0.5": 0.1058
+     }
+    },
+    "faction_reds": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.314,
+     "night": 2.079,
+     "kept": 1.582,
+     "oldNight": 2.079,
+     "oldKept": 1.582,
+     "nightWorst": 1.483,
+     "nightMed": 3.372,
+     "fig": {
+      "0.75": 0.0992,
+      "0.8": 0.1319,
+      "-0.25": 0.0277,
+      "0.5": 0.0413
+     }
+    },
+    "faction_remnants": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.197,
+     "night": 1.957,
+     "kept": 1.635,
+     "oldNight": 1.957,
+     "oldKept": 1.635,
+     "nightWorst": 1.494,
+     "nightMed": 3.175,
+     "fig": {
+      "0.75": 0.1147,
+      "0.8": 0.1502,
+      "-0.25": 0.0325,
+      "0.5": 0.0485
+     }
+    },
+    "faction_trades": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.38,
+     "night": 2.166,
+     "kept": 1.57,
+     "oldNight": 2.166,
+     "oldKept": 1.57,
+     "nightWorst": 1.546,
+     "nightMed": 3.514,
+     "fig": {
+      "0.75": 0.0891,
+      "0.8": 0.1174,
+      "-0.25": 0.0246,
+      "0.5": 0.037
+     }
+    },
+    "faction_volunteers": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.07,
+     "night": 1.704,
+     "kept": 1.593,
+     "oldNight": 1.637,
+     "oldKept": 1.53,
+     "nightWorst": 1.481,
+     "nightMed": 2.656,
+     "fig": {
+      "0.75": 0.1696,
+      "0.8": 0.2208,
+      "-0.25": 0.0487,
+      "0.5": 0.0728
+     }
+    },
+    "tier_thug": {
+     "kind": "tier",
+     "type": null,
+     "day": 1.132,
+     "night": 1.656,
+     "kept": 1.463,
+     "oldNight": 1.543,
+     "oldKept": 1.363,
+     "nightWorst": 1.459,
+     "nightMed": 2.503,
+     "fig": {
+      "0.75": 0.1919,
+      "0.8": 0.2483,
+      "-0.25": 0.0547,
+      "0.5": 0.0836
+     }
+    },
+    "tier_poacher": {
+     "kind": "tier",
+     "type": null,
+     "day": 1.034,
+     "night": 1.772,
+     "kept": 1.714,
+     "oldNight": 1.772,
+     "oldKept": 1.714,
+     "nightWorst": 1.473,
+     "nightMed": 2.875,
+     "fig": {
+      "0.75": 0.1463,
+      "0.8": 0.1914,
+      "-0.25": 0.0412,
+      "0.5": 0.0621
+     }
+    },
+    "beast_dire_wolf": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.322,
+     "night": 1.599,
+     "kept": 1.21,
+     "oldNight": 1.349,
+     "oldKept": 1.02,
+     "nightWorst": 1.451,
+     "nightMed": 2.227,
+     "fig": {
+      "0.75": 0.2368,
+      "0.8": 0.3069,
+      "-0.25": 0.0698,
+      "0.5": 0.1057
+     }
+    },
+    "beast_cave_hyena": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.043,
+     "night": 1.713,
+     "kept": 1.642,
+     "oldNight": 1.683,
+     "oldKept": 1.614,
+     "nightWorst": 1.522,
+     "nightMed": 2.73,
+     "fig": {
+      "0.75": 0.1629,
+      "0.8": 0.2128,
+      "-0.25": 0.046,
+      "0.5": 0.0692
+     }
+    },
+    "beast_feral_dog_shepherd": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.075,
+     "night": 1.701,
+     "kept": 1.582,
+     "oldNight": 1.635,
+     "oldKept": 1.521,
+     "nightWorst": 1.478,
+     "nightMed": 2.652,
+     "fig": {
+      "0.75": 0.1701,
+      "0.8": 0.2214,
+      "-0.25": 0.0488,
+      "0.5": 0.0731
+     }
+    },
+    "person_anarchists_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.521,
+     "night": 2.276,
+     "kept": 1.496,
+     "oldNight": 2.276,
+     "oldKept": 1.496,
+     "nightWorst": 1.624,
+     "nightMed": 3.693,
+     "fig": {
+      "0.75": 0.0725,
+      "0.8": 0.0975,
+      "-0.25": 0.021,
+      "0.5": 0.0298
+     }
+    },
+    "person_blues_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.157,
+     "night": 1.905,
+     "kept": 1.646,
+     "oldNight": 1.905,
+     "oldKept": 1.646,
+     "nightWorst": 1.455,
+     "nightMed": 3.091,
+     "fig": {
+      "0.75": 0.1228,
+      "0.8": 0.161,
+      "-0.25": 0.0348,
+      "0.5": 0.0515
+     }
+    },
+    "person_caravans_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.298,
+     "night": 2.07,
+     "kept": 1.595,
+     "oldNight": 2.07,
+     "oldKept": 1.595,
+     "nightWorst": 1.477,
+     "nightMed": 3.358,
+     "fig": {
+      "0.75": 0.1012,
+      "0.8": 0.1325,
+      "-0.25": 0.0281,
+      "0.5": 0.0414
+     }
+    },
+    "person_cartel_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.439,
+     "night": 2.208,
+     "kept": 1.534,
+     "oldNight": 2.208,
+     "oldKept": 1.534,
+     "nightWorst": 1.576,
+     "nightMed": 3.582,
+     "fig": {
+      "0.75": 0.0824,
+      "0.8": 0.1087,
+      "-0.25": 0.0232,
+      "0.5": 0.0339
+     }
+    },
+    "person_church_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.45,
+     "night": 2.222,
+     "kept": 1.532,
+     "oldNight": 2.222,
+     "oldKept": 1.532,
+     "nightWorst": 1.585,
+     "nightMed": 3.604,
+     "fig": {
+      "0.75": 0.0819,
+      "0.8": 0.1096,
+      "-0.25": 0.0227,
+      "0.5": 0.0339
+     }
+    },
+    "person_colorful_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.168,
+     "night": 1.938,
+     "kept": 1.659,
+     "oldNight": 1.938,
+     "oldKept": 1.659,
+     "nightWorst": 1.454,
+     "nightMed": 3.145,
+     "fig": {
+      "0.75": 0.1176,
+      "0.8": 0.1553,
+      "-0.25": 0.0333,
+      "0.5": 0.0488
+     }
+    },
+    "person_homeless_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.053,
+     "night": 1.801,
+     "kept": 1.71,
+     "oldNight": 1.801,
+     "oldKept": 1.71,
+     "nightWorst": 1.455,
+     "nightMed": 2.923,
+     "fig": {
+      "0.75": 0.1392,
+      "0.8": 0.1856,
+      "-0.25": 0.0397,
+      "0.5": 0.0597
+     }
+    },
+    "person_mob_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.462,
+     "night": 2.224,
+     "kept": 1.521,
+     "oldNight": 2.224,
+     "oldKept": 1.521,
+     "nightWorst": 1.587,
+     "nightMed": 3.607,
+     "fig": {
+      "0.75": 0.0779,
+      "0.8": 0.1043,
+      "-0.25": 0.0227,
+      "0.5": 0.0326
+     }
+    },
+    "person_network_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.03,
+     "night": 1.72,
+     "kept": 1.67,
+     "oldNight": 1.708,
+     "oldKept": 1.658,
+     "nightWorst": 1.456,
+     "nightMed": 2.771,
+     "fig": {
+      "0.75": 0.1528,
+      "0.8": 0.1991,
+      "-0.25": 0.0446,
+      "0.5": 0.067
+     }
+    },
+    "person_reds_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.371,
+     "night": 2.157,
+     "kept": 1.573,
+     "oldNight": 2.157,
+     "oldKept": 1.573,
+     "nightWorst": 1.539,
+     "nightMed": 3.499,
+     "fig": {
+      "0.75": 0.0898,
+      "0.8": 0.1193,
+      "-0.25": 0.0249,
+      "0.5": 0.037
+     }
+    },
+    "person_remnants_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.589,
+     "night": 2.356,
+     "kept": 1.483,
+     "oldNight": 2.356,
+     "oldKept": 1.483,
+     "nightWorst": 1.681,
+     "nightMed": 3.822,
+     "fig": {
+      "0.75": 0.064,
+      "0.8": 0.0867,
+      "-0.25": 0.0186,
+      "0.5": 0.0271
+     }
+    },
+    "person_trades_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.251,
+     "night": 1.631,
+     "kept": 1.304,
+     "oldNight": 1.434,
+     "oldKept": 1.146,
+     "nightWorst": 1.46,
+     "nightMed": 2.33,
+     "fig": {
+      "0.75": 0.2186,
+      "0.8": 0.2815,
+      "-0.25": 0.0627,
+      "0.5": 0.0976
+     }
+    },
+    "person_volunteers_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.03,
+     "night": 1.742,
+     "kept": 1.691,
+     "oldNight": 1.73,
+     "oldKept": 1.68,
+     "nightWorst": 1.475,
+     "nightMed": 2.806,
+     "fig": {
+      "0.75": 0.1556,
+      "0.8": 0.2016,
+      "-0.25": 0.0434,
+      "0.5": 0.0652
+     }
+    },
+    "person_town_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.143,
+     "night": 1.903,
+     "kept": 1.665,
+     "oldNight": 1.903,
+     "oldKept": 1.665,
+     "nightWorst": 1.453,
+     "nightMed": 3.088,
+     "fig": {
+      "0.75": 0.1246,
+      "0.8": 0.1635,
+      "-0.25": 0.0349,
+      "0.5": 0.0517
+     }
+    },
+    "person_anarchists_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.493,
+     "night": 2.253,
+     "kept": 1.509,
+     "oldNight": 2.253,
+     "oldKept": 1.509,
+     "nightWorst": 1.608,
+     "nightMed": 3.656,
+     "fig": {
+      "0.75": 0.0751,
+      "0.8": 0.1009,
+      "-0.25": 0.0217,
+      "0.5": 0.0312
+     }
+    },
+    "person_blues_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.087,
+     "night": 1.672,
+     "kept": 1.538,
+     "oldNight": 1.579,
+     "oldKept": 1.453,
+     "nightWorst": 1.454,
+     "nightMed": 2.562,
+     "fig": {
+      "0.75": 0.1747,
+      "0.8": 0.227,
+      "-0.25": 0.0523,
+      "0.5": 0.0766
+     }
+    },
+    "person_caravans_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.135,
+     "night": 1.893,
+     "kept": 1.668,
+     "oldNight": 1.893,
+     "oldKept": 1.668,
+     "nightWorst": 1.475,
+     "nightMed": 3.071,
+     "fig": {
+      "0.75": 0.1258,
+      "0.8": 0.1647,
+      "-0.25": 0.0353,
+      "0.5": 0.0534
+     }
+    },
+    "person_cartel_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.47,
+     "night": 2.224,
+     "kept": 1.513,
+     "oldNight": 2.224,
+     "oldKept": 1.513,
+     "nightWorst": 1.587,
+     "nightMed": 3.608,
+     "fig": {
+      "0.75": 0.0771,
+      "0.8": 0.1035,
+      "-0.25": 0.0226,
+      "0.5": 0.0323
+     }
+    },
+    "person_church_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.3,
+     "night": 2.084,
+     "kept": 1.603,
+     "oldNight": 2.084,
+     "oldKept": 1.603,
+     "nightWorst": 1.487,
+     "nightMed": 3.38,
+     "fig": {
+      "0.75": 0.1001,
+      "0.8": 0.1316,
+      "-0.25": 0.0275,
+      "0.5": 0.0406
+     }
+    },
+    "person_colorful_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.028,
+     "night": 1.721,
+     "kept": 1.674,
+     "oldNight": 1.708,
+     "oldKept": 1.661,
+     "nightWorst": 1.457,
+     "nightMed": 2.772,
+     "fig": {
+      "0.75": 0.159,
+      "0.8": 0.2081,
+      "-0.25": 0.0446,
+      "0.5": 0.067
+     }
+    },
+    "person_homeless_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.024,
+     "night": 1.727,
+     "kept": 1.687,
+     "oldNight": 1.715,
+     "oldKept": 1.675,
+     "nightWorst": 1.462,
+     "nightMed": 2.782,
+     "fig": {
+      "0.75": 0.1588,
+      "0.8": 0.2056,
+      "-0.25": 0.0442,
+      "0.5": 0.0667
+     }
+    },
+    "person_mob_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.122,
+     "night": 1.647,
+     "kept": 1.468,
+     "oldNight": 1.532,
+     "oldKept": 1.365,
+     "nightWorst": 1.482,
+     "nightMed": 2.485,
+     "fig": {
+      "0.75": 0.1907,
+      "0.8": 0.249,
+      "-0.25": 0.0555,
+      "0.5": 0.0833
+     }
+    },
+    "person_network_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.158,
+     "night": 1.922,
+     "kept": 1.66,
+     "oldNight": 1.922,
+     "oldKept": 1.66,
+     "nightWorst": 1.467,
+     "nightMed": 3.117,
+     "fig": {
+      "0.75": 0.1163,
+      "0.8": 0.156,
+      "-0.25": 0.0341,
+      "0.5": 0.0494
+     }
+    },
+    "person_reds_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.099,
+     "night": 1.692,
+     "kept": 1.54,
+     "oldNight": 1.59,
+     "oldKept": 1.447,
+     "nightWorst": 1.463,
+     "nightMed": 2.579,
+     "fig": {
+      "0.75": 0.1831,
+      "0.8": 0.2373,
+      "-0.25": 0.0516,
+      "0.5": 0.0796
+     }
+    },
+    "person_remnants_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.231,
+     "night": 2,
+     "kept": 1.625,
+     "oldNight": 2,
+     "oldKept": 1.625,
+     "nightWorst": 1.527,
+     "nightMed": 3.244,
+     "fig": {
+      "0.75": 0.1116,
+      "0.8": 0.1451,
+      "-0.25": 0.0308,
+      "0.5": 0.046
+     }
+    },
+    "person_trades_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.315,
+     "night": 2.075,
+     "kept": 1.578,
+     "oldNight": 2.075,
+     "oldKept": 1.578,
+     "nightWorst": 1.481,
+     "nightMed": 3.367,
+     "fig": {
+      "0.75": 0.0989,
+      "0.8": 0.1295,
+      "-0.25": 0.0278,
+      "0.5": 0.0408
+     }
+    },
+    "person_volunteers_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.261,
+     "night": 2.007,
+     "kept": 1.592,
+     "oldNight": 2.007,
+     "oldKept": 1.592,
+     "nightWorst": 1.455,
+     "nightMed": 3.256,
+     "fig": {
+      "0.75": 0.1081,
+      "0.8": 0.1405,
+      "-0.25": 0.0305,
+      "0.5": 0.0445
+     }
+    },
+    "person_town_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.338,
+     "night": 2.114,
+     "kept": 1.58,
+     "oldNight": 2.114,
+     "oldKept": 1.58,
+     "nightWorst": 1.508,
+     "nightMed": 3.429,
+     "fig": {
+      "0.75": 0.094,
+      "0.8": 0.1263,
+      "-0.25": 0.0264,
+      "0.5": 0.039
+     }
+    },
+    "person_anarchists_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.399,
+     "night": 2.168,
+     "kept": 1.55,
+     "oldNight": 2.168,
+     "oldKept": 1.55,
+     "nightWorst": 1.547,
+     "nightMed": 3.517,
+     "fig": {
+      "0.75": 0.0875,
+      "0.8": 0.1176,
+      "-0.25": 0.0245,
+      "0.5": 0.0365
+     }
+    },
+    "person_blues_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.529,
+     "night": 2.282,
+     "kept": 1.492,
+     "oldNight": 2.282,
+     "oldKept": 1.492,
+     "nightWorst": 1.628,
+     "nightMed": 3.702,
+     "fig": {
+      "0.75": 0.0722,
+      "0.8": 0.097,
+      "-0.25": 0.0208,
+      "0.5": 0.0303
+     }
+    },
+    "person_caravans_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.286,
+     "night": 2.068,
+     "kept": 1.608,
+     "oldNight": 2.068,
+     "oldKept": 1.608,
+     "nightWorst": 1.475,
+     "nightMed": 3.354,
+     "fig": {
+      "0.75": 0.1024,
+      "0.8": 0.1343,
+      "-0.25": 0.0281,
+      "0.5": 0.0421
+     }
+    },
+    "person_cartel_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.371,
+     "night": 2.134,
+     "kept": 1.557,
+     "oldNight": 2.134,
+     "oldKept": 1.557,
+     "nightWorst": 1.523,
+     "nightMed": 3.463,
+     "fig": {
+      "0.75": 0.0909,
+      "0.8": 0.1217,
+      "-0.25": 0.0257,
+      "0.5": 0.0381
+     }
+    },
+    "person_church_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.077,
+     "night": 1.835,
+     "kept": 1.704,
+     "oldNight": 1.835,
+     "oldKept": 1.704,
+     "nightWorst": 1.475,
+     "nightMed": 2.977,
+     "fig": {
+      "0.75": 0.1369,
+      "0.8": 0.1796,
+      "-0.25": 0.038,
+      "0.5": 0.0572
+     }
+    },
+    "person_colorful_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.603,
+     "night": 2.355,
+     "kept": 1.469,
+     "oldNight": 2.355,
+     "oldKept": 1.469,
+     "nightWorst": 1.68,
+     "nightMed": 3.82,
+     "fig": {
+      "0.75": 0.0663,
+      "0.8": 0.0861,
+      "-0.25": 0.0186,
+      "0.5": 0.027
+     }
+    },
+    "person_homeless_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.032,
+     "night": 1.797,
+     "kept": 1.741,
+     "oldNight": 1.797,
+     "oldKept": 1.741,
+     "nightWorst": 1.451,
+     "nightMed": 2.915,
+     "fig": {
+      "0.75": 0.1457,
+      "0.8": 0.1909,
+      "-0.25": 0.0399,
+      "0.5": 0.0612
+     }
+    },
+    "person_mob_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.563,
+     "night": 2.313,
+     "kept": 1.48,
+     "oldNight": 2.313,
+     "oldKept": 1.48,
+     "nightWorst": 1.65,
+     "nightMed": 3.752,
+     "fig": {
+      "0.75": 0.0688,
+      "0.8": 0.0928,
+      "-0.25": 0.0198,
+      "0.5": 0.0291
+     }
+    },
+    "person_network_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.039,
+     "night": 1.778,
+     "kept": 1.711,
+     "oldNight": 1.778,
+     "oldKept": 1.711,
+     "nightWorst": 1.478,
+     "nightMed": 2.884,
+     "fig": {
+      "0.75": 0.1444,
+      "0.8": 0.1872,
+      "-0.25": 0.0409,
+      "0.5": 0.0608
+     }
+    },
+    "person_reds_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.373,
+     "night": 2.133,
+     "kept": 1.554,
+     "oldNight": 2.133,
+     "oldKept": 1.554,
+     "nightWorst": 1.522,
+     "nightMed": 3.461,
+     "fig": {
+      "0.75": 0.0919,
+      "0.8": 0.1235,
+      "-0.25": 0.0257,
+      "0.5": 0.038
+     }
+    },
+    "person_remnants_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.637,
+     "night": 2.406,
+     "kept": 1.47,
+     "oldNight": 2.406,
+     "oldKept": 1.47,
+     "nightWorst": 1.717,
+     "nightMed": 3.903,
+     "fig": {
+      "0.75": 0.0609,
+      "0.8": 0.0784,
+      "-0.25": 0.0171,
+      "0.5": 0.0248
+     }
+    },
+    "person_trades_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.44,
+     "night": 2.219,
+     "kept": 1.541,
+     "oldNight": 2.219,
+     "oldKept": 1.541,
+     "nightWorst": 1.583,
+     "nightMed": 3.6,
+     "fig": {
+      "0.75": 0.0814,
+      "0.8": 0.1085,
+      "-0.25": 0.0228,
+      "0.5": 0.0335
+     }
+    },
+    "person_volunteers_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.145,
+     "night": 1.891,
+     "kept": 1.652,
+     "oldNight": 1.891,
+     "oldKept": 1.652,
+     "nightWorst": 1.473,
+     "nightMed": 3.067,
+     "fig": {
+      "0.75": 0.1234,
+      "0.8": 0.1647,
+      "-0.25": 0.0354,
+      "0.5": 0.0521
+     }
+    },
+    "person_town_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.412,
+     "night": 2.164,
+     "kept": 1.533,
+     "oldNight": 2.164,
+     "oldKept": 1.533,
+     "nightWorst": 1.544,
+     "nightMed": 3.511,
+     "fig": {
+      "0.75": 0.0861,
+      "0.8": 0.1142,
+      "-0.25": 0.0246,
+      "0.5": 0.0356
+     }
+    },
+    "person_town_3": {
+     "kind": "person",
+     "type": null,
+     "day": 1.485,
+     "night": 2.241,
+     "kept": 1.509,
+     "oldNight": 2.241,
+     "oldKept": 1.509,
+     "nightWorst": 1.599,
+     "nightMed": 3.635,
+     "fig": {
+      "0.75": 0.0762,
+      "0.8": 0.1017,
+      "-0.25": 0.0221,
+      "0.5": 0.0319
+     }
+    },
+    "person_town_4": {
+     "kind": "person",
+     "type": null,
+     "day": 1.395,
+     "night": 2.166,
+     "kept": 1.553,
+     "oldNight": 2.166,
+     "oldKept": 1.553,
+     "nightWorst": 1.545,
+     "nightMed": 3.513,
+     "fig": {
+      "0.75": 0.0879,
+      "0.8": 0.1161,
+      "-0.25": 0.0246,
+      "0.5": 0.0362
+     }
+    },
+    "person_town_5": {
+     "kind": "person",
+     "type": null,
+     "day": 1.035,
+     "night": 1.766,
+     "kept": 1.706,
+     "oldNight": 1.766,
+     "oldKept": 1.706,
+     "nightWorst": 1.468,
+     "nightMed": 2.865,
+     "fig": {
+      "0.75": 0.1462,
+      "0.8": 0.1937,
+      "-0.25": 0.0415,
+      "0.5": 0.0627
+     }
+    },
+    "person_town_6": {
+     "kind": "person",
+     "type": null,
+     "day": 1.212,
+     "night": 1.985,
+     "kept": 1.638,
+     "oldNight": 1.985,
+     "oldKept": 1.638,
+     "nightWorst": 1.515,
+     "nightMed": 3.221,
+     "fig": {
+      "0.75": 0.111,
+      "0.8": 0.1453,
+      "-0.25": 0.0314,
+      "0.5": 0.0469
+     }
+    },
+    "person_town_7": {
+     "kind": "person",
+     "type": null,
+     "day": 1.572,
+     "night": 2.322,
+     "kept": 1.477,
+     "oldNight": 2.322,
+     "oldKept": 1.477,
+     "nightWorst": 1.657,
+     "nightMed": 3.767,
+     "fig": {
+      "0.75": 0.067,
+      "0.8": 0.0904,
+      "-0.25": 0.0196,
+      "0.5": 0.0283
+     }
+    },
+    "person_town_8": {
+     "kind": "person",
+     "type": null,
+     "day": 1.44,
+     "night": 2.219,
+     "kept": 1.541,
+     "oldNight": 2.219,
+     "oldKept": 1.541,
+     "nightWorst": 1.583,
+     "nightMed": 3.599,
+     "fig": {
+      "0.75": 0.0803,
+      "0.8": 0.1067,
+      "-0.25": 0.0228,
+      "0.5": 0.0334
+     }
+    },
+    "person_town_9": {
+     "kind": "person",
+     "type": null,
+     "day": 1.418,
+     "night": 2.185,
+     "kept": 1.541,
+     "oldNight": 2.185,
+     "oldKept": 1.541,
+     "nightWorst": 1.559,
+     "nightMed": 3.545,
+     "fig": {
+      "0.75": 0.0841,
+      "0.8": 0.1123,
+      "-0.25": 0.0239,
+      "0.5": 0.0351
+     }
+    },
+    "person_town_10": {
+     "kind": "person",
+     "type": null,
+     "day": 1.383,
+     "night": 2.132,
+     "kept": 1.542,
+     "oldNight": 2.132,
+     "oldKept": 1.542,
+     "nightWorst": 1.521,
+     "nightMed": 3.458,
+     "fig": {
+      "0.75": 0.0895,
+      "0.8": 0.1205,
+      "-0.25": 0.0258,
+      "0.5": 0.0373
+     }
+    },
+    "person_town_11": {
+     "kind": "person",
+     "type": null,
+     "day": 1.684,
+     "night": 2.423,
+     "kept": 1.439,
+     "oldNight": 2.423,
+     "oldKept": 1.439,
+     "nightWorst": 1.729,
+     "nightMed": 3.93,
+     "fig": {
+      "0.75": 0.0581,
+      "0.8": 0.0749,
+      "-0.25": 0.0167,
+      "0.5": 0.0237
+     }
+    },
+    "enemy_mechanic_0": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.333,
+     "night": 2.114,
+     "kept": 1.586,
+     "oldNight": 2.114,
+     "oldKept": 1.586,
+     "nightWorst": 1.508,
+     "nightMed": 3.429,
+     "fig": {
+      "0.75": 0.0946,
+      "0.8": 0.127,
+      "-0.25": 0.0264,
+      "0.5": 0.0393
+     }
+    },
+    "enemy_mechanic_1": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.365,
+     "night": 2.141,
+     "kept": 1.568,
+     "oldNight": 2.141,
+     "oldKept": 1.568,
+     "nightWorst": 1.528,
+     "nightMed": 3.473,
+     "fig": {
+      "0.75": 0.0915,
+      "0.8": 0.1214,
+      "-0.25": 0.0255,
+      "0.5": 0.0381
+     }
+    },
+    "enemy_mechanic_2": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.558,
+     "night": 2.316,
+     "kept": 1.487,
+     "oldNight": 2.316,
+     "oldKept": 1.487,
+     "nightWorst": 1.653,
+     "nightMed": 3.757,
+     "fig": {
+      "0.75": 0.0701,
+      "0.8": 0.0915,
+      "-0.25": 0.0197,
+      "0.5": 0.0287
+     }
+    },
+    "enemy_runner_0": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.106,
+     "night": 1.691,
+     "kept": 1.529,
+     "oldNight": 1.577,
+     "oldKept": 1.426,
+     "nightWorst": 1.451,
+     "nightMed": 2.558,
+     "fig": {
+      "0.75": 0.1846,
+      "0.8": 0.2418,
+      "-0.25": 0.0525,
+      "0.5": 0.0796
+     }
+    },
+    "enemy_runner_1": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.186,
+     "night": 1.93,
+     "kept": 1.627,
+     "oldNight": 1.93,
+     "oldKept": 1.627,
+     "nightWorst": 1.468,
+     "nightMed": 3.132,
+     "fig": {
+      "0.75": 0.1192,
+      "0.8": 0.156,
+      "-0.25": 0.0337,
+      "0.5": 0.0503
+     }
+    },
+    "enemy_runner_2": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.613,
+     "night": 2.379,
+     "kept": 1.475,
+     "oldNight": 2.379,
+     "oldKept": 1.475,
+     "nightWorst": 1.697,
+     "nightMed": 3.859,
+     "fig": {
+      "0.75": 0.0648,
+      "0.8": 0.0832,
+      "-0.25": 0.0179,
+      "0.5": 0.0262
+     }
+    },
+    "enemy_runner_3": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.207,
+     "night": 1.961,
+     "kept": 1.625,
+     "oldNight": 1.961,
+     "oldKept": 1.625,
+     "nightWorst": 1.497,
+     "nightMed": 3.182,
+     "fig": {
+      "0.75": 0.1139,
+      "0.8": 0.1519,
+      "-0.25": 0.0324,
+      "0.5": 0.0486
+     }
+    },
+    "enemy_runner_4": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.667,
+     "night": 2.428,
+     "kept": 1.457,
+     "oldNight": 2.428,
+     "oldKept": 1.457,
+     "nightWorst": 1.733,
+     "nightMed": 3.939,
+     "fig": {
+      "0.75": 0.0588,
+      "0.8": 0.0772,
+      "-0.25": 0.0165,
+      "0.5": 0.0241
+     }
+    },
+    "enemy_runner_5": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.197,
+     "night": 1.65,
+     "kept": 1.378,
+     "oldNight": 1.478,
+     "oldKept": 1.235,
+     "nightWorst": 1.464,
+     "nightMed": 2.398,
+     "fig": {
+      "0.75": 0.2082,
+      "0.8": 0.2691,
+      "-0.25": 0.0593,
+      "0.5": 0.0917
+     }
+    },
+    "enemy_runner_6": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.49,
+     "night": 2.253,
+     "kept": 1.512,
+     "oldNight": 2.253,
+     "oldKept": 1.512,
+     "nightWorst": 1.608,
+     "nightMed": 3.656,
+     "fig": {
+      "0.75": 0.0751,
+      "0.8": 0.1009,
+      "-0.25": 0.0217,
+      "0.5": 0.0312
+     }
+    },
+    "enemy_runner_7": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.256,
+     "night": 2.007,
+     "kept": 1.598,
+     "oldNight": 2.007,
+     "oldKept": 1.598,
+     "nightWorst": 1.455,
+     "nightMed": 3.256,
+     "fig": {
+      "0.75": 0.1092,
+      "0.8": 0.1424,
+      "-0.25": 0.0305,
+      "0.5": 0.0449
+     }
+    },
+    "enemy_heavy_0": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.468,
+     "night": 2.232,
+     "kept": 1.52,
+     "oldNight": 2.232,
+     "oldKept": 1.52,
+     "nightWorst": 1.592,
+     "nightMed": 3.62,
+     "fig": {
+      "0.75": 0.0773,
+      "0.8": 0.1036,
+      "-0.25": 0.0224,
+      "0.5": 0.0323
+     }
+    },
+    "enemy_heavy_1": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.258,
+     "night": 2.015,
+     "kept": 1.602,
+     "oldNight": 2.015,
+     "oldKept": 1.602,
+     "nightWorst": 1.46,
+     "nightMed": 3.269,
+     "fig": {
+      "0.75": 0.1079,
+      "0.8": 0.1401,
+      "-0.25": 0.0302,
+      "0.5": 0.0445
+     }
+    },
+    "enemy_heavy_2": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.429,
+     "night": 2.199,
+     "kept": 1.539,
+     "oldNight": 2.199,
+     "oldKept": 1.539,
+     "nightWorst": 1.569,
+     "nightMed": 3.568,
+     "fig": {
+      "0.75": 0.083,
+      "0.8": 0.1103,
+      "-0.25": 0.0235,
+      "0.5": 0.0345
+     }
+    },
+    "enemy_heavy_3": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.232,
+     "night": 1.996,
+     "kept": 1.62,
+     "oldNight": 1.996,
+     "oldKept": 1.62,
+     "nightWorst": 1.524,
+     "nightMed": 3.238,
+     "fig": {
+      "0.75": 0.1114,
+      "0.8": 0.1464,
+      "-0.25": 0.0309,
+      "0.5": 0.0465
+     }
+    },
+    "enemy_heavy_4": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.494,
+     "night": 2.259,
+     "kept": 1.512,
+     "oldNight": 2.259,
+     "oldKept": 1.512,
+     "nightWorst": 1.612,
+     "nightMed": 3.665,
+     "fig": {
+      "0.75": 0.0746,
+      "0.8": 0.1004,
+      "-0.25": 0.0215,
+      "0.5": 0.031
+     }
+    },
+    "enemy_heavy_5": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.449,
+     "night": 2.213,
+     "kept": 1.527,
+     "oldNight": 2.213,
+     "oldKept": 1.527,
+     "nightWorst": 1.579,
+     "nightMed": 3.59,
+     "fig": {
+      "0.75": 0.0811,
+      "0.8": 0.1081,
+      "-0.25": 0.023,
+      "0.5": 0.0337
+     }
+    }
+   },
+   "weakest": [
+    "faction_church 1.593/1.328",
+    "beast_dire_wolf 1.599/1.322",
+    "faction_colorful 1.599/1.32",
+    "faction_network 1.646/1.319",
+    "faction_homeless 1.663/1.318",
+    "person_trades_0 1.631/1.251"
+   ]
+  },
+  "freeway": {
+   "board": "strip + suburb + freeway",
+   "tilesDark": 190,
+   "groundDay": 0.1394,
+   "groundNight": 0.1316,
+   "looks": {
+    "faction_anarchists": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.039,
+     "night": 1.583,
+     "kept": 1.524,
+     "oldNight": 1.065,
+     "oldKept": 1.025,
+     "nightWorst": 1.462,
+     "nightMed": 2.376,
+     "fig": {
+      "0.75": 0.0943,
+      "0.8": 0.1262,
+      "-0.25": 0.0265,
+      "0.5": 0.0394
+     }
+    },
+    "faction_blues": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.154,
+     "night": 1.594,
+     "kept": 1.381,
+     "oldNight": 1.183,
+     "oldKept": 1.025,
+     "nightWorst": 1.468,
+     "nightMed": 2.145,
+     "fig": {
+      "0.75": 0.1282,
+      "0.8": 0.1717,
+      "-0.25": 0.0375,
+      "0.5": 0.0548
+     }
+    },
+    "faction_caravans": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.135,
+     "night": 1.585,
+     "kept": 1.396,
+     "oldNight": 1.211,
+     "oldKept": 1.067,
+     "nightWorst": 1.47,
+     "nightMed": 2.14,
+     "fig": {
+      "0.75": 0.1383,
+      "0.8": 0.1815,
+      "-0.25": 0.0385,
+      "0.5": 0.0584
+     }
+    },
+    "faction_cartel": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.26,
+     "night": 1.455,
+     "kept": 1.155,
+     "oldNight": 1.298,
+     "oldKept": 1.03,
+     "nightWorst": 1.357,
+     "nightMed": 2.801,
+     "fig": {
+      "0.75": 0.0522,
+      "0.8": 0.0672,
+      "-0.25": 0.0148,
+      "0.5": 0.0216
+     }
+    },
+    "faction_church": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.161,
+     "night": 1.536,
+     "kept": 1.323,
+     "oldNight": 1.076,
+     "oldKept": 0.927,
+     "nightWorst": 1.452,
+     "nightMed": 1.893,
+     "fig": {
+      "0.75": 0.3504,
+      "0.8": 0.4383,
+      "-0.25": 0.1081,
+      "0.5": 0.1701
+     }
+    },
+    "faction_colorful": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.101,
+     "night": 1.533,
+     "kept": 1.392,
+     "oldNight": 1.137,
+     "oldKept": 1.033,
+     "nightWorst": 1.451,
+     "nightMed": 2.017,
+     "fig": {
+      "0.75": 0.2429,
+      "0.8": 0.3109,
+      "-0.25": 0.0698,
+      "0.5": 0.1081
+     }
+    },
+    "faction_homeless": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.1,
+     "night": 1.531,
+     "kept": 1.392,
+     "oldNight": 1.136,
+     "oldKept": 1.033,
+     "nightWorst": 1.454,
+     "nightMed": 2.008,
+     "fig": {
+      "0.75": 0.239,
+      "0.8": 0.3108,
+      "-0.25": 0.0699,
+      "0.5": 0.1074
+     }
+    },
+    "faction_mob": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.075,
+     "night": 1.657,
+     "kept": 1.541,
+     "oldNight": 1.081,
+     "oldKept": 1.006,
+     "nightWorst": 1.471,
+     "nightMed": 2.249,
+     "fig": {
+      "0.75": 0.1098,
+      "0.8": 0.1423,
+      "-0.25": 0.0308,
+      "0.5": 0.0454
+     }
+    },
+    "faction_network": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.1,
+     "night": 1.536,
+     "kept": 1.396,
+     "oldNight": 1.132,
+     "oldKept": 1.029,
+     "nightWorst": 1.453,
+     "nightMed": 2.001,
+     "fig": {
+      "0.75": 0.2359,
+      "0.8": 0.3008,
+      "-0.25": 0.0703,
+      "0.5": 0.1058
+     }
+    },
+    "faction_reds": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.041,
+     "night": 1.623,
+     "kept": 1.559,
+     "oldNight": 1.043,
+     "oldKept": 1.002,
+     "nightWorst": 1.451,
+     "nightMed": 2.337,
+     "fig": {
+      "0.75": 0.0992,
+      "0.8": 0.1319,
+      "-0.25": 0.0277,
+      "0.5": 0.0413
+     }
+    },
+    "faction_remnants": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.101,
+     "night": 1.673,
+     "kept": 1.52,
+     "oldNight": 1.112,
+     "oldKept": 1.01,
+     "nightWorst": 1.455,
+     "nightMed": 2.201,
+     "fig": {
+      "0.75": 0.1147,
+      "0.8": 0.1502,
+      "-0.25": 0.0325,
+      "0.5": 0.0485
+     }
+    },
+    "faction_trades": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.046,
+     "night": 1.563,
+     "kept": 1.494,
+     "oldNight": 1.082,
+     "oldKept": 1.034,
+     "nightWorst": 1.461,
+     "nightMed": 2.435,
+     "fig": {
+      "0.75": 0.0891,
+      "0.8": 0.1174,
+      "-0.25": 0.0246,
+      "0.5": 0.037
+     }
+    },
+    "faction_volunteers": {
+     "kind": "faction",
+     "type": null,
+     "day": 1.101,
+     "night": 1.549,
+     "kept": 1.407,
+     "oldNight": 1.302,
+     "oldKept": 1.183,
+     "nightWorst": 1.472,
+     "nightMed": 2.31,
+     "fig": {
+      "0.75": 0.1696,
+      "0.8": 0.2208,
+      "-0.25": 0.0487,
+      "0.5": 0.0728
+     }
+    },
+    "tier_thug": {
+     "kind": "tier",
+     "type": null,
+     "day": 1.079,
+     "night": 1.508,
+     "kept": 1.398,
+     "oldNight": 1.279,
+     "oldKept": 1.185,
+     "nightWorst": 1.452,
+     "nightMed": 2.061,
+     "fig": {
+      "0.75": 0.1919,
+      "0.8": 0.2483,
+      "-0.25": 0.0547,
+      "0.5": 0.0836
+     }
+    },
+    "tier_poacher": {
+     "kind": "tier",
+     "type": null,
+     "day": 1.131,
+     "night": 1.612,
+     "kept": 1.425,
+     "oldNight": 1.234,
+     "oldKept": 1.091,
+     "nightWorst": 1.468,
+     "nightMed": 2.197,
+     "fig": {
+      "0.75": 0.1463,
+      "0.8": 0.1914,
+      "-0.25": 0.0412,
+      "0.5": 0.0621
+     }
+    },
+    "beast_dire_wolf": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.097,
+     "night": 1.521,
+     "kept": 1.387,
+     "oldNight": 1.137,
+     "oldKept": 1.036,
+     "nightWorst": 1.452,
+     "nightMed": 2.011,
+     "fig": {
+      "0.75": 0.2368,
+      "0.8": 0.3069,
+      "-0.25": 0.0698,
+      "0.5": 0.1057
+     }
+    },
+    "beast_cave_hyena": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.111,
+     "night": 1.564,
+     "kept": 1.408,
+     "oldNight": 1.267,
+     "oldKept": 1.14,
+     "nightWorst": 1.452,
+     "nightMed": 2.264,
+     "fig": {
+      "0.75": 0.1629,
+      "0.8": 0.2128,
+      "-0.25": 0.046,
+      "0.5": 0.0692
+     }
+    },
+    "beast_feral_dog_shepherd": {
+     "kind": "beast",
+     "type": null,
+     "day": 1.095,
+     "night": 1.549,
+     "kept": 1.415,
+     "oldNight": 1.305,
+     "oldKept": 1.192,
+     "nightWorst": 1.469,
+     "nightMed": 2.314,
+     "fig": {
+      "0.75": 0.1701,
+      "0.8": 0.2214,
+      "-0.25": 0.0488,
+      "0.5": 0.0731
+     }
+    },
+    "person_anarchists_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.1,
+     "night": 1.583,
+     "kept": 1.439,
+     "oldNight": 1.165,
+     "oldKept": 1.059,
+     "nightWorst": 1.45,
+     "nightMed": 2.559,
+     "fig": {
+      "0.75": 0.0725,
+      "0.8": 0.0975,
+      "-0.25": 0.021,
+      "0.5": 0.0298
+     }
+    },
+    "person_blues_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.118,
+     "night": 1.645,
+     "kept": 1.471,
+     "oldNight": 1.145,
+     "oldKept": 1.024,
+     "nightWorst": 1.451,
+     "nightMed": 2.161,
+     "fig": {
+      "0.75": 0.1228,
+      "0.8": 0.161,
+      "-0.25": 0.0348,
+      "0.5": 0.0515
+     }
+    },
+    "person_caravans_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.045,
+     "night": 1.627,
+     "kept": 1.557,
+     "oldNight": 1.041,
+     "oldKept": 0.996,
+     "nightWorst": 1.467,
+     "nightMed": 2.327,
+     "fig": {
+      "0.75": 0.1012,
+      "0.8": 0.1325,
+      "-0.25": 0.0281,
+      "0.5": 0.0414
+     }
+    },
+    "person_cartel_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.059,
+     "night": 1.625,
+     "kept": 1.534,
+     "oldNight": 1.109,
+     "oldKept": 1.047,
+     "nightWorst": 1.457,
+     "nightMed": 2.483,
+     "fig": {
+      "0.75": 0.0824,
+      "0.8": 0.1087,
+      "-0.25": 0.0232,
+      "0.5": 0.0339
+     }
+    },
+    "person_church_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.06,
+     "night": 1.634,
+     "kept": 1.542,
+     "oldNight": 1.109,
+     "oldKept": 1.046,
+     "nightWorst": 1.451,
+     "nightMed": 2.498,
+     "fig": {
+      "0.75": 0.0819,
+      "0.8": 0.1096,
+      "-0.25": 0.0227,
+      "0.5": 0.0339
+     }
+    },
+    "person_colorful_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.111,
+     "night": 1.666,
+     "kept": 1.5,
+     "oldNight": 1.115,
+     "oldKept": 1.004,
+     "nightWorst": 1.452,
+     "nightMed": 2.185,
+     "fig": {
+      "0.75": 0.1176,
+      "0.8": 0.1553,
+      "-0.25": 0.0333,
+      "0.5": 0.0488
+     }
+    },
+    "person_homeless_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.144,
+     "night": 1.589,
+     "kept": 1.389,
+     "oldNight": 1.219,
+     "oldKept": 1.066,
+     "nightWorst": 1.45,
+     "nightMed": 2.135,
+     "fig": {
+      "0.75": 0.1392,
+      "0.8": 0.1856,
+      "-0.25": 0.0397,
+      "0.5": 0.0597
+     }
+    },
+    "person_mob_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.062,
+     "night": 1.635,
+     "kept": 1.54,
+     "oldNight": 1.125,
+     "oldKept": 1.059,
+     "nightWorst": 1.454,
+     "nightMed": 2.5,
+     "fig": {
+      "0.75": 0.0779,
+      "0.8": 0.1043,
+      "-0.25": 0.0227,
+      "0.5": 0.0326
+     }
+    },
+    "person_network_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.111,
+     "night": 1.55,
+     "kept": 1.395,
+     "oldNight": 1.263,
+     "oldKept": 1.137,
+     "nightWorst": 1.456,
+     "nightMed": 2.206,
+     "fig": {
+      "0.75": 0.1528,
+      "0.8": 0.1991,
+      "-0.25": 0.0446,
+      "0.5": 0.067
+     }
+    },
+    "person_reds_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.043,
+     "night": 1.578,
+     "kept": 1.513,
+     "oldNight": 1.082,
+     "oldKept": 1.037,
+     "nightWorst": 1.468,
+     "nightMed": 2.425,
+     "fig": {
+      "0.75": 0.0898,
+      "0.8": 0.1193,
+      "-0.25": 0.0249,
+      "0.5": 0.037
+     }
+    },
+    "person_remnants_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.149,
+     "night": 1.534,
+     "kept": 1.335,
+     "oldNight": 1.206,
+     "oldKept": 1.05,
+     "nightWorst": 1.436,
+     "nightMed": 2.649,
+     "fig": {
+      "0.75": 0.064,
+      "0.8": 0.0867,
+      "-0.25": 0.0186,
+      "0.5": 0.0271
+     }
+    },
+    "person_trades_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.095,
+     "night": 1.586,
+     "kept": 1.448,
+     "oldNight": 1.188,
+     "oldKept": 1.085,
+     "nightWorst": 1.452,
+     "nightMed": 2.036,
+     "fig": {
+      "0.75": 0.2186,
+      "0.8": 0.2815,
+      "-0.25": 0.0627,
+      "0.5": 0.0976
+     }
+    },
+    "person_volunteers_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.127,
+     "night": 1.581,
+     "kept": 1.403,
+     "oldNight": 1.268,
+     "oldKept": 1.125,
+     "nightWorst": 1.452,
+     "nightMed": 2.245,
+     "fig": {
+      "0.75": 0.1556,
+      "0.8": 0.2016,
+      "-0.25": 0.0434,
+      "0.5": 0.0652
+     }
+    },
+    "person_town_0": {
+     "kind": "person",
+     "type": null,
+     "day": 1.132,
+     "night": 1.636,
+     "kept": 1.445,
+     "oldNight": 1.149,
+     "oldKept": 1.015,
+     "nightWorst": 1.454,
+     "nightMed": 2.177,
+     "fig": {
+      "0.75": 0.1246,
+      "0.8": 0.1635,
+      "-0.25": 0.0349,
+      "0.5": 0.0517
+     }
+    },
+    "person_anarchists_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.079,
+     "night": 1.62,
+     "kept": 1.501,
+     "oldNight": 1.145,
+     "oldKept": 1.061,
+     "nightWorst": 1.464,
+     "nightMed": 2.534,
+     "fig": {
+      "0.75": 0.0751,
+      "0.8": 0.1009,
+      "-0.25": 0.0217,
+      "0.5": 0.0312
+     }
+    },
+    "person_blues_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.08,
+     "night": 1.546,
+     "kept": 1.431,
+     "oldNight": 1.29,
+     "oldKept": 1.194,
+     "nightWorst": 1.465,
+     "nightMed": 2.33,
+     "fig": {
+      "0.75": 0.1747,
+      "0.8": 0.227,
+      "-0.25": 0.0523,
+      "0.5": 0.0766
+     }
+    },
+    "person_caravans_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.139,
+     "night": 1.628,
+     "kept": 1.429,
+     "oldNight": 1.167,
+     "oldKept": 1.025,
+     "nightWorst": 1.45,
+     "nightMed": 2.171,
+     "fig": {
+      "0.75": 0.1258,
+      "0.8": 0.1647,
+      "-0.25": 0.0353,
+      "0.5": 0.0534
+     }
+    },
+    "person_cartel_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.063,
+     "night": 1.635,
+     "kept": 1.538,
+     "oldNight": 1.13,
+     "oldKept": 1.063,
+     "nightWorst": 1.459,
+     "nightMed": 2.5,
+     "fig": {
+      "0.75": 0.0771,
+      "0.8": 0.1035,
+      "-0.25": 0.0226,
+      "0.5": 0.0323
+     }
+    },
+    "person_church_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.046,
+     "night": 1.614,
+     "kept": 1.543,
+     "oldNight": 1.05,
+     "oldKept": 1.004,
+     "nightWorst": 1.455,
+     "nightMed": 2.343,
+     "fig": {
+      "0.75": 0.1001,
+      "0.8": 0.1316,
+      "-0.25": 0.0275,
+      "0.5": 0.0406
+     }
+    },
+    "person_colorful_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.109,
+     "night": 1.565,
+     "kept": 1.411,
+     "oldNight": 1.264,
+     "oldKept": 1.14,
+     "nightWorst": 1.456,
+     "nightMed": 2.245,
+     "fig": {
+      "0.75": 0.159,
+      "0.8": 0.2081,
+      "-0.25": 0.0446,
+      "0.5": 0.067
+     }
+    },
+    "person_homeless_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.121,
+     "night": 1.571,
+     "kept": 1.401,
+     "oldNight": 1.268,
+     "oldKept": 1.131,
+     "nightWorst": 1.452,
+     "nightMed": 2.243,
+     "fig": {
+      "0.75": 0.1588,
+      "0.8": 0.2056,
+      "-0.25": 0.0442,
+      "0.5": 0.0667
+     }
+    },
+    "person_mob_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.084,
+     "night": 1.548,
+     "kept": 1.428,
+     "oldNight": 1.269,
+     "oldKept": 1.171,
+     "nightWorst": 1.451,
+     "nightMed": 2.045,
+     "fig": {
+      "0.75": 0.1907,
+      "0.8": 0.249,
+      "-0.25": 0.0555,
+      "0.5": 0.0833
+     }
+    },
+    "person_network_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.118,
+     "night": 1.681,
+     "kept": 1.504,
+     "oldNight": 1.123,
+     "oldKept": 1.004,
+     "nightWorst": 1.472,
+     "nightMed": 2.166,
+     "fig": {
+      "0.75": 0.1163,
+      "0.8": 0.156,
+      "-0.25": 0.0341,
+      "0.5": 0.0494
+     }
+    },
+    "person_reds_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.095,
+     "night": 1.564,
+     "kept": 1.428,
+     "oldNight": 1.298,
+     "oldKept": 1.185,
+     "nightWorst": 1.451,
+     "nightMed": 2.216,
+     "fig": {
+      "0.75": 0.1831,
+      "0.8": 0.2373,
+      "-0.25": 0.0516,
+      "0.5": 0.0796
+     }
+    },
+    "person_remnants_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.08,
+     "night": 1.657,
+     "kept": 1.534,
+     "oldNight": 1.084,
+     "oldKept": 1.004,
+     "nightWorst": 1.462,
+     "nightMed": 2.249,
+     "fig": {
+      "0.75": 0.1116,
+      "0.8": 0.1451,
+      "-0.25": 0.0308,
+      "0.5": 0.046
+     }
+    },
+    "person_trades_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.041,
+     "night": 1.62,
+     "kept": 1.556,
+     "oldNight": 1.049,
+     "oldKept": 1.008,
+     "nightWorst": 1.526,
+     "nightMed": 2.333,
+     "fig": {
+      "0.75": 0.0989,
+      "0.8": 0.1295,
+      "-0.25": 0.0278,
+      "0.5": 0.0408
+     }
+    },
+    "person_volunteers_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.067,
+     "night": 1.662,
+     "kept": 1.558,
+     "oldNight": 1.074,
+     "oldKept": 1.007,
+     "nightWorst": 1.475,
+     "nightMed": 2.257,
+     "fig": {
+      "0.75": 0.1081,
+      "0.8": 0.1405,
+      "-0.25": 0.0305,
+      "0.5": 0.0445
+     }
+    },
+    "person_town_1": {
+     "kind": "person",
+     "type": null,
+     "day": 1.035,
+     "night": 1.584,
+     "kept": 1.53,
+     "oldNight": 1.069,
+     "oldKept": 1.033,
+     "nightWorst": 1.463,
+     "nightMed": 2.376,
+     "fig": {
+      "0.75": 0.094,
+      "0.8": 0.1263,
+      "-0.25": 0.0264,
+      "0.5": 0.039
+     }
+    },
+    "person_anarchists_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.05,
+     "night": 1.562,
+     "kept": 1.488,
+     "oldNight": 1.079,
+     "oldKept": 1.028,
+     "nightWorst": 1.454,
+     "nightMed": 2.437,
+     "fig": {
+      "0.75": 0.0875,
+      "0.8": 0.1176,
+      "-0.25": 0.0245,
+      "0.5": 0.0365
+     }
+    },
+    "person_blues_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.105,
+     "night": 1.578,
+     "kept": 1.428,
+     "oldNight": 1.157,
+     "oldKept": 1.047,
+     "nightWorst": 1.453,
+     "nightMed": 2.566,
+     "fig": {
+      "0.75": 0.0722,
+      "0.8": 0.097,
+      "-0.25": 0.0208,
+      "0.5": 0.0303
+     }
+    },
+    "person_caravans_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.052,
+     "night": 1.639,
+     "kept": 1.558,
+     "oldNight": 1.046,
+     "oldKept": 0.994,
+     "nightWorst": 1.478,
+     "nightMed": 2.325,
+     "fig": {
+      "0.75": 0.1024,
+      "0.8": 0.1343,
+      "-0.25": 0.0281,
+      "0.5": 0.0421
+     }
+    },
+    "person_cartel_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.043,
+     "night": 1.573,
+     "kept": 1.508,
+     "oldNight": 1.079,
+     "oldKept": 1.035,
+     "nightWorst": 1.461,
+     "nightMed": 2.4,
+     "fig": {
+      "0.75": 0.0909,
+      "0.8": 0.1217,
+      "-0.25": 0.0257,
+      "0.5": 0.0381
+     }
+    },
+    "person_church_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.132,
+     "night": 1.584,
+     "kept": 1.399,
+     "oldNight": 1.2,
+     "oldKept": 1.06,
+     "nightWorst": 1.477,
+     "nightMed": 2.133,
+     "fig": {
+      "0.75": 0.1369,
+      "0.8": 0.1796,
+      "-0.25": 0.038,
+      "0.5": 0.0572
+     }
+    },
+    "person_colorful_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.159,
+     "night": 1.511,
+     "kept": 1.304,
+     "oldNight": 1.208,
+     "oldKept": 1.042,
+     "nightWorst": 1.43,
+     "nightMed": 2.648,
+     "fig": {
+      "0.75": 0.0663,
+      "0.8": 0.0861,
+      "-0.25": 0.0186,
+      "0.5": 0.027
+     }
+    },
+    "person_homeless_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.134,
+     "night": 1.628,
+     "kept": 1.436,
+     "oldNight": 1.231,
+     "oldKept": 1.086,
+     "nightWorst": 1.467,
+     "nightMed": 2.198,
+     "fig": {
+      "0.75": 0.1457,
+      "0.8": 0.1909,
+      "-0.25": 0.0399,
+      "0.5": 0.0612
+     }
+    },
+    "person_mob_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.13,
+     "night": 1.536,
+     "kept": 1.359,
+     "oldNight": 1.175,
+     "oldKept": 1.04,
+     "nightWorst": 1.457,
+     "nightMed": 2.6,
+     "fig": {
+      "0.75": 0.0688,
+      "0.8": 0.0928,
+      "-0.25": 0.0198,
+      "0.5": 0.0291
+     }
+    },
+    "person_network_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.124,
+     "night": 1.611,
+     "kept": 1.433,
+     "oldNight": 1.226,
+     "oldKept": 1.091,
+     "nightWorst": 1.452,
+     "nightMed": 2.185,
+     "fig": {
+      "0.75": 0.1444,
+      "0.8": 0.1872,
+      "-0.25": 0.0409,
+      "0.5": 0.0608
+     }
+    },
+    "person_reds_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.044,
+     "night": 1.576,
+     "kept": 1.51,
+     "oldNight": 1.079,
+     "oldKept": 1.034,
+     "nightWorst": 1.46,
+     "nightMed": 2.399,
+     "fig": {
+      "0.75": 0.0919,
+      "0.8": 0.1235,
+      "-0.25": 0.0257,
+      "0.5": 0.038
+     }
+    },
+    "person_remnants_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.184,
+     "night": 1.46,
+     "kept": 1.233,
+     "oldNight": 1.242,
+     "oldKept": 1.049,
+     "nightWorst": 1.384,
+     "nightMed": 2.705,
+     "fig": {
+      "0.75": 0.0609,
+      "0.8": 0.0784,
+      "-0.25": 0.0171,
+      "0.5": 0.0248
+     }
+    },
+    "person_trades_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.058,
+     "night": 1.635,
+     "kept": 1.545,
+     "oldNight": 1.113,
+     "oldKept": 1.052,
+     "nightWorst": 1.455,
+     "nightMed": 2.495,
+     "fig": {
+      "0.75": 0.0814,
+      "0.8": 0.1085,
+      "-0.25": 0.0228,
+      "0.5": 0.0335
+     }
+    },
+    "person_volunteers_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.13,
+     "night": 1.648,
+     "kept": 1.458,
+     "oldNight": 1.152,
+     "oldKept": 1.019,
+     "nightWorst": 1.451,
+     "nightMed": 2.163,
+     "fig": {
+      "0.75": 0.1234,
+      "0.8": 0.1647,
+      "-0.25": 0.0354,
+      "0.5": 0.0521
+     }
+    },
+    "person_town_2": {
+     "kind": "person",
+     "type": null,
+     "day": 1.046,
+     "night": 1.561,
+     "kept": 1.492,
+     "oldNight": 1.087,
+     "oldKept": 1.039,
+     "nightWorst": 1.461,
+     "nightMed": 2.433,
+     "fig": {
+      "0.75": 0.0861,
+      "0.8": 0.1142,
+      "-0.25": 0.0246,
+      "0.5": 0.0356
+     }
+    },
+    "person_town_3": {
+     "kind": "person",
+     "type": null,
+     "day": 1.074,
+     "night": 1.628,
+     "kept": 1.516,
+     "oldNight": 1.135,
+     "oldKept": 1.057,
+     "nightWorst": 1.459,
+     "nightMed": 2.519,
+     "fig": {
+      "0.75": 0.0762,
+      "0.8": 0.1017,
+      "-0.25": 0.0221,
+      "0.5": 0.0319
+     }
+    },
+    "person_town_4": {
+     "kind": "person",
+     "type": null,
+     "day": 1.05,
+     "night": 1.557,
+     "kept": 1.483,
+     "oldNight": 1.08,
+     "oldKept": 1.029,
+     "nightWorst": 1.45,
+     "nightMed": 2.435,
+     "fig": {
+      "0.75": 0.0879,
+      "0.8": 0.1161,
+      "-0.25": 0.0246,
+      "0.5": 0.0362
+     }
+    },
+    "person_town_5": {
+     "kind": "person",
+     "type": null,
+     "day": 1.137,
+     "night": 1.606,
+     "kept": 1.412,
+     "oldNight": 1.24,
+     "oldKept": 1.091,
+     "nightWorst": 1.463,
+     "nightMed": 2.193,
+     "fig": {
+      "0.75": 0.1462,
+      "0.8": 0.1937,
+      "-0.25": 0.0415,
+      "0.5": 0.0627
+     }
+    },
+    "person_town_6": {
+     "kind": "person",
+     "type": null,
+     "day": 1.092,
+     "night": 1.645,
+     "kept": 1.506,
+     "oldNight": 1.094,
+     "oldKept": 1.002,
+     "nightWorst": 1.456,
+     "nightMed": 2.232,
+     "fig": {
+      "0.75": 0.111,
+      "0.8": 0.1453,
+      "-0.25": 0.0314,
+      "0.5": 0.0469
+     }
+    },
+    "person_town_7": {
+     "kind": "person",
+     "type": null,
+     "day": 1.136,
+     "night": 1.533,
+     "kept": 1.349,
+     "oldNight": 1.187,
+     "oldKept": 1.045,
+     "nightWorst": 1.457,
+     "nightMed": 2.611,
+     "fig": {
+      "0.75": 0.067,
+      "0.8": 0.0904,
+      "-0.25": 0.0196,
+      "0.5": 0.0283
+     }
+    },
+    "person_town_8": {
+     "kind": "person",
+     "type": null,
+     "day": 1.058,
+     "night": 1.632,
+     "kept": 1.543,
+     "oldNight": 1.115,
+     "oldKept": 1.054,
+     "nightWorst": 1.458,
+     "nightMed": 2.495,
+     "fig": {
+      "0.75": 0.0803,
+      "0.8": 0.1067,
+      "-0.25": 0.0228,
+      "0.5": 0.0334
+     }
+    },
+    "person_town_9": {
+     "kind": "person",
+     "type": null,
+     "day": 1.05,
+     "night": 1.607,
+     "kept": 1.53,
+     "oldNight": 1.094,
+     "oldKept": 1.042,
+     "nightWorst": 1.459,
+     "nightMed": 2.457,
+     "fig": {
+      "0.75": 0.0841,
+      "0.8": 0.1123,
+      "-0.25": 0.0239,
+      "0.5": 0.0351
+     }
+    },
+    "person_town_10": {
+     "kind": "person",
+     "type": null,
+     "day": 1.044,
+     "night": 1.568,
+     "kept": 1.502,
+     "oldNight": 1.08,
+     "oldKept": 1.034,
+     "nightWorst": 1.459,
+     "nightMed": 2.397,
+     "fig": {
+      "0.75": 0.0895,
+      "0.8": 0.1205,
+      "-0.25": 0.0258,
+      "0.5": 0.0373
+     }
+    },
+    "person_town_11": {
+     "kind": "person",
+     "type": null,
+     "day": 1.218,
+     "night": 1.427,
+     "kept": 1.172,
+     "oldNight": 1.262,
+     "oldKept": 1.036,
+     "nightWorst": 1.373,
+     "nightMed": 2.724,
+     "fig": {
+      "0.75": 0.0581,
+      "0.8": 0.0749,
+      "-0.25": 0.0167,
+      "0.5": 0.0237
+     }
+    },
+    "enemy_mechanic_0": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.034,
+     "night": 1.584,
+     "kept": 1.532,
+     "oldNight": 1.065,
+     "oldKept": 1.03,
+     "nightWorst": 1.463,
+     "nightMed": 2.376,
+     "fig": {
+      "0.75": 0.0946,
+      "0.8": 0.127,
+      "-0.25": 0.0264,
+      "0.5": 0.0393
+     }
+    },
+    "enemy_mechanic_1": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.04,
+     "night": 1.578,
+     "kept": 1.517,
+     "oldNight": 1.079,
+     "oldKept": 1.037,
+     "nightWorst": 1.465,
+     "nightMed": 2.407,
+     "fig": {
+      "0.75": 0.0915,
+      "0.8": 0.1214,
+      "-0.25": 0.0255,
+      "0.5": 0.0381
+     }
+    },
+    "enemy_mechanic_2": {
+     "kind": "enemy",
+     "type": "mechanic",
+     "day": 1.127,
+     "night": 1.522,
+     "kept": 1.35,
+     "oldNight": 1.181,
+     "oldKept": 1.048,
+     "nightWorst": 1.457,
+     "nightMed": 2.604,
+     "fig": {
+      "0.75": 0.0701,
+      "0.8": 0.0915,
+      "-0.25": 0.0197,
+      "0.5": 0.0287
+     }
+    },
+    "enemy_runner_0": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.1,
+     "night": 1.572,
+     "kept": 1.429,
+     "oldNight": 1.287,
+     "oldKept": 1.17,
+     "nightWorst": 1.451,
+     "nightMed": 2.23,
+     "fig": {
+      "0.75": 0.1846,
+      "0.8": 0.2418,
+      "-0.25": 0.0525,
+      "0.5": 0.0796
+     }
+    },
+    "enemy_runner_1": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.107,
+     "night": 1.666,
+     "kept": 1.505,
+     "oldNight": 1.132,
+     "oldKept": 1.023,
+     "nightWorst": 1.451,
+     "nightMed": 2.176,
+     "fig": {
+      "0.75": 0.1192,
+      "0.8": 0.156,
+      "-0.25": 0.0337,
+      "0.5": 0.0503
+     }
+    },
+    "enemy_runner_2": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.166,
+     "night": 1.514,
+     "kept": 1.298,
+     "oldNight": 1.22,
+     "oldKept": 1.046,
+     "nightWorst": 1.401,
+     "nightMed": 2.675,
+     "fig": {
+      "0.75": 0.0648,
+      "0.8": 0.0832,
+      "-0.25": 0.0179,
+      "0.5": 0.0262
+     }
+    },
+    "enemy_runner_3": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.097,
+     "night": 1.653,
+     "kept": 1.507,
+     "oldNight": 1.113,
+     "oldKept": 1.015,
+     "nightWorst": 1.451,
+     "nightMed": 2.205,
+     "fig": {
+      "0.75": 0.1139,
+      "0.8": 0.1519,
+      "-0.25": 0.0324,
+      "0.5": 0.0486
+     }
+    },
+    "enemy_runner_4": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.205,
+     "night": 1.445,
+     "kept": 1.199,
+     "oldNight": 1.255,
+     "oldKept": 1.041,
+     "nightWorst": 1.383,
+     "nightMed": 2.73,
+     "fig": {
+      "0.75": 0.0588,
+      "0.8": 0.0772,
+      "-0.25": 0.0165,
+      "0.5": 0.0241
+     }
+    },
+    "enemy_runner_5": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.085,
+     "night": 1.568,
+     "kept": 1.445,
+     "oldNight": 1.224,
+     "oldKept": 1.128,
+     "nightWorst": 1.454,
+     "nightMed": 1.985,
+     "fig": {
+      "0.75": 0.2082,
+      "0.8": 0.2691,
+      "-0.25": 0.0593,
+      "0.5": 0.0917
+     }
+    },
+    "enemy_runner_6": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.077,
+     "night": 1.62,
+     "kept": 1.504,
+     "oldNight": 1.145,
+     "oldKept": 1.063,
+     "nightWorst": 1.464,
+     "nightMed": 2.534,
+     "fig": {
+      "0.75": 0.0751,
+      "0.8": 0.1009,
+      "-0.25": 0.0217,
+      "0.5": 0.0312
+     }
+    },
+    "enemy_runner_7": {
+     "kind": "enemy",
+     "type": "runner",
+     "day": 1.066,
+     "night": 1.663,
+     "kept": 1.56,
+     "oldNight": 1.078,
+     "oldKept": 1.011,
+     "nightWorst": 1.476,
+     "nightMed": 2.257,
+     "fig": {
+      "0.75": 0.1092,
+      "0.8": 0.1424,
+      "-0.25": 0.0305,
+      "0.5": 0.0449
+     }
+    },
+    "enemy_heavy_0": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.061,
+     "night": 1.641,
+     "kept": 1.547,
+     "oldNight": 1.129,
+     "oldKept": 1.064,
+     "nightWorst": 1.453,
+     "nightMed": 2.509,
+     "fig": {
+      "0.75": 0.0773,
+      "0.8": 0.1036,
+      "-0.25": 0.0224,
+      "0.5": 0.0323
+     }
+    },
+    "enemy_heavy_1": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.068,
+     "night": 1.661,
+     "kept": 1.555,
+     "oldNight": 1.074,
+     "oldKept": 1.006,
+     "nightWorst": 1.473,
+     "nightMed": 2.265,
+     "fig": {
+      "0.75": 0.1079,
+      "0.8": 0.1401,
+      "-0.25": 0.0302,
+      "0.5": 0.0445
+     }
+    },
+    "enemy_heavy_2": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.053,
+     "night": 1.617,
+     "kept": 1.536,
+     "oldNight": 1.101,
+     "oldKept": 1.046,
+     "nightWorst": 1.453,
+     "nightMed": 2.473,
+     "fig": {
+      "0.75": 0.083,
+      "0.8": 0.1103,
+      "-0.25": 0.0235,
+      "0.5": 0.0345
+     }
+    },
+    "enemy_heavy_3": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.081,
+     "night": 1.654,
+     "kept": 1.53,
+     "oldNight": 1.089,
+     "oldKept": 1.007,
+     "nightWorst": 1.46,
+     "nightMed": 2.244,
+     "fig": {
+      "0.75": 0.1114,
+      "0.8": 0.1464,
+      "-0.25": 0.0309,
+      "0.5": 0.0465
+     }
+    },
+    "enemy_heavy_4": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.08,
+     "night": 1.614,
+     "kept": 1.494,
+     "oldNight": 1.148,
+     "oldKept": 1.063,
+     "nightWorst": 1.459,
+     "nightMed": 2.54,
+     "fig": {
+      "0.75": 0.0746,
+      "0.8": 0.1004,
+      "-0.25": 0.0215,
+      "0.5": 0.031
+     }
+    },
+    "enemy_heavy_5": {
+     "kind": "enemy",
+     "type": "heavy",
+     "day": 1.059,
+     "night": 1.631,
+     "kept": 1.54,
+     "oldNight": 1.11,
+     "oldKept": 1.048,
+     "nightWorst": 1.452,
+     "nightMed": 2.488,
+     "fig": {
+      "0.75": 0.0811,
+      "0.8": 0.1081,
+      "-0.25": 0.023,
+      "0.5": 0.0337
+     }
+    }
+   },
+   "weakest": [
+    "faction_cartel 1.455/1.26",
+    "person_town_11 1.427/1.218",
+    "enemy_runner_4 1.445/1.205",
+    "person_remnants_2 1.46/1.184",
+    "enemy_runner_2 1.514/1.166",
+    "person_colorful_2 1.511/1.159"
+   ]
+  }
+ }
+}

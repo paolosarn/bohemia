@@ -36,7 +36,7 @@ THE WALK OUTLINES (rule 169, for RUN TWO): every thing placed is measured in the
 front foot, is written per picture in RUN TWO's own format (slices/settlement_ground_towns/settlement_walk.json), so the lead
 never walks on a roof.
 
-  <venv>/bin/python tools/bohemia_cook_every_town_its_own_screen_10_25_26.py [Town ...] [--quick] [--day-only] [--swap-only]
+  <venv>/bin/python tools/bohemia_cook_every_town_its_own_screen_10_25_26.py [Town ...] [--quick] [--day-only] [--swap-only] [--no-ship]
      --quick  a quarter-size test render at 8 samples (records/target/cook_town_screens/quick/)
   -> records/target/cook_town_screens/render/<town>.png, <town>_night.png, <town>.json (lamps, fires, outlines)
   -> slices/settlement_ground_towns/<town>.webp, <town>_night.webp, settlement_ground.json, settlement_walk.json
@@ -824,7 +824,7 @@ def layout(town, pl, K):
         if n == 'Mob':                                               # THE HEART: the casino tower's podium
             pl.model('bld_tower_casino.glb', 37.0, 42.6, 31.0)
             pl.here('west', block, K, 'west', 5.4, 21.0, 41.6, 14, 9, 'office', sign=(20.0, K.fac))
-            pl.here('clinic', block, K, 'clinic', 32.0, 44.0, 32.0, 8, 3, 'shop', wall=K.concrete_warm, accent=K.black)
+            pl.here('clinic', block, K, 'clinic', 32.0, 44.0, 32.0, 8, 4, 'shop', wall=K.concrete_warm, accent=K.black)
             def marquee():
                 Bx(K, 'marquee', K.dark, 31.6, 44.4, 29.8, 32.0, 3.6, 4.4)
                 for x in np.arange(32.0, 44.2, 0.5): P.cyl(bpy, 'mq_bulb', K.bone if rnd.random() < 0.6 else mm['amber'], 0.06, 0.06, (x, 29.75, 4.0), rot=(math.pi / 2, 0, 0), verts=6)
@@ -1216,5 +1216,5 @@ if __name__ == '__main__':
     for town in T:
         if '--swap-only' not in a:
             d, nn = render(town, quick='--quick' in a, day_only='--day-only' in a); print('  rendered', town['name'], d, nn, flush=True)
-    if '--quick' not in a: ship(T)
+    if '--quick' not in a and '--no-ship' not in a: ship(T)
     sys.stdout.flush(); os._exit(0)

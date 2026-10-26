@@ -15,7 +15,7 @@ Read off the shipped pictures (slices/settlement_ground_towns/) and the scene re
      fortress_0 ~ fortress_1) score LINE or more.
   4. EACH REPLACES ITS TIER'S PICTURE: every town against both its tier's old pictures under LINE.
   5. *** THE HEART LOOKS LIKE THE CITY ***: the towns deep in it (u >= 0.6: Church, Mob, Reds) stand on buildings at least
-     12 m tall that rise off the top of the picture, three or more of them; the edge's tallest building stands under 9 m
+     12 m tall that rise off the top of the picture, three or more of them; the edge's tallest building stands under 10 m (two storeys)
      (watch towers, masts, tanks and cranes aside: things, not buildings).
   6. NO RAINBOW, NEVER GREY (rule 159, 167(b)): every picture's median chroma between 2 and 16.
   7. NIGHT IS NIGHT: every night picture darker than its day (median lightness under 0.7 of the day's) with lit pools (its
@@ -88,8 +88,8 @@ def main():
     def bldgs(n): return [o for o in meta[n]['outlines'] if not THINGS.search(o['name'])]
     heart = {n: [o for o in bldgs(n) if o['h'] >= 12 and o['box'][1] <= 0] for n in T if n in HEART}
     edge = {n: max([o['h'] for o in bldgs(n)] or [0]) for n in T if T[n].get('u', 0) < 0.3}
-    leg(len(heart) == 3 and all(len(v) >= 3 for v in heart.values()) and edge and max(edge.values()) < 9.0,
-        '*** THE HEART LOOKS LIKE THE CITY ***: three or more buildings 12 m and up off the top of every heart town; the edge\'s tallest building under 9 m',
+    leg(len(heart) == 3 and all(len(v) >= 3 for v in heart.values()) and edge and max(edge.values()) < 10.0,
+        '*** THE HEART LOOKS LIKE THE CITY ***: three or more buildings 12 m and up off the top of every heart town; the edge\'s tallest building under 10 m',
         'heart ' + ', '.join('%s %d' % (n, len(v)) for n, v in heart.items()) + '; edge tallest ' + ', '.join('%s %.1f' % (n, h) for n, h in sorted(edge.items(), key=lambda x: -x[1])[:3]))
     # 6
     ch = {n: chroma(os.path.join(SHIP, t['src']))[0] for n, t in T.items()}

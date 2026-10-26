@@ -9844,6 +9844,12 @@ GATES = [
      "RUN TWO gate, 10/25, row [a few women at the post] (rule 203, Paolo 10/25: 'I'm willing to give a chance to women, like one percent of them recruitable'). "
      "MEASURED before: no woman's body exists (71 people 'm', 81 unset, all on the master rig, a man's), and the unset 81 rolled their names 50/50 (405 of 810 rolled names read as women's): men wore women's names. "
      "HOLDS: the file (his 1 percent, the realistic 2 for him); NOW 10,000 rolled hires give 0 women and no man at a post, a keeper or the crowd wears a woman's name; the machine, a woman's body handed in for the test, gives the share within its noise, each her body and her name, no man's roll moved. about 1 min", True),
+    ('EVERY ENEMY READS AT NIGHT', ['node', 'gates/every_enemy_reads_at_night_gate.js'],
+     "COOK gate, 10/25, row [every enemy reads at night] (line 3 of his list; EYES 10/25 q43: 'the one Kid stood on a dark tile at night and was never drawn'; "
+     "rule 73: playable in the dark). The fight page itself, the strip, the suburb and the freeway by day and by night, seed 31: every look an enemy can wear "
+     "(the Kids and Runners, the Mechanic, the Heavy, the 13 gangs, the rolled people, the beasts) standing, through the page's own night for a man and the lift it "
+     "picks for him on that tile, against every unlit tile a man stands on: 1.4 to 1 or more on the worst tenth (it was 1.04, the Kids 1.08: the moon's lift can only "
+     "darken, and a dark tile is a dark man's own light), nine tenths of its day's or 2 to 1 and over, and the old pick (the tile's light alone) caught. About 4 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
