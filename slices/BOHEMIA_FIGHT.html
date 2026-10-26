@@ -259,6 +259,11 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
   border-radius:3px;padding:6px;background:rgba(13,11,9,.78);box-shadow:0 3px 8px rgba(0,0,0,.5)}
 #num{position:fixed;display:none;z-index:3;padding:2px 6px;font-weight:700;font-size:13px;pointer-events:none;
   background:var(--mat-receipt,#e2dac6) center/cover;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);transform:rotate(-2deg)}
+/* THE BREATH THAT CAME BACK (rule 285(c)): over his man as his turn begins, the wind glyph and the number */
+#breath{position:fixed;display:none;z-index:3;padding:1px 6px;font-weight:700;font-size:12px;pointer-events:none;color:#cfe4f5;
+  background:rgba(20,32,44,.82);border:1px solid #6a8fb0;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);white-space:nowrap}
+#breath svg{vertical-align:-1px;margin-right:3px}
+#apn .back{color:#9cc3e8;opacity:.7}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:7;background:var(--bg);letter-spacing:.2em}
 </style>
 </head>
@@ -282,6 +287,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 <div id="outap"></div>
 <div id="drawer"></div>
 <div id="num"></div>
+<div id="breath"></div>
 <div id="pick"></div>
 <div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
 <div id="call"><canvas id="callface" width="102" height="102"></canvas><div><b id="callname"></b><span id="callline"></span></div></div>
@@ -1441,7 +1447,12 @@ const FIGHT = (function () {
     standoff();
     S.units.forEach(function (u) {
       if (!onField(u)) return;
-      u.ap = u.apTurn; u.fat = Math.max(0, u.fat - R('fatigue.recovery_per_turn'));
+      /* FATIGUE COMES BACK EVERY TURN, AND A REST BRINGS MORE (COMBAT [fatigue comes back every turn], rules 283 and 285, Paolo
+         10/26: 'if I chill out it doesn't go down... if I run out of stamina in a match it's over'): Battle Brothers' 15 every
+         turn, and a man who ended his last turn without spending an AP rested: ours.rest_recovery (30) instead. u.fatBack is what
+         came back, for the breath number on the man and his card */
+      const f0 = u.fat; u.ap = u.apTurn; u.fat = Math.max(0, u.fat - (u.resting ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')));
+      u.fatBack = Math.round(f0 - u.fat); u.restedBack = !!u.resting;
       u.waitedLast = u.waited; u.waited = false;
       if (u.morale === 'Fleeing') u.roundsFleeing++;
     });
@@ -1476,6 +1487,7 @@ const FIGHT = (function () {
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
+    u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins; what the hits took is owed till it closes */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
@@ -1486,7 +1498,21 @@ const FIGHT = (function () {
     }
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
-  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; u.tauntedBy = null; }
+  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; u.tauntedBy = null; restOrNot(u); }
+  /* A REST (rules 283(b), 285(b)): END TURN with no AP spent. The fatigue the hits and blocks put on a resting man is owed, never
+     taken off his rest [COORDINATOR'S DEFAULT, rule 205]: it lands when his next turn that spends closes, after his swing, so one
+     rest always buys the swing the turn after (MEASURED BEFORE: a car door and a spear among three brigands, ending his turn to
+     rest, went 81 -> 83 -> 83 of 83: the hits put back more than the 15 took off, and he never swung again) */
+  function restOrNot(u) {
+    const rest = u.ap >= u.apTurn && onField(u);
+    if (!rest && u.restOwed) { u.fat = Math.min(fatMax(u), u.fat + u.restOwed); u.restOwed = 0; }
+    u.resting = rest; u.lastRest = rest;   /* lastRest outlives the turn it was taken in (the gate, the card) */
+  }
+  function tire(t, n) { if (t.resting) t.restOwed = (t.restOwed || 0) + n; else t.fat = Math.min(fatMax(t), t.fat + n); }
+  /* WINDED: his own blow costs more breath than he has left (the RECOVER any man may press, rule 283(b)) */
+  function winded(u) { return !!(u && u.weapon && u.fat + skillFat(u, strikeSkill(u.weapon)) > fatMax(u)); }
+  /* HIS KIT LEAVES NO SWING (rule 283(c)): even rested, his own blow costs more breath than his kit leaves him */
+  function tooHeavy(u) { return !!(u && u.weapon && skillFat(u, strikeSkill(u.weapon)) > fatMax(u)); }
   function advance(u) { turnOver(u); u.begun = false; S.idx++; if (!S.over) settle(); }
   function endTurn(u) {
     if (S.over || current() !== u) return false;
@@ -1849,7 +1875,7 @@ const FIGHT = (function () {
     if (PK(a, 'overwhelm') && S.order.indexOf(t.id) > S.idx) t.overwhelmed++;   /* he has not acted yet this round */
     if (!r.hit) {
       a.missStack++;
-      if (!isRanged(a.weapon)) t.fat = Math.min(fatMax(t), t.fat + R('fatigue.on_dodge_or_block'));
+      if (!isRanged(a.weapon)) tire(t, R('fatigue.on_dodge_or_block'));
       return;
     }
     a.missStack = 0;
@@ -1860,7 +1886,7 @@ const FIGHT = (function () {
     a.dealt = (a.dealt || 0) + Math.min(r.hp, Math.max(0, t.hp)); t.taken = (t.taken || 0) + Math.min(r.hp, Math.max(0, t.hp));
     t.hp -= r.hp;
     const mace = R('fatigue.on_struck_by_mace');
-    t.fat = Math.min(fatMax(t), t.fat + (a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck')));
+    tire(t, a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck'));
     const nl = PK(t, 'nine_lives');
     if (t.hp <= 0 && nl && !t.nineUsed) {
       t.nineUsed = true; t.nineUp = true; t.hp = rint(nl.hitpoints_left_min, nl.hitpoints_left_max);
@@ -2216,13 +2242,13 @@ const FIGHT = (function () {
   function shove(u, t) {
     if (S.over || current() !== u || !canShove(u, t)) return false;
     const r = racial(u, 'line_breaker'), q = pushTile(u, t), from = { x: t.x, y: t.y };
-    u.ap -= r.ap; u.fat += r.fatigue; u.shoved = true; t.fat = Math.min(fatMax(t), t.fat + r.target_fatigue);
+    u.ap -= r.ap; u.fat += r.fatigue; u.shoved = true; tire(t, r.target_fatigue);
     emit({ t: 'skill', id: u.id, skill: 'line_breaker', to: t.id });
     emit({ t: 'step', id: t.id, fx: t.x, fy: t.y, x: q.x, y: q.y, shoved: true }); t.x = q.x; t.y = q.y;
     const sb = u.shield && racial(u, 'shield_bash');
     if (sb) {   /* the crash-bar: 10-25, half of it on his armour; what the armour cannot hold goes through */
       const dmg = rint(sb.damage_min, sb.damage_max), ar = Math.round(dmg * sb.armor_pct / 100), held = Math.min(t.armB, ar);
-      t.fat = Math.min(fatMax(t), t.fat + sb.target_fatigue);
+      tire(t, sb.target_fatigue);
       apply(u, t, { hit: true, head: false, hp: ar - held, armour: held, chance: 100 }, { skill: 'shield_bash' });
     }
     u.hole = from; afterAction(u); return true;
@@ -2288,8 +2314,11 @@ const FIGHT = (function () {
   /* ---------------- THE SEVEN SKILLS A PERK UNLOCKS (rule 48) ----------------
      Each costs what its wiki row says in AP and fatigue, and does what its row says. */
   const ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable'];
+  /* RECOVER FOR ANY WINDED MAN OF HIS (rule 283(b)): the perk's own numbers, without the perk, while he is winded; his button by
+     hand only (aiFirst never presses it for his side, rule 231; theirs keep Battle Brothers' perk) */
+  function skillNums(u, id) { return PK(u, id) || (id === 'recover' && u.side === 'you' && winded(u) ? ((perkRow('recover') || {}).numbers || null) : null); }
   function activeCost(u, id) {
-    const n = PK(u, id); if (!n) return null;
+    const n = skillNums(u, id); if (!n) return null;
     return { ap: n.skill_ap_cost, fat: n.skill_fatigue_cost || 0 };
   }
   /* who or where a skill can be pointed at; [] for a skill that needs no target */
@@ -2320,7 +2349,7 @@ const FIGHT = (function () {
   }
   function useSkill(u, id, target) {
     if (!canUse(u, id)) return false;
-    const c = activeCost(u, id), n = PK(u, id);
+    const c = activeCost(u, id), n = skillNums(u, id);
     let tg = null;
     if (needsTarget(id)) {
       tg = skillTargets(u, id).filter(function (q) { return target && q.x === target.x && q.y === target.y; })[0];
@@ -2926,6 +2955,10 @@ const FIGHT = (function () {
     if (S.retreat && u.side === 'you') return retreatStep(u);
     if (u.side === 'you' && allFleeing() && !worthChase()) { endFight(); return false; }
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
+    /* A WINDED MAN OF HIS RESTS (rules 283(d), 285(a)): on AUTO, a man of his too winded for his own blow ends his turn with nothing
+       spent, a rest, so the next turn brings ours.rest_recovery and his swing (MEASURED BEFORE: in the heaviest kit AUTO kept him
+       shuffling, 1,670 of 3,624 turns winded, one man 30 turns running) */
+    if (u.side === 'you' && u.ap >= u.apTurn && winded(u)) { endTurn(u); return false; }
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
@@ -3121,7 +3154,7 @@ const FIGHT = (function () {
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
-    canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
+    canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
@@ -4545,6 +4578,25 @@ function numTag(t, first, _c, at, then, col) {
   el.textContent = first; el.style.color = '#2a221a'; el.style.display = 'block';
   setTimeout(function () { if (then) { el.textContent = then; el.style.color = col; } else el.style.color = col; }, at);
 }
+/* THE BREATH THAT CAME BACK (COMBAT [fatigue comes back every turn], rule 285(c), Paolo 10/26: 'there's no calculations for
+   stamina regeneration... if I run out of stamina in a match it's over'): as a man of his begins his turn, by hand or on AUTO,
+   the wind glyph and what came back over him (+15, +30 after a rest), a beat and a half; his card's bar shows the number */
+const BREATH_SAYS = { heavy: 'TOO HEAVY TO SWING' };   /* draft:true */
+const BREATH_SVG = '<svg width="12" height="10" viewBox="0 0 12 10"><path d="M1 3h6a2 2 0 1 0-2-2M1 6h8a2 2 0 1 1-2 2M1 9h4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>';
+function breathOnce(v) {
+  const k = v.id + ':' + FIGHT.S.round; if (v.side !== 'you' || UI.breathFor === k || !(v.fatBack > 0)) return;
+  UI.breathFor = k; const el = document.getElementById('breath'); if (!el) return;
+  el.innerHTML = BREATH_SVG + '+' + v.fatBack; el.style.display = 'block';
+  UI.breath = { id: v.id, n: v.fatBack, rest: !!v.restedBack, until: performance.now() + beatMs() * 1.5 };
+  (UI.breaths = UI.breaths || []).push({ id: v.id, n: v.fatBack, rest: !!v.restedBack, round: FIGHT.S.round, fat: Math.round(v.fat) }); if (UI.breaths.length > 60) UI.breaths.shift();
+}
+function placeBreath() {
+  const el = document.getElementById('breath'); if (!el) return;
+  if (!UI.breath || performance.now() > UI.breath.until) { el.style.display = 'none'; return; }
+  const v = FIGHT.byId(UI.breath.id); if (!v) return;
+  const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - manH();
+  el.style.left = Math.round(X - el.offsetWidth / 2) + 'px'; el.style.top = Math.round(top - el.offsetHeight - 24) + 'px';
+}
 function placeTag() {
   const el = document.getElementById('num'); if (!el) return;
   if (!UI.tag || performance.now() > UI.tag.until) { el.style.display = 'none'; return; }
@@ -4632,6 +4684,7 @@ function tick(now) {
   MUSIC.turn(u.side === 'you' ? 'you' : 'them');   /* rule 126(e): the turn is heard, after the last act's motion, not when the rules pass it */
   const sayEl = document.getElementById('say');
   if (UI.sayTurn && UI.sayTurn !== turnKeyOf(u)) say('');
+  breathOnce(u);
   if (crewControlled(u)) {
     /* HIS TURN WITH AN EMPTY GUN (rule 124): the click as it comes to him, and the line says the one thing to do first */
     const tk = u.id + ':' + FIGHT.S.round + ':' + FIGHT.S.idx;
@@ -4699,6 +4752,7 @@ function thinkAhead(now) {
   if (roundFit() || (UI.glide && UI.glide.hold)) return;
   if (!framed(u.x, u.y) && (UI.pinched || !camThere(fitBoth()))) return;
   if (!UI.auto && u.side === 'them' && !isTheirsSay(document.getElementById('say').textContent)) say(theirsSay());
+  breathOnce(u);
   const before = UI.anim.length, th0 = performance.now();
   try { FIGHT.aiStep(u); } catch (e) { turnBroke(u, e); }
   (UI.thinks = UI.thinks || []).push(performance.now() - th0); if (UI.thinks.length > REQ_LOG) UI.thinks.shift();
@@ -6356,7 +6410,11 @@ function hud() {
   for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
   /* Battle Brothers' numbers (rule 125(b)): the AP and the wind left, where he already looks for them */
   const apn = document.getElementById('apn'), apt = show.ap + '/' + show.apTurn + ' AP ' + Math.round(show.fat) + '/' + fm + ' FAT';
-  if (apn.textContent !== apt) apn.textContent = apt;
+  /* WHAT COMES BACK NEXT TURN (rule 285(c)): a faint +15, +30 when he has not spent an AP this turn (an END TURN now is a rest);
+     and a kit that leaves no swing says so on his card (rule 283(c)) */
+  const fback = show.side === 'you' && FIGHT.onField(show) ? (show.ap >= show.apTurn ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')) : 0;
+  const heavy = show.side === 'you' && FIGHT.tooHeavy(show), aph = apt + (fback ? ' <span class="back">+' + fback + '</span>' : '') + (heavy ? ' <span class="heavy">' + BREATH_SAYS.heavy + '</span>' : '');
+  if (apn.dataset.h !== aph) { apn.dataset.h = aph; apn.innerHTML = aph; }
   apn.classList.toggle('low', show === u && crewControlled(u) && !!UI.spent);
   if (UI.drawer) drawer(show);
   /* THE PLATE SAYS WHO HE IS (rule 143(b)): a man of theirs on the bar carries LV, his marks, and OUTCLASSES YOU when he does */
@@ -6366,7 +6424,7 @@ function hud() {
   /* the skill row: STRIKE with his weapon, RELOAD, then the skills his perks unlock, each a 46-point square */
   const tgt = mine && UI.pend && UI.pend.target && (UI.pend.sweep ? FIGHT.canSweep(u, UI.pend.target, UI.pend.sweep) : FIGHT.canStrike(u, UI.pend.target)) ? UI.pend.target : null;
   const sk = document.getElementById('skills');
-  const want = mine ? FIGHT.ACTIVE.filter(function (id) { return u.perks.indexOf(id) >= 0; }) : [];
+  const want = mine ? FIGHT.ACTIVE.filter(function (id) { return u.perks.indexOf(id) >= 0 || (id === 'recover' && FIGHT.winded(u)); }) : [];   /* rule 283(b): RECOVER for any winded man, by hand (AUTO never presses it, rule 231) */
   const chance = tgt ? FIGHT.hitChance(u, tgt, UI.pend.sweep ? FIGHT.sweepSkill(u.weapon, UI.pend.sweep) : FIGHT.strikeSkill(u.weapon)).chance : null;
   /* THE EMPTY GUN SHOUTS (rule 124): his gun empty, RELOAD takes the strike square's place, one big button on the beat (the
      strike square hides while there is nothing to strike); one round left, the reload square says so in amber */
@@ -6418,7 +6476,7 @@ function hud() {
       sk.appendChild(b);
     });
     want.forEach(function (id) {
-      const b = document.createElement('button'), n = FIGHT._t.PK(u, id);
+      const b = document.createElement('button'), n = FIGHT.skillNums(u, id) || {};   /* RECOVER without the perk reads the perk's own numbers (rule 283(b)) */
       b.className = 'sq' + (UI.skillMode === id ? ' on' : ''); b.appendChild(iconCanvas(id, 30));
       const t = document.createElement('b'); t.textContent = n.skill_ap_cost; b.appendChild(t);
       b.dataset.skill = id; b.title = perkName(id); b.disabled = !FIGHT.canUse(u, id);
@@ -7179,7 +7237,7 @@ function frame(now) {
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }
-  try { draw(now); placeTag(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
+  try { draw(now); placeTag(); placeBreath(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
   catch (e) { frameErr(e, now); }
 }
 function frameErr(e, now) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }

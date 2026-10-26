@@ -1561,5 +1561,11 @@
   "source": "VAMILY.md rule 256 (Paolo 10/26, LOCKED: 'if I retreat immediately at the beginning of the battle, most of the time I should be able to escape... in Battle Brothers every time I retreated I watched my people run tile to tile and they always made it, they got that head start'); records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md",
   "quote": "they got that head start",
   "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: his front column stands a man's run on flat ground (ap.per_turn over ap.move_cost.flat, four tiles) LESS this many tiles from his edge, so rough ground still lets a first-turn retreat reach it; ours.start_cols stays the farthest it may be. Measured on 300 rolled fights, RETREAT on his first turn: margin 0 put 98.8% of his men out, 1 put 99.9% (beasts 100%), 2 the same as 1."
+ },
+ "rest_recovery": {
+  "value": 30,
+  "source": "VAMILY.md rule 283(b) [COORDINATOR'S DEFAULT, rule 205] and rule 285(b) (Paolo 10/26: 'if I chill out it doesn't go down... especially if I'm ending my turn not taking any action'); records/BOHEMIA_PAOLO_FATIGUE_COMES_BACK_EVERY_TURN_10_26_26.md",
+  "quote": "a man who ends his turn without spending any AP recovers double at his next turn (30)",
+  "why": "END TURN with no AP spent is a REST: at his next turn this comes back instead of fatigue.recovery_per_turn (Battle Brothers' 15), and the fatigue hits and blocks put on him while he rests is owed until his next turn that spends closes, so one rest always buys the swing the turn after. TUNING's to tune."
  }
 }
