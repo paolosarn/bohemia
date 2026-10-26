@@ -139,45 +139,94 @@ async function play(profile) {
         'far ' + farR.toFixed(2) + ': ' + atFarR.map(x => x.n + (x.glass ? (x.drawn ? ' drawn' : ' NOT DRAWN') + (x.named ? ' named' : ' NOT NAMED') : ' off the glass')).join(', '));
 
       /* ---------------- D5: a touch on that card ---------------- */
-      await zoomTo('near');
-      const card = await fr.evaluate((id) => { const e = [...document.querySelectorAll('#bmboard .job')].filter(x => x.dataset.job === id)[0]; if (!e) return null; e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + Math.min(r.height / 2, 18) }; }, real.id);
-      if (card) await tapAt(card.x, card.y);
-      await page.waitForTimeout(900);
-      const lit = await fr.evaluate(() => { MAP_DREW = {}; MAP_TOWN_HIT = []; render(); const go = document.querySelector('#bmboard .job.picked .go');
-        const fe = document.getElementById('cityfeed').getBoundingClientRect(), cv = document.getElementById('cv').getBoundingClientRect();
-        const phone = { x: fe.left - cv.left, y: fe.top - cv.top, w: fe.width, h: fe.height };
-        return { route: window.BOH_PHONE_ROUTE ? window.BOH_PHONE_ROUTE.place : null, go: go ? go.textContent : null, marks: (window.__JOB_MARKS || []).map(m => ({ label: m.label, on: m.on, box: m.box || null, ex: m.ex, ey: m.ey })),
-          ring: BohemiaJobKinds.names(window.BOH_PHONE_ROUTE ? window.BOH_PHONE_ROUTE.place : ''), phone, cv: { x: cv.left, y: cv.top }, CVW, CVH }; });
-      await shot('d5_the_card_lit');
-      const P0 = lit.phone, under = (b) => b && b[0] < P0.x + P0.w && b[0] + b[2] > P0.x && b[1] < P0.y + P0.h && b[1] + 11 > P0.y;
-      const from = lit.marks.filter(m => /^JOB AT /.test(m.label))[0], toM = lit.marks.filter(m => /^TO /.test(m.label))[0];
-      ok(P + ' D5a the phone says the town to touch, and that town is the lit one', !!lit.go && lit.route === real.place && new RegExp(String(real.place), 'i').test(lit.go) && lit.ring === 'next',
-        'phone: "' + lit.go + '", lit ' + lit.route + ', ring ' + lit.ring);
-      ok(P + ' D5b off the glass, both names wait at its edge, neither under the phone',
-        !!from && !!toM && lit.marks.filter(m => /^(JOB AT|TO) /.test(m.label)).every(m => m.on || (m.box && !under(m.box))),
-        lit.marks.map(m => m.label + (m.on ? ' (on the glass)' : ' at ' + (m.box || []).join(',') + (under(m.box) ? ' UNDER THE PHONE' : ''))).join(' | ') + ' ; phone ' + [P0.x, P0.y, P0.w, P0.h].map(Math.round).join(','));
+      /* RE-AIMED 10/26 BY UI TWO (rules 213, 227; 148 dead): the offers are off the phone, on the town's board; the phone carries
+         the jobs he is ON. So the gate takes the job at its town the town's own way (loopTakeContract, the hand the board's TAKE
+         uses), then a real touch on its card on the one phone (#bohphone, the shell's) makes it PLAY's job; where it sends him is
+         marked on the map (WORLD's markNext): on the glass, or its name waiting at the glass's edge and never under the phone
+         (BOH_PHONE_RECT, the phone's box in this frame); a touch on that edge name walks him there. The old card's legs run while
+         the old phone is up. */
+      const NEW = await page.evaluate(() => !!document.getElementById('bohphone') && document.documentElement.classList.contains('boh-phone-on'));
+      if (NEW) {
+        await zoomTo('near');
+        const took = await fr.evaluate((id) => { const A = (window.BohemiaPhoneBoard && BohemiaPhoneBoard.asks()) || [], o = A.filter(a => a.id === id)[0]; if (!o) return false;
+          LOOP.open = { name: o.place, x: o.x, y: o.y, tier: o.tier }; const ok = loopTakeContract({ id: o.id, title: o.title, pay: o.pay, skulls: o.skulls }); LOOP.open = null; return !!ok; }, real.id);
+        await page.waitForTimeout(1500);
+        const card = await page.evaluate((id) => { const e = document.querySelector('#bohphone .jc[data-job="' + id + '"]'); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width * 0.3, y: r.y + r.height / 2, text: e.innerText.replace(/\s+/g, ' ') }; }, real.id);
+        if (card) { if (TOUCH) await page.touchscreen.tap(card.x, card.y); else await page.mouse.click(card.x, card.y); }
+        await page.waitForTimeout(900);
+        const lit = await fr.evaluate((id) => { MAP_DREW = {}; MAP_TOWN_HIT = []; render(); const cv = document.getElementById('cv').getBoundingClientRect(), pr = BOH_PHONE_RECT();
+          return { held: LOOP.held.some(j => j.id === id), marks: (window.__JOB_MARKS || []).filter(m => m.id === id).map(m => ({ label: m.label, name: m.name, on: m.on, box: m.box || null, x: m.x, y: m.y })),
+            phone: { x: pr.left - cv.left, y: pr.top - cv.top, w: pr.width, h: pr.height }, cv: { x: cv.left, y: cv.top } }; }, real.id);
+        const sel = await page.evaluate((id) => { const e = document.querySelector('#bohphone .jc[data-job="' + id + '"]'); return !!e && e.classList.contains('sel'); }, real.id);
+        await shot('d5_the_card_lit');
+        const P0 = lit.phone, under = (b) => b && b[0] < P0.x + P0.w && b[0] + b[2] > P0.x && b[1] < P0.y + P0.h && b[1] + 11 > P0.y;
+        const mk = lit.marks[0] || null;
+        ok(P + ' D5a the job he took is on the phone, a touch makes it PLAY\'s job, and where it sends him is marked on the map',
+          took && lit.held && !!card && sel && !!mk, 'took ' + took + ', card "' + (card ? card.text : '-') + '"' + (sel ? ' picked' : ' NOT PICKED') + ', mark ' + (mk ? mk.label : 'none'));
+        ok(P + ' D5b on the glass, or its name waits at the glass\'s edge, never under the phone',
+          !!mk && lit.marks.every(m => m.on || (m.box && !under(m.box))),
+          lit.marks.map(m => m.label + (m.on ? ' (on the glass)' : ' at ' + (m.box || []).join(',') + (under(m.box) ? ' UNDER THE PHONE' : ''))).join(' | ') + ' ; phone ' + [P0.x, P0.y, P0.w, P0.h].map(Math.round).join(','));
+        /* ---------------- D6: a touch on the edge name walks there ---------------- */
+        if (mk && !mk.on && mk.box) {
+          await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+          const tx = lit.cv.x + mk.box[0] + mk.box[2] / 2, ty = lit.cv.y + mk.box[1] + 5;
+          const clear = await waitFor(async () => { const fb = await frameBox(); if (!fb) return false;
+            const outer = await page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cityFrame'; }, [fb.x + tx, fb.y + ty]);
+            return outer && await fr.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cv'; }, [tx, ty]); }, 20000);
+          if (!clear) console.log('  (the edge name stayed covered for 20 s; touched anyway)');
+          await tapAt(tx, ty);
+          await page.waitForTimeout(600);
+          /* a town's any side is its door (RUN, rule 186(a)): the walk ends on a block touching its painted ground; any other place, on it */
+          const tr = await fr.evaluate((m) => { const to = TRAVEL && TRAVEL.to ? TRAVEL.to : null, p = BohemiaJobKinds.realPlace(m.name), t = p ? { name: p.name || m.name, x: p.x | 0, y: p.y | 0, tier: p.tier } : null;
+            let touches = false; try { touches = !!(t && to && typeof townTouches === 'function' && townTouches(t, townFoot(t), to[0], to[1])); } catch (e) {}
+            return { to, touches, door: townDoor(m.x, m.y), at: [city.x, city.y] }; }, mk);
+          const near = (a, b) => !!(a && b) && Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1])) <= 1;
+          ok(P + ' D6 a touch on the edge name walks him there', !!tr.to && (near(tr.to, [mk.x, mk.y]) || near(tr.to, tr.door) || tr.touches),
+            'travel to ' + JSON.stringify(tr.to) + ', the place ' + JSON.stringify([mk.x, mk.y]) + ', its door ' + JSON.stringify(tr.door) + (tr.touches ? ', touching it' : ''));
+          await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+        } else ok(P + ' D6 a touch on the edge name walks him there (the place was on the glass at the near stop: its mark is the touch)', !!mk, mk ? 'on the glass' : 'no mark');
+        await fr.evaluate((id) => { try { BohemiaJobKinds.drop(id); } catch (e) {} }, real.id);
+      } else {
+        await zoomTo('near');
+        const card = await fr.evaluate((id) => { const e = [...document.querySelectorAll('#bmboard .job')].filter(x => x.dataset.job === id)[0]; if (!e) return null; e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + Math.min(r.height / 2, 18) }; }, real.id);
+        if (card) await tapAt(card.x, card.y);
+        await page.waitForTimeout(900);
+        const lit = await fr.evaluate(() => { MAP_DREW = {}; MAP_TOWN_HIT = []; render(); const go = document.querySelector('#bmboard .job.picked .go');
+          const fe = document.getElementById('cityfeed').getBoundingClientRect(), cv = document.getElementById('cv').getBoundingClientRect();
+          const phone = { x: fe.left - cv.left, y: fe.top - cv.top, w: fe.width, h: fe.height };
+          return { route: window.BOH_PHONE_ROUTE ? window.BOH_PHONE_ROUTE.place : null, go: go ? go.textContent : null, marks: (window.__JOB_MARKS || []).map(m => ({ label: m.label, on: m.on, box: m.box || null, ex: m.ex, ey: m.ey })),
+            ring: BohemiaJobKinds.names(window.BOH_PHONE_ROUTE ? window.BOH_PHONE_ROUTE.place : ''), phone, cv: { x: cv.left, y: cv.top }, CVW, CVH }; });
+        await shot('d5_the_card_lit');
+        const P0 = lit.phone, under = (b) => b && b[0] < P0.x + P0.w && b[0] + b[2] > P0.x && b[1] < P0.y + P0.h && b[1] + 11 > P0.y;
+        const from = lit.marks.filter(m => /^JOB AT /.test(m.label))[0], toM = lit.marks.filter(m => /^TO /.test(m.label))[0];
+        ok(P + ' D5a the phone says the town to touch, and that town is the lit one', !!lit.go && lit.route === real.place && new RegExp(String(real.place), 'i').test(lit.go) && lit.ring === 'next',
+          'phone: "' + lit.go + '", lit ' + lit.route + ', ring ' + lit.ring);
+        ok(P + ' D5b off the glass, both names wait at its edge, neither under the phone',
+          !!from && !!toM && lit.marks.filter(m => /^(JOB AT|TO) /.test(m.label)).every(m => m.on || (m.box && !under(m.box))),
+          lit.marks.map(m => m.label + (m.on ? ' (on the glass)' : ' at ' + (m.box || []).join(',') + (under(m.box) ? ' UNDER THE PHONE' : ''))).join(' | ') + ' ; phone ' + [P0.x, P0.y, P0.w, P0.h].map(Math.round).join(','));
 
-      /* ---------------- D6: a touch on the edge name walks to that town ---------------- */
-      const target = from && !from.on ? from : null;
-      if (target) {
-        await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
-        /* a crew line's speech box (the outer page's, a few seconds) can stand over the bottom edge: a hand waits for it to go */
-        const tx = lit.cv.x + target.box[0] + target.box[2] / 2, ty = lit.cv.y + target.box[1] + 5;
-        const clear = await waitFor(async () => { const fb = await frameBox(); if (!fb) return false;
-          const outer = await page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cityFrame'; }, [fb.x + tx, fb.y + ty]);
-          return outer && await fr.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cv'; }, [tx, ty]); }, 20000);
-        if (!clear) console.log('  (the edge name stayed covered for 20 s; touched anyway)');
-        await tapAt(tx, ty);   /* the canvas's pixels, where it sits in the frame */
-        await page.waitForTimeout(600);
-        /* RUN 10/25 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): the walk ends on a block touching the town's painted ground,
-           the side his shortest walk reaches first, no longer one gate tile beside its block */
-        const tr = await fr.evaluate((nm) => { const p = BohemiaJobKinds.realPlace(nm), t = p ? { name: p.name || nm, x: p.x | 0, y: p.y | 0, tier: p.tier } : null;
-          const to = TRAVEL && TRAVEL.to ? TRAVEL.to : null;
-          return { to, touches: !!(t && to && townTouches(t, townFoot(t), to[0], to[1])), town: t ? [t.x, t.y] : null, at: [city.x, city.y] }; }, real.place);
-        ok(P + ' D6 a touch on the edge name walks him to the town', !!(tr.to && tr.touches),
-          'travel to ' + JSON.stringify(tr.to) + ', touching the town at ' + JSON.stringify(tr.town) + ': ' + tr.touches);
-        await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
-      } else ok(P + ' D6 a touch on the edge name walks him to the town (the town was on the glass at the near stop: its plate is the touch)', !!from, from ? 'on the glass' : 'no mark');
+        /* ---------------- D6: a touch on the edge name walks to that town ---------------- */
+        const target = from && !from.on ? from : null;
+        if (target) {
+          await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+          /* a crew line's speech box (the outer page's, a few seconds) can stand over the bottom edge: a hand waits for it to go */
+          const tx = lit.cv.x + target.box[0] + target.box[2] / 2, ty = lit.cv.y + target.box[1] + 5;
+          const clear = await waitFor(async () => { const fb = await frameBox(); if (!fb) return false;
+            const outer = await page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cityFrame'; }, [fb.x + tx, fb.y + ty]);
+            return outer && await fr.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cv'; }, [tx, ty]); }, 20000);
+          if (!clear) console.log('  (the edge name stayed covered for 20 s; touched anyway)');
+          await tapAt(tx, ty);   /* the canvas's pixels, where it sits in the frame */
+          await page.waitForTimeout(600);
+          /* RUN 10/25 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): the walk ends on a block touching the town's painted ground,
+             the side his shortest walk reaches first, no longer one gate tile beside its block */
+          const tr = await fr.evaluate((nm) => { const p = BohemiaJobKinds.realPlace(nm), t = p ? { name: p.name || nm, x: p.x | 0, y: p.y | 0, tier: p.tier } : null;
+            const to = TRAVEL && TRAVEL.to ? TRAVEL.to : null;
+            return { to, touches: !!(t && to && townTouches(t, townFoot(t), to[0], to[1])), town: t ? [t.x, t.y] : null, at: [city.x, city.y] }; }, real.place);
+          ok(P + ' D6 a touch on the edge name walks him to the town', !!(tr.to && tr.touches),
+            'travel to ' + JSON.stringify(tr.to) + ', touching the town at ' + JSON.stringify(tr.town) + ': ' + tr.touches);
+          await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+        } else ok(P + ' D6 a touch on the edge name walks him to the town (the town was on the glass at the near stop: its plate is the touch)', !!from, from ? 'on the glass' : 'no mark');
+      }
     }
     ok(P + ' D7 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   } catch (e) { ok(P + ' the gate ran', false, e.message); }

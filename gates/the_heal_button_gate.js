@@ -48,6 +48,18 @@ const fightFrame = async (d) => {
   return { f: null, box: null };
 };
 const press = async (d, x, y) => { if (d.touch) await d.page.touchscreen.tap(x, y); else await d.page.mouse.click(x, y); };
+/* RE-AIMED 10/26 BY UI TWO (rules 212(b), 213, 226(c); CAMP's own NOTE: 'The plate #campbtn stands as the HEAL button until your app
+   lands; hide it then'): the HEAL button is the phone's HEAL app now, ONE button in his corner over the map and over the camp (the
+   shell's #bohphone, drawn once); the map's plate and the camp's #healbtn stand down under it. It draws CAMP's own bar by CAMP's own
+   call (BohemiaCondition.drawBar over BohemiaMapCamp.condition()) and carries the numbers as data-blood / data-armour, so every leg
+   below reads the same numbers off the button he presses, at its place on the glass. While no phone is up the old plates are read. */
+const phoneOn = (d) => d.page.evaluate(() => !!document.getElementById('bohphone') && document.documentElement.classList.contains('boh-phone-on')).catch(() => false);
+const healBtn = (d) => d.page.evaluate(() => { const ph = document.getElementById('bohphone'), b = ph && ph.querySelector('.app[data-app=heal]'); if (!b) return null;
+  const r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2), cv = b.querySelector('.hb canvas');
+  return { shown: ph.classList.contains('on') && getComputedStyle(b).display !== 'none' && r.width > 0, off: b.classList.contains('off'), screen: ph.dataset.screen, w: Math.round(r.width), h: Math.round(r.height),
+    word: (b.querySelector('.lab') || {}).textContent || '', mark: !!b.querySelector('img[src*="app_heal"]'), bar: !!cv && getComputedStyle(cv).display !== 'none',
+    top: !!e && (e === b || b.contains(e)), at: [r.x + r.width / 2, r.y + r.height / 2], blood: +b.dataset.blood, armour: +b.dataset.armour }; }).catch(() => null);
+const healReady = async (d, where) => { for (let i = 0; i < 60; i++) { const h = await healBtn(d); if (h && h.shown && !h.off && h.screen === where && !isNaN(h.blood)) return h; await d.page.waitForTimeout(250); } return healBtn(d); };
 const leaveEnd = async (d) => {
   let sf = null;
   for (let i = 0; i < 120 && !sf; i++) {
@@ -100,12 +112,20 @@ async function run(profile) {
     await d.page.waitForTimeout(2500);
     await d.fr.evaluate(() => { try { localStorage.removeItem('bohemia.condition.v1'); localStorage.removeItem('bohemia.fight.after.v1'); } catch (e) {} });
     /* ---- H1 ---- */
+    const PH = await phoneOn(d);
+    if (PH) {
+      await d.fr.waitForFunction(() => !!window.__HEAL, null, { timeout: 12000 }).catch(() => {});
+      const h1 = await healReady(d, 'map');
+      ok(P + 'H1 the HEAL button is the phone\'s HEAL app: the heal mark over one bar, no number on it, a thumb wide, nothing over it; before any fight the company is whole',
+        !!h1 && h1.shown && h1.w >= 44 && h1.h >= 44 && !/\d/.test(h1.word) && h1.mark && h1.bar && h1.top && h1.blood === 1 && h1.armour === 1, JSON.stringify(h1));
+    } else {
     await d.fr.waitForFunction(() => { const b = document.getElementById('campbtn'); return b && getComputedStyle(b).display !== 'none' && window.__HEAL; }, null, { timeout: 12000 }).catch(() => {});
     const h1 = await d.fr.evaluate(() => { const b = document.getElementById('campbtn'); if (!b) return null; const r = b.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
       return { shown: getComputedStyle(b).display !== 'none', w: Math.round(r.width), h: Math.round(r.height), word: b.textContent.trim(), kit: !!b.querySelector('img[src*="meds"]'), bar: !!b.querySelector('canvas'),
         top: !!e && (e === b || b.contains(e)), heal: window.__HEAL ? { blood: window.__HEAL.blood, armour: window.__HEAL.armour, men: window.__HEAL.men } : null }; });
     ok(P + 'H1 the HEAL button stands where CAMP stood: the kit over one bar, no word, a thumb wide, nothing over it; before any fight the company is whole',
       !!h1 && h1.shown && h1.w >= 44 && h1.h >= 44 && h1.word === '' && h1.kit && h1.bar && h1.top && !!h1.heal && h1.heal.blood === 1 && h1.heal.armour === 1, JSON.stringify(h1));
+    }
 
     /* ---- H2 fight one ---- */
     const F1 = await playFight(d, true);
@@ -128,6 +148,7 @@ async function run(profile) {
     /* ---- H3 the bar is the company ---- */
     await d.page.waitForTimeout(900);
     const bar = await d.fr.evaluate(() => { healPaint(); const b = document.getElementById('campbtn'), C = BohemiaCondition.get(); return { heal: window.__HEAL, blood: +b.dataset.blood, armour: +b.dataset.armour, healed: C.healed, mended: C.mended, title: b.title }; });
+    if (PH) { await d.page.waitForTimeout(700); const hb3 = await healReady(d, 'map'); bar.blood = hb3 ? hb3.blood : NaN; bar.armour = hb3 ? hb3.armour : NaN; bar.where = 'the phone\'s HEAL'; }
     /* expected from the fight's own rows: every man alive in it, plus the whole men who did not fight (the module's members) */
     const exp = { hp: 0, hpMax: 0, arm: 0, armMax: 0 };
     alive1.forEach(r => { exp.hpMax += r.hpMax; exp.hp += Math.max(V('struck_down_hp_left'), Math.min(r.hpMax, r.hp)); exp.armMax += r.armHMax + r.armBMax; exp.arm += r.armH + r.armB; });
@@ -166,6 +187,7 @@ async function run(profile) {
 
     /* ---- H5 make camp ---- */
     await d.fr.evaluate(() => { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null') || { food: 30, water: 30, tape: 0, meds: 0, rounds: 0 }; w.tape = Math.max(w.tape | 0, 40); localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w)); });
+    if (PH) await healReady(d, 'map'); else
     await d.fr.waitForFunction(() => { const b = document.getElementById('campbtn'); return b && getComputedStyle(b).display !== 'none'; }, null, { timeout: 10000 }).catch(() => {});
     const before = await d.fr.evaluate(() => { const C = BohemiaCondition.get(), w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'), c = BohemiaCondition.company(LOOP.start && LOOP.start.company);
       const r = document.getElementById('campbtn').getBoundingClientRect();
@@ -178,8 +200,9 @@ async function run(profile) {
     let sf = null, after = null, hb = null, tries = 0, why = [];
     while (tries < 3) {
       tries++; await quiet(); await d.page.waitForTimeout(400);
-      const at = await d.fr.evaluate(() => { const r = document.getElementById('campbtn').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
-      await press(d, fb.x + at[0], fb.y + at[1]);
+      if (PH) { const h = await healReady(d, 'map'); if (h) await press(d, h.at[0], h.at[1]); }   /* the shell's own pixels */
+      else { const at = await d.fr.evaluate(() => { const r = document.getElementById('campbtn').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+      await press(d, fb.x + at[0], fb.y + at[1]); }
       sf = null;
       for (let k = 0; k < 40 && !sf; k++) { await d.page.waitForTimeout(300);
         for (const x of d.page.frames().filter(x => /SETTLEMENT_SCREEN/.test(x.url()))) if (await x.evaluate(() => { try { return BohemiaSettlement.camp().camp && BohemiaSettlement.ready(); } catch (e) { return false; } }).catch(() => false)) { sf = x; break; } }
@@ -187,6 +210,8 @@ async function run(profile) {
       await d.page.waitForTimeout(5200);
       after = await d.fr.evaluate(() => { const C = BohemiaCondition.get(), w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'), c = BohemiaCondition.company(LOOP.start && LOOP.start.company);
         return { healed: C.healed, mended: C.mended, spent: C.spent, hours: C.hours, campHours: C.campHours, debt: C.debt, tape: w ? w.tape | 0 : 0, blood: c.blood, armour: c.armour, on: BohemiaMapCamp.on(), why: CAMP.why, camp: CAMP.hours }; });
+      if (PH) { const h = await healReady(d, 'camp'); hb = h && h.screen === 'camp' ? { shown: h.shown, blood: h.blood, armour: h.armour, top: h.top, at: h.at, w: h.w, h: h.h, word: h.word, phone: true } : null; }
+      else
       hb = await sf.evaluate(() => { const b = document.getElementById('healbtn'); if (!b) return null; const r = b.getBoundingClientRect(); const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
         return { shown: getComputedStyle(b).display !== 'none', blood: +b.dataset.blood, armour: +b.dataset.armour, top: !!e && (e === b || b.contains(e)), at: [r.x + r.width / 2, r.y + r.height / 2], w: Math.round(r.width), h: Math.round(r.height) }; });
       if (after.on && hb && hb.w > 0) break;
@@ -195,6 +220,7 @@ async function run(profile) {
       Object.assign(before, await d.fr.evaluate(() => { const C = BohemiaCondition.get(), w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'), c = BohemiaCondition.company(LOOP.start && LOOP.start.company);
         let lostHp = 0, lostArm = 0, items = 0; for (const k in C.men) { lostHp += C.men[k].lostHp; lostArm += C.men[k].lostH + C.men[k].lostB; items += (C.men[k].lostH > 0) + (C.men[k].lostB > 0); }
         return { healed: C.healed, mended: C.mended, spent: C.spent, hours: C.hours, campHours: C.campHours, debt: C.debt, tape: w ? w.tape | 0 : 0, blood: c.blood, armour: c.armour, lostHp, lostArm, items }; }));
+      if (PH) await healReady(d, 'map'); else
       await d.fr.waitForFunction(() => { const b = document.getElementById('campbtn'); return b && getComputedStyle(b).display !== 'none'; }, null, { timeout: 15000 }).catch(() => {});
     }
     if (!sf || !after || !hb) { ok(P + 'H5 a press on HEAL makes camp', false, why.join('; ')); return; }
@@ -210,11 +236,12 @@ async function run(profile) {
     if (process.env.BOHEMIA_SHOT_DIR) await d.page.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'heal_' + profile + '_camp.png') });
 
     /* ---- H6 break camp ---- */
-    const sb = await (await sf.frameElement()).boundingBox();
+    const sb = hb.phone ? { x: 0, y: 0 } : await (await sf.frameElement()).boundingBox();   /* the phone is the shell's: its own pixels */
     await press(d, sb.x + hb.at[0], sb.y + hb.at[1]);
     await d.page.waitForTimeout(900);
     const br0 = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), campHours: BohemiaCondition.get().campHours, healed: BohemiaCondition.get().healed, t: T.day * 1440 + T.min,
       shown: (function () { const b = document.getElementById('campbtn'); return !!b && getComputedStyle(b).display !== 'none'; })() }));
+    if (PH) { const h = await healReady(d, 'map'); br0.shown = !!h && h.shown && h.screen === 'map' && h.word === 'HEAL'; }
     await d.page.waitForTimeout(3000);
     const br1 = await d.fr.evaluate(() => ({ campHours: BohemiaCondition.get().campHours, healed: BohemiaCondition.get().healed, t: T.day * 1440 + T.min }));
     ok(P + 'H6 BREAK CAMP (a press on the same button): the camp is gone, HEAL is back on the map, no more camp hours, the clock stops racing',

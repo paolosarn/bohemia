@@ -2520,7 +2520,13 @@
   function voicePlace(el) {
     var H = window.innerHeight, b = 118;
     try { var p = document.getElementById('speedpad'), r = p && p.getBoundingClientRect(); if (r && r.height > 0 && r.top < H) b = Math.round(H - r.top + 8); } catch (e) {}
-    el.style.bottom = b + 'px'; el.style.left = ''; el.style.top = '';
+    el.style.bottom = b + 'px'; el.style.left = ''; el.style.top = ''; el.style.right = ''; el.style.margin = '';
+    /* __ONE_PHONE__ (UI TWO 10/26, rule 213): the one phone holds his bottom corner; the line stands beside it (its bottoms level) when
+       there is room for a face and a few words, else over it, never under it */
+    try { var pr = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if (pr && pr.on) { var Wd = window.innerWidth, room = pr.side === 'left' ? Wd - pr.right - 16 : pr.left - 16;
+      if (room >= 220) { el.style.margin = '0'; if (pr.side === 'left') { el.style.left = Math.round(pr.right + 8) + 'px'; el.style.right = '8px'; } else { el.style.left = '8px'; el.style.right = Math.round(Wd - pr.left + 8) + 'px'; } el.style.bottom = Math.max(8, Math.round(H - pr.bottom)) + 'px'; }
+      else el.style.bottom = Math.max(b, Math.round(H - pr.top + 8)) + 'px';
+      return; } } catch (e) {}
     try { var ph = document.getElementById('cityfeed'), q = ph && ph.getBoundingClientRect(), v = el.getBoundingClientRect();
       if (q && q.width > 0 && ph.classList.contains('on') && q.bottom > H - b - 80 && q.right < window.innerWidth / 2) el.style.left = Math.round(q.right + 8) + 'px'; } catch (e) {}
   }

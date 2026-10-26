@@ -280,11 +280,23 @@ async function side(profile) {
         await fr.evaluate(() => { try { LOOP.held.slice().forEach(j => BohemiaJobKinds.drop(j.id)); } catch (e) {} });
         await p.waitForTimeout(400);
         /* ---- HEAL (rule 226): the cross over the company's one bar ---- */
-        const HB = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b) return null; const hp = b.querySelector('.hp'), ar = b.querySelector('.ar');
+        /* CAMP's numbers (BohemiaMapCamp.condition()) drawn by CAMP's own call (BohemiaCondition.drawBar) when CAMP's module is up: the
+           phone's bar is compared pixel for pixel with the same call drawn here; before it, the two inks over their maxima */
+        const HB = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b) return null; const hp = b.querySelector('.hp'), ar = b.querySelector('.ar'), cv = b.querySelector('.hb canvas');
+          const cvOn = !!cv && getComputedStyle(cv).display !== 'none' && cv.getBoundingClientRect().width > 0;
           return { lab: b.querySelector('.lab').textContent, img: b.querySelector('img').getAttribute('src'), hp: hp.getBoundingClientRect().width, ar: ar.getBoundingClientRect().width, all: b.querySelector('.hb').getBoundingClientRect().width,
-            hpInk: getComputedStyle(hp).backgroundColor, arInk: getComputedStyle(ar).backgroundColor }; });
+            hpInk: getComputedStyle(hp).backgroundColor, arInk: getComputedStyle(ar).backgroundColor, cvOn, cw: cv ? cv.width : 0, ch: cv ? cv.height : 0, blood: +b.dataset.blood, armour: +b.dataset.armour,
+            px: cvOn ? Array.from(cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data) : null }; });
         const cond = await fr.evaluate(() => BohemiaPhone.P.condition());
         const tot = cond.hpMax + cond.armMax;
+        if (cond.from === 'camp') {
+          const ref = await fr.evaluate(({ w, h }) => { const c = document.createElement('canvas'); c.width = w; c.height = h; BohemiaCondition.drawBar(c, BohemiaMapCamp.condition()); return Array.from(c.getContext('2d').getImageData(0, 0, w, h).data); }, { w: HB.cw, h: HB.ch });
+          let same = 0, red = 0; if (HB.px) for (let i = 0; i < HB.px.length; i += 4) { if (Math.abs(HB.px[i] - ref[i]) + Math.abs(HB.px[i + 1] - ref[i + 1]) + Math.abs(HB.px[i + 2] - ref[i + 2]) <= 6) same++; if (HB.px[i] > 120 && HB.px[i] > HB.px[i + 1] * 1.8) red++; }
+          const n = HB.px ? HB.px.length / 4 : 1;
+          ok('HEAL: the cross over one bar, CAMP\'s own bar by CAMP\'s own call (the company\'s blood red and armour grey), its numbers CAMP\'s', !!HB && HB.lab === 'HEAL' && /app_heal/.test(HB.img) && HB.cvOn && same / n >= 0.98 && red > 0
+            && Math.abs(HB.blood - cond.blood) < 0.002 && Math.abs(HB.armour - cond.armour) < 0.002,
+            HB && (HB.lab + ' ' + HB.cw + 'x' + HB.ch + ', ' + Math.round(100 * same / n) + '% the same as drawBar, red ' + red + ' px; blood ' + HB.blood + ' / ' + cond.blood.toFixed(3) + ', armour ' + HB.armour + ' / ' + cond.armour.toFixed(3)));
+        } else
         ok('HEAL: the cross over one bar, the company\'s hitpoints red and armour grey over their maxima', !!HB && HB.lab === 'HEAL' && /app_heal/.test(HB.img) && Math.abs(HB.hp - HB.all * cond.hp / tot) <= 1 && Math.abs(HB.ar - HB.all * cond.arm / tot) <= 1
           && /rgb\(1[5-9]\d|rgb\(2\d\d/.test(HB.hpInk), HB && (HB.lab + ' red ' + HB.hp.toFixed(1) + ' grey ' + HB.ar.toFixed(1) + ' of ' + HB.all.toFixed(1) + ' (' + cond.from + ')'));
         /* ---- CREW ---- */

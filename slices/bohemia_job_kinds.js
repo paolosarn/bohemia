@@ -1237,8 +1237,9 @@
     var t = Math.min(tx, ty);
     /* the phone on the glass is part of the edge (WORLD [eyes: the place in the dark]: a name under the phone is no name): the
        line stops where it meets the phone */
-    try { var fe = document.getElementById('cityfeed'), cv = document.getElementById('cv');
-      if (fe && cv && fe.classList.contains('on')) { var fr = fe.getBoundingClientRect(), vr = cv.getBoundingClientRect(), pad = 6;
+    try { var fe = document.getElementById('cityfeed'), cv = document.getElementById('cv'), fr = fe && fe.classList.contains('on') ? fe.getBoundingClientRect() : null;
+      try { var bp = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if (bp && bp.on) fr = bp; } catch (e) {}   /* __ONE_PHONE__ (UI TWO 10/26, rule 213): the one phone in his corner, in this frame's pixels */
+      if (fr && cv) { var vr = cv.getBoundingClientRect(), pad = 6;
         var L0 = fr.left - vr.left - pad, R0 = fr.right - vr.left + pad, T0 = fr.top - vr.top - pad, B0 = fr.bottom - vr.top + pad;
         if (fr.width > 0 && fr.height > 0) { var t0 = -Infinity, t1 = Infinity;
           [[dx, cx, L0, R0], [dy, cy, T0, B0]].forEach(function (a) { if (a[0] === 0) { if (a[1] < a[2] || a[1] > a[3]) t1 = -Infinity; return; }

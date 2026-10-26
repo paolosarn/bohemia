@@ -244,17 +244,24 @@
       return !!ok;
     } catch (e) { return false; }
   };
-  /* THE COMPANY'S CONDITION (rule 226(c)): CAMP's numbers when it hands them (window.BohemiaHeal.condition()); until damage
-     stays between fights the company comes home whole, so the bar is full */
+  /* THE COMPANY'S CONDITION (rule 226(c)): CAMP's numbers (BohemiaMapCamp.condition(), [the heal button, damage that stays]:
+     {blood, armour, hp, hpMax, arm, armMax, men, tape, says}, the living company's sums, mended by the map's clock); before CAMP's
+     module is up the company comes home whole, so the bar is full */
   P.condition = function () {
-    try { var B = window.BohemiaHeal; if (B && typeof B.condition === 'function') { var c = B.condition(); if (c && (c.hpMax || c.armMax)) return { hp: +c.hp || 0, hpMax: +c.hpMax || 0, arm: +c.arm || 0, armMax: +c.armMax || 0, from: 'camp' }; } } catch (e) {}
-    return { hp: 1, hpMax: 1, arm: 1, armMax: 1, from: 'whole' };
+    try { var M = window.BohemiaMapCamp, c = M && typeof M.condition === 'function' ? M.condition() : null;
+      if (!c && window.BohemiaHeal && typeof BohemiaHeal.condition === 'function') c = BohemiaHeal.condition();
+      if (c && (c.hpMax || c.armMax)) return { hp: +c.hp || 0, hpMax: +c.hpMax || 0, arm: +c.arm || 0, armMax: +c.armMax || 0,
+        blood: c.blood != null ? +c.blood : (c.hpMax ? c.hp / c.hpMax : 1), armour: c.armour != null ? +c.armour : (c.armMax ? c.arm / c.armMax : 1), says: c.says || '', from: 'camp' }; } catch (e) {}
+    return { hp: 1, hpMax: 1, arm: 1, armMax: 1, blood: 1, armour: 1, says: '', from: 'whole' };
   };
+  P.drawBar = function (cv, c) { try { if (window.BohemiaCondition && typeof BohemiaCondition.drawBar === 'function') { BohemiaCondition.drawBar(cv, c); return true; } } catch (e) {} return false; };
   P.crew = function () {   /* the bar's own CREW: the one company screen, from the map and the town (it presses the town's own) */
     var t = document.querySelector('#bmtb .t.crew'); if (!t) return false; t.click(); return true;
   };
-  P.camp = function () {
-    try { var C = window.BohemiaMapCamp; if (!C) return false; if (C.on()) { C.break(); return 'broke'; } return C.make() ? 'made' : false; } catch (e) { return false; }
+  P.camp = function () {   /* CAMP's own switch (BohemiaMapCamp.toggle(): makes camp, or breaks the one that stands) */
+    try { var C = window.BohemiaMapCamp; if (!C) return false; var was = C.on();
+      if (typeof C.toggle === 'function') { C.toggle(); return was ? 'broke' : (C.on() ? 'made' : false); }
+      if (was) { C.break(); return 'broke'; } return C.make() ? 'made' : false; } catch (e) { return false; }
   };
   /* THE FLIP'S DOOR (DYNASTY's, rule 31): after the first crisis the old opened phone carried SWITCH TIMELINE; the new phone's
      status bar carries a TIMELINE tag that opens that same door, until DYNASTY puts the flip where it belongs */
@@ -335,6 +342,8 @@
       /* THE MAP: the old phone, the speed pad and the CAMP plate step aside where the phone took over (212(g); RUN's lines
          are marked __ONE_PHONE__ for RUN to take out) */
       + 'html.boh-phone-on body:has(#cityfeed) #cityfeed,html.boh-phone-on body:has(#cityfeed) #speedpad,html.boh-phone-on body:has(#cityfeed) #campbtn{display:none!important}'
+      /* CAMP's HEAL button over the camp (#healbtn, the settlement screen's) is the phone's HEAL app there: BREAK CAMP, its bar filling */
+      + 'html.boh-phone-on #healbtn{display:none!important}'
       /* THE FIGHT: the abilities live on the phone (213(b)); the bar keeps STRIKE, RELOAD, BACK, WAIT, RETREAT, END TURN and
          AUTO, laid out of the phone's corner until COMBAT's own [the fight frames around the phone] lands */
       + 'html.boh-phone-on #skills .sq.bag,html.boh-phone-on #skills .sq[data-sweep],html.boh-phone-on #skills .sq[data-skill]{display:none!important}'
@@ -455,7 +464,8 @@
       + '#bohphone .app.big .lab{display:none}'
       /* THE HEAL BAR (rule 226(c)): one bar under the cross, the company's hitpoints red and armour grey over their maxima */
       + '#bohphone .app .hb{position:absolute;left:8px;top:37px;width:36px;height:6px;display:flex;background:#1a120c;box-shadow:inset 0 1px 0 rgba(0,0,0,.8),0 1px 0 rgba(255,240,210,.25);pointer-events:none}'
-      + '#bohphone .app .hb i{display:block;height:100%}'
+      + '#bohphone .app .hb i{display:block;height:100%}#bohphone .app .hb canvas{display:none;position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}'
+      + '#bohphone .app .hb.cv i{display:none}#bohphone .app .hb.cv canvas{display:block}'
       + '#bohphone .app .hb .hp{background:#b8352a;box-shadow:inset 0 1px 0 rgba(255,190,170,.45)}'
       + '#bohphone .app .hb .ar{background:#9aa0a2;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}'
       /* THE JOB COLUMN (rules 227 and 228): the main quest's slot first and always kept, then the jobs he is on */
@@ -599,7 +609,7 @@
       b.style.left = SLOTS[i][0] + 'px'; b.style.top = SLOTS[i][1] + 'px';
       b.setAttribute('aria-label', a === 'play' ? 'play or pause' : LABEL[a].toLowerCase());
       b.innerHTML = '<img alt="" src="' + IMG(a === 'play' ? 'app_play' : 'app_' + a) + '"><span class="lab">' + LABEL[a] + '</span>' + (a === 'play' ? '<span class="mark"></span>' : '')
-        + (a === 'heal' ? '<span class="hb" aria-hidden="true"><i class="hp"></i><i class="ar"></i></span>' : '');
+        + (a === 'heal' ? '<span class="hb" aria-hidden="true"><i class="hp"></i><i class="ar"></i><canvas width="108" height="18"></canvas></span>' : '');
       b.addEventListener('click', function () { if (H.holdFired === b) { H.holdFired = null; return; } appPress(a); });   /* the held press's own click is the hold's */
       b.addEventListener('pointerdown', function () { H.holdFired = null; });
       if (a === 'play') {   /* a held finger opens the speeds */
@@ -780,6 +790,11 @@
         b.querySelector('.lab').textContent = scr === 'camp' ? 'BREAK CAMP' : 'HEAL';   /* draft:true */
         var cd = L ? L.condition() : null, tot = cd ? Math.max(1, cd.hpMax + cd.armMax) : 1;
         b.querySelector('.hp').style.width = (cd ? 100 * cd.hp / tot : 50) + '%'; b.querySelector('.ar').style.width = (cd ? 100 * cd.arm / tot : 50) + '%';
+        /* CAMP's own bar, by CAMP's own call, when it is up (one bar on the map's plate, the camp's and the phone's) */
+        var hbc = b.querySelector('.hb canvas'), hk = Math.max(1, Math.min(4, (window.devicePixelRatio || 1) * ((H.state.rect && H.state.rect.scale) || 1))), hw = Math.round(36 * hk), hh = Math.max(5, Math.round(6 * hk));
+        if (hbc.width !== hw || hbc.height !== hh) { hbc.width = hw; hbc.height = hh; }
+        var drew = !!(cd && L && L.drawBar && cd.from === 'camp' && L.drawBar(hbc, cd)); b.querySelector('.hb').classList.toggle('cv', drew);
+        if (cd) { b.dataset.blood = String(Math.round(cd.blood * 1000) / 1000); b.dataset.armour = String(Math.round(cd.armour * 1000) / 1000); b.title = (scr === 'camp' ? 'HEAL: break camp.  ' : 'HEAL: make camp.  ') + (cd.says || ''); }
         b.setAttribute('aria-label', (scr === 'camp' ? 'break camp' : 'heal: make camp') + (cd ? ', the company at ' + Math.round(100 * (cd.hp + cd.arm) / tot) + ' percent' : ''));
       }
       b.classList.toggle('off', off); b.setAttribute('aria-disabled', off ? 'true' : 'false');
