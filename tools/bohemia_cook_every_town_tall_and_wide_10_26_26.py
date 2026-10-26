@@ -706,15 +706,16 @@ def ship_tall(towns_):
         wide_boxes = {k: v for k, v in {**V.ARMSBOX.get(town['tier'], {}), 'lot': V.LOTBOX[town['tier']], 'build': V.BUILDBOX[town['tier']]}.items()}
         LOOK = {'camp': [840, 220, 1000, 420], 'town': [1600, 0, 2060, 370], 'fortress': [1116, 122, 1631, 486]}
         wide_boxes['look'] = LOOK[town['tier']]
-        e['wide'] = dict(src=e.get('src', s + '.webp'), night_src=e.get('night_src', s + '_night.webp'), px=[WW, WH], hotspots=town['hot'],
+        if not (e.get('wide') or {}).get('relaid'): e['wide'] = dict(src=e.get('src', s + '.webp'), night_src=e.get('night_src', s + '_night.webp'), px=[WW, WH], hotspots=town['hot'],
                          boxes=wide_boxes, doors=doors_of(town['hot'], wide_boxes, town['tier']), entrance=entrance_of(town, WW, WH, wide=True), zoom_max=ZOOM[town['tier']])
         e['tall'] = dict(src=s + '_tall.webp', night_src=s + '_tall_night.webp', px=[TW, TH], hotspots=hot, boxes=boxes,
                          doors=doors_of(hot, boxes, town['tier']), entrance=entrance_of(town, TW, TH), zoom_max=ZOOM[town['tier']])
         bl = sorted({tuple(o['box']) for o in meta['outlines']})
         for suf in ('', '_night'): walk['pictures'][s + '_tall' + suf + '.webp'] = {'blocks': [list(b) for b in bl]}
-        wm = json.load(open(os.path.join(R, 'records/target/cook_town_screens/render', s + '.json')))
-        wb = sorted({tuple(o['box']) for o in wm['outlines'] if o['h'] >= 0.45})        # the wide's: a flat thing he steps over is no block
-        for suf in ('', '_night'): walk['pictures'][s + suf + '.webp'] = {'blocks': [list(b) for b in wb]}
+        if not (e.get('wide') or {}).get('relaid'):        # the 10/25 wide's walk (the re-laid wide writes its own)
+            wm = json.load(open(os.path.join(R, 'records/target/cook_town_screens/render', s + '.json')))
+            wb = sorted({tuple(o['box']) for o in wm['outlines'] if o['h'] >= 0.45})        # a flat thing he steps over is no block
+            for suf in ('', '_night'): walk['pictures'][s + suf + '.webp'] = {'blocks': [list(b) for b in wb]}
         print('  shipped tall', s, len(bl), 'outlines', flush=True)
     json.dump(man, open(manp, 'w'), indent=1)
     json.dump(walk, open(walkp, 'w'), indent=1)
