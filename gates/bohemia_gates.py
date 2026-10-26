@@ -9935,6 +9935,11 @@ GATES = [
      "a new row is a new kind with no code, his page and the bots never Spanish and the locals near the house rate, a deed posts while the clock is stopped, a save carries on. THE LIVE DEMO, phone and "
      "computer: the engine up with every kind, his page posts at the start, a job taken and dropped by the game's own functions posts, a town opened posts, CAMP by the real button runs the clock and the "
      "city talks, the newest post in the phone's slot. About 6 min", True),
+    ('THE CREW FIGURE HOLDS HIS GUN', ['node', 'gates/the_crew_figure_holds_his_gun_gate.js'],
+     "UI gate, 10/26, EYES 10/25 q11, k02 ('the crew screen's figure wears none of the gear he equips'; 'the Lone Wolf's fatigue reads 118 on the crew screen and 55 in the fight'), rule 177. "
+     "MEASURED before: every man on the crew screen stood bare-handed whatever he held. On the demo, phone and computer, the company screen through the bar's CREW, every man: his figure holds what his main hand "
+     "holds as the fight names it (fight_rig.json by_class: pistol, rifle, shotgun; bare when no gun), the gun drawn (more of him painted than his bare idle); the computer: the crew screen's FATIGUE equals the fight's "
+     "fatMax for every man in a road fight; the class table emptied is caught. about 3 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

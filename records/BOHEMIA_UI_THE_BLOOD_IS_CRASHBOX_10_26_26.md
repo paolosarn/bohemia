@@ -91,3 +91,25 @@ skulls lie; ours draws it as the button itself, one continuous scale from one nu
 fight played out.]
 [analog horror: the job button is a tin plate somebody pressed with a bloody thumb; the worse the job, the more hands
 have been on it, until the plate is red clay to the rivets and the words have been wiped clear to be read.]
+
+# ALSO THIS ROUND: EYES' CREW SCREEN NOTES (q11, k02, q27)
+
+THE FIGURE HOLDS HIS GUN (slices/BOHEMIA_ROSTER_SCREEN.html, __HE_WEARS_WHAT_HE_WEARS__). Measured first on the demo:
+every man on the crew screen stood in the idles' bare set, whatever his main hand held; the fight lays a pistol man's
+one-hand hold (slices/rig_hold, PIdle, with its pistol layer) and a long gun's carry set with its gun layer
+(slices/rig_idles). Now the crew card draws the same: the fight's own class table (fight_rig.json guns.by_class: dagger a
+pistol, crossbow a rifle, firearm a shotgun) names the gun his main hand holds, and the card plays the same sheets the
+fight plays, on the fight's own two-bar slots; a swap redraws him at once (the card is rebuilt). Seen on the computer:
+YOU and Desi hold their pistols low in the right hand, Raul his crossbow-rifle. What the fight does not draw yet (a
+shield, armour, a helmet as layers: COOK's models and ANIMATION's layers, rule 177(b)(c)) the card does not draw either.
+
+THE FATIGUE IS ONE NUMBER. Measured on the demo after RUN TWO's 154cd8c0: the crew screen's FATIGUE equals the fight's
+fatMax for every man (78/78, 77/77, 83/83 on one run; 80/80, 75/75, 85/85 on another): EYES' 118 against 55 was the old
+screen before RUN TWO's worn(); now a gate holds it.
+
+THE CAMP'S CLOCK: the camp wears the one bar since a0de7409, so 'DAY 1 12…' is gone; its place read the camp's clock (the
+day twice, an hour behind); it reads CAMP now.
+
+GATE: THE CREW FIGURE HOLDS HIS GUN (new, in the suite) 6/0 (phone and computer, one plant). ALSO GREEN: THE COMPANY
+SCREEN, BATTLE BROTHERS SIMPLE 48/0, THE ROSTER SCREEN 15/0, THE SHOP SAYS WHAT IT DOES TO YOUR MAN 10/0; EVERYBODY IDLES
+40/1, the one red the same as main (the fight's enemies without idles).

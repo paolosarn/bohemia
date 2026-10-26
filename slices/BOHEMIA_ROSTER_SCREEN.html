@@ -352,21 +352,65 @@ function rigBody(m, i){
    the strap, leans), on his own offset (engine/bohemia_idles.js), the same model in his own skin as the fight renders him
    (slices/rig_idles), his feet where they stood; a tap still turns him. Until his pictures are in, the still above. ==== */
 var IDLE_CARD = { cards: [], on: false, idles: ['look', 'roll', 'scratch', 'smoke', 'strap', 'lean'] };
+/* ==== __HE_WEARS_WHAT_HE_WEARS__ (UI [eyes: the crew figure wears his gear], EYES 10/25 q11, k02: 'the crew screen's figure
+   wears none of the gear he equips'; rule 177, Paolo 10/25: 'I'm not seeing all the weapons, armour and off-hand items'). The
+   figure is the picture the fight draws of him: his look, and in his hands the gun his main hand holds, from the same sheets
+   the fight lays it from (a long gun or a shotgun: the idles' carry set and its gun layer, slices/rig_idles; a pistol: the
+   one-hand hold, slices/rig_hold, and its pistol layer; the fight's own fight_rig.json says which class is which gun). A swap
+   on this screen redraws him at once. What the fight does not draw yet (a shield, armour, a helmet as layers: COOK's models,
+   ANIMATION's layers, rule 177(b)(c)) this does not draw either: one picture, never a promise the fight does not keep. ==== */
+var HELD = { byClass: null, hold: null, holdLook: {}, ims: {} };
+(function(){ try{ fetch('fight_rig/fight_rig.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ HELD.byClass = (j && j.guns && j.guns.by_class) || {}; }, function(){ HELD.byClass = {}; });
+  fetch('rig_hold/rig_hold.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ HELD.hold = j || {}; }, function(){ HELD.hold = {}; }); }catch(e){ HELD.byClass = {}; HELD.hold = {}; } })();
+function heldGun(m){
+  var R = window.BohemiaRoster, g = m && m.gear, id = g && g.main ? (g.main.id || g.main) : null; if(!id || !R || !R.fightWeapon || !HELD.byClass) return null;
+  var w = R.fightWeapon(id); if(!w) return null;
+  return HELD.byClass[(w.of && w.of['class']) || w['class']] || null;
+}
+function heldImg(file){
+  var e = HELD.ims[file]; if(!e){ e = HELD.ims[file] = { im: new Image(), ok: false }; e.im.onload = function(){ e.ok = true; }; e.im.src = 'rig_hold/' + file; }
+  return e.ok ? e.im : null;
+}
+/* the one-hand pistol hold, standing: the fight's own slots (two bars; a breath, then one of his idles on the odd slots) */
+function holdFrame(look, seed, now, f){
+  var H = HELD.hold, B = window.BohemiaIdles; if(!H || !H.looks || !H.looks[look] || !B) return null;
+  var L = HELD.holdLook[look]; if(!L){ L = HELD.holdLook[look] = { d: null }; fetch('rig_hold/' + H.looks[look].json).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ L.d = j; }, function(){}); }
+  var d = L.d, T = H.timelines && H.timelines.PIdle; if(!d || !T || !d.clips || !d.clips.PIdle) return null;
+  var keyMs = 500 / 3, off = B.hash(seed, 'hold') % 48, k = Math.floor(now / keyMs) + off, slot = Math.floor(k / 24);
+  var tl = slot % 2 && T.length > 1 ? T[1 + B.hash(seed, slot) % (T.length - 1)] : T[0], kin = k - slot * 24, key = 0;
+  for(var i = 0; i < tl.length; i++){ if(kin < tl[i][1]){ key = tl[i][0]; break; } kin -= tl[i][1]; }
+  var ci = (d.clips.PIdle[key] || d.clips.PIdle[0])[f]; if(ci == null) return null;
+  var im = heldImg(d.sheet.file); if(!im) return null;
+  var c = d.sheet.cells[ci], out = { img: im, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5], foot: d.foot, pose: 'h' + key, kind: 'pistol' };
+  var gc = d.guns && d.guns.clips && d.guns.clips.pistol && d.guns.clips.pistol.PIdle, gi = gc ? (gc[key] || gc[0])[f] : undefined;
+  if(gi === null) out.gun = { hidden: true };
+  else if(gi !== undefined){ var gim = heldImg(d.guns.file); if(!gim) return null; var q = d.guns.cells[gi]; out.gun = { img: gim, x: q[0], y: q[1], w: q[2], h: q[3], dx: q[4], dy: q[5] }; }
+  else return null;   /* never his pistol hold without the pistol in it */
+  return out;
+}
+/* ==== end __HE_WEARS_WHAT_HE_WEARS__ ==== */
 function idleCard(c, m, i){
   var B = window.BohemiaIdles; if(!B) return;
   IDLE_CARD.cards = IDLE_CARD.cards.filter(function(e){ return e.c.isConnected; });
-  IDLE_CARD.cards.push({ c: c, look: m.look, seed: 'crew:' + (m.name || i), shown: '' });
+  IDLE_CARD.cards.push({ c: c, look: m.look, seed: 'crew:' + (m.name || i), shown: '', man: m });
   if(IDLE_CARD.on) return; IDLE_CARD.on = true; B.load();
   (function tick(){
     var now = performance.now();
     IDLE_CARD.cards.forEach(function(e){
       if(!e.c.isConnected) return;
       var f = Math.max(0, B.DIRS.indexOf(e.c.dataset.turn || 'S'));
-      var q = B.frame(e.look, e.seed, now, f, { set: 'bare', idles: IDLE_CARD.idles }); if(!q) return;
-      var key = q.pose + f; if(key === e.shown) return; e.shown = key;   /* a held key is drawn once */
+      /* __HE_WEARS_WHAT_HE_WEARS__: the gun in his hands, as the fight lays it (a rolled man's own fight cells first, as the fight) */
+      var gun = heldGun(e.man), q = null, gl = null, lk = B.has('fight_' + e.look) ? 'fight_' + e.look : e.look;
+      if(gun === 'pistol') { q = holdFrame(e.look, e.seed, now, f); if(q) gl = q.gun; }
+      if(gun && !q){ q = B.frame(lk, e.seed, now, f, { set: 'carry' }); if(q && !q.person){ gl = B.gun(lk, gun, q.pose, f); if(!gl) q = null; } else q = null; }
+      if(!q){ gun = null; q = B.frame(e.look, e.seed, now, f, { set: 'bare', idles: IDLE_CARD.idles }); }
+      if(!q) return;
+      var key = (gun || '') + q.pose + f + (gl && !gl.hidden ? 'g' : ''); if(key === e.shown) return; e.shown = key;   /* a held key is drawn once */
       var x = e.c.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, e.c.width, e.c.height);
-      x.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(e.c.width / 2 - (q.foot[0] - q.dx)), Math.round(e.c.height - 5 - (q.foot[1] - q.dy)), q.w, q.h);
-      e.c.dataset.idle = q.kind;
+      var ox = Math.round(e.c.width / 2 - q.foot[0]), oy = Math.round(e.c.height - 5 - q.foot[1]);
+      x.drawImage(q.img, q.x, q.y, q.w, q.h, ox + q.dx, oy + q.dy, q.w, q.h);
+      if(gl && !gl.hidden) x.drawImage(gl.img, gl.x, gl.y, gl.w, gl.h, ox + gl.dx, oy + gl.dy, gl.w, gl.h);
+      e.c.dataset.idle = q.kind; e.c.dataset.holds = gun || '';
     });
     requestAnimationFrame(tick);
   })();
@@ -861,7 +905,7 @@ function open(o){
   keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
   if(Array.isArray(o.fight)) afterFight(o.fight);
 }
-window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
+window.BohemiaRosterScreen = {open:open, state:S, held:HELD, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
 C.load().then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });
