@@ -737,6 +737,188 @@
      }
     }
    }
+  ],
+  "b_low": [
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.14,
+       -0.34,
+       0.05
+      ],
+      "pole": [
+       -0.2,
+       -0.3,
+       1
+      ]
+     }
+    }
+   }
+  ],
+  "b_raise": [
+   {
+    "ops": [
+     [
+      "S",
+      "U",
+      -18
+     ],
+     [
+      "N",
+      "U",
+      10
+     ],
+     [
+      "H",
+      "U",
+      8
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.4,
+       -0.1,
+       0.0
+      ],
+      "pole": [
+       0,
+       -1,
+       0.8
+      ]
+     },
+     "R": {
+      "from": "RU",
+      "at": [
+       0.34,
+       -0.08,
+       0.14
+      ],
+      "pole": [
+       -0.2,
+       -1,
+       -0.4
+      ]
+     }
+    }
+   }
+  ],
+  "b_full": [
+   {
+    "ops": [
+     [
+      "S",
+      "U",
+      -38
+     ],
+     [
+      "C",
+      "U",
+      -8
+     ],
+     [
+      "N",
+      "U",
+      26
+     ],
+     [
+      "H",
+      "U",
+      20
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.56,
+       0.02,
+       0.0
+      ],
+      "pole": [
+       0,
+       -0.6,
+       1
+      ]
+     },
+     "R": {
+      "from": "RU",
+      "at": [
+       0.06,
+       0.15,
+       0.2
+      ],
+      "pole": [
+       -1,
+       0.3,
+       -0.6
+      ]
+     }
+    }
+   }
+  ],
+  "b_loose": [
+   {
+    "ops": [
+     [
+      "S",
+      "U",
+      -38
+     ],
+     [
+      "C",
+      "U",
+      -8
+     ],
+     [
+      "N",
+      "U",
+      26
+     ],
+     [
+      "H",
+      "U",
+      20
+     ]
+    ]
+   },
+   {
+    "reach": {
+     "L": {
+      "from": "LU",
+      "at": [
+       0.56,
+       0.03,
+       0.0
+      ],
+      "pole": [
+       0,
+       -0.6,
+       1
+      ]
+     },
+     "R": {
+      "from": "RU",
+      "at": [
+       -0.14,
+       0.13,
+       0.02
+      ],
+      "pole": [
+       -0.3,
+       -1,
+       -0.5
+      ]
+     }
+    }
+   }
   ]
  },
  "clips": {
@@ -965,6 +1147,49 @@
     ]
    ],
    "why": "the two-handed blow: both hands on the haft raised over his right shoulder; brought down before him, his right hand ahead of and below his left so the head lands forward and down; followed through low to his left"
+  },
+  "BIdle": {
+   "under": "still",
+   "keys": [
+    [
+     "b_low",
+     "plant"
+    ],
+    [
+     "breath_in",
+     "b_low",
+     "plant"
+    ],
+    [
+     "look_l",
+     "b_low",
+     "plant"
+    ],
+    [
+     "look_r",
+     "b_low",
+     "plant"
+    ]
+   ],
+   "why": "the bow held low in his LEFT fist before his hip, its limbs up and down, his right hand free: a breath, a look each way"
+  },
+  "BShot": {
+   "under": "still",
+   "keys": [
+    [
+     "b_raise",
+     "plant"
+    ],
+    [
+     "b_full",
+     "plant"
+    ],
+    [
+     "b_loose",
+     "plant"
+    ]
+   ],
+   "why": "THE DRAW AND THE LOOSE (the coordinator's 10/26 item (3): 'the bows' poses'): the bow comes up before him with his right hand on the string; then bladed, his left shoulder to the mark, the bow arm straight out at shoulder height and the string hand at his jaw, his head turned back over the bow arm to look down the arrow; then the loose, the string hand flying back past his ear"
   }
  },
  "composite": {
@@ -1314,6 +1539,94 @@
     "CoverHit",
     1
    ]
+  ],
+  "BIdle": [
+   [
+    "BIdle",
+    0
+   ],
+   [
+    "BIdle",
+    1
+   ],
+   [
+    "BIdle",
+    2
+   ],
+   [
+    "BIdle",
+    3
+   ]
+  ],
+  "BWalk": [
+   [
+    "PCarryWalk",
+    0
+   ],
+   [
+    "PCarryWalk",
+    1
+   ],
+   [
+    "PCarryWalk",
+    2
+   ],
+   [
+    "PCarryWalk",
+    3
+   ],
+   [
+    "PCarryWalk",
+    4
+   ],
+   [
+    "PCarryWalk",
+    5
+   ]
+  ],
+  "BAim": [
+   [
+    "BShot",
+    0
+   ],
+   [
+    "BShot",
+    1
+   ],
+   [
+    "BShot",
+    2
+   ]
+  ],
+  "BHit": [
+   [
+    "PHit",
+    0
+   ],
+   [
+    "PHit",
+    1
+   ]
+  ],
+  "BCover": [
+   [
+    "CoverPistol",
+    0
+   ],
+   [
+    "CoverPistol",
+    1
+   ],
+   [
+    "CoverPistol",
+    2
+   ]
+  ],
+  "BCoverHit": [
+   [
+    "CoverHit",
+    0
+   ]
   ]
  },
  "hold": {
@@ -1434,6 +1747,17 @@
    "two",
    "two",
    "two"
+  ],
+  "BIdle": [
+   "bow_low",
+   "bow_low",
+   "bow_low",
+   "bow_low"
+  ],
+  "BShot": [
+   "bow_up",
+   "bow_aim",
+   "bow_aim"
   ]
  },
  "props": {
@@ -1522,6 +1846,17 @@
    "shield": true,
    "w": 0.544,
    "h": 0.924
+  },
+  "compound_bow": {
+   "say": "COOK's compound bow (reference/models/bohemia/item_compound_bow.glb, the eight bow rows of its table), held in his LEFT fist: the grip at the origin, the limbs up and down, the arrow forward",
+   "back": 0,
+   "fore": 0,
+   "left": true
+  },
+  "sling": {
+   "say": "a herder's sling (the armoury's staff sling and nomad sling, COOK's table gives them its thrown bottles): two braided cords from his fist to a leather pouch with a stone in it; hangs from his fist, whirled out behind him on the wind, flung out before him on the loose. This tool's stand-in until COOK models one",
+   "back": 0,
+   "fore": 0.55
   }
  },
  "by_row": {
@@ -1858,6 +2193,42 @@
      "CoverHit"
     ]
    }
+  },
+  "b1": {
+   "props": [
+    "compound_bow"
+   ],
+   "clips": [
+    "BIdle",
+    "BShot",
+    "PCarryWalk",
+    "PHit",
+    "CoverPistol",
+    "CoverHit"
+   ],
+   "keys": {}
+  },
+  "m3": {
+   "props": [
+    "sling"
+   ],
+   "clips": [
+    "PIdle",
+    "MIdleX",
+    "PCarryWalk",
+    "Swing",
+    "PHit",
+    "CoverPistol",
+    "CoverHit"
+   ],
+   "keys": {
+    "PIdle": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
   }
  },
  "timelines": {
@@ -2151,6 +2522,74 @@
      9
     ]
    ]
+  ],
+  "BIdle": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     5
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3,
+     7
+    ],
+    [
+     0,
+     3
+    ]
+   ]
+  ],
+  "BCover": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     9
+    ]
+   ],
+   [
+    [
+     0,
+     6
+    ],
+    [
+     2,
+     9
+    ],
+    [
+     0,
+     9
+    ]
+   ]
   ]
  },
  "shield_hold": {
@@ -2229,7 +2668,9 @@
   "m2",
   "s1",
   "s2",
-  "t2"
+  "t2",
+  "b1",
+  "m3"
  ],
  "hold_by_prop": {
   "cleaver": {
@@ -2267,6 +2708,33 @@
    "wind": "bottle_wind",
    "blow": "bottle_blow",
    "follow": "bottle_blow"
+  },
+  "compound_bow": {
+   "rest": "bow_low",
+   "hit": "bow_low",
+   "port": "bow_low",
+   "tap": "bow_low",
+   "tap_lift": "bow_low",
+   "shoulder_half": "bow_low",
+   "shoulder": "bow_low",
+   "wind": "bow_low",
+   "blow": "bow_low",
+   "follow": "bow_low",
+   "thrust": "bow_low",
+   "aim": "bow_aim"
+  },
+  "sling": {
+   "rest": "sling_hang",
+   "tap": "sling_hang",
+   "tap_lift": "sling_hang",
+   "shoulder_half": "sling_hang",
+   "shoulder": "sling_hang",
+   "port": "sling_hang",
+   "hit": "sling_hang",
+   "thrust": "sling_hang",
+   "wind": "sling_whirl",
+   "blow": "sling_loose",
+   "follow": "sling_loose"
   }
  },
  "two_by_row": {
@@ -2310,7 +2778,8 @@
   "pole_hook"
  ],
  "thrown": [
-  "bottles"
+  "bottles",
+  "sling"
  ],
  "props_from": {
   "looks": {
@@ -2343,7 +2812,9 @@
    "m2",
    "s1",
    "s2",
-   "t2"
+   "t2",
+   "b1",
+   "m3"
   ],
   "why": "measured 10/25: with the scale his model renders at within 0.006 of YOU's (1.101 to 1.110), a look's things on the held keys differ from YOU's by about one pixel at the edges (17 to 28 px of a thing's 88 differ, the order of a one-pixel shift of a thin haft; his rolled men already hold their gang's things on their own bodies the same way), so these twenty hold YOU's things past the first layer, moved by the difference of their feet. The rest render their own: a hat that makes the man taller makes him smaller in the frame (the wide brim 1.054, the caravans 1.058, 105 and 110 px of 88 off), and the anarchists, the church and the network sit two pixels off (29 to 44); the two tiers are their own build. About five hours of renders saved. AMENDED 10/25 later the same round: COOK shipped its 24 models, so every look's own things would be drawn again; laid on their own bodies and checked by the gate's touch leg (H1: wherever the thing shows it is within 2 px of his body, on every key and facing), YOU's things hold in the anarchists', the church's and the network's fists too (two pixels off in scale) and in the first layer for all twenty-three, so they hold YOU's from the first layer; only the caravans and the wide brim (a hat that makes them smaller in the frame, 105 to 110 px off) and the two tiers (COOK THREE's thug and poacher, whose models carry their own weapon) draw their own."
  },
@@ -2351,5 +2822,15 @@
   "dir": "reference/models/bohemia",
   "pattern": "item_%s.glb",
   "why": "a thing whose COOK model is in the folder is rendered from it (COOK builds them in this tool's frame, rule 177(c)); the stand-ins in tools/bohemia_animation_melee_in_hand.py hold only until then, and a man's thing is rendered again the moment its model changes (props/models.json)"
+ },
+ "bow_by_class": {
+  "bow": "compound_bow",
+  "why": "a bow is drawn and loosed in its own keys (BIdle, BShot): every row of the bow class (COOK's table: its compound bow)"
+ },
+ "bow_by_row": {},
+ "sling_by_row": {
+  "staff_sling": "sling",
+  "nomad_sling": "sling",
+  "why": "the slings are whirled, not thrown as a bottle: drawn as the sling once its layer (m3) is live, as the bottle until then"
  }
 }
