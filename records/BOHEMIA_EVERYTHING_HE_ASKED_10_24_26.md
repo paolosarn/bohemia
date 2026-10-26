@@ -144,3 +144,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 128 | The thirteen song cards in the VOTE tab thumbed up (his word); they leave the tab and go in the game with the big gap on his turn | 207 | SOUNDS, EYES | VOTED UP (the registry, 10/25); IN THE GAME: RUNNING (SOUNDS) |
 | 129 | A job's stars are red and tell the truth for his crew (the sure fight and the chance of others on the way, played by the calculator); the job's button bleeds crashbox blood as the danger rises | 208 | WORLD, UI, TUNING, EYES | RUNNING (WORLD reopened with it first) |
 | 130 | Food and water are one resource: one count, one icon (the can with the water bottle behind it), the bar shows five | 209 | RUN TWO, UI, EYES | QUEUED (RUN TWO and UI, both running) |
+| 131 | Buying in the shop puts the item straight on the man it suits best (or the one he picked), his old piece to the stash | 210 | RUN TWO, UI, EYES | QUEUED (RUN TWO, with the food-and-water row) |
