@@ -159,7 +159,7 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-debuff): 10/26 LATEST -- FOUR ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks), research only, no card (rule 127), no game code touched; [the stupid-move watch] round three WAITS on the COMBAT emergency; [healing on our clock] (rule 264) CLAIMED, in flight;
+TUNING (tuning-debuff): 10/26 LATEST -- FIVE ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks, [healing on our clock] SHIPPED), research only, no card (rule 127), no game code touched; [the stupid-move watch] round three WAITS on the COMBAT emergency;
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md, the one table's section S, bench
   tools/bohemia_tuning_struck_down_debuff.js (--marks, --b2b, --heal), bank banks/BOHEMIA_TUNING_STRUCK_DOWN_DEBUFF_10_26_26.json.
@@ -181,10 +181,17 @@ RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLI
 3 [the sell spread] (rule 242): TUNING AGREES with ECONOMY's section R (a9f99967): supplies sell at half the calm buy, a town in need
   pays the rise; added sell.by_class (gear one seventh, his YES 10/10; supplies half) so RUN TWO never reads one for the other.
 4 [the own ceiling] (rule 247(d)): given in 28b5d6f2; six worked ticks for UI THREE's gate (record s6).
-NOTEs: CAMP (the numbers, the price, treat, Traumatized), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
+5 [healing on our clock] (rule 264) SHIPPED: records/BOHEMIA_TUNING_HEALING_ON_OUR_CLOCK_10_26_26.md, the one table's section T, tool
+  tools/bohemia_tuning_healing_on_our_clock.js (the live demo), bank banks/BOHEMIA_TUNING_HEALING_ON_OUR_CLOCK_10_26_26.json. OUR GAP
+  BETWEEN FIGHTS MEASURED: 4.6 game hours over 602 real trips (every job at all 14 home bases, the game's own trip() and fightsOf()),
+  5.2 fights a day; Battle Brothers about 24 (bb_all/0828, 2107, 1415, 1604, the coordinator's sources). Ratio 5.2, so x5 (the
+  coordinator's x4 moves): 5 hit points an hour marching, 10 camped, armour 15 and 30, the cook +5, tape unchanged; a typical fight
+  then heals in 1.17 gaps (BB 1.13), armour 0.51 (BB 0.49). A won fight is whole in 1.8 s of camp at an hour a beat: if that is too
+  quick to see (rule 259), CAMP slows the camp's clock, not the rates. Named: his 30 to 40 fresh-wound days are 156 to 208 of our fights.
+NOTEs: CAMP (the numbers, the price, treat, Traumatized; x5 for the clock), WORLD (the gap measured), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
   injury's hitpoints_pct, vision, fatigue recovery or action points; the fresh wound into the fight after the emergency), UI THREE.
 NOT MEASURED: a phone's CPU; the fresh wound on the live path (the fight does not read c.fresh yet); 234(e) AUTO keeping the hurt back.
-NEXT: [healing on our clock] (rule 264, claimed); [the stupid-move watch] round three the moment COMBAT's fix is on main; [the odds
+NEXT: [the stupid-move watch] round three the moment COMBAT's fix is on main; [the odds
   keep up]; [the first week's losses]; [the 32 situations].
 [bb the struck down: Battle Brothers lets 33 in 100 live with a mark for life, no fresh wound, never benched; its temple charges for
 its own 1-to-9-day wounds, so ours must charge for the same wound, not for our longer days]
