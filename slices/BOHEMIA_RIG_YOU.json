@@ -1,0 +1,28 @@
+{
+ "what": "RUN [your main guy leads the walk] 10/26 (rule 263(a)): HIS main man on the map, the fight's own YOU (stand and six walk keys, eight turns), cut into the map's people format; nothing redrawn",
+ "src": {
+  "you": "records/target/combat/rig/you/rig.json",
+  "sheet": "slices/fight_rig/you.webp"
+ },
+ "tool": "tools/bohemia_run_the_main_man_on_the_map.py",
+ "walks": [
+  "you"
+ ],
+ "w": 98,
+ "h": 143,
+ "foot": 135,
+ "cols": 7,
+ "gangs": [
+  "you"
+ ],
+ "dirs": [
+  "S",
+  "SE",
+  "E",
+  "NE",
+  "N",
+  "NW",
+  "W",
+  "SW"
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "look": "cast_poncho",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.3915,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.391 m",
+  "ppm": 326.97,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     0.0,
+     0.0007,
+     1.3519
+    ],
+    "eyes": [
+     [
+      -0.047,
+      -0.1214,
+      1.356
+     ],
+     [
+      0.047,
+      -0.1214,
+      1.356
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     -0.0,
+     -0.1888,
+     1.3023
+    ],
+    "mouth_z": 1.2638,
+    "chin_z": 1.1741,
+    "top_z": 1.53,
+    "ears": 2,
+    "hair": [
+     "portrait_hair"
+    ],
+    "gear": [],
+    "torso": [
+     "Cesium_Man",
+     "crew_cast_poncho_hand_L",
+     "crew_cast_poncho_hand_R",
+     "crew_cast_poncho_mantle"
+    ],
+    "body": [
+     "Cesium_Man",
+     "crew_cast_poncho_hand_L",
+     "crew_cast_poncho_hand_R",
+     "crew_cast_poncho_mantle",
+     "crew_cast_poncho_shoe",
+     "crew_cast_poncho_trouser"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "crew_cast_poncho_mantle",
+     "crew_cast_poncho_shirt",
+     "crew_cast_poncho_shoe",
+     "crew_cast_poncho_shoes",
+     "crew_cast_poncho_skin",
+     "crew_cast_poncho_trouser",
+     "crew_cast_poncho_trousers",
+     "portrait_cast_poncho_buzz",
+     "portrait_cast_poncho_iris",
+     "portrait_cast_poncho_lips",
+     "portrait_cast_poncho_mouth",
+     "portrait_cast_poncho_pupil",
+     "portrait_cast_poncho_sclera",
+     "portrait_cast_poncho_skin"
+    ]
+   }
+  },
+  {
+   "life": true
+  },
+  {
+   "shots": 4,
+   "seconds": 77.5
+  }
+ ],
+ "made": [
+  "_blink",
+  "_look_l",
+  "_look_r",
+  "_wince"
+ ]
+}

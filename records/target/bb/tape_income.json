@@ -2,14 +2,28 @@
  "_about": "ECONOMY [tape income against armour wear] (rule 271, Paolo 10/26: 'there's not enough duct tape repaired tool shit like to be able to be bought or like loot in the world so like it feels like when my armor runs out like it's my runs over'). Where TAPE comes from besides the stall (the stall's shelf is records/target/bb/stall_prices.json tape_shelf): the loot (the men he beats carry it), the Scavenger (Battle Brothers' own), and his salvage (scrap broken down at camp). RUN FOUR's loot reads loot_tape, CAMP's salvage reads salvage, CAMP TWO's Scavenger reads scavenger. TUNING owns moving any number (the one table, section R). Measured by tools/bohemia_economy_tape_income.js, held by gates/no_run_ends_for_tape_gate.js. Record: records/BOHEMIA_ECONOMY_DAY_84_NO_RUN_ENDS_FOR_TAPE_10_26_26.md. A 'quote' is its page's own words.",
  "draft": true,
  "loot_tape": {
+  "per_won_fight": {
+   "value": 1,
+   "unit": "rolls of tape a won fight leaves, whatever the kills and the wrecked pieces; a lost or fled fight none",
+   "source": "VAMILY rule 284(a), Paolo 10/26: 'make it so I get one duct tape or something like that as a baseline'",
+   "why": "his baseline: the rest of a run's tape is bought (every stall, a battery a roll, 265) and mended for batteries (277), Battle Brothers' way (bb_all/2014: tools come from the market). It moves only in TUNING's one table, on a measurement of the live game, never above three a fight without his word (284(e)).",
+   "read_by": "engine/bohemia_spoils.js winTape (RUN FOUR's end screen)"
+  },
   "per_kill": {
    "value": [
-    2,
-    3
+    0,
+    0
    ],
    "unit": "rolls in a dead man's kit, rolled even between the two (a mean of 2.5)",
    "source": "ECONOMY Day 84 s2 (tools/bohemia_economy_tape_income.js)",
-   "why": "rule 271(a), his: 'the men he beats carry tape in their kit... scaled to the kills'. Two or three rolls is what anybody in the crash carries to fix anything. Measured on rolled months at five fights a day with the shelf refilled daily: the loot alone returns about all a new crew's fights break (1.13) and nine tenths of twelve men's; with the home stall at the fair price a new crew has 1.6 to 1.7 times what it breaks and twelve men 1.15 (a camp) to 1.34 (a fortress). At a roll or two (1.5) twelve men had 0.81 at a camp"
+   "why": "rule 284(b), Paolo 10/26: 'you're about to crash my economy... I'm winning way too much duct tape after each fight': the kills give no tape; a won fight gives its one roll (per_won_fight). Was [2, 3] (rule 271(a)); one road fight took 40 to 53 on the live demo.",
+   "_was": {
+    "value": [
+     2,
+     3
+    ],
+    "why": "rule 271(a), his: 'the men he beats carry tape in their kit... scaled to the kills'. Two or three rolls is what anybody in the crash carries to fix anything. Measured on rolled months at five fights a day with the shelf refilled daily: the loot alone returns about all a new crew's fights break (1.13) and nine tenths of twelve men's; with the home stall at the fair price a new crew has 1.6 to 1.7 times what it breaks and twelve men 1.15 (a camp) to 1.34 (a fortress). At a roll or two (1.5) twelve men had 0.81 at a camp"
+   }
   },
   "only_the_dead": {
    "value": true,
@@ -59,25 +73,29 @@
  },
  "salvage": {
   "tape_per_scrap": {
-   "value": 2,
+   "value": 0,
    "unit": "rolls of tape for every wrecked piece the loot finds (what loot.json counts as scrap)",
    "source": "VAMILY rule 276(a): 'Scrap IS tape: the word goes; the loot counts it as tape with the tape icon, straight into the company's tape; old saves' scrap converts'",
-   "why": "his 276 (scrap is tape) on his 271(a) (scrap armour broken down into tape): every piece worn under the drop line comes home as two rolls of straps and plate, twice what Battle Brothers' Scavenger finds on a 100-point piece (bb_all/1972: up to 1 percent of its top), because his men strip it by hand. An old save's scrap converts at the same two. No camp hour: 276 puts it straight into the tape"
+   "why": "rule 284(b): a wrecked piece adds no tape past the fight's one (amends 276(a)); was 2. The old-save scrap conversion reads this and so converts nothing more (284(f)); tape already in a save stays.",
+   "_was": {
+    "value": 2,
+    "why": "his 276 (scrap is tape) on his 271(a) (scrap armour broken down into tape): every piece worn under the drop line comes home as two rolls of straps and plate, twice what Battle Brothers' Scavenger finds on a 100-point piece (bb_all/1972: up to 1 percent of its top), because his men strip it by hand. An old save's scrap converts at the same two. No camp hour: 276 puts it straight into the tape"
+   }
   },
   "_was": "Day 84 first had salvage at camp, an hour a scrap; his rule 276 (the same hour) made scrap tape straight from the loot, so the hour is gone"
  },
  "the_bar": {
-  "spare": {
-   "value": 0.1,
-   "unit": "share over the tape needed",
-   "source": "VAMILY rule 271(b): 'covers the armour a typical fight breaks, with some to spare'",
-   "why": "'some to spare' read as a tenth: the typical run ends its month with more tape than it started"
-  },
   "pace": {
    "value": 5,
    "unit": "fights a map day",
    "source": "VAMILY rule 264(f): 'ours runs about 5'; TUNING measured 4.6 game hours between fights (264(g))",
    "why": "the measure is at the busiest the map allows, so a slower player is only better off (the shelf restocks by the day, the loot by the fight)"
+  },
+  "tape_share_max": {
+   "value": 0.34,
+   "unit": "of what a new crew's fights pay, spent on tape at the map's pace",
+   "source": "ECONOMY Day 85 s2 (rule 284(g): the bar is the one roll plus the stall plus the smith, against what a fight pays)",
+   "why": "a third: a crew of three that spends a third of its pay keeping its armour up still has the rest for food, hires and gear; measured today a fifth to a quarter. Replaces 271(b)'s 'had 1.1 times what it breaks' (Day 84), which counted loot his 284 took away"
   }
  }
 }

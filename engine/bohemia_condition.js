@@ -333,17 +333,17 @@
      anymore... I need to see how everyone's healing'). One man's two bars from what this file keeps for him: his hit points and his
      armour (helmet and body together) over their maxima; shown when either is under 87 percent (records/target/bb/condition.json
      bars_hide_at, his number); a man no fight has touched is whole and shows nothing. Found by his name, or by his look (the map and
-     the town draw a man by his look), or YOU */
-  function recordFor(o) {
-    o = o || {}; var s = get();
+     the town draw a man by his look), or YOU. s: the condition already read (a picture drawing many men reads it once a frame) */
+  function recordFor(o, s) {
+    o = o || {}; s = s || get();
     if (o.main) return s.men.YOU || null;
     var k = o.name ? canon(o.name) : '';
     if (k && s.men[k]) return deadIn(s, k) ? null : s.men[k];
     if (o.look) for (var kk in s.men) if (s.men[kk] && s.men[kk].look === o.look && !s.men[kk].main && !deadIn(s, kk)) return s.men[kk];
     return null;
   }
-  function bars(o) {
-    var r = recordFor(o); if (!r || !(r.hpMax > 0)) return null;
+  function bars(o, s) {
+    var r = recordFor(o, s); if (!r || !(r.hpMax > 0)) return null;
     var hp = Math.max(0, r.hpMax - (r.lostHp || 0)), armMax = (r.armHMax || 0) + (r.armBMax || 0), arm = Math.max(0, armMax - (r.lostH || 0) - (r.lostB || 0));
     var hpF = Math.max(0, Math.min(1, hp / r.hpMax)), armF = armMax > 0 ? Math.max(0, Math.min(1, arm / armMax)) : 1, cut = RATE.bars_hide_at;
     return { hp: hp, hpMax: r.hpMax, arm: arm, armMax: armMax, hpF: hpF, armF: armF, show: hpF < cut || (armMax > 0 && armF < cut) };
@@ -367,7 +367,33 @@
   function dead() { return get().dead.slice(); }
   function last() { return LAST; }
 
-  root.BohemiaCondition = { KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
+  /* ==== __THE_SMITH_MENDS__ (RUN TWO's block in CAMP's file, NOTE on CAMP's board; RUN TWO [the smith mends], rule 277, Paolo 10/26:
+     'if I go to a settlement that has a smith and an armourer I should be able to repair my stuff with them pretty easily and
+     quickly'). What a craftsman can mend (every living man's helmet and body armour he is missing, the pieces this file keeps), and
+     the mend itself: the pieces back to full, at once, paid at the counter (the camp's mending is the slow, cheap way and spends tape;
+     the craftsman's spends batteries and none of his tape).
+       broken(origin)  [{key, name, main, pieces:[{part:'head'|'body', id, missing, max}]}] for every living man missing armour
+       mend(keys)      the named men's pieces (all when keys is empty) back to full: {men, pieces, points} ==== */
+  function broken(origin) {
+    var s = get(), out = [];
+    members(origin).forEach(function (e) { var r = s.men[e.key]; if (!r) return; var pcs = [];
+      if ((r.lostH || 0) >= 0.5) pcs.push({ part: 'head', id: r.head || null, missing: Math.round(r.lostH), max: Math.round(r.armHMax || 0) });
+      if ((r.lostB || 0) >= 0.5) pcs.push({ part: 'body', id: r.body || null, missing: Math.round(r.lostB), max: Math.round(r.armBMax || 0) });
+      if (pcs.length) out.push({ key: e.key, name: e.main ? 'YOU' : (r.shown || (e.man && e.man.name) || e.key), main: !!e.main, pieces: pcs }); });
+    return out;
+  }
+  function mend(keys) {
+    var s = get(), want = Array.isArray(keys) && keys.length ? keys : null, done = { men: 0, pieces: 0, points: 0 };
+    Object.keys(s.men).forEach(function (k) { if (want && want.indexOf(k) < 0) return; var r = s.men[k], n = 0;
+      ['lostH', 'lostB'].forEach(function (p) { if ((r[p] || 0) > 0) { done.points += r[p]; r[p] = 0; n++; } });
+      if (n) { done.men++; done.pieces += n; } });
+    s.mendedAtCounter = (s.mendedAtCounter || 0) + done.points; put(s);
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mended: done } })); } catch (e) {}
+    try { if (root.parent && root.parent !== root) root.parent.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mended: done } })); } catch (e) {}
+    return done;
+  }
+  /* ==== end __THE_SMITH_MENDS__ ==== */
+  root.BohemiaCondition = { broken: broken, mend: mend, KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
     condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, bars: bars, drawHeadBars: drawHeadBars, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
     says: says, drawBar: drawBar, forget: forget, last: last };
   try { if (root.document) setTimeout(load, 0); } catch (e) {}

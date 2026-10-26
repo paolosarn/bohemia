@@ -202,7 +202,9 @@
   P.play = function (jobId) {
     try {
       if (typeof MODE !== 'undefined' && MODE !== 'city') return false;
-      if (TRAVEL_SPEED > 0) travelSpeedSet(0);
+      /* RUN 10/26 ([play takes you there], EYES' normie hour F9): the map's speed stays at 1.22 while he stands, so PAUSE is only for a
+         journey under way; standing with a job on, PLAY is to the job (mapPlayToJob, the map's best route) */
+      if (TRAVEL_SPEED > 0 && TRAVEL) travelSpeedSet(0);
       else if (!TRAVEL && (LOOP.held || []).length && P.jobGo(jobId)) { try { camHold(); } catch (e) {} }   /* nothing picked: to the job */
       else { travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); try { camHold(); } catch (e) {} }
       window.__PHONE_PLAYS = (window.__PHONE_PLAYS | 0) + 1;
@@ -228,7 +230,12 @@
         var mins = null, back = false, at = null;
         if (t && t.job) { back = !!t.job.back; at = t.job.name || null;
           mins = (t.job.total != null ? t.job.total : (t.job.mins != null ? t.job.mins : t.job.minsHi)) + (t.toTown && t.toTown.mins ? t.toTown.mins : 0); }
-        out.push({ id: j.id, what: String((W && W[j.id]) || j.title || 'a job'), from: String(j.from || ''), at: at, stars: stars | 0, mins: mins, back: back });
+        /* rule 238(d): which way, as the map shows it: the job's next place (WORLD's nextOf) from his block, turned through the map's
+           own diamond (a grid step east goes right and down on the glass), in degrees, 0 = up the glass, clockwise */
+        var deg = null, nx = null; try { var n = window.BohemiaJobKinds && BohemiaJobKinds.nextOf ? BohemiaJobKinds.nextOf(j) : null;
+          if (n && n.x != null) { var g = __CITY.state(), dx = n.x - city.x, dy = n.y - city.y, vx = (dx - dy) * g.TW / 2, vy = (dx + dy) * g.TH / 2;
+            nx = [n.x, n.y]; if (dx || dy) deg = Math.round((Math.atan2(vx, -vy) * 180 / Math.PI + 360) % 360); } } catch (e) {}
+        out.push({ id: j.id, what: String((W && W[j.id]) || j.title || 'a job'), from: String(j.from || ''), at: at, stars: stars | 0, mins: mins, back: back, deg: deg, to: nx });
       });
     } catch (e) {}
     JOBS_AT = { key: key, out: out };
@@ -239,7 +246,8 @@
   /* PLAY TAKES HIM THERE (rule 227(c)): RUN's own route when it lands ([play takes you there]); until then the map's own
      path finder to the job's place, the same door a tap on the map uses (travelTo) */
   P.jobGo = function (id) {
-    try { if (typeof window.mapPlayToJob === 'function') return !!window.mapPlayToJob(id); } catch (e) {}
+    try { if (typeof window.mapPlayToJob === 'function') { var r = !!window.mapPlayToJob(id), L = window.MAP_PLAY && MAP_PLAY.last;   /* RUN 10/26: the map's best route answers; the same record */
+      window.__PHONE_JOB_GO = { id: (L && L.id) || id || null, to: L && L.to ? L.to : null, ok: r, by: 'map' }; return r; } } catch (e) {}
     try {
       var held = LOOP.held || [], j = held.filter(function (x) { return x && x.id === id; })[0] || held[0]; if (!j) return false;
       var tg = j.target, x = tg && (tg.x != null ? tg.x : tg[0]), y = tg && (tg.y != null ? tg.y : tg[1]);
@@ -487,6 +495,9 @@
       + '#bohphone .jc{position:relative;flex:0 0 24px;display:flex;align-items:center;gap:3px;padding:1px 2px 1px 4px;cursor:pointer;color:#1f1710;' + kit('receipt', 0.4)
       +   'border-radius:1px!important;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.6))}'
       + '#bohphone .jc.sel{box-shadow:inset 3px 0 0 #e8a83a!important}'
+      + '#bohphone .jc .dir{flex:0 0 12px;width:12px;height:12px;display:block;transform-origin:50% 50%}'
+      + '#bohphone .jc .dir svg{display:block}#bohphone .jc .dir path{fill:#2a1d10;stroke:#f1e4c4;stroke-width:.6}'
+      + '#bohphone .jc .dir.here svg{display:none}#bohphone .jc .dir.here::after{content:"";display:block;width:6px;height:6px;margin:3px;border-radius:50%;background:#2a1d10}'
       + '#bohphone .jc .tx{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;line-height:8px}'
       + '#bohphone .jc .wh{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:clip}'
       + '#bohphone .jc .mt{font-size:6px;white-space:nowrap;overflow:hidden;color:#4a3826}'
@@ -741,12 +752,14 @@
     var armed = H.arm && H.arm.id === j.id, d = el('div', 'jc' + (H.sel === j.id ? ' sel' : '') + (armed ? ' arm' : ''));
     d.setAttribute('role', 'listitem'); d.dataset.job = j.id;
     if (!armed) {
-      d.innerHTML = '<div class="tx"><span class="wh"></span><span class="mt"><span class="st"></span><span class="pl"></span></span></div>'
+      d.innerHTML = '<span class="dir" aria-hidden="true"><svg viewBox="0 0 12 12" width="12" height="12"><path d="M6 0.6 L10.6 11 L6 8.4 L1.4 11 Z"/></svg></span>'
+        + '<div class="tx"><span class="wh"></span><span class="mt"><span class="st"></span><span class="pl"></span></span></div>'
         + '<button type="button" class="x" aria-label="drop this job"><img alt="" src="' + IMG('app_x') + '"></button>';
       /* what and where on the first line (the place may clip), the stars and the time on the second (never clipped) */
       d.querySelector('.wh').textContent = j.what + ' \u00b7 ' + String(j.at || j.from).toUpperCase();
       d.querySelector('.st').textContent = new Array(Math.max(1, Math.min(5, j.stars)) + 1).join('\u2605');
       d.querySelector('.pl').textContent = timeWord(j);
+      var dv = d.querySelector('.dir'); if (j.deg == null) dv.classList.add('here'); else { dv.style.transform = 'rotate(' + j.deg + 'deg)'; dv.dataset.deg = j.deg; }   /* which way (238(d)); a dot when he is on it */
       d.setAttribute('aria-label', j.what + ', ' + j.stars + ' stars, ' + String(j.at || j.from) + (timeWord(j) ? ', ' + timeWord(j).toLowerCase() : ''));
       d.querySelector('.x').addEventListener('click', function (e) { e.stopPropagation(); H.arm = { id: j.id, cost: L ? L.dropCost(j.id) : null, why: null }; jobsPaint(L, true); });
       d.addEventListener('click', function () { H.sel = j.id; jobsPaint(L, true); });
@@ -770,7 +783,7 @@
     if (H.sel && !js.some(function (j) { return j.id === H.sel; })) H.sel = null;
     if (!H.sel && js.length) H.sel = js[0].id;
     if (H.arm && !js.some(function (j) { return j.id === H.arm.id; })) H.arm = null;
-    var sig = js.map(function (j) { return j.id + j.stars + j.mins + j.what + j.at; }).join('|') + '|' + H.sel + '|' + (H.arm ? H.arm.id + H.arm.why : '');
+    var sig = js.map(function (j) { return j.id + j.stars + j.mins + j.what + j.at + '@' + j.deg; }).join('|') + '|' + H.sel + '|' + (H.arm ? H.arm.id + H.arm.why : '');
     window.__PHONE_JOBS = js.map(function (j) { return j.id; });
     if (!force && sig === H.jobSig) return; H.jobSig = sig;
     [].slice.call(jb.querySelectorAll('.jc, .je')).forEach(function (n) { n.remove(); });

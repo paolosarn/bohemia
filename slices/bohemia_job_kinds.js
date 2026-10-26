@@ -573,7 +573,8 @@
     var R = rng(seedOf(job.id + ':walk:' + STEPS)), smell = 4, roam = (k.pack_blocks || [6, 15])[1] + 4 + (job.ring2 | 0);
     for (var i = 0; i < job.packs.length; i++) {
       var p = job.packs[i], d = cheb(p.x, p.y, city.x, city.y), mv = null;
-      if (d <= smell) { var dx = Math.sign(city.x - p.x), dy = Math.sign(city.y - p.y); mv = [[dx, dy], [dx, 0], [0, dy]]; p.smelt = true; }
+      if (p.shy > 0) p.shy--;   /* RUN 10/26 (__FALL_BACK_HOLDS__, rule 198(g)): a pack he fell back from has lost his scent for his next blocks */
+      if (d <= smell && !(p.shy > 0)) { var dx = Math.sign(city.x - p.x), dy = Math.sign(city.y - p.y); mv = [[dx, dy], [dx, 0], [0, dy]]; p.smelt = true; }
       else if ((STEPS + p.id) % 2 === 0) { var D = DIRS[Math.floor(R() * 8) % 8]; mv = [D]; }
       if (mv) for (var t = 0; t < mv.length; t++) { var nx = p.x + mv[t][0], ny = p.y + mv[t][1];
         if ((mv[t][0] || mv[t][1]) && walk(nx, ny) && !townNear(nx, ny, 1) && cheb(nx, ny, p.home[0], p.home[1]) <= roam) { p.x = nx; p.y = ny; break; } }

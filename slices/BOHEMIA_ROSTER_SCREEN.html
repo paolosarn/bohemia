@@ -1035,8 +1035,161 @@ function open(o){
   if(o.select){ var si = S.crew.findIndex(function(m){ return m.name === o.select; }); if(si >= 0) choose(si); }   /* __THE_SPOILS__: open on the man he tapped */
   if(!held) keep();   /* __WHO_YOU_HIRE_FIGHTS__: the screen he sees is the company the fight gets, from the first look */
   if(Array.isArray(o.fight)) afterFight(o.fight);
+  try{ campSoon(); }catch(e){}   /* __THEIR_CAMP_BEHIND__ */
 }
-window.BohemiaRosterScreen = {open:open, state:S, held:HELD, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
+/* ==== __THEIR_CAMP_BEHIND__ (UI [the crew screen shows their camp where they stand], rule 239, Paolo 10/26: 'anytime you're in
+   the character menu, you press the C button, the background is all black, but what I really want is, depending on the opacity,
+   your crew with their camp in the background, at whatever tile they're currently on... in a settlement the same settlement, in
+   the street or anywhere in the desert the tile they're on'). MEASURED FIRST: behind every card, slot and word of this screen
+   was one flat colour (--bg, #120e0a) over the crew door's own #120e0a: 0 pixels of the world.
+   NOW, drawn once when the screen opens, after its first frame (so it opens no slower), one canvas under everything, never a tap:
+   IN A TOWN OR AT CAMP IN ONE the place itself, the picture the town is drawing right now (his men already live in it, rule 218;
+   camping there they rest in it, rule 259(c)), its lit middle laid where this screen leaves the most of it showing; ON THE MAP OR
+   IN A FIGHT their camp where the party stands: COOK FOUR's camp picture (the camp screen's own pick by the block; a picture made
+   for that ground, street, freeway or desert, wins the moment COOK's ground file names one), by night its night picture, with his
+   own men round the fire in their own looks doing camp things (ANIMATION's sit, smoke, talk and drink, rule 218(a); their idles
+   where a look has none), the fire on the open patch. DIMMED TO THE FLOOR: every word that sits on the picture (not on its own
+   paper or tin) is measured on the pixels behind it and the dim is the least that keeps the worst of them at 4.5 to 1, the kit's
+   floor, never under half. A little life: the men (and the town's own) move on the beat; the place holds still. ==== */
+var CAMPBG = { c: null, base: null, men: [], night: false, on: false, kind: '', ground: '', dim: 0.62, focus: null, live: false, t: {} };
+var CAMP_FLOOR = 4.5, CAMP_DIM_MIN = 0.5, CAMP_DIM_MAX = 0.9, CAMP_SHADE = [12, 8, 5];
+var CAMP_GROUND = { desert: 'desert', wash: 'desert', mountain: 'desert', basin: 'desert', quarry: 'desert', freeway: 'freeway', interchange: 'freeway' };   /* the rest is street */
+function campHost(){   /* the game's windows above this screen: the one that runs the clock and the map, and the town if one is open */
+  var w = window.parent, out = { map: null, town: null, off: false }, n = 0;
+  try{ while(w && n++ < 4){ if(!out.town && w.BohemiaSettlement && w.BohemiaSettlement.state && w.BohemiaSettlement.state.place) out.town = w;
+    if(!out.map && w.__CITY && w.__CITY.state){ out.map = w; var st = w.__CITY.state(); out.facts = { night: !!w.__CITY.night(), at: [st.cx | 0, st.cy | 0], ground: w.__CITY.district ? w.__CITY.district(st.cx | 0, st.cy | 0) : '' }; }   /* the map's own night and spot (its city and T are its own, not the window's) */
+    if(w.__CAMPBG_OFF) out.off = true; if(w === w.parent) break; w = w.parent; } }catch(e){}
+  return out;
+}
+/* after the screen's own first frame: the screen opens exactly as fast as it did on black */
+function campSoon(){ if(S.standalone || CAMPBG.on || (S.defaultCrew && !S.doorSpoke)) return;   /* his men, never the placeholder twelve before the door has spoken */
+  CAMPBG.t.ready = performance.timeOrigin + performance.now(); requestAnimationFrame(function(){ setTimeout(campBg, 0); }); }
+function campBg(){
+  if(CAMPBG.on) return; var H = campHost(); if(H.off) return; CAMPBG.on = true; var t0 = performance.now();
+  var c = document.createElement('canvas'); c.id = 'campbg'; c.setAttribute('aria-hidden', 'true');
+  c.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;opacity:0;transition:opacity .25s';
+  document.body.insertBefore(c, document.body.firstChild); CAMPBG.c = c;
+  document.documentElement.style.background = document.body.style.background = 'transparent';
+  var dpr = Math.min(2, window.devicePixelRatio || 1); c.width = Math.round(innerWidth * dpr); c.height = Math.round(innerHeight * dpr); CAMPBG.dpr = dpr;
+  CAMPBG.spot = campOpenSpot();
+  var F = H.facts || {}, bx = F.at ? F.at[0] : 0, by = F.at ? F.at[1] : 0;
+  CAMPBG.night = !!F.night; CAMPBG.at = [bx, by]; c.dataset.night = CAMPBG.night ? '1' : '0';
+  if(H.town){
+    /* the town (or the camp) on its own glass: its biggest picture, live, its lit middle on the open patch */
+    try{ var d = H.town.document, best = null, ba = 0;
+      [].forEach.call(d.querySelectorAll('canvas'), function(k){ var r = k.getBoundingClientRect(); if(r.width * r.height > ba && k.width > 0 && getComputedStyle(k).display !== 'none'){ ba = r.width * r.height; best = k; } });
+      if(best){ CAMPBG.base = best; CAMPBG.live = true; CAMPBG.focus = campFocus(best);
+        CAMPBG.kind = H.town.BohemiaSettlement.camp && H.town.BohemiaSettlement.camp().camp ? 'camp' : 'town'; }
+    }catch(e){}
+    c.dataset.kind = CAMPBG.kind || 'town'; CAMPBG.t.cost = performance.now() - t0; if(CAMPBG.base) campFirst(); else { campDim(); c.style.opacity = 1; }
+    return;
+  }
+  /* on the map or in a fight: their camp where the party stands, day or night by the map's clock, on the ground under it */
+  CAMPBG.ground = F.ground ? String(F.ground).toLowerCase() : ''; c.dataset.ground = CAMPBG.ground;   /* the ground the bar keeps for the code (rule 262(a)) */
+  var go = function(vs){ var v = campPick(vs, CAMPBG.ground, bx, by), name = CAMPBG.night ? (v.night_src || v.src) : v.src;
+    CAMPBG.fire = v.fire ? { x: v.fire[0], y: v.fire[1] } : CAMP_FIRE_AT; CAMPBG.ppm = v.px_per_metre || CAMP_PPM;
+    CAMPBG.kind = name.replace(/\.webp$/, '').replace(/_/g, '-'); c.dataset.kind = CAMPBG.kind;
+    var im = new Image(); im.onload = function(){ c.dataset.src = im.src.replace(/^.*\/slices\//, ''); CAMPBG.base = im; CAMPBG.focus = CAMPBG.fire; campMen(); CAMPBG.t.cost = performance.now() - t0; campFirst(); };
+    im.onerror = function(){ if(im.src.indexOf('settlement_ground_packs/') >= 0) im.src = 'settlement_ground/' + name; }; im.src = 'settlement_ground_packs/' + name; };
+  var fall = [{ src: 'camp_0.webp', night_src: 'camp_0_night.webp' }, { src: 'camp_1.webp', night_src: 'camp_1_night.webp' }];
+  fetch('settlement_ground_packs/settlement_ground.json').then(function(r){ return r.json(); }).then(function(g){
+    var t = g && g.tiers && g.tiers.camp; go(t && t.variants && t.variants.length ? t.variants : fall); }).catch(function(){ go(fall); });
+}
+/* the camp screen's own pick (the settlement's pickVariant: the block he camps on, [city.x|0, city.y|0]); a picture COOK made for
+   this ground (a variant carrying ground: 'street', 'freeway' or 'desert') goes first */
+function campPick(vs, ground, bx, by){ var g = CAMP_GROUND[ground] || 'street', own = vs.filter(function(v){ return v.ground === g; }), any = vs.filter(function(v){ return !v.ground; });
+  var L = own.length ? own : (any.length ? any : vs); return L[Math.abs(bx * 7 + by * 13) % L.length]; }
+/* where a picture's life is: the centre of its light (the lit middle of the town, where its people and his men stand) */
+function campFocus(k){ var w = 48, h = Math.max(8, Math.round(48 * k.height / k.width)), t = document.createElement('canvas'); t.width = w; t.height = h;
+  var x = t.getContext('2d'), d, L = [], mx = 0, sx = 0, sy = 0, sw = 0, i; x.drawImage(k, 0, 0, w, h); d = x.getImageData(0, 0, w, h).data;
+  for(i = 0; i < w * h; i++){ var l = 0.2126 * d[i * 4] + 0.7152 * d[i * 4 + 1] + 0.0722 * d[i * 4 + 2]; L.push(l); if(l > mx) mx = l; }
+  for(i = 0; i < L.length; i++){ var q = Math.max(0, L[i] - mx * 0.6); q *= q; sx += (i % w + 0.5) * q; sy += ((i / w | 0) + 0.5) * q; sw += q; }
+  return sw ? { x: sx / sw * k.width / w, y: sy / sw * k.height / h } : { x: k.width / 2, y: k.height / 2 }; }
+/* where the screen leaves the most of the picture showing: a grid of points, open where nothing painted lies over the picture, and
+   the open point farthest from anything painted and from the glass's edge (the middle of the widest clear room: the fire goes
+   there, so his men are seen, not hidden under a card or a button) */
+function campOpenSpot(){
+  var step = 24, W = innerWidth, Hh = innerHeight, cols = Math.ceil(W / step), rows = Math.ceil(Hh / step), open = [];
+  var painted = function(e){ for(var n = e; n && n !== document.body && n !== document.documentElement; n = n.parentElement){ if(n.id === 'campbg') return false;
+      if(/^(IMG|CANVAS|BUTTON|INPUT)$/.test(n.tagName)) return true; var cs = getComputedStyle(n);
+      if(cs.backgroundImage !== 'none') return true; var m = cs.backgroundColor.match(/[\d.]+/g); if(m && (m.length < 4 || +m[3] > 0.1) && !(m.length >= 4 && +m[3] === 0)) return true;
+      if(n.textContent && n.children.length === 0 && n.textContent.trim()) return true; }
+    return false; };
+  for(var j = 0; j < rows; j++) for(var i = 0; i < cols; i++){ var x = i * step + step / 2, y = j * step + step / 2, e = document.elementFromPoint(x, y); open.push(!e || !painted(e)); }
+  /* each open point's distance (in points) to the nearest painted one or the edge */
+  var dist = open.map(function(o, k){ var i = k % cols, j = (k / cols) | 0; return o ? Math.min(i + 1, j + 1, cols - i, rows - j) : 0; }), moved = true;
+  while(moved){ moved = false; for(var k = 0; k < dist.length; k++){ if(!dist[k]) continue; var i2 = k % cols, j2 = (k / cols) | 0, m2 = dist[k];
+      [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function(d){ var ni = i2 + d[0], nj = j2 + d[1]; if(ni >= 0 && nj >= 0 && ni < cols && nj < rows) m2 = Math.min(m2, dist[nj * cols + ni] + 1); });
+      if(m2 < dist[k]){ dist[k] = m2; moved = true; } } }
+  var top = 0, area = 0, q; for(q = 0; q < dist.length; q++){ if(dist[q]) area++; if(dist[q] > top) top = dist[q]; }
+  if(!top) return { x: W / 2, y: Hh * 0.62, room: 0, area: 0 };
+  /* of the widest points, the one nearest their middle (a long clear strip puts the fire at its centre, not its first corner) */
+  var ws = [], cx = 0, cy = 0, best = -1, bd = 1e9; for(q = 0; q < dist.length; q++) if(dist[q] === top){ ws.push(q); cx += q % cols; cy += (q / cols) | 0; }
+  cx /= ws.length; cy /= ws.length; ws.forEach(function(w){ var d2 = Math.pow(w % cols - cx, 2) + Math.pow(((w / cols) | 0) - cy, 2); if(d2 < bd){ bd = d2; best = w; } });
+  return { x: (best % cols) * step + step / 2, y: ((best / cols) | 0) * step + step / 2, room: dist[best] * step, area: area * step * step };
+}
+/* the picture covers the glass, its life (the fire, the town's lit middle) on the open patch */
+var CAMP_FIRE_AT = { x: 945, y: 786 }, CAMP_PPM = 42.9, MAN_PPM = 57;
+function campFit(){ var c = CAMPBG.c, im = CAMPBG.base, sp = CAMPBG.spot || { x: innerWidth / 2, y: innerHeight * 0.62 }, d = CAMPBG.dpr || 1, X = sp.x * d, Y = sp.y * d,
+    fo = CAMPBG.focus || CAMP_FIRE_AT, fx = fo.x, fy = fo.y;
+  /* the picture comes as close as it must for its life to sit on the open patch and still fill the glass (twice the cover at most) */
+  var cover = Math.max(c.width / im.width, c.height / im.height);
+  var k = Math.min(cover * 2, Math.max(cover, X / fx, (c.width - X) / (im.width - fx), Y / fy, (c.height - Y) / (im.height - fy)));
+  var ox = X - fx * k, oy = Y - fy * k;
+  ox = Math.min(0, Math.max(c.width - im.width * k, ox)); oy = Math.min(0, Math.max(c.height - im.height * k, oy)); return { k: k, ox: ox, oy: oy }; }
+function campMen(){
+  var acts = ['sit', 'smoke', 'talk', 'drink'], men = S.crew.filter(function(m){ return m && !m.dead && m.look; }).slice(0, 8), fire = CAMPBG.fire || CAMP_FIRE_AT;
+  CAMPBG.men = men.map(function(m, i){ var a = (0.75 + i / Math.max(1, men.length) * 1.5) * Math.PI;   /* round the back of the fire, the front left open */
+    var dx = Math.cos(a) * 115, dy = Math.sin(a) * 55, f = Math.round(((Math.atan2(-dy * 2, -dx) / Math.PI * 180 + 360 + 90) % 360) / 45) % 8;
+    return { look: m.look, x: fire.x + dx, y: fire.y + dy, f: f, act: acts[i % acts.length], n: i, seed: 'camp:' + (m.name || i), pair: acts[i % acts.length] === 'talk' ? 'campfire' : undefined, partner: i % 2 === 1 }; });
+  CAMPBG.men.sort(function(a, b){ return a.y - b.y; });
+}
+function campDim(){ var x = CAMPBG.c.getContext('2d'); x.fillStyle = 'rgba(' + CAMP_SHADE.join(',') + ',' + CAMPBG.dim + ')'; x.fillRect(0, 0, CAMPBG.c.width, CAMPBG.c.height); }
+/* the words that sit on the picture itself (not on their own paper, tin or button): the ones the dim answers to */
+function campOnPaper(e){ for(var n = e; n && n !== document.body && n !== document.documentElement; n = n.parentElement){ if(/^(BUTTON|INPUT|SELECT|TEXTAREA)$/.test(n.tagName)) return true;
+    var cs = getComputedStyle(n); if(cs.backgroundImage !== 'none') return true; var m = cs.backgroundColor.match(/[\d.]+/g); if(m && (m.length < 4 || +m[3] >= 0.5)) return true; }
+  return false; }
+function campWords(){ var out = [], tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
+  while((n = tw.nextNode())){ var e = n.parentElement; if(!n.nodeValue.trim() || !e || out.indexOf(e) >= 0 || /^(SCRIPT|STYLE)$/.test(e.tagName)) continue;
+    var r = e.getBoundingClientRect(); if(r.width < 2 || r.height < 2 || r.bottom <= 0 || r.top >= innerHeight || r.right <= 0 || r.left >= innerWidth) continue;
+    var cs = getComputedStyle(e); if(cs.visibility === 'hidden' || +cs.opacity === 0 || campOnPaper(e)) continue; out.push(e); }
+  return out; }
+function campLum(r, g, b){ var f = function(v){ v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); }
+function campRatio(a, b){ return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05); }
+/* the least dim that keeps every word on the picture at the floor: the brightest and the darkest tenth of the pixels behind each */
+function campFloor(){
+  var c = CAMPBG.c, x = c.getContext('2d'), d = CAMPBG.dpr || 1, rows = [];
+  campWords().forEach(function(e){ var r = e.getBoundingClientRect(), L = Math.max(0, Math.floor(r.left * d)), T = Math.max(0, Math.floor(r.top * d)), W = Math.min(c.width - L, Math.ceil(r.width * d)), H = Math.min(c.height - T, Math.ceil(r.height * d));
+    if(W < 1 || H < 1) return; var px = x.getImageData(L, T, W, H).data, all = [];
+    for(var i = 0; i < px.length; i += 4) all.push([campLum(px[i], px[i + 1], px[i + 2]), px[i], px[i + 1], px[i + 2]]);
+    all.sort(function(a, b){ return a[0] - b[0]; });
+    var ink = (getComputedStyle(e).color.match(/[\d.]+/g) || [230, 220, 200]).map(Number);
+    rows.push({ e: e, ink: campLum(ink[0], ink[1], ink[2]), lo: all[Math.floor(all.length * 0.1)], hi: all[Math.min(all.length - 1, Math.floor(all.length * 0.9))] }); });
+  var at = function(p, dm){ return campLum(p[1] * (1 - dm) + CAMP_SHADE[0] * dm, p[2] * (1 - dm) + CAMP_SHADE[1] * dm, p[3] * (1 - dm) + CAMP_SHADE[2] * dm); };
+  var worst = function(row, dm){ return Math.min(campRatio(row.ink, at(row.lo, dm)), campRatio(row.ink, at(row.hi, dm))); };
+  var dm = CAMP_DIM_MIN; for(; dm < CAMP_DIM_MAX; dm += 0.02){ if(rows.every(function(row){ return worst(row, dm) >= CAMP_FLOOR || worst(row, CAMP_DIM_MAX) < CAMP_FLOOR; })) break; }
+  CAMPBG.dim = Math.min(CAMP_DIM_MAX, Math.round(dm * 100) / 100);
+  CAMPBG.floor = { words: rows.length, dim: CAMPBG.dim, short: rows.filter(function(row){ return worst(row, CAMPBG.dim) < CAMP_FLOOR; }).map(function(row){ return row.e.textContent.trim().slice(0, 40); }) };
+  c.dataset.dim = CAMPBG.dim;
+}
+function campFirst(){ campPaint(true); campFloor(); campPaint(); CAMPBG.c.style.opacity = 1; CAMPBG.t.drawn = performance.timeOrigin + performance.now(); campTick(); }
+function campPaint(bare){
+  var c = CAMPBG.c, im = CAMPBG.base; if(!c || !im || !c.isConnected) return;
+  var x = c.getContext('2d'), F = campFit(), B = window.BohemiaIdles, now = performance.now(), s = F.k * (CAMPBG.ppm || CAMP_PPM) / MAN_PPM, drawn = 0;
+  x.imageSmoothingEnabled = false; x.clearRect(0, 0, c.width, c.height);
+  try{ x.drawImage(im, F.ox, F.oy, im.width * F.k, im.height * F.k); }catch(e){}
+  CAMPBG.men.forEach(function(m){
+    var q = null; try{ q = B && B.activity ? B.activity(m.look, m.seed, now, m.f, { act: m.act, n: m.n, pair: m.pair, partner: m.partner }) : null; if(!q && B) q = B.frame(m.look, m.seed, now, m.f, { set: 'bare' }); }catch(e){ q = null; }
+    if(!q) return;
+    var px = F.ox + m.x * F.k, py = F.oy + m.y * F.k;
+    x.drawImage(q.img, q.x, q.y, q.w, q.h, Math.round(px - (q.foot[0] - q.dx) * s), Math.round(py - (q.foot[1] - q.dy) * s), Math.round(q.w * s), Math.round(q.h * s)); drawn++; });
+  c.dataset.men = drawn;
+  if(!bare) campDim();
+}
+/* the men (and the town's own people) move on the beat, an eighth at 120; nothing is drawn while the screen is not on the glass */
+function campTick(){ if(!CAMPBG.c || !CAMPBG.c.isConnected) return; if(document.visibilityState !== 'hidden' && innerWidth > 0) campPaint(); setTimeout(campTick, 500); }
+/* ==== end __THEIR_CAMP_BEHIND__ ==== */
+window.BohemiaRosterScreen = {open:open, state:S, held:HELD, camp:CAMPBG, campWords:campWords, campPick:campPick, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed, dismiss:dismiss, choose:choose, step:step, cancel:cancel, order:order};
 window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN'){ S.doorSpoke = true; open(d); } if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
 Promise.all([C.load(), window.BohemiaStats ? BohemiaStats.load() : null]).then(function(){ LOADED = true; open(S.pending || {}); }).catch(function(err){ say('The company did not load.'); });

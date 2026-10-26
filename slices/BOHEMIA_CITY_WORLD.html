@@ -43658,7 +43658,7 @@ function roadCard(ev, mins, kg){
     });
 }
 
-function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'); }
+function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'||(window.__HIS_MAP_OPEN!=null&&x>=0&&x<window.__HIS_MAP_N&&window.__HIS_MAP_OPEN[y*window.__HIS_MAP_N+x]===1)); }   /* __HIS_MAP__ (WORLD TWO, rule 243(b)4): a wall a fallen boss brought down is a way through (slices/bohemia_his_map.js) */
 
 /* ============================================================================
    ONE STRIDE THAT NEVER MISSES (Paolo 9/20, LOCKED, rule 18a, [one camera])
@@ -44597,12 +44597,13 @@ function travelStepped(moved){
 function travelSteppedCore(moved){
   if(!TRAVEL) return;
   if(!moved){ travelSay('The way is blocked.'); travelStop(); return; }
+  try{ meetBackStep(); }catch(_e){}   /* __FALL_BACK_HOLDS__: his blocks count down the get-away */
   TRAVEL.i++; TRAVEL.cells++;
   /* THE BAR READS THE STEP THAT JUST HAPPENED (UI 10/1): the bar's half-second repaint could
      show 06:21 while the clock already said 06:26, one block behind. Each step repaints it. */
   try{ if(typeof window.__barPaintRead==='function') window.__barPaintRead(); }catch(_e){}
   if(TRAVEL.i>=TRAVEL.path.length){
-    var to=TRAVEL.to, cells=TRAVEL.cells, town=TRAVEL.town;
+    var to=TRAVEL.to, cells=TRAVEL.cells, town=TRAVEL.town, play=TRAVEL.play||null;
     TRAVEL=null;
     /* ARRIVAL IS ALREADY BUILT: the seam lands him on the street of the cell the
        marker is standing on (swapMode, SEAM_INTENT). So arriving says where he is
@@ -44610,6 +44611,7 @@ function travelSteppedCore(moved){
     travelSay('Arrived: '+cells+' block'+(cells===1?'':'s')+' crossed.');
     try{ render(); }catch(_e){}
     try{ loopArrived(to, town); }catch(_e){}   /* __THE_LOOP_ON_THE_MAP__: a town opens, a JOB starts its fight (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: the town walked to) */
+    if(play){ try{ mapPlayArrived(play); }catch(_e){} }   /* __PLAY_TAKES_YOU_THERE__: a leg with nothing on it runs on to the job's next place */
   }
 }
 /* ==== /__THE_MAP_IS_HOW_YOU_TRAVEL__ ==== */
@@ -44744,8 +44746,14 @@ function travelYardStep(nx, ny){ return !!(TRAVEL && TRAVEL.yard && TRAVEL.to &&
    buildings), then a town's building. Returns true when it answered. */
 function mapTapWhat(sx, sy){
   if(typeof LOOK !== 'undefined' && LOOK.on) return false;
+  /* __THE_TOWN_TAKES_ITS_OWN_TAP__ (RUN 10/26, [eyes: a job on a town's name], rule 133's 'a town takes the tap on its name'). EYES,
+     the phone, BUILD 10/25w: a job's label ('FIND · THE SOUTH ROAD') drawn over MOB's own name took the tap first (the job kinds
+     were asked before anything), and a tap on MOB set out 16 blocks south for 3 h 16. A town's name and building are asked FIRST
+     now; a job's label answers only where no town's is under the finger */
+  var r0 = null; try{ r0 = mapTapWhich(sx, sy); }catch(_e){}
+  if(r0 && r0.what === 'town'){ try{ window.__MAP_TAP = { sx: Math.round(sx), sy: Math.round(sy), what: 'town', name: r0.name, towns: MAP_TOWN_HIT.length, parties: MAP_PARTY_HIT.length, first: true }; }catch(_e){} return townTap(r0.t); }
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.tap(sx, sy)) return true; }catch(_e){}   /* __EVERY_JOB_KIND__: a pack, the raiders, a camp, a ring */
-  var r = mapTapWhich(sx, sy);
+  var r = r0;
   try{ window.__MAP_TAP = { sx: Math.round(sx), sy: Math.round(sy), what: r ? r.what : 'ground', name: r ? r.name : null, towns: MAP_TOWN_HIT.length, parties: MAP_PARTY_HIT.length }; }catch(_e){}
   if(!r){ try{ if(window.BohemiaJobKinds && BohemiaJobKinds.landTap && BohemiaJobKinds.landTap(sx, sy)) return true; }catch(_e){} return false; }   /* WORLD [eyes: a place that is nothing]: a land's name says what it is */
   if(r.what === 'town') return townTap(r.t);
@@ -45214,6 +45222,7 @@ function fogShowTowns(){
   try { var R = window.BOH_REGION; if (R && R.ready && R.places) R.places.forEach(function(p){ fogReveal(p.x, p.y, 1.6); }); } catch (_e) {}
 }
 function fogNewGame(reveal){
+  try { if (window.BohemiaHisMap && BohemiaHisMap.newGame) BohemiaHisMap.newGame(); } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO): a new company's map has no pins, no crosses, no boss found */
   fogMake(); FOG.all = false; FOG.reveal = !!reveal; FOG.ready = true;
   fogReveal(city.x, city.y, fogRadius());
   if (FOG.reveal) { fogShowTowns(); FOG.townsShown = true; }
@@ -45235,6 +45244,7 @@ function fogTick(){
 function fogDraw(ox, oy){
   if (!FOG.on || !FOG.ready || FOG.all || !FOG.cv) return;
   try { fogTick(); } catch (_e) {}
+  try { if (window.BohemiaHisMap && BohemiaHisMap.fogDraw && BohemiaHisMap.fogDraw(ox, oy)) { MAP_DREW.fog = (MAP_DREW.fog | 0) + 1; return; } } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO, rule 243(b)1): the unseen city faint under static, its shape and not its detail (slices/bohemia_his_map.js); this dark is the fall-back */
   var S = FOG.S;
   g.save();
   g.imageSmoothingEnabled = true;
@@ -45786,6 +45796,7 @@ function campMake(){
 function campBreak(why, say){
   if (!CAMP.on) return;
   CAMP.on = false; clearInterval(CAMP.timer); CAMP.timer = null; CAMP.why = why || null;
+  try { if (typeof meetCampBroke === 'function') meetCampBroke(why || 'left'); } catch (_e) {}   /* RUN __MAKE_CAMP_NEARBY__: camped before a still enemy, he walks back into them and the card asks */
   if (LOOP.open && LOOP.open.camp) loopClose();
   campSync();
   if (say) try{ loopSay(say); }catch(_e){}
@@ -45952,6 +45963,7 @@ function loopTakeContract(c){
      is and how it plays (escort, find, hunt, camp: slices/bohemia_job_kinds.js); a kind not built yet plays as this crew */
   try{ if(window.BohemiaJobKinds) BohemiaJobKinds.make(job, c, town, tg); }catch(_e){}
   LOOP.held.push(job);
+  try{ if(!(LOOP.frame && LOOP.frame.style.display === 'block')) setTimeout(function(){ try{ mapFitJobs('take'); }catch(_e){} }, 60); }catch(_e){}   /* __THE_MAP_FITS_YOUR_JOBS__: a job taken out on the map */
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Took a contract in ' + town.name + ': ' + job.title + '.', 'contract'); }catch(_e){}
   loopSay(job.sayTake || ('Contract from ' + town.name + ': ' + job.title + '. Pays ' + job.pay + (job.pay === 1 ? ' battery' : ' batteries') + '. The job is marked on the map.'));   /* WORDS [eyes: one blocks], rule 150: '45 batteries', never '45 battery' */
   try{ var __rs = (window.BohemiaJobKinds && BohemiaJobKinds.rosterSays) ? BohemiaJobKinds.rosterSays(job) : ''; if(__rs) setTimeout(function(){ try{ loopSay(__rs); }catch(_e){} }, 4500); }catch(_e){}   /* WORLD [the roster scales the enemy]: how many, and why */
@@ -45971,7 +45983,7 @@ window.addEventListener('message', function(ev){
   LOOP.log.push(d.act);
   if(d.act !== 'contract') loopSettleBats(d.batteries, 'settlement: ' + d.act);
   if(d.act === 'contract') loopTakeContract(d.contract || null);
-  if(d.act === 'leave') loopClose();
+  if(d.act === 'leave'){ loopClose(); try{ if(LOOP.held.length) setTimeout(function(){ try{ mapFocusRead(true); mapFitJobs('leave'); }catch(_e){} }, 350); }catch(_e){} }   /* __THE_MAP_FITS_YOUR_JOBS__: out of the town, his jobs in view (a beat's wait: the phone comes back over the map first, and the open area is measured with it) */
   try{ saveNow('settlement:' + d.act); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: a hire, a buy, a job taken, the way out */
   try{ if(typeof updHud === 'function') updHud(); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
@@ -46034,6 +46046,10 @@ window.addEventListener('message', function(ev){
   var i = -1; LOOP.held.forEach(function(h, k){ if(h.id === id) i = k; });
   if(i < 0) return;
   var o = d.outcome || {}, won = !!(o.victory || o.result === 'win');
+  /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b), a marked line; CAMP's door, NOTEd): a lineup left is no fight:
+     the job stays held, its clock running */
+  if(o.withdrew){ var lb = 'You pulled back before anyone moved. The job is still yours: ' + LOOP.held[i].title + '.';   /* draft:true */
+    setTimeout(function(){ try{ loopSay(lb); render(); }catch(_e){} }, 600); return; }
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])){ BohemiaJobKinds.fightEnd(LOOP.held[i], o); return; } }catch(_e){}   /* __EVERY_JOB_KIND__ */
   var line;
   /* WALKING OUT IS NOT THE JOB. The fight lets him leave by the way out and calls that a win
@@ -46183,7 +46199,7 @@ function clampPan(){
   const N=om.n, hx2=(N*TW0*CZOOM)/2+CVW*0.5, hy2=(N*TH0*CZOOM)/2+CVH*0.5;
   panX=Math.max(-hx2,Math.min(hx2,panX)); panY=Math.max(-hy2,Math.min(hy2,panY));
   /* __THE_CAMERA_KEEPS_THE_CREW__: a look around by hand stops at the whole map's edge too */
-  if(typeof CAMF!=='undefined'&&!CAMF.on){ try{ const p=camWorld(), c=camClampCentre({x:p.x-panX,y:p.y-panY}); panX=p.x-c.x; panY=p.y-c.y; }catch(_e){} }
+  if(typeof CAMF!=='undefined'&&!CAMF.on){ try{ const F=mapFocusRead(false).fo, p=camWorld(), c=camClampCentre({x:p.x-panX+F.x,y:p.y-panY+F.y}); panX=p.x-c.x+F.x; panY=p.y-c.y+F.y; }catch(_e){} }   /* __THE_MAP_FRAMES_AROUND_THE_PHONE__: the world under the focus */
 }
 /* __THE_CAMERA_KEEPS_THE_CREW__ (RUN 10/24, rule 163(b)(c), Paolo: 'when the team is moving around the map they should
    definitely be in the centre of the screen until they reach the whole map's edges, which means farther than the outside
@@ -46196,6 +46212,74 @@ function clampPan(){
    zooms about the crew while it holds). A drag by hand lets it go, so he can look around while he stands; the next journey,
    GO or the spacebar takes it back, eased over 450 ms so it never jumps. */
 var CAMF = { on: true, from: null, t0: 0, M: 32, holds: 0, lets: 0, raf: 0 };
+/* ==== __THE_MAP_FRAMES_AROUND_THE_PHONE__ (RUN 10/26, [the map frames around the phone], rule 213(c)(d)(e) and 238(b); Paolo 10/26:
+   'on the map you have to care about the camera angles... not directly in the middle of the screen, slightly off center, and as
+   you zoom in, that's the same center... the phone placement permanent... the same size'; records/BOHEMIA_PAOLO_ONE_PHONE_ONE_
+   PLACE_AND_THE_CAMERA_FRAMES_AROUND_IT_10_26_26.md). MEASURED BEFORE: the camera held the crew at the glass's exact middle, so on
+   the phone (390 x 844) the crew stood 422 px down and the phone's top edge sat 180 px under him; every pan, zoom and travel aimed
+   at a middle the phone half covers on a wide screen.
+   NOW THE PADDING WAY (Google's map SDK: padding moves the visual centre off the covered margin and every camera move aims there):
+   the map reads the phone's margin (UI TWO's one function, BohemiaPhone.padding(); until it lands, the 10/24 phone's own rectangle,
+   the cheaper band), and the FOCUS is the middle of the OPEN area, in this canvas's pixels. The crew is held at the focus, not the
+   glass's middle; the map's edge stops the OPEN area, not the glass (what lies under the phone may run past the edge); every zoom
+   that is not a pinch anchors on the focus (the wheel, the keys, the double tap, the far fit); a pinch zooms between the fingers
+   when he has let the crew go, and keeps the crew at the focus while it holds him (rule 163(c)). The corner flipped in the settings
+   or the device turned (the 'bohemia-phone' event, a resize) moves the focus at once and the camera eases there in a beat. ==== */
+var MAP_FOCUS = { on: true, pad: { top: 0, right: 0, bottom: 0, left: 0 }, fo: { x: 0, y: 0 }, src: 'none', at: 0, sig: '', moves: 0 };
+function mapPhonePadWin(){   /* the phone's margin in this window's CSS px: {top, right, bottom, left}, and where it came from */
+  try { if (window.BohemiaPhone && typeof BohemiaPhone.padding === 'function') { var p = BohemiaPhone.padding(); if (p) return { p: p, src: 'phone' }; } } catch (_e) {}
+  try {   /* the 10/24 phone (#cityfeed), until UI TWO's lands: its rectangle as the cheaper band, the same rule as UI TWO's padFor */
+    var e = document.getElementById('cityfeed'); if (!e) return null;
+    var st = getComputedStyle(e); if (st.display === 'none' || st.visibility === 'hidden' || +st.opacity === 0) return null;
+    var a = e.getBoundingClientRect(), W = innerWidth, H = innerHeight; if (a.width < 2 || a.height < 2) return null;
+    var c = [{ k: 'right', v: W - a.left, A: (W - a.left) * H }, { k: 'left', v: a.right, A: a.right * H },
+             { k: 'bottom', v: H - a.top, A: (H - a.top) * W }, { k: 'top', v: a.bottom, A: a.bottom * W }].sort(function(x, y){ return x.A - y.A; })[0];
+    var p2 = { top: 0, right: 0, bottom: 0, left: 0 }; p2[c.k] = Math.max(0, c.v); return { p: p2, src: 'cityfeed' };
+  } catch (_e) { return null; }
+}
+function mapFocusRead(force){
+  var now = performance.now();
+  if (!force && now - MAP_FOCUS.at < 250) return MAP_FOCUS;
+  MAP_FOCUS.at = now;
+  var pad = { top: 0, right: 0, bottom: 0, left: 0 }, src = 'none';
+  if (MAP_FOCUS.on) { var w = mapPhonePadWin(); if (w) {
+    src = w.src;
+    try { var r = cv.getBoundingClientRect();   /* the window's margin into the canvas's own pixels */
+      pad.left = Math.max(0, (+w.p.left || 0) - r.left); pad.top = Math.max(0, (+w.p.top || 0) - r.top);
+      pad.right = Math.max(0, (+w.p.right || 0) - (innerWidth - r.right)); pad.bottom = Math.max(0, (+w.p.bottom || 0) - (innerHeight - r.bottom)); } catch (_e) {}
+    /* the open area never less than half the glass on either axis: a margin is a margin, not the map */
+    var kx = (pad.left + pad.right) > CVW * 0.5 ? CVW * 0.5 / (pad.left + pad.right) : 1, ky = (pad.top + pad.bottom) > CVH * 0.5 ? CVH * 0.5 / (pad.top + pad.bottom) : 1;
+    pad.left *= kx; pad.right *= kx; pad.top *= ky; pad.bottom *= ky; } }
+  MAP_FOCUS.pad = pad; MAP_FOCUS.src = src;
+  MAP_FOCUS.fo = { x: (pad.left - pad.right) / 2, y: (pad.top - pad.bottom) / 2 };
+  var sig = Math.round(MAP_FOCUS.fo.x) + ',' + Math.round(MAP_FOCUS.fo.y) + ',' + CVW + 'x' + CVH;
+  if (MAP_FOCUS.sig && sig !== MAP_FOCUS.sig) {   /* the corner flipped or the glass turned: the camera eases to the new focus in a beat */
+    MAP_FOCUS.moves++;
+    if (typeof CAMF !== 'undefined' && CAMF.on) { CAMF.from = { x: panX, y: panY }; CAMF.t0 = performance.now(); }
+    /* __THE_MAP_FITS_YOUR_JOBS__: the phone came back (or moved) just after a fit he has not touched: the fit again, into the new open area */
+    try { var L = (typeof MAP_FIT !== 'undefined') ? MAP_FIT.last : null;
+      if (L && !L.stopped && !L.again && now - L.at < 4000) { L.again = true; setTimeout(function(){ try { mapFitJobs(L.why + '+phone', 99); } catch (_e) {} }, 0); } } catch (_e) {}
+  }
+  MAP_FOCUS.sig = sig;
+  return MAP_FOCUS;
+}
+function mapFocus(){ var F = mapFocusRead(false); return { x: CVW / 2 + F.fo.x, y: CVH / 2 + F.fo.y }; }   /* the focus on the glass, canvas px */
+function mapOpenArea(){ var F = mapFocusRead(false), p = F.pad; return { x0: p.left, y0: p.top, x1: CVW - p.right, y1: CVH - p.bottom, cx: CVW / 2 + F.fo.x, cy: CVH / 2 + F.fo.y }; }
+try { window.MAP_FOCUS = MAP_FOCUS; window.mapFocus = mapFocus; window.mapOpenArea = mapOpenArea;
+  var __mfNow = function(){ try { mapFocusRead(true); if (typeof MODE !== 'undefined' && MODE === 'city') renderSoon(); } catch (_e) {} };
+  window.addEventListener('bohemia-phone', __mfNow); window.addEventListener('resize', function(){ setTimeout(__mfNow, 30); });
+  window.addEventListener('orientationchange', function(){ setTimeout(__mfNow, 120); });
+  /* the 10/24 phone comes and goes with no event (the door, a town, a fight): looked at twice a second, a re-draw only on a change */
+  setInterval(function(){ try { if (typeof MODE === 'undefined' || MODE !== 'city') return; var was = MAP_FOCUS.sig; mapFocusRead(true); if (MAP_FOCUS.sig !== was) renderSoon(); } catch (_e) {} }, 500); } catch (_e) {}
+/* NO BUTTON TWICE ON THE MAP (RUN 10/26, rule 286(b) and 238(a); Paolo 10/26: 'making sure we don't have repeating buttons'). MEASURED on
+   the demo, tall and wide, the phone left and right: the map's reachable presses beside the phone were the bar's crew chip ('your
+   company', the face and 3/20), the settings gear and NOTES; the chip opens the company screen, which the phone's CREW app opens. With
+   the phone on, the chip on the map is the count it shows and nothing to press (its plate the same as the bar's DAY readout); the
+   phone's CREW is the one door. The gear and NOTES are on no phone app and stay. */
+try { var __nbt = document.createElement('style'); __nbt.id = 'run-no-button-twice';
+  __nbt.textContent = 'html.boh-phone-on #bmtb .t.crew,html.boh-phone-on #bmtb .t.crew *{pointer-events:none!important;cursor:default!important}';
+  (document.head || document.documentElement).appendChild(__nbt); } catch (_e) {}
+/* ==== /__THE_MAP_FRAMES_AROUND_THE_PHONE__ ==== */
 function camWorld(){   /* the crew's DRAWN place about the valley's middle, in screen px at this zoom */
   var G = (typeof CITY_GLIDE!=='undefined' && CITY_GLIDE.tx!==null) ? cityGlideAt(CITY_GLIDE, performance.now()) : { x: city.x, y: city.y };
   var m = (om.n - 1) / 2;
@@ -46208,7 +46292,8 @@ function camEdge(){    /* the whole map's edge, the same frame */
   return { x0: -ax, x1: ax, y0: (lo - m) * TH, y1: (hi - m) * TH };
 }
 function camClampCentre(c){   /* where the middle of the glass may be: the view never passes the edge; a view wider than the map sits on its middle */
-  var E = camEdge(), hw = CVW / 2, hh = CVH / 2;
+  /* __THE_MAP_FRAMES_AROUND_THE_PHONE__: c is the world under the FOCUS, and it is the OPEN area that never passes the edge */
+  var E = camEdge(), A = mapOpenArea(), hw = (A.x1 - A.x0) / 2, hh = (A.y1 - A.y0) / 2;
   var x = (E.x1 - E.x0 <= 2 * hw) ? (E.x0 + E.x1) / 2 : Math.max(E.x0 + hw, Math.min(E.x1 - hw, c.x));
   var y = (E.y1 - E.y0 <= 2 * hh) ? (E.y0 + E.y1) / 2 : Math.max(E.y0 + hh, Math.min(E.y1 - hh, c.y));
   return { x: x, y: y };
@@ -46217,7 +46302,8 @@ function camHold(){ if (!CAMF.on) { CAMF.on = true; CAMF.from = { x: panX, y: pa
 function camLetGo(){ if (CAMF.on) { CAMF.on = false; CAMF.from = null; CAMF.lets++; } }
 function camFollow(){
   if (!CAMF.on || MODE !== 'city' || (typeof VISTA !== 'undefined' && VISTA) || (typeof LOOK !== 'undefined' && LOOK.on)) return;
-  var p = camWorld(), c = camClampCentre(p), tx = p.x - c.x, ty = p.y - c.y;
+  var F = mapFocusRead(false).fo;   /* __THE_MAP_FRAMES_AROUND_THE_PHONE__: the crew at the open area's middle, not the glass's */
+  var p = camWorld(), c = camClampCentre(p), tx = p.x - c.x + F.x, ty = p.y - c.y + F.y;
   if (CAMF.from) {
     var u = Math.min(1, (performance.now() - CAMF.t0) / 450), e = u * u * (3 - 2 * u);
     tx = CAMF.from.x + (tx - CAMF.from.x) * e; ty = CAMF.from.y + (ty - CAMF.from.y) * e;
@@ -46288,7 +46374,7 @@ function setZoomAt(z,pvx,pvy){
      when it STARTED at the far stop, the rule the near end already keeps (ONE GESTURE, ONE RUNG). */
   if(z<zmin&&CZOOM<=zmin+1e-3&&ZGEST.z0<=zmin+1e-3){ SEAM_GUARD=true; skyEnter(); return; }
   z=Math.max(zmin,Math.min(zmax,z));
-  if(pvx===undefined){ pvx=CVW/2; pvy=CVH/2; }
+  if(pvx===undefined){ const __f=mapFocus(); pvx=__f.x; pvy=__f.y; }   /* __THE_MAP_FRAMES_AROUND_THE_PHONE__: every zoom but a pinch anchors on the focus */
   /* and a pinch back in from the far stop comes back to the crew, not to wherever the fingers were (EYES: the camera came back
      over the Black Mountains): the way in from the whole valley is toward him */
   if(z>CZOOM&&ZGEST.z0<=zmin*1.05){ try{ var __u=MAP_DREW&&MAP_DREW.you; if(__u&&isFinite(__u.x)&&isFinite(__u.y)){ pvx=__u.x; pvy=__u.y; window.__PINCH_TO_CREW=(window.__PINCH_TO_CREW|0)+1; } }catch(_e){} }
@@ -46296,11 +46382,199 @@ function setZoomAt(z,pvx,pvy){
   panX=(pvx-CVW/2)*(1-k)+panX*k;
   panY=(pvy-CVH/2)*(1-k)+panY*k;
   CZOOM=z; TW=TW0*z; TH=TH0*z;
-  if(Math.abs(z-zmin)<1e-4){ panX=0; panY=0; }       // snap to centered at full fit
+  if(Math.abs(z-zmin)<1e-4){ const __F=mapFocusRead(false).fo; panX=__F.x; panY=__F.y; }       // snap to centered at full fit (__THE_MAP_FRAMES_AROUND_THE_PHONE__: on the open area's middle)
   clampPan(); renderSoon();
 }
-function recenter(){ panX=0; panY=0; try{ camHold(); }catch(_e){} setZoomAt(1); }   /* __THE_CAMERA_KEEPS_THE_CREW__: the double tap takes the camera back */
-function fitMap(){ const [zmin]=zoomBounds(); panX=0; panY=0; setZoomAt(zmin); }
+function recenter(){ const __F=mapFocusRead(true).fo; panX=__F.x; panY=__F.y; try{ camHold(); }catch(_e){} setZoomAt(1); }   /* __THE_CAMERA_KEEPS_THE_CREW__: the double tap takes the camera back (to the focus) */
+function fitMap(){ const [zmin]=zoomBounds(), __F=mapFocusRead(true).fo; panX=__F.x; panY=__F.y; setZoomAt(zmin); }
+/* ==== __THE_MAP_FITS_YOUR_JOBS__ (RUN 10/26, [the map fits your jobs], rule 228(a); Paolo 10/26: 'when you get out of the
+   settlement the map should be as big as the two quests you added... depending where they are on the map, with the padding, the
+   screen flipped or straight up, it has to zoom out so the edges are where the quests are... a smart system';
+   records/BOHEMIA_PAOLO_THE_MAP_ZOOMS_TO_FIT_YOUR_JOBS_AND_A_SLOT_FOR_THE_MAIN_QUEST_10_26_26.md). MEASURED BEFORE: LEAVE put him
+   back on the map at whatever zoom he went in at, the camera on him; with two jobs 20 and 26 blocks off on the phone's opening
+   zoom, neither was on the glass. NOW leaving a town with jobs held (and taking a job out on the map) eases the camera, in
+   650 ms, to the zoom and centre where HE and every place his jobs send him next (BohemiaJobKinds.nextOf, the place the map marks;
+   and the main quest's place, when one exists) sit inside the OPEN area (the phone's margin, __THE_MAP_FRAMES_AROUND_THE_PHONE__)
+   with a little room past the farthest: a man and his plate stand above his block, so more room on top. It only eases OUT from
+   where he was (never in past the opening zoom or his own), so one near job keeps it close and two far ones show the city. The
+   camera lets go of him for the look; a pinch or a pan after it is his, a journey takes the camera back (rule 163). ==== */
+var MAP_FIT = { n: 0, raf: 0, last: null, on: true, side: 40, top: 84, bottom: 34 };
+function mapFitPlaces(){
+  var out = [];
+  try { (LOOP.held || []).forEach(function(j){ if (!j) return;
+    var nx = null; try { if (window.BohemiaJobKinds && BohemiaJobKinds.nextOf) nx = BohemiaJobKinds.nextOf(j); } catch (_e) {}
+    if (!nx || nx.x == null) nx = j.target && j.target.x != null ? { x: j.target.x, y: j.target.y, name: j.title } : null;
+    if (nx && isFinite(nx.x) && isFinite(nx.y)) out.push({ x: +nx.x, y: +nx.y, id: j.id, name: nx.name || j.title || '' }); }); } catch (_e) {}
+  /* the main quest's place, when the game has one (rule 228(c): UI TWO keeps its slot; nothing fakes one) */
+  try { var MQ = window.BohemiaMainQuest, q = MQ && MQ.place ? MQ.place() : null; if (q && isFinite(q.x) && isFinite(q.y)) out.push({ x: +q.x, y: +q.y, id: 'main', name: q.name || 'MAIN' }); } catch (_e) {}
+  return out;
+}
+function mapFitJobs(why, tries){
+  if (!MAP_FIT.on || typeof MODE === 'undefined' || MODE !== 'city') return false;
+  if ((typeof VISTA !== 'undefined' && VISTA) || (typeof LOOK !== 'undefined' && LOOK.on) || (typeof SKY !== 'undefined' && SKY)) return false;
+  var places = mapFitPlaces(); if (!places.length) return false;
+  /* the 10/24 phone is hidden in a town and comes back over the map a moment after LEAVE: the fit waits for it (1.5 s at most), so
+     the open area it fits into is the one he will see; UI TWO's phone answers its margin at once */
+  if (mapFocusRead(true).src === 'none' && document.getElementById('cityfeed') && (tries | 0) < 15) { setTimeout(function(){ try { mapFitJobs(why, (tries | 0) + 1); } catch (_e) {} }, 100); return true; }
+  var m = (om.n - 1) / 2, P = [], z0 = CZOOM;
+  var c1 = camWorld(); c1 = { x: c1.x / z0, y: c1.y / z0 };   /* him, at zoom 1 about the valley's middle */
+  P.push(c1); places.forEach(function(q){ P.push({ x: (q.x - q.y) * TW0 / 2, y: (q.x + q.y - 2 * m) * TH0 / 2 }); });
+  var x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+  P.forEach(function(p){ x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); });
+  var A = mapOpenArea(), ow = A.x1 - A.x0, oh = A.y1 - A.y0, S = MAP_FIT.side, Tp = MAP_FIT.top, Bt = MAP_FIT.bottom;
+  var zb = zoomBounds(), zNeed = Math.min((ow - 2 * S) / Math.max(1, x1 - x0), (oh - Tp - Bt) / Math.max(1, y1 - y0));
+  var z1 = Math.max(zb[0], Math.min(zNeed, zb[1], Math.max(z0, 1)));
+  /* the world point the focus will sit on (zoom-1 units): the box's middle, nudged down so the room on top is the bigger */
+  var W1 = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 - (Tp - Bt) / (2 * z1) };
+  var F0 = mapFocusRead(true).fo, W0 = { x: c1.x - (panX - F0.x) / z0, y: c1.y - (panY - F0.y) / z0 };
+  try { camLetGo(); } catch (_e) {}
+  if (MAP_FIT.raf) { cancelAnimationFrame(MAP_FIT.raf); MAP_FIT.raf = 0; }
+  var t0 = performance.now(), D = 650, gz = ZGEST.t, last = null, n = ++MAP_FIT.n;
+  MAP_FIT.last = { why: String(why || ''), at: t0, z0: z0, z1: z1, zNeed: zNeed, places: places.map(function(q){ return [q.x, q.y]; }), you: [city.x, city.y], open: [A.x0, A.y0, A.x1, A.y1], done: false, stopped: null, again: /\+phone$/.test(String(why || '')) };
+  var step = function(){
+    MAP_FIT.raf = 0;
+    if (n !== MAP_FIT.n) return;
+    /* his after it: a pinch or the wheel (the gesture clock moved), a drag (the pan is not the one this set), a journey (held) */
+    var stop = (CAMF.on ? 'held' : ZGEST.t !== gz ? 'zoom' : (last && (Math.abs(panX - last.x) > 0.5 || Math.abs(panY - last.y) > 0.5)) ? 'pan' : MODE !== 'city' ? 'mode' : null);
+    if (stop) { MAP_FIT.last.stopped = stop; return; }
+    var u = Math.min(1, (performance.now() - t0) / D), e = u * u * (3 - 2 * u);
+    var z = Math.exp(Math.log(z0) + (Math.log(z1) - Math.log(z0)) * e), F = mapFocusRead(false).fo;
+    var W = { x: W0.x + (W1.x - W0.x) * e, y: W0.y + (W1.y - W0.y) * e };
+    CZOOM = z; TW = TW0 * z; TH = TH0 * z;
+    panX = (c1.x - W.x) * z + F.x; panY = (c1.y - W.y) * z + F.y;
+    clampPan(); last = { x: panX, y: panY };
+    try { render(); } catch (_e) {}
+    if (u < 1) MAP_FIT.raf = requestAnimationFrame(step); else MAP_FIT.last.done = true;
+  };
+  MAP_FIT.raf = requestAnimationFrame(step);
+  return true;
+}
+try { window.MAP_FIT = MAP_FIT; window.mapFitJobs = mapFitJobs; } catch (_e) {}
+/* ==== /__THE_MAP_FITS_YOUR_JOBS__ ==== */
+/* ==== __PLAY_TAKES_YOU_THERE__ (RUN 10/26, [play takes you there], rule 227(c); Paolo 10/26: 'or when you press play it just
+   walks you automatically towards the quest, perfectly'). MEASURED BEFORE: the map's only path finder (cityRoute) is a
+   breadth-first search, fewest blocks, blind to the ground and to who is on it; UI TWO's PLAY (slices/bohemia_phone.js P.jobGo)
+   fell back to it through a tap's door (travelTo). NOW ONE CALL, window.mapPlayToJob(id), the one UI TWO's PLAY makes when a job
+   is on and no place is picked: the party sets out for the place the job sends him NEXT (BohemiaJobKinds.nextOf: the job's place,
+   the next post, or the paying town once it is done, rule 222) by THE BEST ROUTE THE MAP KNOWS: fewest MINUTES, not blocks (each
+   block's own clock, cityStepMins: roads faster than dirt, the scout, a caravan's pace), and around what he can see is dangerous
+   (a crew coming for him, two blocks clear; a roaming party he can see, a block clear; never at the job's own place, which he is
+   going to). A town is reached at its nearest side (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__) and opens on arrival. Legs with no fight
+   between them run on (a patrol's posts, then home to be paid); a fight, a meet card or a town stops it, and the next PLAY goes
+   on. Off the valley (the region's land) it hands the tap's own door the place. A tap anywhere else on the map still picks his
+   own way. ==== */
+var MAP_PLAY = { job: null, sets: 0, legs: 0, last: null, chain: 0, on: true, hunt: 2, party: 1 };
+function mapRouteDanger(n, gx, gy){
+  var D = new Float32Array(n * n), base = 0;
+  try { base = (typeof MIN_PER_CELL === 'number' ? MIN_PER_CELL : 0.084) * (typeof FN === 'number' ? FN : 128); } catch (_e) { base = 10; }
+  var add = function(px, py, R, w){
+    for (var y = Math.max(0, py - R); y <= Math.min(n - 1, py + R); y++) for (var x = Math.max(0, px - R); x <= Math.min(n - 1, px + R); x++) {
+      if (gx != null && Math.max(Math.abs(x - gx), Math.abs(y - gy)) <= 1) continue;   /* the job's own place is where he is going */
+      var r = Math.max(Math.abs(x - px), Math.abs(y - py)); D[y * n + x] += base * w * (R + 1 - r); } };
+  var seen = [];
+  try { if (HUNT && HUNT.at) { add(HUNT.at[0] | 0, HUNT.at[1] | 0, MAP_PLAY.hunt, 3); seen.push('hunt'); } } catch (_e) {}
+  try { (partiesAll() || []).forEach(function(q){ if (!q || !q.at) return; var qx = q.at.x | 0, qy = q.at.y | 0;
+    if (q.from && !q.arrived && Math.max(Math.abs(qx - (q.from.x | 0)), Math.abs(qy - (q.from.y | 0))) < 2) return;   /* at home a party is its town */
+    try { if (fogHides(qx, qy) || !mapSees(qx, qy)) return; } catch (_e) {}
+    add(qx, qy, MAP_PLAY.party, 2); seen.push(q.id); }); } catch (_e) {}
+  D.seen = seen;
+  return D;
+}
+/* Dijkstra over the valley's blocks, by minutes plus the danger: goal { x, y } (a block; a roof means the nearest street within two,
+   travelTo's own rule) or { town } (any block touching its painted ground, the last step allowed off the street) */
+function mapBestRoute(sx, sy, goal){
+  var n = 0; try { n = om.n | 0; } catch (_e) { return null; }
+  var inV = function(x, y){ return x >= 0 && y >= 0 && x < n && y < n; };
+  if (!n || !inV(sx, sy)) return null;
+  var isGoal, enter, gx = null, gy = null, T = goal.town || null, f = T ? townFoot(T) : null;
+  if (T) { if (!inV(T.x | 0, T.y | 0)) return null; gx = T.x | 0; gy = T.y | 0;
+    isGoal = function(x, y){ return townTouches(T, f, x, y); }; enter = function(x, y){ return cityWalkable(x, y) || isGoal(x, y); }; }
+  else { gx = goal.x | 0; gy = goal.y | 0; if (!inV(gx, gy)) return null;
+    if (!cityWalkable(gx, gy)) { var best = null, bd = 99;
+      for (var r = 1; r <= 2 && !best; r++) for (var a = -r; a <= r; a++) for (var b = -r; b <= r; b++) {
+        if (Math.max(Math.abs(a), Math.abs(b)) !== r || !inV(gx + a, gy + b) || !cityWalkable(gx + a, gy + b)) continue;
+        var dd = Math.abs(a) + Math.abs(b); if (dd < bd) { bd = dd; best = [gx + a, gy + b]; } }
+      if (!best) return null; gx = best[0]; gy = best[1]; }
+    isGoal = function(x, y){ return x === gx && y === gy; }; enter = cityWalkable; }
+  var NN = n * n, cost = new Float64Array(NN).fill(Infinity), mins = new Float64Array(NN), from = new Int32Array(NN).fill(-1), done = new Uint8Array(NN);
+  var step = new Float32Array(NN).fill(-1), Dg = mapRouteDanger(n, T ? null : gx, T ? null : gy);
+  if (T) for (var ty = Math.max(0, f.y0 - 2); ty <= Math.min(n - 1, f.y0 + f.n + 1); ty++) for (var tx = Math.max(0, f.x0 - 2); tx <= Math.min(n - 1, f.x0 + f.n + 1); tx++) Dg[ty * n + tx] = 0;   /* nor round the town he is going to */
+  var sm = function(k){ if (step[k] < 0) step[k] = cityStepMins(k % n, (k / n) | 0); return step[k]; };
+  /* a binary heap of [cost, k] */
+  var H = [], push = function(c, k){ H.push([c, k]); var i = H.length - 1; while (i > 0) { var p = (i - 1) >> 1; if (H[p][0] <= H[i][0]) break; var t = H[p]; H[p] = H[i]; H[i] = t; i = p; } };
+  var pop = function(){ var top = H[0], e = H.pop(); if (H.length) { H[0] = e; var i = 0; for (;;) { var l = 2 * i + 1, r2 = l + 1, s = i;
+    if (l < H.length && H[l][0] < H[s][0]) s = l; if (r2 < H.length && H[r2][0] < H[s][0]) s = r2; if (s === i) break; var t2 = H[s]; H[s] = H[i]; H[i] = t2; i = s; } } return top; };
+  var k0 = sy * n + sx; cost[k0] = 0; push(0, k0);
+  var hit = -1;
+  while (H.length) {
+    var q = pop(), k = q[1]; if (done[k]) continue; done[k] = 1;
+    var x = k % n, y = (k / n) | 0;
+    if (k !== k0 && isGoal(x, y)) { hit = k; break; }
+    if (k !== k0 && T && !cityWalkable(x, y)) continue;   /* a yard is only ever the last step */
+    for (var d = 0; d < DIRS.length; d++) {
+      var nx = x + DIRS[d][0], ny = y + DIRS[d][1]; if (!inV(nx, ny)) continue;
+      var kk = ny * n + nx; if (done[kk] || !enter(nx, ny)) continue;
+      var m = sm(kk), c = cost[k] + m + Dg[kk];
+      if (c < cost[kk]) { cost[kk] = c; mins[kk] = mins[k] + m; from[kk] = k; push(c, kk); }
+    }
+  }
+  if (hit < 0) return null;
+  var path = [], cur = hit; while (cur >= 0) { path.push([cur % n, (cur / n) | 0]); if (cur === k0) break; cur = from[cur]; if (path.length > NN) return null; }
+  path.reverse();
+  return { path: path, door: path[path.length - 1], mins: mins[hit], blocks: path.length - 1, danger: Dg.seen, cost: cost[hit] };
+}
+function mapPlayJob(id){ var held = LOOP.held || []; return (id != null ? held.filter(function(j){ return j && j.id === id; })[0] : null) || held[0] || null; }
+function mapPlayPlace(j){
+  var nx = null; try { if (window.BohemiaJobKinds && BohemiaJobKinds.nextOf) nx = BohemiaJobKinds.nextOf(j); } catch (_e) {}
+  if (!nx && j && j.target && j.target.x != null) nx = { x: j.target.x, y: j.target.y, name: j.title, town: false };
+  return nx && isFinite(nx.x) && isFinite(nx.y) ? nx : null;
+}
+function mapPlayTown(nx){   /* the town a job names as a place: the base by its name, else the region's place there */
+  var N = mapNorm(nx.name), bs = null; try { bs = ctBases(); } catch (_e) {}
+  if (bs) for (var nm in bs) { var b = bs[nm]; if (b && mapNorm(nm) === N) return { name: nm, x: b.x | 0, y: b.y | 0, tier: mapTierOf(nm) }; }
+  try { var R = window.BOH_REGION, p = R && R.ready && R.placeAt ? R.placeAt(nx.x | 0, nx.y | 0, 1) : null; if (p) return p; } catch (_e) {}
+  try { var t = loopTownAt(nx.x | 0, nx.y | 0, 1); if (t) return t; } catch (_e) {}
+  return null;
+}
+function mapPlayGo(id){
+  if (!MAP_PLAY.on || typeof MODE === 'undefined' || MODE !== 'city') return false;
+  if (LOOP.fighting || (typeof MEET !== 'undefined' && MEET && MEET.up)) return false;
+  var j = mapPlayJob(id); if (!j) return false;
+  var nx = mapPlayPlace(j); if (!nx) return false;
+  var T = nx.town ? mapPlayTown(nx) : null, r = null, ok = false;
+  MAP_PLAY.job = j.id; MAP_PLAY.sets++;
+  if (T) {
+    if (townFootDist(townFoot(T), city.x, city.y) <= 1 || Math.max(Math.abs(T.x - city.x), Math.abs(T.y - city.y)) <= 1) { ok = !!townTap(T); MAP_PLAY.last = { id: j.id, to: [T.x, T.y], town: T.name, here: true }; return ok; }
+    r = mapBestRoute(city.x, city.y, { town: T });
+    if (!r) { ok = !!townTap(T); MAP_PLAY.last = { id: j.id, to: [T.x, T.y], town: T.name, fallback: 'townTap' }; return ok; }   /* off the valley: the region's own route */
+    travelStop(); ok = travelPath(r.path, r.door, !cityWalkable(r.door[0], r.door[1]), T);
+  } else {
+    var px = nx.x | 0, py = nx.y | 0;
+    if (Math.max(Math.abs(px - city.x), Math.abs(py - city.y)) <= 1) { travelStop(); meetWalk(function(){ loopArrived([city.x, city.y]); }); MAP_PLAY.last = { id: j.id, to: [px, py], here: true }; return true; }
+    r = mapBestRoute(city.x, city.y, { x: px, y: py });
+    if (!r) { ok = !!travelTo(0, 0, [px, py]); MAP_PLAY.last = { id: j.id, to: [px, py], fallback: 'travelTo' }; return ok; }
+    travelStop(); ok = travelPath(r.path, r.door, false);
+  }
+  if (ok) { try { if (TRAVEL) TRAVEL.play = j.id; } catch (_e) {} MAP_PLAY.legs++; MAP_PLAY.last = { id: j.id, to: r.door.slice(), town: T ? T.name : null, blocks: r.blocks, mins: Math.round(r.mins), danger: (r.danger || []).length, path: r.path.length, at: Date.now() }; }
+  return !!ok;
+}
+/* a leg ended with no fight, no card and no town: the job's next place is set going at once (a patrol's posts, then home) */
+function mapPlayArrived(play){
+  if (!MAP_PLAY.job || play !== MAP_PLAY.job) return;   /* only a leg PLAY set (a tap of his own is his own way) */
+  var id = MAP_PLAY.job;
+  setTimeout(function(){
+    try {
+      if (MAP_PLAY.job !== id || TRAVEL || TRAVEL_SPEED === 0 || LOOP.fighting || (MEET && MEET.up) || CITY_CONTACT_POSTED) return;
+      if (LOOP.frame && LOOP.frame.style.display === 'block') return;
+      var j = mapPlayJob(id); if (!j || j.id !== id) { MAP_PLAY.job = null; return; }
+      var nx = mapPlayPlace(j); if (!nx || Math.max(Math.abs((nx.x | 0) - city.x), Math.abs((nx.y | 0) - city.y)) <= 1) return;
+      if (++MAP_PLAY.chain > 8) return;
+      mapPlayGo(id); MAP_PLAY.chained = (MAP_PLAY.chained | 0) + 1;
+    } catch (_e) {}
+  }, 600);
+}
+try { window.MAP_PLAY = MAP_PLAY; window.mapPlayToJob = function(id){ MAP_PLAY.chain = 0; return mapPlayGo(id); };   /* the one call UI TWO's PLAY makes */ window.mapBestRoute = mapBestRoute; } catch (_e) {}
+/* ==== /__PLAY_TAKES_YOU_THERE__ ==== */
 function shade(hex,f){const n=parseInt(hex.slice(1),16);return'rgb('+Math.min(255,(n>>16&255)*f|0)+','+Math.min(255,(n>>8&255)*f|0)+','+Math.min(255,(n&255)*f|0)+')';}
 function lerpHex(a,b,t){const A=parseInt(a.slice(1),16),B=parseInt(b.slice(1),16);
   const r=((A>>16&255)+((B>>16&255)-(A>>16&255))*t)|0, g2=((A>>8&255)+((B>>8&255)-(A>>8&255))*t)|0, bl=((A&255)+((B&255)-(A&255))*t)|0;
@@ -46936,6 +47210,44 @@ function mapFaceNow(){
    the body (he is three), so they stay pixel-true and he stays the biggest thing on the map.
    COOK's masks stay as the fallback for the first seconds, before the cast arrives. */
 var MAP_PLATES = [];
+/* ==== __NO_NAME_COVERS_ANOTHER__ (RUN 10/26, [eyes: names on names], rule 150 and his first votes' 'no two texts overlap').
+   EYES round 2, phone: at 0.375 to 0.456 'GYPSUM CAVE' over 'FRENCHMAN MOUNTAIN' with the 95 shield over both; at 0.141 'CHURCH'
+   cut by 'BLUE DIAMOND', 'BOULDER CITY' by a road shield, 'TULE SPRINGS' over 'CHARLESTON'; names cut by the phone. MEASURED (every
+   text the map draws, in one frame): 10 to 13 pairs over each other at the far zooms. Three painters each kept its own names apart
+   and none knew the others': the towns' plates (mapPlatesDraw), the region's places (bohemia_region.js), the land's names and
+   road shields (vbLabels), and none knew the phone, the bar or the speed pad lie over the glass.
+   NOW ONE LIST A FRAME, IN ORDER OF WHAT MATTERS: the game's own panels over the glass and his crew first, then the towns' and
+   jobs' plates, then the region's places, then the land's names and shields (drawn last now, after the places, so they are the
+   ones that step aside); a name that would sit on one already placed steps up a line (three tries) or waits for a closer zoom;
+   a job's place and a party he is looking at always stand. ==== */
+var MAP_NAMES = { on: true, boxes: [], drawn: [], land: null, frame: 0, hid: 0 };
+window.MAP_NAMES = MAP_NAMES;
+function mapNamesBegin(){
+  MAP_NAMES.boxes = []; MAP_NAMES.drawn = []; MAP_NAMES.land = null; MAP_NAMES.frame++; MAP_NAMES.hid = 0;
+  if (!MAP_NAMES.on) return;
+  try { var c = cv.getBoundingClientRect(); ['cityfeed', 'menubar', 'speedpad', 'bmtb'].forEach(function(id){ var e = document.getElementById(id); if (!e) return;
+    var a = e.getBoundingClientRect(); if (a.width < 2 || a.height < 2) return; var st = getComputedStyle(e); if (st.display === 'none' || st.visibility === 'hidden' || +st.opacity === 0) return;
+    /* RUN 10/26: the panel's own children too (the speed pad's buttons reach 7 px above its box), and two pixels round them */
+    var x0 = a.left, y0 = a.top, x1 = a.right, y1 = a.bottom;
+    Array.prototype.forEach.call(e.children || [], function(k){ var q = k.getBoundingClientRect(); if (q.width < 1 || q.height < 1) return; x0 = Math.min(x0, q.left); y0 = Math.min(y0, q.top); x1 = Math.max(x1, q.right); y1 = Math.max(y1, q.bottom); });
+    MAP_NAMES.boxes.push({ b: [x0 - c.left - 2, y0 - c.top - 2, x1 - x0 + 4, y1 - y0 + 4], t: '#' + id, ui: true }); });
+    /* UI TWO's phone lives in the shell, over this frame: its rectangle in this frame's pixels (BOH_PHONE_RECT, rule 213) */
+    var R = window.BOH_PHONE_RECT ? BOH_PHONE_RECT() : null;
+    if (R && R.on !== false && R.width > 2) MAP_NAMES.boxes.push({ b: [R.left - c.left - 2, R.top - c.top - 2, R.width + 4, R.height + 4], t: '#bohphone', ui: true }); } catch (_e) {}
+}
+function mapNameFree(b){
+  if (!MAP_NAMES.on) return true;
+  for (var i = 0; i < MAP_NAMES.boxes.length; i++) { var o = MAP_NAMES.boxes[i].b; if (b[0] < o[0] + o[2] && b[0] + b[2] > o[0] && b[1] < o[1] + o[3] && b[1] + b[3] > o[1]) return false; }
+  return true;
+}
+function mapNameTake(b, t, kind){ var e = { b: b, t: t, kind: kind }; MAP_NAMES.boxes.push(e); if (kind !== 'crew') MAP_NAMES.drawn.push(e); }
+/* the land's names wait for the places when the region paints its places after the city (it calls mapNamesLate) */
+function mapNamesLand(ox, oy, night){
+  if (MAP_NAMES.on && window.BOH_REGION && BOH_REGION.ready && BOH_REGION.landAfterPlaces) { MAP_NAMES.land = [ox, oy, night]; return; }
+  vbLabels(ox, oy, night);
+}
+window.mapNamesLate = function(){ var a = MAP_NAMES.land; MAP_NAMES.land = null; if (a) { try { vbLabels(a[0], a[1], a[2]); } catch (_e) {} } };
+/* ==== /__NO_NAME_COVERS_ANOTHER__ ==== */
 function mapPlatesDraw(){
   /* __A_TAP_ON_A_TOWN_GOES_TO_THE_TOWN__: a party's plate never lies on a town's name or building; it is lifted clear above them
      (its leader line still names the party), and its tap box goes with it */
@@ -46963,8 +47275,22 @@ function mapPlatesDraw(){
         if (Pc.party && Pc.info) Pc.cy += ny - pb.y; else Pc.ly = ny;
         if (Pc.box) Pc.box.y = ny;
         MAP_DREW.platesUnder = (MAP_DREW.platesUnder | 0) + 1; } } } } catch (_e) {}
+  /* __NO_NAME_COVERS_ANOTHER__: his crew is taken first (a name never lands on him), then each plate, a party he is looking at
+     first, then the towns' and jobs' names in the order they came; one that lands on a name already placed steps up */
+  try { var Yc = MAP_DREW && MAP_DREW.you; if (Yc && isFinite(Yc.x)) mapNameTake([Yc.x - 44, Yc.y - (Yc.h || 72) - 8, 88, (Yc.h || 72) + 20], 'YOU', 'crew'); } catch (_e) {}
+  var __ord = MAP_PLATES.map(function(P, k){ return { P: P, k: k }; }).sort(function(a, b){ return ((b.P.party && b.P.info) ? 1 : 0) - ((a.P.party && a.P.info) ? 1 : 0) || a.k - b.k; });
+  var __hide = {};
+  __ord.forEach(function(o){ var P = o.P, info = P.party && P.info;
+    var bb = function(){ return info ? [P.sx - 40, P.cy - 38, 80, 34] : [P.lx, P.ly, P.w + 6, 11]; }, b = bb(), y0 = P.ly, cy0 = P.cy;
+    for (var tr = 0; tr < 3 && !mapNameFree(b); tr++) { if (info) P.cy -= 12; else P.ly -= 12; b = bb(); }
+    if (!mapNameFree(b) && !info && !(P.job || /^#(ffd27a|f0b44c)$/i.test(P.col || ''))) { P.ly = y0; P.cy = cy0; __hide[o.k] = 1; MAP_NAMES.hid++;
+      try { MAP_TOWN_HIT.forEach(function(T){ if (T.plate && Math.abs(T.plate.y - y0) < 0.5 && Math.abs(T.plate.x - P.lx) < 0.5) T.plate = null; }); } catch (_e) {}
+      return; }
+    if (P.ly !== y0) { try { MAP_TOWN_HIT.forEach(function(T){ if (T.plate && Math.abs(T.plate.y - y0) < 0.5 && Math.abs(T.plate.x - P.lx) < 0.5) T.plate.y = P.ly; }); } catch (_e) {} if (P.box) P.box.y = P.ly; }
+    mapNameTake(b, P.t, info ? 'party' : 'plate'); });
   for (var i = 0; i < MAP_PLATES.length; i++) {
     var P = MAP_PLATES[i];
+    if (__hide[i]) continue;   /* __NO_NAME_COVERS_ANOTHER__: waits for a closer zoom */
     g.globalAlpha = 1;
     /* UI [the ten changes], change 3 (rule 133): a party's plate is a tin tag from the kit (how many beside a drawn man, the
        skulls, the danger in a word, where it is going), drawn by the materials; this dark strip is the fallback */
@@ -47204,11 +47530,34 @@ function rigSetOf(fac){
    (him: his old body, alone, for the second it takes), and COOK's flat marks come back only if a sheet FAILED.
    __RIG_CAST_OFF puts the old cast back everywhere, for the before-and-after picture only. */
 var RIG_PEOPLE = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
+/* ==== __YOUR_MAIN_GUY_LEADS_THE_WALK__ (RUN 10/26, [your main guy leads the walk], rule 263(a); Paolo 10/26: 'the character that's
+   walking through Bohemia is not ... the main character of the origin'). MEASURED: the map's lead was CHARACTER's generic 'body'
+   (dark skin, dark hair), while the crew screen and the fight draw the main man as the combat rig's YOU (pale, white hair, his own
+   face on faces.webp): two different men. NOW the lead is HIM: the fight's own YOU, his stand and walk in eight turns, cut into the
+   map's format with nothing redrawn (tools/bohemia_run_the_main_man_on_the_map.py -> BOHEMIA_RIG_YOU, 3.1 MB decoded); and when the
+   company's main man carries a look of his own (RUN THREE's maker, rule 263(b), writes it on the saved company), that look's own
+   model leads. The old body only if his sheet FAILED; until it is in, nobody (never the wrong man for a second). ==== */
+var RIG_YOU = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
+function mapMainLook(){
+  try { var saved = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null');
+    if (Array.isArray(saved)) for (var i = 0; i < saved.length; i++) { var m = saved[i]; if (m && m.main && m.look && m.look !== 'you') return String(m.look); } } catch (_e) {}
+  return null;
+}
+function mapYouSet(){
+  var ml = mapMainLook();
+  if (ml) { var s1 = rigMixLook(ml); if (s1) { try { MAP_DREW.youLook = ml; } catch (_e) {} return s1; } if (!rigMixLookFailed(ml)) return null; }
+  rigSheetLoad(RIG_YOU, 'BOHEMIA_RIG_YOU');
+  if (RIG_YOU.state === 2) { var s2 = rigSheetSet(RIG_YOU, 'you'); if (s2) { try { MAP_DREW.youLook = 'you'; } catch (_e) {} return s2; } }
+  if (RIG_YOU.state === 3) { try { MAP_DREW.youLook = 'body'; } catch (_e) {} return rigSheetSet(RIG_PEOPLE, 'body'); }   /* his sheet failed: the old body, never nobody for good */
+  return null;
+}
+try { window.mapYouSet = mapYouSet; window.RIG_YOU = RIG_YOU; } catch (_e) {}
+/* ==== /__YOUR_MAIN_GUY_LEADS_THE_WALK__ ==== */
 var RIG_POOLS = { crowd: ['layered_fall', 'coil_crown', 'temple_taper'], job: ['thug', 'marksman', 'poacher'],
                   company: ['coil_crown', 'temple_taper'], you: ['body'] };
 function rigAllReady(){
-  rigCastLoad(); rigSheetLoad(RIG_PEOPLE, 'BOHEMIA_RIG_PEOPLE');
-  return RIG_CAST.state === 2 && RIG_PEOPLE.state === 2 && mapCrewSheetsIn();
+  rigCastLoad(); rigSheetLoad(RIG_PEOPLE, 'BOHEMIA_RIG_PEOPLE'); rigSheetLoad(RIG_YOU, 'BOHEMIA_RIG_YOU');   /* __YOUR_MAIN_GUY_LEADS_THE_WALK__: his own sheet with the rest */
+  return RIG_CAST.state === 2 && RIG_PEOPLE.state === 2 && RIG_YOU.state >= 2 && mapCrewSheetsIn();
 }
 function rigWaiting(){   /* a sheet is still on its way: draw nobody rather than the old cast or COOK's flat marks */
   if (window.__RIG_CAST_OFF) return false;
@@ -47322,6 +47671,7 @@ function mapPeopleOf(pool, i){
   if (window.__RIG_CAST_OFF) return mapCastOf(i);
   if (!rigAllReady()) return null;
   if (pool === 'crowd') { var mx = rigMixFor('town', 'crowd:' + i, i, i === 0); if (mx) { if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1; return mx; } }
+  if (pool === 'you') { var ys = mapYouSet(); if (ys && MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1; return ys; }   /* __YOUR_MAIN_GUY_LEADS_THE_WALK__ */
   var L = RIG_POOLS[pool] || RIG_POOLS.crowd, key = L[((i % L.length) + L.length) % L.length];
   var set = rigSheetSet(RIG_PEOPLE, key);
   if (set && MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1;
@@ -47383,20 +47733,48 @@ function mapYouBanner(__gx,__gy,__moving){
    87 percent of both; queued as each man is drawn (in the party's own transform) and drawn after the whole party, so no man of his
    stands over another's bars. The town and the camp draw theirs in the settlement screen (the same two calls) ==== */
 var MAP_BARS = { q: [] };
+/* where his drawing's ink starts, as a share of its height from the top (the rig's box leaves air over his head); read small, once a
+   second a picture at most */
+var MAP_INK = typeof WeakMap === 'function' ? new WeakMap() : null, MAP_INK_CV = null;
+function mapInkTop(im){
+  if(!im || !MAP_INK) return 0;
+  var c = MAP_INK.get(im), now = performance.now(); if(c && now - c.at < 1000) return c.top;
+  var top = 0;
+  try{ var w = 24, h = Math.max(8, Math.round(24 * (im.height || 1) / (im.width || 1))); MAP_INK_CV = MAP_INK_CV || document.createElement('canvas');
+    if(MAP_INK_CV.width !== w || MAP_INK_CV.height !== h){ MAP_INK_CV.width = w; MAP_INK_CV.height = h; }
+    var x = MAP_INK_CV.getContext('2d', { willReadFrequently: true }); x.clearRect(0, 0, w, h); x.drawImage(im, 0, 0, w, h);
+    var d = x.getImageData(0, 0, w, h).data;
+    for(var y = 0; y < h; y++){ var hit = false; for(var i = 0; i < w; i++) if(d[(y * w + i) * 4 + 3] > 40){ hit = true; break; } if(hit){ top = y / h; break; } }
+  }catch(_e){ top = 0; }
+  MAP_INK.set(im, { top: top, at: now }); return top;
+}
 function mapHeadBarsQueue(who, x, bottom){
   if(!window.BohemiaCondition || !BohemiaCondition.bars) return;
-  var b = BohemiaCondition.bars(who); if(!b || !b.show) return;
+  var __t = performance.now(); if(!MAP_BARS.st || __t - MAP_BARS.stAt > 40){ MAP_BARS.st = BohemiaCondition.get(); MAP_BARS.stAt = __t; if(MAP_BARS.q.length > 12) MAP_BARS.q = []; }   /* read once a draw, not once a man (and never a draw old) */
+  var b = BohemiaCondition.bars(who, MAP_BARS.st); if(!b || !b.show) return;
   MAP_BARS.q.push({ b: b, x: x, y: bottom, who: who.main ? 'YOU' : (who.look || who.name || '') });
 }
 function mapHeadBarsDraw(){
-  var q = MAP_BARS.q; MAP_BARS.q = []; var drew = [];
+  var q = MAP_BARS.q; MAP_BARS.q = []; MAP_BARS.st = null; var drew = [];
   q.forEach(function(e){ var d = BohemiaCondition.drawHeadBars(g, e.x, e.y, e.b, { w: 16, h: 2 }); if(d){ d.who = e.who; drew.push(d); } });
   try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.bars = drew; window.__MAP_BARS = { at: Date.now(), drew: drew }; }catch(_e){}
 }
 /* the map paints when something moves; a man healing (the condition's own word, in this window or from the town's or the camp's
-   frame through the browser's storage) is something moving */
-window.addEventListener('bohemia:condition', function(){ try{ if(typeof renderSoon === 'function') renderSoon(); }catch(_e){} });
-window.addEventListener('storage', function(e){ if(e && e.key === 'bohemia.condition.v1') try{ if(typeof renderSoon === 'function') renderSoon(); }catch(_e){} });
+   frame through the browser's storage) is something moving. NEVER A DRAW OF ITS OWN WHEN ANOTHER IS COMING (__ONE_RENDER_A_FRAME__,
+   RUN 10/16: one whole draw is 0.4 to 0.7 s on a phone at 4x): the heal asks for one draw on the next animation frame, and only if
+   nothing drew the map since it asked (on the march the clock heals every block and the party's glide is already drawing); while a
+   town or the camp lies over the map nothing is drawn under it (closing it draws the map) */
+var MAP_BARS_ASK = false;
+function mapBarsRepaint(){
+  if(MAP_BARS_ASK) return;
+  try{ if(LOOP.frame && LOOP.frame.style.display === 'block') return; }catch(_e){}
+  MAP_BARS_ASK = true;
+  var asked = (window.ONE_RENDER && ONE_RENDER.drawn) | 0;
+  requestAnimationFrame(function(){ MAP_BARS_ASK = false;
+    try{ if(((window.ONE_RENDER && ONE_RENDER.drawn) | 0) === asked){ window.__MAP_BARS_REPAINTS = (window.__MAP_BARS_REPAINTS | 0) + 1; render(); } }catch(_e){} });
+}
+window.addEventListener('bohemia:condition', function(){ mapBarsRepaint(); });
+window.addEventListener('storage', function(e){ if(e && e.key === 'bohemia.condition.v1') mapBarsRepaint(); });
 /* ==== /__THE_BARS_OVER_THEIR_HEADS__ ==== */
 function mapCompanyPass(gx,gy,lift,moving,G,near,front){
   if(MAP_PARTY_AS_ONE.on) mapCompanyDraw(gx,gy,lift,moving,G,front?'front':'back');
@@ -49629,7 +50007,8 @@ function vbSeam(ox, oy, night){
 }
 function vbLabels(ox, oy, night){
   if (!VB.day || VB.seed !== om.seed) return;
-  var shown = 0, taken = [], drawn = [];
+  /* __NO_NAME_COVERS_ANOTHER__: what is already placed this frame (the panels, his crew, the towns, the places) is taken */
+  var shown = 0, taken = (MAP_NAMES.on ? MAP_NAMES.boxes.map(function(o){ return [o.b[0], o.b[1], o.b[0] + o.b[2], o.b[1] + o.b[3]]; }) : []), drawn = [];
   VB.hits = [];   /* WORLD [eyes: a place that is nothing]: what each land name covers, so a click on it says what it is (BohemiaJobKinds.landTap) */
   g.save(); g.textAlign = 'center'; g.textBaseline = 'middle';
   /* roads first (a number is small and sits on its road), then the land; a name that would sit on
@@ -49659,6 +50038,7 @@ function vbLabels(ox, oy, night){
     for (var k = 0; k < taken.length; k++) { var b = taken[k]; if (box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]) { hit = true; break; } }
     if (hit) continue;
     taken.push(box); shown++; drawn.push(l.txt); VB.hits.push({ txt: l.txt, kind: l.kind, box: box });
+    try { mapNameTake([box[0], box[1], box[2] - box[0], box[3] - box[1]], l.txt, l.kind === 'road' ? 'shield' : 'land'); } catch (_e) {}   /* __NO_NAME_COVERS_ANOTHER__ */
     if (l.kind === 'road') {   /* a shield: the number on a dark plate, the road's own colour */
       var tw = lw;
       g.fillStyle = 'rgba(12,10,8,0.85)'; g.fillRect(Math.round(p.sx - tw / 2), Math.round(sy - 7), tw, 14);
@@ -49796,6 +50176,7 @@ function renderCity(){
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null, art: { crowdPeople: 0, partyPeople: 0, buildings: 0 } };
   MAP_TOWN_HIT = []; MAP_PARTY_HIT = [];   /* __THE_FIRST_TAP_GOES_SOMEWHERE__: what this frame drew is what a tap is tested against */
   MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */
+  try { mapNamesBegin(); } catch (_e) {}   /* __NO_NAME_COVERS_ANOTHER__ */
   try { mapArtScale(); } catch (_e) {}   /* the art scales with the zoom, the names do not */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
   qlineFit();   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__: the phone comes and goes with the map */
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
@@ -50679,7 +51060,7 @@ function renderCity(){
   if (__partyMoving && !CITY_GLIDE.raf) CITY_GLIDE.raf = requestAnimationFrame(function(){ CITY_GLIDE.raf = 0;
     try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {} });
   try { loopJobsDraw(ox, oy); } catch (_e) {}   /* __THE_LOOP_ON_THE_MAP__: the JOBs he holds */
-  if (!(typeof VISTA!=='undefined' && VISTA)) { try { vbLabels(ox, oy, isNight()); } catch (_e) {} }   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
+  if (!(typeof VISTA!=='undefined' && VISTA)) { try { mapNamesLand(ox, oy, isNight()); } catch (_e) {} }   /* __NO_NAME_COVERS_ANOTHER__: after the places when the region paints them */   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
      Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in
      it. BB draws a static dotted line to the click; this SHORTENS as he crosses,
@@ -50716,6 +51097,7 @@ function renderCity(){
     g.restore();
   }
   try { fogDraw(ox, oy); } catch (_e) {}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: over the land, the towns and the walkers; under him and the names */
+  try { if (window.BohemiaHisMap && BohemiaHisMap.draw) BohemiaHisMap.draw(ox, oy); } catch (_e) {}   /* __HIS_MAP__ (WORLD TWO, rule 243(b)2-4): his pins, the crosses, the boss's sign and mark, what a fallen boss changed; over the fog, under him */
   /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF. The pin that
      stood here (a white-headed marker carrying his face, [white rings] 9/11 and [see me]
      9/22) was found by the eye and still not read as a person: "why do I not see my
@@ -50784,7 +51166,8 @@ function renderCity(){
       __bw=__s.width; __bh=__s.height;
     }
     mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,1);   /* facing away, his company is between him and you */
-    try{ mapHeadBarsQueue({ main: true }, __gx, __gy-(__bh?__bh*0.93:40)-2); mapHeadBarsDraw(); }catch(_e){}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__: over everybody of his, last */
+    try{ var __top = __body ? mapSnap(__gy-__bh*0.93) + mapInkTop(__body)*__bh : __gy-(__bh?__bh*0.93:40);
+      mapHeadBarsQueue({ main: true }, __gx, __top-3); mapHeadBarsDraw(); }catch(_e){}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__: over everybody of his, last; just over the top of his hair, not the top of his picture's box */
     MAP_DEPTH.ref=null;
     g.restore();
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
@@ -65769,9 +66152,23 @@ function meetStars(msg, n){
   if (!st) try { st = partySkulls(n); } catch (_e) { st = 2; }
   return Math.max(1, Math.min(3, st | 0));
 }
+/* __THE_MEET_CARD_SAYS_WHAT_STANDS__ (RUN 10/26, [eyes: the meet card's men], rule 151(e)): EYES, 10/25w and z: 'THE DOGS IN THE WRECKS
+   · 4 MEN · SOME' for a dire wolf and a hyena, 'HYENAS, HUNTING THE WOLVES · 3 MEN', and '4 OF THEM, IN THE DARK' at 13:08 and 09:30.
+   The count is what stands (the rolled band when there is one), a beast is never a man (WORLD's word when it rolled one, else
+   BEASTS), and the dark is said only at night */
+function meetWhat(msg, n){
+  var beasts = false; try { beasts = !!(msg.roster && msg.roster.length && msg.roster.every(function(r){ return r && r.arch === 'beast'; })) || (msg.party && msg.party.faction === 'beasts'); } catch (_e) {}
+  var w = msg.party && msg.party.what ? String(msg.party.what) : '';
+  if (beasts && (!w || /^(MAN|MEN)$/i.test(w))) {
+    var lb = String(msg.label || '').toLowerCase();
+    w = /hyena/.test(lb) && !/wol(f|ves)/.test(lb.replace(/hunting the wol(f|ves)/, '')) ? (n === 1 ? 'HYENA' : 'HYENAS') : (n === 1 ? 'BEAST' : 'BEASTS');
+  }
+  return { what: w || (n === 1 ? 'MAN' : 'MEN'), beasts: beasts };
+}
 function meetShow(msg, skin){
   if (MEET.up) return true;
-  var n = (msg.party && msg.party.count) || (msg.roster && msg.roster.length) || 1;
+  var n = (msg.party && Array.isArray(msg.party.band) && msg.party.band.length) || (msg.party && msg.party.count) || (msg.roster && msg.roster.length) || 1;
+  var __mw = meetWhat(msg, n);
   var at = (msg.at && msg.at.gx != null) ? [msg.at.gx | 0, msg.at.gy | 0] : [city.x, city.y];
   var t = null; try { t = om.at(at[0], at[1]); } catch (_e) {}
   var gr = meetGround(msg.district || (t && t.district));
@@ -65792,7 +66189,7 @@ function meetShow(msg, skin){
     /* WORLD (rule 208(e)): what stands, by kind ('DIRE WOLVES', never 'MEN' for two beasts). RULE 224 (Paolo 10/26: 'I'm tired of it
        just being numbers numbers numbers... more icons'): no lone count: THEIR NUMBER IS THEIR MEN, drawn below (beasts as eyes in the
        dark), the count word beside the kind, and YOUR NUMBER is a tally of your men; the count rides in data-n / data-you */
-    + '<span data-n="' + n + '" data-what="' + esc((msg.party && msg.party.what) || (n === 1 ? 'MAN' : 'MEN')) + '">' + esc(((msg.party && msg.party.what) || (n === 1 ? 'MAN' : 'MEN')) + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span>'
+    + '<span data-n="' + n + '" data-what="' + esc(__mw.what) + '">' + esc(__mw.what + (word ? ' · ' + word : '')) + '</span><span class="mcstars"></span>'   /* RUN (__THE_MEET_CARD_SAYS_WHAT_STANDS__): a beast is never a man */
     + '<span class="mcyou" data-you="' + mine + '" aria-label="you: ' + mine + '" style="margin-left:auto;color:#9f8a64;display:inline-flex;align-items:center;gap:2px">YOU<i style="display:inline-block;width:4px"></i>' + (function(){ var t = '', k = Math.min(mine, 12); for (var q = 0; q < k; q++) t += '<i style="display:inline-block;width:2px;height:8px;background:#cdb98e;box-shadow:1px 1px 0 #000' + (q % 5 === 4 ? ';margin-right:3px' : '') + '"></i>'; return t + (mine > 12 ? '<b style="font-weight:400;margin-left:2px">+' + (mine - 12) + '</b>' : ''); })() + '</span></div>'
     /* WORLD [the roster scales the enemy] (rule 164 item 26, his 'if I fill up my roster, the opponents scale'): the card says why there are
        this many, rule 224's way: a red up arrow and only by how much (more than a crew of three would meet) */
@@ -65803,6 +66200,7 @@ function meetShow(msg, skin){
     + '<div>' + esc(gr.what) + (night ? '. Night: you see less, so do they.' : '.') + '</div></div>'
     + '<div class="mcb" style="display:flex;gap:10px;margin-top:12px">'
     + '<button data-meet="back" style="flex:1;min-height:44px;font:400 13px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#1f1710;background:#b9ad92;border:0;' + kit('tin', 0.75) + 'cursor:pointer">FALL BACK</button>'
+    + (meetStill(msg) ? '<button data-meet="camp" style="flex:1;min-height:44px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.6px;line-height:1.1;color:#1f1710;background:#b9ad92;border:0;' + kit('tin', 0.75) + 'cursor:pointer">MAKE CAMP NEARBY</button>' : '')   /* __MAKE_CAMP_NEARBY__ (rule 269(a)), draft:true */
     + '<button data-meet="go" style="flex:1;min-height:44px;font:400 13px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#1f1710;background:#e2b45a;border:0;' + kit('tin_amber', 0.75) + 'cursor:pointer">ENGAGE</button>'
     + '</div></div>';
   document.body.appendChild(el);
@@ -65834,6 +66232,7 @@ function meetShow(msg, skin){
     try { document.removeEventListener('keydown', up.key, true); } catch (_e) {}
     try { el.remove(); } catch (_e) {}
     window.__MEET_LAST = { go: !!go, why: msg.why || null, n: n, stars: stars, ground: gr.kind, at: performance.now() };
+    if (go === 'camp') { meetCampNearby(msg); return; }   /* __MAKE_CAMP_NEARBY__ */
     if (go) { msg.__met = true; delete msg.__hunt; try { cityHandOver(msg, skin); } catch (_e) {} }   /* the hunters' object does not cross to the shell */
     else meetFallBack(msg);
   };
@@ -65841,27 +66240,33 @@ function meetShow(msg, skin){
     var k = String(ev.key || '').toLowerCase();
     if (k === 'enter' || k === 'e') { ev.preventDefault(); ev.stopPropagation(); done(true); }
     else if (k === 'escape' || k === 'f') { ev.preventDefault(); ev.stopPropagation(); done(false); }
+    else if (k === 'c' && el.querySelector('[data-meet="camp"]')) { ev.preventDefault(); ev.stopPropagation(); done('camp'); }   /* __MAKE_CAMP_NEARBY__ */
     else if (k === ' ' || ev.code === 'Space') { ev.preventDefault(); ev.stopPropagation(); }
   };
   document.addEventListener('keydown', key, true);
   /* a finger on a phone: the map's own touch handlers keep the browser from making a click, so the button answers its own
      pointerup (and a click, for a mouse and the keyboard); done() runs once */
-  [['go', true], ['back', false]].forEach(function (k) { var bt = el.querySelector('[data-meet="' + k[0] + '"]');
+  [['go', true], ['back', false], ['camp', 'camp']].forEach(function (k) { var bt = el.querySelector('[data-meet="' + k[0] + '"]'); if (!bt) return;
     bt.addEventListener('pointerup', function (ev) { ev.stopPropagation(); ev.preventDefault(); done(k[1]); });
     bt.addEventListener('click', function (ev) { ev.stopPropagation(); done(k[1]); }); });
   ['pointerdown', 'touchstart', 'touchmove', 'touchend', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
   MEET.up = { msg: msg, el: el, key: key, at: performance.now() };
-  window.__MEET_UP = { why: msg.why || null, n: n, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night, roster: __rw };
+  window.__MEET_UP = { why: msg.why || null, still: meetStill(msg), n: n, what: __mw.what, beasts: __mw.beasts, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night, roster: __rw };
   try { window.MEET_DONE = done; } catch (_e) {}
   try { if (window.parent && window.parent !== window) window.parent.postMessage({ bohemiaCitySfx: { ev: 'phone_buzz' } }, '*'); } catch (_e) {}
   return true;
 }
 /* FALL BACK: what the contact had already set is undone, and he steps two blocks away from them */
 function meetFallBack(msg){
-  var why = String(msg.why || ''), from = null;
+  var why = String(msg.why || ''), from = null, pack = null, key = meetKey(msg);   /* the key before the job's fight is undone (it names the pack) */
   try { CITY_CONTACT_POSTED = false; } catch (_e) {}
   var mc = /^contract:([^:]+)/.exec(why);
-  if (mc) { try { LOOP.fighting = null; LOOP.held.forEach(function (j) { if (String(j.id) === mc[1]) { j.fight = null; from = [j.target.x | 0, j.target.y | 0]; } }); } catch (_e) {} }
+  /* __FALL_BACK_HOLDS__: a pack steps him away from the PACK (it was the job's nearest pack, or its target, before) and loses his scent */
+  if (mc) { try { LOOP.fighting = null; LOOP.held.forEach(function (j) { if (String(j.id) !== mc[1]) return;
+    if (j.fight && j.fight.pack != null) (j.packs || []).forEach(function (p) { if (p.id === j.fight.pack) pack = p; });
+    from = pack ? [pack.x | 0, pack.y | 0] : [j.target.x | 0, j.target.y | 0];
+    if (pack) { pack.smelt = false; pack.shy = (MEET_BACK.steps | 0); }   /* WORLD's pack: it does not follow him while shy (bohemia_job_kinds.js, marked) */
+    j.fight = null; }); } catch (_e) {} }
   var mp = /^party:(.+)$/.exec(why);
   if (mp) { try { delete PARTY_FOUGHT[mp[1]]; var p = partyById(mp[1]); if (p) from = [p.at.x | 0, p.at.y | 0]; } catch (_e) {} }
   if (msg.__hunt) { try { HUNT = msg.__hunt; from = HUNT.at.slice(); } catch (_e) {} }
@@ -65880,12 +66285,95 @@ function meetFallBack(msg){
     city.x = best[0]; city.y = best[1];
   }
   try { if (HUNT) huntFleeRoad(); } catch (_e) {}
+  MEET_BACK.list = MEET_BACK.list.filter(function (b) { return b.key !== key; });
+  MEET_BACK.list.push({ key: key, from: from.slice(), d0: Math.max(Math.abs(city.x - from[0]), Math.abs(city.y - from[1])), left: MEET_BACK.steps, pack: pack ? pack.id : null });
   try { camHold(); } catch (_e) {}
   try { travelSay('You fell back.'); } catch (_e) {}   /* draft:true */
   window.__MEET_FELL_BACK = (window.__MEET_FELL_BACK | 0) + 1;
   try { render(); } catch (_e) {}
   try { mapStatePost(); } catch (_e) {}
 }
+/* ==== __FALL_BACK_HOLDS__ (RUN 10/26, [eyes: the meet card's men], rule 198(g), Paolo 10/26: 'retreating in the middle of combat is
+   almost always a death sentence, you have to retreat before combat starts... I still can't retreat'). EYES, 10/25z, the phone: after
+   FALL BACK the hyenas' card came back on every step toward Colorful, three times running, and the town could not be reached.
+   MEASURED in the job kinds: a pack that smells him (4 blocks) moves one block for each of his, so he could never gain a block,
+   and FALL BACK stepped him away from the job's target, not from the pack. NOW, Battle Brothers' 'you can outrun what you can
+   see': FALL BACK steps him away from THEM; for his next ten blocks the same party (the same job's same pack, the same crew) is never
+   the card again unless he AIMS a walk at them (a tap on them, a walk that ends beside them, a chase: that is his choice, and it
+   asks); a walk past them to the town he was heading for is not a fight. A pack loses his scent for those blocks (WORLD's pack, one
+   marked line), a crew that hunts him stays slower than him (the hunters' own rule). ==== */
+var MEET_BACK = { list: [], steps: 10, held: 0 };
+function meetKey(msg){
+  var why = String(msg && msg.why || ''), mc = /^contract:([^:]+)/.exec(why), k = why.replace(/:caught$/, '');
+  if (mc) try { LOOP.held.forEach(function (j) { if (String(j.id) === mc[1] && j.fight && j.fight.pack != null) k += ':pack' + j.fight.pack; }); } catch (_e) {}
+  if (msg && msg.__hunt && msg.__hunt.id != null) k = 'hunt:' + msg.__hunt.id;
+  return k;
+}
+function meetBackStep(){ MEET_BACK.list = MEET_BACK.list.filter(function (b) { return --b.left > 0; }); }
+function meetThem(msg){   /* where they stand now: the job's pack, the crew hunting him, the party */
+  var why = String(msg && msg.why || ''), mc = /^contract:([^:]+)/.exec(why), at = null;
+  if (mc) try { LOOP.held.forEach(function (j) { if (String(j.id) !== mc[1] || !j.fight || j.fight.pack == null) return; (j.packs || []).forEach(function (p) { if (p.id === j.fight.pack) at = [p.x | 0, p.y | 0]; }); }); } catch (_e) {}
+  if (!at && msg && msg.__hunt && msg.__hunt.at) at = msg.__hunt.at.slice();
+  return at;
+}
+function meetBackHolds(msg){
+  var k = meetKey(msg);
+  for (var i = 0; i < MEET_BACK.list.length; i++) { var b = MEET_BACK.list[i]; if (b.key !== k) continue;
+    var th = meetThem(msg) || b.from, aimed = false;
+    try { if (/^party:/.test(String(msg.why || ''))) aimed = true; } catch (_e) {}   /* a roaming party is only ever met by his chase */
+    try { if (TRAVEL && TRAVEL.to && Math.max(Math.abs(TRAVEL.to[0] - th[0]), Math.abs(TRAVEL.to[1] - th[1])) <= 1) aimed = true; } catch (_e) {}
+    try { if (!TRAVEL && Math.max(Math.abs(city.x - th[0]), Math.abs(city.y - th[1])) <= 1 && b.left >= MEET_BACK.steps) aimed = true; } catch (_e) {}   /* standing where he fell back to, a touch on them */
+    if (!aimed) return b; }
+  return null;
+}
+try { window.MEET_BACK = MEET_BACK; } catch (_e) {}
+/* ==== /__FALL_BACK_HOLDS__ ==== */
+/* ==== __MAKE_CAMP_NEARBY__ (RUN 10/26, [make camp nearby], rule 269(a); Paolo 10/26: 'if an enemy or a quest is stationary, before
+   you enter combat: fall back, engage, and a third option, heal and set up camp nearby; if they're roaming you don't have this
+   option'). A STILL ENEMY is one that waits where it is: a job's camp, its lair, the guards on the thing to get back, a contract's
+   crew at its own spot, a base he goes to take. A roaming one (a pack, the raiders on the road, a thief running, a patrol's band, a
+   wave coming at a town, a crew hunting him, a party he chased) never offers it. MAKE CAMP NEARBY: what the contact set is undone
+   (as FALL BACK), he steps ONE block back from them, and CAMP's camp is made there (BohemiaMapCamp.make); they do not move. When he
+   breaks camp himself he walks the block back into them and the card asks again: ENGAGE from the camp when he is ready, or not. ==== */
+var MEET_CAMP = { last: null, made: 0, back: 0 };
+function meetStill(msg){
+  var why = String(msg && msg.why || '');
+  if (/^take:/.test(why)) return true;   /* a base he goes to take */
+  var mc = /^contract:([^:]+)(?::([a-z-]+))?/.exec(why); if (!mc) return false;
+  var what = mc[2] || 'crew';
+  return what === 'crew' || what === 'camp' || what === 'lair' || what === 'guards';
+}
+function meetCampNearby(msg){
+  var key = meetKey(msg), them = meetThem(msg), mc = /^contract:([^:]+)/.exec(String(msg.why || ''));
+  if (mc) { try { LOOP.held.forEach(function (j) { if (String(j.id) !== mc[1]) return; if (!them) them = j.target ? [j.target.x | 0, j.target.y | 0] : null; j.fight = null; }); } catch (_e) {} }
+  if (!them && msg.at && msg.at.gx != null) them = [msg.at.gx | 0, msg.at.gy | 0];
+  if (!them) them = [city.x, city.y];
+  try { LOOP.fighting = null; CITY_CONTACT_POSTED = false; } catch (_e) {}
+  /* one block back, away from them (a tie keeps the road) */
+  var best = null, bd = -1;
+  for (var d = 0; d < DIRS.length; d++) { var nx = city.x + DIRS[d][0], ny = city.y + DIRS[d][1]; if (!cityWalkable(nx, ny)) continue;
+    var dd = Math.max(Math.abs(nx - them[0]), Math.abs(ny - them[1])) * 10 + Math.abs(nx - them[0]) + Math.abs(ny - them[1]); if (dd > bd) { bd = dd; best = [nx, ny]; } }
+  if (best) { city.x = best[0]; city.y = best[1]; }
+  MEET_CAMP.last = { key: key, why: String(msg.why || ''), them: them.slice(), at: [city.x, city.y], made: Date.now(), day: T.day, min: T.min };
+  var ok = false; try { ok = !!(window.BohemiaMapCamp && BohemiaMapCamp.make()); } catch (_e) {}
+  MEET_CAMP.last.ok = ok; if (ok) MEET_CAMP.made++;
+  try { travelSay(ok ? 'Camp, a block back. They have not moved.' : 'No camp here. You fell back.'); } catch (_e) {}   /* draft:true */
+  try { camHold(); render(); mapStatePost(); } catch (_e) {}
+  return ok;
+}
+/* he broke camp himself: the block back into them, and the card asks (CAMP's campBreak calls this) */
+function meetCampBroke(why){
+  var L = MEET_CAMP.last; if (!L || why !== 'left') return false;
+  MEET_CAMP.last = null;
+  if (Math.max(Math.abs(city.x - L.at[0]), Math.abs(city.y - L.at[1])) > 0) return false;   /* he has moved on from the camp's block */
+  var held = true; var mc = /^contract:([^:]+)/.exec(L.why); if (mc) { held = false; try { LOOP.held.forEach(function (j) { if (String(j.id) === mc[1]) held = true; }); } catch (_e) {} }
+  if (!held) return false;
+  MEET_CAMP.back++;
+  setTimeout(function(){ try { travelTo(0, 0, L.them); travelGoes(); } catch (_e) {} }, 300);
+  return true;
+}
+try { window.MEET_CAMP = MEET_CAMP; window.meetStill = meetStill; } catch (_e) {}
+/* ==== /__MAKE_CAMP_NEARBY__ ==== */
 /* ==== /__MEET_BEFORE_YOU_FIGHT__ ==== */
 function cityHandOver(msg, skin){
   /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): the party is rolled here, once, by the fight's
@@ -65894,6 +66382,8 @@ function cityHandOver(msg, skin){
   /* __MEET_BEFORE_YOU_FIGHT__: on the map, the card first; ENGAGE comes back through here with __met */
   try {
     if (MEET.on && MEET.walk > 0 && msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.__met && typeof MODE !== 'undefined' && MODE === 'city') {
+      /* __FALL_BACK_HOLDS__: the party he fell back from, while he gets away, is no fight and no card (and a crew hunting him keeps hunting) */
+      if (meetBackHolds(msg)) { MEET_BACK.held++; if (msg.__hunt) { try { HUNT = msg.__hunt; } catch (_e) {} } return false; }
       try { if (typeof travelStop === 'function') travelStop(); } catch (_e) {}
       try { if (typeof travelInterrupt === 'function') travelInterrupt('meet'); } catch (_e) {}
       return meetShow(msg, skin);
@@ -65944,6 +66434,7 @@ function cityHandOver(msg, skin){
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */
   try{ if(msg){ msg.firstDay = loopDay() <= 1; msg.crewCount = crewCount(); } }catch(_e){}
   try{ window.__LAST_HANDOVER = { why: msg && msg.why, label: msg && msg.label, n: (msg && msg.roster) ? msg.roster.length : null, party: (msg && msg.party) ? msg.party.count : null, at: performance.now() }; }catch(_e){}
+  try{ window.__HANDED = msg; }catch(_e){}   /* __PULLED_BACK__ (COMBAT, rule 275(c), a marked line): the contact kept whole, so a lineup left can be undone */
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}
@@ -66290,7 +66781,9 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
        is ONE gesture while its notches come within 800 ms: it stops at the far stop; the sky takes a second spin after a pause
        there, the pinch's own rule */
     { const __wn=performance.now(); if(__wn-(window.__WHEEL_T||0)<800){ ZGEST.t=__wn; } else { ZGEST.fresh=true; } window.__WHEEL_T=__wn; }
-    const c=toCv(e);
+    /* __THE_MAP_FRAMES_AROUND_THE_PHONE__ (rule 213(d), his 'as you zoom in, that's the same center'): the wheel is not a pinch, so
+       it zooms about the focus, never the cursor */
+    const c=mapFocus();
     setZoomAt(CZOOM*(e.deltaY<0?1.14:0.877), c.x, c.y);
   },{passive:false});
 })();
@@ -70016,7 +70509,9 @@ function spacePause(){
   if (typeof MODE === 'undefined' || MODE !== 'city' || SKY) return false;
   if (MEET.up) return false;   /* __MEET_BEFORE_YOU_FIGHT__: the card holds the map; its own keys answer */
   try { if (LOOP.frame && LOOP.frame.style.display === 'block') return false; } catch(_e){}
-  if (TRAVEL_SPEED > 0) travelSpeedSet(0);
+  /* __PLAY_TAKES_YOU_THERE__ (rule 227(c), EYES' normie hour F9): standing with a job on and nothing picked, the key is PLAY to the job */
+  if (!TRAVEL && LOOP.held.length && window.mapPlayToJob && window.mapPlayToJob()) { window.__SPACE_PAUSES = (window.__SPACE_PAUSES | 0) + 1; return true; }
+  if (TRAVEL_SPEED > 0 && TRAVEL) travelSpeedSet(0);
   else { travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); try { camHold(); } catch(_e){} }
   window.__SPACE_PAUSES = (window.__SPACE_PAUSES | 0) + 1;
   return true;
@@ -70491,6 +70986,14 @@ window.addEventListener('message',function(ev){
   /* WON is the explicit flag the shell sends; anything else is not a win. A
      fight that ended some third way is still a thing that HAPPENED to him. */
   var won = !!(o.victory||o.result==='win');
+  /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b)(d), a marked line): a lineup left is no loss, so never the
+     reload of the last save and never the plate's tape: nothing happened */
+  if(o.withdrew){ try{ var qw=document.getElementById('qline'); if(qw) qw.textContent='You pulled back before anyone moved.'; }catch(_e){}   /* draft:true */
+    /* rule 275(c) (Paolo 10/26: 'if I retreat, it bounces me a couple tiles away to get a head start'): the party steps back two
+       blocks from them, the way FALL BACK on the meet card does (the hunters keep hunting, a party he chased stays, a job stays
+       held), so the same contact is not touched again on the next step */
+    var hb = null; try{ hb = window.__HANDED || null; window.__HANDED = null; meetFallBack(hb || { at: d.at || null }); }catch(_e){}
+    try{ window.__FIGHT_CAME_HOME={won:false,withdrew:true,at:d.at||null,bounced:{x:city.x,y:city.y}}; }catch(_e){} return; }
   /* draft:true -- ALWAYS MAKE AN ATTEMPT (8/11). Real words, written as if they
      ship, his to overwrite. */
   /* __DEATH_IS_A_RELOAD__ (8/22). Yesterday this said "It went badly in there.
@@ -89049,7 +89552,7 @@ window.BOHEMIA_FEED = (function(){
       var cx = ctx(), e = { enemy: fname(fac) || (h.label ? String(h.label).toLowerCase() : null), enemy_faction: fac,
                 count: (h.party && h.party.count) || (((o.dead | 0) + (o.fled | 0) + (o.alive | 0)) || null), town: cx.town,
                 district: h.district || cx.district || null };
-      var how = (won && (o.alive | 0) > 0) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* the way out is fleeing; a wipe is its own story */
+      var how = ((won && (o.alive | 0) > 0) || o.withdrew) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* __PULLED_BACK__ (COMBAT, rule 253): a lineup left is the way out */   /* the way out is fleeing; a wipe is its own story */
       fire(how, e);
       /* the crew that beat him, or watched him run, says so on its own page */
       if (how !== 'fight.won' && fac) fire('faction.claim', { faction_id: fac, enemy: cx.company ? 'the ' + cx.company : null, town: cx.town, district: e.district });
@@ -90245,7 +90748,11 @@ var speedPadPaint = null;
       b.setAttribute('aria-label',NAME[n]||(n+'x')); b.textContent=LABEL[n]||(n+'x');
       var stop=function(ev){ try{ ev.stopPropagation(); }catch(_e){} };
       ['pointerdown','pointerup','touchstart','touchend','mousedown','mouseup'].forEach(function(t){ b.addEventListener(t,stop,{passive:true}); });
-      b.addEventListener('click',function(ev){ stop(ev); try{ travelSpeedSet(n); }catch(_e){} });
+      b.addEventListener('click',function(ev){ stop(ev);
+        /* __PLAY_TAKES_YOU_THERE__ (rule 227(c), EYES' normie hour F9: 'PLAY with a job on and nothing else picked: nothing moves'):
+           GO with nothing set and a job on is PLAY to the job, by the best route; the pad stays until UI TWO's phone takes it */
+        try{ if(n>0 && !TRAVEL && LOOP.held.length && window.mapPlayToJob && window.mapPlayToJob()) return; }catch(_e){}
+        try{ travelSpeedSet(n); }catch(_e){} });
       p.appendChild(b);
     });
     document.body.appendChild(p);
@@ -90825,6 +91332,7 @@ window.BOHEMIA_SKIN = (function(){
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
 <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
+<script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->
 <script defer src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 </body></html>

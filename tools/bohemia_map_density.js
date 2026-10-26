@@ -77,12 +77,18 @@ async function measureMap(d) {
       .sort((a, b) => b.r.width * b.r.height - a.r.width * a.r.height);
     if (!vis.length) return null;
     const { c, r } = vis[0];
-    let own = null, kind = 'other';
+    let own = null, kind = 'other', open = null;
     try { const g = c.getContext('2d'); if (g) { kind = '2d';
-      const dd = g.getImageData(0, 0, c.width, c.height).data;
-      own = { run: R(dd, c.width, c.height, 0), runTol: R(dd, c.width, c.height, 2) }; } } catch (e) { kind = 'unreadable'; }
+      /* RUN 10/26 (__THE_MAP_FRAMES_AROUND_THE_PHONE__, rule 213): what he sees is the OPEN area beside the phone; the painting under
+         the phone is not on his glass, so the reading is taken there (the whole canvas when the map has no open area to say) */
+      let x0 = 0, y0 = 0, w = c.width, h = c.height;
+      try { if (c.id === 'cv' && typeof mapOpenArea === 'function') { const A = mapOpenArea(), k = c.width / r.width;
+        x0 = Math.max(0, Math.round(A.x0 * k)); y0 = Math.max(0, Math.round(A.y0 * k)); w = Math.min(c.width - x0, Math.round((A.x1 - A.x0) * k)); h = Math.min(c.height - y0, Math.round((A.y1 - A.y0) * k));
+        if (w < 32 || h < 32) { x0 = 0; y0 = 0; w = c.width; h = c.height; } else open = [x0, y0, w, h]; } } catch (e) {}
+      const dd = g.getImageData(x0, y0, w, h).data;
+      own = { run: R(dd, w, h, 0), runTol: R(dd, w, h, 2) }; } } catch (e) { kind = 'unreadable'; }
     return { id: c.id, w: c.width, h: c.height, x: r.x, y: r.y, cw: r.width, ch: r.height,
-      dpr: devicePixelRatio, kind, own };
+      dpr: devicePixelRatio, kind, own, open };
   }, runs.toString());
   if (!cv) return { state, canvas: null };
   /* device pixels each painted pixel covers, on each axis */

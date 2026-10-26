@@ -1,0 +1,110 @@
+{
+ "look": "faction_mob",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.4128,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.413 m",
+  "ppm": 310.062,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     -0.0,
+     0.0007,
+     1.3463
+    ],
+    "eyes": [
+     [
+      -0.0507,
+      -0.1215,
+      1.3546
+     ],
+     [
+      0.0507,
+      -0.1215,
+      1.3546
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     0.0,
+     -0.1894,
+     1.2975
+    ],
+    "mouth_z": 1.2552,
+    "chin_z": 1.1567,
+    "top_z": 1.53,
+    "ears": 2,
+    "hair": [
+     "portrait_hair"
+    ],
+    "gear": [],
+    "torso": [
+     "Cesium_Man",
+     "mob_cape",
+     "mob_hand_L",
+     "mob_hand_R",
+     "mob_mantle"
+    ],
+    "body": [
+     "Cesium_Man",
+     "mob_belt",
+     "mob_cape",
+     "mob_hand_L",
+     "mob_hand_R",
+     "mob_mantle",
+     "mob_shoe"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "mob_belt",
+     "mob_cape_print",
+     "mob_mantle_print",
+     "mob_shirt",
+     "mob_shoe",
+     "mob_shoes",
+     "mob_skin",
+     "mob_trousers_print",
+     "portrait_faction_mob_buzz",
+     "portrait_faction_mob_iris",
+     "portrait_faction_mob_lips",
+     "portrait_faction_mob_mouth",
+     "portrait_faction_mob_pupil",
+     "portrait_faction_mob_scar",
+     "portrait_faction_mob_sclera",
+     "portrait_faction_mob_skin"
+    ]
+   }
+  },
+  {
+   "life": true
+  },
+  {
+   "shots": 4,
+   "seconds": 75.1
+  }
+ ],
+ "made": [
+  "_blink",
+  "_look_l",
+  "_look_r",
+  "_wince"
+ ]
+}

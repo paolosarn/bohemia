@@ -1,0 +1,113 @@
+{
+ "look": "faction_blues",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.3928,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.393 m",
+  "ppm": 325.847,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     0.0,
+     0.0006,
+     1.3519
+    ],
+    "eyes": [
+     [
+      -0.0514,
+      -0.1214,
+      1.356
+     ],
+     [
+      0.0514,
+      -0.1214,
+      1.356
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     -0.0,
+     -0.1888,
+     1.3023
+    ],
+    "mouth_z": 1.2638,
+    "chin_z": 1.1741,
+    "top_z": 1.53,
+    "ears": 2,
+    "hair": [
+     "portrait_beard",
+     "portrait_hair"
+    ],
+    "gear": [],
+    "torso": [
+     "blues_coat",
+     "blues_hand_L",
+     "blues_hand_R",
+     "blues_mantle",
+     "Cesium_Man"
+    ],
+    "body": [
+     "blues_coat",
+     "blues_coat_skirt",
+     "blues_hand_L",
+     "blues_hand_R",
+     "blues_mantle",
+     "blues_shoe",
+     "blues_trouser",
+     "Cesium_Man"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "blues_coat",
+     "blues_coat_skirt",
+     "blues_mantle",
+     "blues_shirt",
+     "blues_shoe",
+     "blues_shoes",
+     "blues_skin",
+     "blues_trouser",
+     "blues_trousers",
+     "portrait_faction_blues_beard",
+     "portrait_faction_blues_buzz",
+     "portrait_faction_blues_iris",
+     "portrait_faction_blues_lips",
+     "portrait_faction_blues_mouth",
+     "portrait_faction_blues_pupil",
+     "portrait_faction_blues_sclera",
+     "portrait_faction_blues_skin"
+    ]
+   }
+  },
+  {
+   "life": true
+  },
+  {
+   "shots": 4,
+   "seconds": 62.8
+  }
+ ],
+ "made": [
+  "_blink",
+  "_look_l",
+  "_look_r",
+  "_wince"
+ ]
+}
