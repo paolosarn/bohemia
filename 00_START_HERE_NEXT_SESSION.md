@@ -177,9 +177,9 @@ the coordinator opened this chat under rule 112, no check-in, this block is the 
   one skull: won 97, nobody down 45), proposed reading for 208(a): nobody dead and at most one man in six laid up (the coordinator's).
   The calculator is TRUE ([the odds keep up]): within 3 points in every band at 24 runs. RULE 201's numbers by crew size (the watch):
   on the named target 80 / 70 / 60 percent (one to three / six / twelve men; today 81.0 / 73.3 / 56.2 on the most-struck man),
-  hurt and standing 1.0 / 1.2 / 1.3 (today 0.99 / 1.29 / 1.70), spread under 2 in 100 rounds. NOTE on WORLD's board. STILL RUNNING
-  when this block was written: the big-crew second pass (the six, nine and twelve's 99 jobs with deaths and downs per run) into the
-  same bank (fields readOk, ok, deaths); its numbers are next round's if this session ends first.
+  hurt and standing 1.0 / 1.2 / 1.3 (today 0.99 / 1.29 / 1.70), spread under 2 in 100 rounds. NOTE on WORLD's board. SECOND PASS IN
+  (8b02ed42, the 99 big-crew jobs with deaths and downs per run): the same cut-offs hold on the big-crew reading (no lying one-star
+  job); a man of the twelve dies in 35 of 100 of its jobs, 24 on a one-skull job it wins 97 times (two stars on that reading).
 3 [a few women at the post] (rule 203) + [four percent] (rule 214): records/BOHEMIA_TUNING_A_FEW_WOMEN_AT_THE_POST_THE_SHARE_10_26_26.md,
   the one table's section M: post.women_share 0.04 HIS NUMBER (RUN THREE moved post_women.json, 262c23b0), the realistic 0.02 beside it;
   at the posts a hundred-day game shows him about four women (one post of seven a week); a cause runs higher only if it preaches
@@ -192,7 +192,8 @@ the coordinator opened this chat under rule 112, no check-in, this block is the 
   damage whole to two tiles (buckshot about 0.6 inch a yard: on a torso to 25 yards), x0.6 at three, x0.35 at four; a scope row (none
   exists) -20 / -10 close and -1 a tile. Measured on both sides as a research splice: his crew 58 -> 57 won, A New Crew 75 -> 72, the
   twelve 81 -> 82 (noise). [the aim he sees] holds: shown and done within 3 points in every cell. NOTE on COMBAT's board.
-5 [the recruit's ceiling] (rule 216, the coordinator's NOTE): records/BOHEMIA_TUNING_THE_RECRUITS_CEILING_10_26_26.md, the one table's
+5 [the recruit's ceiling] (rule 216, the coordinator's NOTE) and KEY MAN LAST (EYES' line, d18e17ce: the Mechanic fell last of his
+  party or never in 24 of 74 fights; his crew 10 of 19, the Lone Wolf 9 of 10; a row on COMBAT's board): records/BOHEMIA_TUNING_THE_RECRUITS_CEILING_10_26_26.md, the one table's
   section O, bank banks/BOHEMIA_TUNING_THE_RECRUIT_CEILING_10_26_26.json, bench tools/bohemia_tuning_the_recruit_ceiling.js. The formula
   (L11 = rolled stat + 10 x the star column's midpoint on his kind's four; each star adds 5 by level 11); the weights MEASURED (+10 on
   one stat of one kind, men struck down saved): melee skill 1, melee defence 0.41, ranged defence 0.38, hitpoints 0.35, fatigue 0.32;
