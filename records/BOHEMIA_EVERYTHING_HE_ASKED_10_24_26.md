@@ -233,3 +233,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 213 | Paid the moment I reach the client town's territory, without entering the settlement screen | 275(a) | WORLD, EYES | 
 | 214 | Damage gets its own icon everywhere | 275(b) | UI THREE, EYES | 
 | 215 | (said again) A free lineup retreat for the whole squad; the map bounces me two or three blocks away | 275(c) | COMBAT, CAMP, EYES | 
+| 216 | What is scrap? Scrap should be tape (repair); and tape must be buyable at every stall now: my run died on day four with no tape | 276 | RUN TWO, RUN FOUR, EYES | 
