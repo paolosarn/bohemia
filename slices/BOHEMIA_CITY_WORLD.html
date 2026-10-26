@@ -45377,9 +45377,18 @@ function crewCount(){
    (bohemia.fight.after.v1, RUN TWO's nfAfterKeep) and the crew screen's company (bohemia.company.v1), by name, never YOU;
    the bar, the bill, the marker, the plate's stars and the fight's size all read crewCount */
 function crewDead(){
-  var out = [], add = function(n){ n = String(n || ''); if (n && out.indexOf(n) < 0) out.push(n); };
+  /* __THE_DEAD_STAY_DEAD__ (CAMP [eyes: the dead stand up] and [eyes: the dead, again], moved to CAMP 10/26, one system with rule 234).
+     MEASURED: the fight's rows live in bohemia.fight.after.v1 only until the crew screen reads them (it empties the queue), and
+     the crew screen's hand-over never carries a dead man (so no m.dead to find there): the first time CREW was opened after a death,
+     this list went empty and every count that reads it (the bar, the bill, the marker, the sizing) counted the dead again. NOW the
+     dead are also read where they are kept for good: the company's condition (engine/bohemia_condition.js dead(), never emptied)
+     and the crew screen's own climb file (a man it marked dead). One man is counted once, by the condition's own key. */
+  var out = [], seen = {}, key = function(n){ try{ return window.BohemiaCondition ? BohemiaCondition.canon(n) : String(n).toUpperCase(); }catch(_e){ return String(n).toUpperCase(); } };
+  var add = function(n){ n = String(n || ''); if (!n) return; var k = key(n); if (!k || k === 'YOU' || seen[k]) return; seen[k] = 1; out.push(n); };
   try{ (JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []).forEach(function(f){ ((f && f.rows) || []).forEach(function(r){ if (r && r.dead && !r.main) add(r.name); }); }); }catch(_e){}
   try{ (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).forEach(function(m){ if (m && m.dead && !m.main) add(m.name); }); }catch(_e){}
+  try{ if (window.BohemiaCondition) BohemiaCondition.dead().forEach(function(d){ if (d) add(d.shown || d.name); }); }catch(_e){}
+  try{ var cl = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}') || {}; for (var nm in cl) if (cl[nm] && cl[nm].dead) add(nm); }catch(_e){}
   return out;
 }
 try{ window.crewDead = crewDead; window.crewTaken = crewTaken; window.crewWalked = window.crewWalked || crewWalked; }catch(_e){}

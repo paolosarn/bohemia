@@ -470,7 +470,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"39cb5b1e9b059cc4",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"680e380299ec3f1e",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1574,7 +1574,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/26q - WHAT YOU BUY GOES ON THE MAN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/26r - STRUCK DOWN, HE STILL FIGHTS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12469,15 +12469,17 @@ function nfOpts(d){
     try{ (JSON.parse(localStorage.getItem('bohemia.taken.v1') || '[]') || []).forEach(function(t){ (t && t.names || []).forEach(function(n){ walked.push(n); }); }); }catch(_e){}   /* RUN 10/25 __THE_WIPE_WAKES_IN_TOWN__: a man the crew that beat you took is not in your fight */
     var same = !(hl && hl.origin && hp && hp.origin && hl.origin !== hp.origin), useH = Array.isArray(hk) && hk.length > 0 && same;
     var co = useH ? hk : (o.company ? o.company.slice() : null), keepAt = {}, kept = [];
-    /* AFTER THE FIGHT: a fight the crew screen has not read yet still counts: its dead stay dead, its fallen are laid up their
-       days from that fight's day; and a man the crew screen benched hurt comes back on the day he is healed */
+    /* AFTER THE FIGHT: a fight the crew screen has not read yet still counts: its dead stay dead. STRUCK DOWN, HE STILL FIGHTS
+       (CAMP, rule 234, Paolo 10/26: 'their health will just be at one... they're still active... that's why I restarted hella
+       runs'): a man struck down is NEVER held out for his days any more; he comes at what he is missing (one hitpoint, healed by
+       the map's clock: engine/bohemia_condition.js handOver), carrying his mark and his fresh wound as a debuff */
     var today = (w.day | 0) || 1, gone2 = [];
     try{ (JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []).forEach(function(f){ (f.rows || []).forEach(function(r){
-      if(!r || r.main) return; if(r.dead || (r.down && r.injury && today < (f.day | 0) + (r.laidUpDays | 0))) gone2.push(r.name); }); }); }catch(_e){}
+      if(!r || r.main) return; if(r.dead) gone2.push(r.name); }); }); }catch(_e){}
     NF.day = today;
     if(co){
       co.forEach(function(m, i){ if(i > 0 && m && m.name && (walked.indexOf(m.name) >= 0 || gone2.indexOf(m.name) >= 0)) return; keepAt[i] = kept.length; kept.push(m); });
-      if(useH && hl && Array.isArray(hl.bench)) hl.bench.forEach(function(b){ if(b && b.man && b.until != null && today >= (b.until | 0) && gone2.indexOf(b.man.name) < 0 && walked.indexOf(b.man.name) < 0) kept.push(b.man); });
+      if(useH && hl && Array.isArray(hl.bench)) hl.bench.forEach(function(b){ if(b && b.man && gone2.indexOf(b.man.name) < 0 && walked.indexOf(b.man.name) < 0) kept.push(b.man); });   /* CAMP rule 234: an old save's benched man fights, his day or not */
       var have = kept.map(function(m){ return m && m.name; });
       var known = (useH && hl && Array.isArray(hl.known)) ? hl.known : [];   /* every man the crew screen knows, the dead and the benched too */
       hired.forEach(function(h){ if(!h || !h.name || have.indexOf(h.name) >= 0 || known.indexOf(h.name) >= 0 || walked.indexOf(h.name) >= 0 || gone2.indexOf(h.name) >= 0) return; var g = h.gear || {};
@@ -12653,8 +12655,8 @@ function nfOverIn(d, src){
   var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
     alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
-  /* __DAMAGE_STAYS__ (CAMP, rule 226): what the fight left on every man is kept for the next one (the surgeon takes a day off a man
-     laid up, rule 226(e)); the dead go on the dead list */
+  /* __DAMAGE_STAYS__ (CAMP, rule 226): what the fight left on every man is kept for the next one (the surgeon takes a day off a struck-down
+     man's fresh wound, rule 226(e); rule 234: the days are the wound's, never a bench); the dead go on the dead list */
   try{ if(window.BohemiaCondition && d && Array.isArray(d.crew)){ d.crew.forEach(function(r){ if(r && r.down && r.laidUpDays > 0) r.laidUpDays = BohemiaCondition.laidUpDays(r.laidUpDays); });
     BohemiaCondition.afterFight(d.crew, { day: NF.day }); } }catch(_e){}
   try{ nfAfterKeep(d); }catch(_e){}   /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO): who died, who fell, who climbed, kept for the crew screen */

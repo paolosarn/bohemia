@@ -22,6 +22,11 @@
      S9 AN OLD SAVE WAKES: a save with a man on the crew screen's old bench boots with him in the company the door hands, at his saved
         hitpoints or one
      S10 HIS FACE: the condition hands PORTRAIT his marks and the wound's stage (blood, then the band-aid, then the mark alone)
+     D1-D4 THE DEAD STAY DEAD (CAMP [eyes: the dead stand up] and [eyes: the dead, again], one system with rule 234), the crew screen
+        never opened before he died: D1 the map's count (the bar, the bill, the sizing all read it), the job sizing's roster and the
+        HEAL bar count the living and the struck down, never the dead; D2 the next fight neither hands him nor stands him on its
+        board; D3 the crew screen, opened after he died, has him dead and says the living count, and the map's count stays right
+        after it has read the fight (it empties the queue); D4 after a reload, the same
      S11 nothing threw
    node gates/struck_down_he_still_fights_gate.js [--profile phone_portrait|computer]   (no flag: both) */
 'use strict';
@@ -80,11 +85,14 @@ const playFight = async (d, seq, strike) => {
   let struck = null;
   if (strike) struck = await f.evaluate(() => {
     const us = FIGHT.S.units.filter(u => u.side === 'you' && !u.main), them = FIGHT.S.units.filter(u => u.side === 'them'), tried = [];
+    /* THE DEAD (CAMP [eyes: the dead stand up]): the first man of the line killed in the fight's own state, by hand, so every fight
+       of this gate has a dead man to keep out (the fight's own 20 in 100 is left to the rest) */
+    let killed = null; if (us.length >= 3) { const k = us[0]; k.hp = 0; k.dead = true; killed = k.name; tried.push({ name: k.name, dead: true, down: false }); }
     let lived = null;
-    for (const u of us.slice().reverse()) { if (lived || us.length - tried.length <= 1) break; FIGHT._t.fall(u, them[0] || null); tried.push({ name: u.name, dead: !!u.dead, down: !!u.down });
+    for (const u of us.slice(1).reverse()) { if (lived || us.length - tried.length <= 1) break; FIGHT._t.fall(u, them[0] || null); tried.push({ name: u.name, dead: !!u.dead, down: !!u.down });
       if (u.down && !u.dead) lived = { name: u.name, days: u.laidUp, injury: u.longInjury ? u.longInjury.id : null }; }
     them.forEach(u => { u.hp = 1; u.armH = 0; u.armB = 0; });
-    return { lived, tried };
+    return { lived, killed, tried };
   });
   const start = await units(f);
   const handed = await d.page.evaluate(() => ({ men: (window.__NF_HANDED && window.__NF_HANDED.men) || null, cond: window.__NF_COND || null })).catch(() => null);
@@ -118,7 +126,15 @@ async function run(profile) {
     ok(P + 'S1 fight one: the fight\'s own fall() struck his men down (never YOU) until one lived, and the fight ended',
       !!man && !!F1.rows, man ? man.name + ' lived (' + man.injury + ', ' + man.days + ' days); tried ' + F1.struck.tried.map(t => t.name + (t.dead ? ' dead' : ' down')).join(', ') + '; ' + F1.result : JSON.stringify(F1 && F1.struck));
     if (!man) return;
-    const K = canon(man.name);
+    const K = canon(man.name), DEAD = F1.struck.killed, DK = canon(DEAD);
+    const counts = (fr) => fr.evaluate((a) => { const o = (LOOP.start && LOOP.start.company) || [], r = BohemiaJobKinds.roster(), c = BohemiaCondition.company(o);
+      return { origin: o.length, crew: crewCount(), dead: crewDead(), roster: r.men.map(m => m.name), heal: c.names, taken: crewTaken().length,
+        walked: (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).length,
+        hired: (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).length }; }, null);
+    /* what the map's count should be: the origin's men and the hires, less every man any fight here killed (by the module's key), the
+       taken and the walked; worked out from the fights' own end rows, never from the list under test */
+    const deadSet = new Set(), wantCrew = (c, rowsList) => { rowsList.forEach(rs => (rs || []).forEach(r => { if (r && r.dead && !r.main) deadSet.add(canon(r.name)); }));
+      return Math.max(1, c.origin + c.hired - deadSet.size - c.taken - c.walked); };
 
     /* ---- S2 ---- */
     const row = F1.rows.find(r => r.name === man.name), C1 = await d.fr.evaluate(() => BohemiaCondition.get()), m1 = C1.men[K];
@@ -126,6 +142,13 @@ async function run(profile) {
     ok(P + 'S2 his end row is down with a wiki permanent mark and ' + DAYS[0] + ' to ' + DAYS[1] + ' days; the condition keeps him at ONE hitpoint, the mark for life, the fresh wound for those days',
       !!row && row.down && !row.dead && !!row.injury && !!LI.byId(row.injury.id) && row.laidUpDays >= DAYS[0] && row.laidUpDays <= DAYS[1] && kept,
       row ? row.injury.id + ', ' + row.laidUpDays + ' days; kept ' + JSON.stringify(m1 && { hp: +(m1.hpMax - m1.lostHp).toFixed(2), of: m1.hpMax, marks: m1.marks, wound: m1.wound }) : 'no row');
+
+    /* ---- D1 the counts, the crew screen never opened ---- */
+    const d1 = await counts(d.fr), deadRow = F1.rows.find(r => r.name === DEAD);
+    const d1ok = !!deadRow && deadRow.dead && d1.crew === wantCrew(d1, [F1.rows]) && d1.dead.some(n => canon(n) === DK)
+      && !d1.roster.some(n => n && canon(n) === DK) && d1.heal.indexOf(DK) < 0 && d1.heal.indexOf(K) >= 0;
+    ok(P + 'D1 THE DEAD STAY DEAD, the crew screen never opened: the map\'s count, the job sizing\'s roster and the HEAL bar leave ' + DEAD + ' out and count the struck down',
+      d1ok, 'count ' + d1.crew + ' of ' + d1.origin + ' (+' + d1.hired + ' hired); dead ' + JSON.stringify(d1.dead) + '; roster ' + d1.roster.join(',') + '; bar ' + d1.heal.join(','));
 
     /* ---- S3 / S4 fight two ---- */
     const F2 = await playFight(d, 9, false);
@@ -136,6 +159,8 @@ async function run(profile) {
     ok(P + 'S3 *** STILL IN THE CREW, ACTIVE *** the map\'s door hands him to the very next fight and he stands on its board at exactly what he was handed (one hitpoint and what the clock healed)',
       handedMen.some(n => canon(n) === K) && !!on && wantHp != null && on.hp === wantHp && on.hp < on.hpMax,
       on ? man.name + ' on the board at ' + on.hp + '/' + on.hpMax + ' (handed ' + (hc && hc.cond ? hc.cond.lostHp + ' missing' : 'nothing') + ')' : man.name + ' NOT on the board; handed: ' + handedMen.join(', '));
+    ok(P + 'D2 THE DEAD STAY DEAD: the next fight neither hands ' + DEAD + ' nor stands him on its board',
+      !handedMen.some(n => n && canon(n) === DK) && !F2.start.some(u => canon(u.name) === DK), 'handed ' + handedMen.join(', ') + '; board ' + F2.start.map(u => u.name).join(', '));
     const life = on ? on.injuries.filter(j => j.kind === 'permanent').map(j => j.id) : [];
     const fr = on ? on.injuries.find(j => j.kind === 'fresh') : null;
     const want = C2 && C2.wound ? LI.freshNow(C2.wound.mark, C2.wound.left, C2.wound.of) : null;
@@ -181,10 +206,17 @@ async function run(profile) {
       if (window.BohemiaCrewDoor) return go(); const sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_door.js'; sc.onload = go; document.head.appendChild(sc); }));
     let cf = null; for (let i = 0; i < 60 && !cf; i++) { await d.page.waitForTimeout(250);
       for (const x of d.page.frames().filter(x => /ROSTER_SCREEN/.test(x.url()))) if (await x.evaluate(() => !!(window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready)).catch(() => false)) { cf = x; break; } }
-    const s8 = cf ? await cf.evaluate((K) => { const S = BohemiaRosterScreen.state, ix = S.crew.findIndex(m => (BohemiaCondition ? BohemiaCondition.canon(m.name, m.main) : m.name.toUpperCase()) === K);
-      return { ix, inLine: S.front.concat(S.back).indexOf(ix) >= 0, strip: document.querySelectorAll('#hurt .cell').length, bench: (JSON.parse(localStorage.getItem('bohemia.company.line.v1') || '{}').bench || []).length }; }, K) : null;
+    const s8 = cf ? await cf.evaluate((a) => { const S = BohemiaRosterScreen.state, c = (m) => BohemiaCondition ? BohemiaCondition.canon(m.name, m.main) : m.name.toUpperCase();
+      const ix = S.crew.findIndex(m => c(m) === a.K), dx = S.crew.findIndex(m => c(m) === a.DK), living = S.crew.filter(m => !m.dead).length;
+      return { ix, inLine: S.front.concat(S.back).indexOf(ix) >= 0, strip: document.querySelectorAll('#hurt .cell').length, bench: (JSON.parse(localStorage.getItem('bohemia.company.line.v1') || '{}').bench || []).length,
+        deadAlive: dx >= 0 && !S.crew[dx].dead, deadInLine: dx >= 0 && S.front.concat(S.back).indexOf(dx) >= 0, living, title: document.getElementById('title').textContent }; }, { K, DK }) : null;
     ok(P + 'S8 THE CREW SCREEN: he is on the line, never on a bench', !!s8 && s8.ix >= 0 && s8.inLine && s8.strip === 0 && s8.bench === 0, JSON.stringify(s8));
     try { await d.page.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} }); } catch (_e) {}
+    await d.page.waitForTimeout(400);
+    const d3 = await counts(d.fr);
+    ok(P + 'D3 THE DEAD STAY DEAD after the crew screen has read the fight: it has ' + DEAD + ' dead and off the line, its count is the living, and the map\'s count stays right with the queue emptied',
+      !!s8 && !s8.deadAlive && !s8.deadInLine && new RegExp('COMPANY ' + s8.living + ' ').test(s8.title) && d3.crew === wantCrew(d3, [F1.rows, F2.rows]) && !d3.roster.some(n => n && canon(n) === DK),
+      (s8 ? s8.title + '; dead alive ' + s8.deadAlive + ', in line ' + s8.deadInLine : 'no screen') + '; map count ' + d3.crew + ' (want ' + wantCrew(d3, [F1.rows, F2.rows]) + '); queue ' + await d.fr.evaluate(() => localStorage.getItem('bohemia.fight.after.v1')));
 
     /* ---- S9 an old save wakes (last: it reloads) ---- */
     const old = 'OLDBENCH';
@@ -195,6 +227,11 @@ async function run(profile) {
     const s9 = await fr2.evaluate((old) => { const hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || [], hl = JSON.parse(localStorage.getItem('bohemia.company.line.v1') || '{}');
       const m = window.BohemiaCondition ? BohemiaCondition.get().men[old] : null; return { inCo: hk.some(x => x && x.name === old), bench: (hl.bench || []).length, hp: m ? m.hpMax - m.lostHp : null }; }, old).catch(e => ({ err: String(e.message).slice(0, 120) }));
     ok(P + 'S9 AN OLD SAVE WAKES: a man on the crew screen\'s old bench is in the company the door hands, at his saved hitpoints or one', !!s9 && s9.inCo && s9.bench === 0 && s9.hp != null && s9.hp >= 1 && s9.hp <= 58, JSON.stringify(s9));
+    const d4 = await counts(fr2).catch(e => ({ err: String(e.message).slice(0, 120) }));
+    const hk4 = await fr2.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).map(m => m && m.name)).catch(() => []);
+    ok(P + 'D4 THE DEAD STAY DEAD after a reload: the map\'s count is the living (the woken man added), the hand-over and the sizing never carry ' + DEAD,
+      !d4.err && d4.crew === wantCrew(d4, [F1.rows, F2.rows]) && !hk4.some(n => n && canon(n) === DK) && !d4.roster.some(n => n && canon(n) === DK),
+      JSON.stringify({ crew: d4.crew, want: d4.err ? null : wantCrew(d4, [F1.rows, F2.rows]), handOver: hk4, err: d4.err }));
 
     /* ---- S11 ---- */
     ok(P + 'S11 nothing threw', d.errs.length === 0, d.errs.length ? String(d.errs[0]).slice(0, 160) : 'no errors');
