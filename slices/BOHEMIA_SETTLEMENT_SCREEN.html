@@ -1134,6 +1134,127 @@ function dealt(){
    post'): the men at the post are standing at it, along its rail, each tappable, and a tap opens the post on his card. Only a
    man with a standing body of his own (a rolled man the fight can draw) stands there; the post's list is the same list */
 function postMen(){ try{ return VAR && VAR.boxes.hall && window.BohemiaRigBodies && BohemiaRigBodies.person ? recruitsHere().filter(function(r){ return BohemiaRigBodies.person(r.look); }) : []; }catch(e){ return []; } }
+/* ==== __YOUR_CREW_LIVES_IN_THE_TOWN__ (RUN THREE [your crew lives in the town], rule 218(a)(b), Paolo 10/26: 'in the settlements I
+   really want everyone that is on your company or your recruited, you can see them... maybe flirting with a girl, maybe drinking
+   some beer, maybe walking around, maybe talking to people... make it feel alive... they deserve to see them too').
+   Every man of his company (the crew screen's hand-over, else his origin's men, and the men hired since: shopCrew, the one list)
+   but the lead who walks for him (__THE_WALK_UP__) is IN THE PICTURE, in his own look, doing a thing people do in a town:
+   drinking at the bar (or the stall), looking over the stall, talking (with one of his own, a pair turn and turn about, or with a
+   townsman, facing him), smoking or sitting by a wall, flirting, or walking the town's paths. Each his own pick on his own seed
+   (the day and the place change it), his trait leaning it (a cocky man flirts, a fainthearted one smokes, a drunkard drinks),
+   his clock spread from the others' (ANIMATION's o.n). He stands only on the picture's ground (rule 169: settlement_walk.json,
+   never a roof), never on a door's front, the post's rail, a walker's lane or anybody's spot. A tap opens him on the crew screen.
+   He is drawn by ANIMATION's activity cell (BohemiaIdles.activity, rule 218(a)) when his pictures are in, else his idles, else
+   his still, exactly like everybody on the street (__EVERYBODY_IDLES__). ==== */
+var CREW_ACTS = {drink:3, talk:3, stall:2, smoke:2, sit:2, flirt:1, walk:2};
+var CREW_CLIP = {drink:'lean', talk:'greet', stall:'look', smoke:'smoke', sit:'wait', flirt:'lean', walk:'look'};   /* his idles' lean until his activity is in */
+var CREW_LEAN = {drunkard:'drink', gluttonous:'stall', cocky:'flirt', fainthearted:'smoke', craven:'smoke', paranoid:'smoke', hesitant:'stall', fearless:'drink', brave:'talk', bright:'talk', addict:'smoke', lazy:'sit', old:'sit', fat:'sit'};
+var CREW_T = {at:0, list:null};
+/* the company in town: everybody but the lead, alive, with a body the street can draw */
+function crewTown(){
+  var now = performance.now(); if(CREW_T.list && now - CREW_T.at < 1500) return CREW_T.list;
+  var lead = LEAD.look || leadLook(), B = window.BohemiaRigBodies, out = [];
+  try{ out = shopCrew().filter(function(m){ return m.look && m.look !== lead && m.look !== 'you' && !m.dead && (!B || !B.person || B.person(m.look)); }); }catch(e){ out = []; }
+  CREW_T.at = now; CREW_T.list = out; return out;
+}
+function crewSeed(m){ return S.place.name + ':' + Math.floor(buildDay()) + ':' + (m.name || m.look); }
+function crewAct(m, i, walkers){
+  var I = window.BohemiaIdles, has = I && I.activities ? I.activities(m.look) : [], R = rng(seedOf(crewSeed(m) + ':act')), w = {}, tot = 0;
+  Object.keys(CREW_ACTS).forEach(function(a){ if(a !== 'walk' && has.length && has.indexOf(a) < 0) return; if(a === 'walk' && walkers <= 0) return; w[a] = CREW_ACTS[a]; });
+  (m.traits || (m.trait ? [m.trait.id || m.trait] : [])).forEach(function(t){ var a = CREW_LEAN[t && t.id || t]; if(a && w[a]) w[a] *= 3; });   /* the drinker drinks */
+  Object.keys(w).forEach(function(a){ tot += w[a]; });
+  var q = R() * tot; for(var a in w){ q -= w[a]; if(q <= 0) return a; }
+  return 'smoke';
+}
+/* open ground a man may stand on: the picture's ground (never a roof), clear of every door's front, the post's rail, the walkers'
+   lanes and everybody already standing */
+/* the room a man needs so a finger gets him and nobody else (EYES' 44-point finger, rule 150): peopleAt's own column (half a body, at
+   least 24 points each side) and a body tall; where the ground runs out, the closer spacing a crowd keeps (84 by 52 picture px) */
+function crewRoom(strict){ var h = personH(), s = view.s || 1; return strict ? {x:2 * Math.max(h * .17, 24 / s) + 2, y:h + 4} : {x:84, y:52}; }
+function crewTooClose(a, b, room){ return Math.abs(a.x - b.x) < room.x && Math.abs(a.y - b.y) < room.y; }
+function crewGround(taken, room){
+  if(!VAR || !walkBlocks()) return [];
+  room = room || crewRoom(true);
+  var out = [], W = picW(), H = picH(), h = personH(), lanes = busyLanes();
+  var doors = ORDER.filter(function(k){ return VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), k:k, b:b}; });
+  /* where a finger on him would be a finger on a building or its sign (over those only a body answers, so his target would shrink) */
+  var cw = Math.max(h * .17, 24 / (view.s || 1)), taps = ORDER.filter(function(k){ return VAR.boxes[k]; }).map(function(k){ return tapBox(k); })
+    .concat(Object.keys(DOOR_SIGNS).map(function(k){ return signRect(k); }).filter(Boolean));
+  for(var y = Math.round(H * .25); y < H - 14; y += 24) for(var x = 50; x < W - 50; x += 28){
+    if(leadBlocked(x, y, 4)) continue;
+    if(taps.some(function(b){ return x + cw > b[0] && x - cw < b[2] && y + 4 > b[1] && y - h < b[3]; })) continue;   /* his whole tap column off every building's and sign's */
+    if(doors.some(function(d){ return Math.abs(x - d.x) < d.w && y > d.y - 12 && y < d.y + h * .55; })) continue;   /* a door's front stays open (rule 218(b)) */
+    var hb = VAR.boxes.hall; if(hb && x > hb[0] - 20 && x < hb[2] + 20 && y > hb[3] && y < hb[3] + h * .6) continue;   /* the post's rail */
+    if(lanes.some(function(l){ return Math.abs(y - l.y) < 20 && x > l.x0 - 30 && x < l.x1 + 30; })) continue;   /* a walker's lane */
+    var g = {x:x, y:y}; if(taken.some(function(t){ return crewTooClose(t, g, room); })) continue;
+    out.push(g); }
+  return out;
+}
+/* the best spot for him: near what he is doing, never in a row or a column with his own (rule 130(a): never chess pieces), a little
+   of his own seed in it so two visits are not one photograph */
+/* would he make three in a row with his own (rule 130(a)): any man in his line with another already beside him, or two beside him */
+function crewRowed(q, placed){
+  var near = function(a, b){ return a !== b && Math.abs(a.y - b.y) < 16 && Math.abs(a.x - b.x) < 240; };
+  var N = placed.filter(function(t){ return near(t, q); }); if(N.length >= 2) return true;
+  return N.some(function(n){ return placed.some(function(t){ return near(t, n); }); });
+}
+function crewNear(ground, ax, ay, lo, hi, pick, R, placed){
+  var best = null, bs = 1e9; placed = placed || [];
+  ground.forEach(function(g){ var d = Math.hypot(g.x - ax, (g.y - ay) * 1.6); if(d < lo || d > hi || (pick && !pick(g))) return;
+    if(crewRowed(g, placed)) return;   /* never a third in a row */
+    var row = placed.some(function(t){ return Math.abs(t.y - g.y) < 16 && Math.abs(t.x - g.x) < 240; }) ? 260 : 0;
+    var col = placed.some(function(t){ return Math.abs(t.x - g.x) < 22 && Math.abs(t.y - g.y) < 170; }) ? 200 : 0;
+    var sc = d + row + col + (R ? R() * 140 : 0); if(sc < bs){ bs = sc; best = g; } });
+  return best;
+}
+/* the crew placed: {crewMan, n, name, look, act, x, y, face, loop, pair, partner} standing, and the ones who walk */
+function crewFolk(base){
+  var men = crewTown(); if(!men.length || !VAR) return {stand:[], walk:[]};
+  var taken = base.map(function(p){ return {x:p.x, y:p.y}; }), room = crewRoom(true), ground = crewGround(taken, room), stand = [], walk = [], h = personH();
+  var B = window.BohemiaRigBodies, lanes = busyLanes(), walkers = Math.min(Math.floor(men.length / 4), lanes.length * 2);
+  var box = function(k){ var b = VAR.boxes[k]; return b ? {x:(b[0]+b[2])/2, y:b[3]} : null; };
+  var bar = box('bar'), stall = box('stall') || box('hall'), crowd = base.filter(function(p){ return p.crowd; });
+  var walls = ORDER.filter(function(k){ return VAR.boxes[k] && k !== 'build'; }).map(box);   /* the town's fronts: a man smokes or sits by one of them */
+  var mid = {x:picW() / 2, y:picH() * .7};
+  var take = function(g){ taken.push(g); ground = ground.filter(function(q){ return !crewTooClose(q, g, room); });
+    if(!ground.length && room.y > 60){ room = crewRoom(false); ground = crewGround(taken, room); } };   /* the finger's room first; a crowd's spacing for the rest of a big company */
+  var wallBelow = function(g){ return leadBlocked(g.x, g.y - 34) && !leadBlocked(g.x, g.y - 8); };   /* a wall at his back: the ground ends a step behind him */
+  var lone = null;
+  men.forEach(function(m, i){
+    var R = rng(seedOf(crewSeed(m) + ':spot')), act = crewAct(m, i, walkers), g = null, face = 'S', pair = null, partner = false;
+    if(act === 'walk' && B && B.canWalk && B.canWalk(m.look)){ walkers--;
+      var li = (walk.length) % lanes.length, ln = lanes[li];
+      walk.push({busy:true, crewMan:true, n:i, name:m.name, look:m.look, act:'walk', lane:li, y:ln.y + 8 + (walk.length % 2) * 6, a:ln.x0 + (ln.x1 - ln.x0) * (.1 + R() * .2), b:ln.x1 - (ln.x1 - ln.x0) * (.1 + R() * .2), face:ln.face, stop:(4 + Math.floor(R() * 4)) * 500, ph:R(), j:0});
+      return; }
+    if(act === 'walk') act = 'talk';
+    if(act === 'drink'){ var a1 = bar || stall; g = a1 && crewNear(ground, a1.x, a1.y, 60, 460, null, R, stand); if(g) face = campDir(a1.x - g.x, a1.y - g.y); }
+    else if(act === 'stall'){ g = stall && crewNear(ground, stall.x, stall.y, 50, 380, null, R, stand); if(g) face = campDir(stall.x - g.x, stall.y - g.y); }
+    else if(act === 'talk'){
+      if(lone){   /* the second of a pair: beside his friend, facing him */
+        g = crewNear(ground, lone.x + room.x + 6, lone.y + 6, 0, 40, null, null, stand) || crewNear(ground, lone.x - room.x - 6, lone.y + 6, 0, 40, null, null, stand);   /* an arm's length past a finger's room */
+        if(g){ pair = lone.pair; partner = true; face = campDir(lone.x - g.x, 0); lone.face = campDir(g.x - lone.x, 0); lone.loop = [lone.face]; lone = null; } }
+      if(!g && !pair){ var c = crowd.length && R() < .5 ? crowd[Math.floor(R() * crowd.length)] : null;   /* with a townsman, facing him */
+        g = c ? crewNear(ground, c.x, c.y, 50, room.x + 80, null, R, stand) : null;
+        if(g) face = campDir(c.x - g.x, (c.y - g.y) * .2);
+        else { var w0 = walls[Math.floor(R() * walls.length)] || mid; g = crewNear(ground, w0.x, w0.y, 80, 700, null, R, stand); pair = 'pair:' + S.place.name + ':' + i; } } }
+    else { var w1 = walls[Math.floor(R() * walls.length)] || mid, need = act === 'sit' ? function(q){ return !leadBlocked(q.x, q.y - 24); } : null;
+      g = crewNear(ground, w1.x, w1.y, 70, 900, function(q){ return wallBelow(q) && (!need || need(q)); }, R, stand) || crewNear(ground, w1.x, w1.y, 70, 1400, need, R, stand);
+      face = ['S', 'SE', 'SW'][Math.floor(R() * 3)]; }
+    if(!g) g = crewNear(ground, mid.x, mid.y, 0, 1e6, null, R, stand);
+    if(!g && room.y > 60){ room = crewRoom(false); ground = crewGround(taken, room); g = crewNear(ground, mid.x, mid.y, 0, 1e6, null, R, stand); }
+    if(!g) return;   /* no ground left: he is in the town, just not on this picture's open ground (the gate measures it) */
+    take(g);
+    var jx = Math.round((R() - .5) * 16), jy = Math.round((R() - .5) * 10), x = g.x, y = g.y;
+    var jg = {x:x + jx, y:y + jy};
+    if(!leadBlocked(jg.x, jg.y, 4) && !taken.slice(0, -1).some(function(t){ return crewTooClose(t, jg, room); }) && !crewRowed(jg, stand)){ x = jg.x; y = jg.y; }   /* off the grid by a hand, still on the ground, still in his room */
+    var e = {crewMan:true, n:i, name:m.name, look:m.look, act:act, clip:CREW_CLIP[act] || 'wait', x:x, y:y, face:face, loop:[face], beat:i % 4, ph:0, pair:pair, partner:partner, since:0};
+    if(act === 'talk' && pair && !partner) lone = e;
+    stand.push(e); });
+  if(lone){ lone.pair = null; }   /* a talker left alone talks to the street */
+  return {stand:stand, walk:walk};
+}
+function crewKey(){ return crewTown().map(function(m){ return m.look; }).join(',') + ':' + Math.floor(buildDay()); }
+/* ==== end __YOUR_CREW_LIVES_IN_THE_TOWN__ ==== */
 /* where the crowd stands when the stall's front is not open ground (10/23: in COOK's 3D towns the block south-east of the
    stall comes up to y 556 to 680, so a crowd under the stall stood on its roof; NOBODY WALKS ON A WALL OR A ROOF): the open
    sand west of the stall, read by eye off the picture */
@@ -1141,7 +1262,7 @@ var CROWD_AT = {'town_0.webp': {x:905, y:742}, 'town_1.webp': {x:905, y:742}};
 function folkList(){
   if(S.camp) return campFolk();   /* __THE_CAMP__: your own men round the fire, nobody else */
   if(!VAR || !GANG_LOOKS.length) return [];
-  var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',') + ':' + Math.round(view.s * 100);
+  var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',') + ':' + Math.round(view.s * 100) + ':' + crewKey() + ':' + !!walkBlocks();   /* __YOUR_CREW_LIVES_IN_THE_TOWN__ */
   if(VAR.folkKey === key) return VAR.folk;
   var R = rng(seedOf(S.place.name + ':folk')), hand = dealt(), out = [];
   ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
@@ -1159,6 +1280,7 @@ function folkList(){
   pm.forEach(function(r, i){ var lq = CROWD_LOOPS[(i + 2) % CROWD_LOOPS.length];
     out.push({post:true, k:'hall', rid:r.id, look:r.look, clip:'wait', face:lq[0], loop:lq, beat:(i + 1) % 4,
       x:hb[0] + (i + .5) * (hb[2] - hb[0]) / pm.length, y:Math.min(picH()-4, hb[3] + 16 + (i % 2) * 18), ph:0}); });
+  var cf = crewFolk(out); VAR.crewWalk = cf.walk; out = out.concat(cf.stand);   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: his company among them */
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
 }
@@ -1196,7 +1318,7 @@ function busyCount(){
 }
 function busyList(){
   var B = window.BohemiaRigBodies; if(!VAR || !B || !B.canWalk || S.camp) return [];
-  var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
+  var folk0 = folkList(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + VAR.folkKey;   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the crew's walkers with the folk */
   if(VAR.busyKey === key) return VAR.busy;
   var lanes = busyLanes(), hand = dealt(), folk = folkList(), R = rng(seedOf(S.place.name + ':busy')), out = [], onLane = {};
   var pool = hand.slice(ORDER.length + (CROWD_BASE.town || 5) + 7).filter(function(l){ return B.canWalk(l); }), n = busyCount();
@@ -1213,6 +1335,7 @@ function busyList(){
     var li = i % lanes.length, ln = lanes[li], rd = rounds[li], j = onLane[li] = (onLane[li] || 0) + 1;
     out.push({busy:true, slot:i, look:pool[i], y:ln.y + (j - 1) * 6 - 6, a:rd.a, b:rd.b, face:ln.face, stop:rd.stop, lane:li, j:j - 1, ph:R()});
   }
+  (VAR.crewWalk || []).forEach(function(w){ w.j = onLane[w.lane] = (onLane[w.lane] || 0) + 1; w.j--; out.push(w); });   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: his men who walk the paths, spread round each lane with the town's own */
   out.forEach(function(w){ var m = onLane[w.lane]; if(m > 1) w.ph = (w.j + .1) / m; });
   VAR.busyKey = key; VAR.busy = out; return out;
 }
@@ -1292,9 +1415,14 @@ var IDLE_BY_CLIP = { look:['look','roll','strap','scratch'], lean:['lean','smoke
   wait:null, greet:['look','roll','stretch','strap'] };
 var IDLE_DUSK = {};
 function idlePerson(p, now, k, s, H){   /* his idle picture as a draw, laid in depth with everybody else; null: his still */
-  var I = window.BohemiaIdles; if(!I || !I.has(p.look)) return null;
-  var f = Math.max(0, I.DIRS.indexOf(turnOf(p, now)));
-  var q = I.frame(p.look, 'settle:' + S.place.name + ':' + (p.keeper ? p.k : p.post ? 'p' + p.rid : 'c' + p.slot), now, f, { set: 'bare', idles: IDLE_BY_CLIP[p.clip] || null });
+  var I = window.BohemiaIdles; if(!I) return null;
+  var f = Math.max(0, I.DIRS.indexOf(turnOf(p, now))), q = null;
+  /* __YOUR_CREW_LIVES_IN_THE_TOWN__: one of yours does his activity (ANIMATION's cell) when his pictures are in */
+  if(p.crewMan && I.activity) q = I.activity(p.look, 'crew:' + S.place.name + ':' + (p.name || p.look), now, f, {act:p.act, n:p.n, pair:p.pair || undefined, partner:p.partner || undefined, since:p.since});
+  if(q){ p.doing = 'activity'; }
+  else if(p.crewMan) p.doing = I.has(p.look) ? 'idle' : 'still';
+  if(!q && !I.has(p.look)) return null;
+  if(!q) q = I.frame(p.look, 'settle:' + S.place.name + ':' + (p.keeper ? p.k : p.post ? 'p' + p.rid : 'c' + p.slot), now, f, { set: 'bare', idles: IDLE_BY_CLIP[p.clip] || null });
   if(!q) return null;
   p.idle = q.kind;
   return function(){
@@ -1766,7 +1894,7 @@ function draw(){
    who in the crowd he passes; and the hour, the open sheet, the beat. The people you tap are never in it: they stand and say
    their own line when you tap them, through the shell's one voice */
 function heardInput(now){
-  var B = window.BohemiaRigBodies, L = (B && B.walk && !view.noBusy) ? busyList() : [], pH = picH() || 1;
+  var B = window.BohemiaRigBodies, L = (B && B.walk && !view.noBusy) ? busyList().filter(function(w){ return !w.crewMan; }) : [], pH = picH() || 1;   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: his men walk, they do not work the town's jobs */
   var walkers = L.map(function(w){ var a = busyAt(w, now);
     return {slot:w.slot, look:w.look, x:view.ox + a.x*view.s, py:w.y/pH, lane:w.lane, walking:a.walking != null ? a.walking : null,
       working:a.working != null ? a.working : null, end:a.walking != null ? null : (Math.abs(a.x - w.b) < 1 ? 'b' : 'a'), stop:w.stop, drawn:!!B.walk(w.look)}; });
@@ -1877,7 +2005,7 @@ function askCrowd(p){
 }
 function openPerson(p, said){
   try{ leadToPerson(p); }catch(e){}   /* __THE_WALK_UP__: he walks up to the man you tapped while the talk opens */
-  if(p.campMan){ campMan(p); return; }   /* __THE_CAMP__: one of yours */
+  if(p.campMan || p.crewMan){ campMan(p); return; }   /* __THE_CAMP__ and __YOUR_CREW_LIVES_IN_THE_TOWN__: one of yours, on the crew screen */
   if(p.keeper){ openB(p.k); return; }
   if(p.post){ openB('hall'); var hc = document.querySelector('#sbody .hire[data-id="' + p.rid + '"]'); if(hc){ hc.classList.add('picked'); try{ hc.scrollIntoView({block:'nearest'}); }catch(e){} } return; }
   S.open = 'person'; S.person = p;
@@ -3079,7 +3207,7 @@ window.BohemiaSettlement = {_ground:function(x, y){ var G = walkGrid(), n = G &&
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

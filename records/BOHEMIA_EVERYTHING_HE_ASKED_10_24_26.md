@@ -181,3 +181,10 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 163 | (said again) The food icon shows the water bottle next to the can, both plainly seen | 240 | UI, EYES | 
 | 164 | The clinic shows the debuff and the days, not just the price, and makes clear it halves the days AND halves the debuff | 241 | CAMP, EYES | 
 | 165 | (said again) If I lose a fight badly I can close the browser, reopen it and restart the fight, any time before the map; the loot screen counts as the fight | 233(h), 241(d) | CAMP, EYES | 
+| 166 | At the stall I can sell my supplies too (meds, rounds, food and water, tape), with buy and sell prices from the economy chat | 242 | ECONOMY, RUN TWO, EYES | 
+| 167 | The map is the best of Valheim's and Battle Brothers'; bosses change the map and the world around me | 243 | WORLD TWO, RUN, WORLD, DYNASTY, EYES | 
+| 168 | OPTIMIZE LOOT on the end-of-fight screen: with a full stash it swaps my cheapest stuff for the more valuable loot | 244 | RUN FOUR, EYES | 
+| 169 | The end-of-fight screen is never black: behind it, my men looting the bodies, walking between them, talking about what's next, dimmed | 245 | RUN FOUR, ANIMATION, EYES | 
+| 170 | Every face on screen breathes and moves a little; a badly wounded man reacts to his wound | 246 | PORTRAIT, EYES | 
+| 171 | (his word) He loves the Crashbox HBO animation style: keep going, more animation everywhere | 246(e) | ANIMATION, COOK, MOTION | 
+| 172 | Stats in my order everywhere: HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale, initiative, so I can scan the stars; behind each number a bar to the most possible (said again) | 247, 223 | UI THREE, TUNING, EYES | 
