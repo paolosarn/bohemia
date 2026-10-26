@@ -1,5 +1,5 @@
 # COOK [the camp grows] (CAMP TWO's NOTE) + rule 289(e): THE CAMP'S PIECES THROUGH THE MASTER RIG, AND A CAMP TRAILER
-# BUILT 10/26, NOT YET SEEN (rule 179)
+# SHIPPED 10/26 304e0bed, BUILT, NOT YET SEEN (rule 179)
 
 ## THE ASK
 CAMP TWO 10/26 (its NOTE on COOK's board): 'The camp's pieces (three tents, the fire's six keys, the bedroll, the supplies, the
@@ -46,6 +46,8 @@ records/target/master_rig/cook_camp_trailer/. kit.json camp_trailer_rig names it
   They are the rig's light, the same light as the cart, the pickup and the trailer drawn beside them in the camp (side by side
   on the camp's sand with the truck and the cart: records/target/cook_camp_rig/the_camp_numpy_left_rig_right.jpg, every piece:
   every_piece_numpy_left_rig_right.jpg). One look in the camp, not two.
+- CAMP TWO's own gate on the live camp screen with the new sheet, phone upright, sideways and a computer: THE CAMP IS HIS OWN 42/0
+  (the turn's glide, the phone's corners, every follower's piece, the pitch).
 - Gate THE CAMP THROUGH THE RIG 5/0; it bites: a foot moved 20 px, a fire key one px wider, the trailer's entry gone and a sheet
   that does not name the rig each failed it.
 

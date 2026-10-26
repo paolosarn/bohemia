@@ -30,7 +30,7 @@ two renders at once ran out of the session's 14.3 GB and were killed four times 
 Renders run about 15 minutes a town (day and night).
 GATES: EVERY TOWN SCREEN ITS OWN (the wide half), EVERY TOWN TALL AND WIDE (both ways), EVERY ENEMY READS AT NIGHT, THE STRIP READS AS
 THE STRIP.
-- THE CAMP THROUGH THE RIG (CAMP TWO's NOTE, rule 289(e)) SHIPPED <CAMPSHA>: CAMP TWO's 35 camp pieces (its own meshes) through the
+- THE CAMP THROUGH THE RIG (CAMP TWO's NOTE, rule 289(e)) SHIPPED 304e0bed: CAMP TWO's 35 camp pieces (its own meshes) through the
   master rig into slices/camp_two/kit.png + kit.json (same keys, feet checked against the footprints), and a 4 x 7 ft camp trailer in
   eight facings (records/target/master_rig/cook_camp_trailer/, kit.json camp_trailer_rig). tools/bohemia_cook_the_camp_through_the_rig_
   10_26_26.py (/tmp/v/bin/python). Gate THE CAMP THROUGH THE RIG 5/0. Honest: fewer colours than the numpy recipe (median 1,266 to
