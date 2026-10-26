@@ -75,6 +75,22 @@ def dress(name):
             return built(nm, outdir)
         CH.build = build
     CH._HER.add(name.upper())
+    # HER MOUTH (10/26, seen on her first renders): the head every person wears paints the lips a step darker than the skin, a
+    # dark block under the nose that read as a moustache on her; hers are the rust ramp at her skin's own step (redder at the
+    # same brightness) and two steps narrower, set on PORTRAIT's head as the barber builds it (PORTRAIT's file never written)
+    import bohemia_portrait_the_head_from_the_model as PM
+    if not getattr(PM, '_HER', None):
+        PM._HER = set(); made = PM.build
+        def head(key, out, *a, **k):
+            if key.upper() in PM._HER and key in PM.PEOPLE:
+                P = PM.PEOPLE[key]; c = dict(P.get('colours') or {}); sk = c.get('skin') or ('skin_deep', 3)
+                c['lips'] = ('clay_rust', max(1, min(2, int(sk[1]) if not isinstance(sk[0], int) else 2))); P['colours'] = c
+                B = json.load(open(os.path.join(ROOT, 'records/target/character/BOHEMIA_THE_BARBERS_BOOK.json')))
+                FD = {x['key']: x for x in B['face_dials']}; f = dict(P.get('face') or {})
+                f['mouth.w'] = max(FD['mouth.w']['lo'], f.get('mouth.w', FD['mouth.w']['default']) - 2); P['face'] = f
+            return made(key, out, *a, **k)
+        PM.build = head
+    PM._HER.add('BARBER_' + name.upper())
 
 
 def finish(pid):
