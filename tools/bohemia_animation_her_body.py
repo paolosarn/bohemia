@@ -281,6 +281,42 @@ def walk_sheets_her():
     finally: os.remove(path); R2.ROLL = full
 
 
+def map_her():
+    """RUN TWO's bake() on the women alone: her map sheet (slices/rig_mix, twelve a sheet, the map's crowds and his party
+    marker read it) laid in her gang's pool after the men's sheets, the way bake() names them (the women are last in the roll,
+    so a whole bake later deals the same sheet); no man's sheet is baked again"""
+    import bohemia_run2_no_two_people_alike as R2
+    import bohemia_bake_the_rig_cast as BK
+    od = os.path.join(ROOT, 'slices/rig_mix'); ip = os.path.join(od, 'index.json')
+    ix = json.load(open(ip))
+    hers = [R2.who(p) for p in women()]
+    HERS = set(q['look'] for q in hers)
+    for g in sorted(set(q['gang'] for q in hers)):
+        qs = [q for q in hers if q['gang'] == g]
+        pool = ix['pools'].setdefault(g, [])
+        for name in [n for n in pool if all(l in HERS for l in ix['sheets'][n])]:   # her own sheets of a run before
+            pool.remove(name); del ix['sheets'][name]
+            for ext in ('.png', '.json'):
+                if os.path.exists(os.path.join(od, name + ext)): os.remove(os.path.join(od, name + ext))
+        assert not any(l in HERS for n in pool for l in ix['sheets'][n]), 'a sheet holds her beside a man: bake the gang whole'
+        for c in range(0, len(qs), 12):
+            name = g if not pool else '%s_%d' % (g, len(pool) + 1)
+            looks = [q['look'] for q in qs[c:c + 12]]
+            BK.SET = dict(looks=looks, src=R2.frames_of, png=os.path.join(od, name + '.png'), json=os.path.join(od, name + '.json'),
+                          what="RUN TWO [no two people alike] 10/23: the %s, every man his own roll of CHARACTER's pieces, rendered on the rig, one row per person and turn" % g,
+                          frm=R2.OUT + '/person_<id> (tools/bohemia_run2_no_two_people_alike.py)')
+            BK.GANGS = looks
+            BK.bake()
+            meta = json.load(open(BK.SET['json'])); meta['people'] = qs[c:c + 12]
+            with open(BK.SET['json'], 'w') as f:
+                json.dump(meta, f, indent=1); f.write('\n')
+            pool.append(name); ix['sheets'][name] = looks
+            print('MAP', name, looks)
+    with open(ip, 'w') as f:
+        json.dump(ix, f, indent=1); f.write('\n')
+    R2.index()
+
+
 def idles_her(pids=None):
     """the idles' own steps for her (ANIMATION [everybody idles]): her bare idles and her gun-held idles rendered on her own
     model (person_idles, carry_one: her build through the hook), then the idles' people_pack run on her alone: it would
@@ -363,5 +399,6 @@ if __name__ == '__main__':
     elif cmd == 'make': [make_her(p) for p in (a or [q['id'] for q in women()])]
     elif cmd == 'fight-pack': fight_pack_her()
     elif cmd == 'walk-sheets': walk_sheets_her()
+    elif cmd == 'map': map_her()
     elif cmd == 'idles': idles_her(a or None)
     else: sys.exit('roll | make [pid..] | fight-pack | walk-sheets | walk <in.glb> [out.glb] | finish <pid> | preview <out.png> [her] [him]')

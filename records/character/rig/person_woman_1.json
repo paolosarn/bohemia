@@ -1,0 +1,259 @@
+{
+ "look": "PERSON_WOMAN_1",
+ "shape": "person_woman_1: a person of the Body, his own skin skin_mid 2, VESTMENT GOLD SHIRT under GRASS WRAP COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "VESTMENT GOLD SHIRT",
+  "legs": "WIDE PLEAT TROUSER",
+  "feet": "SANDWALKERS",
+  "outer": "GRASS WRAP COAT",
+  "back": "RUCK PACK",
+  "neck": "PATINA SCARF",
+  "outfit": [
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": -1.4,
+  "belly": -0.45,
+  "shoulders": -1.3,
+  "hips": 2.0
+ },
+ "layers": {
+  "base": {
+   "under": "WRAP COAT",
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_woman_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.5996,
+ "real_height_for_rig": 1.6052,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_woman_1_shoe": 2508,
+  "person_woman_1_shirt": 71284,
+  "person_woman_1_collar": 1536,
+  "person_woman_1_collar_points": 180,
+  "person_woman_1_placket": 162,
+  "person_woman_1_buttons": 204,
+  "person_woman_1_cuffs": 2048,
+  "person_woman_1_tail": 2016,
+  "person_woman_1_coat": 69244,
+  "person_woman_1_coat_skirt": 6048,
+  "person_woman_1_collar.001": 1536,
+  "person_woman_1_belt": 1792,
+  "person_woman_1_wrap_edge": 198,
+  "person_woman_1_knot": 68,
+  "person_woman_1_trouser": 43706,
+  "person_woman_1_sole_1": 242,
+  "person_woman_1_sole_0": 242,
+  "person_woman_1_strap_1_0": 90,
+  "person_woman_1_strap_1_1": 90,
+  "person_woman_1_strap_0_0": 90,
+  "person_woman_1_strap_0_1": 90,
+  "person_woman_1_ankle_strap": 2048,
+  "person_woman_1_ruck_pack_pack": 98,
+  "person_woman_1_ruck_pack_flap": 26,
+  "person_woman_1_ruck_pack_pocket": 26,
+  "person_woman_1_ruck_pack_straps": 252,
+  "person_woman_1_ruck_pack_chest_strap": 90,
+  "person_woman_1_ruck_pack_buckle": 34,
+  "person_woman_1_patina_scarf": 3072,
+  "person_woman_1_patina_scarf_tail": 162,
+  "person_woman_1_patina_scarf_fringe": 54,
+  "person_woman_1_hair": 17968,
+  "person_woman_1_hand_L": 392,
+  "person_woman_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_woman_1_ankle_strap": [
+   0.1356,
+   0.0704,
+   0.0203
+  ],
+  "person_woman_1_belt": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_woman_1_buttons": [
+   0.3813,
+   0.2623,
+   0.0723
+  ],
+  "person_woman_1_coat": [
+   0.2016,
+   0.4508,
+   0.0999
+  ],
+  "person_woman_1_coat_skirt": [
+   0.2016,
+   0.4508,
+   0.0999
+  ],
+  "person_woman_1_collar": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_woman_1_collar_points": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_woman_1_cuffs": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_woman_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_woman_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_woman_1_knot": [
+   0.0545,
+   0.1878,
+   0.013
+  ],
+  "person_woman_1_patina_scarf": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_woman_1_patina_scarf_fringe": [
+   0.0242,
+   0.0685,
+   0.0452
+  ],
+  "person_woman_1_patina_scarf_tail": [
+   0.063,
+   0.1651,
+   0.1095
+  ],
+  "person_woman_1_placket": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_woman_1_ruck_pack_buckle": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
+  "person_woman_1_ruck_pack_chest_strap": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_woman_1_ruck_pack_flap": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_woman_1_ruck_pack_pack": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_woman_1_ruck_pack_pocket": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_woman_1_ruck_pack_straps": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_woman_1_shirt": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_woman_1_shoe": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_woman_1_shoes": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_woman_1_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_woman_1_sole_0": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_woman_1_sole_1": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_woman_1_strap_0_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_woman_1_strap_0_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_woman_1_strap_1_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_woman_1_strap_1_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_woman_1_tail": [
+   0.8469,
+   0.6795,
+   0.2918
+  ],
+  "person_woman_1_trouser": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_woman_1_trousers": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_woman_1_wrap_edge": [
+   0.0545,
+   0.1878,
+   0.013
+  ]
+ }
+}

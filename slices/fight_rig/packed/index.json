@@ -727,6 +727,30 @@
 "fill": 0.192,
 "packedMB": 4.02
 },
+"person_woman_0.webp": {
+"bytes": 232442,
+"decodedMB": 17.69,
+"fill": 0.164,
+"packedMB": 3.4
+},
+"person_woman_1.webp": {
+"bytes": 266192,
+"decodedMB": 17.69,
+"fill": 0.176,
+"packedMB": 3.55
+},
+"person_woman_2.webp": {
+"bytes": 251306,
+"decodedMB": 17.69,
+"fill": 0.165,
+"packedMB": 3.44
+},
+"person_woman_3.webp": {
+"bytes": 255514,
+"decodedMB": 17.69,
+"fill": 0.169,
+"packedMB": 3.48
+},
 "tier_poacher.webp": {
 "bytes": 255868,
 "decodedMB": 15.86,
@@ -765,8 +789,8 @@
 }
 },
 "totals": {
-"decodedMB": 2584.1,
-"packedMB": 418.9,
-"sheets": 127
+"decodedMB": 2654.8,
+"packedMB": 432.8,
+"sheets": 131
 }
 }

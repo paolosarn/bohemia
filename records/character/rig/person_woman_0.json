@@ -1,0 +1,261 @@
+{
+ "look": "PERSON_WOMAN_0",
+ "shape": "person_woman_0: a person of the Body, his own skin skin_deep 3, WHITE TEE",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WHITE TEE",
+  "legs": "CUTOFF DENIM SHORTS",
+  "feet": "WHITE SNEAKERS",
+  "gear": "WORK SUSPENDERS",
+  "outfit": [
+   "an open ROLLED FLANNEL over the WHITE TEE"
+  ],
+  "mid": "ROLLED FLANNEL"
+ },
+ "dials": {
+  "height": -1.4,
+  "belly": -0.45,
+  "shoulders": -1.3,
+  "hips": 2.0
+ },
+ "layers": {
+  "base": {
+   "under": "mid",
+   "arms_covered": true
+  },
+  "mid": {
+   "role": "mid",
+   "lift": 0.012,
+   "open": true,
+   "ohw": 0.05
+  },
+  "outer": {}
+ },
+ "model": "records/character/rig/person_woman_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.5996,
+ "real_height_for_rig": 1.6052,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_woman_0_shoe": 3500,
+  "person_woman_0_shirt": 38928,
+  "person_woman_0_collar": 1536,
+  "person_woman_0_hem": 1792,
+  "person_woman_0_trouser": 21202,
+  "person_woman_0_fly": 70,
+  "person_woman_0_front_pockets": 100,
+  "person_woman_0_seat_pockets": 252,
+  "person_woman_0_seat_seams": 252,
+  "person_woman_0_sole_1": 242,
+  "person_woman_0_midsole_1": 242,
+  "person_woman_0_sole_0": 242,
+  "person_woman_0_midsole_0": 242,
+  "person_woman_0_tongue_1": 98,
+  "person_woman_0_laces_1": 200,
+  "person_woman_0_heel_1": 90,
+  "person_woman_0_tongue_0": 98,
+  "person_woman_0_laces_0": 200,
+  "person_woman_0_heel_0": 90,
+  "person_woman_0_work_suspenders": 308,
+  "person_woman_0_work_suspenders_spine": 70,
+  "person_woman_0_work_suspenders_buttons": 68,
+  "person_woman_0_mid_shirt": 57622,
+  "person_woman_0_mid_collar": 1536,
+  "person_woman_0_mid_collar_points": 180,
+  "person_woman_0_mid_front_edge": 396,
+  "person_woman_0_mid_roll": 2048,
+  "person_woman_0_mid_tail": 1818,
+  "person_woman_0_hair": 17968,
+  "person_woman_0_hand_L": 392,
+  "person_woman_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_woman_0_collar": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_woman_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_woman_0_fly": [
+   0.0176,
+   0.0319,
+   0.0823
+  ],
+  "person_woman_0_front_pockets": [
+   0.0176,
+   0.0319,
+   0.0823
+  ],
+  "person_woman_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_woman_0_heel_0": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_woman_0_heel_1": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_woman_0_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_woman_0_laces_0": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_woman_0_laces_1": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_woman_0_mid_collar": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_0_mid_collar_points": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_0_mid_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_woman_0_mid_front_edge": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_0_mid_roll": [
+   0.3185,
+   0.0762,
+   0.0497
+  ],
+  "person_woman_0_mid_shirt": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_0_mid_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_woman_0_mid_tail": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
+  "person_woman_0_mid_tail_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_woman_0_midsole_0": [
+   0.9131,
+   0.8879,
+   0.8228
+  ],
+  "person_woman_0_midsole_1": [
+   0.9131,
+   0.8879,
+   0.8228
+  ],
+  "person_woman_0_seat_pockets": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "person_woman_0_seat_seams": [
+   0.1248,
+   0.2122,
+   0.4233
+  ],
+  "person_woman_0_shirt": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_woman_0_shoe": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_woman_0_shoes": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_woman_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_woman_0_sole_0": [
+   0.0232,
+   0.0212,
+   0.0194
+  ],
+  "person_woman_0_sole_1": [
+   0.0232,
+   0.0212,
+   0.0194
+  ],
+  "person_woman_0_tongue_0": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_woman_0_tongue_1": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_woman_0_trouser": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "person_woman_0_trousers": [
+   0.0423,
+   0.0802,
+   0.1946
+  ],
+  "person_woman_0_work_suspenders": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_woman_0_work_suspenders_buttons": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_woman_0_work_suspenders_spine": [
+   0.0382,
+   0.0343,
+   0.0382
+  ]
+ }
+}

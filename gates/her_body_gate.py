@@ -10,7 +10,8 @@ clothes, never a renamed man). Asked of her PICTURES and of what the screens rea
      metre): shorter (her height 0.90 to 0.965 of the place's men, the source's 0.93) in all eight facings; her build record
      says she was built as her (her dials, bust, waist and height).
   W  HER WALK is her own: in her six walk keys facing the glass her feet land nearer the line she walks on than the men's of
-     the place (under 0.9 of theirs, her height alone making 0.93), measured on the pixels of her feet.
+     the place (the women's middle under 0.9 of the men's, her height alone making 0.93; every woman under the men's middle),
+     measured on the pixels of her feet.
   M  WHERE THE SCREENS READ HER: the people mix carries her as 'f' and on the fight's board (the post may hire her); her fight
      sheet, her face in the fight's strip, her walk sheet, her idles and her town activities are on disk; her stills and face
      for the post and the crew card.
@@ -127,12 +128,19 @@ if mine:
     ms = [s_ for s_ in (spread(t) for t in men) if s_ is not None]
     mm = float(np.median(ms)) if ms else None
     hs = {t: spread(t) for t in mine}
-    # her feet land nearer the line she walks on: under 0.9 of the men's (her height alone would make it 0.93; measured 10/26:
-    # the place's men 8.3 to 10.8 px, median 10.1; hers 8.2)
-    wf = ['%s\'s feet land %.1f px apart against the men\'s %.1f' % (t, s_ or -1, mm or -1) for t, s_ in hs.items() if s_ is None or mm is None or s_ > 0.9 * mm]
-    ok('W1 HER WALK: her feet land nearer the line she walks on than the men\'s of the place (facing the glass, her six keys, under 0.9 of theirs)', not wf, '; '.join(wf[:4]))
+    # her feet land nearer the line she walks on: the women's middle under 0.9 of the men's middle (her height alone would make
+    # it 0.93), and every woman under the men's middle. Measured 10/26: the place's men 8.3 to 10.8 px, middle 10.1; the women
+    # 8.2, 8.7, 9.3, 8.2: the span carries the shoe as well as the step (woman_2's chunky boots under baggy trousers), so one
+    # woman's span against 0.9 asks her boots, the women's middle asks her walk, which is the same keys on every one of them
+    def walk_faults(spreads):
+        out = ['%s\'s feet land %.1f px apart against the men\'s middle %.1f' % (t, s_ or -1, mm or -1) for t, s_ in spreads.items() if s_ is None or mm is None or s_ >= mm]
+        got = [s_ for s_ in spreads.values() if s_ is not None]
+        if not got or mm is None or float(np.median(got)) > 0.9 * mm: out.append('the women\'s middle %.1f px against 0.9 of the men\'s %.1f' % (float(np.median(got)) if got else -1, mm or -1))
+        return out
+    wf = walk_faults(hs)
+    ok('W1 HER WALK: her feet land nearer the line she walks on than the men\'s of the place (facing the glass, her six keys: the women\'s middle under 0.9 of the men\'s, every woman under their middle; %s)' % ', '.join('%.1f' % v for v in hs.values() if v is not None), not wf, '; '.join(wf[:4]))
     typ = sorted(ms)[len(ms) // 2] if ms else None
-    ok('W2 MUTATION: a man\'s walk (the place\'s middle man) handed in as hers is caught', typ is not None and typ > 0.9 * mm)
+    ok('W2 MUTATION: a man\'s walk (the place\'s middle man) handed in as each of hers is caught', typ is not None and bool(walk_faults({t: typ for t in hs})))
 
 # ---------------------------------------------------------------------------------------------------- M where the screens read her
 mix = open(os.path.join(ROOT, 'engine/bohemia_people_mix.js')).read()

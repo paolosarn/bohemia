@@ -63,6 +63,16 @@ THE PLAYER: engine/bohemia_idles.js, __THE_TOWNS_ACTIVITIES__:
 - I started the ten company renders on a source that was not final (the seat, then the on-the-way poses): stopped them and
   rendered again from the final source; about 25 CPU minutes lost. The first man's render is the one that found the seat.
 
+## WHERE IT STANDS
+- LIVE: all eleven of his company (person_town_0 to 8, 10 and 11, the fight's people_looks.crew) and YOU, every activity, every
+  pose, eight facings: 72 sheets, about 600 pictures a man (rendered 4 at a time, about 25 minutes a man of one core).
+- YOU is a fight look: his town cells are placed from his fight sheet's foot, the point his idles are drawn from (his soles 8
+  px under it, the fight's tile point), so he steps from his idle into an activity with no jump; the gate's ground for him is
+  his own bare idle's soles (caught by the gate on his first pack, the pictures were right and the ruler was wrong).
+- The rest of the hall (the men at the post, the crowd) idles as before; a hired man who is not one of the eleven gets his
+  activities when he is rendered (tools/bohemia_animation_the_towns_activities.py people <looks>, then pack).
+- THE WOMEN: her body is on the same rig, so the same source lays on her unchanged ([a few women at the post]).
+
 ## GATE
 THE TOWN'S ACTIVITIES (gates/the_towns_activities_gate.py, in the suite): S the source; E the envelope on the posed joints,
 every slot into every next, eight facings; E3 the feet stay put, sitting too; P the pictures (every pose, eight facings, the

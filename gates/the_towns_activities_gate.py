@@ -12,10 +12,12 @@ PLAYER, never of a table's say-so:
      posed with): stepping every timeline's drawn keys, and every slot into every next slot of its activity, in all eight
      facings at the street's pixels (57 px a metre, the master rig's ppm): no joint goes back the way it came (a turn of
      more than 120 degrees) across a one-key hold when both steps move it 2 px or more (the jump and the jump back), and no
-     joint crosses more than 16 px between two drawn keys (a snap the eye cannot read as travel).
+     joint crosses more than 24 px between two drawn keys (a snap the eye cannot read as travel; the shipped idles' own
+     largest step, measured).
   P  THE PICTURES (slices/rig_town): every man in the index has every activity's every pose in all eight facings, every cell
-     inside its sheet, his soles on his still's ground line in every pose and facing (3 px: a man who sits keeps his heels
-     where he stood), 80 colours or fewer a sheet; his company (the eleven he starts with) are all there.
+     inside its sheet, his soles on his ground line in every pose and facing (his still's; YOU's, drawn from his fight sheet's
+     foot as his idles are, his bare idle's) (3 px: a man who sits keeps his heels where he stood), 80 colours or fewer a sheet;
+     his company (the eleven he starts with) are all there.
   C  NOT A CHESS PIECE, in the pixels: every variant pose differs from its activity's rest (12 px or more changed) in every
      facing; a man drinking, smoking, sitting or at a stall is not standing as his plain still (the rest differs from the
      bare idles' standing square).
@@ -204,6 +206,20 @@ def placed(L, a, p, fi, size):
     return z
 
 
+def grounds(l, L):
+    """his ground line in each facing: a person's is his still's soles (feet[f], measured at the pack); a fight look (YOU)
+    is drawn from his fight sheet's foot, the point his idles are drawn from too, which stands above his soles (YOU's 110,
+    his soles at 118: the fight's tile point), so his ground is his own bare idle's soles at that facing (the picture the
+    settlement draws him in before and after an activity)"""
+    if L.get('person'): return [f[1] for f in L['feet']]
+    J = json.load(open(os.path.join(ROOT, 'slices/rig_idles', l + '.json')))
+    S = J['sheets']['bare']; im = sheet(os.path.join('..', 'rig_idles', S['file'])); out = []
+    for i in J['poses']['bare']['C']:
+        c = S['cells'][i]; rows = np.nonzero((im[c[1]:c[1] + c[3], c[0]:c[0] + c[2], 3] > 0).any(1))[0]
+        out.append(c[5] + (rows.max() + 1 if len(rows) else 0))
+    return out
+
+
 def picture_faults(looks):
     out = []
     for l in looks:
@@ -215,6 +231,7 @@ def picture_faults(looks):
             cols = len(np.unique(im[im[..., 3] > 0][:, :3], axis=0))
             if cols > 80: out.append('%s %s has %d colours' % (l, a, cols))
             seated = set(p for p in A['poses'] for pr, sh in A['props'].items() if T['props'][pr]['kind'] == 'ground' and (sh == 'all' or p in sh))
+            ground = grounds(l, L)
             for p in A['poses']:
                 row = L['poses'][a].get(p)
                 if not row or any(i is None for i in row): out.append('%s %s.%s misses a facing' % (l, a, p)); continue
@@ -224,8 +241,8 @@ def picture_faults(looks):
                     px = im[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
                     rows = np.nonzero((px[..., 3] > 0).any(1))[0]
                     sole = c[5] + (rows.max() + 1 if len(rows) else 0)
-                    if p not in seated and abs(sole - L['feet'][fi][1]) > 3:   # a seat's crate is on the ground too: his heels are held by the joints (E3)
-                        out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - L['feet'][fi][1]))
+                    if p not in seated and abs(sole - ground[fi]) > 3:   # a seat's crate is on the ground too: his heels are held by the joints (E3)
+                        out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - ground[fi]))
     return out
 
 

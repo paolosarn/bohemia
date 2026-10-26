@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON woman_2",
+ "tag": "person_woman_2",
+ "bank": {
+  "kind": "person",
+  "gang": "Body"
+ },
+ "worn_by": "Body, rolled",
+ "model": "records/character/rig/barber_person_woman_2.glb",
+ "body": "records/character/rig/person_woman_2.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  205,
+  160,
+  115
+ ],
+ "model_top_m": 1.5337,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.6053,
+ "pieces": {
+  "barber_box_braids_scalp": 53322,
+  "barber_box_braids_braids": 91920
+ },
+ "her": "ANIMATION [a few women at the post]: her height (the barber's x 0.93), her shape and her walk (records/target/animation/BOHEMIA_HER_BODY.json)"
+}
