@@ -1,4 +1,4 @@
-RUN TWO (run-two, the town screen, the shop, the crew's gear): 10/26 LATEST -- BUILD 10/26zze - THE TOWN TURNS WITH YOU.
+RUN TWO (run-two, the town screen, the shop, the crew's gear): 10/26 LATEST -- BUILD 10/26zzr - THE TOWN TURNS WITH YOU (1bdccfd8 + 8787e93e on main).
 All BUILT, NOT YET SEEN (rule 179) unless said.
 
 SHIPPED THIS SESSION (in order, each on the board with its sha):
@@ -10,7 +10,7 @@ SHIPPED THIS SESSION (in order, each on the board with its sha):
 - [the smith mends] 406e098e (rule 277): MEND YOUR GEAR at the smith, the armourer and a camp's GUNS AND PLATE, ECONOMY's
   mendPrice, an hour on the map's clock.
 - [the town fits the screen] + [the town frames around the phone] + [pinch out to the map] + [the towns wired tall and wide] +
-  [the company takes his own name] + [the Lone Wolf gets Recover]: this ship (see the board for the sha).
+  [the company takes his own name] + [the Lone Wolf gets Recover]: 1bdccfd8 (+ 8787e93e, the walk-up gate's fresh frame box).
 
 WHAT IS LIVE IN THE TOWN SCREEN (slices/BOHEMIA_SETTLEMENT_SCREEN.html, marked blocks):
 - __THE_TOWN_FITS_THE_SCREEN__: the whole town fitted to the open area (the glass less UI TWO's BOH_PHONE_RECT band); nothing
@@ -19,7 +19,8 @@ WHAT IS LIVE IN THE TOWN SCREEN (slices/BOHEMIA_SETTLEMENT_SCREEN.html, marked b
   composition with ITS hotspots/boxes/doors/look; townOk() holds back a composition whose doors stand inside its walls (Reds'
   wide, its smith); spreadFolk() (nobody on anybody), plates off other buildings and bodies (signRect), leadHome off people.
 - __THE_FLIP_GLIDES__: flipCheck() at the end of layout(); flipSnap/flipDraw/flipPeople; a beat from MOTION's clock, Material's
-  standard curve, a stall never skips more than a twelfth; LESS = a dissolve; BohemiaSettlement.flip() for gates (log, trace).
+  standard curve, a stall never skips more than a twelfth; LESS = a dissolve; COOK's towns[name].glide pairs (every building and
+  landmark, both spots) when both sides are the town's own; flipRegion puts him on ground joined to his goal; BohemiaSettlement.flip().
 - __PINCH_OUT_TO_THE_MAP__: two fingers zoom to zoom_max, together shrink the town over the map, let go past 0.75 leaves.
 - walkGrid: a wall stays a wall under a standing man (fortress_0's clinic corner).
 

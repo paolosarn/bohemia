@@ -1,3 +1,10 @@
+RUN TWO (run-two): 10/26 LATEST -- BUILD 10/26zzr - THE TOWN TURNS WITH YOU (1bdccfd8): the whole town fitted around the phone, two
+fingers out to the map, every home base its own TALL picture held up and WIDE on its side, a turn glides every building to its new
+spot; the new game's crew name takes typing; the Lone Wolf's door gives him Recover. All BUILT, NOT YET SEEN. The whole block:
+handoffs/RUN_TWO.md (rule: each lane's block in handoffs/).
+[bb Battle Brothers' town is one still panorama; ours turns with the phone.]
+[analog horror: the ground slips out of focus on a turn like a tape finding its tracking.]
+
 COMBAT TWO (combat2-camera): 10/26 LATEST -- [the fight frames around the phone] and [the fight's camera follows the fight] SHIPPED 6585e7a4, BUILT, NOT YET SEEN (rules 288(b)(c)(d), 230(a), 213(c)(e); BUILD 10/26zzi - THE FIGHT AS CLOSE AS IT CAN BE):
 the fight frames into the open area clear of the phone and lands on the tightest frame of every fighter plus a tile, tightening as the fight draws together (the man 1.8 rows of
 his ground at every zoom, so he is drawn bigger), a touch his until his next man's turn; gate THE FIGHT AS CLOSE AS IT CAN BE 51/0. NEXT: the AUTO rows marked FOR COMBAT TWO
