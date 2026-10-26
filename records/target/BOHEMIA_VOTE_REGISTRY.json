@@ -15748,7 +15748,7 @@
    "id": "camp-the-camp-stops-at-full-10-26",
    "kind": "ui",
    "lane": "camp",
-   "sha": "@SHA@",
+   "sha": "e673ad95",
    "made": "10/26",
    "title": "CAMP STOPS ON ITS OWN WHEN EVERYBODY IS HEALED: THE GAME PAUSES AND ONE OF YOUR MEN SAYS YOU'RE READY",
    "why": "You used to camp and have to watch the bar, and the camp ran on for days after everyone was fine. Now, the hour every man is at 99 percent health and armour, the camp closes by itself, the clock goes on pause, and one of your men says it out loud. You see it on the RUN tab: get hurt in a fight, then press the phone's HEAL.",
