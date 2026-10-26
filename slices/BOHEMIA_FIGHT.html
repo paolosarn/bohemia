@@ -1128,10 +1128,39 @@ const FIGHT = (function () {
     }
     return false;
   }
+  /* AN EARLY RETREAT GETS OUT (COMBAT [an early retreat gets out], rule 256, Paolo 10/26: 'if I retreat immediately at the
+     beginning of the battle, most of the time I should be able to escape... things that can traverse farther than a human should
+     start back a couple tiles... in Battle Brothers every time I retreated I watched my people run tile to tile and they always
+     made it, they got that head start'). MEASURED BEFORE (300 rolled fights, RETREAT the moment his first man was up): his line
+     stood on column 7 of 20 (ours.start_cols), six or seven tiles from any edge where a man runs four a turn, and theirs on 12:
+     FOUR tiles between, where the wiki has 'at least 5 hexes between parties' and 'human forces cannot close to melee distance
+     within 1 round' (rules.json deployment): a man of theirs who acted first ran four and stood beside him, and every step away
+     drew a free swing; 82% of his men got out, 54% against beasts, and in 130 of the 300 a man of theirs struck on his own first
+     turn. NOW (b) his front column stands a man's run on flat ground less ours.early_retreat.edge_margin_tiles from his edge, and
+     five tiles stand between the fronts (the wiki's gap, so nobody closes to melee in round one); (a) placeBack: a man of theirs
+     who runs farther in a turn than a man does starts that many tiles farther back. After: 99.9% out, beasts 100%, no melee blow
+     on anyone's first turn (records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md) */
+  function startCols() {
+    const c = R('ours.start_cols'), run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat'));
+    const ours = Math.max(1, Math.min(c[0], run - R('ours.early_retreat').edge_margin_tiles));
+    return [ours, ours + Math.max(c[1] - c[0], R('deployment.min_gap_between_lines_hexes') + 1)];   /* five tiles BETWEEN the fronts, as the wiki's 'at least 5 hexes between parties' */
+  }
+  function placeBack(units) {
+    const run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat'));
+    units.forEach(function (u) {
+      const extra = Math.floor(u.apTurn / R('ap.move_cost.flat')) - run; if (extra <= 0) return;
+      let best = null, bd = Infinity;
+      for (let x = Math.min(S.w - 1, u.x + extra); x > u.x && !best; x--) for (let y = 0; y < S.h; y++) {
+        if (!passable(x, y) || unitAt(x, y)) continue;
+        const d = Math.abs(y - u.y); if (d < bd) { bd = d; best = { x: x, y: y }; }
+      }
+      if (best) { u.x = best.x; u.y = best.y; }
+    });
+  }
   function setup(opts) {
     opts = opts || {};
     const G = DB.ground;
-    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = R('ours.start_cols'); S.crop = null;
+    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = startCols(); S.crop = null;
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
     S.flat = !!opts.flat;   /* a test board: the deal's blocks drawn, every tile open flat ground, no cover, no lamps */
     S.power = opts.power !== false;   /* rule 73: the lamps burn only where the block has power; the map hands it over */
@@ -1159,7 +1188,7 @@ const FIGHT = (function () {
     }
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.firstBlow = 0; S.lastHitBy = {};
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.firstBlow = 0; S.lastHitBy = {};
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -1198,6 +1227,7 @@ const FIGHT = (function () {
     deployCrew(crewUnits, cols[0], -1, kept);
     S.formation = formationNow();
     place(bandUnits, cols[1], 1);
+    placeBack(bandUnits);   /* rule 256(a): the fast ones start back by their extra run */
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
     S.deploy = !opts.auto && opts.deploy !== false;
@@ -2322,6 +2352,16 @@ const FIGHT = (function () {
      difficulty' and names no number: ours has none until TUNING finds one. A retreat ends lost (no pay), never a wipe. */
   function onEdge(u) { return u.x === 0 || u.y === 0 || u.x === S.w - 1 || u.y === S.h - 1; }
   function getOut(u) { u.fled = true; u.escaped = true; emit({ t: 'fled', id: u.id, retreat: true }); }
+  /* RETREAT FROM THE LINEUP, ALWAYS (rule 253, Paolo 10/26: 'in the lineup menu, that's super important, I should be able to
+     retreat from the lineup, before the enemy, no matter what, end of story... not like I take the first turn if I press
+     retreat'). On the lineup nobody has moved, so it is no run for the edge: the fight ends at once, WITHDREW: no turn, no free
+     hit, nobody hurt, nothing spent, nothing looted, no pay; the map takes him back before it (the shell's door) */
+  function withdraw() {
+    if (S.over || !S.deploy) return false;
+    S.over = true; S.withdrew = true; S.result = 'withdrew'; S.allFlee = false;
+    emit({ t: 'over', result: 'withdrew', withdrew: true });
+    return true;
+  }
   function retreat() {
     if (S.over || S.deploy || S.retreat) return false;
     S.retreat = true; emit({ t: 'retreat' });
@@ -3070,7 +3110,7 @@ const FIGHT = (function () {
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
-    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, endFight: endFight, allFleeing: allFleeing, band: band, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
@@ -6289,7 +6329,7 @@ function hud() {
      FIGHT (rule 198(d)) */
   const bf = document.getElementById('bflee'), endIt = FIGHT.allFleeing(), bfT = endIt ? RETREAT_SAYS.endLabel : RETREAT_SAYS.label;
   if (bf.textContent !== bfT) bf.textContent = bfT; bf.classList.toggle('end', endIt);
-  bf.disabled = dep || !!S.over || (!!S.retreat && !endIt) || !S.round;
+  bf.disabled = !!S.over || (dep ? !!UI.auto : (!!S.retreat && !endIt) || !S.round);   /* rule 253: lit on the lineup, AUTO's colour on the tin or not */
   /* the order is the fight's, not a turn's: its ask stays through the turns passing (on AUTO they pass in a second) for
      ours.retreat_ask_beats, then leaves; another line in its place ends it too */
   const bfAsk = endIt ? RETREAT_SAYS.end : RETREAT_SAYS.arm;
@@ -6446,7 +6486,8 @@ const WIPE_SAYS = {   /* draft:true */
   next: 'Somebody drags you to the nearest town. {who} have your men and your gear.'
 };
 const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.', walk: 'Leaves {left} AP: {what} costs {need}.' };   /* draft:true */
-const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.', left: 'Left behind: {names}.' };   /* draft:true */
+const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.', left: 'Left behind: {names}.',
+  backHead: 'YOU PULLED BACK', back: 'Nobody moved. Nobody hurt, nothing spent, nothing taken. No pay.' };   /* draft:true */
 const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead' };   /* draft:true */
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
 function isWipe(result) {
@@ -6506,15 +6547,16 @@ function showOver(result) {
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
   const wiped = !!UI.wipe;
-  const pulled = !wiped && !!S.retreat;
-  document.getElementById('oh').textContent = wiped ? WIPE_SAYS.recap : pulled ? RETREAT_RECAP.head : hauntedFight() && actOne() ? HAUNT_RECAP[result === 'won' ? 'won' : 'lost'] : result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
+  const pulled = !wiped && !!S.retreat, back = result === 'withdrew';
+  document.getElementById('oh').textContent = back ? RETREAT_RECAP.backHead : wiped ? WIPE_SAYS.recap : pulled ? RETREAT_RECAP.head : hauntedFight() && actOne() ? HAUNT_RECAP[result === 'won' ? 'won' : 'lost'] : result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
   const theirs = S.units.filter(function (v) { return v.side === 'them'; });
   let html = wiped ? UI.wipe.lines.concat([UI.wipe.next]).map(function (t, i, a) { return '<p' + (i === a.length - 1 ? ' class="what"' : '') + '>' + t + '</p>'; }).join('') : '';
   if (pulled) { const mine = S.units.filter(function (v) { return v.side === 'you'; }), out = mine.filter(function (v) { return v.escaped; }).length;
     html += '<p class="what">' + wfill(RETREAT_RECAP.line, { out: out, caught: mine.length - out }) + '</p>';
     const left = mine.filter(function (v) { return !v.escaped; }).map(function (v) { return v.name + (v.dead ? ' (dead)' : v.down ? ' (down)' : ''); });
     if (left.length) html += '<p class="what">' + wfill(RETREAT_RECAP.left, { names: left.join(', ') }) + '</p>'; }
-  html += '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
+  if (back) html += '<p class="what">' + RETREAT_RECAP.back + '</p>';   /* rule 253: the lineup left, nothing else to count */
+  else html += '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
     + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
   S.units.filter(function (v) { return v.side === 'you'; }).forEach(function (v) {
@@ -6594,12 +6636,12 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
-  return { type: 'BOHEMIA_FIGHT_OVER', result: result, retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
       main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null,
       /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
       armB: Math.max(0, Math.round(v.armB || 0)), armBMax: v.armBMax || 0, head: v.headRow ? v.headRow.id : null, body: v.bodyRow ? v.bodyRow.id : null }; }),
-    spoils: (function () { try { return spoilsOf(); } catch (_e) { return null; } })() };   /* __THE_SPOILS__ */
+    spoils: result === 'withdrew' ? null : (function () { try { return spoilsOf(); } catch (_e) { return null; } })() };   /* __THE_SPOILS__; rule 253: nothing taken from a lineup left */
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;
@@ -6896,10 +6938,14 @@ document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldC
    glass (it leaves when the turn passes or another line takes its place), and a tap the line asks for always does what it says */
 function askUp(ask, armedAt) { const e = document.getElementById('say'); return !!armedAt && e.style.display !== 'none' && e.textContent === forPointer(ask); }
 const RETREAT_SAYS = { label: 'RETREAT', endLabel: 'END THE FIGHT', arm: 'Retreat? Your men run for the nearest edge. Who reaches it gets out. No pay. Tap again.', go: 'RETREAT. Run for the edge.',
-  end: 'End the fight? Every one of them left is running: they get away, the fight is yours. Tap again.', ran: 'They are running. Run them down, or END THE FIGHT.' };   /* draft:true */
+  end: 'End the fight? Every one of them left is running: they get away, the fight is yours. Tap again.', ran: 'They are running. Run them down, or END THE FIGHT.',
+  withdrew: 'You pull back before anyone moves.' };   /* draft:true */
 document.getElementById('bflee').onclick = function () {
   audio(); const b = this, S = FIGHT.S, endIt = FIGHT.allFleeing(), ask = endIt ? RETREAT_SAYS.end : RETREAT_SAYS.arm;
-  if (S.over || S.deploy || !S.round || (S.retreat && !endIt)) return;
+  if (S.over) return;
+  if (S.deploy) { UI.fleeArm = 0; b.classList.remove('arm'); UI.pend = null; UI.dsel = null; UI.drag = null;   /* rule 253: from the lineup, at once */
+    if (FIGHT.withdraw()) { say(RETREAT_SAYS.withdrew); sfx('ui_tap'); take(); hud(); } return; }
+  if (!S.round || (S.retreat && !endIt)) return;
   if (!UI.fleeArm || !askUp(ask, UI.fleeArm)) { UI.fleeArm = performance.now(); b.classList.add('arm'); say(ask); sfx('ui_tap'); return; }
   UI.fleeArm = 0; b.classList.remove('arm'); UI.pend = null; UI.skillMode = null; UI.back = null;
   if (endIt) { FIGHT.endFight(); take(); hud(); return; }

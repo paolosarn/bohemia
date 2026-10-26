@@ -12684,6 +12684,19 @@ function nfOverIn(d, src){
   var won = d.result === 'won', fell = 0, dead = 0, ran = 0, theirs = 0;
   try{ var S = nfFight(NF.frame.contentWindow).S;
     S.units.forEach(function(u){ if (u.side === 'them') { theirs++; if (u.dead) dead++; if (u.fled) ran++; } else if (u.dead || u.down) fell++; }); }catch(_e){}
+  /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253, a marked block in RUN's shell; the map's door is CAMP's, NOTEd):
+     RETREAT on the lineup ended the fight before anyone moved, so nothing of it is kept (no wound, no laid-up day, no XP, no loot,
+     no pay, no sting) and the map hears WITHDREW, never a loss: never 'back to your last save', never a failed job */
+  if (d && d.result === 'withdrew') {
+    var back = { result: 'withdrew', withdrew: true, victory: false, reason: 'pulled back from the lineup', dead: 0, fled: 0, spared: 0, alive: theirs, fellOfYours: 0, turns: 0, kind: NF.opts && NF.opts.kind };
+    NF.over = back; NF.overWall = Date.now(); G.lastEncounter = back;
+    try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
+    G.combatLog.push({ t: Date.now(), outcome: 'encounter-withdrew', recorded: true, newFight: true }); if (G.combatLog.length > 40) G.combatLog.shift();
+    SPOILS.d = null; SPOILS.left = false; spoilsClose();
+    NF.homeAt = setTimeout(nfHome, nfReadMs());
+    NF.cloudAt = setTimeout(function(){ try { nfcIn(); } catch (_e) {} }, Math.max(0, nfReadMs() - 60000 / 120));
+    return true;
+  }
   var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
     alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;

@@ -45996,6 +45996,10 @@ window.addEventListener('message', function(ev){
   var i = -1; LOOP.held.forEach(function(h, k){ if(h.id === id) i = k; });
   if(i < 0) return;
   var o = d.outcome || {}, won = !!(o.victory || o.result === 'win');
+  /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b), a marked line; CAMP's door, NOTEd): a lineup left is no fight:
+     the job stays held, its clock running */
+  if(o.withdrew){ var lb = 'You pulled back before anyone moved. The job is still yours: ' + LOOP.held[i].title + '.';   /* draft:true */
+    setTimeout(function(){ try{ loopSay(lb); render(); }catch(_e){} }, 600); return; }
   try{ if(window.BohemiaJobKinds && BohemiaJobKinds.owns(LOOP.held[i])){ BohemiaJobKinds.fightEnd(LOOP.held[i], o); return; } }catch(_e){}   /* __EVERY_JOB_KIND__ */
   var line;
   /* WALKING OUT IS NOT THE JOB. The fight lets him leave by the way out and calls that a win
@@ -70429,6 +70433,10 @@ window.addEventListener('message',function(ev){
   /* WON is the explicit flag the shell sends; anything else is not a win. A
      fight that ended some third way is still a thing that HAPPENED to him. */
   var won = !!(o.victory||o.result==='win');
+  /* __PULLED_BACK__ (COMBAT [retreat from the lineup], rule 253(b)(d), a marked line): a lineup left is no loss, so never the
+     reload of the last save and never the plate's tape: nothing happened */
+  if(o.withdrew){ try{ var qw=document.getElementById('qline'); if(qw) qw.textContent='You pulled back before anyone moved.'; }catch(_e){}   /* draft:true */
+    try{ window.__FIGHT_CAME_HOME={won:false,withdrew:true,at:d.at||null}; }catch(_e){} return; }
   /* draft:true -- ALWAYS MAKE AN ATTEMPT (8/11). Real words, written as if they
      ship, his to overwrite. */
   /* __DEATH_IS_A_RELOAD__ (8/22). Yesterday this said "It went badly in there.
@@ -88987,7 +88995,7 @@ window.BOHEMIA_FEED = (function(){
       var cx = ctx(), e = { enemy: fname(fac) || (h.label ? String(h.label).toLowerCase() : null), enemy_faction: fac,
                 count: (h.party && h.party.count) || (((o.dead | 0) + (o.fled | 0) + (o.alive | 0)) || null), town: cx.town,
                 district: h.district || cx.district || null };
-      var how = (won && (o.alive | 0) > 0) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* the way out is fleeing; a wipe is its own story */
+      var how = ((won && (o.alive | 0) > 0) || o.withdrew) ? 'fight.fled' : won ? 'fight.won' : (o.wipe ? 'fight.wipe' : 'fight.lost');   /* __PULLED_BACK__ (COMBAT, rule 253): a lineup left is the way out */   /* the way out is fleeing; a wipe is its own story */
       fire(how, e);
       /* the crew that beat him, or watched him run, says so on its own page */
       if (how !== 'fight.won' && fac) fire('faction.claim', { faction_id: fac, enemy: cx.company ? 'the ' + cx.company : null, town: cx.town, district: e.district });
