@@ -15,10 +15,12 @@ maker (the CHARACTER tab's sliders); no part of it reached a new game.
 Every man the game draws is a whole render: a body (records/target/character/barber/person_<id>), his walk and idles
 (slices/rig_walk, slices/rig_idles), his fight cells (slices/fight_rig), his map sheet (slices/rig_mix) and his HD face
 (.../face/). There is no renderer in the game (no Blender in this box either): a part can not be painted onto a body that does not
-carry it. 55 rolled people have all of it; 11 of them are the company's own; 44 plus the origin's own man ('you') are free: 45.
+carry it (ANIMATION's note on the board: a look is about three machine-hours through the whole chain). 55 rolled people have
+all of it; 11 of them are the company's own; 44 plus the origin's own man ('you') are free: 45.
 Their parts: 6 skins, 20 cuts (with his own), 10 beards (with clean), 8 marks and 6 face pieces (with clean). BUILD: every body
-is on the one master rig (real_dims 0.46 to 0.51 m wide, 1.61 to 1.75 m tall), so there is no build to pick; that waits on
-CHARACTER (NOTE). The ID pass the barber's book names (rig.json id_table: re-tint the hair or skin by material) is the road to
+is on the one master rig (real_dims 0.46 to 0.51 m wide, 1.61 to 1.75 m tall), so a build is a new look: ANIMATION's offer,
+records/target/bb/main_guy_builds.json (LEAN you_lean 0.44 m, SET 'you', BROAD you_broad 0.56 m; ready: false until it renders
+them), and the chair's BUILD row appears by itself once two builds are ready (M8 proves it with a plant). The ID pass the barber's book names (rig.json id_table: re-tint the hair or skin by material) is the road to
 skin and hair colours on any man, once every sheet carries one (NOTE CHARACTER).
 
 ## WHAT IS BUILT
@@ -49,7 +51,8 @@ skin and hair colours on any man, once every sheet carries one (NOTE CHARACTER).
    TWO's ghosts), crewAgain() lays them out again. Nothing is drawn by RUN THREE.
 
 ## GATES
-- NEW gates/make_your_main_guy_gate.js MAKE YOUR MAIN GUY 15/0 in parts (GATE_ONLY=faith | truck,wolf | bench): M1 the chair up
+- NEW gates/make_your_main_guy_gate.js MAKE YOUR MAIN GUY 16/0 in parts (M8 the BUILD row, a plant: no row as shipped, two
+  builds ready and the row holds them, LEAN taken and that body in the mirror) (GATE_ONLY=faith | truck,wolf | bench): M1 the chair up
   before the tape, armed at 1006 to 1019 ms, the tape after GO (three origins); M2 one tap lit COMB OVER and the mirror showed a
   man wearing it, 0 boxes moved, 0 things added; a double tap (the computer: a right click) took DARK and 31 tiles went dim;
   M3 the Faithful (phone) as CHUY and the Lone Wolf (computer) as EL LOBO: the record, the tape's first man, the crew screen's
@@ -60,7 +63,7 @@ skin and hair colours on any man, once every sheet carries one (NOTE CHARACTER).
 - ADDED to gates/your_crew_lives_in_the_town_gate.js: K9 CAMP's call in the town.
 
 ## NOT DONE
-- BUILD: one body for everybody until CHARACTER renders builds (NOTE).
+- BUILD: the row is wired; the bodies are ANIMATION's (main_guy_builds.json, NOTE).
 - Free colours of skin and hair on any man: the ID pass on every sheet (NOTE CHARACTER).
 - The face maker's own dials (PORTRAIT's sliders) stay the bench's: a dial moves a face no body was rendered with.
 

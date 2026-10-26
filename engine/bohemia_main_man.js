@@ -25,7 +25,8 @@
    whole man can wear with it goes dim, never away); a double tap again lets it go. Every man in the mirror is a whole man: the
    parts choose among the men the game has drawn, so the one he takes is the one every screen draws (no part is ever painted on
    a body that does not carry it). BUILD is not a row: every body is on the one master rig (real_dims 0.46 to 0.51 m wide, 1.61
-   to 1.75 m tall, measured), so there is no build to pick until CHARACTER renders one (NOTE on its board).
+   to 1.75 m tall, measured), so the BUILD row stays off until ANIMATION renders the builds listed in
+   records/target/bb/main_guy_builds.json (their note: a build is a whole look) and marks two of them ready.
    NOTHING IN THE FIRST SECOND (the second votes): the barber's lamp is off for the first second, then it flickers on; a tap
    before then does nothing. GO takes the man in the mirror; GO at once keeps the origin's own man (the default).
    ANALOG HORROR at the source: one tube over the chair, flickering on; the mirror is old glass with a crack in it; the tape's
@@ -51,13 +52,24 @@
   function name() { var m = get(); return (m && m.name) || 'YOU'; }
   function put(m) { try { root.localStorage.setItem(KEY, JSON.stringify(m)); } catch (e) {} return m; }
   function clear() { try { root.localStorage.removeItem(KEY); } catch (e) {} }
+  /* BUILDS (ANIMATION's note: a build is a whole look rendered ahead of time): records/target/bb/main_guy_builds.json; a build
+     joins the pool as the origin's own man in another body once ANIMATION marks it ready; every other body is the master rig's SET */
+  var BUILDS = null;
+  function loadBuilds(cb) {
+    if (BUILDS || typeof fetch === 'undefined') { if (cb) cb(BUILDS || []); return; }
+    fetch((root.BOHEMIA_TARGET_BASE || '../records/target/') + 'bb/main_guy_builds.json').then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { BUILDS = (j && j.builds) || []; if (cb) cb(BUILDS); }, function () { BUILDS = []; if (cb) cb(BUILDS); });
+  }
   function pool() {
-    var M = root.BOHEMIA_PEOPLE_MIX, out = [YOU];
-    if (M && M.people) M.people.forEach(function (p) { if (p && p.fight && !p.company && p.look) out.push({ look: p.look, gang: p.gang, skin: p.skin, cut: p.cut, beard: p.beard || null, mark: p.mark || null, face: p.face || null, hat: p.hat || null, sex: p.sex || null }); });
+    var M = root.BOHEMIA_PEOPLE_MIX, set = 'SET', out;
+    (BUILDS || []).forEach(function (b) { if (b && b.look === 'you' && b.label) set = String(b.label); });
+    out = [Object.assign({}, YOU, { build: set })];
+    (BUILDS || []).forEach(function (b) { if (b && b.ready === true && b.look && b.look !== 'you') out.push(Object.assign({}, YOU, { look: String(b.look), build: String(b.label || b.id) })); });
+    if (M && M.people) M.people.forEach(function (p) { if (p && p.fight && !p.company && p.look) out.push({ look: p.look, gang: p.gang, skin: p.skin, cut: p.cut, beard: p.beard || null, mark: p.mark || null, face: p.face || null, hat: p.hat || null, sex: p.sex || null, build: set }); });
     return out;
   }
-  var ROWS = [{ id: 'skin', word: 'SKIN' }, { id: 'hair', word: 'HAIR' }, { id: 'beard', word: 'BEARD' }, { id: 'face', word: 'FACE' }];
-  function partOf(r, m) { return r === 'skin' ? m.skin : r === 'hair' ? m.cut : r === 'beard' ? m.beard : (m.mark || m.face || null); }
+  var ROWS = [{ id: 'skin', word: 'SKIN' }, { id: 'hair', word: 'HAIR' }, { id: 'beard', word: 'BEARD' }, { id: 'face', word: 'FACE' }, { id: 'build', word: 'BUILD' }];
+  function partOf(r, m) { return r === 'skin' ? m.skin : r === 'hair' ? m.cut : r === 'beard' ? m.beard : r === 'build' ? (m.build || null) : (m.mark || m.face || null); }
   function match(r, m, v) { if (r !== 'face') return (partOf(r, m) || null) === v; return v === null ? !m.mark && !m.face : (m.mark === v || m.face === v); }
   function values(P, r) {
     var seen = {}, out = [];
@@ -66,12 +78,15 @@
     if (r === 'hair') { if (P.some(function (m) { return m.cut === 'HIS OWN'; })) add('HIS OWN'); P.map(function (m) { return m.cut; }).filter(function (c) { return c && c !== 'HIS OWN'; }).sort().forEach(add); }
     if (r === 'beard') { add(null); P.map(function (m) { return m.beard; }).filter(Boolean).sort().forEach(add); }
     if (r === 'face') { add(null); P.map(function (m) { return m.mark; }).filter(Boolean).sort().forEach(add); P.map(function (m) { return m.face; }).filter(Boolean).sort().forEach(add); }
+    if (r === 'build') { (BUILDS || []).forEach(function (b) { var v = String(b.label || b.id); if (P.some(function (m) { return m.build === v; })) add(v); }); P.forEach(function (m) { if (m.build) add(m.build); }); }
     return out;
   }
   function tag(v) { return String(v).toLowerCase().replace(/[ -]/g, '_'); }
   function art(r, v) {
     if (r === 'skin') return null;
     if (r === 'hair') return v === 'HIS OWN' ? CREWF + 'you/rest_128.png' : BARBER + tag(v) + '/rig_portrait_S.png';
+    if (r === 'build') { var bl = (BUILDS || []).filter(function (b) { return String(b.label || b.id) === v; })[0], lk = bl && bl.look || 'you';
+      return root.BohemiaRigBodies && root.BohemiaRigBodies.src ? root.BohemiaRigBodies.src(lk, 'S') : null; }   /* the body itself */
     if (v === null) return BARBER + 'home_clippers/rig_portrait_S.png';   /* clean: the barber's man with nothing on his face */
     if (r === 'beard') return BARBER + 'beard_' + tag(v) + '/rig_portrait_S.png';
     return /^FACE /.test(v) ? BARBER + tag(v) + '/rig_portrait_S.png' : BARBER + 'mark_' + tag(v) + '/rig_portrait_S.png';
@@ -187,6 +202,7 @@
     /* the tiles: built once, in place; a tap only changes their classes (rule 250) */
     var TILES = [];
     ROWS.forEach(function (r) {
+      if (r.id === 'build' && values(P, 'build').length < 2) return;   /* one body for everybody: no row until ANIMATION's builds are ready */
       var row = doc.createElement('div'); row.className = 'row'; var b = doc.createElement('b'); b.textContent = r.word; row.appendChild(b);
       var strip = doc.createElement('div'); strip.className = 'strip'; row.appendChild(strip); rows.appendChild(row);
       values(P, r.id).forEach(function (v) {
@@ -196,6 +212,8 @@
         var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
         if (r.id === 'skin') { var sw = SKINS.filter(function (s) { return s[0] === v; })[0]; x.fillStyle = sw ? sw[2] : '#777'; x.fillRect(4, 4, 42, 40);
           x.fillStyle = 'rgba(255,240,210,.12)'; x.fillRect(4, 4, 42, 3); x.fillStyle = 'rgba(0,0,0,.35)'; x.fillRect(4, 41, 42, 3); }
+        else if (r.id === 'build') image(art(r.id, v), function (im) { if (!im) return; var k = Math.min(50 / im.naturalWidth, 48 / im.naturalHeight);   /* the whole body, standing */
+          x.drawImage(im, Math.round((50 - im.naturalWidth * k) / 2), Math.round(48 - im.naturalHeight * k), im.naturalWidth * k, im.naturalHeight * k); });
         else image(art(r.id, v), function (im) { if (!im) return; var hw = im.naturalWidth, own = r.id === 'hair' && v === 'HIS OWN';
           /* the barber's man's head and shoulders: the top of the render, square, his face in the middle */
           var sw = own ? hw : Math.min(hw, im.naturalHeight * .72), sx = (hw - sw) / 2, sy = own ? 0 : 0;
@@ -315,5 +333,5 @@
   }
 
   root.BohemiaMainMan = { KEY: KEY, get: get, look: look, name: name, put: put, clear: clear, pool: pool, ROWS: ROWS, SKINS: SKINS, YOU: YOU,
-    values: values, match: match, partOf: partOf, art: art, make: make, QUIET: QUIET };
+    values: values, match: match, partOf: partOf, art: art, make: make, loadBuilds: loadBuilds, builds: function (list) { if (Array.isArray(list)) BUILDS = list; return BUILDS; }, QUIET: QUIET };
 })(typeof window !== 'undefined' ? window : this);

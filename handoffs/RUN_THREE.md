@@ -14,7 +14,8 @@ WHAT IS LIVE (the demo, a stranger's new game, and any town):
   HAIR, BEARD, FACE as the barber's own part renders; one tap lights a tile and shows the nearest whole man who wears it, a double
   tap (a right click) takes it and dims what no whole man can wear with it, nothing moves (249, 250); NAME and GO at the thumb, GO
   at once keeps the origin's man; dark its first second. The pool: 45 whole men ('you' and 44 rolled people with a body, walk,
-  fight cell, map sheet and face, never one of the company's eleven). No BUILD row (one master rig: CHARACTER's NOTE).
+  fight cell, map sheet and face, never one of the company's eleven). BUILD: records/target/bb/main_guy_builds.json, the row
+  shows itself when ANIMATION marks two builds ready (LEAN, BROAD to render; NOTE ANIMATION).
 - ONE MAN, WRITTEN ONCE: bohemia.main.v1 {look, name, parts, origin, made}; read by the tape (startSquad), the roster (lookFor and
   manOf: the crew screen, the hall, shopCrew), engine/bohemia_condition.js named (the origin's first man for the fight),
   BOHEMIA_FIGHT.html (the first man by the made name only), the town's lead (leadLook) and campSay, the top bar's face
@@ -28,7 +29,7 @@ WHAT IS LIVE (the demo, a stranger's new game, and any town):
 - THE START: the chair, then his squad's tape (each man's head beside his own body moving; a made man of the valley breathes his
   idle), then the closest settlement to the origin's corner; LEAVE is the map at that block.
 
-GATES (this round): NEW MAKE YOUR MAIN GUY 15/0 in parts (GATE_ONLY=faith,truck | wolf,bench); YOUR CREW LIVES IN THE TOWN 10/0 (K9
+GATES (this round): NEW MAKE YOUR MAIN GUY 16/0 in parts (GATE_ONLY=faith,truck | wolf,bench); YOUR CREW LIVES IN THE TOWN 10/0 (K9
 new); THE GAME STARTS IN A TOWN 15/0 in parts; ONLY THE FINAL LOOK 5/0 + 5/0; THE PLACE IN THE DARK 20/0; A FRESH START 8/0; SIGHT
 DOWN THE STREET 6/0; settlement 74/0; roster 15/0; the face is his own 18/0; best recruit 12/0; women 4/0; rare man 10/0; climbing
 17/0; equip from the stash 7/0; formation 23/0; struck down 30/0; the fight on the live path 14/0; the settlement is busy 10/0;

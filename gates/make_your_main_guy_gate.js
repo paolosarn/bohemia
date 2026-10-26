@@ -19,6 +19,8 @@
         screen show the origin's own man
      M5 THE BENCH IS UNTOUCHED: the checkers' valley (the dark lifted) opens with no chair and no record
      M6 nothing threw
+     M8 THE BUILD ROW (a plant, the computer): no row while ANIMATION's builds file has one build ready; with two ready the row
+        holds them and taking one puts that body in the mirror
      M7 AT THE FRONT OF HIS PARTY (263(a), RUN's lead read off the same record): a real tap on LEAVE, the map's lead figure is
         his man (MAP_DREW.youLook), the made one or the origin's own
    node gates/make_your_main_guy_gate.js        (GATE_ONLY=faith,truck,wolf,bench runs a part)
@@ -53,6 +55,7 @@ const rosterFrame = (P) => P.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
         for (let i = 0; i < 160 && !armed; i++) { armed = await P.evaluate(() => { const w = document.getElementById('mainmaker'); return !!w && w.dataset.armed === '1'; }).catch(() => false); if (!armed) await P.waitForTimeout(250); }
         fr = mapFrame(P);
         g.before = await fr.evaluate(() => ({ mm: window.__MAIN_MAKER, tape: !!window.__SQUAD_UP, st: window.__START_IN_TOWN && window.__START_IN_TOWN.maker }));
+        g.shipRow = await P.evaluate(() => !!document.querySelector('#mainmaker .tile[data-row="build"]')).catch(() => null);   /* the builds file as it ships: one ready, no row */
         /* M2: one tap on a hair tile a man of the mirror can wear */
         const rects = () => P.evaluate(() => [...document.querySelectorAll('#mainmaker .tile')].map(t => { const r = t.getBoundingClientRect(); return [t.dataset.row, t.dataset.v, Math.round(r.x), Math.round(r.y), Math.round(r.width), Math.round(r.height)]; }));
         const strips = () => P.evaluate(() => [...document.querySelectorAll('#mainmaker .strip')].map(s => s.scrollLeft));
@@ -127,6 +130,21 @@ const rosterFrame = (P) => P.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
         g.fight = units; g.nf = await P.evaluate(() => ({ e: window.__GATE_NF || null, fr: !!document.getElementById('fightFrame'), h: window.__NF_HANDED || null })).catch(e => String(e));
         if (SHOTS) await P.screenshot({ path: path.join(SHOTS, 'main_guy_fight_' + origin + '.png') });
       }
+      /* M8 THE BUILD ROW (planted: ANIMATION's builds file with one more build ready, a whole man standing in for it): the row
+         appears with the builds that are ready, and taking one puts that body in the mirror; with the file as it ships, no row */
+      if (makes && origin === 'wolf') {
+        await fr.evaluate(() => { const top = window.top.document; BohemiaMainMan.builds([{ id: 'lean', label: 'LEAN', look: 'person_town_9', ready: true }, { id: 'set', label: 'SET', look: 'you', ready: true }, { id: 'broad', label: 'BROAD', look: 'you_broad', ready: false }]);
+          window.__BUILD_DONE = null; BohemiaMainMan.make({ doc: top, origin: 'wolf', onDone: (r) => { window.__BUILD_DONE = r; } }); });
+        for (let i = 0; i < 20; i++) { if (await P.evaluate(() => { const w = document.getElementById('mainmaker'); return !!w && w.dataset.armed === '1'; }).catch(() => false)) break; await P.waitForTimeout(150); }
+        const tiles = await P.evaluate(() => [...document.querySelectorAll('#mainmaker .tile[data-row="build"]')].map(t => t.dataset.v));
+        const lb = await box('#mainmaker .tile[data-row="build"][data-v="LEAN"]');
+        if (lb) await P.mouse.click(lb.x, lb.y, { button: 'right' });
+        await P.waitForTimeout(400);
+        const man = await P.evaluate(() => (document.getElementById('mainmaker') || {}).dataset ? document.getElementById('mainmaker').dataset.man : null);
+        const gb = await box('#mainmaker .go'); if (gb) await tapAt(gb); await P.waitForTimeout(500);
+        g.build = { tiles, man, done: await fr.evaluate(() => window.__BUILD_DONE) };
+        await fr.evaluate(() => BohemiaMainMan.builds([])).catch(() => {});
+      }
       g.errs = d.errs.slice(0, 3);
     } catch (e) { g.err = String(e.message).slice(0, 200); }
     if (d) await d.close();
@@ -154,6 +172,8 @@ const rosterFrame = (P) => P.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
         rec.look === 'you' && rec.name === 'YOU' && rec.made === false && tape0.look === 'you' && tape0.name === 'YOU' && !!main && main.look === 'you' && main.name === 'YOU' && main.drawn > 0, JSON.stringify({ rec, crew: (g.crew || []).slice(0, 2) }));
     }
     ok('*** M7 AT THE FRONT OF HIS PARTY *** (' + g.origin + ', ' + g.profile + '): a real tap on LEAVE and the map\'s lead figure is ' + g.mapLead + ' (RUN\'s __YOUR_MAIN_GUY_LEADS_THE_WALK__)', !!g.mapLead && g.mapLead === (rec.look || 'you'));
+    if (g.build) ok('M8 THE BUILD ROW (planted, ' + g.origin + '): with ANIMATION\'s builds file as it ships no row (' + (g.shipRow ? 'a row' : 'none') + '); two builds ready, the row holds them (' + g.build.tiles.join(', ') + '), a right click takes LEAN and his body is that build\'s (' + g.build.man + ')',
+      g.shipRow === false && g.build.tiles.join() === 'LEAN,SET' && g.build.man === 'person_town_9' && !!g.build.done && g.build.done.look === 'person_town_9', JSON.stringify(g.build));
     ok('M6 nothing threw (' + g.origin + ')', !(g.errs || []).length, (g.errs || []).join(' | '));
   }
   /* M5: the bench's valley */

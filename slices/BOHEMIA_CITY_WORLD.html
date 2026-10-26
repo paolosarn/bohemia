@@ -45380,9 +45380,10 @@ function startInTown(p){
       if (!window.BohemiaMainMan) { S.maker = { failed: 'no chair' }; return then(); }
       S.maker = { began: Date.now(), done: null };
       var men = (CREW_DEFS && CREW_DEFS.men) || [];
-      try { BohemiaMainMan.make({ doc: top, origin: p && p.origin, defaultName: (men[0] && men[0].name) || 'YOU',
+      var make = function(){ try { BohemiaMainMan.make({ doc: top, origin: p && p.origin, defaultName: (men[0] && men[0].name) || 'YOU',
         onDone: function(r){ S.maker.done = Date.now(); S.maker.look = r.look; S.maker.name = r.name; S.maker.made = r.made; then(); } }); }
-      catch (_e) { S.maker.failed = String(_e); then(); }
+      catch (_e) { S.maker.failed = String(_e); then(); } };
+      try { BohemiaMainMan.loadBuilds ? BohemiaMainMan.loadBuilds(make) : make(); } catch (_e) { make(); }   /* ANIMATION's builds first (records/target/bb/main_guy_builds.json) */
     };
     var load = function(k){ if (k >= list.length) return sit(); need(list[k][0], list[k][1], function(){ load(k + 1); }); };
     load(0);
