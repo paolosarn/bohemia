@@ -42839,6 +42839,7 @@ function contactClear(){ CITY_CONTACT_POSTED = false; }
 function roadContactFight(ev){
   var P=roadPartyOf(ev&&ev.id); if(!P) return false;
   if(CITY_CONTACT_POSTED) return false;
+  try{ if(townSafeAt(city.x, city.y)){ window.__TOWN_KEPT_ROAD = (window.__TOWN_KEPT_ROAD | 0) + 1; return false; } }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__ */
   if(typeof INSIDE!=='undefined' && INSIDE) return false;   /* indoors is the door's fight */
   if(!(window.parent&&window.parent!==window)) return false;
   var fac=null; try{ fac=(typeof cityFactionHere==='function')?cityFactionHere():null; }catch(_e){}
@@ -44993,7 +44994,9 @@ function mapStepWorld(){
   mapContact();
 }
 function mapContact(){
-  if(HUNT && huntDist() <= 1){
+  var __safe = (HUNT && huntDist() <= 1) ? townSafeNow() : null;   /* CAMP __A_TOWN_IS_SAFE__: a hunter at a town's edge waits off it */
+  if(__safe){ window.__TOWN_KEPT = { n: ((window.__TOWN_KEPT && window.__TOWN_KEPT.n) | 0) + 1, town: __safe.name, who: HUNT.name, at: [city.x, city.y] }; }
+  else if(HUNT && huntDist() <= 1){
     var H = HUNT; HUNT = null; HUNT_FLEE = null; PARTY_SEL = null; PARTY_CHASE = null;
     var roster = []; for(var i = 0; i < H.count; i++) roster.push({ arch: H.arch });
     var w = [city.x, city.y]; try{ w = roadWhere(); }catch(_e){}
@@ -45753,7 +45756,7 @@ function loopPostOpen(){
     places: (function(){ try{ return window.BohemiaBoardShelf && BohemiaBoardShelf.mapPlaces ? BohemiaBoardShelf.mapPlaces(T.day | 0) : null; }catch(_e2){ return null; } })() }, '*'); }catch(_e){}
 }
 function loopOpenTown(t){
-  LOOP.open = t;
+  LOOP.open = t; try{ TOWN_EXIT = null; }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__: in the town, not at its door */
   try{ if(PHONE_LIT && mapNorm(PHONE_LIT.place) === mapNorm(t.name)){ PHONE_LIT = null; PHONE_LIT_PATH = null; } }catch(_e){}   /* he is there: the light did its job */
   var f = loopFrame(); f.style.display = 'block';
   try{ travelStop(); }catch(_e){}
@@ -45785,6 +45788,24 @@ function campSync(){
 }
 setTimeout(function(){ try{ campSync(); }catch(_e){} }, 0);   /* after the whole file has run (CT_FOLLOWERS is declared further down) */
 function campOnMap(){ try{ return MODE === 'city' && !LOOP.fighting && !(LOOP.frame && LOOP.frame.style.display === 'block') && !MEET.up; }catch(_e){ return false; } }
+/* ==== __A_TOWN_IS_SAFE__ (CAMP [a town is safe], rule 273(a)(b)(d), Paolo 10/26: 'if you are in a settlement with other people you
+   cannot get attacked, so you can always hang out there and heal... a button where time will pass... the entrance territory: if I
+   leave and don't move a single map tile and press camp, it will be the settlement camp style'). A TOWN'S GROUND is its screen and
+   THE TILE HE STANDS ON WHEN HE LEAVES IT by his own LEAVE, until he moves (his words: 'if I leave and don't move a single map tile';
+   the first build took every tile round a town, and since the game starts beside one, every camp and the first road fight became
+   the town's): there no crew reaches or fights his company (a hunter waits off it and gives up; a street crew or a road ambush does
+   not fire) and no camp warning is said. HEAL in a town's screen (the phone's HEAL app) passes the hours there at
+   camp speed with the town's picture staying (his men in it, RUN THREE's); HEAL on its edge opens that town and does the same, never
+   the lone street camp. HEAL again, leaving the town, or every man at 99 (rule 278) ends it. A job's own crew at a gate (WORLD's
+   holders, rule 198(g)) is the job he walked into, not a party reaching him: it stays. ==== */
+var TOWN_EXIT = null;   /* {x, y, town}: where his LEAVE put him; gone the moment he moves or a town opens */
+function townSafeAt(x, y){
+  var E = TOWN_EXIT; if(!E) return null;
+  if((city.x | 0) !== E.x || (city.y | 0) !== E.y){ TOWN_EXIT = null; return null; }   /* he moved: the town is behind him */
+  return ((x | 0) === E.x && (y | 0) === E.y) ? E.town : null;
+}
+function campInTown(){ try{ return (MODE === 'city' && !LOOP.fighting && !MEET.up && LOOP.frame && LOOP.frame.style.display === 'block' && LOOP.open && !LOOP.open.camp) ? LOOP.open : null; }catch(_e){ return null; } }
+function townSafeNow(){ return campInTown() || townSafeAt(city.x, city.y); }
 /* the company as the marker shows it (__THE_MARKER_IS_YOUR_CREW__), with each man's name for the crew screen */
 function campCompany(){
   var names = {}, add = function(m){ if (m && m.look && m.name && !names[m.look]) names[m.look] = String(m.name); };
@@ -45805,29 +45826,36 @@ function campPost(){
     cleared: CAMP.why, condition: campCondition() }, '*'); }catch(_e){}
 }
 function campMake(){
-  if (CAMP.on || !campOnMap()) return false;
+  if (CAMP.on) return false;
+  var inTown = campInTown(), edge = null;   /* CAMP __A_TOWN_IS_SAFE__: in a town's screen, or on its edge */
+  if (!inTown) { if (!campOnMap()) return false; edge = townSafeAt(city.x, city.y); }
   try{ travelStop(); }catch(_e){} try{ travelInterrupt('camp'); }catch(_e){}
   CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0]; CAMP.warned = null;
   try{ var __c0 = campCondition(); CAMP.mending = !!(__c0 && !__c0.done); }catch(_e){ CAMP.mending = false; }   /* CAMP __HEALING_STOPS_ITSELF__ */
   campStale();   /* CAMP __CAMP_HOLDS__: the last fight's contact flag is not an enemy */
-  LOOP.open = { camp: true, name: 'YOUR CAMP', x: city.x | 0, y: city.y | 0 };
-  var f = loopFrame(); f.style.display = 'block';
-  if (LOOP.ready) campPost();
+  CAMP.town = inTown || edge || null;
+  if (edge) { try{ loopOpenTown(edge); }catch(_e){} }   /* __A_TOWN_IS_SAFE__: on its edge, the town's own screen, never the street camp */
+  else if (!inTown) {
+    LOOP.open = { camp: true, name: 'YOUR CAMP', x: city.x | 0, y: city.y | 0 };
+    var f = loopFrame(); f.style.display = 'block';
+    if (LOOP.ready) campPost();
+  }
   clearInterval(CAMP.timer); CAMP.timer = setInterval(campHour, 500);
   try{ if (typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Made camp.', 'camp'); }catch(_e){}   /* draft:true */
-  window.__CAMP = { made: (window.__CAMP && window.__CAMP.made | 0) + 1, on: true };
+  window.__CAMP = { made: (window.__CAMP && window.__CAMP.made | 0) + 1, on: true, town: CAMP.town ? CAMP.town.name : null };
   try{ campBtnPaint(); }catch(_e){}
   return true;
 }
 function campBreak(why, say){
   if (!CAMP.on) return;
   CAMP.on = false; clearInterval(CAMP.timer); CAMP.timer = null; CAMP.why = why || null;
+  var wasTown = CAMP.town ? CAMP.town.name : null; CAMP.town = null;   /* __A_TOWN_IS_SAFE__: a rest in a town leaves him in the town */
   try { if (typeof meetCampBroke === 'function') meetCampBroke(why || 'left'); } catch (_e) {}   /* RUN __MAKE_CAMP_NEARBY__: camped before a still enemy, he walks back into them and the card asks */
   if (LOOP.open && LOOP.open.camp) loopClose();
   campSync();
   if (say) try{ loopSay(say); }catch(_e){}
   try{ saveNow('camp'); }catch(_e){}
-  window.__CAMP = { made: window.__CAMP ? window.__CAMP.made : 0, on: false, why: why || 'left', hours: CAMP.hours, day: T.day, min: T.min };
+  window.__CAMP = { made: window.__CAMP ? window.__CAMP.made : 0, on: false, why: why || 'left', hours: CAMP.hours, day: T.day, min: T.min, town: wasTown };
   try{ campBtnPaint(); }catch(_e){}
 }
 /* ==== __CAMP_HOLDS__ (CAMP [camp holds until he ends it], rule 267(a), Paolo 10/26: 'when I click the camp button it wants to stop
@@ -45849,7 +45877,7 @@ function campSpeaker(){
 }
 var CAMP_BLOCKS = ['Right on us.', 'One block off.', 'Two blocks off.', 'Three blocks off.', 'Four blocks off.', 'Five blocks off.', 'Six blocks off.'];
 function campWarn(lim){
-  if (!HUNT) return null;
+  if (!HUNT || CAMP.town || townSafeAt(city.x, city.y)) return null;   /* __A_TOWN_IS_SAFE__: no warning on a town's ground */
   var d = huntDist(); if (d > lim) return null;
   if (CAMP.warned && CAMP.warned.id === HUNT.id && CAMP.warned.dist <= d) return null;   /* said once; again only when they come closer */
   var line = HUNT.name + ', coming our way. ' + (CAMP_BLOCKS[d] || (d + ' blocks off.')) + ' We hold the fire.';   /* draft:true */
@@ -45861,10 +45889,14 @@ function campWarn(lim){
 /* one beat: an hour of the valley */
 function campHour(){
   if (!CAMP.on) return;
-  if (LOOP.open && !LOOP.open.camp) { campBreak('travel'); return; }   /* a town's door or a job opened instead: he went */
-  if (!LOOP.open) { campBreak('left'); return; }   /* the camp's frame said leave: his own tap */
+  if (CAMP.town) {   /* __A_TOWN_IS_SAFE__: resting in a town; leaving it ends the rest */
+    if (!LOOP.open || LOOP.open.camp || LOOP.open.name !== CAMP.town.name || !LOOP.frame || LOOP.frame.style.display !== 'block') { campBreak(LOOP.open && LOOP.open.name !== CAMP.town.name ? 'travel' : 'left'); return; }
+  } else {
+    if (LOOP.open && !LOOP.open.camp) { campBreak('travel'); return; }   /* a town's door or a job opened instead: he went */
+    if (!LOOP.open) { campBreak('left'); return; }   /* the camp's frame said leave: his own tap */
+  }
   if (LOOP.fighting || MEET.up) { campBreak('contact'); return; }   /* an enemy reached the camp: the meet card */
-  if (!LOOP.frame || LOOP.frame.style.display !== 'block') {   /* hidden by anything else: the camp stands, shown again */
+  if (!CAMP.town && (!LOOP.frame || LOOP.frame.style.display !== 'block')) {   /* hidden by anything else: the camp stands, shown again */
     try{ if (LOOP.frame) { LOOP.frame.style.display = 'block'; campPost(); } }catch(_e){}
     window.__CAMP_SHOWN_AGAIN = (window.__CAMP_SHOWN_AGAIN | 0) + 1; return;
   }
@@ -45879,7 +45911,7 @@ function campHour(){
     if (MEET.up || LOOP.fighting || (typeof CITY_CONTACT_POSTED !== 'undefined' && CITY_CONTACT_POSTED)) { campBreak('contact'); return; }
     if (!warn) try{ warn = campWarn(lim); }catch(_e){}
   }
-  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition(), warn: warn }, '*'); }catch(_e){}
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition(), warn: warn, town: CAMP.town ? CAMP.town.name : null }, '*'); }catch(_e){}
   campDone();
 }
 /* ==== __HEALING_STOPS_ITSELF__ (CAMP [healing stops itself at full], rule 278(a), Paolo 10/26: 'I camp out, time speeds along, and it
@@ -46031,7 +46063,8 @@ window.addEventListener('message', function(ev){
   LOOP.log.push(d.act);
   if(d.act !== 'contract') loopSettleBats(d.batteries, 'settlement: ' + d.act);
   if(d.act === 'contract') loopTakeContract(d.contract || null);
-  if(d.act === 'leave'){ loopClose(); try{ if(LOOP.held.length) setTimeout(function(){ try{ mapFocusRead(true); mapFitJobs('leave'); }catch(_e){} }, 350); }catch(_e){} }   /* __THE_MAP_FITS_YOUR_JOBS__: out of the town, his jobs in view (a beat's wait: the phone comes back over the map first, and the open area is measured with it) */
+  if(d.act === 'leave'){ try{ if(LOOP.open && !LOOP.open.camp && LOOP.open.name) TOWN_EXIT = { x: city.x | 0, y: city.y | 0, town: { name: LOOP.open.name, x: LOOP.open.x, y: LOOP.open.y, tier: LOOP.open.tier } }; }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__: the tile his LEAVE puts him on */
+    loopClose(); try{ if(LOOP.held.length) setTimeout(function(){ try{ mapFocusRead(true); mapFitJobs('leave'); }catch(_e){} }, 350); }catch(_e){} }   /* __THE_MAP_FITS_YOUR_JOBS__: out of the town, his jobs in view (a beat's wait: the phone comes back over the map first, and the open area is measured with it) */
   try{ saveNow('settlement:' + d.act); }catch(_e){}   /* __THE_SAVE_REMEMBERS__: a hire, a buy, a job taken, the way out */
   try{ if(typeof updHud === 'function') updHud(); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
@@ -76090,6 +76123,7 @@ function streetCrewOnYou(){
 }
 function streetFightOnStep(){
   try{ if(CITY_CONTACT_POSTED) return false; }catch(_e){}   /* V203 __CONTACT_FIGHT__ */
+  try{ if(townSafeAt(city.x, city.y)){ window.__TOWN_KEPT_STREET = (window.__TOWN_KEPT_STREET | 0) + 1; return false; } }catch(_e){}   /* CAMP __A_TOWN_IS_SAFE__ */
   if(typeof INSIDE!=='undefined' && INSIDE) return false;   /* indoors is the door's fight */
   if(!(window.parent&&window.parent!==window)) return false;
   SF_STEPS++;

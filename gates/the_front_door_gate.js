@@ -41,12 +41,12 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
       const bs = [...document.querySelectorAll('#newco button')].filter(b => getComputedStyle(b).display !== 'none');
       const on = k => { const b = document.querySelector('#newco button.on[data-k="' + k + '"]'); return b ? b.getAttribute('data-v') : null; };
       return { fights: bs.filter(b => b.dataset.k === 'combat').length, shelves: bs.filter(b => b.dataset.k === 'econ').length,
-        origins: bs.filter(b => b.dataset.k === 'origin').length, name: (document.getElementById('newconame') || {}).textContent || '',
+        origins: bs.filter(b => b.dataset.k === 'origin').length, name: ((e) => e ? (e.value != null ? e.value : e.textContent) : '')(document.getElementById('newconame')) || '',   /* RUN TWO 10/26 [the company takes his own name]: the name is a box now */
         small: bs.filter(b => { const r = b.getBoundingClientRect(); return r.height < 44 || r.width < 44; }).length,
         on: { combat: on('combat'), econ: on('econ'), origin: on('origin') }, front: getComputedStyle(document.getElementById('front')).display,
         began: !!window.__PLAY_BEGAN };
     });
-    try { await page.evaluate(() => { try { localStorage.removeItem('bohemia.start'); } catch (_e) {} if (window.BOH_START) { BOH_START.state.combat = 'new'; BOH_START.state.econ = 'full'; BOH_START.state.origin = 'newcrew'; BOH_START.state.name = 0; } }); } catch (_e) {}
+    try { await page.evaluate(() => { try { localStorage.removeItem('bohemia.start'); } catch (_e) {} if (window.BOH_START) { BOH_START.state.combat = 'new'; BOH_START.state.econ = 'full'; BOH_START.state.origin = 'newcrew'; BOH_START.state.name = 0; BOH_START.state.typed = ''; } }); } catch (_e) {}
     const before = await look();
     const tap = async (sel) => { const r = await page.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return null; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, sel); if (r) { await page.touchscreen.tap(r.x, r.y); await page.waitForTimeout(250); } return !!r; };
     const n0 = before.name;

@@ -136,6 +136,9 @@ const srv = http.createServer((rq, rs) => {
     let spoke = 0, faced = 0, crowdSaid = 0, blank = [];
     for (let i = 0; i < n; i++) {
       await p.evaluate(() => { const c = document.getElementById('close'); if (c && c.offsetParent) c.click(); }); await p.waitForTimeout(100);
+      /* RE-AIMED 10/26 (RUN TWO [the town fits the screen]): the whole town fitted stands in the middle of an upright glass, so an open
+         sheet lifts it further, and its quarter-second ease back down was still running when the finger's point was read */
+      await p.waitForFunction(() => Math.abs(BohemiaSettlement.lead().lift || 0) < 0.5, null, { timeout: 2000 }).catch(() => {});
       const pt = await p.evaluate(i => { const L = BohemiaSettlement.folk(), q = L[i], v = BohemiaSettlement._view();
         const s0 = BohemiaSettlement.scale(); if (q.keeper) BohemiaSettlement.where(q.k); else BohemiaSettlement.lookAt(q.x, q.y - s0.person * 0.45);   /* RE-AIMED 10/26: the picture fills the phone's height, so a man by the post is brought into view as a drag would */
         const v2 = BohemiaSettlement._view(), r = document.getElementById('scene').getBoundingClientRect();

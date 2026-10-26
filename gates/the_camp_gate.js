@@ -43,7 +43,10 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
        the button is found again and pressed at once, up to four tries (UI TWO 10/26: C5's 'Your company' raced the redraw) */
     const tapEl = async (frame, sel) => { for (let k = 0; k < 4; k++) { const h = await frame.$(sel); if (!h) return false;
         let r = await h.boundingBox(); const V = p.viewportSize();
-        if (r && (r.y < 0 || r.y + r.height > V.height)) { await h.scrollIntoViewIfNeeded().catch(() => {}); r = await h.boundingBox(); }
+        /* RE-AIMED 10/26 BY RUN TWO ([the town fits the screen], rule 213): the sheet stands above the phone's band and scrolls, so a row
+           can be on the glass but scrolled out of its own sheet; it is brought into the sheet first, the way his thumb would */
+        const clipped = await h.evaluate(e => { let a = e.parentElement; const q = e.getBoundingClientRect(); while (a && a !== document.body) { const s = getComputedStyle(a); if (/(auto|scroll|hidden)/.test(s.overflowY)) { const o = a.getBoundingClientRect(); if (q.top < o.top || q.bottom > o.bottom) return true; } a = a.parentElement; } return false; }).catch(() => false);
+        if (r && (clipped || r.y < 0 || r.y + r.height > V.height)) { await h.scrollIntoViewIfNeeded().catch(() => {}); r = await h.boundingBox(); }
         if (r) { await p.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); return true; }
         await p.waitForTimeout(120); }
       return false; };

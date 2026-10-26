@@ -114,7 +114,7 @@ BLOCK = r'''<!-- __THE_SONGS_GO_IN__ (SOUNDS 10/25, rule 207) -->
  if(typeof MUS==='undefined' || typeof KILLMUS==='undefined') return;
  var BOOK=/*BOOK*/{}/*/BOOK*/;
  var SD=0.125, OFF=0.05, TOL=0.004;
- var R=window.SONGBOOK={ book:BOOK, sets:{}, src:null, ring:[], buses:{}, delay:null, queued:null, switches:[], hits:0,
+ var R=window.SONGBOOK={ book:BOOK, sets:{}, src:null, ring:[], buses:{}, delay:null, queued:null, warm:[], switches:[], hits:0,
    fallback:0, steps:0, resync:0, errs:[], decoded:0, dropped:0, rate:null };
 
  function live(){
@@ -214,6 +214,10 @@ BLOCK = r'''<!-- __THE_SONGS_GO_IN__ (SOUNDS 10/25, rule 207) -->
   [R.queued, (R.coming && Date.now()-R.coming.t<8000) ? R.coming : null].forEach(function(q){
    if(!q || !BOOK.songs[q.name] || q.name===n) return;
    var kq=keep[q.name]=keep[q.name]||{}; kq['bytes:level_1']=1; if(!fighting() || q===R.coming){ kq.level_1=1; if(BOOK.songs[q.name].hit) kq.hit=1; } });
+  /* WARM (rule 237, __THE_PART_OF_TOWN__): while a faction song plays on the map (his engine, no recording), the song a fight
+     will take is held ready, its level 1 decoded and its fight levels as bytes, so the fight starts on the recording */
+  (R.warm||[]).forEach(function(w){ if(!BOOK.songs[w] || w===n) return; var kw=keep[w]=keep[w]||{};
+   kw.level_1=1; kw['bytes:level_2']=1; kw['bytes:level_3']=1; if(BOOK.songs[w].hit) kw.hit=1; });
   for(var m in keep){ var s2=setOf(m);
    for(var f in keep[m]){ if(f.indexOf('bytes:')===0){ bytes(s2, f.slice(6)).catch(function(){}); continue; } load(s2, f).catch(function(){}); } }
   for(var m2 in R.sets){ var s3=R.sets[m2];

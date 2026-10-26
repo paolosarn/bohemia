@@ -62,7 +62,10 @@ const srv = http.createServer((rq, rs) => {
   const varOf = async (k, on) => p.evaluate(async ({ k, on }) => {
     BohemiaSettlement.walkers(false); BohemiaSettlement.still(true); BohemiaSettlement.signs(false); BohemiaSettlement.glow(on); BohemiaSettlement.where(k);   /* 10/24: the signs' flicker held too */   /* the walkers and the idles held (10/24: the post's men idle since ANIMATION's round, and their breathing read as light): only the door's own light is read */ await new Promise(r => setTimeout(r, 150));
     const c = document.getElementById('cv'), x = c.getContext('2d'), cr = c.getBoundingClientRect(), dpr = c.width / c.clientWidth, pt = BohemiaSettlement.where(k);
-    const grab = () => { const d = x.getImageData(Math.round((pt.x - cr.left - 20) * dpr), Math.round((pt.y - cr.top - 20) * dpr), Math.round(40 * dpr), Math.round(40 * dpr)).data; let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2]; return s / (d.length / 4); };
+    /* RE-AIMED 10/26 (RUN TWO [the town fits the screen]): the whole town fitted is smaller on an upright glass, so 40 points took in the
+       people round a door as well as the door; the square is the door's own middle, never more than 40 points */
+    const bx = BohemiaSettlement._box ? BohemiaSettlement._box(k) : null, vv = BohemiaSettlement._view(), hs = Math.max(6, Math.min(20, bx ? Math.min(bx[2] - bx[0], bx[3] - bx[1]) * vv.s * .3 : 20));
+    const grab = () => { const d = x.getImageData(Math.round((pt.x - cr.left - hs) * dpr), Math.round((pt.y - cr.top - hs) * dpr), Math.round(2 * hs * dpr), Math.round(2 * hs * dpr)).data; let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2]; return s / (d.length / 4); };
     const a = []; for (let t = 0; t < 10; t++) { a.push(grab()); await new Promise(r => setTimeout(r, 100)); }
     BohemiaSettlement.walkers(true); BohemiaSettlement.glow(true); BohemiaSettlement.signs(true);
     return Math.max(...a) - Math.min(...a);
@@ -76,6 +79,7 @@ const srv = http.createServer((rq, rs) => {
   await p.mouse.click(pt.x, pt.y); await p.waitForTimeout(600);
   const opened = await p.evaluate(() => BohemiaSettlement.state.open);
   await p.evaluate(() => { const c = document.getElementById('close'); if (c && c.offsetParent) c.click(); }); await p.waitForTimeout(300);
+  await p.waitForFunction(() => Math.abs(BohemiaSettlement.lead().lift || 0) < 0.5, null, { timeout: 2000 }).catch(() => {});   /* the town back down from over the sheet */
   const after = await glow('hall'), stillBoard = await glow('board');
   ok('  a door he opened is lit no more, the others still are', opened === 'hall' && after < 1.5 && stillBoard > 2, 'opened ' + opened + ', the post ' + after.toFixed(1) + ', the board ' + stillBoard.toFixed(1));
   await p.reload({ waitUntil: 'load' }); await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
@@ -108,6 +112,7 @@ const srv = http.createServer((rq, rs) => {
       const op = await p.evaluate(() => BohemiaSettlement.state.open);
       taps.push(t + ':' + k + (op === k ? '' : ' opened ' + op));
       await p.evaluate(() => { const c = document.getElementById('close'); if (c && c.offsetParent) c.click(); }); await p.waitForTimeout(250);
+      await p.waitForFunction(() => Math.abs(BohemiaSettlement.lead().lift || 0) < 0.5, null, { timeout: 2000 }).catch(() => {});   /* RE-AIMED 10/26: the fitted town eases back down from over the sheet first */
     }
   }
   ok('H4 THE DOORS NAME THEMSELVES IN PICTURES: the post a pistol, the bar a bottle, COOK\'s 3D renders, drawn at a camp, a town and a fortress', signs.length === 6 && unseen.length === 0 && signs.every(x => /hall=w_pistol|bar=w_bottles/.test(x)), signs.join(' ') + (unseen.length ? ', red ' + unseen.join(' | ') : ''));

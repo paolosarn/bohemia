@@ -25,6 +25,7 @@ const fs = require('fs'), path = require('path'), http = require('http');
 const ROOT = path.dirname(__dirname);
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { openCrew } = require(require('path').join(__dirname, '..', 'tools/bohemia_open_the_crew.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const done = () => { console.log('A TWO-HANDER WEARS ITS OWN NAME: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
@@ -54,6 +55,8 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
     'shared at the shop: ' + (sharedShop.join(', ') || 'none') + '; on the crew screen: ' + (sharedCrew.join(', ') || 'none'));
   ok('T1b UI\'s icon mirror names every row as the shop does', iconOff.length === 0 && names.every(n => n.icon !== null), iconOff.slice(0, 3).map(n => n.id + ' ' + n.icon + ' / ' + n.shop).join('; ') || W.length + ' of ' + W.length);
   /* ---- T2 a two-hander's card at the smith ---- */
+  /* RE-AIMED 10/26 BY RUN TWO ([one tap selects, two taps buy], rule 249(a)): a tap never makes the keeper speak, so the card's word is
+     its big TWO HANDS in the strip (rule 194(b)), no longer his line too */
   let t2 = null;
   for (const [name, tier] of [['NELLIS GATE', 'fortress'], ['BLUE DIAMOND', 'town'], ['PRIMM', 'fortress'], ['HENDERSON', 'town'], ['THE WASH', 'fortress'], ['BOULDER', 'town'], ['MESQUITE', 'fortress'], ['JEAN', 'town']]) {
     await p.evaluate(o => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); BohemiaSettlement.open({ place: { name: o.name, tier: o.tier }, traits: [], day: 4, batteries: 3000 }); }, { name, tier });
@@ -78,7 +81,7 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
     if (t2 && t2.twoCard && t2.one) break;
   }
   ok('T2 a two-hander\'s card at the smith says TWO HANDS in big letters before he buys (a real tap); a one-hander\'s does not',
-    !!t2 && !!t2.twoCard && t2.twoCard.two && t2.twoCard.big >= 18 && /both hands/i.test(t2.twoCard.said) && !!t2.one && !t2.one.two, JSON.stringify(t2));
+    !!t2 && !!t2.twoCard && t2.twoCard.two && t2.twoCard.big >= 18 && (/both hands/i.test(t2.twoCard.said) || t2.twoCard.two) && !!t2.one && !t2.one.two, JSON.stringify(t2));
   /* ---- T5 the words ---- */
   const guns = W.filter(r => (OURS.gun_classes.value || []).indexOf(r['class']) >= 0);
   const lines = await p.evaluate((ids) => ids.map(id => { const it = BohemiaRoster.itemOf('weapon', id), a = BohemiaRoster.armOf(it), l = BohemiaRoster.armLine(it, true), s = BohemiaRoster.armLine(it, false); return { id, lo: a && a.lo, club: a && a.club, long: l && l.reach, short: s && s.reach }; }), guns.map(r => r.id));
@@ -104,8 +107,8 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
       { id: 'wooden_shield', kind: 'shield', name: 'a car door', price: Math.max(1, Math.round(door.value / 10)), nums: 'holds ' + door.durability },
       { id: 'warfork', kind: 'weapon', cls: 'spear', name: nm('warfork'), hands: 2, price: Math.max(1, Math.round(wr('warfork').value / 10)), nums: '' }];
     await fr.evaluate((items) => { localStorage.setItem('bohemia.bag.v1', JSON.stringify(items)); }, items);   /* as the shop sells them (its names, T1) */
-    let tapped = false;
-    for (const f of P.frames()) { const h = await f.$('.crew[role=button]').catch(() => null); if (!h) continue; const bx = await h.boundingBox().catch(() => null); if (!bx) continue; await P.touchscreen.tap(bx.x + bx.width / 2, bx.y + bx.height / 2); tapped = true; break; }
+    let tapped = !!(await openCrew(P, fr));   /* RE-AIMED 10/26 BY RUN TWO: the one CREW is the phone's (UI TWO 52741663e), else the bar's chip */
+    if (!tapped) for (const f of P.frames()) { const h = await f.$('.crew[role=button]').catch(() => null); if (!h) continue; const bx = await h.boundingBox().catch(() => null); if (!bx) continue; await P.touchscreen.tap(bx.x + bx.width / 2, bx.y + bx.height / 2); tapped = true; break; }
     let rf = null; for (let k = 0; k < 50 && !rf; k++) { await P.waitForTimeout(300); rf = P.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
     await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.bag.length >= 3, null, { timeout: 20000 }).catch(() => {});
     await P.waitForTimeout(800);

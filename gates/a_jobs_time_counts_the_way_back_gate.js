@@ -40,7 +40,7 @@ const done = () => { console.log('\nA JOB\'S TIME COUNTS THE WAY BACK: ' + pass 
       const at0 = [city.x, city.y], bs = ctBases() || {}, names = Object.keys(bs).sort(), out = [];
       /* the map's own road and clock, counted here step by step */
       const road = (ax, ay, bx, by, mult) => { if (ax === bx && ay === by) return 0; const p = cityRoute(ax, ay, bx, by); if (!p) return null; let m = 0; for (let i = 1; i < p.length; i++) m += cityStepMins(p[i][0], p[i][1]); return m / (BohemiaJobKinds.pace() || 1) * (mult || 1); };
-      for (let w = 0; w < 8 && out.length < 100; w++) for (let i = 0; i < names.length && out.length < 100; i++) {
+      for (let w = 0; w < 16 && out.length < 100; w++) for   /* rule 255: early boards post fewer jobs, so more windows */ (let i = 0; i < names.length && out.length < 100; i++) {
         const n = names[(i + w * 3) % names.length], b = bs[n], door = townDoor(b.x, b.y) || [b.x, b.y];
         let tier = 'camp'; try { tier = mapTierOf(n) || 'camp'; } catch (e) {}
         const list = BohemiaBoardShelf.pick({ name: n, tier: tier }, 1 + 3 * w, { traits: [], held: [], places: null }) || [];

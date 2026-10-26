@@ -31,9 +31,11 @@
          faction's first phase (ours.enemy_tiers): no Marauder, no leader, for the Block Watch's twelve as for the Lone Wolf
      J10 ONE CALCULATOR, ONE SCALE (rule 254(d)): the page's lines are the AUTO colour's own (ours.odds_colour turn and down_value,
          job_danger.json's copies equal); ONE NUMBER: 60 of the jobs' sure fights replayed here on the page's own hand-over and the
-         page's own dice with the fight's own count (oddsRunValue) give the page's number, within 5 plays (MEASURED 10/26: the
-         fight's own code carries a little from one fight into the next, so the same fight on the same dice moves a play or a few,
-         up to 4.2 seen, with what its copy played before; the AUTO button's copy does the same; COMBAT's, NOTEd), and every job's
+         page's own dice with the fight's own count (oddsRunValue), each on a fresh copy of the rules as the page reads it, IN THE
+         PAGE (the browser's own engine), give the page's number to the last digit (MEASURED 10/26: the fight's own code carries a
+         little from one fight into the next, up to 6.6 plays in 96 on a copy that had played many, so the reader reads each fight on a
+         fresh copy; COMBAT's, NOTEd; and node's engine takes the same dice a little differently, up to 6.8 plays in 96, so node's
+         replay is printed, not held), and every job's
          blood is its number on the AUTO colour's line, exactly; every job's blood is on the side of the turn its 100 fresh plays
          are (clean tin where AUTO is green, blood where it is red) unless they sit within 0.1 of the turn, at most one job in a
          hundred (two samples of the same dice: 96 plays and 100 each wobble about 0.04); every job whose plays lose a man
@@ -55,27 +57,32 @@ async function engine() {
     localStorage: { getItem: k => (ctx.LSV[k] === undefined ? null : ctx.LSV[k]), setItem: () => {}, removeItem: () => {} },
     fetch: u => Promise.resolve({ json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', u), 'utf8'))) }) };
   vm.createContext(ctx);
-  vm.runInContext(grab('fight-data') + '\n' + grab('fight-rules') + '\n' + orv + '\nthis.FIGHT = FIGHT; this.loadAll = loadAll; this.run = oddsRunValue; this.seed = function (v) { SEED = v >>> 0; };', ctx);
+  vm.runInContext(grab('fight-data') + '\n' + grab('fight-rules') + '\n' + orv + '\nthis.FIGHT = FIGHT; this.DB = DB; this.loadAll = loadAll; this.run = oddsRunValue; this.seed = function (v) { SEED = v >>> 0; };', ctx);
   await ctx.loadAll();
+  /* a fresh copy of the rules for each fight, as the page reads them (the fight carries a little from one fight into the next) */
+  const body = grab('fight-data') + '\n' + grab('fight-rules') + '\n' + orv + '\nreturn { F: FIGHT, DB: DB, run: oddsRunValue, seed: function (v) { SEED = v >>> 0; } };';
+  const MK = vm.runInContext('(function (b) { return new Function(b); })', ctx)(body);
+  ctx.fresh = () => { const F = MK(); Object.keys(ctx.DB).forEach(k => { F.DB[k] = ctx.DB[k]; }); return F; };
   return ctx;
 }
 async function replay(file, out) {
   const E = await engine(), jobs = JSON.parse(fs.readFileSync(file, 'utf8')), res = [];
   for (const j of jobs) {
     E.LSV = { 'bohemia.fight.formation.v1': j.formation || null };
+    const X = E.fresh(), FIGHT_ = X.F;   /* a fresh copy of the rules for each job */
     let literal = 0, worth = 0, plays = 0, fights = 0, deaths = 0, wiped = 0, lostMan = 0;
     for (let k = 0; k < j.plays; k++) {
       const dice = seedOf('verify:' + j.key + ':' + k); let r = dice, lit = true, w = 1, died = false, wipe = false, lose = false;
       const roll = () => { r = (r + 0x6D2B79F5) >>> 0; let t = r; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
       for (let fi = 0; fi < j.fights.length; fi++) {
         const f = j.fights[fi]; if (f.p < 1 && roll() >= f.p) continue;
-        E.seed(seedOf('verify:' + j.key + ':' + k + ':' + fi));
-        E.FIGHT.setup(JSON.parse(JSON.stringify(f.opts)));
-        let g = 0; while (!E.FIGHT.S.over && g <= 6000) { const v = E.FIGHT.current(); if (!v) break; E.FIGHT.aiStep(v); E.FIGHT.S.events = []; g++; }
+        X.seed(seedOf('verify:' + j.key + ':' + k + ':' + fi));
+        FIGHT_.setup(JSON.parse(JSON.stringify(f.opts)));
+        let g = 0; while (!FIGHT_.S.over && g <= 6000) { const v = FIGHT_.current(); if (!v) break; FIGHT_.aiStep(v); FIGHT_.S.events = []; g++; }
         fights++;
-        const v = E.FIGHT.S.over ? E.run(E.FIGHT) : 0; w *= v;   /* the AUTO button's count of this fight */
-        const mine = E.FIGHT.S.units.filter(u => u.side === 'you');
-        if (mine.some(u => u.dead)) died = true; if (E.FIGHT.S.result !== 'won' && mine.every(u => u.dead || u.down || u.fled)) wipe = true;
+        const v = FIGHT_.S.over ? X.run(FIGHT_) : 0; w *= v;   /* the AUTO button's count of this fight */
+        const mine = FIGHT_.S.units.filter(u => u.side === 'you');
+        if (mine.some(u => u.dead)) died = true; if (FIGHT_.S.result !== 'won' && mine.every(u => u.dead || u.down || u.fled)) wipe = true;
         if (v === 0) lose = true;   /* a man dead, or the fight lost */
         if (v !== 1) lit = false;
         if (v === 0) break;   /* the trip is worth nothing from here: the rest cannot move it */
@@ -162,6 +169,16 @@ const CREWS = [
           R.fights.forEach(f => { const Q = P[f.fk]; if (f.p < 0.25 || seen[f.fk] || !Q || !Q.opts || out.length >= 12) return; seen[f.fk] = 1;
             out.push({ fk: f.fk, runs: Q.runs, sum: Q.sum, seed: Q.seed, steps: Q.steps, formation: Q.formation, opts: Q.opts, c: f.clean, job: x.id + '@' + x.place }); }); });
         return out; }, got);
+      /* J10's same dice, IN THE PAGE (the browser's own engine, as the reader's worker): each sure fight replayed on a fresh copy of
+         the rules, the page's own hand-over (cloned as a worker gets it) and dice, the fight's own count */
+      for (const x of sure) {
+        x.inPage = await fr.evaluate(async (fk) => { const Q = BohemiaJobDanger.played()[fk]; if (!Q || !Q.opts) return null;
+          const X = BohemiaJobDanger.fresh(), o = typeof structuredClone === 'function' ? structuredClone(Q.opts) : JSON.parse(JSON.stringify(Q.opts)); let sum = 0;
+          for (let n = 0; n < Q.runs; n++) { X.seed((Q.seed + n * 7919) >>> 0); X.F.setup(o);
+            let g = 0; while (!X.F.S.over && g <= Q.steps) { const v = X.F.current(); if (!v) break; X.F.aiStep(v); X.F.S.events = []; g++; }
+            sum += X.F.S.over ? X.run(X.F) : 0; if (n % 8 === 7) await new Promise(r => setTimeout(r, 0)); }
+          return sum; }, x.fk).catch(() => null);
+      }
       sure.forEach(x => { x.crew = C.id; SURE.push(x); });
       console.log('  ...' + C.id + ' (' + Math.round((Date.now() - tc) / 1000) + ' s): ' + rows.length + ' jobs read, ' + [1, 2, 3].map(s => rows.filter(r => r.stars === s).length + ' at ' + s).join(', ') + (all ? '' : ' (TIMED OUT)'));
     }
@@ -263,7 +280,7 @@ const CREWS = [
     /* J10's first half, off the page: the lines it reads with and the count its worker plays */
     scale = await fr.evaluate(() => ({ cfg: JSON.parse(JSON.stringify(BohemiaJobDanger.cfg())), orv: null, okRun: null })).catch(() => null);
     if (scale) { const src = fs.readFileSync(path.join(ROOT, 'slices/bohemia_job_danger.js'), 'utf8');
-      scale.orv = /oddsRunValue\(FIGHT\)/.test(src) && /E\.run\(E\.F\)/.test(src); scale.okRun = /function okRun|okRun\(/.test(src); }
+      scale.orv = /run: oddsRunValue \}/.test(src) && /E\.run\(E\.F\)/.test(src); scale.okRun = /function okRun|okRun\(/.test(src); }
     await d.close();
 
     /* ---------- the replay: each job 100 times with fresh dice, in node ---------- */
@@ -311,12 +328,12 @@ const CREWS = [
     /* J10: one calculator, one scale (rule 254(d)) */
     const E = await engine(), same = [];
     for (const x of SURE.slice(0, 60)) {   /* the page's own plays, again: its hand-over, its dice, the fight's own count */
-      E.LSV = { 'bohemia.fight.formation.v1': x.formation }; const o = JSON.parse(JSON.stringify(x.opts)); let sum = 0;
-      for (let n = 0; n < x.runs; n++) { E.seed((x.seed + n * 7919) >>> 0); E.FIGHT.setup(o);
-        let g = 0; while (!E.FIGHT.S.over && g <= x.steps) { const v = E.FIGHT.current(); if (!v) break; E.FIGHT.aiStep(v); E.FIGHT.S.events = []; g++; }
-        sum += E.FIGHT.S.over ? E.run(E.FIGHT) : 0; }
-      same.push({ fk: x.fk, crew: x.crew, job: x.job, runs: x.runs, page: x.sum, here: sum }); }
-    const differ = same.filter(x => Math.abs(x.page - x.here) > 5), exact = same.filter(x => Math.abs(x.page - x.here) < 1e-9);
+      E.LSV = { 'bohemia.fight.formation.v1': x.formation }; const o = JSON.parse(JSON.stringify(x.opts)), X = E.fresh(); let sum = 0;
+      for (let n = 0; n < x.runs; n++) { X.seed((x.seed + n * 7919) >>> 0); X.F.setup(o);
+        let g = 0; while (!X.F.S.over && g <= x.steps) { const v = X.F.current(); if (!v) break; X.F.aiStep(v); X.F.S.events = []; g++; }
+        sum += X.F.S.over ? X.run(X.F) : 0; }
+      same.push({ fk: x.fk, crew: x.crew, job: x.job, runs: x.runs, page: x.sum, inPage: x.inPage, here: sum }); }
+    const differ = same.filter(x => x.inPage == null || Math.abs(x.page - x.inPage) > 1e-9), exact = same.filter(x => Math.abs(x.page - x.here) < 1e-9);
     const SIDE = 0.1, sides = [], lose = [], drawn = [];
     const bloodAt = v => Math.max(0, Math.min(1, (TURN - v) / Math.max(1e-6, TURN - DOWNV)));   /* a number on the AUTO colour's line */
     read.filter(j => j.measured != null).forEach(j => { const green = j.measured >= TURN;
@@ -328,10 +345,11 @@ const CREWS = [
     const lineOk = !!scale && scale.orv && !scale.okRun && Math.abs(scale.cfg.cut_one - TURN) < 1e-9 && Math.abs(scale.cfg.cut_three - DOWNV) < 1e-9 &&
       Math.abs(scale.cfg.blood_from - (1 - TURN)) < 1e-6 && Math.abs(scale.cfg.blood_full - (1 - DOWNV)) < 1e-6 && scale.cfg.prior === 0 &&
       ['cut_one', 'cut_three', 'blood_from', 'blood_full'].every(k => Math.abs(JDF[k].value - scale.cfg[k]) < 1e-6);
-    ok('J10 one calculator, one scale: AUTO\'s own lines; the page\'s sure fights replayed on its own dice give its own number (within 5 plays), every blood its number on the line; every blood on AUTO\'s side of the turn (one in a hundred for the dice); every job that loses a man in 6 plays of 10 three stars and the deepest blood',
+    ok('J10 one calculator, one scale: AUTO\'s own lines; the page\'s sure fights replayed on its own dice give its own number to the last digit, every blood its number on the line; every blood on AUTO\'s side of the turn (one in a hundred for the dice); every job that loses a man in 6 plays of 10 three stars and the deepest blood',
       lineOk && same.length >= 40 && differ.length === 0 && drawn.length === 0 && sides.length <= Math.floor(read.length / 100) && deep.length === 0 && lose.length > 0,
       'lines ' + JSON.stringify(scale && { cut_one: scale.cfg.cut_one, cut_three: scale.cfg.cut_three, blood_from: scale.cfg.blood_from, blood_full: scale.cfg.blood_full, prior: scale.cfg.prior, from_fight: scale.cfg.from_fight, orv: scale.orv, okRun: scale.okRun }) +
-      '; the same dice: ' + same.length + ' sure fights, ' + same.reduce((t, x) => t + x.runs, 0) + ' plays, ' + exact.length + ' to the last digit, the most apart ' + (same.length ? Math.max.apply(null, same.map(x => Math.abs(x.page - x.here))).toFixed(2) : '-') + ' plays, ' + differ.length + ' past 5 plays' + (differ.length ? ' (' + differ.slice(0, 3).map(x => x.job + ' page ' + x.page.toFixed(2) + ' here ' + x.here.toFixed(2) + ' of ' + x.runs).join(', ') + ')' : '') +
+      '; the same dice in the page: ' + same.length + ' sure fights, ' + same.reduce((t, x) => t + x.runs, 0) + ' plays, ' + differ.length + ' differ' + (differ.length ? ' (' + differ.slice(0, 3).map(x => x.job + ' the reader ' + x.page.toFixed(2) + ' again ' + (x.inPage == null ? '-' : x.inPage.toFixed(2)) + ' of ' + x.runs).join(', ') + ')' : '') +
+      ' (node\'s own engine, for the record: ' + exact.length + ' of ' + same.length + ' to the last digit, the most apart ' + (same.length ? Math.max.apply(null, same.map(x => Math.abs(x.page - x.here))).toFixed(2) : '-') + ' plays)' +
       '; blood off its own line ' + drawn.length + '; off AUTO\'s side ' + sides.length + (sides.length ? ' (' + sides.slice(0, 4).map(j => j.id + ' blood ' + j.blood.toFixed(2) + ' 100 plays ' + j.measured.toFixed(2)).join(', ') + ')' : '') +
       '; lose a man 6 in 10: ' + lose.length + ' jobs, ' + (lose.length - deep.length) + ' read three stars and the deepest blood' + (deep.length ? ' (not: ' + deep.slice(0, 4).map(j => j.id + ' ' + j.stars + '* ' + j.blood.toFixed(2) + ' lost ' + Math.round(100 * j.lostMan)).join(', ') + ')' : '') +
       '; against 100 fresh plays the blood differs by ' + (gaps.length ? gaps[gaps.length >> 1].toFixed(2) + ' at the median, ' + gaps[Math.floor(gaps.length * 0.9)].toFixed(2) + ' at the 90th, ' + gaps[Math.floor(gaps.length * 0.95)].toFixed(2) + ' at the 95th' : '-'));

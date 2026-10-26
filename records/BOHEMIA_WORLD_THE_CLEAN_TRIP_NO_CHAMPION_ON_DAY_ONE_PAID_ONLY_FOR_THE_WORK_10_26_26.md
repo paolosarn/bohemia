@@ -183,3 +183,48 @@ bloody button should be the bloodiest, so it's very clear to the player.'
   the old clean line, 0.04, and under the new one, 0.20; it now reads the file). THE COST: a fight read where the blood rises plays
   up to three times as long: under the gate's load the twelve men's 50 jobs read in 541 s (298 before), the Lone Wolf's in 13 s.
   The last read's stars stand, pulsing, while a changed crew is read again (F28), so the board is never blank while it reads.
+
+## 10. [the danger ramps to day fifty] (rule 255, Paolo 10/26; the coordinator's routine: right after 254)
+His words: 'up to 50 days is when shit starts getting difficult, but I don't even want you to have jobs available like six wolves; I
+played as the Lone Wolf, you have to understand how dangerous some of this is... I know how Battle Brothers does it.'
+- MEASURED BEFORE: a board posted whatever the shelf dealt (the place's tier, shuffled by the place and the window), sized to the
+  company by Battle Brothers' contract math and dressed for the day; nothing asked whether THIS crew could do it. TUNING measured the
+  Lone Wolf (4,500 fights): two beasts 38 in 100, three 2, four or more 0, on any day to 20; a one-skull hunt dealt him three beasts.
+- BATTLE BROTHERS' WAY (TUNING's record, the wiki copy): a contract scales with the roster, the days come in as which contracts and kinds
+  appear (one-skull only at the start, three skulls 'only after a few days', champions after day 90); its floor (0.75, eight men at
+  level one) is why its Lone Wolf meets fights built for eight. Our twist, his point: the board asks the calculator.
+- NOW (WORLD's slices/bohemia_job_danger.js fits(), asked by the shelf as it deals, __THE_BOARD_GROWS_WITH_THE_DAYS__ marked in RUN
+  TWO's slices/bohemia_board_shelf.js): TUNING's curve on the job's own number for the crew he has (rule 254): through day 10 no job
+  worth under 0.5 is posted and a board holds at most one red job (the warning); then the floor falls in a straight line to nothing
+  at day 50 and the reds' share grows the same way. A job under the floor is not posted: the place posts its next. A job not read yet
+  is posted reading and read at the back of the line, behind what is on the glass; when a red one lands the deal is dealt again
+  (fitVer in the deal's key), so the town's board and the phone (one pick, two readers) both drop it. job_danger.json ramp_calm_until
+  10, ramp_full_at 50, ramp_floor 0.5, ramp_reds_calm 1 (TUNING's numbers, coordinator's default by rule 205; floor 0 turns it off).
+- ROAMING (255(c)): the road sends a crew about once in 260 hours (WORLD measured, road_per_hour); TUNING's line is for the day the road
+  sends more. Not changed this round.
+- FOUND ON THE WAY, THE READER (rule 254's, measured on this tree): (1) the fight's own code carries a little from one fight into the
+  next, and with the board reading in the background the reader's one copy played many fights in a row: the same fight on the same
+  dice drifted up to 6.6 plays in 96, and a two-thug fight read 0.70 where 100 fresh plays said about 0.77. NOW the reader makes a
+  fresh copy of the rules for every fight it reads (0.1 ms; the tables shared, never written): that fight reads 0.78. (2) A read for
+  the glass now interrupts a board's own background read, which goes back to the end of the line (a job on the glass had waited
+  behind a board's 96 plays of twelve men). (3) The stars gate's same-dice leg runs IN THE PAGE (the browser's own engine), exact:
+  node's engine takes the same dice a little differently (up to 6.8 plays in 96 on 13 of 38 fights; the fight shuffles gear with a
+  random sort), so node's replay is printed, not held.
+- FOUND ON THE WAY, MINE (PAID ONLY FOR THE WORK went red on main, 10/2 against 13/0 when it shipped): the caravan's gate crew at a
+  MADE place (THE WASH CAMP) was met only by a tap on their plate; the edge-pay step skipped a made destination, and RUN's town-first
+  tap order (10/26) now lands that tap on the ground beside the place's plate, so after FALL BACK walking onto the crew did nothing
+  and the carts could never be delivered. NOW the step onto any band holding a job meets them, whatever started the walk
+  (slices/bohemia_job_kinds.js payHere). PAID ONLY FOR THE WORK 13/0 again, on a copy of main with only this line.
+- PROOF (the ship tree, every change above in): gates/the_danger_ramps_to_day_fifty_gate.js (new, registered) phone 6/0, computer 6/0:
+  the Lone Wolf, A New Crew and the Raiders, every board in the valley (14) dealt by the shelf's own pick until every posted job was
+  read. Through day 10, all three: nothing under 0.5, no board past one red, nothing at the deepest. The Lone Wolf (phone): day 1, 22
+  jobs on 14 boards, the worst worth 0.54, no beast; day 10, 14 jobs, the worst 0.51; day 20, the worst 0.42, no pack of six; day 25
+  above its 0.31 floor; day 50, 18 at the deepest blood and 14 worth under a quarter (one pack of six, as the curve allows); no board
+  ever empty; through the real door on day one his town (Church) posts a 0.82 and a 0.78, nothing else. The stars gate (rule 254's)
+  on the same tree, phone 10/0: J8 0 of 221 past the hair; J10 the same dice IN THE PAGE 60 of 60 fights to the last digit (node's
+  own engine 37 of 60, up to 6.8 plays apart, printed); against 100 fresh plays the blood 0.18 at the 95th (0.26 before the fresh
+  copies). On the computer, the same tree: 10/0 (0 of 221 past the hair; the same dice in the page 60 of 60; node's engine 38 of 60, up to 8.2 plays apart; the blood 0.19 at the 95th). The neighbours (run on this tree before the reader's fresh copies and the caravan line): THE BOARD'S QUESTS ARE PEOPLE 16/0, DROP A JOB RIGHT IN THE TOWN 9/0, A PLAIN WAY TO
+  DROP A JOB 6/0, THE ROSTER COUNTS WHO CAN FIGHT 6/0, THE SETTLEMENT SCREEN 74/0, THE PHONE 219/0, THE REGION HAS ITS CITIES 5/0,
+  THE FEED IS ALIVE 29/0, THE NORMIE HOUR 8/0; on the ship tree with the caravan line: PAID ONLY FOR THE WORK 13/0, PAID AT THE TOWN'S EDGE 3/0, THE NORMIE HOUR 8/0, A JOB'S TIME COUNTS THE WAY BACK 6/0 (it looks through 16 board windows now: the early boards post fewer jobs, it found 86 of its 90 in 8), EVERY JOB KIND 37/0. Red on main the same without this (measured on a copy of main): THE
+  PHONE'S BOARD (12/6 here, 11/7 on main: the new phone), THE JOB'S STARS S4, THE TRIP BEFORE THE YES T6 (the new phone's lit card
+  carries no trip line: rule 290's, next), MONEY TEACHES M3, THE TOWN'S PART (6), THE TEN CHANGES THE UI'S PART (6).

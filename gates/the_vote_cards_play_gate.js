@@ -51,6 +51,18 @@ async function cardFrame(p, port) {
   /* only BEGIN begins (RUN 10/25, rule 150): the door's own button */
   const bt = await p.$('#fronttap'); const bb = bt && await bt.boundingBox();
   if (bb) await p.mouse.click(bb.x + bb.width / 2, bb.y + bb.height / 2); else { const box = p.viewportSize(); await p.mouse.click(box.width / 2, box.height * 0.6); }
+  /* A NEW GAME NOW MAKES HIS MAIN GUY FIRST (RUN THREE, rule 263(b)) and plays his squad up close (236): both cover the whole
+     screen, the VOTE tab with them, until he presses GO and the tape ends or he taps it away. He does both, so this does both. */
+  for (let i = 0; i < 120; i++) {
+    const st = await p.evaluate(() => { const m = document.getElementById('mainmaker'), q = document.getElementById('squadup');
+      const vis = e => !!(e && e.isConnected && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().width > 0);
+      const go = m && vis(m) ? m.querySelector('.go') : null, r = go && go.getBoundingClientRect();
+      return { maker: vis(m), go: r && r.width ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null, tape: vis(q) }; });
+    if (st.go) { await p.mouse.click(st.go.x, st.go.y); await p.waitForTimeout(400); continue; }
+    if (st.tape) { const box = p.viewportSize(); await p.mouse.click(box.width / 2, box.height / 2); await p.waitForTimeout(500); continue; }
+    if (!st.maker) break;
+    await p.waitForTimeout(250);
+  }
   await p.waitForFunction(() => { const f = document.getElementById('voteFrame'); return f && /BOHEMIA_VOTE_TAB/.test(f.getAttribute('src') || ''); }, null, { timeout: 60000 });
   const vf = await (await p.$('#voteFrame')).contentFrame();
   await vf.waitForFunction(() => document.querySelectorAll('.row[data-id]').length > 0, null, { timeout: 60000 });

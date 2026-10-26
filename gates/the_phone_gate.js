@@ -420,7 +420,7 @@ async function side(profile) {
         ok('  LEAVE is on the phone in a town and takes him to the map; the town\'s own LEAVE is not on the glass', out && !L0, 'left ' + out + ', town LEAVE shown ' + L0); }
       /* ---- THE FIGHT ---- */
       const c0 = await p.evaluate(() => window.__PHONE_COMBAT | 0);
-      await fr.evaluate((n) => { try { CITY_CONTACT_POSTED = false; } catch (e) {} return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: n }); }, sd === 'right' ? 1 : 2);   /* the last fight's contact let go, as the next step would */
+      await fr.evaluate((n) => { try { CITY_CONTACT_POSTED = false; } catch (e) {} try { TOWN_EXIT = null; } catch (e) {} return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: n }); }, sd === 'right' ? 1 : 2);   /* the last fight's contact let go, as the next step would; and the step off the tile his LEAVE put him on, where no crew reaches him (CAMP, rule 273(a), re-aimed 10/26) */
       let sawStrike = false, f = null;
       await p.waitForTimeout(100);
       for (let i = 0; i < 200; i++) {

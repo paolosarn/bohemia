@@ -36,6 +36,10 @@
       more.forEach(function (o) { if (o && o.id && !have[o.id] && /\{pay\}/.test(o.says || '')) doc.offers.push(o); });
       return doc; }).catch(function () { return doc; });
   }
+  /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ (rule 255, 10/26): a place posts only what its day lets it post for the crew he has
+     (WORLD's slices/bohemia_job_danger.js fits(): no job under the day's floor, at most the day's share of red ones); the reader
+     lives in the map's frame, so a board in a place's screen asks the map's. No reader: the board deals as it always did */
+  function fitter() { try { var W = root.BohemiaJobDanger || (root.parent && root.parent !== root && root.parent.BohemiaJobDanger); return W && W.fits ? W : null; } catch (e) { return null; } }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   /* a copy that is safe to hand around: {crew} said, the client copied */
   function said(o, crew) {
@@ -53,7 +57,7 @@
   var DEAL = { key: null, map: null };
   function dealt(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
-    var key = win + '|' + (opt.held || []).join(',') + '|' + (opt.crew || '') + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
+    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.crew || '') + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
     if (DEAL.key === key) return DEAL.map;
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, map = {}, want = {};
@@ -84,9 +88,10 @@
     var R = rng(seedOf(String(place.name) + ':board:' + win));
     var all = SHELF.offers, out = (have || []).slice(), seen = {};
     out.forEach(function (o) { seen[o.id] = 1; });
+    var FW = fitter(), size = Math.min(C[tier] || 1, C.max || 4);   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ */
     function take(pool, n) {
       if (upto != null) n = Math.min(n, upto);
-      shuffled(pool, R).forEach(function (o) { if (out.length < n && !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0) { seen[o.id] = 1; out.push(said(o, opt.crew)); } });
+      shuffled(pool, R).forEach(function (o) { if (out.length < n && !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0 && !(FW && FW.fits(o, place.name, day, out, size) === false)) { seen[o.id] = 1; out.push(said(o, opt.crew)); } });
     }
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
       take(all.filter(function (o) { return o.when === 'raided'; }), C.raided || 1);

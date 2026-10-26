@@ -39,7 +39,10 @@ const done = () => { console.log('=== THE WALK-UP GATE: ' + pass + ' passed, ' +
         if (await x.evaluate(() => { try { return BohemiaSettlement.ready() && !!BohemiaSettlement.state.place; } catch (e) { return false; } }).catch(() => false)) { sf = x; break; } } }
     if (!sf) { ok('a town through the map\'s own door', false, n); return done(); }
     await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 8000 }).catch(() => {});
-    const box = await (await sf.frameElement()).boundingBox();
+    let box = await (await sf.frameElement()).boundingBox();
+    /* RE-AIMED 10/26 (RUN TWO): the town's frame is read again before each tap (MOTION's grow and the phone's re-lay can still be
+       moving it when the arrival card goes, and a box read then sent every tap of this gate to the wrong place) */
+    const freshBox = async () => { box = await (await sf.frameElement()).boundingBox(); return box; };
     const lead = () => sf.evaluate(() => { const l = BohemiaSettlement.lead(); delete l.blocked; return l; });
     const close = async () => { if (await sf.evaluate(() => !!BohemiaSettlement.state.open)) { const c = await sf.$('#close'); if (c) { await c.tap(); await p.waitForTimeout(500); } } };
     /* he has arrived when he stops walking and has finished turning to face what he walked to (an eighth a key) */
@@ -71,7 +74,7 @@ const done = () => { console.log('=== THE WALK-UP GATE: ' + pass + ' passed, ' +
       const tick = () => { const l = BohemiaSettlement.lead(); if (l.drawn) window.__WU.faces.push(l.face); if (window.__WU.faces.length < 4000) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
     const wb = await sf.evaluate(() => BohemiaSettlement.where('bar'));
     const start = await lead();
-    if (wb) await p.touchscreen.tap(box.x + wb.x, box.y + wb.y);
+    await freshBox(); if (wb) await p.touchscreen.tap(box.x + wb.x, box.y + wb.y);
     await p.waitForTimeout(400);
     const w2 = await sf.evaluate(() => ({ open: BohemiaSettlement.state.open, ms: window.__WU.on && window.__WU.up ? Math.round(window.__WU.on - window.__WU.up) : null, walk0: window.__WU.walk0 }));
     const going = await lead();
@@ -97,7 +100,7 @@ const done = () => { console.log('=== THE WALK-UP GATE: ' + pass + ' passed, ' +
     /* ---- W5 a tall sheet slides the town up above it ---- */
     await close();
     const wh = await sf.evaluate(() => BohemiaSettlement.where('hall'));
-    if (wh) await p.touchscreen.tap(box.x + wh.x, box.y + wh.y);
+    await freshBox(); if (wh) await p.touchscreen.tap(box.x + wh.x, box.y + wh.y);
     const see = () => sf.evaluate(() => { const l = BohemiaSettlement.lead(), v = BohemiaSettlement._view(), sh = document.getElementById('sheet'), top = v.H - sh.offsetHeight, ph = BohemiaSettlement.scale().person;
       return { open: BohemiaSettlement.state.open, lift: Math.round(l.lift), top: Math.round(top), goalFeet: l.goal ? Math.round(v.oy + l.goal.y * v.s) : null, feet: Math.round(v.oy + l.y * v.s), head: Math.round(v.oy + (l.y - ph) * v.s), H: v.H }; });
     await p.waitForTimeout(900);
@@ -118,7 +121,7 @@ const done = () => { console.log('=== THE WALK-UP GATE: ' + pass + ' passed, ' +
         .filter(p => p.sx > 20 && p.sx < v.W - 20 && p.sy > 20 && p.sy < v.H - 20).filter(p => { const u = S.peopleUnder(p.sx, p.sy); return u[0] && u[0].slot === p.slot; });
       return L.length ? Object.assign(L[0], { rx: r.left, ry: r.top }) : null; });
     let w6 = null;
-    if (cw) { await p.touchscreen.tap(box.x + cw.rx + cw.sx, box.y + cw.ry + cw.sy); await p.waitForTimeout(400);
+    await freshBox(); if (cw) { await p.touchscreen.tap(box.x + cw.rx + cw.sx, box.y + cw.ry + cw.sy); await p.waitForTimeout(400);
       const opened = await sf.evaluate(() => BohemiaSettlement.state.open);
       const at = await settle(30000);
       const now = await sf.evaluate((slot) => { const q = BohemiaSettlement.folk().find(p => p.crowd && p.slot === slot); return q ? { x: q.x, y: q.y } : null; }, cw.slot);

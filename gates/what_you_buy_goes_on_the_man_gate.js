@@ -30,6 +30,7 @@ const fs = require('fs'), path = require('path');
 const ROOT = path.dirname(__dirname);
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { openCrew } = require(path.join(ROOT, 'tools/bohemia_open_the_crew.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const done = () => { console.log('WHAT YOU BUY GOES ON THE MAN: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
@@ -51,7 +52,8 @@ function taps(d, sf, mouse) {
   const tapSel = async (sel) => { const r = await rect(sel); if (!r) return false; const b = await box(); await tapAt(b.x + r.x, b.y + r.y); await P.waitForTimeout(700); return true; };
   const openShop = async (k) => { await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await P.waitForTimeout(300);
     for (let i = 0; i < 8; i++) { if (await sf.evaluate(k => BohemiaSettlement.state.open === k && !!document.querySelector('#shelfgrid'), k)) return true; const w = await sf.evaluate(k => BohemiaSettlement.where(k), k); const b = await box(); if (w) await tapAt(b.x + w.x, b.y + w.y); await P.waitForTimeout(900); } return false; };
-  const tapItem = async (k, id) => { const i = await sf.evaluate(({ k, id }) => (BohemiaSettlement.state.stock[k] || []).findIndex(x => x.id === id), { k, id }); return i >= 0 && tapSel('#shelfgrid .slot:nth-child(' + (i + 1) + ')'); };
+  /* RE-AIMED 10/26 (RUN TWO [one tap selects, two taps buy]): a piece bought this visit leaves its place empty, so a tile is found by its own id */
+  const tapItem = async (k, id) => tapSel('#shelfgrid .slot[data-id="' + id + '"]');
   const card = () => sf.evaluate(() => { const om = document.querySelector('#sbody .onman'), q = s => [...document.querySelectorAll(s)];
     return { man: om ? om.dataset.man : null, faces: q('#shopfaces button').map(b => b.dataset.man), said: (document.querySelector('#sbody .say') || document.getElementById('sbody')).textContent.replace(/\s+/g, ' ').trim().slice(0, 240) }; });
   return { tapAt, tapSel, rect, openShop, tapItem, card, box };
@@ -74,14 +76,14 @@ const idOf = x => x ? (x.id || x) : null;
     await T.tapItem('armourer', sh);
     const c1 = await T.card(), bw = await T.rect('#buywear'), bs = await T.rect('#buystash');
     const firstName = c1.man ? (c1.man === 'YOU' ? null : c1.man.charAt(0) + c1.man.slice(1).toLowerCase()) : '?';
-    ok('B1 a shield\'s card shows it on ' + c1.man + ' and BUY names him ("' + (bw && bw.text) + '"), "' + (bs && bs.text) + '" under it, ' + (bw && Math.round(bw.h)) + ' and ' + (bs && Math.round(bs.h)) + ' points',
-      !!c1.man && !!bw && !bw.off && (firstName ? bw.text.indexOf('Buy it, ' + firstName + ' wears it') === 0 : /^Buy it and wear it/.test(bw.text)) && !!bs && /to the stash/.test(bs.text) && bw.h >= 44 && bs.h >= 44 && bs.y > bw.y && files0.hk === false);
+    ok('B1 a shield\'s card shows it on ' + c1.man + ' and BUY names him ("' + (bw && bw.text) + '"), "' + (bs && bs.text) + '" beside it, ' + (bw && Math.round(bw.h)) + ' and ' + (bs && Math.round(bs.h)) + ' points',
+      !!c1.man && !!bw && !bw.off && (firstName ? bw.text.indexOf('Buy it, ' + firstName + ' wears it') === 0 : /^Buy it and wear it/.test(bw.text)) && !!bs && /to the stash/.test(bs.text) && bw.h >= 44 && bs.h >= 44 && (bs.y > bw.y || bs.x > bw.x) && files0.hk === false);   /* RE-AIMED 10/26: 'to the stash' beside it in the strip */
     /* B2: one tap */
     const before = await sf.evaluate(() => ({ bats: BohemiaSettlement.bats ? BohemiaSettlement.bats() : null, stash: BohemiaSettlement.state.stash.map(i => i.id), price: null }));
     const man1 = c1.man, crewA = await crewNow(sf), oldOff = idOf((crewA.find(m => m.name === man1) || {}).gear && crewA.find(m => m.name === man1).gear.off);
     const price = await sf.evaluate(id => (BohemiaSettlement.state.stock.armourer || []).find(i => i.id === id).price, sh);
     await T.tapSel('#buywear');
-    const after = await sf.evaluate(() => ({ bats: BohemiaSettlement.bats ? BohemiaSettlement.bats() : null, stash: BohemiaSettlement.state.stash.map(i => ({ id: i.id, keep: i.keep })), wore: window.__WORE || null, said: (document.querySelector('#sbody .say') || document.getElementById('sbody')).textContent.replace(/\s+/g, ' ').trim() }));
+    const after = await sf.evaluate(() => ({ bats: BohemiaSettlement.bats ? BohemiaSettlement.bats() : null, stash: BohemiaSettlement.state.stash.map(i => ({ id: i.id, keep: i.keep })), wore: window.__WORE || null, said: document.getElementById('sbody').textContent.replace(/\s+/g, ' ').trim() }));   /* RE-AIMED 10/26: the result is said in the strip, never by the keeper */
     const lines1 = await sf.evaluate(() => BohemiaShopWear.read());
     const oldIn = !oldOff || after.stash.some(x => x.id === oldOff && x.keep === true);
     ok('*** B2 BUY AND HE WEARS IT *** (one tap: ' + JSON.stringify(after.wore && after.wore.said) + '; his old shield ' + (oldOff || 'none') + (oldOff ? (oldIn ? ' in the stash, kept' : ' NOT in the stash') : '') + ')',
@@ -125,9 +127,8 @@ const idOf = x => x ? (x.id || x) : null;
       !!h1 && h1.gear.off === sh && !!h2 && h2.gear[slot2] === arm.id && !!fu && fu.a && fu.a.shield === sh && fu.b && fu.b[slot2] === arm.id && !ferr.length, ferr.slice(0, 2).join(' | '));
     /* C1: the crew screen, the town's CREW by a real tap */
     await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await d.page.waitForTimeout(300);
-    const barCrew = await d.fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
-    if (barCrew) { const fb = await (await d.fr.frameElement()).boundingBox(); await d.page.touchscreen.tap(fb.x + barCrew.x, fb.y + barCrew.y); await d.page.waitForTimeout(700); }
-    else await T.tapSel('#crew');
+    /* the one CREW on screen: the phone's since UI TWO 52741663 (the bar's crew chip a readout), else the bar's, else the town's */
+    if (!(await openCrew(d.page, d.fr))) await T.tapSel('#crew');
     let rf = null; for (let k = 0; k < 60 && !rf; k++) { await d.page.waitForTimeout(300); rf = d.page.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
     let cr = null;
     if (rf) { await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.crew.length > 0, null, { timeout: 30000 }).catch(() => {}); await d.page.waitForTimeout(800);
@@ -161,8 +162,7 @@ const idOf = x => x ? (x.id || x) : null;
       ok('K1 the computer: a click on BUY, ' + k.man + ' wears ' + it.id + ' ("' + (wr && wr.said) + '")', !!wr && wr.man === k.man && !!on && Object.values(on.gear).some(g => idOf(g) === it.id));
       /* K2: the crew screen on the computer, where its own boot can open on the default twelve before the door's post lands */
       await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await d.page.waitForTimeout(300);
-      const bc = await d.fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
-      if (bc) { const fb = await (await d.fr.frameElement()).boundingBox(); await d.page.mouse.click(fb.x + bc.x, fb.y + bc.y); await d.page.waitForTimeout(700); } else await T.tapSel('#crew');
+      if (!(await openCrew(d.page, d.fr, { mouse: true }))) await T.tapSel('#crew');
       let rf = null; for (let n = 0; n < 60 && !rf; n++) { await d.page.waitForTimeout(300); rf = d.page.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
       let k2 = null; if (rf) { await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.fromOrigin, null, { timeout: 30000 }).catch(() => {}); await d.page.waitForTimeout(800);
         k2 = await rf.evaluate(([n, id]) => { const S = BohemiaRosterScreen.state, m = n === 'YOU' ? S.crew.find(x => x.main) : S.crew.find(x => x.name === n); return { on: !!m && Object.values(m.gear || {}).some(g => g && g.id === id), lines: localStorage.getItem('bohemia.wear.v1') || '' }; }, [k.man, it.id]); }
