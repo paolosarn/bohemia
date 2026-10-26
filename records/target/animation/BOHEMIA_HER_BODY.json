@@ -29,7 +29,7 @@
   "arm_swing": 0.8
  },
  "face": {
-  "why": "the barber's own face shapes that are not a man's (no lantern jaw, no broad square, no heavy brow), the jaw and chin softened two steps, the brows a step finer; no beard, no stubble; her hair the barber's own cuts, long most of the time (a few women in a war cut it short)",
+  "why": "the barber's own face shapes that are not a man's (no lantern jaw, no broad square, no heavy brow), the jaw and chin softened two steps, the brows a step finer; no beard, no stubble; her hair the barber's long cuts: at the street's 75 px a short cut over a scar read as a young man on the first woman rendered (woman_0, a half shave, 10/26), and the ruling is never a renamed man, so the first women wear their hair long; a short cut can come with more women and his eye",
   "shapes": [
    "HEART",
    "SMALL FEATURES",
@@ -64,7 +64,7 @@
    "TEMPLE TAPER",
    "SCORCH"
   ],
-  "short_share": 0.2
+  "short_share": 0.0
  },
  "roll": {
   "why": "her in the valley's roll (RUN TWO's records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json), appended after every man so no man's draw moves; a person of the place (gang Body: no band, so a band of enemies never deals her above the post's share), on the fight's board so the post can hire her (the hall's women pool, RUN THREE's roll at rule 214's 4 percent); her clothes the place's own wardrobe (tops and coats, the runway pieces the men roll from)",

@@ -169,7 +169,7 @@ def ankle_faults(J, T):
     return out
 
 
-ok('E1 AN ENVELOPE RAMPS SLOWER THAN THE GRID: no joint jumps out and back, none crosses 16 px in a drawn key, every slot into every next, eight facings (%d men)' % len(looks_j),
+ok('E1 AN ENVELOPE RAMPS SLOWER THAN THE GRID: no joint jumps out and back, none crosses 24 px in a drawn key, every slot into every next, eight facings (%d men)' % len(looks_j),
    looks_j and not ef, '; '.join(ef[:4]))
 af = []
 for l in looks_j:
@@ -224,7 +224,8 @@ def picture_faults(looks):
                     px = im[c[1]:c[1] + c[3], c[0]:c[0] + c[2]]
                     rows = np.nonzero((px[..., 3] > 0).any(1))[0]
                     sole = c[5] + (rows.max() + 1 if len(rows) else 0)
-                    if p not in seated and abs(sole - L['feet'][fi][1]) > 3:   # a seat's crate is on the ground too: his heels are held by the joints (E3) out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - L['feet'][fi][1]))
+                    if p not in seated and abs(sole - L['feet'][fi][1]) > 3:   # a seat's crate is on the ground too: his heels are held by the joints (E3)
+                        out.append('%s %s.%s %s soles %d px off his ground' % (l, a, p, DIRS[fi], sole - L['feet'][fi][1]))
     return out
 
 
