@@ -58,7 +58,12 @@ struck_down_laid_up_days to [6, 8] with engine/bohemia_long_injury.js's LAID_UP_
 - THE BROWSERLESS TIER (gates/bohemia_gates.py --pure) ran an hour and was stopped at its limit about row 600 of 1119; every red it
   reached is red on main already (BUNDLE, GRAVEYARD, DISTRICT FILL, REPO BUDGET, MAP SIZE, STREET SOURCE, READABLE RULER, THREE BLOCKS,
   FUTURE LEDGERS, PEOPLE CHARGE, THE ZOOM GOES THROUGH CLOUDS) but three speed gates (CLOCK RATE, LOADING IN PLAY, FPS ON A PHONE),
-  measured against main one at a time below.
+  measured against main one at a time: CLOCK RATE 4/5 on both (it measures the walk, dead since 9/28: 0 cells walked); LOADING
+  DURING PLAY 5/1 on both (files after the door 46 on main, 49 here, its pin 30); FPS ON A PHONE 33/8 on both (the same eight: the
+  wake card over the pad, the walk's frames, the fight never reached, the alpha's first step, the demo and the alpha 1.4 MB apart).
+  Nothing red here that is not red on main.
+- THE MERGE with main (ae5dd694, RUN TWO's shop and stall rows in the same settlement file): clean; THE CLINIC HALVES BOTH 12/0 and
+  LONG INJURY 56/0 again on it.
 
 ## 4. THE LAST UPLOAD
 Paolo 10/26 (records/BOHEMIA_PAOLO_EVERY_CHAT_STOPS_THE_LAST_UPLOAD_10_26_26.md): 'whatever each chat is doing have them finish their
