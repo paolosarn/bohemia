@@ -10118,6 +10118,19 @@ GATES = [
      "reads on the sheet with a body, a foot, its footprint and height, every follower the camp offers his piece; every piece its own master-rig run "
      "(Cycles, no break, 400 colours or more); the fire's six keys one size and one foot; every foot where the piece's footprint in metres puts it, within 8 px; "
      "the camp trailer in eight facings, under 4 m, named in kit.json with its ground and hitch. Under 1 s", False),
+    ('EVERY PERK A PICTURE', ['python3', 'gates/every_perk_a_picture_gate.py'],
+     "COOK gate, 10/26, row [the fifty perk icons] (rule 252(c), Paolo 10/26: 'I don't want a single perk without an icon, I need you to have icons "
+     "for all the perks... I need to be able to visualize it as well as what's written for it'; line 179 of his list). Every perk of perks.json has "
+     "slices/perk_icons/<id>.png, 96 x 96, and its row in perk_icons.json (row, carried or pressed as the fight's ACTIVE list says, what it shows, draft); "
+     "every icon's model through the master rig (Cycles, no break, 1,000 colours or more); the rim gold for carried, blue for pressed; the row in dots; at "
+     "32 px every thing stands off its plate and no two icons are alike. About 2 s", False),
+    ('THE ARMOUR THROUGH THE RIG', ['python3', 'gates/the_armour_through_the_rig_gate.py'],
+     "COOK gate, 10/26, row [the armour's art] (rule 272(b)(d), Paolo 10/26: 'the good armour I have on me doesn't show, like a police helmet... "
+     "we're gonna have to cook up so much art'; CHARACTER's NOTE: 'Your real art drops in file for file... the police riot helmet and the police vest "
+     "first'). wear.json in CHARACTER's format, every class and extra in use in eight facings (a helmet also dropped and at portrait size), every cell "
+     "on its sheet with a body; every piece rendered with the master rig's light, film and source pass, no setting moved, its fullest view 100 colours "
+     "or more; the riot helmet and the police vest carry their own art; the riot visor is glass his face shows through, the welder's lens is not; every "
+     "facing's piece where CHARACTER's placeholder put it, within 4 px. Under 1 s", False),
     ("THE FEED'S WORDS", ['node', 'gates/feed_words_gate.js'],
      "WORDS gate, 10/26, rows [the feed's words] and [the usernames tell the story] (rule 215(f), Paolo 10/26: 'we have a whole words [chat] that's part of that... organize it properly so every time we upgrade it gets better, realistic vibes'; rule 217: 'the usernames can tell a real awesome story in a very short amount of words'). "
      "Headless over banks/BOHEMIA_WORDS_THE_FEED_BANK.json (built by tools/words_feed/build_feed_bank.py; a path argument checks another copy): every kind five variants or more and draft:true; every deed 215(a) names its own kind; every who resolves, every voiced faction its page, every region place one of its people; "

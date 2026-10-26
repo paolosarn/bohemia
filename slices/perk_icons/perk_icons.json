@@ -1,0 +1,356 @@
+{
+ "_about": "COOK [the fifty perk icons] (rule 252(c)): every perk of records/target/bb/perks.json a model through the master rig on a worn tag, 96 x 96 px (draw it at the crew card's size: 24 to 32 points); gold rim = he carries it, blue = he presses it; the dots = its row. tools/bohemia_cook_the_fifty_perk_icons_10_26_26.py",
+ "size": 96,
+ "icons": {
+  "adrenaline": {
+   "src": "adrenaline.png",
+   "tier": 1,
+   "pressed": true,
+   "shows": "a shot of adrenaline and a bolt",
+   "draft": true
+  },
+  "anticipation": {
+   "src": "anticipation.png",
+   "tier": 3,
+   "pressed": false,
+   "shows": "an eye that sees the bullet coming",
+   "draft": true
+  },
+  "axe_mastery": {
+   "src": "axe_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a hatchet",
+   "draft": true
+  },
+  "backstabber": {
+   "src": "backstabber.png",
+   "tier": 3,
+   "pressed": false,
+   "shows": "a knife in a back",
+   "draft": true
+  },
+  "bags_and_belts": {
+   "src": "bags_and_belts.png",
+   "tier": 1,
+   "pressed": false,
+   "shows": "a belt with two pouches",
+   "draft": true
+  },
+  "battle_forged": {
+   "src": "battle_forged.png",
+   "tier": 6,
+   "pressed": false,
+   "shows": "a riveted chest plate",
+   "draft": true
+  },
+  "berserk": {
+   "src": "berserk.png",
+   "tier": 6,
+   "pressed": false,
+   "shows": "a skull with burning eyes",
+   "draft": true
+  },
+  "bow_mastery": {
+   "src": "bow_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a bow and an arrow",
+   "draft": true
+  },
+  "brawny": {
+   "src": "brawny.png",
+   "tier": 3,
+   "pressed": false,
+   "shows": "a flexed arm and a weight",
+   "draft": true
+  },
+  "bullseye": {
+   "src": "bullseye.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a target behind cover, hit dead centre",
+   "draft": true
+  },
+  "cleaver_mastery": {
+   "src": "cleaver_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a bloody cleaver",
+   "draft": true
+  },
+  "colossus": {
+   "src": "colossus.png",
+   "tier": 1,
+   "pressed": false,
+   "shows": "a big heart and a plus",
+   "draft": true
+  },
+  "crippling_strikes": {
+   "src": "crippling_strikes.png",
+   "tier": 1,
+   "pressed": false,
+   "shows": "a snapped bone",
+   "draft": true
+  },
+  "crossbow_mastery": {
+   "src": "crossbow_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a scoped rifle",
+   "draft": true
+  },
+  "dagger_mastery": {
+   "src": "dagger_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a knife, quicker",
+   "draft": true
+  },
+  "dodge": {
+   "src": "dodge.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a bullet passing a man",
+   "draft": true
+  },
+  "duelist": {
+   "src": "duelist.png",
+   "tier": 7,
+   "pressed": false,
+   "shows": "one blade, one hand free",
+   "draft": true
+  },
+  "executioner": {
+   "src": "executioner.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a bloody axe",
+   "draft": true
+  },
+  "fast_adaptation": {
+   "src": "fast_adaptation.png",
+   "tier": 1,
+   "pressed": false,
+   "shows": "a target with two misses and three steps up",
+   "draft": true
+  },
+  "fearsome": {
+   "src": "fearsome.png",
+   "tier": 7,
+   "pressed": false,
+   "shows": "a gas mask",
+   "draft": true
+  },
+  "flail_mastery": {
+   "src": "flail_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a chain and a spiked weight",
+   "draft": true
+  },
+  "footwork": {
+   "src": "footwork.png",
+   "tier": 5,
+   "pressed": true,
+   "shows": "footsteps sliding out",
+   "draft": true
+  },
+  "fortified_mind": {
+   "src": "fortified_mind.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a brain held in steel",
+   "draft": true
+  },
+  "gifted": {
+   "src": "gifted.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a gift box with a star",
+   "draft": true
+  },
+  "hammer_mastery": {
+   "src": "hammer_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a sledgehammer",
+   "draft": true
+  },
+  "head_hunter": {
+   "src": "head_hunter.png",
+   "tier": 6,
+   "pressed": false,
+   "shows": "a head in the crosshairs",
+   "draft": true
+  },
+  "indomitable": {
+   "src": "indomitable.png",
+   "tier": 7,
+   "pressed": true,
+   "shows": "a fist on an anvil",
+   "draft": true
+  },
+  "killing_frenzy": {
+   "src": "killing_frenzy.png",
+   "tier": 7,
+   "pressed": false,
+   "shows": "a skull in a blood splash",
+   "draft": true
+  },
+  "lone_wolf": {
+   "src": "lone_wolf.png",
+   "tier": 5,
+   "pressed": false,
+   "shows": "a wolf alone",
+   "draft": true
+  },
+  "mace_mastery": {
+   "src": "mace_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a pipe",
+   "draft": true
+  },
+  "nimble": {
+   "src": "nimble.png",
+   "tier": 6,
+   "pressed": false,
+   "shows": "a feather",
+   "draft": true
+  },
+  "nine_lives": {
+   "src": "nine_lives.png",
+   "tier": 1,
+   "pressed": false,
+   "shows": "a cat with a taped ear",
+   "draft": true
+  },
+  "overwhelm": {
+   "src": "overwhelm.png",
+   "tier": 5,
+   "pressed": false,
+   "shows": "three arrows coming down on one man",
+   "draft": true
+  },
+  "pathfinder": {
+   "src": "pathfinder.png",
+   "tier": 1,
+   "pressed": false,
+   "shows": "a boot over rough stones",
+   "draft": true
+  },
+  "polearm_mastery": {
+   "src": "polearm_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a billhook on a long pole",
+   "draft": true
+  },
+  "quick_hands": {
+   "src": "quick_hands.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a pipe and a pistol swapping hands",
+   "draft": true
+  },
+  "rally_the_troops": {
+   "src": "rally_the_troops.png",
+   "tier": 3,
+   "pressed": true,
+   "shows": "a bullhorn",
+   "draft": true
+  },
+  "reach_advantage": {
+   "src": "reach_advantage.png",
+   "tier": 5,
+   "pressed": false,
+   "shows": "a long blade and stacked steps",
+   "draft": true
+  },
+  "recover": {
+   "src": "recover.png",
+   "tier": 1,
+   "pressed": true,
+   "shows": "a canteen",
+   "draft": true
+  },
+  "relentless": {
+   "src": "relentless.png",
+   "tier": 3,
+   "pressed": false,
+   "shows": "a stopwatch that keeps running",
+   "draft": true
+  },
+  "resilient": {
+   "src": "resilient.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a bandage roll with a red cross",
+   "draft": true
+  },
+  "rotation": {
+   "src": "rotation.png",
+   "tier": 3,
+   "pressed": true,
+   "shows": "two men trading places",
+   "draft": true
+  },
+  "shield_expert": {
+   "src": "shield_expert.png",
+   "tier": 3,
+   "pressed": false,
+   "shows": "a car door for a shield, a plus",
+   "draft": true
+  },
+  "spear_mastery": {
+   "src": "spear_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a taped spear",
+   "draft": true
+  },
+  "steel_brow": {
+   "src": "steel_brow.png",
+   "tier": 2,
+   "pressed": false,
+   "shows": "a steel helmet",
+   "draft": true
+  },
+  "student": {
+   "src": "student.png",
+   "tier": 1,
+   "pressed": false,
+   "shows": "an open notebook and a pencil",
+   "draft": true
+  },
+  "sword_mastery": {
+   "src": "sword_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a machete",
+   "draft": true
+  },
+  "taunt": {
+   "src": "taunt.png",
+   "tier": 3,
+   "pressed": true,
+   "shows": "a man with a target on his chest",
+   "draft": true
+  },
+  "throwing_mastery": {
+   "src": "throwing_mastery.png",
+   "tier": 4,
+   "pressed": false,
+   "shows": "a lit molotov",
+   "draft": true
+  },
+  "underdog": {
+   "src": "underdog.png",
+   "tier": 5,
+   "pressed": false,
+   "shows": "a small dog between two big shadows",
+   "draft": true
+  }
+ }
+}
