@@ -14,12 +14,12 @@
    "rect": [
     0,
     0,
-    115,
-    205
+    94,
+    188
    ],
    "foot": [
-    56,
-    125
+    47,
+    116
    ],
    "footprint_m": [
     -0.818,
@@ -31,14 +31,14 @@
   },
   "tent_tarp": {
    "rect": [
-    117,
+    96,
     0,
-    115,
-    205
+    94,
+    188
    ],
    "foot": [
-    56,
-    125
+    47,
+    116
    ],
    "footprint_m": [
     -0.818,
@@ -50,14 +50,14 @@
   },
   "tent_stripe": {
    "rect": [
-    234,
+    192,
     0,
-    115,
-    205
+    94,
+    188
    ],
    "foot": [
-    56,
-    125
+    47,
+    116
    ],
    "footprint_m": [
     -0.818,
@@ -69,14 +69,14 @@
   },
   "f_trader": {
    "rect": [
-    351,
+    288,
     0,
-    187,
-    166
+    123,
+    160
    ],
    "foot": [
-    46,
-    138
+    47,
+    129
    ],
    "footprint_m": [
     -0.65,
@@ -88,14 +88,14 @@
   },
   "f_drill_sergeant": {
    "rect": [
-    540,
+    413,
     0,
-    129,
-    146
+    109,
+    141
    ],
    "foot": [
-    39,
-    114
+    41,
+    104
    ],
    "footprint_m": [
     -0.53,
@@ -107,14 +107,14 @@
   },
   "f_lookout": {
    "rect": [
-    671,
+    524,
     0,
-    119,
-    135
+    83,
+    128
    ],
    "foot": [
-    43,
-    101
+    40,
+    93
    ],
    "footprint_m": [
     -0.6,
@@ -126,14 +126,14 @@
   },
   "f_recruiter": {
    "rect": [
-    792,
+    609,
     0,
-    128,
-    132
+    85,
+    124
    ],
    "foot": [
-    46,
-    111
+    45,
+    102
    ],
    "footprint_m": [
     -0.65,
@@ -145,14 +145,14 @@
   },
   "f_quartermaster": {
    "rect": [
-    922,
+    696,
     0,
-    142,
-    130
+    84,
+    123
    ],
    "foot": [
-    41,
-    103
+    40,
+    95
    ],
    "footprint_m": [
     -0.567,
@@ -164,14 +164,14 @@
   },
   "smart_cart": {
    "rect": [
-    1066,
+    891,
     0,
-    115,
-    128
+    54,
+    116
    ],
    "foot": [
-    30,
-    102
+    25,
+    93
    ],
    "footprint_m": [
     -0.37,
@@ -183,14 +183,14 @@
   },
   "f_brigand": {
    "rect": [
-    1183,
+    1090,
     0,
-    135,
-    124
+    70,
+    109
    ],
    "foot": [
-    49,
-    107
+    46,
+    90
    ],
    "footprint_m": [
     -0.702,
@@ -202,14 +202,14 @@
   },
   "f_bounty_hunter": {
    "rect": [
-    1320,
+    782,
     0,
-    123,
-    123
+    107,
+    117
    ],
    "foot": [
-    49,
-    101
+    51,
+    92
    ],
    "footprint_m": [
     -0.704,
@@ -221,14 +221,14 @@
   },
   "f_scavenger": {
    "rect": [
-    1445,
+    1305,
     0,
-    145,
-    111
+    101,
+    105
    ],
    "foot": [
-    50,
-    88
+    51,
+    79
    ],
    "footprint_m": [
     -0.718,
@@ -240,14 +240,14 @@
   },
   "slain_some": {
    "rect": [
-    1592,
+    947,
     0,
-    134,
-    109
+    141,
+    110
    ],
    "foot": [
-    52,
-    56
+    57,
+    49
    ],
    "footprint_m": [
     -0.756,
@@ -259,14 +259,14 @@
   },
   "slain_many": {
    "rect": [
-    1728,
+    1162,
     0,
-    151,
+    141,
     109
    ],
    "foot": [
-    52,
-    56
+    57,
+    48
    ],
    "footprint_m": [
     -0.756,
@@ -278,14 +278,14 @@
   },
   "f_blacksmith": {
    "rect": [
-    1881,
+    1408,
     0,
-    125,
-    108
+    77,
+    98
    ],
    "foot": [
-    38,
-    85
+    36,
+    76
    ],
    "footprint_m": [
     -0.506,
@@ -297,14 +297,14 @@
   },
   "f_agent": {
    "rect": [
+    1487,
     0,
-    207,
-    114,
-    97
+    78,
+    89
    ],
    "foot": [
-    34,
-    79
+    27,
+    70
    ],
    "footprint_m": [
     -0.43,
@@ -316,14 +316,14 @@
   },
   "supplies": {
    "rect": [
-    116,
-    207,
-    125,
-    95
+    1567,
+    0,
+    98,
+    88
    ],
    "foot": [
-    53,
-    61
+    43,
+    51
    ],
    "footprint_m": [
     -0.766,
@@ -335,14 +335,14 @@
   },
   "f_cook": {
    "rect": [
-    243,
-    207,
-    80,
-    95
+    1862,
+    0,
+    46,
+    82
    ],
    "foot": [
-    28,
-    70
+    20,
+    61
    ],
    "footprint_m": [
     -0.331,
@@ -354,14 +354,14 @@
   },
   "f_cartographer": {
    "rect": [
-    325,
-    207,
-    121,
-    93
+    1667,
+    0,
+    95,
+    87
    ],
    "foot": [
-    38,
-    72
+    36,
+    63
    ],
    "footprint_m": [
     -0.5,
@@ -373,14 +373,14 @@
   },
   "f_negotiator": {
    "rect": [
-    448,
-    207,
-    152,
-    92
+    1764,
+    0,
+    96,
+    83
    ],
    "foot": [
-    57,
-    71
+    48,
+    62
    ],
    "footprint_m": [
     -0.84,
@@ -392,14 +392,14 @@
   },
   "f_scout": {
    "rect": [
-    602,
-    207,
-    138,
-    89
+    104,
+    190,
+    99,
+    76
    ],
    "foot": [
-    56,
-    73
+    47,
+    64
    ],
    "footprint_m": [
     -0.829,
@@ -411,14 +411,14 @@
   },
   "fire_0": {
    "rect": [
-    742,
-    207,
-    92,
-    85
+    205,
+    190,
+    70,
+    72
    ],
    "foot": [
-    44,
-    50
+    34,
+    40
    ],
    "footprint_m": [
     -0.608,
@@ -430,14 +430,14 @@
   },
   "fire_1": {
    "rect": [
-    836,
-    207,
-    92,
-    85
+    277,
+    190,
+    70,
+    72
    ],
    "foot": [
-    44,
-    50
+    34,
+    40
    ],
    "footprint_m": [
     -0.608,
@@ -449,14 +449,14 @@
   },
   "fire_2": {
    "rect": [
-    930,
-    207,
-    92,
-    85
+    349,
+    190,
+    70,
+    72
    ],
    "foot": [
-    44,
-    50
+    34,
+    40
    ],
    "footprint_m": [
     -0.608,
@@ -468,14 +468,14 @@
   },
   "fire_3": {
    "rect": [
-    1024,
-    207,
-    92,
-    85
+    421,
+    190,
+    70,
+    72
    ],
    "foot": [
-    44,
-    50
+    34,
+    40
    ],
    "footprint_m": [
     -0.608,
@@ -487,14 +487,14 @@
   },
   "fire_4": {
    "rect": [
-    1118,
-    207,
-    92,
-    85
+    493,
+    190,
+    70,
+    72
    ],
    "foot": [
-    44,
-    50
+    34,
+    40
    ],
    "footprint_m": [
     -0.608,
@@ -506,14 +506,14 @@
   },
   "fire_5": {
    "rect": [
-    1212,
-    207,
-    92,
-    85
+    565,
+    190,
+    70,
+    72
    ],
    "foot": [
-    44,
-    50
+    34,
+    40
    ],
    "footprint_m": [
     -0.608,
@@ -525,14 +525,14 @@
   },
   "f_surgeon": {
    "rect": [
-    1306,
-    207,
-    138,
-    83
+    1910,
+    0,
+    123,
+    81
    ],
    "foot": [
-    61,
-    59
+    55,
+    50
    ],
    "footprint_m": [
     -0.913,
@@ -544,14 +544,14 @@
   },
   "f_minstrel": {
    "rect": [
-    1446,
-    207,
-    124,
-    83
+    0,
+    190,
+    102,
+    77
    ],
    "foot": [
-    52,
-    64
+    53,
+    54
    ],
    "footprint_m": [
     -0.76,
@@ -563,14 +563,14 @@
   },
   "f_paymaster": {
    "rect": [
-    1572,
-    207,
-    78,
-    72
+    850,
+    190,
+    42,
+    60
    ],
    "foot": [
-    25,
-    54
+    19,
+    45
    ],
    "footprint_m": [
     -0.275,
@@ -582,14 +582,14 @@
   },
   "seats": {
    "rect": [
-    1652,
-    207,
-    109,
-    72
+    637,
+    190,
+    91,
+    65
    ],
    "foot": [
-    49,
-    51
+    44,
+    42
    ],
    "footprint_m": [
     -0.701,
@@ -601,14 +601,14 @@
   },
   "fire_cold": {
    "rect": [
-    1763,
-    207,
-    92,
-    71
+    894,
+    190,
+    70,
+    59
    ],
    "foot": [
-    44,
-    36
+    34,
+    27
    ],
    "footprint_m": [
     -0.608,
@@ -620,14 +620,14 @@
   },
   "f_alchemist": {
    "rect": [
-    1857,
-    207,
-    94,
-    66
+    966,
+    190,
+    77,
+    58
    ],
    "foot": [
-    19,
-    50
+    16,
+    41
    ],
    "footprint_m": [
     -0.18,
@@ -639,14 +639,14 @@
   },
   "slain_few": {
    "rect": [
-    0,
-    306,
-    132,
-    64
+    730,
+    190,
+    118,
+    61
    ],
    "foot": [
-    52,
-    11
+    49,
+    2
    ],
    "footprint_m": [
     -0.751,
@@ -658,14 +658,14 @@
   },
   "bedroll": {
    "rect": [
-    134,
-    306,
-    129,
-    54
+    1045,
+    190,
+    117,
+    50
    ],
    "foot": [
-    65,
-    29
+    60,
+    21
    ],
    "footprint_m": [
     -0.987,
@@ -678,32 +678,32 @@
  },
  "card": {
   "tent_olive": true,
-  "tent_tarp": false,
+  "tent_tarp": true,
   "tent_stripe": false,
   "fire_cold": true,
-  "bedroll": true,
+  "bedroll": false,
   "supplies": false,
-  "smart_cart": true,
+  "smart_cart": false,
   "f_cook": true,
-  "f_blacksmith": true,
+  "f_blacksmith": false,
   "f_surgeon": true,
-  "f_lookout": false,
-  "f_scout": false,
+  "f_lookout": true,
+  "f_scout": true,
   "f_paymaster": true,
-  "seats": false,
+  "seats": true,
   "f_agent": false,
   "f_alchemist": true,
   "f_bounty_hunter": false,
   "f_brigand": true,
   "f_cartographer": false,
-  "f_drill_sergeant": true,
-  "f_minstrel": true,
+  "f_drill_sergeant": false,
+  "f_minstrel": false,
   "f_negotiator": false,
   "f_quartermaster": false,
   "f_recruiter": false,
-  "f_scavenger": false,
+  "f_scavenger": true,
   "f_trader": false,
-  "slain_few": false,
+  "slain_few": true,
   "slain_some": false,
   "slain_many": false,
   "fire_0": false
@@ -729,5 +729,25 @@
   ],
   "ppm": 42.916666666666664,
   "why": "rule 289: the camp good tall first; the same sand quilted upright, the camp laid out for it (BohemiaCampLife.layout tall)"
+ },
+ "made": "COOK 10/26 (tools/bohemia_cook_the_camp_through_the_rig_10_26_26.py): CAMP TWO's same shapes through DIRECTION's master rig (Cycles, the guide's camera, sun, source pass, snap, ring and contact shadow), facing S; the numpy recipe stands as the source of the shapes",
+ "rig_runs": "records/target/cook_camp_rig/rig_json.json (each piece's rig.json: its box, ground, colours, card, settings)",
+ "camp_trailer_rig": {
+  "dir": "../records/target/master_rig/cook_camp_trailer/",
+  "ground": [
+   102,
+   133
+  ],
+  "real_dims_m": [
+   1.89,
+   3.559,
+   1.47
+  ],
+  "hitch_m": [
+   0.0,
+   -1.669,
+   0.43
+  ],
+  "why": "the last carrier step (pickup_trailer): a 4 x 7 ft utility trailer, 3.3 m with its tongue; drawn behind the pickup in the same facing; hitch_m is the coupler from the ground centre in metres (x east, y north, tongue to -y)"
  }
 }

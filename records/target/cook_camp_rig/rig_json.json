@@ -1,0 +1,6210 @@
+{
+ "tent_olive": {
+  "engine": "CYCLES",
+  "res": 350,
+  "real_dims_m": [
+   1.635,
+   3.48,
+   1.18
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   175.0,
+   208.62999832079328
+  ],
+  "crop_box_px": [
+   76,
+   93,
+   274,
+   281
+  ],
+  "ground_px": [
+   99,
+   116
+  ],
+  "colours": 4829,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 198",
+    "OUT  colours >= 2330: 1617",
+    "OK   top 8 carry <= 11%: 9.4",
+    "OUT  value span >= 118: 91",
+    "OK   saturation <= 0.81: 0.189",
+    "OK   light: top minus bottom >= -2.5: 6.6",
+    "OK   edge between -35 and +7: -11.7",
+    "OUT  grain <= 2.22 px a run: 2.57"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 194.0"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/tent_olive/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 3,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 94x186",
+    "OUT  colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 10508 px): 1617",
+    "OK   top 8 carry <= 11%: 9.4",
+    "OUT  value span >= 118: 91",
+    "OK   saturation <= 0.81: 0.189",
+    "OK   light: top minus bottom >= -2.5: 6.6",
+    "OK   edge between -35 and +7: -11.7",
+    "OUT  grain <= 2.22 px a run: 2.57"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "3 of 8 out under the style guide -> BACK before VOTE",
+   "size_px": [
+    94,
+    186
+   ],
+   "opaque_px": 10508,
+   "colours": 1617
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "inside",
+    "olive",
+    "olive_d",
+    "pole",
+    "rope",
+    "tape",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "tent_tarp": {
+  "engine": "CYCLES",
+  "res": 350,
+  "real_dims_m": [
+   1.635,
+   3.48,
+   1.18
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   175.0,
+   208.62999832079328
+  ],
+  "crop_box_px": [
+   76,
+   93,
+   274,
+   281
+  ],
+  "ground_px": [
+   99,
+   116
+  ],
+  "colours": 7048,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OK   long side >= floor 96: 198",
+    "OUT  colours >= 2330: 2057",
+    "OUT  top 8 carry <= 11%: 12.2",
+    "OUT  value span >= 118: 91",
+    "OK   saturation <= 0.81: 0.259",
+    "OK   light: top minus bottom >= -2.5: 7.2",
+    "OK   edge between -35 and +7: -10.9",
+    "OUT  grain <= 2.22 px a run: 2.23"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.7%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 196.5"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/tent_tarp/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 4,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 94x186",
+    "OUT  colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 10508 px): 2057",
+    "OUT  top 8 carry <= 11%: 12.2",
+    "OUT  value span >= 118: 91",
+    "OK   saturation <= 0.81: 0.259",
+    "OK   light: top minus bottom >= -2.5: 7.2",
+    "OK   edge between -35 and +7: -10.9",
+    "OUT  grain <= 2.22 px a run: 2.23"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "4 of 8 out under the style guide -> BACK before VOTE",
+   "size_px": [
+    94,
+    186
+   ],
+   "opaque_px": 10508,
+   "colours": 2057
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "inside",
+    "pole",
+    "rope",
+    "tape",
+    "tarp",
+    "tarp_d",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "tent_stripe": {
+  "engine": "CYCLES",
+  "res": 350,
+  "real_dims_m": [
+   1.635,
+   3.48,
+   1.18
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   175.0,
+   208.62999832079328
+  ],
+  "crop_box_px": [
+   76,
+   93,
+   274,
+   281
+  ],
+  "ground_px": [
+   99,
+   116
+  ],
+  "colours": 11197,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 198",
+    "OK   colours >= 2330: 2945",
+    "OK   top 8 carry <= 11%: 8.1",
+    "OK   value span >= 118: 121",
+    "OK   saturation <= 0.81: 0.279",
+    "OUT  light: top minus bottom >= -2.5: -5.7",
+    "OK   edge between -35 and +7: -14.0",
+    "OUT  grain <= 2.22 px a run: 2.31"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 164.8"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/tent_stripe/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 94x186",
+    "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 10517 px): 2945",
+    "OK   top 8 carry <= 11%: 8.1",
+    "OK   value span >= 118: 121",
+    "OK   saturation <= 0.81: 0.279",
+    "OUT  light: top minus bottom >= -2.5: -5.7",
+    "OK   edge between -35 and +7: -14.0",
+    "OUT  grain <= 2.22 px a run: 2.31"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    94,
+    186
+   ],
+   "opaque_px": 10517,
+   "colours": 2945
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "inside",
+    "pole",
+    "rope",
+    "stripe_a",
+    "stripe_b",
+    "tape",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "fire_cold": {
+  "engine": "CYCLES",
+  "res": 160,
+  "real_dims_m": [
+   1.25,
+   1.207,
+   0.313
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   80.0,
+   88.93433222538117
+  ],
+  "crop_box_px": [
+   41,
+   53,
+   119,
+   118
+  ],
+  "ground_px": [
+   39,
+   36
+  ],
+  "colours": 2567,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OUT  long side >= floor 96: 78",
+    "OUT  colours >= 2330: 1026",
+    "OK   top 8 carry <= 11%: 4.3",
+    "OUT  value span >= 118: 104",
+    "OK   saturation <= 0.81: 0.164",
+    "OUT  light: top minus bottom >= -2.5: -8.7",
+    "OK   edge between -35 and +7: -20.2",
+    "OK   grain <= 2.22 px a run: 1.56"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 123.6"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/fire_cold/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x52",
+    "OK   colours >= 902 (field 5: the class floor, or 370 per 1,000 of 2437 px): 1026",
+    "OK   top 8 carry <= 11%: 4.3",
+    "OUT  value span >= 118: 104",
+    "OK   saturation <= 0.81: 0.164",
+    "OUT  light: top minus bottom >= -2.5: -8.7",
+    "OK   edge between -35 and +7: -20.2",
+    "OK   grain <= 2.22 px a run: 1.56"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    70,
+    52
+   ],
+   "opaque_px": 2437,
+   "colours": 1026
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "log",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "bedroll": {
+  "engine": "CYCLES",
+  "res": 164,
+  "real_dims_m": [
+   1.935,
+   0.727,
+   0.14
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   82.0,
+   85.99000076362188
+  ],
+  "crop_box_px": [
+   23,
+   46,
+   143,
+   131
+  ],
+  "ground_px": [
+   59,
+   40
+  ],
+  "colours": 4401,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 120",
+    "OUT  colours >= 2330: 1444",
+    "OK   top 8 carry <= 11%: 3.2",
+    "OUT  value span >= 118: 78",
+    "OK   saturation <= 0.81: 0.195",
+    "OK   light: top minus bottom >= -2.5: 0.4",
+    "OK   edge between -35 and +7: -26.4",
+    "OK   grain <= 2.22 px a run: 1.74"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 358.5"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/bedroll/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  size >= 29x36 (rule 105, a prop): 110x35",
+    "OK   colours >= 1010 (field 5: the class floor, or 370 per 1,000 of 2729 px): 1444",
+    "OK   top 8 carry <= 11%: 3.2",
+    "OUT  value span >= 118: 78",
+    "OK   saturation <= 0.81: 0.195",
+    "OK   light: top minus bottom >= -2.5: 0.4",
+    "OK   edge between -35 and +7: -26.4",
+    "OK   grain <= 2.22 px a run: 1.74"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    110,
+    35
+   ],
+   "opaque_px": 2729,
+   "colours": 1444
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "blanket",
+    "blanket_b",
+    "cloth_g",
+    "pad"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "supplies": {
+  "engine": "CYCLES",
+  "res": 208,
+  "real_dims_m": [
+   1.636,
+   1.102,
+   0.74
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   104.0,
+   125.08999655674079
+  ],
+  "crop_box_px": [
+   56,
+   69,
+   156,
+   165
+  ],
+  "ground_px": [
+   48,
+   56
+  ],
+  "colours": 5835,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 100",
+    "OUT  colours >= 2330: 2037",
+    "OK   top 8 carry <= 11%: 3.5",
+    "OUT  value span >= 118: 96",
+    "OK   saturation <= 0.81: 0.294",
+    "OK   light: top minus bottom >= -2.5: 12.5",
+    "OK   edge between -35 and +7: -19.4",
+    "OK   grain <= 2.22 px a run: 2.06"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 238.0"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/supplies/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 93x76",
+    "OK   colours >= 1530 (field 5: the class floor, or 370 per 1,000 of 4134 px): 2037",
+    "OK   top 8 carry <= 11%: 3.5",
+    "OUT  value span >= 118: 96",
+    "OK   saturation <= 0.81: 0.294",
+    "OK   light: top minus bottom >= -2.5: 12.5",
+    "OK   edge between -35 and +7: -19.4",
+    "OK   grain <= 2.22 px a run: 2.06"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    93,
+    76
+   ],
+   "opaque_px": 4134,
+   "colours": 2037
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "jug",
+    "sack",
+    "tarp_d",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "smart_cart": {
+  "engine": "CYCLES",
+  "res": 216,
+  "real_dims_m": [
+   0.83,
+   0.935,
+   1.35
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   108.0,
+   146.47500058138434
+  ],
+  "crop_box_px": [
+   73,
+   52,
+   144,
+   174
+  ],
+  "ground_px": [
+   35,
+   94
+  ],
+  "colours": 3921,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 122",
+    "OUT  colours >= 2330: 1270",
+    "OK   top 8 carry <= 11%: 4.5",
+    "OK   value span >= 118: 119",
+    "OK   saturation <= 0.81: 0.082",
+    "OK   light: top minus bottom >= -2.5: 11.9",
+    "OK   edge between -35 and +7: -19.2",
+    "OK   grain <= 2.22 px a run: 2.19"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 225.5"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/smart_cart/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 47x109",
+    "OK   colours >= 1007 (field 5: the class floor, or 370 per 1,000 of 2721 px): 1270",
+    "OK   top 8 carry <= 11%: 4.5",
+    "OK   value span >= 118: 119",
+    "OK   saturation <= 0.81: 0.082",
+    "OK   light: top minus bottom >= -2.5: 11.9",
+    "OK   edge between -35 and +7: -19.2",
+    "OK   grain <= 2.22 px a run: 2.19"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    47,
+    109
+   ],
+   "opaque_px": 2721,
+   "colours": 1270
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "eye",
+    "pole",
+    "red",
+    "robot",
+    "robot_d",
+    "stripe_b",
+    "tape",
+    "tyre"
+   ],
+   "wear_by_material": {
+    "eye": 0.0
+   },
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_cook": {
+  "engine": "CYCLES",
+  "res": 186,
+  "real_dims_m": [
+   0.767,
+   0.76,
+   1.105
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   93.0,
+   124.48148214732161
+  ],
+  "crop_box_px": [
+   64,
+   59,
+   123,
+   145
+  ],
+  "ground_px": [
+   29,
+   65
+  ],
+  "colours": 1827,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OUT  long side >= floor 96: 86",
+    "OUT  colours >= 2330: 667",
+    "OK   top 8 carry <= 11%: 7.9",
+    "OUT  value span >= 118: 107",
+    "OK   saturation <= 0.81: 0.14",
+    "OUT  light: top minus bottom >= -2.5: -20.5",
+    "OK   edge between -35 and +7: -23.4",
+    "OK   grain <= 2.22 px a run: 1.58"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 104.1"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_cook/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 44x76",
+    "OK   colours >= 559 (field 5: the class floor, or 370 per 1,000 of 1511 px): 667",
+    "OK   top 8 carry <= 11%: 7.9",
+    "OUT  value span >= 118: 107",
+    "OK   saturation <= 0.81: 0.14",
+    "OUT  light: top minus bottom >= -2.5: -20.5",
+    "OK   edge between -35 and +7: -23.4",
+    "OK   grain <= 2.22 px a run: 1.58"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    44,
+    76
+   ],
+   "opaque_px": 1511,
+   "colours": 667
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "iron",
+    "log",
+    "pot",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_blacksmith": {
+  "engine": "CYCLES",
+  "res": 200,
+  "real_dims_m": [
+   1.214,
+   0.966,
+   0.948
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   100.0,
+   127.00818283708115
+  ],
+  "crop_box_px": [
+   58,
+   47,
+   148,
+   157
+  ],
+  "ground_px": [
+   42,
+   80
+  ],
+  "colours": 3353,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 110",
+    "OUT  colours >= 2330: 1109",
+    "OK   top 8 carry <= 11%: 4.8",
+    "OUT  value span >= 118: 98",
+    "OK   saturation <= 0.81: 0.13",
+    "OK   light: top minus bottom >= -2.5: 18.2",
+    "OK   edge between -35 and +7: -14.2",
+    "OK   grain <= 2.22 px a run: 2.1"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 253.1"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_blacksmith/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 69x88",
+    "OK   colours >= 1032 (field 5: the class floor, or 370 per 1,000 of 2788 px): 1109",
+    "OK   top 8 carry <= 11%: 4.8",
+    "OUT  value span >= 118: 98",
+    "OK   saturation <= 0.81: 0.13",
+    "OK   light: top minus bottom >= -2.5: 18.2",
+    "OK   edge between -35 and +7: -14.2",
+    "OK   grain <= 2.22 px a run: 2.1"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    69,
+    88
+   ],
+   "opaque_px": 2788,
+   "colours": 1109
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "char",
+    "dark",
+    "iron",
+    "log",
+    "metal",
+    "rust",
+    "tape"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_surgeon": {
+  "engine": "CYCLES",
+  "res": 192,
+  "real_dims_m": [
+   1.827,
+   1.157,
+   0.413
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   96.0,
+   107.76309878507752
+  ],
+  "crop_box_px": [
+   37,
+   43,
+   164,
+   151
+  ],
+  "ground_px": [
+   59,
+   65
+  ],
+  "colours": 2753,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 127",
+    "OUT  colours >= 2330: 1094",
+    "OK   top 8 carry <= 11%: 6.7",
+    "OUT  value span >= 118: 85",
+    "OK   saturation <= 0.81: 0.148",
+    "OK   light: top minus bottom >= -2.5: 8.8",
+    "OK   edge between -35 and +7: -27.3",
+    "OUT  grain <= 2.22 px a run: 2.42"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.7%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 265.1"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_surgeon/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 3,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 104x65",
+    "OUT  colours >= 1222 (field 5: the class floor, or 370 per 1,000 of 3303 px): 1094",
+    "OK   top 8 carry <= 11%: 6.7",
+    "OUT  value span >= 118: 85",
+    "OK   saturation <= 0.81: 0.148",
+    "OK   light: top minus bottom >= -2.5: 8.8",
+    "OK   edge between -35 and +7: -27.3",
+    "OUT  grain <= 2.22 px a run: 2.42"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "3 of 8 out under the style guide -> BACK before VOTE",
+   "size_px": [
+    104,
+    65
+   ],
+   "opaque_px": 3303,
+   "colours": 1094
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "canvas",
+    "pole",
+    "red",
+    "white"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_lookout": {
+  "engine": "CYCLES",
+  "res": 242,
+  "real_dims_m": [
+   1.2,
+   1.19,
+   1.368
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   121.0,
+   159.9879041914978
+  ],
+  "crop_box_px": [
+   74,
+   65,
+   169,
+   197
+  ],
+  "ground_px": [
+   47,
+   95
+  ],
+  "colours": 6085,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 132",
+    "OUT  colours >= 2330: 2171",
+    "OK   top 8 carry <= 11%: 4.0",
+    "OUT  value span >= 118: 97",
+    "OK   saturation <= 0.81: 0.225",
+    "OK   light: top minus bottom >= -2.5: 18.6",
+    "OK   edge between -35 and +7: -13.4",
+    "OUT  grain <= 2.22 px a run: 2.27"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 258.0"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_lookout/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x117",
+    "OK   colours >= 1961 (field 5: the class floor, or 370 per 1,000 of 5300 px): 2171",
+    "OK   top 8 carry <= 11%: 4.0",
+    "OUT  value span >= 118: 97",
+    "OK   saturation <= 0.81: 0.225",
+    "OK   light: top minus bottom >= -2.5: 18.6",
+    "OK   edge between -35 and +7: -13.4",
+    "OUT  grain <= 2.22 px a run: 2.27"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    70,
+    117
+   ],
+   "opaque_px": 5300,
+   "colours": 2171
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "jug",
+    "pole",
+    "stone_d",
+    "stripe_b",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_scout": {
+  "engine": "CYCLES",
+  "res": 218,
+  "real_dims_m": [
+   1.69,
+   0.521,
+   1.009
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   109.0,
+   137.768905941021
+  ],
+  "crop_box_px": [
+   61,
+   62,
+   163,
+   165
+  ],
+  "ground_px": [
+   48,
+   76
+  ],
+  "colours": 2765,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 103",
+    "OUT  colours >= 2330: 594",
+    "OUT  top 8 carry <= 11%: 16.7",
+    "OUT  value span >= 118: 100",
+    "OK   saturation <= 0.81: 0.25",
+    "OK   light: top minus bottom >= -2.5: 20.9",
+    "OK   edge between -35 and +7: -15.9",
+    "OK   grain <= 2.22 px a run: 1.42"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 10.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 307.8"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_scout/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 96x71",
+    "OK   colours >= 579 (field 5: the class floor, or 370 per 1,000 of 1565 px): 594",
+    "OUT  top 8 carry <= 11%: 16.7",
+    "OUT  value span >= 118: 100",
+    "OK   saturation <= 0.81: 0.25",
+    "OK   light: top minus bottom >= -2.5: 20.9",
+    "OK   edge between -35 and +7: -15.9",
+    "OK   grain <= 2.22 px a run: 1.42"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    96,
+    71
+   ],
+   "opaque_px": 1565,
+   "colours": 594
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "bike",
+    "boot",
+    "iron",
+    "metal",
+    "tyre",
+    "white",
+    "wood"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_paymaster": {
+  "engine": "CYCLES",
+  "res": 134,
+  "real_dims_m": [
+   0.665,
+   0.409,
+   0.675
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   67.0,
+   86.23750144328397
+  ],
+  "crop_box_px": [
+   45,
+   36,
+   93,
+   105
+  ],
+  "ground_px": [
+   22,
+   50
+  ],
+  "colours": 2529,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OUT  long side >= floor 96: 69",
+    "OUT  colours >= 2330: 779",
+    "OK   top 8 carry <= 11%: 7.0",
+    "OUT  value span >= 118: 94",
+    "OK   saturation <= 0.81: 0.285",
+    "OK   light: top minus bottom >= -2.5: 0.9",
+    "OK   edge between -35 and +7: -21.3",
+    "OK   grain <= 2.22 px a run: 2.18"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 301.2"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_paymaster/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 39x54",
+    "OK   colours >= 612 (field 5: the class floor, or 370 per 1,000 of 1654 px): 779",
+    "OK   top 8 carry <= 11%: 7.0",
+    "OUT  value span >= 118: 94",
+    "OK   saturation <= 0.81: 0.285",
+    "OK   light: top minus bottom >= -2.5: 0.9",
+    "OK   edge between -35 and +7: -21.3",
+    "OK   grain <= 2.22 px a run: 2.18"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    39,
+    54
+   ],
+   "opaque_px": 1654,
+   "colours": 779
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "gold",
+    "iron",
+    "lantern",
+    "metal",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "seats": {
+  "engine": "CYCLES",
+  "res": 160,
+  "real_dims_m": [
+   1.337,
+   0.868,
+   0.41
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   80.0,
+   91.68499814069722
+  ],
+  "crop_box_px": [
+   36,
+   42,
+   129,
+   124
+  ],
+  "ground_px": [
+   44,
+   50
+  ],
+  "colours": 3529,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OUT  long side >= floor 96: 93",
+    "OUT  colours >= 2330: 1035",
+    "OK   top 8 carry <= 11%: 6.4",
+    "OK   value span >= 118: 119",
+    "OK   saturation <= 0.81: 0.39",
+    "OK   light: top minus bottom >= -2.5: 35.6",
+    "OK   edge between -35 and +7: -14.4",
+    "OUT  grain <= 2.22 px a run: 2.25"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 227.3"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/seats/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 76x53",
+    "OK   colours >= 826 (field 5: the class floor, or 370 per 1,000 of 2233 px): 1035",
+    "OK   top 8 carry <= 11%: 6.4",
+    "OK   value span >= 118: 119",
+    "OK   saturation <= 0.81: 0.39",
+    "OK   light: top minus bottom >= -2.5: 35.6",
+    "OK   edge between -35 and +7: -14.4",
+    "OUT  grain <= 2.22 px a run: 2.25"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    76,
+    53
+   ],
+   "opaque_px": 2233,
+   "colours": 1035
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "blanket",
+    "blanket_b",
+    "rust",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_agent": {
+  "engine": "CYCLES",
+  "res": 208,
+  "real_dims_m": [
+   1.136,
+   0.559,
+   1.257
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   104.0,
+   139.8102629973291
+  ],
+  "crop_box_px": [
+   64,
+   50,
+   147,
+   167
+  ],
+  "ground_px": [
+   40,
+   90
+  ],
+  "colours": 3045,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 117",
+    "OUT  colours >= 2330: 1021",
+    "OK   top 8 carry <= 11%: 7.6",
+    "OK   value span >= 118: 129",
+    "OK   saturation <= 0.81: 0.31",
+    "OK   light: top minus bottom >= -2.5: 24.0",
+    "OK   edge between -35 and +7: -28.0",
+    "OK   grain <= 2.22 px a run: 1.99"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 244.4"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_agent/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 65x78",
+    "OK   colours >= 831 (field 5: the class floor, or 370 per 1,000 of 2245 px): 1021",
+    "OK   top 8 carry <= 11%: 7.6",
+    "OK   value span >= 118: 129",
+    "OK   saturation <= 0.81: 0.31",
+    "OK   light: top minus bottom >= -2.5: 24.0",
+    "OK   edge between -35 and +7: -28.0",
+    "OK   grain <= 2.22 px a run: 1.99"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    65,
+    78
+   ],
+   "opaque_px": 2245,
+   "colours": 1021
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "iron",
+    "pole",
+    "red",
+    "stripe_a",
+    "white",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_alchemist": {
+  "engine": "CYCLES",
+  "res": 158,
+  "real_dims_m": [
+   1.05,
+   0.41,
+   0.723
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   79.0,
+   99.60489250415358
+  ],
+  "crop_box_px": [
+   41,
+   49,
+   120,
+   125
+  ],
+  "ground_px": [
+   38,
+   51
+  ],
+  "colours": 3893,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OUT  long side >= floor 96: 79",
+    "OUT  colours >= 2330: 938",
+    "OK   top 8 carry <= 11%: 6.3",
+    "OUT  value span >= 118: 109",
+    "OK   saturation <= 0.81: 0.377",
+    "OK   light: top minus bottom >= -2.5: 25.3",
+    "OK   edge between -35 and +7: -16.1",
+    "OK   grain <= 2.22 px a run: 2.05"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 324.2"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_alchemist/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 61x48",
+    "OK   colours >= 642 (field 5: the class floor, or 370 per 1,000 of 1735 px): 938",
+    "OK   top 8 carry <= 11%: 6.3",
+    "OUT  value span >= 118: 109",
+    "OK   saturation <= 0.81: 0.377",
+    "OK   light: top minus bottom >= -2.5: 25.3",
+    "OK   edge between -35 and +7: -16.1",
+    "OK   grain <= 2.22 px a run: 2.05"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    61,
+    48
+   ],
+   "opaque_px": 1735,
+   "colours": 938
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "iron",
+    "jug",
+    "red",
+    "rust",
+    "tarp",
+    "white",
+    "wood"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_bounty_hunter": {
+  "engine": "CYCLES",
+  "res": 248,
+  "real_dims_m": [
+   1.555,
+   0.448,
+   1.5
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   124.0,
+   166.75000414651583
+  ],
+  "crop_box_px": [
+   69,
+   72,
+   183,
+   201
+  ],
+  "ground_px": [
+   55,
+   95
+  ],
+  "colours": 3617,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 129",
+    "OUT  colours >= 2330: 1107",
+    "OK   top 8 carry <= 11%: 4.0",
+    "OK   value span >= 118: 120",
+    "OK   saturation <= 0.81: 0.24",
+    "OK   light: top minus bottom >= -2.5: 16.3",
+    "OK   edge between -35 and +7: -16.3",
+    "OK   grain <= 2.22 px a run: 1.95"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 230.0"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_bounty_hunter/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 88x103",
+    "OK   colours >= 768 (field 5: the class floor, or 370 per 1,000 of 2075 px): 1107",
+    "OK   top 8 carry <= 11%: 4.0",
+    "OK   value span >= 118: 120",
+    "OK   saturation <= 0.81: 0.24",
+    "OK   light: top minus bottom >= -2.5: 16.3",
+    "OK   edge between -35 and +7: -16.3",
+    "OK   grain <= 2.22 px a run: 1.95"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    88,
+    103
+   ],
+   "opaque_px": 2075,
+   "colours": 1107
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "dark",
+    "iron",
+    "sack",
+    "white",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_brigand": {
+  "engine": "CYCLES",
+  "res": 226,
+  "real_dims_m": [
+   0.942,
+   0.399,
+   1.65
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   113.0,
+   160.03446115063116
+  ],
+  "crop_box_px": [
+   79,
+   48,
+   150,
+   185
+  ],
+  "ground_px": [
+   34,
+   112
+  ],
+  "colours": 3295,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 137",
+    "OUT  colours >= 2330: 938",
+    "OK   top 8 carry <= 11%: 5.6",
+    "OUT  value span >= 118: 95",
+    "OK   saturation <= 0.81: 0.367",
+    "OK   light: top minus bottom >= -2.5: 17.4",
+    "OK   edge between -35 and +7: -21.1",
+    "OUT  grain <= 2.22 px a run: 2.27"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 278.6"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_brigand/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 55x99",
+    "OK   colours >= 667 (field 5: the class floor, or 370 per 1,000 of 1803 px): 938",
+    "OK   top 8 carry <= 11%: 5.6",
+    "OUT  value span >= 118: 95",
+    "OK   saturation <= 0.81: 0.367",
+    "OK   light: top minus bottom >= -2.5: 17.4",
+    "OK   edge between -35 and +7: -21.1",
+    "OUT  grain <= 2.22 px a run: 2.27"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    55,
+    99
+   ],
+   "opaque_px": 1803,
+   "colours": 938
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "eye",
+    "iron",
+    "metal",
+    "pole",
+    "rust",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {
+    "eye": 0.0
+   },
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_cartographer": {
+  "engine": "CYCLES",
+  "res": 192,
+  "real_dims_m": [
+   1.313,
+   0.611,
+   0.923
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   96.0,
+   122.31565974861473
+  ],
+  "crop_box_px": [
+   51,
+   44,
+   146,
+   152
+  ],
+  "ground_px": [
+   45,
+   78
+  ],
+  "colours": 5300,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 108",
+    "OUT  colours >= 2330: 1601",
+    "OK   top 8 carry <= 11%: 5.2",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.156",
+    "OK   light: top minus bottom >= -2.5: 56.4",
+    "OK   edge between -35 and +7: -24.2",
+    "OK   grain <= 2.22 px a run: 1.68"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 240.2"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_cartographer/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 75x74",
+    "OK   colours >= 1019 (field 5: the class floor, or 370 per 1,000 of 2755 px): 1601",
+    "OK   top 8 carry <= 11%: 5.2",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.156",
+    "OK   light: top minus bottom >= -2.5: 56.4",
+    "OK   edge between -35 and +7: -24.2",
+    "OK   grain <= 2.22 px a run: 1.68"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    75,
+    74
+   ],
+   "opaque_px": 2755,
+   "colours": 1601
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "olive",
+    "pole",
+    "red",
+    "rust",
+    "stripe_b",
+    "tarp",
+    "white",
+    "wood"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_drill_sergeant": {
+  "engine": "CYCLES",
+  "res": 282,
+  "real_dims_m": [
+   1.473,
+   0.924,
+   1.838
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   141.0,
+   193.39036735171936
+  ],
+  "crop_box_px": [
+   88,
+   61,
+   197,
+   230
+  ],
+  "ground_px": [
+   53,
+   132
+  ],
+  "colours": 3700,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 169",
+    "OUT  colours >= 2330: 1210",
+    "OK   top 8 carry <= 11%: 6.9",
+    "OK   value span >= 118: 122",
+    "OK   saturation <= 0.81: 0.155",
+    "OK   light: top minus bottom >= -2.5: 0.6",
+    "OK   edge between -35 and +7: -20.8",
+    "OK   grain <= 2.22 px a run: 1.79"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.3%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 343.8"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_drill_sergeant/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 84x127",
+    "OK   colours >= 910 (field 5: the class floor, or 370 per 1,000 of 2460 px): 1210",
+    "OK   top 8 carry <= 11%: 6.9",
+    "OK   value span >= 118: 122",
+    "OK   saturation <= 0.81: 0.155",
+    "OK   light: top minus bottom >= -2.5: 0.6",
+    "OK   edge between -35 and +7: -20.8",
+    "OK   grain <= 2.22 px a run: 1.79"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    84,
+    127
+   ],
+   "opaque_px": 2460,
+   "colours": 1210
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "dark",
+    "iron",
+    "red",
+    "rope",
+    "tape",
+    "tyre"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_minstrel": {
+  "engine": "CYCLES",
+  "res": 200,
+  "real_dims_m": [
+   1.38,
+   0.504,
+   1.003
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   100.0,
+   128.58443729025535
+  ],
+  "crop_box_px": [
+   51,
+   53,
+   153,
+   161
+  ],
+  "ground_px": [
+   49,
+   76
+  ],
+  "colours": 3167,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 108",
+    "OUT  colours >= 2330: 1128",
+    "OK   top 8 carry <= 11%: 8.1",
+    "OK   value span >= 118: 124",
+    "OK   saturation <= 0.81: 0.136",
+    "OK   light: top minus bottom >= -2.5: 10.9",
+    "OK   edge between -35 and +7: -16.1",
+    "OUT  grain <= 2.22 px a run: 2.55"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 1.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 224.3"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_minstrel/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 78x63",
+    "OK   colours >= 1105 (field 5: the class floor, or 370 per 1,000 of 2986 px): 1128",
+    "OK   top 8 carry <= 11%: 8.1",
+    "OK   value span >= 118: 124",
+    "OK   saturation <= 0.81: 0.136",
+    "OK   light: top minus bottom >= -2.5: 10.9",
+    "OK   edge between -35 and +7: -16.1",
+    "OUT  grain <= 2.22 px a run: 2.55"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    78,
+    63
+   ],
+   "opaque_px": 2986,
+   "colours": 1128
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "dark",
+    "iron",
+    "metal",
+    "wood",
+    "wood_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_negotiator": {
+  "engine": "CYCLES",
+  "res": 216,
+  "real_dims_m": [
+   1.68,
+   0.62,
+   0.987
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   108.0,
+   136.12878538573537
+  ],
+  "crop_box_px": [
+   60,
+   47,
+   156,
+   161
+  ],
+  "ground_px": [
+   48,
+   89
+  ],
+  "colours": 4591,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 114",
+    "OUT  colours >= 2330: 977",
+    "OK   top 8 carry <= 11%: 6.8",
+    "OUT  value span >= 118: 102",
+    "OK   saturation <= 0.81: 0.137",
+    "OK   light: top minus bottom >= -2.5: 27.1",
+    "OK   edge between -35 and +7: -25.5",
+    "OK   grain <= 2.22 px a run: 1.84"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 283.8"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_negotiator/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 96x72",
+    "OK   colours >= 850 (field 5: the class floor, or 370 per 1,000 of 2296 px): 977",
+    "OK   top 8 carry <= 11%: 6.8",
+    "OUT  value span >= 118: 102",
+    "OK   saturation <= 0.81: 0.137",
+    "OK   light: top minus bottom >= -2.5: 27.1",
+    "OK   edge between -35 and +7: -25.5",
+    "OK   grain <= 2.22 px a run: 1.84"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    96,
+    72
+   ],
+   "opaque_px": 2296,
+   "colours": 977
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "olive_d",
+    "pole",
+    "stripe_b",
+    "tarp",
+    "white"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_quartermaster": {
+  "engine": "CYCLES",
+  "res": 230,
+  "real_dims_m": [
+   1.134,
+   0.65,
+   1.5
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   115.0,
+   157.7499998234408
+  ],
+  "crop_box_px": [
+   75,
+   47,
+   159,
+   188
+  ],
+  "ground_px": [
+   40,
+   111
+  ],
+  "colours": 10554,
+  "card": {
+   "family": "prop",
+   "out": 0,
+   "rows": [
+    "OK   long side >= floor 96: 141",
+    "OK   colours >= 2330: 3275",
+    "OK   top 8 carry <= 11%: 2.2",
+    "OK   value span >= 118: 128",
+    "OK   saturation <= 0.81: 0.217",
+    "OK   light: top minus bottom >= -2.5: 17.9",
+    "OK   edge between -35 and +7: -23.1",
+    "OK   grain <= 2.22 px a run: 2.03"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.7%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 286.9"
+   ],
+   "verdict": "0 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_quartermaster/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 66x112",
+    "OK   colours >= 2183 (field 5: the class floor, or 370 per 1,000 of 5901 px): 3275",
+    "OK   top 8 carry <= 11%: 2.2",
+    "OK   value span >= 118: 128",
+    "OK   saturation <= 0.81: 0.217",
+    "OK   light: top minus bottom >= -2.5: 17.9",
+    "OK   edge between -35 and +7: -23.1",
+    "OK   grain <= 2.22 px a run: 2.03"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    66,
+    112
+   ],
+   "opaque_px": 5901,
+   "colours": 3275
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "metal",
+    "olive",
+    "red",
+    "stripe_a",
+    "tape",
+    "tarp",
+    "white"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_recruiter": {
+  "engine": "CYCLES",
+  "res": 248,
+  "real_dims_m": [
+   1.159,
+   0.545,
+   1.739
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   124.0,
+   173.56735057145858
+  ],
+  "crop_box_px": [
+   83,
+   64,
+   169,
+   202
+  ],
+  "ground_px": [
+   41,
+   110
+  ],
+  "colours": 3770,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 138",
+    "OUT  colours >= 2330: 934",
+    "OK   top 8 carry <= 11%: 8.5",
+    "OK   value span >= 118: 122",
+    "OK   saturation <= 0.81: 0.189",
+    "OK   light: top minus bottom >= -2.5: 36.8",
+    "OK   edge between -35 and +7: -23.0",
+    "OK   grain <= 2.22 px a run: 2.05"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.5%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 259.7"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_recruiter/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 66x113",
+    "OK   colours >= 742 (field 5: the class floor, or 370 per 1,000 of 2005 px): 934",
+    "OK   top 8 carry <= 11%: 8.5",
+    "OK   value span >= 118: 122",
+    "OK   saturation <= 0.81: 0.189",
+    "OK   light: top minus bottom >= -2.5: 36.8",
+    "OK   edge between -35 and +7: -23.0",
+    "OK   grain <= 2.22 px a run: 2.05"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    66,
+    113
+   ],
+   "opaque_px": 2005,
+   "colours": 934
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "olive_d",
+    "pole",
+    "rust",
+    "white",
+    "wood"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_scavenger": {
+  "engine": "CYCLES",
+  "res": 230,
+  "real_dims_m": [
+   1.593,
+   0.64,
+   1.203
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   115.0,
+   149.29003557157904
+  ],
+  "crop_box_px": [
+   60,
+   57,
+   166,
+   187
+  ],
+  "ground_px": [
+   55,
+   92
+  ],
+  "colours": 6156,
+  "card": {
+   "family": "prop",
+   "out": 3,
+   "rows": [
+    "OK   long side >= floor 96: 130",
+    "OUT  colours >= 2330: 1424",
+    "OK   top 8 carry <= 11%: 5.1",
+    "OUT  value span >= 118: 116",
+    "OK   saturation <= 0.81: 0.245",
+    "OUT  light: top minus bottom >= -2.5: -28.3",
+    "OK   edge between -35 and +7: -23.7",
+    "OK   grain <= 2.22 px a run: 2.14"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 3.1%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 144.3"
+   ],
+   "verdict": "3 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_scavenger/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 91x92",
+    "OK   colours >= 981 (field 5: the class floor, or 370 per 1,000 of 2652 px): 1424",
+    "OK   top 8 carry <= 11%: 5.1",
+    "OUT  value span >= 118: 116",
+    "OK   saturation <= 0.81: 0.245",
+    "OUT  light: top minus bottom >= -2.5: -28.3",
+    "OK   edge between -35 and +7: -23.7",
+    "OK   grain <= 2.22 px a run: 2.14"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    91,
+    92
+   ],
+   "opaque_px": 2652,
+   "colours": 1424
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "blanket",
+    "iron",
+    "metal",
+    "rust",
+    "sack",
+    "tape",
+    "tarp_d",
+    "tyre"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "f_trader": {
+  "engine": "CYCLES",
+  "res": 326,
+  "real_dims_m": [
+   1.958,
+   1.7,
+   1.781
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   163.0,
+   213.74548183299427
+  ],
+  "crop_box_px": [
+   93,
+   91,
+   234,
+   273
+  ],
+  "ground_px": [
+   70,
+   123
+  ],
+  "colours": 10362,
+  "card": {
+   "family": "prop",
+   "out": 0,
+   "rows": [
+    "OK   long side >= floor 96: 182",
+    "OK   colours >= 2330: 3650",
+    "OK   top 8 carry <= 11%: 2.7",
+    "OK   value span >= 118: 119",
+    "OK   saturation <= 0.81: 0.3",
+    "OK   light: top minus bottom >= -2.5: 9.9",
+    "OK   edge between -35 and +7: -24.1",
+    "OK   grain <= 2.22 px a run: 2.06"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 233.7"
+   ],
+   "verdict": "0 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/f_trader/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 113x147",
+    "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 7774 px): 3650",
+    "OK   top 8 carry <= 11%: 2.7",
+    "OK   value span >= 118: 119",
+    "OK   saturation <= 0.81: 0.3",
+    "OK   light: top minus bottom >= -2.5: 9.9",
+    "OK   edge between -35 and +7: -24.1",
+    "OK   grain <= 2.22 px a run: 2.06"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    113,
+    147
+   ],
+   "opaque_px": 7774,
+   "colours": 3650
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "blanket",
+    "blanket_b",
+    "jug",
+    "pole",
+    "red",
+    "stripe_b",
+    "tape",
+    "tarp",
+    "white",
+    "wood"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "slain_few": {
+  "engine": "CYCLES",
+  "res": 170,
+  "real_dims_m": [
+   1.895,
+   1.025,
+   0.153
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   85.0,
+   89.35479479850649
+  ],
+  "crop_box_px": [
+   25,
+   44,
+   144,
+   136
+  ],
+  "ground_px": [
+   60,
+   45
+  ],
+  "colours": 5805,
+  "card": {
+   "family": "prop",
+   "out": 4,
+   "rows": [
+    "OK   long side >= floor 96: 119",
+    "OUT  colours >= 2330: 2008",
+    "OK   top 8 carry <= 11%: 3.1",
+    "OUT  value span >= 118: 98",
+    "OK   saturation <= 0.81: 0.133",
+    "OUT  light: top minus bottom >= -2.5: -10.0",
+    "OK   edge between -35 and +7: -21.3",
+    "OUT  grain <= 2.22 px a run: 2.23"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.4%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OUT  light from above (180 to 360 degrees, or flat): 177.7"
+   ],
+   "verdict": "4 of 8 out -> BACK before VOTE",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/slain_few/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 3,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 108x45",
+    "OK   colours >= 1437 (field 5: the class floor, or 370 per 1,000 of 3885 px): 2008",
+    "OK   top 8 carry <= 11%: 3.1",
+    "OUT  value span >= 118: 98",
+    "OK   saturation <= 0.81: 0.133",
+    "OUT  light: top minus bottom >= -2.5: -10.0",
+    "OK   edge between -35 and +7: -21.3",
+    "OUT  grain <= 2.22 px a run: 2.23"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "3 of 8 out under the style guide -> BACK before VOTE",
+   "size_px": [
+    108,
+    45
+   ],
+   "opaque_px": 3885,
+   "colours": 2008
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "boot",
+    "cloth_g",
+    "tarp"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "slain_some": {
+  "engine": "CYCLES",
+  "res": 212,
+  "real_dims_m": [
+   1.922,
+   2.154,
+   0.153
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   106.0,
+   110.35479519975749
+  ],
+  "crop_box_px": [
+   30,
+   49,
+   183,
+   172
+  ],
+  "ground_px": [
+   76,
+   61
+  ],
+  "colours": 9153,
+  "card": {
+   "family": "prop",
+   "out": 1,
+   "rows": [
+    "OK   long side >= floor 96: 153",
+    "OK   colours >= 2330: 3645",
+    "OK   top 8 carry <= 11%: 2.3",
+    "OUT  value span >= 118: 103",
+    "OK   saturation <= 0.81: 0.139",
+    "OK   light: top minus bottom >= -2.5: -0.2",
+    "OK   edge between -35 and +7: -21.9",
+    "OK   grain <= 2.22 px a run: 2.19"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 190.2"
+   ],
+   "verdict": "1 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/slain_some/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 1,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 109x91",
+    "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 7760 px): 3645",
+    "OK   top 8 carry <= 11%: 2.3",
+    "OUT  value span >= 118: 103",
+    "OK   saturation <= 0.81: 0.139",
+    "OK   light: top minus bottom >= -2.5: -0.2",
+    "OK   edge between -35 and +7: -21.9",
+    "OK   grain <= 2.22 px a run: 2.19"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "1 of 8 out under the style guide",
+   "size_px": [
+    109,
+    91
+   ],
+   "opaque_px": 7760,
+   "colours": 3645
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "boot",
+    "cloth_g",
+    "olive",
+    "tarp",
+    "tarp_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "slain_many": {
+  "engine": "CYCLES",
+  "res": 226,
+  "real_dims_m": [
+   2.222,
+   2.154,
+   0.179
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   113.0,
+   118.09808407986453
+  ],
+  "crop_box_px": [
+   34,
+   58,
+   194,
+   182
+  ],
+  "ground_px": [
+   79,
+   60
+  ],
+  "colours": 9577,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OK   long side >= floor 96: 160",
+    "OK   colours >= 2330: 3989",
+    "OK   top 8 carry <= 11%: 1.8",
+    "OUT  value span >= 118: 109",
+    "OK   saturation <= 0.81: 0.115",
+    "OK   light: top minus bottom >= -2.5: -1.8",
+    "OK   edge between -35 and +7: -20.9",
+    "OUT  grain <= 2.22 px a run: 2.22"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 2.6%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 180.1"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/slain_many/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 2,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 127x91",
+    "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 9190 px): 3989",
+    "OK   top 8 carry <= 11%: 1.8",
+    "OUT  value span >= 118: 109",
+    "OK   saturation <= 0.81: 0.115",
+    "OK   light: top minus bottom >= -2.5: -1.8",
+    "OK   edge between -35 and +7: -20.9",
+    "OUT  grain <= 2.22 px a run: 2.22"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "2 of 8 out under the style guide",
+   "size_px": [
+    127,
+    91
+   ],
+   "opaque_px": 9190,
+   "colours": 3989
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "boot",
+    "cloth_g",
+    "olive",
+    "tarp",
+    "tarp_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "fire_0": {
+  "engine": "CYCLES",
+  "res": 192,
+  "real_dims_m": [
+   1.25,
+   1.207,
+   0.71
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   96.0,
+   116.22167946403887
+  ],
+  "crop_box_px": [
+   57,
+   71,
+   135,
+   145
+  ],
+  "ground_px": [
+   39,
+   45
+  ],
+  "colours": 4222,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  long side >= floor 96: 78",
+    "OUT  colours >= 2330: 1285",
+    "OK   top 8 carry <= 11%: 6.0",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.19",
+    "OK   light: top minus bottom >= -2.5: 12.6",
+    "OK   edge between -35 and +7: -13.5",
+    "OK   grain <= 2.22 px a run: 1.58"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 4.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 252.1"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/fire_0/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x64",
+    "OK   colours >= 943 (field 5: the class floor, or 370 per 1,000 of 2548 px): 1285",
+    "OK   top 8 carry <= 11%: 6.0",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.19",
+    "OK   light: top minus bottom >= -2.5: 12.6",
+    "OK   edge between -35 and +7: -13.5",
+    "OK   grain <= 2.22 px a run: 1.58"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    70,
+    64
+   ],
+   "opaque_px": 2548,
+   "colours": 1285
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "char",
+    "ember",
+    "flame_o",
+    "flame_y",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "fire_1": {
+  "engine": "CYCLES",
+  "res": 190,
+  "real_dims_m": [
+   1.25,
+   1.207,
+   0.691
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   95.0,
+   114.69291151089226
+  ],
+  "crop_box_px": [
+   56,
+   72,
+   135,
+   144
+  ],
+  "ground_px": [
+   39,
+   43
+  ],
+  "colours": 4260,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  long side >= floor 96: 79",
+    "OUT  colours >= 2330: 1289",
+    "OK   top 8 carry <= 11%: 5.1",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.19",
+    "OK   light: top minus bottom >= -2.5: 9.9",
+    "OK   edge between -35 and +7: -13.3",
+    "OK   grain <= 2.22 px a run: 1.59"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 242.8"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/fire_1/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x60",
+    "OK   colours >= 945 (field 5: the class floor, or 370 per 1,000 of 2553 px): 1289",
+    "OK   top 8 carry <= 11%: 5.1",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.19",
+    "OK   light: top minus bottom >= -2.5: 9.9",
+    "OK   edge between -35 and +7: -13.3",
+    "OK   grain <= 2.22 px a run: 1.59"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    70,
+    60
+   ],
+   "opaque_px": 2553,
+   "colours": 1289
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "char",
+    "ember",
+    "flame_o",
+    "flame_y",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "fire_2": {
+  "engine": "CYCLES",
+  "res": 188,
+  "real_dims_m": [
+   1.25,
+   1.207,
+   0.674
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   94.0,
+   113.2054023797599
+  ],
+  "crop_box_px": [
+   55,
+   71,
+   133,
+   142
+  ],
+  "ground_px": [
+   39,
+   42
+  ],
+  "colours": 4266,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  long side >= floor 96: 78",
+    "OUT  colours >= 2330: 1257",
+    "OK   top 8 carry <= 11%: 4.9",
+    "OK   value span >= 118: 129",
+    "OK   saturation <= 0.81: 0.188",
+    "OK   light: top minus bottom >= -2.5: 10.0",
+    "OK   edge between -35 and +7: -15.6",
+    "OK   grain <= 2.22 px a run: 1.58"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.8%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 239.1"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/fire_2/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x58",
+    "OK   colours >= 925 (field 5: the class floor, or 370 per 1,000 of 2500 px): 1257",
+    "OK   top 8 carry <= 11%: 4.9",
+    "OK   value span >= 118: 129",
+    "OK   saturation <= 0.81: 0.188",
+    "OK   light: top minus bottom >= -2.5: 10.0",
+    "OK   edge between -35 and +7: -15.6",
+    "OK   grain <= 2.22 px a run: 1.58"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    70,
+    58
+   ],
+   "opaque_px": 2500,
+   "colours": 1257
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "char",
+    "ember",
+    "flame_o",
+    "flame_y",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "fire_3": {
+  "engine": "CYCLES",
+  "res": 188,
+  "real_dims_m": [
+   1.25,
+   1.207,
+   0.657
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   94.0,
+   112.72227767795968
+  ],
+  "crop_box_px": [
+   55,
+   69,
+   134,
+   142
+  ],
+  "ground_px": [
+   39,
+   44
+  ],
+  "colours": 4270,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  long side >= floor 96: 79",
+    "OUT  colours >= 2330: 1270",
+    "OK   top 8 carry <= 11%: 5.1",
+    "OK   value span >= 118: 128",
+    "OK   saturation <= 0.81: 0.188",
+    "OK   light: top minus bottom >= -2.5: 11.7",
+    "OK   edge between -35 and +7: -15.2",
+    "OK   grain <= 2.22 px a run: 1.6"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.9%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 238.3"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/fire_3/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x59",
+    "OK   colours >= 935 (field 5: the class floor, or 370 per 1,000 of 2526 px): 1270",
+    "OK   top 8 carry <= 11%: 5.1",
+    "OK   value span >= 118: 128",
+    "OK   saturation <= 0.81: 0.188",
+    "OK   light: top minus bottom >= -2.5: 11.7",
+    "OK   edge between -35 and +7: -15.2",
+    "OK   grain <= 2.22 px a run: 1.6"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    70,
+    59
+   ],
+   "opaque_px": 2526,
+   "colours": 1270
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "char",
+    "ember",
+    "flame_o",
+    "flame_y",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "fire_4": {
+  "engine": "CYCLES",
+  "res": 192,
+  "real_dims_m": [
+   1.25,
+   1.207,
+   0.714
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   96.0,
+   116.33809701963347
+  ],
+  "crop_box_px": [
+   57,
+   74,
+   136,
+   145
+  ],
+  "ground_px": [
+   39,
+   42
+  ],
+  "colours": 4210,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  long side >= floor 96: 79",
+    "OUT  colours >= 2330: 1266",
+    "OK   top 8 carry <= 11%: 5.3",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.189",
+    "OK   light: top minus bottom >= -2.5: 10.4",
+    "OK   edge between -35 and +7: -10.5",
+    "OK   grain <= 2.22 px a run: 1.61"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 5.0%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 240.4"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/fire_4/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x59",
+    "OK   colours >= 937 (field 5: the class floor, or 370 per 1,000 of 2533 px): 1266",
+    "OK   top 8 carry <= 11%: 5.3",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.189",
+    "OK   light: top minus bottom >= -2.5: 10.4",
+    "OK   edge between -35 and +7: -10.5",
+    "OK   grain <= 2.22 px a run: 1.61"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    70,
+    59
+   ],
+   "opaque_px": 2533,
+   "colours": 1266
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "char",
+    "ember",
+    "flame_o",
+    "flame_y",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ },
+ "fire_5": {
+  "engine": "CYCLES",
+  "res": 188,
+  "real_dims_m": [
+   1.25,
+   1.207,
+   0.662
+  ],
+  "scale_from_model": 1.0,
+  "ground_screen": [
+   94.0,
+   112.86127139233928
+  ],
+  "crop_box_px": [
+   55,
+   71,
+   133,
+   142
+  ],
+  "ground_px": [
+   39,
+   42
+  ],
+  "colours": 4244,
+  "card": {
+   "family": "prop",
+   "out": 2,
+   "rows": [
+    "OUT  long side >= floor 96: 78",
+    "OUT  colours >= 2330: 1221",
+    "OK   top 8 carry <= 11%: 6.3",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.19",
+    "OK   light: top minus bottom >= -2.5: 10.8",
+    "OK   edge between -35 and +7: -15.7",
+    "OK   grain <= 2.22 px a run: 1.63"
+   ],
+   "craft": [
+    "OK   stray pixels at 8 steps <= 14%: 6.2%",
+    "OK   one pixel size (block 1): 1",
+    "OK   no banding: 0.0",
+    "OK   light from above (180 to 360 degrees, or flat): 245.0"
+   ],
+   "verdict": "2 of 8 out -> to DIRECTION",
+   "file": "../../../tmp/claude-0/-home-user-bohemia/386041e1-107d-5447-bac7-c3887d7d40a9/scratchpad/camp_rig/rig/fire_5/rig_S.png"
+  },
+  "card_guide": {
+   "cls": "prop",
+   "out": 0,
+   "rows": [
+    "OK   size >= 29x36 (rule 105, a prop): 70x58",
+    "OK   colours >= 938 (field 5: the class floor, or 370 per 1,000 of 2534 px): 1221",
+    "OK   top 8 carry <= 11%: 6.3",
+    "OK   value span >= 118: 130",
+    "OK   saturation <= 0.81: 0.19",
+    "OK   light: top minus bottom >= -2.5: 10.8",
+    "OK   edge between -35 and +7: -15.7",
+    "OK   grain <= 2.22 px a run: 1.63"
+   ],
+   "reread": [
+    "size by rule 105",
+    "colours by field 5"
+   ],
+   "verdict": "0 of 8 out under the style guide",
+   "size_px": [
+    70,
+    58
+   ],
+   "opaque_px": 2534,
+   "colours": 1221
+  },
+  "breaks": [],
+  "rig_settings": {
+   "engine": "CYCLES",
+   "device": "CPU",
+   "samples": 128,
+   "denoise": false,
+   "filter_px": 0.01,
+   "view_transform": "Standard",
+   "film_transparent": true,
+   "motion_blur": false,
+   "depth_of_field": false,
+   "ppm": 57.0,
+   "tilt_deg": 45.0,
+   "sun_rot_deg": [
+    40.0,
+    0.0,
+    -35.0
+   ],
+   "sun_angle_deg": 3,
+   "sun_energy": 3.0,
+   "fill_rgb": [
+    0.55,
+    0.55,
+    0.6
+   ],
+   "fill_strength": 0.35,
+   "wear": 0.6,
+   "ring": 8.0,
+   "contact_shadow": true,
+   "shadow_alpha_max": 0.42,
+   "alpha_threshold": 127,
+   "keys_per_beat": 3,
+   "bpm": 120,
+   "puppet_jitter_cm": 0,
+   "grain_per_m": 28,
+   "drift_per_m": 5,
+   "dust_per_m": 2,
+   "grain_rest": 0.4,
+   "grain_wear": 1.0,
+   "dust_on_bright_mul": [
+    0.72,
+    0.68,
+    0.62
+   ],
+   "dust_bright_value": [
+    0.35,
+    0.55
+   ],
+   "grain_lift": 0.65,
+   "roughness_min": 1.0,
+   "specular": 0.0,
+   "paint_sat_mul": 0.85,
+   "bleach_up": 0.15,
+   "edge_m": 0.05,
+   "edge_wear": 0.85,
+   "chip_per_m": 9,
+   "chip_mul": [
+    0.4,
+    0.33,
+    0.27
+   ],
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "dent_subdiv": 2,
+   "dent_subdiv_max_verts": 20000,
+   "proportion_tolerance": 0.12,
+   "hold_px": 0.5,
+   "light_mask_samples": 16,
+   "light_mask_values": 3,
+   "wear_by_material": {
+    "hair": 0.15,
+    "skin": 0.25,
+    "eye": 0.0
+   }
+  },
+  "source_pass": {
+   "wear": 0.6,
+   "materials": [
+    "ash",
+    "char",
+    "ember",
+    "flame_o",
+    "flame_y",
+    "stone",
+    "stone_d"
+   ],
+   "wear_by_material": {},
+   "what": [
+    "matte: roughness >= 1, specular 0, metallic <= 0.2",
+    "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+    "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+    "crevice grime from the model's own ambient occlusion (0.25 m)",
+    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+    "a 20 cm colour drift across the body (overlay, 0.27)",
+    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+   ],
+   "seed": 0,
+   "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0000)",
+   "dents": {
+    "meshes": 1,
+    "dent_m": 0.025,
+    "dent_per_m": 2.0,
+    "subdiv": 2,
+    "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+   }
+  }
+ }
+}

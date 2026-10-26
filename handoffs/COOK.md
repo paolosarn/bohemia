@@ -30,8 +30,13 @@ two renders at once ran out of the session's 14.3 GB and were killed four times 
 Renders run about 15 minutes a town (day and night).
 GATES: EVERY TOWN SCREEN ITS OWN (the wide half), EVERY TOWN TALL AND WIDE (both ways), EVERY ENEMY READS AT NIGHT, THE STRIP READS AS
 THE STRIP.
-NEXT: the camp's pieces through the master rig for CAMP TWO (its NOTE: slices/camp_two/kit.png at kit.json's rects and feet, and
-a camp-sized trailer), then [the fifty perk icons], then [the armour's art]. EYES' word on lines 3, 64, 106, 142, 219 once RUN TWO wires the towns; any town EYES names gets its layout moved in the tool
+- THE CAMP THROUGH THE RIG (CAMP TWO's NOTE, rule 289(e)) SHIPPED <CAMPSHA>: CAMP TWO's 35 camp pieces (its own meshes) through the
+  master rig into slices/camp_two/kit.png + kit.json (same keys, feet checked against the footprints), and a 4 x 7 ft camp trailer in
+  eight facings (records/target/master_rig/cook_camp_trailer/, kit.json camp_trailer_rig). tools/bohemia_cook_the_camp_through_the_rig_
+  10_26_26.py (/tmp/v/bin/python). Gate THE CAMP THROUGH THE RIG 5/0. Honest: fewer colours than the numpy recipe (median 1,266 to
+  1,901), card 13 of 30 BACK (was 12): the rig's light, one look with the cart and the pickup. NOTE for CAMP TWO in CAMP's section.
+NEXT: [the fifty perk icons] (tools/bohemia_cook_the_fifty_perk_icons_10_26_26.py: 50 models through the rig on a worn tag, slices/
+perk_icons/), then [the armour's art] (the police riot helmet and vest first, CHARACTER's wear.json file for file). EYES' word on lines 3, 64, 106, 142, 219 once RUN TWO wires the towns; any town EYES names gets its layout moved in the tool
 and re-rendered (python tools/..._tall_and_wide_10_26_26.py <Town> --no-ship, then --swap-only; the wide likewise), the check
 refuses a layout before its render. Then the next COOK row on the board.
 [bb Battle Brothers' town screen is one landscape panorama; ours turns with the phone and re-lays, never letterboxes.]

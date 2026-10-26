@@ -10112,6 +10112,12 @@ GATES = [
      "(rules 213, 279, UI TWO's phone); from either end of the street every door of both compositions is reached over the composed ground and every step is open ground; every role's door in both and the entrance "
      "on the same side; every pair of upright pictures under 0.70 likeness; each upright nearer in colour to its own wide than to any other town's; "
      "the upright nights darker with lit pools. About 1 min", False),
+    ('THE CAMP THROUGH THE RIG', ['python3', 'gates/the_camp_through_the_rig_gate.py'],
+     "COOK gate, 10/26, CAMP TWO's NOTE [the camp grows] ('put the same shapes through [the master rig] and drop them into slices/camp_two/kit.png at the "
+     "same rects and feet; the camp reads kit.json only. Also wanted: a camp-sized trailer') and rule 115(a), the rig's look is the look. Every piece the camp "
+     "reads on the sheet with a body, a foot, its footprint and height, every follower the camp offers his piece; every piece its own master-rig run "
+     "(Cycles, no break, 400 colours or more); the fire's six keys one size and one foot; every foot where the piece's footprint in metres puts it, within 8 px; "
+     "the camp trailer in eight facings, under 4 m, named in kit.json with its ground and hitch. Under 1 s", False),
     ("THE FEED'S WORDS", ['node', 'gates/feed_words_gate.js'],
      "WORDS gate, 10/26, rows [the feed's words] and [the usernames tell the story] (rule 215(f), Paolo 10/26: 'we have a whole words [chat] that's part of that... organize it properly so every time we upgrade it gets better, realistic vibes'; rule 217: 'the usernames can tell a real awesome story in a very short amount of words'). "
      "Headless over banks/BOHEMIA_WORDS_THE_FEED_BANK.json (built by tools/words_feed/build_feed_bank.py; a path argument checks another copy): every kind five variants or more and draft:true; every deed 215(a) names its own kind; every who resolves, every voiced faction its page, every region place one of its people; "
