@@ -204,3 +204,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 184 | Camp happens on the live map: while my men heal I can still watch the city (parties, feed, events) | 257 | CAMP, UI TWO, EYES | 
 | 185 | The map zooms in much closer, down to the street, almost the fight's look, my men walking; one pinch, no new screen; the map must look good up close | 258 | RUN, COOK, ANIMATION, EYES | 
 | 186 | In camp I see my main character and the whole team, each doing what he needs (resting hurt, repairing armour, helping others), changing as time passes; and I can camp in a town | 259 | CAMP, ANIMATION, RUN, RUN THREE, EYES | 
+| 187 | The camp screen is my camp, a settlement of my own, and I can still see the city from it | 260(a)(b) | CAMP, RUN TWO, EYES | 
+| 188 | The camp grows: one tent per two men, the shopping cart first then better carriers, followers adding pieces | 260(c) | CAMP, COOK, EYES | 
+| 189 | HP and armour bars over my men's heads (map, camp, town), hidden at 87 percent and above; immediately | 261 | CAMP, RUN, RUN THREE, EYES | 
+| 190 | No tile or ground name (FREEWAY) on the top bar; my men heal while they walk, faster at camp | 262 | UI, CAMP, EYES | 
