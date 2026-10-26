@@ -219,3 +219,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 199 | A MAKE CAMP button right after a fight; the camp shows the slain piled in a corner and my men healing and looting | 267(b)(c) | CAMP, RUN FOUR, ANIMATION, EYES | 
 | 200 | I can type my own company name in the text box, not only pick the offered names | 268(a) | RUN TWO, UI TWO, EYES | 
 | 201 | (said again) The camp button on the phone; no possible jobs on the phone; all buttons on the phone | 268(b) | UI TWO, EYES | 
+| 202 | (the coordinator's call from TUNING's finding) The struck-down debuff lasts 6 to 8 of our days, a month of fights, not 30 to 40 of our days | 264(h) | TUNING, CAMP | 
