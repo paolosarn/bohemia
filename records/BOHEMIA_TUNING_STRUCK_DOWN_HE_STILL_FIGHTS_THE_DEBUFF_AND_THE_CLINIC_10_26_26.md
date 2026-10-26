@@ -204,6 +204,17 @@ A phone's CPU. The fresh wound on the live path (the fight does not read c.fresh
 hitpoints back (234(e), COMBAT TWO's, not built). The twelve-man company at waking share for every mark (the per-mark bench is a
 crew of three, where one man shows). [the stupid-move watch] round three (waits on COMBAT's fix).
 
+## 9. RULE 264(h), THE SAME HOUR: THE FRESH WOUND LASTS 6 TO 8 OF OUR DAYS (the coordinator's default from TUNING's finding)
+TUNING named (records/BOHEMIA_TUNING_HEALING_ON_OUR_CLOCK_10_26_26.md s5) that his 30 to 40 days hold 156 to 208 of our fights at 5.2
+fights a day, where Battle Brothers' 30 to 40 days hold about 30 to 40. Rule 264(h) [COORDINATOR'S DEFAULT, rule 205, his to flip]
+reads his intent as Battle Brothers' month: THE FRESH WOUND LASTS 6 TO 8 OF OUR DAYS (31 to 42 fights). In the one table beside 234(b):
+struck.fresh.days 6 to 8 (the old 30 to 40 kept as struck.fresh.days_was). Unchanged: the straight fade, the clinic's half, the mark for
+life, no meds for the fresh wound. WHAT IT DOES TO SECTION 4: at 6 to 8 days today's clinicPrice gives 12 to 16 batteries at level one,
+14 to 19 at level two, 22 to 29 at level five: a fifth to a half of a one-skull job, Battle Brothers' own weight. So KEEP today's
+formula; TUNING's clinic.price_struck is withdrawn (it solved a problem the long days made). Sections 2b and 2c stand as measured (they
+read the wound's share, not its days): the waking cost is the same, it simply lasts a fifth as long. ours.json struck_down_laid_up_days
+still reads [30, 40] until CAMP moves it with engine/bohemia_long_injury.js's constants (NOTE on CAMP's board).
+
 ## ROUTED
 - CAMP [struck down, he still fights] and [the clinic halves the days and the debuff]: section S's numbers; KEEP your fresh map
   and fade; no meds for the fresh wound; treat() exact half; Traumatized not offered; the proposed clinic price. (NOTE on CAMP's

@@ -168,7 +168,7 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-debuff): 10/26 LATEST -- SIX ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks, [healing on our clock] SHIPPED and x5 written, [the day-fifty curve] for WORLD), research only, no card (rule 127); [the stupid-move watch] round three WAITS on the COMBAT emergency;
+TUNING (tuning-debuff): 10/26 LATEST -- SIX ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks, [healing on our clock] SHIPPED and x5 written, [the day-fifty curve] for WORLD, [the injury days on our clock] SHIPPED), research only, no card (rule 127); [the stupid-move watch] round three WAITS on the COMBAT emergency;
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md, the one table's section S, bench
   tools/bohemia_tuning_struck_down_debuff.js (--marks, --b2b, --heal), bank banks/BOHEMIA_TUNING_STRUCK_DOWN_DEBUFF_10_26_26.json.
@@ -205,6 +205,10 @@ RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLI
   the red share growing to all by day 50. THE LONE WOLF (4,500 fights): two beasts 38 in 100, three 2, four to six 0, days 1 to 20 alike;
   brigands 2: 98, 3: 90, 4: 47; under the curve his first 20 days hold one-skull jobs against people and no beast job. Battle Brothers'
   day lines cited (one skull only early, three after a few days, champions after day 90, kinds after day 15). NOTE on WORLD's board.
+7 [the injury days on our clock] (rule 264(h)) SHIPPED: the one table's struck.fresh.days is 6 to 8 of OUR days beside 234(b) (31 to 42
+  fights, Battle Brothers' month; the old 30 to 40 kept as struck.fresh.days_was); fade, clinic half, lifelong mark unchanged. At 6 to 8
+  days today's clinicPrice is 12 to 16 at level one, Battle Brothers' weight: KEEP it, TUNING's price proposal withdrawn. ours.json
+  still [30, 40] until CAMP moves it with engine/bohemia_long_injury.js's constants (NOTE on CAMP's board). Record s9.
 NOTEs: CAMP (the numbers, the price, treat, Traumatized; x5 for the clock), WORLD (the gap measured; the day-fifty curve and the Lone Wolf table), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
   injury's hitpoints_pct, vision, fatigue recovery or action points; the fresh wound into the fight after the emergency), UI THREE.
 NOT MEASURED: a phone's CPU; the fresh wound on the live path (the fight does not read c.fresh yet); 234(e) AUTO keeping the hurt back.
