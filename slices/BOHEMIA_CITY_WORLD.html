@@ -46233,6 +46233,14 @@ try { window.MAP_FOCUS = MAP_FOCUS; window.mapFocus = mapFocus; window.mapOpenAr
   window.addEventListener('orientationchange', function(){ setTimeout(__mfNow, 120); });
   /* the 10/24 phone comes and goes with no event (the door, a town, a fight): looked at twice a second, a re-draw only on a change */
   setInterval(function(){ try { if (typeof MODE === 'undefined' || MODE !== 'city') return; var was = MAP_FOCUS.sig; mapFocusRead(true); if (MAP_FOCUS.sig !== was) renderSoon(); } catch (_e) {} }, 500); } catch (_e) {}
+/* NO BUTTON TWICE ON THE MAP (RUN 10/26, rule 286(b) and 238(a); Paolo 10/26: 'making sure we don't have repeating buttons'). MEASURED on
+   the demo, tall and wide, the phone left and right: the map's reachable presses beside the phone were the bar's crew chip ('your
+   company', the face and 3/20), the settings gear and NOTES; the chip opens the company screen, which the phone's CREW app opens. With
+   the phone on, the chip on the map is the count it shows and nothing to press (its plate the same as the bar's DAY readout); the
+   phone's CREW is the one door. The gear and NOTES are on no phone app and stay. */
+try { var __nbt = document.createElement('style'); __nbt.id = 'run-no-button-twice';
+  __nbt.textContent = 'html.boh-phone-on #bmtb .t.crew,html.boh-phone-on #bmtb .t.crew *{pointer-events:none!important;cursor:default!important}';
+  (document.head || document.documentElement).appendChild(__nbt); } catch (_e) {}
 /* ==== /__THE_MAP_FRAMES_AROUND_THE_PHONE__ ==== */
 function camWorld(){   /* the crew's DRAWN place about the valley's middle, in screen px at this zoom */
   var G = (typeof CITY_GLIDE!=='undefined' && CITY_GLIDE.tx!==null) ? cityGlideAt(CITY_GLIDE, performance.now()) : { x: city.x, y: city.y };

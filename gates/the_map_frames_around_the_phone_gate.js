@@ -21,6 +21,9 @@
      F8  A TURNED DEVICE: the glass turned on its side and back: the focus recomputed and the crew at it each time
      F9  MUTATION: the margin off, the crew goes back to the glass's middle, more than 20 px from F2's focus
      F10 nothing threw
+     F11 NO BUTTON TWICE (rule 286(b), 238(a)): tall and wide, the phone right and left, no press beside the phone does what a phone
+         app does (crew, play, heal, feed, relations), and no two presses share a name
+     F12 MUTATION: the map's no-button-twice line off, F11 goes red
    ============================================================================ */
 'use strict';
 const path = require('path');
@@ -123,6 +126,41 @@ async function run(profile) {
   }
   ok('F8 a turned device: the focus recomputed and the crew at it, on its side and back', turned.every(o => o.d <= 8) && turned[0].W !== turned[1].W,
      turned.map(o => o.W + 'x' + o.H + ' focus ' + o.fo + ' ' + o.d.toFixed(1) + ' px').join('; '));
+  /* F11 (rule 286(b), 238(a)): NO BUTTON TWICE on the map, tall and wide, the phone right and left */
+  const PRESSES = () => {
+    let x = 0, y = 0; try { let w = window; while (w.frameElement) { const r = w.frameElement.getBoundingClientRect(); x += r.left; y += r.top; w = w.parent; } } catch (e) {}
+    const out = [];
+    for (const e of document.querySelectorAll('button,[role=button],input,select,textarea,a[href],[onclick]')) {
+      if (e.closest('#bohphone')) continue;
+      const r = e.getBoundingClientRect(); if (r.width < 8 || r.height < 8) continue;
+      const cs = getComputedStyle(e); if (cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity < 0.1 || cs.pointerEvents === 'none') continue;
+      const cx = r.x + r.width / 2, cy = r.y + r.height / 2; if (cx < 0 || cy < 0 || cx > innerWidth || cy > innerHeight) continue;
+      const h = document.elementFromPoint(cx, cy); if (!h || !(h === e || e.contains(h))) continue;
+      out.push((e.getAttribute('aria-label') || e.id || e.textContent || e.tagName).replace(/\s+/g, ' ').trim().slice(0, 30));
+    }
+    return out; };
+  const ACT = (n) => /company|crew/i.test(n) ? 'crew' : /\b(play|pause|go|speed)\b|1\.22/i.test(n) ? 'play' : /heal|camp/i.test(n) ? 'heal' : /feed/i.test(n) ? 'feed' : /relation/i.test(n) ? 'relations' : null;
+  const sweep = async () => { const vp0 = page.viewportSize(), out = [];
+    for (const [shape, sz] of [['tall', vp0], ['wide', { width: vp0.height, height: vp0.width }]]) {
+      await page.setViewportSize(sz); await page.waitForTimeout(900);
+      for (const sd of ['right', 'left']) {
+        await page.evaluate((sd) => { try { BohemiaPhone.setSide(sd); } catch (e) {} }, sd); await page.waitForTimeout(700);
+        const all = (await page.evaluate(PRESSES)).concat(await fr.evaluate(PRESSES));
+        const apps = await page.evaluate(() => [...document.querySelectorAll('#bohphone .home .app')].map(a => a.dataset.app === 'camp' ? 'heal' : a.dataset.app));
+        const twice = all.filter(n => apps.indexOf(ACT(n)) >= 0), same = all.filter((n, i) => all.indexOf(n) !== i);
+        out.push({ at: shape + ' ' + sd, all, twice, same }); } }
+    await page.setViewportSize(vp0); await page.evaluate(() => { try { BohemiaPhone.setSide('right'); } catch (e) {} }); await page.waitForTimeout(900);
+    return out; };
+  const hasPhone = await page.evaluate(() => !!(window.BohemiaPhone && document.getElementById('bohphone')));
+  if (hasPhone) {
+    const sw = await sweep();
+    ok('F11 no button twice on the map: tall and wide, the phone right and left, nothing beside the phone does what a phone app does', sw.length === 4 && sw.every(o => !o.twice.length && !o.same.length),
+       sw.map(o => o.at + ': ' + (o.all.join(', ') || 'nothing') + (o.twice.length ? ' TWICE ' + o.twice.join('/') : '')).join('; '));
+    await fr.evaluate(() => { const e = document.getElementById('run-no-button-twice'); if (e) e.disabled = true; });
+    const mu = await sweep();
+    await fr.evaluate(() => { const e = document.getElementById('run-no-button-twice'); if (e) e.disabled = false; });
+    ok('F12 MUTATION: the map\'s own no-button-twice line off, F11 goes red (the bar\'s crew door is the phone\'s CREW)', mu.some(o => o.twice.length), mu.map(o => o.at + ': ' + (o.twice.join('/') || 'none')).join('; '));
+  } else { ok('F11 no button twice (UI TWO\'s phone is on the page)', false, 'no phone'); }
   /* F9 */
   await fr.evaluate(() => { MAP_FOCUS.on = false; mapFocusRead(true); camHold(); });
   await page.waitForTimeout(700);

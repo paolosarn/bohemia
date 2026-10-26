@@ -60,6 +60,22 @@ ground on the focus); F6 let go, a zoom keeps the world under the focus (0.00 px
 the crew eased there in 481 and 723 ms; F8 turned on its side (844 x 330) and back, the focus recomputed both times; F9 the margin
 off, he goes back to the middle (82 px off the focus); F10. PHONE 10/0, COMPUTER (see s6).
 
+## 1b. Rule 286 on the map (the coordinator's routine, 08:20: 'the most important thing I want to fix': 'the settlement, camp, map
+menu, portrait and landscape, getting fixed to look good with the phone depending on what side of the screen it's on, and making
+sure we don't have repeating buttons')
+
+LOOKED AT on the demo (records' pictures in the probe, phone 390 x 844 at 3x, tall and wide, the phone right and left): the crew in
+the open area each time (tall: the band under the phone's top, he sits centred over it; wide: the band beside it, he sits on the far
+side of the middle from it); the bar across the top, the phone in its corner, nothing of the map's own under it.
+NO BUTTON TWICE, MEASURED: the map's reachable presses beside the phone were three in every layout: the bar's crew chip ('your
+company', his face and 3/20), the settings gear, NOTES. The chip opens the company screen, the phone's CREW app's door: the one
+double. NOW, on the map with the phone on, the chip is the count it shows and nothing to press (its plate like the bar's DAY
+readout; a marked style in the map file, the materials untouched); the phone's CREW is the one door. The gear and NOTES are on no
+phone app and stay. A flip of the phone's side re-lays the map in 129 to 453 ms (under a beat, F7); a turn in F8.
+GATE THE MAP FRAMES AROUND THE PHONE F11 (no press beside the phone does what a phone app does, tall and wide, right and left) and
+F12 (the line off, the chip comes back as the double): see the handoff for the run. The town's, the camp's and the fight's bars are
+their owners' (RUN TWO, CAMP TWO, COMBAT TWO), UI TWO's sweep NOTEs them.
+
 ## 2. [play takes you there] (rule 227(c); the normie hour F9)
 
 HIS WORDS: 'or when you press play it just walks you automatically towards the quest, perfectly.'
