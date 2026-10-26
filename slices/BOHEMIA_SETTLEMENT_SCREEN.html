@@ -1656,9 +1656,11 @@ function leadLook(){
   var R = leadRig(), has = function(l){ return !!(R && R.looks && l && R.looks[l]); }, c = null;
   try{ c = window.BohemiaCrewDoor && BohemiaCrewDoor.company(); }catch(e){}
   c = Array.isArray(c) ? c.filter(function(m){ return m && m.look && !m.dead; }) : [];
-  var main = c.filter(function(m){ return m.main || m.look === 'you'; })[0];
+  /* RUN THREE [make your main guy] (rule 263(b)): YOU is the man he made before the game began (bohemia.main.v1, engine/bohemia_main_man.js) */
+  var mine = 'you'; try{ var mm = JSON.parse(localStorage.getItem('bohemia.main.v1') || 'null'); if(mm && mm.look) mine = mm.look; }catch(e){}
+  var main = c.filter(function(m){ return m.main || m.look === mine; })[0];
   if(main && has(main.look)) return main.look;
-  if(!c.length || main) return has('you') ? 'you' : null;
+  if(!c.length || main) return has(mine) ? mine : has('you') ? 'you' : null;
   var best = null; c.forEach(function(m){ if(has(m.look) && (!best || (m.level || 1) > (best.level || 1))) best = m; });
   return best ? best.look : (has('you') ? 'you' : null);
 }
@@ -1932,9 +1934,9 @@ function campMan(p){
   if(window.BohemiaCrewDoor) BohemiaCrewDoor.open({ select: p.name || p.look, onDone: function(m){ bagLoad(); post('crew', {company:m.company, formation:m.formation}); } });
 }
 function campSay(body, line){
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, 'you', 'you'), line));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, 'you', mainLookOf() || 'you'), line));   /* his own face (RUN THREE, rule 263(b)) */
   var sy = document.createElement('div'); sy.className = 'say';
-  var n = document.createElement('div'); n.className = 'nm'; n.textContent = 'YOU'; sy.appendChild(n);
+  var n = document.createElement('div'); n.className = 'nm'; n.textContent = (function(){ try{ var mm = JSON.parse(localStorage.getItem('bohemia.main.v1') || 'null'); return mm && mm.name || 'YOU'; }catch(e){ return 'YOU'; } })(); sy.appendChild(n);
   var pp = document.createElement('p'); pp.textContent = line; sy.appendChild(pp); w.appendChild(sy); body.appendChild(w);
 }
 function tentKey(c){ c = c || {}; var b = c.bill || {}; return [c.night ? 1 : 0, b.perNight, b.daysLeft, c.cleared || ''].join('|'); }
@@ -2407,7 +2409,9 @@ var CAST12 = ['longcoat','barearms','pack','skirt','widebrim','cape','apron','po
    the share plays at 0 and says so: never a man's body with a woman's name. ==== */
 var WOMEN = {share:null};
 fetch('../records/target/bb/post_women.json').then(function(r){ return r.json(); }).then(function(j){ WOMEN.share = j && j.share && j.share.value; }).catch(function(){});
-function womenLooks(){ var M = window.BOHEMIA_PEOPLE_MIX; return M ? M.people.filter(function(p){ return p.fight && !p.company && p.sex === 'f'; }).map(function(p){ return p.look; }) : []; }
+function womenLooks(){ var M = window.BOHEMIA_PEOPLE_MIX, me = mainLookOf(); return M ? M.people.filter(function(p){ return p.fight && !p.company && p.sex === 'f' && p.look !== me; }).map(function(p){ return p.look; }) : []; }
+/* RUN THREE [make your main guy] (rule 263(b)): the man he made is his; the post never deals his body to another man */
+function mainLookOf(){ try{ var mm = JSON.parse(localStorage.getItem('bohemia.main.v1') || 'null'); return mm && mm.look || null; }catch(e){ return null; } }
 function womenShare(){ return womenLooks().length && WOMEN.share > 0 ? WOMEN.share : 0; }
 function womanAt(key, i){ var sh = womenShare(); if(!(sh > 0)) return null;
   var R = rng(seedOf(key + ':woman:' + i)); if(R() >= sh) return null;
@@ -2419,6 +2423,7 @@ function recruitLooks(key, n){
   if(!ready.length){ for(var i = 0; i < n; i++) out.push('cast_' + CAST12[seedOf(key + ':look:' + i) % 12]); return out; }
   var mine = {}; try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).concat(JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'))
     .forEach(function(m){ if(m && m.look) mine[m.look] = 1; }); }catch(e){}   /* your company and the men hired since it was saved */
+  var me = mainLookOf(); if(me) mine[me] = 1;   /* and the man he made (RUN THREE, rule 263(b)) */
   var deal = function(L){ return L.map(function(p){ return {l:p.look, k:seedOf(key + ':' + p.look)}; }).sort(function(a, b){ return a.k - b.k; }).map(function(x){ return x.l; }); };
   var pool = deal(ready.filter(function(p){ return p.gang === 'town'; })).concat(deal(ready.filter(function(p){ return p.gang !== 'town'; })))
     .filter(function(l){ return !mine[l]; });

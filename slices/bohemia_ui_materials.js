@@ -870,7 +870,9 @@
     var day ='<img alt="" width="36" height="22" style="width:36px;height:22px" src="' + tbDial(f.min) + '"><b>' + ((typeof KEYS !== 'undefined' && KEYS.savedAt && performance.now() - KEYS.savedAt < 1500) ? 'SAVED' : 'DAY ' + (f.day == null ? '–' : f.day)) + '</b>';   /* F5 (__BATTLE_BROTHERS_KEYS__) says it once where the day is */
     /* UI [portrait menu] (rule 44b, Paolo 9/29: 'the portrait button that used to be the action button could be the character
        menu'): the crew tag wears HIS face (PORTRAIT's 'you', the crew screen's own) and is the door to his company */
-    var me = null; try { me = window.BohemiaCrewFaces && BohemiaCrewFaces.has('you') ? BohemiaCrewFaces.src('you', 'rest', 64) : null; } catch (_e) {}
+    /* RUN THREE [make your main guy] (rule 263(b)): HIS face is the man he made before the game began (bohemia.main.v1) */
+    var mine = 'you'; try { var mm = JSON.parse(localStorage.getItem('bohemia.main.v1') || 'null'); if (mm && mm.look) mine = mm.look; } catch (_e) {}
+    var me = null; try { var CF = window.BohemiaCrewFaces; me = CF && CF.has(mine) ? CF.src(mine, 'rest', 64) : CF && CF.has('you') ? CF.src('you', 'rest', 64) : null; } catch (_e) {}
     var crew = me ? '<img class="me" alt="YOUR COMPANY" width="30" height="30" style="width:30px;height:30px" src="' + me + '">'
       : '<img alt="CREW" width="20" height="20" style="width:20px;height:20px" src="' + TB.man + '">';
     if (f.crew) {

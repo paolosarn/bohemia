@@ -45106,7 +45106,7 @@ function mapStartIn(d){
      ledger is what survives a save: a 'start:' credit already in it means this crew was paid. */
   try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0){ try{ fogContinue(); }catch(_e2){} return; } }catch(_e){}
   try{ freshStart(p); }catch(_e){}   /* __A_FRESH_START_AND_A_FOG_OF_WAR__: a new game, a new corner, the map dark past it */
-  try{ if(FOG.on) startInTown(p); }catch(_e){}   /* __THE_GAME_STARTS_IN_A_TOWN__ (RUN THREE, rule 236): his squad up close, then the closest town */
+  try{ if(FOG.on) startInTown(p); else localStorage.removeItem('bohemia.main.v1'); }catch(_e){}   /* __THE_GAME_STARTS_IN_A_TOWN__ (RUN THREE, rule 236): he makes his main guy (263(b)), his squad up close, then the closest town; the bench's valley keeps the origin's own man */
   try{ localStorage.removeItem(CREW_WALKED_KEY); }catch(_e){}   /* __ONE_BILL_IN_DAYS__: a new crew; nobody has walked from it */
   try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
   try{ billPublish(); }catch(_e){}
@@ -45330,11 +45330,12 @@ function startTownPick(){
    origin's background and level over it, his rolled stars) */
 function startSquad(p){
   var co = (p && p.company) || [], men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [], n = co.length || 3, out = [];
-  var crew = looks.filter(function(l){ return l && l !== 'you'; });
+  var MM = window.BohemiaMainMan, me = MM ? MM.look() : 'you', myName = MM && MM.get() ? MM.name() : null;   /* __MAKE_YOUR_MAIN_GUY__: the man he made (rule 263(b)) */
+  var crew = looks.filter(function(l){ return l && l !== 'you' && l !== me; });
   var bg = function(id){ try { if (window.BohemiaRoster && BohemiaRoster.bgName) return BohemiaRoster.bgName(id); } catch (_e) {} return String(id || '').replace(/_/g, ' '); };
   for (var i = 0; i < n; i++) { var m = co[i] || {}, d = men[i % Math.max(1, men.length)] || {}, main = i === 0 && (d.main !== false);
-    var look = main ? 'you' : (looks[i] && looks[i] !== 'you' ? looks[i] : (crew.length ? crew[(i - 1 + crew.length * 8) % crew.length] : null));
-    out.push({ name: (d.name || (main ? 'YOU' : 'MAN')) + (i >= men.length && men.length ? ' II' : ''), look: look, trade: bg(m.background || d.background), level: m.level || d.level || 1, stars: m.stars || null, main: main }); }
+    var look = main ? me : (looks[i] && looks[i] !== 'you' && looks[i] !== me ? looks[i] : (crew.length ? crew[(i - 1 + crew.length * 8) % crew.length] : null));
+    out.push({ name: main && myName ? myName : (d.name || (main ? 'YOU' : 'MAN')) + (i >= men.length && men.length ? ' II' : ''), look: look, trade: bg(m.background || d.background), level: m.level || d.level || 1, stars: m.stars || null, main: main }); }
   return out;
 }
 function startInTown(p){
@@ -45342,7 +45343,8 @@ function startInTown(p){
   /* the tape's black at once, so not one frame of the map shows before it (the module takes this cover's place) */
   try { var td = (window.top && window.top.document) || document; if (!td.getElementById('squadup')) { var cv = td.createElement('div'); cv.id = 'squadup'; cv.style.cssText = 'position:fixed;inset:0;z-index:2147483000;background:#050403';
     (td.body || td.documentElement).appendChild(cv); setTimeout(function(){ try { if (cv.isConnected && !window.BohemiaSquadUpClose) cv.remove(); } catch (_e) {} }, 6000); } } catch (_e) {}
-  var S = window.__START_IN_TOWN = { origin: (p && p.origin) || null, began: Date.now(), intro: null, town: null, opened: null, from: null };
+  try { localStorage.removeItem('bohemia.main.v1'); } catch (_e) {}   /* a new game: the man of an old one is not his until he takes him again */
+  var S = window.__START_IN_TOWN = { origin: (p && p.origin) || null, began: Date.now(), maker: null, intro: null, town: null, opened: null, from: null };
   var open = function(k){
     if (START_TOWN.opened) return;
     if (!(window.__FRESH_START && window.__FRESH_START.at) || !CREW_DEFS) { if ((k | 0) < 160) setTimeout(function(){ open((k | 0) + 1); }, 250); return; }   /* the corner and the places still being worked out */
@@ -45366,7 +45368,27 @@ function startInTown(p){
   };
   var need = function(src, ok, then){ if (ok()) return then(); try { var sc = document.createElement('script'); sc.src = src; sc.onload = then; sc.onerror = then; document.head.appendChild(sc); } catch (_e) { then(); } };
   /* the names and the heads need ours.json's crew (CREW_DEFS) and the roster's trade words; the tape waits for them, a second at most */
-  var go = function(k){ if (!CREW_DEFS && (k | 0) < 8) return setTimeout(function(){ go((k | 0) + 1); }, 125); need('bohemia_the_squad_up_close.js', function(){ return !!window.BohemiaSquadUpClose; }, play); };
+  /* ==== __MAKE_YOUR_MAIN_GUY__ (RUN THREE [make your main guy], rule 263(b), Paolo 10/26: 'before you start you should always be able
+     to customise your main guy... it's probably gonna use a lot of the same UI as the barber'): after the origin and before the
+     intro, the barber's chair (engine/bohemia_main_man.js) over the whole screen; GO takes the man in the mirror (at once: the
+     origin's own man), written once (bohemia.main.v1), and the tape, the crew screen, the town and the fight read him from there */
+  var chair = function(then){
+    var top = document; try { if (window.top && window.top.document) top = window.top.document; } catch (_e) {}
+    var list = [['../engine/bohemia_people_mix.js', function(){ return !!window.BOHEMIA_PEOPLE_MIX; }], ['../engine/bohemia_rig_bodies.js', function(){ return !!window.BohemiaRigBodies; }],
+      ['../engine/bohemia_crew_faces.js', function(){ return !!window.BohemiaCrewFaces; }], ['../engine/bohemia_main_man.js', function(){ return !!window.BohemiaMainMan; }]];
+    var sit = function(){
+      if (!window.BohemiaMainMan) { S.maker = { failed: 'no chair' }; return then(); }
+      S.maker = { began: Date.now(), done: null };
+      var men = (CREW_DEFS && CREW_DEFS.men) || [];
+      try { BohemiaMainMan.make({ doc: top, origin: p && p.origin, defaultName: (men[0] && men[0].name) || 'YOU',
+        onDone: function(r){ S.maker.done = Date.now(); S.maker.look = r.look; S.maker.name = r.name; S.maker.made = r.made; then(); } }); }
+      catch (_e) { S.maker.failed = String(_e); then(); }
+    };
+    var load = function(k){ if (k >= list.length) return sit(); need(list[k][0], list[k][1], function(){ load(k + 1); }); };
+    load(0);
+  };
+  /* ==== end __MAKE_YOUR_MAIN_GUY__ ==== */
+  var go = function(k){ if (!CREW_DEFS && (k | 0) < 8) return setTimeout(function(){ go((k | 0) + 1); }, 125); need('bohemia_the_squad_up_close.js', function(){ return !!window.BohemiaSquadUpClose; }, function(){ chair(play); }); };
   need('../engine/bohemia_roster.js', function(){ return !!window.BohemiaRoster; }, function(){ go(0); });
 }
 /* ==== /__THE_GAME_STARTS_IN_A_TOWN__ ==== */
