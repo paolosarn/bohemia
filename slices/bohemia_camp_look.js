@@ -111,13 +111,13 @@
   /* the plates fetched once, so a turn never waits on the network (a frame with no ground is a black frame) */
   var PLATES = {}; function platesWarm() { if (!K.kit) return; ['plate', 'plate_tall'].forEach(function (k) { var p = K.kit[k]; if (!p) return; [p.src, p.night_src].forEach(function (f) { if (!PLATES[f]) { var im = new Image(); im.src = BASE + f; PLATES[f] = im; } }); }); }
   /* A TURN GLIDES (rule 289(b)(c), the coordinator's default: the shared-element move): the camp's pieces and his men slide from where
-     they stood on the old glass to their new spots in one beat (500 ms at 120 BPM, eased), each man keeping his act; the old ground
-     fades under the new one; the last frame holds while the new ground comes in, never a black frame */
+     they stood on the old glass to their new spots in one beat (500 ms at 120 BPM, eased), each man keeping his act; the ground
+     swaps under them (the same sand both ways); the last frame holds while the new ground comes in, never a black frame */
   var GLIDE_MS = 500;   /* one beat at 120 BPM (a capture for the VOTE tab may slow it with window.__CAMP2_GLIDE_MS) */
   function wantsFlip(VAR) { return !!(K.st && VAR && VAR.camp2 && !!VAR.tall !== wantTall()); }
   function flip(cv, view) {
-    var snap = null;
-    try { snap = document.createElement('canvas'); snap.width = cv.width; snap.height = cv.height; snap.getContext('2d').drawImage(cv, 0, 0); } catch (e) { snap = null; }
+    var snap = K.lastSnap || null;   /* the glass is cleared by its own resize before this runs: the last beat's copy is the frame to hold */
+    K.lastSnap = null;
     /* the beat starts on the first frame the new ground is drawn (a slow phone's first frame after a turn can be late; the glide is
        never eaten by it) */
     K.flips = (K.flips | 0) + 1;
@@ -135,7 +135,11 @@
     var u = glideU(now), f = G.from[key]; return [f[0] + (x - f[0]) * u, f[1] + (y - f[1]) * u];
   }
   /* while the new ground is not in: the frame before the turn, held (the screen's draw asks before it gives up on a frame) */
-  function holdFrame(cx, W, H) { var G = K.glide; if (!G || !G.snap) return false; try { cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(G.snap, 0, 0); cx.restore(); } catch (e) { return false; } return true; }
+  function holdFrame(cx, W, H) { var G = K.glide; if (!G || !G.snap) return false;
+    try { var c = cx.canvas, sw = G.snap.width, sh = G.snap.height, k = Math.max(c.width / sw, c.height / sh);   /* the old glass, covering the new one (no stretch) */
+      cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(G.snap, (c.width - sw * k) / 2, (c.height - sh * k) / 2, sw * k, sh * k); cx.restore(); } catch (e) { return false; } return true; }
+  /* the camp has drawn a frame (MOTION's grow hands over to the real screen on it) */
+  function drawn() { var n = root.performance ? performance.now() : Date.now(); return !!(K.st && K.lastDraw && n - K.lastDraw < 1500); }
   function pieceRect(p, z) {
     var e = sprite(p); if (!e) return null;
     return [p.x - e.foot[0] * z, p.y - e.foot[1] * z, p.x + (e.w - e.foot[0]) * z, p.y + (e.h - e.foot[1]) * z];
@@ -329,8 +333,12 @@
   /* the fire's light on the ground: at night a warm pool that breathes with the flames; by day nothing */
   function under(cx, ctx) {
     if (!K.st || !K.ready) return;
+    K.lastDraw = ctx.now;
     if (K.glide) K.glide.frames++;
-    if (K.glide && K.glide.snap) { var gu = glideU(ctx.now); if (K.glide) { cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalAlpha = 1 - gu; cx.drawImage(K.glide.snap, 0, 0); cx.restore(); } }   /* the old glass fading out under the camp as it glides */
+    else if (!K.snapAt || ctx.now - K.snapAt > 500) {   /* a quarter-size copy of the ground once a beat, held if a turn ever outruns the new ground */
+      K.snapAt = ctx.now;
+      try { var c0 = cx.canvas, q = K.lastSnap || (K.lastSnap = document.createElement('canvas')); q.width = Math.max(1, c0.width >> 2); q.height = Math.max(1, c0.height >> 2); q.getContext('2d').drawImage(c0, 0, 0, q.width, q.height); } catch (e) { K.lastSnap = null; }
+    }
     var f = K.st.layout.fire, s = ctx.s, x = ctx.view.ox + f.x * s, y = ctx.view.oy + f.y * s;
     if (K.pitch && K.pitch.on && ctx.now - K.pitch.t0 < K.pitch.plan.fire) return;
     var fl = 0.82 + 0.18 * Math.sin(ctx.now / 500 * Math.PI) * Math.sin(ctx.now / 173);
@@ -502,5 +510,5 @@
       compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
   root.BohemiaCampLook = { ready: function () { return K.ready && !!CL; }, variant: variant, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
-    folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };
+    folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, state: state, ZK: ZK };
 })(typeof window !== 'undefined' ? window : this);

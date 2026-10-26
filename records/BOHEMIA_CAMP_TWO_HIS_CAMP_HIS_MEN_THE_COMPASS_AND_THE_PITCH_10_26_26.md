@@ -92,6 +92,27 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
    the camp opens, the side flips or the glass turns (once a camp, a side, a size: a drag of his is never undone); the cart and
    the supplies moved up off the glass's bottom corners.
 6. THE GHOSTS (273(c)): every hour the camp's men leave their place as a trace at two percent, fading over two days of hours.
+7. TALL AND WIDE FIRST, THE PHONE AFTER, THE TURN A GLIDE (rule 289, his order; the coordinator's row text 'every camp tier
+   composed TALL and WIDE and good with NO phone first, the flip a GLIDE, THEN the phone'):
+   - THE TALL GROUND: slices/camp_two/plate_tall.webp (and its night), 1092 x 1940, quilted from the same rig sand as the wide one
+     (the tool's own seed 289), so an upright glass shows a tall picture at the same man size as the wide glass shows the wide one
+     (the man 58 px upright, 55 px on its side: THE GROUND MAY ZOOM, THE PERSON MAY NOT).
+   - THE TALL CAMP is its own composition, not the wide one squeezed (engine/bohemia_camp_life.js GEO.tall): the tents in rows of
+     three, then four, behind the fire; the carrier and its load on the left; the seats on the right; the sitters in a front arc
+     with their backs to us; the hurt in a row in front; the followers down both sides at their own spots; the watch at the four
+     sides. Centred on the glass with no phone. The wide camp keeps its shape; its watch posts moved off the cart to the sides.
+   - EVERY TIER BOTH WAYS, phone off, on one sheet: records/target/camp_two/camp_two_tiers_tall_and_wide.webp (one man and the
+     shopping cart; three men and the cart loaded; six men, the pickup, four followers, three slain; twelve men, the pickup and
+     trailer, nine followers, seven slain), drawn from the same layout code the screen runs (men as coloured stand-ins by act).
+   - THE PHONE AFTER: an upright glass shows the tall ground's whole height (RUN TWO's view cannot pan up or down there), so when
+     the phone stands in its bottom corner the camp itself rises (the layout's lift): everything clear of the phone's top and, room
+     allowing, centred in what is left; it rises and settles in one beat when the phone comes or goes. On its side and on a
+     computer the camp is panned as before (the fire at the centre of what the phone leaves).
+   - THE TURN GLIDES: when the glass turns mid-camp the screen swaps to the other ground and every piece and man slides from his
+     spot on the old glass to his spot on the new one in one beat (500 ms, eased), each man still doing what he was doing; the old
+     picture fades out under the new one; the last frame is held while the new ground comes in, so there is never a black frame.
+     The beat starts on the first frame the new ground is drawn (a slow phone's first frame after a turn is late; the glide is
+     never eaten by it).
 
 ## THE GATES
 - gates/the_camp_is_his_own_gate.js (new): K1 his camp opens on the phone's HEAL; K2 the pitch plays and a tap skips it; K3 a tent

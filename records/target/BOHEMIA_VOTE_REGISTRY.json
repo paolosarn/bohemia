@@ -15656,6 +15656,49 @@
      410
     ]
    }
+  },
+  {
+   "id": "camp-two-the-turn-10-26",
+   "kind": "animation",
+   "lane": "camp two",
+   "sha": "PENDING",
+   "made": "10/26",
+   "draft": true,
+   "title": "TURN THE PHONE IN CAMP: THE TENTS AND YOUR MEN SLIDE TO THEIR NEW SPOTS, NOTHING POPS",
+   "why": "Your camp has its own upright picture and its own sideways picture. When you turn the phone, the tents, the cart, the fire and every man slide to their new spots in one beat, each man still doing what he was doing, and no black flash. Upright, the camp sits clear of the phone. The clip is slowed 12 times so you can see the slide; in the game it is half a second.",
+   "options": [
+    "A, yes, that is how the turn should feel",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/camp_two/CAMP_TWO_THE_TURN_10_26.webp"
+   }
+  },
+  {
+   "id": "camp-two-tall-and-wide-10-26",
+   "kind": "ui",
+   "lane": "camp two",
+   "sha": "PENDING",
+   "made": "10/26",
+   "draft": true,
+   "title": "EVERY SIZE OF CAMP, SIDEWAYS AND UPRIGHT, WITH NO PHONE IN THE WAY",
+   "why": "Four camps from small to big: one man and a shopping cart, three men, six men with the pickup, twelve men with the pickup and trailer. Each one drawn sideways and upright, with nothing covering it, the way you asked to judge them before the phone. The coloured sticks stand in for your men (red lying hurt, blue tending him, orange sitting, grey mending).",
+   "options": [
+    "A, these camps look right both ways",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26.webp",
+    "first": "../records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26_first.webp",
+    "firstAt": [
+     0,
+     1400,
+     1088,
+     484
+    ]
+   }
   }
  ],
  "verdicts": [
