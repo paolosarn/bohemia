@@ -181,3 +181,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 163 | (said again) The food icon shows the water bottle next to the can, both plainly seen | 240 | UI, EYES | 
 | 164 | The clinic shows the debuff and the days, not just the price, and makes clear it halves the days AND halves the debuff | 241 | CAMP, EYES | 
 | 165 | (said again) If I lose a fight badly I can close the browser, reopen it and restart the fight, any time before the map; the loot screen counts as the fight | 233(h), 241(d) | CAMP, EYES | 
+| 166 | At the stall I can sell my supplies too (meds, rounds, food and water, tape), with buy and sell prices from the economy chat | 242 | ECONOMY, RUN TWO, EYES | 
+| 167 | The map is the best of Valheim's and Battle Brothers'; bosses change the map and the world around me | 243 | WORLD TWO, RUN, WORLD, DYNASTY, EYES | 
