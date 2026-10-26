@@ -233,6 +233,12 @@
       if (odd && !first && p.idles.length && unit(seed, o.act + slot) < p.fidget) kind = p.idles[hash(seed, 'i' + o.act + slot) % p.idles.length];
     }
     var tl = TOWN.timelines[kind]; if (!tl) return null;
+    /* an act played ONCE (the camp's 'rise', rule 259: from lying to standing): its one slot from o.since, then its rest (the
+       standing he ends on) until the screen hands him his next act; never looped */
+    if (A.once) { var k0 = o.since !== undefined ? Math.floor((now - o.since) / keyMs) : 1e9, t0 = TOWN.timelines[A.breathe[0][0]];
+      if (k0 < 0 || k0 >= 24) return { slot: slot, kind: kind, pose: A.rest, act: o.act };
+      for (var j = 0, r = k0; j < t0.length; j++) { if (r < t0[j][1]) return { slot: slot, kind: A.breathe[0][0], pose: t0[j][0], act: o.act }; r -= t0[j][1]; }
+      return { slot: slot, kind: kind, pose: A.rest, act: o.act }; }
     if (kin < 0) return { slot: slot, kind: kind, pose: A.rest, act: o.act };   /* his pause: the rest he ended the last slot on */
     for (var i = 0, q = kin; i < tl.length; i++) { if (q < tl[i][1]) return { slot: slot, kind: kind, pose: tl[i][0], act: o.act }; q -= tl[i][1]; }
     return { slot: slot, kind: kind, pose: A.rest, act: o.act };
