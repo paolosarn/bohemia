@@ -53,7 +53,10 @@ async function edges(p) {
         /* the band was the page colour beside a picture that stopped short; the picture's own plain sand is not a band,
            so the test is: the picture reaches both edges, and the outer 6 points are not the page colour */
         const side = prof.w > prof.h;
-        ok(prof.n + ', ' + tier + ': the picture reaches both edges, no page colour beside it', cov.l <= 0.5 && cov.r >= cov.W - 0.5 && (!side || (e.left.page < 0.05 && e.right.page < 0.05)) && (!side || (cov.t <= 0.5 && cov.b >= cov.H - 0.5)),
+        /* RE-AIMED 10/26 (RUN TWO [the town fits the screen], rule 218(c), Paolo 10/26: 'I don't like sliding... it should be zoomed out
+           perfectly'): the whole town is on the glass at once, nothing cropped, both ways; beside a town narrower than the glass the
+           valley goes on (the picture far bigger in dusk), never the page colour */
+        ok(prof.n + ', ' + tier + ': the whole picture is on the glass, nothing cropped, no page colour beside it', cov.l >= -0.5 && cov.r <= cov.W + 0.5 && cov.t >= -0.5 && cov.b <= cov.H + 0.5 && e.left.page < 0.12 && e.right.page < 0.12 && e.left.spread > 5 && e.right.spread > 5,   /* a band is FLAT page colour (spread under 5); the fortress's own dark edge reads 5 percent page colour, the valley beside a fitted town under 9 */
            'picture ' + Math.round(cov.l) + '..' + Math.round(cov.r) + ' of ' + cov.W + ', page colour ' + e.left.page + '/' + e.right.page + ', spread ' + e.left.spread + '/' + e.right.spread);
         if (tier === 'town' && prof.w > prof.h) shots.after = await p.screenshot();
         const order = await p.evaluate(() => BohemiaSettlement.order()); let landed = 0;

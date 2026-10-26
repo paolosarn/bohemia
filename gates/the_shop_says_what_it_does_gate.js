@@ -31,6 +31,7 @@ const fs = require('fs'), path = require('path');
 const ROOT = path.dirname(__dirname);
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { openCrew } = require(path.join(ROOT, 'tools/bohemia_open_the_crew.js'));
 const J = f => JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb', f), 'utf8'));
 const A = J('armor.json'), W = J('weapons.json'), PERKS = J('perks.json'), NAMES = J('armour_names.json');
 let pass = 0, fail = 0;
@@ -158,10 +159,9 @@ function taps(d, sf, mouse) {
     const bought = await T.tapSel('#buywear');
     const inBag = await sf.evaluate(([id, n]) => !BohemiaSettlement.state.stash.some(i => i.id === id) && BohemiaSettlement.shopCrew().some(m => m.name === n && m.gear && (m.gear.off && (m.gear.off.id || m.gear.off)) === id), [pair.item, target]);
     await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await d.page.waitForTimeout(300);
-    /* the crew: the one bar's crew tag over a town (UI's [one HUD everywhere] presses the town's own CREW), else the town's CREW */
-    const bar = await d.fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
-    if (bar) { const fb = await (await d.fr.frameElement()).boundingBox(); await d.page.touchscreen.tap(fb.x + bar.x, fb.y + bar.y); await d.page.waitForTimeout(700); }
-    else await T.tapSel('#crew');
+    /* the crew: the one CREW on screen, the phone's since UI TWO 52741663 (the bar's crew chip a readout), else the bar's crew tag
+       over a town (UI's [one HUD everywhere] presses the town's own CREW), else the town's CREW */
+    if (!(await openCrew(d.page, d.fr))) await T.tapSel('#crew');
     let rf = null; for (let k = 0; k < 60 && !rf; k++) { await d.page.waitForTimeout(300); rf = d.page.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
     let crewRead = null;
     if (rf) {

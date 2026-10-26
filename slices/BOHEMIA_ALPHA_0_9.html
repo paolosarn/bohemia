@@ -182,6 +182,8 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #newco .org em.d2{ color:#d9c47a; border-color:#5a5226 } #newco .org em.d3{ color:#e0906a; border-color:#5e3626 } #newco .org em.d4{ color:#e8605a; border-color:#6a2420 }
 #newco .name{ display:flex; gap:6px; align-items:stretch }
 #newco .name span{ flex:1; display:flex; align-items:center; min-height:44px; padding:0 10px; border:1px solid #2a3a25; color:#cfe6c2; font-weight:700 }
+#newco .name input{ flex:1; min-width:0; min-height:44px; padding:0 10px; border:1px solid #2a3a25; background:#0b0f0a; color:#cfe6c2; font:inherit; font-size:16px; font-weight:700; letter-spacing:1px; text-transform:uppercase; border-radius:0; outline:none; caret-color:#d9a85a }   /* RUN TWO __THE_COMPANY_TAKES_HIS_NAME__: 16 px so a phone never zooms on the tap */
+#newco .name input:focus{ border-color:#d9a85a; background:#10140e }
 #newco .name button{ min-width:88px; min-height:44px; background:#11160f; color:#a9c79c; border:1px solid #2a3a25; font:inherit; font-size:11px }
 #loadrow{ display:flex; align-items:center; gap:8px; margin-top:10px; flex:0 0 auto }
 #loadwell{ flex:1 1 auto; height:13px; border-radius:2px; padding:2px;
@@ -1563,7 +1565,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26zzp - NO TOP BAR IN THE FIGHT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/26zzr - THE TOWN TURNS WITH YOU</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13753,7 +13755,7 @@ var BOH_START = (function(){
      default, SEEN IT + THIN SHELVES, is Battle Brothers' Veteran with medium funds, 46 in 100 of the four first fights won;
      NEW HERE + FULL SHELVES is rule 117's start, 78 in 100. The hard ends stay one tap away (rule 117(a): the sliders go
      up from easy), and a returning player's own pick still wins (bohemia.start below). */
-  var pick = { combat:'new', econ:'full', origin:'newcrew', name:0, reveal:0 };
+  var pick = { combat:'new', econ:'full', origin:'newcrew', name:0, reveal:0, typed:'' };   /* typed: RUN TWO __THE_COMPANY_TAKES_HIS_NAME__ */
   try{ var sv = JSON.parse(localStorage.getItem('bohemia.start') || 'null'); if(sv) for(var k in pick) if(sv[k] != null) pick[k] = sv[k]; }catch(_e){}
   function find(list, id){ for(var i=0;i<list.length;i++) if(list[i].id===id) return list[i]; return list[1] || list[0]; }
   function save(){ try{ localStorage.setItem('bohemia.start', JSON.stringify(pick)); }catch(_e){} }
@@ -13780,14 +13782,33 @@ var BOH_START = (function(){
     ORIGINS.forEach(function(o){ h += '<button class="org'+(o.id===pick.origin?' on':'')+'" data-k="origin" data-v="'+o.id+'"><em class="d'+o.d+'">'+D[o.d]+'</em><span>'+card(o)+'</span></button>'; });
     /* RUN 10/25 __A_FRESH_START_AND_A_FOG_OF_WAR__ (rule 155(c)): the map starts dark past where you stand; this shows the towns through it (off unless picked) */
     h += '</div><h4>THE MAP</h4><div class="row"><button data-k="reveal" data-v="0"'+(!+pick.reveal?' class="on"':'')+'>THE DARK<small>you find the towns</small></button><button data-k="reveal" data-v="1"'+(+pick.reveal?' class="on"':'')+'>SHOW THE TOWNS<small>the towns through the dark</small></button>';   /* draft:true */
-    h += '</div><h4>YOUR CREW\'S NAME</h4><div class="name"><span id="newconame">'+NAMES[pick.name % NAMES.length]+'</span><button data-k="name">ANOTHER</button></div>';
+    /* __THE_COMPANY_TAKES_HIS_NAME__ (RUN TWO, rule 268(a), Paolo 10/26: 'I should be able to custom name my group... it gives me
+       clickable options but when I click the text box I should change it to what I want'). MEASURED: the name was a span, a tap on
+       it did nothing and only ANOTHER changed it. NOW the name is a box: a tap puts the caret in it (the whole name picked, so what
+       he types replaces it), the phone's keyboard comes up, what he types is the company's (the bar, the feed, the phone, the
+       story read picks().name and BohemiaCompanyName); ANOTHER still deals the prepared names; an empty box goes back to the one dealt */
+    h += '</div><h4>YOUR CREW\'S NAME</h4><div class="name"><input id="newconame" type="text" maxlength="22" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="your crew\'s name" placeholder="TYPE A NAME" value="'+nameEsc(nameNow())+'"><button data-k="name">ANOTHER</button></div>';
+    var ae = document.activeElement, was = ae && ae.id === 'newconame' ? { s: ae.selectionStart, e: ae.selectionEnd, v: ae.value } : null;   /* a rebuild (the origins' file landing) never takes the box from under his thumbs */
     el.innerHTML = h;
+    if(was){ var ni = document.getElementById('newconame'); if(ni){ ni.value = was.v; ni.focus(); try{ ni.setSelectionRange(was.s, was.e); }catch(_e){} } }
+  }
+  function nameClean(v){ return String(v || '').replace(/\s+/g, ' ').replace(/^ /, '').toUpperCase().slice(0, 22); }
+  function nameNow(){ var t = nameClean(pick.typed).trim(); return t || NAMES[pick.name % NAMES.length]; }
+  function nameEsc(v){ return String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function nameWire(el){
+    el.addEventListener('focusin', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; t.__was = t.value; setTimeout(function(){ try{ t.select(); }catch(_e){} }, 0); });
+    el.addEventListener('input', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; pick.typed = nameClean(t.value); save(); });
+    el.addEventListener('keydown', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; e.stopPropagation();   /* his letters are his, never the game's keys */
+      if(e.key === 'Enter'){ e.preventDefault(); t.blur(); }
+      else if(e.key === 'Escape'){ t.value = t.__was != null ? t.__was : nameNow(); pick.typed = nameClean(t.value) === NAMES[pick.name % NAMES.length] ? '' : nameClean(t.value); save(); t.blur(); } });
+    el.addEventListener('focusout', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; pick.typed = nameClean(t.value).trim(); if(pick.typed === NAMES[pick.name % NAMES.length]) pick.typed = ''; save(); t.value = nameNow(); });
   }
   function onTap(ev){
+    if(ev.target && ev.target.id === 'newconame'){ ev.stopPropagation(); return; }   /* __THE_COMPANY_TAKES_HIS_NAME__: a tap in the box is the box */
     var b = ev.target.closest && ev.target.closest('button'); if(!b) return;   /* a tap that is not on a pick is still the door */
     ev.stopPropagation();   /* a pick is never the BEGIN tap: #front starts the game on any tap once loaded */
     var k = b.getAttribute('data-k'), v = b.getAttribute('data-v');
-    if(k==='name') pick.name = (pick.name + 1) % NAMES.length;
+    if(k==='name'){ pick.name = (pick.name + 1) % NAMES.length; pick.typed = ''; }   /* __THE_COMPANY_TAKES_HIS_NAME__: the next one dealt replaces what he typed */
     else if(k) pick[k] = v;
     save(); var st = document.getElementById('newcostrip'), sl = st ? st.scrollLeft : 0; build(); st = document.getElementById('newcostrip'); if(st) st.scrollLeft = sl;
   }
@@ -13804,7 +13825,7 @@ var BOH_START = (function(){
              /* the company and its caps, from the file (null until it loads, and the fight then fields its own twelve) */
              company:o.men ? (rolled(o) || o.men.map(function(m){ return { background:m.background, level:m.level }; })) : null,
              cap:o.field_cap || null, roster:o.roster_cap || null,
-             name:NAMES[pick.name % NAMES.length], reveal: +pick.reveal === 1, draft:true };
+             name:nameNow(), reveal: +pick.reveal === 1, draft:true };   /* __THE_COMPANY_TAKES_HIS_NAME__: what he typed, else the one dealt */
   }
   /* the file, merged over the fallback by id: names, lines and tiers are its, and so is everything a card promises */
   function load(){
@@ -13822,7 +13843,7 @@ var BOH_START = (function(){
   function showPicked(){ try{ var st = document.getElementById('newcostrip'), on = st && st.querySelector('.org.on'); if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 10); }catch(_e){} }
   function boot(){ build(); showPicked(); load();
     try{ var so = document.createElement('script'); so.src = '../engine/bohemia_origin_start.js'; so.async = true; document.head.appendChild(so); }catch(_e){}   /* RUN TWO [every origin starts like itself]: the door's roll, read after the door */
-    var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap);
+    var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap); nameWire(el);
     /* RUN 10/25 (EYES new 11): on a computer the wheel moves the origins' row, so every origin is in a mouse's reach */
     el.addEventListener('wheel', function(e){ var st = document.getElementById('newcostrip'); if(!st || !(e.target.closest && e.target.closest('#newcostrip'))) return; var d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX; if(!d) return; st.scrollLeft += d; e.preventDefault(); }, { passive: false }); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();

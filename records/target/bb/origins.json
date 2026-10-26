@@ -1980,7 +1980,11 @@
        "brawny"
       ],
       "line": "Every crew on the road has heard of you. Not one of them wants to be the crew that finds out.",
-      "line_draft": true
+      "line_draft": true,
+      "gift_perks": [
+       "recover"
+      ],
+      "gift_perks_why": "RUN TWO 10/26, rule 231(b): the door gives him Battle Brothers' Recover (tier one, 9 AP, half his fatigue; rules.json fatigue.recover_perk), on top of the three perks his levels bought; his button, never AUTO's (rule 180)"
      }
     ],
     "rolled_per_game": true,

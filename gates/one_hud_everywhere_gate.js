@@ -85,7 +85,9 @@ const PHONE = () => { let D = document; try { if (window.top.document.getElement
   const h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { rect: [r.x, r.y, r.width, r.height], onTop: !!h && e.contains(h), shown: r.width > 0 && getComputedStyle(e).display !== 'none' }; };
 /* every press on this page: visible, inside the glass, and its centre hit-tests to itself (rule 211(b)) */
 const PRESS = (sel) => { const out = []; const vis = e => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > 2 && r.height > 2 && cs.visibility !== 'hidden' && +cs.opacity > 0.05 && cs.pointerEvents !== 'none'
-  && r.x + r.width / 2 >= 0 && r.y + r.height / 2 >= 0 && r.x + r.width / 2 <= innerWidth && r.y + r.height / 2 <= innerHeight; };
+  && r.x + r.width / 2 >= 0 && r.y + r.height / 2 >= 0 && r.x + r.width / 2 <= innerWidth && r.y + r.height / 2 <= innerHeight
+  /* RUN TWO 10/26: a press scrolled out of its own sheet is not on the glass (its middle outside a scrolling box it sits in) */
+  && (() => { const cx = r.x + r.width / 2, cy = r.y + r.height / 2; for (let q = e.parentElement; q && q !== document.body; q = q.parentElement) { const o = getComputedStyle(q).overflowY; if (o === 'auto' || o === 'scroll') { const b = q.getBoundingClientRect(); if (cx < b.left || cx > b.right || cy < b.top || cy > b.bottom) return false; } } return true; })(); };
   [...document.querySelectorAll(sel)].filter(vis).forEach(e => { const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
     out.push({ id: (e.id || e.className.toString().slice(0, 16) || e.tagName) + ' ' + (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 14), ok: !!h && (h === e || e.contains(h)), on: h ? (h.id || h.tagName) : null, r: [r.x, r.y, r.width, r.height] }); });
   return out; };
@@ -155,7 +157,8 @@ async function side(profile) {
       const T = await fr.evaluate('(' + READ + ')()'), TP = await fr.evaluate('(' + PHONE + ')()');
       const own = await sf.evaluate(() => { const b = document.getElementById('bar'), r = b ? b.getBoundingClientRect() : null; const c = document.getElementById('crew'), cr = c ? c.getBoundingClientRect() : null;
         const l = document.getElementById('leave'), lr = l ? l.getBoundingClientRect() : null;
-        return { bar: !!r && r.height > 0 && getComputedStyle(b).display !== 'none', crew: !!cr && cr.width > 0, leave: lr && [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight,
+        const F = BohemiaSettlement.fit ? BohemiaSettlement.fit() : null, ph = F && F.phone;   /* RUN TWO [the town frames around the phone] (rule 213): where the phone stands in the town */
+        return { bar: !!r && r.height > 0 && getComputedStyle(b).display !== 'none', crew: !!cr && cr.width > 0, leave: lr && [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight, phone: ph ? [ph.left, ph.top, ph.width, ph.height] : null,
           name: (document.getElementById('pname') || {}).textContent, bats: parseInt(String((document.getElementById('bat') || {}).textContent || '').replace(/[^0-9-]/g, ''), 10) }; });
       const fb = await fr.evaluate(() => { const r = document.getElementById('settleFrame').getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; });
       return { T, TP, own, fb };
@@ -185,7 +188,9 @@ async function side(profile) {
       /* with the phone up its presses are the town's too (LEAVE, CREW, NOTES, SETTINGS, PLAY, HEAL: rule 238(a)) */
       const TPP = async () => (await TP()).concat(ON ? await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .app, #bohphone .bpctx .lv') + ')') : []);
       const L = await TPP();
-      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job' + (ON ? ', the phone\'s' : '') + ')', L.length >= 8 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
+      /* RUN TWO 10/26 (rule 213): the board's sheet stands above the phone's band and scrolls, so fewer of its rows are on the glass at
+         once; without the phone the floor is the bar's five, LEAVE and the X with a job */
+      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job' + (ON ? ', the phone\'s' : '') + ')', L.length >= (ON ? 8 : 7) && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
       if (PLANT) {
         if (ON) await p.evaluate(() => { const l = document.querySelector('#bohphone .bpctx .lv'), r = l.getBoundingClientRect(), d = document.createElement('div'); d.id = 'plantcover';
           d.style.cssText = 'position:fixed;z-index:99999;left:' + r.x + 'px;top:' + r.y + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; document.body.appendChild(d); });

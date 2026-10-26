@@ -30,6 +30,7 @@ const fs = require('fs'), path = require('path');
 const ROOT = path.dirname(__dirname);
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { openCrew } = require(path.join(ROOT, 'tools/bohemia_open_the_crew.js'));
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const done = () => { console.log('WHAT YOU BUY GOES ON THE MAN: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
@@ -125,9 +126,8 @@ const idOf = x => x ? (x.id || x) : null;
       !!h1 && h1.gear.off === sh && !!h2 && h2.gear[slot2] === arm.id && !!fu && fu.a && fu.a.shield === sh && fu.b && fu.b[slot2] === arm.id && !ferr.length, ferr.slice(0, 2).join(' | '));
     /* C1: the crew screen, the town's CREW by a real tap */
     await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await d.page.waitForTimeout(300);
-    const barCrew = await d.fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
-    if (barCrew) { const fb = await (await d.fr.frameElement()).boundingBox(); await d.page.touchscreen.tap(fb.x + barCrew.x, fb.y + barCrew.y); await d.page.waitForTimeout(700); }
-    else await T.tapSel('#crew');
+    /* the one CREW on screen: the phone's since UI TWO 52741663 (the bar's crew chip a readout), else the bar's, else the town's */
+    if (!(await openCrew(d.page, d.fr))) await T.tapSel('#crew');
     let rf = null; for (let k = 0; k < 60 && !rf; k++) { await d.page.waitForTimeout(300); rf = d.page.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
     let cr = null;
     if (rf) { await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.crew.length > 0, null, { timeout: 30000 }).catch(() => {}); await d.page.waitForTimeout(800);
@@ -161,8 +161,7 @@ const idOf = x => x ? (x.id || x) : null;
       ok('K1 the computer: a click on BUY, ' + k.man + ' wears ' + it.id + ' ("' + (wr && wr.said) + '")', !!wr && wr.man === k.man && !!on && Object.values(on.gear).some(g => idOf(g) === it.id));
       /* K2: the crew screen on the computer, where its own boot can open on the default twelve before the door's post lands */
       await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await d.page.waitForTimeout(300);
-      const bc = await d.fr.evaluate(() => { const e = document.querySelector('[data-tb="crew"]'); if (!e) return null; const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 ? { x: q.x + q.width / 2, y: q.y + q.height / 2 } : null; }).catch(() => null);
-      if (bc) { const fb = await (await d.fr.frameElement()).boundingBox(); await d.page.mouse.click(fb.x + bc.x, fb.y + bc.y); await d.page.waitForTimeout(700); } else await T.tapSel('#crew');
+      if (!(await openCrew(d.page, d.fr, { mouse: true }))) await T.tapSel('#crew');
       let rf = null; for (let n = 0; n < 60 && !rf; n++) { await d.page.waitForTimeout(300); rf = d.page.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
       let k2 = null; if (rf) { await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.fromOrigin, null, { timeout: 30000 }).catch(() => {}); await d.page.waitForTimeout(800);
         k2 = await rf.evaluate(([n, id]) => { const S = BohemiaRosterScreen.state, m = n === 'YOU' ? S.crew.find(x => x.main) : S.crew.find(x => x.name === n); return { on: !!m && Object.values(m.gear || {}).some(g => g && g.id === id), lines: localStorage.getItem('bohemia.wear.v1') || '' }; }, [k.man, it.id]); }

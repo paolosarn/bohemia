@@ -72,7 +72,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .pl small{display:block;color:var(--dim);font-size:10px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pl.on{border-color:var(--gold)}
 #sheet{position:absolute;left:0;right:0;bottom:0;max-height:72%;overflow:auto;background:rgba(22,17,12,.97);
-  border-top:2px solid var(--gold);padding:12px 12px 14px;transform:translateY(105%);transition:transform .25s ease}
+  border-top:2px solid var(--gold);padding:12px 12px 14px;transform:translateY(calc(105% + var(--sheet-b, 0px)));transition:transform .25s ease}   /* __THE_TOWN_FITS_THE_SCREEN__: a closed sheet standing above the phone's band slides all the way off */
 #sheet.on{transform:none}
 .who{display:flex;gap:10px;align-items:flex-start}
 #sheet .who{padding-right:56px}
@@ -376,13 +376,14 @@ function traitLine(k){
    with smoke still rising, planks across the clinic's windows, a crowd round the stall. Each is
    placed on a building already in that tier's picture (picked by eye). */
 var LOOKBOX = {burnt:{camp:[840,220,1000,420], town:[1600,0,2060,370], fortress:[1116,122,1631,486]}};
+function lookBox(){ var c = VAR && VAR.comp; return c && c.boxes && c.boxes.look ? c.boxes.look : (LOOKBOX.burnt[S.place.tier] || LOOKBOX.burnt.town); }
 function drawTraitLooks(s){
   if(!VAR || !(S.traits||[]).length) return;
   var now = performance.now(), tier = S.place.tier;
   function box(b){ return {x:view.ox+b[0]*s, y:view.oy+b[1]*s, w:(b[2]-b[0])*s, h:(b[3]-b[1])*s}; }
   S.traits.forEach(function(t){
     if(t.look === 'burnt'){
-      var b = box((LOOKBOX.burnt[tier]||LOOKBOX.burnt.town));
+      var b = box(lookBox());   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: the composition's own burnt house */
       cx.save(); cx.globalCompositeOperation = 'multiply'; cx.fillStyle = 'rgb(70,52,40)'; cx.fillRect(b.x, b.y, b.w, b.h); cx.restore();
       cx.fillStyle = 'rgba(20,14,10,.55)'; for(var i=0;i<14;i++){ var px = b.x + ((i*37)%100)/100*b.w, py = b.y + ((i*61)%100)/100*b.h; cx.fillRect(px, py, b.w*.12, b.h*.08); }
       /* smoke, still rising: slow puffs on the beat, never a glow */
@@ -662,7 +663,7 @@ function shopCrew(){
 /* the lines a thing of this kind moves */
 function onLines(kind){ return kind === 'weapon' ? ['damage', 'fatigue', 'initiative', 'melee_defense', 'ranged_defense'] : kind === 'shield' ? ['melee_defense', 'ranged_defense', 'fatigue', 'initiative'] : [kind === 'head' ? 'armour_head' : 'armour_body', 'fatigue', 'initiative']; }
 function headline(w, kind){ return kind === 'weapon' ? w.dmg : kind === 'shield' ? w.after.melee_defense - w.before.melee_defense : (w.after[kind === 'head' ? 'armour_head' : 'armour_body'] - w.before[kind === 'head' ? 'armour_head' : 'armour_body']); }
-function wearOn(m, it){
+function shopWearOn(m, it){   /* RUN TWO 10/26: named apart from CHARACTER's wearOn(look, ...) further down (__THE_ARMOUR_HE_WEARS_SHOWS__): one name for two functions let the later one win, and every shop card lost its man (a TypeError on w.after) */
   var C = window.BohemiaRoster, w = C.wearing(m, it);
   if(it.kind === 'weapon'){ var nr = C.fightWeapon(it.id), or = w.was ? C.fightWeapon(w.was) : null;
     w.dmgBefore = or ? [or.damage_min, or.damage_max] : null; w.dmgAfter = nr ? [nr.damage_min, nr.damage_max] : null;
@@ -672,12 +673,12 @@ function wearOn(m, it){
 /* who it is shown on: the man he picked, else the man it suits best (the biggest gain in what this kind of thing is for) */
 function shopMan(crew, it){
   var picked = crew.filter(function(m){ return m.name === S.shopMan; })[0]; if(picked) return picked;
-  var best = null, bv = -1e9; crew.forEach(function(m){ var w = wearOn(m, it); if(w.stops) return; var v = headline(w, it.kind); if(v > bv){ bv = v; best = m; } });
+  var best = null, bv = -1e9; crew.forEach(function(m){ var w = shopWearOn(m, it); if(w.stops) return; var v = headline(w, it.kind); if(v > bv){ bv = v; best = m; } });
   return best || crew[0];
 }
 function onMan(it, again){
   var crew = shopCrew(); if(!crew.length) return null;
-  var m = shopMan(crew, it), w = wearOn(m, it), C = window.BohemiaRoster;
+  var m = shopMan(crew, it), w = shopWearOn(m, it), C = window.BohemiaRoster;
   var box = document.createElement('div'); box.className = 'onman'; box.dataset.man = m.name;
   var who = document.createElement('div'); who.className = 'who'; who.appendChild(document.createTextNode('ON ')); var wb = document.createElement('b'); wb.textContent = m.name + (S.shopMan === m.name ? '' : ','); who.appendChild(wb);
   who.appendChild(document.createTextNode(S.shopMan === m.name ? '' : ' it suits him best')); box.appendChild(who);
@@ -716,7 +717,7 @@ function onMan(it, again){
 function wearTarget(it){
   var crew = shopCrew(), sh = S.shopShown; if(!crew.length || !sh || sh.item !== it.id) return null;
   var m = crew.filter(function(c){ return c.name === sh.man; })[0]; if(!m) return null;
-  var w = wearOn(m, it); return w.stops ? null : {m:m, w:w};
+  var w = shopWearOn(m, it); return w.stops ? null : {m:m, w:w};
 }
 function manWord(m){ return m.main ? 'you' : String(m.name).charAt(0) + String(m.name).slice(1).toLowerCase(); }
 function shortOf(x){ return String((x && x.name) || '').replace(/^(a|an) /, ''); }
@@ -1198,32 +1199,162 @@ Promise.all([fetch('settlement_ground_packs/settlement_ground.json').then(functi
     if(packs && old) Object.keys(old.tiers).forEach(function(t){ if(t === 'home' || !GROUND.tiers[t]){ GROUND.tiers[t] = old.tiers[t]; GROUND_DIR[t] = 'settlement_ground/'; } });
     pickVariant(); });
 function seedOf(str){ var h = 2166136261; for(var i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h>>>0; }
-function pickVariant(){
+/* ==== __EVERY_TOWN_ITS_OWN__ (RUN TWO [every town looks its own] with [the towns wired tall and wide], rules 186(b) and 220, COOK's
+   10/25-26 NOTEs: 'no two read the same on the map OR IN THEIR SETTLEMENT SCREEN'; EYES 10/25 line 106: 'Cartel's screen is the same
+   yard as Mob and Network'). MEASURED: every town of a tier drew one of its tier's two pictures, so fourteen home bases were four
+   yards. NOW a home base draws its own picture (slices/settlement_ground_towns/settlement_ground.json towns[name], COOK's, built
+   from its own plan: the heart in concrete boxes, the edge in shacks and trailers, its trade and its faction's faded colour), by
+   day and by night, and walks its own measured ground (settlement_walk.json beside it). The wide picture keeps the tier's first
+   picture's boxes to the pixel (COOK), so every door, keeper and lane of that layout stands where it stood. A place with no picture
+   of its own (a camp, a block you camp on) keeps its tier's. ==== */
+var TOWNS = null, TWALK = null;
+try{ fetch('settlement_ground_towns/settlement_ground.json').then(function(r){ return r.json(); }).then(function(j){ TOWNS = j && j.towns || null; if(VAR && S.place && TOWNS && TOWNS[S.place.name] && !S.camp) pickVariant(); }).catch(function(){}); }catch(e){}
+try{ fetch('settlement_ground_towns/settlement_walk.json').then(function(r){ return r.json(); }).then(function(j){ TWALK = j && j.pictures || null; WALK.grid = null; if(VAR && S.place && TOWNS && TOWNS[S.place.name] && !S.camp) pickVariant(); }).catch(function(){}); }catch(e){}
+/* __THE_TOWNS_WIRED_TALL_AND_WIDE__ (RUN TWO, rules 220, 279, 286, 289; COOK's towns[name].tall and .wide): the glass upright draws
+   the town's TALL composition (1024 x 1820, every building moved to fit a phone held up), on its side or a computer the WIDE one
+   (2060 x 1092); each carries its own hotspots, boxes, doors and entrance, so every tap, keeper, sign and bench stands on ITS
+   building. MEASURED 10/26 before: COOK re-laid eleven of fourteen wides out of the phone's corners (relaid:true) and the screen
+   still laid the tier's boxes over them (Blues' armourer box on open ground, its drawn armourer 600 px away) */
+function townShape(){ var W = 0, H = 0; try{ W = window.top.innerWidth; H = window.top.innerHeight; }catch(e){} if(!W || !H){ W = innerWidth; H = innerHeight; } return H > W ? 'tall' : 'wide'; }
+function townComp(shape){ var T = TOWNS && S.place && !S.camp ? TOWNS[S.place.name] : null; if(!T || T.tier !== S.place.tier) return null;
+  var c = T[shape || townShape()]; return c && c.px && c.src && townOk(c) ? c : null; }
+function compVar(c, tv){ return {src:c.src, night_src:c.night_src || c.src, px:c.px, hotspots:c.hotspots || {}, lights:c.lights != null ? c.lights : (tv && tv.lights), comp:c, shape:c.px[1] > c.px[0] ? 'tall' : 'wide'}; }
+/* a town's picture is drawn only when its keepers' doors stand on its own ground (within 120 px of open ground, the walk's own block
+   rule): measured 10/26, eleven of fourteen do; Church (the post 320 px and the bar 328 px inside its walls), Reds (the clinic 168,
+   the stall 112) and Remnants (the post 152) keep their tier's picture until COOK's re-lay of the wides (relaid:true) lands */
+function townOk(c){
+  if(c._ok != null) return c._ok; if(!TWALK) return false;
+  var bl = (TWALK[c.src] || {}).blocks; if(!bl || !c.doors) return (c._ok = false);
+  var W = c.px[0], H = c.px[1], hit = function(x, y){ if(x < 12 || y < 12 || x > W - 12 || y > H - 6) return true; for(var i = 0; i < bl.length; i++){ var b = bl[i]; if(x > b[0] - WALK.gxComp && x < b[2] + WALK.gxComp && y > b[1] && y < b[3] + WALK.gfoot) return true; } return false; };
+  var near = function(x, y){ if(!hit(x, y)) return 0; for(var r = 8; r <= 120; r += 8) for(var a = 0; a < 32; a++){ var t = a / 32 * Math.PI * 2; if(!hit(x + Math.cos(t) * r, y + Math.sin(t) * r * .7)) return r; } return 999; };
+  var bad = Object.keys(c.doors).filter(function(k){ return k !== 'lot' && k !== 'build' && near(c.doors[k][0], c.doors[k][1]) > 120; });
+  c._bad = bad; return (c._ok = !bad.length);
+}
+/* everybody on the town's OWN ground: the tier's spots were read off the tier's picture, and a home base's picture moves its
+   buildings (measured 10/26 on Church: all eight keepers' spots and 9 of 21 in the crowd stood inside the new picture's walls).
+   A keeper stands at COOK's door for his place; anybody else on a block steps to the nearest open ground, nearer the street first */
+var DOOR_OF = {hall:'posts'};
+function townDoor(k){ var c = VAR && VAR.comp; var d = c && c.doors && c.doors[DOOR_OF[k] || k]; return d && d.length === 2 ? {x:d[0], y:d[1]} : null; }
+function groundNear(x, y){
+  if(!VAR || !VAR.pic || !walkBlocks() || !leadBlocked(x, y)) return {x:x, y:y};
+  for(var r = 8; r <= 320; r += 8){ var best = null, bd = 1e9;
+    for(var a = 0; a < 16; a++){ var t = a / 16 * Math.PI * 2, qx = x + Math.cos(t) * r, qy = y + Math.sin(t) * r * .7;
+      if(!leadBlocked(qx, qy)){ var dd = Math.abs(qy - y) * .5 - (qy > y ? 4 : 0); if(dd < bd){ bd = dd; best = {x:qx, y:qy}; } } }
+    if(best) return best; }
+  return {x:x, y:y};
+}
+/* the tier's lanes on the town's own ground: each kept at the height where its run is clearest, cut to its longest open stretch */
+function townLanes(L){
+  if(!VAR || !VAR.pic || !walkBlocks()) return L;
+  if(VAR.pic.lanes) return VAR.pic.lanes;
+  var out = L.map(function(ln){ var best = null;
+    for(var dy = 0; dy <= 220; dy += 8){ [ln.y + dy, ln.y - dy].forEach(function(y){ if(y < 40 || y > picH() - 10) return; var run = 0, x0 = ln.x0, bx0 = 0, bx1 = 0;
+        for(var x = ln.x0; x <= ln.x1; x += 10){ if(leadBlocked(x, y, 4)){ if(run > bx1 - bx0){ bx0 = x0; bx1 = x0 + run; } run = 0; x0 = x + 10; } else run += 10; }
+        if(run > bx1 - bx0){ bx0 = x0; bx1 = x0 + run; }
+        if(!best || bx1 - bx0 > best.x1 - best.x0 + 40) best = {y:y, x0:bx0, x1:bx1, face:ln.face}; }); if(best && best.x1 - best.x0 > (ln.x1 - ln.x0) * .8) break; }
+    return best && best.x1 - best.x0 >= 340 ? best : null; }).filter(Boolean);
+  return (VAR.pic.lanes = out.length ? out : L);
+}
+/* NOBODY STANDS ON ANYBODY (the first votes, 9/21) in a composition that packs its buildings close (COOK's tall towns: Blues
+   upright put the stall's knot on the post's rail, and a finger on a man of the crowd answered as a man at the post, measured
+   10/26): the keepers keep their doors; each man at the post and then in the crowd who stands within a finger of somebody
+   already placed takes the nearest open ground clear of everybody (a finger's 31 points apart, half a body deep) */
+function spreadFolk(out){
+  var h = personH(), mx = Math.max(h*.34, 31/(view.s || 1)), my = h*.3, placed = out.filter(function(p){ return p.keeper; });
+  var clash = function(x, y){ return placed.some(function(q){ return Math.abs(q.x - x) < mx && Math.abs(q.y - y) < my; }); };
+  ['post','crowd'].forEach(function(kind){ out.forEach(function(p){ if(!p[kind]) return;
+    if(clash(p.x, p.y)){ var done = false;
+      for(var r = 12; r <= 420 && !done; r += 12) for(var a = 0; a < 24 && !done; a++){ var t = a/24*Math.PI*2, qx = p.x + Math.cos(t)*r, qy = p.y + Math.sin(t)*r*.6;
+        if(qx < 16 || qx > picW() - 16 || qy < h || qy > picH() - 6 || leadBlocked(qx, qy) || clash(qx, qy)) continue; p.x = qx; p.y = qy; done = true; } }
+    placed.push(p); }); });
+}
+/* ==== end __EVERY_TOWN_ITS_OWN__ ==== */
+function pickVariant(onlyPic){   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: onlyPic, the flip: the picture and its boxes, never the traits or the shelf */
   if(!GROUND) return;
-  var t = GROUND.tiers[S.place.tier] || GROUND.tiers.town, vs = t.variants || [t];
-  VAR = vs[(S.camp && S.place.block ? (S.place.block[0] * 7 + S.place.block[1] * 13) : seedOf(S.place.name)) % vs.length];   /* __THE_CAMP__: the block you camp on picks the ground */
-  if(S.camp && window.BohemiaCampLook && BohemiaCampLook.ready() && BohemiaCampLook.variant()) VAR = BohemiaCampLook.variant();   /* __CAMP_TWO__ (rule 260(a)): his own ground, his camp drawn on it */
+  var t = GROUND.tiers[S.place.tier] || GROUND.tiers.town, vs = t.variants || [t], own = townComp();
+  VAR = own ? compVar(own, vs[0]) : vs[(S.camp && S.place.block ? (S.place.block[0] * 7 + S.place.block[1] * 13) : seedOf(S.place.name)) % vs.length];   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: a home base's own composition for this glass */   /* __THE_CAMP__: the block you camp on picks the ground; __EVERY_TOWN_ITS_OWN__: a home base's own picture lies on its tier's first layout */
+  if(!own && S.camp && window.BohemiaCampLook && BohemiaCampLook.ready() && BohemiaCampLook.variant()) VAR = BohemiaCampLook.variant();   /* __CAMP_TWO__ (rule 260(a)): his own ground, his camp drawn on it */
+  VAR.pic = own ? {dir:'settlement_ground_towns/', src:own.src, night:own.night_src || own.src, blocks:TWALK && TWALK[own.src] ? TWALK[own.src].blocks : null} : null;   /* __EVERY_TOWN_ITS_OWN__ */
   VAR.boxes = {};
   if(S.camp) campBoxes();   /* __THE_CAMP__: your tent, the retinue's tent and the cart, nobody's shop */
   else {
   for(var h in VAR.hotspots){ var k = KMAP[h]; if(k) VAR.boxes[k] = VAR.hotspots[h].box; }
+  if(VAR.comp){ var cb = VAR.comp.boxes || {}; for(var ck in cb) if(ck !== 'look') VAR.boxes[ck] = cb[ck]; }   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: the composition's own boxes */
+  else {
   VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
   VAR.boxes.build = BUILDBOX[S.place.tier] || BUILDBOX.town;   /* __BUILD_ON_THE_SCREEN__ */
   var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
   var vb = BOXBYPIC[VAR.src] || {}; for(var vk in vb) VAR.boxes[vk] = vb[vk];   /* the second picture of a tier lays out differently */
+  }
   ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot','build'].filter(function(k){ return VAR.boxes[k]; });
   }
-  placeTraits(); restock();
+  if(!onlyPic){ placeTraits(); restock(); }
+  if(own) townPreload();   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: both shapes in hand before he turns */
   /* you arrive looking at what happened here: a raided place opens on its burnt house */
-  if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
-    var bb2 = LOOKBOX.burnt[S.place.tier] || LOOKBOX.burnt.town; view.cx = (bb2[0] + bb2[2])/2 + 260; }
+  if(!onlyPic && view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
+    var bb2 = lookBox(); view.cx = (bb2[0] + bb2[2])/2 + 260; }
   ['day','night'].forEach(function(w){
+    if(VAR.pic){ PIC[w] = townIm(VAR.pic.dir + (w==='day' ? VAR.pic.src : VAR.pic.night)); return; }   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: one picture a file, kept while he is in the town */
     var im = new Image(); im.onload = function(){ layout(); }; im.src = (VAR.dir || GROUND_DIR[GROUND.tiers[S.place.tier] ? S.place.tier : 'town'] || 'settlement_ground/') + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;   /* __CAMP_TWO__: VAR.dir, his camp's own folder */
   });
-  shelf(); layout();
+  if(!onlyPic) shelf(); layout();
 }
 function picW(){ return VAR ? VAR.px[0] : 2060; }
 function picH(){ return VAR ? VAR.px[1] : 1092; }
+/* ==== __THE_TOWN_FITS_THE_SCREEN__ (RUN TWO [the town fits the screen] + [the town frames around the phone], rules 218(c) and 213,
+   Paolo 10/26: 'I don't like sliding... you don't have to scroll, it's too much, it should be zoomed out perfectly the way it's
+   supposed to be'; 'not directly in the middle of the screen, slightly off center... the phone placement permanent... the same
+   size'). MEASURED: an upright phone showed about 60 percent of the picture's width and slid for the rest (390 of 676 px; EYES
+   10/26q k23: DEUCE off the left edge, GRIZ on the right); a wide glass filled its width and cropped top and bottom; the building's
+   sheet ran the full width, so the phone in its corner stood over its buttons and its x, and LEAVE rode up under it (EYES 10/26m
+   q10, q11: a tap on LEAVE opened DROP IT / KEEP IT). NOW the WHOLE town is fitted to the OPEN area: the glass less the phone's
+   band (UI TWO's BOH_PHONE_RECT when it is in, else where rule 213 stands the phone: 124 x 276 at its screen class's scale, 10 px
+   off the bottom corner bohemia.phone.v1 names, right by default), Google's map padding as UI TWO reads it: upright the band under
+   the phone's top, on its side the band beside it. Nothing slides. The building's sheet stands above the band (upright) or beside
+   it (on its side); LEAVE stands in the band, beside the phone upright and over it on its side, never under it. A pinch zooms
+   in from the fit, toward the open area's centre (FIT.zoom); a turn of the device or a flip of the phone lays it all out again. ==== */
+var FIT = {zoom:1, fit:1, open:null, phone:null, n:0};
+function frameOff(){ var x = 0, y = 0; try{ var w = window; while(w !== window.top && w.frameElement){ var r = w.frameElement.getBoundingClientRect(); x += r.left + (w.frameElement.clientLeft || 0); y += r.top + (w.frameElement.clientTop || 0); w = w.parent; } }catch(e){} return {x:x, y:y}; }
+function phoneHere(){
+  if(S.standalone) return null;   /* the town on its own has no phone (its gates, its bench) */
+  try{ if(typeof window.BOH_PHONE_RECT === 'function'){ var r = window.BOH_PHONE_RECT(); if(r && r.width > 0) return r; } }catch(e){}
+  var T = null, W = 0, H = 0; try{ T = window.top; W = T.innerWidth; H = T.innerHeight; }catch(e){ return null; }
+  if(!W || !H) return null;
+  var land = W > H, small = Math.min(W, H) < 500, sc = small ? (land ? .9 : 1) : 1.25, w = 124 * sc, h = 276 * sc, side = 'right';
+  try{ var c = JSON.parse(localStorage.getItem('bohemia.phone.v1') || 'null'); if(c && c.side === 'left') side = 'left'; }catch(e){}
+  var left = side === 'left' ? 10 : W - 10 - w, top = H - 10 - h, o = frameOff();
+  return {left:left - o.x, top:top - o.y, right:left + w - o.x, bottom:top + h - o.y, width:w, height:h, side:side, on:false, guessed:true};
+}
+/* the open area in the scene's pixels: the glass less the phone's band */
+var LEAVE_ROOM = 58;   /* LEAVE's 46 points and its tape, standing right over the phone (UI TWO) */
+/* UI TWO 52741663 (rules 238(a), 286(b)): with the phone up LEAVE is the phone's own press and the town's #leave steps aside under
+   its stylesheet, so no room is kept over the phone for it; the town's LEAVE stands there only without the phone (a build before it) */
+function townLeaveUp(){ var b = document.getElementById('leave'); if(!b) return false; if(document.documentElement.classList.contains('boh-phone-on')) return false;
+  try{ if(getComputedStyle(b).display === 'none' || getComputedStyle(document.getElementById('bmcorner') || b).display === 'none') return false; }catch(e){} return true; }
+function openArea(){
+  var W = view.W, H = view.H, o = {x0:0, y0:0, x1:W, y1:H, band:null}, ph = phoneHere(); FIT.phone = ph;
+  if(!ph) return o;
+  var sc = document.getElementById('scene').getBoundingClientRect(), land = false, g = 8;
+  try{ land = window.top.innerWidth > window.top.innerHeight; }catch(e){ land = innerWidth > innerHeight; }
+  if(!land){ o.y1 = Math.round(Math.min(H, Math.max(H * .4, ph.top - sc.top - g - (S.standalone || !townLeaveUp() ? 0 : LEAVE_ROOM)))); o.band = 'bottom'; }   /* upright: LEAVE stands right over the phone, so the band starts above LEAVE */
+  else if(ph.side === 'left'){ o.x0 = Math.round(Math.max(0, Math.min(W * .45, ph.right - sc.left + g))); o.band = 'left'; }
+  else { o.x1 = Math.round(Math.min(W, Math.max(W * .55, ph.left - sc.left - g))); o.band = 'right'; }
+  return o;
+}
+/* the sheet above or beside the band, never under the phone (rule 279: words never under the phone) */
+function placeChrome(){
+  var o = FIT.open, sh = document.getElementById('sheet'), ph = FIT.phone; if(!sh || !o) return;
+  sh.style.bottom = (o.band === 'bottom' ? Math.round(view.H - o.y1) : 0) + 'px'; sh.style.setProperty('--sheet-b', sh.style.bottom);
+  sh.style.maxHeight = o.band === 'bottom' ? Math.round((o.y1 - o.y0) * .72) + 'px' : '';   /* its x stays on the glass: 72 percent of the open area, not of the scene */
+  /* across: the open area's width, the sheet centred in it at most 1040 wide (UI's wide-glass rule, laid in the open area, not the glass) */
+  var ow = o.x1 - o.x0, sw = Math.min(1040, ow - (ow >= 700 ? 24 : 0));
+  sh.style.left = Math.round(o.x0 + (ow - sw) / 2) + 'px'; sh.style.right = 'auto'; sh.style.width = Math.round(sw) + 'px'; sh.style.marginLeft = '0px';
+  /* LEAVE stands right over the phone in its corner (UI TWO's place for it); the building's sheet no longer lies over the phone's
+     corner, so LEAVE never rides up over the town when a sheet opens (UI's lift is held here, the one rule this screen adds) */
+  var st = document.getElementById('run2corner'); if(!st){ st = document.createElement('style'); st.id = 'run2corner'; document.head.appendChild(st); }
+  var css = ph && o.band && townLeaveUp() ? 'html body #bmcorner{bottom:' + Math.max(10, Math.round(innerHeight - ph.top + 6)) + 'px!important}' : '';
+  if(st.textContent !== css) st.textContent = css;
+}
 function layout(){
   var sc = document.getElementById('scene'), W = sc.clientWidth, H = sc.clientHeight;
   view.W = W; view.H = H;
@@ -1231,18 +1362,14 @@ function layout(){
   var dpr = window.devicePixelRatio||1;
   cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
   cv.style.width = W+'px'; cv.style.height = H+'px';
-  /* rule 62: the picture covers the scene; an upright phone fills the height and pans, a wide
-     screen fills the width */
-  /* you see the PLACE, not one roof: an upright phone shows about 60 percent of the picture's
-     width at once and drags for the rest; a wide screen fits all of it */
-  view.s = Math.min(Math.max(W/(picW()*0.6), H*0.5/picH()), H/picH());   /* the dark band EYES saw under the picture goes with rule 218(c), [the town fits the screen] (the whole town fitted, no sliding), never by zooming in */
-  /* RUN TWO [the sideways band], 10/10 (UI's review, his NO on 'the brown-grey sides'): a glass wider than the
-     picture FILLS THE WIDTH and crops top and bottom (Battle Brothers' town screen fills its glass at any width);
-     a drag then also moves up and down, so no building is ever out of reach */
-  if(W/picW() > view.s) view.s = W/picW();
+  var o = FIT.open = openArea();
+  FIT.fit = Math.min((o.x1 - o.x0)/picW(), (o.y1 - o.y0)/picH()); FIT.n++;
+  view.s = FIT.fit * FIT.zoom;
   panY(view.cy == null ? picH()/2 : view.cy);
   pan(view.cx == null ? picW()/2 : view.cx);
+  placeChrome();
   try{ campCompose(); }catch(e){}   /* __CAMP_TWO__ (rule 286(a)): his camp composed in what the phone leaves */
+  flipCheck();   /* __THE_FLIP_GLIDES__: a turn of the glass swaps tall and wide, gliding */
 }
 /* __CAMP_TWO__ (rule 286(a), CAMP TWO [the camp fits the phone]): the camp's fire at the centre of what the phone leaves, once a camp,
    a side and a size (a drag of his is never undone); the phone's side flips in a beat and the camp moves with it */
@@ -1253,18 +1380,177 @@ function campCompose(){
   panY(t.cy); pan(t.cx);
 }
 window.addEventListener('bohemia-phone', function(){ try{ campCompose(); }catch(e){} });
+/* a point of the picture to the open area's centre; a picture that fits stands centred in it and never moves */
 function pan(cxPic){
-  var half = view.W/2/view.s;
+  var o = FIT.open || {x0:0, x1:view.W}, ow = o.x1 - o.x0, pw = picW()*view.s;
+  if(pw <= ow + 0.5){ view.cx = picW()/2; view.ox = Math.round(o.x0 + (ow - pw)/2); return; }
+  var half = ow/2/view.s;
   cxPic = Math.max(half, Math.min(picW() - half, cxPic));
-  view.cx = cxPic; view.ox = Math.round(view.W/2 - cxPic*view.s);
+  view.cx = cxPic; view.ox = Math.round(o.x0 + ow/2 - cxPic*view.s);
 }
 function panY(cyPic){
   var up = Math.round((LEAD && LEAD.lift) || 0);   /* __THE_WALK_UP__: the town above the sheet while it is open */
-  if(picH()*view.s <= view.H){ view.cy = picH()/2; view.oy = Math.round((view.H - picH()*view.s)/2) - up; return; }
-  var half = view.H/2/view.s;
+  var o = FIT.open || {y0:0, y1:view.H}, oh = o.y1 - o.y0, ph = picH()*view.s;
+  if(ph <= oh + 0.5){ view.cy = picH()/2; view.oy = Math.round(o.y0 + (oh - ph)/2) - up; return; }
+  var half = oh/2/view.s;
   cyPic = Math.max(half, Math.min(picH() - half, cyPic));
-  view.cy = cyPic; view.oy = Math.round(view.H/2 - cyPic*view.s) - up;
+  view.cy = cyPic; view.oy = Math.round(o.y0 + oh/2 - cyPic*view.s) - up;
 }
+window.addEventListener('bohemia-phone', function(){ layout(); });   /* UI TWO's phone flipped or the device turned */
+/* ==== end __THE_TOWN_FITS_THE_SCREEN__ ==== */
+
+/* ==== __THE_FLIP_GLIDES__ (RUN TWO [the towns wired tall and wide], rule 289(b), Paolo 10/26: 'all camps and settlements have to look
+   good when you flip them from portrait to landscape... I don't know if the buildings and the people flip when it flips, but you
+   gotta find a way to do it cleanly'; the coordinator's default, rule 205: the shared-element move, the way a phone re-flows its
+   home screen on a turn). On a turn the glass reads the other shape and the town takes its other composition: the old one is laid
+   on the new glass first (the frame he sees the instant the glass turns), then every building slides from its old spot to its new
+   one in ONE BEAT (MOTION's beat, eased on Material's standard curve, MOTION's family), its old pixels dissolving into its
+   new; the ground under them blurs out of focus and back, so nothing is ever a black hole; every person rides from where he stood
+   to where he stands now, at the size between, still doing what he was doing; the door he is at and the man he talks to stay his.
+   MOTION's LESS setting: a dissolve in place, nothing travels. A tap in the beat lands on the new town (the boxes are already the
+   new ones). ==== */
+var TOWN_IMS = {}, FLIP = {on:false, t0:0, dur:500, from:null, n:0, frames:0, worst:0, last:0, log:[]};
+function townIm(url){ var im = TOWN_IMS[url]; if(!im){ im = TOWN_IMS[url] = new Image(); im.onload = function(){ try{ layout(); }catch(e){} }; im.src = url; } return im; }
+function townPreload(){ var T = TOWNS && S.place && !S.camp ? TOWNS[S.place.name] : null; if(!T) return;
+  ['tall','wide'].forEach(function(sh){ var c = T[sh]; if(!c || !c.src || !townOk(c)) return; townIm('settlement_ground_towns/' + c.src); townIm('settlement_ground_towns/' + (c.night_src || c.src)); }); }
+function flipEase(x){ var x1 = .2, y1 = 0, x2 = 0, y2 = 1, lo = 0, hi = 1, t = x;   /* Material's standard curve, cubic-bezier(0.2, 0, 0, 1), Material's ease for things that begin and end on screen; MOTION's emphasized-decelerate (its research's container transform) is for a piece that arrives, and from a standing start it threw a building two thirds of its way in one slow frame (measured 10/26) */
+  for(var i = 0; i < 20; i++){ t = (lo + hi) / 2; var c = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t; if(c < x) lo = t; else hi = t; }
+  return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t; }
+function folkId(p){ return p.keeper ? 'k:' + p.k : p.post ? 'p:' + p.rid : p.crewMan ? 'm:' + (p.name || p.look) : 'c:' + p.slot; }
+function busyId(w){ return w.crewMan ? 'm:' + (w.name || w.look) : 'w:' + w.slot; }
+/* the town as it stands on this glass, before the swap */
+function flipSnap(){
+  if(!VAR || !PIC.day || !PIC.day.complete) return null;
+  var s = view.s, now = performance.now(), o = {ox:view.ox, oy:view.oy, s:s, pw:picW(), ph:picH(), day:PIC.day, night:PIC.night, boxes:{}, folk:{}, busy:{}, lead:null, src:VAR.src, shape:VAR.comp ? VAR.shape : null};
+  for(var k in VAR.boxes) if(ORDER.indexOf(k) >= 0) o.boxes[k] = VAR.boxes[k].slice();
+  try{ folkList().forEach(function(p){ o.folk[folkId(p)] = {x:view.ox + p.x*s, y:view.oy + p.y*s}; }); }catch(e){}
+  try{ if(!view.noBusy) busyList().forEach(function(w){ o.busy[busyId(w)] = {w:w, ox:view.ox, oy:view.oy, s:s}; }); }catch(e){}
+  if(LEAD.x != null) o.lead = {x:view.ox + LEAD.x*s, y:view.oy + LEAD.y*s};
+  return o;
+}
+/* his place in the other composition: the door he is nearest, the same step from it, on the ground */
+function flipDoors(boxes, comp){ var d = {}; for(var k in boxes){ var c = comp && comp.doors && comp.doors[DOOR_OF[k] || k], b = boxes[k]; d[k] = c && c.length === 2 ? {x:c[0], y:c[1]} : {x:(b[0]+b[2])/2, y:b[3]}; } return d; }
+function flipCheck(){
+  if(!VAR || S.camp || !TOWNS || !S.place || FLIP.busy || !GROUND) return;
+  var want = townComp() || null, have = VAR.comp || null; if(want === have) return;
+  if(want){ var a = townIm('settlement_ground_towns/' + want.src), b = townIm('settlement_ground_towns/' + (want.night_src || want.src));
+    if(!(a.complete && a.naturalWidth) || !(b.complete && b.naturalWidth)) return; }   /* its picture not in yet: the town as it was, on the new glass, until it is (its onload lays out again) */
+  var from = flipSnap(), od = flipDoors(VAR.boxes, VAR.comp), lead = LEAD.x != null ? {x:LEAD.x, y:LEAD.y, goal:LEAD.goal, walking:!!(LEAD.path && LEAD.seg < LEAD.path.length)} : null;
+  FLIP.busy = true;
+  try{
+    FIT.zoom = 1; view.cx = null; view.cy = null;
+    pickVariant(true);
+    if(lead) flipLead(lead, od);
+  } finally { FLIP.busy = false; }
+  if(from){ var bm = 500; try{ var top = window.top.BohemiaMotion || window.BohemiaMotion; if(top && top.clock) bm = top.clock().beatMs || 500; }catch(e){}
+    var red = false; try{ var Mo = window.top.BohemiaMotion || window.BohemiaMotion; red = !!(Mo && Mo.reduced && Mo.reduced()); }catch(e){}
+    var pr = flipPairs(from); if(pr) from.boxes = pr.ob; FLIP.newBoxes = pr ? pr.nb : null; FLIP.pairs = pr ? Object.keys(pr.ob).length : 0;   /* COOK's pairs: every building, not just the taps */
+    FLIP.cutOld = null; FLIP.cutNew = null; FLIP.trace = []; FLIP.from = from; FLIP.t0 = 0; FLIP.u = 0; FLIP.dur = red ? 167 : bm; FLIP.reduced = red; FLIP.on = true; FLIP.n++; FLIP.frames = 0; FLIP.worst = 0; FLIP.last = 0;
+    FLIP.log.push({n:FLIP.n, at:Date.now(), from:from.src, to:VAR.src, dur:FLIP.dur, reduced:red, pairs:FLIP.pairs}); }
+}
+/* COOK's glide (towns[name].glide, 21fc51f5): every building and landmark standing in both compositions, ONE id, both spots; the
+   taps that ride the ground (the lot, the build) and the things only one side has go with the ground's dissolve */
+function flipPairs(F){
+  var T = TOWNS && S.place ? TOWNS[S.place.name] : null, g = T && T.glide;
+  if(!g || !F.shape || !VAR.comp || F.shape === VAR.shape) return null;
+  var ob = {}, nb = {};
+  (g.pieces || []).forEach(function(p){ var a = p[F.shape], b = p[VAR.shape]; if(p.id && a && b && a.box && b.box){ ob[p.id] = a.box.slice(); nb[p.id] = b.box.slice(); } });
+  return Object.keys(ob).length ? {ob:ob, nb:nb} : null;
+}
+function flipLead(L, od){
+  var G = walkGrid(), nd = flipDoors(VAR.boxes, VAR.comp), g = L.goal;
+  /* he was going somewhere: to the same door or the same man, in this picture */
+  if(g){ LEAD.goal = null; LEAD.path = null;
+    var key = g.key || '', p = null;
+    if(/^b:/.test(key)) p = folkList().filter(function(q){ return q.keeper && q.k === key.slice(2); })[0];
+    else if(/^post:/.test(key)) p = folkList().filter(function(q){ return q.post && String(q.rid) === key.slice(5); })[0];
+    else if(/^crowd:/.test(key)) p = folkList().filter(function(q){ return q.crowd && String(q.slot) === key.slice(6); })[0];
+    var spot = p ? leadSpot(p) : null;
+    if(!spot && g.b && VAR.boxes[g.b]){ var bx = VAR.boxes[g.b], x = (bx[0] + bx[2])/2, y = Math.min(picH() - 8, bx[3] + 10), n = G && walkNearest(G, x, y, false); spot = {x:n ? n.x : x, y:n ? n.y : y, at:{x:x, y:bx[3] - 40}}; }
+    if(spot){ if(!L.walking){ LEAD.x = spot.x; LEAD.y = spot.y; LEAD.goal = {key:key, b:g.b, x:spot.x, y:spot.y, at:spot.at, made:performance.now()}; return; }
+      LEAD.goal = {key:key, b:g.b, x:spot.x, y:spot.y, at:spot.at, made:performance.now()}; } }
+  /* where he stood: the nearest door's own step, carried to that door here */
+  var best = null, bd = 1e9; for(var k in od){ if(!nd[k]) continue; var d = Math.hypot(L.x - od[k].x, L.y - od[k].y); if(d < bd){ bd = d; best = k; } }
+  var x = L.x, y = L.y; if(best){ var ox = L.x - od[best].x, oy = L.y - od[best].y, om = Math.hypot(ox, oy), cap = personH() * .6; if(om > cap){ ox *= cap / om; oy *= cap / om; }   /* by its door, on the ground COOK walked to every door (a long step from it could land in a yard of the other picture) */
+    x = nd[best].x + ox; y = nd[best].y + oy; }
+  x = Math.max(12, Math.min(picW() - 12, x)); y = Math.max(12, Math.min(picH() - 8, y));
+  /* on ground that reaches where he is going (measured 10/26: a step by the nearest door of the other picture can be a yard cut off
+     from the armourer's, and he stopped short); with no goal, on the ground that reaches that door */
+  var aim = LEAD.goal ? {x:LEAD.goal.x, y:LEAD.goal.y} : (best && nd[best]) || null, n2 = G && aim ? flipNearestIn(G, flipRegion(G, aim.x, aim.y), x, y) : null;
+  if(!n2) n2 = G && walkNearest(G, x, y, false);
+  LEAD.x = n2 ? n2.x : x; LEAD.y = n2 ? n2.y : y;
+  if(LEAD.goal) leadRoute(performance.now());
+}
+/* the cells joined to (x, y) over the ground (people step aside), and the one of them nearest (x0, y0) */
+function flipRegion(G, x, y){ var s = walkNearest(G, x, y, true); if(!s) return null; var W = G.gw, m = new Uint8Array(W*G.gh), q = [s.j*W + s.i]; m[q[0]] = 1;
+  for(var h = 0; h < q.length; h++){ var c = q[h], cx0 = c % W, cy0 = (c / W) | 0; [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(o){ var nx = cx0 + o[0], ny = cy0 + o[1]; if(nx < 0 || ny < 0 || nx >= W || ny >= G.gh) return; var ni = ny*W + nx; if(m[ni] || G.g[ni] === 0) return; m[ni] = 1; q.push(ni); }); }
+  return m; }
+function flipNearestIn(G, m, x, y){ if(!m) return null; var W = G.gw, best = null, bd = 1e18;
+  for(var c = 0; c < m.length; c++){ if(!m[c] || G.g[c] !== 1) continue; var px = (c % W + .5)*G.C, py = (((c / W) | 0) + .5)*G.C, d = (px - x)*(px - x) + (py - y)*(py - y); if(d < bd){ bd = d; best = {x:px, y:py}; } }
+  return best; }
+function softOf(im){ if(im._soft) return im._soft; var c = document.createElement('canvas'); c.width = Math.max(8, Math.round(im.naturalWidth / 14)); c.height = Math.max(8, Math.round(im.naturalHeight / 14));
+  var x = c.getContext('2d'); x.imageSmoothingEnabled = true; x.drawImage(im, 0, 0, c.width, c.height); return (im._soft = c); }
+/* the ground with its buildings cut out (what stays still under the ones that slide), made once a flip */
+function cutOf(im, boxes, F, key){ if(F[key] && F[key].im === im) return F[key].c;
+  var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x = c.getContext('2d'); x.drawImage(im, 0, 0);
+  var fx = im.naturalWidth / (F[key + 'W'] || im.naturalWidth), fy = im.naturalHeight / (F[key + 'H'] || im.naturalHeight);
+  for(var k in boxes){ var b = boxes[k]; x.clearRect(b[0]*fx, b[1]*fy, (b[2]-b[0])*fx, (b[3]-b[1])*fy); }
+  F[key] = {im:im, c:c}; return c; }
+function flipGround(im, ox, oy, s, pw, ph, boxes, a, key){
+  if(a <= 0.002) return;
+  var F = FLIP; F[key + 'W'] = pw; F[key + 'H'] = ph;
+  cx.save(); cx.globalAlpha = a; cx.drawImage(cutOf(im, boxes, F, key), ox, oy, pw*s, ph*s); cx.restore();
+}
+/* draw(): the beat of the flip; answers the people's scale, or 0 when no flip is on */
+function flipDraw(im, s, W, H){
+  if(!FLIP.on || !FLIP.from) return 0;
+  /* the beat runs from the first frame it is drawn, and a slow frame never skips more than a twelfth of it (frame time in line:
+     on a stalled frame the glide waits, it never jumps) */
+  var now = performance.now();
+  if(!FLIP.last){ FLIP.u = 0; FLIP.t0 = now; } else { var gap = now - FLIP.last; if(gap > FLIP.worst) FLIP.worst = gap; FLIP.u += Math.min(gap, FLIP.dur / 12) / FLIP.dur; }
+  FLIP.last = now; var u = FLIP.u;
+  if(u >= 1){ var lg = FLIP.log[FLIP.log.length - 1]; if(lg){ lg.took = Math.round(now - FLIP.t0); lg.frames = FLIP.frames; lg.worst = Math.round(FLIP.worst); }
+    FLIP.on = false; FLIP.from = null; FLIP.cutOld = FLIP.cutNew = null; FLIP.newBoxes = null; return 0; }
+  FLIP.frames++;
+  var F = FLIP.from, e = FLIP.reduced ? u : flipEase(Math.max(0, u)), oim = (view.night ? F.night : F.day) || F.day, pw = picW(), ph = picH();
+  var mv = FLIP.reduced ? 0 : e;   /* LESS: nothing travels */
+  cx.imageSmoothingEnabled = true;
+  /* the ground out of focus, the old into the new */
+  cx.drawImage(softOf(oim), F.ox, F.oy, F.pw*F.s, F.ph*F.s);
+  cx.save(); cx.globalAlpha = e; cx.drawImage(softOf(im), view.ox, view.oy, pw*s, ph*s); cx.restore();
+  cx.imageSmoothingEnabled = false;
+  flipGround(oim, F.ox, F.oy, F.s, F.pw, F.ph, F.boxes, 1 - e, 'cutOld');
+  var NB = FLIP.newBoxes, nbOf = function(k){ return NB ? (NB[k] || null) : (ORDER.indexOf(k) >= 0 ? VAR.boxes[k] : null); };
+  flipGround(im, view.ox, view.oy, s, pw, ph, NB || VAR.boxes, e, 'cutNew');
+  /* every building from its old spot to its new, its old pixels into its new (COOK's pairs when both sides are the town's own) */
+  var keys = {}; for(var k in F.boxes) keys[k] = 1; if(NB) for(var k2 in NB) keys[k2] = 1; else ORDER.forEach(function(k){ keys[k] = 1; });
+  Object.keys(keys).sort(function(a, b){ var ba = nbOf(a) || F.boxes[a], bb = nbOf(b) || F.boxes[b]; return ba[3] - bb[3]; }).forEach(function(k){
+    var ob = F.boxes[k], nb = nbOf(k);
+    var OR = ob ? [F.ox + ob[0]*F.s, F.oy + ob[1]*F.s, (ob[2]-ob[0])*F.s, (ob[3]-ob[1])*F.s] : null, NR = nb ? [view.ox + nb[0]*s, view.oy + nb[1]*s, (nb[2]-nb[0])*s, (nb[3]-nb[1])*s] : null;
+    var glide = OR && NR && !FLIP.reduced, R = glide ? OR.map(function(v, i){ return v + (NR[i] - v) * mv; }) : null;   /* LESS, or a building only one side has: each fades where it stands */
+    if(ob){ var Ro = glide ? R : OR; cx.save(); cx.globalAlpha = glide ? 1 : 1 - e; cx.drawImage(oim, ob[0], ob[1], ob[2]-ob[0], ob[3]-ob[1], Ro[0], Ro[1], Ro[2], Ro[3]); cx.restore(); }
+    if(nb){ var Rn = glide ? R : NR; cx.save(); cx.globalAlpha = e; cx.drawImage(im, nb[0], nb[1], nb[2]-nb[0], nb[3]-nb[1], Rn[0], Rn[1], Rn[2], Rn[3]); cx.restore(); }
+    if(FLIP.trace && FLIP.trace.length < 90) (FLIP.tb || (FLIP.tb = {}))[k] = glide ? R.map(Math.round) : (NR || OR).map(Math.round);
+  });
+  if(FLIP.trace && FLIP.trace.length < 90){ FLIP.trace.push({u:+u.toFixed(3), b:FLIP.tb || {}}); FLIP.tb = null; }
+  return FLIP.reduced ? s : F.s + (s - F.s) * mv;
+}
+/* the people ride: each drawn this frame between where he stood and where he stands, at the size between */
+function flipPeople(s, sG, fn){
+  var F = FLIP.from, mv = FLIP.reduced ? 1 : flipEase(Math.min(1, Math.max(0, FLIP.u || 0))), now = performance.now(), keep = [];
+  var at = function(T, Fr){ return Fr ? {x:Fr.x + (T.x - Fr.x) * mv, y:Fr.y + (T.y - Fr.y) * mv} : T; };
+  try{
+    folkList().forEach(function(p){ var T = {x:view.ox + p.x*s, y:view.oy + p.y*s}, X = at(T, F.folk[folkId(p)]); keep.push([p, p.x, p.y]); p.x = (X.x - view.ox)/sG; p.y = (X.y - view.oy)/sG; });
+    if(!view.noBusy) busyList().forEach(function(w){ var a = busyAt(w, now), T = {x:view.ox + a.x*s, y:view.oy + w.y*s}, o = F.busy[busyId(w)], Fr = null;
+      if(o){ var oa = busyAt(o.w, now); Fr = {x:o.ox + oa.x*o.s, y:o.oy + o.w.y*o.s}; }
+      var X = at(T, Fr), sh = (X.x - view.ox)/sG - a.x; keep.push([w, w.a, w.b, w.y]); w.a += sh; w.b += sh; w.y = (X.y - view.oy)/sG; });
+    var lk = null; if(LEAD.x != null){ var T2 = {x:view.ox + LEAD.x*s, y:view.oy + LEAD.y*s}, X2 = at(T2, F.lead); lk = [LEAD.x, LEAD.y]; LEAD.x = (X2.x - view.ox)/sG; LEAD.y = (X2.y - view.oy)/sG; }
+    if(FLIP.trace && FLIP.trace.length && LEAD.x != null) FLIP.trace[FLIP.trace.length - 1].lead = [Math.round(view.ox + LEAD.x*sG), Math.round(view.oy + LEAD.y*sG)];
+    fn(sG);
+    if(lk){ LEAD.x = lk[0]; LEAD.y = lk[1]; }
+  } finally { keep.forEach(function(r){ if(r.length === 3){ r[0].x = r[1]; r[0].y = r[2]; } else { r[0].a = r[1]; r[0].b = r[2]; r[0].y = r[3]; } }); }
+}
+/* ==== end __THE_FLIP_GLIDES__ ==== */
 /* THE PEOPLE OF THE PLACE (RUN TWO [the finished pictures in], 10/10; [the 3D models on your screens], 10/19): a keeper
    at each building's door step and a crowd by the stall whose size the place's traits set (market day fills it, raided
    or sick empties it, night thins it). EVERY ONE OF THEM IS A 3D MODEL from 10/19 (rule 121(e), his NO: 'BRO EVERYTHING
@@ -1474,11 +1760,17 @@ function folkList(){
   if(!VAR || !GANG_LOOKS.length) return [];
   var pm = postMen(), key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',') + ':' + pm.map(function(r){ return r.look; }).join(',') + ':' + Math.round(view.s * 100) + ':' + crewKey() + ':' + !!walkBlocks();   /* __YOUR_CREW_LIVES_IN_THE_TOWN__ */
   if(VAR.folkKey === key) return VAR.folk;
+  if(FOLK_IN) return VAR.folk || [];   /* asked again while the place is being stood up (his arrival spot asks who stands where) */
+  FOLK_IN = true; try{ return folkMake(pm, key); } finally { FOLK_IN = false; }
+}
+var FOLK_IN = false;
+function folkMake(pm, key){
   var R = rng(seedOf(S.place.name + ':folk')), hand = dealt(), out = [];
   ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
     var lp = KEEPER_LOOPS[i % KEEPER_LOOPS.length]; R();   /* the die the gang look took: everybody keeps his spot */
+    var kx = (b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, ky = b[3] - 2, dr = VAR.pic ? townDoor(k) : null, kg = dr ? groundNear(dr.x, dr.y) : groundNear(kx, ky);   /* __EVERY_TOWN_ITS_OWN__: his own door */
     out.push({k:k, keeper:true, look:hand[i], clip:KEEPER_CLIP[k] || 'wait', face:lp[0], loop:lp, beat:Math.floor(R()*4),
-      x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
+      x:kg.x, y:kg.y, ph:R()}); });
   var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount(), at = CROWD_AT[VAR.src];
   /* EYES [eyes: crowd taps] (rule 150, the 44-point finger): on a small screen the knot stands a little looser, a man at least
      31 points from the next (46 picture px on a computer, about 98 on a phone), still two rows deep, never a line */
@@ -1490,6 +1782,8 @@ function folkList(){
   pm.forEach(function(r, i){ var lq = CROWD_LOOPS[(i + 2) % CROWD_LOOPS.length];
     out.push({post:true, k:'hall', rid:r.id, look:r.look, clip:'wait', face:lq[0], loop:lq, beat:(i + 1) % 4,
       x:hb[0] + (i + .5) * (hb[2] - hb[0]) / pm.length, y:Math.min(picH()-4, hb[3] + 16 + (i % 2) * 18), ph:0}); });
+  if(VAR.pic) out.forEach(function(p){ if(p.keeper) return; var g = groundNear(p.x, p.y); p.x = g.x; p.y = g.y; });   /* __EVERY_TOWN_ITS_OWN__: the crowd and the post on the town's own ground */
+  if(VAR.comp) spreadFolk(out);   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: nobody stands on anybody */
   var cf = crewFolk(out); VAR.crewWalk = cf.walk; out = out.concat(cf.stand);   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: his company among them */
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
@@ -1515,7 +1809,9 @@ var BUSY_LANES = {
 /* a picture whose layout differs from its tier's first (COOK's second town: its lower block's roof comes up to y 556 east of
    x 1240, and two cars stand on the north walk) */
 var BUSY_LANES_BY_PIC = {'town_1.webp': [{y:606, x0:40, x1:1180, face:'S'}, {y:388, x0:1010, x1:1350, face:'N'}, {y:388, x0:40, x1:860, face:'N'}]};
-function busyLanes(){ return (VAR && BUSY_LANES_BY_PIC[VAR.src]) || BUSY_LANES[S.place.tier] || BUSY_LANES.town; }
+function busyLanes(){ var L = (VAR && BUSY_LANES_BY_PIC[VAR.src]) || BUSY_LANES[S.place.tier] || BUSY_LANES.town;
+  if(VAR && VAR.comp && (VAR.px[0] !== 2060 || VAR.px[1] !== 1092)){ var fx = VAR.px[0] / 2060, fy = VAR.px[1] / 1092; L = L.map(function(ln){ return {y:Math.round(ln.y * fy), x0:Math.round(ln.x0 * fx), x1:Math.round(ln.x1 * fx), face:ln.face}; }); }   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: the tier's lanes laid into a tall picture, then on its own ground */
+  return VAR && VAR.pic ? townLanes(L) : L; }   /* __EVERY_TOWN_ITS_OWN__: the lanes on the town's own ground */
 var WALK_PX_PER_STRIDE = 74, STRIDE_MS = 1000;   /* one stride (the walk's six keys, two beats at 120 BPM) on the rig's man is about 1.3 m at the render's 57 px a metre */
 function busyCount(){
   var n = BUSY_BASE[S.place.tier] || 2, tr = (S.traits||[]).map(function(t){ return t.id; });
@@ -1568,10 +1864,24 @@ var DOOR_SIGNS = {hall:'w_pistol', bar:'w_bottles'}, SIGN_IM = {}, SIGN_AT = .58
 Object.keys(DOOR_SIGNS).forEach(function(k){ var im = new Image(); im.src = 'market_icons/' + DOOR_SIGNS[k] + '.png'; SIGN_IM[k] = im; });
 function signRect(k){   /* in picture pixels: a plate over the door, the upper part of the front */
   var b = VAR && VAR.boxes[k]; if(!b || ORDER.indexOf(k) < 0) return null;
+  var ck = k + ':' + Math.round(personH()) + (VAR.comp ? ':' + (folkList(), VAR.folkKey || '') : ''); if(VAR.signs && VAR.signs[ck]) return VAR.signs[ck];
   /* over a building's front, or, where the post is a rail the men stand along, over their heads (a sign the people never cover) */
   var w = Math.min(140, Math.max(110, (b[2]-b[0])*.28)), h = w*.8, x = (b[0]+b[2])/2 - w/2, up = personH()*1.2 + h/2 > (b[3]-b[1])*SIGN_AT;
   var y = b[3] - Math.max((b[3]-b[1])*SIGN_AT, personH()*1.2 + h/2) - h/2;
-  return up ? [x, y, x + w, y + h, b[3]] : [x, y, x + w, y + h];   /* a fifth number: a pole down to the ground the rail stands on */
+  /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: a composition that packs the post under the stall (COOK's tall fortresses) put the post's sign
+     on the stall's middle and its keeper, so a tap on the stall opened the post (measured 10/26 on Caravans and Mob upright). The
+     plate never lies on another building: it keeps its place when that is clear, else the nearest clear place over its own rail
+     or front, a size smaller if it must */
+  var others = !VAR.comp ? [] : ORDER.filter(function(o){ return o !== k && VAR.boxes[o]; }).map(function(o){ return VAR.boxes[o]; });   /* the tier pictures' plates stay where they were set by eye */
+  var bodies = []; if(VAR.comp) try{ var ph = personH(); folkList().forEach(function(q){ bodies.push([q.x - ph*.2, q.y - ph, q.x + ph*.2, q.y]); }); }catch(e){}   /* never over a man's body either */
+  var over = function(r){ var a = 0; others.concat(bodies).forEach(function(q){ var ix = Math.min(r[2], q[2]) - Math.max(r[0], q[0]), iy = Math.min(r[3], q[3]) - Math.max(r[1], q[1]); if(ix > 0 && iy > 0) a += ix*iy; }); return a; };
+  var best = [x, y, x + w, y + h], bo = over(best), bd = 0;
+  if(bo > 0) [1, .82, .66].forEach(function(f){ var w2 = w*f, h2 = h*f;
+    for(var yy = b[1] - h2*1.2; yy <= b[3] - h2*.6; yy += h2/4) for(var xx = b[0] - w2*.4; xx <= b[2] - w2*.6; xx += w2/4){
+      var r = [xx, yy, xx + w2, yy + h2], o = over(r), dd = Math.hypot(xx + w2/2 - (x + w/2), yy + h2/2 - (y + h/2)) + (1 - f) * 400;
+      if(o < bo - 1 || (Math.abs(o - bo) <= 1 && dd < bd)){ best = r; bo = o; bd = dd; } } });
+  var out = up ? best.concat([b[3]]) : best;   /* a fifth number: a pole down to the ground the rail stands on */
+  (VAR.signs || (VAR.signs = {}))[ck] = out; return out;
 }
 function drawSigns(s, poles){
   if(!VAR || view.noSigns) return;
@@ -1694,14 +2004,16 @@ function leadZ(){ var R = leadRig(); return personH() / ((R && R.ruler && R.rule
    and never painted over one. His way is found on that ground (a grid of 10 px, around the people standing too, then pulled
    straight where the ground allows), the short way; a way longer than about five seconds is not walked: he is already beside the
    man when the talk opens (169(c)). A picture with no blocks in the file is never walked either. ---- */
-var WALK = {data:null, src:null, grid:null, C:10, gx:24, gfoot:6};
+var WALK = {data:null, src:null, grid:null, C:10, gx:24, gfoot:6, gxComp:16};   /* gxComp: COOK's compositions are walked by a point (its reach); half a body (24) cut six of 28 off a door, 16 one (Church upright, the armourer; measured 10/26) */
 fetch('settlement_walk.json').then(function(r){ return r.json(); }).then(function(j){ WALK.data = j; WALK.grid = null; }).catch(function(){});
-function walkBlocks(){ var d = VAR && WALK.data && WALK.data.pictures && WALK.data.pictures[VAR.src]; return d ? d.blocks : null; }
+function walkBlocks(){ if(VAR && VAR.pic) return VAR.pic.blocks || null;   /* __EVERY_TOWN_ITS_OWN__: the town's own picture, its own ground (COOK's settlement_walk.json beside it) */
+  var d = VAR && WALK.data && WALK.data.pictures && WALK.data.pictures[VAR.src]; return d ? d.blocks : null; }
 /* his feet can stand here: inside the picture, out of every block (grown) */
 function leadBlocked(x, y, pad){
   var bl = walkBlocks(), m = pad || 0; if(!VAR || !bl) return true;
   if(x < 12 + m || y < 12 + m || x > picW() - 12 - m || y > picH() - 6 - m) return true;
-  for(var i = 0; i < bl.length; i++){ var b = bl[i]; if(x > b[0] - WALK.gx - m && x < b[2] + WALK.gx + m && y > b[1] - m && y < b[3] + WALK.gfoot + m) return true; }
+  var gx = VAR.comp ? WALK.gxComp : WALK.gx;   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__ */
+  for(var i = 0; i < bl.length; i++){ var b = bl[i]; if(x > b[0] - gx - m && x < b[2] + gx + m && y > b[1] - m && y < b[3] + WALK.gfoot + m) return true; }
   return false;
 }
 /* a straight stretch he may walk: every 2 px of it clear of the blocks by 3 px more (no corner shaved between two samples) */
@@ -1709,13 +2021,13 @@ function leadClear(a, b){ var n = Math.max(2, Math.ceil(Math.hypot(b.x - a.x, b.
 /* the grid: 1 where a man may stand; the standing people (keepers, crowd, the post) are kept off too, a body wide */
 function walkGrid(){
   if(!VAR || !walkBlocks()) return null;
-  var key = VAR.src + ':' + (VAR.folkKey || '');
+  var key = VAR.src + ':' + (VAR.pic ? VAR.pic.src : '') + ':' + (VAR.folkKey || '');
   if(WALK.grid && WALK.grid.key === key) return WALK.grid;
   var C = WALK.C, gw = Math.ceil(picW()/C), gh = Math.ceil(picH()/C), g = new Uint8Array(gw*gh), h = personH();
   for(var j = 0; j < gh; j++) for(var i = 0; i < gw; i++) g[j*gw + i] = leadBlocked((i + .5)*C, (j + .5)*C) ? 0 : 1;
   var folk = []; try{ folk = folkList(); }catch(e){}
   folk.forEach(function(p){ for(var j = Math.floor((p.y - 10)/C); j <= Math.floor((p.y + 8)/C); j++) for(var i = Math.floor((p.x - h*.15)/C); i <= Math.floor((p.x + h*.15)/C); i++)
-    if(i >= 0 && j >= 0 && i < gw && j < gh) g[j*gw + i] = 2; });   /* 2: somebody stands there (walkable only to stop beside him) */
+    if(i >= 0 && j >= 0 && i < gw && j < gh && g[j*gw + i]) g[j*gw + i] = 2; });   /* 2: somebody stands there (walkable only to stop beside him); a wall stays a wall (10/26: a keeper by the fortress clinic's corner turned its wall into 'somebody', and a way through people went through the wall) */
   return (WALK.grid = {key:key, g:g, gw:gw, gh:gh, C:C});
 }
 function walkCell(G, x, y){ return {i:Math.max(0, Math.min(G.gw - 1, Math.floor(x/G.C))), j:Math.max(0, Math.min(G.gh - 1, Math.floor(y/G.C)))}; }
@@ -1787,6 +2099,13 @@ function leadHome(){
   if(S.camp){ var c = walkNearest(G, CAMP_FIRE.x + Math.cos(CAMP_LEAD_AT) * 150, CAMP_FIRE.y + Math.sin(CAMP_LEAD_AT) * 70, false); return c ? {x:c.x, y:c.y} : null; }   /* __THE_CAMP__: at the fire's right, facing it */
   var ln = busyLanes().slice().sort(function(a, b){ return Math.abs(a.y - picH()*.6) - Math.abs(b.y - picH()*.6); })[0];
   var h = walkNearest(G, Math.max(ln.x0 + 60, Math.min(ln.x1 - 60, view.cx == null ? picW()/2 : view.cx)), Math.min(picH() - 6, ln.y + 22), false);
+  /* never on anybody's spot (a packed composition stands its crowd on the lane he arrives on): the nearest clear ground along it */
+  var ph = personH(), folk = []; try{ folk = folkList(); }catch(e){}
+  var onSomebody = function(x, y){ return folk.some(function(p){ return Math.abs(p.x - x) < ph*.34 && Math.abs(p.y - y) < ph*.44; }); };
+  if(h && onSomebody(h.x, h.y)){ var x0 = h.x, y0 = h.y, best = null;
+    for(var r = 10; r <= 600 && !best; r += 10) for(var a = 0; a < 16 && !best; a++){ var t = a/16*Math.PI*2, q = walkNearest(G, x0 + Math.cos(t)*r, y0 + Math.sin(t)*r*.5, false);
+      if(q && !onSomebody(q.x, q.y)) best = q; }
+    if(best) h = best; }
   return h ? {x:h.x, y:h.y} : null;
 }
 /* where he stops: beside the man on the side he comes from, else the other, else in front of him; always on the ground */
@@ -1833,7 +2152,7 @@ function leadLiftWant(){
   var sh = document.getElementById('sheet');
   if(!S.open || !LEAD.goal || LEAD.x == null || LEAD.hidden || !sh || !sh.classList.contains('on')){ LEAD.liftFor = null; return (LEAD.liftGoal = 0); }
   if(LEAD.liftFor === LEAD.goal.key) return LEAD.liftGoal;
-  var top = view.H - sh.offsetHeight - 10, base = view.oy + LEAD.lift, s = view.s, ys = [LEAD.y, LEAD.goal.y].concat((LEAD.path || []).map(function(q){ return q.y; }));
+  var top = view.H - (parseFloat(sh.style.bottom) || 0) - sh.offsetHeight - 10, base = view.oy + LEAD.lift   /* __THE_TOWN_FITS_THE_SCREEN__: the sheet stands above the phone's band */, s = view.s, ys = [LEAD.y, LEAD.goal.y].concat((LEAD.path || []).map(function(q){ return q.y; }));
   var feet = base + Math.max.apply(null, ys) * s, head = base + (Math.min.apply(null, ys) - personH()) * s;
   LEAD.liftFor = LEAD.goal.key;
   return (LEAD.liftGoal = Math.round(Math.max(0, Math.min(feet - top, head - 8))));
@@ -2131,7 +2450,8 @@ function draw(){
   var dpr = window.devicePixelRatio||1, W = view.W, H = view.H;
   if(W < 40 || H < 40) return;
   cx.setTransform(dpr,0,0,dpr,0,0); cx.imageSmoothingEnabled = false;
-  cx.fillStyle = '#1a140f'; cx.fillRect(0,0,W,H);
+  var going = view.outK < 0.999;   /* __PINCH_OUT_TO_THE_MAP__: while he pinches out, only the town itself, the map behind it */
+  if(going) cx.clearRect(0,0,W,H); else { cx.fillStyle = '#1a140f'; cx.fillRect(0,0,W,H); }
   var im = view.night ? PIC.night : PIC.day;
   if(!VAR || !im || !im.complete || !im.naturalWidth){ if(VAR && VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.holdFrame(cx, W, H); }catch(e){} return; }   /* __CAMP_TWO__ (rule 289(b)): a turn never shows a black frame: the last one holds while the new ground comes in */
   try{ leadTick(performance.now()); }catch(e){}   /* __THE_WALK_UP__: his step, and the town above an open sheet */
@@ -2139,8 +2459,14 @@ function draw(){
   /* the valley goes on past the edge of the place: the same picture, far bigger and sunk in dusk,
      fills the glass behind it, so the town fades out instead of ending in a black band */
   var sb = Math.max(H/picH(), W/picW()) * 1.15;
-  cx.drawImage(im, W/2 - (view.cx*sb), (H - picH()*sb)/2, picW()*sb, picH()*sb);
-  cx.fillStyle = 'rgba(14,10,7,.78)'; cx.fillRect(0,0,W,H);
+  if(!going){ cx.drawImage(im, W/2 - (view.cx*sb), (H - picH()*sb)/2, picW()*sb, picH()*sb);
+  cx.fillStyle = 'rgba(14,10,7,.66)'; cx.fillRect(0,0,W,H); }   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town shows more of the valley round it, a little less sunk (.78 read as the page's own colour) */
+  var sG = 0; try{ sG = flipDraw(im, s, W, H); }catch(e){ FLIP.on = false; sG = 0; }   /* __THE_FLIP_GLIDES__: the beat of a turn */
+  if(sG){ var fa = FLIP.reduced ? 1 : flipEase(Math.min(1, FLIP.u || 0));
+    cx.save(); cx.globalAlpha = fa; try{ drawTraitLooks(s); drawBenches(s); drawSigns(s, true); }catch(e){} cx.restore();
+    try{ flipPeople(s, sG, function(z){ drawPeople(z); }); }catch(e){}
+    cx.save(); cx.globalAlpha = fa; try{ drawSigns(s); drawBuilt(s); }catch(e){} cx.restore();
+  } else {
   cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
   if(VAR.camp2 && window.BohemiaCampLook) try{ BohemiaCampLook.under(cx, {s:s, view:view, now:performance.now(), personH:personH(), k:rigScale(), B:window.BohemiaRigBodies}); }catch(e){}   /* __CAMP_TWO__: the fire's light on the ground, the hours' ghosts */
   drawTraitLooks(s);
@@ -2150,10 +2476,14 @@ function draw(){
   try{ drawPeople(s); }catch(e){}
   try{ drawSigns(s); }catch(e){}   /* the post and the bar name themselves in pictures (TUNING's change 7, round 2), hung over their heads */
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
+  }
   var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
   cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
   var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
   cx.fillStyle = gb; cx.fillRect(0, view.oy+picH()*s-fe, W, fe);
+  if(view.ox > 0){   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town on a wide glass fades out at its sides too */
+    var gl = cx.createLinearGradient(view.ox, 0, view.ox+fe, 0); gl.addColorStop(0,'rgba(14,10,7,.8)'); gl.addColorStop(1,'rgba(14,10,7,0)'); cx.fillStyle = gl; cx.fillRect(view.ox, view.oy, fe, picH()*s);
+    var gr = cx.createLinearGradient(view.ox+picW()*s-fe, 0, view.ox+picW()*s, 0); gr.addColorStop(0,'rgba(14,10,7,0)'); gr.addColorStop(1,'rgba(14,10,7,.8)'); cx.fillStyle = gr; cx.fillRect(view.ox+picW()*s-fe, view.oy, fe, picH()*s); }
   /* THE THREE DOORS THAT MATTER (TUNING's change 7, rule 133): work (the board), hands (the post) and a drink (the bar)
      catch the light on the beat until he has opened each once in this place; no words on the picture, the building's own
      pixels brightened, softer than the one under his finger */
@@ -2216,6 +2546,7 @@ function townHidden(){
 }
 function townLetGo(){
   HIRE_IMS = {}; HIRE.figs = [];
+  TOWN_IMS = {};   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: the other shape's pictures (the one on screen stays in PIC) */
   LEAD.im = null; LEAD.dusk = null;   /* __THE_WALK_UP__: his sheet too */
   try{ if(window.BohemiaIdles && BohemiaIdles.release) BohemiaIdles.release(); }catch(e){}
   try{ if(window.BohemiaRigBodies && BohemiaRigBodies.release) BohemiaRigBodies.release(); }catch(e){}
@@ -2335,10 +2666,15 @@ function openPerson(p, said){
 /* a sign under the finger (its plate, never under a thumb's 44 points): it hangs in front of everything, so a tap on it is its door */
 function signAt(x, y){
   if(!VAR || view.noSigns) return null;
-  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, m = 22/view.s, hit = null;
+  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, m = 22/view.s, hit = null, near = null;
   Object.keys(DOOR_SIGNS).forEach(function(k){ var r = signRect(k); if(!r) return; var cxp = (r[0]+r[2])/2, cyp = (r[1]+r[3])/2, hw = Math.max((r[2]-r[0])/2, m), hh = Math.max((r[3]-r[1])/2, m);
-    if(Math.abs(px - cxp) <= hw && Math.abs(py - cyp) <= hh) hit = k; });
-  return hit;
+    if(px >= r[0] && px <= r[2] && py >= r[1] && py <= r[3]) hit = k;
+    else if(Math.abs(px - cxp) <= hw && Math.abs(py - cyp) <= hh) near = k; });
+  if(hit) return hit;
+  /* __THE_TOWN_FITS_THE_SCREEN__: the finger's widening round a small sign never takes another building's own ground (a fitted
+     fortress on an upright phone: the post's sign, widened to 44 points, lay over the lot and opened the post) */
+  if(near && ORDER.some(function(k){ if(k === near || !VAR.boxes[k]) return false; var b = tapBox(k); return px >= b[0] && px <= b[2] && py >= b[1] && py <= b[3]; })) return null;
+  return near;
 }
 function hitAt(x, y){
   if(!VAR) return null;
@@ -2359,19 +2695,78 @@ function where(k){
   var x = view.ox + (b[0]+b[2])/2*view.s, y = view.oy + (b[1]+b[3])/2*view.s;
   return {x: r.left + x, y: r.top + y, px: Math.round((b[2]-b[0])*view.s*(b[3]-b[1])*view.s)};
 }
+/* ==== __PINCH_OUT_TO_THE_MAP__ (RUN TWO [pinch out to the map], rule 211(c) and 220(d), Paolo 10/26: 'when you're in the settlement
+   and you just wanna get back to the map you zoom out with your two thumbs... press escape on keyboard'). MEASURED: two fingers on the
+   town did nothing but a one-finger drag; ESCAPE already closes a sheet and then leaves (UI's keyTown). NOW two fingers zoom: spread
+   them and the town zooms in toward them, as far as its size earns (COOK's zoom_max: a camp 1.5, a town 2, a fortress 2.5), a finger
+   then pans; bring them together and the town comes back to its fit, and on past it the town shrinks away over the map toward the
+   middle of the glass (Pocket City 2's one continuous zoom, never a cut); let go past three quarters and he is on the map, at that
+   town; let go before and it springs back. ==== */
+var PINCH = {pts:{}, on:null, out:1};
+var ZOOM_MAX = {camp:1.5, town:2, fortress:2.5, home:2};
+function zoomMax(){ var T = TOWNS && S.place && TOWNS[S.place.name]; var c = T && T.wide; return (c && c.zoom_max) || ZOOM_MAX[S.place.tier] || 2; }
+function pinchN(){ return Object.keys(PINCH.pts).length; }
+function pinchTwo(){ var k = Object.keys(PINCH.pts), a = PINCH.pts[k[0]], b = PINCH.pts[k[1]]; return {d:Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)), x:(a.x + b.x)/2, y:(a.y + b.y)/2}; }
+function pinchOut(k, ease){
+  var app = document.getElementById('app'), fe = null; try{ fe = window.frameElement; }catch(e){}
+  PINCH.out = k; view.outK = k;
+  app.style.transition = ease ? 'transform .18s ease-out, opacity .18s ease-out' : 'none';
+  app.style.transformOrigin = '50% 50%';
+  app.style.transform = k < 0.999 ? 'scale(' + k.toFixed(3) + ')' : '';
+  app.style.opacity = k < 0.999 ? String(Math.max(0, Math.min(1, (k - .25) / .55))) : '';
+  var see = k < 0.999 ? 'transparent' : '';
+  document.documentElement.style.background = see; document.body.style.background = see;
+  try{ if(fe){ if(see){ if(fe.dataset.bg == null) fe.dataset.bg = fe.style.background || ''; fe.style.background = 'transparent'; } else if(fe.dataset.bg != null){ fe.style.background = fe.dataset.bg; delete fe.dataset.bg; } } }catch(e){}   /* the map shows through while the town shrinks (the town frame's own black, given back after) */
+}
+function pinchStart(){
+  var t = pinchTwo(), r = cv.getBoundingClientRect();
+  PINCH.on = {d0:t.d, z0:FIT.zoom, px:(t.x - r.left - view.ox)/view.s, py:(t.y - r.top - view.oy)/view.s, dAt1:null};
+  window.__PINCH = {start:FIT.zoom, n:(window.__PINCH ? window.__PINCH.n : 0) + 1};
+}
+function pinchMove(){
+  var P0 = PINCH.on; if(!P0) return; var t = pinchTwo(), r = cv.getBoundingClientRect(), z = P0.z0 * t.d / P0.d0;
+  if(z >= 1){
+    FIT.zoom = Math.min(zoomMax(), z); view.s = FIT.fit * FIT.zoom;
+    var O = FIT.open || {x0:0, x1:view.W, y0:0, y1:view.H}, cxo = (O.x0 + O.x1)/2, cyo = (O.y0 + O.y1)/2;
+    pan(P0.px + (cxo - (t.x - r.left))/view.s); panY(P0.py + (cyo - (t.y - r.top))/view.s);   /* the point between his fingers stays between them */
+    if(PINCH.out < 1) pinchOut(1); P0.dAt1 = null;
+  } else {
+    if(FIT.zoom !== 1){ FIT.zoom = 1; view.s = FIT.fit; pan(picW()/2); panY(picH()/2); }
+    if(P0.dAt1 == null) P0.dAt1 = P0.d0 / Math.max(1e-6, P0.z0);   /* the spread at which the town sat at its fit */
+    pinchOut(Math.max(0.2, Math.min(1, t.d / P0.dAt1)));
+  }
+}
+function pinchEnd(){
+  var out = PINCH.out; PINCH.on = null;
+  window.__PINCH = Object.assign(window.__PINCH || {}, {end:FIT.zoom, out:out});
+  if(out < 0.999 && out <= 0.75){   /* past three quarters: the map */
+    pinchOut(0.2, true);
+    setTimeout(function(){ try{ document.getElementById('leave').click(); }catch(e){} setTimeout(function(){ pinchOut(1); }, 60); }, 170);
+    window.__PINCH.left = true; return;
+  }
+  if(out < 0.999) pinchOut(1, true);   /* not far enough: back to the town */
+}
+/* ==== end __PINCH_OUT_TO_THE_MAP__ ==== */
 (function(){
   var x0 = null, c0 = 0, y0 = 0, cy0 = 0, moved = false;
   cv.addEventListener('pointerdown', function(e){
+    PINCH.pts[e.pointerId] = {x:e.clientX, y:e.clientY};   /* __PINCH_OUT_TO_THE_MAP__ */
+    if(pinchN() >= 2){ if(!PINCH.on) pinchStart(); x0 = null; moved = true; view.lit = null; return; }
+    if(PINCH.on) return;
     x0 = e.clientX; c0 = view.cx; y0 = e.clientY; cy0 = view.cy; moved = false;
     var r = cv.getBoundingClientRect(); view.lit = hitAt(e.clientX - r.left, e.clientY - r.top);
   });
   window.addEventListener('pointermove', function(e){
+    if(PINCH.pts[e.pointerId]) PINCH.pts[e.pointerId] = {x:e.clientX, y:e.clientY};
+    if(PINCH.on){ if(pinchN() >= 2) pinchMove(); return; }
     if(x0 === null) return; var d = e.clientX - x0, dy = e.clientY - y0;
     if(Math.abs(d) > 8 || Math.abs(dy) > 8){ moved = true; view.lit = null; }
     if(moved){ pan(c0 - d/view.s); panY(cy0 - dy/view.s); }
   });
-  window.addEventListener('pointercancel', function(){ x0 = null; view.lit = null; });
+  window.addEventListener('pointercancel', function(e){ delete PINCH.pts[e.pointerId]; if(PINCH.on && pinchN() < 2) pinchEnd(); x0 = null; view.lit = null; });
   window.addEventListener('pointerup', function(e){
+    delete PINCH.pts[e.pointerId];
+    if(PINCH.on){ if(pinchN() < 2) pinchEnd(); x0 = null; return; }   /* the second finger lifted: the pinch is over, no tap */
     if(x0 === null) return; x0 = null; view.lit = null;
     if(moved) return;
     if(S.camp && window.BohemiaCampLook && BohemiaCampLook.tap()) return;   /* __CAMP_TWO__ (rule 269(c)): a tap skips the pitch */
@@ -3517,7 +3912,7 @@ function open(o){
   if(o.hired) S.hired = o.hired;
   if(o.met && typeof o.met === 'object'){ S.met = o.met; metSave(); }   /* PEOPLE [ask the crowd]: the game's save hands who you have asked */
   if(typeof o.crewSize === 'number') S.crewSize = o.crewSize;
-  if(o.place){ S.rounds = 0; S.heardIds = {}; S.freeSaid = false; leadReset(); }   /* __THE_WALK_UP__: a new place, he stands in it fresh */   /* a new visit, a new night at the bar, a new free one */
+  if(o.place){ S.rounds = 0; S.heardIds = {}; S.freeSaid = false; leadReset(); FIT.zoom = 1; PINCH.pts = {}; PINCH.on = null; pinchOut(1); view.cx = null; view.cy = null; }   /* __PINCH_OUT_TO_THE_MAP__: a town opens at its fit */   /* __THE_WALK_UP__: a new place, he stands in it fresh */   /* a new visit, a new night at the bar, a new free one */
   /* __THE_SPOILS__ (RUN TWO 10/24, rule 156(c)): the stash is read on EVERY visit. MEASURED: the map keeps this screen's frame
      between visits and never hands it the bag, and it was read only on the first, so what he looted after his first town was
      not at the market, and the next buy or sell wrote the old bag over the stash and the loot was gone */
@@ -3569,7 +3964,7 @@ window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },
     spots.forEach(function(a){ if(leadBlocked(a.x, a.y)) out.miss.push(a.k + ' stands in a block'); });
     spots.forEach(function(a){ spots.forEach(function(b){ if(a === b) return; var P = leadPath(a, b); if(!P){ out.far++; return; } out.paths++;
       var len = 0; for(var i = 1; i < P.length; i++){ len += Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y);
-        var n = Math.max(2, Math.ceil(Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y) / 2)); for(var k = 1; k <= n; k++){ if(leadBlocked(P[i-1].x + (P[i].x - P[i-1].x)*k/n, P[i-1].y + (P[i].y - P[i-1].y)*k/n)){ out.bad++; break; } } }
+        var n = Math.max(2, Math.ceil(Math.hypot(P[i].x - P[i-1].x, P[i].y - P[i-1].y) / 2)); for(var k = 1; k <= n; k++){ if(leadBlocked(P[i-1].x + (P[i].x - P[i-1].x)*k/n, P[i-1].y + (P[i].y - P[i-1].y)*k/n)){ out.bad++; if((out.badList || (out.badList = [])).length < 8) out.badList.push(a.k + '@' + Math.round(a.x) + ',' + Math.round(a.y) + '->' + b.k + '@' + Math.round(b.x) + ',' + Math.round(b.y) + ' at ' + Math.round(P[i-1].x + (P[i].x - P[i-1].x)*k/n) + ',' + Math.round(P[i-1].y + (P[i].y - P[i-1].y)*k/n) + ' seg ' + i + ' ' + JSON.stringify(P.map(function(q){ return [Math.round(q.x), Math.round(q.y)]; }))); break; } } }
       if(Math.hypot(P[P.length-1].x - b.x, P[P.length-1].y - b.y) > 40) out.miss.push(a.k + '->' + b.k + ' ends ' + Math.round(Math.hypot(P[P.length-1].x - b.x, P[P.length-1].y - b.y)) + ' px off');
       var ms = len / (v * leadSpeed(len)); if(ms > out.longest) out.longest = ms; if(ms > LEAD_MAX_MS + 600) out.slow++; }); });   /* __HE_ALWAYS_WALKS__: nothing placed; a way run over about four seconds counts */
     out.miss = out.miss.slice(0, 6); return out; },
@@ -3578,7 +3973,7 @@ window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */
-  peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, mend:function(){ return mendList(); }, tape:function(){ return tapeOn() ? {shelf:tapeShelfNow(), sold:tapeSold(), full:BohemiaStallPrices.tapeShelf(STALLP, tapeCtx()), roll:tapeCost(1), stack:tapeCost(TAPE_STACK), period:tapePeriod()} : null; }, bats:function(){ return bats(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewCall:function(fn){ CREW_CALL = typeof fn === 'function' ? fn : null; CREW_T.list = null; CREW_GEN++; return !!CREW_CALL; }, crewOver:function(fn){ if(fn === null) CREW_OVER = []; else if(typeof fn === 'function' && CREW_OVER.indexOf(fn) < 0) CREW_OVER.push(fn); return CREW_OVER.length; }, crewAgain:function(){ CREW_T.list = null; CREW_GEN++; return true; }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+  pinch:function(){ return {zoom:FIT.zoom, max:zoomMax(), out:PINCH.out, on:!!PINCH.on}; }, _box:function(k){ return VAR && VAR.boxes[k] ? tapBox(k) : null; }, fit:function(){ return {open:FIT.open, phone:FIT.phone, fit:FIT.fit, zoom:FIT.zoom, s:view.s, ox:view.ox, oy:view.oy, pw:picW()*view.s, ph:picH()*view.s, W:view.W, H:view.H, n:FIT.n}; }, drawnSrc:function(){ return VAR ? (VAR.pic ? VAR.pic.src : VAR.src) : null; }, flip:function(){ return {on:FLIP.on, n:FLIP.n, frames:FLIP.frames, worst:Math.round(FLIP.worst), dur:FLIP.dur, reduced:!!FLIP.reduced, log:FLIP.log.slice(-6), trace:FLIP.trace || [], pairs:FLIP.pairs || 0, shape:VAR && VAR.shape || 'tier', src:VAR ? VAR.src : null, want:(townComp() || {}).src || null}; },   /* __THE_TOWN_FITS_THE_SCREEN__, __PINCH_OUT_TO_THE_MAP__, __THE_FLIP_GLIDES__ */ peopleUnder:function(x,y){ var L = peopleAt(x,y); return hitAt(x,y) ? L.filter(function(p){ return p.keeper || onBody(p,x,y); }) : L; }, onBody:function(p,x,y){ return onBody(p,x,y); }, peopleAt:function(x,y){ return peopleAt(x,y); }, tapPerson:function(x,y){ return tapPerson(x,y); }, junk:function(){ return junkSale(); }, isJunk:isJunk, sellJunk:function(){ return sellJunk(S.open); }, heardInput:function(t){ return heardInput(t == null ? performance.now() : t); }, personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:personH(), s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, walkers:function(on){ view.noBusy = on === false; }, glow:function(on){ view.noGlow = on === false; }, signs:function(on){ view.noSigns = on === false; return Object.keys(DOOR_SIGNS).map(function(k){ var r = signRect(k); return r ? {k:k, icon:DOOR_SIGNS[k], r:r} : null; }).filter(Boolean); }, still:function(on){ view.still = on !== false; },   /* off: held for a measurement (the walkers; the three doors' glow) */ busy:function(t){ var now = t == null ? performance.now() : t; return busyList().filter(function(w){ return !w.crewMan; }).map(function(w){ var a = busyAt(w, now); return {look:w.look, x:a.x, y:w.y, turn:a.turn, walking:a.walking != null, a:w.a, b:w.b}; }); }, recruits:function(){ return recruitsHere(); }, womanAt:function(key, i){ return womanAt(key, i); }, keeperName:function(k){ return keeperName(k); }, crowdRolled:function(q){ var r = crowdRoll(q); return r ? r.full : null; }, womenShare:function(){ return womenShare(); }, womenLooks:function(){ return womenLooks(); }, womenFile:function(){ return WOMEN.share; }, itemName:function(kind, id){ var L = kind === 'weapon' ? BB.weapons : kind === 'shields' ? BB.armor.shields : BB.armor[kind], r = (L || []).filter(function(x){ return x.id === id; })[0]; return !r ? null : kind === 'weapon' ? weaponItem(r).name : armourItem(kind, r).name; }, shopCrew:function(){ return shopCrew(); }, mend:function(){ return mendList(); }, tape:function(){ return tapeOn() ? {shelf:tapeShelfNow(), sold:tapeSold(), full:BohemiaStallPrices.tapeShelf(STALLP, tapeCtx()), roll:tapeCost(1), stack:tapeCost(TAPE_STACK), period:tapePeriod()} : null; }, bats:function(){ return bats(); }, namesIn:function(){ return BB.names !== undefined; }, weaponName:function(id){ var r = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0]; return r ? weaponItem(r).name : null; }, weaponsReady:function(){ return !!(BB.weapons && BB.armor); }, rareAt:function(key, i){ return rareAt(key, i); }, rareOn:function(){ return rareOn(); }, rareKey:function(day){ return S.place.name + ':' + Math.floor((day == null ? buildDay() : day)/7); }, traitOf:function(r){ return hireTrait(r); }, ceilingOf:function(r){ return hireCeil(r); }, talentsOf:function(r){ return hireTalents(r); }, kitOf:function(r){ return hireKit(r); }, priceOf:function(r){ return hallPrice(r); }, whyOf:function(r){ return pricyWhy(r); }, hallParts:function(r){ return hallParts(r); }, hallMed:function(){ return S.hallMed || null; }, hallSort:function(){ return S.hallSort || 'best'; }, ceilReady:function(){ return ceilReady(); }, crewTown:function(){ CREW_T.list = null; return crewTown(); }, crewCall:function(fn){ CREW_CALL = typeof fn === 'function' ? fn : null; CREW_T.list = null; CREW_GEN++; return !!CREW_CALL; }, crewOver:function(fn){ if(fn === null) CREW_OVER = []; else if(typeof fn === 'function' && CREW_OVER.indexOf(fn) < 0) CREW_OVER.push(fn); return CREW_OVER.length; }, crewAgain:function(){ CREW_T.list = null; CREW_GEN++; return true; }, crewHere:function(){ return folkList().filter(function(p){ return p.crewMan; }).concat(busyList().filter(function(w){ return w.crewMan; })); }, crewGround:function(){ return crewGround([]); }, onGround:function(x, y){ return !leadBlocked(x, y); }, doorFronts:function(){ var h = personH(); return ORDER.filter(function(k){ return VAR && VAR.boxes[k] && k !== 'build'; }).map(function(k){ var b = VAR.boxes[k]; return {k:k, x:(b[0]+b[2])/2, y:b[3], w:Math.max(70, (b[2]-b[0])*.25), h:h * .55}; }); }, picSrc:function(){ return VAR ? VAR.src : null; }, toScreen:function(x, y){ return {x:view.ox + x*view.s, y:view.oy + y*view.s}; }, drawMs:function(n){ var t = []; for(var i = 0; i < (n || 20); i++){ var a = performance.now(); draw(); t.push(performance.now() - a); } return t; },   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: the measured frame */ ceilRef:function(){ return ceilRef(); }, bargainOf:function(r){ return isBargain(r, S.hallMed); },   /* __THE_BEST_RECRUIT_AT_THE_TOP__ */ traitsIn:function(){ return !!(MEN_TRAITS && BGX); }, turnAt:function(i, ms){ var L = folkList(); return L[i] ? turnOf(L[i], ms) : null; }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, lookAt:lookAt, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
