@@ -17,7 +17,7 @@ NOTEs: COMBAT (keep the fields), RUN (its row's half), RUN TWO (the camp moved),
 BohemiaCondition.drawBar, BohemiaMapCamp.toggle(), the 'bohemia:condition' event), TUNING (the rates), FEED (a camp may post), EYES.
 NOT DONE, SAID: the phone app is UI TWO's; the crew screen still draws every man whole (condFor(name) is there); the quartermaster
 is not offered (Battle Brothers' is carry capacity, and our counts have no cap: ECONOMY's); what comes after camp is his.
-Record records/BOHEMIA_CAMP_THE_HEAL_BUTTON_AND_DAMAGE_THAT_STAYS_10_26_26.md. NEXT: whatever EYES finds on line 148.
+Record records/BOHEMIA_CAMP_THE_HEAL_BUTTON_AND_DAMAGE_THAT_STAYS_10_26_26.md. DEPLOYED: pages run 3925 for 72835dfb SUCCESS 03:39. NEXT: whatever EYES finds on line 148.
 [bb Battle Brothers: 1 hitpoint an hour on the march, 2 camped; armour 3 a piece an hour, doubled camped, one tool for 15; T makes camp.]
 [analog horror: between fights the company's blood lives in one strip on the glass, going dark from the right, and the grey only
 comes back if somebody spends the tape.]
