@@ -12,6 +12,7 @@ costs; COMBAT [gambits]: the rest of the company acts on its own (FINAL FANTASY 
 reference for this and only this), so his turn is quick and his knowledge shows in how he set them.
 
 ## 2. DEATH, SOFTENED (default, in VOTE)
+*** AMENDED 10/26 BY HIM (VAMILY rule 234, records/BOHEMIA_PAOLO_STRUCK_DOWN_HE_STILL_FIGHTS_AND_HIS_FACE_SHOWS_IT_10_26_26.md): 'takes them out of fights' below was the coordinator's reading and is DEAD. A struck-down survivor is in the crew at 1 hit point, ACTIVE, healed by the camp; the 30 to 40 days measure his debuff, never time out of fights; his face shows the injury. ***
 "Only a 20% chance your character can die, but if they get struck down, a debilitating injury." When a
 person is STRUCK DOWN in a fight: 20% they die (buried; the company remembers, the creditor remembers);
 80% they live with a DEBILITATING INJURY that takes them out of fights for 30 to 40 game days and leaves a
