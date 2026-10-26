@@ -52,8 +52,9 @@ async function backToBack(shape, k) {
   const src = await companyOf(shape, k);
   const keep = [];
   /* the fight names its men c0, c1... in the company's order (crewUnit), so a man's place in the roll is his id */
-  ours.forEach(u => { const i = Number(String(u.id).slice(1)); if (u.dead || u.down || !src[i]) return;
-    keep.push({ m: src[i], cond: { lostHp: u.hpMax - u.hp, lostH: u.armHMax - u.armH, lostB: u.armBMax - u.armB, head: u.headRow ? u.headRow.id : null, body: u.bodyRow ? u.bodyRow.id : null } }); });
+  /* rule 234: the struck down come to the next fight at one hitpoint (the fight's condApply floors him at 1); the dead stay home */
+  ours.forEach(u => { const i = Number(String(u.id).slice(1)); if (u.dead || !src[i]) return;
+    keep.push({ m: src[i], cond: { lostHp: u.down ? u.hpMax - RATE.struck_down_hp_left : u.hpMax - u.hp, lostH: u.armHMax - u.armH, lostB: u.armBMax - u.armB, head: u.headRow ? u.headRow.id : null, body: u.bodyRow ? u.bodyRow.id : null } }); });
   if (!keep.length) return { shape, k, a: 'won', none: true };
   const ways = { whole: c => null, carried: c => c, march12: c => heal(c, 12, false), camp12: c => heal(c, 12, true) }, out = { shape, k, a: 'won', men: keep.length, of: ours.length };
   for (const w of Object.keys(ways)) {
@@ -84,8 +85,10 @@ function cost(f, o) {
   o = o || {};
   const hpRate = (o.camped ? RATE.hp_per_hour_camp : RATE.hp_per_hour_march) + (o.cook ? RATE.cook_hp_per_hour : 0);
   const armRate = RATE.armour_per_hour * (o.camped ? RATE.camp_repair_mult : 1) * (o.blacksmith ? RATE.blacksmith_repair_mult : 1);
-  const live = f.men.filter(m => !m.dead), up = live.filter(m => !m.down);
-  /* a man struck down and alive is LAID UP for his days (the fight-gets-deep law: 30 to 40), so his hitpoints are not the wait */
+  /* RULE 234 (Paolo 10/26: 'their health will just be at one, and when you heal them they go back up. They're still active'): a man
+     struck down and alive stays in the crew at struck_down_hp_left, ACTIVE, and the camp heals him, so his hitpoints ARE the wait.
+     o.laidUp (the old reading, the 9/27 law's 'out of fights') leaves him out of the wait, for the record's before */
+  const live = f.men.filter(m => !m.dead), up = o.laidUp ? live.filter(m => !m.down) : live;
   const lostHp = up.map(m => m.hpMax - m.hp), lostPieces = [];
   live.forEach(m => { if (m.armHMax) lostPieces.push(m.armHMax - m.armH); if (m.armBMax) lostPieces.push(m.armBMax - m.armB); });
   const sumArm = lostPieces.reduce((a, b) => a + b, 0);
@@ -149,7 +152,8 @@ async function main() {
   const crew = f => f.company <= 1 ? '1' : f.company <= 3 ? '2-3' : f.company <= 6 ? '6' : '12';
   const groups = { all: res };
   res.forEach(f => { (groups['shape:' + f.shape] = groups['shape:' + f.shape] || []).push(f); (groups['crew:' + crew(f)] = groups['crew:' + crew(f)] || []).push(f); });
-  Object.keys(groups).forEach(g => { out.groups[g] = { march: summary(groups[g], {}), camped: summary(groups[g], { camped: true }), camped_full_retinue: summary(groups[g], { camped: true, cook: true, blacksmith: true, surgeon: true }) }; });
+  Object.keys(groups).forEach(g => { out.groups[g] = { march: summary(groups[g], {}), camped: summary(groups[g], { camped: true }), camped_full_retinue: summary(groups[g], { camped: true, cook: true, blacksmith: true, surgeon: true }),
+    march_laid_up_reading: summary(groups[g], { laidUp: true }), camped_laid_up_reading: summary(groups[g], { camped: true, laidUp: true }) }; });
   Object.keys(out.groups).sort().forEach(g => { const G = out.groups[g];
     console.log(g.padEnd(14) + ' won ' + G.march.won + '/' + G.march.fights + '  bar ' + G.march.bar_median + ' (p10 ' + G.march.bar_p10 + ')  whole: march ' + G.march.whole_hours_median + 'h (p90 ' + G.march.whole_hours_p90 + '), camped ' + G.camped.whole_hours_median + 'h (p90 ' + G.camped.whole_hours_p90 + '), full retinue ' + G.camped_full_retinue.whole_hours_median + 'h'
       + '  hp ' + G.march.hp_hours_median + 'h arm ' + G.march.arm_hours_median + 'h (in turn ' + G.march.arm_hours_in_turn_median + 'h)  tape ' + G.march.tape_median + ' (mean ' + G.march.tape_mean + ', p90 ' + G.march.tape_p90 + ')  laid up ' + G.march.laid_up_a_fight + '  injuries ' + G.march.injuries_a_fight + ' meds ' + G.march.meds_a_fight); });

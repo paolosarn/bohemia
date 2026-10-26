@@ -33,27 +33,32 @@ Whether a company's pieces are mended AT ONCE (every worn piece 3 points an hour
 
 ## 3. WHAT A FIGHT COSTS AFTER (MEASURED: 600 AUTO fights of the live fight, rules 7a8ee2fc0ad9, the watch's six crew shapes, 423 won;
 ## bench tools/bohemia_tuning_the_camp_clock.js, bank banks/BOHEMIA_TUNING_THE_CAMP_CLOCK_10_26_26.json)
-A man struck down and alive is laid up for his days (the fight-gets-deep law), so his hitpoints are not the wait.
-| crew | won | the HEAL bar after (median, p10) | whole on the march (median, p90) | whole camped | camped, full retinue | TAPE (median, mean) | laid up | MEDS |
+RULE 234 (Paolo 10/26, landed during this round: 'their health will just be at one, and when you heal them they go back up. They're
+still active'): a man struck down and alive stays in the crew at 1 hitpoint and the camp heals him, so he IS the wait. (The old
+reading, laid up for his days and out of the wait, is kept in the bank as the before: 23 h on the march, 12 camped.)
+| crew | won | the HEAL bar after (median, p10) | whole on the march (median, p90) | whole camped (median, p90) | camped, full retinue | TAPE (median, mean) | injuries | MEDS |
 |---|---|---|---|---|---|---|---|---|
-| all | 423 | 0.83, 0.46 | 23 h, 50 | 12 h, 25 | 9 h | 5.9, 9.1 | 0.66 | 3.6 |
-| 1 (the Lone Wolf) | 37 | 0.88, 0.64 | 22 h, 68 | 11 h | 9 h | 5.1, 7.0 | 0 | 0.1 |
-| 2 to 3 | 245 | 0.78, 0.42 | 21 h, 42 | 11 h | 8 h | 3.8, 5.2 | 0.45 | 2.4 |
-| 6 | 26 | 0.92, 0.37 | 29 h, 70 | 15 h | 11 h | 8.1, 21 | 0.73 | 2.6 |
-| 12 | 115 | 0.86, 0.63 | 28 h, 52 | 14 h | 10 h | 9.9, 15.5 | 1.3 | 7.5 |
-IN REAL TIME: 12 hours of camp is 6 seconds on our clock (Battle Brothers: 53). At the mean, 150 tape lasts about 16 won fights.
+| all | 423 | 0.83, 0.46 | 36 h, 64 | 18 h, 32 | 13 h | 5.9, 9.1 | 1.0 | 3.6 |
+| 1 (the Lone Wolf) | 37 | 0.88, 0.64 | 22 h, 68 | 11 h, 34 | 9 h | 5.1, 7.0 | 0.03 | 0.1 |
+| 2 to 3 | 245 | 0.78, 0.42 | 30 h, 62 | 15 h, 31 | 12 h | 3.8, 5.2 | 0.68 | 2.4 |
+| 6 | 26 | 0.92, 0.37 | 29 h, 79 | 15 h, 40 | 12 h | 8.1, 21 | 0.73 | 2.6 |
+| 12 | 115 | 0.86, 0.63 | 53 h, 68 | 27 h, 34 | 18 h | 9.9, 15.5 | 2.1 | 7.5 |
+IN REAL TIME: 18 hours of camp is 9 seconds on our clock (p90 16 s); Battle Brothers' camp, at its map speed, 79 s. At the mean,
+150 tape lasts about 16 won fights.
 
-## 4. DOES THE HEAL MATTER? BACK TO BACK (rule 226's point, measured)
-336 won fights, each followed by the next fight on the road (the same crew shape's fight k+1000) with the men still standing (the
-dead and the laid up stay home), four ways; the fight's own condApply carries each man's losses:
+## 4. DOES THE HEAL MATTER? BACK TO BACK (rule 226's point, measured, under rule 234)
+336 won fights, each followed by the next fight on the road (the same crew shape's fight k+1000) with every man still alive (the
+struck down at 1 hitpoint, rule 234), four ways; the fight's own condApply carries each man's losses:
 | between the fights | won | clean | ours down | ours dead |
 |---|---|---|---|---|
-| healed whole | 232 | 143 | 471 | 75 |
-| nothing (the wounds carried) | 208 | 100 | 661 | 97 |
-| 12 hours on the road | 224 | 132 | 527 | 80 |
-| 12 hours camped | 230 | 139 | 498 | 84 |
-Fighting again with the wounds: 40 percent more men down, 29 percent more dead, a third fewer clean wins (the twelve: clean 29 ->
-9). Twelve hours camped, six seconds, gives back nearly all of it. The HEAL button earns its place at Battle Brothers' rates.
+| healed whole | 256 | 156 | 499 | 90 |
+| nothing (the wounds carried) | 223 | 94 | 799 | 137 |
+| 12 hours on the road | 240 | 123 | 643 | 103 |
+| 12 hours camped (6 seconds) | 247 | 145 | 561 | 103 |
+Fighting again with the wounds: 60 percent more men down, 52 percent more dead, 40 percent fewer clean wins (the twelve: clean 29
+-> 8, dead 57 -> 92). Twelve hours camped gives back most of it but not all: a man at 1 hitpoint needs about 27 camped hours, so the
+1-hitpoint men are the ones who die in the next fight. Under the old 'laid up' reading the same test read 471 / 661 down. The HEAL
+button earns its place, and rule 234(e) (AUTO puts a man under a third of his hitpoints behind the shield men) is the brain's half.
 
 ## 5. THE NUMBERS, PROPOSED (section P)
 Keep every rate at Battle Brothers' (rule 226 names them and is newer than 117); the lever rule 117 asks for is already pulled: the
@@ -62,11 +67,12 @@ game spends meds); the temple's halving; camp's cost in sight and being seen (ou
 
 ## 6. WHAT PROVES US WRONG
 The thing that makes healing feel like Battle Brothers is not the rate but the clock: at Battle Brothers' own rates our camp heals a
-company in six seconds, so a player who camps after every fight never feels the wound. The rate is right; whether six seconds is
+company in nine seconds, so a player who camps after every fight never feels the wound. The rate is right; whether six seconds is
 too quick for 'you can't just do fights back to back' is a feel to watch in his play (the bar's dip shows, then is gone).
 
 ## ROUTED
 - CAMP (lane 24): NOTE [the camp note] on CAMP's board: the rates checked, the 'at once' reading kept, meds a day per injury, the
-  temple, camp's cost, the caps; the back-to-back numbers for its gate (226(f)).
+  temple, camp's cost, the caps; the back-to-back numbers for its gate (226(f)); rule 234's struck-down man in the wait.
+- COMBAT TWO: rule 234(e) is where the 1-hitpoint man dies (the back-to-back's dead 90 -> 137 carried).
 - WORLD: a camp's being seen (226(d)): the wiki has no number; draft x1.5 the distance it is seen at.
 - ECONOMY: the carry caps (tape 150, meds 100) when our stash holds them.
