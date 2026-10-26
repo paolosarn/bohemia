@@ -17,7 +17,7 @@ Asked of the PICTURES and of the REAL FIGHT, never of a table's say-so:
      floats free of the fist is caught); IT IS SWUNG: in profile the wind takes it up to his head or over it, and the blow
      carries it out in front of him; THE TAP crosses his middle facing the glass; ON THE SHOULDER it rides above his
      shoulder line.
-  W  WIRED: the fight carries the melee draw inside the marked block; on the real fight (headless, the shipped file) a man
+  W  WIRED: the fight carries the melee draw inside the marked block (W6: a man handed a bow draws and looses it, a sling is held); on the real fight (headless, the shipped file) a man
      with a melee row stands in the melee idle holding his thing, a swing plays with it in his hand, a man stood on cover
      kneels with it, no page error; and IN THE DEMO (a road fight from the map, inside the shell he plays) the same idle.
   MUTATIONS (the gate must bite): a prop moved off his fist, a wind that stays at his belt, a slot a key short.
@@ -578,4 +578,44 @@ const drive = require(process.argv[2]);
         ok('W5 THE SHIELD ARM IN THE DEMO: the road fight draws its shield men with the shield on the arm (standing, or planted on a cover tile)',
            R3.get('started') and any(k.startswith('shield:') for k in s3) and (s3.get('melee:SIdle') or s3.get('melee:SCover')) and not R3.get('errs') and not R3.get('err'),
            {k: v for k, v in s3.items() if k.startswith(('shield:', 'melee:S'))})
+# THE BOW AND THE SLING on the real fight (the coordinator's 10/26 item (3)): their rows are dealt in no fight measured, so a man
+# whose own bow keys are in is handed a bow row and another a sling row (the bag's swap does it in play), as W2 hands a melee row
+if not QUICK and 'b1' in READY:
+    drv6 = r"""
+const { open } = require(process.argv[2]);
+(async () => {
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:1,kind:"strip",deploy:false}' });
+  const p = d.page, errs = []; p.on('pageerror', e => errs.push(String(e)));
+  await p.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length && HOLD.state === 2 && MELEE.state === 2, null, { timeout: 60000 });
+  await p.waitForTimeout(5000);
+  const set = await p.evaluate(() => {
+    const S = FIGHT.S, M = MELEE.meta, rows = DB.weapons.rows;
+    const bow = rows.filter(r => (M.bow_by_class || {})[r.class] || (M.bow_by_row || {})[r.id])[0], sling = rows.filter(r => (M.sling_by_row || {})[r.id])[0];
+    const men = S.units.filter(u => FIGHT.onField(u) && !u.beast && ((meleeLook(lookOf(u)._key) || { clips: {} }).clips.BIdle));
+    const out = { men: men.length, bow: bow && bow.id, sling: sling && sling.id };
+    if (men[0] && bow) { men[0].weapon = bow; men[0].shield = null; out.archer = men[0].id + ':' + lookOf(men[0])._key; window.__archer = men[0].id;
+      const foe = S.units.filter(u => u.side !== men[0].side && FIGHT.onField(u))[0];
+      if (foe) setTimeout(function () { UI.anim.unshift({ k: 'attack', at: performance.now(), dur: beatMs(), e: { id: men[0].id, to: foe.id, shot: false, hit: false } }); }, 2500); }
+    if (men[1] && sling) { men[1].weapon = sling; men[1].shield = null; out.slinger = men[1].id + ':' + lookOf(men[1])._key; }
+    return out; });
+  await p.waitForTimeout(5000);
+  const seen = await p.evaluate(() => UI.clipSeen);
+  console.log(JSON.stringify({ set: set, seen: seen, errs: errs }));
+  try { await d.browser.close(); } catch (e) {}
+  process.exit(0);
+})().catch(e => { console.log(JSON.stringify({ err: String(e) })); process.exit(0); });
+"""
+    js = os.path.join(ROOT, 'gates', '.melee_in_hand_bow.js'); open(js, 'w').write(drv6)
+    try:
+        r = subprocess.run(['node', js, os.path.join(ROOT, 'tools/bohemia_drive_the_demo.js')], capture_output=True, text=True, timeout=240, cwd=ROOT)
+    finally:
+        os.remove(js)
+    try: R6 = json.loads(r.stdout.strip().splitlines()[-1])
+    except Exception: R6 = {'err': r.stdout[-300:] + r.stderr[-300:]}
+    s6 = R6.get('seen') or {}
+    print('  note W6 %s; drawn %s' % (R6.get('set'), {k: v for k, v in s6.items() if k.startswith(('melee:B', 'prop:compound', 'prop:sling'))}))
+    ok('W6 THE BOW AND THE SLING on the real fight: a man handed a bow stands with it low in his left fist and draws and looses it on his shot; a man handed a sling holds it; no page error',
+       (R6.get('set') or {}).get('archer') and s6.get('melee:BIdle') and s6.get('melee:BAim') and s6.get('prop:compound_bow')
+       and ((R6.get('set') or {}).get('slinger') is None or s6.get('prop:sling')) and not R6.get('errs') and not R6.get('err'),
+       R6.get('err') or R6.get('errs') or {k: v for k, v in s6.items() if k.startswith(('melee:B', 'prop:'))})
 done()
