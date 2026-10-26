@@ -1,4 +1,4 @@
-WORLD TWO (world-two-map): 10/26 LATEST -- [the best of both maps] SHIPPED, BUILT, NOT YET SEEN (rule 243, BUILD 10/26zo, b1052e8f):
+WORLD TWO (world-two-map): 10/26 LATEST -- [the best of both maps] SHIPPED, BUILT, NOT YET SEEN (rule 243, BUILD 10/26zq, e3cf4d6f):
 Valheim's half of the map, research first (records/BOHEMIA_WORLD_TWO_THE_BEST_OF_BOTH_MAPS_10_26_26.md: Valheim's unseen is blank and
 its bosses change the WORLD, not the map, so the shape under the static and the map changing are ours and his). BUILT in
 slices/bohemia_his_map.js with five marked __HIS_MAP__ lines in RUN's map: the unseen city grey under the tape (its shape, no colour,
