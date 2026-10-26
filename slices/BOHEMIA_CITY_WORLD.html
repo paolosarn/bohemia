@@ -44529,6 +44529,7 @@ function travelTo(sx,sy,cell){
   if(typeof LOOK!=='undefined'&&LOOK.on) return false;   /* looking, not walking (rule 38b) */
   var c=null; try{ c=cell ? [cell[0]|0, cell[1]|0] : CBcellAt(sx,sy); }catch(_e){ c=null; }   /* a town or a party tapped hands its own block (mapTapWhat) */
   if(!c) return false;
+  try{ if(typeof CAMP!=='undefined' && CAMP.on && !(MEET && MEET.walk > 0)) campBreak('travel'); }catch(_e){}   /* CAMP __CAMP_HOLDS__: a travel tap (the phone's GO) breaks camp; the world's own steps never */
   var tx=c[0], ty=c[1];
   /* __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: a finger anywhere on a town's painted ground (its yards and the streets through it), or a
      town's own block handed in, is a tap on the town: 'if I click on the settlement tile, it'll take me to the nearest tile that
@@ -45771,7 +45772,8 @@ function campPost(){
 function campMake(){
   if (CAMP.on || !campOnMap()) return false;
   try{ travelStop(); }catch(_e){} try{ travelInterrupt('camp'); }catch(_e){}
-  CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0];
+  CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0]; CAMP.warned = null;
+  campStale();   /* CAMP __CAMP_HOLDS__: the last fight's contact flag is not an enemy */
   LOOP.open = { camp: true, name: 'YOUR CAMP', x: city.x | 0, y: city.y | 0 };
   var f = loopFrame(); f.style.display = 'block';
   if (LOOP.ready) campPost();
@@ -45791,25 +45793,61 @@ function campBreak(why, say){
   window.__CAMP = { made: window.__CAMP ? window.__CAMP.made : 0, on: false, why: why || 'left', hours: CAMP.hours, day: T.day, min: T.min };
   try{ campBtnPaint(); }catch(_e){}
 }
+/* ==== __CAMP_HOLDS__ (CAMP [camp holds until he ends it], rule 267(a), Paolo 10/26: 'when I click the camp button it wants to stop
+   having me in camp mode, I hate that, unless an enemy pulls up on me... even when I'm in camp mode it keeps making me go out to the
+   city mode, I'm trying to heal'). MEASURED, three ways the camp broke itself: (1) the contact flag a fight leaves up
+   (CITY_CONTACT_POSTED, cleared only by his next walked step) broke a camp made straight after a fight on its first beat, and froze
+   the valley's parties while it stood; (2) a hunter two blocks off (four with a LOOKOUT) broke it ('X are coming. Camp's broken.');
+   (3) anything but his own tap that left the camp's frame hidden broke it as 'left'. NOW the camp ends on three things only: his tap
+   (HEAL, BREAK CAMP, T, the phone's HEAL app: the camp's frame says leave), a travel (a town's door or a job opened instead), and an
+   enemy actually reaching the camp (the meet card is up, or a fight). A crew coming is a WARNING, one of his men saying who and how far
+   in the camp, said again only when they come closer; when they reach him it is the meet card. A frame hidden by anything else is
+   shown again and the camp stands. ==== */
+function campStale(){ try{ if (!MEET.up && !LOOP.fighting && typeof contactClear === 'function') contactClear(); }catch(_e){} }
+function campSpeaker(){
+  var who = { look: 'you', name: 'YOU' };
+  try{ var c = campCompany(), dead = crewDead();
+    for (var i = 0; i < c.length; i++) if (c[i].look && c[i].look !== 'you' && (!c[i].name || dead.indexOf(c[i].name) < 0)) { who = { look: c[i].look, name: c[i].name || '' }; break; } }catch(_e){}
+  return who;
+}
+var CAMP_BLOCKS = ['Right on us.', 'One block off.', 'Two blocks off.', 'Three blocks off.', 'Four blocks off.', 'Five blocks off.', 'Six blocks off.'];
+function campWarn(lim){
+  if (!HUNT) return null;
+  var d = huntDist(); if (d > lim) return null;
+  if (CAMP.warned && CAMP.warned.id === HUNT.id && CAMP.warned.dist <= d) return null;   /* said once; again only when they come closer */
+  var line = HUNT.name + ', coming our way. ' + (CAMP_BLOCKS[d] || (d + ' blocks off.')) + ' We hold the fire.';   /* draft:true */
+  CAMP.warned = { id: HUNT.id, dist: d };
+  var w = { who: HUNT.name, dist: d, line: line, by: campSpeaker(), hour: CAMP.hours };
+  (window.__CAMP_WARNED = window.__CAMP_WARNED || []).push(w);
+  return w;
+}
 /* one beat: an hour of the valley */
 function campHour(){
   if (!CAMP.on) return;
-  if (!LOOP.open || !LOOP.open.camp || !LOOP.frame || LOOP.frame.style.display !== 'block') { campBreak('left'); return; }
-  if (LOOP.fighting || MEET.up) { campBreak('contact'); return; }
-  var warn = 2 + (window.BohemiaCamp ? BohemiaCamp.plus('warn') : 0);
-  try{ if (HUNT && huntDist() <= warn) { campBreak('warned', HUNT.name + ' are coming. Camp\'s broken.'); return; } }catch(_e){}   /* draft:true */
+  if (LOOP.open && !LOOP.open.camp) { campBreak('travel'); return; }   /* a town's door or a job opened instead: he went */
+  if (!LOOP.open) { campBreak('left'); return; }   /* the camp's frame said leave: his own tap */
+  if (LOOP.fighting || MEET.up) { campBreak('contact'); return; }   /* an enemy reached the camp: the meet card */
+  if (!LOOP.frame || LOOP.frame.style.display !== 'block') {   /* hidden by anything else: the camp stands, shown again */
+    try{ if (LOOP.frame) { LOOP.frame.style.display = 'block'; campPost(); } }catch(_e){}
+    window.__CAMP_SHOWN_AGAIN = (window.__CAMP_SHOWN_AGAIN | 0) + 1; return;
+  }
+  campStale();
+  var lim = 2 + (window.BohemiaCamp ? BohemiaCamp.plus('warn') : 0), warn = null;
+  try{ warn = campWarn(lim); }catch(_e){}
   try{ advance(60); }catch(_e){}
   CAMP.hours++;
   /* the world walks the hour he rests: a block is about ten minutes, so six steps of its parties and hunters */
   for (var i = 0; i < 6 && CAMP.on; i++){
     try{ meetWalk(function(){ mapStepWorld(); }); }catch(_e){}
     if (MEET.up || LOOP.fighting || (typeof CITY_CONTACT_POSTED !== 'undefined' && CITY_CONTACT_POSTED)) { campBreak('contact'); return; }
+    if (!warn) try{ warn = campWarn(lim); }catch(_e){}
   }
-  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition() }, '*'); }catch(_e){}
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition(), warn: warn }, '*'); }catch(_e){}
 }
 window.addEventListener('message', function(ev){
   var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_SETTLEMENT' || !LOOP.frame || ev.source !== LOOP.frame.contentWindow) return;
   if (d.act === 'retinue' || d.act === 'cart') { campSync(); try{ billPublish(); }catch(_e){} }
+  if (d.act === 'leave' && CAMP.on && LOOP.open && LOOP.open.camp) campBreak('left');   /* __CAMP_HOLDS__: his tap, the beat he taps */
 });
 /* ==== __THE_HEAL_BUTTON__ (CAMP [the heal button, damage that stays], rule 226(c)(d), Paolo 10/26: 'the camp button should be a heal
    button and that's when you set up camp... it will combine the HP and armor stats of all your people into a single HP armor bar...
