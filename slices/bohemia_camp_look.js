@@ -292,6 +292,8 @@
   var DIRWORD = ['NORTH', 'NORTH-EAST', 'EAST', 'SOUTH-EAST', 'SOUTH', 'SOUTH-WEST', 'WEST', 'NORTH-WEST'];
   function over(cx, ctx) {
     var W = ctx.view.W, H = ctx.view.H, now = ctx.now;
+    /* MAP stands only while no sheet is up (a sheet's buttons are where it stands) */
+    if (K.peekBtn && K.st) { var sh = document.getElementById('sheet'), want = sh && sh.classList.contains('on') ? 'none' : 'flex'; if (K.peekBtn.style.display !== want) K.peekBtn.style.display = want; }
     var C = K.compass;
     if (C) {
       var best = null;

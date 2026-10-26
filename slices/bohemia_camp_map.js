@@ -98,6 +98,9 @@
     var T = G('TRAVEL'); if (K.peek && T && T.to) { try { root.BohemiaMapCamp.break(); } catch (e) {} peek(false); }
   }
   setInterval(function () { try { beat(); } catch (e) {} }, 500);
+  /* while he looks at the map from his camp the map draws on its own clock, three keys a beat (the fire's keys, the parties' steps):
+     the map only paints when something asks it to, and a camp's hours ask nothing of it */
+  setInterval(function () { if (!K.peek) return; try { var r = root.eval('render'); if (typeof r === 'function') r(); } catch (e) {} }, 500 / 3);
 
   /* ---------------------------------------------------------------- MAP: the camp steps aside, the hours run */
   function peek(on) {

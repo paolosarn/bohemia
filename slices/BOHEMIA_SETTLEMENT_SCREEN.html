@@ -3537,6 +3537,7 @@ window.BohemiaSettlement = {tradeSell:function(id){ return tradeSellHere(id); },
       var ms = len / (v * leadSpeed(len)); if(ms > out.longest) out.longest = ms; if(ms > LEAD_MAX_MS + 600) out.slow++; }); });   /* __HE_ALWAYS_WALKS__: nothing placed; a way run over about four seconds counts */
     out.miss = out.miss.slice(0, 6); return out; },
   camp:function(){ return {camp:!!S.camp, bagSlots:BAG_SLOTS, info:S.campInfo || null}; },   /* __THE_CAMP__ */
+  camp2:function(k){ if(k && VAR && VAR.boxes[k]) where(k); return {src:PIC.day && PIC.day.src, camp2:!!(VAR && VAR.camp2), order:ORDER.slice(), box:k && VAR && VAR.boxes[k] ? VAR.boxes[k].slice() : null, view:{ox:view.ox, oy:view.oy, s:view.s}}; },   /* __CAMP_TWO__: the picture drawn and its doors, for the gate */
   lead:function(on){ if(on === false) LEAD.hidden = true; else if(on === true) LEAD.hidden = false;
     return {look:LEAD.look, x:LEAD.x, y:LEAD.y, face:LEAD_DIRS[LEAD.face], walking:!!LEAD.walking, drawn:LEAD.drawn || null, lift:LEAD.lift, liftGoal:LEAD.liftGoal || 0, placed:LEAD.placed | 0, running:!!LEAD.running, speed:LEAD.speed || 1, noWay:LEAD.noWay | 0, src:VAR ? VAR.src : null, traced:!!walkBlocks(), goal:LEAD.goal ? {key:LEAD.goal.key, b:LEAD.goal.b, x:LEAD.goal.x, y:LEAD.goal.y} : null,
       path:LEAD.path ? LEAD.path.map(function(q){ return {x:q.x, y:q.y}; }) : null, z:leadZ(), blocked:function(x, y){ return leadBlocked(x, y); }}; },   /* __THE_WALK_UP__ */

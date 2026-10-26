@@ -437,6 +437,171 @@ def seats(seed=17):
     return m
 
 
+# ---- THE TWELVE MORE (rule 270, CAMP TWO [all eighteen followers]): each follower's piece in the valley's skin (the record's people)
+def f_agent():
+    """the agent: a corkboard of every town's job flyers on an easel, a folding chair, a radio"""
+    m = Mesh()
+    for x in (-0.35, 0.35):
+        cyl(m, 'wood_d', (x, 0.05, 0), (x * 0.8, -0.05, 1.25), 0.02, 5)
+    cyl(m, 'wood_d', (0, 0.35, 0), (0, 0.0, 1.1), 0.02, 5)
+    box(m, 'wood', (0, -0.04, 0.85), (0.86, 0.04, 0.62), tilt_x=0.12)
+    rng = np.random.RandomState(31)
+    for k in range(7):
+        box(m, 'white' if k % 3 else 'stripe_a', (-0.3 + (k % 4) * 0.2 + rng.rand() * 0.04, -0.075, 0.68 + (k // 4) * 0.26 + rng.rand() * 0.04), (0.15, 0.01, 0.18), tilt_x=0.12)
+        box(m, 'red', (-0.3 + (k % 4) * 0.2, -0.085, 0.75 + (k // 4) * 0.26), (0.02, 0.01, 0.02))
+    box(m, 'iron', (0.55, -0.1, 0.12), (0.30, 0.18, 0.24)); cyl(m, 'pole', (0.65, -0.1, 0.24), (0.7, -0.05, 0.7), 0.006, 4)
+    return m
+
+
+def f_alchemist():
+    """the alchemist: a still over a burner, a copper coil, jars of what the beasts were made of"""
+    m = Mesh()
+    cyl(m, 'iron', (0, 0, 0), (0, 0, 0.18), 0.16, 10)
+    cyl(m, 'rust', (0, 0, 0.18), (0, 0, 0.55), 0.18, 12, r2=0.12)
+    cyl(m, 'rust', (0, 0, 0.55), (0.35, 0.0, 0.70), 0.025, 6)
+    for k in range(4):
+        cyl(m, 'rust', (0.42, -0.06 + k * 0.03, 0.62 - k * 0.1), (0.42, 0.06 + k * 0.03, 0.57 - k * 0.1), 0.05, 8, cap=False)
+    box(m, 'wood', (0.62, 0.05, 0.16), (0.5, 0.36, 0.32))
+    for k, c in enumerate(('jug', 'tarp', 'white', 'jug', 'red')):
+        cyl(m, c, (0.44 + k * 0.09, -0.05, 0.32), (0.44 + k * 0.09, -0.05, 0.46), 0.035, 8)
+    return m
+
+
+def f_bounty_hunter():
+    """the bounty hunter: wanted bills on a post, a rifle across a crate, a sack that is not grain"""
+    m = Mesh()
+    cyl(m, 'wood_d', (0, 0.1, 0), (0, 0.1, 1.5), 0.05, 6)
+    for k in range(3):
+        box(m, 'white', (-0.02 + (k - 1) * 0.04, 0.04, 1.2 - k * 0.24), (0.22, 0.01, 0.2), rot=(k - 1) * 0.1)
+        box(m, 'dark', (-0.02 + (k - 1) * 0.04, 0.03, 1.22 - k * 0.24), (0.08, 0.01, 0.08), rot=(k - 1) * 0.1)
+    crate(m, (0.5, -0.05, 0.17), (0.44, 0.34, 0.34))
+    cyl(m, 'iron', (0.25, -0.1, 0.37), (0.85, -0.05, 0.37), 0.02, 5); box(m, 'wood_d', (0.30, -0.1, 0.37), (0.18, 0.05, 0.06))
+    blob(m, 'sack', (-0.45, -0.1, 0), (0.22, 0.2, 0.2), n=8, lump=0.2, seed=5)
+    return m
+
+
+def f_brigand():
+    """the brigand: the old police band on a scanner, a whip antenna, a stool"""
+    m = Mesh()
+    crate(m, (0, 0, 0.19), (0.48, 0.36, 0.38))
+    box(m, 'iron', (0, -0.02, 0.48), (0.36, 0.22, 0.18)); box(m, 'eye', (-0.08, -0.135, 0.5), (0.12, 0.01, 0.04))
+    for k in range(3):
+        cyl(m, 'metal', (0.08 + k * 0.05, -0.135, 0.46), (0.08 + k * 0.05, -0.15, 0.46), 0.015, 6)
+    cyl(m, 'pole', (0.14, 0.05, 0.57), (0.20, 0.10, 1.65), 0.006, 4)
+    cyl(m, 'rust', (-0.55, 0.05, 0), (-0.55, 0.05, 0.42), 0.16, 10)
+    return m
+
+
+def f_cartographer():
+    """the cartographer: a drafting table under a dead city's transit maps, rolled maps in a bucket"""
+    m = Mesh()
+    for x in (-0.45, 0.45):
+        for y in (-0.25, 0.25):
+            cyl(m, 'pole', (x, y, 0), (x, y, 0.75), 0.02, 5)
+    box(m, 'wood', (0, 0, 0.8), (1.0, 0.62, 0.04), tilt_x=0.25)
+    box(m, 'white', (0, -0.01, 0.83), (0.82, 0.48, 0.01), tilt_x=0.25)
+    for k, c in enumerate(('red', 'tarp', 'olive', 'stripe_b')):
+        box(m, c, (-0.3 + k * 0.18, -0.02 - k * 0.01, 0.84 + k * 0.01), (0.05, 0.4, 0.008), tilt_x=0.25, rot=0.3 * (k - 1.5))
+    cyl(m, 'rust', (0.68, -0.1, 0), (0.68, -0.1, 0.36), 0.14, 10, r2=0.12)
+    for k in range(4):
+        cyl(m, 'white', (0.62 + (k % 2) * 0.1, -0.12 + (k // 2) * 0.08, 0.2), (0.6 + (k % 2) * 0.14, -0.1 + (k // 2) * 0.08, 0.75), 0.03, 6)
+    return m
+
+
+def f_drill_sergeant():
+    """the drill sergeant: a heavy bag on a gallows of pipe, a tyre to run through"""
+    m = Mesh()
+    cyl(m, 'iron', (-0.5, 0, 0), (-0.5, 0, 1.8), 0.035, 6); cyl(m, 'iron', (-0.5, 0, 1.8), (0.15, 0, 1.8), 0.03, 6)
+    cyl(m, 'iron', (-0.5, -0.35, 0), (-0.5, 0, 1.0), 0.025, 5); cyl(m, 'iron', (-0.5, 0.35, 0), (-0.5, 0, 1.0), 0.025, 5)
+    cyl(m, 'rope', (0.1, 0, 1.8), (0.1, 0, 1.45), 0.008, 4)
+    cyl(m, 'red', (0.1, 0, 0.75), (0.1, 0, 1.45), 0.17, 12)
+    box(m, 'tape', (0.1, -0.17, 1.1), (0.25, 0.02, 0.08))
+    cyl(m, 'tyre', (0.65, -0.25, 0.0), (0.65, -0.25, 0.14), 0.3, 14)
+    cyl(m, 'dark', (0.65, -0.25, 0.141), (0.65, -0.25, 0.145), 0.16, 12)
+    return m
+
+
+def f_minstrel():
+    """the minstrel: a guitar against a speaker, a boombox on a crate"""
+    m = Mesh()
+    box(m, 'iron', (0, 0.1, 0.35), (0.5, 0.35, 0.7))
+    cyl(m, 'dark', (0, -0.08, 0.48), (0, -0.09, 0.48), 0.17, 12); cyl(m, 'dark', (0, -0.08, 0.18), (0, -0.09, 0.18), 0.1, 10)
+    blob(m, 'wood', (0.42, -0.1, 0.0), (0.2, 0.08, 0.26), n=8, rot=0.0, flat_bottom=True)
+    cyl(m, 'wood_d', (0.42, -0.12, 0.45), (0.38, -0.08, 1.0), 0.03, 6)
+    crate(m, (-0.55, -0.05, 0.17), (0.4, 0.34, 0.34))
+    box(m, 'metal', (-0.55, -0.05, 0.44), (0.42, 0.18, 0.2)); cyl(m, 'dark', (-0.67, -0.145, 0.44), (-0.67, -0.15, 0.44), 0.06, 10); cyl(m, 'dark', (-0.43, -0.145, 0.44), (-0.43, -0.15, 0.44), 0.06, 10)
+    return m
+
+
+def f_negotiator():
+    """the negotiator: two folding chairs facing over a card table, a thermos"""
+    m = Mesh()
+    for x in (-0.3, 0.3):
+        for y in (-0.25, 0.25):
+            cyl(m, 'pole', (x, y, 0), (x, y, 0.7), 0.015, 5)
+    box(m, 'olive_d', (0, 0, 0.72), (0.75, 0.62, 0.03))
+    for sx in (-1, 1):
+        box(m, 'pole', (sx * 0.65, 0, 0.42), (0.38, 0.38, 0.03)); box(m, 'stripe_b' if sx < 0 else 'tarp', (sx * 0.82, 0, 0.7), (0.03, 0.38, 0.5))
+        for y in (-0.15, 0.15):
+            cyl(m, 'pole', (sx * 0.5, y, 0), (sx * 0.8, y, 0.42), 0.012, 4)
+    cyl(m, 'tarp', (0.1, -0.1, 0.735), (0.1, -0.1, 0.98), 0.05, 8)
+    box(m, 'white', (-0.12, 0.05, 0.74), (0.2, 0.14, 0.01))
+    return m
+
+
+def f_quartermaster():
+    """the quartermaster: a steel shelf of labelled bins, tape and meds on it"""
+    m = Mesh()
+    for x in (-0.55, 0.55):
+        for y in (-0.2, 0.2):
+            cyl(m, 'metal', (x, y, 0), (x, y, 1.5), 0.018, 5)
+    for k, z in enumerate((0.3, 0.75, 1.2)):
+        box(m, 'metal', (0, 0, z), (1.12, 0.44, 0.03))
+        for j in range(3):
+            box(m, ['tarp', 'red', 'olive', 'stripe_a'][(k + j) % 4], (-0.36 + j * 0.36, -0.02, z + 0.13), (0.32, 0.36, 0.24))
+    for j in range(3):
+        cyl(m, 'tape', (-0.4 + j * 0.22, -0.3, 0.0), (-0.4 + j * 0.22, -0.3, 0.07), 0.08, 10)
+    box(m, 'white', (0.4, -0.32, 0.12), (0.26, 0.2, 0.24)); box(m, 'red', (0.4, -0.425, 0.14), (0.12, 0.01, 0.04))
+    return m
+
+
+def f_recruiter():
+    """the recruiter: a megaphone on a pole over a stool, a clipboard"""
+    m = Mesh()
+    cyl(m, 'pole', (0, 0.1, 0), (0, 0.1, 1.7), 0.025, 6)
+    cyl(m, 'white', (0.0, 0.0, 1.62), (0.0, -0.4, 1.58), 0.04, 10, r2=0.16)
+    cyl(m, 'rust', (0.35, -0.05, 0), (0.35, -0.05, 0.45), 0.15, 10)
+    box(m, 'wood', (0.35, -0.05, 0.48), (0.24, 0.3, 0.02), rot=0.3); box(m, 'white', (0.35, -0.05, 0.495), (0.2, 0.26, 0.008), rot=0.3)
+    box(m, 'olive_d', (-0.4, -0.1, 0.15), (0.5, 0.35, 0.3))
+    return m
+
+
+def f_scavenger():
+    """the scavenger: her bags off the battlefield, a hand truck of scrap and tape, a car door on top"""
+    m = Mesh()
+    for k in range(3):
+        blob(m, ['sack', 'blanket', 'tarp_d'][k], (-0.5 + k * 0.28, -0.1 + (k % 2) * 0.15, 0), (0.2, 0.17, 0.24 - k * 0.03), n=8, lump=0.25, seed=40 + k)
+    cyl(m, 'iron', (0.45, 0.25, 0.0), (0.35, 0.25, 1.2), 0.02, 5); cyl(m, 'iron', (0.75, 0.25, 0.0), (0.65, 0.25, 1.2), 0.02, 5)
+    cyl(m, 'tyre', (0.38, 0.22, 0.1), (0.38, 0.32, 0.1), 0.1, 10); cyl(m, 'tyre', (0.78, 0.22, 0.1), (0.78, 0.32, 0.1), 0.1, 10)
+    box(m, 'rust', (0.58, 0.15, 0.4), (0.36, 0.2, 0.55)); box(m, 'metal', (0.58, 0.06, 0.75), (0.42, 0.06, 0.4), tilt_x=0.3)
+    for j in range(4):
+        cyl(m, 'tape', (0.2 + j * 0.12, -0.25, 0.0), (0.2 + j * 0.12, -0.25, 0.07), 0.07, 10)
+    return m
+
+
+def f_trader():
+    """the trader: goods laid out on a blanket under a beach umbrella"""
+    m = Mesh()
+    box(m, 'blanket', (0, 0, 0.01), (1.3, 0.9, 0.02)); box(m, 'blanket_b', (0, 0, 0.022), (1.3, 0.08, 0.01))
+    cyl(m, 'pole', (0.55, 0.3, 0), (0.5, 0.3, 1.75), 0.02, 5)
+    cyl(m, 'stripe_b', (0.5, 0.3, 1.45), (0.5, 0.3, 1.78), 0.85, 10, r2=0.02)
+    for k in range(6):
+        x, y = -0.45 + (k % 3) * 0.32, -0.2 + (k // 3) * 0.32
+        if k % 2: cyl(m, ['jug', 'tarp', 'red'][k % 3], (x, y, 0.02), (x, y, 0.18), 0.06, 8)
+        else: box(m, ['wood', 'tape', 'white'][k % 3], (x, y, 0.08), (0.18, 0.14, 0.12))
+    return m
+
+
 def slain(n=3, seed=13):
     """the dead under tarps, laid in a row; their boots out the end (rule 267(c): bigger with more dead)"""
     m = Mesh(); rng = np.random.RandomState(seed)
@@ -804,7 +969,7 @@ def main():
     pieces = [('tent_olive', tent('olive', 1)), ('tent_tarp', tent('tarp', 2)), ('tent_stripe', tent('stripe', 3)),
               ('fire_cold', fire(cold=True)), ('bedroll', turned(bedroll(), 90)), ('supplies', supplies()), ('smart_cart', smart_cart()),
               ('f_cook', cook_pot()), ('f_blacksmith', anvil()), ('f_surgeon', turned(cot(), 90)), ('f_lookout', lookout()),
-              ('f_scout', turned(bike(), 75)), ('f_paymaster', strongbox()), ('seats', seats()), ('slain_few', slain(2)), ('slain_some', slain(4)), ('slain_many', slain(7))]
+              ('f_scout', turned(bike(), 75)), ('f_paymaster', strongbox()), ('seats', seats()), ('f_agent', f_agent()), ('f_alchemist', f_alchemist()), ('f_bounty_hunter', f_bounty_hunter()), ('f_brigand', f_brigand()), ('f_cartographer', f_cartographer()), ('f_drill_sergeant', f_drill_sergeant()), ('f_minstrel', f_minstrel()), ('f_negotiator', f_negotiator()), ('f_quartermaster', f_quartermaster()), ('f_recruiter', f_recruiter()), ('f_scavenger', f_scavenger()), ('f_trader', f_trader()), ('slain_few', slain(2)), ('slain_some', slain(4)), ('slain_many', slain(7))]
     pieces += [('fire_%d' % i, fire(key=i)) for i in range(6)]
     items, meta = [], {}
     for name, mesh in pieces:
