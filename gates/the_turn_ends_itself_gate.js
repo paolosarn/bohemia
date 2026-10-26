@@ -69,7 +69,7 @@ leg(why.step === cheapest && why.ap === 0 && why.apTurn === plain.apTurn, '*** T
       return { id: u.id, ap: u.ap, step, t0: performance.now(), beat: 60000 / R('ours.beat_bpm') / FIGHT_UI.speed }; }, ap); };
   const read = id => p.evaluate(i => { const o = document.getElementById('outap'), st = document.getElementById('stats').getBoundingClientRect(), r = o.getBoundingClientRect(), u = FIGHT.byId(i);
     return { now: performance.now(), cur: FIGHT.current() ? FIGHT.current().id : null, out: o.style.display !== 'none' ? o.innerText.replace(/\s+/g, ' ').trim() : '', over: r.width > 0 && r.left <= st.left && r.right >= st.right,
-      say: document.getElementById('say').innerText, apn: document.getElementById('apn').textContent, ap: u.ap, apTurn: u.apTurn, fat: Math.round(u.fat), fm: FIGHT.fatMax(u) }; }, id);
+      say: document.getElementById('say').innerText, apn: document.getElementById('apn').textContent, fatNum: (document.querySelector('#stats .bar.bm-fat b.bm-num') || {}).textContent, ap: u.ap, apTurn: u.apTurn, fat: Math.round(u.fat), fm: FIGHT.fatMax(u) }; }, id);
 
   const a = await set('short');
   await p.waitForTimeout(250);
@@ -86,7 +86,9 @@ leg(why.step === cheapest && why.ap === 0 && why.apTurn === plain.apTurn, '*** T
   await p.waitForTimeout(b.beat * 3.2);
   const b1 = await read(b.id);
   leg(b1.cur === b.id && !b1.out, '*** NEVER WHILE ANYTHING IS AFFORDABLE ***: with one step\'s AP (' + b.ap + ') he keeps his turn three beats and more, no warning', b1.cur === b.id ? 'still his, ' + (b1.out ? 'WARNING SHOWN' : 'quiet') : 'IT PASSED');
-  leg(b1.apn.indexOf(b1.ap + '/' + b1.apTurn + ' AP') === 0 && b1.apn.indexOf(b1.fat + '/' + b1.fm + ' FAT') > 0, '*** THE NUMBERS ON THE BAR: HIS AP AND HIS FATIGUE, BATTLE BROTHERS\' WAY ***', '"' + b1.apn + '"');
+  /* RE-AIMED 10/26 (COMBAT, rule 224 amends 125(b)): the AP once ('N AP', the pips its picture), the fatigue on its own bar (the bar's
+     number, not said twice on the AP line) */
+  leg(b1.apn.indexOf(b1.ap + ' AP') === 0 && !/FAT/.test(b1.apn) && (b1.fatNum === undefined || b1.fatNum === b1.fat + '/' + b1.fm), '*** THE NUMBERS ON THE BAR: HIS AP ONCE AND HIS FATIGUE ON ITS BAR, BATTLE BROTHERS\' NUMBERS IN THE KIT (rule 224) ***', '"' + b1.apn + '", the fatigue bar "' + b1.fatNum + '" (want ' + b1.fat + '/' + b1.fm + ')');
   const eb = await p.evaluate(() => { const r = document.getElementById('bend').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, label: document.getElementById('bend').innerText.replace(/\s+/g, ' ').trim() }; });
   await p.touchscreen.tap(eb.x, eb.y); await p.waitForTimeout(300);
   const c1 = await read(b.id);

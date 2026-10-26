@@ -27,8 +27,8 @@
         draw it, then in budget
      M6 MAKING CAMP: the camp grows out of CAMP (or the phone's HEAL app when it exists, data-morph="camp") and goes back into it
      M7 THE CREW SCREEN: it grows out of the bar's CREW and shrinks back into it when DONE is pressed
-     M8 THE MAP TO A FIGHT AND BACK: the bar is on the glass in every recorded frame from the fight's door to the parted clouds;
-        the phone is held over the clouds and folds into his abilities as they part (a screen change, in budget, landing on the
+     M8 THE MAP TO A FIGHT AND BACK: RE-AIMED 10/26 BY UI (rule 280): the bar lifts off the top as the clouds come in, in budget,
+        and the fight has none (it was held over the clouds until the fight's own bar was there); the phone is held over the clouds and folds into his abilities as they part (a screen change, in budget, landing on the
         fight's ability tray); going home the abilities fold back into the phone and the bar is held until the map's is back
      M9 REDUCED MOTION: the gear's MOTION button turns to LESS, and then a town opens as a fade in place (nothing travels or
         grows: every recorded pose of the stand-in is untransformed, 200 ms or less), and back to FULL
@@ -365,13 +365,17 @@ async function side(profile) {
     for (let i = 0; i < 60; i++) { if (await M(() => !window.NFC || NFC.state === 'off')) break; await p.waitForTimeout(200); }
     await idle(4000); await p.waitForTimeout(1500);   /* the fight's own frames after the change: the bar as it is in the fight */
     const fr8 = await rec.stop();
-    const bh = (await rows('bar', 'hold', t0))[0], fold = (await rows('phone', 'fly', t0))[0];
+    /* RE-AIMED 10/26 BY UI (rule 280, Paolo: 'in combat it can completely go away'; the marked __NO_TOP_BAR_IN_THE_FIGHT__ in
+       nfOpen): the fight has no bar, so the map's is no longer held over the clouds; it LIFTS OFF the top as they roll in (a piece
+       leaving, in budget, no frame without it until it is off), and never hangs waiting for a fight's bar */
+    const lift = (await rows('bar', 'fly', t0))[0], hung = (await rows('bar', 'hold', t0)).find(r => r.why === 'timed out'), fold = (await rows('phone', 'fly', t0))[0];
     const fwNow = async () => { const h = await p.$('#fightFrame'); return h ? await h.contentFrame() : null; };
     fw = (await fwNow()) || fw;
     const tray = fw ? await fw.evaluate(() => { const e = document.getElementById('skills'); return !!e && e.getBoundingClientRect().width > 0; }).catch(() => false) : false;
-    ok('M8 the map to a fight: the bar is held over the clouds until the fight\'s own bar is there', !!fw && !!bh && bh.why === 'the real one is back' && bh.gaps === 0, bh ? 'held ' + bh.ms + ' ms, ' + bh.why : (fw ? 'no hold logged' : 'no fight opened'));
-    /* the bar from the door to the parted clouds, frame by frame (the fight's own bar is the same picture in the same place) */
-    await steady('into the fight', fr8.slice(1), fr8[0] && fr8[0].data, [['bar', bar, masks]], bh ? { t0: t0, t1: Math.max(bh.t1, fold ? fold.t1 : 0) } : null);
+    ok('M8 the map to a fight: the bar lifts off the top as the clouds come in, in budget, never held waiting for a fight\'s bar (rule 280)', !!fw && !!lift && !hung && lift.gaps === 0 && inBudget(lift, 250, 500),
+      lift ? 'lifted, planned ' + lift.planned + ' ms, ' + lift.gaps + ' frames without it' + (hung ? '; a hold timed out' : '') : (fw ? 'no lift logged' : 'no fight opened'));
+    const barUp = fw ? await fw.evaluate(() => { const b = document.getElementById('bmtb'); return !!b && b.getBoundingClientRect().height > 0; }).catch(() => true) : true;
+    ok('  in the fight no bar is on the glass (rule 280)', !barUp, barUp ? 'the fight wears a bar' : 'none');
     ok('  the phone folds into his abilities as the clouds part (a screen change, in budget, onto the ability tray)', !!fold && inBudget(fold, 500, 1000) && fold.gaps === 0 && tray, fold ? 'planned ' + fold.planned + ' ms, waited ' + (fold.waited || 0) + ' ms' : 'no fold logged');
     /* and home */
     if (fw) {

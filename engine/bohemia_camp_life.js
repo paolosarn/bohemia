@@ -37,16 +37,18 @@
      before you can even begin to try to make the phone location look good'): the wide camp on the wide ground (2060 x 1092) and the
      tall camp on the tall ground (1092 x 1940, slices/camp_two/plate_tall.webp): the same pieces, the tents stacked in rows behind
      the fire instead of spread in arcs, every other offset narrowed and lengthened (sx, sy), so a phone held upright fills with it */
-  var GEO = { wide: { w: 2060, h: 1092, fx: 1030, fy: 640, sx: 1, sy: 1, cap: [4, 5, 6], rx: [300, 170], ry: [200, 110],
-                edges: [[-700, 20, 'SW'], [720, 10, 'SE'], [520, -250, 'NE'], [-520, -240, 'NW']] },   /* the watch at the camp's sides, clear of the cart and of the bottom corners (the phone's) */
-              tall: { w: 1092, h: 1940, fx: 546, fy: 1000, sx: 0.62, sy: 1.45, cap: [3, 4, 4, 4], rx: [250, 70], ry: [250, 190], ring: [0.12, 0.88],
+  var GEO = { wide: { w: 2060, h: 1092, fx: 1030, fy: 640, sx: 1, sy: 1, cap: [4, 5, 6], rx: [300, 200], ry: [200, 150],
+                edges: [[-700, 20, 'SW'], [720, 10, 'SE'], [520, -250, 'NE'], [-520, -240, 'NW']],
+                truckAt: { cart: [-640, 40], supplies: [-250, 250], blacksmith: [-120, 300],
+                           spots: [[470, 40], [820, 240], [560, -110], [-470, -330], [330, -230], [-430, 300], [200, 230]] } },   /* the watch at the camp's sides, clear of the cart and of the bottom corners (the phone's) */
+              tall: { w: 1092, h: 1940, fx: 546, fy: 1000, sx: 0.62, sy: 1.45, cap: [3, 4, 4, 4], rx: [250, 70], ry: [250, 215], ring: [0.12, 0.88], ringRy: 40, ringDy: 150,
                 /* the upright camp is its own picture, not the wide one squeezed: the tents in rows behind the fire, the carrier and its
                    load on the left, the seats and the hurt in front, the followers down both sides; centred on the glass with no phone
                    (rule 289), lifted in one beat when the phone comes on (lift below) */
                 at: { cart: [-300, 40], supplies: [-330, 360], seats: [250, 250], slain: [330, -600],
-                      cook: [200, -40], blacksmith: [-120, 420], surgeon: [370, 380], lookout: [420, -330], scout: [-420, -380], paymaster: [400, 90] },
+                      cook: [200, -40], blacksmith: [-120, 420], surgeon: [370, 380], lookout: [420, -385], scout: [-420, -380], paymaster: [400, 90] },
                 edges: [[-470, -90, 'SW'], [470, -60, 'SE'], [440, -480, 'NE'], [-440, -520, 'NW']],
-                spots: [[-430, -200], [430, -170], [130, 470], [-440, 230], [440, 520], [-130, -620], [180, -640]] } };
+                spots: [[-430, -200], [324, -90], [130, 470], [-440, 230], [440, 520], [-130, -620], [180, -640]] } };
   function geo(o) { return o && o.tall ? GEO.tall : GEO.wide; }
   var HURT = 0.87, BAD = 0.35;          /* rule 261(b): under 87 percent he shows; under about a third he is down on a bedroll */
   /* the odds colour, read from ours.json by whoever loads it (the same file COMBAT's AUTO reads), else the 144(e) numbers */
@@ -80,7 +82,7 @@
   var FOLLOWER_AT = {
     cook: { sprite: 'f_cook', dx: 250, dy: 60 }, blacksmith: { sprite: 'f_blacksmith', dx: -560, dy: 150 },
     surgeon: { sprite: 'f_surgeon', dx: 420, dy: 200 }, lookout: { sprite: 'f_lookout', dx: 640, dy: -230 },
-    scout: { sprite: 'f_scout', dx: -640, dy: -160 }, paymaster: { sprite: 'f_paymaster', dx: 300, dy: -150 }
+    scout: { sprite: 'f_scout', dx: -640, dy: -160 }, paymaster: { sprite: 'f_paymaster', dx: 400, dy: -120 }
   };
   var FOLLOWER_SPOTS = [{ dx: 470, dy: 40 }, { dx: -600, dy: 20 }, { dx: 560, dy: -110 }, { dx: -470, dy: -200 }, { dx: 330, dy: -230 }, { dx: -300, dy: 210 }, { dx: 200, dy: 230 }];
 
@@ -99,11 +101,15 @@
     return out;
   }
   var CLOTHS = ['tent_olive', 'tent_tarp', 'tent_stripe'];
+  /* the highest a piece's foot may stand on the ground, by how tall it is drawn, so its top stays on the picture (a rise never
+     piles the back row into the top edge) */
+  var MINY = { tent: 220, follower: 200, carrier: 260, slain: 90, fire: 90, supplies: 120, seats: 100 };
   function layout(o) {
     o = o || {};
     var men = Math.max(1, o.men | 0), R = rnd(seedOf('camp:' + (o.seed || 0))), car = carrier(o.level, o.smart), pieces = [], G = geo(o);
     var lift = o.lift | 0;   /* the camp raised on the glass (rule 286 after 289: a phone in the bottom corner of an upright glass) */
-    var at = function (dx, dy, id) { var t = id && G.at && G.at[id]; return t ? { x: G.fx + t[0], y: G.fy + t[1] } : { x: G.fx + dx * G.sx, y: G.fy + dy * G.sy }; };
+    var TK = car.sprite === 'truck' && G.truckAt ? G.truckAt : null;   /* the pickup is five metres of steel: the things it would bury move (rule 289: no overlap) */
+    var at = function (dx, dy, id) { var t = id && ((TK && TK[id]) || (G.at && G.at[id])); return t ? { x: G.fx + t[0], y: G.fy + t[1] } : { x: G.fx + dx * G.sx, y: G.fy + dy * G.sy }; };
     pieces.push({ kind: 'fire', key: 'fire', sprite: 'fire', x: G.fx, y: G.fy, tap: 'fire' });
     tentSpots(tents(men), R, G).forEach(function (p, i) {
       pieces.push({ kind: 'tent', key: i ? 'tent_' + (i + 1) : 'tent', sprite: CLOTHS[(i + (seedOf('cloth:' + (o.seed || 0)) % 3)) % 3], x: p.x, y: p.y, tap: 'tent', i: i,
@@ -119,12 +125,12 @@
       var f = FOLLOWER_AT[id];
       var qf;
       if (!f) { var sp = null; while (freeSpot < FOLLOWER_SPOTS.length && !sp) { var q = FOLLOWER_SPOTS[freeSpot++]; if (!taken[q.dx + ',' + q.dy]) sp = q; } if (!sp) return;
-        f = { sprite: 'f_' + id, dx: sp.dx, dy: sp.dy }; var ts = G.spots && G.spots[freeSpot - 1]; qf = ts ? { x: G.fx + ts[0], y: G.fy + ts[1] } : at(f.dx, f.dy); }
+        f = { sprite: 'f_' + id, dx: sp.dx, dy: sp.dy }; var ts = (TK && TK.spots && TK.spots[freeSpot - 1]) || (G.spots && G.spots[freeSpot - 1]); qf = ts ? { x: G.fx + ts[0], y: G.fy + ts[1] } : at(f.dx, f.dy); }
       else qf = at(f.dx, f.dy, id);
       pieces.push({ kind: 'follower', key: 'f_' + id, follower: id, sprite: f.sprite, x: qf.x, y: qf.y, tap: 'retinue' }); });
     var k = o.kills | 0;
     var qs = at(-600, -330, 'slain'); if (k > 0) pieces.push({ kind: 'slain', key: 'slain', sprite: k <= 2 ? 'slain_few' : k <= 5 ? 'slain_some' : 'slain_many', n: k, x: qs.x, y: qs.y, tap: null });
-    pieces.forEach(function (p) { p.y -= lift; p.x = Math.round(Math.max(100, Math.min(G.w - 100, p.x))); p.y = Math.round(Math.max(200, Math.min(G.h - 60, p.y))); });
+    pieces.forEach(function (p) { p.y -= lift; p.x = Math.round(Math.max(100, Math.min(G.w - 100, p.x))); p.y = Math.round(Math.max(MINY[p.kind] || 200, Math.min(G.h - 60, p.y))); });
     return { fire: { x: G.fx, y: G.fy - lift }, pieces: pieces, tents: tents(men), carrier: car, pic: { w: G.w, h: G.h }, tall: G === GEO.tall, geo: G, lift: lift };
   }
 
@@ -183,7 +189,8 @@
     (by.tend || []).forEach(function (e) { var p = out[e.by]; if (p) put(e, p.x + 20, p.y - 46, 'S'); else put(e, f.x, f.y + 120, 'N'); });
     var sitters = (by.rest || []).concat(by.clean || []);
     var arc = G.ring || [0.62, 1.38];   /* the wide camp sits them on the fire's left; the upright one in front of it, backs to us */
-    sitters.forEach(function (e, j) { var q = ring(sitters.length, 175, 85, Math.PI * arc[0], Math.PI * arc[1], j); put(e, q.x, q.y, dirTo(f.x - q.x, f.y - q.y)); });
+    var ry0 = G.ringRy || 85, dy0 = G.ringDy || 0;   /* upright they sit a stride in front, low enough that no body covers the fire's door */
+    sitters.forEach(function (e, j) { var q = ring(sitters.length, 175, ry0, Math.PI * arc[0], Math.PI * arc[1], j); put(e, q.x, q.y + dy0, dirTo(f.x - q.x, f.y - q.y - dy0)); });
     var smith = piece('f_blacksmith'), cart = piece('cart');
     (by.mend || []).forEach(function (e, j) { var at = smith || cart; put(e, at.x + 70 + j * 46, at.y + 40 + (j % 2) * 18, dirTo(at.x - (at.x + 70 + j * 46), -1)); });
     var pot = piece('f_cook');
@@ -236,6 +243,6 @@
 
   function setOdds(c) { if (c && typeof c.turn === 'number') for (var k in ODDS) if (typeof c[k] === 'number') ODDS[k] = c[k]; }
 
-  root.BohemiaCampLife = { PIC: PIC, FIRE: FIRE, GEO: GEO, HURT: HURT, BAD: BAD, CARRIERS: CARRIERS, FOLLOWER_AT: FOLLOWER_AT, tents: tents, carrier: carrier, layout: layout,
+  root.BohemiaCampLife = { PIC: PIC, FIRE: FIRE, GEO: GEO, MINY: MINY, HURT: HURT, BAD: BAD, CARRIERS: CARRIERS, FOLLOWER_AT: FOLLOWER_AT, tents: tents, carrier: carrier, layout: layout,
     manOf: manOf, acts: acts, spots: spots, octant: octant, tint: tint, compass: compass, pitch: pitch, setOdds: setOdds, odds: function () { return ODDS; }, seedOf: seedOf };
 })(typeof window !== 'undefined' ? window : this);

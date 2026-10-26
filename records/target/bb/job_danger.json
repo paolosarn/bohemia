@@ -1,5 +1,5 @@
 {
- "_about": "WORLD [the job tells the truth, in blood] (rule 208) and [one scale: the blood is the AUTO colour] (rule 254, Paolo 10/26). The numbers a job's stars and blood are read with (slices/bohemia_job_danger.js). ONE CALCULATOR, ONE SCALE: a run is worth what the AUTO button counts it (the fight's own oddsRunValue) and the stars' and the blood's lines are the AUTO colour's own (records/target/bb/ours.json odds_colour: turn and down_value), read from the fight's rules when the page loads; the four copies here (cut_one, cut_three, blood_from, blood_full) are for a modder's eye and the kit's first paint, and gates/the_job_tells_the_truth_gate.js holds them equal to the fight's. Every other felt number is TUNING's for the one table.",
+ "_about": "WORLD [the job tells the truth, in blood] (rule 208) and [one scale: the blood is the AUTO colour] (rule 254, Paolo 10/26). The numbers a job's stars and blood are read with (slices/bohemia_job_danger.js). ONE CALCULATOR, ONE SCALE: a run is worth what the AUTO button counts it (the fight's own oddsRunValue) and the stars' and the blood's lines are the AUTO colour's own (records/target/bb/ours.json odds_colour: turn and down_value), read from the fight's rules when the page loads; the four copies here (cut_one, cut_three, blood_from, blood_full) are for a modder's eye and the kit's first paint, and gates/the_job_tells_the_truth_gate.js holds them equal to the fight's. The ramp_* rows are rule 255's day-fifty curve (TUNING's numbers). Every other felt number is TUNING's for the one table.",
  "runs": {
   "value": 32,
   "source": "OURS: AUTO plays of each fight a job brings, in a worker off the frames (the AUTO button reads 24, rule 144; a job is read once and kept, so more)"
@@ -63,5 +63,21 @@
  "runs_max": {
   "value": 96,
   "source": "OURS (measured 10/26, rule 254's gate: on 32 plays the blood missed the 100-play truth by more than a quarter of its scale on 17 of 221 jobs): ...up to this many, where the blood is read; three times the plays only for the fights that need them"
+ },
+ "ramp_calm_until": {
+  "value": 10,
+  "source": "TUNING [the day-fifty curve] 10/26 (records/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.md, the one table's section U; rule 255(d), a COORDINATOR'S DEFAULT by rule 205 on TUNING's numbers from Battle Brothers' day scaling): through this day the board's worst job is 'could go either way' (worth ramp_floor or more on the AUTO count) and a board holds at most ramp_reds_calm red jobs, the warning"
+ },
+ "ramp_full_at": {
+  "value": 50,
+  "source": "TUNING [the day-fifty curve] 10/26 (records/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.md, the one table's section U; rule 255(d), a COORDINATOR'S DEFAULT by rule 205 on TUNING's numbers from Battle Brothers' day scaling): from ramp_calm_until the floor falls in a straight line to nothing on this day, and the share of red jobs a board may hold grows by the same line to all of it (Paolo 10/26: 'up to 50 days is when shit starts getting difficult')"
+ },
+ "ramp_floor": {
+  "value": 0.5,
+  "source": "TUNING [the day-fifty curve] 10/26 (records/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.md, the one table's section U; rule 255(d), a COORDINATOR'S DEFAULT by rule 205 on TUNING's numbers from Battle Brothers' day scaling): the floor through the calm days: a job worth under this for the crew he has is not posted, the place posts its next (0.375 at day 20, 0.25 at day 30, 0.125 at day 40). The Lone Wolf, measured: two beasts 38 in 100 on every day to 20, so no beast job reaches him early; 0 turns the ramp off"
+ },
+ "ramp_reds_calm": {
+  "value": 1,
+  "source": "TUNING [the day-fifty curve] 10/26 (records/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.md, the one table's section U; rule 255(d), a COORDINATOR'S DEFAULT by rule 205 on TUNING's numbers from Battle Brothers' day scaling): red jobs (worth under cut_one, the AUTO turn) a board may hold through the calm days; after them round(N x (day - 10) / 40), never under this"
  }
 }

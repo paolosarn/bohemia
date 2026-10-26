@@ -31,7 +31,7 @@
    Gate: gates/the_job_tells_the_truth_gate.js. Loaded by BOHEMIA_CITY_WORLD.html. */
 (function (root) {
   'use strict';
-  var CFG = { runs: 32, prior: 0, cut_one: 0.8, cut_three: 0.5, road_per_hour: 0.0038, blood_from: 0.2, blood_full: 0.5, steps: 6000, slice_ms: 6, stop_from: 12, stop_below: 0.2, near_cut: 0.12, runs_more: 32, runs_max: 96 };
+  var CFG = { runs: 32, prior: 0, cut_one: 0.8, cut_three: 0.5, ramp_calm_until: 10, ramp_full_at: 50, ramp_floor: 0.5, ramp_reds_calm: 1, road_per_hour: 0.0038, blood_from: 0.2, blood_full: 0.5, steps: 6000, slice_ms: 6, stop_from: 12, stop_below: 0.2, near_cut: 0.12, runs_more: 32, runs_max: 96 };
   var BASE = (function () {
     try { var s = document.currentScript && document.currentScript.src; if (s) return s.replace(/[^\/]*$/, ''); } catch (e) {}
     try { return new URL('.', document.baseURI).href; } catch (e) {}
@@ -68,7 +68,7 @@
     if (MAIN_P) return MAIN_P;
     MAIN_P = source().then(function (s) {
       var mk = new Function(s.data + '\n' + s.rules + '\n' + s.orv + '\nreturn { F: FIGHT, DB: DB, R: R, loadAll: loadAll, seed: function (v) { SEED = v >>> 0; }, run: oddsRunValue };');
-      var E = mk();
+      var E = mk(); MK = mk;
       /* the fight's loadAll reads its files relative to the page; this page sits beside the fight in slices/ */
       return E.loadAll().then(function () {
         /* RULE 254: the stars' lines are the AUTO colour's own (ours.odds_colour.turn and down_value), read from the fight's rules */
@@ -78,28 +78,38 @@
     }).catch(function (e) { WERR = String(e && e.message || e); MAIN_P = null; SRC_P = null; return null; });
     return MAIN_P;
   }
+  /* A FRESH COPY OF THE RULES FOR EVERY FIGHT (measured 10/26: the fight's own code carries a little from one fight into the next, so
+     the same fight on the same dice moved up to 6.6 plays in 96 with what the copy had played before, more as the board read more in
+     the background; COMBAT's, NOTEd, tools/bohemia_world_the_fight_carries_over.js). The reader makes a new copy of the rules for each
+     fight it reads (the tables shared, never written), so a job's number is the same whatever was read before it, and a checker
+     replays it to the last digit */
+  var MK = null;
+  function fresh() { if (!MK || !MAIN) return MAIN; var E = MK(); Object.keys(MAIN.DB).forEach(function (k) { E.DB[k] = MAIN.DB[k]; }); return E; }
   function workerMain() {
-    var JOB = null;
+    var JOB = null, DBX = null, E = null;
     var CH = new MessageChannel(), NEXT = []; CH.port1.onmessage = function () { var f = NEXT.shift(); if (f) f(); };
     var soon = function (f) { NEXT.push(f); CH.port2.postMessage(0); };
     self.onmessage = function (m) {
       var d = m.data;
-      if (d.db) { Object.keys(d.db).forEach(function (k) { DB[k] = d.db[k]; }); return; }
+      if (d.db) { DBX = d.db; return; }
       if (d.ls) { LSV = d.ls; return; }
+      if (d.stop) { if (JOB && JOB.id === d.stop) JOB = null; return; }   /* the page gave this fight's turn to the glass */
       JOB = { id: d.id, opts: d.opts, seed: d.seed >>> 0, runs: d.runs, steps: d.steps, stopFrom: d.stopFrom, stopBelow: d.stopBelow, cuts: d.cuts || [], near: d.near || 0, more: d.more || 0, max: d.max || d.runs, n: 0, sum: 0, clean: 0, won: 0, down: 0, dead: 0, hung: 0 };
+      E = null;   /* a fresh copy of the rules for this fight */
       var id = d.id; soon(function () { run(id); });
     };
     function run(id) {
       var J = JOB; if (!J || J.id !== id) return;
       try {
-        SEED = (J.seed + J.n * 7919) >>> 0;
-        FIGHT.setup(J.opts);
-        var g = 0; while (!FIGHT.S.over && g <= J.steps) { var v = FIGHT.current(); if (!v) break; FIGHT.aiStep(v); FIGHT.S.events = []; g++; }
-        var w = FIGHT.S.over ? oddsRunValue(FIGHT) : 0;   /* the AUTO button's own count (rule 254) */
-        if (!FIGHT.S.over) J.hung++;
-        if (FIGHT.S.result === 'won') J.won++;
+        if (!E) { E = MK(); Object.keys(DBX || {}).forEach(function (k) { E.DB[k] = DBX[k]; }); }
+        E.seed((J.seed + J.n * 7919) >>> 0);
+        E.F.setup(J.opts);
+        var g = 0; while (!E.F.S.over && g <= J.steps) { var v = E.F.current(); if (!v) break; E.F.aiStep(v); E.F.S.events = []; g++; }
+        var w = E.F.S.over ? E.run(E.F) : 0;   /* the AUTO button's own count, oddsRunValue (rule 254) */
+        if (!E.F.S.over) J.hung++;
+        if (E.F.S.result === 'won') J.won++;
         J.sum += w; if (w === 1) J.clean++;
-        FIGHT.S.units.forEach(function (u) { if (u.side === 'you') { if (u.dead) J.dead++; else if (u.down) J.down++; } });
+        E.F.S.units.forEach(function (u) { if (u.side === 'you') { if (u.dead) J.dead++; else if (u.down) J.down++; } });
         J.n++;
       } catch (e) { self.postMessage({ id: id, broke: String(e && e.message || e) }); JOB = null; return; }
       var lost = J.stopFrom && J.n >= J.stopFrom && J.sum / J.n < J.stopBelow;
@@ -116,8 +126,9 @@
     W = false;
     if (!MAIN || !SRC || typeof Worker === 'undefined' || typeof Blob === 'undefined' || root.__JOB_DANGER_NO_WORKER) return W;
     try {
+      var body = SRC.data + '\n' + SRC.rules + '\n' + SRC.orv + '\nreturn { F: FIGHT, DB: DB, seed: function (v) { SEED = v >>> 0; }, run: oddsRunValue };';
       var src = 'var LSV = {}; var localStorage = { getItem: function (k) { return LSV[k] === undefined ? null : LSV[k]; }, setItem: function () {}, removeItem: function () {} };\n' +
-        SRC.data + '\n' + SRC.rules + '\n' + SRC.orv + '\n(' + workerMain.toString() + ')();';
+        'var MK = new Function(' + JSON.stringify(body) + ');\n(' + workerMain.toString() + ')();';
       var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
       var db = {}; Object.keys(MAIN.DB).forEach(function (k) { if (k !== 'read') db[k] = MAIN.DB[k]; });
       w.onmessage = heard;
@@ -274,7 +285,7 @@
     return true;
   }
   /* the read for an offer at a place, or a held job: null until it can start; {state:'reading'} until every fight is played */
-  function read(o, place) {
+  function read(o, place, later) {
     if (!o || !o.id) return null;
     if (!MAIN) { engine(); return null; }
     var ck = crewKey(), rk = readKey(o, place) + '|' + ck + '|' + dayNow();
@@ -287,24 +298,38 @@
     var ks = Object.keys(READS); if (ks.length > 400) ks.sort(function (a, b) { return READS[a].at - READS[b].at; }).slice(0, ks.length - 400).forEach(function (k) { if (READS[k].state !== 'reading') delete READS[k]; });
     /* what he is looking at now goes first: a fight asked for again moves to the front of the line */
     fs.forEach(function (f) { f.opts = doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at); });   /* the hand-over each fight is played with, fixed with the read */
+    /* a read the board asks for itself (rule 255: is it fit to post?) waits at the back of the line, behind what is on the glass */
     var sure = {}; fs.forEach(function (f) { if (f.p >= 0.25) sure[fightBase(f, ck)] = 1; });
     fs.slice().reverse().forEach(function (f) { f.fk = fightKey(f, ck, sure);
-      if (!PLAYED[f.fk] && !FIGHTS[f.fk]) { FIGHTS[f.fk] = { fk: f.fk, f: f, reads: [rk] }; Q.unshift(f.fk); }
-      else if (FIGHTS[f.fk]) { FIGHTS[f.fk].reads.push(rk); if (f.p >= 0.25 && !(FIGHTS[f.fk].f.p >= 0.25)) FIGHTS[f.fk].f = f; var qi = Q.indexOf(f.fk); if (qi > 0) { Q.splice(qi, 1); Q.unshift(f.fk); } } });
+      if (!PLAYED[f.fk] && !FIGHTS[f.fk]) { FIGHTS[f.fk] = { fk: f.fk, f: f, reads: [rk], later: !!later }; if (later) Q.push(f.fk); else Q.unshift(f.fk); }
+      else if (FIGHTS[f.fk]) { FIGHTS[f.fk].reads.push(rk); if (f.p >= 0.25 && !(FIGHTS[f.fk].f.p >= 0.25)) FIGHTS[f.fk].f = f; if (!later) FIGHTS[f.fk].later = false; var qi = Q.indexOf(f.fk); if (qi > 0 && !later) { Q.splice(qi, 1); Q.unshift(f.fk); } } });
     if (!fs.length) { R.clean = 1; R.danger = 0; R.stars = 1; R.blood = 0; R.state = 'read'; R.runs = 0; }
     else if (combine(R)) {}
+    if (!later && BUSY && BUSY.later && fs.some(function (f) { return f.fk !== BUSY.fk && !PLAYED[f.fk]; })) yieldBusy();
     pump();
     return R;
+  }
+  /* WHAT HE IS LOOKING AT GOES FIRST, NOW (rule 255): a board's own ask (is it fit to post?) being played gives the reader up to a
+     read for the glass: it goes back to the end of the line and starts again there (measured 10/26: a job on the glass waited behind a
+     board's 96 plays of twelve men, about half a minute) */
+  function yieldBusy() {
+    var J = BUSY; if (!J) return;
+    if (J.viaWorker && W) { try { W.postMessage({ stop: J.id }); } catch (e) {} }
+    BUSY = null; if (FIGHTS[J.fk] && Q.indexOf(J.fk) < 0) Q.push(J.fk);
   }
   function pump() {
     if (BUSY || !Q.length || !MAIN) return;
     var fk = Q.shift(), F = FIGHTS[fk]; if (!F) return pump();
+    /* a board's own ask (rule 255) for a crew he no longer has is dropped: the next deal asks again for the crew he has */
+    if (F.later && fk.indexOf(crewKey() + '|') !== 0) { delete FIGHTS[fk];
+      F.reads.forEach(function (rk) { if (READS[rk] && READS[rk].state === 'reading') delete READS[rk]; });   /* asked again, it reads afresh */
+      return pump(); }
     var f = F.f, opts = f.opts || doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at);
     /* a fight that only might come (the road's, a twist's) weighs little in the product: fewer plays; a fight that is plainly lost
        stops early (under stop_below after stop_from plays: any job with it in is three stars whatever the rest) */
     var full = /\|full$/.test(fk), runs = full ? (CFG.runs | 0 || 32) : Math.max(8, Math.round((CFG.runs | 0 || 32) / 4));   /* the key says full or light */
     var job = { id: ++JOBN, fk: fk, opts: opts, seed: seedOf('runs:' + fk), runs: runs, steps: CFG.steps, stopFrom: CFG.stop_from, stopBelow: CFG.stop_below,
-      cuts: [CFG.cut_one, CFG.cut_three], near: full ? CFG.near_cut : 0, more: CFG.runs_more, max: full ? Math.max(runs, CFG.runs_max | 0) : runs, t0: Date.now() };
+      cuts: [CFG.cut_one, CFG.cut_three], near: full ? CFG.near_cut : 0, more: CFG.runs_more, max: full ? Math.max(runs, CFG.runs_max | 0) : runs, t0: Date.now(), later: !!F.later };
     BUSY = job;
     var w = worker();
     if (w) { job.viaWorker = true; w.postMessage({ ls: { 'bohemia.fight.formation.v1': ls('bohemia.fight.formation.v1', null) } }); w.postMessage(job); }
@@ -313,7 +338,7 @@
   /* a phone with no worker: the frames' slices, the AUTO button's own way (six milliseconds a frame) */
   function slice() {
     var J = BUSY; if (!J || J.viaWorker) return;
-    var E = MAIN, t0 = performance.now();
+    var E = J.E || (J.E = fresh()), t0 = performance.now();
     try {
       while (performance.now() - t0 < CFG.slice_ms && J.n < J.runs && !(J.stopFrom && J.n >= J.stopFrom && J.sum / J.n < J.stopBelow)) {
         if (J.live && J.rolln !== ROLLN) J.live = false;
@@ -342,8 +367,35 @@
     /* a checker's own setting (rule 192(c)): keep the hand-over and the dice each fight was played on, so the stars gate can replay the
        page's own plays with the fight's own count and get the page's own number back */
     if (root.__JOB_DANGER_KEEP && !d.broke) { PLAYED[J.fk].opts = J.opts; PLAYED[J.fk].seed = J.seed; PLAYED[J.fk].steps = J.steps; PLAYED[J.fk].formation = ls('bohemia.fight.formation.v1', null); }
-    if (F) F.reads.forEach(function (rk) { var R = READS[rk]; if (R && R.state !== 'read' && combine(R)) { paintAll(R); say('bohemia-job-danger', { id: R.id, place: R.place, stars: R.stars, danger: R.danger }); } });
+    if (F) F.reads.forEach(function (rk) { var R = READS[rk]; if (R && R.state !== 'read' && combine(R)) { paintAll(R); if (R.clean < CFG.cut_one) FITV++; say('bohemia-job-danger', { id: R.id, place: R.place, stars: R.stars, danger: R.danger }); } });
     pump();
+  }
+
+  /* ---------- THE BOARD GROWS WITH THE DAYS (rule 255, Paolo 10/26: 'up to 50 days is when shit starts getting difficult, but I
+     don't even want you to have jobs available like six wolves; I played as the Lone Wolf') ----------
+     TUNING's curve (records/BOHEMIA_TUNING_THE_DAY_FIFTY_CURVE_10_26_26.md, the one table's section U; job_danger.json ramp_*), on
+     the job's own number for the crew he has (rule 254: what its runs are worth on the AUTO count): through day 10 no job worth
+     under 0.5 is posted ('could go either way' is the worst) and a board holds at most ONE red job (under the AUTO turn), the
+     warning; then the floor falls in a straight line to nothing at day 50 and the reds' share grows by the same line, all of the
+     board by day 50. A job under the floor is not posted: the place posts its next (the shelf asks fits() as it deals). Battle
+     Brothers' own ramp rides under it unchanged (a contract sized by the roster, the kinds by the day: partyMath). The Lone Wolf
+     measured by TUNING: two beasts 38 in 100 at any day, so no beast job reaches him before about day 20, and nothing he loses
+     outright (under 0.25) before day 30, for him or anyone. */
+  var FITV = 0;
+  function rampFloor(day) { var a = CFG.ramp_calm_until, b = CFG.ramp_full_at, f = CFG.ramp_floor;
+    day = +day || 1; if (day <= a) return f; if (day >= b) return 0; return f * (b - day) / Math.max(1, b - a); }
+  function rampReds(day, size) { var a = CFG.ramp_calm_until, b = CFG.ramp_full_at; size = Math.max(1, size | 0); day = +day || 1;
+    if (day <= a) return Math.min(size, CFG.ramp_reds_calm); if (day >= b) return size; return Math.max(CFG.ramp_reds_calm, Math.min(size, Math.round(size * (day - a) / Math.max(1, b - a)))); }
+  /* is this offer fit to post on a board at a place on a day, beside the ones the board already holds (have) of its size?
+     true, false (under the floor, or a red past the board's share), or null (not read yet: it is posted reading, and asked for) */
+  function fits(o, place, day, have, size) {
+    if (!o || !o.id || !(CFG.ramp_floor > 0)) return true;
+    if (!MAIN) { engine(); return null; }
+    var R = read(o, place, true); if (!R || R.state !== 'read') return null;
+    if (R.clean < rampFloor(day)) return false;
+    if (R.clean >= CFG.cut_one) return true;
+    var reds = 0; (have || []).forEach(function (h) { var Q = peek(h, place); if (Q && Q.state === 'read' && Q.clean < CFG.cut_one) reds++; });
+    return reds < rampReds(day, size);
   }
 
   /* ---------- WHAT HE SEES: red stars, and the button bleeds ---------- */
@@ -462,13 +514,14 @@
   }
   /* a checker's probe: the same hand-over played n times on this window's rules and in a fresh worker (the gate compares them) */
   function probe(opts, n, seed) {
-    var E = MAIN; if (!E) return null; var sum = 0;
+    if (!MAIN) return null; var E = fresh(), sum = 0;
     for (var r = 0; r < n; r++) { E.seed((seed + r * 7919) >>> 0); E.F.setup(JSON.parse(JSON.stringify(opts)));
       var g = 0; while (!E.F.S.over && g <= CFG.steps) { var v = E.F.current(); if (!v) break; E.F.aiStep(v); E.F.S.events = []; g++; }
       sum += E.F.S.over ? E.run(E.F) : 0; }
     return sum / n;
   }
   root.BohemiaJobDanger = { probe: probe, played: function () { return PLAYED; }, engine: engine, ready: function () { return !!MAIN; }, roll: roll, rollInto: rollInto, kindWord: kindWord, read: read, peek: peek, stars: stars, readParty: readParty, fightsFor: fightsFor,
-    bleed: bleed, bloodOf: bloodOf, crewKey: crewKey, doorOpts: doorOpts, state: state, cfg: function () { return CFG; } };
+    bleed: bleed, bloodOf: bloodOf, crewKey: crewKey, doorOpts: doorOpts, state: state, cfg: function () { return CFG; },
+    fresh: fresh, fits: fits, fitVer: function () { return MAIN ? FITV + ':' + crewKey() + ':' + dayNow() : 'none'; }, rampFloor: rampFloor, rampReds: rampReds };
   try { if (document.readyState === 'complete') setTimeout(engine, 1200); else root.addEventListener('load', function () { setTimeout(engine, 1200); }); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);

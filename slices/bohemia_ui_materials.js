@@ -1112,14 +1112,72 @@
     nb.addEventListener('click', function (e) { e.stopPropagation(); if (HUD.open) hudNoteClose(true); else hudNoteOpen(); });
     var root = hudBuild(top, nb);
     HUD.screen = 'fight';
+    /* UI [no top bar in the fight] (rule 280, Paolo 10/26: 'when it's combat mode I don't need to see my batteries and the time
+       of day... in combat it can completely go away'; amends 190's one HUD for the fight and 200(a)'s 'and in the fight'):
+       while the fight is on, the bar is not drawn at all (html.bm-nobar): no batteries, no supplies, no clock, and the fight
+       measures its top as 0, so the board gets the room. The bar is still BUILT here, off the glass, because the phone's CREW,
+       NOTES and SETTINGS press its very buttons (UI TWO's barPress, rule 238(a)): one handler each, no button twice (286(b)).
+       The moment the fight says it is over, the bar comes back, laid with the map's facts first, then dropped in from the top
+       of the glass (rule 229, MOTION's layer: on twos, the tin leaning into its travel), the way the map's lifted off at the
+       fight's door; the loot screen wears the same bar (hudLoot), and the map's is back under it. */
+    var R = document.documentElement; R.classList.add('bm-nobar'); style('bm-fight-nobar', FIGHT_NOBAR_CSS);
     var paint = function () {
+      if (R.classList.contains('bm-nobar')) return;   /* nothing to paint while the bar is off the glass */
       var M = hudMapWin(), parts = null;
       try { parts = M ? M.BohemiaMaterials.hudParts() : hudParts(); } catch (_e) { try { parts = hudParts(); } catch (_e2) {} }
       if (parts) hudLay(root, parts);
       try { var t = hudNoteCount(), pl = document.getElementById('noteplate'); if (pl && !HUD.open && pl.textContent !== t) pl.textContent = t; } catch (_e) {}
     };
-    paint(); setInterval(paint, 500);
+    var over = function () {
+      var done = hudFightOver();
+      if (done === !R.classList.contains('bm-nobar')) return;
+      if (done) { R.classList.remove('bm-nobar'); paint(); hudBarIn(root); }
+      else R.classList.add('bm-nobar');   /* the same page started again (COMBAT's start()): the bar off again */
+      try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    };
+    paint(); setInterval(paint, 500); setInterval(over, 100);
     try { window.dispatchEvent(new Event('resize')); } catch (_e) {}
+    return true;
+  }
+  var FIGHT_NOBAR_CSS = 'html.bm-nobar body #top.bmhost{display:none!important}';
+  /* the fight's own word that it is over (COMBAT's FIGHT.S.over, the same flag the phone reads to strike back to its apps) */
+  function hudFightOver() { try { return !!(typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.over); } catch (_e) { return false; } }
+  /* the bar comes back from above the glass, through MOTION's one layer in the top page (a fade in place under LESS MOTION) */
+  function hudBarIn(root) {
+    try { var M = window.top.BohemiaMotion; if (!M || !M.fly || !M.copyOf) return false;
+      var b = M.box(root); if (!b) return false;
+      return !!M.fly({ id: 'bar', kind: 'piece', from: { x: b.x, y: -b.h - 12, w: b.w, h: b.h }, node: M.copyOf(root), to: root, rivets: false }); } catch (_e) { return false; }
+  }
+  /* THE LOOT SCREEN (rule 280(b): 'the bar comes back the moment the fight ends, the loot screen and the map'): RUN TWO's spoils
+     screen is its own page over the fight, the whole glass, so the same bar is built at its top, painted from the MAP's parts, in
+     the map's rectangle; the screen's own head (YOU WON, the tally) sits under it and keeps sticking under it as he scrolls. The
+     phone's own rule reaches this page too (html.boh-phone-on: the gear and NOTES are the phone's, the crew chip a readout), so
+     here the bar is what it shows (the day, the crew's blood, what he carries, the batteries the loot pays into) and the screen's
+     own LOOT ALL, MAKE CAMP and LEAVE are its presses: no button twice (286(b)). Without the phone (an older build) the bar's
+     own gear, NOTES and CREW work here as on the map. */
+  var LOOT_CSS = ''
+    + 'html body #bmloot.bmhost{position:-webkit-sticky!important;position:sticky!important;top:0!important;z-index:8!important}'
+    + 'html.bm-loot body #bar{top:var(--bm-hud-h,0px)!important}';
+  function hudLoot() {
+    if (!document.getElementById('lootall') || !document.getElementById('word') || !document.getElementById('foot')) return false;
+    if (document.getElementById('bmtb')) return true;
+    /* the spoils screen opened on its own (RUN TWO's sample fight, its gates) has no map and no facts: it keeps its own head */
+    if (!hudMapWin()) { HUD.benchTries = (HUD.benchTries | 0) + 1; return HUD.benchTries > 6; }
+    hudVars(); style('bm-loot', LOOT_CSS);
+    var host = document.createElement('div'); host.id = 'bmloot'; document.body.insertBefore(host, document.body.firstChild);
+    var nb = document.createElement('span'); nb.id = 'notebtn'; nb.setAttribute('role', 'button'); nb.setAttribute('tabindex', '0'); nb.setAttribute('aria-label', 'notes');
+    nb.innerHTML = '<span id="noteplate">NOTES</span>';
+    nb.addEventListener('click', function (e) { e.stopPropagation(); if (HUD.open) hudNoteClose(true); else hudNoteOpen(); });
+    var root = hudBuild(host, nb), R = document.documentElement;
+    HUD.screen = 'loot'; R.classList.add('bm-loot');
+    var paint = function () {
+      var M = hudMapWin(), parts = null;
+      try { parts = M ? M.BohemiaMaterials.hudParts() : null; } catch (_e) {}
+      if (parts) hudLay(root, parts);
+      try { var t = hudNoteCount(), pl = document.getElementById('noteplate'); if (pl && !HUD.open && pl.textContent !== t) pl.textContent = t; } catch (_e) {}
+      var h = Math.round(host.getBoundingClientRect().height) + 'px'; if (R.style.getPropertyValue('--bm-hud-h') !== h) R.style.setProperty('--bm-hud-h', h);
+    };
+    paint(); setInterval(paint, 500); window.addEventListener('resize', paint);
     return true;
   }
   /* NOTES in the fight: the map's own box (its look copied from the map's page, its words into the same notes) */
@@ -1993,7 +2051,7 @@
     if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); }
     /* the top bar, the days once, on the map; the strip off the top in the fight (both pages build their bars after load) */
     /* ONE HUD (rule 190): the map's bar, the same bar in the fight's top, the town laid under the map's */
-    var hudAny = function () { return topBar() || (fightNoTop() && hudFight()) || hudInTown(); };
+    var hudAny = function () { return topBar() || (fightNoTop() && hudFight()) || hudInTown() || hudLoot(); };
     if (!hudAny()) { var n = 0, it = setInterval(function () { if (hudAny() || ++n > 120) clearInterval(it); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
@@ -2103,11 +2161,33 @@
     ['tin_amber', 0.6, ['#setcard .setbars .vb.lit'], ''],
     /* a browser drops a whole rule over one pseudo-element it does not know, so each engine's handle is its own rule */
     ['tin', 0.5, ['#setcard .setslide input::-webkit-slider-thumb'], ''],
-    ['tin', 0.5, ['#setcard .setslide input::-moz-range-thumb'], '']
+    ['tin', 0.5, ['#setcard .setslide input::-moz-range-thumb'], ''],
+    /* THE NOTES (rule 130(b), Paolo 10/23: 'the UI kind of still sucks, it doesn't look as elevated as the Crashbox style'; the box
+       he writes to the manager from, opened by the phone's NOTES on the map, in the town and in the fight): it was the last box he
+       touches still drawn as a flat plate (#notecard: a colour and four inset lines). Now the box is a sheet of board, what he
+       writes is thermal paper in the receipt's ink (he writes on the till roll the game prints on), the presses tin, SAVE AND
+       KEEP PLAYING the amber one; the words printed on the board itself (NOTES, where he was, the notes he kept) are light ink.
+       Same boxes, same sizes (the kit never changes one). */
+    ['board_plain', 1, ['#notecard'], 'background-color:#2a2016!important'],
+    ['receipt', 1, ['#notetext'], KIT_INK + 'caret-color:#6e140c!important;outline:0!important'],
+    ['tin', 0.75, ['#noterow .nb'], KIT_SHADOW + KIT_INK],   /* the presses keep their own face and tracking: a new face would widen them */
+    ['tin_amber', 0.75, ['#noterow .nb.go'], KIT_SHADOW + 'color:#120c06!important;text-shadow:none!important;']
   ];
+  /* what the notes say that the kit's pieces do not carry: the hint in his empty roll in the receipt's grey, and the words printed
+     on the board light, each with the hard one-pixel shadow down (rule 114's sun test on board: 4.5 to 1) */
+  var NOTE_KIT_CSS = 'html[data-kit] body #notetext::placeholder{color:#6a5a44!important;opacity:1!important}'
+    + 'html[data-kit] body #notecard h2{color:#f2e4c6!important;text-shadow:0 1px 0 #000!important;font-weight:400!important}'
+    + 'html[data-kit] body #notewhere,html[data-kit] body #notelist .nn{color:#f4e9d2!important;text-shadow:0 1px 0 #000!important}'
+    + 'html[data-kit] body #notelist .nn b{color:#f0c47e!important;font-weight:400!important}'
+    + 'html[data-kit] body #notelist .nn{box-shadow:0 1px 0 rgba(0,0,0,.6),0 2px 0 rgba(242,228,198,.08)!important}'
+    /* AUTO'S ODDS ON THE TIN (COMBAT's tint, rule 144: AUTO's colour is the odds): the tint was laid on the tin by multiply, which
+       darkens the plate under the word as the odds firm up, to 3.3 to 1 in the sun (THE UI BELONGS TO THE WORLD, red on main
+       before this). Laid by 'color' instead, the tin keeps its own light and takes only the hue: still green when the fight is
+       his and red when it is not, the word AUTO always readable (rule 73). The tint's element and its numbers stay COMBAT's. */
+    + 'html[data-kit] body #bauto .tint{mix-blend-mode:color!important}';
   /* the press: the slab goes down into its shadow (the individual translate composes with any rotate the rule set) */
   var KIT_PRESS = ['#bend', '#bwait', '#bauto', '#bmtb .t.gear', '#bmtb .t.crew', '#menubar #bmtb #notebtn', '#bmtb #notebtn', '#bmtimes', '#speedpad .sp', 'html[data-bm-settle] #crew',
-    'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn'];
+    'html[data-bm-settle] #leave', '#sheet #close', 'html[data-bm-roster] #done', '#front:not([data-look="just-the-font"]) #newco .row button', '#setcard .setbtn', '#noterow .nb'];
   function kitCSS() {
     var pre = 'html[data-kit] body ', out = [];
     var tape = 'url(' + KIT_BASE + 'tape/tape.png)', rec = 'url(' + KIT_BASE + 'receipt/c.png)', card = 'url(' + KIT_BASE + 'board_plain/c.png)', gl = 'url(' + KIT_BASE + 'glass/c.png)';
@@ -2127,6 +2207,7 @@
     });
     out.push(KIT_PRESS.map(function (x) { return (x.indexOf('html[') === 0 ? x.replace(/^html(\[[^\]]+\])/, 'html[data-kit]$1 body') : pre + x) + ':active'; }).join(',')
       + '{translate:1px 1px;filter:none!important}');
+    out.push(NOTE_KIT_CSS);
     return out.join('\n');
   }
   function dressKit() {

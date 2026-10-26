@@ -113,9 +113,10 @@ const done = () => { console.log('=== THE SHIELD COVERS THE MAN BEHIND GATE: ' +
       const marks = await p.evaluate(ids => { const now = performance.now(), m = id => { const v = FIGHT.byId(id); return !!(v._cover && now - v._cover.at < 300); };
         return { covered: m(ids.covered), way: m(ids.way), clear: m(ids.clear), cut: FIGHT.coverCut(FIGHT.current(), FIGHT.byId(ids.covered)), clearCut: FIGHT.coverCut(FIGHT.current(), FIGHT.byId(ids.clear)) }; }, ids);
       const sq = async id => p.evaluate(id => { const u = FIGHT.current(), t = FIGHT.byId(id); FIGHT_UI.pend = { target: t, kind: 'strike' }; document.getElementById('skills').dataset.key = ''; hud();
-        const bt = document.querySelector('#bstrike b'); return bt ? { text: bt.textContent, cut: (bt.querySelector('i.cut') || {}).textContent || '' } : null; }, id);
+        const bt = document.querySelector('#bstrike b'), c = bt && bt.querySelector('.cut');   /* UI's arrow (rule 224): red, down, and how much */
+        return bt ? { text: bt.textContent, cut: c ? (c.classList.contains('dn') && c.querySelector('i.bst-arw') && +c.dataset.delta === -c.dataset.cut ? c.dataset.cut : 'not the kit\'s red arrow') : '' } : null; }, id);
       const sc = await sq(ids.covered), sf = await sq(ids.clear);
-      const want = marks.cut ? '▼' + marks.cut.cut : null;
+      const want = marks.cut ? String(marks.cut.cut) : null;
       leg(marks.covered && !marks.clear && marks.cut && !marks.clearCut && sc && sc.cut === want && sf && !sf.cut,
         '*** S4 ' + tag + ': THE SHIELD-COVER MARK EXACTLY WHEN BLOCKED, AND THE CUT ON THE SHOT *** (rule 230(c))',
         'covered marked ' + marks.covered + ' (cut ' + (marks.cut && marks.cut.cut) + '), clear marked ' + marks.clear + '; the shot square on the covered "' + (sc && sc.text) + '", on the clear "' + (sf && sf.text) + '"');

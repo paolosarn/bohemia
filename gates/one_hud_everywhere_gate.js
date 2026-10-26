@@ -29,14 +29,16 @@
        phone is not on the town's glass (UI TWO's corner phone, data-phone="corner", rules 212 and 213, is let through)
      NOTHING COVERS A PRESS (rule 211(b)): every press's centre on the map, in the town with its board open (the bar's, the
        town's own, each landing on the town's frame from the map's page first) and in the fight hit-tests to itself
-     THE FIGHT
-     - the fight's board is measured under the bar (its TOPH is the bar's bottom), the phone is not on the fight's glass
+     THE FIGHT, RE-AIMED 10/26 BY UI (rule 280: 'in combat it can completely go away'; it amends 190 for the fight only)
+     - NO bar on the fight's glass; its board is measured from the top (TOPH 0); the phone stands where it stands on the map
+     - (the bar's legs above, 'the same rectangle, picture and facts', are the map and the town's; the fight's are struck)
      ONE CREW, ONE GEAR, ONE NOTES
-     - the bar's crew opens the same company screen (the roster screen through the one door) on all three, the whole glass
-     - in the fight the gear opens the game's settings over the fight, and NOTES opens the notes and a note saved there is
-       in the same notes as the map's, marked as written in the fight
+     - the bar's crew opens the same company screen (the roster screen through the one door) on the map and in the town; in
+       the fight the phone's CREW does (rule 280: the bar is off the fight's glass, its buttons still there for the phone)
+     - in the fight the phone's SETTINGS opens the game's settings over the fight, and its NOTES opens the notes and a note
+       saved there is in the same notes as the map's, marked as written in the fight
      - nothing thrown
-   PLANTED (the phone): a fight's gear moved six points, the fight's gear redrawn, the town's own top row back, the old phone
+   PLANTED (the phone): the bar forced back across the fight's top (rule 280), the town's own top row back, the old phone
    back in the town, a sheet laid over LEAVE: each turns a leg red.
    node gates/one_hud_everywhere_gate.js */
 'use strict';
@@ -83,7 +85,9 @@ const PHONE = () => { let D = document; try { if (window.top.document.getElement
   const h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { rect: [r.x, r.y, r.width, r.height], onTop: !!h && e.contains(h), shown: r.width > 0 && getComputedStyle(e).display !== 'none' }; };
 /* every press on this page: visible, inside the glass, and its centre hit-tests to itself (rule 211(b)) */
 const PRESS = (sel) => { const out = []; const vis = e => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > 2 && r.height > 2 && cs.visibility !== 'hidden' && +cs.opacity > 0.05 && cs.pointerEvents !== 'none'
-  && r.x + r.width / 2 >= 0 && r.y + r.height / 2 >= 0 && r.x + r.width / 2 <= innerWidth && r.y + r.height / 2 <= innerHeight; };
+  && r.x + r.width / 2 >= 0 && r.y + r.height / 2 >= 0 && r.x + r.width / 2 <= innerWidth && r.y + r.height / 2 <= innerHeight
+  /* RUN TWO 10/26: a press scrolled out of its own sheet is not on the glass (its middle outside a scrolling box it sits in) */
+  && (() => { const cx = r.x + r.width / 2, cy = r.y + r.height / 2; for (let q = e.parentElement; q && q !== document.body; q = q.parentElement) { const o = getComputedStyle(q).overflowY; if (o === 'auto' || o === 'scroll') { const b = q.getBoundingClientRect(); if (cx < b.left || cx > b.right || cy < b.top || cy > b.bottom) return false; } } return true; })(); };
   [...document.querySelectorAll(sel)].filter(vis).forEach(e => { const r = e.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
     out.push({ id: (e.id || e.className.toString().slice(0, 16) || e.tagName) + ' ' + (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 14), ok: !!h && (h === e || e.contains(h)), on: h ? (h.id || h.tagName) : null, r: [r.x, r.y, r.width, r.height] }); });
   return out; };
@@ -153,7 +157,8 @@ async function side(profile) {
       const T = await fr.evaluate('(' + READ + ')()'), TP = await fr.evaluate('(' + PHONE + ')()');
       const own = await sf.evaluate(() => { const b = document.getElementById('bar'), r = b ? b.getBoundingClientRect() : null; const c = document.getElementById('crew'), cr = c ? c.getBoundingClientRect() : null;
         const l = document.getElementById('leave'), lr = l ? l.getBoundingClientRect() : null;
-        return { bar: !!r && r.height > 0 && getComputedStyle(b).display !== 'none', crew: !!cr && cr.width > 0, leave: lr && [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight,
+        const F = BohemiaSettlement.fit ? BohemiaSettlement.fit() : null, ph = F && F.phone;   /* RUN TWO [the town frames around the phone] (rule 213): where the phone stands in the town */
+        return { bar: !!r && r.height > 0 && getComputedStyle(b).display !== 'none', crew: !!cr && cr.width > 0, leave: lr && [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight, phone: ph ? [ph.left, ph.top, ph.width, ph.height] : null,
           name: (document.getElementById('pname') || {}).textContent, bats: parseInt(String((document.getElementById('bat') || {}).textContent || '').replace(/[^0-9-]/g, ''), 10) }; });
       const fb = await fr.evaluate(() => { const r = document.getElementById('settleFrame').getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; });
       return { T, TP, own, fb };
@@ -183,7 +188,9 @@ async function side(profile) {
       /* with the phone up its presses are the town's too (LEAVE, CREW, NOTES, SETTINGS, PLAY, HEAL: rule 238(a)) */
       const TPP = async () => (await TP()).concat(ON ? await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .app, #bohphone .bpctx .lv') + ')') : []);
       const L = await TPP();
-      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job' + (ON ? ', the phone\'s' : '') + ')', L.length >= 8 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
+      /* RUN TWO 10/26 (rule 213): the board's sheet stands above the phone's band and scrolls, so fewer of its rows are on the glass at
+         once; without the phone the floor is the bar's five, LEAVE and the X with a job */
+      ok('  nothing covers a press in the town with its board open (the bar\'s, LEAVE, the sheet\'s X, every job' + (ON ? ', the phone\'s' : '') + ')', L.length >= (ON ? 8 : 7) && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : ''));
       if (PLANT) {
         if (ON) await p.evaluate(() => { const l = document.querySelector('#bohphone .bpctx .lv'), r = l.getBoundingClientRect(), d = document.createElement('div'); d.id = 'plantcover';
           d.style.cssText = 'position:fixed;z-index:99999;left:' + r.x + 'px;top:' + r.y + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; document.body.appendChild(d); });
@@ -235,84 +242,73 @@ async function side(profile) {
     const gone = await fr.evaluate(() => { const f = document.getElementById('settleFrame'); return !f || f.style.display === 'none'; });
     ok('  LEAVE takes him back to the map', gone);
     /* ---- THE FIGHT ---- */
-    /* the map is stepped off the town first, then read and photographed the moment before the fight: the fight's bar is
-       compared with the map's bar of the same moment (the place and the hour are the map's own, and they move with him) */
+    /* RE-AIMED 10/26 BY UI (rule 280, Paolo 10/26: 'when it's combat mode I don't need to see my batteries and the time of day...
+       in combat it can completely go away'; amends rule 190's one HUD FOR THE FIGHT ONLY): the fight wears NO bar while it is on;
+       what it needs is on the phone (CREW, NOTES, SETTINGS press the bar's own buttons, built off the glass) and the board gets
+       the room (TOPH 0). The bar's return on the loot screen and the map, the clouds' door and two rolled fights on three screens
+       are gates/no_top_bar_in_the_fight_gate.js; this keeps the one-HUD side: the map's bar the moment before, and the fight's
+       presses. */
     await fr.evaluate(async () => { for (let i = 0; i < 40 && FZOOMING; i++) await new Promise(r => setTimeout(r, 250)); try { stepOnce(0); stepOnce(4); } catch (_e) {} });
     await p.waitForTimeout(1200);
-    const MB = await fr.evaluate('(' + READ + ')()'), MBs = await shot();
+    const MB = await fr.evaluate('(' + READ + ')()');
     const st = await fr.evaluate(() => roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 1 }));
     let f = null; for (let i = 0; i < 150; i++) { const h = await p.$('#fightFrame'); if (h) { f = await h.contentFrame();
-      if (f && await f.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !!document.querySelector('#bmtb .where')).catch(() => false)) break; } await p.waitForTimeout(200); }
-    if (!f) { ok('a road fight opened with the bar', false, String(st)); }
+      if (f && await f.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !!document.getElementById('bmtb')).catch(() => false)) break; } f = null; await p.waitForTimeout(200); }
+    if (!f) { ok('a road fight opened', false, String(st)); }
     else {
       await f.evaluate(() => document.fonts.ready); await p.waitForTimeout(2500);
       const FCHK = async () => f.evaluate('(' + READ + ')()');
-      const F = await FCHK(), Fs = await shot();
-      ok('the fight: every piece of the bar in the map\'s rectangle', PIECES.every(k => near(MB.rect[k], F.rect[k])),
-        PIECES.filter(k => !near(MB.rect[k], F.rect[k])).map(k => k + ' ' + fmt(MB.rect[k]) + ' vs ' + fmt(F.rect[k])).join(' | '));
-      ok('  nothing of the fight lies over the bar', PIECES.every(k => F.at[k]), PIECES.filter(k => !F.at[k]).join(' '));
+      const F = await FCHK();
+      ok('the fight: no bar on its glass (rule 280), none of its pieces drawn', ALL_PIECES.every(k => !F.rect[k]), ALL_PIECES.filter(k => F.rect[k]).map(k => k + ' ' + fmt(F.rect[k])).join(' | ') || 'none drawn; the map\'s was ' + fmt(MB.rect.bar));
       /* UI TWO (rule 238(a)): with the phone up the fight's presses are the phone's (the big button, WAIT, RETREAT, AUTO, the speed, his
          abilities, CREW, NOTES, SETTINGS), so they are counted with the fight page's own */
       { const L = (await f.evaluate('(' + PRESS + ')(' + JSON.stringify(PRESS_SEL) + ')')).concat(await p.evaluate('(' + PRESS + ')(' + JSON.stringify('#bohphone .fight.on [data-c], #bohphone .fight.on .sk:not([disabled]), #bohphone .fight.on .app') + ')'));
         ok('  nothing covers a press in the fight', L.length >= 4 && L.every(x => x.ok), L.length + ' presses' + (pressSay(L) ? ': ' + pressSay(L) : '')); }
-      ok('  no ground or tile name on the fight\'s bar (rule 262(a))', F.placeShown === 0 && !F.groundOnBar, 'on the bar: ' + (F.placeShown ? F.facts.place : 'nothing') + ', the map\'s ground ' + MB.ground);
-      ok('  the same facts as the map\'s (the day, the crew, the batteries)', ['day', 'crew', 'batteries'].every(k => F.facts[k] && F.facts[k] === MB.facts[k]), JSON.stringify(F.facts) + ' vs ' + JSON.stringify(MB.facts));
-      {
-        const diffs = {};
-        for (const k of PIECES.filter(k => k !== 'bar')) diffs[k] = await picDiff(cmp, MBs, Fs, MB.rect[k], dpr, null);
-        ok('  the same picture as the map\'s, piece by piece', Object.values(diffs).every(v => v < PIC), Object.entries(diffs).map(([k, v]) => k + ' ' + (v * 100).toFixed(2) + '%').join(', '));
-      }
       const toph = await f.evaluate(() => TOPH);
-      ok('  the fight\'s board is measured under the bar (TOPH is the bar\'s bottom)', Math.abs(toph - Math.round(M.rect.bar[1] + M.rect.bar[3])) <= 1, 'TOPH ' + toph);
-      /* THE BAR'S COST, MEASURED AND HELD: the board's share of the glass in the game with the one bar on top (the fight's own
-         two-thirds leg measures the bench fight, which has no map and no bar); a floor of half, so the cost can only be seen */
+      ok('  the fight\'s board is measured from the top of the glass (TOPH 0: the board gets the bar\'s room)', toph === 0, 'TOPH ' + toph + ' (under the bar it was ' + Math.round(M.rect.bar[1] + M.rect.bar[3]) + ')');
       const share = await f.evaluate(() => Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight));
-      ok('  the fight\'s board keeps at least half the glass under the one bar', share >= 50, share + '% (TOPH ' + toph + ')');
+      ok('  the fight\'s board keeps at least half the glass', share >= 50, share + '% (TOPH ' + toph + ')');
       const ph = await p.evaluate(r => { const h = document.elementFromPoint(r[0] + r[2] / 2, r[1] + r[3] / 2); return h ? (h.closest && h.closest('#bohphone') ? 'bohphone' : (h.id || h.tagName)) : null; }, MP.rect);
       /* RE-AIMED 10/26 BY UI TWO: rule 213(a) ('in combat the exact same... the same place') amends his 9/23 vote for the new phone: it
          stands in the fight where it stands on the map; the old phone is still never on the fight's glass */
       ok(MP && MP.corner ? '  the phone stands in the fight where it stands on the map (rule 213(a))' : '  the phone is not on the fight\'s glass (his vote: the phone is in the city view only)',
         MP && MP.corner ? ph === 'bohphone' : ph === 'fightFrame', 'at the phone\'s place: ' + ph);
-      /* CREW, the gear and NOTES in the fight */
-      await f.evaluate(() => document.querySelector('#bmtb .t.crew').click()); await p.waitForTimeout(2000);
+      /* CREW, the settings and NOTES in the fight: the phone's apps (they press the bar's own buttons, off the glass); without the
+         phone (an older build) there is no way to them in the fight, which rule 280 accepts for that build only */
+      const app = (a) => p.evaluate((a) => { const e = document.querySelector('#bohphone.on .fight.on .frow .app[data-app=' + a + ']'); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, a);
+      const press = async (a, sel) => { const at = ON ? await app(a) : null; if (at) { if (profile === 'computer') await p.mouse.click(at[0], at[1]); else await p.touchscreen.tap(at[0], at[1]); return true; }
+        return f.evaluate((q) => { const e = document.querySelector(q); if (!e) return false; e.click(); return true; }, sel); };
+      await press('crew', '#bmtb .t.crew'); await p.waitForTimeout(2000);
       const c = await f.evaluate(() => { const w = document.getElementById('crewdoor'); if (!w) return null; const r = w.getBoundingClientRect(), fe = w.querySelector('iframe'); return { rect: [r.x, r.y, r.width, r.height], src: fe ? fe.getAttribute('src') : '' }; });
       const V = p.viewportSize();
-      ok('  the bar\'s crew in the fight opens the same company screen, the whole glass', !!c && /ROSTER_SCREEN/.test(c.src) && c.rect[0] <= 0 && c.rect[1] <= 0 && c.rect[2] >= V.width && c.rect[3] >= V.height, c && (c.src + ' ' + fmt(c.rect)));
+      ok('  CREW in the fight (the phone\'s) opens the same company screen, the whole glass', !!c && /ROSTER_SCREEN/.test(c.src) && c.rect[0] <= 0 && c.rect[1] <= 0 && c.rect[2] >= V.width && c.rect[3] >= V.height, c && (c.src + ' ' + fmt(c.rect)));
       await f.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (_e) {} }); await p.waitForTimeout(500);
-      await f.evaluate(() => document.querySelector('#bmtb .t.gear').click()); await p.waitForTimeout(800);
+      await press('settings', '#bmtb .t.gear'); await p.waitForTimeout(800);
       const set = await p.evaluate(() => { const w = document.getElementById('setwrap'); if (!w) return null; const c = document.getElementById('setcard') || w, r = c.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
         return { on: w.classList.contains('on'), top: !!h && w.contains(h) }; });
-      ok('  the bar\'s gear in the fight opens the game\'s settings, over the fight', !!set && set.on && set.top, JSON.stringify(set));
+      ok('  SETTINGS in the fight (the phone\'s) opens the game\'s settings, over the fight', !!set && set.on && set.top, JSON.stringify(set));
       await p.evaluate(() => { const w = document.getElementById('setwrap'); if (w) w.classList.remove('on'); }); await p.waitForTimeout(300);
       const before = await p.evaluate(() => { try { return (JSON.parse(localStorage.getItem('bohemia.notes.v1') || '[]') || []).length; } catch (e) { return -1; } });
-      await f.evaluate(() => document.querySelector('#bmtb #notebtn').click()); await p.waitForTimeout(500);
+      await press('notes', '#bmtb #notebtn'); await p.waitForTimeout(500);
       const box = await f.evaluate(() => { const w = document.getElementById('notewrap'); if (!w) return null; const c = document.getElementById('notecard'), r = c.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + 20);
         return { on: w.classList.contains('on'), top: !!h && w.contains(h), styled: !!document.getElementById('notecss') }; });
-      ok('  NOTES in the fight opens the notes, in the map\'s look, over the fight', !!box && box.on && box.top && box.styled, JSON.stringify(box));
+      ok('  NOTES in the fight (the phone\'s) opens the notes, in the map\'s look, over the fight', !!box && box.on && box.top && box.styled, JSON.stringify(box));
       const fbx = await (await p.$('#fightFrame')).boundingBox();
       const ta = await f.evaluate(() => { const r = document.getElementById('notetext').getBoundingClientRect(); return [r.x + 20, r.y + 10]; });
-      await p.mouse.click(fbx.x + ta[0], fbx.y + ta[1]); await p.keyboard.type('the bar is the same in the fight'); await p.waitForTimeout(200);
+      await p.mouse.click(fbx.x + ta[0], fbx.y + ta[1]); await p.keyboard.type('no bar in the fight'); await p.waitForTimeout(200);
       await f.evaluate(() => document.getElementById('notesave').click()); await p.waitForTimeout(1200);
       const after = await p.evaluate(() => { try { return JSON.parse(localStorage.getItem('bohemia.notes.v1') || '[]') || []; } catch (e) { return []; } });
       const last = after[after.length - 1] || {};
       const plates = { fight: await f.evaluate(() => document.getElementById('noteplate').textContent), map: await fr.evaluate(() => document.getElementById('noteplate').textContent) };
       ok('  a note saved in the fight is in the same notes as the map\'s, marked as the fight, and both NOTES count it',
-        after.length === before + 1 && last.text === 'the bar is the same in the fight' && last.ctx && last.ctx.mode === 'fight' && plates.fight === 'NOTES ' + after.length && plates.map === 'NOTES ' + after.length,
+        after.length === before + 1 && last.text === 'no bar in the fight' && last.ctx && last.ctx.mode === 'fight' && plates.fight === 'NOTES ' + after.length && plates.map === 'NOTES ' + after.length,
         before + ' -> ' + after.length + ', mode ' + (last.ctx && last.ctx.mode) + ', plates ' + JSON.stringify(plates));
       const shut = await f.evaluate(() => !document.getElementById('notewrap').classList.contains('on'));
       ok('  and SAVE closes the notes', shut);
       if (PLANT) {
-        /* the planted piece is the gear while it is on the bar, the day once the gear is the phone's (rule 238(a)) */
-        const PK = PIECES.indexOf('gear') >= 0 ? 'gear' : 'day', PS = PK === 'gear' ? '#bmtb .t.gear' : '#bmtb .t.day';
-        await f.evaluate((q) => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = q + '{position:relative!important;left:6px!important}'; document.head.appendChild(s); }, PS);
+        await f.evaluate(() => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = 'html.bm-nobar body #top.bmhost#top{display:block!important}'; document.head.appendChild(s); });
         await p.waitForTimeout(300); const a = await FCHK(); await f.evaluate(() => document.getElementById('plant').remove());
-        ok('PLANTED: the fight\'s ' + PK + ' moved six points is caught', !near(MB.rect[PK], a.rect[PK]), fmt(a.rect[PK]));
-        /* the visible one (the bar keeps a hidden copy of some pieces for the narrow glass), the way READ picks it */
-        const VIS = (q) => [...document.querySelectorAll(q)].find(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; });
-        await f.evaluate(([q, v]) => { const e = eval('(' + v + ')')(q); e.style.setProperty('filter', 'invert(1)', 'important'); }, [PS, VIS.toString()]);   /* the bar's own filter is !important */ await p.waitForTimeout(300);
-        const s2 = await shot(); const dv = await picDiff(cmp, MBs, s2, MB.rect[PK], dpr, null);
-        await f.evaluate(([q, v]) => { eval('(' + v + ')')(q).style.removeProperty('filter'); }, [PS, VIS.toString()]);
-        ok('PLANTED: the fight\'s ' + PK + ' redrawn is caught', dv >= PIC, (dv * 100).toFixed(2) + '%');
+        ok('PLANTED: the bar forced back across the fight\'s top is caught', !!a.rect.bar, fmt(a.rect.bar));
       }
     }
     ok('no page error', !(d.errs && d.errs.length), (d.errs || []).slice(0, 2).join(' | '));

@@ -2800,8 +2800,8 @@ GATES = [
      'J9 no champion on day one (every day-one fight dressed for day one, first-phase kinds only). AMENDED 10/26 (rule 254, PAOLO: '
      '"the same calculator as the auto combat... max bloody if you think I would lose members"): ONE CALCULATOR, ONE SCALE, the '
      'one-in-six reading struck: a play is worth the AUTO count, J2/J3/J8 on the AUTO colour\'s turn (0.8) and down_value (0.5); '
-     'J10 the page\'s lines are AUTO\'s own; 60 sure fights replayed on the page\'s own hand-over and dice with the fight\'s own count give '
-     'the page\'s number (within 5 plays: the fight carries a little from one fight to the next, COMBAT\'s), every blood its number '
+     'J10 the page\'s lines are AUTO\'s own; 60 sure fights replayed in the page on a fresh copy of the rules, the page\'s own hand-over and dice, with the fight\'s own count give '
+     'the page\'s number to the last digit (the reader reads each fight on a fresh copy: the fight carries a little from one fight to the next, COMBAT\'s), every blood its number '
      'on the line; every blood on the side of the turn its 100 fresh plays are (one job in a hundred past 0.1 of the turn, for the dice); every job that loses a man 6 plays in 10 three stars and '
      'the deepest blood; a sure fight never borrows a road fight\'s light read; a fight read between the lines plays on to 96.', True),
     ('THE NORMIE HOUR, WORLD', ['node', 'gates/the_normie_hour_world_gate.js'],
@@ -9454,6 +9454,12 @@ GATES = [
     ('FATIGUE COMES BACK EVERY TURN', ['node', 'gates/fatigue_comes_back_every_turn_gate.js'],
      'COMBAT [fatigue comes back every turn], rules 283 and 285 (Paolo 10/26: "with a shield and a one hand weapon fatigue doesn\'t get restored, if I chill out it doesn\'t go down... after that I can\'t attack anymore for the whole fight"; "if I run out of stamina in a match it\'s over"). MEASURED BEFORE: ringed by three, a car door man resting went 81 -> 83 -> 83 of 83, the hits put back more than the 15 took off; AUTO kept a winded man shuffling 30 turns. Legs: one rest then a swing, every kit; 15 back a turn and 30 after a rest, the hits of a rest owed; AUTO never winded more than one turn running; RECOVER for any winded man of his; the breath tag, the bar and the faint +N on his phone and computer; TOO HEAVY TO SWING on the card',
      True),
+    ('THE ORANGE SAYS WHAT IT IS', ['node', 'gates/the_orange_says_what_it_is_gate.js'],
+     'COMBAT [eyes: the hatch says nothing], rule 225(d) (EYES, the normie hour F22: \'an orange hatch covers the enemy\'s side... nothing says what the hatch is\'; DONE WHEN a stranger can say what the orange means from the screen, in one tap or none). READ BEFORE: no line of the fight named the orange. Legs, phone and computer: one tap (or the mouse resting) on a hatched tile says \'Orange stripes: their reach.\' first, a tile in the clear says nothing of it; the first hatch on his turn, his veteran says what it is, once',
+     True),
+    ('ICONS, NOT NUMBERS, IN THE FIGHT', ['node', 'gates/icons_not_numbers_in_the_fight_gate.js'],
+     'COMBAT, rule 224 on the fight\'s screens (Paolo 10/26: "I\'m tired of it just being numbers numbers numbers... more icons, more green up arrow, down red arrow, and the only number that matters is by how much"). MEASURED BEFORE: his bar said 9/9 AP 0/74 FAT +30 (the fatigue twice, and its bar kept the last man\'s number), his card armour 30 / 30 and rounds 3 / 5, the weapon card reach 1 to 4 tiles and the car door +15 / +15; numerals his bar 16, his card 15, the weapon card 12. Legs, phone and computer: his bar says the AP once and what comes back as UI\'s mark (the lungs, a green up arrow, the amount); his card\'s armour as bars and rounds as rounds; the weapon card\'s reach as tiles, magazine as rounds, the car door as marks; the numerals each under the before',
+     True),
     ('THE SHIELD COVERS THE MAN BEHIND', ['node', 'gates/the_shield_covers_the_man_behind_gate.js'],
      'COMBAT [the shield covers the man behind], rule 230(b)(c) (Paolo 10/26: "there\'s obviously a defensive bonus when you are at the rear of your teammate that has a shield against enemy ranged attacks"). MEASURED BEFORE: the -75 for a man in the way was in the chance since rule 63, but a blocked shot that missed went nowhere and nothing showed the cover. Legs: over 1,500 blocked shots every miss flies on into the man in the way at -15 (the wiki\'s Hit Chance page), its hits within three standard deviations of their chances; an astray hit three quarters of the shot (the Damage page); the shotgun still ignores the line; on his phone and computer the shield-cover mark exactly when the line is blocked and the red cut on the shot square',
      True),
@@ -9887,6 +9893,21 @@ GATES = [
      "the alpha and the demo carry the one clock (every effect asked for now starts on the song's next sixteenth of the same audio clock, a DelayNode between the one-shot player and its bus; `at` books a heard moment exactly); "
      "the live demo, phone at 4x and computer: the map (eight taps' ticks at random moments), the fight by hand (a blow, walks) and on AUTO: every effect within 20 ms of a sixteenth on the audio clock; "
      "AS HEARD: an AudioWorklet on the effects bus and on the music, folded on the sixteenth from the booked grid: both within 20 ms (MEASURED BEFORE: the effects -35 ms, smeared). green at registration: computer 7/0, phone 7/0, about 7 minutes", True),
+    ('THE BULLET LANDS', ['node', 'gates/bullet_lands_gate.js'],
+     "SOUNDS gate, 10/24, row [the bullet lands] (rule 120: 'the guns were supposed to be the main way this is gonna be solved'; rule 126(c): every hit, kill and fall is heard): the landings from banked CC0 recordings, the crack cut before the report, "
+     "the levels through the game's own chain within 0.75 dB, the router with what COMBAT can tell it and with ev alone, never the same take twice running, the count-up on the beat, the alpha and the demo carry both engines byte for byte, "
+     "and the demo's road fight on AUTO: its shots real guns, its bullets real landings. Registered 10/26 by SOUNDS (it was an orphan the registry gate named): 14/0, about 4 minutes", True),
+    ('DEATH SOUNDS THAT TERRIFY', ['node', 'gates/death_sounds_gate.js'],
+     "SOUNDS gate, 10/26, row [death sounds that terrify] (rule 235, Paolo 10/26: 'during combat when people die, I wanna hear terrible, terrible noises that are scary, like people are literally dying... many types, like broken bones, the whole enchilada'): "
+     "the alpha and the demo carry the death player byte for byte and the fight's sound line asks it first; the fight's SND.death says how each man died; six kinds (bone, blade, gun, beast, slow, armour) for his man and theirs, three takes each, the skull and three animals; "
+     "his man louder and longer (235(e)); every layer a CC0 recording named in the record; the live demo, phone at 4x and computer: every kind posted plays a take of exactly its voice, the old fall stood down, the head adds the skull, never a take twice running; "
+     "three seeded road fights on AUTO: every death plays the kind its killing blow names, never the same take twice in a row, the old fall never, each on the song's sixteenth within 20 ms; the fight's own SND.death on dead men the gate makes picks the kind. "
+     "green at registration: computer 13/0, phone 13/0, about 6 minutes each", True),
+    ('THE MAP PLAYS THE PART OF TOWN', ['node', 'gates/the_map_plays_the_part_of_town_gate.js'],
+     "SOUNDS gate, 10/26, row [the map plays the part of town you are in] (rule 237, Paolo 10/26: 'each one's gonna get its own song... the music should change depending on what part of town you're closest to on the overworld map... super important to me'): "
+     "the alpha and the demo carry engine/bohemia_part_of_town.js byte for byte; the fifteen origins each a faction song (THE FAITHFUL the CHURCH's, THE WATER TRUCK the CARAVANS'); the live demo, phone at 4x and computer: three origins through the opening tape's own call play their songs and hand the music back; "
+     "the party set down in three factions' ground: each faction's song within a phrase of the map's report, the turn in the last beat before a phrase line, the new song booked on the beat, heard; the open road plays his overworld songs; a crew within three cells lifts the map to level 2 and back; "
+     "a fight gives a faction song back for one of his (207's levels); every song heard is his overworld set or a faction song and the fence refuses the menu, day, dusk and room songs and the old faction themes. green at registration: phone 7/0, computer 7/0 (17/0 with the static legs), about 6 minutes", True),
     ('THE VOTE CARDS PLAY', ['node', 'gates/the_vote_cards_play_gate.js'],
      "SOUNDS gate, 10/25, row [the vote cards play] (rule 193, Paolo 10/25: 'I went in the vote tab and tried to play the music and the music wasn't playing'): the alpha, its door, the VOTE tab, a song card's LOOK AT IT (two frames), "
      "phone (an iPhone's user agent, touch) and computer: the first tap plays and says LOADING then PLAYING; the page asks for the phone's playback audio session (the ringer switch); with Web Audio locked the plain <audio> player takes the tap; "
@@ -10058,6 +10079,27 @@ GATES = [
      "RUN TWO gate, 10/25, row [the shop says what it does to your man] (rule 202, Paolo 10/25: 'in the shop you cannot just say how many batteries it costs without saying the stat it does... when you wear the shield it reflects in your stats'). "
      "MEASURED before: a shield's card said 'holds 16 weight 4', never its defences; every shield under 40 'a car door'; nothing on a man; the crew screen without what he wears. HOLDS on the demo through Church's door by real taps: every shield, armour and helmet row its own name, none alike, the object word in it, shop, crew screen and icons agreeing; "
      "a shield's card its own numbers with UI's stat icons; ON A MAN before and after equal to a sum from the files; a face tapped shows another man; armour and weapon cards (a pistol's damage the fight's shot); bought and put on by real taps, the crew screen shows exactly the shop's numbers, and the fight stands him with the same; the computer. about 4 min", True),
+    ('THE TOWN FITS THE SCREEN', ['node', 'gates/the_town_fits_the_screen_gate.js'],
+     "RUN TWO gate, 10/26, rows [the town fits the screen] (rule 218(c), Paolo 10/26: 'I don't like sliding... it should be zoomed out perfectly'), [the town frames around the phone] (rule 213) and every home base its own picture (186(b), 220). "
+     "MEASURED before: an upright phone showed 60 percent of the town and slid for the rest; the sheet lay under the phone's corner; the armourer stood under UI TWO's phone. HOLDS on the demo, phone upright, on its side and the computer: the whole picture in the open area (the glass less BOH_PHONE_RECT's band), every door and person inside it and none under the phone; "
+     "a drag moves nothing; every building opens with one real tap; the board open, its sheet, X, rows and LEAVE clear of the phone and on the glass; the phone flipped left, the town lays out of it at once; the band is the phone's own rectangle. about 4 min", True),
+    ('PINCH OUT TO THE MAP', ['node', 'gates/pinch_out_to_the_map_gate.js'],
+     "RUN TWO gate, 10/26, row [pinch out to the map] (rules 211(c), 220(d), Paolo 10/26: 'when you're in the settlement and you just wanna get back to the map you zoom out with your two thumbs... press escape on keyboard'). "
+     "MEASURED before: two fingers did nothing in a town. HOLDS on the demo, REAL two-finger touches: spread zooms the town in up to its zoom_max with the point between the fingers held; a finger pans it zoomed; a small pinch-out springs back; a one-finger tap still opens a building; "
+     "fingers together past the fit shrink the town away over the map (the frame see-through), let go and the map is up at that town; on the computer ESCAPE closes the open building, the next ESCAPE leaves. about 2 min", True),
+    ('THE FLIP GLIDES', ['node', 'gates/the_flip_glides_gate.js'],
+     "RUN TWO gate, 10/26, row [the towns wired tall and wide] (rules 220, 279, 286, 289, Paolo 10/26: 'all camps and settlements have to look good when you flip them from portrait to landscape... you gotta find a way to do it cleanly'). "
+     "MEASURED before: every glass drew the WIDE picture (upright it fitted at 0.19); COOK re-laid eleven of fourteen wides and the screen still laid the tier's boxes over them; a turn re-fitted the same picture. HOLDS on the demo through Blues' door: upright the town's TALL composition, every building opens with one real tap; "
+     "the glass turned with the bar open: the WIDE one, the flip one beat, at least eight frames, every building on every frame, none jumping more than 40 percent of its way in a frame, no frame mostly dark; the bar still open and he by its keeper; nobody lost; every building taps on its side; turned back up mid-walk he keeps going to the same door and gets there; "
+     "MOTION's LESS: a dissolve in place under a quarter second; the computer keeps its picture on a narrower window. about 3 min", True),
+    ('THE COMPANY TAKES HIS NAME', ['node', 'gates/the_company_takes_his_name_gate.js'],
+     "RUN TWO gate, 10/26, row [the company takes his own name] (rule 268(a)(c), Paolo 10/26: 'I should be able to custom name my group... when I click the text box I should change it to what I want'). "
+     "MEASURED before: the new game's name was a span; only ANOTHER changed it. HOLDS on the demo, an upright phone, real taps and keys: a tap puts the caret in the box with the name picked, what he types names the door's picks and the game has not begun; ANOTHER deals a prepared name; typed again and Enter puts the keyboard away; "
+     "after BEGIN the map's start and the phone carry his name (the feed's start post when it is still in the fourteen); after a reload and CONTINUE the same; the live phone shows no offer. about 3 min", True),
+    ('THE SHOP TAPS', ['node', 'gates/the_shop_taps_gate.js'],
+     "RUN TWO gate, 10/26, rows [one tap selects, two taps buy] + [nothing moves while he browses] + [the shop shows only what changes] + [the shop lights upgrades] (rules 249, 250, 251, 282, Paolo 10/26: 'when I click something once in a shop it should be highlighted... I just double click it'; 'the things don't change locations'; 'a green arrow up, a red arrow down and a number'; 'if the shop has a better version... highlighted in green'). "
+     "MEASURED before: a tap on a piece took the whole sheet away for its card. HOLDS on the demo through Church's armourer and smith, real taps: one tap outlines the box and fills the strip at the sheet's foot in place (no second menu, the sheet not rebuilt); ten taps over shelf and bag move no rectangle a pixel; "
+     "every face in the strip carries the piece's change on him, his lines only what changes; two taps buy it onto the man the strip named; every shelf piece that raises a man is green and names him first; a bag piece shows its sale and KEEP, two taps sell it; the computer's right click buys. about 3 min", True),
     ('THE SMITH MENDS', ['node', 'gates/the_smith_mends_gate.js'],
      "RUN TWO gate, 10/26, row [the smith mends] (rule 277, Paolo 10/26: 'if I go to a settlement that has a smith and an armourer I should be able to repair my stuff with them pretty easily and quickly'). "
      "MEASURED before: the craftsmen only bought and sold; the camp's slow mend in tape was the only one. HOLDS on the demo, a new game, gear dented through CAMP's afterFight: the smith shows MEND YOUR GEAR above its shelf, MEND IT ALL at ECONOMY's mendPrice summed (the card's multiplier), a row a man with a bar a piece; "
@@ -10161,6 +10203,15 @@ GATES = [
      "bloodStage is WORLD's one scale (job_danger.json: clean to blood_from, soaked from blood_full; since rule 254 the AUTO colour's own lines, 20 and 50), monotonic, every stage reachable; ONE blood on a button (WORLD's reader hands its number to the kit layer). On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
      "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held (250 ms, 150 or more measured); the halo from stage 1; THE WORDS WIPED CLEAN: at all eight stages no red clay pixel inside any word on a board row or the offer, no star over a letter; on the glass soaked a third red or more, one star under a twentieth; "
      "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
+    ('THE DANGER RAMPS TO DAY FIFTY', ['node', 'gates/the_danger_ramps_to_day_fifty_gate.js'],
+     'WORLD [the danger ramps to day fifty], rule 255 (PAOLO 10/26: "up to 50 days is when shit starts getting difficult, but I '
+     'don\'t even want you to have jobs available like six wolves; I played as the Lone Wolf"). TUNING\'s curve on the job\'s own '
+     'number for his crew (rule 254): through day 10 nothing under 0.5 and one red job a board, then a straight line to nothing at '
+     'day 50. On the demo: the Lone Wolf, A New Crew and the Raiders on days 1, 10, 25, 50, 80 (the Lone Wolf on 20 too), every '
+     'board in the valley dealt by the shelf\'s own pick until every posted job is read: D1 through day 10 nothing under the floor, '
+     'at most one red a board, at most one deepest in the valley; D2 day 25 under the line; D3 the full range by day 50; D4 the '
+     'Lone Wolf\'s first 20 days: nothing he loses outright, no pack of six beasts; D5 the town\'s board through the real door on '
+     'day one; D6 nothing thrown.', True),
     ('THE FEED IS ALIVE', ['node', 'gates/the_feed_is_alive_gate.js'],
      "FEED gate, 10/26, row [the feed is alive] (rule 215, Paolo 10/26: 'a part of the game managing all these mini events and triggers, presented in a social media thing, to make it feel alive... "
      "organize it properly so every time we upgrade it gets better'; rule 217: a post is a username and its words). ONE FILE (records/target/bb/feed_kinds.json): every kind a row with its trigger, "
@@ -10244,6 +10295,12 @@ GATES = [
      "centre away from the phone; no living fighter's body outside it on any frame (a man out of the dark and a man the camera is already gliding to hold, half a beat, counted and said); every frame a beat after the first frame "
      "that saw the last walk, fall or change is the tightest frame again, centred; the camera moves only inside a glide; where the fight draws in a tenth the man is drawn bigger (his floor said); the phone flipped re-centres in two "
      "beats; a real pinch or the wheel holds through END TURN and their turns and lets go at his next man's turn. Three plants bite. About 15 min", True),
+    ('NO TOP BAR IN THE FIGHT', ['node', 'gates/no_top_bar_in_the_fight_gate.js'],
+     "UI gate, 10/26, row [no top bar in the fight] (rule 280(d), PAOLO 10/26: 'when it's combat mode I don't need to see my batteries and the time of day... in combat it can completely go away'). "
+     "MEASURED before: the fight wore the map's whole bar across its top (390 x 108 upright, 60 on its side and on a computer: the day, the crew, the batteries and the supplies) and measured its board under it. "
+     "On the demo, phone upright, on its side and a computer, two rolled road fights each through the map's own door: at the door the map's bar lifts off as the clouds come in (never held waiting); in the fight "
+     "no bar on any page, nothing at its place is the bar, no DAY n, no hour, no battery count on the fight's words, the shell's or the phone's drawn face; TOPH 0; the phone's CREW, SETTINGS and NOTES open the "
+     "company screen, the settings and the notes over the fight; won, the loot screen wears the bar in the map's rectangle with YOU WON under it; LEAVE, the map's bar whole and on top. Five plants bite. About 9 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

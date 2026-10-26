@@ -1,5 +1,5 @@
 CAMP TWO (camp-two, the camp's look and life; a split of CAMP, lane 24): 10/26 LATEST -- ROUND ONE SHIPPED b8dab965, BUILT, NOT YET SEEN
-(BUILD 10/26zze - YOUR CAMP, TALL AND WIDE). Record: records/BOHEMIA_CAMP_TWO_HIS_CAMP_HIS_MEN_THE_COMPASS_AND_THE_PITCH_10_26_26.md.
+(BUILD 10/26zzn - YOUR CAMP, TALL AND WIDE). Record: records/BOHEMIA_CAMP_TWO_HIS_CAMP_HIS_MEN_THE_COMPASS_AND_THE_PITCH_10_26_26.md.
 
 WHAT IS LIVE (the demo: LEAVE the start town, then press HEAL on the phone anywhere on the map):
 - HIS CAMP (260(a)): his own ground (slices/camp_two/plate.webp, the rig's sand with nobody's things on it) and his camp on it: a tent
@@ -10,11 +10,12 @@ WHAT IS LIVE (the demo: LEAVE the start town, then press HEAL on the phone anywh
 - HIS MEN (259): each where his condition puts him: under 35 percent blood lying bandaged on a bedroll with a friend sitting by him,
   under 87 binding a cut by the fire, broken armour mended at the cart (or the anvil, with a spark on the beat), the rest cooking,
   cleaning a gun, keeping watch, turning hour by hour, all asleep at night but one on watch; the main character at his own job,
-  lying down with the rest when hurt or asleep. ANIMATION's town pictures (sit, stall, smoke) where his look has them; the still on
-  its side for lying (placeholder until [the camp's acts]).
+  lying down with the rest when hurt or asleep. ANIMATION's camp acts in their real gear (lie, sleep, binding a cut, hammering the
+  car door, cooking, cleaning a rifle, a friend kneeling, getting up once when healed) where his look has the pictures; the old
+  still on its side only where it has none (gate K4c).
 - TALL AND WIDE FIRST (289): an upright glass gets the tall ground (plate_tall.webp, 1092 x 1940) and the tall camp, its own
   composition (engine/bohemia_camp_life.js GEO.tall); a turn mid-camp glides every piece and man to his new spot in one beat, each
-  keeping his act, never a dark frame; every tier both ways on records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26.webp;
+  keeping his act, on MOTION's curve and clock (six holds a beat), never a dark frame; every tier both ways (gate K14) on records/target/camp_two/CAMP_TWO_EVERY_TIER_TALL_AND_WIDE_10_26.webp;
   the turn as a clip in the VOTE tab (CAMP_TWO_THE_TURN_10_26.webp, slowed 12x, tools/bohemia_camp2_capture_the_turn.js makes it).
 - THE CAMP FITS THE PHONE (286): upright the camp rises one beat clear of the phone; on its side and on a computer it is panned to
   the centre of what the phone leaves; the camp's BREAK CAMP and the sheets' 'Break camp' stand down under the phone's HEAL; MAP and
@@ -41,8 +42,8 @@ tools/bohemia_camp2_capture_the_turn.js (the turn clip), slices/camp_two/ (kit.p
 plate_tall_night), gates/the_camp_is_his_own_gate.js. Marked __CAMP_TWO__ hooks in RUN TWO's settlement screen, one in RUN's map
 marker, one in MOTION's camp grow; the __ALL_EIGHTEEN__ block in engine/bohemia_camp.js.
 
-GATES (on this ship's tree, BUILD 10/26zze, on main d1142137, each run alone): THE CAMP IS HIS OWN 14/0 phone upright, 14/0 on its
-side, 14/0 computer (K1 to K13); THE HEAL BUTTON 16/0; THE CAMP (RUN TWO's) 8/0; THE BARS OVER THEIR HEADS 6/0 computer (11/1 when run beside two other browsers: B4's
+GATES (on this ship's tree, on main fa496a66, each run alone): THE CAMP IS HIS OWN 16/0 phone upright (twice), 16/0 on its
+side, 16/0 computer (K1 to K14); THE HEAL BUTTON 16/0; THE CAMP (RUN TWO's) 8/0; THE BARS OVER THEIR HEADS 6/0 computer (11/1 when run beside two other browsers: B4's
 read raced the camp's healing; alone it is green); THE ARMOUR HE WEARS SHOWS green; DEMO BUILD 25/0. The same reds on a clean
 main worktree at 11403892, so not this lane's: THE UI MORPHS 29/21 (the same 21,
 M6 'no grow logged' among them), VOTE TAB (other lanes' whys, the alpha landing on VOTE), THE WAGON AND THE SIX C8a, THREE
@@ -51,9 +52,9 @@ camp; the capture tool presses LEAVE first; my gate has not met the town start i
 
 NOT DONE, NEXT (in this order): (1) camp in a town and the town-style camp on the entrance tile (259(c), 273(b)(d)): campOnMap's
 refusal is CAMP's [a town is safe]; I lay the men and the ghosts in the town's picture when RUN THREE hands the open ground;
-(2) the gate walks a twelve-man company with the pickup on the real screen (the sheet draws every tier from the layout code; the
-gate walks three men); (3) the camp's growth on the phone's CAMP app (UI TWO, NOTE); (4) the art through the master rig when a
-session has Blender (12 of 30 pieces BACK on the card, kit.json says which); (5) ANIMATION's camp acts drop in (lie, kneel,
-hammer, cook, unpack); (6) the twelve followers' screens (their owners).
+(2) the gate walks a twelve-man company with the pickup on the real screen (K14 lays every tier out by the camp's own code;
+the screen is walked with three men); (3) the camp's growth on the phone's CAMP app (UI TWO, NOTE); (4) the pitch plays
+ANIMATION's unpack and stake acts (its call is ready); (5) COOK's rig-made kit (this round, its own row) is in: look again at
+every tier with it; (6) the twelve followers' screens (their owners).
 [bb Battle Brothers: the retinue screen is a campfire with tents and the cart; here the camp is his own place on the map.]
 [analog horror: the hours leave their ghosts on the sand at two percent; a crew in the dark lights the edge the red AUTO would show.]

@@ -34,6 +34,7 @@ const fs = require('fs');
 const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { openCrew } = require(require('path').join(__dirname, '..', 'tools/bohemia_open_the_crew.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (x !== undefined ? '  [' + x + ']' : '')); };
 const done = () => { console.log('EVERY ORIGIN STARTS LIKE ITSELF: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
@@ -59,7 +60,9 @@ async function pickWolf(page, mouse) {
 /* the bar's crew chip, a real tap; then the crew screen's own state and what it drew */
 async function crewScreen(d, mouse) {
   const p = d.page; let tapped = false;
-  for (const f of p.frames()) { const h = await f.$('.crew[role=button]').catch(() => null); if (!h) continue; const b = await h.boundingBox().catch(() => null); if (!b || b.width < 4) continue;
+  /* RUN TWO 10/26: the one CREW on screen, the phone's since UI TWO 52741663e (the bar's crew chip is a readout), else the bar's chip */
+  if (await openCrew(p, d.fr, { mouse })) tapped = true;
+  if (!tapped) for (const f of p.frames()) { const h = await f.$('.crew[role=button]').catch(() => null); if (!h) continue; const b = await h.boundingBox().catch(() => null); if (!b || b.width < 4) continue;
     if (mouse) await p.mouse.click(b.x + b.width / 2, b.y + b.height / 2); else await p.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); tapped = true; break; }
   let rf = null; for (let k = 0; k < 50 && !rf; k++) { await p.waitForTimeout(300); rf = p.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
   if (!rf) return { tapped, man: null };
@@ -72,7 +75,7 @@ async function crewScreen(d, mouse) {
     return { name: m.name, level: m.level, stats: m.stats, stars: m.stars, perks: m.perks, points: m.points, pain: m.pain, crew: BohemiaRosterScreen.state.crew.length,
       gear: { main: id(m.gear.main), off: id(m.gear.off), body: id(m.gear.body), head: id(m.gear.head), bag1: id(m.gear.bag1) },
       names: { main: nm(m.gear.main), off: nm(m.gear.off), body: nm(m.gear.body), head: nm(m.gear.head), bag1: nm(m.gear.bag1) },
-      levelShown: /LEVEL 4\b/.test(txt), lineShown: txt.indexOf((m.pain || '').slice(0, 30)) >= 0, starsDrawn, perksShown: /BUILT LIKE A DOOR/.test(txt) && /HARD HEAD/.test(txt) && /CARRIES THE WEIGHT/.test(txt), rows: rows.length }; });
+      levelShown: /LEVEL 4\b/.test(txt), lineShown: txt.indexOf((m.pain || '').slice(0, 30)) >= 0, starsDrawn, perksShown: /BUILT LIKE A DOOR/.test(txt) && /HARD HEAD/.test(txt) && /CARRIES THE WEIGHT/.test(txt), recoverShown: /CATCH YOUR BREATH/.test(txt), rows: rows.length }; });   /* RUN TWO 10/26 rule 231(b): the door's gift, Recover, by its draft name */
   return { tapped, man, rf };
 }
 
@@ -148,10 +151,10 @@ async function crewScreen(d, mouse) {
     if (process.env.BOHEMIA_SHOT_DIR) await d.page.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'wolf_crew_phone.png') });
     const kitOk = m.gear && m.gear.main === c0.gear.main && m.gear.off === c0.gear.off && m.gear.body === c0.gear.body && m.gear.head === c0.gear.head && m.gear.bag1 === 'rondel_dagger'
       && /^(machete|fire axe)$/.test(m.names.main) && /riot shield$/.test(m.names.off) && /full riot armour$/.test(m.names.body) && /full riot helm$/.test(m.names.head)   /* RE-AIMED RUN TWO rule 202(d): each row its own name, the object it is drawn as at its end */ && m.names.bag1 === 'pistol';
-    ok('*** W4 THE CREW SCREEN READS AS A GOD *** (a real tap on the chip: YOU at LEVEL 4, his rolled numbers, ★★★ drawn on the three stats, his kit, the pistol in his bag, his three perks, his own line)',
+    ok('*** W4 THE CREW SCREEN READS AS A GOD *** (a real tap on the chip: YOU at LEVEL 4, his rolled numbers, ★★★ drawn on the three stats, his kit, the pistol in his bag, his three perks and the door\'s Recover, his own line)',
       cs.tapped && m.name === 'YOU' && m.level === 4 && m.levelShown && JSON.stringify(m.stats) === JSON.stringify(c0.stats) && m.starsDrawn === 3 && kitOk
-      && JSON.stringify(m.perks) === JSON.stringify(dm.perks) && m.points === 0 && m.perksShown && m.pain === dm.line && m.lineShown && m.crew === 1,
-      JSON.stringify({ level: m.level, starsDrawn: m.starsDrawn, names: m.names, perks: m.perks, points: m.points, line: m.lineShown }));
+      && JSON.stringify(m.perks) === JSON.stringify((dm.perks || []).concat(dm.gift_perks || [])) && m.points === 0 && m.perksShown && (!(dm.gift_perks || []).length || m.recoverShown) && m.pain === dm.line && m.lineShown && m.crew === 1,
+      JSON.stringify({ level: m.level, starsDrawn: m.starsDrawn, names: m.names, perks: m.perks, points: m.points, recover: m.recoverShown, line: m.lineShown }));
     if (cs.rf) await cs.rf.evaluate(() => { const b = document.getElementById('done'); if (b) b.click(); }).catch(() => {});
     await d.page.waitForTimeout(800);
 
@@ -163,8 +166,15 @@ async function crewScreen(d, mouse) {
     const y = (u || [])[0] || {}, s0 = c0.stats || {};
     ok('*** W5 THE FIGHT FIELDS HIM AS ROLLED *** (his skills and defences, his weapon, shield, armour and perks)',
       !!u && u.length === 1 && y.main && y.level === 4 && y.mskill === s0.melee_skill && y.mdef === s0.melee_defense && y.rdef === s0.ranged_defense && y.rskill === s0.ranged_skill
-      && y.weapon === c0.gear.main && y.shield === c0.gear.off && y.body === c0.gear.body && y.head === c0.gear.head && dm.perks.every(k => (y.perks || []).indexOf(k) >= 0),
+      && y.weapon === c0.gear.main && y.shield === c0.gear.off && y.body === c0.gear.body && y.head === c0.gear.head && dm.perks.concat(dm.gift_perks || []).every(k => (y.perks || []).indexOf(k) >= 0),
       JSON.stringify(y));
+    /* W5b RUN TWO 10/26, rule 231(b): the door's Recover is his button in the fight: the perk lets him rest even fresh (COMBAT's canUse),
+       and its button is in his row of abilities (AUTO never presses one, rule 180, COMBAT's aiFirst) */
+    const rc = f ? await f.evaluate(() => { const me = FIGHT.S.units.find(x => x.side === 'you' && x.main); if (!me) return null;
+      const fresh = !FIGHT.winded || !FIGHT.winded(me), can = !!(FIGHT.skillNums && FIGHT.skillNums(me, 'recover'));   /* his numbers for it, fresh: the perk's (any winded man has them, rule 283(b)) */
+      return { perk: (me.perks || []).indexOf('recover') >= 0, fresh, can, active: (FIGHT.ACTIVE || []).indexOf('recover') >= 0 }; }).catch(e => ({ err: String(e.message).slice(0, 80) })) : null;
+    if ((dm.gift_perks || []).indexOf('recover') >= 0) ok('W5b the Lone Wolf\'s Recover is his button in the fight (the perk ' + (rc && rc.perk) + ', fresh ' + (rc && rc.fresh) + ', he may press it ' + (rc && rc.can) + ', an ability ' + (rc && rc.active) + ')',
+      !!rc && rc.perk && rc.fresh && rc.can === true && rc.active, JSON.stringify(rc));
     if (f) { await f.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }).catch(() => {}); }
     for (let i = 0; i < 40; i++) { if (await d.page.evaluate(() => !CITYFIGHT || !!(window.SPOILS && SPOILS.frame))) break; await d.page.waitForTimeout(250); }
     try { await d.page.evaluate(() => { try { if (typeof spoilsLeave === 'function') spoilsLeave(); else nfHome(); } catch (_e) {} }); } catch (_e) {}

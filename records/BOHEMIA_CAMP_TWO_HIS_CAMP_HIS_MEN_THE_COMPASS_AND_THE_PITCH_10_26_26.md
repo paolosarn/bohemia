@@ -107,7 +107,11 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
    - THE PHONE AFTER: an upright glass shows the tall ground's whole height (RUN TWO's view cannot pan up or down there), so when
      the phone stands in its bottom corner the camp itself rises (the layout's lift): everything clear of the phone's top and, room
      allowing, centred in what is left; it rises and settles in one beat when the phone comes or goes. On its side and on a
-     computer the camp is panned as before (the fire at the centre of what the phone leaves).
+     computer the camp is panned as before (the fire at the centre of what the phone leaves). The rise counts only what stands
+     in the phone's columns (the bottom middle is clear of either phone, so a big camp rises less), never pushes a piece past the
+     top it may stand at (each kind its own, engine/bohemia_camp_life.js MINY; the old one line at 200 piled the back tents
+     together when a twelve-man camp rose), and is reckoned with the camp as composed, never as dragged: a first version followed
+     the pan, so finding a door (which pans to it) moved the camp under the finger and the tap missed, upright only, now and then.
    - THE TURN GLIDES: when the glass turns mid-camp the screen swaps to the other ground and every piece and man slides from his
      spot on the old glass to his spot on the new one in one beat (500 ms, eased), each man still doing what he was doing; the
      ground swaps under them (the same sand both ways; a first try faded the old picture out under the new one, but pasted at the
@@ -115,9 +119,31 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
      last beat's quarter-size copy of the glass is held over it (the glass clears itself on a resize, so the copy is taken a beat
      before), never a black frame. The beat starts on the first frame the new ground is drawn (a slow phone's first frame after
      a turn is late; the glide is never eaten by it).
+   - ON MOTION'S CURVE (the coordinator's 289 brief, 'one beat at 120 BPM, on MOTION's curve'): the glide takes its beat from
+     MOTION's clock (the music's when it plays), moves in six holds a beat (MOTION's stop-motion grid, never a smooth glide), each
+     hold at MOTION's emphasized-decelerate (cubic-bezier(0.05, 0.7, 0.1, 1.0), the same function as slices/bohemia_motion.js), and
+     lands at once under MOTION's reduced motion. Each piece keeps its id both ways (the same key, tall and wide).
+   - NO PIECE BURIES ANOTHER (measured on every tier, 289's 'no overlap'): the first wide layout put the pickup over the supplies
+     (90 percent of their box) and the blacksmith's anvil (100), and the trader's spot under it (96); the tall twelve had the
+     trader off the ground's right edge and over the lookout (39). Now: with the pickup the wide camp moves the truck back, the
+     supplies and the anvil in front of it and the free follower spots off it (GEO.wide.truckAt); the tent rows stand further
+     apart; the paymaster and the trader moved. Every tier both ways: no pair over 30 percent of the smaller box (tents in rows,
+     depth), nothing else over 18, nothing off the ground. The sheet re-drawn from the fixed layout.
    - THE TURN, SEEN: tools/bohemia_camp2_capture_the_turn.js boots the demo upright like a player (LEAVE the start town, HEAL),
      turns the glass on its side and back, and screenshots the real screen; records/target/camp_two/CAMP_TWO_THE_TURN_10_26.webp
      (the glide slowed 12x so a headless browser's few frames a second can see it; the card says so).
+9. THEIR ACTS IN THEIR REAL GEAR (ANIMATION's [the camp's acts], f2487f30, its call BohemiaIdles.activity): each man drawn in
+   ANIMATION's act for what his condition says, mapped from the camp's words: 'lie' lie, 'sleep' sleep, 'rest' (binding a cut)
+   its mend, 'mend' (the armour at the cart) its repair (the car door and the hammer), 'tend' tend (a knee by the hurt man), 'cook'
+   cook, 'clean' clean; a man who lay hurt and is healed plays its 'rise' ONCE (from the moment his act left 'lie', its one slot of
+   two bars), then his job; the old still on its side only where a look has no pictures. Gate K4c (right after the camp opens:
+   the hurt man in its lie, the broken one in its repair) and K4b (the hurt man got up through its rise).
+10. A MAN STANDING ON A DOOR ANSWERS INSTEAD OF IT (found by the gate upright, a bug a player would hit): the screen's own rule is
+   that a body under the finger beats the building behind it (EYES' [eyes: crowd taps]), and a tap on one of his own men opens the
+   crew screen; upright, the sitters' arc ran through the fire's own spot, so pressing the fire opened the crew screen and the
+   sheet never came (and every later press in that round landed on the crew screen). The upright camp now sits them a stride in
+   front of the fire and lower (GEO.tall ringRy, ringDy), so no body stands on a door. Measured: upright 12/4 before, 16/0 after,
+   twice in a row; nothing changed for the wide camp (16/0) or the computer (16/0).
 8. THE CAMP OPENS ON THE CAMP, NOT ON A PLATE (found by the capture, a bug a player would see): MOTION's grow (the camp growing out
    of HEAL) waits on its last pose until the real screen is drawn, and it judged 'drawn' by the settlement's name reading YOUR
    CAMP; the camp's name is its clock (DAY 1  14:00, CAMP's), so every camp open waited out READY_MAX (2 s) behind the dark CAMP
@@ -134,7 +160,9 @@ camp] (269(c)), [the ghost time-lapse] (273(c)), and the first half of [all eigh
   built; 0.76 and a faint red after main's fight numbers moved at e198de7b, so the leg was re-aimed to hold the compass, not the
   balance: his colour from his read, a better read than the six's, dimmer); K8 MAP: the camp at his
   spot on the map, the clock running, the parties walking, CAMP back; K9 the ghosts; K10 nothing threw; K11 the camp fits the
-  phone, right and left; K12 all eighteen; K13 THE TURN GLIDES (the glass turned mid-camp gets the other shape, the same pieces
+  phone, right and left; K12 all eighteen; K14 EVERY TIER BOTH WAYS (1, 3, 6 and 12 men with their carriers and followers, laid
+  out by the camp's own code: the same pieces both ways, all on the ground, none over 30 percent of another, upright with the
+  phone up clear of it); K13 THE TURN GLIDES (the glass turned mid-camp gets the other shape, the same pieces
   and men before and after, the glide recorded by the camp itself (a beat over more than one frame), never a dark frame, and
   back). Each profile 14/0 (results in the handoff block). K4's fixture grew (the hurt man 6 of 300 hitpoints) because a loaded
   machine runs more camp hours before the read.

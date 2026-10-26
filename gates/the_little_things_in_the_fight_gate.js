@@ -49,7 +49,7 @@ const CREW3 = [{ background: 'companion_2hand', name: 'RAUL' }, { background: 'c
       const far = await p.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(), t = S.units.filter(v => v.side === 'them' && FIGHT.onField(v))[0];
         u.ap = u.apTurn; t.x = S.w - 1; t.y = S.h - 1; return FIGHT.strikeWhy(u, t); });
       /* and the walk's line says what a walk will leave, before he commits to it */
-      const wl = await p.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(); u.ap = u.apTurn; FIGHT_UI.pend = null;
+      const wl = await p.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(); u.ap = u.apTurn; FIGHT_UI.pend = null; FIGHT_UI.glide = null; FIGHT_UI.pinched = true;   /* the camera held (rule 288(c)'s hold): a man moved would glide the frame off the tile we tap */
         const th = S.units.filter(v => v.side === 'them' && FIGHT.onField(v))[0]; th.x = Math.min(S.w - 1, u.x + 3); th.y = u.y;   /* a man of theirs in sight: the line only warns when there is someone to shoot */ const sc = FIGHT.strikeCost(u), f = FIGHT.reach(u, null, true);
         const onGlass = k => { const X = sx((k % S.w + .5) * FIGHT_UI.tw), Y = sy((Math.floor(k / S.w) + .5) * FIGHT_UI.th); return X > 20 && X < W - 20 && Y > TOPH + 20 && Y < H - BOTH - 20; };
         const k = Object.keys(f.best).map(Number).find(k => u.ap - f.best[k] < sc.ap && onGlass(k) && !S.units.some(v => FIGHT.onField(v) && Math.abs(v.x - k % S.w) <= 1 && Math.abs(v.y - Math.floor(k / S.w)) <= 1)); if (k === undefined) return null;

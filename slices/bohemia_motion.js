@@ -670,11 +670,20 @@
   /* ---- THE FIGHT (the shell's door; COMBAT, RUN): the bar and the phone stay over the clouds, the phone folds into his
      abilities as the clouds part, and on the way home the abilities fold back into the phone ---- */
   function abilities(fw) { try { var e = fw.document.getElementById('skills'); return e && shown(e) ? e : null; } catch (e2) { return null; } }
+  /* __NO_TOP_BAR_IN_THE_FIGHT__ (UI): the map's bar back to itself; also whenever no fight stands (a fight closed by another door) */
+  function barBack() { try { var cw = cityWin(), b = cw && cw.document.querySelector('[data-bm-fight-gone]'); if (b) { setOp(b, null); b.removeAttribute('data-bm-fight-gone'); } } catch (e) {} }
+  setInterval(function () { try { if (!fightWin() && !D.body.classList.contains('nf-on')) barBack(); } catch (e) {} }, 500);
   function installTop() {
     AD.fight = wrapFn(W, 'nfOpen', function (orig) {
       return function () {
         var cw = cityWin(), bar = find('bar'), phone = find('phone');
-        var bh = bar ? hold({ id: 'bar', el: bar, maxMs: 12000, until: function () { var fw = fightWin(), b = fw && fw.document.getElementById('bmtb'); return !!b && shown(b) && cloudsThin(); } }) : null;
+        /* __NO_TOP_BAR_IN_THE_FIGHT__ (UI, a marked block in MOTION's file, NOTE on MOTION's board; rule 280, Paolo 10/26: 'in combat
+           it can completely go away'): the fight has no bar, so the map's is no longer held over the clouds waiting for one (it
+           would hang there to its 12 s timeout); it LIFTS OFF the top of the glass as the clouds roll in, a piece leaving, and the
+           map's own is out of sight under the clouds and the fight until the fight goes home (nfHome below puts it back first) */
+        var bb = bar ? topBox(bar) : null, bn = null; try { if (bb) bn = copyOf(bar); } catch (e) { bn = null; }
+        if (bb && bn) { setOp(bar, '0'); bar.setAttribute('data-bm-fight-gone', '1'); fly({ id: 'bar', kind: 'piece', from: bb, node: bn, to: { x: bb.x, y: -bb.h - 12, w: bb.w, h: bb.h }, hideTo: false, rivets: false, leave: true }); }
+        /* ==== end __NO_TOP_BAR_IN_THE_FIGHT__ ==== */
         var pbox = phone ? topBox(phone) : null, pnode = null, phold = null; try { if (phone) { pnode = copyOf(phone); phold = copyOf(phone); } } catch (e) {}
         var ph = phold ? hold({ id: 'phone', node: phold, box: pbox, maxMs: 12000,
           until: function () { var fw = fightWin(); return !!(fw && abilities(fw)) && !(W.NFC && W.NFC.state === 'in'); },
@@ -692,6 +701,7 @@
         var bbox = fbar && shown(fbar) ? topBox(fbar) : null, bnode = null, tbox = tray ? topBox(tray) : null, tnode = null;
         try { if (bbox) bnode = copyOf(fbar); } catch (e) {}
         try { if (tbox) tnode = copyOf(tray); } catch (e) {}
+        barBack();   /* __NO_TOP_BAR_IN_THE_FIGHT__: the map's bar, lifted off at the door, is laid back under the fight before it goes */
         var r = orig.apply(this, arguments);
         if (fightWin()) return r;   /* not home yet (the spoils wait first) */
         if (bnode) hold({ id: 'bar', node: bnode, box: bbox, maxMs: 6000, until: function () { var b = find('bar'); return !!b && cloudsThin(); } });

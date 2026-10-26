@@ -87,6 +87,10 @@
     var man = { background: def.background, level: lv, xp: xpFor(lv), stats: st, stars: stars, gear: gear,
       rolled: true, plan: plan };
     if (spec.perks) man.perks = perks;   /* a door that names no perks leaves his points to him (the crew screen), and the fight picks by his arm until he does */
+    /* THE LONE WOLF GETS RECOVER (RUN TWO, rule 231(b), the coordinator's default for TUNING's fork): a door may GIVE a perk on top
+       of what his points bought (gift_perks), never spending one; the fight lights its button for him and AUTO never presses it
+       (rule 180; COMBAT's aiFirst) */
+    (spec.gift_perks || []).forEach(function (id) { man.perks = man.perks || []; if (man.perks.indexOf(id) < 0) man.perks.push(id); });
     if (spec.line) man.line = spec.line;   /* his own line on the crew screen (draft:true, WORDS may rewrite it) */
     return man;
   }

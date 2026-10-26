@@ -266,7 +266,22 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 #breath{position:fixed;display:none;z-index:3;padding:1px 6px;font-weight:700;font-size:12px;pointer-events:none;color:#cfe4f5;
   background:rgba(20,32,44,.82);border:1px solid #6a8fb0;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);white-space:nowrap}
 #breath svg{vertical-align:-1px;margin-right:3px}
-#apn .back{color:#9cc3e8;opacity:.7}
+/* ICONS, NOT NUMBERS (rule 224, COMBAT's fight): what comes back next turn is UI's mark (the lungs, a green up arrow and how much);
+   the card's armour a bar with the number on it, rounds as rounds, the weapon's reach as tiles, the shield's defences as marks */
+#apn .back{margin-left:5px;display:inline-flex;align-items:center;height:10px;vertical-align:middle}   /* inside the AP line's own 12 px: a taller line grew the bar and broke the wide one-row bar */
+#apn .back i.bst-mark{height:10px}#apn .back i.bst-ic{width:10px;height:10px;background-size:10px 10px}#apn .back b.bst-chg{font-size:9px;line-height:10px;gap:1px}#apn .back i.bst-arw{width:7px;height:7px;background-size:7px 7px}
+.sq b b.cut{margin-left:2px;font-size:inherit}
+#drawer i.cbar{position:relative;display:inline-flex;align-items:center;justify-content:flex-end;width:118px;height:13px;box-sizing:border-box;
+  border:1px solid rgba(42,34,26,.42);background:rgba(42,34,26,.07);font-style:normal;vertical-align:middle}
+#drawer i.cbar>i{position:absolute;left:0;top:0;bottom:0;background:rgba(88,106,124,.55);box-shadow:inset -1px 0 0 rgb(88,106,124)}
+#drawer i.cbar.pct>i{background:rgba(150,88,38,.5);box-shadow:inset -1px 0 0 rgb(150,88,38)}
+#drawer i.cbar>b{position:relative;padding:0 3px;font-weight:400;line-height:11px;background:rgba(226,218,198,.7)}
+#drawer i.pips{display:inline-flex;align-items:center;gap:2px;font-style:normal;vertical-align:middle}
+#drawer i.pips>i{display:inline-block;width:5px;height:11px;background:#a87a30;box-shadow:inset 0 3px 0 #e0c27a,0 0 0 1px rgba(42,34,26,.5)}
+#drawer i.pips>i.off{background:rgba(42,34,26,.12);box-shadow:0 0 0 1px rgba(42,34,26,.35)}
+#drawer i.pips.tiles>i{width:11px;height:11px;background:#8a6c44;box-shadow:0 0 0 1px rgba(42,34,26,.5)}
+#drawer i.pips.tiles>i.off{background:rgba(42,34,26,.1)}
+#drawer .r i.bst-mark{margin-left:6px}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:7;background:var(--bg);letter-spacing:.2em}
 </style>
 </head>
@@ -3999,7 +4014,28 @@ const SND = {
   /* dead is 'kill'; struck down (not dead, the 20%-else-injury rule) is 'went_down' --
      two different real sounds for two different things that used to share one tone. */
   fall: function (dead, f) { sfx(dead ? 'kill' : 'went_down', f); },
-  flee: function () { tone(220, 0.15, 0.06, 'triangle'); tone(196, 0.3, 0.05, 'triangle'); }
+  flee: function () { tone(220, 0.15, 0.06, 'triangle'); tone(196, 0.3, 0.05, 'triangle'); },
+  /* DEATH SOUNDS THAT TERRIFY (SOUNDS [death sounds that terrify], rule 235(b): 'the killing weapon picks the kind'): how he
+     died, for the shell's death player (engine/bohemia_death_sounds.js). u is the dead man, e the fight's 'dead' note (e.by:
+     who killed him); u._blow is the last blow that landed on him (startAnim keeps it). Nothing here changes the fight. */
+  death: function (u, e) {
+    const f = { side: u.side }, a = e && e.by ? FIGHT.byId(e.by) : null, w = a && a.weapon, b = u._blow || {};
+    if (u.machine || u.ghost) f.victim = u.machine ? 'machine' : 'ghost';
+    if (u.beast || /wolf|hyena|dog|hound|unhold|lindwurm|schrat|kraken|ghoul|nachzehrer|serpent|spider|webknecht/.test(u.kind || '')) f.beast = u.kind || u.beast;
+    if (w) {
+      const c = (w.of && w.of.class) || w.class, nm = String(w.name || w.id || '');
+      f.weapon = c;
+      f.gun = !!(FIGHT.isGun(w) || c === 'bow' || c === 'crossbow' || c === 'firearm');
+      if (c === 'natural') { f.blow = 'natural'; f.by_beast = !!a.beast || /bite|claw|gore|gorge|tail|fang/i.test(nm); }
+      else if (['mace', 'hammer', 'flail'].indexOf(c) >= 0 || (c === 'throwing' && !/axe|knife|javelin|spear/i.test(nm))) f.blow = 'blunt';
+      else f.blow = ['dagger', 'spear', 'polearm', 'bow', 'crossbow', 'firearm'].indexOf(c) >= 0 ? 'piercing' : 'cutting';
+    }
+    if (b.armour > 0 && (b.head ? u.armH : u.armB) <= 0 && (b.head ? u.armHMax : u.armBMax) >= 100) f.armour_gave = true;   /* real plate (mail and up, 100 or more) broke on the blow that killed */
+    if (b.hp > 0 && u.hpMax && b.hp < 0.2 * u.hpMax) f.finish = true;            /* a small blow finished a man already going */
+    if (u.headGone || b.head) f.head = true;
+    (UI.deaths = UI.deaths || []).push(f); if (UI.deaths.length > 80) UI.deaths.shift();   /* what each death told the shell, for the gate */
+    return f;
+  }
 };
 /* ---------------- THE FIGHT DRIVES THE MUSIC (COMBAT [the fight drives the music], rule 126, Paolo 10/23: 'the combat should
    feel a lot better; we have a whole intensity system with the music, wtf bro'; the same hour: 'when it's the enemies' turn
@@ -4025,13 +4061,16 @@ const MUSIC = {
      it with no motion, so the ladder hears every hit on his and every man of theirs who fell, and the ear gets one of each
      sound the skip held, a quarter beat apart (a burst of twelve would be noise, nothing at all a lie) */
   skipped: function (all) {
-    const heard = [], add = function (s) { if (heard.indexOf(s) < 0) heard.push(s); };
+    const heard = [], facts = {}, add = function (s) { if (heard.indexOf(s) < 0) heard.push(s); };
     all.forEach(function (e) {
       if (e.t === 'attack' && e.hit) { const t = FIGHT.byId(e.to), a = FIGHT.byId(e.id); if (!t) return;
         if (t.side === 'you') { MUSIC.hit(t, e); add('hurt'); } else add(e.head ? 'vital' : (e.shot === undefined ? a && FIGHT.isRanged(a.weapon) : e.shot) ? 'hit' : 'melee_hit'); }
-      if (e.t === 'dead' || e.t === 'down') { const v = FIGHT.byId(e.id); if (v && v.side === 'them') MUSIC.kill(v); add(e.t === 'dead' ? 'kill' : 'went_down'); }
+      if (e.t === 'attack' && e.hit) { const t = FIGHT.byId(e.to); if (t) t._blow = { hp: e.hp | 0, armour: e.armour | 0, head: !!e.head }; }
+      if (e.t === 'dead' || e.t === 'down') { const v = FIGHT.byId(e.id); if (v && v.side === 'them') MUSIC.kill(v);
+        if (e.t === 'dead' && v && !facts.kill) facts.kill = SND.death(v, e);   /* rule 235: the death the skip held still says how */
+        add(e.t === 'dead' ? 'kill' : 'went_down'); }
     });
-    heard.forEach(function (s, i) { setTimeout(function () { sfx(s); }, beatMs() / 4 * i); });
+    heard.forEach(function (s, i) { setTimeout(function () { sfx(s, facts[s]); }, beatMs() / 4 * i); });
   }
 };
 
@@ -4338,7 +4377,8 @@ const TEACH = {   /* draft:true; written in Spanglish, spoken through BohemiaSpa
   ghost_hit: 'Walk up and hit it, compa. They break like smoke.',
   mechanic: 'Oye, shoot the one in back first. His machines drop.',
   kids: 'Those kids throw and run. Do not chase them. Shoot them.',
-  heavy: 'Big suit shoves. Put your back to a wall.'
+  heavy: 'Big suit shoves. Put your back to a wall.',
+  ring: 'See the orange stripes, compa? Their reach. Walk through it and they swing at you for free.'
 };
 /* the moment each queued line belongs to: past it, the line is dropped, never said late */
 const TEACH_STILL = {
@@ -4351,7 +4391,8 @@ const TEACH_STILL = {
   ghost_hit: function () { return FIGHT.S.units.some(function (v) { return v.ghost && v.side === 'them' && FIGHT.onField(v); }); },
   mechanic: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'raise_undead') && FIGHT.onField(v); }); },
   kids: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'throw_net') && FIGHT.onField(v); }); },
-  heavy: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'line_breaker') && FIGHT.onField(v); }); }
+  heavy: function () { return FIGHT.S.units.some(function (v) { return v.side === 'them' && FIGHT.racial(v, 'line_breaker') && FIGHT.onField(v); }); },
+  ring: function () { const u = FIGHT.current(); return !FIGHT.S.deploy && crewControlled(u) && ringsShown(u); }
 };
 function teachSoon(k) {
   const T = taughtNow(); UI.teachQ = UI.teachQ || [];
@@ -4573,6 +4614,7 @@ function startAnim(a) {
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     const ranged = e.shot === undefined ? FIGHT.isRanged(u.weapon) : e.shot;   /* the arm that struck: a gun's is always its shot (rule 195) */
+    if (e.hit && t) t._blow = { hp: e.hp | 0, armour: e.armour | 0, head: !!e.head };   /* SND.death reads the blow that killed (rule 235) */
     /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
@@ -4611,7 +4653,7 @@ function startAnim(a) {
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
-    else if (e.t === 'dead') { SND.fall(true, { side: u.side }); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
+    else if (e.t === 'dead') { SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
     if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
     if (e.t === 'fled') { SND.flee(); if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
     if (e.t === 'allflee' && !FIGHT.S.over) routUp();   /* rule 198(h): they are breaking: his lead says it, and the choice is his */
@@ -5189,7 +5231,7 @@ function stepGlide(now) {
   /* a glide asked while this frame's turn was being worked out (the turn's follow, a walk's start) is on the frame's own clock
      from here, the clock every man is drawn by: a slow turn of theirs held a re-fit a beat behind the men (measured 10/26) */
   if (now < g.t0) g.t0 = now;
-  let k = Math.max(0, Math.min(1, (now - g.t0) / g.ms)); const e = g.out ? 1 - (1 - k) * (1 - k) : k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  let k = Math.max(0, Math.min(1, (now - g.t0) / Math.max(1, g.ms)));   /* and never a glide under 1 ms (a 0 ms glide read 0/0, COMBAT 10/26) */ const e = g.out ? 1 - (1 - k) * (1 - k) : k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
   /* NEVER A MAN OFF THE GLASS ON THE WAY (rule 230(a)): the glass's reach in the world (one over the zoom) and its centre both move
      in a straight line, so its four edges do, and a man inside the frame it left and the frame it goes to is inside every frame
      between them (a zoom eased by its ratio bowed the edges past both ends: a man on the edge was cut mid-glide) */
@@ -5361,6 +5403,7 @@ function draw(now) {
         const x = t.x + dx, y = t.y + dy; if ((dx || dy) && x >= 0 && y >= 0 && x < S.w && y < S.h) zoc[y * S.w + x] = true; }
     });
     Object.keys(zoc).forEach(function (k) { k = Number(k); mkHatch(k % S.w, Math.floor(k / S.w)); });
+    if (!UI.ringTold) { for (const k in zoc) { UI.ringTold = true; teachSoon('ring'); break; } }   /* the first hatch on his turn: his veteran says what it is */
     mkOutline(zoc, S.w, MK.rust, false);
     /* where he can step: the tiles LIT IN THE GROUND'S OWN COLOUR (rule 46f: a neutral lift, the way a lamp lights a tile, never a
        tinted wash; AH-03 T3), and one CHALK line round all of it */
@@ -6530,6 +6573,13 @@ function roundsCanvas(r, col, css, hollowAll) {
 }
 
 /* ---------------- the HUD ---------------- */
+/* WHAT COMES BACK NEXT TURN, IN UI's KIT (rule 224: 'a green up arrow... the only number that matters is by how much'): the
+   lungs, the arrow and the amount (engine/bohemia_stats.js mark); its text is the amount alone, '+30' */
+function windBack(n) {
+  const w = document.createElement('span'), B = window.BohemiaStats; w.className = 'back bst-glass'; w.setAttribute('aria-label', 'wind back next turn: ' + n);
+  if (B && B.mark) w.appendChild(B.mark('fatigue', n)); else w.textContent = '+' + n;
+  return w;
+}
 function hud() {
   const S = FIGHT.S, u = FIGHT.current();
   document.getElementById('round').textContent = 'R' + S.round + (S.night ? ' NIGHT' : '');
@@ -6556,17 +6606,24 @@ function hud() {
   const hpBar = document.getElementById('bhp'); hpBar.style.width = pct(show.hp, show.hpMax); hpBar.style.background = show.side === 'you' ? '#8fae6a' : '#c4553f';
   const ab = document.getElementById('barm'); ab.style.width = pct(show.armB + show.armH, show.armBMax + show.armHMax); ab.style.background = '#9aa6b0';
   const fb = document.getElementById('bfat'); fb.style.width = pct(show.fat, fm); fb.style.background = '#6a8fb0';
+  /* the numbers on these bars are UI's (bohemia_ui_materials.js fightBars), repainted when a bar's style changes; two men with the
+     same widths kept the last man's number (his bar said 0/74 on a man of 73, measured 10/26), so each bar carries its man's numbers */
+  hpBar.style.setProperty('--n', '"' + show.id + ' ' + show.hp + '/' + show.hpMax + '"'); ab.style.setProperty('--n', '"' + show.id + ' ' + (show.armB + show.armH) + '/' + (show.armBMax + show.armHMax) + '"');
+  fb.style.setProperty('--n', '"' + show.id + ' ' + Math.round(show.fat) + '/' + fm + '"');
   const pi = document.getElementById('picons'), pk = show.id + ':' + show.perks.join(',');
   if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(iconCanvas(id, 16)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
   /* Battle Brothers' numbers (rule 125(b)): the AP and the wind left, where he already looks for them */
-  const apn = document.getElementById('apn'), apt = show.ap + '/' + show.apTurn + ' AP ' + Math.round(show.fat) + '/' + fm + ' FAT';
+  /* ICONS, NOT NUMBERS (rule 224, newest; it amends 125(b)): the AP he spends said once (the pips are its picture); the wind left
+     is the fatigue bar's own number, so it is no longer said twice */
+  const apn = document.getElementById('apn'), apt = show.ap + ' AP';
   /* WHAT COMES BACK NEXT TURN (rule 285(c)): a faint +15, +30 when he has not spent an AP this turn (an END TURN now is a rest);
      and a kit that leaves no swing says so on his card (rule 283(c)) */
   const fback = show.side === 'you' && FIGHT.onField(show) ? (show.ap >= show.apTurn ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')) : 0;
-  const heavy = show.side === 'you' && FIGHT.tooHeavy(show), aph = apt + (fback ? ' <span class="back">+' + fback + '</span>' : '') + (heavy ? ' <span class="heavy">' + BREATH_SAYS.heavy + '</span>' : '');
-  if (apn.dataset.h !== aph) { apn.dataset.h = aph; apn.innerHTML = aph; }
+  const heavy = show.side === 'you' && FIGHT.tooHeavy(show), aph = apt + '|' + fback + '|' + (heavy ? 1 : 0);
+  if (apn.dataset.h !== aph) { apn.dataset.h = aph; apn.textContent = apt; if (fback) apn.appendChild(windBack(fback));
+    if (heavy) { const hv = document.createElement('span'); hv.className = 'heavy'; hv.textContent = ' ' + BREATH_SAYS.heavy; apn.appendChild(hv); } }
   apn.classList.toggle('low', show === u && crewControlled(u) && !!UI.spent);
   if (UI.drawer) drawer(show);
   /* THE PLATE SAYS WHO HE IS (rule 143(b)): a man of theirs on the bar carries LV, his marks, and OUTCLASSES YOU when he does */
@@ -6610,7 +6667,9 @@ function hud() {
     if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
     const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
     const cut = tgt && FIGHT.isRanged(u.weapon) ? FIGHT.coverCut(u, tgt) : null;   /* rule 230(c): the man in the way's cut, a red arrow and how much */
-    if (cut) { const ci = document.createElement('i'); ci.className = 'cut'; ci.textContent = '\u25BC' + cut.cut; bt.appendChild(ci); }
+    if (cut) { const B = window.BohemiaStats; let ci;   /* UI's arrow (rule 224): red, down, and how much */
+      if (B && B.change) { B.css(); ci = B.change(-cut.cut); ci.classList.add('bst-glass'); } else { ci = document.createElement('b'); ci.textContent = '\u25BC' + cut.cut; }
+      ci.classList.add('cut'); ci.dataset.cut = cut.cut; bt.appendChild(ci); }
     br.textContent = ''; br.disabled = !canR; br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
     br.className = 'sq' + (dry ? ' big' : '') + (lastRd ? ' last' : '') + (br.classList.contains('poke') ? ' poke' : '');
     br.style.setProperty('--beat', beatMs() + 'ms'); br.style.setProperty('--ph', -Math.round(beatPh(performance.now()) * beatMs()) + 'ms');   /* the glow breathes on the song's beat (rule 158) */
@@ -6734,15 +6793,29 @@ function placeSay(say) {
   say.classList.add('instrip'); say.style.bottom = 'auto'; say.style.top = (o.top + o.height / 2) + 'px';
   say.style.left = (o.right + SAY_GAP) + 'px'; say.style.width = room + 'px';
 }
+/* ICONS, NOT NUMBERS ON THE CARDS (rule 224): a bar filled to what is left with the number on it once (cbar), rounds and tiles
+   as pips (a dozen and more is said as a number) */
+function cbar(n, of, shown, cls) { const f = Math.max(0, Math.min(100, 100 * n / Math.max(1, of)));
+  return '<i class="cbar' + (cls ? ' ' + cls : '') + '" data-n="' + n + '" data-of="' + of + '"><i style="width:' + f.toFixed(1) + '%"></i><b>' + (shown != null ? shown : n) + '</b></i>'; }
+function pips(n, of, cls) { if (of > 12) return n + (of !== n ? ' / ' + of : '');
+  let h = '<i class="pips' + (cls ? ' ' + cls : '') + '" data-n="' + n + '" data-of="' + of + '" title="' + n + ' of ' + of + '" aria-label="' + n + ' of ' + of + '">';
+  for (let k = 0; k < of; k++) h += '<i' + (k < n ? '' : ' class="off"') + '></i>';
+  return h + '</i>'; }
+/* the reach as tiles: a dark tile for each the gun cannot use (its point-blank), lit for each it can */
+function tilePips(lo, hi) { if (hi > 12) return lo + ' to ' + hi + ' tiles';
+  let h = '<i class="pips tiles" data-lo="' + lo + '" data-of="' + hi + '" title="' + (lo === hi ? hi : lo + ' to ' + hi) + (hi > 1 ? ' tiles' : ' tile') + '">';
+  for (let k = 1; k <= hi; k++) h += '<i' + (k >= lo ? '' : ' class="off"') + '></i>';
+  return h + '</i>'; }
+function markHTML(k, d) { const B = window.BohemiaStats; return B && B.mark ? B.mark(k, d).outerHTML : (d > 0 ? '+' : '') + d; }
 /* THE NUMBERS IN THE BACKGROUND (rule 67): a tap on his name opens them, a tap anywhere closes them */
 function drawer(v) {
   const d = document.getElementById('drawer'), fm = FIGHT.fatMax(v);
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   d.innerHTML = '<div style="color:#d9a85a;font-weight:700;margin-bottom:4px">' + v.name + ' · LEVEL ' + (v.level || 1) + ' · ' + v.job.toUpperCase().replace('_', ' ') + '</div>'
-    + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', v.armH + ' / ' + v.armHMax) + r('Armour, body', v.armB + ' / ' + v.armBMax)
+    + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', cbar(v.armH, v.armHMax)) + r('Armour, body', cbar(v.armB, v.armBMax))
     + r('Fatigue', Math.round(v.fat) + ' / ' + fm) + r('Nerve', v.morale) + r('Melee skill / defence', v.mskill + ' / ' + v.mdef)
     + r('Ranged skill / defence', v.rskill + ' / ' + v.rdef) + r('Initiative', v.initiative) + r('Resolve', v.resolve === null ? '-' : v.resolve)
-    + (v.ammo !== null ? r(v.weapon.mag ? 'Rounds left' : 'Throws left', v.ammo + (v.weapon.mag ? ' / ' + v.weapon.mag : '')) : '') + (FIGHT.reloadSkill(v.weapon) && !v.weapon.mag ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
+    + (v.ammo !== null ? r(v.weapon.mag ? 'Rounds left' : 'Throws left', pips(v.ammo, v.weapon.mag || v.ammo)) : '') + (FIGHT.reloadSkill(v.weapon) && !v.weapon.mag ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
     + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '');
   v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(iconCanvas(id, 18));
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
@@ -6803,16 +6876,18 @@ function weaponCard(v) {
     + (w.rides ? '; it shoots as ' + esc(w.rides) : '') + '</div>'
     + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';
   if (w.damage_min !== null && w.damage_max !== null) h += r('Damage', w.damage_min + ' to ' + w.damage_max);
-  if (w.armor_damage_pct !== null) h += r('Against armour', w.armor_damage_pct + '%');
-  if (w.armor_ignore_pct) h += r('Straight through armour', w.armor_ignore_pct + '%');
+  /* the two armour numbers filled against the most any weapon in the table carries (weapons.json, never a number of ours) */
+  const most = function (k) { return DB.weapons.rows.reduce(function (m, x) { return Math.max(m, x[k] || 0); }, 1); };
+  if (w.armor_damage_pct !== null) h += r('Against armour', cbar(w.armor_damage_pct, most('armor_damage_pct'), w.armor_damage_pct + '%', 'pct'));
+  if (w.armor_ignore_pct) h += r('Straight through armour', cbar(w.armor_ignore_pct, most('armor_ignore_pct'), w.armor_ignore_pct + '%', 'pct'));
   const gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? FIGHT._t.rangeLo(w) : 1;
-  h += r('Reach', gun ? lo + ' to ' + w.range_max + ' tiles' : !FIGHT.isRanged(w) ? R('ours.melee_reach') + ' tile' : (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile'))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
+  h += r('Reach', gun ? tilePips(lo, w.range_max) : !FIGHT.isRanged(w) ? tilePips(1, R('ours.melee_reach')) : tilePips(1, w.range_max || 1))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
-  if (w.mag) h += r('Rounds', w.mag + ', then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
+  if (w.mag) h += r('Rounds', pips(w.mag, w.mag) + ' then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
   else if (rl) h += r(esc(rl.name), rl.ap + ' AP');
   if (v.shield) { const S2 = DB.wlines.rows.shield || {};
     h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(S2.name || 'SHIELD') + '</div><div class="wl" style="font-weight:700">' + esc(S2.line || '') + '</div>'
-      + r('Melee / ranged defence', '+' + (v.shield.melee_defense || 0) + ' / +' + (v.shield.ranged_defense || 0)); }
+      + r('Defence', markHTML('melee_defense', v.shield.melee_defense || 0) + markHTML('ranged_defense', v.shield.ranged_defense || 0)); }   /* rule 224: the two defences' icons, green up arrows and how much */
   else if (v.shieldBack) h += r('Car door', 'on ' + doorWords(v).his + ' back: the ' + armName(v, w) + ' takes both hands');   /* rule 191(b), draft:true */
   d.innerHTML = h; d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
 }
@@ -7236,12 +7311,24 @@ function tapAt(px, py) {
     if (UI.pend && UI.pend.far && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { const pp = UI.pend; UI.pend = null; walkKept(u, pp.stop.x, pp.stop.y, pp.path); take(); return; }
     farPreview(u, p, far); hud(); return;
   }
-  if (!path) { UI.pend = null; say(far ? wfill(FAR_SAYS.none, { left: u.ap }) : 'No way there.'); return; }
+  if (!path) { UI.pend = null; say([ringAt(u, p.x, p.y).length ? RING_SAYS.what : '', far ? wfill(FAR_SAYS.none, { left: u.ap }) : 'No way there.'].filter(Boolean).join(' ')); return; }
   if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; walkKept(u, p.x, p.y); take(); return; }
   walkPreview(u, p, f, path);
   if (FIGHT.hides(p.x, p.y)) teach('cover');
   hud();
 }
+/* THE ORANGE SAYS WHAT IT IS (COMBAT [eyes: the hatch says nothing], rule 225(d), EYES' normie hour F22: 'an orange hatch covers
+   the enemy's side... nothing says what the hatch is'): the rust hatch is their reach (rule 103's rings); the first time it shows on
+   his turn his veteran says so (TEACH.ring), and every tap or hover on a hatched tile names it before what the walk costs */
+const RING_SAYS = { what: 'Orange stripes: their reach.' };   /* draft:true */
+/* the men of theirs whose drawn ring covers this tile (the hatch's own rule: seen, holding a ring, the eight tiles round him) */
+function ringAt(u, x, y) {
+  return FIGHT.S.units.filter(function (t) { return t.side !== u.side && FIGHT.onField(t) && FIGHT.sideSees('you', t) && FIGHT.holdsRing(t)
+    && Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) === 1; });
+}
+function ringsShown(u) { return !!u && FIGHT.S.units.some(function (t) { return t.side !== u.side && FIGHT.onField(t) && FIGHT.sideSees('you', t) && FIGHT.holdsRing(t); }); }
+/* a walk that ends in it or crosses it says the orange first */
+function ringWord(u, p, path) { return ringAt(u, p.x, p.y).length || (path || []).some(function (q) { return ringAt(u, q.x, q.y).length; }) ? RING_SAYS.what : ''; }
 /* the first tap on a tile past this turn's AP (rule 206): the whole way drawn, this turn's part lit to the mark where he stops,
    the rest dim; the line says how far he gets and the free swings on this turn's part (rule 206(c)) */
 const FAR_SAYS = { far: 'Too far for one turn: {name} walks {n} of the {m} tiles and stops at the mark.', you: 'Too far for one turn: you walk {n} of the {m} tiles and stop at the mark.',
@@ -7252,7 +7339,7 @@ function farPreview(u, p, far) {
   UI.pend = { tile: p, far: true, stop: far.stop, path: far.path.slice(0, far.n), rest: far.path.slice(far.n), cost: far.cost, swings: swings };
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - far.cost;
   const short = sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
+  say([ringWord(u, p, far.path.slice(0, far.n)), wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
 }
 /* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */
 function walkPreview(u, p, f, path) {
@@ -7268,7 +7355,7 @@ function walkPreview(u, p, f, path) {
      AP left after it will not pay for his blow or shot, the line says so before he commits */
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });
   const short = foeSeen && sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([gs || '', swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
+  say([ringWord(u, p, path), gs || '', swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
 }
 /* who a finger (or the mouse) at px, py means: the man ON the tile first; a body over an empty tile answers only if it is theirs
    (aim), never one of yours (rule 104a: zoomed out to both teams, your own men's bodies cover the tiles behind them, and those

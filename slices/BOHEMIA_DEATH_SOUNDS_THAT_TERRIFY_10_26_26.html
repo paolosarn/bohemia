@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Death Sounds</title>
+<!-- SOUNDS lane, 10/26, rule 235. PAOLO 10/26: 'during combat when people die, I wanna hear terrible, terrible noises that are
+     scary, like people are literally dying... many types, like broken bones, the whole enchilada.'
+     WHAT THIS PAGE IS: every death the game now plays, THE SAME FILES AND THE SAME LOUDNESS THE FIGHT USES (slices/fight_death/,
+     index.json's gains, theirs played far, through the game's own compressor and brickwall). It is ALREADY IN THE GAME (a sound
+     effect goes straight in, rule 181(c)); this card is so he can hear each kind on its own and say yes or again.
+     Each tap plays the next take of that kind, never the one that just played. A MASSACRE plays five deaths on the 120 beat.
+     IT PLAYS WHERE HE PLAYS IT (rule 193): navigator.audioSession 'playback' (the silent switch does not mute it), a silent loop
+     for an older iPhone, a plain <audio> player when Web Audio will not start; it says LOADING, PLAYING or a plain error.
+     Record: records/BOHEMIA_DEATH_SOUNDS_THAT_TERRIFY_SOUNDS_10_26_26.md. Gate: gates/death_sounds_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#b9a77e; --hot:#6a1d10; }
+  html,body{margin:0;min-height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{box-sizing:border-box;padding:14px 16px 18px;max-width:560px;margin:0 auto}
+  h1{font-size:16px;letter-spacing:2px;margin:0 0 4px}
+  .sub{color:var(--dim);font-size:12px;margin-bottom:12px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:48px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.on{background:var(--hot);color:var(--paper)}
+  button.wide{grid-column:1 / span 2}
+  .lab{font-size:11px;color:var(--dim);letter-spacing:2px;margin:12px 0 6px}
+  #num{font-size:12px;color:var(--dim);min-height:4.5em;margin-top:10px}
+</style></head><body>
+<h1>DEATH SOUNDS</h1>
+<div class="sub">Every death in a fight now plays one of these. The blow that killed him picks the kind. Already in the game.</div>
+<div class="lab">WHOSE MAN DIES</div>
+<div class="row">
+  <button id="yours" class="on">ONE OF YOURS (the worst)</button>
+  <button id="theirs">ONE OF THEIRS</button>
+</div>
+<div class="lab">HOW HE DIES</div>
+<div class="row">
+  <button data-k="bone">BONE (a club, a hammer)</button>
+  <button data-k="blade">BLADE (a knife, a sword)</button>
+  <button data-k="gun">GUN (shot down)</button>
+  <button data-k="beast">BEAST (bitten, dragged)</button>
+  <button data-k="slow">THE SLOW ONE (already dying)</button>
+  <button data-k="armour">ARMOUR (his plate gives)</button>
+</div>
+<div class="row">
+  <button id="head">A HEAD SHOT (the skull on top)</button>
+  <button id="massacre">A MASSACRE (five on the beat)</button>
+</div>
+<div class="lab">A BEAST DIES</div>
+<div class="row3">
+  <button data-a="animal_canine">A WOLF</button>
+  <button data-a="animal_big">A BIG BEAST</button>
+  <button data-a="animal_cat">A BIG CAT</button>
+</div>
+<div class="row"><button id="stop" class="wide">STOP</button></div>
+<div id="num">Tap a kind. Each tap plays the next take of it, never the same one twice in a row.</div>
+<script>
+(function(){
+  'use strict';
+  var DIR='fight_death/', AC=null, OUT=null, BUF=null, IDX=null, side='yours', last={}, live=[], EL=null, n=document.getElementById('num');
+  var NAMES={ bone:'BONE', blade:'BLADE', gun:'GUN', beast:'BEAST', slow:'THE SLOW ONE', armour:'ARMOUR', skull:'THE SKULL',
+              animal_canine:'A WOLF DIES', animal_big:'A BIG BEAST DIES', animal_cat:'A BIG CAT DIES' };
+  function say(t){ n.textContent=t; }
+  /* THE SILENT SWITCH (rule 193) */
+  function session(){ try{ if(navigator.audioSession && navigator.audioSession.type!=='playback') navigator.audioSession.type='playback'; }catch(e){} unmute(); }
+  var MUTEFIX=null;
+  function unmute(){ if(MUTEFIX) return; try{
+    var k=800, b=new Uint8Array(44+k), v=new DataView(b.buffer), w=function(o,t){ for(var i=0;i<t.length;i++) b[o+i]=t.charCodeAt(i); };
+    w(0,'RIFF'); v.setUint32(4,36+k,true); w(8,'WAVEfmt '); v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+    v.setUint32(24,8000,true); v.setUint32(28,8000,true); v.setUint16(32,1,true); v.setUint16(34,8,true); w(36,'data'); v.setUint32(40,k,true);
+    for(var i=0;i<k;i++) b[44+i]=128;
+    MUTEFIX=new Audio(URL.createObjectURL(new Blob([b],{type:'audio/wav'}))); MUTEFIX.loop=true; MUTEFIX.setAttribute('playsinline','');
+    var pr=MUTEFIX.play(); if(pr&&pr.catch) pr.catch(function(){});
+  }catch(e){} }
+  /* the game's own output chain (MUS.audio's compressor and brickwall), so this is what a fight plays */
+  function ctx(){ session();
+    if(!AC){ var C=window.AudioContext||window.webkitAudioContext; if(!C) return null;
+      try{ AC=new C({latencyHint:'playback'}); }catch(e){ try{ AC=new C(); }catch(e2){ return null; } }
+      OUT=AC.createGain();
+      var cmp=AC.createDynamicsCompressor(); cmp.threshold.value=-14; cmp.knee.value=8; cmp.ratio.value=6; cmp.attack.value=0.002; cmp.release.value=0.12;
+      var lim=AC.createDynamicsCompressor(); lim.threshold.value=-5; lim.knee.value=0; lim.ratio.value=20; lim.attack.value=0.001; lim.release.value=0.08;
+      OUT.connect(cmp); cmp.connect(lim); lim.connect(AC.destination);
+      try{ var u=AC.createBuffer(1,1,22050), z=AC.createBufferSource(); z.buffer=u; z.connect(AC.destination); z.start(0); }catch(e){} }
+    if(AC.state!=='running'){ try{ var r=AC.resume(); if(r&&r.catch) r.catch(function(){}); }catch(e){} }
+    return AC; }
+  function idx(){ if(IDX) return Promise.resolve(IDX);
+    return fetch(DIR+'index.json').then(function(r){ if(!r.ok) throw new Error('the list did not load ('+r.status+')'); return r.json(); }).then(function(j){ return (IDX=j); }); }
+  function sprite(){ if(BUF) return Promise.resolve(BUF);
+    return idx().then(function(j){ return fetch(DIR+j.file); }).then(function(r){ if(!r.ok) throw new Error('the sounds did not load ('+r.status+')'); return r.arrayBuffer(); })
+      .then(function(ab){ return new Promise(function(res,rej){ var p=AC.decodeAudioData(ab,res,rej); if(p&&p.then) p.then(res,rej); }); })
+      .then(function(b){ return (BUF=b); }); }
+  /* never the take that just played */
+  function pick(name, count){ var l=last[name]===undefined?-1:last[name], k;
+    if(count<2) k=0; else if(l<0) k=(Math.random()*count)|0; else { k=(Math.random()*(count-1))|0; if(k>=l) k++; }
+    last[name]=k; return k; }
+  function stopAll(){ var t=AC?AC.currentTime:0; live.forEach(function(h){ try{ h.g.gain.setTargetAtTime(0,t,0.02); h.s.stop(t+0.12); }catch(e){} }); live=[];
+    if(EL){ try{ EL.pause(); }catch(e){} EL=null; } }
+  function play(name, when){
+    var v=IDX.voices[name]; if(!v) return null;
+    var k=pick(name, v.takes.length), tk=v.takes[k], far=!/_yours$/.test(name);
+    var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=BUF;
+    g.gain.value=Math.pow(10,((v.db||0)+(far?(IDX.far_db||-4):0))/20); s.connect(g);
+    if(far){ var lp=AC.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=IDX.far_lp_hz||5200; g.connect(lp); lp.connect(OUT); } else g.connect(OUT);
+    var at=when||AC.currentTime+0.02; s.start(at, Math.max(0,tk[0]-0.005), tk[1]+0.005);
+    var h={s:s,g:g}; live.push(h); s.onended=function(){ var i=live.indexOf(h); if(i>=0) live.splice(i,1); };
+    return { k:k, n:v.takes.length, at:at };
+  }
+  /* THE PLAIN PLAYER (rule 193): the same sprite through an <audio> element, seeked to the take, stopped at its end */
+  function plain(name){
+    stopAll(); idx().then(function(j){ var v=j.voices[name]; var k=pick(name, v.takes.length), tk=v.takes[k];
+      var a=new Audio(); a.preload='auto'; a.src=DIR+j.file; a.setAttribute('playsinline',''); EL=a; say('LOADING...');
+      a.onerror=function(){ if(EL===a){ EL=null; say('It did not play: the file did not load. Check your signal and tap again.'); } };
+      var go=function(){ try{ a.currentTime=tk[0]; }catch(e){} var pr=a.play(); if(pr&&pr.catch) pr.catch(function(e){ if(EL===a){ EL=null; say('It did not play: '+(e&&e.name==='NotAllowedError'?'the phone blocked it, tap once more.':(e&&e.message||'unknown'))); } });
+        say('PLAYING (the simple player): '+label(name)+', take '+(k+1)+' of '+v.takes.length);
+        setTimeout(function(){ if(EL===a){ try{ a.pause(); }catch(e){} } }, tk[1]*1000); };
+      if(a.readyState>=1) go(); else a.addEventListener('loadedmetadata', go, { once:true });
+    }).catch(function(e){ say('It did not play: '+e.message); }); }
+  function label(name){ var m=name.match(/^(.*)_(yours|theirs)$/); return m ? NAMES[m[1]]+(m[2]==='yours'?', ONE OF YOURS':', ONE OF THEIRS') : NAMES[name]; }
+  /* Web Audio that does not come up within a second and a half of a tap is not going to: the plain player takes the tap */
+  function run(name, fn){ var A=ctx(); if(!A){ plain(name); return; }
+    var go=function(){ say('LOADING the deaths...'); sprite().then(function(){ fn(); }).catch(function(e){ say('It did not play: '+e.message+'. Check your signal and tap again.'); }); };
+    if(A.state==='running'){ go(); return; }
+    var t0=Date.now(), iv=setInterval(function(){ if(AC.state==='running'){ clearInterval(iv); go(); } else if(Date.now()-t0>1500){ clearInterval(iv); plain(name); } },50); }
+  function one(name, head){ run(name, function(){ var r=play(name); if(head) play('skull', r.at);
+    say('PLAYING '+label(name)+(head?' + THE SKULL':'')+', take '+(r.k+1)+' of '+r.n+'.'); }); }
+  function setSide(s){ side=s; document.getElementById('yours').classList.toggle('on',s==='yours'); document.getElementById('theirs').classList.toggle('on',s==='theirs'); }
+  document.getElementById('yours').onclick=function(){ setSide('yours'); };
+  document.getElementById('theirs').onclick=function(){ setSide('theirs'); };
+  [].forEach.call(document.querySelectorAll('button[data-k]'), function(b){ b.onclick=function(){ one(b.getAttribute('data-k')+'_'+side); }; });
+  [].forEach.call(document.querySelectorAll('button[data-a]'), function(b){ b.onclick=function(){ one(b.getAttribute('data-a')); }; });
+  document.getElementById('head').onclick=function(){ one('gun_'+side, true); };
+  /* A MASSACRE: five deaths, two beats apart on the 120 beat, kinds as a fight deals them, never a take twice running */
+  document.getElementById('massacre').onclick=function(){ run('gun_theirs', function(){ stopAll();
+    var seq=['gun_theirs','blade_theirs','bone_yours','beast_theirs','armour_theirs'], t=AC.currentTime+0.1;
+    seq.forEach(function(name,i){ play(name, t+i*1.0); });
+    say('PLAYING A MASSACRE: a man of theirs shot, one cut, one of yours clubbed, one of theirs bitten, one whose plate gave. A death every two beats.'); }); };
+  document.getElementById('stop').onclick=function(){ stopAll(); say('Stopped.'); };
+})();
+</script>
+</body></html>

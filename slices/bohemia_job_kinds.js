@@ -1052,6 +1052,10 @@
      bar (the purse's credit, the shell's pay sound) and the client says it; the screen opens only if he was going into the town.
      The same for a delivery walking into the town it goes to. */
   function payHere(j, x, y) {
+    /* WORLD (10/26, found by PAID ONLY FOR THE WORK going red on main): a band holding the job's thing (the caravan's gate crew at a
+       made place, the second time after FALL BACK) is met on the step onto it, whatever started the walk; a tap on their plate was
+       the only way, and RUN's town-first tap order (10/26) sends that tap to the ground below a made place's plate */
+    if (j.holders && holdersAt(j, x, y)) return true;
     if ((j.stage === 'back' || j.stage === 'home') && j.plays !== 'hold-defend' && j.plays !== 'clear-camp') return atClient(j, x, y);
     if ((j.plays === 'haul-caravan' && j.stage === 'haul') || (j.plays === 'carry' && j.stage === 'carry')) { if (!j.dest || j.dest.made) return false;
       if (j.holders) return holdersAt(j, x, y);   /* the crew at the gate is met at the gate, never all along the edge (198(g)) */

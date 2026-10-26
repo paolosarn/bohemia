@@ -35,6 +35,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const { openCrew } = require(require('path').join(__dirname, '..', 'tools/bohemia_open_the_crew.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (x !== undefined ? '  [' + x + ']' : '')); };
 const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
@@ -82,7 +83,10 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
     const e8 = await sf.evaluate(() => { const W = innerWidth, H = innerHeight, F = BohemiaSettlement.folk(), v = BohemiaSettlement._view(), first = new Map(), two = new Map(), spot = new Map();
       for (let y = 0; y < H; y += 3) for (let x = 0; x < W; x += 3) { const L = BohemiaSettlement.peopleUnder(x, y); if (!L.length) continue;   /* who a finger there gets: over a door only a body under it */ first.set(L[0], (first.get(L[0]) || 0) + 1);
         L.slice(0, 2).forEach(q => two.set(q, (two.get(q) || 0) + 1)); if (L[1] && !spot.has(L[1]) && BohemiaSettlement.onBody(L[1], x, y)) spot.set(L[1], { x, y }); }
-      const on = F.filter(q => { const sx = q.x * v.s + v.ox, sy = q.y * v.s + v.oy; return sx > 0 && sx < W && sy > 0 && sy < H; });
+      /* RE-AIMED 10/26 BY RUN TWO (rule 218(c), the whole town fitted): a keeper is reached through his own door as well (the same sheet,
+         the building's whole box), and a man at the post is the post's (his tap opens the hall with him on it), so the fair finger is counted
+         for the people who have no door: the crowd and his own men */
+      const on = F.filter(q => { const sx = q.x * v.s + v.ox, sy = q.y * v.s + v.oy; return !q.keeper && !q.post && sx > 0 && sx < W && sy > 0 && sy < H; });
       const rows = on.map(q => ({ q, first: Math.sqrt((first.get(q) || 0) * 9), two: Math.sqrt((two.get(q) || 0) * 9) }));
       const worst = rows.slice().sort((a, b) => a.first - b.first)[0], at = worst && spot.get(worst.q);
       window.__E8 = worst && worst.q;
@@ -94,7 +98,7 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
       const wk = await sf.evaluate(() => { const w = window.__E8; return w ? (w.keeper ? w.k : 'crowd' + w.slot) : null; });
       if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'also_here.png') });
       const fb = await sf.$('#also .alsoface[data-who="' + wk + '"]'); if (fb) { await fb.tap(); await p.waitForTimeout(400); }
-      e8b = await sf.evaluate(() => { const S = BohemiaSettlement.state, w = window.__E8; return { open: S.open, him: !!(S.person && w && S.person === w) || (w && w.keeper && S.open === w.k) }; });
+      e8b = await sf.evaluate(() => { const S = BohemiaSettlement.state, w = window.__E8; return { open: S.open, him: !!(S.person && w && S.person === w) || (w && w.keeper && S.open === w.k) || (w && w.post && S.open === 'hall') }; });
       const c = await sf.$('#close'); if (c && await sf.evaluate(() => !!BohemiaSettlement.state.open)) { await c.tap(); await p.waitForTimeout(400); } }
     ok('E8 [crowd taps] every person on the glass answers a fair finger, 44 points at least: the smallest first-tap target ' + e8.min1 + ' px square (was 13), ' + e8.min2 + ' px counting his face under ALSO HERE; ' + e8.n + ' people',
       e8.n > 3 && e8.min1 >= 44 && e8.min2 >= 44, 'the hardest: ' + e8.worstSlot);
@@ -108,8 +112,12 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await p.waitForTimeout(300);
       const ox1 = await sf.evaluate(() => BohemiaSettlement._view().ox);
       const room = await sf.evaluate(() => { const v = BohemiaSettlement._view(); return Math.max(0, v.pw * v.s - v.W); });
-      ok('E30 [the town will not slide] a finger\'s swipe of ' + Math.round(x0 - x1) + ' px moves the town with it', Math.abs(ox1 - ox0) >= 0.9 * Math.min(Math.abs(x0 - x1), Math.max(0, ox0 + room)),   /* with the finger, up to the picture's own edge */
-        'the picture moved ' + Math.round(ox1 - ox0) + ' px, ' + Math.round(Math.max(0, ox0 + room)) + ' of room that way (EYES measured 17)'); }
+      /* RE-AIMED 10/26 BY RUN TWO (rule 218(c), Paolo 10/26: 'I don't like sliding... it should be zoomed out perfectly'): the whole town
+         is fitted to the glass, so there is nowhere to slide to; a swipe leaves it whole where it is (EYES' 10/25 complaint was a town
+         wider than the glass that would not follow the finger) */
+      const fit = await sf.evaluate(() => { const F = BohemiaSettlement.fit ? BohemiaSettlement.fit() : null; return F ? { pw: F.pw, ph: F.ph, ox: F.ox, oy: F.oy, W: F.W, H: F.H } : null; });
+      ok('E30 [the town fits the glass] a finger\'s swipe of ' + Math.round(x0 - x1) + ' px leaves the whole town where it is', !!fit && Math.abs(ox1 - ox0) < 1 && fit.ox >= -0.5 && fit.ox + fit.pw <= fit.W + 0.5,
+        'the picture moved ' + Math.round(ox1 - ox0) + ' px; the town ' + (fit ? Math.round(fit.pw) + ' wide on a ' + fit.W + ' glass' : '?')); }
     /* ---- E12 the board's pay is the contract's, one contract in one place ---- */
     /* the board is a building, a finger on its own pixels once the town's arrival card has gone (the loop gate's way) */
     await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
@@ -143,7 +151,7 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
     const gun = await sf.evaluate(() => { const S = BohemiaSettlement.state, sh = S.stock.smith || []; const it = sh.find(i => i.kind === 'weapon' && BohemiaRoster.armLine && BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', i.id), true) && /TO|,/.test(BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', i.id), true).reach)) || sh.find(i => i.kind === 'weapon'); return it ? { name: it.name, id: it.id, was: it.was } : null; });
     if (gun) { const g = await sf.$('#shelfgrid .slot.full[aria-label="' + gun.name + '"]'); if (g) { await g.tap(); await p.waitForTimeout(400); } }
     const e7 = gun ? await sf.evaluate((g) => { const t = (document.getElementById('sbody') || {}).textContent || '', c = document.getElementById('close').getBoundingClientRect(), sy = document.querySelector('#sbody .say');
-      return { dbg: BohemiaSettlement.state.open + ': ' + t.slice(0, 140), names: g.was && t.indexOf(g.was) >= 0, was: /\(was /.test(t), slots: (document.querySelector('#sbody .slots') || {}).textContent || '', clear: sy ? sy.getBoundingClientRect().right <= c.left + 1 : false,
+      return { dbg: BohemiaSettlement.state.open + ': ' + t.slice(0, 140), names: g.was && t.indexOf(g.was) >= 0, was: /\(was /.test(t), slots: (document.querySelector('#sbody .inums') || document.querySelector('#sbody .slots') || {}).textContent || '',   /* RE-AIMED 10/26: the piece's numbers in the shop's strip */ clear: sy ? (function(){ const s = sy.getBoundingClientRect(); return s.right <= c.left + 1 || s.left >= c.right - 1 || s.bottom <= c.top + 1 || s.top >= c.bottom - 1; })() : false,   /* RE-AIMED 10/26: the X stands on either side now (UI TWO, away from the phone); the line and the X never overlap */
         line: BohemiaRoster.armLine ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', g.id), true) : null }; }, gun) : null;
     ok('E7 [the BB names] the smith\'s card never names the wiki\'s item', !!e7 && !e7.was && !e7.names, gun && (gun.name + ' (the data keeps ' + gun.was + ')'));
     ok('E13 [lines under x] the keeper\'s first line clears the sheet\'s close on the 390 px phone', !!e7 && e7.clear);
@@ -172,11 +180,12 @@ const done = () => { console.log('=== THE TOWN\'S PART GATE: ' + pass + ' passed
     await tapIn(sf, '#baggrid .slot.full[aria-label="a hand axe"]'); await p.waitForTimeout(300);
     const let1 = await sf.evaluate(() => [...document.querySelectorAll('#sbody .act')].map(a => a.textContent));
     const li = let1.findIndex(x => /Let it go/.test(x));
-    if (li >= 0) { await tapIn(sf, '#sbody .act:nth-of-type(' + (li + 1) + ')'); await p.waitForTimeout(300); }
+    if (li >= 0) { await tapIn(sf, '#shopstrip #keepit'); await p.waitForTimeout(300); }   /* RE-AIMED 10/26: KEEP and LET IT GO in the shop's strip */
     const j4 = await sf.evaluate(() => { BohemiaSettlement.open && 0; const J = BohemiaSettlement.junk(); return { junk: J.items.map(i => i.id) }; });
     ok('J4 KEEP is his to change: LET IT GO on the bought axe, and SELL THE JUNK counts it', li >= 0 && j4.junk.length === 1 && j4.junk[0] === 'hand_axe', (let1[li] || 'no let-go') + '; junk now ' + j4.junk.join(', '));
     /* B1 the crew screen from the town's CREW */
-    await tapIn(sf, '#crew'); await p.waitForTimeout(800);
+    /* RE-AIMED 10/26 BY RUN TWO: the one CREW is the phone's since UI TWO 52741663e (the town's own #crew off the glass) */
+    if (!(await openCrew(p, null))) await tapIn(sf, '#crew'); await p.waitForTimeout(800);
     let RF = null; for (let i = 0; i < 80 && !RF; i++) { RF = p.frames().find(x => /ROSTER_SCREEN/.test(x.url())); if (RF && !(await RF.evaluate(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready).catch(() => false))) RF = null; if (!RF) await p.waitForTimeout(250); }
     ok('B1 the crew screen through the town\'s CREW (a real tap)', !!RF);
     if (!RF) return done();

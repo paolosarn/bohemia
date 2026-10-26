@@ -141,6 +141,14 @@ async function live(profile, throttle) {
     await p.waitForFunction(() => typeof MUS !== 'undefined' && MUS.playing && MUS.AC && MUS.AC.state === 'running', null, { timeout: 90000 });
     /* SONG=<name>: a development run on one song (the gate itself never sets it) */
     if (process.env.SONG) await p.evaluate(n => { const i = MLOOPS.findIndex(x => x.n === n); if (i >= 0) { MUS.cur = MFACTIONS.length + i; MUS.curSlot = 1; MUS.step = 0; MUS.nextT = __beatNext(MUS.AC.currentTime + 0.06); } }, process.env.SONG);
+    /* RULE 237 (10/26, newest date wins): on a faction's ground the map plays that faction's song, live from his engine (no
+       recording yet, rule 237(e)); the thirteen's recordings play on the open road. So the party is set down on the open road
+       first (the map's own owner of every cell), and the map's legs below read the thirteen there, as they always did. */
+    const road = await d.fr.evaluate(() => { if (typeof turfAt !== 'function') return null; const own = (x, y) => !!turfAt(x, y);
+      for (let x = 6; x < 110; x += 2) for (let y = 6; y < 110; y += 2) { let ok = true; for (let dx = -2; dx <= 2 && ok; dx++) for (let dy = -2; dy <= 2; dy++) if (own(x + dx, y + dy)) { ok = false; break; }
+        if (ok) { city.x = x; city.y = y; try { __ctWhere(); } catch (e) {} return [x, y]; } }
+      return null; }).catch(() => null);
+    if (road) await p.waitForFunction(() => !window.PARTOFTOWN || (PARTOFTOWN.faction === null && PARTOFTOWN.now() === null), null, { timeout: 30000 }).catch(() => {});
     await p.waitForFunction(() => window.SONGBOOK && SONGBOOK.state().playing, null, { timeout: 60000 }).catch(() => {});
     await p.waitForTimeout(1500);
     const map0 = await p.evaluate(() => SONGBOOK.state());
