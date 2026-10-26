@@ -172,7 +172,7 @@ same stillness: a part that is not moving never changes a pixel.]
 [PENDING Paolo]: none.
 
 
-TUNING (tuning-debuff): 10/26 LATEST -- SIX ROWS ANSWERED ([struck down, he still fights] numbers, [the clinic's half], [the sell spread] with ECONOMY, the own-ceiling ticks, [healing on our clock] SHIPPED and x5 written, [the day-fifty curve] for WORLD, [the injury days on our clock] SHIPPED), research only, no card (rule 127); [the stupid-move watch] round three WAITS on the COMBAT emergency;
+TUNING (tuning-debuff): 10/26 LATEST -- NINE ROWS ANSWERED ([struck down, he still fights], [the clinic's half], [the sell spread], the ceiling ticks, [healing on our clock] x5 written, [the day-fifty curve], [the injury days on our clock], [all eighteen followers], [the stupid-move watch] ROUND THREE), research only, no card (rule 127);
 the coordinator opened this chat under rule 112, no check-in, this block is the report; TUNING reports to COMBAT (rule 113a).
 RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLINIC_10_26_26.md, the one table's section S, bench
   tools/bohemia_tuning_struck_down_debuff.js (--marks, --b2b, --heal), bank banks/BOHEMIA_TUNING_STRUCK_DOWN_DEBUFF_10_26_26.json.
@@ -213,10 +213,15 @@ RECORD records/BOHEMIA_TUNING_STRUCK_DOWN_HE_STILL_FIGHTS_THE_DEBUFF_AND_THE_CLI
   fights, Battle Brothers' month; the old 30 to 40 kept as struck.fresh.days_was); fade, clinic half, lifelong mark unchanged. At 6 to 8
   days today's clinicPrice is 12 to 16 at level one, Battle Brothers' weight: KEEP it, TUNING's price proposal withdrawn. ours.json
   still [30, 40] until CAMP moves it with engine/bohemia_long_injury.js's constants (NOTE on CAMP's board). Record s9.
+8 [all eighteen followers] (rule 270, for CAMP TWO): the one table's section V, every follower's wiki line, unlock, price (crowns / 10)
+  and number at rule 264's pace: only the cook's hour (x5, live) and the surgeon's day (x0.2 of ours) move. NOTE on CAMP's board.
+9 [the stupid-move watch] ROUND THREE on main d3ed6cfb (the COMBAT emergency's fix on, the one pace not yet):
+  records/BOHEMIA_TUNING_THE_STUPID_MOVE_WATCH_ROUND_THREE_10_26_26.md: IDENTICAL to round two in every count (600 fights, 17,063 turns):
+  the fix is clean for the brain; the round-two rows stand. NEXT: the same 600 on the one pace's sha (rule 274) when it lands.
 NOTEs: CAMP (the numbers, the price, treat, Traumatized; x5 for the clock), WORLD (the gap measured; the day-fifty curve and the Lone Wolf table), RUN TWO (the price), ECONOMY (agreed), COMBAT (the fight does not read an
   injury's hitpoints_pct, vision, fatigue recovery or action points; the fresh wound into the fight after the emergency), UI THREE.
 NOT MEASURED: a phone's CPU; the fresh wound on the live path (the fight does not read c.fresh yet); 234(e) AUTO keeping the hurt back.
-NEXT: [the stupid-move watch] round three the moment COMBAT's fix is on main; [the odds
+NEXT: [the stupid-move watch] round four on the one pace's sha (rule 274); [the odds
   keep up]; [the first week's losses]; [the 32 situations].
 [bb the struck down: Battle Brothers lets 33 in 100 live with a mark for life, no fresh wound, never benched; its temple charges for
 its own 1-to-9-day wounds, so ours must charge for the same wound, not for our longer days]
@@ -2973,6 +2978,24 @@ Record: records/BOHEMIA_EYES_TICKER_OVERLAP_ROUND_1_THE_PREMISE_WAS_STALE_THE_BU
 NEXT: [the pairwise judge], round one, reuse this session's own before-and-after and twin-sheet
 tools before building anything new.
 PENDING Paolo: none.
+
+ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (aa) -- [tape income against armour wear] and [the craftsman's price]
+SHIPPED (rules 271(b), 276, 277(b); fired by the coordinator's routine trig_017BhvZudBpJQKLjLRqhqLxD; the worker restarted once
+mid-row, nothing lost). Record: records/BOHEMIA_ECONOMY_DAY_84_NO_RUN_ENDS_FOR_TAPE_10_26_26.md.
+WHY HIS RUNS DIED: at five fights a day (264) a crew of three breaks about 26 rolls a day, twelve men 77 (TUNING's bench,
+banks/BOHEMIA_TUNING_THE_CAMP_CLOCK_10_26_26.json): Battle Brothers' tape at five times its pace. THE FIX: the tape shelf
+refills every map day (stall_prices.json tape_shelf.restock_days 1); every man killed carries 2 or 3 rolls (never a dog;
+tape_income.json loot_tape); scrap is tape, 2 rolls a wrecked piece straight from the loot (his 276; camp breakdown dropped);
+the Scavenger Battle Brothers' own (0.5 to 1 percent, cap 60, for CAMP TWO). ROLLED MONTHS (tools/bohemia_economy_tape_income.js,
+120 runs a cell): a new crew 1.6 to 1.7 times what it breaks from any home; twelve men 1.15 (camp), 1.28 (town), 1.34
+(fortress); the Lone Wolf 1.12 to 1.15 from a town or fortress, 0.76 from a camp (the back room). Assumes 4 in 5 of a won
+fight's enemies die (at 3 in 5 twelve men from a camp 0.94: RUN FOUR asked to count it).
+THE CRAFTSMAN'S PRICE: twice the tape (parts at this stall plus hands the same), size and buy knob, at least 1 a piece, an hour;
+a dent 2, a new crew's typical fight 11 in a town, twelve men's 32 (stall_prices.json mend, BohemiaStallPrices.mendPrice).
+GATES: NO RUN ENDS FOR TAPE 21/0 (new, in the suite; mutations: Battle Brothers' 3-day shelf, a roll or two in the loot, half a
+stack in a camp), BUY VERSUS SELL 45/0, HANDOFF 10/0; the rest as on main. ROUTED: RUN FOUR (NOTE: the loot's tape, scrap is 2),
+RUN TWO (NOTE: mendPrice, the daily shelf), CAMP (NOTE), TUNING (section R +5 rows; the other three-day clocks at our pace).
+NEXT: the pause (rule 121) resumes; jump list [made here], [the gap that survives], [the pump at home]. PENDING Paolo: none.
 
 ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (z) -- [trade goods] SHIPPED (rules 265, 266; fired by the coordinator's
 routine trig_01BBvg13yo3zqoJW2Ffi1XgE). Record: records/BOHEMIA_ECONOMY_DAY_83_TRADE_GOODS_A_BATCH_A_WEEK_OR_THE_VALLEY_PAYS_A_TRADER_LIKE_A_FIGHTER_10_26_26.md.
