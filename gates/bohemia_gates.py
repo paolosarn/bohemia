@@ -2800,8 +2800,8 @@ GATES = [
      'J9 no champion on day one (every day-one fight dressed for day one, first-phase kinds only). AMENDED 10/26 (rule 254, PAOLO: '
      '"the same calculator as the auto combat... max bloody if you think I would lose members"): ONE CALCULATOR, ONE SCALE, the '
      'one-in-six reading struck: a play is worth the AUTO count, J2/J3/J8 on the AUTO colour\'s turn (0.8) and down_value (0.5); '
-     'J10 the page\'s lines are AUTO\'s own; 60 sure fights replayed on the page\'s own hand-over and dice with the fight\'s own count give '
-     'the page\'s number (within 5 plays: the fight carries a little from one fight to the next, COMBAT\'s), every blood its number '
+     'J10 the page\'s lines are AUTO\'s own; 60 sure fights replayed in the page on a fresh copy of the rules, the page\'s own hand-over and dice, with the fight\'s own count give '
+     'the page\'s number to the last digit (the reader reads each fight on a fresh copy: the fight carries a little from one fight to the next, COMBAT\'s), every blood its number '
      'on the line; every blood on the side of the turn its 100 fresh plays are (one job in a hundred past 0.1 of the turn, for the dice); every job that loses a man 6 plays in 10 three stars and '
      'the deepest blood; a sure fight never borrows a road fight\'s light read; a fight read between the lines plays on to 96.', True),
     ('THE NORMIE HOUR, WORLD', ['node', 'gates/the_normie_hour_world_gate.js'],
@@ -10105,6 +10105,15 @@ GATES = [
      "bloodStage is WORLD's one scale (job_danger.json: clean to blood_from, soaked from blood_full; since rule 254 the AUTO colour's own lines, 20 and 50), monotonic, every stage reachable; ONE blood on a button (WORLD's reader hands its number to the kit layer). On the demo, phone and computer, the town's board by real taps: every job wears the blood of its danger from the pictures, "
      "under the words and the face, no tap taken; stop-motion: raised and lowered one stage at a time, each held (250 ms, 150 or more measured); the halo from stage 1; THE WORDS WIPED CLEAN: at all eight stages no red clay pixel inside any word on a board row or the offer, no star over a letter; on the glass soaked a third red or more, one star under a twentieth; "
      "the offer's Take it wears the row's blood; nothing thrown; a gradient planted and the holds taken out both caught. about 3 min", True),
+    ('THE DANGER RAMPS TO DAY FIFTY', ['node', 'gates/the_danger_ramps_to_day_fifty_gate.js'],
+     'WORLD [the danger ramps to day fifty], rule 255 (PAOLO 10/26: "up to 50 days is when shit starts getting difficult, but I '
+     'don\'t even want you to have jobs available like six wolves; I played as the Lone Wolf"). TUNING\'s curve on the job\'s own '
+     'number for his crew (rule 254): through day 10 nothing under 0.5 and one red job a board, then a straight line to nothing at '
+     'day 50. On the demo: the Lone Wolf, A New Crew and the Raiders on days 1, 10, 25, 50, 80 (the Lone Wolf on 20 too), every '
+     'board in the valley dealt by the shelf\'s own pick until every posted job is read: D1 through day 10 nothing under the floor, '
+     'at most one red a board, at most one deepest in the valley; D2 day 25 under the line; D3 the full range by day 50; D4 the '
+     'Lone Wolf\'s first 20 days: nothing he loses outright, no pack of six beasts; D5 the town\'s board through the real door on '
+     'day one; D6 nothing thrown.', True),
     ('THE FEED IS ALIVE', ['node', 'gates/the_feed_is_alive_gate.js'],
      "FEED gate, 10/26, row [the feed is alive] (rule 215, Paolo 10/26: 'a part of the game managing all these mini events and triggers, presented in a social media thing, to make it feel alive... "
      "organize it properly so every time we upgrade it gets better'; rule 217: a post is a username and its words). ONE FILE (records/target/bb/feed_kinds.json): every kind a row with its trigger, "
