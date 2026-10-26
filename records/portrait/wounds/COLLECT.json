@@ -1,0 +1,5 @@
+{
+ "what": "PORTRAIT [the face shows the wound]: the finished run whose artifacts .github/workflows/portrait_wounds_collect.yml pushes to portrait-wounds-renders",
+ "run": 40276121746,
+ "why": "the full batch rendered all sixteen shards; its commit job's push from the sparse shallow checkout died with HTTP 500 twice"
+}

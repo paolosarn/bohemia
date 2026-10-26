@@ -63,15 +63,32 @@
     im.addEventListener('load', function () { cb(im); });
     im.addEventListener('error', function () { cb(null); });
   }
-  function paint(x, im, size) {
+  /* THE FACE SHOWS THE WOUND (PORTRAIT, rule 234(c), 10/26): every face painted here wears the man's marks over it
+     (engine/bohemia_wound_faces.js: an eye patch, the ear gone, blood and a band-aid while fresh...), so every screen that draws
+     a face through this file shows them; a page without that file draws the face as before */
+  function paint(x, im, size, look, key, dy, life) {
     x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
-    x.clearRect(0, 0, size, size); x.drawImage(im, 0, 0, size, size);
+    x.clearRect(0, 0, size, size);
+    x.save(); if (dy) x.translate(0, dy);
+    x.drawImage(im, 0, 0, size, size);
+    var W = root.BohemiaWoundFaces;
+    if (W && look) {
+      try { if (life && W.lifeOver) W.lifeOver(x, look, life, size); } catch (e) {}
+      try { W.over(x, look, key || 'rest', size, function () { paint(x, im, size, look, key, dy, life); }); } catch (e) {}
+    }
+    x.restore();
   }
   function draw(x, look, size, onMiss) {
     size = size || SIZE;
     var u = src(look, 'rest', size);
     if (!u) { if (onMiss) onMiss(); return false; }
-    image(u, function (im) { if (im) paint(x, im, size); else if (onMiss) onMiss(); });
+    image(u, function (im) {
+      if (!im) { if (onMiss) onMiss(); return; }
+      paint(x, im, size, look, 'rest');
+      /* EVERY FACE BREATHES (PORTRAIT, rule 246): the face on the one shared clock, breathing, blinking, a wound's wince */
+      var W = root.BohemiaWoundFaces;
+      if (W && W.live && x.canvas) W.live(x.canvas, look, size, function (dy, life) { paint(x, im, size, look, 'rest', dy, life); });
+    });
     return true;
   }
   /* ONE SYLLABLE, ONE SHAPE, A HALF BEAT EACH: the alpha's rule (visemeFor / visemesOf, slices/BOHEMIA_ALPHA_0_9.html,
@@ -106,12 +123,17 @@
     if (c.__talk) clearInterval(c.__talk);
     var x = c.getContext('2d'), size = c.width, seq = sounds(line), k = 0, frames = {};
     ['rest', 'A', 'E', 'O', 'M'].forEach(function (key) { image(src(look, key, size), function (im) { frames[key] = im; }); });
-    function show(key) { var im = frames[key] || frames.rest; c.dataset.mouth = key; if (im) paint(x, im, size); }
+    function show(key) { var im = frames[key] || frames.rest; c.dataset.mouth = key; if (im) paint(x, im, size, look, frames[key] ? key : 'rest'); }
     c.__talk = setInterval(function () {
       if (k >= seq.length || (k > 0 && !c.isConnected)) { clearInterval(c.__talk); c.__talk = null; show('rest'); c.dataset.said = '1'; return; }
       show(seq[k++]);
     }, SOUND_MS);
     return true;
+  }
+  /* the marks ride every face: their module is fetched beside this one when a page did not load it itself */
+  if (typeof document !== 'undefined' && !root.BohemiaWoundFaces) {
+    try { var cur = document.currentScript && document.currentScript.src; var ws = document.createElement('script');
+      ws.src = cur ? cur.replace(/bohemia_crew_faces\.js(\?.*)?$/, 'bohemia_wound_faces.js') : '../engine/bohemia_wound_faces.js'; document.head.appendChild(ws); } catch (e) {}
   }
   root.BohemiaCrewFaces = { LOOKS: LOOKS, SIZE: SIZE, SOUND_MS: SOUND_MS, has: has, ready: ready, src: src, draw: draw, talk: talk, sounds: sounds };
   read();

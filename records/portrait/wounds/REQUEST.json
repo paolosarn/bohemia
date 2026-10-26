@@ -1,0 +1,38 @@
+{
+ "what": "PORTRAIT [the face shows the wound]: who the runner renders (.github/workflows/portrait_wounds.yml); 'all' is YOU and every rolled person",
+ "round": "the blink again: the 28 faces whose blink moved no pixel at 128 or at 64 in the full batch (each eyeball now also sinks under his own skin; the lids of a heavy brow close behind it). Everything else of the full batch is committed beside this file",
+ "people": [
+  "person_anarchists_5",
+  "person_anarchists_7",
+  "person_blues_4",
+  "person_caravans_5",
+  "person_cartel_5",
+  "person_church_0",
+  "person_church_1",
+  "person_colorful_5",
+  "person_homeless_1",
+  "person_homeless_7",
+  "person_network_1",
+  "person_network_2",
+  "person_network_5",
+  "person_reds_0",
+  "person_reds_6",
+  "person_remnants_2",
+  "person_town_0",
+  "person_town_17",
+  "person_town_2",
+  "person_town_4",
+  "person_town_41",
+  "person_town_43",
+  "person_town_7",
+  "person_trades_2",
+  "person_trades_4",
+  "person_trades_5",
+  "person_trades_6"
+ ],
+ "marks": null,
+ "life_only": [
+  "cast_skirt"
+ ],
+ "shards": 14
+}

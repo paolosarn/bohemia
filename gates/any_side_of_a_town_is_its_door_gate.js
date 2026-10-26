@@ -127,7 +127,17 @@ async function run(profile) {
       const q = iso(t.x, t.y, ox, oy), rr = cv.getBoundingClientRect();
       const pts = [[q.sx, q.sy + TH / 2]]; const h = MAP_TOWN_HIT.find(e => e.name === t.name);
       if (h && h.bld) pts.push([h.bld.x + h.bld.w / 2, h.bld.y + h.bld.h * 0.7], [h.bld.x + h.bld.w / 2, h.bld.y + h.bld.h * 0.4]);
-      let pick = null; for (const p of pts) { const r = mapTapWhich(p[0], p[1]); if (r && r.what === 'town' && r.name === t.name) { pick = p; break; } }
+      /* RUN 10/26 (__THE_MAP_FRAMES_AROUND_THE_PHONE__): the map sits beside the phone now; a finger on the phone is on the phone, so
+         the finger goes where the town shows on the open glass */
+      const onGlass = (p) => { const el = document.elementFromPoint(rr.left + p[0], rr.top + p[1]); return !!el && el.id === 'cv'; };
+      let pick = null; for (const p of pts) { if (!onGlass(p)) continue; const r = mapTapWhich(p[0], p[1]); if (r && r.what === 'town' && r.name === t.name) { pick = p; break; } }
+      if (!pick) {   /* the town is under the phone from here: he looks at it first (a pan by hand), as a player does */
+        camLetGo(); const f = mapFocus(); panX += f.x - pts[0][0]; panY += f.y - pts[0][1]; clampPan(); render();
+        const ox2 = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy2 = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY), q2 = iso(t.x, t.y, ox2, oy2);
+        pts.length = 0; pts.push([q2.sx, q2.sy + TH / 2]); const h2 = MAP_TOWN_HIT.find(e => e.name === t.name);
+        if (h2 && h2.bld) pts.push([h2.bld.x + h2.bld.w / 2, h2.bld.y + h2.bld.h * 0.7], [h2.bld.x + h2.bld.w / 2, h2.bld.y + h2.bld.h * 0.4]);
+        for (const p of pts) { if (!onGlass(p)) continue; const r = mapTapWhich(p[0], p[1]); if (r && r.what === 'town' && r.name === t.name) { pick = p; break; } }
+        q.sx = pts[0][0]; q.sy = pts[0][1] - TH / 2; }
       const p = pick || pts[0];
       return { x: rr.left + p[0] * rr.width / CVW, y: rr.top + p[1] * rr.height / CVH, sx: q.sx, sy: q.sy + TH / 2, own: !!pick };
     }, pre.t);
@@ -140,9 +150,13 @@ async function run(profile) {
       const p = TRAVEL && TRAVEL.path ? TRAVEL.path.map(c => [c[0], c[1]]) : null; TRAVEL = null;
       return { who, steps: p ? p.length - 1 : null, opt: window.__DOOR.shortest(p ? p[0] : s, t), what: tap ? tap.what : null };
     }, [nm, pre.s]);
-    const bare = await fr.evaluate(([nm, s, pt]) => {
+    const bare = await fr.evaluate(([nm, s, pt0]) => {
       const t = window.__DOOR.T[nm];
-      city.x = s[0]; city.y = s[1]; TRAVEL = null; const keep = MAP_TOWN_HIT, keepP = MAP_PARTY_HIT; MAP_TOWN_HIT = []; MAP_PARTY_HIT = [];
+      city.x = s[0]; city.y = s[1]; TRAVEL = null;
+      /* RUN 10/26: the camera as S6 left it can be mid-ease (his tap took it back): held still on him, and the town's block read there */
+      try { camHold(); CAMF.from = null; } catch (e) {} render();
+      const ox = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY), q0 = iso(t.x, t.y, ox, oy), pt = [q0.sx, q0.sy + TH / 2];
+      const keep = MAP_TOWN_HIT, keepP = MAP_PARTY_HIT; MAP_TOWN_HIT = []; MAP_PARTY_HIT = [];
       /* where the town is painted: a tall block in front of it can stand over its ground on the glass, and a finger there is on
          that block (CBcellAt reads what is painted, RUN 10/26), so the finger goes where the glass shows the town's own ground */
       let q = pt; for (let r = 0, found = false; r <= 40 && !found; r += 4) for (let a = -r; a <= r && !found; a += 4) for (const dy of [-r, r]) {

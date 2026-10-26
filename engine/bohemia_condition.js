@@ -367,7 +367,33 @@
   function dead() { return get().dead.slice(); }
   function last() { return LAST; }
 
-  root.BohemiaCondition = { KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
+  /* ==== __THE_SMITH_MENDS__ (RUN TWO's block in CAMP's file, NOTE on CAMP's board; RUN TWO [the smith mends], rule 277, Paolo 10/26:
+     'if I go to a settlement that has a smith and an armourer I should be able to repair my stuff with them pretty easily and
+     quickly'). What a craftsman can mend (every living man's helmet and body armour he is missing, the pieces this file keeps), and
+     the mend itself: the pieces back to full, at once, paid at the counter (the camp's mending is the slow, cheap way and spends tape;
+     the craftsman's spends batteries and none of his tape).
+       broken(origin)  [{key, name, main, pieces:[{part:'head'|'body', id, missing, max}]}] for every living man missing armour
+       mend(keys)      the named men's pieces (all when keys is empty) back to full: {men, pieces, points} ==== */
+  function broken(origin) {
+    var s = get(), out = [];
+    members(origin).forEach(function (e) { var r = s.men[e.key]; if (!r) return; var pcs = [];
+      if ((r.lostH || 0) >= 0.5) pcs.push({ part: 'head', id: r.head || null, missing: Math.round(r.lostH), max: Math.round(r.armHMax || 0) });
+      if ((r.lostB || 0) >= 0.5) pcs.push({ part: 'body', id: r.body || null, missing: Math.round(r.lostB), max: Math.round(r.armBMax || 0) });
+      if (pcs.length) out.push({ key: e.key, name: e.main ? 'YOU' : (r.shown || (e.man && e.man.name) || e.key), main: !!e.main, pieces: pcs }); });
+    return out;
+  }
+  function mend(keys) {
+    var s = get(), want = Array.isArray(keys) && keys.length ? keys : null, done = { men: 0, pieces: 0, points: 0 };
+    Object.keys(s.men).forEach(function (k) { if (want && want.indexOf(k) < 0) return; var r = s.men[k], n = 0;
+      ['lostH', 'lostB'].forEach(function (p) { if ((r[p] || 0) > 0) { done.points += r[p]; r[p] = 0; n++; } });
+      if (n) { done.men++; done.pieces += n; } });
+    s.mendedAtCounter = (s.mendedAtCounter || 0) + done.points; put(s);
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mended: done } })); } catch (e) {}
+    try { if (root.parent && root.parent !== root) root.parent.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mended: done } })); } catch (e) {}
+    return done;
+  }
+  /* ==== end __THE_SMITH_MENDS__ ==== */
+  root.BohemiaCondition = { broken: broken, mend: mend, KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
     condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, bars: bars, drawHeadBars: drawHeadBars, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
     says: says, drawBar: drawBar, forget: forget, last: last };
   try { if (root.document) setTimeout(load, 0); } catch (e) {}

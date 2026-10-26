@@ -84,7 +84,7 @@ def _ground(tier):
     def mb(b, h=0.0):
         x0, y1 = m_of(b[0], b[1]); x1, y0 = m_of(b[2], b[3]); return (round(x0, 2), round(x1, 2), round(y0, 2), round(y1, 2), h)
     if tier == 'town': return {'lot': mb(V.LOTBOX['town']), 'build': mb(V.BUILDBOX['town'])}
-    if tier == 'fortress': return {'lot': mb(V.LOTBOX['fortress']), 'build': (42.0, 51.0, 26.0, 30.5, 0.0), 'bar': (30.5, 35.5, 16.0, 20.5, 1.6)}
+    if tier == 'fortress': return {'lot': mb(V.LOTBOX['fortress']), 'build': (41.0, 50.0, 26.0, 30.5, 0.0), 'bar': (30.5, 35.5, 16.0, 20.5, 1.6)}
     return {'lot': mb(V.LOTBOX['camp']), 'build': mb(V.BUILDBOX['camp']), 'arms': mb(V.ARMSBOX['camp']['arms'], 1.6), 'bar': mb(V.ARMSBOX['camp']['bar'], 1.6)}
 
 
@@ -176,7 +176,7 @@ def taps_wide(town, meta):
         if name == 'Blues' and r in ('barber', 'clinic'):
             mx = (b[0] + b[2]) // 2; b = [b[0], b[1], mx, b[3]] if r == 'barber' else [mx, b[1], b[2], b[3]]
         hot[r] = {'box': b, 'kind': r}
-    pb = meta['boxes']
+    pb = ground_boxes(tier, name)                         # the ground taps as the composer lays them now (a render keeps its scene)
     for r in box_roles:
         if r == 'look': boxes[r] = list(hot['clinic']['box']); continue
         if r in pb: boxes[r] = wbox(*pb[r]); continue

@@ -38,7 +38,7 @@
     var T = D && D.tape_income, v = T && T.salvage && T.salvage.tape_per_scrap && T.salvage.tape_per_scrap.value;
     if (typeof v === 'number') return v;
     var C = (D && D.counts) || {}, c = C.tape || C.scrap || {};
-    return typeof c.per_wrecked_piece === 'number' ? c.per_wrecked_piece : 1;
+    return typeof c.per_wrecked_piece === 'number' ? c.per_wrecked_piece : 0;   /* rule 284(b): nothing past the fight's one */
   }
   /* the rolls of tape in a dead man's kit, [least, most]: ECONOMY's number (D.tape_income.loot_tape.per_kill), else none */
   function kitTape(D) {
@@ -47,9 +47,18 @@
     if (typeof v === 'number' && v >= 0) return [v | 0, v | 0];
     return null;
   }
+  /* ONE ROLL OF TAPE A FIGHT, NOT A PILE (RUN FOUR [one roll a fight], rule 284, Paolo 10/26: 'you're about to crash my economy...
+     I'm winning way too much duct tape after each fight... make it so I get one duct tape or something like that as a baseline'):
+     a won fight leaves ECONOMY's per_won_fight (one), whatever the kills and the wrecked pieces; found() is the won fight's loot
+     (the screen asks it of a won fight only: a lost or fled fight leaves none) */
+  function winTape(D) {
+    var T = D && D.tape_income, v = T && T.loot_tape && T.loot_tape.per_won_fight && T.loot_tape.per_won_fight.value;
+    return typeof v === 'number' && v > 0 ? Math.floor(v) : 0;
+  }
   function found(spoils, D, rnd) {
     rnd = rnd || Math.random;
     var out = { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0, faction: spoils && spoils.faction || null };
+    out.winTape = winTape(D); out.counts.tape = out.winTape;
     if (!spoils || !Array.isArray(spoils.bodies) || !D) return out;
     var no = D.drop.nothing_from || [], C = D.counts;
     /* SCRAP IS TAPE (RUN FOUR [scrap is tape], rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap,
@@ -86,8 +95,8 @@
        a beast or a ghost carries none) had ECONOMY's rolls in his kit (records/target/bb/tape_income.json loot_tape.per_kill, two or
        three, rolled even), so a fight drops tape scaled to the kills; rolled after his gear, so the gear's own dice do not move */
     var K = kitTape(D);
-    if (K) kit.forEach(function () { var n = K[0] + Math.floor(rnd() * (K[1] - K[0] + 1)); out.counts.tape += n; out.kitTape = (out.kitTape | 0) + n; });
-    out.wreckTape = out.counts.tape - (out.kitTape | 0);
+    if (K && K[1] > 0) kit.forEach(function () { var n = K[0] + Math.floor(rnd() * (K[1] - K[0] + 1)); out.counts.tape += n; out.kitTape = (out.kitTape | 0) + n; });
+    out.wreckTape = out.counts.tape - (out.kitTape | 0) - out.winTape;
     return out;
   }
   /* each man's climb, read the way the crew screen climbs him (engine/bohemia_roster.js grant: his kept XP plus the fight's,
@@ -145,7 +154,7 @@
     return { stash: out, ground: g, took: took, left: left, gain: sum(took) - sum(left), before: sum(stash), after: sum(out) };
   }
   var API = { found: found, grew: grew, take: take, takeAll: takeAll, partFound: partFound,
-    tapePerWreck: tapePerWreck, kitTape: kitTape, SELL_CUT: SELL_CUT, worth: worth, sellBack: sellBack, junk: junk, fixed: fixed, optimize: optimize };
+    tapePerWreck: tapePerWreck, kitTape: kitTape, winTape: winTape, SELL_CUT: SELL_CUT, worth: worth, sellBack: sellBack, junk: junk, fixed: fixed, optimize: optimize };
   root.BohemiaSpoils = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : this);

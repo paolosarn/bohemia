@@ -1,0 +1,343 @@
+{
+ "look": "you",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.3924,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.392 m",
+  "ppm": 326.235,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     0.0,
+     0.0007,
+     1.3519
+    ],
+    "eyes": [
+     [
+      -0.047,
+      -0.1214,
+      1.356
+     ],
+     [
+      0.047,
+      -0.1214,
+      1.356
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     -0.0,
+     -0.1888,
+     1.3023
+    ],
+    "mouth_z": 1.2638,
+    "chin_z": 1.1741,
+    "top_z": 1.53,
+    "ears": 2,
+    "hair": [
+     "portrait_hair"
+    ],
+    "gear": [],
+    "torso": [
+     "Cesium_Man",
+     "crew_you_coat",
+     "crew_you_hand_L",
+     "crew_you_hand_R"
+    ],
+    "body": [
+     "Cesium_Man",
+     "crew_you_coat",
+     "crew_you_coat_skirt",
+     "crew_you_hand_L",
+     "crew_you_hand_R",
+     "crew_you_shoe",
+     "crew_you_trouser"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "crew_you_coat",
+     "crew_you_coat_skirt",
+     "crew_you_shirt",
+     "crew_you_shoe",
+     "crew_you_shoes",
+     "crew_you_skin",
+     "crew_you_trouser",
+     "crew_you_trousers",
+     "portrait_you_buzz",
+     "portrait_you_iris",
+     "portrait_you_lips",
+     "portrait_you_mouth",
+     "portrait_you_pupil",
+     "portrait_you_sclera",
+     "portrait_you_skin"
+    ]
+   }
+  },
+  {
+   "mark": "eye_patch",
+   "ok": true,
+   "pieces": [
+    "wound_eye_patch_patch",
+    "wound_eye_patch_strap"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "skull_stitches",
+   "ok": true,
+   "pieces": [
+    "wound_skull_stitches_scar",
+    "wound_skull_stitches_staple05",
+    "wound_skull_stitches_staple09",
+    "wound_skull_stitches_staple13",
+    "wound_skull_stitches_staple16",
+    "wound_skull_stitches_staple19",
+    "wound_skull_stitches_staple22",
+    "wound_skull_stitches_staple25",
+    "wound_skull_stitches_staple28",
+    "wound_skull_stitches_staple31",
+    "wound_skull_stitches_staple34",
+    "wound_skull_stitches_staple37",
+    "wound_skull_stitches_staple39",
+    "wound_skull_stitches_staple41",
+    "wound_skull_stitches_staple43",
+    "wound_skull_stitches_staple45",
+    "wound_skull_stitches_staple47",
+    "wound_skull_stitches_staple49",
+    "wound_skull_stitches_staple51",
+    "wound_skull_stitches_staple53"
+   ],
+   "keys": [
+    "wound_skull_stitches_portrait_hair"
+   ]
+  },
+  {
+   "mark": "ear_gone",
+   "ok": true,
+   "pieces": [
+    "wound_ear_gone_stump",
+    "wound_ear_gone_raw",
+    "wound_ear_gone_hole"
+   ],
+   "keys": [
+    "wound_ear",
+    "wound_ear_gone_portrait_hair"
+   ]
+  },
+  {
+   "mark": "nose_gone",
+   "ok": true,
+   "pieces": [
+    "wound_nose_gone_rim",
+    "wound_nose_gone_hole",
+    "wound_nose_gone_cave-1",
+    "wound_nose_gone_cave+1"
+   ],
+   "keys": [
+    "wound_nose"
+   ]
+  },
+  {
+   "mark": "haunted",
+   "ok": true,
+   "pieces": [],
+   "keys": [
+    "wound_sockets"
+   ]
+  },
+  {
+   "mark": "heart_scar",
+   "ok": true,
+   "pieces": [
+    "wound_heart_scar_scar",
+    "wound_heart_scar_mark01",
+    "wound_heart_scar_mark03",
+    "wound_heart_scar_mark05",
+    "wound_heart_scar_mark07",
+    "wound_heart_scar_mark09",
+    "wound_heart_scar_mark11"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "trach_scar",
+   "ok": true,
+   "pieces": [
+    "wound_trach_scar_ring",
+    "wound_trach_scar_pit",
+    "wound_trach_scar_crease0",
+    "wound_trach_scar_crease1",
+    "wound_trach_scar_crease2",
+    "wound_trach_scar_crease3",
+    "wound_trach_scar_crease4",
+    "wound_trach_scar_crease5",
+    "wound_trach_scar_crease6",
+    "wound_trach_scar_crease7"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "sling",
+   "ok": true,
+   "pieces": [
+    "wound_sling_strap",
+    "wound_sling_back",
+    "wound_sling_knot"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "tag",
+   "ok": true,
+   "pieces": [
+    "wound_tag_string",
+    "wound_tag_cord-1",
+    "wound_tag_cord+1",
+    "wound_tag_card",
+    "wound_tag_stripe",
+    "wound_tag_ring"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "head_bandage",
+   "ok": true,
+   "pieces": [
+    "wound_head_bandage_turn1",
+    "wound_head_bandage_turn2",
+    "wound_head_bandage_seep"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "eye_pad",
+   "ok": true,
+   "pieces": [
+    "wound_eye_pad_gauze",
+    "wound_eye_pad_stain",
+    "wound_eye_pad_tape+6",
+    "wound_eye_pad_tape-6"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "nose_tape",
+   "ok": true,
+   "pieces": [
+    "wound_nose_tape_tape+5",
+    "wound_nose_tape_tape-5",
+    "wound_nose_tape_blood-1",
+    "wound_nose_tape_blood+1"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "ear_bandage",
+   "ok": true,
+   "pieces": [
+    "wound_ear_bandage_gauze",
+    "wound_ear_bandage_stain",
+    "wound_ear_bandage_tape"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "face_stitches",
+   "ok": true,
+   "pieces": [
+    "wound_face_stitches_swell",
+    "wound_face_stitches_scab",
+    "wound_face_stitches_stitch01",
+    "wound_face_stitches_stitch03",
+    "wound_face_stitches_stitch05",
+    "wound_face_stitches_stitch07",
+    "wound_face_stitches_stitch09",
+    "wound_face_stitches_stitch11",
+    "wound_face_stitches_stitch13"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "burn",
+   "ok": true,
+   "pieces": [
+    "wound_burn_patch",
+    "wound_burn_soot-1",
+    "wound_burn_soot+1"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "neck_wrap",
+   "ok": true,
+   "pieces": [
+    "wound_neck_wrap_turn1",
+    "wound_neck_wrap_turn2",
+    "wound_neck_wrap_seep"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "blood",
+   "ok": true,
+   "pieces": [
+    "wound_blood_run",
+    "wound_blood_branch",
+    "wound_blood_clot"
+   ],
+   "keys": []
+  },
+  {
+   "mark": "bandaid",
+   "ok": true,
+   "pieces": [
+    "wound_bandaid_strip",
+    "wound_bandaid_pad",
+    "wound_bandaid_spot"
+   ],
+   "keys": []
+  },
+  {
+   "shots": 50,
+   "seconds": 698.1
+  }
+ ],
+ "made": [
+  "bandaid",
+  "blood",
+  "burn",
+  "ear_bandage",
+  "ear_gone",
+  "eye_pad",
+  "eye_patch",
+  "face_stitches",
+  "haunted",
+  "head_bandage",
+  "heart_scar",
+  "neck_wrap",
+  "nose_gone",
+  "nose_tape",
+  "skull_stitches",
+  "sling",
+  "tag",
+  "trach_scar"
+ ]
+}

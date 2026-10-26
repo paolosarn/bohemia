@@ -9432,6 +9432,10 @@ GATES = [
      'COMBAT [every man has a job each turn], rule 188 (Paolo 10/25: "one of my spear and car-door men was behind a house so he couldn\'t engage, just doing nothing... I can\'t be explaining all these"). On 300 of TUNING\'s rolled fights, AUTO both sides: his crew (a rifle and two spear-and-car-door men) never ends a melee man\'s turn with no blow and no step nearer while a walk to an enemy is open, he has AP and breath and is not in a rout (at most 1 in 100; it was 27.6%); fewer than 5 in 100 of them never strike; TUNING\'s 3, 6 and 12 man crews the same; and AUTO wins his crew\'s fights at least as often as before (178 of 300).', False),
     ('THE PISTOL IS NEVER A CLUB', ['node', 'gates/the_pistol_is_never_a_club_gate.js'],
      'COMBAT [the pistol is never a club], rule 195 (Paolo 10/25: "the game still says the pistol is a club at one tile I never asked for that shit"). The gun\'s butt (clubFor, armIn, ours.gun_club) and the WHIP button are gone from the fight and its data; no fight string calls a gun a club, a butt or a whip; 120 rolled fights (his crew from his words, a pistol crew, TUNING\'s crews, AUTO both sides): not one gun blow as a club, shots at the next tile; his gunmen with no shot reload, stand or move and never swap his bag (rule 180(g)); on his phone and his computer a pistol beside a thug shoots him (SHOOT, no WHIP square, the card reach 1 to 4 tiles), and empty it is refused for the round with RELOAD big.', False),
+    ('RETREAT FROM THE LINEUP', ['node', 'gates/retreat_from_the_lineup_gate.js'],
+     'COMBAT [retreat from the lineup], rule 253 (Paolo 10/26: "in the lineup menu, that\'s super important, I should be able to retreat from the lineup, before the enemy, no matter what, end of story... not like I take the first turn if I press retreat"). The real fight page, the five road factions and a fight the odds read red, AUTO off: RETREAT lit on the lineup, one real press, WITHDREW before anyone moves, every man as he came in, no spoils; the demo through the one door with a job held: back on the map, never the last-save reload, the job held, the company, condition, supplies and stash unchanged; phone and computer. records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md', True),
+    ('AN EARLY RETREAT GETS OUT', ['node', 'gates/an_early_retreat_gets_out_gate.js'],
+     'COMBAT [an early retreat gets out], rule 256 (Paolo 10/26: "if I retreat immediately at the beginning of the battle, most of the time I should be able to escape... things that can traverse farther than a human should start back a couple tiles"). 1,000 rolled fights on the live rules, RETREAT on his first turn: 95+ in 100 of his men out, every man within a turn of his edge, no melee blow on anyone\'s first turn (the wiki\'s five tiles between), beasts 95+. Before: 82.0%, 13.9%, 186 fights, beasts 55.8%. records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md', False),
     ('THE FIGHT ON THE LIVE PATH', ['node', 'gates/the_fight_on_the_live_path_gate.js'],
      'COMBAT [the fight is broken live], the coordinator\'s emergency 10/26 (Paolo 10/26: "the auto combat started tweaking out on me and not working during combat... then I was trying to fight manually and it was tweaking on that too"). Every fight gate served fresh files from disk; the live site lets a phone keep any file ten minutes (GitHub Pages max-age=600) while the worker forced only the page fresh, so for ten minutes after a deploy the NEW fight ran on the OLD ours.json and threw every frame before it drew (records/BOHEMIA_COMBAT_THE_FIGHT_IS_BROKEN_LIVE_10_26_26.md). The demo walked as his phone and his computer walk it, the server answering as GitHub Pages does, a DEPLOY between the map and the fight: L1 the fight reads the deploy it came with; L2 AUTO by a real tap to its end, never 8 s still; L3 by hand with real taps, every turn of his answers; L4 the damage carried, each man in with what he is missing; L5 AUTO at 4x by the speed button; L6 an old save reopened by CONTINUE; L7 a turn that throws passes and the board keeps drawing; L8 nothing threw. Red on main before the fix (0/5: the old file read, AUTO frozen in round 1, the board stopped).', True),
     ('GEAR THROUGH THE SAVE', ['node', 'gates/gear_through_the_save_gate.js'],
@@ -9665,8 +9669,14 @@ GATES = [
      "duct tape for my armour... this run's over'). MEASURED before: the loot counted SCRAP into the purse's resources, which nothing he uses reads; the company's tape "
      "never rose after a fight. HOLDS: the loot file's count is TAPE, two rolls a wrecked piece (ECONOMY's tape_income.json); the screen on a phone and a computer says "
      "TAPE with the tape roll, LOOT ALL raises the company's tape (bohemia.supplies.v1) by it once, no 'scrap' on the screen; the live demo on both after a road fight "
-     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. AND [tape in the loot] (rule 271(a)(c)): 400 rolled fights, every man "
-     "of theirs killed carried ECONOMY's two or three rolls in his kit, every fight with a kill leaves tape, nothing off the men who ran or a beast. about 4 min", True),
+     "with their armour wrecked; an old save's 'loot: N rounds, M scrap' becomes 2M rolls of tape, once. RE-AIMED 10/26 for [one roll a fight] (rule 284, 'you're about to crash my "
+     "economy... one duct tape as a baseline'): a won fight +1 tape whatever the kills and the wrecks (400 rolled fights), a lost or fled fight 0, '+1 TAPE' on the screen, "
+     "the live demo 40 -> 41, an old save's scrap converts nothing more. about 4 min", True),
+    ('MAKE CAMP FROM THE FIGHT', ['node', 'gates/make_camp_from_the_fight_gate.js'],
+     "RUN FOUR gate, 10/26, RUN FOUR's half of [make camp from the fight] (rule 267(b), Paolo 10/26: 'after combat ends there should be a button where you go straight "
+     "into camp mode to start healing'). MEASURED before: one way out, LEAVE; camp a second trip. HOLDS: MAKE CAMP beside LEAVE on the bottom bar, whole, a thumb's size, "
+     "clear of the loot's buttons and the strip, after a won, lost or pulled-out fight and not a wipe, phone and computer; on the live demo a real tap takes the counts "
+     "home and makes CAMP's camp at the fight's place; the finished fight's contact flag no longer breaks it on its first hour. green at registration, 11/0, about 4 min", True),
     ('OPTIMIZE LOOT', ['node', 'gates/optimize_loot_gate.js'],
      "RUN FOUR gate, 10/26, rows [optimize loot] and [one tap selects, two taps take] (rules 244, 249, Paolo 10/26: 'an optimize loot button at the end of battle "
      "screen... if my inventory is full but there are ten more things that could be taken... it takes the things in your inventory that are sellable at the lowest "
@@ -9676,6 +9686,14 @@ GATES = [
      "the shop's own sellBack and isJunk cut out of its file agree with ours; phone and computer: OPTIMIZE LOOT beside LOOT ALL with its gain, one real tap makes the "
      "most valuable stash, the strip shows what it left and took and the gain, UNDO puts back every piece exactly; one tap lights a piece and moves no box, two taps "
      "(a double click, a right click) take it; the live demo after a road fight. green at registration, 22/0, about 2 min", True),
+    ('THE AFTERMATH', ['node', 'gates/the_aftermath_gate.js'],
+     "RUN FOUR gate, 10/26, row [the aftermath plays behind the loot screen] (rule 245, Paolo 10/26: 'the background is all black... instead a live show, as zoomed "
+     "in as it can be, of your characters looting the bodies, walking between them, talking about what's next... at a lower opacity'). MEASURED before: the end "
+     "screen on a flat #120e0a, black wherever no plate stood. HOLDS: the page alone drawn on open and never black, LEAVE stops it; on the live demo, two rolled road "
+     "fights on a phone and one on a computer: the back is the same baked board the fight holds, the dead and down where the fight left them, every man who can walk "
+     "seen walking and stopped at a body, a friend or the watch, the friend down gone to; the window or open ground lit and full of detail; every word on the scene at "
+     "4.5 to 1 or better with the words taken out; the back's draw under 6 percent of the thread and never a frame's budget at the 95th, the page's frames within 15 "
+     "percent of the same page with the scene held, its two pictures under 12 MB (2.6 on a phone), nothing loaded for it but ANIMATION's act sheets. about 6 min", True),
     ('THE STARS SIT WITH THE WORDS', ['node', 'gates/the_stars_sit_with_the_words_gate.js'],
      "RUN TWO gate, 10/24, row [the stars sit with the words] (rule 146(e), Paolo 10/24: 'even on the hire screen the stars are a "
      "little too big and not nicely put with the UI's letters, so make the stars smaller'): on the hall's hire cards and a man's "
@@ -9718,6 +9736,54 @@ GATES = [
      "building), behind a tower (most of him, his outline shows), behind the freeway (his legs), walked over it never sunk in its "
      "berm, whole in the open at every stop; a party covered; a tap travels; the depth off turns it red; the frame's cost. green "
      "at registration, 13/0 a profile, about 3 min", True),
+    ('NO NAME COVERS ANOTHER', ['node', 'gates/no_name_covers_another_gate.js'],
+     "RUN gate, 10/26, row [eyes: names on names] (rule 150; his first votes' 'no two texts overlap'; EYES round 2: 'GYPSUM CAVE' "
+     "over 'FRENCHMAN MOUNTAIN', 'CHURCH' cut by 'BLUE DIAMOND', names cut by the phone): on the phone and his computer, at the far "
+     "stop, 0.141, 0.375, 0.456, the opening zoom and a block 43 px, every text the map draws read off the canvas's own calls: no two "
+     "over each other, none under the phone, the bar or the speed pad, two thirds of the names still standing, and the list off "
+     "turns it red (before: 4, 7, 1 and 2 pairs, five names under the phone). green at registration, 5/0 a profile, about 2 min", True),
+    ('THE MAP FRAMES AROUND THE PHONE', ['node', 'gates/the_map_frames_around_the_phone_gate.js'],
+     "RUN gate, 10/26, row [the map frames around the phone] (rule 213(c)(d)(e), 238(b), Paolo 10/26: 'not directly in the middle "
+     "of the screen, slightly off center, and as you zoom in, that's the same center'): on the phone and his computer, the map reads "
+     "the phone's margin (UI TWO's BohemiaPhone.padding, or the live phone's rectangle) and holds him at the open area's middle: "
+     "held, after a zoom, a pan taken back, a travel (never under the phone), a zoom let go keeps the world under the focus, the "
+     "corner flipped mirrors it, the device turned recomputes it; the margin off turns it red. green at registration, 10/0 a "
+     "profile, about 4 min", True),
+    ('PLAY TAKES YOU THERE', ['node', 'gates/play_takes_you_there_gate.js'],
+     "RUN gate, 10/26, row [play takes you there] (rule 227(c), Paolo 10/26: 'when you press play it just walks you automatically "
+     "towards the quest, perfectly'; EYES' normie hour F9): two real jobs off a town's board; the one call UI TWO's PLAY makes "
+     "(mapPlayToJob) sets out for where the job sends him next by the path finder's own route (fewest minutes, never slower than "
+     "fewest blocks on 40 trips), two blocks clear of a crew hunting him, to the paying town when it is owed and the town opens; a "
+     "tap of his own is his own; no job, nothing; the route off turns it red. green at registration, 8/0 a profile, about 4 min", True),
+    ('THE MAP FITS YOUR JOBS', ['node', 'gates/the_map_fits_your_jobs_gate.js'],
+     "RUN gate, 10/26, row [the map fits your jobs] (rule 228(a), Paolo 10/26: 'when you get out of the settlement the map should "
+     "be as big as the two quests you added... with the padding, the screen flipped or straight up'; EYES' normie hour F7): leaving "
+     "a town with two jobs he and both places sit inside the open area, none under the phone; one job fits closer; a job taken on "
+     "the map fits; a pinch during the ease is his, a journey takes the camera back; the fit off turns it red. about 4 min a "
+     "profile", True),
+    ('MEET BEFORE YOU FIGHT', ['node', 'gates/meet_before_you_fight_gate.js'],
+     "RUN gate, 10/25 (rule 151(e)), and 10/26 [eyes: the meet card's men] (rule 198(g)): a walk into a party stops on a card with "
+     "who and the ground, FALL BACK and ENGAGE by a finger; a beast meet by day names them as beasts at the count that stands, never "
+     "'IN THE DARK'; after FALL BACK the walk on to the town past the pack never brings the card back and the town opens; the get-"
+     "away off brings it back; [make camp nearby] (rule 269(a)): a roaming card has two choices, a still enemy's three, MAKE CAMP "
+     "NEARBY camps a block back with them unmoved and no fight, breaking camp walks back into them and the card asks again. phone, "
+     "about 8 min", True),
+    ('YOUR MAIN GUY LEADS THE WALK', ['node', 'gates/your_main_guy_leads_the_walk_gate.js'],
+     "RUN gate, 10/26, row [your main guy leads the walk] (rule 263(a), Paolo 10/26: 'the character that's walking through Bohemia "
+     "is not ... the main character of the origin'): on the phone and his computer, the map's lead is the fight's own YOU cut into "
+     "the map's format (56 frames equal the fight sheet's), drawn at the opening zoom and 2.4, his head on the glass his and not the "
+     "old body's, the roster's main man the same look, a main man with a look of his own leads as himself, his sheet failed turns it "
+     "red. green at registration, 7/0 a profile, about 4 min", True),
+    ('HIS MAP', ['node', 'gates/his_map_gate.js'],
+     "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
+     "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
+     "world around you'): the stranger's game on the phone and his computer: the unseen city grey under the tape with its shape "
+     "(its light follows the painting's; RUN's dark put back is the mutation), no colour in it, the seen city painted, the whole "
+     "valley on one screen, the close end still the tape; a held finger opens the pin box clear of the phone and never travels, "
+     "CAMP drawn at three stops, A WORD typed, a cross where a man died, all kept through a reopen, TAKE IT OFF; the next boss's "
+     "sign in his first sight, the sign marks him, his fight through the one door, he falls and his district changes, every kind "
+     "of change (lights, a place, a wall the walk goes through, the map opened, a base by boss), the next sign; the frame's cost "
+     "against RUN's dark. green at registration, 21/0 a profile, about 8 min a profile", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "
@@ -9949,6 +10015,10 @@ GATES = [
      "RUN TWO gate, 10/25, row [the shop says what it does to your man] (rule 202, Paolo 10/25: 'in the shop you cannot just say how many batteries it costs without saying the stat it does... when you wear the shield it reflects in your stats'). "
      "MEASURED before: a shield's card said 'holds 16 weight 4', never its defences; every shield under 40 'a car door'; nothing on a man; the crew screen without what he wears. HOLDS on the demo through Church's door by real taps: every shield, armour and helmet row its own name, none alike, the object word in it, shop, crew screen and icons agreeing; "
      "a shield's card its own numbers with UI's stat icons; ON A MAN before and after equal to a sum from the files; a face tapped shows another man; armour and weapon cards (a pistol's damage the fight's shot); bought and put on by real taps, the crew screen shows exactly the shop's numbers, and the fight stands him with the same; the computer. about 4 min", True),
+    ('THE SMITH MENDS', ['node', 'gates/the_smith_mends_gate.js'],
+     "RUN TWO gate, 10/26, row [the smith mends] (rule 277, Paolo 10/26: 'if I go to a settlement that has a smith and an armourer I should be able to repair my stuff with them pretty easily and quickly'). "
+     "MEASURED before: the craftsmen only bought and sold; the camp's slow mend in tape was the only one. HOLDS on the demo, a new game, gear dented through CAMP's afterFight: the smith shows MEND YOUR GEAR above its shelf, MEND IT ALL at ECONOMY's mendPrice summed (the card's multiplier), a row a man with a bar a piece; "
+     "one tap takes exactly the shown batteries, mends every piece, spends no tape and moves the clock an hour; one man alone; nothing broken says so; a camp's GUNS AND PLATE the same; the computer by a click. about 3 min", True),
     ('TAPE AT EVERY STALL', ['node', 'gates/tape_at_every_stall_gate.js'],
      "RUN TWO gate, 10/26, row [tape at every stall] (rules 265(a), 276(b), Paolo 10/26: 'all stalls, no matter the settlement, always sell at least a stack of duct tape... it almost makes the game unplayable'; 'I made it to day four and couldn't find anywhere to get repair items, duct tape'). "
      "MEASURED before: no stall sold tape anywhere. HOLDS on the demo, a new game, real taps: the first town's stall shows a roll and a stack of 20 with the tape icon at ECONOMY's price, its shelf ECONOMY's tapeShelf (a stack at least); a roll and a stack go into TAPE and out of the purse; "
@@ -10019,6 +10089,12 @@ GATES = [
      "MEASURED before: every man on the crew screen stood bare-handed whatever he held. On the demo, phone and computer, the company screen through the bar's CREW, every man: his figure holds what his main hand "
      "holds as the fight names it (fight_rig.json by_class: pistol, rifle, shotgun; bare when no gun), the gun drawn (more of him painted than his bare idle); the computer: the crew screen's FATIGUE equals the fight's "
      "fatMax for every man in a road fight; the class table emptied is caught. about 3 min", True),
+    ('THE CREW SCREEN SHOWS THEIR CAMP', ['node', 'gates/the_crew_screen_shows_their_camp_gate.js'],
+     "UI gate, 10/26, row [the crew screen shows their camp where they stand] (rule 239(d), Paolo 10/26: 'the background is all black, but what I really want is... your crew with their camp "
+     "in the background, at whatever tile they're currently on'). MEASURED before: behind the crew screen one flat #120e0a, 0 pixels of the world. On the demo, phone and computer, the bar's CREW: "
+     "the map on a street by day (COOK FOUR's camp picture, his men round the fire) and in the desert by night (its night picture), a town by day and by night (the town's own live picture); "
+     "every bare point of the screen on the glass shows a picture (a spread of light); every word on the picture holds 4.5 to 1 against the brightest and darkest tenth behind it; one canvas under 8 MB; "
+     "the screen opens no slower (three opens with and without, median) and the camp draws after its first frame. The camp switched off reads black and the dim taken off drops words under the floor. about 6 min", True),
     ('BUY VERSUS SELL', ['node', 'gates/buy_versus_sell_gate.js'],
      "ECONOMY gate, 10/26, row [buy versus sell] (rule 242, Paolo 10/26: 'at the stall where a dose of med six rounds food and water are available, I should also be able to sell... "
      "how much you can make, buy versus sell prices'). The numbers' half of 242(d) (RUN TWO's [sell at the stall] gate holds the tap): records/target/bb/stall_prices.json, every row sourced, "
@@ -10059,6 +10135,16 @@ GATES = [
      "everywhere, refilled every map day, never sold out; ROLLED MONTHS at five fights a day (tools/bohemia_economy_tape_income.js over TUNING's bench of what a fight breaks): A NEW CREW and "
      "THE BLOCK WATCH have what they break plus a tenth from a camp, a town or a fortress, at the fair price and the loot; a month out of a town is never short half the time or more; the "
      "Lone Wolf covered from a town or a fortress. Three mutations turn it red (Battle Brothers' three-day shelf, a roll or two in the loot, half a stack in a camp). 1 s", False),
+    ('THE FACE SHOWS THE WOUND', ['node', 'gates/the_face_shows_the_wound_gate.js'],
+     "PORTRAIT gate, 10/26, row [the face shows the wound] (rule 234(c); PAOLO 10/26: 'let's get creative with how it's gonna affect their portrait... an eye patch or a serious brain shit or like blood somewhere like a band-aid there like the ear cut off there like the nose'). "
+     "Every one of the 59 injury rows names one of 18 marks; the engine's copy is the data file's; the one face painter (engine/bohemia_crew_faces.js) puts the marks over every face it paints, rest and every mouth; "
+     "YOU and the starting company have every mark made on their own model at 128 and 64, or the surgeon's tag where his own gear covers it; covered marks at most 1 in 100, none failed, the runner's base the face he wears; "
+     "the stages (struck down: the mark, the blood, the band-aid; past half his days: the band-aid; healed: the mark alone); on the crew screen in Chromium a man struck down wears them at the portrait's 128 and the thumb's 64, his talking mouth keeps them, "
+     "healed the band-aid's pixels are his own face again, the crew screen's own book reads the same way, a covered mark shows the tag, a whole man is drawn exactly as he was. About 1 min", True),
+    ('EVERY FACE BREATHES', ['node', 'gates/every_face_breathes_gate.js'],
+     "PORTRAIT gate, 10/26, row [every face breathes] (rule 246(d); PAOLO 10/26: 'I wanna see my crew, anytime they're on the screen, or anytime anyone's on the screen with a portrait, just slightly moving, like breathing... if they have a serious wound maybe they could be reacting to it'). "
+     "One clock on the game's grid (three keys a beat at 120 BPM): a breath every eight beats (15 a minute), a blink every 3 to 6 seconds; every face rendered winces and, wherever his eyes show, blinks and glances at 128 and 64 (his own renders); "
+     "on the crew screen in Chromium a face changes over two seconds and breathes 12 to 20 a minute at 128 and 64; a man struck down winces, a whole one never; a talking face is the talker's; twelve faces breathing cost no frame time. About 1 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

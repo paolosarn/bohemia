@@ -1,0 +1,117 @@
+{
+ "look": "faction_caravans",
+ "stamp": "wounds-10-26",
+ "portrait": {
+  "head_px": 128,
+  "head_m": 0.3818,
+  "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.382 m",
+  "ppm": 335.258,
+  "res": 218,
+  "camera": {
+   "tilt_deg": 80.0,
+   "turn_deg": 0,
+   "ortho": true
+  },
+  "facings": [
+   "S"
+  ],
+  "expressions": [
+   "A",
+   "E",
+   "O",
+   "M"
+  ]
+ },
+ "log": [
+  {
+   "measured": {
+    "C": [
+     0.0,
+     0.0007,
+     1.3501
+    ],
+    "eyes": [
+     [
+      -0.0512,
+      -0.1214,
+      1.356
+     ],
+     [
+      0.0512,
+      -0.1214,
+      1.356
+     ]
+    ],
+    "eye_r": 0.0165,
+    "tip": [
+     -0.0,
+     -0.1885,
+     1.3007
+    ],
+    "mouth_z": 1.2609,
+    "chin_z": 1.1683,
+    "top_z": 1.53,
+    "ears": 2,
+    "hair": [
+     "portrait_beard",
+     "portrait_hair"
+    ],
+    "gear": [
+     "portrait_hat"
+    ],
+    "torso": [
+     "caravans_coat",
+     "caravans_coat_skirt",
+     "caravans_hand_L",
+     "caravans_hand_R",
+     "caravans_mantle",
+     "Cesium_Man"
+    ],
+    "body": [
+     "caravans_coat",
+     "caravans_coat_skirt",
+     "caravans_hand_L",
+     "caravans_hand_R",
+     "caravans_mantle",
+     "caravans_shoe",
+     "caravans_trouser",
+     "Cesium_Man"
+    ],
+    "head_matrix_identity": false,
+    "materials": [
+     "caravans_coat",
+     "caravans_coat_skirt",
+     "caravans_mantle_print",
+     "caravans_shirt_print",
+     "caravans_shoe",
+     "caravans_shoes",
+     "caravans_skin",
+     "caravans_trouser",
+     "caravans_trousers",
+     "portrait_faction_caravans_beard",
+     "portrait_faction_caravans_buzz",
+     "portrait_faction_caravans_hat",
+     "portrait_faction_caravans_iris",
+     "portrait_faction_caravans_lips",
+     "portrait_faction_caravans_mouth",
+     "portrait_faction_caravans_pupil",
+     "portrait_faction_caravans_sclera",
+     "portrait_faction_caravans_skin"
+    ]
+   }
+  },
+  {
+   "life": true
+  },
+  {
+   "shots": 4,
+   "seconds": 74.3
+  }
+ ],
+ "made": [
+  "_blink",
+  "_look_l",
+  "_look_r",
+  "_wince"
+ ]
+}
