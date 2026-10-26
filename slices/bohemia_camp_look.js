@@ -53,7 +53,9 @@
     var C = up('BohemiaCamp'), cart = C ? C.cart().level : 0, ret = C ? C.retinue() : [];
     var men = companyOf(info), cond = up('BohemiaCondition');
     var block = info && info.block ? info.block : [0, 0];
-    var L = CL.layout({ men: men.length, level: cart, smart: smart(), followers: ret, kills: (info && info.kills) | 0, seed: block[0] * 7 + block[1] * 13, tall: wantTall() });
+    var LO = { men: men.length, level: cart, smart: smart(), followers: ret, kills: (info && info.kills) | 0, seed: block[0] * 7 + block[1] * 13, tall: wantTall() };
+    var L = CL.layout(LO);
+    if (L.tall) { var lift = liftFor(L, men.length); if (lift) { LO.lift = lift; L = CL.layout(LO); } }
     var M = men.map(function (m) {
       var r = CL.manOf(m, cond);
       if (K.men) {   /* the map's read of each man by his look (the names the marker's list does not carry) */
@@ -86,6 +88,20 @@
   }
   /* THE SHAPE OF THE GLASS (rule 289): a glass taller than wide gets the tall camp on the tall ground, a wide one the wide camp; a
      turn GLIDES between them (flip below) */
+  /* THE PHONE AFTER (rule 289 then 286): an upright glass shows the tall ground's whole height (the screen cannot pan up or down), so
+     when the phone stands in its bottom corner the camp itself rises: everything clear of the phone's top and, room allowing, centred
+     in what is left; it rises and settles in one beat (the glide). With no phone it sits centred on the glass. */
+  var PERSON = 134;   /* the settlement screen's man, picture px (its personH) */
+  function liftFor(L, nMen) {
+    var r = phone(); if (!r) return 0;
+    var sc = null; try { sc = document.getElementById('scene').getBoundingClientRect(); } catch (e) { sc = null; }
+    var top0 = sc ? sc.top : 0, h = sc && sc.height ? sc.height : (root.innerHeight || 844), pt = (r.top - top0) * L.pic.h / h;
+    var z = PERSON / ZK, hi = 1e9, lo = -1e9;
+    L.pieces.forEach(function (p) { var q = pieceRect(p, z); if (q) { hi = Math.min(hi, q[1]); lo = Math.max(lo, q[3]); } });
+    var f = L.fire; hi = Math.min(hi, f.y - 520); lo = Math.max(lo, f.y + (nMen > 1 ? 420 : 200));   /* the men: the watch at the back, the hurt in front */
+    var need = lo - (pt - 16), mid = (hi + lo) / 2 - pt / 2;
+    return Math.round(Math.max(0, Math.min(440, Math.max(need, Math.min(mid, hi - 150)))));
+  }
   function wantTall() { try { var W = root.innerWidth, H = root.innerHeight; return !!(K.kit && K.kit.plate_tall) && H > W * 1.15; } catch (e) { return false; } }
   function variant() {
     if (!K.kit) return null;
@@ -97,22 +113,22 @@
   /* A TURN GLIDES (rule 289(b)(c), the coordinator's default: the shared-element move): the camp's pieces and his men slide from where
      they stood on the old glass to their new spots in one beat (500 ms at 120 BPM, eased), each man keeping his act; the old ground
      fades under the new one; the last frame holds while the new ground comes in, never a black frame */
-  var GLIDE_MS = 500;
+  var GLIDE_MS = 500;   /* one beat at 120 BPM (a capture for the VOTE tab may slow it with window.__CAMP2_GLIDE_MS) */
   function wantsFlip(VAR) { return !!(K.st && VAR && VAR.camp2 && !!VAR.tall !== wantTall()); }
   function flip(cv, view) {
     var snap = null;
     try { snap = document.createElement('canvas'); snap.width = cv.width; snap.height = cv.height; snap.getContext('2d').drawImage(cv, 0, 0); } catch (e) { snap = null; }
     /* the beat starts on the first frame the new ground is drawn (a slow phone's first frame after a turn can be late; the glide is
        never eaten by it) */
-    K.glide = { t0: null, frames: 0, from: Object.assign({}, K.drawnAt || {}), snap: snap, oldView: { ox: view.ox, oy: view.oy, s: view.s }, n: (K.glide ? K.glide.n | 0 : 0) + 1 };
     K.flips = (K.flips | 0) + 1;
+    K.glide = { t0: null, frames: 0, from: Object.assign({}, K.drawnAt || {}), snap: snap, oldView: { ox: view.ox, oy: view.oy, s: view.s }, n: K.flips, kind: 'flip' };
     K.composed = null;
     if (K.info) K.st = build(K.info);
     K.folkKey = null;
     return true;
   }
-  function glideU(now) { var G = K.glide; if (!G) return 1; if (G.t0 == null) G.t0 = now; var u = Math.max(0, Math.min(1, (now - G.t0) / GLIDE_MS));
-    if (u >= 1) { K.lastGlide = { n: G.n, frames: G.frames, ms: Math.round(now - G.t0) }; K.glide = null; return 1; } return u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; }
+  function glideU(now) { var G = K.glide; if (!G) return 1; if (G.t0 == null) G.t0 = now; var u = Math.max(0, Math.min(1, (now - G.t0) / (root.__CAMP2_GLIDE_MS || GLIDE_MS)));
+    if (u >= 1) { K.lastGlide = { n: G.n, kind: G.kind, frames: G.frames, ms: Math.round(now - G.t0) }; if (G.kind === 'flip') K.lastFlip = K.lastGlide; K.glide = null; return 1; } return u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; }
   function glidePos(key, x, y, now) {
     (K.drawnNext || (K.drawnNext = {}))[key] = [x, y];
     var G = K.glide; if (!G || !G.from[key]) return [x, y];
@@ -440,6 +456,13 @@
     if (!K.st) return null;
     var P = root.BohemiaPhone, r = phone(), key = (r ? r.side : 'none') + '|' + W + 'x' + H + '|' + (K.info && K.info.block ? K.info.block.join(',') : '');
     if (K.composed === key) return null; K.composed = key;
+    if (K.st.tall && K.info) {   /* the phone came or went on an upright glass: the camp rises or settles, gliding */
+      var was = K.st.layout.lift | 0, nb = build(K.info);
+      if (nb && Math.abs((nb.layout.lift | 0) - was) > 8) {
+        /* a glide already running (a turn) just takes the new spots as its ends; else the rise is its own beat */
+        if (!K.glide) K.glide = { t0: null, frames: 0, from: Object.assign({}, K.drawnAt || {}), snap: null, n: K.flips | 0, kind: 'lift' };
+        K.st = nb; K.folkKey = null; }
+    }
     var oc = P && P.openCentre ? P.openCentre() : null, f = K.st.layout.fire;
     var ocx = oc ? oc.x - (scene ? scene.left : 0) : W / 2, ocy = oc ? oc.y - (scene ? scene.top : 0) : H / 2;
     return { cx: f.x + (W / 2 - ocx) / view.s, cy: f.y + (H / 2 - ocy) / view.s, key: key };
@@ -475,7 +498,7 @@
     return { ready: K.ready, open: !!K.st, tents: K.st ? K.st.layout.tents : null, men: K.st ? K.st.men.length : 0, carrier: K.st ? K.st.layout.carrier.id : null,
       pieces: K.st ? K.st.layout.pieces.map(function (p) { return { key: p.key, kind: p.kind, sprite: p.sprite, x: p.x, y: p.y, follower: p.follower || null }; }) : [],
       acts: K.st ? K.st.acts.map(function (e) { return { name: e.main ? 'YOU' : e.name, look: e.look, act: e.act, blood: Math.round(e.blood * 1000) / 1000, armour: Math.round(e.armour * 1000) / 1000, by: e.by }; }) : [],
-      hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, gliding: !!K.glide, lastGlide: K.lastGlide || null, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
+      hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
       compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
   }
   root.BohemiaCampLook = { ready: function () { return K.ready && !!CL; }, variant: variant, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,

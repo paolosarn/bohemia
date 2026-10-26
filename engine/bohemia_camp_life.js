@@ -37,8 +37,16 @@
      before you can even begin to try to make the phone location look good'): the wide camp on the wide ground (2060 x 1092) and the
      tall camp on the tall ground (1092 x 1940, slices/camp_two/plate_tall.webp): the same pieces, the tents stacked in rows behind
      the fire instead of spread in arcs, every other offset narrowed and lengthened (sx, sy), so a phone held upright fills with it */
-  var GEO = { wide: { w: 2060, h: 1092, fx: 1030, fy: 640, sx: 1, sy: 1, cap: [4, 5, 6], rx: [300, 170], ry: [200, 110] },
-              tall: { w: 1092, h: 1940, fx: 546, fy: 900, sx: 0.5, sy: 1.25, cap: [3, 3, 3, 3], rx: [250, 15], ry: [215, 215] } };   /* the camp in the upper middle: both bottom corners stay open for the phone, either side */
+  var GEO = { wide: { w: 2060, h: 1092, fx: 1030, fy: 640, sx: 1, sy: 1, cap: [4, 5, 6], rx: [300, 170], ry: [200, 110],
+                edges: [[-700, 20, 'SW'], [720, 10, 'SE'], [520, -250, 'NE'], [-520, -240, 'NW']] },   /* the watch at the camp's sides, clear of the cart and of the bottom corners (the phone's) */
+              tall: { w: 1092, h: 1940, fx: 546, fy: 1000, sx: 0.62, sy: 1.45, cap: [3, 4, 4, 4], rx: [250, 70], ry: [250, 190], ring: [0.12, 0.88],
+                /* the upright camp is its own picture, not the wide one squeezed: the tents in rows behind the fire, the carrier and its
+                   load on the left, the seats and the hurt in front, the followers down both sides; centred on the glass with no phone
+                   (rule 289), lifted in one beat when the phone comes on (lift below) */
+                at: { cart: [-300, 40], supplies: [-330, 360], seats: [250, 250], slain: [330, -600],
+                      cook: [200, -40], blacksmith: [-120, 420], surgeon: [370, 380], lookout: [420, -330], scout: [-420, -380], paymaster: [400, 90] },
+                edges: [[-470, -90, 'SW'], [470, -60, 'SE'], [440, -480, 'NE'], [-440, -520, 'NW']],
+                spots: [[-430, -200], [430, -170], [130, 470], [-440, 230], [440, 520], [-130, -620], [180, -640]] } };
   function geo(o) { return o && o.tall ? GEO.tall : GEO.wide; }
   var HURT = 0.87, BAD = 0.35;          /* rule 261(b): under 87 percent he shows; under about a third he is down on a bedroll */
   /* the odds colour, read from ours.json by whoever loads it (the same file COMBAT's AUTO reads), else the 144(e) numbers */
@@ -94,13 +102,14 @@
   function layout(o) {
     o = o || {};
     var men = Math.max(1, o.men | 0), R = rnd(seedOf('camp:' + (o.seed || 0))), car = carrier(o.level, o.smart), pieces = [], G = geo(o);
-    var at = function (dx, dy) { return { x: G.fx + dx * G.sx, y: G.fy + dy * G.sy }; };
+    var lift = o.lift | 0;   /* the camp raised on the glass (rule 286 after 289: a phone in the bottom corner of an upright glass) */
+    var at = function (dx, dy, id) { var t = id && G.at && G.at[id]; return t ? { x: G.fx + t[0], y: G.fy + t[1] } : { x: G.fx + dx * G.sx, y: G.fy + dy * G.sy }; };
     pieces.push({ kind: 'fire', key: 'fire', sprite: 'fire', x: G.fx, y: G.fy, tap: 'fire' });
     tentSpots(tents(men), R, G).forEach(function (p, i) {
       pieces.push({ kind: 'tent', key: i ? 'tent_' + (i + 1) : 'tent', sprite: CLOTHS[(i + (seedOf('cloth:' + (o.seed || 0)) % 3)) % 3], x: p.x, y: p.y, tap: 'tent', i: i,
         sleeps: [i * 2, i * 2 + 1].filter(function (k) { return k < men; }) });
     });
-    var q1 = at(-470, 70), q2 = at(-330, 140), q3 = at(300, 150);
+    var q1 = at(-470, 70, 'cart'), q2 = at(-330, 140, 'supplies'), q3 = at(300, 150, 'seats');
     pieces.push({ kind: 'carrier', key: 'cart', sprite: car.sprite, carrier: car.id, word: car.word, trailer: !!car.trailer, x: q1.x, y: q1.y, tap: 'cart' });
     pieces.push({ kind: 'supplies', key: 'supplies', sprite: 'supplies', x: q2.x, y: q2.y, tap: 'cart' });   /* the camp kept off the glass's bottom corners, where the phone stands (rule 286) */
     pieces.push({ kind: 'seats', key: 'retinue', sprite: 'seats', x: q3.x, y: q3.y, tap: 'retinue' });
@@ -108,12 +117,15 @@
     (o.followers || []).forEach(function (id) { if (FOLLOWER_AT[id]) taken[FOLLOWER_AT[id].dx + ',' + FOLLOWER_AT[id].dy] = 1; });
     (o.followers || []).forEach(function (id) {
       var f = FOLLOWER_AT[id];
-      if (!f) { var sp = null; while (freeSpot < FOLLOWER_SPOTS.length && !sp) { var q = FOLLOWER_SPOTS[freeSpot++]; if (!taken[q.dx + ',' + q.dy]) sp = q; } if (!sp) return; f = { sprite: 'f_' + id, dx: sp.dx, dy: sp.dy }; }
-      var qf = at(f.dx, f.dy); pieces.push({ kind: 'follower', key: 'f_' + id, follower: id, sprite: f.sprite, x: qf.x, y: qf.y, tap: 'retinue' }); });
+      var qf;
+      if (!f) { var sp = null; while (freeSpot < FOLLOWER_SPOTS.length && !sp) { var q = FOLLOWER_SPOTS[freeSpot++]; if (!taken[q.dx + ',' + q.dy]) sp = q; } if (!sp) return;
+        f = { sprite: 'f_' + id, dx: sp.dx, dy: sp.dy }; var ts = G.spots && G.spots[freeSpot - 1]; qf = ts ? { x: G.fx + ts[0], y: G.fy + ts[1] } : at(f.dx, f.dy); }
+      else qf = at(f.dx, f.dy, id);
+      pieces.push({ kind: 'follower', key: 'f_' + id, follower: id, sprite: f.sprite, x: qf.x, y: qf.y, tap: 'retinue' }); });
     var k = o.kills | 0;
-    var qs = at(-600, -330); if (k > 0) pieces.push({ kind: 'slain', key: 'slain', sprite: k <= 2 ? 'slain_few' : k <= 5 ? 'slain_some' : 'slain_many', n: k, x: qs.x, y: qs.y, tap: null });
-    pieces.forEach(function (p) { p.x = Math.round(Math.max(100, Math.min(G.w - 100, p.x))); p.y = Math.round(Math.max(200, Math.min(G.h - 60, p.y))); });
-    return { fire: { x: G.fx, y: G.fy }, pieces: pieces, tents: tents(men), carrier: car, pic: { w: G.w, h: G.h }, tall: G === GEO.tall, geo: G };
+    var qs = at(-600, -330, 'slain'); if (k > 0) pieces.push({ kind: 'slain', key: 'slain', sprite: k <= 2 ? 'slain_few' : k <= 5 ? 'slain_some' : 'slain_many', n: k, x: qs.x, y: qs.y, tap: null });
+    pieces.forEach(function (p) { p.y -= lift; p.x = Math.round(Math.max(100, Math.min(G.w - 100, p.x))); p.y = Math.round(Math.max(200, Math.min(G.h - 60, p.y))); });
+    return { fire: { x: G.fx, y: G.fy - lift }, pieces: pieces, tents: tents(men), carrier: car, pic: { w: G.w, h: G.h }, tall: G === GEO.tall, geo: G, lift: lift };
   }
 
   /* ONE MAN'S CONDITION, READ: the share of his blood and armour he has now (1 whole, a man no fight has seen is whole) */
@@ -170,12 +182,13 @@
       put(e, f.x - 160 + col * 170 - ((n - 1) * 85) + 160, f.y + Y(200) + row * 80 + (col % 2) * 30, 'E'); });   /* in front of the fire, a row a few at a time */
     (by.tend || []).forEach(function (e) { var p = out[e.by]; if (p) put(e, p.x + 20, p.y - 46, 'S'); else put(e, f.x, f.y + 120, 'N'); });
     var sitters = (by.rest || []).concat(by.clean || []);
-    sitters.forEach(function (e, j) { var q = ring(sitters.length, 175, 85, Math.PI * 0.62, Math.PI * 1.38, j); put(e, q.x, q.y, dirTo(f.x - q.x, f.y - q.y)); });
+    var arc = G.ring || [0.62, 1.38];   /* the wide camp sits them on the fire's left; the upright one in front of it, backs to us */
+    sitters.forEach(function (e, j) { var q = ring(sitters.length, 175, 85, Math.PI * arc[0], Math.PI * arc[1], j); put(e, q.x, q.y, dirTo(f.x - q.x, f.y - q.y)); });
     var smith = piece('f_blacksmith'), cart = piece('cart');
     (by.mend || []).forEach(function (e, j) { var at = smith || cart; put(e, at.x + 70 + j * 46, at.y + 40 + (j % 2) * 18, dirTo(at.x - (at.x + 70 + j * 46), -1)); });
     var pot = piece('f_cook');
     (by.cook || []).forEach(function (e, j) { var at = pot || f; put(e, at.x + (pot ? 95 : X(170)) + j * 50, at.y + (pot ? 45 : -10), 'W'); });   /* beside the pot, never in front of it (the pot stays a door) */
-    var edges = [{ x: f.x - X(470), y: f.y + Y(120), face: 'SW' }, { x: f.x + X(500), y: f.y + Y(110), face: 'SE' }, { x: f.x + X(520), y: f.y - Y(250), face: 'NE' }, { x: f.x - X(520), y: f.y - Y(240), face: 'NW' }];   /* the camp's sides, never its bottom corners (where the phone stands) */   /* the camp's edge, inside what a phone shows of it */
+    var edges = G.edges.map(function (q) { return { x: f.x + q[0], y: f.y + q[1], face: q[2] }; });   /* the camp's edge, inside what a phone shows of it */
     (by.watch || []).forEach(function (e, j) { var q = edges[j % edges.length]; put(e, q.x, q.y, q.face); });
     var tl = L.pieces.filter(function (p) { return p.kind === 'tent'; });
     (by.sleep || []).forEach(function (e, j) { var t = tl[Math.floor(e.i / 2) % Math.max(1, tl.length)] || { x: f.x, y: f.y - 200 }; put(e, t.x - 40 + (e.i % 2) * 80, t.y + 95, 'E'); });

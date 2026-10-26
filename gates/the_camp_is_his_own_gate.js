@@ -66,8 +66,8 @@ async function run(profile) {
     const men = await fr.evaluate(() => {
       const L = BohemiaCondition.members(LOOP.start && LOOP.start.company);
       /* the hurt man's hitpoints and the broken man's pieces are set big, so the camp's quick hours (TUNING's x5) do not mend them
-         before the gate reads them: 154 hitpoints missing is fifteen camped hours, 810 points of armour more than the tape can pay */
-      const rows = L.map((e, i) => ({ name: e.main ? 'YOU' : e.man.name, main: e.main, hp: i === 1 ? 6 : 60, hpMax: i === 1 ? 160 : 60, armH: i === 2 ? 40 : 100, armHMax: i === 2 ? 400 : 100, armB: i === 2 ? 50 : 120, armBMax: i === 2 ? 500 : 120 }));
+         before the gate reads them (a slow machine runs more camp hours before the read): 294 hitpoints missing is near thirty camped hours, 810 points of armour more than the tape can pay */
+      const rows = L.map((e, i) => ({ name: e.main ? 'YOU' : e.man.name, main: e.main, hp: i === 1 ? 6 : 60, hpMax: i === 1 ? 300 : 60, armH: i === 2 ? 40 : 100, armHMax: i === 2 ? 400 : 100, armB: i === 2 ? 50 : 120, armBMax: i === 2 ? 500 : 120 }));
       BohemiaCondition.afterFight(rows, { day: 1 });
       window.__GATE_KEEP_OFF = setInterval(function () { try { if (HUNT && !HUNT.__gate) HUNT = null; } catch (e) {} }, 100);
       return L.map(e => e.main ? 'YOU' : e.man.name);
@@ -117,13 +117,16 @@ async function run(profile) {
     const campAfterFlip = await fr.evaluate(() => BohemiaMapCamp.state());
     /* the fire's sheet holds no BREAK CAMP of its own while the phone is on */
     const fireAt = await sf.evaluate(() => BohemiaSettlement.where('fire'));
+    const diag = fireAt ? { at: fireAt, inFrame: await sf.evaluate((w) => { const e = document.elementFromPoint(w.x, w.y); return e ? (e.id || e.tagName) : null; }, fireAt),
+      onTop: await p.evaluate((q) => { const e = document.elementFromPoint(q.x, q.y); return e ? (e.id || e.tagName) + '.' + String(e.className).slice(0, 30) : null; }, { x: sb.x + fireAt.x, y: sb.y + fireAt.y }),
+      look: await sf.evaluate(() => { const st = BohemiaCampLook.state(); return { lift: st.lift, gliding: st.gliding, tall: st.tall, peek: st.peek }; }) } : null;
     if (fireAt) { await press(sb.x + fireAt.x, sb.y + fireAt.y); await p.waitForTimeout(600); }
     const fireBtns = await sf.evaluate(() => ({ open: BohemiaSettlement.state.open, buttons: [].map.call(document.querySelectorAll('#sbody .acts button.act'), b => b.textContent.trim()) }));
     await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); });
     ok(P + 'K11 *** THE CAMP FITS THE PHONE *** phone right and phone left: no door of the camp, no man and no MAP under the phone, the camp\'s own BREAK CAMP gone (the phone\'s HEAL is the one door)',
       r1.phone && r2.phone && r1.side !== r2.side && r1.over.length === 0 && r2.over.length === 0 && r1.mapOver === 0 && r2.mapOver === 0 && !r1.leaveShown && !r2.leaveShown
         && fireBtns.open === 'fire' && fireBtns.buttons.length > 0 && !fireBtns.buttons.some(t => /break camp/i.test(t)),
-      JSON.stringify({ right: r1, left: r2, fire: fireBtns, camp: { on: campAfterFlip.on, why: campAfterFlip.why } }));
+      JSON.stringify({ right: r1, left: r2, fire: fireBtns, camp: { on: campAfterFlip.on, why: campAfterFlip.why }, diag }));
     /* ---- K4 (read at the open: the hours heal fast) ---- */
     const lead = await sf.evaluate(() => BohemiaSettlement.lead());
     const byName = (st, n) => st.acts.filter(a => a.name === n)[0] || {};
@@ -135,7 +138,7 @@ async function run(profile) {
         && others.every(a => ['tend', 'cook', 'clean', 'watch', 'rest', 'sleep'].indexOf(a.act) >= 0) && (k4a.hideLead || (!!lead.drawn && lead.look === 'you')),
       JSON.stringify(k4a.acts) + ' lead ' + JSON.stringify({ look: lead.look, drawn: lead.drawn, hidden: k4a.hideLead }));
     let k4b = null;
-    for (let k = 0; k < 24; k++) { await p.waitForTimeout(500); k4b = await look(sf); if (byName(k4b, men[1]).act !== 'lie') break; }
+    for (let k = 0; k < 70; k++) { await p.waitForTimeout(500); k4b = await look(sf); if (byName(k4b, men[1]).act !== 'lie') break; }
     const up = byName(k4b, men[1]);
     ok(P + 'K4b the hurt man gets up when the camp\'s hours have healed him', up.act !== 'lie' && up.blood >= 0.35, men[1] + ' ' + JSON.stringify(up));
     /* ---- K3 ---- */
@@ -239,7 +242,7 @@ async function run(profile) {
     await p.waitForTimeout(2000);
     const after13 = await look(sf), dark = await sf.evaluate(() => window.__CAMP2_DARK || []);
     /* the glide the camp drew: a beat (about 500 ms) over more than one frame, the pieces in between */
-    const gl = after13.lastGlide, glided = !!gl && gl.n === after13.flips && gl.frames >= 2 && gl.ms >= 400 && gl.ms <= 2000;
+    const gl = after13.lastFlip, glided = !!gl && gl.n === after13.flips && gl.frames >= 2 && gl.ms >= 400 && gl.ms <= 2000;
     await p.setViewportSize(vp0); await p.waitForTimeout(1200);
     const back13 = await look(sf);
     const keys = (st) => st.pieces.map(q => q.key).sort().join(',');
