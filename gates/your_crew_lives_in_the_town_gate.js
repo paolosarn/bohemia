@@ -20,6 +20,8 @@
      K6 the computer: every man in, a click opens him
      K7 *** THE LIVE DEMO ***: through the title, a town through the map's door: his company's men are in the picture
      K8 nothing threw
+     K9 CAMP'S CALL IN THE TOWN (the coordinator's NOTEs, rules 259(c), 261, 273): BohemiaSettlement.crewCall sets what each man
+        does, crewOver draws over each man's head every frame, taken off the town picks again
    node gates/your_crew_lives_in_the_town_gate.js
    ========================================================================== */
 'use strict';
@@ -132,6 +134,23 @@ const HERE = () => { const S = BohemiaSettlement, crew = S.crewTown(), here = S.
     ok('K5 THE BIGGEST COMPANY FITS: twenty-five men, ' + B.here + ' of the ' + B.crew + ' who are not the lead in the picture; the frame on a phone\'s CPU ' + B.ms.toFixed(1) + ' ms against the empty town\'s ' + E.ms.toFixed(1) + '; his men\'s pictures ' + (B.mb - E.mb).toFixed(0) + ' MB decoded',
       B.got === 25 && B.crew === 24 && B.here === 24 && B.bad.length === 0 && B.ms <= E.ms * 1.5 && B.mb - E.mb < 160, B.bad.slice(0, 3).join(' | '));
   } catch (e) { ok('K5 the biggest company leg ran [' + String(e.message).slice(0, 200) + ']', false); }
+
+  /* ---- K9 CAMP's call in the town (the coordinator's NOTEs, rules 259(c), 261, 273) ---- */
+  try {
+    const q = await page({ width: 390, height: 844 }, true); await q.p.evaluate(COMPANY, 8);
+    await openTown(q.p, 'BLUE DIAMOND', 'town', 3); await q.p.waitForTimeout(1500);
+    const r = await q.p.evaluate(async () => {
+      const seen = {}; let calls = 0, bad = 0;
+      BohemiaSettlement.crewCall((m) => ({ act: 'sit' })); BohemiaSettlement.crewOver((ctx, o) => { calls++; seen[o.name] = 1; if (!(o.top < o.y && o.h > 10) || typeof ctx.fillRect !== 'function') bad++; });
+      BohemiaSettlement.crewAgain(); await new Promise(res => setTimeout(res, 900));
+      const here = BohemiaSettlement.crewHere(), stand = here.filter(p => !p.busy);
+      const out = { stand: stand.length, sat: stand.filter(p => p.act === 'sit').length, men: here.length, drawnFor: Object.keys(seen).length, calls, bad };
+      BohemiaSettlement.crewCall(null); BohemiaSettlement.crewOver(null); BohemiaSettlement.crewAgain(); await new Promise(res => setTimeout(res, 600));
+      out.after = BohemiaSettlement.crewHere().filter(p => !p.busy && p.act !== 'sit').length; return out; });
+    ok('K9 CAMP\'S CALL IN THE TOWN (rules 259(c), 261, 273): CAMP\'s call set every standing man\'s act (' + r.sat + ' of ' + r.stand + ' sat); its draw ran over each of his ' + r.men + ' men (' + r.drawnFor + ', ' + r.calls + ' calls, his head above his feet); taken off, the town picks again',
+      r.stand > 0 && r.sat === r.stand && r.drawnFor === r.men && r.bad === 0 && r.after > 0, JSON.stringify(r));
+    await q.ctx.close();
+  } catch (e) { ok('K9 the camp\'s call leg ran [' + String(e.message).slice(0, 200) + ']', false); }
 
   /* ---- K6 the computer ---- */
   try {

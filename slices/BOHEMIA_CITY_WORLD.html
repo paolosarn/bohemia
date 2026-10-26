@@ -47577,6 +47577,7 @@ var RIG_PEOPLE = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
    model leads. The old body only if his sheet FAILED; until it is in, nobody (never the wrong man for a second). ==== */
 var RIG_YOU = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
 function mapMainLook(){
+  try { var mm = JSON.parse(localStorage.getItem('bohemia.main.v1') || 'null'); if (mm && mm.look && mm.look !== 'you') return String(mm.look); } catch (_e) {}   /* RUN THREE's maker (rule 263(b)): the man he made, written once (the saved company carries no main flag) */
   try { var saved = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null');
     if (Array.isArray(saved)) for (var i = 0; i < saved.length; i++) { var m = saved[i]; if (m && m.main && m.look && m.look !== 'you') return String(m.look); } } catch (_e) {}
   return null;

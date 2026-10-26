@@ -19,8 +19,8 @@
         screen show the origin's own man
      M5 THE BENCH IS UNTOUCHED: the checkers' valley (the dark lifted) opens with no chair and no record
      M6 nothing threw
-   THE MAP'S LEAD FIGURE (263(a)) is RUN's [your main guy leads the walk]: printed as OWED until the map names its lead
-   (window.mapLeadLook), then checked here.
+     M7 AT THE FRONT OF HIS PARTY (263(a), RUN's lead read off the same record): a real tap on LEAVE, the map's lead figure is
+        his man (MAP_DREW.youLook), the made one or the origin's own
    node gates/make_your_main_guy_gate.js        (GATE_ONLY=faith,truck,wolf,bench runs a part)
    ========================================================================== */
 'use strict';
@@ -110,6 +110,13 @@ const rosterFrame = (P) => P.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
         g.lead = await sf.evaluate(() => { try { return BohemiaSettlement.lead().look; } catch (e) { return 'threw ' + e; } }).catch(() => null);   /* the man who walks the town for him */
         if (SHOTS) await P.screenshot({ path: path.join(SHOTS, 'main_guy_crew_' + origin + '.png') });
       }
+      /* the map, by a real tap on LEAVE: the man at the front of his party (RUN's __YOUR_MAIN_GUY_LEADS_THE_WALK__ draws MAP_DREW.youLook) */
+      if (sf) { await P.evaluate(() => { try { if (window.BohemiaCrewDoor) BohemiaCrewDoor.close(); } catch (e) {} }).catch(() => {});
+        await sf.evaluate(() => { try { if (window.BohemiaCrewDoor) BohemiaCrewDoor.close(); } catch (e) {} }).catch(() => {});
+        await P.waitForTimeout(400);
+        const lv = await sf.$('#leave'), lb = lv && await lv.boundingBox(); if (lb) await tapAt({ x: lb.x + lb.width / 2, y: lb.y + lb.height / 2 });
+        for (let i = 0; i < 40; i++) { g.mapLead = await fr.evaluate(() => { try { return (MAP_DREW && MAP_DREW.youLook) || null; } catch (e) { return null; } }).catch(() => null); if (g.mapLead && g.mapLead !== 'body') break; await P.waitForTimeout(250); }
+        if (SHOTS) await P.screenshot({ path: path.join(SHOTS, 'main_guy_map_' + origin + '.png') }); }
       /* the fight, through the shell's own door, his company as the shell hands it */
       if (makes) {
         await P.evaluate(() => { try { if (window.BohemiaCrewDoor) BohemiaCrewDoor.close(); } catch (e) {} try { nfOpen({ world: { day: 1 } }); } catch (e) { window.__GATE_NF = String(e); } });
@@ -120,7 +127,6 @@ const rosterFrame = (P) => P.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
         g.fight = units; g.nf = await P.evaluate(() => ({ e: window.__GATE_NF || null, fr: !!document.getElementById('fightFrame'), h: window.__NF_HANDED || null })).catch(e => String(e));
         if (SHOTS) await P.screenshot({ path: path.join(SHOTS, 'main_guy_fight_' + origin + '.png') });
       }
-      g.mapLead = await fr.evaluate(() => typeof window.mapLeadLook === 'function' ? window.mapLeadLook() : undefined).catch(() => undefined);
       g.errs = d.errs.slice(0, 3);
     } catch (e) { g.err = String(e.message).slice(0, 200); }
     if (d) await d.close();
@@ -147,8 +153,7 @@ const rosterFrame = (P) => P.frames().find(f => /ROSTER_SCREEN/.test(f.url()));
       ok('*** M4 GO AT ONCE KEEPS HIS ORIGIN\'S MAN *** (' + g.origin + ', ' + g.profile + '): one tap on GO, the record says ' + rec.look + ', ' + rec.name + ', made ' + rec.made + '; the tape\'s first man ' + tape0.look + ', the crew screen\'s main man ' + (main && main.look),
         rec.look === 'you' && rec.name === 'YOU' && rec.made === false && tape0.look === 'you' && tape0.name === 'YOU' && !!main && main.look === 'you' && main.name === 'YOU' && main.drawn > 0, JSON.stringify({ rec, crew: (g.crew || []).slice(0, 2) }));
     }
-    if (g.mapLead === undefined) console.log('  OWED (RUN [your main guy leads the walk], rule 263(a)): the map\'s lead figure; the map names no lead yet (window.mapLeadLook)');
-    else ok('THE MAP\'S LEAD IS HIS MAIN MAN (' + g.origin + '): ' + g.mapLead, g.mapLead === (rec.look || 'you'));
+    ok('*** M7 AT THE FRONT OF HIS PARTY *** (' + g.origin + ', ' + g.profile + '): a real tap on LEAVE and the map\'s lead figure is ' + g.mapLead + ' (RUN\'s __YOUR_MAIN_GUY_LEADS_THE_WALK__)', !!g.mapLead && g.mapLead === (rec.look || 'you'));
     ok('M6 nothing threw (' + g.origin + ')', !(g.errs || []).length, (g.errs || []).join(' | '));
   }
   /* M5: the bench's valley */
