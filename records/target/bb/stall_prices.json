@@ -433,5 +433,31 @@
     "draft": true
    }
   ]
+ },
+ "mend": {
+  "_about": "rule 277(b), the craftsman's price: what a town's smith, armourer or GUNS AND PLATE charges to mend a piece (BohemiaStallPrices.mendPrice). Battle Brothers' smiths mend 'without using the party's tool supply, but at a costly price (heavily depends on the item's worth value)' (bb_all/1763); the page gives no formula, so ours is the tape plus the hands",
+  "durability_per_roll": {
+   "value": 15,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2014_Tools and Supplies.txt",
+   "quote": "One point of '''Tools and Supplies''' is required to repair 15 points of item durability."
+  },
+  "hands": {
+   "value": 1,
+   "unit": "the craftsman's hands, as a share of the tape the job takes",
+   "source": "ECONOMY Day 84 s7",
+   "why": "he charges twice the tape: the parts at this stall's price and his hands the same again (a repair shop's bill runs about half labour). Quick and dear against the camp's slow and cheap: the same mend at camp costs only the tape and takes the hours (records/target/bb/condition.json)"
+  },
+  "min_a_piece": {
+   "value": 1,
+   "source": "records/target/bb/stall_prices.json buy_floor",
+   "why": "nothing at a counter costs under one battery"
+  },
+  "hours": {
+   "value": 1,
+   "unit": "town hours for the whole job, every piece",
+   "source": "VAMILY rule 277(c): 'Done in about an hour of town time, safe'"
+  },
+  "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1763_Settlement buildings.txt",
+  "bb_quote": "Can instantly repair items (Hold Alt and click an item), without using the party's tool supply, but at a costly price (heavily depends on the item's worth value)."
  }
 }

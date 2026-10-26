@@ -48,6 +48,12 @@ const cell = (s, h) => r.shapes[s].homes[h];
 ok('R3 working out of a town, a typical month is never short (a new crew ' + Math.round(100 * cell('newcrew', 'town').never_short) + '%, twelve ' + Math.round(100 * cell('watch', 'town').never_short) + '%)', r.tests.R3_a_typical_run_is_never_short_at_a_town);
 ok('R4 the Lone Wolf is covered from a town or a fortress (' + cell('wolf', 'town').ratio_median + ', ' + cell('wolf', 'fortress').ratio_median + ')', cell('wolf', 'town').ratio_median >= 1 && cell('wolf', 'fortress').ratio_median >= 1);
 
+/* C: the craftsman's price (rule 277(b)) */
+const mp = (miss, c) => SP.mendPrice(stall, miss, c);
+ok('C1 a smith charges the tape the damage takes plus his hands: 150 points in a town is ' + mp(150, { tier: 'town' }) + ' (10 rolls of tape, twice)', mp(150, { tier: 'town' }) === Math.round(150 / 15 * 1.02 * 2) && mp(0, { tier: 'town' }) === 0);
+ok('C2 at least a battery a piece; dearer in a bigger place; dearer where the town\'s prices are up (market day x1.25)', mp(3, { tier: 'camp' }) === 1 && mp(300, { tier: 'camp' }) < mp(300, { tier: 'fortress' }) && mp(300, { tier: 'town', buyMult: 1.25 }) > mp(300, { tier: 'town' }));
+ok('C3 the smith costs more than doing it yourself with the stall\'s tape (quick and dear against slow and cheap)', [45, 150, 300].every(x => mp(x, { tier: 'town' }) > Math.ceil(x / 15) * SP.tapePrice(stall, { tier: 'town' })));
+
 /* M */
 function bitesShelf(name, mut) {
   const d = JSON.parse(JSON.stringify(stall)); mut(d);

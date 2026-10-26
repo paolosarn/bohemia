@@ -2974,6 +2974,24 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (aa) -- [tape income against armour wear] and [the craftsman's price]
+SHIPPED (rules 271(b), 276, 277(b); fired by the coordinator's routine trig_017BhvZudBpJQKLjLRqhqLxD; the worker restarted once
+mid-row, nothing lost). Record: records/BOHEMIA_ECONOMY_DAY_84_NO_RUN_ENDS_FOR_TAPE_10_26_26.md.
+WHY HIS RUNS DIED: at five fights a day (264) a crew of three breaks about 26 rolls a day, twelve men 77 (TUNING's bench,
+banks/BOHEMIA_TUNING_THE_CAMP_CLOCK_10_26_26.json): Battle Brothers' tape at five times its pace. THE FIX: the tape shelf
+refills every map day (stall_prices.json tape_shelf.restock_days 1); every man killed carries 2 or 3 rolls (never a dog;
+tape_income.json loot_tape); scrap is tape, 2 rolls a wrecked piece straight from the loot (his 276; camp breakdown dropped);
+the Scavenger Battle Brothers' own (0.5 to 1 percent, cap 60, for CAMP TWO). ROLLED MONTHS (tools/bohemia_economy_tape_income.js,
+120 runs a cell): a new crew 1.6 to 1.7 times what it breaks from any home; twelve men 1.15 (camp), 1.28 (town), 1.34
+(fortress); the Lone Wolf 1.12 to 1.15 from a town or fortress, 0.76 from a camp (the back room). Assumes 4 in 5 of a won
+fight's enemies die (at 3 in 5 twelve men from a camp 0.94: RUN FOUR asked to count it).
+THE CRAFTSMAN'S PRICE: twice the tape (parts at this stall plus hands the same), size and buy knob, at least 1 a piece, an hour;
+a dent 2, a new crew's typical fight 11 in a town, twelve men's 32 (stall_prices.json mend, BohemiaStallPrices.mendPrice).
+GATES: NO RUN ENDS FOR TAPE 21/0 (new, in the suite; mutations: Battle Brothers' 3-day shelf, a roll or two in the loot, half a
+stack in a camp), BUY VERSUS SELL 45/0, HANDOFF 10/0; the rest as on main. ROUTED: RUN FOUR (NOTE: the loot's tape, scrap is 2),
+RUN TWO (NOTE: mendPrice, the daily shelf), CAMP (NOTE), TUNING (section R +5 rows; the other three-day clocks at our pace).
+NEXT: the pause (rule 121) resumes; jump list [made here], [the gap that survives], [the pump at home]. PENDING Paolo: none.
+
 ECONOMY (economy-session_01WSDvbmsS): 10/26 LATEST (z) -- [trade goods] SHIPPED (rules 265, 266; fired by the coordinator's
 routine trig_01BBvg13yo3zqoJW2Ffi1XgE). Record: records/BOHEMIA_ECONOMY_DAY_83_TRADE_GOODS_A_BATCH_A_WEEK_OR_THE_VALLEY_PAYS_A_TRADER_LIKE_A_FIGHTER_10_26_26.md.
 STEP 1 FIRST (ede463a0, for RUN TWO wiring now): tape_shelf, every stall at least a stack of 20 rolls a visit (camp 20, town

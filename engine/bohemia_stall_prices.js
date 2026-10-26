@@ -189,7 +189,18 @@
     return Math.max(1, Math.round(n * (ctx.stockMult > 0 ? ctx.stockMult : 1)));
   }
 
-  var API = { buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
+  /* ---- THE CRAFTSMAN'S PRICE (rule 277(b)): a smith or armourer mends a piece without his tape: the tape that much damage
+     takes at this town's stall (one roll for every 15 points, Battle Brothers') plus his hands, the town's size and buy knob
+     on it; at least the floor a piece. ctx: {tier, buyMult}; missing: durability points the piece lacks */
+  function mendPrice(file, missing, ctx) {
+    var m = file && file.mend; if (!m || !(missing > 0)) return 0;
+    ctx = ctx || {};
+    var rolls = missing / num(m.durability_per_roll, 15);
+    var tape = rolls * num(file.goods.tape.buy, 1) * sizeOf(file, ctx.tier) * (ctx.buyMult || 1);
+    return Math.max(num(m.min_a_piece, 1), Math.round(tape * (1 + num(m.hands, 1))));
+  }
+
+  var API = { mendPrice: mendPrice, buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
               handful: handful, line: line, needUnits: needUnits, needAt: needAt, warns: warns, cutOf: cutOf, sizeOf: sizeOf,
               tapeShelf: tapeShelf, tapePrice: tapePrice,
               tradeGood: tradeGood, madeHere: madeHere, makes: makes, tradeBuy: tradeBuy, tradeSell: tradeSell, tradeStock: tradeStock };
