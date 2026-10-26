@@ -263,7 +263,17 @@
     if (!go || !ready) return ready;
     try { phoneOpen(); setTimeout(function () { var b = document.getElementById('bmtimes'); if (b && !b.classList.contains('on')) b.click(); }, 700); return true; } catch (e) { return false; }
   };
-  P.posts = function () { try { return window.BOHEMIA_FEED ? window.BOHEMIA_FEED.posts() : []; } catch (e) { return []; } };
+  /* THE STREAM: FEED's engine (BohemiaFeed.read(), rule 215: newest first, {handle, text, kind, reply_to}) when it is up, else the
+     old stream; handed on oldest first as {who, txt, kind, re} so the app reads one shape */
+  P.posts = function () {
+    try {
+      if (window.BohemiaFeed && typeof BohemiaFeed.read === 'function') {
+        var r = BohemiaFeed.read({ limit: 30 }) || [];
+        if (r.length) return r.slice().reverse().map(function (x) { var h = String(x.handle || ''); return { who: h.charAt(0) === '@' ? h : '@' + h, txt: String(x.text || ''), kind: x.kind || 'world', re: !!x.reply_to, id: x.id }; });
+      }
+      return window.BOHEMIA_FEED ? window.BOHEMIA_FEED.posts() : [];
+    } catch (e) { return []; }
+  };
   P.post = function (p) { try { return window.BOHEMIA_FEED ? window.BOHEMIA_FEED.push(p) : false; } catch (e) { return false; } };
   P.towns = function () {
     var out = [];
@@ -483,6 +493,8 @@
       + '#bohphone .po{padding:3px 0 4px;border-top:1px solid rgba(240,226,196,.12)}'
       + '#bohphone .po .w{display:block;color:#f6cf74;font-size:7px}'
       + '#bohphone .po.mine .w{color:#9fd08a}'
+      + '#bohphone .po.re{padding-left:6px;border-left:1px solid rgba(240,196,126,.28)}'
+      + '#bohphone .po .w i{font-style:normal;color:#9c8f70}'
       + '#bohphone .po .t{display:block;color:#ecdfc2}'
       + '#bohphone .rel{padding:3px 0 4px;border-top:1px solid rgba(240,226,196,.12)}'
       + '#bohphone .rel b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8.5px;letter-spacing:.5px;color:#f4e8cc}'
@@ -625,14 +637,14 @@
     if (!H.page) return;
     var pb = H.el.querySelector('.page .pb'), cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     if (H.page === 'feed') {
-      var posts = L ? L.posts() : [], sig = posts.length + '|' + (posts.length ? posts[posts.length - 1].txt : '') + '|' + nameGet();
+      var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }).reverse()), sig = posts.length + '|' + (posts.length ? posts[posts.length - 1].txt : '') + '|' + nameGet();
       if (!fresh && sig === H.feedSig) return; H.feedSig = sig;
       if (pb.querySelector('input')) return;   /* never under his thumbs while he types the name */
       var co = L ? L.company() : { men: 0 };
       var h = '<div class="co"><span class="nm" role="button" tabindex="0" aria-label="rename your company">' + esc(nameGet()) + '<u>RENAME</u></span>'
         + '<span class="sub">' + (co.men ? co.men + (co.men === 1 ? ' MAN' : ' MEN') : 'YOUR COMPANY') + (co.clout != null ? ' &middot; CLOUT ' + esc(co.clout) : '') + '</span></div>';
       for (var i = posts.length - 1; i >= 0; i--) { var p = posts[i];
-        h += '<div class="po' + (p.kind === 'mine' ? ' mine' : '') + '"><span class="w">' + esc(p.who) + '</span><span class="t">' + esc(p.txt) + '</span></div>'; }
+        h += '<div class="po' + (p.kind === 'mine' ? ' mine' : '') + (p.re ? ' re' : '') + '"><span class="w">' + esc(p.who) + (p.re ? ' <i>replying</i>' : '') + '</span><span class="t">' + esc(p.txt) + '</span></div>'; }
       if (!posts.length) h += '<div class="po"><span class="t">Nothing yet. The valley is quiet.</span></div>';   /* draft:true */
       pb.innerHTML = h;
       pb.querySelector('.nm').addEventListener('click', renameStart);
@@ -657,7 +669,10 @@
       var was = nameGet(), v = keep ? nameSet(inp.value) : null;
       if (v && v !== was) {
         var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
-        if (L) L.post({ who: '@' + v.toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: 'We go by ' + v + ' now. Remember it.', kind: 'mine', draft: true });   /* draft:true */
+        var own = { who: '@' + v.toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: 'We go by ' + v + ' now. Remember it.', kind: 'mine', draft: true, t: Date.now() };   /* draft:true */
+        if (L) L.post(own);
+        H.own = [own].concat(H.own || []).slice(0, 3);   /* on top of the FEED until the engine says something newer (FEED: the 'bohemia-company-renamed' event) */
+        try { var cw2 = cityWin(); if (cw2) cw2.dispatchEvent(new CustomEvent('bohemia-company-renamed', { detail: { from: was, to: v } })); } catch (e) {}
         window.__PHONE_RENAMES = (window.__PHONE_RENAMES | 0) + 1;
       }
       try { inp.remove(); } catch (e) {}

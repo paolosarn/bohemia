@@ -88758,6 +88758,7 @@ window.BOHEMIA_FEED = (function(){
      the start screen's names are capitals, so they are read as a person writes them (THE NIGHT SHIFT -> Night Shift) */
   function companyName(){
     var n = ''; try { n = String(LOOP.start.name || ''); } catch(_e){}
+    try { var rn = window.BohemiaCompanyName && localStorage.getItem(BohemiaCompanyName.KEY); if (rn) n = String(rn); } catch(_e){}   /* __ONE_PHONE__ (UI TWO): the name he gave it on the phone's FEED */
     n = n.replace(/^\s*the\s+/i, '');
     if (n && n === n.toUpperCase()) n = n.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, a, c){ return a + c.toUpperCase(); });
     return n || null;
@@ -88799,6 +88800,7 @@ window.BOHEMIA_FEED = (function(){
   /* ---- THE SLOT ON THE PHONE (interim, UI TWO replaces it) ---- */
   var SLOT = null;
   function slot(){
+    if (window.BohemiaPhone) return null;   /* __ONE_PHONE__ (UI TWO 10/26): the phone's FEED app reads BohemiaFeed.read(); the slot is retired, as this block asked */
     if (SLOT && SLOT.parentNode) return SLOT;
     var scr = document.getElementById('cityfeedscreen'); if (!scr) return null;
     SLOT = document.createElement('div'); SLOT.id = 'feednow'; SLOT.setAttribute('role', 'status'); SLOT.setAttribute('aria-label', 'the newest post in the valley');
