@@ -496,12 +496,14 @@ const FIGHT = (function () {
     u.injuries.forEach(function (j) { if (j.effects && j.effects.extra_ap_per_tile_moved) c += j.effects.extra_ap_per_tile_moved; });
     return c;
   }
-  /* ONE MAN IS NOT A WALL, TWO ARE (rule 66): a man's tile is never walked through, and a diagonal
-     step may not squeeze between two of anything that fills a tile: two houses, two men, a man and a house */
-  function wallPiece(x, y) { return !passable(x, y) || !!unitAt(x, y); }
-  function squeezes(ax, ay, bx, by) {
+  /* a diagonal step may not squeeze between two of anything that fills a tile: two houses, two men, a man and a house.
+     WALK THROUGH YOUR OWN MEN, ALWAYS (COMBAT [walk through your own men], rule 199, Paolo 10/25: 'any teammate can walk through
+     another teammate at all times... each tile is not the size of a human'): for the man walking (u), his own side's men are
+     never a wall, so a step between two of them, or one of them and a house, is open; theirs still are */
+  function wallPiece(x, y, u) { const o = unitAt(x, y); return !passable(x, y) || (!!o && !(u && (o === u || o.side === u.side))); }
+  function squeezes(ax, ay, bx, by, u) {
     if (ax === bx || ay === by) return false;
-    return wallPiece(bx, ay) && wallPiece(ax, by);
+    return wallPiece(bx, ay, u) && wallPiece(ax, by, u);
   }
   function line(a, b) {
     const pts = []; let x0 = a.x, y0 = a.y; const x1 = b.x, y1 = b.y;
@@ -1443,29 +1445,44 @@ const FIGHT = (function () {
   function reach(u, budget, through) {
     budget = budget === undefined || budget === null ? u.ap : budget;
     const key = function (x, y) { return y * S.w + x; };
-    const best = {}; const prev = {}; const open = u.netted ? [] : [{ x: u.x, y: u.y, c: 0 }];   /* THE NET: rooted in place */
-    best[key(u.x, u.y)] = 0;
+    /* fr: how many of his own men the cheapest way wades through; of two ways at the same AP he takes the one round them, so
+       he goes through his men only where it saves AP, and a long walk keeps tiles he can stop on (rule 206) */
+    const best = {}; const prev = {}; const fr = {}; const open = u.netted ? [] : [{ x: u.x, y: u.y, c: 0, f: 0 }];   /* THE NET: rooted in place */
+    best[key(u.x, u.y)] = 0; fr[key(u.x, u.y)] = 0;
     while (open.length) {
-      open.sort(function (a, b) { return a.c - b.c; });
+      open.sort(function (a, b) { return a.c - b.c || a.f - b.f; });
       const n = open.shift();
-      if (n.c > best[key(n.x, n.y)]) continue;
+      if (n.c > best[key(n.x, n.y)] || (n.c === best[key(n.x, n.y)] && n.f > fr[key(n.x, n.y)])) continue;
       if (!through && (n.x !== u.x || n.y !== u.y) && zocOn(u, n.x, n.y).length) continue;
       DIRS.forEach(function (d) {
         const x = n.x + d[0], y = n.y + d[1];
-        if (crosses(u) ? !inBoard(x, y) : (!passable(x, y) || squeezes(n.x, n.y, x, y))) return;   /* a ghost slips through walls (rule 134a) */
-        /* PASS ONE OF YOUR OWN, NEVER TWO (rule 70): through one of his own company's men, never two in a row,
-           never through an enemy; nobody stops on a friend's tile, and the brains never stop in a reach on one */
+        if (crosses(u) ? !inBoard(x, y) : (!passable(x, y) || squeezes(n.x, n.y, x, y, u))) return;   /* a ghost slips through walls (rule 134a) */
+        /* WALK THROUGH YOUR OWN MEN, ALWAYS (rule 199; was rule 70's 'one of your own, never two'): through any of his own side's
+           men, as many in a row as stand there, at the step's normal cost; never through an enemy; nobody stops on a friend's tile
+           (NOBODY STANDS ON ANYBODY), and the brains, whose walk ends where a zone of control begins, never step onto one there */
         const occ = unitAt(x, y), mate = occ && occ !== u;
-        if (mate && (occ.side !== u.side || n.ally)) return;
+        if (mate && occ.side !== u.side) return;
         if (mate && !through && zocOn(u, x, y).length) return;
-        const c = n.c + stepCost(u, n.x, n.y, x, y);
+        const c = n.c + stepCost(u, n.x, n.y, x, y), f = n.f + (mate ? 1 : 0), k = key(x, y);
         if (c > budget) return;
-        if (best[key(x, y)] === undefined || c < best[key(x, y)]) { best[key(x, y)] = c; prev[key(x, y)] = key(n.x, n.y); open.push({ x: x, y: y, c: c, ally: !!mate }); }
+        if (best[k] === undefined || c < best[k] || (c === best[k] && f < fr[k])) { best[k] = c; fr[k] = f; prev[k] = key(n.x, n.y); open.push({ x: x, y: y, c: c, f: f }); }
       });
     }
     /* a friend's tile is a way through, never a place to stand; nor is a wall a ghost slipped through */
     Object.keys(best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w), o = unitAt(x, y); if ((o && o !== u) || ((x !== u.x || y !== u.y) && !passable(x, y))) delete best[k]; });
     return { best: best, prev: prev, key: key };
+  }
+  /* the nearest open tile to x,y that 'who' can get to over the ground and through his own men: no man on it, no wall */
+  function openNear(x, y, who) {
+    const seen = {}, q = [{ x: x, y: y }]; seen[y * S.w + x] = true;
+    while (q.length) {
+      const n = q.shift();
+      if ((n.x !== x || n.y !== y) && !unitAt(n.x, n.y)) return n;
+      DIRS.forEach(function (d) { const a = n.x + d[0], b = n.y + d[1], o = unitAt(a, b);
+        if (!inBoard(a, b) || seen[b * S.w + a] || !passable(a, b) || squeezes(n.x, n.y, a, b, who) || (o && o.side !== who.side)) return;
+        seen[b * S.w + a] = true; q.push({ x: a, y: b }); });
+    }
+    return null;
   }
   function pathTo(u, x, y, field) {
     field = field || reach(u);
@@ -1477,7 +1494,7 @@ const FIGHT = (function () {
   /* A FAR TILE WALKS AS FAR AS HE CAN (COMBAT [a far tile walks as far as he can], rule 206, Paolo 10/25: 'in Battle Brothers, if
      I clicked a tile farther than my stamina would allow, if you double clicked it you would take the path as far as it goes...
      fix that now'): the whole way to a tile past this turn's AP, by the finger's own rules (round blockers and houses, past a
-     lone man's reach paying its free swing, through one of his own men), and where on it this turn's AP runs out: the stop is
+     lone man's reach paying its free swing, through his own men, rule 199), and where on it this turn's AP runs out: the stop is
      the last tile he can stand on (never a friend's). The walk spends AP only (stepCost), so the AP is the whole budget. */
   function farWalk(u, x, y) {
     if (u.netted || !inBoard(x, y)) return null;
@@ -1488,7 +1505,46 @@ const FIGHT = (function () {
       if (spent > u.ap) break;
       const o = unitAt(at.x, at.y); if (!o || o === u) { stop = i; cost = spent; }
     }
-    return { path: path, n: stop + 1, cost: cost, stop: stop >= 0 ? path[stop] : null, far: stop < path.length - 1 };
+    if (stop >= 0) return { path: path, n: stop + 1, cost: cost, stop: path[stop], far: stop < path.length - 1 };
+    /* HIS OWN MEN FILL THE WAY THIS TURN (rule 199 lets him through them, never onto them; measured 10/25: a corridor of the ruin
+       held by his line, the cheapest way's every tile inside this turn's AP was a friend's): he stops on the tile he can stand on
+       this turn that leaves the least of the way, and the way goes on from there */
+    const left = wayLeft(u, x, y), near = reach(u, null, true), here = near.key(u.x, u.y);
+    let pick = null;
+    Object.keys(near.best).forEach(function (k) { k = Number(k);
+      if (k === here || left[k] === undefined) return;
+      if (pick === null || left[k] < left[pick] || (left[k] === left[pick] && near.best[k] < near.best[pick])) pick = k; });
+    if (pick === null || !(left[pick] < left[here])) return { path: path, n: 0, cost: 0, stop: null, far: true };
+    const first = pathTo(u, pick % S.w, Math.floor(pick / S.w), near), rest = [];
+    let at2 = first[first.length - 1];
+    for (let g = 0; g < S.w * S.h && (at2.x !== x || at2.y !== y); g++) {
+      const k2 = near.key(at2.x, at2.y), nx = DIRS.map(function (d) { return { x: at2.x + d[0], y: at2.y + d[1] }; })
+        .filter(function (b) { const kb = near.key(b.x, b.y); return inBoard(b.x, b.y) && left[kb] !== undefined && wayStep(u, at2, b) && left[kb] + stepCost(u, at2.x, at2.y, b.x, b.y) === left[k2]; })[0];
+      if (!nx) break; rest.push(nx); at2 = nx;
+    }
+    return { path: first.concat(rest), n: first.length, cost: near.best[pick], stop: first[first.length - 1], far: true };
+  }
+  /* a step a to b the finger's walk may take: on the board, not into a wall (a ghost aside), no squeeze, no man of theirs on either */
+  function wayStep(u, a, b) {
+    if (crosses(u) ? !inBoard(b.x, b.y) : (!passable(b.x, b.y) || squeezes(a.x, a.y, b.x, b.y, u))) return false;
+    const oa = unitAt(a.x, a.y), ob = unitAt(b.x, b.y);
+    return !(oa && oa.side !== u.side) && !(ob && ob.side !== u.side);
+  }
+  /* what is left of the way to x,y from every tile, in AP, walked backward from it by the same steps */
+  function wayLeft(u, x, y) {
+    const key = function (a, b) { return b * S.w + a; }, left = {}, open = [{ x: x, y: y, c: 0 }];
+    left[key(x, y)] = 0;
+    while (open.length) {
+      open.sort(function (a, b) { return a.c - b.c; });
+      const n = open.shift(); if (n.c > left[key(n.x, n.y)]) continue;
+      DIRS.forEach(function (d) {
+        const a = { x: n.x + d[0], y: n.y + d[1] };
+        if (!inBoard(a.x, a.y) || ((a.x !== u.x || a.y !== u.y) && !crosses(u) && !passable(a.x, a.y)) || !wayStep(u, a, n)) return;
+        const c = n.c + stepCost(u, a.x, a.y, n.x, n.y), k = key(a.x, a.y);
+        if (left[k] === undefined || c < left[k]) { left[k] = c; open.push({ x: a.x, y: a.y, c: c }); }
+      });
+    }
+    return left;
   }
   function moveTo(u, x, y, through, along) {
     if (S.over || current() !== u) return false;
@@ -1512,9 +1568,12 @@ const FIGHT = (function () {
       emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: s.x, y: s.y });
       back = { x: u.x, y: u.y }; u.x = s.x; u.y = s.y;
     }
-    /* cut short on a friend's tile (a swing landed, the AP ran out): the two trade places, his reading of the rule */
+    /* cut short on a friend's tile (a swing landed, the AP ran out): the two trade places, his reading of the rule; walking
+       through a file of his men (rule 199) the tile behind him may hold another of them, so the friend steps to the nearest
+       open tile instead, the one behind first (NOBODY STANDS ON ANYBODY) */
     const mate = S.units.filter(function (o) { return o !== u && onField(o) && o.x === u.x && o.y === u.y; })[0];
-    if (mate) { emit({ t: 'step', id: mate.id, fx: mate.x, fy: mate.y, x: back.x, y: back.y }); mate.x = back.x; mate.y = back.y; emit({ t: 'swap', id: u.id, to: mate.id }); }
+    if (mate) { const to = unitAt(back.x, back.y) ? openNear(u.x, u.y, mate) : back;
+      if (to) { emit({ t: 'step', id: mate.id, fx: mate.x, fy: mate.y, x: to.x, y: to.y }); mate.x = to.x; mate.y = to.y; emit({ t: 'swap', id: u.id, to: mate.id }); } }
     afterAction(u); return true;
   }
 
@@ -2143,7 +2202,7 @@ const FIGHT = (function () {
     if (id === 'taunt') { const n = PK(u, id); return foes(u).filter(function (f) { return dist(f, u) <= n.max_range_tiles && sideSees(u.side, f); })
       .map(function (f) { return { x: f.x, y: f.y, id: f.id }; }); }
     if (id === 'footwork') return DIRS.map(function (d) { return { x: u.x + d[0], y: u.y + d[1] }; })
-      .filter(function (q) { return passable(q.x, q.y) && !unitAt(q.x, q.y) && !squeezes(u.x, u.y, q.x, q.y); });
+      .filter(function (q) { return passable(q.x, q.y) && !unitAt(q.x, q.y) && !squeezes(u.x, u.y, q.x, q.y, u); });
     return [];
   }
   function needsTarget(id) { return id === 'rotation' || id === 'taunt' || id === 'footwork'; }
@@ -2346,14 +2405,16 @@ const FIGHT = (function () {
        just doing nothing'): a tile a man of his side stands on is reached but never walked through, as his feet cannot; measured
        10/25, a spear man two 'steps' from the fight through his friend's tile stood four rounds while the walk round the house
        was open. With open set, the ground alone: where the line stands is its distance from the enemy, and a man's own step must
-       not move it (his body in a lane changed his mates' walks, measured) */
-    const busy = {}; if (!open) S.units.forEach(function (o) { if (o !== u && o.side === u.side && onField(o)) busy[key(o.x, o.y)] = true; });
+       not move it (his body in a lane changed his mates' walks, measured).
+       WALK THROUGH YOUR OWN MEN (rule 199): his feet can now, so a friend's tile is walked through like open ground, except one
+       inside an enemy's zone of control, where the brains' walk ends and nobody may stand on a friend (reach's own rule) */
+    const busy = {}; if (!open) S.units.forEach(function (o) { if (o !== u && o.side === u.side && onField(o) && zocOn(u, o.x, o.y).length) busy[key(o.x, o.y)] = true; });
     foes(u).forEach(function (f) { d[key(f.x, f.y)] = 0; q.push(f); });
     while (q.length) {
       const n = q.shift(), nd = d[key(n.x, n.y)];
       DIRS.forEach(function (o) {
         const x = n.x + o[0], y = n.y + o[1];
-        if (!passable(x, y) || squeezes(n.x, n.y, x, y) || d[key(x, y)] !== undefined) return;
+        if (!passable(x, y) || squeezes(n.x, n.y, x, y, u) || d[key(x, y)] !== undefined) return;
         if (club && nd === 0 && Math.abs(level(x, y) - level(n.x, n.y)) > gap) return;
         d[key(x, y)] = nd + 1; if (!busy[key(x, y)]) q.push({ x: x, y: y });
       });
