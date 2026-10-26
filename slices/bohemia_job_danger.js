@@ -228,7 +228,7 @@
   }
 
   /* ---------- THE READS: one job's fights, played ---------- */
-  var READS = {}, FIGHTS = {}, Q = [], BUSY = null, JOBN = 0, PLAYED = {};
+  var READS = {}, FIGHTS = {}, Q = [], BUSY = null, JOBN = 0, PLAYED = {}, LAST = {};   /* LAST: the latest finished read of a job at a place, any crew */
   function townOf(place) { try { return BohemiaJobKinds.realPlace(place); } catch (e) { return null; } }
   /* the fights a job (an offer at a place, or a job he holds) brings, each rolled: [{ what, p, band, faction, key }] */
   function fightsFor(o, place) {
@@ -264,6 +264,7 @@
     R.clean = clean; R.danger = 1 - clean; R.runs = n; R.state = 'read';
     R.stars = clean >= CFG.cut_one ? 1 : clean < CFG.cut_three ? 3 : 2;
     R.blood = bloodOf(R.danger);
+    if (R.base) LAST[R.base] = { stars: R.stars, danger: R.danger, clean: R.clean, blood: R.blood, crew: R.crew };
     return true;
   }
   /* the read for an offer at a place, or a held job: null until it can start; {state:'reading'} until every fight is played */
@@ -275,7 +276,8 @@
     if (R) { if (R.state !== 'read' && combine(R)) paintAll(R); return R; }
     var fs = null; try { fs = o.__fights ? o.__fights.map(function (f) { return Object.assign({}, f, { band: f.band.slice() }); }) : fightsFor(o, place); } catch (e) { fs = null; }
     if (!fs) return null;
-    R = READS[rk] = { key: rk, id: o.id, place: place || o.from || null, crew: ck, fights: fs, state: 'reading', at: Date.now(), els: [] };
+    var base = readKey(o, place);
+    R = READS[rk] = { key: rk, base: base, prev: LAST[base] || null, id: o.id, place: place || o.from || null, crew: ck, fights: fs, state: 'reading', at: Date.now(), els: [] };
     var ks = Object.keys(READS); if (ks.length > 400) ks.sort(function (a, b) { return READS[a].at - READS[b].at; }).slice(0, ks.length - 400).forEach(function (k) { if (READS[k].state !== 'reading') delete READS[k]; });
     /* what he is looking at now goes first: a fight asked for again moves to the front of the line */
     fs.forEach(function (f) { f.opts = doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at); });   /* the hand-over each fight is played with, fixed with the read */
@@ -353,7 +355,11 @@
       s += '@keyframes jdh' + k + i + '{0%{background-image:url(' + u + k + i + 'a.png)}50%{background-image:url(' + u + k + i + 'b.png)}}';
       s += '.jdblood.' + k + i + '{background-image:url(' + u + k + i + 'a.png);animation:jdh' + k + i + ' 1s steps(1) infinite}';   /* the clay holds a beat and re-poses, stop-motion (rule 115(d)) */
     } });
-    s += '.jdreading .bmstars{opacity:.35}';
+    /* WORLD [eyes: the normie hour, world] F28 (EYES round four: 'after a hire or a fight every star on the board sits cream on cream
+       for about 40 s while the calculator replays, with nothing said'): a job being read keeps the stars and blood of its last read
+       (the crew before) and the stars pulse on the beat, two held poses, until the new read lands; a job never read pulses its own */
+    s += '@keyframes jdread{0%{opacity:.95}50%{opacity:.5}}';
+    s += '.jdreading .bmstars,.jdreading[data-job-stars]{animation:jdread 1s steps(1) infinite}';
     s += 'html body .jdheavy.jdheavy *{text-shadow:' + RIM + '!important}';   /* the words stay readable through the clay: a hard pixel of bone round each letter, never a glow */
     var st = doc.createElement('style'); st.id = 'jdbloodcss'; st.textContent = s; (doc.head || doc.documentElement).appendChild(st);
   }
@@ -402,9 +408,16 @@
     if (R.state === 'read') {
       el.classList.remove('jdreading'); host.classList.remove('jdreading');
       if (+el.dataset.jdStars !== R.stars) { redStars(host, R.stars, el.ownerDocument); el.dataset.jdStars = R.stars; }
-      el.dataset.danger = R.danger.toFixed(3); el.dataset.clean = R.clean.toFixed(3);
+      el.dataset.danger = R.danger.toFixed(3); el.dataset.clean = R.clean.toFixed(3); delete el.dataset.jdPrev;
       paintBlood(el, R.blood);
-    } else host.classList.add('jdreading');
+    } else {
+      host.classList.add('jdreading');
+      if (R.prev) {   /* the last read stands, red, while this one plays (F28) */
+        if (+el.dataset.jdStars !== R.prev.stars) { redStars(host, R.prev.stars, el.ownerDocument); el.dataset.jdStars = R.prev.stars; }
+        el.dataset.danger = R.prev.danger.toFixed(3); el.dataset.jdPrev = '1';
+        paintBlood(el, R.prev.blood);
+      }
+    }
     return true;
   }
   function paintAll(R) { R.els = R.els.filter(function (el) { return paintOne(el, R); }); }
