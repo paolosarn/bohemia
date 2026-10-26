@@ -15593,7 +15593,7 @@
    "id": "camp-camp-holds-until-you-end-it-10-26",
    "kind": "ui",
    "lane": "camp",
-   "sha": "@SHA@",
+   "sha": "8db01c53",
    "made": "10/26",
    "title": "THE CAMP STAYS UP UNTIL YOU END IT; A CREW COMING IS A WARNING FROM ONE OF YOUR MEN",
    "why": "Your camp used to break itself: right after a fight it quit on the first hour, and any crew two blocks away ended it. Now it only ends when you tap HEAL, when you travel, or when an enemy actually walks into it. A crew coming is said by one of your men at the top of the camp, with his face. You see it on the RUN tab: make camp with the phone's HEAL.",
