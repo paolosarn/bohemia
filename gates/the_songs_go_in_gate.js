@@ -11,8 +11,9 @@
    and measured fresh (two 350 Hz high-passes, tools/bohemia_sounds_his_machine_measure.py, a phone's speaker):
      1  L2 - L1 >= 3 dB and L3 - L2 >= 6 dB through a phone (207(b),(f))
      2  NOTHING CLIPPED: no decoded sample at full scale, and none clipped before the encoder
-     3  THE FULL DRUMS AND THE LEAD ONLY IN 3: level 3 carries the backbeat and the combat lead (his hook, or the new song's
-        tune doubled); level 2 carries neither and no tune at all (his tune held, counted); level 1 no backbeat
+     3  THE FULL KIT AND THE DRIVE ONLY IN 3, THE TUNE IN ALL THREE (207(b) as corrected 10/25, rule 205 sweep): level 3
+        carries the backbeat and the combat hook (his hook in his lead voice, or the new song's tune doubled); level 2 carries
+        neither; the tune (his engine's own lead notes, or the new song's melody) plays at every level
      4  the files are the files measured (md5), the hit is there, each level is the song's whole pass
    THE GAME CARRIES IT (the alpha and the demo):
      5  the block is in both, its book names the thirteen and each song's files as they are now (a stale book fails)
@@ -85,14 +86,15 @@ function files() {
       let ok3, why3;
       if (his) {
         const lead = M.his_voices.lead;
-        const back = k => (k['d:clap'] || 0) + (k['d:knock'] || 0), hook = k => (k['s:' + lead] || 0);
-        ok3 = back(P[2]) >= 64 && hook(P[2]) >= 128 && back(P[1]) === 0 && hook(P[1]) === 0 && (P[1]['held:s:' + lead] || 0) > 0 && !P[1]['d:tight'] && back(P[0]) === 0;
-        why3 = 'backbeat ' + back(P[0]) + '/' + back(P[1]) + '/' + back(P[2]) + ', his lead ' + lead + ' as the hook ' + hook(P[0]) + '/' + hook(P[1]) + '/' + hook(P[2]) + ', his tune held on 2: ' + (P[1]['held:s:' + lead] || 0) + ' notes';
+        const back = k => (k['d:clap'] || 0) + (k['d:knock'] || 0), hook = k => (k['s:' + lead] || 0), tune = k => (k['e:s:' + lead] || 0);
+        ok3 = back(P[2]) >= 64 && hook(P[2]) >= 128 && back(P[1]) === 0 && hook(P[1]) === 0 && !P[1]['d:tight'] && back(P[0]) === 0
+          && !Object.keys(P[1]).some(k => /^held:/.test(k)) && tune(P[0]) > 0 && tune(P[1]) >= tune(P[0]) && tune(P[2]) >= tune(P[0]);
+        why3 = 'backbeat ' + back(P[0]) + '/' + back(P[1]) + '/' + back(P[2]) + ', his lead ' + lead + ' as the hook ' + hook(P[0]) + '/' + hook(P[1]) + '/' + hook(P[2]) + ', his tune (his own ' + lead + ' notes) ' + tune(P[0]) + '/' + tune(P[1]) + '/' + tune(P[2]);
       } else {
-        ok3 = (P[2].snare || 0) > 0 && (P[2].lead || 0) > 0 && !P[1].snare && !P[1].lead && (P[1].held || 0) > 0 && !P[0].snare;
-        why3 = 'snare ' + (P[0].snare || 0) + '/' + (P[1].snare || 0) + '/' + (P[2].snare || 0) + ', the tune ' + (P[0].lead || 0) + '/' + (P[1].lead || 0) + '/' + (P[2].lead || 0) + ' (doubled on 3), held chords on 2: ' + (P[1].held || 0);
+        ok3 = (P[2].snare || 0) > 0 && (P[2].lead || 0) > (P[1].lead || 0) && !P[1].snare && (P[0].lead || 0) > 0 && (P[1].lead || 0) >= (P[0].lead || 0) && (P[1].held || 0) > 0 && !P[0].snare;
+        why3 = 'snare ' + (P[0].snare || 0) + '/' + (P[1].snare || 0) + '/' + (P[2].snare || 0) + ', the tune ' + (P[0].lead || 0) + '/' + (P[1].lead || 0) + '/' + (P[2].lead || 0) + ' (in all three, doubled on 3), held chords on 2: ' + (P[1].held || 0);
       }
-      leg(ok3, S.name + ': *** THE FULL DRUMS AND THE LEAD ONLY IN LEVEL 3 ***, level 2 is tension (no tune, no backbeat)', why3);
+      leg(ok3, S.name + ': *** THE FULL KIT AND THE DRIVE ONLY IN LEVEL 3, THE TUNE IN ALL THREE ***, level 2 is the tune with tension (no backbeat, no hook)', why3);
       const want = (M.steps || M.bars * 16) * 0.125;
       leg(m.every(x => x.seconds >= want && x.seconds <= want + 4), S.name + ': every level is the song\'s whole pass', want + ' s of song; files ' + m.map(x => x.seconds).join('/') + ' s');
       songs.push({ name: S.name, dir: S.dir });

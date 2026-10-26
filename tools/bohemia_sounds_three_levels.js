@@ -13,10 +13,11 @@
    the same song in the same key and the game plays them ahead, a level change landing on the beat (rule 175(b)).
      LEVEL 1, THE MAP (approved as it was): his song exactly as the map plays it (his recording's own pass, his gain) with
        ONE thing added, a soft 120 BPM pulse: his own kick on every beat and his clock tick on the 8ths, quiet, under him.
-     LEVEL 2, THEIR TURN, TENSION ONLY (207(b): 'a pulse, the bass, held notes'): his song pulled back to its bed, ONLY his
-       bass voice and his pads sound (his tune, his accents and his kit are held back: the tune is your turn's), a
-       heartbeat kick on every beat, the clock ticking 16ths, a low pedal on the root in 8ths, and his chord held a bar at
-       a time in the pad. No backbeat, no tom, no lead. Set 3.6 dB over level 1 through a phone (207(b): at least 3).
+     LEVEL 2, THEIR TURN, TENSION (207(b): 'a pulse, the bass, held notes'; CORRECTED 10/25, rule 205 sweep: the tune plays
+       in all three levels): his song as the map plays it, the tune and all, with the tension over it: a heartbeat kick on
+       every beat, the clock ticking 16ths, a low pedal on the root in 8ths, his chord held a bar at a time in the pad and
+       his root held in the sub. No backbeat, no added hook, no driving bass. Set 3.6 dB over level 1 through a phone (207(b):
+       at least 3).
      LEVEL 3, YOUR TURN, EVERYTHING (the only level with the full drums and the lead): his engine's top tier (MUS.layers
        4) with his tune, a driving kit (kick with pickups, clap and knock on 2 and 4, 16th hats, a hit on each phrase), a
        bass in driving 8ths with the octave jump, and the hook in his song's own lead voice. Set 6.8 dB over level 2
@@ -107,13 +108,14 @@ async function level(p, name, lv, outGain, mp, hot, onlyC, scaleC) {
       const bassV = (f.inst && f.inst.b && f.inst.b !== 'osc') ? f.inst.b : 'sub';
       const deg = d => sc[((d % n) + n) % n] + 12 * Math.floor(d / n);
       const counts = {};
-      /* LEVEL 2 IS HIS BED (207(b)): only his bass voice and his pads reach the output; his tune, his accents and his kit
-         are held (counted, never sounded). His bass played as a bare oscillator (an 'osc' row) passes, it is no synthV. */
+      /* THE TUNE IN ALL THREE (rule 207(b) as corrected 10/25 in the rule 205 sweep: 'the TUNE plays in all three levels;
+         only level 3 has the full kit and the drive'). Every level plays his song's own notes (level 1 and 2 his song as the
+         map plays it, level 3 his top tier); level 2 adds the tension over it, level 3 the full kit, the drive and the hook.
+         His engine's own voices are counted ('e:s:<voice>', 'e:d:<drum>'), never held, so the gate sees the tune in each. */
       const dvW = drumV;
-      if (lv === 2) {
-        const keep = { pad: 1 }; keep[String((f.inst && f.inst.b) || '')] = 1;
-        synthV = function (kind) { if (!keep[kind]) { counts['held:s:' + kind] = (counts['held:s:' + kind] || 0) + 1; return; } return sv0.apply(this, arguments); };
-        drumV = function (kind) { counts['held:d:' + kind] = (counts['held:d:' + kind] || 0) + 1; };
+      if (stem !== 'b' && stem !== 'c' && !hitOnly) {
+        synthV = function (kind) { counts['e:s:' + kind] = (counts['e:s:' + kind] || 0) + 1; return sv0.apply(this, arguments); };
+        drumV = function (kind) { counts['e:d:' + kind] = (counts['e:d:' + kind] || 0) + 1; return dvW.apply(this, arguments); };
       }
       /* the hook: two bars you can hum, the second answers the first, the fourth bar of a phrase lifts */
       const HOOK = [[0, 0], [2, 0], [4, 2], [6, 1], [7, 0], [10, 4], [12, 3], [14, 2]];

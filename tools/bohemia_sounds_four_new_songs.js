@@ -10,8 +10,9 @@
    181: each song goes to the VOTE tab first, at levels 1, 2 and 3 and a fight's turns; nothing is wired.
    207 (Paolo 10/25, having heard them: 'I like the songs, I want you to implement them; there has to be a pretty big
    difference between the opponent's turn and my turn'): THE GAP IS BUILT IN. Level 1 stays as approved (the file is not
-   touched). Level 2 is tension only: the tune is held back (it is your turn's), the kick on the beat and the ticking, the
-   bass pushing, the chord held a bar at a time; set 3.6 dB over level 1 through a phone. Level 3 is everything: the tune
+   touched). Level 2 is tension: the tune as on the map (CORRECTED 10/25, rule 205 sweep: the tune plays in all three levels),
+   the kick on the beat and the ticking, the bass pushing, the chord held a bar at a time; no snare, no doubled tune; set
+   3.6 dB over level 1 through a phone. Level 3 is everything: the tune
    doubled an octave, the full kit with its fill, the bass driving; set 10.4 dB over level 1 (6.8 over level 2). The
    loudness of 2 and 3 is set by measuring (one gain each and a true peak limit, iterated, the three-levels tool's own),
    never by guessing part gains. THE HIT: a one-shot in the song's own real kit and bass at level 3's gain, struck on the
@@ -173,11 +174,12 @@ async function render(p, S, lv, only) {
         /* the pad: the chord, held, once a bar (none on the dry song) */
         if (S.pad && q === 0 && !kitOnly) for (const d of [0, 2, 4]) { counts.pad = (counts.pad || 0) + 1; synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root - 12 + deg(chord + d), t, lv === 3 ? 0.035 : 0.05); }
       }
-      /* LEVEL 2 HOLDS THE TUNE BACK (207(b): tension is a pulse, the bass, held notes; the tune is your turn's) */
+      /* LEVEL 2 HOLDS THE CHORD UNDER THE TUNE (207(b): tension is a pulse, the bass, held notes; CORRECTED 10/25, rule 205
+         sweep: the tune plays in all three levels) */
       if (lv === 2 && !onlyTune && !kitOnly && q === 0) for (const d of [0, 2, 4]) { counts.held = (counts.held || 0) + 1;
         if (S.pad) synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.06);
         else synthV(S.lead.voice, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.03); }
-      if (!muteTune && lv !== 2 && (sec === 'A' || sec === 'B' || sec === 'A2' || (sec === 'E' && bar === 28))) {
+      if (!muteTune && (sec === 'A' || sec === 'B' || sec === 'A2' || (sec === 'E' && bar === 28))) {
         const ph = sec === 'B' ? S.melody.B : S.melody.A, ib = sec === 'E' ? 3 : pib;
         for (const [b, at, d, len] of ph) if (b === ib && q === at) {
           /* the lead sits an octave over the root (a phone's speaker hears it), the bell a further octave, A2 higher again */
