@@ -72,9 +72,21 @@ def clip(act):
     return 'Town' + act.capitalize()
 
 
-def acts_of(T, arg=None):
+def set_of(T, act):
+    return T['activities'][act].get('set', 'town')
+
+
+def acts_of(T, arg=None, set_='town'):
+    """the activities named (any set), else every activity of the set: 'town' (the six he named, rule 218(a)) or 'after' (the
+    minutes after a fight, rule 245)"""
     a = list(T['activities'])
-    return [x for x in a if x in arg.split(',')] if arg else a
+    return [x for x in a if x in arg.split(',')] if arg else [x for x in a if set_of(T, x) == set_]
+
+
+def folder(tag, set_='town'):
+    """a set's own render pass: the after-acts kneel, and a pass's crop and ground are its own (rig.json), so they never share
+    a folder with the town's six"""
+    return tag if set_ == 'town' else tag + '.' + set_
 
 
 def pose_list(T, D, act):
@@ -120,6 +132,7 @@ def pose(src, out, which=None):
     for b in arm.data.bones:
         if b.parent is None: walk(b)
     legs = [(B['LT'], B['LS'], B['LA']), (B['RT'], B['RS'], B['RA'])]
+    LEG = {'L': legs[0], 'R': legs[1]}
     feet = {a: (PB[a].head.copy(), PB[a].matrix.to_3x3().copy()) for _, _, a in legs}
     V = lambda t: mathutils.Vector(t)
     Fv, Uv, Lv = V(F), V(U), V(L)
@@ -145,10 +158,53 @@ def pose(src, out, which=None):
             M = Rf.to_4x4(); M.translation = PB[a].matrix.translation; PB[a].matrix = M
             bpy.context.view_layer.update()
 
+    # THE KNEEL AND THE REACH (the minutes after a fight, rule 245): the holds' own (tools/bohemia_animation_what_a_man_holds.py,
+    # its two_bone, kneel and reach, ported line for line): one knee on the ground under the hip with its shin back along the
+    # floor, the other foot a step forward and flat, the pelvis dropped exactly as far as puts the knee down (the skeleton's own
+    # lengths); a hand carried to a point by the arm's two bones, the elbow toward its pole. Model units (the holds' numbers).
+    def vec(t): return Fv * t[0] + Uv * t[1] + Lv * t[2]
+
+    def two_bone(b1, b2, b3, target, pole):
+        H = PB[b1].head.copy(); K0 = PB[b2].head.copy(); A0 = PB[b3].head.copy()
+        l1, l2 = (K0 - H).length, (A0 - K0).length
+        d = target - H; dist = max(1e-4, min(d.length, (l1 + l2) * 0.999)); n = d.normalized()
+        p = pole - n * pole.dot(n); p = p.normalized() if p.length > 1e-6 else Fv
+        a_ = (l1 * l1 - l2 * l2 + dist * dist) / (2 * dist); h = math.sqrt(max(0.0, l1 * l1 - a_ * a_))
+        K = H + n * a_ + p * h
+        q = (K0 - H).rotation_difference(K - H); rot(PB[b1], H, q.to_matrix().to_4x4())
+        K1 = PB[b2].head.copy(); A1 = PB[b3].head.copy()
+        q = (A1 - K1).rotation_difference((H + n * dist) - K1); rot(PB[b2], K1, q.to_matrix().to_4x4())
+        bpy.context.view_layer.update()
+
+    def kneel(down, front=0.2, seat=None):
+        up_ = 'L' if down == 'R' else 'R'
+        t, s_, a = LEG[down]; l1 = (PB[s_].head - PB[t].head).length; l2 = (PB[a].head - PB[s_].head).length
+        knee_h = 0.055
+        hip = PB[t].head.copy(); hip_h = -hip.y
+        if seat: lean = math.sqrt(max(0.0, l1 * l1 - (seat - knee_h) ** 2)); drop = hip_h - seat
+        else: lean = 0.3 * l1; drop = hip_h - knee_h - math.sqrt(max(0.0, l1 * l1 - lean * lean))
+        pb = PB[B['P']]; pb.matrix = mathutils.Matrix.Translation(-Uv * drop) @ pb.matrix; bpy.context.view_layer.update()
+        hip = PB[t].head.copy()
+        K = V((hip.x + lean, -knee_h, hip.z)); Ak = K - Fv * (l2 * 0.97) + Uv * 0.015
+        At_up, Rf_up = feet[LEG[up_][2]]; Au = At_up + Fv * front
+        R_down = mathutils.Matrix.Rotation(math.radians(70), 3, Lv) @ feet[a][1]
+        for side, (At, pole, turn) in ((down, (Ak, Fv * 0.3 - Uv, R_down)), (up_, (Au, Fv + Uv * 0.6, Rf_up))):
+            tt, ss, aa = LEG[side]; two_bone(tt, ss, aa, At, pole)
+            M = turn.to_4x4(); M.translation = PB[aa].matrix.translation; PB[aa].matrix = M; bpy.context.view_layer.update()
+
+    def at_of(frm):
+        if frm == 'G':   # the floor under his pelvis
+            P0 = PB[B['P']].head.copy(); return P0 - Uv * P0.dot(Uv)
+        if frm.startswith('mid_'):   # halfway along a forearm (LF, RF): where a bandage is wrapped
+            j = frm[4:]; nxt = {'LF': 'LH', 'RF': 'RH'}[j]; return (PB[B[j]].head + PB[B[nxt]].head) / 2
+        return PB[B[frm]].head.copy()
+
     def apply(ops):
         for pb in PB: pb.matrix_basis = base[pb.name].copy()
         bpy.context.view_layer.update()
         name = lambda op: op[1] if op[0] == 'MOVE' else op[0]
+        kn = [op for op in ops if op[0] == 'KNEEL']; rc = [op for op in ops if op[0] == 'REACH']
+        ops = [op for op in ops if op[0] not in ('KNEEL', 'REACH')]
         for op in sorted(ops, key=lambda op: order.index(name(op)) if name(op) in order else -1):
             if op[0] == 'MOVE':
                 pb = PB[op[1]]; v = sum((V(AX[c]) * float(x) for c, x in zip('FUL', op[2])), V((0, 0, 0)))
@@ -156,10 +212,18 @@ def pose(src, out, which=None):
             else:
                 pb = PB[op[0]]
                 rot(pb, pb.matrix.translation.copy(), mathutils.Matrix.Rotation(math.radians(op[2]), 4, V(AX[op[1]])))
-        plant()
+        if kn: kneel(kn[-1][1], *kn[-1][2:])
+        else: plant()
+        for op in rc:   # ['REACH', side, from, [f, u, l], pole [f, u, l]]: names already the rig's
+            u1, f1, h1 = op[1]; two_bone(u1, f1, h1, at_of(op[2]) + vec(op[3]), vec(op[4]))
 
     def named(ops):
-        return [(['MOVE', B[o[1]], o[2]] if o[0] == 'MOVE' else [B[o[0]], o[1], o[2]]) for o in ops]
+        def one(o):
+            if o[0] == 'MOVE': return ['MOVE', B[o[1]], o[2]]
+            if o[0] == 'KNEEL': return list(o)
+            if o[0] == 'REACH': return ['REACH', (B[o[1] + 'U'], B[o[1] + 'F'], B[o[1] + 'H']), o[2], o[3], o[4]]
+            return [B[o[0]], o[1], o[2]]
+        return [one(o) for o in ops]
 
     # THE PROPS, made in the REST pose (where skinning reads them), each SKINNED to a bone of its own (the idles' lesson: the
     # master rig anchors a skinned part to the nearest rigid part, and a prop on the hand's own bone carried his shoes)
@@ -239,6 +303,11 @@ def pose(src, out, which=None):
             bpy.context.view_layer.objects.active = objs[0]; bpy.ops.object.join(); ob = bpy.context.active_object; ob.name = nm
             bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
             made.append((nm, B[S['bone']], hd + facing * 0.12 + up * 0.1 + left * -0.13, ob))
+        elif kind == 'limb':   # wrapped round a bone between two fractions of it (a bandage on his forearm), skinned to that bone
+            j = S['bone']; nxt = {'LF': 'LH', 'RF': 'RH', 'LU': 'LF', 'RU': 'RF'}[j]
+            h0 = W @ PB[B[j]].head; h1 = W @ PB[B[nxt]].head; ax_ = (h1 - h0).normalized(); o_ = ax_.orthogonal().normalized()
+            a0 = h0 + (h1 - h0) * S['from']; ln = (h1 - h0).length * (S['to'] - S['from'])
+            ob = make(nm, *mesh_from(S['parts'], (a0, ax_, o_, ax_.cross(o_), (ln, 1, 1)))); made.append((nm, B[j], a0, ob))
         elif kind == 'ground':   # the work's crate set where he sits, in the armature's frame, in real metres
             parts = WP[S['from'].split('.', 1)[1]]['parts'] if S['from'].startswith('work.') else S['parts']
             la, ra = PB[B['LA']].head.copy(), PB[B['RA']].head.copy(); G0 = (la + ra) / 2; G0 = G0 - Uv * G0.dot(Uv)
@@ -318,8 +387,8 @@ def company_first():
     return comp, post, rest
 
 
-def done(tag):
-    return os.path.exists(os.path.join(ROOT, RENDERS, tag, 'made.txt'))
+def done(tag, set_='town'):
+    return os.path.exists(os.path.join(ROOT, RENDERS, folder(tag, set_), 'made.txt'))
 
 
 def model(pid):
@@ -339,12 +408,14 @@ def model(pid):
 
 
 def person_one(tag, which=None):
-    T = source(); D = EI.source(); acts = acts_of(T, which)
+    T = source(); D = EI.source()
+    set_ = which if which in ('town', 'after') else 'town'; acts = acts_of(T, None if which in ('town', 'after') else which, set_)
+    set_ = set_of(T, acts[0])
     pid = tag[len('person_'):]
     glb, h = model(pid)
-    posed = os.path.join(ROOT, POSED, tag + '.glb')
+    posed = os.path.join(ROOT, POSED, folder(tag, set_) + '.glb')
     EI.run([sys.executable, os.path.abspath(__file__), 'pose', glb, posed, ','.join(acts)], posed)
-    out = os.path.join(ROOT, RENDERS, tag)
+    out = os.path.join(ROOT, RENDERS, folder(tag, set_))
     EI.render_model(posed, out, h, [('Stand', 1)] + [(clip(a), len(pose_list(T, D, a))) for a in acts])
     os.replace(posed[:-4] + '.joints.json', os.path.join(out, 'joints.json'))
     os.remove(posed)
@@ -359,14 +430,16 @@ def fight_one(name, which=None):
     """a named look of the fight (YOU, who leads his company in the town): COMBAT's own build of him (records/combat/rig, its
     `bodies` when missing), the activities laid on it here, rendered by COMBAT's render() pointed at this folder (the idles'
     way: the same camera, sun, scale and samples as his fight sheet, Stand first so his box is his own)"""
-    T = source(); D = EI.source(); acts = acts_of(T, which); CF = EI.combat(); py = sys.executable
+    T = source(); D = EI.source(); CF = EI.combat(); py = sys.executable
+    set_ = which if which in ('town', 'after') else 'town'; acts = acts_of(T, None if which in ('town', 'after') else which, set_)
+    set_ = set_of(T, acts[0]); sfx = '' if set_ == 'town' else '.' + set_
     src = os.path.join(ROOT, EI.COMBAT_POSED, name + '.glb')
     if not os.path.exists(src): EI.run([py, 'tools/bohemia_combat_the_fight_wears_the_rig.py', 'bodies', name], src)
-    posed = os.path.join(ROOT, POSED, name + '.glb')
+    posed = os.path.join(ROOT, POSED, name + '.glb')   # COMBAT's render() reads <name>.glb; the pass is its suffix
     EI.run([py, os.path.abspath(__file__), 'pose', src, posed, ','.join(acts)], posed)
     CF.POSED, CF.RENDERS = POSED, RENDERS
-    CF.render(name, clips=[('Stand', 1)] + [(clip(a), len(pose_list(T, D, a))) for a in acts], suffix='')
-    out = os.path.join(ROOT, RENDERS, name)
+    CF.render(name, clips=[('Stand', 1)] + [(clip(a), len(pose_list(T, D, a))) for a in acts], suffix=sfx)
+    out = os.path.join(ROOT, RENDERS, name + sfx)
     os.replace(posed[:-4] + '.joints.json', os.path.join(out, 'joints.json'))
     for f in os.listdir(out):
         if f.startswith(('raw_', 'shadow_')): os.remove(os.path.join(out, f))
@@ -374,17 +447,18 @@ def fight_one(name, which=None):
     print('TOWN look', name, flush=True)
 
 
-def people(arg='COMPANY', workers=4):
+def people(arg='COMPANY', workers=4, set_='town'):
     comp, post, rest = company_first()
     pool = comp + post if arg.upper() in ('ALL', 'CREW') else comp if arg.upper() == 'COMPANY' else arg.split(',')
-    todo = [t for t in pool if not done(t)]
+    if set_ != 'town' and arg.upper() in ('COMPANY', 'ALL', 'CREW'): pool = ['you'] + pool   # YOU leads them after a fight too
+    todo = [t for t in pool if not done(t, set_)]
     env = dict(os.environ, BOHEMIA_RIG_THREADS=str(max(1, (os.cpu_count() or 4) // max(1, workers))),
                BOHEMIA_BPY=os.environ.get('BOHEMIA_BPY') or sys.executable)
     procs = []
     for w in range(max(1, workers)):
         mine = todo[w::max(1, workers)]
         if not mine: continue
-        sh = ' ; '.join('%s %s %s %s' % (sys.executable, os.path.abspath(__file__), 'person_one' if x.startswith('person_') else 'fight_one', x) for x in mine)
+        sh = ' ; '.join('%s %s %s %s %s' % (sys.executable, os.path.abspath(__file__), 'person_one' if x.startswith('person_') else 'fight_one', x, set_) for x in mine)
         procs.append(subprocess.Popen(['bash', '-c', sh], cwd=ROOT, env=env))
     for p in procs: p.wait()
 
@@ -449,7 +523,7 @@ def pack(only=None):
                         'tools/bohemia_animation_the_towns_activities.py, rendered by DIRECTION\'s master rig at the street\'s settings',
                  dirs=DIRS, keys_per_beat=3, slot=24,
                  timelines={k: v for k, v in T['timelines'].items() if k != 'why'},
-                 activities={a: {k: v for k, v in A.items() if k in ('rest', 'breathe', 'idles', 'habit', 'fidget', 'turns', 'wall')}
+                 activities={a: {k: v for k, v in A.items() if k in ('rest', 'breathe', 'idles', 'habit', 'fidget', 'turns', 'wall', 'set')}
                              for a, A in T['activities'].items()},
                  cell='[x, y, w, h, dx, dy]: the cell on its sheet and where its top left sits in his render\'s full frame; feet[f] is '
                       'where his still stands in that frame (the bare idles\' numbers, so an activity lands where his still stood)')
@@ -487,72 +561,69 @@ def pack(only=None):
 
     n_ok = 0
     FR = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
-    for tag in sorted(os.listdir(os.path.join(ROOT, RENDERS))):
+    SETS = ['town', 'after']
+
+    def passes(tag):
+        """his render passes on disk (the town's six, the minutes after a fight), each its folder and the acts it made"""
+        out = []
+        for st in SETS:
+            d = os.path.join(ROOT, RENDERS, folder(tag, st))
+            if os.path.exists(os.path.join(d, 'made.txt')): out.append((d, open(os.path.join(d, 'made.txt')).read().strip().split(',')))
+        return out
+
+    def fresh(mj, ps):
+        return os.path.exists(mj) and all(os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')) for d, _ in ps)
+
+    def sheet(tag, act, imgs, Pa, entry, names, cells):
+        body, rects = atlas(imgs, 1024); fn = '%s_%s.webp' % (tag, act)
+        body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
+        entry['sheets'][act] = dict(file=fn, cells=rects, size=list(body.size))
+        entry['poses'][act] = {p_: cells.get(p_, [None] * 8) for p_ in names}
+
+    tags = sorted(set(t.split('.')[0] for t in os.listdir(os.path.join(ROOT, RENDERS))))
+    for tag in tags:
         if only and tag not in only: continue
-        d = os.path.join(ROOT, RENDERS, tag); rec = os.path.join(ROOT, EI.PEOPLE_STILLS, tag)
+        ps = passes(tag)
+        if not ps: continue
+        rec = os.path.join(ROOT, EI.PEOPLE_STILLS, tag)
         FL = FR['looks'].get(tag)
-        if FL and FL.get('kind') not in ('person', 'beast') and done(tag):   # a named look of the fight (YOU): his fight sheet's cell is the frame
-            mj = os.path.join(ROOT, OUT, tag + '.json')
-            if os.path.exists(mj) and os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')):
-                index['looks'][tag] = dict(json=tag + '.json'); n_ok += 1; continue
-            acts = open(os.path.join(d, 'made.txt')).read().strip().split(',')
-            rj = json.load(open(os.path.join(d, 'rig.json'))); cb = rj['crop_box_px']
-            fx0 = cb[0] + rj['ground_px'][0] - FL['foot'][0]; fy0 = cb[1] + rj['ground_px'][1] - FL['foot'][1]   # the fight cell's origin in the full frame (his feet: the one point both know)
+        mj = os.path.join(ROOT, OUT, tag + '.json')
+        if FL and FL.get('kind') not in ('person', 'beast'):   # a named look of the fight (YOU): his fight sheet's cell is the frame
+            if fresh(mj, ps):
+                index['looks'][tag] = dict(json=tag + '.json', acts=[a for _, acts in ps for a in acts]); n_ok += 1; continue
             sp = np.asarray(Image.open(os.path.join(ROOT, 'slices/fight_rig', FL['file'])).convert('RGBA'))
             P = np.array(sorted(set(map(tuple, sp[sp[..., 3] > 0][:, :3].tolist()))), np.int32)   # his fight sheet's colours: he walked in them
             entry = dict(fight=FL['file'], foot=FL['foot'], feet=[FL['foot']] * 8, sheets={}, poses={})
-            for act in acts:
-                names = [p_ for p_, _ in pose_list(T, D, act)]; cl = clip(act); imgs, cells = [], {}
-                for pi, p_ in enumerate(names):
-                    for row, f in enumerate(DIRS):
-                        c = cut(full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (cl, f, pi)), rj, (0, 0), rj['res']))
-                        if c is None: continue
-                        a_, x0, y0 = c; a_ = np.pad(a_, ((1, 1), (1, 1), (0, 0))); op = a_[..., 3] > 0; near = np.zeros_like(op)
-                        near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
-                        cells.setdefault(p_, [None] * 8)[row] = len(imgs); imgs.append([a_, x0 - 1 - fx0, y0 - 1 - fy0, near & ~op])
-                Pa = P
-                if any(T['activities'][act]['props']):
-                    mosaic = np.concatenate([c[0].reshape(-1, 4) for c in imgs]); mosaic = mosaic[mosaic[:, 3] > 0][:, :3]
-                    q = Image.fromarray(mosaic.reshape(1, -1, 3).astype(np.uint8), 'RGB').quantize(64, method=Image.Quantize.MEDIANCUT)
-                    own = np.array(q.getpalette()[:3 * 64], np.int32).reshape(-1, 3)
-                    dd = ((own[:, None, :] - P[None, :, :]) ** 2).sum(2).min(1); Pa = np.concatenate([P, own[dd > 24 ** 2][:16]])
-                out_ = []
-                for a_, x0, y0, rim in imgs:
-                    a_ = to_pal(a_, Pa); a_[rim] = tuple(FR['rim']) + ((255,) if len(FR['rim']) == 3 else ()); out_.append((a_, x0, y0))
-                body, rects = atlas(out_, 1024); fn = '%s_%s.webp' % (tag, act)
-                body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
-                entry['sheets'][act] = dict(file=fn, cells=rects, size=list(body.size))
-                entry['poses'][act] = {p_: cells.get(p_, [None] * 8) for p_ in names}
+            for d, acts in ps:
+                rj = json.load(open(os.path.join(d, 'rig.json'))); cb = rj['crop_box_px']
+                fx0 = cb[0] + rj['ground_px'][0] - FL['foot'][0]; fy0 = cb[1] + rj['ground_px'][1] - FL['foot'][1]   # the fight cell's origin in the full frame (his feet: the one point both know)
+                for act in acts:
+                    names = [p_ for p_, _ in pose_list(T, D, act)]; cl = clip(act); imgs, cells = [], {}
+                    for pi, p_ in enumerate(names):
+                        for row, f in enumerate(DIRS):
+                            c = cut(full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (cl, f, pi)), rj, (0, 0), rj['res']))
+                            if c is None: continue
+                            a_, x0, y0 = c; a_ = np.pad(a_, ((1, 1), (1, 1), (0, 0))); op = a_[..., 3] > 0; near = np.zeros_like(op)
+                            near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
+                            cells.setdefault(p_, [None] * 8)[row] = len(imgs); imgs.append([a_, x0 - 1 - fx0, y0 - 1 - fy0, near & ~op])
+                    Pa = P
+                    if any(T['activities'][act]['props']):
+                        mosaic = np.concatenate([c[0].reshape(-1, 4) for c in imgs]); mosaic = mosaic[mosaic[:, 3] > 0][:, :3]
+                        q = Image.fromarray(mosaic.reshape(1, -1, 3).astype(np.uint8), 'RGB').quantize(64, method=Image.Quantize.MEDIANCUT)
+                        own = np.array(q.getpalette()[:3 * 64], np.int32).reshape(-1, 3)
+                        dd = ((own[:, None, :] - P[None, :, :]) ** 2).sum(2).min(1); Pa = np.concatenate([P, own[dd > 24 ** 2][:16]])
+                    out_ = []
+                    for a_, x0, y0, rim in imgs:
+                        a_ = to_pal(a_, Pa); a_[rim] = tuple(FR['rim']) + ((255,) if len(FR['rim']) == 3 else ()); out_.append((a_, x0, y0))
+                    sheet(tag, act, out_, Pa, entry, names, cells)
             json.dump(entry, open(mj, 'w'), separators=(',', ':'))
-            index['looks'][tag] = dict(json=tag + '.json', acts=acts); n_ok += 1
+            index['looks'][tag] = dict(json=tag + '.json', acts=list(entry['sheets'])); n_ok += 1
             print('PACKED town', tag, {a: v['size'] for a, v in entry['sheets'].items()}, flush=True)
             continue
-        if not tag.startswith('person_') or not done(tag) or not os.path.exists(os.path.join(rec, 'rig.json')): continue
-        mj = os.path.join(ROOT, OUT, tag + '.json')
-        if os.path.exists(mj) and os.path.getmtime(mj) >= os.path.getmtime(os.path.join(d, 'made.txt')):
-            index['looks'][tag] = dict(json=tag + '.json'); n_ok += 1; continue
-        acts = open(os.path.join(d, 'made.txt')).read().strip().split(',')
-        rj = json.load(open(os.path.join(d, 'rig.json'))); mine = json.load(open(os.path.join(rec, 'rig.json')))
-        off = (mine['crop_box_px'][0] + mine['ground_px'][0] - rj['crop_box_px'][0] - rj['ground_px'][0],
-               mine['crop_box_px'][1] + mine['ground_px'][1] - rj['crop_box_px'][1] - rj['ground_px'][1])
-        # THE MATCH, all eight facings: his Stand here against the still the screens draw, each facing laid on its still by
-        # the two ground pixels and then the best of a few pixels either way (the rig frames a man by his box and turns him
-        # about its middle: anything in the box that is not in the still's moves him, facing by facing), so a cell lands
-        # where his still stood, never by a frame's guess
-        offs, worst = [], (1.0, 0.0)
-        for f in DIRS:
-            A0 = full(os.path.join(d, 'rig_%s.png' % f), rj, off, mine['res']); B_ = full(os.path.join(rec, 'rig_%s.png' % f), mine, (0, 0), mine['res']).astype(np.int32)
-            ob = B_[..., 3] > 127; best = None
-            for dy in range(-6, 7):
-                for dx in range(-6, 7):
-                    oa = np.roll(np.roll(A0[..., 3] > 127, dy, 0), dx, 1); ag = (oa & ob).sum() / max(1, (oa | ob).sum())
-                    if best is None or ag > best[0]: best = (ag, dx, dy)
-            ag, dx, dy = best; offs.append((off[0] + dx, off[1] + dy))
-            A = full(os.path.join(d, 'rig_%s.png' % f), rj, offs[-1], mine['res']).astype(np.int32); oa = A[..., 3] > 127
-            st = float(np.abs(A[..., :3] - B_[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255.0
-            worst = (min(worst[0], ag), max(worst[1], st))
-        if worst[0] < TOWN_MATCH['alpha'] or worst[1] > TOWN_MATCH['rgb']:
-            print('NO MATCH, no activities for him:', tag, round(worst[0], 3), round(worst[1], 1)); continue
+        if not tag.startswith('person_') or not os.path.exists(os.path.join(rec, 'rig.json')): continue
+        if fresh(mj, ps):
+            index['looks'][tag] = dict(json=tag + '.json', acts=[a for _, acts in ps for a in acts]); n_ok += 1; continue
+        mine = json.load(open(os.path.join(rec, 'rig.json')))
         cb = mine['crop_box_px']; feet = []
         for f in DIRS:
             im = Image.open(os.path.join(rec, 'rig_%s.png' % f)).convert('RGBA')
@@ -563,30 +634,54 @@ def pack(only=None):
         if os.path.exists(bj):
             pa = np.asarray(Image.open(bj).convert('RGBA')); P = np.array(sorted(set(map(tuple, pa[pa[..., 3] > 0][:, :3].tolist()))), np.int32)
         else: P = None
-        entry = dict(person=True, foot=feet[0], feet=feet, match=[round(worst[0], 3), round(worst[1], 1)], frame_shift=[list(o) for o in offs], sheets={}, poses={})
-        for act in acts:
-            names = [p for p, _ in pose_list(T, D, act)]; cl = clip(act); imgs, cells = [], {}
-            for pi, p in enumerate(names):
-                for row, f in enumerate(DIRS):
-                    c = cut(full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (cl, f, pi)), rj, offs[row], mine['res']))
-                    if c is None: continue
-                    cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append(c)
-            Pa = P
-            if Pa is None or any(T['activities'][act]['props']):   # a bottle, a tin, a crate: his colours and the prop's
-                mosaic = np.concatenate([c[0].reshape(-1, 4) for c in imgs]); mosaic = mosaic[mosaic[:, 3] > 0][:, :3]
-                q = Image.fromarray(mosaic.reshape(1, -1, 3).astype(np.uint8), 'RGB').quantize(64, method=Image.Quantize.MEDIANCUT)
-                own = np.array(q.getpalette()[:3 * 64], np.int32).reshape(-1, 3)
-                if Pa is not None:   # his palette first, the prop's colours only where his own are far (a bottle is not his coat)
-                    dd = ((own[:, None, :] - Pa[None, :, :]) ** 2).sum(2).min(1)
-                    Pa = np.concatenate([Pa, own[dd > 24 ** 2][:16]])
-                else: Pa = own
-            imgs = [(to_pal(a, Pa), x0, y0) for a, x0, y0 in imgs]
-            body, rects = atlas(imgs, 1024); fn = '%s_%s.webp' % (tag, act)
-            body.save(os.path.join(ROOT, OUT, fn), 'WEBP', lossless=True, quality=100, method=6)
-            entry['sheets'][act] = dict(file=fn, cells=rects, size=list(body.size))
-            entry['poses'][act] = {p: cells.get(p, [None] * 8) for p in names}
+        entry = dict(person=True, foot=feet[0], feet=feet, match={}, frame_shift={}, sheets={}, poses={})
+        for d, acts in ps:
+            rj = json.load(open(os.path.join(d, 'rig.json')))
+            off = (mine['crop_box_px'][0] + mine['ground_px'][0] - rj['crop_box_px'][0] - rj['ground_px'][0],
+                   mine['crop_box_px'][1] + mine['ground_px'][1] - rj['crop_box_px'][1] - rj['ground_px'][1])
+            # THE MATCH, all eight facings: his Stand here against the still the screens draw, each facing laid on its still by
+            # the two ground pixels and then the best of a few pixels either way (the rig frames a man by his box and turns him
+            # about its middle: anything in the box that is not in the still's moves him, facing by facing), so a cell lands
+            # where his still stood, never by a frame's guess. Each pass its own (its crop and ground are its own)
+            offs, worst = [], (1.0, 0.0)
+            for f in DIRS:
+                A0 = full(os.path.join(d, 'rig_%s.png' % f), rj, off, mine['res']); B_ = full(os.path.join(rec, 'rig_%s.png' % f), mine, (0, 0), mine['res']).astype(np.int32)
+                ob = B_[..., 3] > 127; best = None
+                for dy in range(-6, 7):
+                    for dx in range(-6, 7):
+                        oa = np.roll(np.roll(A0[..., 3] > 127, dy, 0), dx, 1); ag = (oa & ob).sum() / max(1, (oa | ob).sum())
+                        if best is None or ag > best[0]: best = (ag, dx, dy)
+                ag, dx, dy = best; offs.append((off[0] + dx, off[1] + dy))
+                A = full(os.path.join(d, 'rig_%s.png' % f), rj, offs[-1], mine['res']).astype(np.int32); oa = A[..., 3] > 127
+                st = float(np.abs(A[..., :3] - B_[..., :3])[oa & ob].mean()) if (oa & ob).any() else 255.0
+                worst = (min(worst[0], ag), max(worst[1], st))
+            pn = os.path.basename(d)[len(tag):].lstrip('.') or 'town'
+            if worst[0] < TOWN_MATCH['alpha'] or worst[1] > TOWN_MATCH['rgb']:
+                print('NO MATCH, no %s acts for him:' % pn, tag, round(worst[0], 3), round(worst[1], 1)); continue
+            entry['match'][pn] = [round(worst[0], 3), round(worst[1], 1)]; entry['frame_shift'][pn] = [list(o) for o in offs]
+            for act in acts:
+                names = [p for p, _ in pose_list(T, D, act)]; cl = clip(act); imgs, cells = [], {}
+                for pi, p in enumerate(names):
+                    for row, f in enumerate(DIRS):
+                        c = cut(full(os.path.join(d, 'rig_%s_%s_k%02d.png' % (cl, f, pi)), rj, offs[row], mine['res']))
+                        if c is None: continue
+                        cells.setdefault(p, [None] * 8)[row] = len(imgs); imgs.append(c)
+                Pa = P
+                if Pa is None or any(T['activities'][act]['props']):   # a bottle, a tin, a crate: his colours and the prop's
+                    mosaic = np.concatenate([c[0].reshape(-1, 4) for c in imgs]); mosaic = mosaic[mosaic[:, 3] > 0][:, :3]
+                    q = Image.fromarray(mosaic.reshape(1, -1, 3).astype(np.uint8), 'RGB').quantize(64, method=Image.Quantize.MEDIANCUT)
+                    own = np.array(q.getpalette()[:3 * 64], np.int32).reshape(-1, 3)
+                    if Pa is not None:   # his palette first, the prop's colours only where his own are far (a bottle is not his coat)
+                        dd = ((own[:, None, :] - Pa[None, :, :]) ** 2).sum(2).min(1)
+                        Pa = np.concatenate([Pa, own[dd > 24 ** 2][:16]])
+                    else: Pa = own
+                imgs = [(to_pal(a, Pa), x0, y0) for a, x0, y0 in imgs]
+                sheet(tag, act, imgs, Pa, entry, names, cells)
+        if not entry['sheets']: continue
+        if list(entry['match']) == ['town']:   # the town's six alone: the entry reads as it always has
+            entry['match'] = entry['match']['town']; entry['frame_shift'] = entry['frame_shift']['town']
         json.dump(entry, open(mj, 'w'), separators=(',', ':'))
-        index['looks'][tag] = dict(json=tag + '.json', acts=acts); n_ok += 1
+        index['looks'][tag] = dict(json=tag + '.json', acts=list(entry['sheets'])); n_ok += 1
         print('PACKED town', tag, {a: v['size'] for a, v in entry['sheets'].items()}, flush=True)
     json.dump(index, open(ip, 'w'), separators=(',', ':'))
     print('INDEX', os.path.relpath(ip, ROOT), n_ok, 'looks')
@@ -598,7 +693,7 @@ if __name__ == '__main__':
     if cmd == 'pose': pose(a[0], a[1], a[2] if len(a) > 2 else None)
     elif cmd == 'person_one': person_one(a[0], a[1] if len(a) > 1 else None)
     elif cmd == 'fight_one': fight_one(a[0], a[1] if len(a) > 1 else None)
-    elif cmd == 'people': people(a[0] if a else 'COMPANY', int(a[1]) if len(a) > 1 else 4)
+    elif cmd == 'people': people(a[0] if a else 'COMPANY', int(a[1]) if len(a) > 1 else 4, a[2] if len(a) > 2 else 'town')
     elif cmd == 'preview': preview(*a)
     elif cmd == 'closeup': closeup(*a)
     elif cmd == 'pack': pack(set(a) if a else None)

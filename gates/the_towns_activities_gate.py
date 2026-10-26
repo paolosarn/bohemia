@@ -27,6 +27,10 @@ PLAYER, never of a table's say-so:
      talks a third of the time or more; a man with a wall gets the hand on the wall, a man without never does.
   W  WIRED: on the real settlement screen (RUN TWO's file, his phone's profile), the player hands back a drawn cell of every
      activity for a man of his company, the sheet decodes, and the page throws nothing.
+  A  THE MINUTES AFTER A FIGHT (rule 245, ANIMATION [the minutes after a fight], the same source's set 'after': LOOT, TEND,
+     BIND, BREATH): every leg above reads them too where a man has them (S, E on their own render pass, P, C, X); K a man who
+     kneels has the down knee on the ground (12 cm) and the other foot planted a step forward where the kneel sets it (2 cm),
+     on the posed joints, in every kneeling pose; A1 his company and YOU have all four.
   MUTATIONS (the gate must bite): a timeline a key short, two sides of a turn put next to each other, a joint that jumps
   out and back in one key, a variant pose that is its rest, a player that seats every man in one step, a pair that both
   talk.
@@ -44,6 +48,8 @@ IDX = os.path.join(ROOT, 'slices/rig_town/rig_town.json')
 RENDERS = os.path.join(ROOT, 'records/target/animation/towns')
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 NAMED = ['drink', 'smoke', 'talk', 'flirt', 'sit', 'stall']
+AFTER = ['loot', 'tend', 'bind', 'breath']   # rule 245: the minutes after a fight, the set 'after'
+SET = lambda a: T['activities'][a].get('set', 'town')
 PPM = 57.0           # the master rig's pixels a real metre at the street's settings (rig.json 'ppm')
 REVERSE_DEG, MOVE_PX, JUMP_PX = 120, 2.0, 24.0
 QUICK = '--quick' in sys.argv
@@ -65,8 +71,10 @@ def source_faults(T, D):
     out = []
     parts = dict(D['parts']); parts.update(T['parts'])
     pairs = [set(p) for p in T.get('never_adjacent', {}).get('pairs', [])]
-    for a in NAMED:
+    for a in NAMED + AFTER:
         if a not in T['activities']: out.append('no %s' % a)
+    for a in AFTER:
+        if a in T['activities'] and T['activities'][a].get('set') != 'after': out.append('%s is not of the set after' % a)
     for a, A in T['activities'].items():
         poses = A['poses']
         if A['rest'] not in poses: out.append('%s: its rest %s is not one of its poses' % (a, A['rest']))
@@ -99,7 +107,7 @@ D = json.load(open(IDL))
 ok('S0 the kept source is in the repo (rule 128)', T is not None, SRC)
 if T is None: done()
 sf = source_faults(T, D)
-ok('S1 the six he named, every slot 24 keys ending on its rest, every pose its activity\'s, no flicker, no turn side to side',
+ok('S1 the six he named and the four after a fight, every slot 24 keys ending on its rest, every pose its activity\'s, no flicker, no turn side to side',
    not sf, '; '.join(sf[:5]))
 m = json.loads(json.dumps(T)); m['timelines']['sip'] = m['timelines']['sip'][:-1] + [[m['timelines']['sip'][-1][0], m['timelines']['sip'][-1][1] - 1]]
 ok('S2 MUTATION: a timeline a key short is caught', any('23 keys' in x for x in source_faults(m, D)))
@@ -119,7 +127,9 @@ def screen(v, f):
 def envelope_faults(J, T):
     out = []; k = J['k']
     for a, A in T['activities'].items():
-        if a not in J['acts']: out.append('%s not posed' % a); continue
+        if a not in J['acts']:
+            if A.get('set', 'town') == 'town': out.append('%s not posed' % a)
+            continue
         at = J['acts'][a]['at']
         kinds = [x for side in A.get('breathe', []) for x in side] + A.get('idles', []) + A.get('wall', [])
         if A.get('turns'): kinds += A['turns']['say'] + A['turns']['hear']
@@ -148,22 +158,51 @@ def envelope_faults(J, T):
     return out
 
 
-looks_j = sorted(l for l in os.listdir(RENDERS) if os.path.exists(os.path.join(RENDERS, l, 'joints.json'))) if os.path.isdir(RENDERS) else []
+def joints_of(l):
+    """his posed joints, every pass merged (the town's six in <look>/, the minutes after a fight in <look>.after/: the same
+    build posed twice, so one armature's space)"""
+    J = None
+    for d in (l, l + '.after'):
+        fn = os.path.join(RENDERS, d, 'joints.json')
+        if not os.path.exists(fn): continue
+        j = json.load(open(fn))
+        if J is None: J = j
+        else: J['acts'].update(j['acts'])
+    return J
+
+
+looks_j = sorted(set(l.split('.')[0] for l in os.listdir(RENDERS) if os.path.exists(os.path.join(RENDERS, l, 'joints.json')))) if os.path.isdir(RENDERS) else []
 IX = json.load(open(IDX)) if os.path.exists(IDX) else None
 packed = sorted(IX['looks']) if IX else []
 ok('E0 the posed model\'s joints are kept beside every packed man\'s render (the ruler)', packed and all(l in looks_j for l in packed),
    [l for l in packed if l not in looks_j][:4] or 'nothing packed')
 ef = []
 for l in looks_j:
-    ef += ['%s: %s' % (l, x) for x in envelope_faults(json.load(open(os.path.join(RENDERS, l, 'joints.json'))), T)]
+    ef += ['%s: %s' % (l, x) for x in envelope_faults(joints_of(l), T)]
+def kneels(T, a, p):
+    """the kneel a pose makes (['KNEEL', side, front, seat]), or None"""
+    P = dict(D['parts']); P.update(T['parts'])
+    ks = [op for part in T['activities'][a]['poses'][p] for op in P[part] if op[0] == 'KNEEL']
+    return ks[-1] if ks else None
+
+
 def ankle_faults(J, T):
     """the feet stay put: in every pose of every activity both ankles where they stand in his rest, 1 cm (a man who sits
-    keeps his heels where he stood; the plant)"""
+    keeps his heels where he stood; the plant); a man who KNEELS: the down knee on the ground (12 cm, the knee's own
+    thickness 5.5) and the other foot planted where the kneel sets it, a step forward of where it stood (2 cm)"""
     out = []; k = J['k']; base = None
     for a, A in T['activities'].items():
         at = J['acts'].get(a, {}).get('at', {})
         ref = J['acts']['talk']['at']['T'] if 'talk' in J['acts'] else None
         for p, row in at.items():
+            kn = kneels(T, a, p)
+            if kn and ref is not None:
+                down = kn[1]; up = 'L' if down == 'R' else 'R'
+                if row[down + 'S'][1] / k > 0.12: out.append('%s.%s the %s knee %.0f cm off the ground' % (a, p, down, row[down + 'S'][1] / k * 100))
+                want = [ref[up + 'A'][0] + (kn[2] if len(kn) > 2 else 0.2), ref[up + 'A'][1], ref[up + 'A'][2]]
+                d = math.dist(row[up + 'A'], want) / k
+                if d > 0.02: out.append('%s.%s the %s foot %.1f cm off where the kneel plants it' % (a, p, up, d * 100))
+                continue
             for j in ('RA', 'LA'):
                 if ref is None: continue
                 d = math.dist([c / k for c in row[j]], [c / k for c in ref[j]])
@@ -175,10 +214,10 @@ ok('E1 AN ENVELOPE RAMPS SLOWER THAN THE GRID: no joint jumps out and back, none
    looks_j and not ef, '; '.join(ef[:4]))
 af = []
 for l in looks_j:
-    af += ['%s: %s' % (l, x) for x in ankle_faults(json.load(open(os.path.join(RENDERS, l, 'joints.json'))), T)]
-ok('E3 THE FEET STAY PUT: both ankles where he stands in every pose of every activity, sitting too (1 cm)', looks_j and not af, '; '.join(af[:4]))
+    af += ['%s: %s' % (l, x) for x in ankle_faults(joints_of(l), T)]
+ok('E3 THE FEET STAY PUT: both ankles where he stands in every pose of every activity, sitting too (1 cm); kneeling, the down knee on the ground and the other foot planted a step forward (K)', looks_j and not af, '; '.join(af[:4]))
 if looks_j:
-    J = json.load(open(os.path.join(RENDERS, looks_j[0], 'joints.json')))
+    J = joints_of(looks_j[0])
     Jm = json.loads(json.dumps(J)); at = Jm['acts']['drink']['at']
     at['D_Ri']['RH'] = [at['D_Ri']['RH'][0] + 0.12 * J['k'], at['D_Ri']['RH'][1], at['D_Ri']['RH'][2]]
     Tm = json.loads(json.dumps(T)); Tm['timelines']['drinkR'] = [['D_Ro', 6], ['D_Ri', 1], ['D_Ro', 14], ['D', 3]]
@@ -225,7 +264,9 @@ def picture_faults(looks):
     for l in looks:
         L = json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][l]['json'])))
         for a, A in T['activities'].items():
-            if a not in L['sheets']: out.append('%s has no %s' % (l, a)); continue
+            if a not in L['sheets']:
+                if A.get('set', 'town') == 'town': out.append('%s has no %s' % (l, a))
+                continue
             S = L['sheets'][a]; im = sheet(S['file'])
             if list(im.shape[1::-1]) != S['size']: out.append('%s %s sheet size' % (l, a))
             cols = len(np.unique(im[im[..., 3] > 0][:, :3], axis=0))
@@ -289,6 +330,13 @@ if packed:
     comp = [json.loads(x)['look'] for x in re.findall(r'^\s*(\{"look":.*\})\s*,?\s*$', mix, re.M) if json.loads(x).get('company')]
     ok('P2 his company, the %d men he starts with, all have their activities' % len(comp), all(c in packed for c in comp),
        [c for c in comp if c not in packed][:5])
+    if '--after' in sys.argv or any(any(a in json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][l]['json'])))['sheets'] for a in AFTER) for l in packed):
+        lack = []
+        for c in comp + ['you']:
+            Lc = json.load(open(os.path.join(ROOT, 'slices/rig_town', IX['looks'][c]['json']))) if c in IX['looks'] else {'sheets': {}}
+            miss = [a for a in AFTER if a not in Lc['sheets']]
+            if miss: lack.append('%s lacks %s' % (c, ','.join(miss)))
+        ok('A1 THE MINUTES AFTER A FIGHT: his company and YOU (%d) have all four (loot, tend, bind, breath)' % (len(comp) + 1), not lack, '; '.join(lack[:4]))
     cf = chess_faults(packed[:6])
     ok('C1 every variant differs from its rest in every facing; drinking, smoking, sitting, at a stall is not his plain still',
        not cf, '; '.join(cf[:4]))
