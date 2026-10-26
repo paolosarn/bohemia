@@ -181,3 +181,17 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 163 | (said again) The food icon shows the water bottle next to the can, both plainly seen | 240 | UI, EYES | 
 | 164 | The clinic shows the debuff and the days, not just the price, and makes clear it halves the days AND halves the debuff | 241 | CAMP, EYES | 
 | 165 | (said again) If I lose a fight badly I can close the browser, reopen it and restart the fight, any time before the map; the loot screen counts as the fight | 233(h), 241(d) | CAMP, EYES | 
+| 166 | At the stall I can sell my supplies too (meds, rounds, food and water, tape), with buy and sell prices from the economy chat | 242 | ECONOMY, RUN TWO, EYES | 
+| 167 | The map is the best of Valheim's and Battle Brothers'; bosses change the map and the world around me | 243 | WORLD TWO, RUN, WORLD, DYNASTY, EYES | 
+| 168 | OPTIMIZE LOOT on the end-of-fight screen: with a full stash it swaps my cheapest stuff for the more valuable loot | 244 | RUN FOUR, EYES | 
+| 169 | The end-of-fight screen is never black: behind it, my men looting the bodies, walking between them, talking about what's next, dimmed | 245 | RUN FOUR, ANIMATION, EYES | 
+| 170 | Every face on screen breathes and moves a little; a badly wounded man reacts to his wound | 246 | PORTRAIT, EYES | 
+| 171 | (his word) He loves the Crashbox HBO animation style: keep going, more animation everywhere | 246(e) | ANIMATION, COOK, MOTION | 
+| 172 | Stats in my order everywhere: HP, fatigue, ranged attack, melee attack, ranged defence, melee defence, morale, initiative, so I can scan the stars; behind each number a bar to the most possible (said again) | 247, 223 | UI THREE, TUNING, EYES | 
+| 173 | What I sell shows on their shelf right away, and I can buy it back at the price I sold it for, not marked up | 248 | RUN TWO, EYES | 
+| 174 | One tap on a piece highlights it (an outline) and shows its facts in place; in the shop no second menu and no keeper asking; a double tap buys/sells/equips at once | 249 | RUN TWO, RUN FOUR, UI THREE, EYES | 
+| 175 | The inside of the item boxes looks bad: remake them | 249(d) | UI THREE, EYES | 
+| 176 | In the shop nothing moves while I tap through the items; I can comb the shelf and see how each piece impacts my team | 250 | RUN TWO, UI THREE, EYES | 
+| 177 | In the shop my men's full stats are not shown: only what the piece would change on each man, icon and arrow and how much | 251(a) | RUN TWO, UI THREE, EYES | 
+| 178 | The weapon stats card is ugly: remake it as icons with bars, not lines of numbers | 251(b) | UI THREE, EYES | 
+| 179 | Every perk has an icon, everywhere, next to its words | 252 | UI THREE, COOK, EYES | 
