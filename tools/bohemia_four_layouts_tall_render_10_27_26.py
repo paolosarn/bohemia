@@ -148,6 +148,7 @@ def night_from(town, sd, rd, key):
     # the night's own sinking of the ground, per channel: the open ground of the old pair (the bottom middle, under the bottom row)
     y0, y1, x0, x1 = 1300, 1800, 420, 600
     ratio = np.median(on[y0:y1, x0:x1].reshape(-1, 3) / np.maximum(od[y0:y1, x0:x1].reshape(-1, 3), 4.0), axis=0)
+    if float(ratio.max()) > 0.35: ratio = np.array([0.168, 0.170, 0.205], np.float32)   # a fire or a lamp in the sample: the other towns' measured night ground
     sunk = np.clip(day * ratio[None, None, :], 0, 255)
     out = sunk.copy(); out[:on.shape[0], :on.shape[1]] = on
     # where the old night must not stand: the cleared corner (and everything under the old picture's foot)
