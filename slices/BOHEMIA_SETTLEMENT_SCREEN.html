@@ -286,6 +286,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__ (rule 241): the wound, its debuff, its days -->
 <script src="../engine/bohemia_condition.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: who is hurt, from the company's own condition -->
+<script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295): his name is his own in the company -->
 <script src="bohemia_injury_card.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: the one card the clinic and the crew card both draw -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -3591,7 +3592,7 @@ function hireCard(r){
     S.taken[r.id] = true;
     var kit = hireKit(r), wears = hireWears(kit, gun);   /* __THE_BEST_RECRUIT_AT_THE_TOP__: his own kit, the rifle a gun man brings */
     if(r.rare) wears = {main:r.kitSpec.main || (gun ? gun.id : null), off:r.kitSpec.off || null, body:r.kitSpec.body || null, head:r.kitSpec.head || null};   /* __THE_RARE_MAN_AT_THE_POST__: he walks in wearing his own kit */
-    var def = {name:r.name.toUpperCase(), background:r.backgroundId, jobs:[], stats:ts.stats, base:r.stats, traits:tr ? [tr.id] : [], trait:tr ? {id:tr.id, name:tr.name, says:tr.says, line:manTraitLine(tr)} : null, stars:(function(o){ tal.forEach(function(x){ o[x.k] = x.n; }); return o; })({}), look:r.look, kit:kit, gear:wears};
+    var def = {name:(window.BohemiaHireLock ? BohemiaHireLock.uniqueName(r.name) : r.name.toUpperCase()), hid:'h' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), day:S.day || null, background:r.backgroundId, jobs:[], stats:ts.stats, base:r.stats, traits:tr ? [tr.id] : [], trait:tr ? {id:tr.id, name:tr.name, says:tr.says, line:manTraitLine(tr)} : null, stars:(function(o){ tal.forEach(function(x){ o[x.k] = x.n; }); return o; })({}), look:r.look, kit:kit, gear:wears};
     if(r.rare){ def.level = r.level; def.rare = true; if(r.line) def.line = r.line; }
     hireIntoCompany(def);
     post('hireMan', {man:def, price:price}); shelf();
@@ -3677,7 +3678,10 @@ function hallPrice(r){
 }
 /* the company lives with the roster screen: it reads this list on open (and the game can hand it) */
 function hireIntoCompany(def){
-  try{ var h = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'); h.push(def); localStorage.setItem('bohemia.hired.v1', JSON.stringify(h)); }catch(e){}
+  /* A HIRE IS LOCKED IN (rule 295): he is written once, by his own id, and read back; a write that did not land is tried again */
+  try{ var h = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []; if(!def.hid || !h.some(function(x){ return x && x.hid === def.hid; })) h.push(def); localStorage.setItem('bohemia.hired.v1', JSON.stringify(h));
+    var back = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []; if(!back.some(function(x){ return x && x.hid === def.hid; })){ back.push(def); localStorage.setItem('bohemia.hired.v1', JSON.stringify(back)); }
+    window.__HIRED_LOCKED = { name: def.name, hid: def.hid, n: back.length }; }catch(e){}
   /* his gear goes in the bag, as items the bag already speaks */
   var worn = def.gear || {};
   (def.kit||[]).forEach(function(id, i){ if(!id || id === worn.main || id === worn.body || id === worn.off || id === worn.head) return;   /* what he walks in wearing is on him, not in the bag (10/24; the rare man's shield and helm too, 10/25) */

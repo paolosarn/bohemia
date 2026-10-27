@@ -230,7 +230,7 @@ html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 <script src="../engine/bohemia_rig_bodies.js"></script>  <!-- RUN TWO [the 3D models on your screens]: his whole body, the model his face came from -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): the man on his card breathes and idles -->
 <script src="../engine/bohemia_long_injury.js"></script>
-<script src="../engine/bohemia_condition.js"></script>  <!-- CAMP __STRUCK_DOWN_HE_STILL_FIGHTS__ (rule 234): the one clock for a wound and the marks, by name -->
+<script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295): every hire on this screen, one name each -->  <!-- CAMP __STRUCK_DOWN_HE_STILL_FIGHTS__ (rule 234): the one clock for a wound and the marks, by name -->
 <script src="bohemia_injury_card.js"></script>  <!-- CAMP (rules 234(d), 241(c)): the injury card, the town clinic's own drawing -->
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="../engine/bohemia_camp.js"></script>
@@ -394,7 +394,7 @@ function healToToday(){
 /* a man who walked when the bill went unpaid, or that you let go (the map's bohemia.walked.v1, by name) is gone from the
    company; YOU never walk */
 var WKEY = 'bohemia.walked.v1';
-function walkedNames(){ try{ return (JSON.parse(localStorage.getItem(WKEY) || '[]') || []).map(function(w){ return w && w.name; }).filter(Boolean); }catch(e){ return []; } }
+function walkedNames(){ try{ return (JSON.parse(localStorage.getItem(WKEY) || '[]') || []).filter(function(w){ return w && w.dismissed; }).map(function(w){ return w.name; }).filter(Boolean); }catch(e){ return []; } }   /* A HIRE IS LOCKED IN (rule 295): only the men HE let go; the old bill's walks are back */
 /* ==== end __WHO_YOU_HIRE_FIGHTS__ ==== */
 /* who stands where to start: Battle Brothers puts the shooters behind; a rifle, a bow or bottles go back */
 function defaultForm(){
@@ -1032,6 +1032,7 @@ function open(o){
   else if(!S.crew.length){ try{ S.climbBefore = localStorage.getItem(CKEY); }catch(e){} S.crew = C.startingCrew(); S.defaultCrew = true; }   /* __THE_DOORS_COMPANY_WINS__: what the climb was before the default's save */
   /* men hired at the posts (the settlement screen keeps them here until the game's save does):
      same stats and stars as on the card he was hired from */
+  try{ if(window.BohemiaHireLock) BohemiaHireLock.repair(); }catch(e){}   /* A HIRE IS LOCKED IN (rule 295): an old game mended before the hired are read */
   try{ var hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]');
     hired.forEach(function(def){ if(S.crew.some(function(m){ return m.name === def.name && m.hired; })) return;
       var m = startLevel(C.manOf(def, S.crew.length), def.level); m.hired = true; if(def.stats) m.stats = def.stats; if(def.stars) m.stars = def.stars; if(def.look) m.look = def.look;

@@ -45475,7 +45475,7 @@ function partyMath(kind, ctx){
    them in bohemia.hired.v1 until the game's save does), less the men who walked when the batteries ran out (the bill,
    __ONE_BILL_IN_DAYS__). One count, read by the fight's size, the party plate's skulls and the nightly bill. */
 var CREW_WALKED_KEY = 'bohemia.walked.v1';
-function crewWalked(){ try{ var a = JSON.parse(localStorage.getItem(CREW_WALKED_KEY) || '[]'); return Array.isArray(a) ? a : []; }catch(_e){ return []; } }
+function crewWalked(){ try{ var a = JSON.parse(localStorage.getItem(CREW_WALKED_KEY) || '[]'); return Array.isArray(a) ? a.filter(function(x){ return x && x.dismissed; }) : []; }catch(_e){ return []; } }   /* A HIRE IS LOCKED IN (rule 295): only a man HE let go is gone; a man the old bill walked is back (engine/bohemia_hire_lock.js) */
 function crewHired(){ try{ var a = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'); return Array.isArray(a) ? a.length : 0; }catch(_e){ return 0; } }
 function crewCount(){
   var co = (LOOP.start && LOOP.start.company) || null;
@@ -45576,7 +45576,7 @@ function rescueDone(job){
    comes in: ECONOMY Day 74's definition). A NIGHT HE CANNOT COVER, ONE MAN WALKS, the newest hire first, then the company
    from the back, and he says why with his own face (rule 19c); the main character never walks (rule 37). Never a game
    over. The stall's food, meds and rounds stay for whoever wants them. */
-var BILL = { per_man: 2, red_at: 2, walks: 1, loaded: false, last: null };
+var BILL = { per_man: 2, red_at: 2, walks: 0, loaded: false, last: null };   /* A HIRE IS LOCKED IN (Paolo 10/27, rule 295): nobody walks over the bill (nightly_bill.json walks_when_short 0) */
 try{ fetch('../records/target/bb/nightly_bill.json').then(function(r){ return r.json(); }).then(function(j){
   if(j && j.per_man_per_night && j.per_man_per_night.value > 0) BILL.per_man = +j.per_man_per_night.value;
   if(j && j.red_at_days && j.red_at_days.value >= 0) BILL.red_at = +j.red_at_days.value;
@@ -91831,7 +91831,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
-<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->
 <script src="bohemia_job_danger.js"></script>  <!-- WORLD [the job tells the truth, in blood] (rule 208): every job's fights rolled and played on AUTO against his crew; red stars, the button bleeds -->

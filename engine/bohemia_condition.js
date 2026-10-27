@@ -220,7 +220,7 @@
      has seen; never the dead, never a man who walked, never a man the crew that beat him still holds */
   function goneKeys() {
     var g = {};
-    (json('bohemia.walked.v1') || []).forEach(function (x) { if (x && x.name) g[canon(x.name)] = 1; });
+    (json('bohemia.walked.v1') || []).forEach(function (x) { if (x && x.name && x.dismissed) g[canon(x.name)] = 1; });   /* rule 295: only a man he let go */
     (json('bohemia.taken.v1') || []).forEach(function (t) { ((t && t.names) || []).forEach(function (n) { g[canon(n)] = 1; }); });
     (json('bohemia.fight.after.v1') || []).forEach(function (f) { ((f && f.rows) || []).forEach(function (r) { if (r && r.dead && !r.main) g[canon(r.name)] = 1; }); });
     (json('bohemia.company.v1') || []).forEach(function (m) { if (m && m.dead) g[canon(m.name)] = 1; });

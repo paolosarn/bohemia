@@ -70,7 +70,8 @@ async function gameReads(page) {
       out.map = f(LOOP, CREW_DEFS);
       /* the bill's next nights, short every night: who walks, in order, and never a man twice (the storage put back after) */
       const keep = localStorage.getItem('bohemia.walked.v1'), seq = [];
-      for (let k = 0; k < 6; k++) { const r = f(LOOP, CREW_DEFS); if (!r.walks) break; seq.push(r.walks.name); const w = r.walked; w.push(r.walks); localStorage.setItem('bohemia.walked.v1', JSON.stringify(w)); }
+      for (let k = 0; k < 6; k++) { const r = f(LOOP, CREW_DEFS); if (!r.walks) break; seq.push(r.walks.name); const w = JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]'); w.push(r.walks); localStorage.setItem('bohemia.walked.v1', JSON.stringify(w)); }
+      out.map.afterBill = f(LOOP, CREW_DEFS).count;   /* A HIRE IS LOCKED IN (rule 295): a walk the bill wrote (no dismissed:true) takes nobody off */
       if (keep == null) localStorage.removeItem('bohemia.walked.v1'); else localStorage.setItem('bohemia.walked.v1', keep);
       out.map.seq = seq;
     } catch (e) { out.mapErr = String(e && e.message || e); }
@@ -167,7 +168,9 @@ async function run(b, name, prof, screen, quiet) {
     const after = await gameReads(page);
     leg('bill', before.map && after.map && after.map.count === before.map.count - 1 && after.map.walked.length === 1, '  the map\'s nightly bill counts one man fewer (its own crewCount)', (before.map && before.map.count) + ' -> ' + (after.map && after.map.count) + (after.mapErr || ''));
     const seq = (after.map && after.map.seq) || [];
-    leg('walks_once', seq.length === 4 && seq.indexOf(T.FIFTH) < 0 && new Set(seq).size === seq.length && seq.indexOf('YOU') < 0, '  the bill never walks him a second time, nor anyone twice, nor YOU (five short nights in a row)', seq.join(' > '));
+    /* AMENDED 10/27 (Paolo, rule 295: 'make sure every time you hire someone it's locked in'): the bill walks NOBODY. Six short
+       nights written the old way (no dismissed:true) leave the count where it was; only the man he let go is off it; never YOU */
+    leg('walks_once', after.map && after.map.afterBill === after.map.count && seq.indexOf('YOU') < 0, '  the bill walks nobody: six short nights leave the crew whole; only the man he let go is gone (rule 295)', (after.map ? after.map.count + ' then ' + after.map.afterBill : 'no map') + ' | ' + seq.slice(0, 3).join(' > '));
     leg('fight', Array.isArray(after.fight) && after.fight.length === 5 && after.fight.indexOf(T.FIFTH) < 0 && after.fight[0] === 'YOU', '  the fight\'s door (the alpha\'s nfOpts) hands five men and not him', (after.fight || []).join(',') + (after.fightErr || ''));
     leg('roster', Array.isArray(after.roster) && after.roster.indexOf(T.FIFTH) < 0 && after.roster.length === 5, '  the enemy\'s sizing counts five (BohemiaJobKinds.roster)', (after.roster || []).join(',') + (after.rosterErr || ''));
     const feed = await page.evaluate(n => window.BOHEMIA_FEED.posts.filter(p => p.txt.indexOf(n) >= 0).map(p => p.txt), T.FIFTH);

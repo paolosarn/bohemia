@@ -7,8 +7,8 @@
     "worked": "A NEW CREW on FULL SHELVES: 290 batteries / (3 men x 2) = 48 days; THIN: 240 / 6 = 40; Battle Brothers' default company runs 46 (ECONOMY Day 74)"
   },
   "walks_when_short": {
-    "value": 1,
-    "about": "a night the purse cannot cover, one man walks (the newest hire first, then the company from the back); the main character never walks (rule 37); he says why, with his face (rule 19c)",
+    "value": 0,
+    "about": "AMENDED 10/27 (Paolo, rule 295: 'make sure every time you hire someone it's locked in... not some ghost mystery accidental bullshit'): NOBODY WALKS OVER THE BILL. A night the purse cannot cover, the purse runs dry and the men stay; a man leaves only when HE lets him go (the crew screen's dismiss). Was 1: one man walked a short night, the newest hire first, and the bar still counted him while the crew screen hid him (engine/bohemia_hire_lock.js). A modder may set it back to 1.",
     "source": "TUNING's change 5, records/BOHEMIA_TUNING_QUICKER_AND_FUNNER_FOR_NORMIES_THE_TEN_CHANGES_10_23_26.md; Battle Brothers: an unpaid man deserts (reference/library/battle_brothers/07_ECONOMY.md)"
   },
   "red_at_days": {

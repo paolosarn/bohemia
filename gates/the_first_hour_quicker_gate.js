@@ -64,9 +64,11 @@ const ok = (n, c) => { if (c) { pass++; console.log('  ok   ' + n); } else { fai
     sp.drawn === 1 && sp.flee > 0 && sp.plate > 0 && sp.blocks >= 4 && (!af.hunt || af.blocks > sp.blocks) && h9.fight === false && wi.caught === true && /^road:.*:caught$/.test((wi.handover && wi.handover.why) || ''));
   const n9 = g('W9_nightfall'), b = n9.bill || {}, l = b.last || {}, n2 = n9.night2 || {}, sp2 = n2.spoke || {};
   ok('*** Q10 ONE BILL IN DAYS *** (night one: ' + l.crew + ' men, due ' + l.due + ', paid ' + l.paid + ', ' + b.daysLeft + ' days left; the day turned to ' + n9.dayAfter + ' at ' + n9.minAfter
-      + '; night two short: ' + ((n2.walked || []).map(x => x.name).join(',') || 'nobody') + ' walked, said with face ' + sp2.look + ', shown ' + n2.talkShown + ')',
+      + '; night two short: ' + ((n2.walked || []).map(x => x.name).join(',') || 'nobody') + ' walked, the crew ' + (n2.bill && n2.bill.crew) + ' of ' + l.crew + ')',
+    /* AMENDED 10/27 (Paolo, rule 295: 'make sure every time you hire someone it's locked in'): a night he cannot cover, NOBODY
+       walks; the purse runs dry and the crew stays whole (was: the newest man walked and said why with his face) */
     l.due === l.crew * b.perMan && l.paid === l.due && b.perMan > 0 && n9.dayTurned === true && n9.minAfter === 360
-      && (n2.walked || []).length === 1 && !!sp2.look && n2.talkShown === true && (n2.bill && n2.bill.crew) === l.crew - 1);
+      && (n2.walked || []).length === 0 && (n2.bill && n2.bill.crew) === l.crew);
   ok('Q11 nothing threw (' + (W.errors || []).length + (W.errors && W.errors.length ? ': ' + String(W.errors[0]).slice(0, 120) : '') + ')', (W.errors || []).length === 0);
   end();
 })();

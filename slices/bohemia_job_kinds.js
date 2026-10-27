@@ -1512,7 +1512,7 @@
     var co = ls('bohemia.company.v1', null), line = ls('bohemia.company.line.v1', null), hired = ls('bohemia.hired.v1', []), walked = ls('bohemia.walked.v1', []);
     if (!Array.isArray(hired)) hired = []; if (!Array.isArray(walked)) walked = [];
     var dead = {}; try { (ls('bohemia.fight.after.v1', []) || []).forEach(function (f) { (f && f.rows || []).forEach(function (r) { if (r && r.dead && !r.main && r.name) dead[r.name] = 1; }); }); } catch (e) {}
-    var gone = {}; walked.forEach(function (w) { if (w && w.name) gone[w.name] = 1; });
+    var gone = {}; walked.forEach(function (w) { if (w && w.name && w.dismissed) gone[w.name] = 1; });   /* rule 295: only a man he let go */
     /* WORLD [the roster scales the enemy], EYES line 79 (BUILD 10/25x): after three of twelve died and four were laid up it still
        sized to 13 with six able (a wipe), and the rescue sized to the men the enemy had taken and sent eight at YOU alone. The size
        is the men who can stand in a fight today: never the dead (the fight's rows and the crew screen's own), never the taken
