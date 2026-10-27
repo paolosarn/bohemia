@@ -1646,6 +1646,71 @@ function placeChrome(){
   var css = ph && o.band && townLeaveUp() ? 'html body #bmcorner{bottom:' + Math.max(10, Math.round(innerHeight - ph.top + 6)) + 'px!important}' : '';
   if(st.textContent !== css) st.textContent = css;
 }
+/* ==== __FOUR_LAYOUTS__ (the coordinator, Paolo 10/27: 'the settlement and the camp cannot be broke... create four of every settlement:
+   landscape with the two phone placements and portrait with the two phone placements... it's unplayable when the settlement is fucked
+   up like that, tiny, it hurts my eyes'). MEASURED 10/27, all fourteen towns and the camp, upright and on its side, the phone left and
+   right (60 pictures): upright, the whole picture was shrunk into the band above the phone, so the town was a small box in the top
+   three fifths of the glass with a sunk copy of itself round it and the phone over dead ground; the camp was a tent in a field of sand.
+   NOW the town FILLS the glass and is FRAMED for the layout it is in: for each of the four (tall or wide, the phone left or right) the
+   picture is laid at the scale that covers the whole glass, and the one framing is chosen, out of every pan the picture allows, that
+   keeps the heart of every building and every keeper's door on the glass and out from under the phone. Only when no framing at full
+   size can do that does the picture step back, a little at a time, to the largest size that can. The camp frames its own tents, fire
+   and men, never the empty plate around them. The phone's band still sets where the building's sheet stands (FIT.open). ==== */
+function frameTargets(){
+  var T = [], W2 = picW(), H2 = picH(), hp = Math.max(60, personH ? personH() : 90);
+  if(S.camp){
+    var st = null; try{ st = window.BohemiaCampLook && BohemiaCampLook.state ? BohemiaCampLook.state() : null; }catch(e){ st = null; }
+    var pts = []; if(st && st.pieces) st.pieces.forEach(function(p){ if(p && p.x != null) pts.push([p.x, p.y]); });
+    if(st && st.fire && st.fire.x != null) pts.push([st.fire.x, st.fire.y]);
+    pts.forEach(function(q){ T.push({b:[q[0] - hp*.6, q[1] - hp*1.2, q[0] + hp*.6, q[1] + hp*.2], w:1}); });
+    return T;
+  }
+  var B = (VAR && VAR.boxes) || {}, D = (VAR && VAR.comp && VAR.comp.doors) || {};
+  Object.keys(B).forEach(function(k){ if(k === 'look') return; var b = B[k]; if(!b || b.length < 4) return;
+    var cx0 = (b[0] + b[2])/2, cy0 = (b[1] + b[3])/2, hw = Math.min((b[2] - b[0])*.25, 140), hh = Math.min((b[3] - b[1])*.25, 140);   /* the heart of the building */
+    var fh = Math.min((b[3] - b[1])*.3, 110);   /* its front, where its door is: a roof may run off the top of the glass, its front may not */
+    T.push({b:[cx0 - hw, cy0 - hh, cx0 + hw, cy0 + hh], v:[cx0 - hw, b[3] - fh, cx0 + hw, b[3]], w:(k === 'lot' || k === 'build') ? .5 : 1}); });
+  Object.keys(D).forEach(function(k){ var d = D[k]; if(!d || d.length < 2) return;
+    T.push({b:[d[0] - hp*.35, d[1] - hp, d[0] + hp*.35, d[1] + hp*.08], v:[d[0] - hp*.3, d[1] - hp*.5, d[0] + hp*.3, d[1] + hp*.05], w:(k === 'lot' || k === 'build') ? .6 : 1.4}); });   /* a keeper at his door: all of him out from under the phone, his body on the glass */
+  if(!T.length) T.push({b:[W2*.25, H2*.25, W2*.75, H2*.75], w:1});
+  return T;
+}
+function frameFit(o){
+  var W = view.W, H = view.H, pw = picW(), ph = picH(), sc = document.getElementById('scene').getBoundingClientRect();
+  var P = FIT.phone, pr = P ? [P.left - sc.left - 8, P.top - sc.top - 8, P.right - sc.left + 8, P.bottom - sc.top + 8] : null;
+  var T = frameTargets(), ux0 = 1e9, uy0 = 1e9, ux1 = -1e9, uy1 = -1e9;
+  T.forEach(function(t){ ux0 = Math.min(ux0, t.b[0]); uy0 = Math.min(uy0, t.b[1]); ux1 = Math.max(ux1, t.b[2]); uy1 = Math.max(uy1, t.b[3]); });
+  var cover = Math.max(W/pw, H/ph), floor = Math.min((o.x1 - o.x0)/pw, (o.y1 - o.y0)/ph), top = cover;
+  if(S.camp && ux1 > ux0){   /* the camp: its own tents, fire and men fill the open area, never the empty plate */
+    var want = Math.min((o.x1 - o.x0)*.78/(ux1 - ux0), (o.y1 - o.y0)*.78/(uy1 - uy0));
+    top = Math.max(cover, Math.min(want, cover*3)); }
+  var ocx = (o.x0 + o.x1)/2, ocy = (o.y0 + o.y1)/2;
+  var inter = function(a, b){ var w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); return w > 0 && h > 0 ? w*h : 0; };
+  var glass = [0, 0, W, H], prA = pr ? inter(pr, glass) : 0;
+  var score = function(s, ox, oy){ var hard = 0, pic = [ox, oy, ox + pw*s, oy + ph*s];
+    T.forEach(function(t){ var r = [ox + t.b[0]*s, oy + t.b[1]*s, ox + t.b[2]*s, oy + t.b[3]*s], a = Math.max(1, (r[2] - r[0])*(r[3] - r[1]));
+      var vb = t.v || t.b, rv = [ox + vb[0]*s, oy + vb[1]*s, ox + vb[2]*s, oy + vb[3]*s], av = Math.max(1, (rv[2] - rv[0])*(rv[3] - rv[1]));
+      hard += (1 - inter(rv, glass)/av)*t.w; if(pr) hard += inter(r, pr)/a*t.w*1.5; });
+    /* glass the picture leaves bare, less what the phone stands over anyway: a strip under the phone is fine, a sunk band beside a small town is not */
+    var bare = W*H - inter(pic, glass), bareUnder = pr ? Math.max(0, prA - inter(pic, pr)) : 0, gap = Math.max(0, bare - bareUnder)/(W*H);
+    var mx = ox + (ux0 + ux1)/2*s, my = oy + (uy0 + uy1)/2*s;
+    return {hard:hard, soft:Math.hypot(mx - ocx, my - ocy)/Math.max(W, H) + gap*25}; };
+  var best = null, steps = [];
+  for(var k = 0; k <= 10; k++){ var sk = top*(1 - k*.06); if(sk < floor*.98) break; steps.push(sk); }
+  if(floor < top && (!steps.length || steps[steps.length - 1] > floor)) steps.push(floor);
+  for(var i = 0; i < steps.length; i++){ var s = steps[i], dw = pw*s, dh = ph*s, xs = [], ys = [], n = 24;
+    /* every pan that keeps the picture over most of the glass: past its edge by up to a third of the phone's height (a strip it stands over) */
+    var gx = pr ? (pr[2] - pr[0])*.9 : 0, gy = pr ? (pr[3] - pr[1])*.45 : 0;
+    var xa = Math.min(0, W - dw) - gx, xb = Math.max(0, W - dw) + gx, ya = Math.min(0, H - dh) - gy, yb = Math.max(0, H - dh) + gy;
+    for(var a = 0; a <= n; a++) xs.push(xa + (xb - xa)*a/n);
+    for(var b2 = 0; b2 <= n; b2++) ys.push(ya + (yb - ya)*b2/n);
+    var bi = null; xs.forEach(function(ox){ ys.forEach(function(oy){ var q = score(s, ox, oy), v = q.hard*100 + q.soft; if(!bi || v < bi.v) bi = {s:s, ox:ox, oy:oy, v:v, hard:q.hard}; }); });
+    if(!best || bi.hard < best.hard - 0.02) best = bi;
+    if(bi.hard < 0.1){ best = bi; break; } }
+  if(!best) best = {s:floor, ox:(W - pw*floor)/2, oy:(H - ph*floor)/2, hard:0};
+  window.__FOUR_LAYOUTS = {side:P ? P.side : 'none', shape:W > H ? 'wide' : 'tall', s:best.s, cover:cover, floor:floor, hard:Math.round(best.hard*1000)/1000, step:steps.indexOf(best.s), camp:!!S.camp};
+  return {s:best.s, cx:(W/2 - best.ox)/best.s, cy:(H/2 - best.oy)/best.s, hard:best.hard};
+}
 function layout(){
   var sc = document.getElementById('scene'), W = sc.clientWidth, H = sc.clientHeight;
   view.W = W; view.H = H;
@@ -1654,10 +1719,12 @@ function layout(){
   cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
   cv.style.width = W+'px'; cv.style.height = H+'px';
   var o = FIT.open = openArea();
-  FIT.fit = Math.min((o.x1 - o.x0)/picW(), (o.y1 - o.y0)/picH()); FIT.n++;
+  var fr = FIT.frame = frameFit(o), fkey = (FIT.phone ? FIT.phone.side : 'none') + '|' + W + 'x' + H + '|' + (VAR ? VAR.src : '');
+  if(FIT.fkey !== fkey){ FIT.fkey = fkey; if(!LEAD || !LEAD.lift){ view.cx = null; view.cy = null; } }   /* a new glass or a new side: the framing for it */
+  FIT.fit = fr.s; FIT.n++;
   view.s = FIT.fit * FIT.zoom;
-  panY(view.cy == null ? picH()/2 : view.cy);
-  pan(view.cx == null ? picW()/2 : view.cx);
+  panY(view.cy == null ? fr.cy : view.cy);
+  pan(view.cx == null ? fr.cx : view.cx);
   placeChrome();
   try{ campCompose(); }catch(e){}   /* __CAMP_TWO__ (rule 286(a)): his camp composed in what the phone leaves */
   flipCheck();   /* __THE_FLIP_GLIDES__: a turn of the glass swaps tall and wide, gliding */
@@ -1673,7 +1740,7 @@ function campCompose(){
 window.addEventListener('bohemia-phone', function(){ try{ campCompose(); }catch(e){} });
 /* a point of the picture to the open area's centre; a picture that fits stands centred in it and never moves */
 function pan(cxPic){
-  var o = FIT.open || {x0:0, x1:view.W}, ow = o.x1 - o.x0, pw = picW()*view.s;
+  var o = {x0:0, x1:view.W}, ow = o.x1 - o.x0, pw = picW()*view.s;   /* __FOUR_LAYOUTS__: the picture covers the whole glass; the framing keeps the phone's corner */
   if(pw <= ow + 0.5){ view.cx = picW()/2; view.ox = Math.round(o.x0 + (ow - pw)/2); return; }
   var half = ow/2/view.s;
   cxPic = Math.max(half, Math.min(picW() - half, cxPic));
@@ -1681,7 +1748,7 @@ function pan(cxPic){
 }
 function panY(cyPic){
   var up = Math.round((LEAD && LEAD.lift) || 0);   /* __THE_WALK_UP__: the town above the sheet while it is open */
-  var o = FIT.open || {y0:0, y1:view.H}, oh = o.y1 - o.y0, ph = picH()*view.s;
+  var o = {y0:0, y1:view.H}, oh = o.y1 - o.y0, ph = picH()*view.s;   /* __FOUR_LAYOUTS__ */
   if(ph <= oh + 0.5){ view.cy = picH()/2; view.oy = Math.round(o.y0 + (oh - ph)/2) - up; return; }
   var half = oh/2/view.s;
   cyPic = Math.max(half, Math.min(picH() - half, cyPic));
@@ -3031,7 +3098,7 @@ function pinchMove(){
     pan(P0.px + (cxo - (t.x - r.left))/view.s); panY(P0.py + (cyo - (t.y - r.top))/view.s);   /* the point between his fingers stays between them */
     if(PINCH.out < 1) pinchOut(1); P0.dAt1 = null;
   } else {
-    if(FIT.zoom !== 1){ FIT.zoom = 1; view.s = FIT.fit; pan(picW()/2); panY(picH()/2); }
+    if(FIT.zoom !== 1){ FIT.zoom = 1; view.s = FIT.fit; panY(FIT.frame ? FIT.frame.cy : picH()/2); pan(FIT.frame ? FIT.frame.cx : picW()/2); }
     if(P0.dAt1 == null) P0.dAt1 = P0.d0 / Math.max(1e-6, P0.z0);   /* the spread at which the town sat at its fit */
     pinchOut(Math.max(0.2, Math.min(1, t.d / P0.dAt1)));
   }
@@ -3061,7 +3128,7 @@ function pinchEnd(){
     if(PINCH.on){ if(pinchN() >= 2) pinchMove(); return; }
     if(x0 === null) return; var d = e.clientX - x0, dy = e.clientY - y0;
     if(Math.abs(d) > 8 || Math.abs(dy) > 8){ moved = true; view.lit = null; }
-    if(moved){ pan(c0 - d/view.s); panY(cy0 - dy/view.s); }
+    if(moved && FIT.zoom > 1.01){ pan(c0 - d/view.s); panY(cy0 - dy/view.s); }   /* __FOUR_LAYOUTS__: at the fit the framing holds, nothing slides (his 'I don't like sliding'); zoomed in, a drag looks round */
   });
   window.addEventListener('pointercancel', function(e){ delete PINCH.pts[e.pointerId]; if(PINCH.on && pinchN() < 2) pinchEnd(); x0 = null; view.lit = null; });
   window.addEventListener('pointerup', function(e){

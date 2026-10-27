@@ -11,8 +11,10 @@
    the sheet above or beside the band; LEAVE in the band out of the phone's corner.
 
    LEGS, on the demo through Church's own door, phone upright, phone on its side and the computer:
-     T1 *** THE WHOLE TOWN ON THE GLASS *** inside the open area, nothing cropped; every door's middle, the stall and every
-        person standing in the town (keepers, crowd, his company) inside the open area, none under the phone
+     T1 *** THE TOWN FILLS THE GLASS *** (re-aimed 10/27 by the coordinator, __FOUR_LAYOUTS__, Paolo: 'four of every settlement,
+        landscape with the two phone placements and portrait with the two... unplayable... tiny, it hurts my eyes'): the picture
+        covers at least four fifths of the glass, never a small box in the open band; every door's middle and every keeper and
+        man of his company on the glass and none under the phone (the crowd may pass behind it)
      T2 *** NO SLIDING *** a one-finger drag across the town moves nothing
      T3 every building opens with one real tap where it stands
      T4 *** NOTHING UNDER THE PHONE *** with the board open: the sheet, its X, every row of it and LEAVE are clear of the phone's
@@ -54,7 +56,7 @@ const readFit = (sf) => sf.evaluate(() => {
   const doors = B.order().map(k => { const b = B._box ? B._box(k) : null; return b ? { k, at: pt((b[0] + b[2]) / 2, (b[1] + b[3]) / 2) } : null; }).filter(Boolean);
   const folk = B.folk().map(p => ({ who: p.keeper ? 'keeper ' + p.k : p.crewMan ? 'crew ' + (p.name || '') : p.post ? 'post' : 'crowd', at: pt(p.x, p.y - B.scale().person * 0.5) }));
   const l = document.getElementById('leave'), lr = l.getBoundingClientRect();
-  return { open, pic, phone: ph, doors, folk, leave: [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight, s: F.s, fit: F.fit, band: O.band, guessed: !!(F.phone && F.phone.guessed) };
+  return { open, pic, glass: [sc.left, sc.top, sc.width, sc.height], phone: ph, doors, folk, leave: [lr.x, lr.y, lr.width, lr.height], W: innerWidth, H: innerHeight, s: F.s, fit: F.fit, band: O.band, guessed: !!(F.phone && F.phone.guessed) };
 });
 const inside = (p, r, m) => p[0] >= r[0] - (m || 0) && p[0] <= r[0] + r[2] + (m || 0) && p[1] >= r[1] - (m || 0) && p[1] <= r[1] + r[3] + (m || 0);
 
@@ -68,10 +70,11 @@ async function run(profile) {
     const closeSheet = async () => { await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await P.waitForTimeout(400); };
     /* T1 */
     const f = await readFit(sf);
-    const picIn = f.pic[0] >= f.open[0] - 0.5 && f.pic[1] >= f.open[1] - 0.5 && f.pic[0] + f.pic[2] <= f.open[0] + f.open[2] + 0.5 && f.pic[1] + f.pic[3] <= f.open[1] + f.open[3] + 0.5;
-    const outDoors = f.doors.filter(x => !inside(x.at, f.open) || (f.phone && inside(x.at, f.phone))), outFolk = f.folk.filter(x => !inside(x.at, f.open, 2) || (f.phone && inside(x.at, f.phone)));
-    ok('*** T1 ' + tag + ': THE WHOLE TOWN ON THE GLASS *** (the picture ' + fmt(f.pic) + ' in the open area ' + fmt(f.open) + ', the phone ' + fmt(f.phone) + (f.guessed ? ' where it will stand' : '') + '; ' + f.doors.length + ' doors, ' + f.folk.length + ' people)',
-      picIn && f.doors.length >= 5 && !outDoors.length && f.folk.length >= 5 && !outFolk.length && !!f.phone && apart(f.pic, f.phone), outDoors.map(x => x.k).concat(outFolk.map(x => x.who)).slice(0, 6).join(', ') || 'all in');
+    const G = f.glass, iw = Math.max(0, Math.min(f.pic[0] + f.pic[2], G[0] + G[2]) - Math.max(f.pic[0], G[0])), ih = Math.max(0, Math.min(f.pic[1] + f.pic[3], G[1] + G[3]) - Math.max(f.pic[1], G[1]));
+    const fills = iw * ih >= 0.8 * G[2] * G[3];
+    const outDoors = f.doors.filter(x => !inside(x.at, G) || (f.phone && inside(x.at, f.phone))), outFolk = f.folk.filter(x => x.who !== 'crowd' && (!inside(x.at, G, 2) || (f.phone && inside(x.at, f.phone))));
+    ok('*** T1 ' + tag + ': THE TOWN FILLS THE GLASS *** (the picture ' + fmt(f.pic) + ' on the glass ' + fmt(G) + ', ' + Math.round(100 * iw * ih / (G[2] * G[3])) + ' percent covered, the phone ' + fmt(f.phone) + (f.guessed ? ' where it will stand' : '') + '; ' + f.doors.length + ' doors, ' + f.folk.length + ' people)',
+      fills && f.doors.length >= 5 && !outDoors.length && f.folk.length >= 5 && !outFolk.length && !!f.phone, outDoors.map(x => x.k).concat(outFolk.map(x => x.who)).slice(0, 6).join(', ') || 'all in');
     /* T2: a drag */
     const v0 = await sf.evaluate(() => { const v = BohemiaSettlement._view(); return [v.ox, v.oy]; });
     const b = await box(), cx = b.x + f.pic[0] + f.pic[2] / 2, cy = b.y + f.pic[1] + f.pic[3] / 2;
@@ -119,7 +122,7 @@ async function run(profile) {
     const flip = async (side) => { await sf.evaluate((side) => { try { if (window.BohemiaPhone && BohemiaPhone.setSide) BohemiaPhone.setSide(side); else { localStorage.setItem('bohemia.phone.v1', JSON.stringify({ side })); window.dispatchEvent(new Event('resize')); } } catch (e) {} }, side); await P.waitForTimeout(900); };
     await flip('left');
     const f5 = await readFit(sf), lv5 = await leaveAt(P, sf);
-    const onLeft = !!f5.phone && f5.phone[0] < f.W / 2 && (lv5 && lv5.who === 'phone' || apart(f5.leave, f5.phone)) && apart(f5.pic, f5.phone) && f5.folk.every(x => !inside(x.at, f5.phone)) && f5.doors.every(x => !inside(x.at, f5.phone));
+    const onLeft = !!f5.phone && f5.phone[0] < f.W / 2 && (lv5 && lv5.who === 'phone' || apart(f5.leave, f5.phone)) && f5.folk.every(x => x.who === 'crowd' || !inside(x.at, f5.phone)) && f5.doors.every(x => !inside(x.at, f5.phone));   /* __FOUR_LAYOUTS__: the picture runs under the phone; nobody tappable does */
     ok('T5 ' + tag + ': the phone flipped to the left, the town lays out of it at once (the phone ' + fmt(f5.phone) + ', LEAVE ' + (lv5 && lv5.who === 'phone' ? 'on the phone' : fmt(f5.leave)) + ', the picture ' + fmt(f5.pic) + ')', onLeft);
     await flip('right');
     /* T6: the band is UI TWO's own rectangle, read live (BOH_PHONE_RECT), never a guess, once the phone is in the game */
