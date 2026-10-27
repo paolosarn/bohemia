@@ -1695,20 +1695,20 @@ function padOf(W, H, P, sc){
 function inPad(x, y){ var P = FIT.pad; return !!P && x >= P.r[0] && x <= P.r[2] && y >= P.r[1] && y <= P.r[3]; }
 function frameFit(o){
   var W = view.W, H = view.H, pw = picW(), ph = picH(), sc = document.getElementById('scene').getBoundingClientRect();
-  var P = FIT.phone, padOk = W > H || S.camp || !!(VAR && VAR.comp && VAR.comp.phone_ground);   /* upright, only a drawing made with the phone's ground (rule 292(c)) gets the ground laid over its corner */
-  var pad = FIT.pad = padOk ? padOf(W, H, P, sc) : null, pr = pad ? pad.r : (P ? [P.left - sc.left - 8, P.top - sc.top - 8, P.right - sc.left + 8, P.bottom - sc.top + 8] : null);
+  var P = FIT.phone, pad = FIT.pad = padOf(W, H, P, sc), pr = pad ? pad.r : null;   /* his 10/27, said again: 'I don't want anything behind the phone, just the ground': every town, every way, now */
+  var oldDraw = !!pad && !S.camp && W <= H && !(VAR && VAR.comp && VAR.comp.phone_ground);   /* an upright drawing made before the phone's ground: it rides up so its shops stand above the ground laid over its corner */
   var R = [0, 0, W, H]; if(pad && pad.col){ if(pad.side === 'left') R[0] = pad.r[2]; else R[2] = pad.r[0]; }   /* the town's own part of the glass */
   FIT.area = {x0:R[0], x1:R[2], y0:R[1], y1:R[3]};
   var T = frameTargets(), ux0 = 1e9, uy0 = 1e9, ux1 = -1e9, uy1 = -1e9;
   T.forEach(function(t){ ux0 = Math.min(ux0, t.b[0]); uy0 = Math.min(uy0, t.b[1]); ux1 = Math.max(ux1, t.b[2]); uy1 = Math.max(uy1, t.b[3]); });
   var s0 = Math.max((R[2] - R[0])/pw, (R[3] - R[1])/ph), steps = [s0];   /* the town covers its whole part of the glass, always: never a box, never a mirror round it */
   if(S.camp && ux1 > ux0){ var want = Math.min((o.x1 - o.x0)*.78/(ux1 - ux0), (o.y1 - o.y0)*.78/(uy1 - uy0)); if(want > s0) steps = [Math.min(want, s0*3), s0]; }
-  else if(!pad && P && W <= H){ steps = []; for(var k0 = 0; k0 <= 6; k0++) steps.push(s0*(1 - k0*.06)); }   /* the drawing made before the phone's ground: step back a little if it must (the 10/27a framing) */
+  else if(oldDraw){ steps = []; for(var k0 = 0; k0 <= 6; k0++) steps.push(s0*(1 - k0*.06)); }   /* the drawing made before the phone's ground: step back a little if it must */
   else steps.push(s0*1.05, s0*1.1);
   var Rc = S.camp ? [(o.x0 + o.x1)/2, (o.y0 + o.y1)/2] : [(R[0] + R[2])/2, (R[1] + R[3])/2];   /* the camp gathers round the middle of what the phone leaves */
   var inter = function(a, b){ var w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); return w > 0 && h > 0 ? w*h : 0; };
   var BL = (function(){ try{ return walkBlocks() || []; }catch(e){ return []; } })(), prA = pr ? Math.max(1, (pr[2] - pr[0])*(pr[3] - pr[1])) : 1;
-  var old = !pad && !!pr && !S.camp && W <= H, glass = [0, 0, W, H];
+  var old = oldDraw, glass = [0, 0, W, H];
   var score = function(s, ox, oy){ var hard = 0, things = 0;
     T.forEach(function(t){ var r = [ox + t.b[0]*s, oy + t.b[1]*s, ox + t.b[2]*s, oy + t.b[3]*s], a = Math.max(1, (r[2] - r[0])*(r[3] - r[1]));
       var vb = t.v || t.b, rv = [ox + vb[0]*s, oy + vb[1]*s, ox + vb[2]*s, oy + vb[3]*s], av = Math.max(1, (rv[2] - rv[0])*(rv[3] - rv[1]));
@@ -1717,7 +1717,7 @@ function frameFit(o){
     if(pr) BL.forEach(function(b){ var r = [ox + b[0]*s, oy + b[1]*s, ox + b[2]*s, oy + b[3]*s]; things += inter(r, pr); });   /* the plainer the ground under the phone the better */
     var mx = ox + (ux0 + ux1)/2*s, my = oy + (uy0 + uy1)/2*s;
     var gap = 0; if(old){ var pic = [ox, oy, ox + pw*s, oy + ph*s], bare = W*H - inter(pic, glass), under = Math.max(0, inter(pr, glass) - inter(pic, pr)); gap = Math.max(0, bare - under)/(W*H)*25; }
-    return {hard:hard, soft:Math.hypot(mx - Rc[0], my - Rc[1])/Math.max(W, H) + (pad ? things/prA*.8 : 0) + gap}; };
+    return {hard:hard, soft:Math.hypot(mx - Rc[0], my - Rc[1])/Math.max(W, H) + things/prA*.8 + gap}; };
   var best = null;
   for(var i = 0; i < steps.length; i++){ var s = steps[i], dw = pw*s, dh = ph*s, xs = [], ys = [], n = 28;
     var xa = Math.min(R[0], R[2] - dw), xb = Math.max(R[0], R[2] - dw), ya = Math.min(R[1], R[3] - dh), yb = Math.max(R[1], R[3] - dh);
