@@ -55,7 +55,7 @@ body{background:transparent}
 .h>span:first-child{margin-left:-6px}
 /* a phone: a window on the field before the crew, where the scene plays clearest */
 #field{height:0}
-@media (max-width:699px){ #field{height:30vh} }
+@media (max-width:699px){ #field{height:20vh} }   /* the coordinator 10/27 ('screen space is so important'): a smaller window, the crew sooner */
 html{animation:in 280ms ease-out}
 @keyframes in{from{opacity:0}to{opacity:1}}
 body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
@@ -119,7 +119,10 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 .slot .cw.mid i{background:#d8a64a}.slot .cw.low i{background:#c0553c}
 #ground.empty{display:block;margin:0 14px;color:var(--dim);font-size:12px}
 /* LOOT ALL and, beside it, OPTIMIZE LOOT (RUN FOUR [optimize loot], rule 244): one row, the two the same size */
-#lootrow{display:flex;gap:8px;margin:10px 14px 0}
+/* ONE ROW (the coordinator, Paolo 10/27: 'the loot all and the camp button, they should all be next to each other... at the end of combat,
+   screen space is so important'): LOOT ALL, OPTIMIZE LOOT, MAKE CAMP and LEAVE side by side in the foot, one row */
+#lootrow{display:flex;gap:8px;margin:0;flex:1.3 1 0;min-width:0}
+.lost #lootrow,#lootrow:has(#lootall:disabled):has(#optimize[hidden]){display:none}
 #lootall{display:block;flex:1 1 0;min-width:0;min-height:54px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:17px/1 var(--casing);letter-spacing:3px}
 #lootall:disabled{color:var(--dim)}
 #optimize{flex:1 1 0;min-width:0;min-height:54px;padding:4px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font:17px/1 var(--casing);letter-spacing:3px}
@@ -160,16 +163,16 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 @media (max-width:699px){
   /* a phone: the two ways out (MAKE CAMP, LEAVE) are the bottom row; the loot's two buttons ride the row above while there is loot
      left; the strip over them, under his thumb (mobile first, rule 164 item 16) */
-  #foot #camp,#foot #leave{flex:1 1 0;min-width:0}
-  #lootrow{position:fixed;z-index:7;left:14px;right:14px;bottom:calc(74px + env(safe-area-inset-bottom));width:auto;margin:0;gap:6px}
-  #lootall{min-height:54px;font-size:15px;letter-spacing:2px}
+  #foot{gap:6px;padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+  #foot #camp,#foot #leave{flex:1 1 0;min-width:0;min-height:50px;letter-spacing:1px;font-size:14px}
+  #foot #camp small{font-size:9px}
+  #lootrow{gap:6px}
+  #lootall{min-height:50px;font-size:14px;letter-spacing:1px;padding:0 4px}
   #lootall:disabled{display:none}
-  #optimize{font-size:14px;letter-spacing:1px;padding:4px 2px}
-  #said{position:fixed;z-index:6;left:0;right:0;bottom:calc(74px + env(safe-area-inset-bottom));margin:0;border-radius:0;padding:6px 14px;border-top:1px solid var(--line)}
-  body.looting #said{bottom:calc(138px + env(safe-area-inset-bottom))}
-  body{padding-bottom:calc(144px + env(safe-area-inset-bottom))}
-  body.looting{padding-bottom:calc(208px + env(safe-area-inset-bottom))}
-  #foot .left{visibility:hidden}
+  #optimize{min-height:50px;font-size:13px;letter-spacing:0;padding:4px 2px}
+  #said{position:fixed;z-index:6;left:0;right:0;bottom:calc(66px + env(safe-area-inset-bottom));height:44px;margin:0;border-radius:0;padding:4px 14px;border-top:1px solid var(--line)}
+  body{padding-bottom:calc(116px + env(safe-area-inset-bottom))}
+  #foot .left{display:none}   /* the row is the buttons', edge to edge */
   body:not(.lost) #loot .h:first-child{margin-top:18px}
 }
 @media (min-width:700px){
@@ -197,7 +200,6 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
       <div class="h"><span>WHAT THEY LEFT</span><span id="fromn"></span></div>
       <div id="counts"></div>
       <div id="ground" class="grid"></div>
-      <div id="lootrow"><button id="lootall" type="button">LOOT ALL</button><button id="optimize" type="button" hidden>OPTIMIZE LOOT</button></div>
       <div id="said"></div>
       <div class="h"><span>YOUR STASH <b id="stashn">0 / 36</b></span><span id="stashhow">TAP TWICE TO PUT IT BACK</span></div>
       <div id="stash" class="grid"></div>
@@ -205,7 +207,7 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
     <div id="nothing" hidden></div>
   </div>
 </div>
-<div id="foot"><span class="left" id="left"></span><button id="camp" type="button" aria-label="Make camp here: home, and camp at the fight's place to heal">MAKE CAMP<small>HEAL HERE</small></button><button id="leave" type="button">LEAVE</button></div>
+<div id="foot"><span class="left" id="left"></span><div id="lootrow"><button id="lootall" type="button">LOOT ALL</button><button id="optimize" type="button" hidden>OPTIMIZE LOOT</button></div><button id="camp" type="button" aria-label="Make camp here: home, and camp at the fight's place to heal">MAKE CAMP<small>HEAL HERE</small></button><button id="leave" type="button">LEAVE</button></div>
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_spoils.js"></script>
 <script src="../engine/bohemia_camp.js"></script>  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->

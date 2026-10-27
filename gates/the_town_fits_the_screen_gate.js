@@ -113,10 +113,12 @@ async function run(profile) {
     /* a row is what shows of it: the sheet scrolls and clips its rows to its own rectangle */
     const clip = (q, r) => { const x0 = Math.max(q[0], r[0]), y0 = Math.max(q[1], r[1]), x1 = Math.min(q[0] + q[2], r[0] + r[2]), y1 = Math.min(q[1] + q[3], r[1] + r[3]); return [x0, y0, Math.max(0, x1 - x0), Math.max(0, y1 - y0)]; };
     t4.rows = t4.rows.map(q => clip(q, t4.sheet)).filter(q => q[2] > 0 && q[3] > 0);
+    const away4 = await P.evaluate(() => !!document.querySelector('#bohphone.away'));
     const onGlass = q => q[0] >= -0.5 && q[1] >= -0.5 && q[0] + q[2] <= t4.W + 0.5 && q[1] + q[3] <= t4.H + 0.5;
     const sheetIn = onGlass(t4.sheet) && t4.sheet[0] >= f4.open[0] - 0.5 && t4.sheet[0] + t4.sheet[2] <= f4.open[0] + f4.open[2] + 0.5;   /* the whole sheet on the glass, in the open area (10/26: a wide glass once pushed it half off the left edge) */
-    ok('*** T4 ' + tag + ': NOTHING UNDER THE PHONE *** (the board open: the sheet ' + fmt(t4.sheet) + ', its X ' + fmt(t4.x) + ', ' + t4.rows.length + ' rows, LEAVE ' + (lvPhone ? 'on the phone' + (lvTop ? '' : ' (its middle is NOT LEAVE)') : fmt(t4.leave) + (t4.leaveHit ? '' : ' (its middle is NOT LEAVE: ' + t4.hitWhat + ')')) + '; the phone ' + fmt(PH) + '; open ' + t4.open + ')',
-      t4.open === 'board' && sheetIn && !!PH && apart(t4.sheet, PH) && apart(t4.x, PH) && t4.rows.every(q => apart(q, PH)) && onGlass(t4.x) && (lvPhone ? lvTop : apart(t4.leave, PH) && onGlass(t4.leave) && t4.leaveHit) && t4.rows.length >= 1);
+    ok('*** T4 ' + tag + ': NOTHING UNDER THE PHONE *** (' + (away4 ? 'the phone stepped aside; ' : '') + 'the board open: the sheet ' + fmt(t4.sheet) + ', its X ' + fmt(t4.x) + ', ' + t4.rows.length + ' rows, LEAVE ' + (lvPhone ? 'on the phone' + (lvTop ? '' : ' (its middle is NOT LEAVE)') : fmt(t4.leave) + (t4.leaveHit ? '' : ' (its middle is NOT LEAVE: ' + t4.hitWhat + ')')) + '; the phone ' + fmt(PH) + '; open ' + t4.open + ')',
+      t4.open === 'board' && (away4 ? onGlass(t4.sheet) && onGlass(t4.x) && t4.rows.length >= 1   /* the coordinator 10/27 (Paolo: 'the phone animated to the shop, so it's not there anymore'): the phone has stepped aside, the sheet takes the glass */
+        : sheetIn && !!PH && apart(t4.sheet, PH) && apart(t4.x, PH) && t4.rows.every(q => apart(q, PH)) && onGlass(t4.x) && (lvPhone ? lvTop : apart(t4.leave, PH) && onGlass(t4.leave) && t4.leaveHit) && t4.rows.length >= 1));
     await closeSheet();
     /* T5: the phone on the left (his setting, UI TWO's phone: BohemiaPhone.setSide), the band follows at once */
     const flip = async (side) => { await sf.evaluate((side) => { try { if (window.BohemiaPhone && BohemiaPhone.setSide) BohemiaPhone.setSide(side); else { localStorage.setItem('bohemia.phone.v1', JSON.stringify({ side })); window.dispatchEvent(new Event('resize')); } } catch (e) {} }, side); await P.waitForTimeout(900); };

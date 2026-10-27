@@ -1505,7 +1505,10 @@ try{ fetch('settlement_ground_towns/settlement_walk.json').then(function(r){ ret
    still laid the tier's boxes over them (Blues' armourer box on open ground, its drawn armourer 600 px away) */
 function townShape(){ var W = 0, H = 0; try{ W = window.top.innerWidth; H = window.top.innerHeight; }catch(e){} if(!W || !H){ W = innerWidth; H = innerHeight; } return H > W ? 'tall' : 'wide'; }
 function townComp(shape){ var T = TOWNS && S.place && !S.camp ? TOWNS[S.place.name] : null; if(!T || T.tier !== S.place.tier) return null;
-  var c = T[shape || townShape()]; return c && c.px && c.src && townOk(c) ? c : null; }
+  var sh = shape || townShape(), c = T[sh];
+  if(sh === 'tall'){ var sd = 'right'; try{ var P = phoneHere(); if(P && P.side === 'left') sd = 'left'; else if(!P){ var cf = JSON.parse(localStorage.getItem('bohemia.phone.v1') || 'null'); if(cf && cf.side === 'left') sd = 'left'; } }catch(e){}
+    var cs = T['tall_' + sd]; if(cs && cs.px && cs.src && townOk(cs)) c = cs; }   /* __FOUR_LAYOUTS__ (rule 291): upright, the drawing whose corner on the phone's side is its own plain ground */
+  return c && c.px && c.src && townOk(c) ? c : null; }
 function compVar(c, tv){ return {src:c.src, night_src:c.night_src || c.src, px:c.px, hotspots:c.hotspots || {}, lights:c.lights != null ? c.lights : (tv && tv.lights), comp:c, shape:c.px[1] > c.px[0] ? 'tall' : 'wide'}; }
 /* a town's picture is drawn only when its keepers' doors stand on its own ground (within 120 px of open ground, the walk's own block
    rule): measured 10/26, eleven of fourteen do; Church (the post 320 px and the bar 328 px inside its walls), Reds (the clinic 168,
@@ -1634,6 +1637,7 @@ function openArea(){
 /* the sheet above or beside the band, never under the phone (rule 279: words never under the phone) */
 function placeChrome(){
   var o = FIT.open, sh = document.getElementById('sheet'), ph = FIT.phone; if(!sh || !o) return;
+  if(S.open && ph && !S.standalone){ o = {x0:0, y0:0, x1:view.W, y1:view.H, band:null}; ph = null; }   /* __FOUR_LAYOUTS__: the phone steps aside while a sheet is open (bohemia_phone.js 'away'), so the sheet takes the whole glass */
   sh.style.bottom = (o.band === 'bottom' ? Math.round(view.H - o.y1) : 0) + 'px'; sh.style.setProperty('--sheet-b', sh.style.bottom);
   var shop = /^(arms|smith|armourer|stall)$/.test(S.open || '');   /* __ONE_TAP_SELECTS__ (rule 250): the shelf, the strip and the buttons together on an upright phone */
   sh.style.maxHeight = o.band === 'bottom' ? Math.round((o.y1 - o.y0) * (shop ? 1 : .72) - (shop ? 8 : 0)) + 'px' : '';   /* its x stays on the glass: 72 percent of the open area, not of the scene */
@@ -1669,47 +1673,62 @@ function frameTargets(){
   Object.keys(B).forEach(function(k){ if(k === 'look') return; var b = B[k]; if(!b || b.length < 4) return;
     var cx0 = (b[0] + b[2])/2, cy0 = (b[1] + b[3])/2, hw = Math.min((b[2] - b[0])*.25, 140), hh = Math.min((b[3] - b[1])*.25, 140);   /* the heart of the building */
     var fh = Math.min((b[3] - b[1])*.3, 110);   /* its front, where its door is: a roof may run off the top of the glass, its front may not */
-    T.push({b:[cx0 - hw, cy0 - hh, cx0 + hw, cy0 + hh], v:[cx0 - hw, b[3] - fh, cx0 + hw, b[3]], w:(k === 'lot' || k === 'build') ? .5 : 1}); });
+    T.push({b:[cx0 - hw, cy0 - hh, cx0 + hw, cy0 + hh], v:[cx0 - hw, b[3] - fh, cx0 + hw, b[3]], c:[cx0, cy0], w:(k === 'lot' || k === 'build') ? .5 : 1}); });
   Object.keys(D).forEach(function(k){ var d = D[k]; if(!d || d.length < 2) return;
     T.push({b:[d[0] - hp*.35, d[1] - hp, d[0] + hp*.35, d[1] + hp*.08], v:[d[0] - hp*.3, d[1] - hp*.5, d[0] + hp*.3, d[1] + hp*.05], w:(k === 'lot' || k === 'build') ? .6 : 1.4}); });   /* a keeper at his door: all of him out from under the phone, his body on the glass */
   if(!T.length) T.push({b:[W2*.25, H2*.25, W2*.75, H2*.75], w:1});
   return T;
 }
+/* THE PHONE'S OWN GROUND (Paolo 10/27: 'the phone will be inside of the city, right next to the buildings... full screen with no
+   outskirt... without a single building behind it, overlay on top, just plain ground... a little padding around it... nothing I need
+   to click behind the phone, I don't even wanna see buildings, I want it to look dedicated... no mirror extension'): where the phone
+   stands, plus padding, the town shows only its own plain ground. Upright that is the phone's corner; on its side (the phone taller
+   than half the glass) it is the phone's whole side, a strip of ground beside the town, and the town fills the rest. */
+var PAD_GAP = 14;
+function padOf(W, H, P, sc){
+  if(!P) return null;
+  var g = PAD_GAP, r = [P.left - sc.left - g, P.top - sc.top - g, P.right - sc.left + g, P.bottom - sc.top + g], side = P.side === 'left' ? 'left' : 'right', col = W > H;
+  if(side === 'left') r[0] = 0; else r[2] = W;
+  r[3] = H; if(col) r[1] = 0;
+  return {r:r, col:col, side:side};
+}
+function inPad(x, y){ var P = FIT.pad; return !!P && x >= P.r[0] && x <= P.r[2] && y >= P.r[1] && y <= P.r[3]; }
 function frameFit(o){
   var W = view.W, H = view.H, pw = picW(), ph = picH(), sc = document.getElementById('scene').getBoundingClientRect();
-  var P = FIT.phone, pr = P ? [P.left - sc.left - 8, P.top - sc.top - 8, P.right - sc.left + 8, P.bottom - sc.top + 8] : null;
+  var P = FIT.phone, padOk = W > H || S.camp || !!(VAR && VAR.comp && VAR.comp.phone_ground);   /* upright, only a drawing made with the phone's ground (rule 292(c)) gets the ground laid over its corner */
+  var pad = FIT.pad = padOk ? padOf(W, H, P, sc) : null, pr = pad ? pad.r : (P ? [P.left - sc.left - 8, P.top - sc.top - 8, P.right - sc.left + 8, P.bottom - sc.top + 8] : null);
+  var R = [0, 0, W, H]; if(pad && pad.col){ if(pad.side === 'left') R[0] = pad.r[2]; else R[2] = pad.r[0]; }   /* the town's own part of the glass */
+  FIT.area = {x0:R[0], x1:R[2], y0:R[1], y1:R[3]};
   var T = frameTargets(), ux0 = 1e9, uy0 = 1e9, ux1 = -1e9, uy1 = -1e9;
   T.forEach(function(t){ ux0 = Math.min(ux0, t.b[0]); uy0 = Math.min(uy0, t.b[1]); ux1 = Math.max(ux1, t.b[2]); uy1 = Math.max(uy1, t.b[3]); });
-  var cover = Math.max(W/pw, H/ph), floor = Math.min((o.x1 - o.x0)/pw, (o.y1 - o.y0)/ph), top = cover;
-  if(S.camp && ux1 > ux0){   /* the camp: its own tents, fire and men fill the open area, never the empty plate */
-    var want = Math.min((o.x1 - o.x0)*.78/(ux1 - ux0), (o.y1 - o.y0)*.78/(uy1 - uy0));
-    top = Math.max(cover, Math.min(want, cover*3)); }
-  var ocx = (o.x0 + o.x1)/2, ocy = (o.y0 + o.y1)/2;
+  var s0 = Math.max((R[2] - R[0])/pw, (R[3] - R[1])/ph), steps = [s0];   /* the town covers its whole part of the glass, always: never a box, never a mirror round it */
+  if(S.camp && ux1 > ux0){ var want = Math.min((o.x1 - o.x0)*.78/(ux1 - ux0), (o.y1 - o.y0)*.78/(uy1 - uy0)); if(want > s0) steps = [Math.min(want, s0*3), s0]; }
+  else if(!pad && P && W <= H){ steps = []; for(var k0 = 0; k0 <= 6; k0++) steps.push(s0*(1 - k0*.06)); }   /* the drawing made before the phone's ground: step back a little if it must (the 10/27a framing) */
+  else steps.push(s0*1.05, s0*1.1);
+  var Rc = S.camp ? [(o.x0 + o.x1)/2, (o.y0 + o.y1)/2] : [(R[0] + R[2])/2, (R[1] + R[3])/2];   /* the camp gathers round the middle of what the phone leaves */
   var inter = function(a, b){ var w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); return w > 0 && h > 0 ? w*h : 0; };
-  var glass = [0, 0, W, H], prA = pr ? inter(pr, glass) : 0;
-  var score = function(s, ox, oy){ var hard = 0, pic = [ox, oy, ox + pw*s, oy + ph*s];
+  var BL = (function(){ try{ return walkBlocks() || []; }catch(e){ return []; } })(), prA = pr ? Math.max(1, (pr[2] - pr[0])*(pr[3] - pr[1])) : 1;
+  var old = !pad && !!pr && !S.camp && W <= H, glass = [0, 0, W, H];
+  var score = function(s, ox, oy){ var hard = 0, things = 0;
     T.forEach(function(t){ var r = [ox + t.b[0]*s, oy + t.b[1]*s, ox + t.b[2]*s, oy + t.b[3]*s], a = Math.max(1, (r[2] - r[0])*(r[3] - r[1]));
       var vb = t.v || t.b, rv = [ox + vb[0]*s, oy + vb[1]*s, ox + vb[2]*s, oy + vb[3]*s], av = Math.max(1, (rv[2] - rv[0])*(rv[3] - rv[1]));
-      hard += (1 - inter(rv, glass)/av)*t.w; if(pr) hard += inter(r, pr)/a*t.w*1.5; });
-    /* glass the picture leaves bare, less what the phone stands over anyway: a strip under the phone is fine, a sunk band beside a small town is not */
-    var bare = W*H - inter(pic, glass), bareUnder = pr ? Math.max(0, prA - inter(pic, pr)) : 0, gap = Math.max(0, bare - bareUnder)/(W*H);
+      hard += (1 - inter(rv, R)/av)*t.w; if(t.c){ var c0 = [ox + t.c[0]*s - 2, oy + t.c[1]*s - 2, ox + t.c[0]*s + 2, oy + t.c[1]*s + 2]; if(!inter(c0, R) || (pr && inter(c0, pr))) hard += .5*t.w; }
+      if(pr) hard += inter(r, pr)/a*t.w*1.5; });
+    if(pr) BL.forEach(function(b){ var r = [ox + b[0]*s, oy + b[1]*s, ox + b[2]*s, oy + b[3]*s]; things += inter(r, pr); });   /* the plainer the ground under the phone the better */
     var mx = ox + (ux0 + ux1)/2*s, my = oy + (uy0 + uy1)/2*s;
-    return {hard:hard, soft:Math.hypot(mx - ocx, my - ocy)/Math.max(W, H) + gap*25}; };
-  var best = null, steps = [];
-  for(var k = 0; k <= 10; k++){ var sk = top*(1 - k*.06); if(sk < floor*.98) break; steps.push(sk); }
-  if(floor < top && (!steps.length || steps[steps.length - 1] > floor)) steps.push(floor);
-  for(var i = 0; i < steps.length; i++){ var s = steps[i], dw = pw*s, dh = ph*s, xs = [], ys = [], n = 24;
-    /* every pan that keeps the picture over most of the glass: past its edge by up to a third of the phone's height (a strip it stands over) */
-    var gx = pr ? (pr[2] - pr[0])*.9 : 0, gy = pr ? (pr[3] - pr[1])*.45 : 0;
-    var xa = Math.min(0, W - dw) - gx, xb = Math.max(0, W - dw) + gx, ya = Math.min(0, H - dh) - gy, yb = Math.max(0, H - dh) + gy;
-    for(var a = 0; a <= n; a++) xs.push(xa + (xb - xa)*a/n);
-    for(var b2 = 0; b2 <= n; b2++) ys.push(ya + (yb - ya)*b2/n);
+    var gap = 0; if(old){ var pic = [ox, oy, ox + pw*s, oy + ph*s], bare = W*H - inter(pic, glass), under = Math.max(0, inter(pr, glass) - inter(pic, pr)); gap = Math.max(0, bare - under)/(W*H)*25; }
+    return {hard:hard, soft:Math.hypot(mx - Rc[0], my - Rc[1])/Math.max(W, H) + (pad ? things/prA*.8 : 0) + gap}; };
+  var best = null;
+  for(var i = 0; i < steps.length; i++){ var s = steps[i], dw = pw*s, dh = ph*s, xs = [], ys = [], n = 28;
+    var xa = Math.min(R[0], R[2] - dw), xb = Math.max(R[0], R[2] - dw), ya = Math.min(R[1], R[3] - dh), yb = Math.max(R[1], R[3] - dh);
+    if(old){ var gx = (pr[2] - pr[0])*.9, gy = (pr[3] - pr[1])*.45; xa -= gx; xb += gx; ya -= gy; yb += gy; }   /* an upright drawing made before the phone's ground: it may ride up over a strip of plain ground under the phone */
+    if(dw <= R[2] - R[0] && !old) xs.push(R[0] + (R[2] - R[0] - dw)/2); else for(var a = 0; a <= n; a++) xs.push(xa + (xb - xa)*a/n);
+    if(dh <= R[3] - R[1] && !old) ys.push(R[1] + (R[3] - R[1] - dh)/2); else for(var b2 = 0; b2 <= n; b2++) ys.push(ya + (yb - ya)*b2/n);
     var bi = null; xs.forEach(function(ox){ ys.forEach(function(oy){ var q = score(s, ox, oy), v = q.hard*100 + q.soft; if(!bi || v < bi.v) bi = {s:s, ox:ox, oy:oy, v:v, hard:q.hard}; }); });
-    if(!best || bi.hard < best.hard - 0.02) best = bi;
-    if(bi.hard < 0.1){ best = bi; break; } }
-  if(!best) best = {s:floor, ox:(W - pw*floor)/2, oy:(H - ph*floor)/2, hard:0};
-  window.__FOUR_LAYOUTS = {side:P ? P.side : 'none', shape:W > H ? 'wide' : 'tall', s:best.s, cover:cover, floor:floor, hard:Math.round(best.hard*1000)/1000, step:steps.indexOf(best.s), camp:!!S.camp};
-  return {s:best.s, cx:(W/2 - best.ox)/best.s, cy:(H/2 - best.oy)/best.s, hard:best.hard};
+    if(!best || bi.v < best.v - 2) best = bi; }
+  window.__FOUR_LAYOUTS = {side:P ? P.side : 'none', shape:W > H ? 'wide' : 'tall', s:best.s, base:s0, hard:Math.round(best.hard*1000)/1000, col:!!(pad && pad.col), camp:!!S.camp};
+  var Ac = [(R[0] + R[2])/2, (R[1] + R[3])/2];   /* pan() centres a picture point in the town's area: the point under its middle */
+  return {s:best.s, cx:(Ac[0] - best.ox)/best.s, cy:(Ac[1] - best.oy)/best.s, hard:best.hard};
 }
 function layout(){
   var sc = document.getElementById('scene'), W = sc.clientWidth, H = sc.clientHeight;
@@ -1740,7 +1759,7 @@ function campCompose(){
 window.addEventListener('bohemia-phone', function(){ try{ campCompose(); }catch(e){} });
 /* a point of the picture to the open area's centre; a picture that fits stands centred in it and never moves */
 function pan(cxPic){
-  var o = {x0:0, x1:view.W}, ow = o.x1 - o.x0, pw = picW()*view.s;   /* __FOUR_LAYOUTS__: the picture covers the whole glass; the framing keeps the phone's corner */
+  var o = FIT.area || {x0:0, x1:view.W}, ow = o.x1 - o.x0, pw = picW()*view.s;   /* __FOUR_LAYOUTS__: the picture covers the town's whole part of the glass; the phone's ground is its own */
   if(pw <= ow + 0.5){ view.cx = picW()/2; view.ox = Math.round(o.x0 + (ow - pw)/2); return; }
   var half = ow/2/view.s;
   cxPic = Math.max(half, Math.min(picW() - half, cxPic));
@@ -1748,7 +1767,7 @@ function pan(cxPic){
 }
 function panY(cyPic){
   var up = Math.round((LEAD && LEAD.lift) || 0);   /* __THE_WALK_UP__: the town above the sheet while it is open */
-  var o = {y0:0, y1:view.H}, oh = o.y1 - o.y0, ph = picH()*view.s;   /* __FOUR_LAYOUTS__ */
+  var o = FIT.area || {y0:0, y1:view.H}, oh = o.y1 - o.y0, ph = picH()*view.s;   /* __FOUR_LAYOUTS__ */
   if(ph <= oh + 0.5){ view.cy = picH()/2; view.oy = Math.round(o.y0 + (oh - ph)/2) - up; return; }
   var half = oh/2/view.s;
   cyPic = Math.max(half, Math.min(picH() - half, cyPic));
@@ -1770,7 +1789,7 @@ window.addEventListener('bohemia-phone', function(){ layout(); });   /* UI TWO's
 var TOWN_IMS = {}, FLIP = {on:false, t0:0, dur:500, from:null, n:0, frames:0, worst:0, last:0, log:[]};
 function townIm(url){ var im = TOWN_IMS[url]; if(!im){ im = TOWN_IMS[url] = new Image(); im.onload = function(){ try{ layout(); }catch(e){} }; im.src = url; } return im; }
 function townPreload(){ var T = TOWNS && S.place && !S.camp ? TOWNS[S.place.name] : null; if(!T) return;
-  ['tall','wide'].forEach(function(sh){ var c = T[sh]; if(!c || !c.src || !townOk(c)) return; townIm('settlement_ground_towns/' + c.src); townIm('settlement_ground_towns/' + (c.night_src || c.src)); }); }
+  ['tall','wide','tall_left','tall_right'].forEach(function(sh){ var c = T[sh]; if(!c || !c.src || !townOk(c)) return; townIm('settlement_ground_towns/' + c.src); townIm('settlement_ground_towns/' + (c.night_src || c.src)); }); }
 function flipEase(x){ var x1 = .2, y1 = 0, x2 = 0, y2 = 1, lo = 0, hi = 1, t = x;   /* Material's standard curve, cubic-bezier(0.2, 0, 0, 1), Material's ease for things that begin and end on screen; MOTION's emphasized-decelerate (its research's container transform) is for a piece that arrives, and from a standing start it threw a building two thirds of its way in one slow frame (measured 10/26) */
   for(var i = 0; i < 20; i++){ t = (lo + hi) / 2; var c = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t; if(c < x) lo = t; else hi = t; }
   return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t; }
@@ -2812,6 +2831,44 @@ function headBarsDraw(s, now){
 }
 /* ==== /__THE_BARS_OVER_THEIR_HEADS__ ==== */
 
+/* the town's own plain ground, as a pattern in the picture's pixels: a square of its open ground (no thing of the walk's measure,
+   no tap on it), the one nearest where the phone stands, tiled mirrored so no seam shows (__FOUR_LAYOUTS__) */
+var PADG = {key:null, pat:null, fill:'#5a4f40'};
+function padGround(im){
+  if(!im || !im.naturalWidth || !VAR) return null;
+  var key = (im.currentSrc || im.src) + '|' + picW();
+  if(PADG.key !== key){
+    PADG.key = key; PADG.pat = null;
+    try{
+      var S0 = 120, pw = picW(), ph = picH(), BL = walkBlocks() || [], TB = [];
+      Object.keys(VAR.boxes || {}).forEach(function(k){ var b = VAR.boxes[k]; if(b && b.length >= 4) TB.push(b); });
+      var P = FIT.pad, want = P ? [((P.r[0] + P.r[2])/2 - view.ox)/view.s, ((P.r[1] + P.r[3])/2 - view.oy)/view.s] : [pw/2, ph*.85];
+      var hits = function(x, y){ var q = [x - 10, y - 10, x + S0 + 10, y + S0 + 10];
+        for(var i = 0; i < BL.length; i++){ var b = BL[i]; if(!(q[2] < b[0] || q[0] > b[2] || q[3] < b[1] || q[1] > b[3])) return true; }
+        for(var j = 0; j < TB.length; j++){ var t = TB[j]; if(!(q[2] < t[0] || q[0] > t[2] || q[3] < t[1] || q[1] > t[3])) return true; }
+        return false; };
+      var best = null;
+      for(var y = Math.round(ph*.25); y <= ph - S0 - 8; y += 24) for(var x = 24; x <= pw - S0 - 24; x += 24){
+        if(hits(x, y)) continue; var d = Math.hypot(x + S0/2 - want[0], y + S0/2 - want[1]); if(!best || d < best.d) best = {x:x, y:y, d:d}; }
+      if(!best) best = {x:Math.round(pw/2 - S0/2), y:Math.round(ph - S0 - 8)};
+      var c = document.createElement('canvas'); c.width = S0*2; c.height = S0*2; var g = c.getContext('2d');
+      [[0,0,1,1],[2*S0,0,-1,1],[0,2*S0,1,-1],[2*S0,2*S0,-1,-1]].forEach(function(m){ g.save(); g.translate(m[0], m[1]); g.scale(m[2], m[3]); g.drawImage(im, best.x, best.y, S0, S0, 0, 0, S0, S0); g.restore(); });
+      var d1 = g.getImageData(S0 - 20, S0 - 20, 40, 40).data, rr = 0, gg = 0, bb = 0, n = d1.length/4;
+      for(var k = 0; k < d1.length; k += 4){ rr += d1[k]; gg += d1[k+1]; bb += d1[k+2]; }
+      PADG.fill = 'rgb(' + Math.round(rr/n) + ',' + Math.round(gg/n) + ',' + Math.round(bb/n) + ')';
+      PADG.pat = cx.createPattern(c, 'repeat'); PADG.at = best;
+    }catch(e){ PADG.pat = null; }
+  }
+  if(PADG.pat && PADG.pat.setTransform) try{ PADG.pat.setTransform(new DOMMatrix([view.s, 0, 0, view.s, view.ox, view.oy])); }catch(e){}
+  return PADG.pat || PADG.fill;
+}
+function padDraw(im){
+  var P = FIT.pad; if(!P) return; var fillS = padGround(im) || PADG.fill, r = P.r, F = 18;
+  cx.save(); cx.fillStyle = fillS;
+  for(var k = 6; k >= 0; k--){ var e = F*k/6; cx.globalAlpha = k === 0 ? 1 : .2; var x0 = r[0] - e, y0 = r[1] - e, x1 = r[2] + e, y1 = r[3] + e, rad = 18 + e;
+    cx.beginPath(); if(cx.roundRect) cx.roundRect(x0, y0, x1 - x0, y1 - y0, rad); else cx.rect(x0, y0, x1 - x0, y1 - y0); cx.fill(); }
+  cx.restore();
+}
 function draw(){
   var dpr = window.devicePixelRatio||1, W = view.W, H = view.H;
   if(W < 40 || H < 40) return;
@@ -2825,8 +2882,7 @@ function draw(){
   /* the valley goes on past the edge of the place: the same picture, far bigger and sunk in dusk,
      fills the glass behind it, so the town fades out instead of ending in a black band */
   var sb = Math.max(H/picH(), W/picW()) * 1.15;
-  if(!going){ cx.drawImage(im, W/2 - (view.cx*sb), (H - picH()*sb)/2, picW()*sb, picH()*sb);
-  cx.fillStyle = 'rgba(14,10,7,.66)'; cx.fillRect(0,0,W,H); }   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town shows more of the valley round it, a little less sunk (.78 read as the page's own colour) */
+  if(!going){ var gp0 = padGround(im); if(gp0){ cx.fillStyle = gp0; cx.fillRect(0,0,W,H); } }   /* __FOUR_LAYOUTS__: past the picture only its own plain ground, never the town mirrored and sunk (his 'no mirror extension') */   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town shows more of the valley round it, a little less sunk (.78 read as the page's own colour) */
   var sG = 0; try{ sG = flipDraw(im, s, W, H); }catch(e){ FLIP.on = false; sG = 0; }   /* __THE_FLIP_GLIDES__: the beat of a turn */
   if(sG){ var fa = FLIP.reduced ? 1 : flipEase(Math.min(1, FLIP.u || 0));
     cx.save(); cx.globalAlpha = fa; try{ drawTraitLooks(s); drawBenches(s); drawSigns(s, true); }catch(e){} cx.restore();
@@ -2847,9 +2903,10 @@ function draw(){
   cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
   var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
   cx.fillStyle = gb; cx.fillRect(0, view.oy+picH()*s-fe, W, fe);
-  if(view.ox > 0){   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town on a wide glass fades out at its sides too */
+  if(view.ox > 0 && !(FIT.pad && FIT.pad.col)){   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town on a wide glass fades out at its sides too */
     var gl = cx.createLinearGradient(view.ox, 0, view.ox+fe, 0); gl.addColorStop(0,'rgba(14,10,7,.8)'); gl.addColorStop(1,'rgba(14,10,7,0)'); cx.fillStyle = gl; cx.fillRect(view.ox, view.oy, fe, picH()*s);
     var gr = cx.createLinearGradient(view.ox+picW()*s-fe, 0, view.ox+picW()*s, 0); gr.addColorStop(0,'rgba(14,10,7,0)'); gr.addColorStop(1,'rgba(14,10,7,.8)'); cx.fillStyle = gr; cx.fillRect(view.ox+picW()*s-fe, view.oy, fe, picH()*s); }
+  if(!going) try{ padDraw(im); }catch(e){}   /* __FOUR_LAYOUTS__: the phone's own plain ground, over everything of the town, under the phone */
   /* THE THREE DOORS THAT MATTER (TUNING's change 7, rule 133): work (the board), hands (the post) and a drink (the bar)
      catch the light on the beat until he has opened each once in this place; no words on the picture, the building's own
      pixels brightened, softer than the one under his finger */
@@ -2951,6 +3008,7 @@ function onBody(p, x, y){ var px = (x - view.ox)/view.s, py = (y - view.oy)/view
   return !!p && Math.abs(px - p.x) <= w && py >= p.y - up && py <= p.y + 4; }
 var TAPPED = {x:0, y:0, t:0, who:[], i:0};
 function tapPerson(x, y, bodiesOnly){
+  if(inPad(x, y)) return null;   /* __FOUR_LAYOUTS__ */
   var L = peopleAt(x, y), now = performance.now();
   if(bodiesOnly) L = L.filter(function(p){ return p.keeper || onBody(p, x, y); });   /* over a door, only a body under the finger answers */
   if(!L.length){ TAPPED.who = []; return null; }
@@ -3032,7 +3090,7 @@ function openPerson(p, said){
 }
 /* a sign under the finger (its plate, never under a thumb's 44 points): it hangs in front of everything, so a tap on it is its door */
 function signAt(x, y){
-  if(!VAR || view.noSigns) return null;
+  if(!VAR || view.noSigns || inPad(x, y)) return null;
   var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, m = 22/view.s, hit = null, near = null;
   Object.keys(DOOR_SIGNS).forEach(function(k){ var r = signRect(k); if(!r) return; var cxp = (r[0]+r[2])/2, cyp = (r[1]+r[3])/2, hw = Math.max((r[2]-r[0])/2, m), hh = Math.max((r[3]-r[1])/2, m);
     if(px >= r[0] && px <= r[2] && py >= r[1] && py <= r[3]) hit = k;
@@ -3044,7 +3102,7 @@ function signAt(x, y){
   return near;
 }
 function hitAt(x, y){
-  if(!VAR) return null;
+  if(!VAR || inPad(x, y)) return null;   /* __FOUR_LAYOUTS__ */
   var sg = signAt(x, y); if(sg) return sg;
   var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, best = null, area = Infinity;
   ORDER.forEach(function(k){ if(!VAR.boxes[k]) return; var b = tapBox(k);

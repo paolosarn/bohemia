@@ -694,7 +694,7 @@
 
   function build() {
     if (H.el || !document.body) return H.el;
-    var st = document.createElement('style'); st.id = 'bohphone-css'; st.textContent = CSS(); document.head.appendChild(st);
+    var st = document.createElement('style'); st.id = 'bohphone-css'; st.textContent = CSS() + '#bohphone{transition:translate .5s cubic-bezier(.2,0,0,1),opacity .5s cubic-bezier(.2,0,0,1)}#bohphone.away{translate:0 calc(100% + 40px);opacity:0;pointer-events:none}'; document.head.appendChild(st);
     var ph = el('div'); ph.id = 'bohphone'; ph.setAttribute('role', 'group'); ph.setAttribute('aria-label', 'your phone');
     ph.innerHTML = '<div class="scr"><canvas class="wall" aria-hidden="true"></canvas><div class="dim"></div>'
       + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button></div>'
@@ -1128,6 +1128,12 @@
     if (ph.style.zIndex !== String(z)) ph.style.zIndex = String(z);
     ph.style.left = g.left + 'px'; ph.style.top = g.top + 'px'; ph.style.transform = g.scale === 1 ? '' : 'scale(' + g.scale + ')';
     ph.classList.toggle('on', on); ph.classList.toggle('left', H.cfg.side === 'left'); ph.dataset.screen = scr || '';
+    /* THE PHONE STEPS ASIDE FOR A SHOP (the coordinator, Paolo 10/27: 'if you're in the shop, the phone animated to the shop, just so it's
+       not there anymore'): while a building's sheet is open in the town or the camp the phone slides down out of its corner in one beat
+       and comes back the beat the sheet closes; nothing of it can be pressed while it is away */
+    var away = false;
+    if (scr === 'town' || scr === 'camp') frames(window).forEach(function (w) { try { var B = w.BohemiaSettlement; if (B && B.state && B.state.open) away = true; } catch (e) {} });
+    if (ph.classList.contains('away') !== away) ph.classList.toggle('away', away);
     /* the game's settings card over everything: the phone shows where it now stands (the flip, at once) but takes no press */
     var sw = document.getElementById('setwrap'), setOn = !!sw && sw.classList.contains('on');
     ph.classList.toggle('behind', setOn);
