@@ -55,11 +55,15 @@ def clear_corners(bpy, pl, town=None):
     """every thing standing in the phone's ground goes, with its children; its lamps and fires too. A thing he taps never goes:
     if one stands there the town is drawn with it (and shipped without the phone's ground, so the screen lifts it clear)"""
     gone = []; keep = tap_names(town) if town else set(); TAPS_IN_PAD[:] = []
+    for t in list(pl.things):                          # a tap in the corner: nothing is cleared (the town keeps its landmark; the screen lifts it clear and lays the ground over the corner)
+        b = thing_box(pl, t[1])
+        if b is not None and in_pad(b) and t[0] in keep: TAPS_IN_PAD.append(t[0])
+    if TAPS_IN_PAD: return gone
     for t in list(pl.things):
         name, root, walk = t
         b = thing_box(pl, root)
         if b is None or not in_pad(b): continue
-        if name in keep: TAPS_IN_PAD.append(name); continue
+        if name in keep: continue
         kids = list(root.children_recursive) if hasattr(root, 'children_recursive') else []
         for o in kids + [root]:
             if o in pl.meshes: pl.meshes.remove(o)
