@@ -44,13 +44,22 @@ def thing_box(pl, root):
     return [min(p[0] for p in pp), min(p[1] for p in pp), max(p[0] for p in pp), max(p[1] for p in pp)]
 
 
-def clear_corners(bpy, pl):
-    """every thing standing in the phone's ground goes, with its children; its lamps and fires too"""
-    gone = []
+TAPS_IN_PAD = []
+def tap_names(town):
+    hot_roles, box_roles = T.ROLES[town['tier']]
+    th = T.THING.get(town['name'], {})
+    return {th.get(r, r) for r in list(hot_roles) + list(box_roles)}
+
+
+def clear_corners(bpy, pl, town=None):
+    """every thing standing in the phone's ground goes, with its children; its lamps and fires too. A thing he taps never goes:
+    if one stands there the town is drawn with it (and shipped without the phone's ground, so the screen lifts it clear)"""
+    gone = []; keep = tap_names(town) if town else set(); TAPS_IN_PAD[:] = []
     for t in list(pl.things):
         name, root, walk = t
         b = thing_box(pl, root)
         if b is None or not in_pad(b): continue
+        if name in keep: TAPS_IN_PAD.append(name); continue
         kids = list(root.children_recursive) if hasattr(root, 'children_recursive') else []
         for o in kids + [root]:
             if o in pl.meshes: pl.meshes.remove(o)
@@ -88,7 +97,7 @@ def render(town, quick=False, day_only=False):
     pl = V.Town(bpy, P, rnd)
     V.layout(town, pl, K)
     filled = V.fill(town, pl, K, 14 if town['tier'] != 'camp' else 18)
-    gone = clear_corners(bpy, pl)
+    gone = clear_corners(bpy, pl, town)
     outlines = pl.outlines()
     meshes = [o for o in bpy.context.scene.objects if o.type == 'MESH' and o not in objs]
     RIG.source_pass(meshes, float(RIG.G['wear']), 1.0, seed % 5); RIG.dent_pass(meshes, 1.0)
@@ -128,7 +137,7 @@ def render(town, quick=False, day_only=False):
             o = bpy.data.objects.new('fire_light', L_); sc.collection.objects.link(o); o.location = (x, y, 1.6 * zs)
         night = os.path.join(od, town['slug'] + '_' + SIDE + '_night.png'); sc.render.filepath = night; bpy.ops.render.render(write_still=True)
     T._orig_render_dump(dict(name=town['name'], tier=town['tier'], stands=town['stands'], trade=town['trade'], lamps=pl.lamps, fires=pl.fires,
-                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone),
+                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone, taps_in_pad=list(TAPS_IN_PAD)),
                         open(os.path.join(od, town['slug'] + '_' + SIDE + '.json'), 'w'), indent=0)
     return day, night
 
@@ -187,7 +196,8 @@ def ship(towns_, sides):
             e = man['towns'].setdefault(town['name'], {})
             e['tall_' + sd] = dict(src=src, night_src=nsrc if have_night else src, px=[T.TW, T.TH + EXT], hotspots=hot, boxes=boxes,
                                    doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, T.TW, T.TH), zoom_max=T.ZOOM[town['tier']],
-                                   phone_ground={'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 291: below top, within width of the phone side, plain ground'})
+                                   **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 292: below top, within width of the phone side, plain ground'}}))
+            if meta.get('taps_in_pad'): print('  NOTE', key, 'keeps', meta['taps_in_pad'], 'in the corner: shipped without the phone ground (the screen lifts it clear)', flush=True)
             bl = sorted({tuple(o['box']) for o in meta['outlines']})
             for out in (src, nsrc): walk['pictures'][out] = {'blocks': [list(b) for b in bl]}
             print('  shipped', key, len(bl), 'outlines, cleared', len(meta.get('cleared') or []), 'night' if have_night else 'day only', flush=True)
