@@ -323,6 +323,7 @@
   P.company = function () {
     var o = { men: 0, clout: null };
     try { o.men = (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).length + (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).length; } catch (e) {}
+    try { if (window.BohemiaHireLock && BohemiaHireLock.company) { var one = BohemiaHireLock.company(); if (one.length) o.men = one.length; } } catch (e) {}   /* ONE COMPANY (rule 327): the one list, never a man let go, never one counted twice */
     try { var t = document.querySelector('#bmtb [data-f=crew] b'); if (t) { var m = String(t.textContent).match(/(\d+)/); if (m) o.men = +m[1]; } } catch (e) {}
     try { if (window.BohemiaRenown && BohemiaRenown.get) o.clout = BohemiaRenown.get(); } catch (e) {}
     return o;

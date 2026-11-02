@@ -45,7 +45,14 @@
   /* ---------------------------------------------------------------- the camp of this visit */
   function companyOf(info) {
     var c = (info && info.company) || [], out = [{ name: 'YOU', look: 'you', main: true }];
-    c.forEach(function (m) { if (m && m.look && m.look !== 'you') out.push({ name: m.name || '', look: m.look, main: false }); });
+    /* ONE COMPANY (PLUMBER 2, rule 327, Paolo 11/2: 'I dismiss someone in the camp... it still thinks they're part of my squad'):
+       the map hands this camp its men once, at the visit; a man let go on the crew screen over the camp leaves the fire at once
+       (engine/bohemia_hire_lock.js, the one list), and the camp is laid out again the moment it happens */
+    var HL = up('BohemiaHireLock'), G = null;
+    var sig = function (g) { return Object.keys(g || {}).sort().join('|'); };
+    try { if (HL && HL.gone) { G = HL.gone(); K.goneSig = sig(G);
+      if (!K.heard && HL.onChange) { K.heard = true; HL.onChange(function () { try { if (!K.info || !K.st || sig(HL.gone()) === K.goneSig) return; time(); } catch (e) {} }); } } } catch (e) { G = null; }   /* laid out again only when the men gone changed, never on every save of the crew screen */
+    c.forEach(function (m) { if (m && m.name && G && HL.key && G[HL.key(m.name)]) return; if (m && m.look && m.look !== 'you') out.push({ name: m.name || '', look: m.look, main: false }); });
     return out;
   }
   function build(info) {

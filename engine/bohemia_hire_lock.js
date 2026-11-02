@@ -66,6 +66,112 @@
     root.__HIRE_LOCK = { at: Date.now(), back: out.back, renamed: out.renamed };
     return out;
   }
+  /* ==== ONE COMPANY (PLUMBER 2, rule 327, ask 325, Paolo 11/2: 'when I dismiss someone from my group, they have to be gone from
+     all my [menus]... it's supposed to be this universal code thing, come on... I dismiss someone in the camp, in the settlements,
+     when I'm in the menu trying to buy items, it still thinks they're part of my squad').
+     MEASURED: the crew screen's DISMISS wrote the man into bohemia.walked.v1 and rewrote its own hand-over without him, but a HIRED
+     man stayed in bohemia.hired.v1; the shop's list (the green 'on him' mark, and his men in the town's picture) merges the hired
+     back in and never read the let-go list, so the man he dismissed came back in every shop. The map's count was sums and
+     differences of four lists (the origin's length plus the hired, less the let-go, the taken, the dead), right only while every
+     list agreed. NOW ONE TRUTH, read by every screen that lists his men:
+       BohemiaHireLock.company(origin, originId)  the men in the company now (the crew screen's line, its bench, the men it knows,
+                                                  the hired; the origin's men only before the crew screen ever kept a company),
+                                                  never a man he let go, never the dead, never the taken; YOU first
+       BohemiaHireLock.count(origin, originId)    its length (the bar, the bill, the fight's size, the phone)
+       BohemiaHireLock.isGone(name)               a man let go, dead or taken
+       BohemiaHireLock.dismiss(man, why)          THE ONE WRITE: into the let-go list once, and out of every other list he sits in
+                                                  (the hired, the hand-over, the line); every open screen hears it
+       BohemiaHireLock.onChange(fn)               a screen that is open when it happens (a storage event from the crew screen's
+                                                  frame, or this page's own 'bohemia:company')
+     AN OLD GAME IS MENDED WHERE IT IS READ: a man marked let go who still sits in another list is taken out of it (scrub, at load
+     and on every change). ==== */
+  var CO = 'bohemia.company.v1', LINE = 'bohemia.company.line.v1', TK = 'bohemia.taken.v1', FA = 'bohemia.fight.after.v1', CL = 'bohemia.climb.v1';
+  var KEYS = [CO, LINE, HK, WK, TK, FA, CL];
+  function key(n) { try { if (root.BohemiaCondition && root.BohemiaCondition.canon) return root.BohemiaCondition.canon(n); } catch (e) {} return up(n); }
+  function letGo() { var g = {}; walked().forEach(function (x) { var k = key(x.name); if (k) g[k] = 1; }); return g; }
+  function gone() {
+    var g = letGo(), add = function (n) { var k = key(n); if (k) g[k] = 1; };
+    (ls(TK, []) || []).forEach(function (t) { ((t && t.names) || []).forEach(add); });
+    (ls(FA, []) || []).forEach(function (f) { ((f && f.rows) || []).forEach(function (r) { if (r && r.dead && !r.main) add(r.name); }); });
+    (ls(CO, []) || []).forEach(function (m) { if (m && m.dead && !m.main) add(m.name); });
+    try { var c = ls(CL, {}) || {}; for (var n in c) if (c[n] && c[n].dead) add(n); } catch (e) {}
+    try { if (root.BohemiaCondition && root.BohemiaCondition.dead) root.BohemiaCondition.dead().forEach(function (d) { if (d) add(d.shown || d.name); }); } catch (e) {}
+    delete g.YOU; return g;
+  }
+  function isGone(name) { var k = key(name); return !!k && k !== 'YOU' && !!gone()[k]; }
+  function picks() { try { for (var w = root, i = 0; w && i < 6; i++) { if (w.BOH_START && w.BOH_START.picks) return w.BOH_START.picks(); if (w.parent === w) break; w = w.parent; } } catch (e) {} return null; }
+  function company(origin, originId) {
+    var co = ls(CO, null), line = ls(LINE, null), g = gone(), out = [], seen = {};
+    if (originId == null) { var p = picks(); originId = p && p.origin; }
+    var same = !(line && line.origin && originId && line.origin !== originId);
+    var add = function (m, extra) {
+      if (!m || !m.name) return; var k = key(m.name), main = !!(extra && extra.main); if (!k || seen[k] || (!main && g[k])) return;
+      seen[k] = 1; var c = {}; for (var f in m) c[f] = m[f]; if (extra) for (var e in extra) c[e] = extra[e]; out.push(c);
+    };
+    var kept = Array.isArray(co) && co.length > 0 && same;
+    if (kept) {
+      co.forEach(function (m, i) { add(m, i === 0 ? { main: true, from: 'line' } : { main: false, from: 'line' }); });
+      if (line && Array.isArray(line.bench)) line.bench.forEach(function (b) { if (b && b.man) add(b.man, { main: false, from: 'bench' }); });
+    } else if (Array.isArray(origin)) origin.forEach(function (m, i) { add(m, { main: i === 0, from: 'origin' }); });
+    (ls(HK, []) || []).forEach(function (h) { if (h && !h.dead) add(h, { main: false, hired: true, from: 'hired' }); });
+    if (kept && line && Array.isArray(line.known)) line.known.forEach(function (n) { if (n) add({ name: String(n) }, { main: false, from: 'known' }); });   /* a man the crew screen keeps off the line */
+    return out;
+  }
+  function count(origin, originId) { return Math.max(1, company(origin, originId).length); }
+  /* every list a man he let go still sits in, emptied of him; true when anything changed */
+  function scrub() {
+    var g = letGo(), moved = false; if (!Object.keys(g).length) return false;
+    try {
+      var h = ls(HK, []);
+      if (Array.isArray(h)) { var hk = h.filter(function (x) { return !(x && x.name && g[key(x.name)]); });
+        if (hk.length !== h.length) { put(HK, hk); moved = true;
+          var gw = ls(WK, []), hn = {}; h.forEach(function (x) { if (x && x.name) hn[key(x.name)] = 1; });
+          if (Array.isArray(gw)) { gw.forEach(function (x) { if (x && x.dismissed && hn[key(x.name)]) x.hired = true; }); put(WK, gw); } } }
+    } catch (e) {}
+    try {
+      var co = ls(CO, null), line = ls(LINE, null), drop = [];
+      if (Array.isArray(co)) co.forEach(function (m, i) { if (i > 0 && m && m.name && g[key(m.name)]) drop.push(i); });
+      if (drop.length) {
+        var nco = co.filter(function (m, i) { return drop.indexOf(i) < 0; }); put(CO, nco); moved = true;
+        if (line && typeof line === 'object') {
+          var re = function (row) { return Array.isArray(row) ? row.map(function (ix) { if (ix == null || drop.indexOf(ix) >= 0) return null; var d = 0; drop.forEach(function (x) { if (x < ix) d++; }); return ix - d; }) : row; };
+          line.front = re(line.front); line.back = re(line.back);
+        }
+      }
+      if (line && typeof line === 'object') {
+        var lm = false, out = function (n) { var o = !(n && g[key(n)]); if (!o) lm = true; return o; };
+        if (Array.isArray(line.men)) line.men = line.men.filter(out);
+        if (Array.isArray(line.known)) line.known = line.known.filter(out);
+        if (Array.isArray(line.bench)) line.bench = line.bench.filter(function (b) { return out(b && b.man && b.man.name); });
+        if (lm || drop.length) { put(LINE, line); moved = true; }
+      }
+    } catch (e) {}
+    return moved;
+  }
+  var HEARD = [];
+  function notify(what, name) {
+    try { root.__ONE_COMPANY = { at: Date.now(), what: what, name: name || null, n: ((root.__ONE_COMPANY && root.__ONE_COMPANY.n) || 0) + 1 }; } catch (e) {}
+    try { root.dispatchEvent(new CustomEvent('bohemia:company', { detail: { what: what, name: name || null } })); } catch (e) {}
+  }
+  function dismiss(m, why) {
+    if (!m || !m.name || m.main) return false;
+    var name = String(m.name), k = key(name), h = ls(HK, []), w = ls(WK, []); if (!Array.isArray(w)) w = [];
+    var hired = !!m.hired || (Array.isArray(h) && h.some(function (x) { return x && x.name && key(x.name) === k; }));
+    if (!w.some(function (x) { return x && x.dismissed && key(x.name) === k; })) {
+      var row = { name: name, look: m.look || null, hired: hired, dismissed: true, day: m.day == null ? null : m.day };
+      if (why) row.why = why; w.push(row); put(WK, w);
+    }
+    scrub(); notify('dismiss', name); return true;
+  }
+  function onChange(fn) {
+    if (typeof fn !== 'function') return; HEARD.push(fn);
+    if (HEARD.length > 1) return;
+    var t = null, fire = function (k) { clearTimeout(t); t = setTimeout(function () { if (k === WK || k == null) scrub(); HEARD.forEach(function (f) { try { f(k); } catch (e) {} }); }, 30); };
+    try { root.addEventListener('storage', function (e) { if (!e.key || KEYS.indexOf(e.key) >= 0) fire(e.key); }); } catch (e) {}
+    try { root.addEventListener('bohemia:company', function () { fire('bohemia:company'); }); } catch (e) {}
+  }
   repair();
-  root.BohemiaHireLock = { repair: repair, uniqueName: uniqueName, walked: walked, names: names };
+  scrub();
+  root.BohemiaHireLock = { repair: repair, uniqueName: uniqueName, walked: walked, names: names,
+    company: company, count: count, isGone: isGone, gone: gone, key: key, dismiss: dismiss, scrub: scrub, onChange: onChange, KEYS: KEYS };
 })(typeof window !== 'undefined' ? window : this);

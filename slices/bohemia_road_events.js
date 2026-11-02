@@ -126,8 +126,10 @@
     get('../records/target/bb/backgrounds.json', function (j) { BG = j ? j.rows : []; mk(BG); });
   }
   function manOut() {
-    try { var who = crewWhoWalks(); if (!who) return null; var w = JSON.parse(localStorage.getItem(CREW_WALKED_KEY) || '[]') || [];
-      w.push({ name: who.name, look: who.look || null, day: day(), dismissed: true, why: 'road' }); localStorage.setItem(CREW_WALKED_KEY, JSON.stringify(w)); bar(); return who.name; } catch (e) { return null; }
+    try { var who = crewWhoWalks(); if (!who) return null;
+      if (root.BohemiaHireLock && BohemiaHireLock.dismiss) BohemiaHireLock.dismiss({ name: who.name, look: who.look || null, hired: !!who.hired, day: day() }, 'road');   /* ONE COMPANY (rule 327): the one write */
+      else { var w = JSON.parse(localStorage.getItem(CREW_WALKED_KEY) || '[]') || []; w.push({ name: who.name, look: who.look || null, day: day(), dismissed: true, why: 'road' }); localStorage.setItem(CREW_WALKED_KEY, JSON.stringify(w)); }
+      bar(); return who.name; } catch (e) { return null; }
   }
   function mood(m, id) {
     var town = townOf(m.place || 'near'); if (!town || !m.act) return null;

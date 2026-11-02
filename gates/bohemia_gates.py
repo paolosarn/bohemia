@@ -9897,6 +9897,14 @@ GATES = [
      "went to the camp or town screen under ENGAGE); and the way back from a level-up (ask line 313): LEVEL UP on the fight's end "
      "screen, DONE on the phone on top, BACK to the same end screen, every level picked by taps and back by himself, LEAVE to the map, "
      "the camp, the company screen mid-fight. red on main before each fix, about 10 min", True),
+    ('ONE COMPANY, A MAN LET GO IS GONE', ['node', 'gates/one_company_a_man_let_go_is_gone_gate.js'],
+     "PLUMBER gate, 11/2, ask line 325 (rule 327, Paolo 11/2: 'when I dismiss someone from my group, they have to be gone from all "
+     "my menus... I dismiss someone in the camp, in the settlements, when I'm in the menu trying to buy items, it still thinks "
+     "they're part of my squad'): a company of twelve and three men hired at a post; one let go from a town's CREW, one from a camp's "
+     "CREW, one on the crew screen alone, each by DISMISS and YES: none of them on the shop's list, any shop mark, the town's picture, "
+     "the men round the camp's fire, the one company (engine/bohemia_hire_lock.js), the hired, the hand-over or the line; the one "
+     "count is the crew screen's line and the map's own crewCount (the bar, the bill, the fight's size); an old save is mended where "
+     "it is read. green at registration, 9/0, about 35 s", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "

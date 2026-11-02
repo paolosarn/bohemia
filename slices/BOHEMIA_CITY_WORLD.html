@@ -45912,7 +45912,41 @@ function partyMath(kind, ctx){
 var CREW_WALKED_KEY = 'bohemia.walked.v1';
 function crewWalked(){ try{ var a = JSON.parse(localStorage.getItem(CREW_WALKED_KEY) || '[]'); return Array.isArray(a) ? a.filter(function(x){ return x && x.dismissed; }) : []; }catch(_e){ return []; } }   /* A HIRE IS LOCKED IN (rule 295): only a man HE let go is gone; a man the old bill walked is back (engine/bohemia_hire_lock.js) */
 function crewHired(){ try{ var a = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'); return Array.isArray(a) ? a.length : 0; }catch(_e){ return 0; } }
+/* ONE COMPANY (PLUMBER 2, rule 327, Paolo 11/2: 'when I dismiss someone from my group, they have to be gone from all my [menus]').
+   MEASURED: this count was the origin's length plus the hired, less the let-go, the taken and the dead, four lists in sums that are
+   right only while every list agrees; a man let go is now taken OUT of the hired (engine/bohemia_hire_lock.js dismiss), so the
+   sum would have counted him off twice. NOW the count is the one list every screen reads, BY NAME (BohemiaHireLock.count): the
+   crew screen's company once it has kept one, else the origin's men named the fight's way (ours.crew in order, ' II' past its
+   end); the sum below only while neither is known (the map's first moments) */
+function crewOriginNamed(){
+  var co = (LOOP.start && LOOP.start.company) || null, n = co ? co.length : 3, men = (CREW_DEFS && CREW_DEFS.men) || [], looks = (CREW_DEFS && CREW_DEFS.looks) || [];
+  var nm = null; try{ if(co && window.BohemiaCondition && BohemiaCondition.named) nm = BohemiaCondition.named(co); }catch(_e){ nm = null; }
+  var out = [];
+  for(var i = 0; i < n; i++){
+    var m = (nm && nm[i] && nm[i].name) ? nm[i] : null;
+    if(!m){ if(i > 0 && !men.length) return null; m = { name: i === 0 ? 'YOU' : ((men[i % men.length].name || 'MAN') + (i >= men.length ? ' II' : '')), look: looks.length ? looks[i % looks.length] : null }; }
+    out.push(m);
+  }
+  return out;
+}
+function crewMen(){
+  try{ if(!window.BohemiaHireLock || !BohemiaHireLock.company) return null;
+    var kept = false; try{ var hk = JSON.parse(localStorage.getItem('bohemia.company.v1') || 'null'); kept = Array.isArray(hk) && hk.length > 0; }catch(_e){}
+    var o = crewOriginNamed(); if(!kept && !o) return null;
+    return BohemiaHireLock.company(o, LOOP.start && LOOP.start.origin); }catch(_e){ return null; }
+}
+try{ window.crewMen = crewMen; }catch(_e){}
+/* a man let go on the crew screen (its own frame, over the map, a town or the camp): the bar's count, the bill and the marker hear it at once */
+function crewHear(){   /* the hire lock's file loads after this script: heard once it is in */
+  if(crewHear.on || !window.BohemiaHireLock || !BohemiaHireLock.onChange) return; crewHear.on = true;
+  BohemiaHireLock.onChange(function(){
+    try{ if(typeof MAP_CREW_LOOKS !== 'undefined' && MAP_CREW_LOOKS) MAP_CREW_LOOKS.at = 0; }catch(_e){}
+    try{ if(typeof billPublish === 'function') billPublish(); }catch(_e){}
+    try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){} });
+}
+try{ crewHear(); window.addEventListener('DOMContentLoaded', crewHear); window.addEventListener('load', crewHear); }catch(_e){}
 function crewCount(){
+  var one = crewMen(); if(one) return Math.max(1, one.length);
   var co = (LOOP.start && LOOP.start.company) || null;
   var n = co ? co.length : 3;                           /* no picks yet: Battle Brothers' own three */
   return Math.max(1, n + crewHired() - crewWalked().length - crewTaken().length - crewDead().length);   /* the main character never walks; the taken are not here (__THE_WIPE_WAKES_IN_TOWN__); the dead are not here */

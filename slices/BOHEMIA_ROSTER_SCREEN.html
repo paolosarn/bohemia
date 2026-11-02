@@ -937,8 +937,11 @@ function dismiss(i){
   /* the line loses him, and every index past his moves down one */
   ['front','back'].forEach(function(row){ S[row] = S[row].map(function(ix){ return ix == null || ix === i ? null : ix > i ? ix - 1 : ix; }); });
   S.crew.splice(i, 1);
-  try{ var w = JSON.parse(localStorage.getItem(WKEY) || '[]') || []; w.push({ name: m.name, look: m.look || null, hired: !!m.hired, dismissed: true, day: S.today || null });
-    localStorage.setItem(WKEY, JSON.stringify(w)); }catch(e){}
+  /* ONE COMPANY (PLUMBER 2, rule 327): the one write, engine/bohemia_hire_lock.js dismiss: the let-go list once, and out of the
+     hired, the hand-over and the line, so the shop, the town, the camp, the map and the phone all lose him at once */
+  try{ if(window.BohemiaHireLock && BohemiaHireLock.dismiss) BohemiaHireLock.dismiss({ name: m.name, look: m.look || null, hired: !!m.hired, day: S.today || null });
+    else { var w = JSON.parse(localStorage.getItem(WKEY) || '[]') || []; w.push({ name: m.name, look: m.look || null, hired: !!m.hired, dismissed: true, day: S.today || null });
+    localStorage.setItem(WKEY, JSON.stringify(w)); } }catch(e){}
   var o = order(); S.sel = o.length ? o[Math.min(o.length - 1, Math.max(0, at))] : 0;   /* the man who stood next to him in the strip */
   S.ask = null; S.cmp = null; S.pick = null; S.raise = null; S.talked = null;
   saveBag(); saveClimb(); saveForm();

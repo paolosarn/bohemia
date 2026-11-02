@@ -55,7 +55,7 @@ function fnText(src, name) {
 }
 const MAP = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
 const ALPHA = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
-const MAPFNS = ['crewWalked', 'crewHired', 'crewCount', 'crewDead', 'crewTakenAll', 'crewTaken', 'crewWhoWalks'].map(n => fnText(MAP, n));
+const MAPFNS = ['crewWalked', 'crewHired', 'crewOriginNamed', 'crewMen', 'crewCount', 'crewDead', 'crewTakenAll', 'crewTaken', 'crewWhoWalks'].map(n => fnText(MAP, n));
 const DOOR = ['nfKind', 'nfOpts'].map(n => fnText(ALPHA, n));
 const OURS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')).crew.value;
 
