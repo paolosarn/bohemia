@@ -105,6 +105,9 @@ would take to read them.' BEFORE: the phone's face printed the city's two newest
 (slices/bohemia_phone.js stripPaint, UI's): ONE post, the newest, stepping in on the beat as before; it stays 1.2 s plus 0.25 s a word
 (handle and words; a phone reader near 230 words a minute), rounded up to whole beats (a ten-word post: 3.7 s -> 4.0 s at 120 BPM),
 then sinks out of the strip in two holds; the next post steps in when it comes; a tap on the strip still opens everything posted.
+THE NUMBERS IN A DATA FILE (the coordinator's word, BUILD 11/3zy - ONE POST AT A TIME): slices/phone/feed_read.json (posts on the face 1,
+base_ms 1200, per_word_ms 250, beat_ms 500), read by the phone at boot; the code's numbers are only the fallback. Measured on the demo:
+the file loads (200), the face holds one post, and after its read time it is gone (two posts in and out during the first minute).
 
 ## CHECKS
 - NEW: NOTHING POPS, VOICES CLEAR, TOOLTIPS (gates/nothing_pops_voices_clear_gate.js): 38 ok, 0 failed on the final tree (BUILD 11/3zw),

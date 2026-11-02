@@ -11,7 +11,8 @@ records/BOHEMIA_UI_NOTHING_POPS_VOICES_CLEAR_TOOLTIPS_11_2_26.md; proof records/
   bare ground, a town building, the bar, the phone's apps and fight buttons, or anything with data-tip; the lift is not a press (the
   town's own cancel, the fight's own 'held'). Lines: WORDS' files + records/target/ui/BOHEMIA_TIPS.json (42 new, draft:true).
 - alpha hook (1 line): the script tag after bohemia_motion.js. Probe switch for a BEFORE picture: BohemiaPops.off(true) (never set by the game).
-- the phone's face (rule 329): ONE post at a time, up 1.2 s + 0.25 s a word in whole beats, then it sinks out (stripPaint).
+- the phone's face (rule 329): ONE post at a time, up 1.2 s + 0.25 s a word in whole beats, then it sinks out (stripPaint);
+  the numbers in slices/phone/feed_read.json (11/3zy - ONE POST AT A TIME).
 - gate: gates/nothing_pops_voices_clear_gate.js (in the suite). Road card under the phone 5,955 sq pt -> 0 (up 60); kills card 7,860 -> 0.
 NEXT: the stall's trade goods and the map's towns get lines (data-tip); the fight's statuses when COMBAT draws them; WORDS on the drafts;
 MOTION may swap any POPS row for a true morph (the row is the one place to take it out).

@@ -1270,10 +1270,12 @@
      and they should only stick around for as long as it would take to read them'): ONE post at a time, never two; it stays
      1.2 s plus 0.25 s a word (a phone reader near 230 words a minute), rounded up to whole beats, then sinks out of the strip
      (two holds); the next post steps in when it comes. ---- */
+  var READ = { base_ms: 1200, per_word_ms: 250, beat_ms: 500 };   /* the fallback; the numbers live in slices/phone/feed_read.json */
+  try { fetch(BASE + 'phone/feed_read.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j) ['base_ms', 'per_word_ms', 'beat_ms'].forEach(function (k) { if (+j[k] > 0) READ[k] = +j[k]; }); }).catch(function () {}); } catch (e) {}
   function readMs(p) {
     var words = String(p && p.txt || '').split(/\s+/).filter(Boolean).length + String(p && p.who || '').split(/\s+/).filter(Boolean).length;
-    var bm = 500; try { var B = window.BOHEMIA_BEAT, n = B && B.now && B.now(); if (n && n.beatMs > 0) bm = n.beatMs; } catch (e) {}
-    return Math.ceil((1200 + 250 * words) / bm) * bm;
+    var bm = READ.beat_ms; try { var B = window.BOHEMIA_BEAT, n = B && B.now && B.now(); if (n && n.beatMs > 0) bm = n.beatMs; } catch (e) {}
+    return Math.ceil((READ.base_ms + READ.per_word_ms * words) / bm) * bm;
   }
   function stripPaint(force) {
     var fd = H.el.querySelector('.home .bpfd'); if (!fd) return;

@@ -1,0 +1,7 @@
+{
+  "_about": "UI 4 (11/2/26, rule 329, ask lines 327 and 339; Paolo 11/2: 'just make it one, and they should only stick around for as long as it would take to read them'). The phone's feed shows ONE post at a time; each stays base_ms plus per_word_ms for every word (the handle and the words), rounded UP to whole beats of the music's clock (beat_ms when the music has not spoken), then sinks out in two holds. 230 words a minute is a phone reader's pace (about 0.26 s a word); base_ms is the beat it takes to find the post. Read by slices/bohemia_phone.js (stripPaint) at boot; the numbers in the code are only its fallback. TUNING may move them.",
+  "posts_on_the_face": 1,
+  "base_ms": 1200,
+  "per_word_ms": 250,
+  "beat_ms": 500
+}
