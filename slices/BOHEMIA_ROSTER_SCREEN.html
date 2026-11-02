@@ -155,6 +155,10 @@ button{font:inherit;color:inherit}
 .plist{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:3px}
 .plist button{min-height:44px;background:#1d1610;border:1px solid var(--line);border-radius:3px;font-size:10px;text-align:left;padding:3px 5px}
 .plist button i{display:block;font-style:normal;color:var(--dim);font-size:8px}
+/* FINISHER 11/2 (ask line 179, rule 252(c)): every perk's own picture beside its words, COOK's fifty (slices/perk_icons) */
+.pk1{display:inline-flex;align-items:center;gap:3px;margin:2px 6px 0 0;white-space:nowrap}
+.pki{width:24px;height:24px;flex:0 0 auto;image-rendering:auto;vertical-align:middle}
+.plist button{display:flex;align-items:center;gap:6px}.plist button .pki{width:32px;height:32px}.plist button .pkt{display:block;min-width:0}
 #ghost{position:fixed;pointer-events:none;z-index:50;opacity:.85;display:none;padding:4px 6px;background:#2e241a;border:1px solid var(--gold);border-radius:3px;font-size:10px}
 canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 shown at 44 css px scales smooth, never nearest (RUN TWO 10/18) */
 /* A PHONE ON ITS SIDE, A TABLET, A COMPUTER: Battle Brothers' own shape, him on the left, the stash on the right, the
@@ -767,7 +771,9 @@ function drawCard(){
     if(fresh(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; var tr = inj && inj.wound && inj.wound.treated;
       h3.textContent = tr ? 'He can fight. A clinic already cut the wound in half.' : 'He can fight. A clinic halves the days and the wound for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
     el.appendChild(hb); }
-  if(m.perks.length){ var pk = document.createElement('div'); pk.className = 'perks'; pk.textContent = 'PERKS: ' + m.perks.map(C.perkName).join(', '); el.appendChild(pk); }
+  if(m.perks.length){ var pk = document.createElement('div'); pk.className = 'perks'; pk.appendChild(document.createTextNode('PERKS: '));
+    m.perks.forEach(function(id){ var w1 = document.createElement('span'); w1.className = 'pk1'; var ic = perkIcon(id, 24); if(ic) w1.appendChild(ic); w1.appendChild(document.createTextNode(C.perkName(id))); pk.appendChild(w1); });
+    el.appendChild(pk); }
 }
 /* what each number does, said when its icon is tapped (draft:true, WORDS owns the voice) */
 var STAT_SAYS = { hp: 'How much he takes before he drops.', fatigue: 'How long he swings and runs before he is spent.', resolve: 'How long he holds when it goes bad.',
@@ -848,10 +854,15 @@ function tapItem(i){
   S.cmp = i; S.hover = null; draw(); compareLine(it);
 }
 /* the perks he may take now, on the PERK tab beside him: one tap takes it (its words are on the button) */
+/* FINISHER 11/2 (ask line 179, rule 252(c): 'I don't want a single perk without an icon'): the perk's picture, COOK's fifty from the
+   master rig (slices/perk_icons/<id>.png, one for every id of perks.json); a perk with no picture shows its words alone */
+function perkIcon(id, px){ if(!id || !/^[a-z0-9_]+$/.test(id)) return null; var im = document.createElement('img'); im.className = 'pki'; im.alt = ''; im.width = px; im.height = px;
+  im.src = 'perk_icons/' + id + '.png'; im.onerror = function(){ im.remove(); }; return im; }
 function drawPerks(m, el){
   var pl = document.createElement('div'); pl.className = 'plist'; pl.id = 'plist';
   C.perkChoices(m).forEach(function(r){ var x = document.createElement('button'); x.type = 'button'; x.dataset.perk = r.id;
-    x.textContent = r.name; var i2 = document.createElement('i'); i2.textContent = r.skin; x.appendChild(i2);
+    var ic = perkIcon(r.id, 32); if(ic) x.appendChild(ic);
+    var tx = document.createElement('span'); tx.className = 'pkt'; tx.textContent = r.name; var i2 = document.createElement('i'); i2.textContent = r.skin; tx.appendChild(i2); x.appendChild(tx);
     x.addEventListener('click', function(){ if(!C.takePerk(m, r.id)) return; saveClimb(); post('perk', {who:m.name, perk:r.id}); sfx('equip');
       if(!(m.points > 0)) S.tab = 'all'; say(m.name + ' took ' + r.name + '.' + (m.points > 0 ? ' ' + m.points + ' more to take.' : '')); draw(); });
     pl.appendChild(x); });

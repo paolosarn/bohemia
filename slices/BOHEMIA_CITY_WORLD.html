@@ -45086,6 +45086,21 @@ function mapSkull(x, y, col){
   g.fillStyle = col;
   for(var r = 0; r < S.length; r++) for(var c = 0; c < 6; c++) if(S[r][c] === '#') g.fillRect(x + c, y + r + 1, 1, 1);
 }
+/* ==== __THE_FIGHT_SAVES_AT_ITS_START__, THE MAP'S HALF (FINISHER 11/2, rule 233(c)): the shell hands back a fight the page died in,
+   once this map is up on the save as it stood at the bell; what the fight's end reads is put back, and the same hand-over goes
+   through the one door with the meet already answered (he engaged it), so the fight opens at turn one ==== */
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_FIGHT_RESUME' || !d.msg || d.msg.type !== 'BOHEMIA_CITY_ENCOUNTER') return;
+  var m = d.msg, c = m.__ctx || {};
+  try{ if(c.fighting) LOOP.fighting = c.fighting; }catch(_e){}
+  try{ if(c.raid) RAID_FIGHTING = c.raid; if(c.taking) RAID_TAKING = c.taking; }catch(_e){}
+  try{ if(c.boss){ var hs = window.BohemiaHisMap && BohemiaHisMap.state(); if(hs) hs.fighting = c.boss; } }catch(_e){}
+  try{ if(BohemiaMapCamp.on()) BohemiaMapCamp.break(); }catch(_e){}
+  m.__met = true; m.__resumed = (m.__resumed | 0) + 1;
+  window.__FIGHT_RESUMED = { why: m.why || null, label: m.label || null, ctx: c, at: Date.now() };
+  try{ cityHandOver(m); }catch(_e){}
+});
+/* ==== /__THE_FIGHT_SAVES_AT_ITS_START__, THE MAP'S HALF ==== */
 /* AND THE MAP COMES HOME FROM A FIGHT AT THE SPEED HE HAD (TUNING's change 2c): PAUSE was dropped at the bell (44a, the
    valley does not run on while he fights); a fight he finished hands the pad back as he left it */
 window.addEventListener('message', function(ev){ var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END') return;
@@ -67234,6 +67249,10 @@ function cityHandOver(msg, skin){
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */
   try{ if(msg){ msg.firstDay = loopDay() <= 1; msg.crewCount = crewCount(); } }catch(_e){}
   try{ window.__LAST_HANDOVER = { why: msg && msg.why, label: msg && msg.label, n: (msg && msg.roster) ? msg.roster.length : null, party: (msg && msg.party) ? msg.party.count : null, at: performance.now() }; }catch(_e){}
+  /* __THE_FIGHT_SAVES_AT_ITS_START__ (FINISHER 11/2, rule 233): what the map's own end-of-fight listeners read, carried with the
+     hand-over, so a fight the page died in and opened again comes home to the same job, raid or boss */
+  try{ if(msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER') msg.__ctx = { fighting: LOOP.fighting || null, raid: (typeof RAID_FIGHTING !== 'undefined' ? RAID_FIGHTING : null) || null,
+    taking: (typeof RAID_TAKING !== 'undefined' ? RAID_TAKING : null) || null, boss: (function(){ try{ var hs = window.BohemiaHisMap && BohemiaHisMap.state(); return hs && hs.fighting ? hs.fighting : null; }catch(_e2){ return null; } })() }; }catch(_e){}
   try{ window.__HANDED = msg; }catch(_e){}   /* __PULLED_BACK__ (COMBAT, rule 275(c), a marked line): the contact kept whole, so a lineup left can be undone */
   try{
     return fightZoomOut(function(){

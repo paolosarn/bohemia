@@ -1271,9 +1271,56 @@ function stallSheet(k, body, acts, line){
   if(S.stallSel && !stallRowOf(S.stallSel.key)) S.stallSel = null;
   rows.forEach(function(r){ acts.appendChild(stallLine(r)); });
   if(tapeOn()){ var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft'; sl.textContent = tapeLeftText(); acts.appendChild(sl); }
+  try{ acts.appendChild(stallGearLines()); }catch(e){}   /* FINISHER 11/2 __EVERY_STALL_BUYS__ (rule 265(b)): his gear too */
   var strip = document.createElement('div'); strip.className = 'shopstrip stallstrip'; strip.id = 'stallstrip'; acts.appendChild(strip); stallStripFill(strip);
   setTimeout(stallMark, 0);
 }
+/* ==== __EVERY_STALL_BUYS__ (FINISHER 11/2; rule 265(b), ask line 196; Paolo 10/26: 'every stall buys everything I carry, even in a
+   stall-only town, it pays less'). MEASURED: the stall bought only the four supplies; a piece of gear in his stash sold only at a
+   town with arms, a smith or an armourer, so in a stall-only place he carried it on. NOW under the supplies the stall lists every
+   piece in his stash and takes any of it, the shops' way (one tap shows it in the strip, two taps sell, a right click sells): it
+   pays what the smith would (sellBack: its worth, its wear, what the town thinks of him), moved by the place's size the Battle
+   Brothers way (ECONOMY's size_mult: a camp 95, a town 102, a fortress 110), the fortress paying the smith's price. It never
+   refuses. Trade goods join this list the day they ride in the stash (rule 266(a), not in the game yet). ==== */
+var STALLGEAR = {i:-1, t:0, sel:-1};
+function stallGearPays(it){ var f = 1;
+  try{ if(STALLP && window.BohemiaStallPrices) f = BohemiaStallPrices.sizeOf(STALLP, S.place.tier) / Math.max(0.01, BohemiaStallPrices.sizeOf(STALLP, 'fortress')); }catch(e){}
+  return Math.max(1, Math.floor(sellBack(it) * Math.min(1, f))); }
+function stallGearList(){ return (S.stash || []).map(function(it, i){ return {it:it, i:i}; }).filter(function(x){ return x.it && x.it.id && (x.it.base || x.it.price); }); }
+function stallGearLines(){
+  var w = document.createElement('div'); w.className = 'stgear'; w.id = 'stallgear';
+  var L = stallGearList(), h = document.createElement('div'); h.className = 'slots';
+  h.textContent = L.length ? 'YOUR GEAR: THEY TAKE ANY OF IT' + (S.place.tier === 'fortress' ? '' : ', A SMALL PLACE PAYS LESS') : 'YOUR GEAR: NOTHING IN THE STASH';   /* draft:true */
+  w.appendChild(h);
+  L.forEach(function(x){
+    var it = x.it, p = stallGearPays(it), ln = document.createElement('div'); ln.className = 'act stline stgline'; ln.dataset.gear = x.i; ln.dataset.id = it.id; ln.dataset.sell = p;
+    var l = document.createElement('span'); l.className = 'stl'; var nm = String(it.name || it.id).replace(/^(a|an) /, ''); l.textContent = nm.charAt(0).toUpperCase() + nm.slice(1);
+    var wd = document.createElement('small'); var worn = it.condMax > 0 ? Math.round(100 * it.cond / it.condMax) : 100; wd.textContent = (it.kind || 'gear').toUpperCase() + (worn < 100 ? ', ' + worn + '% WHOLE' : ''); l.appendChild(wd);
+    ln.appendChild(l);
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'sb sell' + (STALLGEAR.sel === x.i ? ' sel' : ''); b.dataset.side = 'sell'; b.dataset.p = p; b.dataset.k = 1;
+    var cap = document.createElement('small'); cap.textContent = 'SELL'; b.appendChild(cap);
+    var pr = document.createElement('span'); pr.className = 'sp'; var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode('+' + p)); b.appendChild(pr);
+    b.setAttribute('aria-label', 'Sell the ' + nm + ', ' + moneyWord(p));
+    b.addEventListener('click', function(){ stallGearTap(x.i, it, false); });
+    b.addEventListener('contextmenu', function(e){ e.preventDefault(); stallGearTap(x.i, it, true); });
+    ln.appendChild(b); w.appendChild(ln);
+  });
+  return w;
+}
+function stallGearTap(i, it, now1){
+  var now = performance.now(), twice = now1 || (STALLGEAR.i === i && now - STALLGEAR.t < 450);
+  STALLGEAR.i = i; STALLGEAR.t = now; S.stallSel = null;
+  if(twice && S.stash[i] === it){ STALLGEAR.i = -1; STALLGEAR.sel = -1;
+    var p = stallGearPays(it); P.credit(S.purse, 'electricity', p, 'stall:sell:' + it.id, S.place.name, S.day);
+    S.stash.splice(i, 1); bagSave(); post('sellArms', {item:it, got:p, at:'stall'});
+    window.__STALL_GEAR_SOLD = {id:it.id, p:p, tier:S.place.tier, n:((window.__STALL_GEAR_SOLD || {}).n | 0) + 1};
+    S.stallSaid = 'Sold the ' + String(it.name || it.id).replace(/^(a|an) /, '') + '. +' + moneyWord(p) + '.';
+    sfx('pickup', view.night ? NIGHT_TRIM : null); shelf();
+  } else { STALLGEAR.sel = i; S.stallSaid = 'Sell the ' + String(it.name || it.id).replace(/^(a|an) /, '') + ': +' + moneyWord(stallGearPays(it)) + '. Tap it twice to sell.'; }   /* draft:true */
+  var g = document.getElementById('stallgear'); if(g) g.replaceWith(stallGearLines());
+  stallMark(); stallStripFill();
+}
+/* ==== end __EVERY_STALL_BUYS__ ==== */
 /* ECONOMY's keeper lines for a town short of a thing (banks/BOHEMIA_ECONOMY_THE_STALLS_WORDS_10_26_26.json, draft:true; banks/ is never
    published, so the two the stall says are carried here as they are written there) */
 var STALL_WORDS = {
@@ -2979,8 +3026,28 @@ function townLetGo(){
 function loop(){
   if(window.frameElement && townHidden()){ if(!TOWN_LET_GO){ TOWN_LET_GO = true; townLetGo(); } setTimeout(function(){ requestAnimationFrame(loop); }, 250); return; }
   TOWN_LET_GO = false;
-  draw(); try{ crewOverDraw(); }catch(e){} busyHeard(performance.now()); requestAnimationFrame(loop);   /* CAMP's call in the town (RUN THREE) */
+  draw(); try{ crewOverDraw(); }catch(e){} try{ restTrails(); }catch(e){} busyHeard(performance.now()); requestAnimationFrame(loop);   /* CAMP's call in the town (RUN THREE) */
 }
+/* ==== __THE_LONG_EXPOSURE__ (FINISHER 11/2; rule 273(c), ask line 210; Paolo 10/26: 'HEAL/CAMP in the settlement screen: time
+   passes, my men heal and repair, shown with 2 percent ghost trails, the long-exposure look'). MEASURED: HEAL in a town passed
+   the hours at camp speed with the town's picture standing still as any other minute. NOW while the hours pass here the town is
+   a long exposure: every frame adds two percent of itself to a held plate, and the plate lies over the live town, so what stands
+   still stays sharp and whatever walks leaves a ghost behind it; night falling crosses over slowly. The plate starts again when
+   his finger moves the town, and it is gone the moment the rest ends. ==== */
+var TRAIL = {cv:null, cx:null, on:false, w:0, h:0, key:''};
+function restTrails(){
+  var r = window.__TOWN_REST, on = !!(r && !S.camp && Date.now() - r.at < 1500);
+  if(!on){ TRAIL.on = false; return; }
+  var w = cv.width, h = cv.height, key = Math.round(view.ox) + ',' + Math.round(view.oy) + ',' + (view.s || 1).toFixed(3) + ',' + w + 'x' + h;
+  if(!TRAIL.cv){ TRAIL.cv = document.createElement('canvas'); TRAIL.cx = TRAIL.cv.getContext('2d'); }
+  var t = TRAIL.cx;
+  if(!TRAIL.on || TRAIL.key !== key){ if(TRAIL.w !== w || TRAIL.h !== h){ TRAIL.cv.width = w; TRAIL.cv.height = h; TRAIL.w = w; TRAIL.h = h; }
+    t.setTransform(1,0,0,1,0,0); t.globalAlpha = 1; t.drawImage(cv, 0, 0); TRAIL.on = true; TRAIL.key = key; window.__TOWN_EXPOSURE = (window.__TOWN_EXPOSURE | 0) + 1; return; }
+  t.setTransform(1,0,0,1,0,0); t.globalAlpha = 0.02; t.drawImage(cv, 0, 0);   /* two percent a frame */
+  cx.save(); cx.setTransform(1,0,0,1,0,0); cx.globalAlpha = 0.65; cx.drawImage(TRAIL.cv, 0, 0); cx.restore();
+  window.__TOWN_EXPOSING = Date.now();
+}
+/* ==== end __THE_LONG_EXPOSURE__ ==== */
 /* a small thing (the board on its pole) still takes a thumb: its tap area is at least 44 px */
 function tapBox(k){
   var b = VAR.boxes[k], m = 44/view.s, w = b[2]-b[0], h = b[3]-b[1];

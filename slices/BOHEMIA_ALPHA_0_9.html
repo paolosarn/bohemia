@@ -1,4 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8">
+<!-- __THE_FIGHT_SAVES_AT_ITS_START__ (FINISHER 11/2, rule 233, ask lines 155 and 165): FIRST, before anything reads the game: a fight
+     the page died in puts every key back as it was at the bell, and the fight is handed to the map again (nfOpen, nfHome) -->
+<script src="../engine/bohemia_fight_start.js"></script>
 <!-- __SETTINGS_IN_OUR_MATERIALS__ (UI 10/4, [settings and the slider], rules 73, 66): the gear's card dressed in the
      materials, MUSIC / SOUNDS / BRIGHT rows, and BohemiaSettings.open() for RUN's start screen. -->
 <script src="bohemia_ui_materials.js"></script>
@@ -1566,7 +1569,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/2zzb - THE MOMENTS BETWEEN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/2zzc - THE FIGHT SAVES AT ITS START, FIVE HALF-DONE THINGS FINISHED</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12518,7 +12521,12 @@ function nfOpen(d){
   fightVeil(true);
   try { nfcIn(); } catch (_e) {}   /* __THE_ZOOM_GOES_THROUGH_CLOUDS__ */
   CITYFIGHT = true; CITYFIGHT_AT = (d && d.at) || null;
+  /* __THE_FIGHT_SAVES_AT_ITS_START__ (FINISHER 11/2, rule 233): the game as it stands at the bell, kept until the map is back;
+     a fight the page died in opens again from here (engine/bohemia_fight_start.js), and nothing in the fight is saved but its start */
+  try{ if(d && d.__deal == null) d.__deal = (Math.random() * 4294967296) >>> 0; }catch(_e){}   /* the die the ground is dealt from, kept with the start */
+  try{ if(window.BohemiaFightStart){ if(!(d && d.__resumed)) NF.startAt = BohemiaFightStart.write(d); else NF.startAt = window.__FIGHT_START_AT || null; } }catch(_e){}
   NF.opts = nfOpts(d); NF.over = null; NF.homeAt = null; NF.opened = performance.now();
+  try{ if(window.BohemiaFightStart && NF.opts){ NF.opts.keep = false; NF.opts.resume = false; if(d && d.__deal != null) NF.opts.deal = d.__deal >>> 0; } }catch(_e){}   /* __THE_FIGHT_SAVES_AT_ITS_START__: never a mid-fight keep in the game */
   var old = document.getElementById('combatFrame');
   if (old) { old.style.display = 'none';
     try{ if (old.contentWindow) old.contentWindow.postMessage({bohemiaMusicMute:true},'*'); }catch(_e){} }
@@ -12729,6 +12737,9 @@ function nfHome(){
   var fr = NF.frame; NF.frame = null;
   document.body.classList.remove('nf-on');
   var ok = cityFightHome(NF.over); NF.homeWall = Date.now();
+  /* __THE_FIGHT_SAVES_AT_ITS_START__: back on the map; the results are the game's once the map has saved them (its save beats a
+     fight's end at once), so the record goes a moment later, and only this fight's */
+  try{ var sa = NF.startAt; NF.startAt = null; if(window.BohemiaFightStart && sa) setTimeout(function(){ try{ BohemiaFightStart.clear(sa); }catch(_e){} }, 2500); }catch(_e){}
   try{ if (fr && fr.contentWindow && fr.contentWindow.__fightLetGo) fr.contentWindow.__fightLetGo(); }catch(_e){}   /* RUN 10/25 __THE_FIGHT_LETS_GO__ (rule 173): its bitmaps closed, its canvases emptied, now */
   try{ if (fr) { fr.src = 'about:blank'; fr.remove(); } }catch(_e){}
   return ok;
@@ -12737,6 +12748,31 @@ window.addEventListener('message', function(ev){
   var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_FIGHT_OVER') return;
   nfOverIn(d, ev.source);
 });
+/* ==== __THE_FIGHT_SAVES_AT_ITS_START__, THE WAY BACK IN (FINISHER 11/2, rule 233(c), ask lines 155 and 165) ====
+   engine/bohemia_fight_start.js put every key back as it was at the bell before anything read one. Once the map is up on that
+   save (its save read back, the start screen behind him, two seconds settled), the same fight is handed to the map again: the
+   map puts back what its own end-of-fight listeners read (the job, the raid, the boss) and sends it through its one door with
+   the meet already answered, so it opens at turn one: the same band, the same ground, his men as they walked in. */
+(function(){
+  if(!window.BohemiaFightStart || !BohemiaFightStart.pending()) return;
+  var t0 = Date.now(), steady = 0;
+  var iv = setInterval(function(){
+    if(Date.now() - t0 > 900000 || !BohemiaFightStart.pending()){ clearInterval(iv); return; }
+    if(CITYFIGHT || document.body.classList.contains('nf-on')){ clearInterval(iv); return; }
+    var cf = document.getElementById('cityFrame'), cw = cf && cf.contentWindow, up = false;
+    try{ var ti = document.getElementById('title'), fr = document.getElementById('front');
+      var mode = cw && new cw.Function('return typeof MODE !== "undefined" ? MODE : null')();
+      up = !!(cw && cw.RESTORE_ANSWERED && mode === 'city' && typeof cw.cityHandOver === 'function' && cf.offsetParent !== null
+        && !(ti && !ti.classList.contains('gone')) && !(fr && getComputedStyle(fr).display !== 'none')); }catch(_e){ up = false; }
+    if(!up){ steady = 0; return; }
+    if(++steady < 4) return;
+    clearInterval(iv);
+    var d = BohemiaFightStart.pending(); if(!d) return;
+    window.__FIGHT_START_SENT = { at: Date.now(), why: d.why || null, label: d.label || null };
+    try{ cw.postMessage({ type: 'BOHEMIA_FIGHT_RESUME', msg: d }, '*'); }catch(_e){}
+  }, 500);
+})();
+/* ==== /__THE_FIGHT_SAVES_AT_ITS_START__, THE WAY BACK IN ==== */
 /* ===== /__THE_NEW_FIGHT_IS_THE_FIGHT__ ===== */
 /* ===== __THE_ZOOM_GOES_THROUGH_CLOUDS__ (RUN 10/2, [map pixels now], rule 67 s3) =====
    PAOLO 10/2 (the sixth votes): "the zoom into a fight goes through clouds as the loading screen
@@ -14142,7 +14178,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
     /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO, rule 147): a new game is a new company; the old one's hires, their climb, the line and
        the hand-over never walk into it (the fight now reads them) */
-    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1', 'bohemia.soldto.v1', 'bohemia.stall.need.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__, __SELL_AT_THE_STALL__: what he sold and what a town has bought into its need are the old game's */   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
+    ['bohemia.company.v1', 'bohemia.company.line.v1', 'bohemia.hired.v1', 'bohemia.climb.v1', 'bohemia.formation.v1', 'bohemia.walked.v1', 'bohemia.fight.after.v1', 'bohemia.taken.v1', 'bohemia.fog.v1', 'bohemia.renown.v1', 'bohemia.camp.v1', 'bohemia.origin.roll.v1', 'bohemia.supplies.v1', 'bohemia.condition.v1', 'bohemia.wear.v1', 'bohemia.company.name.v1', 'bohemia.relations.why.v1', 'bohemia.soldto.v1', 'bohemia.stall.need.v1', 'bohemia.fight.start.v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(_e){} });   /* RUN TWO __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__, __SELL_AT_THE_STALL__: what he sold and what a town has bought into its need are the old game's */   /* RUN TWO: the company's clout and its camp are the old company's too; and the man the origin rolled (a new game, a new man, rule 184(a)) */
   }
   function note(txt){
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });

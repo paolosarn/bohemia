@@ -301,7 +301,11 @@ function drawCrew(){
   var fell = S.men.filter(function(m){ return m.dead; }).length, hurt = S.men.filter(function(m){ return m.down && !m.dead && !m.main; }).length;
   /* a level is a level, never 'climbed' (EYES [eyes: the road crew ran]) */
   var lv = S.men.reduce(function(t, m){ return t + (m.up && !m.dead ? Math.max(1, (m.to | 0) - (m.from | 0)) : 0); }, 0);
-  document.getElementById('crewn').textContent = (lv ? lv + (lv === 1 ? ' NEW LEVEL' : ' NEW LEVELS') : 'NO NEW LEVEL') +(hurt ? ', ' + hurt + ' HURT' : '') + (fell ? ', ' + fell + ' DEAD' : '');
+  /* FINISHER 11/2 (ask line 221, EYES R6's hole: 'the same screen's header says NO NEW LEVEL over them'): the head counts what waits
+     to be spent too, the same count as each man's '+N' and his button, so it never says NO over a level he can spend */
+  var wt = S.men.reduce(function(t, m){ return t + (!m.dead && m.waiting > 0 ? m.waiting : 0); }, 0);
+  var head = lv ? lv + (lv === 1 ? ' NEW LEVEL' : ' NEW LEVELS') + (wt > lv ? ', ' + wt + ' TO SPEND' : '') : (wt ? wt + (wt === 1 ? ' LEVEL TO SPEND' : ' LEVELS TO SPEND') : 'NO NEW LEVEL');
+  document.getElementById('crewn').textContent = head + (hurt ? ', ' + hurt + ' HURT' : '') + (fell ? ', ' + fell + ' DEAD' : '');
 }
 /* PICK A PERK: the one crew screen, over this one; it reads this fight (kept by the shell) and opens on the man with a point */
 function openCrew(name){

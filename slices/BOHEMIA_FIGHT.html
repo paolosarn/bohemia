@@ -7858,6 +7858,9 @@ const MET_KEY = 'bohemia.fight.met.v1';
 function start() {
   const o = window.FIGHT_OPTS || {};
   if (o.seed !== undefined) SEED = o.seed >>> 0;
+  /* FINISHER 11/2 (rule 233, the game's __THE_FIGHT_SAVES_AT_ITS_START__): o.deal deals the ground and the lineup from a kept die, so a
+     fight the page died in opens again on the same board; the dice after the deal roll fresh (a reload is a new try, never a replay) */
+  else if (o.deal !== undefined) SEED = o.deal >>> 0;
   if (o.speed) UI.speed = o.speed;
   if (o.auto) UI.auto = true;
   MAN_IDLE = o.manPx > 0 ? o.manPx : MAN_DEFAULT;
@@ -7867,6 +7870,7 @@ function start() {
   let met = 0; try { met = Number(localStorage.getItem(MET_KEY)) || 0; localStorage.setItem(MET_KEY, String(met + 1)); } catch (_e) {}
   if (o.met === undefined) o.met = met;
   FIGHT.setup(o);
+  if (o.seed === undefined && o.deal !== undefined) SEED = ((Date.now() >>> 0) ^ Math.imul(o.deal >>> 0, 2654435761)) >>> 0;   /* FINISHER 11/2: fresh dice after the kept deal */
   /* change 10(e): the same fight opened again (a fresh page: the tab died, a phone call) goes on from his last turn's start;
      AGAIN, or a fight started on this page, starts clean and clears the copy */
   UI.resumed = !UI.pageStarted && keptRead(o); UI.pageStarted = true;
