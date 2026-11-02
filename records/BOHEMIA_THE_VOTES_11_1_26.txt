@@ -23,3 +23,18 @@ WHAT THE COORDINATOR DID WITH THEM
 - The injury card's UI: NO, 'ugly, cluttered, try again'. Ask line 292 (UI, next UI round, with the crew screen).
 - 'No more cards with quests': the CONTENT and BOSSES lanes' briefs already say people, places and things, never a card, nothing
   pops up, a mouth with a portrait; rule 'make the pixels, make the sound' (first votes) stands for every quest they ship.
+
+THE SAME EXPORT, SENT AGAIN WITH NINE MORE (11/2): all YES
+world-two-where-it-sells-10-26, camp-the-bars-over-their-heads-10-26, character-the-armour-on-every-screen-10-26,
+character-the-armour-he-wears-shows-10-26, world-two-his-map-10-26, portrait-every-face-breathes-10-26,
+portrait-the-face-shows-the-wound-10-26, camp-the-clinic-halves-both-10-26, camp-struck-down-he-still-fights-10-26.
+
+AND HIS NOTE WITH IT (11/2): "the UI for when a man goes down and he's gonna be healing or whatever, it's just so ugly... and I
+don't know if I wanted a permanent debuff... maybe they can just lose one permanent HP point or two or three every time they die
+like this. This is an idea, not a final execution order... what do you think?"
+- Ask line 293: the struck-down and healing UI (the wound card, the bars, the days) is ugly: redone clean in the next UI round
+  with the injury card (292).
+- Ask line 294: what being struck down costs for good. The coordinator's recommendation, put to him as A/B/C: A (realism, leads):
+  keep the Battle Brothers permanent injury on a bad roll AND every knockdown costs 1 max HP for good, shown as a scar tally on
+  his portrait, capped at -10, the main character spared; B: only his idea, 1 to 3 max HP lost each knockdown, no permanent
+  injury; C: only the permanent injury, as now. Nothing built until he picks.

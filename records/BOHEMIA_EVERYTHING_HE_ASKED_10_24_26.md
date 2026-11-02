@@ -314,3 +314,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 290 | More new graphics and tools across the board | 302 | DIRECTION, COOK lanes | QUEUED: next free slot: note 10 |
 | 291 | The camp in every size, sideways and upright, voted NO 11/1: redo with the towns four layouts (rule 291) | 291 | COORDINATOR | RECORDED: records/BOHEMIA_THE_VOTES_11_1_26.txt |
 | 292 | The injury card UI voted NO 11/1 ("ugly cluttered, try again"): redo clean | 293 | UI (next round) | RECORDED: records/BOHEMIA_THE_VOTES_11_1_26.txt |
+| 293 | The struck-down and healing UI is ugly: redo it clean (with the injury card, 292) | 293 | UI (next round) | RECORDED |
+| 294 | What being struck down costs for good: his idea, 1 to 3 max HP lost each time; the coordinator recommends A (keep the permanent injury on a bad roll + 1 max HP per knockdown, a scar tally, capped, the main character spared) | 234 | CAMP, TUNING | WAITING ON HIS PICK (A/B/C) |
