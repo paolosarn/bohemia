@@ -281,6 +281,11 @@
   }
   function step() {
     if (!EV || root.__ROADEV_OFF) return false;
+    /* A SCRIPTED BROWSER IS NOT A PLAYER (CONTENT 11/2, measured: every_job_kind_gate's walks to a town stalled under a road card
+       nobody in the script knew to answer, 5 of its checks red, and the trip gate's tap on the phone landed on the card). A real
+       phone never runs under automation (navigator.webdriver), so on a phone the road always talks; a scripted walk meets the road
+       only when it asks for it (window.__ROADEV_ON = true, as tools/bohemia_content_drive.js does); fire(id) works either way */
+    try { if (root.navigator && root.navigator.webdriver && !root.__ROADEV_ON) return false; } catch (e) {}
     try { if (typeof MODE !== 'undefined' && MODE !== 'city') return false; } catch (e) {}
     if (busy()) return false;
     var s = st(), D = EV.director || {}; s.walked++;

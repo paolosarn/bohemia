@@ -56,7 +56,9 @@ const OUT = arg('--out', null), DAYS = +arg('--days', 3), JOBS = ['jk-scout-well
   const go = (x, y) => fr.evaluate(([x, y]) => { try { travelStop(); } catch (e) {} try { return !!travelTo(0, 0, [x, y]); } catch (e) { return String(e); } }, [x, y]);
   const travelTill = async (ms) => { const s0 = Date.now(); while (Date.now() - s0 < ms) { await handle(); const s = await st(); if (!s.travel && !s.card && !s.meet && !(await shellFight())) return s; if (s.travel && s.speed === 0 && !s.card && !s.meet) await fr.evaluate(() => { try { travelGoes(); } catch (e) {} }); await page.waitForTimeout(400); } return st(); };
   try {
+    await fr.evaluate(() => { window.__ROADEV_ON = true; }).catch(() => {});   /* a scripted browser meets the road only when it asks (bohemia_road_events.js) */
     await page.waitForTimeout(3000);
+    await fr.evaluate(() => { window.__ROADEV_ON = true; }).catch(() => {});
     if (await shellFight()) await clearFight();
     await handle();
     await waitFor(() => fr.evaluate(() => !!(window.BohemiaRoadEvents && BohemiaRoadEvents.ready() && window.BohemiaJobKinds && BohemiaJobKinds.ready() && window.BohemiaBoardShelf && BohemiaBoardShelf.ready())).catch(() => false), 20000);
