@@ -882,6 +882,21 @@
   "why": "the nearest tile a gun (ours.gun_classes that are ranged: the SHOTGUN, the RIFLE, the PISTOL's shot, ours.pistol_shot) fires at: the one beside him. His 10/10 'all guns 2+ minimum' was the REACH (a gun reaches two tiles or more), read once as a minimum distance (rule 83, built 10/10 to 10/25); the pistol's shot rides a javelin row whose own page starts at two, and a gun no longer takes that floor (rangeLo). A gun is never a club (rule 195, 10/25: the butt and the WHIP of rule 185(g) were the coordinator's words, struck): a gunman with no shot reloads, swaps from his bag or moves",
   "tuned": false
  },
+ "whip": {
+  "value": {
+   "reach": 2,
+   "skills": ["Whip", "Lash"],
+   "other": ["Disarm"],
+   "bleed": {"stacks": 2, "per_turn": 5, "turns": 2, "min_hp_lost": 6},
+   "disarm_turns": 1,
+   "auto_second_tile": 12,
+   "auto_face_ring": 0.5
+  },
+  "source": "VAMILY.md rule 320 (Paolo 11/2), ask lines 316 and 317; records/BOHEMIA_ARMORY_THE_WHIP_AND_THE_POOL_POLE_SPEAR_11_2_26.md; Battle Brothers' Whip page (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2200_Whip (15 fatigue).txt) and Disarm page (0636_Disarm (25 fatigue).txt, 0637_Disarmed (Status Effect).txt)",
+  "quote": "a two tile weapon... it would be a whip kind of vibe... in Battle Brothers I think the range is three... the whip would be a range of two tiles... not going to be the most damage ever, but Battle Brothers creates a bleeding effect, and maybe we can do a little more damage... slightly more",
+  "why": "THE WHIP IS THE ONE MELEE WEAPON THAT REACHES PAST THE NEXT TILE (rule 320 amends 170(b) for the whip family only; the poles stay one tile, 'dog shit' on house tiles). A whip is a row whose blow is Battle Brothers' Whip (ours renamed LASH) or LASH: it strikes from 'reach' tiles, Battle Brothers' 3 made 2 by his word; Disarm reaches as far. The bleeding is the Whip page's: 'two stacks of 5 bleeding damage each turn for 2 turns (caused by losing at least 6 Hitpoints)', ticking when the bleeding man's turn closes. Disarm is the page's: 'disarmed opponents can't use any weapon skills for 1 turn', -20 to hit, no damage. A stunned man loses his next turn (Battle Brothers' stun). auto_second_tile: AUTO's whip man prefers a tile two away from the men he can lash, out of their swing, by this much on its tile score (the score's own scale: a hit-chance point a unit); auto_face_ring: walking to join the named man, a tile in his face counts as half a ring more than one two tiles off, so the whip joins from the second tile when it can. The pieces' own numbers (stun, cells, bleed stacks, the hands, the crack) are armory.json's 'whip' on each row",
+  "tuned": false
+ },
  "melee_reach": {
   "value": 1,
   "source": "VAMILY.md rule 170(b) (Paolo 10/25, playing a fight) and rule 83 (Paolo 10/10); records/BOHEMIA_PAOLO_NO_COVER_IN_THE_OPEN_STREET_AND_MELEE_IS_ONE_TILE_10_25_26.md",

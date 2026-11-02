@@ -669,6 +669,54 @@ const FIGHT = (function () {
      bag (his button, rule 180(g)), or moves. The gun's butt, the WHIP and ours.gun_club were the coordinator's words, struck. */
   function holdsRing(f) { return !(f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)); }
   function strikeSkill(w) { return w.skills.filter(function (s) { return !/^Reload/.test(s.name); })[0]; }
+  /* THE WHIP (ARMORY 2, rule 320, Paolo 11/2: 'a two tile weapon... a whip kind of vibe... the whip would be a range of two tiles...
+     Battle Brothers creates a bleeding effect'): the one melee weapon that reaches past the next tile (rule 170(b) stands for every
+     other). A whip is a row whose blow is Battle Brothers' Whip or ours, LASH (ours.whip.skills); it reaches ours.whip.reach */
+  function isWhip(w) { w = w && (w.of || w); const s = w && w.skills && w.skills.length ? strikeSkill(w) : null; return !!(s && R('ours.whip').skills.indexOf(s.name) >= 0); }
+  function reachOf(w) { return isWhip(w) ? R('ours.whip').reach : R('ours.melee_reach'); }
+  function whipOwn(w) { w = w && (w.of || w); return (w && w.whip) || {}; }
+  /* what the whip does where it lands (Battle Brothers' Whip page: 'two stacks of 5 bleeding damage each turn for 2 turns (Caused by
+     losing at least 6 Hitpoints)'; the piece's own: the barbed wire's third stack, the live wire's stun) */
+  function whipLanded(a, t, r) {
+    const W = R('ours.whip'), own = whipOwn(a.weapon), imm = t.immune || [];
+    if (r.hp >= W.bleed.min_hp_lost && imm.indexOf('Bleeding') < 0 && !t.beast) {
+      const n = own.bleed_stacks || W.bleed.stacks; t.bleed = t.bleed || [];
+      for (let i = 0; i < n; i++) t.bleed.push({ per: W.bleed.per_turn, left: W.bleed.turns });
+      t.bleedBy = a.id; emit({ t: 'bleeding', id: t.id, by: a.id, stacks: n });
+    }
+    if (own.stun_pct && imm.indexOf('Stun') < 0 && die() <= own.stun_pct) { t.stunned = true; emit({ t: 'stunned', id: t.id, by: a.id }); }
+  }
+  /* what every lash costs, landed or not: the live wire's cell from the purse (counted here, taken by the shell at the end), the
+     barbed wire's cut on bare hands (never his last health), the bullwhip's crack on their nerve (a check easier than a wound's) */
+  function lashCosts(a, t) {
+    if (!isWhip(a.weapon)) return;
+    const own = whipOwn(a.weapon);
+    if (own.cells_per_lash && a.side === 'you') { S.cellsBurned = (S.cellsBurned || 0) + own.cells_per_lash; emit({ t: 'cell', id: a.id, n: own.cells_per_lash }); }
+    if (own.cuts_hands && onField(a) && !(a.bodyRow && a.bodyRow.durability >= own.gloves_at_armour)) {
+      const n = Math.min(rint(own.cuts_hands[0], own.cuts_hands[1]), Math.max(0, a.hp - 1));
+      if (n > 0) { a.hp -= n; emit({ t: 'cut', id: a.id, hp: n }); }
+    }
+    if (own.crack_nerve && t && onField(t) && t.side !== a.side && (t.immune || []).indexOf('Morale') < 0) { emit({ t: 'crack', id: a.id, to: t.id }); check(t, 'neg', own.crack_nerve); }
+  }
+  /* the bleeding ticks when his own turn closes (Battle Brothers' bleeding): every stack its 5, each stack two turns; a man it
+     drops is the whip man's kill */
+  function bleedTick(u) {
+    if (!u.bleed || !u.bleed.length || !onField(u)) return;
+    let n = 0; u.bleed.forEach(function (b) { n += b.per; b.left--; }); u.bleed = u.bleed.filter(function (b) { return b.left > 0; });
+    n = Math.min(n, Math.max(0, u.hp)); if (!(n > 0)) return;
+    u.hp -= n; u.taken = (u.taken || 0) + n; emit({ t: 'bled', id: u.id, hp: n });
+    if (u.hp <= 0) { const by = byId(u.bleedBy); fall(u, by && by.side !== u.side ? by : null); afterAction(u); }
+  }
+  /* DISARM (Battle Brothers' Disarm page: 'disarmed opponents can't use any weapon skills for 1 turn', -20 to hit; no damage) */
+  function disarmOn(a, t, q) {
+    S.firstBlow = S.firstBlow || S.round; S.contact = true;
+    emit({ t: 'attack', skill: 'Disarm', id: a.id, to: t.id, hit: q.hit, head: false, hp: 0, armour: 0, chance: q.chance, free: false, parts: q.parts, shot: false, arm: a.weapon.id, hands: a.weapon.hands, sweep: false, astray: false });
+    a.lurking = false; a.swung = true;
+    if (!q.hit) { a.missStack++; return; }
+    a.missStack = 0;
+    if ((t.immune || []).indexOf('Disarm') >= 0 || t.beast) return;
+    t.disarmed = true; emit({ t: 'disarmed', id: t.id, by: a.id });
+  }
   function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
   function skillAP(w, s, u) {
     const dm = u && (w.of || w).class === 'dagger' ? PK(u, 'dagger_mastery') : null;
@@ -1373,7 +1421,7 @@ const FIGHT = (function () {
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
     S.fire = []; S.smoke = []; S.sparkSeen = {};   /* THE CELL VEST: the burning ground, the smoke, who has seen one go off */
-    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
     S.act = opts.act || (opts.party && opts.party.act) || 1;   /* the act the map is in (rule 134(b)); act one when none is told */
@@ -1686,6 +1734,7 @@ const FIGHT = (function () {
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
     u.walled = false; u.hooked = false; u.rallied = false; u.swung = false;   /* THE SHIELD's wall lasts until his next turn; one hook, one rally a turn */
     if (u.poison > 0) u.ap = Math.max(0, u.ap - NEW('poison').ap);   /* THE NEEDLE (Goblin Poison's page): -1 AP for 3 turns */
+    if (u.stunned) { u.ap = 0; emit({ t: 'stunned_turn', id: u.id }); }   /* ARMORY 2: the live wire's stun, Battle Brothers' way: he loses this turn */
     u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
@@ -1697,7 +1746,8 @@ const FIGHT = (function () {
     }
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
-  function turnOver(u) { burnTick(u); u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u); }
+  function turnOver(u) { burnTick(u); u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u);
+    u.disarmed = false; u.stunned = false; bleedTick(u); }   /* ARMORY 2: the whip's disarm and stun last his one turn; his bleeding ticks as it closes */
   /* A REST (rules 283(b), 285(b)): END TURN with no AP spent; at his next turn ours.rest_recovery comes back instead of 15 (MEASURED
      10/26: a car door and a spear among three brigands, ending his turn to rest, went 81 -> 83 -> 83 of 83 and never swung again).
      The 'owed' sum that held a resting man's hits back until his next swing is gone (rule 313): the breath now comes back at the
@@ -1926,7 +1976,7 @@ const FIGHT = (function () {
     if (!isRanged(w)) {
       /* HEIGHT IS ACCURACY, NEVER A WALL (COMBAT 4, rule 321, Paolo 11/2: 'it's not that you can never hit him, it's just more
          inaccurate'): the next tile is always in reach, whatever the storeys between; the storeys move the chance (hitChance) */
-      return d <= R('ours.melee_reach') && (R('ours.height_is_accuracy').melee_any_storey || Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap'));
+      return d <= reachOf(w) && (R('ours.height_is_accuracy').melee_any_storey || Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap'));
     }
     const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
     return d >= rangeLo(w) && d <= rangeMax(w.range) + up && sees(a, t);
@@ -2152,6 +2202,7 @@ const FIGHT = (function () {
     /* THE NEEDLE (FACTIONS 11/3; Goblin Poison's page): a hit that draws blood poisons him for 3 turns */
     if (r.hp > 0 && a.side !== t.side && arche(a).poisons && (t.immune || []).indexOf('Poison') < 0) { t.poison = NEW('poison').turns; emit({ t: 'poisoned', id: t.id, by: a.id }); }
     injure(t, a, r);
+    if (isWhip(a.weapon) && !isRanged(a.weapon)) whipLanded(a, t, r);   /* ARMORY 2: the bleeding, the stun */
     const s = R('parsed.morale_struck'), fs = PK(a, 'fearsome');
     if (fs && r.hp >= fs.min_hitpoint_damage_to_trigger)
       check(t, 'neg', s.per_missing_hp_fraction * (1 - t.hp / t.hpMax) - Math.min(fs.resolve_bonus_cap, a.resolve * fs.morale_penalty_pct_of_resolve / 100));
@@ -2372,6 +2423,7 @@ const FIGHT = (function () {
   function canStrike(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return false;
     if (climbedNow(a)) return false;   /* rule 328: he climbed this turn */
+    if (a.disarmed) return false;   /* ARMORY 2: a whip took his weapon out of play for this turn */
     const s = strikeSkill(a.weapon);
     if (a.ap < skillAP(a.weapon, s, a)) return false;
     if (a.fat + skillFat(a, s) > fatMax(a)) return false;
@@ -2386,6 +2438,7 @@ const FIGHT = (function () {
   function strikeWhy(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return { why: 'cannot' };
     if (climbedNow(a)) return { why: 'climbed' };   /* rule 328: CLIMBED THIS TURN */
+    if (a.disarmed) return { why: 'disarmed' };
     const s = strikeSkill(a.weapon), need = skillAP(a.weapon, s, a);
     if (!inRange(a, t)) return { why: 'range' };
     if (a.ap < need) return { why: 'ap', need: need, have: a.ap, shot: isRanged(a.weapon) };
@@ -2405,7 +2458,8 @@ const FIGHT = (function () {
     const also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });   /* a blow with a shape (the shotgun's blast) */
     const way = isRanged(a.weapon) && coverCut(a, t) ? inTheWay(a, t) : null;   /* read before the shot: the board as he aimed */
     const q = resolveAttack(a, t, s, forced);
-    apply(a, t, q, { skill: shapeOf(s) ? s.name : null });
+    apply(a, t, q, { skill: shapeOf(s) ? s.name : isWhip(a.weapon) ? s.name : null });
+    lashCosts(a, t);   /* ARMORY 2: the cell, the cut, the crack */
     /* THE SHOT GOES ASTRAY (rule 230(b)): a blocked shot that misses flies on into the man in the way, his own defence (a shield
        man's car door against shots) at -15 and three quarters of the damage. Only a man of the target's side takes it [COMBAT'S
        DEFAULT, rule 205]: his words were the shield covering the man behind it; Battle Brothers' own friendly fire (a friend in
@@ -2424,7 +2478,7 @@ const FIGHT = (function () {
      axe's Round Swing, the long blade's Split and Swing) is his to pick, and the brains pick it when it strikes two or more. */
   function shapeOf(s) { return s && DB.shapes ? DB.shapes.rows.filter(function (r) { return r.skill === s.name; })[0] || null : null; }
   /* a weapon's other skills that sweep (the greatsword has two: Split and Swing); a weapon whose own blow sweeps needs none */
-  function sweepSkills(w) { const st = strikeSkill(w); return shapeOf(st) ? [] : w.skills.filter(function (s) { return s !== st && shapeOf(s); }); }
+  function sweepSkills(w) { const st = strikeSkill(w), wh = isWhip(w) ? R('ours.whip').other : []; return shapeOf(st) ? [] : w.skills.filter(function (s) { return s !== st && (shapeOf(s) || wh.indexOf(s.name) >= 0); }); }   /* ARMORY 2: a whip's DISARM rides the sweep's button */
   function sweepSkill(w, name) { return sweepSkills(w).filter(function (s) { return !name || s.name === name; })[0] || null; }
   /* the skill the blow on this man is: the weapon's own (a gun's is its shot at every tile, rule 195) */
   function blowSkill(a) { return strikeSkill(a.weapon); }
@@ -2460,7 +2514,7 @@ const FIGHT = (function () {
   }
   function canSweep(a, t, name) {
     const s = sweepSkill(a.weapon, name);
-    if (!s || !onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing' || climbedNow(a)) return false;
+    if (!s || !onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing' || climbedNow(a) || a.disarmed) return false;
     if (a.ap < skillAP(a.weapon, s, a) || a.fat + skillFat(a, s) > fatMax(a)) return false;
     return inRange(a, t);
   }
@@ -2469,6 +2523,7 @@ const FIGHT = (function () {
     const s = sweepSkill(a.weapon, name), also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });
     a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
     S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
+    if (!shapeOf(s)) { const qd = resolveAttack(a, t, s, forced); disarmOn(a, t, qd); lashCosts(a, t); afterAction(a); return qd; }   /* ARMORY 2: DISARM, the whip's other blow */
     const q = resolveAttack(a, t, s, forced);
     apply(a, t, q, { skill: s.name });
     also.forEach(function (o) { if (onField(o)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });
@@ -3074,7 +3129,7 @@ const FIGHT = (function () {
     },
     /* THE RUNNER, THE WOLF (ai.json rider, rusher: 'go round for the weakest'): his blows on the weakest of ours a run away */
     runs_round: function (t) {
-      const m = weakestOf(t, stepsOf(t) + R('ours.melee_reach'));
+      const m = weakestOf(t, stepsOf(t) + reachOf(t.weapon));
       return m ? Math.max(0, threatOf(t, m) - threatOf(t)) : 0;
     }
   };
@@ -3084,7 +3139,7 @@ const FIGHT = (function () {
     let v = threatOf(t);
     lessonsOf(t).forEach(function (k) { if (LESSON[k]) v += LESSON[k](t); });
     if (onField(t) && t.morale !== 'Fleeing') foes(t).forEach(function (m) {
-      const steps = Math.floor(t.apTurn / R('ap.move_cost.flat')), far = isRanged(t.weapon) ? rangeMax(t.weapon.range) : R('ours.melee_reach');
+      const steps = Math.floor(t.apTurn / R('ap.move_cost.flat')), far = isRanged(t.weapon) ? rangeMax(t.weapon.range) : reachOf(t.weapon);
       if (dist(t, m) > steps + far) return;
       const b = blowsOn(t, m, t.apTurn), w = t.weapon, hp = hitDamage(t, m, (w.damage_min + w.damage_max) / (1 + 1), false, m.armB).hp;
       if (b.n * b.p * hp >= m.hp) v += threatOf(m);
@@ -3142,7 +3197,7 @@ const FIGHT = (function () {
     if (canStrike(m, t)) return { x: m.x, y: m.y, cost: 0, b: blowsOn(m, t, m.ap) };
     if (zocOn(m, m.x, m.y).length || m.netted) return null;
     field = field || reach(m);
-    const ranged = isRanged(m.weapon), far = ranged ? rangeMax(m.weapon.range) + R('hit_chance.height.ranged_range_per_level') * (1 + 1) : R('ours.melee_reach');
+    const ranged = isRanged(m.weapon), far = ranged ? rangeMax(m.weapon.range) + R('hit_chance.height.ranged_range_per_level') * (1 + 1) : reachOf(m.weapon);
     const ox = m.x, oy = m.y, oap = m.ap;
     let best = null;
     try {
@@ -3153,7 +3208,8 @@ const FIGHT = (function () {
         m.x = x; m.y = y; m.ap = left;
         if (!canStrike(m, t) || (ranged && zocOn(m, x, y).length)) return;
         /* the fewest other men's rings, then (a shooter) the highest tile, then the most expected blows, then the least AP */
-        const b = blowsOn(m, t, left), rings = zocOn(m, x, y).filter(function (f) { return f !== t; }).length, up = ranged ? level(x, y) : 0;
+        /* ARMORY 2: a whip man counts standing in his face as half a ring more, so he lashes from the second tile when there is one */
+        const b = blowsOn(m, t, left), rings = zocOn(m, x, y).filter(function (f) { return f !== t; }).length + (!ranged && isWhip(m.weapon) && Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) < R('ours.whip').reach ? R('ours.whip').auto_face_ring : 0), up = ranged ? level(x, y) : 0;
         const better = !best || rings < best.rings || (rings === best.rings && (up > best.up || (up === best.up && (b.n * b.p > best.b.n * best.b.p || (b.n * b.p === best.b.n * best.b.p && field.best[k] < best.cost)))));
         if (b.n > 0 && better) best = { x: x, y: y, cost: field.best[k], b: b, rings: rings, up: up };
       });
@@ -3446,7 +3502,7 @@ const FIGHT = (function () {
      tile beside that man first when he can still fire from it this turn and the shot there is worth a fifth more (the band's
      damage and the chance as the rules read them), never into a second man's ring; else he fires from where he stands */
   function stepIn(u) {
-    const t = bestTarget(u); if (!t || dist(u, t) <= 1 || u.netted) return false;
+    const t = bestTarget(u); if (!t || dist(u, t) <= 1 || u.netted || isWhip(u.weapon)) return false;   /* a whip never steps in to his face (ARMORY 2) */
     const w = u.weapon, strikeAP = skillAP(w, strikeSkill(w), u), here = expected(u, t), f = reach(u), ox = u.x, oy = u.y;
     let best = null, bs = here * R('ours.range_bands_step_in').worth;
     Object.keys(f.best).forEach(function (k) {
@@ -3590,6 +3646,8 @@ const FIGHT = (function () {
         if (tv) sc += R('ours.auto_finds_a_shot').club_target_weight * tv;
         /* rule 187(d): a rifleman keeps his distance; a gun whose damage falls off with it (the shotgun) closes in */
         if (ranged) sc += (wantsClose(w) ? -1 : 1) * Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
+        /* ARMORY 2 (rule 320): AUTO's whip lashes from the second tile, out of their swing (ours.whip.auto_second_tile) */
+        if (!ranged && isWhip(w) && Math.min.apply(null, foes(u).filter(function (fo) { return onField(fo) && !isRanged(fo.weapon); }).map(function (fo) { return dist(ghost, fo); }).concat([Infinity])) >= R('ours.whip').reach) sc += R('ours.whip').auto_second_tile;
       } else {
         sc = holds ? -Infinity : -hunt(x, y) * R('hit_chance.cap').max + left;
         if (ranged && !A.advance && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
@@ -3688,11 +3746,11 @@ const FIGHT = (function () {
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
-    canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
+    canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
-      makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
+      makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
   };
 })();
 </script>
@@ -4592,7 +4650,8 @@ function bullet(moment, a, t, e) {
 /* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
-const NOTE_BEATS = { spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
+const NOTE_BEATS = { spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0,
+  bleeding: 0, bled: .25, stunned: 0, stunned_turn: .25, disarmed: 0, cell: 0, cut: 0, crack: 0 };   /* ARMORY 2: the whip's marks */
 function take() {
   const ev = FIGHT.S.events, n0 = UI.anim.length; FIGHT.S.events = [];
   let swing = null;   /* WEAPON SHAPES: the other men a sweep strikes ride the one swing (one motion, one beat, every man it caught) */
@@ -4850,6 +4909,54 @@ function drawDust(now) {
       cx.globalAlpha = Math.max(0, .85 * (1 - k)); cx.fillStyle = i % 3 ? '#cbb998' : '#8e7d62';
       cx.fillRect(Math.round(X + out), Math.round(Y - up - r2 * 4 * c), c * (i % (1 + 1) ? 1 : 2), c);
     }
+  });
+  cx.restore();
+}
+/* ==== __THE_LASH__ (ARMORY 2, rule 320, Paolo 11/2: 'a two tile weapon... a whip kind of vibe'): the whip's cord, drawn from his
+   hand out to the man it lashes, one tile or two, over the swing's own beat. SIX DRAWN KEYS A BEAT and nothing between two keys is
+   drawn (the swing clip under it holds three): wound back over the shoulder, rolled over his head, OUT TO THE MAN ON THE KEY THE
+   BLOW LANDS (the landing is 0.45 of the beat, key 2 holds .33 to .5), the tip dropping, slack on the ground, drawn back in. Each
+   point of the cord turns at most 80 degrees between two drawn keys (gates/the_whip_reaches_two_tiles_gate.js holds it under the
+   envelope law's 120: AN ENVELOPE RAMPS SLOWER THAN THE GRID). A key's points run from the hand out: x in hand-to-man lengths,
+   y in man heights up. Whole pixels, the ink shadow under it; each piece its own cord (the orange cord and its plug, the live
+   wire's black and its spark, the barbed wire's barbs, the bullwhip's leather and its crack). ==== */
+const LASH_KEYS = [
+  [[-0.021, 0.124], [-0.05, 0.228], [-0.087, 0.312], [-0.133, 0.378], [-0.188, 0.424], [-0.25, 0.45]],
+  [[0.006, 0.174], [0.022, 0.328], [0.05, 0.463], [0.089, 0.578], [0.139, 0.674], [0.2, 0.75]],
+  [[0.153, 0.125], [0.311, 0.2], [0.475, 0.225], [0.644, 0.2], [0.819, 0.125], [1.0, 0.0]],
+  [[0.167, 0.033], [0.333, 0.033], [0.5, 0.0], [0.667, -0.067], [0.833, -0.167], [1.0, -0.3]],
+  [[0.149, -0.097], [0.294, -0.189], [0.438, -0.275], [0.578, -0.356], [0.715, -0.431], [0.85, -0.5]],
+  [[0.069, -0.125], [0.144, -0.233], [0.225, -0.325], [0.311, -0.4], [0.403, -0.458], [0.5, -0.5]]
+];
+const LASH_CRACK_KEY = 2;
+const LASH_LOOK = { extension_cord: { cord: '#d9822b', tip: 'plug' }, live_wire: { cord: '#2b2a2e', tip: 'spark' }, barbed_wire: { cord: '#8c8a84', tip: 'barbs' },
+  rodeo_bullwhip: { cord: '#6b4423', tip: 'crack' }, _: { cord: '#5a3c22', tip: '' } };
+function lashPts(l, k) {
+  const u = FIGHT.byId(l.u), t = FIGHT.byId(l.t); if (!u || !t) return null;
+  const h = manH(), X0 = sx((dx(u) + .5) * UI.tw), Y0 = sy((dy(u) + .9) * UI.th) - h * .5, X1 = sx((dx(t) + .5) * UI.tw), Y1 = sy((dy(t) + .9) * UI.th) - h * .5;
+  return [[X0, Y0]].concat(LASH_KEYS[k].map(function (p) { return [X0 + p[0] * (X1 - X0), Y0 + p[0] * (Y1 - Y0) - p[1] * h]; }));
+}
+function drawLash(now) {
+  if (!UI.lash || !UI.lash.length) return;
+  UI.lash = UI.lash.filter(function (l) { return now - l.at < l.B; });
+  const c = Math.max(1, Math.round(DPR * Math.max(1, manH() / 60)));
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0);
+  UI.lash.forEach(function (l) {
+    const k = Math.floor((now - l.at) / (l.B / LASH_KEYS.length)); if (k < 0 || k >= LASH_KEYS.length) return;
+    const P = lashPts(l, k); if (!P) return;
+    const look = LASH_LOOK[l.arm] || LASH_LOOK._, dots = [];
+    for (let i = 1; i < P.length; i++) {
+      const ax = P[i - 1][0] * DPR, ay = P[i - 1][1] * DPR, bx = P[i][0] * DPR, by = P[i][1] * DPR, n = Math.max(1, Math.ceil(Math.hypot(bx - ax, by - ay) / c));
+      for (let j = 0; j < n; j++) dots.push([Math.round((ax + (bx - ax) * j / n) / c) * c, Math.round((ay + (by - ay) * j / n) / c) * c]);
+    }
+    const tip = [Math.round(P[P.length - 1][0] * DPR / c) * c, Math.round(P[P.length - 1][1] * DPR / c) * c];
+    cx.globalAlpha = .7; cx.fillStyle = '#140c06'; dots.forEach(function (d) { cx.fillRect(d[0], d[1] + c, c, c); });
+    cx.globalAlpha = 1; cx.fillStyle = look.cord; dots.forEach(function (d) { cx.fillRect(d[0], d[1], c, c); });
+    if (look.tip === 'barbs') { cx.fillStyle = '#c9c7bf'; dots.forEach(function (d, i) { if (i % 4 === 2) { cx.fillRect(d[0] - c, d[1] - c, c, c); cx.fillRect(d[0] + c, d[1] + c, c, c); } }); }
+    if (look.tip === 'plug') { cx.fillStyle = '#e8e2d0'; cx.fillRect(tip[0] - c, tip[1] - c, c * 2, c * 2); cx.fillStyle = '#3a342c'; cx.fillRect(tip[0] + c, tip[1] - c, c, c); }
+    if (k === LASH_CRACK_KEY && look.tip === 'spark') { cx.fillStyle = '#cfe6ff'; [[0, -2], [2, -1], [-2, 1], [1, 2], [-1, -3], [3, 1]].forEach(function (q) { cx.fillRect(tip[0] + q[0] * c, tip[1] + q[1] * c, c, c); }); }
+    const sg = P[P.length - 1][0] >= P[0][0] ? 1 : -1;   /* the crack flies on past the man, away from the hand */
+    if (k === LASH_CRACK_KEY && look.tip === 'crack') { cx.fillStyle = '#f4e8c8'; [[2, -2], [3, -3], [3, 0], [4, 0], [2, 2], [3, 3]].forEach(function (q) { cx.fillRect(tip[0] + q[0] * sg * c, tip[1] + q[1] * c, c, c); }); }
   });
   cx.restore();
 }
@@ -5243,9 +5350,12 @@ function startAnim(a) {
     if (!e.hit) { UI.dodge = UI.dodge || {}; UI.dodge[t.id] = { t: a.at + B * 0.45, dir: (t.x - u.x) >= 0 ? 1 : -1 };
       if (u.side === 'you') t._dodged = (t._dodged || 0) + 1; }
     if (u.side === 'you') t._tried = (t._tried || 0) + 1;
-    numTag(t, e.chance + '%', null, a.at - performance.now() + B * 0.45, e.hit ? '-' + e.hp : into ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
+    const dis = e.skill === 'Disarm';   /* ARMORY 2: the whip's DISARM takes no health, it takes his weapon out of play */
+    if (!ranged && FIGHT.isWhip(u.weapon)) (UI.lash = UI.lash || []).push({ at: a.at, B: B, u: u.id, t: t.id, arm: (u.weapon.of || u.weapon).id, hit: !!e.hit, dis: dis });   /* the cord to the second tile, on the beat */
+    numTag(t, e.chance + '%', null, a.at - performance.now() + B * 0.45, e.hit ? (dis ? 'DISARM' : '-' + e.hp) : into ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     (a.fat || []).forEach(function (f) { windTag(f, a.at - performance.now() + B * 0.45 + (f.id === e.to ? 0 : B * 0.25)); });
-    pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
+    if (dis) pop(t, '', e.hit ? '#e0c06a' : '#8f8678', false, u.name + (e.hit ? ' lashes the weapon out of ' + t.name + "'s hands" : "'s lash misses " + t.name + "'s hands") + ' (' + e.chance + '%)');   /* draft:true */
+    else pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
   }
@@ -5267,6 +5377,16 @@ function startAnim(a) {
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
     if (e.t === 'poisoned') pop(u, 'SLOWED', '#a8e07c', false, u.name + ' takes a needle: one step less, slower and half blind for 3 turns.');   /* THE NEEDLE (FACTIONS 11/3, draft:true) */
+    /* THE WHIP'S MARKS (ARMORY 2, rule 320; words draft:true): the bleeding, the stun, the disarm, the cell, the cut, the crack */
+    if (u) { const by = e.by ? FIGHT.byId(e.by) : null, bn = by ? by.name : 'their man';
+      if (e.t === 'bleeding') pop(u, 'BLEEDING', '#d04030', false, u.name + ' is bleeding: -' + (R('ours.whip').bleed.per_turn * e.stacks) + ' a turn for ' + R('ours.whip').bleed.turns + ' turns.');
+      if (e.t === 'bled') pop(u, '-' + e.hp + ' blood', '#c03020', false, u.name + ' bleeds: -' + e.hp + ' health.');
+      if (e.t === 'stunned') pop(u, 'STUNNED', '#9ec8ff', true, bn + "'s live wire drops " + u.name + '. He loses his next turn.');
+      if (e.t === 'stunned_turn') pop(u, 'stunned', '#9ec8ff', false, u.name + ' is stunned and loses his turn.');
+      if (e.t === 'disarmed') { pop(u, 'DISARMED', '#e0c06a', true, u.name + ' cannot use his weapon on his next turn.'); if (crewControlled(u)) say(u.name + ' is disarmed: no weapon skill this turn.'); }
+      if (e.t === 'cell') pop(u, '-' + e.n + ' cell', '#9ec8ff', false, u.name + "'s live wire burns " + e.n + ' battery from the purse.');
+      if (e.t === 'cut') pop(u, '-' + e.hp + ' hands', '#d07060', false, 'The barbed wire cuts ' + u.name + "'s hands: -" + e.hp + ' health. Gloves stop it.');
+      if (e.t === 'crack') { const t2 = FIGHT.byId(e.to); if (t2) pop(t2, 'CRACK', '#f0e0b0', false, u.name + "'s bullwhip cracks over " + t2.name + '.'); } }
 
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
     if (e.t === 'reload' && u) { sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
@@ -5375,7 +5495,7 @@ function placeHurts() {
     const v = FIGHT.byId(h.id); if (!v) return;
     let el = have[h.id]; delete have[h.id];
     if (!el) { el = document.createElement('div'); el.className = 'hurt'; el.dataset.id = h.id; box.appendChild(el); }
-    const txt = h.txt || (h.chance + '% -' + h.hp); if (el.textContent !== txt) el.textContent = txt;
+    const txt = h.txt || (h.chance + '% ' + (h.say || '-' + h.hp));   /* ARMORY 2: DISARM takes no health */ if (el.textContent !== txt) el.textContent = txt;
     el.classList.toggle('maybe', !h.sure); el.classList.toggle('spark', !!h.txt);   /* THE CELL VEST's risk (rule 305) */
     const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - manH();
     el.style.left = Math.round(X - el.offsetWidth / 2) + 'px'; el.style.top = Math.round(top - el.offsetHeight - 4) + 'px';
@@ -6097,6 +6217,16 @@ function draw(now) {
       }
       mkOutline(gz, S.w, MK.tape, false);
     }
+    /* WHERE HIS WHIP REACHES (ARMORY 2, rule 320; rule 312: every skill shows where it lands): a whip man's two tiles round him, taped
+       off like a gun's ground, so LASH's and DISARM's second tile is lit before he picks a man */
+    if (FIGHT.isWhip(u.weapon) && !FIGHT.isRanged(u.weapon) && !u.disarmed) {
+      const gz = {}, hi = FIGHT.reachOf(u.weapon);
+      for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
+        const d = Math.max(Math.abs(x - u.x), Math.abs(y - u.y));
+        if (d >= 1 && d <= hi && FIGHT._t.passable(x, y)) gz[y * S.w + x] = true;
+      }
+      mkOutline(gz, S.w, MK.tape, false);
+    }
     /* a man he can hit: RUST corners on his tile (rule 83: a gun's begins at two) */
     S.units.forEach(function (t) { if (FIGHT.canStrike(u, t) && FIGHT.sideSees('you', t)) mkCorners(t.x, t.y, MK.rustLit); });
     if (UI.skillMode) FIGHT.skillTargets(u, UI.skillMode).forEach(function (q) { mkCorners(q.x, q.y, MK.teal); });
@@ -6115,6 +6245,11 @@ function draw(now) {
       tiles.forEach(function (q) { const v = S.units.filter(function (w) { return FIGHT.onField(w) && w.x === q.x && w.y === q.y; })[0];
         if (v && struck.indexOf(v) >= 0) mkCorners(q.x, q.y, MK.rustLit); else if (v && v.side === u.side && v !== u) mkCorners(q.x, q.y, MK.chalkDim); });
       UI.shapeLit = { skill: psk.name, tiles: tiles, struck: struck.map(function (v) { return v.id; }) };
+    } else if (pt && psk && FIGHT.isWhip(u.weapon)) {   /* ARMORY 2: the whip's LASH or DISARM picked on a man, one tile off or two: his tile lifted and ringed */
+      const T = mkTile(pt.x, pt.y), lit = {}; lit[pt.y * S.w + pt.x] = true;
+      cx.globalCompositeOperation = 'lighter'; cx.fillStyle = MK.lift; cx.fillRect(T.x0 * MKU, T.y0 * MKU, (T.x1 - T.x0) * MKU, (T.y1 - T.y0) * MKU);
+      cx.globalCompositeOperation = 'source-over'; mkOutline(lit, S.w, MK.rustLit, false); mkCorners(pt.x, pt.y, MK.rustLit);
+      UI.shapeLit = { skill: psk.name, tiles: [{ x: pt.x, y: pt.y }], struck: [pt.id], reach: Math.max(Math.abs(pt.x - u.x), Math.abs(pt.y - u.y)) };
     }
     /* EVERY ABILITY SHOWS WHERE IT LANDS, BEFORE THE TAP THAT FIRES IT (COMBAT [see every hit], rule 312, Paolo 11/2: 'when I click
        the round swing and I have a two-handed axe, I should see where the other swings will take damage... this is for
@@ -6126,7 +6261,7 @@ function draw(now) {
        it touches marked teal (him, or the men a rally steadies). Shapes are foe only (rule 117): a friend in one is passed over */
     if (pt && psk) {
       const caught = FIGHT.shapeOf(psk) ? FIGHT.shapeFoes(u, pt, psk) : [pt];
-      caught.forEach(function (v) { if (FIGHT.onField(v)) UI.hurtShown.push({ id: v.id, chance: FIGHT.hitChance(u, v, psk).chance, hp: FIGHT.preview(u, v).hp, sure: true }); });
+      caught.forEach(function (v) { if (FIGHT.onField(v)) UI.hurtShown.push({ id: v.id, chance: FIGHT.hitChance(u, v, psk).chance, hp: FIGHT.preview(u, v).hp, sure: true, say: !FIGHT.shapeOf(psk) && UI.pend.sweep ? 'DISARM' : null }); });
     } else if (UI.sweep) {
       const sk = FIGHT.sweepSkill(u.weapon, UI.sweep), row = sk && FIGHT.shapeOf(sk);
       if (row) {
@@ -6144,6 +6279,13 @@ function draw(now) {
         tiles.forEach(function (q) { const v = S.units.filter(function (w) { return FIGHT.onField(w) && w.x === q.x && w.y === q.y; })[0]; if (v && v.side === u.side && v !== u) mkCorners(q.x, q.y, MK.chalkDim); });
         caught.forEach(function (v) { UI.hurtShown.push({ id: v.id, chance: FIGHT.hitChance(u, v, sk).chance, hp: FIGHT.preview(u, v).hp, sure: ring }); });
         UI.shapeLit = { skill: sk.name, armed: true, tiles: tiles, struck: caught.map(function (v) { return v.id; }) };
+      } else if (sk && FIGHT.isWhip(u.weapon)) {   /* ARMORY 2: DISARM armed: every man of theirs it reaches, one tile off or two, lifted, cornered and tagged */
+        const aims = S.units.filter(function (t) { return t.side !== u.side && FIGHT.onField(t) && FIGHT.sideSees('you', t) && FIGHT.canSweep(u, t, UI.sweep); }), lit = {};
+        cx.globalCompositeOperation = 'lighter'; cx.fillStyle = MK.lift;
+        aims.forEach(function (t) { lit[t.y * S.w + t.x] = true; const T = mkTile(t.x, t.y); cx.fillRect(T.x0 * MKU, T.y0 * MKU, (T.x1 - T.x0) * MKU, (T.y1 - T.y0) * MKU); });
+        cx.globalCompositeOperation = 'source-over'; mkOutline(lit, S.w, MK.rustLit, false);
+        aims.forEach(function (t) { mkCorners(t.x, t.y, MK.rustLit); UI.hurtShown.push({ id: t.id, chance: FIGHT.hitChance(u, t, sk).chance, hp: 0, sure: true, say: 'DISARM' }); });
+        UI.shapeLit = { skill: sk.name, armed: true, tiles: aims.map(function (t) { return { x: t.x, y: t.y }; }), struck: aims.map(function (t) { return t.id; }) };
       }
     }
     if (UI.skillMode === 'spark' && FIGHT.vestLive(u)) {   /* THE CELL VEST: the risk seen first (rule 303) */
@@ -6201,6 +6343,7 @@ function draw(now) {
   drawDrops(now);   /* rule 145(b): the burst in the air, over the men */
   drawDust(now);   /* THE PUNCH: a shot that misses kicks dust off the ground past him */
   drawSmoke(now, tw, th);   /* THE CELL VEST (rule 305): the smoke, the vest on the man, the white frame on the beat */
+  drawLash(now);   /* ARMORY 2: the whip's cord out to the second tile, on the beat */
   /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
   if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26) {
     const Y = sy((dy(u) + .9) * UI.th) - th * riseAt(u.x, u.y);
@@ -7363,7 +7506,7 @@ function perkIcon(g, id, S) {
 function shapeIcon(k, css) {
   const c = document.createElement('canvas'), d = Math.min(window.devicePixelRatio || 1, 3), g = c.getContext('2d');
   c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px';
-  const a = { x: 0, y: 0 }, tiles = FIGHT.shapeTiles(a, { x: 1, y: 0 }, k).concat([a]);
+  const a = { x: 0, y: 0 }, tiles = (FIGHT.shapeOf(k) ? FIGHT.shapeTiles(a, { x: 1, y: 0 }, k) : [{ x: R('ours.whip').reach, y: 0 }]).concat([a]);   /* ARMORY 2: DISARM's square is him and the man two tiles off */
   const x0 = Math.min.apply(null, tiles.map(function (q) { return q.x; })), x1 = Math.max.apply(null, tiles.map(function (q) { return q.x; }));
   const y0 = Math.min.apply(null, tiles.map(function (q) { return q.y; })), y1 = Math.max.apply(null, tiles.map(function (q) { return q.y; }));
   const n = Math.max(x1 - x0, y1 - y0) + 1, cell = Math.floor(c.width / n), ox = Math.floor((c.width - cell * (x1 - x0 + 1)) / 2), oy = Math.floor((c.height - cell * (y1 - y0 + 1)) / 2);
@@ -7372,17 +7515,18 @@ function shapeIcon(k, css) {
 }
 /* the sweep's one line under the finger (draft:true for WORDS): what it strikes, in plain words */
 const SWEEP_SAYS = { line: 'It hits him and the man behind him.', arc: 'It hits him and the next two around you.', ring: 'It hits every man of theirs around you.' };   /* draft:true */
+const WHIP_SAYS = { Disarm: 'It takes the weapon out of his hands: no weapon skill on his next turn. Two tiles.' };   /* ARMORY 2, draft:true */
 function sweepTap(name) {
   audio(); const u = FIGHT.current(); if (!crewControlled(u)) return;
   UI.pend = null; UI.skillMode = null;
   if (UI.sweep === name) { UI.sweep = null; say('Put away.'); hud(); return; }
   UI.sweep = name; const row = FIGHT.shapeOf(FIGHT.sweepSkill(u.weapon, name));
-  say(name.toUpperCase() + ': tap a man of theirs. ' + (SWEEP_SAYS[row.kind] || ''), true); hud();
+  say(name.toUpperCase() + ': tap a man of theirs. ' + ((row ? SWEEP_SAYS[row.kind] : WHIP_SAYS[name]) || ''), true); hud();
 }
 function sweepSay(u, t, name) {
   const k = FIGHT.sweepSkill(u.weapon, name), n = FIGHT.shapeFoes(u, t, k).length;
   say('', true); const e = document.getElementById('say');
-  e.innerHTML = '<b>' + FIGHT.hitChance(u, t, k).chance + '%</b> to hit. ' + name.toUpperCase() + ' strikes ' + n + ' of theirs.';
+  e.innerHTML = '<b>' + FIGHT.hitChance(u, t, k).chance + '%</b> to hit. ' + name.toUpperCase() + (FIGHT.shapeOf(k) ? ' strikes ' + n + ' of theirs.' : ': no weapon skill for ' + t.name + ' on his next turn.');
   e.style.display = 'block';
 }
 /* THE BAG'S SQUARE: the weapon's glyph with a strap across its top corner and two swap arrows, the pen's cells */
@@ -7771,7 +7915,7 @@ function weaponCard(v) {
   if (w.armor_damage_pct !== null) h += r('Against armour', cbar(w.armor_damage_pct, most('armor_damage_pct'), w.armor_damage_pct + '%', 'pct'));
   if (w.armor_ignore_pct) h += r('Straight through armour', cbar(w.armor_ignore_pct, most('armor_ignore_pct'), w.armor_ignore_pct + '%', 'pct'));
   const gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? FIGHT._t.rangeLo(w) : 1;
-  h += r('Reach', gun ? tilePips(lo, w.range_max) : !FIGHT.isRanged(w) ? tilePips(1, R('ours.melee_reach')) : tilePips(1, w.range_max || 1))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
+  h += r('Reach', gun ? tilePips(lo, w.range_max) : !FIGHT.isRanged(w) ? tilePips(1, FIGHT.reachOf(w)) : tilePips(1, w.range_max || 1))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
   if (w.mag) h += r('Rounds', pips(w.mag, w.mag) + ' then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
   else if (rl) h += r(esc(rl.name), rl.ap + ' AP');
@@ -7989,7 +8133,7 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
-  return { type: 'BOHEMIA_FIGHT_OVER', result: result, withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, cellsBurned: S.cellsBurned | 0,   /* ARMORY 2: the live wire's cells, taken from the purse by the shell */ withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
       main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null, kills: v.kills | 0, best: v.best || null,   /* WORDS rule 316: his kills and his best foe, for his record */
       /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,

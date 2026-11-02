@@ -538,6 +538,10 @@ function restock(){
                     .concat(pick(BB.armor.head, Math.floor(n/2), key+':h').map(function(r){ return armourItem('head', r); })); };
   var tm = traitMult(), sm = function(n){ return Math.max(1, Math.round(n * tm.stock)); };
   S.stock = {arms: W(sm(4),'arms').concat(A(sm(3),'arms')), smith: W(sm(7),'smith'), armourer: A(sm(6),'armourer').concat(pick(BB.armor.shields, 2, 'shields').map(function(r){ return armourItem('shields', r); }))};
+  /* ARMORY 2 (rule 320): THE STARTERS (records/target/bb/armory.json 'starter': the pool pole spear, the extension cord) sit on every
+     camp's smith shelf, the camp's junk, whatever the roll */
+  if(tier === 'camp') BB.weapons.filter(function(r){ return r.armory && r.armory.starter && CLASSNAME[r['class']]; }).forEach(function(r){
+    if(!S.stock.smith.some(function(it){ return it.id === r.id; })) S.stock.smith.push(weaponItem(r)); });
   /* a trait moves every price on the shelves, never below one battery */
   var rp = relPrice();
   for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.base = it.price; it.price = Math.max(1, Math.round(it.price * (1 - rp.buySub) * tm.buy)); });

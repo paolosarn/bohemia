@@ -64,8 +64,26 @@ def main(mode):
         r['fatigue'] = mean(a.get('fatigue'), b.get('fatigue'), rint)
         r['value'] = mean(a.get('value'), b.get('value'), r10)
         r['source'] = rec + ' | ARMORY 11/2: the mean of ' + a['id'] + ' and ' + b['id'] + ', fought with ' + a['id'] + "'s skills | A: " + a['source'] + ' | B: ' + b['source']
+        # ARMORY 2 (rule 320): what moves off the mean, each with its why; a whip's blow is LASH and reaches ours.whip.reach
+        t = s.get('tune') or {}
+        for k, v in (t.get('add') or {}).items(): r[k] = (r.get(k) or 0) + v
+        for k, v in (t.get('set') or {}).items(): r[k] = v
+        if t: r['source'] += ' | ARMORY 2 tune: ' + json.dumps({k: t[k] for k in ('add', 'set', 'lash_hit_bonus') if k in t}) + ' (' + t['why'] + ')'
+        if s.get('lash'):
+            reach = load(os.path.join(BB, 'ours.json'))['whip']['value']['reach']
+            r['range'], r['range_min'], r['range_max'] = '1-%d' % reach, 1, reach
+            for sk in r['skills']:
+                if sk['name'] == 'Whip':
+                    sk['name'] = 'Lash'; sk['bb_name'] = 'Whip'
+                    sk['effect'] = 'Reaches %d tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row\'s share straight through' % reach
+                    if t.get('lash_hit_bonus'): sk['hit_bonus'] = t['lash_hit_bonus']
+                if sk['name'] == 'Disarm': sk['range'] = reach; sk['effect'] = 'Reaches %d tiles (ours.whip.reach); a disarmed man cannot use any weapon skill on his next turn; -20%% to hit' % reach
+                if sk.get('range') == 3: sk['range'] = reach
+            r['whip'] = dict(s.get('whip') or {})
         r['armory'] = {'name': s['name'].lower(), 'object': s['object'], 'line': s['line'], 'tier': s['tier'], 'kind': s['kind'],
                        'role': s['role'], 'between': s['between'], 'across': s.get('across'), 'carried_by': s['carried_by'], 'draft': True}
+        if s.get('starter'): r['armory']['starter'] = True
+        if s.get('prop'): r['armory']['prop'] = s['prop']
         same = [x for x in W['rows'] if x['class'] == r['class'] and (x['damage_min'], x['damage_max'], x.get('armor_damage_pct'), x.get('value')) ==
                 (r['damage_min'], r['damage_max'], r.get('armor_damage_pct'), r['value'])]
         if same: bad.append(s['id'] + ': the same numbers as ' + same[0]['id'])
@@ -99,7 +117,7 @@ def main(mode):
     for r in out_w:
         a = r['armory']['between'][0]
         for key in ('by_row', 'two_by_row', 'bow_by_row'):
-            if key in M and a in M[key]: M[key][r['id']] = M[key][a]
+            if key in M and a in M[key]: M[key][r['id']] = r['armory'].get('prop') or M[key][a]
     # the 3D model that draws each piece today: its family's (A's) object in COOK's manifest, until COOK models it on its own
     IP = P('reference/models/bohemia/items.json'); I = load(IP); ids = set(r['id'] for r in out_w) | set(r['id'] for k in out_a for r in out_a[k])
     for o in I['items'].values(): o['rows'] = [x for x in o.get('rows', []) if x not in ids]

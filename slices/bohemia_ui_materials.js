@@ -487,7 +487,9 @@
     'work jacket', 'padded vest', 'plate carrier', 'full riot armour', 'rag hood', 'hard hat', 'riot helmet', 'full riot helm', 'car door', 'riot shield',
     /* __THE_ARMORY__ (ARMORY, rule 302, Paolo 11/2: 'more weapons'): the valley's own pieces (records/target/bb/armory.json 'object'), each cut by hand below */
     'zip gun', 'snub revolver', 'lever rifle', 'deer rifle', 'sawed-off shotgun', 'pump shotgun', 'crowbar', 'bike-lock chain', 'box cutter', 'framing hammer',
-    'broom bayonet', 'katana', 'splitting maul', 'halberd'];
+    'broom bayonet', 'katana', 'splitting maul', 'halberd',
+    /* ARMORY 2 (rule 320): the pool pole spear and the whips, the two-tile weapon */
+    'pool pole spear', 'extension cord', 'live wire', 'barbed wire', 'bullwhip'];
   function objOf(item) {
     var n = String(item.name || '').toLowerCase();
     for (var i = OBJECTS.length - 1; i >= 0; i--) if (n.indexOf(OBJECTS[i]) >= 0) {
@@ -557,6 +559,15 @@
       case 'broom bayonet': line(2, 19, 14, 7, handle === 'red' ? 'red' : 'yellow', 2); line(14, 7, 19, 2, 'steel', 2); rect(13, 7, 2, 2, 'tape'); rect(12, 9, 2, 1, 'tape'); put(2, 20, 'black'); break;
       case 'katana': line(3, 19, 7, 15, 'black', 2); put(4, 17, 'white'); put(6, 16, 'white'); ell(8, 14, 1.7, 1.7, 'brass'); line(9, 13, 18, 4, 'steel', 2); line(10, 13, 19, 3, 'white', 1); break;
       case 'splitting maul': line(4, 20, 12, 8, 'wood', 2); rect(9, 3, 8, 5, 'dsteel'); put(8, 4, 'dsteel'); put(8, 5, 'dsteel'); put(7, 5, 'dsteel'); rect(17, 3, 2, 5, 'steel'); rect(10, 4, 5, 1, 'red'); break;
+      /* ARMORY 2 (rule 320): the pool pole with its taped kitchen knife; the whips coiled, the business end top-right */
+      case 'pool pole spear': line(1, 20, 14, 8, 'glass', 2); for (i = 0; i < 3; i++) put(4 + i * 4, 17 - i * 4, 'steel'); line(13, 9, 16, 6, 'black', 2); rect(13, 8, 2, 2, 'tape'); rect(12, 10, 2, 1, 'tape');
+        line(16, 6, 20, 2, 'steel', 2); line(17, 6, 20, 3, 'white', 1); put(1, 20, 'dsteel'); break;
+      case 'extension cord': ell(9, 12, 6, 5, 'flame', true); ell(10, 13, 4.5, 3.6, 'flame', true); line(3, 19, 5, 16, 'flame', 2); line(14, 9, 17, 6, 'flame', 1); rect(17, 3, 3, 3, 'white'); put(20, 3, 'brass'); put(20, 5, 'brass'); put(18, 6, 'black'); break;
+      case 'live wire': rect(2, 14, 7, 6, 'dsteel'); rect(3, 16, 5, 2, 'yellow'); put(3, 13, 'red'); put(7, 13, 'black'); line(8, 14, 11, 11, 'black', 2); ell(14, 8, 4, 3.5, 'black', true);
+        put(18, 4, 'white'); put(19, 3, 'glass'); put(17, 3, 'glass'); put(20, 5, 'glass'); put(19, 2, 'white'); break;
+      case 'barbed wire': line(3, 19, 7, 15, 'wood', 3); rect(6, 15, 2, 1, 'tape'); line(7, 15, 18, 4, 'steel', 1); ell(15, 8, 3, 3, 'steel', true);
+        for (i = 0; i < 4; i++) { var bx = 9 + i * 3, by = 13 - i * 3; put(bx - 1, by - 1, 'dsteel'); put(bx + 1, by + 1, 'dsteel'); put(bx + 1, by - 1, 'dsteel'); put(bx - 1, by + 1, 'dsteel'); } break;
+      case 'bullwhip': line(3, 19, 7, 15, 'leather', 3); put(4, 18, 'brass'); put(6, 16, 'brass'); line(7, 15, 12, 8, 'leather', 2); line(12, 8, 17, 5, 'leather', 1); line(17, 5, 19, 8, 'leather', 1); put(19, 9, 'tape'); put(20, 10, 'tape'); put(10, 11, 'black'); put(8, 13, 'black'); break;
       case 'halberd': line(2, 20, 12, 10, 'dsteel', 2); for (i = 0; i < 3; i++) put(4 + i * 3, 18 - i * 3, 'black'); ell(15, 6, 4.6, 4.6, 'red'); rect(11, 6, 9, 1, 'white'); rect(11, 6, 1, 1, 'red'); put(15, 6, 'white'); break;
       case 'riot shield': rect(5, 2, 12, 18, 'glass'); rect(5, 8, 12, 2, 'white'); rect(5, 2, 12, 1, 'black'); rect(5, 19, 12, 1, 'black'); rect(10, 12, 2, 4, 'black'); break;
     }

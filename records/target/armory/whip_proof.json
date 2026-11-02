@@ -1,0 +1,364 @@
+{
+ "at": "2026-11-02T10:12:44.769Z",
+ "extension_cord": {
+  "set": {
+   "ok": true,
+   "can": true,
+   "d": 2,
+   "whip": true,
+   "reach": 2,
+   "skill": "Lash"
+  },
+  "preview": true,
+  "lit": {
+   "shapeLit": {
+    "skill": "Lash",
+    "tiles": [
+     {
+      "x": 5,
+      "y": 7
+     }
+    ],
+    "struck": [
+     "e0"
+    ],
+    "reach": 2
+   },
+   "hurts": [
+    {
+     "id": "e0",
+     "chance": 62,
+     "hp": 1,
+     "sure": true,
+     "say": null
+    }
+   ]
+  },
+  "disarm": true,
+  "disarmLit": {
+   "shapeLit": {
+    "skill": "Disarm",
+    "armed": true,
+    "tiles": [
+     {
+      "x": 5,
+      "y": 7
+     }
+    ],
+    "struck": [
+     "e0"
+    ]
+   },
+   "hurts": [
+    {
+     "id": "e0",
+     "chance": 42,
+     "hp": 0,
+     "sure": true,
+     "say": "DISARM"
+    }
+   ],
+   "button": true
+  },
+  "strike": {
+   "hit": true,
+   "hp": 1,
+   "events": [
+    "attack:Lash",
+    "fat"
+   ]
+  },
+  "held": [
+   {
+    "arm": "extension_cord",
+    "key": 2
+   }
+  ],
+  "box": {
+   "x": 96,
+   "y": 260,
+   "width": 223,
+   "height": 127
+  },
+  "frames": [
+   "whip_extension_cord_key0.png",
+   "whip_extension_cord_key1.png",
+   "whip_extension_cord_key2.png",
+   "whip_extension_cord_key3.png",
+   "whip_extension_cord_key4.png",
+   "whip_extension_cord_key5.png"
+  ],
+  "keysSeen": 1,
+  "errs": []
+ },
+ "live_wire": {
+  "set": {
+   "ok": true,
+   "can": true,
+   "d": 2,
+   "whip": true,
+   "reach": 2,
+   "skill": "Lash"
+  },
+  "preview": true,
+  "lit": {
+   "shapeLit": {
+    "skill": "Lash",
+    "tiles": [
+     {
+      "x": 5,
+      "y": 7
+     }
+    ],
+    "struck": [
+     "e0"
+    ],
+    "reach": 2
+   },
+   "hurts": [
+    {
+     "id": "e0",
+     "chance": 62,
+     "hp": 1,
+     "sure": true,
+     "say": null
+    }
+   ]
+  },
+  "strike": {
+   "hit": true,
+   "hp": 1,
+   "events": [
+    "attack:Lash",
+    "fat",
+    "cell"
+   ]
+  },
+  "held": [
+   {
+    "arm": "live_wire",
+    "key": 2
+   }
+  ],
+  "box": {
+   "x": 96,
+   "y": 260,
+   "width": 223,
+   "height": 127
+  },
+  "frames": [
+   "whip_live_wire_key0.png",
+   "whip_live_wire_key1.png",
+   "whip_live_wire_key2.png",
+   "whip_live_wire_key3.png",
+   "whip_live_wire_key4.png",
+   "whip_live_wire_key5.png"
+  ],
+  "keysSeen": 1,
+  "errs": []
+ },
+ "barbed_wire": {
+  "set": {
+   "ok": true,
+   "can": true,
+   "d": 2,
+   "whip": true,
+   "reach": 2,
+   "skill": "Lash"
+  },
+  "preview": true,
+  "lit": {
+   "shapeLit": {
+    "skill": "Lash",
+    "tiles": [
+     {
+      "x": 5,
+      "y": 7
+     }
+    ],
+    "struck": [
+     "e0"
+    ],
+    "reach": 2
+   },
+   "hurts": [
+    {
+     "id": "e0",
+     "chance": 62,
+     "hp": 1,
+     "sure": true,
+     "say": null
+    }
+   ]
+  },
+  "strike": {
+   "hit": true,
+   "hp": 1,
+   "events": [
+    "attack:Lash",
+    "fat"
+   ]
+  },
+  "held": [
+   {
+    "arm": "barbed_wire",
+    "key": 2
+   }
+  ],
+  "box": {
+   "x": 96,
+   "y": 260,
+   "width": 223,
+   "height": 127
+  },
+  "frames": [
+   "whip_barbed_wire_key0.png",
+   "whip_barbed_wire_key1.png",
+   "whip_barbed_wire_key2.png",
+   "whip_barbed_wire_key3.png",
+   "whip_barbed_wire_key4.png",
+   "whip_barbed_wire_key5.png"
+  ],
+  "keysSeen": 1,
+  "errs": []
+ },
+ "rodeo_bullwhip": {
+  "set": {
+   "ok": true,
+   "can": true,
+   "d": 2,
+   "whip": true,
+   "reach": 2,
+   "skill": "Lash"
+  },
+  "preview": true,
+  "lit": {
+   "shapeLit": {
+    "skill": "Lash",
+    "tiles": [
+     {
+      "x": 5,
+      "y": 7
+     }
+    ],
+    "struck": [
+     "e0"
+    ],
+    "reach": 2
+   },
+   "hurts": [
+    {
+     "id": "e0",
+     "chance": 72,
+     "hp": 1,
+     "sure": true,
+     "say": null
+    }
+   ]
+  },
+  "strike": {
+   "hit": true,
+   "hp": 1,
+   "events": [
+    "attack:Lash",
+    "fat",
+    "crack"
+   ]
+  },
+  "held": [
+   {
+    "arm": "rodeo_bullwhip",
+    "key": 2
+   }
+  ],
+  "box": {
+   "x": 96,
+   "y": 260,
+   "width": 223,
+   "height": 127
+  },
+  "frames": [
+   "whip_rodeo_bullwhip_key0.png",
+   "whip_rodeo_bullwhip_key1.png",
+   "whip_rodeo_bullwhip_key2.png",
+   "whip_rodeo_bullwhip_key3.png",
+   "whip_rodeo_bullwhip_key4.png",
+   "whip_rodeo_bullwhip_key5.png"
+  ],
+  "keysSeen": 1,
+  "errs": []
+ },
+ "pool_pole_spear": {
+  "set": {
+   "ok": true,
+   "can": true,
+   "d": 1,
+   "whip": false,
+   "reach": 1,
+   "skill": "Thrust"
+  },
+  "preview": true,
+  "lit": {
+   "shapeLit": null,
+   "hurts": [
+    {
+     "id": "e0",
+     "chance": 82,
+     "hp": 3,
+     "sure": true,
+     "say": null
+    }
+   ]
+  },
+  "strike": {
+   "hit": true,
+   "hp": 3,
+   "events": [
+    "attack",
+    "fat"
+   ]
+  },
+  "held": [],
+  "errs": []
+ },
+ "shop": {
+  "campsWithBoth": 12,
+  "of": 12,
+  "rolled": {
+   "rodeo_bullwhip town": 1,
+   "extension_cord town": 2,
+   "live_wire town": 1,
+   "barbed_wire fortress": 2,
+   "live_wire fortress": 1,
+   "rodeo_bullwhip fortress": 1
+  }
+ },
+ "icons": [
+  {
+   "id": "pool_pole_spear",
+   "name": "pool pole spear",
+   "obj": "pool pole spear"
+  },
+  {
+   "id": "extension_cord",
+   "name": "extension cord",
+   "obj": "extension cord"
+  },
+  {
+   "id": "live_wire",
+   "name": "live wire",
+   "obj": "live wire"
+  },
+  {
+   "id": "barbed_wire",
+   "name": "barbed wire",
+   "obj": "barbed wire"
+  },
+  {
+   "id": "rodeo_bullwhip",
+   "name": "rodeo bullwhip",
+   "obj": "bullwhip"
+  }
+ ],
+ "shop_errs": []
+}

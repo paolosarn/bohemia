@@ -470,7 +470,8 @@
     "fighting_spear",
     "warfork",
     "spetum",
-    "broom_bayonet"
+    "broom_bayonet",
+    "pool_pole_spear"
    ],
    "sha1": "30a23bf05f0d0f73f1f5e6603164a0c06c1b9860",
    "hands": 2,
@@ -523,7 +524,11 @@
     "rusty_warblade",
     "crypt_cleaver",
     "two_handed_scimitar",
-    "box_cutter"
+    "box_cutter",
+    "extension_cord",
+    "live_wire",
+    "barbed_wire",
+    "rodeo_bullwhip"
    ],
    "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
    "hands": 1,
