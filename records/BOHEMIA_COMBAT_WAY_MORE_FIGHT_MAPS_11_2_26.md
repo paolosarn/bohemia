@@ -30,7 +30,10 @@ need way more maps, way more combat maps". CLAUDE.md (Paolo 9/29): NO TWO COMBAT
 | open blocks a city board | 0.97 | 3.22 |
 | different block grids in 50 deals (all 78 districts) | 48.9 | 48.9 |
 | deals that threw | 0 | 0 |
-- AUTO fights on the new boards (suburb night, ruin day): played to the end, nothing thrown. Fight length: see FIGHT LENGTH below.
+- AUTO fights on the new boards (suburb night, ruin day): played to the end, nothing thrown.
+- FIGHT LENGTH (six suburb fights, seeds 21 to 26, AUTO): the old deal 6.5 rounds and 152 beats a fight (115 to 198); the shaped
+  boards 5.0 rounds and 129 beats (107 to 142; the crossing, your back open, their back open, your line open, the middle open,
+  the top open). All six won both ways; no fight got longer than the old deal's longest (inside 2 to 4 minutes).
 
 ## WHAT IS LEFT
 - Every new shape is cut from blocks that exist. Truly new shapes (a street running north to south, a plaza, a block with one
