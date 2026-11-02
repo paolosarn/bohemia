@@ -1575,5 +1575,44 @@
   "source": "VAMILY.md rule 198(h) (Paolo 10/26, LOCKED: 'even Battle Brothers has it: when the enemy wants to retreat because we messed with their morale, the game lets you know, and it's spare them or run them down'); records/BOHEMIA_COMBAT_SPARE_THEM_OR_RUN_THEM_DOWN_10_26_26.md",
   "quote": "spare them or run them down, spare them or kill them, it lets you do that",
   "why": "COMBAT'S DEFAULT (rule 205), TUNING's to tune: AUTO's half of the choice. The rest of the rout is played runs times from copies of the moment every enemy left is fleeing (at most steps actions and rounds rounds, every man on AUTO); AUTO runs them down when a runner is caught in at least worth of the runs AND no man of ours who stands goes down in at least safe of them; else it spares them. Battle Brothers leaves the chase to the player; these numbers are ours."
+ },
+ "punch": {
+  "value": {
+   "stop_beats": [
+    0.1,
+    0.24
+   ],
+   "knock_share": [
+    0.05,
+    0.14
+   ],
+   "knock_back_beats": 0.35,
+   "lunge_share": 0.06,
+   "kick_px": [
+    2,
+    7
+   ],
+   "kick_steps": [
+    1,
+    -0.55,
+    0.3,
+    -0.12
+   ],
+   "kick_step_beats": 0.0625,
+   "white_alpha": 0.85,
+   "split_px": 2,
+   "chip_beats": 0.75,
+   "head_extra": 0.25,
+   "share_full": 0.8,
+   "armour_weight": 0.33,
+   "dust_motes": 5,
+   "dust_beats": 0.5,
+   "thud_px": 3,
+   "thud_beats": 0.125
+  },
+  "source": "records/BOHEMIA_PAOLO_NOTES_WHILE_THE_KITCHEN_IS_CLOSED_10_27_26.md note 4, ask lines 264 and 266 (records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md)",
+  "quote": "I'm not super happy with the feel of combat yet... Nothing feels punchy yet, satisfying punchy, not from the music to the combat to the walking around the city to the camp shit",
+  "why": "COMBAT [the punch] 11/2: every landed blow freezes both men on the impact key for stop_beats (the low end a scratch, the high end a blow that takes share_full of his health (the armour it shreds counted at armour_weight) or kills; a head adds head_extra), the struck man blown white (white_alpha) with a red and a cyan copy split_px apart for the freeze, knocked away from the blow by knock_share of his height and back over knock_back_beats; a man swinging a club lunges lunge_share of his height into it; the glass kicks along the blow kick_px (by the same severity) in kick_steps, one a kick_step_beats; the health and armour the blow took stay bright on his bars and drain over chip_beats; a fall lands with a thud_px jolt over thud_beats. A miss gets none of it: he slips aside (ours.outclass.dodge_lean_beats) and a shot that misses throws dust_motes of dust off the ground past him over dust_beats. Everything inside the one beat a blow already holds (the fight's length and the 120 BPM grid unchanged). Drafts for TUNING, tuned:false.",
+  "tuned": false
  }
 }

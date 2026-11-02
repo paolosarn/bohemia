@@ -3739,7 +3739,7 @@ function nightSheet(img, lift) {
 function drawGround() {
   /* the ground does not move between camera moves: drawn once to a glass-sized sheet and blitted until the camera, the night
      or a lamp changes (a phone at three device pixels a point holds 60 by night too) */
-  const S0 = FIGHT.S, key = [UI.cx, UI.cy, UI.zoom, W, H, DPR, !!S0.night, !!S0.power, (S0.boardDef.lights || []).map(function (l) { return l.live ? 1 : 0; }).join(''), UI.board].join('|');
+  const S0 = FIGHT.S, key = [UI.cx, UI.cy, UI.zoom, KICK.x, KICK.y, W, H, DPR, !!S0.night, !!S0.power, (S0.boardDef.lights || []).map(function (l) { return l.live ? 1 : 0; }).join(''), UI.board].join('|');
   /* while the camera moves the ground is drawn straight on the glass (one pass, not a sheet and a blit); the sheet is for a
      camera that holds still */
   if (key !== UI.gprev) { UI.gprev = key; groundOn(cx); UI.gdraws = (UI.gdraws || 0) + 1; return; }
@@ -3959,10 +3959,13 @@ function openOf() {
 }
 window.addEventListener('bohemia-phone', function () { if (openOf() && UI.board) fitStops(); });   /* the flip, the turn: the auto-frame glides to the new open area */
 /* world <-> screen */
-function sx(wx) { return (wx - UI.cx) * UI.zoom + OX; }
-function sy(wy) { return (wy - UI.cy) * UI.zoom + OY; }
-function wx(px) { return (px - OX) / UI.zoom + UI.cx; }
-function wy(py) { return (py - OY) / UI.zoom + UI.cy; }
+/* THE PUNCH's kick rides the glass for a sixteenth after a blow lands (KICK, css px; zero otherwise): everything drawn and every
+   tap read through these four moves with it, the camera itself (UI.cx, UI.cy, UI.zoom) never does */
+let KICK = { x: 0, y: 0 };
+function sx(wx) { return (wx - UI.cx) * UI.zoom + OX + KICK.x; }
+function sy(wy) { return (wy - UI.cy) * UI.zoom + OY + KICK.y; }
+function wx(px) { return (px - OX - KICK.x) / UI.zoom + UI.cx; }
+function wy(py) { return (py - OY - KICK.y) / UI.zoom + UI.cy; }
 function clampCam() {
   if (!UI.board) return;   /* a fight dealt again has no board until its reveal */
   /* how far the glass reaches from the open centre, each way: the phone's side reaches further than the other */
@@ -4256,6 +4259,112 @@ function classMark(v, X, top, h) {
       cx.fillStyle = k === 2 && !lit ? '#7a2418' : '#e0432c'; cx.fillRect(Math.round(X + i * c), yy, c, c);
     }
   }
+}
+/* ---------------- THE PUNCH (COMBAT [the punch], ask lines 264 and 266, Paolo 10/27: 'I'm not super happy with the feel of
+   combat yet... Nothing feels punchy yet, satisfying punchy') ----------------
+   MEASURED BEFORE (11/2, records/BOHEMIA_COMBAT_THE_PUNCH_11_2_26.md): a blow landed at 0.45 of its beat as a sound, blood drops, a
+   half-red tint and the hit key; nothing stopped, nothing moved, the glass never felt it, the bar just got shorter. Battle
+   Brothers first (what a hit tells you: who struck, how hard, what it took): the struck man jerks back, the blood flies, the bar
+   loses its piece. Then ours, on the beat and inside the one beat a blow already holds (ours.punch, drafts for TUNING):
+   1. THE FREEZE: both men hold the impact key for stop_beats (a scratch 0.1 of a beat, a blow that takes half his health, his
+      head or his life 0.24); the sound is already on the beat and never waits for it.
+   2. THE WHITE: for the freeze the struck man is blown white, a red and a cyan copy of him a few pixels apart: the tape loses
+      its lock on him (analog horror), the one frame the eye keeps.
+   3. THE KNOCK: he is thrown away from the blow by knock_share of his height (by how hard) and comes back over
+      knock_back_beats; a man swinging a club lunges into it.
+   4. THE KICK: the glass kicks along the blow kick_px, four steps of a sixty-fourth (one sixteenth in all), stepped like a
+      tape's tracking, never a smooth wobble; the fallen land with a thud.
+   5. THE CHIP: what the blow took stays bright on his bars and drains over chip_beats.
+   A MISS GETS NONE OF IT: he slips aside (the dodge), the ring is grey, and a shot throws dust off the ground past him. */
+function lerp2(r, k) { return r[0] + (r[1] - r[0]) * k; }
+function punchSev(t, e) {
+  const P = R('ours.punch'), share = ((e.hp | 0) + (e.armour | 0) * P.armour_weight) / Math.max(1, t.hpMax);
+  if (t.dead || t.down) return 1;
+  return Math.max(0, Math.min(1, share / P.share_full + (e.head ? P.head_extra : 0)));
+}
+function punchLand(u, t, e, land, B, ranged) {
+  if (!u || !t) return;
+  const P = R('ours.punch'), sev = punchSev(t, e), stop = B * lerp2(P.stop_beats, sev);
+  let ddx = t.x - u.x, ddy = (t.y - u.y) * UI.th / UI.tw; const L = Math.hypot(ddx, ddy) || 1; ddx /= L; ddy /= L;
+  (UI.punch = UI.punch || {})[t.id] = { at: land, stop: stop, sev: sev, dx: ddx, dy: ddy, B: B, by: u.id, hp: e.hp | 0, armour: e.armour | 0, head: !!e.head };
+  if (!ranged && !u.beast) (UI.lunge = UI.lunge || {})[u.id] = { at: land, stop: stop, dx: ddx, dy: ddy, B: B };
+  if (t.side === 'you' || FIGHT.shown(t)) (UI.kicks = UI.kicks || []).push({ at: land, amp: lerp2(P.kick_px, sev), dx: ddx, dy: ddy, B: B, steps: P.kick_steps });
+  UI.punches = (UI.punches || 0) + 1;
+}
+function thudAt(fallAt, B) {
+  const P = R('ours.punch'), k = DB.rig.keys_per_beat;
+  (UI.kicks = UI.kicks || []).push({ at: fallAt + B * (k - 1) / k, amp: P.thud_px, dx: 0, dy: 1, B: B, steps: P.kick_steps.slice(0, 3), step: P.thud_beats / 3 });
+}
+/* the glass's kick now, in whole device pixels */
+function kickAt(now) {
+  const P = R('ours.punch'); let x = 0, y = 0;
+  UI.kicks = (UI.kicks || []).filter(function (q) {
+    const st = q.B * (q.step || P.kick_step_beats), t = now - q.at, i = Math.floor(t / st);
+    if (t < 0) return true; if (i >= q.steps.length) return false;
+    x += q.dx * q.amp * q.steps[i]; y += q.dy * q.amp * q.steps[i] * .6; return true;
+  });
+  return { x: Math.round(x * DPR) / DPR, y: Math.round(y * DPR) / DPR };
+}
+/* the pose clock for a man in a freeze: the impact key, held */
+function stopNow(v, now) {
+  const P = UI.punch; if (!P) return now;
+  for (const id in P) { const q = P[id]; if ((id === v.id || q.by === v.id) && now >= q.at && now < q.at + q.stop) return q.at + 1; }
+  return now;
+}
+function whiteOf(v, now) { const q = UI.punch && UI.punch[v.id]; return !!q && now >= q.at && now < q.at + q.stop; }
+/* for the freeze he is blown white, a red and a cyan copy of him a few pixels apart under it (the tape losing its lock): every
+   way a man is drawn (his clip, his idle, what he holds) lays it over the picture it drew */
+function punchTint(v, now, img, sxp, syp, w, hgt, ox, oy, s, gun) {
+  if (!whiteOf(v, now)) return;
+  const P = R('ours.punch'), sp = Math.max(1, Math.round(P.split_px * s / (1 + 1)));
+  tintOver(img, sxp, syp, w, hgt, ox - sp, oy, s, .55, '#ff2a1e', gun);
+  tintOver(img, sxp, syp, w, hgt, ox + sp, oy, s, .5, '#22e6ff', gun);
+  tintOver(img, sxp, syp, w, hgt, ox, oy, s, P.white_alpha, '#fff4e2', gun); v._white = now;
+}
+/* how far the blow throws him (or how far he lunges into his own), css px */
+function knockOf(v, h, now) {
+  const P = R('ours.punch'), q = UI.punch && UI.punch[v.id], l = UI.lunge && UI.lunge[v.id];
+  let x = 0, y = 0;
+  if (q) { const t = now - q.at, back = q.B * P.knock_back_beats, amp = h * lerp2(P.knock_share, q.sev);
+    if (t >= 0 && t < q.stop) { const j = (Math.floor(t / (q.B / 16)) % (1 + 1) ? 1 : -1) * Math.max(1, amp * .08); x += q.dx * amp + j; y += q.dy * amp * .5; }
+    else if (t >= q.stop && t < q.stop + back) { const k = 1 - (t - q.stop) / back, e = k * k; x += q.dx * amp * e; y += q.dy * amp * .5 * e; } }
+  if (l) { const t = now - l.at, amp = h * P.lunge_share, pre = l.B * .2, back = l.B * .3;
+    let k = 0; if (t >= -pre && t < 0) k = 1 + t / pre; else if (t >= 0 && t < l.stop) k = 1; else if (t >= l.stop && t < l.stop + back) k = 1 - (t - l.stop) / back;
+    x += l.dx * amp * k; y += l.dy * amp * .5 * k; }
+  return { x: Math.round(x * DPR) / DPR, y: Math.round(y * DPR) / DPR };
+}
+/* the bars keep what the blow took, bright, then drain it */
+function chipOn(v, bx, by, bw, now) {
+  const q = UI.punch && UI.punch[v.id]; if (!q) return;
+  const t = now - q.at, len = q.B * R('ours.punch').chip_beats; if (t < 0 || t >= len) return;
+  const k = t < q.stop ? 1 : 1 - (t - q.stop) / Math.max(1, len - q.stop);
+  cx.fillStyle = '#f2ead8';
+  const hp0 = Math.max(0, v.hp) / v.hpMax, hpw = Math.min(1 - hp0, q.hp / v.hpMax) * k;
+  if (hpw > 0) cx.fillRect(Math.round(bx + bw * hp0), by + BAR_PT + 1, Math.max(1, Math.round(bw * hpw)), BAR_PT);
+  const am = Math.max(1, v.armBMax + v.armHMax), a0 = (v.armB + v.armH) / am, aw = Math.min(1 - a0, q.armour / am) * k;
+  if (aw > 0) cx.fillRect(Math.round(bx + bw * a0), by, Math.max(1, Math.round(bw * aw)), BAR_PT);
+}
+/* a shot that misses throws dust off the ground just past him, on the side away from the shooter */
+function dustAt(u, t, land, B) {
+  if (!(t.side === 'you' || FIGHT.shown(t))) return;
+  const P = R('ours.punch'), side = (t.x - u.x) >= 0 ? 1 : -1, seed = (t.x * 31 + t.y * 17 + Math.round(land)) % 997;
+  (UI.dust = UI.dust || []).push({ at: land, x: t.x + .5 + stagger(t.y) + side * .38, y: t.y + .9, B: B, n: P.dust_motes, seed: seed, side: side });
+}
+function drawDust(now) {
+  if (!UI.dust || !UI.dust.length) return;
+  const P = R('ours.punch'), z = UI.zoom, c = Math.max(1, Math.round(DPR * Math.max(1, manH() / 60)));
+  UI.dust = UI.dust.filter(function (d) { return now - d.at < d.B * P.dust_beats; });
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0);
+  UI.dust.forEach(function (d) {
+    const t = now - d.at; if (t < 0) return;
+    const k = Math.floor(t / (d.B / 16)) / Math.ceil(P.dust_beats * 16), X = sx(d.x * UI.tw) * DPR, Y = sy(d.y * UI.th) * DPR;
+    for (let i = 0; i < d.n; i++) {
+      const r1 = ghostCoin(d.seed, i), r2 = ghostCoin(d.seed + 7, i), up = (6 + r1 * 14) * k * c, out = (r2 - .5) * 16 * c * (.4 + k) + d.side * k * 6 * c;
+      cx.globalAlpha = Math.max(0, .85 * (1 - k)); cx.fillStyle = i % 3 ? '#cbb998' : '#8e7d62';
+      cx.fillRect(Math.round(X + out), Math.round(Y - up - r2 * 4 * c), c * (i % (1 + 1) ? 1 : 2), c);
+    }
+  });
+  cx.restore();
 }
 /* A DODGE SHOWS AS A DODGE: he is thrown aside, away from the shot, and back, over ours.outclass.dodge_lean_beats */
 function dodgeLean(v, h, now) {
@@ -4630,12 +4739,13 @@ function startAnim(a) {
       if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, sd(B * 0.45));
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) setTimeout(function () { sfx('dry_fire'); UI.dryAt = performance.now(); teach('reload'); }, sd(B * 0.8));
-    if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = a.at + B * 1.5; goreHit(t, u, e.hp, a.at + B * 0.45); }
+    if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[t.id] = a.at + B * 0.45; goreHit(t, u, e.hp, a.at + B * 0.45); punchLand(u, t, e, a.at + B * 0.45, B, ranged); }
+    else if (t && ranged) dustAt(u, t, a.at + B * 0.45, B);
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
       const ot = FIGHT.byId(o.to); if (!ot) return;
       setTimeout(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf) : SND.miss(bf); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, sd(B * (0.45 + 0.25 * (i + 1))));
-      if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = a.at + B * 1.5; goreHit(ot, u, o.hp, a.at + B * (0.45 + 0.25 * (i + 1))); }
+      if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[ot.id] = a.at + B * (0.45 + 0.25 * (i + 1)); goreHit(ot, u, o.hp, a.at + B * (0.45 + 0.25 * (i + 1))); punchLand(u, ot, o, a.at + B * (0.45 + 0.25 * (i + 1)), B, ranged); }
       pop(ot, '', o.hit ? (o.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', o.hit && o.head,
         u.name + "'s " + (o.skill || 'sweep').toLowerCase() + (o.hit ? ' catches ' + ot.name + ', -' + o.hp + ' health' : ' misses ' + ot.name) + ' (' + o.chance + '%)');
     });
@@ -4654,6 +4764,7 @@ function startAnim(a) {
     const u = FIGHT.byId(e.id);
     if ((e.t === 'dead' || e.t === 'down' || e.t === 'fled') && u) UI.fallN = (UI.fallN || 0) + 1;   /* the class read and the last stand look again */
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = a.at;   /* the fall plays from here (poseOf) */
+      if (u.side === 'you' || u._seen) thudAt(a.at, B);   /* THE PUNCH: the body lands on the fall's last key */
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
@@ -5361,6 +5472,7 @@ function mkDot(X, Y, col) { const c = mc(X) - 1, r = mc(Y) - 1; mkCell(c + 1, r 
 function draw(now) {
   autoFrame(now);   /* THE FIGHT'S CAMERA (rule 288): the tightest frame of every fighter, his touch until his next man's turn */
   stepGlide(now); camLeft();
+  KICK = kickAt(now);   /* THE PUNCH: the glass kicks along a blow for a sixteenth */
   cx.setTransform(DPR, 0, 0, DPR, 0, 0);
   cx.fillStyle = '#0d0b09'; cx.fillRect(0, 0, W, H);
   if (!UI.board) return;
@@ -5489,6 +5601,7 @@ function draw(now) {
   live.forEach(function (v) { drawMan(v, tw, th); });
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
   drawDrops(now);   /* rule 145(b): the burst in the air, over the men */
+  drawDust(now);   /* THE PUNCH: a shot that misses kicks dust off the ground past him */
   /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
   if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26) {
     const Y = sy((dy(u) + .9) * UI.th) - th * riseAt(u.x, u.y);
@@ -5675,7 +5788,9 @@ function poseOf(v, now) {
       return { col: clipCol('hit', k < .7 ? 0 : 1, L), clip: 'hit' };
     }
   }
-  if (UI.hitUntil && UI.hitUntil[v.id] > now) return { col: clipCol('hit', 1, L), clip: 'hit' };
+  /* THE PUNCH: he takes the blow when it lands, never before (measured 11/2: the struck man showed his hit key from the swing's
+     first frame, 225 ms before the blow, so his reaction came first and the landing changed nothing but a tint) */
+  if (UI.hitUntil && UI.hitUntil[v.id] > now && !(UI.hitFrom && UI.hitFrom[v.id] > now)) return { col: clipCol('hit', 1, L), clip: 'hit' };
   /* standing: he faces the nearest man of theirs he knows of (a man fleeing faces away) */
   const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
     .sort(function (p, q) { return Math.abs(p.x - v.x) + Math.abs(p.y - v.y) - Math.abs(q.x - v.x) - Math.abs(q.y - v.y); })[0];
@@ -5841,6 +5956,7 @@ function holdDraw(v, p, L, gs, ox, oy, s, now) {
   wearOver(v, { img: img, x: c[0], y: c[1], w: c[2], h: c[3], dx: c[4], dy: c[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
   if (gc !== null && gc !== undefined) { const g = d.guns.cells[gc]; cx.drawImage(im(gimg), g[0], g[1], g[2], g[3], ox + g[4] * s, oy + g[5] * s, g[2] * s, g[3] * s); }
   const fl = hitFlash(v, now); if (fl > 0) tintOver(img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s, fl, '#d42a1a');   /* rule 145(a) on the held picture */
+  punchTint(v, now, img, c[0], c[1], c[2], c[3], ox + c[4] * s, oy + c[5] * s, s);   /* THE PUNCH, on the held picture */
   UI.clipSeen['hold:' + hc[0]] = (UI.clipSeen['hold:' + hc[0]] || 0) + 1;
   return true;
 }
@@ -5982,6 +6098,7 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
   wearOver(v, { img: b[0], x: bc[0], y: bc[1], w: bc[2], h: bc[3], dx: bc[4], dy: bc[5] }, ox, oy, s, dark, x, y);   /* __THE_ARMOUR_HE_WEARS_SHOWS__: under his shield and his weapon */
   lay.forEach(function (q) { const g = q[1]; cx.drawImage(im(q[0]), g[0], g[1], g[2], g[3], ox + (g[4] + q[2]) * s, oy + (g[5] + q[3]) * s, g[2] * s, g[3] * s); });
   const fl = hitFlash(v, now); if (fl > 0) tintOver(b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s, fl, '#d42a1a');
+  punchTint(v, now, b[0], bc[0], bc[1], bc[2], bc[3], ox + bc[4] * s, oy + bc[5] * s, s);   /* THE PUNCH, on his idle */
   UI.clipSeen['melee:' + mc[0]] = (UI.clipSeen['melee:' + mc[0]] || 0) + 1;
   if (sh) UI.clipSeen['shield:' + sh] = (UI.clipSeen['shield:' + sh] || 0) + 1;
   if (prop && !e.held) UI.clipSeen['prop:' + prop] = (UI.clipSeen['prop:' + prop] || 0) + 1;   /* only a thing drawn: a man whose model carries his own (the thug's pipe) counts as held */
@@ -5993,7 +6110,7 @@ function meleeDraw(v, p, L, d, gs, ox, oy, s, now) {
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
   const L = lookOf(v), s = rigScale(), gs = gunSheet(v, L);
-  let p = poseOf(v, now);
+  let p = poseOf(v, stopNow(v, now));   /* THE PUNCH: both men hold the impact key for the freeze */
   UI.clipSeen = UI.clipSeen || {}; UI.clipSeen[p.clip] = (UI.clipSeen[p.clip] || 0) + 1;
   /* THE GUN IS HELD, NEVER SWUNG (Paolo 10/19: 'I don't like how the weapons just swing with the hand like some dumbass
      shit'): a man with a gun stands and walks in the carry, the gun across him in both hands at the low ready, his legs
@@ -6019,6 +6136,8 @@ function blitMan(v, X, feet, now, alpha) {
     if (gc !== undefined) cx.drawImage(gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s); }
   /* rule 145(a): a man hit flashes a faint red, his own picture tinted by opacity */
   const fl = hitFlash(v, now); if (fl > 0 && !idled) tintOver(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, fl, '#d42a1a');
+  if (!idled) { const gk = gs && DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
+    punchTint(v, now, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, gc !== undefined && gc !== null && gs ? [gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h] : null); }   /* THE PUNCH */
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
      map): the picture cannot hold him; ANIMATION's module laid over his blit on the fight's own beat, in its own frame (the
@@ -6335,7 +6454,7 @@ function layAt(v, body) {
    9 ms a frame in the bench; the overlaps alone are a few hundredths of it) */
 function layKey() {
   const S = FIGHT.S, u = FIGHT.current(), pe = UI.pend || {};
-  return [UI.cx, UI.cy, UI.zoom, cx.canvas.width, cx.canvas.height, !!S.night, S.round, u ? u.id + '@' + u.x + ',' + u.y : '', UI.anim.length > 0, !!S.over, !!S.deploy,
+  return [UI.cx, UI.cy, UI.zoom, KICK.x, KICK.y, cx.canvas.width, cx.canvas.height, !!S.night, S.round, u ? u.id + '@' + u.x + ',' + u.y : '', UI.anim.length > 0, !!S.over, !!S.deploy,
     pe.target ? pe.target.id : '', pe.path ? pe.path.length : 0, pe.sweep || '', UI.skillMode || '', UI.dsel ? UI.dsel.x + ',' + UI.dsel.y : '', !!UI.drag, UI.fogKey || '', UI.gkey || '',
     S.units.map(function (v) { return v.x + ',' + v.y + (v.dead ? 'd' : v.down ? 'w' : ''); }).join(';')].join('|');
 }
@@ -6410,7 +6529,8 @@ function layOver(v, X, feet) {
 }
 function drawMan(v, tw, th) {
   const h = manH(), you = v.side === 'you', now = performance.now();
-  const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now), feet = sy((dy(v) + .9) * UI.th);
+  const kn = knockOf(v, h, now);   /* THE PUNCH: knocked from the blow, or lunging into his own */
+  const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now) + kn.x, feet = sy((dy(v) + .9) * UI.th) + kn.y;
   const lvl = th * riseAt(v.x, v.y);
   const Y = feet - lvl;
   v._seen = true;
@@ -6455,6 +6575,7 @@ function drawMan(v, tw, th) {
       mkOff(); v._cover = { cut: cc.cut, x: (c0 + k) * MKU / DPR, y: r0 * MKU / DPR, at: now }; }
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
+    chipOn(v, bx, by, bw, now);   /* THE PUNCH: what the blow took stays bright on his bars, then drains */
     /* WHAT THE BLOW TAKES, ON HIS BARS (one tap to see): the part of his armour and of his health one hit takes, blinking on
        the beat, before the second tap */
     const pv = UI.pend && UI.pend.target === v && UI.pend.pv;
