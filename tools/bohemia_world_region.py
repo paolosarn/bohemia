@@ -87,7 +87,7 @@ CODE = {
 ROADCODE = {0: '-', 1: 'F', 2: 'S', 3: 'D'}   # the road layer's own letters: none, freeway/US, state route, dirt
 # RUN's own passability codes (slices/bohemia_region.js): 0 open ground, 1 a road, 2 rough, 3 cannot be crossed
 PASS = {'.': 0, 'b': 0, 'i': 0, 'a': 0, 'p': 0, 'l': 0, 'g': 0, 'x': 0, 't': 0, 'f': 1,
-        'h': 2, 's': 2, '~': 3, '^': 3, 'V': 0}
+        'h': 2, 's': 2, '~': 3, '^': 4, 'V': 0}   # WORLD 11/2 (ask line 288): 4, a peak crossed at the mountain pace
 
 # ---- the clock: the valley's own, so a block out here costs what RUN charges for it ----
 # slices/BOHEMIA_CITY_WORLD.html: MIN_PER_CELL 0.084 a fine cell, FN 128 fine cells a block,
@@ -96,7 +96,7 @@ PASS = {'.': 0, 'b': 0, 'i': 0, 'a': 0, 'p': 0, 'l': 0, 'g': 0, 'x': 0, 't': 0, 
 # a finer ladder (a dirt track slower than tarmac, a wash kinder than a slope) is TUNING's row, not this file's.
 MIN_PER_FINE, FN = 0.084, 128
 OPEN_BLOCK_MIN = MIN_PER_FINE * FN          # 10.752
-FACTOR = {'paved': 0.5, 'dirt': 0.5, 'valley': 0.5, 'streets': 1.0, 'open': 1.0, 'wash': 1.8, 'hills': 1.8}
+FACTOR = {'paved': 0.5, 'dirt': 0.5, 'valley': 0.5, 'streets': 1.0, 'open': 1.0, 'wash': 1.8, 'hills': 1.8, 'mountain': 3.0}
 MINUTES_A_DAY = 1440
 def mins_of(sc): return OPEN_BLOCK_MIN * FACTOR[sc]
 def kmh_of(sc): return (METRES_PER_CELL / 1000.0) / (mins_of(sc) / 60.0)   # the real-ground pace the clock implies
@@ -108,7 +108,8 @@ def speed_class(code, road):
     if code == '.': return 'open'
     if code == 's': return 'wash'
     if code == 'h': return 'hills'
-    return None   # '~' and '^'
+    if code == '^': return 'mountain'   # WORLD 11/2 (ask line 288): over the mountain, slowly
+    return None   # '~'
 
 # =====================================================================================
 # THE LAND, in real coordinates. Every number below is a place on a real map.
@@ -578,7 +579,7 @@ def main():
         'kmAcross': km_across,
         'legend': {k: v for k, v in CODE.items()},
         'legendNotes': {'~': 'open water: cannot be crossed; its fight kind is the shore', '^': 'a peak: hills nobody crosses', 'V': 'the valley\'s own 96 x 96, rolled per new game (rule 40g); the generator\'s, never this file\'s'},
-        'pass': PASS, 'passWhy': 'slices/bohemia_region.js (RUN): 0 open ground, 1 a road, 2 rough, 3 cannot be crossed. A block with a road of any class is 1 whatever its ground (a bridge over the water, a cut through a range).',
+        'pass': PASS, 'passWhy': 'slices/bohemia_region.js (RUN): 0 open ground, 1 a road, 2 rough, 3 cannot be crossed (the lake), 4 a peak: crossed, at the mountain pace (WORLD 11/2, ask line 288, Paolo: \'I should be able to walk over the mountains... any time there is difficult terrain you are just slower\'). A block with a road of any class is 1 whatever its ground (a bridge over the water, a cut through a range).',
         'roadCodes': {'-': 'no road', 'F': 'class 1, freeway or US highway', 'S': 'class 2, state route', 'D': 'class 3, dirt track'},
         'roadClasses': {'1': 'freeway or US highway (I-15, I-11, I-515, US-93, US-95, CC-215)', '2': 'state route (NV-160, 159, 157, 156, 147, 564, 146, 161, 165, 604, 167)', '3': 'dirt track'},
         'speeds': speeds, 'speedsTuned': False, 'minutesADay': MINUTES_A_DAY,

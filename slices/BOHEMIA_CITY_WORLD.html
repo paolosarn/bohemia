@@ -43661,7 +43661,18 @@ function roadCard(ev, mins, kg){
     });
 }
 
-function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'||(window.__HIS_MAP_OPEN!=null&&x>=0&&x<window.__HIS_MAP_N&&window.__HIS_MAP_OPEN[y*window.__HIS_MAP_N+x]===1)); }   /* __HIS_MAP__ (WORLD TWO, rule 243(b)4): a wall a fallen boss brought down is a way through (slices/bohemia_his_map.js) */
+/* ==== __OVER_THE_MOUNTAIN__ (WORLD 11/2 round 3, ask line 288; Paolo 11/2: 'I should be able to walk over the mountains, right? You
+   have it like an impenetrable wall, I have to walk around the whole city just to get across the mountains... that's how Battle
+   Brothers does it, any time there's difficult terrain you're just slower to walk across'). MEASURED on the demo: the party could
+   stand only on a road or a wash; the valley's rim, its open ground and the region's peaks were walls, so a trip west to Mt
+   Charleston Lodge went 140 blocks (14 h) round by the freeway for 94 blocks as the crow flies. NOW the ground is the going, the
+   Battle Brothers way (reference/library/battle_brothers/01_WORLDMAP.md: roads fastest, then plains, then hills, the slowest
+   last): a road half the open ground's minutes (the 10/9 ruling), open ground and a wash 1, rubble (a quarry, a landfill, the
+   boneyard, the gypsum pits) 1.8 like the hills out past the rim, a MOUNTAIN 3 (0.7 km/h: a steep range on foot). Only the lake,
+   the buildings' own blocks and the dam stay walls. Every route weighs the minutes, a tap's too, so the mountain is taken only
+   when it is quicker overall; the clock charges each block's own minutes and the glide walks them at that pace. One table: ==== */
+var TERRAIN_GOING = { desert: 1, wash: 1, basin: 1, springs: 1, quarry: 1.8, landfill: 1.8, boneyard: 1.8, gypsum: 1.8, mountain: 3 };
+function cityWalkable(x,y){ const t=om.at(x,y); return !!t&&(ROAD[t.district]||t.district==='wash'||(TERRAIN_GOING[t.district]&&TERRAIN_GOING.on!==false)||(window.__HIS_MAP_OPEN!=null&&x>=0&&x<window.__HIS_MAP_N&&window.__HIS_MAP_OPEN[y*window.__HIS_MAP_N+x]===1)); }   /* __HIS_MAP__ (WORLD TWO, rule 243(b)4): a wall a fallen boss brought down is a way through (slices/bohemia_his_map.js) */
 
 /* ============================================================================
    ONE STRIDE THAT NEVER MISSES (Paolo 9/20, LOCKED, rule 18a, [one camera])
@@ -44249,6 +44260,7 @@ setInterval(()=>{
      even consulted, so no block, no clock, no party moves. A finger on the pad still wins. */
   if(di===null && TRAVEL && TRAVEL_SPEED>0 && typeof streetBeatWaits==='function' && streetBeatWaits()){ render(); return; }   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street the walk reads, a beat with no step is a beat he watches */
   const TRAV = (di===null && !(TRAVEL && TRAVEL_SPEED===0)) ? travelNext() : null;
+  if(TRAV!==null && travelGoingWait()){ render(); return; }   /* __OVER_THE_MOUNTAIN__: a mountain block takes its beats */
   if(TRAV!==null) di=TRAV;
   if(di===null)return;
   pend=null;
@@ -44283,6 +44295,7 @@ setInterval(()=>{
         if(!TRAVEL || TRAVEL_SPEED!==N) return;
         try{ if(typeof MODE==='undefined' || MODE!=='city') return; }catch(_e){ return; }
         const d2=travelNext(); if(d2===null) return;
+        if(travelGoingWait()) return;   /* __OVER_THE_MOUNTAIN__ */
         const m2=stepOnce(d2); travelStepped(m2);
         /* NO FULL REDRAW HERE, AND THAT WAS MEASURED: redrawing after every spread block
            tripled the draw work (a render is ~42 ms on the gate box) and 3x crossed 7 blocks
@@ -44473,7 +44486,8 @@ function cityStepMins(x,y){
               * (typeof FN==='number'?FN:128));
   var f = 1;
   try{ var t=om.at(x,y);
-       if(t && CITY_PAVED[t.district]) f = PAVED_SPEED.factor; }catch(_e){}
+       if(t && CITY_PAVED[t.district]) f = PAVED_SPEED.factor;
+       else if(t && TERRAIN_GOING[t.district] && TERRAIN_GOING.on!==false) f = TERRAIN_GOING[t.district]; }catch(_e){}   /* __OVER_THE_MOUNTAIN__ */
   /* THE SCOUT (VAMILY [followers], rebuilt 10/9/26 under rule 56): 1 with no
      scout hired, so this is a no-op by default. One of two real, live-wired
      effects of the six real retinue roles; see engine/bohemia_followers.js
@@ -44522,6 +44536,7 @@ function cityRoute(ax,ay,bx,by){
   if(!n || (ax===bx&&ay===by)) return null;
   if(!cityWalkable(bx,by)) return null;
   var K=function(x,y){ return y*n+x; };
+  if(TERRAIN_GOING.on!==false) return cityRouteByMinutes(ax,ay,bx,by,n);   /* __OVER_THE_MOUNTAIN__: the going weighs, so the BFS's fewest blocks is no longer the quickest */
   var from={}, seen={}, q=[[ax,ay]], head=0, found=false;
   seen[K(ax,ay)]=1;
   while(head<q.length && head<n*n){
@@ -44545,6 +44560,32 @@ function cityRoute(ax,ay,bx,by){
   }
   path.reverse();
   return path;
+}
+
+/* __OVER_THE_MOUNTAIN__: the tap's route by the minutes each block costs (cityStepMins), straight steps first and a hair for a
+   diagonal so equal minutes go straight through a crossing (__STRAIGHT_THROUGH_THE_CROSSING__), never a corner cut. On roads
+   alone every block costs the same and this is the BFS's own route. */
+var ROUTE_DIAG_HAIR = 1e-4;   /* the same minutes go straight (the straight gate's mutation sets it 0 with the old order) */
+function cityRouteByMinutes(ax,ay,bx,by,n){
+  var NN=n*n, cost=new Float64Array(NN).fill(Infinity), from=new Int32Array(NN).fill(-1), done=new Uint8Array(NN), sm=new Float32Array(NN).fill(-1), H=[];
+  var push=function(c,k){ H.push([c,k]); var i=H.length-1; while(i>0){ var p=(i-1)>>1; if(H[p][0]<=H[i][0]) break; var t=H[p]; H[p]=H[i]; H[i]=t; i=p; } };
+  var pop=function(){ var top=H[0], e=H.pop(); if(H.length){ H[0]=e; var i=0; for(;;){ var l=2*i+1, r=l+1, s2=i; if(l<H.length&&H[l][0]<H[s2][0]) s2=l; if(r<H.length&&H[r][0]<H[s2][0]) s2=r; if(s2===i) break; var t=H[s2]; H[s2]=H[i]; H[i]=t; i=s2; } } return top; };
+  var k0=ay*n+ax, kb=by*n+bx; cost[k0]=0; push(0,k0);
+  while(H.length){
+    var k=pop()[1]; if(done[k]) continue; done[k]=1; if(k===kb) break;
+    var x=k%n, y=(k/n)|0;
+    for(var o=0;o<ROUTE_ORDER.length;o++){
+      var d=ROUTE_ORDER[o], nx=x+DIRS[d][0], ny=y+DIRS[d][1]; if(nx<0||ny<0||nx>=n||ny>=n) continue;
+      var kk=ny*n+nx; if(done[kk]||!cityWalkable(nx,ny)) continue;
+      if(routeCutsCorner(x,y,DIRS[d][0],DIRS[d][1],cityWalkable)) continue;
+      if(sm[kk]<0) sm[kk]=cityStepMins(nx,ny);
+      var c=cost[k]+sm[kk]+(DIRS[d][0]&&DIRS[d][1]?ROUTE_DIAG_HAIR:0);
+      if(c<cost[kk]){ cost[kk]=c; from[kk]=k; push(c,kk); }
+    }
+  }
+  if(!done[kb]) return null;
+  var path=[], cur=kb; while(cur>=0){ path.push([cur%n,(cur/n)|0]); if(cur===k0) break; cur=from[cur]; if(path.length>NN) return null; }
+  path.reverse(); return path;
 }
 
 /* A TAP ON THE MAP. Canvas coordinates, the same ones cityTapPlot is handed. */
@@ -44601,6 +44642,19 @@ function travelPath(p,to,yard,town){
 
 /* THE NEXT DIRECTION, or null when nothing is travelling. Peeks only: the route
    advances in travelStepped(), after the step is known to have landed. */
+/* __OVER_THE_MOUNTAIN__: how many of the walk's steps a block takes to cross on the glass (a mountain its TERRAIN_GOING, 3; a
+   peak out on the region the same; every other block one, as it was: the hills and the rubble pay only on the clock) */
+function mapGoingBeats(x,y){
+  if(TERRAIN_GOING.on===false) return 1;
+  try{ if(x>=0&&y>=0&&x<om.n&&y<om.n){ var t=om.at(x,y); return t&&t.district==='mountain' ? TERRAIN_GOING.mountain : 1; }
+       var R=window.BOH_REGION; if(R&&R.ready&&R.real&&R.land){ var a=R.land.at(x,y,R.compass); if(a&&a.peak) return TERRAIN_GOING.mountain; } }catch(_e){}
+  return 1;
+}
+function travelGoingWait(){   /* true: this step of the walk waits (the block ahead still being crossed) */
+  if(!TRAVEL||!TRAVEL.path) return false; var nb=TRAVEL.path[TRAVEL.i]; if(!nb) return false;
+  var wb=mapGoingBeats(nb[0],nb[1]); if(wb<=1){ TRAVEL.gb=0; return false; }
+  TRAVEL.gb=(TRAVEL.gb||0)+1; if(TRAVEL.gb<wb) return true; TRAVEL.gb=0; return false;
+}
 function travelNext(){
   if(!TRAVEL) return null;
   try{ if(typeof MODE==='undefined' || MODE!=='city'){ travelStop(); return null; } }catch(_e){ return null; }
@@ -47832,7 +47886,7 @@ function cityGlidePos(now){
   const journey=!!(typeof TRAVEL!=='undefined' && TRAVEL && TRAVEL_SPEED>0);
   if(city.x!==G.tx||city.y!==G.ty){
     const gap=now-G.last; if(gap>0 && gap<2*BEAT) G.gap=G.gap?G.gap*0.6+gap*0.4:gap;
-    const E=journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT));
+    const E=(journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT))) * (journey ? mapGoingBeats(city.x, city.y) : 1);   /* __OVER_THE_MOUNTAIN__: a mountain block glides at its own slow pace */
     glideStep(G, city.x, city.y, now, E, 3, journey);
   }
   { const __lp=(typeof streetLeadPos==='function')?streetLeadPos():null;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__ (off, rule 300): on the street he walks toward the next block between beats */

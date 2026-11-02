@@ -59,7 +59,7 @@ const done = () => { console.log('THE REGION IS BATTLE BROTHERS\' SIZE: ' + pass
       return out; });
     const best = X.filter(x => x.days != null).sort((a, b) => b.days - a.days)[0];
     ok('*** R3 A CROSSING TAKES DAYS *** (' + X.map(x => x.name + ' ' + (x.blocks == null ? 'NO ROUTE' : x.blocks + ' blocks, ' + x.days + ' days')).join('; ') + '; rim to rim ' + (N && N.daysAcrossRoad) + ' days on a road, ' + (N && N.daysAcrossOpen) + ' across open ground)',
-      X.length >= 3 && X.every(x => x.blocks != null) && !!best && best.days >= 1);
+      X.length >= 3 && X.every(x => x.blocks != null) && !!best && best.days >= 0.85 && !!N && N.daysAcrossRoad >= 1.5);   /* WORLD 11/2 (ask line 288, Paolo: 'I should be able to walk over the mountains'): the peaks are slow ground now, not walls, and the far places came from a day to 0.9 days by crossing them; the region's own size holds rim to rim (1.9 days on a road), which this now also asks */
     /* R4: walk out. The nearest place, tapped on the glass the way a finger does, at 5x */
     const T = await fr.evaluate(() => {
       const R = BOH_REGION, p = R.places.slice().sort((a, b) => Math.max(Math.abs(a.x - city.x), Math.abs(a.y - city.y)) - Math.max(Math.abs(b.x - city.x), Math.abs(b.y - city.y)))[0];

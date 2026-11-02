@@ -9811,6 +9811,11 @@ GATES = [
      "400 trips, a tap's route and PLAY's, cut no corner and lose no reachable block; the old search turns it red; on the 1.22x "
      "clock's own step times the picture holds one speed (top under 1.6 times its median, never still mid-journey, no frame past a "
      "tenth of a block; the old glide 11 times), turns back where it is, eases in and out, cuts a far jump. the city file, about 30 s", False),
+    ('OVER THE MOUNTAIN', ['node', 'gates/over_the_mountain_gate.js'],
+     "WORLD gate, 11/2 round 3, ask line 288 (Paolo 11/2: 'I should be able to walk over the mountains... any time there's "
+     "difficult terrain you're just slower'): a valley mountain and a region peak are ground at 3x open ground's minutes (6x a "
+     "road), the lake a wall; the trip west to Pahrump goes over the rim and is quicker, the lodge keeps the quicker road; a "
+     "mountain block takes 3 steps on the glass; the going off puts the wall back. the demo, about 1 min", False),
     ('THE MAP STREETS JOIN', ['node', 'gates/the_map_streets_join_gate.js'],
      "WORLD gate, 11/2 round 3, ask line 285 (Paolo 11/2: 'the freeways look like freeways, the streets transitioning to each "
      "other properly, better zoomed in... it just gets more detailed the more you zoom in'): the painter's own texels at the middle "

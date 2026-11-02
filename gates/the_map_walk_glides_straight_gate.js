@@ -71,8 +71,9 @@ const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   '
     Object.assign(out, { trips, cuts, lost, playTrips, playCuts });
     /* C4: the old search */
     const ro = ROUTE_ORDER, rc = window.routeCutsCorner;
-    window.ROUTE_ORDER = [0, 1, 2, 3, 4, 5, 6, 7]; window.routeCutsCorner = () => false;
-    const old = run(); window.ROUTE_ORDER = ro; window.routeCutsCorner = rc;
+    const hair = window.ROUTE_DIAG_HAIR;   /* WORLD 11/2 r3: a tap's route weighs minutes now (__OVER_THE_MOUNTAIN__); the old search has no hair for a diagonal */
+    window.ROUTE_ORDER = [0, 1, 2, 3, 4, 5, 6, 7]; window.routeCutsCorner = () => false; window.ROUTE_DIAG_HAIR = 0;
+    const old = run(); window.ROUTE_ORDER = ro; window.routeCutsCorner = rc; window.ROUTE_DIAG_HAIR = hair;
     out.oldAcross = old.a; out.oldAcrossMid = old.am;
     return out;
   });

@@ -34,6 +34,7 @@
 
   /* the region's own blocks: 0 open ground, 1 road, 2 rough (hills, a wash), 3 cannot be crossed (the lake, a peak) */
   var COST = [1, PAVED_SPEED_FACTOR(), 1.8];
+  COST[3] = Infinity; COST[4] = 3.0;   /* 4: a peak, crossed at the mountain pace (WORLD 11/2, ask line 288; the land's speeds.mountain) */
   function PAVED_SPEED_FACTOR(){ try { return (typeof PAVED_SPEED !== 'undefined' && PAVED_SPEED.factor) || 0.5; } catch(_e){ return 0.5; } }
   function inCity(x, y){ return x >= 0 && y >= 0 && x < om.n && y < om.n; }
   function inRegion(x, y){ return !!R.pass && x >= -R.K && y >= -R.K && x < R.N + R.K && y < R.N + R.K; }
@@ -140,7 +141,7 @@
       for (var r2 = 0; r2 <= 24; r2++) for (var dy = -r2; dy <= r2; dy++) for (var dx = -r2; dx <= r2; dx++) {
         if (Math.max(Math.abs(dx), Math.abs(dy)) !== r2) continue;
         var px = x + dx, py = y + dy; if (inCity(px, py) || !inRegion(px, py)) continue;
-        var p = passAt(px, py); if (p === 3) continue;
+        var p = passAt(px, py); if (p === 3 || p === 4) continue;   /* never a town on a peak */
         var score = r2 + (p === 1 ? 0 : (r2 <= 12 ? 12 : 0)) + (p === 2 ? 6 : 0);
         if (score < bd) { bd = score; best = [px, py]; }
       }
@@ -158,7 +159,7 @@
   var _walk = cityWalkable;
   cityWalkable = function(x, y){
     if (inCity(x, y)) return _walk(x, y);
-    return R.on && R.ready && passAt(x, y) < 3;
+    var p = passAt(x, y); return R.on && R.ready && (p < 3 || (p === 4 && !(typeof TERRAIN_GOING !== 'undefined' && TERRAIN_GOING.on === false)));   /* __OVER_THE_MOUNTAIN__: a peak is slow going, never a wall */
   };
   var _mins = cityStepMins;
   cityStepMins = function(x, y){
@@ -166,7 +167,7 @@
     if (R.real) { var rm = realMins(x, y); if (rm != null) return rm; }
     var base = _mins(x, y);   /* the street's own rough-going block, with the scout's multiplier */
     var p = passAt(x, y);
-    var m = base * (p === 1 ? COST[1] : p === 2 ? COST[2] : COST[0]);
+    var m = base * (p === 1 ? COST[1] : p === 2 ? COST[2] : p === 4 ? COST[4] : COST[0]);
     return m;
   };
 
@@ -186,9 +187,10 @@
     return regionRoute(ax, ay, bx, by);
   };
   function stepCost(x, y){
-    if (inCity(x, y)) return 1;   /* the valley's roads: its own fast going */
+    if (inCity(x, y)) { try { var tv = om.at(x, y), pf = (typeof PAVED_SPEED !== 'undefined' && PAVED_SPEED.factor) || 0.5;   /* __OVER_THE_MOUNTAIN__: the valley's own going, a road 1 */
+      if (tv && typeof TERRAIN_GOING !== 'undefined' && TERRAIN_GOING.on !== false && TERRAIN_GOING[tv.district] && !(typeof CITY_PAVED !== 'undefined' && CITY_PAVED[tv.district])) return TERRAIN_GOING[tv.district] / pf; } catch (_e) {} return 1; }
     if (R.real) { var a = R.land.at(x, y, R.compass); if (a && a.minutes != null) return a.minutes / 5.376; }   /* a road block is 1 */
-    var p = passAt(x, y); return p === 1 ? 1 : p === 2 ? 4 : 2;
+    var p = passAt(x, y); return p === 1 ? 1 : p === 2 ? 4 : p === 4 ? 6 : 2;
   }
   function regionRoute(ax, ay, bx, by){
     var K = R.K, D = R.D, NN = D * D;

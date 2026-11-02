@@ -17,7 +17,7 @@
                                  each side, symmetric by construction, so A's east is always B's west
      stitch(exits, compass)   -> the valley's rolled freeway exits joined to the real highways' portals, so a
                                  road out of the valley never ends in sand; returns the connector cells
-     passGrid(compass)        -> Uint8Array D*D in RUN's layout and codes (0 open, 1 road, 2 rough, 3 cannot)
+     passGrid(compass)        -> Uint8Array D*D in RUN's layout and codes (0 open, 1 road, 2 rough, 3 cannot, 4 a peak: slow)
      places(compass), placeAt(x, y, r, compass), numbers()
      districtAt(x, y, compass) -> { id, name, kind, seat }   the real district a block is in (10/18)
      districtSides(x, y, compass) -> [n, e, s, w]  null, or the id across a district line, or 'rim'
@@ -83,7 +83,8 @@
       if (code === '.') return 'open';
       if (code === 's') return 'wash';
       if (code === 'h') return 'hills';
-      if (code === '~' || code === '^') return null;
+      if (code === '^') return speeds.mountain ? 'mountain' : null;   /* WORLD 11/2 (ask line 288): a peak is crossed, slowly */
+      if (code === '~') return null;
       if (code === 'V' && speeds.valley) return 'valley';   /* the valley's own paved streets (10/18, one clock) */
       return 'streets';
     }
