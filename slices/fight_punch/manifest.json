@@ -1,0 +1,543 @@
+{
+ "_readme": "THE PUNCH HEARD (SOUNDS 11/3/26): every voice's takes in punch.mp3 and the CC0 recordings each is cut from (tools/bohemia_sounds_the_punch.py). The game reads index.json (the gains, tools/bohemia_sounds_the_punch_level.js).",
+ "file": "punch.mp3",
+ "voices": {
+  "blunt": {
+   "takes": [
+    {
+     "at_s": 0.0,
+     "dur_s": 0.703
+    },
+    {
+     "at_s": 0.823,
+     "dur_s": 0.703
+    },
+    {
+     "at_s": 1.6459,
+     "dur_s": 0.703
+    }
+   ],
+   "sources": [
+    "2-133889-A-30",
+    "2-76408-B-22",
+    "2-76408-C-22",
+    "2-76408-D-22",
+    "5-234855-A-25"
+   ]
+  },
+  "blade": {
+   "takes": [
+    {
+     "at_s": 2.4689,
+     "dur_s": 0.174
+    },
+    {
+     "at_s": 2.7629,
+     "dur_s": 0.174
+    },
+    {
+     "at_s": 3.0569,
+     "dur_s": 0.174
+    }
+   ],
+   "sources": [
+    "1-51147-A-25",
+    "1-9886-A-49",
+    "2-76408-B-22",
+    "2-76408-C-22",
+    "2-76408-D-22"
+   ]
+  },
+  "swing": {
+   "takes": [
+    {
+     "at_s": 3.351,
+     "dur_s": 0.2
+    },
+    {
+     "at_s": 3.671,
+     "dur_s": 0.2
+    },
+    {
+     "at_s": 3.991,
+     "dur_s": 0.2
+    }
+   ],
+   "sources": [
+    "3-117504-A-16",
+    "5-238492-A-23"
+   ]
+  },
+  "scuff": {
+   "takes": [
+    {
+     "at_s": 4.311,
+     "dur_s": 0.1264
+    },
+    {
+     "at_s": 4.5574,
+     "dur_s": 0.1264
+    },
+    {
+     "at_s": 4.8038,
+     "dur_s": 0.1264
+    }
+   ],
+   "sources": [
+    "3-94344-A-25"
+   ]
+  },
+  "hurt_body": {
+   "takes": [
+    {
+     "at_s": 5.0502,
+     "dur_s": 0.703
+    },
+    {
+     "at_s": 5.8732,
+     "dur_s": 0.703
+    }
+   ],
+   "sources": [
+    "2-133889-A-30",
+    "2-54961-A-23",
+    "2-76408-B-22",
+    "2-76408-C-22",
+    "2-76408-D-22",
+    "5-234855-A-25"
+   ]
+  },
+  "down": {
+   "takes": [
+    {
+     "at_s": 6.6961,
+     "dur_s": 1.1018
+    },
+    {
+     "at_s": 7.9179,
+     "dur_s": 1.0923
+    }
+   ],
+   "sources": [
+    "1-155858-B-25",
+    "2-118624-A-30",
+    "3-112557-A-23"
+   ]
+  },
+  "thud": {
+   "takes": [
+    {
+     "at_s": 9.1303,
+     "dur_s": 0.4381
+    },
+    {
+     "at_s": 9.6884,
+     "dur_s": 0.5018
+    },
+    {
+     "at_s": 10.3102,
+     "dur_s": 0.58
+    }
+   ],
+   "sources": [
+    "2-118624-A-30",
+    "3-94344-A-25"
+   ]
+  },
+  "high": {
+   "takes": [
+    {
+     "at_s": 11.0102,
+     "dur_s": 0.484
+    },
+    {
+     "at_s": 11.6142,
+     "dur_s": 0.484
+    }
+   ],
+   "sources": [
+    "1-155858-B-25",
+    "4-107120-A-33"
+   ]
+  },
+  "metal_step": {
+   "takes": [
+    {
+     "at_s": 12.2182,
+     "dur_s": 0.6323
+    },
+    {
+     "at_s": 12.9705,
+     "dur_s": 0.6323
+    },
+    {
+     "at_s": 13.7227,
+     "dur_s": 0.6322
+    }
+   ],
+   "sources": [
+    "1-155858-B-25",
+    "3-171041-A-38",
+    "4-165845-A-45",
+    "4-165845-B-45"
+   ]
+  },
+  "servo": {
+   "takes": [
+    {
+     "at_s": 14.475,
+     "dur_s": 0.4285
+    },
+    {
+     "at_s": 15.0235,
+     "dur_s": 0.409
+    },
+    {
+     "at_s": 15.5526,
+     "dur_s": 0.404
+    }
+   ],
+   "sources": [
+    "3-171041-A-38",
+    "5-231551-A-36"
+   ]
+  },
+  "machine_hit": {
+   "takes": [
+    {
+     "at_s": 16.0766,
+     "dur_s": 0.4529
+    },
+    {
+     "at_s": 16.6495,
+     "dur_s": 0.4647
+    },
+    {
+     "at_s": 17.2342,
+     "dur_s": 0.4529
+    }
+   ],
+   "sources": [
+    "2-131943-A-38",
+    "2-133889-A-30",
+    "3-171041-A-38",
+    "4-165845-A-45",
+    "4-165845-B-45"
+   ]
+  },
+  "machine_fall": {
+   "takes": [
+    {
+     "at_s": 17.8072,
+     "dur_s": 1.5824
+    },
+    {
+     "at_s": 19.5096,
+     "dur_s": 1.5627
+    }
+   ],
+   "sources": [
+    "4-165845-A-45",
+    "4-165845-B-45",
+    "4-204777-A-39",
+    "5-231551-A-36"
+   ]
+  },
+  "road_stop": {
+   "takes": [
+    {
+     "at_s": 21.1922,
+     "dur_s": 3.6271
+    }
+   ],
+   "sources": [
+    "2-152895-A-31",
+    "5-219044-A-46"
+   ]
+  },
+  "boss_found": {
+   "takes": [
+    {
+     "at_s": 24.9393,
+     "dur_s": 5.2882
+    }
+   ],
+   "sources": [
+    "1-54084-A-42",
+    "5-219044-A-46"
+   ]
+  },
+  "they_come": {
+   "takes": [
+    {
+     "at_s": 30.3475,
+     "dur_s": 1.7915
+    }
+   ],
+   "sources": [
+    "2-133889-A-30",
+    "5-261464-A-23"
+   ]
+  },
+  "camp_make": {
+   "takes": [
+    {
+     "at_s": 32.259,
+     "dur_s": 1.9
+    }
+   ],
+   "sources": [
+    "3-94344-A-25",
+    "4-181563-A-12"
+   ]
+  },
+  "camp_break": {
+   "takes": [
+    {
+     "at_s": 34.279,
+     "dur_s": 1.1
+    }
+   ],
+   "sources": [
+    "3-171041-A-38",
+    "3-94344-A-25",
+    "4-181563-A-12"
+   ]
+  },
+  "phone_tap": {
+   "takes": [
+    {
+     "at_s": 35.499,
+     "dur_s": 0.074
+    },
+    {
+     "at_s": 35.693,
+     "dur_s": 0.074
+    },
+    {
+     "at_s": 35.887,
+     "dur_s": 0.074
+    }
+   ],
+   "sources": [
+    "1-62849-A-38",
+    "2-152895-A-31"
+   ]
+  },
+  "phone_open": {
+   "takes": [
+    {
+     "at_s": 36.081,
+     "dur_s": 0.61
+    }
+   ],
+   "sources": [
+    "2-152895-A-31",
+    "3-171041-A-38"
+   ]
+  },
+  "phone_close": {
+   "takes": [
+    {
+     "at_s": 36.811,
+     "dur_s": 0.3833
+    }
+   ],
+   "sources": [
+    "2-152895-A-31",
+    "3-171041-A-38"
+   ]
+  }
+ },
+ "sources": {
+  "2-133889-A-30": {
+   "category": "Door knock",
+   "source": "Large wood door Knocking",
+   "author": "aroth4",
+   "url": "http://www.freesound.org/people/aroth4/sounds/133889/",
+   "licence": "CC0"
+  },
+  "2-76408-B-22": {
+   "category": "Clapping",
+   "source": "Clap.mp3",
+   "author": "therabidfrog",
+   "url": "http://www.freesound.org/people/therabidfrog/sounds/76408/",
+   "licence": "CC0"
+  },
+  "2-76408-C-22": {
+   "category": "Clapping",
+   "source": "Clap.mp3",
+   "author": "therabidfrog",
+   "url": "http://www.freesound.org/people/therabidfrog/sounds/76408/",
+   "licence": "CC0"
+  },
+  "2-76408-D-22": {
+   "category": "Clapping",
+   "source": "Clap.mp3",
+   "author": "therabidfrog",
+   "url": "http://www.freesound.org/people/therabidfrog/sounds/76408/",
+   "licence": "CC0"
+  },
+  "5-234855-A-25": {
+   "category": "Footsteps",
+   "source": "Footsteps_Carpet.wav",
+   "author": "mlsulli",
+   "url": "http://www.freesound.org/people/mlsulli/sounds/234855/",
+   "licence": "CC0"
+  },
+  "1-9886-A-49": {
+   "category": "Hand saw",
+   "source": "WoodSaw1.wav",
+   "author": "Pingel",
+   "url": "http://www.freesound.org/people/Pingel/sounds/9886/",
+   "licence": "CC0"
+  },
+  "1-51147-A-25": {
+   "category": "Footsteps",
+   "source": "Wet Footsteps in Small Shower Cabin.wav",
+   "author": "RutgerMuller",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/51147/",
+   "licence": "CC0"
+  },
+  "5-238492-A-23": {
+   "category": "Breathing",
+   "source": "3_Breath sport.wav",
+   "author": "mariiao2",
+   "url": "http://www.freesound.org/people/mariiao2/sounds/238492/",
+   "licence": "CC0"
+  },
+  "3-117504-A-16": {
+   "category": "Wind",
+   "source": "winter wind 01a.aiff",
+   "author": "klangfabrik",
+   "url": "http://www.freesound.org/people/klangfabrik/sounds/117504/",
+   "licence": "CC0"
+  },
+  "3-94344-A-25": {
+   "category": "Footsteps",
+   "source": "Fotsteg p\\xe5 grus.wav",
+   "author": "Ryding",
+   "url": "http://www.freesound.org/people/Ryding/sounds/94344/",
+   "licence": "CC0"
+  },
+  "2-54961-A-23": {
+   "category": "Breathing",
+   "source": "Breath Human Sci.wav",
+   "author": "cidchili",
+   "url": "http://www.freesound.org/people/cidchili/sounds/54961/",
+   "licence": "CC0"
+  },
+  "1-155858-B-25": {
+   "category": "Footsteps",
+   "source": "Footsteps in Factory Hall on Wood and Concrete.wav",
+   "author": "RutgerMuller",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/155858/",
+   "licence": "CC0"
+  },
+  "2-118624-A-30": {
+   "category": "Door knock",
+   "source": "Door Open and Close - Close Mic.wav",
+   "author": "E-Audio",
+   "url": "http://www.freesound.org/people/E-Audio/sounds/118624/",
+   "licence": "CC0"
+  },
+  "3-112557-A-23": {
+   "category": "Breathing",
+   "source": "Frightened Breathing.aiff",
+   "author": "nickrave",
+   "url": "http://www.freesound.org/people/nickrave/sounds/112557/",
+   "licence": "CC0"
+  },
+  "4-107120-A-33": {
+   "category": "Door - wood creaks",
+   "source": "CrDr_005.wav",
+   "author": "tec studios",
+   "url": "http://www.freesound.org/people/tec%20studios/sounds/107120/",
+   "licence": "CC0"
+  },
+  "3-171041-A-38": {
+   "category": "Clock tick",
+   "source": "Old Electromechanical Clock Ticking \"Yantar\".wav",
+   "author": "ST303",
+   "url": "http://www.freesound.org/people/ST303/sounds/171041/",
+   "licence": "CC0"
+  },
+  "4-165845-A-45": {
+   "category": "Train",
+   "source": "On a train in Argentina, between two wagons. Metal pieces are squeaking",
+   "author": "felix.blume",
+   "url": "http://www.freesound.org/people/felix.blume/sounds/165845/",
+   "licence": "CC0"
+  },
+  "4-165845-B-45": {
+   "category": "Train",
+   "source": "On a train in Argentina, between two wagons. Metal pieces are squeaking",
+   "author": "felix.blume",
+   "url": "http://www.freesound.org/people/felix.blume/sounds/165845/",
+   "licence": "CC0"
+  },
+  "5-231551-A-36": {
+   "category": "Vacuum cleaner",
+   "source": "Vacuum cleaner",
+   "author": "MrAuralization",
+   "url": "http://www.freesound.org/people/MrAuralization/sounds/231551/",
+   "licence": "CC0"
+  },
+  "2-131943-A-38": {
+   "category": "Clock tick",
+   "source": "Wind up clock with twin bell alarm",
+   "author": "AngryAdam",
+   "url": "http://www.freesound.org/people/AngryAdam/sounds/131943/",
+   "licence": "CC0"
+  },
+  "4-204777-A-39": {
+   "category": "Glass breaking",
+   "source": "Breaking Glass ",
+   "author": "ngruber",
+   "url": "http://www.freesound.org/people/ngruber/sounds/204777/",
+   "licence": "CC0"
+  },
+  "5-219044-A-46": {
+   "category": "Church bells",
+   "source": "Church Clock Strikes 12.wav",
+   "author": "JarredGibb",
+   "url": "http://www.freesound.org/people/JarredGibb/sounds/219044/",
+   "licence": "CC0"
+  },
+  "2-152895-A-31": {
+   "category": "Mouse click",
+   "source": "Sound of a mouse being clicked ",
+   "author": "davidkyoku",
+   "url": "http://www.freesound.org/people/davidkyoku/sounds/152895/",
+   "licence": "CC0"
+  },
+  "1-54084-A-42": {
+   "category": "Siren",
+   "source": "civildefense.wav",
+   "author": "guitarguy1985",
+   "url": "http://www.freesound.org/people/guitarguy1985/sounds/54084/",
+   "licence": "CC0"
+  },
+  "5-261464-A-23": {
+   "category": "Breathing",
+   "source": "Werewolf breathing and sniffing ",
+   "author": "kd_jack",
+   "url": "http://www.freesound.org/people/kd_jack/sounds/261464/",
+   "licence": "CC0"
+  },
+  "4-181563-A-12": {
+   "category": "Crackling fire",
+   "source": "Fire Crackling 01.wav",
+   "author": "kingsrow",
+   "url": "http://www.freesound.org/people/kingsrow/sounds/181563/",
+   "licence": "CC0"
+  },
+  "1-62849-A-38": {
+   "category": "Clock tick",
+   "source": "clock_tick_close.wav",
+   "author": "life_interconnected",
+   "url": "http://www.freesound.org/people/life_interconnected/sounds/62849/",
+   "licence": "CC0"
+  }
+ }
+}

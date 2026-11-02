@@ -939,6 +939,7 @@
 
   function appPress(a) {
     H.presses++; window.__PHONE_PRESSES = H.presses;
+    try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_tap' }, '*'); } catch (_e) {}   /* __THE_PUNCH_HEARD__ (SOUNDS 11/3): rule 301, a gear tooth and a click */
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     var scr = H.state.screen; try { scr = whichScreen() || scr; } catch (e) {}   /* where he is at the press, not a beat ago (a town just closed is the map) */
     if (a === 'play') { if (L && scr === 'map') { L.play(H.sel); paintHome(true); } return; }
@@ -962,12 +963,13 @@
     window.__PHONE_MORPHS = (window.__PHONE_MORPHS | 0) + 1;
   }
   function pageOpen(which) {
+    if (!H.page) try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_open' }, '*'); } catch (_e) {}   /* __THE_PUNCH_HEARD__ (SOUNDS 11/3): gears and a rubber band */
     var pg = H.el.querySelector('.page'), swap = !!H.page && H.page !== which; H.page = which; pg.dataset.page = which; panel(pg, true, swap);
     H.el.querySelector('.home').classList.add('under');
     pg.querySelector('.ph span').textContent = which === 'speeds' ? 'SPEED' : LABEL[which];
     pagePaint(true);
   }
-  function pageClose() { var pg = H.el.querySelector('.page'); panel(pg, false); pg.dataset.page = ''; H.page = null; H.el.querySelector('.home').classList.remove('under'); }
+  function pageClose() { var pg = H.el.querySelector('.page'); if (H.page) try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_close' }, '*'); } catch (_e) {} panel(pg, false); pg.dataset.page = ''; H.page = null; H.el.querySelector('.home').classList.remove('under'); }
   function pagePaint(fresh) {
     if (!H.page) return;
     var pb = H.el.querySelector('.page .pb'), cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;

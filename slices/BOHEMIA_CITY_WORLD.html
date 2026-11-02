@@ -43578,6 +43578,7 @@ function roadCard(ev, mins, kg){
      class is on the element the same frame it becomes visible. */
   var _dc=document.getElementById('daycard');
   if(_dc) _dc.classList.add('roadcard');
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: 'road_stop' }, '*'); } catch (_e) {}   /* __THE_PUNCH_HEARD__: the road stops you */
   try{ roadCardSeen(); }catch(_e){}   /* V216 __CARD_SURVIVES_A_STEP__: the clock starts when it appears */
   var where = (ev.at && ev.at.district ? String(ev.at.district).toUpperCase() : 'THE ROAD');
   var when  = (ev.at && ev.at.phase==='night') ? 'NIGHT' : 'DAY';
@@ -46092,6 +46093,7 @@ function btwStart(kind, o){
   BETWEEN.m = m; BETWEEN.held = 0;
   btwCanvas().style.display = 'block';
   BETWEEN.log.push({ kind: kind, at: Math.round(m.t0), dur: dur, fromCamp: !!m.o.fromCamp });
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ({ campIn: 'camp_make', campOut: 'camp_break', come: 'they_come' })[kind] || 'none' }, '*'); } catch (_e) {}   /* __THE_PUNCH_HEARD__ (SOUNDS 11/3): the moment heard */
   if (BETWEEN.log.length > 24) BETWEEN.log.shift();
   window.__BETWEEN = { now: kind, log: BETWEEN.log.slice() };
   btwTick();

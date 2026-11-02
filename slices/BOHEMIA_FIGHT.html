@@ -4177,17 +4177,26 @@ function sfx(ev, facts) { (UI.heard = UI.heard || []).push(ev); if (UI.heard.len
   (UI.sent = UI.sent || []).push([ev, performance.now()]); if (UI.sent.length > 240) UI.sent.shift();   /* and when (rule 158: the beat gate) */
   try { if (window.parent && window.parent !== window) window.parent.postMessage(Object.assign({ type: 'BOHEMIA_SFX', ev: ev }, facts || {}), '*'); } catch (_e) {} }
 const SND = {
+  /* THE PUNCH HEARD (SOUNDS 11/3, ask 266): a machine's step is steel and servo; who swung */
   step: function () { tone(70, 0.05, 0.05, 'triangle'); },
-  swing: function () { sfx('swing_air'); },
+  metal: function (u) { if (u && u.machine) sfx('fight_step', { side: u.side, machine: true }); },   /* a man's step stays this one (his DOWN on REAL SHOES IN THE FIGHT, 10/18) */
+  swing: function (u) { sfx('swing_air', u ? { side: u.side, machine: !!u.machine } : undefined); },
+  /* a blow is a blow (melee), its kind (blunt or blade, SND.death's rule) and whether it landed on steel */
+  blow: function (u, t) { const w = u && u.weapon, c = w && ((w.of && w.of.class) || w.class);
+    return { melee: true, side: u ? u.side : null, target_machine: !!(t && t.machine),
+      blow: ['mace', 'hammer', 'flail', 'natural', 'throwing'].indexOf(c) >= 0 || !c ? 'blunt' : ['dagger', 'spear', 'polearm'].indexOf(c) >= 0 ? 'piercing' : 'cutting' }; },
+  /* the body lands on the fall's last key: COMBAT's thud (thudAt), heard where it is seen */
+  thud: function (u, at, B) { const k = DB.rig.keys_per_beat; setTimeout(function () { sfx('body_land', { side: u.side, machine: !!u.machine }); }, Math.max(0, at + B * (k - 1) / k - SONG.lat - performance.now())); },
   shot: function (f) { sfx('shot', f); },
   /* ranged vs melee picks the material (a bullet landing is not a pipe landing); head is
      'vital' ("worse than a hit, not yet a kill"); hurtsYou is 'hurt', the one sound in the
      whole catalogue built to mean "that was you" rather than "you did that". */
-  resolve: function (ranged, head, hurtsYou, f) {
+  resolve: function (ranged, head, hurtsYou, f, u, t) {
+    if (!ranged && u) f = Object.assign(SND.blow(u, t), f || {});   /* THE PUNCH HEARD: a blow says so */
     if (hurtsYou) { sfx('hurt', f); return; }
     sfx(head ? 'vital' : (ranged ? 'hit' : 'melee_hit'), f);
   },
-  miss: function (f) { sfx('miss', f); },
+  miss: function (f, u) { sfx('miss', f || (u ? SND.blow(u, null) : undefined)); },
   /* dead is 'kill'; struck down (not dead, the 20%-else-injury rule) is 'went_down' --
      two different real sounds for two different things that used to share one tone. */
   fall: function (dead, f) { sfx(dead ? 'kill' : 'went_down', f); },
@@ -4891,7 +4900,7 @@ function startAnim(a) {
      before the picture's moment, never the late start's */
   const D = a.at - SONG.lat - performance.now(), sd = function (ms) { return Math.max(0, ms + D); };
   if (a.k === 'attack') { (UI.landDue = UI.landDue || []).push({ due: performance.now() + sd(B * 0.45), land: a.at + B * 0.45, lat: SONG.lat }); if (UI.landDue.length > 240) UI.landDue.shift(); }   /* when the landing's sound is asked for, against its place (the beat gate) */
-  if (a.k === 'step') { SND.step();
+  if (a.k === 'step') { SND.step(); SND.metal(FIGHT.byId(e.id));
     const span = [a.path[0], a.path[a.path.length - 1]];   /* the walk's two ends, so the walk itself stays on the glass */
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
   if (a.k === 'attack') {
@@ -4902,9 +4911,9 @@ function startAnim(a) {
     if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     /* the shot and the swing sound on the clip's second key (the kick, the blow), a third of a beat in */
     const sling = ranged && u.weapon.class === 'throwing' && !FIGHT.isGun(u.weapon);   /* THE KIDS' SLING: a whoosh, never a gunshot */
-    setTimeout(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(); }, sd(B * 0.35));
+    setTimeout(function () { ranged && !sling ? SND.shot(bullet('fired', u, t, e)) : SND.swing(u); }, sd(B * 0.35));
     if (sling && e.hit) setTimeout(function () { sfx('stone_bite', { side: u.side }); }, sd(B * 0.45));
-    setTimeout(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf) : SND.miss(bf); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
+    setTimeout(function () { const bf = ranged ? bullet('lands', u, t, e) : undefined; e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you', bf, u, t) : SND.miss(bf, ranged ? null : u); if (e.hit && t.side === 'you') MUSIC.hit(t, e); if (u.side === 'you' && crewControlled(u) && !e.free) resultSay(e, a.also);
       /* THE CREW CALLS IT (rule 143(c)): his men's shots, a hit or a miss, the man of theirs who slips it */
       if (u.side === 'you') callSoon(e.hit ? 'hit' : into ? 'miss' : (t._dodged || 0) >= 1 + 1 ? 'dodged' : 'miss', t); }, sd(B * 0.45));
     /* HIS LAST ROUND (rule 124: the moment the gun is empty, in the sound): the slide locks back, the dry click after the shot */
@@ -4914,7 +4923,7 @@ function startAnim(a) {
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
       const ot = FIGHT.byId(o.to); if (!ot) return;
-      setTimeout(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf) : SND.miss(bf); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, sd(B * (0.45 + 0.25 * (i + 1))));
+      setTimeout(function () { const bf = ranged ? bullet('lands', u, ot, o) : undefined; o.hit ? SND.resolve(ranged, !!o.head, ot.side === 'you', bf, u, ot) : SND.miss(bf, ranged ? null : u); if (o.hit && ot.side === 'you') MUSIC.hit(ot, o); }, sd(B * (0.45 + 0.25 * (i + 1))));
       if (o.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[ot.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[ot.id] = a.at + B * (0.45 + 0.25 * (i + 1)); goreHit(ot, u, o.hp, a.at + B * (0.45 + 0.25 * (i + 1))); punchLand(u, ot, o, a.at + B * (0.45 + 0.25 * (i + 1)), B, ranged); }
       pop(ot, '', o.hit ? (o.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', o.hit && o.head,
         u.name + "'s " + (o.skill || 'sweep').toLowerCase() + (o.hit ? ' catches ' + ot.name + ', -' + o.hp + ' health' : ' misses ' + ot.name) + ' (' + o.chance + '%)');
@@ -4934,12 +4943,12 @@ function startAnim(a) {
     const u = FIGHT.byId(e.id);
     if ((e.t === 'dead' || e.t === 'down' || e.t === 'fled') && u) UI.fallN = (UI.fallN || 0) + 1;   /* the class read and the last stand look again */
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = a.at;   /* the fall plays from here (poseOf) */
-      if (u.side === 'you' || u._seen) thudAt(a.at, B);   /* THE PUNCH: the body lands on the fall's last key */
+      if (u.side === 'you' || u._seen) { thudAt(a.at, B); SND.thud(u, a.at, B); }   /* THE PUNCH: the body lands on the fall's last key */
       if (u.side === 'them' && !u._seen) a.dur = 0;   /* a man of theirs he never saw falls where nobody watches: no beat held for it */
       if (u.side === 'them') MUSIC.kill(u); }   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
-    if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
+    if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side, victim: 'machine' }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
     else if (e.t === 'dead') { SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
-    if (e.t === 'down') { SND.fall(false, { side: u.side }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
+    if (e.t === 'down') { SND.fall(false, { side: u.side, victim: u.machine ? 'machine' : undefined }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
     if (e.t === 'fled') { SND.flee(); if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
     if (e.t === 'allflee' && !FIGHT.S.over) routUp();   /* rule 198(h): they are breaking: his lead says it, and the choice is his */
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
@@ -4947,7 +4956,7 @@ function startAnim(a) {
     if (e.t === 'poisoned') pop(u, 'SLOWED', '#a8e07c', false, u.name + ' takes a needle: one step less, slower and half blind for 3 turns.');   /* THE NEEDLE (FACTIONS 11/3, draft:true) */
 
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
-    if (e.t === 'reload' && u) { sfx('mag_home'); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
+    if (e.t === 'reload' && u) { sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
       if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'free' && u) { sfx('cloth_on', { side: u.side }); pop(u, 'tears free', '#c9b48a'); }

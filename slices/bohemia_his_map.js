@@ -147,6 +147,7 @@
     try { fogReveal(s.boss.x, s.boss.y, 1.6); } catch (e) {}   /* the Ancient Spire's circle: his place shows through the static */
     save();
     say(((r.sign && r.sign.says) || r.n) + ' Marked on your map.');   /* draft:true */
+    try { if (root.parent && root.parent !== root) root.parent.postMessage({ type: 'BOHEMIA_SFX', ev: 'boss_found' }, '*'); } catch (e) {}   /* __THE_PUNCH_HEARD__ (SOUNDS 11/3): the boss is marked */
     try { root.dispatchEvent(new CustomEvent('bohemia:boss-found', { detail: { n: r.n, at: [s.boss.x, s.boss.y] } })); } catch (e) {}
     try { if (typeof render === 'function') render(); } catch (e) {}
   }
