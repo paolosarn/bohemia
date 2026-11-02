@@ -1,0 +1,628 @@
+{
+  "_about": "ECONOMY 2 [a job pays for the time and the risk], 11/2/26, rule 323, ask line 320. Paolo 11/2: 'I just don't think it's giving me enough money for the amount of time that I'm doing for it... for most of the quests I want you to feel properly compensated with how difficult it was... it's a bit tedious to chase 11 dogs... how friendly you are with the settlement.' Rule 303 over it: fair, never stingy. Every board job's BASE pay is worked out here from what it costs the crew: its map hours at what the crew burns an hour times one plus the margin, plus its fights at one fight's worth times the skulls (a HUNT pays per head: a head is a third of a fight), never under the old 30 a skull. engine/bohemia_job_pay.js is the formula; tools/bohemia_economy_job_pay.js writes 'pays' below and the shelf's baker (tools/bohemia_run2_board_shelf.py) and the job kinds' board people read it. The town's standing bends the pay at the offer ('standing'). MECHANISM-MINE / CONTENTS-PAOLO'S: every number carries its reason; a modder edits this file, then runs the tool. draft:true.",
+  "draft": true,
+  "crew_cost_per_map_hour": {
+    "value": 1.375,
+    "why": "what the crew burns an hour at the honest top of the first month: TUNING's table, twelve hired in the first week cost about 33 a night (records/target/bb/nightly_bill.json, 2 a man for food and water, plus the hired men's wages, engine/bohemia_wages.js); 33 / 24 = 1.375. The start's three cost 6 a night (0.25 an hour), so a job that clears 1.375 clears every smaller crew too"
+  },
+  "margin": {
+    "value": 1,
+    "why": "the hours pay double what they cost the crew. Battle Brothers: a 12-man company burns 150 to 300 crowns a day (reference/library/battle_brothers/07_ECONOMY.md) and the wiki's own worked contract pays 760 (bb_all/0441_Contracts.txt) for a job of two or three days, so a contract pays one to two and a half times its days of upkeep; we take the low middle, double, so every hour on a job is worth it and the fights are paid on top; the same margin for a walk, so even the quiet jobs clear the crew's cost"
+  },
+  "minutes_per_block": {
+    "value": 8.5,
+    "why": "MEASURED, not set: the carts to PRIMM, 159 blocks at the carts' pace 1.6, took a day and a half of his clock (records/BOHEMIA_WORLD_THE_PLACE_IN_THE_DARK_THE_ROSTER_SAID_AND_THE_SIZES_10_25_26.md): 36 h x 60 / 159 / 1.6 = 8.5 minutes a block, roads and dirt mixed (the map's rough going is 10.75, a paved block half that). WORLD 4's 95-job measurement (records/BOHEMIA_WORLD_A_JOBS_TIME_IS_THE_TRUTH_11_2_26.md) replaces the modelled hours below when it lands"
+  },
+  "crew_blocks": {
+    "value": [
+      6,
+      10
+    ],
+    "why": "a crew job's mark is 6 to 10 blocks out (the map's loopTarget, slices/BOHEMIA_CITY_WORLD.html), paid there"
+  },
+  "pack_size": {
+    "value": 3,
+    "why": "a hunt's packs are 2 to 4 (records/target/BOHEMIA_JOB_KINDS.json hunt-kind pack_size), the middle 3: a pack is a fight, so a head is a third of a fight, and eleven dogs are about four fights and five walks (to each pack, then back to the client)"
+  },
+  "base_men": {
+    "value": {
+      "1": 4,
+      "2": 6,
+      "3": 8
+    },
+    "why": "a job's party at each skull count (records/target/bb/party_math.json job_bb base_men); a camp's two extra men make its fight that much bigger"
+  },
+  "hold_wait_hours": {
+    "value": 6,
+    "why": "OURS: a HOLD waits for the night on the client's gate; arriving any hour, half the light is left on average"
+  },
+  "dark_wait_hours": {
+    "value": 6,
+    "why": "OURS: a leg that only happens after dark (the bounty's man, the signal's masts) waits the same half a day on average"
+  },
+  "place_blocks": {
+    "value": {
+      "PRIMM": 148,
+      "HOOVER DAM": 123,
+      "MT CHARLESTON LODGE": 90,
+      "RAILROAD PASS": 40,
+      "TULE SPRINGS": 37
+    },
+    "why": "how far the real places are from the valley's middle, in blocks: PRIMM MEASURED 148 from the Church (records/BOHEMIA_WORLD_THE_PC_PLAYTEST_THE_JOBS_PART_10_25_26.md); the rest from their east and north in records/target/bb/region_bases.json at PRIMM's own ratio (148 blocks for its 215, the larger of the two), so HOOVER DAM 178 -> 123, MT CHARLESTON LODGE 130 -> 90, RAILROAD PASS 58 -> 40, TULE SPRINGS 54 -> 37. The client's own town moves it; the middle is the fair guess"
+  },
+  "per_fight": {
+    "value": 26,
+    "why": "one fight at one skull: two to four real minutes of his time (Paolo 9/29: a routine fight 2 to 4 minutes), the wounds and the wear. Set so the shortest one-fight job pays what the board always paid: a crew job 8 blocks out is 1.1 h x 2.75 = 3 + 26 = 29, under the floor 30, so it stays 30. A map hour passes in 2 to 5 real seconds; the fights are where his time goes, so the fights carry the pay"
+  },
+  "skull_mult": {
+    "value": {
+      "1": 1,
+      "2": 2,
+      "3": 3
+    },
+    "why": "the board's rule since 10/5 (a skull is 30), kept per fight: Battle Brothers' 'more skulls means more danger, but a better pay' (bb_all/0441_Contracts.txt)"
+  },
+  "floor_per_skull": {
+    "value": 30,
+    "why": "a KILLING job never pays less than the board paid before (rule 303: fair, never stingy); the old 'a skull 30' is its floor. A job with no killing has only the quiet floor (violence.quiet_floor_per_skull, 10), rule 323 amended"
+  },
+  "standing": {
+    "value": {
+      "hostile": {
+        "mult": 0.85,
+        "word": "THEY HATE YOU HERE: -15% PAY"
+      },
+      "threatening": {
+        "mult": 0.88,
+        "word": "THEY DON'T TRUST YOU: -12% PAY"
+      },
+      "unfriendly": {
+        "mult": 0.92,
+        "word": "UNFRIENDLY HERE: -8% PAY"
+      },
+      "cold": {
+        "mult": 0.96,
+        "word": "COLD HERE: -4% PAY"
+      },
+      "neutral": {
+        "mult": 1,
+        "word": ""
+      },
+      "open": {
+        "mult": 1.04,
+        "word": "THEY LIKE YOU: +4% PAY"
+      },
+      "friendly": {
+        "mult": 1.08,
+        "word": "A FRIEND'S PRICE: +8% PAY"
+      },
+      "very_friendly": {
+        "mult": 1.12,
+        "word": "A GOOD FRIEND'S PRICE: +12% PAY"
+      },
+      "allied": {
+        "mult": 1.15,
+        "word": "FAMILY HERE: +15% PAY"
+      }
+    },
+    "why": "OURS on Battle Brothers' scale. The wiki ties relations to prices and access, not to a contract's pay: good relations improve market prices (bb_all/1670_Relations.txt), the buy price drops about 15% at the top of the bar (records/target/bb/price_table.json buySideDropAtTopOfBar), and only a place you are on terms with gives you contracts (bb_all/0724_Factions and Relations.txt). Paolo asked for the pay to feel it, so the same 15% a friend's market gives is the most a friend's job adds, in even steps by the wiki's nine bands (records/target/bb/relations.json); a finished job is +10 on the bar, so two jobs for a town from the start (50) make it FRIENDLY. Battle Brothers' refusal (no contracts below Threatening) is left for later; here the cold bands pay a little less. The word shows on the offer (the settlement's board, under the trip) whenever the pay is bent"
+  },
+  "violence": {
+    "value": {
+      "min_fights": 0.5,
+      "quiet_floor_per_skull": 10,
+      "words": {
+        "violent": "KILLING WORK: THE BLOOD PRICE IS IN IT",
+        "quiet": "NO KILLING EXPECTED: WALKING PAY"
+      }
+    },
+    "why": "RULE 323 AMENDED THE SAME ROUND (ask line 321, Paolo 11/2: 'quests that don't have any combat, you shouldn't be getting as much batteries... every time we had to pay for someone to get killed... imagine you order something today but you gotta pay an extra 5000 to have someone protect and kill for you'). A job is KILLING WORK when the fights it is for come to half a fight or more (min_fights; a twist's chance does not count): it pays every fight at per_fight times the skulls, the violence premium, and never under its old pay. A job with NO KILLING EXPECTED (a find, a carry, a scout, a walk with nobody guarding) pays its hours at the bar and the chance its twist turns into a fight at the fight's price times that chance, over only the quiet floor of 10 a skull, a third of a killing job's 30: so it pays clearly less, still over what the crew burns an hour. A long walk's hours still pay (a day on the road to the lodge is a day). The offer says which (the settlement's board, under the trip)"
+  },
+  "pays": {
+    "jk-ambush-cut": {
+      "pay": 76,
+      "before": 60,
+      "violent": true,
+      "kind": "ambush",
+      "skulls": 2,
+      "hours": 4.7,
+      "fights": 1.2,
+      "why": "killing work: 4.7 h x 2.75 + 1.2 fights x 26 x 2"
+    },
+    "jk-biggame-lion": {
+      "pay": 90,
+      "before": 90,
+      "violent": true,
+      "kind": "big-game",
+      "skulls": 3,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 3, the floor 90"
+    },
+    "jk-bounty-chuy": {
+      "pay": 78,
+      "before": 70,
+      "violent": true,
+      "kind": "bounty",
+      "skulls": 2,
+      "hours": 9.4,
+      "fights": 1,
+      "why": "killing work: 9.4 h x 2.75 + 1 fight x 26 x 2"
+    },
+    "jk-burn-tires": {
+      "pay": 60,
+      "before": 55,
+      "violent": true,
+      "kind": "burn",
+      "skulls": 2,
+      "hours": 2.6,
+      "fights": 1,
+      "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "jk-collect-beto": {
+      "pay": 40,
+      "before": 40,
+      "violent": true,
+      "kind": "collect",
+      "skulls": 1,
+      "hours": 2.3,
+      "fights": 1,
+      "why": "killing work: 2.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
+    },
+    "jk-envoy-clerk": {
+      "pay": 18,
+      "before": 40,
+      "violent": false,
+      "kind": "envoy",
+      "skulls": 1,
+      "hours": 2.6,
+      "fights": 0.4,
+      "why": "no killing: 2.6 h x 2.75 + 0.4 fights (the chance) x 26 x 1"
+    },
+    "jk-free-pen": {
+      "pay": 65,
+      "before": 65,
+      "violent": true,
+      "kind": "free",
+      "skulls": 2,
+      "hours": 3,
+      "fights": 1,
+      "why": "killing work: 3 h x 2.75 + 1 fight x 26 x 2, the floor 65"
+    },
+    "jk-patrol-dam": {
+      "pay": 119,
+      "before": 60,
+      "violent": true,
+      "kind": "patrol",
+      "skulls": 2,
+      "hours": 5.1,
+      "fights": 2,
+      "why": "killing work: 5.1 h x 2.75 + 2 fights x 26 x 2"
+    },
+    "jk-patrol-wash": {
+      "pay": 41,
+      "before": 30,
+      "violent": true,
+      "kind": "patrol",
+      "skulls": 1,
+      "hours": 5.1,
+      "fights": 1,
+      "why": "killing work: 5.1 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "jk-scout-wells": {
+      "pay": 11,
+      "before": 35,
+      "violent": false,
+      "kind": "scout",
+      "skulls": 1,
+      "hours": 3.9,
+      "fights": 0,
+      "why": "no killing: 3.9 h x 2.75 + 0 fights x 26 x 1"
+    },
+    "jk-signal-voice": {
+      "pay": 29,
+      "before": 45,
+      "violent": false,
+      "kind": "signal",
+      "skulls": 1,
+      "hours": 10.3,
+      "fights": 0,
+      "why": "no killing: 10.3 h x 2.75 + 0 fights x 26 x 1"
+    },
+    "qd-a02": {
+      "pay": 38,
+      "before": 30,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-aa01": {
+      "pay": 116,
+      "before": 30,
+      "violent": true,
+      "kind": "hunt-kind",
+      "skulls": 1,
+      "hours": 7.4,
+      "fights": 3.67,
+      "heads": 11,
+      "why": "killing work: 7.4 h x 2.75 + 11 heads / 3 a fight x 26 x 1"
+    },
+    "qd-aa09": {
+      "pay": 35,
+      "before": 30,
+      "violent": false,
+      "kind": "find-place",
+      "skulls": 1,
+      "hours": 10.5,
+      "fights": 0.2,
+      "why": "no killing: 10.5 h x 2.75 + 0.2 fights (the chance) x 26 x 1"
+    },
+    "qd-aa15": {
+      "pay": 60,
+      "before": 60,
+      "violent": true,
+      "kind": "hunt-kind",
+      "skulls": 2,
+      "hours": 3,
+      "fights": 0.67,
+      "heads": 2,
+      "why": "killing work: 3 h x 2.75 + 2 heads / 3 a fight x 26 x 2, the floor 60"
+    },
+    "qd-ae09": {
+      "pay": 38,
+      "before": 30,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-ae10": {
+      "pay": 199,
+      "before": 90,
+      "violent": true,
+      "kind": "hunt-kind",
+      "skulls": 3,
+      "hours": 6,
+      "fights": 2.33,
+      "heads": 7,
+      "why": "killing work: 6 h x 2.75 + 7 heads / 3 a fight x 26 x 3"
+    },
+    "qd-ap01": {
+      "pay": 34,
+      "before": 30,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 1,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-ap02": {
+      "pay": 121,
+      "before": 60,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 2,
+      "hours": 6,
+      "fights": 2,
+      "why": "killing work: 6 h x 2.75 + 2 fights x 26 x 2"
+    },
+    "qd-ap03": {
+      "pay": 47,
+      "before": 30,
+      "violent": true,
+      "kind": "hunt-kind",
+      "skulls": 1,
+      "hours": 4.5,
+      "fights": 1.33,
+      "heads": 4,
+      "why": "killing work: 4.5 h x 2.75 + 4 heads / 3 a fight x 26 x 1"
+    },
+    "qd-ap05": {
+      "pay": 25,
+      "before": 60,
+      "violent": false,
+      "kind": "find-person",
+      "skulls": 2,
+      "hours": 4.1,
+      "fights": 0.25,
+      "why": "no killing: 4.1 h x 2.75 + 0.25 fights (the chance) x 26 x 2"
+    },
+    "qd-ap07": {
+      "pay": 34,
+      "before": 30,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 1,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-ap08": {
+      "pay": 90,
+      "before": 90,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 3,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 3, the floor 90"
+    },
+    "qd-ap09": {
+      "pay": 10,
+      "before": 30,
+      "violent": false,
+      "kind": "recover-return",
+      "skulls": 1,
+      "hours": 2.8,
+      "fights": 0,
+      "why": "no killing: 2.8 h x 2.75 + 0 fights x 26 x 1, the quiet floor 10"
+    },
+    "qd-ap10": {
+      "pay": 60,
+      "before": 60,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 2,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "qd-ap11": {
+      "pay": 16,
+      "before": 30,
+      "violent": false,
+      "kind": "find-place",
+      "skulls": 1,
+      "hours": 3.8,
+      "fights": 0.2,
+      "why": "no killing: 3.8 h x 2.75 + 0.2 fights (the chance) x 26 x 1"
+    },
+    "qd-ap13": {
+      "pay": 60,
+      "before": 60,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 2,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "qd-ap15": {
+      "pay": 60,
+      "before": 60,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 2,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "qd-ap16": {
+      "pay": 34,
+      "before": 30,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 1,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-ap19": {
+      "pay": 73,
+      "before": 60,
+      "violent": true,
+      "kind": "clear-camp",
+      "skulls": 2,
+      "hours": 1.1,
+      "fights": 1.33,
+      "why": "killing work: 1.1 h x 2.75 + 1.33 fights x 26 x 2"
+    },
+    "qd-aq03": {
+      "pay": 60,
+      "before": 60,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 2,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 2, the floor 60"
+    },
+    "qd-ar02": {
+      "pay": 129,
+      "before": 60,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 2,
+      "hours": 27.9,
+      "fights": 1,
+      "why": "killing work: 27.9 h x 2.75 + 1 fight x 26 x 2"
+    },
+    "qd-ar03": {
+      "pay": 117,
+      "before": 60,
+      "violent": true,
+      "kind": "hunt-kind",
+      "skulls": 2,
+      "hours": 4.5,
+      "fights": 2,
+      "heads": 6,
+      "why": "killing work: 4.5 h x 2.75 + 6 heads / 3 a fight x 26 x 2"
+    },
+    "qd-ar05": {
+      "pay": 249,
+      "before": 90,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 3,
+      "hours": 33.5,
+      "fights": 2,
+      "why": "killing work: 33.5 h x 2.75 + 2 fights x 26 x 3"
+    },
+    "qd-ar06": {
+      "pay": 81,
+      "before": 60,
+      "violent": false,
+      "kind": "find-place",
+      "skulls": 2,
+      "hours": 25.5,
+      "fights": 0.2,
+      "why": "no killing: 25.5 h x 2.75 + 0.2 fights (the chance) x 26 x 2"
+    },
+    "qd-ar08": {
+      "pay": 26,
+      "before": 60,
+      "violent": false,
+      "kind": "carry",
+      "skulls": 2,
+      "hours": 5.7,
+      "fights": 0.2,
+      "why": "no killing: 5.7 h x 2.75 + 0.2 fights (the chance) x 26 x 2"
+    },
+    "qd-ar09": {
+      "pay": 121,
+      "before": 60,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 2,
+      "hours": 6,
+      "fights": 2,
+      "why": "killing work: 6 h x 2.75 + 2 fights x 26 x 2"
+    },
+    "qd-ar10": {
+      "pay": 31,
+      "before": 90,
+      "violent": false,
+      "kind": "find-person",
+      "skulls": 3,
+      "hours": 4.1,
+      "fights": 0.25,
+      "why": "no killing: 4.1 h x 2.75 + 0.25 fights (the chance) x 26 x 3"
+    },
+    "qd-c02": {
+      "pay": 34,
+      "before": 30,
+      "violent": true,
+      "kind": "recover-return",
+      "skulls": 1,
+      "hours": 2.8,
+      "fights": 1,
+      "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-r01": {
+      "pay": 69,
+      "before": 30,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 1,
+      "hours": 6,
+      "fights": 2,
+      "why": "killing work: 6 h x 2.75 + 2 fights x 26 x 1"
+    },
+    "qd-s01": {
+      "pay": 118,
+      "before": 60,
+      "violent": true,
+      "kind": "clear-camp",
+      "skulls": 2,
+      "hours": 17.4,
+      "fights": 1.33,
+      "why": "killing work: 17.4 h x 2.75 + 1.33 fights x 26 x 2"
+    },
+    "qd-s03": {
+      "pay": 38,
+      "before": 30,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-s04": {
+      "pay": 38,
+      "before": 30,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-s06": {
+      "pay": 38,
+      "before": 30,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1"
+    },
+    "qd-s08": {
+      "pay": 10,
+      "before": 30,
+      "violent": false,
+      "kind": "recover-return",
+      "skulls": 1,
+      "hours": 2.8,
+      "fights": 0,
+      "why": "no killing: 2.8 h x 2.75 + 0 fights x 26 x 1, the quiet floor 10"
+    },
+    "qd-s10": {
+      "pay": 30,
+      "before": 30,
+      "violent": true,
+      "kind": "clear-crew",
+      "skulls": 1,
+      "hours": 1.1,
+      "fights": 1,
+      "why": "killing work: 1.1 h x 2.75 + 1 fight x 26 x 1, the floor 30"
+    },
+    "qd-s15": {
+      "pay": 251,
+      "before": 90,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 3,
+      "hours": 6,
+      "fights": 3,
+      "why": "killing work: 6 h x 2.75 + 3 fights x 26 x 3"
+    },
+    "qd-s17": {
+      "pay": 21,
+      "before": 60,
+      "violent": false,
+      "kind": "find-place",
+      "skulls": 2,
+      "hours": 3.8,
+      "fights": 0.2,
+      "why": "no killing: 3.8 h x 2.75 + 0.2 fights (the chance) x 26 x 2"
+    },
+    "qd-t02": {
+      "pay": 121,
+      "before": 60,
+      "violent": true,
+      "kind": "hold-defend",
+      "skulls": 2,
+      "hours": 6,
+      "fights": 2,
+      "why": "killing work: 6 h x 2.75 + 2 fights x 26 x 2"
+    },
+    "qd-t06": {
+      "pay": 101,
+      "before": 90,
+      "violent": true,
+      "kind": "clear-camp",
+      "skulls": 3,
+      "hours": 1.1,
+      "fights": 1.25,
+      "why": "killing work: 1.1 h x 2.75 + 1.25 fights x 26 x 3"
+    }
+  }
+}

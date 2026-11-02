@@ -270,7 +270,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_goodbros.js"></script>
 <script src="../engine/bohemia_names.js"></script>  <!-- PEOPLE [the names wired in]: every recruit and keeper named from the county's mix, the name reads as the face -->
 <script src="../engine/bohemia_arrivaltraits.js"></script>
-<script src="../engine/bohemia_relations.js"></script>
+<script src="../engine/bohemia_relations.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <script src="../engine/bohemia_stall_prices.js"></script>  <!-- RUN TWO __TAPE_AT_EVERY_STALL__ (rules 265(a), 276(b)): ECONOMY's tape shelf -->  <script src="../engine/bohemia_shop_wear.js"></script>  <!-- RUN TWO __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210) -->  <script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): the company's CLOUT, its cart and its retinue -->  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
@@ -3986,9 +3986,11 @@ function offerSpeak(o){
      to get there'): the trip before the yes, the map's own road and clock on the job the yes would make (BohemiaJobKinds.trip) */
   try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null;
     if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.words; sy.appendChild(tp); S.trip = TR; } }catch(e){}
+  try{ var VW = window.BohemiaJobPay ? BohemiaJobPay.violenceWord(o.id) : ''; if(VW){ var vw = document.createElement('div'); vw.className = 'trip blood'; vw.textContent = VW; sy.appendChild(vw); } }catch(e){}   /* ECONOMY 2 (rule 323 amended, ask line 321): killing work or walking pay, said */
+  try{ var ST = standHere(); if(ST.word){ var sw = document.createElement('div'); sw.className = 'trip stand'; sw.textContent = ST.word; sy.appendChild(sw); } }catch(e){}   /* ECONOMY 2: the standing, said on the offer */
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts';
-  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay))})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
+  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay)), standing:{mult:standHere().mult}})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
   var out = S.held.length >= SLOTS ? swapOut() : null, oc = out ? heldCost(out) : null;
   if(out && jobsK()){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
     /* __TWO_JOBS_AT_ONCE__ (rule 228(b)): two is the most, said plainly, and the swap for either job he holds (this town's first) */
@@ -4017,7 +4019,11 @@ function offerSpeak(o){
    A raided place keeps one job, the crew that hit it, named from FACTIONS' raid ledger. The four drafted OFFERS only
    until the shelf is in. */
 /* the pay a contract shows is the pay it gives: the map's loopJobPay, (pay + the start's add) x its multiplier */
-function payShown(p){ var r = S.payRule, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__: the map's loopJobPay, the same sum */
+/* __A_JOB_PAYS_FOR_THE_TIME_AND_THE_RISK__ (ECONOMY 2, rule 323, Paolo 11/2: 'how friendly you are with the settlement'): this town's
+   bar (opinionNow, the arrival's own number) on records/target/bb/job_pay.json's standing: a friend pays a little more and the offer
+   says so; the number rides to the map with the contract, so what he is shown is what he is paid */
+function standHere(){ try{ if(window.BohemiaJobPay) return BohemiaJobPay.standing(opinionNow()); }catch(e){} return { mult:1, pct:0, word:'' }; }
+function payShown(p){ var r = S.payRule, cm = (window.BohemiaRenown ? BohemiaRenown.payMult() : 1) * (standHere().mult || 1);   /* __CLOUT__: the map's loopJobPay, the same sum (and the standing) */
   return r ? Math.max(1, Math.round(((p | 0) + (r.add | 0)) * (r.mult || 1) * cm)) : Math.max(1, Math.round((p | 0) * cm)); }
 function boardHere(){
   var SH = window.BohemiaBoardShelf, ids = (S.traits||[]).map(function(t){ return t.id; });

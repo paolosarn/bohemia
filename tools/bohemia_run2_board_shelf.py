@@ -111,7 +111,10 @@ CUTS = {
 # where the design's CLIENT PORTRAIT leads with a role, not the name ('the tire shop owner, Senora Garza, ...'): the name
 # as the design gives it further on (the bake still checks it is in the design's own text)
 NAMES = {'QD-AQ03': 'Señora Garza', 'QD-AP09': 'Chuy'}
-PAY_PER_SKULL = 30
+PAY_PER_SKULL = 30   # the floor since ECONOMY 2 (11/2, rule 323): the pay itself is records/target/bb/job_pay.json's 'pays'
+# ECONOMY 2 [a job pays for the time and the risk], rule 323: each job's pay is worked out from its hours, its fights and its heads
+# (engine/bohemia_job_pay.js; tools/bohemia_economy_job_pay.js writes the table); a row the table lacks pays the old 30 a skull
+PAYS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'records', 'target', 'bb', 'job_pay.json'), encoding='utf-8')).get('pays', {})
 CAST = {'cast_longcoat', 'cast_barearms', 'cast_pack', 'cast_skirt', 'cast_widebrim', 'cast_cape', 'cast_apron',
         'cast_poncho', 'cast_bedroll', 'cast_shorts', 'cast_satchel', 'cast_shortcoat'}
 
@@ -146,7 +149,7 @@ for qid, (title, tiers, when, frm, look, says) in CUTS.items():
     assert look in CAST, qid + ': a look with a fresh portrait'
     assert skulls in (1, 2, 3), qid
     rows.append({'id': 'qd-' + qid[3:].lower(), 'design': 'questbook/designs/act1/' + f, 'design_title': dtitle,
-                 'title': title, 'skulls': skulls, 'pay': skulls * PAY_PER_SKULL, 'tiers': tiers, 'when': when,
+                 'title': title, 'skulls': skulls, 'pay': (PAYS.get('qd-' + qid[3:].lower()) or {}).get('pay', skulls * PAY_PER_SKULL), 'tiers': tiers, 'when': when,
                  'client': {'name': name, 'from': frm, 'look': look, 'draft': True}, 'says': says, 'draft': True})
 
 doc = {
@@ -162,7 +165,10 @@ doc = {
     'refresh_days': 3,
     'refresh_why': "QUESTS QR-O's draft, one board per base per 3 map days; TUNING owns it",
     'pay_per_skull': PAY_PER_SKULL,
-    'pay_why': "the board's rule since 10/5: Battle Brothers' contract line at ten crowns a battery, a skull 30; TUNING owns it",
+    'pay_why': ("ECONOMY 2, 11/2 (rule 323, Paolo: 'properly compensated with how difficult it was'): a job pays for its time and its "
+                "risk, its map hours at what the crew burns an hour times two, plus its fights at 26 a fight times the skulls (a hunt per "
+                "head), never under the old 30 a skull (pay_per_skull, now the floor). Every row's pay is records/target/bb/job_pay.json's "
+                "'pays' (engine/bohemia_job_pay.js; tools/bohemia_economy_job_pay.js); the client town's standing bends it at the offer"),
     'offers': rows,
 }
 json.dump(doc, open(OUT, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)

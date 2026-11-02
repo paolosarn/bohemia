@@ -9558,6 +9558,13 @@ GATES = [
      "people there for exactly the raid's days; live through the map's own message the neighbour reads REFUGEES, the elder "
      "names the raided place and the crew under a fresh face, the shelves a tenth thinner, the ration dearer; the map's dice "
      "handed beside the ledger no longer switch the raid off; the bar tells the raid, then where its people went", True),
+    ('A JOB PAYS FOR THE TIME AND THE RISK', ['node', 'gates/a_job_pays_for_the_time_and_the_risk_gate.js'],
+     "ECONOMY 2 (rule 323, ask line 320; Paolo 11/2: 'not enough money for the amount of time... properly compensated with how "
+     "difficult it was... 11 dogs... how friendly you are with the settlement'). Every board job's pay is job_pay.json's row, which "
+     "the formula writes byte for byte (map hours at the crew's cost times one plus the margin, plus fights at 26 times the skulls, "
+     "a hunt per head, never under the old pay); no job under the bar a map hour; the dog hunt counts eleven heads; the town's "
+     "standing bends the pay up the nine bands, never past 15%, and the offer says so; the map, the board and the phone read it; "
+     "the probe's purse rises by less than double", True),
     ('THE BOARD\'S QUESTS ARE PEOPLE', ['node', 'gates/the_boards_quests_are_people_gate.js'],
      "RUN TWO [the board's quests are people] (his 10/17 'no more cards with quests, make an actual quest'; QUESTS research "
      "only, rule 35, read never asked). The shelf is the bake of QUESTS' act-one contract designs, byte for byte: every row "

@@ -4,7 +4,7 @@
    never ask it to build.
      THE SHELF   records/target/BOHEMIA_BOARD_SHELF.json is what tools/bohemia_run2_board_shelf.py bakes; every row is
                  one of QUESTS' act-one contract designs (the file is on disk, KIND contract, the client named in it, its
-                 skulls), says two sentences with the pay in the second, pays 30 a skull, and wears a look with a fresh
+                 skulls), says two sentences with the pay in the second, pays its time and risk (job_pay.json: killing work never under 30 a skull, a walk never under 10), and wears a look with a fresh
                  talking portrait; each tier's pool is deep enough that three places read three boards.
      THE BOARD   on his phone's profile with real taps: a camp, a town and a fortress on the same day read three
                  different boards of 1, 2 and 3 people from the shelf, none of the four drafted offers, every face
@@ -22,6 +22,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
 const SHELF_F = path.join(ROOT, 'records/target/BOHEMIA_BOARD_SHELF.json');
+const PAYS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_pay.json'), 'utf8')).pays || {};
 
 /* ---------- THE SHELF ---------- */
 const before = fs.readFileSync(SHELF_F, 'utf8');
@@ -41,7 +42,9 @@ rows.forEach(r => {
   const sk = (t.match(/SKULLS:\s*(\d)/) || [])[1]; if (sk && +sk !== r.skulls) bad.push(r.id + ': skulls ' + r.skulls + ' vs ' + sk);
   const ss = String(r.says).trim().split(/(?<=[.!?])\s+/);
   if (ss.length !== 2 || ss[1].indexOf('{pay}') < 0 || ss[0].indexOf('{pay}') >= 0) bad.push(r.id + ': not two sentences with the pay in the second');
-  if (r.pay !== 30 * r.skulls) bad.push(r.id + ': pay ' + r.pay);
+  /* ECONOMY 2 (rule 323 and its amendment): the pay is the job's time and risk, records/target/bb/job_pay.json's row; killing work
+     never under 30 a skull, a job with no killing never under 10 */
+  const JR = PAYS[r.id] || {}, JP = JR.pay; if (r.pay !== JP || r.pay < (JR.violent ? 30 : 10) * r.skulls) bad.push(r.id + ': pay ' + r.pay + ' vs ' + JP);
   if (crewLooks.indexOf(r.client && r.client.look) < 0) bad.push(r.id + ': no fresh portrait for ' + (r.client && r.client.look));
   if (r.draft !== true || !r.client || r.client.draft !== true) bad.push(r.id + ': not draft');
 });

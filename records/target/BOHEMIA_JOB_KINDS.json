@@ -1046,7 +1046,7 @@
         "id": "jk-patrol-dam",
         "title": "Walk the two pump posts and back",
         "skulls": 2,
-        "pay": 60,
+        "pay": 119,
         "tiers": [
           "town",
           "fortress"
@@ -1065,7 +1065,7 @@
         "id": "jk-patrol-wash",
         "title": "Ride the wash line and back",
         "skulls": 1,
-        "pay": 30,
+        "pay": 41,
         "tiers": [
           "camp",
           "town"
@@ -1084,7 +1084,7 @@
         "id": "jk-ambush-cut",
         "title": "Hit the convoy at the cut",
         "skulls": 2,
-        "pay": 60,
+        "pay": 76,
         "tiers": [
           "town",
           "fortress"
@@ -1104,7 +1104,7 @@
         "id": "jk-envoy-clerk",
         "title": "Walk the water clerk to the next town",
         "skulls": 1,
-        "pay": 40,
+        "pay": 18,
         "tiers": [
           "camp",
           "town"
@@ -1124,7 +1124,7 @@
         "id": "jk-bounty-chuy",
         "title": "Bring in the man they call Chuy Lento",
         "skulls": 2,
-        "pay": 70,
+        "pay": 78,
         "tiers": [
           "camp",
           "fortress"
@@ -1144,7 +1144,7 @@
         "id": "jk-scout-wells",
         "title": "Look at the three wells and come tell me",
         "skulls": 1,
-        "pay": 35,
+        "pay": 11,
         "tiers": [
           "camp",
           "town"
@@ -1164,7 +1164,7 @@
         "id": "jk-burn-tires",
         "title": "Burn the tire yard down",
         "skulls": 2,
-        "pay": 55,
+        "pay": 60,
         "tiers": [
           "town",
           "fortress"
@@ -1225,7 +1225,7 @@
         "id": "jk-signal-voice",
         "title": "Find where the three a.m. voice comes from",
         "skulls": 1,
-        "pay": 45,
+        "pay": 29,
         "tiers": [
           "camp",
           "town"

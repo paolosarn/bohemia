@@ -45489,7 +45489,11 @@ function startInTown(p){
   need('../engine/bohemia_roster.js', function(){ return !!window.BohemiaRoster; }, function(){ go(0); });
 }
 /* ==== /__THE_GAME_STARTS_IN_A_TOWN__ ==== */
-function loopJobPay(base){ var p = LOOP.start, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__ (RUN TWO [money teaches], rule 151(b)): Battle Brothers' 'the crowns reward increases with your company's Renown', x1 to x4.5 (TUNING) */
+function loopJobPay(base, place, st){ var p = LOOP.start, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__ (RUN TWO [money teaches], rule 151(b)): Battle Brothers' 'the crowns reward increases with your company's Renown', x1 to x4.5 (TUNING) */
+  /* __A_JOB_PAYS_FOR_THE_TIME_AND_THE_RISK__ (ECONOMY 2, rule 323, Paolo 11/2: 'how friendly you are with the settlement'): the client
+     town's standing bends the pay (records/target/bb/job_pay.json standing: a friend +4 to +15%, a cold town less); the board hands
+     the number it showed (st), else the town's own bar (engine/bohemia_job_pay.js). The base itself is the job's time and risk, baked */
+  try{ if(st && +st.mult > 0) cm *= +st.mult; else if(place && window.BohemiaJobPay) cm *= BohemiaJobPay.at(String(place), loopDay()).mult; }catch(_e){}
   if(!p) return Math.max(1, Math.round((base | 0) * cm)); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1) * cm)); }
 /* __A_FEW_NOT_TWELVE__ (RUN 10/5, [a few, not twelve], rule 75b). PAOLO 10/5: 'for demo purposes just one enemy
    attacking... 12 vs 12 is cool but that can't be the flow... a lot of math on the type of enemies, the difficulty, the
@@ -46352,7 +46356,7 @@ function loopTakeContract(c){
   if(LOOP.held.some(function(h){ return h.id === c.id; })) return false;
   var town = LOOP.open || loopTownAt(city.x, city.y, 2) || { x: city.x, y: city.y, name: '?' };
   var tg = loopTarget(town, c.id); if(!tg) return false;
-  var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay), from: town.name,
+  var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay, town.name, c.standing), from: town.name,
               target: tg, skulls: (c.skulls | 0) || 1 };
   job.party = partyMath('job', { skulls: job.skulls }); job.crew = job.party.count;   /* __A_FEW_NOT_TWELVE__: sized by the math */
   /* __EVERY_JOB_KIND__ (WORLD [every job kind], rule 153(b), Paolo 10/24: 'I want more quest types'): the job's KIND decides where it
@@ -92446,7 +92450,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
-<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_kill_tally.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_kill_tally.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_road_events.js"></script>  <!-- CONTENT [twenty-five things on the road] (11/2): the road's events with a face and two or three choices, and five side quests met on the road (records/target/BOHEMIA_ROAD_EVENTS.json, BOHEMIA_SIDE_QUESTS.json) -->
 <script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->

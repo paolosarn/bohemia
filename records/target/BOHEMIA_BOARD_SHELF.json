@@ -13,7 +13,7 @@
  "refresh_days": 3,
  "refresh_why": "QUESTS QR-O's draft, one board per base per 3 map days; TUNING owns it",
  "pay_per_skull": 30,
- "pay_why": "the board's rule since 10/5: Battle Brothers' contract line at ten crowns a battery, a skull 30; TUNING owns it",
+ "pay_why": "ECONOMY 2, 11/2 (rule 323, Paolo: 'properly compensated with how difficult it was'): a job pays for its time and its risk, its map hours at what the crew burns an hour times two, plus its fights at 26 a fight times the skulls (a hunt per head), never under the old 30 a skull (pay_per_skull, now the floor). Every row's pay is records/target/bb/job_pay.json's 'pays' (engine/bohemia_job_pay.js; tools/bohemia_economy_job_pay.js); the client town's standing bends it at the offer",
  "offers": [
   {
    "id": "qd-ae10",
@@ -21,7 +21,7 @@
    "design_title": "THE WOLVES THAT FOLLOW THE WATER",
    "title": "Run off the wolves at the water",
    "skulls": 3,
-   "pay": 90,
+   "pay": 199,
    "tiers": [
     "camp"
    ],
@@ -41,7 +41,7 @@
    "design_title": "THE FIRST WINDOW",
    "title": "Bring back the light regulator",
    "skulls": 1,
-   "pay": 30,
+   "pay": 34,
    "tiers": [
     "camp"
    ],
@@ -61,7 +61,7 @@
    "design_title": "THE PAINTED HALL SIGN",
    "title": "Fetch the paint for the hall sign",
    "skulls": 1,
-   "pay": 30,
+   "pay": 47,
    "tiers": [
     "camp"
    ],
@@ -81,7 +81,7 @@
    "design_title": "THE WATER TOWER RUNS",
    "title": "Get the water tower its valve",
    "skulls": 1,
-   "pay": 30,
+   "pay": 34,
    "tiers": [
     "camp"
    ],
@@ -121,7 +121,7 @@
    "design_title": "THE STRING OF BULBS",
    "title": "Bring the little bulbs from the church",
    "skulls": 1,
-   "pay": 30,
+   "pay": 16,
    "tiers": [
     "camp"
    ],
@@ -141,7 +141,7 @@
    "design_title": "THE BELL BACK IN THE CHAPEL",
    "title": "Buy back the chapel bell",
    "skulls": 1,
-   "pay": 30,
+   "pay": 34,
    "tiers": [
     "camp"
    ],
@@ -161,7 +161,7 @@
    "design_title": "THE WATER CARTS TO THE WASH",
    "title": "Walk the water carts to the wash",
    "skulls": 1,
-   "pay": 30,
+   "pay": 38,
    "tiers": [
     "camp"
    ],
@@ -181,7 +181,7 @@
    "design_title": "THE PACK THAT DRINKS AT JEAN",
    "title": "Hunt the pack that drinks here",
    "skulls": 2,
-   "pay": 60,
+   "pay": 117,
    "tiers": [
     "camp"
    ],
@@ -201,7 +201,7 @@
    "design_title": "THE FARM TOWER HOLDS ONE NIGHT",
    "title": "Hold the farm tower one night",
    "skulls": 1,
-   "pay": 30,
+   "pay": 69,
    "tiers": [
     "camp"
    ],
@@ -261,7 +261,7 @@
    "design_title": "THE BALLOT BOX FROM BLOCK SEVEN",
    "title": "Carry the ballot box from block seven",
    "skulls": 1,
-   "pay": 30,
+   "pay": 10,
    "tiers": [
     "town"
    ],
@@ -301,7 +301,7 @@
    "design_title": "THE CARAVAN FOUR DAYS LATE",
    "title": "Find the caravan four days late",
    "skulls": 2,
-   "pay": 60,
+   "pay": 21,
    "tiers": [
     "town",
     "fortress"
@@ -322,7 +322,7 @@
    "design_title": "THE FAMILY AT MESQUITE",
    "title": "Bring the Salcedo family home",
    "skulls": 3,
-   "pay": 90,
+   "pay": 31,
    "tiers": [
     "town"
    ],
@@ -342,7 +342,7 @@
    "design_title": "THE LETTER OVER THE PASS",
    "title": "Carry the sealed letter over the pass",
    "skulls": 2,
-   "pay": 60,
+   "pay": 26,
    "tiers": [
     "town"
    ],
@@ -362,7 +362,7 @@
    "design_title": "THE DOGS STILL WEARING TAGS",
    "title": "Clear the dogs off the back wall",
    "skulls": 1,
-   "pay": 30,
+   "pay": 116,
    "tiers": [
     "town"
    ],
@@ -382,7 +382,7 @@
    "design_title": "THE TRASH RACK",
    "title": "Clear the crew off the intake deck",
    "skulls": 2,
-   "pay": 60,
+   "pay": 118,
    "tiers": [
     "fortress"
    ],
@@ -402,7 +402,7 @@
    "design_title": "THE WATER FOR THE RACKS",
    "title": "Haul two tankers of water",
    "skulls": 1,
-   "pay": 30,
+   "pay": 38,
    "tiers": [
     "fortress"
    ],
@@ -422,7 +422,7 @@
    "design_title": "THE PATCHED WALL",
    "title": "Stand in the hole in the wall",
    "skulls": 2,
-   "pay": 60,
+   "pay": 121,
    "tiers": [
     "fortress"
    ],
@@ -442,7 +442,7 @@
    "design_title": "THE STALL REOPENS",
    "title": "Bring the cook's man home",
    "skulls": 2,
-   "pay": 60,
+   "pay": 25,
    "tiers": [
     "fortress"
    ],
@@ -482,7 +482,7 @@
    "design_title": "THE BARBER'S POLE SPINS",
    "title": "Bring six cells for the barber's pole",
    "skulls": 1,
-   "pay": 30,
+   "pay": 10,
    "tiers": [
     "fortress"
    ],
@@ -502,7 +502,7 @@
    "design_title": "THE SCAVENGE PILE CLEARED",
    "title": "Clear the dogs out of the wrecks",
    "skulls": 2,
-   "pay": 60,
+   "pay": 73,
    "tiers": [
     "fortress"
    ],
@@ -542,7 +542,7 @@
    "design_title": "THE RELIEF SHIFT TO THE DAM",
    "title": "Walk the relief shift to the dam",
    "skulls": 2,
-   "pay": 60,
+   "pay": 129,
    "tiers": [
     "fortress"
    ],
@@ -582,7 +582,7 @@
    "design_title": "THE WALL ON LOT TWO",
    "title": "Hold the wall the night they come back",
    "skulls": 2,
-   "pay": 60,
+   "pay": 121,
    "tiers": [
     "camp",
     "town",
@@ -604,7 +604,7 @@
    "design_title": "THE COUNTING ROOM THEY CAME BACK FOR",
    "title": "Guard the counting room three nights",
    "skulls": 3,
-   "pay": 90,
+   "pay": 251,
    "tiers": [
     "camp",
     "town",
@@ -626,7 +626,7 @@
    "design_title": "TWO NIGHTS AT THE MOAPA WELL",
    "title": "Sit two nights at the gate",
    "skulls": 2,
-   "pay": 60,
+   "pay": 121,
    "tiers": [
     "camp",
     "town",
@@ -648,7 +648,7 @@
    "design_title": "THE ROOF WITH THE LONG VIEW",
    "title": "Hit their fire in the dry wash",
    "skulls": 3,
-   "pay": 90,
+   "pay": 101,
    "tiers": [
     "camp",
     "town",
@@ -670,7 +670,7 @@
    "design_title": "THE FEVER CAMP BY THE WELL",
    "title": "Move the fever camp off the well",
    "skulls": 1,
-   "pay": 30,
+   "pay": 38,
    "tiers": [
     "camp",
     "town",
@@ -692,7 +692,7 @@
    "design_title": "THE FREEZER AT THE FOSSIL BEDS",
    "title": "Bring the freezer from the fossil beds",
    "skulls": 1,
-   "pay": 30,
+   "pay": 35,
    "tiers": [
     "camp",
     "town",
@@ -714,7 +714,7 @@
    "design_title": "THE LODGE ABOVE THE SNOW LINE",
    "title": "Bring medicine down from the lodge",
    "skulls": 2,
-   "pay": 60,
+   "pay": 81,
    "tiers": [
     "camp",
     "town",
@@ -736,7 +736,7 @@
    "design_title": "THE COLD BOX",
    "title": "Get the clinic's cold box back",
    "skulls": 1,
-   "pay": 30,
+   "pay": 34,
    "tiers": [
     "camp",
     "town",
@@ -758,7 +758,7 @@
    "design_title": "THE TYRES NOBODY CAN STORE",
    "title": "Haul eighty tyres to the co-op",
    "skulls": 1,
-   "pay": 30,
+   "pay": 38,
    "tiers": [
     "camp",
     "town",
@@ -780,7 +780,7 @@
    "design_title": "THE STATE LINE CARAVAN",
    "title": "Ride with three carts to Primm",
    "skulls": 3,
-   "pay": 90,
+   "pay": 249,
    "tiers": [
     "camp",
     "town",
@@ -802,7 +802,7 @@
    "design_title": "THE SALT ROAD ESCORT",
    "title": "Ride shotgun to the salt camp",
    "skulls": 1,
-   "pay": 30,
+   "pay": 38,
    "tiers": [
     "camp",
     "town",
