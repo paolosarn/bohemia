@@ -39,7 +39,8 @@
   var KEY = 'bohemia.main.v1', QUIET = 1000, DOUBLE = 380, BEAT = 500;
   var BARBER = '../records/target/character/barber/', CREWF = '../records/target/portrait/crew/';
   var BARBER_LOOK = 'person_town_20';   /* the man in the barber's apron: a rolled person of the place, his own HD face */
-  var LINE = 'Sit, sit. Before the road takes you, who are you?';   /* draft:true */
+  /* FINISHER 11/2 (ask line 192, EYES R6: 'only a double tap keeps a part and nothing on the screen says so'): the barber says how */
+  var LINE = 'Sit, sit. Before the road takes you, who are you? Tap one, I show you in the mirror. Tap it twice, it stays.';   /* draft:true */
   /* the six skins of the rolled people, light to dark, the colour of their own cheeks (measured: the mean of two 10 x 10 patches
      of every bare face's rest_128.png, records/target/character/barber/person_<id>/face/) */
   var SKINS = [['very light', 'PALE', '#9e7f70'], ['light', 'LIGHT', '#a08776'], ['intermediate', 'OLIVE', '#90725f'],

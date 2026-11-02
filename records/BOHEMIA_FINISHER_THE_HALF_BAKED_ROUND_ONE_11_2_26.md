@@ -52,3 +52,24 @@ See the status column of each row (marked 'FINISHER 11/2').
   town's ground around the phone (rules 279, 292-294), the lane on it, not this one.
 - The second HEAL in a town (line 209 T2): see the row.
 - The fight's page errors (line 229): blitMan's packed sheet, COMBAT.
+
+## BUILT, SECOND SHIP (BUILD 11/2zzd)
+6. FOUR MORE OF THE EIGHTEEN FOLLOWERS CAN BE HIRED, EACH DOING HIS WORK (rule 270, line 206). CAMP TWO had put all eighteen in
+   engine/bohemia_camp.js with their numbers and their camp pieces, and shut the twelve whose screens did not read them yet. Now
+   READY in that file names the four this lane wired, and their hire opens:
+   - THE DRILL SERGEANT: the shell's nfOverIn multiplies each man's XP from the fight by xpDrill(level) (x1.2 at level 1, 0.02 less
+     each level after, never under 1) before the end screen, the after-queue or the crew screen read it (r.xpPlain keeps the plain).
+   - THE RECRUITER: the hall's price times mult('hire') (0.9), and 2 to 4 more men at the post, dealt by the place and the week.
+   - THE MINSTREL: engine/bohemia_renown.js add() times mult('renown') (1.15) on every gain.
+   - THE SCAVENGER (rule 271(a), the tape that keeps a run alive): after a won fight the end screen adds her tape, Battle Brothers'
+     0.5 to 1 percent of the destroyed enemy armour's whole durability, never past 60; the count says 'MENDS ARMOUR, 4 FROM THE
+     SCAVENGER' (measured: 840 points of broken armour, 4 tape; without her nothing). Her rounds wait on the fight's end row
+     counting the rounds fired (COMBAT).
+   Measured in node: the offer opens 10 of 18 (the six and these four); xpDrill 1.2 / 1.12 / 1.0 at levels 1, 5, 11; hire 0.9,
+   post +2 to +4; a renown gain of 10 becomes 11.5. THE CAMP IS HIS OWN K12 (all eighteen, the shut ones counted against READY):
+   green on the phone. Still shut, each with the lane that must: the agent (the town card and the phone: UI TWO, RUN TWO), the
+   alchemist (no crafting yet), the bounty hunter (champions: WORLD, COMBAT), the brigand (caravans on the map: RUN/WORLD), the
+   cartographer (the map that fills in: RUN/WORLD TWO), the negotiator (relations: FACTIONS), the quartermaster (no supply caps
+   yet: ECONOMY), the trader (no trade goods yet: ECONOMY).
+7. THE BARBER SAYS HOW THE CHAIR WORKS (line 192's 'only a double tap keeps a part and nothing on the screen says so'): 'Tap one, I
+   show you in the mirror. Tap it twice, it stays.' (draft:true), in his own mouth beside his face.

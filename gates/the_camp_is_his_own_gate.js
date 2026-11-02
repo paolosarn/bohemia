@@ -261,7 +261,7 @@ async function run(profile) {
     await sf.evaluate(() => { BohemiaCamp.letGo('cook'); const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); });
     /* ---- K12 ALL EIGHTEEN (rule 270(c)) ---- */
     const k12 = await sf.evaluate(async () => {
-      const C = BohemiaCamp, kit = await (await fetch('camp_two/kit.json')).json(), ids = C.offer().map(o => o.id), out = { n: ids.length, noPiece: [], noNumber: [], notDrawn: [], moved: [], soon: C.offer().filter(o => o.soon).map(o => o.id) };
+      const C = BohemiaCamp, kit = await (await fetch('camp_two/kit.json')).json(), ids = C.offer().map(o => o.id), out = { n: ids.length, noPiece: [], noNumber: [], notDrawn: [], moved: [], soon: C.offer().filter(o => o.soon).map(o => o.id), ready: Object.keys(C.READY || {}) };
       ids.forEach(id => { if (!kit.pieces['f_' + id]) out.noPiece.push(id); const L = C.LIVE[id] || C.NUMS[id]; if (!L || !Object.keys(L).some(k => typeof L[k] === 'number')) out.noNumber.push(id); });
       const was = C.retinue().slice();
       for (let i = 0; i < ids.length; i += 5) {
@@ -277,7 +277,7 @@ async function run(profile) {
       C.retinue().forEach(id => C.letGo(id)); was.forEach(id => C.hire(id)); BohemiaCampLook.open(BohemiaSettlement.camp().info);
       return out; });
     ok(P + 'K12 ALL EIGHTEEN: every one of Battle Brothers\' followers is in the retinue with his number and his piece, drawn at his spot when he is with you, his number moving with him (the twelve whose screens are not wired yet stand priced and shut)',
-      k12.n === 18 && !k12.noPiece.length && !k12.noNumber.length && !k12.notDrawn.length && k12.moved.length === 18 && k12.soon.length === 12, JSON.stringify(k12));
+      k12.n === 18 && !k12.noPiece.length && !k12.noNumber.length && !k12.notDrawn.length && k12.moved.length === 18 && k12.soon.length === 12 - k12.ready.length && k12.ready.every(id => k12.soon.indexOf(id) < 0), JSON.stringify(k12));
     /* ---- K13 THE TURN GLIDES (rule 289(b)(c)): the glass turned mid-camp: the other shape, every piece and man there before and after,
        a glide of one beat, never a black frame ---- */
     const vp0 = p.viewportSize(), turned = { width: vp0.height, height: vp0.width };

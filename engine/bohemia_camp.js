@@ -70,6 +70,14 @@
     { id: 'trader', price: 350, who: 'The swap meet\'s king. He knows who makes what.', says: 'One more trade good for sale wherever it is made.', nums: { tradeGoods: 1 }, waits: 'ECONOMY: the trade goods read plus(\'tradeGoods\')' }
   ];
   MORE.forEach(function (m) { WORD[m.id] = 'THE ' + m.id.toUpperCase().replace(/_/g, ' '); });
+  /* FINISHER 11/2 (line 206, rule 270): four of the twelve whose screens now read their number, so their hire opens:
+     the minstrel (engine/bohemia_renown.js add: every gain times mult('renown')), the drill sergeant (the shell's fight end, nfOverIn:
+     each man's XP times xpFirst less xpLessEach a level past the first, never under 1), the recruiter (the hall's price times
+     mult('hire'), and plus('postLo') to plus('postHi') more men at the post, dealt by the place and the week), the scavenger (the end
+     screen adds her tape off the broken armour to the counts) */
+  var READY = { minstrel: 'engine/bohemia_renown.js add', drill_sergeant: 'the shell nfOverIn, xpDrill', recruiter: 'the hall: hallPrice and recruitsHere',
+    scavenger: 'the end screen (slices/BOHEMIA_SPOILS_SCREEN.html open): the tape; the rounds wait on the fight counting rounds fired' };
+  function xpDrill(level) { if (!has('drill_sergeant')) return 1; var n = NUMS.drill_sergeant; return Math.max(1, n.xpFirst - n.xpLessEach * Math.max(0, (level | 0 || 1) - 1)); }
   /* the followers whose work no screen does yet: their numbers ride beside the live ones, read by mult / plus once a screen asks */
   var NUMS = {}; MORE.forEach(function (m) { NUMS[m.id] = m.nums; });
   function moreOf(id) { for (var i = 0; i < MORE.length; i++) if (MORE[i].id === id) return MORE[i]; return null; }
@@ -107,7 +115,7 @@
        their work (soon: the lane that does it) */
     var pay = h.paymaster ? (LIVE.paymaster.wage || 0.85) : 1;
     return live.concat(MORE.map(function (m) {
-      return { id: m.id, word: WORD[m.id], price: Math.round(m.price * pay), says: m.says, ask: m.who, hireSays: WORD[m.id] + ' is with you.', hired: !!h[m.id], soon: m.waits, who: m.who }; }));
+      return { id: m.id, word: WORD[m.id], price: Math.round(m.price * pay), says: m.says, ask: m.who, hireSays: WORD[m.id] + ' is with you.', hired: !!h[m.id], soon: READY[m.id] ? undefined : m.waits, who: m.who }; }));
   }
   function hire(id) { var s = state(); if (s.retinue.indexOf(id) < 0) s.retinue.push(id); return save(s); }
   function letGo(id) { var s = state(); s.retinue = s.retinue.filter(function (x) { return x !== id; }); return save(s); }
@@ -122,6 +130,6 @@
     return { fire: true, camped: on, cart: c.now ? c.now.id : null, cartWord: c.now ? c.now.word : null, cartLevel: c.level, cartMax: CART.length,
       followers: r.map(function (id) { return { id: id, word: WORD[id] || id.toUpperCase() }; }), tents: 1 + r.length, stash: stashSlots() };
   }
-  root.BohemiaCamp = { KEY: KEY, BASE_SLOTS: BASE_SLOTS, CART: CART, LIVE: LIVE, WORD: WORD, state: state, stashSlots: stashSlots, cart: cart, buyCart: buyCart,
+  root.BohemiaCamp = { READY: READY, xpDrill: xpDrill, KEY: KEY, BASE_SLOTS: BASE_SLOTS, CART: CART, LIVE: LIVE, WORD: WORD, state: state, stashSlots: stashSlots, cart: cart, buyCart: buyCart,
     retinue: retinue, has: has, hired: hired, offer: offer, hire: hire, letGo: letGo, mult: mult, plus: plus, look: look, MORE: MORE, NUMS: NUMS, moreOf: moreOf, scavenge: scavenge };
 })(typeof window !== 'undefined' ? window : this);

@@ -392,7 +392,8 @@ function drawCounts(){
   [['batteries', 'BATTERIES', 'THE MONEY', 'BATTERY'], ['rounds', 'ROUNDS', 'OUT OF THEIR GUNS', 'ROUND'], ['tape', 'TAPE', 'MENDS ARMOUR', 'TAPE']].forEach(function(k){
     if(!(c[k[0]] > 0)) return; if(c[k[0]] === 1) k[1] = k[3];
     var b = document.createElement('button'); b.type = 'button'; b.className = 'count' + (S.countsTaken ? ' taken' : ''); b.dataset.count = k[0];
-    b.innerHTML = '<b>+' + c[k[0]] + ' ' + k[1] + '</b><span>' + (S.countsTaken ? 'TAKEN' : k[2]) + '</span>';
+    var cap = (k[0] === 'tape' && S.scav && S.scav.tape > 0) ? 'MENDS ARMOUR, ' + S.scav.tape + ' FROM THE SCAVENGER' : k[2];   /* FINISHER 11/2: whose tape */
+    b.innerHTML = '<b>+' + c[k[0]] + ' ' + k[1] + '</b><span>' + (S.countsTaken ? 'TAKEN' : cap) + '</span>';
     b.addEventListener('click', function(){ takeCounts(); }); el.appendChild(b); });
 }
 function drawGround(){
@@ -613,6 +614,15 @@ function open(o){
   S.found = S.won ? SP.found(f.spoils, S.L, dice(seed)) : { items: [], counts: { batteries: 0, rounds: 0, tape: 0 }, from: 0 };
   S.ground = S.found.items.map(itemFor).filter(Boolean);
   S.counts = S.found.counts; S.countsTaken = false;
+  /* FINISHER 11/2 (rule 271(a), rule 270, line 206): THE SCAVENGER in his retinue walks the field after a won fight and brings back
+     tape off the enemy armour that was broken (Battle Brothers' own: half to one percent of the destroyed armour's whole durability,
+     never past 60; engine/bohemia_camp.js scavenge, the roll this screen's own die). The rounds she brings back wait for the fight's
+     end row to count the rounds fired (COMBAT). */
+  S.scav = null;
+  try{ if(S.won && window.BohemiaCamp && BohemiaCamp.has && BohemiaCamp.has('scavenger')){
+    var amax = 0; ((f.spoils && f.spoils.bodies) || []).forEach(function(b){ if(!b || !b.dead) return; ['body', 'head'].forEach(function(pt){ var a = b[pt]; if(a && a.max > 0 && !(a.now > 0)) amax += a.max; }); });
+    var sv = BohemiaCamp.scavenge(amax, 0, dice((seed ^ 0x5ca7) >>> 0)());
+    if(sv && sv.tape > 0){ S.counts = Object.assign({}, S.counts, {tape: (S.counts.tape | 0) + sv.tape}); S.scav = {tape: sv.tape, armour: amax}; window.__SCAVENGED = S.scav; } } }catch(e){}
   S.sel = null; S.undo = null; S.out = []; S.tap = {it:null, at:0};
   S.at = o.sell && typeof o.sell === 'object' ? { add:+o.sell.add || 0, mult:o.sell.mult != null ? +o.sell.mult : 1 } : {};   /* the nearest town's standing and trait, when the game hands them over */
   head(f);

@@ -1569,7 +1569,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/2zzc - THE FIGHT SAVES AT ITS START, FIVE HALF-DONE THINGS FINISHED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/2zzd - FOUR MORE FOLLOWERS WORK, THE SCAVENGER BRINGS TAPE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12713,6 +12713,11 @@ function nfOverIn(d, src){
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
   /* __DAMAGE_STAYS__ (CAMP, rule 226): what the fight left on every man is kept for the next one (the surgeon takes a day off a struck-down
      man's fresh wound, rule 226(e); rule 234: the days are the wound's, never a bench); the dead go on the dead list */
+  /* FINISHER 11/2 (rule 270, line 206): THE DRILL SERGEANT in his retinue: each man's XP from this fight times a fifth more at level
+     one, two in a hundred less each level after, never under the plain XP (engine/bohemia_camp.js xpDrill); before anything keeps it,
+     so the end screen, the crew screen's climb and the after-queue all read the same number */
+  try{ var cf0 = document.getElementById('cityFrame'), BC0 = cf0 && cf0.contentWindow && cf0.contentWindow.BohemiaCamp;
+    if(BC0 && BC0.xpDrill && d && Array.isArray(d.crew)) d.crew.forEach(function(r){ if(r && !r.dead && r.xpGained > 0){ var xm = BC0.xpDrill(r.level); if(xm > 1){ r.xpPlain = r.xpGained; r.xpGained = Math.round(r.xpGained * xm); } } }); }catch(_e){}
   try{ if(window.BohemiaCondition && d && Array.isArray(d.crew)){ d.crew.forEach(function(r){ if(r && r.down && r.laidUpDays > 0) r.laidUpDays = BohemiaCondition.laidUpDays(r.laidUpDays); });
     BohemiaCondition.afterFight(d.crew, { day: NF.day }); } }catch(_e){}
   try{ nfAfterKeep(d); }catch(_e){}   /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO): who died, who fell, who climbed, kept for the crew screen */

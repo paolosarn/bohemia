@@ -52,6 +52,7 @@
   function score() { return Math.max(0, Math.round(rec().score)); }
   function add(n, why, key) {
     n = +n || 0; if (!n) return score();
+    try { if (n > 0 && root.BohemiaCamp && root.BohemiaCamp.mult) n *= root.BohemiaCamp.mult('renown'); } catch (e) {}   /* FINISHER 11/2 (rule 270): the minstrel, 15 percent more name for everything */
     var r = rec();
     if (key) { if (r.keys.indexOf(String(key)) >= 0) return score(); r.keys.push(String(key)); r.keys = r.keys.slice(-300); }
     r.score = Math.max(0, r.score + n);

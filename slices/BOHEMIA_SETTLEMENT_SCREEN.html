@@ -3385,6 +3385,7 @@ function recruitsHere(){
   var tm = traitMult();
   if(!window.BohemiaGoodBros || tm.none) return [];
   var n = Math.max(0, Math.round((POST_COUNT[S.place.tier] || 4) * tm.men));   /* the cards move the men by a share: a fair +25%, a raid -50%, a cough -25% */
+  n += recruiterMore(S.place.name + ':' + Math.floor(buildDay() / 7));   /* FINISHER 11/2: the recruiter's two to four more */
   /* the week is the map's day (open({day}) keeps it as S.mapDay, buildDay() reads it; the post read S.day, which stays 0,
      so it sat in week 0 forever and a town's men never changed: RUN TWO 10/19, found pricing the hall) */
   var day = buildDay();
@@ -3734,15 +3735,19 @@ function kitCrownsOf(kit){
 function hallPrice(r){
   if(r.rare){   /* __THE_RARE_MAN_AT_THE_POST__: the same formula, his own base (400 for the blade master), his level, his kit */
     var mult = (HIREPT && HIREPT.equipmentCostMultiplier) || 1.25;
-    return Math.max(1, Math.floor((r.baseCrowns + 500 * Math.pow(Math.max(0, (r.level || 1) - 1), 1.5) + mult * kitCrownsOf(hireKit(r))) * HALL.easier / 10));
+    return Math.max(1, Math.floor((r.baseCrowns + 500 * Math.pow(Math.max(0, (r.level || 1) - 1), 1.5) + mult * kitCrownsOf(hireKit(r))) * HALL.easier * recruiterCut() / 10));
   }
   var gb = window.BohemiaGoodBros && BohemiaGoodBros.byId(r.backgroundId);
   if(!HIREPT || !gb || !BB.weapons || !BB.armor) return r.priceBatteries;
   var f = gb.hireMax > gb.hireMin ? Math.max(0, Math.min(1, (r.priceCrowns - gb.hireMin) / (gb.hireMax - gb.hireMin))) : 0.5;
   var lo = HIREPT.hiringBaseRange.min, hi = HIREPT.hiringBaseRange.maxApprox;
   var crowns = lo + f * (hi - lo) + 500 * Math.pow(Math.max(0, (r.level || 1) - 1), 1.5) + HIREPT.equipmentCostMultiplier * kitCrownsOf(hireKit(r));   /* __THE_BEST_RECRUIT_AT_THE_TOP__: his own kit */
-  return Math.max(1, Math.floor(crowns * HALL.easier / 10));
+  return Math.max(1, Math.floor(crowns * HALL.easier * recruiterCut() / 10));
 }
+/* FINISHER 11/2 (rule 270, line 206): the recruiter in his retinue, a tenth off every man at the post */
+function recruiterCut(){ try{ return window.BohemiaCamp && BohemiaCamp.mult ? BohemiaCamp.mult('hire') : 1; }catch(e){ return 1; } }
+/* and two to four more men stand at the post, dealt by the place and the week */
+function recruiterMore(key){ try{ if(!window.BohemiaCamp || !BohemiaCamp.has || !BohemiaCamp.has('recruiter')) return 0; var lo = BohemiaCamp.plus('postLo'), hi = BohemiaCamp.plus('postHi'); return lo + (seedOf(key + ':recruiter') % (Math.max(0, hi - lo) + 1)); }catch(e){ return 0; } }
 /* the company lives with the roster screen: it reads this list on open (and the game can hand it) */
 function hireIntoCompany(def){
   /* A HIRE IS LOCKED IN (rule 295): he is written once, by his own id, and read back; a write that did not land is tried again */
