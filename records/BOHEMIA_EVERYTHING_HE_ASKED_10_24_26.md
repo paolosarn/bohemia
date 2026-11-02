@@ -356,3 +356,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 332 | The round swing hits the three tiles in front, not all eight around | 333 | COMBAT (round 6) | RUNNING (COMBAT 6 started 11/2) |
 | 333 | Scavenging as a rhythm game, the whole crew on screen, by the part of town, unique and fun: big brain research first, his pick before any build (low priority) | 334 | RESEARCH | QUEUED: research only |
 | 334 | AUTO knows when an investment pays: climbing a roof for next turn's shot, resting for next turn's round swing; the same for the enemies' shooters (this turn plus a discounted next turn, one step only) | 332 | COMBAT 6 | RUNNING (sent into COMBAT 6 11/2) |
+| 335 | (a bug) No town has any jobs any more: fix it and make sure it never happens again (a gate over every board) | 335 | PLUMBER 3 | RUNNING (PLUMBER 3 started 11/2, urgent) |
