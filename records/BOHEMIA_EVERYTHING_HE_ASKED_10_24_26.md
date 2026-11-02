@@ -306,3 +306,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 282 | The reload button a lot bigger on the phone in the fight | 297 | UI | RECORDED: note 9 |
 | 283 | No turn-order strip on the fight screen (the order stays in the code) | 297 | UI | RECORDED: note 9 |
 | 284 | MORE CONTENT: more to do in act one (road events, jobs, side quests), "I want more content for the game, more content" (Paolo 11/2) | 297 | CONTENT lane | RUNNING (CONTENT lane started 11/2): 25+ road events, 8+ job kinds, 5+ quests from the library |
+| 285 | THE MAP CLEANED UP: freeways look like freeways, streets join properly, more detail the closer you zoom (one map that sharpens, never a second map underneath; "find out how other games do it") (Paolo 11/2) | 300 | WORLD (round 3) | RUNNING (WORLD 3 started 11/2) |
