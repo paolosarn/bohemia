@@ -339,7 +339,9 @@ const DATA_FILES = [
   /* OUR GRAVEYARD's pieces, each a model through the master rig (COMBAT [ghosts and apparitions], rule 134(a)) */
   'fight_ghosts/graveyard.json',
   /* the traits' own effects, so a man's sight is his (COMBAT [what the crew can't see reads dark], rule 157(c)) */
-  '../records/target/bb/traits.json'];
+  '../records/target/bb/traits.json',
+  /* THE NEW ACT-ONE ENEMIES, one file a modder edits (FACTIONS 11/3, rule 302): folded into the tables above by ownEnemies() */
+  '../records/target/bb/bohemia_enemies.json'];
 const DB = { read: {} };
 /* THE PAGE AND ITS RULES ARE ONE DEPLOY (COMBAT [the fight is broken live], Paolo 10/26: 'the auto combat started tweaking out on
    me and not working during combat... then I was trying to fight manually and it was tweaking on that too'). MEASURED: the service
@@ -359,6 +361,7 @@ function loadAll() {
       DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15];
       DB.armorTiers = a[16]; DB.shapes = a[17]; DB.racial = a[18]; DB.graveyard = a[19];
       DB.traits = a[20];
+      DB.newEnemies = a[21];
     })
     /* THE LAYERS (ask line 251): the outline of every building that stands up into the tile north of it; a board draws
        without it if it never comes (no man is then covered by a roof, as before) */
@@ -578,6 +581,7 @@ const FIGHT = (function () {
     if (u.headRow && typeof u.headRow.vision === 'number') v += u.headRow.vision;
     const bm = PK(u, 'bow_mastery'); if (bm && bm.vision_bonus) v += bm.vision_bonus;
     if (S.night && !(t && litAt(t.x, t.y))) v += R('hit_chance.night.nighttime_status').vision;
+    if (u.poison > 0) v -= NEW('poison').vision;   /* THE NEEDLE (Goblin Poison's page): -1 vision */
     v = Math.max(R('board.vision_floor'), v);
     if (t && inBoard(t.x, t.y) && inBoard(u.x, u.y)) { const up = level(u.x, u.y) - level(t.x, t.y); if (up > 0) v += up * R('ours.sight').per_level; }
     return v;
@@ -586,6 +590,11 @@ const FIGHT = (function () {
   function litAt(x, y) { return !!(S.lit && S.lit[y] && S.lit[y][x]); }
   function darkAt(x, y) { return S.night && !litAt(x, y); }
   function sideSees(side, t) {
+    /* THE CUTTER AND THE NEEDLE (FACTIONS 11/3, bohemia_enemies.json 'lurks'): unseen until a man of the other side stands within
+       lurk.seen_within tiles, or he strikes; once seen he stays seen */
+    if (t.lurking && t.side !== side) {
+      if (S.units.some(function (u) { return u.side === side && onField(u) && dist(u, t) <= NEW('lurk').seen_within; })) t.lurking = false; else return false;
+    }
     return S.units.some(function (u) { return u.side === side && onField(u) && dist(u, t) <= vision(u, t) && sees(u, t); });
   }
 
@@ -697,7 +706,7 @@ const FIGHT = (function () {
   }
   function curIni(u) {
     const rl = PK(u, 'relentless');
-    return u.initiative * injMult(u, 'initiative_pct') * netCut(u) - u.fat * (rl ? rl.initiative_reduced_by_fatigue_pct / 100 : 1) + gearFat(u);
+    return u.initiative * injMult(u, 'initiative_pct') * netCut(u) - u.fat * (rl ? rl.initiative_reduced_by_fatigue_pct / 100 : 1) + gearFat(u) - (u.poison > 0 ? NEW('poison').initiative : 0);
   }
   function makeUnit(o) {
     const u = Object.assign({ fat: 0, ap: 0, morale: R('morale.default_state'), injuries: [], loaded: true,
@@ -810,6 +819,7 @@ const FIGHT = (function () {
     return T.phases.filter(function (ph) { return ph.from_day <= d; }).pop().name;
   }
   function partyFor(p) {
+    ownEnemies();
     const T = R('ours.enemy_tiers'), phase = tierPhase(p.days, p.difficulty), raw = T.mix[p.faction || 'brigands'][phase];
     /* THE ACT WEIGHS EVERY KIND (rule 134(b), ours.act_weights): the mix times the kind's weight in the act the fight is told */
     const AW = R('ours.act_weights'), act = Math.max(1, Math.min(AW.acts, p.act || S.act || 1)), mix = {};
@@ -879,6 +889,32 @@ const FIGHT = (function () {
     DB.read['ours.robot'] = DB.ours.robot.source;
     return Object.assign({}, r, o);
   }
+  /* THE NEW ACT-ONE ENEMIES (FACTIONS 11/3, VAMILY rule 302, Paolo 11/2: 'more content... new enemies, new graphics, the whole
+     package'; the bestiary floor law, laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md): one file a modder
+     edits, records/target/bb/bohemia_enemies.json, folded once into the tables the fight already reads: each row rides on its wiki
+     unit row (its 'from') with its own stats, gear and name on top; its brain, its board name, its look pool; each faction's
+     make-up by phase, its head, its size against the crew; and its share of the road by act. Nothing is typed twice. */
+  function ownEnemies() {
+    const N = DB.newEnemies; if (!N || !DB.enemies || DB.enemies.oursIn) return;
+    DB.enemies.oursIn = true;
+    const B = R('ours.bestiary'), PL = R('ours.people_looks').band, T = R('ours.enemy_tiers'), RF = R('ours.road_factions');
+    Object.keys(N.brains).forEach(function (k) { if (!DB.ai.archetypes[k]) DB.ai.archetypes[k] = N.brains[k]; });
+    N.rows.forEach(function (o) {
+      if (DB.enemies.rows.some(function (e) { return e.id === o.id; })) return;
+      const b = DB.enemies.rows.filter(function (e) { return e.id === o.from; })[0];
+      if (!b) throw new Error('the new enemy ' + o.id + ' rides on no wiki row ' + o.from);
+      const st = Object.assign({}, o.stats || {}); delete st.why;
+      DB.enemies.rows.push(Object.assign({}, b, st, { id: o.id, name: o.name, faction: o.faction, gear: o.gear || b.gear, ours: true, from: o.from }));
+      DB.ai.kinds[o.id] = { value: o.brain, source: N.brains[o.brain].source, quote: o.lesson_bb };
+      B.names[o.id] = o.board_name; PL[o.id] = o.looks.slice();
+      if (DB.racial && DB.racial.by_enemy[o.from] && !DB.racial.by_enemy[o.id]) DB.racial.by_enemy[o.id] = DB.racial.by_enemy[o.from];
+    });
+    Object.keys(N.mix).forEach(function (f) { if (!T.mix[f]) T.mix[f] = N.mix[f]; });
+    T.heads = Object.assign({}, N.heads, T.heads || {}); T.count_scale = Object.assign({}, N.count_scale, T.count_scale || {});
+    RF.by_act.forEach(function (w, i) { const add = N.road.by_act[i] || {}; Object.keys(add).forEach(function (f) { if (w[f] === undefined) w[f] = add[f]; }); });
+  }
+  /* a number of the new enemies' (bohemia_enemies.json numbers), remembered as read like R's */
+  function NEW(k) { const n = DB.newEnemies && DB.newEnemies.numbers[k]; if (!n || !n.value) throw new Error('no sourced row at bohemia_enemies.' + k); DB.read['bohemia_enemies.' + k] = n.source; return n.value; }
   function enemyUnit(id, i) {
     const r = robotRow(id, DB.enemies.rows.filter(function (e) { return e.id === id; })[0]);
     if (!r) throw new Error('the fight has no enemy row ' + id);
@@ -903,7 +939,7 @@ const FIGHT = (function () {
     if (w && (i & 1) === 1) { const own = DB.weapons.rows.filter(function (x) { return x.armory && x.armory.between[0] === w.id && (x.armory.carried_by || []).indexOf(id) >= 0; })[0]; if (own) w = own; }
     if (!w) throw new Error('the fight cannot arm ' + id + ': ' + (DB.beastAttacks.refused[id] || 'no weapon in its gear and no attack page'));
     let sh = null;
-    if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && (Ak.shoves || rng() < rng())) sh = x; });   /* THE HEAVY: his crash-bar always */
+    if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && (Ak.shoves || Ak.shield_always || rng() < rng())) sh = x; });   /* THE HEAVY: his crash-bar always; THE SHIELD his */
     /* THE KIDS (COMBAT [bestiary]): the blade he carries beside the sling for when the stones run out, and his net (the page's chance) */
     let side = null; if (Ak.throws) gear.forEach(function (n) { const x = weaponByName(n); if (notNet(x) && !side && strikeSkill(x) && !isRanged(x) && !pistolShot(x)) side = x; });
     const netRow = (DB.racial.by_enemy[id] || []).indexOf('throw_net') >= 0 && (r.gear || []).indexOf('Throwing Net') >= 0 ? DB.racial.rows.throw_net : null;
@@ -915,7 +951,7 @@ const FIGHT = (function () {
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
       captain: (r.perks || []).concat(r.skills || []).some(function (x) { return /^captain$/i.test(String(x)); }),
       sideArm: side, nets: netRow && rng() * 100 < netRow.carry_chance_pct ? 1 : 0,
-      armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind });
+      armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind, lurking: !!Ak.lurks });
   }
 
   /* ---------------- SETUP ---------------- */
@@ -1129,7 +1165,12 @@ const FIGHT = (function () {
     const p = opts.party, rf = R('ours.road_factions');
     if (!p || Array.isArray(p) || !p.count || (p.faction || rf.from) !== rf.from || (opts.met || 0) < rf.after_fights) return opts;
     if (Array.isArray(p.band) && p.band.length) return opts;   /* WORLD (rule 208(e)): the road's faction was rolled with the band; never twice */
-    const w = rf.by_act[Math.max(1, Math.min(rf.by_act.length, S.act)) - 1], ks = Object.keys(w);
+    const w = Object.assign({}, rf.by_act[Math.max(1, Math.min(rf.by_act.length, S.act)) - 1]), ks = Object.keys(w);
+    /* WHERE AND WHEN (FACTIONS 11/3, bohemia_enemies.json road): the faction that holds the ground he walks walks there district_mult
+       times as often; the block watch goes home at night and the water people come out */
+    const RD = DB.newEnemies && DB.newEnemies.road, dr = (opts.roadDistrict || opts.district) && DB.boardKinds.districts.filter(function (r) { return r.district === (opts.roadDistrict || opts.district); })[0];
+    if (RD && dr) Object.keys(RD.holds).forEach(function (f) { if (w[f] !== undefined && RD.holds[f].indexOf(dr.ground) >= 0) w[f] *= RD.district_mult; });
+    if (RD && S.night) Object.keys(RD.night).forEach(function (f) { if (w[f] !== undefined) w[f] *= RD.night[f]; });
     let r = rng() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
     const f = ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
     S.roadFaction = f;
@@ -1253,9 +1294,11 @@ const FIGHT = (function () {
   }
   function setup(opts) {
     opts = opts || {};
+    ownEnemies();
     const G = DB.ground;
     S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = startCols(); S.crop = null;
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
+    S.volley = {};   /* THE CROSSBOWS (FACTIONS 11/3): the man their first bolt went at, by side */
     S.flat = !!opts.flat;   /* a test board: the deal's blocks drawn, every tile open flat ground, no cover, no lamps */
     S.power = opts.power !== false;   /* rule 73: the lamps burn only where the block has power; the map hands it over */
     /* THE MAP HANDS THE BOARD (COMBAT [the map hands the board], rule 46a, Paolo 9/29: 'no two combat boards are the same'):
@@ -1582,6 +1625,8 @@ const FIGHT = (function () {
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
+    u.walled = false; u.hooked = false; u.rallied = false; u.swung = false;   /* THE SHIELD's wall lasts until his next turn; one hook, one rally a turn */
+    if (u.poison > 0) u.ap = Math.max(0, u.ap - NEW('poison').ap);   /* THE NEEDLE (Goblin Poison's page): -1 AP for 3 turns */
     u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins; what the hits took is owed till it closes */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
@@ -1593,7 +1638,7 @@ const FIGHT = (function () {
     }
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
-  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; u.tauntedBy = null; restOrNot(u); }
+  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u); }
   /* A REST (rules 283(b), 285(b)): END TURN with no AP spent. The fatigue the hits and blocks put on a resting man is owed, never
      taken off his rest [COORDINATOR'S DEFAULT, rule 205]: it lands when his next turn that spends closes, after his swing, so one
      rest always buys the swing the turn after (MEASURED BEFORE: a car door and a spear among three brigands, ending his turn to
@@ -1908,7 +1953,10 @@ const FIGHT = (function () {
   function shieldDef(t, k) {
     if (!t.shield) return 0;
     const se = PK(t, 'shield_expert');
-    return t.shield[k] * (se ? 1 + se.shield_defense_bonus_increase_pct / 100 : 1);
+    let v = t.shield[k] * (se ? 1 + se.shield_defense_bonus_increase_pct / 100 : 1);
+    /* THE SHIELD WALL (FACTIONS 11/3; Shieldwall's page): the shield's defences doubled for a turn, +5 for each man beside him walled */
+    if (t.walled) { const W = NEW('shieldwall'); v = v * W.shield_mult + W.per_ally * friends(t).filter(function (f) { return f.walled && dist(f, t) === 1; }).length; }
+    return v;
   }
   /* Dodge: a share of his current initiative; Nine Lives: its bonus until his next turn */
   function defenceBonus(t, k) {
@@ -1988,6 +2036,7 @@ const FIGHT = (function () {
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
       shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, astray: !!opt.astray, skill: opt.skill || null });   /* the arm that struck: a gun's is always its shot (rule 195) */
     if (PK(a, 'overwhelm') && S.order.indexOf(t.id) > S.idx) t.overwhelmed++;   /* he has not acted yet this round */
+    a.lurking = false; a.swung = true;   /* THE CUTTER: the blow shows him; THE SHIELD: a turn he swings he holds no wall */
     if (!r.hit) {
       a.missStack++;
       if (!isRanged(a.weapon)) tire(t, R('fatigue.on_dodge_or_block'));
@@ -2008,6 +2057,8 @@ const FIGHT = (function () {
       emit({ t: 'nine', id: t.id });
     }
     if (t.hp <= 0) { t.headGone = !!r.head; fall(t, a); return; }   /* THE MECHANIC: a head shot that kills takes the chip too */
+    /* THE NEEDLE (FACTIONS 11/3; Goblin Poison's page): a hit that draws blood poisons him for 3 turns */
+    if (r.hp > 0 && a.side !== t.side && arche(a).poisons && (t.immune || []).indexOf('Poison') < 0) { t.poison = NEW('poison').turns; emit({ t: 'poisoned', id: t.id, by: a.id }); }
     injure(t, a, r);
     const s = R('parsed.morale_struck'), fs = PK(a, 'fearsome');
     if (fs && r.hp >= fs.min_hitpoint_damage_to_trigger)
@@ -2361,6 +2412,36 @@ const FIGHT = (function () {
     if (!r || !onField(u) || !onField(t) || t.side === u.side || dist(u, t) > r.range_tiles || t.ghost) return false;
     if ((t.immune || []).indexOf('Forced movement') >= 0 || t.indomitable) return false;
     return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && !!pushTile(u, t);
+  }
+  /* ---------------- THE NEW ACT-ONE ENEMIES' MOVES (FACTIONS 11/3, records/target/bb/bohemia_enemies.json) ---------------- */
+  /* THE SHIELD: 4 AP and 20 fatigue lock his shield until his next turn (Shieldwall's page); he raises it once he has moved or
+     struck this turn, or with a man on him, so the wall still walks forward */
+  function canWall(u) { const W = NEW('shieldwall'); return !!(u.shield && !u.walled && u.ap >= W.ap && u.fat + W.fatigue <= fatMax(u)); }
+  function wall(u) { const W = NEW('shieldwall'); u.ap -= W.ap; u.fat += W.fatigue; u.walled = true; emit({ t: 'skill', id: u.id, skill: 'shieldwall' }); afterAction(u); return true; }
+  /* THE HOOK: a man two tiles off, a free tile between, pulled into it (Hook's page: 6 AP, 25 fatigue, +10 to hit) */
+  function hasHook(w) { return !!(w && (w.skills || []).some(function (k) { return (k && k.name ? k.name : k) === 'Hook'; })); }
+  function hookTile(u, t) {
+    const q = { x: t.x - Math.sign(t.x - u.x), y: t.y - Math.sign(t.y - u.y) };
+    return inBoard(q.x, q.y) && !(S.solid[q.y] && S.solid[q.y][q.x]) && !unitAt(q.x, q.y) && dist(u, q) === 1 ? q : null;
+  }
+  function hookTarget(u) {
+    const H = NEW('hook');
+    if (!hasHook(u.weapon) || u.ap < H.ap || u.fat + H.fatigue > fatMax(u)) return null;
+    return foes(u).filter(function (f) { return dist(u, f) === (u.weapon.range_max || 1) && dist(u, f) > 1 && f.morale !== 'Fleeing' && sees(u, f) && sideSees(u.side, f) && hookTile(u, f); })
+      .sort(function (p, q) { return (hides(q.x, q.y) ? 1 : 0) - (hides(p.x, p.y) ? 1 : 0) || (isRanged(q.weapon) ? 1 : 0) - (isRanged(p.weapon) ? 1 : 0); })[0] || null;
+  }
+  function hook(u, t) {
+    const H = NEW('hook'), q = hookTile(u, t); if (!q) return false;
+    u.ap -= H.ap; u.fat += H.fatigue; u.hooked = true;
+    const ch = hitChance(u, t).chance + H.hit_bonus, hit = die() <= ch;
+    emit({ t: 'skill', id: u.id, skill: 'hook', to: t.id, hit: hit, chance: Math.round(ch) });
+    if (hit) { emit({ t: 'step', id: t.id, fx: t.x, fy: t.y, x: q.x, y: q.y, shoved: true }); t.x = q.x; t.y = q.y; tire(t, H.target_fatigue); }
+    afterAction(u); return true;
+  }
+  /* THE CROSSBOWS: every one of them shoots the man the line's first bolt went at, while he stands and can be hit */
+  function volleyTarget(u) {
+    const id = S.volley && S.volley[u.side], t = id ? byId(id) : null;
+    return t && onField(t) && canStrike(u, t) && sideSees(u.side, t) ? t : null;
   }
   function shove(u, t) {
     if (S.over || current() !== u || !canShove(u, t)) return false;
@@ -3093,6 +3174,13 @@ const FIGHT = (function () {
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
+    /* THE NEW ACT-ONE ENEMIES (FACTIONS 11/3, bohemia_enemies.json brains) */
+    if (A.runs_below && !u.ranOnce && u.morale !== 'Fleeing' && u.hp < u.hpMax * A.runs_below) {   /* THE NEIGHBOR: hurt, he runs, once */
+      u.ranOnce = true; u.morale = 'Fleeing'; u.roundsFleeing = 0; emit({ t: 'morale', id: u.id, to: u.morale }); ripple(u, null, 'flees'); return true;
+    }
+    if (A.rallies && !u.rallied && canUse(u, 'rally_the_troops')) { u.rallied = true; return useSkill(u, 'rally_the_troops'); }   /* THE CAPTAIN */
+    if (A.hooks && !u.hooked) { const ht = hookTarget(u); if (ht) return hook(u, ht); }   /* THE HOOK */
+    if (A.volley) { const vt = volleyTarget(u); if (vt) { strike(u, vt); return true; } }   /* THE CROSSBOWS */
     /* THE KIDS (ai.json kid): out of stones, the blade; the net on the man coming; after the throw, the step back */
     if (A.throws && u.weapon.ammo && u.ammo !== null && u.ammo <= 0 && u.sideArm) { u.weapon = u.sideArm; u.ammo = null; u.ammoMax = null; }
     if (A.nets && u.nets > 0) { const nt = netTarget(u); if (nt) return throwNet(u, nt); }
@@ -3137,7 +3225,10 @@ const FIGHT = (function () {
     const jw = u.side === 'you' && A.spread_attacks ? joinFocus(u) : null;   /* rule 201: he walks to the named man */
     if (jw === true) return true;
     const t = bestTarget(u, jw);
-    if (t) { const sw = u.side === 'you' ? null : sweepPick(u); if (sw) {   /* rule 180(g): a special swing is his */ sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); return true; }
+    if (t) { const sw = u.side === 'you' ? null : sweepPick(u); if (sw) {   /* rule 180(g): a special swing is his */ sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); if (A.volley && S.volley) S.volley[u.side] = t.id; return true; }
+    /* THE SHIELD (FACTIONS 11/3): having walked in with nothing to swing at, the wall goes up with what is left; a turn he swings he
+       holds no wall (Battle Brothers' footmen hold the wall or fight, the lesson is 'make him swing') */
+    if (A.shield_wall && canWall(u) && !u.swung && u.ap < u.apTurn && foes(u).some(function (f) { return dist(f, u) <= NEW('shieldwall').near_tiles; })) return wall(u);
     /* CAN I ACT (rule 176(a)(b), TUNING s1b: 93% of the wasted turns were a man who could not strike, walked anyway): AUTO's man
        who cannot strike this turn (out of breath, or nothing to shoot) stands when a foe is within near_tiles (farther off he
        still closes, so the fight never stalls); a man in a foe's ring who holds a gun or a blade never walks out through the free
@@ -3288,7 +3379,7 @@ const FIGHT = (function () {
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -4846,6 +4937,7 @@ function startAnim(a) {
     if (e.t === 'allflee' && !FIGHT.S.over) routUp();   /* rule 198(h): they are breaking: his lead says it, and the choice is his */
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
+    if (e.t === 'poisoned') pop(u, 'SLOWED', '#a8e07c', false, u.name + ' takes a needle: one step less, slower and half blind for 3 turns.');   /* THE NEEDLE (FACTIONS 11/3, draft:true) */
 
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
     if (e.t === 'reload' && u) { sfx('mag_home'); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
@@ -4874,6 +4966,9 @@ function startAnim(a) {
       sfx('power_on', { side: 'them', who: t ? t.name : null });
       if (t) { t._fallAt = undefined; t.seenFall = false; t._rebootAt = a.at; pop(t, '', '#7fd6c4', true, u.name + ' reboots ' + t.name + '.'); }
       teachSoon('mechanic'); }
+    /* THE NEW ACT-ONE ENEMIES (FACTIONS 11/3; words draft:true) */
+    else if (e.t === 'skill' && e.skill === 'shieldwall') { sfx('block', { side: u.side }); pop(u, 'WALL', '#9cc3e8', false, u.name + ' locks his shield.'); }
+    else if (e.t === 'skill' && e.skill === 'hook') { sfx('swing_air'); pop(u, e.hit ? 'HOOK' : '', '#e8c39c', false, u.name + (e.hit ? ' hooks ' + nameOf(e.to) + ' into the wall.' : ' swings the hook at ' + nameOf(e.to) + ' and misses.')); }
     else if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
   if (a.k === 'over') { if (isWipe(e.result)) wipeBeat(e.result); else showOver(e.result); }

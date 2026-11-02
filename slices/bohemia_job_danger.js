@@ -154,7 +154,10 @@
     /* the board under the roll is dealt from the seed alone (no district), so the band is the same wherever he meets it; only the
        graveyard's ground deals its own dead */
     var gy = false; try { gy = !!ctx.district && E.F.isGraveyard({ district: ctx.district }); } catch (e) {}
-    var o = { auto: true, formation: null, party: P, met: metNow(), district: gy ? ctx.district : null, act: P.act };
+    /* FACTIONS 11/3 (records/target/bb/bohemia_enemies.json road): the ground he meets them on picks WHO they are (roadDistrict), never
+       the board, which stays dealt from the seed alone */
+    var o = { auto: true, formation: null, party: P, met: metNow(), district: gy ? ctx.district : null, roadDistrict: ctx.district || null, act: P.act };
+    try { if (typeof isNight === 'function') o.night = !!isNight(); } catch (e) {}   /* the hour picks who walks (FACTIONS 11/3) */
     ROLLN++;   /* a roll deals on the same rules a phone's slices play on: the slice in flight starts its run again */
     try {
       E.seed(seedOf('band:' + (ctx.key || '') + ':' + P.count + ':' + P.faction));
@@ -166,7 +169,8 @@
   }
   /* what they are, in a word, from what stands: MEN, or the beasts by their own names */
   var KIND_WORDS = { direwolf: ['DIRE WOLF', 'DIRE WOLVES'], frenzied_direwolf: ['DIRE WOLF', 'DIRE WOLVES'], hyena: ['HYENA', 'HYENAS'], frenzied_hyena: ['HYENA', 'HYENAS'] };   /* draft:true */
-  var FACTION_WORDS = { beasts: ['BEAST', 'BEASTS'], ghosts: ['DEAD ONE', 'DEAD'], machines: ['ROBOT', 'ROBOTS'], kids: ['KID', 'KIDS'] };   /* draft:true */
+  var FACTION_WORDS = { beasts: ['BEAST', 'BEASTS'], ghosts: ['DEAD ONE', 'DEAD'], machines: ['ROBOT', 'ROBOTS'], kids: ['KID', 'KIDS'],
+    house: ['HOUSE MAN', 'HOUSE MEN'], watch: ['NEIGHBOR', 'BLOCK WATCH'], keepers: ['KEEPER', 'KEEPERS'], water: ['WATER MAN', 'WATER PEOPLE'] };   /* draft:true; FACTIONS 11/3 */
   function kindWord(band, faction) {
     var n = band && band.length || 0; if (!n) return 'MEN';
     var words = band.map(function (id) { return KIND_WORDS[id] || null; });
