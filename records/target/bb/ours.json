@@ -1910,6 +1910,42 @@
   "why": "COMBAT 4 11/2: a roof is climbed by a ladder or a wall's handholds, which a man (and a man-shaped robot) can use and a wolf cannot. A man wearing a beast's sheet on the board (ours.beast_looks; beast_sheet_climbs false) or of a kind in never_climb never steps onto a roof tile, never is dealt onto one and never routes over one; a rise of ground (a height tile that is not a building's roof, level 1) he walks onto as before. MEASURED 11/2 before: wolves stood on a roof in 8 of 30 wolf fights, 83 climbs, all by walking (none dealt there): the walk let anything onto a roof for the climb's extra AP. Men still climb as the board allows (ap.move_cost.height_change_extra a level, the library's hills).",
   "ours": true
  },
+ "climb_or_attack": {
+  "value": {
+   "on": true,
+   "refused": [
+    "strike",
+    "sweep",
+    "dial_shot",
+    "hook",
+    "line_breaker",
+    "throw_net",
+    "lash",
+    "throw",
+    "spark"
+   ],
+   "attack_skills": [],
+   "still_his": [
+    "walk",
+    "reload",
+    "wait",
+    "end_turn",
+    "swap",
+    "shieldwall",
+    "recover",
+    "adrenaline",
+    "indomitable",
+    "rotation",
+    "footwork",
+    "taunt",
+    "rally_the_troops"
+   ]
+  },
+  "source": "VAMILY.md rule 328 (Paolo 11/2, ask line 326); records/BOHEMIA_COMBAT_CLIMB_OR_ATTACK_11_2_26.md",
+  "quote": "New rule: you cannot climb on top of a building and attack anything within the same turn. This is for everyone, the same turn.",
+  "why": "COMBAT 5 11/2: HIS RULE, LOCKED, every side and every beast that can climb (rule 321 keeps the wolves off roofs). A step from lower ground up onto a roof (a roof tile at a higher level than the tile stepped from, by his walk, the far walk, Footwork or Rotation) marks the man for the round; WAIT brings the same turn back in the same round, so the mark holds through it. A man so marked makes none of the attacks in refused for the rest of that turn: the blow or shot (strike, a throw is a thrown weapon's strike), a weapon's sweep, the dial's shot when the dial lands (dial_shot), Hook, Line Breaker's shove, the net, a whip's lash (ARMORY 2's, it rides strike or sweep), the cell vest's spark (COMBAT 5 ship 2). attack_skills: the active perks that are a blow; none of the fight's active perks is one today (still_his lists them), so it ships empty for the next one. A shove that puts him up there is not his climb. The zone of control's free swing and the free shot are on somebody else's turn and stand (Battle Brothers' rule, rules.json zone_of_control). Battle Brothers has no such rule: a climb there costs +1 AP a level (ap.move_cost.height_change_extra) and nothing else; ours is his. The AI: a shooter climbs only for the shot NEXT turn, never while he has a shot or a tile that gives one now.",
+  "ours": true
+ },
  "auto_finds_a_shot": {
   "value": {
    "order": [

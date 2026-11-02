@@ -63,7 +63,8 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
         if (rec.shot_by_move && rec.next_turn) return;
         k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
         if (x === u.x && y === u.y) return;
-        if (!rec.shot_by_move && shotFrom(u, x, y, u.ap - f.best[k])) rec.shot_by_move = true;
+        /* CLIMB OR ATTACK (COMBAT 5, rule 328): a tile his way climbs a roof to gives no shot this turn, by his rule */
+        if (!rec.shot_by_move && !(f.up && f.up[k]) && shotFrom(u, x, y, u.ap - f.best[k])) rec.shot_by_move = true;
         if (!rec.next_turn && shotFrom(u, x, y, u.apTurn, Math.max(0, u.fat - back))) rec.next_turn = true;
       });
     }

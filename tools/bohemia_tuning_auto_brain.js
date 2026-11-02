@@ -153,13 +153,20 @@ function startState(F, u) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
       if (F.level(x, y) < 2 || (x === u.x && y === u.y)) return;
       any = true;
-      if (opt || u.ap - f.best[k] < sAP || F.zocOn(u, x, y).length) return;
+      /* rule 328: the climb buys the shot NEXT turn, so the AP left after it no longer matters (a full turn's AP then, no mark) */
+      if (opt || (u.ap - f.best[k] < sAP && typeof F.climbsUp !== 'function') || F.zocOn(u, x, y).length) return;
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
-      const ok = foes.some(t => F.canStrike(Object.assign({}, u, { ap: 99 }), t) && F.sideSees(u.side, t));
+      const ok = foes.some(t => F.canStrike(Object.assign({}, u, { ap: 99, upRound: undefined }), t) && F.sideSees(u.side, t));
       u.x = ox; u.y = oy;
       if (ok) opt = true;
     });
-    rec.roofOpt = opt; rec.roofAny = any;
+    /* CLIMB OR ATTACK (COMBAT 5, rule 328, newer than 176(f)): a climb ends his attacks this turn, so a roof is his to take only on a
+       turn with no shot open without climbing (from where he stands, or a tile he walks to that does not climb: the brain's own
+       vantage); a turn with a shot open is a shot, never a roof */
+    const rule = typeof F.climbsUp === 'function';   /* the rule's code is in the fight (ours.climb_or_attack) */
+    const vg = rule && T.vantage ? T.vantage(u, true) : null;
+    const shotNow = rule && (foes.some(t => F.canStrike(u, t) && F.sideSees(u.side, t)) || !!(vg && vg !== 'stay' && vg.kind !== 'shot_next_turn'));
+    rec.roofOpt = opt && !shotNow; rec.roofAny = any && !shotNow;
   }
   return rec;
 }

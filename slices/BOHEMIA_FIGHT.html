@@ -127,6 +127,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .sq:disabled{opacity:.32}
 .sq.on{outline:2px solid #8fb8e0}
 .sq.hot{outline:2px solid #e0604a}
+.sq.up b{font-size:8px;right:2px;color:#e0907a;letter-spacing:.3px}
+#pick i.climbw{color:#a3261a;letter-spacing:.3px}
 .sq.bag{border-color:#6b5434;box-shadow:0 2px 3px rgba(0,0,0,.55),inset 0 0 0 1px rgba(224,176,98,.25)}
 .sq.bag b{font-size:9px;color:#e0b062}
 /* THE EMPTY GUN SHOUTS (COMBAT [the reload is loud], rule 124, Paolo 10/20: 'if I need to reload it needs to be very apparent
@@ -531,6 +533,25 @@ const FIGHT = (function () {
      stood on a roof in 8 of 30 wolf fights, every time by walking up it */
   function cannotClimb(u) { const C = R('ours.climbers'); return !!u && ((!!u.beast && !C.beast_sheet_climbs) || C.never_climb.indexOf(u.kind) >= 0); }
   function noRoof(u, x, y) { return !!u && isRoof(x, y) && cannotClimb(u); }
+  /* CLIMB OR ATTACK (COMBAT 5, rule 328, Paolo 11/2: 'you cannot climb on top of a building and attack anything within the same
+     turn. This is for everyone, the same turn'): a step from lower ground up onto a roof (a roof tile at a higher level than the
+     tile he stepped from) marks him for the round (u.upRound; WAIT brings the same turn back the same round, so the mark holds
+     through it); a man so marked makes no attack of any kind for the rest of his turn (ours.climb_or_attack: the blow, the sweep,
+     the hook, the shove, the net, the throw, an attacking perk; reloading, waiting, walking on and the shield are still his).
+     Every side, every beast that can climb (rule 321: the wolves cannot). A free swing or free shot on somebody else's turn is
+     the zone of control's, not his turn, and stands. MEASURED before (records/BOHEMIA_COMBAT_CLIMB_OR_ATTACK_11_2_26.md): AUTO's
+     shooters climbed and shot the same turn, the climb's +1 AP a storey the whole price */
+  function climbsUp(ax, ay, bx, by) { return isRoof(bx, by) && level(bx, by) > level(ax, ay); }
+  function climbedNow(u) { return !!u && u.upRound === S.round && R('ours.climb_or_attack').on; }
+  function markClimb(u, fx, fy) { if (climbsUp(fx, fy, u.x, u.y) && u.upRound !== S.round) { u.upRound = S.round; emit({ t: 'climbed', id: u.id, x: u.x, y: u.y }); } }
+  /* a way (a path of tiles from where he stands) that climbs onto a roof */
+  function climbsOn(u, path) {
+    let a = { x: u.x, y: u.y };
+    return (path || []).some(function (q) { const up = climbsUp(a.x, a.y, q.x, q.y); a = q; return up; });
+  }
+  /* he could still attack this turn after walking to tile k of the field (the brains' tiles): not marked, and the cheapest way
+     there does not climb a roof (reach's up[]) */
+  function attackAfter(u, field, k) { return !climbedNow(u) && !(field && field.up && field.up[k] && R('ours.climb_or_attack').on); }
   function sightBlock(x, y) { return rowAt(x, y) === 'obstacles'; }
   /* what standing on a tile does, in his words (ours.ground_rows' say; empty where nothing changes) */
   function groundSay(x, y) { return inBoard(x, y) ? R('ours.ground_rows')[terrainAt(x, y)].say : ''; }
@@ -1729,7 +1750,7 @@ const FIGHT = (function () {
     const key = function (x, y) { return y * S.w + x; };
     /* fr: how many of his own men the cheapest way wades through; of two ways at the same AP he takes the one round them, so
        he goes through his men only where it saves AP, and a long walk keeps tiles he can stop on (rule 206) */
-    const best = {}; const prev = {}; const fr = {}; const open = u.netted ? [] : [{ x: u.x, y: u.y, c: 0, f: 0 }];   /* THE NET: rooted in place */
+    const best = {}; const prev = {}; const fr = {}; const up = {}; const open = u.netted ? [] : [{ x: u.x, y: u.y, c: 0, f: 0 }];   /* THE NET: rooted in place */
     best[key(u.x, u.y)] = 0; fr[key(u.x, u.y)] = 0;
     while (open.length) {
       open.sort(function (a, b) { return a.c - b.c || a.f - b.f; });
@@ -1748,12 +1769,12 @@ const FIGHT = (function () {
         if (mate && !through && zocOn(u, x, y).length) return;
         const c = n.c + stepCost(u, n.x, n.y, x, y), f = n.f + (mate ? 1 : 0), k = key(x, y);
         if (c > budget) return;
-        if (best[k] === undefined || c < best[k] || (c === best[k] && f < fr[k])) { best[k] = c; fr[k] = f; prev[k] = key(n.x, n.y); open.push({ x: x, y: y, c: c, f: f }); }
+        if (best[k] === undefined || c < best[k] || (c === best[k] && f < fr[k])) { best[k] = c; fr[k] = f; prev[k] = key(n.x, n.y); up[k] = !!up[key(n.x, n.y)] || climbsUp(n.x, n.y, x, y); open.push({ x: x, y: y, c: c, f: f }); }
       });
     }
     /* a friend's tile is a way through, never a place to stand; nor is a wall a ghost slipped through */
     Object.keys(best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w), o = unitAt(x, y); if ((o && o !== u) || ((x !== u.x || y !== u.y) && !passable(x, y))) delete best[k]; });
-    return { best: best, prev: prev, key: key };
+    return { best: best, prev: prev, key: key, up: up };   /* up[k]: the cheapest way to k climbs a roof (rule 328) */
   }
   /* the nearest open tile to x,y that 'who' can get to over the ground and through his own men: no man on it, no wall */
   function openNear(x, y, who) {
@@ -1851,7 +1872,7 @@ const FIGHT = (function () {
       /* ZONE OF CONTROL (rules.json zone_of_control; rule 314): a free swing that lands and the walk fails, he stays on the tile */
       if (held) { emit({ t: 'held', id: u.id, by: held.id, x: u.x, y: u.y }); break; }
       emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: s.x, y: s.y });
-      back = { x: u.x, y: u.y }; u.x = s.x; u.y = s.y;
+      back = { x: u.x, y: u.y }; u.x = s.x; u.y = s.y; markClimb(u, back.x, back.y);
       if (runs(u) && unitAt(u.x, u.y) === u) { freeShot(u); if (!onField(u)) { afterAction(u); advance(u); return true; } }
     }
     /* cut short on a friend's tile (a swing landed, the AP ran out): the two trade places, his reading of the rule; walking
@@ -2236,6 +2257,7 @@ const FIGHT = (function () {
   /* ---------------- STRIKING ---------------- */
   function canStrike(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return false;
+    if (climbedNow(a)) return false;   /* rule 328: he climbed this turn */
     const s = strikeSkill(a.weapon);
     if (a.ap < skillAP(a.weapon, s, a)) return false;
     if (a.fat + skillFat(a, s) > fatMax(a)) return false;
@@ -2249,6 +2271,7 @@ const FIGHT = (function () {
   function strikeCost(a) { const s = strikeSkill(a.weapon); return { ap: skillAP(a.weapon, s, a), shot: isRanged(a.weapon) }; }
   function strikeWhy(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return { why: 'cannot' };
+    if (climbedNow(a)) return { why: 'climbed' };   /* rule 328: CLIMBED THIS TURN */
     const s = strikeSkill(a.weapon), need = skillAP(a.weapon, s, a);
     if (!inRange(a, t)) return { why: 'range' };
     if (a.ap < need) return { why: 'ap', need: need, have: a.ap, shot: isRanged(a.weapon) };
@@ -2323,7 +2346,7 @@ const FIGHT = (function () {
   }
   function canSweep(a, t, name) {
     const s = sweepSkill(a.weapon, name);
-    if (!s || !onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return false;
+    if (!s || !onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing' || climbedNow(a)) return false;
     if (a.ap < skillAP(a.weapon, s, a) || a.fat + skillFat(a, s) > fatMax(a)) return false;
     return inRange(a, t);
   }
@@ -2431,7 +2454,7 @@ const FIGHT = (function () {
   function netCut(u) { return u && u.netted ? 1 - DB.racial.rows.throw_net.cut_pct / 100 : 1; }
   function canNet(u, t) {
     const r = racial(u, 'throw_net');
-    if (!r || !(u.nets > 0) || !onField(u) || !onField(t) || t.side === u.side || t.netted || t.ghost || t.beast) return false;
+    if (!r || !(u.nets > 0) || !onField(u) || !onField(t) || t.side === u.side || t.netted || t.ghost || t.beast || climbedNow(u)) return false;
     return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && dist(u, t) <= r.range_tiles && sees(u, t);
   }
   function throwNet(u, t) {
@@ -2478,7 +2501,7 @@ const FIGHT = (function () {
   }
   function canShove(u, t) {
     const r = racial(u, 'line_breaker');
-    if (!r || !onField(u) || !onField(t) || t.side === u.side || dist(u, t) > r.range_tiles || t.ghost) return false;
+    if (!r || !onField(u) || !onField(t) || t.side === u.side || dist(u, t) > r.range_tiles || t.ghost || climbedNow(u)) return false;
     if ((t.immune || []).indexOf('Forced movement') >= 0 || t.indomitable) return false;
     return u.ap >= r.ap && u.fat + r.fatigue <= fatMax(u) && !!pushTile(u, t);
   }
@@ -2495,12 +2518,12 @@ const FIGHT = (function () {
   }
   function hookTarget(u) {
     const H = NEW('hook');
-    if (!hasHook(u.weapon) || u.ap < H.ap || u.fat + H.fatigue > fatMax(u)) return null;
+    if (!hasHook(u.weapon) || u.ap < H.ap || u.fat + H.fatigue > fatMax(u) || climbedNow(u)) return null;
     return foes(u).filter(function (f) { return dist(u, f) === (u.weapon.range_max || 1) && dist(u, f) > 1 && f.morale !== 'Fleeing' && sees(u, f) && sideSees(u.side, f) && hookTile(u, f); })
       .sort(function (p, q) { return (hides(q.x, q.y) ? 1 : 0) - (hides(p.x, p.y) ? 1 : 0) || (isRanged(q.weapon) ? 1 : 0) - (isRanged(p.weapon) ? 1 : 0); })[0] || null;
   }
   function hook(u, t) {
-    const H = NEW('hook'), q = hookTile(u, t); if (!q) return false;
+    const H = NEW('hook'), q = hookTile(u, t); if (!q || climbedNow(u)) return false;
     u.ap -= H.ap; u.fat += H.fatigue; u.hooked = true;
     const ch = hitChance(u, t).chance + H.hit_bonus, hit = die() <= ch;
     emit({ t: 'skill', id: u.id, skill: 'hook', to: t.id, hit: hit, chance: Math.round(ch) });
@@ -2611,6 +2634,7 @@ const FIGHT = (function () {
     if (u.ap < c.ap || u.fat + c.fat > fatMax(u)) return false;
     if (id === 'adrenaline' && u.adrenaline) return false;
     if (id === 'indomitable' && u.indomitable) return false;
+    if (climbedNow(u) && R('ours.climb_or_attack').attack_skills.indexOf(id) >= 0) return false;   /* rule 328: an attacking perk */
     if (id === 'rally_the_troops' && !rallyable(u).length) return false;
     if (needsTarget(id) && !skillTargets(u, id).length) return false;
     return true;
@@ -2633,8 +2657,8 @@ const FIGHT = (function () {
     if (id === 'adrenaline') u.adrenaline = true;              /* first in the turn order next round */
     if (id === 'recover') { u.fat = Math.round(u.fat * (1 - n.fatigue_reduction_pct / 100)); u.ap = 0; }
     if (id === 'indomitable') u.indomitable = true;            /* half damage until his next turn */
-    if (id === 'rotation') { const f = byId(tg.id), x = u.x, y = u.y; u.x = f.x; u.y = f.y; f.x = x; f.y = y; }
-    if (id === 'footwork') { emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: tg.x, y: tg.y }); u.x = tg.x; u.y = tg.y; }
+    if (id === 'rotation') { const f = byId(tg.id), x = u.x, y = u.y; u.x = f.x; u.y = f.y; f.x = x; f.y = y; markClimb(u, x, y); }
+    if (id === 'footwork') { const x = u.x, y = u.y; emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: tg.x, y: tg.y }); u.x = tg.x; u.y = tg.y; markClimb(u, x, y); }
     if (id === 'taunt') byId(tg.id).tauntedBy = u.id;
     if (id === 'rally_the_troops') {
       const row = R('morale.rally.rally_the_troops'), st = STATES(), cap = R('morale.check.cap');
@@ -3010,7 +3034,7 @@ const FIGHT = (function () {
     try {
       Object.keys(field.best).forEach(function (k) {
         k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
-        if ((x === ox && y === oy) || Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) > far) return;
+        if ((x === ox && y === oy) || Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) > far || !attackAfter(m, field, k)) return;   /* rule 328 */
         const left = oap - field.best[k];
         m.x = x; m.y = y; m.ap = left;
         if (!canStrike(m, t) || (ranged && zocOn(m, x, y).length)) return;
@@ -3192,6 +3216,11 @@ const FIGHT = (function () {
   function climb(u, A) {
     if (u.climbed === S.round) return false;
     if (u.side === 'you' && isGun(u.weapon) && zocOn(u, u.x, u.y).length) return false;   /* AUTO never climbs out of a ring through the free swings: his gun shoots the man beside him (rule 185; measured 10/25) */
+    /* CLIMB OR ATTACK (rule 328): a climb ends his attacks this turn, so every side's shooter climbs only for the shot NEXT turn:
+       never while he has a shot from where he stands, nor while a tile he can walk to gives one now (vantage's first pass, whose
+       tiles reached by a climb give none); never 'climb then shoot' */
+    const CA = R('ours.climb_or_attack');
+    if (CA.on && (!hasShot(u) || foes(u).some(function (t3) { return canStrike(u, t3) && sideSees(u.side, t3); }) || shotNowSomewhere(u))) return false;
     u.climbed = S.round;
     const f = reach(u), strikeAP = skillAP(u.weapon, strikeSkill(u.weapon), u), hunt = huntField(u, true);
     const line = A.shield_the_backline ? lineOf(u, hunt) : null;
@@ -3202,11 +3231,11 @@ const FIGHT = (function () {
       /* rule 322: never when another tile gives him the shot this turn (measured 11/2: the roof for next turn took 8 AP of 9 from
          a crossbow whose one step to the side was a shot now) */
       const later = u.side === 'you' && hasShot(u) && !foes(u).some(function (t3) { return canStrike(u, t3); }) && !(A.finds_a_shot && shotNowSomewhere(u));
-      if (level(x, y) <= level(u.x, u.y) || (u.ap - f.best[k] < strikeAP && !later) || zocOn(u, x, y).length) return;
+      if (level(x, y) <= level(u.x, u.y) || (!CA.on && u.ap - f.best[k] < strikeAP && !later) || zocOn(u, x, y).length) return;
       /* THE UNDO VETO ON THE ROOF TOO (rule 176(b): 'never off and back'; measured 10/25: a rifleman stepped off his roof to hunt,
          found nothing, and the climb put him back the next turn with no shot either way): a turn he did nothing in began on this
          roof, so he climbs back only with the AP to shoot from it now */
-      if (u.side === 'you' && u.lastTurn && !u.lastTurn.acted && x === u.lastTurn.x && y === u.lastTurn.y && u.ap - f.best[k] < strikeAP) return;
+      if (u.side === 'you' && u.lastTurn && !u.lastTurn.acted && x === u.lastTurn.x && y === u.lastTurn.y && (CA.on || u.ap - f.best[k] < strikeAP)) return;
       if (line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) return;
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
       const ok = foes(u).some(function (t2) { return inRange(u, t2) && sideSees(u.side, t2); });
@@ -3227,15 +3256,16 @@ const FIGHT = (function () {
      tile he could walk to gave one, held back by the line (shield_the_backline, hold_line) or standing at the fight's start.
      shotFrom: his best shot (the hit chance times the band's damage share) on a man his side sees from x,y with ap (next: a turn later, a full turn's AP, the breath that
      comes back, the gun loaded); -1 for none. Nothing on the board is left moved. */
-  function shotFrom(u, x, y, ap, next) {
-    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, loaded: u.loaded }, lurk = S.units.map(function (v) { return v.lurking; });
+  function shotFrom(u, x, y, ap, next, up) {
+    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, loaded: u.loaded, upRound: u.upRound }, lurk = S.units.map(function (v) { return v.lurking; });
     u.x = x; u.y = y; u.ap = ap;
+    if (next) u.upRound = undefined; else if (up) u.upRound = S.round;   /* rule 328: a way that climbs gives no shot this turn; the mark is gone next turn */
     if (next) { u.fat = Math.max(0, u.fat - R('fatigue.recovery_per_turn')); if (reloadSkill(u.weapon) && !u.weapon.mag) u.loaded = true; }
     let best = -1;
     /* the shot's worth: his chance times the share of the damage the gun's band gives at that distance (rule 187: the shotgun's
        blow falls off with the distance, so its best tile is the next one; a rifle's band is already in its chance) */
     try { foes(u).forEach(function (t) { if (canStrike(u, t) && sideSees(u.side, t)) { const bd = band(u, t); best = Math.max(best, hitChance(u, t, strikeSkill(u.weapon)).chance * (bd ? bd.dmg : 1)); } }); }
-    finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.loaded = keep.loaded; S.units.forEach(function (v, i) { v.lurking = lurk[i]; }); }
+    finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.loaded = keep.loaded; u.upRound = keep.upRound; S.units.forEach(function (v, i) { v.lurking = lurk[i]; }); }
     return best;
   }
   /* Battle Brothers' PotentialDanger: the clubs of theirs that could stand beside x,y next turn (their walk on the flat); a beast
@@ -3270,14 +3300,14 @@ const FIGHT = (function () {
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
       if ((x === u.x && y === u.y) || !fs.some(function (t) { return Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) <= far; })) return;
-      tiles.push({ x: x, y: y, cost: f.best[k] });
+      tiles.push({ x: x, y: y, cost: f.best[k], up: !!f.up[k] });
     });
     const done = function (v, full) { u._vantage = { key: key, v: v, full: full }; return v; };
     /* the first pass: a shot this turn, out of their reach first, beside a club of theirs only when nothing else gives one */
     let best = null, br = -1, bw = -Infinity;
     tiles.forEach(function (q) {
       const left = u.ap - q.cost; if (left < strikeAP) return;
-      const now = shotFrom(u, q.x, q.y, left, false); if (now < 0) return;
+      const now = shotFrom(u, q.x, q.y, left, false, q.up); if (now < 0) return;
       /* the shotgun closes in (rule 187(d)): the ring of the one man beside him is where its shot is best; two rings are a ring */
       const ring = zocOn(u, q.x, q.y).length, kind = ring > (wantsClose(w) ? 1 : 0) ? 'shot_now_in_a_ring' : 'shot_now', rank = V.order.length - V.order.indexOf(kind), wv = vantageWorth(u, q.x, q.y, q.cost, now);
       if (rank > br || (rank === br && wv > bw)) { br = rank; bw = wv; best = { x: q.x, y: q.y, kind: kind }; }
@@ -3306,7 +3336,7 @@ const FIGHT = (function () {
     let best = null, bs = here * R('ours.range_bands_step_in').worth;
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
-      if (Math.max(Math.abs(x - t.x), Math.abs(y - t.y)) !== 1 || u.ap - f.best[k] < strikeAP) return;
+      if (Math.max(Math.abs(x - t.x), Math.abs(y - t.y)) !== 1 || u.ap - f.best[k] < strikeAP || !attackAfter(u, f, k)) return;   /* rule 328 */
       if (zocOn(u, x, y).some(function (o) { return o !== t; })) return;
       u.x = x; u.y = y; const ok = canStrike(u, t), v = ok ? expected(u, t) : 0; u.x = ox; u.y = oy;
       if (ok && v > bs) { bs = v; best = { x: x, y: y }; }
@@ -3380,6 +3410,8 @@ const FIGHT = (function () {
     if (t) { const sw = u.side === 'you' ? null : sweepPick(u); if (sw) {   /* rule 180(g): a special swing is his */ sweep(u, sw.t, null, sw.skill); return true; } strike(u, t); if (A.volley && S.volley) S.volley[u.side] = t.id; return true; }
     /* THE SHIELD (FACTIONS 11/3): having walked in with nothing to swing at, the wall goes up with what is left; a turn he swings he
        holds no wall (Battle Brothers' footmen hold the wall or fight, the lesson is 'make him swing') */
+    /* rule 328: a shooter who climbed this turn for the shot next turn holds the roof (never down again the same turn) */
+    if (ranged && climbedNow(u) && foes(u).some(function (t4) { return inRange(u, t4) && sideSees(u.side, t4); })) { endTurn(u); return false; }
     if (A.shield_wall && canWall(u) && !u.swung && u.ap < u.apTurn && foes(u).some(function (f) { return dist(f, u) <= NEW('shieldwall').near_tiles; })) return wall(u);
     /* CAN I ACT (rule 176(a)(b), TUNING s1b: 93% of the wasted turns were a man who could not strike, walked anyway): AUTO's man
        who cannot strike this turn (out of breath, or nothing to shoot) stands when a foe is within near_tiles (farther off he
@@ -3422,7 +3454,8 @@ const FIGHT = (function () {
       const left = u.ap - f.best[k];
       const ghost = { x: x, y: y, side: u.side, weapon: w };
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
-      const tgts = foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)); });
+      /* rule 328: a tile his way climbs onto is no tile to strike from this turn */
+      const tgts = attackAfter(u, f, k) ? foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)); }) : [];
       /* rule 322: AUTO's club walks to the man he can drop (the share of him one blow takes, at most all of him) */
       const tv = u.side === 'you' && !ranged && tgts.length ? Math.min(1, Math.max.apply(null, tgts.map(function (t2) { return expected(u, t2); }))) : 0;
       u.x = ox; u.y = oy;
@@ -3537,12 +3570,12 @@ const FIGHT = (function () {
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
-    level: level, isRoof: isRoof, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
+    level: level, isRoof: isRoof, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -5122,6 +5155,8 @@ function startAnim(a) {
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'free' && u) { sfx('cloth_on', { side: u.side }); pop(u, 'tears free', '#c9b48a'); }
     if (e.t === 'stuck' && u) pop(u, 'still netted', '#c9b48a');
+    /* CLIMB OR ATTACK (rule 328): up on the roof, said over him, his attacks done for the turn */
+    if (e.t === 'climbed' && u) pop(u, CLIMB_SAYS.tag, '#c9b48a', false, crewControlled(u) ? wfill(u.main ? CLIMB_SAYS.you : CLIMB_SAYS.him, { name: u.name }) : '');
     /* ZONE OF CONTROL (rule 314): the free swing landed and the walk failed: HELD over him, and the line says who held him */
     if (e.t === 'held' && u) { const by = FIGHT.byId(e.by); heldTag(u); pop(u, '', '#e0a070', false, wfill(HELD_SAYS.feed, { by: by ? by.name : 'their man', name: u.name }));
       if (u.side === 'you' && crewControlled(u)) say(wfill(u.main ? HELD_SAYS.you : HELD_SAYS.him, { by: by ? by.name : 'their man', name: u.name }), true); }
@@ -7354,7 +7389,8 @@ function hud() {
   const sweeps = mine ? FIGHT.sweepSkills(u.weapon) : [];
   const back = mine && backOk(u);
   const bagK = mine && u.bag ? u.bag.map(function (w, i) { return (w ? w.id : '-') + (FIGHT.canSwap(u, i) ? 1 : 0) + FIGHT.swapCostOf(u, i); }).join(',') + (u.shield ? u.shield.id : '') : '';
-  const key = (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
+  const upNow = mine && FIGHT.climbedNow(u);   /* rule 328: CLIMBED THIS TURN on the strike square */
+  const key = (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + (upNow ? 'up' : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
     + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',');
   if (sk.dataset.key !== key) {
     sk.dataset.key = key;
@@ -7377,7 +7413,8 @@ function hud() {
     });
     bs.textContent = ''; bs.disabled = !tgt; bs.className = 'sq' + (tgt ? ' hot' : ''); bs.title = 'STRIKE'; bs.style.display = dry && !tgt ? 'none' : '';
     if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
-    const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
+    const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : upNow ? CLIMB_SAYS.square : ''; bs.appendChild(bt);
+    if (upNow) { bs.title = CLIMB_SAYS.title; bs.classList.add('up'); bs.dataset.why = 'climbed'; } else delete bs.dataset.why;
     const cut = tgt && FIGHT.isRanged(u.weapon) ? FIGHT.coverCut(u, tgt) : null;   /* rule 230(c): the man in the way's cut, a red arrow and how much */
     if (cut) { const B = window.BohemiaStats; let ci;   /* UI's arrow (rule 224): red, down, and how much */
       if (B && B.change) { B.css(); ci = B.change(-cut.cut); ci.classList.add('bst-glass'); } else { ci = document.createElement('b'); ci.textContent = '\u25BC' + cut.cut; }
@@ -7396,7 +7433,8 @@ function hud() {
       const b = document.createElement('button');
       b.className = 'sq' + (UI.sweep === k.name ? ' on' : ''); b.appendChild(shapeIcon(k, 30));
       const t = document.createElement('b'); t.textContent = FIGHT._t.skillAP(u.weapon, k, u); b.appendChild(t);
-      b.dataset.sweep = k.name; b.title = k.name.toUpperCase(); b.disabled = u.ap < FIGHT._t.skillAP(u.weapon, k, u);
+      b.dataset.sweep = k.name; b.title = upNow ? CLIMB_SAYS.title : k.name.toUpperCase(); b.disabled = upNow || u.ap < FIGHT._t.skillAP(u.weapon, k, u);
+      if (upNow) b.dataset.why = 'climbed';
       b.onclick = function () { sweepTap(k.name); };
       sk.appendChild(b);
     });
@@ -7469,7 +7507,9 @@ function placePick() {
   if (p.target) { const v = p.target; X = sx((dx(v) + .5) * UI.tw); top = sy((dy(v) + .9) * UI.th) - manH() - 14; }
   else { const at = p.far ? p.stop : p.tile; X = sx((at.x + .5) * UI.tw); top = sy((at.y + .9) * UI.th) - manH() * .45; }   /* rule 206: the tag stands where he stops */
   const at2 = p.far ? p.stop : p.tile, upN = !p.target && at2 ? FIGHT.level(at2.x, at2.y) : 0;
-  const html = act.label + ' ' + act.sub + (upN ? '<em>' + (FIGHT.isRoof(at2.x, at2.y) ? 'ROOF ' : 'HIGH ') + upN + ' UP</em>' : '') + (p.swings ? '<i>' + p.swings + ' free swing' + (p.swings > 1 ? 's' : '') + '</i>' : '');
+  /* rule 328: a walk that climbs a roof warns on the tag before he commits */
+  const upWarn = !p.target && p.path && !FIGHT.climbedNow(u) && FIGHT.climbsOn(u, p.path) ? '<i class="climbw">' + (u.main ? CLIMB_SAYS.pickYou : CLIMB_SAYS.pick) + '</i>' : '';
+  const html = act.label + ' ' + act.sub + (upN ? '<em>' + (FIGHT.isRoof(at2.x, at2.y) ? 'ROOF ' : 'HIGH ') + upN + ' UP</em>' : '') + (p.swings ? '<i>' + p.swings + ' free swing' + (p.swings > 1 ? 's' : '') + '</i>' : '') + upWarn;
   if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; }
   el.style.display = 'block';
   const w = el.offsetWidth, h = el.offsetHeight;
@@ -7656,7 +7696,11 @@ const WIPE_SAYS = {   /* draft:true */
   count: '{dead} of yours dead, {down} down.',
   next: 'Somebody drags you to the nearest town. {who} have your men and your gear.'
 };
-const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.', walk: 'Leaves {left} AP: {what} costs {need}.' };   /* draft:true */
+const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.', walk: 'Leaves {left} AP: {what} costs {need}.',
+  climbed: '{name} climbed this turn: no blow and no shot until the next one.' };   /* draft:true */
+/* CLIMB OR ATTACK (rule 328): the word on the strike square, the tag over him, the line, and the warning before the walk (draft:true) */
+const CLIMB_SAYS = { tag: 'CLIMBED', square: 'CLIMBED', title: 'CLIMBED THIS TURN', you: 'Up on the roof. No attack until your next turn.', him: '{name} is up on the roof. No attack until his next turn.',
+  warn: 'Climbing ends his attacks this turn.', warnYou: 'Climbing ends your attacks this turn.', pick: 'CLIMBING ENDS HIS ATTACKS THIS TURN', pickYou: 'CLIMBING ENDS YOUR ATTACKS THIS TURN' };
 const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.', left: 'Left behind: {names}.',
   backHead: 'YOU PULLED BACK', back: 'Nobody moved. Nobody hurt, nothing spent, nothing taken. No pay.' };   /* draft:true */
 const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead' };   /* draft:true */
@@ -8022,7 +8066,7 @@ function tapAt(px, py) {
   UI.tapped = true;   /* his first tap: the open's how-to line has done its job and does not come back */
   if (who && who.side === 'them' && FIGHT.sideSees('you', who) && UI.sweep) {
     /* WEAPON SHAPES: a sweep armed: the first tap lights its shape, the second swings it */
-    if (!FIGHT.canSweep(u, who, UI.sweep)) { say(who.name + ' is out of the ' + UI.sweep.toLowerCase() + '\'s reach.' + reachWords(u), true); UI.pend = null; return; }
+    if (!FIGHT.canSweep(u, who, UI.sweep)) { say(FIGHT.climbedNow(u) ? wfill(REFUSE_SAYS.climbed, { name: u.main ? 'You' : u.name }) : who.name + ' is out of the ' + UI.sweep.toLowerCase() + '\'s reach.' + reachWords(u), true); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who && UI.pend.sweep) { const nm = UI.pend.sweep; UI.pend = null; UI.sweep = null; FIGHT.sweep(u, who, null, nm); take(); return; }
     UI.pend = { target: who, sweep: UI.sweep, pv: FIGHT.preview(u, who) }; sweepSay(u, who, UI.sweep); hud(); return;
   }
@@ -8031,8 +8075,8 @@ function tapAt(px, py) {
     if (!FIGHT.canStrike(u, who)) { const rr = FIGHT.rounds(u), spent = rr && rr.left <= 0 && !FIGHT.reloadSkill(u.weapon);
       const why = FIGHT.strikeWhy(u, who) || { why: 'range' };
       say(spent ? 'No ' + armName(u, u.weapon) + ' left.' : why.why === 'ap' ? wfill(REFUSE_SAYS.ap, { what: why.shot ? 'the shot' : 'the blow', need: why.need, name: u.name, have: why.have })
-        : why.why === 'fat' ? wfill(REFUSE_SAYS.fat, { name: u.name }) : who.name + ' is out of reach.' + reachWords(u), true);
-      if (spent || why.why === 'ap' || why.why === 'fat') sfx('ui_deny'); UI.pend = null; return; }
+        : why.why === 'fat' ? wfill(REFUSE_SAYS.fat, { name: u.name }) : why.why === 'climbed' ? wfill(REFUSE_SAYS.climbed, { name: u.main ? 'You' : u.name }) : who.name + ' is out of reach.' + reachWords(u), true);
+      if (spent || why.why === 'ap' || why.why === 'fat' || why.why === 'climbed') sfx('ui_deny'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
     UI.pend = { target: who, pv: FIGHT.preview(u, who) }; aimSay(u, who);
     /* the first fight teaches (COMBAT [the first fight teaches]): the first aim; the first man in cover */
@@ -8074,13 +8118,15 @@ const FAR_SAYS = { far: 'Too far for one turn: {name} walks {n} of the {m} tiles
    many free swings the walk walks into and what one that lands does; the tile each comes on ringed in rust on the walk */
 const SWING_SAYS = { one: '1 free swing on the way: if it lands, {who} held there.', many: '{n} free swings on the way: one that lands holds {who} there.' };   /* draft:true */
 function swingWord(u, n) { return !n ? '' : wfill(n > 1 ? SWING_SAYS.many : SWING_SAYS.one, { n: n, who: n > 1 ? (u.main ? 'you' : 'him') : (u.main ? 'you are' : 'he is') }); }
+/* rule 328: the line before a walk that climbs a roof (never when he already climbed: his attacks are already done) */
+function climbWord(u, path) { return !FIGHT.climbedNow(u) && FIGHT.climbsOn(u, path) ? (u.main ? CLIMB_SAYS.warnYou : CLIMB_SAYS.warn) : ''; }
 function farPreview(u, p, far) {
   let swings = 0, at = { x: u.x, y: u.y }; const heldAt = [];
   far.path.slice(0, far.n).forEach(function (q) { const z = FIGHT.zocOn(u, at.x, at.y).length; swings += z; if (z) heldAt.push(at); at = q; });
   UI.pend = { tile: p, far: true, stop: far.stop, path: far.path.slice(0, far.n), rest: far.path.slice(far.n), cost: far.cost, swings: swings, heldAt: heldAt };
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - far.cost;
   const short = sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([ringWord(u, p, far.path.slice(0, far.n)), wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swingWord(u, swings), short].filter(Boolean).join(' '));
+  say([ringWord(u, p, far.path.slice(0, far.n)), wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swingWord(u, swings), climbWord(u, far.path.slice(0, far.n)), short].filter(Boolean).join(' '));
 }
 /* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */
 function walkPreview(u, p, f, path) {
@@ -8096,7 +8142,7 @@ function walkPreview(u, p, f, path) {
      AP left after it will not pay for his blow or shot, the line says so before he commits */
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });
   const short = foeSeen && sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([ringWord(u, p, path), gs || '', swingWord(u, swings), short].filter(Boolean).join(' '));
+  say([ringWord(u, p, path), gs || '', swingWord(u, swings), climbWord(u, path), short].filter(Boolean).join(' '));
 }
 /* who a finger (or the mouse) at px, py means: the man ON the tile first; a body over an empty tile answers only if it is theirs
    (aim), never one of yours (rule 104a: zoomed out to both teams, your own men's bodies cover the tiles behind them, and those

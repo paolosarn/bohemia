@@ -17,7 +17,9 @@
    G3 a man who starts with a strike in reach and never swings: under 0.5% (before 1.44%);
    G4 free swings his men take walking out of rings by AUTO's choice, no more than theirs (TUNING's bar; a man in a morale rout runs
       through them by Battle Brothers' rules and is counted apart; all told before 7.03 a fight);
-   G5 gunmen who could walk onto a roof and ever stand on one: over 40% (before 38.5%; TUNING's bar 60%, not met yet);
+   G5 gunmen who could walk onto a roof and ever stand on one: over 40% (before 38.5%; TUNING's bar 60%, not met yet); AMENDED 11/2
+      (COMBAT 5, rule 328 CLIMB OR ATTACK: a climb ends his attacks that turn): the roof counts only on a turn with no shot open
+      without climbing (tools/bohemia_tuning_auto_brain.js roofAny), since a turn with a shot open is a shot, never a roof;
    G6 rule 180: AUTO uses no ability: no skill, no bag swap, no special swing, no reload with a loaded shot on, by his side;
    G7 the fight ends: no fight runs to the 60-round mark (before: 11 in 300; the standoff ends it);
    G8 and AUTO wins at least as often as the old brain on the same fights (before 202 of 300).
@@ -81,8 +83,11 @@ const argv = process.argv, N = Number(argv[argv.indexOf('--n') + 1]) || 100;
   const own = frees.you / n, ownThem = frees.them / n;
   leg(own <= Math.max(ownThem, 0.25), '*** G4 AUTO NEVER WALKS OUT OF A RING THROUGH THE SWINGS *** (TUNING\'s bar: no more than theirs), not counting a man in a rout',
     own.toFixed(2) + ' a fight by choice (theirs ' + ownThem.toFixed(2) + '); in a rout ' + (frees.youRout / n).toFixed(2) + ' (theirs ' + (frees.themRout / n).toFixed(2) + '); all told ' + free.toFixed(2) + ' (the old brain ' + freeB.toFixed(2) + ', theirs ' + theirs.toFixed(2) + ')');
-  const roof = sum(fights, 'you', 'gunmenWithAnyTook') / Math.max(1, sum(fights, 'you', 'gunmenWithAny')), roofB = sum(before, 'you', 'gunmenWithAnyTook') / Math.max(1, sum(before, 'you', 'gunmenWithAny'));
-  leg(roof > 0.4 && roof >= roofB, 'G5 a gunman who can walk onto a roof takes one (rule 176(f)): over 40% and no fewer than before (TUNING\'s bar 60%, not met yet)', (100 * roof).toFixed(1) + '% (the old brain ' + (100 * roofB).toFixed(1) + '%)');
+  /* rule 328 (COMBAT 5): the roof counted is one that gives him the shot NEXT turn, on a turn with no shot open without climbing
+     (the bench's roofOpt under the rule); the old brain's number beside it is its own count, before the rule */
+  const roof = sum(fights, 'you', 'gunmenWithOptTook') / Math.max(1, sum(fights, 'you', 'gunmenWithOpt')), roofB = sum(before, 'you', 'gunmenWithAnyTook') / Math.max(1, sum(before, 'you', 'gunmenWithAny'));
+  const roofAny = sum(fights, 'you', 'gunmenWithAnyTook') / Math.max(1, sum(fights, 'you', 'gunmenWithAny'));
+  leg(roof > 0.4 && roof >= roofB, 'G5 a gunman who can walk onto a roof that gives him a shot takes one (rule 176(f); since rule 328 CLIMB OR ATTACK, on the turns with no shot open without climbing, the roof giving the shot next turn): over 40% and no fewer than before (TUNING\'s bar 60%, not met yet)', (100 * roof).toFixed(1) + '% (any roof in reach on such a turn: ' + (100 * roofAny).toFixed(1) + '%; the old brain, before rule 328, any roof: ' + (100 * roofB).toFixed(1) + '%)');
   leg(abil.skill + abil.swap + abil.sweep + abil.reloadLoaded === 0, '*** G6 AUTO USES NO ABILITY *** (rule 180: move, fire, strike; reload only to keep firing)',
     abil.skill + ' skills, ' + abil.swap + ' bag swaps, ' + abil.sweep + ' special swings, ' + abil.reloadLoaded + ' reloads with a shot on, by his side over ' + n + ' fights');
   leg(stalled === 0, '*** G7 EVERY FIGHT ENDS *** (the standoff: when they land nothing for five rounds they break off)', stalled + ' fights to the 60-round mark (the old brain: ' + stalledB + ')');

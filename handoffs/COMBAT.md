@@ -1,5 +1,20 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 5 11/2, SHIP 1 (brief from the coordinator: rule 328, ask line 326). SHIPPED (BUILD 11/3zm, CLIMB OR ATTACK), NOT YET SEEN:
+CLIMB OR ATTACK: a step from lower ground up onto a roof marks the man for the round (u.upRound; WAIT keeps it); marked, he makes no
+attack the rest of his turn: canStrike, canSweep, canNet, canShove, hookTarget/hook refuse, canUse refuses ours.climb_or_attack
+attack_skills (empty today); strikeWhy 'climbed'. Every side, every beast that can climb; free swings/shots on another's turn stand.
+He sees: the walk's tag and line warn before the climb (CLIMBING ENDS HIS ATTACKS THIS TURN), the strike square says CLIMBED, a tap
+on a man says why. AUTO (rule 322 changed): reach() carries up[k] (the way climbs); no brain counts a climbing tile as a strike-now
+tile; climb() only when no shot now anywhere and the roof gives one next turn; a shooter who climbed holds the roof.
+Climb-and-attack turns 36 -> 0 in 40 AUTO fights; shooter climbed past a shot 44 -> 0; minutes on AUTO unchanged (0.6 to 1.0).
+Gate gates/climb_or_attack_gate.js (6/6; --before fails 4). Phone look tools/bohemia_combat_climb_or_attack_phone_11_2_26.js (3/3).
+Amended: the auto_plays_smart probe (a climbing tile gives no shot now), auto_never_wastes_a_turn G5 (roof counted only on turns
+with no shot open, tools/bohemia_tuning_auto_brain.js roofAny). records/BOHEMIA_COMBAT_CLIMB_OR_ATTACK_11_2_26.md.
+NEXT: SHIP 2 THE CELL VEST (rule 305). EYES on a phone. The dial's shot and ARMORY 2's lash ride canStrike/canSweep.
+[bb] Battle Brothers: a climb costs +1 AP a level and nothing else; ours, his: the roof is a turn's investment.
+[analog horror] CLIMBED greys the strike square like a dead switch; a man on a roof with empty hands for a turn, the thing below looking up.
+
 COMBAT 4 11/2 (brief from the coordinator: rules 321, 322, ask lines 318, 319). SHIPPED (BUILD 11/3zg), NOT YET SEEN:
 1. HEIGHT IS ACCURACY, NEVER A WALL: a man on the next tile can always be struck in melee and always holds his zone of control,
    whatever the storeys; each storey is +10 to hit for the man above, -10 for the man below, blows and shots alike
