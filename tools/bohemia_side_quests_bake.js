@@ -48,8 +48,8 @@ const GLUE = {
   },
   S17_THE_SEED_THAT_DOES_NOT_COME_BACK: {
     meet: { where: ['any'], when: 'day', weight: 3, min_day: 1 },
-    people: { grower: { name: 'DON ANSELMO', look: 'faction_blues', from: 'a seed yard behind a chain fence' },
-              trader: { name: 'LA GÜERA', look: 'faction_caravans', from: 'a trader with a truck of sacks' } },
+    people: { grower: { name: 'DOÑA ANSELMA', look: 'faction_blues', from: 'a seed yard behind a chain fence' },
+              trader: { name: 'EL GÜERO', look: 'faction_caravans', from: 'a trader with a truck of sacks' } },
     places: { trader: { name: "THE SACK TRUCK", act: 'FIND THE TRADER', blocks: [7, 14] }, grower: { name: 'THE SEED YARD', act: 'BACK TO THE YARD' } },
     ends: { 30: { food: 3, mood: { act: 'civilian_contract_done', place: 'faction:blues' } }, 31: { food: 4, mood: { act: 'favor', place: 'faction:blues' } },
             32: { bats: 25, mood: { act: 'civilian_contract_done', place: 'faction:caravans' } }, 33: { mood: { act: 'offensive_action', place: 'faction:caravans' } },

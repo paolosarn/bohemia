@@ -1135,12 +1135,12 @@
    },
    "people": {
     "grower": {
-     "name": "DON ANSELMO",
+     "name": "DOÑA ANSELMA",
      "look": "faction_blues",
      "from": "a seed yard behind a chain fence"
     },
     "trader": {
-     "name": "LA GÜERA",
+     "name": "EL GÜERO",
      "look": "faction_caravans",
      "from": "a trader with a truck of sacks"
     }
