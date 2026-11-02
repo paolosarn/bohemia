@@ -2907,7 +2907,7 @@ function draw(){
   if(view.ox > 0 && !(FIT.pad && FIT.pad.col)){   /* __THE_TOWN_FITS_THE_SCREEN__: a fitted town on a wide glass fades out at its sides too */
     var gl = cx.createLinearGradient(view.ox, 0, view.ox+fe, 0); gl.addColorStop(0,'rgba(14,10,7,.8)'); gl.addColorStop(1,'rgba(14,10,7,0)'); cx.fillStyle = gl; cx.fillRect(view.ox, view.oy, fe, picH()*s);
     var gr = cx.createLinearGradient(view.ox+picW()*s-fe, 0, view.ox+picW()*s, 0); gr.addColorStop(0,'rgba(14,10,7,0)'); gr.addColorStop(1,'rgba(14,10,7,.8)'); cx.fillStyle = gr; cx.fillRect(view.ox+picW()*s-fe, view.oy, fe, picH()*s); }
-  if(!going) try{ padDraw(im); }catch(e){}   /* __FOUR_LAYOUTS__: the phone's own plain ground, over everything of the town, under the phone */
+  if(!going && !(VAR && VAR.comp && VAR.comp.phone_ground && VAR.comp.phone_ground.organic)) try{ padDraw(im); }catch(e){}   /* Paolo 11/2 (ask line 253, 'I wanted it to look organic'): a town drawn with its own old lot in the phone's corner shows that lot, never the plain pad laid over it */   /* __FOUR_LAYOUTS__: the phone's own plain ground, over everything of the town, under the phone */
   /* THE THREE DOORS THAT MATTER (TUNING's change 7, rule 133): work (the board), hands (the post) and a drink (the bar)
      catch the light on the beat until he has opened each once in this place; no words on the picture, the building's own
      pixels brightened, softer than the one under his finger */

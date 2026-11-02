@@ -45,6 +45,7 @@ def thing_box(pl, root):
 
 
 TAPS_IN_PAD = []
+LOT = [0]
 def tap_names(town):
     hot_roles, box_roles = T.ROLES[town['tier']]
     th = T.THING.get(town['name'], {})
@@ -77,6 +78,54 @@ def clear_corners(bpy, pl, town=None):
     return gone
 
 
+def organic_lot(town, g, g2, seed):
+    """THE TOWN AROUND THE PHONE LOOKS ORGANIC (Paolo 11/2, ask line 253: 'I wanted it to look organic... It feels just like you kinda
+    just didn't give a fuck'): the phone's corner is a real place in the town, drawn into the ground itself: an old parking lot, its
+    asphalt cracked and broken at a ragged edge, faded bay lines with some gone, oil stains where cars stood. Ground only: nothing
+    stands on it (his 10/27: 'not a single item behind the phone'). g is the plan (y 0..60 m), g2 the ground laid on south of it
+    (y -60..0 m); both are painted where their ground lands in the phone's corner, a little wider, with a wandering edge."""
+    import numpy as np
+    import bohemia_cook_the_floor_through_the_rig_10_19_26 as FL
+    ID = FL.ID; Hh, Ww = g.shape; rng = np.random.default_rng(seed)
+    xs = (np.arange(Ww) + 0.5) * 60.0 / Ww
+    def paint(grid, y_off):
+        ys = 60.0 - (np.arange(Hh) + 0.5) * 60.0 / Hh + y_off
+        X, Y = np.meshgrid(xs, ys)
+        px = T.TW / 2 + (X - 30.0) * T.PPM; py = T.TH / 2 - (Y * T.C45 - 30.0 * T.C45) * T.PPM
+        wob = 34 + 16 * np.sin(X * 0.83 + seed % 7) + 12 * np.cos(Y * 1.27 + seed % 5) + 7 * np.sin((X + Y) * 2.9)
+        cx = (px - (T.TW - PADX)) if SIDE == 'right' else (PADX - px)
+        d = np.minimum(cx + wob, py - PADTOP + wob)              # how far inside the wandering edge (px)
+        lot = d > 0
+        if not lot.any(): return 0
+        edge = lot & (d < 26)                                     # the broken rim: the asphalt gives way to the town's own ground
+        grid[lot & ~edge] = ID['asphalt']
+        crumb = edge & (rng.random(grid.shape) < 0.55)
+        grid[crumb] = ID['rough']
+        inner = lot & ~edge
+        yl = Y[inner]; ytop = yl.max() if yl.size else 0.0
+        for row in range(3):                                      # rows of bays, 5.2 m deep, from the lot's north edge
+            y1 = ytop - 0.8 - row * 6.4; y0 = y1 - 5.0
+            for k, x in enumerate(np.arange(1.3 + (seed % 3) * 0.4, 60, 2.7)):
+                if rng.random() < 0.28: continue                  # a line the sun took
+                m = inner & (np.abs(X - x) < 0.06) & (Y > y0 + rng.uniform(0, 1.2)) & (Y < y1 - rng.uniform(0, 0.8))
+                grid[m] = ID['paint']
+            m = inner & (np.abs(Y - y0) < 0.05) & (rng.random(grid.shape) < 0.6)   # the bays' back line, half worn
+            grid[m] = ID['paint']
+            for k, x in enumerate(np.arange(2.65, 60, 2.7)):     # where the cars stood: an oil stain in some bays
+                if rng.random() < 0.55: continue
+                e = inner & (((X - x) / 0.75) ** 2 + ((Y - (y0 + 2.4)) / 1.1) ** 2 < 1.0)
+                grid[e & (rng.random(grid.shape) < 0.8)] = ID['gutter']   # a dark stain, not a dirt ring
+        for _ in range(9):                                        # cracks: a thin dark wandering line
+            x, y = rng.uniform(0, 60), rng.uniform(yl.min() if yl.size else -10, ytop)
+            a = rng.uniform(0, 6.283)
+            for _s in range(60):
+                a += rng.normal(0, 0.35); x += 0.12 * np.cos(a); y += 0.12 * np.sin(a)
+                m = inner & (np.abs(X - x) < 0.035) & (np.abs(Y - y) < 0.045)
+                grid[m] = ID['gutter']
+        return int(lot.sum())
+    return paint(g, 0.0) + paint(g2, -60.0)
+
+
 def render(town, quick=False, day_only=False):
     """V.render's own steps (the 10/25 tool), the upright frame, the corners cleared, the frame drawn EXT taller at the bottom"""
     import bpy, mathutils
@@ -89,9 +138,11 @@ def render(town, quick=False, day_only=False):
     bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene
     NF.LEDGER.clear(); NF.LEDGER.update(bid='settle.' + town['slug'], seed=seed % 97)
     g = V.plan(town, rnd)
-    objs, gg = F.build(bpy, g, 2020 + seed, quick)
     import numpy as np                                  # the ground goes on south past the plan's 60 m: the plan mirrored, laid on south of it,
-    objs2, _ = F.build(bpy, np.flipud(g), 3030 + seed, True)   # so the seam is the same ground meeting itself
+    g2 = np.flipud(g).copy()                            # so the seam is the same ground meeting itself
+    LOT[0] = organic_lot(town, g, g2, seed)             # Paolo 11/2 (ask line 253): the phone's corner is an old lot drawn into the ground
+    objs, gg = F.build(bpy, g, 2020 + seed, quick)
+    objs2, _ = F.build(bpy, g2, 3030 + seed, True)
     SIDE_M = float(getattr(NF.F, 'SIDE', 60.0))
     for o in objs2:
         if o.parent is None: o.location.y -= SIDE_M
@@ -141,7 +192,7 @@ def render(town, quick=False, day_only=False):
             o = bpy.data.objects.new('fire_light', L_); sc.collection.objects.link(o); o.location = (x, y, 1.6 * zs)
         night = os.path.join(od, town['slug'] + '_' + SIDE + '_night.png'); sc.render.filepath = night; bpy.ops.render.render(write_still=True)
     T._orig_render_dump(dict(name=town['name'], tier=town['tier'], stands=town['stands'], trade=town['trade'], lamps=pl.lamps, fires=pl.fires,
-                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone, taps_in_pad=list(TAPS_IN_PAD)),
+                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone, taps_in_pad=list(TAPS_IN_PAD), lot_cells=LOT[0]),
                         open(os.path.join(od, town['slug'] + '_' + SIDE + '.json'), 'w'), indent=0)
     return day, night
 
@@ -200,7 +251,7 @@ def ship(towns_, sides):
             e = man['towns'].setdefault(town['name'], {})
             e['tall_' + sd] = dict(src=src, night_src=nsrc if have_night else src, px=[T.TW, T.TH + EXT], hotspots=hot, boxes=boxes,
                                    doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, T.TW, T.TH), zoom_max=T.ZOOM[town['tier']],
-                                   **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 292: below top, within width of the phone side, plain ground'}}))
+                                   **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town', 'organic': True}}))
             if meta.get('taps_in_pad'): print('  NOTE', key, 'keeps', meta['taps_in_pad'], 'in the corner: shipped without the phone ground (the screen lifts it clear)', flush=True)
             bl = sorted({tuple(o['box']) for o in meta['outlines']})
             for out in (src, nsrc): walk['pictures'][out] = {'blocks': [list(b) for b in bl]}
