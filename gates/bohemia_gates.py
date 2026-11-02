@@ -9818,7 +9818,8 @@ GATES = [
      "WORLD gate, 11/2 round 3, ask line 288 (Paolo 11/2: 'I should be able to walk over the mountains... any time there's "
      "difficult terrain you're just slower'): a valley mountain and a region peak are ground at 3x open ground's minutes (6x a "
      "road), the lake a wall; the trip west to Pahrump goes over the rim and is quicker, the lodge keeps the quicker road; a "
-     "mountain block takes 3 steps on the glass; the going off puts the wall back. the demo, about 1 min", False),
+     "mountain block takes 3 steps on the glass; the going off puts the wall back; THE PASSES (ask line 303): from every real road's portal "
+     "the way in crosses no mountain (undone it does), Pahrump takes NV-160. the demo, about 1 min", False),
     ('THE MAP STREETS JOIN', ['node', 'gates/the_map_streets_join_gate.js'],
      "WORLD gate, 11/2 round 3, ask line 285 (Paolo 11/2: 'the freeways look like freeways, the streets transitioning to each "
      "other properly, better zoomed in... it just gets more detailed the more you zoom in'): the painter's own texels at the middle "

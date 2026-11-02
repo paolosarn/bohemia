@@ -97,11 +97,57 @@
       (document.head || document.documentElement).appendChild(s);
     } catch(_e){}
   })();
+  /* ==== __THE_PASSES__ (WORLD 11/2 round 3, ask line 303, rule 310; Paolo 11/2: 'there should always be, in the middle of any
+     mountain outside of Vegas, a street going out from it, so I'm confused why I had to walk all the way across'). The real roads
+     through the ranges were already on the region from real coordinates (tools/bohemia_world_region.py: I-15 north past Apex and
+     south past Jean to Primm, US-95 north-west past Indian Springs and south-east to Searchlight, I-11 / US-93 through the River
+     Mountains to Boulder City and the dam, NV-160 over Mountain Springs to Pahrump, NV-159 past Red Rock, NV-157 up Kyle Canyon,
+     NV-147 Lake Mead Boulevard through the gap by Frenchman and Sunrise), and each meets the valley's box at its PORTAL. But the
+     valley rolls its own rim, and where a portal met the rim's mountain or its open ground there was no road on the valley's side:
+     the walk crossed the mountain to reach the pass road. NOW each portal is joined, through the rim, to the nearest of the valley's
+     own roads: the shortest way over the rim's mountain and open ground (straight in first) becomes road, the road the pass comes
+     down (t.passRoad names it, t.passWas keeps what it was). A portal that lands on the valley's road already costs nothing. ==== */
+  function cutThePasses(C){
+    var N = om.n, out = [], CP = (typeof CITY_PAVED !== 'undefined') ? CITY_PAVED : { freeway: 1, arterial: 1, strip: 1, beltway: 1, interchange: 1 };
+    var soft = function(d){ return d === 'mountain' || (typeof TERRAIN_GOING !== 'undefined' && !!TERRAIN_GOING[d]); };
+    var P = (R.land && R.land.portals) ? R.land.portals(C) : [];
+    P.forEach(function(p){
+      var sx = Math.max(0, Math.min(N - 1, p.x)), sy = Math.max(0, Math.min(N - 1, p.y)), t0 = om.at(sx, sy);
+      if (!t0) return;
+      if (!CP[t0.district] && !soft(t0.district) && !t0.passRoad) {   /* the portal lands on a works or a farm: the nearest block beside it along the edge that is road or ground */
+        var lx = (p.y < 0 || p.y >= N) ? 1 : 0, ly = 1 - lx;
+        for (var o = 1; o <= 4; o++) { var ok2 = false; [o, -o].forEach(function(s2){ if (ok2) return; var ax = sx + lx * s2, ay = sy + ly * s2, ta = om.at(ax, ay);
+          if (ta && (CP[ta.district] || soft(ta.district) || ta.passRoad)) { sx = ax; sy = ay; t0 = ta; ok2 = true; } }); if (ok2) break; }
+      }
+      if (t0.passRoad) { out.push({ road: p.road, x: sx, y: sy, cut: 0, shared: t0.passRoad }); return; }
+      if (CP[t0.district]) { out.push({ road: p.road, x: sx, y: sy, cut: 0 }); return; }
+      if (!soft(t0.district)) { out.push({ road: p.road, x: sx, y: sy, cut: -1, why: t0.district }); return; }
+      var D4 = [[1, 0], [-1, 0], [0, 1], [0, -1]], inw = p.x < 0 ? 0 : p.x >= N ? 1 : p.y < 0 ? 2 : 3;
+      D4 = [D4[inw]].concat(D4.filter(function(_d, i){ return i !== inw; }));
+      var from = {}, q = [[sx, sy]], seen = {}, hit = null; seen[sx + ',' + sy] = 1;
+      for (var h = 0; h < q.length && !hit && h < 6000; h++) { var c = q[h];
+        for (var d = 0; d < 4; d++) { var nx = c[0] + D4[d][0], ny = c[1] + D4[d][1], k = nx + ',' + ny;
+          if (nx < 0 || ny < 0 || nx >= N || ny >= N || seen[k]) continue; seen[k] = 1;
+          var t = om.at(nx, ny); if (!t) continue;
+          if (CP[t.district]) { hit = c; break; }
+          if (!soft(t.district)) continue;
+          from[k] = c; q.push([nx, ny]); } }
+      if (!hit) { out.push({ road: p.road, x: sx, y: sy, cut: -1, why: 'no road within reach' }); return; }
+      var path = [], cur = hit; while (cur) { path.push(cur); cur = from[cur[0] + ',' + cur[1]]; }
+      var mt = 0; path.forEach(function(b){ var t = om.at(b[0], b[1]); if (t.district === 'mountain') mt++; t.passWas = t.district; t.passRoad = p.road; t.district = 'arterial'; });
+      out.push({ road: p.road, x: sx, y: sy, cut: path.length, mountain: mt });
+    });
+    if (out.some(function(o){ return o.cut > 0; })) {   /* the painting, the tiles and the join masks read the districts once: again */
+      try { VB_STF.seed = null; } catch(_e){} try { VBC.key = null; VBT.tiles.clear(); } catch(_e){} try { MAP_GROUND.key = ''; } catch(_e){}
+    }
+    return out;
+  }
   function adoptRealLand(r){
     var L = R.land; if (!L || L.D !== r.D || L.K !== r.K || L.N !== om.n) return false;
     var C = r.compass || { n: 'y0', s: 'y1', e: 'x1', w: 'x0' };
     try { R.stitched = L.stitch(r.roads || [], C); } catch(_e){ R.stitched = null; }
     R.pass = L.passGrid(C); R.compass = C; R.real = true;
+    try { R.passes = cutThePasses(C); } catch(_e){ R.passes = { err: String(_e && _e.message || _e) }; }   /* __THE_PASSES__ */
     R.places = L.places(C).filter(function(p){ return !inCity(p.x, p.y) && inRegion(p.x, p.y) && passAt(p.x, p.y) < 3; })
       .map(function(p){ return { name: p.name, x: p.x, y: p.y, tier: p.tier, role: p.role, km: p.km, road: passAt(p.x, p.y) === 1, what: p.what }; });
     return true;
