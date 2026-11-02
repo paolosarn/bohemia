@@ -345,6 +345,20 @@
     } catch (e) { return false; }
   };
   /* ---- THE FIGHT ---- */
+  /* EVERY INTERACT BUTTON ON THE PHONE (UI 11/2 round 2, Paolo 11/2 note 9, ask 281: 'every interact button from combat to the city
+     on the phone'): the company screen's DONE and its stash's tabs (the perk to pick, ALL, WEAPONS, ARMOUR..., SORT) are the phone's
+     while the screen is up, read here and pressed through the screen's own buttons (one handler each; their copies step off the glass,
+     286(b)). The men, their slots and the stash's pockets stay on the screen: they are the screen's own things, as a town's buildings */
+  P.roster = function () {
+    var d = document.getElementById('done'), t = document.getElementById('tabs'); if (!d || !t || !document.getElementById('bag')) return null;
+    var ti = document.getElementById('title'), n = t.querySelector('.n');
+    return { title: ti ? String(ti.textContent || '').replace(/\s+/g, ' ').trim() : '', n: n ? String(n.textContent || '').trim() : '',
+      tabs: [].slice.call(t.querySelectorAll('button')).map(function (b, i) { return { i: i, t: String(b.textContent || '').replace(/\s+/g, ' ').trim(), on: b.classList.contains('on'), perk: b.id === 'pick' || b.classList.contains('perk'), off: !!b.disabled }; }) };
+  };
+  P.rosterPress = function (k) {
+    try { var d = document.getElementById('done'), t = document.getElementById('tabs');
+      var b = k === 'done' ? d : (t ? t.querySelectorAll('button')[k] : null); if (!b) return false; b.click(); window.__PHONE_ROSTER = (window.__PHONE_ROSTER | 0) + 1; return true; } catch (e) { return false; }
+  };
   P.isFight = function () { return !!document.getElementById('skills') && !!document.getElementById('bot') && !document.getElementById('cityFrame') && !document.getElementById('fightFrame'); };
   function isAbility(b) { return b.classList.contains('bag') || !!b.dataset.sweep || !!b.dataset.skill; }
   /* the fight's own buttons the phone carries, in the phone's order: STRIKE and RELOAD in the fight's own order (RELOAD first
@@ -409,13 +423,6 @@
     return { name: nm ? String(nm.textContent || '').replace(/\s*\*$/, '') : '', main: !!nm && /\*$/.test(String(nm.textContent || '')), face: g('face'),
       hp: bar('bhp'), arm: bar('barm'), fat: bar('bfat'), ap: ap ? ap.querySelectorAll('i.on').length : 0, apTurn: ap ? ap.children.length : 0,
       cls: cl && cl.style.display !== 'none' ? String(cl.textContent || '').trim() : '', round: r ? String(r.textContent || '').trim() : '' };
-  };
-  P.crew = function () {
-    var o = document.getElementById('order'); if (!o) return { key: '', list: [] };
-    var line = []; try { var S = FIGHT.S; line = S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 9); } catch (e) { line = []; }
-    var d = document.getElementById('drawer'), pk = d && d.style.display === 'block' ? String(d.dataset.peek || '') : '';   /* whose sheet is open from the strip */
-    return { key: String(o.dataset.key || ''), peek: pk, list: [].slice.call(o.querySelectorAll('canvas')).map(function (c, i) { var v = line[i] || null;
-      return { i: i, cv: c, id: v ? String(v.id) : '', name: v ? String(v.name || '') : '', side: v ? String(v.side || '') : '', now: c.classList.contains('now') }; }) };
   };
   /* his face on the phone is the fight's own card: one tap opens the man's sheet (the fight's drawer), a second closes it */
   P.card = function () { var c = document.getElementById('card'), d = document.getElementById('drawer'); if (!c) return false; if (d) d.dataset.peek = '';
@@ -486,7 +493,9 @@
       /* THE COMPANY SCREEN, one column under 700 wide: the stash's tabs and pockets stand beside the phone, never under it */
       + '@media (max-width:699px){html.boh-phone-on.boh-phone-right body:has(#bag) #stash{padding-right:calc(var(--boh-phone-gap-r) + 6px)!important}'
       +   'html.boh-phone-on.boh-phone-left body:has(#bag) #stash{padding-left:calc(var(--boh-phone-gap-l) + 6px)!important}'
-      +   'html.boh-phone-on body:has(#bag) #tabs{flex-wrap:wrap!important;row-gap:3px}}';
+      +   'html.boh-phone-on body:has(#bag) #tabs{flex-wrap:wrap!important;row-gap:3px}}'
+      /* ask 281: the company screen's DONE and its stash's tabs are on the phone (the phone's YOUR COMPANY face); the stash's count stays */
+      + 'html.boh-phone-on body:has(#bag) #done,html.boh-phone-on body:has(#bag) #tabs button{display:none!important}';
     var st = document.createElement('style'); st.id = 'bohphone-local'; st.textContent = css;
     (document.head || document.documentElement).appendChild(st);
   }
@@ -657,8 +666,39 @@
       + '#bohphone .clk b{display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:15px;line-height:16px;letter-spacing:.5px;color:#f4e8cc}'
       + '#bohphone .clk i{display:block;font-style:normal;font-size:7px;line-height:9px;color:#e0d2b0;letter-spacing:.4px}'
       + '#bohphone .clk i.go{color:#f6cf74}'
-      + '#bohphone .page,#bohphone .fight{position:absolute;left:0;right:0;top:12px;bottom:0;z-index:4;display:none;flex-direction:column;background:rgba(10,8,6,.78)}'
-      + '#bohphone .page.on,#bohphone .fight.on{display:flex}'
+      /* THE PHONE'S FACES TRANSFORM (UI 11/2 round 2, Paolo 11/2 notes 3 and 8, asks 257, 279: 'not a big fan of things just disappearing
+         and looking ugly'): a page, the fight's face and the company's face are always laid out and come up out of the phone's glass on
+         twos (six held poses a beat, 500 ms, the music's grid: big steps first, an overshoot where the tin bends, then it sits) and go
+         back into it in three holds; what was under stays until the new face covers it. Reduced motion: a two-hold fade, nothing travels */
+      + '#bohphone .page,#bohphone .fight,#bohphone .crewp{position:absolute;left:0;right:0;top:12px;bottom:0;z-index:4;display:flex;flex-direction:column;background:rgba(10,8,6,.78);visibility:hidden;pointer-events:none}'
+      + '#bohphone .page.on,#bohphone .fight.on,#bohphone .crewp.on{visibility:visible;pointer-events:auto;animation:bphIn 500ms steps(1,end) both}'
+      + '#bohphone .page.was,#bohphone .fight.was,#bohphone .crewp.was{animation:bphOut 375ms steps(1,end) both}'
+      + '@keyframes bphIn{0%{opacity:0;transform:translateY(16px) scale(.92)}16.67%{opacity:.45;transform:translateY(8px) scale(.96)}33.33%{opacity:.8;transform:translateY(3px) scale(.99)}'
+      +   '50%{opacity:1;transform:translateY(-2px) scale(1.015)}66.67%{opacity:1;transform:none}100%{opacity:1;transform:none}}'
+      + '@keyframes bphOut{0%{visibility:visible;opacity:1;transform:none}33.33%{visibility:visible;opacity:.6;transform:translateY(4px) scale(.98)}'
+      +   '66.67%{visibility:visible;opacity:.25;transform:translateY(10px) scale(.95)}100%{visibility:hidden;opacity:0;transform:translateY(16px) scale(.92)}}'
+      + '#bohphone .home.under{transition:visibility 0s linear .34s}'
+      + '@keyframes bphFade{0%{opacity:0}50%{opacity:.5}100%{opacity:1}}@keyframes bphFadeOut{0%{visibility:visible;opacity:1}50%{visibility:visible;opacity:.5}100%{visibility:hidden;opacity:0}}'
+      + '@media (prefers-reduced-motion:reduce){#bohphone .page.on,#bohphone .fight.on,#bohphone .crewp.on{animation:bphFade 167ms steps(1,end) both}'
+      +   '#bohphone .page.was,#bohphone .fight.was,#bohphone .crewp.was{animation:bphFadeOut 167ms steps(1,end) both}#bohphone.on{animation:none}#bohphone.leaving{animation:bphFadeOut 167ms steps(1,end) both}}'
+      /* the phone itself comes up from below the glass's edge when the game comes on, and sinks back when it goes (never a pop) */
+      + '#bohphone.on{animation:bphRise 500ms steps(1,end)}'
+      + '#bohphone.leaving{display:block;pointer-events:none;animation:bphSink 375ms steps(1,end) both}'
+      + '@keyframes bphRise{0%{translate:0 70px;opacity:0}16.67%{translate:0 34px;opacity:.5}33.33%{translate:0 12px;opacity:.85}50%{translate:0 -3px;opacity:1}66.67%{translate:0 0;opacity:1}100%{translate:0 0;opacity:1}}'
+      + '@keyframes bphSink{0%{translate:0 0;opacity:1}33.33%{translate:0 14px;opacity:.7}66.67%{translate:0 40px;opacity:.3}100%{translate:0 70px;opacity:0}}'
+      /* YOUR COMPANY on the phone (ask 281): the screen's title and stash count, its tabs as plates two a row, DONE a thumb tall */
+      + '#bohphone .crewp{background:#120d09;padding:0 3px 6px;gap:4px}'
+      + '#bohphone .cph{flex:0 0 auto;padding:5px 3px 4px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid rgba(255,236,200,.08)}'
+      + '#bohphone .cph b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:1.2px;color:#f4e8cc;text-shadow:0 1px 0 #000}'
+      + '#bohphone .cph em,#bohphone .cph span{font-style:normal;font-size:6px;line-height:8px;color:#cdbd98;white-space:nowrap;overflow:hidden}'
+      + '#bohphone .ctabs{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:30px;gap:3px;align-content:start;overflow:hidden}'
+      + '#bohphone .ctabs button{padding:0 3px;margin:0;border:0;cursor:pointer;color:#1f1710;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.8px;white-space:nowrap;overflow:hidden;' + kit('tin', 0.5) + '}'
+      + '#bohphone .ctabs button.on{' + kit('tin_amber', 0.5) + '}'
+      + '#bohphone .ctabs button.perk{color:#f6cf74;' + kit('well', 0.5) + '}'
+      + '#bohphone .ctabs button:active,#bohphone .cdone:active{transform:translateY(1px)}'
+      + '#bohphone .cdone{flex:0 0 46px;margin:0;padding:0 8px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;color:#1f1710;' + kit('tin_amber', 0.5) + '}'
+      + '#bohphone .cdone img{width:22px;height:23.5px;pointer-events:none}'
+      + '#bohphone .cdone b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:12px;letter-spacing:2px}'
       + '#bohphone .ph{flex:0 0 22px;display:flex;align-items:center;gap:4px;padding:0 5px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;'
       +   'letter-spacing:1px;color:#f4e8cc;background:rgba(0,0,0,.35);cursor:pointer}'
       + '#bohphone .ph i{font-style:normal;color:#f6cf74;font-size:12px}'
@@ -689,17 +729,9 @@
       + '#bohphone .home.under{visibility:hidden}'
       /* THE FIGHT: the screen lit dark red, his face and name, his abilities in the kit's pockets, small, three a row */
       + '#bohphone .fight{background:#1a0907}'
-      /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4): the turn strip and the man's card left the glass for the phone. THE
-         STRIP: every face in the order on a strip of tape, the one acting first a size up in a gold rim (the fight's own faces,
-         its rims drawn by the fight: gold his, red theirs); one tap is that man's sheet; more than six slide under a finger */
-      + '#bohphone .ford{flex:0 0 22px;display:flex;align-items:center;gap:1px;padding:0 2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;'
-      +   'background:linear-gradient(180deg,rgba(214,188,140,.16),rgba(120,96,60,.10) 45%,rgba(0,0,0,.30));box-shadow:inset 0 -1px 0 rgba(0,0,0,.55),inset 0 1px 0 rgba(255,236,200,.10)}'
-      + '#bohphone .ford::-webkit-scrollbar{display:none}'
-      + '#bohphone .ford button{flex:0 0 16px;width:16px;height:16px;padding:0;margin:0;border:0;background:#0b0907;cursor:pointer;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.7)}'
-      + '#bohphone .ford button.now{flex-basis:19px;width:19px;height:19px;margin-right:2px;outline:1px solid #f0d296;outline-offset:0}'
-      + '#bohphone .ford button.peek{outline:1px solid #efe3c6;outline-offset:1px}'
-      + '#bohphone .ford canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}'
-      + '#bohphone .ford button:active canvas{transform:translateY(1px)}'
+      /* NO TURN-ORDER STRIP (UI 11/2 round 2, Paolo 11/2 note 9, ask 283: 'I don't think anyone gives a fuck about which character is
+         next... as a visual I think it's just a waste'): the strip of faces is gone from the phone and from the glass; the order stays in
+         the fight's code (FIGHT.S.order), and a man's sheet is a tap on him on the board */
       /* THE CARD: his face (a tap is his sheet), his name, three bars lit from above with their numbers (blood, armour, wind: the
          fight's own colours), his AP as pips and the count; a man of theirs shows his plate (LV, OUTCLASSES YOU) where the AP was */
       + '#bohphone .fh{flex:0 0 35px;display:flex;align-items:center;gap:3px;padding:2px 3px;background:rgba(0,0,0,.42);box-shadow:inset 0 -1px 0 rgba(255,236,200,.06)}'
@@ -729,7 +761,6 @@
       + '#bohphone.fighting[data-beat="3"] .fight{background:#2b0d09;box-shadow:inset 0 0 0 1px rgba(255,96,64,.55),inset 0 0 9px rgba(255,64,40,.30)}'
       + '#bohphone.fighting[data-beat="2"] .fight{background:#230b08;box-shadow:inset 0 0 0 1px rgba(255,96,64,.28),inset 0 0 6px rgba(255,64,40,.14)}'
       + '#bohphone.fighting[data-beat="1"] .fight{box-shadow:inset 0 0 0 1px rgba(255,96,64,.12)}'
-      + '#bohphone.fighting[data-beat="3"] .ford button.now{outline-color:#fff2c8}'
       /* the board's own pulse, subtle: the glass's edges darken red on the beat and one tape scanline passes, under the phone */
       + '#bohbeat{position:fixed;inset:0;pointer-events:none;display:none;opacity:0;'
       +   'background:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 1px,rgba(0,0,0,0) 1px 3px),radial-gradient(ellipse 78% 72% at 50% 46%,rgba(0,0,0,0) 58%,rgba(96,10,6,.26) 86%,rgba(42,3,2,.46) 100%)}'
@@ -757,6 +788,15 @@
       + '#bohphone .fc i:empty{display:none}'
       + '#bohphone .fc.sp{width:25px;height:22px;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.5px;color:#1f1710;' + kit('tin', 0.5) + '}'
       + '#bohphone .fc.sp.now{' + kit('tin_amber', 0.5) + '}'
+      + '#bohphone .abig{flex:0 0 50px;display:flex;gap:3px;margin:3px 3px 0}#bohphone .abig.none{display:none}'
+      + '#bohphone .abig .bg{flex:1 1 0;min-width:0;position:relative;padding:0;margin:0;border:0;cursor:pointer;color:#1f1710;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;' + kit('tin', 0.5) + '}'
+      + '#bohphone .abig .bg.reload{' + kit('tin_amber', 0.5) + '}'
+      + '#bohphone .abig .bg canvas{width:26px;height:26px;pointer-events:none;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55))}'
+      + '#bohphone .abig .bg b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;line-height:9px;letter-spacing:1px;pointer-events:none}'
+      + '#bohphone .abig .bg i{position:absolute;right:3px;top:2px;font-style:normal;font-size:6px;line-height:7px;padding:0 1px;color:#f6cf74;background:rgba(10,6,3,.8);pointer-events:none}'
+      + '#bohphone .abig .bg.on{outline:2px solid #f6cf74;outline-offset:-2px}'
+      + '#bohphone .abig .bg:active{transform:translateY(1px)}'
+      + '#bohphone .abig .bg[disabled]{opacity:.45;cursor:default}'
       + '#bohphone .ab{flex:1;display:grid;grid-template-columns:repeat(4,24px);grid-auto-rows:25px;gap:2px;justify-content:center;align-content:start;padding:2px 0;overflow:hidden}'
       + '#bohphone .ab .sk{position:relative;width:24px;height:25px;padding:0;margin:0;border:0;cursor:pointer;color:inherit;font:inherit;' + kit('well', 0.5) + '}'
       + '#bohphone .ab .sk canvas{position:absolute;left:2px;top:2px;width:20px;height:20px;pointer-events:none}'
@@ -772,6 +812,7 @@
       + '#bohphone .cmb img{width:56px;height:60px;transform:scale(.4);animation:bohStrike ' + (BEAT * 1.5) + 'ms steps(3,end) forwards, bohBeat ' + BEAT + 'ms steps(2,end) ' + (BEAT * 1.5) + 'ms 2}'
       + '#bohphone .cmb b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:13px;letter-spacing:2px;color:#f1d6c6;opacity:0;animation:bohWord ' + BEAT + 'ms steps(2,end) ' + (BEAT * 1.5) + 'ms forwards}'
       + '#bohphone .cmb::before{content:"";position:absolute;inset:0;background:#f4e0cc;opacity:0;animation:bohFlash ' + BEAT + 'ms steps(2,end)}'
+      + '#bohphone .cmb.on{animation:bphFade 250ms steps(1,end) both}'
       + '#bohphone .cmb.out{animation:bohOut ' + BEAT + 'ms steps(2,end) forwards}'
       + '@keyframes bohStrike{0%{transform:scale(.4)}100%{transform:scale(1)}}'
       + '@keyframes bohBeat{0%{transform:scale(1.12)}100%{transform:scale(1)}}'
@@ -805,7 +846,7 @@
       + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button><canvas class="ecg" width="108" height="27" aria-hidden="true"></canvas></div>'
       + '<div class="home"></div>'
       + '<div class="page" data-page=""><div class="ph" role="button" tabindex="0"><i>&lsaquo;</i><span></span></div><div class="pb"></div></div>'
-      + '<div class="fight" aria-label="your fight"><div class="ford" role="toolbar" aria-label="the turn order"></div>'
+      + '<div class="fight" aria-label="your fight">'
       +   '<div class="fh"><button type="button" class="fme" aria-label="his sheet"><canvas width="90" height="90"></canvas></button>'
       +     '<div class="fst"><b></b><div class="fb hp"><s><i></i></s><em></em></div><div class="fb arm"><s><i></i></s><em></em></div>'
       +     '<div class="fb fat"><s><i></i></s><em></em></div><div class="fap"><span class="pp"></span><em></em></div></div></div>'
@@ -815,7 +856,10 @@
       +     '<button type="button" class="fc" data-c="flee" aria-label="retreat"><img alt="" src="' + IMG('app_retreat') + '"><i></i></button>'
       +     '<button type="button" class="fc" data-c="auto" aria-label="auto"><img alt="" src="' + IMG('app_auto') + '"><span class="tint"></span><i></i></button>'
       +     '<button type="button" class="fc sp" data-c="speed" aria-label="the fight\'s speed">1x</button></div>'
-      +   '<div class="ab"></div><div class="frow" role="toolbar" aria-label="your apps in the fight"></div></div>'
+      +   '<div class="abig" role="toolbar" aria-label="reload and strike"></div><div class="ab"></div><div class="frow" role="toolbar" aria-label="your apps in the fight"></div></div>'
+      + '<div class="crewp" aria-label="your company"><div class="cph"><b>YOUR COMPANY</b><em></em><span></span></div>'
+      +   '<div class="ctabs" role="toolbar" aria-label="the stash"></div>'
+      +   '<button type="button" class="cdone"><img alt="" src="' + IMG('app_crew') + '"><b>DONE</b></button></div>'
       + '<div class="cmb" aria-hidden="true"><img alt="" src="' + IMG('app_combat') + '"><b>COMBAT</b></div>'
       + '<div class="glass"></div></div>'
       + '<div class="case"></div><img class="ear" alt="" src="' + IMG('ear') + '">';
@@ -840,10 +884,10 @@
       var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.card) return;
       F.card(); setTimeout(function () { manPaint(true); }, 80);
     });
-    ph.querySelector('.ford').addEventListener('click', function (e) {
-      var b = e.target && e.target.closest && e.target.closest('.ford button'); if (!b) return;
-      var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.peek) return;
-      F.peek(b.dataset.id); setTimeout(function () { manPaint(true); }, 80);
+    ph.querySelector('.crewp .cdone').addEventListener('click', function () { var R = rosterWin(); if (R) R.BohemiaPhone.P.rosterPress('done'); setTimeout(tick, 60); });
+    ph.querySelector('.crewp .ctabs').addEventListener('click', function (e) {
+      var b = e.target && e.target.closest && e.target.closest('.ctabs button'); if (!b) return;
+      var R = rosterWin(); if (R) R.BohemiaPhone.P.rosterPress(+b.dataset.i); setTimeout(function () { crewPaint(true); }, 60);
     });
     /* the board's pulse: one layer over the fight, under the phone, that no finger meets */
     var bb = el('div'); bb.id = 'bohbeat'; bb.setAttribute('aria-hidden', 'true'); document.body.appendChild(bb); H.bb = bb;
@@ -909,13 +953,21 @@
   }
 
   /* ---- THE APPS' OWN PAGES, on the phone's own glass ---- */
+  /* a face of the phone comes up or goes back (the CSS's bphIn / bphOut, on twos); a page swapped for another comes up again */
+  function panel(e, on, again) {
+    if (!e) return;
+    if (on) { clearTimeout(e.__was); e.classList.remove('was'); if (again && e.classList.contains('on')) { e.classList.remove('on'); void e.offsetWidth; } e.classList.add('on'); return; }
+    if (!e.classList.contains('on')) return;
+    e.classList.remove('on'); e.classList.add('was'); clearTimeout(e.__was); e.__was = setTimeout(function () { e.classList.remove('was'); }, 400);
+    window.__PHONE_MORPHS = (window.__PHONE_MORPHS | 0) + 1;
+  }
   function pageOpen(which) {
-    var pg = H.el.querySelector('.page'); H.page = which; pg.dataset.page = which; pg.classList.add('on');
+    var pg = H.el.querySelector('.page'), swap = !!H.page && H.page !== which; H.page = which; pg.dataset.page = which; panel(pg, true, swap);
     H.el.querySelector('.home').classList.add('under');
     pg.querySelector('.ph span').textContent = which === 'speeds' ? 'SPEED' : LABEL[which];
     pagePaint(true);
   }
-  function pageClose() { var pg = H.el.querySelector('.page'); pg.classList.remove('on'); pg.dataset.page = ''; H.page = null; H.el.querySelector('.home').classList.remove('under'); }
+  function pageClose() { var pg = H.el.querySelector('.page'); panel(pg, false); pg.dataset.page = ''; H.page = null; H.el.querySelector('.home').classList.remove('under'); }
   function pagePaint(fresh) {
     if (!H.page) return;
     var pb = H.el.querySelector('.page .pb'), cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
@@ -1137,27 +1189,45 @@
     if (was && was !== H.stripTop) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
   }
 
+  /* ---- YOUR COMPANY (ask 281): while the company screen is up, the phone is its DONE and its stash's tabs ---- */
+  function rosterWin() {
+    var out = null;
+    frames(window).forEach(function (w) { if (out) return; try { var R = w.BohemiaPhone && w.BohemiaPhone.P; if (!R || !R.roster || !R.roster()) return;
+      var fe = w.frameElement; if (fe) { if (fe.closest && fe.closest('[data-bm-folded]')) return; var r = fe.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return; } out = w; } catch (e) {} });
+    return out;
+  }
+  function crewPaint(force) {
+    var R = rosterWin(), o = R && R.BohemiaPhone.P.roster(); if (!o) return;
+    var key = JSON.stringify(o); if (!force && key === H.crewKey) return; H.crewKey = key;
+    var m = /^(YOUR COMPANY)\s*(.*)$/.exec(o.title) || [0, o.title, ''];
+    var cp = H.el.querySelector('.crewp'); cp.querySelector('.cph b').textContent = m[1] || 'YOUR COMPANY'; cp.querySelector('.cph em').textContent = m[2] || ''; cp.querySelector('.cph span').textContent = o.n || '';
+    var tb = cp.querySelector('.ctabs'); tb.textContent = '';
+    o.tabs.forEach(function (t) { var b = el('button', (t.on ? 'on' : '') + (t.perk ? ' perk' : '')); b.type = 'button'; b.dataset.i = t.i; b.disabled = t.off; b.textContent = t.t; b.setAttribute('aria-label', t.t.toLowerCase()); tb.appendChild(b); });
+    window.__PHONE_CREW_TABS = o.tabs.length;
+  }
+  function crewIn() { pageClose(); H.crewKey = null; crewPaint(true); panel(H.el.querySelector('.crewp'), true); var hm = H.el.querySelector('.home'); clearTimeout(H.homeT); H.homeT = setTimeout(function () { if (H.face === 'crew') hm.style.visibility = 'hidden'; }, 340); window.__PHONE_CREW_IN = (window.__PHONE_CREW_IN | 0) + 1; }
+  function crewOut() { clearTimeout(H.homeT); H.el.querySelector('.home').style.visibility = ''; panel(H.el.querySelector('.crewp'), false); H.homeSig = null; paintHome(true); }
+
   /* ---- THE FIGHT: combat time, then his abilities ---- */
   function fightIn() {
     pageClose();
     var c = H.el.querySelector('.cmb'), f = H.el.querySelector('.fight');
-    f.classList.remove('on'); c.classList.remove('out'); c.classList.remove('on');
+    panel(f, false); c.classList.remove('out'); c.classList.remove('on');
     void c.offsetWidth; c.classList.add('on');   /* restart the strike */
-    H.el.querySelector('.home').style.visibility = 'hidden';
+    var hm = H.el.querySelector('.home'); clearTimeout(H.homeT); H.homeT = setTimeout(function () { if (H.face === 'fight') hm.style.visibility = 'hidden'; }, 260);   /* once the strike covers them */
     H.fightKey = null; H.anim = (H.anim | 0) + 1; var me = H.anim;
     window.__PHONE_COMBAT = (window.__PHONE_COMBAT | 0) + 1;
     H.el.classList.add('fighting'); H.manKey = null; H.beatK = null; H.beatLv = null; beatStart();
-    setTimeout(function () { if (me !== H.anim) return; c.classList.add('out'); f.classList.add('on'); fightPaint(true); }, BEAT * 3.5);
+    setTimeout(function () { if (me !== H.anim) return; c.classList.add('out'); fightPaint(true); panel(f, true); }, BEAT * 3.5);
     setTimeout(function () { if (me !== H.anim) return; c.classList.remove('on'); c.classList.remove('out'); }, BEAT * 4.5);
   }
   function fightOut() {
     H.anim = (H.anim | 0) + 1; var me = H.anim;
     var c = H.el.querySelector('.cmb'), f = H.el.querySelector('.fight');
-    f.classList.remove('on'); c.classList.remove('on'); c.classList.add('on'); c.classList.add('out');
-    H.el.querySelector('.home').style.visibility = '';
+    c.classList.remove('on'); c.classList.remove('out'); panel(f, false);
+    clearTimeout(H.homeT); H.el.querySelector('.home').style.visibility = '';
     window.__PHONE_COMBAT_OUT = (window.__PHONE_COMBAT_OUT | 0) + 1;
     H.el.classList.remove('fighting'); H.homeSig = null; beatPaint(-1);
-    setTimeout(function () { if (me !== H.anim) return; c.classList.remove('on'); c.classList.remove('out'); }, BEAT);
     paintHome(true);
   }
   function fightPaint(force) {
@@ -1168,7 +1238,25 @@
     cmdPaint(C);
     window.__PHONE_ABILITIES = A.list.length;
     var ab = H.el.querySelector('.ab'); ab.textContent = '';
-    A.list.slice(0, 12).forEach(function (a, i) {
+    /* A BIG RELOAD (UI 11/2 round 2, Paolo 11/2 note 9, ask 282: 'in combat there's a lot of room and also the reload button should be
+       a lot bigger'): the fight's two most-pressed buttons, RELOAD first then STRIKE, stand in their own row the width of the phone's
+       glass, a thumb tall (50 points, the HIG's 44 and up; four of the old squares and more), each with its picture, its word and its AP; the rest stay four a row */
+    var big = H.el.querySelector('.abig'); big.textContent = '';
+    var mains = A.list.filter(function (a) { return a.kind === 'reload'; }).concat(A.list.filter(function (a) { return a.kind === 'strike'; }));
+    mains.forEach(function (a) {
+      var b = el('button', 'bg ' + a.kind + (a.on ? ' on' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.kind);
+      var c = document.createElement('canvas'); c.width = 52; c.height = 52;
+      try { if (a.cv && a.cv.width) c.getContext('2d').drawImage(a.cv, 0, 0, 52, 52); } catch (e) {}
+      b.appendChild(c); var w = el('b'); w.textContent = a.kind === 'reload' ? 'RELOAD' : 'STRIKE'; b.appendChild(w);   /* draft:true */
+      if (a.ap) { var t = el('i'); t.textContent = a.ap; b.appendChild(t); }
+      b.addEventListener('click', function () { F.press(a.i); setTimeout(function () { fightPaint(true); }, 80); });
+      big.appendChild(b);
+    });
+    big.classList.toggle('none', !mains.length);
+    window.__PHONE_BIG = mains.map(function (a) { return a.kind; }).join(',');
+    A.list.forEach(function (a, i) { a.i = i; });
+    A.list.filter(function (a) { return a.kind !== 'reload' && a.kind !== 'strike'; }).slice(0, 12).forEach(function (a) {
+      var i = a.i;
       var b = el('button', 'sk' + (a.on ? ' on' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.title.toLowerCase());
       var c = document.createElement('canvas'); c.width = 52; c.height = 52;
       try { if (a.cv && a.cv.width) { var g = c.getContext('2d'); g.drawImage(a.cv, 0, 0, 52, 52); } } catch (e) {}
@@ -1176,8 +1264,8 @@
       b.addEventListener('click', function () { F.press(i); setTimeout(function () { fightPaint(true); }, 80); });
       ab.appendChild(b);
     });
-    var empty = Math.max(0, (A.list.length ? 0 : 4));
-    if (!A.list.length) { var n = el('div', 'none'); n.textContent = 'No skills on this man yet. A level brings a perk.'; ab.appendChild(n); }   /* draft:true */
+    var rest = A.list.length - mains.length, empty = Math.max(0, (rest ? 0 : 4));
+    if (!rest) { var n = el('div', 'none'); n.textContent = 'No skills on this man yet. A level brings a perk.'; ab.appendChild(n); }   /* draft:true */
     for (var k = 0; k < empty; k++) { var w = el('button', 'sk'); w.type = 'button'; w.disabled = true; w.setAttribute('aria-label', 'empty'); ab.appendChild(w); }
   }
 
@@ -1188,8 +1276,8 @@
   }
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
-    var M = F.man(), K = F.crew(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n].join(',') : ''; });
-    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, K.key, K.peek].join('|');
+    var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n].join(',') : ''; });
+    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round].join('|');
     if (!force && key === H.manKey) return; H.manKey = key;
     H.el.querySelector('.stat .wh').textContent = M.round || '';
     var hd = H.el.querySelector('.fh');
@@ -1208,17 +1296,6 @@
       fa.querySelector('em').textContent = M.apTurn ? M.ap + ' AP' : '';
     }
     window.__PHONE_MAN = M.name;
-    var fo = H.el.querySelector('.ford');
-    if (fo.dataset.key !== K.key + '|' + K.peek || force) {
-      fo.dataset.key = K.key + '|' + K.peek; fo.textContent = '';
-      K.list.forEach(function (v) {
-        var b = el('button', (v.now ? 'now' : '') + (K.peek && v.id === K.peek ? ' peek' : '')); b.type = 'button'; b.dataset.id = v.id; b.dataset.side = v.side;
-        b.setAttribute('aria-label', ((v.name || 'a man') + (v.side === 'them' ? ', theirs' : ', yours') + (v.now ? ', acting' : '')).toLowerCase());   /* draft:true */
-        var c = document.createElement('canvas'); c.width = c.height = v.now ? 57 : 48; faceInto(c, v.cv); b.appendChild(c); fo.appendChild(b);
-      });
-      fo.scrollLeft = 0;
-      window.__PHONE_CREW = K.list.length;
-    }
   }
 
   /* THE BEAT IS SEEN (UI 11/2, Paolo 10/27 note 6: 'the beat with no sound... the fight runs on a 120 BPM beat. The beat has to be
@@ -1356,6 +1433,8 @@
     var z = H.z; try { var cl = document.getElementById('nfclouds'); if (cl && +getComputedStyle(cl).opacity > 0.02) z = 999994; } catch (e) {}
     if (ph.style.zIndex !== String(z)) ph.style.zIndex = String(z);
     ph.style.left = g.left + 'px'; ph.style.top = g.top + 'px'; ph.style.transform = g.scale === 1 ? '' : 'scale(' + g.scale + ')';
+    if (ph.classList.contains('on') && !on) { ph.classList.add('leaving'); clearTimeout(H.leaveT); H.leaveT = setTimeout(function () { ph.classList.remove('leaving'); }, 400); }
+    else if (on) { clearTimeout(H.leaveT); ph.classList.remove('leaving'); }
     ph.classList.toggle('on', on); ph.classList.toggle('left', H.cfg.side === 'left'); ph.dataset.screen = scr || '';
     /* THE PHONE STEPS ASIDE FOR A SHOP (the coordinator, Paolo 10/27: 'if you're in the shop, the phone animated to the shop, just so it's
        not there anymore'): while a building's sheet is open in the town or the camp the phone slides down out of its corner in one beat
@@ -1371,10 +1450,12 @@
     frames(window).forEach(function (w) { try { if (w.BohemiaPhone && w.BohemiaPhone._paint) w.BohemiaPhone._paint(H.state); } catch (e) {} });
     /* the face: his abilities while the fight is on; the apps the moment it is won or lost, and everywhere else */
     var over = false; if (scr === 'fight') { try { var fw0 = fightWin(); over = !!(fw0 && fw0.BohemiaPhone && fw0.BohemiaPhone.P.over()); } catch (e) {} }
-    var face = scr === 'fight' && !over ? 'fight' : 'home';
-    if (face !== H.face) { if (face === 'fight') fightIn(); else if (H.face === 'fight') fightOut(); H.face = face; }
+    var crewUp = false; if (on && scr !== 'fight') { try { crewUp = !!rosterWin(); } catch (e) {} }
+    var face = scr === 'fight' && !over ? 'fight' : crewUp ? 'crew' : 'home';
+    if (face !== H.face) { var from = H.face; H.face = face; if (from === 'fight') fightOut(); if (from === 'crew') crewOut(); if (face === 'fight') fightIn(); if (face === 'crew') crewIn(); }
     if (!on) return;
     if (face === 'fight') { beatStart(); if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
+    if (face === 'crew') { crewPaint(false); return; }
     paintHome(false); paintWall(false); stripPaint(false);
     if (H.page) pagePaint(false);
   }

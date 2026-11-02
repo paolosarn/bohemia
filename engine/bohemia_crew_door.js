@@ -9,7 +9,30 @@
 (function (root) {
   'use strict';
   var KEY = 'bohemia.company.v1', cur = null;
-  function close() { if (!cur) return; try { cur.wrap.remove(); } catch (e) {} window.removeEventListener('message', cur.on); cur = null; }
+  /* THE COMPANY SCREEN FOLDS AWAY (UI 11/2 round 2, ask 279: 'not a big fan of things just disappearing'): DONE folds the screen down
+     into the phone's corner on twos (six held poses, a beat, eased in and out), its picture still on it, then it is gone; the
+     motion layer's own shrink stands down for a door that folded itself (data-bm-folded). Reduced motion: a two-hold fade */
+  function close() {
+    if (!cur) return; var w = cur.wrap; window.removeEventListener('message', cur.on); cur = null;
+    try {
+      var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, right = true;
+      try { var R = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if (R && R.side) right = R.side !== 'left'; } catch (e) {}
+      w.setAttribute('data-bm-folded', '1'); w.style.pointerEvents = 'none'; w.style.transformOrigin = (right ? '100%' : '0%') + ' 100%';
+      var K = rm ? [[1, 1], [1, .5], [1, 0]] : [[1, 1], [.9, .92], [.7, .75], [.46, .5], [.28, .22], [.2, 0]], k = 0, last = 0, HOLD = 500 / 6;
+      /* the fold is a morph like any other: one row in the motion layer's record (BohemiaMotion.log), measured, not claimed */
+      var now = function () { return performance.timeOrigin + performance.now(); }, row = null, frames = 0;
+      try { var BM = (window.top && window.top.BohemiaMotion) || window.BohemiaMotion; if (BM && BM.log) { row = { id: 'crew', kind: 'mode', how: 'shrink', fold: true, t0: Math.round(now()), budget: [500, 1000], reduced: !!rm, planned: Math.round(K.length * HOLD), holds: K.length, gaps: 0, skipped: false }; BM.log.push(row); } } catch (e) {}
+      var end = function () { if (row && row.t1 == null) { row.t1 = Math.round(now()); row.ms = row.t1 - row.t0; row.frames = frames; } try { w.remove(); } catch (e) {} };
+      /* one pose a hold (83 ms, six a beat), and never two in one drawn frame: a stall holds the pose, it never skips one */
+      var step = function (t) {
+        if (!w.isConnected) return;
+        frames++;
+        if (!last || t - last >= HOLD) { last = t; if (k < K.length) { var q = K[k]; w.style.transform = 'scale(' + q[0] + ')'; w.style.opacity = String(q[1]); } k++; }
+        if (k <= K.length) requestAnimationFrame(step); else end();
+      };
+      requestAnimationFrame(step); setTimeout(end, 2500);
+    } catch (e) { try { w.remove(); } catch (e2) {} }
+  }
   function open(o) {
     o = o || {}; if (cur) return cur.frame;
     var wrap = document.createElement('div'); wrap.id = 'crewdoor';

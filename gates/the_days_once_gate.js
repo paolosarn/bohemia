@@ -113,9 +113,10 @@ const FIGHT = () => {
      phone up the bar is off the glass and the round and the faces are the phone's (its status line and its turn strip); the fight
      keeps them in its bar, where the bench (no phone) still shows them */
   const PH = document.documentElement.classList.contains('boh-phone-on') ? window.top.document.querySelector('#bohphone.on') : null;
-  const nf = bot.querySelectorAll('#order canvas').length, pf = PH ? PH.querySelectorAll('.fight .ford button').length : 0, pr = PH ? String((PH.querySelector('.stat .wh') || {}).textContent || '') : '';
-  out.push([PH ? '  the round and the faces ride the phone, the bar off the glass (UI 11/2)' : '  the round, the faces and AUTO ride the bottom bar', !!bot.querySelector('#round') && !!bot.querySelector('#bauto') && nf > 0
-    && (!PH || (pf === nf && pr === String(document.getElementById('round').textContent).trim() && BOTH === 0)),
+  /* RE-AIMED AGAIN 11/2 round 2 BY UI (NO TURN-ORDER STRIP, ask 283): the phone shows no strip of faces at all; the round rides it */
+  const nf = bot.querySelectorAll('#order canvas').length, pf = PH ? PH.querySelectorAll('.fight .ford button, .fight [aria-label="the turn order"] button').length : 0, pr = PH ? String((PH.querySelector('.stat .wh') || {}).textContent || '') : '';
+  out.push([PH ? '  the round rides the phone, no strip of faces anywhere on the glass, the bar off it (UI 11/2)' : '  the round, the faces and AUTO ride the bottom bar', !!bot.querySelector('#round') && !!bot.querySelector('#bauto') && nf > 0
+    && (!PH || (pf === 0 && pr === String(document.getElementById('round').textContent).trim() && BOTH === 0)),
     nf + ' faces' + (PH ? ', ' + pf + ' on the phone, its round ' + pr + ', bottom ' + BOTH : '')]);
   /* UI TWO (rules 238(a)(b), 286(b)): in the game's fights AUTO is the phone's (tiny is fine, his 238(b)), pressing the fight's own */
   const pa = document.documentElement.classList.contains('boh-phone-on') ? window.top.document.querySelector('#bohphone.on .fight.on .fc[data-c=auto]') : null;

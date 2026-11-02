@@ -171,6 +171,9 @@ function ok(claim, cond, detail) {
        be alive, since nfHome() removes fightFrame on a timer E4's own cleanup starts. */
     try { if (window.nfOpen) nfOpen({ district: 'ruin', at: null, faction: null }); } catch (e) {}
     await new Promise(r => setTimeout(r, 300));
+    /* UI 11/2 round 2 (__THE_CLOUDS_COVER_FIRST__): the fight's page is built one eighth (250 ms) after the door, under the clouds; wait
+       for its window to stand (up to 3 s) rather than reading it the moment it is made */
+    for (let i = 0; i < 30; i++) { const f0 = document.getElementById('fightFrame'); if (f0 && f0.contentWindow && typeof f0.contentWindow.sfx === 'function') break; await new Promise(r => setTimeout(r, 100)); }
     const fr = document.getElementById('fightFrame');
     if (!fr || !fr.contentWindow || typeof fr.contentWindow.sfx !== 'function')
       return { ready: false };

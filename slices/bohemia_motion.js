@@ -304,6 +304,17 @@
   function pose(m, t) {
     var k = holdIndex(m, t);
     var n = m.holds.length;
+    /* __A_STALL_HOLDS__ (UI 11/2 round 2, ask 279: 'never a pop'): measured on the demo at phone size, LEAVE's shrink lost its first
+       poses to the map's redraw (no frame for 107 to 143 ms) and landed 67% of the glass in one shown frame. Every pose is now shown
+       on at least one drawn frame: when the clock has run past the next pose, the poses still owed slide later by the stall (logged as
+       slipped), so a stall holds the picture and never jumps it */
+    if (!m.reduced && typeof m.k === 'number' && k > m.k + 1 && m.k + 1 < n) {
+      var j = m.k + 1, at = j > 0 ? m.holds[j - 1] : m.ts, dt = t - at;
+      /* never past the morph's own budget (NN/g's 1,000 ms, promise 3): a stall longer than what is left lets the poses go */
+      var cap = (m.kind === 'mode' ? CEILING : 2 * PIECE_MIN) - (m.t1 - (m.ts || m.t0)); if (dt > cap) dt = Math.max(0, cap);   /* a piece 500, a screen 1,000 */
+      if (dt > 0) { for (var q = Math.max(0, j - 1); q < n; q++) m.holds[q] += dt; m.t1 += dt; m.row.slipped = (m.row.slipped | 0) + Math.round(dt); }
+      k = holdIndex(m, t);
+    }
     if (k >= n) {
       /* the container waits on its last pose for the real screen to be drawn (never past READY_MAX), then hands over */
       if (m.how === 'grow' && m.o.ready && !m.readyDone) {
@@ -319,7 +330,9 @@
     liveTo(m);
     var last = k === n - 1;
     if (m.reduced) { fadePose(m, k, n); return; }
-    var p = n <= 1 ? 1 : emphasized(Math.min(1, k / (n - 1)));
+    /* __A_STALL_HOLDS__ (UI 11/2 round 2): a whole screen growing or shrinking eases in AND out (a sine on the same holds): the emphasized
+       curve took 55% of the travel on the first pose, so LEAVE uncovered half the map in one frame (65% of the glass); a piece keeps it */
+    var x = Math.min(1, k / (n - 1)), p = n <= 1 ? 1 : (m.kind === 'mode' && (m.how === 'grow' || m.how === 'shrink')) ? 0.5 - 0.5 * Math.cos(Math.PI * x) : emphasized(x);
     if (last) p = 1;
     var s = m.s; if (!s) return;
     var cur = lerp(m.a, m.b, p), base = m.base;
@@ -344,7 +357,7 @@
   function handOff(m) {
     if (m.how === 'grow' && m.o.ready && !m.readyDone) return;   /* not before the real screen is drawn */
     if (m.real) setOp(m.real, m.realOp);
-    if (m.s) m.s.style.setProperty('opacity', (m.how === 'grow' || m.how === 'shrink' || m.o.leave) ? '.5' : '1', 'important');
+    if (m.s) m.s.style.setProperty('opacity', m.how === 'grow' ? '.67' : (m.how === 'shrink' || m.o.leave) ? '.5' : '1', 'important');
   }
   function fadePose(m, k, n) {
     /* REDUCED MOTION: nothing travels or grows. The stand-in, where it stands, dissolves; the real piece is there. */
@@ -368,7 +381,10 @@
     if (m.done) return;
     m.done = true; m.skipped = skipped;
     if (m.real) setOp(m.real, m.realOp);
-    drop(m.s);
+    /* __A_STALL_HOLDS__ (UI 11/2 round 2): a grown screen's stand-in dissolves into the real one over three holds (.67, .33, gone),
+       never the whole screen's content in one frame (the company screen measured 26% of the glass in one frame) */
+    if (!skipped && m.how === 'grow' && m.s && !m.reduced) { var s0 = m.s; s0.style.setProperty('opacity', '.33', 'important'); setTimeout(function () { drop(s0); }, holdMs()); }
+    else drop(m.s);
     var i = LIVE.indexOf(m); if (i >= 0) LIVE.splice(i, 1);
     var t = epochNow();
     m.row.t1 = Math.round(t); m.row.ms = Math.round(t - m.t0); m.row.flew = Math.round(t - (m.ts || m.t0)); m.row.planned = Math.round(m.t1 - (m.ts || m.t0));
@@ -731,6 +747,7 @@
         });
         Array.prototype.forEach.call(mu.removedNodes, function (n) {
           if (n.nodeType === 1 && n.id === 'crewdoor') {
+            if (n.getAttribute('data-bm-folded')) { LIVE.filter(function (m) { return m.id === 'crew' && m.how === 'grow'; }).forEach(function (m) { land(m, true); }); last = null; return; }
             var box = (last && last.el === n && last.box) || { x: 0, y: 0, w: W.innerWidth, h: W.innerHeight };
             LIVE.filter(function (m) { return m.id === 'crew' && m.how === 'grow'; }).forEach(function (m) { land(m, true); });
             shrink({ id: 'crew', kind: 'mode', fromBox: box, picture: null, label: 'YOUR COMPANY', to: function () { return crewButton(); } });

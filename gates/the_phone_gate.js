@@ -423,6 +423,25 @@ async function side(profile) {
         await tapIn(p.mainFrame(), '#bohphone .bpctx .lv'); await p.waitForTimeout(1500);
         const out = await fr.evaluate(() => !LOOP.open);
         ok('  LEAVE is on the phone in a town and takes him to the map; the town\'s own LEAVE is not on the glass', out && !L0, 'left ' + out + ', town LEAVE shown ' + L0); }
+      /* ---- THE COMPANY SCREEN (UI 11/2 round 2, ask 281: 'every interact button from combat to the city on the phone'): CREW on the
+         phone opens it; its DONE and its stash's tabs are the phone's and not on the glass; a tab pressed on the phone is the screen's own;
+         DONE on the phone closes it and the phone's apps come back */
+      if (sd === 'right') {
+        await tapApp('crew'); await until(() => p.evaluate(() => !!document.querySelector('#bohphone .crewp.on .cdone')), 6000); await p.waitForTimeout(700);
+        const CP = await p.evaluate(() => { const e = document.getElementById('bohphone'), hit = b => { const r = b.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && !!h && (h === b || b.contains(h)); };
+          const d = e.querySelector('.crewp.on .cdone'), tb = [...e.querySelectorAll('.crewp.on .ctabs button')]; return { done: !!d && hit(d), tabs: tb.length, tabsTop: tb.filter(hit).length, words: tb.map(b => b.textContent).join(' ') }; });
+        const rf = p.frames().find(x => /ROSTER_SCREEN/.test(x.url()));
+        const RG = rf ? await rf.evaluate(() => { const v = e => !!e && e.getBoundingClientRect().width > 0 && getComputedStyle(e).display !== 'none'; return { done: v(document.getElementById('done')), tabs: [...document.querySelectorAll('#tabs button')].filter(v).length, all: document.querySelectorAll('#tabs button').length }; }) : null;
+        ok('  the company screen: its DONE and its stash\'s tabs are on the phone (each a press on top) and not on the glass', CP.done && CP.tabs > 0 && CP.tabsTop === CP.tabs && !!RG && !RG.done && RG.tabs === 0 && RG.all === CP.tabs,
+          'phone: DONE ' + CP.done + ', tabs ' + CP.tabsTop + '/' + CP.tabs + ' (' + CP.words + '); glass: ' + JSON.stringify(RG));
+        let tabOk = null; if (CP.tabs > 1) { const want = await p.evaluate(() => document.querySelectorAll('#bohphone .crewp.on .ctabs button')[1].textContent);
+          await tapIn(p.mainFrame(), '#bohphone .crewp.on .ctabs button:nth-child(2)'); await p.waitForTimeout(500);
+          tabOk = await rf.evaluate((w) => { const b = [...document.querySelectorAll('#tabs button')].find(x => x.classList.contains('on')); return !!b && b.textContent === w; }, want); }
+        await tapIn(p.mainFrame(), '#bohphone .crewp.on .cdone'); await p.waitForTimeout(1200);
+        const shut = await p.evaluate(() => !document.querySelector('#bohphone .crewp.on') && getComputedStyle(document.querySelector('#bohphone .home')).visibility !== 'hidden');
+        const gone = await fr.evaluate(() => !document.getElementById('crewdoor'));
+        ok('  a tab pressed on the phone is the screen\'s own; DONE on the phone closes the screen and the phone\'s apps come back', tabOk !== false && shut && gone, 'tab ' + tabOk + ', phone back ' + shut + ', screen gone ' + gone);
+      }
       /* ---- THE FIGHT ---- */
       const c0 = await p.evaluate(() => window.__PHONE_COMBAT | 0);
       await fr.evaluate((n) => { try { CITY_CONTACT_POSTED = false; } catch (e) {} try { TOWN_EXIT = null; } catch (e) {} return roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: n }); }, sd === 'right' ? 1 : 2);   /* the last fight's contact let go, as the next step would; and the step off the tile his LEAVE put him on, where no crew reaches him (CAMP, rule 273(a), re-aimed 10/26) */
@@ -444,9 +463,9 @@ async function side(profile) {
           sr: ['bstrike', 'breload'].filter(id => { const e = document.getElementById(id); return !!e && e.style.display !== 'none'; }).length,
           go: (() => { const be = document.getElementById('bend'), tn = be && [...be.childNodes].filter(n => n.nodeType === 3)[0]; return be ? String(tn ? tn.textContent : be.textContent).trim() : null; })(),
           bar: ['bend', 'bauto', 'bflee', 'bwait', 'bspeed', 'bstrike', 'breload'].map(id => { const e = document.getElementById(id); return e && vis(e) ? id : null; }).filter(Boolean) }; });
-      const PF = await p.evaluate(() => ({ head: (document.querySelector('#bohphone .fh b') || {}).textContent, n: document.querySelectorAll('#bohphone .ab .sk:not([aria-label=empty])').length,
+      const PF = await p.evaluate(() => ({ head: (document.querySelector('#bohphone .fh b') || {}).textContent, n: document.querySelectorAll('#bohphone .ab .sk:not([aria-label=empty])').length + document.querySelectorAll('#bohphone .abig .bg').length,   /* STRIKE and RELOAD in their own big row (ask 282) */
         go: (document.querySelector('#bohphone .fgo b') || {}).textContent, cmds: [...document.querySelectorAll('#bohphone .fight [data-c]')].filter(b => { const r = b.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && h && b.contains(h); }).map(b => b.dataset.c) }));
-      ok('  the abilities open from it: his name, STRIKE, RELOAD and his abilities on the phone and off the fight\'s bar', FT.fight && !FT.home && String(AB.name || '').replace(/\s*\*$/, '').indexOf(PF.head) === 0 && PF.head && AB.onBar === 0 && PF.n === Math.min(12, AB.all + AB.sr),
+      ok('  the abilities open from it: his name, STRIKE, RELOAD and his abilities on the phone and off the fight\'s bar', FT.fight && !FT.home && String(AB.name || '').replace(/\s*\*$/, '').indexOf(PF.head) === 0 && PF.head && AB.onBar === 0 && PF.n === Math.min(12, AB.all) + AB.sr,
           'head ' + PF.head + ', phone ' + PF.n + ', fight ' + AB.all + ' + ' + AB.sr + ' (on its bar ' + AB.onBar + ')');
       /* rule 238(a): every press of the fight is on the phone: the big button (its word the fight's own), WAIT, RETREAT, AUTO, the
          speed, each on top where it is drawn; none of them on the fight's bar (286(b)) */
@@ -467,20 +486,21 @@ async function side(profile) {
           const fb = id => { const e = document.getElementById(id); return e ? String(e.style.getPropertyValue('--n') || '').replace(/"/g, '').trim().split(' ').pop() : ''; };
           return { off: off('top') && off('bot'), TOPH, BOTH, faces: document.querySelectorAll('#order canvas').length, cnm: String(document.getElementById('cnm').textContent).replace(/\s*\*$/, ''), hp: fb('bhp') }; });
         const PC = await p.evaluate(() => { const e = document.getElementById('bohphone'), hit = b => { const r = b.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && !!h && (h === b || b.contains(h)); };
-          const fs = [...e.querySelectorAll('.fight.on .ford button')]; return { n: fs.length, top: fs.slice(0, 6).filter(hit).length, me: !!e.querySelector('.fh .fme') && hit(e.querySelector('.fh .fme')),
+          const big = [...e.querySelectorAll('.fight.on .abig .bg')].map(b => { const r = b.getBoundingClientRect(); return { k: b.getAttribute('aria-label'), w: r.width, h: r.height, top: hit(b) }; });
+          return { strip: e.querySelectorAll('.ford, .fight [aria-label="the turn order"]').length, big, me: !!e.querySelector('.fh .fme') && hit(e.querySelector('.fh .fme')),
             name: String((e.querySelector('.fh b') || {}).textContent || '').replace(/\s*\*$/, ''), hp: String((e.querySelector('.fh .fb.hp em') || {}).textContent || ''), round: String((e.querySelector('.stat .wh') || {}).textContent || '') }; });
         ok('  the fight\'s strip and bar are off the glass, and the fight measures both edges as 0 (the glass is the board)', G.off && G.TOPH === 0 && G.BOTH === 0, 'off ' + G.off + ', top ' + G.TOPH + ', bottom ' + G.BOTH);
-        ok('  the crew is on the phone: every face of the turn order (the first six a press on top), his face a press, the fight\'s own name, blood and round',
-          PC.n === G.faces && G.faces > 0 && PC.top === Math.min(6, PC.n) && PC.me && PC.name === G.cnm && PC.hp === G.hp && /^R\d/.test(PC.round),
-          PC.n + '/' + G.faces + ' faces (' + PC.top + ' on top), ' + PC.name + ' ' + PC.hp + ' vs ' + G.cnm + ' ' + G.hp + ', ' + PC.round);
-        /* one tap on a face in the strip: that man's sheet (the fight's own drawer); a second tap closes it */
-        const fid = await p.evaluate(() => { const b = document.querySelector('#bohphone .ford button:not(.now)') || document.querySelector('#bohphone .ford button'); return b ? b.dataset.id : null; });
-        let sheet = null, shut = null;
-        if (fid) { await tapIn(p.mainFrame(), '#bohphone .ford button[data-id="' + fid + '"]'); await p.waitForTimeout(350);
-          sheet = await f.evaluate((id) => { const d = document.getElementById('drawer'), v = FIGHT.byId(id); return d.style.display === 'block' && !!v && d.textContent.indexOf(v.name) === 0; }, fid);
-          await tapIn(p.mainFrame(), '#bohphone .ford button[data-id="' + fid + '"]'); await p.waitForTimeout(350);
-          shut = await f.evaluate(() => document.getElementById('drawer').style.display !== 'block'); }
-        ok('  one tap on a face on the phone opens that man\'s sheet, a second closes it', !!fid && sheet && shut, fid + ' open ' + sheet + ', shut ' + shut);
+        /* NO TURN-ORDER STRIP (UI 11/2 round 2, ask 283: 'as a visual I think it's just a waste'): no strip of faces on the phone and the
+           fight's own off the glass, while the order stays in the fight's code; A BIG RELOAD (ask 282): RELOAD then STRIKE in their own
+           row, each a thumb tall (44 points and up upright, the phone's scale sideways) and at least four of the old 24x25 squares */
+        const ord = await f.evaluate(() => { try { return FIGHT.S.order.length; } catch (e) { return 0; } });
+        ok('  no turn-order strip on the phone or the glass; the order stays in the fight\'s code; his face a press, the fight\'s own name, blood and round',
+          PC.strip === 0 && G.off && ord > 0 && PC.me && PC.name === G.cnm && PC.hp === G.hp && /^R\d/.test(PC.round),
+          'strips ' + PC.strip + ', the order in the code ' + ord + ', ' + PC.name + ' ' + PC.hp + ' vs ' + G.cnm + ' ' + G.hp + ', ' + PC.round);
+        { const sc = (await p.evaluate(() => { const r = BOH_PHONE_RECT(); return r.width / 124; })) || 1, rl = PC.big.find(b => b.k === 'reload'), first = PC.big[0];
+          ok('  RELOAD is big: first in its own row, a press on top, ' + Math.round(44 * Math.min(1, sc)) + ' points tall or more, four times the old square or more',
+            !!rl && first === rl && rl.top && rl.h >= 44 * Math.min(1, sc) - 0.5 && rl.w * rl.h >= 4 * 24 * 25 * sc * sc - 1,
+            PC.big.map(b => b.k + ' ' + Math.round(b.w) + 'x' + Math.round(b.h) + (b.top ? '' : ' (covered)')).join(', ') + ' (was 24x25)'); }
         /* the pulse: every hit of the phone's beat sampled against the fight's own clock, the moment it lands */
         await p.evaluate(() => { window.__beatSamples = []; const e = document.getElementById('bohphone'), fw = document.getElementById('fightFrame').contentWindow;
           window.__beatObs = new MutationObserver(() => { if (e.dataset.beat === '3') { const t = fw.performance.now(), ph = fw.beatPh(t); window.__beatSamples.push(Math.round((ph > 0.5 ? ph - 1 : ph) * fw.beatMs())); } });
