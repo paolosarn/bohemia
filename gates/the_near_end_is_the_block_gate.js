@@ -54,10 +54,10 @@ const done = () => { console.log('THE NEAR END IS THE BLOCK: ' + pass + ' passed
        squeeze goes on into the street on the same map (N2: still no close-up, the city mode, the map's own zoom held at its closest,
        the street past it; its own gate is THE MAP ZOOMS IN TO THE STREET), and squeezing out comes back to the closest stop and on
        out (N8). */
-    let tl = null;
-    for (let i = 0; i < 24; i++) { tl = await d.fr.evaluate(() => ({ S: VBT.S, held: VBT.tiles.size, want: VBT.want | 0, busy: VBT.busy, blocks: !!window.__MAP_BLOCKS_DREW, a: vbCityAlpha() })); if (tl.held > 0 && !tl.want && !tl.busy) break; await d.page.waitForTimeout(500); }
+    let tl = null;   /* WORLD 11/2 round 3: the sharpest is now the fourth step, 128 texels a block (__THE_MAP_SHARPENS_TO_ITS_OWN_PIXELS__) */
+    for (let i = 0; i < 64; i++) { tl = await d.fr.evaluate(() => ({ S: VBT.S, held: VBT.tiles.size, want: VBT.want | 0, busy: VBT.busy, blocks: !!window.__MAP_BLOCKS_DREW, a: vbCityAlpha() })); if (tl.held > 0 && !tl.want && !tl.busy) break; await d.page.waitForTimeout(500); }
     ok('N3 the closest stop is the painting at its sharpest (' + tl.S + ' texels a block, ' + tl.held + ' tiles kept, ' + tl.want + ' waiting; the painting at ' + tl.a + ', the old blocks ' + (tl.blocks ? 'DRAWN' : 'off') + ')',
-      tl.S === 96 && tl.held > 0 && tl.want === 0 && tl.a === 1 && !tl.blocks);
+      tl.S === 128 && tl.held > 0 && tl.want === 0 && tl.a === 1 && !tl.blocks);
     const you = await d.fr.evaluate(() => (MAP_DREW && MAP_DREW.you) ? { w: Math.round(MAP_DREW.you.w), how: MAP_DREW.you.how } : null);
     ok('N4 he is on the map at the closest stop at his own size (' + JSON.stringify(you) + ')', !!you && you.w > 0);
     /* RE-AIMED 10/26: UI TWO's one phone (bohemia_phone.js, rule 213) carries PLAY now; the old speed pad and #cityfeed are hidden under it */

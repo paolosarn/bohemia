@@ -9811,6 +9811,13 @@ GATES = [
      "400 trips, a tap's route and PLAY's, cut no corner and lose no reachable block; the old search turns it red; on the 1.22x "
      "clock's own step times the picture holds one speed (top under 1.6 times its median, never still mid-journey, no frame past a "
      "tenth of a block; the old glide 11 times), turns back where it is, eases in and out, cuts a far jump. the city file, about 30 s", False),
+    ('THE MAP STREETS JOIN', ['node', 'gates/the_map_streets_join_gate.js'],
+     "WORLD gate, 11/2 round 3, ask line 285 (Paolo 11/2: 'the freeways look like freeways, the streets transitioning to each "
+     "other properly, better zoomed in... it just gets more detailed the more you zoom in'): the painter's own texels at the middle "
+     "of every side of every street block in the valley: a side that joins a street is open, a side that meets a block is a kerb "
+     "(0 bad; the old reading 496); every freeway pass paints the street under its deck, every ramp block descends to it; at the "
+     "phone's closest stop 128 texels a block, a texel to a device pixel, under 90 MB of tile pictures, the hidden soft painting "
+     "skipped. the demo, about 2 min", False),
     ('THE MOMENTS BETWEEN', ['node', 'gates/the_moments_between_gate.js'],
      "WORLD gate, 11/2, ask line 273 (Paolo 11/2: 'The transition of the camp to when time passes by and an enemy wants to attack you, "
      "it's just like sloppy quick bullshit... less choppy... less AI slop'): on the demo at phone size, every drawn frame: making camp "
