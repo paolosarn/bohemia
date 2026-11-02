@@ -14,7 +14,7 @@ remembered; a long contract list), then our swag.
 | job kinds on the board | **10** (clear-crew, haul-caravan, find-place, find-person, hunt-kind, clear-camp, carry, hold-defend, recover-return, patrol) | **19** (+ ambush, envoy, bounty, scout, burn, collect, big-game, signal, free) |
 | board offers in the pool | 41 (39 QUESTS shelf + 2) | **50** (+9 people with the new jobs) |
 | side quests a player can play on the map | **0** (the 5 the demo bound in 8/14 are bound to the walk, dead since 9/28) | **5** from the .bq library, every line verbatim |
-| distinct things met in the first 3 in-game days | the board's jobs (1 to 3 boards dealt a window, camp 1, town 2, fortress 3) and the forced parties | see section 4 (the drive) |
+| distinct things met in the first 3 in-game days (the drive, section 4) | the board's jobs and the forced parties | **11 road events + 2 side quests + 2 new job kinds**, all with faces and choices |
 
 ## 2. WHAT WAS BUILT
 
@@ -65,8 +65,24 @@ remembered; a long contract list), then our swag.
 - The main quest: untouched. UI's phone, the transitions, ROBOT's crew, FINISHER's rows, the towns' pictures: untouched.
 - Numbers (gap, chance, pay, food, fights' sizes) are shapes TUNING owns.
 
-## 4. THE DRIVE: 3 IN-GAME DAYS ON THE REAL DEMO, PHONE SIZE (tools/bohemia_content_drive.js)
-DRIVE_RESULTS
+## 4. THE DRIVE: 3 IN-GAME DAYS ON THE REAL DEMO, PHONE SIZE (tools/bohemia_content_drive.js; the run: records/CONTENT_THE_THREE_DAY_DRIVE_11_2_26.json)
+Run 4 (the one that counts), BOHEMIA_DEMO.html at 390x844 touch, the real director's real gap and chance (nothing forced):
+- **3 in-game days** (day 1 06:00 to day 4), 664 blocks walked on the map, **0 thrown** (page, map frame, driver).
+- **Road events met on their own: 11 distinct** (the tollkeeper, the water thief, the Blues patrol, the one-armed hunter's lion,
+  the coyote boy, the radio on a pole, the Red deserters, the dead courier, the lost drone, the night nurse, and a CHAIN PAYING
+  OFF: the tollkeeper paid on day 1 came back on day 3 remembering it). 4 more chains set for later (paid_the_toll,
+  took_the_radio, kept_the_drone, hid_the_water_woman). Every card was a talking face (the mouth key moving on 18 of 20 cards
+  at capture) with 2 or 3 choices; 2 road fights won and paid (the Blues +20, the lion +30); a man joined (crew 3 to 4).
+- **Side quests: 2 met on the road and finished** (THE SEED THAT DOES NOT COME BACK: the grower, then the trader's truck
+  marked on the map and walked to, ending 30, +3 food, the Blues like you more; WHAT THE DOG KNOWS: the scavenger, then the
+  sergeant at the stairwell, ending 30, +8 batteries).
+- **New jobs: 2 taken and paid**: SCOUT (three wells, no fight, paid 53 of 53) and COLLECT (Don Beto talked; 'take all of it'
+  started his nephews' fight; won; paid 60 of 60).
+- Purse 290 to 410, food 21 to 18 (three nights eaten, quest and hunt food back), crew 3 to 4.
+- Two test-tool fixes on the way (the tool's, not the game's): a forced win must put THEIR men down (a win with them standing
+  reads as a walk-away, so the job waited for a rematch), and the spoils screen waits for LEAVE.
+- Caught by the drive and fixed: the seed quest's .bq calls the grower 'her' and the trader 'his'; the glue had them the other
+  way round. Now DOÑA ANSELMA and EL GÜERO.
 
 ## 5. KNOWN, NOT DONE
 - The side quests are not on the phone's contract list (they are on the map and in the feed). UI's door if it wants them.

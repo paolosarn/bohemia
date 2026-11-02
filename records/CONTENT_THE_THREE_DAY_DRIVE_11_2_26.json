@@ -1,0 +1,722 @@
+{
+ "file": "BOHEMIA_DEMO.html",
+ "box": "Playwright Chromium, phone 390x844 touch",
+ "when": "2026-11-02T05:59:02.549Z",
+ "events": [
+  {
+   "day": 1,
+   "min": 616,
+   "who": "DON ANSELMO",
+   "said": "His sacks will feed this block through winter. I want to say that first because everything",
+   "opts": [
+    "“Then keep yours and take the thin year.”",
+    "“People have to eat this winter.”",
+    "“Can you plant both?”",
+    "(wait for her to say the rest)"
+   ],
+   "tapped": "“Then keep yours and take the thin year.”",
+   "mouth": "E"
+  },
+  {
+   "day": 1,
+   "min": 616,
+   "who": "DON ANSELMO",
+   "said": "A thin year on purpose. Smaller plates, every house, agreed out loud so nobody thinks they",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "E"
+  },
+  {
+   "day": 1,
+   "min": 632,
+   "who": "DON BETO",
+   "said": "Sí, sí, I owe. Forty batteries, I know the number, I dream the number. But mira, my kids e",
+   "opts": [
+    "Take all of it.A FIGHT",
+    "Take half. Leave him the rest.50% PAY",
+    "Pay his debt yourself: 20 batteries.-20 BAT"
+   ],
+   "tapped": "Take all of it.A FIGHT",
+   "mouth": null
+  },
+  {
+   "day": 1,
+   "min": 767,
+   "who": "LA GÜERA",
+   "said": "Twice the yield. I have never once said otherwise and I have never once had to.\n\nShe'll te",
+   "opts": [
+    "“One small sack. Far side of the ridge.”",
+    "“The full load. On credit.”",
+    "“What happens if the block can't pay?”",
+    "“Your buyers should hear about the second generation.”"
+   ],
+   "tapped": "“One small sack. Far side of the ridge.”",
+   "mouth": null
+  },
+  {
+   "day": 1,
+   "min": 767,
+   "who": "LA GÜERA",
+   "said": "One sack. Barely worth unhitching for, and it'll get you to spring with a hungry face.\n\nPl",
+   "opts": [
+    "“One sack. Over the ridge.”",
+    "(load the one sack and go)",
+    "“No. The block goes thin instead.”"
+   ],
+   "tapped": "“One sack. Over the ridge.”",
+   "mouth": "A"
+  },
+  {
+   "day": 1,
+   "min": 767,
+   "who": "LA GÜERA",
+   "said": "One small sack for this winter, planted on the far side of the ridge where the pollen can'",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "M"
+  },
+  {
+   "day": 1,
+   "min": 869,
+   "who": "LA TOLLKEEPER",
+   "said": "This road is ours today, my loves. Five batteries a head, or ten for all of you because yo",
+   "opts": [
+    "Pay ten.-10 BAT",
+    "Push the cart out of the way.A FIGHT",
+    "Go the long way around.45 MIN"
+   ],
+   "tapped": "Pay ten.-10 BAT",
+   "mouth": "O"
+  },
+  {
+   "day": 1,
+   "min": 869,
+   "who": "LA TOLLKEEPER",
+   "said": "Gracias, gorgeous. Next time you pass, you pass free.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "rest"
+  },
+  {
+   "day": 1,
+   "min": 1116,
+   "who": "A WOMAN WITH TWO JUGS",
+   "said": "¡Ayúdame! They say I steal the water, but it's my pump, my father dug it! They're coming. ",
+   "opts": [
+    "Hide her.A CHANCE",
+    "Turn her in for the reward.+12 BAT",
+    "Stay out of it."
+   ],
+   "tapped": "Hide her.A CHANCE",
+   "mouth": "A"
+  },
+  {
+   "day": 1,
+   "min": 1116,
+   "who": "A WOMAN WITH TWO JUGS",
+   "said": "They walk right past. She leaves you three jugs. Three nights of water.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 95,
+   "who": "BLUES SERGEANT",
+   "said": "Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay w",
+   "opts": [
+    "Ride with them.A FIGHT",
+    "Say you're busy.THEY WILL HEAR"
+   ],
+   "tapped": "Ride with them.A FIGHT",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 288,
+   "who": "A HUNTER WITH ONE ARM",
+   "said": "Lab cat. American lion, they said, from a bone in Tule Springs. It took my arm and my part",
+   "opts": [
+    "Go after the lion.A FIGHT",
+    "Not our fight."
+   ],
+   "tapped": "Go after the lion.A FIGHT",
+   "mouth": "M"
+  },
+  {
+   "day": 2,
+   "min": 600,
+   "who": "LA RATA",
+   "said": "Second floor and up is spoken for. Something big is holding the landing and it has not eat",
+   "opts": [
+    "“I'll go up.”",
+    "“Holding what?”",
+    "“Leave it. It'll sort itself.”",
+    "(start up the stairs)"
+   ],
+   "tapped": "“I'll go up.”",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 600,
+   "who": "LA RATA",
+   "said": "Slow, then. Don't look it in the face and don't put your hand out yet. It isn't angry. It'",
+   "opts": [
+    "Go."
+   ],
+   "tapped": "Go.",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 772,
+   "who": "A BOY WITH A SLING",
+   "said": "Coyotes, big ones, the lab kind. They follow you since the wash. Gimme three batteries and",
+   "opts": [
+    "Pay him and hunt them.A FIGHT",
+    "Shoo him off."
+   ],
+   "tapped": "Pay him and hunt them.A FIGHT",
+   "mouth": "O"
+  },
+  {
+   "day": 2,
+   "min": 793,
+   "who": "SARGENTO VEGA",
+   "said": "I know whose dog that is. I knew before you told me, because I know who has not checked in",
+   "opts": [
+    "“I'll sit with it.”",
+    "“Bring the crew. Do it properly.”",
+    "“The block should see this.”",
+    "“How long was he up there alone?”"
+   ],
+   "tapped": "“I'll sit with it.”",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 793,
+   "who": "SARGENTO VEGA",
+   "said": "Two hours. Maybe three. No talking, no reaching, and don't take the kit, the kit is what i",
+   "opts": [
+    "“I have the time.”",
+    "(sit down on the step and wait)",
+    "“No. Bring the crew instead.”"
+   ],
+   "tapped": "“I have the time.”",
+   "mouth": "rest"
+  },
+  {
+   "day": 2,
+   "min": 793,
+   "who": "SARGENTO VEGA",
+   "said": "Sat on the step for two hours saying nothing until it took food out of my hand. Buried him",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 1170,
+   "who": "A RADIO ON A POLE",
+   "said": "(a radio taped to a pole, playing a weather report from before. Sunny. Seventy-two. The do",
+   "opts": [
+    "Take its batteries.+4 BAT",
+    "Leave it playing."
+   ],
+   "tapped": "Take its batteries.+4 BAT",
+   "mouth": "A"
+  },
+  {
+   "day": 2,
+   "min": 1170,
+   "who": "A RADIO ON A POLE",
+   "said": "Four batteries. The report stops on 'the dollar is'. The quiet is worse.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "A"
+  },
+  {
+   "day": 2,
+   "min": 1293,
+   "who": "TWO RED DESERTERS",
+   "said": "We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take u",
+   "opts": [
+    "Take one of them.+1 MAN",
+    "Turn them in to the Reds.+20 BAT",
+    "Say nothing and go."
+   ],
+   "tapped": "Take one of them.+1 MAN",
+   "mouth": "E"
+  },
+  {
+   "day": 2,
+   "min": 1293,
+   "who": "TWO RED DESERTERS",
+   "said": "Benny. The other one goes his own way. The Reds will hear, they always hear.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 218,
+   "who": "LA TOLLKEEPER",
+   "said": "My ugly friends who pay! Go, go, free road. And a gift: the men at the overpass are new an",
+   "opts": [
+    "Thank her.+5 BAT",
+    "Buy food off the overpass men.-8 BAT · +5 FOOD"
+   ],
+   "tapped": "Thank her.+5 BAT",
+   "mouth": "M"
+  },
+  {
+   "day": 3,
+   "min": 218,
+   "who": "LA TOLLKEEPER",
+   "said": "And five back, because I'm in a mood. Don't get used to it.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 584,
+   "who": "A CROW ON A BODY",
+   "said": "(a courier, two days dead, still holding the strap of a bag. The bag has a Remnants seal. ",
+   "opts": [
+    "Take the bag.+14 BAT",
+    "Bury him and take nothing.30 MIN",
+    "Walk on."
+   ],
+   "tapped": "Take the bag.+14 BAT",
+   "mouth": "A"
+  },
+  {
+   "day": 3,
+   "min": 584,
+   "who": "A CROW ON A BODY",
+   "said": "Fourteen batteries and a letter nobody will get now. The Remnants count their bags.",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "M"
+  },
+  {
+   "day": 3,
+   "min": 718,
+   "who": "A DRONE IN THE DIRT",
+   "said": "(a delivery drone, face-down, its little speaker looping) Paquete en camino. Package on it",
+   "opts": [
+    "Open the box.+18 BAT",
+    "Carry it to the nearest town.20 MIN",
+    "Leave it."
+   ],
+   "tapped": "Open the box.+18 BAT",
+   "mouth": "E"
+  },
+  {
+   "day": 3,
+   "min": 718,
+   "who": "A DRONE IN THE DIRT",
+   "said": "Paquete... en... (the speaker dies. Eighteen batteries in foam, packed like eggs.)",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 1197,
+   "who": "A WOMAN IN A WHITE COAT",
+   "said": "Don't be scared. I'm a nurse, I walk at night because the days are too hot. I have bandage",
+   "opts": [
+    "Walk her to the next town.30 MIN",
+    "Trade food for her bandages.+8 BAT · -1 FOOD"
+   ],
+   "tapped": "Walk her to the next town.30 MIN",
+   "mouth": "O"
+  },
+  {
+   "day": 3,
+   "min": 1227,
+   "who": "A WOMAN IN A WHITE COAT",
+   "said": "Thank you. I'll tell the Volunteers who walked me. We look after the ones who look after u",
+   "opts": [
+    "GO ON"
+   ],
+   "tapped": "GO ON",
+   "mouth": "rest"
+  }
+ ],
+ "jobs": [
+  {
+   "id": "jk-scout-wells",
+   "took": {
+    "ok": true,
+    "plays": "scout",
+    "kind": "scout",
+    "legs": [
+     "SCOUT@THE FIRST WELL",
+     "SCOUT@THE SECOND WELL",
+     "SCOUT@THE THIRD WELL",
+     "undefined@Trades"
+    ],
+    "said": "Contract from Trades: Look at the three wells and come tell me. Scout at THE FIRST WELL, east, a short walk; then Scout at THE SECOND WELL, east, close by; then Scout at THE THIRD WELL, south-east, a short walk; then back to Trades to be paid. Pays 53 batteries."
+   }
+  },
+  {
+   "id": "jk-collect-beto",
+   "took": {
+    "ok": true,
+    "plays": "collect",
+    "kind": "collect",
+    "legs": [
+     "COLLECT@DON BETO",
+     "undefined@Trades"
+    ],
+    "said": "Contract from Trades: Collect what Don Beto owes. Collect at DON BETO, east, a short walk; then back to Trades to be paid. Pays 60 batteries."
+   }
+  }
+ ],
+ "quests": [],
+ "taps": 30,
+ "fights": 4,
+ "errors": [],
+ "stamp": "DEMO - BUILD 11/2zzd - TWENTY-NINE THINGS ON THE ROAD, NINE NEW JOBS, FIVE SIDE QUESTS",
+ "start": {
+  "day": 1,
+  "min": 360,
+  "at": [
+   79,
+   62
+  ],
+  "travel": false,
+  "speed": 1.22,
+  "bats": 290,
+  "food": 21,
+  "men": 3,
+  "open": false,
+  "card": false,
+  "meet": false,
+  "held": [],
+  "rq": [],
+  "err": null
+ },
+ "town": "Trades",
+ "end": {
+  "day": 4,
+  "min": 1357,
+  "at": [
+   41,
+   25
+  ],
+  "travel": false,
+  "speed": 1.22,
+  "bats": 410,
+  "food": 18,
+  "men": 4,
+  "open": false,
+  "card": false,
+  "meet": false,
+  "held": [],
+  "rq": [],
+  "err": null
+ },
+ "road": {
+  "ready": true,
+  "events": 29,
+  "quests": 5,
+  "walked": 664,
+  "last": 640,
+  "met": 13,
+  "seen": [
+   "quest:bq_seed_no_return",
+   "ev_the_toll_kids",
+   "ev_the_water_thief",
+   "ev_the_blue_patrol",
+   "ev_the_cave_cat",
+   "quest:bq_what_the_dog_knows",
+   "ev_the_coyote_kid",
+   "ev_the_static_radio",
+   "ev_the_deserters",
+   "ev_the_toll_remembers",
+   "ev_the_dead_courier",
+   "ev_the_lost_drone",
+   "ev_the_night_walker"
+  ],
+  "flags": {
+   "paid_the_toll": 1,
+   "hid_the_water_woman": 1,
+   "took_the_radio": 2,
+   "kept_the_drone": 3
+  },
+  "held": [],
+  "questState": {
+   "bq_seed_no_return": {
+    "stage": 30,
+    "at": {
+     "x": 83,
+     "y": 59
+    },
+    "node": "small",
+    "know": {},
+    "seen": {
+     "yard": 1,
+     "thin": 1,
+     "sacks": 1,
+     "small": 1
+    },
+    "spots": {
+     "trader": [
+      73,
+      49
+     ]
+    },
+    "mark": null,
+    "began": 1,
+    "done": 30,
+    "end": "COMPLETE"
+   },
+   "bq_what_the_dog_knows": {
+    "stage": 30,
+    "at": {
+     "x": 63,
+     "y": 66
+    },
+    "node": "sit",
+    "know": {},
+    "seen": {
+     "stairwell": 1,
+     "landing": 1,
+     "bottom": 1,
+     "sit": 1
+    },
+    "spots": {
+     "sergeant": [
+      56,
+      59
+     ]
+    },
+    "mark": null,
+    "began": 2,
+    "done": 30,
+    "end": "COMPLETE"
+   }
+  },
+  "card": false,
+  "fighting": false
+ },
+ "chose": [
+  {
+   "id": "quest:bq_seed_no_return",
+   "node": "yard",
+   "t": "Then keep yours and take the thin year."
+  },
+  {
+   "id": "quest:bq_seed_no_return",
+   "node": "sacks",
+   "t": "One small sack. Far side of the ridge."
+  },
+  {
+   "id": "quest:bq_seed_no_return",
+   "node": "small",
+   "t": "One sack. Over the ridge."
+  },
+  {
+   "id": "ev_the_toll_kids",
+   "t": "Pay ten.",
+   "got": [
+    "-10 BATTERIES"
+   ]
+  },
+  {
+   "id": "ev_the_water_thief",
+   "t": "Hide her.",
+   "got": [
+    "+3 FOOD"
+   ]
+  },
+  {
+   "id": "ev_the_blue_patrol",
+   "t": "Ride with them.",
+   "got": []
+  },
+  {
+   "id": "ev_the_cave_cat",
+   "t": "Go after the lion.",
+   "got": []
+  },
+  {
+   "id": "quest:bq_what_the_dog_knows",
+   "node": "stairwell",
+   "t": "I'll go up."
+  },
+  {
+   "id": "ev_the_coyote_kid",
+   "t": "Pay him and hunt them.",
+   "got": [
+    "-3 BATTERIES"
+   ]
+  },
+  {
+   "id": "quest:bq_what_the_dog_knows",
+   "node": "bottom",
+   "t": "I'll sit with it."
+  },
+  {
+   "id": "quest:bq_what_the_dog_knows",
+   "node": "sit",
+   "t": "I have the time."
+  },
+  {
+   "id": "ev_the_static_radio",
+   "t": "Take its batteries.",
+   "got": [
+    "+4 BATTERIES"
+   ]
+  },
+  {
+   "id": "ev_the_deserters",
+   "t": "Take one of them.",
+   "got": [
+    "+1 MAN: BENNY CRUZ",
+    "REDS LIKES YOU LESS"
+   ]
+  },
+  {
+   "id": "ev_the_toll_remembers",
+   "t": "Thank her.",
+   "got": [
+    "+5 BATTERIES"
+   ]
+  },
+  {
+   "id": "ev_the_dead_courier",
+   "t": "Take the bag.",
+   "got": [
+    "+14 BATTERIES",
+    "REMNANTS LIKES YOU LESS"
+   ]
+  },
+  {
+   "id": "ev_the_lost_drone",
+   "t": "Open the box.",
+   "got": [
+    "+18 BATTERIES"
+   ]
+  },
+  {
+   "id": "ev_the_night_walker",
+   "t": "Walk her to the next town.",
+   "got": [
+    "VOLUNTEERS LIKES YOU MORE",
+    "30 MIN"
+   ]
+  }
+ ],
+ "paid": [
+  {
+   "id": "jk-scout-wells",
+   "kind": "scout",
+   "paid": 53,
+   "of": 53
+  },
+  {
+   "id": "jk-collect-beto",
+   "kind": "collect",
+   "paid": 60,
+   "of": 60
+  }
+ ],
+ "legsDone": [
+  {
+   "id": "jk-scout-wells",
+   "leg": 1,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-scout-wells",
+   "leg": 2,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-scout-wells",
+   "leg": 3,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-scout-wells",
+   "leg": 4,
+   "kind": "scout"
+  },
+  {
+   "id": "jk-collect-beto",
+   "leg": 1,
+   "kind": "collect"
+  },
+  {
+   "id": "jk-collect-beto",
+   "leg": 2,
+   "kind": "collect"
+  }
+ ],
+ "talks": [
+  {
+   "id": "jk-collect-beto",
+   "t": "Take all of it."
+  }
+ ],
+ "qdone": [
+  {
+   "id": "bq_seed_no_return",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+3 FOOD",
+    "BLUES LIKES YOU MORE"
+   ]
+  },
+  {
+   "id": "bq_what_the_dog_knows",
+   "stage": 30,
+   "end": "COMPLETE",
+   "got": [
+    "+8 BATTERIES"
+   ]
+  }
+ ],
+ "frameErr": [
+  null,
+  null,
+  null
+ ],
+ "driverErrs": [],
+ "verdict": {
+  "days": 3,
+  "events_met": 30,
+  "distinct": 15,
+  "new_jobs_taken": 2,
+  "jobs_paid": 2,
+  "thrown": 0
+ }
+}
