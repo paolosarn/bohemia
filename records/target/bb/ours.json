@@ -1869,5 +1869,64 @@
   "why": "COMBAT 3 11/2 [PROPOSED, TUNING's to tune]: every blow still builds Battle Brothers' fatigue (5 struck, 2 dodged or blocked, 10 and 20 for the maces, a hook or a shove its page's), but what the other side puts on one man between two of his turns stops at 10, two struck blows, under the 15 that come back at his turn, so standing among a pack his breath still comes back and only his own swings spend it. Battle Brothers' fights run 30 to 40 minutes and a pack's drain is spread over them; ours run 2 to 4 (rule 9/29), and MEASURED 11/2 a pack of direwolves put up to 50 on one man in one round (the 99th of 100 rounds 36) against 15 back.",
   "ours": true,
   "draft": true
+ },
+ "height_is_accuracy": {
+  "value": {
+   "melee_any_storey": true,
+   "zone_any_storey": true,
+   "above_per_storey": 10,
+   "below_per_storey": -10
+  },
+  "source": "VAMILY.md rule 321 (Paolo 11/2, ask line 318); records/target/bb/rules.json hit_chance.height (bb_all/0424_Combat Mechanics.txt, bb_all/1002_Hit Chance.txt) and zone_of_control.height_gap_breaks_zoc_levels",
+  "quote": "each story, from one to two to three, depending how high it is, doesn't mean the character next to you can't melee, it's just accuracy, that's the math that's manipulated... a wolf somehow ended up on top of a roof and my main guy couldn't hit him... it's not that you can never hit him, it's just more inaccurate",
+  "why": "COMBAT 4 11/2: HIS RULING OVERRIDES THE LIBRARY. Battle Brothers: two or more levels apart is not melee range and holds no zone of control (rules.json zone_of_control.height_gap_breaks_zoc_levels 2, hit_chance.height.melee_max_height_gap 1); it stays in the library as what Battle Brothers does. Ours: melee_any_storey, a man on the next tile can always be struck in melee whatever the storeys between; zone_any_storey, he always holds his ring over the next tile too. What the storeys do is the hit chance, both ways, for every blow and every shot: the man above gets above_per_storey for each storey he stands over his man (Battle Brothers gives its +10 once however high; ours gives it a storey, so three up is worth three), the man below gets below_per_storey for each storey under (the library's Hit Chance page, '-10% penalty to hit chance per level difference', unchanged). Drafts for TUNING, tuned:false.",
+  "ours": true,
+  "draft": true
+ },
+ "climbers": {
+  "value": {
+   "beast_sheet_climbs": false,
+   "never_climb": [
+    "direwolf",
+    "frenzied_direwolf",
+    "hyena",
+    "frenzied_hyena",
+    "wolf",
+    "goblin_wolf",
+    "wardog",
+    "armored_wardog",
+    "warhound",
+    "unhold",
+    "armored_unhold",
+    "frost_unhold",
+    "armored_frost_unhold",
+    "bog_unhold",
+    "lindwurm",
+    "serpent"
+   ]
+  },
+  "source": "VAMILY.md rule 321 (Paolo 11/2, ask line 318); laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md (only what a real animal can do)",
+  "quote": "a wolf somehow ended up on top of a roof... that's so stupid",
+  "why": "COMBAT 4 11/2: a roof is climbed by a ladder or a wall's handholds, which a man (and a man-shaped robot) can use and a wolf cannot. A man wearing a beast's sheet on the board (ours.beast_looks; beast_sheet_climbs false) or of a kind in never_climb never steps onto a roof tile, never is dealt onto one and never routes over one; a rise of ground (a height tile that is not a building's roof, level 1) he walks onto as before. MEASURED 11/2 before: wolves stood on a roof in 8 of 30 wolf fights, 83 climbs, all by walking (none dealt there): the walk let anything onto a roof for the climb's extra AP. Men still climb as the board allows (ap.move_cost.height_change_extra a level, the library's hills).",
+  "ours": true
+ },
+ "auto_finds_a_shot": {
+  "value": {
+   "order": [
+    "shot_now",
+    "shot_now_in_a_ring",
+    "shot_next_turn"
+   ],
+   "danger_per_foe": 10,
+   "safety_per_storey": 5,
+   "cover_share": 0.5,
+   "ap_spent": -1,
+   "club_target_weight": 30
+  },
+  "source": "VAMILY.md rule 322 (Paolo 11/2, ask line 319); Battle Brothers' tactical AI (scripts/ai/tactical/behaviors/ai_engage_ranged.nut selectBestTargetTile(_entity, _maxRange, _considerLineOfFire, _visibleTileNeeded) and its PotentialDanger list: gist.github.com/Suor/82489e82556a81d51445bcd4717b3950); XCOM 2's movement profiles (tiles graded by cover, distance to enemies, flank shots, allies' line of sight: steamcommunity.com/workshop/filedetails/discussion/793861140/282992646973104300); records/BOHEMIA_COMBAT_HEIGHT_IS_ACCURACY_AND_AUTO_PLAYS_SMART_11_2_26.md",
+  "quote": "with auto combat you want the characters to get into places where they have the ability to hit the enemy... my sniper, my rifle character, ends his turn without trying to get to the best point of view, a place with line of sight where he can shoot",
+  "why": "COMBAT 4 11/2: AUTO's shooter with no shot from where he stands grades every tile he can walk to this turn. FIRST BY KIND, in order: shot_now, a tile he can shoot from THIS turn (the AP, the breath and the rounds left after the walk; range and line of sight the rules' own canStrike, on a man his side sees) that is not beside a club of theirs; shot_now_in_a_ring, the same beside a club of theirs (taken only when no other tile gives the shot: 'not stepping next to a melee enemy unless it must'; for a gun whose damage falls off with the distance, the shotgun, beside two of them: the one man's ring is where its shot is best, rule 187(d)); shot_next_turn, a tile not beside a club of theirs from which he would have the shot NEXT turn (a full turn's AP, the breath that comes back, the gun loaded), taken only when the tile he stands on gives no shot next turn either. A tile of none of these kinds is no vantage (he closes on the fight as before). THEN, among tiles of the same kind, in the brain's coin (hit chance points, the cap 95 a sure shot): his best shot from the tile, its chance (the +10 a storey up is in it) times the share of the damage his gun's range band gives at that distance (ours.range_bands: the shotgun's best tile is the next one), minus danger_per_foe for each club of theirs that could stand beside the tile next turn (its walk on the flat; a beast that cannot climb counts none at a roof tile with no ground beside it; Battle Brothers' PotentialDanger), plus safety_per_storey a storey up (their shots lose 10 a storey), plus cover_share of the cover's ranged defence on the tile (XCOM's cover), plus ap_spent a point of AP walked (the shorter walk on a tie). Never back to where an idle turn began (the undo veto, rule 176(b)); once he has shot this turn he walks only to shoot again (Battle Brothers' shooters do not creep after the shot). club_target_weight: AUTO's club choosing the tile to strike from adds this times the share of the man one blow takes (hit chance x the blow / his health and armour, at most 1: the weakest he can reach) for the best man from that tile, so he walks to the man he can drop, with the friends who surround him. Drafts for TUNING, tuned:false.",
+  "ours": true,
+  "draft": true
  }
 }

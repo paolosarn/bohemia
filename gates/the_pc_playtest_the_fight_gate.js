@@ -17,8 +17,10 @@
       off the drawn pixels; on a phone and on a computer; the turn strip's faces wear a band of the same colours;
    7. ITEM 14, HEIGHTS THAT MEAN SOMETHING ('one-story versus two-story or even a three-story building, I don't know how that
       helps me and it's hard to tell visually'): every roof deals at its storeys (Battle Brothers' levels 1 to 3, ours.roof_storeys);
-      on the live rules: from three up a shot gains the library's +10%, a shot from the street at a man three up loses 30%, his
-      gun reaches 3 tiles further and he sees 3 further, and no club reaches him across the gap (one storey up, it does);
+      on the live rules: from three up a shot gains +10% a storey (AMENDED 11/2, COMBAT 4, rule 321: HEIGHT IS ACCURACY, NEVER A
+      WALL; the library's +10 once is the start, ours.height_is_accuracy), a shot from the street at a man three up loses 30%,
+      his gun reaches 3 tiles further and he sees 3 further, and a club beside him reaches him across three storeys as across
+      one (AMENDED 11/2: the library's wall at two levels is gone), only less often;
    8. what it gives, SHOWN: a ladder leans on every roof you can climb (none on a wall, none on a rise of bare ground), a man on a
       roof stands higher the higher it is with one chevron a level over his head, the tap on a roof says what it gives, the
       walk's tag says ROOF n UP, the aim says the height's points both ways, and a tap on a wall says it is a wall;
@@ -177,14 +179,15 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
       /* a club at the foot of the wall: across three storeys no; across one, yes */
       let foot = null; for (const [dx, dy] of [[0, 1], [1, 1], [-1, 1], [1, 0], [-1, 0]]) { const q = { x: found.x + dx, y: found.y + dy }; if (S.terrain[q.y] && S.terrain[q.y][q.x] === 'flat' && T.passable(q.x, q.y)) { foot = q; break; } }
       const melee = S.units.filter(v => v.side === 'them' && !F.isRanged(v.weapon))[0];
-      let clubHi = null, clubLow = null;
-      if (melee && foot) { melee.ap = melee.apTurn; melee.fat = 0; put(melee, foot); put(me, found); clubHi = F.canStrike(melee, me); S.terrain[found.y][found.x] = 'height'; clubLow = F.canStrike(melee, me); S.terrain[found.y][found.x] = was; }
-      r = Object.assign(r, { seed: sd - 1, at: found, g, lv: F.level(found.x, found.y), up: [upHi.chance, upFlat.chance, upHi.parts.join('/')], below: [fromBelow.chance, dn.chance, dnFlat.chance], vis: [visHi, visFlat], reach: [rHi, rFlat], club: [clubHi, clubLow], kinds });
+      let clubHi = null, clubLow = null, clubHiCh = null, clubLowCh = null;
+      if (melee && foot) { melee.ap = melee.apTurn; melee.fat = 0; melee.mskill = 70; me.mdef = 0; put(melee, foot); put(me, found); clubHi = F.canStrike(melee, me); clubHiCh = F.hitChance(melee, me).chance; S.terrain[found.y][found.x] = 'height'; clubLow = F.canStrike(melee, me); clubLowCh = F.hitChance(melee, me).chance; S.terrain[found.y][found.x] = was; }
+      r = Object.assign(r, { seed: sd - 1, at: found, g, lv: F.level(found.x, found.y), up: [upHi.chance, upFlat.chance, upHi.parts.join('/')], below: [fromBelow.chance, dn.chance, dnFlat.chance], vis: [visHi, visFlat], reach: [rHi, rFlat], club: [clubHi, clubLow], clubCh: [clubHiCh, clubLowCh], kinds });
     }
-    leg(tableOk && r.found && r.lv === 3 && r.up[0] - r.up[1] === 10 && /above/.test(r.up[2]) && r.below[1] - r.below[2] === -30,
-      '*** ITEM 14: A ROOF STANDS AT ITS STOREYS: FROM THREE UP +10% TO HIT, FROM THE STREET AT HIM -30% ***', JSON.stringify({ seed: r.seed, at: r.at, level: r.lv, up: r.up, below: r.below, kinds: r.kinds }));
-    leg(r.found && r.reach[0] - r.reach[1] === 3 && r.vis[0] - r.vis[1] === 3 && r.club[0] === false && r.club[1] === true,
-      '  from three up his gun reaches 3 tiles further and he sees 3 further; no club reaches him across three storeys (across one, it does)', JSON.stringify({ reach: r.reach, sight: r.vis, club: r.club }));
+    const HA = ctx.DB.ours.height_is_accuracy.value;
+    leg(tableOk && r.found && r.lv === 3 && r.up[0] - r.up[1] === 3 * HA.above_per_storey && /above/.test(r.up[2]) && r.below[1] - r.below[2] === 3 * HA.below_per_storey,
+      '*** ITEM 14: A ROOF STANDS AT ITS STOREYS: FROM THREE UP +' + 3 * HA.above_per_storey + '% TO HIT, FROM THE STREET AT HIM ' + 3 * HA.below_per_storey + '% (rule 321: a storey at a time) ***', JSON.stringify({ seed: r.seed, at: r.at, level: r.lv, up: r.up, below: r.below, kinds: r.kinds }));
+    leg(r.found && r.reach[0] - r.reach[1] === 3 && r.vis[0] - r.vis[1] === 3 && r.club[0] === true && r.club[1] === true && r.clubCh[0] - r.clubCh[1] === 2 * HA.below_per_storey,
+      '  from three up his gun reaches 3 tiles further and he sees 3 further; a club beside him reaches him across three storeys as across one, ' + -2 * HA.below_per_storey + ' points less often (rule 321)', JSON.stringify({ reach: r.reach, sight: r.vis, club: r.club, clubChance: r.clubCh }));
   }
   /* 8: shown, on the page */
   {
@@ -237,7 +240,8 @@ const red = t => /^rgba\(208, 48, 32/.test(t), green = t => /^rgba\(46, 160, 67/
     let said = '', tag = '';
     if (tap) { await p.touchscreen.tap(tap.X, tap.Y); await p.waitForTimeout(250);
       said = await p.evaluate(() => document.getElementById('say').textContent); tag = await p.evaluate(() => document.getElementById('pick').innerText.replace(/\s+/g, ' ')); }
-    leg(/up: \+10% to hit anyone lower, guns reach \d+ tiles? farther, sees \d+ tiles? farther/.test(w.heightSay) && /From \d+ up: \+10%/.test(w.above.replace(/<[^>]+>/g, '')) && /He is \d+ up: -\d+%/.test(w.below.replace(/<[^>]+>/g, '')) && (!tap || (/up: \+10%/.test(said) && / UP/.test(tag))),
+    const aboveM = w.above.replace(/<[^>]+>/g, '').match(/From (\d+) up: \+(\d+)%/);   /* rule 321: +10 a storey */
+    leg(/up: \+10% to hit for each storey down, guns reach \d+ tiles? farther, sees \d+ tiles? farther, a club beside him still swings, at -10% a storey/.test(w.heightSay) && aboveM && +aboveM[2] === 10 * +aboveM[1] && /He is \d+ up: -\d+%/.test(w.below.replace(/<[^>]+>/g, '')) && (!tap || (/up: \+10%/.test(said) && / UP/.test(tag))),
       '  what it gives, said: on the tile he taps, on the walk\'s tag, and in the aim both ways', JSON.stringify({ tile: w.heightSay, tapped: tap ? said + ' | ' + tag : 'no roof in reach', above: w.above.replace(/<[^>]+>/g, '').slice(0, 140), below: w.below.replace(/<[^>]+>/g, '').slice(0, 140) }));
     /* a tap on a wall */
     const wall = await p.evaluate(() => { const S = FIGHT.S; for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (FIGHT.rowAt(x, y) === 'obstacles') { const X = sx((x + .5) * FIGHT_UI.tw), Y = sy((y + .6) * FIGHT_UI.th); if (X > 20 && X < W - 20 && Y > 20 && Y < H - BOTH - 20) return { X, Y }; } return null; });

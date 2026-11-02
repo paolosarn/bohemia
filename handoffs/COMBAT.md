@@ -1,5 +1,26 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 4 11/2 (brief from the coordinator: rules 321, 322, ask lines 318, 319). SHIPPED (BUILD 11/3zg), NOT YET SEEN:
+1. HEIGHT IS ACCURACY, NEVER A WALL: a man on the next tile can always be struck in melee and always holds his zone of control,
+   whatever the storeys; each storey is +10 to hit for the man above, -10 for the man below, blows and shots alike
+   (ours.height_is_accuracy, draft; the library rows kept). The roof tap and the aim say it. 16 walled turns -> 0.
+2. NO WOLF ON A ROOF: a beast's sheet or ours.climbers.never_climb never steps onto a roof (walk, far walk, step aside, shove,
+   deal, hunt). Wolves on a roof in 8 of 30 fights -> 0.
+3. AUTO FINDS A SHOT: his shooter with no shot grades every tile he can walk to: a shot this turn first (out of a club's reach
+   first; the shotgun takes its one man's ring), else a shot next turn (holds if his own tile gives one); then chance x band,
+   danger (clubs that can stand beside it next turn), storeys, cover, the walk (ours.auto_finds_a_shot, ai.json crew
+   finds_a_shot). The climb takes the roof tile fewest clubs can reach. Clubs walk to the man they can drop. Shooter ended with
+   no shot when a tile gave one 89 -> 0; idle when a step gave a hit next turn 110 -> 0; fought wins up vs raiders, robots,
+   bosses; brain speed unchanged (6.5 s vs 6.7 s for 40 fights).
+Gate gates/auto_plays_smart_gate.js (7/7; the old fight fails 5). Probe tools/bohemia_combat_auto_plays_smart_probe_11_2_26.js
+(--wall, --dumb, --climb, --kinds). Amended to the ruling: the_pc_playtest item 14, every_man_has_a_job J4 floor 158,
+auto_kills_one_at_a_time F7 pairs against banks/BOHEMIA_COMBAT_FOUR_BEFORE_ON_RULE_321_11_2_26.json.
+records/BOHEMIA_COMBAT_HEIGHT_IS_ACCURACY_AND_AUTO_PLAYS_SMART_11_2_26.md.
+NEXT: EYES on a phone; TUNING the storey numbers and the wolves (1 of 30 won; before 7, 5 of them wolves giving up on an
+unreachable roof); a ladder-only climb if he wants it; the job_tells_the_truth gate not judged (ran past 25 minutes under load).
+[bb] ai_engage_ranged scores tiles by range, line of fire, a visible tile, PotentialDanger; height +10 once above, -10 a level below, melee walled at 2 (ours: no wall, +10 a storey).
+[analog horror] nothing new drawn; the storeys' points print on the aim's torn receipt paper; a wolf pacing the foot of a wall under a man on a roof.
+
 COMBAT 3 11/2 (brief from the coordinator: rules 312 to 314, ask lines 305 to 307, 223, 225). SHIPPED (BUILD 11/3x), NOT YET SEEN:
 1. EVERY ABILITY SHOWS WHERE IT LANDS: a hurt tag (chance, -health) over every man a picked blow will catch; Round Swing and Thresh
    light their eight tiles and tag every man the moment the square is armed; arcs and lines light every reachable tile dim, faint

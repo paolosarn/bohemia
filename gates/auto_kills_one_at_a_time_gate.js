@@ -30,11 +30,18 @@
       go to him; and per lesson, the share of fair blows on men of that kind, beside the old brain's;
    F7 wins and clean wins (nobody of ours down) no worse than the old brain on the same fights (201(g)(4)), fight by fight:
       the fights the change lost may not outnumber those it gained beyond chance (the sign test, 95 in 100).
-   Run: node gates/auto_kills_one_at_a_time_gate.js [--n 100] [--jobs 4] [--before] [--by] */
+      AMENDED 11/2 (COMBAT 4, rule 321 HEIGHT IS ACCURACY, NEVER A WALL): the old brain's bank was played where a man two storeys
+      up could not be clubbed, and fights the other side broke off for that were wins; under his ruling those fights are fought.
+      F7 now pairs the fights against the brain as it stood before COMBAT 4, played on rule 321's rules (BANK_321, written with
+      --before321 while ours.auto_finds_a_shot's switch ai.json crew finds_a_shot was off); the old bank's counts stay beside it.
+      Measured 11/2 on these 100: the old bank 84 won; on rule 321 the brain before COMBAT 4 78, AUTO PLAYS SMART 77; under the
+      library's wall AUTO PLAYS SMART 81 (clean 56 against 53).
+   Run: node gates/auto_kills_one_at_a_time_gate.js [--n 100] [--jobs 4] [--before] [--before321] [--by] */
 'use strict';
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const BANK = path.join(ROOT, 'banks/BOHEMIA_COMBAT_TWO_AUTO_FOCUS_10_25_26.json');
+const BANK_321 = path.join(ROOT, 'banks/BOHEMIA_COMBAT_FOUR_BEFORE_ON_RULE_321_11_2_26.json');
 let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
 const done = () => { console.log('=== AUTO KILLS ONE AT A TIME GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
@@ -203,11 +210,18 @@ function fightList(B, districts) {
      about one fight in fifteen flips each way between two brains as good as each other): wins and clean wins are 'no worse' when
      the fights the change lost do not outnumber the ones it gained by more than chance allows (the sign test at 95 in 100,
      1.96 x the root of the flips); the plain counts beside it */
-  const ob = {}; old.forEach(x => { ob[x.k] = x; });
+  if (argv.includes('--before321')) {
+    fs.writeFileSync(BANK_321, JSON.stringify({ draft: true, _readme: 'COMBAT 4 (rule 321): the brain before COMBAT 4 (ai.json crew finds_a_shot off) on rule 321\'s rules (a club reaches across any storey), on gates/auto_kills_one_at_a_time_gate.js\'s fights; F7 pairs against it. Per fight: k, set, result, clean.', at: '11/2',
+      fights: fights.map(x => ({ k: x.k, set: x.set, faction: x.faction, company: x.company, result: x.result, clean: x.clean })) }) + '\n');
+    console.log('wrote ' + path.relative(ROOT, BANK_321));
+  }
+  const b321 = fs.existsSync(BANK_321) ? JSON.parse(fs.readFileSync(BANK_321, 'utf8')).fights.filter(x => want.has(x.k)) : null;
+  const ob = {}; (b321 || old).forEach(x => { ob[x.k] = x; });
+  const b321won = b321 ? b321.filter(x => x.set === 'main' && x.result === 'won').length : null, b321clean = b321 ? b321.filter(x => x.set === 'main' && x.clean).length : null;
   const flips = (f) => { let lost = 0, gained = 0; main.forEach(x => { const o = ob[x.k]; if (!o) return; const a = f(o), b = f(x); if (a && !b) lost++; if (!a && b) gained++; }); return { lost, gained, ok: lost - gained <= 1.96 * Math.sqrt(lost + gained) }; };
   const fw = flips(x => x.result === 'won'), fc = flips(x => !!x.clean);
-  leg(fw.ok && fc.ok, '*** F7 WINS AND CLEAN WINS NO WORSE *** (201(g)(4)), fight by fight on the same seeds',
-    'won ' + now.won + ', clean ' + now.clean + ', stalled ' + now.stalled + ' of ' + now.n + ' (the old brain: won ' + before.won + ', clean ' + before.clean + ', stalled ' + before.stalled + '); wins lost ' + fw.lost + ' gained ' + fw.gained + ', clean lost ' + fc.lost + ' gained ' + fc.gained + '; the lesson fights: won ' + read(all.filter(x => x.set === 'lesson')).won + ' of ' + (all.length - main.length) + ' (old ' + read(old.filter(x => x.set === 'lesson')).won + ')');
+  leg(fw.ok && fc.ok, '*** F7 WINS AND CLEAN WINS NO WORSE *** (201(g)(4)), fight by fight on the same seeds' + (b321 ? ', against the brain before COMBAT 4 on rule 321\'s rules' : ''),
+    'won ' + now.won + ', clean ' + now.clean + ', stalled ' + now.stalled + ' of ' + now.n + (b321 ? ' (before COMBAT 4 on rule 321: won ' + b321won + ', clean ' + b321clean + ')' : '') + ' (the old brain\'s bank, before rule 321: won ' + before.won + ', clean ' + before.clean + ', stalled ' + before.stalled + '); wins lost ' + fw.lost + ' gained ' + fw.gained + ', clean lost ' + fc.lost + ' gained ' + fc.gained + '; the lesson fights: won ' + read(all.filter(x => x.set === 'lesson')).won + ' of ' + (all.length - main.length) + ' (old ' + read(old.filter(x => x.set === 'lesson')).won + ')');
   console.log('  (counts: blows ' + now.blows + ' at ' + now.chance.toFixed(1) + '% mean, ' + now.landed + ' landed, ' + now.kills + ' of theirs dead, ' + now.ourDown + ' of ours down, ' + now.allRounds + ' rounds in all; the old brain ' + before.blows + ' at ' + before.chance.toFixed(1) + '%, ' + before.landed + ' landed, ' + before.kills + ' dead, ' + before.ourDown + ' of ours down, ' + before.allRounds + ' rounds)');
   fights.filter(x => x.stall).forEach(x => console.log('  STALLED ' + x.k + ' ' + x.faction + ' x' + x.company + ' r' + x.stall.round + ': ours ' + x.stall.you + ' | theirs ' + x.stall.them));
   leg(!errs.length, 'nothing threw', errs.slice(0, 3).join(' | '));

@@ -21,7 +21,7 @@
       that ends with no blow and no step nearer: at most 1 in 100 of their turns (before 27.6%);
    J2 a melee man of his who never strikes in a fight of four rounds or more: under 5 in 100 (before 52 of 600);
    J3 TUNING's own crews (3, 6 and 12 men, three gear stages) the same as J1;
-   J4 and AUTO wins his crew's fights at least as often as before (170 of the 300 on the board rule 256 opened; 178 before it).
+   J4 and AUTO wins his crew's fights at least as often as before (158 of the 300 with rule 321's storeys, AMENDED 11/2; 170 on the board rule 256 opened; 178 before it).
    Run: node gates/every_man_has_a_job_each_turn_gate.js [--n 300] */
 'use strict';
 const path = require('path');
@@ -37,7 +37,13 @@ const BEFORE = { n: 300, won: 178, parked: 742, turns: 2689, never: 52, men: 600
    the count; the 603 clears the old floor scaled to 1,000, 593); the 300 read 178 then and 170 now. The floor is the new board's own, measured the same way the 178 was; the two
    points are COMBAT TWO's to win back (the AUTO brain, NOTEd) and TUNING's to weigh (the gap, NOTEd).
    records/BOHEMIA_COMBAT_THE_LINEUP_AND_AN_EARLY_RETREAT_10_26_26.md */
-const WON_FLOOR = { n: 300, won: 170 };
+/* J4 RE-AIMED 11/2 by rule 321 (COMBAT 4, HEIGHT IS ACCURACY, NEVER A WALL, Paolo 11/2): a club reaches a man on the next tile
+   whatever the storeys, so a man of his on a roof two storeys up is no longer out of every club's reach, and the fights the other
+   side used to break off for that (ours.auto_brain.standoff_rounds) are fought. Measured on these 300 (records/
+   BOHEMIA_COMBAT_HEIGHT_IS_ACCURACY_AND_AUTO_PLAYS_SMART_11_2_26.md): the library's wall and the old AUTO 179 won, 32 of them by the
+   other side giving up on an unreachable roof (147 fought); his ruling and the old AUTO 158 (13 by giving up); his ruling and AUTO
+   PLAYS SMART (rule 322) 161 (11, so 150 fought). The floor is his ruling's board with the brain before this round: 158. */
+const WON_FLOOR = { n: 300, won: 158 };
 
 (async () => {
   const B = require(path.join(ROOT, 'tools/bohemia_tuning_auto_brain.js'));
@@ -82,7 +88,7 @@ const WON_FLOOR = { n: 300, won: 170 };
   leg(his.never < his.men / 20, '  J2 a melee man of his who never strikes in a fight of four rounds or more: under 5 in 100', his.never + ' of ' + his.men + ' (' + pct(his.never, his.men) + '); before ' + BEFORE.never + ' of ' + BEFORE.men);
   leg(theirs.n >= N / 2 - 2 && theirs.parked <= theirs.turns / 100, '  J3 TUNING\'s own crews (3, 6 and 12 men, three gear stages): the same, at most 1 in 100',
     theirs.parked + ' of ' + theirs.turns + ' turns, ' + pct(theirs.parked, theirs.turns) + ' over ' + theirs.n + ' fights' + (theirs.ex.length ? ' (' + theirs.ex.join(', ') + ')' : '') + '; ' + (theirs.rooted || 0) + ' turns in a net, rooted');
-  leg(his.won >= Math.floor(WON_FLOOR.won * his.n / WON_FLOOR.n), '  J4 and AUTO wins his crew\'s fights at least as often as before', his.won + ' of ' + his.n + ' (before ' + WON_FLOOR.won + ' of ' + WON_FLOOR.n + ' on this board; ' + BEFORE.won + ' on the board before rule 256)');
+  leg(his.won >= Math.floor(WON_FLOOR.won * his.n / WON_FLOOR.n), '  J4 and AUTO wins his crew\'s fights at least as often as before', his.won + ' of ' + his.n + ' (before ' + WON_FLOOR.won + ' of ' + WON_FLOOR.n + ' on this board with rule 321; 170 before rule 321, 32 of its wins the other side giving up on an unreachable roof; ' + BEFORE.won + ' on the board before rule 256)');
   leg(errs.length === 0, 'nothing threw', errs.slice(0, 2).join(' | '));
   done();
 })().catch(e => { console.log('  FAIL the gate crashed: ' + e.message); fail++; done(); });

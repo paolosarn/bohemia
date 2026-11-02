@@ -525,6 +525,12 @@ const FIGHT = (function () {
     return !((T.not_roofs || {})[n] || []).some(function (q) { return q[0] === bx && q[1] === by; });
   }
   function passable(x, y) { return inBoard(x, y) && rowAt(x, y) !== 'obstacles' && !S.solid[y][x]; }
+  /* A WOLF NEVER ENDS UP ON A ROOF (COMBAT 4, rule 321, Paolo 11/2: 'a wolf somehow ended up on top of a roof... that's so
+     stupid'): a roof is climbed by a ladder or a wall's handholds; a man in a beast's sheet (ours.beast_looks) or of a kind in
+     ours.climbers.never_climb cannot, so a roof tile is no ground to him (a rise of bare ground still is). MEASURED before: wolves
+     stood on a roof in 8 of 30 wolf fights, every time by walking up it */
+  function cannotClimb(u) { const C = R('ours.climbers'); return !!u && ((!!u.beast && !C.beast_sheet_climbs) || C.never_climb.indexOf(u.kind) >= 0); }
+  function noRoof(u, x, y) { return !!u && isRoof(x, y) && cannotClimb(u); }
   function sightBlock(x, y) { return rowAt(x, y) === 'obstacles'; }
   /* what standing on a tile does, in his words (ours.ground_rows' say; empty where nothing changes) */
   function groundSay(x, y) { return inBoard(x, y) ? R('ours.ground_rows')[terrainAt(x, y)].say : ''; }
@@ -1709,7 +1715,9 @@ const FIGHT = (function () {
   function zocOn(u, x, y) {
     return foes(u).filter(function (f) {
       if (f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)) return false;   /* rule 103: a gun in his hands holds no ring */
-      if (Math.abs(level(f.x, f.y) - level(x, y)) >= R('zone_of_control.height_gap_breaks_zoc_levels')) return false;
+      /* HEIGHT IS ACCURACY, NEVER A WALL (COMBAT 4, rule 321, Paolo 11/2): the library's ring stops at two levels apart; his
+         ruling holds it across any storey (ours.height_is_accuracy.zone_any_storey) */
+      if (!R('ours.height_is_accuracy').zone_any_storey && Math.abs(level(f.x, f.y) - level(x, y)) >= R('zone_of_control.height_gap_breaks_zoc_levels')) return false;
       return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= R('zone_of_control.radius_hexes');
     });
   }
@@ -1731,6 +1739,7 @@ const FIGHT = (function () {
       DIRS.forEach(function (d) {
         const x = n.x + d[0], y = n.y + d[1];
         if (crosses(u) ? !inBoard(x, y) : (!passable(x, y) || squeezes(n.x, n.y, x, y, u))) return;   /* a ghost slips through walls (rule 134a) */
+        if (noRoof(u, x, y)) return;   /* rule 321: a wolf cannot climb a roof */
         /* WALK THROUGH YOUR OWN MEN, ALWAYS (rule 199; was rule 70's 'one of your own, never two'): through any of his own side's
            men, as many in a row as stand there, at the step's normal cost; never through an enemy; nobody stops on a friend's tile
            (NOBODY STANDS ON ANYBODY), and the brains, whose walk ends where a zone of control begins, never step onto one there */
@@ -1753,7 +1762,7 @@ const FIGHT = (function () {
       const n = q.shift();
       if ((n.x !== x || n.y !== y) && !unitAt(n.x, n.y)) return n;
       DIRS.forEach(function (d) { const a = n.x + d[0], b = n.y + d[1], o = unitAt(a, b);
-        if (!inBoard(a, b) || seen[b * S.w + a] || !passable(a, b) || squeezes(n.x, n.y, a, b, who) || (o && o.side !== who.side)) return;
+        if (!inBoard(a, b) || seen[b * S.w + a] || !passable(a, b) || squeezes(n.x, n.y, a, b, who) || (o && o.side !== who.side) || noRoof(who, a, b)) return;
         seen[b * S.w + a] = true; q.push({ x: a, y: b }); });
     }
     return null;
@@ -1801,6 +1810,7 @@ const FIGHT = (function () {
   /* a step a to b the finger's walk may take: on the board, not into a wall (a ghost aside), no squeeze, no man of theirs on either */
   function wayStep(u, a, b) {
     if (crosses(u) ? !inBoard(b.x, b.y) : (!passable(b.x, b.y) || squeezes(a.x, a.y, b.x, b.y, u))) return false;
+    if (noRoof(u, a.x, a.y) || noRoof(u, b.x, b.y)) return false;   /* rule 321 */
     const oa = unitAt(a.x, a.y), ob = unitAt(b.x, b.y);
     return !(oa && oa.side !== u.side) && !(ob && ob.side !== u.side);
   }
@@ -1888,7 +1898,9 @@ const FIGHT = (function () {
        one tile'; rule 83): a blow reaches the next tile only. Measured: the reach was the biggest digit in the weapon's range
        text, which carries the wiki's skill numbering ('1 (1) Slash 1-2 (2) Split 1 (3) Swing' read 3, an axe's '1/6' read 6) */
     if (!isRanged(w)) {
-      return d <= R('ours.melee_reach') && Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap');
+      /* HEIGHT IS ACCURACY, NEVER A WALL (COMBAT 4, rule 321, Paolo 11/2: 'it's not that you can never hit him, it's just more
+         inaccurate'): the next tile is always in reach, whatever the storeys between; the storeys move the chance (hitChance) */
+      return d <= R('ours.melee_reach') && (R('ours.height_is_accuracy').melee_any_storey || Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap'));
     }
     const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
     return d >= rangeLo(w) && d <= rangeMax(w.range) + up && sees(a, t);
@@ -1976,11 +1988,13 @@ const FIGHT = (function () {
     }
     const fa = PK(a, 'fast_adaptation');
     if (fa && a.missStack) { ch += fa.hit_chance_per_miss_pct * a.missStack; parts.push('reads you'); }
-    const la = level(a.x, a.y), lt = level(t.x, t.y);
-    if (la > lt) { ch += R('hit_chance.height.higher_attacker_bonus'); parts.push('above'); }
-    /* from below, the library's Hit Chance page: '-10% penalty to hit chance per level difference', a shot as much as a blow
-       (rule 164 item 14: a man two storeys up is twice as hard to hit from the street) */
-    if (la < lt) { ch += R('hit_chance.height.hit_chance_page_wording').lower_per_level * (lt - la); parts.push('below'); }
+    const la = level(a.x, a.y), lt = level(t.x, t.y), HA = R('ours.height_is_accuracy');
+    /* EACH STOREY IS ACCURACY (COMBAT 4, rule 321, Paolo 11/2: 'each story, from one to two to three, depending how high it is...
+       it's just accuracy, that's the math that's manipulated'): from above, above_per_storey for every storey (Battle Brothers'
+       +10 given once is the start; ours gives it a storey); from below, the library's Hit Chance page, '-10% penalty to hit chance
+       per level difference', a shot as much as a blow (rule 164 item 14: a man two storeys up is twice as hard to hit) */
+    if (la > lt) { ch += HA.above_per_storey * (la - lt); parts.push('above'); }
+    if (la < lt) { ch += HA.below_per_storey * (lt - la); parts.push('below'); }
     ch += rollShift(a);
     const cap = R('hit_chance.cap');
     return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
@@ -2459,7 +2473,7 @@ const FIGHT = (function () {
     const sx = Math.sign(t.x - u.x), sy = Math.sign(t.y - u.y);
     const tries = [[sx, sy]].concat(sx && sy ? [[sx, 0], [0, sy]] : sx ? [[sx, 1], [sx, -1]] : [[1, sy], [-1, sy]]);
     for (let i = 0; i < tries.length; i++) { const x = t.x + tries[i][0], y = t.y + tries[i][1];
-      if (inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !squeezes(t.x, t.y, x, y)) return { x: x, y: y }; }
+      if (inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !squeezes(t.x, t.y, x, y) && !noRoof(t, x, y)) return { x: x, y: y }; }
     return null;   /* nowhere to push */
   }
   function canShove(u, t) {
@@ -3129,9 +3143,9 @@ const FIGHT = (function () {
     return { mid: melee.length ? melee[Math.floor(melee.length / (1 + 1))] : null, front: melee.length ? melee[0] : null, all: all };
   }
   function heightGain(x, y, u, ranged) {
-    /* the library's bonus for higher ground is flat (+10 however many levels up), so the brain's is too: a three-storey roof is
-       not three times the prize (rule 164 item 14 made levels 2 and 3 real; the extra reach a level shows in who he can hit) */
-    const dl = level(x, y) - level(u.x, u.y), g = (dl > 0 ? 1 : dl < 0 ? -1 : 0) * R('hit_chance.height.higher_attacker_bonus');
+    /* EACH STOREY IS ACCURACY (COMBAT 4, rule 321): the hit chance moves a storey at a time both ways, so the brain's worth of a
+       height does too (the library's was flat, +10 however many levels up; ours.height_is_accuracy) */
+    const HA = R('ours.height_is_accuracy'), dl = level(x, y) - level(u.x, u.y), g = dl * (dl > 0 ? HA.above_per_storey : -HA.below_per_storey);
     /* THE ROOF (rule 176(f), TUNING s1c: 83% of the missed roofs failed only because the brain weighed THIS turn's shot): to
        AUTO's gunman a roof two storeys up is worth roof_steps steps of closing, while he still has a shot to fire from it (a man
        out of rounds has no reason to hold it: s5b point 4) */
@@ -3146,7 +3160,7 @@ const FIGHT = (function () {
     const d = {}; const q = [];
     /* a club counts a tile as beside a foe only where it can swing from it: the library's melee reach stops at one level of height
        (rule 164 item 14 made roofs two and three storeys up; a thug stood under a two-storey roof for forty rounds, measured) */
-    const club = !isRanged(u.weapon), gap = R('hit_chance.height.melee_max_height_gap');
+    const club = !isRanged(u.weapon) && !R('ours.height_is_accuracy').melee_any_storey, gap = R('hit_chance.height.melee_max_height_gap');   /* rule 321: any storey */
     /* AROUND HIS OWN MEN (rule 188(a), Paolo 10/25: 'one of my spear and car-door men was behind a house so he couldn't engage,
        just doing nothing'): a tile a man of his side stands on is reached but never walked through, as his feet cannot; measured
        10/25, a spear man two 'steps' from the fight through his friend's tile stood four rounds while the walk round the house
@@ -3160,7 +3174,7 @@ const FIGHT = (function () {
       const n = q.shift(), nd = d[key(n.x, n.y)];
       DIRS.forEach(function (o) {
         const x = n.x + o[0], y = n.y + o[1];
-        if (!passable(x, y) || squeezes(n.x, n.y, x, y, u) || d[key(x, y)] !== undefined) return;
+        if (!passable(x, y) || squeezes(n.x, n.y, x, y, u) || d[key(x, y)] !== undefined || noRoof(u, x, y)) return;
         if (club && nd === 0 && Math.abs(level(x, y) - level(n.x, n.y)) > gap) return;
         d[key(x, y)] = nd + 1; if (!busy[key(x, y)]) q.push({ x: x, y: y });
       });
@@ -3185,7 +3199,9 @@ const FIGHT = (function () {
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
       /* AUTO's gunman with no shot where he stands takes the roof even with no AP left to fire: he fires from it next turn */
-      const later = u.side === 'you' && hasShot(u) && !foes(u).some(function (t3) { return canStrike(u, t3); });
+      /* rule 322: never when another tile gives him the shot this turn (measured 11/2: the roof for next turn took 8 AP of 9 from
+         a crossbow whose one step to the side was a shot now) */
+      const later = u.side === 'you' && hasShot(u) && !foes(u).some(function (t3) { return canStrike(u, t3); }) && !(A.finds_a_shot && shotNowSomewhere(u));
       if (level(x, y) <= level(u.x, u.y) || (u.ap - f.best[k] < strikeAP && !later) || zocOn(u, x, y).length) return;
       /* THE UNDO VETO ON THE ROOF TOO (rule 176(b): 'never off and back'; measured 10/25: a rifleman stepped off his roof to hunt,
          found nothing, and the climb put him back the next turn with no shot either way): a turn he did nothing in began on this
@@ -3195,10 +3211,91 @@ const FIGHT = (function () {
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
       const ok = foes(u).some(function (t2) { return inRange(u, t2) && sideSees(u.side, t2); });
       u.x = ox; u.y = oy;
-      if (ok && -f.best[k] > bs) { bs = -f.best[k]; best = { x: x, y: y }; }
+      /* rule 322: AUTO's man takes the roof tile fewest of their clubs can stand beside next turn (a wolf cannot climb, so the
+         middle of a roof is out of its reach), then the shortest climb */
+      const sc = -f.best[k] - (u.side === 'you' && A.finds_a_shot ? dangerAt(u, x, y) * R('ours.auto_finds_a_shot').danger_per_foe : 0);
+      if (ok && sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     return !!(best && moveTo(u, best.x, best.y));
   }
+  /* AUTO FINDS A SHOT (COMBAT 4, rule 322, Paolo 11/2: 'with auto combat you want the characters to get into places where they
+     have the ability to hit the enemy... my sniper, my rifle character, ends his turn without trying to get to the best point of
+     view, a place with line of sight where he can shoot'). Battle Brothers' ranged brain (ai_engage_ranged, selectBestTargetTile:
+     the max range, the line of fire, a visible tile, the PotentialDanger list) and XCOM's movement profiles (cover, distance to
+     the enemy, the flank) grade every tile he can walk to; ours.auto_finds_a_shot holds the order and the weights. MEASURED before
+     (120 fights, tools/bohemia_combat_auto_plays_smart_probe_11_2_26.js): 89 turns a shooter of his ended with no shot while a
+     tile he could walk to gave one, held back by the line (shield_the_backline, hold_line) or standing at the fight's start.
+     shotFrom: his best shot (the hit chance times the band's damage share) on a man his side sees from x,y with ap (next: a turn later, a full turn's AP, the breath that
+     comes back, the gun loaded); -1 for none. Nothing on the board is left moved. */
+  function shotFrom(u, x, y, ap, next) {
+    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, loaded: u.loaded }, lurk = S.units.map(function (v) { return v.lurking; });
+    u.x = x; u.y = y; u.ap = ap;
+    if (next) { u.fat = Math.max(0, u.fat - R('fatigue.recovery_per_turn')); if (reloadSkill(u.weapon) && !u.weapon.mag) u.loaded = true; }
+    let best = -1;
+    /* the shot's worth: his chance times the share of the damage the gun's band gives at that distance (rule 187: the shotgun's
+       blow falls off with the distance, so its best tile is the next one; a rifle's band is already in its chance) */
+    try { foes(u).forEach(function (t) { if (canStrike(u, t) && sideSees(u.side, t)) { const bd = band(u, t); best = Math.max(best, hitChance(u, t, strikeSkill(u.weapon)).chance * (bd ? bd.dmg : 1)); } }); }
+    finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.loaded = keep.loaded; S.units.forEach(function (v, i) { v.lurking = lurk[i]; }); }
+    return best;
+  }
+  /* Battle Brothers' PotentialDanger: the clubs of theirs that could stand beside x,y next turn (their walk on the flat); a beast
+     that cannot climb (rule 321) none at a roof tile with no ground beside it */
+  function dangerAt(u, x, y) {
+    const flat = R('ap.move_cost.flat'), there = { x: x, y: y };
+    const ground = !isRoof(x, y) || DIRS.some(function (d) { return inBoard(x + d[0], y + d[1]) && !isRoof(x + d[0], y + d[1]) && passable(x + d[0], y + d[1]); });
+    return foes(u).filter(function (fo) {
+      if (isRanged(fo.weapon) || fo.morale === 'Fleeing' || fo.stunned || (cannotClimb(fo) && !ground)) return false;
+      return dist(fo, there) - 1 <= Math.floor(fo.apTurn / flat);
+    }).length;
+  }
+  /* the worth of a vantage inside its kind: his best shot from it, the clubs that could stand beside it next turn, the storeys, the
+     cover, the AP walked (ours.auto_finds_a_shot) */
+  function vantageWorth(u, x, y, cost, shot) {
+    const V = R('ours.auto_finds_a_shot');
+    return shot - dangerAt(u, x, y) * V.danger_per_foe + level(x, y) * V.safety_per_storey + coverDef({ x: x, y: y }, 'ranged_defense') * V.cover_share + cost * V.ap_spent;
+  }
+  /* the best vantage he can walk to this turn: { x, y, kind } to walk to, 'stay' when the tile he stands on gives the shot next turn
+     and no tile gives one now, or null when no tile is a vantage (he closes on the fight as before). By kind first
+     (ours.auto_finds_a_shot.order): every tile is tried for a shot NOW before any for a shot next turn, so the second pass runs only
+     when the first finds none; a tile no gun of his could reach a man from is never tried; one answer a step (the climb asks too).
+     nowOnly: only a shot this turn is asked. */
+  function vantage(u, nowOnly) {
+    if (!hasShot(u) || u.netted) return null;
+    const key = S.round + '|' + S.log.length + '|' + u.x + ',' + u.y + '|' + u.ap, c = u._vantage;
+    if (c && c.key === key && (c.full || nowOnly)) return c.v;
+    const V = R('ours.auto_finds_a_shot'), w = u.weapon, strikeAP = skillAP(w, strikeSkill(w), u), L = R('board.height_levels');
+    const f = reach(u), struck = S.log.slice(u.turnLog || 0).some(function (e) { return e.id === u.id && e.t === 'attack' && !e.free; });
+    const fs = foes(u), far = rangeMax(w.range) + L[L.length - 1] * R('hit_chance.height.ranged_range_per_level');
+    const tiles = [];
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if ((x === u.x && y === u.y) || !fs.some(function (t) { return Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) <= far; })) return;
+      tiles.push({ x: x, y: y, cost: f.best[k] });
+    });
+    const done = function (v, full) { u._vantage = { key: key, v: v, full: full }; return v; };
+    /* the first pass: a shot this turn, out of their reach first, beside a club of theirs only when nothing else gives one */
+    let best = null, br = -1, bw = -Infinity;
+    tiles.forEach(function (q) {
+      const left = u.ap - q.cost; if (left < strikeAP) return;
+      const now = shotFrom(u, q.x, q.y, left, false); if (now < 0) return;
+      /* the shotgun closes in (rule 187(d)): the ring of the one man beside him is where its shot is best; two rings are a ring */
+      const ring = zocOn(u, q.x, q.y).length, kind = ring > (wantsClose(w) ? 1 : 0) ? 'shot_now_in_a_ring' : 'shot_now', rank = V.order.length - V.order.indexOf(kind), wv = vantageWorth(u, q.x, q.y, q.cost, now);
+      if (rank > br || (rank === br && wv > bw)) { br = rank; bw = wv; best = { x: q.x, y: q.y, kind: kind }; }
+    });
+    if (best || nowOnly || struck) return done(best, !nowOnly || !!best || struck);
+    /* the second pass: a shot next turn; from where he stands, and he holds (no dance inside a turn) */
+    if (!zocOn(u, u.x, u.y).length && shotFrom(u, u.x, u.y, u.apTurn, true) >= 0) return done('stay', true);
+    tiles.forEach(function (q) {
+      if (zocOn(u, q.x, q.y).length) return;
+      /* the undo veto (rule 176(b)): never back to where an idle turn began, nor to this turn's start, for a shot next turn */
+      if ((u.lastTurn && !u.lastTurn.acted && q.x === u.lastTurn.x && q.y === u.lastTurn.y) || (u.turnFrom && q.x === u.turnFrom.x && q.y === u.turnFrom.y)) return;
+      const later = shotFrom(u, q.x, q.y, u.apTurn, true); if (later < 0) return;
+      const wv = vantageWorth(u, q.x, q.y, q.cost, later);
+      if (wv > bw) { bw = wv; best = { x: q.x, y: q.y, kind: 'shot_next_turn' }; }
+    });
+    return done(best, true);
+  }
+  function shotNowSomewhere(u) { const v = vantage(u, true); return !!v && v !== 'stay' && v.kind !== 'shot_next_turn'; }
   /* THE SHOTGUN STEPS IN (COMBAT [every weapon's range bands], rule 187(d): 'a shotgunner closes in, a rifleman keeps his
      distance'): AUTO's man with a gun whose damage falls off with the distance, his best shot two tiles or more away, takes the
      tile beside that man first when he can still fire from it this turn and the shot there is worth a fifth more (the band's
@@ -3298,6 +3395,14 @@ const FIGHT = (function () {
     }
     /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
     if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { if (aiLast(u)) return true; endTurn(u); return false; }
+    /* AUTO FINDS A SHOT (COMBAT 4, rule 322): his shooter with no shot where he stands walks to the best tile that gives one (this
+       turn first, else next turn), past the line's vetoes below (the line held his rifle back from the one step that gave a shot);
+       a shot next turn from where he stands, and he holds */
+    if (u.side === 'you' && ranged && A.finds_a_shot) {
+      const vg = vantage(u);
+      if (vg === 'stay') { endTurn(u); return false; }
+      if (vg && moveTo(u, vg.x, vg.y)) return true;
+    }
     if (ranged && (A.stand_and_shoot && !A.advance) && foes(u).some(function (f) { return sideSees(u.side, f) && dist(u, f) <= rangeMax(w.range); })) {
       /* the backline holds while something is in its range; it steps only to find a line */
     }
@@ -3318,6 +3423,8 @@ const FIGHT = (function () {
       const ghost = { x: x, y: y, side: u.side, weapon: w };
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
       const tgts = foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)); });
+      /* rule 322: AUTO's club walks to the man he can drop (the share of him one blow takes, at most all of him) */
+      const tv = u.side === 'you' && !ranged && tgts.length ? Math.min(1, Math.max.apply(null, tgts.map(function (t2) { return expected(u, t2); }))) : 0;
       u.x = ox; u.y = oy;
       let sc;
       /* V1, CAN I ACT FROM THERE (TUNING s5a): to AUTO a tile is a shooting tile only when everything a shot asks is there: the
@@ -3332,6 +3439,7 @@ const FIGHT = (function () {
           sc += (pal - foe) * R('hit_chance.surround.per_extra_adjacent');
         }
         if (A.surround) sc += tgts.reduce(function (m, t2) { return Math.max(m, friends(u).filter(function (fr) { return dist(fr, t2) === 1; }).length); }, 0);
+        if (tv) sc += R('ours.auto_finds_a_shot').club_target_weight * tv;
         /* rule 187(d): a rifleman keeps his distance; a gun whose damage falls off with it (the shotgun) closes in */
         if (ranged) sc += (wantsClose(w) ? -1 : 1) * Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
       } else {
@@ -4434,14 +4542,15 @@ function armName(v, arm) {
    round went into the piece he stands behind). The words are drafts for WORDS (draft:true). */
 const CLASS_SAYS = { outclass: 'OUTCLASSES YOU', dodge: 'DODGES', armour: 'ARMOUR' };   /* draft:true */
 /* WHAT A HEIGHT GIVES, IN WORDS (rule 164 item 14): on the tile he taps and in the aim; every number the rules' own */
-const HEIGHT_SAYS = { roof: 'Roof, {n} up: ', rise: 'High ground, {n} up: ', gives: '+{bonus}% to hit anyone lower, guns reach {reach} farther, sees {sight} farther',
-  noclub: ', no club reaches him from the street', wall: 'A wall. No way up: climb a roof with a ladder.', house: 'A building, {n} high: its roof is high ground.', ladder: 'Climb it by its ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
+const HEIGHT_SAYS = { roof: 'Roof, {n} up: ', rise: 'High ground, {n} up: ', gives: '+{bonus}% to hit for each storey down, guns reach {reach} farther, sees {sight} farther',
+  noclub: ', no club reaches him from the street', club: ', a club beside him still swings, at -{pen}% a storey', wall: 'A wall. No way up: climb a roof with a ladder.', house: 'A building, {n} high: its roof is high ground.', ladder: 'Climb it by its ladder.', above: 'From {n} up: <b>+{bonus}%</b>{reach}.', below: 'He is {n} up: <b>-{pen}%</b>.' };   /* draft:true */
 function heightSay(x, y) {
   const n = FIGHT.level(x, y); if (!n) return '';
   const st = n + (n > 1 ? ' storeys' : ' storey');
   return wfill(FIGHT.isRoof(x, y) ? HEIGHT_SAYS.roof : HEIGHT_SAYS.rise, { n: FIGHT.isRoof(x, y) ? st : n }) +
-    wfill(HEIGHT_SAYS.gives, { bonus: R('hit_chance.height.higher_attacker_bonus'), reach: n * R('hit_chance.height.ranged_range_per_level') + (n * R('hit_chance.height.ranged_range_per_level') > 1 ? ' tiles' : ' tile'), sight: n * R('ours.sight').per_level + (n * R('ours.sight').per_level > 1 ? ' tiles' : ' tile') }) +
-    (n > R('hit_chance.height.melee_max_height_gap') ? HEIGHT_SAYS.noclub : '') + '.';
+    wfill(HEIGHT_SAYS.gives, { bonus: R('ours.height_is_accuracy').above_per_storey, reach: n * R('hit_chance.height.ranged_range_per_level') + (n * R('hit_chance.height.ranged_range_per_level') > 1 ? ' tiles' : ' tile'), sight: n * R('ours.sight').per_level + (n * R('ours.sight').per_level > 1 ? ' tiles' : ' tile') }) +
+    /* rule 321: a club always reaches the next tile, the storeys only cost it accuracy (the library's wall kept for a mod that turns it back on) */
+    (R('ours.height_is_accuracy').melee_any_storey ? wfill(HEIGHT_SAYS.club, { pen: -R('ours.height_is_accuracy').below_per_storey }) : n > R('hit_chance.height.melee_max_height_gap') ? HEIGHT_SAYS.noclub : '') + '.';
 }
 /* the tag over a missed man carries a mark, never a word (rule 46f: numbers only on the ground): he slipped it, or it hit his cover */
 const MISS_MARK = { dodged: '\u2194', cover: '\u25AE' };
@@ -4608,8 +4717,8 @@ function aimLines(u, t) {
   if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
   out.push('<b>' + p.chance + '%</b> to hit. A hit: <b>-' + p.hp + '</b> health, <b>-' + p.armour + '</b> armour.');
   const la = FIGHT.level(u.x, u.y), lt = FIGHT.level(t.x, t.y);
-  if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('hit_chance.height.higher_attacker_bonus'), reach: FIGHT.isRanged(u.weapon) ? ', reach +' + (la - lt) * R('hit_chance.height.ranged_range_per_level') : '' }));
-  if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('hit_chance.height.hit_chance_page_wording').lower_per_level * (lt - la) }));
+  if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('ours.height_is_accuracy').above_per_storey * (la - lt), reach: FIGHT.isRanged(u.weapon) ? ', reach +' + (la - lt) * R('hit_chance.height.ranged_range_per_level') : '' }));
+  if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('ours.height_is_accuracy').below_per_storey * (lt - la) }));
   /* rule 187(c): the band's effect where he aims, the rules' own numbers */
   const bd = FIGHT.band(u, t);
   if (bd && bd.hit < 0) out.push(wfill(BAND_SAYS.close, { arm: armName(u, u.weapon), n: -bd.hit }));
