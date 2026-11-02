@@ -9807,6 +9807,13 @@ GATES = [
      "400 trips, a tap's route and PLAY's, cut no corner and lose no reachable block; the old search turns it red; on the 1.22x "
      "clock's own step times the picture holds one speed (top under 1.6 times its median, never still mid-journey, no frame past a "
      "tenth of a block; the old glide 11 times), turns back where it is, eases in and out, cuts a far jump. the city file, about 30 s", False),
+    ('THE MOMENTS BETWEEN', ['node', 'gates/the_moments_between_gate.js'],
+     "WORLD gate, 11/2, ask line 273 (Paolo 11/2: 'The transition of the camp to when time passes by and an enemy wants to attack you, "
+     "it's just like sloppy quick bullshit... less choppy... less AI slop'): on the demo at phone size, every drawn frame: making camp "
+     "is made at once and its screen comes up eased over 3 beats; breaking camp is over at once and its last picture fades over the moment's "
+     "2 beats with the hours rolled; a crew reaching the camp has the card up that tick, the camp's screen gone over two beats, the card eased "
+     "whole by 3 beats and the dark holding while it stands; FALL BACK opens it and ENGAGE closes it in a beat; no frame steps over a "
+     "fifth; a tap skips and never walks him. the city file, about 60 s", False),
     ('MEET BEFORE YOU FIGHT', ['node', 'gates/meet_before_you_fight_gate.js'],
      "RUN gate, 10/25 (rule 151(e)), and 10/26 [eyes: the meet card's men] (rule 198(g)): a walk into a party stops on a card with "
      "who and the ground, FALL BACK and ENGAGE by a finger; a beast meet by day names them as beasts at the count that stands, never "

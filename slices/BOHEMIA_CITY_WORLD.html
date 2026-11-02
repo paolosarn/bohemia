@@ -45861,6 +45861,8 @@ function campMake(){
     if (LOOP.ready) campPost();
   }
   clearInterval(CAMP.timer); CAMP.timer = setInterval(campHour, 500);
+  CAMP.min0 = T.day * 1440 + T.min;   /* __THE_MOMENTS_BETWEEN__: the hour he sat down, for the tape's clock when he gets up */
+  if (!inTown) try{ btwCampIn(); }catch(_e){}   /* __THE_MOMENTS_BETWEEN__: the light goes down, the fire catches, the camp comes up */
   try{ if (typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Made camp.', 'camp'); }catch(_e){}   /* draft:true */
   window.__CAMP = { made: (window.__CAMP && window.__CAMP.made | 0) + 1, on: true, town: CAMP.town ? CAMP.town.name : null };
   try{ campBtnPaint(); }catch(_e){}
@@ -45871,6 +45873,8 @@ function campBreak(why, say){
   CAMP.on = false; clearInterval(CAMP.timer); CAMP.timer = null; CAMP.why = why || null;
   var wasTown = CAMP.town ? CAMP.town.name : null; CAMP.town = null;   /* __A_TOWN_IS_SAFE__: a rest in a town leaves him in the town */
   try { if (typeof meetCampBroke === 'function') meetCampBroke(why || 'left'); } catch (_e) {}   /* RUN __MAKE_CAMP_NEARBY__: camped before a still enemy, he walks back into them and the card asks */
+  var __btw = !!(LOOP.open && LOOP.open.camp && LOOP.frame && LOOP.frame.style.display === 'block');   /* __THE_MOMENTS_BETWEEN__ */
+  if (__btw) try{ btwCampOut(why); }catch(_e){}   /* __THE_MOMENTS_BETWEEN__: the camp goes (its last picture, taken before it shuts), the hours roll on the tape, the light comes back */
   if (LOOP.open && LOOP.open.camp) loopClose();
   campSync();
   if (say) try{ loopSay(say); }catch(_e){}
@@ -46009,6 +46013,226 @@ window.addEventListener('keydown', function(e){
 });
 window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
 /* ==== /__THE_CAMP__ ==== */
+/* ==== __THE_MOMENTS_BETWEEN__ (WORLD round 2, ask line 273, Paolo 11/2: 'The transition of the camp to when time passes by and an
+   enemy wants to attack you, it's just like sloppy quick bullshit... I want things to look less choppy... less AI slop'). MEASURED
+   BEFORE on the demo at phone size, frame by frame (records/BOHEMIA_WORLD_THE_MOMENTS_BETWEEN_11_2_26.md): the camp screen came on in
+   ONE frame (21 percent of the whole picture changed between two frames, half the screen), went off the same way, and the meet card
+   hit in one frame over the camp. NOW three moments on the map, each whole beats of 120 BPM, each one a tap skips (the skipping tap is
+   eaten: it never walks him):
+   MAKE CAMP (3 beats): the light goes down round him, his fire catches at the marker with its embers, the tape rolls once, the
+     camcorder clock comes up in the corner, and the camp screen comes up over the last two beats.
+   BREAK CAMP (2 beats): the camp screen goes over both, the clock runs the hours he rested up to now (DAY d HH:MM, +N H), the fire
+     dies and the light comes back; the world walks again.
+   THEY COME (2 beats on the road, 3 from a camp): the camp screen goes over the first two, the dark closes red round him and them, a ring goes off on
+     them on each beat, the card comes up over the last beat and the dark holds while it stands. ENGAGE closes it to black in one beat
+     under the fight's own dust (the shell's veil); FALL BACK and CAMP NEARBY open it again in one beat.
+   Battle Brothers first: there a camp is the party sitting down on the map while the clock runs fast, and an attack is a party you
+   SAW coming (here its plate says COMING FOR YOU) whose card stops the screen. Analog horror: the veil is the tape's own dark with
+   scanlines and one tracking roll, the clock is the camcorder's, the colours bleed a pixel. THE LOGIC NEVER WAITS: the camp, the card
+   and the fight change state on the frame they always did, so everything that reads them reads what it always read; only the
+   picture is eased (a camp screen going is one copy of its last picture: the real one shuts and lets go on the frame it always did). ==== */
+var BETWEEN = { cv: null, m: null, raf: 0, eat: 0, held: 0, log: [] };
+function btwE(t){ t = t < 0 ? 0 : (t > 1 ? 1 : t); return .5 - .5 * Math.cos(Math.PI * t); }   /* sine in and out: its steepest is half the cubic's, so a slow phone's frame steps less */
+function btwL(a, b, t){ return a + (b - a) * t; }
+function btwCanvas(){
+  if (BETWEEN.cv) return BETWEEN.cv;
+  var c = document.createElement('canvas'); c.id = 'between';
+  c.setAttribute('style', 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:59;pointer-events:none;display:none;image-rendering:pixelated');
+  document.body.appendChild(c);
+  ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mousedown', 'mouseup', 'click'].forEach(function(t){ window.addEventListener(t, btwTap, true); });
+  BETWEEN.cv = c; return c;
+}
+/* a block on the glass, in css pixels: the map's own iso and the offset its last frame drew at */
+function btwAt(gx, gy){
+  try { var o = window.__MAP_OXY, r = cv.getBoundingClientRect(), k = r.width / (CVW || r.width || 1);   /* the map draws in css pixels (cvSize's setTransform) */
+    if (o) { var p = iso(gx, gy, o.ox, o.oy); return { x: r.left + p.sx * k, y: r.top + (p.sy + TH / 2) * k }; } } catch (_e) {}
+  return { x: (window.innerWidth || 390) / 2, y: (window.innerHeight || 844) * 0.45 };
+}
+function btwClock(min){ min = Math.max(0, Math.round(min)); var d = Math.floor(min / 1440), m = min % 1440;
+  return 'DAY ' + d + '  ' + ('0' + ((m / 60) | 0)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); }
+/* the camp's screen: shown by the logic, eased by the picture */
+function btwFrame(){ return LOOP.frame || document.getElementById('settleFrame'); }
+function btwFrameRest(){ var f = btwFrame(); if (!f) return; f.style.opacity = ''; f.style.pointerEvents = ''; }
+/* GOING, THE SCREEN IS ITS LAST PICTURE. MEASURED twice (the record): kept on the glass past its close, the town screen lets go of its
+   pictures the moment the map marks it shut (__THE_TOWN_LETS_GO__, the iPhone's memory, which stays) and the phone gives the map its
+   band back (736 -> 844 px), so the camp's screen redrew itself small on black in one frame, 33 to 36 percent of the picture. So the
+   screen shuts on the frame it always did, and what fades is one copy of its picture taken just before, let go when the fade ends. */
+function btwSnap(){
+  var f = btwFrame(); if (!f || f.style.display !== 'block') return null;
+  try {
+    var doc = f.contentDocument, src = doc && doc.getElementById('cv'); if (!src || !src.width) return null;
+    var fr = f.getBoundingClientRect(), r = src.getBoundingClientRect(); if (!r.width || !fr.width) return null;
+    var q = src.width / r.width, s = document.createElement('canvas'); s.id = 'betweensnap';
+    s.width = Math.round(fr.width * q); s.height = Math.round(fr.height * q);
+    var x = s.getContext('2d'); x.fillStyle = '#000'; x.fillRect(0, 0, s.width, s.height); x.drawImage(src, Math.round(r.left * q), Math.round(r.top * q));
+    s.setAttribute('style', 'position:fixed;left:' + fr.left + 'px;top:' + fr.top + 'px;width:' + fr.width + 'px;height:' + fr.height + 'px;z-index:60;pointer-events:none;opacity:1');
+    document.body.appendChild(s); return s;
+  } catch (_e) { return null; }
+}
+function btwSnapGone(o){ if (!o || !o.snap) return; try { o.snap.remove(); o.snap.width = 0; o.snap.height = 0; } catch (_e) {} o.snap = null; }
+function btwStart(kind, o){
+  btwFinish();
+  var dur = { campIn: 3, campOut: 2, come: (o && o.fromCamp) ? 3 : 2, engage: 1, release: 1 }[kind] * BEAT;
+  var m = { kind: kind, t0: performance.now(), el: 0, last: null, dur: dur, o: o || {} };   /* el: the moment's own clock, a frame's worth per drawn frame */
+  BETWEEN.m = m; BETWEEN.held = 0;
+  btwCanvas().style.display = 'block';
+  BETWEEN.log.push({ kind: kind, at: Math.round(m.t0), dur: dur, fromCamp: !!m.o.fromCamp });
+  if (BETWEEN.log.length > 24) BETWEEN.log.shift();
+  window.__BETWEEN = { now: kind, log: BETWEEN.log.slice() };
+  btwTick();
+  return m;
+}
+/* the picture at t (0..1) of the moment */
+function btwParams(m, t){
+  var o = m.o, P = { veil: 0, rgb: [14, 9, 5], cx: o.cx, cy: o.cy, r: 420, fire: 0, ring: 0, roll: -1, stamp: null, stampA: 0, frame: null, card: null };
+  if (m.kind === 'campIn') {
+    var u = btwE(t / .67); P.veil = .6 * u; P.r = btwL(420, 150, u); P.fire = btwE((t - .08) / .6); P.roll = t;
+    P.stamp = btwClock(o.min); P.stampA = btwE(t / .3); P.frame = btwE((t - .33) / .67);
+  } else if (m.kind === 'campOut') {
+    var w = btwE((t - .3) / .7), k = btwE(t / .72), mins = btwL(o.from, o.to, k);
+    P.veil = .6 * (1 - w); P.r = btwL(150, 420, w); P.fire = 1 - btwE((t - .15) / .6); P.roll = 1 - t; P.frame = 1 - btwE(t);   /* over both beats: in one, a slow phone's frame stepped a quarter of the way (the record) */
+    P.stamp = btwClock(Math.floor(mins / 10) * 10) + (o.to - o.from >= 60 ? '   +' + Math.round((mins - o.from) / 60) + ' H' : ''); P.stampA = 1 - btwE((t - .8) / .2);
+  } else if (m.kind === 'come' || m.kind === 'held') {
+    var held = m.kind === 'held', q = o.fromCamp ? .67 : .5, a = held ? 1 : btwE(t / q), c0 = o.fromCamp ? .45 : .3;
+    P.rgb = [26, 4, 3]; P.veil = .66 * a; P.r = btwL(440, 130, a); P.ring = held ? 0 : 1; P.roll = held ? -1 : t;
+    if (o.fromCamp) P.frame = 1 - btwE(t / .6);
+    P.card = held ? 1 : btwE((t - c0) / (1 - c0));
+  } else if (m.kind === 'engage') {
+    var e = btwE(t); P.rgb = [20, 3, 2]; P.veil = btwL(o.v0, .97, e); P.r = btwL(130, 6, e); P.card = (o.c0 == null ? 1 : o.c0) * (1 - btwE(t / .6));
+  } else if (m.kind === 'release') {
+    var f = btwE(t); P.rgb = [26, 4, 3]; P.veil = o.v0 * (1 - f); P.r = btwL(130, 440, f); P.card = (o.c0 == null ? 1 : o.c0) * (1 - btwE(t / .6));
+  }
+  return P;
+}
+function btwDraw(m, P){
+  var c = BETWEEN.cv, W = window.innerWidth || 390, H = window.innerHeight || 844, x = c.getContext('2d');
+  if (c.width !== W || c.height !== H) { c.width = W; c.height = H; }
+  x.clearRect(0, 0, W, H);
+  var cx = P.cx, cy = P.cy, R = Math.max(2, P.r), rgb = P.rgb.join(','), now = m.el || 0;
+  if (P.veil > .002) {
+    var g = x.createRadialGradient(cx, cy, R * .3, cx, cy, R * 1.7);
+    g.addColorStop(0, 'rgba(' + rgb + ',' + (P.veil * .22).toFixed(3) + ')');
+    g.addColorStop(1, 'rgba(' + rgb + ',' + Math.min(1, P.veil * 1.3).toFixed(3) + ')');
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+    x.fillStyle = 'rgba(0,0,0,' + (P.veil * .2).toFixed(3) + ')';   /* the tape's lines */
+    for (var y = 0; y < H; y += 3) x.fillRect(0, y, W, 1);
+  }
+  if (P.fire > .002) {   /* his fire: light on the beat, embers going up */
+    var fl = .9 + .1 * Math.cos(now / BEAT * Math.PI * 2), fr = 60 + 34 * P.fire;
+    var fg = x.createRadialGradient(cx, cy, 0, cx, cy, fr);
+    fg.addColorStop(0, 'rgba(255,156,64,' + (.4 * P.fire * fl).toFixed(3) + ')');
+    fg.addColorStop(.45, 'rgba(214,92,32,' + (.15 * P.fire * fl).toFixed(3) + ')');
+    fg.addColorStop(1, 'rgba(120,40,10,0)');
+    x.fillStyle = fg; x.fillRect(cx - fr, cy - fr, fr * 2, fr * 2);
+    for (var i = 0; i < 7; i++) {
+      var life = ((now / 1000) * (0.55 + i * .07) + i * .37) % 1, ex = cx + Math.sin(i * 2.1 + life * 5) * (5 + i * 2), ey = cy - 4 - life * 46;
+      x.fillStyle = 'rgba(255,' + (150 + i * 9) + ',70,' + (P.fire * (1 - life) * .85).toFixed(3) + ')'; x.fillRect(Math.round(ex), Math.round(ey), 2, 2);
+    }
+  }
+  if (P.ring > 0 && m.o.them) {   /* on them, on the beat */
+    var ph = (now % BEAT) / BEAT, rr = 14 + 58 * btwE(ph);
+    x.strokeStyle = 'rgba(206,38,28,' + (.6 * (1 - ph) * P.ring).toFixed(3) + ')'; x.lineWidth = 2;
+    x.beginPath(); x.ellipse(m.o.them.x, m.o.them.y, rr, rr * .5, 0, 0, Math.PI * 2); x.stroke();
+  }
+  if (P.roll >= 0 && P.veil > .02) {   /* one tracking roll */
+    var by = Math.round(P.roll * (H + 24)) - 12, va = Math.min(1, P.veil * 2);
+    x.fillStyle = 'rgba(232,222,200,' + (.07 * va).toFixed(3) + ')'; x.fillRect(0, by, W, 9);
+    x.fillStyle = 'rgba(0,0,0,' + (.2 * va).toFixed(3) + ')'; x.fillRect(0, by + 9, W, 3);
+  }
+  if (P.stamp && P.stampA > .01) {   /* the camcorder's clock, its colours a pixel apart */
+    var sx = 16, sy = H - 96;
+    x.font = '16px BohemiaCasing, ui-monospace, monospace'; x.textBaseline = 'alphabetic';
+    x.fillStyle = 'rgba(214,40,32,' + (.55 * P.stampA).toFixed(3) + ')'; x.fillText(P.stamp, sx + 2, sy);
+    x.fillStyle = 'rgba(70,196,214,' + (.4 * P.stampA).toFixed(3) + ')'; x.fillText(P.stamp, sx - 1, sy);
+    x.fillStyle = 'rgba(240,234,216,' + (.94 * P.stampA).toFixed(3) + ')'; x.fillText(P.stamp, sx, sy);
+  }
+}
+/* what the moment does to the camp's screen and the card */
+function btwApply(m, P){
+  var f = btwFrame();
+  if (P.frame !== null && f) {
+    if (m.kind === 'campIn') { f.style.opacity = P.frame >= 1 ? '' : P.frame.toFixed(3); f.style.pointerEvents = P.frame >= 1 ? '' : 'none'; }
+    else if (m.o.snap) { if (P.frame <= 0) btwSnapGone(m.o); else m.o.snap.style.opacity = P.frame.toFixed(3); }
+  }
+  var el = m.o.card;
+  if (P.card !== null && el) {
+    el.style.opacity = P.card >= 1 ? '' : Math.max(0, P.card).toFixed(3);
+    var mc = el.querySelector && el.querySelector('.mc'); if (mc) mc.style.transform = P.card >= 1 ? '' : 'translateY(' + ((1 - Math.max(0, P.card)) * 14).toFixed(1) + 'px)';
+  }
+}
+function btwTick(){
+  BETWEEN.raf = 0;
+  var m = BETWEEN.m; if (!m) return;
+  /* THE CLOCK IS THE FRAMES (measured: the camp's hour and the card's build stall the page up to half a second; a clock off the
+     wall jumped the ease past half its way in one shown frame). A stall now holds the picture still and it goes on from there. */
+  var now = performance.now(); if (m.last != null) m.el += Math.min(now - m.last, 100); m.last = now;
+  var t = m.el / m.dur;
+  if (t >= 1) { btwFinish(); return; }
+  var P = btwParams(m, t); btwApply(m, P); btwDraw(m, P);
+  window.__MOMENT_BETWEEN = { kind: m.kind, t: Math.round(t * 1000) / 1000 };
+  BETWEEN.raf = requestAnimationFrame(btwTick);
+}
+/* the moment to its last frame: a tap, a new moment, or its time */
+function btwFinish(){
+  var m = BETWEEN.m; if (!m) return;
+  if (BETWEEN.raf) { cancelAnimationFrame(BETWEEN.raf); BETWEEN.raf = 0; }
+  BETWEEN.m = null; window.__MOMENT_BETWEEN = null;
+  var P = btwParams(m, 1); btwApply(m, P);
+  btwSnapGone(m.o);
+  if ((m.kind === 'engage' || m.kind === 'release') && m.o.card) { try { m.o.card.remove(); } catch (_e) {} }
+  if (m.kind === 'come' && m.o.card && m.o.card.isConnected && MEET.up && MEET.up.el === m.o.card) {   /* the card stands: the dark holds */
+    var h = { kind: 'held', t0: performance.now(), el: 0, dur: 1, o: m.o }; BETWEEN.held = h; btwDraw(h, btwParams(h, 1)); return;
+  }
+  BETWEEN.held = 0; if (BETWEEN.cv) { BETWEEN.cv.style.display = 'none'; }
+}
+/* a tap during a moment ends it; that tap is his skip and goes nowhere else, unless it is on a button of the card he can see */
+function btwTap(ev){
+  var now = performance.now(), down = ev.type === 'pointerdown' || ev.type === 'touchstart' || ev.type === 'mousedown';
+  if (down && BETWEEN.m && BETWEEN.m.kind !== 'engage' && BETWEEN.m.kind !== 'release') {
+    var onCard = !!(ev.target && ev.target.closest && ev.target.closest('#meetcard [data-meet]'));
+    BETWEEN.log.push({ kind: 'skip', of: BETWEEN.m.kind, at: Math.round(now), t: Math.round(BETWEEN.m.el / BETWEEN.m.dur * 1000) / 1000 });
+    window.__BETWEEN = { now: null, log: BETWEEN.log.slice(), skipped: BETWEEN.m.kind };
+    btwFinish();
+    BETWEEN.eat = onCard ? 0 : now + 450;
+  }
+  if (BETWEEN.eat && now < BETWEEN.eat) {
+    ev.stopPropagation();
+    if (ev.type === 'click' || ev.type === 'mousedown' || ev.type === 'pointerdown') { try { ev.preventDefault(); } catch (_e) {} }
+    if (ev.type === 'click') BETWEEN.eat = 0;
+  }
+}
+function btwCampIn(){
+  var f = btwFrame(); if (!f || f.style.display !== 'block') return;
+  var me = btwAt(city.x, city.y);
+  f.style.opacity = '0'; f.style.pointerEvents = 'none';
+  try { render(); } catch (_e) {}
+  btwStart('campIn', { cx: me.x, cy: me.y, min: T.day * 1440 + T.min });
+}
+function btwCampOut(why){
+  if (why === 'contact' && MEET.up && BETWEEN.m && BETWEEN.m.kind === 'come') return;   /* the card's moment already has the camp's screen */
+  if (why === 'contact' && MEET.up && BETWEEN.held) return;
+  var me = btwAt(city.x, city.y), to = T.day * 1440 + T.min, from = CAMP.min0 != null ? Math.min(CAMP.min0, to) : to;
+  btwStart('campOut', { cx: me.x, cy: me.y, from: from, to: to, why: why || 'left' }).o.snap = btwSnap();
+}
+/* the card: up at once for the logic, eased for the eye */
+function btwCome(el, at){
+  var f = btwFrame(), fromCamp = !!(CAMP.on && LOOP.open && LOOP.open.camp && f && f.style.display === 'block');
+  var me = btwAt(city.x, city.y), them = btwAt(at[0], at[1]);
+  el.style.opacity = '0';
+  btwStart('come', { cx: (me.x + them.x) / 2, cy: (me.y + them.y) / 2, them: them, card: el, fromCamp: fromCamp }).o.snap = fromCamp ? btwSnap() : null;
+}
+function btwCardGone(el, go){
+  el.id = 'meetcard-going'; el.style.pointerEvents = 'none';
+  var h = BETWEEN.held || BETWEEN.m, o = h ? h.o : { cx: btwAt(city.x, city.y).x, cy: btwAt(city.x, city.y).y };
+  var v0 = .66, c0 = el.style.opacity === '' ? 1 : (+el.style.opacity || 0);
+  if (BETWEEN.m && BETWEEN.m.kind === 'come') { var t = BETWEEN.m.el / BETWEEN.m.dur; v0 = btwParams(BETWEEN.m, t).veil; }
+  btwStart(go === true ? 'engage' : 'release', { cx: o.cx, cy: o.cy, card: el, v0: v0, c0: c0 });
+}
+/* the card went some other way (a checker's hand, a fight straight through): the dark does not stay behind */
+setInterval(function(){ try{ if (BETWEEN.held && !BETWEEN.m && !(MEET.up && BETWEEN.held.o.card === MEET.up.el)) {
+  var o = BETWEEN.held.o; BETWEEN.held = 0; btwStart('release', { cx: o.cx, cy: o.cy, v0: .66 }); } }catch(_e){} }, 300);
+window.BohemiaBetween = { state: function(){ return { now: BETWEEN.m ? BETWEEN.m.kind : null, held: !!BETWEEN.held, log: BETWEEN.log.slice() }; }, finish: btwFinish };
+/* ==== /__THE_MOMENTS_BETWEEN__ ==== */
 /* where a contract's crew waits: a block he can stand on, six to ten out from the town,
    in a direction the contract's own id picks, with a road to it */
 /* RUN 10/23 ([the first hour, quicker]): IS THIS BLOCK ON THE GLASS, where a finger can reach it: inside the map's own
@@ -51624,6 +51848,7 @@ function renderCity(){
     }
   } catch (_e) {}
   MAP_DEPTH.ref = null;
+  window.__MAP_OXY = { ox: ox, oy: oy };   /* __THE_MOMENTS_BETWEEN__: where this frame put the valley, so the fire and the dark sit on him */
   /* __LOOK_BEFORE_YOU_FIGHT__: the party coming for him, its plate always up (they are coming), and the road away */
   try { if (HUNT) { huntDraw(ox, oy); var __hq = iso(HUNT.at[0], HUNT.at[1], ox, oy);
     HUNT.plateBox = partyPlatePush(HUNT.id, __hq.sx, (HUNT.box ? HUNT.box.y : __hq.sy - 40), { count: HUNT.count, skulls: partySkulls(HUNT.count), going: 'COMING FOR YOU', hunt: true }); } } catch (_e) {}
@@ -66804,7 +67029,7 @@ function meetShow(msg, skin){
   var done = function (go) {
     if (!MEET.up) return; var up = MEET.up; MEET.up = null;
     try { document.removeEventListener('keydown', up.key, true); } catch (_e) {}
-    try { el.remove(); } catch (_e) {}
+    try { btwCardGone(el, go); } catch (_e) { try { el.remove(); } catch (_e2) {} }   /* __THE_MOMENTS_BETWEEN__: ENGAGE closes the dark, the rest open it; the card goes in a beat */
     window.__MEET_LAST = { go: !!go, why: msg.why || null, n: n, stars: stars, ground: gr.kind, at: performance.now() };
     if (go === 'camp') { meetCampNearby(msg); return; }   /* __MAKE_CAMP_NEARBY__ */
     if (go) { msg.__met = true; delete msg.__hunt; try { cityHandOver(msg, skin); } catch (_e) {} }   /* the hunters' object does not cross to the shell */
@@ -66825,6 +67050,7 @@ function meetShow(msg, skin){
     bt.addEventListener('click', function (ev) { ev.stopPropagation(); done(k[1]); }); });
   ['pointerdown', 'touchstart', 'touchmove', 'touchend', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
   MEET.up = { msg: msg, el: el, key: key, at: performance.now() };
+  try { btwCome(el, at); } catch (_e) { el.style.opacity = ''; }   /* __THE_MOMENTS_BETWEEN__: they come; the card is up for the logic now and for the eye on the last beat */
   window.__MEET_UP = { why: msg.why || null, still: meetStill(msg), n: n, what: __mw.what, beasts: __mw.beasts, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night, roster: __rw };
   try { window.MEET_DONE = done; } catch (_e) {}
   try { if (window.parent && window.parent !== window) window.parent.postMessage({ bohemiaCitySfx: { ev: 'phone_buzz' } }, '*'); } catch (_e) {}
