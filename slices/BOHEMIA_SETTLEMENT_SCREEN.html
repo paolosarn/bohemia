@@ -4042,7 +4042,7 @@ function payShown(p){ var r = S.payRule, cm = (window.BohemiaRenown ? BohemiaRen
 function boardHere(){
   var SH = window.BohemiaBoardShelf, ids = (S.traits||[]).map(function(t){ return t.id; });
   var gone = S.held.concat(S.done || []);   /* WORLD [eyes: a done job comes back] (EYES line 114): a finished job leaves the board for good */
-  var list = SH && SH.pick(S.place, buildDay(), {traits:ids, held:gone, crew:raidCrew(), places:S.places});
+  var list = SH && SH.pick(S.place, buildDay(), {traits:ids, held:S.held.slice(), done:(S.done || []).slice(), crew:raidCrew(), places:S.places});   /* PLUMBER 3 (rule 335): held never comes back; done only when nothing else is left */
   if(list) return list;
   return OFFERS.filter(function(o){ return gone.indexOf(o.id) < 0; }).slice(0, TIER_OFFERS[S.place.tier] || 1);
 }

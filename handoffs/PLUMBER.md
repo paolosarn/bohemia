@@ -1,5 +1,26 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 3 11/2 -- ask line 335 (rule 335), THE BOARDS ALWAYS HAVE WORK. FIXED, NOT YET SEEN (BUILD 11/3zz THE JOBS ARE BACK).
+Record: records/BOHEMIA_PLUMBER_NO_TOWN_HAD_ANY_JOBS_11_2_26.md.
+REPRODUCED: a fresh game, two codes, an old save made on 11/3zd, the Lone Wolf, one man: every board had work in the first
+minute, because a job not yet read by the danger engine passes the floor. With the reads in: the old save, every town RAIDED,
+13 of 14 boards EMPTY; the same save posts 297 of 700 job-town pairs where 11/3zd posted 450.
+MOVED IT: COMBAT 49666e21 (11/3zg) and 02a94193 (11/3zm) took 3 thugs vs a new crew of 3 from 0.80 to 0.54 clean runs (bisected on
+BohemiaJobDanger.probe). Rulings of his; not the bug.
+CAUSE: slices/bohemia_board_shelf.js asked the day's floor (rule 255) of every job and NOTHING stood under it (the deal's own
+'never empty' pass asked the floor too). A raided place deals only the 4 raid jobs (3 to 6 men), all under the floor.
+FIX: pickOwn's never(): the floor thins, never empties (raided -> its ordinary work; then, only in the deal's LAST pass after a
+shared safe job: all kept back -> the least dangerous by its read; all done -> the one finished longest ago). The board and the
+phone hand held and done apart (opt.done); held never returns. (A first cut fired mid-deal; the day-fifty gate caught the Lone
+Wolf handed 0.08 on day 20; moved to the last pass.)
+GATE: gates/the_boards_always_have_work_gate.js (THE BOARDS ALWAYS HAVE WORK, in the suite), 24 passed, 0 failed, about 7 min: the shelf's file
+in node over 168 valleys, the floor still standing (W6) + a mutation that empties them with the rule cut; the demo on the phone: a new game, a typed code, an old save
+(held + done), every home base's board tapped open, every person says his job; every town raided after the reads: 14 of 14.
+ALSO: the suite runner refused to run any gate (3 rows of the table with 3 fields: THE FIGHT SAVES AT ITS START, THE NEW ENEMIES,
+NOTHING POPS...); mended (slow=False). SUITE HONESTY 12/14 -> 26/0.
+NEXT FOR WHOEVER: COMBAT 2cb32f46 (AUTO PLAYS THE BEST TURN) landed after this was measured; the floor's numbers move with every fight
+change. TUNING may want to look at day ten's floor (0.5) against a new crew now: most fight jobs sit under it.
+
 PLUMBER 2 11/2 -- ask line 325 (rule 327), ONE COMPANY, A MAN LET GO IS GONE EVERYWHERE. FIXED, NOT YET SEEN (BUILD 11/3zq ONE COMPANY).
 Record: records/BOHEMIA_PLUMBER_ONE_COMPANY_A_MAN_LET_GO_IS_GONE_11_2_26.md.
 CAUSE: the crew screen's DISMISS left a HIRED man in bohemia.hired.v1; the shop's list (settlement shopCrew: the green 'on him'

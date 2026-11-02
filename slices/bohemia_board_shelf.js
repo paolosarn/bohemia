@@ -8,9 +8,10 @@
    and it is the crew that hit it ({crew}, from FACTIONS' raid ledger); a SICK place asks for medicine first, a MARKET
    DAY puts a haul up first; the rest are the place's tier, shuffled by the place's name and the map's day, a new board
    every refresh_days (3, QR-O's draft; TUNING owns it). A job already held is skipped and the next one stands up.
+   A BOARD IS NEVER EMPTY (PLUMBER 3, rule 335): the day's floor and the done list thin it, the last job always stands.
      BohemiaBoardShelf.load(url, cb)   fetch the shelf once (default ../records/target/BOHEMIA_BOARD_SHELF.json)
      BohemiaBoardShelf.ready()         the shelf is in
-     BohemiaBoardShelf.pick(place, day, opt)  place {name, tier}; opt {traits:[ids], held:[ids], crew:'the Cartel'}
+     BohemiaBoardShelf.pick(place, day, opt)  place {name, tier}; opt {traits:[ids], held:[ids], done:[ids, oldest first], crew:'the Cartel'}
                                        -> offers shaped like the settlement's OFFERS, or null before the shelf is in */
 (function (root) {
   'use strict';
@@ -57,17 +58,17 @@
   var DEAL = { key: null, map: null };
   function dealt(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
-    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.crew || '') + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
+    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
     if (DEAL.key === key) return DEAL.map;
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, map = {}, want = {};
     order.forEach(function (p) { map[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : Math.min(C[p.tier || 'camp'] || 1, C.max || 4); });
     for (var round = 0; round < (C.max || 4); round++) order.forEach(function (p) {
       if (map[p.name].length > round || map[p.name].length >= want[p.name]) return;
-      var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, crew: p.crew || opt.crew }, taken, map[p.name].length + 1, map[p.name]);
+      var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, taken, map[p.name].length + 1, map[p.name]);
       got.forEach(function (o) { taken[o.id] = p.name; }); map[p.name] = got;
     });
-    order.forEach(function (p) { if (!map[p.name].length) map[p.name] = pickOwn(p, day, { traits: p.traits || [], held: opt.held, crew: p.crew || opt.crew }, {}, 1, []); });
+    order.forEach(function (p) { if (!map[p.name].length) map[p.name] = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, {}, 1, [], true); });   /* the last pass: never empty (rule 335) */
     DEAL = { key: key, map: map };
     return map;
   }
@@ -78,31 +79,59 @@
       var mine = dealt(day, opt)[place.name] || [];
       return mine.map(function (o) { return said(o, opt.crew); });
     }
-    return pickOwn(place, day, opt, {}, null, []);
+    return pickOwn(place, day, opt, {}, null, [], true);
   }
   /* one place's own board: skipping what another place already posts ({id: place}), up to `upto` jobs (its tier's count when
-     null), keeping the ones it already has first */
-  function pickOwn(place, day, opt, taken, upto, have) {
-    var C = SHELF.counts || {}, tier = place.tier || 'camp', traits = opt.traits || [], held = opt.held || [];
+     null), keeping the ones it already has first; `last` (the deal's last pass, or a place dealt alone): never empty (rule 335) */
+  function pickOwn(place, day, opt, taken, upto, have, last) {
+    var C = SHELF.counts || {}, tier = place.tier || 'camp', traits = opt.traits || [], held = opt.held || [], done = opt.done || [];
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3));
     var R = rng(seedOf(String(place.name) + ':board:' + win));
-    var all = SHELF.offers, out = (have || []).slice(), seen = {};
+    var all = SHELF.offers, out = (have || []).slice(), seen = {}, kept = [];
     out.forEach(function (o) { seen[o.id] = 1; });
     var FW = fitter(), size = Math.min(C[tier] || 1, C.max || 4);   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ */
+    function free(o) { return !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0 && done.indexOf(o.id) < 0; }
     function take(pool, n) {
       if (upto != null) n = Math.min(n, upto);
-      shuffled(pool, R).forEach(function (o) { if (out.length < n && !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0 && !(FW && FW.fits(o, place.name, day, out, size) === false)) { seen[o.id] = 1; out.push(said(o, opt.crew)); } });
+      shuffled(pool, R).forEach(function (o) { if (out.length >= n || !free(o)) return;
+        if (FW && FW.fits(o, place.name, day, out, size) === false) { kept.push(o); return; }   /* under the day's floor: kept back, not lost (rule 335) */
+        seen[o.id] = 1; out.push(said(o, opt.crew)); });
     }
+    var ordinary = all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0; });
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
-      take(all.filter(function (o) { return o.when === 'raided'; }), C.raided || 1);
-      return out;
+      var raid = all.filter(function (o) { return o.when === 'raided'; });
+      take(raid, C.raided || 1);
+      /* PLUMBER 3 (rule 335): the crew that hit it past what the day lets his company take (all four raid jobs are fights of three
+         to six men; a new crew of three reads every one under day ten's floor), the place's own ordinary work stands instead */
+      if (!out.length) take(ordinary, C.raided || 1);
+      return never(out, kept, raid.concat(ordinary));
     }
     var n = Math.min(C[tier] || 1, C.max || 4);
     ['sickness', 'market_day'].forEach(function (t) {   /* what is happening here asks first */
       if (traits.indexOf(t) >= 0) take(all.filter(function (o) { return o.when === t; }), Math.min(n, out.length + 1));
     });
-    take(all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0; }), n);
-    return out;
+    take(ordinary, n);
+    return never(out, kept, ordinary);
+    /* *** THE BOARDS ALWAYS HAVE WORK (PLUMBER 3, rule 335, Paolo 11/2: 'no one has any jobs anymore... make sure it doesn't
+       happen again'). The day's floor (rule 255) THINS a board, it never EMPTIES one. In the deal's last pass, after a job another
+       place also shows (the floor still asked): a place whose every job the floor kept back posts the least dangerous of them (its
+       red stars and its blood say so); a place whose every job is done posts the one he finished longest ago (a held job never).
+       Gate: gates/the_boards_always_have_work_gate.js *** */
+    function never(out, kept, pool) {
+      if (out.length || !last) return out;   /* mid-deal a place with nothing takes a job another place shows first (the last pass) */
+      if (kept.length) {
+        var best = null, bc = -1;
+        kept.forEach(function (o) { var Q = null; try { Q = FW && FW.peek ? FW.peek(o, place.name) : null; } catch (e) { Q = null; }
+          var c = Q && Q.state === 'read' ? +Q.clean : 0; if (c > bc) { bc = c; best = o; } });
+        if (best) { out.push(said(best, opt.crew)); return out; }
+      }
+      for (var i = 0; i < done.length; i++) {   /* done is oldest first */
+        var id = done[i], o = null; if (held.indexOf(id) >= 0 || taken[id]) continue;
+        pool.forEach(function (p) { if (!o && p.id === id) o = p; });
+        if (o) { out.push(said(o, opt.crew)); return out; }
+      }
+      return out;
+    }
   }
   /* the valley's places as the map knows them (its ctBases, mapTierOf and the living map's traits), for a page in the map's
      frame; the map hands the same list to a settlement screen it opens, so the phone and every board deal from one list */

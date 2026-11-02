@@ -66,7 +66,7 @@
     var bs = null; try { bs = ctBases(); } catch (e) { bs = null; }
     if (!bs) return [];
     var held = []; try { held = (LOOP.held || []).map(function (h) { return h.id; }); } catch (e) {}
-    try { held = held.concat(LOOP.doneIds || []); } catch (e) {}   /* RUN 10/23 (TUNING's change 2e): a finished job leaves the phone too */
+    var done = []; try { done = (LOOP.doneIds || []).slice(); } catch (e) {}   /* RUN 10/23 (TUNING's change 2e): a finished job leaves the phone too; PLUMBER 3 (rule 335): handed apart, as the town's board hands it */
     var me = [0, 0]; try { me = [city.x | 0, city.y | 0]; } catch (e) {}
     var out = [], t = nowMin();
     Object.keys(bs).forEach(function (name) {
@@ -76,9 +76,9 @@
       if (SH && SH.ready()) {   /* the place's own people (RUN TWO 10/18): the same pick the settlement's board makes */
         var day = Math.floor(t / 1440), tr = [];
         try { tr = BohemiaLivingMap.traitsFor(LIVING_MAP.traits, name, day).map(function (x) { return x.id; }); } catch (e) {}
-        list = SH.pick({ name: name, tier: tier }, day, { traits: tr, held: held, places: SH.mapPlaces ? SH.mapPlaces(day) : null });   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): one contract, one place */
+        list = SH.pick({ name: name, tier: tier }, day, { traits: tr, held: held, done: done, places: SH.mapPlaces ? SH.mapPlaces(day) : null });   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): one contract, one place */
       }
-      if (!list) list = OFFERS.filter(function (o) { return held.indexOf(o.id) < 0; }).slice(0, n);
+      if (!list) list = OFFERS.filter(function (o) { return held.indexOf(o.id) < 0 && done.indexOf(o.id) < 0; }).slice(0, n);
       for (var i = 0; i < list.length; i++) {
         var o = list[i];
         var key = name + '|' + o.id; if (SEEN[key] == null) SEEN[key] = t;
