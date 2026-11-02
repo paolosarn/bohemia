@@ -636,6 +636,7 @@
       + '#bohphone .bpfd .fp.mine b{color:#9fd08a}'
       + '#bohphone .bpfd .fp span{display:block;max-height:13.5px;overflow:hidden}'
       + '#bohphone .bpfd .fp.new{animation:bohIn ' + BEAT + 'ms steps(2,end)}'
+      + '#bohphone .bpfd .fp.gone{animation:bphSink ' + Math.round(BEAT * 2 / 3) + 'ms steps(1,end) both}#bohphone .bpfd .fp.gone.done{animation:none;visibility:hidden;opacity:0}'   /* rule 329: read, then out */
       + '@keyframes bohIn{0%{transform:translateY(-100%)}100%{transform:none}}'
       + '#bohphone .kf{display:flex;gap:4px;margin:0 0 4px}'
       + '#bohphone .kf button{width:26px;height:28px;padding:0;border:0;background:none;cursor:pointer;opacity:.6}'
@@ -1263,18 +1264,34 @@
     if (!what) { g.fillStyle = '#0b0a08'; g.fillRect(0, 0, w, h); }
   }
 
-  /* ---- THE FEED IS ON (rule 286(c)): the city's two newest posts on the face, the handle and the words, the newest stepping in
-     on the beat (stop-motion); a tap is everything posted (286(d)) ---- */
+  /* ---- THE FEED IS ON (rule 286(c)): the city's newest post on the face, the handle and the words, stepping in on the beat
+     (stop-motion); a tap is everything posted (286(d)).
+     AMENDED 11/2 (UI 4, rule 329, ask line 327; Paolo 11/2: 'there's two tweets that go out that you can see... just make it one,
+     and they should only stick around for as long as it would take to read them'): ONE post at a time, never two; it stays
+     1.2 s plus 0.25 s a word (a phone reader near 230 words a minute), rounded up to whole beats, then sinks out of the strip
+     (two holds); the next post steps in when it comes. ---- */
+  function readMs(p) {
+    var words = String(p && p.txt || '').split(/\s+/).filter(Boolean).length + String(p && p.who || '').split(/\s+/).filter(Boolean).length;
+    var bm = 500; try { var B = window.BOHEMIA_BEAT, n = B && B.now && B.now(); if (n && n.beatMs > 0) bm = n.beatMs; } catch (e) {}
+    return Math.ceil((1200 + 250 * words) / bm) * bm;
+  }
   function stripPaint(force) {
     var fd = H.el.querySelector('.home .bpfd'); if (!fd) return;
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }));
-    var two = posts.slice(-2).reverse(), sig = two.map(function (p) { return p.who + '|' + p.txt; }).join('||');
+    var one = posts.slice(-1), sig = one.map(function (p) { return p.who + '|' + p.txt; }).join('');
     if (!force && sig === H.stripSig) return;
-    var was = H.stripTop; H.stripSig = sig; H.stripTop = two.length ? two[0].who + '|' + two[0].txt : null;
-    fd.innerHTML = two.length ? two.map(function (p, i) { return '<div class="fp' + (p.kind === 'mine' ? ' mine' : '') + (i === 0 && was && was !== H.stripTop ? ' new' : '') + '"><b>' + esc(p.who) + '</b><span>' + esc(p.txt) + '</span></div>'; }).join('')
-      : '<div class="fp"><span>The valley is quiet.</span></div>';   /* draft:true */
-    if (was && was !== H.stripTop) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
+    var was = H.stripTop; H.stripSig = sig; H.stripTop = one.length ? one[0].who + '|' + one[0].txt : null;
+    if (!one.length) { clearTimeout(H.stripT); fd.innerHTML = '<div class="fp"><span>The valley is quiet.</span></div>'; return; }   /* draft:true */
+    var p = one[0], fresh = !!(was && was !== H.stripTop), gone = !fresh && H.stripGone === sig;
+    fd.innerHTML = '<div class="fp' + (p.kind === 'mine' ? ' mine' : '') + (fresh ? ' new' : '') + (gone ? ' gone done' : '') + '"><b>' + esc(p.who) + '</b><span>' + esc(p.txt) + '</span></div>';
+    if (fresh) window.__PHONE_STRIP = (window.__PHONE_STRIP | 0) + 1;
+    if (!gone) {
+      clearTimeout(H.stripT);
+      var ms = readMs(p); H.stripRead = { sig: sig, ms: ms, t: Date.now() };
+      H.stripT = setTimeout(function () { if (H.stripSig !== sig) return; var fp = fd.querySelector('.fp'); if (fp) fp.classList.add('gone'); H.stripGone = sig;
+        window.__PHONE_STRIP_OUT = (window.__PHONE_STRIP_OUT | 0) + 1; }, ms);
+    }
   }
 
   /* ---- YOUR COMPANY (ask 281): while the company screen is up, the phone is its DONE and its stash's tabs ---- */

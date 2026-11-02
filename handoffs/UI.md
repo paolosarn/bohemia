@@ -1,5 +1,23 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
+UI (ui-4, nothing pops): 11/2 LATEST -- [nothing pops] + [voices clear of the phone] + [the tooltips] SHIPPED, BUILT, NOT YET SEEN
+(asks 322, 312, and 327/339 the feed one post at a time; rules 324, 329 and 316's tooltip note; BUILD 11/3zw - NOTHING POPS), IN THE DEMO. Record
+records/BOHEMIA_UI_NOTHING_POPS_VOICES_CLEAR_TOOLTIPS_11_2_26.md; proof records/target/ui_nothing_pops/ (3 sheets).
+- slices/bohemia_ui_nothing_pops.js (BohemiaPops, UI's): loaded once in the shell's head, arms every page from the top (MOTION's way).
+  POPS table (one row a pop-up, by the page's own id): IN = three held poses on the music's grid, growing out of the finger (250 ms);
+  OUT = a copy as it stood shrinks over two holds while the real one is gone at once; a tap finishes it; MOTION's LESS = a fade.
+  A redraw (out and back in one go) moves nothing. VOICES: every speaking box fitted clear of BOH_PHONE_RECT by CSS 'translate' alone,
+  8 pt off the phone, never measured mid-grow. TOOLTIPS: a 480 ms hold (a mouse 650 ms) on a stat, perk, trait, item, the fight's
+  bare ground, a town building, the bar, the phone's apps and fight buttons, or anything with data-tip; the lift is not a press (the
+  town's own cancel, the fight's own 'held'). Lines: WORDS' files + records/target/ui/BOHEMIA_TIPS.json (42 new, draft:true).
+- alpha hook (1 line): the script tag after bohemia_motion.js. Probe switch for a BEFORE picture: BohemiaPops.off(true) (never set by the game).
+- the phone's face (rule 329): ONE post at a time, up 1.2 s + 0.25 s a word in whole beats, then it sinks out (stripPaint).
+- gate: gates/nothing_pops_voices_clear_gate.js (in the suite). Road card under the phone 5,955 sq pt -> 0 (up 60); kills card 7,860 -> 0.
+NEXT: the stall's trade goods and the map's towns get lines (data-tip); the fight's statuses when COMBAT draws them; WORDS on the drafts;
+MOTION may swap any POPS row for a true morph (the row is the one place to take it out).
+[bb Battle Brothers' tooltip: the name and a line or two beside the pointer, never over the thing; ours is a held finger, kept off the phone.]
+[analog horror: every pop-up a hand-cut tin plate shot on twos, growing out of the finger like a stick puppet, leaving as a cut-out copy.]
+
 UI (ui-3, the first minute): 11/2 LATEST -- [the loading screen] + [the start screen] + [the tutorial toggle] SHIPPED, BUILT, NOT YET SEEN
 (asks 280, 261, 262; BUILD 11/3zi - THE FIRST MINUTE, a69279ba), IN THE DEMO, three VOTE cards. Record records/BOHEMIA_UI_THE_FIRST_MINUTE_11_2_26.md.
 - slices/bohemia_ui_crashbox.js (BohemiaCrashbox, UI's): THE MACHINE on the title (plywood, rusty tin, a cracked tube, DIRECTION's

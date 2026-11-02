@@ -1,0 +1,59 @@
+{
+  "_about": "UI 4 (11/2/26, ask line 312, rule 316's tooltip note): one plain line per thing, for the long-press card (slices/bohemia_ui_nothing_pops.js, BohemiaPops). Battle Brothers puts this in its hover text. Eighth-grade words, numbers over adjectives. Every line here is NEW and an attempt: draft:true for WORDS. The perks, traits and stats are NOT here: they come from WORDS' own files (records/target/bb/perk_translation.json 'skin', traits.json 'says', stat_help.json rows). An item's line is read off its own numbers. A lane can give anything a line with data-tip=\"...\" (and data-tip-head) on the element.",
+  "draft": true,
+  "bar": {
+    "day": { "head": "THE DAY", "line": "How many days your crew has lasted. The clock runs while you travel." },
+    "crew": { "head": "YOUR CREW", "line": "How many men you have and how many you can take. Tap it to see them." },
+    "place": { "head": "WHERE YOU ARE", "line": "The town or the road you are on right now." },
+    "gear": { "head": "SETTINGS", "line": "Sound, motion, hints and which side the phone sits on." },
+    "batteries": { "head": "BATTERIES", "line": "Your money. Pay, food and everything in a shop costs batteries." },
+    "nights": { "head": "NIGHTS OF FOOD", "line": "How many nights your crew can eat before they go hungry." },
+    "food": { "head": "FOOD", "line": "Each man eats every night. Run out and they get weak and angry." },
+    "water": { "head": "WATER", "line": "Each man drinks every day. The desert takes it fast." },
+    "tape": { "head": "TAPE", "line": "Fixes armour and gear after a fight." },
+    "meds": { "head": "MEDICINE", "line": "Heals the wounded faster, at camp or after a fight." },
+    "rounds": { "head": "ROUNDS", "line": "Bullets for the guns. A gun with none left is a club." }
+  },
+  "phone": {
+    "crew": { "head": "CREW", "line": "Your men: their gear, their wounds, their perks." },
+    "relations": { "head": "RELATIONS", "line": "Every town and how they feel about you. Good friends pay more and charge less." },
+    "notes": { "head": "NOTES", "line": "Write yourself a note. It stays on the phone." },
+    "settings": { "head": "SETTINGS", "line": "Sound, motion, hints and which side the phone sits on." },
+    "play": { "head": "PLAY / PAUSE", "line": "Starts and stops the clock. Hold it to pick a speed." },
+    "heal": { "head": "CAMP", "line": "Stop and make camp. Your men heal while the clock runs." },
+    "leave": { "head": "LEAVE", "line": "Walk out of town, back to the map." }
+  },
+  "fight": {
+    "speed": { "head": "SPEED", "line": "How fast the enemy's turns play out." },
+    "auto": { "head": "AUTO", "line": "Your men fight on their own until you take over again." },
+    "flee": { "head": "RETREAT", "line": "Run for the edge of the board. Men who get out live." },
+    "wait": { "head": "WAIT", "line": "This man goes again later this round." },
+    "go": { "head": "END TURN", "line": "This man is done for the round." },
+    "skill": { "line": "A move this man learned from a perk. It costs AP like any other." },
+    "sweep": { "line": "Hits every enemy next to him in one swing." }
+  },
+  "ground": {
+    "flat": { "head": "OPEN GROUND", "line": "One step costs the usual AP. Nothing to hide behind." },
+    "obstacles": { "head": "IN THE WAY", "line": "Nobody stands here and nobody shoots through it. Stand behind it for cover." },
+    "door": { "head": "A DOOR", "line": "The only way through this wall. Whoever holds it holds the house." }
+  },
+  "buildings": {
+    "hall": { "head": "THE HALL", "line": "Men looking for work. Hire them here." },
+    "board": { "head": "THE BOARD", "line": "Jobs this town will pay for. Take one and it goes on your map." },
+    "stall": { "head": "THE STALL", "line": "Buy and sell goods. Prices change from town to town." },
+    "bar": { "head": "THE BAR", "line": "Buy a round, hear a rumour." },
+    "smith": { "head": "THE SMITH", "line": "Weapons. What you buy goes straight on the man it suits." },
+    "armourer": { "head": "THE ARMOURER", "line": "Armour and helmets. What you buy goes straight on the man it suits." },
+    "barber": { "head": "THE BARBER", "line": "A new haircut for one battery." },
+    "clinic": { "head": "THE CLINIC", "line": "Your wounded heal faster here, for a price." },
+    "lot": { "head": "SCAVENGE", "line": "Dig through the junk. You find one thing or nothing." },
+    "build": { "head": "BUILD", "line": "Build on your own lot in this town." }
+  },
+  "items": {
+    "weapon": { "line": "A weapon. Put it in his hand to fight with it." },
+    "shield": { "line": "Something to hide behind. It goes in the off hand." },
+    "body": { "line": "Armour for the body." },
+    "head": { "line": "Armour for the head." }
+  },
+  "labels": {}
+}

@@ -18,6 +18,9 @@
 <!-- __THE_UI_MORPHS__ (MOTION 10/26, [the UI morphs], rule 229): the one motion layer over every frame; nothing cuts,
      a tap is never lost, on the beat, REDUCED MOTION fades (slices/bohemia_motion.js) -->
 <script src="bohemia_motion.js"></script>
+<!-- UI 4 [nothing pops, voices clear, tooltips] (rule 324, rule 316's tooltip note; asks 322, 312): every pop-up comes in and
+     goes out on the beat, every box a person speaks from stands clear of the phone, a held finger shows a plain line (slices/bohemia_ui_nothing_pops.js) -->
+<script src="bohemia_ui_nothing_pops.js"></script>
 <!-- __YOU_FEEL_IT__ (FEEL 11/2, [haptic feedback], rule 309, ask line 302): ONE call, haptic(kind); the phone buzzes, the app's Taptic
      Engine when wrapped, the iPhone's switch tick, a controller's rumble. It wraps window.playSFX from outside (a property setter), so
      every sound the table names is felt with no edit in the sound code; the table is records/target/bb/haptics.json; BUZZ on the gear's card -->
@@ -1575,7 +1578,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zv - AUTO PLAYS THE BEST TURN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zw - NOTHING POPS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
