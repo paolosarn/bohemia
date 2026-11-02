@@ -1,0 +1,557 @@
+{
+ "version": "the-wrongness-11-2",
+ "lane": "direction",
+ "rule": 306,
+ "ask_line": 298,
+ "draft": true,
+ "page": "records/BOHEMIA_DIRECTION_THE_WRONGNESS_11_2_26.md",
+ "tool": "tools/bohemia_direction_the_wrongness_11_2_26.py",
+ "his_words": "this AI slop amalgamation creepypasta horror Crashbox HBO series vibe... make some really good elements or direction for art for shit like that, for real",
+ "the_one_face": {
+  "source": "slices/fight_rig/faces.webp",
+  "faces_averaged": [
+   33,
+   34,
+   36,
+   39,
+   41,
+   42,
+   43,
+   44,
+   45,
+   47,
+   49,
+   50,
+   52,
+   55,
+   58
+  ],
+  "rule": "every haunted face in act one is this one face; smooth on a screen, printed with his paper grain on paper"
+ },
+ "rules": {
+  "one_at_a_time": "never two wrongness elements on one screen",
+  "never_first_minute": true,
+  "never_announced": "no sound sting, no zoom, no glow, no text pointing at it (the bible rules 2 and 3)",
+  "purple": "none on any element; purple first appears at the threshold, on the hatch only (the purple law)",
+  "placement": "the coordinator hands each element to the lane that owns its screen; DIRECTION places nothing"
+ },
+ "beats": {
+  "B0": "THE FIRST HOURS: nothing. No wrongness before the first town is done (nothing in the first sixty seconds, the second votes).",
+  "B1": "A DETAIL: things you could miss. At most one a day of game time, about one in five days.",
+  "B2": "IT CHANGED: the same thing, different when you come back. About one in three days.",
+  "B3": "IT KNOWS YOU: your company is in it (your feed, your loading screen, your walls). About one a day.",
+  "B4": "IT IS IN THE CAMP: where you sleep and where you fight. Up to two a day.",
+  "THRESHOLD": "THE END OF ACT ONE: purple appears for the first time, on the hatch only. The faces line up: it was one face, and it was a machine."
+ },
+ "elements": [
+  {
+   "id": "flyer_the_face_slid",
+   "twin": "prop/pack_miscellaneous_044",
+   "title": "THE FLYER WHOSE FACE SLID",
+   "wrong": "The face on the flyer has slid down its own paper, eyes stretched long and the mouth gone off the bottom, the way a machine smears a face it does not understand.",
+   "where": [
+    "town wall"
+   ],
+   "beat": "B3",
+   "rarity": "one town in four from beat 3, one flyer only, on a wall the company walks past",
+   "files": [
+    "flyer_the_face_slid.png"
+   ],
+   "size": [
+    59,
+    69
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "prop",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true
+  },
+  {
+   "id": "poster_someone_else",
+   "twin": "prop/pack_miscellaneous_043",
+   "title": "THE POSTER SHOWS SOMEONE ELSE NOW",
+   "wrong": "Second visit: the same torn poster, the same ink, but the face on it is somebody else. It is the one face.",
+   "where": [
+    "town wall"
+   ],
+   "beat": "B2",
+   "states": [
+    "first visit",
+    "any later visit"
+   ],
+   "rarity": "one town per act; the face changes once, between two visits, never while it is on screen",
+   "files": [
+    "poster_someone_else_1.png",
+    "poster_someone_else_2.png"
+   ],
+   "size": [
+    53,
+    79
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "prop",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (1 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true
+  },
+  {
+   "id": "host_poster_the_smile",
+   "twin": "settlement/pack_wall_tiles_1_007",
+   "title": "THE SMILE ON THE WALL",
+   "wrong": "A pasted poster of a face that is nobody you know, smiling 1.8 times too wide, its corners lifted, its eyes not joining in.",
+   "where": [
+    "town wall"
+   ],
+   "beat": "B3",
+   "rarity": "the casino towns only, one wall each, from beat 3",
+   "files": [
+    "host_poster_the_smile.png"
+   ],
+   "size": [
+    68,
+    88
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "settlement",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true
+  },
+  {
+   "id": "sign_almost_reads",
+   "twin": "marking/pack_14_warning_signs_025",
+   "title": "THE SIGN THAT ALMOST READS",
+   "wrong": "DO NOT ENTER reads DO \u0418OT ENETR: one letter turned round, two changed places. You read it right the first time and wrong the second.",
+   "where": [
+    "road event",
+    "town street"
+   ],
+   "beat": "B1",
+   "rarity": "one sign in about thirty from beat 1; the road's DO NOT ENTER signs only",
+   "files": [
+    "sign_almost_reads.png"
+   ],
+   "size": [
+    96,
+    71
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "marking",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true,
+   "measured": {
+    "line1": [
+     [
+      17,
+      28
+     ],
+     [
+      29,
+      40
+     ],
+     [
+      46,
+      57
+     ],
+     [
+      58,
+      79
+     ]
+    ],
+    "line2": [
+     [
+      20,
+      30
+     ],
+     [
+      31,
+      42
+     ],
+     [
+      43,
+      53
+     ],
+     [
+      54,
+      64
+     ],
+     [
+      65,
+      76
+     ]
+    ]
+   }
+  },
+  {
+   "id": "wall_one_more_flyer",
+   "twin": "settlement/pack_wall_tiles_1_007",
+   "title": "ONE MORE FLYER THAN LAST TIME",
+   "wrong": "The same missing man four times on a wall; come back and he is up five times. Nobody in town put the fifth one up.",
+   "where": [
+    "town wall"
+   ],
+   "beat": "B2",
+   "states": [
+    "first visit",
+    "second visit"
+   ],
+   "rarity": "one home town per act; the fifth flyer arrives between two visits at least three days apart",
+   "files": [
+    "wall_one_more_flyer_1.png",
+    "wall_one_more_flyer_2.png"
+   ],
+   "size": [
+    204,
+    88
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "settlement",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true
+  },
+  {
+   "id": "pictogram_three_arms",
+   "twin": "marking/pack_14_warning_signs_000",
+   "title": "THE MAN ON THE SIGN HAS THREE ARMS",
+   "wrong": "The little man on the warning sign has a third arm: a second right arm, hanging just below the first.",
+   "where": [
+    "town street",
+    "fight board blocker"
+   ],
+   "beat": "B1",
+   "rarity": "one sign in about forty from beat 1",
+   "files": [
+    "pictogram_three_arms.png"
+   ],
+   "size": [
+    96,
+    88
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "marking",
+    "exit": 1,
+    "verdict": "BACK",
+    "last_line": "-> BACK: fix the OUT rows first",
+    "twin_verdict": "BACK"
+   },
+   "draft": true
+  },
+  {
+   "id": "sign_the_man_left",
+   "twin": "marking/pack_14_warning_signs_017",
+   "title": "THE MAN LEFT THE SIGN",
+   "wrong": "Second visit: the no-entry sign is empty. The slash is still there; the little man it crossed out is gone, and only a cleaner patch of paint shows where he stood.",
+   "where": [
+    "road event",
+    "town street"
+   ],
+   "beat": "B2",
+   "states": [
+    "first pass",
+    "a later pass"
+   ],
+   "rarity": "one sign on one road per act; it empties between two passes",
+   "files": [
+    "sign_the_man_left_1.png",
+    "sign_the_man_left_2.png"
+   ],
+   "size": [
+    96,
+    95
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "marking",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true
+  },
+  {
+   "id": "mannequins_turned",
+   "twin": "settlement_people (cast_skirt, cast_longcoat, cast_shorts, the 112 box)",
+   "title": "THE MANNEQUINS TURNED ROUND",
+   "wrong": "A family of three plaster mannequins in a shop. First visit they face each other. Next visit all three face you.",
+   "where": [
+    "town street (a shop on the settlement screen)"
+   ],
+   "beat": "B2",
+   "states": [
+    "first visit",
+    "next visit"
+   ],
+   "rarity": "one shop in the valley per act; the turn is never seen happening",
+   "files": [
+    "mannequins_turned_1.png",
+    "mannequins_turned_2.png"
+   ],
+   "size": [
+    180,
+    112
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": null,
+   "draft": true
+  },
+  {
+   "id": "test_card_face",
+   "twin": "prop/pack_7_computers_and_screens_000",
+   "title": "THE TEST CARD AT CAMP",
+   "wrong": "The camp's dead screen, plugged into nothing, shows a test card. The face in its circle is nobody in the valley. The bar where magenta should be is black.",
+   "where": [
+    "camp"
+   ],
+   "beat": "B4",
+   "rarity": "one night in five at camp from beat 4; gone by morning",
+   "files": [
+    "test_card_face.png"
+   ],
+   "size": [
+    96,
+    86
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "prop",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true,
+   "measured": [
+    4,
+    4,
+    92,
+    78
+   ]
+  },
+  {
+   "id": "tin_robot_face",
+   "twin": "prop/pack_miscellaneous_036",
+   "title": "THE TIN ROBOT WITH A FACE",
+   "wrong": "A rusty tin robot, as tall as a man, is standing at camp with a small clay face where its screen should be. The same face as the test card.",
+   "where": [
+    "camp"
+   ],
+   "beat": "B4",
+   "rarity": "once per act; it is standing at camp in the morning and no one brought it",
+   "files": [
+    "tin_robot_face.png"
+   ],
+   "size": [
+    53,
+    96
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "prop",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true
+  },
+  {
+   "id": "glass_face",
+   "twin": "slices/fight_rig/faces.webp (the one face)",
+   "title": "A FACE IN THE GLASS",
+   "wrong": "For one beat, a pale face is reflected in the fight's glass, turned round like a reflection is. The same face again.",
+   "where": [
+    "the fight's glass"
+   ],
+   "beat": "B4",
+   "rarity": "one fight in about twenty-five from beat 4, one beat, never on the first turn",
+   "files": [
+    "glass_face.png"
+   ],
+   "size": [
+    128,
+    128
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": null,
+   "draft": true
+  },
+  {
+   "id": "feed_photo_one_extra",
+   "twin": "slices/camp_two/plate.webp + settlement_people",
+   "title": "ONE TOO MANY IN THE PHOTO",
+   "wrong": "A photo of three of your men in the feed. A fourth stands behind them: blank, plaster, nobody you hired.",
+   "where": [
+    "the feed"
+   ],
+   "beat": "B3",
+   "rarity": "one post in about sixty from beat 3; never pinned, never mentioned",
+   "files": [
+    "feed_photo_one_extra.png"
+   ],
+   "size": [
+    192,
+    128
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": null,
+   "draft": true
+  },
+  {
+   "id": "loading_it_comes_closer",
+   "twin": "slices/camp_two/plate_tall_night.webp + settlement_people",
+   "title": "IT GETS CLOSER EVERY TIME IT LOADS",
+   "wrong": "The loading picture is the empty desert at night with one blank figure in it. Every load it stands a little closer.",
+   "where": [
+    "loading screen"
+   ],
+   "beat": "B3",
+   "states": [
+    "far",
+    "nearer",
+    "near"
+   ],
+   "rarity": "one load in four from beat 3; the three pictures in order, never back",
+   "files": [
+    "loading_it_comes_closer_1.png",
+    "loading_it_comes_closer_2.png",
+    "loading_it_comes_closer_3.png"
+   ],
+   "size": [
+    180,
+    320
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": null,
+   "draft": true,
+   "measured": [
+    0.301,
+    0.334,
+    0.428
+   ]
+  },
+  {
+   "id": "traffic_light_three_red",
+   "twin": "prop/pack_15_street_props_001",
+   "title": "THE LIGHT THAT IS RED THREE TIMES",
+   "wrong": "A traffic light on a road with no power, and all three of its lamps are red.",
+   "where": [
+    "road event"
+   ],
+   "beat": "B1",
+   "rarity": "one road event in about forty from beat 1",
+   "files": [
+    "traffic_light_three_red.png"
+   ],
+   "size": [
+    34,
+    96
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "lamp",
+    "exit": 1,
+    "verdict": "BACK",
+    "last_line": "-> BACK: fix the OUT rows first",
+    "twin_verdict": "BACK"
+   },
+   "draft": true
+  },
+  {
+   "id": "lamp_shadow_toward_the_sun",
+   "twin": "prop/pack_15_street_props_004",
+   "title": "THE SHADOW THAT FALLS THE WRONG WAY",
+   "wrong": "A street lamp whose shadow falls up and to the left, toward the sun, when every other shadow in town falls down and right.",
+   "where": [
+    "town street"
+   ],
+   "beat": "B1",
+   "rarity": "one lamp per town in about one town in five from beat 1",
+   "files": [
+    "lamp_shadow_toward_the_sun.png"
+   ],
+   "size": [
+    115,
+    96
+   ],
+   "purple_px": {
+    "gate_sample": 0,
+    "full": 0
+   },
+   "card": {
+    "family": "lamp",
+    "exit": 0,
+    "verdict": "to DIRECTION's eye",
+    "last_line": "-> built right; to DIRECTION (0 craft row out)",
+    "twin_verdict": "to DIRECTION's eye"
+   },
+   "draft": true
+  }
+ ]
+}
