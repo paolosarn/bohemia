@@ -38,6 +38,10 @@
       library's wall AUTO PLAYS SMART 81 (clean 56 against 53).
    Run: node gates/auto_kills_one_at_a_time_gate.js [--n 100] [--jobs 4] [--before] [--before321] [--by] */
 'use strict';
+/* COMBAT 6 (rule 332 amended, ask line 334): the bank this gate compares his AUTO with was played on their old brain; their side here
+   plays that same brain (BOHEMIA_THEIR_BRAIN=bank, tools/bohemia_tuning_auto_brain.js engineFor) so both arms meet the same enemy.
+   Their new brain's own effect: records/BOHEMIA_COMBAT_AUTO_PLAYS_THE_BEST_TURN_AND_THE_ROUND_SWING_11_2_26.md */
+process.env.BOHEMIA_THEIR_BRAIN = 'bank';
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const BANK = path.join(ROOT, 'banks/BOHEMIA_COMBAT_TWO_AUTO_FOCUS_10_25_26.json');

@@ -20,11 +20,20 @@
    G5 gunmen who could walk onto a roof and ever stand on one: over 40% (before 38.5%; TUNING's bar 60%, not met yet); AMENDED 11/2
       (COMBAT 5, rule 328 CLIMB OR ATTACK: a climb ends his attacks that turn): the roof counts only on a turn with no shot open
       without climbing (tools/bohemia_tuning_auto_brain.js roofAny), since a turn with a shot open is a shot, never a roof;
-   G6 rule 180: AUTO uses no ability: no skill, no bag swap, no special swing, no reload with a loaded shot on, by his side;
+   G6 AMENDED 11/2 (COMBAT 6, rule 332, Paolo: 'are we going to let auto combat use abilities... two offhand items you can bring';
+      it was rule 180's 'AUTO uses no ability'): AUTO uses them when they score best (ours.auto_best_turn): some sweep, perk or bag
+      swap by his side over the fights, and still no reload with a loaded shot on (reload only to keep firing);
+   G3 AMENDED 11/2 (rule 332): the turns his breath rests him (no kill on offer) or the turn's score takes a swap, Footwork,
+      Rotation or Rally instead are his rule working, counted apart; and (ask line 334, this turn and the next) a climb for next
+      turn's shot or holding that the score put above the blow; every other such turn swings;
    G7 the fight ends: no fight runs to the 60-round mark (before: 11 in 300; the standoff ends it);
    G8 and AUTO wins at least as often as the old brain on the same fights (before 202 of 300).
    Run: node gates/auto_never_wastes_a_turn_gate.js [--n 100] */
 'use strict';
+/* COMBAT 6 (rule 332 amended, ask line 334): the bank this gate compares his AUTO with was played on their old brain; their side here
+   plays that same brain (BOHEMIA_THEIR_BRAIN=bank, tools/bohemia_tuning_auto_brain.js engineFor) so both arms meet the same enemy.
+   Their new brain's own effect: records/BOHEMIA_COMBAT_AUTO_PLAYS_THE_BEST_TURN_AND_THE_ROUND_SWING_11_2_26.md */
+process.env.BOHEMIA_THEIR_BRAIN = 'bank';
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 let pass = 0, fail = 0;
@@ -36,6 +45,7 @@ const argv = process.argv, N = Number(argv[argv.indexOf('--n') + 1]) || 100;
   const B = require(path.join(ROOT, 'tools/bohemia_tuning_auto_brain.js'));
   const bank = JSON.parse(require('fs').readFileSync(path.join(ROOT, 'banks/BOHEMIA_TUNING_AUTO_BRAIN_10_25_26.json'), 'utf8'));
   const ctx0 = await B.engineFor('today'), districts = ctx0.DB.boardKinds.districts;
+  const g3 = { could: 0, skip: 0, rest: 0, better: 0 };   /* G3 by the brain's own reason (rule 332) */
   const fights = [], abil = { skill: 0, swap: 0, sweep: 0, reloadLoaded: 0 }, errs = [], frees = { you: 0, them: 0, youRout: 0, themRout: 0 }, dances = { own: 0, rout: 0, list: [] };
   for (let k = 0; k < N; k++) {
     try {
@@ -47,9 +57,12 @@ const argv = process.argv, N = Number(argv[argv.indexOf('--n') + 1]) || 100;
       while (!F.S.over && F.S.round <= 60 && g < 400000) {
         const v = F.current(); if (!v) break;
         const before = F.S.log.length, rout = v.morale === 'Fleeing', tk = v.id + ':' + F.S.round;
-        if (v.side === 'you' && !turns[tk]) turns[tk] = { id: v.id, r: F.S.round, sx: v.x, sy: v.y, rout: rout, hit: false };
+        if (v.side === 'you' && !turns[tk]) turns[tk] = { id: v.id, r: F.S.round, sx: v.x, sy: v.y, rout: rout, hit: false,
+          could: !rout && F.S.units.some(t => t.side !== 'you' && F.onField(t) && F.canStrike(v, t) && F.sideSees('you', t)), why: {} };
+        v.btWhy = null;
         const loadedShot = v.side === 'you' && v.weapon && F.isRanged(v.weapon) && F.S.units.some(t => t.side !== 'you' && F.onField(t) && F.canStrike(v, t) && F.sideSees('you', t));
         F.aiStep(v);
+        if (turns[tk] && v.btWhy) turns[tk].why[v.btWhy] = true;
         F.S.log.slice(before).forEach(e => {
           if (e.id === v.id && e.t === 'reload' && loadedShot) abil.reloadLoaded++;
           if (e.t === 'attack' && e.free && e.to === v.id) frees[v.side + (rout ? 'Rout' : '')]++;   /* the swings he took walking out of a ring, in a rout or by choice */
@@ -62,6 +75,8 @@ const argv = process.argv, N = Number(argv[argv.indexOf('--n') + 1]) || 100;
       Object.values(turns).forEach(t => { const nx = turns[t.id + ':' + (t.r + 1)];
         if (!nx || t.hit || nx.hit || (t.sx === t.ex && t.sy === t.ey) || nx.ex !== t.sx || nx.ey !== t.sy || nx.sx !== t.ex || nx.sy !== t.ey) return;
         if (t.rout || nx.rout) dances.rout++; else { dances.own++; dances.list.push(k + ':' + t.id + '@r' + t.r); } });
+      Object.values(turns).forEach(t => { if (!t.could) return; g3.could++; if (t.hit) return;
+        if (t.why.rest || t.why.recover) g3.rest++; else if (t.why.swap || t.why.footwork || t.why.rotation || t.why.rally || t.why.climb || t.why.hold) g3.better++;   /* ask line 334: a roof for next turn's shot, or holding the score put above the blow */ else g3.skip++; });
       F.S.log.forEach(e => { const u = F.byId(e.id); if (!u || u.side !== 'you') return;
         if (e.t === 'skill') abil.skill++; if (e.t === 'swap') abil.swap++; if (e.t === 'attack' && e.skill && /swing|split|reap|shatter|sweep|thresh|round/i.test(e.skill)) abil.sweep++; });
       void orig;
@@ -77,7 +92,12 @@ const argv = process.argv, N = Number(argv[argv.indexOf('--n') + 1]) || 100;
   leg(dance <= Math.ceil(n / 50), '*** G2 NO DANCE *** (rule 176(b): \'never off and back\'): off one round and back the next with no swing in either, at most one in 50 fights (TUNING\'s bar is 0)',
     dance + ' by AUTO in ' + n + ' fights' + (dances.list.length ? ' (' + dances.list.slice(0, 4).join(', ') + ')' : '') + ', ' + dances.rout + ' in a morale rout; the bench\'s count, every kind: ' + sum(fights, 'you', 'offAndBackNoSwing') + ' (the old brain: ' + sum(before, 'you', 'offAndBackNoSwing') + ')');
   const skip = sum(fights, 'you', 'skippedStrike') / Math.max(1, sum(fights, 'you', 'couldStrike')), skipB = sum(before, 'you', 'skippedStrike') / Math.max(1, sum(before, 'you', 'couldStrike'));
-  leg(skip < 0.005, 'G3 a man with a strike in reach swings ("if it\'s melee range, get in"): under 0.5% never swing', (100 * skip).toFixed(2) + '% (the old brain ' + (100 * skipB).toFixed(2) + '%)');
+  /* AMENDED 11/2 (COMBAT 6, rule 332): a man with a strike in reach may leave it for a better action this turn (a swap, Footwork,
+     Rotation, Rally) or rest because the blow would leave him unable to swing next turn with no kill on offer ('what happens if the
+     character is out of stamina'); every other turn with a strike in reach swings */
+  const g3s = g3.skip / Math.max(1, g3.could);
+  leg(g3s < 0.005, 'G3 a man with a strike in reach swings ("if it\'s melee range, get in"), unless his breath says rest or the turn\'s score took a better action (rule 332; a climb or a hold for next turn, ask line 334): under 0.5% never swing for no reason',
+    (100 * g3s).toFixed(2) + '% of ' + g3.could + ' (rested for his breath ' + g3.rest + ', a better action ' + g3.better + '); the bench\'s count, every reason: ' + (100 * skip).toFixed(2) + '% (the old brain ' + (100 * skipB).toFixed(2) + '%)');
   const free = sum(fights, 'you', 'freeSwingsTaken') / n, freeB = sum(before, 'you', 'freeSwingsTaken') / Math.max(1, before.length), theirs = sum(fights, 'them', 'freeSwingsTaken') / n;
   /* G4 splits the swings a rout takes (Battle Brothers' morale: a fleeing man runs through them, kept) from AUTO's own walks out */
   const own = frees.you / n, ownThem = frees.them / n;
@@ -88,7 +108,7 @@ const argv = process.argv, N = Number(argv[argv.indexOf('--n') + 1]) || 100;
   const roof = sum(fights, 'you', 'gunmenWithOptTook') / Math.max(1, sum(fights, 'you', 'gunmenWithOpt')), roofB = sum(before, 'you', 'gunmenWithAnyTook') / Math.max(1, sum(before, 'you', 'gunmenWithAny'));
   const roofAny = sum(fights, 'you', 'gunmenWithAnyTook') / Math.max(1, sum(fights, 'you', 'gunmenWithAny'));
   leg(roof > 0.4 && roof >= roofB, 'G5 a gunman who can walk onto a roof that gives him a shot takes one (rule 176(f); since rule 328 CLIMB OR ATTACK, on the turns with no shot open without climbing, the roof giving the shot next turn): over 40% and no fewer than before (TUNING\'s bar 60%, not met yet)', (100 * roof).toFixed(1) + '% (any roof in reach on such a turn: ' + (100 * roofAny).toFixed(1) + '%; the old brain, before rule 328, any roof: ' + (100 * roofB).toFixed(1) + '%)');
-  leg(abil.skill + abil.swap + abil.sweep + abil.reloadLoaded === 0, '*** G6 AUTO USES NO ABILITY *** (rule 180: move, fire, strike; reload only to keep firing)',
+  leg(abil.skill + abil.swap + abil.sweep > 0 && abil.reloadLoaded === 0, '*** G6 AUTO USES HIS ABILITIES WHEN THEY SCORE BEST, NEVER A RELOAD WITH A SHOT ON *** (rule 332, amending rule 180; reload only to keep firing)',
     abil.skill + ' skills, ' + abil.swap + ' bag swaps, ' + abil.sweep + ' special swings, ' + abil.reloadLoaded + ' reloads with a shot on, by his side over ' + n + ' fights');
   leg(stalled === 0, '*** G7 EVERY FIGHT ENDS *** (the standoff: when they land nothing for five rounds they break off)', stalled + ' fights to the 60-round mark (the old brain: ' + stalledB + ')');
   leg(won >= wonB, 'G8 and AUTO wins at least as often as the old brain on the same fights', won + ' of ' + n + ' (the old brain ' + wonB + ' of ' + before.length + ')');

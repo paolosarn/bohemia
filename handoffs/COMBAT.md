@@ -1,5 +1,28 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 6 11/2 (brief from the coordinator: rules 332 and 333, ask lines 331 and 332; the routine 'a turn's score counts the next
+turn', rule 332 amended, ask line 334). SHIPPED (BUILD 11/3zv, AUTO PLAYS THE BEST TURN), NOT YET SEEN:
+1. AUTO PLAYS THE BEST TURN (slices/BOHEMIA_FIGHT.html bestTurn; ai.json crew best_turn; ours.auto_best_turn): every action his man
+   can take this turn (each blow, each sweep, Rally, Rotation, Footwork, Recover, the turn-end Indomitable/Taunt/Adrenaline, a swap
+   from the bag then its blow, a walk then a blow, a reload, the cell vest's squeeze only by its rule, holding/the rest, and a climb
+   onto a roof) scored as the hurt it deals (with the road to each man's kill, rule 201's coin) minus the hurt he takes where it leaves
+   him, PLUS 0.6 x the best one action his next turn can be from there (ask line 334: one step, never deeper). No long chases (3+ tiles
+   ending in 2+ clubs' reach, unless a kill at even odds); no walking out of a ring (Footwork leaves); out of breath he holds (their
+   expected breath counted). THEIR shooters and swingers play the same brain after their own lessons (ours.auto_best_turn.theirs).
+2. THE ROUND SWING HITS THE THREE IN FRONT (ours.round_swing; Round Swing and Thresh, every side; the preview lights three on the aim).
+Measured (tools/bohemia_combat_auto_best_turn_probe_11_2_26.js, 120 fights): against the same enemy (their new brain) his new brain wins 81 of 120 where his old won 79, 201 of his men down (230), 11 long chases (15), 11 free swings taken (46), 50 abilities and 439 swaps (0 and 0), 95 climbs for next turn's shot, fights 0.8 to 1.3 minutes; their new brain costs the old pair 5 wins (84 -> 79).
+records/BOHEMIA_COMBAT_AUTO_PLAYS_THE_BEST_TURN_AND_THE_ROUND_SWING_11_2_26.md (the table, the three worked examples, the gates).
+Gate: gates/auto_plays_the_best_turn_gate.js (7 legs). Amended to his rulings: weapon_shapes, see_every_hit, auto_never_wastes (G3, G6),
+the_cell_vest (V10), the_pistol_is_never_a_club, auto_plays_smart (H4 and its probe); the three bank gates (auto_kills_one_at_a_time,
+every_man_has_a_job, auto_never_wastes) play their side on the old brain the bank was made with (BOHEMIA_THEIR_BRAIN=bank).
+NEXT: EYES on his phone; TUNING the weights (next_turn 0.6 makes a rest for a three-man round swing lose to blow-now-and-next: the
+swing is worth 1.9 plain blows, a rest needs 2.67); AUTO's reason said on the screen (UI/WORDS, u.btSay holds it); robots are the one
+kind behind (his men's breath rests against them).
+[bb] Battle Brothers' AI scores one behaviour at a time for this turn (PotentialDanger on the tile), swaps for 4 AP, never leaves a
+zone of control for nothing; its Round Swing hits six round the man, ours three in front.
+[analog horror] nothing new drawn: the three tiles in front light on the same receipt paper; the man resting for his breath holds the
+weapon down while the thing in front of him waits.
+
 COMBAT MAPS 11/2 (brief from the coordinator: rule 325, ask line 323, 'way more combat maps... the only thing you have is like this
 desert yellow brown suburbia thing'). SHIPPED (BUILD 11/3zs), NOT YET SEEN:
 1. WHY HE SAW ONLY SUBURB (measured, 230 fights the game starts: every district day and night, the region's 34 places, the bosses;

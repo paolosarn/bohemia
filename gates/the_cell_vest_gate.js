@@ -16,8 +16,11 @@
       gone after its rounds; a shot through the smoke reads -20 and 'smoke';
    V9 THE FEAR: once a side has seen one go off, the tiles beside a live vest cost its men danger_per_vest, and its club beside two
       of ours steps to the one without a vest; before, nothing;
-   V10 AUTO NEVER SQUEEZES, THE SWITCH ON AUTO: fights on AUTO with a vest on a hire end, nothing threw, under 4 minutes; no squeeze by
-      AUTO; climbed this turn, the squeeze is refused (rule 328).
+   V10 AUTO SQUEEZES ONLY WHEN THE RISK SHOWN WOULD BE TAKEN, THE SWITCH ON AUTO: fights on AUTO with a vest on a hire end, nothing
+      threw, under 4 minutes; AMENDED 11/2 (COMBAT 6, rule 332, Paolo: 'are we going to let auto combat use abilities'; it was 'no
+      squeeze by AUTO', rule 180(g)): every squeeze AUTO makes is one whose preview burns none of his own men and drops two of theirs
+      or more, or he was going down before his next turn anyway (ours.auto_best_turn.squeeze); climbed this turn, the squeeze is
+      refused (rule 328).
    Run: node gates/the_cell_vest_gate.js */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -207,13 +210,22 @@ const vestMan = S => S.units.filter(v => v.side === 'you' && v.vest)[0];
 }
 /* V10 */
 {
-  const a = stage(11), errs = [], mins = [], squeezes = [], switches = [];
+  const a = stage(11), errs = [], mins = [], squeezes = [], switches = [], badSqueeze = [];
   for (let k = 0; k < 12; k++) {
     try {
       const ctx = engine(), F = ctx.FIGHT; ctx.setSeed(8800 + k);
       F.setup({ auto: true, formation: null, company: CREW.concat([{ background: 'companion_ranged', name: 'LUZ', gear: { acc: 'cell_vest_scrap' } }]), cap: 4, days: 30, act: 1, party: { faction: 'brigands', count: 5, days: 30 } });
       const S = F.S; S.deploy = false; let g = 0;
-      while (!S.over && g < 200000) { const u = F.current(); if (!u) break; F.aiStep(u); g++; }
+      while (!S.over && g < 200000) {
+        const u = F.current(); if (!u) break;
+        /* the risk shown, read the moment before AUTO's step: his men it burns, theirs it drops, and is he going down anyway */
+        let pre = null;
+        if (u.side === 'you' && F.canSpark(u)) { const pv = F.sparkPreview(u, true), Q = ctx.DB.ours.auto_best_turn.value.squeeze;
+          pre = { his: pv.men.filter(m => m.side === u.side).length, theirs: pv.men.filter(m => m.side !== u.side).length, falls: pv.men.filter(m => m.side !== u.side && m.falls).length,
+            down: F._t.dangerOn(u, u.x, u.y, { parts: {}, rn: {} }, null) >= u.hp + u.armB, need: Q.falls_needed }; }
+        const L0 = S.log.length; F.aiStep(u); g++;
+        if (pre) S.log.slice(L0).forEach(e => { if (e.t === 'spark' && e.how !== 'switch' && e.id === u.id && !(pre.his === 0 && pre.theirs > 0 && (pre.falls >= pre.need || pre.down))) badSqueeze.push(k + ' ' + JSON.stringify(pre)); });
+      }
       S.log.forEach(e => { if (e.t === 'spark') (e.how === 'switch' ? switches : squeezes).push(k); });
       let beats = 0, op = false, acted = false;
       S.log.forEach(e => { if (e.t === 'turn') { if (op) beats += acted ? 2 : 0.5; op = true; acted = false; } else if (/^(step|attack|reload|skill|spark)$/.test(e.t)) acted = true; });
@@ -232,9 +244,9 @@ const vestMan = S => S.units.filter(v => v.side === 'you' && v.vest)[0];
     climbRefused = can0 && F.climbedNow(m) && !F.canSpark(m);
   }
   const avg = mins.reduce((s, x) => s + x, 0) / Math.max(1, mins.length);
-  leg(errs.length === 0 && squeezes.length === 0 && avg < 4 && climbRefused === true,
-    'V10 AUTO NEVER SQUEEZES (the squeeze is his button); 12 fights on AUTO with a vest on a hire end, nothing threw, under 4 minutes; climbed this turn, the squeeze is refused (rule 328)',
-    JSON.stringify({ errs: errs.slice(0, 3), squeezesByAuto: squeezes.length, switchesWentOff: switches.length, minutes: Math.round(avg * 10) / 10, climbRefused }));
+  leg(errs.length === 0 && badSqueeze.length === 0 && avg < 4 && climbRefused === true,
+    'V10 AUTO SQUEEZES ONLY WHEN THE RISK SHOWN WOULD BE TAKEN (rule 332: none of his burned, two of theirs dropped or he is going down anyway); 12 fights on AUTO with a vest on a hire end, nothing threw, under 4 minutes; climbed this turn, the squeeze is refused (rule 328)',
+    JSON.stringify({ errs: errs.slice(0, 3), squeezesByAuto: squeezes.length, squeezesOutsideTheRule: badSqueeze.slice(0, 3), switchesWentOff: switches.length, minutes: Math.round(avg * 10) / 10, climbRefused }));
 }
 console.log('\nTHE CELL VEST: ' + pass + '/' + (pass + fail));
 process.exit(fail ? 1 : 0);

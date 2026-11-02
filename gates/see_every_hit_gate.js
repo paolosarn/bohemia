@@ -16,9 +16,12 @@
    S4 ZONE OF CONTROL: his man beside a man of theirs walks away 40 times: every free swing that landed held him on his tile, took
       at least 1 and said 'held'; every one that missed let him go;
    and on his phone (390 x 844, the real page, real taps; pictures in records/combat_see_every_hit_11_2/):
-   P1 THE ROUND SWING, ARMED, BEFORE ANY AIM: his axe man ringed by three of theirs and one of his: the square armed lights the
-      eight tiles, a hurt tag (chance, -health, never 0) over each of the three, none over his own man;
-   P2 AIMED, THEN SWUNG: a tap on one of them keeps the three tags; the second tap swings and all three are heard;
+   P1 THE ROUND SWING, ARMED, BEFORE ANY AIM: his axe man with two of theirs in front (east, north-east), one behind (south-west)
+      and one of his own front-right (south-east): the square armed lights every tile one of its aims reaches (AMENDED 11/2, COMBAT 6,
+      rule 333: the round swing strikes the three in front of the aim, so the seven tiles its three aims reach, not the eight round
+      him), a hurt tag (chance, -health, never 0) over each of the three it could catch, none over his own man;
+   P2 AIMED, THEN SWUNG: a tap on the man east keeps two tags (him and the man north-east, the three in front; the man behind none);
+      the second tap swings and the two are heard;
    P3 A STRIKE: a plain blow picked on one man shows his one tag;
    P4 THE WALK OUT OF THEIR REACH: the walk's line says the free swing and what a landed one does, the tile ringed; walked with
       their man sure to land: HELD over him, he stands where he stood, the blow took at least 1, and the breath it cost said
@@ -149,7 +152,7 @@ async function phone() {
     const tagOk = t => /^\d+% -[1-9]\d*$/.test(t);
 
     /* P1, P2: the round swing */
-    const a = await stage('greataxe', [[1, 0], [0, -1], [-1, 1]], [[-1, 0]]);
+    const a = await stage('greataxe', [[1, 0], [1, -1], [-1, 1]], [[1, 1]]);   /* rule 333: two in front of the east aim, one behind, his own front-right */
     await p.waitForTimeout(300);
     const rs = await sq('#skills button[data-sweep="Round Swing"]');
     if (rs) await p.touchscreen.tap(rs.x, rs.y);
@@ -157,16 +160,16 @@ async function phone() {
     const armed = await p.evaluate(() => ({ lit: FIGHT_UI.shapeLit, say: document.getElementById('say').innerText }));
     const h1 = await hurts();
     await shot('round_swing_armed');
-    leg(!!rs && !!armed.lit && armed.lit.armed && armed.lit.tiles.length === 8 && armed.lit.struck.length === 3 && h1.length === 3 && h1.every(h => tagOk(h.t) && !h.maybe && a.them.indexOf(h.id) >= 0),
-      '*** P1 THE ROUND SWING, ARMED, BEFORE ANY AIM: THE EIGHT TILES LIT, A HURT TAG OVER EACH OF THE THREE, NONE OVER HIS OWN MAN *** (rule 312)',
+    leg(!!rs && !!armed.lit && armed.lit.armed && armed.lit.tiles.length === 7 && armed.lit.struck.length === 3 && h1.length === 3 && h1.every(h => tagOk(h.t) && a.them.indexOf(h.id) >= 0),
+      '*** P1 THE ROUND SWING, ARMED, BEFORE ANY AIM: THE TILES ITS AIMS REACH LIT (SEVEN, THE THREE IN FRONT OF EACH, rule 333), A HURT TAG OVER EACH OF THE THREE IT COULD CATCH, NONE OVER HIS OWN MAN *** (rule 312)',
       (armed.lit ? armed.lit.tiles.length + ' tiles lit, ' + armed.lit.struck.length + ' struck' : 'nothing lit') + '; tags ' + JSON.stringify(h1.map(h => h.t)));
     let q = await at(a.them[0]); await p.touchscreen.tap(q.x, q.y); await p.waitForTimeout(400);
     const h2 = await hurts(), k0 = (await heard()).length;
     await shot('round_swing_aimed');
     q = await at(a.them[0]); await p.touchscreen.tap(q.x, q.y); await settle();
     const swung = (await heard()).slice(k0).filter(e => /^(hit|vital|melee_hit|hurt|miss)$/.test(e)).length;
-    leg(h2.length === 3 && h2.every(h => tagOk(h.t)) && swung === 3,
-      '*** P2 AIMED, THEN SWUNG: THE THREE TAGS STAY, THE SWING CATCHES ALL THREE ***', 'tags ' + JSON.stringify(h2.map(h => h.t)) + '; ' + swung + ' sounds after the swing');
+    leg(h2.length === 2 && h2.every(h => tagOk(h.t) && h.id !== a.them[2]) && swung === 2,
+      '*** P2 AIMED EAST, THEN SWUNG: TWO TAGS (THE THREE IN FRONT: HIM AND THE MAN NORTH-EAST, HIS OWN MAN PASSED OVER, THE MAN BEHIND NONE), THE SWING CATCHES THE TWO *** (rule 333)', 'tags ' + JSON.stringify(h2.map(h => h.t)) + '; ' + swung + ' sounds after the swing');
     /* P3 a plain blow */
     const b = await stage('knife', [[1, 0], [3, 0]]);
     await p.waitForTimeout(300);

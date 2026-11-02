@@ -11,8 +11,11 @@
    C4 THE NEXT TURN HE ATTACKS: the round after, the mark is gone and the same blow is his; a walk along the roof (no climb) keeps
       his blow; a way that climbs is read as climbing (climbsOn) and one that does not is not;
    C5 EVERY SIDE ON AUTO: the brains' own fights (raiders, the robots, the act-one bosses, wolves), both sides on AUTO: no man of
-      either side climbs a roof and attacks in the same turn; no shooter of either side climbs while he had a shot where he stood;
-      climbs still happen (the rule is exercised);
+      either side climbs a roof and attacks in the same turn; no shooter of either side climbs while he had a shot where he stood,
+      AMENDED 11/2 (COMBAT 6, rule 332 amended, ask line 334, Paolo: 'how do they know the best place to climb, even if it doesn't
+      benefit them the most this turn, that investment of a higher roof'): unless the turn's score put the roof above the shot (this
+      turn plus next_turn x the shot from up there, ours.auto_best_turn; counted apart as climbs the score chose); climbs still happen
+      (the rule is exercised);
    C6 THE FIGHTS STAY SHORT: minutes on AUTO (the bench's own sum: 2 beats a turn that acts, half a beat one that passes, 120 a
       minute) under 4 for every kind, nothing threw.
    Run: node gates/climb_or_attack_gate.js [--n 6] [--before]   (--before: the rule's switch off in the memory copy, the brain as it is) */
@@ -129,7 +132,7 @@ leg(!!(CA && CA.value && CA.value.on === true && CA.source && /climb on top of a
       return { party: { band, count: band.length, rolled: true, boss: true, days: 30 }, boss: { n: B.n, kind: B.boss.kind, name: B.boss.name, hp_x: +B.boss.hp_x || 1, weapon: B.boss.weapon, shield: B.boss.shield } }; } },
     { id: 'wolves', opts: size => ({ party: { faction: 'beasts', count: Math.round(size * 1.5), days: 30 } }) }
   ];
-  const T = { climbs: { you: 0, them: 0 }, climbThenAttack: 0, climbPastAShot: 0, errs: [], ex: [] }, mins = {};
+  const T = { climbs: { you: 0, them: 0 }, climbThenAttack: 0, climbPastAShot: 0, climbScored: 0, errs: [], ex: [] }, mins = {};
   for (const K of KINDS2) {
     let beats = 0, fights = 0;
     for (let k = 0; k < N; k++) {
@@ -143,11 +146,11 @@ leg(!!(CA && CA.value && CA.value.on === true && CA.source && /climb on top of a
         while (!S.over && g < 200000) {
           const u = F.current(); if (!u) break;
           const ranged = F.isRanged(u.weapon), hadShot = ranged && !F.climbedNow(u) && S.units.some(t => t.side !== u.side && F.onField(t) && F.canStrike(u, t) && F.sideSees(u.side, t));
-          const L0 = S.log.length; F.aiStep(u); g++;
+          u.btWhy = null; const L0 = S.log.length; F.aiStep(u); g++; const scored = u.btWhy === 'climb';
           S.log.slice(L0).forEach(e => {
             if (e.t === 'turn') { if (upAt[e.id] !== e.round) delete upAt[e.id]; }   /* each event carries its own round (a climb that ends a round is stamped with that round) */
             const climbedStep = e.t === 'climbed' || (BEFORE && e.t === 'step' && !e.shoved && e.fx !== undefined && F.climbsUp(e.fx, e.fy, e.x, e.y));
-            if (climbedStep && e.id === u.id) { const v = F.byId(e.id); T.climbs[v.side]++; upAt[v.id] = e.round; if (hadShot) T.climbPastAShot++; }
+            if (climbedStep && e.id === u.id) { const v = F.byId(e.id); T.climbs[v.side]++; upAt[v.id] = e.round; if (hadShot && scored) T.climbScored++; else if (hadShot) T.climbPastAShot++; }
             if (e.t === 'attack' && !e.free && e.id === u.id && upAt[u.id] === e.round) { T.climbThenAttack++; if (T.ex.length < 4) T.ex.push({ kind: K.id, k, id: u.id, side: u.side, round: S.round }); }
           });
         }
@@ -161,8 +164,8 @@ leg(!!(CA && CA.value && CA.value.on === true && CA.source && /climb on top of a
   }
   const climbs = T.climbs.you + T.climbs.them;
   leg(T.climbThenAttack === 0 && T.climbPastAShot === 0 && climbs > 0,
-    'C5 EVERY SIDE ON AUTO: nobody climbs a roof and attacks in the same turn; no shooter climbs past a shot he had; climbs still happen (' + 4 * N + ' fights)',
-    JSON.stringify({ climbs: T.climbs, climbThenAttack: T.climbThenAttack, climbPastAShot: T.climbPastAShot, examples: T.ex }));
+    'C5 EVERY SIDE ON AUTO: nobody climbs a roof and attacks in the same turn; no shooter climbs past a shot he had unless the turn\'s score put the roof above it (ask line 334); climbs still happen (' + 4 * N + ' fights)',
+    JSON.stringify({ climbs: T.climbs, climbThenAttack: T.climbThenAttack, climbPastAShot: T.climbPastAShot, climbsTheScoreChoseOverAShot: T.climbScored, examples: T.ex }));
   leg(T.errs.length === 0 && Object.keys(mins).every(k => mins[k] > 0 && mins[k] < 4),
     'C6 THE FIGHTS STAY SHORT: minutes on AUTO under 4 for every kind, nothing threw', JSON.stringify({ minutes_on_auto: mins, errs: T.errs.slice(0, 3) }));
 }

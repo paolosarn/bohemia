@@ -115,7 +115,10 @@ const SPLICES = [
    "    if (best && !(FIX && u.side === 'you' && best.x === u.x && best.y === u.y) && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {"]
 ];
 async function engineFor(brain) {
-  if (!brain || brain === 'today') return G.engine(true);
+  /* COMBAT 6 (rule 332 amended, ask line 334): their side plays the same brain as his (ours.auto_best_turn.theirs). A gate that judges
+     HIS AUTO against a bank played on their OLD brain sets BOHEMIA_THEIR_BRAIN=bank, so both arms meet the same enemy; the enemy
+     brain's own effect is measured by tools/bohemia_combat_auto_best_turn_probe_11_2_26.js and its record */
+  if (!brain || brain === 'today') { const c = await G.engine(true); if (process.env.BOHEMIA_THEIR_BRAIN === 'bank' && c.DB.ours.auto_best_turn) c.DB.ours.auto_best_turn.value.theirs = false; return c; }
   const html = HTML, grab = id => { const m = html.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>')); if (!m) throw new Error('no script ' + id); return m[1]; };
   let rules = grab('fight-rules');
   SPLICES.forEach(([a, b]) => { const n = rules.split(a).length - 1; if (n !== 1) throw new Error('THE FIGHT MOVED: splice anchor found ' + n + ' times: ' + a.slice(0, 70)); rules = rules.replace(a, () => b); });

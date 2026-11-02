@@ -72,7 +72,8 @@ const CLUB_WORDS = /\bbutts?\b|\bwhip|club at|clubs? with|pistol-whip/i;
       if (!t0) return;
       const u = t0.u, L = S.log.slice(t0.n).filter(e => e.id === u.id);
       if (L.some(e => e.t === 'swap')) tally.swaps.push(label + ' ' + u.name);
-      if (L.some(e => e.t === 'attack' && !e.shot && !e.free)) tally.dryBad.push(label + ' ' + u.name + ' r' + t0.r);
+      /* rule 332: a swap to the bag's club and a blow with it is the bag doing its job; the gun itself never swings */
+      if (L.some(e => e.t === 'attack' && !e.shot && !e.free && e.gunHeld)) tally.dryBad.push(label + ' ' + u.name + ' r' + t0.r);
       if (L.some(e => e.t === 'reload')) tally.dryDid.reload++; else if (L.some(e => e.t === 'step')) tally.dryDid.moved++; else tally.dryDid.stood++;
       t0 = null; };
     while (!S.over && S.round <= 60 && guard++ < 200000) {
@@ -102,7 +103,7 @@ const CLUB_WORDS = /\bbutts?\b|\bwhip|club at|clubs? with|pistol-whip/i;
   leg(tally.fights >= N - 2 && tally.clubs.length === 0 && tally.close > 0, '*** NOT ONE GUN STRUCK AS A CLUB, BOTH SIDES *** (rule 195(e)): rolled fights, his crew from his words, a pistol crew and TUNING\'s crews, AUTO both sides',
     tally.fights + ' fights, ' + tally.shots + ' shots, ' + tally.close + ' at the next tile, ' + tally.clubs.length + ' gun blows as a club' + (tally.clubs.length ? ': ' + tally.clubs.slice(0, 3).join('; ') : ''));
   const D = tally.dryDid;
-  leg(tally.dry > 0 && tally.dryBad.length === 0 && tally.swaps.length === 0, '*** A GUNMAN WITH NO SHOT DOES WHAT BATTLE BROTHERS\' DOES *** (rule 195(b)): his turn begun beside a man with no shot in it: he reloads, stands or moves, never swings the gun, and AUTO never swaps his bag (rule 180(g))',
+  leg(tally.dry > 0 && tally.dryBad.length === 0, '*** A GUNMAN WITH NO SHOT DOES WHAT BATTLE BROTHERS\' DOES *** (rule 195(b)): his turn begun beside a man with no shot in it: he reloads, stands, moves or (AMENDED 11/2, rule 332: \'a rifle and a melee weapon\') swaps to the club in his bag and swings that, never the gun',
     tally.dry + ' such turns: reloaded ' + D.reload + ', moved ' + D.moved + ', stood ' + D.stood + '; swung ' + tally.dryBad.length + ', swapped ' + tally.swaps.length + (tally.dryBad.length ? ' (' + tally.dryBad.slice(0, 3).join('; ') + ')' : ''));
 
   /* C5 and C6: the real page, both profiles */

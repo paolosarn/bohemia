@@ -13,6 +13,10 @@
                   the breath that comes back), while the tile he stands on did not (next_turn_home)
      struck / moved / idle (neither; a winded man's rest is counted apart, it is the rest working)
    and the failures: a shooter (or a club) who ended a turn with no blow when shot_by_move held; an idle turn when next_turn held.
+   AMENDED 11/2 (COMBAT 6, rule 332 OUT OF STAMINA): a turn the brain held him for his breath (the blow would leave him unable to
+   swing next turn, no kill on offer) is his rule working, like a winded man's rest: counted apart (rested_for_breath), never a failure;
+   and (ask line 334, this turn and the next) a turn the brain scored another choice above the shot (a roof for next turn's shot, a
+   swap, a perk, holding) is counted apart too (shooter_chose_other, chose_by); a turn with no reason from the brain still fails.
    Also: a beast standing on a roof (and how it got there), a club next to a man he could not swing at because of the storeys
    between them, the fight's length in rounds and minutes (2 beats a turn that acts, half a beat one that passes, 120 a minute: the
    tuning bench's own sum), and who won.
@@ -79,7 +83,7 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
       shooter_turns: 0, shooter_no_shot_at_open: 0, shooter_moved_to_a_shot: 0, shooter_ended_no_shot_when_a_tile_gave_one: 0,
       club_turns: 0, club_ended_no_blow_when_a_tile_gave_one: 0, idle_when_a_move_gave_a_hit_next_turn: 0,
       shooter_idle_when_a_move_gave_a_shot_next_turn: 0, height_walled_turns: 0, beast_on_roof_steps: 0, beast_on_roof_fights: 0,
-      beast_climbed_a_roof: 0, beast_dealt_on_a_roof: 0, hits_across_2_storeys: 0, theirs_up_2: 0, theirs_up_2_hit: 0, his_down_on_high: 0, his_down_on_ground: 0, won_by_standoff: 0, errs: [], fails: [] };
+      beast_climbed_a_roof: 0, beast_dealt_on_a_roof: 0, rested_for_breath: 0, shooter_chose_other: 0, chose_by: {}, hits_across_2_storeys: 0, theirs_up_2: 0, theirs_up_2_hit: 0, his_down_on_high: 0, his_down_on_ground: 0, won_by_standoff: 0, errs: [], fails: [] };
     for (let k = 0; k < N; k++) {
       try {
         const size = [3, 6][k % 2], stage = ['early', 'middle'][Math.floor(k / 2) % 2];
@@ -114,6 +118,7 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
           const u = F.byId(r.id);
           r.idle = !r.struck && !r.moved && !r.skill;
           if (r.struck) T.struck++; if (r.moved) T.moved++;
+          if (r.breath) T.rested_for_breath++;   /* COMBAT 6, rule 332: the brain held him for his breath (no kill on offer) */
           if (r.idle && r.winded) { T.rested++; }
           else if (r.idle) T.idle++;
           if (r.height_walled) T.height_walled_turns++;
@@ -122,13 +127,14 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
             T.shooter_turns++;
             if (!r.shot_now) T.shooter_no_shot_at_open++;
             if (!r.shot_now && r.moved && r.struck) T.shooter_moved_to_a_shot++;
-            if (!r.struck && r.shot_by_move && !r.winded) { T.shooter_ended_no_shot_when_a_tile_gave_one++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'shooter, no shot, a tile gave one' }, r, { L0: undefined })); }
-            if (r.idle && !r.winded && !r.next_turn_home && r.next_turn && !r.shot_by_move) T.shooter_idle_when_a_move_gave_a_shot_next_turn++;
+            if (!r.struck && r.shot_by_move && !r.winded && !r.breath && r.chose) { T.shooter_chose_other++; T.chose_by[r.chose] = (T.chose_by[r.chose] || 0) + 1; }
+            if (!r.struck && r.shot_by_move && !r.winded && !r.breath && !r.chose) { T.shooter_ended_no_shot_when_a_tile_gave_one++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'shooter, no shot, a tile gave one' }, r, { L0: undefined })); }
+            if (r.idle && !r.winded && !r.breath && !r.next_turn_home && r.next_turn && !r.shot_by_move) T.shooter_idle_when_a_move_gave_a_shot_next_turn++;
           } else {
             T.club_turns++;
-            if (!r.struck && r.shot_by_move && !r.winded) { T.club_ended_no_blow_when_a_tile_gave_one++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'club, no blow, a tile gave one' }, r, { L0: undefined })); }
+            if (!r.struck && r.shot_by_move && !r.winded && !r.breath && !r.chose) { T.club_ended_no_blow_when_a_tile_gave_one++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'club, no blow, a tile gave one' }, r, { L0: undefined })); }
           }
-          if (r.idle && !r.winded && !r.next_turn_home && r.next_turn) { T.idle_when_a_move_gave_a_hit_next_turn++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'idle, a move gave a hit next turn' }, r, { L0: undefined })); }
+          if (r.idle && !r.winded && !r.breath && !r.next_turn_home && r.next_turn) { T.idle_when_a_move_gave_a_hit_next_turn++; if (T.fails.length < 12) T.fails.push(Object.assign({ kind: K.id, fight: k, why: 'idle, a move gave a hit next turn' }, r, { L0: undefined })); }
           if (TURNS) (out.turns = out.turns || []).push(Object.assign({ kind: K.id, fight: k }, r, { L0: undefined }));
         };
         while (!S.over && g < 200000) {
@@ -138,7 +144,11 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
             if (u.side === 'you') { open = opening(u); open.L0 = S.log.length; }
           }
           const L0 = S.log.length;
-          F.aiStep(u); g++;
+          u.btWhy = null; F.aiStep(u); g++;
+          if (open && open.id === u.id && (u.btWhy === 'rest' || u.btWhy === 'recover')) open.breath = true;
+          /* rule 332 amended (ask line 334): the brain scored another choice above the shot: a roof for next turn's shot, a swap, a perk,
+             or holding; counted apart, never a failure (a turn with no reason from the brain still is) */
+          if (open && open.id === u.id && /^(climb|swap|rotation|rally|footwork|hold)$/.test(u.btWhy || '')) open.chose = u.btWhy;
           S.log.slice(L0).forEach(e => {
             if (e.t === 'step' && !e.shoved) { const b = F.byId(e.id); if (b && b.beast && F.isRoof(e.x !== undefined ? e.x : b.x, e.y !== undefined ? e.y : b.y)) T.beast_climbed_a_roof++; }
             if (e.t === 'attack' && !e.free) { const a = F.byId(e.id), t = F.byId(e.to); if (a && t && !F.isRanged(a.weapon) && Math.abs(F.level(a.x, a.y) - F.level(t.x, t.y)) >= 2) { T.hits_across_2_storeys++; if (a.side === 'them') { T.theirs_up_2++; if (e.hit) T.theirs_up_2_hit++; } } }
@@ -159,7 +169,7 @@ const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
     }
     const r1 = x => Math.round(x * 10) / 10;
     out.kinds[K.id] = { why: K.why, fights: T.fights, won: T.won, won_by_standoff: T.won_by_standoff, lost: T.lost, rounds_per_fight: r1(T.rounds / Math.max(1, T.fights)), minutes_on_auto: r1(T.beats / Math.max(1, T.fights) / 120),
-      his_turns: T.turns, struck: T.struck, moved: T.moved, idle_not_resting: T.idle, rested_winded: T.rested,
+      his_turns: T.turns, struck: T.struck, moved: T.moved, idle_not_resting: T.idle, rested_winded: T.rested, rested_for_breath: T.rested_for_breath, shooter_chose_other: T.shooter_chose_other, chose_by: T.chose_by,
       shooter_turns: T.shooter_turns, shooter_no_shot_at_open: T.shooter_no_shot_at_open, shooter_moved_to_a_shot: T.shooter_moved_to_a_shot,
       shooter_ended_no_shot_when_a_tile_gave_one: T.shooter_ended_no_shot_when_a_tile_gave_one,
       shooter_idle_when_a_move_gave_a_shot_next_turn: T.shooter_idle_when_a_move_gave_a_shot_next_turn,

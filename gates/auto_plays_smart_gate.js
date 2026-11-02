@@ -14,7 +14,10 @@
       on a roof, ever;
    H4 AUTO FINDS A SHOT: the probe's fights (wolves, raiders, the robots, the act-one bosses): no turn a shooter of his ended with no
       shot while a tile he could walk to that turn gave one; no idle turn while a tile he could walk to gave a hit next turn, when
-      the tile he stood on gave none;
+      the tile he stood on gave none; AMENDED 11/2 (COMBAT 6, rule 332 OUT OF STAMINA): a turn the brain held him for his breath (the
+      shot would leave him unable to act next turn, no kill on offer) is his rule working, like a winded man's rest, counted apart;
+      and (ask line 334: this turn and the next) a turn the brain scored a roof for next turn's shot, a swap, a perk or holding above
+      the shot is counted apart; a shooter who ends with no shot and no reason from the brain still fails;
    H5 nothing threw, and the fights stay short (minutes on AUTO, the bench's own sum, under 4).
    Run: node gates/auto_plays_smart_gate.js [--n 8] */
 'use strict';
@@ -80,7 +83,7 @@ leg(row('height_is_accuracy') && row('climbers') && row('auto_finds_a_shot') && 
       'H3 A WOLF NEVER CLIMBS: ' + K.wolves.fights + ' wolf fights, no beast on a roof at any step', JSON.stringify({ onRoof: K.wolves.beast_on_roof_steps, climbed: K.wolves.beast_climbed_a_roof, dealt: K.wolves.beast_dealt_on_a_roof }));
     leg(sum('shooter_ended_no_shot_when_a_tile_gave_one') === 0 && sum('shooter_turns') > 100,
       '*** H4 AUTO FINDS A SHOT: ' + sum('shooter_turns') + ' shooter turns in ' + sum('fights') + ' fights, none ended with no shot while a tile he could walk to gave one ***',
-      ks.map(k => k + ' ' + K[k].shooter_ended_no_shot_when_a_tile_gave_one + ' (moved to a shot ' + K[k].shooter_moved_to_a_shot + ')').join(', '));
+      ks.map(k => k + ' ' + K[k].shooter_ended_no_shot_when_a_tile_gave_one + ' (moved to a shot ' + K[k].shooter_moved_to_a_shot + ', held for his breath ' + (K[k].rested_for_breath || 0) + ', chose another ' + JSON.stringify(K[k].chose_by || {}) + ')').join(', '));
     leg(sum('idle_when_a_move_gave_a_hit_next_turn') === 0 && sum('height_walled_turns') === 0,
       '  H4 nobody idle while a tile he could walk to gave a hit next turn (the tile he stood on giving none); no club walled off by storeys',
       ks.map(k => k + ' idle ' + K[k].idle_when_a_move_gave_a_hit_next_turn + ' walled ' + K[k].height_walled_turns).join(', '));

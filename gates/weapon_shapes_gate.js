@@ -8,13 +8,17 @@
       skill's own words in weapons.json, its page is in the library, and its count is the number in those words (a line and an arc
       exactly; 'all around' our whole ring of eight for their six; the cone the wedge's slope is the tangent of half its angle);
    2. THE SHAPES ON OUR BOARD: Split the man and the one behind; Swing the man and the next two counterclockwise as he sees it;
-      Round Swing all eight; the shotgun's cone the man shot and four behind on every one of the eight headings;
-   3. FOE ONLY, EACH HIS OWN BLOW: an axe's Round Swing ringed by three of his and one of its own strikes the three, each his own
-      roll, and passes its own man over;
+      Round Swing the THREE IN FRONT (AMENDED 11/2, COMBAT 6, rule 333, Paolo: 'round swing right now hits eight people around you...
+      I think it could hit three tiles'): the man aimed at, front-left and front-right, on a straight aim and a corner aim alike
+      (ours.round_swing; the eight were the old reading of Battle Brothers' six); the shotgun's cone the man shot and four behind
+      on every one of the eight headings;
+   3. FOE ONLY, EACH HIS OWN BLOW, NEVER BEHIND: an axe's Round Swing with two of ours in front of him, his own man front-right and
+      one of ours behind him strikes the two in front, each his own roll, passes its own man over and never reaches behind;
    4. THE SHOTGUN'S BLAST: one shot at a man with two behind him in the cone strikes all three, spends one round and one AP cost,
       and never his own man standing in it;
    5. THE SLEDGE SWEEPS ON HIS WORD: its blow is Smite (one man), its sweep Shatter (three); the greatsword carries Split and Swing;
-   6. THE BRAINS SWEEP WHEN IT PAYS: an axe man of theirs with two of ours beside him swings Round Swing, with one a plain blow;
+   6. THE BRAINS SWEEP WHEN IT PAYS: an axe man of theirs with two of ours in front of him swings Round Swing, with one a plain blow
+      (rule 333: the two stand where one swing reaches both; one in front and one behind is no sweep);
    and on his phone (390 x 844), the real page, real taps:
    7. LIT BEFORE THE SWING: his shotgun man taps a man of theirs: the cone's tiles are lit, the men it strikes marked, the line
       says how many; the second tap fires it and every man it caught is heard;
@@ -68,12 +72,13 @@ leg(bad.length === 0 && Object.keys(many).length >= 7,
 ctx.setSeed(5); F.setup({ kind: 'suburb', formation: null, deploy: false, flat: true, band: ['brigand_thug', 'brigand_thug', 'brigand_thug', 'brigand_thug'] });
 const sk = n => ({ name: n }), A = { x: 10, y: 6 }, P = (x, y) => ({ x, y });
 const split = F.shapeTiles(A, P(11, 6), sk('Split')), swing = F.shapeTiles(A, P(11, 6), sk('Swing')), round = F.shapeTiles(A, P(11, 6), sk('Round Swing'));
+const roundC = F.shapeTiles(A, P(11, 5), sk('Round Swing')), thresh = F.shapeTiles(A, P(10, 7), sk('Thresh'));
 const heads = [[1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1]];
 const cones = heads.map(h => F.shapeTiles(A, P(A.x + h[0] * 2, A.y + h[1] * 2), sk('Fire Handgonne')).length);
 const coneE = F.shapeTiles(A, P(12, 6), sk('Fire Handgonne'));
-leg(same(split, [P(11, 6), P(12, 6)]) && same(swing, [P(11, 6), P(11, 5), P(10, 5)]) && round.length === 8 && cones.every(n => n === 5) && same(coneE, [P(12, 6), P(13, 6), P(14, 5), P(14, 6), P(14, 7)]),
-  '*** THE SHAPES ON OUR BOARD ***: Split the man and the one behind; Swing the next two counterclockwise; Round Swing all eight; the cone the man and four behind on every heading',
-  'split ' + show(split) + '; swing ' + show(swing) + '; round ' + round.length + '; cone east ' + show(coneE) + '; the eight headings ' + cones.join(' '));
+leg(same(split, [P(11, 6), P(12, 6)]) && same(swing, [P(11, 6), P(11, 5), P(10, 5)]) && same(round, [P(11, 6), P(11, 5), P(11, 7)]) && same(roundC, [P(11, 5), P(10, 5), P(11, 6)]) && same(thresh, [P(10, 7), P(9, 7), P(11, 7)]) && cones.every(n => n === 5) && same(coneE, [P(12, 6), P(13, 6), P(14, 5), P(14, 6), P(14, 7)]),
+  '*** THE SHAPES ON OUR BOARD ***: Split the man and the one behind; Swing the next two counterclockwise; Round Swing and Thresh the three in front (rule 333), straight or at a corner; the cone the man and four behind on every heading',
+  'split ' + show(split) + '; swing ' + show(swing) + '; round east ' + show(round) + ', north-east ' + show(roundC) + '; thresh south ' + show(thresh) + '; cone east ' + show(coneE) + '; the eight headings ' + cones.join(' '));
 
 /* the field for the next legs: one man of each side picked, everybody else off it */
 const S = F.S;
@@ -83,17 +88,17 @@ function turn(u) { S.order = [u.id]; S.idx = 0; u.ap = u.apTurn; u.fat = 0; u.be
 const mine = S.units.filter(u => u.side === 'you'), theirs = S.units.filter(u => u.side === 'them');
 const atks = () => S.events.filter(e => e.t === 'attack');
 
-/* 3: an axe of theirs, three of ours round him and one of his own */
+/* 3: an axe of theirs, two of ours in front of him, one of his own front-right, one of ours behind him (rule 333) */
 {
   const ax = theirs[0], pal = theirs[1], v = mine.slice(1, 4);
   field([ax, pal].concat(v)); arm(ax, 'woodcutter_s_axe'); turn(ax);
-  ax.x = 10; ax.y = 6; v[0].x = 11; v[0].y = 6; v[1].x = 11; v[1].y = 5; v[2].x = 9; v[2].y = 7; pal.x = 10; pal.y = 5;
+  ax.x = 10; ax.y = 6; v[0].x = 11; v[0].y = 6; v[1].x = 11; v[1].y = 5; v[2].x = 9; v[2].y = 7; pal.x = 11; pal.y = 7;
   v.forEach(u => { u.hp = u.hpMax = 999; }); pal.hp = pal.hpMax = 999;
   F.sweep(ax, v[0], null, 'Round Swing');
   const a = atks(), to = a.map(e => e.to);
-  leg(a.length === 3 && v.every(u => to.indexOf(u.id) >= 0) && to.indexOf(pal.id) < 0 && a.every(e => e.skill === 'Round Swing') && a.filter(e => e.sweep).length === 2,
-    '*** FOE ONLY, EACH HIS OWN BLOW ***: Round Swing ringed by three of ours and one of its own strikes the three, each his own roll',
-    a.length + ' blows: ' + a.map(e => (e.hit ? 'hit ' : 'miss ') + e.chance + '% (rolled)').join(', ') + '; its own man struck: ' + (to.indexOf(pal.id) >= 0));
+  leg(a.length === 2 && to.indexOf(v[0].id) >= 0 && to.indexOf(v[1].id) >= 0 && to.indexOf(v[2].id) < 0 && to.indexOf(pal.id) < 0 && a.every(e => e.skill === 'Round Swing') && a.filter(e => e.sweep).length === 1,
+    '*** FOE ONLY, EACH HIS OWN BLOW, NEVER BEHIND ***: Round Swing aimed east strikes the two of ours in front, each his own roll; its own man front-right passed over; the man behind him untouched (rule 333)',
+    a.length + ' blows: ' + a.map(e => (e.hit ? 'hit ' : 'miss ') + e.chance + '% (rolled)').join(', ') + '; its own man struck: ' + (to.indexOf(pal.id) >= 0) + '; the man behind struck: ' + (to.indexOf(v[2].id) >= 0));
 }
 /* 4: the shotgun's blast */
 {
@@ -125,12 +130,12 @@ const atks = () => S.events.filter(e => e.t === 'attack');
 {
   const ax = theirs[0], v = mine.slice(1, 3);
   field([ax].concat(v)); arm(ax, 'woodcutter_s_axe'); turn(ax);
-  ax.x = 10; ax.y = 6; v[0].x = 11; v[0].y = 6; v[1].x = 9; v[1].y = 6; v.forEach(u => { u.hp = u.hpMax = 999; });
+  ax.x = 10; ax.y = 6; v[0].x = 11; v[0].y = 6; v[1].x = 11; v[1].y = 5; v.forEach(u => { u.hp = u.hpMax = 999; });   /* rule 333: both where one swing reaches */
   F.aiStep(ax); const two = atks()[0];
   field([ax, v[0]]); turn(ax); ax.x = 10; ax.y = 6; v[0].x = 11; v[0].y = 6;
   F.aiStep(ax); const lone = atks()[0];
   leg(!!two && two.skill === 'Round Swing' && !!lone && lone.skill !== 'Round Swing',
-    '*** THE BRAINS SWEEP WHEN IT PAYS ***: an axe of theirs beside two of ours swings Round Swing, beside one a plain blow',
+    '*** THE BRAINS SWEEP WHEN IT PAYS ***: an axe of theirs with two of ours in front of him swings Round Swing, beside one a plain blow',
     'two beside him: ' + (two ? two.skill || 'a plain blow' : 'nothing') + '; one: ' + (lone ? lone.skill || 'a plain blow' : 'nothing'));
 }
 

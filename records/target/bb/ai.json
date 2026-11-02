@@ -157,7 +157,8 @@
     "shield_the_backline": true,
     "sees_only": true,
     "snipes_the_head": true,
-    "finds_a_shot": true
+    "finds_a_shot": true,
+    "best_turn": true
    },
    "source": "bb_all/0424_Combat Mechanics.txt",
    "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy), with at least 5 hexes between parties.",
@@ -194,6 +195,11 @@
      "source": "VAMILY.md rule 322 (Paolo 11/2); Battle Brothers' ai_engage_ranged (selectBestTargetTile: its max range, line of fire, a visible tile, and the PotentialDanger list; gist.github.com/Suor/82489e82556a81d51445bcd4717b3950)",
      "quote": "with auto combat you want the characters to get into places where they have the ability to hit the enemy... my sniper... ends his turn without trying to get to the best point of view, a place with line of sight where he can shoot",
      "how": "a shooter of his with no shot where he stands walks to the best tile that gives one: a shot this turn first, else a shot next turn; the order and the weights are ours.auto_finds_a_shot"
+    },
+    "best_turn": {
+     "source": "VAMILY.md rule 332 (Paolo 11/2); Battle Brothers' AI picks its best action and tile one turn at a time (ai_engage_ranged's PotentialDanger, gist.github.com/Suor/82489e82556a81d51445bcd4717b3950)",
+     "quote": "the best course of action in that turn, to do the most damage and take the least damage within that turn",
+     "how": "every action he can take this turn (a blow, a sweep, a perk, a swap and its blow, a walk and a blow, a reload, the squeeze, holding) scored as the hurt it deals minus the hurt he takes before his next turn where he ends; the best is taken; no multi-turn plans; out of breath he holds (the rest); the weights are ours.auto_best_turn"
     }
    },
    "head": {

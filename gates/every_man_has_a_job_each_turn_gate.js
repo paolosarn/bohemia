@@ -24,6 +24,10 @@
    J4 and AUTO wins his crew's fights at least as often as before (158 of the 300 with rule 321's storeys, AMENDED 11/2; 170 on the board rule 256 opened; 178 before it).
    Run: node gates/every_man_has_a_job_each_turn_gate.js [--n 300] */
 'use strict';
+/* COMBAT 6 (rule 332 amended, ask line 334): the bank this gate compares his AUTO with was played on their old brain; their side here
+   plays that same brain (BOHEMIA_THEIR_BRAIN=bank, tools/bohemia_tuning_auto_brain.js engineFor) so both arms meet the same enemy.
+   Their new brain's own effect: records/BOHEMIA_COMBAT_AUTO_PLAYS_THE_BEST_TURN_AND_THE_ROUND_SWING_11_2_26.md */
+process.env.BOHEMIA_THEIR_BRAIN = 'bank';
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 let pass = 0, fail = 0;
