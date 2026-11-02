@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 131,
-  "types_in_the_fight": 18,
+  "types": 140,
+  "types_in_the_fight": 27,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -51,13 +51,18 @@
     "armored_wardog",
     "billman",
     "footman",
+    "house_crossbow",
+    "house_hook",
+    "house_shield",
     "knight",
     "man_at_arms",
     "sergeant",
     "standard_bearer",
     "zweihander"
    ],
-   "in_the_fight": [],
+   "in_the_fight": [
+    "house"
+   ],
    "draft": true
   },
   {
@@ -97,9 +102,12 @@
     "barbarian_madman",
     "barbarian_reaver",
     "barbarian_thrall",
+    "keeper_thrall",
     "warhound"
    ],
-   "in_the_fight": [],
+   "in_the_fight": [
+    "keepers"
+   ],
    "draft": true
   },
   {
@@ -117,9 +125,12 @@
     "nomad_executioner",
     "nomad_leader",
     "nomad_outlaw",
-    "nomad_slinger"
+    "nomad_slinger",
+    "water_cutter"
    ],
-   "in_the_fight": [],
+   "in_the_fight": [
+    "water"
+   ],
    "draft": true
   },
   {
@@ -175,9 +186,13 @@
     "militia_captain",
     "militia_marksman",
     "militia_veteran",
-    "peasant"
+    "peasant",
+    "watch_captain",
+    "watch_neighbor"
    ],
-   "in_the_fight": [],
+   "in_the_fight": [
+    "watch"
+   ],
    "draft": true
   },
   {
@@ -195,10 +210,12 @@
     "goblin_skirmisher",
     "goblin_wolf",
     "goblin_wolfrider",
-    "greenskin_catapult"
+    "greenskin_catapult",
+    "water_needle"
    ],
    "in_the_fight": [
-    "kids"
+    "kids",
+    "water"
    ],
    "draft": true
   },
@@ -210,13 +227,15 @@
    "skin": "THE HEAVY: exo-suit men, crash-bar shields, they push you off the tile",
    "lesson": "They shove you off your tile: put your back to a wall and shoot before they reach the line.",
    "types": [
+    "keeper_feral",
     "orc_berserker",
     "orc_warlord",
     "orc_warrior",
     "orc_young"
    ],
    "in_the_fight": [
-    "heavies"
+    "heavies",
+    "keepers"
    ],
    "draft": true
   },
@@ -1831,6 +1850,69 @@
    "page": "bb_all/0991_Hexe.txt"
   },
   {
+   "type": "house_crossbow",
+   "bb_name": "House Crossbow",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "house_crossbow"
+   ],
+   "name": "CROSSBOW",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "house"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0128_Arbalester.txt"
+  },
+  {
+   "type": "house_hook",
+   "bb_name": "House Hook",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "house_hook"
+   ],
+   "name": "HOOK",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "house"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0238_Billman.txt"
+  },
+  {
+   "type": "house_shield",
+   "bb_name": "House Shield",
+   "bb_faction": "noble_houses",
+   "family": "home_base_guards",
+   "rows": [
+    "house_shield"
+   ],
+   "name": "SHIELD",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "house"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0801_Footman.txt"
+  },
+  {
    "type": "hyena",
    "bb_name": "Hyena",
    "bb_faction": "beasts",
@@ -1926,6 +2008,48 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/1074_Indebted (Enemy).txt"
+  },
+  {
+   "type": "keeper_feral",
+   "bb_name": "Feral",
+   "bb_faction": "orcs",
+   "family": "the_heavies",
+   "rows": [
+    "keeper_feral"
+   ],
+   "name": "FERAL",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "keepers"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1492_Orc Berserker.txt"
+  },
+  {
+   "type": "keeper_thrall",
+   "bb_name": "Keeper",
+   "bb_faction": "barbarians",
+   "family": "lab_breakout_keepers",
+   "rows": [
+    "keeper_thrall"
+   ],
+   "name": "KEEPER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "keepers"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0193_Barbarian Thrall.txt"
   },
   {
    "type": "knight",
@@ -2936,6 +3060,90 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/2182_Warhound.txt"
+  },
+  {
+   "type": "watch_captain",
+   "bb_name": "Block Captain",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "watch_captain"
+   ],
+   "name": "CAPTAIN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "watch"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1286_Militia Captain.txt"
+  },
+  {
+   "type": "watch_neighbor",
+   "bb_name": "Neighbor",
+   "bb_faction": "civilians",
+   "family": "townsfolk",
+   "rows": [
+    "watch_neighbor"
+   ],
+   "name": "NEIGHBOR",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "watch"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0136_Armed Peasant.txt"
+  },
+  {
+   "type": "water_cutter",
+   "bb_name": "Cutter",
+   "bb_faction": "nomads",
+   "family": "desert_road_crews",
+   "rows": [
+    "water_cutter"
+   ],
+   "name": "CUTTER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "water"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1438_Nomad Cutthroat.txt"
+  },
+  {
+   "type": "water_needle",
+   "bb_name": "Needle",
+   "bb_faction": "goblins",
+   "family": "kids_and_runners",
+   "rows": [
+    "water_needle"
+   ],
+   "name": "NEEDLE",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "water"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0864_Goblin Ambusher.txt"
   },
   {
    "type": "webknecht",

@@ -43,7 +43,7 @@ and anarchists', the Water People in the caravans' and the runners' hoods and wr
 CHARACTER (a car-door shield, a hook pole, a crossbow, a dart bandolier).
 
 ## AFTER
-- 30 types in the fight tables (+9), 10 fight factions (+4).
+- 30 types in the fight tables (+9), 10 fight factions (+4); the roster file (records/target/bb/roster.json, its tool now reads the new file) 131 -> 140 types.
 - A player's first five fights: 5.2 distinct types on average (was 3.2); across 200 players 16 types and 8
   factions met (was 7 and 4).
 - Sized to the crew (AUTO, new crew of 3 / 6 / 12): House 16/18/14 of 20, Water 18/17/18 of 20; Watch and Keepers

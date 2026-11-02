@@ -88,6 +88,18 @@ def build():
     AW = O['act_weights']['value']
     mix = O['enemy_tiers']['value']['mix']
     heads = O['enemy_tiers']['value'].get('heads', {})
+    # FACTIONS 11/3: the new act-one enemies (records/target/bb/bohemia_enemies.json), as the fight folds them in (ownEnemies):
+    # each row on its wiki row, its board name, its faction's make-up and head
+    NE = json.load(open(os.path.join(BB, 'bohemia_enemies.json')))
+    byid = {r['id']: r for r in E}
+    names = dict(names)
+    mix = dict(mix)
+    for o in NE['rows']:
+        if o['id'] not in byid:
+            E.append(dict(byid[o['from']], id=o['id'], name=o['name'], variant='base'))
+        names.setdefault(o['id'], o['board_name'])
+    for f, v in NE['mix'].items(): mix.setdefault(f, v)
+    heads = dict(NE.get('heads', {}), **heads)
     fielded = {}
     for f, phases in mix.items():
         for ph in phases.values():
