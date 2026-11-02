@@ -305,3 +305,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 281 | Every interact button from combat to the city lives on the phone | 297 | UI | RECORDED: note 9 |
 | 282 | The reload button a lot bigger on the phone in the fight | 297 | UI | RECORDED: note 9 |
 | 283 | No turn-order strip on the fight screen (the order stays in the code) | 297 | UI | RECORDED: note 9 |
+| 284 | MORE CONTENT: more to do in act one (road events, jobs, side quests), "I want more content for the game, more content" (Paolo 11/2) | 297 | CONTENT lane | RUNNING (CONTENT lane started 11/2): 25+ road events, 8+ job kinds, 5+ quests from the library |
