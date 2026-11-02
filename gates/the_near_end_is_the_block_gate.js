@@ -67,8 +67,10 @@ const done = () => { console.log('THE NEAR END IS THE BLOCK: ' + pass + ' passed
     ok('N7 the HUD stays (the phone ' + hud.phone + ', its PLAY ' + hud.pad + ')', hud.pad && hud.phone);
     await d.pinchIn(); await d.page.waitForTimeout(1500);
     const s2 = await st(), m2 = await d.fr.evaluate(() => (typeof STREET !== 'undefined') ? STREET.mult : 1);
-    ok('*** N2 THE NEXT SQUEEZE IN GOES ON INTO THE STREET, ON THE ONE MAP *** (looking ' + s2.look + ', ' + s2.mode + ', the map held at ' + s2.cz.toFixed(2) + ' of ' + s2.zmax.toFixed(2) + ', the street ' + m2.toFixed(2) + ': no block close-up, rules 142 and 258)',
-      !s2.look && s2.mode === 'city' && Math.abs(s2.cz - s2.zmax) < 1e-3 && m2 > 1);
+    /* AMENDED 11/2 (WORLD, ask line 276, rule 300; Paolo 10/27: 'why does it have to enter a whole second map mode'): the street past
+       the closest stop (rule 258) was that second mode and is off; the next squeeze in now changes nothing, on the one map */
+    ok('*** N2 THE NEXT SQUEEZE IN CHANGES NOTHING: THE ONE MAP HOLDS AT ITS CLOSEST STOP *** (looking ' + s2.look + ', ' + s2.mode + ', the map held at ' + s2.cz.toFixed(2) + ' of ' + s2.zmax.toFixed(2) + ', the street ' + m2.toFixed(2) + ': no block close-up, no second map mode, rules 142 and 300)',
+      !s2.look && s2.mode === 'city' && Math.abs(s2.cz - s2.zmax) < 1e-3 && m2 === 1);
 
     /* N8: out of the street to the closest stop, then the map zooms out on the next squeeze */
     let s4 = await st(), m4 = m2;

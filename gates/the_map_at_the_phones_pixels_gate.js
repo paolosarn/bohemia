@@ -127,10 +127,10 @@ const done = () => { console.log('THE MAP AT THE PHONE\'S PIXELS: ' + pass + ' p
       const cmp = (A, B) => { let big = 0; for (let i = 0; i < A.length; i += 4) { const m = Math.max(Math.abs(A[i] - B[i]), Math.abs(A[i + 1] - B[i + 1]), Math.abs(A[i + 2] - B[i + 2])); if (m > 8) big++; } return big; };
       try { travelStop(); } catch (_e) {}
       const pn = performance.now.bind(performance); const T = pn(); performance.now = () => T;
-      const G = CITY_GLIDE, save = { fx: G.fx, fy: G.fy, tx: G.tx, ty: G.ty, t0: G.t0, dur: G.dur };
+      const G = CITY_GLIDE, save = { tx: G.tx, ty: G.ty, px: G.px, py: G.py, sx: G.sx, sy: G.sy, q: G.q.slice(), v: G.v, cr: G.cr, tl: G.tl, u: G.u };   /* WORLD 11/2: the glide follows a queue now (__THE_MAP_GLIDES_ALONG_THE_ROAD__) */
       const out = [];
       try {
-        G.t0 = T - 100; G.dur = 500; G.fx = city.x - 0.5; G.fy = city.y; G.tx = city.x; G.ty = city.y;
+        G.tx = city.x; G.ty = city.y; G.sx = city.x - 1; G.sy = city.y; G.px = city.x - 0.5; G.py = city.y; G.q = [[city.x, city.y]]; G.v = G.cr = 1 / 500; G.tl = T; G.u = 0.5;   /* in flight, half a block short */
         MAP_GROUND.t = -1e9; renderCity();
         for (const [px, py] of [[5, 0], [0, 7], [-11, 3]]) {
           const p0x = panX, p0y = panY; panX += px; panY += py;
@@ -177,7 +177,7 @@ const done = () => { console.log('THE MAP AT THE PHONE\'S PIXELS: ' + pass + ' p
     await d.page.waitForTimeout(800);
     const st = await fr.evaluate(() => {
       try { travelStop(); } catch (_e) {}
-      CITY_GLIDE.t0 = performance.now() - 5000;   /* the glide has landed */
+      { const G = CITY_GLIDE; G.q = []; G.px = G.sx = G.tx = city.x; G.py = G.sy = G.ty = city.y; G.v = 0; G.u = 1; }   /* the glide has landed (WORLD 11/2: the queue empty, the picture on his block) */
       const b0 = MAP_GROUND.builds; renderCity(); return { painted: MAP_GROUND.builds > b0, why: MAP_GROUND.why };
     });
     ok('P6 the moment he stops the ground is painted fresh (' + JSON.stringify(st.why) + ')', st.painted);

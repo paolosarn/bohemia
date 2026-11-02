@@ -47,7 +47,11 @@ const HELPERS = () => {
     const seen = new Set([s[1] * n + s[0]]); let layer = [s];
     for (let dd = 0; layer.length && dd < 400; dd++) { const nx = [];
       for (const c of layer) for (const v of D8) { const q = [c[0] + v[0], c[1] + v[1]]; if (q[0] < 0 || q[1] < 0 || q[0] >= n || q[1] >= n) continue;
-        if (touches(t, q)) return dd + 1; const k = q[1] * n + q[0]; if (seen.has(k) || !cityWalkable(q[0], q[1])) continue; seen.add(k); nx.push(q); }
+        if (touches(t, q)) return dd + 1; const k = q[1] * n + q[0]; if (seen.has(k) || !cityWalkable(q[0], q[1])) continue;
+        /* WORLD 11/2 (__STRAIGHT_THROUGH_THE_CROSSING__, ask line 250): a walk never cuts a building's corner on the street (one block
+           beside the diagonal street, the other not); the last step onto the town's ground is exempt, as in the game */
+        if (v[0] && v[1] && !cityWalkable(c[0] + v[0], c[1]) !== !cityWalkable(c[0], c[1] + v[1])) continue;
+        seen.add(k); nx.push(q); }
       layer = nx; }
     return null; };
   /* a street block well off the town on the side away from its own streets (the case that looped) */

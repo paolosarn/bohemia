@@ -44496,6 +44496,24 @@ function travelSay(s){
   try{ var l=document.getElementById('packline'); if(l) l.textContent=s; }catch(_e){}
 }
 
+/* ==== __STRAIGHT_THROUGH_THE_CROSSING__ (WORLD 11/2, ask line 250; Paolo 10/27: 'if they're coming up to a four-way
+   intersection for them to go all the way to the right they'll go to the north street and then go to the east street... they
+   won't go through the intersection when they walk'). MEASURED on the demo (phone): 226 four-way crossings in the valley; of the
+   904 trips straight across one (an arm to the opposite arm), 678 went up the side street and over ([17,5] -> [18,4] -> [19,5])
+   and 226 went through the middle. The search steps in eight directions and, at the same length, took the diagonal that slips
+   round a building's corner before the straight step, because north-east comes before east in DIRS.
+   NOW: (1) a diagonal step that CUTS A CORNER (of the two blocks it passes between, one is street and one is not) is never
+   taken: the street beside it reaches the same block in two straight steps. A diagonal between two streets that touch only at a
+   corner (neither block beside it is street) still goes, so no block a route reached before is cut off; across open ground
+   (both sides open) a diagonal is still a diagonal. (2) the four straight steps are tried before the diagonals, so between two
+   routes of the same length the straight one is found first. Every route he walks shares it: a tap (cityRoute), a town's door
+   (townDoorWalk) and PLAY (mapBestRoute). ==== */
+var ROUTE_ORDER = [0, 2, 4, 6, 1, 3, 5, 7];   /* N E S W first, then the diagonals (DIRS' own indices) */
+function routeCutsCorner(x, y, dx, dy, ok){
+  if (!dx || !dy) return false;
+  return !ok(x + dx, y) !== !ok(x, y + dy);
+}
+try { window.routeCutsCorner = routeCutsCorner; } catch (_e) {}
 /* THE SEARCH. Breadth-first over the cells a press could cross, capped by the map's
    own size so it cannot run away on a valley that grows. */
 function cityRoute(ax,ay,bx,by){
@@ -44508,11 +44526,12 @@ function cityRoute(ax,ay,bx,by){
   while(head<q.length && head<n*n){
     var c=q[head++];
     if(c[0]===bx && c[1]===by){ found=true; break; }
-    for(var d=0;d<DIRS.length;d++){
-      var nx=c[0]+DIRS[d][0], ny=c[1]+DIRS[d][1];
+    for(var o=0;o<ROUTE_ORDER.length;o++){
+      var d=ROUTE_ORDER[o], nx=c[0]+DIRS[d][0], ny=c[1]+DIRS[d][1];
       if(nx<0||ny<0||nx>=n||ny>=n) continue;
       var k=K(nx,ny); if(seen[k]) continue;
       if(!cityWalkable(nx,ny)) continue;
+      if(routeCutsCorner(c[0],c[1],DIRS[d][0],DIRS[d][1],cityWalkable)) continue;   /* __STRAIGHT_THROUGH_THE_CROSSING__ */
       seen[k]=1; from[k]=[c[0],c[1]]; q.push([nx,ny]);
     }
   }
@@ -44723,11 +44742,12 @@ function townDoorWalk(t){
     var next = [];
     for(var i = 0; i < layer.length; i++){
       var c = layer[i], m0 = mins[K(c[0], c[1])];
-      for(var d = 0; d < DIRS.length; d++){
-        var nx = c[0] + DIRS[d][0], ny = c[1] + DIRS[d][1];
+      for(var o = 0; o < ROUTE_ORDER.length; o++){
+        var d = ROUTE_ORDER[o], nx = c[0] + DIRS[d][0], ny = c[1] + DIRS[d][1];
         if(nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
         var k = K(nx, ny), on = townTouches(t, f, nx, ny);
         if(!on && !cityWalkable(nx, ny)) continue;
+        if(!on && routeCutsCorner(c[0], c[1], DIRS[d][0], DIRS[d][1], cityWalkable)) continue;   /* __STRAIGHT_THROUGH_THE_CROSSING__ */
         var m = m0 + cityStepMins(nx, ny);
         if(on){ if(!best || m < best.mins){ best = { at: [nx, ny], prev: c, mins: m }; } continue; }
         if(seen[k]) continue;
@@ -46489,7 +46509,16 @@ function fitMap(){ const [zmin]=zoomBounds(), __F=mapFocusRead(true).fo; panX=__
    STREAMS IN ONLY AROUND THE GLASS (rule 173): each fight block at four widths, the smallest that serves; far off, a map block's
    thirty-six laid once into one small picture; one byte budget (20 MB), the oldest let go first, never one on the glass; the
    painting's own close tiles let go while the street fills the glass, and everything here let go three seconds after he leaves. ==== */
-var STREET = { on: true, mult: 1, swing: 2, tileCss: 90, walkPx: 60, stridePx: 46, per: 6, asp: 0.7068,
+/* *** __ONE_ZOOM_NO_SECOND_MAP_MODE__ (WORLD 11/2, ask line 276, rule 300; Paolo 10/27: 'when I zoom in even more on the map then I
+   just see a re-printed out combat map... a weird angle... why can't the graphics just get better as you zoom in, why does it have to
+   enter a whole second map mode... very annoying'). THIS WAS THAT SECOND MODE: past the map's closest stop the camera turned an eighth
+   and tipped to the fight's straight-on camera and the painting gave way to the fight's blocks. It is OFF (STREET.on false): the pinch
+   now stops at the map's closest stop, where a block's art lands one art pixel to one device pixel (__THE_NEAR_STOP_IS_THE_ART_AT_ITS_
+   OWN_PIXELS__), and from the far stop to that one the map is the same painting, the same corner-on camera, sharpening as he pinches in
+   (__ONE_MAP_AT_EVERY_ZOOM__). The code stays, every hook of it asking streetIsOn(), because one continuous zoom down to the people is
+   his decision for later (the finish line's 'one world, one camera'): what comes back past the near stop must keep THIS camera and get
+   more detailed, never turn. Gate: gates/one_zoom_no_second_map_mode_gate.js. *** */
+var STREET = { on: false, mult: 1, swing: 2, tileCss: 90, walkPx: 60, stridePx: 46, per: 6, asp: 0.7068,
   te: 0, a: 0, s: 0, k: 0.5, phi: Math.PI / 4, M: [1, 0, 0, 1], L: [1, 0, 0, 1], F: { x: 0, y: 0 }, W: { x: 0, y: 0 }, ox: 0, oy: 0,
   idx: null, ist: 0, pics: new Map(), comp: new Map(), bytes: 0, peak: 0, budget: 20e6, frame: 0, drawing: false, st: null, beatAcc: 0,
   asking: 0, asked: 0, landed: 0, failed: 0, builds: 0, dropped: 0, waited: 0, vbtDropped: 0, leftAt: 0, ms: 0, err: null, last: null, raf: 0, d: 0 };
@@ -46620,7 +46649,7 @@ function streetLeadPos(){
       return S.lead; } }
   if (L) { S.lead = null;
     if (L.cx === city.x && L.cy === city.y && L.u > 0.01) { var G = CITY_GLIDE, now = performance.now(), back = Math.hypot(L.x - city.x, L.y - city.y) * (S.s || 1) / S.walkPx * 1000;
-      G.fx = L.x; G.fy = L.y; G.tx = city.x; G.ty = city.y; G.t0 = now; G.dur = streetIsOn() ? Math.max(BEAT, Math.min(20000, back)) : BEAT; G.last = now; } }
+      G.px = G.sx = L.x; G.py = G.sy = L.y; G.q = [[city.x, city.y]]; G.tx = city.x; G.ty = city.y; G.tl = now; G.v = 0; G.E = streetIsOn() ? Math.max(BEAT, Math.min(20000, back)) : BEAT; G.cr = 1 / G.E; G.last = now; } }   /* __THE_MAP_GLIDES_ALONG_THE_ROAD__: back onto his block */
   return null;
 }
 /* ---- the ground: the fight's own blocks ---- */
@@ -46988,10 +47017,11 @@ function mapBestRoute(sx, sy, goal){
     var x = k % n, y = (k / n) | 0;
     if (k !== k0 && isGoal(x, y)) { hit = k; break; }
     if (k !== k0 && T && !cityWalkable(x, y)) continue;   /* a yard is only ever the last step */
-    for (var d = 0; d < DIRS.length; d++) {
-      var nx = x + DIRS[d][0], ny = y + DIRS[d][1]; if (!inV(nx, ny)) continue;
+    for (var o = 0; o < ROUTE_ORDER.length; o++) {
+      var d = ROUTE_ORDER[o], nx = x + DIRS[d][0], ny = y + DIRS[d][1]; if (!inV(nx, ny)) continue;
       var kk = ny * n + nx; if (done[kk] || !enter(nx, ny)) continue;
-      var m = sm(kk), c = cost[k] + m + Dg[kk];
+      if (cityWalkable(nx, ny) && routeCutsCorner(x, y, DIRS[d][0], DIRS[d][1], cityWalkable)) continue;   /* __STRAIGHT_THROUGH_THE_CROSSING__: a town's own yard is still a last step */
+      var m = sm(kk), c = cost[k] + m + Dg[kk] + (DIRS[d][0] && DIRS[d][1] ? 1e-4 : 0);   /* and a hair for a diagonal: the same minutes go straight */
       if (c < cost[kk]) { cost[kk] = c; mins[kk] = mins[k] + m; from[kk] = k; push(c, kk); }
     }
   }
@@ -47499,48 +47529,92 @@ function vistaBackdrop(plateTop){
    SO A GLIDE LASTS AS LONG AS THE GAP BETWEEN STEPS, capped at one beat: at 1x that
    is exactly the beat it always was, and at 5x each glide ends as the next begins,
    so fast travel is one constant slide too. The beat stays in the hop. */
-var CITY_GLIDE={fx:null,fy:null,tx:null,ty:null,t0:0,raf:0,dur:0,last:-1e9,n:0};
-function cityGlideAt(G,now){
-  const u=Math.max(0,Math.min(1,(now-G.t0)/(G.dur||BEAT)));
-  return {x:G.fx+(G.tx-G.fx)*u, y:G.fy+(G.ty-G.fy)*u, u:u};
+/* *** __THE_MAP_GLIDES_ALONG_THE_ROAD__ (WORLD 11/2, ask line 272; Paolo 10/27: 'on the map more things to glide, it feels like
+   nothing on the map is gliding... when you're reversing [traversing] on the map it moves block by block at a time... I want things
+   to look less choppy'). MEASURED on the demo (phone, the default 1.22x, a 35-block trip and the same trip turned back half way,
+   every drawn frame sampled): the blocks did not come one a beat. The clock's extra block of 1.22x lands 73 to 118 ms after the
+   beat's own, and the glide above lasted 'the gap between steps', so that block was crossed in under a tenth of a second: the marker
+   lurched a whole block in one or two frames (largest frame move 0.77 block going, 1.01 block turned back; 1 and 3 frames past half
+   a block) and then crawled for the next half second. That is the block by block he sees: the speed changing every block.
+   NOW THE PICTURE FOLLOWS THE ROAD AT THE CLOCK'S OWN PACE. Every block he steps to joins a short queue of the blocks ahead of the
+   picture; the picture walks that queue at one speed for the whole step, set when the step lands so it keeps about half a block
+   behind him (a journey's pace is the pad's own: a block every BEAT / TRAVEL_SPEED), and it never changes speed in a step. So the
+   1.22x extra block is absorbed: the speed on the glass holds. It eases in when a journey starts and out when it ends (a soft stop
+   on his block), turns back where it IS when he turns back (never on to the old block first), and a
+   jump of more than three blocks (a landing, a load) is still a cut. Where he IS (city.x, city.y) still changes on the step itself;
+   only the picture follows. The roaming parties walk the same way, at the pace of their own steps. *** */
+var CITY_GLIDE={tx:null,ty:null,px:0,py:0,q:[],sx:0,sy:0,v:0,cr:0,E:0,tl:0,raf:0,last:-1e9,gap:0,n:0,u:1,end:false,jumps:0,steps:0};
+function glideCheb(ax, ay, bx, by){ return Math.max(Math.abs(bx - ax), Math.abs(by - ay)); }
+function glideLeft(G){ var R = 0, x = G.px, y = G.py; for (var i = 0; i < G.q.length; i++){ var w = G.q[i]; R += glideCheb(x, y, w[0], w[1]); x = w[0]; y = w[1]; } return R; }
+/* a new block for the picture to walk to: E is the time a block takes on this clock, far the cut line, journey whether more follow */
+function glideStep(G, x, y, now, E, far, journey){
+  glideAdvance(G, now);   /* the picture where it is NOW, before the new block joins */
+  var q = G.q, tail = q.length ? q[q.length - 1] : [G.px, G.py];
+  G.tx = x; G.ty = y; G.steps++;
+  var gap = now - G.last, chained = gap < 1.6 * E;
+  if (glideCheb(tail[0], tail[1], x, y) > far || glideCheb(G.px, G.py, x, y) > far + 2) {   /* a cut, not a step */
+    G.px = G.sx = x; G.py = G.sy = y; q.length = 0; G.v = 0; G.u = 1; G.last = -1e9; G.jumps++; return; }
+  if (q.length >= 2 && q[q.length - 2][0] === x && q[q.length - 2][1] === y) q.pop();   /* back the way it came: the block ahead is dropped */
+  else if (q.length === 1 && G.sx === x && G.sy === y) { q[0] = [x, y]; G.sx = G.px; G.sy = G.py; G.v = 0; }   /* turned back mid-block: back from where it IS */
+  else { if (!q.length) { G.sx = G.px; G.sy = G.py; } q.push([x, y]); }
+  G.E = E; G.last = now;
+  var R = glideLeft(G), lone = !chained && !journey;
+  /* ONE SPEED FOR THE WHOLE STEP, decided as it lands: the clock's own pace, nudged (three tenths a block) toward keeping the picture
+     about six tenths of a block behind him as each step lands, so an early block (1.22x) is a quarter faster for a block, never a
+     lurch; a journey's first block starts at about four fifths and eases up. A lone step (nothing follows: the old walk, a push)
+     lands inside its beat. Speed changes ease (G.A), and the picture eases to a stop on the last block (G.Ab). */
+  if (lone) { G.cr = R / (0.75 * E); G.A = G.Ab = 1 / (0.15 * E * E); }
+  else { G.cr = Math.max(0.5, Math.min(2.5, 1 + 0.3 * (R - 1.6))) / E; G.A = 1 / (0.6 * E * E); G.Ab = 1 / (0.5 * E * E); }
 }
+/* the picture at time now: walks its queue at its speed, eased in and out */
+function glideAdvance(G, now){
+  var dt = now - G.tl; if (now > G.tl) G.tl = now; if (!(dt > 0)) dt = 0; if (dt > 120) dt = 120;
+  if (!G.q.length) { G.v = 0; G.u = 1; return; }
+  var E = G.E || BEAT, A = G.A || 1 / (0.6 * E * E), Ab = G.Ab || 1 / (0.5 * E * E), R = glideLeft(G);
+  if (G.v < G.cr) G.v = Math.min(G.cr, G.v + A * dt); else G.v = Math.max(G.cr, G.v - A * dt);
+  G.v = Math.min(G.v, Math.sqrt(2 * Ab * R) + 1e-6);
+  var s = G.v * dt;
+  while (s > 0 && G.q.length) {
+    var w = G.q[0], r = glideCheb(G.px, G.py, w[0], w[1]);
+    if (s >= r) { G.px = G.sx = w[0]; G.py = G.sy = w[1]; s -= r; G.q.shift(); G.n++; }
+    else { var f = s / r; G.px += (w[0] - G.px) * f; G.py += (w[1] - G.py) * f; s = 0; }
+  }
+  if (!G.q.length) { G.v = 0; G.u = 1; return; }
+  var w0 = G.q[0], L = glideCheb(G.sx, G.sy, w0[0], w0[1]);
+  G.u = L > 1e-9 ? Math.max(0, Math.min(0.999, 1 - glideCheb(G.px, G.py, w0[0], w0[1]) / L)) : 0.999;
+}
+/* the old reader (the camera asks it): where the picture is at now */
+function cityGlideAt(G, now){ glideAdvance(G, now); return { x: G.px, y: G.py, u: G.u }; }
 function cityGlidePos(now){
   const G=CITY_GLIDE;
-  if(G.tx===null){ G.fx=G.tx=city.x; G.fy=G.ty=city.y; G.t0=now-BEAT; }
+  if(G.tx===null){ G.px=G.sx=G.tx=city.x; G.py=G.sy=G.ty=city.y; G.tl=now; G.q=[]; G.v=0; G.u=1; G.last=-1e9; }   /* tx null is a reset (a cut, a load): nothing left to walk */
+  const journey=!!(typeof TRAVEL!=='undefined' && TRAVEL && TRAVEL_SPEED>0);
   if(city.x!==G.tx||city.y!==G.ty){
-    const cur=cityGlideAt(G,now);
-    const far=Math.abs(city.x-cur.x)+Math.abs(city.y-cur.y)>2.5;
-    G.fx=far?city.x:cur.x; G.fy=far?city.y:cur.y;
-    G.tx=city.x; G.ty=city.y; G.t0=now;
-    /* a far jump is a cut, not a step: it must not set the pace for the step after it */
-    G.dur=Math.max(50,Math.min((typeof streetGlideMs==='function'?streetGlideMs():BEAT),now-G.last)); G.last=far?-1e9:now;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street the lead already walked him there */
-    G.n=(G.n|0)+(far?0:1);   /* __THE_PARTIES_WALK__: steps taken, so the stride carries across steps */
+    const gap=now-G.last; if(gap>0 && gap<2*BEAT) G.gap=G.gap?G.gap*0.6+gap*0.4:gap;
+    const E=journey ? BEAT/TRAVEL_SPEED : Math.max(50, Math.min(BEAT, G.gap||BEAT));
+    glideStep(G, city.x, city.y, now, E, 3, journey);
   }
-  { const __lp=(typeof streetLeadPos==='function')?streetLeadPos():null;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street he walks toward the next block between beats */
+  { const __lp=(typeof streetLeadPos==='function')?streetLeadPos():null;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__ (off, rule 300): on the street he walks toward the next block between beats */
     if(__lp){ if(TRAVEL_SPEED>0&&!G.raf){ G.raf=requestAnimationFrame(function(){ G.raf=0; try{ if(typeof MODE!=='undefined'&&MODE==='city') render(); }catch(_e){} }); } return __lp; } }
   const p=cityGlideAt(G,now);
   /* keep drawing until it lands: the city otherwise redraws on the beat, and a
      glide drawn twice a second is the block again */
-  if(p.u<1&&!G.raf){ G.raf=requestAnimationFrame(function(){ G.raf=0;
+  if(G.q.length&&!G.raf){ G.raf=requestAnimationFrame(function(){ G.raf=0;
     try{ if(typeof MODE!=='undefined'&&MODE==='city') render(); }catch(_e){} }); }
   return p;
 }
 /* __THE_PARTIES_WALK__ (ANIMATION [the marker walks], 10/9, rule 68: every party on the map is drawn and
-   moving). A party's cell changed on the clock and it was drawn at the new cell on the next frame: the
-   boom boom boom of 9/27 again, for everybody but him. Each party now glides exactly as he does (the gap
-   between its steps, capped at a beat; a far jump is a cut), keyed by its own id, and counts its steps so
-   its stride carries across them. When the clock stops, nobody steps, and they stand and breathe. */
+   moving). Each party glides as he does (THE MAP GLIDES ALONG THE ROAD, above), keyed by its own id, at the pace of its own steps
+   (a block every so many ms, learned from its last steps), and counts its blocks so its stride carries across them. A PARTY CAN
+   COVER TWO BLOCKS IN ONE TICK (a Mob patrol went 41,29 -> 39,27, measured 10/9): two blocks is still a walk; MORE THAN THREE
+   BLOCKS any way (home, a camp) is a cut. When the clock stops, nobody steps, and they stand and breathe. */
 var PARTY_GLIDE = {};
 function partyGlidePos(key, x, y, now){
   var G = PARTY_GLIDE[key];
-  if (!G) { G = PARTY_GLIDE[key] = { fx: x, fy: y, tx: x, ty: y, t0: now - BEAT, dur: BEAT, last: -1e9, n: 0 }; }
+  if (!G) { G = PARTY_GLIDE[key] = { tx: x, ty: y, px: x, py: y, q: [], sx: x, sy: y, v: 0, cr: 0, E: BEAT, tl: now, last: -1e9, gap: 0, n: 0, u: 1, end: false, jumps: 0, steps: 0 }; }
   if (x !== G.tx || y !== G.ty) {
-    var cur = cityGlideAt(G, now);
-    /* A PARTY CAN COVER TWO BLOCKS IN ONE TICK (a Mob patrol went 41,29 -> 39,27, measured 10/9), so his own
-       cut line (2.5, one step) snapped it; a party's cut is MORE THAN THREE BLOCKS any way (home, a camp) */
-    var far = Math.max(Math.abs(x - cur.x), Math.abs(y - cur.y)) > 3;
-    G.fx = far ? x : cur.x; G.fy = far ? y : cur.y; G.tx = x; G.ty = y; G.t0 = now;
-    G.dur = Math.max(50, Math.min((typeof streetPartyGlideMs === 'function' ? streetPartyGlideMs() : BEAT), now - G.last)); G.last = far ? -1e9 : now; G.n += far ? 0 : 1;   /* __THE_MAP_ZOOMS_IN_TO_THE_STREET__: on the street a party glides the whole gap between its steps */
+    var gap = now - G.last; if (gap > 0 && gap < 4 * BEAT) G.gap = G.gap ? G.gap * 0.6 + gap * 0.4 : gap;
+    glideStep(G, x, y, now, Math.max(60, Math.min(4 * BEAT, G.gap || BEAT)), 3, true);
   }
   var p = cityGlideAt(G, now); p.n = G.n; return p;
 }
