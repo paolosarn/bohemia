@@ -172,3 +172,22 @@ efficiently token wise... do you even know who you are to me and in relation to 
   at 22:00 of day 2; not reproduced. It is an iPhone-only failure (Safari's engine); most likely the phone running out of picture
   memory after long play. Needs his phone to confirm; stays at the top.
 - GO given for the most important lanes, token-efficient.
+
+## 8. THE ROBOT HE LOVED IS NOT IN THE GAME; MORE UI LOVE; THE CRASHBOX LOOK (Paolo 11/2)
+His words: "one of the first things I was impressed by graphic wise, art asset wise, was that robot you made that was that Bohemian
+style that I was like oh my God that's perfect, so you don't even have those robots, you have like characters and like gray skin
+instead of that robot... you made a robot and you didn't even implement it, where did that robot go... put some more jobs for the
+UI shit bro. It needs more love, the UI, the transitions of the UI, the loading screen bullshit, the whole enchilada... always
+remember this economic apocalypse HBO Crashbox vibe bro please."
+What it is: the robot is DIRECTION's master-rig robot (records/target/master_rig/robot, DIRECTION_THE_MASTER_RIG_ROBOT.png; his
+10/17 'the rig's robot and truck are the look', rule 115); it was never put in the game. CRASHBOX is the look he named 10/18
+(rule 115(d): HBO Family's 1999 stop-motion show, clay and puppets inside a handmade broken game computer, rusty tin robots).
+Jobs (ask lines 277 to 280):
+277 THE ROBOT GOES IN THE GAME: the master-rig robot walks and fights as enemies (the bestiary law's 'the necromancer is a man
+    reviving his robots'), on the map and in the fight, at the fight's pixel size, animated; gray-skinned placeholder people stop
+    standing in for it. A ROBOT lane (DIRECTION's rig + COMBAT's units).
+278 THE UI GETS LOVE: every screen and button 3-D, hand-made, in the Crashbox look; nothing just appears or vanishes. UI.
+279 THE UI TRANSITIONS: every move between screens (map, town, camp, crew, fight, phone) transforms into the next (with 257). UI.
+280 THE LOADING SCREEN: redone in the Crashbox look, alive while it loads, analog horror. UI (with 261, the start screen).
+RULE 301: THE LOOK IS THE ECONOMIC APOCALYPSE IN THE CRASHBOX VIBE, ALWAYS (reaffirms rule 115(d)): every lane's art and UI is
+judged against it.

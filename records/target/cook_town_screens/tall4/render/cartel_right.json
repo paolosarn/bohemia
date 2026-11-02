@@ -360,5 +360,7 @@
 "crates",
 "barrier",
 "barrier"
-]
+],
+"taps_in_pad": [],
+"lot_cells": 2960640
 }

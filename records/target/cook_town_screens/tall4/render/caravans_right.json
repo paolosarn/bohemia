@@ -257,5 +257,7 @@
 "semi1",
 "oil_drum",
 "barrier"
-]
+],
+"taps_in_pad": [],
+"lot_cells": 2931261
 }
