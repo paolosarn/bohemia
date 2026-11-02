@@ -1001,9 +1001,10 @@ const FIGHT = (function () {
       grid.push(row);
     }
     waterRunsOn(grid, pool);
+    const shaped = shapeBoard(grid, fam, leads.length ? [0, rows - 1] : null);
     const terrain = [], cover = [];
     for (let y = 0; y < S.h; y++) { terrain.push([]); for (let x = 0; x < S.w; x++) terrain[y].push(libOf(grid[Math.floor(y / bt)][Math.floor(x / bt)]).terrain[y % bt][x % bt]); }
-    grid.forEach(function (row, by) { row.forEach(function (n, bx) { libOf(n).cover.forEach(function (c) {
+    grid.forEach(function (row, by) { row.forEach(function (n, bx) { (shaped.vacant[by * cols + bx] ? litterOf(n, bx, by, shaped.hash) : libOf(n).cover).forEach(function (c) {
       cover.push({ piece: c.piece, x_m: c.x_m + bx * bt * tm, y_m: c.y_m + by * bt * tm }); }); }); });
     const lights = [];
     grid.forEach(function (row, by) { row.forEach(function (n, bx) { libOf(n).lights.forEach(function (l) {
@@ -1013,7 +1014,55 @@ const FIGHT = (function () {
     /* the name on the bar: a suburb's renamed blocks all read SUBURB */
     const call = function (k) { const al = mix.aliases || {}; return Object.keys(al).filter(function (n) { return al[n].indexOf(k) >= 0; })[0] || k; };
     const shown = []; used.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
-    return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null };
+    return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null, shape: shaped.shape };
+  }
+  /* ---------------- THE BOARD HAS A SHAPE (COMBAT [way more fight maps], ask line 252, Paolo 10/27: 'more maps... it got pretty
+     boring... we need way more maps, way more combat maps'; CLAUDE.md, Paolo 9/29: 'no two combat boards are the same') ----------
+     MEASURED BEFORE (11/2, records/BOHEMIA_COMBAT_WAY_MORE_FIGHT_MAPS_11_2_26.md): 9 of the 11 city block kinds have one shape, an
+     open row, a row of houses, open, houses, open, so every town and suburb board was the same stripes whatever blocks were
+     dealt: 16 shapes in 50 deals of a district, under one open block a board. Now a city board, once its blocks are dealt, is
+     cut into a shape (ours.board_shapes: the street as it was, an open lot where the lines meet, a clearing, their back or yours
+     open, a diagonal, a gap...) by turning slots into the vacant lot: the suburb block whose houses were never built or were
+     knocked down, bare slabs on the sand, its street on the very line of every other block's (no seam, no new picture). The
+     shape is picked by a hash of the deal itself, so the fight's dice never move; the place's own lead slot is never emptied;
+     two vacant lots side by side are one bigger lot (the twin rule is for houses). [bb] Battle Brothers cuts every tactical map
+     from its terrain's templates (a forest, a swamp, a settlement), each a different field to fight on. */
+  function dealHash(s) { let h = 2166136261 >>> 0; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h >>> 0; }
+  function shapeBoard(grid, fam, lead) {
+    const SH = R('ours.board_shapes'), out = { vacant: {}, shape: null, hash: 0 }, cols = grid[0].length;
+    if (SH.families.indexOf(fam) < 0 || !blockLibrary()[SH.vacant]) return out;
+    const h = out.hash = dealHash(JSON.stringify(grid)), names = Object.keys(SH.shapes);
+    let r = (h % 10007) / 10007 * names.reduce(function (t, k) { return t + SH.shapes[k].w; }, 0);
+    const pick = names.filter(function (k) { r -= SH.shapes[k].w; return r < 0; })[0] || names[0];
+    out.shape = pick;
+    SH.shapes[pick].open.forEach(function (q) {
+      const bx = q[0], by = q[1]; if (!grid[by] || grid[by][bx] === undefined || (lead && bx === lead[0] && by === lead[1])) return;
+      if (kindOf(grid[by][bx]) === 'shore') return;   /* the canal stays the canal (THE WATER RUNS ON) */
+      grid[by][bx] = SH.vacant; out.vacant[by * cols + bx] = true;
+    });
+    return out;
+  }
+  /* a vacant lot's litter dealt again, so two lots are never the same picture: the car stays on its street row and moves along it,
+     the rest goes to other tiles of the lot (each keeping its place inside its tile), each rubble piece swapped for another */
+  function litterOf(n, bx, by, h) {
+    const SH = R('ours.board_shapes'), bt = DB.ground.block_tiles, tm = DB.ground.tile_metres, base = libOf(n).cover;
+    const swaps = Object.keys(DB.ground.cover_extra).filter(function (k) { return k.indexOf(SH.litter_swap) === 0; }).sort();
+    let k = dealHash(h + ':' + bx + ',' + by);
+    const next = function () { k = Math.imul(k ^ (k >>> 15), 2246822507) >>> 0; k = Math.imul(k ^ (k >>> 13), 3266489909) >>> 0; k = (k ^ (k >>> 16)) >>> 0; return k / 4294967296; };
+    const keep = SH.litter_keep[0] + (SH.litter_keep[1] - SH.litter_keep[0]) * next(), used = {}, out = [];
+    base.forEach(function (c) {
+      if (next() > keep) return;
+      const tx = Math.floor(c.x_m / tm), ty = Math.floor(c.y_m / tm), ox = c.x_m - tx * tm, oy = c.y_m - ty * tm, street = /^car_/.test(c.piece);
+      let x = tx, y = ty;
+      for (let i = 0; i < 8; i++) {
+        x = Math.floor(next() * bt); if (!street) y = Math.floor(next() * bt);
+        if (!used[y * bt + x] && (street || y !== ty || x !== tx)) break;
+      }
+      if (used[y * bt + x]) return; used[y * bt + x] = true;
+      const piece = c.piece.indexOf(SH.litter_swap) === 0 && swaps.length ? swaps[Math.floor(next() * swaps.length)] : c.piece;
+      out.push({ piece: piece, x_m: x * tm + ox, y_m: y * tm + oy });
+    });
+    return out;
   }
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */

@@ -1614,5 +1614,193 @@
   "quote": "I'm not super happy with the feel of combat yet... Nothing feels punchy yet, satisfying punchy, not from the music to the combat to the walking around the city to the camp shit",
   "why": "COMBAT [the punch] 11/2: every landed blow freezes both men on the impact key for stop_beats (the low end a scratch, the high end a blow that takes share_full of his health (the armour it shreds counted at armour_weight) or kills; a head adds head_extra), the struck man blown white (white_alpha) with a red and a cyan copy split_px apart for the freeze, knocked away from the blow by knock_share of his height and back over knock_back_beats; a man swinging a club lunges lunge_share of his height into it; the glass kicks along the blow kick_px (by the same severity) in kick_steps, one a kick_step_beats; the health and armour the blow took stay bright on his bars and drain over chip_beats; a fall lands with a thud_px jolt over thud_beats. A miss gets none of it: he slips aside (ours.outclass.dodge_lean_beats) and a shot that misses throws dust_motes of dust off the ground past him over dust_beats. Everything inside the one beat a blow already holds (the fight's length and the 120 BPM grid unchanged). Drafts for TUNING, tuned:false.",
   "tuned": false
+ },
+ "board_shapes": {
+  "value": {
+   "vacant": "lots.0",
+   "families": [
+    "city"
+   ],
+   "litter_swap": "rubble_",
+   "litter_keep": [
+    0.6,
+    1.0
+   ],
+   "shapes": {
+    "the_street": {
+     "w": 3,
+     "open": []
+    },
+    "the_lot": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ]
+     ]
+    },
+    "the_clearing": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ]
+     ]
+    },
+    "their_back_open": {
+     "w": 1,
+     "open": [
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ]
+     ]
+    },
+    "your_back_open": {
+     "w": 1,
+     "open": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "no_mans_land": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "the_diagonal": {
+     "w": 1,
+     "open": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       2
+      ]
+     ]
+    },
+    "the_crossing": {
+     "w": 1,
+     "open": [
+      [
+       2,
+       0
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "the_gap": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       2
+      ]
+     ]
+    },
+    "the_open_line": {
+     "w": 1,
+     "open": [
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ]
+     ]
+    },
+    "your_line_open": {
+     "w": 1,
+     "open": [
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "the_top_open": {"w": 1, "open": [[0, 0], [1, 0], [2, 0], [3, 0]]},
+    "the_bottom_open": {"w": 1, "open": [[1, 2], [2, 2], [3, 2]]},
+    "the_pocket": {"w": 1, "open": [[2, 1]]},
+    "their_corner": {"w": 1, "open": [[3, 0], [3, 1]]},
+    "the_middle_open": {"w": 1, "open": [[1, 0], [2, 0], [1, 1], [2, 1], [1, 2], [2, 2]]},
+    "two_corners": {"w": 1, "open": [[0, 0], [3, 2]]},
+    "the_step": {"w": 1, "open": [[1, 0], [2, 1], [3, 2]]}
+   }
+  },
+  "source": "records/BOHEMIA_PAOLO_NOTES_WHILE_THE_KITCHEN_IS_CLOSED_10_27_26.md note 3, ask line 252 (records/BOHEMIA_EVERYTHING_HE_ASKED_10_24_26.md); CLAUDE.md 'NO TWO COMBAT BOARDS ARE THE SAME' (Paolo 9/29)",
+  "quote": "more maps... it got pretty boring... we need way more maps, way more combat maps",
+  "why": "COMBAT [way more fight maps] 11/2. MEASURED: 9 of the 11 city block kinds have one shape (an open row, a row of houses, open, houses, open), so every town and suburb board was the same stripes whatever blocks were dealt: 16 board shapes in 50 deals of a district, 0.97 open blocks a board. THE BOARD HAS A SHAPE: a board of the families listed is cut, after its blocks are dealt, into one of shapes (picked by the deal itself, w its weight, so the fight's dice never move): every slot [column, row] in open becomes the vacant lot (vacant: the suburb block whose houses were never built or were knocked down, bare slabs on the sand, its street on the same line as every other block's), never the slot the place leads with. A vacant lot is never twice the same: its own litter is dealt again on it (the car kept on the street row, the rest moved to other tiles, each rubble piece swapped for another of litter_swap, litter_keep of it kept). Drafts for TUNING and MODS: a modder adds a shape by adding a row.",
+  "tuned": false
  }
 }
