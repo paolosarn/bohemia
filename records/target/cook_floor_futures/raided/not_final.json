@@ -303,7 +303,7 @@
   }
  },
  "corner.0": {
-  "seconds": 1072,
+  "seconds": 1043,
   "junk": {
    "bags": 28,
    "paper": 480,
@@ -363,10 +363,10 @@
   },
   "file": "records/target/cook_floor_futures/raided/block_corner_0.webp",
   "future": {
-   "holes": 667,
-   "char": 313,
+   "holes": 3617,
+   "char": 1156,
    "rafters": 0,
-   "rubble": 94
+   "rubble": 83
   }
  },
  "corner.1": {
