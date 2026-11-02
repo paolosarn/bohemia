@@ -33,9 +33,9 @@ const bare = numbers.filter(k => !PAY[k] || PAY[k].value == null || String(PAY[k
 ok('every number in the pay file has its value and its reason', bare.length === 0, bare.join(', '));
 
 /* THE BAR */
-const rows = T.jobs().rows, bar = PAY.crew_cost_per_map_hour.value * (1 + PAY.margin.value);
-const under = rows.filter(r => r.pay / Math.max(0.5, r.hours) < bar - 1e-9), less = rows.filter(r => r.pay < r.before);
-ok('no job pays under ' + bar.toFixed(2) + ' a map hour (the crew\'s ' + PAY.crew_cost_per_map_hour.value + ' and the margin ' + PAY.margin.value + ')', under.length === 0, under.map(r => r.id).join(', '));
+const rows = T.jobs().rows, crew = PAY.crew_cost_per_map_hour.value, bar = crew * (1 + PAY.margin.value), qm = PAY.violence.value.quiet_margin, qbar = crew * (1 + qm);
+const under = rows.filter(r => r.pay / Math.max(0.5, r.hours) < (r.violent ? bar : qbar) - 1e-9), less = rows.filter(r => r.pay < r.before);
+ok('no killing job pays under ' + bar.toFixed(2) + ' a map hour, no walk under ' + qbar.toFixed(2) + ' (the crew\'s ' + crew + ', margins ' + PAY.margin.value + ' and ' + qm + ')', qm > 0 && qm < PAY.margin.value && under.length === 0, under.map(r => r.id).join(', '));
 const kill = rows.filter(r => r.violent), quiet = rows.filter(r => !r.violent), lessK = kill.filter(r => r.pay < r.before);
 ok('no killing job pays less than it did (' + kill.length + ' jobs)', kill.length >= 30 && lessK.length === 0, lessK.map(r => r.id + ' ' + r.before + '->' + r.pay).join(', '));
 /* THE VIOLENCE PREMIUM (rule 323 amended, ask line 321): a job with no killing pays clearly less than the same hours and skulls with one

@@ -1104,7 +1104,7 @@
         "id": "jk-envoy-clerk",
         "title": "Walk the water clerk to the next town",
         "skulls": 1,
-        "pay": 18,
+        "pay": 16,
         "tiers": [
           "camp",
           "town"
@@ -1144,7 +1144,7 @@
         "id": "jk-scout-wells",
         "title": "Look at the three wells and come tell me",
         "skulls": 1,
-        "pay": 11,
+        "pay": 10,
         "tiers": [
           "camp",
           "town"
@@ -1225,7 +1225,7 @@
         "id": "jk-signal-voice",
         "title": "Find where the three a.m. voice comes from",
         "skulls": 1,
-        "pay": 29,
+        "pay": 22,
         "tiers": [
           "camp",
           "town"

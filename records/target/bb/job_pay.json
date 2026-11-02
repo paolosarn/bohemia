@@ -7,7 +7,7 @@
   },
   "margin": {
     "value": 1,
-    "why": "the hours pay double what they cost the crew. Battle Brothers: a 12-man company burns 150 to 300 crowns a day (reference/library/battle_brothers/07_ECONOMY.md) and the wiki's own worked contract pays 760 (bb_all/0441_Contracts.txt) for a job of two or three days, so a contract pays one to two and a half times its days of upkeep; we take the low middle, double, so every hour on a job is worth it and the fights are paid on top; the same margin for a walk, so even the quiet jobs clear the crew's cost"
+    "why": "the hours pay double what they cost the crew. Battle Brothers: a 12-man company burns 150 to 300 crowns a day (reference/library/battle_brothers/07_ECONOMY.md) and the wiki's own worked contract pays 760 (bb_all/0441_Contracts.txt) for a job of two or three days, so a contract pays one to two and a half times its days of upkeep; we take the low middle, double, so every hour on a job is worth it and the fights are paid on top; this is KILLING WORK's margin, a walk's is violence.quiet_margin (0.5), smaller, still over the crew's cost"
   },
   "minutes_per_block": {
     "value": 8.5,
@@ -110,13 +110,14 @@
   "violence": {
     "value": {
       "min_fights": 0.5,
+      "quiet_margin": 0.5,
       "quiet_floor_per_skull": 10,
       "words": {
         "violent": "KILLING WORK: THE BLOOD PRICE IS IN IT",
         "quiet": "NO KILLING EXPECTED: WALKING PAY"
       }
     },
-    "why": "RULE 323 AMENDED THE SAME ROUND (ask line 321, Paolo 11/2: 'quests that don't have any combat, you shouldn't be getting as much batteries... every time we had to pay for someone to get killed... imagine you order something today but you gotta pay an extra 5000 to have someone protect and kill for you'). A job is KILLING WORK when the fights it is for come to half a fight or more (min_fights; a twist's chance does not count): it pays every fight at per_fight times the skulls, the violence premium, and never under its old pay. A job with NO KILLING EXPECTED (a find, a carry, a scout, a walk with nobody guarding) pays its hours at the bar and the chance its twist turns into a fight at the fight's price times that chance, over only the quiet floor of 10 a skull, a third of a killing job's 30: so it pays clearly less, still over what the crew burns an hour. A long walk's hours still pay (a day on the road to the lodge is a day). The offer says which (the settlement's board, under the trip)"
+    "why": "RULE 323 AMENDED THE SAME ROUND (ask line 321, Paolo 11/2: 'quests that don't have any combat, you shouldn't be getting as much batteries... every time we had to pay for someone to get killed... imagine you order something today but you gotta pay an extra 5000 to have someone protect and kill for you'). A job is KILLING WORK when the fights it is for come to half a fight or more (min_fights; a twist's chance does not count): it pays every fight at per_fight times the skulls, the violence premium, and never under its old pay. A job with NO KILLING EXPECTED (a find, a carry, a scout, a walk with nobody guarding) pays its hours at the bar and the chance its twist turns into a fight at the fight's price times that chance, over only the quiet floor of 10 a skull, a third of a killing job's 30: so it pays clearly less, still over what the crew burns an hour. A long walk's hours still pay (a day on the road to the lodge is a day). The offer says which (the settlement's board, under the trip). THE TWO PARTS, APART (the coordinator's brief 11/2): the PEACEFUL BASE is the hours alone, at the crew's cost times one and a half (quiet_margin 0.5: 2.06 a map hour, still over the crew's 1.375); the VIOLENCE PREMIUM is per_fight x the skulls for every expected fight (a hunt per head), and killing work's hours carry the full margin (2.75 a map hour)"
   },
   "pays": {
     "jk-ambush-cut": {
@@ -170,14 +171,14 @@
       "why": "killing work: 2.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
     },
     "jk-envoy-clerk": {
-      "pay": 18,
+      "pay": 16,
       "before": 40,
       "violent": false,
       "kind": "envoy",
       "skulls": 1,
       "hours": 2.6,
       "fights": 0.4,
-      "why": "no killing: 2.6 h x 2.75 + 0.4 fights (the chance) x 26 x 1"
+      "why": "no killing: 2.6 h x 2.06 + 0.4 fights (the chance) x 26 x 1"
     },
     "jk-free-pen": {
       "pay": 65,
@@ -210,24 +211,24 @@
       "why": "killing work: 5.1 h x 2.75 + 1 fight x 26 x 1"
     },
     "jk-scout-wells": {
-      "pay": 11,
+      "pay": 10,
       "before": 35,
       "violent": false,
       "kind": "scout",
       "skulls": 1,
       "hours": 3.9,
       "fights": 0,
-      "why": "no killing: 3.9 h x 2.75 + 0 fights x 26 x 1"
+      "why": "no killing: 3.9 h x 2.06 + 0 fights x 26 x 1, the quiet floor 10"
     },
     "jk-signal-voice": {
-      "pay": 29,
+      "pay": 22,
       "before": 45,
       "violent": false,
       "kind": "signal",
       "skulls": 1,
       "hours": 10.3,
       "fights": 0,
-      "why": "no killing: 10.3 h x 2.75 + 0 fights x 26 x 1"
+      "why": "no killing: 10.3 h x 2.06 + 0 fights x 26 x 1"
     },
     "qd-a02": {
       "pay": 38,
@@ -251,14 +252,14 @@
       "why": "killing work: 7.4 h x 2.75 + 11 heads / 3 a fight x 26 x 1"
     },
     "qd-aa09": {
-      "pay": 35,
+      "pay": 27,
       "before": 30,
       "violent": false,
       "kind": "find-place",
       "skulls": 1,
       "hours": 10.5,
       "fights": 0.2,
-      "why": "no killing: 10.5 h x 2.75 + 0.2 fights (the chance) x 26 x 1"
+      "why": "no killing: 10.5 h x 2.06 + 0.2 fights (the chance) x 26 x 1"
     },
     "qd-aa15": {
       "pay": 60,
@@ -324,14 +325,14 @@
       "why": "killing work: 4.5 h x 2.75 + 4 heads / 3 a fight x 26 x 1"
     },
     "qd-ap05": {
-      "pay": 25,
+      "pay": 22,
       "before": 60,
       "violent": false,
       "kind": "find-person",
       "skulls": 2,
       "hours": 4.1,
       "fights": 0.25,
-      "why": "no killing: 4.1 h x 2.75 + 0.25 fights (the chance) x 26 x 2"
+      "why": "no killing: 4.1 h x 2.06 + 0.25 fights (the chance) x 26 x 2"
     },
     "qd-ap07": {
       "pay": 34,
@@ -361,7 +362,7 @@
       "skulls": 1,
       "hours": 2.8,
       "fights": 0,
-      "why": "no killing: 2.8 h x 2.75 + 0 fights x 26 x 1, the quiet floor 10"
+      "why": "no killing: 2.8 h x 2.06 + 0 fights x 26 x 1, the quiet floor 10"
     },
     "qd-ap10": {
       "pay": 60,
@@ -374,14 +375,14 @@
       "why": "killing work: 2.8 h x 2.75 + 1 fight x 26 x 2, the floor 60"
     },
     "qd-ap11": {
-      "pay": 16,
+      "pay": 14,
       "before": 30,
       "violent": false,
       "kind": "find-place",
       "skulls": 1,
       "hours": 3.8,
       "fights": 0.2,
-      "why": "no killing: 3.8 h x 2.75 + 0.2 fights (the chance) x 26 x 1"
+      "why": "no killing: 3.8 h x 2.06 + 0.2 fights (the chance) x 26 x 1"
     },
     "qd-ap13": {
       "pay": 60,
@@ -465,24 +466,24 @@
       "why": "killing work: 33.5 h x 2.75 + 2 fights x 26 x 3"
     },
     "qd-ar06": {
-      "pay": 81,
+      "pay": 63,
       "before": 60,
       "violent": false,
       "kind": "find-place",
       "skulls": 2,
       "hours": 25.5,
       "fights": 0.2,
-      "why": "no killing: 25.5 h x 2.75 + 0.2 fights (the chance) x 26 x 2"
+      "why": "no killing: 25.5 h x 2.06 + 0.2 fights (the chance) x 26 x 2"
     },
     "qd-ar08": {
-      "pay": 26,
+      "pay": 23,
       "before": 60,
       "violent": false,
       "kind": "carry",
       "skulls": 2,
       "hours": 5.7,
       "fights": 0.2,
-      "why": "no killing: 5.7 h x 2.75 + 0.2 fights (the chance) x 26 x 2"
+      "why": "no killing: 5.7 h x 2.06 + 0.2 fights (the chance) x 26 x 2"
     },
     "qd-ar09": {
       "pay": 121,
@@ -495,14 +496,14 @@
       "why": "killing work: 6 h x 2.75 + 2 fights x 26 x 2"
     },
     "qd-ar10": {
-      "pay": 31,
+      "pay": 30,
       "before": 90,
       "violent": false,
       "kind": "find-person",
       "skulls": 3,
       "hours": 4.1,
       "fights": 0.25,
-      "why": "no killing: 4.1 h x 2.75 + 0.25 fights (the chance) x 26 x 3"
+      "why": "no killing: 4.1 h x 2.06 + 0.25 fights (the chance) x 26 x 3, the quiet floor 30"
     },
     "qd-c02": {
       "pay": 34,
@@ -572,7 +573,7 @@
       "skulls": 1,
       "hours": 2.8,
       "fights": 0,
-      "why": "no killing: 2.8 h x 2.75 + 0 fights x 26 x 1, the quiet floor 10"
+      "why": "no killing: 2.8 h x 2.06 + 0 fights x 26 x 1, the quiet floor 10"
     },
     "qd-s10": {
       "pay": 30,
@@ -595,14 +596,14 @@
       "why": "killing work: 6 h x 2.75 + 3 fights x 26 x 3"
     },
     "qd-s17": {
-      "pay": 21,
+      "pay": 20,
       "before": 60,
       "violent": false,
       "kind": "find-place",
       "skulls": 2,
       "hours": 3.8,
       "fights": 0.2,
-      "why": "no killing: 3.8 h x 2.75 + 0.2 fights (the chance) x 26 x 2"
+      "why": "no killing: 3.8 h x 2.06 + 0.2 fights (the chance) x 26 x 2, the quiet floor 20"
     },
     "qd-t02": {
       "pay": 121,

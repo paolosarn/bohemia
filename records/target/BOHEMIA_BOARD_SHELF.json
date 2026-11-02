@@ -121,7 +121,7 @@
    "design_title": "THE STRING OF BULBS",
    "title": "Bring the little bulbs from the church",
    "skulls": 1,
-   "pay": 16,
+   "pay": 14,
    "tiers": [
     "camp"
    ],
@@ -301,7 +301,7 @@
    "design_title": "THE CARAVAN FOUR DAYS LATE",
    "title": "Find the caravan four days late",
    "skulls": 2,
-   "pay": 21,
+   "pay": 20,
    "tiers": [
     "town",
     "fortress"
@@ -322,7 +322,7 @@
    "design_title": "THE FAMILY AT MESQUITE",
    "title": "Bring the Salcedo family home",
    "skulls": 3,
-   "pay": 31,
+   "pay": 30,
    "tiers": [
     "town"
    ],
@@ -342,7 +342,7 @@
    "design_title": "THE LETTER OVER THE PASS",
    "title": "Carry the sealed letter over the pass",
    "skulls": 2,
-   "pay": 26,
+   "pay": 23,
    "tiers": [
     "town"
    ],
@@ -442,7 +442,7 @@
    "design_title": "THE STALL REOPENS",
    "title": "Bring the cook's man home",
    "skulls": 2,
-   "pay": 25,
+   "pay": 22,
    "tiers": [
     "fortress"
    ],
@@ -692,7 +692,7 @@
    "design_title": "THE FREEZER AT THE FOSSIL BEDS",
    "title": "Bring the freezer from the fossil beds",
    "skulls": 1,
-   "pay": 35,
+   "pay": 27,
    "tiers": [
     "camp",
     "town",
@@ -714,7 +714,7 @@
    "design_title": "THE LODGE ABOVE THE SNOW LINE",
    "title": "Bring medicine down from the lodge",
    "skulls": 2,
-   "pay": 81,
+   "pay": 63,
    "tiers": [
     "camp",
     "town",

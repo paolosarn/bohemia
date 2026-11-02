@@ -48,7 +48,8 @@ Relations.txt; reference/library/grok/GROK_ASK_56, GROK_139, GROK_10):
 
 ## 3. THE FORMULA (records/target/bb/job_pay.json, every number with its reason; engine/bohemia_job_pay.js base())
 
-  time    = map hours x 1.375 (the crew an hour) x (1 + 1.0 margin)          = 2.75 a map hour
+  time    = map hours x 1.375 (the crew an hour) x (1 + 1.0 margin)          = 2.75 a map hour, KILLING WORK
+            a job with no killing: x (1 + 0.5 quiet margin)                    = 2.06 a map hour, THE PEACEFUL BASE
   killing = (planned fights + twist chance) x 26 x skulls (1, 2, 3)            THE VIOLENCE PREMIUM
             a HUNT counts heads: heads / 3 (a pack is 2 to 4) fights, so eleven dogs pay for eleven
             a CAMP's fight is bigger by its two extra men over the party (4, 6, 8 at 1, 2, 3 skulls)
@@ -59,7 +60,9 @@ Relations.txt; reference/library/grok/GROK_ASK_56, GROK_139, GROK_10):
 
 THE MARGIN, AND WHY: 1.0, the hours pay double what they cost. Battle Brothers' early contract (760 crowns) against a
 company burning 150 to 300 a day for a job of two or three days pays one to two and a half times its days of upkeep; the
-low middle, double, and the fights are paid on top. Every job clears it: NO JOB pays under 2.75 a map hour.
+low middle, double, and the fights are paid on top. A WALK's hours carry half that margin (0.5, the coordinator's brief
+11/2: 'they still beat the crew's cost per hour, just with a smaller margin'): 2.06 a map hour. NO killing job pays under
+2.75 a map hour, NO walk under 2.06, and both are over the crew's 1.375.
 PER FIGHT, AND WHY: 26 at one skull, so the shortest one-fight job (a crew 8 blocks out: 1.1 h x 2.75 = 3 + 26 = 29)
 lands on the old 30, and every extra fight is paid like the first.
 
@@ -91,7 +94,7 @@ qd-ap01        recover-return   1   2.8  1.00   30   34   10.7   12.1   30.0   3
 qd-ap03        hunt-kind        1   4.5  1.33   30   47    6.7   10.4   22.6   35.3
 qd-ap07        recover-return   1   2.8  1.00   30   34   10.7   12.1   30.0   34.0
 qd-ap10        recover-return   2   2.8  1.00   60   60   21.4   21.4   60.0   60.0
-qd-ap11        find-place       1   3.8  0.20   30   16    7.9    4.2  150.0   80.0
+qd-ap11        find-place       1   3.8  0.20   30   14    7.9    3.7  150.0   70.0
 qd-ap16        recover-return   1   2.8  1.00   30   34   10.7   12.1   30.0   34.0
 qd-ae09        haul-caravan     1   4.3  1.00   30   38    7.0    8.8   30.0   38.0
 qd-ar03        hunt-kind        2   4.5  2.00   60  117   13.3   26.0   30.0   58.5
@@ -100,14 +103,14 @@ qd-ap13        recover-return   2   2.8  1.00   60   60   21.4   21.4   60.0   6
 qd-aq03        recover-return   2   2.8  1.00   60   60   21.4   21.4   60.0   60.0
 qd-s08         recover-return   1   2.8  0.00   30   10   10.7    3.6      -      -
 qd-s10         clear-crew       1   1.1  1.00   30   30   27.3   27.3   30.0   30.0
-qd-s17         find-place       2   3.8  0.20   60   21   15.8    5.5  300.0  105.0
-qd-ar10        find-person      3   4.1  0.25   90   31   22.0    7.6  360.0  124.0
-qd-ar08        carry            2   5.7  0.20   60   26   10.5    4.6  300.0  130.0
+qd-s17         find-place       2   3.8  0.20   60   20   15.8    5.3  300.0  100.0
+qd-ar10        find-person      3   4.1  0.25   90   30   22.0    7.3  360.0  120.0
+qd-ar08        carry            2   5.7  0.20   60   23   10.5    4.0  300.0  115.0
 qd-aa01        hunt-kind        1   7.4  3.67   30  116    4.1   15.7    8.2   31.6
 qd-s01         clear-camp       2  17.4  1.33   60  118    3.4    6.8   45.1   88.7
 qd-s03         haul-caravan     1   4.3  1.00   30   38    7.0    8.8   30.0   38.0
 qd-ap02        hold-defend      2   6.0  2.00   60  121   10.0   20.2   30.0   60.5
-qd-ap05        find-person      2   4.1  0.25   60   25   14.6    6.1  240.0  100.0
+qd-ap05        find-person      2   4.1  0.25   60   22   14.6    5.4  240.0   88.0
 qd-ap08        recover-return   3   2.8  1.00   90   90   32.1   32.1   90.0   90.0
 qd-ap09        recover-return   1   2.8  0.00   30   10   10.7    3.6      -      -
 qd-ap19        clear-camp       2   1.1  1.33   60   73   54.5   66.4   45.1   54.9
@@ -119,8 +122,8 @@ qd-s15         hold-defend      3   6.0  3.00   90  251   15.0   41.8   30.0   8
 qd-ar09        hold-defend      2   6.0  2.00   60  121   10.0   20.2   30.0   60.5
 qd-t06         clear-camp       3   1.1  1.25   90  101   81.8   91.8   72.0   80.8
 qd-s06         haul-caravan     1   4.3  1.00   30   38    7.0    8.8   30.0   38.0
-qd-aa09        find-place       1  10.5  0.20   30   35    2.9    3.3  150.0  175.0
-qd-ar06        find-place       2  25.5  0.20   60   81    2.4    3.2  300.0  405.0
+qd-aa09        find-place       1  10.5  0.20   30   27    2.9    2.6  150.0  135.0
+qd-ar06        find-place       2  25.5  0.20   60   63    2.4    2.5  300.0  315.0
 qd-c02         recover-return   1   2.8  1.00   30   34   10.7   12.1   30.0   34.0
 qd-s04         haul-caravan     1   4.3  1.00   30   38    7.0    8.8   30.0   38.0
 qd-ar05        haul-caravan     3  33.5  2.00   90  249    2.7    7.4   45.0  124.5
@@ -128,13 +131,13 @@ qd-a02         haul-caravan     1   4.3  1.00   30   38    7.0    8.8   30.0   3
 jk-patrol-dam  patrol           2   5.1  2.00   60  119   11.8   23.3   30.0   59.5
 jk-patrol-wash patrol           1   5.1  1.00   30   41    5.9    8.0   30.0   41.0
 jk-ambush-cut  ambush           2   4.7  1.20   60   76   12.8   16.2   50.0   63.3
-jk-envoy-clerk envoy            1   2.6  0.40   40   18   15.4    6.9  100.0   45.0
+jk-envoy-clerk envoy            1   2.6  0.40   40   16   15.4    6.2  100.0   40.0
 jk-bounty-chuy bounty           2   9.4  1.00   70   78    7.4    8.3   70.0   78.0
-jk-scout-wells scout            1   3.9  0.00   35   11    9.0    2.8      -      -
+jk-scout-wells scout            1   3.9  0.00   35   10    9.0    2.6      -      -
 jk-burn-tires  burn             2   2.6  1.00   55   60   21.2   23.1   55.0   60.0
 jk-collect-betocollect          1   2.3  1.00   40   40   17.4   17.4   40.0   40.0
 jk-biggame-lionbig-game         3   4.3  1.00   90   90   20.9   20.9   90.0   90.0
-jk-signal-voicesignal           1  10.3  0.00   45   29    4.4    2.8      -      -
+jk-signal-voicesignal           1  10.3  0.00   45   22    4.4    2.1      -      -
 jk-free-pen    free             2   3.0  1.00   65   65   21.7   21.7   65.0   65.0
 ```
 
@@ -145,30 +148,30 @@ ambush             1    4.7  1.20    60    76   12.8   16.2   50.0   63.3   1.38
 big-game           1    4.3  1.00    90    90   20.9   20.9   90.0   90.0   1.38
 bounty             1    9.4  1.00    70    78    7.4    8.3   70.0   78.0   1.38
 burn               1    2.6  1.00    55    60   21.2   23.1   55.0   60.0   1.38
-carry              1    5.7  0.20    60    26   10.5    4.6  300.0  130.0   1.38
+carry              1    5.7  0.20    60    23   10.5    4.0  300.0  115.0   1.38
 clear-camp         3    6.5  1.30    70    97   10.7   14.9   53.7   74.7   1.38
 clear-crew         1    1.1  1.00    30    30   27.3   27.3   30.0   30.0   1.38
 collect            1    2.3  1.00    40    40   17.4   17.4   40.0   40.0   1.38
-envoy              1    2.6  0.40    40    18   15.4    6.9  100.0   45.0   1.38
-find-person        2    4.1  0.25    75    28   18.3    6.8  300.0  112.0   1.38
-find-place         4   10.9  0.20    45    38    4.1    3.5  225.0  191.3   1.38
+envoy              1    2.6  0.40    40    16   15.4    6.2  100.0   40.0   1.38
+find-person        2    4.1  0.25    75    26   18.3    6.3  300.0  104.0   1.38
+find-place         4   10.9  0.20    45    31    4.1    2.8  225.0  155.0   1.38
 free               1    3.0  1.00    65    65   21.7   21.7   65.0   65.0   1.38
 haul-caravan       7   11.8  1.14    43    81    3.6    6.9   37.5   71.0   1.38
 hold-defend        5    6.0  2.20    60   137   10.0   22.8   27.3   62.1   1.38
 hunt-kind          5    5.1  2.00    54   108   10.6   21.2   27.0   53.9   1.38
 patrol             2    5.1  1.50    45    80    8.8   15.7   30.0   53.3   1.38
 recover-return    11    2.8  0.82    46    44   16.6   15.8   56.7   54.0   1.38
-scout              1    3.9  0.00    35    11    9.0    2.8      -      -   1.38
-signal             1   10.3  0.00    45    29    4.4    2.8      -      -   1.38
+scout              1    3.9  0.00    35    10    9.0    2.6      -      -   1.38
+signal             1   10.3  0.00    45    22    4.4    2.1      -      -   1.38
 
-jobs under the bar (2.75 a map hour): none
+jobs under the bar (killing work 2.75, a walk 2.06 a map hour): none
 ```
 
 READ IT: the hunts roughly double (the dogs 30 to 116, the wolves 90 to 198), the holds more than double (each wave is a
 fight), the escorts nearly double (the road's raiders were never paid), a one-fight job stays where it was (30, 60, 90),
-and the walks drop: a scout 35 to 11, the envoy 40 to 18, a carry 60 to 26, a 3-skull find 90 to 31. A long walk's own
-hours still pay (the lodge, 25 map hours away: 60 to 81). A map hour of killing work now pays 14.3; a map hour of
-walking 3.9; both over the crew's 1.375.
+and the walks drop: a scout 35 to 10, the envoy 40 to 16, a carry 60 to 23, a 3-skull find 90 to 30. A long walk's own
+hours still pay (the lodge, 25 map hours away: 60 to 63). A map hour of killing work now pays 14.3; a map hour of
+walking 3.3; both over the crew's 1.375.
 
 ## 5. THE PURSE, DAYS 1 TO 50 (tools/bohemia_economy_job_pay.js --purse)
 
@@ -182,19 +185,19 @@ gear bought, no fight lost, no day off the treadmill), so read the RATIO, not th
 the purse, days 1 to 50 (start 290, the same jobs in the same order, every job won, neutral standing)
 day  before   after  ratio  jobs men clout
   1     497     530   1.07     4   3   465
-  5    1543    1603   1.04    15   3  1698
- 10    3617    4169   1.15    27   6  3074
- 15    5754    7581   1.32    38   9  4382
- 20    7569   10555   1.39    48   9  5562
- 25    9783   14185   1.45    57  12  6610
- 30   11531   16726   1.45    67  12  7756
- 40   18290   25280   1.38    96  12 11142
- 50   24284   34214   1.41   124  12 14503
-a map hour of the job loop pays, before clout: was 5.19, now 6.91 (x1.33)
+  5    1543    1579   1.02    15   3  1698
+ 10    3617    4107   1.14    27   6  3074
+ 15    5754    7450   1.29    38   9  4382
+ 20    7569   10424   1.38    48   9  5562
+ 25    9783   13945   1.43    57  12  6610
+ 30   11531   16450   1.43    67  12  7756
+ 40   18290   24940   1.36    96  12 11142
+ 50   24284   33846   1.39   124  12 14503
+a map hour of the job loop pays, before clout: was 5.19, now 6.82 (x1.31)
 ```
 
-The curve rises by under half (x1.07 on day 1, x1.15 on day 10, x1.45 on day 30, x1.41 on day 50; a map hour of the job
-loop x1.33 before clout). It does not explode: no day doubles, and the size of the climb is clout's (TUNING's x4.5), which
+The curve rises by under half (x1.07 on day 1, x1.14 on day 10, x1.43 on day 30, x1.39 on day 50; a map hour of the job
+loop x1.31 before clout). It does not explode: no day doubles, and the size of the climb is clout's (TUNING's x4.5), which
 this round did not touch. ECONOMY's own 10/18 measure found every purse on main harder than Battle Brothers'
 (records/BOHEMIA_ECONOMY_DAY_72_A_WEEK_AT_THE_COUNTER_IS_42_AND_EVERY_PURSE_ON_MAIN_IS_HARDER_THAN_BATTLE_BROTHERS_10_18_26.md),
 so a third more for the work that kills is the direction the game already needed. The danger ramp (rule 255, the day-fifty
@@ -205,8 +208,8 @@ by design, not by drift.
 
 - NEW gates/a_job_pays_for_the_time_and_the_risk_gate.js (in the suite, A JOB PAYS FOR THE TIME AND THE RISK): 23 checks,
   PASS. The table is what the formula writes byte for byte; every board job pays its row; every number has its reason; no
-  job under 2.75 a map hour; no killing job under its old pay; every quiet job at most three quarters of the same hours
-  with a fight in them, 10 of 12 under their old pay, a killing hour at least twice a walking hour; the offer's words; the
+  killing job under 2.75 a map hour and no walk under 2.06 (the smaller margin); no killing job under its old pay; every quiet
+  job at most three quarters of the same hours with a fight in them, 11 of 12 under their old pay, a killing hour at least twice a walking hour; the offer's words; the
   dog hunt counts 11 heads; the standing bands rise, neutral 1, top 1.15, words with the percent and no em dash; a friendly
   town bends 116 to 125; the drift; the wires; the purse under double.
 - gates/the_boards_quests_are_people_gate.js: its "pays 30 a skull" check now reads the table (and never under 30 a skull).
@@ -223,4 +226,4 @@ by design, not by drift.
 - The phone's job card shows the bent pay but not the words (UI's card; the words are on the town's board).
 - A per-head pay for a CAMP and a PATROL is still their old flat-plus-head split inside the job (slices/bohemia_job_kinds.js
   flat and per_head_share); the total they split is the new pay.
-- The no-killing floor (10 a skull) and the margin (1.0) are first numbers for TUNING's one table.
+- The no-killing floor (10 a skull) and the two margins (1.0 killing, 0.5 walking) are first numbers for TUNING's one table.

@@ -61,8 +61,8 @@ function table() {
   Object.keys(by).sort().forEach(k => { const x = by[k], h = x.h / x.n, f = x.f / x.n;
     console.log(pad(k, 15) + lp(x.n, 5) + lp(f1(h), 7) + lp(f.toFixed(2), 6) + lp(Math.round(x.b / x.n), 6) + lp(Math.round(x.p / x.n), 6) + lp(f1(x.b / x.h), 7) + lp(f1(x.p / x.h), 7) +
       lp(f ? f1(x.b / x.f) : '-', 7) + lp(f ? f1(x.p / x.f) : '-', 7) + lp(cost.toFixed(2), 7)); });
-  const low = rows.filter(r => r.pay / Math.max(0.5, r.hours) < bar - 1e-9);
-  console.log('\njobs under the bar (' + bar.toFixed(2) + ' a map hour): ' + (low.length ? low.map(r => r.id).join(', ') : 'none'));
+  const qbar = cost * (1 + ((PAY.violence || {}).value || {}).quiet_margin), low = rows.filter(r => r.pay / Math.max(0.5, r.hours) < (r.violent ? bar : qbar) - 1e-9);
+  console.log('\njobs under the bar (killing work ' + bar.toFixed(2) + ', a walk ' + qbar.toFixed(2) + ' a map hour): ' + (low.length ? low.map(r => r.id).join(', ') : 'none'));
   return rows;
 }
 

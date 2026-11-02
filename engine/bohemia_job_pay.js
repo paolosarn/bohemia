@@ -99,6 +99,9 @@
        fight's price and never under its old pay; a walk, a delivery or a search pays its hours and the chance it turns bloody, and
        only the quiet floor under it, so it pays clearly less, still over the crew's cost an hour */
     var VI = v('violence', {}), violent = fights >= (VI.min_fights != null ? VI.min_fights : 0.5);
+    /* a walk's hours carry a smaller margin than killing work's (the coordinator 11/2: 'they still beat the crew's cost per hour, just
+       with a smaller margin'): violence.quiet_margin */
+    if (!violent && VI.quiet_margin != null) margin = VI.quiet_margin;
     var time = hours * cost * (1 + margin), fight = (fights + risk) * perFight * sm;
     var floor = violent ? Math.max(s * v('floor_per_skull', 30), offer.before | 0) : s * (VI.quiet_floor_per_skull != null ? VI.quiet_floor_per_skull : 10);
     var pay = Math.max(floor, Math.ceil(time + fight - 1e-9)),   /* rounded up, so no job misses the bar by a rounding */
