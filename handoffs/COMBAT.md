@@ -1,5 +1,22 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 5 11/2, SHIP 2 (brief from the coordinator: rule 305, ask line 297). SHIPPED (BUILD 11/3zn, THE CELL VEST), NOT YET SEEN:
+THE CELL VEST (never 'suicide bomber'; the man is A SPARK, drafts): gear.acc cell_vest_scrap/yard/late (4/8/12 cells) in the
+accessory slot; never on the main man. His SPARK square (4 AP): first tap lights the risk (9 tiles crimson, hurt over every man
+touching him, his % to die, the line), second tap squeezes on the song's beat (all cells; off the beat half) until the dial lands;
+AUTO never squeezes. The dead man's switch: struck down with a live vest, all cells, any turn, on AUTO too. 8 a cell on the 8 tiles
+round him, friend and foe, half through armour; x1.5 by a wall, x1.5 on a machine; his tile + ring burn 2 rounds (On Fire's 15-30
+at a turn's end) and smoke 2 rounds (a shot through it -20). Always knocks him down; death roll +25% (fire gear -15%): 45% measured
+45.4% in 119. Perk nothing_left: max health 1, the armour takes the whole blow while it stands. The fear: a side that saw one keeps
+off tiles beside a live vest (60), shoots him first, clubs him at half worth. Placeholder vest on the chest, fire, smoke, the white
+frame on the beat. Every number ours.cell_vest. Gate gates/the_cell_vest_gate.js (10/10); phone look
+tools/bohemia_combat_the_cell_vest_phone_11_2_26.js (4/4). records/BOHEMIA_COMBAT_THE_CELL_VEST_11_2_26.md.
+NEXT (other lanes): the yard hire and the vest drawn on the body (CHARACTER, DIRECTION); the price (ECONOMY); the roster handing
+gear.acc and offering NOTHING LEFT first at 20+ max health lost (CHARACTER/RUN); the words (WORDS); the sound 'cell_vest' (SOUNDS);
+every number (TUNING). The squeeze moves onto the dial when the dial lands. NOT IN A TAB YET until a hire wears one.
+[bb] fire pot, smoke pot, the accessory slot, Nine Lives are the bones; a man who goes off when he falls is ours.
+[analog horror] the frame whites out on the beat in three hard steps; crimson root flame, never purple; smoke that steps a key at a time.
+
 COMBAT 5 11/2, SHIP 1 (brief from the coordinator: rule 328, ask line 326). SHIPPED (BUILD 11/3zm, CLIMB OR ATTACK), NOT YET SEEN:
 CLIMB OR ATTACK: a step from lower ground up onto a roof marks the man for the round (u.upRound; WAIT keeps it); marked, he makes no
 attack the rest of his turn: canStrike, canSweep, canNet, canShove, hookTarget/hook refuse, canUse refuses ours.climb_or_attack

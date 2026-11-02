@@ -128,6 +128,10 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .sq.on{outline:2px solid #8fb8e0}
 .sq.hot{outline:2px solid #e0604a}
 .sq.up b{font-size:8px;right:2px;color:#e0907a;letter-spacing:.3px}
+.sq.spark{border-color:#6a1420}
+.sq.spark.on{animation:sparkBeat var(--beat,500ms) steps(4,end) var(--ph,0ms) infinite}
+@keyframes sparkBeat{0%{outline:3px solid #b3122e;filter:brightness(1.7)}25%{outline:2px solid #4a0a12;filter:none}}
+.hurt.spark{color:#ffb070}
 #pick i.climbw{color:#a3261a;letter-spacing:.3px}
 .sq.bag{border-color:#6b5434;box-shadow:0 2px 3px rgba(0,0,0,.55),inset 0 0 0 1px rgba(224,176,98,.25)}
 .sq.bag b{font-size:9px;color:#e0b062}
@@ -800,11 +804,11 @@ const FIGHT = (function () {
     /* ONE MAN, ONE LOOK (RUN TWO [eyes: one man, one look], 10/19, rule 120(d)): a man the company hands with his look
        (engine/bohemia_roster.js company()) fights in it, so a death or a new order never moves him into another body;
        else the place in this list, as before */
-    return condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    return dressSpark(c, condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagKit: !bagHanded(c), bagState: [],
-      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' }));
+      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' })));
   }
   /* __DAMAGE_STAYS__ (CAMP [the heal button, damage that stays], rule 226, Paolo 10/26: 'right now you can just do fights back to
      back to back and you always respawn... healing is important, the damage you sustained in battle'). A man the company hands
@@ -1368,6 +1372,7 @@ const FIGHT = (function () {
     }
     if (seeded) SEED = dice;
     const dealt = S.boardDef;
+    S.fire = []; S.smoke = []; S.sparkSeen = {};   /* THE CELL VEST: the burning ground, the smoke, who has seen one go off */
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
@@ -1692,7 +1697,7 @@ const FIGHT = (function () {
     }
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
-  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u); }
+  function turnOver(u) { burnTick(u); u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u); }
   /* A REST (rules 283(b), 285(b)): END TURN with no AP spent; at his next turn ours.rest_recovery comes back instead of 15 (MEASURED
      10/26: a car door and a spear among three brigands, ending his turn to rest, went 81 -> 83 -> 83 of 83 and never swung again).
      The 'owed' sum that held a resting man's hits back until his next swing is gone (rule 313): the breath now comes back at the
@@ -2016,6 +2021,8 @@ const FIGHT = (function () {
        per level difference', a shot as much as a blow (rule 164 item 14: a man two storeys up is twice as hard to hit) */
     if (la > lt) { ch += HA.above_per_storey * (la - lt); parts.push('above'); }
     if (la < lt) { ch += HA.below_per_storey * (lt - la); parts.push('below'); }
+    /* THE CELL VEST's smoke (rule 305): a shot through it, -20 (ours.cell_vest.smoke) */
+    if (isRanged(w) && smokeOn(a, t)) { ch += CV().smoke.hit_points; parts.push('smoke'); }
     ch += rollShift(a);
     const cap = R('hit_chance.cap');
     return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
@@ -2114,6 +2121,8 @@ const FIGHT = (function () {
        least ours.hit_floor_hp; a miss or a full block is a miss. MEASURED 11/2: 216 of 793 hits in 20 wolf fights and 212 of 621
        against the heavies took 0 health and said -0 */
     if (r.hit) r.hp = Math.max(R('ours.hit_floor_hp'), r.hp | 0);
+    /* NOTHING LEFT (rule 305): his armour takes the whole blow while it stands; what it cannot hold goes through */
+    if (r.hit && nothingLeft(t)) { const arm = r.head ? t.armH : t.armB; if (arm > 0) { const all = (r.hp | 0) + (r.armour | 0), took = Math.min(arm, all); r.armour = took; r.hp = all - took; } }
     S.firstBlow = S.firstBlow || S.round; S.lastHitBy = S.lastHitBy || {}; if (r.hit) S.lastHitBy[a.side] = S.round;   /* THE STANDOFF ENDS reads these */
     if (!isRanged(a.weapon)) S.contact = true;
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
@@ -2170,9 +2179,12 @@ const FIGHT = (function () {
   }
   function fall(t, a) {
     t.hp = 0;
+    /* THE DEAD MAN'S SWITCH (rule 305): struck down with a live vest, the grip lets go: every cell, no dial; his death roll gets the
+       vest's share (vestShare) since he is in the fire */
+    const sw = vestLive(t); if (sw) { t.vest.gone = true; t.vestLit = true; }
     if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
-    else if (rng() < deathChance(t)) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
+    else if (rng() < deathChance(t) + (t.vestLit ? vestShare(t) : 0)) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else {
       /* STRUCK DOWN, ALIVE (ours.struck_down_injury): one of the wiki's permanent injuries, each as likely, the part hit not
          mattering, for life; its fresh wound lasts these days as a debuff, never a bench (rule 234, CAMP) */
@@ -2194,6 +2206,108 @@ const FIGHT = (function () {
     }
     ripple(t, a, 'dies');
     if (t.side === 'them') unplug(t, a);
+    if (sw) sparkOff(t, t.vest.cells, 'switch');
+  }
+  /* ---------------- THE CELL VEST (COMBAT 5 ship 2, rule 305, ask line 297, Paolo 11/2: 'a character build... the main point of
+     this guy is to die on the battlefield, or at least fuck something up so bad he faints... I want it to be realistic too'; the
+     design: records/BOHEMIA_PAOLO_THE_CELL_VEST_THE_WRONGNESS_AND_TRUE_JOB_TIMES_11_2_26.md section 1; every number in
+     ours.cell_vest with its reason). Never called a suicide bomber anywhere: THE CELL VEST, and the man in it A SPARK (drafts).
+     A lithium cell shorted goes into thermal runaway: a jet of fire, burning pieces, a choking smoke; against a wall the vented gas
+     lights all at once. So: fire on the men touching him (the eight tiles round him, friend and foe: fire picks no side, Battle
+     Brothers' fire pot), x1.5 by a wall, x1.5 on a machine; his tile and the ring burn 2 rounds (a man ending his turn in it takes
+     On Fire's 15 to 30) and smoke 2 rounds (a shot through it -20); it always knocks him down, his death roll +25% (fire gear
+     -15%). Two ways off: THE SQUEEZE (his action, the important shot: on the beat every cell, off it half) and THE DEAD MAN'S
+     SWITCH (struck down, every cell). AUTO never squeezes (rule 180(g): a special is his button); the switch works on AUTO too. --- */
+  function CV() { return R('ours.cell_vest'); }
+  function vestLive(u) { return !!(u && u.vest && !u.vest.gone && u.vest.cells > 0); }
+  /* the perk NOTHING LEFT (his idea): his most health is 1, and his armour takes the whole of every blow while it stands */
+  function nothingLeft(u) { return !!(u && u.perks && u.perks.indexOf('nothing_left') >= 0); }
+  function dressSpark(c, u) {
+    const V = CV(), id = c && c.gear && c.gear.acc, row = id ? V.vests[id] : null;
+    if (row && !(V.main_never && u.main)) u.vest = { id: id, cells: row.cells, of: row.cells, gone: false };
+    if (nothingLeft(u) && !u.main) { u.hpWhole = u.hpWhole || u.hpMax; u.hpMax = V.nothing_left.hp_max; u.hp = Math.min(u.hp, u.hpMax); }
+    return u;
+  }
+  function sparkTiles(u) { const out = []; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (inBoard(u.x + dx, u.y + dy)) out.push({ x: u.x + dx, y: u.y + dy }); return out; }
+  /* a wall beside him: a building's tile on one of the eight round him */
+  function byWall(u) { for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if ((dx || dy) && inBoard(u.x + dx, u.y + dy) && sightBlock(u.x + dx, u.y + dy)) return true; return false; }
+  /* what the fire does to one man's armour and health: the armour first, a share straight through (none to a NOTHING LEFT man
+     while his armour stands), and through once the armour is gone */
+  function burnSplit(t, d, through) {
+    const arm = Math.max(0, t.armB || 0), direct = nothingLeft(t) && arm > 0 ? 0 : Math.round(d * through), toArm = d - direct, took = Math.min(arm, toArm);
+    return { armour: took, hp: direct + (toArm - took) };
+  }
+  function sparkHurt(u, t, cells) {
+    const V = CV(), d = Math.round(cells * V.damage_per_cell * (byWall(u) ? V.wall_x : 1) * (isMachine(t) || t.machine ? V.machine_x : 1));
+    const h = burnSplit(t, d, V.through_armour_share); h.all = d; return h;
+  }
+  function fireGear(u) { const g = CV().fire_gear || []; return !!((u.bodyRow && g.indexOf(u.bodyRow.id) >= 0) || (u.headRow && g.indexOf(u.headRow.id) >= 0)); }
+  function vestShare(u) { const V = CV(); return Math.max(0, V.death_share - (fireGear(u) ? V.fire_gear_cut : 0)); }
+  /* his odds to die if it goes off now (0..1): the fall roll and the vest's share; a man of theirs always dies, YOU never */
+  function sparkDeath(u) { if (u.side === 'them') return 1; if (u.main && !R('ours.main_character_dies')) return 0; return Math.min(1, deathChance(u) + vestShare(u)); }
+  function sparkCells(u, onBeat) { return onBeat ? u.vest.cells : Math.max(1, Math.floor(u.vest.cells * CV().dial.off_beat_share)); }
+  /* THE RISK SEEN FIRST (rule 303): the tiles that burn, the hurt on every man touching him, his odds to die, before the squeeze */
+  function sparkPreview(u, onBeat) {
+    const cells = sparkCells(u, onBeat !== false);
+    return { cells: cells, of: u.vest.of, wall: byWall(u), tiles: sparkTiles(u), dies: sparkDeath(u),
+      men: S.units.filter(function (t) { return t !== u && onField(t) && !t.ghost && dist(t, u) === 1; })
+        .map(function (t) { const h = sparkHurt(u, t, cells); return { id: t.id, side: t.side, hp: h.hp, armour: h.armour, falls: h.hp >= t.hp, machine: !!(isMachine(t) || t.machine) }; }) };
+  }
+  function canSpark(u) {
+    const V = CV();
+    return !S.over && current() === u && onField(u) && vestLive(u) && u.morale !== 'Fleeing' && !climbedNow(u) && u.ap >= V.squeeze_ap && u.fat + V.squeeze_fatigue <= fatMax(u);
+  }
+  /* THE SQUEEZE: his action; on the beat every cell, off it a share; he is in the fire, so it knocks him down */
+  function spark(u, onBeat) {
+    if (!canSpark(u)) return null;
+    const V = CV(); u.ap -= V.squeeze_ap; u.fat += V.squeeze_fatigue;
+    const cells = sparkCells(u, !!onBeat);
+    u.vest.gone = true; u.vestLit = true;
+    const r = sparkOff(u, cells, onBeat ? 'beat' : 'off');
+    if (onField(u)) fall(u, null);
+    afterAction(u); if (!onField(u) && current() === u) advance(u);
+    return r;
+  }
+  /* the cells go: the ground burns and smokes, every man touching him takes the fire (each his own armour), and every man on the
+     board has seen it (the side's fear) */
+  function sparkOff(u, cells, how) {
+    const V = CV(), wall = byWall(u), tiles = sparkTiles(u);
+    u.vest.gone = true; u.vest.cells = 0;
+    S.sparkSeen = S.sparkSeen || {}; S.units.forEach(function (v) { if (onField(v)) S.sparkSeen[v.side] = true; });
+    S.fire = (S.fire || []).filter(function (f) { return f.until >= S.round; }); S.smoke = (S.smoke || []).filter(function (f) { return f.until >= S.round; });
+    tiles.forEach(function (q) { S.fire.push({ x: q.x, y: q.y, until: S.round + V.burn.rounds - 1, by: u.id }); S.smoke.push({ x: q.x, y: q.y, until: S.round + V.smoke.rounds - 1 }); });
+    emit({ t: 'spark', id: u.id, x: u.x, y: u.y, cells: cells, of: u.vest.of, how: how, wall: wall });
+    const men = S.units.filter(function (t) { return t !== u && onField(t) && !t.ghost && dist(t, u) === 1; });
+    let hurt = 0, fell = 0;
+    men.forEach(function (t) {
+      if (!onField(t)) return;
+      const h = sparkHurt(u, t, cells);
+      t.armB = Math.max(0, t.armB - h.armour); t.hp -= h.hp; hurt += h.hp;
+      u.dealt = (u.dealt || 0) + Math.min(h.hp, Math.max(0, t.hp + h.hp)); t.taken = (t.taken || 0) + h.hp;
+      emit({ t: 'burn', id: t.id, by: u.id, hp: h.hp, armour: h.armour, spark: true, machine: !!(isMachine(t) || t.machine) });
+      if (t.hp <= 0) { fell++; fall(t, t.side !== u.side ? u : null); }
+    });
+    return { cells: cells, men: men.length, hurt: hurt, fell: fell, wall: wall };
+  }
+  function fireAt(x, y) { return (S.fire || []).filter(function (f) { return f.x === x && f.y === y && f.until >= S.round; })[0] || null; }
+  function smokeAt(x, y) { return (S.smoke || []).some(function (f) { return f.x === x && f.y === y && f.until >= S.round; }); }
+  /* a shot whose line crosses a smoke tile (the shooter's, the target's or one between) */
+  function smokeOn(a, t) { return !!(S.smoke && S.smoke.length) && line(a, t).some(function (q) { return smokeAt(q.x, q.y); }); }
+  /* ON FIRE (Battle Brothers' On Fire page): a man ending his turn on a burning tile takes 15 to 30, the armour first, a tenth
+     straight through; walking through is free */
+  function burnTick(u) {
+    if (!onField(u) || u.ghost) return;
+    const f = fireAt(u.x, u.y); if (!f) return;
+    const B = CV().burn, h = burnSplit(u, rint(B.damage[0], B.damage[1]), B.direct_share), by = byId(f.by);
+    u.armB = Math.max(0, u.armB - h.armour); u.hp -= h.hp; u.taken = (u.taken || 0) + h.hp;
+    emit({ t: 'burn', id: u.id, by: f.by, hp: h.hp, armour: h.armour, ground: true });
+    if (u.hp <= 0) fall(u, by && by.side !== u.side ? by : null);
+  }
+  /* THE FEAR (rule 305): a side that has seen a vest go off keeps off the tiles beside a live one, and shoots him first */
+  function fearsSpark(u, t) { return !!(S.sparkSeen && S.sparkSeen[u.side] && t && t.side !== u.side && vestLive(t) && onField(t)); }
+  function sparkDanger(u, x, y) {
+    if (!S.sparkSeen || !S.sparkSeen[u.side]) return 0;
+    return foes(u).filter(function (t) { return vestLive(t) && Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) === 1; }).length * CV().fear.danger_per_vest;
   }
   /* WORDS [kills and the strongest foe] (rule 316, Paolo 11/2): the strongest man of theirs he ever put down, Battle Brothers' way
      (the highest experience value; a tie, the higher level), kept on him for the fight's end row and his record (engine/bohemia_kill_tally.js) */
@@ -3151,6 +3265,7 @@ const FIGHT = (function () {
          man the team can kill), theirs spreads (Battle Brothers' own 1 / (1 + n), fair to him) */
       if (A.spread_attacks) { const n = (S.aimed || {})[u.side + t.id] || 0; if (u.side === 'you') s *= Math.pow(R('ours.auto_brain').focus_per_strike, n); else s /= 1 + n; }  /* 70b: not every swing on the weakest */
       if (A.prefers_soft && isRanged(u.weapon)) s *= 1 + softness(t);       /* the marksman: the shieldless, the rookie, the bare head */
+      if (fearsSpark(u, t)) s *= isRanged(u.weapon) ? 1 + CV().fear.shoot_bonus : CV().fear.melee_share;   /* rule 305: shoot the Spark, never club him */
       if (s > bs) { bs = s; best = t; }
     });
     return best;
@@ -3484,6 +3599,7 @@ const FIGHT = (function () {
         }
       }
       if (A.high_ground && sc > -Infinity) sc += heightGain(x, y, u, ranged);
+      if (sc > -Infinity) sc -= sparkDanger(u, x, y);   /* rule 305: a side that has seen one go off keeps off a live vest */
       /* the raider with a long weapon, nobody in reach: he waits rather than lead his one-tile men */
       if (A.long_weapon_waits && !canHit && (w.range_max || 1) > 1 && line && line.front !== null && hl(x, y) < line.front) sc = -Infinity;
       /* the leader: still until the lines meet, then a step behind his own front man unless he can strike from there now */
@@ -3540,7 +3656,7 @@ const FIGHT = (function () {
     if (v.$shot) return pistolShot(rowOfToken(v.$shot));
     return JSON.parse(JSON.stringify(v));
   }
-  const KEPT_STATE = ['retreat', 'allFlee', 'chaseAt', 'chaseOK', 'order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
+  const KEPT_STATE = ['fire', 'smoke', 'sparkSeen', 'retreat', 'allFlee', 'chaseAt', 'chaseOK', 'order', 'idx', 'round', 'over', 'result', 'contact', 'aimed', 'w', 'h', 'cols', 'crop', 'night', 'flat', 'power', 'ground', 'terrain',
     'boardDef', 'solid', 'cover', 'coverCount', 'lit', 'days', 'difficulty', 'act', 'board', 'formationKept', 'formation', 'deploy', 'firstBlow', 'lastHitBy', 'focus'];
   function screenKey(k) { return k.charAt(0) === '_' || k.indexOf('seen') === 0; }
   function freeze() {
@@ -3570,12 +3686,12 @@ const FIGHT = (function () {
     emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
-    level: level, isRoof: isRoof, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
+    level: level, isRoof: isRoof, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
-    _t: { unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -4476,7 +4592,7 @@ function bullet(moment, a, t, e) {
 /* THE NOTES' LENGTHS (rule 121 [smooth]: 'turns flow without dead pauses'): a note holds the board only as long as it shows
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
-const NOTE_BEATS = { allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
+const NOTE_BEATS = { spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0 };
 function take() {
   const ev = FIGHT.S.events, n0 = UI.anim.length; FIGHT.S.events = [];
   let swing = null;   /* WEAPON SHAPES: the other men a sweep strikes ride the one swing (one motion, one beat, every man it caught) */
@@ -5135,6 +5251,9 @@ function startAnim(a) {
   }
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
+    /* THE CELL VEST (rule 305): the frame whites out on the beat the cells catch; the fire said over every man it touched */
+    if (e.t === 'spark' && u) { UI.whiteAt = a.at; sfx('cell_vest', { side: u.side, cells: e.cells, of: e.of, how: e.how, wall: !!e.wall }); pop(u, e.how === 'switch' ? SPARK_SAYS.switchTag : SPARK_SAYS.tag, '#ff4a3a', true); }
+    if (e.t === 'burn' && u) pop(u, '-' + e.hp, '#f08a3a', false);
     if ((e.t === 'dead' || e.t === 'down' || e.t === 'fled') && u) UI.fallN = (UI.fallN || 0) + 1;   /* the class read and the last stand look again */
     if ((e.t === 'dead' || e.t === 'down') && u) { u._fallAt = a.at;   /* the fall plays from here (poseOf) */
       if (u.side === 'you' || u._seen) { thudAt(a.at, B); SND.thud(u, a.at, B); }   /* THE PUNCH: the body lands on the fall's last key */
@@ -5256,8 +5375,8 @@ function placeHurts() {
     const v = FIGHT.byId(h.id); if (!v) return;
     let el = have[h.id]; delete have[h.id];
     if (!el) { el = document.createElement('div'); el.className = 'hurt'; el.dataset.id = h.id; box.appendChild(el); }
-    const txt = h.chance + '% -' + h.hp; if (el.textContent !== txt) el.textContent = txt;
-    el.classList.toggle('maybe', !h.sure);
+    const txt = h.txt || (h.chance + '% -' + h.hp); if (el.textContent !== txt) el.textContent = txt;
+    el.classList.toggle('maybe', !h.sure); el.classList.toggle('spark', !!h.txt);   /* THE CELL VEST's risk (rule 305) */
     const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - manH();
     el.style.left = Math.round(X - el.offsetWidth / 2) + 'px'; el.style.top = Math.round(top - el.offsetHeight - 4) + 'px';
   });
@@ -6027,7 +6146,13 @@ function draw(now) {
         UI.shapeLit = { skill: sk.name, armed: true, tiles: tiles, struck: caught.map(function (v) { return v.id; }) };
       }
     }
-    if (UI.skillMode && !FIGHT.needsTarget(UI.skillMode)) (UI.skillMode === 'rally_the_troops' ? FIGHT.rallyable(u) : [u]).forEach(function (v) { mkCorners(v.x, v.y, MK.teal); });
+    if (UI.skillMode === 'spark' && FIGHT.vestLive(u)) {   /* THE CELL VEST: the risk seen first (rule 303) */
+      const pv = FIGHT.sparkPreview(u, true);
+      pv.tiles.forEach(function (q) { mkCorners(q.x, q.y, R('ours.cell_vest').look.edge); });
+      pv.men.forEach(function (m) { UI.hurtShown.push({ id: m.id, txt: '-' + m.hp + (m.falls ? ' DOWN' : ''), sure: true }); });
+      UI.hurtShown.push({ id: u.id, txt: wfill(SPARK_SAYS.dies, { n: Math.round(pv.dies * 100) }), sure: true });
+    }
+    if (UI.skillMode && UI.skillMode !== 'spark' && !FIGHT.needsTarget(UI.skillMode)) (UI.skillMode === 'rally_the_troops' ? FIGHT.rallyable(u) : [u]).forEach(function (v) { mkCorners(v.x, v.y, MK.teal); });
     /* the walk he is about to take: chalk dots from his feet to where his feet will be, and his ring there in chalk */
     if (UI.pend && UI.pend.path) {
       const pts = [{ x: u.x, y: u.y }].concat(UI.pend.path).map(function (p) { return [sx((p.x + .5) * UI.tw), sy((p.y + .9) * UI.th)]; });
@@ -6062,6 +6187,7 @@ function draw(now) {
   keepLayers(fallen, standing);
   /* rule 145: the floor keeps every hit, under the fallen and the standing */
   goreTick(now); drawStains();
+  drawFire(now);   /* THE CELL VEST (rule 305): the ground that burns, under the men */
   /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
   S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
   /* the people, back rows first */
@@ -6074,6 +6200,7 @@ function draw(now) {
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
   drawDrops(now);   /* rule 145(b): the burst in the air, over the men */
   drawDust(now);   /* THE PUNCH: a shot that misses kicks dust off the ground past him */
+  drawSmoke(now, tw, th);   /* THE CELL VEST (rule 305): the smoke, the vest on the man, the white frame on the beat */
   /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
   if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26) {
     const Y = sy((dy(u) + .9) * UI.th) - th * riseAt(u.x, u.y);
@@ -7390,8 +7517,9 @@ function hud() {
   const back = mine && backOk(u);
   const bagK = mine && u.bag ? u.bag.map(function (w, i) { return (w ? w.id : '-') + (FIGHT.canSwap(u, i) ? 1 : 0) + FIGHT.swapCostOf(u, i); }).join(',') + (u.shield ? u.shield.id : '') : '';
   const upNow = mine && FIGHT.climbedNow(u);   /* rule 328: CLIMBED THIS TURN on the strike square */
+  const vestK = mine && FIGHT.vestLive(u) ? 'v' + (FIGHT.canSpark(u) ? 1 : 0) + (UI.skillMode === 'spark' ? 'on' : '') + u.vest.cells : '';   /* rule 305 */
   const key = (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + (upNow ? 'up' : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
-    + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',');
+    + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',') + '|' + vestK;
   if (sk.dataset.key !== key) {
     sk.dataset.key = key;
     const bs = document.getElementById('bstrike'), br = document.getElementById('breload'), bb = document.getElementById('bback');
@@ -7438,6 +7566,16 @@ function hud() {
       b.onclick = function () { sweepTap(k.name); };
       sk.appendChild(b);
     });
+    /* THE CELL VEST (rule 305): his square, two taps, the second on the beat */
+    if (vestK) {
+      const b = document.createElement('button'), can = FIGHT.canSpark(u);
+      b.className = 'sq spark' + (UI.skillMode === 'spark' ? ' on' : ''); b.appendChild(vestIcon(30, u.vest.cells));
+      const t = document.createElement('b'); t.textContent = upNow ? CLIMB_SAYS.square : R('ours.cell_vest').squeeze_ap; b.appendChild(t);
+      b.dataset.skill = 'spark'; b.title = upNow ? CLIMB_SAYS.title : SPARK_SAYS.title; b.disabled = !can; if (upNow) b.dataset.why = 'climbed';
+      b.style.setProperty('--beat', beatMs() + 'ms'); b.style.setProperty('--ph', -Math.round(beatPh(performance.now()) * beatMs()) + 'ms');
+      b.onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } sparkTap(); };
+      sk.appendChild(b);
+    }
     want.forEach(function (id) {
       const b = document.createElement('button'), n = FIGHT.skillNums(u, id) || {};   /* RECOVER without the perk reads the perk's own numbers (rule 283(b)) */
       b.className = 'sq' + (UI.skillMode === id ? ' on' : ''); b.appendChild(iconCanvas(id, 30));
@@ -7944,6 +8082,84 @@ function selfSay(u, id) {
   const n = FIGHT.skillNums(u, id) || {}, back = id === 'recover' ? Math.round(u.fat) - Math.round(u.fat * (1 - (n.fatigue_reduction_pct || 0) / 100)) : id === 'rally_the_troops' ? FIGHT.rallyable(u).length : 0;
   const t = SELF_SAYS[id] ? wfill(SELF_SAYS[id], { name: u.main ? 'you' : u.name, n: back }) : perkName(id).toUpperCase() + '.';
   return t + ' ' + SELF_SAYS.again;
+}
+/* ---------------- THE CELL VEST ON HIS SCREEN (COMBAT 5 ship 2, rule 305) ----------------
+   One square, two taps (rule 312): the first lights the risk (the nine tiles that burn ringed crimson, the hurt over every man
+   touching him, friend and foe, his odds to die over him) and the square breathes on the beat; the second is the squeeze, read
+   against the song's beat (the dial's job until the dial lands, the 9/22 law): on the beat every cell, off it half. Words draft:true. */
+const SPARK_SAYS = { title: 'THE CELL VEST', risk: '{name}\'s vest: {cells} cells. {foes} He goes down: {dies}% he dies.', foes: 'Burns {n} of theirs beside him, up to -{hurt} each.',
+  none: 'Nobody of theirs beside him.', wall: 'A wall beside him: x1.5.', mates: 'It burns {n} of yours beside him too.', how: 'Tap again ON THE BEAT for every cell.',
+  beat: 'On the beat: all {cells} cells.', off: 'Off the beat: {cells} of {of} cells.', cannot: 'Not enough AP to squeeze: it costs {need}.',
+  tag: 'SPARK', switchTag: 'THE SWITCH LET GO', dies: '{n}% DIES' };   /* draft:true */
+function sparkSay(u) {
+  const p = FIGHT.sparkPreview(u, true), them = p.men.filter(function (m) { return m.side !== u.side; }), mates = p.men.filter(function (m) { return m.side === u.side; });
+  const foesT = them.length ? wfill(SPARK_SAYS.foes, { n: them.length, hurt: Math.max.apply(null, them.map(function (m) { return m.hp; })) }) : SPARK_SAYS.none;
+  return [wfill(SPARK_SAYS.risk, { name: u.name, cells: p.cells, foes: foesT, dies: Math.round(p.dies * 100) }), p.wall ? SPARK_SAYS.wall : '', mates.length ? wfill(SPARK_SAYS.mates, { n: mates.length }) : '', SPARK_SAYS.how].filter(Boolean).join(' ');
+}
+function sparkTap() {
+  const u = FIGHT.current(); if (!crewControlled(u) || !FIGHT.vestLive(u)) return;
+  UI.pend = null; UI.sweep = null;
+  if (!FIGHT.canSpark(u)) { say(FIGHT.climbedNow(u) ? wfill(REFUSE_SAYS.climbed, { name: u.main ? 'You' : u.name }) : wfill(SPARK_SAYS.cannot, { need: R('ours.cell_vest').squeeze_ap }), true); sfx('ui_deny'); return; }
+  if (UI.skillMode === 'spark') {
+    UI.skillMode = null;
+    const ph = beatPh(performance.now()), onBeat = Math.min(ph, 1 - ph) <= R('ours.cell_vest').dial.beat_window / 2, of = u.vest.of;
+    const r = FIGHT.spark(u, onBeat); if (!r) return;
+    say(wfill(onBeat ? SPARK_SAYS.beat : SPARK_SAYS.off, { cells: r.cells, of: of }), true); take(); return;
+  }
+  UI.skillMode = 'spark'; say(sparkSay(u), true); hud();
+}
+/* the square's picture: a vest of cells in two rows, wires between, a crimson edge (lithium's flame; never purple) */
+function vestIcon(css, cells) {
+  const c = document.createElement('canvas'), d = Math.max(1, Math.round(Math.min(window.devicePixelRatio || 1, 3))), g = c.getContext('2d'), L = R('ours.cell_vest').look;
+  c.width = c.height = css * d; c.style.width = c.style.height = css + 'px';
+  const k = Math.floor(css * d / 12), n = Math.min(6, Math.max(2, Math.ceil((cells || 4) / 2)));
+  g.fillStyle = L.edge; g.fillRect(k, 2 * k, 10 * k, 8 * k); g.fillStyle = L.wire; g.fillRect(2 * k, 3 * k, 8 * k, 6 * k);
+  const w = Math.max(1, Math.floor(8 / n)); for (let r = 0; r < 2; r++) for (let i = 0; i < n; i++) { const x = 2 * k + i * w * k + (i ? 0 : 0), y = 3 * k + r * 3 * k;
+    g.fillStyle = L.cell; g.fillRect(x, y + k, Math.max(k, (w - 1) * k || k), 2 * k); g.fillStyle = L.cap; g.fillRect(x, y, Math.max(k, (w - 1) * k || k), k); }
+  return c;
+}
+/* the burning ground: tongues of flame in cells, on the keys (three a beat), crimson at the root */
+function drawFire(now) {
+  const S = FIGHT.S; if (!S.fire || !S.fire.length) return;
+  const L = R('ours.cell_vest').look, key = Math.floor(now / (beatMs() / 3));
+  mkOn();
+  S.fire.forEach(function (f) {
+    if (f.until < S.round) return;
+    const T = mkTile(f.x, f.y), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(2, Math.round(w / 18));
+    mkCell(T.x0, T.y0, w, h, 'rgba(24,8,6,.42)');   /* the scorch */
+    for (let i = 0; i * k < w - k; i += 2) {
+      const r = mulberry(seedOf('fire:' + f.x + ',' + f.y + ':' + i + ':' + key))(), tall = 1 + Math.floor(r * 5), x = T.x0 + i * k;
+      for (let j = 0; j < tall; j++) mkCell(x, T.y1 - (j + 1) * k * 2, k, k * 2, L.flame[Math.min(L.flame.length - 1, Math.floor(j * L.flame.length / tall))]);
+    }
+  });
+  mkOff();
+}
+/* the smoke over the men, the cells drifting up a step a key; the vest on a man until CHARACTER draws it; the frame whiting out on
+   the beat the cells catch */
+function drawSmoke(now, tw, th) {
+  const S = FIGHT.S, L = R('ours.cell_vest').look, key = Math.floor(now / (beatMs() / 3));
+  mkOn();
+  (S.smoke || []).forEach(function (f) {
+    if (f.until < S.round) return;
+    const T = mkTile(f.x, f.y), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(3, Math.round(w / 10));
+    for (let y = 0; y < h - k; y += k) for (let x = 0; x < w - k; x += k) {
+      const r = mulberry(seedOf('smoke:' + f.x + ',' + f.y + ':' + x + ':' + ((y / k + key) % 7)))();
+      if (r < .45) mkCell(T.x0 + x, T.y0 + y, k, k, 'rgba(140,138,132,' + (.12 + r * .3).toFixed(2) + ')');
+    }
+  });
+  S.units.forEach(function (v) {
+    if (!FIGHT.vestLive(v) || !FIGHT.onField(v) || !FIGHT.shown(v)) return;
+    const X = sx((dx(v) + .5) * UI.tw), foot = sy((dy(v) + .9) * UI.th) - th * riseAt(v.x, v.y), Y = foot - manH() * .5;
+    const k = Math.max(1, Math.round(manH() * .03 * DPR / MKU)), n = Math.min(6, Math.ceil(v.vest.cells / 2)), bw = n * 2 * k + k, bh = 2 * 3 * k + k;
+    const c0 = mc(X) - Math.round(bw / 2), r0 = mc(Y) - Math.round(bh / 2);
+    mkCell(c0 - k, r0 - k, bw + 2 * k, bh + 2 * k, L.edge); mkCell(c0, r0, bw, bh, L.wire);
+    for (let r = 0; r < 2; r++) for (let i = 0; i < n; i++) { mkCell(c0 + k + i * 2 * k, r0 + k + r * 3 * k, k, k, L.cap); mkCell(c0 + k + i * 2 * k, r0 + 2 * k + r * 3 * k, k, k, L.cell); }
+  });
+  if (UI.whiteAt !== undefined && now >= UI.whiteAt && now - UI.whiteAt < beatMs()) {
+    const st = Math.min(2, Math.floor((now - UI.whiteAt) / beatMs() * 3));
+    cx.fillStyle = 'rgba(255,250,238,' + [.88, .5, .2][st] + ')'; cx.fillRect(0, 0, cx.canvas.width, cx.canvas.height);
+  }
+  mkOff();
 }
 function skillTap(id) {
   audio(); const u = FIGHT.current(); if (!crewControlled(u)) return;

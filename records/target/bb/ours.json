@@ -1946,6 +1946,81 @@
   "why": "COMBAT 5 11/2: HIS RULE, LOCKED, every side and every beast that can climb (rule 321 keeps the wolves off roofs). A step from lower ground up onto a roof (a roof tile at a higher level than the tile stepped from, by his walk, the far walk, Footwork or Rotation) marks the man for the round; WAIT brings the same turn back in the same round, so the mark holds through it. A man so marked makes none of the attacks in refused for the rest of that turn: the blow or shot (strike, a throw is a thrown weapon's strike), a weapon's sweep, the dial's shot when the dial lands (dial_shot), Hook, Line Breaker's shove, the net, a whip's lash (ARMORY 2's, it rides strike or sweep), the cell vest's spark (COMBAT 5 ship 2). attack_skills: the active perks that are a blow; none of the fight's active perks is one today (still_his lists them), so it ships empty for the next one. A shove that puts him up there is not his climb. The zone of control's free swing and the free shot are on somebody else's turn and stand (Battle Brothers' rule, rules.json zone_of_control). Battle Brothers has no such rule: a climb there costs +1 AP a level (ap.move_cost.height_change_extra) and nothing else; ours is his. The AI: a shooter climbs only for the shot NEXT turn, never while he has a shot or a tile that gives one now.",
   "ours": true
  },
+ "cell_vest": {
+  "value": {
+   "vests": {
+    "cell_vest_scrap": {
+     "cells": 4,
+     "frame_batteries": 10,
+     "where": "a hire who worked a battery yard arrives wearing one (CHARACTER and WORDS, later)"
+    },
+    "cell_vest_yard": {
+     "cells": 8,
+     "frame_batteries": 40,
+     "where": "the trades town's smith"
+    },
+    "cell_vest_late": {
+     "cells": 12,
+     "frame_batteries": 120,
+     "where": "a boss's place"
+    }
+   },
+   "cell_batteries": 15,
+   "squeeze_ap": 4,
+   "squeeze_fatigue": 0,
+   "damage_per_cell": 8,
+   "through_armour_share": 0.5,
+   "wall_x": 1.5,
+   "machine_x": 1.5,
+   "dial": {
+    "off_beat_share": 0.5,
+    "beat_window": 0.2
+   },
+   "burn": {
+    "rounds": 2,
+    "damage": [
+     15,
+     30
+    ],
+    "direct_share": 0.1
+   },
+   "smoke": {
+    "rounds": 2,
+    "hit_points": -20
+   },
+   "death_share": 0.25,
+   "fire_gear_cut": 0.15,
+   "fire_gear": [],
+   "main_never": true,
+   "fear": {
+    "danger_per_vest": 60,
+    "shoot_bonus": 0.5,
+    "melee_share": 0.5
+   },
+   "nothing_left": {
+    "hp_max": 1,
+    "armour_takes_all": true,
+    "offer_first_hp_lost": 20
+   },
+   "look": {
+    "cell": "#4a4f47",
+    "cap": "#a9b0a6",
+    "wire": "#1e1c1a",
+    "edge": "#b3122e",
+    "flame": [
+     "#b3122e",
+     "#e0501e",
+     "#f2b23a"
+    ],
+    "smoke": "#8c8a84"
+   }
+  },
+  "source": "VAMILY.md rule 305 (Paolo 11/2, ask line 297); records/BOHEMIA_PAOLO_THE_CELL_VEST_THE_WRONGNESS_AND_TRUE_JOB_TIMES_11_2_26.md section 1 (the coordinator's design); records/target/bb/weapons.json fire_pot and smoke_pot (bb_all/0770_Fire Pot.txt, bb_all/1486_On Fire (Status Effect).txt, bb_all/1822_Smoke Pot.txt); records/target/bb/origins.json crowns_per_battery; records/BOHEMIA_COMBAT_THE_CELL_VEST_11_2_26.md",
+  "quote": "what if we have a character build that's like low-key a suicide bomber... he'll fall in battle... I want it to be realistic too... the main point of this guy is to die on the battlefield, or at least fuck something up so bad he faints... maybe we can add a perk like this character only has one HP, and his armor better support everything otherwise he's going down",
+  "why": "COMBAT 5 11/2, every number a draft for TUNING and ECONOMY, tuned:false. THE NAME: never a suicide bomber anywhere in the game; THE CELL VEST, and the man who wears it A SPARK (drafts, his to rename). vests: salvaged lithium cells on a grip switch in the accessory slot (Battle Brothers' own slot for a dog or a bandage, so the body armour still works); 4, 8 and 12 cells. cell_batteries 15: a loaded yard vest (8 cells, 120) is the price of two of Battle Brothers' fire pots (value 600 crowns each, 10 crowns a battery, rule 75a); frame_batteries the empty vest's own (ECONOMY's to set). squeeze_ap 4: Battle Brothers' plain attack cost (a squeeze of a grip is no throw; the fire pot's throw is 5 AP and 20 fatigue), squeeze_fatigue 0. damage_per_cell 8, through_armour_share 0.5: each cell burns 8 on every man touching him (the eight tiles round him, friend and foe alike: fire picks no side, the fire pot's own rule), half of it through the armour, the rest on the body armour first and through once the armour is gone. wall_x 1.5: a wall beside him (a building's tile next to his) holds the vented gas, the Surprise, Arizona battery building of April 2019. machine_x 1.5: heat kills electronics (the mechanic's machines, and late the Amalgamation). dial: the squeeze is the important shot (the 9/22 law); until the fight has the dial, the squeeze's tap is read against the song's beat: inside beat_window of a beat every cell lights, off it off_beat_share of them. burn: his tile and the eight round it burn rounds 2 (the fire pot's 'lasts for 2 turns'); a man ending his turn on a burning tile takes damage [15, 30] (On Fire's page) all on the armour with direct_share 0.1 straight through (On Fire: '100% Armor Damage and 10% Direct Damage'), the rest through once the armour is gone; walking through is free (the page's). smoke: the same nine tiles, rounds 2, a shot whose line crosses a smoke tile hit_points -20 (the coordinator's draft; Battle Brothers' smoke pot halves the shooter's ranged skill inside it for one turn and doubles the target's ranged defence). death_share 0.25: he is in the fire, it always knocks him down, and his death roll (ours.struck_down_death_chance 0.2, +0.05 a mark) gets +0.25; fire_gear_cut 0.15 off it in fire gear (fire_gear lists the armour ids; none in the library yet, a welder's leathers and a fire apron are CHARACTER's). main_never: the main character cannot wear it (he never dies, so it would cost him nothing: the cheat rule 303 forbids). THE DEAD MAN'S SWITCH: struck down with a live vest, every cell goes off, no dial. fear: a side that has seen a vest go off keeps off the tiles beside a live vest (danger_per_vest off a tile's worth, under a blow's worth so a man with no other blow still swings), its shooters take him first (1 + shoot_bonus), its clubs swing at him at melee_share. nothing_left: the perk NOTHING LEFT: his most health is hp_max, and his armour takes the whole of every blow while it stands (no share through to him until it is gone); offered first to a man who has lost offer_first_hp_lost or more max health to knockdowns (rule 304's tally, engine/bohemia_condition.js hpCut). look: the placeholder on the body until CHARACTER and DIRECTION draw it (a vest of cells, a crimson edge: lithium's own flame colour; never purple, which is the Amalgamation's alone).",
+  "ours": true,
+  "draft": true
+ },
  "auto_finds_a_shot": {
   "value": {
    "order": [
