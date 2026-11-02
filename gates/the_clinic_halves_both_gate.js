@@ -90,7 +90,7 @@ async function run(b, profile) {
     return { i, head: c ? (c.querySelector('b') || {}).textContent : null, clinic: c ? (c.querySelector('.clinic') || {}).textContent : null }; }, { MAN });
   const ccard = await r.evaluate(READ_CARD, '#card .hurtbox .injc');
   ok(P + 'C4 THE CREW CARD MATCHES: the same days and the same halved arrows the clinic left, and that the clinic already cut it',
-    !!ccard && crew.head === 'STRUCK DOWN, THE WOUND ' + shown + ' OF ' + DAYS + ' DAYS' && ccard.now.days === shown && JSON.stringify(ccard.now.chips.map(c => c.stat + c.value)) === JSON.stringify(card.after.chips.map(c => c.stat + c.value)) && /already cut the wound in half/.test(crew.clinic || ''),
+    !!ccard && crew.head === 'HURT, STILL FIGHTING' && ccard.now.days === shown && JSON.stringify(ccard.now.chips.map(c => c.stat + c.value)) === JSON.stringify(card.after.chips.map(c => c.stat + c.value)) && /already cut the wound in half/.test(crew.clinic || ''),
     crew.head + ' / ' + JSON.stringify(ccard && ccard.now.chips.map(c => c.stat + c.value)) + ' / ' + crew.clinic);
   ok(P + 'C5 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | ') || 'no errors');
   await ctx.close();

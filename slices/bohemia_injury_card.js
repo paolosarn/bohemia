@@ -13,7 +13,16 @@
                                                                 penalties, which the clinic never touches, and the card says so
      BohemiaInjuryCard.after(inj, medic)                        what the clinic leaves: the days left halved (rounded up, a medic's
                                                                 day fewer), the fresh wound's penalty halved with them
-   The pixels are hard, one pixel a pixel (the border law), the reds dried blood, never a cartoon (analog horror). Words draft:true. */
+   The pixels are hard, one pixel a pixel (the border law), the reds dried blood, never a cartoon (analog horror). Words draft:true.
+   *** REDONE 11/3 (INJURY, VAMILY rules 304 and 301; Paolo 11/2: 'the UI for when a man goes down and he's gonna be healing, it's
+   just so ugly', and the card voted NO: 'ugly, cluttered, try again'). ONE TIN PLATE, three lines, read top to bottom in one look:
+     1 WHAT AND HOW LONG: the drop, the wound's name, the days left on the clock, and a row of clay beads, one a day, lit for the
+       days still to go (data-when="now" holds the chips and the clock the gates read)
+     2 WHAT IT COSTS HIM NOW: the stat icons with their red arrows, nothing else (with clinic: now | CLINIC > | after)
+     3 WHAT IS HIS FOR GOOD: his scars by name (no penalty, rule 304(b)) and the knockdown tally: a bead a knockdown, the free ones
+       bone, the ones that cost red, then the hitpoints gone for good or what the next one costs (the risk seen before it is taken,
+       rule 303). tally(doc, inj) is the same beads for his portrait.
+   Tin and clay (Crashbox, rule 301): a riveted plate lit from the top left, clay chips pressed into it, a faint scan over all. ***/
 (function (root) {
   'use strict';
   var ICON = { melee_skill: 'melee_skill', ranged_skill: 'ranged_skill', melee_defense: 'melee_defense', ranged_defense: 'ranged_defense',
@@ -29,24 +38,46 @@
   var WORSE_UP = { extra_ap_per_tile_moved: 1, hitpoints_lost_per_turn_in_combat: 1 };
   function statIcon(k) { return root.BohemiaMaterials && root.BohemiaMaterials.statIcon ? root.BohemiaMaterials.statIcon(k) : 'stat_icons/' + k + '.png'; }
   var CSS = ''
-    + '.injc{margin-top:6px;padding:5px 6px;border:1px solid #5a1c12;background:#1a0f0b;color:#e9dccb;font:700 10px/14px ui-monospace,monospace}'
-    + '.injc .injh{display:flex;align-items:center;gap:5px;letter-spacing:1px;color:#e0b9a6}'
-    + '.injc canvas.injpx{width:24px;height:24px;image-rendering:pixelated;flex:0 0 auto}'
-    + '.injc .injrow{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:4px}'
-    + '.injc .injcol{display:flex;flex-direction:column;gap:3px;min-width:0}'
-    + '.injc .injside{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:start;margin-top:4px}'
-    + '.injc .injto{align-self:center;color:#8f7d6c}'
-    + '.injc .injk{display:inline-flex;align-items:center;gap:2px}'
+    /* the plate: tin lit from the top left, a dark one-pixel edge, four rivets, a faint scan (analog horror) */
+    + '.injc{position:relative;margin:6px 0 5px;padding:7px 9px 7px;border:1px solid #0b0906;border-radius:3px;color:#e9dccb;font:700 10px/14px ui-monospace,monospace;'
+    + 'background:radial-gradient(circle at 4px 4px,#8d7f70 0 1px,#2a211a 1.5px,transparent 2.5px),radial-gradient(circle at calc(100% - 4px) 4px,#8d7f70 0 1px,#2a211a 1.5px,transparent 2.5px),'
+    + 'radial-gradient(circle at 4px calc(100% - 4px),#6d6054 0 1px,#2a211a 1.5px,transparent 2.5px),radial-gradient(circle at calc(100% - 4px) calc(100% - 4px),#6d6054 0 1px,#2a211a 1.5px,transparent 2.5px),'
+    + 'repeating-linear-gradient(0deg,rgba(0,0,0,.10) 0 1px,transparent 1px 3px),linear-gradient(160deg,#4a3c31 0%,#30251d 45%,#1f1712 100%);'
+    + 'box-shadow:inset 1px 1px 0 rgba(255,232,205,.20),inset -1px -1px 0 rgba(0,0,0,.65),0 2px 0 #0b0906}'
+    + '.injc .injh{display:flex;align-items:center;gap:6px;letter-spacing:1px;color:#f0d9c4;text-shadow:0 1px 0 #0b0906}'
+    + '.injc .injh .injname{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
+    + '.injc canvas.injpx{width:18px;height:18px;image-rendering:pixelated;flex:0 0 auto}'
+    /* the days as clay beads, one a day: lit dried blood for the days to go, sunk tin for the days done */
+    + '.injc .injbeads{display:flex;gap:2px;margin:4px 0 0 24px}'
+    + '.injc .injbeads b,.injtally b{display:block;width:9px;height:5px;border-radius:2px;background:#1a120d;box-shadow:inset 0 1px 1px rgba(0,0,0,.8)}'
+    + '.injc .injbeads b.on{background:linear-gradient(#c23a2a,#7a170f);box-shadow:inset 0 1px 0 rgba(255,190,170,.45),0 1px 0 #0b0906}'
+    + '.injc .injcol{display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0;margin-top:5px}'
+    + '.injc .injrow{display:flex;flex-wrap:wrap;align-items:center;gap:4px}'
+    + '.injc .injside{display:grid;grid-template-columns:1fr auto 1fr;gap:5px;align-items:center;margin-top:5px}'
+    + '.injc .injside .injcol{flex-direction:column;align-items:flex-start;margin:0;padding:4px 5px;border-radius:3px;background:rgba(0,0,0,.28);box-shadow:inset 1px 1px 0 rgba(0,0,0,.5),inset -1px -1px 0 rgba(255,232,205,.08)}'
+    + '.injc .injside [data-when=after]{background:rgba(60,90,50,.18)}'
+    + '.injc .injto{color:#a8988a;font-size:9px}'
+    /* a chip: a pressed clay lozenge, the icon and its arrow */
+    + '.injc .injk{display:inline-flex;align-items:center;gap:1px;padding:1px 3px 1px 2px;border-radius:3px;background:linear-gradient(#3b2a20,#25190f);box-shadow:inset 1px 1px 0 rgba(255,220,190,.14),0 1px 0 #0b0906}'
     + '.injc .injk img{width:16px;height:16px;image-rendering:pixelated}'
-    + '.injc .injk i{font-style:normal;color:#b9a693;font-size:9px}'
-    + '.injc .injar{display:inline-block;width:4px;background:#8c1d12;position:relative;margin:0 4px 5px 3px;vertical-align:middle}'
-    + '.injc .injar::after{content:"";position:absolute;left:-3px;bottom:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid #8c1d12}'
-    + '.injc .injar.up{background:#4f7a3a;margin:5px 4px 0 3px}.injc .injar.up::after{bottom:auto;top:-5px;border-top:0;border-bottom:5px solid #4f7a3a}'
-    + '.injc .injd{display:inline-flex;align-items:center;gap:3px}'
-    + '.injc .injlife{margin-top:5px;color:#a8988a}'
-    + '.injc .injlife b{color:#cdb8a6}'
-    + '.injc .injnote{display:block;color:#8f7d6c;font-weight:400}'
-    + '.injc .injprice{margin-top:4px;color:#f1d38a}';
+    + '.injc .injk i{font-style:normal;color:#d8c4b0;font-size:9px;padding:0 1px}'
+    + '.injc .injar{display:inline-block;width:3px;background:#a3241a;position:relative;margin:0 4px 5px 3px;vertical-align:middle}'
+    + '.injc .injar::after{content:"";position:absolute;left:-3px;bottom:-5px;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:5px solid #a3241a}'
+    + '.injc .injar.up{background:#5d8a44;margin:5px 4px 0 3px}.injc .injar.up::after{bottom:auto;top:-5px;border-top:0;border-bottom:5px solid #5d8a44}'
+    + '.injc .injd{display:inline-flex;align-items:center;gap:3px;flex:0 0 auto;color:#f0d9c4;letter-spacing:1px}'
+    + '.injc .injnone{color:#a8988a}'
+    /* for good: a groove across the plate, then the scars and the tally */
+    + '.injc .injlife{margin-top:6px;padding-top:5px;border-top:1px solid #0b0906;box-shadow:0 -1px 0 rgba(255,232,205,.08);color:#b9a693;display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px}'
+    + '.injc .injlife .injscar{color:#d8c4b0;letter-spacing:1px}'
+    + '.injc .injlife .injcost{color:#e07a5f}.injc .injlife .injcost.free{color:#a8988a}'
+    + '.injc .injnote{display:block;flex-basis:100%;color:#8f7d6c;font-weight:400}'
+    + '.injc .injprice{margin-top:5px;color:#f1d38a;text-shadow:0 1px 0 #0b0906}'
+    /* the tally: one bead a knockdown, bone while free, red once it cost a hitpoint; the same on his portrait */
+    + '.injtally{display:inline-flex;gap:2px;align-items:center;vertical-align:middle}'
+    + '.injtally b{width:5px;height:7px}.injtally b.free{background:linear-gradient(#d9ccb8,#8f826f);box-shadow:inset 0 1px 0 #fff3,0 1px 0 #0b0906}'
+    + '.injtally b.cost{background:linear-gradient(#c23a2a,#7a170f);box-shadow:inset 0 1px 0 rgba(255,190,170,.45),0 1px 0 #0b0906}'
+    + '.injtally em{font-style:normal;color:#e07a5f;font:700 9px/9px ui-monospace,monospace;margin-left:2px;text-shadow:0 1px 0 #0b0906}'
+    + '.injtag{position:absolute;right:1px;bottom:1px;padding:1px 2px;border-radius:2px;background:rgba(11,9,6,.82);pointer-events:none;z-index:2}';
   function style(doc) { if (doc.getElementById('injc-css')) return; var s = doc.createElement('style'); s.id = 'injc-css'; s.textContent = CSS; (doc.head || doc.documentElement).appendChild(s); }
   /* the two marks, drawn a pixel at a time on a 12 by 12 grid: a drop of dried blood, a clock with no glass */
   var PX = {
@@ -74,8 +105,34 @@
   function days(doc, n) { var d = doc.createElement('span'); d.className = 'injd'; d.dataset.days = n; d.appendChild(pixel(doc, 'clock')); d.appendChild(doc.createTextNode(n + (n === 1 ? ' DAY' : ' DAYS'))); return d; }
   function col(doc, list, n) {
     var c = doc.createElement('div'); c.className = 'injcol';
-    var r = doc.createElement('div'); r.className = 'injrow'; list.forEach(function (p) { r.appendChild(chip(doc, p)); }); if (!list.length) r.appendChild(doc.createTextNode('NOTHING'));
+    var r = doc.createElement('div'); r.className = 'injrow'; list.forEach(function (p) { r.appendChild(chip(doc, p)); });
+    if (!list.length) { var z = doc.createElement('span'); z.className = 'injnone'; z.textContent = 'NO PENALTY'; r.appendChild(z); }
     c.appendChild(r); c.appendChild(days(doc, n)); return c;
+  }
+  /* the wound's days as beads: of them in all, the days left lit */
+  function beads(doc, left, of) {
+    var b = doc.createElement('div'); b.className = 'injbeads'; b.dataset.left = left; b.dataset.of = of;
+    for (var i = 0; i < Math.min(12, of); i++) { var e = doc.createElement('b'); if (i < left) e.className = 'on'; b.appendChild(e); }
+    return b;
+  }
+  /* THE KNOCKDOWN TALLY (rule 304(c)): a bead a knockdown, the free ones bone, the ones that cost red, and the hitpoints gone */
+  function tally(doc, inj, o) {
+    doc = doc || root.document; style(doc);
+    var t = doc.createElement('span'); t.className = 'injtally'; if (!inj || inj.main) return t;
+    var n = inj.knocks | 0, cut = inj.hpCut | 0, free = n - cut; t.dataset.knocks = n; t.dataset.hpCut = cut;
+    for (var i = 0; i < Math.min(n, 9); i++) { var e = doc.createElement('b'); e.className = i < free ? 'free' : 'cost'; t.appendChild(e); }
+    if (cut > 0 && o && o.hp) { var m = doc.createElement('em'); m.textContent = '-' + cut + ' HP'; t.appendChild(m); }
+    t.title = n + (n === 1 ? ' knockdown' : ' knockdowns') + (cut ? ', ' + cut + ' max HP gone for good' : ', nothing lost for good');
+    t.setAttribute('aria-label', t.title);
+    return t;
+  }
+  /* what the tally says beside it: what is gone, or what the next knockdown will cost (the risk seen first, rule 303) */
+  function costWord(inj) {
+    var cut = inj.hpCut | 0, cap = inj.hpCap | 0, fl = inj.freeLeft;
+    if (cut >= cap && cap > 0) return { t: '-' + cut + ' MAX HP FOR GOOD. THE MOST IT TAKES.', free: false };
+    if (cut > 0) return { t: '-' + cut + ' MAX HP FOR GOOD. NEXT ONE: -1 MORE.', free: false };
+    if (fl > 0) return { t: (fl === 1 ? '1 MORE KNOCKDOWN' : fl + ' MORE KNOCKDOWNS') + ' COST NOTHING FOR GOOD.', free: true };
+    return { t: 'NEXT KNOCKDOWN: -1 MAX HP FOR GOOD.', free: false };
   }
   /* WHAT THE CLINIC LEAVES (rule 241(b)): the days left halved, rounded up (a medic one fewer, never under one), and with them the
      fresh wound's share of its penalty (the share is the days left over its days, engine/bohemia_long_injury.js freshShare) */
@@ -91,12 +148,14 @@
   function build(doc, inj, o) {
     doc = doc || root.document; o = o || {}; style(doc);
     var el = doc.createElement('div'); el.className = 'injc'; if (!inj) return el;
-    var now = (inj.penalties || []).filter(function (p) { return p.from === 'fresh'; }), life = (inj.penalties || []).filter(function (p) { return p.from === 'mark'; });
+    /* rule 304(b): the marks are scars and take nothing; only the fresh wound costs him anything now */
+    var now = (inj.penalties || []).filter(function (p) { return p.from === 'fresh'; });
     if (inj.wound) {
-      var h = doc.createElement('div'); h.className = 'injh'; h.appendChild(pixel(doc, 'drop'));
-      h.appendChild(doc.createTextNode('THE WOUND: ' + String(inj.fresh ? inj.fresh.name : markName(inj.wound.mark)).toUpperCase()));
-      el.appendChild(h);
       var n = Math.max(0, Math.ceil(inj.wound.left - 1e-9));
+      var h = doc.createElement('div'); h.className = 'injh'; h.appendChild(pixel(doc, 'drop'));
+      var nm = doc.createElement('span'); nm.className = 'injname'; nm.textContent = String(inj.fresh ? inj.fresh.name : markName(inj.wound.mark)).toUpperCase(); h.appendChild(nm);
+      el.appendChild(h);
+      el.appendChild(beads(doc, n, Math.max(n, inj.wound.of | 0)));
       if (o.clinic) {
         var af = o.after || after(inj, o.medic);
         var sd = doc.createElement('div'); sd.className = 'injside'; sd.dataset.side = 'now-after';
@@ -108,15 +167,16 @@
         var c1 = col(doc, now, n); c1.dataset.when = 'now'; el.appendChild(c1);
       }
     }
-    if (inj.marks && inj.marks.length) {
-      var lf = doc.createElement('div'); lf.className = 'injlife'; lf.dataset.life = inj.marks.join(',');
-      var t = doc.createElement('b'); t.textContent = 'FOR LIFE: ' + inj.marks.map(markName).join(', ').toUpperCase(); lf.appendChild(t);
-      var r = doc.createElement('div'); r.className = 'injrow'; life.forEach(function (p) { r.appendChild(chip(doc, p)); }); lf.appendChild(r);
-      if (o.clinic) { var nt = doc.createElement('span'); nt.className = 'injnote'; nt.textContent = 'The clinic cannot touch this. It is his for life.'; lf.appendChild(nt); }
+    var scars = inj.marks || [];
+    if (scars.length || (inj.knocks | 0) > 0) {
+      var lf = doc.createElement('div'); lf.className = 'injlife'; lf.dataset.life = scars.join(',');
+      if (scars.length) { var t = doc.createElement('span'); t.className = 'injscar'; t.textContent = 'SCARS FOR LIFE: ' + scars.map(markName).join(', ').toUpperCase(); lf.appendChild(t); }
+      if (!inj.main) { lf.appendChild(tally(doc, inj)); var cw = costWord(inj), cs = doc.createElement('span'); cs.className = 'injcost' + (cw.free ? ' free' : ''); cs.textContent = cw.t; lf.appendChild(cs); }
+      if (o.clinic) { var nt = doc.createElement('span'); nt.className = 'injnote'; nt.textContent = 'Scars cost nothing in a fight. The clinic cannot touch them.'; lf.appendChild(nt); }
       el.appendChild(lf);
     }
     if (o.price != null) { var pr = doc.createElement('div'); pr.className = 'injprice'; pr.dataset.price = o.price; pr.textContent = o.priceWord || (o.price + ' batteries'); el.appendChild(pr); }
     return el;
   }
-  root.BohemiaInjuryCard = { build: build, after: after, chip: chip, ICON: ICON, WORD: WORD };
+  root.BohemiaInjuryCard = { build: build, after: after, chip: chip, tally: tally, ICON: ICON, WORD: WORD };
 })(typeof window !== 'undefined' ? window : this);

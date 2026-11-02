@@ -412,6 +412,11 @@ function defaultForm(){
 /* RUN TWO [portraits on the roster], 10/11 (his YES with a note: 'display the portraits all the time, not the full body;
    it looks so tiny'): a man on the line is his face, never the full-body sprite */
 function headCanvas(m){ var c = faceCanvas(m); c.className = 'head'; return c; }
+/* HIS KNOCKDOWNS ON HIS PORTRAIT (INJURY, rule 304(c)): the card's own tally, a bead a knockdown (bone free, red what cost him a
+   hitpoint for good), in the corner of his head; nothing on a man never knocked down, nothing on YOU */
+function scarTag(cell, m){ if(!window.BohemiaInjuryCard || !BohemiaInjuryCard.tally || !m || m.main) return;
+  var inj = window.BohemiaCondition ? BohemiaCondition.injuryOf(m.name, m.main) : null; if(!inj || !(inj.knocks > 0)) return;
+  var t = BohemiaInjuryCard.tally(document, inj, { hp: true }); t.classList.add('injtag'); cell.appendChild(t); }
 /* HIS WHOLE BODY IN THE MIDDLE OF HIS SLOTS (RUN TWO [the 3D models on your screens], 10/19, rule 121(e): 'BRO EVERYTHING IS A 3D
    MODEL NOW'): the 3D model his face was rendered from (PORTRAIT's crew rig, engine/bohemia_rig_bodies.js), in his own skin, at
    one render pixel to one point on a phone and two on a computer (whole phone pixels, never a fraction); a tap turns him one
@@ -543,7 +548,7 @@ function draw(){
     S[row].forEach(function(ix, si){
       var d = document.createElement('div'); d.className = 'cell' + (ix != null ? ' full' : '') + (ix === S.sel ? ' sel' : '');
       d.dataset.drop = row + ':' + si;
-      if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.dataset.man = ix; d.appendChild(headCanvas(m));
+      if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.dataset.man = ix; d.appendChild(headCanvas(m)); scarTag(d, m);
         var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b); d.setAttribute('aria-label', m.name);   /* a hire's name is two words (PEOPLE [the names wired in]); the cell carries the first, his card the whole */
         if(waiting(m)){ var up = document.createElement('i'); up.className = 'up'; up.textContent = '+'; up.setAttribute('aria-hidden', 'true'); d.appendChild(up); }   /* Battle Brothers' plus: a level waits on him */
         if(fresh(m)){ d.classList.add('wounded'); var wd = document.createElement('i'); wd.className = 'days'; wd.textContent = m.hurt.days + 'd'; d.appendChild(wd);
@@ -554,7 +559,7 @@ function draw(){
   var hu = document.getElementById('hurt'); hu.textContent = ''; var any = false;
   S.crew.forEach(function(m, i){ if(!laid(m)) return; any = true;
     var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i; d.dataset.man = i;
-    d.appendChild(headCanvas(m)); var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b);
+    d.appendChild(headCanvas(m)); scarTag(d, m); var b = document.createElement('b'); b.textContent = m.name.split(' ')[0]; d.appendChild(b);
     var dd = document.createElement('i'); dd.className = 'days'; dd.textContent = m.hurt.days + 'd'; d.appendChild(dd);   /* his name and his days, both on the glass */
     d.setAttribute('aria-label', m.name + ', laid up ' + m.hurt.days + ' days'); hu.appendChild(d); });
   document.getElementById('hurtrow').classList.toggle('on', any);
@@ -749,6 +754,8 @@ function drawCard(){
     if(window.BohemiaStats){ st.classList.add('bst-col'); var pv = statsPreview(m); }
     (window.BohemiaStats ? BohemiaStats.ORDER : C.STATS).forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.setAttribute('aria-label', C.STAT_NAME[k]);
       var shown = W && typeof W[k] === 'number' ? W[k] : m.stats[k], gearPart = shown - m.stats[k];
+      /* rule 304(c): his hitpoints shown as the fight will have them, less what his knockdowns took for good */
+      if(k === 'hp' && !m.main && window.BohemiaCondition){ var hc = BohemiaCondition.injuryOf(m.name, m.main); if(hc && hc.hpCut > 0) shown -= hc.hpCut; }
       if(window.BohemiaStats) statRow(r, m, k, shown, pv);
       else { var v = document.createElement('span'); v.textContent = shown; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
         r.appendChild(a); r.appendChild(v); }
@@ -758,10 +765,10 @@ function drawCard(){
       st.appendChild(r); });
     el.appendChild(st);
   }
+  /* REDONE 11/3 (INJURY, rule 304; 'the UI for when a man goes down... it's just so ugly'): one short head and the one card,
+     nothing said twice. The card carries the wound, its days, what it costs now, his scars and his knockdown tally */
   if(m.mark){ var hb = document.createElement('div'); hb.className = 'hurtbox';
-    var h1 = document.createElement('b'); h1.textContent = fresh(m) ? 'STRUCK DOWN, THE WOUND ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
-    (m.marks && m.marks.length ? m.marks : [m.mark]).forEach(function(mk){ if(!mk || !mk.name) return;
-      var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + mk.name.toUpperCase() + (mk.line ? ', ' + mk.line : ''); hb.appendChild(h2); });
+    var h1 = document.createElement('b'); h1.textContent = fresh(m) ? 'HURT, STILL FIGHTING' : 'HEALED, SCARRED'; hb.appendChild(h1);
     /* CAMP (rules 234(d), 241(c)): the injury card, the town clinic's own drawing: the wound's debuff as icons with a red down arrow
        by how much, its days on a clock, the clinic's after beside it, what is his for life; then the clinic's price */
     var inj = injOf(m);

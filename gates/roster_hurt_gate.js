@@ -60,14 +60,15 @@ const srv = http.createServer((rq, rs) => {
   await p.evaluate(o => window.postMessage(o, '*'), over); await p.waitForTimeout(400);
   const r = await p.evaluate(n => { const s = BohemiaRosterScreen.state, i = s.crew.findIndex(m => m.name === n), c = document.getElementById('card');
     return { i, inLine: s.front.concat(s.back).indexOf(i) >= 0, strip: !!document.querySelector('#hurt .cell[data-hurt="' + i + '"]'), sel: s.crew[s.sel].name,
-      head: (c.querySelector('.hurtbox b') || {}).textContent || '', mark: (c.querySelector('.hurtbox .mark') || {}).textContent || '', clinic: (c.querySelector('.hurtbox .clinic') || {}).textContent || '',
+      head: (c.querySelector('.hurtbox b') || {}).textContent || '', mark: (c.querySelector('.hurtbox .injlife') || {}).textContent || '', days: +(((c.querySelector('.hurtbox .injc [data-when="now"] [data-days]') || {}).dataset) || {}).days, clinic: (c.querySelector('.hurtbox .clinic') || {}).textContent || '',
       fresh: (c.querySelector('.hurtbox .injc') || {}).textContent || '', arrows: c.querySelectorAll('.hurtbox .injc .injar.dn').length, after: !!c.querySelector('.hurtbox .injc [data-when="after"]'),
       pain: (c.querySelector('.pain') || {}).textContent || '', inCo: BohemiaRosterScreen.company().some(x => x.name === n) }; }, hurt.name);
   ok('*** he STAYS in the line (rule 234: never laid up), no strip holds him, and the card opens on him ***', r.inLine && !r.strip && r.sel === hurt.name);
-  ok('  his card: struck down, the fresh wound\'s days left of the days he got', r.head === 'STRUCK DOWN, THE WOUND ' + hurt.laidUpDays + ' OF ' + hurt.laidUpDays + ' DAYS', r.head);
+  /* INJURY 11/3 (rule 304, the card redone clean): one short head, the days on the card's own clock, the mark a scar */
+  ok('  his card: hurt and still fighting, the fresh wound\'s days left on the card\'s clock', r.head === 'HURT, STILL FIGHTING' && r.days === hurt.laidUpDays, r.head + ' / ' + r.days + ' days');
   const fw = LI.freshNow(hurt.injury.id, hurt.laidUpDays, hurt.laidUpDays);
   ok('  today\'s fresh wound, the mark\'s own temporary injury, its debuff a red down arrow a stat, the clinic\'s after beside it (rules 234(d), 241(c))', fw ? r.fresh.indexOf(fw.name.toUpperCase()) >= 0 && r.arrows >= Object.keys(fw.effects).length && r.after : true, (r.fresh || 'none').slice(0, 80) + ' / ' + r.arrows + ' arrows');
-  ok('  the permanent mark, the wiki\'s injury and what it takes', r.mark.indexOf(hurt.injury.name.toUpperCase()) >= 0, r.mark.slice(0, 70));
+  ok('  the mark is a scar for life by the wiki\'s name, and the card lists no penalty from it (rule 304(b))', r.mark.indexOf('SCARS FOR LIFE: ' + hurt.injury.name.toUpperCase()) >= 0, r.mark.slice(0, 90));
   ok('  the one pain line is PEOPLE\'s, from that injury', r.pain.indexOf(LI.painLine(hurt.injury.id)) >= 0, r.pain.slice(0, 60));
   const lv = 1, price = Math.max(1, Math.round(20 * hurt.laidUpDays * (1 + (lv - 1) * 0.2) / 10));
   ok('  the clinic\'s price to halve the days', r.clinic.indexOf(String(price) + ' batteries') >= 0, r.clinic);
@@ -77,13 +78,13 @@ const srv = http.createServer((rq, rs) => {
   await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_HURT_AFTER_10_10.png') });
   /* the clock heals him */
   await p.evaluate(() => window.postMessage({ type: 'BOHEMIA_DAY', days: 1 }, '*')); await p.waitForTimeout(200);
-  const d1 = await p.evaluate(() => document.querySelector('#card .hurtbox b').textContent);
-  ok('a day on the clock takes a day off the wound', d1 === 'STRUCK DOWN, THE WOUND ' + (hurt.laidUpDays - 1) + ' OF ' + hurt.laidUpDays + ' DAYS', d1);
+  const d1 = await p.evaluate(() => { const c = document.getElementById('card'); return { head: c.querySelector('.hurtbox b').textContent, days: +(((c.querySelector('.hurtbox .injc [data-when="now"] [data-days]') || {}).dataset) || {}).days }; });
+  ok('a day on the clock takes a day off the wound', d1.head === 'HURT, STILL FIGHTING' && d1.days === hurt.laidUpDays - 1, JSON.stringify(d1));
   const kept = await p.evaluate(n => { BohemiaRosterScreen.open({}); const m = BohemiaRosterScreen.state.crew.find(x => x.name === n); return m.hurt.days; }, hurt.name);
   ok('  and it keeps when the screen opens again', kept === hurt.laidUpDays - 1);
   await p.evaluate(n => BohemiaRosterScreen.dayPassed(n), hurt.laidUpDays);
-  const back = await p.evaluate(i => { const s = BohemiaRosterScreen.state; BohemiaRosterScreen.open({ select: s.crew[i].name }); return { inLine: s.front.concat(s.back).indexOf(i) >= 0, head: (document.querySelector('#card .hurtbox b') || {}).textContent, mark: (document.querySelector('#card .hurtbox .mark') || {}).textContent || '' }; }, r.i);
-  ok('at zero the wound has closed, he is still in the line, and the mark never clears', back.inLine && back.head === 'HEALED, BUT MARKED' && back.mark.indexOf(hurt.injury.name.toUpperCase()) >= 0, back.head + ' / in line ' + back.inLine + ' / ' + back.mark.slice(0, 40));
+  const back = await p.evaluate(i => { const s = BohemiaRosterScreen.state; BohemiaRosterScreen.open({ select: s.crew[i].name }); return { inLine: s.front.concat(s.back).indexOf(i) >= 0, head: (document.querySelector('#card .hurtbox b') || {}).textContent, mark: (document.querySelector('#card .hurtbox .injlife') || {}).textContent || '' }; }, r.i);
+  ok('at zero the wound has closed, he is still in the line, and the mark never clears', back.inLine && back.head === 'HEALED, SCARRED' && back.mark.indexOf(hurt.injury.name.toUpperCase()) >= 0, back.head + ' / in line ' + back.inLine + ' / ' + back.mark.slice(0, 40));
   /* a dead man leaves */
   const dead = await p.evaluate(() => { const s = BohemiaRosterScreen.state, m = s.crew.find(x => !x.main && !x.mark && !x.dead) || s.crew.find(x => !x.main && !x.dead); BohemiaRosterScreen.afterFight([{ name: m.name, dead: true, xpGained: 0 }]);
     const i = s.crew.indexOf(m); return { inLine: s.front.concat(s.back).indexOf(i) >= 0, inCo: BohemiaRosterScreen.company().some(x => x.name === m.name), name: m.name }; });

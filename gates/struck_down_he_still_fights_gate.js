@@ -27,6 +27,12 @@
         HEAL bar count the living and the struck down, never the dead; D2 the next fight neither hands him nor stands him on its
         board; D3 the crew screen, opened after he died, has him dead and says the living count, and the map's count stays right
         after it has read the fight (it empties the queue); D4 after a reload, the same
+     K1-K3 WHAT A KNOCKDOWN COSTS (INJURY, VAMILY rule 304, Paolo 11/2: 'every time you get down it is always going to be an injury...
+        I'm not even a fan of the permanent debuff... after a couple times it's hitting the HP'): the same man is struck down by the
+        fight's own fall() twice more (three in all): K1 every knockdown gives him the fresh wound for its days; K2 his marks are
+        scars on the board (kind scar, no effects), no permanent penalty anywhere, the card's penalties only the wound's; K3 after the
+        third, 1 max hitpoint gone for good (records/target/bb/condition.json knockdown_*): the condition's hpCut, the next fight's
+        board his max one under his whole, the card's tally; the crew card shot at phone size (records/target/)
      S11 nothing threw
    node gates/struck_down_he_still_fights_gate.js [--profile phone_portrait|computer]   (no flag: both) */
 'use strict';
@@ -76,7 +82,7 @@ const leaveEnd = async (d) => {
 };
 const home = async (d) => { for (let i = 0; i < 150; i++) { const s = await d.page.evaluate(() => !CITYFIGHT && !document.getElementById('fightFrame')).catch(() => false); if (s) return true; await d.page.waitForTimeout(100); } return false; };
 const units = (f) => f.evaluate(() => FIGHT.S.units.filter(u => u.side === 'you').map(u => ({ name: u.name, main: !!u.main, hp: u.hp, hpMax: u.hpMax,
-  injuries: (u.injuries || []).map(j => ({ id: j.id, kind: j.kind, effects: j.effects || null })) })));
+  hpCut: u.hpCut || 0, hpWhole: u.hpWhole || null, injuries: (u.injuries || []).map(j => ({ id: j.id, kind: j.kind, effects: j.effects || null })) })));
 
 /* one whole fight: optionally the fight's own fall() first, then AUTO by a press, LEAVE by a press */
 const playFight = async (d, seq, strike, settle) => {
@@ -84,26 +90,27 @@ const playFight = async (d, seq, strike, settle) => {
   const { f, box } = await fightFrame(d);
   if (!f) return { st, f: null };
   let struck = null;
-  if (strike) struck = await f.evaluate(() => {
+  if (strike) struck = await f.evaluate((a) => {
     const us = FIGHT.S.units.filter(u => u.side === 'you' && !u.main), them = FIGHT.S.units.filter(u => u.side === 'them'), tried = [];
     /* STRUCK DOWN BY THE FIGHT'S OWN ROLL: the last man of the line falls through FIGHT._t.fall (its 20 in 100 death roll, its wiki mark,
        its 30 to 40 days); a roll that killed him is taken back (the fight's own freeze and thaw, in place; its dice move on) and
        rolled again, so the gate never passes or fails on luck. THE DEAD (CAMP [eyes: the dead stand up]): then the first man of
        the line is killed, by hand, in the fight's own state, so there is a dead man to keep out */
     let lived = null, killed = null;
-    const sid = us.length ? us[us.length - 1].id : null;
+    /* rule 304's legs strike one named man again and kill nobody (a.who, a.noKill) */
+    const pick = a.who ? us.find(u => u.name === a.who) : us[us.length - 1], sid = pick ? pick.id : null;
     for (let t = 0; t < 40 && sid && !lived; t++) {
       const snap = FIGHT.freeze(), u = FIGHT.byId(sid);
       FIGHT._t.fall(u, them[0] || null); tried.push({ name: u.name, dead: !!u.dead, down: !!u.down });
       if (u.down && !u.dead) lived = { name: u.name, days: u.laidUp, injury: u.longInjury ? u.longInjury.id : null };
       else FIGHT.thaw(snap, true);
     }
-    if (us.length >= 2) { const k = FIGHT.byId(us[0].id); k.hp = 0; k.dead = true; killed = k.name; }
+    if (us.length >= 2 && !a.noKill) { const k = FIGHT.byId(us[0].id); k.hp = 0; k.dead = true; killed = k.name; }
     /* fight one is always won (a lost fight hands the struck-down man to the crew that beat him, rule 143(e)): one of theirs is
        left at one hitpoint, the rest are down already */
     them.forEach((u, i) => { u.hp = i ? 0 : 1; u.armH = 0; u.armB = 0; if (i) u.dead = true; });
     return { lived, killed, tried };
-  });
+  }, strike === true ? {} : strike);
   const start = await units(f);
   const handed = await d.page.evaluate(() => ({ men: (window.__NF_HANDED && window.__NF_HANDED.men) || null, cond: window.__NF_COND || null })).catch(() => null);
   const C0 = await d.fr.evaluate(() => BohemiaCondition.get()).catch(() => null);
@@ -173,10 +180,11 @@ async function run(profile) {
       on ? man.name + ' on the board at ' + on.hp + '/' + on.hpMax + ' (handed ' + (hc && hc.cond ? hc.cond.lostHp + ' missing' : 'nothing') + ')' : man.name + ' NOT on the board; handed: ' + handedMen.join(', '));
     ok(P + 'D2 THE DEAD STAY DEAD: the next fight neither hands ' + DEAD + ' nor stands him on its board',
       !handedMen.some(n => n && canon(n) === DK) && !F2.start.some(u => canon(u.name) === DK), 'handed ' + handedMen.join(', ') + '; board ' + F2.start.map(u => u.name).join(', '));
-    const life = on ? on.injuries.filter(j => j.kind === 'permanent').map(j => j.id) : [];
+    /* rule 304(b): the mark rides in as a SCAR (its id, no effects); nothing he carries in is a permanent penalty */
+    const life = on && !on.injuries.some(j => j.kind === 'permanent') ? on.injuries.filter(j => j.kind === 'scar' && !Object.keys(j.effects || {}).length).map(j => j.id) : [];
     const fr = on ? on.injuries.find(j => j.kind === 'fresh') : null;
     const want = C2 && C2.wound ? LI.freshNow(C2.wound.mark, C2.wound.left, C2.wound.of) : null;
-    ok(P + 'S4 *** THE DEBUFF, NOT THE BENCH *** on that board he carries his mark (the wiki\'s row) and his fresh wound with exactly freshNow\'s effects for the days left',
+    ok(P + 'S4 *** THE DEBUFF, NOT THE BENCH *** on that board he carries his mark as a scar (the wiki\'s id, no effects) and his fresh wound with exactly freshNow\'s effects for the days left',
       life.indexOf(row.injury.id) >= 0 && (want ? !!fr && fr.id === want.id && JSON.stringify(fr.effects) === JSON.stringify(want.effects) : !fr),
       'mark ' + JSON.stringify(life) + '; fresh ' + JSON.stringify(fr) + ' against ' + JSON.stringify(want && { id: want.id, effects: want.effects }));
 
@@ -231,6 +239,39 @@ async function run(profile) {
     ok(P + 'D3 THE DEAD STAY DEAD after the crew screen has read the fight: it has ' + DEAD + ' dead and off the line, its count is the living, and the map\'s count stays right with the queue emptied',
       !!s8 && !s8.deadAlive && !s8.deadInLine && new RegExp('COMPANY\\s+' + s8.living + '\\s').test(s8.title) && d3.crew === wantCrew(d3, [F1.rows, F2.rows]) && !d3.roster.some(n => n && canon(n) === DK),
       (s8 ? s8.title + '; dead alive ' + s8.deadAlive + ', in line ' + s8.deadInLine : 'no screen') + '; map count ' + d3.crew + ' (want ' + wantCrew(d3, [F1.rows, F2.rows]) + '); queue ' + await d.fr.evaluate(() => localStorage.getItem('bohemia.fight.after.v1')));
+
+    /* ---- K1-K3 WHAT A KNOCKDOWN COSTS (rule 304): the same man down twice more, then a fight to read his board ---- */
+    const knocks = [{ row, C: m1 }];
+    for (let n = 2; n <= 3; n++) {
+      let F = null; for (let t = 0; t < 3; t++) { F = await playFight(d, 20 + n * 3 + t, { who: man.name, noKill: true }); if (F.f && F.struck && F.struck.lived && F.rows) break; }
+      const rw = F && F.rows ? F.rows.find(r => r.name === man.name) : null, Cn = await d.fr.evaluate((K) => BohemiaCondition.get().men[K], K);
+      knocks.push({ row: rw, C: Cn });
+    }
+    const k1 = knocks.map(k => ({ down: !!(k.row && k.row.down && !k.row.dead), injury: k.row && k.row.injury && k.row.injury.id, days: k.row && k.row.laidUpDays,
+      wound: !!(k.C && k.C.wound && k.C.wound.of === (k.row && k.row.laidUpDays) && k.C.wound.left > 0), knocks: k.C && k.C.knocks }));
+    ok(P + 'K1 *** EVERY KNOCKDOWN IS A WOUND *** the same man struck down three times by the fight\'s own fall(): each time down, alive, a wiki mark and the fresh wound for its ' + DAYS[0] + ' to ' + DAYS[1] + ' days',
+      k1.length === 3 && k1.every((k, i) => k.down && !!LI.byId(k.injury) && k.days >= DAYS[0] && k.days <= DAYS[1] && k.wound && k.knocks === i + 1), JSON.stringify(k1));
+    const F5 = await playFight(d, 40, false, true), on5 = F5.f ? F5.start.find(u => canon(u.name) === K) : null;
+    const inj5 = await d.fr.evaluate((K) => { const m = BohemiaCondition.get().men[K]; return BohemiaCondition.injuryOf(m.shown); }, K);
+    const carriedPerm = on5 ? on5.injuries.filter(j => j.kind === 'permanent' || (j.kind === 'scar' && Object.keys(j.effects || {}).length)) : null;
+    ok(P + 'K2 *** NO PERMANENT STAT DEBUFF *** on the next board his ' + (inj5 && inj5.marks.length) + ' marks are scars with no effects, and every penalty the card lists is the fresh wound\'s',
+      !!on5 && carriedPerm.length === 0 && on5.injuries.filter(j => j.kind === 'scar').length === (inj5 && inj5.marks.length) && inj5.marks.length >= 2 && inj5.penalties.every(p => p.from === 'fresh'),
+      on5 ? JSON.stringify({ scars: on5.injuries.filter(j => j.kind === 'scar').map(j => j.id), other: on5.injuries.filter(j => j.kind !== 'scar').map(j => j.id + ':' + j.kind), from: inj5.penalties.map(p => p.from) }) : 'not on the board');
+    const CK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/condition.json'), 'utf8')), wantCut = Math.min(CK.knockdown_hp_cap.value, Math.max(0, 3 - CK.knockdown_free.value) * CK.knockdown_hp_each.value);
+    ok(P + 'K3 *** THE THIRD COSTS HIS HP *** after the third knockdown ' + wantCut + ' max HP gone for good: the condition\'s count and cut, the board\'s max one under his whole, the card\'s tally',
+      wantCut === 1 && !!inj5 && inj5.knocks === 3 && inj5.hpCut === wantCut && !!on5 && on5.hpCut === wantCut && on5.hpWhole - on5.hpMax === wantCut,
+      JSON.stringify({ knocks: inj5 && inj5.knocks, hpCut: inj5 && inj5.hpCut, board: on5 && { hpMax: on5.hpMax, whole: on5.hpWhole, cut: on5.hpCut } }));
+    /* the crew card after the third, at the phone's size, for the record (records/target/) */
+    if (profile === 'phone_portrait') {
+      await d.page.evaluate(() => new Promise(r => { try { if (!BohemiaCrewDoor.isOpen()) BohemiaCrewDoor.open({ base: '' }); } catch (e) {} r(); }));
+      let kf = null; for (let i = 0; i < 60 && !kf; i++) { await d.page.waitForTimeout(250);
+        for (const x of d.page.frames().filter(x => /ROSTER_SCREEN/.test(x.url()))) if (await x.evaluate(() => !!(window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready)).catch(() => false)) { kf = x; break; } }
+      if (kf) { await d.page.waitForTimeout(1200);
+        await kf.evaluate((K) => { const S = BohemiaRosterScreen.state, i = S.crew.findIndex(m => BohemiaCondition.canon(m.name, m.main) === K); if (i >= 0) BohemiaRosterScreen.open({ select: S.crew[i].name }); const h = document.querySelector('#card .hurtbox'); if (h) h.scrollIntoView({ block: 'center' }); }, K);
+        await d.page.waitForTimeout(700); await d.page.screenshot({ path: path.join(ROOT, 'records/target/injury_card_after_three_knockdowns_phone_11_3.png') }); }
+      try { await d.page.evaluate(() => { try { BohemiaCrewDoor.close(); } catch (e) {} }); } catch (_e) {}
+      await d.page.waitForTimeout(400);
+    }
 
     /* ---- S9 an old save wakes (last: it reloads) ---- */
     const old = 'OLDBENCH';
