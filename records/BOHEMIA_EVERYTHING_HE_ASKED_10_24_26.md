@@ -349,3 +349,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 325 | (a bug) A man he dismissed still shows as his in the camp, the towns and the shops: one company everywhere | 327 | PLUMBER 2 | RUNNING (PLUMBER 2 started 11/2) |
 | 326 | New rule: climbing onto a building ends that man's attacks for the turn, for everyone | 328 | COMBAT 5 | RUNNING (COMBAT 5 started 11/2, first ship) |
 | 327 | The phone's feed: one post at a time, up only as long as it takes to read | 329 | UI 4 | RUNNING (sent into UI 4 11/2) |
+| 328 | Each boss his own look and a quest or two leading up to him that makes sense; the verb he hands (COOK HERE, PURIFY THE WATER...) explained by a person in plain words | 330 | BOSSES 2 | RUNNING (BOSSES 2 started 11/2) |
+| 329 | (a confusion) After a boss falls his part of the map shows bright pixels: the place changes in painted art he can read, no stray pixels | 330 | BOSSES 2 | RUNNING (BOSSES 2 started 11/2) |
