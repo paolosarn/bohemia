@@ -25,13 +25,12 @@
   171,
   138
  ],
- "model_top_m": 1.5533,
+ "model_top_m": 1.5308,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7481,
+ "real_height_for_rig": 1.7228,
  "pieces": {
-  "h2_razor_skull_shadow": 113273,
-  "h2_razor_skull_scabs": 78,
-  "hat_bone_knit_cap_cap": 196394,
-  "f1_person_colorful_6": 19315
+  "barber_wild_mane_cap": 226754,
+  "barber_wild_mane_mane": 432768,
+  "f1_person_colorful_6": 18568
  }
 }

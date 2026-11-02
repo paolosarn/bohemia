@@ -25,12 +25,10 @@
   160,
   115
  ],
- "model_top_m": 1.5366,
+ "model_top_m": 1.5234,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7294,
+ "real_height_for_rig": 1.7145,
  "pieces": {
-  "h2_half_shave_roots": 36473,
-  "barber_half_shave_cap": 143810,
-  "barber_half_shave_sweep": 20566
+  "barber_french_crop": 212114
  }
 }

@@ -12,8 +12,8 @@
   "person_caravans_7"
  ],
  "w": 68,
- "h": 127,
- "foot": 119,
+ "h": 129,
+ "foot": 121,
  "cols": 7,
  "gangs": [
   "person_caravans_0",
@@ -107,7 +107,7 @@
   {
    "look": "person_caravans_3",
    "gang": "caravans",
-   "cut": "CURTAIN CUT",
+   "cut": "HERMIT",
    "hat": null,
    "face": null,
    "beard": "SOUL PATCH",
@@ -129,8 +129,8 @@
   {
    "look": "person_caravans_4",
    "gang": "caravans",
-   "cut": "HORSESHOE",
-   "hat": "HAT ROSE KNIT CAP",
+   "cut": "HERMIT",
+   "hat": null,
    "face": null,
    "beard": null,
    "mark": null,
@@ -151,7 +151,7 @@
   {
    "look": "person_caravans_5",
    "gang": "caravans",
-   "cut": "STATIC",
+   "cut": "WILD MANE",
    "hat": null,
    "face": null,
    "beard": "SOUL PATCH",
@@ -174,7 +174,7 @@
   {
    "look": "person_caravans_6",
    "gang": "caravans",
-   "cut": "HALF SHAVE",
+   "cut": "HERMIT",
    "hat": null,
    "face": null,
    "beard": "LONG BEARD",

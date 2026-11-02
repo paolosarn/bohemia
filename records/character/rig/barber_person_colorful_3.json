@@ -25,13 +25,12 @@
   118,
   89
  ],
- "model_top_m": 1.5533,
+ "model_top_m": 1.5484,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7481,
+ "real_height_for_rig": 1.7426,
  "pieces": {
-  "h2_half_shave_roots": 34117,
-  "barber_half_shave_cap": 146114,
-  "barber_half_shave_sweep": 20366,
+  "barber_wild_mane_cap": 220506,
+  "barber_wild_mane_mane": 401318,
   "f1_person_colorful_3_seam": 202,
   "f1_person_colorful_3_stitches": 140
  }

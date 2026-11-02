@@ -25,11 +25,11 @@
   88,
   74
  ],
- "model_top_m": 1.5422,
+ "model_top_m": 1.5458,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7357,
+ "real_height_for_rig": 1.7397,
  "pieces": {
-  "h2_razor_skull_shadow": 106945,
-  "h2_razor_skull_scabs": 78
+  "barber_mange_buzz": 201854,
+  "h3_mange_patch_edges": 6116
  }
 }

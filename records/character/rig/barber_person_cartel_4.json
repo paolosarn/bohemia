@@ -25,13 +25,13 @@
   171,
   138
  ],
- "model_top_m": 1.5335,
+ "model_top_m": 1.5327,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7259,
+ "real_height_for_rig": 1.7249,
  "pieces": {
-  "barber_box_braids_scalp": 53438,
-  "barber_box_braids_braids": 90000,
-  "f1_person_cartel_4": 26118,
-  "f1_person_cartel_4.001": 1684
+  "barber_slick_drape": 220714,
+  "barber_slick_drape_drape": 23730,
+  "f1_person_cartel_4": 27466,
+  "f1_person_cartel_4.001": 1377
  }
 }

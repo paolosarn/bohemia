@@ -25,12 +25,13 @@
   61,
   44
  ],
- "model_top_m": 1.5409,
+ "model_top_m": 1.5407,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7342,
+ "real_height_for_rig": 1.7339,
  "pieces": {
-  "barber_temple_taper_fade": 30841,
-  "barber_temple_taper": 162442,
+  "barber_temple_braids_cap": 225914,
+  "barber_temple_braids_loose": 263124,
+  "barber_temple_braids_plaits": 1120,
   "f1_person_reds_7_seam": 202,
   "f1_person_reds_7_stitches": 140
  }

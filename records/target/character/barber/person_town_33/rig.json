@@ -1,27 +1,27 @@
 {
  "engine": "CYCLES",
- "res": 212,
- "ortho_scale": 3.719298245614035,
+ "res": 214,
+ "ortho_scale": 3.754385964912281,
  "real_dims_m": [
-  0.496,
-  0.427,
-  1.723
+  0.507,
+  0.434,
+  1.737
  ],
  "scale_from_model": 1.1167,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
  "ground_screen": [
-  106.0,
-  155.09409999999997
+  107.0,
+  156.50164999999998
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
   "wear": 0.6,
   "materials": [
-   "h2_razor_skull_shadow_hair_20",
-   "h2_razor_skull_shadow_hair_34",
-   "h2_razor_skull_skin_scab",
+   "barber_person_town_33_hair",
+   "h3_bowl_cut_under_hair_22",
+   "h3_bowl_cut_under_hair_38",
    "person_town_33_boot_collar",
    "person_town_33_boot_collar_line",
    "person_town_33_coat",
@@ -40,6 +40,7 @@
    "person_town_33_midsole_1",
    "person_town_33_pocket_flaps",
    "person_town_33_pockets",
+   "person_town_33_pushed",
    "person_town_33_rolled_hem",
    "person_town_33_seat_pockets",
    "person_town_33_seat_seams",
@@ -61,13 +62,13 @@
    "portrait_barber_person_town_33_stubble"
   ],
   "wear_by_material": {
+   "barber_person_town_33_hair": 0.15,
    "person_town_33_skin": 0.25,
-   "h2_razor_skull_skin_scab": 0.25,
-   "h2_razor_skull_shadow_hair_34": 0.15,
-   "h2_razor_skull_shadow_hair_20": 0.15,
-   "portrait_barber_person_town_33_skin": 0.25,
+   "h3_bowl_cut_under_hair_38": 0.15,
+   "h3_bowl_cut_under_hair_22": 0.15,
    "person_town_33_eyelets_0": 0.0,
-   "person_town_33_eyelets_1": 0.0
+   "person_town_33_eyelets_1": 0.0,
+   "portrait_barber_person_town_33_skin": 0.25
   },
   "what": [
    "matte: roughness >= 1, specular 0, metallic <= 0.2",
@@ -122,8 +123,8 @@
  "crop_box_px": [
   90,
   54,
-  124,
-  167
+  125,
+  169
  ],
  "shadow_files": [
   "records/target/character/barber/person_town_33/shadow_N.png",
@@ -136,14 +137,14 @@
   "records/target/character/barber/person_town_33/shadow_NW.png"
  ],
  "ground_px": [
-  16,
-  101
+  17,
+  103
  ],
  "look_px": [
-  16,
-  52
+  17,
+  53
  ],
- "colours": 10501,
+ "colours": 10181,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -161,9 +162,9 @@
    "motion_px": {
     "N": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -185,6 +186,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -201,9 +203,9 @@
     ],
     "NE": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -225,6 +227,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -241,9 +244,9 @@
     ],
     "E": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -265,6 +268,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -281,9 +285,9 @@
     ],
     "SE": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -305,6 +309,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -321,9 +326,9 @@
     ],
     "S": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -345,6 +350,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -361,9 +367,9 @@
     ],
     "SW": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -385,6 +391,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -401,9 +408,9 @@
     ],
     "W": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -425,6 +432,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -441,9 +449,9 @@
     ],
     "NW": [
      {
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_33_boot_collar": 0.0,
       "person_town_33_boot_collar_line": 0.0,
       "person_town_33_coat": 0.0,
@@ -465,6 +473,7 @@
       "person_town_33_midsole_1": 0.0,
       "person_town_33_pocket_flaps": 0.0,
       "person_town_33_pockets": 0.0,
+      "person_town_33_pushed": 0.0,
       "person_town_33_rolled_hem": 0.0,
       "person_town_33_seat_pockets": 0.0,
       "person_town_33_seat_seams": 0.0,
@@ -501,20 +510,20 @@
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 113",
-   "OUT  colours >= 2330: 1818",
-   "OK   top 8 carry <= 11%: 2.1",
-   "OUT  value span >= 118: 88",
-   "OK   saturation <= 0.81: 0.393",
-   "OK   light: top minus bottom >= -2.5: 7.5",
-   "OK   edge between -35 and +7: -20.1",
-   "OK   grain <= 2.22 px a run: 1.67"
+   "OK   long side >= floor 96: 115",
+   "OUT  colours >= 2330: 1758",
+   "OK   top 8 carry <= 11%: 2.4",
+   "OUT  value span >= 118: 84",
+   "OK   saturation <= 0.81: 0.439",
+   "OK   light: top minus bottom >= -2.5: 4.0",
+   "OK   edge between -35 and +7: -18.4",
+   "OK   grain <= 2.22 px a run: 1.69"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 2.6%",
+   "OK   stray pixels at 8 steps <= 14%: 2.9%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 247.3"
+   "OK   light from above (180 to 360 degrees, or flat): 217.2"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/character/barber/person_town_33/rig_S.png"
@@ -524,14 +533,14 @@
   "cls": "person",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 113",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2193 px): 1818",
-   "OK   top 8 carry <= 11%: 2.1",
-   "OUT  value span >= 118: 88",
-   "OK   saturation <= 0.81: 0.393",
-   "OK   light: top minus bottom >= -2.5: 7.5",
-   "OK   edge between -35 and +7: -20.1",
-   "OK   grain <= 2.22 px a run: 1.67"
+   "OK   long side >= floor 96: 115",
+   "OK   colours >= 791 (field 5: the class floor, or 370 per 1,000 of 2138 px): 1758",
+   "OK   top 8 carry <= 11%: 2.4",
+   "OUT  value span >= 118: 84",
+   "OK   saturation <= 0.81: 0.439",
+   "OK   light: top minus bottom >= -2.5: 4.0",
+   "OK   edge between -35 and +7: -18.4",
+   "OK   grain <= 2.22 px a run: 1.69"
   ],
   "reread": [
    "colours by field 5"
@@ -539,10 +548,10 @@
   "verdict": "1 of 8 out under the style guide",
   "size_px": [
    28,
-   108
+   109
   ],
-  "opaque_px": 2193,
-  "colours": 1818
+  "opaque_px": 2138,
+  "colours": 1758
  },
  "rig_settings": {
   "engine": "CYCLES",

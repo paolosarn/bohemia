@@ -1,5 +1,16 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER (character-hair-three, opened by the coordinator 11/3): 11/3 (ab) LATEST -- *** [hair three] SHIPPED BUILD 11/3w: TWELVE NEW HAIRCUTS, EIGHT NEW HEADS, THE CROWD WEARS THEM. ***
+TAB: the towns (tap a place on the MAP), the crew's faces; sheets NOT IN A TAB YET (records/target/character/CHARACTER_HAIR_THREE.png,
+CHARACTER_FACES_TWO_SHAPES.png, CHARACTER_HAIR_THREE_THE_CROWD.png). Record: records/BOHEMIA_CHARACTER_HAIR_THREE_AND_THE_CROWD_11_3_26.md.
+HOW: bpy 4.2 installs on the box (python3.11 -m venv v && v/bin/pip install bpy==4.2.0 pillow numpy; BOHEMIA_BPY=v/bin/python);
+a cut builds in 9 s and renders in ~25 s; a person in ~4 min. tools/bohemia_character_hair_three.py (HAIR3), faces_one NEW_SHAPES,
+tools/bohemia_character_hair_three_recut.py (plan | apply | measure), then RUN TWO's batch, bake, index.
+NEXT FOR THIS LANE: (1) fifteen new clothes SHAPES (row 289; the alpha's bank + the 3D build), (2) re-cut a dozen of the hall's men
+with COMBAT's fight render and pack, (3) the barber's shelf to the 3D cuts for his own man.
+[bb a brother's head is three long lists (hair, beard, head) and age walks him down the hair list: grey, receding, bald.]
+[analog horror: the mange and the hermit's strings, a city where stress takes the hair out in coins.]
+
 CHARACTER (character-armour, session_0184h2KYCB, opened by the coordinator 10/26): 10/26 (aa) LATEST -- *** [the armour he wears shows] SHIPPED 7035d1c7: NOTHING HE WEARS IS INVISIBLE. ***
 TAB: the fight, the crew screen (CREW on the bar), camp (CAMP on the map) and the map, in the demo; and VOTE.
 RULING: rule 272 (Paolo 10/26: 'the weapons and the shield show, but the good armour I have on me doesn't show, like a police

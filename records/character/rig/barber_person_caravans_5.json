@@ -25,12 +25,12 @@
   171,
   138
  ],
- "model_top_m": 1.5438,
+ "model_top_m": 1.5777,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7375,
+ "real_height_for_rig": 1.7756,
  "pieces": {
-  "barber_static_cap": 217714,
-  "barber_static_tufts": 47414,
-  "f1_person_caravans_5": 163
+  "barber_wild_mane_cap": 233906,
+  "barber_wild_mane_mane": 408984,
+  "f1_person_caravans_5": 406
  }
 }

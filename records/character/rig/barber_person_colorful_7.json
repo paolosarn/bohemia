@@ -25,12 +25,12 @@
   189,
   155
  ],
- "model_top_m": 1.5594,
+ "model_top_m": 1.5466,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.755,
+ "real_height_for_rig": 1.7406,
  "pieces": {
-  "h2_half_shave_roots": 39177,
-  "barber_half_shave_cap": 149090,
-  "barber_half_shave_sweep": 20726
+  "barber_temple_braids_cap": 230114,
+  "barber_temple_braids_loose": 266528,
+  "barber_temple_braids_plaits": 1120
  }
 }

@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3781,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.378 m",
- "ppm": 338.544,
+ "head_m": 0.4105,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.411 m",
+ "ppm": 311.785,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -32,12 +32,12 @@
   "M": "records/target/character/barber/person_anarchists_6/rig_portrait_S_M.png"
  },
  "crop_box_px": [
-  37,
-  39,
-  181,
+  28,
+  38,
+  190,
   218
  ],
  "model": "records/character/rig/barber_person_anarchists_6.glb",
  "body_rig": "rig.json",
- "colours": 30013
+ "colours": 33196
 }

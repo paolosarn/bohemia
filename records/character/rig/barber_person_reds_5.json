@@ -25,12 +25,13 @@
   154,
   124
  ],
- "model_top_m": 1.5657,
+ "model_top_m": 1.5349,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7621,
+ "real_height_for_rig": 1.7274,
  "pieces": {
-  "barber_static_cap": 215178,
-  "barber_static_tufts": 51038,
-  "f1_person_reds_5": 133
+  "barber_temple_braids_cap": 222554,
+  "barber_temple_braids_loose": 270434,
+  "barber_temple_braids_plaits": 1120,
+  "f1_person_reds_5": 154
  }
 }

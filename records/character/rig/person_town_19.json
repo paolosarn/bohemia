@@ -1,17 +1,17 @@
 {
  "look": "PERSON_TOWN_19",
- "shape": "person_town_19: a person of the Body, his own skin skin_mid 3, MOSS GREEN SHIRT under LEATHER WRAP COAT",
+ "shape": "person_town_19: a person of the Body, his own skin skin_mid 3, FADED BLACK LONGSLEEVE under LEATHER WRAP COAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "MOSS GREEN SHIRT",
+  "base": "FADED BLACK LONGSLEEVE",
   "legs": "STACKED JERSEY PANT",
   "feet": "STACKED MID BOOT",
   "outer": "LEATHER WRAP COAT",
   "back": "CHARCOAL SHOULDER MANTLE",
   "hands": "HAND WRAPS",
   "outfit": [
-   "FADED BLACK LONGSLEEVE read as one with LEATHER WRAP COAT (48 and 69 of 255): the same cut in MOSS GREEN SHIRT (160)",
-   "the sleeves pushed up the forearm"
+   "FADED BLACK LONGSLEEVE and LEATHER WRAP COAT read as one, and no colour of either cut reads apart",
+   "the sleeve ends short of the cuff under it"
   ]
  },
  "dials": {
@@ -23,13 +23,13 @@
  "layers": {
   "base": {
    "under": "WRAP COAT",
-   "arms_covered": true
+   "arms_covered": true,
+   "cuff_to": 1.89
   },
   "mid": {},
   "outer": {
    "lift": 0.0039,
-   "sleeve_to": 1.42,
-   "push": true
+   "sleeve_to": 1.7
   }
  },
  "model": "records/character/rig/person_town_19.glb",
@@ -46,10 +46,9 @@
   "person_town_19_collar": 1536,
   "person_town_19_cuffs": 2048,
   "person_town_19_hem": 1792,
-  "person_town_19_coat": 66372,
+  "person_town_19_coat": 69340,
   "person_town_19_coat_skirt": 6048,
   "person_town_19_collar.001": 1536,
-  "person_town_19_pushed": 2048,
   "person_town_19_belt": 1792,
   "person_town_19_wrap_edge": 198,
   "person_town_19_knot": 68,
@@ -101,14 +100,14 @@
    0.016
   ],
   "person_town_19_collar": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_19_cuffs": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_19_eyes": [
    0.0212,
@@ -141,9 +140,9 @@
    0.1046
   ],
   "person_town_19_hem": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_19_knot": [
    0.0545,
@@ -165,15 +164,10 @@
    0.013,
    0.0152
   ],
-  "person_town_19_pushed": [
-   0.1301,
-   0.0513,
-   0.016
-  ],
   "person_town_19_shirt": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.0296,
+   0.0296,
+   0.0356
   ],
   "person_town_19_shoe": [
    0.0382,

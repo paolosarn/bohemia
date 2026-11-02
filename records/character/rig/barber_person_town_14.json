@@ -25,12 +25,11 @@
   88,
   74
  ],
- "model_top_m": 1.5415,
+ "model_top_m": 1.541,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7348,
+ "real_height_for_rig": 1.7342,
  "pieces": {
   "barber_temple_taper_fade": 31101,
-  "barber_temple_taper": 163690,
-  "hat_brick_watch_cap_cap": 169010
+  "barber_temple_taper": 163690
  }
 }

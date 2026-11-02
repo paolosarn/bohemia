@@ -25,13 +25,13 @@
   171,
   138
  ],
- "model_top_m": 1.53,
+ "model_top_m": 1.5665,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7219,
+ "real_height_for_rig": 1.763,
  "pieces": {
-  "barber_horseshoe_ring": 85714,
-  "h2_horseshoe_thin": 9841,
-  "f1_person_town_28_beard": 32332,
-  "f1_person_town_28_locks": 8722
+  "barber_bowl_cut": 175938,
+  "h3_bowl_cut_under": 21597,
+  "f1_person_town_28_beard": 33657,
+  "f1_person_town_28_locks": 7802
  }
 }

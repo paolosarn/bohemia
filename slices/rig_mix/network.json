@@ -12,8 +12,8 @@
   "person_network_7"
  ],
  "w": 70,
- "h": 127,
- "foot": 118,
+ "h": 128,
+ "foot": 119,
  "cols": 7,
  "gangs": [
   "person_network_0",
@@ -103,7 +103,7 @@
   {
    "look": "person_network_3",
    "gang": "network",
-   "cut": "FINGER WAVES",
+   "cut": "SLICK DRAPE",
    "hat": null,
    "face": null,
    "beard": null,
@@ -186,7 +186,7 @@
   {
    "look": "person_network_7",
    "gang": "network",
-   "cut": "TEMPLE TAPER",
+   "cut": "WIDOW'S PEAK",
    "hat": null,
    "face": null,
    "beard": null,

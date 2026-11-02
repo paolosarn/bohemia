@@ -1,9 +1,9 @@
 {
  "look": "PERSON_TRADES_3",
- "shape": "person_trades_3: a person of the Trades, his own skin skin_light 0, MOSS GREEN SHIRT under LEATHER HALF APRON",
+ "shape": "person_trades_3: a person of the Trades, his own skin skin_light 0, SIGNAL RED SHIRT under LEATHER HALF APRON",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "MOSS GREEN SHIRT",
+  "base": "SIGNAL RED SHIRT",
   "outer": "LEATHER HALF APRON",
   "head": "DUST WORK CAP",
   "legs": "KHAKI SHORTS",
@@ -11,7 +11,7 @@
   "waist": "SOOT TOOL BELT",
   "gear": "SHELL BANDOLIER",
   "outfit": [
-   "SIGNAL RED SHIRT read as one with LEATHER HALF APRON (81 and 69 of 255): the same cut in MOSS GREEN SHIRT (160)"
+   "SIGNAL RED SHIRT and LEATHER HALF APRON read as one, and no colour of either cut reads apart"
   ]
  },
  "dials": {
@@ -98,14 +98,14 @@
    0.0091
   ],
   "person_trades_3_collar": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_trades_3_cuffs": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_trades_3_eyelets_0": [
    0.0865,
@@ -133,9 +133,9 @@
    0.0802
   ],
   "person_trades_3_hem": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_trades_3_midsole_0": [
    0.0865,
@@ -163,9 +163,9 @@
    0.0612
   ],
   "person_trades_3_shirt": [
-   0.2016,
-   0.4508,
-   0.0999
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_trades_3_shoe": [
    0.2122,

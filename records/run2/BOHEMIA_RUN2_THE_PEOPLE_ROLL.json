@@ -114,27 +114,28 @@
    "skin_light",
    1
   ],
-  "hair_cut": "BOX BRAIDS",
+  "hair_cut": "FRENCH CROP",
   "hair": [
    "clay_mustard",
    1
   ],
   "face": {
-   "eyes.gap": 3,
-   "nose.w": 2,
-   "face.noseY": -1,
-   "face.len": 37,
-   "face.chinW": 15,
-   "face.jawW": 24,
-   "face.cheekW": 28
+   "face.foreheadW": 19,
+   "face.cheekW": 32,
+   "face.jawW": 31,
+   "face.chinW": 18,
+   "face.craniumH": 8,
+   "face.len": 32,
+   "mouth.w": 11
   },
-  "face_name": "HAWK",
+  "face_name": "PEAR",
   "facial_hair": "FULL BEARD",
   "beard": "full",
   "mark_name": "CHEEK BURN",
   "mark": "cheek_burn",
   "top": "WIDE SHOULDER TEE",
-  "coat": "COMMA COAT"
+  "coat": "COMMA COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was BOX BRAIDS), the PEAR head"
  },
  {
   "id": "anarchists_5",
@@ -145,7 +146,7 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "LAYERED FALL",
+  "hair_cut": "MANGE",
   "hair": [
    "cloth_black",
    0
@@ -161,7 +162,8 @@
   },
   "face_name": "FLAT AND LOW",
   "top": "LAYERED JERSEY",
-  "coat": "ASH ASYM COAT"
+  "coat": "ASH ASYM COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was LAYERED FALL)"
  },
  {
   "id": "anarchists_6",
@@ -172,22 +174,23 @@
    "skin_deep",
    4
   ],
-  "hair_cut": "TEMPLE TAPER",
+  "hair_cut": "WILD MANE",
   "hair": [
    "clay_bone",
    2
   ],
   "face": {
-   "mouth.w": 6,
-   "nose.w": 2,
-   "eyes.gap": 5,
-   "face.chinW": 9,
-   "face.len": 30,
-   "brows.len": 5
+   "face.foreheadW": 20,
+   "face.cheekW": 38,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "face.len": 35,
+   "eyes.gap": 7
   },
-  "face_name": "SMALL FEATURES",
+  "face_name": "DIAMOND",
   "top": "ASH ARC SHIRT",
-  "coat": "SOOT TRENCH"
+  "coat": "SOOT TRENCH",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was TEMPLE TAPER), the DIAMOND head"
  },
  {
   "id": "anarchists_7",
@@ -198,7 +201,7 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "HALF SHAVE",
+  "hair_cut": "FRENCH CROP",
   "hair": [
    "clay_mustard",
    0
@@ -215,7 +218,8 @@
   "face_name": "FLAT AND LOW",
   "facial_hair": "GOATEE",
   "beard": "goatee",
-  "top": "STORM BUTTON-UP"
+  "top": "STORM BUTTON-UP",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HALF SHAVE)"
  },
  {
   "id": "blues_0",
@@ -309,20 +313,24 @@
    "skin_light",
    0
   ],
-  "hair_cut": "HALF SHAVE",
+  "hair_cut": "CROPPED CURLS",
   "hair": [
    "cloth_black",
    0
   ],
   "face": {
-   "eyes.gap": 10,
-   "nose.w": 4,
-   "mouth.w": 12,
-   "face.cheekW": 34,
-   "face.len": 31
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
   },
-  "face_name": "WIDE SET",
-  "top": "STEEL WORK SHIRT"
+  "face_name": "BULLDOG",
+  "top": "STEEL WORK SHIRT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HALF SHAVE), the BULLDOG head"
  },
  {
   "id": "blues_4",
@@ -333,7 +341,7 @@
    "skin_light",
    3
   ],
-  "hair_cut": "FINGER WAVES",
+  "hair_cut": "CROPPED CURLS",
   "hair": [
    "tape_grey",
    1
@@ -350,7 +358,8 @@
   "face_name": "HEAVY BROW",
   "eyewear": "FACE GREY WRAPAROUNDS",
   "top": "COBALT SHIRT",
-  "coat": "DENIM VEST"
+  "coat": "DENIM VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was FINGER WAVES)"
  },
  {
   "id": "blues_5",
@@ -361,23 +370,26 @@
    "skin_deep",
    4
   ],
-  "hair_cut": "DEEP TAPER",
+  "hair_cut": "RAZOR LINES",
   "hair": [
    "clay_mustard",
    0
   ],
   "face": {
-   "face.len": 37,
-   "face.cheekW": 26,
-   "face.jawW": 24,
-   "face.chinW": 12,
+   "face.len": 40,
+   "face.craniumH": 14,
    "face.foreheadW": 22,
-   "face.eyeY": -1,
-   "mouth.w": 7
+   "face.cheekW": 25,
+   "face.jawW": 20,
+   "face.chinW": 7,
+   "nose.w": 2,
+   "eyes.gap": 4,
+   "face.noseY": -2
   },
-  "face_name": "GAUNT",
+  "face_name": "BIRD",
   "top": "STEEL STRIPED TEE",
-  "coat": "DENIM VEST"
+  "coat": "DENIM VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was DEEP TAPER), the BIRD head"
  },
  {
   "id": "blues_6",
@@ -414,7 +426,7 @@
    "skin_deep",
    4
   ],
-  "hair_cut": "TEMPLE TAPER",
+  "hair_cut": "CROPPED CURLS",
   "hair": [
    "cloth_black",
    0
@@ -431,7 +443,8 @@
   "face_name": "LONG AND NARROW",
   "facial_hair": "PENCIL MOUSTACHE",
   "new_beard": "pencil",
-  "top": "STEEL PLAID FLANNEL"
+  "top": "STEEL PLAID FLANNEL",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was TEMPLE TAPER)"
  },
  {
   "id": "caravans_0",
@@ -513,25 +526,30 @@
    "skin_light",
    3
   ],
-  "hair_cut": "CURTAIN CUT",
+  "hair_cut": "HERMIT",
   "hair": [
-   "cloth_black",
-   0
+   "tape_grey",
+   1
   ],
   "face": {
-   "eyes.gap": 10,
-   "nose.w": 4,
-   "mouth.w": 12,
-   "face.cheekW": 34,
-   "face.len": 31
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
+   "mouth.w": 6,
+   "brows.len": 4
   },
-  "face_name": "WIDE SET",
+  "face_name": "SKULL",
   "facial_hair": "SOUL PATCH",
   "new_beard": "soul_patch",
   "mark_name": "BROW SCAR",
   "scar": "brow",
   "top": "SCAVENGER FLANNEL",
-  "coat": "QUILTED VEST"
+  "coat": "QUILTED VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was CURTAIN CUT), the SKULL head"
  },
  {
   "id": "caravans_4",
@@ -542,10 +560,10 @@
    "skin_light",
    1
   ],
-  "hair_cut": "HORSESHOE",
+  "hair_cut": "HERMIT",
   "hair": [
-   "cloth_black",
-   1
+   "clay_mustard",
+   0
   ],
   "face": {
    "face.browY": 2,
@@ -557,8 +575,8 @@
    "nose.w": 4
   },
   "face_name": "HEAVY BROW",
-  "hat": "HAT ROSE KNIT CAP",
-  "top": "BRICK HOODIE"
+  "top": "BRICK HOODIE",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HORSESHOE)"
  },
  {
   "id": "caravans_5",
@@ -569,25 +587,30 @@
    "skin_deep",
    4
   ],
-  "hair_cut": "STATIC",
+  "hair_cut": "WILD MANE",
   "hair": [
    "clay_mustard",
    0
   ],
   "face": {
-   "face.craniumH": 7,
-   "face.browY": 2,
-   "face.len": 34,
-   "nose.w": 5,
-   "face.noseY": 1,
-   "mouth.w": 13,
-   "face.foreheadW": 26
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
+   "face.jawW": 24,
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
   },
-  "face_name": "FLAT AND LOW",
+  "face_name": "BABY FACE",
   "facial_hair": "SOUL PATCH",
   "new_beard": "soul_patch",
   "top": "RUST HENLEY",
-  "coat": "LEATHER VEST"
+  "coat": "LEATHER VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was STATIC), the BABY FACE head"
  },
  {
   "id": "caravans_6",
@@ -598,10 +621,10 @@
    "skin_deep",
    3
   ],
-  "hair_cut": "HALF SHAVE",
+  "hair_cut": "HERMIT",
   "hair": [
-   "clay_bone",
-   2
+   "tape_grey",
+   1
   ],
   "face": {
    "eyes.gap": 3,
@@ -616,7 +639,8 @@
   "facial_hair": "LONG BEARD",
   "new_beard": "long",
   "top": "DUST PLAID SHIRT",
-  "coat": "RUST VEST"
+  "coat": "RUST VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HALF SHAVE)"
  },
  {
   "id": "caravans_7",
@@ -755,26 +779,30 @@
    "skin_deep",
    4
   ],
-  "hair_cut": "BOX BRAIDS",
+  "hair_cut": "SLICK DRAPE",
   "hair": [
    "clay_mustard",
    1
   ],
   "face": {
-   "mouth.w": 6,
-   "nose.w": 2,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
    "eyes.gap": 5,
-   "face.chinW": 9,
-   "face.len": 30,
-   "brows.len": 5
+   "brows.len": 11,
+   "face.craniumH": 9
   },
-  "face_name": "SMALL FEATURES",
+  "face_name": "BOXER",
   "facial_hair": "CHIN STRAP",
   "new_beard": "chin_strap",
   "mark_name": "CHEEK BURN",
   "mark": "cheek_burn",
   "top": "SAGE FLANNEL",
-  "coat": "SAGE VEST"
+  "coat": "SAGE VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was BOX BRAIDS), the BOXER head"
  },
  {
   "id": "cartel_5",
@@ -827,9 +855,9 @@
    "mouth.w": 7
   },
   "face_name": "HEART",
-  "hat": "HAT STORM SLOUCH BEANIE",
   "top": "SHOULDER LONGLINE",
-  "coat": "STORM VEST"
+  "coat": "STORM VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, the hat off)"
  },
  {
   "id": "cartel_7",
@@ -840,16 +868,26 @@
    "skin_light",
    1
   ],
-  "hair_cut": "BOX BRAIDS",
+  "hair_cut": "CROPPED CURLS",
   "hair": [
    "clay_rust",
    1
   ],
-  "face": null,
-  "face_name": "THE STARRED FACE",
+  "face": {
+   "mouth.w": 15,
+   "face.mouthY": 2,
+   "face.jawW": 31,
+   "face.chinW": 14,
+   "face.len": 31,
+   "nose.w": 3,
+   "eyes.gap": 9,
+   "face.cheekW": 35
+  },
+  "face_name": "WIDE MOUTH",
   "eyewear": "FACE ROSE BANDANA",
   "top": "SLATE PLAID FLANNEL",
-  "coat": "STORM VEST"
+  "coat": "STORM VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was BOX BRAIDS), the WIDE MOUTH head"
  },
  {
   "id": "church_0",
@@ -966,21 +1004,24 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "DEEP TAPER",
+  "hair_cut": "TONSURE",
   "hair": [
-   "cloth_black",
+   "clay_mustard",
    0
   ],
   "face": {
-   "eyes.gap": 10,
-   "nose.w": 4,
-   "mouth.w": 12,
-   "face.cheekW": 34,
-   "face.len": 31
+   "face.foreheadW": 19,
+   "face.cheekW": 32,
+   "face.jawW": 31,
+   "face.chinW": 18,
+   "face.craniumH": 8,
+   "face.len": 32,
+   "mouth.w": 11
   },
-  "face_name": "WIDE SET",
+  "face_name": "PEAR",
   "eyewear": "FACE OUTLAW BANDANA",
-  "top": "VESTMENT GOLD SHIRT"
+  "top": "VESTMENT GOLD SHIRT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was DEEP TAPER), the PEAR head"
  },
  {
   "id": "church_5",
@@ -1017,9 +1058,9 @@
    "skin_light",
    3
   ],
-  "hair_cut": "BOX BRAIDS",
+  "hair_cut": "TONSURE",
   "hair": [
-   "clay_mustard",
+   "cloth_black",
    1
   ],
   "face": {
@@ -1033,7 +1074,8 @@
   "face_name": "HEART",
   "facial_hair": "FULL BEARD",
   "beard": "full",
-  "top": "MOB PINSTRIPE SHIRT"
+  "top": "MOB PINSTRIPE SHIRT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was BOX BRAIDS)"
  },
  {
   "id": "church_7",
@@ -1144,24 +1186,24 @@
    "skin_deep",
    3
   ],
-  "hair_cut": "HALF SHAVE",
+  "hair_cut": "WILD MANE",
   "hair": [
    "clay_mustard",
    0
   ],
   "face": {
-   "face.len": 37,
-   "face.cheekW": 26,
-   "face.jawW": 24,
-   "face.chinW": 12,
-   "face.foreheadW": 22,
-   "face.eyeY": -1,
-   "mouth.w": 7
+   "face.foreheadW": 20,
+   "face.cheekW": 38,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "face.len": 35,
+   "eyes.gap": 7
   },
-  "face_name": "GAUNT",
+  "face_name": "DIAMOND",
   "mark_name": "STITCHED GASH",
   "mark": "stitched_gash",
-  "top": "WORK COVERALLS"
+  "top": "WORK COVERALLS",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HALF SHAVE), the DIAMOND head"
  },
  {
   "id": "colorful_4",
@@ -1199,7 +1241,7 @@
    "skin_light",
    2
   ],
-  "hair_cut": "DEEP TAPER",
+  "hair_cut": "SLICK DRAPE",
   "hair": [
    "tape_masking",
    1
@@ -1219,7 +1261,8 @@
   "mark_name": "CHEEK BURN",
   "mark": "cheek_burn",
   "top": "PATINA WORK SHIRT",
-  "coat": "OLIVE VEST"
+  "coat": "OLIVE VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was DEEP TAPER)"
  },
  {
   "id": "colorful_6",
@@ -1230,26 +1273,27 @@
    "skin_deep",
    4
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "WILD MANE",
   "hair": [
    "clay_mustard",
    1
   ],
   "face": {
    "face.len": 29,
+   "face.craniumH": 7,
    "face.cheekW": 37,
-   "face.jawW": 30,
-   "face.chinW": 13,
-   "face.foreheadW": 27,
-   "face.craniumH": 11,
-   "nose.w": 4
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
   },
-  "face_name": "ROUND",
+  "face_name": "BULLDOG",
   "facial_hair": "PATCHY BEARD",
   "new_beard": "patchy",
   "stubble": true,
-  "hat": "HAT BONE KNIT CAP",
-  "top": "MOSS GREEN SHIRT"
+  "top": "MOSS GREEN SHIRT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was RAZOR SKULL), the BULLDOG head"
  },
  {
   "id": "colorful_7",
@@ -1260,7 +1304,7 @@
    "skin_light",
    3
   ],
-  "hair_cut": "HALF SHAVE",
+  "hair_cut": "TEMPLE BRAIDS",
   "hair": [
    "cloth_black",
    0
@@ -1277,7 +1321,8 @@
   "face_name": "ROUND",
   "mark_name": "LIP SCAR",
   "scar": "lip",
-  "top": "OLIVE HENLEY"
+  "top": "OLIVE HENLEY",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HALF SHAVE)"
  },
  {
   "id": "homeless_0",
@@ -1446,22 +1491,25 @@
    "skin_light",
    3
   ],
-  "hair_cut": "HOME CLIPPERS",
+  "hair_cut": "BOWL CUT",
   "hair": [
    "clay_mustard",
    0
   ],
   "face": {
-   "face.len": 30,
-   "face.cheekW": 36,
-   "face.jawW": 34,
-   "face.chinW": 18,
-   "face.foreheadW": 28,
-   "brows.len": 10,
-   "mouth.w": 11
+   "face.len": 40,
+   "face.craniumH": 14,
+   "face.foreheadW": 22,
+   "face.cheekW": 25,
+   "face.jawW": 20,
+   "face.chinW": 7,
+   "nose.w": 2,
+   "eyes.gap": 4,
+   "face.noseY": -2
   },
-  "face_name": "BROAD AND SQUARE",
-  "top": "SLATE SHORT-SLEEVE"
+  "face_name": "BIRD",
+  "top": "SLATE SHORT-SLEEVE",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HOME CLIPPERS), the BIRD head"
  },
  {
   "id": "homeless_7",
@@ -1472,10 +1520,10 @@
    "skin_mid",
    2
   ],
-  "hair_cut": "DEEP TAPER",
+  "hair_cut": "HERMIT",
   "hair": [
-   "clay_mustard",
-   0
+   "cloth_black",
+   1
   ],
   "face": {
    "face.craniumH": 7,
@@ -1488,7 +1536,8 @@
   },
   "face_name": "FLAT AND LOW",
   "top": "BONE TANK",
-  "coat": "BONE VEST"
+  "coat": "BONE VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was DEEP TAPER)"
  },
  {
   "id": "mob_0",
@@ -1679,24 +1728,28 @@
    "skin_light",
    2
   ],
-  "hair_cut": "HALF SHAVE",
+  "hair_cut": "RAZOR LINES",
   "hair": [
    "clay_bone",
    2
   ],
   "face": {
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
    "mouth.w": 6,
-   "nose.w": 2,
-   "eyes.gap": 5,
-   "face.chinW": 9,
-   "face.len": 30,
-   "brows.len": 5
+   "brows.len": 4
   },
-  "face_name": "SMALL FEATURES",
+  "face_name": "SKULL",
   "facial_hair": "GOATEE",
   "beard": "goatee",
   "top": "BLACK TANK",
-  "coat": "RUST VEST"
+  "coat": "RUST VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HALF SHAVE), the SKULL head"
  },
  {
   "id": "network_0",
@@ -1782,7 +1835,7 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "FINGER WAVES",
+  "hair_cut": "SLICK DRAPE",
   "hair": [
    "cloth_black",
    1
@@ -1798,7 +1851,8 @@
   },
   "face_name": "LONG AND NARROW",
   "top": "PATINA PLAID FLANNEL",
-  "coat": "TEAL COCOON COAT"
+  "coat": "TEAL COCOON COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was FINGER WAVES)"
  },
  {
   "id": "network_4",
@@ -1893,22 +1947,27 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "TEMPLE TAPER",
+  "hair_cut": "WIDOW'S PEAK",
   "hair": [
    "cloth_black",
-   0
+   1
   ],
   "face": {
-   "eyes.gap": 3,
-   "nose.w": 2,
-   "face.noseY": -1,
-   "face.len": 37,
-   "face.chinW": 15,
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
    "face.jawW": 24,
-   "face.cheekW": 28
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
   },
-  "face_name": "HAWK",
-  "top": "TEAL STRIPED TEE"
+  "face_name": "BABY FACE",
+  "top": "TEAL STRIPED TEE",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was TEMPLE TAPER), the BABY FACE head"
  },
  {
   "id": "reds_0",
@@ -2031,7 +2090,7 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "TEMPLE TAPER",
+  "hair_cut": "RAZOR LINES",
   "hair": [
    "clay_rust",
    1
@@ -2046,7 +2105,8 @@
   },
   "face_name": "SMALL FEATURES",
   "top": "RUST STRIPED TEE",
-  "coat": "DRIFTER'S COAT"
+  "coat": "DRIFTER'S COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was TEMPLE TAPER)"
  },
  {
   "id": "reds_5",
@@ -2057,24 +2117,27 @@
    "skin_light",
    2
   ],
-  "hair_cut": "STATIC",
+  "hair_cut": "TEMPLE BRAIDS",
   "hair": [
    "clay_bone",
    2
   ],
   "face": {
-   "face.len": 39,
-   "face.cheekW": 27,
-   "face.jawW": 23,
-   "face.chinW": 9,
-   "face.foreheadW": 23,
-   "nose.w": 2,
-   "face.craniumH": 12
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
   },
-  "face_name": "LONG AND NARROW",
+  "face_name": "BOXER",
   "facial_hair": "SOUL PATCH",
   "new_beard": "soul_patch",
-  "top": "BRICK HENLEY"
+  "top": "BRICK HENLEY",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was STATIC), the BOXER head"
  },
  {
   "id": "reds_6",
@@ -2085,7 +2148,7 @@
    "skin_mid",
    2
   ],
-  "hair_cut": "HORSESHOE",
+  "hair_cut": "TEMPLE BRAIDS",
   "hair": [
    "tape_grey",
    1
@@ -2103,7 +2166,8 @@
   "facial_hair": "LONG BEARD",
   "new_beard": "long",
   "top": "ROLLED FLANNEL",
-  "coat": "OXBLOOD PONCHO"
+  "coat": "OXBLOOD PONCHO",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HORSESHOE)"
  },
  {
   "id": "reds_7",
@@ -2114,19 +2178,29 @@
    "skin_mid",
    1
   ],
-  "hair_cut": "TEMPLE TAPER",
+  "hair_cut": "TEMPLE BRAIDS",
   "hair": [
    "clay_mustard",
    1
   ],
-  "face": null,
-  "face_name": "THE STARRED FACE",
+  "face": {
+   "mouth.w": 15,
+   "face.mouthY": 2,
+   "face.jawW": 31,
+   "face.chinW": 14,
+   "face.len": 31,
+   "nose.w": 3,
+   "eyes.gap": 9,
+   "face.cheekW": 35
+  },
+  "face_name": "WIDE MOUTH",
   "facial_hair": "MOUSTACHE",
   "beard": "moustache",
   "mark_name": "STITCHED GASH",
   "mark": "stitched_gash",
   "top": "SCAVENGER FLANNEL",
-  "coat": "BRICK CAR COAT"
+  "coat": "BRICK CAR COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was TEMPLE TAPER), the WIDE MOUTH head"
  },
  {
   "id": "remnants_0",
@@ -2216,7 +2290,7 @@
    "skin_mid",
    1
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "MANGE",
   "hair": [
    "cloth_black",
    0
@@ -2233,7 +2307,8 @@
   "stubble": true,
   "mark_name": "BROKEN NOSE",
   "mark": "broken_nose",
-  "top": "OLIVE DRAB TEE"
+  "top": "OLIVE DRAB TEE",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was RAZOR SKULL)"
  },
  {
   "id": "remnants_4",
@@ -2273,25 +2348,28 @@
    "skin_light",
    1
   ],
-  "hair_cut": "BOX BRAIDS",
+  "hair_cut": "SALT SKULL",
   "hair": [
    "cloth_black",
-   0
+   1
   ],
   "face": {
-   "eyes.gap": 10,
-   "nose.w": 4,
-   "mouth.w": 12,
-   "face.cheekW": 34,
-   "face.len": 31
+   "face.foreheadW": 19,
+   "face.cheekW": 32,
+   "face.jawW": 31,
+   "face.chinW": 18,
+   "face.craniumH": 8,
+   "face.len": 32,
+   "mouth.w": 11
   },
-  "face_name": "WIDE SET",
+  "face_name": "PEAR",
   "facial_hair": "STUBBLE",
   "stubble": true,
   "mark_name": "STITCHED GASH",
   "mark": "stitched_gash",
   "top": "FIELD SHORTALLS",
-  "coat": "OLIVE VEST"
+  "coat": "OLIVE VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was BOX BRAIDS), the PEAR head"
  },
  {
   "id": "remnants_6",
@@ -2302,7 +2380,7 @@
    "skin_light",
    1
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "MANGE",
   "hair": [
    "tape_masking",
    1
@@ -2318,7 +2396,8 @@
   },
   "face_name": "LONG AND NARROW",
   "top": "OLIVE HENLEY",
-  "coat": "GRASS WRAP COAT"
+  "coat": "GRASS WRAP COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was RAZOR SKULL)"
  },
  {
   "id": "remnants_7",
@@ -2445,20 +2524,19 @@
    0
   ],
   "face": {
-   "face.len": 39,
-   "face.cheekW": 27,
-   "face.jawW": 23,
-   "face.chinW": 9,
-   "face.foreheadW": 23,
-   "nose.w": 2,
-   "face.craniumH": 12
+   "face.foreheadW": 20,
+   "face.cheekW": 38,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "face.len": 35,
+   "eyes.gap": 7
   },
-  "face_name": "LONG AND NARROW",
+  "face_name": "DIAMOND",
   "facial_hair": "GOATEE",
   "beard": "goatee",
-  "hat": "HAT STORM KNIT CAP",
   "top": "SIGNAL RED SHIRT",
-  "coat": "LEATHER HALF APRON"
+  "coat": "LEATHER HALF APRON",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, the hat off), the DIAMOND head"
  },
  {
   "id": "trades_4",
@@ -3190,8 +3268,8 @@
   "face_name": "HEART",
   "facial_hair": "MOUSTACHE",
   "beard": "moustache",
-  "hat": "HAT BRICK WATCH CAP",
-  "top": "LONGLINE JERSEY"
+  "top": "LONGLINE JERSEY",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, the hat off)"
  },
  {
   "id": "town_15",
@@ -3313,23 +3391,25 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "FINGER WAVES",
+  "hair_cut": "BOWL CUT",
   "hair": [
    "cloth_black",
    1
   ],
   "face": {
-   "face.len": 39,
-   "face.cheekW": 27,
-   "face.jawW": 23,
-   "face.chinW": 9,
-   "face.foreheadW": 23,
-   "nose.w": 2,
-   "face.craniumH": 12
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
   },
-  "face_name": "LONG AND NARROW",
+  "face_name": "BULLDOG",
   "top": "FADED BLACK LONGSLEEVE",
-  "coat": "LEATHER WRAP COAT"
+  "coat": "LEATHER WRAP COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was FINGER WAVES), the BULLDOG head"
  },
  {
   "id": "town_20",
@@ -3364,10 +3444,10 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "HORSESHOE",
+  "hair_cut": "WIDOW'S PEAK",
   "hair": [
-   "clay_mustard",
-   0
+   "cloth_black",
+   1
   ],
   "face": {
    "eyes.gap": 3,
@@ -3379,7 +3459,8 @@
    "face.cheekW": 28
   },
   "face_name": "HAWK",
-  "top": "TEAL STRIPED TEE"
+  "top": "TEAL STRIPED TEE",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HORSESHOE)"
  },
  {
   "id": "town_22",
@@ -3559,24 +3640,28 @@
    "skin_deep",
    4
   ],
-  "hair_cut": "HORSESHOE",
+  "hair_cut": "BOWL CUT",
   "hair": [
    "cloth_black",
    1
   ],
   "face": {
-   "face.foreheadW": 30,
-   "face.cheekW": 33,
-   "face.jawW": 21,
-   "face.chinW": 8,
-   "eyes.gap": 7,
-   "mouth.w": 7
+   "face.len": 40,
+   "face.craniumH": 14,
+   "face.foreheadW": 22,
+   "face.cheekW": 25,
+   "face.jawW": 20,
+   "face.chinW": 7,
+   "nose.w": 2,
+   "eyes.gap": 4,
+   "face.noseY": -2
   },
-  "face_name": "HEART",
+  "face_name": "BIRD",
   "facial_hair": "LONG BEARD",
   "new_beard": "long",
   "top": "PATINA PLAID FLANNEL",
-  "coat": "GRASS CAR COAT"
+  "coat": "GRASS CAR COAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was HORSESHOE), the BIRD head"
  },
  {
   "id": "town_29",
@@ -3587,10 +3672,10 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "SALT SKULL",
   "hair": [
-   "cloth_black",
-   0
+   "tape_grey",
+   1
   ],
   "face": {
    "face.len": 37,
@@ -3604,7 +3689,8 @@
   "face_name": "GAUNT",
   "mark_name": "CLOUDED EYE",
   "mark": "clouded_eye",
-  "top": "SAGE STRIPED HENLEY"
+  "top": "SAGE STRIPED HENLEY",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was RAZOR SKULL)"
  },
  {
   "id": "town_30",
@@ -3695,25 +3781,28 @@
    "skin_mid",
    1
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "BOWL CUT",
   "hair": [
    "clay_mustard",
    1
   ],
   "face": {
-   "face.len": 30,
-   "face.cheekW": 36,
-   "face.jawW": 34,
-   "face.chinW": 18,
-   "face.foreheadW": 28,
-   "brows.len": 10,
-   "mouth.w": 11
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
+   "mouth.w": 6,
+   "brows.len": 4
   },
-  "face_name": "BROAD AND SQUARE",
+  "face_name": "SKULL",
   "facial_hair": "STUBBLE",
   "stubble": true,
   "top": "SIGNAL RED SHIRT",
-  "coat": "BRICK LONGCOAT"
+  "coat": "BRICK LONGCOAT",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was RAZOR SKULL), the SKULL head"
  },
  {
   "id": "town_34",
@@ -3724,7 +3813,7 @@
    "skin_light",
    0
   ],
-  "hair_cut": "RAZOR SKULL",
+  "hair_cut": "WIDOW'S PEAK",
   "hair": [
    "clay_mustard",
    0
@@ -3738,7 +3827,8 @@
    "brows.len": 5
   },
   "face_name": "SMALL FEATURES",
-  "top": "OLIVE DRAB TEE"
+  "top": "OLIVE DRAB TEE",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was RAZOR SKULL)"
  },
  {
   "id": "town_35",
@@ -3805,24 +3895,29 @@
    "skin_mid",
    3
   ],
-  "hair_cut": "CURTAIN CUT",
+  "hair_cut": "SALT SKULL",
   "hair": [
-   "cloth_black",
-   0
+   "tape_grey",
+   1
   ],
   "face": {
-   "face.len": 37,
-   "face.cheekW": 26,
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
    "face.jawW": 24,
-   "face.chinW": 12,
-   "face.foreheadW": 22,
-   "face.eyeY": -1,
-   "mouth.w": 7
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
   },
-  "face_name": "GAUNT",
+  "face_name": "BABY FACE",
   "eyewear": "FACE OXBLOOD DUST MASK",
   "top": "CHARCOAL STRIPED TEE",
-  "coat": "STORM VEST"
+  "coat": "STORM VEST",
+  "recut": "hair-three-11-3 (HAIR 3 11/3, was CURTAIN CUT), the BABY FACE head"
  },
  {
   "id": "town_38",

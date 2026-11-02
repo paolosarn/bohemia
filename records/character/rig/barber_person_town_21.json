@@ -12,24 +12,24 @@
  "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
  "bone": "Skeleton_neck_joint_2",
  "hair_palette": [
-  "clay_mustard",
-  0
+  "cloth_black",
+  1
  ],
  "hair_rgb": [
-  76,
-  39,
-  14
+  29,
+  27,
+  27
  ],
  "skin_rgb": [
   205,
   160,
   115
  ],
- "model_top_m": 1.53,
+ "model_top_m": 1.5383,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7219,
+ "real_height_for_rig": 1.7312,
  "pieces": {
-  "barber_horseshoe_ring": 80466,
-  "h2_horseshoe_thin": 9509
+  "barber_widows_peak": 204834,
+  "h3_widows_peak_thin": 2444
  }
 }

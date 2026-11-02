@@ -105,7 +105,7 @@
   {
    "look": "person_colorful_3",
    "gang": "colorful",
-   "cut": "HALF SHAVE",
+   "cut": "WILD MANE",
    "hat": null,
    "face": null,
    "beard": null,
@@ -149,7 +149,7 @@
   {
    "look": "person_colorful_5",
    "gang": "colorful",
-   "cut": "DEEP TAPER",
+   "cut": "SLICK DRAPE",
    "hat": null,
    "face": null,
    "beard": "PENCIL MOUSTACHE",
@@ -171,8 +171,8 @@
   {
    "look": "person_colorful_6",
    "gang": "colorful",
-   "cut": "RAZOR SKULL",
-   "hat": "HAT BONE KNIT CAP",
+   "cut": "WILD MANE",
+   "hat": null,
    "face": null,
    "beard": "PATCHY BEARD",
    "mark": null,
@@ -194,7 +194,7 @@
   {
    "look": "person_colorful_7",
    "gang": "colorful",
-   "cut": "HALF SHAVE",
+   "cut": "TEMPLE BRAIDS",
    "hat": null,
    "face": null,
    "beard": null,

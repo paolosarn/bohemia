@@ -25,12 +25,11 @@
   50,
   44
  ],
- "model_top_m": 1.5595,
+ "model_top_m": 1.5484,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7551,
+ "real_height_for_rig": 1.7427,
  "pieces": {
-  "barber_deep_taper_fade": 30645,
-  "barber_deep_taper": 155242,
-  "hat_storm_knit_cap_cap": 193954
+  "barber_deep_taper_fade": 34441,
+  "barber_deep_taper": 151098
  }
 }

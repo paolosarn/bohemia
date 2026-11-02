@@ -1,5 +1,5 @@
 {
- "what": "RUN TWO [no two people alike] 10/23: the town, every man his own roll of CHARACTER's pieces, rendered on the rig, one row per person and turn",
+ "what": "RUN TWO [no two people alike] 10/23: the town_5, every man his own roll of CHARACTER's pieces, rendered on the rig, one row per person and turn",
  "src": "records/target/character/barber/person_<id> (tools/bohemia_run2_no_two_people_alike.py)",
  "walks": [
   "person_woman_0",

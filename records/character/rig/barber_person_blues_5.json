@@ -25,11 +25,11 @@
   171,
   138
  ],
- "model_top_m": 1.5484,
+ "model_top_m": 1.561,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7426,
+ "real_height_for_rig": 1.7568,
  "pieces": {
-  "barber_deep_taper_fade": 32589,
-  "barber_deep_taper": 151450
+  "barber_razor_lines_top": 137706,
+  "h3_razor_lines_sides": 38070
  }
 }

@@ -11,9 +11,9 @@
   "person_cartel_6",
   "person_cartel_7"
  ],
- "w": 68,
- "h": 128,
- "foot": 119,
+ "w": 70,
+ "h": 127,
+ "foot": 118,
  "cols": 7,
  "gangs": [
   "person_cartel_0",
@@ -128,7 +128,7 @@
   {
    "look": "person_cartel_4",
    "gang": "cartel",
-   "cut": "BOX BRAIDS",
+   "cut": "SLICK DRAPE",
    "hat": null,
    "face": null,
    "beard": "CHIN STRAP",
@@ -172,7 +172,7 @@
    "look": "person_cartel_6",
    "gang": "cartel",
    "cut": "GREASE BACK",
-   "hat": "HAT STORM SLOUCH BEANIE",
+   "hat": null,
    "face": null,
    "beard": null,
    "mark": null,
@@ -194,7 +194,7 @@
   {
    "look": "person_cartel_7",
    "gang": "cartel",
-   "cut": "BOX BRAIDS",
+   "cut": "CROPPED CURLS",
    "hat": null,
    "face": "FACE ROSE BANDANA",
    "beard": null,

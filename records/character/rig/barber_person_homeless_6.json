@@ -25,13 +25,11 @@
   189,
   155
  ],
- "model_top_m": 1.5347,
+ "model_top_m": 1.5665,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7272,
+ "real_height_for_rig": 1.763,
  "pieces": {
-  "barber_home_clippers": 219674,
-  "h2_home_clippers_gouge": 1505,
-  "barber_home_clippers_missed": 1510,
-  "h2_home_clippers_scabs": 26
+  "barber_bowl_cut": 175938,
+  "h3_bowl_cut_under": 21597
  }
 }

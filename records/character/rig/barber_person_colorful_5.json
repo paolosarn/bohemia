@@ -25,12 +25,12 @@
   154,
   124
  ],
- "model_top_m": 1.5308,
+ "model_top_m": 1.5212,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7229,
+ "real_height_for_rig": 1.712,
  "pieces": {
-  "barber_deep_taper_fade": 36533,
-  "barber_deep_taper": 146226,
+  "barber_slick_drape": 217714,
+  "barber_slick_drape_drape": 23730,
   "f1_person_colorful_5": 224,
   "f1_person_colorful_5.001": 1511
  }

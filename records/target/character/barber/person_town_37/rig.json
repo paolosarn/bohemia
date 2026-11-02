@@ -4,23 +4,26 @@
  "ortho_scale": 3.719298245614035,
  "real_dims_m": [
   0.483,
-  0.432,
-  1.731
+  0.408,
+  1.755
  ],
- "scale_from_model": 1.1167,
+ "scale_from_model": 1.1168,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
  "ground_screen": [
   106.0,
-  155.3449
+  156.0061
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
   "wear": 0.6,
   "materials": [
-   "barber_person_town_37_hair",
    "face_oxblood_dust_mask_cloth",
+   "h3_salt_skull_salt_hair_30",
+   "h3_salt_skull_salt_hair_50",
+   "h3_salt_skull_salt_hair_70",
+   "h3_salt_skull_spots_skin",
    "person_town_37_boot_collar",
    "person_town_37_boot_collar_line",
    "person_town_37_coat",
@@ -58,11 +61,14 @@
    "portrait_barber_person_town_37_skin"
   ],
   "wear_by_material": {
-   "barber_person_town_37_hair": 0.15,
    "person_town_37_skin": 0.25,
+   "h3_salt_skull_salt_hair_70": 0.15,
+   "h3_salt_skull_salt_hair_50": 0.15,
+   "h3_salt_skull_salt_hair_30": 0.15,
+   "portrait_barber_person_town_37_skin": 0.25,
+   "h3_salt_skull_spots_skin": 0.25,
    "person_town_37_eyelets_0": 0.0,
-   "person_town_37_eyelets_1": 0.0,
-   "portrait_barber_person_town_37_skin": 0.25
+   "person_town_37_eyelets_1": 0.0
   },
   "what": [
    "matte: roughness >= 1, specular 0, metallic <= 0.2",
@@ -74,7 +80,7 @@
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1167)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1168)"
  },
  "proportions": null,
  "calibration": null,
@@ -115,9 +121,9 @@
   "records/target/character/barber/person_town_37/rig_NW.png"
  ],
  "crop_box_px": [
-  89,
+  90,
   53,
-  125,
+  124,
   168
  ],
  "shadow_files": [
@@ -131,14 +137,14 @@
   "records/target/character/barber/person_town_37/shadow_NW.png"
  ],
  "ground_px": [
-  17,
-  102
+  16,
+  103
  ],
  "look_px": [
-  17,
+  16,
   53
  ],
- "colours": 9177,
+ "colours": 10532,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -156,12 +162,12 @@
    "motion_px": {
     "N": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -195,12 +201,12 @@
     ],
     "NE": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -234,12 +240,12 @@
     ],
     "E": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -273,12 +279,12 @@
     ],
     "SE": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -312,12 +318,12 @@
     ],
     "S": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -351,12 +357,12 @@
     ],
     "SW": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -390,12 +396,12 @@
     ],
     "W": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -429,12 +435,12 @@
     ],
     "NW": [
      {
-      "barber_curtain_cut_cap": 0.0,
-      "barber_curtain_cut_locks": 0.0,
       "Cesium_Man": 0.0,
       "face_oxblood_dust_mask_mask": 0.0,
       "face_oxblood_dust_mask_strap_low": 0.0,
       "face_oxblood_dust_mask_strap_top": 0.0,
+      "h3_salt_skull_salt": 0.0,
+      "h3_salt_skull_spots": 0.0,
       "person_town_37_boot_collar": 0.0,
       "person_town_37_boot_collar_line": 0.0,
       "person_town_37_coat": 0.0,
@@ -486,50 +492,50 @@
  },
  "card": {
   "family": "prop",
-  "out": 2,
+  "out": 1,
   "rows": [
    "OK   long side >= floor 96: 115",
-   "OUT  colours >= 2330: 1487",
-   "OK   top 8 carry <= 11%: 4.1",
-   "OK   value span >= 118: 148",
-   "OK   saturation <= 0.81: 0.154",
-   "OUT  light: top minus bottom >= -2.5: -26.9",
-   "OK   edge between -35 and +7: -13.9",
-   "OK   grain <= 2.22 px a run: 1.65"
+   "OUT  colours >= 2330: 1556",
+   "OK   top 8 carry <= 11%: 3.5",
+   "OK   value span >= 118: 135",
+   "OK   saturation <= 0.81: 0.135",
+   "OK   light: top minus bottom >= -2.5: 6.0",
+   "OK   edge between -35 and +7: -15.4",
+   "OK   grain <= 2.22 px a run: 1.58"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 5.2%",
+   "OK   stray pixels at 8 steps <= 14%: 5.9%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OUT  light from above (180 to 360 degrees, or flat): 99.3"
+   "OK   light from above (180 to 360 degrees, or flat): 259.6"
   ],
-  "verdict": "2 of 8 out -> to DIRECTION",
+  "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/barber/person_town_37/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 1,
+  "out": 0,
   "rows": [
    "OK   long side >= floor 96: 115",
-   "OK   colours >= 734 (field 5: the class floor, or 370 per 1,000 of 1985 px): 1487",
-   "OK   top 8 carry <= 11%: 4.1",
-   "OK   value span >= 118: 148",
-   "OK   saturation <= 0.81: 0.154",
-   "OUT  light: top minus bottom >= -2.5: -26.9",
-   "OK   edge between -35 and +7: -13.9",
-   "OK   grain <= 2.22 px a run: 1.65"
+   "OK   colours >= 742 (field 5: the class floor, or 370 per 1,000 of 2005 px): 1556",
+   "OK   top 8 carry <= 11%: 3.5",
+   "OK   value span >= 118: 135",
+   "OK   saturation <= 0.81: 0.135",
+   "OK   light: top minus bottom >= -2.5: 6.0",
+   "OK   edge between -35 and +7: -15.4",
+   "OK   grain <= 2.22 px a run: 1.58"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "1 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   27,
+   28,
    110
   ],
-  "opaque_px": 1985,
-  "colours": 1487
+  "opaque_px": 2005,
+  "colours": 1556
  },
  "rig_settings": {
   "engine": "CYCLES",

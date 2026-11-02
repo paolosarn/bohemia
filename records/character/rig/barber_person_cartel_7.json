@@ -25,12 +25,12 @@
   88,
   74
  ],
- "model_top_m": 1.5335,
+ "model_top_m": 1.5507,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7258,
+ "real_height_for_rig": 1.7452,
  "pieces": {
-  "barber_box_braids_scalp": 52694,
-  "barber_box_braids_braids": 87560,
+  "barber_cropped_curls": 221994,
+  "barber_cropped_curls_curls": 14952,
   "face_rose_bandana_triangle": 8174,
   "face_rose_bandana_knot": 86,
   "face_rose_bandana_tie": 296

@@ -116,7 +116,7 @@
   {
    "look": "person_town_28",
    "gang": "town",
-   "cut": "HORSESHOE",
+   "cut": "BOWL CUT",
    "hat": null,
    "face": null,
    "beard": "LONG BEARD",
@@ -138,7 +138,7 @@
   {
    "look": "person_town_29",
    "gang": "town",
-   "cut": "RAZOR SKULL",
+   "cut": "SALT SKULL",
    "hat": null,
    "face": null,
    "beard": null,
@@ -220,18 +220,18 @@
   {
    "look": "person_town_33",
    "gang": "town",
-   "cut": "RAZOR SKULL",
+   "cut": "BOWL CUT",
    "hat": null,
    "face": null,
    "beard": "STUBBLE",
    "mark": null,
-   "top": "COBALT SHIRT",
+   "top": "SIGNAL RED SHIRT",
    "coat": "BRICK LONGCOAT",
    "heritage": "black",
    "skin": "dark",
    "sex": "m",
    "wears": {
-    "base": "COBALT SHIRT",
+    "base": "SIGNAL RED SHIRT",
     "legs": "BLACK DENIM",
     "feet": "WRAPPED BOOTS",
     "outer": "BRICK LONGCOAT",
@@ -241,7 +241,7 @@
   {
    "look": "person_town_34",
    "gang": "town",
-   "cut": "RAZOR SKULL",
+   "cut": "WIDOW'S PEAK",
    "hat": null,
    "face": null,
    "beard": null,

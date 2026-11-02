@@ -8,29 +8,30 @@
  "worn_by": "Caravans, rolled",
  "model": "records/character/rig/barber_person_caravans_3.glb",
  "body": "records/character/rig/person_caravans_3.glb (the mannequin in None)",
- "zcap": 0.3,
+ "zcap": 1.0,
  "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
  "bone": "Skeleton_neck_joint_2",
  "hair_palette": [
-  "cloth_black",
-  0
+  "tape_grey",
+  1
  ],
  "hair_rgb": [
-  20,
-  19,
-  19
+  102,
+  99,
+  96
  ],
  "skin_rgb": [
   224,
   189,
   155
  ],
- "model_top_m": 1.5387,
+ "model_top_m": 1.53,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7317,
+ "real_height_for_rig": 1.7219,
  "pieces": {
-  "barber_curtain_cut_cap": 235170,
-  "barber_curtain_cut_locks": 24324,
-  "f1_person_caravans_3": 209
+  "barber_hermit_ring": 71954,
+  "h3_hermit_thin": 9685,
+  "barber_hermit_strings": 244810,
+  "f1_person_caravans_3": 139
  }
 }

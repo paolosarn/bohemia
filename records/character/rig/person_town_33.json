@@ -1,17 +1,17 @@
 {
  "look": "PERSON_TOWN_33",
- "shape": "person_town_33: a person of the Body, his own skin skin_mid 1, COBALT SHIRT under BRICK LONGCOAT",
+ "shape": "person_town_33: a person of the Body, his own skin skin_mid 1, SIGNAL RED SHIRT under BRICK LONGCOAT",
  "worn": {
   "hair": "TEMPLE TAPER",
-  "base": "COBALT SHIRT",
+  "base": "SIGNAL RED SHIRT",
   "legs": "BLACK DENIM",
   "feet": "WRAPPED BOOTS",
   "outer": "BRICK LONGCOAT",
   "waist": "LEAD WAIST WRAP",
   "outfit": [
-   "SIGNAL RED SHIRT read as one with BRICK LONGCOAT (81 and 68 of 255): the same cut in COBALT SHIRT (104)",
+   "SIGNAL RED SHIRT and BRICK LONGCOAT read as one, and no colour of either cut reads apart",
    "BRICK LONGCOAT worn open to the neck",
-   "the sleeve ends short of the cuff under it"
+   "the sleeves pushed up the forearm"
   ]
  },
  "dials": {
@@ -23,8 +23,7 @@
  "layers": {
   "base": {
    "under": "LONGCOAT",
-   "arms_covered": true,
-   "cuff_to": 1.89
+   "arms_covered": true
   },
   "mid": {},
   "outer": {
@@ -33,7 +32,8 @@
    "ohw": 0.046,
    "collar_z": 1.1,
    "fo_add": 0.25,
-   "sleeve_to": 1.7
+   "sleeve_to": 1.42,
+   "push": true
   }
  },
  "model": "records/character/rig/person_town_33.glb",
@@ -49,10 +49,11 @@
   "person_town_33_collar": 1536,
   "person_town_33_cuffs": 2048,
   "person_town_33_hem": 1792,
-  "person_town_33_coat": 65342,
+  "person_town_33_coat": 62374,
   "person_town_33_coat_skirt": 7474,
   "person_town_33_collar.001": 1170,
   "person_town_33_lapels": 396,
+  "person_town_33_pushed": 2048,
   "person_town_33_pockets": 252,
   "person_town_33_pocket_flaps": 252,
   "person_town_33_trouser": 43706,
@@ -102,14 +103,14 @@
    0.0212
   ],
   "person_town_33_collar": [
-   0.0685,
-   0.15,
-   0.3712
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_town_33_cuffs": [
-   0.0685,
-   0.15,
-   0.3712
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_town_33_eyelets_0": [
    0.0152,
@@ -142,9 +143,9 @@
    0.008
   ],
   "person_town_33_hem": [
-   0.0685,
-   0.15,
-   0.3712
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_town_33_lapels": [
    0.0931,
@@ -181,6 +182,11 @@
    0.0369,
    0.0212
   ],
+  "person_town_33_pushed": [
+   0.2195,
+   0.0369,
+   0.0212
+  ],
   "person_town_33_rolled_hem": [
    0.0529,
    0.0578,
@@ -197,9 +203,9 @@
    0.0844
   ],
   "person_town_33_shirt": [
-   0.0685,
-   0.15,
-   0.3712
+   0.3005,
+   0.0497,
+   0.0437
   ],
   "person_town_33_shoe": [
    0.0382,

@@ -12,7 +12,7 @@
   "person_remnants_7"
  ],
  "w": 70,
- "h": 129,
+ "h": 128,
  "foot": 119,
  "cols": 7,
  "gangs": [
@@ -104,7 +104,7 @@
   {
    "look": "person_remnants_3",
    "gang": "remnants",
-   "cut": "RAZOR SKULL",
+   "cut": "MANGE",
    "hat": null,
    "face": null,
    "beard": "STUBBLE",
@@ -149,7 +149,7 @@
   {
    "look": "person_remnants_5",
    "gang": "remnants",
-   "cut": "BOX BRAIDS",
+   "cut": "SALT SKULL",
    "hat": null,
    "face": null,
    "beard": "STUBBLE",
@@ -171,7 +171,7 @@
   {
    "look": "person_remnants_6",
    "gang": "remnants",
-   "cut": "RAZOR SKULL",
+   "cut": "MANGE",
    "hat": null,
    "face": null,
    "beard": null,

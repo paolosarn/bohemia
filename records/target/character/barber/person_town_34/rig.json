@@ -1,27 +1,27 @@
 {
  "engine": "CYCLES",
- "res": 212,
- "ortho_scale": 3.719298245614035,
+ "res": 214,
+ "ortho_scale": 3.754385964912281,
  "real_dims_m": [
   0.495,
   0.458,
-  1.723
+  1.731
  ],
  "scale_from_model": 1.1167,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
  "ground_screen": [
-  106.0,
-  155.09409999999997
+  107.0,
+  156.3278
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
  "source_pass": {
   "wear": 0.6,
   "materials": [
-   "h2_razor_skull_shadow_hair_20",
-   "h2_razor_skull_shadow_hair_34",
-   "h2_razor_skull_skin_scab",
+   "barber_person_town_34_hair",
+   "h3_widows_peak_thin_hair_22",
+   "h3_widows_peak_thin_hair_38",
    "person_town_34_bone_scarf",
    "person_town_34_bone_scarf_fringe",
    "person_town_34_bone_scarf_tail",
@@ -66,10 +66,10 @@
    "portrait_barber_person_town_34_skin"
   ],
   "wear_by_material": {
+   "barber_person_town_34_hair": 0.15,
    "person_town_34_skin": 0.25,
-   "h2_razor_skull_skin_scab": 0.25,
-   "h2_razor_skull_shadow_hair_34": 0.15,
-   "h2_razor_skull_shadow_hair_20": 0.15,
+   "h3_widows_peak_thin_hair_38": 0.15,
+   "h3_widows_peak_thin_hair_22": 0.15,
    "portrait_barber_person_town_34_skin": 0.25,
    "person_town_34_eyelets_0": 0.0,
    "person_town_34_eyelets_1": 0.0
@@ -125,10 +125,10 @@
   "records/target/character/barber/person_town_34/rig_NW.png"
  ],
  "crop_box_px": [
-  88,
-  54,
-  125,
-  168
+  89,
+  55,
+  126,
+  170
  ],
  "shadow_files": [
   "records/target/character/barber/person_town_34/shadow_N.png",
@@ -148,7 +148,7 @@
   18,
   52
  ],
- "colours": 9365,
+ "colours": 9504,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -166,9 +166,9 @@
    "motion_px": {
     "N": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -210,9 +210,9 @@
     ],
     "NE": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -254,9 +254,9 @@
     ],
     "E": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -298,9 +298,9 @@
     ],
     "SE": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -342,9 +342,9 @@
     ],
     "S": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -386,9 +386,9 @@
     ],
     "SW": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -430,9 +430,9 @@
     ],
     "W": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -474,9 +474,9 @@
     ],
     "NW": [
      {
+      "barber_widows_peak": 0.0,
       "Cesium_Man": 0.0,
-      "h2_razor_skull_scabs": 0.0,
-      "h2_razor_skull_shadow": 0.0,
+      "h3_widows_peak_thin": 0.0,
       "person_town_34_bone_scarf": 0.0,
       "person_town_34_bone_scarf_fringe": 0.0,
       "person_town_34_bone_scarf_tail": 0.0,
@@ -536,50 +536,50 @@
  },
  "card": {
   "family": "prop",
-  "out": 2,
+  "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 114",
-   "OUT  colours >= 2330: 1539",
-   "OK   top 8 carry <= 11%: 4.1",
-   "OUT  value span >= 118: 117",
-   "OK   saturation <= 0.81: 0.25",
-   "OK   light: top minus bottom >= -2.5: 13.6",
-   "OK   edge between -35 and +7: -15.5",
+   "OK   long side >= floor 96: 115",
+   "OUT  colours >= 2330: 1556",
+   "OK   top 8 carry <= 11%: 4.4",
+   "OK   value span >= 118: 119",
+   "OK   saturation <= 0.81: 0.256",
+   "OK   light: top minus bottom >= -2.5: 7.6",
+   "OK   edge between -35 and +7: -15.4",
    "OK   grain <= 2.22 px a run: 1.71"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.4%",
+   "OK   stray pixels at 8 steps <= 14%: 3.3%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 254.8"
+   "OK   light from above (180 to 360 degrees, or flat): 231.9"
   ],
-  "verdict": "2 of 8 out -> to DIRECTION",
+  "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/character/barber/person_town_34/rig_S.png"
  },
  "cls": "person",
  "card_guide": {
   "cls": "person",
-  "out": 1,
+  "out": 0,
   "rows": [
-   "OK   long side >= floor 96: 114",
-   "OK   colours >= 743 (field 5: the class floor, or 370 per 1,000 of 2009 px): 1539",
-   "OK   top 8 carry <= 11%: 4.1",
-   "OUT  value span >= 118: 117",
-   "OK   saturation <= 0.81: 0.25",
-   "OK   light: top minus bottom >= -2.5: 13.6",
-   "OK   edge between -35 and +7: -15.5",
+   "OK   long side >= floor 96: 115",
+   "OK   colours >= 751 (field 5: the class floor, or 370 per 1,000 of 2031 px): 1556",
+   "OK   top 8 carry <= 11%: 4.4",
+   "OK   value span >= 118: 119",
+   "OK   saturation <= 0.81: 0.256",
+   "OK   light: top minus bottom >= -2.5: 7.6",
+   "OK   edge between -35 and +7: -15.4",
    "OK   grain <= 2.22 px a run: 1.71"
   ],
   "reread": [
    "colours by field 5"
   ],
-  "verdict": "1 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
    28,
-   108
+   109
   ],
-  "opaque_px": 2009,
-  "colours": 1539
+  "opaque_px": 2031,
+  "colours": 1556
  },
  "rig_settings": {
   "engine": "CYCLES",

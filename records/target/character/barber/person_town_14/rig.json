@@ -4,15 +4,15 @@
  "ortho_scale": 3.719298245614035,
  "real_dims_m": [
   0.495,
-  0.412,
-  1.735
+  0.4,
+  1.734
  ],
  "scale_from_model": 1.1167,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
  "ground_screen": [
   106.0,
-  155.4418
+  155.4247
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
@@ -23,7 +23,6 @@
    "barber_person_town_14_fade_50",
    "barber_person_town_14_fade_75",
    "barber_person_town_14_hair",
-   "hat_brick_watch_cap_cloth",
    "person_town_14_boot_collar",
    "person_town_14_boot_collar_line",
    "person_town_14_boot_strap",
@@ -115,8 +114,8 @@
  ],
  "crop_box_px": [
   89,
-  54,
-  125,
+  53,
+  124,
   168
  ],
  "shadow_files": [
@@ -131,13 +130,13 @@
  ],
  "ground_px": [
   17,
-  101
+  102
  ],
  "look_px": [
   17,
-  52
+  53
  ],
- "colours": 10869,
+ "colours": 9644,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -158,7 +157,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -195,7 +193,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -232,7 +229,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -269,7 +265,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -306,7 +301,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -343,7 +337,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -380,7 +373,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -417,7 +409,6 @@
       "barber_temple_taper": 0.0,
       "barber_temple_taper_fade": 0.0,
       "Cesium_Man": 0.0,
-      "hat_brick_watch_cap_cap": 0.0,
       "person_town_14_boot_collar": 0.0,
       "person_town_14_boot_collar_line": 0.0,
       "person_town_14_boot_strap": 0.0,
@@ -471,20 +462,20 @@
   "family": "prop",
   "out": 3,
   "rows": [
-   "OK   long side >= floor 96: 114",
-   "OUT  colours >= 2330: 1809",
-   "OK   top 8 carry <= 11%: 1.6",
-   "OUT  value span >= 118: 100",
-   "OK   saturation <= 0.81: 0.212",
-   "OUT  light: top minus bottom >= -2.5: -14.1",
-   "OK   edge between -35 and +7: -18.9",
-   "OK   grain <= 2.22 px a run: 1.62"
+   "OK   long side >= floor 96: 115",
+   "OUT  colours >= 2330: 1777",
+   "OK   top 8 carry <= 11%: 2.3",
+   "OUT  value span >= 118: 110",
+   "OK   saturation <= 0.81: 0.2",
+   "OUT  light: top minus bottom >= -2.5: -24.9",
+   "OK   edge between -35 and +7: -17.6",
+   "OK   grain <= 2.22 px a run: 1.64"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 4.2%",
+   "OK   stray pixels at 8 steps <= 14%: 4.1%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OUT  light from above (180 to 360 degrees, or flat): 103.5"
+   "OUT  light from above (180 to 360 degrees, or flat): 96.2"
   ],
   "verdict": "3 of 8 out -> BACK before VOTE",
   "file": "records/target/character/barber/person_town_14/rig_S.png"
@@ -494,14 +485,14 @@
   "cls": "person",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 114",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2210 px): 1809",
-   "OK   top 8 carry <= 11%: 1.6",
-   "OUT  value span >= 118: 100",
-   "OK   saturation <= 0.81: 0.212",
-   "OUT  light: top minus bottom >= -2.5: -14.1",
-   "OK   edge between -35 and +7: -18.9",
-   "OK   grain <= 2.22 px a run: 1.62"
+   "OK   long side >= floor 96: 115",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2192 px): 1777",
+   "OK   top 8 carry <= 11%: 2.3",
+   "OUT  value span >= 118: 110",
+   "OK   saturation <= 0.81: 0.2",
+   "OUT  light: top minus bottom >= -2.5: -24.9",
+   "OK   edge between -35 and +7: -17.6",
+   "OK   grain <= 2.22 px a run: 1.64"
   ],
   "reread": [
    "colours by field 5"
@@ -511,8 +502,8 @@
    28,
    109
   ],
-  "opaque_px": 2210,
-  "colours": 1809
+  "opaque_px": 2192,
+  "colours": 1777
  },
  "rig_settings": {
   "engine": "CYCLES",

@@ -1,18 +1,18 @@
 {
  "engine": "CYCLES",
- "res": 214,
- "ortho_scale": 3.754385964912281,
+ "res": 212,
+ "ortho_scale": 3.719298245614035,
  "real_dims_m": [
-  0.504,
-  0.451,
-  1.745
+  0.496,
+  0.447,
+  1.717
  ],
- "scale_from_model": 1.1168,
+ "scale_from_model": 1.1167,
  "still_frame": 1.021,
  "still": "the passing pose of Stand, frame 1.02",
  "ground_screen": [
-  107.0,
-  156.7439
+  106.0,
+  154.9402
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
@@ -20,6 +20,8 @@
   "wear": 0.6,
   "materials": [
    "barber_person_town_19_hair",
+   "h3_bowl_cut_under_hair_22",
+   "h3_bowl_cut_under_hair_38",
    "person_town_19_belt",
    "person_town_19_boot_collar",
    "person_town_19_boot_collar_line",
@@ -36,7 +38,6 @@
    "person_town_19_mantle",
    "person_town_19_midsole_0",
    "person_town_19_midsole_1",
-   "person_town_19_pushed",
    "person_town_19_shirt",
    "person_town_19_shoe",
    "person_town_19_shoes",
@@ -58,6 +59,8 @@
   "wear_by_material": {
    "barber_person_town_19_hair": 0.15,
    "person_town_19_skin": 0.25,
+   "h3_bowl_cut_under_hair_38": 0.15,
+   "h3_bowl_cut_under_hair_22": 0.15,
    "portrait_barber_person_town_19_skin": 0.25
   },
   "what": [
@@ -70,7 +73,7 @@
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1168)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1167)"
  },
  "proportions": null,
  "calibration": null,
@@ -111,10 +114,10 @@
   "records/target/character/barber/person_town_19/rig_NW.png"
  ],
  "crop_box_px": [
-  91,
-  54,
-  125,
-  169
+  90,
+  53,
+  124,
+  167
  ],
  "shadow_files": [
   "records/target/character/barber/person_town_19/shadow_N.png",
@@ -128,13 +131,13 @@
  ],
  "ground_px": [
   16,
-  103
+  102
  ],
  "look_px": [
   16,
   53
  ],
- "colours": 8698,
+ "colours": 8746,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -152,9 +155,9 @@
    "motion_px": {
     "N": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -175,7 +178,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -190,9 +192,9 @@
     ],
     "NE": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -213,7 +215,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -228,9 +229,9 @@
     ],
     "E": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -251,7 +252,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -266,9 +266,9 @@
     ],
     "SE": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -289,7 +289,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -304,9 +303,9 @@
     ],
     "S": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -327,7 +326,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -342,9 +340,9 @@
     ],
     "SW": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -365,7 +363,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -380,9 +377,9 @@
     ],
     "W": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -403,7 +400,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -418,9 +414,9 @@
     ],
     "NW": [
      {
-      "barber_finger_waves": 0.0,
-      "barber_finger_waves_pin_curls": 0.0,
+      "barber_bowl_cut": 0.0,
       "Cesium_Man": 0.0,
+      "h3_bowl_cut_under": 0.0,
       "person_town_19_belt": 0.0,
       "person_town_19_boot_collar": 0.0,
       "person_town_19_boot_collar_line": 0.0,
@@ -441,7 +437,6 @@
       "person_town_19_mantle": 0.0,
       "person_town_19_midsole_0": 0.0,
       "person_town_19_midsole_1": 0.0,
-      "person_town_19_pushed": 0.0,
       "person_town_19_shirt": 0.0,
       "person_town_19_shoe": 0.0,
       "person_town_19_sole_0": 0.0,
@@ -476,20 +471,20 @@
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 115",
-   "OUT  colours >= 2330: 1779",
-   "OK   top 8 carry <= 11%: 3.2",
-   "OK   value span >= 118: 123",
-   "OK   saturation <= 0.81: 0.329",
-   "OUT  light: top minus bottom >= -2.5: -4.5",
-   "OK   edge between -35 and +7: -14.8",
-   "OK   grain <= 2.22 px a run: 1.84"
+   "OK   long side >= floor 96: 114",
+   "OUT  colours >= 2330: 1808",
+   "OK   top 8 carry <= 11%: 2.8",
+   "OK   value span >= 118: 119",
+   "OK   saturation <= 0.81: 0.319",
+   "OUT  light: top minus bottom >= -2.5: -2.9",
+   "OK   edge between -35 and +7: -14.5",
+   "OK   grain <= 2.22 px a run: 1.81"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.7%",
+   "OK   stray pixels at 8 steps <= 14%: 4.2%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OUT  light from above (180 to 360 degrees, or flat): 155.3"
+   "OUT  light from above (180 to 360 degrees, or flat): 158.0"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/character/barber/person_town_19/rig_S.png"
@@ -499,14 +494,14 @@
   "cls": "person",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 115",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2222 px): 1779",
-   "OK   top 8 carry <= 11%: 3.2",
-   "OK   value span >= 118: 123",
-   "OK   saturation <= 0.81: 0.329",
-   "OUT  light: top minus bottom >= -2.5: -4.5",
-   "OK   edge between -35 and +7: -14.8",
-   "OK   grain <= 2.22 px a run: 1.84"
+   "OK   long side >= floor 96: 114",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2250 px): 1808",
+   "OK   top 8 carry <= 11%: 2.8",
+   "OK   value span >= 118: 119",
+   "OK   saturation <= 0.81: 0.319",
+   "OUT  light: top minus bottom >= -2.5: -2.9",
+   "OK   edge between -35 and +7: -14.5",
+   "OK   grain <= 2.22 px a run: 1.81"
   ],
   "reread": [
    "colours by field 5"
@@ -514,10 +509,10 @@
   "verdict": "1 of 8 out under the style guide",
   "size_px": [
    28,
-   109
+   108
   ],
-  "opaque_px": 2222,
-  "colours": 1779
+  "opaque_px": 2250,
+  "colours": 1808
  },
  "rig_settings": {
   "engine": "CYCLES",

@@ -11,8 +11,8 @@
   "person_anarchists_6",
   "person_anarchists_7"
  ],
- "w": 70,
- "h": 128,
+ "w": 68,
+ "h": 127,
  "foot": 119,
  "cols": 7,
  "gangs": [
@@ -126,7 +126,7 @@
   {
    "look": "person_anarchists_4",
    "gang": "anarchists",
-   "cut": "BOX BRAIDS",
+   "cut": "FRENCH CROP",
    "hat": null,
    "face": null,
    "beard": "FULL BEARD",
@@ -150,7 +150,7 @@
   {
    "look": "person_anarchists_5",
    "gang": "anarchists",
-   "cut": "LAYERED FALL",
+   "cut": "MANGE",
    "hat": null,
    "face": null,
    "beard": null,
@@ -174,7 +174,7 @@
   {
    "look": "person_anarchists_6",
    "gang": "anarchists",
-   "cut": "TEMPLE TAPER",
+   "cut": "WILD MANE",
    "hat": null,
    "face": null,
    "beard": null,
@@ -196,7 +196,7 @@
   {
    "look": "person_anarchists_7",
    "gang": "anarchists",
-   "cut": "HALF SHAVE",
+   "cut": "FRENCH CROP",
    "hat": null,
    "face": null,
    "beard": "GOATEE",

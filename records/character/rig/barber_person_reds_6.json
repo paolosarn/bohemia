@@ -25,12 +25,13 @@
   112,
   76
  ],
- "model_top_m": 1.5126,
+ "model_top_m": 1.5233,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7023,
+ "real_height_for_rig": 1.7144,
  "pieces": {
-  "barber_horseshoe_ring": 89826,
-  "h2_horseshoe_thin": 11361,
+  "barber_temple_braids_cap": 218930,
+  "barber_temple_braids_loose": 274612,
+  "barber_temple_braids_plaits": 1120,
   "f1_person_reds_6_beard": 32419,
   "f1_person_reds_6_locks": 8322
  }

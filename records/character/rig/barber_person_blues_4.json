@@ -25,12 +25,12 @@
   189,
   155
  ],
- "model_top_m": 1.5275,
+ "model_top_m": 1.5393,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7191,
+ "real_height_for_rig": 1.7324,
  "pieces": {
-  "barber_finger_waves": 210266,
-  "barber_finger_waves_pin_curls": 424,
+  "barber_cropped_curls": 217330,
+  "barber_cropped_curls_curls": 13832,
   "face_grey_wraparounds_lens": 2066,
   "face_grey_wraparounds_rim": 248,
   "face_grey_wraparounds_arm_l": 88,

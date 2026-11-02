@@ -13,24 +13,24 @@
  "bone": "Skeleton_neck_joint_2",
  "hair_palette": [
   "cloth_black",
-  0
+  1
  ],
  "hair_rgb": [
-  20,
-  19,
-  19
+  29,
+  27,
+  27
  ],
  "skin_rgb": [
   125,
   88,
   74
  ],
- "model_top_m": 1.5338,
+ "model_top_m": 1.5184,
  "body_top_m": 1.5283,
- "real_height_for_rig": 1.7262,
+ "real_height_for_rig": 1.7088,
  "pieces": {
-  "barber_box_braids_scalp": 53322,
-  "barber_box_braids_braids": 93020,
+  "h3_salt_skull_salt": 41649,
+  "h3_salt_skull_spots": 78,
   "f1_person_remnants_5_seam": 202,
   "f1_person_remnants_5_stitches": 140
  }

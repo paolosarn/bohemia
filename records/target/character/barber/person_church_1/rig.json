@@ -150,7 +150,7 @@
   40,
   59
  ],
- "colours": 41809,
+ "colours": 41768,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -545,10 +545,10 @@
    "motion_px": {
     "N": [
      {
-      "barber_horseshoe_ring": 3.784,
+      "barber_horseshoe_ring": 3.78,
       "Cesium_Man": 18.766,
-      "h2_horseshoe_thin": 3.923,
-      "hat_storm_knit_cap_cap": 4.202,
+      "h2_horseshoe_thin": 3.92,
+      "hat_storm_knit_cap_cap": 4.204,
       "person_church_1_boot_collar": 11.765,
       "person_church_1_boot_collar_line": 11.989,
       "person_church_1_collar": 2.938,
@@ -586,10 +586,10 @@
       "portrait_neck": 2.555
      },
      {
-      "barber_horseshoe_ring": 6.633,
+      "barber_horseshoe_ring": 6.627,
       "Cesium_Man": 21.635,
-      "h2_horseshoe_thin": 6.725,
-      "hat_storm_knit_cap_cap": 7.019,
+      "h2_horseshoe_thin": 6.707,
+      "hat_storm_knit_cap_cap": 7.025,
       "person_church_1_boot_collar": 17.71,
       "person_church_1_boot_collar_line": 17.248,
       "person_church_1_collar": 2.813,
@@ -627,7 +627,7 @@
       "portrait_neck": 2.988
      },
      {
-      "barber_horseshoe_ring": 2.298,
+      "barber_horseshoe_ring": 2.307,
       "Cesium_Man": 18.001,
       "h2_horseshoe_thin": 2.27,
       "hat_storm_knit_cap_cap": 2.339,
@@ -668,10 +668,10 @@
       "portrait_neck": 2.155
      },
      {
-      "barber_horseshoe_ring": 4.332,
+      "barber_horseshoe_ring": 4.33,
       "Cesium_Man": 21.142,
-      "h2_horseshoe_thin": 4.263,
-      "hat_storm_knit_cap_cap": 4.337,
+      "h2_horseshoe_thin": 4.266,
+      "hat_storm_knit_cap_cap": 4.329,
       "person_church_1_boot_collar": 12.28,
       "person_church_1_boot_collar_line": 12.57,
       "person_church_1_collar": 4.735,
@@ -709,10 +709,10 @@
       "portrait_neck": 3.132
      },
      {
-      "barber_horseshoe_ring": 9.484,
+      "barber_horseshoe_ring": 9.511,
       "Cesium_Man": 24.184,
-      "h2_horseshoe_thin": 9.562,
-      "hat_storm_knit_cap_cap": 9.854,
+      "h2_horseshoe_thin": 9.575,
+      "hat_storm_knit_cap_cap": 9.881,
       "person_church_1_boot_collar": 20.697,
       "person_church_1_boot_collar_line": 20.164,
       "person_church_1_collar": 5.038,
@@ -752,8 +752,8 @@
      {
       "barber_horseshoe_ring": 4.36,
       "Cesium_Man": 17.585,
-      "h2_horseshoe_thin": 4.325,
-      "hat_storm_knit_cap_cap": 4.28,
+      "h2_horseshoe_thin": 4.319,
+      "hat_storm_knit_cap_cap": 4.265,
       "person_church_1_boot_collar": 13.041,
       "person_church_1_boot_collar_line": 12.309,
       "person_church_1_collar": 5.193,
@@ -793,9 +793,9 @@
     ],
     "NE": [
      {
-      "barber_horseshoe_ring": 5.778,
+      "barber_horseshoe_ring": 5.771,
       "Cesium_Man": 19.038,
-      "h2_horseshoe_thin": 5.913,
+      "h2_horseshoe_thin": 5.901,
       "hat_storm_knit_cap_cap": 6.281,
       "person_church_1_boot_collar": 12.647,
       "person_church_1_boot_collar_line": 12.957,
@@ -834,10 +834,10 @@
       "portrait_neck": 4.003
      },
      {
-      "barber_horseshoe_ring": 6.105,
+      "barber_horseshoe_ring": 6.096,
       "Cesium_Man": 22.825,
       "h2_horseshoe_thin": 6.222,
-      "hat_storm_knit_cap_cap": 6.828,
+      "hat_storm_knit_cap_cap": 6.835,
       "person_church_1_boot_collar": 19.937,
       "person_church_1_boot_collar_line": 19.752,
       "person_church_1_collar": 2.817,
@@ -875,10 +875,10 @@
       "portrait_neck": 2.922
      },
      {
-      "barber_horseshoe_ring": 3.528,
+      "barber_horseshoe_ring": 3.532,
       "Cesium_Man": 20.475,
       "h2_horseshoe_thin": 3.529,
-      "hat_storm_knit_cap_cap": 3.611,
+      "hat_storm_knit_cap_cap": 3.61,
       "person_church_1_boot_collar": 13.756,
       "person_church_1_boot_collar_line": 13.672,
       "person_church_1_collar": 2.634,
@@ -916,10 +916,10 @@
       "portrait_neck": 2.414
      },
      {
-      "barber_horseshoe_ring": 4.255,
+      "barber_horseshoe_ring": 4.254,
       "Cesium_Man": 21.411,
-      "h2_horseshoe_thin": 4.189,
-      "hat_storm_knit_cap_cap": 4.26,
+      "h2_horseshoe_thin": 4.192,
+      "hat_storm_knit_cap_cap": 4.254,
       "person_church_1_boot_collar": 13.642,
       "person_church_1_boot_collar_line": 13.979,
       "person_church_1_collar": 4.121,
@@ -957,10 +957,10 @@
       "portrait_neck": 2.85
      },
      {
-      "barber_horseshoe_ring": 7.412,
+      "barber_horseshoe_ring": 7.436,
       "Cesium_Man": 30.017,
-      "h2_horseshoe_thin": 7.421,
-      "hat_storm_knit_cap_cap": 7.782,
+      "h2_horseshoe_thin": 7.427,
+      "hat_storm_knit_cap_cap": 7.783,
       "person_church_1_boot_collar": 22.683,
       "person_church_1_boot_collar_line": 22.493,
       "person_church_1_collar": 4.403,
@@ -998,10 +998,10 @@
       "portrait_neck": 4.826
      },
      {
-      "barber_horseshoe_ring": 3.282,
+      "barber_horseshoe_ring": 3.28,
       "Cesium_Man": 16.893,
-      "h2_horseshoe_thin": 3.112,
-      "hat_storm_knit_cap_cap": 3.222,
+      "h2_horseshoe_thin": 3.109,
+      "hat_storm_knit_cap_cap": 3.207,
       "person_church_1_boot_collar": 14.233,
       "person_church_1_boot_collar_line": 13.965,
       "person_church_1_collar": 4.595,
@@ -1041,10 +1041,10 @@
     ],
     "E": [
      {
-      "barber_horseshoe_ring": 6.598,
+      "barber_horseshoe_ring": 6.585,
       "Cesium_Man": 18.045,
-      "h2_horseshoe_thin": 6.705,
-      "hat_storm_knit_cap_cap": 6.961,
+      "h2_horseshoe_thin": 6.692,
+      "hat_storm_knit_cap_cap": 6.955,
       "person_church_1_boot_collar": 14.019,
       "person_church_1_boot_collar_line": 14.333,
       "person_church_1_collar": 4.682,
@@ -1084,8 +1084,8 @@
      {
       "barber_horseshoe_ring": 5.84,
       "Cesium_Man": 28.201,
-      "h2_horseshoe_thin": 5.906,
-      "hat_storm_knit_cap_cap": 6.095,
+      "h2_horseshoe_thin": 5.899,
+      "hat_storm_knit_cap_cap": 6.094,
       "person_church_1_boot_collar": 22.002,
       "person_church_1_boot_collar_line": 22.118,
       "person_church_1_collar": 2.815,
@@ -1123,7 +1123,7 @@
       "portrait_neck": 2.278
      },
      {
-      "barber_horseshoe_ring": 4.33,
+      "barber_horseshoe_ring": 4.323,
       "Cesium_Man": 26.708,
       "h2_horseshoe_thin": 4.297,
       "hat_storm_knit_cap_cap": 4.361,
@@ -1167,7 +1167,7 @@
       "barber_horseshoe_ring": 3.711,
       "Cesium_Man": 20.387,
       "h2_horseshoe_thin": 3.6,
-      "hat_storm_knit_cap_cap": 3.734,
+      "hat_storm_knit_cap_cap": 3.731,
       "person_church_1_boot_collar": 15.308,
       "person_church_1_boot_collar_line": 15.688,
       "person_church_1_collar": 3.27,
@@ -1205,9 +1205,9 @@
       "portrait_neck": 2.402
      },
      {
-      "barber_horseshoe_ring": 6.202,
+      "barber_horseshoe_ring": 6.157,
       "Cesium_Man": 36.228,
-      "h2_horseshoe_thin": 6.231,
+      "h2_horseshoe_thin": 6.227,
       "hat_storm_knit_cap_cap": 6.463,
       "person_church_1_boot_collar": 24.031,
       "person_church_1_boot_collar_line": 24.182,
@@ -1289,10 +1289,10 @@
     ],
     "SE": [
      {
-      "barber_horseshoe_ring": 6.727,
+      "barber_horseshoe_ring": 6.716,
       "Cesium_Man": 15.53,
-      "h2_horseshoe_thin": 6.812,
-      "hat_storm_knit_cap_cap": 7.022,
+      "h2_horseshoe_thin": 6.809,
+      "hat_storm_knit_cap_cap": 7.004,
       "person_church_1_boot_collar": 12.24,
       "person_church_1_boot_collar_line": 12.523,
       "person_church_1_collar": 4.888,
@@ -1330,10 +1330,10 @@
       "portrait_neck": 4.743
      },
      {
-      "barber_horseshoe_ring": 5.913,
+      "barber_horseshoe_ring": 5.908,
       "Cesium_Man": 27.1,
-      "h2_horseshoe_thin": 6.021,
-      "hat_storm_knit_cap_cap": 6.246,
+      "h2_horseshoe_thin": 6.011,
+      "hat_storm_knit_cap_cap": 6.249,
       "person_church_1_boot_collar": 20.039,
       "person_church_1_boot_collar_line": 20.513,
       "person_church_1_collar": 2.775,
@@ -1371,9 +1371,9 @@
       "portrait_neck": 2.267
      },
      {
-      "barber_horseshoe_ring": 4.635,
+      "barber_horseshoe_ring": 4.63,
       "Cesium_Man": 31.762,
-      "h2_horseshoe_thin": 4.573,
+      "h2_horseshoe_thin": 4.571,
       "hat_storm_knit_cap_cap": 4.645,
       "person_church_1_boot_collar": 19.934,
       "person_church_1_boot_collar_line": 20.813,
@@ -1412,9 +1412,9 @@
       "portrait_neck": 3.172
      },
      {
-      "barber_horseshoe_ring": 2.863,
+      "barber_horseshoe_ring": 2.86,
       "Cesium_Man": 18.349,
-      "h2_horseshoe_thin": 2.307,
+      "h2_horseshoe_thin": 2.298,
       "hat_storm_knit_cap_cap": 2.944,
       "person_church_1_boot_collar": 14.041,
       "person_church_1_boot_collar_line": 14.379,
@@ -1453,10 +1453,10 @@
       "portrait_neck": 2.221
      },
      {
-      "barber_horseshoe_ring": 6.802,
+      "barber_horseshoe_ring": 6.796,
       "Cesium_Man": 33.384,
-      "h2_horseshoe_thin": 7.033,
-      "hat_storm_knit_cap_cap": 7.569,
+      "h2_horseshoe_thin": 7.015,
+      "hat_storm_knit_cap_cap": 7.564,
       "person_church_1_boot_collar": 19.046,
       "person_church_1_boot_collar_line": 19.489,
       "person_church_1_collar": 1.915,
@@ -1494,10 +1494,10 @@
       "portrait_neck": 2.456
      },
      {
-      "barber_horseshoe_ring": 3.902,
+      "barber_horseshoe_ring": 3.901,
       "Cesium_Man": 27.935,
-      "h2_horseshoe_thin": 3.92,
-      "hat_storm_knit_cap_cap": 3.961,
+      "h2_horseshoe_thin": 3.918,
+      "hat_storm_knit_cap_cap": 3.96,
       "person_church_1_boot_collar": 18.786,
       "person_church_1_boot_collar_line": 19.451,
       "person_church_1_collar": 4.333,
@@ -1537,9 +1537,9 @@
     ],
     "S": [
      {
-      "barber_horseshoe_ring": 6.488,
+      "barber_horseshoe_ring": 6.474,
       "Cesium_Man": 13.335,
-      "h2_horseshoe_thin": 6.599,
+      "h2_horseshoe_thin": 6.583,
       "hat_storm_knit_cap_cap": 6.87,
       "person_church_1_boot_collar": 10.758,
       "person_church_1_boot_collar_line": 11.021,
@@ -1578,9 +1578,9 @@
       "portrait_neck": 4.575
      },
      {
-      "barber_horseshoe_ring": 5.722,
+      "barber_horseshoe_ring": 5.687,
       "Cesium_Man": 26.465,
-      "h2_horseshoe_thin": 6.01,
+      "h2_horseshoe_thin": 5.984,
       "hat_storm_knit_cap_cap": 6.869,
       "person_church_1_boot_collar": 19.64,
       "person_church_1_boot_collar_line": 20.116,
@@ -1621,8 +1621,8 @@
      {
       "barber_horseshoe_ring": 4.609,
       "Cesium_Man": 33.009,
-      "h2_horseshoe_thin": 4.548,
-      "hat_storm_knit_cap_cap": 4.635,
+      "h2_horseshoe_thin": 4.549,
+      "hat_storm_knit_cap_cap": 4.632,
       "person_church_1_boot_collar": 20.789,
       "person_church_1_boot_collar_line": 21.719,
       "person_church_1_collar": 3.028,
@@ -1660,10 +1660,10 @@
       "portrait_neck": 3.145
      },
      {
-      "barber_horseshoe_ring": 2.762,
+      "barber_horseshoe_ring": 2.766,
       "Cesium_Man": 15.304,
       "h2_horseshoe_thin": 2.682,
-      "hat_storm_knit_cap_cap": 2.718,
+      "hat_storm_knit_cap_cap": 2.688,
       "person_church_1_boot_collar": 12.019,
       "person_church_1_boot_collar_line": 12.291,
       "person_church_1_collar": 3.284,
@@ -1703,8 +1703,8 @@
      {
       "barber_horseshoe_ring": 7.602,
       "Cesium_Man": 28.784,
-      "h2_horseshoe_thin": 7.945,
-      "hat_storm_knit_cap_cap": 9.331,
+      "h2_horseshoe_thin": 7.999,
+      "hat_storm_knit_cap_cap": 9.319,
       "person_church_1_boot_collar": 14.074,
       "person_church_1_boot_collar_line": 14.821,
       "person_church_1_collar": 2.693,
@@ -1742,9 +1742,9 @@
       "portrait_neck": 3.765
      },
      {
-      "barber_horseshoe_ring": 4.888,
+      "barber_horseshoe_ring": 4.852,
       "Cesium_Man": 29.088,
-      "h2_horseshoe_thin": 4.905,
+      "h2_horseshoe_thin": 4.914,
       "hat_storm_knit_cap_cap": 4.99,
       "person_church_1_boot_collar": 19.503,
       "person_church_1_boot_collar_line": 20.226,
@@ -1785,9 +1785,9 @@
     ],
     "SW": [
      {
-      "barber_horseshoe_ring": 5.397,
+      "barber_horseshoe_ring": 5.384,
       "Cesium_Man": 16.333,
-      "h2_horseshoe_thin": 5.507,
+      "h2_horseshoe_thin": 5.495,
       "hat_storm_knit_cap_cap": 5.837,
       "person_church_1_boot_collar": 12.924,
       "person_church_1_boot_collar_line": 13.207,
@@ -1826,10 +1826,10 @@
       "portrait_neck": 3.834
      },
      {
-      "barber_horseshoe_ring": 6.349,
+      "barber_horseshoe_ring": 6.348,
       "Cesium_Man": 26.828,
-      "h2_horseshoe_thin": 6.556,
-      "hat_storm_knit_cap_cap": 7.11,
+      "h2_horseshoe_thin": 6.587,
+      "hat_storm_knit_cap_cap": 7.126,
       "person_church_1_boot_collar": 20.039,
       "person_church_1_boot_collar_line": 20.513,
       "person_church_1_collar": 2.036,
@@ -1867,10 +1867,10 @@
       "portrait_neck": 2.595
      },
      {
-      "barber_horseshoe_ring": 4.222,
+      "barber_horseshoe_ring": 4.224,
       "Cesium_Man": 31.999,
-      "h2_horseshoe_thin": 4.152,
-      "hat_storm_knit_cap_cap": 4.287,
+      "h2_horseshoe_thin": 4.149,
+      "hat_storm_knit_cap_cap": 4.271,
       "person_church_1_boot_collar": 20.011,
       "person_church_1_boot_collar_line": 20.891,
       "person_church_1_collar": 2.856,
@@ -1910,8 +1910,8 @@
      {
       "barber_horseshoe_ring": 3.58,
       "Cesium_Man": 18.012,
-      "h2_horseshoe_thin": 3.575,
-      "hat_storm_knit_cap_cap": 3.687,
+      "h2_horseshoe_thin": 3.578,
+      "hat_storm_knit_cap_cap": 3.688,
       "person_church_1_boot_collar": 13.85,
       "person_church_1_boot_collar_line": 14.18,
       "person_church_1_collar": 4.179,
@@ -1949,10 +1949,10 @@
       "portrait_neck": 2.756
      },
      {
-      "barber_horseshoe_ring": 9.536,
+      "barber_horseshoe_ring": 9.534,
       "Cesium_Man": 33.131,
-      "h2_horseshoe_thin": 9.671,
-      "hat_storm_knit_cap_cap": 9.995,
+      "h2_horseshoe_thin": 9.693,
+      "hat_storm_knit_cap_cap": 10.001,
       "person_church_1_boot_collar": 18.201,
       "person_church_1_boot_collar_line": 18.708,
       "person_church_1_collar": 4.229,
@@ -1990,10 +1990,10 @@
       "portrait_neck": 5.305
      },
      {
-      "barber_horseshoe_ring": 5.334,
+      "barber_horseshoe_ring": 5.294,
       "Cesium_Man": 28.091,
-      "h2_horseshoe_thin": 5.353,
-      "hat_storm_knit_cap_cap": 5.491,
+      "h2_horseshoe_thin": 5.369,
+      "hat_storm_knit_cap_cap": 5.482,
       "person_church_1_boot_collar": 18.798,
       "person_church_1_boot_collar_line": 19.463,
       "person_church_1_collar": 5.398,
@@ -2033,9 +2033,9 @@
     ],
     "W": [
      {
-      "barber_horseshoe_ring": 3.2,
+      "barber_horseshoe_ring": 3.199,
       "Cesium_Man": 17.98,
-      "h2_horseshoe_thin": 3.255,
+      "h2_horseshoe_thin": 3.258,
       "hat_storm_knit_cap_cap": 3.383,
       "person_church_1_boot_collar": 13.904,
       "person_church_1_boot_collar_line": 14.222,
@@ -2074,10 +2074,10 @@
       "portrait_neck": 2.266
      },
      {
-      "barber_horseshoe_ring": 6.617,
+      "barber_horseshoe_ring": 6.616,
       "Cesium_Man": 28.491,
       "h2_horseshoe_thin": 6.631,
-      "hat_storm_knit_cap_cap": 6.784,
+      "hat_storm_knit_cap_cap": 6.807,
       "person_church_1_boot_collar": 21.848,
       "person_church_1_boot_collar_line": 21.995,
       "person_church_1_collar": 2.565,
@@ -2115,10 +2115,10 @@
       "portrait_neck": 2.982
      },
      {
-      "barber_horseshoe_ring": 3.414,
+      "barber_horseshoe_ring": 3.413,
       "Cesium_Man": 27.392,
       "h2_horseshoe_thin": 3.286,
-      "hat_storm_knit_cap_cap": 3.377,
+      "hat_storm_knit_cap_cap": 3.381,
       "person_church_1_boot_collar": 17.482,
       "person_church_1_boot_collar_line": 18.138,
       "person_church_1_collar": 2.787,
@@ -2156,10 +2156,10 @@
       "portrait_neck": 2.575
      },
      {
-      "barber_horseshoe_ring": 4.043,
+      "barber_horseshoe_ring": 4.041,
       "Cesium_Man": 20.427,
-      "h2_horseshoe_thin": 4.049,
-      "hat_storm_knit_cap_cap": 4.105,
+      "h2_horseshoe_thin": 4.05,
+      "hat_storm_knit_cap_cap": 4.11,
       "person_church_1_boot_collar": 15.343,
       "person_church_1_boot_collar_line": 15.717,
       "person_church_1_collar": 4.781,
@@ -2197,10 +2197,10 @@
       "portrait_neck": 3.003
      },
      {
-      "barber_horseshoe_ring": 9.663,
+      "barber_horseshoe_ring": 9.708,
       "Cesium_Man": 36.3,
       "h2_horseshoe_thin": 9.63,
-      "hat_storm_knit_cap_cap": 9.858,
+      "hat_storm_knit_cap_cap": 9.874,
       "person_church_1_boot_collar": 23.803,
       "person_church_1_boot_collar_line": 23.995,
       "person_church_1_collar": 4.99,
@@ -2240,7 +2240,7 @@
      {
       "barber_horseshoe_ring": 5.401,
       "Cesium_Man": 23.967,
-      "h2_horseshoe_thin": 5.409,
+      "h2_horseshoe_thin": 5.41,
       "hat_storm_knit_cap_cap": 5.544,
       "person_church_1_boot_collar": 16.714,
       "person_church_1_boot_collar_line": 17.156,
@@ -2281,10 +2281,10 @@
     ],
     "NW": [
      {
-      "barber_horseshoe_ring": 2.047,
+      "barber_horseshoe_ring": 2.045,
       "Cesium_Man": 19.036,
-      "h2_horseshoe_thin": 1.965,
-      "hat_storm_knit_cap_cap": 2.052,
+      "h2_horseshoe_thin": 1.963,
+      "hat_storm_knit_cap_cap": 2.038,
       "person_church_1_boot_collar": 12.268,
       "person_church_1_boot_collar_line": 12.572,
       "person_church_1_collar": 2.28,
@@ -2322,10 +2322,10 @@
       "portrait_neck": 1.402
      },
      {
-      "barber_horseshoe_ring": 6.481,
+      "barber_horseshoe_ring": 6.495,
       "Cesium_Man": 25.157,
       "h2_horseshoe_thin": 6.424,
-      "hat_storm_knit_cap_cap": 6.573,
+      "hat_storm_knit_cap_cap": 6.557,
       "person_church_1_boot_collar": 20.456,
       "person_church_1_boot_collar_line": 20.338,
       "person_church_1_collar": 2.797,
@@ -2363,7 +2363,7 @@
       "portrait_neck": 2.978
      },
      {
-      "barber_horseshoe_ring": 2.394,
+      "barber_horseshoe_ring": 2.393,
       "Cesium_Man": 19.973,
       "h2_horseshoe_thin": 2.267,
       "hat_storm_knit_cap_cap": 2.107,
@@ -2404,10 +2404,10 @@
       "portrait_neck": 2.359
      },
      {
-      "barber_horseshoe_ring": 4.271,
+      "barber_horseshoe_ring": 4.268,
       "Cesium_Man": 21.417,
-      "h2_horseshoe_thin": 4.233,
-      "hat_storm_knit_cap_cap": 4.295,
+      "h2_horseshoe_thin": 4.232,
+      "hat_storm_knit_cap_cap": 4.296,
       "person_church_1_boot_collar": 13.573,
       "person_church_1_boot_collar_line": 13.914,
       "person_church_1_collar": 4.941,
@@ -2445,10 +2445,10 @@
       "portrait_neck": 3.159
      },
      {
-      "barber_horseshoe_ring": 9.656,
+      "barber_horseshoe_ring": 9.708,
       "Cesium_Man": 30.457,
-      "h2_horseshoe_thin": 9.662,
-      "hat_storm_knit_cap_cap": 9.865,
+      "h2_horseshoe_thin": 9.66,
+      "hat_storm_knit_cap_cap": 9.88,
       "person_church_1_boot_collar": 23.019,
       "person_church_1_boot_collar_line": 22.881,
       "person_church_1_collar": 5.163,
@@ -2488,7 +2488,7 @@
      {
       "barber_horseshoe_ring": 5.135,
       "Cesium_Man": 16.917,
-      "h2_horseshoe_thin": 5.13,
+      "h2_horseshoe_thin": 5.129,
       "hat_storm_knit_cap_cap": 5.158,
       "person_church_1_boot_collar": 14.235,
       "person_church_1_boot_collar_line": 13.998,
@@ -2590,12 +2590,12 @@
   "out": 2,
   "rows": [
    "OK   long side >= floor 96: 125",
-   "OUT  colours >= 2330: 1848",
+   "OUT  colours >= 2330: 1851",
    "OK   top 8 carry <= 11%: 2.0",
    "OUT  value span >= 118: 105",
    "OK   saturation <= 0.81: 0.273",
    "OK   light: top minus bottom >= -2.5: 11.7",
-   "OK   edge between -35 and +7: -18.5",
+   "OK   edge between -35 and +7: -18.6",
    "OK   grain <= 2.22 px a run: 1.75"
   ],
   "craft": [
@@ -2613,12 +2613,12 @@
   "out": 1,
   "rows": [
    "OK   long side >= floor 96: 125",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2250 px): 1848",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2250 px): 1851",
    "OK   top 8 carry <= 11%: 2.0",
    "OUT  value span >= 118: 105",
    "OK   saturation <= 0.81: 0.273",
    "OK   light: top minus bottom >= -2.5: 11.7",
-   "OK   edge between -35 and +7: -18.5",
+   "OK   edge between -35 and +7: -18.6",
    "OK   grain <= 2.22 px a run: 1.75"
   ],
   "reread": [
@@ -2630,7 +2630,7 @@
    109
   ],
   "opaque_px": 2250,
-  "colours": 1848
+  "colours": 1851
  },
  "rig_settings": {
   "engine": "CYCLES",
