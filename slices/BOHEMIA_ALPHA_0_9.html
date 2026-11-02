@@ -5,6 +5,8 @@
 <!-- __SETTINGS_IN_OUR_MATERIALS__ (UI 10/4, [settings and the slider], rules 73, 66): the gear's card dressed in the
      materials, MUSIC / SOUNDS / BRIGHT rows, and BohemiaSettings.open() for RUN's start screen. -->
 <script src="bohemia_ui_materials.js"></script>
+<!-- UI round 3 (11/2, asks 280 261 262): THE FIRST MINUTE in the Crashbox hand: the machine on the loading screen, the picks on tin, the hints switch, the door switching off like an old set -->
+<script src="bohemia_ui_crashbox.js"></script>
 <script src="bohemia_settings.js"></script>
 <!-- __DAMAGE_STAYS__ (CAMP, rule 226): what each man of the company is missing between fights, for the fight's door (nfOpts) and its end (nfOverIn) -->
 <script src="../engine/bohemia_condition.js"></script>
@@ -1573,7 +1575,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zh - THE JOB'S TIME IS TRUE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3zi - THE FIRST MINUTE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12445,6 +12447,7 @@ function nfOpts(d){
   try{ if(d && d.boss && d.boss.kind){ o.boss = d.boss; if(d.boss.board) o.kind = d.boss.board; } }catch(_e){}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): the man and his own board (slices/bohemia_bosses.js) */
   /* __THE_ORIGIN_SETS_THE_COMPANY__ (rule 75a): the company the origin built, and its field cap, to the fight */
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
+  try{ if(window.BohemiaCrashbox && !BohemiaCrashbox.hintsOn()) o.teach = false; }catch(_e){}   /* UI round 3 (ask 262): HINTS OFF on the start screen: the veteran keeps his lessons to himself */
   /* __DAMAGE_STAYS__ (CAMP, rule 226; RUN's [eyes: the dead stand up]): an origin's men carry no names, so the fight named them by
      their place in the list and a man dropped from it moved every man behind him into the dead man's name; each is named once
      by his FIRST place (the fight's own rule, engine/bohemia_condition.js named), so every filter below finds the right man */
@@ -14008,6 +14011,9 @@ document.getElementById('front').addEventListener('click',(ev)=>{
      really loading something. */
   try{ var _f=document.getElementById('front'); _f.classList.remove('load','ready'); }catch(_e){}
   };
+  /* __THE_DOOR_SWITCHES_OFF__ (UI round 3, ask 279/280: nothing pops): the lift is handed to UI's old set switching off (the picture to a line,
+     the line to a dot, one beat, the valley behind it); it lifts at the end, or straight away with reduced motion or without UI's file */
+  var __liftNow = __lift; __lift = function(){ try{ if(window.BohemiaCrashbox && BohemiaCrashbox.doorOut(__liftNow)) return; }catch(_e){} __liftNow(); };
   if(window.__BOHEMIA_DEMO_BUILD && window.requestAnimationFrame) requestAnimationFrame(function(){ requestAnimationFrame(__lift); }); else __lift();
   document.getElementById('app').style.display='flex';
   /* __THE_GAME_IS_THE_FIRST_THING__ -- DEMO BOARD ROW 7, "the cheapest big win on

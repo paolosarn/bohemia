@@ -39,7 +39,9 @@ const DEAD_DRAWS = [/at decodePlayerFrame/, /at mapArtSprite/, /at drawHero/, /a
 const ARM = `(() => {
   if (window.top === window) { const iv = setInterval(() => { const f = document.getElementById('front');
     if (window.__GO_AT) { clearInterval(iv); return; }
-    if (f && window.__LOAD_READY && getComputedStyle(f).display === 'none') window.__GO_AT = Date.now(); }, 8); }
+    if (f && window.__LOAD_READY && getComputedStyle(f).display === 'none') window.__GO_AT = Date.now(); }, 8);
+    /* the BEGIN press itself (UI round 3): the quiet second the next screen opens with is counted from it */
+    window.addEventListener('pointerdown', (e) => { try { const t = document.getElementById('fronttap'); if (!window.__BEGIN_AT && window.__LOAD_READY && t && (e.target === t || t.contains(e.target))) window.__BEGIN_AT = Date.now(); } catch (x) {} }, true); }
   if (window.__CEN) return; const C = window.__CEN = { b: {}, site: new WeakMap(), blocks: 0, blocksAt: null };
   const site = () => { try { return new Error().stack.split('\\n').slice(3, 4).join('').replace(/https?:\\/\\/[^/]+\\//g, '').replace(/\\s+/g, ' ').slice(0, 120); } catch (e) { return '?'; } };
   const ce = Document.prototype.createElement;
@@ -81,6 +83,12 @@ async function one(profile) {
     await page.waitForTimeout(12000);
     await cdpS.send('Page.stopScreencast').catch(() => {}); clearInterval(goPoll);
     const tape = await d.fr.evaluate(() => !!window.__SQUAD_UP).catch(() => false);   /* rule 236: the new game opened on his squad up close */
+    /* UI round 3 (11/2, asks 279/280: nothing pops): BEGIN switches the door off like an old set over one beat, so the door lifts
+       (GO) part way into the quiet first second BEGIN opens (the barber's and the tape's); the frame to compare is the last one still
+       inside that second, never one past it. Without the tape, or with GO after that second, the leg reads as it always did */
+    /* the quiet second BEGIN opens (the barber's QUIET and the tape's QUIET, both 1000 ms: 'nothing happens in the first second') */
+    const beganAt = await page.evaluate(() => window.__BEGIN_AT || 0).catch(() => 0);
+    const tapeQuiet = tape && beganAt ? beganAt + 1000 : 0;
     const t00 = d.bootAt();
     R.goMs = GO ? GO - t00 : null;
     R.titleToGoMs = GO ? GO - t00 : null;
@@ -111,7 +119,9 @@ async function one(profile) {
     if (after.length > 2) {
       const { execFileSync } = require('child_process');
       const dir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'finallook-'));
-      const a = after[0], b = after.filter((f) => f.t >= a.t + (tape ? 600 : 3000))[0] || after[after.length - 1];   /* with the tape, the same scene is its quiet first second */
+      const a = after[0];
+      let b = after.filter((f) => f.t >= a.t + (tape ? 600 : 3000))[0] || after[after.length - 1];   /* with the tape, the same scene is its quiet first second */
+      if (tape && tapeQuiet && b.t > tapeQuiet - 30) { const inQuiet = after.filter((f) => f.t > a.t && f.t <= tapeQuiet - 30); if (inQuiet.length) b = inQuiet[inQuiet.length - 1]; }
       fs.writeFileSync(path.join(dir, 'a.png'), Buffer.from(a.data, 'base64')); fs.writeFileSync(path.join(dir, 'b.png'), Buffer.from(b.data, 'base64'));
       const out = execFileSync('python3', ['-c', `
 import sys, json, numpy as np

@@ -15921,6 +15921,81 @@
     "how": "image",
     "src": "vote/WORDS_THE_KILL_TALLY_11_2.webp"
    }
+  },
+  {
+   "id": "ui-the-first-minute-loading-11-2",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE LOADING SCREEN IS A HANDMADE BROKEN GAME BOX WITH THE TIN ROBOT INSIDE",
+   "said": "the UI, the transitions of the UI, the loading screen bullshit, the whole enchilada... always remember this economic apocalypse HBO Crashbox vibe",
+   "why": "The start screen used to sit still while the game loaded, with no bar. Now there is a plywood box with a rusty tin frame and a cracked screen, and the tin robot you loved stands inside it on the night valley, bobbing on the beat. Under the screen a needle shows how much is really loaded (5 of 6 means 5 of 6), four bulbs step one per beat, and a strip of tape prints what it is loading. Once in a while, on a saved game past day 3, the screen shows something else. When you tap NEW GAME the box drops down beside the bar and the menu folds away. You see it the moment you open the demo.",
+   "before_after": {
+    "before": "BUILD 11/3k: the title, his letters and three choices, nothing moving, no loading shown",
+    "after": "the machine between the letters and the choices: the robot's idle at 12 keys a bar, the needle on the load's own count",
+    "scale": "his phone upright, 390 by 844"
+   },
+   "options": [
+    "A, that's the Crashbox, keep it",
+    "B, right idea, push it weirder",
+    "C, wrong, again"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_FIRST_MINUTE_LOADING_11_2.webp"
+   }
+  },
+  {
+   "id": "ui-the-first-minute-start-screen-11-2",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "11/2",
+   "draft": true,
+   "title": "PICKING YOUR CREW: ONE BIG ORIGIN AT A TIME, ON TIN AND TAPE",
+   "said": "redo the start screen, picking your origin... it sucks",
+   "why": "The pick screen was small boxes and a strip of tiny origin cards. Now it is one screen in the order you need it: your crew's name on tape (tap to type, ANOTHER deals a ready-made one, like Battle Brothers), then WHO YOU WERE as one big card at a time (swipe or the arrows, what you land on is yours, 1 of 15), then the fights, the shelves and the map as rusty tin plates, the one you picked painted gold, and what it does written beside its name. Everything is already picked, so BEGIN works right away. After BEGIN the whole screen switches off like an old TV into the barber.",
+   "before_after": {
+    "before": "BUILD 11/3k: four rows of small boxes, the origins a sideways strip of small cards",
+    "after": "one column: name, one big origin card, three rows of tin plates, the HINTS switch, BEGIN",
+    "scale": "his phone upright, 390 by 844"
+   },
+   "options": [
+    "A, way better, keep it",
+    "B, close, fix something (say what)",
+    "C, wrong, again"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_FIRST_MINUTE_START_11_2.webp"
+   }
+  },
+  {
+   "id": "ui-the-first-minute-hints-11-2",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "PENDING",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE TUTORIAL IS ONE SWITCH: HINTS ON OR OFF",
+   "said": "The tutorial is to toggle at the very beginning... don't go gung ho",
+   "why": "One switch on the pick screen, ON by default. ON: the first time you are on the map, in a town and at camp, your veteran (DESI in a new crew) says one short line beside the phone, his face and mouth moving, then it goes back into the phone; in the first fight the veteran's three lessons play like before. OFF: nobody says anything and the fight lessons are off too. Each line is said once, never in the first seconds, never over another screen.",
+   "before_after": {
+    "before": "no tutorial switch; the fight's three lessons always on",
+    "after": "HINTS ON or OFF on the pick screen; three place lines plus the fight's three, each once",
+    "scale": "his phone upright, 390 by 844"
+   },
+   "options": [
+    "A, right amount, keep it",
+    "B, say less",
+    "C, say more"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_FIRST_MINUTE_HINTS_11_2.webp"
+   }
   }
  ],
  "verdicts": [

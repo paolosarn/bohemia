@@ -79,6 +79,9 @@ const btns = () => [...document.querySelectorAll('#title .bm-start [data-k], #ti
       const ft = await page.evaluate(() => { const r = document.getElementById('fronttap').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
       await page.touchscreen.tap(ft.x, ft.y);
       for (let i = 0; i < 30; i++) { await page.waitForTimeout(200); if (await page.evaluate(() => !!window.__PLAY_BEGAN)) break; }
+      /* UI round 3 (11/2, asks 279/280: nothing pops): BEGIN switches the door off like an old set over one beat (four holds,
+         BohemiaCrashbox.doorOut) before the door's own lift; the leg waits that beat out, two at most, and still wants the door gone */
+      for (let i = 0; i < 10; i++) { if (await page.evaluate(() => getComputedStyle(document.getElementById('front')).display === 'none')) break; await page.waitForTimeout(200); }
       F.f5 = await page.evaluate(() => ({ began: !!window.__PLAY_BEGAN, front: getComputedStyle(document.getElementById('front')).display }));
     } });
   } catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }

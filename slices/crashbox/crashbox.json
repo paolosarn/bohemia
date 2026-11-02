@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "lane": "UI",
+  "what": "THE FIRST MINUTE (UI round 3, 11/2/26): the Crashbox machine on the loading screen, the start screen's picks, the hints toggle. Every number the three read is here (rule: any new number in a data file). Words are draft:true attempts for WORDS.",
+  "ask_lines": [280, 261, 262],
+  "rule": 301,
+  "draft": true,
+  "beat_ms": 500,
+  "beats_per_bar": 4,
+  "keys_per_bar": 12,
+  "robot": {
+    "big":   { "src": "crashbox/robot_idle_s_120.png", "w": 81, "h": 120, "keys": 12 },
+    "small": { "src": "crashbox/robot_idle_s_52.png",  "w": 35, "h": 52,  "keys": 12 },
+    "from": "records/target/master_rig/robot/raw_Idle_S_k00..k11.png (DIRECTION's master-rig robot, the one he loved, 10/17 and 11/2), cropped to its own ink, 64 colours, hard alpha"
+  },
+  "machine": {
+    "min_h": 150, "max_h": 268, "max_w": 358, "gap": 14,
+    "bulbs": 4,
+    "strip_h": 40, "strip_window": 36
+  },
+  "moves": {
+    "hold_ms": 125,
+    "door_hold_ms": 83,
+    "title_out_holds": 3,
+    "door_out_holds": 4,
+    "say_in_holds": 3,
+    "say_out_holds": 3
+  },
+  "wrongness": {
+    "id": "loading_it_comes_closer",
+    "file": "slices/wrongness/wrongness.json",
+    "pictures": ["wrongness/loading_it_comes_closer_1.png", "wrongness/loading_it_comes_closer_2.png", "wrongness/loading_it_comes_closer_3.png"],
+    "one_in": 4,
+    "from_day": 3,
+    "key": "bohemia.wrong.loading",
+    "why_day_3": "the bible's beat 3 (IT KNOWS YOU) comes after the first town is done; a saved game on its third day is the door's honest reading of that. Never on a first load, never two on one screen, never pointed at."
+  },
+  "hints": {
+    "key": "bohemia.hints",
+    "said_key": "bohemia.hints.said",
+    "default_on": true,
+    "quiet_ms": { "map": 8000, "town": 3000, "camp": 3000 },
+    "hold_beats": 8,
+    "type_per_beat": 24,
+    "draft": true,
+    "lines": {
+      "map": "Tap anywhere on the map and we walk there. The clock runs while we walk.",
+      "town": "Tap a building to go in. LEAVE on the phone takes us back out.",
+      "camp": "We heal quicker at camp. The ring on the phone breaks camp."
+    },
+    "toggle": { "title": "HINTS", "on": "ON", "on_sub": "a face tells you, once", "off": "OFF", "off_sub": "no hints" }
+  }
+}
