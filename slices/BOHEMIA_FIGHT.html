@@ -266,6 +266,15 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 #breath{position:fixed;display:none;z-index:3;padding:1px 6px;font-weight:700;font-size:12px;pointer-events:none;color:#cfe4f5;
   background:rgba(20,32,44,.82);border:1px solid #6a8fb0;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);white-space:nowrap}
 #breath svg{vertical-align:-1px;margin-right:3px}
+/* STAMINA SEEN (rule 313): what their blows took off his breath, the breath tag's plate turned rust, a worn misprint under it */
+#winds .wind{position:fixed;z-index:3;padding:1px 6px;font-weight:700;font-size:12px;pointer-events:none;color:#f1c9a4;white-space:nowrap;
+  background:rgba(46,24,14,.86);border:1px solid #9a5a3a;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);text-shadow:1px 0 rgba(160,60,40,.45)}
+#winds .wind svg{vertical-align:-1px;margin-right:3px}
+/* THE HURT TAGS (rule 312): what the picked blow does to every man it will catch, before it fires; the receipt the landed number is */
+#hurts .hurt{position:fixed;z-index:3;padding:1px 5px;font-weight:700;font-size:12px;pointer-events:none;color:#7a3d10;white-space:nowrap;
+  background:var(--mat-receipt,#e2dac6) center/cover;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);transform:rotate(1.5deg)}
+#hurts .hurt.maybe{opacity:.62}
+#winds .wind.held{color:#2a1a10;background:#d89a62;border-color:#5a3018;letter-spacing:.12em;transform:rotate(-2deg)}
 /* ICONS, NOT NUMBERS (rule 224, COMBAT's fight): what comes back next turn is UI's mark (the lungs, a green up arrow and how much);
    the card's armour a bar with the number on it, rounds as rounds, the weapon's reach as tiles, the shield's defences as marks */
 #apn .back{margin-left:5px;display:inline-flex;align-items:center;height:10px;vertical-align:middle}   /* inside the AP line's own 12 px: a taller line grew the bar and broke the wide one-row bar */
@@ -306,6 +315,8 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 <div id="drawer"></div>
 <div id="num"></div>
 <div id="breath"></div>
+<div id="winds"></div>
+<div id="hurts"></div>
 <div id="pick"></div>
 <div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
 <div id="call"><canvas id="callface" width="102" height="102"></canvas><div><b id="callname"></b><span id="callline"></span></div></div>
@@ -1589,12 +1600,9 @@ const FIGHT = (function () {
     standoff();
     S.units.forEach(function (u) {
       if (!onField(u)) return;
-      /* FATIGUE COMES BACK EVERY TURN, AND A REST BRINGS MORE (COMBAT [fatigue comes back every turn], rules 283 and 285, Paolo
-         10/26: 'if I chill out it doesn't go down... if I run out of stamina in a match it's over'): Battle Brothers' 15 every
-         turn, and a man who ended his last turn without spending an AP rested: ours.rest_recovery (30) instead. u.fatBack is what
-         came back, for the breath number on the man and his card */
-      const f0 = u.fat; u.ap = u.apTurn; u.fat = Math.max(0, u.fat - (u.resting ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')));
-      u.fatBack = Math.round(f0 - u.fat); u.restedBack = !!u.resting;
+      /* the breath comes back at the start of HIS turn now (beginTurn, rule 313), Battle Brothers' own words: 'Every character
+         recovers 15 fatigue at the start of his turn' */
+      u.ap = u.apTurn;
       u.waitedLast = u.waited; u.waited = false;
       if (u.morale === 'Fleeing') u.roundsFleeing++;
     });
@@ -1625,13 +1633,27 @@ const FIGHT = (function () {
   function beginTurn(u) {
     /* THE UNDO VETO's memory (rule 176(b)): where his last turn began and whether he did anything in it */
     u.lastTurn = u.turnFrom ? { x: u.turnFrom.x, y: u.turnFrom.y, acted: S.log.slice(u.turnLog).some(function (e) { return e.id === u.id && /^(attack|reload|skill)$/.test(e.t); }) } : null;
+    /* FATIGUE COMES BACK AT THE START OF HIS TURN, AND A REST BRINGS MORE (COMBAT [fatigue comes back every turn], rules 283, 285
+       and 313; Paolo 10/26: 'if I chill out it doesn't go down'; 11/2: 'I do the stamina thing and it still didn't work'):
+       Battle Brothers' 15 at the start of his turn ('Every character recovers 15 fatigue at the start of his turn'), and a man
+       who ended his last turn without spending an AP rested: ours.rest_recovery (30) instead. It came at the start of the ROUND
+       before (MEASURED 11/2: a direwolf at initiative 150 bites after the round's 15 came back and before his turn, so the bites
+       ate the rest and a hidden 'owed' sum held them back and dropped them on him after his next swing: the bar jumped up at the
+       end of the turn after a rest, unseen, and the rest read as not working). Now what they put on him lands the moment they
+       do it, shown, and what comes back comes back the moment his turn opens, after it, so a rest always leaves him 30 under his
+       most. Once a round (WAIT brings his turn back the same round). u.fatBack is what came back, for the breath number */
+    if (u.backRound !== S.round) {
+      u.backRound = S.round;
+      const f0 = u.fat; u.fat = Math.max(0, u.fat - (u.resting ? R('ours.rest_recovery') : R('fatigue.recovery_per_turn')));
+      u.fatBack = Math.round(f0 - u.fat); u.restedBack = !!u.resting; u.fatTaken = 0;
+    }
     u.turnFrom = { x: u.x, y: u.y }; u.turnLog = S.log.length;
     emit({ t: 'turn', id: u.id });
     u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false; u.drifted = false;   /* 'until your next turn' ends here */
     u.raised = 0;   /* THE MECHANIC: Raise Undead 'can be used 2 times a turn' */
     u.walled = false; u.hooked = false; u.rallied = false; u.swung = false;   /* THE SHIELD's wall lasts until his next turn; one hook, one rally a turn */
     if (u.poison > 0) u.ap = Math.max(0, u.ap - NEW('poison').ap);   /* THE NEEDLE (Goblin Poison's page): -1 AP for 3 turns */
-    u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins; what the hits took is owed till it closes */
+    u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
@@ -1643,16 +1665,29 @@ const FIGHT = (function () {
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
   function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u); }
-  /* A REST (rules 283(b), 285(b)): END TURN with no AP spent. The fatigue the hits and blocks put on a resting man is owed, never
-     taken off his rest [COORDINATOR'S DEFAULT, rule 205]: it lands when his next turn that spends closes, after his swing, so one
-     rest always buys the swing the turn after (MEASURED BEFORE: a car door and a spear among three brigands, ending his turn to
-     rest, went 81 -> 83 -> 83 of 83: the hits put back more than the 15 took off, and he never swung again) */
+  /* A REST (rules 283(b), 285(b)): END TURN with no AP spent; at his next turn ours.rest_recovery comes back instead of 15 (MEASURED
+     10/26: a car door and a spear among three brigands, ending his turn to rest, went 81 -> 83 -> 83 of 83 and never swung again).
+     The 'owed' sum that held a resting man's hits back until his next swing is gone (rule 313): the breath now comes back at the
+     start of his turn, after their blows, so a rest always buys the swing the turn after, and nothing lands unseen */
   function restOrNot(u) {
     const rest = u.ap >= u.apTurn && onField(u);
-    if (!rest && u.restOwed) { u.fat = Math.min(fatMax(u), u.fat + u.restOwed); u.restOwed = 0; }
     u.resting = rest; u.lastRest = rest;   /* lastRest outlives the turn it was taken in (the gate, the card) */
   }
-  function tire(t, n) { if (t.resting) t.restOwed = (t.restOwed || 0) + n; else t.fat = Math.min(fatMax(t), t.fat + n); }
+  /* WHAT THEY PUT ON HIS BREATH (COMBAT [stamina fair and seen], rule 313, Paolo 11/2: 'when I was fighting the wolves, they had an
+     attack that took stamina away from me... I didn't like that'): Battle Brothers' numbers a blow at a time (5 struck, 2 dodged
+     or blocked, a mace 10 or 20, a hook or a shove its page's), and at most ours.fatigue_from_them_between_turns between two of
+     his turns, under the 15 that come back: MEASURED 11/2, a pack of direwolves put up to 50 on one man in a round (the 99th in
+     100 rounds 36) against the 15 that came back. Every one lands the moment it is done and is said over him ('fat': how much,
+     why, by whom). Returns what landed */
+  function tire(t, n, why, by) {
+    if (!(n > 0)) return 0;
+    const room = Math.max(0, R('ours.fatigue_from_them_between_turns') - (t.fatTaken || 0)), add = Math.min(n, room), f0 = t.fat;
+    t.fatTaken = (t.fatTaken || 0) + add;
+    t.fat = Math.min(fatMax(t), t.fat + add);
+    const got = Math.round(t.fat - f0);
+    if (got > 0) emit({ t: 'fat', id: t.id, n: got, why: why || 'struck', by: by ? by.id : null });
+    return got;
+  }
   /* WINDED: his own blow costs more breath than he has left (the RECOVER any man may press, rule 283(b)) */
   function winded(u) { return !!(u && u.weapon && u.fat + skillFat(u, strikeSkill(u.weapon)) > fatMax(u)); }
   /* HIS KIT LEAVES NO SWING (rule 283(c)): even rested, his own blow costs more breath than his kit leaves him */
@@ -1799,10 +1834,11 @@ const FIGHT = (function () {
         if (held || !onField(u) || !onField(f)) return;
         const r = resolveAttack(f, u, strikeSkill(f.weapon), { free: true });
         apply(f, u, r, { free: true });
-        if (r.hit) held = true;
+        if (r.hit) held = f;
       });
       if (!onField(u)) { afterAction(u); advance(u); return true; }
-      if (held) { emit({ t: 'held', id: u.id }); break; }
+      /* ZONE OF CONTROL (rules.json zone_of_control; rule 314): a free swing that lands and the walk fails, he stays on the tile */
+      if (held) { emit({ t: 'held', id: u.id, by: held.id, x: u.x, y: u.y }); break; }
       emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: s.x, y: s.y });
       back = { x: u.x, y: u.y }; u.x = s.x; u.y = s.y;
       if (runs(u) && unitAt(u.x, u.y) === u) { freeShot(u); if (!onField(u)) { afterAction(u); advance(u); return true; } }
@@ -2021,20 +2057,27 @@ const FIGHT = (function () {
     if (head && !PK(t, 'steel_brow')) hp *= R('head_and_critical.head_damage_multiplier');
     const ind = t.indomitable ? PK(t, 'indomitable') : null;
     if (ind) { hp *= 1 - ind.damage_reduction_pct / 100; armourHit *= 1 - ind.damage_reduction_pct / 100; }
-    return { armour: armourHit, hp: hp };
+    return { armour: armourHit, hp: Math.max(R('ours.hit_floor_hp'), hp) };   /* NO HIT IS ZERO (rule 314): what lands takes one at least */
   }
   /* THE FIGHT SAYS WHAT IS WEAK (rule 120(b), Paolo 10/18: 'the game doesn't explain to you at all that your weapon sucks'):
      before he commits, what this arm does to this man: the chance, one body blow at the weapon's middle damage (the armour it
      takes, the health it takes), and how many such blows drop him as he stands, his armour wearing down blow by blow */
   function preview(a, t) {
     const w = a.weapon, mid = (w.damage_min + w.damage_max) / (1 + 1), one = hitDamage(a, t, mid, false, t.armB);
-    let hp = t.hp, arm = t.armB, n = 0;
-    while (hp > 0 && n <= t.hpMax) { const b = hitDamage(a, t, mid, false, arm); if (b.hp < 1 && b.armour < 1) { n = Infinity; break; } hp -= Math.floor(b.hp); arm = Math.max(0, arm - Math.floor(b.armour)); n++; }
+    let hp = t.hp, arm = t.armB, n = 0; const arm0 = t.armB;
+    /* his armour worn blow by blow on him while counting, as the real blows wear it (Battle Forged reads what is left: measured
+       11/2, a marauder's count said 21 where the real blows took 20 once no blow could be 0, rule 314) */
+    try { while (hp > 0 && n <= t.hpMax) { t.armB = arm; const b = hitDamage(a, t, mid, false, arm); if (b.hp < 1 && b.armour < 1) { n = Infinity; break; } hp -= Math.floor(b.hp); arm = Math.max(0, arm - Math.floor(b.armour)); n++; } }
+    finally { t.armB = arm0; }
     return { chance: hitChance(a, t).chance, armour: Math.floor(one.armour), hp: Math.floor(one.hp), blows: hp > 0 ? Infinity : n, arm: w };
   }
   /* what a result does to the two men: armour, hitpoints, fatigue, injury, morale, death */
   function apply(a, t, r, opt) {
     opt = opt || {};
+    /* NO HIT IS ZERO (rule 314; the 9/22 law: 'A hit inside reach on the beat lands and costs ONE'): a blow that lands takes at
+       least ours.hit_floor_hp; a miss or a full block is a miss. MEASURED 11/2: 216 of 793 hits in 20 wolf fights and 212 of 621
+       against the heavies took 0 health and said -0 */
+    if (r.hit) r.hp = Math.max(R('ours.hit_floor_hp'), r.hp | 0);
     S.firstBlow = S.firstBlow || S.round; S.lastHitBy = S.lastHitBy || {}; if (r.hit) S.lastHitBy[a.side] = S.round;   /* THE STANDOFF ENDS reads these */
     if (!isRanged(a.weapon)) S.contact = true;
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
@@ -2043,7 +2086,7 @@ const FIGHT = (function () {
     a.lurking = false; a.swung = true;   /* THE CUTTER: the blow shows him; THE SHIELD: a turn he swings he holds no wall */
     if (!r.hit) {
       a.missStack++;
-      if (!isRanged(a.weapon)) tire(t, R('fatigue.on_dodge_or_block'));
+      if (!isRanged(a.weapon)) tire(t, R('fatigue.on_dodge_or_block'), t.shield || t.walled ? 'block' : 'dodge', a);
       return;
     }
     a.missStack = 0;
@@ -2054,7 +2097,7 @@ const FIGHT = (function () {
     a.dealt = (a.dealt || 0) + Math.min(r.hp, Math.max(0, t.hp)); t.taken = (t.taken || 0) + Math.min(r.hp, Math.max(0, t.hp));
     t.hp -= r.hp;
     const mace = R('fatigue.on_struck_by_mace');
-    tire(t, a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck'));
+    tire(t, a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck'), a.weapon.class === 'mace' ? 'mace' : a.weapon.class === 'natural' ? 'bite' : 'struck', a);
     const nl = PK(t, 'nine_lives');
     if (t.hp <= 0 && nl && !t.nineUsed) {
       t.nineUsed = true; t.nineUp = true; t.hp = rint(nl.hitpoints_left_min, nl.hitpoints_left_max);
@@ -2442,7 +2485,7 @@ const FIGHT = (function () {
     u.ap -= H.ap; u.fat += H.fatigue; u.hooked = true;
     const ch = hitChance(u, t).chance + H.hit_bonus, hit = die() <= ch;
     emit({ t: 'skill', id: u.id, skill: 'hook', to: t.id, hit: hit, chance: Math.round(ch) });
-    if (hit) { emit({ t: 'step', id: t.id, fx: t.x, fy: t.y, x: q.x, y: q.y, shoved: true }); t.x = q.x; t.y = q.y; tire(t, H.target_fatigue); }
+    if (hit) { emit({ t: 'step', id: t.id, fx: t.x, fy: t.y, x: q.x, y: q.y, shoved: true }); t.x = q.x; t.y = q.y; tire(t, H.target_fatigue, 'hook', u); }
     afterAction(u); return true;
   }
   /* THE CROSSBOWS: every one of them shoots the man the line's first bolt went at, while he stands and can be hit */
@@ -2453,13 +2496,13 @@ const FIGHT = (function () {
   function shove(u, t) {
     if (S.over || current() !== u || !canShove(u, t)) return false;
     const r = racial(u, 'line_breaker'), q = pushTile(u, t), from = { x: t.x, y: t.y };
-    u.ap -= r.ap; u.fat += r.fatigue; u.shoved = true; tire(t, r.target_fatigue);
+    u.ap -= r.ap; u.fat += r.fatigue; u.shoved = true; tire(t, r.target_fatigue, 'shove', u);
     emit({ t: 'skill', id: u.id, skill: 'line_breaker', to: t.id });
     emit({ t: 'step', id: t.id, fx: t.x, fy: t.y, x: q.x, y: q.y, shoved: true }); t.x = q.x; t.y = q.y;
     const sb = u.shield && racial(u, 'shield_bash');
     if (sb) {   /* the crash-bar: 10-25, half of it on his armour; what the armour cannot hold goes through */
       const dmg = rint(sb.damage_min, sb.damage_max), ar = Math.round(dmg * sb.armor_pct / 100), held = Math.min(t.armB, ar);
-      tire(t, sb.target_fatigue);
+      tire(t, sb.target_fatigue, 'bash', u);
       apply(u, t, { hit: true, head: false, hp: ar - held, armour: held, chance: 100 }, { skill: 'shield_bash' });
     }
     u.hole = from; afterAction(u); return true;
@@ -4303,6 +4346,8 @@ function take() {
     }
     else if (e.t === 'attack' && (e.sweep || e.astray) && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / 4; }
     else if (e.t === 'attack') { swing = { k: 'attack', e: e, dur: beatMs() }; UI.anim.push(swing); }
+    /* STAMINA SEEN (rule 313): the breath a blow, a dodge or a shove took rides the motion that took it, said as it lands */
+    else if (e.t === 'fat') { const host = swing || UI.anim[UI.anim.length - 1]; if (host) (host.fat = host.fat || []).push(e); else windTag(e, 0); }
     else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: e.unplugged ? beatMs() / 4 : beatMs() * NOTE_BEATS[e.t] });   /* his machines drop a sixteenth apart */
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
   });
@@ -4899,6 +4944,7 @@ function startAnim(a) {
   /* a motion begun late (behind the last one's end, a frame, a busy timer) still sends its sounds on their place: SONG.lat
      before the picture's moment, never the late start's */
   const D = a.at - SONG.lat - performance.now(), sd = function (ms) { return Math.max(0, ms + D); };
+  if (a.fat && a.k !== 'attack') a.fat.forEach(function (f) { windTag(f, a.at - performance.now()); });   /* a hook's, a shove's: as it moves him */
   if (a.k === 'attack') { (UI.landDue = UI.landDue || []).push({ due: performance.now() + sd(B * 0.45), land: a.at + B * 0.45, lat: SONG.lat }); if (UI.landDue.length > 240) UI.landDue.shift(); }   /* when the landing's sound is asked for, against its place (the beat gate) */
   if (a.k === 'step') { SND.step(); SND.metal(FIGHT.byId(e.id));
     const span = [a.path[0], a.path[a.path.length - 1]];   /* the walk's two ends, so the walk itself stays on the glass */
@@ -4935,6 +4981,7 @@ function startAnim(a) {
       if (u.side === 'you') t._dodged = (t._dodged || 0) + 1; }
     if (u.side === 'you') t._tried = (t._tried || 0) + 1;
     numTag(t, e.chance + '%', null, a.at - performance.now() + B * 0.45, e.hit ? '-' + e.hp : into ? MISS_MARK.cover : MISS_MARK.dodged, e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
+    (a.fat || []).forEach(function (f) { windTag(f, a.at - performance.now() + B * 0.45 + (f.id === e.to ? 0 : B * 0.25)); });
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
@@ -4961,6 +5008,9 @@ function startAnim(a) {
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'free' && u) { sfx('cloth_on', { side: u.side }); pop(u, 'tears free', '#c9b48a'); }
     if (e.t === 'stuck' && u) pop(u, 'still netted', '#c9b48a');
+    /* ZONE OF CONTROL (rule 314): the free swing landed and the walk failed: HELD over him, and the line says who held him */
+    if (e.t === 'held' && u) { const by = FIGHT.byId(e.by); heldTag(u); pop(u, '', '#e0a070', false, wfill(HELD_SAYS.feed, { by: by ? by.name : 'their man', name: u.name }));
+      if (u.side === 'you' && crewControlled(u)) say(wfill(u.main ? HELD_SAYS.you : HELD_SAYS.him, { by: by ? by.name : 'their man', name: u.name }), true); }
     if (e.t === 'nine') pop(u, perkName('nine_lives'), '#f0d296', true);
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
     /* THE SCREAM (rule 134): his approved tape_pull, the tape dragged through the heads, the Amalgamation's broadcast as act one
@@ -5008,6 +5058,61 @@ function breathOnce(v) {
   el.innerHTML = BREATH_SVG + '+' + v.fatBack; el.style.display = 'block';
   UI.breath = { id: v.id, n: v.fatBack, rest: !!v.restedBack, until: performance.now() + beatMs() * 1.5 };
   (UI.breaths = UI.breaths || []).push({ id: v.id, n: v.fatBack, rest: !!v.restedBack, round: FIGHT.S.round, fat: Math.round(v.fat) }); if (UI.breaths.length > 60) UI.breaths.shift();
+}
+/* STAMINA SEEN (COMBAT [stamina fair and seen], rule 313, Paolo 11/2: 'they had an attack that took stamina away from me... I
+   didn't like that'): every bit of breath the other side takes off a man of his is said over him the moment it lands, the wind
+   glyph, how much and why, in the breath tag's own plate turned rust (taken, where the blue one is given back), a beat and a
+   half; the recap keeps the words. A man of theirs keeps his to the bar (the glass stays his men's) */
+const WIND_SAYS = { struck: 'HIT', bite: 'BITE', mace: 'MACE', dodge: 'DODGE', block: 'BLOCK', hook: 'HOOK', shove: 'SHOVE', bash: 'BASH',
+  feed: '{name} loses {n} breath: {why}.' };   /* draft:true */
+function windTag(f, inMs) {
+  const v = FIGHT.byId(f.id); if (!v || !(f.n > 0)) return;
+  (UI.winds = UI.winds || []).push({ id: f.id, n: f.n, why: f.why, by: f.by, round: FIGHT.S.round }); if (UI.winds.length > 80) UI.winds.shift();
+  feed(wfill(WIND_SAYS.feed, { name: v.name, n: f.n, why: (WIND_SAYS[f.why] || 'HIT').toLowerCase() }), '#9cb7cf');
+  if (v.side !== 'you') return;
+  setTimeout(function () {
+    const box = document.getElementById('winds'); if (!box) return;
+    const el = document.createElement('div'); el.className = 'wind'; el.dataset.id = f.id; el.dataset.why = f.why;
+    el.innerHTML = BREATH_SVG + '-' + f.n + ' ' + (WIND_SAYS[f.why] || 'HIT');
+    el.dataset.until = String(performance.now() + beatMs() * 1.5); box.appendChild(el);
+  }, Math.max(0, inMs || 0));
+}
+/* HELD (rule 314): a free swing landed in the zone and the walk failed; the plate stays a beat and a half over him */
+const HELD_SAYS = { tag: 'HELD', you: '{by}\'s free swing lands. You are held here.', him: '{by}\'s free swing lands. {name} is held here.',
+  feed: '{by}\'s free swing holds {name}.' };   /* draft:true */
+function heldTag(u) {
+  const box = document.getElementById('winds'); if (!box) return;
+  const el = document.createElement('div'); el.className = 'wind held'; el.dataset.id = u.id; el.dataset.why = 'held'; el.textContent = HELD_SAYS.tag;
+  el.dataset.until = String(performance.now() + beatMs() * 1.5); box.appendChild(el);
+  (UI.helds = UI.helds || []).push({ id: u.id, round: FIGHT.S.round, x: u.x, y: u.y });
+}
+function placeWinds() {
+  const box = document.getElementById('winds'); if (!box || !box.firstChild) return;
+  const now = performance.now(), stack = {};
+  Array.from(box.children).forEach(function (el) {
+    const v = FIGHT.byId(el.dataset.id);
+    if (!v || now > Number(el.dataset.until)) { el.remove(); return; }
+    const k = stack[v.id] = (stack[v.id] || 0) + 1;
+    const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - manH();
+    el.style.left = Math.round(X - el.offsetWidth / 2) + 'px'; el.style.top = Math.round(top - 6 - k * (el.offsetHeight + 2)) + 'px';
+  });
+}
+/* THE HURT TAGS (rule 312): over every man the picked blow will catch, before the tap that fires it: his chance and the health
+   one blow takes, on the receipt paper the landed number uses; faint while an arc or a line is not yet aimed */
+function placeHurts() {
+  const box = document.getElementById('hurts'); if (!box) return;
+  const want = (UI.anim && UI.anim.length) ? [] : (UI.hurtShown || []), have = {};
+  Array.from(box.children).forEach(function (el) { have[el.dataset.id] = el; });
+  want.forEach(function (h) {
+    const v = FIGHT.byId(h.id); if (!v) return;
+    let el = have[h.id]; delete have[h.id];
+    if (!el) { el = document.createElement('div'); el.className = 'hurt'; el.dataset.id = h.id; box.appendChild(el); }
+    const txt = h.chance + '% -' + h.hp; if (el.textContent !== txt) el.textContent = txt;
+    el.classList.toggle('maybe', !h.sure);
+    const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - manH();
+    el.style.left = Math.round(X - el.offsetWidth / 2) + 'px'; el.style.top = Math.round(top - el.offsetHeight - 4) + 'px';
+  });
+  Object.keys(have).forEach(function (k) { have[k].remove(); });
 }
 function placeBreath() {
   const el = document.getElementById('breath'); if (!el) return;
@@ -5691,6 +5796,7 @@ function draw(now) {
     }
   }
   /* reach lit: where the active man can step, and who he can hit */
+  UI.hurtShown = [];   /* rule 312: the men the picked blow will catch and what it does to each, rebuilt every frame (placeHurts) */
   if (u && crewControlled(u) && !busy && !S.over && !S.deploy) {
     /* RULE 103, ON THE BOARD: a melee man's ring (the eight tiles round him) is RUST PAINT hatched on the ground, the rings of
        every such man of theirs one patch with one painted edge (it was a red wash and a dashed red box per man, the loudest
@@ -5742,6 +5848,37 @@ function draw(now) {
         if (v && struck.indexOf(v) >= 0) mkCorners(q.x, q.y, MK.rustLit); else if (v && v.side === u.side && v !== u) mkCorners(q.x, q.y, MK.chalkDim); });
       UI.shapeLit = { skill: psk.name, tiles: tiles, struck: struck.map(function (v) { return v.id; }) };
     }
+    /* EVERY ABILITY SHOWS WHERE IT LANDS, BEFORE THE TAP THAT FIRES IT (COMBAT [see every hit], rule 312, Paolo 11/2: 'when I click
+       the round swing and I have a two-handed axe, I should see where the other swings will take damage... this is for
+       everything'): Battle Brothers lights every tile a skill will hit as it is aimed. (1) A blow picked on a man (the strike, a
+       sweep, the shotgun's cone): a hurt tag over every man it will catch, his chance and the health one blow takes (the hit's own
+       sums, FIGHT.preview and hitChance). (2) A sweep armed and not yet aimed: a ring (Round Swing, Thresh) is the same eight tiles
+       whoever is aimed at, so it is lit exactly and every man of theirs in it carries his tag; an arc or a line lights every tile
+       one of its aims would reach, dimmer, its men's tags faint until he picks the man. (3) A skill with no target armed: the men
+       it touches marked teal (him, or the men a rally steadies). Shapes are foe only (rule 117): a friend in one is passed over */
+    if (pt && psk) {
+      const caught = FIGHT.shapeOf(psk) ? FIGHT.shapeFoes(u, pt, psk) : [pt];
+      caught.forEach(function (v) { if (FIGHT.onField(v)) UI.hurtShown.push({ id: v.id, chance: FIGHT.hitChance(u, v, psk).chance, hp: FIGHT.preview(u, v).hp, sure: true }); });
+    } else if (UI.sweep) {
+      const sk = FIGHT.sweepSkill(u.weapon, UI.sweep), row = sk && FIGHT.shapeOf(sk);
+      if (row) {
+        const aims = S.units.filter(function (t) { return t.side !== u.side && FIGHT.onField(t) && FIGHT.sideSees('you', t) && FIGHT.canSweep(u, t, UI.sweep); });
+        const ring = row.kind === 'ring', lit = {}, tiles = [], caught = [];
+        (aims.length ? aims : ring ? [{ x: u.x + 1, y: u.y }] : []).forEach(function (t) {
+          FIGHT.shapeTiles(u, t, sk).forEach(function (q) { const k = q.y * S.w + q.x; if (!lit[k]) { lit[k] = true; tiles.push(q); } });
+          if (t.id) FIGHT.shapeFoes(u, t, sk).forEach(function (v) { if (caught.indexOf(v) < 0) caught.push(v); });
+        });
+        cx.globalCompositeOperation = 'lighter'; cx.fillStyle = MK.lift;
+        tiles.forEach(function (q) { const T = mkTile(q.x, q.y); cx.fillRect(T.x0 * MKU, T.y0 * MKU, (T.x1 - T.x0) * MKU, (T.y1 - T.y0) * MKU); });
+        cx.globalCompositeOperation = 'source-over';
+        mkOutline(lit, S.w, ring ? MK.rustLit : MK.rust, false);
+        aims.forEach(function (t) { mkCorners(t.x, t.y, MK.rustLit); });
+        tiles.forEach(function (q) { const v = S.units.filter(function (w) { return FIGHT.onField(w) && w.x === q.x && w.y === q.y; })[0]; if (v && v.side === u.side && v !== u) mkCorners(q.x, q.y, MK.chalkDim); });
+        caught.forEach(function (v) { UI.hurtShown.push({ id: v.id, chance: FIGHT.hitChance(u, v, sk).chance, hp: FIGHT.preview(u, v).hp, sure: ring }); });
+        UI.shapeLit = { skill: sk.name, armed: true, tiles: tiles, struck: caught.map(function (v) { return v.id; }) };
+      }
+    }
+    if (UI.skillMode && !FIGHT.needsTarget(UI.skillMode)) (UI.skillMode === 'rally_the_troops' ? FIGHT.rallyable(u) : [u]).forEach(function (v) { mkCorners(v.x, v.y, MK.teal); });
     /* the walk he is about to take: chalk dots from his feet to where his feet will be, and his ring there in chalk */
     if (UI.pend && UI.pend.path) {
       const pts = [{ x: u.x, y: u.y }].concat(UI.pend.path).map(function (p) { return [sx((p.x + .5) * UI.tw), sy((p.y + .9) * UI.th)]; });
@@ -5754,6 +5891,9 @@ function draw(now) {
       }
       const e = pts[pts.length - 1];
       mkEllipse(e[0], e[1] + 1, r, r * .36, MK.ink, 'rim'); mkEllipse(e[0], e[1], r, r * .36, MK.chalk, 'rim');
+      /* rule 314: the tile of every free swing on the way, ringed in rust (one that lands holds him there) */
+      (UI.pend.heldAt || []).forEach(function (q) { const X = sx((q.x + .5) * UI.tw), Y = sy((q.y + .9) * UI.th);
+        mkEllipse(X, Y + 1, r * .8, r * .29, MK.ink, 'rim'); mkEllipse(X, Y, r * .8, r * .29, MK.rustLit, 'rim'); });
       /* rule 206(a): past this turn's mark, the rest of the way in dim chalk, sparser, to a dim ring on the tile he picked */
       if (UI.pend.rest && UI.pend.rest.length) {
         const rp = [UI.pend.stop].concat(UI.pend.rest).map(function (p) { return [sx((p.x + .5) * UI.tw), sy((p.y + .9) * UI.th)]; });
@@ -7627,11 +7767,21 @@ cv.addEventListener('wheel', function (e) {
   UI.cx = X - (e.clientX - OX) / z; UI.cy = Y - (e.clientY - OY) / z; clampCam();
 }, { passive: false });
 /* a skill button: one with no target goes at once; one with a target waits for the tap on the board */
+const SELF_SAYS = { adrenaline: 'ADRENALINE: first next round for {name}.', recover: 'RECOVER: {n} breath back for {name}, then the turn ends.',
+  indomitable: 'INDOMITABLE: half the damage on {name} until the next turn.', rally_the_troops: 'RALLY: {n} of yours lit, steadied if they hold.',
+  again: 'Tap it again to use it.' };   /* draft:true */
+function selfSay(u, id) {
+  const n = FIGHT.skillNums(u, id) || {}, back = id === 'recover' ? Math.round(u.fat) - Math.round(u.fat * (1 - (n.fatigue_reduction_pct || 0) / 100)) : id === 'rally_the_troops' ? FIGHT.rallyable(u).length : 0;
+  const t = SELF_SAYS[id] ? wfill(SELF_SAYS[id], { name: u.main ? 'you' : u.name, n: back }) : perkName(id).toUpperCase() + '.';
+  return t + ' ' + SELF_SAYS.again;
+}
 function skillTap(id) {
   audio(); const u = FIGHT.current(); if (!crewControlled(u)) return;
   UI.pend = null; UI.sweep = null;
-  if (UI.skillMode === id) { UI.skillMode = null; say('Put away.'); return; }
-  if (!FIGHT.needsTarget(id)) { FIGHT.useSkill(u, id); UI.skillMode = null; take(); return; }
+  /* EVERY ABILITY SHOWS WHERE IT LANDS (rule 312): a skill with no target is one tap to see (the men it touches lit teal, the line
+     says what it does) and a second tap on its square to do, the way a walk and a blow already are */
+  if (UI.skillMode === id) { UI.skillMode = null; if (!FIGHT.needsTarget(id)) { FIGHT.useSkill(u, id); take(); return; } say('Put away.'); return; }
+  if (!FIGHT.needsTarget(id)) { UI.skillMode = id; say(selfSay(u, id), true); hud(); return; }
   UI.skillMode = id;
   say(id === 'rotation' ? 'Tap the friend to swap places with.' : id === 'taunt' ? 'Tap the man to call over.' : 'Tap the tile to step to. No free swing.');
 }
@@ -7736,6 +7886,9 @@ function tapAt(px, py) {
   UI.drawer = false; document.getElementById('drawer').style.display = 'none';
   if (UI.skillMode) {
     const id = UI.skillMode; UI.skillMode = null;
+    /* a skill with no target armed (rule 312): a tap on a man it touches does it, anywhere else puts it away */
+    if (!FIGHT.needsTarget(id)) { const on = (id === 'rally_the_troops' ? FIGHT.rallyable(u) : [u]).some(function (v) { return v.x === p.x && v.y === p.y; });
+      if (on) { FIGHT.useSkill(u, id); take(); } else { say('Put away.'); hud(); } return; }
     if (!FIGHT.useSkill(u, id, p)) say('Not there.'); else take();
     return;
   }
@@ -7791,21 +7944,25 @@ function ringWord(u, p, path) { return ringAt(u, p.x, p.y).length || (path || []
    the rest dim; the line says how far he gets and the free swings on this turn's part (rule 206(c)) */
 const FAR_SAYS = { far: 'Too far for one turn: {name} walks {n} of the {m} tiles and stops at the mark.', you: 'Too far for one turn: you walk {n} of the {m} tiles and stop at the mark.',
   none: 'Too far: {left} AP left, not enough for a step.' };   /* draft:true */
+/* ZONE OF CONTROL, SAID BEFORE THE WALK (rule 314, Battle Brothers' rule: 'if any of these attacks hit, the move fails'): how
+   many free swings the walk walks into and what one that lands does; the tile each comes on ringed in rust on the walk */
+const SWING_SAYS = { one: '1 free swing on the way: if it lands, {who} held there.', many: '{n} free swings on the way: one that lands holds {who} there.' };   /* draft:true */
+function swingWord(u, n) { return !n ? '' : wfill(n > 1 ? SWING_SAYS.many : SWING_SAYS.one, { n: n, who: n > 1 ? (u.main ? 'you' : 'him') : (u.main ? 'you are' : 'he is') }); }
 function farPreview(u, p, far) {
-  let swings = 0, at = { x: u.x, y: u.y };
-  far.path.slice(0, far.n).forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
-  UI.pend = { tile: p, far: true, stop: far.stop, path: far.path.slice(0, far.n), rest: far.path.slice(far.n), cost: far.cost, swings: swings };
+  let swings = 0, at = { x: u.x, y: u.y }; const heldAt = [];
+  far.path.slice(0, far.n).forEach(function (q) { const z = FIGHT.zocOn(u, at.x, at.y).length; swings += z; if (z) heldAt.push(at); at = q; });
+  UI.pend = { tile: p, far: true, stop: far.stop, path: far.path.slice(0, far.n), rest: far.path.slice(far.n), cost: far.cost, swings: swings, heldAt: heldAt };
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - far.cost;
   const short = sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([ringWord(u, p, far.path.slice(0, far.n)), wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
+  say([ringWord(u, p, far.path.slice(0, far.n)), wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swingWord(u, swings), short].filter(Boolean).join(' '));
 }
 /* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */
 function walkPreview(u, p, f, path) {
   const S = FIGHT.S;
   /* the price of walking past: every tile left inside a man's reach is a free swing */
-  let swings = 0, at = { x: u.x, y: u.y };
-  path.forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
-  UI.pend = { tile: p, path: path, cost: f.best[f.key(p.x, p.y)], swings: swings };
+  let swings = 0, at = { x: u.x, y: u.y }; const heldAt = [];
+  path.forEach(function (q) { const z = FIGHT.zocOn(u, at.x, at.y).length; swings += z; if (z) heldAt.push(at); at = q; });
+  UI.pend = { tile: p, path: path, cost: f.best[f.key(p.x, p.y)], swings: swings, heldAt: heldAt };
   /* what standing there does (rule 59; rule 117b: only where the ground changes something) and what the walk costs in swings;
      the AP and 'tap again' are no longer sentences: the tag on the tile and the big button say WALK and its AP */
   const gs = FIGHT.level(p.x, p.y) ? heightSay(p.x, p.y) : FIGHT.groundSay(p.x, p.y);
@@ -7813,7 +7970,7 @@ function walkPreview(u, p, f, path) {
      AP left after it will not pay for his blow or shot, the line says so before he commits */
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });
   const short = foeSeen && sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
-  say([ringWord(u, p, path), gs || '', swings ? swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '', short].filter(Boolean).join(' '));
+  say([ringWord(u, p, path), gs || '', swingWord(u, swings), short].filter(Boolean).join(' '));
 }
 /* who a finger (or the mouse) at px, py means: the man ON the tile first; a body over an empty tile answers only if it is theirs
    (aim), never one of yours (rule 104a: zoomed out to both teams, your own men's bodies cover the tiles behind them, and those
@@ -7989,7 +8146,7 @@ function frame(now) {
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }
-  try { draw(now); placeTag(); placeBreath(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
+  try { draw(now); placeTag(); placeBreath(); placeWinds(); placeHurts(); placePick(); tickVet(now); hauntTick(); teachNext(); tickCall(now); oddsTick(now); keptTick(); roundSkip(); if (++hudN % 6 === 0) hud(); }
   catch (e) { frameErr(e, now); }
 }
 function frameErr(e, now) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }

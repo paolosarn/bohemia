@@ -1,5 +1,23 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT 3 11/2 (brief from the coordinator: rules 312 to 314, ask lines 305 to 307, 223, 225). SHIPPED (BUILD 11/3x), NOT YET SEEN:
+1. EVERY ABILITY SHOWS WHERE IT LANDS: a hurt tag (chance, -health) over every man a picked blow will catch; Round Swing and Thresh
+   light their eight tiles and tag every man the moment the square is armed; arcs and lines light every reachable tile dim, faint
+   tags, exact once aimed; ADRENALINE, RECOVER, INDOMITABLE, RALLY are two taps (first lights who it touches). Every skill audited
+   (table in the record; 21 weapon skills have no button in the fight).
+2. STAMINA FAIR AND SEEN: the breath comes back at the START of his turn (Battle Brothers), after their blows; the hidden 'owed'
+   sum is gone; their fatigue per blow stays Battle Brothers' but stops at 10 between two of his turns
+   (ours.fatigue_from_them_between_turns, draft); every bit said over the man (-5 BITE, -2 DODGE, -10 MACE...). Wolves: winded
+   turns 50 of 598 -> 0 of 585, the most on one man 50 -> 10.
+3. ZONE OF CONTROL AND NO ZERO: every landed blow takes at least 1 (ours.hit_floor_hp; 278 of 1,126 wolf-fight hits were 0); a
+   free swing that lands says HELD over him and in the line (the stop itself always held); the walk warns and rings the tile.
+   The preview's blow count now wears Battle Forged down as real blows do.
+Gate gates/see_every_hit_gate.js (10/10, --shots, --before); fatigue gate F2 amended. Probe tools/bohemia_combat_see_every_hit_probe_11_2_26.js.
+records/BOHEMIA_COMBAT_SEE_EVERY_HIT_FAIR_STAMINA_ZONE_OF_CONTROL_11_2_26.md; pictures records/combat_see_every_hit_11_2/.
+NEXT: EYES on a phone; TUNING the two drafts; rule 319's two-tile poles get their own preview leg; by-hand fight minutes.
+[bb] tiles light as a skill is aimed; 15 back at the start of his turn; struck 5, maces 10/20, dodged 2; a free attack that hits cancels the move.
+[analog horror] the breath taken is the breath tag's plate turned rust with a misprinted red edge; HELD a crooked strip of hazard tape.
+
 COMBAT 11/2 (brief from the coordinator: the layers, the punch, way more maps; ask lines 251, 264, 266, 252). SHIPPED, NOT YET SEEN:
 1. THE LAYERS (fb7796de, BUILD 11/2x): everything standing south of a man covers him (buildings by outlines read off the block
    pictures into slices/fight_ground/fight_stands.json by tools/bohemia_combat_the_fight_layers_11_2_26.py; cars, walls, sheds,

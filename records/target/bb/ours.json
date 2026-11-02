@@ -1853,5 +1853,21 @@
   "quote": "more maps... it got pretty boring... we need way more maps, way more combat maps",
   "why": "COMBAT [way more fight maps] 11/2. MEASURED: 9 of the 11 city block kinds have one shape (an open row, a row of houses, open, houses, open), so every town and suburb board was the same stripes whatever blocks were dealt: 16 board shapes in 50 deals of a district, 0.97 open blocks a board. THE BOARD HAS A SHAPE: a board of the families listed is cut, after its blocks are dealt, into one of shapes (picked by the deal itself, w its weight, so the fight's dice never move): every slot [column, row] in open becomes the vacant lot (vacant: the suburb block whose houses were never built or were knocked down, bare slabs on the sand, its street on the same line as every other block's), never the slot the place leads with. A vacant lot is never twice the same: its own litter is dealt again on it (the car kept on the street row, the rest moved to other tiles, each rubble piece swapped for another of litter_swap, litter_keep of it kept). Drafts for TUNING and MODS: a modder adds a shape by adding a row.",
   "tuned": false
+ },
+ "hit_floor_hp": {
+  "value": 1,
+  "source": "laws/BOHEMIA_ADDENDUM_THE_FIGHT_IS_BATTLE_BROTHERS_QUICKER_9_22_26.md s4; VAMILY.md rule 314 (Paolo 11/2)",
+  "quote": "A hit inside reach on the beat lands and costs ONE (EVERYTHING COSTS ONE).",
+  "quote_2": "anything where it says zero damage, that's a mess",
+  "why": "COMBAT 3 11/2: a blow that lands takes at least this much health, after the armour and every cut; a miss or a full block stays a miss and says so. Battle Brothers lets armour swallow a whole blow; ours never shows a hit for 0. MEASURED 11/2 before: 216 of 793 hits in 20 wolf fights and 212 of 621 against the heavies took 0 health. TUNING's to tune.",
+  "ours": true
+ },
+ "fatigue_from_them_between_turns": {
+  "value": 10,
+  "source": "VAMILY.md rule 313 (Paolo 11/2); records/target/bb/rules.json fatigue.on_struck, fatigue.on_dodge_or_block, fatigue.on_struck_by_mace (Battle Brothers' per blow, kept)",
+  "quote": "when I was fighting the wolves, they had an attack that took stamina away from me... I'm just trying to run my men and I'm out of stamina... check out how Battle Brothers does it... I didn't like that",
+  "why": "COMBAT 3 11/2 [PROPOSED, TUNING's to tune]: every blow still builds Battle Brothers' fatigue (5 struck, 2 dodged or blocked, 10 and 20 for the maces, a hook or a shove its page's), but what the other side puts on one man between two of his turns stops at 10, two struck blows, under the 15 that come back at his turn, so standing among a pack his breath still comes back and only his own swings spend it. Battle Brothers' fights run 30 to 40 minutes and a pack's drain is spread over them; ours run 2 to 4 (rule 9/29), and MEASURED 11/2 a pack of direwolves put up to 50 on one man in one round (the 99th of 100 rounds 36) against 15 back.",
+  "ours": true,
+  "draft": true
  }
 }

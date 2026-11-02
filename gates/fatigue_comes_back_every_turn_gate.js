@@ -12,8 +12,11 @@
    F1 THE RULES, BY HAND (headless, the live rules): his man in the worst kit (a car door, the heaviest body and helmet, a full
       bag) and in his own light kit, ringed by three, 40 rolled fights each: whenever he is winded he ENDS HIS TURN (a rest), and
       the turn after a rest he can swing, every time; never more than one winded turn running while unhurt;
-   F2 THE NUMBERS: every turn of his that follows a turn that spent, 15 came back (or all he had); after a rest, 30 (or all), the
-      hits and blocks of the rest owed, never off the 30;
+   F2 THE NUMBERS: every turn of his that follows a turn that spent, 15 came back (or all he had); after a rest, 30 (or all).
+      AMENDED 11/2 (COMBAT 3, rule 313: 'I do the stamina thing and it still didn't work'): the breath comes back as HIS turn opens
+      (Battle Brothers' 'at the start of his turn'), after the blows that came before it, and every blow's fatigue lands when it
+      is struck and is said ('fat' events, summed here): his breath at his turn = what he ended on + what was said - 15 (30
+      after a rest), never below 0. The rest's 'owed' sum is gone;
    F3 AUTO: 60 rolled AUTO fights of his crew of three in that kit: no man of his winded more than two turns running while unhurt;
    F4 RECOVER: a winded man by hand may RECOVER (no perk): it halves his fatigue; a man not winded and without the perk may not;
    F5 THE SCREEN (the real fight page, his phone and his computer): at each turn of his the breath tag over him reads what came
@@ -57,8 +60,13 @@ const LIGHT = { body: null, head: null, bag: [] };
           F1.turns++; if (winded) { F1.winded++; run++; F1.longest = Math.max(F1.longest, run); } else run = 0;
           if (end && end.rest && S.round > end.round) {   /* after a rest (his next turn, a new round): exactly the rest came back, the hits of the rest kept apart (owed) */
             F1.afterRest++; if (!winded) F1.swungAfterRest++;
-            F1.rest++; if (Math.abs(v.fat - Math.max(0, end.fat - REST)) > 0.5 || v.fatBack !== Math.round(Math.min(end.fat, REST))) F1.restBad.push(Math.round(end.fat) + '->' + Math.round(v.fat) + ' back ' + v.fatBack + ' (round ' + end.round + '->' + S.round + ', owed ' + (v.restOwed || 0) + ')');
-          } else if (end && S.round > end.round) { F1.back++; if (v.fatBack > BACK || v.fatBack < Math.round(Math.min(end.fat, BACK))) F1.backBad.push(Math.round(end.fat) + ' back ' + v.fatBack); }   /* hits only add, so what came back is the 15 or all he had at the round */
+            /* rule 313: what they put on him since his turn closed landed then and was SAID ('fat'), and the 30 came back as his
+               turn opened, after it: his breath is what he ended on, plus what was said, less the 30 */
+            const took = S.log.slice(end.at).filter(e => e.t === 'fat' && e.id === v.id).reduce((t, e) => t + e.n, 0), pre = end.fat + took;
+            F1.rest++; if (Math.abs(v.fat - Math.max(0, pre - REST)) > 0.5 || v.fatBack !== Math.round(Math.min(pre, REST))) F1.restBad.push(Math.round(end.fat) + '+' + took + '->' + Math.round(v.fat) + ' back ' + v.fatBack + ' (round ' + end.round + '->' + S.round + ')');
+          } else if (end && S.round > end.round) {
+            const took = S.log.slice(end.at).filter(e => e.t === 'fat' && e.id === v.id).reduce((t, e) => t + e.n, 0), pre = end.fat + took;
+            F1.back++; if (Math.abs(v.fat - Math.max(0, pre - BACK)) > 0.5 || v.fatBack !== Math.round(Math.min(pre, BACK))) F1.backBad.push(Math.round(end.fat) + '+' + took + ' back ' + v.fatBack); }
         }
         cur = v;
         if (v === me) {
@@ -69,7 +77,7 @@ const LIGHT = { body: null, head: null, bag: [] };
              no AP spent (the rules' own test) */
           const eFat = v.fat, eRound = S.round;
           if (F.current() === v) F.endTurn(v);
-          end = { fat: eFat, rest: !!v.lastRest, round: eRound };
+          end = { fat: eFat, rest: !!v.lastRest, round: eRound, at: S.log.length };
         } else F.aiStep(v);
         S.events = [];
       }
@@ -79,7 +87,7 @@ const LIGHT = { body: null, head: null, bag: [] };
     '*** F1 ONE REST, THEN A SWING, EVERY KIT *** (rules 283(c), 285(a)): ringed by three, winded, he rests a turn and swings the next, every time',
     F1.fights + ' fights, ' + F1.turns + ' turns of his, winded ' + F1.winded + ', the longest run ' + F1.longest + '; after a rest he could swing ' + F1.swungAfterRest + ' of ' + F1.afterRest);
   leg(F1.back > 20 && F1.rest > 20 && !F1.backBad.length && !F1.restBad.length,
-    '*** F2 THE NUMBERS: ' + BACK + ' BACK EVERY TURN, ' + REST + ' AFTER A REST, THE HITS OF A REST OWED *** (rules 283(a)(b), 285(b))',
+    '*** F2 THE NUMBERS: ' + BACK + ' BACK AT THE START OF EVERY TURN, ' + REST + ' AFTER A REST, AFTER WHAT THEIR BLOWS PUT ON HIM, EVERY ONE SAID *** (rules 283(a)(b), 285(b), 313)',
     F1.back + ' turns after a turn that spent' + (F1.backBad.length ? ' (' + F1.backBad.slice(0, 2).join('; ') + ')' : ' all right') + ', ' + F1.rest + ' after a rest' + (F1.restBad.length ? ' (' + F1.restBad.slice(0, 2).join('; ') + ')' : ' all right'));
   /* F3: AUTO, his crew of three in the heavy kit */
   {
