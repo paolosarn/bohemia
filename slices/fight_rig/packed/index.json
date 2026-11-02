@@ -751,6 +751,12 @@
 "fill": 0.169,
 "packedMB": 3.48
 },
+"robot.webp": {
+"bytes": 727458,
+"decodedMB": 69.84,
+"fill": 0.131,
+"packedMB": 10.24
+},
 "tier_poacher.webp": {
 "bytes": 255868,
 "decodedMB": 15.86,
@@ -789,8 +795,8 @@
 }
 },
 "totals": {
-"decodedMB": 2654.8,
-"packedMB": 432.8,
-"sheets": 131
+"decodedMB": 2724.7,
+"packedMB": 443.0,
+"sheets": 132
 }
 }

@@ -48487,9 +48487,59 @@ function mapPeopleOf(pool, i){
   if (set && MAP_DREW && MAP_DREW.art) MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 1;
   return set;
 }
+/* ==== __THE_ROBOTS_ON_THE_MAP__ (ROBOT [the robots fight], ask 277, Paolo 11/2: 'you made a robot and you didn't even implement it,
+   where did that robot go'). A party the road rolled as THE MECHANIC's crew (ours.road_factions 'machines': his robots and him)
+   walks the map as that crew: his robot in front, DIRECTION's master-rig robot from the fight's own sheet (slices/fight_rig/robot.webp
+   and its small index robot.json, a row a facing: its still, its six-key walk, its twelve-key idle), cut into the map's person frame
+   the way rigSheetSet cuts a man (112 wide, the feet at 93 in 100), so it stands at its own size beside the man behind it, the
+   MECHANIC, a man of the gang it came from. The crew is known from the roll the meet makes (cityHandOver), and kept ==== */
+var MAP_ROBOT = { state: 0, set: null }, MAP_PARTY_CREW = {};
+try { window.MAP_PARTY_CREW = MAP_PARTY_CREW; window.MAP_ROBOT = MAP_ROBOT; } catch (_e) {}
+function mapRobotSet(){
+  if (MAP_ROBOT.state === 2) return MAP_ROBOT.set;
+  if (MAP_ROBOT.state) return null;
+  MAP_ROBOT.state = 1;
+  /* the packed atlas when the demo's cut made it from this very sheet (its bytes; tools/bohemia_run_the_sheets_packed.py): the same
+     pixels at a seventh of the memory (the whole sheet is 9045 x 2024, 73 MB decoded on a phone); else the whole sheet */
+  fetch('fight_rig/robot.json').then(function(r){ return r.json(); }).then(function(m){
+    return fetch('fight_rig/packed/robot.json').then(function(r){ return r.ok ? r.json() : null; }, function(){ return null; })
+      .then(function(pk){ return { m: m, pk: pk && pk.bytes === m.bytes ? pk : null }; });
+  }).then(function(q){
+    var m = q.m, pk = q.pk, T = null, im = new Image();
+    if (pk) { var b = atob(pk.cells); T = new Uint16Array(b.length >> 1); for (var i = 0; i < T.length; i++) T[i] = b.charCodeAt(i * 2) | (b.charCodeAt(i * 2 + 1) << 8); }
+    im.onload = function(){
+      var H = 130, fx = m.foot[0], fy = m.foot[1], set = {};
+      while (Math.round(H * 0.93) < fy) H++;
+      var cut = function(row, col){
+        if (!T) return rigFrame(im, col * m.w, row * m.h, m.w, m.h, 56 - fx, Math.round(H * 0.93) - fy, 112, H);
+        var t = (row * pk.cols + col) * 6;   /* ax ay tx ty tw th: where the cell's pixels went in the atlas, and where they sat in it */
+        return rigFrame(im, T[t], T[t + 1], Math.max(1, T[t + 4]), Math.max(1, T[t + 5]), 56 - fx + T[t + 2], Math.round(H * 0.93) - fy + T[t + 3], 112, H);
+      };
+      m.dirs.forEach(function(d, row){
+        set[d] = { idle: cut(row, m.clips.stand[0]), walk: m.clips.walk.map(function(c){ return cut(row, c); }), breathe: m.clips.idle.map(function(c){ return cut(row, c); }) };
+      });
+      MAP_ROBOT.set = set; MAP_ROBOT.state = 2; try { render(); } catch (_e) {}
+    };
+    im.onerror = function(){ MAP_ROBOT.state = 3; };
+    MAP_ROBOT.packed = !!pk;
+    im.src = pk ? 'fight_rig/packed/' + pk.atlas : 'fight_rig/' + m.file;
+  }).catch(function(){ MAP_ROBOT.state = 3; });
+  return null;
+}
+function mapRobotPartyDraw(p, idx, sx, footY, beat, walkPh){
+  var kq = MAP_PEOPLE_K, fq = mapPartyFace(p), fac = p && p.from && p.from.faction, pn = rigMixNum(p, idx), man = null;
+  try { man = rigMixFor(fac, 'party:' + pn + ':1', pn * 2 + 1) || rigSetOf(fac) || mapPeopleOf('job', pn); } catch (_e) { man = null; }
+  if (man) mapPersonDraw(man, fq, beat + 1, sx + 7 * kq, footY - 2 * kq, walkPh == null ? null : walkPh + 0.5);   /* THE MECHANIC, behind */
+  var lq = mapPersonDraw(MAP_ROBOT.set, fq, beat, sx - 3 * kq, footY + kq, walkPh);   /* his robot, in front */
+  mapFlagDraw(sx - 11 * kq, footY + kq, (lq ? lq.h : 30 * kq) + 8 * kq, mapFactionColour(fac), beat, true);
+  if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.partyPeople += 2; MAP_DREW.art.robots = (MAP_DREW.art.robots | 0) + 1; }
+  return true;
+}
+/* ==== /__THE_ROBOTS_ON_THE_MAP__ ==== */
 function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
   if (rigWaiting()) return true;   /* __THE_MAP_IS_ALL_RIG__: nobody until the 3D people are in */
   if (!mapPeopleOf('job', 0)) return FINAL_ONLY;   /* __ONLY_THE_FINAL_LOOK__: on the demo a failed sheet is nobody, never COOK's old flat mark */
+  if (p && MAP_PARTY_CREW[String(p.id)] === 'machines' && mapRobotSet()) return mapRobotPartyDraw(p, idx, sx, footY, beat, walkPh);   /* __THE_ROBOTS_ON_THE_MAP__ */
   var fac = p && p.from && p.from.faction;
   var rig = null; try { rig = rigSetOf(fac); } catch (_e) { rig = null; }
   if (rig) {   /* __THE_GANGS_WEAR_THE_RIG__ */
@@ -67194,6 +67244,7 @@ function cityHandOver(msg, skin){
   /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): the party is rolled here, once, by the fight's
      own math (slices/bohemia_job_danger.js), so the meet card says what stands on the board and the fight deals that band */
   try{ if(window.BohemiaJobDanger) BohemiaJobDanger.rollInto(msg); }catch(_e){}
+  try{ if(msg && msg.party && msg.party.faction && /^party:/.test(String(msg.why || ''))) MAP_PARTY_CREW[String(msg.why).slice(6)] = msg.party.faction; }catch(_e){}   /* __THE_ROBOTS_ON_THE_MAP__ */
   /* __MEET_BEFORE_YOU_FIGHT__: on the map, the card first; ENGAGE comes back through here with __met */
   try {
     if (MEET.on && MEET.walk > 0 && msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.__met && typeof MODE !== 'undefined' && MODE === 'city') {

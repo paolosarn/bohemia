@@ -1672,6 +1672,76 @@
    "guns": "you_guns.webp",
    "gang": "town",
    "rig": "records/target/combat/rig/person_woman_3/rig.json"
+  },
+  "robot": {
+   "file": "robot.webp",
+   "w": 335,
+   "h": 253,
+   "foot": [
+    167,
+    134
+   ],
+   "height_m": 1.72,
+   "kind": "robot",
+   "rig": "records/target/combat/rig/robot/rig.json",
+   "clips": {
+    "stand": [
+     0
+    ],
+    "walk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "swing": [
+     7,
+     8,
+     9
+    ],
+    "hit": [
+     10,
+     11
+    ],
+    "fall": [
+     12,
+     13,
+     14
+    ],
+    "idle": [
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26
+    ],
+    "aim": [
+     7,
+     8,
+     9
+    ],
+    "carry": [
+     0
+    ],
+    "carrywalk": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "src": "ROBOT [the robots fight] 11/2: DIRECTION's master-rig robot (reference/models/quaternius/RobotExpressive.glb), tools/bohemia_robot_the_robots_fight.py"
   }
  },
  "faces": {
@@ -1777,7 +1847,8 @@
    "person_woman_0",
    "person_woman_1",
    "person_woman_2",
-   "person_woman_3"
+   "person_woman_3",
+   "robot"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"

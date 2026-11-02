@@ -1,0 +1,79 @@
+{
+ "file": "robot.webp",
+ "bytes": 727458,
+ "w": 335,
+ "h": 253,
+ "foot": [
+  167,
+  134
+ ],
+ "dirs": [
+  "S",
+  "SE",
+  "E",
+  "NE",
+  "N",
+  "NW",
+  "W",
+  "SW"
+ ],
+ "clips": {
+  "stand": [
+   0
+  ],
+  "walk": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "swing": [
+   7,
+   8,
+   9
+  ],
+  "hit": [
+   10,
+   11
+  ],
+  "fall": [
+   12,
+   13,
+   14
+  ],
+  "idle": [
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26
+  ],
+  "aim": [
+   7,
+   8,
+   9
+  ],
+  "carry": [
+   0
+  ],
+  "carrywalk": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ "height_m": 1.72,
+ "src": "ROBOT [the robots fight] 11/2: DIRECTION's master-rig robot (reference/models/quaternius/RobotExpressive.glb), tools/bohemia_robot_the_robots_fight.py"
+}

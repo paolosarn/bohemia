@@ -166,7 +166,7 @@
   }
   /* what they are, in a word, from what stands: MEN, or the beasts by their own names */
   var KIND_WORDS = { direwolf: ['DIRE WOLF', 'DIRE WOLVES'], frenzied_direwolf: ['DIRE WOLF', 'DIRE WOLVES'], hyena: ['HYENA', 'HYENAS'], frenzied_hyena: ['HYENA', 'HYENAS'] };   /* draft:true */
-  var FACTION_WORDS = { beasts: ['BEAST', 'BEASTS'], ghosts: ['DEAD ONE', 'DEAD'], machines: ['MACHINE', 'MACHINES'], kids: ['KID', 'KIDS'] };   /* draft:true */
+  var FACTION_WORDS = { beasts: ['BEAST', 'BEASTS'], ghosts: ['DEAD ONE', 'DEAD'], machines: ['ROBOT', 'ROBOTS'], kids: ['KID', 'KIDS'] };   /* draft:true */
   function kindWord(band, faction) {
     var n = band && band.length || 0; if (!n) return 'MEN';
     var words = band.map(function (id) { return KIND_WORDS[id] || null; });

@@ -553,6 +553,9 @@
      "faction_remnants",
      "person_remnants_0"
     ],
+    "robot": [
+     "robot"
+    ],
     "lower_goblin_skirmisher": [
      "faction_colorful",
      "person_colorful_0",
@@ -1236,8 +1239,8 @@
   "value": {
    "names": {
     "necromancer": "MECHANIC",
-    "wiederganger": "MACHINE",
-    "armored_wiederganger": "PLATED MACHINE",
+    "wiederganger": "ROBOT",
+    "armored_wiederganger": "PLATED ROBOT",
     "goblin_skirmisher": "KID",
     "lower_goblin_skirmisher": "KID",
     "goblin_wolfrider": "RUNNER",
@@ -1259,7 +1262,9 @@
     "lower_goblin_skirmisher": "runner",
     "goblin_wolfrider": "runner",
     "orc_warrior": "heavy",
-    "lower_orc_warrior": "heavy"
+    "lower_orc_warrior": "heavy",
+    "wiederganger": "robot",
+    "armored_wiederganger": "robot"
    }
   },
   "source": "records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md (the 9/29 draft; NECROMANCER -> THE MECHANIC is marked his words); VAMILY.md COMBAT [bestiary]",
@@ -1268,6 +1273,50 @@
   "tuned": false,
   "draft": true,
   "look_pools_why": "CHARACTER [the enemies' looks] 10/24 packs its three types on the 3D man into ours.people_looks.band under 'mechanic', 'runner' and 'heavy' (tools/bohemia_character_the_three_enemies.py POOL): the fight wears those the moment they exist, and until then the stand-in looks under each enemy's own id."
+ },
+ "robot": {
+  "value": {
+   "look": "robot",
+   "kinds": [
+    "wiederganger",
+    "armored_wiederganger"
+   ],
+   "rows": {
+    "wiederganger": {
+     "name": "Robot",
+     "hp": 100,
+     "fatigue": null,
+     "resolve": null,
+     "initiative": 45,
+     "melee_skill": 45,
+     "ranged_skill": null,
+     "melee_defense": -5,
+     "ranged_defense": -5,
+     "ap": 6,
+     "armor_head": "0-50",
+     "armor_body": "2-30"
+    },
+    "armored_wiederganger": {
+     "name": "Plated Robot",
+     "hp": 130,
+     "fatigue": null,
+     "resolve": null,
+     "initiative": 45,
+     "melee_skill": 50,
+     "ranged_skill": null,
+     "melee_defense": -5,
+     "ranged_defense": -5,
+     "ap": 6,
+     "armor_head": "20-140",
+     "armor_body": "27-115"
+    }
+   }
+  },
+  "source": "records/BOHEMIA_ROBOT_THE_ROBOTS_FIGHT_11_2_26.md (Paolo 11/2, ask row 277); laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md ('the necromancer is a man reviving his robots'); the numbers are Battle Brothers' Wiederganger and Armored Wiederganger (records/target/bb/enemies.json, each its wiki page), the lesson kept whole",
+  "quote": "One of the first things I was impressed by, graphic wise, art asset wise, was that robot you made that was that Bohemian style... you made a robot and you didn't even implement it, where did that robot go.",
+  "why": "ROBOT [the robots fight] 11/2: THE MECHANIC's machines are his rebuilt robots, DIRECTION's master-rig robot (slices/fight_rig/robot.webp, kind 'robot'). This is the robot's own stat row, read by the fight over the wiki's row of the kind it stands in for (enemyUnit), so a modder or TUNING changes the robot here and nowhere else. A robot never tires and never breaks (fatigue and resolve null, the wiki's own for the dead it replaces); its weapon is still the wiki's gear roll (an iron fist that hits like the club he bolted on: the sprite punches).",
+  "tuned": false,
+  "draft": true
  },
  "road_factions": {
   "value": {

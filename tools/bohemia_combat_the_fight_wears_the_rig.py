@@ -221,6 +221,9 @@ def pack():
     # a pack here keeps them as they are, and their faces after the looks' own
     old = os.path.join(ROOT, OUT, 'fight_rig.json')
     people = {k: v for k, v in (json.load(open(old))['looks'].items() if os.path.exists(old) else []) if v.get('kind') == 'person'}
+    # ROBOT [the robots fight] (11/2, ask 277): THE MECHANIC's robots (tools/bohemia_robot_the_robots_fight.py pack, kind 'robot',
+    # DIRECTION's master-rig robot) are kept as they are, and their face after the people's
+    robots = {k: v for k, v in (json.load(open(old))['looks'].items() if os.path.exists(old) else []) if v.get('kind') == 'robot'}
     for name, kind, src in looks():
         d = os.path.join(ROOT, RENDERS, name)
         if not os.path.exists(os.path.join(d, 'rig.json')): continue
@@ -268,6 +271,10 @@ def pack():
         fp = os.path.join(ROOT, 'records/target/character/barber', name, 'face', 'rest_128.png')
         if os.path.exists(os.path.join(ROOT, OUT, v['file'])) and os.path.exists(fp):
             index['looks'][name] = v; faces.append(Image.open(fp).convert('RGBA').resize((FACE_PX, FACE_PX), Image.BOX)); order.append(name)
+    for name, v in robots.items():
+        if os.path.exists(os.path.join(ROOT, OUT, v['file'])):
+            from bohemia_robot_the_robots_fight import face as robot_face
+            index['looks'][name] = v; faces.append(robot_face()); order.append(name)
     fs = Image.new('RGBA', (FACE_PX * len(faces), FACE_PX), (0, 0, 0, 0))
     for i, f in enumerate(faces): fs.paste(f, (i * FACE_PX, 0))
     # the faces are renders shown at 34 points with no rim: lossy at 85 is a fifth of the lossless bytes (325 KB to 68)

@@ -1,0 +1,118 @@
+{
+ "fight": {
+  "enemies": [
+   {
+    "kind": "necromancer",
+    "name": "MECHANIC",
+    "look": "enemy_mechanic_0.webp",
+    "kindOfLook": "enemy",
+    "hp": 50,
+    "machine": false
+   },
+   {
+    "kind": "wiederganger",
+    "name": "ROBOT",
+    "look": "robot.webp",
+    "kindOfLook": "robot",
+    "hp": 100,
+    "machine": true
+   },
+   {
+    "kind": "wiederganger",
+    "name": "ROBOT",
+    "look": "robot.webp",
+    "kindOfLook": "robot",
+    "hp": 100,
+    "machine": true
+   },
+   {
+    "kind": "wiederganger",
+    "name": "ROBOT",
+    "look": "robot.webp",
+    "kindOfLook": "robot",
+    "hp": 100,
+    "machine": true
+   }
+  ],
+  "result": {
+   "over": true,
+   "result": "won",
+   "round": 6,
+   "drawn": 2829,
+   "clips": {
+    "idle": 1920,
+    "walk": 37,
+    "hit": 159,
+    "swing": 50,
+    "fall": 663
+   },
+   "down": 3
+  },
+  "mid_shot": true,
+  "size": {
+   "robot": {
+    "height_m": 1.72,
+    "cell": [
+     335,
+     253
+    ],
+    "foot": [
+     167,
+     134
+    ]
+   },
+   "man": {
+    "height_m": 1.72,
+    "cell": [
+     144,
+     161
+    ],
+    "foot": [
+     66,
+     110
+    ]
+   },
+   "ruler": {
+    "px": 98,
+    "m": 1.72
+   },
+   "scale": 1.8121572998604711
+  },
+  "robot_clips_drawn": {
+   "idle": 1920,
+   "walk": 37,
+   "hit": 159,
+   "swing": 50,
+   "fall": 849
+  },
+  "robot_draws": 3015,
+  "face_index": 100,
+  "stats_row_read": "records/BOHEMIA_ROBOT_THE_ROBOTS_FIGHT_11_2_26.md (Paolo 11/2, ask row 277); laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md ('the necromancer is a man reviving his robots'); the numbers are Battle Brothers' Wiederganger and Armored Wiederganger (records/target/bb/enemies.json, each its wiki page), the lesson kept whole",
+  "errors": []
+ },
+ "map": {
+  "party": {
+   "id": "Custom:patrol:60,72",
+   "at": [
+    60,
+    72
+   ]
+  },
+  "travelled_ms": 900,
+  "drew": {
+   "robots": 4,
+   "robotSheet": 2,
+   "packed": true,
+   "box": {
+    "x": 249.1,
+    "y": 225.54999999999995,
+    "w": 19.8,
+    "h": 26.400000000000002
+   },
+   "czoom": 0.1666666666666666,
+   "k": 0.55,
+   "mode": "city"
+  },
+  "shot": "records/target/ROBOT_THE_ROBOTS_FIGHT_MAP.png"
+ }
+}

@@ -870,8 +870,17 @@ const FIGHT = (function () {
     for (let t = 0; t < pool.length; t++) { const l = pool[(i + t) % pool.length]; if (!LOOKS_TAKEN || !LOOKS_TAKEN.has(l)) { if (LOOKS_TAKEN) LOOKS_TAKEN.add(l); return l; } }
     return pool[i % pool.length];
   }
+  /* THE ROBOTS FIGHT (ROBOT [the robots fight], ask 277, Paolo 11/2: 'you made a robot and you didn't even implement it, where did
+     that robot go'): THE MECHANIC's machines are his rebuilt robots, DIRECTION's master-rig robot; their own row (ours.robot) is laid
+     over the wiki's row of the kind they stand in for, so the robot's numbers live in one data row a modder can edit */
+  function robotRow(id, r) {
+    const B = DB.ours.robot && DB.ours.robot.value, o = r && B && B.rows && B.rows[id];
+    if (!o) return r;
+    DB.read['ours.robot'] = DB.ours.robot.source;
+    return Object.assign({}, r, o);
+  }
   function enemyUnit(id, i) {
-    const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
+    const r = robotRow(id, DB.enemies.rows.filter(function (e) { return e.id === id; })[0]);
     if (!r) throw new Error('the fight has no enemy row ' + id);
     let gear = (r.gear || []).slice().sort(function () { return rng() - rng(); });
     const kind = DB.ai.kinds[id] ? R('ai.kinds.' + id) : 'line', Ak = DB.ai.archetypes[kind] ? R('ai.archetypes.' + kind) : {};
@@ -6248,7 +6257,12 @@ function chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha) {
   const slot = Math.floor((now - SONG.at) / (beatMs() / 4)), seed = v.id.charCodeAt(v.id.length - 1), px = Math.max(1, Math.round(s));
   const boot = v._rebootAt !== undefined && now - v._rebootAt < beatMs();
   const tic = !boot && v._fallAt === undefined && ghostCoin(slot * 7 + seed, 3) < .14 ? (ghostCoin(slot, seed) < .5 ? -px : px) : 0;
-  const sh = chipSheet(img), sx0 = p.col * L.w, sy0 = (v._face || 0) * L.h;
+  /* ROBOT [the robots fight]: a robot is drawn in its own rust and paint, never the grey wash a man in its place wore; standing, it
+     idles on its own twelve keys (three a beat, the men's grid) */
+  const robot = L.kind === 'robot';
+  if (robot && L.clips.idle && p.clip === 'stand') p = { col: L.clips.idle[Math.floor(Math.max(0, now - SONG.at) / (beatMs() / 3)) % L.clips.idle.length], clip: 'idle' };
+  if (robot) { UI.robotDrawn = (UI.robotDrawn || 0) + 1; UI.robotClips = UI.robotClips || {}; UI.robotClips[p.clip] = (UI.robotClips[p.clip] || 0) + 1; }
+  const sh = robot ? img : chipSheet(img), sx0 = p.col * L.w, sy0 = (v._face || 0) * L.h;
   if (boot) {   /* catching sync: the body in bands, rolled sideways, half there */
     const k = (now - v._rebootAt) / beatMs(), band = Math.max(2, Math.round(s * 4));
     cx.globalAlpha = alpha * (.45 + .55 * k);
