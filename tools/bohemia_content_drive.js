@@ -25,7 +25,7 @@ const OUT = arg('--out', null), DAYS = +arg('--days', 3), JOBS = ['jk-scout-well
   const clearFight = async () => {
     let f = null;
     for (let i = 0; i < 80 && !f; i++) { const h = await page.$('#fightFrame'); if (h) { const c = await h.contentFrame(); if (c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board).catch(() => false)) f = c; } if (!f) await page.waitForTimeout(250); }
-    if (f) { await f.evaluate(() => { FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }).catch(() => {}); R.fights++; }
+    if (f) { await f.evaluate(() => { (FIGHT.S.units || []).forEach(u => { if (u.side === 'them') { u.dead = true; u.hp = 0; } }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }).catch(() => {});   /* theirs down: a won fight, never a walk-away (fightEnd reads the ones still alive as 'ran') */ R.fights++; }
     await waitFor(async () => !(await shellFight()), 20000); await page.waitForTimeout(1500);
   };
   const st = () => fr.evaluate(() => ({ day: loopDay(), min: T.min, at: [city.x, city.y], travel: !!TRAVEL, speed: TRAVEL_SPEED, bats: loopBats(), food: (wagonGet() || {}).food | 0, men: crewCount(),
