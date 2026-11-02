@@ -200,3 +200,18 @@ can have it in your code, whatever code you need to analyze that, but as a visua
 281 EVERY INTERACT BUTTON ON THE PHONE, combat to city (amends 275: the city's and the town's too). UI.
 282 THE RELOAD BUTTON A LOT BIGGER on the phone in the fight (the phone has room). UI.
 283 NO TURN-ORDER STRIP: the 'who is next' visual is removed from the fight's screen; the order stays in the code. UI.
+
+## 10. CONTENT IS THE WHOLE PACKAGE; BOSSES WITH PLACES AND VERBS; WALK OVER THE MOUNTAINS (Paolo 11/2)
+His words: "you have to do a holistic view of content... when I say content I imagine new enemies, new graphics, new things, new
+tools... Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get
+something that helps you interact with the city... a Pocket City 2 design kind of vibe, that's why we made the city how we made it,
+in grids... I should be able to walk over the mountains, you have it like an impenetrable wall, I have to walk around the whole city
+just to get across... that's how Battle Brothers does it, difficult terrain you're just slower... when I say more content I think of
+the whole package, more clothing, more weapons, the whole thing."
+RULE 302: CONTENT MEANS THE WHOLE PACKAGE: enemies, graphics, things, tools, places, bosses, clothing, weapons, events, jobs, quests.
+286 MORE ENEMY TYPES with their own art (ROBOT lane first; then FACTIONS + COMBAT toward the bestiary floor). (with 255)
+287 UNIQUE LOCATIONS AND THEMED BOSSES, EACH HANDING A VERB that works on the city's grid (the 60-boss pillar; Valheim's boss found
+    by a sign; Battle Brothers' legendary locations). BOSSES lane started 11/2: act one's first three, end to end.
+288 MOUNTAINS AND HARD GROUND PASSABLE BUT SLOW, the Battle Brothers way. Added to WORLD round 3 (a trigger into its session).
+289 MORE WEAPONS, ARMOUR AND CLOTHING (the runway look; real brands stay references, never on screen). ARMORY lane, next free slot.
+290 MORE NEW GRAPHICS AND TOOLS across the board (with 267). The cook lanes, by DIRECTION, next free slot.

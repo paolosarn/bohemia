@@ -307,3 +307,8 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 283 | No turn-order strip on the fight screen (the order stays in the code) | 297 | UI | RECORDED: note 9 |
 | 284 | MORE CONTENT: more to do in act one (road events, jobs, side quests), "I want more content for the game, more content" (Paolo 11/2) | 297 | CONTENT lane | RUNNING (CONTENT lane started 11/2): 25+ road events, 8+ job kinds, 5+ quests from the library |
 | 285 | THE MAP CLEANED UP: freeways look like freeways, streets join properly, more detail the closer you zoom (one map that sharpens, never a second map underneath; "find out how other games do it") (Paolo 11/2) | 300 | WORLD (round 3) | RUNNING (WORLD 3 started 11/2) |
+| 286 | More enemy types with their own art | 302 | ROBOT, FACTIONS, COMBAT | RECORDED: note 10: note 10 |
+| 287 | Unique locations and themed bosses, each handing a verb that works on the city grid | 302 | BOSSES lane | RUNNING (BOSSES started 11/2: act one first three): note 10 |
+| 288 | Mountains and hard ground passable but slow, the Battle Brothers way | 302 | WORLD round 3 | RUNNING (added to WORLD 3 by trigger): note 10 |
+| 289 | More weapons, armour and clothing | 302 | ARMORY lane | QUEUED: next free slot: note 10 |
+| 290 | More new graphics and tools across the board | 302 | DIRECTION, COOK lanes | QUEUED: next free slot: note 10 |
