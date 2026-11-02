@@ -134,3 +134,26 @@ be missing... try to use a brain... be creative... any blind spots for the whole
      splitting it would make every future change cheaper and safer.
   K. COMING BACK AFTER A WEEK (design): a short 'previously' when he returns, so a 100-hour game survives real life.
   L. FIRST LOAD ON A PHONE (job): the demo link on cellular: how long until it plays; the phone getting hot.
+
+## 6. ONLY THE MUTED BEAT; THE MAP GLIDES; THE ZOOM IS ONE ZOOM; NO AI SLOP; THE PHONE HOLDS THE BUTTONS
+His words: "The beat with no sound... the beat has to be visible too, like a pulse on screen. This was your only good suggestion.
+The rest were dog shit or not a priority right now especially for the demo... on the map more things to glide, it feels like
+nothing on the map is gliding... when you're reversing on the map it moves block by block at a time... I want things to look less
+choppy... the transition of the camp to when time passes by and an enemy wants to attack you, it's just like sloppy quick
+bullshit... less AI slop, make things that don't look like AI made it... if it's something to be clickable I want as many buttons
+on the phone as possible... when I zoom in even more on the map then I just see a re-printed out combat map... a weird angle... why
+can't the graphics just get better as you zoom in, why does it have to enter a whole second map mode... very annoying... I'm really
+proud of our progress... do you have everything you need and understood... to make this week as token efficient as possible, not
+compromising any quality or intelligence of an agent."
+- RULED: of the coordinator's blind spots ONLY the muted beat stands (line 270, cut to the seen pulse). Lines 268, 269, 271 and
+  proposals E to L of note 5 are PARKED by his word (not for the demo, not this week); they stay written, nothing is built.
+Jobs (ask lines 272 to 276):
+272 THE MAP GLIDES: the party marker, the roaming parties and the reverse all move smoothly between cells, never block by block
+    (the third votes' 'movement GLIDES'). WORLD.
+273 THE MOMENTS BETWEEN ARE NOT SLOPPY: camp, time passing, an enemy coming to attack: each a deliberate, readable transition with
+    weight, never a quick cut. MOTION + UI + WORLD.
+274 NO AI SLOP: nothing looks AI-made; DIRECTION judges every piece against hand-made work before it ships. DIRECTION.
+275 EVERY CLICKABLE LIVES ON THE PHONE where it can (with line 265). UI.
+276 ONE ZOOM, NO SECOND MAP MODE: pinching in on the map must not swap to a re-printed fight board at another angle; the same world
+    gets more detailed the closer you go (the Pocket City 2 zoom range, 9/30; the first votes' 'one game mode, no teleport').
+    WORLD + UI.
