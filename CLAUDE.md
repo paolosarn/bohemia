@@ -7,6 +7,9 @@ rules live there and change there. Then find your section by this chat's number
 and name and do your job exactly as that page says. Paolo never pastes anything
 and never explains; the one word is the whole instruction. ***
 
+*** THE COORDINATOR (and any chat deciding what comes next) READS records/BOHEMIA_THE_FINISH_LINE_AND_THE_ROAD_11_2_26.md FIRST
+(Paolo 11/2, LOCKED: the whole finished game, the road to it in stages, who is who, and how the studio spends tokens). ***
+
 ## THE PILLARS, IN ONE BREATH (the long form is laws/BOHEMIA_LAWS_MASTER_9_4_26.md)
 THERE ARE NO RUNS. A full game, ~100 hours, three generations that INHERIT (Gen 1
 Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo 9/7; the player lives all three, AND FROM 9/23 ALL THREE AT ONCE: he flips between them and the future is computed from the past, laws/BOHEMIA_LAW_THE_THREE_ACTS_AT_ONCE_9_23_26.md). 60 mini bosses, each

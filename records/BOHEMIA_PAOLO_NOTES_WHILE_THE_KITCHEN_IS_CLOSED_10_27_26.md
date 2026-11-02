@@ -157,3 +157,18 @@ Jobs (ask lines 272 to 276):
 276 ONE ZOOM, NO SECOND MAP MODE: pinching in on the map must not swap to a re-printed fight board at another angle; the same world
     gets more detailed the closer you go (the Pocket City 2 zoom range, 9/30; the first votes' 'one game mode, no teleport').
     WORLD + UI.
+
+## 7. WHO THE COORDINATOR IS, THE WHOLE ROAD, AND GO (Paolo 11/2)
+His words (the core): "imagine if you were playing GTA but then you just zoom the map all the way out and then you can click where
+you wanna go... or Stardew Valley... if I do zoom in all the way, what's the traversing gonna be like... Project Zomboid vibes...
+not wasting a single token... wasting tokens that aren't going to be able to support us months from now doing effort in places
+that we're not quite sure on... always know what has to happen next... I want a whole campaign... being able to screen record the
+gameplay and interactions... when this game is live you gotta download it as an app first off on phone and then through any game
+publisher... hosted by a published game corporation like Armor Games... You can start running the most important robots
+efficiently token wise... do you even know who you are to me and in relation to the game... I need you to be better."
+- Written: records/BOHEMIA_THE_FINISH_LINE_AND_THE_ROAD_11_2_26.md (rules 299, 300); CLAUDE.md points every coordinator to it.
+- The capture tool for gameplay reels is part of the campaign plan made WITH him (rule 298), not started.
+- The brown town, measured 11/2 on a computer (Chromium, phone size): Anarchists, Church, Remnants and Mob draw whole on day 1 and
+  at 22:00 of day 2; not reproduced. It is an iPhone-only failure (Safari's engine); most likely the phone running out of picture
+  memory after long play. Needs his phone to confirm; stays at the top.
+- GO given for the most important lanes, token-efficient.
