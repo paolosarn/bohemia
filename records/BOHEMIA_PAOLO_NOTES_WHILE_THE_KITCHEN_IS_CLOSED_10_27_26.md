@@ -100,3 +100,37 @@ Jobs (ask lines 259 to 267):
     SOUNDS, MOTION, CAMP.
 267 MORE GRAPHIC ASSETS across the board, cleanup and polish, fewer bugs before the demo goes live (placeholders OK meanwhile). COOK
     lanes, EYES, PLUMBER.
+
+## 5. THE TUTORIAL IS A TOGGLE; THE MAIN QUEST WAITS; FINISH WHAT IS HALF-BAKED; THINK ABOUT THE WHOLE GAME
+His words: "The tutorial is to toggle at the very beginning the demo will, don't go gung ho. Don't do anything for the main quest
+yet bro like that's a whole thing. Yeah, please anything that you were doing before that like has holes in it I didn't notice...
+some features that are just like half baked and not fully implemented. There's a lot... I can't name everything to you... when I
+have days like that I run up the whole usage for the week so do important things. Do you have any ideas of anything that we could
+be missing... try to use a brain... be creative... any blind spots for the whole game, not just for some 30 second conversation."
+- AMENDS line 262: the tutorial is ONE TOGGLE at the very start (on or off), in the demo; small, not a big system.
+- AMENDS line 263: THE MAIN QUEST IS ON HOLD: nothing is built, drafted or offered until he opens that conversation.
+- AMENDS line 260: the half-baked features he never named are the coordinator's to find (the ask list's HALF / A HOLE / NOT SEEN
+  rows first) and finish; he should not have to name them.
+- The coordinator's whole-game blind spots, given in the reply (PROPOSALS, not jobs, except where marked):
+  A. SAVES (job, cheap, protects 100 hours): Safari on iPhone erases a site's saved data after 7 days of not opening it, unless the
+     game is added to the home screen; one save version number with an upgrade step every build (the hire bug was this class);
+     a backup copy and an export/import save code.
+  B. THE GAME REPORTS ITS OWN BUGS (job, cheap, saves his tokens): a 'copy bug report' on the phone (the build, the screen, the
+     last errors, the save) he or a friend pastes; today every bug costs him a live session of notes.
+  C. THE BEAT WITH THE SOUND OFF AND WITH AIRPODS (job, cheap): many phone players play muted, so the 120 BPM beat must be seen
+     (a pulse); Bluetooth headphones lag 150 to 300 ms, so the beat needs a calibration setting; a call or a locked screen pauses
+     the fight and the beat resumes clean.
+  D. COLOUR-BLIND READS (job, cheap): 'colour is territory' fails for colour-blind players; every faction also carries a shape or
+     pattern.
+  E. WHAT YOU CAN LOSE (design, his): the main character never dies; the tension curve needs a real stake when things go wrong.
+  F. THE FLIP MUST SHOW CAUSE AND EFFECT (design): when the past changes the future the player must SEE it change, or the biggest
+     system reads as random.
+  G. HOUR 10, 30, 60 (design): Battle Brothers keeps the late game alive with world crises; ours could be the economy itself
+     (a bank run, a battery shortage, the batteries losing charge in the stash as real batteries do: money that rots).
+  H. THE NAME (his alone, identity): 'Bohemia' is also Bohemia Interactive, the studio behind Arma and DayZ: search and trademark.
+  I. LICENCES (before money): a ledger of every downloaded asset pack's licence; real brand and casino names stay references,
+     never on screen.
+  J. THE BIG FILE (engineering): the map file is ~90,000 lines; every chat that reads it burns tokens and risks breaking it;
+     splitting it would make every future change cheaper and safer.
+  K. COMING BACK AFTER A WEEK (design): a short 'previously' when he returns, so a 100-hour game survives real life.
+  L. FIRST LOAD ON A PHONE (job): the demo link on cellular: how long until it plays; the phone getting hot.
