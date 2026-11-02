@@ -324,3 +324,10 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 300 | (said again) A job's time is the WHOLE job from the yes to the pay: the walk, its own time there (a hold, a wait, a search, the fight, the nights), the way back; 48 hours says 2 days | 307 | WORLD (round 4), EYES | RUNNING (sent into WORLD 4 11/2) |
 | 301 | At a glance: do I come back to be paid, or is it paid out there (first on the line, its own colour, an icon, the words) | 308 | WORLD (round 4), UI, EYES | RUNNING (sent into WORLD 4 11/2) |
 | 302 | Haptic feedback: the phone vibrates, a controller rumbles, the app's own haptics later; sparse, matched to what is seen and heard; a setting to turn it off | 309 | FEEL lane, EYES (a real phone) | RUNNING (FEEL started 11/2) |
+| 303 | Walk over the mountains now (slower, never refused), and the real roads through every pass out of Vegas on the map | 310 | WORLD 3 | RUNNING (sent into WORLD 3 11/2) |
+| 304 | Hold the play button to slide the travel speed (regular to fastest), our default, the music stays on the beat | 311 | WORLD 5 | RUNNING (WORLD 5 started 11/2) |
+| 305 | Every ability shows every tile it will hit and the hurt there before it fires (the round swing first), checked for every skill | 312 | COMBAT 3 | RUNNING (COMBAT 3 started 11/2) |
+| 306 | Stamina fair and seen: the wolves drained it, the rest did not bring it back; check against Battle Brothers | 313 | COMBAT 3 | RUNNING (COMBAT 3 started 11/2) |
+| 307 | Zone of control matters: a free strike that hits stops the move, and no hit is ever zero | 314 | COMBAT 3 | RUNNING (COMBAT 3 started 11/2) |
+| 308 | (said a third time) Be honest about how long a job takes, the travel too | 307 | WORLD 4 | RUNNING (WORLD 4) |
+| 309 | (a bug) A fight that should have started opened the crew screen instead: find it and kill it | - | PLUMBER | RUNNING (PLUMBER started 11/2) |
