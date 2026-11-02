@@ -331,3 +331,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 307 | Zone of control matters: a free strike that hits stops the move, and no hit is ever zero | 314 | COMBAT 3 | RUNNING (COMBAT 3 started 11/2) |
 | 308 | (said a third time) Be honest about how long a job takes, the travel too | 307 | WORLD 4 | RUNNING (WORLD 4) |
 | 309 | (a bug) A fight that should have started opened the crew screen instead: find it and kill it | - | PLUMBER | RUNNING (PLUMBER started 11/2) |
+| 310 | The victory screen: a surviving man says how it went (per enemy kind and how it went), morbid funny like real killers, replacing YOU WON | 315 | WORDS (VOICES) | RUNNING (VOICES started 11/2) |
+| 311 | Every man's kills and the strongest foe he killed (Battle Brothers), on the crew screen and a long press of him on the phone | 316 | WORDS (VOICES), CHARACTER | RUNNING (VOICES started 11/2) |
+| 312 | The tooltips need work: a long press on anything says what it is, in plain words (Battle Brothers' text on hover) | 316 | UI (next round) | QUEUED |
