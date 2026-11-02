@@ -1,0 +1,223 @@
+[
+ {
+  "faction": "house",
+  "kind": "ruin",
+  "stood": [
+   {
+    "kind": "house_shield",
+    "name": "SHIELD",
+    "look": "faction_remnants",
+    "weapon": "Military Pick",
+    "shield": "Old Wooden Shield",
+    "hp": 70
+   },
+   {
+    "kind": "house_shield",
+    "name": "SHIELD",
+    "look": "person_remnants_0",
+    "weapon": "Morning Star",
+    "shield": "Wooden Shield",
+    "hp": 70
+   },
+   {
+    "kind": "house_shield",
+    "name": "SHIELD",
+    "look": "person_remnants_1",
+    "weapon": "Military Pick",
+    "shield": "Wooden Shield",
+    "hp": 70
+   },
+   {
+    "kind": "house_hook",
+    "name": "HOOK",
+    "look": "person_blues_2",
+    "weapon": "Billhook",
+    "shield": null,
+    "hp": 70
+   },
+   {
+    "kind": "house_crossbow",
+    "name": "CROSSBOW",
+    "look": "faction_trades",
+    "weapon": "Crossbow",
+    "shield": null,
+    "hp": 60
+   },
+   {
+    "kind": "house_crossbow",
+    "name": "CROSSBOW",
+    "look": "person_trades_0",
+    "weapon": "Crossbow",
+    "shield": null,
+    "hp": 60
+   }
+  ],
+  "moves": {
+   "shieldwall": 3
+  },
+  "round": 3,
+  "over": false,
+  "result": null,
+  "errors": []
+ },
+ {
+  "faction": "watch",
+  "kind": "suburb",
+  "stood": [
+   {
+    "kind": "watch_captain",
+    "name": "CAPTAIN",
+    "look": "faction_church",
+    "weapon": "Military Cleaver",
+    "shield": "Kite Shield",
+    "hp": 70
+   },
+   {
+    "kind": "watch_neighbor",
+    "name": "NEIGHBOR",
+    "look": "person_volunteers_0",
+    "weapon": "Pitchfork",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "watch_neighbor",
+    "name": "NEIGHBOR",
+    "look": "person_volunteers_1",
+    "weapon": "Wooden Stick",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "watch_neighbor",
+    "name": "NEIGHBOR",
+    "look": "person_volunteers_2",
+    "weapon": "Pitchfork",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "watch_neighbor",
+    "name": "NEIGHBOR",
+    "look": "faction_colorful",
+    "weapon": "Pickaxe",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "watch_neighbor",
+    "name": "NEIGHBOR",
+    "look": "person_colorful_0",
+    "weapon": "Pitchfork",
+    "shield": null,
+    "hp": 50
+   }
+  ],
+  "moves": {
+   "rally_the_troops": 2,
+   "flees": 2
+  },
+  "round": 3,
+  "over": false,
+  "result": null,
+  "errors": []
+ },
+ {
+  "faction": "keepers",
+  "kind": "scrub",
+  "stood": [
+   {
+    "kind": "keeper_feral",
+    "name": "FERAL",
+    "look": "faction_homeless",
+    "weapon": "Head Chopper",
+    "shield": null,
+    "hp": 110
+   },
+   {
+    "kind": "keeper_thrall",
+    "name": "KEEPER",
+    "look": "person_anarchists_0",
+    "weapon": "Bundle of Throwing Axes",
+    "shield": null,
+    "hp": 70
+   },
+   {
+    "kind": "keeper_thrall",
+    "name": "KEEPER",
+    "look": "person_anarchists_1",
+    "weapon": "Bundle of Throwing Axes",
+    "shield": null,
+    "hp": 70
+   },
+   {
+    "kind": "keeper_thrall",
+    "name": "KEEPER",
+    "look": "person_anarchists_2",
+    "weapon": "Bundle of Throwing Axes",
+    "shield": null,
+    "hp": 70
+   }
+  ],
+  "moves": {
+   "adrenaline": 5
+  },
+  "round": 3,
+  "over": false,
+  "result": null,
+  "errors": []
+ },
+ {
+  "faction": "water",
+  "kind": "strip",
+  "stood": [
+   {
+    "kind": "water_cutter",
+    "name": "CUTTER",
+    "look": "faction_caravans",
+    "weapon": "Butcher's Cleaver",
+    "shield": "Adarga Shield",
+    "hp": 55
+   },
+   {
+    "kind": "water_cutter",
+    "name": "CUTTER",
+    "look": "person_caravans_0",
+    "weapon": "Butcher's Cleaver",
+    "shield": "Adarga Shield",
+    "hp": 55
+   },
+   {
+    "kind": "water_cutter",
+    "name": "CUTTER",
+    "look": "person_caravans_1",
+    "weapon": "Saif",
+    "shield": null,
+    "hp": 55
+   },
+   {
+    "kind": "water_needle",
+    "name": "NEEDLE",
+    "look": "enemy_runner_3",
+    "weapon": "Boondock Bow",
+    "shield": null,
+    "hp": 50
+   },
+   {
+    "kind": "water_needle",
+    "name": "NEEDLE",
+    "look": "enemy_runner_0",
+    "weapon": "Boondock Bow",
+    "shield": null,
+    "hp": 50
+   }
+  ],
+  "moves": {
+   "poisoned": 3
+  },
+  "round": 3,
+  "over": false,
+  "result": null,
+  "errors": []
+ }
+]
