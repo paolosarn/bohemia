@@ -250,7 +250,7 @@ def ship(towns_, sides):
             hot, boxes = T.taps_tall(town, meta)
             e = man['towns'].setdefault(town['name'], {})
             e['tall_' + sd] = dict(src=src, night_src=nsrc if have_night else src, px=[T.TW, T.TH + EXT], hotspots=hot, boxes=boxes,
-                                   doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, T.TW, T.TH), zoom_max=T.ZOOM[town['tier']],
+                                   doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, T.TW, T.TH), zoom_max=T.ZOOM[town['tier']], lot=bool(meta.get('lot_cells')),   # ask line 253: the old lot is drawn into this town's ground (the plan's corner and the ground south of it)
                                    **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town', 'organic': True}}))
             if meta.get('taps_in_pad'): print('  NOTE', key, 'keeps', meta['taps_in_pad'], 'in the corner: shipped without the phone ground (the screen lifts it clear)', flush=True)
             bl = sorted({tuple(o['box']) for o in meta['outlines']})

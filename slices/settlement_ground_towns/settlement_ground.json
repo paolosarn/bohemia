@@ -1639,11 +1639,13 @@
      ]
     },
     "zoom_max": 2.0,
+    "lot": true,
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    },
    "tall_right": {
@@ -1796,11 +1798,13 @@
      ]
     },
     "zoom_max": 2.0,
+    "lot": true,
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    }
   },
@@ -3283,11 +3287,13 @@
      ]
     },
     "zoom_max": 2.0,
+    "lot": true,
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    },
    "tall_right": {
@@ -3440,11 +3446,13 @@
      ]
     },
     "zoom_max": 2.0,
+    "lot": true,
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    }
   },
@@ -5048,11 +5056,13 @@
      ]
     },
     "zoom_max": 2.5,
+    "lot": true,
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    },
    "tall_right": {
@@ -5205,11 +5215,13 @@
      ]
     },
     "zoom_max": 2.5,
+    "lot": true,
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    }
   },
@@ -6890,11 +6902,13 @@
      ]
     },
     "zoom_max": 2.5,
+    "lot": true,
     "phone_ground": {
      "side": "left",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    },
    "tall_right": {
@@ -7047,11 +7061,13 @@
      ]
     },
     "zoom_max": 2.5,
+    "lot": true,
     "phone_ground": {
      "side": "right",
      "top": 1262,
      "width": 410,
-     "note": "rule 291: below top, within width of the phone side, plain ground"
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
     }
    }
   },
@@ -8719,6 +8735,317 @@
      ]
     },
     "note": "THE GLIDE (rule 289(b)): on a turn every piece slides from its spot in the old composition to its spot in the new one in one beat, eased; a piece's roles are the taps it is; a tap in taps is part of the piece it rides (or the ground) and moves with it; what is in fade has no partner and fades; the ground and the junk cross-fade under them; a person rides with the piece whose foot is nearest his own and keeps doing what he was doing; the door he is at stays under his eye (220(e))."
+   },
+   "tall_left": {
+    "src": "church_tall_left.webp",
+    "night_src": "church_tall_left_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "barber": {
+      "box": [
+       338,
+       0,
+       678,
+       532
+      ],
+      "kind": "barber"
+     },
+     "clinic": {
+      "box": [
+       681,
+       0,
+       1021,
+       536
+      ],
+      "kind": "clinic"
+     },
+     "stall": {
+      "box": [
+       340,
+       729,
+       512,
+       910
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       24,
+       852,
+       296,
+       910
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       554,
+       796,
+       641,
+       898
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "bar": [
+      3,
+      0,
+      334,
+      536
+     ],
+     "smith": [
+      7,
+      939,
+      283,
+      1263
+     ],
+     "armourer": [
+      741,
+      939,
+      1017,
+      1259
+     ],
+     "lot": [
+      22,
+      539,
+      315,
+      686
+     ],
+     "build": [
+      340,
+      539,
+      1002,
+      686
+     ],
+     "look": [
+      681,
+      0,
+      1021,
+      536
+     ]
+    },
+    "doors": {
+     "barber": [
+      508,
+      532
+     ],
+     "clinic": [
+      851,
+      536
+     ],
+     "stall": [
+      426,
+      910
+     ],
+     "posts": [
+      160,
+      910
+     ],
+     "board": [
+      597,
+      898
+     ],
+     "bar": [
+      168,
+      536
+     ],
+     "smith": [
+      145,
+      1263
+     ],
+     "armourer": [
+      879,
+      1259
+     ],
+     "lot": [
+      168,
+      612
+     ],
+     "build": [
+      671,
+      612
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      614
+     ],
+     "left": [
+      22,
+      614
+     ],
+     "right": [
+      1001,
+      614
+     ]
+    },
+    "zoom_max": 2.0,
+    "lot": true
+   },
+   "tall_right": {
+    "src": "church_tall_right.webp",
+    "night_src": "church_tall_right_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "barber": {
+      "box": [
+       338,
+       0,
+       678,
+       532
+      ],
+      "kind": "barber"
+     },
+     "clinic": {
+      "box": [
+       681,
+       0,
+       1021,
+       536
+      ],
+      "kind": "clinic"
+     },
+     "stall": {
+      "box": [
+       340,
+       729,
+       512,
+       910
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       24,
+       852,
+       296,
+       910
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       554,
+       796,
+       641,
+       898
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "bar": [
+      3,
+      0,
+      334,
+      536
+     ],
+     "smith": [
+      7,
+      939,
+      283,
+      1263
+     ],
+     "armourer": [
+      741,
+      939,
+      1017,
+      1259
+     ],
+     "lot": [
+      22,
+      539,
+      315,
+      686
+     ],
+     "build": [
+      340,
+      539,
+      1002,
+      686
+     ],
+     "look": [
+      681,
+      0,
+      1021,
+      536
+     ]
+    },
+    "doors": {
+     "barber": [
+      508,
+      532
+     ],
+     "clinic": [
+      851,
+      536
+     ],
+     "stall": [
+      426,
+      910
+     ],
+     "posts": [
+      160,
+      910
+     ],
+     "board": [
+      597,
+      898
+     ],
+     "bar": [
+      168,
+      536
+     ],
+     "smith": [
+      145,
+      1263
+     ],
+     "armourer": [
+      879,
+      1259
+     ],
+     "lot": [
+      168,
+      612
+     ],
+     "build": [
+      671,
+      612
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      614
+     ],
+     "left": [
+      22,
+      614
+     ],
+     "right": [
+      1001,
+      614
+     ]
+    },
+    "zoom_max": 2.0,
+    "lot": true,
+    "phone_ground": {
+     "side": "right",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    }
   },
   "Colorful": {
@@ -10396,6 +10723,290 @@
      ]
     },
     "note": "THE GLIDE (rule 289(b)): on a turn every piece slides from its spot in the old composition to its spot in the new one in one beat, eased; a piece's roles are the taps it is; a tap in taps is part of the piece it rides (or the ground) and moves with it; what is in fade has no partner and fades; the ground and the junk cross-fade under them; a person rides with the piece whose foot is nearest his own and keeps doing what he was doing; the door he is at stays under his eye (220(e))."
+   },
+   "tall_left": {
+    "src": "colorful_tall_left.webp",
+    "night_src": "colorful_tall_left_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       82,
+       213,
+       341,
+       501
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       597,
+       700,
+       787,
+       923
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       297,
+       747,
+       470,
+       929
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       164,
+       1216,
+       688,
+       1275
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       61,
+       990,
+       148,
+       1093
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "arms": [
+      82,
+      619,
+      255,
+      822
+     ],
+     "bar": [
+      580,
+      449,
+      744,
+      653
+     ],
+     "lot": [
+      743,
+      1001,
+      1002,
+      1141
+     ],
+     "build": [
+      795,
+      667,
+      1010,
+      819
+     ],
+     "look": [
+      82,
+      213,
+      341,
+      501
+     ]
+    },
+    "doors": {
+     "clinic": [
+      211,
+      501
+     ],
+     "barber": [
+      692,
+      923
+     ],
+     "stall": [
+      383,
+      929
+     ],
+     "posts": [
+      426,
+      1275
+     ],
+     "board": [
+      104,
+      1093
+     ],
+     "arms": [
+      168,
+      720
+     ],
+     "bar": [
+      662,
+      551
+     ],
+     "lot": [
+      872,
+      1071
+     ],
+     "build": [
+      902,
+      743
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      803
+     ],
+     "left": [
+      22,
+      803
+     ],
+     "right": [
+      1001,
+      803
+     ]
+    },
+    "zoom_max": 1.5,
+    "lot": true
+   },
+   "tall_right": {
+    "src": "colorful_tall_right.webp",
+    "night_src": "colorful_tall_right_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       82,
+       213,
+       341,
+       501
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       597,
+       700,
+       787,
+       923
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       297,
+       747,
+       470,
+       929
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       164,
+       1216,
+       688,
+       1275
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       61,
+       990,
+       148,
+       1093
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "arms": [
+      82,
+      619,
+      255,
+      822
+     ],
+     "bar": [
+      580,
+      449,
+      744,
+      653
+     ],
+     "lot": [
+      743,
+      1001,
+      1002,
+      1141
+     ],
+     "build": [
+      795,
+      667,
+      1010,
+      819
+     ],
+     "look": [
+      82,
+      213,
+      341,
+      501
+     ]
+    },
+    "doors": {
+     "clinic": [
+      211,
+      501
+     ],
+     "barber": [
+      692,
+      923
+     ],
+     "stall": [
+      383,
+      929
+     ],
+     "posts": [
+      426,
+      1275
+     ],
+     "board": [
+      104,
+      1093
+     ],
+     "arms": [
+      168,
+      720
+     ],
+     "bar": [
+      662,
+      551
+     ],
+     "lot": [
+      872,
+      1071
+     ],
+     "build": [
+      902,
+      743
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      803
+     ],
+     "left": [
+      22,
+      803
+     ],
+     "right": [
+      1001,
+      803
+     ]
+    },
+    "zoom_max": 1.5,
+    "lot": true
    }
   },
   "Custom": {
@@ -11963,6 +12574,290 @@
      ]
     },
     "note": "THE GLIDE (rule 289(b)): on a turn every piece slides from its spot in the old composition to its spot in the new one in one beat, eased; a piece's roles are the taps it is; a tap in taps is part of the piece it rides (or the ground) and moves with it; what is in fade has no partner and fades; the ground and the junk cross-fade under them; a person rides with the piece whose foot is nearest his own and keeps doing what he was doing; the door he is at stays under his eye (220(e))."
+   },
+   "tall_left": {
+    "src": "custom_tall_left.webp",
+    "night_src": "custom_tall_left_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       108,
+       198,
+       315,
+       501
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       606,
+       733,
+       787,
+       930
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       297,
+       747,
+       470,
+       929
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       164,
+       1216,
+       688,
+       1275
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       61,
+       990,
+       148,
+       1093
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "arms": [
+      82,
+      619,
+      255,
+      822
+     ],
+     "bar": [
+      580,
+      449,
+      744,
+      653
+     ],
+     "lot": [
+      743,
+      1001,
+      1002,
+      1141
+     ],
+     "build": [
+      795,
+      667,
+      1010,
+      819
+     ],
+     "look": [
+      108,
+      198,
+      315,
+      501
+     ]
+    },
+    "doors": {
+     "clinic": [
+      211,
+      501
+     ],
+     "barber": [
+      696,
+      930
+     ],
+     "stall": [
+      383,
+      929
+     ],
+     "posts": [
+      426,
+      1275
+     ],
+     "board": [
+      104,
+      1093
+     ],
+     "arms": [
+      168,
+      720
+     ],
+     "bar": [
+      662,
+      551
+     ],
+     "lot": [
+      872,
+      1071
+     ],
+     "build": [
+      902,
+      743
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      803
+     ],
+     "left": [
+      22,
+      803
+     ],
+     "right": [
+      1001,
+      803
+     ]
+    },
+    "zoom_max": 1.5,
+    "lot": true
+   },
+   "tall_right": {
+    "src": "custom_tall_right.webp",
+    "night_src": "custom_tall_right_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       108,
+       198,
+       315,
+       501
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       606,
+       733,
+       787,
+       930
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       297,
+       747,
+       470,
+       929
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       164,
+       1216,
+       688,
+       1275
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       61,
+       990,
+       148,
+       1093
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "arms": [
+      82,
+      619,
+      255,
+      822
+     ],
+     "bar": [
+      580,
+      449,
+      744,
+      653
+     ],
+     "lot": [
+      743,
+      1001,
+      1002,
+      1141
+     ],
+     "build": [
+      795,
+      667,
+      1010,
+      819
+     ],
+     "look": [
+      108,
+      198,
+      315,
+      501
+     ]
+    },
+    "doors": {
+     "clinic": [
+      211,
+      501
+     ],
+     "barber": [
+      696,
+      930
+     ],
+     "stall": [
+      383,
+      929
+     ],
+     "posts": [
+      426,
+      1275
+     ],
+     "board": [
+      104,
+      1093
+     ],
+     "arms": [
+      168,
+      720
+     ],
+     "bar": [
+      662,
+      551
+     ],
+     "lot": [
+      872,
+      1071
+     ],
+     "build": [
+      902,
+      743
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      803
+     ],
+     "left": [
+      22,
+      803
+     ],
+     "right": [
+      1001,
+      803
+     ]
+    },
+    "zoom_max": 1.5,
+    "lot": true
    }
   },
   "Homeless": {
@@ -13680,6 +14575,290 @@
      ]
     },
     "note": "THE GLIDE (rule 289(b)): on a turn every piece slides from its spot in the old composition to its spot in the new one in one beat, eased; a piece's roles are the taps it is; a tap in taps is part of the piece it rides (or the ground) and moves with it; what is in fade has no partner and fades; the ground and the junk cross-fade under them; a person rides with the piece whose foot is nearest his own and keeps doing what he was doing; the door he is at stays under his eye (220(e))."
+   },
+   "tall_left": {
+    "src": "homeless_tall_left.webp",
+    "night_src": "homeless_tall_left_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       69,
+       241,
+       354,
+       510
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       584,
+       716,
+       800,
+       931
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       297,
+       747,
+       470,
+       929
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       164,
+       1216,
+       688,
+       1275
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       61,
+       990,
+       148,
+       1093
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "arms": [
+      82,
+      619,
+      255,
+      822
+     ],
+     "bar": [
+      580,
+      449,
+      744,
+      653
+     ],
+     "lot": [
+      743,
+      1001,
+      1002,
+      1141
+     ],
+     "build": [
+      795,
+      667,
+      1010,
+      819
+     ],
+     "look": [
+      69,
+      241,
+      354,
+      510
+     ]
+    },
+    "doors": {
+     "clinic": [
+      211,
+      510
+     ],
+     "barber": [
+      692,
+      931
+     ],
+     "stall": [
+      383,
+      929
+     ],
+     "posts": [
+      426,
+      1275
+     ],
+     "board": [
+      104,
+      1093
+     ],
+     "arms": [
+      168,
+      720
+     ],
+     "bar": [
+      662,
+      551
+     ],
+     "lot": [
+      872,
+      1071
+     ],
+     "build": [
+      902,
+      743
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      803
+     ],
+     "left": [
+      22,
+      803
+     ],
+     "right": [
+      1001,
+      803
+     ]
+    },
+    "zoom_max": 1.5,
+    "lot": true
+   },
+   "tall_right": {
+    "src": "homeless_tall_right.webp",
+    "night_src": "homeless_tall_right_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       69,
+       241,
+       354,
+       510
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       584,
+       716,
+       800,
+       931
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       297,
+       747,
+       470,
+       929
+      ],
+      "kind": "stall"
+     },
+     "posts": {
+      "box": [
+       164,
+       1216,
+       688,
+       1275
+      ],
+      "kind": "posts"
+     },
+     "board": {
+      "box": [
+       61,
+       990,
+       148,
+       1093
+      ],
+      "kind": "board"
+     }
+    },
+    "boxes": {
+     "arms": [
+      82,
+      619,
+      255,
+      822
+     ],
+     "bar": [
+      580,
+      449,
+      744,
+      653
+     ],
+     "lot": [
+      743,
+      1001,
+      1002,
+      1141
+     ],
+     "build": [
+      795,
+      667,
+      1010,
+      819
+     ],
+     "look": [
+      69,
+      241,
+      354,
+      510
+     ]
+    },
+    "doors": {
+     "clinic": [
+      211,
+      510
+     ],
+     "barber": [
+      692,
+      931
+     ],
+     "stall": [
+      383,
+      929
+     ],
+     "posts": [
+      426,
+      1275
+     ],
+     "board": [
+      104,
+      1093
+     ],
+     "arms": [
+      168,
+      720
+     ],
+     "bar": [
+      662,
+      551
+     ],
+     "lot": [
+      872,
+      1071
+     ],
+     "build": [
+      902,
+      743
+     ]
+    },
+    "entrance": {
+     "side": "right",
+     "at": [
+      1001,
+      803
+     ],
+     "left": [
+      22,
+      803
+     ],
+     "right": [
+      1001,
+      803
+     ]
+    },
+    "zoom_max": 1.5,
+    "lot": true
    }
   },
   "Mob": {
@@ -15053,6 +16232,324 @@
      ]
     },
     "note": "THE GLIDE (rule 289(b)): on a turn every piece slides from its spot in the old composition to its spot in the new one in one beat, eased; a piece's roles are the taps it is; a tap in taps is part of the piece it rides (or the ground) and moves with it; what is in fade has no partner and fades; the ground and the junk cross-fade under them; a person rides with the piece whose foot is nearest his own and keeps doing what he was doing; the door he is at stays under his eye (220(e))."
+   },
+   "tall_left": {
+    "src": "mob_tall_left.webp",
+    "night_src": "mob_tall_left_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       484,
+       178,
+       1017,
+       835
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       7,
+       178,
+       455,
+       839
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       52,
+       898,
+       354,
+       1080
+      ],
+      "kind": "stall"
+     },
+     "board": {
+      "box": [
+       409,
+       948,
+       495,
+       1050
+      ],
+      "kind": "board"
+     },
+     "posts": {
+      "box": [
+       37,
+       1171,
+       352,
+       1229
+      ],
+      "kind": "posts"
+     }
+    },
+    "boxes": {
+     "smith": [
+      7,
+      628,
+      455,
+      839
+     ],
+     "armourer": [
+      750,
+      625,
+      1017,
+      835
+     ],
+     "bar": [
+      383,
+      1084,
+      658,
+      1305
+     ],
+     "lot": [
+      619,
+      925,
+      985,
+      1093
+     ],
+     "build": [
+      726,
+      1152,
+      1002,
+      1305
+     ],
+     "look": [
+      484,
+      178,
+      1017,
+      835
+     ]
+    },
+    "doors": {
+     "clinic": [
+      750,
+      835
+     ],
+     "barber": [
+      231,
+      839
+     ],
+     "stall": [
+      203,
+      1080
+     ],
+     "board": [
+      452,
+      1050
+     ],
+     "posts": [
+      194,
+      1229
+     ],
+     "smith": [
+      231,
+      839
+     ],
+     "armourer": [
+      883,
+      835
+     ],
+     "bar": [
+      520,
+      1194
+     ],
+     "lot": [
+      802,
+      1009
+     ],
+     "build": [
+      864,
+      1228
+     ]
+    },
+    "entrance": {
+     "side": "left",
+     "at": [
+      22,
+      424
+     ],
+     "left": [
+      22,
+      424
+     ],
+     "right": [
+      1001,
+      424
+     ]
+    },
+    "zoom_max": 2.5,
+    "lot": true,
+    "phone_ground": {
+     "side": "left",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
+   },
+   "tall_right": {
+    "src": "mob_tall_right.webp",
+    "night_src": "mob_tall_right_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       484,
+       178,
+       1017,
+       835
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       7,
+       178,
+       455,
+       839
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       52,
+       898,
+       354,
+       1080
+      ],
+      "kind": "stall"
+     },
+     "board": {
+      "box": [
+       409,
+       948,
+       495,
+       1050
+      ],
+      "kind": "board"
+     },
+     "posts": {
+      "box": [
+       37,
+       1171,
+       352,
+       1229
+      ],
+      "kind": "posts"
+     }
+    },
+    "boxes": {
+     "smith": [
+      7,
+      628,
+      455,
+      839
+     ],
+     "armourer": [
+      750,
+      625,
+      1017,
+      835
+     ],
+     "bar": [
+      383,
+      1084,
+      658,
+      1305
+     ],
+     "lot": [
+      619,
+      925,
+      985,
+      1093
+     ],
+     "build": [
+      726,
+      1152,
+      1002,
+      1305
+     ],
+     "look": [
+      484,
+      178,
+      1017,
+      835
+     ]
+    },
+    "doors": {
+     "clinic": [
+      750,
+      835
+     ],
+     "barber": [
+      231,
+      839
+     ],
+     "stall": [
+      203,
+      1080
+     ],
+     "board": [
+      452,
+      1050
+     ],
+     "posts": [
+      194,
+      1229
+     ],
+     "smith": [
+      231,
+      839
+     ],
+     "armourer": [
+      883,
+      835
+     ],
+     "bar": [
+      520,
+      1194
+     ],
+     "lot": [
+      802,
+      1009
+     ],
+     "build": [
+      864,
+      1228
+     ]
+    },
+    "entrance": {
+     "side": "left",
+     "at": [
+      22,
+      424
+     ],
+     "left": [
+      22,
+      424
+     ],
+     "right": [
+      1001,
+      424
+     ]
+    },
+    "zoom_max": 2.5,
+    "lot": true,
+    "phone_ground": {
+     "side": "right",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    }
   },
   "Network": {
@@ -16759,6 +18256,324 @@
      ]
     },
     "note": "THE GLIDE (rule 289(b)): on a turn every piece slides from its spot in the old composition to its spot in the new one in one beat, eased; a piece's roles are the taps it is; a tap in taps is part of the piece it rides (or the ground) and moves with it; what is in fade has no partner and fades; the ground and the junk cross-fade under them; a person rides with the piece whose foot is nearest his own and keeps doing what he was doing; the door he is at stays under his eye (220(e))."
+   },
+   "tall_left": {
+    "src": "network_tall_left.webp",
+    "night_src": "network_tall_left_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       484,
+       148,
+       1017,
+       792
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       7,
+       148,
+       326,
+       794
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       52,
+       898,
+       354,
+       1080
+      ],
+      "kind": "stall"
+     },
+     "board": {
+      "box": [
+       409,
+       948,
+       495,
+       1050
+      ],
+      "kind": "board"
+     },
+     "posts": {
+      "box": [
+       37,
+       1171,
+       351,
+       1229
+      ],
+      "kind": "posts"
+     }
+    },
+    "boxes": {
+     "smith": [
+      7,
+      588,
+      326,
+      794
+     ],
+     "armourer": [
+      750,
+      586,
+      1017,
+      792
+     ],
+     "bar": [
+      383,
+      1084,
+      658,
+      1305
+     ],
+     "lot": [
+      619,
+      925,
+      985,
+      1093
+     ],
+     "build": [
+      726,
+      1152,
+      1002,
+      1305
+     ],
+     "look": [
+      484,
+      148,
+      1017,
+      792
+     ]
+    },
+    "doors": {
+     "clinic": [
+      750,
+      792
+     ],
+     "barber": [
+      166,
+      794
+     ],
+     "stall": [
+      203,
+      1080
+     ],
+     "board": [
+      452,
+      1050
+     ],
+     "posts": [
+      194,
+      1229
+     ],
+     "smith": [
+      166,
+      794
+     ],
+     "armourer": [
+      883,
+      792
+     ],
+     "bar": [
+      520,
+      1194
+     ],
+     "lot": [
+      802,
+      1009
+     ],
+     "build": [
+      864,
+      1228
+     ]
+    },
+    "entrance": {
+     "side": "left",
+     "at": [
+      22,
+      424
+     ],
+     "left": [
+      22,
+      424
+     ],
+     "right": [
+      1001,
+      424
+     ]
+    },
+    "zoom_max": 2.5,
+    "lot": true,
+    "phone_ground": {
+     "side": "left",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
+   },
+   "tall_right": {
+    "src": "network_tall_right.webp",
+    "night_src": "network_tall_right_night.webp",
+    "px": [
+     1024,
+     2080
+    ],
+    "hotspots": {
+     "clinic": {
+      "box": [
+       484,
+       148,
+       1017,
+       792
+      ],
+      "kind": "clinic"
+     },
+     "barber": {
+      "box": [
+       7,
+       148,
+       326,
+       794
+      ],
+      "kind": "barber"
+     },
+     "stall": {
+      "box": [
+       52,
+       898,
+       354,
+       1080
+      ],
+      "kind": "stall"
+     },
+     "board": {
+      "box": [
+       409,
+       948,
+       495,
+       1050
+      ],
+      "kind": "board"
+     },
+     "posts": {
+      "box": [
+       37,
+       1171,
+       351,
+       1229
+      ],
+      "kind": "posts"
+     }
+    },
+    "boxes": {
+     "smith": [
+      7,
+      588,
+      326,
+      794
+     ],
+     "armourer": [
+      750,
+      586,
+      1017,
+      792
+     ],
+     "bar": [
+      383,
+      1084,
+      658,
+      1305
+     ],
+     "lot": [
+      619,
+      925,
+      985,
+      1093
+     ],
+     "build": [
+      726,
+      1152,
+      1002,
+      1305
+     ],
+     "look": [
+      484,
+      148,
+      1017,
+      792
+     ]
+    },
+    "doors": {
+     "clinic": [
+      750,
+      792
+     ],
+     "barber": [
+      166,
+      794
+     ],
+     "stall": [
+      203,
+      1080
+     ],
+     "board": [
+      452,
+      1050
+     ],
+     "posts": [
+      194,
+      1229
+     ],
+     "smith": [
+      166,
+      794
+     ],
+     "armourer": [
+      883,
+      792
+     ],
+     "bar": [
+      520,
+      1194
+     ],
+     "lot": [
+      802,
+      1009
+     ],
+     "build": [
+      864,
+      1228
+     ]
+    },
+    "entrance": {
+     "side": "left",
+     "at": [
+      22,
+      424
+     ],
+     "left": [
+      22,
+      424
+     ],
+     "right": [
+      1001,
+      424
+     ]
+    },
+    "zoom_max": 2.5,
+    "lot": true,
+    "phone_ground": {
+     "side": "right",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    }
   },
   "Reds": {
