@@ -1,5 +1,10 @@
 # FINISHER (the half-baked, finished or checked; brief from the coordinator 11/2) -- written only by FINISHER, newest first
 
+FINISHER 11/2 THIRD PUSH -- the rest of the list read and marked: every row not clean SEEN now carries a FINISHER 11/2 line, either
+what was checked or the lane that must (COMBAT: 47, 67, 90, 96, 103, 108, 109, 122, 139, 152, 212; UI TWO: 133, 154, 161; UI: 129;
+UI THREE: 175, 178; WORLD: 39, 114, 117, 144, 167, 181, 185, 234, 235, 242; the town's ground around the phone: 106, 195, 219, 226,
+241; ears: 88, 127; later by his word: 160). 17 checked in part (no dead man spoke; the tag not yet seen on the glass).
+
 FINISHER 11/2 SECOND SHIP -- BUILD 11/2zzd, d18bdb2e. Four more followers work (206: drill sergeant, recruiter, minstrel, the
 scavenger's tape); the barber says how the chair works (192). Checked and marked: 64, 79, 140, 184, 186, 192, 202, 206, 214, 236, 239.
 FOR CAMP TWO: THE CAMP IS HIS OWN has six reds on main (K2 the pitch, K4c acts in gear, K5 the cart's tap, K6 a follower's door, K8
