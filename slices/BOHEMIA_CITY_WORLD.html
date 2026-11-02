@@ -1388,6 +1388,260 @@ window.FINAL_ONLY = FINAL_ONLY;</script>
 
 
 
+<!-- __A_NEW_VALLEY_EVERY_GAME__ BEGIN (tools/bohemia_world_seed_patch.py writes this block; edit the two sources, not here) -->
+<script>
+/* ==== __A_NEW_VALLEY_EVERY_GAME__ (WORLD 6, 11/2/26, rule 318, ask line 315): one campaign seed decides who stands on the real valley. Sources: records/target/bb/world_seed.json and engine/bohemia_world_seed.js. ==== */
+var BOHEMIA_WORLD_SEED_DATA = {"_about":"A NEW VALLEY EVERY GAME (WORLD 6, rule 318, ask line 315; Paolo 11/2: 'I am not getting big procedurally generated map vibes at all... the Remnants are on the same part of the map... I don't even know if you have a number seed system'). ONE CAMPAIGN SEED, a short code shown on the new-game screen and saved with the game, decides WHO stands on the land; the land itself (Las Vegas's streets, freeways, mountains, passes and the real places the valley generator seats from the fixed land seed 'bohemia') never moves. Battle Brothers is the reference: every campaign is a world generated from a seed you can see and type in. Read by engine/bohemia_world_seed.js (node) and inlined into slices/BOHEMIA_CITY_WORLD.html as BOHEMIA_WORLD_SEED_DATA (the page); gates/a_new_valley_every_game_gate.js refuses a drift between the two. Every number here is ours, draft, for TUNING's table.","draft":true,"school":{"same_seed_same_world":{"source":"reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt","quote":"Generated map layouts are stored in map seeds. Starting a new campaign with a same map seed will always generate the same map including locations and their named items"},"typed_and_shared":{"source":"reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415_News and Dev Blogs.txt","quote":"Added map seed that can be entered upon starting a new campaign, and seen for ongoing campaigns created after this update, for replaying and sharing maps."},"a_word_not_a_number":{"source":"reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2107_Update 1.2.0.17.txt","quote":"Changed map seed to use words made up of characters from a to z, and no longer exclusively numbers in hexadecimal notation."}},"code":{"alphabet":"ABCDEFGHJKMNPQRSTUVWXYZ23456789","alphabet_why":"no 0, O, 1, I or L: a code read off a phone and typed into another phone must not have two letters that look the same","length":6,"min_typed":3,"max_typed":12,"shown_as":"three, a dash, three (K7Q-M9X)"},"older_saves_keep_their_world":{"source":"the same 1415 quote: 'seen for ongoing campaigns created after this update'","ours":"a campaign begun before the seed has no code and keeps the old valley"},"classic":{"code":"","name":"THE OLD VALLEY","why":"a game saved before the seed existed, and the checkers' bench (the dark lifted), keep the fourteen bases where they always stood (CT_BASES_BAKED in the map): never move a base under a saved game"},"spread":{"min_apart":9,"min_apart_why":"blocks, the longer side: two capitals never share a neighbourhood. A fortress's ground is 4 blocks wide, so 9 leaves a street of somebody else's between any two towns. Measured on the old layout: four bases (the Volunteers, the Network, the Reds, the Mob) stood within 6 blocks of each other in the north, the Volunteers and the Network 3 apart","floor_apart":6,"floor_apart_why":"the spacing is relaxed to this, never below, when a faction's real places are all crowded; two town grounds never touch","edge_inset":5,"edge_inset_why":"a town on the valley's last rows is clipped by the map's edge (faction_between M2); a preference, dropped only when the faction's only real places are at the edge","density_radius":8,"density_power":0.5,"density_why":"a capital with nobody around it is a faction with no members (people join by nearness to a base, engine/bohemia_towns.js placeHomes): a place is weighted by how much town is within 8 blocks of it, softened (the square root), so a seed leans to a living street but the truck stop at the valley's south edge still wins its share. Measured at 1.0: the truck stop won 1 seed in 10 against a weight of 4","one_place_one_ticket":"blocks of one kind that touch are ONE place (the prison is three blocks, the warehouses two): a seed picks the place, then a block of it. Measured before: the Remnants' three prison blocks drew three tickets and stood in the east in 8 seeds of 10","order":"fewest_sites_first","order_why":"the faction with the fewest real places picks first, so a seed never leaves the Network (one radio mast, two substations, the tower, the sign) without a home because somebody else's base stood too close"},"factions":{"Mob":{"kinds":{"casino":3,"resort":2,"highroller":3,"convention":1,"downtown":1},"real":"the Strip and downtown's casinos","note":"Controls the Strip. Ownership/protection/tribute."},"Remnants":{"kinds":{"fort":4,"prison":3,"jail":3},"real":"the air base, the prisons and the jail: where men with guns and orders stayed","note":"Military/law-enforcement survivors incl Nellis."},"Network":{"kinds":{"radio":4,"strat":3,"substation":2,"sign":1},"real":"the radio mast, the tower on the Strip, the substations, the big sign: a psyop needs a transmitter","note":"Only faction with a manufactured origin."},"Cartel":{"kinds":{"storage":2,"warehouse":2,"terminal":1,"swapmeet":2},"real":"the storage yards, warehouses, the terminal and the swap meet: where it would hold ground, on the supply line","note":"Organized human predation. Supply chains mirror caravan routes."},"Caravans":{"kinds":{"truckstop":4,"terminal":3,"warehouse":2,"storage":1,"swapmeet":1},"real":"the truck stop, the terminal, the warehouses and the yards","note":"Neutral outside-world trade."},"Church":{"kinds":{"chapel":4,"cemetery":2,"school":1},"real":"the chapels, the cemeteries, a school gym for the flock","note":"Best crisis organization."},"Reds":{"kinds":{"downtown":2,"courthouse":3,"mall":2},"real":"downtown, the courthouses, the malls: where the money was counted","note":"Economic engine, compound-interest faction. Not military."},"Blues":{"kinds":{"park":2,"waterpark":1},"real":"the parks and the water parks: green ground and water","note":"Environmentalist."},"Trades":{"kinds":{"industrial":3,"battery":3,"warehouse":1},"real":"the industrial blocks, the battery plant, the warehouses","note":"Skilled-worker guild. Best for vehicle/solar/construction."},"Volunteers":{"kinds":{"medical":4,"campus":2,"school":1,"library":2},"real":"the hospitals, the campus, the schools, the library","note":"Healthcare/education/food/knowledge."},"Homeless":{"kinds":{"pumpstation":4,"trailer":2,"storage":1},"real":"the pump station over the flood tunnels, the trailer parks, the storage lots","note":"Sewer/tunnel HQ under the King Hobo."},"Anarchists":{"kinds":{"apartment":2,"commercial":1,"trailer":1},"real":"squats: dead apartment blocks, strip malls, trailer lots","note":"Territorially inconsistent."},"Colorful":{"kinds":{"suburb":1,"apartment":1,"gated":1},"real":"a neighbourhood that looks after itself","note":"Community-based, not territorial."},"Custom":{"kinds":{"suburb":1,"trailer":1,"apartment":1},"real":"the player's own outfit: any street that will have it","note":"No preset philosophy; it is the player's."}},"min_sites":3,"min_places":3,"min_places_why":"and at least three separate places (touching blocks of one kind are one place), or a faction with three prison blocks is a faction with one home","min_sites_why":"every faction has at least three real places it could stand on in the valley, or the seed is a fixed seat with extra steps; the gate counts them on the real map","start":{"from_seed":true,"why":"the same seed and the same origin start in the same corner and the same town (the corner used to be a dice roll off the clock, so a shared seed could not share a start)"},"left_for_later":["who holds the region's twelve outer towns (region_bases.json holders): the page never hands that file to the home-base ledger (setRegion is node-only), so there is nothing to seed until RUN wires it","the region's camps and lairs (hostile_locations): each stands at one named real place with no candidate list yet","what is looted or burned at the start, the shops' stock rolls, the crew's roll"]};
+/* ==========================================================================
+   A NEW VALLEY EVERY GAME (WORLD 6, 11/2/26, rule 318, ask line 315).
+
+   PAOLO 11/2: "I am not getting really generated vibes right now playing on the map. The Remnants are on the same part
+   of the map... I don't even know if you have a number seed system in place... I'm not getting big procedurally
+   generated map vibes at all."
+
+   MEASURED BEFORE: the fourteen home bases were baked at fixed blocks (CT_BASES_BAKED in slices/BOHEMIA_CITY_WORLD.html,
+   read by ctBases()), so every new game put every faction in the same place; only the start corner moved, off the clock;
+   there was no campaign seed at all (a WORLD_SEED name was read in one place and never set).
+
+   THE CALL (the coordinator's, realism first; Battle Brothers is the school): THE LAND STAYS REAL (the valley generator's
+   own fixed land seed 'bohemia': the streets, the freeways, the mountains, the real places, the passes). WHO STANDS ON IT
+   comes from ONE CAMPAIGN SEED, a short code shown on the new-game screen, saved with the game, typed in to share a world.
+   Each faction's home base stands at one of the real places that fit it (records/target/bb/world_seed.json: the Caravans
+   at the truck stop and the yards, the Church at the chapels, the Remnants at the air base and the prisons), picked by the
+   seed, weighted by how much town is around it, never two bases in one neighbourhood.
+
+   ONE MODULE, BOTH SURFACES: node requires the data file; the page inlines the same JSON as BOHEMIA_WORLD_SEED_DATA and
+   this file as-is (the gate refuses a drift). Pure: no clock, no Math.random, no storage. The page's boot decides the
+   code (resolve) and hands this the map's districts (engine/bohemia_towns.js districtsOf: the real town blocks that front
+   a road, the same list the old placer read, so every candidate is a block a town can stand on).
+   ========================================================================== */
+(function (root) {
+  'use strict';
+  var HASREQ = typeof module !== 'undefined' && module.exports && typeof require === 'function';
+
+  function data() {
+    if (root && root.BOHEMIA_WORLD_SEED_DATA) return root.BOHEMIA_WORLD_SEED_DATA;
+    if (HASREQ) { try { return require('../records/target/bb/world_seed.json'); } catch (_e) {} }
+    return null;
+  }
+
+  /* FNV-1a, 32 bits: the same number on every phone for the same text */
+  function hash(text) {
+    var h = 2166136261, s = String(text == null ? '' : text);
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return h >>> 0;
+  }
+  /* mulberry32: small, fast, the same stream everywhere */
+  function rng(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function codeRules(D) {
+    var c = (D && D.code) || {};
+    return { alphabet: c.alphabet || 'ABCDEFGHJKMNPQRSTUVWXYZ23456789', length: c.length || 6,
+             min: c.min_typed || 3, max: c.max_typed || 12 };
+  }
+  /* what he typed, made a code: capitals; the dash, spaces and anything outside the alphabet dropped (a code never
+     holds 0, O, 1, I or L, so dropping them loses nothing a code had). '' when too short or too long to be a code. */
+  function norm(text, D) {
+    var C = codeRules(D || data()), s = String(text == null ? '' : text).toUpperCase(), out = '';
+    for (var i = 0; i < s.length; i++) { var ch = s.charAt(i); if (C.alphabet.indexOf(ch) >= 0) out += ch; }
+    return (out.length >= C.min && out.length <= C.max) ? out : '';
+  }
+  function show(code) {
+    var s = String(code || ''); if (!s) return '';
+    var parts = []; for (var i = 0; i < s.length; i += 3) parts.push(s.slice(i, i + 3));
+    return parts.join('-');
+  }
+  /* a fresh code from whatever entropy the caller has (the page passes the clock and its own random) */
+  function roll(entropy, D) {
+    var C = codeRules(D || data()), R = rng(hash('roll:' + entropy)), out = '';
+    for (var i = 0; i < C.length; i++) out += C.alphabet.charAt(Math.floor(R() * C.alphabet.length) % C.alphabet.length);
+    return out;
+  }
+
+  /* THE BOOT'S ONE DECISION, pure so the gate can walk every branch:
+     the bench (the dark lifted) and a game saved before the seed keep the old valley (''); a saved game keeps its own
+     code; a new game takes the code he typed, else a fresh roll. */
+  function resolve(o) {
+    o = o || {};
+    if (o.bench) return { code: '', from: 'bench' };
+    if (o.liveSave) {
+      if (o.stored && typeof o.stored.code === 'string') return { code: o.stored.code, from: o.stored.code ? 'saved' : 'old_valley' };
+      return { code: '', from: 'old_save' };
+    }
+    var typed = o.staged ? norm(o.staged, o.data) : '';
+    if (typed) return { code: typed, from: 'typed' };
+    return { code: roll(o.entropy == null ? 0 : o.entropy, o.data), from: 'rolled' };
+  }
+
+  /* every real place each faction could stand on: the town blocks of its kinds, with the kind's weight */
+  function sites(districts, D) {
+    D = D || data(); var F = (D && D.factions) || {}, out = {}, byKind = {}, i;
+    for (i = 0; i < (districts || []).length; i++) {
+      var d = districts[i]; if (!d) continue;
+      var x = d.x != null ? d.x : (d.pos && d.pos[0]), y = d.y != null ? d.y : (d.pos && d.pos[1]);
+      if (x == null || y == null) continue;
+      (byKind[d.kind] = byKind[d.kind] || []).push({ x: x | 0, y: y | 0, kind: d.kind });
+    }
+    for (var f in F) {
+      if (!Object.prototype.hasOwnProperty.call(F, f)) continue;
+      var ks = F[f].kinds || {}, list = [];
+      for (var k in ks) { var w = +ks[k] || 0; if (w <= 0 || !byKind[k]) continue;
+        for (i = 0; i < byKind[k].length; i++) list.push({ x: byKind[k][i].x, y: byKind[k][i].y, kind: k, w: w }); }
+      out[f] = list;
+    }
+    return out;
+  }
+
+  /* THE PLACER. districts: the map's real town blocks; code: the campaign seed; opts.classic: the old valley's bases,
+     the last fallback for a faction with nowhere left to stand. Returns { code, bases: { Faction: { x, y, kind, why,
+     sites } }, order, relaxed }. The same districts and the same code give the same bases, always. */
+  function place(districts, code, opts) {
+    opts = opts || {};
+    var D = opts.data || data(); if (!D || !D.factions) return null;
+    var S = D.spread || {}, minA = S.min_apart || 9, floorA = S.floor_apart || 6, inset = S.edge_inset == null ? 5 : S.edge_inset,
+        rad = S.density_radius || 8, pw = S.density_power == null ? 1 : S.density_power;
+    var all = sites(districts, D), size = 0, i, f;
+    for (i = 0; i < (districts || []).length; i++) { var dd = districts[i]; if (!dd) continue;
+      var dx0 = dd.x != null ? dd.x : (dd.pos && dd.pos[0]), dy0 = dd.y != null ? dd.y : (dd.pos && dd.pos[1]);
+      if (dx0 + 1 > size) size = dx0 + 1; if (dy0 + 1 > size) size = dy0 + 1; }
+    size = opts.n || size || 96;
+    /* how much town is around a block: a summed-area table over the districts, a square of `rad` each way */
+    var W = size + 1, sat = new Int32Array(W * W);
+    var cnt = new Int32Array(size * size);
+    for (i = 0; i < (districts || []).length; i++) { var q = districts[i]; if (!q) continue;
+      var qx = q.x != null ? q.x : (q.pos && q.pos[0]), qy = q.y != null ? q.y : (q.pos && q.pos[1]);
+      if (qx >= 0 && qy >= 0 && qx < size && qy < size) cnt[qy * size + qx]++; }
+    for (var yy = 0; yy < size; yy++) for (var xx = 0; xx < size; xx++)
+      sat[(yy + 1) * W + xx + 1] = cnt[yy * size + xx] + sat[yy * W + xx + 1] + sat[(yy + 1) * W + xx] - sat[yy * W + xx];
+    var dens = function (x, y) {
+      var x0 = Math.max(0, x - rad), y0 = Math.max(0, y - rad), x1 = Math.min(size, x + rad + 1), y1 = Math.min(size, y + rad + 1);
+      return sat[y1 * W + x1] - sat[y0 * W + x1] - sat[y1 * W + x0] + sat[y0 * W + x0];
+    };
+    var maxD = 1; for (f in all) for (i = 0; i < all[f].length; i++) maxD = Math.max(maxD, dens(all[f][i].x, all[f][i].y));
+
+    /* ONE PLACE IS ONE PLACE, HOWEVER MANY BLOCKS IT COVERS. Measured on the first cut: the prison is three blocks
+       (86,48 86,49 87,49), so the Remnants' prison drew three tickets to the air base's one and stood in the east in 8 seeds of
+       10, which is his own complaint again. Blocks of one kind that touch are one place (8 neighbours); a seed picks the place
+       first, then a block of it. */
+    var comp = {}, nComp = 0;
+    var byKindBlocks = {}; for (f in all) for (i = 0; i < all[f].length; i++) { var bb = all[f][i]; (byKindBlocks[bb.kind] = byKindBlocks[bb.kind] || {})[bb.x + ',' + bb.y] = bb; }
+    for (var kk in byKindBlocks) { var setK = byKindBlocks[kk];
+      for (var key in setK) { if (comp[kk + '@' + key] != null) continue;
+        var id = nComp++, st = [setK[key]]; comp[kk + '@' + key] = id;
+        while (st.length) { var cur = st.pop();
+          for (var ox = -1; ox <= 1; ox++) for (var oy = -1; oy <= 1; oy++) { var nk = (cur.x + ox) + ',' + (cur.y + oy);
+            if (setK[nk] && comp[kk + '@' + nk] == null) { comp[kk + '@' + nk] = id; st.push(setK[nk]); } } } } }
+    var placeOf = function (s) { return comp[s.kind + '@' + s.x + ',' + s.y]; };
+    var placesOf = {}; for (f in all) { var seenP = {}; for (i = 0; i < all[f].length; i++) seenP[placeOf(all[f][i])] = 1; placesOf[f] = Object.keys(seenP).length; }
+
+    var names = Object.keys(all).sort();
+    if ((S.order || 'fewest_sites_first') === 'fewest_sites_first')
+      names.sort(function (a, b) { return (placesOf[a] - placesOf[b]) || (all[a].length - all[b].length) || (a < b ? -1 : 1); });
+
+    var placed = [], taken = {}, bases = {}, relaxed = [];
+    var cheb = function (a, b) { return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y)); };
+    var inland = function (s) { return s.x >= inset && s.y >= inset && s.x <= size - 1 - inset && s.y <= size - 1 - inset; };
+    var apart = function (s, m) { for (var j = 0; j < placed.length; j++) if (cheb(s, placed[j]) < m) return false; return true; };
+    var tiers = [
+      { why: 'fits', ok: function (s) { return apart(s, minA) && inland(s); } },
+      { why: 'fits, a little crowded', ok: function (s) { return apart(s, floorA) && inland(s); } },
+      { why: 'fits, at the edge', ok: function (s) { return apart(s, floorA); } },
+      { why: 'fits, crowded', ok: function (s) { return apart(s, 2); } }
+    ];
+    var c = String(code || '');
+    for (var ni = 0; ni < names.length; ni++) {
+      f = names[ni];
+      var R = rng(hash(c + ':base:' + f)), list = all[f], pick = null, why = null;
+      for (var t = 0; t < tiers.length && !pick; t++) {
+        /* the places with a block that passes, each weighed once: its kind's weight times its busiest passing block's town */
+        var byP = {}, order = [];
+        for (i = 0; i < list.length; i++) { var s = list[i];
+          if (taken[s.x + ',' + s.y] || !tiers[t].ok(s)) continue;
+          var pid = placeOf(s), dv = Math.pow(dens(s.x, s.y) / maxD, pw) + 1e-6;
+          if (!byP[pid]) { byP[pid] = { w: 0, blocks: [] }; order.push(pid); }
+          byP[pid].w = Math.max(byP[pid].w, s.w * dv); byP[pid].blocks.push([s, dv]); }
+        if (!order.length) continue;
+        var sum = 0; for (i = 0; i < order.length; i++) sum += byP[order[i]].w;
+        var r = R() * sum, P0 = null;
+        for (i = 0; i < order.length; i++) { r -= byP[order[i]].w; if (r <= 0) { P0 = byP[order[i]]; break; } }
+        if (!P0) P0 = byP[order[order.length - 1]];
+        var bs2 = 0; for (i = 0; i < P0.blocks.length; i++) bs2 += P0.blocks[i][1];
+        var r2 = R() * bs2;
+        for (i = 0; i < P0.blocks.length; i++) { r2 -= P0.blocks[i][1]; if (r2 <= 0) { pick = P0.blocks[i][0]; break; } }
+        if (!pick) pick = P0.blocks[P0.blocks.length - 1][0];
+        why = tiers[t].why; if (t) relaxed.push(f);
+      }
+      if (!pick && opts.classic && opts.classic[f]) { pick = { x: opts.classic[f].x | 0, y: opts.classic[f].y | 0, kind: null }; why = 'the old valley\'s place: nowhere of its kind was free'; relaxed.push(f); }
+      if (!pick) continue;
+      taken[pick.x + ',' + pick.y] = 1; placed.push(pick);
+      bases[f] = { x: pick.x, y: pick.y, kind: pick.kind, why: why, sites: list.length, places: placesOf[f] || 0,
+                   place: pick.kind ? pick.kind + '#' + placeOf(pick) : null };
+    }
+    /* keys in the old order (alphabetical), so a caller that reads 'the first base' reads the same faction it always did */
+    var out = {}; Object.keys(bases).sort().forEach(function (k) { out[k] = bases[k]; });
+    return { code: c, bases: out, order: names, relaxed: relaxed, n: size };
+  }
+
+  var API = { data: data, hash: hash, rng: rng, norm: norm, show: show, roll: roll, resolve: resolve, sites: sites, place: place };
+  if (HASREQ) module.exports = API;
+  if (root) root.BohemiaWorldSeed = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* THE BOOT'S ONE DECISION: which campaign this page is. Decided once, before anything asks where a base is, and never
+   changed while the page lives (a new code is a new page: the new-game screen reloads to it, as NEW GAME always has).
+   localStorage 'bohemia.world.v1' {code} is saved with the game; 'bohemia.world.next.v1' is a code he typed on the
+   new-game screen, waiting for this boot; 'bohemia.world.bench.v1' lets a checker's bench (the dark lifted) walk a
+   seeded valley, else the bench keeps the old one. A game saved before the seed keeps the old valley. */
+var WORLD_SEED = '', WORLD_SEED_FROM = 'bench';
+(function(){
+  var KEY = 'bohemia.world.v1', NEXT = 'bohemia.world.next.v1', BENCH = 'bohemia.world.bench.v1', DEAD = '{"bohemia":"DEAD"}';
+  var ls = function(k){ try { return localStorage.getItem(k); } catch (_e) { return null; } };
+  var bench = ls('bohemia.fog.off') === '1';
+  /* a live save: the save engine's own slots, read the way it reads them (a DEAD mark is a killed save, not a save) */
+  var live = false;
+  ['bohemia_city_save.a', 'bohemia_city_save.b', 'bohemia_city_save'].forEach(function(k){
+    if (live) return; var raw = ls(k); if (!raw || raw === DEAD) return;
+    try { var e = JSON.parse(raw), d = null;
+      if (e && e.v === 1 && e.data) d = e.data; else if (e && typeof e.p === 'string') { var inner = JSON.parse(e.p); d = inner && inner.data; }
+      if (d && (d.day | 0) >= 1) live = true; } catch (_e) {}
+  });
+  var stored = null; try { stored = JSON.parse(ls(KEY) || 'null'); } catch (_e) { stored = null; }
+  var r = { code: '', from: 'bench' };
+  try {
+    if (bench) r = { code: BohemiaWorldSeed.norm(ls(BENCH) || '') || '', from: 'bench' };
+    else r = BohemiaWorldSeed.resolve({ liveSave: live, stored: stored, staged: ls(NEXT), entropy: Date.now() + ':' + Math.random() });
+  } catch (_e) { r = { code: '', from: 'broken' }; }
+  WORLD_SEED = r.code || ''; WORLD_SEED_FROM = r.from;
+  if (r.from === 'typed' || r.from === 'rolled') {
+    try { localStorage.setItem(KEY, JSON.stringify({ v: 1, code: WORLD_SEED, from: r.from, at: Date.now() })); } catch (_e) {}
+  }
+  try { localStorage.removeItem(NEXT); } catch (_e) {}
+  try { window.WORLD_SEED = WORLD_SEED; window.__WORLD_SEED = { code: WORLD_SEED, shown: BohemiaWorldSeed.show(WORLD_SEED), from: WORLD_SEED_FROM, live: live }; } catch (_e) {}
+})();
+/* THE SEEDED BASES, worked out once from the real map's town blocks (the same list the old placer read) and kept */
+var WORLD_BASES = null;
+function worldBases(){
+  if (!WORLD_SEED) return null;
+  if (WORLD_BASES && WORLD_BASES.code === WORLD_SEED) return WORLD_BASES.bases;
+  try {
+    var ds = BohemiaTowns.districtsOf(om, BohemiaCityEdit.cat);
+    if (!ds || !ds.length) return null;
+    var P = BohemiaWorldSeed.place(ds, WORLD_SEED, { classic: (typeof CT_BASES_BAKED !== 'undefined') ? CT_BASES_BAKED : null, n: om.n | 0 });
+    if (!P || !P.bases) return null;
+    WORLD_BASES = P; window.__WORLD_BASES = P;
+    return P.bases;
+  } catch (_e) { return null; }
+}
+</script>
+<!-- __A_NEW_VALLEY_EVERY_GAME__ END -->
 <script>
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
@@ -36184,7 +36438,12 @@ function powerSeats(m){
     if(!G||!TW||!ED) return [];
     var ds=TW.districtsOf(m, ED.cat);
     if(!ds.length) return [];
-    return TW.derive(G, ds, 1)||[];
+    var rows=TW.derive(G, ds, 1)||[];
+    /* __A_NEW_VALLEY_EVERY_GAME__ (WORLD 6): the seats stand where the campaign seed stood the bases (ctBases), so the
+       turf, the parties and the bases are one answer; tier, rank and power stay the faction's own */
+    try{ if(typeof WORLD_SEED!=='undefined' && WORLD_SEED && typeof worldBases==='function'){ var wb=worldBases();
+      if(wb) rows=rows.map(function(r){ var b=wb[r.faction]; if(!b) return r; var o={}; for(var k in r) o[k]=r[k]; o.x=b.x; o.y=b.y; o.kind=b.kind||r.kind; o.why=b.why||r.why; o.world=WORLD_SEED; return o; }); } }catch(_e){}
+    return rows;
   }catch(_e){ return []; }
 }
 /* __WHO_HOLDS_THE_GROUND__ -- WHOSE GROUND IS THIS, FOR ANY CELL, LIT OR NOT.
@@ -36200,7 +36459,7 @@ function powerSeats(m){
    enough to ask per step, and asked nowhere in a draw loop anyway. */
 var TURF_SEATS=null, TURF_KEY=null;
 function turfSeats(){
-  var k=seed+':'+((om&&om.n)|0);
+  var k=seed+':'+((om&&om.n)|0)+':'+(typeof WORLD_SEED!=='undefined'?WORLD_SEED:'');   /* __A_NEW_VALLEY_EVERY_GAME__: and the campaign's seed */
   if(TURF_KEY===k&&TURF_SEATS) return TURF_SEATS;
   TURF_SEATS=powerSeats(om); TURF_KEY=k; return TURF_SEATS;
 }
@@ -36225,7 +36484,7 @@ function turfSeats(){
    ========================================================================== */
 var PARTIES=null, PARTIES_KEY=null;
 function partiesAll(){
-  var k=seed+':'+((om&&om.n)|0);
+  var k=seed+':'+((om&&om.n)|0)+':'+(typeof WORLD_SEED!=='undefined'?WORLD_SEED:'');   /* __A_NEW_VALLEY_EVERY_GAME__: and the campaign's seed */
   if(PARTIES_KEY===k&&PARTIES) return PARTIES;
   if(typeof BohemiaParties==='undefined') return null;
   var seats=null; try{ seats=turfSeats(); }catch(_e){ seats=null; }
@@ -36485,7 +36744,7 @@ function bohBorderMark(m, tx, ty, lx, ly, gx, gy, fn){
 }
 var TURF_MAP=null, TURF_MAP_KEY=null;
 function turfGrid(){
-  var k=seed+':'+((om&&om.n)|0);
+  var k=seed+':'+((om&&om.n)|0)+':'+(typeof WORLD_SEED!=='undefined'?WORLD_SEED:'');   /* __A_NEW_VALLEY_EVERY_GAME__: and the campaign's seed */
   if(TURF_MAP_KEY===k&&TURF_MAP) return TURF_MAP;
   try{
     var seats=turfSeats();
@@ -36611,7 +36870,7 @@ function turfAt(x,y){
    was worth. */
 var MINES_MAP=null, MINES_KEY=null;
 function minesGrid(){
-  var k=seed+':'+((om&&om.n)|0);
+  var k=seed+':'+((om&&om.n)|0)+':'+(typeof WORLD_SEED!=='undefined'?WORLD_SEED:'');   /* __A_NEW_VALLEY_EVERY_GAME__: and the campaign's seed */
   if(MINES_KEY===k&&MINES_MAP) return MINES_MAP;
   try{
     var seats=turfSeats();
@@ -45374,7 +45633,7 @@ function startPick(origin, seed){
   var last = null; try { last = JSON.parse(localStorage.getItem('bohemia.laststart.v1') || 'null'); } catch (_e) {}
   var stand = function(x, y){ if (cityWalkable(x, y)) return [x, y]; for (var q = 1; q <= 2; q++) for (var a = -q; a <= q; a++) for (var b = -q; b <= q; b++) if (cityWalkable(x + a, y + b)) return [x + a, y + b]; return null; };
   var ok = function(c){ if (!c) return false;
-    if (last && Math.max(Math.abs(c[0] - last[0]), Math.abs(c[1] - last[1])) < 10) return false;   /* never the same corner twice */
+    if (last && !(typeof WORLD_SEED !== 'undefined' && WORLD_SEED) && Math.max(Math.abs(c[0] - last[0]), Math.abs(c[1] - last[1])) < 10) return false;   /* __A_NEW_VALLEY_EVERY_GAME__: a seeded game's corner is its seed's, so a shared code shares the start; the variety is the seed's */   /* never the same corner twice */
     if (origin === 'wolf') return townNear(c[0], c[1], 'any') > 3 && townNear(c[0], c[1]) <= 12;
     if (origin === 'south' && c[1] < N * 0.6 && c[0] < N * 0.6) return false;                       /* where the 95 comes in: the south side */
     return townNear(c[0], c[1]) <= 6 || townNear(c[0], c[1], 'any') <= 4; };
@@ -45388,6 +45647,9 @@ function freshStart(p, n){
   n = n | 0;
   if (!FOG.on) { window.__FRESH_START = { skipped: 'bohemia.fog.off: the bench\'s measured valley, the Church start, nothing hidden' }; return; }
   var seed = ((Date.now() & 0x7fffffff) ^ Math.floor(Math.random() * 0x7fffffff)) >>> 0, from = [city.x, city.y];
+  /* __A_NEW_VALLEY_EVERY_GAME__ (WORLD 6, rule 318): the corner comes off the campaign seed and the origin, so the same code and the same
+     origin start in the same corner and walk into the same town (records/target/bb/world_seed.json start.from_seed) */
+  try { if (typeof WORLD_SEED !== 'undefined' && WORLD_SEED && window.BohemiaWorldSeed) seed = BohemiaWorldSeed.hash(WORLD_SEED + ':start:' + (p.origin || 'newcrew')); } catch (_e) {}
   var s = null; try { s = (typeof ctBases === 'function' && ctBases()) ? startPick(p.origin || 'newcrew', seed) : null; } catch (_e) { s = null; }
   if (!s && n < 80) {   /* the places are still being worked out at BEGIN: the map stays dark round him and asks again */
     if (!n) { try { fogNewGame(!!p.reveal); } catch (_e) {} }
@@ -45397,7 +45659,7 @@ function freshStart(p, n){
   if (s) { city.x = s.at[0]; city.y = s.at[1]; try { localStorage.setItem('bohemia.laststart.v1', JSON.stringify(s.at)); } catch (_e) {} }
   try { travelStop(); } catch (_e) {}
   try { camHold(); } catch (_e) {}
-  window.__FRESH_START = { seed: seed, origin: p.origin || null, at: [city.x, city.y], kind: s ? s.kind : null, tries: s ? s.tries : 0, reveal: !!p.reveal, waited: n };
+  window.__FRESH_START = { seed: seed, world: (typeof WORLD_SEED !== 'undefined' ? WORLD_SEED : ''), origin: p.origin || null, at: [city.x, city.y], kind: s ? s.kind : null, tries: s ? s.tries : 0, reveal: !!p.reveal, waited: n };
   try { fogNewGame(!!p.reveal); } catch (_e) {}
   try { saveNow('fresh start'); } catch (_e) {}
   try { render(); } catch (_e) {} try { mapStatePost(); } catch (_e) {}
@@ -81423,6 +81685,14 @@ function ctBases(){
       return null;
     }
   } catch(_e){}
+  /* __A_NEW_VALLEY_EVERY_GAME__ (WORLD 6, 11/2, rule 318, ask line 315): a game with a campaign seed stands its fourteen
+     bases at the real places its seed picked (worldBases, records/target/bb/world_seed.json); the bench and a game saved
+     before the seed keep these baked ones. Null only while the map's own blocks are not there yet, and it says so once. */
+  if (typeof WORLD_SEED !== 'undefined' && WORLD_SEED) {
+    var __wb = worldBases();
+    if (!__wb && !ctBases.__wsaid) { ctBases.__wsaid = 1; try { console.warn('BOHEMIA: the seeded bases for ' + WORLD_SEED + ' could not be worked out yet (the map has no town blocks).'); } catch(_e){} }
+    return __wb;
+  }
   return CT_BASES_BAKED;
 }
 /* __CITY_WHYWALK__ -- and the ONE place that can explain an empty valley.

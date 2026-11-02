@@ -483,7 +483,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"c1710ae2cae7adb1",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"e3687781a900a6b7",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1587,7 +1587,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zd - THE WORK PAYS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3ze - A NEW VALLEY EVERY GAME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13922,6 +13922,50 @@ var BOH_START = (function(){
   return { picks:picks, COMBAT:COMBAT, ECON:ECON, ORIGINS:ORIGINS, NAMES:NAMES, state:pick, data:function(){ return ODATA; } };
 })();
 window.BOH_START = BOH_START;
+/* ==== __A_NEW_VALLEY_EVERY_GAME__ (WORLD 6, 11/2/26, rule 318, ask line 315; Paolo 11/2: 'I don't even know if you have a number seed
+   system in place... I'm not getting big procedurally generated map vibes at all'). THE VALLEY: the new company's door shows this
+   game's world code (the map rolled it at its boot, slices/BOHEMIA_CITY_WORLD.html __A_NEW_VALLEY_EVERY_GAME__) in the door's own name
+   box. He types one in (a friend's) or taps ANOTHER: the code waits in localStorage and the page comes back to this door with that
+   valley built, the same way NEW GAME already reloads. Kept out of BOH_START's build() on purpose (UI is redoing the door): it adds
+   its own row after whatever the door drew, and draws it again whenever the door redraws. Words are draft:true. ==== */
+(function(){
+  var KEY = 'bohemia.world.v1', NEXT = 'bohemia.world.next.v1', ALPH = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  function norm(v){ var s = String(v || '').toUpperCase(), o = ''; for (var i = 0; i < s.length; i++) if (ALPH.indexOf(s.charAt(i)) >= 0) o += s.charAt(i); return (o.length >= 3 && o.length <= 12) ? o : ''; }
+  function show(c){ var s = String(c || ''), p = []; for (var i = 0; i < s.length; i += 3) p.push(s.slice(i, i + 3)); return p.join('-'); }
+  function now(){
+    try { var f = document.getElementById('cityFrame'), w = f && f.contentWindow; if (w && w.__WORLD_SEED) return w.__WORLD_SEED.code || ''; } catch (_e) {}
+    try { var o = JSON.parse(localStorage.getItem(KEY) || 'null'); if (o && o.code) return o.code; } catch (_e) {}
+    return '';
+  }
+  function go(code){
+    try { if (code) localStorage.setItem(NEXT, code); else localStorage.removeItem(NEXT); localStorage.removeItem(KEY); } catch (_e) {}
+    try { sessionStorage.setItem('bohemia.title', 'new'); } catch (_e) {}   /* back to this door, as NEW GAME comes back to it */
+    window.__WORLD_RELOADING = code || 'another';
+    location.reload();
+  }
+  function row(el){
+    if (document.getElementById('newcoworld')) return;
+    var c = now(), wrap = document.createElement('div'); wrap.id = 'newcoworldrow'; wrap.style.marginTop = '14px';   /* the same air the door's other rows have above their headings */
+    wrap.innerHTML = '<h4>THE VALLEY &middot; ITS CODE</h4><div class="name"><input id="newcoworld" type="text" maxlength="15" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" enterkeyhint="go" aria-label="the valley\'s code" placeholder="BUILDING..." value="' + show(c) + '"><button data-w="another">ANOTHER</button></div>';
+    el.appendChild(wrap);
+    var inp = wrap.querySelector('input');
+    wrap.addEventListener('click', function(e){ e.stopPropagation(); var b = e.target.closest && e.target.closest('button'); if (b && b.getAttribute('data-w') === 'another') go(''); });   /* never the BEGIN tap */
+    inp.addEventListener('focusin', function(){ inp.__was = inp.value; setTimeout(function(){ try { inp.select(); } catch (_e) {} }, 0); });
+    inp.addEventListener('keydown', function(e){ e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } else if (e.key === 'Escape') { inp.value = inp.__was || show(now()); inp.blur(); } });
+    inp.addEventListener('focusout', function(){ var t = norm(inp.value), c2 = now(); if (t && t !== c2) go(t); else inp.value = show(c2); });
+  }
+  function boot(){
+    var el = document.getElementById('newco'); if (!el) return;
+    row(el);
+    try { new MutationObserver(function(){ row(el); }).observe(el, { childList: true }); } catch (_e) {}
+    /* the map rolls the code at its boot, a moment after this door: fill the box when it is known */
+    var tries = 0, t = setInterval(function(){ tries++; var c = now(), i = document.getElementById('newcoworld');
+      if (i && c && document.activeElement !== i && i.value !== show(c)) i.value = show(c);
+      if ((c && i && i.value === show(c)) || tries > 240) clearInterval(t); }, 500);
+  }
+  window.BOH_WORLD_CODE = { now: now, show: show, norm: norm, go: go };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
 document.getElementById('front').addEventListener('click',(ev)=>{
   /* *** NOTHING IS TAPPABLE UNTIL IT IS LOADED (rule 18a). *** Before this, the
      first tap started a hundred and thirteen seconds of work and took the screen

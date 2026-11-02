@@ -51,7 +51,9 @@
 
   /* ---------- the state, kept with the game (RUN's fog keeps its own the same way) ---------- */
   function fresh() {
-    return { v: 1, seed: (Math.floor(Math.random() * 0x7fffffff) ^ (Date.now() & 0x7fffffff)) >>> 0, pins: [], crosses: [], deadSeen: {},
+    /* __A_NEW_VALLEY_EVERY_GAME__ (WORLD 6, rule 318): a seeded campaign's boss signs and places come off its code, so the same code is the same world */
+    var ws = null; try { if (root.WORLD_SEED && root.BohemiaWorldSeed) ws = root.BohemiaWorldSeed.hash(root.WORLD_SEED + ':bosses'); } catch (e) {}
+    return { v: 1, seed: ws != null ? ws : (Math.floor(Math.random() * 0x7fffffff) ^ (Date.now() & 0x7fffffff)) >>> 0, pins: [], crosses: [], deadSeen: {},
       boss: { i: 0, sign: null, found: {}, fallen: {} }, open: [], lit: [], places: [], fighting: null, prices: {}, heard: {} };
   }
   function load() {

@@ -1,0 +1,78 @@
+{
+  "_about": "A NEW VALLEY EVERY GAME (WORLD 6, rule 318, ask line 315; Paolo 11/2: 'I am not getting big procedurally generated map vibes at all... the Remnants are on the same part of the map... I don't even know if you have a number seed system'). ONE CAMPAIGN SEED, a short code shown on the new-game screen and saved with the game, decides WHO stands on the land; the land itself (Las Vegas's streets, freeways, mountains, passes and the real places the valley generator seats from the fixed land seed 'bohemia') never moves. Battle Brothers is the reference: every campaign is a world generated from a seed you can see and type in. Read by engine/bohemia_world_seed.js (node) and inlined into slices/BOHEMIA_CITY_WORLD.html as BOHEMIA_WORLD_SEED_DATA (the page); gates/a_new_valley_every_game_gate.js refuses a drift between the two. Every number here is ours, draft, for TUNING's table.",
+  "draft": true,
+  "school": {
+    "same_seed_same_world": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt",
+      "quote": "Generated map layouts are stored in map seeds. Starting a new campaign with a same map seed will always generate the same map including locations and their named items"
+    },
+    "typed_and_shared": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415_News and Dev Blogs.txt",
+      "quote": "Added map seed that can be entered upon starting a new campaign, and seen for ongoing campaigns created after this update, for replaying and sharing maps."
+    },
+    "a_word_not_a_number": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2107_Update 1.2.0.17.txt",
+      "quote": "Changed map seed to use words made up of characters from a to z, and no longer exclusively numbers in hexadecimal notation."
+    }
+  },
+  "code": {
+    "alphabet": "ABCDEFGHJKMNPQRSTUVWXYZ23456789",
+    "alphabet_why": "no 0, O, 1, I or L: a code read off a phone and typed into another phone must not have two letters that look the same",
+    "length": 6,
+    "min_typed": 3,
+    "max_typed": 12,
+    "shown_as": "three, a dash, three (K7Q-M9X)"
+  },
+  "older_saves_keep_their_world": {
+    "source": "the same 1415 quote: 'seen for ongoing campaigns created after this update'",
+    "ours": "a campaign begun before the seed has no code and keeps the old valley"
+  },
+  "classic": {
+    "code": "",
+    "name": "THE OLD VALLEY",
+    "why": "a game saved before the seed existed, and the checkers' bench (the dark lifted), keep the fourteen bases where they always stood (CT_BASES_BAKED in the map): never move a base under a saved game"
+  },
+  "spread": {
+    "min_apart": 9,
+    "min_apart_why": "blocks, the longer side: two capitals never share a neighbourhood. A fortress's ground is 4 blocks wide, so 9 leaves a street of somebody else's between any two towns. Measured on the old layout: four bases (the Volunteers, the Network, the Reds, the Mob) stood within 6 blocks of each other in the north, the Volunteers and the Network 3 apart",
+    "floor_apart": 6,
+    "floor_apart_why": "the spacing is relaxed to this, never below, when a faction's real places are all crowded; two town grounds never touch",
+    "edge_inset": 5,
+    "edge_inset_why": "a town on the valley's last rows is clipped by the map's edge (faction_between M2); a preference, dropped only when the faction's only real places are at the edge",
+    "density_radius": 8,
+    "density_power": 0.5,
+    "density_why": "a capital with nobody around it is a faction with no members (people join by nearness to a base, engine/bohemia_towns.js placeHomes): a place is weighted by how much town is within 8 blocks of it, softened (the square root), so a seed leans to a living street but the truck stop at the valley's south edge still wins its share. Measured at 1.0: the truck stop won 1 seed in 10 against a weight of 4",
+    "one_place_one_ticket": "blocks of one kind that touch are ONE place (the prison is three blocks, the warehouses two): a seed picks the place, then a block of it. Measured before: the Remnants' three prison blocks drew three tickets and stood in the east in 8 seeds of 10",
+    "order": "fewest_sites_first",
+    "order_why": "the faction with the fewest real places picks first, so a seed never leaves the Network (one radio mast, two substations, the tower, the sign) without a home because somebody else's base stood too close"
+  },
+  "factions": {
+    "Mob":        { "kinds": { "casino": 3, "resort": 2, "highroller": 3, "convention": 1, "downtown": 1 }, "real": "the Strip and downtown's casinos", "note": "Controls the Strip. Ownership/protection/tribute." },
+    "Remnants":   { "kinds": { "fort": 4, "prison": 3, "jail": 3 }, "real": "the air base, the prisons and the jail: where men with guns and orders stayed", "note": "Military/law-enforcement survivors incl Nellis." },
+    "Network":    { "kinds": { "radio": 4, "strat": 3, "substation": 2, "sign": 1 }, "real": "the radio mast, the tower on the Strip, the substations, the big sign: a psyop needs a transmitter", "note": "Only faction with a manufactured origin." },
+    "Cartel":     { "kinds": { "storage": 2, "warehouse": 2, "terminal": 1, "swapmeet": 2 }, "real": "the storage yards, warehouses, the terminal and the swap meet: where it would hold ground, on the supply line", "note": "Organized human predation. Supply chains mirror caravan routes." },
+    "Caravans":   { "kinds": { "truckstop": 4, "terminal": 3, "warehouse": 2, "storage": 1, "swapmeet": 1 }, "real": "the truck stop, the terminal, the warehouses and the yards", "note": "Neutral outside-world trade." },
+    "Church":     { "kinds": { "chapel": 4, "cemetery": 2, "school": 1 }, "real": "the chapels, the cemeteries, a school gym for the flock", "note": "Best crisis organization." },
+    "Reds":       { "kinds": { "downtown": 2, "courthouse": 3, "mall": 2 }, "real": "downtown, the courthouses, the malls: where the money was counted", "note": "Economic engine, compound-interest faction. Not military." },
+    "Blues":      { "kinds": { "park": 2, "waterpark": 1 }, "real": "the parks and the water parks: green ground and water", "note": "Environmentalist." },
+    "Trades":     { "kinds": { "industrial": 3, "battery": 3, "warehouse": 1 }, "real": "the industrial blocks, the battery plant, the warehouses", "note": "Skilled-worker guild. Best for vehicle/solar/construction." },
+    "Volunteers": { "kinds": { "medical": 4, "campus": 2, "school": 1, "library": 2 }, "real": "the hospitals, the campus, the schools, the library", "note": "Healthcare/education/food/knowledge." },
+    "Homeless":   { "kinds": { "pumpstation": 4, "trailer": 2, "storage": 1 }, "real": "the pump station over the flood tunnels, the trailer parks, the storage lots", "note": "Sewer/tunnel HQ under the King Hobo." },
+    "Anarchists": { "kinds": { "apartment": 2, "commercial": 1, "trailer": 1 }, "real": "squats: dead apartment blocks, strip malls, trailer lots", "note": "Territorially inconsistent." },
+    "Colorful":   { "kinds": { "suburb": 1, "apartment": 1, "gated": 1 }, "real": "a neighbourhood that looks after itself", "note": "Community-based, not territorial." },
+    "Custom":     { "kinds": { "suburb": 1, "trailer": 1, "apartment": 1 }, "real": "the player's own outfit: any street that will have it", "note": "No preset philosophy; it is the player's." }
+  },
+  "min_sites": 3,
+  "min_places": 3,
+  "min_places_why": "and at least three separate places (touching blocks of one kind are one place), or a faction with three prison blocks is a faction with one home",
+  "min_sites_why": "every faction has at least three real places it could stand on in the valley, or the seed is a fixed seat with extra steps; the gate counts them on the real map",
+  "start": {
+    "from_seed": true,
+    "why": "the same seed and the same origin start in the same corner and the same town (the corner used to be a dice roll off the clock, so a shared seed could not share a start)"
+  },
+  "left_for_later": [
+    "who holds the region's twelve outer towns (region_bases.json holders): the page never hands that file to the home-base ledger (setRegion is node-only), so there is nothing to seed until RUN wires it",
+    "the region's camps and lairs (hostile_locations): each stands at one named real place with no candidate list yet",
+    "what is looted or burned at the start, the shops' stock rolls, the crew's roll"
+  ]
+}
