@@ -360,3 +360,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 336 | From his 11/2 votes: the whips without debuffs (no self-cut, no battery a lash), Disarm a low luck roll on every whip; the kill tally in the crew menu only; the pills off the march | 336 | VOTE FIXES | RUNNING (11/2) |
 | 337 | The fight maps need more love: every district its own ground, not the yellow-brown sand as the base everywhere | 336 | COMBAT MAPS 2 | RUNNING (11/2) |
 | 338 | The loading screen voted NO (no words): two or three options in the VOTE tab | 336 | UI (next round) | QUEUED |
+| 339 | (said again) One post on the phone at a time, not two: shipped first, on its own | 329 | UI 4 | RUNNING (UI 4 told to ship it first 11/2) |
+| 340 | 'I don't like what you did to the menu': which menu asked (the start screen, the phone's buttons, or the town menu); put back or redone on his answer | - | COORDINATOR, UI | ASKED: which menu |
