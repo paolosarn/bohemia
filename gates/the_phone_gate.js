@@ -20,7 +20,7 @@
        the bar's CREW, gear and NOTES and the town's LEAVE are not on the glass (no button twice, 286(b)); NOTES and SETTINGS open
        from the phone; the feed is on the face (286(c)) and a tap on it is the catalogue
      - PLAY/PAUSE: one tap stops the clock and the march (the hour and the crew stand still), one tap starts them again; its
-       picture says which; the last speed is its mark; a held mouse opens the speeds (computer)
+       picture says which; the last speed is its mark; a held mouse brings up the speed slider, one notch up and let go is his, saved (computer; WORLD 5, rule 311)
      - CREW opens the company screen; HEAL (rule 226: CAMP is the heal button) is a cross over the company's one bar (its
        hitpoints red and armour grey over their maxima), makes camp (the phone's screen says so, the wallpaper is the camp's
        own picture) and BREAK CAMP breaks it; FEED opens the company's page and the city's posts in one tap, and the company's name
@@ -116,6 +116,10 @@ async function side(profile) {
     }
     await until(() => p.evaluate(() => !!document.getElementById('bohphone') && document.getElementById('bohphone').classList.contains('on')), 30000);
     await p.evaluate(() => { try { localStorage.removeItem('bohemia.phone.v1'); BohemiaPhone.setSide('right'); } catch (e) {} });
+    /* WORLD 5 (rule 311): this walk was timed at the old one speed (1.22 blocks a beat); at the new 2x default its 3-second march
+       went 6 blocks into a town's door (measured 49,51 -> 43,54) and every leg after it ran inside that town. It tests the phone,
+       not the pace: it walks at regular time (1x), the slider's bottom notch */
+    await fr.evaluate(() => { try { travelPick(TRAVEL_CLOCK.regular); } catch (e) {} });
     await fr.evaluate(() => { window.__phoneEv = 0; window.addEventListener('bohemia-phone', () => { window.__phoneEv++; }); });
     await p.waitForTimeout(1500);
     const RECTS = {};
@@ -217,12 +221,17 @@ async function side(profile) {
         await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
         if (!touch) {
           const t = (await p.evaluate('(' + PHONE + ')()')).apps.find(z => z.app === 'play');
-          await p.mouse.move(t.cx, t.cy); await p.mouse.down(); await p.waitForTimeout(800); await p.mouse.up(); await p.waitForTimeout(200);
-          const pg = (await p.evaluate('(' + PHONE + ')()')).page;
-          ok('  a held press opens the speeds', pg === 'speeds', pg);
-          await p.evaluate(() => document.querySelector('#bohphone .page .ph').click()); await p.waitForTimeout(200);
-          const v = await fr.evaluate(() => window.__TRAVEL_SPEED);
-          ok('  and the hold did not start the clock', v === 0, v);
+          /* WORLD 5 (rule 311, __HOLD_PLAY_SLIDE_THE_SPEED__): a held press brings the slider up under the pointer; one notch up and
+             let go is his speed, saved; the hold never starts the clock (the upright phone's held finger: tools/bohemia_world_slide_the_speed_probe.js) */
+          const k0 = await fr.evaluate(() => TRAVEL_SPEED_LAST);
+          await p.mouse.move(t.cx, t.cy); await p.mouse.down(); await p.waitForTimeout(800);
+          const sl = await p.evaluate(() => ({ on: !!document.querySelector('#bohphone .spdsl.on'), now: (document.querySelector('#bohphone .spdsl') || { getAttribute: () => null }).getAttribute('aria-valuenow'), px: (window.__PHONE_SLIDE || {}).notchPx || 0 }));
+          ok('  a held press brings up the speed slider on the speed he has', sl.on && +sl.now === k0, JSON.stringify(sl) + ' last ' + k0);
+          await p.mouse.move(t.cx, t.cy - sl.px * 1.1, { steps: 6 }); await p.mouse.up(); await p.waitForTimeout(300);
+          const v = await fr.evaluate(() => ({ speed: window.__TRAVEL_SPEED, last: TRAVEL_SPEED_LAST, saved: localStorage.getItem(TRAVEL_CLOCK.saveKey), steps: TRAVEL_CLOCK.steps.slice() }));
+          const up = v.steps[Math.min(v.steps.length - 1, v.steps.indexOf(k0) + 1)];
+          ok('  slid one notch up and let go: that speed is his, saved, the slider gone', v.last === up && v.saved === String(up) && !(await p.evaluate(() => !!document.querySelector('#bohphone .spdsl.on'))), JSON.stringify(v));
+          ok('  and the hold did not start the clock', v.speed === 0, v.speed);
         }
         /* ---- THE WALLPAPER ---- */
         const W = await p.evaluate(() => {

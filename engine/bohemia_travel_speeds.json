@@ -1,0 +1,14 @@
+{
+  "what": "THE MAP'S TRAVEL CLOCK: how fast a journey crosses the map in real time. Hold PLAY on the phone and slide (rule 311, ask 304). WORLD 5, 11/2/26. Mod-friendly: edit the numbers, the map reads this file at boot.",
+  "unit": "blocks of the map a beat; one beat is 500 ms (120 BPM law). 1 = regular time, one block on every beat.",
+  "steps": [1, 2, 4],
+  "stepsWhy": "Each step is a whole number of blocks a beat, so every block lands on the beat or on an even split of it (2 = eighth notes, 4 = sixteenths). 8x was built and measured and is left out: with only the clock and the steps running it still fell 150 ms behind its slots and moved 8.6 of its 16 blocks a second (a map block costs about 20 ms of work before any drawing), so it cannot stay on the music. The code takes any whole number up to 16; a modder can add 8. The music never speeds up or changes pitch; only how many blocks fit in a beat changes. Every block still pays its own game clock, so a crossing costs the same game hours at every step, only fewer real seconds.",
+  "regular": 1,
+  "pick": 2,
+  "pickWhy": "Measured on the demo, upright phone (records/BOHEMIA_WORLD_HOLD_PLAY_SLIDE_THE_SPEED_11_2_26.md): see the record for the crossing times at each step and why this one.",
+  "dropToRegularOn": ["meet", "fight", "chase", "event"],
+  "dropWhy": "A party met on the road, a fight, a chase that ends, a road event: the card holds the map (PAUSE, rule 44a), and the march after it goes on at regular time, the Battle Brothers way. Making camp, healing and a wipe keep his pick.",
+  "saveKey": "bohemia.travel.speed.v1",
+  "holdMs": 350,
+  "holdWhy": "How long a finger stays on PLAY before the slider comes up. A tap is shorter than this and still plays or pauses."
+}

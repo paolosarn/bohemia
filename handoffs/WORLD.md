@@ -1,5 +1,19 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 5 (world-5-slide-the-speed): 11/2 LATEST -- [hold play, slide the speed] (rule 311, ask line 304) SHIPPED, NOT YET SEEN, BUILD
+11/3zp. Record: records/BOHEMIA_WORLD_HOLD_PLAY_SLIDE_THE_SPEED_11_2_26.md. Hold PLAY on the phone (350 ms): a slider comes up over
+PLAY's column under the thumb, 1x (REGULAR) 2x 4x; slide (relative, a notch per 42 points); let go keeps it, saved
+(bohemia.travel.speed.v1), the mark on PLAY says it; a tap still plays or pauses; the hold never starts the clock. Steps are whole
+blocks a beat; every extra block is now timed FROM THE BEAT (it was timed from after the first block's step: 2x landed 25 ms late
+median, 86 worst). Default 2x (the valley's longest route 88 blocks: 44 s at 1x, 22 s at 2x, 11 s at 4x; a normal trip ~10 s).
+A meet, fight, chase or road event holds the map on its block and the march after goes at 1x (BB's way); his saved pick stays.
+Numbers: engine/bohemia_travel_speeds.json (mod-friendly, fetched at boot, checked, mirror in the map). 8x built, measured and left
+out: even with drawing off it ran 150 ms behind and half its blocks (a map block costs ~20 ms before drawing). Music untouched (no
+music or sound code reads the speed). Probe: tools/bohemia_world_slide_the_speed_probe.js (upright phone, CDP held finger, the
+schedule alone: 2x and 4x under 2 ms late median). THE PHONE gate: its computer hold leg re-aimed to the slider, and it walks at 1x (at 2x its fixed 3 s march went into a town and 24 legs fell; now 256 / 3, the 3 are main's own RELOAD).
+OWED: the phone number (this gate box draws in software and cannot hold even 1x on time with the drawing on; PLUMBER, run the probe on
+a phone); 8x waits for a cheaper map step; a notch tick is SOUNDS' call; gates/the_pad_is_travel_speed_gate.js is stale history.
+
 WORLD 4 (11/2, rules 307 amended and 308, ask lines 300 and 301): THE WHOLE JOB'S TIME, AND COME BACK OR PAID THERE AT A GLANCE. BUILD 11/3zk. SHIPPED, NOT YET SEEN.
 - The hold is timed (the walk to its gate, its waves, paid there); every part of a job checked on the clock (the fight and the night
   spend nothing, measured over 284 fights; legs' waits, finds, hunts, the moved twist counted). Probe sample 15 of 15, holds 5 of 5.

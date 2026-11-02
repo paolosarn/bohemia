@@ -27,7 +27,8 @@
 
    THE FIVE APPS [COORDINATOR'S DEFAULT, rule 205: the set is his to change, and he can from the settings page]:
      PLAY/PAUSE  the clock on the map (the pad's II and GO, the spacebar's one door: travelSpeedSet); the speed he last
-                 chose kept as a small mark; a held finger opens the speeds (one on the map for now, rule 151(c))
+                 chose kept as a small mark; a held finger brings up the speed slider under it, 1x 2x 4x (rule 311,
+                 __HOLD_PLAY_SLIDE_THE_SPEED__); let go keeps the speed, saved
      CREW        the social app's people: the company screen (rule 172), the bar's own CREW door, the same everywhere
      CAMP        make and break camp where he stands (RUN TWO's camp, rule 151(d): the followers, the wagon)
      FEED        his company's page on top (its name: one tap renames it), the city's posts under it (the 9/4 feed law,
@@ -198,6 +199,7 @@
     var o = { mode: null, speed: 0, last: 0, speeds: [], town: false, camp: false, meet: false, sky: false, clock: '', day: 0, place: '' };
     try { o.mode = (typeof MODE !== 'undefined') ? MODE : null; } catch (e) {}
     try { o.speed = +TRAVEL_SPEED || 0; o.last = +(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT) || 0; o.speeds = (TRAVEL_SPEEDS || []).filter(function (n) { return n > 0; }); } catch (e) {}
+    try { o.regular = +TRAVEL_CLOCK.regular || 1; o.pick = +TRAVEL_CLOCK.pick || 1; o.holdMs = +TRAVEL_CLOCK.holdMs || 350; } catch (e) {}   /* __HOLD_PLAY_SLIDE_THE_SPEED__ */
     try { o.camp = !!(window.BohemiaMapCamp && BohemiaMapCamp.on()); } catch (e) {}
     try { o.campTown = (o.camp && typeof CAMP !== 'undefined' && CAMP.town) ? String(CAMP.town.name || '') : null; } catch (e) {}   /* CAMP [a town is safe]: a rest in a town */
     try { var sf = document.getElementById('settleFrame'); o.town = !!sf && sf.style.display === 'block' && !o.camp; } catch (e) {}
@@ -222,6 +224,7 @@
     } catch (e) { return false; }
   };
   P.speed = function (n) { try { return travelSpeedSet(n); } catch (e) { return false; } };
+  P.pick = function (n) { try { return travelPick(n); } catch (e) { return false; } };   /* the slider's let-go: saved, the hold never starts the clock */
   /* THE JOBS HE IS ON (rule 227): what, where, the red stars, the time there and back (rule 222), never the offers */
   var JOBS_AT = { key: null, out: [] };
   P.jobs = function () {
@@ -722,10 +725,18 @@
       + '#bohphone .rel b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8.5px;letter-spacing:.5px;color:#f4e8cc}'
       + '#bohphone .rel .bd{float:right;font-size:7px}'
       + '#bohphone .rel .why{display:block;color:#bfae8c;font-size:7px}'
-      + '#bohphone .spd{display:flex;flex-direction:column;gap:5px;padding:6px 4px}'
-      + '#bohphone .spd button{height:30px;border:0;cursor:pointer;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;' + kit('tin', 0.5) + 'color:#1f1710}'
-      + '#bohphone .spd button.now{' + kit('tin_amber', 0.5) + '}'
-      + '#bohphone .spd p{margin:2px 0 0;font-size:7px;color:#cdbd98}'
+      /* __HOLD_PLAY_SLIDE_THE_SPEED__ (WORLD 5, rule 311): the slider over PLAY's column, up out of the glass on twos as every face */
+      + '#bohphone .spdsl{position:absolute;left:2px;right:2px;top:2px;height:111px;z-index:6;visibility:hidden;pointer-events:none;background:linear-gradient(#15110b,#0a0806);box-shadow:inset 0 0 0 1px rgba(240,226,196,.18),inset 0 1px 0 rgba(240,226,196,.10)}'
+      + '#bohphone .spdsl.on{visibility:visible;animation:bphIn 250ms steps(1,end) both}'
+      + '#bohphone .spdsl.was{animation:bphOut 250ms steps(1,end) both}'
+      + '#bohphone .spdsl .tt{position:absolute;right:5px;top:3px;font:7px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.2px;color:#bfae8c}'
+      + '#bohphone .spdsl .rl{position:absolute;left:22px;width:6px;top:' + 18 + 'px;height:' + 84 + 'px;border-radius:2px;background:linear-gradient(90deg,#050403,#2b2318 45%,#050403);box-shadow:inset 0 1px 2px rgba(0,0,0,.95),0 0 0 1px rgba(240,226,196,.16)}'
+      + '#bohphone .spdsl .nt{position:absolute;left:16px;width:18px;height:2px;background:#9a835a;box-shadow:0 1px 0 #000}'
+      + '#bohphone .spdsl .lb{position:absolute;left:41px;height:14px;line-height:14px;white-space:nowrap;font:11px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;color:#bfae8c}'
+      + '#bohphone .spdsl .lb.now{color:#f6cf74;text-shadow:0 0 4px rgba(246,207,116,.45)}'
+      + '#bohphone .spdsl .lb i{font-style:normal;font-size:6.5px;letter-spacing:.6px;margin-left:4px;color:#8f8166}'
+      + '#bohphone .spdsl .kn{position:absolute;left:10px;width:30px;height:14px;' + kit('tin_amber', 0.5) + 'box-shadow:0 1px 0 rgba(0,0,0,.7)}'
+      + '#bohphone .app[data-app=play]{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}'
       + '#bohphone .home.under{visibility:hidden}'
       /* THE FIGHT: the screen lit dark red, his face and name, his abilities in the kit's pockets, small, three a row */
       + '#bohphone .fight{background:#1a0907}'
@@ -909,12 +920,65 @@
       + (a === 'heal' ? '<canvas class="rg" aria-hidden="true" width="132" height="141"></canvas>' : '');
     b.addEventListener('click', function () { if (H.holdFired === b) { H.holdFired = null; return; } appPress(a); });   /* the held press's own click is the hold's */
     b.addEventListener('pointerdown', function () { H.holdFired = null; });
-    if (a === 'play') {   /* a held finger opens the speeds */
+    if (a === 'play') {   /* __HOLD_PLAY_SLIDE_THE_SPEED__ (WORLD 5, rule 311): a held finger brings the slider up under it; slide; let go keeps it */
       var t = 0;
-      b.addEventListener('pointerdown', function () { clearTimeout(t); t = setTimeout(function () { H.holdFired = b; pageOpen('speeds'); }, 550); });
-      ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { b.addEventListener(k, function () { clearTimeout(t); }); });
+      b.addEventListener('pointerdown', function (e) {
+        clearTimeout(t); try { b.setPointerCapture(e.pointerId); } catch (x) {}   /* the finger stays this button's while it slides off it */
+        H.slideY = e.clientY; t = setTimeout(function () { if (slideOpen(H.slideY)) H.holdFired = b; }, slideHoldMs());
+      });
+      b.addEventListener('pointermove', function (e) { H.slideY = e.clientY; if (H.slide) slideMove(e.clientY); });
+      b.addEventListener('pointerup', function (e) { clearTimeout(t); if (H.slide) slideLetGo(e.clientY); });
+      b.addEventListener('pointercancel', function () { clearTimeout(t); if (H.slide) slideClose(); });
     }
     return b;
+  }
+  /* ---- __HOLD_PLAY_SLIDE_THE_SPEED__ (WORLD 5, 11/2, rule 311, ask 304): THE SLIDER UNDER HIS THUMB. A rail over PLAY's own
+     column, regular time at the bottom (just above his thumb) and the fastest at the top. The knob starts on the speed he has
+     and climbs a notch for every notch his finger climbs (relative, so the touch itself never jumps it); let go and that speed
+     is his and saved (the map's travelPick: on a march it is the speed now, on PAUSE the speed PLAY sets out at; the hold never
+     starts the clock). On the map only. Words draft:true. ---- */
+  var SL = { top: 18, bottom: 102, h: 111 };   /* the slider's rows in the home's own points (the two buttons start at 116) */
+  function slideHoldMs() { try { var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P, s = L && L.state(); return (s && s.holdMs) || 350; } catch (e) { return 350; } }
+  function slideOpen(y0) {
+    var scr = H.state.screen; try { scr = whichScreen() || scr; } catch (e) {}
+    var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P; if (!L || scr !== 'map') return false;
+    var s = L.state(), st = (s.speeds || []).slice().sort(function (a, c) { return a - c; }); if (st.length < 2) return false;
+    var cur = s.speed || s.last, i0 = 0; st.forEach(function (n, i) { if (Math.abs(Math.log(n / cur)) < Math.abs(Math.log(st[i0] / cur))) i0 = i; });
+    var home = H.el.querySelector('.home'), sl = home.querySelector('.spdsl');
+    if (!sl) { sl = el('div', 'spdsl'); sl.setAttribute('role', 'slider'); sl.setAttribute('aria-label', 'travel speed'); home.appendChild(sl); }
+    var gap = (SL.bottom - SL.top) / (st.length - 1), h = '<span class="tt">SPEED</span><i class="rl"></i>';
+    st.forEach(function (n, i) { var c = SL.bottom - i * gap;
+      h += '<i class="nt" style="top:' + (c - 1) + 'px"></i><span class="lb" data-i="' + i + '" style="top:' + (c - 7) + 'px">' + n + 'x'
+        + (n === s.regular ? '<i>REGULAR</i>' : '') + '</span>'; });   /* draft:true */
+    sl.innerHTML = h + '<i class="kn"></i>';
+    sl.setAttribute('aria-valuemin', String(st[0])); sl.setAttribute('aria-valuemax', String(st[st.length - 1]));
+    var r = sl.getBoundingClientRect(), k = r.height > 0 ? r.height / SL.h : 1;
+    H.slide = { st: st, i0: i0, i: i0, y0: y0, gap: gap, px: Math.max(8, gap * k), L: L, el: sl, at: performance.now() };
+    clearTimeout(sl.__was); sl.classList.remove('was'); sl.classList.add('on');
+    slidePaint(); window.__PHONE_SLIDE = { open: true, from: st[i0], steps: st.slice(), notchPx: Math.round(H.slide.px * 10) / 10 };
+    return true;
+  }
+  function slidePaint() {
+    var S = H.slide; if (!S) return;
+    var kn = S.el.querySelector('.kn'); kn.style.top = (SL.bottom - S.i * S.gap - 7) + 'px';
+    [].forEach.call(S.el.querySelectorAll('.lb'), function (l) { l.classList.toggle('now', +l.dataset.i === S.i); });
+    S.el.setAttribute('aria-valuenow', String(S.st[S.i])); S.el.setAttribute('aria-valuetext', S.st[S.i] + 'x');
+  }
+  function slideMove(y) {
+    var S = H.slide; if (!S) return;
+    var i = Math.max(0, Math.min(S.st.length - 1, S.i0 + Math.round((S.y0 - y) / S.px)));
+    if (i !== S.i) { S.i = i; slidePaint(); }
+  }
+  function slideLetGo(y) {
+    var S = H.slide; if (!S) return; slideMove(y);
+    var n = S.st[S.i], got = S.L.pick(n);
+    window.__PHONE_SLID = { n: n, from: S.st[S.i0], got: got, heldMs: Math.round(performance.now() - S.at), n_slid: (window.__PHONE_SLID ? window.__PHONE_SLID.n_slid : 0) + 1 };
+    slideClose(); paintHome(true);
+  }
+  function slideClose() {
+    var S = H.slide; H.slide = null; if (!S) return;
+    var sl = S.el; sl.classList.remove('on'); sl.classList.add('was'); clearTimeout(sl.__was); sl.__was = setTimeout(function () { sl.classList.remove('was'); }, 260);
+    window.__PHONE_SLIDE = { open: false };
   }
   function rowApps() { var c = H.cfg; return c.order.filter(function (a) { return c.hidden.indexOf(a) < 0; }); }
   function homeBuild() {
@@ -966,7 +1030,7 @@
     if (!H.page) try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_open' }, '*'); } catch (_e) {}   /* __THE_PUNCH_HEARD__ (SOUNDS 11/3): gears and a rubber band */
     var pg = H.el.querySelector('.page'), swap = !!H.page && H.page !== which; H.page = which; pg.dataset.page = which; panel(pg, true, swap);
     H.el.querySelector('.home').classList.add('under');
-    pg.querySelector('.ph span').textContent = which === 'speeds' ? 'SPEED' : LABEL[which];
+    pg.querySelector('.ph span').textContent = LABEL[which];
     pagePaint(true);
   }
   function pageClose() { var pg = H.el.querySelector('.page'); if (H.page) try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_close' }, '*'); } catch (_e) {} panel(pg, false); pg.dataset.page = ''; H.page = null; H.el.querySelector('.home').classList.remove('under'); }
@@ -993,13 +1057,7 @@
     } else if (H.page === 'relations') {
       if (!fresh && H.relAt && performance.now() - H.relAt < 2000) return; H.relAt = performance.now();
       pb.innerHTML = relationsHtml(L);
-    } else if (H.page === 'speeds') {
-      var s = L ? L.state() : { speeds: [], speed: 0, last: 0 };
-      var hs = '<div class="spd">' + s.speeds.map(function (n) { return '<button type="button" data-n="' + n + '" class="' + (n === (s.speed || s.last) ? 'now' : '') + '">' + n + 'x</button>'; }).join('')
-        + (s.speeds.length <= 1 ? '<p>One speed on the map for now.</p>' : '') + '</div>';   /* draft:true; rule 151(c) */
-      pb.innerHTML = hs;
-      [].forEach.call(pb.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { if (L) { L.speed(+b.dataset.n); } pageClose(); paintHome(true); }); });
-    }
+    }   /* the speeds page a hold used to open is the slider now (__HOLD_PLAY_SLIDE_THE_SPEED__, above) */
   }
   function renameStart() {
     var nm = H.el.querySelector('.co .nm'); if (!nm) return;

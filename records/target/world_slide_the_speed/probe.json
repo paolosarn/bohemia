@@ -1,0 +1,256 @@
+{
+ "checks": [
+  {
+   "name": "1 the clock read engine/bohemia_travel_speeds.json (steps 1 2 4, default 2x)",
+   "ok": true,
+   "info": "file"
+  },
+  {
+   "name": "  the map stands on our default with nothing saved",
+   "ok": true,
+   "info": "last 2, speed 2"
+  },
+  {
+   "name": "2 a short tap on PLAY still pauses and plays (no slider)",
+   "ok": true,
+   "info": "2 -> 0 -> 2"
+  },
+  {
+   "name": "3 HOLD: nothing before the hold time (a tap stays a tap)",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "  the slider comes up over PLAY's own column, under the thumb, on the speed he has (2x)",
+   "ok": true,
+   "info": "notch 42 px; slider {\"x\":266,\"y\":585,\"w\":104,\"h\":111,\"bottom\":696}"
+  },
+  {
+   "name": "  SLIDE: one notch up is 4x, the top",
+   "ok": true,
+   "info": "4"
+  },
+  {
+   "name": "  LET GO: 4x is his, saved; the slider goes; the mark on PLAY says 4x",
+   "ok": true,
+   "info": "undefined mark 4x"
+  },
+  {
+   "name": "  and the hold did not start the clock (still paused)",
+   "ok": true,
+   "info": 0
+  },
+  {
+   "name": "  then a tap on PLAY goes at 4x",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "  a fresh boot reads his saved 4x back (remembered)",
+   "ok": true,
+   "info": 4
+  },
+  {
+   "name": "4 every step travels and goes faster than the one below it",
+   "ok": true,
+   "info": "1.8/s 3.95/s 6.59/s"
+  },
+  {
+   "name": "  1x is one block a beat (2 a second, within one beat of the window)",
+   "ok": true,
+   "info": 1.8
+  },
+  {
+   "name": "  2x lands its full blocks (within one beat of the window)",
+   "ok": true,
+   "info": 3.95
+  },
+  {
+   "name": "  every block pays its own clock (game minutes a block inside the map's own cheapest to dearest block, 5.376 to 32.256, at every step)",
+   "ok": true,
+   "info": "5.4 7.4 5.4"
+  },
+  {
+   "name": "  THE BEAT, THE SCHEDULE ALONE (the drawing and the frame loop out): at 2x and 4x every split block starts within 15 ms of its slot (median), and the blocks are all there",
+   "ok": true,
+   "info": "2x 3.93/s, late 0.2/0.6 ms; 4x 7.98/s, late 0.4/16.9 ms"
+  },
+  {
+   "name": "6 a party met at 4x holds the map and drops it to regular time; his saved pick stays 4x",
+   "ok": true,
+   "info": "{\"from\":4,\"resume\":1,\"mark\":\"1x\"}"
+  },
+  {
+   "name": "  on its beat: the drop fell on the block that met it, slot 2/4 of its beat (4x splits a beat in four), and no block of that beat moved after it",
+   "ok": true,
+   "info": "slot 2/4, 256 ms into the beat (6 ms after its slot: the machine); 51,44 -> 51,44"
+  },
+  {
+   "name": "  the march after it goes at 1x, every block on the beat",
+   "ok": true,
+   "info": "1x, 6 blocks in 3 s, off 0,0,0,0,0,0"
+  },
+  {
+   "name": "  THE MUSIC: no music or sound code reads the travel speed (it never speeds up or changes pitch)",
+   "ok": true,
+   "info": "no reader"
+  },
+  {
+   "name": "no page error",
+   "ok": true,
+   "info": ""
+  }
+ ],
+ "clock": {
+  "clock": {
+   "steps": [
+    1,
+    2,
+    4
+   ],
+   "regular": 1,
+   "pick": 2,
+   "dropToRegularOn": [
+    "meet",
+    "fight",
+    "chase",
+    "event"
+   ],
+   "saveKey": "bohemia.travel.speed.v1",
+   "holdMs": 350,
+   "from": "file"
+  },
+  "speeds": [
+   0,
+   1,
+   2,
+   4
+  ],
+  "speed": 2,
+  "last": 2,
+  "saved": null
+ },
+ "routes": {
+  "towns": 14,
+  "long": {
+   "from": "Caravans",
+   "to": "Cartel",
+   "blocks": 106,
+   "mins": 570
+  },
+  "median": {
+   "to": "Network",
+   "blocks": 59,
+   "mins": 323
+  },
+  "nearest": {
+   "to": "Volunteers",
+   "blocks": 26,
+   "mins": 140
+  },
+  "trips": 13
+ },
+ "steps": {
+  "1": {
+   "stepCostMedMs": 58.5,
+   "stepCostP90Ms": 65.9,
+   "perBeat": "1,1,1,1,1,1,1,1",
+   "beats": 8,
+   "blocksABeat": 1,
+   "blocks": 8,
+   "secs": 4.454699999999255,
+   "minutes": 43,
+   "steps": 8,
+   "splitLateMedMs": 0,
+   "splitLateP90Ms": 0,
+   "splitN": 0,
+   "beatDriftMedMs": 50.4,
+   "beatDriftP90Ms": 149.1,
+   "beatsN": 8,
+   "street": false,
+   "blocksPerSec": 1.8,
+   "minPerBlock": 5.4
+  },
+  "2": {
+   "stepCostMedMs": 55.1,
+   "stepCostP90Ms": 79.3,
+   "perBeat": "3,2,3,1,1,2,3,1",
+   "beats": 8,
+   "blocksABeat": 2,
+   "blocks": 16,
+   "secs": 4.054599999999628,
+   "minutes": 119,
+   "steps": 16,
+   "splitLateMedMs": 265.8,
+   "splitLateP90Ms": 471.2,
+   "splitN": 8,
+   "beatDriftMedMs": 101.8,
+   "beatDriftP90Ms": 338.4,
+   "beatsN": 8,
+   "street": false,
+   "blocksPerSec": 3.95,
+   "minPerBlock": 7.4
+  },
+  "4": {
+   "stepCostMedMs": 51.6,
+   "stepCostP90Ms": 105.5,
+   "perBeat": "1,3,4,5,5,1",
+   "beats": 6,
+   "blocksABeat": 3.17,
+   "blocks": 19,
+   "secs": 2.8816999999992547,
+   "minutes": 102,
+   "steps": 19,
+   "splitLateMedMs": 479.4,
+   "splitLateP90Ms": 759.5,
+   "splitN": 14,
+   "beatDriftMedMs": 114.2,
+   "beatDriftP90Ms": 362.5,
+   "beatsN": 5,
+   "street": false,
+   "blocksPerSec": 6.59,
+   "minPerBlock": 5.4
+  }
+ },
+ "schedule": {
+  "2": {
+   "blocksPerSec": 3.93,
+   "splitLateMedMs": 0.2,
+   "splitLateP90Ms": 0.6,
+   "splitN": 5,
+   "beatDriftMedMs": 0.1,
+   "beatDriftP90Ms": 0.3,
+   "stepCostMedMs": 17.1
+  },
+  "4": {
+   "blocksPerSec": 7.98,
+   "splitLateMedMs": 0.4,
+   "splitLateP90Ms": 16.9,
+   "splitN": 15,
+   "beatDriftMedMs": 0.5,
+   "beatDriftP90Ms": 7.2,
+   "stepCostMedMs": 23.6
+  }
+ },
+ "crossing": {
+  "1": {
+   "longSec": 58.9,
+   "longSecOnPaper": 53,
+   "medianSec": 32.8,
+   "nearestSec": 14.4
+  },
+  "2": {
+   "longSec": 26.8,
+   "longSecOnPaper": 26.5,
+   "medianSec": 14.9,
+   "nearestSec": 6.6
+  },
+  "4": {
+   "longSec": 16.1,
+   "longSecOnPaper": 13.3,
+   "medianSec": 9,
+   "nearestSec": 3.9
+  }
+ },
+ "errs": []
+}

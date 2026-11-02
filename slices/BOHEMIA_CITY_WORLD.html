@@ -44507,6 +44507,7 @@ function animate(kind){
 }
 // the metronome: the ONE clock movement answers to
 setInterval(()=>{
+  { const _nb=performance.now(); if(MAP_BEAT_AT && TRAVEL && TRAVEL_SPEED>0) travelLate(TRAVEL_SPEED, 0, _nb-MAP_BEAT_AT-BEAT); MAP_BEAT_AT=_nb; try{ window.__MAP_BEAT_AT=MAP_BEAT_AT; }catch(_e){} }   /* __HOLD_PLAY_SLIDE_THE_SPEED__: where the beat fell, and how late against the one before */
   /* __THE_TIME_NOT_THE_TAPS__: a latched direction is the last thing consulted, so a
      real press always wins over one he let go of. */
   if(LATCH_DIR !== null && latchShouldStop()) latchStop();
@@ -44528,6 +44529,7 @@ setInterval(()=>{
      before stepOnce mutates it. Taken around BOTH steps, because a run covers
      two cells in one beat and the glide has to cross both of them. */
   const _gsp=glideSpace(), _gfr=glideFrom();
+  if(TRAV!==null){ TRAVEL_STEP_T0=performance.now(); TRAVEL_STEP_SLOT='0/'+Math.max(1,Math.round(TRAVEL_SPEED||1)); }   /* __HOLD_PLAY_SLIDE_THE_SPEED__: where in the beat this block started, and its slot */
   let moved=stepOnce(di);
   /* __A_RUN_SOUNDS_LIKE_A_RUN__: lot two is still taken on this beat, exactly as
      before; it is only LABELLED lot two so the shell can put its footfall half a
@@ -44549,19 +44551,24 @@ setInterval(()=>{
     const N=TRAVEL_SPEED;
     /* __ONE_POINT_TWO_TWO__: a speed that is not a whole number carries its fraction from beat to beat */
     TRAVEL_ACC += N - 1; const XTRA = Math.floor(TRAVEL_ACC + 1e-9); TRAVEL_ACC -= XTRA;
+    /* __HOLD_PLAY_SLIDE_THE_SPEED__: timed FROM THE BEAT, not from after the first block's step. Measured (WORLD 5): counted
+       from after it, every extra block landed late by what that step cost (2x: 25 ms median, 86 ms worst, off the split) */
+    const B0 = MAP_BEAT_AT || performance.now();
     for(let k=1;k<=XTRA;k++){
       setTimeout(function(){
         if(!TRAVEL || TRAVEL_SPEED!==N) return;
+        travelLate(N, k, performance.now()-(B0+k*BEAT/(XTRA+1)));   /* __HOLD_PLAY_SLIDE_THE_SPEED__: this block against its own slot */
         try{ if(typeof MODE==='undefined' || MODE!=='city') return; }catch(_e){ return; }
         const d2=travelNext(); if(d2===null) return;
         if(travelGoingWait()) return;   /* __OVER_THE_MOUNTAIN__ */
+        TRAVEL_STEP_T0=performance.now(); TRAVEL_STEP_SLOT=k+'/'+(XTRA+1);
         const m2=stepOnce(d2); travelStepped(m2);
         /* NO FULL REDRAW HERE, AND THAT WAS MEASURED: redrawing after every spread block
            tripled the draw work (a render is ~42 ms on the gate box) and 3x crossed 7 blocks
            to 1x's 5. The map glide redraws itself every frame while it moves; it only has to
            NOTICE the new block, which asking it where the picture is does, for free. */
         try{ if(typeof cityGlidePos==='function') cityGlidePos(performance.now()); }catch(_e){}
-      }, Math.round(k*BEAT/(XTRA+1)));
+      }, Math.max(0, Math.round(B0 + k*BEAT/(XTRA+1) - performance.now())));
     }
   }
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */
@@ -44706,9 +44713,17 @@ var TRAVEL = null;       /* {path:[[x,y],...], i, cells, mins, to:[x,y]} or null
    even like having the button to go five times faster'): the map goes at 1.22 blocks a beat (an extra block on about one beat
    in five, carried in TRAVEL_ACC so it never bursts), and the pad is PAUSE and GO; the fast speeds stay in the code behind
    MAP_FAST_ON for other uses, never on the map */
-var TRAVEL_DEFAULT = 1.22, MAP_FAST_ON = false, TRAVEL_ACC = 0;
-var TRAVEL_SPEEDS_ALL = [0, 1, 2, 3, 5];
-var TRAVEL_SPEEDS = MAP_FAST_ON ? TRAVEL_SPEEDS_ALL : [0, TRAVEL_DEFAULT];
+/* __HOLD_PLAY_SLIDE_THE_SPEED__ (WORLD 5, 11/2, rule 311, ask 304; supersedes 1.22 as the map's one speed). Paolo: 'when you
+   hold onto the play button, you get to slide how fast it goes when you fast forward, or regular time... the default is [ours]...
+   make sure it works with the music too.' Battle Brothers' map has pause, normal and fast. OURS: regular time is one block on
+   every beat; the steps are 1x 2x 4x (8x measured off the beat, left out: see the file), whole blocks a beat, so every block lands on the beat or an even split of it (the
+   extra blocks above already go one every BEAT/N); the music is never touched. His pick is saved. A road happening (a party
+   met, a fight, a chase, a road event) holds the map as before and the march after it goes at regular time.
+   THE NUMBERS LIVE IN engine/bohemia_travel_speeds.json (mod-friendly); this is that file's mirror until it arrives. */
+var TRAVEL_CLOCK = { steps: [1, 2, 4], regular: 1, pick: 2, dropToRegularOn: ['meet', 'fight', 'chase', 'event'], saveKey: 'bohemia.travel.speed.v1', holdMs: 350, from: 'mirror' };
+var TRAVEL_DEFAULT = TRAVEL_CLOCK.pick, MAP_FAST_ON = true, TRAVEL_ACC = 0;
+var TRAVEL_SPEEDS_ALL = [0].concat(TRAVEL_CLOCK.steps);
+var TRAVEL_SPEEDS = TRAVEL_SPEEDS_ALL;
 var TRAVEL_SPEED = TRAVEL_DEFAULT;
 /* __THE_FIRST_TAP_GOES_SOMEWHERE__ (RUN 10/23, [the first hour, quicker], TUNING's change 2, rule 133). MEASURED on the
    stranger's walk (tools/bohemia_run_the_first_hour_walk.js): after the fight the pad sat on PAUSE, the next tap on a place
@@ -44718,6 +44733,7 @@ var TRAVEL_SPEED = TRAVEL_DEFAULT;
 var TRAVEL_SPEED_LAST = TRAVEL_DEFAULT;
 function travelSpeedSet(n){
   n = +n; if (!MAP_FAST_ON && n > 0) n = TRAVEL_DEFAULT;   /* any 'go' is the one speed */
+  if (TRAVEL_SPEEDS.indexOf(n) < 0) n = travelStepNear(n);   /* an old number (a save's 1.22, a 3 or 5) goes to the nearest step */
   if (TRAVEL_SPEEDS.indexOf(n) < 0) return false;
   if (n > 0 && TRAVEL_SPEED === 0 && TRAVEL) { try{ camHold(); }catch(_e){} }   /* __THE_CAMERA_KEEPS_THE_CREW__: GO takes the camera back */
   TRAVEL_SPEED = n; if (n > 0) TRAVEL_SPEED_LAST = n;
@@ -44728,12 +44744,74 @@ function travelSpeedSet(n){
 /* a journey he asked for on PAUSE goes at the speed he last chose */
 function travelGoes(){ if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || TRAVEL_DEFAULT); }
 function travelInterrupt(why){
+  var was = TRAVEL_SPEED;
   if (TRAVEL_SPEED > 0) TRAVEL_SPEED_LAST = TRAVEL_SPEED;
   TRAVEL_SPEED = 0;
-  try{ window.__TRAVEL_SPEED = 0; window.__TRAVEL_INTERRUPT = { why: String(why||''), at: performance.now() }; }catch(_e){}
+  /* __HOLD_PLAY_SLIDE_THE_SPEED__: a road happening drops a fast march back to regular time for what comes after the card (BB's
+     way); it lands on the block that met it, which is on the beat or its split, and the extra blocks still owed this beat stop
+     (each checks the speed it was set at) */
+  var drop = TRAVEL_CLOCK.dropToRegularOn.indexOf(String(why || '')) >= 0 && TRAVEL_SPEED_LAST > TRAVEL_CLOCK.regular;
+  if (drop) TRAVEL_SPEED_LAST = TRAVEL_CLOCK.regular;
+  try{ var now = performance.now(), st0 = (TRAVEL_STEP_T0 && now - TRAVEL_STEP_T0 < BEAT) ? TRAVEL_STEP_T0 : now, ph = MAP_BEAT_AT ? (st0 - MAP_BEAT_AT) % BEAT : null;
+    window.__TRAVEL_SPEED = 0; window.__TRAVEL_INTERRUPT = { why: String(why||''), at: now, from: was, resume: TRAVEL_SPEED_LAST, dropped: drop, beatPhaseMs: ph == null ? null : Math.round(ph), slot: st0 === now ? null : TRAVEL_STEP_SLOT }; }catch(_e){}
   try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
 }
-try{ window.travelSpeedSet = travelSpeedSet; window.travelInterrupt = travelInterrupt; window.__TRAVEL_SPEED = TRAVEL_SPEED; }catch(_e){}
+/* the step nearest a number (an old save's 1.22 is regular time, 3 is 4) */
+function travelStepNear(n){
+  n = +n; if (!(n > 0)) return n === 0 ? 0 : TRAVEL_CLOCK.regular;
+  var best = TRAVEL_CLOCK.steps[0]; TRAVEL_CLOCK.steps.forEach(function(s){ if (Math.abs(Math.log(s / n)) < Math.abs(Math.log(best / n))) best = s; });
+  return best;
+}
+/* HIS PICK, from the slider under his thumb on PLAY (the phone): saved; on a march it is the speed now, on PAUSE it is the speed
+   PLAY sets out at, and the hold never starts the clock */
+function travelPick(n){
+  n = travelStepNear(n); if (!(n > 0)) return false;
+  try{ localStorage.setItem(TRAVEL_CLOCK.saveKey, String(n)); }catch(_e){}
+  TRAVEL_SPEED_LAST = n;
+  if (TRAVEL_SPEED > 0) travelSpeedSet(n);
+  try{ window.__TRAVEL_PICK = { n: n, at: performance.now(), running: TRAVEL_SPEED > 0 }; }catch(_e){}
+  try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
+  return n;
+}
+function travelPickSaved(){ try{ var v = +localStorage.getItem(TRAVEL_CLOCK.saveKey); return TRAVEL_CLOCK.steps.indexOf(v) >= 0 ? v : null; }catch(_e){ return null; } }
+/* the clock's numbers, from the file when it comes (a modder's edit), checked: whole blocks a beat, at most 16, regular and the
+   default among them; anything else keeps the mirror and says why */
+function travelClockApply(j, from){
+  try{
+    var st = (j && j.steps || []).map(Number).filter(function(s){ return s > 0 && s <= 16 && Math.floor(s) === s; }).sort(function(a, b){ return a - b; });
+    st = st.filter(function(s, i){ return st.indexOf(s) === i; });
+    if (!st.length) { window.__TRAVEL_CLOCK_REFUSED = 'no whole-number steps'; return false; }
+    TRAVEL_CLOCK.steps = st;
+    TRAVEL_CLOCK.regular = st.indexOf(+j.regular) >= 0 ? +j.regular : st[0];
+    TRAVEL_CLOCK.pick = st.indexOf(+j.pick) >= 0 ? +j.pick : TRAVEL_CLOCK.regular;
+    if (Array.isArray(j.dropToRegularOn)) TRAVEL_CLOCK.dropToRegularOn = j.dropToRegularOn.map(String);
+    if (j.saveKey) TRAVEL_CLOCK.saveKey = String(j.saveKey);
+    if (+j.holdMs > 0) TRAVEL_CLOCK.holdMs = +j.holdMs;
+    TRAVEL_CLOCK.from = from || 'file';
+    TRAVEL_SPEEDS_ALL = [0].concat(st); TRAVEL_SPEEDS = TRAVEL_SPEEDS_ALL; TRAVEL_DEFAULT = TRAVEL_CLOCK.pick;
+  }catch(_e){ return false; }
+  travelClockBoot();
+  return true;
+}
+/* his saved pick, or our default, is where the clock stands; a speed no longer a step goes to the nearest */
+function travelClockBoot(){
+  var saved = travelPickSaved(), touched = !!window.__TRAVEL_PICK || !!window.__TRAVEL_INTERRUPT;
+  /* at boot, and when the file lands before he has picked or been stopped: his saved pick, else the default; after that the
+     speed in play stays, moved onto a step if the file took its step away */
+  TRAVEL_SPEED_LAST = touched ? travelStepNear(TRAVEL_SPEED_LAST) : (saved || TRAVEL_CLOCK.pick);
+  if (TRAVEL_SPEED > 0) TRAVEL_SPEED = TRAVEL_SPEED_LAST;
+  try{ window.__TRAVEL_SPEED = TRAVEL_SPEED; window.TRAVEL_CLOCK = TRAVEL_CLOCK; }catch(_e){}
+  try{ if (typeof speedPadPaint === 'function') speedPadPaint(); }catch(_e){}
+}
+travelClockBoot();
+try{ if (typeof fetch === 'function') fetch('../engine/bohemia_travel_speeds.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (j) travelClockApply(j, 'file'); }).catch(function(){}); }catch(_e){}
+var MAP_BEAT_AT = 0, TRAVEL_STEP_T0 = 0, TRAVEL_STEP_SLOT = null;   /* the metronome's last beat, and when the journey's last block started (the drop's phase) */
+/* how late each block of a journey starts against its slot on the beat (k of N; k 0 is the beat itself, against the beat before):
+   the last 256, [speed, k, ms]. What the machine costs shows here; the schedule itself is the beat and its even split. */
+var TRAVEL_LATE = [];
+function travelLate(n, k, ms){ TRAVEL_LATE.push([n, k, Math.round(ms * 10) / 10]); if (TRAVEL_LATE.length > 256) TRAVEL_LATE.shift(); }
+try{ window.TRAVEL_LATE = TRAVEL_LATE; }catch(_e){}
+try{ window.travelSpeedSet = travelSpeedSet; window.travelInterrupt = travelInterrupt; window.travelPick = travelPick; window.__TRAVEL_SPEED = TRAVEL_SPEED; }catch(_e){}
 
 /* WHICH GROUND IS A ROAD. cityWalkable admits ROAD districts and `wash`; of those,
    rail and wash are rough going (a rail bed and a dry wash are not a road surface,
