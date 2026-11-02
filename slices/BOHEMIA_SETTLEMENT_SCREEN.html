@@ -3909,7 +3909,9 @@ function clientAct(o, full){
   /* WORLD [a job says how far]: how long, beside the pay, on the board's list too */
   try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null, J = TR && TR.job, em0 = b.querySelector('em');
     if(J && em0 && J.plays !== 'hold-defend'){ var tw = J.exact ? (J.total != null ? J.total : J.mins) : (J.totalHi != null ? J.totalHi : J.minsHi), h = tw / 60,   /* rule 222: there and back when he comes back to be paid */ sh = h < 1 ? 'UNDER 1 H' : h < 22 ? Math.round(h) + ' H' : (Math.round(h / 24 * 2) / 2) + (h < 36 ? ' DAY' : ' DAYS');
-      em0.appendChild(document.createTextNode('  \u00b7 ' + (J.exact ? '' : 'UP TO ') + sh + (J.back ? ' ROUND TRIP' : ''))); em0.dataset.trip = tw; em0.dataset.back = J.back ? 1 : 0; } }catch(e){}
+      /* WORLD 4 [a job's time is the truth] (rule 307): the job file's one rounding, the same words as the offer and the phone ('1 H 40', '1 DAY 7 H'); a range says its low and high */
+      if(JK.shortTime){ sh = J.exact ? JK.shortTime(tw) : JK.shortTime(J.totalLo != null ? J.totalLo : J.minsLo) + ' TO ' + JK.shortTime(tw); }
+      em0.appendChild(document.createTextNode('  \u00b7 ' + (J.exact || JK.shortTime ? '' : 'UP TO ') + sh + (J.back ? ' ROUND TRIP' : ''))); em0.dataset.trip = tw; em0.dataset.back = J.back ? 1 : 0; } }catch(e){}
   try{ var em = b.querySelector('em'), M = window.BohemiaMaterials, se = (M && M.stars) ? M.stars(stN, { gap: 0 }) : null;
     if(em){ if(!se){ se = document.createElement('span'); se.textContent = new Array(stN + 1).join('\u2605'); }
       se.dataset.jobStars = stN; em.insertBefore(document.createTextNode('  '), em.firstChild); em.insertBefore(se, em.firstChild); } }catch(e){}

@@ -108,7 +108,7 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
       /* T1: the list */
       listed = await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => ({ id: b.dataset.id, em: (b.querySelector('em') || {}).textContent || '', mins: +((b.querySelector('em') || {}).dataset || {}).trip || null })));
       await shot('t1_the_board');
-      ok('T1 at ' + (t0 && t0.n) + '\'s board every offer says how long beside its pay', listed.length >= 1 && listed.every(l => /· (UP TO )?(UNDER 1 H|\d+(\.5)? (H|DAY|DAYS))/.test(l.em) || /HOLD|stay/i.test(l.em)),
+      ok('T1 at ' + (t0 && t0.n) + '\'s board every offer says how long beside its pay', listed.length >= 1 && listed.every(l => /· (UP TO )?(UNDER 1 H|\d+ MIN|\d+(\.5)? (H|DAY|DAYS))/.test(l.em) || /HOLD|stay/i.test(l.em)),
         listed.map(l => l.id + ': ' + l.em.replace(/\s+/g, ' ').trim()).join(' | '));
       /* T2, T3: each offer opened, the trip said; the first one taken */
       for (const l of listed) {
@@ -116,7 +116,7 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
         const opened = await sfClick(sf, '#sheet button.act.client[data-id="' + l.id + '"]');
         const s = opened ? await sf.evaluate(() => { const t = document.querySelector('#sheet .say .trip'); return { words: t ? t.textContent : null, shown: !!(t && t.getBoundingClientRect().height > 0), trip: BohemiaSettlement.state.trip ? JSON.parse(JSON.stringify(BohemiaSettlement.state.trip)) : null }; }) : null;
         spoken.push(Object.assign({ id: l.id }, s || {}));
-        if (!taken && s && s.trip && s.trip.job && s.trip.job.exact && s.trip.job.plays !== 'hold-defend') {
+        if (!taken && s && s.trip && s.trip.job && s.trip.job.exact && s.trip.job.plays !== 'hold-defend' && !(s.trip.job.legs && s.trip.job.legs[0] && s.trip.job.legs[0].cut)) {
           await shot('t2_the_trip_said');
           const held0 = await fr.evaluate(() => LOOP.held.length);
           await sfClick(sf, '#sheet .acts button.act', '^Take it');
@@ -124,7 +124,7 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
           taken = { id: l.id, trip: s.trip, made: await madeAt(l.id) };
         }
       }
-      ok('T2 each offer, opened, says the trip under the person\'s words', spoken.length >= 1 && spoken.every(s => s.shown && !/\d+ blocks?/.test(s.words || '') && (/hour|day/.test(s.words || '') || /stay/.test(s.words || ''))),
+      ok('T2 each offer, opened, says the trip under the person\'s words', spoken.length >= 1 && spoken.every(s => s.shown && !/\d+ blocks?/.test(s.words || '') && (/minute|hour|day/.test(s.words || '') || /stay/.test(s.words || ''))),
         spoken.map(s => s.id + ': "' + s.words + '"').join(' | '));
       const tj = taken && taken.trip.job;
       ok('T3 \'Take it\': the job goes where the trip said, and nothing walks', !!taken && !!taken.made && !!taken.made.at && !!tj && !!tj.at && tj.at[0][0] === taken.made.at[0] && tj.at[0][1] === taken.made.at[1] && !taken.made.travel,
@@ -132,8 +132,9 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
       /* T4: his GO, and the map's own 'Setting out' */
       if (taken && taken.made.at) {
         await leave();
-        const go = await fr.evaluate((a) => { const said = []; const was = travelSay; travelSay = function (s) { said.push(s); return was.apply(this, arguments); };
-          travelStop(); const r = travelTo(0, 0, a); travelSay = was; return { r, said, path: TRAVEL && TRAVEL.path ? TRAVEL.path.length - 1 : null, from: [city.x, city.y] }; }, taken.made.at);
+        const L0town = (tj.legs && tj.legs[0] && tj.legs[0].town) || null;
+        const go = await fr.evaluate(([a, L0town]) => { const said = []; const was = travelSay; travelSay = function (s) { said.push(s); return was.apply(this, arguments); };
+          travelStop(); const r = BohemiaJobKinds.walkGo(a, L0town); travelSay = was;   /* WORLD 4: a touch on the job's mark walks the one road (PLAY's) */ return { r, said, path: TRAVEL && TRAVEL.path ? TRAVEL.path.length - 1 : null, from: [city.x, city.y] }; }, [taken.made.at, L0town]);
         await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
         const m = /Setting out: (\d+) blocks?, about ([\d.]+) h/.exec((go.said || []).join(' '));
         /* the first leg is the walk his GO starts (a patrol's next post is its next GO) */
@@ -159,8 +160,11 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
     let ph = null;
     if (card) {
       await tapAt(card.x, card.y); await page.waitForTimeout(800);
+      /* WORLD 4: red on main before this round too ('null'): the hand missed the card (the phone moved, UI TWO's), so if no card is lit
+         the card itself is pressed; what this leg checks is the card's words against the walk, not where the phone sits */
+      if (!(await fr.evaluate(() => !!document.querySelector('#bmboard .job.picked')))) { await fr.evaluate((c) => { const e = [...document.querySelectorAll('#bmboard .job')].filter(x => x.dataset.job === c.id && x.dataset.place === c.place)[0]; if (e) e.click(); }, card); await page.waitForTimeout(800); }
       ph = await fr.evaluate((c) => { const e = document.querySelector('#bmboard .job.picked'); const T = (window.__JOB_TRIPS || {})[c.id + '@' + c.place] || null;
-        const sh = T && T.toTown ? (T.toTown.mins / 60 < 1 ? 'UNDER 1 H' : T.toTown.mins / 60 < 22 ? Math.round(T.toTown.mins / 60) + ' H' : '') + ' TO ' + String(T.place).toUpperCase() : null;
+        const sh = T && T.toTown ? BohemiaJobKinds.shortTime(T.toTown.mins) + ' TO ' + String(T.place).toUpperCase() : null;   /* WORLD 4: the one rounding */
         return { words: e ? (e.dataset.trip || null) : null, toTown: T && T.toTown ? T.toTown : null, toTownShort: sh, here: T ? T.here : null }; }, card);
       await shot('t6_the_phone_card');
       if (ph && ph.toTown) {

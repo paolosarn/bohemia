@@ -144,15 +144,18 @@ const done = () => { console.log('\nTHE NORMIE HOUR, WORLD: ' + pass + ' passed,
         let list = null; try { list = BohemiaBoardShelf.pick({ name: n, tier: mapTierOf(n) || 'camp' }, loopDay(), { traits: [], held: [] }); } catch (e) {}
         (list || []).slice(0, 1).forEach(o => {
           const away = BohemiaJobKinds.trip(o, n);
-          travelStop(); const g = townDoor(b.x, b.y); city.x = g[0]; city.y = g[1];
+          /* WORLD 4: he stands where the phone's walk to the town ends (the town's own tap, townDoorWalk), the board he will read */
+          travelStop(); const w = townDoorWalk({ name: n, x: b.x, y: b.y, tier: mapTierOf(n) }), g = (w && w.door) || townDoor(b.x, b.y); city.x = g[0]; city.y = g[1];
           const here = BohemiaJobKinds.trip(o, n);
           city.x = sx; city.y = sy;
-          const tt = T => T && T.job ? (T.job.exact ? (T.job.total != null ? T.job.total : T.job.mins) : null) : null;
-          out.push({ id: o.id, town: n, kind: away && away.job && away.job.plays, away: tt(away), here: tt(here), short: away && away.short });
+          /* WORLD 4: a range is its high end; the phone plans for the day he gets there, so a walk across nightfall is a different day's job (not this leg's question) */
+          const tt = T => T && T.job ? (T.job.exact ? (T.job.total != null ? T.job.total : T.job.mins) : (T.job.totalHi != null ? T.job.totalHi : T.job.minsHi)) : null;
+          const tm = ((T.min % 1440) + 1440) % 1440, crosses = away && away.toTown && tm < 22 * 60 && tm + away.toTown.mins >= 22 * 60;
+          if (!crosses) out.push({ id: o.id, town: n, kind: away && away.job && away.job.plays, away: tt(away), here: tt(here), short: away && away.short });
         }); }
       try { render(); } catch (e) {}
       return out; });
-    const sh = m => { if (m == null) return null; const h = m / 60; return h < 1 ? 'U1' : h < 22 ? Math.round(h) : 'D' + Math.round(h / 24 * 2) / 2; };
+    const sh = m => { if (m == null) return null; const h = m / 60; return h < 1 ? 'U1' : h < 22 ? Math.round(h) : 'D' + Math.round(h / 24 * 2) / 2; };   /* coarse on purpose: the walk to the town moves him, the job's road is from the same door */
     ok('N5 F5: a job at a town away from him says the same time on the phone as on that town\'s board', n5.length >= 3 && n5.every(x => x.away != null && sh(x.away) === sh(x.here)),
       n5.map(x => x.id + '@' + x.town + ' ' + x.kind + ': phone ' + (x.away != null ? Math.round(x.away) + ' min' : 'a range') + ', board ' + (x.here != null ? Math.round(x.here) + ' min' : '-') + ' ("' + x.short + '")').join(' | '));
 

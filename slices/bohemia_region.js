@@ -157,6 +157,9 @@
     var a = R.land.at(x, y, R.compass); if (!a || a.minutes == null) return null;
     var dm = 1;
     try { if (typeof BohemiaFollowers !== 'undefined' && typeof CT_FOLLOWERS !== 'undefined') dm = BohemiaFollowers.travelMultiplier(CT_FOLLOWERS); } catch(_e){}
+    /* WORLD 4 [a job's time is the truth]: the caravan's pace out here too (the valley's own clock carries it; out past the valley a
+       caravan walked at a man's pace, so 'about 20 hours to PRIMM' was walked in 14) */
+    try { if (window.BohemiaJobKinds) dm *= BohemiaJobKinds.pace(); } catch(_e){}
     return a.minutes * CLOCK_PER_MARCH * dm;
   }
 

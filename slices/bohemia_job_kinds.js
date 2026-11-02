@@ -73,14 +73,26 @@
   /* ---------- THE MAP'S OWN HANDS (every one of these is the map's, called by name; nothing here moves a man or a clock) ---------- */
   function walk(x, y) { try { return cityWalkable(x, y); } catch (e) { return false; } }
   function route(ax, ay, bx, by) { try { return cityRoute(ax, ay, bx, by); } catch (e) { return null; } }
-  function day() { try { return loopDay(); } catch (e) { return 0; } }
+  /* WORLD 4 [a job's time is the truth]: a job planned for the day he will be standing at its board (the phone's card plans for the
+     day he arrives), never for this one; the dice are seeded by the day, so a different day was a different job */
+  var DAY_AT = null, GLASS_AT = null, PLAN_TG = {}, PLAN_TG_N = 0;
+  function day() { if (DAY_AT != null) return DAY_AT; try { return loopDay(); } catch (e) { return 0; } }
   function towns() { var bs = null; try { bs = ctBases(); } catch (e) {} var out = []; if (bs) for (var n in bs) if (bs[n]) out.push({ name: n, x: bs[n].x | 0, y: bs[n].y | 0 }); return out; }
   function townNear(x, y, r) { try { var t = loopTownAt(x, y, r == null ? 1 : r); if (t || (r != null && r !== 1)) return t;
     /* RUN 10/26 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): a town is reached from any block on or beside its painted ground,
        so 'back at the town' is there too, never only the eight blocks round its middle */
     return (typeof root.townAtDoor === 'function') ? root.townAtDoor(x, y) : null; } catch (e) { return null; } }
   function gate(x, y) { try { return townDoor(x, y); } catch (e) { return null; } }
-  function onGlass(x, y) { try { return mapOnGlass(x, y); } catch (e) { return true; } }
+  /* WORLD 4: WHAT HE SEES FROM THE TOWN. A job's place prefers what is on the glass (a normie sees where it goes, rule 133), and
+     MEASURED, the glass was wherever the camera stood: the phone planned a job with the camera at HIS town, the yes made it with the
+     camera at THE CLIENT'S, and the two put the job in different places (the probe: 1 H TO THE WRECKS promised, 7 hours walked).
+     While a job is made (planned or taken) the glass is the glass centred on the client's town, at this zoom: the same answer
+     wherever he looks from */
+  function onGlass(x, y) {
+    try { if (GLASS_AT && root.__CITY && __CITY.isoAt) { var a = __CITY.isoAt(x, y), o = __CITY.isoAt(GLASS_AT.x, GLASS_AT.y), sx = a.sx - o.sx + CVW / 2, sy = a.sy - o.sy + CVH / 2;
+      return sx >= 24 && sx <= CVW - 24 && sy >= 60 && sy <= CVH - 150; } } catch (e) {}
+    try { return mapOnGlass(x, y); } catch (e) { return true; }
+  }
   function sayLine(line) {
     try { if (typeof DAY !== 'undefined' && DAY.happened) DAY.happened(line, 'contract'); } catch (e) {}
     setTimeout(function () { try { loopSay(line); } catch (e) {} try { if (typeof updHud === 'function') updHud(); } catch (e) {} try { render(); } catch (e) {}
@@ -220,7 +232,8 @@
       case 'haul-caravan': return job.stage === 'haul' ? { name: String(job.dest.name).toUpperCase(), act: 'ESCORT TO', x: job.dest.made ? tg.x : job.dest.x, y: job.dest.made ? tg.y : job.dest.y, town: !job.dest.made } : null;
       case 'carry': if (job.stage === 'lair' && job.lair) return { name: 'THEIR LAIR', act: 'GET IT BACK', x: job.lair.x, y: job.lair.y };
         return job.stage === 'carry' ? { name: String(job.dest.name).toUpperCase(), act: 'CARRY TO', x: job.dest.made ? tg.x : job.dest.x, y: job.dest.made ? tg.y : job.dest.y, town: !job.dest.made } : null;
-      case 'find-place': case 'find-person': if (job.stage === 'look') return { name: pn || String(job.what || '').toUpperCase(), act: 'FIND', x: job.ring.x, y: job.ring.y }; return from;
+      case 'find-place': case 'find-person': if (job.stage === 'look') { var hs = !!(job.hint || job.holders) && job.spot;   /* WORLD 4: once the hint has said which way, PLAY walks it (it stood in the ring forever) */
+          return { name: pn || String(job.what || '').toUpperCase(), act: 'FIND', x: hs ? job.spot.x : job.ring.x, y: hs ? job.spot.y : job.ring.y }; } return from;
       case 'hunt-kind': if (job.stage === 'back') return from;
         if (!(job.packs || []).length) return null;
         var pk = job.packs.slice().sort(function (a, b) { return cheb(a.x, a.y, city.x, city.y) - cheb(b.x, b.y, city.x, city.y); })[0];
@@ -511,6 +524,7 @@
       if (cheb(x, y, job.spot.x, job.spot.y) <= (k.seen_at || 2)) return found(job) === true;
       if (cheb(x, y, job.ring.x, job.ring.y) <= job.ring.r) {   /* a stop inside the ring says which way (Battle Brothers gives directions if lost) */
         now('Somewhere ' + way(job.spot.x - x, job.spot.y - y) + ' of here, ' + cheb(x, y, job.spot.x, job.spot.y) + ' blocks or so.');   /* draft:true */
+        job.hint = true;   /* WORLD 4: PLAY's next place is where the hint points */
         window.__JOB_HINTS = (window.__JOB_HINTS | 0) + 1;
       }
       return false;
@@ -584,7 +598,7 @@
     /* the chase: a pack he tapped, re-aimed every block (the parties' own way) */
     if (job.chase) { var c = null; job.packs.forEach(function (q) { if (q.id === job.chase) c = q; });
       if (!c) job.chase = null;
-      else if (typeof TRAVEL !== 'undefined' && TRAVEL && TRAVEL.to && cheb(TRAVEL.to[0], TRAVEL.to[1], c.x, c.y) > 1) { try { var keep = TRAVEL_SPEED; travelTo(0, 0, [c.x, c.y]); if (keep > 0) travelSpeedSet(keep); } catch (e) {} } }
+      else if (typeof TRAVEL !== 'undefined' && TRAVEL && TRAVEL.to && cheb(TRAVEL.to[0], TRAVEL.to[1], c.x, c.y) > 1) { try { var keep = TRAVEL_SPEED; walkGo([c.x, c.y]); if (keep > 0) travelSpeedSet(keep); } catch (e) {} } }
     var near = job.packs.slice().sort(function (a, b) { return cheb(a.x, a.y, city.x, city.y) - cheb(b.x, b.y, city.x, city.y); })[0];
     if (near) job.target = { x: near.x, y: near.y };
     return false;
@@ -784,6 +798,13 @@
       (job.guards ? 'About ' + job.guards + (job.foe === 'beasts' ? ' animals are' : ' are') + ' on it.' : 'Nobody guards it, they say.');
     return true;
   };
+  /* 'they moved it' (the R1 twist): the new spot, from the job's own dice and the glass as it stands round the old one (WORLD 4: the
+     camera no longer decides it, so the promise walks the same leg; measured, the twist was the recover jobs' whole overrun) */
+  function movedSpot(job) {
+    var g0 = GLASS_AT, cx = city.x, cy = city.y; GLASS_AT = { x: job.spot.x | 0, y: job.spot.y | 0 };
+    try { city.x = job.spot.x | 0; city.y = job.spot.y | 0; return spotOut(job.spot.x, job.spot.y, 2, 4, rng(seedOf(job.id + ':moved')), true); }
+    finally { GLASS_AT = g0; city.x = cx; city.y = cy; }
+  }
   function gotIt(job, pre) {
     job.has = true; job.stage = 'back'; backTo(job); flash('GOT ' + job.item);
     sayLine((pre || '') + 'Got ' + job.item + '. Back to ' + job.from + ' to be paid.');   /* draft:true */
@@ -793,7 +814,7 @@
     if (job.stage === 'get' && cheb(x, y, job.spot.x, job.spot.y) <= 1) {
       if (job.twist === 'moved' && !job.twistDone) {   /* they moved it: the tracks go on */
         job.twistDone = true;
-        var s2 = spotOut(job.spot.x, job.spot.y, 2, 4, rng(seedOf(job.id + ':moved')), true);
+        var s2 = movedSpot(job);
         if (s2) { job.spot = { x: s2[0], y: s2[1] }; job.target = { x: s2[0], y: s2[1] };
           now('Empty. They moved it; fresh tracks go ' + way(s2[0] - x, s2[1] - y) + ', ' + cheb(s2[0], s2[1], x, y) + ' blocks.'); try { render(); } catch (e) {} return false; }   /* draft:true */
       }
@@ -835,6 +856,9 @@
       ' and come back. ' + job.flat + ' batteries, and ' + job.perHead + ' for every one you put down on the way, up to ' + job.cap + '.';
     return true;
   };
+  /* WORLD 4: a post at a town is walked from any side of that town (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__): PLAY walks to the town's
+     nearest side, and a post counted only on the eight blocks round the town's one gate stood unwalked on the far side */
+  function postAt(q, x, y) { if (cheb(q.x, q.y, x, y) <= 1) return true; if (!q.name) return false; var t = townNear(x, y, 1); return !!(t && String(t.name).toUpperCase() === String(q.name).toUpperCase()); }
   function postNext(job) { var n = null; job.posts.forEach(function (p) { if (!p.done && !n) n = p; }); return n; }
   function postWalked(job, p) {
     p.done = true;
@@ -861,12 +885,12 @@
         job.band = { x: at[0], y: at[1], n: n }; window.__JOB_BANDS = (window.__JOB_BANDS | 0) + 1;
         now('A crew on the patrol road, ' + n + ' of them, coming your way.'); try { render(); } catch (e) {} }   /* draft:true */
     }
-    if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && cheb(q.x, q.y, city.x, city.y) <= 1) p = q; }); if (p) postWalked(job, p); }
+    if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && !p && postAt(q, city.x, city.y)) p = q; }); if (p) postWalked(job, p); }
     return false;
   };
   ARRIVE['patrol'] = function (job, x, y) {
     if (job.band && cheb(job.band.x, job.band.y, x, y) <= 1) return bandFight(job) || true;
-    if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && cheb(q.x, q.y, x, y) <= 1) p = q; }); if (p) postWalked(job, p); return false; }
+    if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && !p && postAt(q, x, y)) p = q; }); if (p) postWalked(job, p); return false; }
     if (job.stage === 'back' && atClient(job, x, y)) {
       var heads = Math.min(job.cap, job.heads | 0), n = Math.min(job.pay, job.flat + heads * job.perHead);
       paid(job, n, 'The patrol is walked. ' + heads + ' put down on the road. Paid ' + n + ' batteries.');   /* draft:true */
@@ -976,7 +1000,21 @@
 
   /* ---------- THE FIVE MOMENTS THE MAP'S LOOP HANDS OVER ---------- */
   /* 1. TAKEN at the board: the kind decides where the job is and what it says; false = it plays as today's crew */
+  /* the plan's place is the job's place (WORLD 4): the first time a job is planned at a town on a day, the map's own target for it is
+     kept, and every later plan and the yes use it (the map's target leaned on how many jobs he held and on the camera, so a board
+     that said one place could make the job at another once he took a second job or looked away) */
+  function planKey(id, tn) { try { return String(id) + '@' + String(tn) + ':' + day() + ':' + (LOOP.done | 0); } catch (e) { return null; } }
+  function planKeep(key, tg) { if (!key) return; if (++PLAN_TG_N > 400) { PLAN_TG = {}; PLAN_TG_N = 1; } PLAN_TG[key] = tg ? { x: tg.x | 0, y: tg.y | 0 } : null; }
   function make(job, c, town, tg, dry) {
+    var g0 = GLASS_AT; GLASS_AT = { x: town.x | 0, y: town.y | 0 };
+    try {
+      var key = planKey(c && c.id, town.name);
+      if (key && PLAN_TG[key] !== undefined) { tg = PLAN_TG[key]; if (tg) job.target = { x: tg.x, y: tg.y }; }
+      else if (key && tg) planKeep(key, tg);
+      return make0(job, c, town, tg, dry);
+    } finally { GLASS_AT = g0; }
+  }
+  function make0(job, c, town, tg, dry) {
     var kind = kindOf(c), k = K(kind), row = (DATA && DATA.offers && DATA.offers[c.id]) || {};
     job.kind = kind; job.verb = k ? k.verb : 'CLEAR'; job.word = k ? k.word : 'CLEAR'; job.plays = 'clear-crew';
     /* the place its words name (rule 164 item 3): the client's town always, and the row's place */
@@ -1020,21 +1058,163 @@
      own leg exact for a real place (PRIMM), else the kind's range off the data file, said as a range. A job that pays back home
      says 'and back'. Nothing walks on a yes: taking a job never starts a journey (his GO is a touch on the map). ---------- */
   var BACK = { 'find-place': 1, 'find-person': 1, 'hunt-kind': 1, 'recover-return': 1, 'patrol': 1 };
-  function legOf(ax, ay, bx, by, mult) {
-    if (ax === bx && ay === by) return { blocks: 0, mins: 0 };
-    var p = route(ax, ay, bx, by); if (!p) return null;
-    var m = 0, p0 = 1; try { p0 = pace() || 1; } catch (e) {}
-    for (var i = 1; i < p.length; i++) { try { m += cityStepMins(p[i][0], p[i][1]); } catch (e) {} }
-    return { blocks: p.length - 1, mins: m / p0 * (mult || 1) };
+  /* ---------- A JOB'S TIME IS THE TRUTH (WORLD 4, rule 307, ask lines 242 and 299; Paolo 11/2, the second time: 'the time that it
+     takes on these quests are extremely inaccurate a lot of the times, so that needs to get fixed for real'). MEASURED FIRST
+     (tools/bohemia_world_job_time_probe.js: jobs of every kind at five towns, from the board and from the phone, by day and by
+     night, walked with PLAY and with his own taps, every fight won, the promise against every minute the map's clock spent;
+     records/BOHEMIA_WORLD_A_JOBS_TIME_IS_THE_TRUTH_11_2_26.md has the table). THE CAUSES, and what each became:
+       1 TWO ROADS. The promise costed the fewest BLOCKS (cityRoute, a breadth-first search); PLAY walks the fewest MINUTES
+         (mapBestRoute: roads are twice as fast as rough going), and a tap on the job's mark walked the blocks. NOW ONE ROAD: the
+         promise, PLAY and a tap on the job's mark all walk walkRoute(), which IS the map's PLAY road in the valley (mapBestRoute)
+         and the map's own region road out past it (cityRoute / townDoorWalk); every block costed by the map's own clock.
+       2 A FIND WAS COSTED TO THE MIDDLE OF ITS RING and home from there; it is found within two blocks of its real spot, which can
+         be four blocks off the middle, and PLAY stood in the ring forever (nextOf said the middle). NOW the plan walks the way PLAY
+         does (to the ring, and on the hint's own way to the spot, found on the first block in sight of it) and PLAY walks on to
+         where the hint says once it has said it.
+       3 A HUNT WAS COSTED TO ONE PACK; it needs as many packs as the count asks. NOW nearest pack first until the count is met, and
+         it says a range and why: the packs move.
+       4 THE FOUND WALK HOME SLOW (find-person, the cargo's 1.3) was costed at a walk. NOW at their pace.
+       5 THE PHONE PLANNED A DIFFERENT JOB than the yes made: another day's dice, another camera's glass, another count of held
+         jobs. NOW planned for the day he gets there, on the town's own glass, and the map's target kept from the first plan.
+       6 A JOB HE HOLDS was re-planned from its start on every phone paint ('20H THERE+BACK' halfway home). NOW a held job's trip
+         is the time LEFT, from where he stands, on the job as it is.
+       7 THE WORDS ROUNDED TOO HARD ('about 2 hours' for 96 minutes, '1 DAY' for 31 hours). NOW one rounding for every place the
+         time is said, fine enough to stay inside the bar: minutes under an hour, hours and minutes under ten, hours under a day,
+         days and hours under three, half days after.
+     Nothing walks on a yes: taking a job never starts a journey (his GO is a touch on the map). ---------- */
+  function inValley(x, y) { try { var n = om.n | 0; return n > 0 && x >= 0 && y >= 0 && x < n && y < n; } catch (e) { return true; } }
+  /* a town by its name, as the map's own tap knows it (tier and all), or the region's place */
+  function townCalled(nm, x, y) {
+    var N = String(nm || '').toUpperCase(), bs = null; try { bs = ctBases(); } catch (e) {}
+    if (bs) for (var k in bs) if (bs[k] && String(k).toUpperCase() === N) { var t = { name: k, x: bs[k].x | 0, y: bs[k].y | 0 }; try { t.tier = mapTierOf(k); } catch (e) {} return t; }
+    try { var P = (root.BOH_REGION && root.BOH_REGION.places) || []; for (var i = 0; i < P.length; i++) if (String(P[i].name).toUpperCase() === N) return { name: P[i].name, x: P[i].x | 0, y: P[i].y | 0, tier: P[i].tier }; } catch (e) {}
+    return x != null ? { name: nm, x: x | 0, y: y | 0 } : null;
   }
-  /* the job as the yes would make it, here and now, with nothing marked or said */
-  function plan(c, town) {
+  function touching(T, x, y) { try { return root.townFootDist(root.townFoot(T), x, y) <= 1 || cheb(T.x, T.y, x, y) <= 1; } catch (e) { return cheb(T.x, T.y, x, y) <= 1; } }
+  /* THE ONE ROAD: from a block to a block ({ x, y }) or to a town ({ town }), the road his GO walks; null if there is none */
+  function walkRoute(ax, ay, goal) {
+    var T = goal.town || null, gx = T ? T.x | 0 : goal.x | 0, gy = T ? T.y | 0 : goal.y | 0;
+    if (T ? touching(T, ax, ay) : cheb(ax, ay, gx, gy) <= 0) return { path: [[ax, ay]], door: [ax, ay], mins: 0 };
+    if (inValley(ax, ay) && inValley(gx, gy) && typeof root.mapBestRoute === 'function') {
+      try { var r = root.mapBestRoute(ax, ay, T ? { town: T } : { x: gx, y: gy }); if (r && r.path) return { path: r.path, door: r.door, mins: r.mins }; } catch (e) {}
+    }
+    if (T && typeof root.townDoorWalk === 'function') {   /* out past the valley PLAY hands the town's own tap the place */
+      var c0x = city.x, c0y = city.y;
+      try { city.x = ax; city.y = ay; var w = root.townDoorWalk(T); if (w && w.path) return { path: w.path, door: w.door, mins: w.mins }; } catch (e) {} finally { city.x = c0x; city.y = c0y; }
+    }
+    var to = T ? (gate(gx, gy) || [gx, gy]) : [gx, gy], p = route(ax, ay, to[0], to[1]);
+    if (!p) return null;
+    var m = 0; for (var i = 1; i < p.length; i++) { try { m += cityStepMins(p[i][0], p[i][1]); } catch (e) {} }
+    return { path: p, door: to, mins: m };
+  }
+  /* HIS GO ON A JOB'S MARK walks the one road (the road its time was said on, the road PLAY walks); off the valley, the tap's own way */
+  function walkGo(cell, townName) {
+    try { if (typeof LOOK !== 'undefined' && LOOK.on) return false; } catch (e) {}
+    var T = townName ? townCalled(townName) : null, r = null;
+    if (T && touching(T, city.x, city.y)) { try { return root.townTap(T); } catch (e) { return false; } }
+    if (inValley(city.x, city.y) && inValley(cell[0], cell[1])) r = walkRoute(city.x, city.y, T ? { town: T } : { x: cell[0] | 0, y: cell[1] | 0 });
+    if (!r || !r.path || r.path.length < 2 || typeof root.travelPath !== 'function') { if (T) { try { return root.townTap(T); } catch (e) {} } return travelTo(0, 0, cell); }
+    try { if (typeof CAMP !== 'undefined' && CAMP.on && !(MEET && MEET.walk > 0)) campBreak('travel'); } catch (e) {}
+    travelStop(); return T ? root.travelPath(r.path, r.door, !walk(r.door[0], r.door[1]), T) : root.travelPath(r.path, r.door, false);
+  }
+  /* a leg of the road at a pace (the map's clock already holds the pace of the jobs he carries now; the leg's own replaces it) */
+  function stepsMins(path, upto, mult) { var m = 0, p0 = 1; try { p0 = pace() || 1; } catch (e) {} for (var i = 1; i <= upto && i < path.length; i++) { try { m += cityStepMins(path[i][0], path[i][1]); } catch (e) {} } return m / p0 * (mult || 1); }
+  function legTo(ax, ay, goal, mult, stopAt) {
+    var r = walkRoute(ax, ay, goal); if (!r) return null;
+    var n = r.path.length - 1;
+    if (stopAt) for (var i = 0; i <= n; i++) if (stopAt(r.path[i][0], r.path[i][1])) { n = i; break; }
+    var p0 = 1; try { p0 = pace() || 1; } catch (e) {}
+    var mins = n === r.path.length - 1 ? r.mins / p0 * (mult || 1) : stepsMins(r.path, n, mult);
+    return { blocks: n, mins: mins, end: r.path[n].slice(), cut: n < r.path.length - 1 };
+  }
+  /* the job walked the way the game walks it, from (sx, sy): its legs out, and the way home when it pays at home */
+  function walkOf(job, sx, sy, home, t0) {
+    var k = K(job.plays) || {}, W = { legs: [], mins: 0, blocks: 0, at: [], name: null, why: null, spread: null, ok: true, waits: 0, dark: 0 };
+    var add = function (L, nm, tn) { if (!L) { W.ok = false; return false; } W.legs.push({ blocks: L.blocks, mins: L.mins, cut: L.cut || undefined, town: tn || undefined }); W.mins += L.mins; W.blocks += L.blocks; W.at.push(L.end); if (W.name == null) W.name = nm || null; sx = L.end[0]; sy = L.end[1]; return true; };
+    var pt = function (q) { return { x: q.x | 0, y: q.y | 0 }; };
+    /* CONTENT's LEGS (a kind written as data rows): each place in turn, and the clock's own waits there, which the game makes
+       every time and so are counted: 'wait' minutes, and 'dark' (he waits for dark, 18:00, when he gets there by day) */
+    if (job.legs) {
+      if (job.stage !== 'legs') return W;
+      var nowMin = 0, NF = 18 * 60; try { nowMin = ((T.min % 1440) + 1440) % 1440; } catch (e) {} try { if (typeof NIGHT_FROM === 'number') NF = NIGHT_FROM; } catch (e) {}
+      for (var li = job.li | 0; li < job.legs.length && W.ok; li++) { var Lg = job.legs[li]; if (Lg.done) continue; if (Lg.go === 'client') break;
+        var TL = Lg.town ? townCalled(Lg.townName || Lg.name, Lg.x, Lg.y) : null;
+        if (!add(legTo(sx, sy, TL ? { town: TL } : pt(Lg), 1), Lg.name || null, TL ? TL.name : null)) break;
+        var wt = 0, at = (nowMin + (t0 || 0) + W.mins) % 1440;
+        if (Lg.dark && !Lg.darked && !(at >= NF || at < 6 * 60)) { wt += NF - at; W.dark += NF - at; }
+        if (Lg.wait && !Lg.waited) wt += Lg.wait | 0;
+        if (wt) { W.legs[W.legs.length - 1].wait = wt; W.mins += wt; W.waits += wt; }
+      }
+    }
+    else switch (job.plays) {
+      case 'hold-defend': return W;
+      case 'haul-caravan': case 'carry':
+        if (job.plays === 'carry' && job.stage === 'lair' && job.lair) { add(legTo(sx, sy, pt(job.lair), 1), 'THEIR LAIR'); }
+        if ((job.plays === 'haul-caravan' && job.stage !== 'haul') || (job.plays === 'carry' && job.stage !== 'carry' && job.stage !== 'lair')) return W;
+        var mult = job.plays === 'haul-caravan' ? (k.pace || 1.5) : 1, D = job.dest || {};
+        var TD = D.made ? null : townCalled(D.name, D.x, D.y); add(legTo(sx, sy, TD ? { town: TD } : pt(job.target), mult), D.name || null, TD ? TD.name : null); break;
+      case 'find-place': case 'find-person':
+        if (job.stage === 'look') {
+          /* found on the first block in sight of the spot (seen_at); the guards and the ambush start their fight right there (holdBy);
+             only once they are already standing (he fell back) is it the block beside them */
+          var seen = k.seen_at || 2, sp = job.spot, hold = !!job.holders;
+          var near = function (x, y) { return cheb(x, y, sp.x, sp.y) <= (hold ? 1 : seen); };
+          var mid = (job.hint || job.holders) ? pt(sp) : pt(job.ring);
+          var L1 = legTo(sx, sy, mid, 1, near); if (!add(L1, job.placeName)) break;
+          if (!near(sx, sy)) add(legTo(sx, sy, pt(sp), 1, near), null);   /* the hint's way: 'Somewhere east of here, 3 blocks or so' */
+        }
+        break;
+      case 'hunt-kind':
+        if (job.stage === 'hunt') {
+          var need = Math.max(0, (job.need | 0) - (job.got | 0)), packs = (job.packs || []).map(function (q) { return { x: q.x, y: q.y, n: q.n | 0 }; }), hit = function (q) { return function (x, y) { return cheb(x, y, q.x, q.y) <= 1; }; };
+          while (need > 0 && packs.length) {
+            packs.sort(function (a, b) { return cheb(a.x, a.y, sx, sy) - cheb(b.x, b.y, sx, sy); });
+            var q = packs.shift(); if (!add(legTo(sx, sy, pt(q), 1, hit(q)), null)) break; need -= Math.max(1, q.n);
+          }
+          if (need > 0 && W.ok) {   /* more packs come, farther out (END: ring2 + 4): a walk out to them, on the road's own going */
+            var pb = k.pack_blocks || [6, 15], far = (pb[0] + pb[1]) / 2 + (job.ring2 | 0) + 4, per = W.blocks ? W.mins / W.blocks : 7;
+            W.mins += far * per; W.blocks += Math.round(far); W.legs.push({ blocks: Math.round(far), mins: far * per, more: true });
+          }
+          var sp2 = (DATA && DATA.timing && DATA.timing.hunt_spread) || [0.75, 1.3];
+          if (W.legs.length) { W.spread = sp2; W.why = 'the packs move'; }
+        }
+        break;
+      case 'clear-camp': if (job.stage === 'camp') add(legTo(sx, sy, pt(job.camp), 1), job.placeName); break;
+      case 'recover-return': if (job.stage === 'get') { if (!add(legTo(sx, sy, pt(job.spot), 1), job.placeName)) break;
+          if (job.twist === 'moved' && !job.twistDone) { var s2 = movedSpot(job); if (s2) add(legTo(sx, sy, { x: s2[0], y: s2[1] }, 1), null); } }   /* they moved it: the tracks' leg */
+        break;
+      case 'patrol':
+        if (job.stage === 'patrol') (job.posts || []).forEach(function (p) { if (p.done || !W.ok) return;
+          var TP = p.name ? townCalled(p.name, p.x, p.y) : null; add(legTo(sx, sy, TP ? { town: TP } : pt(p), 1), p.name || null, TP ? TP.name : null); });
+        break;
+      default: if (job.target && job.target.x != null) add(legTo(sx, sy, pt(job.target), 1), job.placeName);
+    }
+    W.endAt = [sx, sy];
+    if (W.ok && BACK[job.plays] && home && job.stage !== 'wait') {
+      var mb = (job.plays === 'find-person') ? (k.pace || 1.5) : 1;
+      var Lb = legTo(sx, sy, { town: home }, mb);
+      if (Lb) { W.backBlocks = Lb.blocks; W.backMins = Lb.mins; } else W.ok = false;
+    }
+    return W;
+  }
+  /* the job as the yes would make it, here and now, with nothing marked or said (on: the day he will be at the board) */
+  function plan(c, town, on) {
     if (!c || !c.id || !town) return null;
-    var job = { id: c.id, title: String(c.title || 'a job'), pay: c.pay | 0, from: town.name, skulls: (c.skulls | 0) || 1, target: null };
-    var tg = null; try { tg = loopTarget(town, c.id); } catch (e) {}
-    job.target = tg;
-    try { make(job, c, town, tg, true); } catch (e) {}
-    return job;
+    var d0 = DAY_AT; if (on != null) DAY_AT = on;
+    try {
+      var job = { id: c.id, title: String(c.title || 'a job'), pay: c.pay | 0, from: town.name, skulls: (c.skulls | 0) || 1, target: null };
+      var key = planKey(c.id, town.name), tg = null;
+      if (key && PLAN_TG[key] !== undefined) tg = PLAN_TG[key]; else { try { tg = loopTarget(town, c.id); } catch (e) {} planKeep(key, tg); }
+      job.target = tg;
+      try { make(job, c, town, tg, true); } catch (e) {}
+      return job;
+    } finally { DAY_AT = d0; }
+  }
+  /* the day it will be after so many minutes on the map's clock (the day turns at nightfall, 22:00, and the night is played) */
+  function dayAfter(mins) {
+    var d = day(), m = 0; try { m = ((T.min % 1440) + 1440) % 1440; } catch (e) { return d; }
+    var to = (22 * 60 - m + 1440) % 1440 || 1440; if (mins < to) return d;
+    return d + 1 + Math.floor((mins - to) / 1440);
   }
   /* where a made job sends him first, as cells in order (a patrol is its posts), and what it is called */
   function whereTo(job) {
@@ -1055,69 +1235,102 @@
     var k = K(kind) || {};
     return k.dest_blocks || k.blocks || k.pack_blocks || k.post_blocks || (kind === 'hold-defend' ? [0, 0] : [6, 10]);   /* a crew: the map's own 6 to 10 */
   }
+  /* ONE ROUNDING for every place the time is said (the offer, the board's row, the phone's cards), fine enough that the words
+     stay inside the bar (rule 307: within 15 of every 100): 'about 40 minutes', 'about 1 hour 20 minutes', 'about 14 hours',
+     'about 1 day 7 hours', 'about 3 and a half days' */
+  function roundMins(m) {
+    if (m < 55) return { m: Math.max(10, Math.round(m / 10) * 10) };
+    if (m < 600) { var t = Math.round(m / 10) * 10; return { h: Math.floor(t / 60), m: t % 60 }; }
+    var hh = Math.round(m / 60);
+    if (hh < 24) return { h: hh };
+    if (m < 72 * 60) { if (hh % 24 === 0) return { d: hh / 24 }; return { d: Math.floor(hh / 24), h: hh % 24 }; }
+    return { d: Math.round(m / 60 / 24 * 2) / 2 };
+  }
   function timeWords(m) {
     if (m == null) return null;
-    if (m < 50) return 'under an hour';
-    var h = m / 60; if (h < 22) { var r = Math.max(1, Math.round(h)); return 'about ' + r + (r === 1 ? ' hour' : ' hours'); }
-    var d = Math.round(h / 24 * 2) / 2; return 'about ' + d + (d === 1 ? ' day' : ' days');
+    var r = roundMins(m), w = [];
+    if (r.d != null) w.push(r.d === Math.floor(r.d) ? r.d + (r.d === 1 ? ' day' : ' days') : Math.floor(r.d) + ' and a half days');
+    if (r.h) w.push(r.h + (r.h === 1 ? ' hour' : ' hours'));
+    if (r.m && r.d == null) w.push(r.m + ' minutes');
+    return 'about ' + w.join(' ');
+  }
+  /* the phone's few words (rule 148: the phone is not a page): '3 H TO REMNANTS, THEN 1 DAY 7 H TO PRIMM' */
+  function shortTime(m) {
+    if (m == null) return '?';
+    var r = roundMins(m), w = [];
+    if (r.d != null) w.push(r.d + (r.d === 1 ? ' DAY' : ' DAYS'));
+    if (r.h) w.push(r.h + ' H');
+    if (r.m && r.d == null) w.push(r.h ? String(r.m) : r.m + ' MIN');
+    return w.join(' ');
   }
   /* the trip a job offered at a place means: { place, toTown (the walk to the town, from the phone), job: { blocks, mins | lo, hi,
-     name, back, exact }, words } */
+     name, back, exact, why }, words }. A job he HOLDS is the time left, from where he stands, on the job as it is (rule 307) */
   function trip(c, placeName, opt) {
     opt = opt || {};
     var t = realPlace(placeName); if (!c || !t) return null;
-    var town = { name: t.name, x: t.x, y: t.y }, door = gate(town.x, town.y) || [town.x, town.y];
-    var here = cheb(city.x, city.y, town.x, town.y) <= 2, out = { id: c.id, place: t.name, here: here, toTown: null, job: null };
-    if (!here) out.toTown = legOf(city.x, city.y, door[0], door[1], 1);
-    /* RUN 10/25 (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__, rule 186(a)): a tap on the town walks to the side his shortest walk reaches
-       first (the map's townDoorWalk), so the trip it says is that walk, never the old one gate tile's road round the block */
-    if (!here) { try { var dw = root.townDoorWalk ? root.townDoorWalk(town) : null, p1 = 1; try { p1 = pace() || 1; } catch (e) {}
-      if (dw && dw.path) out.toTown = { blocks: dw.path.length - 1, mins: dw.mins / p1 }; } catch (e) {} }
-    var kind = kindOf(c), k = K(kind) || {}, row = (DATA && DATA.offers && DATA.offers[c.id]) || {}, pl = row.place || null, mult = (kind === 'haul-caravan' && k.pace) ? k.pace : 1;
-    var real = pl && pl.real ? realPlace(pl.real) : null;
-    /* WORLD [eyes: the normie hour, world] F5 (EYES round four: 'one job, two times: the board 1 H ROUND TRIP, the phone UP TO 5 H
-       ... THERE AND BACK'): away from the town the job was only a range. Now it is planned from the town's door, where he will
-       stand when he takes it (plan() is make() on a copy), the board's own plan, so the phone and the board say one time */
-    var c0x = city.x, c0y = city.y, away = !here;
+    var town = townCalled(t.name, t.x, t.y) || { name: t.name, x: t.x, y: t.y }, door = gate(town.x, town.y) || [town.x, town.y];
+    var heldJob = null, heldCrew = null; try { (LOOP.held || []).forEach(function (j) { if (j && j.id === c.id) { if (owns(j)) heldJob = j; else heldCrew = j; } }); } catch (e) {}
+    if (heldCrew && heldCrew.target && heldCrew.target.x != null) {   /* today's crew job he holds: what is left is the walk to its mark */
+      var Lh = legTo(city.x, city.y, { x: heldCrew.target.x | 0, y: heldCrew.target.y | 0 }, 1), o2 = { id: c.id, place: t.name, here: true, toTown: null, job: null };
+      if (Lh) o2.job = { exact: true, blocks: Lh.blocks, mins: Lh.mins, name: heldCrew.placeName || null, back: false, plays: 'clear-crew', legs: [{ blocks: Lh.blocks, mins: Lh.mins }], at: [[heldCrew.target.x | 0, heldCrew.target.y | 0]], ends: [Lh.end], total: Lh.mins, left: true };
+      if (o2.job) { o2.words = tripWords(o2); o2.short = tripShort(o2); return o2; } }
+    var here = cheb(city.x, city.y, town.x, town.y) <= 2 || touching(town, city.x, city.y), out = { id: c.id, place: t.name, here: here || !!heldJob, toTown: null, job: null };
+    var kind = kindOf(c), k = K(kind) || {}, row = (DATA && DATA.offers && DATA.offers[c.id]) || {}, pl = row.place || null;
+    if (!here && !heldJob) {   /* from the phone: the walk to the town is the town's own tap (townDoorWalk), where he will stand to take it */
+      var p1 = 1; try { p1 = pace() || 1; } catch (e) {}
+      try { var dw = root.townDoorWalk ? root.townDoorWalk(town) : null; if (dw && dw.path) { out.toTown = { blocks: dw.path.length - 1, mins: dw.mins / p1 }; door = dw.door; } } catch (e) {}
+      if (!out.toTown) { var w0 = walkRoute(city.x, city.y, { town: town }); if (w0) { out.toTown = { blocks: w0.path.length - 1, mins: w0.mins / p1 }; door = w0.door; } }
+    }
+    var c0x = city.x, c0y = city.y, away = !here && !heldJob;
     if (away) { city.x = door[0]; city.y = door[1]; }
-    try { if (true) {
-      var job = plan(c, town), pts = job ? whereTo(job) : [], sx = city.x, sy = city.y, b = 0, m = 0, ok = pts.length > 0, legs = [];
-      if (job && job.stage === 'wait') ok = false;
-      for (var i = 0; i < pts.length && ok; i++) { var L = legOf(sx, sy, pts[i].x, pts[i].y, i === 0 ? mult : 1); if (!L) { ok = false; break; } b += L.blocks; m += L.mins; legs.push(L); sx = pts[i].x; sy = pts[i].y; }
-      if (ok) out.job = { exact: true, blocks: b, mins: m, name: (pts[0] && pts[0].name) || null, back: !!BACK[job.plays], plays: job.plays, legs: legs, at: pts.map(function (p) { return [p.x, p.y]; }) };
-      /* WORLD [a job's time counts the way back] (rule 222, Paolo 10/26: 'you have to include the time it takes to get back, if you
-         need to get back'): a job paid in the client's town is there AND back, the map's own road home from the last place it sends him */
-      if (out.job && out.job.back) { var Lb = legOf(sx, sy, door[0], door[1], 1); if (Lb) { out.job.backBlocks = Lb.blocks; out.job.backMins = Lb.mins; } else ok = false; }
-      if (out.job) out.job.total = out.job.mins + (out.job.backMins || 0);
-    } } finally { if (away) { city.x = c0x; city.y = c0y; } }
-    if (!out.job && real) { var g = gate(real.x, real.y) || [real.x, real.y], L2 = legOf(door[0], door[1], g[0], g[1], mult);
-      if (L2) { out.job = { exact: true, blocks: L2.blocks, mins: L2.mins, name: real.name, back: !!BACK[kind], plays: kind };
-        if (out.job.back) { var L3 = legOf(g[0], g[1], door[0], door[1], 1); out.job.backBlocks = L3 ? L3.blocks : L2.blocks; out.job.backMins = L3 ? L3.mins : L2.mins / mult; }
+    try {
+      var job = heldJob || plan(c, town, away && out.toTown ? dayAfter(out.toTown.mins) : null);
+      if (job && job.stage !== 'wait' && owns(job)) {
+        var home = townCalled(job.from, job.fromAt && job.fromAt.x, job.fromAt && job.fromAt.y), W = walkOf(job, city.x, city.y, home, away && out.toTown ? out.toTown.mins : 0);
+        if (W.ok && (W.legs.length || W.backMins != null || job.plays === 'hold-defend')) {   /* the work done, the walk home to be paid is what is left */
+          var pts = whereTo(job);
+          /* at: the places the job sends him (its mark, its posts); ends: where each leg of the walk stops (a town's nearest side, a find in sight of it) */
+          out.job = { exact: !W.spread, blocks: W.blocks, mins: W.mins, name: W.name || (!W.legs.length && W.backMins != null ? job.from : (pts[0] && pts[0].name)) || null, back: !!BACK[job.plays] && W.backMins != null, plays: job.plays, legs: W.legs,
+            at: pts.map(function (p) { return [p.x, p.y]; }), ends: W.at, why: W.why, left: !!heldJob, waits: W.waits || 0, dark: W.dark || 0 };
+          if (W.backMins != null) { out.job.backBlocks = W.backBlocks; out.job.backMins = W.backMins; }
+          out.job.total = out.job.mins + (out.job.backMins || 0);
+          if (!W.legs.length && W.backMins != null && job.plays !== 'hold-defend') { out.job.back = false; out.job.home = true; }   /* only the walk home is left: 'to be paid', not 'there and back' */
+          if (W.spread) { var tot = out.job.total; out.job.minsLo = W.mins * W.spread[0]; out.job.minsHi = W.mins * W.spread[1]; out.job.totalLo = tot * W.spread[0]; out.job.totalHi = tot * W.spread[1]; }
+        }
+      } else if (job && !owns(job) && job.target && job.target.x != null && !heldJob) {   /* today's crew job: to its mark, paid there */
+        var Lc = legTo(city.x, city.y, { x: job.target.x | 0, y: job.target.y | 0 }, 1);
+        if (Lc) out.job = { exact: true, blocks: Lc.blocks, mins: Lc.mins, name: job.placeName || null, back: false, plays: 'clear-crew', legs: [{ blocks: Lc.blocks, mins: Lc.mins }], at: [[job.target.x | 0, job.target.y | 0]], ends: [Lc.end], total: Lc.mins };
+      }
+    } finally { if (away) { city.x = c0x; city.y = c0y; } }
+    /* a real place far out the job could not be planned to yet (the region still painting): its road from the town's door */
+    var real = pl && pl.real ? realPlace(pl.real) : null, mult = (kind === 'haul-caravan' && k.pace) ? k.pace : 1;
+    if (!out.job && real) { var Lr = legTo(door[0], door[1], { town: townCalled(real.name, real.x, real.y) }, mult);
+      if (Lr) { out.job = { exact: true, blocks: Lr.blocks, mins: Lr.mins, name: real.name, back: !!BACK[kind], plays: kind };
+        if (out.job.back) { var L3 = legTo(Lr.end[0], Lr.end[1], { town: town }, 1); out.job.backBlocks = L3 ? L3.blocks : Lr.blocks; out.job.backMins = L3 ? L3.mins : Lr.mins / mult; }
         out.job.total = out.job.mins + (out.job.backMins || 0); } }
     if (!out.job) { var rg = kindRange(kind), step = 10.75; try { step = cityStepMins(town.x, town.y) / (pace() || 1); } catch (e) {}
-      out.job = { exact: false, lo: rg[0], hi: rg[1], minsLo: rg[0] * step * 0.5 * mult, minsHi: rg[1] * step * mult, name: pl && pl.name ? String(pl.name) : null, back: !!BACK[kind], plays: kind };
+      out.job = { exact: false, lo: rg[0], hi: rg[1], minsLo: rg[0] * step * 0.5 * mult, minsHi: rg[1] * step * mult, name: pl && pl.name ? String(pl.name) : null, back: !!BACK[kind], plays: kind, why: 'nobody has worked out where yet' };
       /* the way back on a range: the same blocks home at a walking pace (the carts do not come back) */
       out.job.totalLo = out.job.minsLo + (out.job.back ? rg[0] * step * 0.5 : 0); out.job.totalHi = out.job.minsHi + (out.job.back ? rg[1] * step : 0); }
     out.words = tripWords(out); out.short = tripShort(out);
     root.__JOB_TRIPS = root.__JOB_TRIPS || {}; root.__JOB_TRIPS[c.id + '@' + t.name] = out;
     return out;
   }
-  /* the phone's few words (rule 148: the phone is not a page): '3 H TO REMNANTS, THEN 1 DAY TO PRIMM' */
-  function shortTime(m) { if (m == null) return '?'; var h = m / 60; if (h < 1) return 'UNDER 1 H'; if (h < 22) return Math.round(h) + ' H'; var d = Math.round(h / 24 * 2) / 2; return d + (d === 1 ? ' DAY' : ' DAYS'); }
   function tripShort(T) {
     if (!T) return null;
     var w = [], J = T.job;
     if (T.toTown) w.push(shortTime(T.toTown.mins) + ' TO ' + String(T.place).toUpperCase());
     if (J && J.plays !== 'hold-defend') {
       var to = J.plays === 'patrol' ? ' ROUND THE POSTS' : J.name ? ' TO ' + String(J.name).toUpperCase() : '';
-      /* rule 222(b): his words, 'there and back' or 'paid there' */
-      w.push((T.toTown ? 'THEN ' : '') + (J.exact ? shortTime(J.total != null ? J.total : J.mins) : 'UP TO ' + shortTime(J.totalHi != null ? J.totalHi : J.minsHi)) + to + (J.back ? ', THERE AND BACK' : ', PAID THERE'));
+      /* rule 222(b): his words, 'there and back' or 'paid there'; a range says its low and its high */
+      if (J.home) { w.push(shortTime(J.total) + ' TO ' + String(J.name || '').toUpperCase() + ', TO BE PAID'); return w.join(', '); }
+      w.push((T.toTown ? 'THEN ' : '') + (J.exact ? shortTime(J.total != null ? J.total : J.mins) : shortTime(J.totalLo != null ? J.totalLo : J.minsLo) + ' TO ' + shortTime(J.totalHi != null ? J.totalHi : J.minsHi)) + to + (J.back ? ', THERE AND BACK' : ', PAID THERE'));
     }
     return w.join(', ');   /* draft:true */
   }
-  /* in plain words, the way a person says it: 'REMNANTS: about 1 hour. Then to PRIMM, about 2 days, paid there.'
+  /* in plain words, the way a person says it: 'REMNANTS: about 1 hour. Then to PRIMM, about 1 day 7 hours, paid there.'
      RULE 224 (Paolo 10/26: 'I'm tired of it just being numbers numbers numbers'): the time is kept (a time he plans by, 224(b));
-     the blocks, a lone number, are gone from the words (the map's own Setting out still says them when he goes) */
+     the blocks, a lone number, are gone from the words (the map's own Setting out still says them when he goes). A range says why */
   function tripWords(T) {
     if (!T) return null;
     var w = [], J = T.job;
@@ -1126,11 +1339,14 @@
       var to = J.name ? ' to ' + String(J.name).toUpperCase() : (J.plays === 'hunt-kind' ? ' to where they roam' : '');
       /* rule 222(a)(b): the time is there and back when he must come back to be paid, his words for which ('About 2 days there and back',
          'About 1 day, paid there'); the blocks are the way out */
-      var back = J.back ? ' there and back' : ', paid there', tm = J.total != null ? J.total : J.mins;
-      if (J.plays === 'hold-defend') w.push('The job is the town itself: you stay.');
-      else if (J.plays === 'patrol' && J.exact) w.push((T.toTown ? 'Then ' : 'The patrol: ') + 'round the posts, ' + timeWords(tm) + back + '.');
-      else if (J.exact) w.push((T.toTown ? 'Then' : 'The trip:') + (to ? to : '') + (to ? ', ' : ' ') + timeWords(tm) + back + '.');
-      else w.push((T.toTown ? 'Then' : 'The trip:') + (to ? to : '') + (to ? ', ' : ' ') + timeWords(J.totalLo != null ? J.totalLo : J.minsLo).replace('about ', '') + ' to ' + timeWords(J.totalHi != null ? J.totalHi : J.minsHi).replace('about ', '').replace('under an hour', 'an hour') + back + '.');
+      var back = J.back ? ' there and back' : ', paid there', tm = J.total != null ? J.total : J.mins, lead = J.left ? 'Left to walk:' : (T.toTown ? 'Then' : 'The trip:');
+      if (J.home) w.push('Left to walk: home to ' + String(J.name || '').toUpperCase() + ' to be paid, ' + timeWords(tm) + '.');
+      else if (J.plays === 'hold-defend') w.push('The job is the town itself: you stay.');
+      /* WORLD 4: the road's own stops (a crew on the road, a moment that eats twenty minutes, a party PLAY walks round) cannot be known
+         before the yes; the words say so, once, plainly (rule 307: 'if nobody stops you') */
+      else if (J.plays === 'patrol' && J.exact) w.push((J.left ? 'Left to walk: ' : T.toTown ? 'Then ' : 'The patrol: ') + 'round the posts, ' + timeWords(tm) + back + ', if nobody stops you.');
+      else if (J.exact) w.push(lead + (to ? to : '') + (to ? ', ' : ' ') + timeWords(tm) + back + (J.waits >= 30 ? ', ' + timeWords(J.waits).replace('about ', '') + ' of it waiting' + (J.dark >= J.waits / 2 ? ' for dark' : '') : '') + ', if nobody stops you.');
+      else w.push(lead + (to ? to : '') + (to ? ', ' : ' ') + timeWords(J.totalLo != null ? J.totalLo : J.minsLo).replace('about ', '') + ' to ' + timeWords(J.totalHi != null ? J.totalHi : J.minsHi).replace('about ', '') + back + (J.why ? ', ' + J.why : '') + '.');
     }
     return w.join(' ');   /* draft:true */
   }
@@ -1230,7 +1446,9 @@
       if (!job) continue;
       if (cheb(h.cell[0], h.cell[1], city.x, city.y) <= 1) { try { travelStop(); } catch (e) {} if (arrived(city.x, city.y)) return true; }
       if (h.pack != null) job.chase = h.pack;
-      try { travelStop(); return travelTo(0, 0, h.cell) || true; } catch (e) { return false; }
+      var nx0 = null; try { nx0 = nextOf(job); } catch (e) {}
+      var tn = nx0 && nx0.town && cheb(nx0.x | 0, nx0.y | 0, h.cell[0], h.cell[1]) <= 2 ? nx0.name : null;   /* a post or a delivery at a town: its nearest side, as PLAY walks it */
+      try { travelStop(); return walkGo(h.cell, tn) || true; } catch (e) { return false; }
     }
     return false;
   }
@@ -1781,7 +1999,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
   load();
 })(typeof window !== 'undefined' ? window : this);

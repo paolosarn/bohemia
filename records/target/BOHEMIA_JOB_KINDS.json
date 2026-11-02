@@ -1039,6 +1039,11 @@
   "default": "clear-crew",
   "place_why": "WORLD [the PC playtest: the jobs' part] (1), rule 164 item 3, Paolo 10/24 on his PC: 'take three carts to Prim, and it's really just the blue settlement.' A row's 'place' is the place its words name. {name, real}: one of the region's real places (engine/BOHEMIA_REGION_LAND.json places, by name) or a valley town (ctBases, by name), and the job goes THERE (the carts to PRIMM, the relief shift and the intake deck to HOOVER DAM, the letter over RAILROAD PASS, the pharmacy at MT CHARLESTON LODGE, the freezer at the fossil beds, TULE SPRINGS); {name}: a place the words make up ('the pump station'), a block the dice pick, carrying that name on the map; 'way': the words' own direction ('the south road'). No place: the words name none ('the pack that drinks here'), and the job's place is the client's own town. The map names every place a held job names and rings the next one; off the glass, its name waits at the glass's edge, pointing. Names are draft:true.",
   "default_why": "a job no row names and no pattern matches is today's job, a crew marked on the map, so a new board row is never broken by this file",
+  "timing": {
+    "draft": true,
+    "hunt_spread": [0.75, 1.3],
+    "hunt_spread_why": "WORLD 4 [a job's time is the truth] (rule 307, Paolo 11/2): a hunt is the one job that cannot be exact, because the packs move (they wander every other block and come at him from four blocks off), so its time is said as a range around the walk to the nearest packs until the count is met and home: the low end a quarter short (they came to him), the high end three tenths long (they wandered off). Set from the probe's hunts (tools/bohemia_world_job_time_probe.js); his to change."
+  },
   "board_people": {
     "_about": "WORLD [every job kind]: board people this file adds to the shelf (slices/bohemia_board_shelf.js appends them when both load), for a kind none of QUESTS' 96 act-one designs carries. Shaped exactly like the shelf's rows: two sentences, the pay in the second as {pay}. Names and words are attempts, draft:true; QUESTS or RUN TWO may replace them with a design.",
     "rows": [

@@ -39,7 +39,9 @@ const done = () => { console.log('\nA JOB\'S TIME COUNTS THE WAY BACK: ' + pass 
       const BACK = { 'find-place': 1, 'find-person': 1, 'hunt-kind': 1, 'recover-return': 1, 'patrol': 1 };
       const at0 = [city.x, city.y], bs = ctBases() || {}, names = Object.keys(bs).sort(), out = [];
       /* the map's own road and clock, counted here step by step */
-      const road = (ax, ay, bx, by, mult) => { if (ax === bx && ay === by) return 0; const p = cityRoute(ax, ay, bx, by); if (!p) return null; let m = 0; for (let i = 1; i < p.length; i++) m += cityStepMins(p[i][0], p[i][1]); return m / (BohemiaJobKinds.pace() || 1) * (mult || 1); };
+      /* WORLD 4 (rule 307): the road his GO walks is PLAY's (mapBestRoute, fewest minutes) in the valley; a leg to a town ends on its nearest side */
+      const road = (ax, ay, goal, mult) => { if (!goal.town && ax === goal.x && ay === goal.y) return 0; let r = null; try { r = mapBestRoute(ax, ay, goal); } catch (e) {} if (!r) return null; return r.mins / (BohemiaJobKinds.pace() || 1) * (mult || 1); };
+      const townOf = (nm) => { const b = (ctBases() || {})[nm]; return b ? { name: nm, x: b.x | 0, y: b.y | 0, tier: mapTierOf(nm) } : null; };
       for (let w = 0; w < 16 && out.length < 100; w++) for   /* rule 255: early boards post fewer jobs, so more windows */ (let i = 0; i < names.length && out.length < 100; i++) {
         const n = names[(i + w * 3) % names.length], b = bs[n], door = townDoor(b.x, b.y) || [b.x, b.y];
         let tier = 'camp'; try { tier = mapTierOf(n) || 'camp'; } catch (e) {}
@@ -50,13 +52,14 @@ const done = () => { console.log('\nA JOB\'S TIME COUNTS THE WAY BACK: ' + pass 
           const T = BohemiaJobKinds.trip(o, n); if (!T || !T.job || T.job.plays === 'hold-defend') return;
           const J = T.job, kind = BohemiaJobKinds.kindOf(o), K = (BohemiaJobKinds.data().kinds || {})[kind] || {}, mult = kind === 'haul-caravan' && K.pace ? K.pace : 1;
           let mine = null;
-          if (J.exact && J.at && J.at.length) {   /* the legs out, at the job's pace on the first, and home to this town's gate when back */
+          if (J.exact && J.ends && J.ends.length) {   /* WORLD 4: each leg's end (a town's nearest side, a find in sight of it) */   /* the legs out, at the job's pace on the first, and home to this town's gate when back */
             let sx = city.x, sy = city.y, m = 0, okr = true;
-            J.at.forEach((p, k) => { const r = road(sx, sy, p[0], p[1], k === 0 ? mult : 1); if (r == null) okr = false; else m += r; sx = p[0]; sy = p[1]; });
-            if (J.back) { const r = road(sx, sy, door[0], door[1], 1); if (r == null) okr = false; else m += r; }
+            J.ends.forEach((p, k) => { const L = (J.legs || [])[k] || {}, T = L.town && !L.cut ? townOf(L.town) : null; const r = road(sx, sy, T ? { town: T } : { x: p[0], y: p[1] }, k === 0 ? mult : 1); if (r == null) okr = false; else m += r + (L.wait || 0);   /* a leg's wait on the clock (CONTENT's legs: 'wait', 'dark') */ sx = p[0]; sy = p[1]; });
+            if (J.back) { const r = road(sx, sy, { town: townOf(n) }, kind === 'find-person' && K.pace ? K.pace : 1); if (r == null) okr = false; else m += r; }
             mine = okr ? m : null;
           }
-          out.push({ id: o.id, place: n, kind: kind, back: !!J.back, should: !!BACK[kind], exact: !!J.exact, shown: J.exact ? J.total : J.totalHi, out: J.exact ? J.mins : J.minsHi, mine: mine,
+          const legsHome = !!(K.legs && K.legs.length && K.legs[K.legs.length - 1].go === 'client');   /* CONTENT's legs kinds: paid at home when the last leg is the client */
+          out.push({ id: o.id, place: n, kind: kind, back: !!J.back, should: !!BACK[kind] || legsHome, exact: !!J.exact, shown: J.exact ? J.total : J.totalHi, out: J.exact ? J.mins : J.minsHi, mine: mine,
             words: T.words, short: T.short });
         });
       }
@@ -102,15 +105,17 @@ const done = () => { console.log('\nA JOB\'S TIME COUNTS THE WAY BACK: ' + pass 
     const plan = await fr.evaluate(() => { const bs = ctBases() || {}; let best = null; for (const n in bs) { const b = bs[n], dd = Math.max(Math.abs(b.x - city.x), Math.abs(b.y - city.y)); if (!best || dd < best.d) best = { n, x: b.x, y: b.y, d: dd }; }
       const door = townDoor(best.x, best.y); city.x = door[0]; city.y = door[1]; try { render(); } catch (e) {}
       for (let w = 0; w < 8; w++) { const list = BohemiaBoardShelf.pick({ name: best.n, tier: mapTierOf(best.n) || 'camp' }, 1 + 3 * w, { traits: [], held: [] }) || [];
-        for (const o of list) { const T = BohemiaJobKinds.trip(o, best.n); if (T && T.job && T.job.exact && T.job.back && T.job.at && T.job.at.length === 1 && T.job.total < 600) return { town: best.n, door: door, at: T.job.at[0], total: T.job.total, out: T.job.mins, id: o.id }; } }
+        for (const o of list) { const T = BohemiaJobKinds.trip(o, best.n); if (T && T.job && T.job.exact && T.job.back && T.job.ends && T.job.ends.length === 1 && !T.job.waits && !((BohemiaJobKinds.data().kinds[T.job.plays] || {}).legs) && T.job.total < 600)   /* a leg's wait comes only when the job is taken; a legs kind's far ground is where the parties roam, and PLAY's road round them is the probe's to measure (tools/bohemia_world_job_time_probe.js), not this one walk's */ return { town: best.n, door: door, at: T.job.ends[0], total: T.job.total, out: T.job.mins, id: o.id }; } }
       return null; });
     let walked = null;
     if (plan) {
       /* a walk the road interrupted (a crew met, FALL BACK steps him two blocks away) is not the trip: it is walked again, and said */
       const clock = () => fr.evaluate(() => T.day * 1440 + T.min);
       let met = 0;
-      const go = async (to) => { await fr.evaluate((to) => { travelStop(); travelTo(0, 0, to); travelGoes(); }, to);
-        await waitFor(async () => { const r = await fr.evaluate((to) => { let m = 0; if (MEET.up) { const b = document.querySelector('#meetcard [data-meet="back"]'); if (b) { b.click(); m = 1; } } return { m: m, there: !TRAVEL && city.x === to[0] && city.y === to[1] }; }, to); met += r.m; return r.there; }, 180000); };
+      /* WORLD 4: out on the job's mark's own walk (BohemiaJobKinds.walkGo, PLAY's road), home on PLAY's road to the town's nearest side */
+      const go = async (to) => { await fr.evaluate(([to, home]) => { travelStop(); if (home) { const b = ctBases()[home], T = { name: home, x: b.x | 0, y: b.y | 0, tier: mapTierOf(home) }, r = mapBestRoute(city.x, city.y, { town: T });
+          if (r) { travelPath(r.path, r.door, !cityWalkable(r.door[0], r.door[1]), T); window.__WB_TO = r.door; } } else { BohemiaJobKinds.walkGo(to); window.__WB_TO = to; } travelGoes(); }, [to, to === plan.door ? plan.town : null]);
+        await waitFor(async () => { const r = await fr.evaluate((to) => { let m = 0; if (MEET.up) { const b = document.querySelector('#meetcard [data-meet="back"]'); if (b) { b.click(); m = 1; } } const w = window.__WB_TO || to; return { m: m, there: !TRAVEL && city.x === w[0] && city.y === w[1] }; }, to); met += r.m; return r.there; }, 180000); };
       /* and a step the road's own moments ate time on (the road director's events cost minutes even when no fight comes) is not the
          road's time either: each step's clock is logged against the map's own cost of the cell, and such a walk is walked again */
       await fr.evaluate(() => { if (window.__WB_HOOK) return; window.__WB_HOOK = 1; const f = travelStepped; window.travelStepped = travelStepped = function (m) { const r = f(m); try { const now = T.day * 1440 + T.min, last = window.__WB_LAST; window.__WB_LAST = now; const want = cityStepMins(city.x, city.y); if (m && last != null && now - last - want > 1.5) window.__WB_EATEN = (window.__WB_EATEN || 0) + (now - last - want); } catch (e) {} return r; }; });

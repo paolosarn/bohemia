@@ -1053,6 +1053,8 @@
   function timeWord(j) {
     if (j.mins == null) return '';
     var h = j.mins / 60, w = h < 1 ? '<1H' : h < 24 ? Math.round(h) + 'H' : Math.round(h / 24) + 'D';
+    /* WORLD 4 [a job's time is the truth] (rule 307): the job file's one rounding, packed for the card ('1H40', '1D7H'); '2D' for 37 hours was 30 off in 100 */
+    try { if (window.BohemiaJobKinds && BohemiaJobKinds.shortTime) w = BohemiaJobKinds.shortTime(j.mins).replace(/ MIN$/, 'M').replace(/ DAYS?/, 'D').replace(/ H/, 'H').replace(/ /g, ''); } catch (e) {}
     return w + (j.back ? ' THERE+BACK' : '');   /* draft:true; rule 222(b) in a phone's words */
   }
   function jobCard(j, L) {
