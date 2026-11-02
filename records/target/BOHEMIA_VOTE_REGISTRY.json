@@ -16220,6 +16220,87 @@
     "after": "23 kinds, 12% suburb, 12% of boards mostly suburb (all of them real suburbs)",
     "scale": "his phone, 390 x 844, the fight's opening view"
    }
+  },
+  {
+   "id": "bosses-pot-look-and-place-11-2",
+   "kind": "outfit",
+   "lane": "bosses",
+   "sha": "pending",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE POT: HIS OWN LOOK AND HIS PLACE, BEFORE AND AFTER",
+   "said": "each one has to have their own aesthetic... there's a bunch of bright pixels on the part of the map where I killed the boss... I'm so confused",
+   "why": "The boss is a casino line cook who took the last good kitchen: grey chef's whites, a half apron, a wrapped cook's cap. He wears it in the fight and on his card. His kitchen on the map: black smoke and dark windows; after he falls the fire is out, the windows are lit and the pot steams, painted like the rest of the map (no more bright dots).",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/bosses_act_one/vote_pot.png"
+   },
+   "twin": {
+    "src": "records/target/bosses_act_one/was_pot_his_place_after.webp",
+    "diffs": [
+     "THE MAN: last round any militia captain with his name on him; now his own grey chef's whites, half apron and cook's cap, in the fight and on his card.",
+     "HIS KITCHEN: last round a grid of flat-colour pixels on the map; now painted like the map's own buildings, black smoke before, lit windows and steam after.",
+     "AFTER HE FALLS: last round yellow dots over every building for three blocks (the bright pixels); now only the kitchen itself changes."
+    ]
+   }
+  },
+  {
+   "id": "bosses-tap-look-and-place-11-2",
+   "kind": "outfit",
+   "lane": "bosses",
+   "sha": "pending",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE TAP: HIS OWN LOOK AND HIS PLACE, BEFORE AND AFTER",
+   "said": "each one has to have their own aesthetic... there's a bunch of bright pixels on the part of the map where I killed the boss... I'm so confused",
+   "why": "The boss is the waterworks man who keeps the valve key: a utility vest over his work shirt, the work cap, shades, a tool belt. He wears it in the fight and on his card. His pump house: a dry rusted tower with a red lamp blinking; after he falls the water pours out into a trough, painted like the rest of the map (no more bright dots).",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/bosses_act_one/vote_tap.png"
+   },
+   "twin": {
+    "src": "records/target/bosses_act_one/was_tap_his_place_after.webp",
+    "diffs": [
+     "THE MAN: last round any brigand leader; now his own utility vest, work cap, shades and tool belt.",
+     "HIS PUMP HOUSE: last round a pixel-grid tower; now a painted tower and pump house, dry and rusted with a red lamp blinking before.",
+     "AFTER HE FALLS: last round yellow dots for two blocks round; now water pours out of the tower into a trough, nothing else lights up."
+    ]
+   }
+  },
+  {
+   "id": "bosses-filter-look-and-place-11-2",
+   "kind": "outfit",
+   "lane": "bosses",
+   "sha": "pending",
+   "made": "11/2",
+   "draft": true,
+   "title": "THE FILTER: HIS OWN LOOK AND HIS PLACE, BEFORE AND AFTER",
+   "said": "each one has to have their own aesthetic... there's a bunch of bright pixels on the part of the map where I killed the boss... I'm so confused",
+   "why": "The boss is the last man who knows the water plant: work coveralls, a rubber respirator, a tool belt with his remote. He wears it in the fight and on his card. His settling tanks: glowing green sludge and green fumes; after he falls the tanks are clean blue water, painted like the rest of the map (no more bright dots).",
+   "options": [
+    "A, yes, like this",
+    "B, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/bosses_act_one/vote_filter.png"
+   },
+   "twin": {
+    "src": "records/target/bosses_act_one/was_filter_his_place_after.webp",
+    "diffs": [
+     "THE MAN: last round the mechanic's look; now his own work coveralls, rubber respirator and field cap.",
+     "HIS TANKS: last round a pixel grid in flat green; now painted round tanks with glowing green sludge and fumes before.",
+     "AFTER HE FALLS: last round the same grid recoloured; now the tanks hold clean blue water."
+    ]
+   }
   }
  ],
  "verdicts": [

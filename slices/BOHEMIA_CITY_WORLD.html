@@ -67703,6 +67703,7 @@ function meetShow(msg, skin){
     + '<button data-meet="go" style="flex:1;min-height:44px;font:400 13px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#1f1710;background:#e2b45a;border:0;' + kit('tin_amber', 0.75) + 'cursor:pointer">ENGAGE</button>'
     + '</div></div>';
   document.body.appendChild(el);
+  try { if (msg.boss && window.BohemiaBosses && BohemiaBosses.onCard) BohemiaBosses.onCard(el, msg); } catch (_e) {}   /* __THE_BOSSES__ (BOSSES 11/2, rule 330): his face, talking, his title and the one thing to know */
   try { var sp = el.querySelector('.mcstars'), st = M && M.stars ? M.stars(stars, { gap: 0 }) : null; if (st) sp.appendChild(st); else sp.textContent = new Array(stars + 1).join('★'); } catch (_e) {}
   /* WORLD [the job tells the truth, in blood] (rule 208): the band in front of him, played on AUTO against his crew: red stars, and ENGAGE bleeds */
   try { var __JD = window.BohemiaJobDanger, __q = __JD && __JD.readParty(msg); if (__q) __JD.bleed(el.querySelector('[data-meet="go"]'), __q, null, el.querySelector('.mcstars')); } catch (_e) {}

@@ -1493,10 +1493,11 @@ const FIGHT = (function () {
        fight's own rule for his kind (the captain rallies, the mechanic's machines drop with him). No new damage number. */
     try { const B = opts.boss; if (B && B.kind) { const u = bandUnits.filter(function (x) { return x.kind === B.kind; })[0];
       if (u) { u.name = String(B.name || u.name).toUpperCase(); u.boss = true; u.bossTitle = B.title || null;
+        if (B.look && DB.rig.looks[B.look]) u.look = B.look;   /* HIS OWN LOOK (BOSSES 11/2, rule 330): the chef's whites, the vest, the respirator (tools/bohemia_bosses_the_three_men.py) */
         const k = +B.hp_x || 1; if (k > 1) { u.hp = Math.round(u.hp * k); u.hpMax = u.hp; }
         const bw = B.weapon ? weaponByName(B.weapon) : null; if (bw && strikeSkill(bw) && !isRanged(bw)) u.weapon = bw;
         const bs = B.shield ? shieldByName(B.shield) : null; if (bs && u.weapon && u.weapon.hands === 1) u.shield = bs;
-        S.boss = { name: u.name, id: u.id, kind: B.kind, lesson: B.lesson || null, hp: u.hp, weapon: u.weapon && u.weapon.name, shield: u.shield && u.shield.name }; } } } catch (e) { S.bossErr = String(e && e.message || e); }
+        S.boss = { name: u.name, id: u.id, kind: B.kind, look: u.look || null, lesson: B.lesson || null, hp: u.hp, weapon: u.weapon && u.weapon.name, shield: u.shield && u.shield.name }; } } } catch (e) { S.bossErr = String(e && e.message || e); }
     LOOKS_TAKEN = null;
     /* THE BOARD FITS THE PARTY (rule 79): a few against a few get a small board cut from the dealt one; the full board only
        for the endgame or three parties at once */

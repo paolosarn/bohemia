@@ -19,6 +19,24 @@
 "fill": 0.342,
 "packedMB": 1.95
 },
+"boss_filter_0.webp": {
+"bytes": 297876,
+"decodedMB": 18.86,
+"fill": 0.188,
+"packedMB": 4.12
+},
+"boss_pot_0.webp": {
+"bytes": 280990,
+"decodedMB": 18.86,
+"fill": 0.18,
+"packedMB": 3.82
+},
+"boss_tap_0.webp": {
+"bytes": 273488,
+"decodedMB": 17.2,
+"fill": 0.199,
+"packedMB": 3.96
+},
 "cast_apron.webp": {
 "bytes": 203058,
 "decodedMB": 17.81,
@@ -795,8 +813,8 @@
 }
 },
 "totals": {
-"decodedMB": 2724.7,
-"packedMB": 443.0,
-"sheets": 132
+"decodedMB": 2779.6,
+"packedMB": 454.9,
+"sheets": 135
 }
 }

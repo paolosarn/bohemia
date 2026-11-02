@@ -1,26 +1,38 @@
-/* THE BOSSES (BOSSES lane, 11/2/26, rule 302; ask line 287).
+/* THE BOSSES (BOSSES lane, 11/2/26, rule 302; ask line 287. ROUND 2 the same round, rule 330; ask lines 328 and 329).
    PAOLO 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get
    something that helps you interact with the city... that's why we made the city how we made it, in grids.'
-   MEASURED FIRST (records/BOHEMIA_BOSSES_ACT_ONE_THE_FIRST_THREE_11_2_26.md): WORLD TWO's map (slices/bohemia_his_map.js) already
-   places the next boss's sign, marks his place, hands his fight through the one door and changes the map where he falls; but the
-   fight was nine brigands with his name on the card, his place was a skull on a street, and beating him handed you nothing to do.
-   THIS FILE IS THE REST, read from records/target/bb/boss_act_one.json (a modder's file, a row per boss, matched by name):
-     (1) HIS PLACE: a landmark on his own block, drawn at one size at every zoom, a dark shape through the static before you know
-         whose it is (a black smoke stack, a water tower, two glowing tanks: Battle Brothers' legendary location you see from
-         the road), named once his sign is read, changed the moment he falls (the kitchen lit, the tower running, the tanks clean).
-     (2) HIS RUMOUR: the moment his sign is in the world, a person posts about him on the phone's feed (who he is and his lesson).
-     (3) HIS FIGHT: the man himself (his kind, his name, his gear, more blood), his own crew, his own board, one lesson; the map's
-         hand-over carries it (WORLD TWO's startFight asks dress()), the fight dresses the man (__THE_BOSS_IS_A_MAN__).
-     (4) HIS VERB: when he falls the verb is yours, and the phone's band shows it as a button wherever it works on the grid:
-         COOK (anywhere off a town, once a day: the crew heals like a night's sleep, your cookfire stays on that block),
-         OPEN THE MAIN (a street block beside the water works: the main runs for good, the block pays you), PURIFY THE WATER (beside
-         open water or a main you opened: a clean-water block for good, every fresh wound in the crew closes two days sooner).
-         Every block you used it on stays drawn on the map. The phone asks verbHere() and presses use() (bohemia_phone.js, marked).
+   AND THEN, having reached them in play: 'each one has to have their own aesthetic, and maybe a quest or two that leads up to
+   them... it has to make sense... I'm just confused by what is happening with the map... I can put the fire down, I can purify
+   the water, I'm so confused by what that means.' And: 'there's a bunch of bright pixels on the part of the map where I killed
+   the boss... I'm so confused, what's going on.'
+   WHAT WAS WRONG (records/BOHEMIA_BOSSES_EACH_HIS_OWN_LOOK_A_LEAD_UP_A_VERB_THAT_MAKES_SENSE_11_2_26.md): his place was pixel
+   rows on the map's canvas and the lights his fall brought back were yellow dots over every building for three blocks (the
+   bright pixels); the man wore his kind's pool look; the lead-up was one sign and one feed post; the verb landed on a phone
+   button with nobody saying what it was.
+   THIS FILE, read from records/target/bb/boss_act_one.json (a modder's file, a row per boss, matched by name to WORLD TWO's
+   boss_map.json, which still owns the sign, where he stands and what falls with him):
+     (1) HIS PLACE, PAINTED: the map's own look (the district factory's parts through the master rig, the way COOK paints the
+         valley: tools/bohemia_bosses_paint_their_places_11_2_26.py -> slices/boss_places/), on his own block, scaled with the
+         ground like a district picture and never under a size he reads from afar; a dark shape through the static before he
+         is known; BEFORE and AFTER, two beat frames each (THE KITCHEN's black smoke and dark windows, then the fire out, the
+         windows lit and steam off the pot; THE PUMP HOUSE dry with a red lamp blinking, then water pouring; THE SETTLING TANKS
+         green sludge, then clean blue). WORLD TWO's lights-back-on dots stand down where a painted place shows the change.
+     (2) THE LEAD-UP, people, places and things (the quest law; CONTENT's mouth card, slices/bohemia_road_events.js): someone who
+         lost something to him stops you on the road and asks for help (never in the first minute); his sign is the thing, and
+         one of your own men reads it out (where he is and what he does to the valley); then his place is marked (WORLD TWO).
+         His rumour still goes on the phone's feed.
+     (3) HIS FIGHT: the man himself in HIS OWN LOOK (the people's rig, tools/bohemia_bosses_the_three_men.py: boss.look), his name,
+         his gear, more blood, his crew, his board, one lesson; his face and title on his meet card (onCard).
+     (4) HIS VERB, MADE PLAIN: the moment he falls, the person who asked comes back and says in plain words and numbers what you
+         can now do; the phone's button is one plain line (COOK: HEAL YOUR MEN, TURN THE WATER ON, CLEAN THE WATER) and a held
+         finger on it says the same; the first use puts what it did on the map over the block and on the feed in plain words.
+         COOK (anywhere off a town, once a day: the crew heals like a night's sleep), OPEN (a street beside the water works: the
+         main runs for good, +6 batteries), PURIFY (beside water or a main you opened: every fresh wound closes two days sooner).
    Every word is draft:true (the file's own flag); every number is a shape TUNING owns. Gate: gates/bosses_act_one_gate.js. */
 (function (root) {
   'use strict';
-  var KEY = 'bohemia.bosses.v1', DATA_URL = '../records/target/bb/boss_act_one.json';
-  var DATA = null, S = null, GLY = {}, MAINS = null, LAST = { drew: {}, used: [] };
+  var KEY = 'bohemia.bosses.v1', DATA_URL = '../records/target/bb/boss_act_one.json', PICS_URL = 'boss_places/boss_places.json';
+  var DATA = null, S = null, MAINS = null, PICS = null, IMG = {}, DARK = {}, LAST = { drew: {}, used: [], cards: [] }, T0 = Date.now();
 
   /* ---------- small things ---------- */
   function HM() { try { return root.BohemiaHisMap || null; } catch (e) { return null; } }
@@ -40,25 +52,103 @@
     var bs = bases(), tn = null, td = 1e9; for (var n in bs) { var b = bs[n]; if (!b) continue; var d = cheb(b.x | 0, b.y | 0, x, y); if (d < td) { td = d; tn = n; } }
     return (tn && td <= 14) ? 'the ' + tn + ' side' : 'that block';
   }
+  function fill(t, o) { return String(t || '').replace(/\{(\w+)\}/g, function (m, k) { return o && o[k] != null ? o[k] : m; }); }
 
-  /* ---------- the data and the state (kept with WORLD TWO's game: a new company is a new state) ---------- */
+  /* ---------- the data, the pictures and the state (kept with WORLD TWO's game: a new company is a new state) ---------- */
   function loadData() {
-    if (DATA || loadData.busy) return; loadData.busy = true;
-    try { fetch(DATA_URL, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { DATA = (j && j.bosses) ? j : null; }).catch(function () { loadData.busy = false; }); } catch (e) { loadData.busy = false; }
+    if (!DATA && !loadData.busy) { loadData.busy = true;
+      try { fetch(DATA_URL, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { DATA = (j && j.bosses) ? j : null; }).catch(function () { loadData.busy = false; }); } catch (e) { loadData.busy = false; } }
+    if (!PICS && !loadData.pics) { loadData.pics = true;
+      try { fetch(PICS_URL).then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.pictures) return; PICS = j.pictures;
+        Object.keys(PICS).forEach(function (k) { PICS[k].frames.forEach(function (f) { var im = new Image(); im.src = 'boss_places/' + f; IMG[f] = im; }); }); }).catch(function () { loadData.pics = false; }); } catch (e) { loadData.pics = false; } }
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
     if (!S) { try { S = JSON.parse(root.localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; } }
     if (!S || S.v !== 1 || S.seed !== h.seed) { S = fresh(h.seed); save(); }
+    if (!S.lead) S.lead = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     return true;
   }
+  function lead(n) { if (!S.lead[n]) S.lead[n] = {}; return S.lead[n]; }
 
-  /* ---------- (2) the rumour, the moment his sign is in the world ---------- */
+  /* ---------- the mouths (CONTENT's card: a portrait that talks, two or three plain choices) ---------- */
+  function card() { return root.BohemiaRoadEvents && root.BohemiaRoadEvents.card ? root.BohemiaRoadEvents : null; }
+  function inTown() { try { var sf = document.getElementById('settleFrame'); return !!sf && sf.style.display === 'block'; } catch (e) { return false; } }
+  function fightUp() {
+    try { if (LOOP && LOOP.fighting) return true; } catch (e) {}
+    try { var P = root.parent; if (P && P !== root) { if (P.SPOILS && P.SPOILS.frame) return true; var ff = P.document.getElementById('fightFrame'); if (ff && ff.style.display !== 'none') return true; } } catch (e) {}
+    try { var hh = hs(); if (hh && hh.fighting) return true; } catch (e) {}
+    return false;
+  }
+  function canTalk() {
+    var RE = card(); if (!RE || bench()) return false;
+    try { if (RE.up && RE.up()) return false; } catch (e) {}
+    try { if (MEET && MEET.up) return false; } catch (e) {}
+    if (inTown() || fightUp()) return false;
+    /* a scripted browser meets these only when it asks (CONTENT's rule for the road): other lanes' map walks are not stopped by a
+       card they cannot answer; this lane's gate asks (window.__BOSSES_TALK) */
+    try { if (root.navigator && root.navigator.webdriver && !root.__BOSSES_TALK) return false; } catch (e) {}
+    return true;
+  }
+  function mate() {   /* one of his own men reads the thing out (never YOU: the player does not speak for the valley) */
+    var co = null; try { co = { men: (CREW_DEFS && CREW_DEFS.men) || [], looks: (CREW_DEFS && CREW_DEFS.looks) || [] }; } catch (e) {}
+    try { var w = crewWhoWalks(); if (w && w.name) return { name: String(w.name).toUpperCase(), look: w.look || (co && co.looks[1]) || 'cast_longcoat' }; } catch (e) {}
+    if (co && co.men[1]) return { name: String(co.men[1].name || 'ONE OF YOURS').toUpperCase(), look: co.looks[1] || 'cast_longcoat' };
+    return { name: 'ONE OF YOURS', look: 'cast_longcoat' };
+  }
+  function talk(kind, n, o) {
+    var RE = card(); if (!RE) return false;
+    RE.card(o);
+    var c = { kind: kind, n: n, name: o.name, look: o.look, head: o.head || null, text: o.text, opts: (o.opts || []).map(function (x) { return x.t; }), at: Date.now(), draft: true };
+    root.__BOSS_CARD = c; LAST.cards.push(c); if (LAST.cards.length > 24) LAST.cards.shift();
+    return true;
+  }
+  function closeCard(resume) { try { card().close(resume); } catch (e) {} }
+  function walkTo(c) { try { if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); } catch (e) {} try { if (travelTo(0, 0, c)) travelGoes(); } catch (e) {} }
+
+  /* (2) the one who lost something to him asks for help, while his sign is in the world and unread (never in the first minute) */
+  function asker(r, s) {
+    var A = r.lead && r.lead.asker; if (!A) return false;
+    var L = lead(r.n); L.asked = day() + 1; save();
+    return talk('asker', r.n, { look: A.look, name: A.name, from: A.from, head: 'SOMEONE NEEDS HELP', text: A.says, opts: [
+      { t: A.yes, tag: 'TO THE ' + String((r.lead.thing && r.lead.thing.head) || 'SIGN').replace(/^THE /, ''), fn: function () { L.yes = true; save();
+        talk('asker_yes', r.n, { look: A.look, name: A.name, from: A.from, head: 'SOMEONE NEEDS HELP', text: A.yes_says, opts: [{ t: 'GO', fn: function () { closeCard(false); walkTo([s.x, s.y]); } }] }); } },
+      { t: A.no, fn: function () { L.yes = false; save();
+        talk('asker_no', r.n, { look: A.look, name: A.name, from: A.from, head: 'SOMEONE NEEDS HELP', text: A.no_says, opts: [{ t: 'GO ON', fn: function () { closeCard(); } }] }); } }] });
+  }
+  /* the thing at his sign, read out by one of yours: where he is and what he does to the valley; his place is on the map now */
+  function thing(r) {
+    var T = r.lead && r.lead.thing; if (!T) return false;
+    var L = lead(r.n), m = mate(), h = hs(), f = h && h.boss.found[r.n];
+    L.read = day() + 1; L.thingDue = false; save();
+    return talk('thing', r.n, { look: m.look, name: m.name, from: 'one of yours, at ' + T.what, head: T.head, text: T.says, opts: [
+      { t: 'GO TO HIS PLACE', tag: String((r.place && r.place.name) || r.n), fn: function () { closeCard(false); if (f) walkTo([f.x, f.y]); } },
+      { t: 'LATER', fn: function () { closeCard(); } }] });
+  }
+  /* (4) he fell: the one who asked tells you what his verb does, plain, with the numbers */
+  function after(r) {
+    var A = r.after; if (!A) return false;
+    var L = lead(r.n); L.told = day() + 1; L.afterDue = false; save();
+    return talk('after', r.n, { look: A.look, name: A.name, from: A.from, head: r.n + ' IS DOWN', text: A.says, opts: [{ t: A.ok || 'GOT IT', tag: r.verb ? r.verb.button : '', fn: function () { closeCard(); } }] });
+  }
+  function talkTick() {
+    if (!DATA || !sync() || !canTalk()) return;
+    var h = hs(); if (!h) return;
+    for (var i = 0; i < DATA.bosses.length; i++) {
+      var r = DATA.bosses[i], L = lead(r.n);
+      if (L.afterDue && h.boss.fallen[r.n]) { after(r); return; }
+      if (L.thingDue && h.boss.found[r.n] && !h.boss.fallen[r.n]) { thing(r); return; }
+      var s = h.boss.sign;
+      if (s && s.n === r.n && !L.asked && !h.boss.found[r.n] && Date.now() - T0 > 60000) { asker(r, s); return; }
+    }
+  }
+
+  /* ---------- the rumour, the moment his sign is in the world ---------- */
   function rumours() {
     var h = hs(); if (!h || !DATA || bench()) return;
     var s = h.boss.sign, names = [];
@@ -79,8 +169,32 @@
     try { msg.party.word = partyWord(band.length); } catch (e) {}
     msg.roster = band.map(function (id) { return { arch: 'human' }; });
     msg.boss = { n: b.n, kind: b.boss.kind, name: b.boss.name || b.n, title: b.boss.title || null, hp_x: +b.boss.hp_x || 1, weapon: b.boss.weapon || null,
-      shield: b.boss.shield || null, lesson: b.lesson || null, board: b.board || null, place: b.place && b.place.name, draft: true };
-    root.__BOSS_DRESSED = { n: b.n, band: band.slice(), board: b.board, at: Date.now() };
+      shield: b.boss.shield || null, look: b.boss.look || null, lesson: b.lesson || null, board: b.board || null, place: b.place && b.place.name, draft: true };
+    root.__BOSS_DRESSED = { n: b.n, band: band.slice(), board: b.board, look: b.boss.look || null, at: Date.now() };
+    return true;
+  }
+  /* his card (RUN's meet card, __THE_BOSSES__ hook): his face, talking, his title and the one thing to know, over the card's men */
+  function onCard(el, msg) {
+    var B = msg && msg.boss; if (!B || !el) return false;
+    var b = row(B.n); if (!b) return false;
+    var at = el.querySelector('.mcs'); if (!at) return false;
+    var d = document.createElement('div'); d.className = 'mcboss'; d.setAttribute('data-boss', B.n); d.setAttribute('data-look', B.look || ''); d.setAttribute('data-draft', 'true');
+    /* compact (measured 11/2 on the phone: a 64 px face and the whole lesson made the card 72 px taller and pushed ENGAGE under the
+       phone): a 40 px face, his title and the one short tip (the file's 'tip'), the whole lesson stays the fight's to teach */
+    d.style.cssText = 'display:flex;gap:8px;align-items:center;margin-top:6px';
+    d.innerHTML = '<canvas width="128" height="128" style="width:40px;height:40px;flex:none;image-rendering:pixelated;background:#14100b;border:1px solid #4a3a26"></canvas>'
+      + '<div style="min-width:0;font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:.6px;line-height:1.25;color:#cdb98e;text-shadow:0 1px 0 #000">'
+      + '<div style="color:#f2e4c6">' + String(B.title || '').toUpperCase().replace(/[<>&]/g, '') + '</div>'
+      + '<div style="margin-top:2px;color:#e2b45a">' + String(b.tip || b.lesson || '').replace(/[<>&]/g, '') + '</div></div>';
+    at.parentNode.insertBefore(d, at.nextSibling);
+    /* the card stands centred: what this block adds would push ENGAGE down under the phone, so the card lifts by exactly that much
+       and its buttons stay where every other meet card has them */
+    try { var mc = el.querySelector('.mc'); if (mc) mc.style.marginBottom = (2 * (d.offsetHeight + 6)) + 'px'; } catch (e) {}
+    var cv = d.querySelector('canvas'), line = String((b.boss && b.boss.says) || b.rumour && b.rumour.txt || B.name);
+    var face = function () { try { var F = root.BohemiaCrewFaces; if (!F || !B.look || !F.has(B.look)) return; if (!F.talk(cv, B.look, line)) F.draw(cv.getContext('2d'), B.look, 128); LAST.cardFace = B.look; } catch (e) {} };
+    if (root.BohemiaCrewFaces) root.BohemiaCrewFaces.ready(face);
+    else { try { var sc = document.createElement('script'); sc.src = '../engine/bohemia_crew_faces.js'; sc.onload = function () { try { root.BohemiaCrewFaces.ready(face); } catch (e) { face(); } }; document.head.appendChild(sc); } catch (e) {} }
+    LAST.card = { n: B.n, look: B.look, title: B.title, at: Date.now() };
     return true;
   }
 
@@ -118,7 +232,8 @@
     if (id === 'purify') return (!marked('purify', x, y) && (marked('open', x, y) || hisPlace('purify', x, y) || !!nearKind(x, y, V.water_districts || []))) ? { id: id } : null;
     return null;
   }
-  /* the phone's band: the verb that works where he stands (the order the file says), a cooling one only when nothing else does */
+  /* the phone's band: the verb that works where he stands (the order the file says), a cooling one only when nothing else does;
+     its button is one plain line and its tip what a held finger says */
   function verbHere() {
     if (!sync() || !DATA) return null;
     var h = here(); if (!h) return null;
@@ -127,7 +242,7 @@
     for (var i = 0; i < order.length; i++) {
       var a = applies(order[i], h[0], h[1]); if (!a) continue;
       var V = verbRow(order[i]).verb;
-      var out = { id: a.id, word: V.word, button: a.off ? 'THE POT IS COOLING' : V.button, off: !!a.off, from: verbRow(order[i]).n, draft: true };
+      var out = { id: a.id, word: V.word, button: a.off ? (V.cooling || 'THE POT IS COOLING') : V.button, tip: a.off ? (V.tip_cooling || V.tip) : V.tip, off: !!a.off, from: verbRow(order[i]).n, draft: true };
       if (!a.off) return out; if (!off) off = out;
     }
     return off;
@@ -152,115 +267,114 @@
     if (!sync()) return false;
     var h = here(); if (!h) return false;
     var a = applies(id, h[0], h[1]); if (!a || a.off) return false;
-    var r = verbRow(id), V = r.verb, w = whereWord(h[0], h[1]), got = null;
+    var r = verbRow(id), V = r.verb, w = whereWord(h[0], h[1]), got = null, first = !(S.verbs[id].uses | 0);
     if (id === 'cook') { got = condHeal(V.heal_hours || 8); S.verbs.cook.last = day(); }
     if (id === 'open') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'the main on ' + w, 'boss-verb:open:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
     if (id === 'purify') got = condWounds(V.wound_days || 2);
-    S.marks.push({ k: id, x: h[0], y: h[1], day: day() });
+    var nums = { where: w, healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0 };
+    nums.wounds = nums.men + (nums.men === 1 ? ' wound' : ' wounds'); nums.WOUNDS = nums.wounds.toUpperCase();   /* '1 wound', never '1 wounds' */
+    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
+    S.marks.push({ k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() });
     S.verbs[id].uses = (S.verbs[id].uses | 0) + 1;
     save();
-    var said = V.says + (id === 'cook' && got ? (got.men ? ' ' + got.healed + ' blood back across ' + got.men + (got.men === 1 ? ' man.' : ' men.') : ' Nobody was hurt; they eat anyway.')
+    var said = first && (F.feed || F.feed_none) ? fill((none && F.feed_none) || F.feed, nums)
+      : V.says + (id === 'cook' && got ? (got.men ? ' ' + got.healed + ' blood back across ' + got.men + (got.men === 1 ? ' man.' : ' men.') : ' Nobody was hurt; they eat anyway.')
       : id === 'open' && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'purify' && got ? (got.men ? ' ' + got.men + (got.men === 1 ? ' wound' : ' wounds') + ' closing sooner.' : ' Nobody is wounded right now.') : '');
     feed('@yourcompany', said, 'mine');   /* draft:true: the company's own post, on the phone */
-    if (V.feed) feed(V.feed.who, String(V.feed.txt).replace(/\{where\}/g, w), 'world');
-    LAST.used.push({ id: id, x: h[0], y: h[1], got: got, t: Date.now() });
+    if (V.feed) feed(V.feed.who, fill(V.feed.txt, nums), 'world');
+    LAST.used.push({ id: id, x: h[0], y: h[1], got: got, first: first, said: said, t: Date.now() });
     root.__BOSS_VERB_USED = LAST.used.slice(-6);
-    try { root.dispatchEvent(new CustomEvent('bohemia:verb-used', { detail: { id: id, at: h, got: got } })); } catch (e) {}
+    try { root.dispatchEvent(new CustomEvent('bohemia:verb-used', { detail: { id: id, at: h, got: got, first: first } })); } catch (e) {}
     try { if (typeof saveNow === 'function') saveNow('verb:' + id); } catch (e) {}
     try { if (typeof render === 'function') render(); } catch (e) {}
     return got || true;
   }
 
-  /* ---------- (1) drawing: his place, what changed, the blocks you used a verb on ---------- */
-  var PAL = { o: '#0e0b08', k: '#2b251d', K: '#3d352a', g: '#77706a', w: '#e5d9bd', y: '#f2c56a', Y: '#a8762e', r: '#c8382a', R: '#7a1d14',
-    c: '#b8733c', C: '#6e3f1e', b: '#5f8fb0', B: '#2e4c63', p: '#bfeae2', m: '#6f7a3c', M: '#3e4524', s: '#4a4540', f: '#ff9a3c' };
-  var ART = {
-    kitchen: ['......ooo....', '......oko....', '......oko....', '..ooooooooo..', '..oCcccccCo..', '.oCccccccccCo', '.oCccYcccccCo', '..oCcccccCo..', '...ooooooo...',
-      'ooooooooooooo', 'okkkkkkkkkkko', 'okKyyKkKyyKko', 'okkkkkkkkkkko', 'okkkkoookkkko', 'okkkkoYokkkko', 'ooooooooooooo'],
-    tower: ['...ooooooo...', '..oBBBBBBBo..', '.oBBbBBBBBBo.', '.oBBBBBBBBBo.', '.oBBBBBBBBBo.', '..oBBBBBBBo..', '...ooooooo...', '...o.o.o.o...', '...o..o..o...',
-      '..o..o.o..o..', '..o.o...o.o..', '.o..o...o..o.', 'ooooooooooooo', 'okkkkkkkkkkko', 'okrrrkkkkkkko', 'okrkrkkkKkkko', 'okrrrkkkkkkko', 'ooooooooooooo'],
-    tanks: ['............ooo', '............oko', '............oko', '.ooooo......oko', 'oMmmmMo.ooooooo', 'oMmmmmMoMmmmMko', 'oMmmmmMoMmmmMko', 'oMmmmmMoMmmmMko', '.oMmMo..oMmMoko',
-      '.ooooo..ooooooo'],
-    fire: ['...f...', '..fyf..', '.fyyyf.', '.fyYyf.', 'oCoCoCo', '.ooooo.'],
-    valve: ['..ooo..', '.oBbBo.', 'oBbbbBo', '.oBbBo.', '..oko..', 'okkkkko', 'ooooooo'],
-    main: ['..ooo..', '.ogggo.', 'oggkggo', '.ogggo.', '..oko..', 'okkkkko', 'ooooooo'],
-    clean: ['..ooo..', '.oppbo.', 'oppppbo', 'opppppo', 'oppppbo', '.oppbo.', '..ooo..'] };
-  /* what falls with him: the same drawing, the colours of a place that works again */
-  var SWAP = { kitchen_lit: { K: 'y', Y: 'f' }, tower_running: { B: 'b', r: 'R' }, tanks_clean: { M: 'B', m: 'p' } };
-  function glyph(name, s, swap, dark) {
-    var k = name + ':' + s + ':' + (swap || '') + ':' + (dark ? 1 : 0); if (GLY[k]) return GLY[k];
-    var rows = ART[name] || ART.main, h = rows.length, w = 0, sw = (swap && SWAP[swap]) || {}; rows.forEach(function (r) { w = Math.max(w, r.length); });
-    var c = document.createElement('canvas'); c.width = w * s; c.height = h * s; var x = c.getContext('2d');
-    for (var j = 0; j < h; j++) for (var i = 0; i < rows[j].length; i++) { var ch = rows[j][i]; if (ch === '.') continue; ch = sw[ch] || ch;
-      x.fillStyle = dark ? (ch === 'o' ? '#060504' : '#16120e') : (PAL[ch] || PAL.w); x.fillRect(i * s, j * s, s, s); }
-    GLY[k] = c; return c;
+  /* ---------- (1) drawing: his place painted, what changed, the blocks you used a verb on ---------- */
+  function ppc() { try { var r = cv.getBoundingClientRect(); return r.width ? CVW / r.width : 1; } catch (e) { return 1; } }   /* canvas px a CSS px */
+  function pic(key, beat) { var P = PICS && PICS[key]; if (!P) return null; var im = IMG[P.frames[beat % P.frames.length]]; return im && im.complete && im.naturalWidth ? { P: P, im: im } : null; }
+  function dark(im) {   /* before he is known, a dark shape through the static: the same picture, near black (seen from the road) */
+    var k = im.src; if (DARK[k]) return DARK[k];
+    var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x = c.getContext('2d');
+    x.drawImage(im, 0, 0); x.globalCompositeOperation = 'source-atop'; x.fillStyle = 'rgba(12,10,8,0.86)'; x.fillRect(0, 0, c.width, c.height);
+    DARK[k] = c; return c;
   }
-  function scale() { var W = 390; try { W = CVW; } catch (e) {} return W >= 900 ? 3 : 2; }
-  function onGlass(p, m) { var W = 390, H = 736; try { W = CVW; H = CVH; } catch (e) {} m = m == null ? 40 : m; return p.sx > -m && p.sx < W + m && p.sy > -m && p.sy < H + m; }
-  function ground(x, y, ox, oy) { var p = iso(x, y, ox, oy); return { sx: p.sx, sy: p.sy + TH * 0.5 }; }
-  function smoke(gx, sx, sy, s, beat, col, n) {   /* a column of puffs that steps up on the beat (stop motion, never a smooth drift) */
-    for (var i = 0; i < n; i++) { var t = (beat + i) % n, yy = sy - t * 5 * s, rr = (2 + t * 0.9) * s;
-      gx.globalAlpha = Math.max(0, 0.75 - t / n * 0.7); gx.fillStyle = col; gx.fillRect(Math.round(sx - rr + (t % 2 ? s : -s)), Math.round(yy - rr), Math.round(rr * 2), Math.round(rr * 2)); }
-    gx.globalAlpha = 1;
+  function paint(gx, key, x, y, ox, oy, beat, wide, minCss, dk) {
+    var q = pic(key, beat); if (!q) return null;
+    var p = iso(x, y, ox, oy), P = q.P, w = Math.max(TW * wide, minCss * ppc()), sc = w / P.plate;
+    var dx = Math.round(p.sx - P.bx * sc), dy = Math.round(p.sy + TH / 2 - P.by * sc), ww = Math.round(P.w * sc), hh = Math.round(P.h * sc);
+    var W = 390, H = 736; try { W = CVW; H = CVH; } catch (e) {}
+    if (dx > W || dy > H || dx + ww < 0 || dy + hh < 0) return null;
+    gx.imageSmoothingEnabled = sc < 1; gx.drawImage(dk ? dark(q.im) : q.im, dx, dy, ww, hh); gx.imageSmoothingEnabled = false;
+    return { x: dx, y: dy, w: ww, h: hh, top: dy + Math.round((P.by - P.plate * 0.55) * sc) };
   }
   function plate(gx, t, sx, sy, col) {
     var f = 'monospace'; try { if (typeof FACE === 'function') f = FACE('casing'); } catch (e) {}
-    gx.font = '700 ' + (scale() >= 3 ? 12 : 9) + 'px ' + f; var w = Math.ceil(gx.measureText(t).width) + 8, hh = scale() >= 3 ? 15 : 12;
+    var k = ppc(), px = Math.round(10 * k); gx.font = '700 ' + px + 'px ' + f; var w = Math.ceil(gx.measureText(t).width) + Math.round(8 * k), hh = Math.round(14 * k);
     gx.fillStyle = 'rgba(10,8,6,0.82)'; gx.fillRect(Math.round(sx - w / 2), Math.round(sy), w, hh);
-    gx.fillStyle = col; gx.textBaseline = 'top'; gx.fillText(t, Math.round(sx - w / 2 + 4), Math.round(sy + 2));
+    gx.fillStyle = col; gx.textBaseline = 'top'; gx.fillText(t, Math.round(sx - w / 2 + 4 * k), Math.round(sy + 2 * k));
   }
+  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean' };
   function draw(ox, oy) {
     if (!sync() || !DATA) { loadData(); return; }
+    if (!PICS) loadData();
     var gx = null; try { gx = g; } catch (e) { return; }
-    var h = hs(); LAST.drew = { places: [], marks: 0, mains: 0 };
+    var h = hs(); LAST.drew = { places: [], marks: 0, mains: 0, painted: 0, pixelRows: 0 };
     if (bench()) return;
     try { rumours(); } catch (e) {}
     var beat = 0; try { beat = mapArtBeat(); } catch (e) {}
-    var s = scale(), sL = s + 1;   /* his place one step bigger than a mark: it is read from afar */
-    gx.save(); gx.imageSmoothingEnabled = false;
+    gx.save();
     try {
-      /* the blocks his verbs were used on, and (once THE TAP is down) the mains still shut, where he has seen them */
-      if (S.verbs.open) mains().forEach(function (m) { if (marked('open', m[0], m[1]) || !seen(m[0], m[1])) return; var p = ground(m[0], m[1], ox, oy); if (!onGlass(p)) return;
-        var c = glyph('main', s); gx.globalAlpha = 0.85; gx.drawImage(c, Math.round(p.sx - c.width / 2), Math.round(p.sy - c.height)); gx.globalAlpha = 1; LAST.drew.mains++; });
-      S.marks.forEach(function (m) { var p = ground(m.x, m.y, ox, oy); if (!onGlass(p)) return;
-        var nm = m.k === 'cook' ? 'fire' : m.k === 'open' ? 'valve' : 'clean', c = glyph(nm, s), dx = m.k === 'purify' ? 5 * s : m.k === 'open' ? -5 * s : 0;
-        gx.drawImage(c, Math.round(p.sx + dx - c.width / 2), Math.round(p.sy - c.height));
-        if (m.k === 'cook') smoke(gx, p.sx + dx, p.sy - c.height, s / 2, beat, '#cfc6b4', 4);
-        if (m.k === 'open' && beat % 2) { gx.fillStyle = PAL.p; gx.fillRect(Math.round(p.sx + dx - s), Math.round(p.sy - c.height - 2 * s), s, s); gx.fillRect(Math.round(p.sx + dx + s), Math.round(p.sy - c.height - 3 * s), s, s); }
-        LAST.drew.marks++; });
-      /* his place: a dark shape through the static before you know whose it is; named once his sign is read; changed when he falls */
+      /* once THE TAP is down: the shut mains he has seen, near him only (the six nearest within twelve blocks), never the whole valley */
+      if (S.verbs.open) { var me = here() || [0, 0];
+        mains().filter(function (m) { return !marked('open', m[0], m[1]) && seen(m[0], m[1]) && cheb(m[0], m[1], me[0], me[1]) <= 12; })
+          .sort(function (a, b) { return cheb(a[0], a[1], me[0], me[1]) - cheb(b[0], b[1], me[0], me[1]); }).slice(0, 6)
+          .forEach(function (m) { if (paint(gx, 'main_before', m[0], m[1], ox, oy, 0, 0.32, 18)) LAST.drew.mains++; }); }
+      S.marks.forEach(function (m) {
+        var b = paint(gx, PROP[m.k] || 'clean', m.x, m.y, ox, oy, beat, 0.36, 22); if (!b) return; LAST.drew.marks++; LAST.drew.painted++;
+        if (m.first && Date.now() - (m.t || 0) < 9000) plate(gx, m.first, b.x + b.w / 2, b.y - 16 * ppc(), '#f6cf74');   /* the first time: what it did, over the block */
+      });
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
-        var bx = at.bx != null ? at.bx : at.x, by = at.by != null ? at.by : at.y, p = ground(bx, by, ox, oy); if (!onGlass(p, 80)) return;
-        var down = !!h.boss.fallen[r.n], known = !!f, art = (r.place && r.place.art) || 'kitchen', c = glyph(art, sL, down ? r.fallen_art : null, !known && !seen(bx, by));
-        var top = p.sy - c.height, cx = p.sx;
-        if (art === 'kitchen') smoke(gx, cx + 1 * sL, top, sL, beat, down ? '#d9d0bd' : '#141110', 5);
-        if (art === 'tanks') { gx.globalAlpha = (beat % 2) ? 0.35 : 0.2; gx.fillStyle = down ? PAL.p : '#9fbf3a'; gx.fillRect(Math.round(cx - c.width / 2 - 2 * sL), Math.round(top + 3 * sL), Math.round(c.width * 0.6), Math.round(c.height * 0.7)); gx.globalAlpha = 1; }
-        gx.drawImage(c, Math.round(cx - c.width / 2), Math.round(top));
-        if (art === 'tower' && down && beat % 2) { gx.fillStyle = PAL.p; for (var i = 0; i < 3; i++) gx.fillRect(Math.round(cx + (i - 1) * 3 * sL), Math.round(top + (7 + i * 2) * sL), sL, sL * 2); }
-        if (art === 'tower' && !down) { gx.fillStyle = (beat % 2) ? PAL.r : PAL.R; gx.fillRect(Math.round(cx - 5 * sL), Math.round(top + 7 * sL), sL, sL); }   /* his lamp on the stilts */
+        var bx = at.bx != null ? at.bx : at.x, by = at.by != null ? at.by : at.y;
+        var down = !!h.boss.fallen[r.n], known = !!f, key = ((r.place && r.place.paint) || 'kitchen') + (down ? '_after' : '_before');
+        var b = paint(gx, key, bx, by, ox, oy, beat, 1.3, 64, !known && !seen(bx, by)); if (!b) return;
+        LAST.drew.painted++;
         var placed = down && (h.places || []).some(function (P) { return P.n === r.n; });   /* WORLD TWO's place plate names it once he is down */
-        if (known && !placed) plate(gx, (r.place && r.place.name) || r.n, cx, top - (scale() >= 3 ? 18 : 15), down ? '#bfeae2' : '#ffb27a');   /* over his place, clear of the boss's own plate at the door */
-        LAST.drew.places.push({ n: r.n, art: art, x: Math.round(cx), y: Math.round(p.sy), w: c.width, h: c.height, known: known, down: down });
+        if (known && !placed) plate(gx, (r.place && r.place.name) || r.n, b.x + b.w / 2, b.y + 2, down ? '#bfeae2' : '#ffb27a');
+        LAST.drew.places.push({ n: r.n, key: key, painted: true, x: b.x, y: b.y, w: b.w, h: b.h, known: known, down: down });
       });
     } catch (e) { LAST.err = String(e && e.message || e); }
     gx.restore();
+    try { talkTick(); } catch (e) { LAST.err = String(e && e.message || e); }
   }
+  /* WORLD TWO's lights-back-on stand down where a painted place shows the change (his_map drawLit asks) */
+  function paints(n) { var r = row(n); return !!(r && r.place && r.place.paint && PICS && PICS[r.place.paint + '_after']); }
+  /* the phone's icon for a verb: the small thing it leaves, painted */
+  function icon(id) { var q = pic(PROP[id] || 'clean', 0); if (!q) return ''; try { var c = document.createElement('canvas'), P = q.P; c.width = 28; c.height = 28; var x = c.getContext('2d'), s = Math.min(28 / P.w, 28 / P.h);
+    x.drawImage(q.im, Math.round((28 - P.w * s) / 2), Math.round((28 - P.h * s) / 2), Math.round(P.w * s), Math.round(P.h * s)); return c.toDataURL(); } catch (e) { return ''; } }
 
   if (typeof document === 'undefined' || !root.addEventListener) { root.BohemiaBosses = { node: true }; return; }
+  root.addEventListener('bohemia:boss-found', function (ev) {
+    var d = ev && ev.detail; if (!d || !sync()) return; var r = row(d.n); if (!r) return;
+    var L = lead(r.n); if (!L.asked) L.asked = 'read first'; L.thingDue = true; save();
+    setTimeout(function () { try { talkTick(); } catch (e) {} }, 400);
+  });
   root.addEventListener('bohemia:boss-fell', function (ev) {
     var d = ev && ev.detail; if (!d || !sync()) return; var r = row(d.n), h = hs(); if (!r) return;
     grant(r, h && h.boss.found[d.n]);
+    var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
+  setInterval(function () { try { talkTick(); } catch (e) {} }, 900);
   loadData();
   root.BohemiaBosses = {
     /* RUN's and WORLD TWO's hooks (__THE_BOSSES__) */
-    draw: draw, dress: dress,
+    draw: draw, dress: dress, onCard: onCard, paints: paints,
     /* the phone (UI's band, marked __THE_BOSS_VERB_ON_THE_PHONE__) */
-    verbHere: verbHere, use: use, icon: function (id) { var nm = id === 'cook' ? 'fire' : id === 'open' ? 'valve' : 'clean'; try { return glyph(nm, 2).toDataURL(); } catch (e) { return ''; } },
+    verbHere: verbHere, use: use, icon: icon,
     /* reading, for the gate */
-    data: function () { return DATA; }, state: function () { sync(); return S; }, last: function () { return LAST; },
-    mains: function () { return mains().slice(); }, applies: function (id, x, y) { sync(); return applies(id, x, y); }, isMain: isMain
+    data: function () { return DATA; }, pictures: function () { return PICS; }, state: function () { sync(); return S; }, last: function () { return LAST; },
+    mains: function () { return mains().slice(); }, applies: function (id, x, y) { sync(); return applies(id, x, y); }, isMain: isMain, talkTick: talkTick
   };
 })(typeof window !== 'undefined' ? window : this);

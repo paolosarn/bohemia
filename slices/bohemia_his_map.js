@@ -372,12 +372,16 @@
   function drawLit(gx, ox, oy, beat) {
     var night = false; try { night = isNight(); } catch (e) {}
     S.lit.forEach(function (L) {
+      /* __THE_BOSSES__ (BOSSES 11/2, rule 330; Paolo: 'there's a bunch of bright pixels on the part of the map where I killed the boss...
+         I'm so confused'): where his place is painted (slices/bohemia_bosses.js), the painted place shows the change itself (the
+         kitchen's windows lit), so the dots stand down; and the far zoom's one-pixel dots were the stray bright pixels: none */
+      try { if (root.BohemiaBosses && root.BohemiaBosses.paints && root.BohemiaBosses.paints(L.n)) return; } catch (e) {}
+      if (TW < 6) return;
       for (var dy = -L.r; dy <= L.r; dy++) for (var dx = -L.r; dx <= L.r; dx++) {
         var x = L.x + dx, y = L.y + dy; if (walk(x, y) || hidden(x, y)) continue;
         var p = ground(x, y, ox, oy); if (!onGlass(p, 60)) continue;
         var h0 = hash(x * 31 + 7, y * 17 + 3);
         if ((h0 & 3) === 0) continue;   /* not every building: a quarter stay dark, the power is back, not everywhere */
-        if (TW < 6) { gx.globalAlpha = night ? 0.6 : 0.3; gx.fillStyle = PAL.y; gx.fillRect(Math.round(p.sx), Math.round(p.sy - 2), 1, 1); continue; }
         var k = 1 + ((h0 >>> 4) & 1), hh = TH * 2.2, s = Math.max(1, Math.round(TW / 9));
         for (var i = 0; i < k; i++) {
           var u = ((h0 >>> (i * 3 + 6)) & 7) / 7 - 0.5, v = 0.25 + ((h0 >>> (i * 3 + 14)) & 7) / 10;

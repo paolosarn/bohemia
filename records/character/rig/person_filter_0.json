@@ -1,0 +1,212 @@
+{
+ "look": "PERSON_FILTER_0",
+ "shape": "person_filter_0: THE FILTER: the last man who knows the water plant; work coveralls, a rubber respirator, a tool belt with his remote, his own skin skin_deep 4, WORK COVERALLS",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WORK COVERALLS",
+  "feet": "FIELD BOOTS",
+  "waist": "SOOT TOOL BELT",
+  "hands": "SOOT GLOVES",
+  "outfit": []
+ },
+ "dials": {
+  "height": 0.3,
+  "belly": -0.3,
+  "shoulders": 0.05,
+  "hips": -0.15
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
+ },
+ "model": "records/character/rig/person_filter_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7458,
+ "real_height_for_rig": 1.7519,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_filter_0_trouser": 2568,
+  "person_filter_0_shoe": 3716,
+  "person_filter_0_shirt": 71204,
+  "person_filter_0_collar": 1536,
+  "person_filter_0_collar_points": 180,
+  "person_filter_0_placket": 162,
+  "person_filter_0_cuffs": 2048,
+  "person_filter_0_pocket": 180,
+  "person_filter_0_flap": 108,
+  "person_filter_0_belt": 1792,
+  "person_filter_0_sole_1": 242,
+  "person_filter_0_midsole_1": 242,
+  "person_filter_0_sole_0": 242,
+  "person_filter_0_midsole_0": 242,
+  "person_filter_0_boot_collar": 2048,
+  "person_filter_0_boot_collar_line": 2048,
+  "person_filter_0_eyelets_1": 120,
+  "person_filter_0_eyelets_0": 120,
+  "person_filter_0_soot_tool_belt": 1792,
+  "person_filter_0_soot_tool_belt_pouch_1": 26,
+  "person_filter_0_soot_tool_belt_pouch_0": 26,
+  "person_filter_0_soot_tool_belt_buckle": 34,
+  "person_filter_0_soot_gloves_L": 392,
+  "person_filter_0_soot_gloves_R": 392,
+  "person_filter_0_soot_gloves_cuff": 2048,
+  "person_filter_0_hair": 17968,
+  "person_filter_0_hand_L": 392,
+  "person_filter_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_filter_0_belt": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_filter_0_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_filter_0_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_filter_0_collar": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_filter_0_collar_points": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_filter_0_cuffs": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_filter_0_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_filter_0_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_filter_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_filter_0_flap": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_filter_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_filter_0_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_filter_0_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_filter_0_placket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_filter_0_pocket": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_filter_0_shirt": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_filter_0_shoe": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_filter_0_shoes": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_filter_0_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_filter_0_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_filter_0_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_filter_0_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_filter_0_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_filter_0_soot_tool_belt": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_filter_0_soot_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_filter_0_soot_tool_belt_pouch_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_filter_0_soot_tool_belt_pouch_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_filter_0_trouser": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_filter_0_trousers": [
+   0.0437,
+   0.0561,
+   0.0232
+  ]
+ }
+}

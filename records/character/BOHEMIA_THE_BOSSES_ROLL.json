@@ -1,0 +1,135 @@
+[
+ {
+  "id": "pot_0",
+  "gang": "Pot",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 19,
+   "face.cheekW": 32,
+   "face.jawW": 31,
+   "face.chinW": 18,
+   "face.craniumH": 8,
+   "face.len": 32,
+   "mouth.w": 11
+  },
+  "face_name": "PEAR",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "mark_name": "BROKEN NOSE",
+  "mark": "broken_nose",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "COAL MID BOOT",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Pot",
+  "top": "BONE BUTTON-UP",
+  "coat": "DUST HALF APRON",
+  "hat": "HAT BONE HEAD WRAP",
+  "pieces": [],
+  "dials": {
+   "height": 0.2,
+   "belly": 0.95,
+   "shoulders": 0.7,
+   "hips": 0.35
+  },
+  "boss": "THE POT"
+ },
+ {
+  "id": "tap_0",
+  "gang": "Tap",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "legs": "KHAKI CARGOS",
+  "feet": "RUST BOOTS",
+  "kit": [
+   "SCAV TOOL BELT",
+   "LEATHER GLOVES"
+  ],
+  "type": "Tap",
+  "top": "FIELD BUTTON-UP",
+  "coat": "TACTICAL VEST",
+  "hat": "HAT DUST WORK CAP",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [],
+  "dials": {
+   "height": 0.45,
+   "belly": 0.25,
+   "shoulders": 0.55,
+   "hips": 0.1
+  },
+  "boss": "THE TAP"
+ },
+ {
+  "id": "filter_0",
+  "gang": "Filter",
+  "heritage": "asian",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "SOOT TOOL BELT",
+   "SOOT GLOVES"
+  ],
+  "type": "Filter",
+  "top": "WORK COVERALLS",
+  "hat": "HAT OLIVE FIELD CAP",
+  "eyewear": "FACE RUBBER GAS MASK",
+  "pieces": [],
+  "dials": {
+   "height": 0.3,
+   "belly": -0.3,
+   "shoulders": 0.05,
+   "hips": -0.15
+  },
+  "boss": "THE FILTER"
+ }
+]

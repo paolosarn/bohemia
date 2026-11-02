@@ -1,0 +1,257 @@
+{
+ "look": "PERSON_TAP_0",
+ "shape": "person_tap_0: THE TAP: a waterworks man who keeps the valve key; a utility vest over his work shirt, the work cap, shades, a tool belt, his own skin skin_deep 3, BONE BUTTON-UP under TACTICAL VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE BUTTON-UP",
+  "outer": "TACTICAL VEST",
+  "legs": "KHAKI CARGOS",
+  "feet": "RUST BOOTS",
+  "waist": "SCAV TOOL BELT",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "FIELD BUTTON-UP read as one with TACTICAL VEST (76 and 63 of 255): the same cut in BONE BUTTON-UP (154)",
+   "TACTICAL VEST worn open to the neck",
+   "the button shirt's hem below the vest"
+  ]
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": 0.25,
+  "shoulders": 0.55,
+  "hips": 0.1
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_tap_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7649,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_tap_0_shoe": 3716,
+  "person_tap_0_shirt": 71268,
+  "person_tap_0_collar": 1536,
+  "person_tap_0_collar_points": 180,
+  "person_tap_0_placket": 162,
+  "person_tap_0_buttons": 204,
+  "person_tap_0_cuffs": 2048,
+  "person_tap_0_tail": 2912,
+  "person_tap_0_coat": 21710,
+  "person_tap_0_lapels": 396,
+  "person_tap_0_pouches": 504,
+  "person_tap_0_trouser": 43706,
+  "person_tap_0_rolled_hem": 2048,
+  "person_tap_0_cargo_pockets": 252,
+  "person_tap_0_cargo_flaps": 108,
+  "person_tap_0_sole_1": 242,
+  "person_tap_0_midsole_1": 242,
+  "person_tap_0_sole_0": 242,
+  "person_tap_0_midsole_0": 242,
+  "person_tap_0_boot_collar": 2048,
+  "person_tap_0_boot_collar_line": 2048,
+  "person_tap_0_eyelets_1": 120,
+  "person_tap_0_eyelets_0": 120,
+  "person_tap_0_scav_tool_belt": 1792,
+  "person_tap_0_scav_tool_belt_pouch_1": 26,
+  "person_tap_0_scav_tool_belt_pouch_0": 26,
+  "person_tap_0_scav_tool_belt_buckle": 34,
+  "person_tap_0_leather_gloves_L": 392,
+  "person_tap_0_leather_gloves_R": 392,
+  "person_tap_0_leather_gloves_cuff": 2048,
+  "person_tap_0_hair": 17968,
+  "person_tap_0_hand_L": 392,
+  "person_tap_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_tap_0_boot_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_tap_0_boot_collar_line": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_tap_0_buttons": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_tap_0_cargo_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_tap_0_cargo_pockets": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_tap_0_coat": [
+   0.0437,
+   0.0561,
+   0.0232
+  ],
+  "person_tap_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tap_0_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tap_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tap_0_eyelets_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_tap_0_eyelets_1": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_tap_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_tap_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_tap_0_lapels": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_tap_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_tap_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_tap_0_midsole_0": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_tap_0_midsole_1": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_tap_0_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tap_0_pouches": [
+   0.0185,
+   0.0242,
+   0.0123
+  ],
+  "person_tap_0_rolled_hem": [
+   0.3864,
+   0.2664,
+   0.1119
+  ],
+  "person_tap_0_scav_tool_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_tap_0_scav_tool_belt_buckle": [
+   0.305,
+   0.2623,
+   0.1878
+  ],
+  "person_tap_0_scav_tool_belt_pouch_0": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_tap_0_scav_tool_belt_pouch_1": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_tap_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tap_0_shoe": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_tap_0_shoes": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_tap_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_tap_0_sole_0": [
+   0.0685,
+   0.0273,
+   0.0144
+  ],
+  "person_tap_0_sole_1": [
+   0.0685,
+   0.0273,
+   0.0144
+  ],
+  "person_tap_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tap_0_trouser": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_tap_0_trousers": [
+   0.2307,
+   0.1559,
+   0.0578
+  ]
+ }
+}

@@ -1,0 +1,126 @@
+{
+ "about": "BOSSES 11/2: the three places painted in the map's own look (tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after he falls, two beat frames each; and the four small things his verbs leave. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block).",
+ "draft": true,
+ "pictures": {
+  "kitchen_before": {
+   "w": 166,
+   "h": 169,
+   "bx": 83,
+   "by": 120,
+   "plate": 150,
+   "frames": [
+    "kitchen_before_0.png",
+    "kitchen_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "kitchen_after": {
+   "w": 166,
+   "h": 167,
+   "bx": 83,
+   "by": 119,
+   "plate": 150,
+   "frames": [
+    "kitchen_after_0.png",
+    "kitchen_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "tower_before": {
+   "w": 166,
+   "h": 185,
+   "bx": 83,
+   "by": 137,
+   "plate": 150,
+   "frames": [
+    "tower_before_0.png",
+    "tower_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "tower_after": {
+   "w": 166,
+   "h": 184,
+   "bx": 83,
+   "by": 136,
+   "plate": 150,
+   "frames": [
+    "tower_after_0.png",
+    "tower_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "tanks_before": {
+   "w": 166,
+   "h": 158,
+   "bx": 83,
+   "by": 110,
+   "plate": 150,
+   "frames": [
+    "tanks_before_0.png",
+    "tanks_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "tanks_after": {
+   "w": 166,
+   "h": 158,
+   "bx": 83,
+   "by": 110,
+   "plate": 150,
+   "frames": [
+    "tanks_after_0.png",
+    "tanks_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "fire": {
+   "w": 62,
+   "h": 82,
+   "bx": 30,
+   "by": 63,
+   "plate": 46,
+   "frames": [
+    "fire_0.png",
+    "fire_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "main_before": {
+   "w": 62,
+   "h": 79,
+   "bx": 37,
+   "by": 69,
+   "plate": 46,
+   "frames": [
+    "main_before_0.png",
+    "main_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "main_after": {
+   "w": 62,
+   "h": 65,
+   "bx": 31,
+   "by": 45,
+   "plate": 46,
+   "frames": [
+    "main_after_0.png",
+    "main_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "clean": {
+   "w": 62,
+   "h": 103,
+   "bx": 33,
+   "by": 74,
+   "plate": 46,
+   "frames": [
+    "clean_0.png",
+    "clean_1.png"
+   ],
+   "through_the_rig": true
+  }
+ }
+}

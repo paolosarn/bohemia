@@ -1742,6 +1742,51 @@
     ]
    },
    "src": "ROBOT [the robots fight] 11/2: DIRECTION's master-rig robot (reference/models/quaternius/RobotExpressive.glb), tools/bohemia_robot_the_robots_fight.py"
+  },
+  "boss_pot_0": {
+   "file": "boss_pot_0.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.721,
+   "kind": "boss",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "boss": "THE POT",
+   "rig": "records/target/combat/rig/boss_pot_0/rig.json"
+  },
+  "boss_tap_0": {
+   "file": "boss_tap_0.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.742,
+   "kind": "boss",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "boss": "THE TAP",
+   "rig": "records/target/combat/rig/boss_tap_0/rig.json"
+  },
+  "boss_filter_0": {
+   "file": "boss_filter_0.webp",
+   "w": 148,
+   "h": 167,
+   "foot": [
+    67,
+    115
+   ],
+   "height_m": 1.727,
+   "kind": "boss",
+   "ref": "faction_trades",
+   "guns": "faction_trades_guns.webp",
+   "boss": "THE FILTER",
+   "rig": "records/target/combat/rig/boss_filter_0/rig.json"
   }
  },
  "faces": {
@@ -1848,7 +1893,10 @@
    "person_woman_1",
    "person_woman_2",
    "person_woman_3",
-   "robot"
+   "robot",
+   "boss_pot_0",
+   "boss_tap_0",
+   "boss_filter_0"
   ],
   "src": "records/target/portrait/crew/<look>/rest_128.png (PORTRAIT)",
   "people": "records/target/character/barber/person_<id>/face/rest_128.png (RUN TWO [no two people alike], the head of his own model)"
@@ -1911,5 +1959,6 @@
   "src": "COOK's guns (reference/models/bohemia/gun_*_a.glb) rendered in each look's hands with his body as a holdout, tools/bohemia_combat_the_guns_in_their_hands.py"
  },
  "people": "RUN TWO [no two people alike] 10/23: the rolled people (kind 'person'), packed by tools/bohemia_run2_no_two_people_alike.py fight-pack into their gang's cell with their gang's guns; COMBAT's pack() keeps them",
- "enemies": "CHARACTER [the three enemies' looks] 10/24: the Mechanic, the Kids and Runners and the Heavy (kind 'enemy'), packed by tools/bohemia_character_the_three_enemies.py pack into a reference gang's cell with its guns; their pools are ours.people_looks.band.mechanic / runner / heavy"
+ "enemies": "CHARACTER [the three enemies' looks] 10/24: the Mechanic, the Kids and Runners and the Heavy (kind 'enemy'), packed by tools/bohemia_character_the_three_enemies.py pack into a reference gang's cell with its guns; their pools are ours.people_looks.band.mechanic / runner / heavy",
+ "bosses": "BOSSES [each his own look] 11/2: THE POT, THE TAP, THE FILTER (kind 'boss'), packed by tools/bohemia_bosses_the_three_men.py into a reference gang's cell; records/target/bb/boss_act_one.json names each"
 }

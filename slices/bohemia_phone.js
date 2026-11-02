@@ -886,7 +886,7 @@
     ph.querySelector('.stat .tl').addEventListener('click', function (e) { e.stopPropagation(); var cw = cityWin(); try { cw.BohemiaPhone.P.timeline(true); window.__PHONE_TIMELINE = (window.__PHONE_TIMELINE | 0) + 1; } catch (x) {} });
     /* a finger held on the home (not on an app) opens the phone's settings */
     var home = ph.querySelector('.home'), ht = 0;
-    home.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest('.app, .bpfd, .lv, .jc')) return; clearTimeout(ht); ht = setTimeout(settingsOpen, 600); });
+    home.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest('.app, .bpfd, .lv, .vb, .jc')) return;   /* .vb: a held finger on the boss's verb says what it does (BOSSES 11/2), never the settings */ clearTimeout(ht); ht = setTimeout(settingsOpen, 600); });
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { home.addEventListener(k, function () { clearTimeout(ht); }); });
     homeBuild();
     /* in a fight the same small icons ride under his abilities: the fight's own bar answers them (238(a)) */
@@ -994,12 +994,33 @@
       + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>'   /* draft:true */
       + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>';   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
     ctx.querySelector('.lv').addEventListener('click', function () { appPress('leave'); });
-    ctx.querySelector('.vb').addEventListener('click', function () { appPress('verb'); });
+    /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 330: 'I can put the fire down, I can purify the water, I'm so confused by what that
+       means'): a held finger on it says what it does, in one plain line from the boss's file (verb.tip); a tap still uses it. UI 4's
+       long-press tooltips take this over when they land (a minimal one until then) */
+    (function (vb) {
+      var t = null, held = false;
+      vb.addEventListener('pointerdown', function () { held = false; clearTimeout(t); t = setTimeout(function () { held = true; verbTip(vb); }, 480); });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { vb.addEventListener(k, function () { clearTimeout(t); }); });
+      vb.addEventListener('contextmenu', function (e) { e.preventDefault(); held = true; verbTip(vb); });
+      vb.addEventListener('click', function (e) { if (held) { held = false; e.preventDefault(); return; } appPress('verb'); });
+    })(ctx.querySelector('.vb'));
     home.appendChild(ctx);
     var row = el('div', 'bprow'); row.setAttribute('role', 'toolbar'); row.setAttribute('aria-label', 'your apps');
     rowApps().forEach(function (a) { row.appendChild(appButton(a, 'sm')); });
     home.appendChild(row);
     H.homeSig = null; H.jobSig = null; H.stripSig = null;
+  }
+
+  function verbTip(vb) {   /* __THE_BOSS_VERB_ON_THE_PHONE__: the plain line, over the button, for a few seconds */
+    var v = H.verb; if (!v || !v.tip) return;
+    var old = document.getElementById('bohverbtip'); if (old) old.remove();
+    var r = vb.getBoundingClientRect(), d = document.createElement('div'); d.id = 'bohverbtip'; d.setAttribute('role', 'tooltip'); d.setAttribute('data-draft', 'true');
+    var w = Math.min(240, Math.max(150, (window.innerWidth || 360) - 24));
+    d.style.cssText = 'position:fixed;z-index:90;left:' + Math.round(Math.max(8, Math.min((window.innerWidth || 360) - w - 8, r.left + r.width / 2 - w / 2))) + 'px;bottom:' + Math.round((window.innerHeight || 640) - r.top + 6)
+      + 'px;width:' + w + 'px;box-sizing:border-box;padding:7px 9px;background:#e6dcc4;color:#1f1710;font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.4;box-shadow:2px 2px 0 rgba(10,6,3,.6);pointer-events:none';
+    d.innerHTML = '<b style="display:block;font:400 10px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;margin-bottom:2px">' + String(v.button).replace(/[<>&]/g, '') + '</b>' + String(v.tip).replace(/[<>&]/g, '');
+    document.body.appendChild(d); window.__VERB_TIP = { button: v.button, tip: v.tip, at: Date.now() };
+    setTimeout(function () { try { d.remove(); } catch (e) {} }, 4000);
   }
 
   function appPress(a) {
@@ -1202,7 +1223,7 @@
     H.verb = vh;
     var cxv = H.el.querySelector('.home .bpctx'), vb = cxv && cxv.querySelector('.vb');
     if (vb) { cxv.classList.toggle('verb', !!vh && scr === 'map'); vb.classList.toggle('off', !!(vh && vh.off)); vb.dataset.verb = vh ? vh.id : '';
-      if (vh) { vb.querySelector('span').textContent = vh.button; vb.setAttribute('aria-label', vh.button.toLowerCase() + (vh.off ? '' : ': what ' + vh.from.toLowerCase() + ' gave you'));
+      if (vh) { vb.querySelector('span').textContent = vh.button; vb.setAttribute('aria-label', vh.button.toLowerCase() + (vh.tip ? ': ' + vh.tip : '')); vb.title = vh.tip || '';
         var vi = ''; try { vi = cw.BohemiaBosses.icon ? cw.BohemiaBosses.icon(vh.id) : ''; } catch (e) {} var im0 = vb.querySelector('img'); if (vi && im0.getAttribute('src') !== vi) im0.setAttribute('src', vi); } }
     var stW = H.el.querySelector('.stat .wh');
     if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : (s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
