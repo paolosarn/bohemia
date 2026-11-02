@@ -9888,6 +9888,13 @@ GATES = [
      "named, his fight through the one door as the man himself with his crew and his board, won (AUTO, or the checker says it ended "
      "it), he falls and his place changes, his verb on the phone's band where it works on the grid, a real tap uses it and it did what "
      "it says (blood back, batteries, wound days). green at registration, 19/0, about 10 min", True),
+    ('THE FIGHT OPENS THE FIGHT', ['node', 'gates/the_fight_opens_the_fight_gate.js'],
+     "PLUMBER gate, 11/2, ask line 309 (Paolo 11/2: 'I was supposed to get into combat, and then it took me to the crew screen'): "
+     "on the demo at phone size, the stranger's game, a fight started every way the game starts one (the town, FALL BACK, the road, "
+     "a job's place, a boss's place, the camp, the crew screen just closed, a level waiting and a wounded man, no card, a reload "
+     "mid-fight), the meet card pressed with a REAL TOUCH: the fight opens and nothing else, no crew screen anywhere (a tripwire on "
+     "BohemiaCrewDoor.open in every frame), and no mouse or click from the tap reaches any page but the card (the ghost click that "
+     "went to the camp or town screen under ENGAGE). red on main before the fix, about 6 min", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "

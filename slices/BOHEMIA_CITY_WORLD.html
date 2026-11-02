@@ -67587,7 +67587,7 @@ function meetShow(msg, skin){
     }
   } catch (_e) {}
   var done = function (go) {
-    if (!MEET.up) return; var up = MEET.up; MEET.up = null;
+    if (!MEET.up || MEET.up.el !== el) return; var up = MEET.up; MEET.up = null;   /* __THE_FIGHT_OPENS_THE_FIGHT__: a going card's late press never answers the next card */
     try { document.removeEventListener('keydown', up.key, true); } catch (_e) {}
     try { btwCardGone(el, go); } catch (_e) { try { el.remove(); } catch (_e2) {} }   /* __THE_MOMENTS_BETWEEN__: ENGAGE closes the dark, the rest open it; the card goes in a beat */
     window.__MEET_LAST = { go: !!go, why: msg.why || null, n: n, stars: stars, ground: gr.kind, at: performance.now() };
@@ -67605,10 +67605,21 @@ function meetShow(msg, skin){
   document.addEventListener('keydown', key, true);
   /* a finger on a phone: the map's own touch handlers keep the browser from making a click, so the button answers its own
      pointerup (and a click, for a mouse and the keyboard); done() runs once */
+  /* __THE_FIGHT_OPENS_THE_FIGHT__ (PLUMBER 11/2, ask line 309, Paolo: 'I was supposed to get into combat, and then it took me to the
+     crew screen'). MEASURED with a real finger on the demo, upright phone: that comment above was wrong. The card stops the touch from
+     reaching the map, so the map never cancels it, and a tap on ENGAGE still makes a click; done() has by then made the card see-through
+     (btwCardGone) or gone, so the browser hit-tests the click again and hands it to WHATEVER IS UNDER THE BUTTON: over a camp or a town
+     that is the settlement screen (its frame got mousedown, mouseup, click on the very tap), where YOUR COMPANY, OPEN THE STASH and his
+     own men's faces open the crew screen. NOW the tap on the card is the card's alone: its touchend is cancelled, so no click is born,
+     and the going card stays a wall for the few hundred ms a late click could still come (a press from a finger only) */
+  var shield = function () { el.style.pointerEvents = 'auto'; var eat = function (ev) { ev.stopPropagation(); try { ev.preventDefault(); } catch (_e) {} };
+    ['click', 'mousedown', 'mouseup'].forEach(function (t) { el.addEventListener(t, eat, true); });
+    setTimeout(function () { el.style.pointerEvents = 'none'; }, 450); window.__MEET_SHIELD = (window.__MEET_SHIELD | 0) + 1; };
   [['go', true], ['back', false], ['camp', 'camp']].forEach(function (k) { var bt = el.querySelector('[data-meet="' + k[0] + '"]'); if (!bt) return;
-    bt.addEventListener('pointerup', function (ev) { ev.stopPropagation(); ev.preventDefault(); done(k[1]); });
+    bt.addEventListener('pointerup', function (ev) { ev.stopPropagation(); ev.preventDefault(); var was = !!MEET.up && MEET.up.el === el; done(k[1]); if (was && ev.pointerType !== 'mouse') shield(); });
     bt.addEventListener('click', function (ev) { ev.stopPropagation(); done(k[1]); }); });
-  ['pointerdown', 'touchstart', 'touchmove', 'touchend', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
+  ['pointerdown', 'touchstart', 'touchmove', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
+  el.addEventListener('touchend', function (ev) { ev.stopPropagation(); if (ev.cancelable) ev.preventDefault(); }, { passive: false });   /* __THE_FIGHT_OPENS_THE_FIGHT__: no click is born from a tap on the card */
   MEET.up = { msg: msg, el: el, key: key, at: performance.now() };
   try { btwCome(el, at); } catch (_e) { el.style.opacity = ''; }   /* __THE_MOMENTS_BETWEEN__: they come; the card is up for the logic now and for the eye on the last beat */
   window.__MEET_UP = { why: msg.why || null, still: meetStill(msg), n: n, what: __mw.what, beasts: __mw.beasts, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night, roster: __rw };
