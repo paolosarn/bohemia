@@ -1,7 +1,7 @@
 # UI (the screens and the phone) -- the handoff block (written only by UI, newest first)
 
 UI (ui-3, the first minute): 11/2 LATEST -- [the loading screen] + [the start screen] + [the tutorial toggle] SHIPPED, BUILT, NOT YET SEEN
-(asks 280, 261, 262; BUILD 11/3zi - THE FIRST MINUTE), IN THE DEMO, three VOTE cards. Record records/BOHEMIA_UI_THE_FIRST_MINUTE_11_2_26.md.
+(asks 280, 261, 262; BUILD 11/3zi - THE FIRST MINUTE, a69279ba), IN THE DEMO, three VOTE cards. Record records/BOHEMIA_UI_THE_FIRST_MINUTE_11_2_26.md.
 - slices/bohemia_ui_crashbox.js (BohemiaCrashbox, UI's): THE MACHINE on the title (plywood, rusty tin, a cracked tube, DIRECTION's
   master-rig robot idling 12 keys a bar, the needle on #loadpct's own count, 4 bulbs a beat, the newest #loadgl line on tape; the
   wrongness 'loading_it_comes_closer' from a save's day 3, one load in four); THE PICKS re-ordered and on tin (name, ONE big origin
