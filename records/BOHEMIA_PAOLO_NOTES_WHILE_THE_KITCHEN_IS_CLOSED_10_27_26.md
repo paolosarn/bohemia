@@ -27,3 +27,48 @@ drawn the size of the whole glass instead of the phone's corner (a phone rect th
 screen; the wide column mode taken when it should not be; a pad that runs to the glass edges on every side), or the ground
 pattern drawn after the town instead of under it. Measure padOf's rect on his phone size in a real town before changing
 anything. Still TOP PRIORITY, still the coordinator's own break. Ask line 248.
+
+## 3. THE WEEK OF PLAYTESTING, IN ONE MESSAGE (Paolo, back with credits; 'don't do anything yet')
+His words, the parts that are jobs (full message kept in the session transcript):
+- "https://www.instagram.com/halfbraindev ... a good example of an Instagram account going viral, making reels talking about the
+  progress of their game... I would really like that too"
+- "I'm so impressed... everything just needs to look graphically better... even just everything itself could go famous like viral
+  like just from the UI... the demo is damn near like right around the corner. I just would want it to be cleaner have a little
+  more quest to do everything's pretty buggy"
+- "on the map... our player character... if they're coming up to a four-way intersection for them to go all the way to the right
+  they'll go to the north street and then go to the east street... they won't go through the intersection when they walk"
+- "a graphic system where it recognizes the overlays... if I'm in the street during combat mode and there's a house one tile
+  beneath me south of me... if that house is a one or two or three story house then it would cover up like the legs of my
+  character... the layers of this 45 degree combat model"
+- "more maps... it got pretty boring... we need way more maps, way more combat maps"
+- "some settlements... when you add the phone system... I wanted it to look organic... There's nothing really clickable
+  underneath the phone but still like I just wanted the city or the settlement to look more organic. It feels just like you kinda
+  just didn't give a fuck... I'm not a big fan"
+- "last Sunday when I was testing for the whole day, I used a week worth of usage in one day... I need your support... I don't
+  want more bugs... cheaper less quality code is gonna start fucking with everything... I want our usage this week to be very
+  efficient, if it's powerful but it just takes longer... efficient token wise"
+- "more enemy types... a lot of the graphic stuff are placeholders and that's OK"
+- "I pull up on the remnant and they just have like better gear and better recruits to buy and I like a lot of it" (KEEP)
+- "the perks have more like eighth grade level reading translation... they needed icons like logos for some time now"
+- "the UI to be consistent and transform into each other whenever things happen... not a big fan of like things just disappearing
+  and looking ugly"
+- "all our balls rolling down the hill... I don't think we're missing any if you wanna think about any blind spots"
+- "Do you have any questions for me before you get started again? I want this to be a very efficient week."
+What each is, and who owns it when the kitchen opens (ask lines 249 to 258):
+249 REELS: a tool that records clean vertical clips from the game's own camera (no debug, no stamp) for progress reels; we make
+    them, he posts. RUN + DIRECTION.
+250 THE MAP WALK GOES THROUGH AN INTERSECTION: the party marker's road path turns up one street and over the next instead of going
+    straight across a four-way; the route must take the straight line through the crossing. WORLD.
+251 THE FIGHT'S LAYERS: on the 45-degree fight board a house one tile south of a man covers his legs (one, two or three storeys by
+    the house's height); every person and roof drawn in depth order. COMBAT [fight looks].
+252 WAY MORE FIGHT MAPS: many more boards, seeded from the map cell (rule 'no two combat boards are the same'). COMBAT + COOK.
+253 THE TOWN AROUND THE PHONE LOOKS ORGANIC: the plain pad behind the phone reads as careless; the phone's corner must be part of the
+    town (a real empty lot, a cracked parking lot, a plaza edge), drawn into the picture, still nothing tappable under it. AMENDS
+    rule 292's 'plain ground'. COORDINATOR (it is his own work) + COOK; the ten held towns (held_ten_towns_10_27_26.json) are
+    re-judged against this before they ship.
+254 THE EFFICIENT WEEK (rule 297): powerful but slower, never cheaper code; few chats at once; his playtest notes batched, not one
+    job per sentence. COORDINATOR.
+255 MORE ENEMY TYPES (the bestiary floor, ~75 types). FACTIONS + COMBAT. Placeholders stay OK.
+256 PERKS IN EIGHTH-GRADE WORDS, AND PERK ICONS (owed a long time). WORDS + UI.
+257 THE UI MORPHS: every screen change transforms, nothing just disappears (rule 229, MOTION). UI + MOTION.
+258 MORE QUESTS, AND CLEANER (fewer bugs) before the demo. RUN + EYES.
