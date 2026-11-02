@@ -755,7 +755,7 @@
    "rows": [
     "armored_wiederganger"
    ],
-   "name": "PLATED MACHINE",
+   "name": "PLATED ROBOT",
    "act_weights": [
     1,
     1.5,
@@ -2983,7 +2983,7 @@
    "rows": [
     "wiederganger"
    ],
-   "name": "MACHINE",
+   "name": "ROBOT",
    "act_weights": [
     1,
     1.5,

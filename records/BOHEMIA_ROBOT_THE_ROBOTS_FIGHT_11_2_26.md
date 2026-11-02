@@ -70,3 +70,12 @@ REUSE CHECK: DIRECTION's model, clips, materials and master rig; COMBAT's sheet 
 own person pen. REFERENCE CHECK: compared beside DIRECTION's master rig, style guide, round five and round six robots at 2x
 (the same robot, the round-six look); analog horror AH-01 (rust and grime from the master rig's source pass). [bb ...] Battle
 Brothers' Necromancer and Wiederganger keep their lesson whole: kill the man in the back and his robots drop.
+
+## Gates run (the ones this change touches, once)
+GREEN: the bestiary (after the roster file was regenerated: it carries the names, MACHINE -> ROBOT), ghosts and apparitions,
+attempt, demo build, factions, the sheets are packed, who the face is. RED AND NOT THIS CHANGE: demo gate (TAP TO ENTER and the
+cold open: the same three failures with this change's four page files put back to a9f222fb), the fight reads only sourced numbers
+(COMBAT's dealHash and board-shape constants; none of the 11 is this change's), one man one look and no two people alike (the
+crew screen's hired men), the fight draws what he wears (YOU's car door 5/8), the face is his own face (DRY WELL's stall keeper),
+nothing comes twice (ours.json fetched six times), pages publish (1647 MB surface), reference check and reuse first (other lanes'
+tools; both of this change's tools carry their checks), a merge did not delete a system (its control commit is not in this clone).
