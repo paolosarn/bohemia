@@ -109,8 +109,14 @@ const FIGHT = () => {
   const bar = top.querySelector('#bmtb'), barOn = !!bar && bar.getBoundingClientRect().height > 0, own = ['round', 'order', 'bauto', 'speedpad'].filter(id => { const e = document.getElementById(id); return e && top.contains(e); });
   out.push(['in the fight nothing is across the top: not the fight\'s own strip, not the bar (rule 280)', !barOn && own.length === 0, (barOn ? 'the bar is up' : 'no bar') + (own.length ? ', ' + own.join(' ') + ' up there' : '')]);
   out.push(['  the fight measures its top as 0, the board gets the room', TOPH === 0, 'TOPH ' + TOPH]);
-  out.push(['  the round, the faces and AUTO ride the bottom bar', !!bot.querySelector('#round') && !!bot.querySelector('#bauto') && bot.querySelectorAll('#order canvas').length > 0,
-    bot.querySelectorAll('#order canvas').length + ' faces']);
+  /* RE-AIMED 11/2 BY UI (THE PHONE RUNS THE FIGHT, asks 265 and 275, Paolo 10/27: 'why can't they just go on the phone'): with the
+     phone up the bar is off the glass and the round and the faces are the phone's (its status line and its turn strip); the fight
+     keeps them in its bar, where the bench (no phone) still shows them */
+  const PH = document.documentElement.classList.contains('boh-phone-on') ? window.top.document.querySelector('#bohphone.on') : null;
+  const nf = bot.querySelectorAll('#order canvas').length, pf = PH ? PH.querySelectorAll('.fight .ford button').length : 0, pr = PH ? String((PH.querySelector('.stat .wh') || {}).textContent || '') : '';
+  out.push([PH ? '  the round and the faces ride the phone, the bar off the glass (UI 11/2)' : '  the round, the faces and AUTO ride the bottom bar', !!bot.querySelector('#round') && !!bot.querySelector('#bauto') && nf > 0
+    && (!PH || (pf === nf && pr === String(document.getElementById('round').textContent).trim() && BOTH === 0)),
+    nf + ' faces' + (PH ? ', ' + pf + ' on the phone, its round ' + pr + ', bottom ' + BOTH : '')]);
   /* UI TWO (rules 238(a)(b), 286(b)): in the game's fights AUTO is the phone's (tiny is fine, his 238(b)), pressing the fight's own */
   const pa = document.documentElement.classList.contains('boh-phone-on') ? window.top.document.querySelector('#bohphone.on .fight.on .fc[data-c=auto]') : null;
   if (pa) { const q = pa.getBoundingClientRect(), H = window.top.innerHeight;

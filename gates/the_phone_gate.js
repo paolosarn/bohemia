@@ -36,6 +36,11 @@
      - the combat animation plays at the fight's start (seen on the glass) and the abilities page opens from it with the
        man's name; the fight's own ability squares are off its bar and on the phone; a press on the phone presses the
        fight's own button (a planted ability); END TURN, AUTO and RETREAT stay on the fight's bar and are not under it
+     - THE PHONE RUNS THE FIGHT (UI 11/2, asks 265, 275): the fight's strip and bar are off the glass (both edges measured 0);
+       every face of the turn order is on the phone, the first six a press on top, one tap that man's sheet and a second closes
+       it; his face a press; the phone's name, blood and round are the fight's own
+     - THE BEAT IS SEEN (UI 11/2, ask 270): the phone pulses on every beat of the fight's own clock (its beatPh, sampled the moment
+       each pulse lands, on the frame nearest the beat), and the board's pulse layer is on
      - when the fight ends the phone strikes back to its apps
      THE SETTINGS
      - the game's SETTINGS card carries THE PHONE; LEFT mirrors the phone at once (no reload), every frame's variables
@@ -454,6 +459,38 @@ async function side(profile) {
         ok('  CREW, NOTES and SETTINGS ride the fight\'s phone, and the fight\'s bar has no copy of them', FR.join() === 'crew,notes,settings' && !dup.length, FR.join(' ') + ' / bar ' + (dup.join(' ') || 'none')); }
       U = await under([f]);
       ok('  no press of the fight lies under the phone', !U.length, U.join(' | ') || 'none');
+      /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4, asks 265 and 275): the crew is on the phone (the turn strip, every face
+         a press on top; the man's card with the fight's own name and numbers), the fight's strip and bar are off the glass and the
+         fight measures both edges as 0; THE BEAT IS SEEN (ask 270): the phone's pulse lands on the fight's own beat (its beatPh) */
+      { const G = await f.evaluate(() => { const off = id => { const e = document.getElementById(id); if (!e) return true; const r = e.getBoundingClientRect();
+            return getComputedStyle(e).visibility === 'hidden' || r.bottom <= 0.5 || r.top >= innerHeight - 0.5; };
+          const fb = id => { const e = document.getElementById(id); return e ? String(e.style.getPropertyValue('--n') || '').replace(/"/g, '').trim().split(' ').pop() : ''; };
+          return { off: off('top') && off('bot'), TOPH, BOTH, faces: document.querySelectorAll('#order canvas').length, cnm: String(document.getElementById('cnm').textContent).replace(/\s*\*$/, ''), hp: fb('bhp') }; });
+        const PC = await p.evaluate(() => { const e = document.getElementById('bohphone'), hit = b => { const r = b.getBoundingClientRect(), h = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return r.width > 0 && !!h && (h === b || b.contains(h)); };
+          const fs = [...e.querySelectorAll('.fight.on .ford button')]; return { n: fs.length, top: fs.slice(0, 6).filter(hit).length, me: !!e.querySelector('.fh .fme') && hit(e.querySelector('.fh .fme')),
+            name: String((e.querySelector('.fh b') || {}).textContent || '').replace(/\s*\*$/, ''), hp: String((e.querySelector('.fh .fb.hp em') || {}).textContent || ''), round: String((e.querySelector('.stat .wh') || {}).textContent || '') }; });
+        ok('  the fight\'s strip and bar are off the glass, and the fight measures both edges as 0 (the glass is the board)', G.off && G.TOPH === 0 && G.BOTH === 0, 'off ' + G.off + ', top ' + G.TOPH + ', bottom ' + G.BOTH);
+        ok('  the crew is on the phone: every face of the turn order (the first six a press on top), his face a press, the fight\'s own name, blood and round',
+          PC.n === G.faces && G.faces > 0 && PC.top === Math.min(6, PC.n) && PC.me && PC.name === G.cnm && PC.hp === G.hp && /^R\d/.test(PC.round),
+          PC.n + '/' + G.faces + ' faces (' + PC.top + ' on top), ' + PC.name + ' ' + PC.hp + ' vs ' + G.cnm + ' ' + G.hp + ', ' + PC.round);
+        /* one tap on a face in the strip: that man's sheet (the fight's own drawer); a second tap closes it */
+        const fid = await p.evaluate(() => { const b = document.querySelector('#bohphone .ford button:not(.now)') || document.querySelector('#bohphone .ford button'); return b ? b.dataset.id : null; });
+        let sheet = null, shut = null;
+        if (fid) { await tapIn(p.mainFrame(), '#bohphone .ford button[data-id="' + fid + '"]'); await p.waitForTimeout(350);
+          sheet = await f.evaluate((id) => { const d = document.getElementById('drawer'), v = FIGHT.byId(id); return d.style.display === 'block' && !!v && d.textContent.indexOf(v.name) === 0; }, fid);
+          await tapIn(p.mainFrame(), '#bohphone .ford button[data-id="' + fid + '"]'); await p.waitForTimeout(350);
+          shut = await f.evaluate(() => document.getElementById('drawer').style.display !== 'block'); }
+        ok('  one tap on a face on the phone opens that man\'s sheet, a second closes it', !!fid && sheet && shut, fid + ' open ' + sheet + ', shut ' + shut);
+        /* the pulse: every hit of the phone's beat sampled against the fight's own clock, the moment it lands */
+        await p.evaluate(() => { window.__beatSamples = []; const e = document.getElementById('bohphone'), fw = document.getElementById('fightFrame').contentWindow;
+          window.__beatObs = new MutationObserver(() => { if (e.dataset.beat === '3') { const t = fw.performance.now(), ph = fw.beatPh(t); window.__beatSamples.push(Math.round((ph > 0.5 ? ph - 1 : ph) * fw.beatMs())); } });
+          window.__beatObs.observe(e, { attributes: true, attributeFilter: ['data-beat'] }); });
+        await p.waitForTimeout(3200);
+        const BS = await p.evaluate(() => { window.__beatObs.disconnect(); return { s: window.__beatSamples, ms: document.getElementById('fightFrame').contentWindow.songBeat(), lv: document.getElementById('bohbeat') && document.getElementById('bohbeat').classList.contains('on') }; });
+        const mean = BS.s.reduce((a, x) => a + Math.abs(x), 0) / Math.max(1, BS.s.length);
+        ok('  THE BEAT IS SEEN: the phone pulses on every beat of the fight\'s own clock, each on the frame nearest it (within three frames, a frame and a half on average), and the board pulses with it',
+          BS.s.length >= Math.floor(3200 / BS.ms) - 1 && BS.s.length <= Math.ceil(3200 / BS.ms) + 1 && BS.s.every(x => x >= -17 && x <= 50) && mean <= 25 && BS.lv,
+          BS.s.length + ' pulses in 3.2 s at ' + Math.round(BS.ms) + ' ms, landing ' + BS.s.join(',') + ' ms from the beat (mean ' + mean.toFixed(1) + ')'); }
       if (sd === 'right') {
         /* a planted ability: the fight's own square, pressed from the phone */
         await f.evaluate(() => { const sk = document.getElementById('skills'), b = document.createElement('button'); b.className = 'sq'; b.dataset.skill = 'plant'; b.title = 'PLANTED';

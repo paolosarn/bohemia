@@ -41,6 +41,11 @@
    button that is not move, fire, the melee strike or the reload (180(g)): the bag swaps, the weapon's sweeps, the perks'
    skills. A press on the phone is a press on the fight's own button. END TURN, AUTO and RETREAT stay on the fight's bar.
    When the fight ends the phone strikes back to the five apps.
+   AMENDED 11/2 (UI, Paolo 10/27 notes 4 and 6, asks 265, 270, 275): THE PHONE RUNS THE FIGHT. Every press of the fight was already
+   here (238(a)); now the CREW is too: the turn strip (every face in the order, a tap that man's sheet) and the man's card (his face,
+   a tap his sheet; his name, blood, armour, wind and AP), so the fight's strip and bar slide off the glass and the glass is the
+   board. THE BEAT IS SEEN: on the fight's own clock, the phone's screen catches each beat at its rim, a heart monitor's trace in its
+   status line spikes on it beside the round, and the board's edges darken red under the phone (records/BOHEMIA_THE_PHONE_RUNS_THE_FIGHT_11_2_26.md).
 
    THE SETTINGS: the game's SETTINGS card carries THE PHONE: LEFT or RIGHT, and every app's place (up, down, hide); the
    first app takes the big slot. A finger held on the phone's home opens the same page.
@@ -392,6 +397,46 @@
     var b = abilityButtons(sk)[i];
     if (!b || b.disabled) return false; b.click(); window.__PHONE_ABILITY = (window.__PHONE_ABILITY | 0) + 1; return true;
   };
+  /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4: 'the phone's not fully [filled] up and you still have the bottom left of
+     the screen for the characters... why can't they just go on the phone... all the real estate has to be justified'): the man on
+     the fight's card (his face, his name, his blood, armour and wind with their numbers, his AP, the plate a man of theirs wears)
+     and the turn strip (every face in the order, the one acting first), read off the fight's own HUD, which hud() keeps true */
+  P.man = function () {
+    var g = function (id) { return document.getElementById(id); };
+    var bar = function (id) { var e = g(id); if (!e) return null; var n = String(e.style.getPropertyValue('--n') || '').replace(/"/g, '').trim().split(' ').pop();
+      return { w: parseFloat(e.style.width) || 0, c: String(e.style.backgroundColor || e.style.background || ''), n: /\d\/\d/.test(n) ? n : '' }; };
+    var ap = g('ap'), cl = g('cls'), r = g('round'), nm = g('cnm');
+    return { name: nm ? String(nm.textContent || '').replace(/\s*\*$/, '') : '', main: !!nm && /\*$/.test(String(nm.textContent || '')), face: g('face'),
+      hp: bar('bhp'), arm: bar('barm'), fat: bar('bfat'), ap: ap ? ap.querySelectorAll('i.on').length : 0, apTurn: ap ? ap.children.length : 0,
+      cls: cl && cl.style.display !== 'none' ? String(cl.textContent || '').trim() : '', round: r ? String(r.textContent || '').trim() : '' };
+  };
+  P.crew = function () {
+    var o = document.getElementById('order'); if (!o) return { key: '', list: [] };
+    var line = []; try { var S = FIGHT.S; line = S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 9); } catch (e) { line = []; }
+    var d = document.getElementById('drawer'), pk = d && d.style.display === 'block' ? String(d.dataset.peek || '') : '';   /* whose sheet is open from the strip */
+    return { key: String(o.dataset.key || ''), peek: pk, list: [].slice.call(o.querySelectorAll('canvas')).map(function (c, i) { var v = line[i] || null;
+      return { i: i, cv: c, id: v ? String(v.id) : '', name: v ? String(v.name || '') : '', side: v ? String(v.side || '') : '', now: c.classList.contains('now') }; }) };
+  };
+  /* his face on the phone is the fight's own card: one tap opens the man's sheet (the fight's drawer), a second closes it */
+  P.card = function () { var c = document.getElementById('card'), d = document.getElementById('drawer'); if (!c) return false; if (d) d.dataset.peek = '';
+    c.click(); window.__PHONE_CARD = (window.__PHONE_CARD | 0) + 1; return true; };
+  /* a face in the turn strip: that man's sheet (the fight's own drawer, drawn by the fight), a second tap closes it */
+  P.peek = function (id) {
+    try {
+      var v = FIGHT.byId(id), d = document.getElementById('drawer'); if (!v || !d || typeof drawer !== 'function') return false;
+      if (d.style.display === 'block' && d.dataset.peek === String(id)) { d.style.display = 'none'; d.dataset.peek = ''; UI.drawer = false; UI.wcard = null; }
+      else { UI.drawer = false; UI.wcard = null; drawer(v); d.dataset.peek = String(id); }
+      window.__PHONE_PEEK = (window.__PHONE_PEEK | 0) + 1; return true;
+    } catch (e) { return false; }
+  };
+  /* THE BEAT IS SEEN (UI 11/2, Paolo 10/27 note 6: 'the beat with no sound... the fight runs on a 120 BPM beat. The beat has to be
+     visible too, like a pulse on screen'): the fight's own clock, never a second one (COMBAT's THE SONG IS THE CLOCK, rule 158:
+     SONG.at a beat as heard on this page's clock, songBeat() the song's beat; the fight's own 120 from its start when no song plays),
+     handed over as an absolute time so the phone's page reads it on its own clock */
+  P.beat = function () {
+    try { if (typeof SONG === 'undefined' || typeof songBeat !== 'function') return null; var ms = songBeat(); if (!(ms > 0)) return null;
+      return { at: SONG.at + performance.timeOrigin, ms: ms, from: String(SONG.from || '') }; } catch (e) { return null; }
+  };
 
   /* ---- WHAT A PAGE DOES FOR ITSELF WHEN THE PHONE IS ON: never two phones, never a press under it ---- */
   function localCss() {
@@ -420,6 +465,18 @@
          fight frames around the phone] lands. COMBAT's bench (the fight's page on its own) builds no phone and keeps its bar. */
       + 'html.boh-phone-on body:has(#skills) #row2,html.boh-phone-on body:has(#skills) #bend,html.boh-phone-on body:has(#skills) #bauto,'
       +   'html.boh-phone-on body:has(#skills) #speedpad{display:none!important}'
+      /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4: 'all the real estate has to be justified'): the man's card and the turn
+         strip are on the phone now, so the fight's strip and its bar leave the glass: they slide off its edges in two stopped steps
+         (they transform, never just vanish, his ask 257), and the glass is the board. Moved off whole, never collapsed, so the fight's
+         own measure (hudEdges: the strip's bottom, the bar's top) reads 0 at both edges and its camera frames the whole glass around
+         the phone (rule 288) */
+      + 'html.boh-phone-on body:has(#skills) #top{transform:translateY(-100%)!important;visibility:hidden;transition:transform .25s steps(2,end),visibility 0s linear .25s}'
+      + 'html.boh-phone-on body:has(#skills) #bot{bottom:0!important;transform:translateY(100%)!important;visibility:hidden;transition:transform .25s steps(2,end),visibility 0s linear .25s}'
+      /* what the bar used to hold up: the man's sheet and the fight's hint stand clear of the phone (upright over it, on its side beside it) */
+      + '@media (orientation:portrait){html.boh-phone-on body:has(#skills) #drawer,html.boh-phone-on body:has(#skills) #say{bottom:calc(var(--boh-phone-gap-b) + 8px)!important}}'
+      + '@media (orientation:landscape){html.boh-phone-on.boh-phone-right body:has(#skills) #drawer{right:calc(var(--boh-phone-gap-r) + 6px)!important}'
+      +   'html.boh-phone-on.boh-phone-left body:has(#skills) #drawer{left:calc(var(--boh-phone-gap-l) + 6px)!important}'
+      +   'html.boh-phone-on body:has(#skills) #say{max-width:calc(100vw - 2 * (var(--boh-phone-w) + 24px))!important}}'
       + 'html.boh-phone-on.boh-phone-right body:has(#skills) #bot{right:calc(var(--boh-phone-gap-r) + 6px)!important}'
       + 'html.boh-phone-on.boh-phone-left body:has(#skills) #bot{left:calc(var(--boh-phone-gap-l) + 6px)!important}'
       /* a computer keeps the bar centred clear of the phone on both sides; a tablet, like a phone, gives up only the phone's side (both
@@ -627,12 +684,55 @@
       + '#bohphone .home.under{visibility:hidden}'
       /* THE FIGHT: the screen lit dark red, his face and name, his abilities in the kit's pockets, small, three a row */
       + '#bohphone .fight{background:#1a0907}'
-      + '#bohphone .fh{flex:0 0 26px;display:flex;align-items:center;gap:4px;padding:2px 4px;background:rgba(0,0,0,.4)}'
-      + '#bohphone .fh canvas{width:22px;height:22px;image-rendering:pixelated;border-radius:1px}'
-      + '#bohphone .fh b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.6px;color:#f4e8cc;white-space:nowrap;overflow:hidden}'
+      /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4): the turn strip and the man's card left the glass for the phone. THE
+         STRIP: every face in the order on a strip of tape, the one acting first a size up in a gold rim (the fight's own faces,
+         its rims drawn by the fight: gold his, red theirs); one tap is that man's sheet; more than six slide under a finger */
+      + '#bohphone .ford{flex:0 0 22px;display:flex;align-items:center;gap:1px;padding:0 2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;'
+      +   'background:linear-gradient(180deg,rgba(214,188,140,.16),rgba(120,96,60,.10) 45%,rgba(0,0,0,.30));box-shadow:inset 0 -1px 0 rgba(0,0,0,.55),inset 0 1px 0 rgba(255,236,200,.10)}'
+      + '#bohphone .ford::-webkit-scrollbar{display:none}'
+      + '#bohphone .ford button{flex:0 0 16px;width:16px;height:16px;padding:0;margin:0;border:0;background:#0b0907;cursor:pointer;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.7)}'
+      + '#bohphone .ford button.now{flex-basis:19px;width:19px;height:19px;margin-right:2px;outline:1px solid #f0d296;outline-offset:0}'
+      + '#bohphone .ford button.peek{outline:1px solid #efe3c6;outline-offset:1px}'
+      + '#bohphone .ford canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}'
+      + '#bohphone .ford button:active canvas{transform:translateY(1px)}'
+      /* THE CARD: his face (a tap is his sheet), his name, three bars lit from above with their numbers (blood, armour, wind: the
+         fight's own colours), his AP as pips and the count; a man of theirs shows his plate (LV, OUTCLASSES YOU) where the AP was */
+      + '#bohphone .fh{flex:0 0 35px;display:flex;align-items:center;gap:3px;padding:2px 3px;background:rgba(0,0,0,.42);box-shadow:inset 0 -1px 0 rgba(255,236,200,.06)}'
+      + '#bohphone .fh .fme{flex:0 0 32px;width:32px;height:32px;padding:0;margin:0;border:0;cursor:pointer;background:#0b0907;position:relative;'
+      +   'box-shadow:0 1px 0 rgba(255,236,200,.12),0 2px 3px rgba(0,0,0,.8),inset 0 0 0 1px rgba(0,0,0,.6)}'
+      + '#bohphone .fh .fme:active{transform:translateY(1px)}'
+      + '#bohphone .fh canvas{position:absolute;left:1px;top:1px;width:30px;height:30px;border-radius:1px;pointer-events:none}'
+      + '#bohphone .fh .fst{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}'
+      + '#bohphone .fh b{display:block;font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;line-height:8px;letter-spacing:.5px;color:#f4e8cc;white-space:nowrap;overflow:hidden;text-shadow:0 1px 0 #000}'
+      + '#bohphone .fb{display:flex;align-items:center;gap:2px;height:5px}'
+      + '#bohphone .fb s{flex:1;height:4px;position:relative;overflow:hidden;background:rgba(0,0,0,.6);box-shadow:inset 0 1px 0 rgba(0,0,0,.7),0 1px 0 rgba(255,236,200,.07)}'
+      + '#bohphone .fb s i{position:absolute;left:0;top:0;bottom:0;width:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.32),inset 0 -1px 0 rgba(0,0,0,.30)}'
+      + '#bohphone .fb em{flex:0 0 21px;font-style:normal;font-size:5px;line-height:5px;color:#e9dcbc;text-align:right;white-space:nowrap;overflow:hidden}'
+      + '#bohphone .fap{display:flex;align-items:center;gap:2px;height:5px;margin-top:1px}'
+      + '#bohphone .fap .pp{flex:1;display:flex;gap:1px;min-width:0;overflow:hidden}'
+      + '#bohphone .fap .pp i{flex:0 0 4px;height:3px;background:rgba(0,0,0,.55);box-shadow:inset 0 1px 0 rgba(0,0,0,.6)}'
+      + '#bohphone .fap .pp i.on{background:#d9a85a;box-shadow:inset 0 1px 0 rgba(255,236,170,.6)}'
+      + '#bohphone .fap em{flex:0 0 auto;font-style:normal;font-size:5px;line-height:5px;color:#f6cf74;white-space:nowrap}'
+      + '#bohphone .fap.cls .pp{display:none}#bohphone .fap.cls em{flex:1;color:#ff6a4c;overflow:hidden}'
+      /* THE BEAT IS SEEN (UI 11/2, Paolo 10/27 note 6): in a fight the status line carries the round and a heart monitor's trace on the
+         fight's own beat; the glass of the phone's screen catches the beat at its rim. Stopped steps on the beat (the hit, the after-glow,
+         the fade), a monitor's phosphor with the tape's red and blue ghosts, never a toy metronome */
+      + '#bohphone .stat .ecg{display:none;width:36px;height:9px;flex:0 0 36px;image-rendering:pixelated;pointer-events:none}'
+      + '#bohphone.fighting .stat .ecg{display:block}'
+      + '#bohphone.fighting .stat .tl{display:none}'
+      + '#bohphone.fighting .fight{transition:none}'
+      + '#bohphone.fighting[data-beat="3"] .fight{background:#2b0d09;box-shadow:inset 0 0 0 1px rgba(255,96,64,.55),inset 0 0 9px rgba(255,64,40,.30)}'
+      + '#bohphone.fighting[data-beat="2"] .fight{background:#230b08;box-shadow:inset 0 0 0 1px rgba(255,96,64,.28),inset 0 0 6px rgba(255,64,40,.14)}'
+      + '#bohphone.fighting[data-beat="1"] .fight{box-shadow:inset 0 0 0 1px rgba(255,96,64,.12)}'
+      + '#bohphone.fighting[data-beat="3"] .ford button.now{outline-color:#fff2c8}'
+      /* the board's own pulse, subtle: the glass's edges darken red on the beat and one tape scanline passes, under the phone */
+      + '#bohbeat{position:fixed;inset:0;pointer-events:none;display:none;opacity:0;'
+      +   'background:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 1px,rgba(0,0,0,0) 1px 3px),radial-gradient(ellipse 78% 72% at 50% 46%,rgba(0,0,0,0) 58%,rgba(96,10,6,.26) 86%,rgba(42,3,2,.46) 100%)}'
+      + '#bohbeat.on{display:block}#bohbeat[data-b="3"]{opacity:1}#bohbeat[data-b="2"]{opacity:.5}#bohbeat[data-b="1"]{opacity:.2}'
+      + '@media (prefers-reduced-motion:reduce){#bohbeat{display:none!important}}'
       /* rule 238(a): the fight's own commands over his abilities, the phone one size (238(b)): the big button the width of the glass,
          then WAIT, RETREAT, AUTO and the speed, then his abilities four a row, then the apps */
-      + '#bohphone .fgo{flex:0 0 30px;margin:3px 3px 0;padding:0 5px;border:0;cursor:pointer;display:flex;align-items:center;gap:4px;color:#1f1710;' + kit('tin', 0.5) + '}'
+      + '#bohphone .fgo{flex:0 0 28px;margin:3px 3px 0;padding:0 5px;border:0;cursor:pointer;display:flex;align-items:center;gap:4px;color:#1f1710;' + kit('tin', 0.5) + '}'
       + '#bohphone .fgo.hot{' + kit('tin_amber', 0.5) + '}'
       + '#bohphone .fight.nocmd .fgo,#bohphone .fight.nocmd .fcm{display:none}'
       + '#bohphone .fgo[disabled]{opacity:.45;cursor:default}'
@@ -640,7 +740,7 @@
       + '#bohphone .fgo.mkd .mk{display:block}'
       + '#bohphone .fgo b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;letter-spacing:1.2px;white-space:nowrap}'
       + '#bohphone .fgo i{margin-left:auto;font-style:normal;font-size:7px;white-space:nowrap}'
-      + '#bohphone .fcm{flex:0 0 30px;margin:2px 3px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:0;padding:0}'
+      + '#bohphone .fcm{flex:0 0 28px;margin:2px 3px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:0;padding:0}'
       + '#bohphone .fc{position:relative;width:25px;height:26.7px;padding:0;margin:0;border:0;background:none;cursor:pointer}'
       + '#bohphone .fc img{width:25px;height:26.7px;display:block;pointer-events:none}'
       + '#bohphone .fc[disabled]{opacity:.4;cursor:default}'
@@ -652,13 +752,13 @@
       + '#bohphone .fc i:empty{display:none}'
       + '#bohphone .fc.sp{width:25px;height:22px;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.5px;color:#1f1710;' + kit('tin', 0.5) + '}'
       + '#bohphone .fc.sp.now{' + kit('tin_amber', 0.5) + '}'
-      + '#bohphone .ab{flex:1;display:grid;grid-template-columns:repeat(4,24px);grid-auto-rows:25px;gap:2px;justify-content:center;align-content:start;padding:3px 0;overflow:hidden}'
+      + '#bohphone .ab{flex:1;display:grid;grid-template-columns:repeat(4,24px);grid-auto-rows:25px;gap:2px;justify-content:center;align-content:start;padding:2px 0;overflow:hidden}'
       + '#bohphone .ab .sk{position:relative;width:24px;height:25px;padding:0;margin:0;border:0;cursor:pointer;color:inherit;font:inherit;' + kit('well', 0.5) + '}'
       + '#bohphone .ab .sk canvas{position:absolute;left:2px;top:2px;width:20px;height:20px;pointer-events:none}'
       + '#bohphone .ab .sk i{position:absolute;right:1px;bottom:1px;font-style:normal;font-size:6px;line-height:7px;padding:0 1px;color:#f6cf74;background:rgba(10,6,3,.8);pointer-events:none}'
       + '#bohphone .ab .sk.on{outline:2px solid #f6cf74;outline-offset:-2px}'
       + '#bohphone .ab .sk[disabled]{opacity:.4;cursor:default}'
-      + '#bohphone .frow{flex:0 0 30px;margin:0 0 7px;padding:0;gap:0;flex-wrap:nowrap;display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,.4)}'
+      + '#bohphone .frow{flex:0 0 28px;margin:0 0 6px;padding:0;gap:0;flex-wrap:nowrap;display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,.4)}'
       + '#bohphone .ab .none{grid-column:1 / span 4;padding:2px 3px;font-size:7px;line-height:9px;color:#cdbd98;text-align:center}'
       /* COMBAT TIME: stop-motion holds on the beat (steps, never a smooth slide): the glass flashes, the crosshair strikes in
          three holds and beats twice, the word under it */
@@ -697,10 +797,13 @@
     var st = document.createElement('style'); st.id = 'bohphone-css'; st.textContent = CSS() + '#bohphone{transition:translate .5s cubic-bezier(.2,0,0,1),opacity .5s cubic-bezier(.2,0,0,1)}#bohphone.away{translate:0 calc(100% + 40px);opacity:0;pointer-events:none}'; document.head.appendChild(st);
     var ph = el('div'); ph.id = 'bohphone'; ph.setAttribute('role', 'group'); ph.setAttribute('aria-label', 'your phone');
     ph.innerHTML = '<div class="scr"><canvas class="wall" aria-hidden="true"></canvas><div class="dim"></div>'
-      + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button></div>'
+      + '<div class="stat"><span class="wh"></span><button type="button" class="tl" aria-label="switch timeline">TIMELINE</button><canvas class="ecg" width="108" height="27" aria-hidden="true"></canvas></div>'
       + '<div class="home"></div>'
       + '<div class="page" data-page=""><div class="ph" role="button" tabindex="0"><i>&lsaquo;</i><span></span></div><div class="pb"></div></div>'
-      + '<div class="fight" aria-label="your fight"><div class="fh"><canvas width="44" height="44"></canvas><b></b></div>'
+      + '<div class="fight" aria-label="your fight"><div class="ford" role="toolbar" aria-label="the turn order"></div>'
+      +   '<div class="fh"><button type="button" class="fme" aria-label="his sheet"><canvas width="90" height="90"></canvas></button>'
+      +     '<div class="fst"><b></b><div class="fb hp"><s><i></i></s><em></em></div><div class="fb arm"><s><i></i></s><em></em></div>'
+      +     '<div class="fb fat"><s><i></i></s><em></em></div><div class="fap"><span class="pp"></span><em></em></div></div></div>'
       +   '<button type="button" class="fgo" data-c="go"><span class="mk"></span><b>END TURN</b><i></i></button>'
       +   '<div class="fcm" role="toolbar" aria-label="the fight">'
       +     '<button type="button" class="fc" data-c="wait" aria-label="wait"><img alt="" src="' + IMG('app_wait') + '"><i></i></button>'
@@ -727,6 +830,18 @@
     homeBuild();
     /* in a fight the same small icons ride under his abilities: the fight's own bar answers them (238(a)) */
     ['crew', 'notes', 'settings'].forEach(function (a) { ph.querySelector('.frow').appendChild(appButton(a, 'sm')); });
+    /* his face is his sheet; a face in the turn strip is that man's sheet (the fight's own drawer) */
+    ph.querySelector('.fh .fme').addEventListener('click', function () {
+      var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.card) return;
+      F.card(); setTimeout(function () { manPaint(true); }, 80);
+    });
+    ph.querySelector('.ford').addEventListener('click', function (e) {
+      var b = e.target && e.target.closest && e.target.closest('.ford button'); if (!b) return;
+      var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.peek) return;
+      F.peek(b.dataset.id); setTimeout(function () { manPaint(true); }, 80);
+    });
+    /* the board's pulse: one layer over the fight, under the phone, that no finger meets */
+    var bb = el('div'); bb.id = 'bohbeat'; bb.setAttribute('aria-hidden', 'true'); document.body.appendChild(bb); H.bb = bb;
     /* the fight's commands press the fight's own buttons (rule 238(a)) */
     [].forEach.call(ph.querySelectorAll('.fight [data-c]'), function (b) { b.addEventListener('click', function () {
       var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.cmd) return;
@@ -1017,6 +1132,7 @@
     H.el.querySelector('.home').style.visibility = 'hidden';
     H.fightKey = null; H.anim = (H.anim | 0) + 1; var me = H.anim;
     window.__PHONE_COMBAT = (window.__PHONE_COMBAT | 0) + 1;
+    H.el.classList.add('fighting'); H.manKey = null; H.beatK = null; H.beatLv = null; beatStart();
     setTimeout(function () { if (me !== H.anim) return; c.classList.add('out'); f.classList.add('on'); fightPaint(true); }, BEAT * 3.5);
     setTimeout(function () { if (me !== H.anim) return; c.classList.remove('on'); c.classList.remove('out'); }, BEAT * 4.5);
   }
@@ -1026,18 +1142,17 @@
     f.classList.remove('on'); c.classList.remove('on'); c.classList.add('on'); c.classList.add('out');
     H.el.querySelector('.home').style.visibility = '';
     window.__PHONE_COMBAT_OUT = (window.__PHONE_COMBAT_OUT | 0) + 1;
+    H.el.classList.remove('fighting'); H.homeSig = null; beatPaint(-1);
     setTimeout(function () { if (me !== H.anim) return; c.classList.remove('on'); c.classList.remove('out'); }, BEAT);
     paintHome(true);
   }
   function fightPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F) return;
+    manPaint(force);
     var A = F.abilities(), C = F.cmds ? F.cmds() : null, key = A.key + '#' + (C ? JSON.stringify(C) : '');
     if (!force && key === H.fightKey) return; H.fightKey = key;
     cmdPaint(C);
     window.__PHONE_ABILITIES = A.list.length;
-    var hd = H.el.querySelector('.fh'), fc = hd.querySelector('canvas');
-    hd.querySelector('b').textContent = A.name || '';
-    try { var g0 = fc.getContext('2d'); g0.clearRect(0, 0, 44, 44); if (A.face && A.face.width) { g0.imageSmoothingEnabled = false; g0.drawImage(A.face, 0, 0, 44, 44); } } catch (e) {}
     var ab = H.el.querySelector('.ab'); ab.textContent = '';
     A.list.slice(0, 12).forEach(function (a, i) {
       var b = el('button', 'sk' + (a.on ? ' on' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.title.toLowerCase());
@@ -1050,6 +1165,106 @@
     var empty = Math.max(0, (A.list.length ? 0 : 4));
     if (!A.list.length) { var n = el('div', 'none'); n.textContent = 'No skills on this man yet. A level brings a perk.'; ab.appendChild(n); }   /* draft:true */
     for (var k = 0; k < empty; k++) { var w = el('button', 'sk'); w.type = 'button'; w.disabled = true; w.setAttribute('aria-label', 'empty'); ab.appendChild(w); }
+  }
+
+  /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4): the man on the fight's card and the turn strip, painted when they change
+     (the round in the status line; his face, name, bars, numbers and AP; every face in the order, a tap its sheet) */
+  function faceInto(c, src) {
+    try { var g = c.getContext('2d'); g.clearRect(0, 0, c.width, c.height); if (src && src.width) { g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.drawImage(src, 0, 0, c.width, c.height); } } catch (e) {}
+  }
+  function manPaint(force) {
+    var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
+    var M = F.man(), K = F.crew(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n].join(',') : ''; });
+    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, K.key, K.peek].join('|');
+    if (!force && key === H.manKey) return; H.manKey = key;
+    H.el.querySelector('.stat .wh').textContent = M.round || '';
+    var hd = H.el.querySelector('.fh');
+    hd.querySelector('b').textContent = (M.name || '') + (M.main ? ' *' : '');
+    faceInto(hd.querySelector('canvas'), M.face);
+    hd.querySelector('.fme').setAttribute('aria-label', ((M.name || 'his') + ' sheet').toLowerCase());   /* draft:true */
+    [['hp', M.hp], ['arm', M.arm], ['fat', M.fat]].forEach(function (p) {
+      var row = hd.querySelector('.fb.' + p[0]), b = p[1] || { w: 0, c: '', n: '' }, i = row.querySelector('i');
+      i.style.width = Math.max(0, Math.min(100, b.w)) + '%'; i.style.backgroundColor = b.c || ''; row.querySelector('em').textContent = b.n || '';
+    });
+    var fa = hd.querySelector('.fap'), pp = fa.querySelector('.pp');
+    fa.classList.toggle('cls', !!M.cls);
+    if (M.cls) fa.querySelector('em').textContent = M.cls;
+    else {
+      pp.textContent = ''; for (var k = 0; k < M.apTurn; k++) { var q = document.createElement('i'); if (k < M.ap) q.className = 'on'; pp.appendChild(q); }
+      fa.querySelector('em').textContent = M.apTurn ? M.ap + ' AP' : '';
+    }
+    window.__PHONE_MAN = M.name;
+    var fo = H.el.querySelector('.ford');
+    if (fo.dataset.key !== K.key + '|' + K.peek || force) {
+      fo.dataset.key = K.key + '|' + K.peek; fo.textContent = '';
+      K.list.forEach(function (v) {
+        var b = el('button', (v.now ? 'now' : '') + (K.peek && v.id === K.peek ? ' peek' : '')); b.type = 'button'; b.dataset.id = v.id; b.dataset.side = v.side;
+        b.setAttribute('aria-label', ((v.name || 'a man') + (v.side === 'them' ? ', theirs' : ', yours') + (v.now ? ', acting' : '')).toLowerCase());   /* draft:true */
+        var c = document.createElement('canvas'); c.width = c.height = v.now ? 57 : 48; faceInto(c, v.cv); b.appendChild(c); fo.appendChild(b);
+      });
+      fo.scrollLeft = 0;
+      window.__PHONE_CREW = K.list.length;
+    }
+  }
+
+  /* THE BEAT IS SEEN (UI 11/2, Paolo 10/27 note 6: 'the beat with no sound... the fight runs on a 120 BPM beat. The beat has to be
+     visible too, like a pulse on screen'). One beat, the fight's own (P.beat: COMBAT's SONG clock, the one its every act lands on),
+     read on this page's clock every frame while the fight is on. Each beat is three stopped holds and a rest (the hit, the after-glow,
+     the fade): the phone's screen catches it at its rim, the trace in its status line spikes, and the board's edges darken red under
+     the phone. Read with the sound off: it is the fight's clock, not the speaker */
+  var BEAT_HOLDS = [0.10, 0.24, 0.42];   /* where each hold ends, as parts of a beat */
+  var BEAT_LEAD = 8;                     /* ms: half a frame at 60 */
+  function beatNow() {
+    var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P, b = null;
+    try { b = F && F.beat ? F.beat() : null; } catch (e) { b = null; }
+    if (!b || !(b.ms > 0) || !isFinite(b.at)) return null;
+    return { at: b.at - performance.timeOrigin, ms: b.ms, from: b.from };
+  }
+  function beatLoop() {
+    H.beatRaf = 0;
+    if (H.face !== 'fight' || !H.el || !H.el.classList.contains('on')) { beatPaint(-1); return; }
+    /* half a frame ahead: the hold that a beat starts is drawn on the frame nearest it, never always the one after */
+    var b = beatNow(), now = performance.now() + BEAT_LEAD;
+    if (b) {
+      var x = (now - b.at) / b.ms, ph = x - Math.floor(x);
+      var lv = ph < BEAT_HOLDS[0] ? 3 : ph < BEAT_HOLDS[1] ? 2 : ph < BEAT_HOLDS[2] ? 1 : 0;
+      /* a beat landed when the phase wraps (the fight's clock re-anchors on every booked beat, so a count of beats from it is not a
+         count of beats heard; the wrap is): what the gate samples against the fight's own clock */
+      if (H.beatK != null && ph < H.beatK - 0.5) { var L = window.__PHONE_BEATS = window.__PHONE_BEATS || []; L.push({ t: now - BEAT_LEAD, ph: ph, ms: b.ms, from: b.from }); if (L.length > 64) L.shift(); }
+      H.beatK = ph;
+      beatPaint(lv, b, now);
+    }
+    H.beatRaf = requestAnimationFrame(beatLoop);
+  }
+  function beatStart() { if (!H.beatRaf) H.beatRaf = requestAnimationFrame(beatLoop); }
+  function beatPaint(lv, b, now) {
+    if (lv === H.beatLv) return; H.beatLv = lv;
+    var on = lv >= 0; H.el.dataset.beat = on ? String(lv) : '';
+    if (H.bb) { H.bb.classList.toggle('on', on); H.bb.dataset.b = on ? String(lv) : ''; H.bb.style.zIndex = String(Math.max(1, (parseInt(H.el.style.zIndex, 10) || 60) - 1)); }
+    if (on && b) ecgPaint(b, now, lv);
+  }
+  /* the trace: two beats of a heart monitor scrolling right to left, the newest at the right; the spike on each of the fight's beats.
+     Drawn in the phone's own pixels (a dot a point), the trace in the monitor's pale phosphor, the tape's red ghost a dot left and its
+     blue ghost a dot right, the old end fading; it moves only on the holds, so it steps like the rest of the phone */
+  var ECG = [4, -2, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1];   /* one beat in eighteen dots: the spike ON the beat, the fall, the T wave, flat, the dip before the next */
+  function ecgPaint(b, now, lv) {
+    var c = H.el.querySelector('.stat .ecg'); if (!c) return;
+    var g = c.getContext('2d'), D = 3, cols = 36, rows = 9, base = 6, span = 2 * b.ms;
+    g.clearRect(0, 0, c.width, c.height);
+    var ys = [];
+    for (var x = 0; x < cols; x++) {
+      var t = now - span + (x + 1) / cols * span, d = ((t - b.at) % b.ms + b.ms) % b.ms, j = Math.floor(d / b.ms * 18);
+      ys.push(Math.max(0, Math.min(rows - 1, base - (ECG[j] || 0))));
+    }
+    var run = function (dx, col, fade) {
+      for (var x = 0; x < cols; x++) {
+        var a = fade ? (0.25 + 0.75 * x / (cols - 1)) : 1, y0 = ys[x], y1 = x ? ys[x - 1] : ys[x], lo = Math.min(y0, y1), hi = Math.max(y0, y1);
+        g.globalAlpha = a * (lv === 3 ? 1 : lv === 2 ? 0.85 : 0.7); g.fillStyle = col;
+        for (var y = lo; y <= hi; y++) g.fillRect((x + dx) * D, y * D, D, D);
+      }
+    };
+    run(-1, 'rgba(224,64,46,.75)', true); run(1, 'rgba(80,200,230,.55)', true); run(0, lv === 3 ? '#fff2d6' : '#e9dcbc', true);
+    g.globalAlpha = 1;
   }
 
   /* the fight's commands as the fight has them now: the big button's word, its chance or AP under it and its mark (the walk,
@@ -1145,7 +1360,7 @@
     var face = scr === 'fight' && !over ? 'fight' : 'home';
     if (face !== H.face) { if (face === 'fight') fightIn(); else if (H.face === 'fight') fightOut(); H.face = face; }
     if (!on) return;
-    if (face === 'fight') { if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
+    if (face === 'fight') { beatStart(); if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
     paintHome(false); paintWall(false); stripPaint(false);
     if (H.page) pagePaint(false);
   }
