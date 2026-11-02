@@ -302,3 +302,6 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 278 | The UI gets love: 3-D, hand-made, the Crashbox look, nothing just appears or vanishes | 301 | UI | RECORDED: note 8 |
 | 279 | Every screen change transforms into the next (map, town, camp, crew, fight, phone) | 301 | UI | RECORDED: note 8 |
 | 280 | The loading screen redone in the Crashbox look, alive while it loads | 301 | UI | RECORDED: note 8 |
+| 281 | Every interact button from combat to the city lives on the phone | 297 | UI | RECORDED: note 9 |
+| 282 | The reload button a lot bigger on the phone in the fight | 297 | UI | RECORDED: note 9 |
+| 283 | No turn-order strip on the fight screen (the order stays in the code) | 297 | UI | RECORDED: note 9 |

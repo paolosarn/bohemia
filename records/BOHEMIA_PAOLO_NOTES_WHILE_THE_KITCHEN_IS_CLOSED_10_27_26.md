@@ -191,3 +191,12 @@ Jobs (ask lines 277 to 280):
 280 THE LOADING SCREEN: redone in the Crashbox look, alive while it loads, analog horror. UI (with 261, the start screen).
 RULE 301: THE LOOK IS THE ECONOMIC APOCALYPSE IN THE CRASHBOX VIBE, ALWAYS (reaffirms rule 115(d)): every lane's art and UI is
 judged against it.
+
+## 9. EVERY INTERACT BUTTON ON THE PHONE; A BIG RELOAD; NO TURN-ORDER STRIP (Paolo 11/2)
+His words: "I want every interact button from combat to the city on the phone and then combat there's a lot of room and also the
+reload button should be a lot bigger... I don't think anyone gives a fuck about which character is next... that prioritization,
+people don't give a fuck about that. They don't need to see that visual. They'll understand what's going on when they combat... you
+can have it in your code, whatever code you need to analyze that, but as a visual I think it's just a waste."
+281 EVERY INTERACT BUTTON ON THE PHONE, combat to city (amends 275: the city's and the town's too). UI.
+282 THE RELOAD BUTTON A LOT BIGGER on the phone in the fight (the phone has room). UI.
+283 NO TURN-ORDER STRIP: the 'who is next' visual is removed from the fight's screen; the order stays in the code. UI.
