@@ -42,6 +42,8 @@
               heal_below: 0.99, mend_min_points: 1, keys_per_beat: 3, beat_ms: 500 };
   var HARD = ['riot_helmet', 'moto_helmet', 'hard_hat', 'brim_helmet', 'welder_mask'];
   function num(k) { var v = NUM && NUM[k]; return v && typeof v.value === 'number' ? v.value : DEF[k]; }
+  /* VOTE FIXES 11/2 (Paolo voted NO on the pills: 'Not good looking enough'): acts out of the rotation, read from the file */
+  function off() { var v = NUM && NUM.acts_off; return v && Array.isArray(v.value) ? v.value : ['pills']; }
   function hard() { var v = NUM && NUM.helmet_hard_classes; return v && Array.isArray(v.value) ? v.value : HARD; }
   function hash(a, b) { var h = 2166136261 ^ (a | 0); h = Math.imul(h, 16777619) ^ (b | 0); h = Math.imul(h ^ (h >>> 13), 16777619); return ((h >>> 0) % 100000) / 100000; }
   function strHash(s) { var h = 7; s = String(s); for (var i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0; return h; }
@@ -86,6 +88,7 @@
     if (n.hp < num('heal_below')) out.push(n.hp < num('bandage_below') ? 'bind' : 'pills');
     if (n.tape > 0 && n.body >= mm) out.push('tape');
     if (n.tape > 0 && n.head >= mm && n.helmet) out.push('helmet');
+    out = out.filter(function (a) { return off().indexOf(a) < 0; });
     if (!out.length) return null;
     return out[Math.floor(hash(strHash(who), bar * 7 + 3) * out.length) % out.length];
   }

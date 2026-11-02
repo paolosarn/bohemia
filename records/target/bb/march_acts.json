@@ -50,6 +50,11 @@
   "unit": "milliseconds a beat at 120",
   "source": "the 120 BPM law"
  },
+ "acts_off": {
+  "value": ["pills"],
+  "unit": "acts taken out of the march's rotation: nobody plays them on the map (their pictures stay in the pack until one is redone)",
+  "source": "VOTE FIXES 11/2: Paolo voted NO in the VOTE tab on the pills ('Not good looking enough'); records/BOHEMIA_THE_VOTES_11_2_26.txt, ask line 336. The bandage, the tape and the helmet stay"
+ },
  "helmet_hard_classes": {
   "value": [
    "riot_helmet",

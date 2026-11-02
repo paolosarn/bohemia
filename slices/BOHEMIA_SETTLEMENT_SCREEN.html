@@ -286,7 +286,7 @@ html body #sheet .hire .hstats span.up{color:#0f2a06;font-weight:bold}html body 
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__ (rule 241): the wound, its debuff, its days -->
 <script src="../engine/bohemia_condition.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: who is hurt, from the company's own condition -->
-<script src="../engine/bohemia_hire_lock.js"></script>  <script src="../engine/bohemia_kill_tally.js"></script>  <!-- WORDS [kills and the strongest foe] (rule 316): a finger held on one of his men in the camp shows his kills and his best foe -->  <!-- A HIRE IS LOCKED IN (rule 295): his name is his own in the company -->
+<script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295): his name is his own in the company -->
 <script src="bohemia_injury_card.js"></script>  <!-- CAMP __THE_CLINIC_HALVES_BOTH__: the one card the clinic and the crew card both draw -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -3274,17 +3274,7 @@ var HOLDK = { t: null };   /* WORDS rule 316: the hold on one of his men */
     if(PINCH.on) return;
     x0 = e.clientX; c0 = view.cx; y0 = e.clientY; cy0 = view.cy; moved = false;
     var r = cv.getBoundingClientRect(); view.lit = hitAt(e.clientX - r.left, e.clientY - r.top);
-    /* WORDS [kills and the strongest foe] (rule 316, Paolo 11/2: 'on my phone, maybe when I just hold on him... display the amount of
-       kills they've gotten'): a finger held still on one of his men, in the camp or in a town, shows his card (his face, his kills, the
-       strongest foe he ever put down: engine/bohemia_kill_tally.js); the lift is not a tap */
-    clearTimeout(HOLDK.t); var hx = e.clientX, hy = e.clientY;
-    HOLDK.t = setTimeout(function(){ try{ if(x0 === null || moved || PINCH.on || !window.BohemiaKillTally) return;
-      var rr = cv.getBoundingClientRect(), pe = tapPerson(hx - rr.left, hy - rr.top, false); if(!pe || !(pe.campMan || pe.crewMan)) return;
-      var co = []; try{ co = JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []; }catch(_e){}
-      var m = pe.main ? co.filter(function(x){ return x && x.main; })[0] : co.filter(function(x){ return x && pe.name && x.name === pe.name; })[0] || co.filter(function(x){ return x && !x.main && x.look === pe.look; })[0];
-      moved = true; view.lit = null;
-      BohemiaKillTally.card(document, [{ name:(m && m.name) || pe.name || (pe.main ? 'YOU' : '?'), was:m && m.was, main:!!pe.main, look:pe.look || (m && m.look) || null }], {x:hx, y:hy});
-    }catch(_e){} }, (window.BohemiaKillTally && BohemiaKillTally.HOLD_MS) || 450);
+    /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): the camp's hold card of his kills is gone; the crew screen keeps the line */
   });
   window.addEventListener('pointermove', function(e){
     if(PINCH.pts[e.pointerId]) PINCH.pts[e.pointerId] = {x:e.clientX, y:e.clientY};

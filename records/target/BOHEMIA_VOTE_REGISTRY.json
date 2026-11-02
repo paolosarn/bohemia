@@ -16100,7 +16100,7 @@
    "made": "11/2",
    "title": "THE EXTENSION CORD: THE STARTER WHIP, LASHING FROM TWO TILES",
    "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
-   "why": "The orange cord with its plug on the end lashes a man two tiles away on the beat and leaves him bleeding (Battle Brothers' two stacks), and its DISARM takes his weapon for a turn; it is on every camp smith's shelf for 18 batteries. You see it in the fight, the cord flying out to the second tile.",
+   "why": "The orange cord with its plug on the end lashes a man two tiles away on the beat and leaves him bleeding (Battle Brothers' two stacks), and now and then a landed lash knocks his weapon away for a turn (one lash in ten, like every whip); it is on every camp smith's shelf for 18 batteries. You see it in the fight, the cord flying out to the second tile.",
    "options": [
     "A, yes, like this",
     "B, no, not like this"
@@ -16124,9 +16124,9 @@
    "lane": "armory",
    "sha": "25923e3c",
    "made": "11/2",
-   "title": "THE LIVE WIRE: A CORD ON A BATTERY PACK THAT CAN DROP A MAN",
+   "title": "THE LIVE WIRE: A CORD ON A BATTERY PACK THAT SPITS SPARKS",
    "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
-   "why": "A landed lash stuns him one time in four so he loses his next turn, and every lash burns one battery from your purse, landed or not. You see it in the fight, the black wire sparking at the man two tiles off.",
+   "why": "Your words were in: no stun and no battery a lash any more. It hits a little harder than the cord (20 to 35), bleeds him, and like every whip it now and then knocks his weapon away for a turn. You see it in the fight, the black wire sparking at the man two tiles off.",
    "options": [
     "A, yes, like this",
     "B, no, not like this"
@@ -16152,7 +16152,7 @@
    "made": "11/2",
    "title": "THE BARBED WIRE: THE WHIP THAT BLEEDS THEM THE MOST",
    "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
-   "why": "Three stacks of bleeding where the other whips lay two, but every lash cuts your own man's hands for 1 or 2 unless he wears heavy armour (the game has no gloves yet). You see it in the fight, the barbed wire flying out to the second tile.",
+   "why": "Three stacks of bleeding where the other whips lay two. Your words were in: it no longer cuts your own man's hands. Like every whip, now and then it knocks his weapon away for a turn. You see it in the fight, the barbed wire flying out to the second tile.",
    "options": [
     "A, yes, like this",
     "B, no, not like this"
@@ -16176,9 +16176,9 @@
    "lane": "armory",
    "sha": "25923e3c",
    "made": "11/2",
-   "title": "THE RODEO BULLWHIP: THE PROPER ONE, AND ITS CRACK SHAKES THEM",
+   "title": "THE RODEO BULLWHIP: THE PROPER ONE, THE SUREST LASH",
    "said": "Pool pole spear: this is so fire and so funny, I love the idea of this, I want this in the game... a two tile weapon... it would be a whip kind of vibe... the whip would be a range of two tiles... Battle Brothers creates a bleeding effect, and maybe we can do a little more damage",
-   "why": "The most accurate whip (+10 to hit), and every lash cracks over the man so he checks his nerve and may drop a step, landed or not. You see it in the fight, the leather cracking at the man two tiles away.",
+   "why": "The most accurate whip (+10 to hit). The crack is drawn and heard, nothing more: no nerve check. Like every whip, now and then it knocks his weapon away for a turn. You see it in the fight, the leather cracking at the man two tiles away.",
    "options": [
     "A, yes, like this",
     "B, no, not like this"

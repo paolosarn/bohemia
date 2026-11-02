@@ -118,6 +118,9 @@ const BM = W.BohemiaMarch;
   ok('M4c nothing in the march\'s first bars', firstStart == null || firstStart >= 12 * NUM.first_bars.value, 'first act at key ' + firstStart);
   ok('M4d a man with nothing to mend never works; a hood never gets its dent knocked out; tape mends a torn vest', !tina.length && !hood.length && (LOOKS.indexOf('person_town_1') < 0 || raulMends.length > 0), JSON.stringify(acts));
   ok('M4e with no tape in the cart nobody tapes or knocks a dent (the march mends only with tape)', !noTape.tape && !noTape.helmet, JSON.stringify(noTape));
+  /* VOTE FIXES 11/2: he voted NO on the pills ('Not good looking enough'): off the march's rotation, read from the modder's file */
+  const pillsPlayed = Object.keys(acts).filter(k => /:pills$/.test(k)).concat(noTape.pills ? ['no tape: pills'] : []);
+  ok('M4f the pills are off the march (his NO): the file lists them off and over 400 bars nobody plays them; the bandage still plays', (NUM.acts_off && NUM.acts_off.value || []).indexOf('pills') >= 0 && !pillsPlayed.length && /acts_off/.test(eng) && !!noTape.bind, pillsPlayed.join(', ') || 'none; ' + JSON.stringify(noTape));
   /* M5 */
   const map = rd('slices/BOHEMIA_CITY_WORLD.html'), wear = rd('engine/bohemia_wear.js');
   ok('M5a the map loads the player and draws it for his two men: the act in his walk frame\'s place, his gear on his walk frame, his arms on top',

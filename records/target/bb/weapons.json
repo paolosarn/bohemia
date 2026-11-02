@@ -7691,25 +7691,13 @@
      "fatigue": 15,
      "hit_bonus": null,
      "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through",
+     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through; a landed lash may disarm him for his next turn (ours.whip.disarm_pct, a low luck roll)",
      "page": "Whip (15 fatigue)",
      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2200_Whip (15 fatigue).txt",
      "missing": [
       "hit_bonus (no base chance-to-hit modifier stated on skill page)"
      ],
      "bb_name": "Whip"
-    },
-    {
-     "name": "Disarm",
-     "ap": 5,
-     "fatigue": 30,
-     "hit_bonus": -20,
-     "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach); a disarmed man cannot use any weapon skill on his next turn; -20% to hit",
-     "note": "skill page title says 25 fatigue but its table row says 30; the row is copied",
-     "page": "Disarm (25 fatigue)",
-     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0636_Disarm (25 fatigue).txt",
-     "missing": []
     }
    ],
    "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of battle_whip and thorned_whip, fought with battle_whip's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0215_Battle Whip.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1985_Thorned Whip.txt | ARMORY 2 tune: {\"add\": {\"damage_max\": 5}, \"set\": {\"value\": 180, \"durability\": 30}} (the starter: Battle Brothers' whips plus five at the top (his 'a little more damage... slightly more'), priced and worn like a cord off a garage wall (18 batteries, 30 wear), so the camp's junk carries it)",
@@ -7757,25 +7745,13 @@
      "fatigue": 15,
      "hit_bonus": null,
      "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through",
+     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through; a landed lash may disarm him for his next turn (ours.whip.disarm_pct, a low luck roll)",
      "page": "Whip (15 fatigue)",
      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2200_Whip (15 fatigue).txt",
      "missing": [
       "hit_bonus (no base chance-to-hit modifier stated on skill page)"
      ],
      "bb_name": "Whip"
-    },
-    {
-     "name": "Disarm",
-     "ap": 5,
-     "fatigue": 30,
-     "hit_bonus": -20,
-     "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach); a disarmed man cannot use any weapon skill on his next turn; -20% to hit",
-     "note": "skill page title says 25 fatigue but its table row says 30; the row is copied",
-     "page": "Disarm (25 fatigue)",
-     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0636_Disarm (25 fatigue).txt",
-     "missing": []
     }
    ],
    "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of battle_whip and thorned_whip, fought with battle_whip's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0215_Battle Whip.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1985_Thorned Whip.txt | ARMORY 2 tune: {\"add\": {\"damage_min\": 5, \"damage_max\": 5}, \"set\": {\"value\": 620}} (Battle Brothers' whips plus five each end (his 'a little more'); the pack on the belt is the price (62 batteries))",
@@ -7783,14 +7759,12 @@
    "hands_basis": "Cleavers page heading \"One-Handed Cleavers\"",
    "skills_basis": "weapon page Skills section",
    "whip": {
-    "stun_pct": 25,
-    "cells_per_lash": 1,
-    "why": "a lash that lands may stun him for his next turn, one lash in four (Battle Brothers' stun: he loses his next turn); every lash burns one battery from the purse, landed or not, because the pack drains on the swing"
+    "why": "VOTE FIXES 11/2 (Paolo in the VOTE tab: 'just animate, fuck these weird debuffs, ammo shit'): no stun, no battery a lash; the live wire is its black wire and its spark on the glass and its numbers (the hardest-hitting low end with the barbed wire, 20-35); its Disarm is every whip's luck roll (ours.whip.disarm_pct)"
    },
    "armory": {
     "name": "live wire",
     "object": "live wire",
-    "line": "A cord on a battery pack. A lash can drop a man where he stands. Every lash costs a cell.",
+    "line": "A cord on a battery pack. It spits sparks when it lands. Two tiles.",
     "tier": "town",
     "kind": "improvised",
     "role": "a whip that bites with the valley's money: a cord wired to a battery pack",
@@ -7828,25 +7802,13 @@
      "fatigue": 15,
      "hit_bonus": null,
      "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through",
+     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through; a landed lash may disarm him for his next turn (ours.whip.disarm_pct, a low luck roll)",
      "page": "Whip (15 fatigue)",
      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2200_Whip (15 fatigue).txt",
      "missing": [
       "hit_bonus (no base chance-to-hit modifier stated on skill page)"
      ],
      "bb_name": "Whip"
-    },
-    {
-     "name": "Disarm",
-     "ap": 5,
-     "fatigue": 30,
-     "hit_bonus": -20,
-     "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach); a disarmed man cannot use any weapon skill on his next turn; -20% to hit",
-     "note": "skill page title says 25 fatigue but its table row says 30; the row is copied",
-     "page": "Disarm (25 fatigue)",
-     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0636_Disarm (25 fatigue).txt",
-     "missing": []
     }
    ],
    "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of thorned_whip and battle_whip, fought with thorned_whip's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1985_Thorned Whip.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0215_Battle Whip.txt | ARMORY 2 tune: {\"add\": {\"damage_min\": 5, \"damage_max\": 5}, \"set\": {\"armor_damage_pct\": 20, \"value\": 360}} (Battle Brothers' whips plus five each end (his 'a little more'); wire is softer on armour than leather (20 against the whips' 25 to 30); fence wire is cheap (36 batteries))",
@@ -7855,17 +7817,12 @@
    "skills_basis": "weapon page Skills section",
    "whip": {
     "bleed_stacks": 3,
-    "cuts_hands": [
-     1,
-     2
-    ],
-    "gloves_at_armour": 150,
-    "why": "three stacks of Battle Brothers' bleeding where the whip lays two (the most bleeding of the four); every lash takes 1 to 2 health from his own hands unless he wears gloves (the game draws no gloves yet, so heavy body armour of 150 or more, the plate carrier and the riot gear that come with them, counts as gloved)"
+    "why": "three stacks of Battle Brothers' bleeding where the whip lays two (the most bleeding of the four: bleeding is a number, his 'Battle Brothers creates a bleeding effect'); VOTE FIXES 11/2 (Paolo: 'Bro just animate... don't do the stat shit'): no cut on his own hands, the barbs are drawn, not charged"
    },
    "armory": {
     "name": "barbed wire",
     "object": "barbed wire",
-    "line": "Fence wire on a stick. Opens them up. Opens your hands up too, without gloves.",
+    "line": "Fence wire on a stick. Opens them up. They bleed the longest.",
     "tier": "town",
     "kind": "scavenged",
     "role": "Battle Brothers' thorned whip (the barbarian's): the whip that bleeds the most",
@@ -7903,25 +7860,13 @@
      "fatigue": 15,
      "hit_bonus": 10,
      "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through",
+     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through; a landed lash may disarm him for his next turn (ours.whip.disarm_pct, a low luck roll)",
      "page": "Whip (15 fatigue)",
      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2200_Whip (15 fatigue).txt",
      "missing": [
       "hit_bonus (no base chance-to-hit modifier stated on skill page)"
      ],
      "bb_name": "Whip"
-    },
-    {
-     "name": "Disarm",
-     "ap": 5,
-     "fatigue": 30,
-     "hit_bonus": -20,
-     "range": 2,
-     "effect": "Reaches 2 tiles (ours.whip.reach); a disarmed man cannot use any weapon skill on his next turn; -20% to hit",
-     "note": "skill page title says 25 fatigue but its table row says 30; the row is copied",
-     "page": "Disarm (25 fatigue)",
-     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0636_Disarm (25 fatigue).txt",
-     "missing": []
     }
    ],
    "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of battle_whip and thorned_whip, fought with battle_whip's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0215_Battle Whip.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1985_Thorned Whip.txt | ARMORY 2 tune: {\"add\": {\"damage_min\": 5, \"damage_max\": 5}, \"set\": {\"value\": 980, \"durability\": 56}, \"lash_hit_bonus\": 10} (Battle Brothers' whips plus five each end (his 'a little more'); plaited leather from the rodeo grounds, built to last (56 wear) and dear (98 batteries); its LASH +10 to hit, the most accurate whip)",
@@ -7929,13 +7874,12 @@
    "hands_basis": "Cleavers page heading \"One-Handed Cleavers\"",
    "skills_basis": "weapon page Skills section",
    "whip": {
-    "crack_nerve": 20,
-    "why": "the crack at the tip: every lash, landed or not, he takes a nerve check (Battle Brothers' morale check, one rung down if it fails) that is 20 easier than a wound's, a small morale hit"
+    "why": "VOTE FIXES 11/2 (Paolo: 'just animate... don't do the stat shit', on the whips): the crack is drawn and heard, no nerve check; its character is the +10 to hit (tune.lash_hit_bonus) and its 56 wear"
    },
    "armory": {
     "name": "rodeo bullwhip",
     "object": "bullwhip",
-    "line": "Plaited leather off the old rodeo grounds. The crack shakes them before it lands.",
+    "line": "Plaited leather off the old rodeo grounds. The surest lash, and the loudest crack.",
     "tier": "fortress",
     "kind": "pre-collapse",
     "role": "Battle Brothers' named battle whip: the proper one, the most accurate",

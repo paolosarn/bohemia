@@ -225,7 +225,6 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 <script src="../engine/bohemia_crew_door.js"></script>
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS: the one dial, for the survivor's word -->
 <script src="../engine/bohemia_survivor_word.js"></script>  <!-- WORDS [the survivor's word] (rule 315): one man still standing says how it went, in place of YOU WON -->
-<script src="../engine/bohemia_kill_tally.js"></script>  <!-- WORDS [kills and the strongest foe] (rule 316): a finger held on a man shows his career -->
 <script src="bohemia_ui_materials.js"></script>
 <script src="../engine/bohemia_idles.js"></script>  <!-- RUN FOUR: the idles, for the scene behind it when no fight stands behind (the fight's own when it does) -->
 <script src="bohemia_aftermath.js"></script>  <!-- RUN FOUR [the aftermath plays behind the loot screen] -->
@@ -310,9 +309,7 @@ function drawCrew(){
       b.textContent = (m.waiting > 1 ? (m.main ? 'SPEND YOUR ' : 'SPEND HIS ') + m.waiting + ' LEVELS' : (m.main ? 'CHOOSE YOUR LEVEL-UP' : 'CHOOSE HIS LEVEL-UP'));
       b.addEventListener('click', function(){ openCrew(m.name); }); w.appendChild(b); }
     d.appendChild(w); el.appendChild(d);
-    /* WORDS rule 316: a finger held on a man, his career (this fight is in it once the game has kept it; on its own, it is added) */
-    if(window.BohemiaKillTally) BohemiaKillTally.hold(d, function(e, p){ var fn2 = S.nums[m.name] || {}, row = (S.fight && S.fight.crew || []).filter(function(r){ return r.name === m.name; })[0] || {};
-      BohemiaKillTally.card(document, [{ name:m.name, main:!!m.main, look:S.looks[m.name] || (m.main ? 'you' : null), extra:S.inQueue ? null : { kills:fn2.kills | 0, best:row.best || null, fights:1 } }], p, function(cv){ var src = faceCanvas(m.name); cv.getContext('2d').drawImage(src, 0, 0, cv.width, cv.height); }); });
+    /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): no hold card of his kills on the end screen */
   });
   var fell = S.men.filter(function(m){ return m.dead; }).length, hurt = S.men.filter(function(m){ return m.down && !m.dead && !m.main; }).length;
   /* a level is a level, never 'climbed' (EYES [eyes: the road crew ran]) */

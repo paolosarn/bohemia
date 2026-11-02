@@ -68180,21 +68180,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     if(a){ lastDist=dist(a); lastMid=mid(a); CB._tapStart=null;   /* ZOOM-BUILD: a pinch is never a tap */
       if(typeof ZGEST!=='undefined'&&!ZGEST.down){ ZGEST.down=true; ZGEST.fresh=true; } }   /* __THE_NEAR_END_IS_THE_BLOCK__: a new squeeze */
     else { lastMid=toCv(e); CB._tapStart=toCv(e); CB._tapMoved=0;
-      /* WORDS [kills and the strongest foe] (rule 316, Paolo 11/2: 'on my phone, maybe when I just hold on him... display the amount of
-         kills they've gotten'): a finger held still on him and his company on the map shows every man's card (his face, his kills, the
-         strongest foe he ever put down: engine/bohemia_kill_tally.js), most kills first; the lift is not a tap */
-      clearTimeout(window.__MAP_HOLDK); const __h0=CB._tapStart, __hx=e.clientX, __hy=e.clientY;
-      window.__MAP_HOLDK=setTimeout(function(){ try{
-        if(MODE!=='city' || CB._tapStart!==__h0 || CB._tapMoved>=8 || pts.size>1 || !window.BohemiaKillTally) return;
-        const Y=(typeof MAP_DREW!=='undefined' && MAP_DREW) ? MAP_DREW.you : null; if(!Y || !Y.w) return;
-        const pad=Math.max(12, Y.w*0.35); if(__h0.x<Y.x-Y.w/2-pad || __h0.x>Y.x+Y.w/2+pad || __h0.y<Y.y-Y.h-pad || __h0.y>Y.y+pad) return;
-        let co=[]; try{ co=JSON.parse(localStorage.getItem('bohemia.company.v1')||'[]')||[]; }catch(_e){}
-        const men=co.filter(function(m){ return m && m.name && !m.dead; }).map(function(m){ return { name:m.name, was:m.was, main:!!m.main, look:m.look||(m.main?'you':null), k:BohemiaKillTally.of(m.name, m.was).kills }; })
-          .sort(function(a,b){ return (b.main?1:0)-(a.main?1:0) || b.k-a.k; });
-        if(!men.length) return;
-        CB._tapMoved=99;   /* the lift is not a tap: it does not send him anywhere */
-        BohemiaKillTally.card(document, men, { x:__hx, y:__hy });
-      }catch(_e){} }, (window.BohemiaKillTally && BohemiaKillTally.HOLD_MS) || 450);
+      /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): the map's hold card of his kills is gone; the crew screen keeps the line */
       const now=performance.now();                 // double-tap = recenter to 1x
       if(now-lastTap<300){ recenter(); lastTap=0; } else lastTap=now;
     }
@@ -92872,7 +92858,7 @@ window.BOHEMIA_SKIN = (function(){
 </script>
 
 <script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
-<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_kill_tally.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
+<script src="../engine/bohemia_renown.js"></script>  <script src="../engine/bohemia_job_pay.js"></script>  <script src="../engine/bohemia_camp.js"></script>  <script src="../engine/bohemia_condition.js"></script>  <script src="../engine/bohemia_hire_lock.js"></script>  <!-- A HIRE IS LOCKED IN (rule 295) -->  <script src="../engine/bohemia_camp_life.js"></script>  <script src="bohemia_camp_map.js"></script>  <!-- __CAMP_TWO__ (rules 257, 260(b), 269(b)): his camp at his spot, MAP from the camp, the compass reads -->  <script src="../engine/bohemia_long_injury.js"></script>  <!-- CAMP rule 234: the wound, its debuff and the face's stage wherever the condition is read (injuryOf) -->  <!-- CAMP [the heal button, damage that stays] (rule 226): the company's wounds and broken armour between fights, healed by the clock -->  <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches] (rule 151(b)): the hired are paid at nightfall -->  <!-- RUN TWO [the camp and the retinue] (rule 151(d)): CLOUT, the company's name; it opens the retinue's slots and lifts a job's pay -->
 <script src="bohemia_job_kinds.js"></script>  <!-- WORLD [every job kind] (rule 153(b)): escort, find, hunt, camp beside the one job loop -->
 <script src="bohemia_road_events.js"></script>  <!-- CONTENT [twenty-five things on the road] (11/2): the road's events with a face and two or three choices, and five side quests met on the road (records/target/BOHEMIA_ROAD_EVENTS.json, BOHEMIA_SIDE_QUESTS.json) -->
 <script src="bohemia_his_map.js"></script>  <!-- __HIS_MAP__ WORLD TWO [the best of both maps] (rule 243): Valheim's half of the map: the unseen city faint under static, his pins and the crosses, the boss found by a sign, the boss changes the map -->

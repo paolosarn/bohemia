@@ -29,7 +29,6 @@
 <script src="../engine/bohemia_idles.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
-<script src="../engine/bohemia_kill_tally.js"></script>  <!-- WORDS [kills and the strongest foe] (rule 316): his career on the card a finger held on him opens -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -676,7 +675,9 @@ const FIGHT = (function () {
   function reachOf(w) { return isWhip(w) ? R('ours.whip').reach : R('ours.melee_reach'); }
   function whipOwn(w) { w = w && (w.of || w); return (w && w.whip) || {}; }
   /* what the whip does where it lands (Battle Brothers' Whip page: 'two stacks of 5 bleeding damage each turn for 2 turns (Caused by
-     losing at least 6 Hitpoints)'; the piece's own: the barbed wire's third stack, the live wire's stun) */
+     losing at least 6 Hitpoints)'; the piece's own: the barbed wire's third stack). VOTE FIXES 11/2 (Paolo: 'Disarm is a low luck
+     ability vibe and all whips can have them'): every whip's landed lash rolls ours.whip.disarm_pct; a man it takes cannot use his
+     weapon on his next turn. No stun, no cell, no cut, no crack ('just animate, fuck these weird debuffs, ammo shit') */
   function whipLanded(a, t, r) {
     const W = R('ours.whip'), own = whipOwn(a.weapon), imm = t.immune || [];
     if (r.hp >= W.bleed.min_hp_lost && imm.indexOf('Bleeding') < 0 && !t.beast) {
@@ -684,19 +685,7 @@ const FIGHT = (function () {
       for (let i = 0; i < n; i++) t.bleed.push({ per: W.bleed.per_turn, left: W.bleed.turns });
       t.bleedBy = a.id; emit({ t: 'bleeding', id: t.id, by: a.id, stacks: n });
     }
-    if (own.stun_pct && imm.indexOf('Stun') < 0 && die() <= own.stun_pct) { t.stunned = true; emit({ t: 'stunned', id: t.id, by: a.id }); }
-  }
-  /* what every lash costs, landed or not: the live wire's cell from the purse (counted here, taken by the shell at the end), the
-     barbed wire's cut on bare hands (never his last health), the bullwhip's crack on their nerve (a check easier than a wound's) */
-  function lashCosts(a, t) {
-    if (!isWhip(a.weapon)) return;
-    const own = whipOwn(a.weapon);
-    if (own.cells_per_lash && a.side === 'you') { S.cellsBurned = (S.cellsBurned || 0) + own.cells_per_lash; emit({ t: 'cell', id: a.id, n: own.cells_per_lash }); }
-    if (own.cuts_hands && onField(a) && !(a.bodyRow && a.bodyRow.durability >= own.gloves_at_armour)) {
-      const n = Math.min(rint(own.cuts_hands[0], own.cuts_hands[1]), Math.max(0, a.hp - 1));
-      if (n > 0) { a.hp -= n; emit({ t: 'cut', id: a.id, hp: n }); }
-    }
-    if (own.crack_nerve && t && onField(t) && t.side !== a.side && (t.immune || []).indexOf('Morale') < 0) { emit({ t: 'crack', id: a.id, to: t.id }); check(t, 'neg', own.crack_nerve); }
+    if (W.disarm_pct && t.side !== a.side && onField(t) && !t.disarmed && imm.indexOf('Disarm') < 0 && !t.beast && die() <= W.disarm_pct) { t.disarmed = true; emit({ t: 'disarmed', id: t.id, by: a.id }); }
   }
   /* the bleeding ticks when his own turn closes (Battle Brothers' bleeding): every stack its 5, each stack two turns; a man it
      drops is the whip man's kill */
@@ -706,16 +695,6 @@ const FIGHT = (function () {
     n = Math.min(n, Math.max(0, u.hp)); if (!(n > 0)) return;
     u.hp -= n; u.taken = (u.taken || 0) + n; emit({ t: 'bled', id: u.id, hp: n });
     if (u.hp <= 0) { const by = byId(u.bleedBy); fall(u, by && by.side !== u.side ? by : null); afterAction(u); }
-  }
-  /* DISARM (Battle Brothers' Disarm page: 'disarmed opponents can't use any weapon skills for 1 turn', -20 to hit; no damage) */
-  function disarmOn(a, t, q) {
-    S.firstBlow = S.firstBlow || S.round; S.contact = true;
-    emit({ t: 'attack', skill: 'Disarm', id: a.id, to: t.id, hit: q.hit, head: false, hp: 0, armour: 0, chance: q.chance, free: false, parts: q.parts, shot: false, arm: a.weapon.id, hands: a.weapon.hands, sweep: false, astray: false });
-    a.lurking = false; a.swung = true;
-    if (!q.hit) { a.missStack++; return; }
-    a.missStack = 0;
-    if ((t.immune || []).indexOf('Disarm') >= 0 || t.beast) return;
-    t.disarmed = true; emit({ t: 'disarmed', id: t.id, by: a.id });
   }
   function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
   function skillAP(w, s, u) {
@@ -2248,7 +2227,7 @@ const FIGHT = (function () {
     /* THE NEEDLE (FACTIONS 11/3; Goblin Poison's page): a hit that draws blood poisons him for 3 turns */
     if (r.hp > 0 && a.side !== t.side && arche(a).poisons && (t.immune || []).indexOf('Poison') < 0) { t.poison = NEW('poison').turns; emit({ t: 'poisoned', id: t.id, by: a.id }); }
     injure(t, a, r);
-    if (isWhip(a.weapon) && !isRanged(a.weapon)) whipLanded(a, t, r);   /* ARMORY 2: the bleeding, the stun */
+    if (isWhip(a.weapon) && !isRanged(a.weapon)) whipLanded(a, t, r);   /* ARMORY 2: the bleeding; VOTE FIXES: the disarm's luck roll */
     const s = R('parsed.morale_struck'), fs = PK(a, 'fearsome');
     if (fs && r.hp >= fs.min_hitpoint_damage_to_trigger)
       check(t, 'neg', s.per_missing_hp_fraction * (1 - t.hp / t.hpMax) - Math.min(fs.resolve_bonus_cap, a.resolve * fs.morale_penalty_pct_of_resolve / 100));
@@ -2505,7 +2484,6 @@ const FIGHT = (function () {
     const way = isRanged(a.weapon) && coverCut(a, t) ? inTheWay(a, t) : null;   /* read before the shot: the board as he aimed */
     const q = resolveAttack(a, t, s, forced);
     apply(a, t, q, { skill: shapeOf(s) ? s.name : isWhip(a.weapon) ? s.name : null });
-    lashCosts(a, t);   /* ARMORY 2: the cell, the cut, the crack */
     /* THE SHOT GOES ASTRAY (rule 230(b)): a blocked shot that misses flies on into the man in the way, his own defence (a shield
        man's car door against shots) at -15 and three quarters of the damage. Only a man of the target's side takes it [COMBAT'S
        DEFAULT, rule 205]: his words were the shield covering the man behind it; Battle Brothers' own friendly fire (a friend in
@@ -2569,7 +2547,6 @@ const FIGHT = (function () {
     const s = sweepSkill(a.weapon, name), also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });
     a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
     S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
-    if (!shapeOf(s)) { const qd = resolveAttack(a, t, s, forced); disarmOn(a, t, qd); lashCosts(a, t); afterAction(a); return qd; }   /* ARMORY 2: DISARM, the whip's other blow */
     const q = resolveAttack(a, t, s, forced);
     apply(a, t, q, { skill: s.name });
     also.forEach(function (o) { if (onField(o)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });
@@ -7970,17 +7947,7 @@ function weaponCard(v) {
       + r('Defence', markHTML('melee_defense', v.shield.melee_defense || 0) + markHTML('ranged_defense', v.shield.ranged_defense || 0)); }   /* rule 224: the two defences' icons, green up arrows and how much */
   else if (v.shieldBack) h += r('Car door', 'on ' + doorWords(v).his + ' back: the ' + armName(v, w) + ' takes both hands');   /* rule 191(b), draft:true */
   d.innerHTML = h;
-  /* WORDS [kills and the strongest foe] (rule 316, Paolo 11/2: 'on my phone, maybe when I just hold on him... display the amount of kills
-     they've gotten'): a finger held on one of his men, his career over his gun: his face, his kills, the strongest foe he ever put down
-     (his record, engine/bohemia_kill_tally.js, and this fight's on top) */
-  if (v.side === 'you' && window.BohemiaKillTally) { try { const K = BohemiaKillTally, t = K.of(v.name, v.was);
-      t.kills += v.kills | 0; t.fights += 1; if (v.best && K.better(v.best, t.best)) t.best = v.best;
-      const row = document.createElement('div'); row.className = 'tally'; row.dataset.kills = t.kills;
-      row.style.cssText = 'display:flex;gap:8px;align-items:center;margin:0 0 6px;padding-bottom:6px;border-bottom:1px solid rgba(122,61,16,.35)';
-      const fc = document.createElement('canvas'); fc.width = fc.height = 48; fc.style.cssText = 'width:36px;height:36px;flex:0 0 36px;border-radius:3px;image-rendering:pixelated;background:#0b0907';
-      try { drawPortrait(fc.getContext('2d'), v, 48); } catch (_e) {}
-      const tx = document.createElement('div'); tx.innerHTML = '<b style="color:#7a3d10">' + esc(t.kills + (t.kills === 1 ? ' KILL' : ' KILLS') + ' \u00b7 ' + t.fights + (t.fights === 1 ? ' FIGHT' : ' FIGHTS')) + '</b><br><span style="font-size:10px">' + esc(t.best ? 'BEST: ' + K.bestWord(t.best) : 'NOBODY WORTH NAMING YET') + '</span>';   /* draft:true */
-      row.appendChild(fc); row.appendChild(tx); d.insertBefore(row, d.firstChild); } catch (_e) {} }
+  /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): his kills are no longer on the hold card; the crew screen keeps the line */
   d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
 }
 /* who stands under a finger on the board (the man drawn there, or the tile's man) */

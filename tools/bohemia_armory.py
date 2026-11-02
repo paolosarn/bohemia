@@ -77,8 +77,11 @@ def main(mode):
                     sk['name'] = 'Lash'; sk['bb_name'] = 'Whip'
                     sk['effect'] = 'Reaches %d tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row\'s share straight through' % reach
                     if t.get('lash_hit_bonus'): sk['hit_bonus'] = t['lash_hit_bonus']
-                if sk['name'] == 'Disarm': sk['range'] = reach; sk['effect'] = 'Reaches %d tiles (ours.whip.reach); a disarmed man cannot use any weapon skill on his next turn; -20%% to hit' % reach
                 if sk.get('range') == 3: sk['range'] = reach
+            # VOTE FIXES 11/2 (Paolo: 'Disarm is a low luck ability vibe and all whips can have them'): no Disarm button; a landed LASH rolls ours.whip.disarm_pct
+            r['skills'] = [sk for sk in r['skills'] if sk['name'] != 'Disarm']
+            for sk in r['skills']:
+                if sk['name'] == 'Lash': sk['effect'] += '; a landed lash may disarm him for his next turn (ours.whip.disarm_pct, a low luck roll)'
             r['whip'] = dict(s.get('whip') or {})
         r['armory'] = {'name': s['name'].lower(), 'object': s['object'], 'line': s['line'], 'tier': s['tier'], 'kind': s['kind'],
                        'role': s['role'], 'between': s['between'], 'across': s.get('across'), 'carried_by': s['carried_by'], 'draft': True}

@@ -82,15 +82,16 @@ const wires = {
   'fight: best foe at every kill': (F.match(/bestFoe\(a, [to]\)/g) || []).length >= 2,
   'fight: kills and best go home': /kills: v\.kills \| 0, best: v\.best \|\| null/.test(F),
   'fight: a boss is marked on the bodies': /boss: !!t\.boss, xp: t\.xp/.test(F),
-  'fight: the hold card carries his tally': /K\.of\(v\.name, v\.was\)/.test(F) && F.indexOf('bohemia_kill_tally.js') > 0,
+  /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): no hold card of his kills in the fight, the end screen, the camp or the map */
+  'fight: no tally on the hold card': !/K\.of\(v\.name, v\.was\)/.test(F) && F.indexOf('bohemia_kill_tally.js"') < 0,
   'shell: the queue keeps kills and best': /kills: r\.kills \| 0, best: r\.best \|\| null/.test(A),
   'crew screen: the tally in his record': /tally:m\.tally\|\|null/.test(RS) && /m\.tally = c\.tally/.test(RS) && /BohemiaKillTally\.add\(m\.tally, r\)/.test(RS) && /BohemiaKillTally\.line\(/.test(RS),
   'end screen: the survivor\'s word in the bar': /function survivorWord\(f, kind\)/.test(SPS) && /BohemiaSurvivorWord/.test(SPS) && /crew_voices\.json/.test(SPS),
-  'end screen: a hold on a man': /BohemiaKillTally\.hold\(d,/.test(SPS),
-  'camp: a hold on one of his men': /BohemiaKillTally\.card\(document/.test(ST) && ST.indexOf('bohemia_kill_tally.js') > 0,
-  'map: a hold on him and his company': /BohemiaKillTally\.card\(document, men/.test(CW) && CW.indexOf('bohemia_kill_tally.js') > 0
+  'end screen: no hold card': !/BohemiaKillTally\./.test(SPS),
+  'camp: no hold card': !/BohemiaKillTally\./.test(ST),
+  'map: no hold card': !/BohemiaKillTally\./.test(CW)
 };
 const off = Object.keys(wires).filter(k => !wires[k]);
-ok(!off.length, 'THE WIRES: fight, shell, crew screen, end screen, camp and map carry it', off.join(' | ') || Object.keys(wires).length + ' wires');
+ok(!off.length, 'THE WIRES: fight, shell and crew screen carry it; the tally shows in the crew screen only (no hold card in the fight, end screen, camp or map)', off.join(' | ') || Object.keys(wires).length + ' wires');
 console.log('=== THE SURVIVOR\'S WORD GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);
