@@ -40,6 +40,10 @@ It changes only when Paolo changes it; newest date wins.
 - THE AMBITION: sells millions of copies and is played for decades.
 
 ## 3. THE ROAD (short, middle, long)
+THE CLOCK (Paolo 11/2: 'I wanna get this demo going... we definitely need a lot of content for it too, but don't forget we have
+a whole final game maybe a year down the road that I would like to release'): THE DEMO SOON, full of content; THE FINAL GAME
+RELEASED ABOUT A YEAR OUT (around late 2027). So every piece built for the demo is built to last into the final game (data
+files, the real systems, art that holds up close), never a demo-only shortcut that has to be torn out later.
 STAGE 1, NOW: THE DEMO GOES LIVE CLEAN AND PUNCHY (the first hours of act one)
   1. Nothing breaks a run: the brown town (his notes 1-2; not reproduced on a computer on 11/2, both day and night, so it is an
      iPhone-only failure, most likely the phone running out of picture memory after long play), the map's walk, the saves.
