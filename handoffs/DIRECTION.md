@@ -1,4 +1,4 @@
-DIRECTION (direction-2-the-wrongness): 11/2 LATEST -- [the wrongness] SHIPPED f8070a75 (Paolo 11/2, rule 306, ask line 298:
+DIRECTION (direction-2-the-wrongness): 11/2 LATEST -- [the wrongness] SHIPPED 927945e1 (Paolo 11/2, rule 306, ask line 298:
 'this AI slop amalgamation creepypasta horror Crashbox HBO series vibe... make some really good elements or direction for art').
 MADE: 15 elements, 20 pictures, slices/wrongness/ + slices/wrongness/wrongness.json (id, the one wrong thing, where, beat, rarity,
 states, twin, purple count, card, draft:true). Page: records/BOHEMIA_DIRECTION_THE_WRONGNESS_11_2_26.md (under 100 lines: what it is
