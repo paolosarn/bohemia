@@ -751,7 +751,9 @@ const FIGHT = (function () {
     const perks = Array.isArray(c.perks) ? c.perks.slice() : pickPerks(R('ours.perk_builds')[job], (lv - 1) * DB.perks.rules.perk_point_per_level);   /* the roster's picks (RUN TWO [climbing]) */
     /* THE MARKS HE CARRIES (his fifth votes, WHO DIES): the permanent injuries of an earlier fall come in with him, bite with
        their own effects, and each adds to the death roll (ours.struck_down_death_per_mark) */
-    const carried = (c.marks || []).map(function (k) { return DB.injuries.rows.filter(function (r) { return r.kind === 'permanent' && r.id === (k && k.id || k); })[0]; }).filter(Boolean)
+    /* AMENDED 11/3 (INJURY, rule 304(b), Paolo 11/2: 'I'm not even a fan of the permanent debuff'): a mark is a SCAR, its id and name
+       for the record and the face, no effects and its own kind, so it neither bites nor adds to the death roll */
+    const carried = (c.marks || []).map(function (k) { const r = DB.injuries.rows.filter(function (r) { return r.kind === 'permanent' && r.id === (k && k.id || k); })[0]; return r ? { id: r.id, name: r.name, kind: 'scar', effects: {} } : null; }).filter(Boolean)
       /* STRUCK DOWN, HE STILL FIGHTS (CAMP, rule 234): the fresh wound his mark grew out of, already scaled to the days left by
          engine/bohemia_condition.js (engine/bohemia_long_injury.js freshNow, the wiki's temporary row's own effects) */
       .concat((c.fresh || []).filter(function (j) { return j && j.kind === 'fresh' && j.effects; }));
@@ -772,6 +774,8 @@ const FIGHT = (function () {
      off the piece's durability only when he wears the same piece (a new piece is whole); nothing handed = whole, as before */
   function condApply(c, u) {
     const k = c && c.cond; if (!k) return u;
+    /* WHAT HIS KNOCKDOWNS TOOK FOR GOOD (INJURY, rule 304(c); engine/bohemia_condition.js hpCut): off his max, never YOU */
+    if (k.hpCut > 0 && !u.main) { u.hpWhole = u.hpMax; u.hpMax = Math.max(1, u.hpMax - Math.round(k.hpCut)); u.hp = Math.min(u.hp, u.hpMax); u.hpCut = Math.round(k.hpCut); }
     if (k.lostHp > 0) u.hp = Math.max(1, Math.min(u.hpMax, Math.round(u.hpMax - k.lostHp)));
     if (k.lostH > 0 && u.headRow && (!k.head || k.head === u.headRow.id)) u.armH = Math.max(0, Math.round(u.armHMax - k.lostH));
     if (k.lostB > 0 && u.bodyRow && (!k.body || k.body === u.bodyRow.id)) u.armB = Math.max(0, Math.round(u.armBMax - k.lostB));
@@ -2094,9 +2098,12 @@ const FIGHT = (function () {
       /* STRUCK DOWN, ALIVE (ours.struck_down_injury): one of the wiki's permanent injuries, each as likely, the part hit not
          mattering, for life; its fresh wound lasts these days as a debuff, never a bench (rule 234, CAMP) */
       const d = R('ours.struck_down_laid_up_days'), kind = R('ours.struck_down_injury').from_kind;
-      const pool = DB.injuries.rows.filter(function (r) { return r.kind === kind && !t.injuries.some(function (h) { return h.id === r.id; }); }), j = pool[Math.floor(rng() * pool.length)];
+      /* rule 304(a): every knockdown gives a wound; a man who carries every scar already takes one of them again */
+      let pool = DB.injuries.rows.filter(function (r) { return r.kind === kind && !t.injuries.some(function (h) { return h.id === r.id; }); });
+      if (!pool.length) pool = DB.injuries.rows.filter(function (r) { return r.kind === kind; });
+      const j = pool[Math.floor(rng() * pool.length)];
       t.down = true; t.laidUp = rint(d[0], d[1]);
-      t.longInjury = j ? { id: j.id, name: j.name, line: (j.effects_text || []).filter(function (x) { return !/reserve/i.test(x); }).join(', '), days: t.laidUp } : null;
+      t.longInjury = j ? { id: j.id, name: j.name, line: '', scar: true, days: t.laidUp }   /* rule 304(b): the mark is a scar, so it has no penalty line */ : null;
       emit({ t: 'down', id: t.id, days: t.laidUp, injury: j ? j.id : null });
     }
     if (a) a.kills = (a.kills || 0) + 1;

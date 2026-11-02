@@ -1,5 +1,14 @@
 // BOHEMIA THE LONG INJURY -- WHAT A STRUCK-DOWN MAN CARRIES (10/9/26, PEOPLE lane, VAMILY [the long injury])
 //
+// *** AMENDED 11/3 (INJURY, VAMILY rule 304, Paolo 11/2: 'every time you get down it is always going to be an injury... a
+// debuff that could last 1 to 8 days... I'm not even a fan of the permanent debuff, that would make me want to start the game
+// all over'). THE MARK IS A SCAR NOW: it stays on his face and his record, a story, and takes NOTHING off him, in no fight and on
+// no screen (penalties() lists the fresh wound alone; scar() is what the fight carries: the mark's id and name, no effects, kind
+// 'scar', so it neither bites nor adds to the death roll). Old saves need nothing: a mark's penalty was always read from its id
+// at the moment of use, so a mark already taken has none from the next read on. THE WEIGHT moved to his hitpoints:
+// engine/bohemia_condition.js counts his knockdowns and hpCut() takes 1 max HP for good from the third, never past 5
+// (records/target/bb/condition.json knockdown_free, knockdown_hp_each, knockdown_hp_cap). The fresh wound is untouched. ***
+//
 // *** AMENDED 10/26 (CAMP [struck down, he still fights], VAMILY rule 234, Paolo 10/26: 'if they fail in combat but they
 // survive to still be in my crew, their health will just be at one, and when you heal them they go back up. They're still
 // active. I don't know why you have it so they can't participate in combat anymore, that's why I restarted hella runs...
@@ -224,11 +233,14 @@
       for (var k in effects) { var v = effects[k]; if (typeof v !== 'number' || v === 0) continue;
         var pct = /_pct$/.test(k); out.push({ stat: pct ? k.replace(/_pct$/, '') : k, value: v, unit: pct ? '%' : '', from: from, id: id, name: name }); }
     };
-    (marks || []).forEach(function (k) { var m = byId(k && k.id || k); if (m && m.effects) add(m.effects, 'mark', m.id, m.name); });
+    /* rule 304(b): a mark for life is a scar, never a penalty; its effects stay in the wiki's row as history only */
     var f = wound ? freshNow(wound.mark, wound.left, wound.of) : null;
     if (f) add(f.effects, 'fresh', f.id, f.name);
     return out;
   }
+  // THE SCAR (rule 304(b)): what the fight carries for a mark: its id and its name for the record and the face, no effects, a kind
+  // of its own so nothing that counts permanent injuries (the death roll, the icons) counts it; null for an id that is no mark
+  function scar(markId) { var m = byId(markId && markId.id || markId); return m ? { id: m.id, name: m.name, kind: 'scar', effects: {} } : null; }
   // WHAT HIS FACE SHOWS (rule 234(c), for PORTRAIT): every mark he carries for life, and the fresh wound's stage: BLOOD
   // (blood and a band-aid) while more than half of it is left, BANDAGE (the band-aid alone) until it closes, then nothing
   function look(marks, wound) {
@@ -244,7 +256,7 @@
     rollDays: rollDays, rollMarkId: rollMarkId,
     painLine: painLine, bodyPartPenalty: bodyPartPenalty,
     injuryFact: injuryFact, healDay: healDay,
-    freshOf: freshOf, freshShare: freshShare, freshNow: freshNow, penalties: penalties, look: look
+    freshOf: freshOf, freshShare: freshShare, freshNow: freshNow, penalties: penalties, look: look, scar: scar, SCARS_BITE: false
   };
   if (HASREQ) module.exports = API;
   root.BohemiaLongInjury = API;

@@ -37,13 +37,20 @@
    injuries) and his FRESH WOUND (the mark's own temporary injury, its 6 to 8 of our days (rule 264(h)) counted down by the map's clock, its penalty
    fading with them: engine/bohemia_long_injury.js freshNow). handOver gives the fight both (c.marks, c.fresh); the camp heals his
    hitpoints at the table's rates like any man's. ***
+   *** WHAT A KNOCKDOWN COSTS (INJURY, VAMILY rule 304, Paolo 11/2: 'if you let it happen a couple times it can low-key be OK, after
+   a couple times it's hitting the HP... a fair amount that doesn't make you wanna cheat'). The mark is a scar now (no stat, anywhere:
+   engine/bohemia_long_injury.js penalties, scar). THE WEIGHT: m.knocks counts a man's knockdowns from this build on (an old save's
+   past ones are not re-counted; m.struck stays as history); the first knockdown_free (2) cost nothing for good, each after costs
+   knockdown_hp_each (1) max hitpoint for good, never past knockdown_hp_cap (5) (records/target/bb/condition.json, a modder's rows);
+   YOU are spared. hpCut(record) is the figure; condOf hands it to the fight (cond.hpCut, off his max in condApply), injuryOf to the
+   card and his portrait's tally. ***
    Words are attempts, draft:true. */
 (function (root) {
   'use strict';
   var KEY = 'bohemia.condition.v1', SUPPLIES = 'bohemia.supplies.v1', BASE = '../records/target/bb/';
   var DEF = { hp_per_hour_march: 1, hp_per_hour_camp: 2, cook_hp_per_hour: 1, armour_per_hour: 3, camp_repair_mult: 2, durability_per_tape: 15,
               blacksmith_repair_mult: 1.2, blacksmith_tape_mult: 0.8, surgeon_injury_days: 1, struck_down_hp_left: 1, unknown_hp_max: 55,
-              bars_hide_at: 0.87, camp_done_at: 0.99 };
+              bars_hide_at: 0.87, camp_done_at: 0.99, knockdown_free: 2, knockdown_hp_each: 1, knockdown_hp_cap: 5 };
   var RATE = {}; for (var dk in DEF) RATE[dk] = DEF[dk];
   /* the crew list's names and kit (ours.json, the fight's own list) and every armour piece's durability (armor.json) */
   var D = { crew: null, looks: null, armour: null, asked: {}, rates: false };
@@ -115,6 +122,8 @@
         m.wound = of > 0 ? { mark: r.injury.id, left: of, of: of, day: day } : null;
         m.struck = (m.struck | 0) + 1;
       }
+      /* rule 304(c): every knockdown of a man who is not YOU is counted; the cost is read off the count (hpCut) */
+      if (r.down && !r.main) m.knocks = (m.knocks | 0) + 1;
       s.men[k] = m; n++;
     });
     s.lastFight = { day: day, men: n, at: Date.now() };
@@ -139,7 +148,13 @@
     });
   }
   /* the company for the fight: the dead never again; every man with what he is missing */
-  function condOf(r) { return r ? { lostHp: Math.round(r.lostHp || 0), lostH: Math.round(r.lostH || 0), head: r.head || null, lostB: Math.round(r.lostB || 0), body: r.body || null,
+  /* WHAT HIS KNOCKDOWNS TOOK FOR GOOD (rule 304(c)): nothing for the free ones, then one max hitpoint each, capped; never YOU */
+  function hpCut(r) {
+    if (!r || r.main) return 0;
+    var n = Math.max(0, (r.knocks | 0) - Math.max(0, RATE.knockdown_free | 0));
+    return Math.max(0, Math.min(+RATE.knockdown_hp_cap || 0, n * (+RATE.knockdown_hp_each || 0)));
+  }
+  function condOf(r) { return r ? { hpCut: hpCut(r), knocks: r.knocks | 0, lostHp: Math.round(r.lostHp || 0), lostH: Math.round(r.lostH || 0), head: r.head || null, lostB: Math.round(r.lostB || 0), body: r.body || null,
     marks: uniq(r.marks), wound: r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: Math.round(r.wound.left * 100) / 100, of: r.wound.of } : null } : null; }
   function handOver(company, formation) {
     if (!Array.isArray(company)) return { company: company, formation: formation || null, left: [] };
@@ -170,9 +185,11 @@
      face's marks for PORTRAIT; nothing when he carries none */
   function injuryOf(name, main) {
     var r = get().men[canon(name, main)], L = LI();
-    if (!r || !(r.marks && r.marks.length)) return null;
+    if (!r || !((r.marks && r.marks.length) || (r.knocks | 0) > 0)) return null;
     var w = r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: r.wound.left, of: r.wound.of, treated: (r.wound.treated | 0) > 0 } : null;
-    return { marks: uniq(r.marks), wound: w, daysLeft: w ? Math.ceil(w.left - 1e-9) : 0,
+    /* rule 304: the scars (his marks, no penalty), his knockdowns, the hitpoints they took for good, the free ones still left */
+    return { marks: uniq(r.marks), wound: w, daysLeft: w ? Math.ceil(w.left - 1e-9) : 0, main: !!r.main,
+      knocks: r.knocks | 0, hpCut: hpCut(r), hpCap: +RATE.knockdown_hp_cap || 0, freeLeft: r.main ? null : Math.max(0, (RATE.knockdown_free | 0) - (r.knocks | 0)),
       fresh: w && L ? L.freshNow(w.mark, w.left, w.of) : null,
       penalties: L ? L.penalties(r.marks, w) : [], look: L ? L.look(r.marks, w) : null };
   }
@@ -361,7 +378,9 @@
     var r = recordFor(o, s); if (!r || !(r.hpMax > 0)) return null;
     var hp = Math.max(0, r.hpMax - (r.lostHp || 0)), armMax = (r.armHMax || 0) + (r.armBMax || 0), arm = Math.max(0, armMax - (r.lostH || 0) - (r.lostB || 0));
     var hpF = Math.max(0, Math.min(1, hp / r.hpMax)), armF = armMax > 0 ? Math.max(0, Math.min(1, arm / armMax)) : 1, cut = RATE.bars_hide_at;
-    return { hp: hp, hpMax: r.hpMax, arm: arm, armMax: armMax, hpF: hpF, armF: armF, show: hpF < cut || (armMax > 0 && armF < cut) };
+    /* the days his fresh wound has left ride over the bars (INJURY, rule 304): a wounded man always shows them */
+    var days = r.wound && r.wound.left > 0 ? Math.ceil(r.wound.left - 1e-9) : 0;
+    return { hp: hp, hpMax: r.hpMax, arm: arm, armMax: armMax, hpF: hpF, armF: armF, days: days, show: hpF < cut || (armMax > 0 && armF < cut) || days > 0 };
   }
   /* drawn over his head, Battle Brothers' fight bars small: red his hit points, grey his armour (when he wears any), the dark part what
      is missing; a hard one-pixel dark edge, nothing soft (the border law); cx, bottom: the middle of his head and the bars' lowest
@@ -375,7 +394,13 @@
     g.fillStyle = o.empty || '#24190f'; g.fillRect(x, y + px, w, h); if (two) g.fillRect(x, y + 2 * px + h, w, h);
     if (hpFill > 0) { g.fillStyle = o.blood || '#b8281c'; g.fillRect(x, y + px, hpFill, h); }
     if (armFill > 0) { g.fillStyle = o.armour || '#a3a7aa'; g.fillRect(x, y + 2 * px + h, armFill, h); }
-    return { x: x, y: y, w: w, h: h, hpFill: hpFill, armFill: armFill, hpF: b.hpF, armF: b.armF };
+    /* THE DAYS LEFT (INJURY, rule 304, 'the UI for when a man goes down... it's just so ugly'): one dried-blood pip a day, on the
+       bars' own dark edge, left to right, so a glance at the camp says who is still hurt and for how long; no words, no numbers */
+    var dd = Math.min(8, b.days | 0), pipY = y - 2 * px - px;
+    if (dd > 0) { var pw = Math.max(px, Math.floor((w - (dd - 1) * px) / 8)), pxw = dd * pw + (dd - 1) * px, x0 = Math.round(cx - pxw / 2);
+      g.fillStyle = o.edge || '#0b0906'; g.fillRect(x0 - px, pipY - px, pxw + 2 * px, 2 * px + 2 * px);
+      g.fillStyle = o.wound || '#8c1d12'; for (var di = 0; di < dd; di++) g.fillRect(x0 + di * (pw + px), pipY, pw, 2 * px); }
+    return { x: x, y: y, w: w, h: h, hpFill: hpFill, armFill: armFill, hpF: b.hpF, armF: b.armF, days: dd };
   }
   function notify() { try { if (root.dispatchEvent && root.CustomEvent) root.dispatchEvent(new root.CustomEvent('bohemia:condition', { detail: LAST })); } catch (e) {} }
   function forget() { try { root.localStorage.removeItem(KEY); } catch (e) {} LAST = null; }
@@ -409,7 +434,7 @@
   }
   /* ==== end __THE_SMITH_MENDS__ ==== */
   root.BohemiaCondition = { broken: broken, mend: mend, KEY: KEY, RATE: RATE, DEF: DEF, D: D, load: load, get: get, canon: canon, afterFight: afterFight, named: named, handOver: handOver,
-    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, halve: halve, bars: bars, drawHeadBars: drawHeadBars, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
+    condFor: condFor, injuryOf: injuryOf, wake: wake, wounded: wounded, treat: treat, halve: halve, bars: bars, drawHeadBars: drawHeadBars, hpCut: hpCut, isDead: isDead, dead: dead, rates: rates, laidUpDays: laidUpDays, elapse: elapse, members: members, company: company,
     says: says, drawBar: drawBar, forget: forget, last: last };
   try { if (root.document) setTimeout(load, 0); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);
