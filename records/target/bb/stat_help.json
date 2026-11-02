@@ -1,0 +1,14 @@
+{
+ "_about": "WORDS 11/2 (Paolo, ask line 256: eighth-grade reading). What each of the eight stats the crew screen prints means, one plain line each, in the screen's own stat words (engine/bohemia_stats.js NAME). draft:true. NOT WIRED YET: the crew screen's stat tap says the name and the number; the hook that adds this line is UI's (the roster screen's stat click), owed.",
+ "draft": true,
+ "rows": {
+  "hp": "How much damage you can take before you go down.",
+  "fatigue": "How much you can do before you are worn out. Every step and swing uses some.",
+  "ranged_skill": "Your chance to hit from far away: guns, bows, bottles.",
+  "melee_skill": "Your chance to hit up close.",
+  "ranged_defense": "How hard you are to hit from far away.",
+  "melee_defense": "How hard you are to hit up close.",
+  "resolve": "Your nerve. Low resolve and you panic or run.",
+  "initiative": "How early you move each round. Heavy gear and being tired lower it."
+ }
+}

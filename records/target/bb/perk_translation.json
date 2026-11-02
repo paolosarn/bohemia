@@ -16,11 +16,13 @@
    "tier": 1,
    "name": "READS YOU",
    "draft": true,
-   "skin": "every miss teaches him where you lean",
+   "skin": "+10% to hit after every miss. Resets on a hit.",
    "in_the_fight": "live",
    "old_tree": "STEADY EYE (a flat +1 to every gun)",
    "numbers_from": "records/target/bb/perks.json#fast_adaptation",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0741_Fast Adaptation.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0741_Fast Adaptation.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "every miss teaches him where you lean",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "crippling_strikes",
@@ -28,11 +30,13 @@
    "tier": 1,
    "name": "LEAVES A MARK",
    "draft": true,
-   "skin": "he hits to break things, not to win points",
+   "skin": "Injures enemies with 33% less damage.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#crippling_strikes",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0457_Crippling Strikes.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0457_Crippling Strikes.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "he hits to break things, not to win points",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "colossus",
@@ -40,11 +44,13 @@
    "tier": 1,
    "name": "BUILT LIKE A DOOR",
    "draft": true,
-   "skin": "a quarter more of him to get through",
+   "skin": "+25% hitpoints. Fewer bad injuries.",
    "in_the_fight": "live",
    "old_tree": "SECOND SKIN (more to carry, not more of him)",
    "numbers_from": "records/target/bb/perks.json#colossus",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0421_Colossus.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0421_Colossus.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a quarter more of him to get through",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "nine_lives",
@@ -52,11 +58,13 @@
    "tier": 1,
    "name": "ALLEY CAT",
    "draft": true,
-   "skin": "the hit that should end him does not, once",
+   "skin": "Once a fight, live through a killing hit with 11-15 hitpoints left and +15 defense.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#nine_lives",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1425_Nine Lives.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1425_Nine Lives.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the hit that should end him does not, once",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "bags_and_belts",
@@ -64,11 +72,13 @@
    "tier": 1,
    "name": "CARGO POCKETS",
    "draft": true,
-   "skin": "two more things on him that do not slow him",
+   "skin": "+2 bag slots. Bag items add no fatigue (except two-handers).",
    "in_the_fight": "outside the fight (camp, levels, inventory)",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#bags_and_belts",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0170_Bags and Belts.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0170_Bags and Belts.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "two more things on him that do not slow him",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "pathfinder",
@@ -76,11 +86,13 @@
    "tier": 1,
    "name": "KNOWS THE BLOCK",
    "draft": true,
-   "skin": "rubble and yards cost him what a street costs",
+   "skin": "Moving costs 1 less AP per tile (min 2) and half the fatigue.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#pathfinder",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1528_Pathfinder.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1528_Pathfinder.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "rubble and yards cost him what a street costs",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "adrenaline",
@@ -88,11 +100,13 @@
    "tier": 1,
    "name": "FIRST OUT THE DOOR",
    "draft": true,
-   "skin": "he goes first next round, whatever it costs him",
+   "skin": "New move (1 AP, 20 fatigue): go first next round.",
    "in_the_fight": "live",
    "old_tree": "OPENING MOVE (one kit piece ready at the bell)",
    "numbers_from": "records/target/bb/perks.json#adrenaline",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0026_Adrenaline (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0026_Adrenaline (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "he goes first next round, whatever it costs him",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "recover",
@@ -100,11 +114,13 @@
    "tier": 1,
    "name": "CATCH YOUR BREATH",
    "draft": true,
-   "skin": "a whole turn spent breathing gives half his wind back",
+   "skin": "New move (9 AP): rest a turn and lose half your fatigue.",
    "in_the_fight": "live",
    "old_tree": "WALK IT OFF (one plate back each fight)",
    "numbers_from": "records/target/bb/perks.json#recover",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1654_Recover (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1654_Recover (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a whole turn spent breathing gives half his wind back",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "student",
@@ -112,11 +128,13 @@
    "tier": 1,
    "name": "STREET SCHOOL",
    "draft": true,
-   "skin": "learns a fifth faster until he has learned enough",
+   "skin": "+20% XP from fights. At level 11: one free perk point.",
    "in_the_fight": "outside the fight (camp, levels, inventory)",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#student",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1892_Student.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1892_Student.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "learns a fifth faster until he has learned enough",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "executioner",
@@ -124,11 +142,13 @@
    "tier": 2,
    "name": "FINISHER",
    "draft": true,
-   "skin": "a man already hurt takes a fifth more",
+   "skin": "+20% damage to enemies who are already injured.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#executioner",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0716_Executioner (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0716_Executioner (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a man already hurt takes a fifth more",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "bullseye",
@@ -136,11 +156,13 @@
    "tier": 2,
    "name": "THREADS THE NEEDLE",
    "draft": true,
-   "skin": "a car in the way costs him half, not three quarters",
+   "skin": "Shots with something in the way: -50% to hit, not -75%.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#bullseye",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0324_Bullseye.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0324_Bullseye.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a car in the way costs him half, not three quarters",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "dodge",
@@ -148,11 +170,13 @@
    "tier": 2,
    "name": "SLIPPERY",
    "draft": true,
-   "skin": "the quicker he is the harder to touch",
+   "skin": "Adds 15% of initiative to melee and ranged defense.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#dodge",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0652_Dodge.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0652_Dodge.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the quicker he is the harder to touch",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "fortified_mind",
@@ -160,11 +184,13 @@
    "tier": 2,
    "name": "NOTHING SCARES HIM",
    "draft": true,
-   "skin": "a quarter more nerve",
+   "skin": "+25% resolve. Panics less.",
    "in_the_fight": "live",
    "old_tree": "THEY KNOW YOU is its opposite, fear given not taken",
    "numbers_from": "records/target/bb/perks.json#fortified_mind",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0808_Fortified Mind.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0808_Fortified Mind.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a quarter more nerve",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "resilient",
@@ -172,11 +198,13 @@
    "tier": 2,
    "name": "SHAKES IT OFF",
    "draft": true,
-   "skin": "dazed and stunned leave him a turn sooner",
+   "skin": "Bleeding, dazed and other bad effects last only 1 turn.",
    "in_the_fight": "live when the fight has dazed and stunned",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#resilient",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1684_Resilient.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1684_Resilient.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "dazed and stunned leave him a turn sooner",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "steel_brow",
@@ -184,11 +212,13 @@
    "tier": 2,
    "name": "HARD HEAD",
    "draft": true,
-   "skin": "a hit to the head hits like a hit to the body",
+   "skin": "Head hits do no extra damage. Fewer head injuries.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#steel_brow",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1879_Steel Brow.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1879_Steel Brow.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a hit to the head hits like a hit to the body",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "quick_hands",
@@ -196,11 +226,13 @@
    "tier": 2,
    "name": "QUICK HANDS",
    "draft": true,
-   "skin": "one swap of the weapon each turn costs nothing",
+   "skin": "Once a turn, swap a weapon for 0 AP (not a shield).",
    "in_the_fight": "outside the fight (camp, levels, inventory)",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#quick_hands",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1613_Quick Hands.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1613_Quick Hands.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "one swap of the weapon each turn costs nothing",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "gifted",
@@ -208,11 +240,13 @@
    "tier": 2,
    "name": "NATURAL",
    "draft": true,
-   "skin": "one level-up at the top of every roll",
+   "skin": "Level up right now, with the best roll on every stat.",
    "in_the_fight": "outside the fight (camp, levels, inventory)",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#gifted",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0838_Gifted.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0838_Gifted.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "one level-up at the top of every roll",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "backstabber",
@@ -220,11 +254,13 @@
    "tier": 3,
    "name": "PILE ON",
    "draft": true,
-   "skin": "every friend on his man counts double",
+   "skin": "Each friend next to the target: +10% to hit, not +5%.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#backstabber",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0166_Backstabber.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0166_Backstabber.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "every friend on his man counts double",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "anticipation",
@@ -232,11 +268,13 @@
    "tier": 3,
    "name": "SEES IT COMING",
    "draft": true,
-   "skin": "the further the shooter the harder the shot",
+   "skin": "Harder to shoot from far: at least +10 ranged defense, more per tile.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#anticipation",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0117_Anticipation.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0117_Anticipation.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the further the shooter the harder the shot",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "shield_expert",
@@ -244,11 +282,13 @@
    "tier": 3,
    "name": "DOOR MAN",
    "draft": true,
-   "skin": "the car door covers a quarter more",
+   "skin": "Shield gives 25% more defense and takes half the damage.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#shield_expert",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1777_Shield Expert.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1777_Shield Expert.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the car door covers a quarter more",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "brawny",
@@ -256,11 +296,13 @@
    "tier": 3,
    "name": "CARRIES THE WEIGHT",
    "draft": true,
-   "skin": "heavy kit slows him a third less",
+   "skin": "Armor and helmet cost 30% less fatigue and initiative.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#brawny",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0285_Brawny.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0285_Brawny.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "heavy kit slows him a third less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "relentless",
@@ -268,11 +310,13 @@
    "tier": 3,
    "name": "NO QUIT",
    "draft": true,
-   "skin": "tiredness only half slows him, and waiting costs nothing",
+   "skin": "Being tired costs half the initiative. Waiting costs none.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#relentless",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1674_Relentless.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1674_Relentless.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "tiredness only half slows him, and waiting costs nothing",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "rotation",
@@ -280,11 +324,13 @@
    "tier": 3,
    "name": "SWAP OUT",
    "draft": true,
-   "skin": "trade places with a friend in trouble",
+   "skin": "New move (3 AP, 25 fatigue): swap places with a friend next to you.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#rotation",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1711_Rotation (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1711_Rotation (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "trade places with a friend in trouble",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "rally_the_troops",
@@ -292,11 +338,13 @@
    "tier": 3,
    "name": "ON ME",
    "draft": true,
-   "skin": "a shout that pulls the runners back",
+   "skin": "New move (5 AP, 25 fatigue): stops friends within 4 tiles from running.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#rally_the_troops",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1634_Rally the Troops.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1634_Rally the Troops.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a shout that pulls the runners back",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "taunt",
@@ -304,11 +352,13 @@
    "tier": 3,
    "name": "COME AT ME",
    "draft": true,
-   "skin": "makes the man in front pick him",
+   "skin": "New move (4 AP, 15 fatigue): an enemy within 3 tiles comes at you.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#taunt",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1929_Taunt (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1929_Taunt (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "makes the man in front pick him",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "mace_mastery",
@@ -316,11 +366,13 @@
    "tier": 4,
    "name": "PIPE WORK",
    "draft": true,
-   "skin": "the pipe tires him a quarter less",
+   "skin": "Pipe: 25% less fatigue. Knockout hits always stun.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#mace_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1223_Mace Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1223_Mace Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the pipe tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "flail_mastery",
@@ -328,11 +380,13 @@
    "tier": 4,
    "name": "CHAIN WORK",
    "draft": true,
-   "skin": "the chain tires him a quarter less",
+   "skin": "Chain: 25% less fatigue. Lashes go around shields.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#flail_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0784_Flail Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0784_Flail Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the chain tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "hammer_mastery",
@@ -340,47 +394,55 @@
    "tier": 4,
    "name": "SLEDGE WORK",
    "draft": true,
-   "skin": "the sledge tires him a quarter less",
+   "skin": "Sledge: 25% less fatigue. +33% damage to armor.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#hammer_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0931_Hammer Mastery (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0931_Hammer Mastery (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the sledge tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "axe_mastery",
    "bb_name": "Axe Mastery",
    "tier": 4,
-   "name": "HATCHET WORK",
+   "name": "AXE WORK",
    "draft": true,
-   "skin": "the hatchet tires him a quarter less",
+   "skin": "Fire axe: 25% less fatigue. Splits shields 50% faster.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#axe_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0161_Axe Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0161_Axe Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the hatchet tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "cleaver_mastery",
    "bb_name": "Cleaver Mastery",
    "tier": 4,
-   "name": "BUTCHER WORK",
+   "name": "CLEAVER WORK",
    "draft": true,
-   "skin": "the cleaver tires him a quarter less",
+   "skin": "Cleaver: 25% less fatigue. Cuts bleed 10 a turn, not 5.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#cleaver_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0402_Cleaver Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0402_Cleaver Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the cleaver tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "sword_mastery",
    "bb_name": "Sword Mastery",
    "tier": 4,
-   "name": "BLADE WORK",
+   "name": "MACHETE WORK",
    "draft": true,
-   "skin": "the blade tires him a quarter less",
+   "skin": "Machete: 25% less fatigue. Wide swings +10% to hit.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#sword_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1913_Sword Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1913_Sword Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the blade tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "dagger_mastery",
@@ -388,23 +450,27 @@
    "tier": 4,
    "name": "PISTOL WORK",
    "draft": true,
-   "skin": "the pistol fires at 3, room for a third shot",
+   "skin": "Pistol shots cost 3 AP, not 4: one more shot a turn.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#dagger_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0502_Dagger Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0502_Dagger Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the pistol fires at 3, room for a third shot",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "polearm_mastery",
    "bb_name": "Polearm Mastery",
    "tier": 4,
-   "name": "LONG POLE",
+   "name": "POLE WORK",
    "draft": true,
-   "skin": "the pole tires him a quarter less",
+   "skin": "Pole hook: 25% less fatigue. Costs 5 AP and hits up close.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#polearm_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1580_Polearm Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1580_Polearm Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the pole tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "spear_mastery",
@@ -412,11 +478,13 @@
    "tier": 4,
    "name": "SPEAR WORK",
    "draft": true,
-   "skin": "the spear tires him a quarter less",
+   "skin": "Spear: 25% less fatigue. The spear wall holds after one gets through.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#spear_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1838_Spear Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1838_Spear Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the spear tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "crossbow_mastery",
@@ -424,11 +492,13 @@
    "tier": 4,
    "name": "RIFLE WORK",
    "draft": true,
-   "skin": "the rifle bites through a fifth more armour; the shotgun reloads at 6",
+   "skin": "Rifle: 20% more damage through armor. Shotgun reloads in 6 AP, not 9.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#crossbow_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0460_Crossbow and Firearms Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0460_Crossbow and Firearms Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the rifle bites through a fifth more armour; the shotgun reloads at 6",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "bow_mastery",
@@ -436,23 +506,27 @@
    "tier": 4,
    "name": "BOW WORK",
    "draft": true,
-   "skin": "the bow tires him a quarter less",
+   "skin": "Bow: 25% less fatigue. See and shoot 1 tile farther.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#bow_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0272_Bow Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0272_Bow Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the bow tires him a quarter less",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "throwing_mastery",
    "bb_name": "Throwing Mastery",
    "tier": 4,
-   "name": "BOTTLE ARM",
+   "name": "BOTTLE WORK",
    "draft": true,
-   "skin": "a bottle at two houses hits a third harder",
+   "skin": "Bottles: +30% damage at 2 tiles, +20% at 3.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#throwing_mastery",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2003_Throwing Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2003_Throwing Mastery.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a bottle at two houses hits a third harder",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "reach_advantage",
@@ -460,11 +534,13 @@
    "tier": 5,
    "name": "KEEPS YOU OUT",
    "draft": true,
-   "skin": "every hit with the big one makes him harder to reach",
+   "skin": "Each two-hander hit: +5 melee defense, up to +25, till next turn.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#reach_advantage",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1645_Reach Advantage.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1645_Reach Advantage.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "every hit with the big one makes him harder to reach",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "overwhelm",
@@ -472,11 +548,13 @@
    "tier": 5,
    "name": "GETS THERE FIRST",
    "draft": true,
-   "skin": "hit a man before his turn and he swings worse",
+   "skin": "Attack an enemy before they move: they get -10% to hit for a turn.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#overwhelm",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1509_Overwhelm.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1509_Overwhelm.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "hit a man before his turn and he swings worse",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "lone_wolf",
@@ -484,11 +562,13 @@
    "tier": 5,
    "name": "LONE WOLF",
    "draft": true,
-   "skin": "nobody within three houses and he is a sixth better at all of it",
+   "skin": "No friend within 3 tiles: +15% to skills, defense and resolve.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#lone_wolf",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1195_Lone Wolf (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1195_Lone Wolf (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "nobody within three houses and he is a sixth better at all of it",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "underdog",
@@ -496,11 +576,13 @@
    "tier": 5,
    "name": "BACK TO THE WALL",
    "draft": true,
-   "skin": "being surrounded does not cost him",
+   "skin": "Being surrounded no longer lowers defense.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#underdog",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2068_Underdog.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2068_Underdog.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "being surrounded does not cost him",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "footwork",
@@ -508,11 +590,13 @@
    "tier": 5,
    "name": "SIDESTEP",
    "draft": true,
-   "skin": "walks out of a man's reach without the free swing",
+   "skin": "New move (3 AP, 20 fatigue): step away from an enemy with no free hit.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#footwork",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0804_Footwork (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0804_Footwork (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "walks out of a man's reach without the free swing",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "berserk",
@@ -520,11 +604,13 @@
    "tier": 6,
    "name": "SEES RED",
    "draft": true,
-   "skin": "a kill gives him four more actions, once a turn",
+   "skin": "Once a turn, a kill gives 4 AP back.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#berserk",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0232_Berserk.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0232_Berserk.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a kill gives him four more actions, once a turn",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "head_hunter",
@@ -532,11 +618,13 @@
    "tier": 6,
    "name": "HEADHUNTER",
    "draft": true,
-   "skin": "once he finds the head he keeps finding it",
+   "skin": "After a head hit, the next hit lands on the head too.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#head_hunter",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0956_Head Hunter.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0956_Head Hunter.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "once he finds the head he keeps finding it",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "nimble",
@@ -544,11 +632,13 @@
    "tier": 6,
    "name": "LIGHT ON HIS FEET",
    "draft": true,
-   "skin": "in light kit the hits slide off him",
+   "skin": "Light armor: take up to 60% less hitpoint damage.",
    "in_the_fight": "waiting on the formula: the wiki says \"lowered exponentially\" and gives no curve",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#nimble",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1424_Nimble.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1424_Nimble.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "in light kit the hits slide off him",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "battle_forged",
@@ -556,11 +646,13 @@
    "tier": 6,
    "name": "PLATED",
    "draft": true,
-   "skin": "the more plate on him the less the plate wears",
+   "skin": "Heavy armor: armor damage cut by 5% of total armor.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#battle_forged",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0213_Battle Forged.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0213_Battle Forged.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "the more plate on him the less the plate wears",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "fearsome",
@@ -568,11 +660,13 @@
    "tier": 7,
    "name": "THE NAME THEY WHISPER",
    "draft": true,
-   "skin": "any blood he draws shakes them",
+   "skin": "Any hit that draws blood can make the enemy panic.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#fearsome",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0754_Fearsome.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0754_Fearsome.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "any blood he draws shakes them",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "duelist",
@@ -580,11 +674,13 @@
    "tier": 7,
    "name": "ONE ON ONE",
    "draft": true,
-   "skin": "a free hand puts a quarter more past the armour",
+   "skin": "Other hand free: 25% more damage goes through armor.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#duelist",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0678_Duelist.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0678_Duelist.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a free hand puts a quarter more past the armour",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "killing_frenzy",
@@ -592,11 +688,13 @@
    "tier": 7,
    "name": "BLOOD UP",
    "draft": true,
-   "skin": "a kill makes everything hit a quarter harder for two turns",
+   "skin": "A kill: +25% damage for 2 turns. Enemies aim at you more.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#killing_frenzy",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1118_Killing Frenzy.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1118_Killing Frenzy.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "a kill makes everything hit a quarter harder for two turns",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   },
   {
    "id": "indomitable",
@@ -604,11 +702,13 @@
    "tier": 7,
    "name": "IMMOVABLE",
    "draft": true,
-   "skin": "plants his feet: half damage until his turn",
+   "skin": "New move (5 AP, 25 fatigue): half damage, cannot be stunned, till next turn.",
    "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#indomitable",
-   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1077_Indomitable (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1077_Indomitable (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)",
+   "flavour": "plants his feet: half damage until his turn",
+   "words": "WORDS 11/2 (ask line 256): plain, one line, with the number"
   }
  ]
 }
