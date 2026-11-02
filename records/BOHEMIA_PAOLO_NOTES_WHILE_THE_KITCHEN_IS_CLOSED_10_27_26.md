@@ -72,3 +72,31 @@ What each is, and who owns it when the kitchen opens (ask lines 249 to 258):
 256 PERKS IN EIGHTH-GRADE WORDS, AND PERK ICONS (owed a long time). WORDS + UI.
 257 THE UI MORPHS: every screen change transforms, nothing just disappears (rule 229, MOTION). UI + MOTION.
 258 MORE QUESTS, AND CLEANER (fewer bugs) before the demo. RUN + EYES.
+
+## 4. SOCIAL MEDIA IS PLANNED TOGETHER; EVERYTHING FROM BEFORE GETS ATTEMPTED; MORE OF EVERYTHING, AND PUNCHY
+His words: "chill out anytime when it comes to social media shit we form a plan together you don't just jump at a hat and say what
+you're gonna help me do... I know we had more jobs than that... around last Sunday bro I talked to you for like three days... make
+sure you have attempted to implement everything I even talked about from before... more cleanup more polish more of pretty much
+everything... the demo is pretty much ready to be live. I think it's very not polished a little glitchy buggy kind of vibes more
+graphic assets... the startup screen kind of sucks of choosing like your own adventure... there's not really a tutorial system...
+we haven't even implemented any main quest yet which is gonna be important too. I'm not super happy with the feel of combat yet.
+I'm not super happy with the phone buttons. I feel like there should be more buttons on the phone, especially during combat... the
+phone's not fully folded up and you still have the bottom left of the screen for the characters... why can't they just go on the
+phone... all the real estate has to be justified... for people that like look at awesome visuals that look punchy... Nothing feels
+punchy yet, satisfying punchy, not from the music to the combat to the walking around the city to the camp shit... Don't do
+anything yet just reply to me. Ask me questions if you want."
+Jobs (ask lines 259 to 267):
+259 SOCIAL MEDIA IS PLANNED WITH HIM FIRST (rule 298): no reel, post or account work is offered or made until he and the coordinator
+    form the plan together. AMENDS line 249 (the reels tool waits on that plan).
+260 EVERY ASK FROM BEFORE GETS ATTEMPTED: the 258-line ask list measured 11/2: 139 seen working by EYES, 28 half, 7 seen with a hole,
+    24 not shipped, 8 not seen, 11 new, the rest not checked or queued. Every line not SEEN gets a real attempt this week. COORDINATOR.
+261 THE START SCREEN (choosing the origin, the 'choose your own adventure') is redone: it sucks. UI + RUN.
+262 A TUTORIAL: the game teaches itself in play (rule 32a: nothing pops up, a face says it). RUN + WORDS.
+263 THE MAIN QUEST, implemented: none exists in the game yet. DYNASTY (story) + RUN (in the game); QUESTS stays research only.
+264 THE FIGHT FEELS GOOD: the feel of combat, not yet. COMBAT [fight feel] + TUNING (research).
+265 THE PHONE IS THE CONTROLLER IN THE FIGHT: more buttons on the phone; the crew portraits in the bottom-left move ONTO the phone;
+    the phone folds fully; every pixel of the screen earns its place (rule 293). UI + COMBAT.
+266 PUNCHY EVERYWHERE: hits, music, the walk through the city, the camp: satisfying feedback (impact, sound, shake, timing). COMBAT,
+    SOUNDS, MOTION, CAMP.
+267 MORE GRAPHIC ASSETS across the board, cleanup and polish, fewer bugs before the demo goes live (placeholders OK meanwhile). COOK
+    lanes, EYES, PLUMBER.
