@@ -334,3 +334,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 310 | The victory screen: a surviving man says how it went (per enemy kind and how it went), morbid funny like real killers, replacing YOU WON | 315 | WORDS (VOICES) | RUNNING (VOICES started 11/2) |
 | 311 | Every man's kills and the strongest foe he killed (Battle Brothers), on the crew screen and a long press of him on the phone | 316 | WORDS (VOICES), CHARACTER | RUNNING (VOICES started 11/2) |
 | 312 | The tooltips need work: a long press on anything says what it is, in plain words (Battle Brothers' text on hover) | 316 | UI (next round) | QUEUED |
+| 313 | After LEVEL UP on the fight's end screen, a way back to the same end screen and on to the map or the camp; leveling up also from the phone any time | 317 | PLUMBER | RUNNING (sent into PLUMBER 11/2) |
