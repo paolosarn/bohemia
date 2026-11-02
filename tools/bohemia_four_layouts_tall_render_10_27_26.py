@@ -46,6 +46,7 @@ def thing_box(pl, root):
 
 TAPS_IN_PAD = []
 LOT = [0]
+MOVED = []
 def tap_names(town):
     hot_roles, box_roles = T.ROLES[town['tier']]
     th = T.THING.get(town['name'], {})
@@ -55,10 +56,40 @@ def tap_names(town):
 def clear_corners(bpy, pl, town=None):
     """every thing standing in the phone's ground goes, with its children; its lamps and fires too. A thing he taps never goes:
     if one stands there the town is drawn with it (and shipped without the phone's ground, so the screen lifts it clear)"""
-    gone = []; keep = tap_names(town) if town else set(); TAPS_IN_PAD[:] = []
-    for t in list(pl.things):                          # a tap in the corner: nothing is cleared (the town keeps its landmark; the screen lifts it clear and lays the ground over the corner)
-        b = thing_box(pl, t[1])
-        if b is not None and in_pad(b) and t[0] in keep: TAPS_IN_PAD.append(t[0])
+    gone = []; keep = tap_names(town) if town else set(); TAPS_IN_PAD[:] = []; MOVED[:] = []
+    # ask line 253 (11/2): a thing he taps that stands in the phone's corner is MOVED out of it, into the town, the shorter way
+    # (sideways or north), where it touches nothing else; only if neither way is free does it stay (and the town ships without
+    # the phone's ground, as before)
+    boxes = [(t[0], thing_box(pl, t[1])) for t in pl.things]
+    def overlaps(b, skip):
+        for n, o in boxes:
+            if n == skip or o is None: continue
+            if not (b[2] + 6 < o[0] or b[0] - 6 > o[2] or b[3] + 6 < o[1] or b[1] - 6 > o[3]): return True
+        return False
+    for t in list(pl.things):
+        name, root, walk = t
+        b = thing_box(pl, root)
+        if b is None or not in_pad(b) or name not in keep: continue
+        dx_px = (b[2] - (T.TW - PADX) + 24) if SIDE == 'right' else ((PADX - b[0]) + 24)
+        dy_px = b[3] - PADTOP + 24
+        tries = sorted([('x', dx_px), ('y', dy_px)], key=lambda q: q[1])
+        moved = False
+        for axis, d in tries:
+            if d <= 0: continue
+            nb = list(b)
+            if axis == 'x':
+                sh = -d if SIDE == 'right' else d
+                nb[0] += sh; nb[2] += sh
+            else:
+                nb[1] -= d; nb[3] -= d
+            if nb[0] < 0 or nb[2] > T.TW or nb[1] < 0 or overlaps(nb, name) or in_pad(nb): continue
+            if axis == 'x': root.location.x += (sh / T.PPM)
+            else: root.location.y += d / (T.PPM * T.C45)
+            boxes[:] = [(n, (nb if n == name else o)) for n, o in boxes]
+            MOVED.append((name, axis, round(d), [round(v) for v in nb], [round(v) for v in b]))   # new box, old box: the night lays the sunk day over both
+            moved = True
+            break
+        if not moved: TAPS_IN_PAD.append(name)
     if TAPS_IN_PAD: return gone
     for t in list(pl.things):
         name, root, walk = t
@@ -192,7 +223,7 @@ def render(town, quick=False, day_only=False):
             o = bpy.data.objects.new('fire_light', L_); sc.collection.objects.link(o); o.location = (x, y, 1.6 * zs)
         night = os.path.join(od, town['slug'] + '_' + SIDE + '_night.png'); sc.render.filepath = night; bpy.ops.render.render(write_still=True)
     T._orig_render_dump(dict(name=town['name'], tier=town['tier'], stands=town['stands'], trade=town['trade'], lamps=pl.lamps, fires=pl.fires,
-                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone, taps_in_pad=list(TAPS_IN_PAD), lot_cells=LOT[0]),
+                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone, taps_in_pad=list(TAPS_IN_PAD), lot_cells=LOT[0], moved=list(MOVED)),
                         open(os.path.join(od, town['slug'] + '_' + SIDE + '.json'), 'w'), indent=0)
     return day, night
 
@@ -220,7 +251,12 @@ def night_from(town, sd, rd, key):
     if sd == 'left': m[PADTOP - 20:, :PADX + 20] = 1.0
     else: m[PADTOP - 20:, Ww - PADX - 20:] = 1.0
     m[on.shape[0]:, :] = 1.0
-    mi = Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(14))
+    # a tapped thing moved out of the corner (ask line 253): COOK's night has it where it was, so where it stands now is the sunk day
+    try:
+        for mv in (json.load(open(os.path.join(rd, key + '.json'))).get('moved') or []):
+            for bx in mv[3:5]: x0b, y0b, x1b, y1b = bx; m[max(0, y0b - 16):y1b + 16, max(0, x0b - 16):x1b + 16] = 1.0
+    except Exception: pass
+    mi =Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(14))
     mm = (np.asarray(mi).astype(np.float32) / 255.0)[:, :, None]
     res = out * (1 - mm) + sunk * mm
     Image.fromarray(np.clip(res, 0, 255).astype(np.uint8)).save(os.path.join(rd, key + '_night.png'))
