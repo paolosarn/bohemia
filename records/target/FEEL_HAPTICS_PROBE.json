@@ -1,0 +1,210 @@
+{
+ "at": "2026-11-02T07:06:02.988Z",
+ "profile": "phone_portrait",
+ "backends": {
+  "native": false,
+  "vibrate": true,
+  "ios_switch": false,
+  "pads": 1,
+  "table": true
+ },
+ "version": "DEMO - BUILD 11/3j - YOU FEEL IT",
+ "fight": {
+  "opened": true,
+  "over": {
+   "t": 1793603376117,
+   "result": "won"
+  },
+  "taps": [
+   "auto:true"
+  ],
+  "sent": [
+   "shot",
+   "hit",
+   "shot",
+   "miss",
+   "shot",
+   "hit",
+   "shot",
+   "hit",
+   "kill",
+   "mag_home",
+   "shot",
+   "miss",
+   "shot",
+   "miss",
+   "shot",
+   "miss",
+   "swing_air",
+   "miss",
+   "shot",
+   "vital",
+   "shot",
+   "miss",
+   "mag_home",
+   "shot",
+   "miss",
+   "swing_air",
+   "miss",
+   "shot",
+   "vital",
+   "kill",
+   "clear"
+  ]
+ },
+ "setting": {
+  "steps": [
+   {
+    "says": "LIGHT",
+    "prefs": {
+     "on": true,
+     "strength": "light"
+    },
+    "saved": "{\"on\":true,\"strength\":\"light\"}"
+   },
+   {
+    "says": "OFF",
+    "prefs": {
+     "on": false,
+     "strength": "light"
+    },
+    "saved": "{\"on\":false,\"strength\":\"light\"}"
+   },
+   {
+    "says": "FULL",
+    "prefs": {
+     "on": true,
+     "strength": "full"
+    },
+    "saved": "{\"on\":true,\"strength\":\"full\"}"
+   }
+  ],
+  "door": "the phone's SETTINGS app",
+  "row": {
+   "label": "BUZZ",
+   "says": "FULL",
+   "after": "MOTION\n      FULL"
+  },
+  "off_silent": true,
+  "light": [
+   20,
+   70,
+   20
+  ]
+ },
+ "phases": [
+  {
+   "phase": "the map (the phone's buttons)",
+   "seconds": 16,
+   "asked": 5,
+   "felt": 5,
+   "per_minute": 19,
+   "by_kind": {
+    "deny": 2,
+    "tap": 3
+   },
+   "dropped": {},
+   "vibrate_calls": 5,
+   "vibrate_ms_total": 70,
+   "buzz_share": 0.0044,
+   "pad_rumbles": 5
+  },
+  {
+   "phase": "the town (Anarchists)",
+   "seconds": 28,
+   "asked": 2,
+   "felt": 2,
+   "per_minute": 4.4,
+   "by_kind": {
+    "tap": 1,
+    "paid": 1
+   },
+   "dropped": {},
+   "vibrate_calls": 2,
+   "vibrate_ms_total": 46,
+   "buzz_share": 0.0017,
+   "pad_rumbles": 2
+  },
+  {
+   "phase": "the fight (AUTO, to the recap)",
+   "seconds": 31,
+   "asked": 8,
+   "felt": 8,
+   "per_minute": 15.7,
+   "by_kind": {
+    "hit": 3,
+    "kill": 2,
+    "big_hit": 2,
+    "won": 1
+   },
+   "dropped": {},
+   "vibrate_calls": 8,
+   "vibrate_ms_total": 296,
+   "buzz_share": 0.0097,
+   "pad_rumbles": 8
+  }
+ ],
+ "all": {
+  "phase": "map + town + fight",
+  "seconds": 74,
+  "asked": 15,
+  "felt": 15,
+  "per_minute": 12.2,
+  "by_kind": {
+   "deny": 2,
+   "tap": 4,
+   "paid": 1,
+   "hit": 3,
+   "kill": 2,
+   "big_hit": 2,
+   "won": 1
+  },
+  "dropped": {},
+  "vibrate_calls": 15,
+  "vibrate_ms_total": 412,
+  "buzz_share": 0.0056,
+  "pad_rumbles": 15
+ },
+ "town": {
+  "name": "Anarchists",
+  "talked": 4,
+  "paid_before": 290
+ },
+ "map": {
+  "taps": [
+   "#bohphone .app[data-app=play]:true",
+   "#bohphone .app[data-app=play]:true",
+   "#bohphone .app[data-app=crew]:true",
+   "crew DONE:true"
+  ]
+ },
+ "raw_frames": 0,
+ "sample": [
+  "tap <- sound:ui_tap [vibrate+pad]",
+  "tap <- sound:ui_tap [vibrate+pad]",
+  "phone <- sound:phone_buzz [vibrate]",
+  "paid <- sound:parts_pass [vibrate+pad]",
+  "tap <- sound:ui_tap [vibrate+pad]",
+  "deny <- sound:ui_deny [vibrate+pad]",
+  "deny <- sound:ui_deny [vibrate+pad]",
+  "tap <- sound:ui_tap [vibrate+pad]",
+  "tap <- sound:ui_tap [vibrate+pad]",
+  "tap <- sound:ui_back [vibrate+pad]",
+  "tap <- sound:ui_tap [vibrate+pad]",
+  "paid <- sound:parts_pass [vibrate+pad]",
+  "hit <- msg:hit [vibrate+pad]",
+  "hit <- msg:hit [vibrate+pad]",
+  "hit <- msg:hit [vibrate+pad]",
+  "kill <- msg:kill [vibrate+pad]",
+  "big_hit <- msg:vital [vibrate+pad]",
+  "big_hit <- msg:vital [vibrate+pad]",
+  "kill <- msg:kill [vibrate+pad]",
+  "won <- msg:clear [vibrate+pad]",
+  "tap <- sound:ui_tap [vibrate+pad]",
+  "paid <- sound:parts_pass [vibrate+pad]",
+  "tap <- settings [vibrate+pad]",
+  "tap <- settings [vibrate+pad]",
+  "struck_down <- probe [vibrate+pad]"
+ ],
+ "errors": []
+}

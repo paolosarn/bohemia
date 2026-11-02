@@ -7447,7 +7447,7 @@ function showOver(result) {
      sound at all. 'clear' is already approved and already means exactly this --
      "THE FIGHT IS OVER... the room goes quiet" -- so the recap opening is the moment
      to play it, not a new sound invented for a screen the catalogue already covers. */
-  sfx('clear');
+  sfx('clear', { result: result });   /* __YOU_FEEL_IT__ (FEEL 11/2, rule 309): won, lost or withdrew, for the hand (records/target/bb/haptics.json) */
   UI.finish = false; keptClear();
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
