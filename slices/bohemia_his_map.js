@@ -334,9 +334,25 @@
     GLY[k] = c; return c;
   }
   function scale() { var W = 390; try { W = CVW; } catch (e) {} return W >= 900 ? 3 : 2; }
+  /* DIRECTION 11/2 [every icon through the rig] (Paolo: 'why do all the icons you made have to be five pixels by five pixels'):
+     each marker is a small model put through the master rig (tools/bohemia_direction_every_icon_through_the_rig_11_2_26.py
+     writes slices/map_markers/<name>.png, 96 high), drawn MARKER_PT points tall and smoothed; the hand grid above stays only
+     as the picture for the second before the file loads (and for a name the rig has not made) */
+  var MARKER = {}, MARKER_PT = { 2: 26, 3: 34 };
+  function marker(name) {
+    var m = MARKER[name];
+    if (m === undefined) { m = MARKER[name] = (GLYPHS[name] ? new Image() : null); if (m) m.src = 'map_markers/' + name + '.png'; }
+    return m && m.complete && m.naturalWidth ? m : null;
+  }
   function blit(gx, name, sx, sy, a) {
-    var c = glyph(name, scale()); gx.globalAlpha = a == null ? 1 : a;
-    gx.drawImage(c, Math.round(sx - c.width / 2), Math.round(sy - c.height));
+    var m = marker(name), c;
+    gx.globalAlpha = a == null ? 1 : a;
+    if (m) {
+      var h = MARKER_PT[scale()] || 26, w = Math.round(m.naturalWidth * h / m.naturalHeight), sm = gx.imageSmoothingEnabled;
+      gx.imageSmoothingEnabled = true; try { gx.imageSmoothingQuality = 'high'; } catch (e) {}
+      gx.drawImage(m, Math.round(sx - w / 2), Math.round(sy - h), w, h); gx.imageSmoothingEnabled = sm;
+      c = { width: w, height: h };
+    } else { c = glyph(name, scale()); gx.drawImage(c, Math.round(sx - c.width / 2), Math.round(sy - c.height)); }
     gx.globalAlpha = 1; return c;
   }
   function plate(gx, t, sx, sy, col, bg) {

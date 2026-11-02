@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/radio.glb",
+ "ppm": 151.68030820147732,
+ "files": [
+  "records/target/direction_icons_rig/radio/rig_S.png",
+  "records/target/direction_icons_rig/radio/rig_SE.png",
+  "records/target/direction_icons_rig/radio/rig_SW.png"
+ ],
+ "box": null
+}

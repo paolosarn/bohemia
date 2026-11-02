@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/word.glb",
+ "ppm": 120.56917629768188,
+ "files": [
+  "records/target/direction_icons_rig/word/rig_S.png",
+  "records/target/direction_icons_rig/word/rig_SE.png",
+  "records/target/direction_icons_rig/word/rig_SW.png"
+ ],
+ "box": null
+}

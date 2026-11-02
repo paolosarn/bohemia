@@ -28,9 +28,15 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
   /* UI [food and water are one] (rule 209(b)): FOOD is ONE picture, his two pack tiles laid together with no pixel changed, the
      water bottle standing behind the can (slices/supply_icons/SOURCES.txt): the other four byte for byte, FOOD pixel for pixel */
   const FOUR = SIX.filter(k => k !== 'food');
-  const same = FOUR.filter(k => { try { return fs.readFileSync(path.join(ROOT, 'slices/supply_icons', k + '.png')).equals(fs.readFileSync(path.join(ROOT, 'reference/art_bank/prop', SRC[k] + '.png'))); } catch (_e) { return false; } });
+  /* AMENDED 11/2 (DIRECTION [every icon through the rig], the coordinator's brief: every icon the demo shows remade through the
+     rig, one style for all, rule 115): a supply is his pack tile byte for byte, OR DIRECTION's render of the same thing through
+     the master rig byte for byte (records/target/direction_icons_rig/swapped.json, a sha1 per file); FOOD the same, the can with
+     the bottle standing next to it, and the stall still the bar's own picture */
+  const RIGSW = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/direction_icons_rig/swapped.json'), 'utf8')); } catch (e) { return {}; } })();
+  const rigged = k => { try { return !!RIGSW[k] && RIGSW[k].sha1 === require('crypto').createHash('sha1').update(fs.readFileSync(path.join(ROOT, 'slices/supply_icons', k + '.png'))).digest('hex'); } catch (e) { return false; } };
+  const same = FOUR.filter(k => { try { return rigged(k) || fs.readFileSync(path.join(ROOT, 'slices/supply_icons', k + '.png')).equals(fs.readFileSync(path.join(ROOT, 'reference/art_bank/prop', SRC[k] + '.png'))); } catch (_e) { return false; } });
   /* the two tiles laid the way SOURCES.txt says (PIL's alpha_composite, the tool that made it), compared pixel for pixel */
-  const foodOk = (() => { try { return require('child_process').execFileSync('python3', ['-c', [
+  const foodOk = rigged('food') ? 'true' : (() => { try { return require('child_process').execFileSync('python3', ['-c', [
     'import sys', 'from PIL import Image', 'import numpy as np',
     'f, c, b = [Image.open(x).convert("RGBA") for x in sys.argv[1:4]]',
     'o = Image.new("RGBA", (125, 96), (0, 0, 0, 0)); o.alpha_composite(b, (79, 0)); o.alpha_composite(c, (0, 0))',

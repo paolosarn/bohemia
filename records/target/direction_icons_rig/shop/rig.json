@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/shop.glb",
+ "ppm": 109.69161389135375,
+ "files": [
+  "records/target/direction_icons_rig/shop/rig_S.png",
+  "records/target/direction_icons_rig/shop/rig_SE.png",
+  "records/target/direction_icons_rig/shop/rig_SW.png"
+ ],
+ "box": null
+}

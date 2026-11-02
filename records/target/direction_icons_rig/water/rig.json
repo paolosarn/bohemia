@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/water.glb",
+ "ppm": 1069.9401438996774,
+ "files": [
+  "records/target/direction_icons_rig/water/rig_S.png",
+  "records/target/direction_icons_rig/water/rig_SE.png",
+  "records/target/direction_icons_rig/water/rig_SW.png"
+ ],
+ "box": null
+}

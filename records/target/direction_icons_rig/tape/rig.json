@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/tape.glb",
+ "ppm": 1348.5832702347268,
+ "files": [
+  "records/target/direction_icons_rig/tape/rig_S.png",
+  "records/target/direction_icons_rig/tape/rig_SE.png",
+  "records/target/direction_icons_rig/tape/rig_SW.png"
+ ],
+ "box": null
+}

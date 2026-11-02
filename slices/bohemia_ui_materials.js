@@ -639,7 +639,12 @@
      is pressed or counted), applied by itself on the page that has #menubar (the city, the demo's map).
      ====================================================================================================== */
   var SUPPLY_URL = {};
+  /* DIRECTION 11/2 [every icon through the rig]: the ten-by-ten grid was the 'five pixels by five pixels' icon. A supply the
+     master rig has made is its render cut at 30 pixels (the 10 points these marks sit at, one art pixel to one phone pixel:
+     slices/supply_icons/small/, tools/bohemia_direction_every_icon_through_the_rig_11_2_26.py); the grid is kept for NIGHTS */
+  var SUPPLY_RIG = { batteries: 1, food: 1, water: 1, tape: 1, meds: 1, rounds: 1 };
   function supplyIcon(kind) {
+    if (SUPPLY_RIG[kind]) return 'supply_icons/small/' + kind + '.png';
     if (SUPPLY_URL[kind]) return SUPPLY_URL[kind];
     var N = 10, G = []; for (var i = 0; i < N * N; i++) G.push(null);
     var put = function (x, y, m) { if (x >= 0 && y >= 0 && x < N && y < N) G[y * N + x] = m; };

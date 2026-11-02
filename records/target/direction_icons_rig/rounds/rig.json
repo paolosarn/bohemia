@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/rounds.glb",
+ "ppm": 2466.034186710633,
+ "files": [
+  "records/target/direction_icons_rig/rounds/rig_S.png",
+  "records/target/direction_icons_rig/rounds/rig_SE.png",
+  "records/target/direction_icons_rig/rounds/rig_SW.png"
+ ],
+ "box": null
+}

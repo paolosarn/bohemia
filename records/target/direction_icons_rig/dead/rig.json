@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/dead.glb",
+ "ppm": 183.1991021403342,
+ "files": [
+  "records/target/direction_icons_rig/dead/rig_S.png",
+  "records/target/direction_icons_rig/dead/rig_SE.png",
+  "records/target/direction_icons_rig/dead/rig_SW.png"
+ ],
+ "box": null
+}

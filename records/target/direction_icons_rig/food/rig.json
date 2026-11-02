@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/food.glb",
+ "ppm": 1194.2586047824793,
+ "files": [
+  "records/target/direction_icons_rig/food/rig_S.png",
+  "records/target/direction_icons_rig/food/rig_SE.png",
+  "records/target/direction_icons_rig/food/rig_SW.png"
+ ],
+ "box": null
+}

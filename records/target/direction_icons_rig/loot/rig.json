@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/loot.glb",
+ "ppm": 203.1463979259137,
+ "files": [
+  "records/target/direction_icons_rig/loot/rig_S.png",
+  "records/target/direction_icons_rig/loot/rig_SE.png",
+  "records/target/direction_icons_rig/loot/rig_SW.png"
+ ],
+ "box": null
+}

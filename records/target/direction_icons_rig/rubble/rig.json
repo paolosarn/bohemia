@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/rubble.glb",
+ "ppm": 160.82092810641555,
+ "files": [
+  "records/target/direction_icons_rig/rubble/rig_S.png",
+  "records/target/direction_icons_rig/rubble/rig_SE.png",
+  "records/target/direction_icons_rig/rubble/rig_SW.png"
+ ],
+ "box": null
+}

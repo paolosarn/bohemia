@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/danger.glb",
+ "ppm": 166.3064241323694,
+ "files": [
+  "records/target/direction_icons_rig/danger/rig_S.png",
+  "records/target/direction_icons_rig/danger/rig_SE.png",
+  "records/target/direction_icons_rig/danger/rig_SW.png"
+ ],
+ "box": null
+}

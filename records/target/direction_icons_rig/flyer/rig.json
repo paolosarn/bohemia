@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/flyer.glb",
+ "ppm": 142.72835112692763,
+ "files": [
+  "records/target/direction_icons_rig/flyer/rig_S.png",
+  "records/target/direction_icons_rig/flyer/rig_SE.png",
+  "records/target/direction_icons_rig/flyer/rig_SW.png"
+ ],
+ "box": null
+}

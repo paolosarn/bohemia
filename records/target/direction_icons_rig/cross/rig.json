@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/cross.glb",
+ "ppm": 159.6144066859758,
+ "files": [
+  "records/target/direction_icons_rig/cross/rig_S.png",
+  "records/target/direction_icons_rig/cross/rig_SE.png",
+  "records/target/direction_icons_rig/cross/rig_SW.png"
+ ],
+ "box": null
+}

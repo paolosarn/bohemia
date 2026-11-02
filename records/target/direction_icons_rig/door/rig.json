@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/door.glb",
+ "ppm": 84.72709063595393,
+ "files": [
+  "records/target/direction_icons_rig/door/rig_S.png",
+  "records/target/direction_icons_rig/door/rig_SE.png",
+  "records/target/direction_icons_rig/door/rig_SW.png"
+ ],
+ "box": null
+}

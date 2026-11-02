@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/skull.glb",
+ "ppm": 188.97446520233328,
+ "files": [
+  "records/target/direction_icons_rig/skull/rig_S.png",
+  "records/target/direction_icons_rig/skull/rig_SE.png",
+  "records/target/direction_icons_rig/skull/rig_SW.png"
+ ],
+ "box": null
+}

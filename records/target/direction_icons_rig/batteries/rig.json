@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/batteries.glb",
+ "ppm": 2140.197481283549,
+ "files": [
+  "records/target/direction_icons_rig/batteries/rig_S.png",
+  "records/target/direction_icons_rig/batteries/rig_SE.png",
+  "records/target/direction_icons_rig/batteries/rig_SW.png"
+ ],
+ "box": null
+}

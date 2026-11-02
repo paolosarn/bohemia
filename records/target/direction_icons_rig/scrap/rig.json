@@ -1,0 +1,10 @@
+{
+ "model": "records/target/direction_icons_rig/models/scrap.glb",
+ "ppm": 363.59143239337493,
+ "files": [
+  "records/target/direction_icons_rig/scrap/rig_S.png",
+  "records/target/direction_icons_rig/scrap/rig_SE.png",
+  "records/target/direction_icons_rig/scrap/rig_SW.png"
+ ],
+ "box": null
+}

@@ -1,0 +1,282 @@
+{
+ "ask": {
+  "file": "slices/map_markers/ask.png",
+  "sha1": "19d7fec3200cbfa696928114ede8d4b016188d60",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "bar": {
+  "file": "slices/map_markers/bar.png",
+  "sha1": "ea0ae7b5fd3ffb1370c7f525f4c96fe07c7bcce9",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "batteries": {
+  "file": "slices/supply_icons/batteries.png",
+  "sha1": "358614385ac48ba62273b6fcad4d498914edefb2",
+  "size": [
+   74,
+   92
+  ]
+ },
+ "battery": {
+  "file": "slices/map_markers/battery.png",
+  "sha1": "de888d9a4e3697ce8310065585d0c04297d6c026",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "camp": {
+  "file": "slices/map_markers/camp.png",
+  "sha1": "929d229b680f4dabae9cafc91e2914a5f4956a64",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "cross": {
+  "file": "slices/map_markers/cross.png",
+  "sha1": "30e1fb6143d42fa5e591a84a787749888115aec1",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "danger": {
+  "file": "slices/map_markers/danger.png",
+  "sha1": "35bf8288a264cec655c94c857932876d5b2f0920",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "dead": {
+  "file": "slices/map_markers/dead.png",
+  "sha1": "c5e672d8580b3e269764dbcf45be0a2c33f387a4",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "door": {
+  "file": "slices/map_markers/door.png",
+  "sha1": "9a2ff128a1c715099f3e3c53ac655c5d4bab68db",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "flyer": {
+  "file": "slices/map_markers/flyer.png",
+  "sha1": "e3bf81a359cf908c040cfdee8a90c4c9f5515c78",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "food": {
+  "file": "slices/supply_icons/food.png",
+  "sha1": "345197d558f84a882e5ff780977272e3b1124b19",
+  "size": [
+   60,
+   92
+  ]
+ },
+ "food_can": {
+  "file": "slices/supply_icons/food_can.png",
+  "sha1": "9311e427cf1d11fafa5168b90d675aa9d13d5146",
+  "size": [
+   46,
+   92
+  ]
+ },
+ "loot": {
+  "file": "slices/map_markers/loot.png",
+  "sha1": "1d68b0b64178cf1afabcf3f7520b997ed9550a54",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "meds": {
+  "file": "slices/supply_icons/meds.png",
+  "sha1": "9880671eb9e199be3ab67522e3897636f7cef0b9",
+  "size": [
+   71,
+   92
+  ]
+ },
+ "radio": {
+  "file": "slices/map_markers/radio.png",
+  "sha1": "124a659348daf95dde5243b6d64644f76fcdd813",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "rounds": {
+  "file": "slices/supply_icons/rounds.png",
+  "sha1": "6e5b90d64e154e329912e86b57a1bc242ccb818f",
+  "size": [
+   50,
+   92
+  ]
+ },
+ "rubble": {
+  "file": "slices/map_markers/rubble.png",
+  "sha1": "18b8f0d14e6e3a1a0fc86fbe4aa9f3a7b83393c2",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "s_food": {
+  "file": "slices/market_icons/s_food.png",
+  "sha1": "345197d558f84a882e5ff780977272e3b1124b19",
+  "size": [
+   60,
+   92
+  ]
+ },
+ "s_food_can": {
+  "file": "slices/market_icons/s_food_can.png",
+  "sha1": "e92afcb7645a01cebc56d318f46dcc5810ccbfae",
+  "size": [
+   85,
+   96
+  ]
+ },
+ "s_meds": {
+  "file": "slices/market_icons/s_meds.png",
+  "sha1": "1bf9852644b2fc96e646988a0ced9ca6e0b2c38f",
+  "size": [
+   96,
+   94
+  ]
+ },
+ "s_rounds": {
+  "file": "slices/market_icons/s_rounds.png",
+  "sha1": "2036b35d96d5151b5d32b33e164b4174dbb8cfd8",
+  "size": [
+   50,
+   96
+  ]
+ },
+ "s_water": {
+  "file": "slices/market_icons/s_water.png",
+  "sha1": "e9e657acd706e31390f93c22300afcf24240bd2b",
+  "size": [
+   40,
+   96
+  ]
+ },
+ "scrap": {
+  "file": "slices/supply_icons/scrap.png",
+  "sha1": "f5e88d34fff5c750420d47eb2024b36b89afb5ed",
+  "size": [
+   67,
+   92
+  ]
+ },
+ "shop": {
+  "file": "slices/map_markers/shop.png",
+  "sha1": "988ddd4445cbf8b02900ec21cc07bad402d8a7e0",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "skull": {
+  "file": "slices/map_markers/skull.png",
+  "sha1": "00570c19ce807e6232ff00cec107a7c86888f935",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "small/batteries": {
+  "file": "slices/supply_icons/small/batteries.png",
+  "sha1": "eec16b822fb54ceb4d5f48b54b0a237177242446",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/food": {
+  "file": "slices/supply_icons/small/food.png",
+  "sha1": "fa70e82d365682d179653f349dd9ba01b164ff77",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/meds": {
+  "file": "slices/supply_icons/small/meds.png",
+  "sha1": "8105aa7ab966b7e9ee7bedeab21b7de25ac3e452",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/rounds": {
+  "file": "slices/supply_icons/small/rounds.png",
+  "sha1": "905c2d8d9d9afa836f5f5328f6c7b0c6d46509c9",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/tape": {
+  "file": "slices/supply_icons/small/tape.png",
+  "sha1": "b755bde114797ddc1b6fccadabb32fa8fc07183b",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/water": {
+  "file": "slices/supply_icons/small/water.png",
+  "sha1": "2c6030d98daa6492234b31039462e78d5f3e3125",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "tag": {
+  "file": "slices/map_markers/tag.png",
+  "sha1": "7202a1aaa5043dc3a90482784250e84ee641fa97",
+  "size": [
+   96,
+   96
+  ]
+ },
+ "tape": {
+  "file": "slices/supply_icons/tape.png",
+  "sha1": "148e57ed1fa0e22aa9cf5832cf3c6088eef373f5",
+  "size": [
+   58,
+   92
+  ]
+ },
+ "water": {
+  "file": "slices/supply_icons/water.png",
+  "sha1": "bf5a195a70f44918dcc78ccacd0fbdd1ad6f896b",
+  "size": [
+   28,
+   92
+  ]
+ },
+ "word": {
+  "file": "slices/map_markers/word.png",
+  "sha1": "87eb8609084bfbdd7a0732f7b72eb63c53ed38ee",
+  "size": [
+   96,
+   96
+  ]
+ }
+}
