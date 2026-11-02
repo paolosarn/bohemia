@@ -8799,9 +8799,9 @@
      ],
      "smith": [
       7,
-      939,
+      935,
       283,
-      1263
+      1259
      ],
      "armourer": [
       741,
@@ -8855,7 +8855,7 @@
      ],
      "smith": [
       145,
-      1263
+      1259
      ],
      "armourer": [
       879,
@@ -8886,7 +8886,17 @@
      ]
     },
     "zoom_max": 2.0,
-    "lot": true
+    "lot": true,
+    "phone_ground": {
+     "side": "left",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true,
+     "landmark_in_pad": [
+      "church"
+     ]
+    }
    },
    "tall_right": {
     "src": "church_tall_right.webp",
@@ -9044,7 +9054,10 @@
      "top": 1262,
      "width": 410,
      "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
-     "organic": true
+     "organic": true,
+     "landmark_in_pad": [
+      "church"
+     ]
     }
    }
   },
@@ -14642,9 +14655,9 @@
      "posts": {
       "box": [
        164,
-       1216,
+       1200,
        688,
-       1275
+       1259
       ],
       "kind": "posts"
      },
@@ -14705,7 +14718,7 @@
      ],
      "posts": [
       426,
-      1275
+      1259
      ],
      "board": [
       104,
@@ -14744,7 +14757,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true
+    "lot": true,
+    "phone_ground": {
+     "side": "left",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    },
    "tall_right": {
     "src": "homeless_tall_right.webp",
@@ -14784,9 +14804,9 @@
      "posts": {
       "box": [
        164,
-       1216,
+       1200,
        688,
-       1275
+       1259
       ],
       "kind": "posts"
      },
@@ -14847,7 +14867,7 @@
      ],
      "posts": [
       426,
-      1275
+      1259
      ],
      "board": [
       104,
@@ -14886,7 +14906,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true
+    "lot": true,
+    "phone_ground": {
+     "side": "right",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    }
   },
   "Mob": {
@@ -23362,9 +23389,9 @@
      "posts": {
       "box": [
        162,
-       1216,
+       1200,
        690,
-       1275
+       1259
       ],
       "kind": "posts"
      },
@@ -23425,7 +23452,7 @@
      ],
      "posts": [
       426,
-      1275
+      1259
      ],
      "board": [
       104,
@@ -23464,7 +23491,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true
+    "lot": true,
+    "phone_ground": {
+     "side": "left",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    },
    "tall_right": {
     "src": "trades_tall_right.webp",
@@ -23504,9 +23538,9 @@
      "posts": {
       "box": [
        162,
-       1216,
+       1200,
        690,
-       1275
+       1259
       ],
       "kind": "posts"
      },
@@ -23567,7 +23601,7 @@
      ],
      "posts": [
       426,
-      1275
+      1259
      ],
      "board": [
       104,
@@ -23606,7 +23640,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true
+    "lot": true,
+    "phone_ground": {
+     "side": "right",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    }
   },
   "Volunteers": {
@@ -25136,9 +25177,9 @@
      "posts": {
       "box": [
        164,
-       1216,
+       1200,
        688,
-       1275
+       1259
       ],
       "kind": "posts"
      },
@@ -25199,7 +25240,7 @@
      ],
      "posts": [
       426,
-      1275
+      1259
      ],
      "board": [
       104,
@@ -25238,7 +25279,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true
+    "lot": true,
+    "phone_ground": {
+     "side": "left",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    },
    "tall_right": {
     "src": "volunteers_tall_right.webp",
@@ -25278,9 +25326,9 @@
      "posts": {
       "box": [
        164,
-       1216,
+       1200,
        688,
-       1275
+       1259
       ],
       "kind": "posts"
      },
@@ -25341,7 +25389,7 @@
      ],
      "posts": [
       426,
-      1275
+      1259
      ],
      "board": [
       104,
@@ -25380,7 +25428,14 @@
      ]
     },
     "zoom_max": 1.5,
-    "lot": true
+    "lot": true,
+    "phone_ground": {
+     "side": "right",
+     "top": 1262,
+     "width": 410,
+     "note": "rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town",
+     "organic": true
+    }
    }
   }
  },

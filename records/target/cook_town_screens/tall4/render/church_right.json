@@ -79,6 +79,17 @@
 "w": 6.4
 },
 {
+"name": "church",
+"box": [
+329,
+1018,
+727,
+1804
+],
+"h": 13.04,
+"w": 9.25
+},
+{
 "name": "soup",
 "box": [
 0,
@@ -334,7 +345,6 @@
 2080
 ],
 "cleared": [
-"church",
 "graveyard_grave_row_0",
 "graveyard_grave_row_1",
 "graveyard_obelisk",
@@ -342,5 +352,9 @@
 "fill_planter"
 ],
 "taps_in_pad": [],
-"lot_cells": 2952232
+"lot_cells": 2952232,
+"moved": [],
+"landmark_in_pad": [
+"church"
+]
 }
