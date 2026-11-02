@@ -9894,7 +9894,9 @@ GATES = [
      "a job's place, a boss's place, the camp, the crew screen just closed, a level waiting and a wounded man, no card, a reload "
      "mid-fight), the meet card pressed with a REAL TOUCH: the fight opens and nothing else, no crew screen anywhere (a tripwire on "
      "BohemiaCrewDoor.open in every frame), and no mouse or click from the tap reaches any page but the card (the ghost click that "
-     "went to the camp or town screen under ENGAGE). red on main before the fix, about 6 min", True),
+     "went to the camp or town screen under ENGAGE); and the way back from a level-up (ask line 313): LEVEL UP on the fight's end "
+     "screen, DONE on the phone on top, BACK to the same end screen, every level picked by taps and back by himself, LEAVE to the map, "
+     "the camp, the company screen mid-fight. red on main before each fix, about 10 min", True),
     ('ANY SIDE OF A TOWN IS ITS DOOR', ['node', 'gates/any_side_of_a_town_is_its_door_gate.js'],
      "RUN gate, 10/25, row [any side of a town is its door] (rule 186(a), Paolo 10/25: 'any tile next to a settlement... take me "
      "to the nearest tile that lets me enter... it makes me do a full loopy loop around the block'): on the phone and his computer, "

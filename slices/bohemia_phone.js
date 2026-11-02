@@ -1217,9 +1217,14 @@
   function crewOut() { clearTimeout(H.homeT); H.el.querySelector('.home').style.visibility = ''; panel(H.el.querySelector('.crewp'), false); H.homeSig = null; paintHome(true); }
 
   /* ---- THE FIGHT: combat time, then his abilities ---- */
-  function fightIn() {
+  function fightIn(back) {
     pageClose();
     var c = H.el.querySelector('.cmb'), f = H.el.querySelector('.fight');
+    /* __THE_WAY_BACK_IS_ON_THE_PHONE__: back from the company screen in the middle of a fight, his abilities come straight back; the
+       strike card is the fight's start, never its middle */
+    if (back) { c.classList.remove('out'); c.classList.remove('on'); clearTimeout(H.homeT); H.el.querySelector('.home').style.visibility = 'hidden';
+      H.fightKey = null; H.anim = (H.anim | 0) + 1; H.el.classList.add('fighting'); H.manKey = null; H.beatK = null; H.beatLv = null; beatStart();
+      fightPaint(true); panel(f, true); window.__PHONE_FIGHT_BACK = (window.__PHONE_FIGHT_BACK | 0) + 1; return; }
     panel(f, false); c.classList.remove('out'); c.classList.remove('on');
     void c.offsetWidth; c.classList.add('on');   /* restart the strike */
     var hm = H.el.querySelector('.home'); clearTimeout(H.homeT); H.homeT = setTimeout(function () { if (H.face === 'fight') hm.style.visibility = 'hidden'; }, 260);   /* once the strike covers them */
@@ -1439,6 +1444,14 @@
     if (!H.z) H.z = document.getElementById('setwrap') ? 60 : 70;   /* under the shell's settings card; over a lone map's town */
     /* the clouds a fight comes through never swallow the phone: it is the one thing that stays where it is (213(a)) */
     var z = H.z; try { var cl = document.getElementById('nfclouds'); if (cl && +getComputedStyle(cl).opacity > 0.02) z = 999994; } catch (e) {}
+    /* __THE_WAY_BACK_IS_ON_THE_PHONE__ (PLUMBER 11/2, ask line 313, rule 317, Paolo: 'when I press level up, I don't know if there's an easy
+       way for me to get back'). UI round 2 moved the company screen's DONE onto the phone and hid the screen's own, but the phone took
+       its YOUR COMPANY face only off a fight (scr !== 'fight') and stood at z 70: MEASURED on the demo, upright, the end screen's
+       SPEND HIS 3 LEVELS opened the company screen over the spoils (the shell's #spoilsdoor, z 8000) with its DONE display:none and the
+       phone on its home face under the spoils: no way out. NOW a company screen up ANYWHERE (on the map, in a town, over the fight or
+       over its end screen) is the phone's face, and the phone stands over it, since it carries that screen's DONE */
+    var crewUp = false; if (on) { try { crewUp = !!rosterWin(); } catch (e) {} }
+    if (crewUp) z = 999995;
     if (ph.style.zIndex !== String(z)) ph.style.zIndex = String(z);
     ph.style.left = g.left + 'px'; ph.style.top = g.top + 'px'; ph.style.transform = g.scale === 1 ? '' : 'scale(' + g.scale + ')';
     if (ph.classList.contains('on') && !on) { ph.classList.add('leaving'); clearTimeout(H.leaveT); H.leaveT = setTimeout(function () { ph.classList.remove('leaving'); }, 400); }
@@ -1458,9 +1471,8 @@
     frames(window).forEach(function (w) { try { if (w.BohemiaPhone && w.BohemiaPhone._paint) w.BohemiaPhone._paint(H.state); } catch (e) {} });
     /* the face: his abilities while the fight is on; the apps the moment it is won or lost, and everywhere else */
     var over = false; if (scr === 'fight') { try { var fw0 = fightWin(); over = !!(fw0 && fw0.BohemiaPhone && fw0.BohemiaPhone.P.over()); } catch (e) {} }
-    var crewUp = false; if (on && scr !== 'fight') { try { crewUp = !!rosterWin(); } catch (e) {} }
-    var face = scr === 'fight' && !over ? 'fight' : crewUp ? 'crew' : 'home';
-    if (face !== H.face) { var from = H.face; H.face = face; if (from === 'fight') fightOut(); if (from === 'crew') crewOut(); if (face === 'fight') fightIn(); if (face === 'crew') crewIn(); }
+    var face = crewUp ? 'crew' : scr === 'fight' && !over ? 'fight' : 'home';   /* __THE_WAY_BACK_IS_ON_THE_PHONE__: the company screen first */
+    if (face !== H.face) { var from = H.face; H.face = face; if (from === 'fight') fightOut(); if (from === 'crew') crewOut(); if (face === 'fight') fightIn(from === 'crew'); if (face === 'crew') crewIn(); }
     if (!on) return;
     if (face === 'fight') { beatStart(); if (H.el.querySelector('.fight.on')) fightPaint(false); return; }
     if (face === 'crew') { crewPaint(false); return; }

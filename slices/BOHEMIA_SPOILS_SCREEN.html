@@ -327,7 +327,17 @@ function drawCrew(){
 function openCrew(name){
   if(!window.BohemiaCrewDoor) return;
   sfx('equip');
-  BohemiaCrewDoor.open({ base:'', select:name || null, onDone:function(){ S.stash = readJ(BAGKEY, []) || []; drawStash(); say('Back to the spoils.'); } });
+  /* __THE_WAY_BACK_IS_ON_THE_PHONE__ (PLUMBER 11/2, ask line 313, rule 317, Paolo: 'make sure if I do do it at the combat screen, I'm able
+     to get back into the [victory] screen'): DONE on the phone (or the screen's own) brings him back to THIS screen as he left it, his
+     men's levels re-read so the man he spent shows what is left and the others still wait; and once the man he came for has nothing
+     left to spend (his last perk taken), the company screen lets him go back here by itself, a beat after the pick */
+  var back = function(){ S.stash = readJ(BAGKEY, []) || []; drawStash();
+    try{ S.men = climbs(Array.isArray(S.fight && S.fight.crew) ? S.fight.crew : []); drawCrew(); }catch(e){}
+    window.__SPOILS_BACK = (window.__SPOILS_BACK | 0) + 1; say('Back to the spoils.'); };
+  var fr = BohemiaCrewDoor.open({ base:'', select:name || null, onDone:back, onAct:function(d){
+    if(!name || !d || (d.act !== 'perk' && d.act !== 'raise') || d.who !== name) return;
+    setTimeout(function(){ try{ var R = fr && fr.contentWindow && fr.contentWindow.BohemiaRosterScreen, m = R && R.state.crew.filter(function(x){ return x.name === name; })[0];
+      if(m && !((m.rolls && m.rolls.length) || m.points > 0)){ var dn = fr.contentWindow.document.getElementById('done'); if(dn) dn.click(); } }catch(e){} }, 600); } });
   say((name ? name + ' climbed. ' : '') + 'Pick three stats and a perk, then DONE.');
 }
 
