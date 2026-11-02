@@ -6,8 +6,9 @@
 // no screen (penalties() lists the fresh wound alone; scar() is what the fight carries: the mark's id and name, no effects, kind
 // 'scar', so it neither bites nor adds to the death roll). Old saves need nothing: a mark's penalty was always read from its id
 // at the moment of use, so a mark already taken has none from the next read on. THE WEIGHT moved to his hitpoints:
-// engine/bohemia_condition.js counts his knockdowns and hpCut() takes 1 max HP for good from the third, never past 5
-// (records/target/bb/condition.json knockdown_free, knockdown_hp_each, knockdown_hp_cap). The fresh wound is untouched. ***
+// engine/bohemia_condition.js counts his knockdowns and, from the first (rule 304(c) as amended 11/2), each rolls 1 or 2 max HP
+// for good, no cap (records/target/bb/condition.json knockdown_free, knockdown_hp_roll_min/max, knockdown_hp_cap). The fresh
+// wound is untouched. ***
 //
 // *** AMENDED 10/26 (CAMP [struck down, he still fights], VAMILY rule 234, Paolo 10/26: 'if they fail in combat but they
 // survive to still be in my crew, their health will just be at one, and when you heal them they go back up. They're still

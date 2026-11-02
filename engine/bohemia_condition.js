@@ -40,8 +40,10 @@
    *** WHAT A KNOCKDOWN COSTS (INJURY, VAMILY rule 304, Paolo 11/2: 'if you let it happen a couple times it can low-key be OK, after
    a couple times it's hitting the HP... a fair amount that doesn't make you wanna cheat'). The mark is a scar now (no stat, anywhere:
    engine/bohemia_long_injury.js penalties, scar). THE WEIGHT: m.knocks counts a man's knockdowns from this build on (an old save's
-   past ones are not re-counted; m.struck stays as history); the first knockdown_free (2) cost nothing for good, each after costs
-   knockdown_hp_each (1) max hitpoint for good, never past knockdown_hp_cap (5) (records/target/bb/condition.json, a modder's rows);
+   past ones are not re-counted; m.struck stays as history). AMENDED 11/2 (his corrections: 'my punishment will start on that
+   first fall, not after three', 'maybe it's a roll whether it's one or two', 'there is no cap'): EVERY knockdown past
+   knockdown_free (0) rolls knockdown_hp_roll_min to _max (1 or 2) max hitpoints for good, added to m.cutHp, no cap unless
+   knockdown_hp_cap is over 0 (records/target/bb/condition.json, a modder's rows; his max never under 1, the fight's floor);
    YOU are spared. hpCut(record) is the figure; condOf hands it to the fight (cond.hpCut, off his max in condApply), injuryOf to the
    card and his portrait's tally. ***
    Words are attempts, draft:true. */
@@ -50,7 +52,7 @@
   var KEY = 'bohemia.condition.v1', SUPPLIES = 'bohemia.supplies.v1', BASE = '../records/target/bb/';
   var DEF = { hp_per_hour_march: 1, hp_per_hour_camp: 2, cook_hp_per_hour: 1, armour_per_hour: 3, camp_repair_mult: 2, durability_per_tape: 15,
               blacksmith_repair_mult: 1.2, blacksmith_tape_mult: 0.8, surgeon_injury_days: 1, struck_down_hp_left: 1, unknown_hp_max: 55,
-              bars_hide_at: 0.87, camp_done_at: 0.99, knockdown_free: 2, knockdown_hp_each: 1, knockdown_hp_cap: 5 };
+              bars_hide_at: 0.87, camp_done_at: 0.99, knockdown_free: 0, knockdown_hp_roll_min: 1, knockdown_hp_roll_max: 2, knockdown_hp_cap: 0 };
   var RATE = {}; for (var dk in DEF) RATE[dk] = DEF[dk];
   /* the crew list's names and kit (ours.json, the fight's own list) and every armour piece's durability (armor.json) */
   var D = { crew: null, looks: null, armour: null, asked: {}, rates: false };
@@ -122,8 +124,16 @@
         m.wound = of > 0 ? { mark: r.injury.id, left: of, of: of, day: day } : null;
         m.struck = (m.struck | 0) + 1;
       }
-      /* rule 304(c): every knockdown of a man who is not YOU is counted; the cost is read off the count (hpCut) */
-      if (r.down && !r.main) m.knocks = (m.knocks | 0) + 1;
+      /* rule 304(c) as amended: every knockdown of a man who is not YOU is counted, and past the free ones (none) rolls 1 or 2 max
+         hitpoints for good, kept on him (cutHp, the rolls one by one in cuts) */
+      if (r.down && !r.main) {
+        m.knocks = (m.knocks | 0) + 1;
+        if (m.knocks > Math.max(0, RATE.knockdown_free | 0)) {
+          var lo = Math.max(0, Math.round(+RATE.knockdown_hp_roll_min || 0)), hi = Math.max(lo, Math.round(+RATE.knockdown_hp_roll_max || 0));
+          var roll = lo + Math.floor(Math.random() * (hi - lo + 1));
+          m.cutHp = (+m.cutHp || 0) + roll; m.cuts = (Array.isArray(m.cuts) ? m.cuts : []).concat([roll]);
+        }
+      }
       s.men[k] = m; n++;
     });
     s.lastFight = { day: day, men: n, at: Date.now() };
@@ -148,11 +158,11 @@
     });
   }
   /* the company for the fight: the dead never again; every man with what he is missing */
-  /* WHAT HIS KNOCKDOWNS TOOK FOR GOOD (rule 304(c)): nothing for the free ones, then one max hitpoint each, capped; never YOU */
+  /* WHAT HIS KNOCKDOWNS TOOK FOR GOOD (rule 304(c) as amended): the rolls added up; a cap only when the table sets one; never YOU */
   function hpCut(r) {
     if (!r || r.main) return 0;
-    var n = Math.max(0, (r.knocks | 0) - Math.max(0, RATE.knockdown_free | 0));
-    return Math.max(0, Math.min(+RATE.knockdown_hp_cap || 0, n * (+RATE.knockdown_hp_each || 0)));
+    var c = Math.max(0, +r.cutHp || 0), cap = +RATE.knockdown_hp_cap || 0;
+    return cap > 0 ? Math.min(cap, c) : c;
   }
   function condOf(r) { return r ? { hpCut: hpCut(r), knocks: r.knocks | 0, lostHp: Math.round(r.lostHp || 0), lostH: Math.round(r.lostH || 0), head: r.head || null, lostB: Math.round(r.lostB || 0), body: r.body || null,
     marks: uniq(r.marks), wound: r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: Math.round(r.wound.left * 100) / 100, of: r.wound.of } : null } : null; }
@@ -189,7 +199,9 @@
     var w = r.wound && r.wound.left > 0 ? { mark: r.wound.mark, left: r.wound.left, of: r.wound.of, treated: (r.wound.treated | 0) > 0 } : null;
     /* rule 304: the scars (his marks, no penalty), his knockdowns, the hitpoints they took for good, the free ones still left */
     return { marks: uniq(r.marks), wound: w, daysLeft: w ? Math.ceil(w.left - 1e-9) : 0, main: !!r.main,
-      knocks: r.knocks | 0, hpCut: hpCut(r), hpCap: +RATE.knockdown_hp_cap || 0, freeLeft: r.main ? null : Math.max(0, (RATE.knockdown_free | 0) - (r.knocks | 0)),
+      knocks: r.knocks | 0, hpCut: hpCut(r), cuts: Array.isArray(r.cuts) ? r.cuts.slice() : [], hpCap: +RATE.knockdown_hp_cap || 0,
+      free: Math.max(0, RATE.knockdown_free | 0), freeLeft: r.main ? null : Math.max(0, (RATE.knockdown_free | 0) - (r.knocks | 0)),
+      rollMin: +RATE.knockdown_hp_roll_min || 0, rollMax: +RATE.knockdown_hp_roll_max || 0,
       fresh: w && L ? L.freshNow(w.mark, w.left, w.of) : null,
       penalties: L ? L.penalties(r.marks, w) : [], look: L ? L.look(r.marks, w) : null };
   }

@@ -1,5 +1,5 @@
 /* THE INJURY CARD, BEFORE AND AFTER (INJURY, VAMILY rule 304, 11/3/26). Paolo 11/2 voted the card NO: 'ugly, cluttered, try
-   again'. This draws one man after his THIRD knockdown (three scars, a fresh wound, -1 max HP) twice at the phone's width: on the
+   again'. This draws one man after his THIRD knockdown (three scars, a fresh wound, three rolls of 1 or 2 max HP gone) twice at the phone's width: on the
    card as it was (the commit before this lane, 95ba4314, its marks still listing their permanent penalties) and on the card as it
    is now (slices/bohemia_injury_card.js), the crew card's way and the clinic's way. The man's numbers come from the real engines
    (engine/bohemia_condition.js afterFight three times, engine/bohemia_long_injury.js); the old card is fed the old penalties (the

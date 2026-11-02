@@ -18,10 +18,14 @@ that doesn't make you wanna cheat." And the card, voted NO: "ugly, cluttered, tr
   and says the first two knockdowns "cost nothing for good" and the mark is "a story with no penalty"; a mark that raises the
   death roll is a penalty for good from the first knockdown. The row stays in ours.json for traits; if the coordinator reads 304
   otherwise, giving scars back to the death roll is one word in deathChance (kind 'scar' counted).
-- (c) THE WEIGHT: engine/bohemia_condition.js counts m.knocks (a new field: old saves start at 0, their past knockdowns not
-  re-counted; m.struck stays as history). hpCut = min(cap, max(0, knocks - free) * each), from records/target/bb/condition.json
-  rows knockdown_free 2, knockdown_hp_each 1, knockdown_hp_cap 5 (a modder edits the numbers there; the engine's DEF is the
-  fallback). YOU are never counted. The fight takes hpCut off his max (condApply; u.hpWhole keeps the whole for the record); the
+- (c) THE WEIGHT, AS AMENDED ON MAIN WHILE THIS LANE WORKED (rule 304(c) 11/2, his corrections: 'my punishment will start on
+  that first fall, not after three', 'maybe it's a roll whether it's one or two, maybe that's fair', 'there is no cap'; NOT FINAL,
+  his numbers to settle): engine/bohemia_condition.js counts m.knocks (a new field: old saves start at 0, their past knockdowns not
+  re-counted; m.struck stays as history) and EVERY knockdown rolls 1 or 2 max hitpoints for good, kept on him (m.cutHp the sum,
+  m.cuts the rolls). records/target/bb/condition.json rows: knockdown_free 0, knockdown_hp_roll_min 1, knockdown_hp_roll_max 2,
+  knockdown_hp_cap 0 (0 is no cap; a modder edits them there, the engine's DEF is the fallback). His max never goes under 1 (the
+  fight's floor). YOU are never counted. The first cut of this lane (two free, then 1 each, to -5) shipped in commit 1 and is
+  replaced by this in the commit after it. The fight takes hpCut off his max (condApply; u.hpWhole keeps the whole for the record); the
   crew screen's HP stat shows the same.
 
 ## THE SCREEN (asks 292, 293)
@@ -29,7 +33,7 @@ that doesn't make you wanna cheat." And the card, voted NO: "ugly, cluttered, tr
   in, a faint scan): line 1 the wound's name, a dried-blood bead per day lit for the days left, the clock; line 2 what it costs
   now (stat icons, red arrows, nothing else; with the clinic: now | CLINIC > | after); line 3 for good: SCARS FOR LIFE by name and
   the knockdown tally (bone beads free, red beads that cost) with what is gone or what the next one costs (rule 303: the risk seen
-  before it is taken). Same card in the clinic and the crew screen.
+  before it is taken: NEXT ONE: -1 OR -2 MORE). Same card in the clinic and the crew screen.
 - The crew screen's hurt box: one short head (HURT, STILL FIGHTING / HEALED, SCARRED) and the card. The old three "FOR GOOD: mark,
   penalties" lines are gone.
 - His portrait in the crew line wears the tally in its corner (BohemiaInjuryCard.tally, with -N HP once it costs).
@@ -40,12 +44,14 @@ that doesn't make you wanna cheat." And the card, voted NO: "ugly, cluttered, tr
 ## PROOF
 - gates/struck_down_he_still_fights_gate.js, new legs K1 to K3, walking the cut demo at phone size: the same man struck down three
   times by the fight's own fall(), the wound each time; his marks come into the next fight as scars with no effects and the card's
-  penalties are the wound's only; after the third his max HP on the board is his whole less 1, the condition's count 3, cut 1.
-  S4 now reads the mark as a scar. PHONE RUN: K1, K2, K3 ok (3 knockdowns: broken_knee 8 days, missing_ear 6, weakened_heart 6;
-  knocks 1, 2, 3; the board 56 of a whole 57), S1 to S8, S10, D1 to D3 ok; S9 (AN OLD SAVE WAKES) RED, the same with the K legs
+  penalties are the wound's only; K3 each knockdown took its roll of 1 or 2 and the next board's max is his whole less the sum.
+  S4 now reads the mark as a scar. PHONE RUN (the first cut's K3, two free then 1): K1, K2, K3 ok (3 knockdowns: broken_knee 8 days,
+  missing_ear 6, weakened_heart 6; knocks 1, 2, 3; the board 56 of a whole 57), S1 to S8, S10, D1 to D3 ok. THE AMENDED RULE'S
+  PHONE RUN: 18 passed, 0 failed (maimed_foot, missing_eye, brain_damage, 7 days each; rolls 2, 2, 1; the board 56 of a whole 61;
+  S9 green this time). S9 (AN OLD SAVE WAKES) was RED on the two runs before, the same with the K legs
   before it or after it: the saved bench is emptied before BohemiaCondition.wake reads it (bench 0, the man never in the condition),
   a path this change does not touch (wake is unchanged); owed to whoever owns the save (rule 295's hire lock is the newest writer
-  of bohemia.company.line.v1). The K legs run before S9 because after S9's reload the fight frame detaches.
+  of bohemia.company.line.v1); so it is FLAKY, not broken by this. The K legs run before S9 because after S9's reload the fight frame detaches.
 - gates/the_clinic_halves_both_gate.js reads the new head and the card's clock: 12 ok, 0 failed.
 - gates/roster_hurt_gate.js reads the new head, the card's clock and the scars line, but it is RED BEFORE THE CARD: its standalone
   fight strikes down TINA and the crew screen calls that man TITO (engine/bohemia_roster.js MEN_FOR, RUN TWO 10/26), so the
@@ -57,5 +63,5 @@ that doesn't make you wanna cheat." And the card, voted NO: "ugly, cluttered, tr
   third). tools/bohemia_injury_card_shots.js draws the first two.
 
 [bb] Battle Brothers' permanent injuries are permanent stat cuts; ours keep the story (the scar on the face) and move the weight
-to a capped max-HP loss that starts after two free knockdowns, the fairness rule 303 asks for.
+to max hitpoints, a small roll on every fall that the card says before the next one (rule 303: felt, fair, seen first).
 [analog horror] the card is a dented tin plate under a scan, the wound counted in dried-blood beads, no clean UI chrome.

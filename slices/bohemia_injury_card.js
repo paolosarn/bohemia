@@ -19,9 +19,9 @@
      1 WHAT AND HOW LONG: the drop, the wound's name, the days left on the clock, and a row of clay beads, one a day, lit for the
        days still to go (data-when="now" holds the chips and the clock the gates read)
      2 WHAT IT COSTS HIM NOW: the stat icons with their red arrows, nothing else (with clinic: now | CLINIC > | after)
-     3 WHAT IS HIS FOR GOOD: his scars by name (no penalty, rule 304(b)) and the knockdown tally: a bead a knockdown, the free ones
-       bone, the ones that cost red, then the hitpoints gone for good or what the next one costs (the risk seen before it is taken,
-       rule 303). tally(doc, inj) is the same beads for his portrait.
+     3 WHAT IS HIS FOR GOOD: his scars by name (no penalty, rule 304(b)) and the knockdown tally: a bead a knockdown (red, each
+       one cost him; bone only for a free one a modder's table allows), then the hitpoints gone for good and what the next one
+       costs (the risk seen before it is taken, rule 303). tally(doc, inj) is the same beads for his portrait.
    Tin and clay (Crashbox, rule 301): a riveted plate lit from the top left, clay chips pressed into it, a faint scan over all. ***/
 (function (root) {
   'use strict';
@@ -119,7 +119,7 @@
   function tally(doc, inj, o) {
     doc = doc || root.document; style(doc);
     var t = doc.createElement('span'); t.className = 'injtally'; if (!inj || inj.main) return t;
-    var n = inj.knocks | 0, cut = inj.hpCut | 0, free = n - cut; t.dataset.knocks = n; t.dataset.hpCut = cut;
+    var n = inj.knocks | 0, cut = inj.hpCut | 0, free = Math.min(n, inj.free | 0); t.dataset.knocks = n; t.dataset.hpCut = cut;
     for (var i = 0; i < Math.min(n, 9); i++) { var e = doc.createElement('b'); e.className = i < free ? 'free' : 'cost'; t.appendChild(e); }
     if (cut > 0 && o && o.hp) { var m = doc.createElement('em'); m.textContent = '-' + cut + ' HP'; t.appendChild(m); }
     t.title = n + (n === 1 ? ' knockdown' : ' knockdowns') + (cut ? ', ' + cut + ' max HP gone for good' : ', nothing lost for good');
@@ -128,11 +128,12 @@
   }
   /* what the tally says beside it: what is gone, or what the next knockdown will cost (the risk seen first, rule 303) */
   function costWord(inj) {
-    var cut = inj.hpCut | 0, cap = inj.hpCap | 0, fl = inj.freeLeft;
+    var cut = inj.hpCut | 0, cap = inj.hpCap | 0, fl = inj.freeLeft, lo = inj.rollMin | 0, hi = inj.rollMax | 0;
+    var next = lo === hi ? '-' + lo : '-' + lo + ' OR -' + hi;
     if (cut >= cap && cap > 0) return { t: '-' + cut + ' MAX HP FOR GOOD. THE MOST IT TAKES.', free: false };
-    if (cut > 0) return { t: '-' + cut + ' MAX HP FOR GOOD. NEXT ONE: -1 MORE.', free: false };
     if (fl > 0) return { t: (fl === 1 ? '1 MORE KNOCKDOWN' : fl + ' MORE KNOCKDOWNS') + ' COST NOTHING FOR GOOD.', free: true };
-    return { t: 'NEXT KNOCKDOWN: -1 MAX HP FOR GOOD.', free: false };
+    if (cut > 0) return { t: '-' + cut + ' MAX HP FOR GOOD. NEXT ONE: ' + next + ' MORE.', free: false };
+    return { t: 'NEXT KNOCKDOWN: ' + next + ' MAX HP FOR GOOD.', free: false };
   }
   /* WHAT THE CLINIC LEAVES (rule 241(b)): the days left halved, rounded up (a medic one fewer, never under one), and with them the
      fresh wound's share of its penalty (the share is the days left over its days, engine/bohemia_long_injury.js freshShare) */

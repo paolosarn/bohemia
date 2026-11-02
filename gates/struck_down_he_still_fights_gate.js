@@ -30,9 +30,10 @@
      K1-K3 WHAT A KNOCKDOWN COSTS (INJURY, VAMILY rule 304, Paolo 11/2: 'every time you get down it is always going to be an injury...
         I'm not even a fan of the permanent debuff... after a couple times it's hitting the HP'): the same man is struck down by the
         fight's own fall() twice more (three in all): K1 every knockdown gives him the fresh wound for its days; K2 his marks are
-        scars on the board (kind scar, no effects), no permanent penalty anywhere, the card's penalties only the wound's; K3 after the
-        third, 1 max hitpoint gone for good (records/target/bb/condition.json knockdown_*): the condition's hpCut, the next fight's
-        board his max one under his whole, the card's tally; the crew card shot at phone size (records/target/)
+        scars on the board (kind scar, no effects), no permanent penalty anywhere, the card's penalties only the wound's; K3 (rule
+        304(c) as amended 11/2: from the FIRST fall, a roll of 1 or 2, no cap) each knockdown took its roll of max hitpoints for good
+        (records/target/bb/condition.json knockdown_*): the condition's rolls and their sum, the next fight's board his max that sum
+        under his whole; the crew card shot at phone size (records/target/)
      S11 nothing threw
    node gates/struck_down_he_still_fights_gate.js [--profile phone_portrait|computer]   (no flag: both) */
 'use strict';
@@ -248,7 +249,7 @@ async function run(profile) {
       knocks.push({ row: rw, C: Cn });
     }
     const k1 = knocks.map(k => ({ down: !!(k.row && k.row.down && !k.row.dead), injury: k.row && k.row.injury && k.row.injury.id, days: k.row && k.row.laidUpDays,
-      wound: !!(k.C && k.C.wound && k.C.wound.of === (k.row && k.row.laidUpDays) && k.C.wound.left > 0), knocks: k.C && k.C.knocks }));
+      wound: !!(k.C && k.C.wound && k.C.wound.of === (k.row && k.row.laidUpDays) && k.C.wound.left > 0), knocks: k.C && k.C.knocks, cutHp: k.C && k.C.cutHp }));
     ok(P + 'K1 *** EVERY KNOCKDOWN IS A WOUND *** the same man struck down three times by the fight\'s own fall(): each time down, alive, a wiki mark and the fresh wound for its ' + DAYS[0] + ' to ' + DAYS[1] + ' days',
       k1.length === 3 && k1.every((k, i) => k.down && !!LI.byId(k.injury) && k.days >= DAYS[0] && k.days <= DAYS[1] && k.wound && k.knocks === i + 1), JSON.stringify(k1));
     const F5 = await playFight(d, 40, false, true), on5 = F5.f ? F5.start.find(u => canon(u.name) === K) : null;
@@ -257,10 +258,12 @@ async function run(profile) {
     ok(P + 'K2 *** NO PERMANENT STAT DEBUFF *** on the next board his ' + (inj5 && inj5.marks.length) + ' marks are scars with no effects, and every penalty the card lists is the fresh wound\'s',
       !!on5 && carriedPerm.length === 0 && on5.injuries.filter(j => j.kind === 'scar').length === (inj5 && inj5.marks.length) && inj5.marks.length >= 2 && inj5.penalties.every(p => p.from === 'fresh'),
       on5 ? JSON.stringify({ scars: on5.injuries.filter(j => j.kind === 'scar').map(j => j.id), other: on5.injuries.filter(j => j.kind !== 'scar').map(j => j.id + ':' + j.kind), from: inj5.penalties.map(p => p.from) }) : 'not on the board');
-    const CK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/condition.json'), 'utf8')), wantCut = Math.min(CK.knockdown_hp_cap.value, Math.max(0, 3 - CK.knockdown_free.value) * CK.knockdown_hp_each.value);
-    ok(P + 'K3 *** THE THIRD COSTS HIS HP *** after the third knockdown ' + wantCut + ' max HP gone for good: the condition\'s count and cut, the board\'s max one under his whole, the card\'s tally',
-      wantCut === 1 && !!inj5 && inj5.knocks === 3 && inj5.hpCut === wantCut && !!on5 && on5.hpCut === wantCut && on5.hpWhole - on5.hpMax === wantCut,
-      JSON.stringify({ knocks: inj5 && inj5.knocks, hpCut: inj5 && inj5.hpCut, board: on5 && { hpMax: on5.hpMax, whole: on5.hpWhole, cut: on5.hpCut } }));
+    const CK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/condition.json'), 'utf8')), lo = CK.knockdown_hp_roll_min.value, hi = CK.knockdown_hp_roll_max.value;
+    const cuts = (inj5 && inj5.cuts) || [], sum = cuts.reduce((x, y) => x + y, 0), steps = k1.map((k, i) => (k.cutHp || 0) - (i ? (k1[i - 1].cutHp || 0) : 0));
+    ok(P + 'K3 *** EVERY KNOCKDOWN COSTS HIS HP, FROM THE FIRST *** each of the three took a roll of ' + lo + ' to ' + hi + ' max HP for good (no cap): the condition\'s rolls and their sum, the board\'s max that much under his whole',
+      CK.knockdown_free.value === 0 && !!inj5 && inj5.knocks === 3 && cuts.length === 3 && cuts.every(c => c >= lo && c <= hi) && steps.every((c, i) => c === cuts[i])
+        && inj5.hpCut === sum && !!on5 && on5.hpCut === sum && on5.hpWhole - on5.hpMax === Math.min(sum, on5.hpWhole - 1),
+      JSON.stringify({ knocks: inj5 && inj5.knocks, rolls: cuts, steps, hpCut: inj5 && inj5.hpCut, board: on5 && { hpMax: on5.hpMax, whole: on5.hpWhole, cut: on5.hpCut } }));
     /* the crew card after the third, at the phone's size, for the record (records/target/) */
     if (profile === 'phone_portrait') {
       await d.page.evaluate(() => new Promise(r => { try { if (!BohemiaCrewDoor.isOpen()) BohemiaCrewDoor.open({ base: '' }); } catch (e) {} r(); }));
