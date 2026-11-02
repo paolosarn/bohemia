@@ -359,7 +359,11 @@ function loadAll() {
       DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15];
       DB.armorTiers = a[16]; DB.shapes = a[17]; DB.racial = a[18]; DB.graveyard = a[19];
       DB.traits = a[20];
-    });
+    })
+    /* THE LAYERS (ask line 251): the outline of every building that stands up into the tile north of it; a board draws
+       without it if it never comes (no man is then covered by a roof, as before) */
+    .then(function () { return fetch('fight_ground/fight_stands.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (s) { DB.stands = s; });
 }
 function R(path) {
   const parts = path.split('.');
@@ -5467,6 +5471,11 @@ function draw(now) {
   /* the man acting: GAFFER TAPE on his tile's corners (his side's paint for theirs) */
   if (u && !S.over && !S.deploy) mkCorners(shownAt(u).x, dy(u), u.side === 'you' ? MK.tape : MK.rustLit);   /* the corners mark his tile, not his stagger */
   mkOff();
+  /* THE LAYERS (ask line 251): the glass under every man who stands behind a roof, a car, a wall or a lamp, kept before
+     anybody is drawn, to lay back over him after his body */
+  const fallen = S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall) && !(v.ghost && now - v._fallAt > beatMs()); });
+  const standing = S.units.filter(function (v) { return ((FIGHT.onField(v) && FIGHT.shown(v)) || ((v.dead || v.down) && v._fallAt === undefined && v._seen)) && !(UI.drag && UI.drag.u === v); });
+  keepLayers(fallen, standing);
   /* rule 145: the floor keeps every hit, under the fallen and the standing */
   goreTick(now); drawStains();
   /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
@@ -6191,6 +6200,7 @@ function drawBody(v, tw, th) {
   const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th), h = manH();
   drawPool(v, X, feet, h, performance.now());   /* rule 145: a pool spreads under every man down or dead */
   blitMan(v, X, feet, performance.now(), 1);
+  layOver(v, X, feet);   /* THE LAYERS: a roof, a car, a lamp south of where he lies covers him */
 }
 /* the man he is dragging into his line stands under his finger, his feet a little above it so the finger does not cover him */
 const DRAG_LIFT = 0.45;
@@ -6260,6 +6270,144 @@ function drawLadders() {
   mkOff();
   UI.ladders = out;   /* for the gates */
 }
+/* ---------------- THE LAYERS (COMBAT [the fight's layers], ask line 251, Paolo 10/27: 'a graphic system where it recognizes
+   the overlays... if I'm in the street during combat mode and there's a house one tile beneath me south of me... if that house
+   is a one or two or three story house then it would cover up like the legs of my character... the layers of this 45 degree
+   combat model') ----------------
+   Everything that stands on the board is drawn in depth order with the men: a building, a car, a wall, a shed, a crypt, a lamp
+   standing south of a man is in front of him and covers him where its picture is (a tall roof up to his knees or his waist,
+   by its storeys: the picture's own height, read off the blocks by tools/bohemia_combat_the_fight_layers_11_2_26.py into
+   fight_ground/fight_stands.json); nothing south of a man is drawn under him. HOW: the ground, the buildings, the cover and
+   the lamps are one picture already on the glass before the first man; the glass under every man who stands behind
+   something is kept (UI.layer, only where such a man is, only on a frame that has one), and after his body is drawn the
+   kept glass is laid back over him through the outline of what stands in front (a building's measured outline, a piece's
+   or a lamp's own picture). So the cover is the very pixels the glass showed there (the night, the lamps' pools, the
+   chalk on the tiles), never a second drawing that could differ. A man stands in front of a building on his own tile row
+   or south of it (a man on a roof is on it); a piece or a lamp is in front when its foot is south of his feet.
+   [bb] Battle Brothers draws the tall pieces of a hex row after the brothers on the rows behind it: a brother behind a house
+   or a tree is hidden to its height. */
+function standsNow() {
+  const S = FIGHT.S, B = S.boardDef;
+  if (UI.stands && UI.stands.board === UI.board && UI.stands.tw === UI.tw) return UI.stands.list;
+  const G = DB.ground, bt = G.block_tiles, ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0, k = UI.tw / G.tile_px[0];
+  const AW = bt * G.tile_px[0], P = (DB.stands && DB.stands.pictures) || {}, list = [];
+  const box = function (o, pts) { o.x0 = Math.min.apply(null, pts.map(function (p) { return p[0]; })); o.x1 = Math.max.apply(null, pts.map(function (p) { return p[0]; }));
+    o.y0 = Math.min.apply(null, pts.map(function (p) { return p[1]; })); o.y1 = Math.max.apply(null, pts.map(function (p) { return p[1]; })); return o; };
+  B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
+    const f = blockFlip(n), L = P[(G.blocks[blockBase(n)] || {}).src]; if (!L || f.indexOf('v') >= 0) return;   /* a block stood on its head has no roofs to stand */
+    const X0 = (bx * bt - ox) * UI.tw, Y0 = (by * bt - oy) * UI.th, H = f.indexOf('h') >= 0;
+    L.forEach(function (q) {
+      const gy = Y0 + q.line * k, pts = q.poly.map(function (p) { return [X0 + (H ? AW - p[0] : p[0]) * k, Y0 + p[1] * k]; });
+      pts.push([pts[pts.length - 1][0], gy], [pts[0][0], gy]);
+      list.push(box({ kind: 'house', line: gy / UI.th - .5, pts: pts }, pts));
+    });
+  }); });
+  const pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
+  (B.cover || []).forEach(function (c) { const im = UI.imgs[FIGHT.pieceSrc(c.piece)]; if (!im) return;
+    const x = c.x_m * pxm * k, y = c.y_m * pym * k, w = im.width * k, h = im.height * k;
+    list.push({ kind: 'piece', im: im, line: (y + h) / UI.th, x0: x, y0: y, x1: x + w, y1: y + h }); });
+  (B.lights || []).forEach(function (l) { const im = UI.imgs['fight_ground/' + l.src]; if (!im) return;
+    const w = im.width * k, h = im.height * k, x = l.x_m * pxm * k - w / (1 + 1), y = l.y_m * pym * k - h;
+    list.push({ kind: 'lamp', im: im, line: (y + h) / UI.th, x0: x, y0: y, x1: x + w, y1: y + h }); });
+  UI.stands = { board: UI.board, tw: UI.tw, list: list };
+  return list;
+}
+/* the man's picture cell on the glass, in device pixels (blitMan's own: his foot on X, feet) */
+function cellOf(v, X, feet) {
+  const L = lookOf(v), s = rigScale(), x = Math.round(X * DPR) - L.foot[0] * s, y = Math.round(feet * DPR) - L.foot[1] * s;
+  return { x: Math.floor(x), y: Math.floor(y), w: Math.ceil(L.w * s) + 1, h: Math.ceil(L.h * s) + 1 };
+}
+/* what stands in front of a man whose feet are on board row foot, over his cell */
+function standsOver(c, foot) {
+  return standsNow().filter(function (o) {
+    if (!(o.line > foot + 1e-6)) return false;
+    const a = sx(o.x0) * DPR, b = sx(o.x1) * DPR, t = sy(o.y0) * DPR, d = sy(o.y1) * DPR;
+    return a < c.x + c.w && b > c.x && t < c.y + c.h && d > c.y;
+  });
+}
+/* where a man (or the fallen) is drawn this frame: his foot X and feet on the glass, the row his feet stand on */
+function layAt(v, body) {
+  const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th), up = body ? 0 : UI.th * UI.zoom * riseAt(v.x, v.y);
+  return { X: X, feet: feet - up, foot: dy(v) + .9 };
+}
+/* the glass under every man who stands behind something, kept once a frame before the first body or man is drawn: only where
+   what stands in front of him overlaps his cell (measured 11/2: one box round every covered man copied most of the glass,
+   9 ms a frame in the bench; the overlaps alone are a few hundredths of it) */
+function layKey() {
+  const S = FIGHT.S, u = FIGHT.current(), pe = UI.pend || {};
+  return [UI.cx, UI.cy, UI.zoom, cx.canvas.width, cx.canvas.height, !!S.night, S.round, u ? u.id + '@' + u.x + ',' + u.y : '', UI.anim.length > 0, !!S.over, !!S.deploy,
+    pe.target ? pe.target.id : '', pe.path ? pe.path.length : 0, pe.sweep || '', UI.skillMode || '', UI.dsel ? UI.dsel.x + ',' + UI.dsel.y : '', !!UI.drag, UI.fogKey || '', UI.gkey || '',
+    S.units.map(function (v) { return v.x + ',' + v.y + (v.dead ? 'd' : v.down ? 'w' : ''); }).join(';')].join('|');
+}
+function keepLayers(bodies, men) {
+  /* THE GLASS UNDER THEM IS KEPT UNTIL IT CHANGES (measured 11/2: copying it every frame doubled the bench's frame, 13 to 29 ms):
+     the ground and the chalk under a man change only when the camera, the turn, a mark or somebody's tile does */
+  const key = layKey();
+  if (UI.layer && UI.layer.key === key) return;
+  UI.layer = null;
+  const pool = UI.layPool || (UI.layPool = []), W0 = cx.canvas.width, H0 = cx.canvas.height, by = {};
+  let n = 0;
+  bodies.map(function (v) { return [v, true]; }).concat(men.map(function (v) { return [v, false]; })).forEach(function (q) {
+    const v = q[0], p = layAt(v, q[1]), c = cellOf(v, p.X, p.feet), pad = Math.round(c.w * .08);   /* his dodge leans him a little */
+    c.x -= pad; c.w += pad * (1 + 1);
+    const hits = standsOver(c, p.foot); if (!hits.length) return;
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    hits.forEach(function (o) { x0 = Math.min(x0, sx(o.x0) * DPR); x1 = Math.max(x1, sx(o.x1) * DPR); y0 = Math.min(y0, sy(o.y0) * DPR); y1 = Math.max(y1, sy(o.y1) * DPR); });
+    x0 = Math.max(0, c.x, Math.floor(x0)); y0 = Math.max(0, c.y, Math.floor(y0)); x1 = Math.min(W0, c.x + c.w, Math.ceil(x1)); y1 = Math.min(H0, c.y + c.h, Math.ceil(y1));
+    if (x1 <= x0 || y1 <= y0) return;
+    const k = pool[n] || (pool[n] = document.createElement('canvas')), w = x1 - x0, h = y1 - y0;
+    if (k.width < w || k.height < h) { k.width = Math.max(k.width, w); k.height = Math.max(k.height, h); }
+    const g = k.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'copy';
+    g.drawImage(cx.canvas, x0, y0, w, h, 0, 0, w, h); g.globalCompositeOperation = 'source-over';
+    by[v.id] = { c: k, x: x0, y: y0, w: w, h: h, hits: hits }; n++;
+  });
+  UI.layer = { by: by, men: n, key: key }; UI.layKeeps = (UI.layKeeps || 0) + 1;
+}
+/* a piece's or a lamp's outline off its own picture, once a picture: down every column (24 across) the first and the last
+   pixel that is more than half there, tops left to right and bottoms back, in the picture's own pixels */
+function outlineOf(im) {
+  const O = UI.outlines || (UI.outlines = new Map()); if (O.has(im)) return O.get(im);
+  let pts = null;
+  try {
+    const w = im.width, h = im.height, c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d'); g.drawImage(im, 0, 0); const a = g.getImageData(0, 0, w, h).data;
+    const n = Math.min(24, w), top = [], bot = [];
+    for (let i = 0; i <= n; i++) {
+      const x0 = Math.min(w - 1, Math.floor(i * w / n)), x1 = Math.min(w, Math.max(x0 + 1, Math.floor((i + 1) * w / n)));
+      let t = -1, d = -1;
+      for (let y = 0; y < h && t < 0; y++) for (let x = x0; x < x1; x++) if (a[(y * w + x) * 4 + 3] > 128) { t = y; break; }
+      for (let y = h - 1; y >= 0 && d < 0; y--) for (let x = x0; x < x1; x++) if (a[(y * w + x) * 4 + 3] > 128) { d = y + 1; break; }
+      const X = i === n ? w : x0;
+      if (t >= 0) { top.push([X, t]); bot.push([X, d]); }
+    }
+    if (top.length) pts = top.concat(bot.reverse());
+  } catch (e) { pts = null; }   /* a picture the page may not read: its box */
+  if (!pts) pts = [[0, 0], [im.width, 0], [im.width, im.height], [0, im.height]];
+  O.set(im, pts); return pts;
+}
+/* after his body: the kept glass back over him, clipped to his cell and to the outlines of everything standing in front of
+   him (one path, every outline wound the same way, so two that overlap are still one: measured 11/2, a mask blended per man
+   cost 1.9 ms each in the bench's software canvas; a clip and one copy cost a third of that) */
+function layOver(v, X, feet) {
+  const Lr = UI.layer && UI.layer.key && UI.layer.by[v.id]; if (!Lr || (UI.drag && UI.drag.u === v)) return;
+  const c = cellOf(v, X, feet), hits = Lr.hits;
+  const x0 = Math.max(c.x, Lr.x), y0 = Math.max(c.y, Lr.y), x1 = Math.min(c.x + c.w, Lr.x + Lr.w), y1 = Math.min(c.y + c.h, Lr.y + Lr.h);
+  if (x1 <= x0 || y1 <= y0) return;
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalAlpha = 1;
+  cx.beginPath(); cx.rect(x0, y0, x1 - x0, y1 - y0); cx.clip();
+  cx.beginPath();
+  hits.forEach(function (o) {
+    const pts = o.pts ? o.pts.map(function (p) { return [sx(p[0]) * DPR, sy(p[1]) * DPR]; })
+      : (function () { const L = outlineOf(o.im), kx = (o.x1 - o.x0) / o.im.width, ky = (o.y1 - o.y0) / o.im.height;
+          return L.map(function (p) { return [sx(o.x0 + p[0] * kx) * DPR, sy(o.y0 + p[1] * ky) * DPR]; }); })();
+    pts.forEach(function (p, i) { if (i) cx.lineTo(p[0], p[1]); else cx.moveTo(p[0], p[1]); }); cx.closePath();
+  });
+  cx.clip('nonzero');
+  cx.drawImage(Lr.c, x0 - Lr.x, y0 - Lr.y, x1 - x0, y1 - y0, x0, y0, x1 - x0, y1 - y0);
+  cx.restore();
+  v._layer = { n: hits.length, kinds: hits.map(function (o) { return o.kind; }), at: performance.now() };
+  UI.layCount = (UI.layCount || 0) + 1;
+}
 function drawMan(v, tw, th) {
   const h = manH(), you = v.side === 'you', now = performance.now();
   const X = sx((dx(v) + .5) * UI.tw) + dodgeLean(v, h, now), feet = sy((dy(v) + .9) * UI.th);
@@ -6282,6 +6430,7 @@ function drawMan(v, tw, th) {
   mkOff();
   blitMan(v, X, Y, now, v.morale === 'Fleeing' ? .7 : 1);
   if (v.netted) netOver(X, Y, h);
+  layOver(v, X, Y);   /* THE LAYERS (ask line 251): whatever stands south of him covers him where its picture is; his bars stay over it */
   /* WHO IS MINE AT A GLANCE (COMBAT [the PC playtest: the fight's part] (2), rule 164 item 17, Paolo 10/24: 'it's hard to tell
      who's on my team'; his 10/2 words, rule 67: 'health and armour bars above the people is cool'). AMENDS 67(a)'s 'only while
      he acts or is picked' (Battle Brothers' habit, the research's, not his words): every man on the field wears his bars over
