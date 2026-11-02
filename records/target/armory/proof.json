@@ -1,0 +1,862 @@
+{
+ "at": "2026-11-02T05:59:47.287Z",
+ "pieces": {
+  "weapons": 14,
+  "body": 5,
+  "head": 4
+ },
+ "shop": {
+  "by": {
+   "broom_bayonet": {
+    "camp": 4,
+    "town": 2
+   },
+   "carpet_coat": {
+    "camp": 4
+   },
+   "bike_lock_chain": {
+    "camp": 5,
+    "town": 2
+   },
+   "zip_gun": {
+    "camp": 2
+   },
+   "football_pads": {
+    "camp": 3,
+    "town": 2
+   },
+   "box_cutter": {
+    "camp": 1,
+    "town": 1
+   },
+   "crowbar": {
+    "camp": 3,
+    "town": 3
+   },
+   "licence_plate_vest": {
+    "camp": 1,
+    "town": 3,
+    "fortress": 2
+   },
+   "lever_rifle": {
+    "town": 3
+   },
+   "riot_gear_jacket": {
+    "town": 2,
+    "fortress": 2
+   },
+   "football_helmet": {
+    "town": 1,
+    "fortress": 1
+   },
+   "splitting_maul": {
+    "town": 2
+   },
+   "framing_hammer": {
+    "town": 2,
+    "fortress": 2
+   },
+   "sign_post_halberd": {
+    "town": 1
+   },
+   "snub_revolver": {
+    "fortress": 1
+   },
+   "scoped_deer_rifle": {
+    "fortress": 2
+   },
+   "road_sign_cuirass": {
+    "fortress": 2
+   },
+   "pump_shotgun": {
+    "fortress": 1
+   },
+   "welding_mask": {
+    "fortress": 1
+   },
+   "sawed_off": {
+    "fortress": 1
+   }
+  },
+  "best": {
+   "n": 5,
+   "tier": "town",
+   "name": "TOWN 0"
+  }
+ },
+ "icons": [
+  {
+   "id": "zip_gun",
+   "name": "zip gun",
+   "obj": "zip gun",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "snub_revolver",
+   "name": "snub revolver",
+   "obj": "snub revolver",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "lever_rifle",
+   "name": "lever rifle",
+   "obj": "lever rifle",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "scoped_deer_rifle",
+   "name": "scoped deer rifle",
+   "obj": "deer rifle",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "sawed_off",
+   "name": "sawed-off shotgun",
+   "obj": "sawed-off shotgun",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "pump_shotgun",
+   "name": "pump shotgun",
+   "obj": "pump shotgun",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "crowbar",
+   "name": "crowbar",
+   "obj": "crowbar",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "bike_lock_chain",
+   "name": "bike-lock chain",
+   "obj": "bike-lock chain",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "box_cutter",
+   "name": "box cutter",
+   "obj": "box cutter",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "framing_hammer",
+   "name": "framing hammer",
+   "obj": "framing hammer",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "broom_bayonet",
+   "name": "broom bayonet",
+   "obj": "broom bayonet",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "pawn_katana",
+   "name": "pawn-shop katana",
+   "obj": "katana",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "splitting_maul",
+   "name": "splitting maul",
+   "obj": "splitting maul",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "sign_post_halberd",
+   "name": "sign-post halberd",
+   "obj": "halberd",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "football_pads",
+   "name": "a football-pad padded vest",
+   "obj": "padded vest",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "carpet_coat",
+   "name": "a duct-taped carpet padded vest",
+   "obj": "padded vest",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "licence_plate_vest",
+   "name": "a licence-plate padded vest",
+   "obj": "padded vest",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "riot_gear_jacket",
+   "name": "a riot-gear plate carrier",
+   "obj": "plate carrier",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "road_sign_cuirass",
+   "name": "road-sign full riot armour",
+   "obj": "full riot armour",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "goalie_mask",
+   "name": "a goalie-mask hard hat",
+   "obj": "hard hat",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "football_helmet",
+   "name": "a football riot helmet",
+   "obj": "riot helmet",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "welding_mask",
+   "name": "a welding-mask riot helmet",
+   "obj": "riot helmet",
+   "w": 132,
+   "h": 132
+  },
+  {
+   "id": "riot_gas_helmet",
+   "name": "a gas-visor full riot helm",
+   "obj": "full riot helm",
+   "w": 132,
+   "h": 132
+  }
+ ],
+ "shop_errs": [],
+ "fight_a": {
+  "held": [
+   {
+    "side": "you",
+    "name": "YOU",
+    "kind": "sellsword",
+    "weapon": "zip_gun",
+    "cls": "dagger",
+    "gun": true,
+    "hands": 1,
+    "prop": null,
+    "head": "goalie_mask",
+    "body": "football_pads"
+   },
+   {
+    "side": "you",
+    "name": "M1",
+    "kind": "sellsword",
+    "weapon": "snub_revolver",
+    "cls": "dagger",
+    "gun": true,
+    "hands": 1,
+    "prop": null,
+    "head": "football_helmet",
+    "body": "carpet_coat"
+   },
+   {
+    "side": "you",
+    "name": "M2",
+    "kind": "sellsword",
+    "weapon": "lever_rifle",
+    "cls": "crossbow",
+    "gun": true,
+    "hands": null,
+    "prop": null,
+    "head": "welding_mask",
+    "body": "licence_plate_vest"
+   },
+   {
+    "side": "you",
+    "name": "M3",
+    "kind": "sellsword",
+    "weapon": "scoped_deer_rifle",
+    "cls": "crossbow",
+    "gun": true,
+    "hands": null,
+    "prop": null,
+    "head": "riot_gas_helmet",
+    "body": "riot_gear_jacket"
+   },
+   {
+    "side": "you",
+    "name": "M4",
+    "kind": "sellsword",
+    "weapon": "sawed_off",
+    "cls": "firearm",
+    "gun": true,
+    "hands": null,
+    "prop": null,
+    "head": "goalie_mask",
+    "body": "road_sign_cuirass"
+   },
+   {
+    "side": "you",
+    "name": "M5",
+    "kind": "sellsword",
+    "weapon": "pump_shotgun",
+    "cls": "firearm",
+    "gun": true,
+    "hands": null,
+    "prop": null,
+    "head": "football_helmet",
+    "body": "football_pads"
+   },
+   {
+    "side": "you",
+    "name": "M6",
+    "kind": "sellsword",
+    "weapon": "crowbar",
+    "cls": "mace",
+    "gun": false,
+    "hands": 1,
+    "prop": "pipe",
+    "head": "welding_mask",
+    "body": "carpet_coat"
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "militia_spear",
+    "cls": "spear",
+    "gun": false,
+    "hands": 1,
+    "prop": "rebar_spear",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "broom_bayonet",
+    "cls": "spear",
+    "gun": false,
+    "hands": 1,
+    "prop": "rebar_spear",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "wooden_flail",
+    "cls": "flail",
+    "gun": false,
+    "hands": 1,
+    "prop": "chain",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "pitchfork",
+    "cls": "polearm",
+    "gun": false,
+    "hands": 2,
+    "prop": "pole_hook (two hands)",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "woodcutter_s_axe",
+    "cls": "axe",
+    "gun": false,
+    "hands": 2,
+    "prop": "fire_axe (two hands)",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "bludgeon",
+    "cls": "mace",
+    "gun": false,
+    "hands": 1,
+    "prop": "pipe",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "pickaxe",
+    "cls": "hammer",
+    "gun": false,
+    "hands": 1,
+    "prop": "sledge",
+    "head": null,
+    "body": null
+   }
+  ],
+  "worn": {
+   "body:padded_vest": 388,
+   "head:gas_mask": 194,
+   "head:moto_helmet": 194,
+   "body:plated_jacket": 97,
+   "head:welder_mask": 194,
+   "body:riot_armour": 97,
+   "head:riot_helmet": 97,
+   "body:car_door": 97
+  },
+  "blows": {
+   "by": {
+    "you:pump_shotgun": {
+     "swings": 6,
+     "hits": 2
+    },
+    "you:lever_rifle": {
+     "swings": 6,
+     "hits": 2
+    },
+    "you:crowbar": {
+     "swings": 4,
+     "hits": 2
+    },
+    "you:scoped_deer_rifle": {
+     "swings": 5,
+     "hits": 2
+    },
+    "you:sawed_off": {
+     "swings": 7,
+     "hits": 4
+    },
+    "you:zip_gun": {
+     "swings": 8,
+     "hits": 4
+    },
+    "you:snub_revolver": {
+     "swings": 8,
+     "hits": 6
+    },
+    "them:bludgeon": {
+     "swings": 7,
+     "hits": 2
+    },
+    "them:woodcutter_s_axe": {
+     "swings": 2,
+     "hits": 1
+    },
+    "them:militia_spear": {
+     "swings": 5,
+     "hits": 4
+    },
+    "them:wooden_flail": {
+     "swings": 8,
+     "hits": 2
+    },
+    "them:pickaxe": {
+     "swings": 8,
+     "hits": 0
+    }
+   },
+   "result": "won",
+   "rounds": 7
+  },
+  "errs": []
+ },
+ "fight_b": {
+  "held": [
+   {
+    "side": "you",
+    "name": "YOU",
+    "kind": "sellsword",
+    "weapon": "bike_lock_chain",
+    "cls": "flail",
+    "gun": false,
+    "hands": 1,
+    "prop": "chain",
+    "head": "goalie_mask",
+    "body": "football_pads"
+   },
+   {
+    "side": "you",
+    "name": "M1",
+    "kind": "sellsword",
+    "weapon": "box_cutter",
+    "cls": "cleaver",
+    "gun": false,
+    "hands": 1,
+    "prop": "cleaver",
+    "head": "football_helmet",
+    "body": "carpet_coat"
+   },
+   {
+    "side": "you",
+    "name": "M2",
+    "kind": "sellsword",
+    "weapon": "framing_hammer",
+    "cls": "hammer",
+    "gun": false,
+    "hands": 1,
+    "prop": "sledge",
+    "head": "welding_mask",
+    "body": "licence_plate_vest"
+   },
+   {
+    "side": "you",
+    "name": "M3",
+    "kind": "sellsword",
+    "weapon": "broom_bayonet",
+    "cls": "spear",
+    "gun": false,
+    "hands": 1,
+    "prop": "rebar_spear",
+    "head": "riot_gas_helmet",
+    "body": "riot_gear_jacket"
+   },
+   {
+    "side": "you",
+    "name": "M4",
+    "kind": "sellsword",
+    "weapon": "pawn_katana",
+    "cls": "sword",
+    "gun": false,
+    "hands": 1,
+    "prop": "machete",
+    "head": "goalie_mask",
+    "body": "road_sign_cuirass"
+   },
+   {
+    "side": "you",
+    "name": "M5",
+    "kind": "sellsword",
+    "weapon": "splitting_maul",
+    "cls": "axe",
+    "gun": false,
+    "hands": 2,
+    "prop": "fire_axe (two hands)",
+    "head": "football_helmet",
+    "body": "football_pads"
+   },
+   {
+    "side": "you",
+    "name": "M6",
+    "kind": "sellsword",
+    "weapon": "sign_post_halberd",
+    "cls": "polearm",
+    "gun": false,
+    "hands": 2,
+    "prop": "pole_hook (two hands)",
+    "head": "welding_mask",
+    "body": "carpet_coat"
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "woodcutter_s_axe",
+    "cls": "axe",
+    "gun": false,
+    "hands": 2,
+    "prop": "fire_axe (two hands)",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "pitchfork",
+    "cls": "polearm",
+    "gun": false,
+    "hands": 2,
+    "prop": "pole_hook (two hands)",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "wooden_stick",
+    "cls": "mace",
+    "gun": false,
+    "hands": 1,
+    "prop": "club",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "broom_bayonet",
+    "cls": "spear",
+    "gun": false,
+    "hands": 1,
+    "prop": "rebar_spear",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "woodcutter_s_axe",
+    "cls": "axe",
+    "gun": false,
+    "hands": 2,
+    "prop": "fire_axe (two hands)",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "framing_hammer",
+    "cls": "hammer",
+    "gun": false,
+    "hands": 1,
+    "prop": "sledge",
+    "head": null,
+    "body": null
+   },
+   {
+    "side": "them",
+    "name": "THUG",
+    "kind": "brigand_thug",
+    "weapon": "woodcutter_s_axe",
+    "cls": "axe",
+    "gun": false,
+    "hands": 2,
+    "prop": "fire_axe (two hands)",
+    "head": null,
+    "body": null
+   }
+  ],
+  "worn": {
+   "body:padded_vest": 248,
+   "head:gas_mask": 124,
+   "head:moto_helmet": 124,
+   "body:plated_jacket": 62,
+   "head:welder_mask": 124,
+   "body:riot_armour": 62,
+   "head:riot_helmet": 62,
+   "body:car_door": 62
+  },
+  "blows": {
+   "by": {
+    "you:splitting_maul": {
+     "swings": 2,
+     "hits": 1
+    },
+    "you:framing_hammer": {
+     "swings": 5,
+     "hits": 5
+    },
+    "you:broom_bayonet": {
+     "swings": 4,
+     "hits": 3
+    },
+    "you:sign_post_halberd": {
+     "swings": 3,
+     "hits": 3
+    },
+    "you:bike_lock_chain": {
+     "swings": 4,
+     "hits": 4
+    },
+    "you:box_cutter": {
+     "swings": 4,
+     "hits": 3
+    },
+    "them:broom_bayonet": {
+     "swings": 2,
+     "hits": 1
+    },
+    "them:woodcutter_s_axe": {
+     "swings": 8,
+     "hits": 2
+    },
+    "them:pitchfork": {
+     "swings": 2,
+     "hits": 2
+    },
+    "them:framing_hammer": {
+     "swings": 2,
+     "hits": 0
+    },
+    "you:pawn_katana": {
+     "swings": 2,
+     "hits": 2
+    },
+    "them:wooden_stick": {
+     "swings": 2,
+     "hits": 1
+    }
+   },
+   "result": "won",
+   "rounds": 4
+  },
+  "errs": []
+ },
+ "shelf_smith": [
+  {
+   "id": "crossbow",
+   "name": "beat-up rifle",
+   "own": false,
+   "icon": "pack",
+   "px": 43
+  },
+  {
+   "id": "man_splitter",
+   "name": "solid two-hand fire axe",
+   "own": false,
+   "icon": "pack",
+   "px": 12
+  },
+  {
+   "id": "two_handed_flail",
+   "name": "good two-hand chain",
+   "own": false,
+   "icon": "pack",
+   "px": 23
+  },
+  {
+   "id": "crowbar",
+   "name": "crowbar",
+   "own": true,
+   "icon": "drawn:crowbar",
+   "px": 30
+  },
+  {
+   "id": "goedendag",
+   "name": "beat-up two-hand pipe",
+   "own": false,
+   "icon": "pack",
+   "px": 23
+  },
+  {
+   "id": "thorned_whip",
+   "name": "beat-up cleaver",
+   "own": false,
+   "icon": "pack",
+   "px": 12
+  },
+  {
+   "id": "two_handed_spiked_mace",
+   "name": "beat-up two-hand pipe",
+   "own": false,
+   "icon": "pack",
+   "px": 23
+  },
+  {
+   "id": "lever_rifle",
+   "name": "lever rifle",
+   "own": true,
+   "icon": "drawn:lever rifle",
+   "px": 30
+  },
+  {
+   "id": "arming_sword",
+   "name": "good machete",
+   "own": false,
+   "icon": "pack",
+   "px": 23
+  }
+ ],
+ "shelf_armourer": [
+  {
+   "id": "ancient_double_layer_mail",
+   "name": "a doubled old-army plate carrier",
+   "own": false,
+   "icon": "drawn:plate carrier",
+   "px": 30
+  },
+  {
+   "id": "football_pads",
+   "name": "a football-pad padded vest",
+   "own": true,
+   "icon": "drawn:padded vest",
+   "px": 30
+  },
+  {
+   "id": "licence_plate_vest",
+   "name": "a licence-plate padded vest",
+   "own": true,
+   "icon": "drawn:padded vest",
+   "px": 30
+  },
+  {
+   "id": "noble_tunic",
+   "name": "a casino work jacket",
+   "own": false,
+   "icon": "drawn:work jacket",
+   "px": 30
+  },
+  {
+   "id": "wrapped_southern_helmet",
+   "name": "a wrapped border riot helmet",
+   "own": false,
+   "icon": "drawn:riot helmet",
+   "px": 30
+  },
+  {
+   "id": "feathered_hat",
+   "name": "a showgirl-feather rag hood",
+   "own": false,
+   "icon": "drawn:rag hood",
+   "px": 30
+  },
+  {
+   "id": "hunter_s_hat",
+   "name": "a hunter's rag hood",
+   "own": false,
+   "icon": "drawn:rag hood",
+   "px": 30
+  },
+  {
+   "id": "heavy_mail_coif",
+   "name": "a heavy chain riot helmet",
+   "own": false,
+   "icon": "drawn:riot helmet",
+   "px": 30
+  },
+  {
+   "id": "reinforced_skirmisher_shield",
+   "name": "a bolted plywood car door",
+   "own": false,
+   "icon": "drawn:car door",
+   "px": 30
+  },
+  {
+   "id": "kite_shield",
+   "name": "a police riot shield",
+   "own": false,
+   "icon": "drawn:riot shield",
+   "px": 30
+  }
+ ]
+}
