@@ -59,5 +59,8 @@ CHARACTER (a car-door shield, a hook pole, a crossbow, a dart bandolier).
 - the_bestiary_gate, every_floor_tile_is_a_translation_gate, attempt_gate green. the_fight_reads_only_sourced_numbers
   is red on main with 11 typed hash constants; this round adds none (11 before, 11 after). pages_publish_gate is red
   on the working tree's size (1624 MB measured, not this round's 2 MB).
+- the_job_tells_the_truth_gate (the map's roll, in the real demo): 100 jobs read and rolled through the new road on
+  day 1 and day 3, then the browser closed under it after ~5 minutes (a page-closed error, not a failed check); not
+  re-run to the end this round.
 - Not done by this lane: the map's party COUNT ("way more groups") is WORLD's spawner; this round gives each
   party its faction by ground and hour, not more parties.
