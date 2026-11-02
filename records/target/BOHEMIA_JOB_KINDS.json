@@ -270,7 +270,8 @@
             24
           ],
           "act": "WALK HIM TO",
-          "say": "He shakes every hand at the gate and pays you himself."
+          "say": "He shakes every hand at the gate and pays you himself.",
+          "alt": "THE OLD CROSSROADS"
         }
       ],
       "twist": {

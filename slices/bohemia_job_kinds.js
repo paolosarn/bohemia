@@ -898,7 +898,7 @@
       var ts = towns().filter(function (t) { var dd = cheb(t.x, t.y, town.x, town.y); return t.name !== town.name && dd >= b[0] && dd <= b[1]; });
       ts.sort(function () { return R() - 0.5; });
       for (var i = 0; i < ts.length; i++) { var g = gate(ts[i].x, ts[i].y); if (g && route(city.x, city.y, g[0], g[1])) return { x: g[0], y: g[1], town: true, name: ts[i].name }; }
-      L.go = 'spot';   /* no town in range: a place out there, still named by the row */
+      L.go = 'spot'; if (!L.name) L.name = L.alt || 'THE CROSSROADS';   /* no town in range: a place out there, still named by the row */
     }
     for (var t = 0; t < (L.go === 'road' ? 14 : 1); t++) {
       var s = spotOut(prev.x, prev.y, b[0], b[1], R, true); if (!s) continue;
