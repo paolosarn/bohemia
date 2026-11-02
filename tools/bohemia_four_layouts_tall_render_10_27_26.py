@@ -45,6 +45,8 @@ def thing_box(pl, root):
 
 
 TAPS_IN_PAD = []
+STUCK = []
+LANDMARKS = {'church'}          # the thing a town is named for: moved out of the phone's corner, never cleared
 LOT = [0]
 MOVED = []
 def tap_names(town):
@@ -56,23 +58,28 @@ def tap_names(town):
 def clear_corners(bpy, pl, town=None):
     """every thing standing in the phone's ground goes, with its children; its lamps and fires too. A thing he taps never goes:
     if one stands there the town is drawn with it (and shipped without the phone's ground, so the screen lifts it clear)"""
-    gone = []; keep = tap_names(town) if town else set(); TAPS_IN_PAD[:] = []; MOVED[:] = []
+    gone = []; keep = tap_names(town) if town else set(); TAPS_IN_PAD[:] = []; MOVED[:] = []; STUCK[:] = []
     # ask line 253 (11/2): a thing he taps that stands in the phone's corner is MOVED out of it, into the town, the shorter way
     # (sideways or north) by the least that clears it, onto a spot where it touches nothing it was not already touching; only if
     # no spot is free does it stay (and the town ships without the phone's ground, as before). MEASURED 11/2: the smith and the
     # armourer poke 1 px into the corner and the hiring posts 13 px (a nudge north), the tents 146 to 512 px (a move sideways);
     # the first try (24 px margins, any touch refused) refused all of them, the shops' own neighbours already touching them
+    # THE TOWN'S LANDMARK IS NEVER CLEARED (found 11/2: the Church town's church stands 81 px into either corner and both sides
+    # had shipped WITHOUT IT): it is moved like a tap, and the small things it lands on (a grave, a drum) go instead
+    keep_all = keep | LANDMARKS
     boxes = [(t[0], thing_box(pl, t[1])) for t in pl.things]
+    doomed = {i for i, (n, o) in enumerate(boxes) if o is not None and in_pad(o) and n not in keep_all}   # cleared anyway
     def touching(b, skip):
         out = set()
         for i, (n, o) in enumerate(boxes):
-            if n == skip or o is None: continue
+            if n == skip or o is None or i in doomed: continue
             if not (b[2] + 6 < o[0] or b[0] - 6 > o[2] or b[3] + 6 < o[1] or b[1] - 6 > o[3]): out.add(i)
         return out
+    bumped = set()
     for t in list(pl.things):
         name, root, walk = t
         b = thing_box(pl, root)
-        if b is None or not in_pad(b) or name not in keep: continue
+        if b is None or not in_pad(b) or name not in keep_all: continue
         was = touching(b, name)
         dy0 = b[3] - PADTOP + 4
         dx0 = ((b[2] - (T.TW - PADX)) if SIDE == 'right' else (PADX - b[0])) + 8
@@ -83,20 +90,27 @@ def clear_corners(bpy, pl, town=None):
             sxs = -sx if SIDE == 'right' else sx
             nb = [b[0] + sxs, b[1] - sy, b[2] + sxs, b[3] - sy]
             if nb[0] < 0 or nb[2] > T.TW or nb[1] < 0 or in_pad(nb): continue
-            if touching(nb, name) - was: continue
+            new = touching(nb, name) - was
+            if new and (name not in LANDMARKS or any(boxes[i][0] in keep_all for i in new)): continue
+            for i in new: bumped.add(id(pl.things[i][1]))
             root.location.x += sxs / T.PPM
             root.location.y += sy / (T.PPM * T.C45)
             boxes[:] = [(n, (nb if n == name else o)) for n, o in boxes]
             MOVED.append((name, 'x' if sx else 'y', round(sx or sy), [round(v) for v in nb], [round(v) for v in b]))   # new box, old box: the night lays the sunk day over both
             moved = True
             break
-        if not moved: TAPS_IN_PAD.append(name)
+        if not moved:
+            # the landmark that fits nowhere stays where COOK put it and the rest of the corner is still cleared (11/2: the church is
+            # 398 px wide and the bottom between the two phone corners is 204 px; its re-composition is COOK's, ask line 253)
+            if name in LANDMARKS: STUCK.append(name)
+            else: TAPS_IN_PAD.append(name)
     if TAPS_IN_PAD: return gone
     for t in list(pl.things):
         name, root, walk = t
         b = thing_box(pl, root)
-        if b is None or not in_pad(b): continue
-        if name in keep: continue
+        if id(root) not in bumped:
+            if b is None or not in_pad(b): continue
+            if name in keep_all: continue
         kids = list(root.children_recursive) if hasattr(root, 'children_recursive') else []
         for o in kids + [root]:
             if o in pl.meshes: pl.meshes.remove(o)
@@ -224,7 +238,7 @@ def render(town, quick=False, day_only=False):
             o = bpy.data.objects.new('fire_light', L_); sc.collection.objects.link(o); o.location = (x, y, 1.6 * zs)
         night = os.path.join(od, town['slug'] + '_' + SIDE + '_night.png'); sc.render.filepath = night; bpy.ops.render.render(write_still=True)
     T._orig_render_dump(dict(name=town['name'], tier=town['tier'], stands=town['stands'], trade=town['trade'], lamps=pl.lamps, fires=pl.fires,
-                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone, taps_in_pad=list(TAPS_IN_PAD), lot_cells=LOT[0], moved=list(MOVED)),
+                             outlines=outlines, filled=filled, seed=seed, boxes=T._LAST.get('boxes'), comp='tall', px=[V.PW, V.PH + EXT], cleared=gone, taps_in_pad=list(TAPS_IN_PAD), lot_cells=LOT[0], moved=list(MOVED), landmark_in_pad=list(STUCK)),
                         open(os.path.join(od, town['slug'] + '_' + SIDE + '.json'), 'w'), indent=0)
     return day, night
 
@@ -288,7 +302,7 @@ def ship(towns_, sides):
             e = man['towns'].setdefault(town['name'], {})
             e['tall_' + sd] = dict(src=src, night_src=nsrc if have_night else src, px=[T.TW, T.TH + EXT], hotspots=hot, boxes=boxes,
                                    doors=T.doors_of(hot, boxes, town['tier']), entrance=T.entrance_of(town, T.TW, T.TH), zoom_max=T.ZOOM[town['tier']], lot=bool(meta.get('lot_cells')),   # ask line 253: the old lot is drawn into this town's ground (the plan's corner and the ground south of it)
-                                   **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town', 'organic': True}}))
+                                   **({} if meta.get('taps_in_pad') else {'phone_ground': {'side': sd, 'top': PADTOP, 'width': PADX, 'note': 'rule 292 + ask line 253 (11/2): below top, within width of the phone side, the ground only: an old parking lot drawn into the town', 'organic': True, **({'landmark_in_pad': meta['landmark_in_pad']} if meta.get('landmark_in_pad') else {})}}))
             if meta.get('taps_in_pad'): print('  NOTE', key, 'keeps', meta['taps_in_pad'], 'in the corner: shipped without the phone ground (the screen lifts it clear)', flush=True)
             bl = sorted({tuple(o['box']) for o in meta['outlines']})
             for out in (src, nsrc): walk['pictures'][out] = {'blocks': [list(b) for b in bl]}
