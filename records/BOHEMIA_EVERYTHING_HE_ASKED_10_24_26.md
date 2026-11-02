@@ -312,3 +312,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 288 | Mountains and hard ground passable but slow, the Battle Brothers way | 302 | WORLD round 3 | RUNNING (added to WORLD 3 by trigger): note 10 |
 | 289 | More weapons, armour and clothing | 302 | ARMORY lane | QUEUED: next free slot: note 10 |
 | 290 | More new graphics and tools across the board | 302 | DIRECTION, COOK lanes | QUEUED: next free slot: note 10 |
+| 291 | The camp in every size, sideways and upright, voted NO 11/1: redo with the towns four layouts (rule 291) | 291 | COORDINATOR | RECORDED: records/BOHEMIA_THE_VOTES_11_1_26.txt |
+| 292 | The injury card UI voted NO 11/1 ("ugly cluttered, try again"): redo clean | 293 | UI (next round) | RECORDED: records/BOHEMIA_THE_VOTES_11_1_26.txt |
