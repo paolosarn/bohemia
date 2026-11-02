@@ -44,8 +44,12 @@ dark pixel round the silhouette). One rig, one sun, one style.
 ## 3. PROOF
 - records/target/direction_icons_rig/BEFORE_AFTER_EVERY_ICON_11_2_26.png: every icon, before and after, at its real size
   on a 3x phone.
-- records/target/direction_icons_rig/DEMO_PHONE_11_2_26.png: the demo on a phone with them in place (the town's bar and
-  stall, the map's pins).
+- records/target/direction_icons_rig/DEMO_PHONE_11_2_26.png: the demo on a phone (390 x 844 at 3x), the town and then the map
+  after a real tap on LEAVE: the top bar's five in place on both; the map's pins draw only where a pin stands (the gates'
+  B1/B2/P4 legs prove each kind drawn), so the map half shows the bar, not a pin.
+- GATES RUN: THE SIX ON THE BAR 9/0, THE MARKET'S PACK ART 7/0, THE MAP'S BAR 7/0, WHERE IT SELLS BEST 14/0 (the battery
+  pins), HIS MAP 18/2 (the two reds are its held-finger leg P1 throwing on 'held.menu.at'; run on main's own files with
+  this round's two files swapped out it fails the same 18/2: not this round's), PIXEL FLOOR and REFERENCE CHECK red on main before this round on other lanes' files, none of these files in them.
 - REFERENCE CHECK (reference_check_gate.py, the 9/4 standing duty): the twins are the rig's own props in the towns and the
   camp (the same camera and sun) and the old icon of the same subject; every model is the real thing at its real size (a D
   cell 34 x 61 mm, a 400 g can, a half-litre bottle, a 48 mm roll, 7.62 rounds). No reference game.
@@ -56,4 +60,7 @@ dark pixel round the silhouette). One rig, one sun, one style.
 2. THE PHONE'S APP GLYPHS: the tiles are rig renders, the pictograms on them are flat black: model the glyphs as relief on
    the tile (a raised tent, a raised gear) so the phone reads like the rest.
 3. THE DAY CHIP's sun arc and NIGHTS' moon (10-point canvas drawings).
-4. THE SETTLEMENT'S PROPS that still read placeholder (the brief's second half): measured, not started this round.
+4. THE BOSSES' PLACE MARKERS on the travel map (slices/bohemia_bosses.js glyph(): the kitchen, the tanks, the main, drawn as
+   13-cell hand grids, about 40 points of 3-pixel squares; seen on the demo's map this round). Landed by the bosses' lane the
+   same hour (08ec2328), so left to them this round: the same tool takes three more names when that file is free.
+5. THE SETTLEMENT'S PROPS that still read placeholder (the brief's second half): measured, not started this round.

@@ -15816,6 +15816,24 @@
     "how": "image",
     "src": "vote/CAMP_THE_INJURY_DAYS_ON_OUR_CLOCK_10_26.webp"
    }
+  },
+  {
+   "id": "direction-every-icon-through-the-rig-11-2",
+   "kind": "ui",
+   "lane": "direction",
+   "sha": "c575a03e",
+   "made": "11/2",
+   "title": "EVERY MAP PIN AND SUPPLY ICON REMADE AS A REAL 3-D THING, NO MORE TINY PIXEL BLOCKS",
+   "why": "The map's 16 pins were tiny 7 by 9 pixel blocks and the bar's supplies were copied from three different packs. Now each one is a small model lit by the same sun as the towns: a tent, a warning sign, a crate, a market stall, a flag, a grave cross, a red skull for a live boss, a cracked skull for a dead one, a door, a radio, a beer mug, three batteries, a can with a water bottle, a roll of tape (no tail, no noose), a first-aid tin, five rounds. The pins are almost twice as big. You see them on the map and the top bar in the RUN tab. Down brings the old ones back.",
+   "before_after": {
+    "before": "the map's pins 12 to 18 points of 6-pixel squares; the bar's five from three packs",
+    "after": "BUILD 11/2zzh: 24 icons through the rig, the pins 26 points tall, the bar at 32",
+    "scale": "his phone upright, every icon at its real size"
+   },
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_EVERY_ICON_THROUGH_THE_RIG_11_2.webp"
+   }
   }
  ],
  "verdicts": [
