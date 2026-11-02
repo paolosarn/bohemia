@@ -106,10 +106,16 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
       await sf.waitForFunction(() => window.BohemiaBoardShelf && BohemiaBoardShelf.ready(), null, { timeout: 15000 }).catch(() => {});
       await openBoard(sf);
       /* T1: the list */
-      listed = await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => ({ id: b.dataset.id, em: (b.querySelector('em') || {}).textContent || '', mins: +((b.querySelector('em') || {}).dataset || {}).trip || null })));
+      listed = await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => { const sp = b.querySelector('span'), mk = sp && sp.firstElementChild && sp.firstElementChild.classList.contains('jkpay') ? sp.firstElementChild : null, em = b.querySelector('em');
+        return { id: b.dataset.id, em: (em || {}).textContent || '', mins: +((em || {}).dataset || {}).trip || null, back: em && em.dataset.back != null ? em.dataset.back === '1' : false, mark: mk ? mk.dataset.pays : null,
+          markBg: mk ? getComputedStyle(mk).backgroundColor : null, markIcon: !!(mk && mk.querySelector('svg')), markWord: mk ? mk.textContent : null }; }));
       await shot('t1_the_board');
       ok('T1 at ' + (t0 && t0.n) + '\'s board every offer says how long beside its pay', listed.length >= 1 && listed.every(l => /· (UP TO )?(UNDER 1 H|\d+ MIN|\d+(\.5)? (H|DAY|DAYS))/.test(l.em) || /HOLD|stay/i.test(l.em)),
         listed.map(l => l.id + ': ' + l.em.replace(/\s+/g, ' ').trim()).join(' | '));
+      /* T8 (WORLD 4, rule 308, ask line 301): COME BACK or PAID THERE, first on every row, its own colour, an icon and the words, and it agrees with the trip */
+      const bgs = {}; listed.forEach(l => { if (l.mark) bgs[l.mark] = l.markBg; });
+      ok('T8 every row on the board starts with COME BACK or PAID THERE (its colour, an icon, the words), and it is the trip\'s answer', listed.length >= 1 && listed.every(l => l.mark && l.markIcon && /COME BACK|PAID THERE/.test(l.markWord) && (l.mark === 'back') === l.back) && (!bgs.back || !bgs.there || bgs.back !== bgs.there),
+        listed.map(l => l.id + ': [' + l.markWord + '] ' + (l.back ? 'back' : 'there')).join(' | ') + ' | colours ' + JSON.stringify(bgs));
       /* T2, T3: each offer opened, the trip said; the first one taken */
       for (const l of listed) {
         await openBoard(sf);
@@ -176,6 +182,13 @@ const done = () => { console.log('\nTHE TRIP BEFORE THE YES: ' + pass + ' passed
           '"' + ph.words + '" | the map: "' + w + '"');
       } else ok('T6 the phone\'s lit card says the trip (he stands at its town)', !!(ph && ph.words), ph ? '"' + ph.words + '"' : 'no card');
     } else ok('T6 the phone has a card to light', false, 'no card on the phone');
+    /* the phone's offers are drawn on the map's page, the job column on the top page (UI TWO's one phone): both are read */
+    const one9 = (sel, line) => [...document.querySelectorAll(sel)].map(e => { const L = e.querySelector(line), f = L && L.firstElementChild; return { first: !!(f && f.classList.contains('jkpay')), pays: f && f.dataset ? f.dataset.pays : null }; });
+    const ph9 = { offers: (await fr.evaluate(new Function('return (' + one9.toString() + ")('#bmboard .job', '.meta')"))).concat(await page.evaluate(new Function('return (' + one9.toString() + ")('#bmboard .job', '.meta')"))),
+      held: (await page.evaluate(new Function('return (' + one9.toString() + ")('#bohphone .jc', '.mt')"))).concat(await fr.evaluate(new Function('return (' + one9.toString() + ")('#bohphone .jc', '.mt')"))) };
+    const all9 = ph9.offers.concat(ph9.held);
+    ok('T9 the phone: every offer and every job he holds starts its line with COME BACK or PAID THERE (WORLD 4, rule 308)', all9.length >= 1 && all9.every(x => x.first && (x.pays === 'back' || x.pays === 'there')),
+      ph9.offers.length + ' offers ' + JSON.stringify(ph9.offers.map(x => x.pays)) + ', ' + ph9.held.length + ' held ' + JSON.stringify(ph9.held.map(x => x.pays)));
     ok('T7 nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   } catch (e) { ok('the gate ran', false, e.message); }
   await d.close();

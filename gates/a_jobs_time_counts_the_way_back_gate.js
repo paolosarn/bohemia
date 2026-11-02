@@ -86,12 +86,12 @@ const done = () => { console.log('\nA JOB\'S TIME COUNTS THE WAY BACK: ' + pass 
       for (let k = 0; k < 4; k++) { const xy = await sf.evaluate(() => BohemiaSettlement.where('board')); const hb = await (await fr.$('#settleFrame')).boundingBox();
         if (xy) { if (TOUCH) await page.touchscreen.tap(hb.x + xy.x, hb.y + xy.y); else await page.mouse.click(hb.x + xy.x, hb.y + xy.y); }
         if (await waitFor(() => sf.evaluate(() => document.getElementById('sheet').classList.contains('on') && document.querySelectorAll('#sheet button.act.client').length > 0), 6000)) break; }
-      rows = await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => { const em = b.querySelector('em'); return { id: b.dataset.id, em: em ? em.textContent.replace(/\s+/g, ' ') : '', trip: em ? +em.dataset.trip : null, back: em ? em.dataset.back === '1' : null }; }));
+      rows = await sf.evaluate(() => [...document.querySelectorAll('#sheet button.act.client')].map(b => { const em = b.querySelector('em'); return { id: b.dataset.id, em: em ? em.textContent.replace(/\s+/g, ' ') : '', trip: em ? +em.dataset.trip : null, back: em ? em.dataset.back === '1' : null, mark: (b.querySelector('span .jkpay') || { dataset: {} }).dataset.pays || null }; }));
       const want = await fr.evaluate(([rows, n]) => rows.map(r => { const o = BohemiaBoardShelf.shelf().offers.filter(x => x.id === r.id)[0]; const T = o ? BohemiaJobKinds.trip(o, n) : null; return T && T.job ? { total: T.job.exact ? T.job.total : T.job.totalHi, back: !!T.job.back } : null; }), [rows, t.n]);
       rows.forEach((r, i) => { r.want = want[i]; });
     }
-    ok('B3 the town\'s board row says the same total, and ROUND TRIP when he comes back', rows.length > 0 && rows.every(r => !r.want || (Math.abs(r.trip - r.want.total) < 0.01 && r.back === r.want.back && (/ROUND TRIP/.test(r.em) === r.back))),
-      t.n + ': ' + rows.map(r => r.id + ' "' + r.em.trim() + '"').join(' | '));
+    ok('B3 the town\'s board row says the same total, and COME BACK first on the line when he comes back (WORLD 4, rule 308)', rows.length > 0 && rows.every(r => !r.want || (Math.abs(r.trip - r.want.total) < 0.01 && r.back === r.want.back && ((r.mark === 'back') === r.back))),
+      t.n + ': ' + rows.map(r => r.id + ' [' + r.mark + '] "' + r.em.trim() + '"').join(' | '));
     /* B4: the danger reads the road on the whole trip */
     const b4 = await fr.evaluate(() => { const bs = ctBases() || {}; for (const n of Object.keys(bs)) { const list = BohemiaBoardShelf.pick({ name: n, tier: 'town' }, 1, { traits: [], held: [] }) || [];
         for (const o of list) { const T = BohemiaJobKinds.trip(o, n); if (!T || !T.job || !T.job.back || !T.job.exact) continue;

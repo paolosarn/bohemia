@@ -1,5 +1,14 @@
 # WORLD (one file per lane, written only by WORLD; newest block on top)
 
+WORLD 4 (11/2, rules 307 amended and 308, ask lines 300 and 301): THE WHOLE JOB'S TIME, AND COME BACK OR PAID THERE AT A GLANCE. BUILD 11/3zk. SHIPPED, NOT YET SEEN.
+- The hold is timed (the walk to its gate, its waves, paid there); every part of a job checked on the clock (the fight and the night
+  spend nothing, measured over 284 fights; legs' waits, finds, hunts, the moved twist counted). Probe sample 15 of 15, holds 5 of 5.
+- One mark first on every line a job shows (board row, offer, phone offers, phone job column): amber return arrow COME BACK, green
+  pin PAID THERE (data: pay_marks). The phone's job card is drawn on the top page: it now reaches the job file on the map's page
+  (bohemia_phone.js JKW), so its time is the one rounding too. Gates: trip 9/9 (T8, T9 new), way back 6/6.
+- UI TWO / UI 4: two small marked edits in your phone (bohemia_phone.js timeWord and jobCard, bohemia_phone_board.js meta row);
+  the look of the cards is yours, the mark is payMarkHTML's.
+
 WORLD 4 (11/2, rule 307, ask lines 242 and 299): A JOB'S TIME IS THE TRUTH. BUILD 11/3zh. SHIPPED, NOT YET SEEN.
 - What he asked (the second time, angry): 'the time that it takes on these quests are extremely inaccurate a lot of the times.'
 - Measured first: tools/bohemia_world_job_time_probe.js drives the demo, takes jobs of every kind at five towns (board and phone,

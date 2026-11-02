@@ -1050,12 +1050,14 @@
   /* ---- THE JOB COLUMN (rules 227 and 228): the main quest's slot first and always kept; then the jobs he is on, each a
      receipt with its what, its red stars, where, its time there and back, and an X; the X asks once with the town board's
      own cost (rule 197), DROP drops it, a tap anywhere else on the card keeps it; a tap on a card makes it PLAY's job ---- */
+  /* WORLD 4: the job file lives on the map's page; the phone is drawn on the top page (UI TWO's one phone), so it is reached there */
+  function JKW() { try { if (window.BohemiaJobKinds) return window.BohemiaJobKinds; var cw = cityWin(); return cw && cw.BohemiaJobKinds ? cw.BohemiaJobKinds : null; } catch (e) { return null; } }
   function timeWord(j) {
     if (j.mins == null) return '';
     var h = j.mins / 60, w = h < 1 ? '<1H' : h < 24 ? Math.round(h) + 'H' : Math.round(h / 24) + 'D';
     /* WORLD 4 [a job's time is the truth] (rule 307): the job file's one rounding, packed for the card ('1H40', '1D7H'); '2D' for 37 hours was 30 off in 100 */
-    try { if (window.BohemiaJobKinds && BohemiaJobKinds.shortTime) w = BohemiaJobKinds.shortTime(j.mins).replace(/ MIN$/, 'M').replace(/ DAYS?/, 'D').replace(/ H/, 'H').replace(/ /g, ''); } catch (e) {}
-    return w + (j.back ? ' THERE+BACK' : '');   /* draft:true; rule 222(b) in a phone's words */
+    try { var JK = JKW(); if (JK && JK.shortTime) w = JK.shortTime(j.mins).replace(/ MIN$/, 'M').replace(/ DAYS?/, 'D').replace(/ H/, 'H').replace(/ /g, ''); } catch (e) {}
+    return w + (j.back && !(JKW() && JKW().payMarkHTML) ? ' THERE+BACK' : '');   /* draft:true; rule 222(b) in a phone's words; WORLD 4: the mark says it now (rule 308) */
   }
   function jobCard(j, L) {
     var armed = H.arm && H.arm.id === j.id, d = el('div', 'jc' + (H.sel === j.id ? ' sel' : '') + (armed ? ' arm' : ''));
@@ -1068,6 +1070,8 @@
       d.querySelector('.wh').textContent = j.what + ' \u00b7 ' + String(j.at || j.from).toUpperCase();
       d.querySelector('.st').textContent = new Array(Math.max(1, Math.min(5, j.stars)) + 1).join('\u2605');
       d.querySelector('.pl').textContent = timeWord(j);
+      /* WORLD 4 (rule 308, ask line 301): COME BACK or PAID THERE first on the line (the job file's one mark, by the held job's own kind) */
+      try { var JK = JKW(), cw0 = cityWin(), hj = null; ((cw0 && cw0.LOOP && cw0.LOOP.held) || []).forEach(function (x) { if (x && x.id === j.id) hj = x; }); if (JK && JK.payMarkHTML) d.querySelector('.mt').insertAdjacentHTML('afterbegin', JK.payMarkHTML(hj || { id: j.id }, { short: true })); } catch (e) {}
       var dv = d.querySelector('.dir'); if (j.deg == null) dv.classList.add('here'); else { dv.style.transform = 'rotate(' + j.deg + 'deg)'; dv.dataset.deg = j.deg; }   /* which way (238(d)); a dot when he is on it */
       d.setAttribute('aria-label', j.what + ', ' + j.stars + ' stars, ' + String(j.at || j.from) + (timeWord(j) ? ', ' + timeWord(j).toLowerCase() : ''));
       d.querySelector('.x').addEventListener('click', function (e) { e.stopPropagation(); H.arm = { id: j.id, cost: L ? L.dropCost(j.id) : null, why: null }; jobsPaint(L, true); });

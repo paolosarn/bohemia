@@ -35,14 +35,15 @@ function table(files) {
   rows.forEach(r => {
     if (r.skip || r.error || !r.promise) { skipped.push(r); return; }
     if (r.from === 'phone' && r.promise.toTown > 30 && (r.actualToTown || 0) < r.promise.toTown * 0.5) { skipped.push(Object.assign(r, { skip: 'probe fault: a town left open counted as the arrival' })); return; }
-    const P = r.promise, timed = P.plays !== 'hold-defend' || (P.toTown || 0) > 0;
-    if (!timed) { skipped.push(Object.assign(r, { skip: 'no time promised (you stay)' })); return; }
+    const P = r.promise;
+    /* WORLD 4 (rule 307 amended): the hold is timed too (the walk to its gate); a promise under ten minutes is kept within fifteen minutes */
+    if (P.plays === 'hold-defend' && !/gate|GATE/.test((P.words || '') + (P.short || '')) && !(P.toTown > 0)) { skipped.push(Object.assign(r, { skip: 'no time promised (you stay)' })); return; }
     if (r.end === 'lost' && (r.cards | 0) > 0) { skipped.push(Object.assign(r, { skip: 'he ended it at a card' })); return; }
     const done = r.end === 'paid' || r.end === 'gone';
     /* the road's own stops (a road event's minutes, chosen on a card that says them; the old road director's 20): not the job's walk, and the words say 'if nobody stops you' */
     r.roadMins = Object.keys(r.src || {}).filter(k => k !== 'step' && !/legsArrive/.test(k)).reduce((a, k) => a + r.src[k], 0);
     let ok, off;
-    if (P.exact || P.plays === 'hold-defend') { off = P.all > 0 ? (r.actualAll - P.all) / P.all : 0; ok = done && Math.abs(off) <= 0.15; }
+    if (P.exact || P.plays === 'hold-defend') { off = P.all > 0 ? (r.actualAll - P.all) / P.all : 0; ok = done && (Math.abs(off) <= 0.15 || (P.all < 10 && r.actualAll <= P.all + 15)); }
     else { const lo = (P.toTown || 0) + P.lo, hi = (P.toTown || 0) + P.hi; off = r.actualAll < lo ? (r.actualAll - lo) / lo : r.actualAll > hi ? (r.actualAll - hi) / hi : 0; ok = done && r.actualAll >= lo * 0.85 && r.actualAll <= hi * 1.15; }
     const adj = P.all > 0 && P.exact ? (r.actualAll - r.roadMins - P.all) / P.all : off;
     judged.push({ r, ok, off, adj, done, okAdj: done && Math.abs(adj) <= 0.15, said: (!P.exact && !!(P.why || /packs move/.test(P.words || ''))) || (r.roadMins > 0 && /if nobody stops you/.test(P.words || '') && Math.abs(adj) <= 0.30) });

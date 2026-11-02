@@ -1147,7 +1147,9 @@
       }
     }
     else switch (job.plays) {
-      case 'hold-defend': return W;
+      /* WORLD 4 (rule 307 amended, ask line 300): the hold is the town itself; its time is the walk to the gate (the HOLD mark, any side of the
+         town), and the waves come the moment he stands there (measured: a fight spends no minutes on the map's clock) */
+      case 'hold-defend': if (job.stage === 'hold' && home) add(legTo(sx, sy, { town: home }, 1), job.from, home.name); return W;
       case 'haul-caravan': case 'carry':
         if (job.plays === 'carry' && job.stage === 'lair' && job.lair) { add(legTo(sx, sy, pt(job.lair), 1), 'THEIR LAIR'); }
         if ((job.plays === 'haul-caravan' && job.stage !== 'haul') || (job.plays === 'carry' && job.stage !== 'carry' && job.stage !== 'lair')) return W;
@@ -1254,6 +1256,26 @@
     if (r.m && r.d == null) w.push(r.m + ' minutes');
     return 'about ' + w.join(' ');
   }
+  /* ---------- COME BACK OR PAID OUT THERE, AT A GLANCE (WORLD 4, rule 308, ask line 301; Paolo 11/2: 'the job has to be quickly
+     identifiable as do I need to return back to the job site or I can just handle it out there, super important... maybe it's like a
+     different color'). MEASURED: the board's row said it as ' ROUND TRIP' after the time, the phone's card as ' THERE+BACK' after it,
+     the lit card as its last words: a read to the end of the line, every time. NOW one mark, FIRST on the line wherever a job shows
+     (the board's row, the offer opened, the phone's offers and its job column): its own colour, its own icon and its words. COME BACK
+     is amber with a return arrow, PAID THERE is green with a pin; both colours are the game's own (the phone's amber and green), never
+     purple (the Amalgamation's). The words and colours are the data file's (pay_marks), his to change. One answer for both: comesBack() */
+  function comesBack(c) { var kd = kindOf(c); if (kd === 'hold-defend') return false; return !!BACK[kd]; }
+  var MARK_SVG = { back: '<path d="M3.4 .6.4 3.6l3 3z" fill="currentColor"/><path d="M2.6 3.6h3.6a2.4 2.4 0 0 1 0 4.8H3.2" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+                   there: '<path d="M4.5 9.2 1.3 5A3.2 3.2 0 1 1 7.7 5z" fill="currentColor"/><circle cx="4.5" cy="3.9" r="1.2" fill="#f4e8cc"/>' };
+  function markOf(back) {
+    var P = (DATA && DATA.pay_marks) || {}, M = (back ? P.back : P.there) || {};
+    return { word: M.word || (back ? 'COME BACK' : 'PAID THERE'), short: M.short || (back ? 'BACK' : 'PAID'), color: M.color || (back ? '#e0ad3a' : '#a9c27a'), ink: M.ink || '#1f1710' };
+  }
+  /* the mark as HTML for any page (the town's screen is another document): sized by the line it sits in */
+  function payMarkHTML(c, opt) {
+    var b = comesBack(c), M = markOf(b), word = opt && opt.short ? M.short : M.word;   /* short: a narrow card keeps its time on the line ('BACK', 'PAID') */
+    return '<span class="jkpay jkpay-' + (b ? 'back' : 'there') + '" data-pays="' + (b ? 'back' : 'there') + '" style="display:inline-flex;align-items:center;gap:.3em;padding:.08em .4em .08em .3em;margin-right:.45em;border-radius:.25em;background:' + M.color +
+      ';color:' + M.ink + ';line-height:1.15;letter-spacing:.04em;white-space:nowrap;vertical-align:middle;flex:none"><svg viewBox="0 0 9 9.4" width="1em" height="1em" aria-hidden="true" style="flex:none">' + MARK_SVG[b ? 'back' : 'there'] + '</svg>' + word + '</span>';
+  }
   /* the phone's few words (rule 148: the phone is not a page): '3 H TO REMNANTS, THEN 1 DAY 7 H TO PRIMM' */
   function shortTime(m) {
     if (m == null) return '?';
@@ -1294,7 +1316,8 @@
             at: pts.map(function (p) { return [p.x, p.y]; }), ends: W.at, why: W.why, left: !!heldJob, waits: W.waits || 0, dark: W.dark || 0 };
           if (W.backMins != null) { out.job.backBlocks = W.backBlocks; out.job.backMins = W.backMins; }
           out.job.total = out.job.mins + (out.job.backMins || 0);
-          if (!W.legs.length && W.backMins != null && job.plays !== 'hold-defend') { out.job.back = false; out.job.home = true; }   /* only the walk home is left: 'to be paid', not 'there and back' */
+          if (!W.legs.length && W.backMins != null && job.plays !== 'hold-defend') { out.job.back = false; out.job.home = true; }
+          if (job.plays === 'hold-defend') { out.job.waves = job.waves | 0; out.job.back = false; try { out.job.late = job.by != null && dayAfter((out.toTown ? out.toTown.mins : 0) + out.job.total) > job.by; } catch (e) {} }   /* only the walk home is left: 'to be paid', not 'there and back' */
           if (W.spread) { var tot = out.job.total; out.job.minsLo = W.mins * W.spread[0]; out.job.minsHi = W.mins * W.spread[1]; out.job.totalLo = tot * W.spread[0]; out.job.totalHi = tot * W.spread[1]; }
         }
       } else if (job && !owns(job) && job.target && job.target.x != null && !heldJob) {   /* today's crew job: to its mark, paid there */
@@ -1320,7 +1343,8 @@
     if (!T) return null;
     var w = [], J = T.job;
     if (T.toTown) w.push(shortTime(T.toTown.mins) + ' TO ' + String(T.place).toUpperCase());
-    if (J && J.plays !== 'hold-defend') {
+    if (J && J.plays === 'hold-defend') { if (!T.toTown || J.total >= 10) w.push((T.toTown ? 'THEN ' : '') + (J.total >= 10 ? shortTime(J.total) + ' TO THE GATE, ' : 'AT THE GATE, ') + (J.waves || 1) + (J.waves === 1 ? ' WAVE' : ' WAVES') + ', PAID THERE'); }
+    else if (J) {
       var to = J.plays === 'patrol' ? ' ROUND THE POSTS' : J.name ? ' TO ' + String(J.name).toUpperCase() : '';
       /* rule 222(b): his words, 'there and back' or 'paid there'; a range says its low and its high */
       if (J.home) { w.push(shortTime(J.total) + ' TO ' + String(J.name || '').toUpperCase() + ', TO BE PAID'); return w.join(', '); }
@@ -1341,7 +1365,7 @@
          'About 1 day, paid there'); the blocks are the way out */
       var back = J.back ? ' there and back' : ', paid there', tm = J.total != null ? J.total : J.mins, lead = J.left ? 'Left to walk:' : (T.toTown ? 'Then' : 'The trip:');
       if (J.home) w.push('Left to walk: home to ' + String(J.name || '').toUpperCase() + ' to be paid, ' + timeWords(tm) + '.');
-      else if (J.plays === 'hold-defend') w.push('The job is the town itself: you stay.');
+      else if (J.plays === 'hold-defend') w.push('The job is the town itself: ' + (tm >= 10 ? timeWords(tm) + ' to its gate, then ' : 'stand at its gate and ') + (J.waves ? J.waves + (J.waves === 1 ? ' wave comes' : ' waves come') + ', one fight each' : 'they come') + ', paid there' + (J.late ? '. They come before you can get there' : '') + '.');
       /* WORLD 4: the road's own stops (a crew on the road, a moment that eats twenty minutes, a party PLAY walks round) cannot be known
          before the yes; the words say so, once, plainly (rule 307: 'if nobody stops you') */
       else if (J.plays === 'patrol' && J.exact) w.push((J.left ? 'Left to walk: ' : T.toTown ? 'Then ' : 'The patrol: ') + 'round the posts, ' + timeWords(tm) + back + ', if nobody stops you.');
@@ -1999,7 +2023,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap };
   load();
 })(typeof window !== 'undefined' ? window : this);

@@ -110,6 +110,8 @@
     var st = null; try { st = M && M.stars ? M.stars(a.stars, { gap: 0, ink: PICK === a.key }) : null; } catch (e) { st = null; }
     if (!st) { st = document.createElement('span'); st.className = 'bmstars'; st.textContent = new Array(a.stars + 1).join('★'); }
     m.appendChild(st);
+    /* WORLD 4 (rule 308, ask line 301): COME BACK or PAID THERE first on the card's line, at a glance (the job file's one mark) */
+    try { if (window.BohemiaJobKinds && BohemiaJobKinds.payMarkHTML) m.insertAdjacentHTML('afterbegin', BohemiaJobKinds.payMarkHTML(a)); } catch (e) {}
     var pay = document.createElement('span'); pay.className = 'pay';
     var src = ''; try { src = M && M.supplyIcon ? M.supplyIcon('batteries') : ''; } catch (e) {}
     if (src) { var im = document.createElement('img'); im.className = 'batt'; im.alt = ''; im.src = src; pay.appendChild(im); }
@@ -127,7 +129,7 @@
       /* WORLD [a job says how far] (rule 186(c), Paolo 10/25: 'it sends me to the other side of the map without me knowing'): the
          lit card says the trip, the walk to the town and the job's own, from the map's own road and clock (BohemiaJobKinds.trip) */
       try { var TR = window.BohemiaJobKinds && BohemiaJobKinds.trip ? BohemiaJobKinds.trip(a, a.place) : null;
-        if (TR && TR.short) { var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.short;
+        if (TR && TR.short) { var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = window.BohemiaJobKinds.payMarkHTML ? TR.short.replace(/, (THERE AND BACK|PAID THERE)$/, '') : TR.short;   /* WORLD 4: the mark above says which */
           tp.style.cssText = 'margin-top:5px;font-size:10px;line-height:1.3;letter-spacing:.6px;color:#1f1710'; d.appendChild(tp); d.dataset.trip = TR.short; d.dataset.tripWords = TR.words; } } catch (e) {}
       try { var B = (typeof BEAT === 'number' && BEAT > 0) ? BEAT : 500; d.style.animationDelay = (-(performance.now() % B)) + 'ms'; d.style.animationDuration = B + 'ms'; } catch (e) {}
     }

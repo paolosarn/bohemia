@@ -1039,6 +1039,12 @@
   "default": "clear-crew",
   "place_why": "WORLD [the PC playtest: the jobs' part] (1), rule 164 item 3, Paolo 10/24 on his PC: 'take three carts to Prim, and it's really just the blue settlement.' A row's 'place' is the place its words name. {name, real}: one of the region's real places (engine/BOHEMIA_REGION_LAND.json places, by name) or a valley town (ctBases, by name), and the job goes THERE (the carts to PRIMM, the relief shift and the intake deck to HOOVER DAM, the letter over RAILROAD PASS, the pharmacy at MT CHARLESTON LODGE, the freezer at the fossil beds, TULE SPRINGS); {name}: a place the words make up ('the pump station'), a block the dice pick, carrying that name on the map; 'way': the words' own direction ('the south road'). No place: the words name none ('the pack that drinks here'), and the job's place is the client's own town. The map names every place a held job names and rings the next one; off the glass, its name waits at the glass's edge, pointing. Names are draft:true.",
   "default_why": "a job no row names and no pattern matches is today's job, a crew marked on the map, so a new board row is never broken by this file",
+  "pay_marks": {
+    "draft": true,
+    "back": { "word": "COME BACK", "short": "BACK", "color": "#e0ad3a", "ink": "#1f1710" },
+    "there": { "word": "PAID THERE", "short": "PAID", "color": "#a9c27a", "ink": "#1f1710" },
+    "why": "WORLD 4 (rule 308, ask line 301; Paolo 11/2: 'the job has to be quickly identifiable as do I need to return back to the job site or I can just handle it out there... maybe it's like a different color'): the mark first on every line a job shows on. Amber with a return arrow for come back, green with a pin for paid there, both the phone's own colours; never purple (the Amalgamation's). His to change."
+  },
   "timing": {
     "draft": true,
     "hunt_spread": [0.75, 1.3],

@@ -312,6 +312,67 @@ the yes made the job somewhere other than the promise (more than 3 blocks off it
 (A first after-run on the code before the last two fixes, 60 jobs, ten kinds: 54 of 60 in the bar. It found the guarded find's
 fight at two blocks, not one, and the held job's card falling to a range on the way home; both fixed before the run above.)
 
+## TWO MORE FROM PAOLO, THE SAME ROUND (rule 307 amended, rule 308; ask lines 300 and 301)
+### 300: THE WHOLE JOB'S TIME, NOT ONLY THE WALK
+His words: 'that's the problem with your math right now with how long it takes for the quest to be completed... you don't even
+wanna be honest and say it's gonna take like 48 hours.' Every part of a job, measured on the map's clock, and what the promise
+now counts:
+- the walk there, the job's own legs and the way back: counted (above);
+- a wait at the place (CONTENT's 'wait' and 'dark'): counted, for the hour he gets there, and said ('1 hour 30 minutes of it waiting');
+- a search (a find): the walk to the ring and on the hint's way, counted; a hunt's chase: counted, said as a range ('the packs move');
+- the moved twist (they moved it): its leg counted;
+- a hold: WAS 'The job is the town itself: you stay', no time. NOW timed: the walk to its gate, then its waves, paid there
+  ('AT THE GATE, 2 WAVES, PAID THERE'; from the phone '6 H 10 TO BLUES, ...'), and it says so when he cannot get there before
+  they come. Measured: the waves come the moment he stands at the gate;
+- the fight: 0 minutes. MEASURED, not assumed: 284 fights across the runs, and the map's clock moved for none of them (every minute
+  advance() spent was a step, a leg's wait or the road's moment). If a fight should cost the valley hours, that is the fight's
+  lanes' ruling; the promise reads whatever the clock spends;
+- the night's camp: nothing in the game makes the crew camp (camp is his own button, the night is walked through), so nothing is
+  added; a long trip says its days ('about 1 day 7 hours', '3 and a half days'), never rounded down to a day;
+- a job waiting for its real place to be painted (stage 'wait'): timed on the real place's road from the town (it was the one
+  untimed case in the code; the probe waits for the region, so it is read, not walked).
+The hold, judged now (it was 'not judged' before):
+| # | kind | town | from / walk | day or night | promised (his words) | promised min | walked min | off | end | fights | road events min |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | ambush | Anarchists | town / play | day | 2 H 40 TO THE CUT, THERE AND BACK | 160 | 160 | +0% | paid | 1 | 0 |
+| 1 | find-person | Anarchists | town / play | night | 4 H 40, THERE AND BACK | 278 | 298 | +7% | paid | 1 | 20 |
+| 2 | hold-defend | Anarchists | town / tap | day | AT THE GATE, 2 WAVES, PAID THERE | 0 | 0 | +0% | paid | 2 | 0 |
+| 3 | ambush | Blues | town / play | night | 3 H 10 TO THE CUT, THERE AND BACK | 192 | 192 | +0% | paid | 1 | 0 |
+| 4 | find-person | Blues | town / tap | day | 3 H 50 TO THE COUSIN'S FARM, THERE AND BACK | 228 | 228 | +0% | paid | 1 | 0 |
+| 5 | hold-defend | Blues | phone / play | night | 6 H 10 TO BLUES | 366 | 366 | +0% | paid | 3 | 0 |
+| 6 | ambush | Caravans | town / tap | day | 5 H 50 TO THEIR SCOUTS, THERE AND BACK | 348 | 348 | +0% | paid | 2 | 0 |
+| 7 | find-person | Caravans | phone / play | night | 5 H 30 TO CARAVANS, THEN 8 H, THERE AND BACK | 816 | 816 | +0% | paid | 1 | 0 |
+| 8 | hold-defend | Caravans | town / play | day | AT THE GATE, 2 WAVES, PAID THERE | 0 | 0 | +0% | paid | 2 | 0 |
+| 9 | ambush | Cartel | phone / play | night | 2 H 50 TO CARTEL, THEN 3 H 50 TO THE CUT, THERE AND BACK | 396 | 396 | +0% | paid | 1 | 0 |
+| 10 | find-person | Cartel | town / play | day | 4 H 30 TO THE COUSIN'S FARM, THERE AND BACK | 270 | 270 | +0% | paid | 1 | 0 |
+| 11 | hold-defend | Cartel | town / tap | night | AT THE GATE, 2 WAVES, PAID THERE | 0 | 0 | +0% | paid | 2 | 0 |
+| 12 | ambush | Church | town / play | day | 3 H 10 TO THE CUT, THERE AND BACK | 192 | 192 | +0% | paid | 1 | 0 |
+| 13 | find-person | Church | town / tap | night | 3 H 50, THERE AND BACK | 226 | 226 | +0% | paid | 1 | 0 |
+| 14 | hold-defend | Church | town / play | day | AT THE GATE, 2 WAVES, PAID THERE | 0 | 0 | +0% | paid | 2 | 0 |
+
+WITHIN 15 OF 100 ONCE THE ROAD'S OWN STOPS ARE TAKEN OUT (a road card says its minutes; the words say 'if nobody stops you'): 15 of 15
+WITHIN THE BAR: 15 of 15 (100%); off by more than 30 (or never ended) without saying why: 0
+not judged: 0
+by kind: ambush 5/5, find-person 5/5, hold-defend 5/5
+from the phone: 3 of 3; the phone and the board at the yes planned the same place: 3 of 3
+walked with PLAY: 10 of 10; with his taps: 5 of 5
+started at night: 7 of 7; by day: 8 of 8
+the held job's card halfway (what is left, his phone): within 15 of 100: 10 of 10 (worst +8%)
+the yes made the job somewhere other than the promise (more than 3 blocks off its first place): 0
+
+### 301: COME BACK OR PAID OUT THERE, AT A GLANCE
+His words: 'the job has to be quickly identifiable as do I need to return back to the job site or I can just handle it out there,
+super important... maybe it's like a different color.' WAS: the board's row ended ' ROUND TRIP', the phone's job card
+' THERE+BACK' (cut to 'THERE+BAC' on the phone), the lit card's last words. NOW one mark, first on the line, wherever a job shows:
+the board's row, the offer opened, the phone's offer cards, the phone's job column. COME BACK is amber (#e0ad3a) with a return
+arrow; PAID THERE is green (#a9c27a) with a pin; dark ink on both; the phone's own colours, never purple. The narrow job column
+says it short ('BACK', 'PAID') so its time stays on the line. One answer for all of them (BohemiaJobKinds.comesBack); the words and
+colours in BOHEMIA_JOB_KINDS.json pay_marks, draft:true. Checked: the_trip_before_the_yes T8 (every board row starts with the mark,
+it agrees with the trip, the two colours differ) and T9 (every phone offer and every held job starts with it).
+FOUND ON THE WAY: the phone is drawn on the top page (UI TWO's one phone) where the job file is not loaded, so the first ship's
+one rounding never reached the phone's job card (it still said '4H THERE+BAC'); the phone now reaches the job file on the map's
+page (JKW), and the card says '3H50' beside the mark.
+
 ## WHAT IS LEFT
 - **The road's own stops cannot be known before the yes.** The words say it ('if nobody stops you'); a road card says its own
   minutes before he picks ('Lift the truck. One hour.'); the held job's card says the time LEFT from where he stands, so after a
