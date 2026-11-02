@@ -355,6 +355,299 @@
   "quote": "With each new character level reached by your mercenary he will gain 1 Perk point... To unlock the second perk row, you need to spend one perk point.",
   "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them; round two puts the seven skills a perk unlocks into the orders where a job would take them (the captain's ON ME, the sledge's COME AT ME and CATCH YOUR BREATH, the pistol's FIRST OUT THE DOOR and SWAP OUT, SIDESTEP for the quick ones) (10/19, rule 120: the pistol shoots now, and its mastery stays PISTOL WORK, Battle Brothers' dagger mastery: the shot at the stab's 3 AP, three shots a turn)"
  },
+ "board_grounds": {
+  "value": {
+   "lead_share": 0.5,
+   "grounds": {
+    "suburb_block": [
+     "subs",
+     "corner",
+     "suburb_stem",
+     "lots",
+     "culdesac"
+    ],
+    "the_strip": [
+     "strip",
+     "casino",
+     "main"
+    ],
+    "lot_and_bigbox": [
+     "strip",
+     "lots",
+     "main",
+     "works"
+    ],
+    "industrial": [
+     "works",
+     "landfill",
+     "ruin"
+    ],
+    "golf_and_park": [
+     "golf",
+     "scrub",
+     "wash"
+    ],
+    "wash_and_shore": [
+     "marina",
+     "shore",
+     "wash"
+    ],
+    "solar_and_pumps": [
+     "works",
+     "scrubroad",
+     "scrub"
+    ],
+    "freeway": [
+     "freeway",
+     "freewayo",
+     "scrubroad"
+    ],
+    "airport": [
+     "apron",
+     "works",
+     "scrubroad"
+    ],
+    "open_desert": [
+     "scrub",
+     "pass",
+     "wash",
+     "scrubroad",
+     "canyon"
+    ],
+    "landfill": [
+     "landfill",
+     "scrub",
+     "works"
+    ],
+    "hills": [
+     "pass",
+     "canyon",
+     "scrub"
+    ],
+    "trailer_park": [
+     "trailer",
+     "scrub",
+     "lots"
+    ]
+   },
+   "districts": {
+    "casino": [
+     "casino",
+     "strip"
+    ],
+    "resort": [
+     "casino",
+     "strip",
+     "main"
+    ],
+    "highroller": [
+     "casino",
+     "strip"
+    ],
+    "luxor": [
+     "casino",
+     "strip"
+    ],
+    "downtown": [
+     "main",
+     "strip",
+     "ruin"
+    ],
+    "cityhall": [
+     "ruin",
+     "main",
+     "strip"
+    ],
+    "courthouse": [
+     "ruin",
+     "main",
+     "strip"
+    ],
+    "jail": [
+     "ruin",
+     "main",
+     "works"
+    ],
+    "policestation": [
+     "ruin",
+     "main",
+     "strip"
+    ],
+    "prison": [
+     "ruin",
+     "works",
+     "main"
+    ],
+    "radio": [
+     "ruin",
+     "works",
+     "scrubroad"
+    ],
+    "firestation": [
+     "ruin",
+     "main",
+     "strip"
+    ],
+    "medical": [
+     "ruin",
+     "main",
+     "works"
+    ],
+    "campus": [
+     "golf",
+     "main",
+     "strip"
+    ],
+    "stadium": [
+     "lots",
+     "golf",
+     "works"
+    ],
+    "ballpark": [
+     "golf",
+     "lots",
+     "works"
+    ],
+    "farm": [
+     "scrub",
+     "golf",
+     "wash"
+    ],
+    "waterpark": [
+     "golf",
+     "lots",
+     "shore"
+    ],
+    "springs": [
+     "canyon",
+     "wash",
+     "scrub"
+    ],
+    "gypsum": [
+     "canyon",
+     "landfill",
+     "scrub"
+    ],
+    "dam": [
+     "marina",
+     "pass",
+     "shore"
+    ],
+    "intake": [
+     "marina",
+     "works",
+     "shore"
+    ],
+    "watertreat": [
+     "works",
+     "marina",
+     "wash"
+    ],
+    "minigp": [
+     "freeway",
+     "lots",
+     "scrubroad"
+    ],
+    "speedway": [
+     "freeway",
+     "lots",
+     "scrubroad"
+    ],
+    "drivein": [
+     "lots",
+     "strip",
+     "scrubroad"
+    ],
+    "truckstop": [
+     "main",
+     "scrubroad",
+     "works"
+    ],
+    "swapmeet": [
+     "lots",
+     "strip",
+     "works"
+    ],
+    "mountain": [
+     "pass",
+     "canyon",
+     "scrub"
+    ],
+    "desert": [
+     "scrub",
+     "pass",
+     "wash",
+     "scrubroad"
+    ],
+    "trailer": [
+     "trailer",
+     "lots",
+     "scrub"
+    ],
+    "estate": [
+     "culdesac",
+     "suburb_stem",
+     "subs"
+    ],
+    "gated": [
+     "culdesac",
+     "suburb_stem",
+     "subs"
+    ],
+    "arterial": [
+     "suburb_stem",
+     "strip",
+     "lots"
+    ],
+    "reclaim": [
+     "works",
+     "ruin",
+     "scrub"
+    ],
+    "battery": [
+     "works",
+     "scrubroad",
+     "scrub"
+    ],
+    "substation": [
+     "works",
+     "scrubroad",
+     "scrub"
+    ],
+    "pumpstation": [
+     "works",
+     "wash",
+     "scrub"
+    ],
+    "airbase": [
+     "apron",
+     "works",
+     "scrubroad"
+    ],
+    "terminal": [
+     "apron",
+     "works",
+     "main"
+    ]
+   },
+   "shaped": [
+    "suburb_block",
+    "lot_and_bigbox"
+   ],
+   "mirror": [
+    "pass",
+    "canyon",
+    "trailer",
+    "golf",
+    "marina",
+    "apron",
+    "casino"
+   ]
+  },
+  "source": "records/BOHEMIA_COMBAT_MAPS_EVERY_DISTRICT_ITS_OWN_11_2_26.md",
+  "quote": "we need way more combat maps, way more... the only thing you have is like this desert yellow brown suburbia thing, and it's serving, it's perfect, I appreciate it, but...",
+  "why": "rule 325 (Paolo 11/2): the map hands the fight its district and the district deals its own block kinds (its row in 'districts', else its ground's in 'grounds', the ground from records/target/BOHEMIA_BOARD_KINDS.json); the first kind leads lead_share of the slots; 'shaped' grounds are cut by board_shapes (the vacant lot), the rest never; the 'mirror' kinds are dealt mirrored too ('pass.0|h'). A boss keeps his own board. TUNING may move lead_share; COMBAT adds kinds as blocks are made."
+ },
  "board_mix": {
   "value": {
    "families": {

@@ -1,5 +1,29 @@
 # COMBAT (the fight) -- the handoff block (written only by COMBAT, newest first; older blocks: handoffs/COMBAT_ARCHIVE.md)
 
+COMBAT MAPS 11/2 (brief from the coordinator: rule 325, ask line 323, 'way more combat maps... the only thing you have is like this
+desert yellow brown suburbia thing'). SHIPPED (BUILD 11/3zs), NOT YET SEEN:
+1. WHY HE SAW ONLY SUBURB (measured, 230 fights the game starts: every district day and night, the region's 34 places, the bosses;
+   tools/bohemia_combat_maps_every_district_probe_11_2_26.js): the alpha handed the fight a kind, never the district, so the deal
+   led one slot of twelve and filled the rest from the city family (six of eleven kinds the tract) plus last round's vacant lots;
+   the casino, the overpass and the desert road were never dealt. 14 kinds ever dealt, 35.7% of all blocks suburb, 41% of boards
+   mostly suburb.
+2. THE MAP HANDS THE DISTRICT (alpha nfOpts, __EVERY_PART_OF_TOWN_FIGHTS__) and a place deals ITS OWN kinds (BOHEMIA_FIGHT.html
+   placeKinds/dealPlace, data ours.json 'board_grounds': the district's row else its ground's; the lead on half the slots; shapes
+   only on town grounds; new kinds mirrored; a boss keeps his board). Rule 46a's cell seed, WORLD's ground-effects fit and FACTIONS'
+   who-holds-the-ground weights now run in the game (they were written for a district and never got one).
+3. SIX NEW BLOCK KINDS through the rig, each with raided and reclaimed (18 pictures): pass (the pass road), canyon (Red Rock),
+   trailer (the trailer park), golf (gone to dust), marina (Lake Mead's dry marina), apron (the airport). Tiles first, picture
+   built from them (tools/bohemia_combat_maps_new_blocks_through_the_rig_11_2_26.py; venv: python3.11 -m venv v && v/bin/pip install
+   bpy==4.2.0 numpy pillow scipy; ~5 min a block at 16 samples on 4 cores).
+4. AFTER (same 230 fights): 23 kinds, 12.5% suburb, 12% of boards mostly suburb (all real suburbs). Three blocks gate taught the
+   district route (casino REACHED); sounds' floor table re-derived; pack manifest slices/fight_ground/combat_maps_11_2.json.
+records/BOHEMIA_COMBAT_MAPS_EVERY_DISTRICT_ITS_OWN_11_2_26.md; sheet records/target/combat_maps_11_2b/ (VOTE: combat-maps-every-district-11-2).
+NEXT: a second block of each kind; Fremont under the canopy, the pool deck, a lab yard, a solar field; the new blocks' tall things
+into fight_stands.json (COMBAT 2 holds it); WORLD to give Red Rock, Valley of Fire and Echo Bay their real grounds.
+[bb] Battle Brothers cuts every tactical map from the ground the party stands on: where you fight is the fight.
+[analog horror] one wrong thing a place: hazards blinking in daylight, a porch light at noon, the one green on a dead course, a boat
+tied to a dock with no water, a dead jet with its cabin lights on, a handprint older than the valley.
+
 COMBAT 2 11/2 (brief from the coordinator: ask line 251, a one-storey house south of a man covers his legs). SHIPPED (BUILD 11/3zo),
 NOT YET SEEN:
 1. A HOUSE COVERS HIS LEGS: the suburb ranches re-rendered through the same rig at a 2008 tract house's real height (2.97 m to

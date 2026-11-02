@@ -301,6 +301,11 @@
    "why": "COMBAT's fight screenshots"
   },
   {
+   "glob": "records/target/combat_maps_11_2b/**",
+   "kind": "proof",
+   "why": "COMBAT MAPS' phone sheet of the six new fight blocks in the live fight (tools/bohemia_combat_maps_the_sheet_11_2_26.js)"
+  },
+  {
    "glob": "records/target/graveyard/**",
    "kind": "proof",
    "why": "a dead thing's last picture"

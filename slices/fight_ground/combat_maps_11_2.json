@@ -1,0 +1,77 @@
+{
+ "about": "COMBAT MAPS 11/2: the six new fight blocks and their futures (tools/bohemia_combat_maps_new_blocks_through_the_rig_11_2_26.py)",
+ "pieces": {
+  "pass.0.present": {
+   "src": "block_pass_0.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "pass.0.raided": {
+   "src": "block_pass_0_raided.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "pass.0.reclaimed": {
+   "src": "block_pass_0_reclaimed.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "canyon.0.present": {
+   "src": "block_canyon_0.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "canyon.0.raided": {
+   "src": "block_canyon_0_raided.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "canyon.0.reclaimed": {
+   "src": "block_canyon_0_reclaimed.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "trailer.0.present": {
+   "src": "block_trailer_0.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "trailer.0.raided": {
+   "src": "block_trailer_0_raided.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "trailer.0.reclaimed": {
+   "src": "block_trailer_0_reclaimed.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "golf.0.present": {
+   "src": "block_golf_0.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "golf.0.raided": {
+   "src": "block_golf_0_raided.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "golf.0.reclaimed": {
+   "src": "block_golf_0_reclaimed.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "marina.0.present": {
+   "src": "block_marina_0.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "marina.0.raided": {
+   "src": "block_marina_0_raided.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "marina.0.reclaimed": {
+   "src": "block_marina_0_reclaimed.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "apron.0.present": {
+   "src": "block_apron_0.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "apron.0.raided": {
+   "src": "block_apron_0_raided.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  },
+  "apron.0.reclaimed": {
+   "src": "block_apron_0_reclaimed.webp",
+   "exception": "rendered through the master rig like every fight block since 10/19 (rule 121(j), rule 123: every 2D asset into 3D): the floor tool's ground, the not-final tool's junk and grime, modelled things; no pack tile is cut into it"
+  }
+ }
+}

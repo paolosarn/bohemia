@@ -1114,8 +1114,45 @@ const FIGHT = (function () {
     return grid;
   }
   function shuffled(a) { return a.map(function (x) { return { x: x, k: rng() }; }).sort(function (p, q) { return p.k - q.k; }).map(function (o) { return o.x; }); }
+  /* EVERY PART OF TOWN FIGHTS ON ITS OWN GROUND (COMBAT MAPS 11/2, rule 325, ask line 323, Paolo 11/2: 'we need way more combat
+     maps, way more... the only thing you have is like this desert yellow brown suburbia thing'). MEASURED BEFORE (230 fights the
+     game starts, every district day and night, the region's 34 places, the bosses; tools/bohemia_combat_maps_every_district_probe_
+     11_2_26.js): the map handed the fight a kind, never the district, and a kind's deal led one corner and filled the other eleven
+     slots from the whole city family, six of whose eleven kinds are the tract; 14 block kinds ever dealt, the casino, the overpass
+     and the desert road never; 41% of boards mostly suburb. NOW a board handed its district deals THAT PLACE's kinds
+     (ours.board_grounds: the district's own list, else its ground's, records/target/BOHEMIA_BOARD_KINDS.json), the place's lead
+     kind on lead_share of the slots; a boss keeps his own board; the board shapes cut only the grounds that are a town */
+  function placeKinds(opts, lib) {
+    const PG = DB.ours && DB.ours.board_grounds ? R('ours.board_grounds') : null;
+    if (!PG || !opts.district || opts.boss) return null;
+    const row = DB.boardKinds.districts.filter(function (r) { return r.district === opts.district; })[0];
+    const list = PG.districts[opts.district] || (row && PG.grounds[row.ground]) || null;
+    const have = (list || []).filter(function (k) { return Object.keys(lib).some(function (n) { return kindOf(n) === k; }); });
+    if (!have.length) return null;
+    return { kinds: have, shaped: !!row && PG.shaped.indexOf(row.ground) >= 0 && !PG.districts[opts.district], share: PG.lead_share, mirror: PG.mirror };
+  }
+  function dealPlace(opts, own, lib) {
+    const G = DB.ground, bt = G.block_tiles, mix = R('ours.board_mix');
+    const lead = own.kinds[0], rest = shuffled(own.kinds.slice(1)).slice(0, rint(mix.kinds_per_board[0], mix.kinds_per_board[1]) - 1);
+    const of = function (k) { const b = Object.keys(lib).filter(function (n) { return kindOf(n) === k; });
+      return own.mirror.indexOf(k) >= 0 ? b.concat(b.map(function (n) { return n + '|h'; })) : b; };
+    const leadPool = of(lead), restPool = [].concat.apply([], rest.map(of)), pool = leadPool.concat(restPool);
+    const cols = S.w / bt, rows = S.h / bt, grid = [];
+    for (let by = 0; by < rows; by++) {
+      const row = [];
+      for (let bx = 0; bx < cols; bx++) {
+        const from = (by === rows - 1 && bx === 0) || !restPool.length || rng() < own.share ? leadPool : restPool;
+        const can = from.filter(function (n) { return n !== row[bx - 1] && !(by && grid[by - 1][bx] === n); });
+        row.push((can.length ? can : from)[Math.floor(rng() * (can.length || from.length))]);
+      }
+      grid.push(row);
+    }
+    return { grid: waterRunsOn(grid, pool), fam: own.shaped ? 'city' : 'place', leads: [lead], place: opts.district };
+  }
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
+    const own = placeKinds(opts, lib);
+    if (own) return dealt(opts, dealPlace(opts, own, lib));
     const fams = Object.keys(mix.families);
     /* the family that carries the kind, or one of its aliases' kinds (10/18, measured: 'suburb' is an alias and no family lists
        it by that name, so the family fell to the dice and 53 of 200 suburb fights were dealt on the valley's edge, sand and
@@ -1145,6 +1182,12 @@ const FIGHT = (function () {
       grid.push(row);
     }
     waterRunsOn(grid, pool);
+    return dealt(opts, { grid: grid, fam: fam, leads: leads });
+  }
+  /* the dealt grid made a board: its shape, its tiles, its cover and lamps, the name on the bar */
+  function dealt(opts, d) {
+    const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, mix = R('ours.board_mix'), grid = d.grid, fam = d.fam, leads = d.leads;
+    const cols = S.w / bt, rows = S.h / bt;
     const shaped = shapeBoard(grid, fam, leads.length ? [0, rows - 1] : null);
     const terrain = [], cover = [];
     for (let y = 0; y < S.h; y++) { terrain.push([]); for (let x = 0; x < S.w; x++) terrain[y].push(libOf(grid[Math.floor(y / bt)][Math.floor(x / bt)]).terrain[y % bt][x % bt]); }
@@ -1154,11 +1197,13 @@ const FIGHT = (function () {
     grid.forEach(function (row, by) { row.forEach(function (n, bx) { libOf(n).lights.forEach(function (l) {
       lights.push(Object.assign({}, l, { x_m: l.x_m + bx * bt * tm, y_m: l.y_m + by * bt * tm })); }); }); });
     const used = []; grid.forEach(function (r) { r.forEach(function (n) { if (used.indexOf(kindOf(n)) < 0) used.push(kindOf(n)); }); });
-    if (opts.kind && leads.length && used.indexOf(opts.kind) < 0) used.unshift(opts.kind);   /* the board answers to the name it was asked by */
+    const asked = !!opts.kind && leads.length > 0 && used.indexOf(opts.kind) < 0;
+    if (asked && !d.place) used.unshift(opts.kind);   /* the board answers to the name it was asked by */
     /* the name on the bar: a suburb's renamed blocks all read SUBURB */
     const call = function (k) { const al = mix.aliases || {}; return Object.keys(al).filter(function (n) { return al[n].indexOf(k) >= 0; })[0] || k; };
     const shown = []; used.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
-    return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null, shape: shaped.shape };
+    if (asked && d.place) used.push(opts.kind);   /* a place's board is named by its own blocks; the door's kind is answered, last */
+    return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null, shape: shaped.shape, place: d.place || null };
   }
   /* ---------------- THE BOARD HAS A SHAPE (COMBAT [way more fight maps], ask line 252, Paolo 10/27: 'more maps... it got pretty
      boring... we need way more maps, way more combat maps'; CLAUDE.md, Paolo 9/29: 'no two combat boards are the same') ----------

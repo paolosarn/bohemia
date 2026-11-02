@@ -154,8 +154,8 @@
   /* THE BLOCKS THAT EXIST AND CANNOT BE REACHED. The gate rebuilds this from the
      library, the families and nfKind on every run. */
   var UNREACHABLE = {
-    neverAtAll: ['casino', 'freewayo', 'scrubroad'],
-    neverTheLead: ['lots', 'main', 'works'],
+    neverAtAll: [],      /* COMBAT MAPS 11/2 (rule 325): the map hands the district; casino, freewayo and scrubroad are dealt by theirs */
+    neverTheLead: [],
     ruling: SRC_LIB,
     casino: {
       flatCells: 294, heightCells: 6, coverPieces: 201,

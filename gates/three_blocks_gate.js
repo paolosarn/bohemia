@@ -111,6 +111,10 @@ Object.keys(MIX.families || {}).forEach(f => (MIX.families[f] || []).forEach(k =
 const NFK = ['strip', 'freeway', 'shore', 'landfill', 'wash', 'scrub', 'culdesac', 'suburb_stem', 'suburb', 'ruin'];
 const reach = new Set();
 NFK.forEach(k => ((MIX.aliases || {})[k] || [k]).forEach(t => reach.add(t)));
+/* COMBAT MAPS 11/2 (rule 325): the map hands the fight its district, and a district deals its own kinds (ours.board_grounds: the
+   district's row, else its ground's); every kind those lists name is reached, the first of a list leads */
+const PG = (OURS.board_grounds && OURS.board_grounds.value) || null;
+if (PG) [].concat(Object.values(PG.grounds || {}), Object.values(PG.districts || {})).forEach(l => l.forEach(t => reach.add(t)));
 const neverAtAll = [...libKinds].filter(k => !famNames.has(k) && !reach.has(k)).sort();
 const neverLead = [...libKinds].filter(k => famNames.has(k) && !reach.has(k)).sort();
 
@@ -194,8 +198,8 @@ section('D the unreachable blocks, rebuilt from the fight\'s own library', () =>
      neverLead.length <= TB.UNREACHABLE.neverTheLead.length
      && neverLead.every(k => TB.UNREACHABLE.neverTheLead.indexOf(k) >= 0),
      neverLead.join(', '));
-  ok('*** THE CASINO IS ONE OF THEM: THE ONLY INTERIOR IN THE GAME, UNREACHABLE ***',
-     neverAtAll.indexOf('casino') >= 0);
+  ok('*** THE CASINO IS REACHED NOW: THE ONLY INTERIOR IN THE GAME, DEALT BY ITS OWN DISTRICTS (COMBAT MAPS 11/2) ***',
+     neverAtAll.indexOf('casino') < 0 && !!PG && Object.keys(PG.districts || {}).some(d => (PG.districts[d] || [])[0] === 'casino'));
   ok('and nothing a family names is missing from the library',
      [...famNames].every(k => libKinds.has(k)),
      [...famNames].filter(k => !libKinds.has(k)).join(', '));

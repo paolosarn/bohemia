@@ -1,0 +1,3152 @@
+{
+ "summary": {
+  "at": "2026-11-02T10:36:15.098Z",
+  "handover": "kind + district + cell (after)",
+  "fights": 230,
+  "threw": 0,
+  "distinctBlockKinds": 23,
+  "suburbShareOfBlocks": 0.125,
+  "boardsMostlySuburb": 28,
+  "boardsMostlySuburbPct": 12.2,
+  "kindsSeen": {
+   "works": 327,
+   "scrub": 272,
+   "strip": 237,
+   "ruin": 178,
+   "lots": 174,
+   "freeway": 173,
+   "scrubroad": 172,
+   "main": 146,
+   "marina": 143,
+   "landfill": 132,
+   "golf": 128,
+   "casino": 96,
+   "trailer": 96,
+   "subs": 84,
+   "shore": 68,
+   "apron": 64,
+   "wash": 54,
+   "pass": 50,
+   "canyon": 42,
+   "freewayo": 38,
+   "culdesac": 34,
+   "suburb_stem": 28,
+   "corner": 24
+  },
+  "byWhere": {
+   "city": {
+    "fights": 156,
+    "suburbShare": 0.143
+   },
+   "region": {
+    "fights": 68,
+    "suburbShare": 0.088
+   },
+   "boss": {
+    "fights": 6,
+    "suburbShare": 0.056
+   }
+  }
+ },
+ "rows": [
+  {
+   "where": "city",
+   "name": "airbase",
+   "district": "airbase",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "apron + scrubroad",
+   "kinds": {
+    "apron": 7,
+    "scrubroad": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "airbase",
+   "district": "airbase",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "apron + scrubroad",
+   "kinds": {
+    "apron": 7,
+    "scrubroad": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "airport",
+   "district": "airport",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "scrubroad + apron",
+   "kinds": {
+    "scrubroad": 4,
+    "apron": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "airport",
+   "district": "airport",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "scrubroad + apron",
+   "kinds": {
+    "scrubroad": 4,
+    "apron": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "apartment",
+   "district": "apartment",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "strip + main + lots",
+   "kinds": {
+    "strip": 5,
+    "main": 3,
+    "lots": 4
+   },
+   "suburbShare": 0.3333333333333333
+  },
+  {
+   "where": "city",
+   "name": "apartment",
+   "district": "apartment",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "strip + main + lots",
+   "kinds": {
+    "strip": 5,
+    "main": 3,
+    "lots": 4
+   },
+   "suburbShare": 0.3333333333333333
+  },
+  {
+   "where": "city",
+   "name": "arsenal",
+   "district": "arsenal",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "ruin + works",
+   "kinds": {
+    "ruin": 7,
+    "works": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "arsenal",
+   "district": "arsenal",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "ruin + works",
+   "kinds": {
+    "ruin": 7,
+    "works": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "arterial",
+   "district": "arterial",
+   "night": false,
+   "asked": "suburb_stem",
+   "name_on_bar": "lots + suburb + strip",
+   "kinds": {
+    "lots": 3,
+    "suburb_stem": 6,
+    "strip": 3
+   },
+   "suburbShare": 0.75
+  },
+  {
+   "where": "city",
+   "name": "arterial",
+   "district": "arterial",
+   "night": true,
+   "asked": "suburb_stem",
+   "name_on_bar": "lots + suburb + strip",
+   "kinds": {
+    "lots": 3,
+    "suburb_stem": 6,
+    "strip": 3
+   },
+   "suburbShare": 0.75
+  },
+  {
+   "where": "city",
+   "name": "ballpark",
+   "district": "ballpark",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "works + golf",
+   "kinds": {
+    "works": 7,
+    "golf": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "ballpark",
+   "district": "ballpark",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "works + golf",
+   "kinds": {
+    "works": 7,
+    "golf": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "basin",
+   "district": "basin",
+   "night": false,
+   "asked": "wash",
+   "name_on_bar": "shore + marina",
+   "kinds": {
+    "shore": 4,
+    "marina": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "basin",
+   "district": "basin",
+   "night": true,
+   "asked": "wash",
+   "name_on_bar": "shore + marina",
+   "kinds": {
+    "shore": 4,
+    "marina": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "battery",
+   "district": "battery",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "scrubroad + scrub + works",
+   "kinds": {
+    "scrubroad": 5,
+    "scrub": 4,
+    "works": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "battery",
+   "district": "battery",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "scrubroad + scrub + works",
+   "kinds": {
+    "scrubroad": 5,
+    "scrub": 4,
+    "works": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "boneyard",
+   "district": "boneyard",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "ruin + landfill + works",
+   "kinds": {
+    "ruin": 3,
+    "landfill": 5,
+    "works": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "boneyard",
+   "district": "boneyard",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "ruin + landfill + works",
+   "kinds": {
+    "ruin": 3,
+    "landfill": 5,
+    "works": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "campus",
+   "district": "campus",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "golf + strip + main",
+   "kinds": {
+    "golf": 4,
+    "strip": 4,
+    "main": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "campus",
+   "district": "campus",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "golf + strip + main",
+   "kinds": {
+    "golf": 4,
+    "strip": 4,
+    "main": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "casino",
+   "district": "casino",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 7,
+    "casino": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "casino",
+   "district": "casino",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 7,
+    "casino": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "cemetery",
+   "district": "cemetery",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "GRAVEYARD",
+   "kinds": {
+    "scrub": 12
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "cemetery",
+   "district": "cemetery",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "GRAVEYARD",
+   "kinds": {
+    "scrub": 12
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "chapel",
+   "district": "chapel",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "suburb + culdesac + lots",
+   "kinds": {
+    "corner": 2,
+    "culdesac": 2,
+    "subs": 6,
+    "lots": 2
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "chapel",
+   "district": "chapel",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "suburb + culdesac + lots",
+   "kinds": {
+    "corner": 2,
+    "culdesac": 2,
+    "subs": 6,
+    "lots": 2
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "cityhall",
+   "district": "cityhall",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "main + ruin",
+   "kinds": {
+    "main": 6,
+    "ruin": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "cityhall",
+   "district": "cityhall",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "main + ruin",
+   "kinds": {
+    "main": 6,
+    "ruin": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "commercial",
+   "district": "commercial",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "lots + strip",
+   "kinds": {
+    "lots": 7,
+    "strip": 5
+   },
+   "suburbShare": 0.5833333333333334
+  },
+  {
+   "where": "city",
+   "name": "commercial",
+   "district": "commercial",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "lots + strip",
+   "kinds": {
+    "lots": 7,
+    "strip": 5
+   },
+   "suburbShare": 0.5833333333333334
+  },
+  {
+   "where": "city",
+   "name": "convention",
+   "district": "convention",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "casino + strip",
+   "kinds": {
+    "casino": 6,
+    "strip": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "convention",
+   "district": "convention",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "casino + strip",
+   "kinds": {
+    "casino": 6,
+    "strip": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "courthouse",
+   "district": "courthouse",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "ruin + main",
+   "kinds": {
+    "ruin": 6,
+    "main": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "courthouse",
+   "district": "courthouse",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "ruin + main",
+   "kinds": {
+    "ruin": 6,
+    "main": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "dam",
+   "district": "dam",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "shore + marina + pass",
+   "kinds": {
+    "shore": 4,
+    "marina": 5,
+    "pass": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "dam",
+   "district": "dam",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "shore + marina + pass",
+   "kinds": {
+    "shore": 4,
+    "marina": 5,
+    "pass": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "datafort",
+   "district": "datafort",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "works + ruin",
+   "kinds": {
+    "works": 5,
+    "ruin": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "datafort",
+   "district": "datafort",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "works + ruin",
+   "kinds": {
+    "works": 5,
+    "ruin": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "desert",
+   "district": "desert",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "scrub + scrubroad",
+   "kinds": {
+    "scrub": 8,
+    "scrubroad": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "desert",
+   "district": "desert",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "scrub + scrubroad",
+   "kinds": {
+    "scrub": 8,
+    "scrubroad": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "downtown",
+   "district": "downtown",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "ruin + main",
+   "kinds": {
+    "ruin": 4,
+    "main": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "downtown",
+   "district": "downtown",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "ruin + main",
+   "kinds": {
+    "ruin": 4,
+    "main": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "drivein",
+   "district": "drivein",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "strip + lots",
+   "kinds": {
+    "strip": 5,
+    "lots": 7
+   },
+   "suburbShare": 0.5833333333333334
+  },
+  {
+   "where": "city",
+   "name": "drivein",
+   "district": "drivein",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "strip + lots",
+   "kinds": {
+    "strip": 5,
+    "lots": 7
+   },
+   "suburbShare": 0.5833333333333334
+  },
+  {
+   "where": "city",
+   "name": "estate",
+   "district": "estate",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "suburb + culdesac",
+   "kinds": {
+    "subs": 5,
+    "suburb_stem": 2,
+    "culdesac": 5
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "estate",
+   "district": "estate",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "suburb + culdesac",
+   "kinds": {
+    "subs": 5,
+    "suburb_stem": 2,
+    "culdesac": 5
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "farm",
+   "district": "farm",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "scrub + golf",
+   "kinds": {
+    "scrub": 8,
+    "golf": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "farm",
+   "district": "farm",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "scrub + golf",
+   "kinds": {
+    "scrub": 8,
+    "golf": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "firestation",
+   "district": "firestation",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "main + ruin + strip",
+   "kinds": {
+    "main": 2,
+    "ruin": 6,
+    "strip": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "firestation",
+   "district": "firestation",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "main + ruin + strip",
+   "kinds": {
+    "main": 2,
+    "ruin": 6,
+    "strip": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "fort",
+   "district": "fort",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "works + landfill",
+   "kinds": {
+    "works": 6,
+    "landfill": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "fort",
+   "district": "fort",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "works + landfill",
+   "kinds": {
+    "works": 6,
+    "landfill": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "freeway",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "scrubroad + freeway + freewayo",
+   "kinds": {
+    "scrubroad": 4,
+    "freeway": 7,
+    "freewayo": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "freeway",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "scrubroad + freeway + freewayo",
+   "kinds": {
+    "scrubroad": 4,
+    "freeway": 7,
+    "freewayo": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "fueldepot",
+   "district": "fueldepot",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "landfill + works",
+   "kinds": {
+    "landfill": 6,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "fueldepot",
+   "district": "fueldepot",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "landfill + works",
+   "kinds": {
+    "landfill": 6,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "gated",
+   "district": "gated",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "culdesac + suburb",
+   "kinds": {
+    "culdesac": 6,
+    "suburb_stem": 3,
+    "subs": 3
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "gated",
+   "district": "gated",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "culdesac + suburb",
+   "kinds": {
+    "culdesac": 6,
+    "suburb_stem": 3,
+    "subs": 3
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "golf",
+   "district": "golf",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "golf + wash + scrub",
+   "kinds": {
+    "golf": 7,
+    "wash": 3,
+    "scrub": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "golf",
+   "district": "golf",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "golf + wash + scrub",
+   "kinds": {
+    "golf": 7,
+    "wash": 3,
+    "scrub": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "granary",
+   "district": "granary",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "ruin + works + landfill",
+   "kinds": {
+    "ruin": 1,
+    "works": 8,
+    "landfill": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "granary",
+   "district": "granary",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "ruin + works + landfill",
+   "kinds": {
+    "ruin": 1,
+    "works": 8,
+    "landfill": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "gypsum",
+   "district": "gypsum",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "canyon + scrub + landfill",
+   "kinds": {
+    "canyon": 7,
+    "scrub": 2,
+    "landfill": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "gypsum",
+   "district": "gypsum",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "canyon + scrub + landfill",
+   "kinds": {
+    "canyon": 7,
+    "scrub": 2,
+    "landfill": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "highroller",
+   "district": "highroller",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 4,
+    "casino": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "highroller",
+   "district": "highroller",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 4,
+    "casino": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "industrial",
+   "district": "industrial",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill + ruin",
+   "kinds": {
+    "works": 7,
+    "landfill": 3,
+    "ruin": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "industrial",
+   "district": "industrial",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill + ruin",
+   "kinds": {
+    "works": 7,
+    "landfill": 3,
+    "ruin": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "intake",
+   "district": "intake",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "shore + works + marina",
+   "kinds": {
+    "shore": 4,
+    "works": 1,
+    "marina": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "intake",
+   "district": "intake",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "shore + works + marina",
+   "kinds": {
+    "shore": 4,
+    "works": 2,
+    "marina": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "interchange",
+   "district": "interchange",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + scrubroad + freeway",
+   "kinds": {
+    "freewayo": 2,
+    "scrubroad": 5,
+    "freeway": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "interchange",
+   "district": "interchange",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + scrubroad + freeway",
+   "kinds": {
+    "freewayo": 2,
+    "scrubroad": 5,
+    "freeway": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "jail",
+   "district": "jail",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "ruin + main + works",
+   "kinds": {
+    "ruin": 7,
+    "main": 4,
+    "works": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "jail",
+   "district": "jail",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "ruin + main + works",
+   "kinds": {
+    "ruin": 7,
+    "main": 4,
+    "works": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "landfill",
+   "district": "landfill",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill",
+   "kinds": {
+    "works": 7,
+    "landfill": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "landfill",
+   "district": "landfill",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill",
+   "kinds": {
+    "works": 7,
+    "landfill": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "library",
+   "district": "library",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots",
+   "kinds": {
+    "subs": 7,
+    "corner": 2,
+    "lots": 3
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "library",
+   "district": "library",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots",
+   "kinds": {
+    "subs": 7,
+    "corner": 2,
+    "lots": 3
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "luxor",
+   "district": "luxor",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 8,
+    "casino": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "luxor",
+   "district": "luxor",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 8,
+    "casino": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "mall",
+   "district": "mall",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "works + lots + strip",
+   "kinds": {
+    "works": 4,
+    "lots": 2,
+    "strip": 6
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "city",
+   "name": "mall",
+   "district": "mall",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "works + lots + strip",
+   "kinds": {
+    "works": 4,
+    "lots": 2,
+    "strip": 6
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "city",
+   "name": "medical",
+   "district": "medical",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "main + ruin + works",
+   "kinds": {
+    "main": 4,
+    "ruin": 7,
+    "works": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "medical",
+   "district": "medical",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "main + ruin + works",
+   "kinds": {
+    "main": 4,
+    "ruin": 7,
+    "works": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "minigp",
+   "district": "minigp",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "freeway + scrubroad",
+   "kinds": {
+    "freeway": 7,
+    "scrubroad": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "minigp",
+   "district": "minigp",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "freeway + scrubroad",
+   "kinds": {
+    "freeway": 7,
+    "scrubroad": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "mountain",
+   "district": "mountain",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "pass + scrub",
+   "kinds": {
+    "pass": 8,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "mountain",
+   "district": "mountain",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "pass + scrub",
+   "kinds": {
+    "pass": 8,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "park",
+   "district": "park",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "scrub + golf",
+   "kinds": {
+    "scrub": 7,
+    "golf": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "park",
+   "district": "park",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "scrub + golf",
+   "kinds": {
+    "scrub": 7,
+    "golf": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "policestation",
+   "district": "policestation",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "strip + main + ruin",
+   "kinds": {
+    "strip": 6,
+    "main": 4,
+    "ruin": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "policestation",
+   "district": "policestation",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "strip + main + ruin",
+   "kinds": {
+    "strip": 6,
+    "main": 4,
+    "ruin": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "prison",
+   "district": "prison",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "ruin + main",
+   "kinds": {
+    "ruin": 8,
+    "main": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "prison",
+   "district": "prison",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "ruin + main",
+   "kinds": {
+    "ruin": 8,
+    "main": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "pumpstation",
+   "district": "pumpstation",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "works + scrub",
+   "kinds": {
+    "works": 9,
+    "scrub": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "pumpstation",
+   "district": "pumpstation",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "works + scrub",
+   "kinds": {
+    "works": 9,
+    "scrub": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "quarry",
+   "district": "quarry",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "ruin + works",
+   "kinds": {
+    "ruin": 6,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "quarry",
+   "district": "quarry",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "ruin + works",
+   "kinds": {
+    "ruin": 6,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "radio",
+   "district": "radio",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "scrubroad + works + ruin",
+   "kinds": {
+    "scrubroad": 6,
+    "works": 3,
+    "ruin": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "radio",
+   "district": "radio",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "scrubroad + works + ruin",
+   "kinds": {
+    "scrubroad": 6,
+    "works": 3,
+    "ruin": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "rail",
+   "district": "rail",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill + ruin",
+   "kinds": {
+    "works": 7,
+    "landfill": 4,
+    "ruin": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "rail",
+   "district": "rail",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill + ruin",
+   "kinds": {
+    "works": 7,
+    "landfill": 4,
+    "ruin": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "railyard",
+   "district": "railyard",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "ruin + landfill + works",
+   "kinds": {
+    "ruin": 4,
+    "landfill": 3,
+    "works": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "railyard",
+   "district": "railyard",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "ruin + landfill + works",
+   "kinds": {
+    "ruin": 4,
+    "landfill": 3,
+    "works": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "reclaim",
+   "district": "reclaim",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "scrub + works",
+   "kinds": {
+    "scrub": 8,
+    "works": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "reclaim",
+   "district": "reclaim",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "scrub + works",
+   "kinds": {
+    "scrub": 8,
+    "works": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "reservoir",
+   "district": "reservoir",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "shore + marina",
+   "kinds": {
+    "shore": 4,
+    "marina": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "reservoir",
+   "district": "reservoir",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "shore + marina",
+   "kinds": {
+    "shore": 4,
+    "marina": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "resort",
+   "district": "resort",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "main + casino",
+   "kinds": {
+    "main": 8,
+    "casino": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "resort",
+   "district": "resort",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "main + casino",
+   "kinds": {
+    "main": 8,
+    "casino": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "robofactory",
+   "district": "robofactory",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill",
+   "kinds": {
+    "works": 8,
+    "landfill": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "robofactory",
+   "district": "robofactory",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "works + landfill",
+   "kinds": {
+    "works": 8,
+    "landfill": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "school",
+   "district": "school",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "lots + suburb",
+   "kinds": {
+    "lots": 2,
+    "corner": 6,
+    "subs": 4
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "school",
+   "district": "school",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "lots + suburb",
+   "kinds": {
+    "lots": 2,
+    "corner": 6,
+    "subs": 4
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "sign",
+   "district": "sign",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "casino + strip",
+   "kinds": {
+    "casino": 3,
+    "strip": 9
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "sign",
+   "district": "sign",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "casino + strip",
+   "kinds": {
+    "casino": 3,
+    "strip": 9
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "solar",
+   "district": "solar",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "scrubroad + works + scrub",
+   "kinds": {
+    "scrubroad": 3,
+    "works": 5,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "solar",
+   "district": "solar",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "scrubroad + works + scrub",
+   "kinds": {
+    "scrubroad": 3,
+    "works": 5,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "speedway",
+   "district": "speedway",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "freeway + scrubroad + lots",
+   "kinds": {
+    "freeway": 9,
+    "scrubroad": 2,
+    "lots": 1
+   },
+   "suburbShare": 0.08333333333333333
+  },
+  {
+   "where": "city",
+   "name": "speedway",
+   "district": "speedway",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "freeway + scrubroad + lots",
+   "kinds": {
+    "freeway": 9,
+    "scrubroad": 2,
+    "lots": 1
+   },
+   "suburbShare": 0.08333333333333333
+  },
+  {
+   "where": "city",
+   "name": "sphere",
+   "district": "sphere",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "casino + strip",
+   "kinds": {
+    "casino": 6,
+    "strip": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "sphere",
+   "district": "sphere",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "casino + strip",
+   "kinds": {
+    "casino": 6,
+    "strip": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "springs",
+   "district": "springs",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "canyon + scrub + wash",
+   "kinds": {
+    "canyon": 8,
+    "scrub": 3,
+    "wash": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "springs",
+   "district": "springs",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "canyon + scrub + wash",
+   "kinds": {
+    "canyon": 8,
+    "scrub": 3,
+    "wash": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "stadium",
+   "district": "stadium",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "golf + lots",
+   "kinds": {
+    "golf": 4,
+    "lots": 8
+   },
+   "suburbShare": 0.6666666666666666
+  },
+  {
+   "where": "city",
+   "name": "stadium",
+   "district": "stadium",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "golf + lots",
+   "kinds": {
+    "golf": 4,
+    "lots": 8
+   },
+   "suburbShare": 0.6666666666666666
+  },
+  {
+   "where": "city",
+   "name": "storage",
+   "district": "storage",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "works + ruin + landfill",
+   "kinds": {
+    "works": 5,
+    "ruin": 3,
+    "landfill": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "storage",
+   "district": "storage",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "works + ruin + landfill",
+   "kinds": {
+    "works": 5,
+    "ruin": 3,
+    "landfill": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "strat",
+   "district": "strat",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "main + strip + casino",
+   "kinds": {
+    "main": 1,
+    "strip": 5,
+    "casino": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "strat",
+   "district": "strat",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "main + strip + casino",
+   "kinds": {
+    "main": 1,
+    "strip": 5,
+    "casino": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "strip",
+   "district": "strip",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 6,
+    "casino": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "strip",
+   "district": "strip",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "strip + casino",
+   "kinds": {
+    "strip": 6,
+    "casino": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "substation",
+   "district": "substation",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "scrub + works",
+   "kinds": {
+    "scrub": 6,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "substation",
+   "district": "substation",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "scrub + works",
+   "kinds": {
+    "scrub": 6,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "suburb",
+   "district": "suburb",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots + culdesac",
+   "kinds": {
+    "subs": 4,
+    "lots": 4,
+    "culdesac": 4
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "suburb",
+   "district": "suburb",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots + culdesac",
+   "kinds": {
+    "subs": 4,
+    "lots": 4,
+    "culdesac": 4
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "swapmeet",
+   "district": "swapmeet",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "lots + strip",
+   "kinds": {
+    "lots": 7,
+    "strip": 5
+   },
+   "suburbShare": 0.5833333333333334
+  },
+  {
+   "where": "city",
+   "name": "swapmeet",
+   "district": "swapmeet",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "lots + strip",
+   "kinds": {
+    "lots": 7,
+    "strip": 5
+   },
+   "suburbShare": 0.5833333333333334
+  },
+  {
+   "where": "city",
+   "name": "terminal",
+   "district": "terminal",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "apron + works",
+   "kinds": {
+    "apron": 7,
+    "works": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "terminal",
+   "district": "terminal",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "apron + works",
+   "kinds": {
+    "apron": 7,
+    "works": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "town",
+   "district": "town",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots",
+   "kinds": {
+    "subs": 6,
+    "suburb_stem": 3,
+    "lots": 3
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "town",
+   "district": "town",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots",
+   "kinds": {
+    "subs": 6,
+    "suburb_stem": 3,
+    "lots": 3
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "city",
+   "name": "trailer",
+   "district": "trailer",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + lots",
+   "kinds": {
+    "trailer": 7,
+    "lots": 5
+   },
+   "suburbShare": 0.4166666666666667
+  },
+  {
+   "where": "city",
+   "name": "trailer",
+   "district": "trailer",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + lots",
+   "kinds": {
+    "trailer": 7,
+    "lots": 5
+   },
+   "suburbShare": 0.4166666666666667
+  },
+  {
+   "where": "city",
+   "name": "truckstop",
+   "district": "truckstop",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "scrubroad + main + works",
+   "kinds": {
+    "scrubroad": 4,
+    "main": 7,
+    "works": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "truckstop",
+   "district": "truckstop",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "scrubroad + main + works",
+   "kinds": {
+    "scrubroad": 4,
+    "main": 7,
+    "works": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "warehouse",
+   "district": "warehouse",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "landfill + ruin + works",
+   "kinds": {
+    "landfill": 5,
+    "ruin": 1,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "warehouse",
+   "district": "warehouse",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "landfill + ruin + works",
+   "kinds": {
+    "landfill": 5,
+    "ruin": 1,
+    "works": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "wash",
+   "district": "wash",
+   "night": false,
+   "asked": "wash",
+   "name_on_bar": "shore + marina",
+   "kinds": {
+    "shore": 4,
+    "marina": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "wash",
+   "district": "wash",
+   "night": true,
+   "asked": "wash",
+   "name_on_bar": "shore + marina",
+   "kinds": {
+    "shore": 4,
+    "marina": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "water",
+   "district": "water",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "shore + wash + marina",
+   "kinds": {
+    "shore": 4,
+    "wash": 2,
+    "marina": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "water",
+   "district": "water",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "shore + wash + marina",
+   "kinds": {
+    "shore": 4,
+    "wash": 2,
+    "marina": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "waterpark",
+   "district": "waterpark",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "shore + golf",
+   "kinds": {
+    "shore": 4,
+    "golf": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "waterpark",
+   "district": "waterpark",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "shore + golf",
+   "kinds": {
+    "shore": 4,
+    "golf": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "watertreat",
+   "district": "watertreat",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "works + marina",
+   "kinds": {
+    "works": 5,
+    "marina": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "city",
+   "name": "watertreat",
+   "district": "watertreat",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "works + marina",
+   "kinds": {
+    "works": 5,
+    "marina": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "BOULDER CITY",
+   "district": "mountain",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "canyon + pass + scrub",
+   "kinds": {
+    "canyon": 6,
+    "pass": 5,
+    "scrub": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "BOULDER CITY",
+   "district": "mountain",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "canyon + pass + scrub",
+   "kinds": {
+    "canyon": 6,
+    "pass": 5,
+    "scrub": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "HOOVER DAM",
+   "district": "solar",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "scrub + works",
+   "kinds": {
+    "scrub": 5,
+    "works": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "HOOVER DAM",
+   "district": "solar",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "scrub + works",
+   "kinds": {
+    "scrub": 5,
+    "works": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "RAILROAD PASS",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freeway + freewayo + scrubroad",
+   "kinds": {
+    "freeway": 8,
+    "freewayo": 2,
+    "scrubroad": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "RAILROAD PASS",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freeway + freewayo + scrubroad",
+   "kinds": {
+    "freeway": 8,
+    "freewayo": 2,
+    "scrubroad": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "LAKE LAS VEGAS",
+   "district": "golf",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "golf + wash + scrub",
+   "kinds": {
+    "golf": 7,
+    "wash": 2,
+    "scrub": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "LAKE LAS VEGAS",
+   "district": "golf",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "golf + wash + scrub",
+   "kinds": {
+    "golf": 7,
+    "wash": 2,
+    "scrub": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "BOULDER BEACH",
+   "district": "water",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "marina + wash",
+   "kinds": {
+    "marina": 7,
+    "wash": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "BOULDER BEACH",
+   "district": "water",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "marina + wash",
+   "kinds": {
+    "marina": 7,
+    "wash": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "LAS VEGAS BAY",
+   "district": "water",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "marina + wash",
+   "kinds": {
+    "marina": 8,
+    "wash": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "LAS VEGAS BAY",
+   "district": "water",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "marina + wash",
+   "kinds": {
+    "marina": 8,
+    "wash": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "THE INTAKE",
+   "district": "water",
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "marina + wash",
+   "kinds": {
+    "marina": 8,
+    "wash": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "THE INTAKE",
+   "district": "water",
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "marina + wash",
+   "kinds": {
+    "marina": 8,
+    "wash": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "ELDORADO SOLAR",
+   "district": "solar",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "scrubroad + works + scrub",
+   "kinds": {
+    "scrubroad": 3,
+    "works": 5,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "ELDORADO SOLAR",
+   "district": "solar",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "scrubroad + works + scrub",
+   "kinds": {
+    "scrubroad": 3,
+    "works": 5,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "NELSON",
+   "district": "trailer",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + scrub + lots",
+   "kinds": {
+    "trailer": 5,
+    "scrub": 5,
+    "lots": 2
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "region",
+   "name": "NELSON",
+   "district": "trailer",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + scrub + lots",
+   "kinds": {
+    "trailer": 5,
+    "scrub": 5,
+    "lots": 2
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "region",
+   "name": "APEX",
+   "district": "industrial",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "works + ruin + landfill",
+   "kinds": {
+    "works": 8,
+    "ruin": 2,
+    "landfill": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "APEX",
+   "district": "industrial",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "works + ruin + landfill",
+   "kinds": {
+    "works": 8,
+    "ruin": 2,
+    "landfill": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "APEX LANDFILL",
+   "district": "landfill",
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "scrub + landfill",
+   "kinds": {
+    "scrub": 7,
+    "landfill": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "APEX LANDFILL",
+   "district": "landfill",
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "scrub + landfill",
+   "kinds": {
+    "scrub": 7,
+    "landfill": 5
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "SLOAN",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + freeway",
+   "kinds": {
+    "freewayo": 4,
+    "freeway": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "SLOAN",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + freeway",
+   "kinds": {
+    "freewayo": 4,
+    "freeway": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "JEAN",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + freeway",
+   "kinds": {
+    "freewayo": 4,
+    "freeway": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "JEAN",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + freeway",
+   "kinds": {
+    "freewayo": 4,
+    "freeway": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "GOODSPRINGS",
+   "district": "trailer",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "scrub + trailer",
+   "kinds": {
+    "scrub": 6,
+    "trailer": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "GOODSPRINGS",
+   "district": "trailer",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "scrub + trailer",
+   "kinds": {
+    "scrub": 6,
+    "trailer": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "SANDY VALLEY",
+   "district": "trailer",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + scrub + lots",
+   "kinds": {
+    "trailer": 9,
+    "scrub": 2,
+    "lots": 1
+   },
+   "suburbShare": 0.08333333333333333
+  },
+  {
+   "where": "region",
+   "name": "SANDY VALLEY",
+   "district": "trailer",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + scrub + lots",
+   "kinds": {
+    "trailer": 9,
+    "scrub": 2,
+    "lots": 1
+   },
+   "suburbShare": 0.08333333333333333
+  },
+  {
+   "where": "region",
+   "name": "BLUE DIAMOND",
+   "district": "trailer",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "scrub + lots + trailer",
+   "kinds": {
+    "scrub": 5,
+    "lots": 2,
+    "trailer": 5
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "region",
+   "name": "BLUE DIAMOND",
+   "district": "trailer",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "scrub + lots + trailer",
+   "kinds": {
+    "scrub": 5,
+    "lots": 2,
+    "trailer": 5
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "region",
+   "name": "RED ROCK",
+   "district": "commercial",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "lots + main + strip",
+   "kinds": {
+    "lots": 4,
+    "main": 4,
+    "strip": 4
+   },
+   "suburbShare": 0.3333333333333333
+  },
+  {
+   "where": "region",
+   "name": "RED ROCK",
+   "district": "commercial",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "lots + main + strip",
+   "kinds": {
+    "lots": 4,
+    "main": 4,
+    "strip": 4
+   },
+   "suburbShare": 0.3333333333333333
+  },
+  {
+   "where": "region",
+   "name": "MT CHARLESTON LODGE",
+   "district": "golf",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "golf + wash",
+   "kinds": {
+    "golf": 6,
+    "wash": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "MT CHARLESTON LODGE",
+   "district": "golf",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "golf + wash",
+   "kinds": {
+    "golf": 6,
+    "wash": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "CORN CREEK",
+   "district": "golf",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "scrub + golf",
+   "kinds": {
+    "scrub": 6,
+    "golf": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "CORN CREEK",
+   "district": "golf",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "scrub + golf",
+   "kinds": {
+    "scrub": 6,
+    "golf": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "TULE SPRINGS",
+   "district": "golf",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "golf + scrub",
+   "kinds": {
+    "golf": 8,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "TULE SPRINGS",
+   "district": "golf",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "golf + scrub",
+   "kinds": {
+    "golf": 8,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "GYPSUM CAVE",
+   "district": "commercial",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "strip + main + lots + works",
+   "kinds": {
+    "strip": 5,
+    "main": 3,
+    "lots": 3,
+    "works": 1
+   },
+   "suburbShare": 0.25
+  },
+  {
+   "where": "region",
+   "name": "GYPSUM CAVE",
+   "district": "commercial",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "strip + main + lots + works",
+   "kinds": {
+    "strip": 5,
+    "main": 3,
+    "lots": 3,
+    "works": 1
+   },
+   "suburbShare": 0.25
+  },
+  {
+   "where": "region",
+   "name": "INDIAN SPRINGS",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "scrubroad + freeway",
+   "kinds": {
+    "scrubroad": 8,
+    "freeway": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "INDIAN SPRINGS",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "scrubroad + freeway",
+   "kinds": {
+    "scrubroad": 8,
+    "freeway": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "CREECH",
+   "district": "airport",
+   "night": false,
+   "asked": "ruin",
+   "name_on_bar": "apron + scrubroad",
+   "kinds": {
+    "apron": 10,
+    "scrubroad": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "CREECH",
+   "district": "airport",
+   "night": true,
+   "asked": "ruin",
+   "name_on_bar": "apron + scrubroad",
+   "kinds": {
+    "apron": 10,
+    "scrubroad": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "MERCURY",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freeway + scrubroad",
+   "kinds": {
+    "freeway": 6,
+    "scrubroad": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "MERCURY",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freeway + scrubroad",
+   "kinds": {
+    "freeway": 6,
+    "scrubroad": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "PAHRUMP",
+   "district": "suburb",
+   "night": false,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots",
+   "kinds": {
+    "subs": 7,
+    "lots": 4,
+    "corner": 1
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "region",
+   "name": "PAHRUMP",
+   "district": "suburb",
+   "night": true,
+   "asked": "suburb",
+   "name_on_bar": "suburb + lots",
+   "kinds": {
+    "subs": 7,
+    "lots": 4,
+    "corner": 1
+   },
+   "suburbShare": 1
+  },
+  {
+   "where": "region",
+   "name": "PRIMM",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freeway + scrubroad",
+   "kinds": {
+    "freeway": 5,
+    "scrubroad": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "PRIMM",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freeway + scrubroad",
+   "kinds": {
+    "freeway": 5,
+    "scrubroad": 7
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "IVANPAH SOLAR",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + freeway + scrubroad",
+   "kinds": {
+    "freewayo": 3,
+    "freeway": 7,
+    "scrubroad": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "IVANPAH SOLAR",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + freeway + scrubroad",
+   "kinds": {
+    "freewayo": 3,
+    "freeway": 7,
+    "scrubroad": 2
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "MOAPA",
+   "district": "trailer",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "lots + trailer",
+   "kinds": {
+    "lots": 4,
+    "trailer": 8
+   },
+   "suburbShare": 0.3333333333333333
+  },
+  {
+   "where": "region",
+   "name": "MOAPA",
+   "district": "trailer",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "lots + trailer",
+   "kinds": {
+    "lots": 4,
+    "trailer": 8
+   },
+   "suburbShare": 0.3333333333333333
+  },
+  {
+   "where": "region",
+   "name": "SEARCHLIGHT",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + scrubroad + freeway",
+   "kinds": {
+    "freewayo": 1,
+    "scrubroad": 5,
+    "freeway": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "SEARCHLIGHT",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freewayo + scrubroad + freeway",
+   "kinds": {
+    "freewayo": 1,
+    "scrubroad": 5,
+    "freeway": 6
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "VALLEY OF FIRE",
+   "district": "commercial",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "lots + strip",
+   "kinds": {
+    "lots": 6,
+    "strip": 6
+   },
+   "suburbShare": 0.5
+  },
+  {
+   "where": "region",
+   "name": "VALLEY OF FIRE",
+   "district": "commercial",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "lots + strip",
+   "kinds": {
+    "lots": 6,
+    "strip": 6
+   },
+   "suburbShare": 0.5
+  },
+  {
+   "where": "region",
+   "name": "ECHO BAY",
+   "district": "commercial",
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "main + strip + lots",
+   "kinds": {
+    "main": 5,
+    "strip": 5,
+    "lots": 2
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "region",
+   "name": "ECHO BAY",
+   "district": "commercial",
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "main + strip + lots",
+   "kinds": {
+    "main": 5,
+    "strip": 5,
+    "lots": 2
+   },
+   "suburbShare": 0.16666666666666666
+  },
+  {
+   "where": "region",
+   "name": "GLENDALE",
+   "district": "freeway",
+   "night": false,
+   "asked": "freeway",
+   "name_on_bar": "freeway + freewayo + scrubroad",
+   "kinds": {
+    "freeway": 6,
+    "freewayo": 2,
+    "scrubroad": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "GLENDALE",
+   "district": "freeway",
+   "night": true,
+   "asked": "freeway",
+   "name_on_bar": "freeway + freewayo + scrubroad",
+   "kinds": {
+    "freeway": 6,
+    "freewayo": 2,
+    "scrubroad": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "OVERTON",
+   "district": "trailer",
+   "night": false,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + scrub",
+   "kinds": {
+    "trailer": 8,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "OVERTON",
+   "district": "trailer",
+   "night": true,
+   "asked": "culdesac",
+   "name_on_bar": "trailer + scrub",
+   "kinds": {
+    "trailer": 8,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "GASS PEAK",
+   "district": "mountain",
+   "night": false,
+   "asked": "scrub",
+   "name_on_bar": "pass + scrub",
+   "kinds": {
+    "pass": 9,
+    "scrub": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "region",
+   "name": "GASS PEAK",
+   "district": "mountain",
+   "night": true,
+   "asked": "scrub",
+   "name_on_bar": "pass + scrub",
+   "kinds": {
+    "pass": 9,
+    "scrub": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "boss",
+   "name": "THE POT",
+   "district": null,
+   "night": false,
+   "asked": "strip",
+   "name_on_bar": "ruin + strip + freeway",
+   "kinds": {
+    "ruin": 6,
+    "strip": 5,
+    "freeway": 1
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "boss",
+   "name": "THE POT",
+   "district": null,
+   "night": true,
+   "asked": "strip",
+   "name_on_bar": "strip + suburb + lots + works",
+   "kinds": {
+    "strip": 4,
+    "corner": 2,
+    "lots": 2,
+    "works": 4
+   },
+   "suburbShare": 0.3333333333333333
+  },
+  {
+   "where": "boss",
+   "name": "THE TAP",
+   "district": null,
+   "night": false,
+   "asked": "landfill",
+   "name_on_bar": "shore + landfill + scrub",
+   "kinds": {
+    "shore": 4,
+    "landfill": 5,
+    "scrub": 3
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "boss",
+   "name": "THE TAP",
+   "district": null,
+   "night": true,
+   "asked": "landfill",
+   "name_on_bar": "landfill + scrub",
+   "kinds": {
+    "landfill": 8,
+    "scrub": 4
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "boss",
+   "name": "THE FILTER",
+   "district": null,
+   "night": false,
+   "asked": "shore",
+   "name_on_bar": "shore + scrub",
+   "kinds": {
+    "shore": 4,
+    "scrub": 8
+   },
+   "suburbShare": 0
+  },
+  {
+   "where": "boss",
+   "name": "THE FILTER",
+   "district": null,
+   "night": true,
+   "asked": "shore",
+   "name_on_bar": "shore + scrub + landfill",
+   "kinds": {
+    "shore": 4,
+    "scrub": 5,
+    "landfill": 3
+   },
+   "suburbShare": 0
+  }
+ ]
+}

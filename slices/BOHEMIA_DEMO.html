@@ -485,7 +485,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"9074c027763ea4eb",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"fb8127d4385878b2",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1589,7 +1589,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zr - THE WHIP AND THE POOL POLE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/3zs - EVERY PART OF TOWN FIGHTS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12458,6 +12458,10 @@ function nfKind(district){
 function nfOpts(d){
   var w = (d && d.world) || {};
   var o = { kind: nfKind(d && d.district), night: w.night === true };
+  /* __EVERY_PART_OF_TOWN_FIGHTS__ (COMBAT MAPS 11/2, rule 325): the district and its map cell go over with the kind, so the fight
+     deals THAT PLACE's own blocks (ours.board_grounds) and the cell seeds the deal (rule 46a); measured before: only the kind went,
+     and 41% of 230 boards were mostly the tract suburb */
+  try{ if(d && d.district){ o.district = String(d.district); var _at = d.at; if(_at && (_at.length === 2 || _at.x != null || _at.gx != null)) o.cell = _at; } }catch(_e){}
   try{ if(d && d.boss && d.boss.kind){ o.boss = d.boss; if(d.boss.board) o.kind = d.boss.board; } }catch(_e){}   /* __THE_BOSSES__ (BOSSES 11/2, rule 302): the man and his own board (slices/bohemia_bosses.js) */
   /* __THE_ORIGIN_SETS_THE_COMPANY__ (rule 75a): the company the origin built, and its field cap, to the fight */
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}

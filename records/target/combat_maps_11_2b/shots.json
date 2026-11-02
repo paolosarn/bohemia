@@ -1,0 +1,650 @@
+[
+ {
+  "kind": "pass",
+  "how": "board",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_pass_board_day.png",
+  "bar": "pass",
+  "blocks": [
+   [
+    "pass.0",
+    "pass.0",
+    "pass.0",
+    "pass.0"
+   ],
+   [
+    "pass.0",
+    "pass.0",
+    "pass.0",
+    "pass.0"
+   ],
+   [
+    "pass.0",
+    "pass.0",
+    "pass.0",
+    "pass.0"
+   ]
+  ]
+ },
+ {
+  "kind": "pass",
+  "how": "district",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_pass_district_day.png",
+  "bar": "scrub + pass + canyon",
+  "blocks": [
+   [
+    "scrub.2",
+    "pass.0",
+    "pass.0|h",
+    "canyon.0|h"
+   ],
+   [
+    "pass.0|h",
+    "canyon.0",
+    "pass.0",
+    "scrub.2"
+   ],
+   [
+    "pass.0",
+    "pass.0|h",
+    "pass.0",
+    "pass.0|h"
+   ]
+  ]
+ },
+ {
+  "kind": "pass",
+  "how": "board",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_pass_board_night.png",
+  "bar": "pass",
+  "blocks": [
+   [
+    "pass.0",
+    "pass.0",
+    "pass.0",
+    "pass.0"
+   ],
+   [
+    "pass.0",
+    "pass.0",
+    "pass.0",
+    "pass.0"
+   ],
+   [
+    "pass.0",
+    "pass.0",
+    "pass.0",
+    "pass.0"
+   ]
+  ]
+ },
+ {
+  "kind": "pass",
+  "how": "district",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_pass_district_night.png",
+  "bar": "canyon + pass",
+  "blocks": [
+   [
+    "canyon.0|h|h",
+    "pass.0|h",
+    "pass.0|h|h",
+    "canyon.0|h"
+   ],
+   [
+    "pass.0|h|h",
+    "canyon.0|h",
+    "pass.0",
+    "canyon.0|h|h"
+   ],
+   [
+    "pass.0|h",
+    "pass.0|h|h",
+    "pass.0|h",
+    "pass.0"
+   ]
+  ]
+ },
+ {
+  "kind": "canyon",
+  "how": "board",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_canyon_board_day.png",
+  "bar": "canyon",
+  "blocks": [
+   [
+    "canyon.0",
+    "canyon.0",
+    "canyon.0",
+    "canyon.0"
+   ],
+   [
+    "canyon.0",
+    "canyon.0",
+    "canyon.0",
+    "canyon.0"
+   ],
+   [
+    "canyon.0",
+    "canyon.0",
+    "canyon.0",
+    "canyon.0"
+   ]
+  ]
+ },
+ {
+  "kind": "canyon",
+  "how": "district",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_canyon_district_day.png",
+  "bar": "scrub + canyon + wash",
+  "blocks": [
+   [
+    "scrub.2",
+    "canyon.0|h|h",
+    "canyon.0|h",
+    "wash.1"
+   ],
+   [
+    "canyon.0|h|h",
+    "wash.0",
+    "canyon.0|h|h",
+    "scrub.2"
+   ],
+   [
+    "canyon.0|h|h|h",
+    "canyon.0|h|h",
+    "canyon.0",
+    "canyon.0|h|h"
+   ]
+  ]
+ },
+ {
+  "kind": "canyon",
+  "how": "board",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_canyon_board_night.png",
+  "bar": "canyon",
+  "blocks": [
+   [
+    "canyon.0",
+    "canyon.0",
+    "canyon.0",
+    "canyon.0"
+   ],
+   [
+    "canyon.0",
+    "canyon.0",
+    "canyon.0",
+    "canyon.0"
+   ],
+   [
+    "canyon.0",
+    "canyon.0",
+    "canyon.0",
+    "canyon.0"
+   ]
+  ]
+ },
+ {
+  "kind": "canyon",
+  "how": "district",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_canyon_district_night.png",
+  "bar": "scrub + canyon + wash",
+  "blocks": [
+   [
+    "scrub.2",
+    "canyon.0|h|h|h",
+    "canyon.0|h",
+    "wash.1"
+   ],
+   [
+    "canyon.0|h|h|h",
+    "wash.0",
+    "canyon.0|h|h",
+    "scrub.2"
+   ],
+   [
+    "canyon.0|h|h|h|h",
+    "canyon.0|h|h|h",
+    "canyon.0",
+    "canyon.0|h|h|h"
+   ]
+  ]
+ },
+ {
+  "kind": "trailer",
+  "how": "board",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_trailer_board_day.png",
+  "bar": "trailer",
+  "blocks": [
+   [
+    "trailer.0",
+    "trailer.0",
+    "trailer.0",
+    "trailer.0"
+   ],
+   [
+    "trailer.0",
+    "trailer.0",
+    "trailer.0",
+    "trailer.0"
+   ],
+   [
+    "trailer.0",
+    "trailer.0",
+    "trailer.0",
+    "trailer.0"
+   ]
+  ]
+ },
+ {
+  "kind": "trailer",
+  "how": "district",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_trailer_district_day.png",
+  "bar": "scrub + trailer + lots",
+  "blocks": [
+   [
+    "scrub.1",
+    "trailer.0",
+    "trailer.0|h",
+    "scrub.2"
+   ],
+   [
+    "trailer.0|h",
+    "lots.0",
+    "trailer.0",
+    "lots.0"
+   ],
+   [
+    "trailer.0",
+    "trailer.0|h",
+    "trailer.0",
+    "trailer.0|h"
+   ]
+  ]
+ },
+ {
+  "kind": "trailer",
+  "how": "board",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_trailer_board_night.png",
+  "bar": "trailer",
+  "blocks": [
+   [
+    "trailer.0",
+    "trailer.0",
+    "trailer.0",
+    "trailer.0"
+   ],
+   [
+    "trailer.0",
+    "trailer.0",
+    "trailer.0",
+    "trailer.0"
+   ],
+   [
+    "trailer.0",
+    "trailer.0",
+    "trailer.0",
+    "trailer.0"
+   ]
+  ]
+ },
+ {
+  "kind": "trailer",
+  "how": "district",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_trailer_district_night.png",
+  "bar": "scrub + trailer + lots",
+  "blocks": [
+   [
+    "scrub.1",
+    "trailer.0|h",
+    "trailer.0|h|h",
+    "scrub.2"
+   ],
+   [
+    "trailer.0|h|h",
+    "lots.0",
+    "trailer.0",
+    "lots.0"
+   ],
+   [
+    "trailer.0|h",
+    "trailer.0|h|h",
+    "trailer.0|h",
+    "trailer.0"
+   ]
+  ]
+ },
+ {
+  "kind": "golf",
+  "how": "board",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_golf_board_day.png",
+  "bar": "golf",
+  "blocks": [
+   [
+    "golf.0",
+    "golf.0",
+    "golf.0",
+    "golf.0"
+   ],
+   [
+    "golf.0",
+    "golf.0",
+    "golf.0",
+    "golf.0"
+   ],
+   [
+    "golf.0",
+    "golf.0",
+    "golf.0",
+    "golf.0"
+   ]
+  ]
+ },
+ {
+  "kind": "golf",
+  "how": "district",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_golf_district_day.png",
+  "bar": "scrub + golf",
+  "blocks": [
+   [
+    "scrub.0",
+    "golf.0",
+    "golf.0|h",
+    "scrub.1"
+   ],
+   [
+    "golf.0|h",
+    "scrub.2",
+    "golf.0",
+    "scrub.0"
+   ],
+   [
+    "golf.0",
+    "golf.0|h",
+    "golf.0",
+    "golf.0|h"
+   ]
+  ]
+ },
+ {
+  "kind": "golf",
+  "how": "board",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_golf_board_night.png",
+  "bar": "golf",
+  "blocks": [
+   [
+    "golf.0",
+    "golf.0",
+    "golf.0",
+    "golf.0"
+   ],
+   [
+    "golf.0",
+    "golf.0",
+    "golf.0",
+    "golf.0"
+   ],
+   [
+    "golf.0",
+    "golf.0",
+    "golf.0",
+    "golf.0"
+   ]
+  ]
+ },
+ {
+  "kind": "golf",
+  "how": "district",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_golf_district_night.png",
+  "bar": "scrub + golf",
+  "blocks": [
+   [
+    "scrub.0",
+    "golf.0|h",
+    "golf.0|h|h",
+    "scrub.1"
+   ],
+   [
+    "golf.0|h|h",
+    "scrub.2",
+    "golf.0",
+    "scrub.0"
+   ],
+   [
+    "golf.0|h",
+    "golf.0|h|h",
+    "golf.0|h",
+    "golf.0"
+   ]
+  ]
+ },
+ {
+  "kind": "marina",
+  "how": "board",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_marina_board_day.png",
+  "bar": "marina",
+  "blocks": [
+   [
+    "marina.0",
+    "marina.0",
+    "marina.0",
+    "marina.0"
+   ],
+   [
+    "marina.0",
+    "marina.0",
+    "marina.0",
+    "marina.0"
+   ],
+   [
+    "marina.0",
+    "marina.0",
+    "marina.0",
+    "marina.0"
+   ]
+  ]
+ },
+ {
+  "kind": "marina",
+  "how": "district",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_marina_district_day.png",
+  "bar": "shore + marina + wash",
+  "blocks": [
+   [
+    "shore.1",
+    "shore.1|h",
+    "shore.1",
+    "shore.1|h"
+   ],
+   [
+    "marina.0|h",
+    "wash.0",
+    "marina.0",
+    "marina.0|h"
+   ],
+   [
+    "marina.0",
+    "marina.0|h",
+    "marina.0",
+    "marina.0|h"
+   ]
+  ]
+ },
+ {
+  "kind": "marina",
+  "how": "board",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_marina_board_night.png",
+  "bar": "marina",
+  "blocks": [
+   [
+    "marina.0",
+    "marina.0",
+    "marina.0",
+    "marina.0"
+   ],
+   [
+    "marina.0",
+    "marina.0",
+    "marina.0",
+    "marina.0"
+   ],
+   [
+    "marina.0",
+    "marina.0",
+    "marina.0",
+    "marina.0"
+   ]
+  ]
+ },
+ {
+  "kind": "marina",
+  "how": "district",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_marina_district_night.png",
+  "bar": "shore + marina",
+  "blocks": [
+   [
+    "shore.1",
+    "shore.1|h",
+    "shore.1",
+    "shore.1|h"
+   ],
+   [
+    "marina.0|h|h",
+    "marina.0|h",
+    "marina.0",
+    "marina.0|h"
+   ],
+   [
+    "marina.0|h",
+    "marina.0|h|h",
+    "marina.0|h",
+    "marina.0"
+   ]
+  ]
+ },
+ {
+  "kind": "apron",
+  "how": "board",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_apron_board_day.png",
+  "bar": "apron",
+  "blocks": [
+   [
+    "apron.0",
+    "apron.0",
+    "apron.0",
+    "apron.0"
+   ],
+   [
+    "apron.0",
+    "apron.0",
+    "apron.0",
+    "apron.0"
+   ],
+   [
+    "apron.0",
+    "apron.0",
+    "apron.0",
+    "apron.0"
+   ]
+  ]
+ },
+ {
+  "kind": "apron",
+  "how": "district",
+  "night": false,
+  "file": "records/target/combat_maps_11_2b/shot_apron_district_day.png",
+  "bar": "scrubroad + apron + works",
+  "blocks": [
+   [
+    "scrubroad.0",
+    "apron.0",
+    "apron.0|h",
+    "works.0"
+   ],
+   [
+    "apron.0|h",
+    "works.0",
+    "apron.0",
+    "scrubroad.0"
+   ],
+   [
+    "apron.0",
+    "apron.0|h",
+    "apron.0",
+    "apron.0|h"
+   ]
+  ]
+ },
+ {
+  "kind": "apron",
+  "how": "board",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_apron_board_night.png",
+  "bar": "apron",
+  "blocks": [
+   [
+    "apron.0",
+    "apron.0",
+    "apron.0",
+    "apron.0"
+   ],
+   [
+    "apron.0",
+    "apron.0",
+    "apron.0",
+    "apron.0"
+   ],
+   [
+    "apron.0",
+    "apron.0",
+    "apron.0",
+    "apron.0"
+   ]
+  ]
+ },
+ {
+  "kind": "apron",
+  "how": "district",
+  "night": true,
+  "file": "records/target/combat_maps_11_2b/shot_apron_district_night.png",
+  "bar": "scrubroad + apron + works",
+  "blocks": [
+   [
+    "scrubroad.0",
+    "apron.0|h",
+    "apron.0|h|h",
+    "works.0"
+   ],
+   [
+    "apron.0|h|h",
+    "works.0",
+    "apron.0",
+    "scrubroad.0"
+   ],
+   [
+    "apron.0|h",
+    "apron.0|h|h",
+    "apron.0|h",
+    "apron.0"
+   ]
+  ]
+ }
+]

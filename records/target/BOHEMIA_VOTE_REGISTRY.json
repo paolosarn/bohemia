@@ -16195,6 +16195,31 @@
     ]
    },
    "draft": true
+  },
+  {
+   "id": "combat-maps-every-district-11-2",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "3e79ebff",
+   "made": "11/2",
+   "draft": true,
+   "title": "EVERY PART OF TOWN FIGHTS ON ITS OWN GROUND: SIX NEW FIGHT MAPS",
+   "said": "we need way more combat maps, way more... the only thing you have is like this desert yellow brown suburbia thing",
+   "why": "The map now tells the fight which part of town you are in and that place deals its own ground: the pass road in the mountains, Red Rock's canyon, the trailer park, the dead golf course, Lake Mead's dry marina and the airport apron are new, each with a raided and a reclaimed future, and suburb blocks fell from 36% of every board to 12%. You see it here on the phone by day and night, and in every fight you start on the map.",
+   "options": [
+    "A, more like this: make a second block of each",
+    "B, the places are right but the look is off",
+    "C, the mountains and the lake first, the rest later"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/combat_maps_11_2b/COMBAT_MAPS_EVERY_DISTRICT_SHEET_11_2.webp"
+   },
+   "before_after": {
+    "before": "230 fights: 14 block kinds, 36% of blocks the suburb, 41% of boards mostly suburb",
+    "after": "23 kinds, 12% suburb, 12% of boards mostly suburb (all of them real suburbs)",
+    "scale": "his phone, 390 x 844, the fight's opening view"
+   }
   }
  ],
  "verdicts": [
