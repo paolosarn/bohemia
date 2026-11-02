@@ -15881,6 +15881,46 @@
     "how": "page",
     "src": "BOHEMIA_THE_PUNCH_HEARD_11_3_26.html"
    }
+  },
+  {
+   "id": "words-the-survivors-word-11-2",
+   "kind": "line",
+   "lane": "words",
+   "sha": "d43545e6",
+   "made": "11/2",
+   "draft": true,
+   "title": "AFTER EVERY FIGHT ONE OF YOUR MEN SAYS HOW IT WENT, IN PLACE OF 'YOU WON'",
+   "said": "one of your surviving characters provides commentary on how the battle went... to replace the you won... I want it to be funny... morbid funny, like real killers",
+   "why": "YOU WON is gone. One of your men still standing says one line with his face and his name: about the kind you beat (raiders, robots, wolves, a boss, a camp) and how it went (clean, close, outnumbered, a man down, a man lost for good). 18 personalities, 432 new lines, flat and practical like real crews after a job: the price of the dead man's boots, who digs, who owes who. Never gore, never a laugh at the helpless. Six phone shots here; in the game after every fight.",
+   "options": [
+    "A, that's the voice, keep it",
+    "B, right idea, darker and meaner",
+    "C, too much, lighter"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/WORDS_THE_SURVIVORS_WORD_11_2.webp"
+   }
+  },
+  {
+   "id": "words-the-kill-tally-11-2",
+   "kind": "ui",
+   "lane": "words",
+   "sha": "d43545e6",
+   "made": "11/2",
+   "draft": true,
+   "title": "HOLD ONE OF YOUR MEN: HIS KILLS AND THE STRONGEST FOE HE EVER PUT DOWN",
+   "said": "Battle Brothers keeps track of how many kills a character has and their strongest opponent... on my phone, maybe when I just hold on him",
+   "why": "Every man keeps his fights, his kills and his best kill for his whole career, Battle Brothers' way (the enemy worth the most). Hold your finger on one of your men in the fight, the camp, the map or the end screen and a small card shows his face, '23 KILLS · 10 FIGHTS', 'BEST: THE POT'S FOREMAN'. The crew screen shows it on one line under his level. Old saves start at zero.",
+   "options": [
+    "A, keep it like this",
+    "B, show it on a tap, not a hold",
+    "C, put more on the card (his worst wound, his favourite gun)"
+   ],
+   "show": {
+    "how": "image",
+    "src": "vote/WORDS_THE_KILL_TALLY_11_2.webp"
+   }
   }
  ],
  "verdicts": [

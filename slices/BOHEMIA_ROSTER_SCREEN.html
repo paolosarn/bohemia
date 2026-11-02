@@ -212,6 +212,7 @@ html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 #card .gslot em.d.up::before,#card .gslot em.d.dn::before{content:"";display:inline-block;width:9px;height:9px;margin:0 2px 0 0;background:0 0/9px 9px no-repeat;image-rendering:pixelated}
 #card .gslot em.d.up::before{background-image:var(--bst-arrow-up)} #card .gslot em.d.dn::before{background-image:var(--bst-arrow-dn)}
 /* ==== end __UI_THREE_STATS__ ==== */
+.who .ktally{font-size:11px;letter-spacing:.5px;color:#c4b190;margin-top:2px}
 </style>
 </head>
 <body>
@@ -227,6 +228,7 @@ html body .lugrid.bst-col button.bst-row.on b.bst-chg{color:#1d5a12}
 </div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
+<script src="../engine/bohemia_kill_tally.js"></script>  <!-- WORDS [kills and the strongest foe] (rule 316): his fights, kills and best foe in his own record -->
 <script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): his eight in his order, each a bar to the most possible -->
 <script src="../engine/bohemia_people_mix.js"></script>  <!-- RUN TWO [no two people alike]: a hired man is one of the valley's rolled people, his own body and face -->
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272) -->
@@ -269,15 +271,17 @@ function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
 var CKEY = 'bohemia.climb.v1';
-function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, gear:m.gear, hurt:m.hurt||null, mark:m.mark||null, marks:m.marks||null, dead:!!m.dead, rolls:m.rolls||[]}; });
+function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, gear:m.gear, hurt:m.hurt||null, mark:m.mark||null, marks:m.marks||null, dead:!!m.dead, rolls:m.rolls||[], tally:m.tally||null}; });   /* WORDS rule 316: his career tally rides in his own record */
   try{ localStorage.setItem(CKEY, JSON.stringify(o)); }catch(e){} handOver(); }   /* __WHO_YOU_HIRE_FIGHTS__: what he wears is the fight's too */
 function loadClimb(){ var o = {}; try{ o = JSON.parse(localStorage.getItem(CKEY)||'{}') || {}; }catch(e){}
-  S.crew.forEach(function(m){ var c = o[m.name] || (m.was && o[m.was]); if(!c) return;   /* RUN TWO __NO_MAN_WEARS_A_WOMANS_NAME__: a man renamed keeps the climb saved under his old name */ m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; if(c.gear) m.gear = c.gear; m.hurt = c.hurt || null; m.mark = c.mark || null; m.marks = Array.isArray(c.marks) ? c.marks : (c.mark ? [c.mark] : null); m.dead = !!c.dead; m.rolls = Array.isArray(c.rolls) ? c.rolls : []; }); }
+  S.crew.forEach(function(m){ var c = o[m.name] || (m.was && o[m.was]); if(!c) return;   /* RUN TWO __NO_MAN_WEARS_A_WOMANS_NAME__: a man renamed keeps the climb saved under his old name */ m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; if(c.gear) m.gear = c.gear; m.hurt = c.hurt || null; m.mark = c.mark || null; m.marks = Array.isArray(c.marks) ? c.marks : (c.mark ? [c.mark] : null); m.dead = !!c.dead; m.rolls = Array.isArray(c.rolls) ? c.rolls : []; m.tally = c.tally || null; }); }
 /* the fight's recap hands each man his XP (COMBAT counts it the Battle Brothers way); he climbs here */
 function afterFight(rows){
   var ups = [];
   var hurt = [];
   (rows||[]).forEach(function(r){ var m = S.crew.filter(function(x){ return x.name === r.name; })[0]; if(!m) return;
+    /* WORDS [kills and the strongest foe] (rule 316): one fight more, his kills, the strongest foe he put down (the dead keep theirs) */
+    if(window.BohemiaKillTally) m.tally = BohemiaKillTally.add(m.tally, r);
     if(r.dead && !m.main){ m.dead = true; hurt.push(m.name + ' is dead'); return; }
     /* STRUCK DOWN AND LIVED (COMBAT [struck down]; CAMP rule 234, Paolo 10/26: 'they're still active... they should just have
        that debuff'): ONE HITPOINT AND STILL IN THE LINE. The wiki's permanent mark for good (every one he takes, kept), and the
@@ -681,6 +685,10 @@ function drawCard(){
   var a0 = C.xpFor(m.level), a1 = C.xpFor(m.level + 1), xb = document.createElement('div'); xb.className = 'xpbar'; xb.title = m.xp + ' / ' + a1 + ' XP';
   var xi = document.createElement('i'); xi.style.width = Math.max(0, Math.min(100, (m.xp - a0) / Math.max(1, a1 - a0) * 100)) + '%'; xb.appendChild(xi);
   sub.appendChild(xb); id.appendChild(sub);
+  /* WORDS [kills and the strongest foe] (rule 316, Paolo 11/2, Battle Brothers' sheet: battles, kills, the most powerful foe): his whole
+     career on one short line under his level ('23 KILLS, BEST: THE POT'S FOREMAN'); a save from before it counts from the next fight */
+  if(window.BohemiaKillTally){ var tl = document.createElement('div'); tl.className = 'ktally'; var tt0 = BohemiaKillTally.clean(m.tally);
+    tl.dataset.kills = tt0.kills; tl.dataset.fights = tt0.fights; tl.textContent = BohemiaKillTally.line(tt0); id.appendChild(tl); }
   if(m.trait){ var tt = document.createElement('div'); tt.className = 'trait'; tt.dataset.trait = m.trait.id; tt.textContent = m.trait.name.toUpperCase() + '  ' + (m.trait.says || '') + '  ' + (m.trait.line || ''); id.appendChild(tt); }   /* his one trait, as on the card he was hired from */
   var pl = m.mark && window.BohemiaLongInjury ? BohemiaLongInjury.painLine(m.mark.id) : null;
   var pn = document.createElement('div'); pn.className = 'pain'; pn.textContent = '“' + (pl || lineOf(m)) + '”'; id.appendChild(pn);

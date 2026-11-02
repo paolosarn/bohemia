@@ -1573,7 +1573,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3z - SIX TOWNS CLEAR BEHIND THE PHONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/3za - THEY SAY HOW IT WENT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12604,7 +12604,8 @@ function nfAfterKeep(d){
   if(!d || !Array.isArray(d.crew) || !d.crew.length) return 0;
   var q = []; try{ q = JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []; }catch(_e){ q = []; }
   q.push({ day: (NF && NF.day) | 0, rows: d.crew.map(function(r){ return { name: r.name, main: !!r.main, level: r.level, xpGained: r.xpGained | 0, dead: !!r.dead, down: !!r.down,
-    laidUpDays: r.laidUpDays | 0, injury: r.injury || null, perks: Array.isArray(r.perks) ? r.perks.slice() : undefined }; }) });
+    laidUpDays: r.laidUpDays | 0, injury: r.injury || null, perks: Array.isArray(r.perks) ? r.perks.slice() : undefined,
+    kills: r.kills | 0, best: r.best || null }; }) });   /* WORDS [kills and the strongest foe] (rule 316): his kills and his best foe, for his record (engine/bohemia_kill_tally.js) */
   try{ localStorage.setItem('bohemia.fight.after.v1', JSON.stringify(q.slice(-30))); }catch(_e){}
   return q.length;
 }

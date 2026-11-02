@@ -29,6 +29,7 @@
 <script src="../engine/bohemia_idles.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
+<script src="../engine/bohemia_kill_tally.js"></script>  <!-- WORDS [kills and the strongest foe] (rule 316): his career on the card a finger held on him opens -->
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -2149,7 +2150,7 @@ const FIGHT = (function () {
       t.longInjury = j ? { id: j.id, name: j.name, line: '', scar: true, days: t.laidUp }   /* rule 304(b): the mark is a scar, so it has no penalty line */ : null;
       emit({ t: 'down', id: t.id, days: t.laidUp, injury: j ? j.id : null });
     }
-    if (a) a.kills = (a.kills || 0) + 1;
+    if (a) { a.kills = (a.kills || 0) + 1; bestFoe(a, t); }
     if (t.side === 'them') experience(t, a);
     if (a && onField(a)) {
       const kf = PK(a, 'killing_frenzy'); if (kf) a.frenzy = kf.duration_turns;
@@ -2159,6 +2160,10 @@ const FIGHT = (function () {
     ripple(t, a, 'dies');
     if (t.side === 'them') unplug(t, a);
   }
+  /* WORDS [kills and the strongest foe] (rule 316, Paolo 11/2): the strongest man of theirs he ever put down, Battle Brothers' way
+     (the highest experience value; a tie, the higher level), kept on him for the fight's end row and his record (engine/bohemia_kill_tally.js) */
+  function bestFoe(a, t) { if (!a || !t || a.side === t.side) return; const w = t.xp || 0;
+    if (!a.best || w > a.best.xp || (w === a.best.xp && (t.level || 0) > (a.best.lv || 0))) a.best = { name: t.name, kind: t.kind || null, xp: w, lv: t.level || 0, boss: !!t.boss }; }
   /* a kill's experience: 20% to the killer, 80% shared by the whole party, all less the wiki's flat 15% */
   function experience(t, a) {
     const xs = R('experience.kill_split'), whole = t.xp * (1 + R('experience.global_modifier'));
@@ -2398,7 +2403,7 @@ const FIGHT = (function () {
     S.units.filter(function (o) { return o.side === t.side && isMachine(o); }).forEach(function (o) {
       o.unplugged = true;
       if (!onField(o)) return;
-      o.hp = 0; o.dead = true; if (a) a.kills = (a.kills || 0) + 1;
+      o.hp = 0; o.dead = true; if (a) { a.kills = (a.kills || 0) + 1; bestFoe(a, o); }
       emit({ t: 'dead', id: o.id, by: a ? a.id : null, unplugged: true }); experience(o, a);
     });
   }
@@ -7487,7 +7492,19 @@ function weaponCard(v) {
     h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(S2.name || 'SHIELD') + '</div><div class="wl" style="font-weight:700">' + esc(S2.line || '') + '</div>'
       + r('Defence', markHTML('melee_defense', v.shield.melee_defense || 0) + markHTML('ranged_defense', v.shield.ranged_defense || 0)); }   /* rule 224: the two defences' icons, green up arrows and how much */
   else if (v.shieldBack) h += r('Car door', 'on ' + doorWords(v).his + ' back: the ' + armName(v, w) + ' takes both hands');   /* rule 191(b), draft:true */
-  d.innerHTML = h; d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
+  d.innerHTML = h;
+  /* WORDS [kills and the strongest foe] (rule 316, Paolo 11/2: 'on my phone, maybe when I just hold on him... display the amount of kills
+     they've gotten'): a finger held on one of his men, his career over his gun: his face, his kills, the strongest foe he ever put down
+     (his record, engine/bohemia_kill_tally.js, and this fight's on top) */
+  if (v.side === 'you' && window.BohemiaKillTally) { try { const K = BohemiaKillTally, t = K.of(v.name, v.was);
+      t.kills += v.kills | 0; t.fights += 1; if (v.best && K.better(v.best, t.best)) t.best = v.best;
+      const row = document.createElement('div'); row.className = 'tally'; row.dataset.kills = t.kills;
+      row.style.cssText = 'display:flex;gap:8px;align-items:center;margin:0 0 6px;padding-bottom:6px;border-bottom:1px solid rgba(122,61,16,.35)';
+      const fc = document.createElement('canvas'); fc.width = fc.height = 48; fc.style.cssText = 'width:36px;height:36px;flex:0 0 36px;border-radius:3px;image-rendering:pixelated;background:#0b0907';
+      try { drawPortrait(fc.getContext('2d'), v, 48); } catch (_e) {}
+      const tx = document.createElement('div'); tx.innerHTML = '<b style="color:#7a3d10">' + esc(t.kills + (t.kills === 1 ? ' KILL' : ' KILLS') + ' \u00b7 ' + t.fights + (t.fights === 1 ? ' FIGHT' : ' FIGHTS')) + '</b><br><span style="font-size:10px">' + esc(t.best ? 'BEST: ' + K.bestWord(t.best) : 'NOBODY WORTH NAMING YET') + '</span>';   /* draft:true */
+      row.appendChild(fc); row.appendChild(tx); d.insertBefore(row, d.firstChild); } catch (_e) {} }
+  d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
 }
 /* who stands under a finger on the board (the man drawn there, or the tile's man) */
 function manAt(px, py) {
@@ -7651,7 +7668,7 @@ function spoilsOf() {
   };
   const row = function (w) { return w ? DB.weapons.rows.filter(function (r) { return r.id === w.id; })[0] || null : null; };
   return { faction: theirFaction(), bodies: S.units.filter(function (v) { return v.side === 'them'; }).map(function (t) {
-      return { name: t.name, kind: t.kind, dead: !!t.dead, fled: !!t.fled, beast: !!t.beast, ghost: !!t.ghost, machine: !!t.machine,
+      return { name: t.name, kind: t.kind, boss: !!t.boss, xp: t.xp | 0, dead: !!t.dead, fled: !!t.fled, beast: !!t.beast, ghost: !!t.ghost, machine: !!t.machine,
         weapon: row(t.weapon) ? { id: t.weapon.id, cls: row(t.weapon).class, durability: row(t.weapon).durability, gun: !!t.weapon.gun || isGunW(t.weapon), ammo: t.ammo, ammoMax: t.ammoMax } : null,
         shield: t.shield ? { id: t.shield.id, durability: t.shield.durability } : null,
         body: wear(t, 'body', t.armB, t.armBMax), head: wear(t, 'head', t.armH, t.armHMax) }; }),
@@ -7682,7 +7699,7 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 function homeMessage(result) {
   const S = FIGHT.S;
   return { type: 'BOHEMIA_FIGHT_OVER', result: result, withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
-      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null,
+      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null, kills: v.kills | 0, best: v.best || null,   /* WORDS rule 316: his kills and his best foe, for his record */
       /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
       armB: Math.max(0, Math.round(v.armB || 0)), armBMax: v.armBMax || 0, head: v.headRow ? v.headRow.id : null, body: v.bodyRow ? v.bodyRow.id : null }; }),

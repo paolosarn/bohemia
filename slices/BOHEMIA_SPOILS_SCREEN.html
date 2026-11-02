@@ -64,6 +64,15 @@ button{font-family:var(--rom)}
 #bar .word{font:30px/1 var(--casing);letter-spacing:3px;color:var(--gold);text-shadow:0 2px 0 #000}
 #bar.lost .word{color:var(--red)}
 #bar .sub{flex:1;min-width:140px;font:13px/1.2 var(--casing);letter-spacing:1.5px;color:var(--ink)}
+/* THE SURVIVOR'S WORD (WORDS, rule 315): the bar's word is one of his men, his face, his name, his line; the word itself (YOU WON) only
+   when nobody is left to say anything */
+#bar .word.said{flex:1 1 100%;display:flex;gap:10px;align-items:center;font:inherit;letter-spacing:0;text-shadow:none;min-width:0}
+#bar .word.said canvas{width:56px;height:56px;flex:0 0 56px;border-radius:4px;image-rendering:pixelated;background:#0b0907;box-shadow:0 1px 0 rgba(0,0,0,.6)}
+#bar .word.said .sw{flex:1;min-width:0}
+#bar .word.said .swho{display:block;font:12px/1 var(--casing);letter-spacing:2px;color:var(--gold);margin-bottom:4px}
+#bar.lost .word.said .swho{color:var(--red)}
+#bar .word.said q{display:block;font:19px/1.18 var(--casing);letter-spacing:.4px;color:var(--ink);text-shadow:0 1px 0 #000}
+@media (max-width:699px){ #bar .word.said q{font-size:16px} #bar .word.said canvas{width:48px;height:48px;flex-basis:48px} }
 #tally{display:flex;gap:14px;align-items:baseline;padding:7px 12px 9px;color:var(--paper);font-size:11px;letter-spacing:.5px}
 #tally b{font:16px/1 var(--casing);letter-spacing:1px}
 .lines{margin:10px 14px 0}
@@ -186,7 +195,7 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 </head>
 <body>
 <canvas id="after" aria-hidden="true"></canvas>
-<div id="bar"><span class="word" id="word">YOU WON</span><span class="sub" id="head">THE FIGHT IS WON</span><span id="tally"><span id="rounds"></span></span></div>
+<div id="bar"><span class="word" id="word"></span><span class="sub" id="head"></span><span id="tally"><span id="rounds"></span></span></div>
 <div id="field" aria-hidden="true"></div>
 <div id="lines" class="lines"></div>
 <div id="cols">
@@ -214,6 +223,9 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 <script src="../engine/bohemia_people_mix.js"></script>
 <script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_crew_door.js"></script>
+<script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS: the one dial, for the survivor's word -->
+<script src="../engine/bohemia_survivor_word.js"></script>  <!-- WORDS [the survivor's word] (rule 315): one man still standing says how it went, in place of YOU WON -->
+<script src="../engine/bohemia_kill_tally.js"></script>  <!-- WORDS [kills and the strongest foe] (rule 316): a finger held on a man shows his career -->
 <script src="bohemia_ui_materials.js"></script>
 <script src="../engine/bohemia_idles.js"></script>  <!-- RUN FOUR: the idles, for the scene behind it when no fight stands behind (the fight's own when it does) -->
 <script src="bohemia_aftermath.js"></script>  <!-- RUN FOUR [the aftermath plays behind the loot screen] -->
@@ -239,6 +251,7 @@ function climbs(rows){
   var climb = readJ(CKEY, {}) || {}, q = readJ(AKEY, []) || [];
   /* fights the crew screen has not read yet count first (the last one kept is this one: the shell keeps it before this opens) */
   var prior = {}, mine = q.length && q[q.length - 1] && JSON.stringify((q[q.length - 1].rows || []).map(function(r){ return r.name + r.xpGained; })) === JSON.stringify(rows.map(function(r){ return r.name + (r.xpGained | 0); }));
+  S.inQueue = !!mine;   /* WORDS rule 316: the tally card counts this fight from the queue, or adds it when the game has not kept it */
   q.slice(0, mine ? -1 : q.length).forEach(function(f){ (f.rows || []).forEach(function(r){ prior[r.name] = (prior[r.name] || 0) + (r.xpGained | 0); }); });
   var adj = {};
   rows.forEach(function(r){ var c = climb[r.name]; if(!c && !prior[r.name]) return;
@@ -297,6 +310,9 @@ function drawCrew(){
       b.textContent = (m.waiting > 1 ? (m.main ? 'SPEND YOUR ' : 'SPEND HIS ') + m.waiting + ' LEVELS' : (m.main ? 'CHOOSE YOUR LEVEL-UP' : 'CHOOSE HIS LEVEL-UP'));
       b.addEventListener('click', function(){ openCrew(m.name); }); w.appendChild(b); }
     d.appendChild(w); el.appendChild(d);
+    /* WORDS rule 316: a finger held on a man, his career (this fight is in it once the game has kept it; on its own, it is added) */
+    if(window.BohemiaKillTally) BohemiaKillTally.hold(d, function(e, p){ var fn2 = S.nums[m.name] || {}, row = (S.fight && S.fight.crew || []).filter(function(r){ return r.name === m.name; })[0] || {};
+      BohemiaKillTally.card(document, [{ name:m.name, main:!!m.main, look:S.looks[m.name] || (m.main ? 'you' : null), extra:S.inQueue ? null : { kills:fn2.kills | 0, best:row.best || null, fights:1 } }], p, function(cv){ var src = faceCanvas(m.name); cv.getContext('2d').drawImage(src, 0, 0, cv.width, cv.height); }); });
   });
   var fell = S.men.filter(function(m){ return m.dead; }).length, hurt = S.men.filter(function(m){ return m.down && !m.dead && !m.main; }).length;
   /* a level is a level, never 'climbed' (EYES [eyes: the road crew ran]) */
@@ -524,20 +540,51 @@ function wonHead(sp){
   var b = (sp && sp.bodies) || []; if(!b.length) return 'THE FIGHT IS WON';
   var one = b.length === 1, who = b.every(function(x){ return x.beast; }) ? THEY.beasts : THEY[sp.faction] || THEY.brigands, name = who[one ? 1 : 0];
   var ran = b.filter(function(x){ return x.fled; }).length, down = b.filter(function(x){ return x.dead; }).length;
+  var boss = b.filter(function(x){ return x.boss && x.dead; })[0]; if(boss && boss.name) return String(boss.name).toUpperCase() + ' IS DOWN';   /* WORDS rule 315: a boss fell, the head names him */
   if(ran && !down) return name + ' RAN';
   if(ran) return name + ' BROKE AND RAN';
   return name + (one || name === 'THE PACK' ? ' IS DOWN' : ' ARE DOWN');
+}
+/* ---------- THE SURVIVOR'S WORD (WORDS, rule 315, ask line 310, Paolo 11/2: 'one of your surviving characters provides commentary on
+   how the battle went... to replace the you won... funny, morbid funny, like real killers') ----------
+   One man of his still standing (else one alive on the ground; never YOU) says one line with his face and his name: his type (the
+   fight's own pick, off his look), how it went, the kind they beat, the result (engine/bohemia_survivor_word.js, WORDS' bank). Nobody
+   left to say it: the word stands as it was. */
+function survivorWord(f, kind){
+  var el = document.getElementById('word'); el.className = 'word'; delete el.dataset.who; el.dataset.kind = kind;
+  var W = window.BohemiaSurvivorWord; if(!W || !S.voices) return null;
+  var sp = f.spoils || {}, bodies = sp.bodies || [], rc = S.rc || {};
+  var why = ''; try{ why = String((window.parent !== window && window.parent.__FIGHT_START_SENT && window.parent.__FIGHT_START_SENT.why) || ''); }catch(e){}
+  var boss = bodies.filter(function(b){ return b && b.boss && b.dead; })[0];
+  var ctx = { result:kind, id:hash(JSON.stringify(bodies.map(function(b){ return [b.name, b.dead, b.fled]; })) + ':' + (f.rounds | 0)),
+    men:(f.crew || []).map(function(r){ return { name:r.name, main:!!r.main, dead:!!r.dead, down:!!r.down, beast:!!r.beast, hp:r.hp, hpMax:r.hpMax, look:r.look || S.looks[r.name] || null }; }),
+    theirs:rc.theirs || bodies.length, bodies:bodies, faction:sp.faction || null, boss:boss ? boss.name : null, camp:/:camp\b/.test(why),
+    by:f.wipeInfo && f.wipeInfo.byName || null };
+  var r = null; try{ r = W.pick(S.voices, ctx); }catch(e){ r = null; }
+  if(!r || !r.line) return null;
+  if(r.look) S.looks[r.who] = S.looks[r.who] || r.look;
+  el.textContent = ''; el.className = 'word said'; el.dataset.who = r.who; el.dataset.how = r.how; el.dataset.type = r.type; el.dataset.enemy = r.kind; if(r.sp) el.dataset.sp = '1';
+  var cv = faceCanvas(r.who); el.appendChild(cv);
+  var w = document.createElement('span'); w.className = 'sw';
+  var b = document.createElement('b'); b.className = 'swho'; b.textContent = r.who; w.appendChild(b);
+  var q = document.createElement('q'); q.textContent = r.line; w.appendChild(q); el.appendChild(w);
+  try{ var look = S.looks[r.who]; if(look && window.BohemiaCrewFaces && BohemiaCrewFaces.talk) setTimeout(function(){ BohemiaCrewFaces.talk(cv, look, r.line); }, 380); }catch(e){}   /* his mouth says it */
+  S.said = r; window.__SURVIVOR = r;
+  return r;
 }
 function head(f){
   var rc = S.rc || {}, kind = f.wipe ? 'wipe' : f.retreat ? 'ran' : f.result === 'won' ? 'won' : 'lost';
   var bar = document.getElementById('bar'); bar.className = kind === 'won' ? 'won' : 'lost';
   document.body.className = kind === 'won' ? '' : 'lost';
-  document.getElementById('word').textContent = WORDS[kind];
+  var said = survivorWord(f, kind);   /* WORDS rule 315: one of his men says how it went, in place of the word */
+  if(!said) document.getElementById('word').textContent = WORDS[kind];
   /* EYES [eyes: the end screen's words] (rule 150): the head line stands only when it says something the word does not ('WIPED
      OUT  WIPED OUT' read twice) */
   var hd = String(rc.head || (kind === 'won' ? 'THE FIGHT IS WON' : ''));
   if(kind === 'won' && (!rc.head || /^THE ROAD CREW RAN$/i.test(hd.trim()))) hd = wonHead(f.spoils);
-  var same = hd.replace(/\W+/g, ' ').trim() === WORDS[kind].replace(/\W+/g, ' ').trim() || hd.indexOf(WORDS[kind]) >= 0;
+  if(!hd) hd = kind === 'won' ? wonHead(f.spoils) : WORDS[kind];   /* with a man speaking, the head says the result */
+  if(said && hd === 'THE FIGHT IS WON') hd = '';   /* rule 315: the generic banner is gone; a head that names who they were stays */
+  var same = !said && (hd.replace(/\W+/g, ' ').trim() === WORDS[kind].replace(/\W+/g, ' ').trim() || hd.indexOf(WORDS[kind]) >= 0);
   document.getElementById('head').textContent = same ? '' : hd;
   var t = document.getElementById('tally'); t.textContent = '';
   var bits = [];
@@ -550,7 +597,7 @@ function head(f){
   var ln = document.getElementById('lines'); ln.textContent = '';
   (rc.lines || []).forEach(function(x){ var p = document.createElement('p'); p.textContent = x; ln.appendChild(p); });
   var cw = document.getElementById('callw'); cw.textContent = '';
-  if(rc.call && rc.call.line){ var q = document.createElement('div'); q.className = 'quote';
+  if(rc.call && rc.call.line && !said){   /* the fight's own win call, only when nobody's word took the bar (one voice, one line) */ var q = document.createElement('div'); q.className = 'quote';
     if(rc.call.look){ S.looks[rc.call.who] = S.looks[rc.call.who] || rc.call.look; q.appendChild(faceCanvas(rc.call.who)); }
     var qq = document.createElement('q'); qq.textContent = rc.call.line; q.appendChild(qq);
     var w = document.createElement('b'); w.textContent = rc.call.who; q.appendChild(w); cw.appendChild(q); }
@@ -652,7 +699,9 @@ document.getElementById('leave').addEventListener('click', function(){ leave(); 
 document.getElementById('camp').addEventListener('click', makeCamp);
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SPOILS_OPEN') open(d); });
 Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.json').then(function(r){ return r.json(); }),
-  fetch('../records/target/bb/tape_income.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })]).then(function(a){
+  fetch('../records/target/bb/tape_income.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+  fetch('../records/target/bb/crew_voices.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })]).then(function(a){
+  S.voices = a[3];   /* WORDS' bank, for the survivor's word (rule 315) */
   S.L = a[1]; S.L.tape_income = a[2];   /* RUN FOUR, rule 276(a): ECONOMY's rolls of tape a wrecked piece */ S.cap = (window.BohemiaCamp ? BohemiaCamp.stashSlots() : 0) || (S.L.stash && S.L.stash.slots) || 36;   /* RUN TWO __THE_CAMP__: the cart's room */ S.ready = true;
   if(S.pending){ var p = S.pending; S.pending = null; open(p); }
   else if(S.standalone){ var smp = JSON.parse(JSON.stringify(SAMPLE)), q = location.search;   /* ?lost, ?ran, ?wipe: the other ends, for a look */

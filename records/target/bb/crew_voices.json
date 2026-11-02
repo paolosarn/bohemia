@@ -142,11 +142,60 @@
      "en": [
       "Told you. Nobody touches us.",
       "Next time bring more.",
-      "That's how it's done."
+      "That's how it's done.",
+      "Anybody else? No? Then pay me.",
+      "I wasn't done. Why'd they stop?",
+      "Get up! Oh. Right. You can't.",
+      "Tell their mothers. Actually don't. Let them wonder."
      ],
      "sp": [
-      "Bueno. Nobody touches us."
-     ]
+      "Bueno. Nobody touches us.",
+      "Get up, güey! Oh. Right. You can't."
+     ],
+     "lost_one": {
+      "en": [
+       "They took {name}. I want more of them.",
+       "{name} owed me four batteries. Now who pays?"
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss}? Big name. Short fight.",
+       "Who's {boss} now? Nobody. That's who."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}, get up or I drag you by the ankles.",
+       "They put {name} down. I put them in the dirt."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. Should've brought more friends.",
+       "Count them. Go on. I'll wait."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Too close. I'm still mad about it.",
+       "My hands are shaking. That's anger. Shut up."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Not a scratch. Tell everybody. Twice.",
+       "They never touched us. Embarrassing, for them."
+      ],
+      "sp": [
+       "Not one scratch, cabrón. Not one."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -170,6 +219,24 @@
      ],
      "sp": [
       "Ándale, but this isn't over!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "Get me up. I'm going back in.",
+      "Next time I go first. And I stay."
+     ],
+     "sp": [
+      "Get me up, güey. I'm going back."
+     ]
+    },
+    "ran": {
+     "en": [
+      "We didn't run. We relocated. Loudly.",
+      "I left my hat. I'm going back for it."
+     ],
+     "sp": [
+      "Ya, we ran. Don't say it, cabrón."
      ]
     }
    }
@@ -269,11 +336,60 @@
      "en": [
       "Huh. We lived.",
       "Well. That happened.",
-      "Back to normal, I guess."
+      "Back to normal, I guess.",
+      "They died. We didn't. Good ratio.",
+      "Somebody should say something. Not me.",
+      "His boots are my size. He won't mind.",
+      "Another Tuesday. Is it Tuesday? Doesn't matter."
      ],
      "sp": [
-      "Bueno. We lived."
-     ]
+      "Bueno. We lived.",
+      "Bueno. Another Tuesday. Probably."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} is dead. His tab at the cook isn't.",
+       "Somebody dig. {name} would've wanted someone else to."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss}. I expected taller.",
+       "So that was {boss}. Okay."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} is napping in the dirt. Let him.",
+       "{name} took one for the team. Unasked."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. Their math was wrong.",
+       "They had numbers. We had aim."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "That was close. I felt things. Briefly.",
+       "I almost had an emotion back there."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Nobody bled. I'm almost disappointed.",
+       "Clean. Nobody's mother gets a visit tonight."
+      ],
+      "sp": [
+       "Bueno, clean. Nobody's mother gets a visit."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -297,6 +413,24 @@
      ],
      "sp": [
       "Ya. Feet, move."
+     ]
+    },
+    "lost": {
+     "en": [
+      "We lost. Write that down. Then burn it.",
+      "Well. That went exactly as badly as it looked."
+     ],
+     "sp": [
+      "Bueno. We lost. Moving on."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Running away. A classic for a reason.",
+      "Alive, and slightly faster than before."
+     ],
+     "sp": [
+      "Pues, we ran. Cardio."
      ]
     }
    }
@@ -394,11 +528,60 @@
      "en": [
       "We're alive? We're alive.",
       "I'm never doing that again.",
-      "Can we go home now?"
+      "Can we go home now?",
+      "Is it over? Somebody say it's over.",
+      "I counted. We're all here. I counted twice.",
+      "My hands won't stop. Is that normal? Don't answer.",
+      "I'm going to throw up. Then loot."
      ],
      "sp": [
-      "Gracias a Dios. We're alive."
-     ]
+      "Gracias a Dios. We're alive.",
+      "Ay Dios, is it over? Say it's over."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} said he'd watch my back. Who now?",
+       "I told {name} to duck. He didn't."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "That was {boss}? Glad I didn't know.",
+       "We beat {boss}. Somebody will want revenge."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}'s breathing. I checked three times.",
+       "Is {name} okay? Lie to me if not."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. I'm still counting.",
+       "There were {them}. I need to sit down."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "That was this close. THIS close.",
+       "I said my goodbyes. Twice. Now what?"
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Nobody's hurt? That never happens. What's wrong?",
+       "Too easy. Easy is how it starts."
+      ],
+      "sp": [
+       "Nada? Nobody hurt? That's suspicious."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -422,6 +605,24 @@
      ],
      "sp": [
       "Vamos, vamos, don't look back!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "I knew it. I said it. Nobody listens.",
+      "Are we dead? Is this what dead is?"
+     ],
+     "sp": [
+      "Ay Dios. Is anybody alive?"
+     ]
+    },
+    "ran": {
+     "en": [
+      "Best decision we ever made. I'm serious.",
+      "Nobody follow us. Please nobody follow us."
+     ],
+     "sp": [
+      "Gracias a Dios we ran."
      ]
     }
    }
@@ -520,11 +721,60 @@
      "en": [
       "Same time next week?",
       "Somebody write that down.",
-      "Good show, good show."
+      "Good show, good show.",
+      "And the award for not dying goes to us.",
+      "Pass the hat. Not his. He's using it.",
+      "I'll miss them. No I won't.",
+      "His last thought was 'oh no.' Relatable."
      ],
      "sp": [
-      "Same time next week, ¿sí?"
-     ]
+      "Same time next week, ¿sí?",
+      "Bueno, the award for not dying goes to us."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} left early. Rude. He had my lighter.",
+       "Who laughs at my jokes now? Not {name}."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} has left the building. Feet first.",
+       "{boss}, gone. I'll do the eulogy. Short."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} is resting his eyes. Very hard.",
+       "{name} found the floor. The floor won."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. Somebody tell them it's not a party.",
+       "{them} on {us}. Unfair. For them."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Ha. Ha. I need new pants.",
+       "My life flashed by. Boring movie."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Flawless. Five stars. Would do again.",
+       "Not a scratch. Putting that on my grave."
+      ],
+      "sp": [
+       "Five stars, hermano. Would do again."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -548,6 +798,24 @@
      ],
      "sp": [
       "Tactical sprint, compa!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "Well. That's a story nobody's telling.",
+      "Bright side: it can't get worse. Kidding."
+     ],
+     "sp": [
+      "Bueno, it can't get worse. Kidding, güey."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Strategic advance in the other direction.",
+      "Officially, we were never here."
+     ],
+     "sp": [
+      "Officially, we were never here, ¿sí?"
      ]
     }
    }
@@ -647,11 +915,60 @@
      "en": [
       "Good work. Pick up what's useful.",
       "We did fine.",
-      "That's a day."
+      "That's a day.",
+      "Strip what's good. Leave the rest. Move.",
+      "Water, rounds, then talk.",
+      "Don't look at their faces. Look at their pockets.",
+      "Same as last time. Less screaming."
      ],
      "sp": [
-      "Bueno. Pick up what's useful."
-     ]
+      "Bueno. Pick up what's useful.",
+      "Bueno. Water, rounds, then talk."
+     ],
+     "lost_one": {
+      "en": [
+       "Bury {name} deep. The dogs dig.",
+       "{name} knew the job. Take his rounds."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} bled like everybody else.",
+       "They all fall the same. {boss} too."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} will live. Patch him, then the gear.",
+       "{name} goes on the cart. Tie him down."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. Numbers don't aim.",
+       "More of them. Fewer now."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Close one. Means we learned something.",
+       "Too close. Fix your feet next time."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Clean. Don't get used to it.",
+       "Nobody hurt. That's luck. Don't spend it."
+      ],
+      "sp": [
+       "Clean. Don't get used to it, mijo."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -675,6 +992,24 @@
      ],
      "sp": [
       "Pull back, mijo. Nobody runs alone."
+     ]
+    },
+    "lost": {
+     "en": [
+      "We lost. Get up. Count heads.",
+      "It happens. Remember how. Then forget it."
+     ],
+     "sp": [
+      "It happens, mijo. Get up. Count heads."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Good retreat. Nobody panicked. Mostly.",
+      "Live today. Collect tomorrow."
+     ],
+     "sp": [
+      "Bueno. Live today, collect tomorrow."
      ]
     }
    }
@@ -774,11 +1109,60 @@
      "en": [
       "AND STILL!",
       "What a fight! What a FIGHT!",
-      "Your winners, ladies and gentlemen!"
+      "Your winners, ladies and gentlemen!",
+      "And the crowd goes... nowhere. They're all dead.",
+      "Folks, that is a FINISH!",
+      "Down goes the opposition! Down goes EVERYBODY!",
+      "A clinic! A beautiful, terrible clinic!"
      ],
      "sp": [
-      "Qué fight! What a FIGHT!"
-     ]
+      "Qué fight! What a FIGHT!",
+      "Qué finish, folks! Qué FINISH!"
+     ],
+     "lost_one": {
+      "en": [
+       "A moment for {name}. Okay. Moment's over.",
+       "{name} retires. Not by choice."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "The champ {boss} is DOWN! New champs!",
+       "{boss} is dethroned! Somebody grab the belt!"
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} went down but the team carried it!",
+       "{name} took the big one! Get that man a bandage!"
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} on {us}! And we WON!",
+       "The odds said no! The odds are DEAD!"
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Down to the wire! What a war!",
+       "The judges are wiping off their scorecards!"
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Flawless victory! Not a mark on them!",
+       "They never landed one! Not ONE!"
+      ],
+      "sp": [
+       "Not one, folks! Qué flawless!"
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -802,6 +1186,24 @@
      ],
      "sp": [
       "He's pulling out, señores! Ya!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "A shocking loss here tonight, folks.",
+      "And that's the fight. Ugly. Very ugly."
+     ],
+     "sp": [
+      "Qué loss, folks. Ugly."
+     ]
+    },
+    "ran": {
+     "en": [
+      "He's out of the ring! Into the parking lot!",
+      "No contest! No contest!"
+     ],
+     "sp": [
+      "No contest, folks! Ándale!"
      ]
     }
    }
@@ -901,11 +1303,60 @@
      "en": [
       "Count it up.",
       "Now we get paid.",
-      "Loot first, cry later."
+      "Loot first, cry later.",
+      "Count the batteries before anybody counts feelings.",
+      "Dead men don't haggle. Love that.",
+      "His boots are worth two nights. Strip them.",
+      "Check his pockets. Then his other pockets."
      ],
      "sp": [
-      "Bueno. Now we get paid."
-     ]
+      "Bueno. Now we get paid.",
+      "Bueno. Dead men don't haggle."
+     ],
+     "lost_one": {
+      "en": [
+       "{name}'s share splits between us now. Sad. Lucrative.",
+       "Who's got {name}'s gear? I'm buying."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} was worth something. Now we are.",
+       "Somebody pays good batteries for {boss}. Find them."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}'s hurt. That's a doctor bill. Ugh.",
+       "Get {name} up. Lying down doesn't pay."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. That's {them} pairs of boots.",
+       "More of them, more pockets."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "That nearly cost us. Charge double next time.",
+       "Too close. Bad for business."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "No doctor bill. That's pure profit.",
+       "Clean job. Best margins all week."
+      ],
+      "sp": [
+       "Pure profit, carnal. No doctor bill."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -929,6 +1380,24 @@
      ],
      "sp": [
       "Grab what you can, mano!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "We lost money. That's the real injury.",
+      "Write it down as a loan. We collect later."
+     ],
+     "sp": [
+      "We collect later, carnal. With interest."
+     ]
+    },
+    "ran": {
+     "en": [
+      "We saved the gear. That counts.",
+      "Retreating is cheaper than funerals."
+     ],
+     "sp": [
+      "Bueno. Cheaper than funerals."
      ]
     }
    }
@@ -1025,11 +1494,60 @@
      "en": [
       "Good.",
       "We're done.",
-      "Home."
+      "Home.",
+      "Done.",
+      "Next.",
+      "They stopped.",
+      "Clean your knife."
      ],
      "sp": [
-      "Bueno."
-     ]
+      "Bueno.",
+      "Bueno. Next."
+     ],
+     "lost_one": {
+      "en": [
+       "{name}.",
+       "I'll dig for {name}."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss}. Down.",
+       "That was {boss}. Okay."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}. Up.",
+       "Carry {name}."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them}. Still won.",
+       "Numbers. Didn't matter."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Close.",
+       "Too close."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Clean.",
+       "Nobody bled. Good."
+      ],
+      "sp": [
+       "Bueno. Clean."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1053,6 +1571,24 @@
      ],
      "sp": [
       "Vamos."
+     ]
+    },
+    "lost": {
+     "en": [
+      "Again.",
+      "Get up."
+     ],
+     "sp": [
+      "Bueno. Again."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Out. Good.",
+      "Alive."
+     ],
+     "sp": [
+      "Bueno. Alive."
      ]
     }
    }
@@ -1152,11 +1688,60 @@
      "en": [
       "We WON! We actually won!",
       "Best day of my life.",
-      "Can I keep his hat?"
+      "Can I keep his hat?",
+      "Did you see me? Tell me you saw me!",
+      "I'm keeping his jacket. He's done with it.",
+      "My hands are sticky. Is that... okay. Okay.",
+      "Do I get a nickname now? I want one."
      ],
      "sp": [
-      "Ganamos, compa! We actually won!"
-     ]
+      "Ganamos, compa! We actually won!",
+      "Did you see me, carnal? Did you?"
+     ],
+     "lost_one": {
+      "en": [
+       "{name} showed me how to reload. Like, just now.",
+       "{name} was gonna teach me cards."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "We killed {boss}! Nobody's gonna believe this!",
+       "Can I have {boss}'s hat? Please?"
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} isn't moving. He's moving. Okay.",
+       "Is {name} gonna be okay? Somebody say yes."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "There were {them} of them! We're legends!",
+       "{them}! I'm telling everybody it was more."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "I'm fine. I'm fine. Why am I shaking?",
+       "I almost died? Cool. Cool cool cool."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Nobody even got hurt! This job is easy!",
+       "We're like a movie. A real one."
+      ],
+      "sp": [
+       "Too easy, hermano! Too easy!"
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1180,6 +1765,24 @@
      ],
      "sp": [
       "Wait for me, güey!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "This isn't how the movies go.",
+      "I want to go home. Is that allowed?"
+     ],
+     "sp": [
+      "Ay, carnal. This isn't how the movies go."
+     ]
+    },
+    "ran": {
+     "en": [
+      "We ran so fast! Is that allowed?",
+      "Are we cowards now? We're alive though."
+     ],
+     "sp": [
+      "We ran so fast, carnal!"
      ]
     }
    }
@@ -1280,11 +1883,60 @@
      "en": [
       "Thank God. Thank God.",
       "We were watched over.",
-      "Light a candle for the ones we lost."
+      "Light a candle for the ones we lost.",
+      "God forgive them. He'll have to. I won't.",
+      "Thank you, Lord, for bad aim. Theirs.",
+      "We pray for them later. Loot first.",
+      "Amen. Somebody grab his rifle."
      ],
      "sp": [
-      "Gracias a Dios."
-     ]
+      "Gracias a Dios.",
+      "Gracias a Dios for their bad aim."
+     ],
+     "lost_one": {
+      "en": [
+       "Rest, {name}. I'll pray. You'd hate that.",
+       "{name} goes to God. His boots go to me."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} meets his judge now. Good luck.",
+       "Even {boss} kneels eventually."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} lives. I'll light a candle. Small one.",
+       "Lord, keep {name} breathing. And quiet."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. David had worse odds.",
+       "The Lord counts differently than they do."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "A miracle. A small one. I'll take it.",
+       "I bargained with God there. I owe Him."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Not a scratch. That's a sign.",
+       "Watched over. Every one of us."
+      ],
+      "sp": [
+       "Bendito sea Dios. Not a scratch."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1308,6 +1960,24 @@
      ],
      "sp": [
       "Dios, light the way out."
+     ]
+    },
+    "lost": {
+     "en": [
+      "This is a test. I'm failing it.",
+      "Lord, we're on the floor. Hint taken."
+     ],
+     "sp": [
+      "Ay Dios. We're on the floor."
+     ]
+    },
+    "ran": {
+     "en": [
+      "God loves a man who lives to pray.",
+      "Run now. Repent later."
+     ],
+     "sp": [
+      "Gracias a Dios for legs."
      ]
     }
    }
@@ -1407,11 +2077,60 @@
      "en": [
       "Area clear. Good work.",
       "Check your gear. Count your rounds.",
-      "That's how a unit fights."
+      "That's how a unit fights.",
+      "Sound off. Then strip the dead.",
+      "Police your brass. Police their pockets.",
+      "Good kills. Sloppy feet. Drills tonight.",
+      "Nobody celebrates till the gear's counted."
      ],
      "sp": [
-      "Area clear. Bueno, good work."
-     ]
+      "Area clear. Bueno, good work.",
+      "Bueno. Sound off, then strip the dead."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} is gone. Take his rounds. Mark the spot.",
+       "Moment for {name}. Moment's over. Move."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "Target {boss} is down. Good work.",
+       "{boss} is down. Confirm it. Twice."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}, on your feet. That's an order.",
+       "Medic on {name}. Everyone else, perimeter."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} to {us}. Outfought them anyway.",
+       "Numbers lose to discipline. Every time."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Too close. We review it tonight.",
+       "Sloppy. Alive, but sloppy."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Zero casualties. Textbook. Don't get cocky.",
+       "Clean op. That's what drills are for."
+      ],
+      "sp": [
+       "Zero casualties. Bueno. Don't get cocky."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1435,6 +2154,24 @@
      ],
      "sp": [
       "Fall back! Vamos, to the edge!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "We lost. Regroup at the rally point.",
+      "Losing is data. Get up."
+     ],
+     "sp": [
+      "Bueno. Regroup. Get up."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Orderly withdrawal. Mostly orderly.",
+      "Headcount at the rally point. Now."
+     ],
+     "sp": [
+      "Headcount, ándale. Now."
      ]
     }
    }
@@ -1534,11 +2271,60 @@
      "en": [
       "Lovely. Somebody find me a clean shirt.",
       "We look terrible. We won.",
-      "Fine. That was fine."
+      "Fine. That was fine.",
+      "Their tailoring was a crime. Justice served.",
+      "Don't bleed on the good boots.",
+      "I'll take the jacket. It's ugly, but warm.",
+      "Somebody burn those pants. Please."
      ],
      "sp": [
-      "Bueno. Find me a clean shirt."
-     ]
+      "Bueno. Find me a clean shirt.",
+      "Qué horror, those pants. Burn them."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} had terrible taste. I'll miss it.",
+       "{name} went in that jacket. Fitting, honestly."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss}. All that menace, and those shoes.",
+       "So that was {boss}. Weak silhouette."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} is bleeding on cashmere. Get him up.",
+       "Someone tend {name}. He's ruining the look."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them and not one dressed well.",
+       "Quantity over quality. Typical."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "That was close. I almost ruined this coat.",
+       "I'm sweating. This is wool."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Not a stain. Finally, a civilized fight.",
+       "Immaculate. Like me."
+      ],
+      "sp": [
+       "Bueno. Not a stain, darling."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1562,6 +2348,24 @@
      ],
      "sp": [
       "Finally. Vámonos, ya."
+     ]
+    },
+    "lost": {
+     "en": [
+      "We lost. And I'm wearing linen.",
+      "The worst day of my wardrobe."
+     ],
+     "sp": [
+      "Qué desastre. And I'm in linen."
+     ]
+    },
+    "ran": {
+     "en": [
+      "We left with dignity. Some of it.",
+      "I ran in these shoes. Remember that."
+     ],
+     "sp": [
+      "Bueno. Some dignity left."
      ]
     }
    }
@@ -1661,11 +2465,60 @@
      "en": [
       "They'll send more. They always send more.",
       "Burn anything with a chip.",
-      "We won. For now. Remember that."
+      "We won. For now. Remember that.",
+      "Check them for chips. Behind the ear.",
+      "They knew we were coming. Ask who told.",
+      "Too clean. Somebody wanted this.",
+      "Don't take the radios. They listen."
      ],
      "sp": [
-      "We won. Por ahora."
-     ]
+      "We won. Por ahora.",
+      "Mira, check behind the ear. Chips."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} knew too much. Now look.",
+       "They always get the ones who listen. {name} listened."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} was a puppet. Who holds the strings?",
+       "That wasn't the real {boss}. Watch."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}'s hurt. Don't let the doctors chip him.",
+       "Get {name} up before the drones see."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. Somebody sent them.",
+       "That many? That's funded."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Close. Like they had our plans.",
+       "That close? Somebody leaked."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Nobody hurt. They let us win. Why?",
+       "Too easy. This was a test."
+      ],
+      "sp": [
+       "Too easy, güey. A test."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1689,6 +2542,24 @@
      ],
      "sp": [
       "Go, te digo, before they lock it."
+     ]
+    },
+    "lost": {
+     "en": [
+      "This was planned. Not by us.",
+      "They wanted us down. Let them think it."
+     ],
+     "sp": [
+      "Planned, güey. Not by us."
+     ]
+    },
+    "ran": {
+     "en": [
+      "We ran where they didn't expect. Good.",
+      "Ditch the batteries. They track the batteries."
+     ],
+     "sp": [
+      "Mira, they track everything."
      ]
     }
    }
@@ -1788,11 +2659,60 @@
      "en": [
       "That was a warm-up.",
       "Who's hungry?",
-      "Good fight. I needed that."
+      "Good fight. I needed that.",
+      "That's it? I was warming up.",
+      "Who carries him? Not me. I'm tired.",
+      "Guns are cheating. I proved it.",
+      "Knuckles hurt. Good hurt."
      ],
      "sp": [
-      "Bueno. Who's hungry?"
-     ]
+      "Bueno. Who's hungry?",
+      "Bueno. I was warming up."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} punched better than he shot.",
+       "I'll carry {name} home. He'd carry me."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} hit like a kid. A slow kid.",
+       "I wanted {boss} longer. Shame."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}, walk it off. Or I carry you.",
+       "I'll carry {name}. He's lighter than the loot."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. More to hit.",
+       "They brought a crowd. I brought hands."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Finally. A real fight.",
+       "That hurt. Do it again."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Nobody touched me. Boring.",
+       "Too easy. Find me a bigger one."
+      ],
+      "sp": [
+       "Too easy, carnal. Find me a bigger one."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1816,6 +2736,24 @@
      ],
      "sp": [
       "Ay, I wasn't done."
+     ]
+    },
+    "lost": {
+     "en": [
+      "I'm not hurt. I'm resting angrily.",
+      "Who hit me? I want names."
+     ],
+     "sp": [
+      "I want names, carnal. Names."
+     ]
+    },
+    "ran": {
+     "en": [
+      "I wasn't running. I was walking fast.",
+      "I'll be back for the big one."
+     ],
+     "sp": [
+      "Bueno. Walking fast."
      ]
     }
    }
@@ -1915,11 +2853,60 @@
      "en": [
       "Everyone count off. Everyone.",
       "Okay. Okay. Let me see those cuts.",
-      "Good. Now eat something."
+      "Good. Now eat something.",
+      "Everybody drink water. I'm watching.",
+      "Who's bleeding? Don't lie to me.",
+      "Blood on your shirt. Not yours? Fine.",
+      "Eat something. Killing is hungry work."
      ],
      "sp": [
-      "Bueno. Let me see those cuts."
-     ]
+      "Bueno. Let me see those cuts.",
+      "Ay, mijo. Drink water. I'm watching."
+     ],
+     "lost_one": {
+      "en": [
+       "I counted {name} this morning. Now I can't.",
+       "Somebody close {name}'s eyes. I can't."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "That was {boss}? Wash your hands.",
+       "You beat {boss}. Now sit and eat."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}, you're grounded. Hold still.",
+       "I told {name} to wear the helmet. Hold this."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them and you all came back.",
+       "Don't tell me the odds after. Ever."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Nobody does that to me again. Nobody.",
+       "My heart can't take that. Bandages, now."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Nobody's hurt. I'm going to cry anyway.",
+       "All of you in one piece. Good."
+      ],
+      "sp": [
+       "Ay, mijos. All of you in one piece."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -1943,6 +2930,24 @@
      ],
      "sp": [
       "Everybody out, mijo! Count off!"
+     ]
+    },
+    "lost": {
+     "en": [
+      "Is everybody breathing? Count off. Slowly.",
+      "We're hurt. We heal. Then we're angry."
+     ],
+     "sp": [
+      "Ay, mijos. Count off. Slowly."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Everybody here? Count off. Again.",
+      "Good. Alive. Now walk, don't run."
+     ],
+     "sp": [
+      "Bueno, mijos. Count off again."
      ]
     }
    }
@@ -2042,11 +3047,60 @@
      "en": [
       "Pay out!",
       "I'd bet on us again.",
-      "House loses tonight."
+      "House loses tonight.",
+      "Called it. Pay up, all of you.",
+      "I had money on the tall one dying.",
+      "Odds were bad. I love bad odds.",
+      "Collect the pot. Leave the bodies."
      ],
      "sp": [
-      "Pay out, compa!"
-     ]
+      "Pay out, compa!",
+      "Pay up, carnal. Called it."
+     ],
+     "lost_one": {
+      "en": [
+       "I bet {name} he'd outlive me. He owes me.",
+       "{name} played his last hand."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} was the favorite. Upset of the year.",
+       "Who had {boss} dying today? Me. I did."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "I had {name} going down at two to one.",
+       "{name} lives. I lose that bet. Happy to."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} to {us}. Long odds. Big payout.",
+       "Nobody bet on us. Their mistake."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Coin flip. Came up heads.",
+       "Down to the last card. Won it."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Perfect hand. Royal flush.",
+       "Not a scratch. That paid twelve to one."
+      ],
+      "sp": [
+       "Royal flush, carnal. Perfect hand."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -2070,6 +3124,24 @@
      ],
      "sp": [
       "Fold, compa. Walk."
+     ]
+    },
+    "lost": {
+     "en": [
+      "Bad beat. Shuffle up.",
+      "House wins this one. Not the next."
+     ],
+     "sp": [
+      "Bad beat, carnal. Shuffle up."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Folding a bad hand is a skill.",
+      "We keep our chips. That's a win."
+     ],
+     "sp": [
+      "Bueno. We keep our chips."
      ]
     }
    }
@@ -2169,11 +3241,60 @@
      "en": [
       "It's quiet. I hate when it's quiet.",
       "We're okay. Say we're okay.",
-      "Done. For now."
+      "Done. For now.",
+      "They stopped moving. Good. Good.",
+      "I still hear the shots. Ignore me.",
+      "Was that now? Or the first year?",
+      "Same smell as before. Always the same."
      ],
      "sp": [
-      "Ya. It's quiet."
-     ]
+      "Ya. It's quiet.",
+      "Ya. They stopped moving. Bueno."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} too. They all go. Then the quiet.",
+       "I'll remember {name}. I remember all of them."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss}. I've seen worse. I've seen worse.",
+       "Down. {boss} is down. Breathe."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name}'s down. Not again. Not again.",
+       "{name}, stay with me. Talk about anything."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. Like the first year.",
+       "They kept coming. Then they didn't."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "Close. Like the bridge. Like before.",
+       "My ears are ringing. Or it's the ringing."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Nobody fell. That's never happened. Has it?",
+       "Quiet. Too quiet. Fine. It's fine."
+      ],
+      "sp": [
+       "Nada. Nobody fell. Strange."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -2197,6 +3318,24 @@
      ],
      "sp": [
       "Like before, mano. Run."
+     ]
+    },
+    "lost": {
+     "en": [
+      "This again. I know this part.",
+      "Lie still. They walk past if you lie still."
+     ],
+     "sp": [
+      "Bueno. I know this part. Lie still."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Running. Yes. I remember running.",
+      "Don't stop until it's quiet."
+     ],
+     "sp": [
+      "Bueno. Don't stop till it's quiet."
      ]
     }
    }
@@ -2296,11 +3435,60 @@
      "en": [
       "One more day. One more day closer.",
       "I'm writing her about this.",
-      "We go home a little richer."
+      "We go home a little richer.",
+      "Another day closer to that house.",
+      "I'll tell her I was brave. I was, right?",
+      "These boots could fit my brother.",
+      "One day I'll forget their faces. Not yet."
      ],
      "sp": [
-      "Un día closer. One more day."
-     ]
+      "Un día closer. One more day.",
+      "One day closer to the house, carnal."
+     ],
+     "lost_one": {
+      "en": [
+       "{name} had a girl too. Who tells her?",
+       "{name} never got his house."
+      ],
+      "sp": []
+     },
+     "boss": {
+      "en": [
+       "{boss} is done. The road home's a bit safer.",
+       "We beat {boss}. She'll never believe it."
+      ],
+      "sp": []
+     },
+     "man_down": {
+      "en": [
+       "{name} is going to make it. Has to.",
+       "Hold on, {name}. Think of something good."
+      ],
+      "sp": []
+     },
+     "outnumbered": {
+      "en": [
+       "{them} of them. The house better be big.",
+       "We beat {them}. That goes on the porch."
+      ],
+      "sp": []
+     },
+     "close": {
+      "en": [
+       "I saw her face. That's how close.",
+       "Almost didn't make it home. Almost."
+      ],
+      "sp": []
+     },
+     "flawless": {
+      "en": [
+       "Not a scratch. She'd be proud.",
+       "Clean. Like the house will be."
+      ],
+      "sp": [
+       "Bueno. She'd be proud."
+      ]
+     }
     },
     "last_stand": {
      "en": [
@@ -2325,6 +3513,24 @@
      "sp": [
       "Vamos home. Alive. Move."
      ]
+    },
+    "lost": {
+     "en": [
+      "Not yet. The house waits.",
+      "Get up. She's waiting. Get up."
+     ],
+     "sp": [
+      "Get up, carnal. She's waiting."
+     ]
+    },
+    "ran": {
+     "en": [
+      "Running home. That's the right direction.",
+      "Alive is the whole plan."
+     ],
+     "sp": [
+      "Bueno. Alive is the whole plan."
+     ]
     }
    }
   }
@@ -2346,6 +3552,11 @@
     "{name} was ours once. Don't listen to it.",
     "That's {name}. We buried {name}.",
     "Hit {name} anyway. It isn't him."
+   ],
+   "win": [
+    "It went back to the static.",
+    "Did we kill it? Can you kill that?",
+    "Nobody talk about this. Ever."
    ]
   },
   "beast": {
@@ -2363,6 +3574,11 @@
     "{name} is the size of a car.",
     "Watch {name}'s jaws.",
     "That {name} came out of the lab, not the wild."
+   ],
+   "win": [
+    "Lab animal. Somebody's science project.",
+    "Back in the dirt, animal.",
+    "It smelled like the lab. Still does."
    ]
   },
   "machine": {
@@ -2380,7 +3596,87 @@
     "{name} has armor on armor.",
     "Shoot the man behind {name}.",
     "{name} doesn't feel pain. Don't wait for it to."
+   ],
+   "win": [
+    "Pull their batteries. They won't need them.",
+    "Robots don't bleed. Saves on cleanup.",
+    "Unplug everything. Twice.",
+    "Scrap. Good scrap, though."
+   ]
+  },
+  "raiders": {
+   "win": [
+    "Road crew's off the road. For good.",
+    "Raiders carry junk. Check anyway.",
+    "That's the toll. Paid in full.",
+    "They wanted our batteries. Now we have theirs."
+   ]
+  },
+  "kids": {
+   "win": [
+    "Kids with slings. Who sends kids?",
+    "Nobody's proud of this one. Take the slings.",
+    "They should've been in school. There's no school."
+   ]
+  },
+  "heavies": {
+   "win": [
+    "Big ones fall loud.",
+    "Heavies. Heavy to drag, too.",
+    "Strip the plate. It's worth a week.",
+    "Took forever to drop. Worth it."
+   ]
+  },
+  "wolves": {
+   "win": [
+    "Dire wolves. Extinct twice now.",
+    "Good dogs. Dead dogs.",
+    "The pack's done. Don't pet anything."
+   ]
+  },
+  "boss": {
+   "win": [
+    "{boss} is done. Word travels fast.",
+    "Somebody tell the valley. {boss} fell.",
+    "That's {boss}. Was {boss}."
+   ]
+  },
+  "camp": {
+   "win": [
+    "Camp's ours. Check the tents.",
+    "Their beds are still warm. Ours now.",
+    "Their dinner's still cooking. Dibs.",
+    "Burn the camp or sleep in it?"
    ]
   }
+ },
+ "after": {
+  "_about": "THE SURVIVOR'S WORD (WORDS, rule 315, Paolo 11/2: 'on the victory screen, one of your surviving characters provides commentary on how the battle went... to replace the you won... funny, morbid funny, like real killers'). The end screen's one line in place of YOU WON, said by one man of his still standing (else one alive on the ground; never YOU), with his face and his name: engine/bohemia_survivor_word.js picks it. His type (off his look, the fight's own pick), how it went, the kind they beat. how, first that holds: lost_one (one of his fell for good; {name} names him), boss (a boss fell; {boss}), man_down (one struck down and lived; {name}), outnumbered ({them} on {us}, theirs outnumbered his by pace.outnumbered_ratio), close (his men standing end under close_hp of their blood), flawless (nobody down and every man over flawless_hp), else the plain win: lines.win[how], else lines.win. A kind's own lines (enemy.<kind>.win: raiders, machine, kids, heavies, beast, wolves, ghost, boss, camp) speak enemy_share of the plain, flawless, close and outnumbered wins. A loss: lines.lost; pulled out: lines.ran; a wipe: lines.wipe ({by}). Spanglish on WORDS' one dial ('after:' + how), never the player. draft:true.",
+  "how": [
+   "lost_one",
+   "boss",
+   "man_down",
+   "outnumbered",
+   "close",
+   "flawless"
+  ],
+  "kinds": {
+   "brigands": "raiders",
+   "machines": "machine",
+   "kids": "kids",
+   "heavies": "heavies",
+   "beasts": "beast",
+   "ghosts": "ghost"
+  },
+  "value": {
+   "flawless_hp": 0.9,
+   "close_hp": 0.35,
+   "enemy_share": 0.35,
+   "enemy_share_not_people": 0.6
+  },
+  "people_only": "\\b(boots?|pockets?|jacket|pants|tailoring|shirt|hats?|faces|ear|radios|mothers|haggle|dressed|shoes|rifle|slings?|teeth)\\b",
+  "people_only_why": "a line about what a man wears or carries is never said over wolves, robots or the dead (the plain and how lines are filtered by it when every one of theirs is a beast, a machine or a ghost; their own kind's lines speak enemy_share_not_people of the time instead)",
+  "source": "VAMILY.md rule 315 (Paolo 11/2); records/BOHEMIA_WORDS_THE_SURVIVORS_WORD_AND_THE_KILL_TALLY_11_2_26.md (the research: gallows humour in emergency work, Grossman's On Killing, how real crews talk after a job)",
+  "tuned": false
  }
 }

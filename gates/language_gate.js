@@ -644,7 +644,7 @@ head('H. TEN TO FIFTEEN PERCENT, ROLLED PER LINE, NEVER THE PLAYER (Paolo 10/24)
 
   /* WIRED: every surface he plays loads the dial and calls it */
   ok('the fight loads the dial and the veteran speaks through it',
-    /src="\.\.\/engine\/bohemia_spanglish\.js"/.test(fightSrc) && /BohemiaSpanglish\.say\(v\.id \|\| v\.name, TEACH\[k\]/.test(fightSrc));
+    /src="\.\.\/engine\/bohemia_spanglish\.js"/.test(fightSrc) && /BohemiaSpanglish\.say\(v\.id \|\| v\.name, (TEACH\[k\]|base)/.test(fightSrc));   /* RE-AIMED 11/2 (WORDS): the lesson's line is 'base' now (TEACH_PC on a computer, else TEACH), still through the dial */
   ok('the settlement screen loads the dial and every keeper speaks through it',
     /src="\.\.\/engine\/bohemia_spanglish\.js"/.test(settleSrc) && /function speak\(k, line\)\{[\s\S]{0,300}BohemiaSpanglish\.say\(/.test(settleSrc));
   ok('the town\'s mutters pick their twin on the dial\'s roll', /BohemiaSpanglish\.roll\('face:'/.test(busySrc));

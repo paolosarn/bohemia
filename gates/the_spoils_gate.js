@@ -78,7 +78,7 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
   /* EYES [eyes: the end screen's words] (rule 150): the wipe's head is not its word twice, and the loot's head reads as English */
   await sp.goto('http://127.0.0.1:8894/slices/BOHEMIA_SPOILS_SCREEN.html?wipe');
   await sp.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened, null, { timeout: 30000 });
-  const ww = await sp.evaluate(() => ({ word: document.getElementById('word').textContent, head: document.getElementById('head').textContent }));
+  const ww = await sp.evaluate(() => ({ word: document.getElementById('word').textContent, head: document.getElementById('head').textContent, kind: document.getElementById('word').dataset.kind, who: document.getElementById('word').dataset.who || '', line: ((document.querySelector('#word q') || {}).textContent || '') }));
   await sp.goto('http://127.0.0.1:8894/slices/BOHEMIA_SPOILS_SCREEN.html');
   await sp.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened, null, { timeout: 30000 });
   const fromn = await sp.evaluate(() => document.getElementById('fromn').textContent);
@@ -90,7 +90,8 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
   ok('S3 [eyes: the road crew ran] the head names who they were and says RAN only when some ran; no level is \'climbed\'',
     said.sample === 'THE RAIDERS BROKE AND RAN' && said.pack === 'THE PACK IS DOWN' && said.packRan === 'THE PACK BROKE AND RAN' && said.raiders === 'THE RAIDERS ARE DOWN'
       && said.allRan === 'THE MACHINES RAN' && said.one === 'THE KID IS DOWN' && !/CLIMB/.test(said.crewn) && /LEVEL/.test(said.crewn), JSON.stringify(said));
-  ok('S2 [eyes: the end screen\'s words] a wipe reads ' + ww.word + ' once (head "' + ww.head + '"), and the loot\'s head reads "' + fromn + '"', ww.word === 'WIPED OUT' && ww.head.indexOf('WIPED OUT') < 0 && /^OFF THEIR \d+ DEAD$/.test(fromn));
+  /* RE-AIMED 11/2 (WORDS, rule 315: one of his men says how it went in place of the word): the wipe still reads WIPED OUT once, now in the head under his line */
+  ok('S2 [eyes: the end screen\'s words] a wipe reads WIPED OUT once (' + ww.who + ': "' + ww.line + '" / head "' + ww.head + '"), and the loot\'s head reads "' + fromn + '"', ww.kind === 'wipe' && (ww.word + ' ' + ww.head).split('WIPED OUT').length === 2 && /^OFF THEIR \d+ DEAD$/.test(fromn));
   await sp.close(); await b.close(); srv.close();
 
   /* ---- THE DEMO ---- */
@@ -145,11 +146,13 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
        they were (the pack when every one is a beast), RAN only when some ran; every other head of the fight's stands as it is */
     const named = h => fh.head !== 'THE ROAD CREW RAN' ? h === fh.head
       : /^THE [A-Z]+ (IS DOWN|ARE DOWN|RAN|BROKE AND RAN)$/.test(h) && (/RAN$/.test(h) === fh.ran > 0) && (/^THE (PACK|BEAST) /.test(h) === fh.beasts);
-    const e1 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, head: document.getElementById('head').textContent, tally: document.getElementById('tally').textContent,
+    const e1 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, kind: document.getElementById('word').dataset.kind, who: document.getElementById('word').dataset.who || '', line: ((document.querySelector('#word q') || {}).textContent || ''), head: document.getElementById('head').textContent, tally: document.getElementById('tally').textContent,
       you: ((document.querySelector('#crew .man[data-man="YOU"] .nums') || document.querySelector('#crew .man .nums')) || {}).textContent || '', loot: getComputedStyle(document.getElementById('loot')).display }));
-    ok('E1 *** ONE END SCREEN *** YOU WON, the fight\'s own head, its rounds, and what YOU did in it, all on the one screen that waits',
-      e1.word === 'YOU WON' && named(e1.head) && fh.head.length > 0 && new RegExp('^' + fh.rounds + ' ROUND').test(e1.tally) && new RegExp('^' + fh.kills + ' KILL').test(e1.you) && e1.loot !== 'none',
-      e1.word + ' / ' + e1.head + ' / ' + e1.tally + ' / YOU: ' + e1.you);
+    /* RE-AIMED 11/2 (WORDS, rule 315, Paolo 11/2: 'to replace the you won'): a man of his still standing says how it went, his face,
+       his name, his line, where YOU WON stood; never YOU */
+    ok('E1 *** ONE END SCREEN *** WON: one of his men says how it went, the fight\'s own head, its rounds, and what YOU did in it, all on the one screen that waits',
+      e1.kind === 'won' && !!e1.who && e1.who !== 'YOU' && e1.line.length > 3 && named(e1.head) && fh.head.length > 0 && new RegExp('^' + fh.rounds + ' ROUND').test(e1.tally) && new RegExp('^' + fh.kills + ' KILL').test(e1.you) && e1.loot !== 'none',
+      e1.who + ': "' + e1.line + '" / ' + e1.head + ' / ' + e1.tally + ' / YOU: ' + e1.you);
     const s0 = await SF().evaluate(() => { const S = BohemiaSpoilsScreen.state; return { men: S.men.map(m => ({ name: m.name, main: m.main, gained: m.gained, up: m.up, to: m.to })), ground: S.ground.map(i => ({ id: i.id, kind: i.kind, from: i.from })), counts: S.counts, from: S.found.from,
       rows: document.querySelectorAll('#crew .man').length, perk: document.querySelectorAll('#crew button.perk').length, heads: document.querySelectorAll('#crew .man canvas').length }; });
     /* ---- D3 your crew ---- */
@@ -246,11 +249,11 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
       let up = false; for (let i = 0; i < 40 && !up; i++) { up = await p.evaluate(() => !!(window.SPOILS && SPOILS.frame)); if (!up) await p.waitForTimeout(100); }
       for (let i = 0; i < 80 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened && BohemiaSpoilsScreen.state.won === false).catch(() => false)); i++) await p.waitForTimeout(200);
       await p.waitForTimeout(2500);
-      const e2 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, loot: getComputedStyle(document.getElementById('loot')).display, ground: BohemiaSpoilsScreen.state.ground.length,
+      const e2 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, kind: document.getElementById('word').dataset.kind, who: document.getElementById('word').dataset.who || '', line: ((document.querySelector('#word q') || {}).textContent || ''), loot: getComputedStyle(document.getElementById('loot')).display, ground: BohemiaSpoilsScreen.state.ground.length,
         nothing: document.getElementById('nothing').hidden ? '' : document.getElementById('nothing').textContent })).catch(() => ({}));
       const st2 = await p.evaluate(() => ({ fight: CITYFIGHT, door: !!document.getElementById('spoilsdoor'), home: !!(NF && NF.homeAt) }));
-      ok('E2 *** A LOST FIGHT WAITS TOO *** the same one screen at once, YOU LOST, no loot, and five beats on he is still on it',
-        up && e2.word === 'YOU LOST' && e2.loot === 'none' && e2.ground === 0 && !!e2.nothing && st2.fight && st2.door && !st2.home, JSON.stringify(e2) + ' ' + JSON.stringify(st2));
+      ok('E2 *** A LOST FIGHT WAITS TOO *** the same one screen at once, LOST (whoever is left says it, else YOU LOST), no loot, and five beats on he is still on it',
+        up && e2.kind === 'lost' && (e2.word === 'YOU LOST' || (!!e2.who && e2.who !== 'YOU')) && e2.loot === 'none' && e2.ground === 0 && !!e2.nothing && st2.fight && st2.door && !st2.home, JSON.stringify(e2) + ' ' + JSON.stringify(st2));
       await SFL.locator('#leave').tap();
       let home2 = false; for (let i = 0; i < 40 && !home2; i++) { home2 = await p.evaluate(() => !CITYFIGHT && !document.getElementById('spoilsdoor')); if (!home2) await p.waitForTimeout(200); }
       ok('    LEAVE (a real tap) takes him home from a loss', home2);
